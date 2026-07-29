@@ -243,15 +243,19 @@ def b737_tear(x, y, s=1.0, col=None, part="hole"):
     return "".join(g)
 
 
-def b737_section(x, y, r=1.0, upper=None, floor=True):
+def b737_section(x, y, r=1.0, upper=None, floor=True, arc_only=False):
     """胴体断面。直径3.76m。床から上が客室、下が貨物室。
-    upper に (開始角, 終了角) を渡すと、その範囲を破断色で描く。"""
+    upper に (開始角, 終了角) を渡すと、その範囲を破断色で描く。
+    arc_only=True で破断の弧だけを返す（**弧を左から広げて「裂けていく」動きにする**ため）。"""
     R = 200 * r
-    g = [f'<circle cx="{x}" cy="{y}" r="{R:.0f}" fill="none" stroke="{INK_W}" '
-         f'stroke-width="{LW * 1.6:.1f}"/>',
-         f'<circle cx="{x}" cy="{y}" r="{R - 14 * r:.0f}" fill="none" stroke="{LINE_DIM}" '
-         f'stroke-width="{LW * 0.8:.1f}"/>']
-    if floor:
+    if arc_only:
+        g = []
+    else:
+        g = [f'<circle cx="{x}" cy="{y}" r="{R:.0f}" fill="none" stroke="{INK_W}" '
+             f'stroke-width="{LW * 1.6:.1f}"/>',
+             f'<circle cx="{x}" cy="{y}" r="{R - 14 * r:.0f}" fill="none" '
+             f'stroke="{LINE_DIM}" stroke-width="{LW * 0.8:.1f}"/>']
+    if floor and not arc_only:
         fy = y + R * 0.34
         hw = (R ** 2 - (fy - y) ** 2) ** 0.5
         g.append(f'<path d="M{x - hw:.0f} {fy:.0f} H{x + hw:.0f}" stroke="{LINE}" '
@@ -394,17 +398,26 @@ def lap_joint_section(x, y, s=1.0, crack=True):
     return "".join(g)
 
 
-def alt_graph(x, y, w, h, pts, mark=None):
-    """高度の時系列。pts = [(t0-1の位置, 高度0-1), ...]"""
-    g = [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{BG2}" '
-         f'stroke="{LINE_DIM}" stroke-width="{LW * 0.8:.1f}"/>']
-    for i in range(1, 5):
-        gy = y + h * i / 5
-        g.append(f'<path d="M{x} {gy:.0f} H{x + w}" stroke="{GRID}" stroke-width="2.4"/>')
-    d = "M" + " L".join(f"{x + w * a:.0f} {y + h * (1 - b):.0f}" for a, b in pts)
-    g.append(f'<path d="{d}" fill="none" stroke="{AMBER}" stroke-width="{LW * 1.8:.1f}" '
-             f'stroke-linejoin="round" stroke-linecap="round"/>')
-    if mark is not None:
+def alt_graph(x, y, w, h, pts, mark=None, part="all"):
+    """高度の時系列。pts = [(t0-1の位置, 高度0-1), ...]
+
+    part="frame" 枠と方眼だけ ／ part="line" 折れ線だけ ／ part="mark" 剥離点だけ。
+    **折れ線を左から描いていく**ために分ける（グラフが最初から全部出ていると動きが無い）。
+    """
+    g = []
+    if part in ("all", "frame"):
+        g.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{BG2}" '
+                 f'stroke="{LINE_DIM}" stroke-width="{LW * 0.8:.1f}"/>')
+        for i in range(1, 5):
+            gy = y + h * i / 5
+            g.append(f'<path d="M{x} {gy:.0f} H{x + w}" stroke="{GRID}" '
+                     f'stroke-width="2.4"/>')
+    if part in ("all", "line"):
+        d = "M" + " L".join(f"{x + w * a:.0f} {y + h * (1 - b):.0f}" for a, b in pts)
+        g.append(f'<path d="{d}" fill="none" stroke="{AMBER}" '
+                 f'stroke-width="{LW * 1.8:.1f}" stroke-linejoin="round" '
+                 f'stroke-linecap="round"/>')
+    if mark is not None and part in ("all", "mark"):
         mx, my = x + w * pts[mark][0], y + h * (1 - pts[mark][1])
         g.append(f'<circle cx="{mx:.0f}" cy="{my:.0f}" r="16" fill="{ALERT}"/>'
                  f'<circle cx="{mx:.0f}" cy="{my:.0f}" r="30" fill="none" stroke="{ALERT}" '

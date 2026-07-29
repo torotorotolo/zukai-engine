@@ -6,9 +6,13 @@
   2 注記が順に出る（フェード）
   3 破断部の縁・亀裂が脈打つ／左から進む
   4 数字が数え上がる
-  5 図解カットは2%強のゆっくりズーム、実写カットはケンバーンズ
-人が動く必要は無い。だが**画面が完全に止まる時間は作らない**。
-`check_no_freeze()` で無変化区間を機械的に測っている。
+  5 図やグラフ自体が「描かれていく」（破断の弧・高度の折れ線・接着の剥離）
+  6 実写カットはごくゆっくり寄る（ケンバーンズ）
+
+🔴 **動きには必ず情報を運ばせる。装飾の動きは入れない。**
+   4巡目に入れた「2%のゆっくりズーム」は何も説明していない装飾だったので5巡目で外した。
+   スライドイン・回転・フラッシュはバラエティの文法なので使わない。
+   `check_no_freeze()` で無変化区間を機械的に測っている。
 
 ■ 検品用の出力
   `out/jiko/qa/` に **クラウドで焼いた実物**の静止画と拡大図を書き出す。
@@ -46,6 +50,9 @@ ZOOMS = [
     ("p1", 0.95, "写真-枠と出典", (120, 780, 1250, 900)),
     ("p3", 0.95, "写真-調査員", (140, 250, 960, 880)),
     ("c7", 0.99, "数字", (300, 400, 1620, 800)),
+    ("c3", 0.42, "断面-裂けていく途中", (900, 300, 1900, 700)),
+    ("c5", 0.45, "断面-接着が剥がれる途中", (420, 400, 1340, 720)),
+    ("c6", 0.40, "高度-折れ線を描く途中", (200, 300, 1720, 900)),
 ]
 
 
@@ -101,16 +108,30 @@ def over(fr, layer, a=1.0):
     return fr
 
 
-def slow_zoom(im, k, amt=0.022):
-    """図解カットにも**常に動きを残す**（2026-07-30 指示：3秒以上の静止禁止）。
-    2%強のゆっくりズーム。1コマあたり0.03%なので気づかれないが、止まってはいない。"""
+def wipe(fr, layer, k, soft=90):
+    """レイヤーを**左から右へ**現す。図が「引かれていく／裂けていく／剥がれていく」動きになる。
+
+    🔴 動きの原則（2026-07-30 カズヤくんと確認）：
+       **動きには必ず情報を運ばせる。装飾の動きは入れない。**
+       4巡目に入れた「2%のゆっくりズーム」は何も説明していない装飾だったので外した。
+       代わりに、破断の弧・高度の折れ線・接着の剥離を**左から描いていく**。
+       これは「調査している」感触そのもので、検証番組の文法から外れない。
+    """
     if k <= 0.0:
-        return im
-    z = 1.0 + amt * k
-    w, h = im.size
-    cw, ch = int(w / z), int(h / z)
-    l, t = (w - cw) // 2, (h - ch) // 2
-    return im.crop((l, t, l + cw, t + ch)).resize((w, h), Image.BICUBIC)
+        return fr
+    if k >= 1.0:
+        return over(fr, layer)
+    cr = layer.copy()
+    x = int(S.W * k)
+    m = Image.new("L", cr.size, 0)
+    m.paste(255, (0, 0, max(0, x - soft), S.H))
+    if soft and x > 0:
+        # 端をぼかす。硬い縁で切ると「シャッターが降りる」ように見える
+        grad = Image.linear_gradient("L").rotate(90, expand=True).resize((soft, S.H))
+        m.paste(grad, (max(0, x - soft), 0))
+    cr.putalpha(Image.composite(cr.getchannel("A"), m, m))
+    fr.alpha_composite(cr)
+    return fr
 
 
 def subtitle(fr, cut, t, subs):
@@ -132,7 +153,7 @@ def subtitle(fr, cut, t, subs):
 
 
 def scene(cut, t, dur, lay, photos, numcells):
-    """字幕を除いた画面。ここまで作ってからゆっくりズームをかける。"""
+    """字幕を除いた画面。"""
     av = max(0.0, min(1.0, (t - 0.5) / 1.1))          # 注記は0.5秒後から1.1秒かけて
     pulse = 0.55 + 0.45 * (0.5 + 0.5 * math.sin(t * math.tau / 1.35))
     if cut in S.PHOTO_CUTS:
@@ -151,18 +172,23 @@ def scene(cut, t, dur, lay, photos, numcells):
         over(fr, lay["c2_tearline"], min(1.0, max(0.0, (t - 0.3) / 0.5)) * pulse)
         return over(fr, lay["c2_anno"], av)
     if cut == "c4":
-        # 亀裂は左から順に現れる。ワイプで出すと「進行」に見える
-        k = max(0.0, min(1.0, (t - 0.4) / 2.2))
-        if k > 0:
-            cr = lay["c4_crack"].copy()
-            m = Image.new("L", cr.size, 0)
-            m.paste(255, (0, 0, int(S.W * k), S.H))
-            cr.putalpha(Image.composite(cr.getchannel("A"), m, m))
-            fr.alpha_composite(cr)
+        # 亀裂は左から順に現れる。「進行」に見せる
+        wipe(fr, lay["c4_crack"], max(0.0, min(1.0, (t - 0.4) / 2.6)))
         return over(fr, lay["c4_anno"], max(0.0, min(1.0, (t - 1.8) / 1.1)))
+    if cut == "c3":
+        # 上部が「裂けて広がっていく」。円周55%という情報を運ぶ動き
+        wipe(fr, lay["c3_arc"], max(0.0, min(1.0, (t - 0.6) / 2.4)))
+        return over(fr, lay["c3_anno"], av)
     if cut == "c5":
-        over(fr, lay["c5_crack"], max(0.0, min(1.0, (t - 2.4) / 0.8)) * pulse)
+        # 接着が左から剥がれ、そのあと亀裂が出る。因果の順に動かす
+        wipe(fr, lay["c5_bond"], max(0.0, min(1.0, (t - 1.4) / 3.0)), soft=140)
+        over(fr, lay["c5_crack"], max(0.0, min(1.0, (t - 4.6) / 0.8)) * pulse)
         return over(fr, lay["c5_anno"], av)
+    if cut == "c6":
+        # 高度の折れ線を左から描く。離陸→巡航→剥離→緊急降下→着陸が時間軸で追える
+        wipe(fr, lay["c6_line"], max(0.0, min(1.0, (t - 0.4) / 3.4)))
+        over(fr, lay["c6_mark"], max(0.0, min(1.0, (t - 1.9) / 0.5)) * pulse)
+        return over(fr, lay["c6_anno"], max(0.0, min(1.0, (t - 2.2) / 1.1)))
     if cut == "c7":
         k = max(0.0, min(1.0, (t - 0.3) / 2.6))
         fr.alpha_composite(numcells[min(11, int(k * 11.999))])
@@ -172,9 +198,6 @@ def scene(cut, t, dur, lay, photos, numcells):
 
 def compose(cut, t, dur, lay, photos, numcells, subs=None):
     fr = scene(cut, t, dur, lay, photos, numcells)
-    # 実写カットは写真側が既に寄っているので、二重にズームしない
-    if cut not in S.PHOTO_CUTS:
-        fr = slow_zoom(fr, t / max(dur, 0.001))
     return subtitle(fr, cut, t, subs or {})
 
 
@@ -210,8 +233,9 @@ def build():
     names = ["p1_bg", "p1_over", "p2_bg", "p2_over", "p3_bg", "p3_over",
              "p4_bg", "p4_over",
              "c2_base", "c2_hole", "c2_tearline", "c2_anno", "c3_base", "c3_anno",
-             "c4_base", "c4_crack", "c4_anno", "c5_base", "c5_crack", "c5_anno",
-             "c6_base", "c6_anno", "c7_base"]
+             "c3_arc", "c4_base", "c4_crack", "c4_anno",
+             "c5_base", "c5_crack", "c5_bond", "c5_anno",
+             "c6_base", "c6_line", "c6_mark", "c6_anno", "c7_base"]
     lay = {k: L(k) for k in names}
     photos = {c: load_photo(f, b) for c, (b, f, _) in S.PHOTO_CUTS.items()}
     photos.update({c: load_photo(f, b) for c, (b, f) in S.INSETS.items()})

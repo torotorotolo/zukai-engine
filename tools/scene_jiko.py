@@ -245,12 +245,18 @@ def p3_over():
 def c3_base():
     g = [J.frame(W, H), J.title("失われたのは、上半分だった", "胴体断面（客室1〜4列目）")]
     g.append(J.b737_section(600, 620, 1.5, floor=True))
-    g.append(J.b737_section(1400, 620, 1.5, upper=(-165, -15), floor=True))
+    g.append(J.b737_section(1400, 620, 1.5, floor=True))
     for cx in (600, 1400):
         for dx in (-116, -78, 78, 116):
             g.append(f'<rect x="{cx + dx - 15}" y="{620 + 44}" width="30" height="46" rx="5" '
                      f'fill="none" stroke="{J.LINE_DIM}" stroke-width="4"/>')
     return "".join(g)
+
+
+def c3_arc():
+    """破断の弧だけ。左から広げると「上部が裂けて広がっていく」動きになる。
+    装飾のズームではなく、**円周55%という情報を運ぶ動き**にしたい。"""
+    return J.b737_section(1400, 620, 1.5, upper=(-165, -15), arc_only=True)
 
 
 def c3_anno():
@@ -324,6 +330,13 @@ def c5_crack():
     return J.lap_joint_section(SEC_X, SEC_Y, SEC_S, crack=True)
 
 
+def c5_bond():
+    """接着層が**剥がれた**状態。緑の上に灰色を左から重ねると「剥離の進行」になる。
+    事故の起点そのものなので、ここは必ず動かす。"""
+    return (f'<rect x="{SEC_X - SEC_HL}" y="{SEC_Y - 4 * SEC_S:.0f}" '
+            f'width="{SEC_HL * 2:.0f}" height="{8 * SEC_S:.0f}" fill="{J.LINE_DIM}"/>')
+
+
 def c5_anno():
     top = SEC_Y - 26 * SEC_S          # 上の外板の上面
     bot = SEC_Y + 26 * SEC_S          # 下の外板の下面
@@ -382,8 +395,17 @@ PTS = [(0.00, 0.00), (0.13, 0.86), (0.30, 0.92), (0.36, 0.92),
 
 def c6_base():
     g = [J.frame(W, H), J.title("剥離から着陸まで、13分", "高度の推移")]
-    g.append(J.alt_graph(230, 330, 1460, 520, PTS, mark=3))
+    g.append(J.alt_graph(230, 330, 1460, 520, PTS, part="frame"))
     return "".join(g)
+
+
+def c6_line():
+    """折れ線だけ。**左から描いていく**（最初から全部出ていると動きが無い）。"""
+    return J.alt_graph(230, 330, 1460, 520, PTS, part="line")
+
+
+def c6_mark():
+    return J.alt_graph(230, 330, 1460, 520, PTS, mark=3, part="mark")
 
 
 def c6_anno():
@@ -464,11 +486,13 @@ def render_all(force=False):
             "c2_base": c2_base(), "c2_hole": c2_hole(), "c2_tearline": c2_tearline(),
             "c2_anno": c2_anno(),
             "p3_bg": p3_bg(), "p3_over": p3_over(),
-            "c3_base": c3_base(), "c3_anno": c3_anno(),
+            "c3_base": c3_base(), "c3_arc": c3_arc(), "c3_anno": c3_anno(),
             "c4_base": c4_base(), "c4_crack": c4_crack(), "c4_anno": c4_anno(),
-            "c5_base": c5_base(), "c5_crack": c5_crack(), "c5_anno": c5_anno(),
+            "c5_base": c5_base(), "c5_crack": c5_crack(), "c5_bond": c5_bond(),
+            "c5_anno": c5_anno(),
             "p4_bg": p4_bg(), "p4_over": p4_over(),
-            "c6_base": c6_base(), "c6_anno": c6_anno(),
+            "c6_base": c6_base(), "c6_line": c6_line(), "c6_mark": c6_mark(),
+            "c6_anno": c6_anno(),
             "c7_base": c7_base()}
     for k, svg in jobs.items():
         p = out / f"{k}.png"
