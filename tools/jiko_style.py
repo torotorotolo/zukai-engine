@@ -282,10 +282,14 @@ _CRACK_SHAPES = ["l12 -6 l10 5 l8 -4", "l10 -5 l8 6 l11 -5",
 
 
 def _cracks(n):
+    """6巡目は全リベットに起点の赤点を打ったので、**赤い点線**に見えた。
+    実際に亀裂が入っていたのは一部の穴なので、点は打たず、亀裂の本数も間引く。
+    「まだつながっていない」ことが伝わればよい。"""
     g = []
     for i in range(min(n, 15)):
+        if i % 3 == 2:            # 3穴に1つは無傷にする（連続して見えないように）
+            continue
         cx = -448 + i * 62
-        g.append(f'<circle cx="{cx}" cy="-40" r="7" fill="{ALERT}"/>')
         g.append(f'<path d="M{cx + 15} -40 {_CRACK_SHAPES[i % 4]}" fill="none" '
                  f'stroke="{ALERT}" stroke-width="{LW * 1.3:.1f}" '
                  f'stroke-linecap="round" stroke-linejoin="round"/>')

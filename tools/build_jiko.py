@@ -59,13 +59,23 @@ ZOOMS = [
 ]
 
 
+BOOST = {"p4"}          # 元が低コントラストで沈む写真（NASAの衛星画像）
+
+
 def L(name):
     return Image.open(OUT / f"{name}.png").convert("RGBA")
 
 
-def duotone(im, dark, light):
-    """写真を配色に合わせる。生の白黒のまま置くと図解から浮く。"""
+def duotone(im, dark, light, boost=False):
+    """写真を配色に合わせる。生の白黒のまま置くと図解から浮く。
+
+    boost=True で先にコントラストを立てる。衛星画像や航路図は元が低コントラストで、
+    そのままデュオトーンにすると暗く沈んで島の形が読めなかった（6巡目の粗）。
+    """
     g = im.convert("L")
+    if boost:
+        from PIL import ImageOps
+        g = ImageOps.autocontrast(g, cutoff=(1, 6))
     d = tuple(int(dark[i:i + 2], 16) for i in (1, 3, 5))
     l = tuple(int(light[i:i + 2], 16) for i in (1, 3, 5))
     lut = []
@@ -173,7 +183,7 @@ def scene(cut, t, dur, lay, photos, numcells):
         box, _, bias = S.PHOTO_CUTS[cut]
         fr = lay[f"{cut}_bg"].copy()
         ph = fit(photos[cut], box, t / max(dur, 0.001), bias)
-        fr.paste(duotone(ph, J.BG2, "#e6eef2"), (box[0], box[1]))
+        fr.paste(duotone(ph, J.BG2, "#e6eef2", boost=cut in BOOST), (box[0], box[1]))
         return over(fr, lay[f"{cut}_over"], min(1.0, t / 0.4))
     fr = lay[f"{cut}_base"].copy()
     if cut in S.INSETS:
