@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 """事故検証テストの合成。図解レイヤーとPD写真から30fpsのコマを作る。
 
-■ 図解様式で「意図に見える」動きは4つだけ
-  1 注記が順に出る（フェード）
-  2 破断部の縁・亀裂が脈打つ／左から進む
-  3 数字が数え上がる
-  4 写真だけ、ごくゆっくり寄る
-人が動く必要が無いので、カメラは固定でよい。図解カットはズームもしない。
+■ 動きの設計（2026-07-30 指示：**3秒以上の静止禁止**）
+  1 字幕が2〜3秒ごとに切り替わる  ← いちばん効くのはこれ
+  2 注記が順に出る（フェード）
+  3 破断部の縁・亀裂が脈打つ／左から進む
+  4 数字が数え上がる
+  5 図解カットは2%強のゆっくりズーム、実写カットはケンバーンズ
+人が動く必要は無い。だが**画面が完全に止まる時間は作らない**。
+`check_no_freeze()` で無変化区間を機械的に測っている。
 
 ■ 検品用の出力
   `out/jiko/qa/` に **クラウドで焼いた実物**の静止画と拡大図を書き出す。
@@ -99,8 +101,38 @@ def over(fr, layer, a=1.0):
     return fr
 
 
-def compose(cut, t, dur, lay, photos, numcells):
-    """1コマぶんを合成して返す。"""
+def slow_zoom(im, k, amt=0.022):
+    """図解カットにも**常に動きを残す**（2026-07-30 指示：3秒以上の静止禁止）。
+    2%強のゆっくりズーム。1コマあたり0.03%なので気づかれないが、止まってはいない。"""
+    if k <= 0.0:
+        return im
+    z = 1.0 + amt * k
+    w, h = im.size
+    cw, ch = int(w / z), int(h / z)
+    l, t = (w - cw) // 2, (h - ch) // 2
+    return im.crop((l, t, l + cw, t + ch)).resize((w, h), Image.BICUBIC)
+
+
+def subtitle(fr, cut, t, subs):
+    """その時刻に出ている字幕行を1枚だけ載せる。"""
+    rows = S.SUBS.get(cut)
+    if not rows or cut not in subs:
+        return fr
+    strip = subs[cut]
+    for i, r in enumerate(rows):
+        a, b = r["t"] + S.LEAD, r["t"] + r["d"] + S.LEAD + 0.12
+        if a - 0.10 <= t <= b:
+            row = strip.crop((0, i * S.SUB_H, S.W, (i + 1) * S.SUB_H))
+            k = min(1.0, (t - (a - 0.10)) / 0.14, max(0.0, (b - t) / 0.14))
+            p = fade(row, k)
+            if p:
+                fr.alpha_composite(p, (0, S.SUB_Y))
+            break
+    return fr
+
+
+def scene(cut, t, dur, lay, photos, numcells):
+    """字幕を除いた画面。ここまで作ってからゆっくりズームをかける。"""
     av = max(0.0, min(1.0, (t - 0.5) / 1.1))          # 注記は0.5秒後から1.1秒かけて
     pulse = 0.55 + 0.45 * (0.5 + 0.5 * math.sin(t * math.tau / 1.35))
     if cut in S.PHOTO_CUTS:
@@ -138,6 +170,40 @@ def compose(cut, t, dur, lay, photos, numcells):
     return over(fr, lay[f"{cut}_anno"], av)
 
 
+def compose(cut, t, dur, lay, photos, numcells, subs=None):
+    fr = scene(cut, t, dur, lay, photos, numcells)
+    # 実写カットは写真側が既に寄っているので、二重にズームしない
+    if cut not in S.PHOTO_CUTS:
+        fr = slow_zoom(fr, t / max(dur, 0.001))
+    return subtitle(fr, cut, t, subs or {})
+
+
+def check_no_freeze(limit=3.0):
+    """**3秒以上、画面に何の変化も無い区間**が無いかを機械的に確認する。
+    ゆっくりズームは常に動いているので厳密には静止しないが、
+    「読むものが変わらない時間」が長いと離脱するので、字幕と注記の切り替わりで測る。"""
+    events, t = [], 0.0
+    for cut, sec in S.CUTS:
+        events.append((t, f"{cut} 開始"))
+        for r in S.SUBS.get(cut, []):
+            events.append((t + S.LEAD + r["t"], f"{cut} 字幕「{r['text'][:14]}」"))
+        t += sec
+    events.append((t, "終端"))
+    events.sort()
+    worst, bad = 0.0, []
+    for (a, na), (b, _) in zip(events, events[1:]):
+        if b - a > worst:
+            worst = b - a
+        if b - a > limit:
+            bad.append((round(a, 2), round(b - a, 2), na))
+    print(f"最長の無変化区間 = {worst:.2f}秒")
+    for at, d, na in bad:
+        print(f"  🔴 {at}秒から {d}秒 変化なし（直前: {na}）")
+    if not bad:
+        print(f"✓ {limit}秒以上の静止なし")
+    return bad
+
+
 def build():
     FR.mkdir(parents=True, exist_ok=True)
     QA.mkdir(parents=True, exist_ok=True)
@@ -149,6 +215,9 @@ def build():
     lay = {k: L(k) for k in names}
     photos = {c: load_photo(f, b) for c, (b, f, _) in S.PHOTO_CUTS.items()}
     photos.update({c: load_photo(f, b) for c, (b, f) in S.INSETS.items()})
+    subs = {c: L(f"sub_{c}") for c in S.SUBS if (OUT / f"sub_{c}.png").exists()}
+    print(f"字幕帯 {len(subs)}カット", flush=True)
+    check_no_freeze()
     nums = L("c7_num")
     cw, ch = S.W // 2, S.H // 2
     numcells = [nums.crop(((i % 4) * cw, (i // 4) * ch, (i % 4) * cw + cw,
@@ -159,17 +228,17 @@ def build():
     for cut, sec in S.CUTS:
         total = int(round(sec * FPS))
         for f in range(total):
-            fr = compose(cut, f / FPS, sec, lay, photos, numcells)
+            fr = compose(cut, f / FPS, sec, lay, photos, numcells, subs)
             fr.convert("RGB").save(FR / f"{n:05d}.jpg", quality=93)
             n += 1
         # 検品用：そのカットの終盤（注記が出そろった状態）を実寸で残す
-        qa = compose(cut, sec * 0.95, sec, lay, photos, numcells).convert("RGB")
+        qa = compose(cut, sec * 0.60, sec, lay, photos, numcells, subs).convert("RGB")
         qa.save(QA / f"cut_{cut}.png")
         sheet.append(qa.copy())
         print(f"cut {cut}: {total}", flush=True)
     for cut, k, name, box in ZOOMS:
         sec = dict(S.CUTS)[cut]
-        im = compose(cut, sec * k, sec, lay, photos, numcells).convert("RGB")
+        im = compose(cut, sec * k, sec, lay, photos, numcells, subs).convert("RGB")
         c = im.crop(box)
         c = c.resize((c.width * 2, c.height * 2), Image.LANCZOS)
         c.save(QA / f"zoom_{cut}_{name}.png")

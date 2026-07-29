@@ -85,6 +85,38 @@ def page(inner, w=W, h=H):
             f'<body>{svg}</body></html>')
 
 
+# ── 字幕 ─────────────────────────────────────────────────
+# 🔴 2026-07-30 カズヤくん指示で必須になった。あわせて**3秒以上の静止を禁止**。
+#    字幕は 1行ずつ音声を合成して尺を取っているので、フレーム精度で音と合う。
+#    画面下 y=950 以下は字幕帯として空けてある（他の注記を置かない）。
+SUB_Y, SUB_H = 950, 130
+XML = {"&": "&amp;", "<": "&lt;", ">": "&gt;"}
+
+
+def esc(t):
+    return "".join(XML.get(c, c) for c in t)
+
+
+def sub_row(text, w=W, h=SUB_H):
+    """字幕1行。写真の上でも読めるよう、下へ向かって濃くなる地を敷いてから白で置く。
+    帯を四角く塗ると「テロップ板」に見えて図解様式から浮くので、必ずグラデーションにする。"""
+    return (f'<rect width="{w}" height="{h}" fill="url(#subg)"/>'
+            f'<text x="{w / 2:.0f}" y="{h * 0.63:.0f}" font-family="Noto" font-size="46" '
+            f'fill="{J.INK_W}" text-anchor="middle" stroke="{J.BG}" stroke-width="7" '
+            f'paint-order="stroke">{esc(text)}</text>')
+
+
+def sub_strip(lines):
+    """1カットぶんの字幕を縦に積んだ帯。合成時に行ごとに切り出す。"""
+    g = [f'<linearGradient id="subg" x1="0" y1="0" x2="0" y2="1">'
+         f'<stop offset="0" stop-color="{J.BG}" stop-opacity="0"/>'
+         f'<stop offset="0.45" stop-color="{J.BG}" stop-opacity="0.72"/>'
+         f'<stop offset="1" stop-color="{J.BG}" stop-opacity="0.86"/></linearGradient>']
+    for i, t in enumerate(lines):
+        g.append(f'<g transform="translate(0,{i * SUB_H})">{sub_row(t)}</g>')
+    return "".join(g)
+
+
 def photo_frame(x, y, w, h, credit, size=25):
     """写真の枠と出典。**出典は必ず画面に出す。**"""
     g = [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="none" '
@@ -183,8 +215,6 @@ def c2_anno():
     g.append(J.label(1330, 738, "外気より 0.5 気圧ぶん高い。", J.LINE, 28))
     g.append(J.label(1330, 776, "その圧力が、裂け目を", J.INK_W, 28))
     g.append(J.label(1330, 814, "一気に押し広げた。", J.INK_W, 28))
-    g.append(J.label(150, 950, "剥離は前方扉の直後から始まり、主翼の付け根の手前で止まった",
-                     J.LINE, 30))
     return "".join(g)
 
 
@@ -234,7 +264,6 @@ def c3_anno():
     g.append(J.label(1680, 236, "ここが消えた", J.ALERT, 38))
     g.append(J.label(1680, 282, "円周の約 55%", J.LINE, 28))
     g.append(J.label(1000, 620, "→", J.INK_W, 72, "middle"))
-    g.append(J.label(150, 1020, "与圧された筒が一度裂けると、裂け目は一気に広がる", J.LINE, 30))
     return "".join(g)
 
 
@@ -270,11 +299,10 @@ def c4_anno():
     g.append(J.label(1350, 628, "見ていた。誰にも言わなかった。", J.INK_W, 30))
     # A-A の切断線。次のカットの断面がどこを切ったものか示す
     cx = LJ_X + 300 * LJ_S
-    g.append(f'<path d="M{cx} 300 V920" stroke="{J.AMBER}" stroke-width="3" '
+    g.append(f'<path d="M{cx} 300 V880" stroke="{J.AMBER}" stroke-width="3" '
              f'stroke-dasharray="26 14"/>')
     g.append(J.label(cx, 286, "A", J.AMBER, 34, "middle"))
-    g.append(J.label(cx, 952, "A", J.AMBER, 34, "middle"))
-    g.append(J.label(150, 1020, "この面を A-A で切ると、なぜ折れたのかが見える", J.AMBER, 30))
+    g.append(J.label(cx, 916, "A", J.AMBER, 34, "middle"))
     return "".join(g)
 
 
@@ -321,7 +349,6 @@ def c5_anno():
     g.append(J.label(1350, 748, "リベット穴の縁だけ", J.ALERT, 32))
     g.append(J.label(SEC_X - 640, top - 14, "外板（上）", J.INK_W, 28))
     g.append(J.label(SEC_X + 660, bot + 40, "外板（下）", J.LINE, 28, "end"))
-    g.append(J.label(150, 1020, "外板の下で起きたことは、外からは見えない。", J.INK_W, 30))
     return "".join(g)
 
 
@@ -363,15 +390,15 @@ def c6_anno():
     g = [J.label(210, 350, "7,300 m", J.AMBER, 30, "end"),
          J.label(210, 592, "3,600 m", J.LINE_DIM, 26, "end"),
          J.label(210, 856, "0", J.AMBER, 30, "end"),
-         J.label(230, 902, "離陸　ヒロ", J.LINE, 28),
-         J.label(1690, 902, "着陸　マウイ島カフルイ", J.LINE, 28, "end")]
+         J.label(230, 890, "離陸　ヒロ", J.LINE, 28),
+         J.label(1690, 890, "着陸　マウイ島カフルイ", J.LINE, 28, "end")]
     mx = 230 + 1460 * 0.36
     g.append(J.leader(mx, 330 + 520 * 0.08, 1120, 236, J.ALERT))
     g.append(J.label(1140, 222, "ここで剥離", J.ALERT, 38))
     g.append(J.label(1140, 268, "操縦室の扉も吹き飛び、", J.LINE, 26))
     g.append(J.label(1140, 302, "機長は客室の空を直接見ていた", J.LINE, 26))
     g.append(J.label(660, 640, "緊急降下", J.INK_W, 34))
-    g.append(J.dim(mx, 1690, 990, "13分"))
+    g.append(J.dim(mx, 1690, 930, "13分"))
     return "".join(g)
 
 
@@ -381,7 +408,7 @@ def c7_base():
     g = [J.frame(W, H), J.title("設計の想定を、超えて飛んでいた",
                                 "離着陸の回数（NTSB報告書 1.17.2 節）")]
     g.append(f'<path d="M960 330 V900" stroke="{J.LINE_DIM}" stroke-width="4"/>')
-    g.append(J.label(960, 1010, "1969年製・19年間・ハワイ諸島間の短距離を1日十数往復",
+    g.append(J.label(960, 916, "1969年製・19年間・ハワイ諸島間の短距離を1日十数往復",
                      J.LINE, 30, "middle"))
     return "".join(g)
 
@@ -404,17 +431,19 @@ _DEFAULT = [("p1", 5.0), ("p2", 3.6), ("c2", 6.2), ("p3", 3.6), ("c3", 5.4),
             ("c4", 6.0), ("c5", 6.4), ("p4", 3.4), ("c6", 5.4), ("c7", 5.4)]
 
 
-def _cuts():
+def _narration():
     import json
     p = HERE / "audio" / "narration.json"
     if not p.exists():
-        return _DEFAULT
-    d = json.loads(p.read_text(encoding="utf-8"))["durations"]
-    return [(c, round(d[c] + LEAD + TAIL, 2)) if c in d else (c, s)
+        return _DEFAULT, {}
+    d = json.loads(p.read_text(encoding="utf-8"))
+    dur = d["durations"]
+    cuts = [(c, round(dur[c] + LEAD + TAIL, 2)) if c in dur else (c, s)
             for c, s in _DEFAULT]
+    return cuts, d.get("subtitles", {})
 
 
-CUTS = _cuts()
+CUTS, SUBS = _narration()
 
 # 全画面の実写カット。ゆっくり寄る。(枠, ファイル名, 縦方向の寄せ 0=上 0.5=中央 1=下)
 PHOTO_CUTS = {
@@ -447,6 +476,14 @@ def render_all(force=False):
             continue
         render.png(page(svg), p, W, H)
         print(k, flush=True)
+    # 字幕帯。1カットぶんを縦に積んで1枚にする（Chrome起動を増やさないため）
+    for cid, rows in SUBS.items():
+        p = out / f"sub_{cid}.png"
+        if p.exists() and not force:
+            continue
+        h = SUB_H * len(rows)
+        render.png(page(sub_strip([r["text"] for r in rows]), W, h), p, W, h)
+        print(f"sub_{cid} ({len(rows)}行)", flush=True)
     p = out / "c7_num.png"
     if force or not p.exists():
         cols, rows, cw, ch = 4, 3, W // 2, H // 2

@@ -120,27 +120,42 @@ FORBIDDEN = {
 }
 
 # ── 台本 ─────────────────────────────────────────────────
+# 🔴 **1行＝1字幕**。行ごとに合成するので、字幕と音声がフレーム精度で一致する。
+#    行を短く割るのは字幕の可読性のためでもあるが、
+#    **3秒以上の静止を禁止**（2026-07-30 カズヤくん指示）という要件も兼ねている。
+#    1行が3秒を超えないよう、読点で細かく割る。
 # カットIDは scene_jiko.CUTS と一致させる。尺はこの音声から逆算する。
 SCRIPT = [
-    ("p1", "1988年4月28日。ハワイ上空、高度7300メートル。"
-           "飛行中の旅客機から、屋根が消えた。"),
-    ("p2", "事故を起こしたのは、19年間、この島々の間を飛び続けた1機だった。"),
-    ("c2", "失われたのは、前方の扉のすぐ後ろから、5.5メートル。"
-           "天井から窓の下までが、一続きに剥ぎ取られていた。"),
-    ("p3", "着陸した機体を、調査員が見上げている。"
-           "外板が無くなり、客室の骨組みが、そのまま外に出ていた。"),
-    ("c3", "胴体の上半分。円周の、およそ55パーセント。"
-           "与圧された筒は、一度裂けると、一気に広がる。"),
-    ("c4", "始まりは、リベット1列の、小さな亀裂だった。"
-           "搭乗する乗客の1人が、この亀裂を見ていた。だが、誰にも言わなかった。"),
-    ("c5", "外板は2枚が重なり、接着とリベットで荷重を分け合う設計だった。"
-           "その接着が、潮風の中で剥がれていた。"
-           "荷重の行き場は、リベット穴の縁だけになった。"),
-    ("p4", "島から島へ、20分の飛行。1日に十数回、上がっては、降りる。"),
-    ("c6", "剥離から着陸まで、13分。操縦室の扉も吹き飛び、"
-           "機長は、客室の空を、直接見ていた。"),
-    ("c7", "設計上の想定は、7万5000回。この機体は、8万9680回、飛んでいた。"),
+    ("p1", ["1988年4月28日。",
+            "ハワイ上空、高度7300メートル。",
+            "飛行中の旅客機から、屋根が消えた。"]),
+    ("p2", ["事故を起こしたのは、",
+            "19年間この島々を飛び続けた、1機だった。"]),
+    ("c2", ["失われたのは、前方の扉のすぐ後ろから、5.5メートル。",
+            "天井から窓の下までが、",
+            "一続きに剥ぎ取られていた。"]),
+    ("p3", ["着陸した機体を、調査員が見上げている。",
+            "外板が無くなり、",
+            "客室の骨組みが、そのまま外に出ていた。"]),
+    ("c3", ["失われたのは、胴体の上半分。",
+            "円周の、およそ55パーセント。",
+            "与圧された筒は、一度裂けると、一気に広がる。"]),
+    ("c4", ["始まりは、リベット1列の、小さな亀裂だった。",
+            "搭乗する乗客の1人が、この亀裂を見ていた。",
+            "だが、誰にも言わなかった。"]),
+    ("c5", ["外板は2枚が重なり、",
+            "接着とリベットで荷重を分け合う設計だった。",
+            "その接着が、潮風の中で剥がれていた。",
+            "荷重の行き場は、リベット穴の縁だけになった。"]),
+    ("p4", ["島から島へ、20分の飛行。",
+            "1日に十数回、上がっては、降りる。"]),
+    ("c6", ["剥離から着陸まで、13分。",
+            "操縦室の扉も吹き飛び、",
+            "機長は、客室の空を、直接見ていた。"]),
+    ("c7", ["設計上の想定は、7万5000回。",
+            "この機体は、8万9680回、飛んでいた。"]),
 ]
+GAP = 0.18          # 行と行のあいだに置く無音
 
 
 def apply_yomi(text):
@@ -152,7 +167,7 @@ def apply_yomi(text):
 
 def lint():
     warn = 0
-    for cid, text in SCRIPT:
+    for cid, text in ((c, "".join(ls)) for c, ls in SCRIPT):
         spoken = apply_yomi(text)
         hits = []
         for m in NUM_COUNTER.finditer(spoken):
@@ -180,34 +195,104 @@ def kana_of(query):
                      for ap in query["accent_phrases"])
 
 
+def chunk(text, dur, limit=2.8):
+    """字幕を **1枚あたり limit 秒以下** に割る（3秒以上の静止禁止・2026-07-30）。
+
+    音声は自然な節（読点まで）で合成しているので**そのまま**。
+    割るのは表示だけで、尺は文字数比で配分する。
+    こうしないと、字幕に合わせて音声を刻むことになり、抑揚が毎回リセットされて棒読みになる。
+    """
+    parts = [p for p in re.findall(r"[^、。]+[、。]?", text) if p]
+    # まだ長い塊は文字数で二分する
+    out = []
+    for p in parts:
+        if dur * len(p) / len(text) <= limit or len(p) < 10:
+            out.append(p)
+            continue
+        n = int(dur * len(p) / len(text) / limit) + 1
+        step = -(-len(p) // n)
+        out += [p[i:i + step] for i in range(0, len(p), step)]
+    total = sum(len(p) for p in out)
+    rows, t = [], 0.0
+    for p in out:
+        d = dur * len(p) / total
+        rows.append({"t": round(t, 3), "d": round(d, 3), "text": p})
+        t += d
+    return rows
+
+
+def resub():
+    """音声は作り直さず、**字幕の割り方だけ**やり直す。"""
+    p = HERE / "audio" / "narration.json"
+    d = json.loads(p.read_text(encoding="utf-8"))
+    lines = dict(SCRIPT)
+    worst = (0.0, "")
+    for cid, rows in d["subtitles"].items():
+        new, t = [], 0.0
+        for r in rows:
+            for c in chunk(r["text"], r["d"]):
+                new.append({"t": round(r["t"] + c["t"], 3), "d": c["d"], "text": c["text"]})
+                if c["d"] > worst[0]:
+                    worst = (c["d"], c["text"])
+        d["subtitles"][cid] = new
+        print(f"{cid}: {len(rows)}行 → {len(new)}枚")
+    p.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"\n最長の字幕 = {worst[0]:.2f}秒「{worst[1]}」")
+    print("✓ 3秒以下" if worst[0] <= 3.0 else "🔴 まだ3秒を超えている")
+    return 0 if worst[0] <= 3.0 else 1
+
+
+def synth(text):
+    """1行ぶんを合成して (wavバイト列, 秒, かな) を返す。"""
+    q = json.loads(post("audio_query", None,
+                        f"speaker={SPEAKER}&text={urllib.parse.quote(text)}").read())
+    q["speedScale"] = SPEED
+    wav = post("synthesis", q, f"speaker={SPEAKER}").read()
+    import io
+    with wave.open(io.BytesIO(wav)) as w:
+        sec = w.getnframes() / w.getframerate()
+        p = (w.getnchannels(), w.getsampwidth(), w.getframerate())
+        frames = w.readframes(w.getnframes())
+    return frames, p, sec, kana_of(q)
+
+
 def build():
     out = HERE / "audio"
     out.mkdir(exist_ok=True)
-    durs, log, bad = {}, [], 0
-    for cid, text in SCRIPT:
-        spoken = apply_yomi(text)
-        q = json.loads(post("audio_query", None,
-                            f"speaker={SPEAKER}&text={urllib.parse.quote(spoken)}").read())
-        q["speedScale"] = SPEED
-        wav = post("synthesis", q, f"speaker={SPEAKER}").read()
-        p = out / f"{cid}.wav"
-        p.write_bytes(wav)
-        with wave.open(str(p)) as w:
-            sec = w.getnframes() / w.getframerate()
-        durs[cid] = round(sec, 2)
-        kana = kana_of(q)
-        log.append(f"[{cid}] {sec:5.2f}s  {kana}")
-        # ④ 機械照合
-        for ng, why in FORBIDDEN.items():
-            if ng in kana:
-                print(f"🔴 {cid}: {why}  （{ng}）")
-                bad += 1
-        print(f"{cid}: {sec:5.2f}s", flush=True)
+    durs, subs, log, bad, longest = {}, {}, [], 0, (0.0, "")
+    for cid, lines in SCRIPT:
+        chunks, params, t, rows = [], None, 0.0, []
+        for line in lines:
+            frames, params, sec, kana = synth(apply_yomi(line))
+            rows.append({"t": round(t, 3), "d": round(sec, 3), "text": line})
+            if sec > longest[0]:
+                longest = (sec, line)
+            log.append(f"[{cid}] {sec:5.2f}s  {line}\n         {kana}")
+            for ng, why in FORBIDDEN.items():
+                if ng in kana:
+                    print(f"🔴 {cid}「{line}」: {why}（{ng}）")
+                    bad += 1
+            chunks.append(frames)
+            t += sec + GAP
+            chunks.append(b"\x00" * int(GAP * params[2]) * params[1] * params[0])
+        total = t - GAP
+        with wave.open(str(out / f"{cid}.wav"), "w") as w:
+            w.setnchannels(params[0])
+            w.setsampwidth(params[1])
+            w.setframerate(params[2])
+            w.writeframes(b"".join(chunks[:-1]))
+        durs[cid] = round(total, 2)
+        subs[cid] = rows
+        print(f"{cid}: {total:5.2f}s  ({len(lines)}行)", flush=True)
     (out / "kana_log.txt").write_text("\n".join(log), encoding="utf-8")
     (out / "narration.json").write_text(
         json.dumps({"speaker": SPEAKER, "speed": SPEED, "credit": CREDIT,
-                    "durations": durs}, ensure_ascii=False, indent=2), encoding="utf-8")
+                    "gap": GAP, "durations": durs, "subtitles": subs},
+                   ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"\n合計 {sum(durs.values()):.1f} 秒")
+    print(f"最長の1行 = {longest[0]:.2f}秒「{longest[1]}」")
+    if longest[0] > 3.0:
+        print("⚠️ 3秒を超える字幕行がある。**3秒以上の静止禁止**なので読点で割ること。")
     print("かなログ → audio/kana_log.txt（⑤ 通し確認の前に必ず目で読む）")
     if bad:
         print(f"\n🔴 誤読の疑い {bad} 件。YOMI を直してから作り直すこと。")
@@ -218,4 +303,7 @@ def build():
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "lint"
-    sys.exit(lint() and 0 if cmd == "lint" else build())
+    if cmd == "lint":
+        lint()
+        sys.exit(0)
+    sys.exit(resub() if cmd == "resub" else build())
