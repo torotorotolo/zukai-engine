@@ -61,6 +61,12 @@ ZOOMS = [
 
 BOOST = {"p4"}          # 元が低コントラストで沈む写真（NASAの衛星画像）
 
+# ワイプを進める x 範囲。**その図が実際に占めている幅**を渡す（全幅にすると空回りする）
+C3_ARC_SPAN = (1140, 1630)                       # 右の断面の破断の弧
+LJ_X_SPAN = (720 - 480 * 0.95, 720 + 480 * 0.95)  # 重ね継手の平面図
+C5_BOND_SPAN = (860 - 95 * 2.0 - 30, 860 + 95 * 2.0 + 30)   # A-A断面の接着層
+C6_LINE_SPAN = (230, 1690)                       # 高度グラフの枠
+
 
 def L(name):
     return Image.open(OUT / f"{name}.png").convert("RGBA")
@@ -131,7 +137,7 @@ def rev(t, dur, start_sec, span_frac):
     return max(0.0, min(1.0, (t - start_sec) / max(0.2, span_frac * dur)))
 
 
-def wipe(fr, layer, k, soft=90):
+def wipe(fr, layer, k, soft=90, span=None):
     """レイヤーを**左から右へ**現す。図が「引かれていく／裂けていく／剥がれていく」動きになる。
 
     🔴 動きの原則（2026-07-30 カズヤくんと確認）：
@@ -145,7 +151,11 @@ def wipe(fr, layer, k, soft=90):
     if k >= 1.0:
         return over(fr, layer)
     cr = layer.copy()
-    x = int(S.W * k)
+    # 🔴 11巡目まで画面全幅(0〜1920)を横断させていた。そのため、たとえば c3 の
+    #    破断の弧は画面右側(1140〜1620)にしか無く、**ワイプの travel の6割が空白に費われて**
+    #    弧が動き始めるのがカットの後半になっていた。図ごとの x 範囲で進める。
+    x0, x1 = span or (0, S.W)
+    x = int(x0 + (x1 - x0) * k)
     m = Image.new("L", cr.size, 0)
     m.paste(255, (0, 0, max(0, x - soft), S.H))
     if soft and x > 0:
@@ -205,11 +215,11 @@ def scene(cut, t, dur, lay, photos, numcells):
         return over(fr, lay["c2_anno"], av)
     if cut == "c4":
         # 亀裂は左から順に現れる。「進行」に見せる
-        wipe(fr, lay["c4_crack"], rev(t, dur, 0.4, 0.84))
+        wipe(fr, lay["c4_crack"], rev(t, dur, 0.4, 0.84), span=LJ_X_SPAN)
         return over(fr, lay["c4_anno"], max(0.0, min(1.0, (t - 1.8) / 1.1)))
     if cut == "c3":
         # 上部が「裂けて広がっていく」。円周55%という情報を運ぶ動き
-        wipe(fr, lay["c3_arc"], rev(t, dur, 0.6, 0.82))
+        wipe(fr, lay["c3_arc"], rev(t, dur, 0.6, 0.82), span=C3_ARC_SPAN)
         over(fr, lay["c3_anno"], av)
         # 「ここが消えた」の引き出し線は弧の右端を指すので、**弧が届いてから**出す。
         # 9巡目は注記が先に出て、線が何も無い所を指していた。
@@ -217,17 +227,18 @@ def scene(cut, t, dur, lay, photos, numcells):
     if cut == "c5":
         # 接着が左から剥がれ、そのあと亀裂が出る。**因果の順に**動かす
         # 接着は全部は剥がさない。**緑を少し残す**と「接着層」のラベルが意味を保つ
-        wipe(fr, lay["c5_bond"], rev(t, dur, 1.2, 0.50) * 0.78, soft=140)
+        wipe(fr, lay["c5_bond"], rev(t, dur, 1.2, 0.50) * 0.78, soft=90,
+             span=C5_BOND_SPAN)
         over(fr, lay["c5_crack"], rev(t, dur, dur * 0.62, 0.10) * pulse)
         return over(fr, lay["c5_anno"], av)
     if cut == "c6":
         # 高度の折れ線を左から描く。離陸→巡航→剥離→緊急降下→着陸が時間軸で追える
-        wipe(fr, lay["c6_line"], rev(t, dur, 0.4, 0.76))
+        wipe(fr, lay["c6_line"], rev(t, dur, 0.4, 0.76), span=C6_LINE_SPAN)
         over(fr, lay["c6_mark"], rev(t, dur, dur * 0.34, 0.06) * pulse)
         return over(fr, lay["c6_anno"], max(0.0, min(1.0, (t - 2.2) / 1.1)))
     if cut == "c7":
-        # 数え上がりはカット尺の9割を使う（早く終わると残りが完全に静止する）
-        k = rev(t, dur, 0.3, 0.90)
+        # 数え上がりはカット尺の7割。9割だと最終値が0.5秒しか出ず、読む間が無かった
+        k = rev(t, dur, 0.3, 0.70)
         fr.alpha_composite(numcells[min(11, int(k * 11.999))])
         return fr
     return over(fr, lay[f"{cut}_anno"], av)
@@ -247,7 +258,7 @@ MOTION = {
     "c4": (0.4, 0.84),   # 亀裂が左から進む
     "c5": (1.2, 1.00),   # 接着が剥がれ → 亀裂が脈打つ
     "c6": (0.4, 1.00),   # 折れ線を描く → 剥離点が脈打つ
-    "c7": (0.3, 0.90),   # 数字が数え上がる
+    "c7": (0.3, 0.70),   # 数字が数え上がる
 }
 
 
