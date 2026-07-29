@@ -149,9 +149,14 @@ def wipe(fr, layer, k, soft=90):
     m = Image.new("L", cr.size, 0)
     m.paste(255, (0, 0, max(0, x - soft), S.H))
     if soft and x > 0:
-        # 端をぼかす。硬い縁で切ると「シャッターが降りる」ように見える
-        grad = Image.linear_gradient("L").rotate(90, expand=True).resize((soft, S.H))
-        m.paste(grad, (max(0, x - soft), 0))
+        # 端をぼかす。硬い縁で切ると「シャッターが降りる」ように見える。
+        # 🔴 9巡目まで `linear_gradient("L").rotate(90)` を使っていたが、これは
+        #    **左が0・右が255**＝必要な向きの逆だった（実測で確認）。
+        #    そのため reveal の縁の手前に「暗い帯」が出て、
+        #    c3〜c6 の全ワイプに縦の筋が入っていた。明示的に作り直す。
+        grad = Image.new("L", (soft, 1))
+        grad.putdata([255 - round(255 * i / max(1, soft - 1)) for i in range(soft)])
+        m.paste(grad.resize((soft, S.H)), (max(0, x - soft), 0))
     cr.putalpha(Image.composite(cr.getchannel("A"), m, m))
     fr.alpha_composite(cr)
     return fr
@@ -201,7 +206,10 @@ def scene(cut, t, dur, lay, photos, numcells):
     if cut == "c3":
         # 上部が「裂けて広がっていく」。円周55%という情報を運ぶ動き
         wipe(fr, lay["c3_arc"], rev(t, dur, 0.6, 0.82))
-        return over(fr, lay["c3_anno"], av)
+        over(fr, lay["c3_anno"], av)
+        # 「ここが消えた」の引き出し線は弧の右端を指すので、**弧が届いてから**出す。
+        # 9巡目は注記が先に出て、線が何も無い所を指していた。
+        return over(fr, lay["c3_call"], rev(t, dur, dur * 0.72, 0.10))
     if cut == "c5":
         # 接着が左から剥がれ、そのあと亀裂が出る。**因果の順に**動かす
         # 接着は全部は剥がさない。**緑を少し残す**と「接着層」のラベルが意味を保つ
@@ -275,7 +283,7 @@ def build():
     names = ["p1_bg", "p1_over", "p2_bg", "p2_over", "p3_bg", "p3_over",
              "p4_bg", "p4_over",
              "c2_base", "c2_hole", "c2_tearline", "c2_anno", "c3_base", "c3_anno",
-             "c3_arc", "c4_base", "c4_crack", "c4_anno",
+             "c3_arc", "c3_call", "c4_base", "c4_crack", "c4_anno",
              "c5_base", "c5_crack", "c5_bond", "c5_anno",
              "c6_base", "c6_line", "c6_mark", "c6_anno", "c7_base"]
     lay = {k: L(k) for k in names}
