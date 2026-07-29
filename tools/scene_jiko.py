@@ -89,7 +89,15 @@ def page(inner, w=W, h=H):
 # 🔴 2026-07-30 カズヤくん指示で必須になった。あわせて**3秒以上の静止を禁止**。
 #    字幕は 1行ずつ音声を合成して尺を取っているので、フレーム精度で音と合う。
 #    画面下 y=950 以下は字幕帯として空けてある（他の注記を置かない）。
-SUB_Y, SUB_H = 950, 130
+# 🔴 字幕の大きさは「考えすぎる葦」を実測して合わせた（2026-07-30 カズヤくん指示）。
+#    Vault `analysis/assets/top10/sheet_*.jpg` の一覧フレーム（1/4縮小）から2通りで測った：
+#      ① 字面の高さ … 5px × 4 = **20px**（201本の中央値。四分位も20〜20で安定）
+#      ② 1文字の幅 … 約5.8px × 4 = **23px**
+#    → フォントサイズ **26px**（1080に対して2.4%）。4巡目の46pxは約2倍だった。
+#    葦の文字は **細く・小さく・箱なし**。太字＋帯は使わない。
+#    ただし葦は全編ベクター画面で、こちらは実写カットに重ねるので、
+#    箱の代わりに**ごく弱い影**だけ敷いて可読性を確保する。
+SUB_Y, SUB_H = 936, 96
 XML = {"&": "&amp;", "<": "&lt;", ">": "&gt;"}
 
 
@@ -97,24 +105,25 @@ def esc(t):
     return "".join(XML.get(c, c) for c in t)
 
 
+SUB_SIZE = 26
+
+
 def sub_row(text, w=W, h=SUB_H):
-    """字幕1行。写真の上でも読めるよう、下へ向かって濃くなる地を敷いてから白で置く。
-    帯を四角く塗ると「テロップ板」に見えて図解様式から浮くので、必ずグラデーションにする。"""
-    return (f'<rect width="{w}" height="{h}" fill="url(#subg)"/>'
-            f'<text x="{w / 2:.0f}" y="{h * 0.63:.0f}" font-family="Noto" font-size="46" '
-            f'fill="{J.INK_W}" text-anchor="middle" stroke="{J.BG}" stroke-width="7" '
-            f'paint-order="stroke">{esc(text)}</text>')
+    """字幕1行。**箱も帯も敷かない**（葦式）。影だけで実写の上の可読性を持たせる。"""
+    y = h * 0.60
+    t = esc(text)
+    return (f'<text x="{w / 2 + 2:.0f}" y="{y + 2:.0f}" font-family="NotoM" '
+            f'font-size="{SUB_SIZE}" fill="{J.BG}" opacity="0.62" '
+            f'text-anchor="middle">{t}</text>'
+            f'<text x="{w / 2:.0f}" y="{y:.0f}" font-family="NotoM" '
+            f'font-size="{SUB_SIZE}" fill="{J.INK_W}" opacity="0.92" '
+            f'text-anchor="middle">{t}</text>')
 
 
 def sub_strip(lines):
     """1カットぶんの字幕を縦に積んだ帯。合成時に行ごとに切り出す。"""
-    g = [f'<linearGradient id="subg" x1="0" y1="0" x2="0" y2="1">'
-         f'<stop offset="0" stop-color="{J.BG}" stop-opacity="0"/>'
-         f'<stop offset="0.45" stop-color="{J.BG}" stop-opacity="0.72"/>'
-         f'<stop offset="1" stop-color="{J.BG}" stop-opacity="0.86"/></linearGradient>']
-    for i, t in enumerate(lines):
-        g.append(f'<g transform="translate(0,{i * SUB_H})">{sub_row(t)}</g>')
-    return "".join(g)
+    return "".join(f'<g transform="translate(0,{i * SUB_H})">{sub_row(t)}</g>'
+                   for i, t in enumerate(lines))
 
 
 def photo_frame(x, y, w, h, credit, size=25):
@@ -208,7 +217,7 @@ def c2_anno():
     g.append(J.label(190, 316, "剥離した範囲", J.ALERT, 42))
     g.append(J.label(190, 366, "客室の扉より後ろ、床より上。", J.LINE, 28))
     g.append(J.label(190, 404, "外板が一続きに裂けて飛散した", J.LINE, 28))
-    g.append(J.dim(ax(0), ax(720), 850, "全長 30.5 m"))
+    g.append(J.dim(ax(0), ax(720), 822, "全長 30.5 m"))
     x, y, w, h = C2_INSET
     g.append(photo_frame(x, y, w, h, CR_NTSB_S, 24))
     g.append(J.label(1330, 700, "与圧された客室の内側は", J.LINE, 28))
@@ -242,34 +251,41 @@ def p3_over():
 
 # ── c3：胴体断面 ──────────────────────────────────────────
 
+# 断面図の置き場所。3巡目までは中心y=620・R=300で、
+# 「事故前／剥離後」のラベルが円の底に被り、字幕帯にも近すぎた。
+SEC_CY, SEC_R = 596, 1.30            # → R=260、円は y=336〜856 に収まる
+
+
 def c3_base():
     g = [J.frame(W, H), J.title("失われたのは、上半分だった", "胴体断面（客室1〜4列目）")]
-    g.append(J.b737_section(600, 620, 1.5, floor=True))
-    g.append(J.b737_section(1400, 620, 1.5, floor=True))
     for cx in (600, 1400):
-        for dx in (-116, -78, 78, 116):
-            g.append(f'<rect x="{cx + dx - 15}" y="{620 + 44}" width="30" height="46" rx="5" '
-                     f'fill="none" stroke="{J.LINE_DIM}" stroke-width="4"/>')
+        g.append(J.b737_section(cx, SEC_CY, SEC_R, floor=True))
+        for dx in (-100, -68, 68, 100):
+            g.append(f'<rect x="{cx + dx - 13}" y="{SEC_CY + 38}" width="26" height="40" '
+                     f'rx="5" fill="none" stroke="{J.LINE_DIM}" stroke-width="4"/>')
     return "".join(g)
 
 
 def c3_arc():
     """破断の弧だけ。左から広げると「上部が裂けて広がっていく」動きになる。
     装飾のズームではなく、**円周55%という情報を運ぶ動き**にしたい。"""
-    return J.b737_section(1400, 620, 1.5, upper=(-165, -15), arc_only=True)
+    return J.b737_section(1400, SEC_CY, SEC_R, upper=(-165, -15), arc_only=True)
 
 
 def c3_anno():
-    g = [J.label(600, 960, "事故前", J.LINE, 40, "middle"),
-         J.label(1400, 960, "剥離後", J.ALERT, 40, "middle"),
-         J.label(600, 690, "客室", J.LINE, 28, "middle"),
-         J.label(600, 806, "貨物室", J.LINE, 28, "middle"),
-         J.label(742, 762, "床", J.LINE_DIM, 24, "start")]
-    g.append(J.dim(600 - 300, 600 + 300, 380, "3.76 m"))
-    g.append(J.leader(1400, 320, 1660, 250, J.ALERT))
-    g.append(J.label(1680, 236, "ここが消えた", J.ALERT, 38))
-    g.append(J.label(1680, 282, "円周の約 55%", J.LINE, 28))
-    g.append(J.label(1000, 620, "→", J.INK_W, 72, "middle"))
+    R = 200 * SEC_R
+    fy = SEC_CY + R * 0.34               # 床の高さ（b737_section と同じ式）
+    g = [J.label(600, 306, "事故前", J.LINE, 40, "middle"),
+         J.label(1400, 306, "剥離後", J.ALERT, 40, "middle"),
+         J.label(600, SEC_CY + 58, "客室", J.LINE, 28, "middle"),
+         J.label(600, SEC_CY + 168, "貨物室", J.LINE, 28, "middle"),
+         J.label(600 + R * 0.62, fy + 34, "床", J.LINE_DIM, 24, "start")]
+    g.append(J.dim(600 - R, 600 + R, 250, "3.76 m"))
+    # 「ここが消えた」は右端で切れていたので、**右揃えで画面内に収める**
+    g.append(J.leader(1400 + R * 0.7, SEC_CY - R * 0.72, 1620, 404, J.ALERT))
+    g.append(J.label(1870, 392, "ここが消えた", J.ALERT, 38, "end"))
+    g.append(J.label(1870, 438, "円周の約 55%", J.LINE, 28, "end"))
+    g.append(J.label(1000, SEC_CY + 14, "→", J.INK_W, 72, "middle"))
     return "".join(g)
 
 
@@ -305,10 +321,10 @@ def c4_anno():
     g.append(J.label(1350, 628, "見ていた。誰にも言わなかった。", J.INK_W, 30))
     # A-A の切断線。次のカットの断面がどこを切ったものか示す
     cx = LJ_X + 300 * LJ_S
-    g.append(f'<path d="M{cx} 300 V880" stroke="{J.AMBER}" stroke-width="3" '
+    g.append(f'<path d="M{cx} 300 V842" stroke="{J.AMBER}" stroke-width="3" '
              f'stroke-dasharray="26 14"/>')
     g.append(J.label(cx, 286, "A", J.AMBER, 34, "middle"))
-    g.append(J.label(cx, 916, "A", J.AMBER, 34, "middle"))
+    g.append(J.label(cx, 872, "A", J.AMBER, 34, "middle"))
     return "".join(g)
 
 
@@ -356,8 +372,8 @@ def c5_anno():
     g.append(J.label(150, 706, "接着層", J.OK, 40))
     g.append(J.label(150, 754, "設計では、この接着面とリベットで", J.LINE, 27))
     g.append(J.label(150, 790, "荷重を分け合うはずだった。", J.LINE, 27))
-    g.append(J.label(150, 838, "潮風の中を19年。接着面には湿気が入り、", J.INK_W, 27))
-    g.append(J.label(150, 874, "腐食が進んで剥がれていた。", J.INK_W, 27))
+    g.append(J.label(150, 800, "潮風の中を19年。接着面には湿気が入り、", J.INK_W, 27))
+    g.append(J.label(150, 836, "腐食が進んで剥がれていた。", J.INK_W, 27))
     g.append(J.label(1350, 706, "荷重の行き場は", J.ALERT, 32))
     g.append(J.label(1350, 748, "リベット穴の縁だけ", J.ALERT, 32))
     g.append(J.label(SEC_X - 640, top - 14, "外板（上）", J.INK_W, 28))
@@ -412,15 +428,15 @@ def c6_anno():
     g = [J.label(210, 350, "7,300 m", J.AMBER, 30, "end"),
          J.label(210, 592, "3,600 m", J.LINE_DIM, 26, "end"),
          J.label(210, 856, "0", J.AMBER, 30, "end"),
-         J.label(230, 890, "離陸　ヒロ", J.LINE, 28),
-         J.label(1690, 890, "着陸　マウイ島カフルイ", J.LINE, 28, "end")]
+         J.label(230, 884, "離陸　ヒロ", J.LINE, 28),
+         J.label(1690, 884, "着陸　マウイ島カフルイ", J.LINE, 28, "end")]
     mx = 230 + 1460 * 0.36
     g.append(J.leader(mx, 330 + 520 * 0.08, 1120, 236, J.ALERT))
     g.append(J.label(1140, 222, "ここで剥離", J.ALERT, 38))
     g.append(J.label(1140, 268, "操縦室の扉も吹き飛び、", J.LINE, 26))
     g.append(J.label(1140, 302, "機長は客室の空を直接見ていた", J.LINE, 26))
     g.append(J.label(660, 640, "緊急降下", J.INK_W, 34))
-    g.append(J.dim(mx, 1690, 930, "13分"))
+    g.append(J.dim(mx, 1690, 846, "13分"))
     return "".join(g)
 
 
@@ -430,7 +446,7 @@ def c7_base():
     g = [J.frame(W, H), J.title("設計の想定を、超えて飛んでいた",
                                 "離着陸の回数（NTSB報告書 1.17.2 節）")]
     g.append(f'<path d="M960 330 V900" stroke="{J.LINE_DIM}" stroke-width="4"/>')
-    g.append(J.label(960, 916, "1969年製・19年間・ハワイ諸島間の短距離を1日十数往復",
+    g.append(J.label(960, 862, "1969年製・19年間・ハワイ諸島間の短距離を1日十数往復",
                      J.LINE, 30, "middle"))
     return "".join(g)
 
@@ -524,7 +540,8 @@ def ensure_css():
     global CSS
     if not CSS:
         CSS = (face_css("Dela", "DelaGothicOne.woff2")
-               + face_css("Noto", "NotoSansJP-Bold.woff2"))
+               + face_css("Noto", "NotoSansJP-Bold.woff2")
+               + face_css("NotoM", "NotoSansJP-Medium.woff2"))
 
 
 if __name__ == "__main__":

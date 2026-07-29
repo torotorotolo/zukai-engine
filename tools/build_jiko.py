@@ -50,9 +50,12 @@ ZOOMS = [
     ("p1", 0.95, "写真-枠と出典", (120, 780, 1250, 900)),
     ("p3", 0.95, "写真-調査員", (140, 250, 960, 880)),
     ("c7", 0.99, "数字", (300, 400, 1620, 800)),
-    ("c3", 0.42, "断面-裂けていく途中", (900, 300, 1900, 700)),
+    ("c3", 0.40, "断面-裂けていく途中", (900, 240, 1900, 700)),
     ("c5", 0.45, "断面-接着が剥がれる途中", (420, 400, 1340, 720)),
-    ("c6", 0.40, "高度-折れ線を描く途中", (200, 300, 1720, 900)),
+    ("c6", 0.45, "高度-折れ線を描く途中", (200, 300, 1720, 900)),
+    ("c3", 0.92, "断面-完成", (240, 200, 1900, 900)),
+    ("c2", 0.55, "字幕-図解の上", (300, 900, 1620, 1040)),
+    ("p3", 0.55, "字幕-写真の上", (300, 900, 1620, 1040)),
 ]
 
 
@@ -106,6 +109,16 @@ def over(fr, layer, a=1.0):
     if p:
         fr.alpha_composite(p)
     return fr
+
+
+def rev(t, dur, start_sec, span_frac):
+    """0→1 の進み具合。**start_sec は秒、span_frac はカット尺に対する割合**。
+
+    5巡目は span も秒で固定していたので、折れ線が最初の3.8秒で描き終わり、
+    残り6秒は図が止まっていた（尺はナレーションから取るので毎回変わる）。
+    尺に比例させれば、図の動きが常に喋りに付いていく。
+    """
+    return max(0.0, min(1.0, (t - start_sec) / max(0.2, span_frac * dur)))
 
 
 def wipe(fr, layer, k, soft=90):
@@ -173,21 +186,21 @@ def scene(cut, t, dur, lay, photos, numcells):
         return over(fr, lay["c2_anno"], av)
     if cut == "c4":
         # 亀裂は左から順に現れる。「進行」に見せる
-        wipe(fr, lay["c4_crack"], max(0.0, min(1.0, (t - 0.4) / 2.6)))
+        wipe(fr, lay["c4_crack"], rev(t, dur, 0.4, 0.66))
         return over(fr, lay["c4_anno"], max(0.0, min(1.0, (t - 1.8) / 1.1)))
     if cut == "c3":
         # 上部が「裂けて広がっていく」。円周55%という情報を運ぶ動き
-        wipe(fr, lay["c3_arc"], max(0.0, min(1.0, (t - 0.6) / 2.4)))
+        wipe(fr, lay["c3_arc"], rev(t, dur, 0.6, 0.62))
         return over(fr, lay["c3_anno"], av)
     if cut == "c5":
-        # 接着が左から剥がれ、そのあと亀裂が出る。因果の順に動かす
-        wipe(fr, lay["c5_bond"], max(0.0, min(1.0, (t - 1.4) / 3.0)), soft=140)
-        over(fr, lay["c5_crack"], max(0.0, min(1.0, (t - 4.6) / 0.8)) * pulse)
+        # 接着が左から剥がれ、そのあと亀裂が出る。**因果の順に**動かす
+        wipe(fr, lay["c5_bond"], rev(t, dur, 1.2, 0.50), soft=140)
+        over(fr, lay["c5_crack"], rev(t, dur, dur * 0.62, 0.10) * pulse)
         return over(fr, lay["c5_anno"], av)
     if cut == "c6":
         # 高度の折れ線を左から描く。離陸→巡航→剥離→緊急降下→着陸が時間軸で追える
-        wipe(fr, lay["c6_line"], max(0.0, min(1.0, (t - 0.4) / 3.4)))
-        over(fr, lay["c6_mark"], max(0.0, min(1.0, (t - 1.9) / 0.5)) * pulse)
+        wipe(fr, lay["c6_line"], rev(t, dur, 0.4, 0.76))
+        over(fr, lay["c6_mark"], rev(t, dur, dur * 0.34, 0.06) * pulse)
         return over(fr, lay["c6_anno"], max(0.0, min(1.0, (t - 2.2) / 1.1)))
     if cut == "c7":
         k = max(0.0, min(1.0, (t - 0.3) / 2.6))
