@@ -353,7 +353,7 @@ def lap_joint(x, y, s=1.0, cracks=0, only_cracks=False):
     return "".join(g)
 
 
-def lap_joint_section(x, y, s=1.0, crack=True):
+def lap_joint_section(x, y, s=1.0, crack=True, crack_only=False):
     """重ね継手の **A-A 断面**。段差は平面図では原理的に見えないので、断面で示す。
 
     ここまで描いて初めて事故の因果が図になる：
@@ -366,8 +366,17 @@ def lap_joint_section(x, y, s=1.0, crack=True):
     """
     T = 26                  # 板厚（誇張。実機は0.9mm＝この図では見えない）
     LAP = 190               # 重ね幅 76mm ぶん
-    EXT = 300               # 継手の外側へ伸ばす長さ
     hl = LAP / 2
+    if crack_only:
+        # 🔴 7巡目まで c5_crack は**断面図まるごとの複製**だった。
+        #    それを脈動させていたので、図全体の濃度が揺れていた。亀裂だけ返す。
+        return (f'<g transform="translate({x},{y}) scale({s})">'
+                f'<path d="M-70 {-T + 12} l-16 -3 l-12 4 l-14 -3 l-10 2" fill="none" '
+                f'stroke="{ALERT}" stroke-width="6" stroke-linecap="round" '
+                f'stroke-linejoin="round"/>'
+                f'<circle cx="-70" cy="{-T + 12}" r="13" fill="none" stroke="{ALERT}" '
+                f'stroke-width="4" opacity="0.8"/></g>')
+    EXT = 300               # 継手の外側へ伸ばす長さ
     g = [f'<g transform="translate({x},{y}) scale({s})">']
     # 下（内側）の外板：左端が自由端
     g.append(f'<path d="M{-hl} 0 H{hl + EXT} V{T} H{-hl} Z" fill="{LINE}" '

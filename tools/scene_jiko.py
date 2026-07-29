@@ -343,7 +343,9 @@ def c5_base():
 
 
 def c5_crack():
-    return J.lap_joint_section(SEC_X, SEC_Y, SEC_S, crack=True)
+    """**亀裂だけ**を返す。7巡目までは断面図まるごとの複製だったので、
+    脈動させると図全体の濃度が揺れていた。"""
+    return J.lap_joint_section(SEC_X, SEC_Y, SEC_S, crack_only=True)
 
 
 def c5_bond():

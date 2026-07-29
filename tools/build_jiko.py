@@ -204,7 +204,8 @@ def scene(cut, t, dur, lay, photos, numcells):
         return over(fr, lay["c3_anno"], av)
     if cut == "c5":
         # 接着が左から剥がれ、そのあと亀裂が出る。**因果の順に**動かす
-        wipe(fr, lay["c5_bond"], rev(t, dur, 1.2, 0.50), soft=140)
+        # 接着は全部は剥がさない。**緑を少し残す**と「接着層」のラベルが意味を保つ
+        wipe(fr, lay["c5_bond"], rev(t, dur, 1.2, 0.50) * 0.78, soft=140)
         over(fr, lay["c5_crack"], rev(t, dur, dur * 0.62, 0.10) * pulse)
         return over(fr, lay["c5_anno"], av)
     if cut == "c6":
