@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+
+# 生成物はクラウドの成果物として受け取る。リポジトリには入れない
+out/
+
+# ref は事故検証で使うものだけ載せる（凍結した健康解説chの参考画像は載せない）
+ref/*
+!ref/CREDITS.md
+!ref/aloha_left.jpg
+!ref/aloha_normal.jpg
+!ref/aloha_aftermath.jpg
+!ref/ref_aloha_after.jpg
+!ref/ref_aloha_fuselage.png
+!ref/ref_aloha_route.jpg
+!ref/b737_3view.png
