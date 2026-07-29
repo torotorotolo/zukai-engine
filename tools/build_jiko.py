@@ -27,7 +27,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 sys.stdout.reconfigure(encoding="utf-8")
 
-from PIL import Image
+from PIL import Image, ImageChops
 
 import scene_jiko as S
 import jiko_style as J
@@ -157,7 +157,11 @@ def wipe(fr, layer, k, soft=90):
         grad = Image.new("L", (soft, 1))
         grad.putdata([255 - round(255 * i / max(1, soft - 1)) for i in range(soft)])
         m.paste(grad.resize((soft, S.H)), (max(0, x - soft), 0))
-    cr.putalpha(Image.composite(cr.getchannel("A"), m, m))
+    # 🔴 10巡目まで `Image.composite(alpha, m, m)` を使っていた。これは
+    #    **マスクが中間値のとき、レイヤーの透明画素まで半不透明になる**
+    #    （composite(0, 128, 128) = 64）。透明部分の下地は黒なので、
+    #    ぼかし帯のところに**縦の暗い帯**が出ていた。正しくは不透明度の掛け算。
+    cr.putalpha(ImageChops.multiply(cr.getchannel("A"), m))
     fr.alpha_composite(cr)
     return fr
 
