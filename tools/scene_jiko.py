@@ -38,6 +38,7 @@
 """
 import base64
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -97,7 +98,15 @@ def page(inner, w=W, h=H):
 #    葦の文字は **細く・小さく・箱なし**。太字＋帯は使わない。
 #    ただし葦は全編ベクター画面で、こちらは実写カットに重ねるので、
 #    箱の代わりに**ごく弱い影**だけ敷いて可読性を確保する。
-SUB_Y, SUB_H = 936, 96
+# 🔴 字幕の大きさは「考えすぎる葦」を実測して合わせた（2026-07-30 カズヤくん指示）。
+#    字面の高さ 20px／1文字の幅 23px → **フォントサイズ 26px**（1080に対して2.4%）。
+#    葦の文字は **細く・小さく・箱なし**。太字＋帯は使わない。2行までしか使わない。
+#    実写に重ねるので、箱の代わりにごく弱い影だけ敷く。
+# ⚠️ 字幕を3秒以下に細切れにするのは**2026-07-30に不採用**（見にくいと判定された）。
+#    静止禁止は図とグラフの動きで満たす。字幕は自然な文の単位で切る。
+SUB_Y, SUB_H = 916, 120
+SUB_SIZE = 26
+SUB_WRAP = 22            # これを超えたら2行に折る
 XML = {"&": "&amp;", "<": "&lt;", ">": "&gt;"}
 
 
@@ -105,19 +114,32 @@ def esc(t):
     return "".join(XML.get(c, c) for c in t)
 
 
-SUB_SIZE = 26
+def wrap2(text):
+    """長い字幕は**2行まで**に折る（葦も2行までしか使っていない）。
+    折る位置は読点。無ければ中央付近の文字境界。"""
+    if len(text) <= SUB_WRAP:
+        return [text]
+    mid = len(text) // 2
+    cands = [m.end() for m in re.finditer("[、。]", text) if 4 <= m.end() <= len(text) - 3]
+    cut = min(cands, key=lambda i: abs(i - mid)) if cands else mid
+    return [text[:cut], text[cut:]]
 
 
 def sub_row(text, w=W, h=SUB_H):
-    """字幕1行。**箱も帯も敷かない**（葦式）。影だけで実写の上の可読性を持たせる。"""
-    y = h * 0.60
-    t = esc(text)
-    return (f'<text x="{w / 2 + 2:.0f}" y="{y + 2:.0f}" font-family="NotoM" '
-            f'font-size="{SUB_SIZE}" fill="{J.BG}" opacity="0.62" '
-            f'text-anchor="middle">{t}</text>'
-            f'<text x="{w / 2:.0f}" y="{y:.0f}" font-family="NotoM" '
-            f'font-size="{SUB_SIZE}" fill="{J.INK_W}" opacity="0.92" '
-            f'text-anchor="middle">{t}</text>')
+    """字幕1枚。**箱も帯も敷かない**（葦式）。影だけで実写の上の可読性を持たせる。
+    1行なら下寄せ、2行なら上下に振り分ける。**最終行の位置を揃える**のが読みやすさの要。"""
+    lines = wrap2(text)
+    ys = [h * 0.72] if len(lines) == 1 else [h * 0.42, h * 0.80]
+    g = []
+    for t, y in zip(lines, ys):
+        e = esc(t)
+        g.append(f'<text x="{w / 2 + 2:.0f}" y="{y + 2:.0f}" font-family="NotoM" '
+                 f'font-size="{SUB_SIZE}" fill="{J.BG}" opacity="0.62" '
+                 f'text-anchor="middle">{e}</text>'
+                 f'<text x="{w / 2:.0f}" y="{y:.0f}" font-family="NotoM" '
+                 f'font-size="{SUB_SIZE}" fill="{J.INK_W}" opacity="0.92" '
+                 f'text-anchor="middle">{e}</text>')
+    return "".join(g)
 
 
 def sub_strip(lines):

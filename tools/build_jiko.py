@@ -196,11 +196,11 @@ def scene(cut, t, dur, lay, photos, numcells):
         return over(fr, lay["c2_anno"], av)
     if cut == "c4":
         # 亀裂は左から順に現れる。「進行」に見せる
-        wipe(fr, lay["c4_crack"], rev(t, dur, 0.4, 0.66))
+        wipe(fr, lay["c4_crack"], rev(t, dur, 0.4, 0.84))
         return over(fr, lay["c4_anno"], max(0.0, min(1.0, (t - 1.8) / 1.1)))
     if cut == "c3":
         # 上部が「裂けて広がっていく」。円周55%という情報を運ぶ動き
-        wipe(fr, lay["c3_arc"], rev(t, dur, 0.6, 0.62))
+        wipe(fr, lay["c3_arc"], rev(t, dur, 0.6, 0.82))
         return over(fr, lay["c3_anno"], av)
     if cut == "c5":
         # 接着が左から剥がれ、そのあと亀裂が出る。**因果の順に**動かす
@@ -214,7 +214,8 @@ def scene(cut, t, dur, lay, photos, numcells):
         over(fr, lay["c6_mark"], rev(t, dur, dur * 0.34, 0.06) * pulse)
         return over(fr, lay["c6_anno"], max(0.0, min(1.0, (t - 2.2) / 1.1)))
     if cut == "c7":
-        k = max(0.0, min(1.0, (t - 0.3) / 2.6))
+        # 数え上がりはカット尺の9割を使う（早く終わると残りが完全に静止する）
+        k = rev(t, dur, 0.3, 0.90)
         fr.alpha_composite(numcells[min(11, int(k * 11.999))])
         return fr
     return over(fr, lay[f"{cut}_anno"], av)
@@ -225,29 +226,46 @@ def compose(cut, t, dur, lay, photos, numcells, subs=None):
     return subtitle(fr, cut, t, subs or {})
 
 
-def check_no_freeze(limit=3.0):
-    """**3秒以上、画面に何の変化も無い区間**が無いかを機械的に確認する。
-    ゆっくりズームは常に動いているので厳密には静止しないが、
-    「読むものが変わらない時間」が長いと離脱するので、字幕と注記の切り替わりで測る。"""
-    events, t = [], 0.0
+# カットごとの「図が動いている区間」。(開始秒, 終わりの割合) で表す。
+# 🔴 2026-07-30：静止禁止は**図とグラフの動きだけ**で満たす（字幕には適用しない）。
+#    字幕を3秒以下に細切れにするのは「見にくい」と判定されて撤回した。
+MOTION = {
+    "c2": (0.3, 1.00),   # 破断の縁が常に脈打つ
+    "c3": (0.6, 0.82),   # 破断の弧を描く
+    "c4": (0.4, 0.84),   # 亀裂が左から進む
+    "c5": (1.2, 1.00),   # 接着が剥がれ → 亀裂が脈打つ
+    "c6": (0.4, 1.00),   # 折れ線を描く → 剥離点が脈打つ
+    "c7": (0.3, 0.90),   # 数字が数え上がる
+}
+
+
+def check_motion(limit=3.0):
+    """**3秒以上、図がまったく動かない区間**が無いかを機械的に確認する。
+
+    実写カットはケンバーンズで常に動いているので対象外。
+    図解カットは MOTION の区間だけ動くので、その前後の空白を測る。
+    """
+    bad, worst = [], 0.0
     for cut, sec in S.CUTS:
-        events.append((t, f"{cut} 開始"))
-        for r in S.SUBS.get(cut, []):
-            events.append((t + S.LEAD + r["t"], f"{cut} 字幕「{r['text'][:14]}」"))
-        t += sec
-    events.append((t, "終端"))
-    events.sort()
-    worst, bad = 0.0, []
-    for (a, na), (b, _) in zip(events, events[1:]):
-        if b - a > worst:
-            worst = b - a
-        if b - a > limit:
-            bad.append((round(a, 2), round(b - a, 2), na))
-    print(f"最長の無変化区間 = {worst:.2f}秒")
-    for at, d, na in bad:
-        print(f"  🔴 {at}秒から {d}秒 変化なし（直前: {na}）")
+        if cut in S.PHOTO_CUTS:
+            continue
+        st, frac = MOTION.get(cut, (0.0, 0.0))
+        end = st + frac * sec
+        gaps = [("頭", st), ("尻", max(0.0, sec - end))]
+        for where, g in gaps:
+            worst = max(worst, g)
+            if g > limit:
+                bad.append((cut, where, round(g, 2), round(sec, 2)))
+    print(f"図が動かない最長区間 = {worst:.2f}秒")
+    for cut, where, g, sec in bad:
+        print(f"  🔴 {cut}（尺{sec}秒）の{where}が {g}秒 動かない")
     if not bad:
-        print(f"✓ {limit}秒以上の静止なし")
+        print(f"✓ 図が {limit}秒以上止まるカットは無い")
+    # 字幕は参考情報として長さだけ出す
+    longest = max(((r["d"], r["text"]) for rows in S.SUBS.values() for r in rows),
+                  default=(0, ""))
+    print(f"（参考）最長の字幕 = {longest[0]:.2f}秒「{longest[1][:26]}」"
+          f" ／ 字幕の枚数 {sum(len(r) for r in S.SUBS.values())}")
     return bad
 
 
@@ -265,7 +283,7 @@ def build():
     photos.update({c: load_photo(f, b) for c, (b, f) in S.INSETS.items()})
     subs = {c: L(f"sub_{c}") for c in S.SUBS if (OUT / f"sub_{c}.png").exists()}
     print(f"字幕帯 {len(subs)}カット", flush=True)
-    check_no_freeze()
+    check_motion()
     nums = L("c7_num")
     cw, ch = S.W // 2, S.H // 2
     numcells = [nums.crop(((i % 4) * cw, (i // 4) * ch, (i % 4) * cw + cw,
