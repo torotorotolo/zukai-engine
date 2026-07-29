@@ -131,8 +131,10 @@ _SIL = (
     "L83.5 109.9 L82.9 97.3 L57.0 94.3 L54.6 84.7 L18.6 72.1 L4.8 63.7 "
     "L0.0 57.6 Z")
 
-# 主翼（奥側）。後退角25度・上反角6度ぶんずらした位置に見える
-_WING = "M248 91 L416 91 L452 50 L406 47 Z"
+# 主翼（奥側）。後退角25度・上反角6度ぶんずらした位置に見える。
+# 2巡目は翼根から翼端までの面を丸ごと描いたので、**ナセルと重なって図が濁った**。
+# 側面図で実際に見えるのはナセルの上に出る細い帯だけなので、そこだけ描く。
+_WING = "M296 84 L450 46 L462 58 L336 92 Z"
 # ナセル。前方に張り出した吸気口 → 円筒部 → 細くなる排気管、の3段
 _NAC = ("M277 85 C277 73 286 67 301 67 L409 67 C425 67 434 72 437 80 "
         "L449 90 C452 95 449 100 442 101 L306 103 C288 103 277 96 277 85 Z")
@@ -152,10 +154,11 @@ def b737_side(x, y, s=1.0, skin=INK_W, lw=LW, detail=True):
     if not detail:
         return "".join(g) + "</g>"
     # 主翼・ナセル。地の色を薄く重ねて面を分ける（線を足すと図が濁る）
-    g.append(f'<path d="{_WING}" fill="{ink}" opacity="0.20"/>')
+    g.append(f'<path d="{_WING}" fill="{ink}" opacity="0.16"/>')
     g.append(f'<path d="{_WING}" fill="none" stroke="{ink}" stroke-width="2.6" '
-             f'opacity="0.45"/>')
-    g.append(f'<path d="{_NAC}" fill="{ink}" opacity="0.28"/>')
+             f'opacity="0.36"/>')
+    # ナセルは主翼より手前。**塗りを濃くして翼の線を隠さないと図が濁る**（2巡目の粗）
+    g.append(f'<path d="{_NAC}" fill="{BG2}" opacity="0.62"/>')
     g.append(f'<path d="{_NAC}" fill="none" stroke="{ink}" stroke-width="3.2" '
              f'opacity="0.60"/>')
     # 吸気口のリップと排気管の口。ここが無いと「ただの楕円」に戻る
@@ -167,11 +170,13 @@ def b737_side(x, y, s=1.0, skin=INK_W, lw=LW, detail=True):
     #   ① 胴体の背中の続き（尾錐）… 垂直尾翼と胴体の境目
     #   ② 水平尾翼の前縁      … 垂直尾翼と水平尾翼の境目
     #   ③ 方向舵のヒンジ線
-    g.append(f'<path d="M527 -3 C596 6 648 16 700 22" fill="none" stroke="{ink}" '
+    # 2巡目は水平尾翼の線を胴体の中から引き始めたので、尾錐の線と**X字に交差**した。
+    # 水平尾翼は尾錐から生えているので、交点(662, 16.5)より後ろだけを引く。
+    g.append(f'<path d="M527 -3 C596 6 646 14 704 24" fill="none" stroke="{ink}" '
              f'stroke-width="3.4" opacity="0.55"/>')
-    g.append(f'<path d="M646 20 L718 3.6" fill="none" stroke="{ink}" '
+    g.append(f'<path d="M662 16.5 L718 3.6" fill="none" stroke="{ink}" '
              f'stroke-width="3.4" opacity="0.62"/>')
-    g.append(f'<path d="M684 -134 L672 -6" fill="none" stroke="{ink}" '
+    g.append(f'<path d="M686 -134 L674 12" fill="none" stroke="{ink}" '
              f'stroke-width="2.6" opacity="0.42"/>')
     # 窓列
     g.append("".join(f'<rect x="{wx:.1f}" y="30.6" width="7.8" height="9.0" rx="2.6" '
@@ -210,11 +215,12 @@ def b737_tear(x, y, s=1.0, col=None, part="hole"):
         t = i / 8
         pts.append(f"L{x0 + (x1 - x0) * t:.1f} {0.4 + 2.2 * rnd[i % len(rnd)]:.1f}")
     # 後端の裂け目
-    pts.append(f"L{x1 + 3.5:.1f} 18.0 L{x1 - 4.0:.1f} 33.0 L{x1 + 2.5:.1f} 47.0")
-    # 下端のぎざぎざ（後→前）
-    for i in range(11):
-        t = i / 10
-        pts.append(f"L{x1 - (x1 - x0) * t:.1f} {46 + 13 * rnd[i % len(rnd)]:.1f}")
+    pts.append(f"L{x1 + 3.0:.1f} 19.0 L{x1 - 3.0:.1f} 33.0 L{x1 + 2.0:.1f} 47.0")
+    # 下端のぎざぎざ（後→前）。2巡目は振幅13・8コマ間隔で棘に見えたので、
+    # 振幅を9に落として山の数を減らす（裂け目であって鋸ではない）
+    for i in range(9):
+        t = i / 8
+        pts.append(f"L{x1 - (x1 - x0) * t:.1f} {47 + 9 * rnd[i % len(rnd)]:.1f}")
     # 前端の裂け目
     pts.append(f"L{x0 - 3.0:.1f} 32.0 L{x0 + 4.0:.1f} 16.0")
     d = " ".join(pts) + " Z"
@@ -265,6 +271,23 @@ def b737_section(x, y, r=1.0, upper=None, floor=True):
     return "".join(g)
 
 
+# 疲労亀裂。2巡目は1本の長さがリベット間隔とほぼ同じで、**つながって赤い波線**に見えた。
+# 実際は「穴ごとに短い亀裂が出て、まだつながっていない」状態なので、短く・不揃いにする。
+_CRACK_SHAPES = ["l12 -6 l10 5 l8 -4", "l10 -5 l8 6 l11 -5",
+                 "l14 -7 l9 6", "l9 -4 l11 5 l6 -5"]
+
+
+def _cracks(n):
+    g = []
+    for i in range(min(n, 15)):
+        cx = -448 + i * 62
+        g.append(f'<circle cx="{cx}" cy="-40" r="7" fill="{ALERT}"/>')
+        g.append(f'<path d="M{cx + 15} -40 {_CRACK_SHAPES[i % 4]}" fill="none" '
+                 f'stroke="{ALERT}" stroke-width="{LW * 1.3:.1f}" '
+                 f'stroke-linecap="round" stroke-linejoin="round"/>')
+    return "".join(g)
+
+
 def lap_joint(x, y, s=1.0, cracks=0, only_cracks=False):
     """ラップジョイント（外板の重ね継手）。**外から skin を見た平面図**として描く。
 
@@ -275,13 +298,9 @@ def lap_joint(x, y, s=1.0, cracks=0, only_cracks=False):
     LAPT = 62          # 重なり帯の半分の高さ
     g = [f'<g transform="translate({x},{y}) scale({s})">']
     if only_cracks:
-        for i in range(min(cracks, 15)):
-            cx = -448 + i * 62
-            g.append(f'<path d="M{cx + 16} -40 l18 -11 l16 12 l16 -11" fill="none" '
-                     f'stroke="{ALERT}" stroke-width="{LW * 2.0:.1f}" '
-                     f'stroke-linecap="round" stroke-linejoin="round"/>')
         g.append(f'<path d="M-470 -40 H470" stroke="{ALERT}" stroke-width="{LW * 1.1:.1f}" '
-                 f'opacity="0.5" stroke-dasharray="20 16"/>')
+                 f'opacity="0.28" stroke-dasharray="20 16"/>')
+        g.append(_cracks(cracks))
         g.append('</g>')
         return "".join(g)
     # 下の外板（奥）。上端が重なり帯の上まで入り込む
@@ -321,11 +340,7 @@ def lap_joint(x, y, s=1.0, cracks=0, only_cracks=False):
                      f'stroke-width="{LW * 0.9:.1f}"/>')
             g.append(f'<circle cx="{cx}" cy="{ry}" r="6" fill="{LINE_DIM}"/>')
     if cracks:
-        for i in range(min(cracks, 15)):
-            cx = -448 + i * 62
-            g.append(f'<path d="M{cx + 16} -40 l18 -11 l16 12 l16 -11" fill="none" '
-                     f'stroke="{ALERT}" stroke-width="{LW * 2.0:.1f}" '
-                     f'stroke-linecap="round" stroke-linejoin="round"/>')
+        g.append(_cracks(cracks))
     g.append('</g>')
     return "".join(g)
 
@@ -357,21 +372,24 @@ def lap_joint_section(x, y, s=1.0, crack=True):
              f'opacity="0.85"/>')
     # 段差の落ち影
     g.append(f'<path d="M{hl} 0 h{EXT}" stroke="{BG}" stroke-width="9" opacity="0.5"/>')
-    # リベット3列。皿もみなので頭は外面と面一、縁が薄い
+    # リベット3列。皿もみなので頭は外面と面一、縁が薄い。
+    # 2巡目は頭が幅40で間隔62だったため、板の残りが細い楔になって「歯」に見えた。
+    # 頭を幅28に絞って、板の面を残す。
     for rx in (-62, 0, 62):
-        g.append(f'<path d="M{rx - 20} {-T} L{rx + 20} {-T} L{rx + 11} {-T + 13} '
-                 f'L{rx - 11} {-T + 13} Z" fill="{BG2}" stroke="{BG}" stroke-width="3"/>')
-        g.append(f'<rect x="{rx - 11}" y="{-T + 13}" width="22" height="{T * 2 - 13}" '
+        g.append(f'<path d="M{rx - 14} {-T} L{rx + 14} {-T} L{rx + 8} {-T + 13} '
+                 f'L{rx - 8} {-T + 13} Z" fill="{BG2}" stroke="{BG}" stroke-width="3"/>')
+        g.append(f'<rect x="{rx - 8}" y="{-T + 13}" width="16" height="{T * 2 - 13}" '
                  f'fill="{BG2}" stroke="{BG}" stroke-width="3"/>')
-        g.append(f'<rect x="{rx - 17}" y="{T}" width="34" height="11" rx="4" '
+        g.append(f'<rect x="{rx - 13}" y="{T}" width="26" height="11" rx="4" '
                  f'fill="{BG2}" stroke="{BG}" stroke-width="3"/>')
     if crack:
-        # 皿もみの刃のような縁から、板厚の中を斜めに進む
-        g.append(f'<path d="M-73 {-T + 13} l-13 -9 l-9 6 l-11 -7" fill="none" '
-                 f'stroke="{ALERT}" stroke-width="7" stroke-linecap="round" '
+        # 皿もみの刃のような縁から、**板厚の中を**横に進む。
+        # 2巡目は斜めに立ち上げすぎて板の外に出ていた。
+        g.append(f'<path d="M-70 {-T + 12} l-16 -3 l-12 4 l-14 -3 l-10 2" fill="none" '
+                 f'stroke="{ALERT}" stroke-width="6" stroke-linecap="round" '
                  f'stroke-linejoin="round"/>')
-        g.append(f'<circle cx="-62" cy="{-T + 13}" r="15" fill="none" stroke="{ALERT}" '
-                 f'stroke-width="4" opacity="0.75"/>')
+        g.append(f'<circle cx="-70" cy="{-T + 12}" r="13" fill="none" stroke="{ALERT}" '
+                 f'stroke-width="4" opacity="0.8"/>')
     g.append('</g>')
     return "".join(g)
 

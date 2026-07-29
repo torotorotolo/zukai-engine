@@ -49,6 +49,16 @@ jobs:
       - name: Composite (PNG -> mp4)
         run: python tools/build_jiko.py
 
+      # 音声。ナレーションはローカルの AivisSpeech で作って audio/ に置いてある。
+      # BGM と効果音はここで合成する（既製音源を public リポジトリに置かないため）
+      - name: Mix narration + BGM + SE
+        run: |
+          python tools/audio_mix.py
+          ffmpeg -y -hide_banner -loglevel error \
+            -i out/jiko/jiko_test.mp4 -i out/jiko/mix.wav \
+            -c:v copy -c:a aac -b:a 192k -shortest out/jiko/jiko_test_audio.mp4
+          ls -la out/jiko/*.mp4 out/jiko/mix.wav
+
       - name: Summary
         run: |
           ls -la out/jiko/*.mp4
@@ -72,4 +82,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: jiko-mp4${{ inputs.note && format('-{0}', inputs.note) || '' }}
-          path: out/jiko/jiko_test.mp4
+          path: |
+            out/jiko/jiko_test_audio.mp4
+            out/jiko/jiko_test.mp4
