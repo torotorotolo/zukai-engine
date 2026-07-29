@@ -3,14 +3,14 @@
 
 ■ 図解様式で「意図に見える」動きは4つだけ
   1 注記が順に出る（フェード）
-  2 破断部・亀裂が脈打つ／左から進む
+  2 破断部の縁・亀裂が脈打つ／左から進む
   3 数字が数え上がる
   4 写真だけ、ごくゆっくり寄る
 人が動く必要が無いので、カメラは固定でよい。図解カットはズームもしない。
 
 ■ 検品用の出力
   `out/jiko/qa/` に **クラウドで焼いた実物**の静止画と拡大図を書き出す。
-  ローカルのフォントとクラウドのフォントで折返し位置が変わった実績があるので、
+  ローカルのWindowsフォントとクラウドのフォントで折返し位置が変わった実績があるので、
   検品はここに出たものだけを見る。
 """
 import math
@@ -33,13 +33,16 @@ QA = OUT / "qa"
 
 # 検品で必ず拡大して見る場所。(カット, 時刻の割合, 名前, 切り出し矩形)
 ZOOMS = [
-    ("c2", 0.95, "機体-機首と操縦室", (150, 470, 620, 740)),
-    ("c2", 0.95, "機体-主翼とエンジン", (480, 540, 1010, 790)),
-    ("c2", 0.95, "機体-尾翼", (900, 300, 1300, 640)),
-    ("c2", 0.95, "機体-剥離範囲", (300, 430, 780, 700)),
-    ("c4", 0.95, "重ね継手-段差", (240, 620, 1200, 860)),
-    ("c5", 0.95, "断面-接着層とリベット", (560, 440, 1360, 700)),
-    ("p1", 0.95, "写真-枠と出典", (120, 760, 1240, 900)),
+    ("c2", 0.95, "機体-機首と操縦室", (150, 480, 640, 760)),
+    ("c2", 0.95, "機体-主翼とエンジン", (460, 540, 1010, 800)),
+    ("c2", 0.95, "機体-尾翼", (880, 320, 1300, 660)),
+    ("c2", 0.95, "機体-剥離範囲", (300, 480, 800, 720)),
+    ("c2", 0.95, "写真インセット", (1300, 270, 1880, 700)),
+    ("c4", 0.95, "重ね継手-段差", (240, 560, 1220, 800)),
+    ("c4", 0.95, "重ね継手-亀裂", (240, 500, 1220, 660)),
+    ("c5", 0.95, "断面-接着層とリベット", (420, 400, 1340, 720)),
+    ("p1", 0.95, "写真-枠と出典", (120, 780, 1250, 900)),
+    ("p3", 0.95, "写真-調査員", (140, 250, 960, 880)),
     ("c7", 0.99, "数字", (300, 400, 1620, 800)),
 ]
 
@@ -68,13 +71,13 @@ def load_photo(name, box):
     return src
 
 
-def ken_burns(src, box, k):
-    """ごくゆっくり寄る。図解カットは動かさないので、ここだけが息をする。"""
+def fit(src, box, k=0.0, bias=0.5):
+    """箱を覆うように切り出す。k>0 でゆっくり寄る。bias は縦方向の寄せ。"""
     _, _, w, h = box
     sw, sh = src.size
     z = max(w / sw, h / sh) * (1.0 + 0.055 * k)
     cw, ch = min(sw, w / z), min(sh, h / z)
-    l, t = (sw - cw) / 2, (sh - ch) / 2
+    l, t = (sw - cw) / 2, (sh - ch) * bias
     crop = src.crop((round(l), round(t), round(l + cw), round(t + ch)))
     return crop.resize((w, h), Image.LANCZOS)
 
@@ -89,28 +92,33 @@ def fade(layer, a):
     return o
 
 
+def over(fr, layer, a=1.0):
+    p = fade(layer, a)
+    if p:
+        fr.alpha_composite(p)
+    return fr
+
+
 def compose(cut, t, dur, lay, photos, numcells):
     """1コマぶんを合成して返す。"""
     av = max(0.0, min(1.0, (t - 0.5) / 1.1))          # 注記は0.5秒後から1.1秒かけて
     pulse = 0.55 + 0.45 * (0.5 + 0.5 * math.sin(t * math.tau / 1.35))
     if cut in S.PHOTO_CUTS:
-        box, _ = S.PHOTO_CUTS[cut]
+        box, _, bias = S.PHOTO_CUTS[cut]
         fr = lay[f"{cut}_bg"].copy()
-        ph = ken_burns(photos[cut], box, t / max(dur, 0.001))
+        ph = fit(photos[cut], box, t / max(dur, 0.001), bias)
         fr.paste(duotone(ph, J.BG2, "#e6eef2"), (box[0], box[1]))
-        fr.alpha_composite(fade(lay[f"{cut}_over"], min(1.0, t / 0.4)) or lay[f"{cut}_over"])
-        return fr
+        return over(fr, lay[f"{cut}_over"], min(1.0, t / 0.4))
+    fr = lay[f"{cut}_base"].copy()
+    if cut in S.INSETS:
+        box, _ = S.INSETS[cut]
+        fr.paste(duotone(fit(photos[cut], box), J.BG2, "#e6eef2"), (box[0], box[1]))
     if cut == "c2":
-        fr = lay["c2_base"].copy()
-        p = fade(lay["c2_tear"], min(1.0, max(0.0, (t - 0.3) / 0.6)) * pulse)
-        if p:
-            fr.alpha_composite(p)
-        p = fade(lay["c2_anno"], av)
-        if p:
-            fr.alpha_composite(p)
-        return fr
+        # 穴は一度だけ開く。**縁だけを脈打たせる**（穴を明滅させると嘘に見える）
+        over(fr, lay["c2_hole"], min(1.0, max(0.0, (t - 0.3) / 0.5)))
+        over(fr, lay["c2_tearline"], min(1.0, max(0.0, (t - 0.3) / 0.5)) * pulse)
+        return over(fr, lay["c2_anno"], av)
     if cut == "c4":
-        fr = lay["c4_base"].copy()
         # 亀裂は左から順に現れる。ワイプで出すと「進行」に見える
         k = max(0.0, min(1.0, (t - 0.4) / 2.2))
         if k > 0:
@@ -119,40 +127,28 @@ def compose(cut, t, dur, lay, photos, numcells):
             m.paste(255, (0, 0, int(S.W * k), S.H))
             cr.putalpha(Image.composite(cr.getchannel("A"), m, m))
             fr.alpha_composite(cr)
-        p = fade(lay["c4_anno"], max(0.0, min(1.0, (t - 1.8) / 1.1)))
-        if p:
-            fr.alpha_composite(p)
-        return fr
+        return over(fr, lay["c4_anno"], max(0.0, min(1.0, (t - 1.8) / 1.1)))
     if cut == "c5":
-        fr = lay["c5_base"].copy()
-        p = fade(lay["c5_crack"], max(0.0, min(1.0, (t - 2.4) / 0.8)) * pulse)
-        if p:
-            fr.alpha_composite(p)
-        p = fade(lay["c5_anno"], av)
-        if p:
-            fr.alpha_composite(p)
-        return fr
+        over(fr, lay["c5_crack"], max(0.0, min(1.0, (t - 2.4) / 0.8)) * pulse)
+        return over(fr, lay["c5_anno"], av)
     if cut == "c7":
-        fr = lay["c7_base"].copy()
         k = max(0.0, min(1.0, (t - 0.3) / 2.6))
         fr.alpha_composite(numcells[min(11, int(k * 11.999))])
         return fr
-    fr = lay[f"{cut}_base"].copy()
-    p = fade(lay[f"{cut}_anno"], av)
-    if p:
-        fr.alpha_composite(p)
-    return fr
+    return over(fr, lay[f"{cut}_anno"], av)
 
 
 def build():
     FR.mkdir(parents=True, exist_ok=True)
     QA.mkdir(parents=True, exist_ok=True)
-    names = ["p1_bg", "p1_over", "p2_bg", "p2_over",
-             "c2_base", "c2_tear", "c2_anno", "c3_base", "c3_anno",
+    names = ["p1_bg", "p1_over", "p2_bg", "p2_over", "p3_bg", "p3_over",
+             "p4_bg", "p4_over",
+             "c2_base", "c2_hole", "c2_tearline", "c2_anno", "c3_base", "c3_anno",
              "c4_base", "c4_crack", "c4_anno", "c5_base", "c5_crack", "c5_anno",
              "c6_base", "c6_anno", "c7_base"]
     lay = {k: L(k) for k in names}
-    photos = {c: load_photo(f, b) for c, (b, f) in S.PHOTO_CUTS.items()}
+    photos = {c: load_photo(f, b) for c, (b, f, _) in S.PHOTO_CUTS.items()}
+    photos.update({c: load_photo(f, b) for c, (b, f) in S.INSETS.items()})
     nums = L("c7_num")
     cw, ch = S.W // 2, S.H // 2
     numcells = [nums.crop(((i % 4) * cw, (i // 4) * ch, (i % 4) * cw + cw,
@@ -169,20 +165,18 @@ def build():
         # 検品用：そのカットの終盤（注記が出そろった状態）を実寸で残す
         qa = compose(cut, sec * 0.95, sec, lay, photos, numcells).convert("RGB")
         qa.save(QA / f"cut_{cut}.png")
-        sheet.append((cut, qa.copy()))
+        sheet.append(qa.copy())
         print(f"cut {cut}: {total}", flush=True)
-    # 拡大図
     for cut, k, name, box in ZOOMS:
         sec = dict(S.CUTS)[cut]
         im = compose(cut, sec * k, sec, lay, photos, numcells).convert("RGB")
         c = im.crop(box)
         c = c.resize((c.width * 2, c.height * 2), Image.LANCZOS)
         c.save(QA / f"zoom_{cut}_{name}.png")
-    # 一覧
     tw = 640
     th = round(tw * S.H / S.W)
     sh = Image.new("RGB", (tw * 2, th * ((len(sheet) + 1) // 2)), "#000")
-    for i, (_, im) in enumerate(sheet):
+    for i, im in enumerate(sheet):
         sh.paste(im.resize((tw, th), Image.LANCZOS), ((i % 2) * tw, (i // 2) * th))
     sh.save(QA / "contact.jpg", quality=90)
     print("total", n, flush=True)

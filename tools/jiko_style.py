@@ -163,11 +163,16 @@ def b737_side(x, y, s=1.0, skin=INK_W, lw=LW, detail=True):
              f'stroke-width="2.6" opacity="0.5"/>')
     g.append(f'<path d="M424 70 L430 99" fill="none" stroke="{ink}" '
              f'stroke-width="2.6" opacity="0.4"/>')
-    # 尾翼まわり。方向舵のヒンジ線と水平尾翼の前縁
-    g.append(f'<path d="M684 -134 L668 -2" fill="none" stroke="{ink}" '
+    # 尾翼まわり。**この3本が無いと尾部が「ただの大きな楔」に見える**（1巡目の粗）
+    #   ① 胴体の背中の続き（尾錐）… 垂直尾翼と胴体の境目
+    #   ② 水平尾翼の前縁      … 垂直尾翼と水平尾翼の境目
+    #   ③ 方向舵のヒンジ線
+    g.append(f'<path d="M527 -3 C596 6 648 16 700 22" fill="none" stroke="{ink}" '
+             f'stroke-width="3.4" opacity="0.55"/>')
+    g.append(f'<path d="M646 20 L718 3.6" fill="none" stroke="{ink}" '
+             f'stroke-width="3.4" opacity="0.62"/>')
+    g.append(f'<path d="M684 -134 L672 -6" fill="none" stroke="{ink}" '
              f'stroke-width="2.6" opacity="0.42"/>')
-    g.append(f'<path d="M651 11 L719 3.4" fill="none" stroke="{ink}" '
-             f'stroke-width="3.0" opacity="0.42"/>')
     # 窓列
     g.append("".join(f'<rect x="{wx:.1f}" y="30.6" width="7.8" height="9.0" rx="2.6" '
                      f'fill="{ink}" opacity="0.80"/>' for wx in _WIN_X))
@@ -184,8 +189,13 @@ def b737_side(x, y, s=1.0, skin=INK_W, lw=LW, detail=True):
     return "".join(g)
 
 
-def b737_tear(x, y, s=1.0, col=None, seed=0):
-    """胴体上部の剥離範囲。**まっすぐ切ったのではなく裂けた**ので、下端をぎざぎざにする。
+def b737_tear(x, y, s=1.0, col=None, part="hole"):
+    """胴体上部の剥離範囲。
+
+    1巡目は**赤い長方形を貼った**ように見えた。外板が「無くなった」のだから、
+    塗りは客室の暗がりにして、縁だけを赤で示すほうが事実にも近いし怖い。
+    内側に胴体フレーム（輪状の骨組み）を数本入れる。実際の写真でも、
+    外板が飛んだあとはフレームと床梁が剥き出しになっている。
 
     実測との対応：
       前方扉のすぐ後ろ（x=120）から 18 ft = 5.49 m = 129.5 単位ぶん後ろまで。
@@ -193,20 +203,38 @@ def b737_tear(x, y, s=1.0, col=None, seed=0):
     """
     c = col or ALERT
     x0, x1 = 120.0, 249.5
-    # 上端は胴体上面線に沿う（実測でこの区間の上面は y=0 でほぼ平ら）
-    top = f"M{x0} 0.6 L{x1} -0.2"
-    jag, n = [], 13
     rnd = [0.62, 0.31, 0.88, 0.14, 0.70, 0.45, 0.95, 0.22, 0.58, 0.80, 0.36, 0.72, 0.48]
-    for i in range(n + 1):
-        t = i / n
-        px = x1 - (x1 - x0) * t
-        py = 46 + 13 * rnd[(i + seed) % len(rnd)]
-        jag.append(f"L{px:.1f} {py:.1f}")
-    d = top + " " + " ".join(jag) + " Z"
-    return (f'<g transform="translate({x},{y}) scale({s})">'
-            f'<path d="{d}" fill="{c}"/>'
-            f'<path d="{d}" fill="none" stroke="{c}" stroke-width="2" '
-            f'stroke-linejoin="round"/></g>')
+    pts = [f"M{x0} 1.0"]
+    # 上端も少しだけ荒らす（胴体上面線に沿うが、切り口はまっすぐではない）
+    for i in range(1, 9):
+        t = i / 8
+        pts.append(f"L{x0 + (x1 - x0) * t:.1f} {0.4 + 2.2 * rnd[i % len(rnd)]:.1f}")
+    # 後端の裂け目
+    pts.append(f"L{x1 + 3.5:.1f} 18.0 L{x1 - 4.0:.1f} 33.0 L{x1 + 2.5:.1f} 47.0")
+    # 下端のぎざぎざ（後→前）
+    for i in range(11):
+        t = i / 10
+        pts.append(f"L{x1 - (x1 - x0) * t:.1f} {46 + 13 * rnd[i % len(rnd)]:.1f}")
+    # 前端の裂け目
+    pts.append(f"L{x0 - 3.0:.1f} 32.0 L{x0 + 4.0:.1f} 16.0")
+    d = " ".join(pts) + " Z"
+    g = [f'<g transform="translate({x},{y}) scale({s})">']
+    if part == "line":
+        # 縁だけ。これを脈打たせる。**穴そのものを明滅させると嘘に見える**
+        g.append(f'<path d="{d}" fill="none" stroke="{c}" stroke-width="5" '
+                 f'stroke-linejoin="round"/>')
+    else:
+        g.append(f'<clipPath id="tearclip"><path d="{d}"/></clipPath>')
+        g.append(f'<path d="{d}" fill="{BG}"/>')
+        g.append(f'<path d="{d}" fill="{BG2}" opacity="0.85"/>')
+        # 剥き出しになった胴体フレームと床梁
+        g.append('<g clip-path="url(#tearclip)">' + "".join(
+            f'<path d="M{x0 + 9 + i * 13.0:.1f} -2 V60" stroke="{LINE_DIM}" '
+            f'stroke-width="3.2" opacity="0.75"/>' for i in range(10)) +
+            f'<path d="M{x0 - 4} 40 H{x1 + 4}" stroke="{LINE_DIM}" stroke-width="4" '
+            f'opacity="0.6"/></g>')
+    g.append('</g>')
+    return "".join(g)
 
 
 def b737_section(x, y, r=1.0, upper=None, floor=True):
@@ -266,17 +294,19 @@ def lap_joint(x, y, s=1.0, cracks=0, only_cracks=False):
     # 初稿は「暗い線を1本」だけ引いていたので、重なりが平らに見えていた。
     # 実物の段差は ①板の切り口（板厚ぶんの帯）②その下の落ち影 の2つで見える。
     # 平面図に落ち影を入れるのは図解として正しい（陰影ではなく段差の表現）。
+    # 1巡目は影が長く柔らかすぎて「ぼかし」に見えた。段差は 0.9mm しかないので、
+    # **短く硬い落ち影**にする。影が長いと段差が高く見えて、図として嘘になる。
     g.append(f'<linearGradient id="lapsh" x1="0" y1="0" x2="0" y2="1">'
-             f'<stop offset="0" stop-color="{BG}" stop-opacity="0.75"/>'
+             f'<stop offset="0" stop-color="{BG}" stop-opacity="0.92"/>'
+             f'<stop offset="0.55" stop-color="{BG}" stop-opacity="0.34"/>'
              f'<stop offset="1" stop-color="{BG}" stop-opacity="0"/></linearGradient>')
-    g.append(f'<rect x="-480" y="{LAPT}" width="960" height="46" fill="url(#lapsh)"/>')
-    # 板の切り口。上面より一段暗くすることで「厚みのある板の端」に見える
-    g.append(f'<rect x="-480" y="{LAPT - 9}" width="960" height="9" fill="{LINE}" '
-             f'opacity="0.85"/>')
-    g.append(f'<path d="M-480 {LAPT - 9} H480" stroke="{INK_W}" '
-             f'stroke-width="{LW * 0.8:.1f}"/>')
+    g.append(f'<rect x="-480" y="{LAPT}" width="960" height="20" fill="url(#lapsh)"/>')
+    # 板の切り口。ここだけ明るくすると「厚みのある板の端」として立ち上がる
+    g.append(f'<rect x="-480" y="{LAPT - 11}" width="960" height="11" fill="{INK_W}"/>')
+    g.append(f'<path d="M-480 {LAPT - 11} H480" stroke="{LINE_DIM}" '
+             f'stroke-width="{LW * 0.6:.1f}" opacity="0.7"/>')
     g.append(f'<path d="M-480 {LAPT} H480" stroke="{BG}" '
-             f'stroke-width="{LW * 1.0:.1f}"/>')
+             f'stroke-width="{LW * 1.2:.1f}"/>')
     # 重なり帯の斜線
     g.append(f'<clipPath id="lapband"><rect x="-480" y="{-LAPT}" width="960" '
              f'height="{LAPT * 2}"/></clipPath>')

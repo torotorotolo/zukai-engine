@@ -1,27 +1,36 @@
 # -*- coding: utf-8 -*-
-"""事故検証×図解様式のテスト映像。8カット・42.2秒。
+"""事故検証×図解様式のテスト映像。10カット・50.4秒。
 
 題材＝**アロハ航空243便**（1988-04-28・ボーイング737-200・N73711）。
 巡航中に胴体上部の外板が飛行中に剥離した。原因は重ね継手の接着剥離と疲労亀裂。
 
-■ 素材はすべてパブリックドメイン（`ref/CREDITS.md` に出典と作者を記録）
-  米連邦機関（NTSB / FAA / NASA / NARA）の著作物なので権利問題が起きない。
+■ 数字はすべて NTSB/AAR-89/03 本文で裏を取った（`ref/ntsb_aar8903.pdf` を検索）
+    高度 24,000 ft（7,300 m）／乗客89人・乗員6人＝95人／死者1・重傷8
+    剥離範囲「客室扉より後方・客室床面より上を約18 ft（5.5 m）」
+    N73711 の実績 35,496 飛行時間・**89,680 サイクル**（世界の737で2番目）
+    737 の経済設計寿命「20年・51,000時間・**75,000サイクル**」
+    外板の板厚 0.036 インチ（0.91 mm）
+    亀裂は S-10L 重ね継手の**最上列のリベット**に沿って発生
 
-■ 設計の根拠（Vault `Projects/新チャンネル-事故検証ジャンル再測定-20260729.md`）
-  最大手の画面を89コマ数えた実測：**図解は約7%**、実写＋アーカイブ写真が約18%。
-  → 図解を80%以上に上げる（密度で差をつける）。
-  → **実写は競合と同水準の18%を最初から設計に入れる**（静止画が続くと飽きるため）。
-     実測：実写7.6秒 / 全体42.2秒 = **18.0%**。写真は3点使い、1枚を長く映さない。
+■ 素材はすべてパブリックドメイン（`ref/CREDITS.md` に出典と作者を記録）
+  米連邦機関（NTSB / FAA / NASA）と米国国立公文書館（NARA）の著作物。
+
+■ 実写の割合（2026-07-29 カズヤくん指示で方針変更）
+  当初は競合と同水準の18%に合わせていたが、**「使える限り最大限写真を使う」**に変更。
+  全画面の実写4カット＝15.6秒 / 全体50.4秒 = **31.0%**。さらに c2 に写真インセット1点。
+  図解は骨格として残す（競合の図解比率は約7%なので、密度の差は保てている）。
 
 ■ カット構成
   p1 実写   事故機の左側面（屋根が消えている）      … 掴み
   p2 実写   事故前の N73711 本人                    … 同じ機体だと示す
-  c2 図解   機体側面図と剥離範囲                    … どこが
+  c2 図解   機体側面図と剥離範囲（＋写真インセット） … どこが
+  p3 実写   着陸後の機体を見上げる調査員            … 人と並べて大きさを出す
   c3 図解   胴体断面（事故前／剥離後）              … どれだけ
   c4 図解   重ね継手の平面図・疲労亀裂              … どこから
   c5 図解   重ね継手の A-A 断面・接着剥離            … なぜ
+  p4 実写   ヒロ発ホノルル行きの航路（NASA）        … 舞台
   c6 図解   高度の時系列                            … 何が起きたか
-  c7 図解   設計寿命と実際の回数                    … 背景
+  c7 図解   経済設計寿命と実際の回数                … 背景
 """
 import base64
 import os
@@ -36,13 +45,16 @@ import render
 
 W, H = 1920, 1080
 HERE = Path(__file__).parent.parent
-# フォントはリポジトリに同梱する。クラウドとローカルで字形を一致させるため
-# base64 で SVG に埋め込む（システムフォントに依存させない）。
 FONTS = Path(os.environ.get("ZUKAI_FONTS", HERE / "fonts"))
 CSS = ""
 
 # 機体側面図の置き場所。(x, y) は**機首先端・胴体上面線**（jiko_style の座標系）
 AC_X, AC_Y, AC_S = 170, 560, 1.5
+
+CR_NTSB = "出典：NTSB（米国運輸安全委員会）／パブリックドメイン"
+CR_FAA = "出典：FAA（米国連邦航空局）／パブリックドメイン"
+CR_NARA = "出典：米国国立公文書館（NARA）／撮影 Charles O'Rear／パブリックドメイン"
+CR_NASA = "出典：NASA／パブリックドメイン"
 
 
 def ax(u):
@@ -68,19 +80,18 @@ def page(inner, w=W, h=H):
             f'<body>{svg}</body></html>')
 
 
-def photo_frame(x, y, w, h, credit):
+def photo_frame(x, y, w, h, credit, size=25):
     """写真の枠と出典。**出典は必ず画面に出す。**"""
     g = [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="none" '
          f'stroke="{J.LINE}" stroke-width="6"/>']
     for cx, cy in ((x, y), (x + w, y), (x, y + h), (x + w, y + h)):
         g.append(f'<path d="M{cx - 26} {cy} h52 M{cx} {cy - 26} v52" stroke="{J.INK_W}" '
                  f'stroke-width="6"/>')
-    g.append(J.label(x, y + h + 42, credit, J.LINE_DIM, 25))
+    g.append(J.label(x, y + h + 40, credit, J.LINE_DIM, size))
     return "".join(g)
 
 
 # ── p1：実写（事故機の左側面） ────────────────────────────
-# 屋根が5.5mにわたって無くなった機体。この1枚で掴む。
 P1_BOX = (140, 258, 1080, 592)
 
 
@@ -92,19 +103,18 @@ def p1_bg():
 
 def p1_over():
     x, y, w, h = P1_BOX
-    g = [photo_frame(x, y, w, h, "出典：NTSB（米国運輸安全委員会）／パブリックドメイン")]
-    g.append(J.leader(700, 360, 1290, 322, J.ALERT))
+    g = [photo_frame(x, y, w, h, CR_NTSB)]
+    g.append(J.leader(560, 430, 1290, 322, J.ALERT))
     g.append(J.label(1310, 308, "客室の天井と外板が", J.ALERT, 44))
     g.append(J.label(1310, 362, "5.5 m にわたって消失", J.ALERT, 44))
     g.append(J.label(1310, 462, "高度 7,300 m を巡航中に発生", J.INK_W, 32))
-    g.append(J.label(1310, 508, "乗員乗客 95人", J.INK_W, 32))
+    g.append(J.label(1310, 508, "乗客89人・乗員6人", J.INK_W, 32))
     g.append(J.label(1310, 554, "客室乗務員1名が機外へ", J.INK_W, 32))
     g.append(J.label(1310, 700, "▼ この機体に何が起きたのか", J.AMBER, 34))
     return "".join(g)
 
 
 # ── p2：実写（事故前の N73711 本人） ──────────────────────
-# 同じ機体の事故前が残っている。「この機体です」と示せると一気に近くなる。
 P2_BOX = (900, 268, 880, 598)
 
 
@@ -115,8 +125,7 @@ def p2_bg():
 
 def p2_over():
     x, y, w, h = P2_BOX
-    g = [photo_frame(x, y, w, h,
-                     "出典：米国国立公文書館（NARA）／撮影 Charles O'Rear／パブリックドメイン")]
+    g = [photo_frame(x, y, w, h, CR_NARA, 23)]
     g.append(J.label(150, 360, "N 7 3 7 1 1", J.AMBER, 62))
     g.append(J.label(150, 428, "ハワイ諸島を結ぶ短距離路線を", J.LINE, 32))
     g.append(J.label(150, 474, "1日に十数往復していた", J.LINE, 32))
@@ -126,38 +135,73 @@ def p2_over():
     return "".join(g)
 
 
-# ── c2：機体側面図 ────────────────────────────────────────
+# ── c2：機体側面図（＋写真インセット） ────────────────────
+# 1巡目の粗を全部直した：
+#   引き出し線が機体を横断していた → 注記は機体の上下に置き、線を短くする
+#   5.5m 寸法が図から離れて浮いていた → 剥離範囲の真上に降ろす
+#   目盛線が胴体の上を通っていた → 機体より先に描いて下に潜らせる
+#   胴体直径の注記が機体を跨いでいた → **断面図(c3)に任せて c2 からは外す**
+C2_INSET = (1330, 300, 500, 324)
+
 
 def c2_base():
     g = [J.frame(W, H), J.title("消えたのは、前方扉のすぐ後ろから",
                                 "ボーイング737-200　側面図（NTSB調査資料の三面図から作図）")]
-    g.append(J.b737_side(AC_X, AC_Y, AC_S))
     # 機首からの距離。**実在しない station 番号を振ると図が嘘になる**ので、
     # 実測できる「機首からの m」で目盛る（全長30.53m = 720単位）。
     for m in range(0, 31, 5):
         u = m * 720 / 30.53
-        g.append(f'<path d="M{ax(u):.0f} 330 V800" stroke="{J.GRID}" stroke-width="2.4"/>')
-        g.append(J.label(ax(u), 836, f"{m} m", J.LINE_DIM, 22, "middle"))
+        g.append(f'<path d="M{ax(u):.0f} 380 V760" stroke="{J.GRID}" stroke-width="2.4"/>')
+        g.append(J.label(ax(u), 796, f"{m} m", J.LINE_DIM, 22, "middle"))
+    g.append(J.b737_side(AC_X, AC_Y, AC_S))
     return "".join(g)
 
 
-def c2_tear():
-    return J.b737_tear(AC_X, AC_Y, AC_S)
+def c2_hole():
+    return J.b737_tear(AC_X, AC_Y, AC_S, part="hole")
+
+
+def c2_tearline():
+    return J.b737_tear(AC_X, AC_Y, AC_S, part="line")
 
 
 def c2_anno():
-    g = [J.dim(ax(120), ax(249.5), 452, "5.5 m")]
-    g.append(J.leader(ax(200), ay(6), 1330, 300, J.ALERT))
-    g.append(J.label(1350, 286, "剥離した範囲", J.ALERT, 42))
-    g.append(J.label(1350, 336, "天井から窓の下まで、外板が", J.LINE, 28))
-    g.append(J.label(1350, 374, "一続きに裂けて飛散した", J.LINE, 28))
-    g.append(J.dim(ax(0), ax(720), 900, "全長 30.5 m"))
-    g.append(J.leader(ax(330), ay(96), 1350, 520, J.LINE))
-    g.append(J.label(1370, 506, "胴体直径 3.76 m", J.INK_W, 32))
-    g.append(J.label(1370, 552, "与圧された客室の内側は", J.LINE, 28))
-    g.append(J.label(1370, 590, "外気より 0.5 気圧ぶん高い", J.LINE, 28))
-    g.append(J.label(150, 1020, "剥離は前方扉の直後から始まり、主翼の付け根の手前で止まった",
+    g = [J.dim(ax(120), ax(249.5), 512, "5.5 m")]
+    g.append(J.leader(ax(185), ay(2), 470, 448, J.ALERT))
+    g.append(J.label(190, 316, "剥離した範囲", J.ALERT, 42))
+    g.append(J.label(190, 366, "客室の扉より後ろ、床より上。", J.LINE, 28))
+    g.append(J.label(190, 404, "外板が一続きに裂けて飛散した", J.LINE, 28))
+    g.append(J.dim(ax(0), ax(720), 850, "全長 30.5 m"))
+    x, y, w, h = C2_INSET
+    g.append(photo_frame(x, y, w, h, CR_NTSB, 22))
+    g.append(J.label(1330, 700, "与圧された客室の内側は", J.LINE, 28))
+    g.append(J.label(1330, 738, "外気より 0.5 気圧ぶん高い。", J.LINE, 28))
+    g.append(J.label(1330, 776, "その圧力が、裂け目を", J.INK_W, 28))
+    g.append(J.label(1330, 814, "一気に押し広げた。", J.INK_W, 28))
+    g.append(J.label(150, 950, "剥離は前方扉の直後から始まり、主翼の付け根の手前で止まった",
                      J.LINE, 30))
+    return "".join(g)
+
+
+# ── p3：実写（着陸後の機体を見上げる調査員） ──────────────
+P3_BOX = (150, 262, 800, 607)
+
+
+def p3_bg():
+    return J.frame(W, H) + J.title("人と並べると、大きさが分かる",
+                                   "マウイ島カフルイ空港に緊急着陸した機体")
+
+
+def p3_over():
+    x, y, w, h = P3_BOX
+    g = [photo_frame(x, y, w, h, CR_FAA)]
+    g.append(J.leader(560, 400, 1080, 350, J.ALERT))
+    g.append(J.label(1100, 336, "剥き出しになった", J.ALERT, 40))
+    g.append(J.label(1100, 386, "胴体のフレームと床梁", J.ALERT, 40))
+    g.append(J.label(1100, 480, "外板が無くなると、", J.LINE, 30))
+    g.append(J.label(1100, 522, "客室を形づくっていた骨組みが", J.LINE, 30))
+    g.append(J.label(1100, 564, "そのまま外に出る。", J.LINE, 30))
+    g.append(J.label(1100, 650, "この状態で、13分間飛んだ。", J.INK_W, 34))
     return "".join(g)
 
 
@@ -179,7 +223,7 @@ def c3_anno():
          J.label(1400, 960, "剥離後", J.ALERT, 40, "middle"),
          J.label(600, 690, "客室", J.LINE, 28, "middle"),
          J.label(600, 806, "貨物室", J.LINE, 28, "middle"),
-         J.label(600, 758, "床", J.LINE_DIM, 24, "middle")]
+         J.label(742, 762, "床", J.LINE_DIM, 24, "start")]
     g.append(J.dim(600 - 300, 600 + 300, 380, "3.76 m"))
     g.append(J.leader(1400, 320, 1660, 250, J.ALERT))
     g.append(J.label(1680, 236, "ここが消えた", J.ALERT, 38))
@@ -217,8 +261,8 @@ def c4_anno():
     g.append(J.label(1350, 430, "1本ずつは短い。", J.LINE, 28))
     g.append(J.label(1350, 468, "だが隣とつながると", J.LINE, 28))
     g.append(J.label(1350, 506, "一続きの裂け目になる", J.LINE, 28))
-    g.append(J.label(1350, 590, "この機体では 24 か所で", J.INK_W, 30))
-    g.append(J.label(1350, 628, "亀裂が確認された", J.INK_W, 30))
+    g.append(J.label(1350, 590, "搭乗中の乗客が、この亀裂を", J.INK_W, 30))
+    g.append(J.label(1350, 628, "見ていた。誰にも言わなかった。", J.INK_W, 30))
     # A-A の切断線。次のカットの断面がどこを切ったものか示す
     cx = LJ_X + 300 * LJ_S
     g.append(f'<path d="M{cx} 300 V920" stroke="{J.AMBER}" stroke-width="3" '
@@ -230,13 +274,15 @@ def c4_anno():
 
 
 # ── c5：重ね継手の A-A 断面 ───────────────────────────────
-
-SEC_X, SEC_Y, SEC_S = 900, 560, 1.55
+# 1巡目は図が小さく、引き出し線が図を横断し、下1/3が空いていた。
+# 図を大きくして中央に据え、注記は**図の上下の空きに置いて線を短くする**。
+SEC_X, SEC_Y, SEC_S = 860, 560, 2.0
+SEC_HL = 95 * SEC_S          # 重ね幅の半分（画面px）
 
 
 def c5_base():
     g = [J.frame(W, H), J.title("荷重を分け合う相手が、いなくなった",
-                                "重ね継手 A-A 断面（板厚は誇張している）")]
+                                "重ね継手 A-A 断面（板厚 0.91 mm。図では誇張している）")]
     g.append(J.lap_joint_section(SEC_X, SEC_Y, SEC_S, crack=False))
     return "".join(g)
 
@@ -246,24 +292,53 @@ def c5_crack():
 
 
 def c5_anno():
-    hl = 95 * SEC_S
-    g = [J.label(SEC_X - 480, 470, "外板（上）", J.INK_W, 30, "end"),
-         J.label(SEC_X + 520, 640, "外板（下）", J.LINE, 30)]
-    g.append(J.dim(SEC_X - hl, SEC_X + hl, 400, "76 mm"))
-    g.append(J.leader(SEC_X, SEC_Y, 1330, 300, J.OK))
-    g.append(J.label(1350, 286, "接着層", J.OK, 40))
-    g.append(J.label(1350, 336, "設計では、この接着面と", J.LINE, 28))
-    g.append(J.label(1350, 374, "リベットで荷重を分け合う", J.LINE, 28))
-    g.append(J.leader(SEC_X - 62 * SEC_S, SEC_Y - 20 * SEC_S, 1330, 500, J.ALERT))
-    g.append(J.label(1350, 486, "皿もみの縁は刃のように薄い", J.ALERT, 32))
-    g.append(J.label(1350, 532, "接着が剥がれると、荷重は", J.LINE, 28))
-    g.append(J.label(1350, 570, "この縁だけに集中する", J.LINE, 28))
-    g.append(J.leader(SEC_X + 95 * SEC_S, SEC_Y, 1330, 700, J.AMBER))
-    g.append(J.label(1350, 686, "段差", J.AMBER, 32))
-    g.append(J.label(1350, 730, "外から見えるのはここだけ", J.LINE, 26))
-    g.append(J.label(150, 970, "この機体は潮風の中を19年飛んだ。接着面には湿気が入り、腐食が進んでいた。",
-                     J.LINE, 30))
+    top = SEC_Y - 26 * SEC_S          # 上の外板の上面
+    bot = SEC_Y + 26 * SEC_S          # 下の外板の下面
+    g = [J.dim(SEC_X - SEC_HL, SEC_X + SEC_HL, 436, "76 mm")]
+    # 皿もみの縁 → 図の左上へ（上の外板の上は空いている）
+    g.append(J.leader(SEC_X - 62 * SEC_S, top + 6, 620, 372, J.ALERT))
+    g.append(J.label(150, 288, "皿もみの縁は、刃のように薄い", J.ALERT, 36))
+    g.append(J.label(150, 336, "リベット穴は円錐形に沈めてある。", J.LINE, 27))
+    g.append(J.label(150, 372, "その縁がいちばん薄い。", J.LINE, 27))
+    # 段差 → 図の右上へ
+    g.append(J.leader(SEC_X + SEC_HL, SEC_Y, 1330, 360, J.AMBER))
+    g.append(J.label(1350, 300, "段差", J.AMBER, 38))
+    g.append(J.label(1350, 348, "外から見えるのは、", J.LINE, 27))
+    g.append(J.label(1350, 384, "この一段だけ。", J.LINE, 27))
+    # 接着層 → 図の左下（上の外板の下・下の外板の左は空いている）
+    g.append(J.leader(SEC_X - SEC_HL - 6, SEC_Y + 10, 560, 690, J.OK))
+    g.append(J.label(150, 706, "接着層", J.OK, 40))
+    g.append(J.label(150, 754, "設計では、この接着面とリベットで", J.LINE, 27))
+    g.append(J.label(150, 790, "荷重を分け合うはずだった。", J.LINE, 27))
+    g.append(J.label(150, 838, "潮風の中を19年。接着面には湿気が入り、", J.INK_W, 27))
+    g.append(J.label(150, 874, "腐食が進んで剥がれていた。", J.INK_W, 27))
+    g.append(J.label(1350, 706, "荷重の行き場は", J.ALERT, 32))
+    g.append(J.label(1350, 748, "リベット穴の縁だけ", J.ALERT, 32))
+    g.append(J.label(SEC_X - 640, top - 14, "外板（上）", J.INK_W, 28))
+    g.append(J.label(SEC_X + 660, bot + 40, "外板（下）", J.LINE, 28, "end"))
     g.append(J.label(150, 1020, "外板の下で起きたことは、外からは見えない。", J.INK_W, 30))
+    return "".join(g)
+
+
+# ── p4：実写（航路・NASA） ────────────────────────────────
+P4_BOX = (1030, 250, 760, 591)
+
+
+def p4_bg():
+    return J.frame(W, H) + J.title("ヒロを出て、ホノルルへ向かっていた",
+                                   "アロハ航空243便の航路　ハワイ諸島")
+
+
+def p4_over():
+    x, y, w, h = P4_BOX
+    g = [photo_frame(x, y, w, h, CR_NASA)]
+    g.append(J.label(150, 340, "島から島へ、20〜30分の飛行。", J.LINE, 32))
+    g.append(J.label(150, 386, "1日に十数回、上がっては降りる。", J.LINE, 32))
+    g.append(J.label(150, 470, "与圧は、そのたびに", J.INK_W, 34))
+    g.append(J.label(150, 516, "かかっては、抜ける。", J.INK_W, 34))
+    g.append(J.label(150, 604, "胴体は、そのたびに", J.ALERT, 34))
+    g.append(J.label(150, 650, "膨らんでは、縮んでいた。", J.ALERT, 34))
+    g.append(J.label(150, 750, "19年間で 89,680 回。", J.AMBER, 38))
     return "".join(g)
 
 
@@ -299,7 +374,7 @@ def c6_anno():
 
 def c7_base():
     g = [J.frame(W, H), J.title("設計の想定を、超えて飛んでいた",
-                                "この機体が経験した離着陸の回数")]
+                                "離着陸の回数（NTSB報告書 1.17.2 節）")]
     g.append(f'<path d="M960 330 V900" stroke="{J.LINE_DIM}" stroke-width="4"/>')
     g.append(J.label(960, 1010, "1969年製・19年間・ハワイ諸島間の短距離を1日十数往復",
                      J.LINE, 30, "middle"))
@@ -308,19 +383,28 @@ def c7_base():
 
 def c7_num(k):
     n = int(89680 * k)
-    g = [J.bignum(520, 640, "75,000", "回", "設計上の想定", J.LINE),
+    g = [J.bignum(520, 640, "75,000", "回", "経済設計寿命（20年）", J.LINE),
          J.bignum(1400, 640, f"{n:,}", "回", "実際に飛んだ回数", J.ALERT)]
     if k >= 0.999:
         g.append(J.label(1400, 760, "想定の 1.20 倍", J.ALERT, 40, "middle"))
-        g.append(J.label(520, 760, "この回数で点検する前提だった", J.LINE, 28, "middle"))
+        g.append(J.label(520, 760, "この回数で使い切る前提だった", J.LINE, 28, "middle"))
     return "".join(g)
 
 
 # ── カットの並びと尺 ──────────────────────────────────────
-# 実写 p1+p2 = 7.6秒 / 全体 42.2秒 = 18.0%（競合の実測値と同水準）
-CUTS = [("p1", 4.8), ("p2", 2.8), ("c2", 6.0), ("c3", 5.4),
-        ("c4", 6.0), ("c5", 6.4), ("c6", 5.4), ("c7", 5.4)]
-PHOTO_CUTS = {"p1": (P1_BOX, "aloha_left.jpg"), "p2": (P2_BOX, "aloha_normal.jpg")}
+# 全画面の実写 p1+p2+p3+p4 = 15.6秒 / 全体 50.4秒 = 31.0%
+CUTS = [("p1", 5.0), ("p2", 3.6), ("c2", 6.2), ("p3", 3.6), ("c3", 5.4),
+        ("c4", 6.0), ("c5", 6.4), ("p4", 3.4), ("c6", 5.4), ("c7", 5.4)]
+
+# 全画面の実写カット。ゆっくり寄る。(枠, ファイル名, 縦方向の寄せ 0=上 0.5=中央 1=下)
+PHOTO_CUTS = {
+    "p1": (P1_BOX, "aloha_left.jpg", 0.5),
+    "p2": (P2_BOX, "aloha_normal.jpg", 0.34),   # 機体と N73711 の登録記号は上寄り
+    "p3": (P3_BOX, "ref_aloha_after.jpg", 0.5),
+    "p4": (P4_BOX, "ref_aloha_route.jpg", 0.5),
+}
+# 図解カットに差し込む写真。こちらは動かさない
+INSETS = {"c2": (C2_INSET, "ref_aloha_fuselage.png")}
 
 
 def render_all(force=False):
@@ -328,10 +412,13 @@ def render_all(force=False):
     out.mkdir(parents=True, exist_ok=True)
     jobs = {"p1_bg": p1_bg(), "p1_over": p1_over(),
             "p2_bg": p2_bg(), "p2_over": p2_over(),
-            "c2_base": c2_base(), "c2_tear": c2_tear(), "c2_anno": c2_anno(),
+            "c2_base": c2_base(), "c2_hole": c2_hole(), "c2_tearline": c2_tearline(),
+            "c2_anno": c2_anno(),
+            "p3_bg": p3_bg(), "p3_over": p3_over(),
             "c3_base": c3_base(), "c3_anno": c3_anno(),
             "c4_base": c4_base(), "c4_crack": c4_crack(), "c4_anno": c4_anno(),
             "c5_base": c5_base(), "c5_crack": c5_crack(), "c5_anno": c5_anno(),
+            "p4_bg": p4_bg(), "p4_over": p4_over(),
             "c6_base": c6_base(), "c6_anno": c6_anno(),
             "c7_base": c7_base()}
     for k, svg in jobs.items():
