@@ -67,7 +67,7 @@ TXT_W = W - MG * 2       # 1248
 RED_CAP = 150            # 赤の字面の高さ
 RED_BASE = 168           # 赤のベースライン（字面 15〜170）
 YEL_CAP = 180            # 黄の字面の高さ
-YEL_BASE = 703           # 黄のベースライン（字面 523〜705）
+YEL_BASE = 710           # 黄のベースライン。Noto Black は字面下端が少し上なので +7
 
 # Noto Sans JP Black の実測字幅（em）。全角はほぼ 1.0、半角数字は 0.56
 FULL, HALF = 1.0, 0.56
@@ -140,8 +140,9 @@ def rival_type(hero, red, yellow, split=None, extra=""):
     g.append(extra)
     # 赤は白フチ、黄は黒フチ（実測）。フチは太くしないと写真の上で消える。
     # 赤が「濃い臙脂＋白フチ」なのは、明るい下地では文字色が・暗い下地ではフチが効くから。
-    g.append(line(red, RED_BASE, RED_CAP, RED, "#ffffff", 17))
-    g.append(line(yellow, YEL_BASE, YEL_CAP, YEL, "#000000", 20))
+    # フチの太さも実測に合わせた。17pxでは競合より細く、写真に接した部分が読みにくかった
+    g.append(line(red, RED_BASE, RED_CAP, RED, "#ffffff", 24))
+    g.append(line(yellow, YEL_BASE, YEL_CAP, YEL, "#000000", 24))
     return "".join(g)
 
 
@@ -185,8 +186,9 @@ def titan():
     """
     SX = 620                       # 継ぎ目。競合は左右ぴったり半々ではない（実測 283〜977）
     RW = W - SX
-    bow_full = photo(PH_BOW, cy=0.46, contrast=1.22, color=1.18, bright=0.98)
-    bow_left = photo(PH_BOW, cy=0.46, contrast=1.22, color=1.18, bright=0.98, w=SX, h=H)
+    # 競合の写真は明るく青が鮮やか。0.98/1.18 では沈んで見えたので持ち上げる
+    bow_full = photo(PH_BOW, cy=0.46, contrast=1.26, color=1.34, bright=1.12)
+    bow_left = photo(PH_BOW, cy=0.46, contrast=1.26, color=1.34, bright=1.12, w=SX, h=H)
     pair_r = photo(PH_PAIR, cy=0.50, contrast=1.28, color=1.10, bright=1.02, w=RW, h=H)
 
     # ★T1 本命：構図は競合と同一（単写真＋赤1行＋黄1行）。**赤だけが唯一無二**
