@@ -161,6 +161,7 @@ def bake(name, body):
 PH_BOW = "titan_titanic_bow.jpg"    # NOAA/IFE/URI 2004年調査：タイタニックの船首
 PH_HULL = "titan_hull_edge.jpg"     # NTSB図14下：耐圧殻の中央破断面。層が刃のように裂けている
 PH_INNER = "titan_hull_inner.jpg"   # NTSB図13下：耐圧殻の内面。白い部分が繊維の破断
+PH_PAIR = "titan_hull_pair.jpg"     # NTSB図13：外面と内面の2枚組。**縦横比1.08で縦枠に収まる**
 
 
 def titan():
@@ -173,34 +174,37 @@ def titan():
     決め語は競合に合わせて **赤10〜14字・黄10〜14字**。
     競合のタイタン号（96万回）は 赤「乗客5名 爆縮の瞬間」／黄「タイタン号事故の真相」。
     同じ土俵に乗せたうえで、**赤の中身を「報告書で初めて分かったこと」に差し替える**。
+
+    🔴 t5 の判定（スマホ相当 246px で比較）：
+       **2枚並べは負ける。** 右半分は 127px しかなく、NTSB の標本写真は
+       どれも茶色や灰色の塊にしか読めなかった（競合の右半分は「青い海底の残骸」で、
+       色で「水中」だと伝わっている）。**単写真のほうが明らかに強い。**
+       → 構図は単写真に決め、**オリジナリティは決め語（赤の行）に置く**。
+       競合の96万本は2025-02-16公開で、赤は「乗客5名 爆縮の瞬間」＝事故の絵面。
+       こちらは2025-10-02の報告書で初めて分かった事実を赤に置ける。ここが唯一の差。
     """
     SX = 620                       # 継ぎ目。競合は左右ぴったり半々ではない（実測 283〜977）
     RW = W - SX
     bow_full = photo(PH_BOW, cy=0.46, contrast=1.22, color=1.18, bright=0.98)
     bow_left = photo(PH_BOW, cy=0.46, contrast=1.22, color=1.18, bright=0.98, w=SX, h=H)
-    hull_r = photo(PH_HULL, cy=0.52, contrast=1.34, color=1.02, bright=1.04, w=RW, h=H)
-    inner_r = photo(PH_INNER, cy=0.50, contrast=1.30, color=1.06, bright=1.02, w=RW, h=H)
+    pair_r = photo(PH_PAIR, cy=0.50, contrast=1.28, color=1.10, bright=1.02, w=RW, h=H)
 
-    # R1：型どおり・写真1枚（競合の最小形）。決め語も競合と同型
-    bake("titan_R1", rival_type(
-        bow_full, "乗客5名 爆縮の瞬間", "タイタン号事故の真相"))
+    # ★T1 本命：構図は競合と同一（単写真＋赤1行＋黄1行）。**赤だけが唯一無二**
+    bake("titan_T1", rival_type(
+        bow_full, "壊れた船体で3回潜航", "タイタン号事故の真相"))
 
-    # R2：型どおり・写真2枚並べ＋決め語をこちらの切り口に
-    #     ← **これが本命。**枠は競合と同一、中身だけが報告書の写真で唯一無二
-    bake("titan_R2", rival_type(
-        bow_left, "壊れた船体で3回潜航", "タイタン号事故の真相", split=(hull_r, SX)))
+    # T2：型100%（決め語も競合の最頻＝数字＋死者数＋「の瞬間」）。比較用の基準線
+    bake("titan_T2", rival_type(
+        bow_full, "5名死亡 爆縮の瞬間", "タイタン号事故の真相"))
 
-    # R3：R2 の右を「耐圧殻の内面」に。白い破断面のほうが遠目で目立つか比較する
-    bake("titan_R3", rival_type(
-        bow_left, "壊れた船体で3回潜航", "タイタン号事故の真相", split=(inner_r, SX)))
+    # T3：黄色もこちらへ寄せる（競合は事故名で固定。ここは差を作れる余地がある）
+    bake("titan_T3", rival_type(
+        bow_full, "報告書が示した8回目", "タイタン号 爆縮の真相"))
 
-    # R4：赤を死者数の型に寄せる（競合の最頻パターン＝数字＋死者数＋「の瞬間」）
-    bake("titan_R4", rival_type(
-        bow_left, "5名死亡 爆縮の瞬間", "タイタン号事故の真相", split=(hull_r, SX)))
-
-    # R5：黄色をこちらの切り口に寄せる（競合は事故名で固定だが、ここは差を作れる余地）
-    bake("titan_R5", rival_type(
-        bow_left, "報告書が示した8回目", "タイタン号 爆縮の真相", split=(hull_r, SX)))
+    # T4：2枚並べの最善形（右を図13の外面・内面2枚組にした縦横比1.08の写真）。
+    #     単写真に本当に負けるかを、条件をそろえて確かめるために残す
+    bake("titan_T4", rival_type(
+        bow_left, "壊れた船体で3回潜航", "タイタン号事故の真相", split=(pair_r, SX)))
 
 
 if __name__ == "__main__":
