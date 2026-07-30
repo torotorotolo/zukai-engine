@@ -59,6 +59,11 @@ jobs:
             -c:v copy -c:a aac -b:a 192k -shortest out/jiko/jiko_test_audio.mp4
           ls -la out/jiko/*.mp4 out/jiko/mix.wav
 
+      # 画面の余白を機械で測る（2026-07-30）。目視だけだと「詰めたつもり」で終わるので、
+      # 占有率と最大の空き矩形を必ずログに出す。基準は qa/_empty.png（地だけを焼いたもの）。
+      - name: Check whitespace
+        run: python tools/check_space.py out/jiko/qa
+
       - name: Summary
         run: |
           ls -la out/jiko/*.mp4

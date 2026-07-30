@@ -29,6 +29,22 @@ AMBER = "#e8b33c"         # 数値
 OK = "#5fbf8f"
 LW = 5.0                  # 技術線の基本太さ（1920px幅）
 
+# ── 画面の割り付け（2026-07-30：**余白を詰める**ために全カット共通の枠に統一） ──
+# 🔴 カズヤくん指摘「画面の余白が多い。特に実写カットの右側。赤字をもっと大きくして詰める」。
+#    14巡目の実測は平均占有率 36.8%（`tools/check_space.py`）。地が6割見えていた。
+#    原因は3つ：①写真が箱の中で小さい ②注記の文字が小さい（32〜42px）
+#    ③出典を写真の**下40px**に置いていたので写真の下に必ず帯状の空きができた。
+# → 型：**本体は BAND_T〜BAND_B を必ず使い切る。実写は写真＋情報柱で左右を埋める。**
+MG = 72                   # 画面の左右の余白。これより外には出さない
+RIGHT = 1920 - MG
+BAND_T, BAND_B = 210, 892  # 本体の上下（見出しの下端〜字幕帯の上）
+# 情報柱（実写カットの写真の隣に立てる文字の列）。幅 632px
+COL_W = 632
+COL_R = (RIGHT - COL_W, RIGHT)      # 右に立てるとき (1216, 1848)
+COL_L = (MG, MG + COL_W)            # 左に立てるとき (72, 704)
+PHOTO_W = 1104                      # 情報柱と反対側に置く写真の幅（MG + 1104 + 40 = 柱の手前）
+PHOTO_H = BAND_B - BAND_T           # 682。**縦は必ず使い切る**
+
 
 def frame(w, h):
     """地。方眼を薄く敷いて『技術図』の文脈を作る。"""
@@ -44,10 +60,13 @@ def frame(w, h):
     return "".join(g)
 
 
-def title(t, sub="", x=90, y=118):
-    """見出し。左上に置き、下に細い罫を1本。中央寄せの飾り帯にはしない。"""
+def title(t, sub="", x=MG, y=104):
+    """見出し。左上に置き、下に細い罫を1本。中央寄せの飾り帯にはしない。
+
+    y を 118→104 に上げ、x を 90→72(MG) に寄せた（本体に使える高さを 20px 稼ぐため）。
+    """
     g = (f'<text x="{x}" y="{y}" font-family="Dela" font-size="62" fill="{INK_W}">{t}</text>'
-         f'<path d="M{x} {y + 30} h{min(1740, 40 + len(t) * 62)}" stroke="{ALERT}" '
+         f'<path d="M{x} {y + 30} h{min(RIGHT - x, 40 + len(t) * 62)}" stroke="{ALERT}" '
          f'stroke-width="5"/>')
     if sub:
         g += (f'<text x="{x}" y="{y + 78}" font-family="Noto" font-size="32" '
@@ -58,6 +77,28 @@ def title(t, sub="", x=90, y=118):
 def label(x, y, t, col=None, size=30, anchor="start"):
     return (f'<text x="{x}" y="{y}" font-family="Noto" font-size="{size}" '
             f'fill="{col or LINE}" text-anchor="{anchor}">{t}</text>')
+
+
+def big(x, y, t, col=None, size=92, anchor="start"):
+    """大きな数字1行。**単位まで文字列に入れて渡す**（"7,300 m"）。
+
+    幅を推定して単位を別置きしようとすると Dela の字幅が読めず必ずずれる。
+    情報柱の中で使うので既定は左寄せ。中央寄せの `bignum` とは用途が違う。
+    """
+    return (f'<text x="{x}" y="{y}" font-family="Dela" font-size="{size}" '
+            f'fill="{col or AMBER}" text-anchor="{anchor}">{t}</text>')
+
+
+def rule(x1, x2, y, col=None, w=4):
+    """情報柱の中の区切り罫。ブロックの切れ目を作ると柱が「詰まって」見える。"""
+    return f'<path d="M{x1} {y} H{x2}" stroke="{col or ALERT}" stroke-width="{w}"/>'
+
+
+def tone(x, y, w, h, col=None, op=0.10):
+    """意味を持つ面の塗り。**「外気側」「客室側」のような領域**を示すのに使う。
+    装飾の塗りには使わない（余白を数字で埋めるためだけの塗りは禁止）。"""
+    return (f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{col or LINE}" '
+            f'opacity="{op}"/>')
 
 
 def leader(x1, y1, x2, y2, col=None):
@@ -243,27 +284,60 @@ def b737_tear(x, y, s=1.0, col=None, part="hole"):
     return "".join(g)
 
 
-def b737_section(x, y, r=1.0, upper=None, floor=True, arc_only=False):
+def b737_section(x, y, r=1.0, upper=None, floor=True, arc_only=False, inside=True):
     """胴体断面。直径3.76m。床から上が客室、下が貨物室。
     upper に (開始角, 終了角) を渡すと、その範囲を破断色で描く。
-    arc_only=True で破断の弧だけを返す（**弧を左から広げて「裂けていく」動きにする**ため）。"""
+    arc_only=True で破断の弧だけを返す（**弧を左から広げて「裂けていく」動きにする**ため）。
+
+    🔴 2026-07-30：円が**中空**だったので、内側の直径600pxが丸ごと余白に見えていた。
+       inside=True で ①客室と貨物室を面として塗り分け ②座席を 3-3 で並べる。
+       -200 の座席配置は 3-3。14巡目までは 2+2 の小さな四角が4つだけで、
+       「客室」というより「何か置いてある」に見えていた。
+       余白を埋めるための塗りではなく、**客室と貨物室の境目を面で示す**のが目的。
+    """
     R = 200 * r
+    fy = y + R * 0.34
+    hw = (R ** 2 - (fy - y) ** 2) ** 0.5          # 床の半幅 = 0.94R
     if arc_only:
         g = []
     else:
-        g = [f'<circle cx="{x}" cy="{y}" r="{R:.0f}" fill="none" stroke="{INK_W}" '
-             f'stroke-width="{LW * 1.6:.1f}"/>',
-             f'<circle cx="{x}" cy="{y}" r="{R - 14 * r:.0f}" fill="none" '
-             f'stroke="{LINE_DIM}" stroke-width="{LW * 0.8:.1f}"/>']
+        g = []
+        if inside:
+            # 客室（床から上）と貨物室（床から下）。円で切り抜いて面にする
+            cid = f"sec{int(x)}{int(y)}"
+            g.append(f'<clipPath id="{cid}"><circle cx="{x}" cy="{y}" r="{R:.0f}"/>'
+                     f'</clipPath><g clip-path="url(#{cid})">'
+                     f'<rect x="{x - R:.0f}" y="{y - R:.0f}" width="{R * 2:.0f}" '
+                     f'height="{fy - (y - R):.0f}" fill="{INK_W}" opacity="0.10"/>'
+                     f'<rect x="{x - R:.0f}" y="{fy:.0f}" width="{R * 2:.0f}" '
+                     f'height="{y + R - fy:.0f}" fill="{LINE}" opacity="0.16"/></g>')
+        g += [f'<circle cx="{x}" cy="{y}" r="{R:.0f}" fill="none" stroke="{INK_W}" '
+              f'stroke-width="{LW * 1.6:.1f}"/>',
+              f'<circle cx="{x}" cy="{y}" r="{R - 14 * r:.0f}" fill="none" '
+              f'stroke="{LINE_DIM}" stroke-width="{LW * 0.8:.1f}"/>']
+    if inside and not arc_only:
+        # 座席 3-3（-200 の配置）。正面から見た形で並べる。中央が通路。
+        # 実寸から置いた：客室幅 3.53 m = 1.88R ／ 座席幅 0.45 m ／ 通路 0.50 m
+        # → 座席の中心は ±0.253R, ±0.492R, ±0.731R。外端 0.851R は床の半幅 0.94R の内側。
+        sw, sh, hw2, hh = 0.112 * R, 0.30 * R, 0.072 * R, 0.38 * R
+        for c in (-0.731, -0.492, -0.253, 0.253, 0.492, 0.731):
+            bx = x + c * R
+            g.append(f'<rect x="{bx - sw:.0f}" y="{fy - sh:.0f}" width="{sw * 2:.0f}" '
+                     f'height="{sh:.0f}" fill="{LINE}" opacity="0.45" stroke="{LINE}" '
+                     f'stroke-width="{LW * 0.5:.1f}"/>')
+            g.append(f'<rect x="{bx - hw2:.0f}" y="{fy - hh:.0f}" width="{hw2 * 2:.0f}" '
+                     f'height="{hh - sh:.0f}" fill="{LINE}" opacity="0.45" '
+                     f'stroke="{LINE}" stroke-width="{LW * 0.5:.1f}"/>')
     if floor and not arc_only:
-        fy = y + R * 0.34
-        hw = (R ** 2 - (fy - y) ** 2) ** 0.5
         g.append(f'<path d="M{x - hw:.0f} {fy:.0f} H{x + hw:.0f}" stroke="{LINE}" '
                  f'stroke-width="{LW * 1.2:.1f}"/>')
-        for sx in (-0.52, 0.52):
-            g.append(f'<path d="M{x + R * sx:.0f} {fy:.0f} v{-R * 0.34:.0f} '
-                     f'h{28 * r * (1 if sx > 0 else -1):.0f}" fill="none" stroke="{LINE}" '
-                     f'stroke-width="{LW:.1f}" stroke-linejoin="round"/>')
+        if not inside:
+            # 座席を入れたら、この括弧（客室の内壁）は座席と重なるので出さない
+            for sx in (-0.52, 0.52):
+                g.append(f'<path d="M{x + R * sx:.0f} {fy:.0f} v{-R * 0.34:.0f} '
+                         f'h{28 * r * (1 if sx > 0 else -1):.0f}" fill="none" '
+                         f'stroke="{LINE}" stroke-width="{LW:.1f}" '
+                         f'stroke-linejoin="round"/>')
     if upper:
         a0, a1 = [math.radians(a) for a in upper]
         x0, y0 = x + R * math.cos(a0), y + R * math.sin(a0)
@@ -304,6 +378,9 @@ def lap_joint(x, y, s=1.0, cracks=0, only_cracks=False):
     面をきちんと描かないと何の図か分からない。疲労亀裂は**最上列に沿って**進む。
     """
     LAPT = 62          # 重なり帯の半分の高さ
+    # 板の伸び。🔴 2026-07-30：250 だと図の上下に余白が残ったので 290 まで伸ばした
+    # （画面では LJ_S 倍される。上下が本体の枠 210〜892 をぎりぎり使い切る値）
+    EXT = 290
     g = [f'<g transform="translate({x},{y}) scale({s})">']
     if only_cracks:
         g.append(f'<path d="M-470 -40 H470" stroke="{ALERT}" stroke-width="{LW * 1.1:.1f}" '
@@ -312,10 +389,10 @@ def lap_joint(x, y, s=1.0, cracks=0, only_cracks=False):
         g.append('</g>')
         return "".join(g)
     # 下の外板（奥）。上端が重なり帯の上まで入り込む
-    g.append(f'<path d="M-480 {-LAPT} H480 V250 H-480 Z" fill="{LINE}" opacity="0.50" '
+    g.append(f'<path d="M-480 {-LAPT} H480 V{EXT} H-480 Z" fill="{LINE}" opacity="0.50" '
              f'stroke="{LINE}" stroke-width="{LW * 1.2:.1f}" stroke-linejoin="round"/>')
     # 上の外板（手前）。下の板の上に乗る
-    g.append(f'<path d="M-480 -250 H480 V{LAPT} H-480 Z" fill="{INK_W}" opacity="0.80" '
+    g.append(f'<path d="M-480 {-EXT} H480 V{LAPT} H-480 Z" fill="{INK_W}" opacity="0.80" '
              f'stroke="{INK_W}" stroke-width="{LW * 1.5:.1f}" stroke-linejoin="round"/>')
     # ── 段差 ──
     # 初稿は「暗い線を1本」だけ引いていたので、重なりが平らに見えていた。
@@ -364,19 +441,21 @@ def lap_joint_section(x, y, s=1.0, crack=True, crack_only=False):
     横方向は平面図の縦方向に対応させる（平面図に A-A の切断線を引く）。
       左 = 下の外板の自由端側 ／ 右 = 上の外板の自由端＝段差
     """
-    T = 26                  # 板厚（誇張。実機は0.9mm＝この図では見えない）
+    # 🔴 2026-07-30：T=26 だと図が高さ120pxの細い帯で、上下に 400px の余白が残っていた。
+    #    板厚はもともと誇張してある（見出しの副題に明記）ので、44 まで上げて図を厚くする。
+    T = 44                  # 板厚（誇張。実機は0.9mm＝この図では見えない）
     LAP = 190               # 重ね幅 76mm ぶん
     hl = LAP / 2
     if crack_only:
         # 🔴 7巡目まで c5_crack は**断面図まるごとの複製**だった。
         #    それを脈動させていたので、図全体の濃度が揺れていた。亀裂だけ返す。
         return (f'<g transform="translate({x},{y}) scale({s})">'
-                f'<path d="M-70 {-T + 12} l-16 -3 l-12 4 l-14 -3 l-10 2" fill="none" '
+                f'<path d="M-70 {-T + T // 2} l-16 -3 l-12 4 l-14 -3 l-10 2" fill="none" '
                 f'stroke="{ALERT}" stroke-width="6" stroke-linecap="round" '
                 f'stroke-linejoin="round"/>'
-                f'<circle cx="-70" cy="{-T + 12}" r="13" fill="none" stroke="{ALERT}" '
+                f'<circle cx="-70" cy="{-T + T // 2}" r="13" fill="none" stroke="{ALERT}" '
                 f'stroke-width="4" opacity="0.8"/></g>')
-    EXT = 300               # 継手の外側へ伸ばす長さ
+    EXT = 260               # 継手の外側へ伸ばす長さ（板を厚くしたぶん横は詰める）
     g = [f'<g transform="translate({x},{y}) scale({s})">']
     # 下（内側）の外板：左端が自由端
     g.append(f'<path d="M{-hl} 0 H{hl + EXT} V{T} H{-hl} Z" fill="{LINE}" '
@@ -385,27 +464,28 @@ def lap_joint_section(x, y, s=1.0, crack=True, crack_only=False):
     g.append(f'<path d="M{-hl - EXT} {-T} H{hl} V0 H{-hl - EXT} Z" fill="{INK_W}" '
              f'opacity="0.85" stroke="{INK_W}" stroke-width="3"/>')
     # 接着層。**ここが剥がれたのが事故の起点**なので独立した層として描く
-    g.append(f'<rect x="{-hl}" y="-4" width="{LAP}" height="8" fill="{OK}" '
+    g.append(f'<rect x="{-hl}" y="-6" width="{LAP}" height="12" fill="{OK}" '
              f'opacity="0.85"/>')
     # 段差の落ち影
     g.append(f'<path d="M{hl} 0 h{EXT}" stroke="{BG}" stroke-width="9" opacity="0.5"/>')
     # リベット3列。皿もみなので頭は外面と面一、縁が薄い。
     # 2巡目は頭が幅40で間隔62だったため、板の残りが細い楔になって「歯」に見えた。
-    # 頭を幅28に絞って、板の面を残す。
+    # 頭を幅28に絞って、板の面を残す。皿の深さは板厚の半分（T=44 で 22）。
+    cs = T // 2
     for rx in (-62, 0, 62):
-        g.append(f'<path d="M{rx - 14} {-T} L{rx + 14} {-T} L{rx + 8} {-T + 13} '
-                 f'L{rx - 8} {-T + 13} Z" fill="{BG2}" stroke="{BG}" stroke-width="3"/>')
-        g.append(f'<rect x="{rx - 8}" y="{-T + 13}" width="16" height="{T * 2 - 13}" '
+        g.append(f'<path d="M{rx - 16} {-T} L{rx + 16} {-T} L{rx + 8} {-T + cs} '
+                 f'L{rx - 8} {-T + cs} Z" fill="{BG2}" stroke="{BG}" stroke-width="3"/>')
+        g.append(f'<rect x="{rx - 8}" y="{-T + cs}" width="16" height="{T * 2 - cs}" '
                  f'fill="{BG2}" stroke="{BG}" stroke-width="3"/>')
         g.append(f'<rect x="{rx - 13}" y="{T}" width="26" height="11" rx="4" '
                  f'fill="{BG2}" stroke="{BG}" stroke-width="3"/>')
     if crack:
         # 皿もみの刃のような縁から、**板厚の中を**横に進む。
         # 2巡目は斜めに立ち上げすぎて板の外に出ていた。
-        g.append(f'<path d="M-70 {-T + 12} l-16 -3 l-12 4 l-14 -3 l-10 2" fill="none" '
+        g.append(f'<path d="M-70 {-T + cs} l-16 -3 l-12 4 l-14 -3 l-10 2" fill="none" '
                  f'stroke="{ALERT}" stroke-width="6" stroke-linecap="round" '
                  f'stroke-linejoin="round"/>')
-        g.append(f'<circle cx="-70" cy="{-T + 12}" r="13" fill="none" stroke="{ALERT}" '
+        g.append(f'<circle cx="-70" cy="{-T + cs}" r="13" fill="none" stroke="{ALERT}" '
                  f'stroke-width="4" opacity="0.8"/>')
     g.append('</g>')
     return "".join(g)
@@ -427,6 +507,11 @@ def alt_graph(x, y, w, h, pts, mark=None, part="all"):
                      f'stroke-width="2.4"/>')
     if part in ("all", "line"):
         d = "M" + " L".join(f"{x + w * a:.0f} {y + h * (1 - b):.0f}" for a, b in pts)
+        # 折れ線の下を塗る。🔴 2026-07-30：枠の中が空いて見えたので面グラフにした。
+        # 装飾ではなく「その時刻までに高度がどれだけ残っていたか」を面で読ませる。
+        # ワイプと同じレイヤーなので、面も左から一緒に伸びる。
+        g.append(f'<path d="{d} L{x + w:.0f} {y + h:.0f} L{x:.0f} {y + h:.0f} Z" '
+                 f'fill="{AMBER}" opacity="0.16" stroke="none"/>')
         g.append(f'<path d="{d}" fill="none" stroke="{AMBER}" '
                  f'stroke-width="{LW * 1.8:.1f}" stroke-linejoin="round" '
                  f'stroke-linecap="round"/>')
@@ -438,15 +523,34 @@ def alt_graph(x, y, w, h, pts, mark=None, part="all"):
     return "".join(g)
 
 
-def bignum(x, y, num, unit="", cap="", col=None):
-    """大きな数字。事故検証は数字が主役になる場面が多い。"""
+def bignum(x, y, num, unit="", cap="", col=None, size=168):
+    """大きな数字。事故検証は数字が主役になる場面が多い。中央寄せ。"""
     c = col or AMBER
-    g = (f'<text x="{x}" y="{y}" font-family="Dela" font-size="168" fill="{c}" '
+    g = (f'<text x="{x}" y="{y}" font-family="Dela" font-size="{size}" fill="{c}" '
          f'text-anchor="middle">{num}</text>')
     if unit:
-        g += (f'<text x="{x}" y="{y + 56}" font-family="Dela" font-size="44" fill="{c}" '
-              f'text-anchor="middle" opacity="0.9">{unit}</text>')
+        # y+size/3 だと数字のコンマの下端と単位の字面が 16px しか離れず窮屈だった
+        g += (f'<text x="{x}" y="{y + size * 0.38:.0f}" font-family="Dela" '
+              f'font-size="{size * 0.26:.0f}" fill="{c}" text-anchor="middle" '
+              f'opacity="0.9">{unit}</text>')
     if cap:
-        g += (f'<text x="{x}" y="{y - 150}" font-family="Noto" font-size="34" '
+        g += (f'<text x="{x}" y="{y - size * 0.89:.0f}" font-family="Noto" font-size="36" '
               f'fill="{LINE}" text-anchor="middle">{cap}</text>')
     return g
+
+
+def bar(x, y, w, h, frac, col=None, cap=""):
+    """横棒。**2つの数字を並べたときに、比が目で分かる**ようにする。
+
+    2026-07-30：c7 は数字2つが浮いているだけで、1.20倍という差が字でしか分からなかった。
+    棒にすると差が面になる。frac は最大値に対する割合。
+    """
+    c = col or AMBER
+    g = [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="none" '
+         f'stroke="{LINE_DIM}" stroke-width="3"/>',
+         f'<rect x="{x}" y="{y}" width="{max(0, w * frac):.0f}" height="{h}" '
+         f'fill="{c}" opacity="0.78"/>']
+    if cap:
+        g.append(f'<text x="{x}" y="{y - 14}" font-family="Noto" font-size="28" '
+                 f'fill="{LINE}">{cap}</text>')
+    return "".join(g)

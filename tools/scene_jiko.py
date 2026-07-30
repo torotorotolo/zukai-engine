@@ -54,7 +54,10 @@ FONTS = Path(os.environ.get("ZUKAI_FONTS", HERE / "fonts"))
 CSS = ""
 
 # 機体側面図の置き場所。(x, y) は**機首先端・胴体上面線**（jiko_style の座標系）
-AC_X, AC_Y, AC_S = 170, 560, 1.5
+# 🔴 2026-07-30：1.5倍だと全長1080pxで右に670pxの余白が残っていた。
+#    インセット写真の手前（x=1242）まで使い切る 1.62倍にする。
+#    縦は 垂直尾翼の頂点 y=367 ／ 主脚の下端 y=787 で、本体の枠(210〜892)に収まる。
+AC_X, AC_Y, AC_S = 76, 596, 1.62
 
 CR_NTSB = "出典：NTSB（米国運輸安全委員会）／パブリックドメイン"
 CR_NTSB_S = "出典：NTSB／パブリックドメイン"
@@ -145,18 +148,36 @@ def sub_strip(lines):
 
 
 def photo_frame(x, y, w, h, credit, size=25):
-    """写真の枠と出典。**出典は必ず画面に出す。**"""
+    """写真の枠と出典。**出典は必ず画面に出す。**
+
+    🔴 2026-07-30：出典を写真の**下40px**に置いていたので、写真の下に必ず
+       高さ60pxほどの帯状の余白ができていた（10カット全部）。
+       写真の**内側の下端**に暗い帯を敷いて載せる。テレビのクレジットと同じ置き方で、
+       どの写真の出典かも曖昧にならない。写真の箱はそのぶん下まで伸ばせる。
+    """
     g = [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="none" '
          f'stroke="{J.LINE}" stroke-width="6"/>']
     for cx, cy in ((x, y), (x + w, y), (x, y + h), (x + w, y + h)):
         g.append(f'<path d="M{cx - 26} {cy} h52 M{cx} {cy - 26} v52" stroke="{J.INK_W}" '
                  f'stroke-width="6"/>')
-    g.append(J.label(x, y + h + 40, credit, J.LINE_DIM, size))
+    ch = size + 22
+    g.append(f'<rect x="{x + 3}" y="{y + h - ch - 3}" width="{w - 6}" height="{ch}" '
+             f'fill="{J.BG}" opacity="0.72"/>')
+    g.append(J.label(x + 16, y + h - 16, credit, J.LINE, size))
     return "".join(g)
 
 
-# ── p1：実写（事故機の左側面） ────────────────────────────
-P1_BOX = (140, 258, 1080, 592)
+# ── 実写カットの型（2026-07-30 に作り直した） ─────────────
+# 写真は **本体の高さ 682px を必ず使い切る**。反対側に幅632pxの「情報柱」を立て、
+# 柱の中も y=270〜880 を使い切るようにブロックを配置する。
+# 文字は 14巡目の 32〜42px から **大注記 52〜56px・事実 42px・数値 Dela 92〜104px** に上げた。
+PH_L = (J.MG, J.BAND_T, J.PHOTO_W, J.PHOTO_H)                 # 写真を左に置く型
+PH_R = (J.RIGHT - J.PHOTO_W, J.BAND_T, J.PHOTO_W, J.PHOTO_H)  # 写真を右に置く型
+CR, CL = J.COL_R[0], J.COL_L[0]        # 情報柱の左端（右柱=1216 ／ 左柱=72）
+
+
+# ── p1：実写（事故機の左側面）＋右の情報柱 ────────────────
+P1_BOX = PH_L
 
 
 def p1_bg():
@@ -173,21 +194,29 @@ def p1_lab():
 
 def p1_a1():
     """1行目「1988年4月28日。ハワイ上空、高度7300メートル。」に合わせる。"""
-    return J.label(1310, 330, "高度 7,300 m を巡航中", J.INK_W, 34)
+    return (J.label(CR, 272, "巡航高度", J.LINE, 32)
+            + J.big(CR, 376, "7,300 m", J.AMBER, 96)
+            + J.rule(CR, J.RIGHT, 424, J.ALERT))
 
 
 def p1_a2():
-    """2行目「飛行中の旅客機から、屋根が消えた。」に合わせる。"""
-    g = [J.leader(560, 430, 1290, 452, J.ALERT),
-         J.label(1310, 440, "客室の天井と外板が", J.ALERT, 42),
-         J.label(1310, 490, "5.5 m にわたって消失", J.ALERT, 42),
-         J.label(1310, 574, "乗客89人・乗員6人", J.INK_W, 32),
-         J.label(1310, 620, "客室乗務員1名が機外へ", J.INK_W, 32)]
+    """2行目「飛行中の旅客機から、屋根が消えた。」に合わせる。
+
+    赤字は 42→56px。柱の幅632pxに対して「5.5 m にわたって消失」でちょうど埋まる。
+    """
+    g = [J.leader(502, 408, 1206, 478, J.ALERT),
+         J.label(CR, 498, "客室の天井と外板が", J.ALERT, 56),
+         J.label(CR, 566, "5.5 m にわたって消失", J.ALERT, 56),
+         J.label(CR, 672, "乗客89人・乗員6人", J.INK_W, 42),
+         J.label(CR, 726, "客室乗務員1名が機外へ", J.INK_W, 42),
+         J.rule(CR, J.RIGHT, 780, J.LINE_DIM, 3),
+         J.label(CR, 846, "乗員乗客95人のうち", J.ALERT, 40),
+         J.label(CR, 890, "94人が生き延びた", J.ALERT, 40)]
     return "".join(g)
 
 
-# ── p2：実写（事故前の N73711 本人） ──────────────────────
-P2_BOX = (900, 268, 880, 598)
+# ── p2：実写（事故前の N73711 本人）＋左の情報柱 ──────────
+P2_BOX = PH_R
 
 
 def p2_bg():
@@ -201,11 +230,22 @@ def p2_lab():
 
 
 def p2_a1():
-    """ナレーションは1行だけ。**喋っていない情報だけ**を置く。"""
-    g = [J.label(150, 380, "N 7 3 7 1 1", J.AMBER, 62),
-         J.label(150, 470, "1969年製", J.LINE, 32),
-         J.label(150, 560, "離陸と着陸の回数だけが、", J.INK_W, 32),
-         J.label(150, 606, "同型機の倍の速さで積み上がった。", J.INK_W, 32)]
+    """ナレーションは1行だけ。**喋っていない情報だけ**を置く。
+
+    「N 7 3 7 1 1」を字間で伸ばしていたのを Dela 100px の1語に変えた。
+    登録記号は機体の身元そのものなので、ここがこのカットの主役でよい。
+    """
+    g = [J.label(CL, 272, "機体記号", J.LINE, 32),
+         J.big(CL, 366, "N73711", J.AMBER, 100),
+         J.label(CL, 416, "1969年製　ボーイング737-200", J.LINE, 32),
+         J.rule(CL, J.COL_L[1], 456, J.ALERT),
+         J.label(CL, 530, "離陸と着陸の回数だけが、", J.ALERT, 48),
+         J.label(CL, 588, "同型機の倍の速さで", J.ALERT, 48),
+         J.label(CL, 646, "積み上がっていた。", J.ALERT, 48),
+         J.rule(CL, J.COL_L[1], 700, J.LINE_DIM, 3),
+         J.label(CL, 762, "世界の737のなかで", J.INK_W, 38),
+         J.label(CL, 810, "離着陸の回数は2番目に多い", J.INK_W, 38),
+         J.label(CL, 878, "ヒロ発ホノルル行き 243便", J.LINE, 32)]
     return "".join(g)
 
 
@@ -215,7 +255,7 @@ def p2_a1():
 #   5.5m 寸法が図から離れて浮いていた → 剥離範囲の真上に降ろす
 #   目盛線が胴体の上を通っていた → 機体より先に描いて下に潜らせる
 #   胴体直径の注記が機体を跨いでいた → **断面図(c3)に任せて c2 からは外す**
-C2_INSET = (1322, 284, 552, 358)
+C2_INSET = (1288, 236, 560, 430)
 
 
 def c2_base():
@@ -225,8 +265,10 @@ def c2_base():
     # 実測できる「機首からの m」で目盛る（全長30.53m = 720単位）。
     for m in range(0, 31, 5):
         u = m * 720 / 30.53
-        g.append(f'<path d="M{ax(u):.0f} 380 V760" stroke="{J.GRID}" stroke-width="2.4"/>')
-        g.append(J.label(ax(u), 796, f"{m} m", J.LINE_DIM, 22, "middle"))
+        g.append(f'<path d="M{ax(u):.0f} 356 V800" stroke="{J.GRID}" stroke-width="2.4"/>')
+        # 0m の目盛だけ中央寄せにすると左端が画面の余白(72)より外に出る
+        g.append(J.label(ax(u), 836, f"{m} m", J.LINE_DIM, 24,
+                         "start" if m == 0 else "middle"))
     g.append(J.b737_side(AC_X, AC_Y, AC_S))
     return "".join(g)
 
@@ -241,28 +283,33 @@ def c2_tearline():
 
 def c2_lab():
     """寸法と写真枠。図そのものの情報なので頭から出す。"""
-    g = [J.dim(ax(120), ax(249.5), 512, "5.5 m"),
-         J.dim(ax(0), ax(720), 822, "全長 30.5 m")]
+    g = [J.dim(ax(120), ax(249.5), 330, "5.5 m"),
+         J.dim(ax(0), ax(720), 878, "全長 30.5 m")]
     x, y, w, h = C2_INSET
     g.append(photo_frame(x, y, w, h, CR_NTSB_S, 24))
     return "".join(g)
 
 
 def c2_a1():
-    """1行目「失われたのは、前方の扉のすぐ後ろから、5.5メートル。」"""
-    return (J.leader(ax(185), ay(2), 470, 448, J.ALERT)
-            + J.label(190, 396, "剥離した範囲", J.ALERT, 42))
+    """1行目「失われたのは、前方の扉のすぐ後ろから、5.5メートル。」
+
+    剥離範囲は寸法線の上に注記を置く（14巡目は機体の左の空きに置いて線が長かった）。
+    """
+    return (J.leader(ax(190), ay(1), 300, 268, J.ALERT)
+            + J.label(J.MG, 288, "剥離した範囲", J.ALERT, 52))
 
 
 def c2_a2():
     """2行目「天井から窓の下までが、一続きに剥ぎ取られていた。」
-    ナレーションが触れない情報（与圧）だけを短く置く。"""
-    return (J.label(1322, 736, "与圧された客室の内側は", J.LINE, 28)
-            + J.label(1322, 774, "外気より 0.5 気圧ぶん高い", J.LINE, 28))
+    ナレーションが触れない情報（与圧）だけを置く。インセット写真の下の空きを使う。"""
+    g = [J.label(1288, 716, "客室と外気の圧力差", J.LINE, 30),
+         J.big(1288, 800, "0.5 気圧", J.AMBER, 78),
+         J.label(1288, 858, "この差が、外板を内側から押す", J.LINE, 32)]
+    return "".join(g)
 
 
-# ── p3：実写（着陸後の機体を見上げる調査員） ──────────────
-P3_BOX = (150, 262, 800, 607)
+# ── p3：実写（着陸後の機体を見上げる調査員）＋右の情報柱 ──
+P3_BOX = PH_L
 
 
 def p3_bg():
@@ -276,69 +323,93 @@ def p3_lab():
 
 
 def p3_a1():
-    """1行目「着陸した機体を、調査員が見上げている。」— 喋っているので置かない。"""
-    return ""
+    """1行目「着陸した機体を、調査員が見上げている。」
+
+    14巡目は空だった。このカットの主題は**大きさ**なので、
+    喋っていない胴体径をここで出すと、写真の人と数字が噛み合う。
+    """
+    return (J.label(CR, 272, "胴体の直径", J.LINE, 32)
+            + J.big(CR, 376, "3.76 m", J.AMBER, 96)
+            + J.label(CR, 424, "人の背丈の2倍を超える", J.LINE, 32)
+            + J.rule(CR, J.RIGHT, 464, J.ALERT))
 
 
 def p3_a2():
     """2行目「外板が無くなり、客室の骨組みが、そのまま外に出ていた。」"""
-    g = [J.leader(560, 400, 1080, 400, J.ALERT),
-         J.label(1100, 388, "剥き出しになった", J.ALERT, 40),
-         J.label(1100, 438, "胴体のフレームと床梁", J.ALERT, 40),
-         J.label(1100, 540, "この状態で、13分間飛んだ。", J.INK_W, 34)]
+    g = [J.leader(700, 424, 1206, 528, J.ALERT),
+         J.label(CR, 546, "剥き出しになった", J.ALERT, 54),
+         J.label(CR, 608, "胴体のフレームと床梁", J.ALERT, 54),
+         J.rule(CR, J.RIGHT, 666, J.LINE_DIM, 3),
+         J.label(CR, 732, "この状態で、13分間飛んだ。", J.INK_W, 44),
+         # NTSB報告書の「客室床面より上」という記述をそのまま図の言葉にする。
+         # どのナレーションも触れていないのに、機体が折れなかった理由に直結する。
+         J.label(CR, 830, "破断は客室の床面で止まり、", J.LINE, 34),
+         J.label(CR, 874, "床より下の外板は残った。", J.LINE, 34)]
     return "".join(g)
 
 
 # ── c3：胴体断面 ──────────────────────────────────────────
 
-# 断面図の置き場所。3巡目までは中心y=620・R=300で、
-# 「事故前／剥離後」のラベルが円の底に被り、字幕帯にも近すぎた。
-# 13巡目で注記を削ったので、その分だけ円を大きくした（R=260→290）。
-# 字幕帯の上端 916 に当たらない範囲でいちばん大きい値。
-SEC_CY, SEC_R = 606, 1.45            # → R=290、円は y=316〜896
+# 断面図の置き場所。
+# 🔴 2026-07-30：円が中空で内側の 580px 角が余白に見えていた。
+#    ① `b737_section(inside=True)` で客室と貨物室を面として塗り分け、座席を 3-3 で入れた
+#    ② 円を R=290→296 に上げ、中心を左右に開いて（520 / 1360）左右の余白を減らした
+#    本体の枠 210〜892 に対して円は y=290〜882。
+SEC_CY, SEC_R = 586, 1.48            # → R=296
+SEC_L, SEC_RT = 520, 1360            # 左（事故前）と右（剥離後）の中心x
 
 
 def c3_base():
     g = [J.frame(W, H), J.title("失われたのは、上半分だった", "胴体断面（客室1〜4列目）")]
-    for cx in (600, 1400):
+    for cx in (SEC_L, SEC_RT):
         g.append(J.b737_section(cx, SEC_CY, SEC_R, floor=True))
-        for dx in (-100, -68, 68, 100):
-            g.append(f'<rect x="{cx + dx - 13}" y="{SEC_CY + 38}" width="26" height="40" '
-                     f'rx="5" fill="none" stroke="{J.LINE_DIM}" stroke-width="4"/>')
     return "".join(g)
 
 
 def c3_arc():
     """破断の弧だけ。左から広げると「上部が裂けて広がっていく」動きになる。
     装飾のズームではなく、**円周55%という情報を運ぶ動き**にしたい。"""
-    return J.b737_section(1400, SEC_CY, SEC_R, upper=(-165, -15), arc_only=True)
+    return J.b737_section(SEC_RT, SEC_CY, SEC_R, upper=(-165, -15), arc_only=True)
 
 
 def c3_lab():
     R = 200 * SEC_R
     fy = SEC_CY + R * 0.34
-    g = [J.label(600, 306, "事故前", J.LINE, 40, "middle"),
-         J.label(1400, 306, "剥離後", J.ALERT, 40, "middle"),
-         J.label(600, SEC_CY + 58, "客室", J.LINE, 28, "middle"),
-         J.label(600, SEC_CY + 168, "貨物室", J.LINE, 28, "middle"),
-         J.label(600 + R * 0.62, fy + 34, "床", J.LINE_DIM, 24, "start"),
-         J.dim(600 - R, 600 + R, 250, "3.76 m"),
-         J.label(1000, SEC_CY + 14, "→", J.INK_W, 72, "middle")]
+    g = [J.label(SEC_L, 262, "事故前", J.LINE, 46, "middle"),
+         J.label(SEC_RT, 262, "剥離後", J.ALERT, 46, "middle"),
+         J.label(SEC_L, SEC_CY - R * 0.60, "客室", J.INK_W, 34, "middle"),
+         J.label(SEC_L, fy + R * 0.36, "貨物室", J.LINE, 34, "middle"),
+         J.label(SEC_L + R * 0.90, fy - 14, "床", J.LINE, 28, "end"),
+         J.dim(SEC_L - R, SEC_L + R, 316, "3.76 m"),
+         J.label(940, SEC_CY + 14, "→", J.INK_W, 76, "middle")]
     return "".join(g)
 
 
 def c3_call():
-    """「ここが消えた」。**弧が右端まで届いてから**出すので独立させる。"""
+    """「ここが消えた」。**弧が右端まで届いてから**出すので独立させる。
+
+    ⚠️ 14巡目は「円周の約 55%」と書いていたが、これはナレーションが
+       「円周の、およそ55パーセント」とそのまま喋っている＝ルール違反だった。削除。
+       代わりに、どのナレーションも触れていない「座席が外気に出た」を置く。
+    """
     R = 200 * SEC_R
-    g = [J.leader(1400 + R * 0.7, SEC_CY - R * 0.72, 1620, 404, J.ALERT),
-         J.label(1870, 392, "ここが消えた", J.ALERT, 38, "end"),
-         J.label(1870, 438, "円周の約 55%", J.LINE, 28, "end")]
+    g = [J.leader(SEC_RT + R * 0.70, SEC_CY - R * 0.70, 1650, 330, J.ALERT),
+         J.label(J.RIGHT, 318, "ここが消えた", J.ALERT, 46, "end"),
+         J.label(J.RIGHT, 848, "1〜4列目の座席が、", J.LINE, 32, "end"),
+         J.label(J.RIGHT, 888, "そのまま外気に出た。", J.LINE, 32, "end")]
     return "".join(g)
 
 
 # ── c4：重ね継手の平面図 ──────────────────────────────────
 
-LJ_X, LJ_Y, LJ_S = 720, 610, 0.95
+# 🔴 2026-07-30：0.95倍だと板が 912×475px で、右に 720×520px の穴が空いていた。
+#    `lap_joint` の伸びを 250→290 単位にして板の縦を 302〜858 まで伸ばし、
+#    右に幅602pxの情報柱を立てた。
+# ⚠️ 左端をこれ以上詰められない理由：76mm の縦寸法線は文字を線の**左**に出すので、
+#    板の左端から 150px ほどの逃げが要る（詰めすぎると「76 mm」が画面外に切れる）。
+#    その逃げに「外板（上）（下）」のラベルを入れて、空きにしないでおく。
+LJ_X, LJ_Y, LJ_S = 740, 580, 0.96
+C4_COL = 1246
 
 
 def c4_base():
@@ -354,47 +425,73 @@ def c4_crack():
 
 def c4_lab():
     """図のラベルと寸法。重ね幅は**縦に測る寸法**（横に引くと図が嘘になる）。"""
-    g = [J.label(300, 356, "外板（上）", J.INK_W, 32),
-         J.label(300, 900, "外板（下）", J.LINE, 32),
-         J.vdim(LJ_Y - 62 * LJ_S, LJ_Y + 62 * LJ_S, LJ_X - 480 * LJ_S - 40, "76 mm")]
+    g = [J.label(J.MG + 18, 344, "外板（上）", J.INK_W, 36),
+         J.label(J.MG + 18, 830, "外板（下）", J.LINE, 36),
+         J.vdim(LJ_Y - 62 * LJ_S, LJ_Y + 62 * LJ_S, LJ_X - 480 * LJ_S - 44, "76 mm")]
     cx = LJ_X + 300 * LJ_S
-    g.append(f'<path d="M{cx} 300 V842" stroke="{J.AMBER}" stroke-width="3" '
+    g.append(f'<path d="M{cx} 286 V874" stroke="{J.AMBER}" stroke-width="3" '
              f'stroke-dasharray="26 14"/>')
-    g.append(J.label(cx, 286, "A", J.AMBER, 34, "middle"))
-    g.append(J.label(cx, 872, "A", J.AMBER, 34, "middle"))
+    g.append(J.label(cx, 272, "A", J.AMBER, 38, "middle"))
+    g.append(J.label(cx, 902, "A", J.AMBER, 38, "middle"))
     return "".join(g)
 
 
 def c4_a1():
     """1行目「始まりは、リベット1列の、小さな亀裂だった。」"""
-    g = [J.leader(LJ_X + 180, LJ_Y - 40 * LJ_S, 1330, 366, J.ALERT),
-         J.label(1350, 352, "最上列のリベット穴から", J.ALERT, 36),
-         J.label(1350, 396, "疲労亀裂が発生", J.ALERT, 36)]
+    g = [J.leader(LJ_X + 200, LJ_Y - 40 * LJ_S, C4_COL - 10, 372, J.ALERT),
+         J.label(C4_COL, 352, "最上列のリベット穴から", J.ALERT, 46),
+         J.label(C4_COL, 408, "疲労亀裂が発生", J.ALERT, 46),
+         J.rule(C4_COL, J.RIGHT, 452, J.ALERT)]
     return "".join(g)
 
 
 def c4_a2():
-    """2行目「搭乗する乗客の1人が、この亀裂を見ていた。」— 亀裂のアニメが担う。"""
-    return ""
+    """2行目「搭乗する乗客の1人が、この亀裂を見ていた。」
+
+    14巡目は空だった。亀裂のアニメだけでは柱の中段が空くので、
+    **喋っていない継手そのものの作り**をここで出す。
+    """
+    g = [J.label(C4_COL, 528, "重ね幅 76 mm に", J.INK_W, 40),
+         J.label(C4_COL, 578, "リベットが3列", J.INK_W, 40),
+         J.label(C4_COL, 646, "外板の厚さは 0.91 mm", J.LINE, 34),
+         J.rule(C4_COL, J.RIGHT, 690, J.LINE_DIM, 3)]
+    return "".join(g)
 
 
 def c4_a3():
     """3行目「だが、誰にも言わなかった。」— 次のカットへの繋ぎだけ。"""
-    return (J.label(1350, 500, "この面を A-A で切ると、", J.AMBER, 30)
-            + J.label(1350, 540, "なぜ折れたのかが見える", J.AMBER, 30))
+    return (J.label(C4_COL, 758, "この面を A-A で切ると、", J.AMBER, 38)
+            + J.label(C4_COL, 810, "なぜ折れたのかが見える", J.AMBER, 38))
 
 
 # ── c5：重ね継手の A-A 断面 ───────────────────────────────
 # 1巡目は図が小さく、引き出し線が図を横断し、下1/3が空いていた。
 # 図を大きくして中央に据え、注記は**図の上下の空きに置いて線を短くする**。
-# 13巡目で注記を6個に削ったので、断面を 2.0→2.25 倍に拡大して中央へ寄せた。
-SEC_X, SEC_Y, SEC_S = 950, 592, 2.25
+# 🔴 2026-07-30：それでも図は高さ120pxの細い帯で、上下に合わせて400pxの余白が残っていた
+#    （最大の空き矩形 16.7%＝全カット中で最悪）。2つ直した：
+#      ① 板厚の誇張を 26→44 単位に上げ、横の伸びを 300→260 に詰めて図を「厚い」形にした
+#      ② 図の上下を**「外気側」と「客室側」の面**にした。空きを塗りで埋めたのではなく、
+#         どちらが外でどちらが客室かは断面図で必ず要る情報。
+#         客室側から外へ向かう矢印＝与圧が外板を押す力そのもので、事故の因果に直結する。
+SEC_X, SEC_Y, SEC_S = 960, 560, 2.25
 SEC_HL = 95 * SEC_S          # 重ね幅の半分（画面px）
+SEC_T = 44 * SEC_S           # 板厚（誇張）1枚ぶん = 99px
+C5_OUT = (J.BAND_T, SEC_Y - SEC_T - 8)        # 外気側の帯 210〜453
+C5_IN = (SEC_Y + SEC_T + 8, J.BAND_B)         # 客室側の帯 667〜892
 
 
 def c5_base():
     g = [J.frame(W, H), J.title("荷重を分け合う相手が、いなくなった",
                                 "重ね継手 A-A 断面（板厚 0.91 mm。図では誇張している）")]
+    # 外気側／客室側の面。断面図では「どちらが外か」が必ず要る
+    g.append(J.tone(J.MG, C5_OUT[0], J.RIGHT - J.MG, C5_OUT[1] - C5_OUT[0], J.LINE, 0.07))
+    g.append(J.tone(J.MG, C5_IN[0], J.RIGHT - J.MG, C5_IN[1] - C5_IN[0], J.AMBER, 0.08))
+    # 与圧が客室側から外板を押す力。矢印を等間隔に立てる（実際に働いている力）
+    for i in range(5):
+        px = 450 + i * 225
+        g.append(f'<path d="M{px} 884 V744 m-14 20 l14 -20 l14 20" fill="none" '
+                 f'stroke="{J.AMBER}" stroke-width="4" opacity="0.55" '
+                 f'stroke-linejoin="round"/>')
     g.append(J.lap_joint_section(SEC_X, SEC_Y, SEC_S, crack=False))
     return "".join(g)
 
@@ -408,8 +505,8 @@ def c5_crack():
 def c5_bond():
     """接着層が**剥がれた**状態。緑の上に灰色を左から重ねると「剥離の進行」になる。
     事故の起点そのものなので、ここは必ず動かす。"""
-    return (f'<rect x="{SEC_X - SEC_HL}" y="{SEC_Y - 4 * SEC_S:.0f}" '
-            f'width="{SEC_HL * 2:.0f}" height="{8 * SEC_S:.0f}" fill="{J.LINE_DIM}"/>')
+    return (f'<rect x="{SEC_X - SEC_HL}" y="{SEC_Y - 6 * SEC_S:.0f}" '
+            f'width="{SEC_HL * 2:.0f}" height="{12 * SEC_S:.0f}" fill="{J.LINE_DIM}"/>')
 
 
 def c5_lab():
@@ -421,11 +518,14 @@ def c5_lab():
        「潮風の中を19年〜剥がれていた」「荷重の行き場は〜縁だけ」）。
        残すのは ①図の部位名 ②寸法 ③ナレーションが触れない情報 だけ。
     """
-    top = SEC_Y - 26 * SEC_S
-    bot = SEC_Y + 26 * SEC_S
-    g = [J.dim(SEC_X - SEC_HL, SEC_X + SEC_HL, top - 92, "76 mm"),
-         J.label(SEC_X - 700, top - 16, "外板（上）", J.INK_W, 30),
-         J.label(SEC_X + 720, bot + 44, "外板（下）", J.LINE, 30, "end")]
+    # ⚠️ 部位名は**帯の中（地の上）に置く**。板の上に載せると
+    #    上の外板は INK_W の明るい塗りなので INK_W の文字が消える。
+    g = [J.dim(SEC_X - SEC_HL, SEC_X + SEC_HL, 406, "76 mm"),
+         J.label(J.MG + 18, 252, "機体の外側（外気）", J.LINE, 38),
+         J.label(176, 445, "外板（上）", J.INK_W, 34),
+         J.label(J.MG + 18, 706, "客室の内側（与圧）", J.AMBER, 38),
+         J.label(1500, 706, "外板（下）", J.LINE, 34),
+         J.label(J.RIGHT, 800, "内側から外へ押す力", J.AMBER, 32, "end")]
     return "".join(g)
 
 
@@ -435,8 +535,8 @@ def c5_a1():
     引き出し線は**ラベルの文字の端まで引く**。13巡目は線の終点とラベルが
     280px 離れていて、線が浮いて見えた。
     """
-    return (J.leader(SEC_X - SEC_HL - 8, SEC_Y + 12, 320, 788, J.OK)
-            + J.label(150, 800, "接着層", J.OK, 40))
+    return (J.leader(SEC_X - SEC_HL + 20, SEC_Y, 250, 786, J.OK)
+            + J.label(J.MG + 18, 800, "接着層", J.OK, 48))
 
 
 def c5_a2():
@@ -447,16 +547,15 @@ def c5_a2():
 def c5_a3():
     """3行目「荷重の行き場は、リベット穴の縁だけになった。」
     ナレーションが触れない「皿もみ」と「段差」だけを置く。"""
-    top = SEC_Y - 26 * SEC_S
-    g = [J.leader(SEC_X - 62 * SEC_S, top + 8, 640, 352, J.ALERT),
-         J.label(150, 336, "皿もみの縁は、刃のように薄い", J.ALERT, 34),
-         J.leader(SEC_X + SEC_HL, SEC_Y, 1440, 404, J.AMBER),
-         J.label(1460, 392, "段差", J.AMBER, 38)]
+    g = [J.leader(SEC_X - 62 * SEC_S, SEC_Y - SEC_T + 10, 650, 326, J.ALERT),
+         J.label(J.MG + 18, 340, "皿もみの縁は、刃のように薄い", J.ALERT, 42),
+         J.leader(SEC_X + SEC_HL, SEC_Y, 1490, 328, J.AMBER),
+         J.label(1500, 342, "段差", J.AMBER, 46)]
     return "".join(g)
 
 
-# ── p4：実写（航路・NASA） ────────────────────────────────
-P4_BOX = (1030, 250, 760, 591)
+# ── p4：実写（航路・NASA）＋左の情報柱 ───────────────────
+P4_BOX = PH_R
 
 
 def p4_bg():
@@ -470,12 +569,20 @@ def p4_lab():
 
 
 def p4_a1():
-    """ナレーションは1行。**喋っていない結論だけ**を置く。"""
-    g = [J.label(150, 420, "与圧は、そのたびに", J.INK_W, 34),
-         J.label(150, 466, "かかっては、抜ける。", J.INK_W, 34),
-         J.label(150, 552, "胴体は、そのたびに", J.ALERT, 34),
-         J.label(150, 598, "膨らんでは、縮んでいた。", J.ALERT, 34),
-         J.label(150, 700, "19年間で 89,680 回。", J.AMBER, 38)]
+    """ナレーションは1行。**喋っていない結論だけ**を置く。
+
+    14巡目は 34px で柱の下半分が空いていた。44px に上げ、
+    回数は Dela の大きな数字にして柱の底まで使う。
+    """
+    g = [J.label(CL, 290, "与圧は、そのたびに", J.INK_W, 44),
+         J.label(CL, 346, "かかっては、抜ける。", J.INK_W, 44),
+         J.label(CL, 442, "胴体は、そのたびに", J.ALERT, 44),
+         J.label(CL, 498, "膨らんでは、縮んでいた。", J.ALERT, 44),
+         J.rule(CL, J.COL_L[1], 556, J.ALERT),
+         J.label(CL, 626, "19年間の離着陸", J.LINE, 34),
+         J.big(CL, 736, "89,680 回", J.AMBER, 100),
+         J.label(CL, 812, "1回ごとに、亀裂は", J.LINE, 34),
+         J.label(CL, 856, "わずかに伸びていく。", J.LINE, 34)]
     return "".join(g)
 
 
@@ -485,62 +592,79 @@ PTS = [(0.00, 0.00), (0.13, 0.86), (0.30, 0.92), (0.36, 0.92),
        (0.41, 0.60), (0.57, 0.28), (0.78, 0.09), (1.00, 0.00)]
 
 
+# グラフの枠。🔴 2026-07-30：1460×520 で右に 230px・下に 160px 余っていた。
+# 目盛ラベルの逃げ（左140px）だけ残して、残りは全部グラフにする。
+GX, GY, GW, GH = 246, 288, 1544, 556       # → x 246〜1790, y 288〜844
+
+
 def c6_base():
     g = [J.frame(W, H), J.title("剥離から着陸まで、13分", "高度の推移")]
-    g.append(J.alt_graph(230, 330, 1460, 520, PTS, part="frame"))
+    g.append(J.alt_graph(GX, GY, GW, GH, PTS, part="frame"))
     return "".join(g)
 
 
 def c6_line():
     """折れ線だけ。**左から描いていく**（最初から全部出ていると動きが無い）。"""
-    return J.alt_graph(230, 330, 1460, 520, PTS, part="line")
+    return J.alt_graph(GX, GY, GW, GH, PTS, part="line")
 
 
 def c6_mark():
-    return J.alt_graph(230, 330, 1460, 520, PTS, mark=3, part="mark")
+    return J.alt_graph(GX, GY, GW, GH, PTS, mark=3, part="mark")
 
 
 def c6_lab():
-    g = [J.label(210, 350, "7,300 m", J.AMBER, 30, "end"),
-         J.label(210, 592, "3,600 m", J.LINE_DIM, 26, "end"),
-         J.label(210, 856, "0", J.AMBER, 30, "end"),
-         J.label(230, 884, "離陸　ヒロ", J.LINE, 28),
-         J.label(1690, 884, "着陸　マウイ島カフルイ", J.LINE, 28, "end")]
+    g = [J.label(GX - 20, GY + 22, "7,300 m", J.AMBER, 32, "end"),
+         J.label(GX - 20, GY + GH * 0.507, "3,600 m", J.LINE_DIM, 28, "end"),
+         J.label(GX - 20, GY + GH + 8, "0", J.AMBER, 32, "end"),
+         J.label(GX, GY + GH + 46, "離陸　ヒロ", J.LINE, 30),
+         J.label(GX + GW, GY + GH + 46, "着陸　マウイ島カフルイ", J.LINE, 30, "end")]
     return "".join(g)
 
 
 def c6_a1():
     """1行目「剥離から着陸まで、13分。」"""
-    mx = 230 + 1460 * 0.36
-    return J.dim(mx, 1690, 846, "13分") + J.label(660, 640, "緊急降下", J.INK_W, 34)
+    mx = GX + GW * 0.36
+    return (J.dim(mx, GX + GW, GY + GH - 22, "13分")
+            + J.label(700, 660, "緊急降下", J.INK_W, 40))
 
 
 def c6_a2():
     """2行目「操縦室の扉も吹き飛び、機長は、客室の空を、直接見ていた。」
     喋る内容は書かず、位置を示すラベルだけ置く。"""
-    mx = 230 + 1460 * 0.36
-    return (J.leader(mx, 330 + 520 * 0.08, 1120, 250, J.ALERT)
-            + J.label(1140, 238, "ここで剥離", J.ALERT, 38))
+    mx = GX + GW * 0.36
+    return (J.leader(mx, GY + GH * 0.08, 1160, 372, J.ALERT)
+            + J.label(1180, 358, "ここで剥離", J.ALERT, 46)
+            + J.label(1180, 418, "与圧を失ったまま降下した", J.LINE, 30))
 
 
 # ── c7：数字 ──────────────────────────────────────────────
 
+# 🔴 2026-07-30：数字2つが画面の中央に浮いていて、上に 840×440px の穴が空いていた。
+#    ① 数字を 168→196px に上げる ② **横棒を足して1.20倍という差を面で見せる**
+#       （字で「1.20倍」と書くしかなかったのが14巡目の弱点）
+C7_LX, C7_RX = 508, 1412         # 左右の列の中心x
+C7_BAR = (128, 614, 780, 76)     # 棒の (左端, 上端, 最大長, 高さ)
+
+
 def c7_base():
     g = [J.frame(W, H), J.title("設計の想定を、超えて飛んでいた",
                                 "離着陸の回数（NTSB報告書 1.17.2 節）")]
-    g.append(f'<path d="M960 330 V900" stroke="{J.LINE_DIM}" stroke-width="4"/>')
-    g.append(J.label(960, 862, "1969年製・19年間・ハワイ諸島間の短距離を1日十数往復",
-                     J.LINE, 30, "middle"))
+    g.append(f'<path d="M960 232 V824" stroke="{J.LINE_DIM}" stroke-width="4"/>')
+    g.append(J.label(960, 878, "1969年製・19年間・ハワイ諸島間の短距離を1日十数往復",
+                     J.LINE, 32, "middle"))
     return "".join(g)
 
 
 def c7_num(k):
     n = int(89680 * k)
-    g = [J.bignum(520, 640, "75,000", "回", "経済設計寿命（20年）", J.LINE),
-         J.bignum(1400, 640, f"{n:,}", "回", "実際に飛んだ回数", J.ALERT)]
+    bx, by, bw, bh = C7_BAR
+    g = [J.bignum(C7_LX, 470, "75,000", "回", "経済設計寿命（20年）", J.LINE, 196),
+         J.bignum(C7_RX, 470, f"{n:,}", "回", "実際に飛んだ回数", J.ALERT, 196),
+         J.bar(bx, by, bw, bh, 75000 / 89680, J.LINE, "設計の想定"),
+         J.bar(bx + 904, by, bw, bh, n / 89680, J.ALERT, "実績")]
     if k >= 0.999:
-        g.append(J.label(1400, 760, "想定の 1.20 倍", J.ALERT, 40, "middle"))
-        g.append(J.label(520, 760, "この回数で使い切る前提だった", J.LINE, 28, "middle"))
+        g.append(J.label(C7_RX, 776, "想定の 1.20 倍", J.ALERT, 44, "middle"))
+        g.append(J.label(C7_LX, 776, "この回数で使い切る前提だった", J.LINE, 32, "middle"))
     return "".join(g)
 
 
@@ -580,15 +704,16 @@ INSETS = {"c2": (C2_INSET, "ref_aloha_fuselage.png")}
 def render_all(force=False):
     out = HERE / "out" / "jiko"
     out.mkdir(parents=True, exist_ok=True)
-    jobs = {"p1_bg": p1_bg(), "p1_lab": p1_lab(), "p1_a1": p1_a1(), "p1_a2": p1_a2(),
+    jobs = {"_empty": J.frame(W, H),          # 余白測定の基準（check_space.py が使う）
+            "p1_bg": p1_bg(), "p1_lab": p1_lab(), "p1_a1": p1_a1(), "p1_a2": p1_a2(),
             "p2_bg": p2_bg(), "p2_lab": p2_lab(), "p2_a1": p2_a1(),
             "c2_base": c2_base(), "c2_hole": c2_hole(), "c2_tearline": c2_tearline(),
             "c2_lab": c2_lab(), "c2_a1": c2_a1(), "c2_a2": c2_a2(),
-            "p3_bg": p3_bg(), "p3_lab": p3_lab(), "p3_a2": p3_a2(),
+            "p3_bg": p3_bg(), "p3_lab": p3_lab(), "p3_a1": p3_a1(), "p3_a2": p3_a2(),
             "c3_base": c3_base(), "c3_arc": c3_arc(), "c3_lab": c3_lab(),
             "c3_call": c3_call(),
             "c4_base": c4_base(), "c4_crack": c4_crack(), "c4_lab": c4_lab(),
-            "c4_a1": c4_a1(), "c4_a3": c4_a3(),
+            "c4_a1": c4_a1(), "c4_a2": c4_a2(), "c4_a3": c4_a3(),
             "c5_base": c5_base(), "c5_crack": c5_crack(), "c5_bond": c5_bond(),
             "c5_lab": c5_lab(), "c5_a1": c5_a1(), "c5_a3": c5_a3(),
             "p4_bg": p4_bg(), "p4_lab": p4_lab(), "p4_a1": p4_a1(),
