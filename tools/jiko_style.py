@@ -65,12 +65,17 @@ def title(t, sub="", x=MG, y=104):
 
     y を 118→104 に上げ、x を 90→72(MG) に寄せた（本体に使える高さを 20px 稼ぐため）。
     """
-    g = (f'<text x="{x}" y="{y}" font-family="Dela" font-size="62" fill="{INK_W}">{t}</text>'
+    # 🔴 22巡目：実写を全画面にしたら、見出しと副題が**写真に埋もれた**（フチが無かった）。
+    #    暗幕だけでは明るい写真に負ける。図解カットでも害は無いので常にフチを付ける。
+    g = (f'<text x="{x}" y="{y}" font-family="Dela" font-size="62" fill="{INK_W}" '
+         f'stroke="{BG}" stroke-width="10" stroke-linejoin="round" '
+         f'paint-order="stroke fill">{t}</text>'
          f'<path d="M{x} {y + 30} h{min(RIGHT - x, 40 + len(t) * 62)}" stroke="{ALERT}" '
          f'stroke-width="5"/>')
     if sub:
         g += (f'<text x="{x}" y="{y + 78}" font-family="Noto" font-size="32" '
-              f'fill="{LINE}">{sub}</text>')
+              f'fill="{LINE}" stroke="{BG}" stroke-width="6" stroke-linejoin="round" '
+              f'paint-order="stroke fill">{sub}</text>')
     return g
 
 
@@ -104,10 +109,12 @@ def chapter(n, total, name):
     """
     x = RIGHT - 446
     return (f'<path d="M{x - 24} 56 V158" stroke="{ALERT}" stroke-width="5"/>'
-            f'<text x="{x}" y="98" font-family="Dela" font-size="40" fill="{AMBER}">'
-            f'{n} / {total}</text>'
-            f'<text x="{x}" y="146" font-family="Noto" font-size="30" fill="{LINE}">'
-            f'{name}</text>')
+            f'<text x="{x}" y="98" font-family="Dela" font-size="40" fill="{AMBER}" '
+            f'stroke="{BG}" stroke-width="8" stroke-linejoin="round" '
+            f'paint-order="stroke fill">{n} / {total}</text>'
+            f'<text x="{x}" y="146" font-family="Noto" font-size="30" fill="{LINE}" '
+            f'stroke="{BG}" stroke-width="6" stroke-linejoin="round" '
+            f'paint-order="stroke fill">{name}</text>')
 
 
 def scrim(x, y, w, h, side="top", op=0.86, tail=0.0):
