@@ -125,13 +125,21 @@ def rival_type(hero, red, yellow, split=None, extra=""):
     g = [f'<image href="{hero}" x="0" y="0" width="{W}" height="{H}" '
          f'preserveAspectRatio="xMidYMid slice"/>']
     if split:
+        # ⚠️ 右半分の写真は**その枠の寸法(640×720)で作ったもの**を渡すこと。
+        #    1280×720 で作った画像を 640幅の枠に slice で入れると倍に寄って、
+        #    耐圧殻が「木の板と黄色いテープ」にしか見えなくなった（t4の失敗）。
         uri, sx = split
-        g.append(f'<clipPath id="rt"><rect x="{sx}" y="0" width="{W - sx}" height="{H}"/>'
-                 f'</clipPath>'
-                 f'<g clip-path="url(#rt)"><image href="{uri}" x="{sx}" y="0" '
-                 f'width="{W - sx}" height="{H}" preserveAspectRatio="xMidYMid slice"/></g>')
+        g.append(f'<image href="{uri}" x="{sx}" y="0" width="{W - sx}" height="{H}" '
+                 f'preserveAspectRatio="xMidYMid slice"/>')
+    # 黄色の行だけ下地に負けやすいので、下端に薄い暗幕を敷く（競合も暗い写真を選んでいる）。
+    # 型を変えるものではなく、明るい写真を使ったときの保険。
+    g.append(f'<linearGradient id="sb" x1="0" y1="1" x2="0" y2="0">'
+             f'<stop offset="0" stop-color="#000" stop-opacity="0.46"/>'
+             f'<stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>'
+             f'<rect x="0" y="{H - 260}" width="{W}" height="260" fill="url(#sb)"/>')
     g.append(extra)
-    # 赤は白フチ、黄は黒フチ（実測）。フチは太くしないと写真の上で消える
+    # 赤は白フチ、黄は黒フチ（実測）。フチは太くしないと写真の上で消える。
+    # 赤が「濃い臙脂＋白フチ」なのは、明るい下地では文字色が・暗い下地ではフチが効くから。
     g.append(line(red, RED_BASE, RED_CAP, RED, "#ffffff", 17))
     g.append(line(yellow, YEL_BASE, YEL_CAP, YEL, "#000000", 20))
     return "".join(g)
@@ -166,29 +174,33 @@ def titan():
     競合のタイタン号（96万回）は 赤「乗客5名 爆縮の瞬間」／黄「タイタン号事故の真相」。
     同じ土俵に乗せたうえで、**赤の中身を「報告書で初めて分かったこと」に差し替える**。
     """
-    bow = photo(PH_BOW, cy=0.46, contrast=1.22, color=1.18, bright=0.98)
-    hull = photo(PH_HULL, cy=0.52, contrast=1.30, color=1.02, bright=1.02)
-    inner = photo(PH_INNER, cy=0.50, contrast=1.26, color=1.06, bright=1.00)
+    SX = 620                       # 継ぎ目。競合は左右ぴったり半々ではない（実測 283〜977）
+    RW = W - SX
+    bow_full = photo(PH_BOW, cy=0.46, contrast=1.22, color=1.18, bright=0.98)
+    bow_left = photo(PH_BOW, cy=0.46, contrast=1.22, color=1.18, bright=0.98, w=SX, h=H)
+    hull_r = photo(PH_HULL, cy=0.52, contrast=1.34, color=1.02, bright=1.04, w=RW, h=H)
+    inner_r = photo(PH_INNER, cy=0.50, contrast=1.30, color=1.06, bright=1.02, w=RW, h=H)
 
-    # R1：型どおり・写真1枚（競合の最小形）
+    # R1：型どおり・写真1枚（競合の最小形）。決め語も競合と同型
     bake("titan_R1", rival_type(
-        bow, "乗客5名 爆縮の瞬間", "タイタン号事故の真相"))
+        bow_full, "乗客5名 爆縮の瞬間", "タイタン号事故の真相"))
 
     # R2：型どおり・写真2枚並べ＋決め語をこちらの切り口に
     #     ← **これが本命。**枠は競合と同一、中身だけが報告書の写真で唯一無二
     bake("titan_R2", rival_type(
-        bow, "壊れた船体で3回潜航", "タイタン号事故の真相",
-        split=(hull, 640)))
+        bow_left, "壊れた船体で3回潜航", "タイタン号事故の真相", split=(hull_r, SX)))
 
     # R3：R2 の右を「耐圧殻の内面」に。白い破断面のほうが遠目で目立つか比較する
     bake("titan_R3", rival_type(
-        bow, "壊れた船体で3回潜航", "タイタン号事故の真相",
-        split=(inner, 640)))
+        bow_left, "壊れた船体で3回潜航", "タイタン号事故の真相", split=(inner_r, SX)))
 
-    # R4：赤を死者数の型に寄せる（競合の最頻パターン＝数字＋死者数）
+    # R4：赤を死者数の型に寄せる（競合の最頻パターン＝数字＋死者数＋「の瞬間」）
     bake("titan_R4", rival_type(
-        bow, "5名死亡 爆縮の瞬間", "タイタン号事故の真相",
-        split=(hull, 640)))
+        bow_left, "5名死亡 爆縮の瞬間", "タイタン号事故の真相", split=(hull_r, SX)))
+
+    # R5：黄色をこちらの切り口に寄せる（競合は事故名で固定だが、ここは差を作れる余地）
+    bake("titan_R5", rival_type(
+        bow_left, "報告書が示した8回目", "タイタン号 爆縮の真相", split=(hull_r, SX)))
 
 
 if __name__ == "__main__":
