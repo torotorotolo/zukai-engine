@@ -64,10 +64,26 @@ RED = "#c30a08"          # 上の行。純赤ではなく濃い臙脂
 YEL = "#fbfb0e"          # 下の行。緑寄りの純黄
 MG = 16                  # 左右の余白（実測 13〜26 の中央値）
 TXT_W = W - MG * 2       # 1248
-RED_CAP = 150            # 赤の字面の高さ
-RED_BASE = 168           # 赤のベースライン（字面 15〜170）
-YEL_CAP = 180            # 黄の字面の高さ
-YEL_BASE = 710           # 黄のベースライン。Noto Black は字面下端が少し上なので +7
+RED_CAP = 150            # 赤の字面の指定値（→ font-size 208px）
+YEL_CAP = 180            # 黄の字面の指定値（→ font-size 250px）
+STROKE = 24              # フチの太さ
+
+# 🔴 ベースラインは**推定で置かず、実測値から計算する**（2026-07-30）。
+#    「字面 = 0.72em」と見なして RED_BASE=168 / YEL_BASE=710 を直に書いていたが、
+#    クラウド出力を画素で測ったら **赤は上が27px・黄は下が27px 切れていた**。
+#    Noto Sans JP Black の実際のインクは、漢字やかなで
+#      ベースラインより上 **0.88em** ／ 下 **0.10em** まで出る（0.72 ではない）。
+#    さらにフチが左右上下へ stroke/2 だけ広がる。両方を足して端から 4px 空ける。
+INK_UP, INK_DN = 0.88, 0.10        # ベースラインから上／下へ出る比（em・実測）
+EDGE = 4                           # 画面の端に残す余白
+
+
+def _size(cap):
+    return cap / 0.72
+
+
+RED_BASE = round(EDGE + INK_UP * _size(RED_CAP) + STROKE / 2)          # → 199
+YEL_BASE = round(H - EDGE - INK_DN * _size(YEL_CAP) - STROKE / 2)      # → 679
 
 # Noto Sans JP Black の実測字幅（em）。全角はほぼ 1.0、半角数字は 0.56
 FULL, HALF = 1.0, 0.56
@@ -141,8 +157,8 @@ def rival_type(hero, red, yellow, split=None, extra=""):
     # 赤は白フチ、黄は黒フチ（実測）。フチは太くしないと写真の上で消える。
     # 赤が「濃い臙脂＋白フチ」なのは、明るい下地では文字色が・暗い下地ではフチが効くから。
     # フチの太さも実測に合わせた。17pxでは競合より細く、写真に接した部分が読みにくかった
-    g.append(line(red, RED_BASE, RED_CAP, RED, "#ffffff", 24))
-    g.append(line(yellow, YEL_BASE, YEL_CAP, YEL, "#000000", 24))
+    g.append(line(red, RED_BASE, RED_CAP, RED, "#ffffff", STROKE))
+    g.append(line(yellow, YEL_BASE, YEL_CAP, YEL, "#000000", STROKE))
     return "".join(g)
 
 
