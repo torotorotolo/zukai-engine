@@ -521,8 +521,11 @@ def c5_crack():
 def c5_bond():
     """接着層が**剥がれた**状態。緑の上に灰色を左から重ねると「剥離の進行」になる。
     事故の起点そのものなので、ここは必ず動かす。"""
-    return (f'<rect x="{SEC_X - SEC_HL}" y="{SEC_Y - 6 * SEC_S:.0f}" '
-            f'width="{SEC_HL * 2:.0f}" height="{12 * SEC_S:.0f}" fill="{J.LINE_DIM}"/>')
+    # ⚠️ 接着層の厚みを 12→18 単位にしたとき、ここを直し忘れて
+    #    剥がれた灰色の上下に緑が縁として残っていた（17巡目の拡大で発覚）。
+    #    **jiko_style の接着層と必ず同じ高さにする。**
+    return (f'<rect x="{SEC_X - SEC_HL}" y="{SEC_Y - 9 * SEC_S:.0f}" '
+            f'width="{SEC_HL * 2:.0f}" height="{18 * SEC_S:.0f}" fill="{J.LINE_DIM}"/>')
 
 
 def c5_lab():

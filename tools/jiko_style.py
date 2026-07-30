@@ -337,18 +337,19 @@ def b737_section(x, y, r=1.0, upper=None, floor=True, arc_only=False, inside=Tru
         # 座席 3-3（-200 の配置）。正面から見た形で並べる。中央が通路。
         # 実寸から置いた：客室幅 3.53 m = 1.88R ／ 座席幅 0.45 m ／ 通路 0.50 m
         # → 座席の中心は ±0.253R, ±0.492R, ±0.731R。外端 0.851R は床の半幅 0.94R の内側。
-        # 🔴 16巡目：座席が「6つのビル」に見えた。原因は**縦横比**で、
-        #    幅 66px に対して高さ 119px あった。正面から見た座席は幅とほぼ同じ高さ。
-        #    ヘッドレストも本体とほぼ同幅（0.088R と 0.112R）だったので段差が読めなかった。
-        sw, sh, hw2, hh = 0.115 * R, 0.20 * R, 0.070 * R, 0.28 * R
+        # 🔴 16巡目：座席が「6つのビル」に見えた（幅66pxに高さ119px＝縦横比が違う）。
+        # 🔴 17巡目：ヘッドレストを小さな別の箱で載せたら**レゴのブロック**に見えた。
+        #    しかも座席の隙間が 2.7px しかなく、3席が1枚の板に見えていた。
+        #    → ①座席は1個の角丸ブロックにする ②隙間を 11px 取る
+        #      ③背もたれとヘッドレストの継ぎ目を**線1本**で示す（箱を重ねない）
+        sw, sh = 0.100 * R, 0.24 * R
         for c in (-0.731, -0.492, -0.253, 0.253, 0.492, 0.731):
             bx = x + c * R
             g.append(f'<rect x="{bx - sw:.0f}" y="{fy - sh:.0f}" width="{sw * 2:.0f}" '
-                     f'height="{sh:.0f}" fill="{LINE}" opacity="0.45" stroke="{LINE}" '
-                     f'stroke-width="{LW * 0.5:.1f}"/>')
-            g.append(f'<rect x="{bx - hw2:.0f}" y="{fy - hh:.0f}" width="{hw2 * 2:.0f}" '
-                     f'height="{hh - sh:.0f}" fill="{LINE}" opacity="0.45" '
+                     f'height="{sh:.0f}" rx="{sw * 0.34:.0f}" fill="{LINE}" opacity="0.45" '
                      f'stroke="{LINE}" stroke-width="{LW * 0.5:.1f}"/>')
+            g.append(f'<path d="M{bx - sw:.0f} {fy - sh * 0.66:.0f} h{sw * 2:.0f}" '
+                     f'stroke="{BG}" stroke-width="{LW * 0.6:.1f}" opacity="0.55"/>')
     if floor and not arc_only:
         g.append(f'<path d="M{x - hw:.0f} {fy:.0f} H{x + hw:.0f}" stroke="{LINE}" '
                  f'stroke-width="{LW * 1.2:.1f}"/>')
