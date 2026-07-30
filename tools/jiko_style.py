@@ -337,8 +337,10 @@ def b737_section(x, y, r=1.0, upper=None, floor=True, arc_only=False, inside=Tru
         # 座席 3-3（-200 の配置）。正面から見た形で並べる。中央が通路。
         # 実寸から置いた：客室幅 3.53 m = 1.88R ／ 座席幅 0.45 m ／ 通路 0.50 m
         # → 座席の中心は ±0.253R, ±0.492R, ±0.731R。外端 0.851R は床の半幅 0.94R の内側。
-        # 15巡目はヘッドレストが 0.072R で小さく、6個の箱に見えた。幅と高さを上げる
-        sw, sh, hw2, hh = 0.112 * R, 0.28 * R, 0.088 * R, 0.40 * R
+        # 🔴 16巡目：座席が「6つのビル」に見えた。原因は**縦横比**で、
+        #    幅 66px に対して高さ 119px あった。正面から見た座席は幅とほぼ同じ高さ。
+        #    ヘッドレストも本体とほぼ同幅（0.088R と 0.112R）だったので段差が読めなかった。
+        sw, sh, hw2, hh = 0.115 * R, 0.20 * R, 0.070 * R, 0.28 * R
         for c in (-0.731, -0.492, -0.253, 0.253, 0.492, 0.731):
             bx = x + c * R
             g.append(f'<rect x="{bx - sw:.0f}" y="{fy - sh:.0f}" width="{sw * 2:.0f}" '
@@ -482,8 +484,9 @@ def lap_joint_section(x, y, s=1.0, crack=True, crack_only=False):
     # 上（外側）の外板：右端が自由端＝ここが段差
     g.append(f'<path d="M{-hl - EXT} {-T} H{hl} V0 H{-hl - EXT} Z" fill="{INK_W}" '
              f'opacity="0.85" stroke="{INK_W}" stroke-width="3"/>')
-    # 接着層。**ここが剥がれたのが事故の起点**なので独立した層として描く
-    g.append(f'<rect x="{-hl}" y="-6" width="{LAP}" height="12" fill="{OK}" '
+    # 接着層。**ここが剥がれたのが事故の起点**なので独立した層として描く。
+    # 板厚を 26→44 に上げたぶん相対的に細く見えたので 12→18 単位にした
+    g.append(f'<rect x="{-hl}" y="-9" width="{LAP}" height="18" fill="{OK}" '
              f'opacity="0.85"/>')
     # 段差の落ち影
     g.append(f'<path d="M{hl} 0 h{EXT}" stroke="{BG}" stroke-width="9" opacity="0.5"/>')
@@ -496,7 +499,10 @@ def lap_joint_section(x, y, s=1.0, crack=True, crack_only=False):
                  f'L{rx - 8} {-T + cs} Z" fill="{BG2}" stroke="{BG}" stroke-width="3"/>')
         g.append(f'<rect x="{rx - 8}" y="{-T + cs}" width="16" height="{T * 2 - cs}" '
                  f'fill="{BG2}" stroke="{BG}" stroke-width="3"/>')
-        g.append(f'<rect x="{rx - 13}" y="{T}" width="26" height="11" rx="4" '
+        # 内側の頭（据え込み頭）。🔴 角の丸い長方形で描いていたので**ボルトの座金**に見えた
+        #    （14巡目からの持ち越し粗）。リベットの頭は打って潰した丸い膨らみなので、
+        #    平らな座金ではなく浅いドームにする。
+        g.append(f'<path d="M{rx - 15} {T} Q{rx} {T + 19} {rx + 15} {T} Z" '
                  f'fill="{BG2}" stroke="{BG}" stroke-width="3"/>')
     if crack:
         # 皿もみの刃のような縁から、**板厚の中を**横に進む。
