@@ -193,8 +193,18 @@ SCRIM_TOP = 300                     # 見出しに敷く暗幕の高さ
 CRED_Y = 872                        # 出典の位置（字幕帯 900 のすぐ上）
 
 
-def full_bg(title, sub, ch_n, ch_name, side="right"):
-    """全画面写真カットの地。**写真の上に載る文字のための暗幕だけ**を敷く。"""
+def full_bg():
+    """全画面写真カットの地。**写真がこの上に全面で乗るので、ここには何も置けない。**
+
+    🔴 21巡目の事故：見出し・章マーカー・暗幕をここに置いたら、
+       **全画面の写真に丸ごと覆われて消えた**（build_jiko は bg の上に写真を貼る）。
+       写真より上に出したいものは `_lab` に置く。
+    """
+    return J.frame(W, H)
+
+
+def full_top(title, sub, ch_n, ch_name, credit_text, side="right"):
+    """写真の**上**に載せる一式（暗幕・見出し・章マーカー・出典）。`_lab` に入れる。"""
     g = [J.scrim(0, 0, W, SCRIM_TOP, "top", 0.80)]
     if side == "right":
         g.append(J.scrim(1150, 0, W - 1150, H, "right", 0.62))
@@ -202,12 +212,8 @@ def full_bg(title, sub, ch_n, ch_name, side="right"):
         g.append(J.scrim(0, 0, 770, H, "left", 0.62))
     g.append(J.title(title, sub))
     g.append(J.chapter(ch_n, 6, ch_name))
+    g.append(J.outlined(J.MG, CRED_Y, credit_text, J.LINE, 24, sw=5))
     return "".join(g)
-
-
-def credit(t):
-    """出典。全画面になったので写真の枠が無い。字幕帯のすぐ上に1行で置く。"""
-    return J.outlined(J.MG, CRED_Y, t, J.LINE, 24, sw=5)
 
 
 # ── p1：実写（事故機の左側面） ────────────────────────────
@@ -215,13 +221,13 @@ P1_BOX = PHOTO_FULL
 
 
 def p1_bg():
-    return full_bg("飛行中に、屋根が消えた",
-                   "アロハ航空243便　1988年4月28日　ボーイング737-200",
-                   1, "何が起きたか")
+    return full_bg()
 
 
 def p1_lab():
-    return credit(CR_NTSB)
+    return full_top("飛行中に、屋根が消えた",
+                    "アロハ航空243便　1988年4月28日　ボーイング737-200",
+                    1, "何が起きたか", CR_NTSB)
 
 
 def p1_a1():
@@ -247,12 +253,12 @@ P2_BOX = PHOTO_FULL
 
 
 def p2_bg():
-    return full_bg("この機体は、19年間飛んでいた", "事故を起こした N73711　1969年製",
-                   2, "どの機体だったか", side="left")
+    return full_bg()
 
 
 def p2_lab():
-    return credit(CR_NARA)
+    return full_top("この機体は、19年間飛んでいた", "事故を起こした N73711　1969年製",
+                    2, "どの機体だったか", CR_NARA, side="left")
 
 
 def p2_a1():
@@ -342,12 +348,12 @@ P3_BOX = PHOTO_FULL
 
 
 def p3_bg():
-    return full_bg("人と並べると、大きさが分かる", "マウイ島カフルイ空港に緊急着陸した機体",
-                   3, "どこが失われたか")
+    return full_bg()
 
 
 def p3_lab():
-    return credit(CR_FAA)
+    return full_top("人と並べると、大きさが分かる", "マウイ島カフルイ空港に緊急着陸した機体",
+                    3, "どこが失われたか", CR_FAA)
 
 
 def p3_a1():
@@ -591,12 +597,12 @@ P4_BOX = PHOTO_FULL
 
 
 def p4_bg():
-    return full_bg("ヒロを出て、ホノルルへ向かっていた", "アロハ航空243便の航路　ハワイ諸島",
-                   5, "19年で積み上がったもの", side="left")
+    return full_bg()
 
 
 def p4_lab():
-    return credit(CR_NASA)
+    return full_top("ヒロを出て、ホノルルへ向かっていた", "アロハ航空243便の航路　ハワイ諸島",
+                    5, "19年で積み上がったもの", CR_NASA, side="left")
 
 
 def p4_a1():
