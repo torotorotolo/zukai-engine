@@ -68,3 +68,13 @@
 図3（三面図と内部配置）／図7（コボンド工程図＋実物断面のインセット）／
 図13・14・15・16・17・18（研究室での撮影）／図21（ダイブ75と80〜83のひずみ比較）／
 図22（潜水艇の製造数）／図24（捜索に参加した船と機体）
+
+### サムネイルの地（2026-07-30 差し替え）
+| ファイル | 出所 | 判定 |
+|---|---|---|
+| `titan_titanic_bow.jpg` | **NOAA／Institute for Exploration／ロードアイランド大学**（2004年調査・水深3,840m） | ✅ 米連邦機関の著作物＝PD。Wikimedia Commons でも Public domain。1480×1036 |
+
+⚠️ **NOAA のサイトに載っているタイタニックの写真でも PD とは限らない。**
+`oceanexplorer.noaa.gov/explorations/04titanic/` の船首写真は
+**"Image copyright Emory Kristof/National Geographic"** で権利が残る。
+凡例を必ず読むこと（NTSB報告書の図版と同じ落とし穴）。
