@@ -94,6 +94,22 @@ def rule(x1, x2, y, col=None, w=4):
     return f'<path d="M{x1} {y} H{x2}" stroke="{col or ALERT}" stroke-width="{w}"/>'
 
 
+def chapter(n, total, name):
+    """見出しの右の章マーカー。
+
+    🔴 2026-07-30：レイアウトを詰めたあと、**残った最大の余白はどのカットも
+       「見出しの右」**だった（見出しは左寄せで短いので右上が必ず空く）。
+       飾りで埋めるのではなく、15分以上の動画で本当に要る「いま何章か」を置く。
+       右上に固定位置で出すので、視線の邪魔にもならない。
+    """
+    x = RIGHT - 446
+    return (f'<path d="M{x - 24} 56 V158" stroke="{ALERT}" stroke-width="5"/>'
+            f'<text x="{x}" y="98" font-family="Dela" font-size="40" fill="{AMBER}">'
+            f'{n} / {total}</text>'
+            f'<text x="{x}" y="146" font-family="Noto" font-size="30" fill="{LINE}">'
+            f'{name}</text>')
+
+
 def tone(x, y, w, h, col=None, op=0.10):
     """意味を持つ面の塗り。**「外気側」「客室側」のような領域**を示すのに使う。
     装飾の塗りには使わない（余白を数字で埋めるためだけの塗りは禁止）。"""
@@ -303,14 +319,16 @@ def b737_section(x, y, r=1.0, upper=None, floor=True, arc_only=False, inside=Tru
     else:
         g = []
         if inside:
-            # 客室（床から上）と貨物室（床から下）。円で切り抜いて面にする
+            # 客室（床から上）と貨物室（床から下）。円で切り抜いて面にする。
+            # 客室は「空気」なので薄く、貨物室は荷物が詰まっているので濃く。
+            # 15巡目は 0.10 と 0.16 でほぼ同じ濃さに見え、床の位置が読めなかった。
             cid = f"sec{int(x)}{int(y)}"
             g.append(f'<clipPath id="{cid}"><circle cx="{x}" cy="{y}" r="{R:.0f}"/>'
                      f'</clipPath><g clip-path="url(#{cid})">'
                      f'<rect x="{x - R:.0f}" y="{y - R:.0f}" width="{R * 2:.0f}" '
-                     f'height="{fy - (y - R):.0f}" fill="{INK_W}" opacity="0.10"/>'
+                     f'height="{fy - (y - R):.0f}" fill="{INK_W}" opacity="0.06"/>'
                      f'<rect x="{x - R:.0f}" y="{fy:.0f}" width="{R * 2:.0f}" '
-                     f'height="{y + R - fy:.0f}" fill="{LINE}" opacity="0.16"/></g>')
+                     f'height="{y + R - fy:.0f}" fill="{LINE}" opacity="0.22"/></g>')
         g += [f'<circle cx="{x}" cy="{y}" r="{R:.0f}" fill="none" stroke="{INK_W}" '
               f'stroke-width="{LW * 1.6:.1f}"/>',
               f'<circle cx="{x}" cy="{y}" r="{R - 14 * r:.0f}" fill="none" '
@@ -319,7 +337,8 @@ def b737_section(x, y, r=1.0, upper=None, floor=True, arc_only=False, inside=Tru
         # 座席 3-3（-200 の配置）。正面から見た形で並べる。中央が通路。
         # 実寸から置いた：客室幅 3.53 m = 1.88R ／ 座席幅 0.45 m ／ 通路 0.50 m
         # → 座席の中心は ±0.253R, ±0.492R, ±0.731R。外端 0.851R は床の半幅 0.94R の内側。
-        sw, sh, hw2, hh = 0.112 * R, 0.30 * R, 0.072 * R, 0.38 * R
+        # 15巡目はヘッドレストが 0.072R で小さく、6個の箱に見えた。幅と高さを上げる
+        sw, sh, hw2, hh = 0.112 * R, 0.28 * R, 0.088 * R, 0.40 * R
         for c in (-0.731, -0.492, -0.253, 0.253, 0.492, 0.731):
             bx = x + c * R
             g.append(f'<rect x="{bx - sw:.0f}" y="{fy - sh:.0f}" width="{sw * 2:.0f}" '

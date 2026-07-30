@@ -35,17 +35,23 @@ DESC_SHALLOW = set(",()（）")          # 0.10em
 
 
 def adv(ch, family):
-    """1文字の送り幅（em）。Noto/Dela の実測ではなく素朴な推定。"""
+    """1文字の送り幅（em）。Noto/Dela の実測ではなく素朴な推定。
+
+    🔴 Dela の数字を 0.72em と見ていたが**実測は 0.84em**だった。
+       そのため c7 の「75,000」を 760px と見積もり（実際は約880px）、
+       隣の「89,680」とくっついて「75,00089,680」に読める画を通してしまった。
+       クラウド出力を実測して 0.84 に直した。
+    """
     o = ord(ch)
     if o >= 0x2E80:                      # 漢字・かな・全角記号
         return 1.0
     if ch == " ":
         return 0.30
     if ch in ".,":
-        return 0.28
+        return 0.30 if family == "Dela" else 0.28
     if ch in "()（）":
         return 0.45
-    return 0.72 if family == "Dela" else 0.56
+    return 0.84 if family == "Dela" else 0.56
 
 
 def width(t, size, family):
