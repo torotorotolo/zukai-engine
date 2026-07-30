@@ -78,3 +78,18 @@
 `oceanexplorer.noaa.gov/explorations/04titanic/` の船首写真は
 **"Image copyright Emory Kristof/National Geographic"** で権利が残る。
 凡例を必ず読むこと（NTSB報告書の図版と同じ落とし穴）。
+
+### USCG が公開したタイタン号本体の写真（2026-07-30 追加）
+
+| ファイル | 出所 | 判定 |
+|---|---|---|
+| `titan_rov_tailcone.jpg` (1909×1080) | **United States Coast Guard**（MBIで公開）。ROVは Pelagic Research Services 6000 | ⚠️ **PDだが撮影者は請負業者**。Wikimedia Commons は米沿岸警備隊の著作物としてPD扱い。海底に立つ尾部コーン・深度3,775.9m の焼き込みあり |
+| `titan_rov_aft.jpg` (1920×1080) | 同上。後部ドームと潰れた船体の残骸 | ⚠️ 同じ留保 |
+| `titan_cf_evidence.jpg` (1500×1000) | **USCG本部 Melissa Leake 准尉が撮影**。回収した炭素繊維の破片を証拠として並べたもの（2023-09-30回収） | ✅ **米沿岸警備隊職員の撮影＝完全にPD。留保なし** |
+
+⚠️ **上2点の留保について。**
+凡例は「United States Coast Guard」だが、説明文に「Image taken by Pelagic Research
+Services 6000, a remotely operated vehicle」とある。**撮影機材は請負業者のROV**で、
+USCG が調査の一環として公表したもの。Commons は米連邦機関の著作物としてPDと判定している。
+→ **最も安全なのは `titan_cf_evidence.jpg`（USCG職員本人の撮影）。**
+　 権利申し立てを1件も受けたくない段階ではこちらを使う。

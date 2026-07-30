@@ -23,3 +23,7 @@ ref/*
 # タイタニック船首（NOAA/IFE/URI・PD）。サムネの地に使う
 !ref/titan_titanic_bow.jpg
 !ref/titan_hull_pair.jpg
+# USCG が公開したタイタン号本体の写真（PD）
+!ref/titan_rov_tailcone.jpg
+!ref/titan_rov_aft.jpg
+!ref/titan_cf_evidence.jpg
