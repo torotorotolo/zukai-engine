@@ -124,11 +124,22 @@ def leader(x1, y1, x2, y2, col=None):
             f'<circle cx="{x1}" cy="{y1}" r="8" fill="{c}"/>')
 
 
-def dim(x1, x2, y, t, col=None):
-    """寸法線。両端に矢羽根を付けて『図面』に見せる。"""
+def dim(x1, x2, y, t, col=None, ext=0):
+    """寸法線。両端に矢羽根を付けて『図面』に見せる。
+
+    ext に長さを渡すと**寸法補助線**（両端から下へ伸びる細い線）を引く。
+    🔴 2026-07-30：寸法線を測る物から離すと浮いて見え、近づけると引き出し線と交差した。
+       製図では寸法線は物から離して置き、補助線で繋ぐ。それをそのまま採用した。
+       これで「離れていても何を測っているか分かる」＋「上の帯も埋まる」を両立できる。
+    """
     c = col or AMBER
+    g = ""
+    if ext:
+        g = (f'<path d="M{x1} {y + 10} v{ext} M{x2} {y + 10} v{ext}" stroke="{c}" '
+             f'stroke-width="2.6" opacity="0.55"/>')
     # 端の短い縦線と矢羽根が同じxで重なって「✳」に見えていたので、縦線を 24→16 に縮めた
-    return (f'<path d="M{x1} {y} H{x2}" stroke="{c}" stroke-width="{LW * 0.7:.1f}"/>'
+    return (g
+            + f'<path d="M{x1} {y} H{x2}" stroke="{c}" stroke-width="{LW * 0.7:.1f}"/>'
             f'<path d="M{x1} {y - 8} v16 M{x2} {y - 8} v16" stroke="{c}" '
             f'stroke-width="{LW * 0.7:.1f}"/>'
             f'<path d="M{x1 + 8} {y - 8} l-12 8 l12 8" fill="none" stroke="{c}" '
