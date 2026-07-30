@@ -194,16 +194,35 @@ def subtitle(fr, cut, t, subs):
     return fr
 
 
+def steps(fr, cut, t, lay):
+    """図のラベルは頭から出し、注記は**ナレーションの行に同期して**順に出す。
+
+    🔴 2026-07-30 カズヤくん指摘：
+       「図内に文字が多いパートは、ナレーションに合わせて順番に表示した方が、
+        視聴者も注視すべき場所が明らかになって見やすい」
+       `{cut}_lab` = 図そのもののラベル（寸法・部位名）→ カット頭から
+       `{cut}_aN`  = ナレーション N 行目に同期する注記 → その行が始まってから
+    """
+    if f"{cut}_lab" in lay:
+        over(fr, lay[f"{cut}_lab"], min(1.0, max(0.0, (t - 0.15) / 0.5)))
+    for i, r in enumerate(S.SUBS.get(cut, [])):
+        key = f"{cut}_a{i + 1}"
+        if key not in lay:
+            continue
+        start = r["t"] + S.LEAD
+        over(fr, lay[key], max(0.0, min(1.0, (t - start) / 0.45)))
+    return fr
+
+
 def scene(cut, t, dur, lay, photos, numcells):
     """字幕を除いた画面。"""
-    av = max(0.0, min(1.0, (t - 0.5) / 1.1))          # 注記は0.5秒後から1.1秒かけて
     pulse = 0.55 + 0.45 * (0.5 + 0.5 * math.sin(t * math.tau / 1.35))
     if cut in S.PHOTO_CUTS:
         box, _, bias = S.PHOTO_CUTS[cut]
         fr = lay[f"{cut}_bg"].copy()
         ph = fit(photos[cut], box, t / max(dur, 0.001), bias)
         fr.paste(duotone(ph, J.BG2, "#e6eef2", boost=cut in BOOST), (box[0], box[1]))
-        return over(fr, lay[f"{cut}_over"], min(1.0, t / 0.4))
+        return steps(fr, cut, t, lay)
     fr = lay[f"{cut}_base"].copy()
     if cut in S.INSETS:
         box, _ = S.INSETS[cut]
@@ -212,15 +231,15 @@ def scene(cut, t, dur, lay, photos, numcells):
         # 穴は一度だけ開く。**縁だけを脈打たせる**（穴を明滅させると嘘に見える）
         over(fr, lay["c2_hole"], min(1.0, max(0.0, (t - 0.3) / 0.5)))
         over(fr, lay["c2_tearline"], min(1.0, max(0.0, (t - 0.3) / 0.5)) * pulse)
-        return over(fr, lay["c2_anno"], av)
+        return steps(fr, cut, t, lay)
     if cut == "c4":
         # 亀裂は左から順に現れる。「進行」に見せる
         wipe(fr, lay["c4_crack"], rev(t, dur, 0.4, 0.84), span=LJ_X_SPAN)
-        return over(fr, lay["c4_anno"], max(0.0, min(1.0, (t - 1.8) / 1.1)))
+        return steps(fr, cut, t, lay)
     if cut == "c3":
         # 上部が「裂けて広がっていく」。円周55%という情報を運ぶ動き
         wipe(fr, lay["c3_arc"], rev(t, dur, 0.6, 0.82), span=C3_ARC_SPAN)
-        over(fr, lay["c3_anno"], av)
+        steps(fr, cut, t, lay)
         # 「ここが消えた」の引き出し線は弧の右端を指すので、**弧が届いてから**出す。
         # 9巡目は注記が先に出て、線が何も無い所を指していた。
         return over(fr, lay["c3_call"], rev(t, dur, dur * 0.72, 0.10))
@@ -230,18 +249,18 @@ def scene(cut, t, dur, lay, photos, numcells):
         wipe(fr, lay["c5_bond"], rev(t, dur, 1.2, 0.50) * 0.78, soft=90,
              span=C5_BOND_SPAN)
         over(fr, lay["c5_crack"], rev(t, dur, dur * 0.62, 0.10) * pulse)
-        return over(fr, lay["c5_anno"], av)
+        return steps(fr, cut, t, lay)
     if cut == "c6":
         # 高度の折れ線を左から描く。離陸→巡航→剥離→緊急降下→着陸が時間軸で追える
         wipe(fr, lay["c6_line"], rev(t, dur, 0.4, 0.76), span=C6_LINE_SPAN)
         over(fr, lay["c6_mark"], rev(t, dur, dur * 0.34, 0.06) * pulse)
-        return over(fr, lay["c6_anno"], max(0.0, min(1.0, (t - 2.2) / 1.1)))
+        return steps(fr, cut, t, lay)
     if cut == "c7":
         # 数え上がりはカット尺の7割。9割だと最終値が0.5秒しか出ず、読む間が無かった
         k = rev(t, dur, 0.3, 0.70)
         fr.alpha_composite(numcells[min(11, int(k * 11.999))])
         return fr
-    return over(fr, lay[f"{cut}_anno"], av)
+    return steps(fr, cut, t, lay)
 
 
 def compose(cut, t, dur, lay, photos, numcells, subs=None):
@@ -295,12 +314,16 @@ def check_motion(limit=3.0):
 def build():
     FR.mkdir(parents=True, exist_ok=True)
     QA.mkdir(parents=True, exist_ok=True)
-    names = ["p1_bg", "p1_over", "p2_bg", "p2_over", "p3_bg", "p3_over",
-             "p4_bg", "p4_over",
-             "c2_base", "c2_hole", "c2_tearline", "c2_anno", "c3_base", "c3_anno",
-             "c3_arc", "c3_call", "c4_base", "c4_crack", "c4_anno",
-             "c5_base", "c5_crack", "c5_bond", "c5_anno",
-             "c6_base", "c6_line", "c6_mark", "c6_anno", "c7_base"]
+    names = ["p1_bg", "p1_lab", "p1_a1", "p1_a2",
+             "p2_bg", "p2_lab", "p2_a1",
+             "c2_base", "c2_hole", "c2_tearline", "c2_lab", "c2_a1", "c2_a2",
+             "p3_bg", "p3_lab", "p3_a2",
+             "c3_base", "c3_arc", "c3_lab", "c3_call",
+             "c4_base", "c4_crack", "c4_lab", "c4_a1", "c4_a3",
+             "c5_base", "c5_crack", "c5_bond", "c5_lab", "c5_a1", "c5_a3",
+             "p4_bg", "p4_lab", "p4_a1",
+             "c6_base", "c6_line", "c6_mark", "c6_lab", "c6_a1", "c6_a2",
+             "c7_base"]
     lay = {k: L(k) for k in names}
     photos = {c: load_photo(f, b) for c, (b, f, _) in S.PHOTO_CUTS.items()}
     photos.update({c: load_photo(f, b) for c, (b, f) in S.INSETS.items()})
@@ -321,7 +344,7 @@ def build():
             fr.convert("RGB").save(FR / f"{n:05d}.jpg", quality=93)
             n += 1
         # 検品用：そのカットの終盤（注記が出そろった状態）を実寸で残す
-        qa = compose(cut, sec * 0.60, sec, lay, photos, numcells, subs).convert("RGB")
+        qa = compose(cut, sec * 0.88, sec, lay, photos, numcells, subs).convert("RGB")
         qa.save(QA / f"cut_{cut}.png")
         sheet.append(qa.copy())
         print(f"cut {cut}: {total}", flush=True)
