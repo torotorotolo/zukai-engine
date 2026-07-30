@@ -16,3 +16,7 @@ ref/*
 !ref/b737_3view.png
 !ref/ntsb_aar8903.pdf
 !ref/ntsb_titan_MIR2536.pdf
+# タイタン号（本番1本目）の素材。すべて NTSB 撮影＝PD。出所は ref/CREDITS.md に記録
+!ref/titan_hull_edge.jpg
+!ref/titan_hull_inner.jpg
+!ref/titan_delam_ruler.jpg
