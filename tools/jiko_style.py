@@ -110,6 +110,33 @@ def chapter(n, total, name):
             f'{name}</text>')
 
 
+def scrim(x, y, w, h, side="top", op=0.86, tail=0.0):
+    """写真の上に文字を載せるための暗幕。片側から反対側へ抜けるグラデーション。
+
+    🔴 2026-07-30：実写カットを**全画面**にした（カズヤくん指示）。
+       写真を箱に入れて隣に情報柱を立てる作りをやめたので、見出しも注記も
+       **写真の上に載る**。そのままでは読めないので、載せる側だけを暗く落とす。
+       サムネで確立した「太いフチ」と併用する（フチだけでは明るい写真に負ける）。
+    """
+    xy = {"top": ("0", "0", "0", "1"), "bottom": ("0", "1", "0", "0"),
+          "left": ("0", "0", "1", "0"), "right": ("1", "0", "0", "0")}[side]
+    gid = f"sc{int(x)}{int(y)}{side}"
+    return (f'<linearGradient id="{gid}" x1="{xy[0]}" y1="{xy[1]}" x2="{xy[2]}" y2="{xy[3]}">'
+            f'<stop offset="0" stop-color="{BG}" stop-opacity="{op}"/>'
+            f'<stop offset="0.62" stop-color="{BG}" stop-opacity="{op * 0.55:.2f}"/>'
+            f'<stop offset="1" stop-color="{BG}" stop-opacity="{tail}"/></linearGradient>'
+            f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="url(#{gid})"/>')
+
+
+def outlined(x, y, t, col, size, anchor="start", stroke=None, sw=None, family="Noto"):
+    """写真の上に載せる文字。**太いフチを付けないと必ず読めなくなる。**"""
+    s = sw if sw is not None else max(6, size * 0.17)
+    return (f'<text x="{x}" y="{y}" font-family="{family}" font-size="{size}" '
+            f'fill="{col}" text-anchor="{anchor}" stroke="{stroke or BG}" '
+            f'stroke-width="{s:.1f}" stroke-linejoin="round" '
+            f'paint-order="stroke fill">{t}</text>')
+
+
 def tone(x, y, w, h, col=None, op=0.10):
     """意味を持つ面の塗り。**「外気側」「客室側」のような領域**を示すのに使う。
     装飾の塗りには使わない（余白を数字で埋めるためだけの塗りは禁止）。"""

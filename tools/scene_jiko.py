@@ -101,11 +101,18 @@ def page(inner, w=W, h=H):
 #    葦は全編ベクター画面だがこちらは実写に重ねるので、箱の代わりにごく弱い影だけ敷く。
 # ⚠️ 字幕を3秒以下に細切れにするのは**2026-07-30に不採用**（見にくいと判定された）。
 #    静止禁止は図とグラフの動きで満たす。字幕は自然な文の単位で切る。
-SUB_Y, SUB_H = 916, 120
-SUB_SIZE = 26
+# 🔴 2026-07-30（カズヤくん指示）：**実写カットを全画面にしたので字幕の作りを変える。**
+#    それまでは「箱も帯もなし・影だけ・26px」だった。これは**「考えすぎる葦」（教養ch）**を
+#    実測して合わせた値で、全編ベクター画面という前提の上に成り立っていた。
+#    ⚠️ 全画面の写真の上に 26px の細い文字を影だけで載せると**物理的に読めない**。
+#    競合（ゆっくり事故検証）は**黒背景を確保したうえで字幕を載せている**ので、そちらに合わせる。
+#    → 黒帯を敷き、級数を 26→38 に上げる。**全カットで統一する**
+#      （カットごとに字幕の見た目が変わるのがいちばん読みにくい）。
+SUB_Y, SUB_H = 900, 180
+SUB_SIZE = 38
 # 🔴 2026-07-30：**横長1列のほうがスッキリする**とのカズヤくん判定で 22→34 に。
 #    台本の最長は31字なので実質1行に収まる（26px×31字≒806px で1920に余裕）。
-SUB_WRAP = 34            # これを超えたときだけ2行に折る
+SUB_WRAP = 26            # 38pxに上げたぶん折返しを 34→26 字に
 XML = {"&": "&amp;", "<": "&lt;", ">": "&gt;"}
 
 
@@ -128,16 +135,19 @@ def sub_row(text, w=W, h=SUB_H):
     """字幕1枚。**箱も帯も敷かない**（葦式）。影だけで実写の上の可読性を持たせる。
     1行なら下寄せ、2行なら上下に振り分ける。**最終行の位置を揃える**のが読みやすさの要。"""
     lines = wrap2(text)
-    ys = [h * 0.72] if len(lines) == 1 else [h * 0.42, h * 0.80]
-    g = []
+    ys = [h * 0.64] if len(lines) == 1 else [h * 0.42, h * 0.78]
+    # 黒帯。上端はグラデーションで抜いて、画面を横に切る線に見せない
+    g = [f'<linearGradient id="subbg" x1="0" y1="1" x2="0" y2="0">'
+         f'<stop offset="0" stop-color="#000" stop-opacity="0.78"/>'
+         f'<stop offset="0.62" stop-color="#000" stop-opacity="0.70"/>'
+         f'<stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>'
+         f'<rect x="0" y="0" width="{w}" height="{h}" fill="url(#subbg)"/>']
     for t, y in zip(lines, ys):
         e = esc(t)
-        g.append(f'<text x="{w / 2 + 2:.0f}" y="{y + 2:.0f}" font-family="NotoM" '
-                 f'font-size="{SUB_SIZE}" fill="{J.BG}" opacity="0.62" '
-                 f'text-anchor="middle">{e}</text>'
-                 f'<text x="{w / 2:.0f}" y="{y:.0f}" font-family="NotoM" '
-                 f'font-size="{SUB_SIZE}" fill="{J.INK_W}" opacity="0.92" '
-                 f'text-anchor="middle">{e}</text>')
+        g.append(f'<text x="{w / 2:.0f}" y="{y:.0f}" font-family="Noto" '
+                 f'font-size="{SUB_SIZE}" fill="{J.INK_W}" text-anchor="middle" '
+                 f'stroke="#000" stroke-width="7" stroke-linejoin="round" '
+                 f'paint-order="stroke fill">{e}</text>')
     return "".join(g)
 
 
@@ -167,87 +177,92 @@ def photo_frame(x, y, w, h, credit, size=25):
     return "".join(g)
 
 
-# ── 実写カットの型（2026-07-30 に作り直した） ─────────────
-# 写真は **本体の高さ 682px を必ず使い切る**。反対側に幅632pxの「情報柱」を立て、
-# 柱の中も y=270〜880 を使い切るようにブロックを配置する。
-# 文字は 14巡目の 32〜42px から **大注記 52〜56px・事実 42px・数値 Dela 92〜104px** に上げた。
-PH_L = (J.MG, J.BAND_T, J.PHOTO_W, J.PHOTO_H)                 # 写真を左に置く型
-PH_R = (J.RIGHT - J.PHOTO_W, J.BAND_T, J.PHOTO_W, J.PHOTO_H)  # 写真を右に置く型
-CR, CL = J.COL_R[0], J.COL_L[0]        # 情報柱の左端（右柱=1216 ／ 左柱=72）
+# ── 実写カットの型：**全画面**（2026-07-30 カズヤくん指示で作り直した） ──
+# それまでは「写真1104×682の箱＋隣に幅632の情報柱」だった。
+# 🔴 カズヤくん指摘：「競合は画面全体に写真や動画を出し、字幕は黒背景の上に載せている。
+#    写真は画面いっぱいのほうがインパクトがある」。**そのとおりなので全面に変える。**
+#      ① 写真は 1920×1080 いっぱい。箱も枠も無し
+#      ② 見出しと注記は**写真の上に載せる**。載る側だけ暗幕（`J.scrim`）で落とし、
+#         文字には必ず太いフチを付ける（`J.outlined`）。サムネで確立した手当てと同じ
+#      ③ 余白の問題は**構造的に消える**（全面写真＝占有率100%）
+#      ④ そのぶん注記は減らす。実写カットの仕事は「衝撃」で、密度は図解カットが担う
+#         （旧型は1カットに8〜10ブロック載せていた。全面写真では邪魔になる）
+PHOTO_FULL = (0, 0, W, H)
+CR, CL = 1180, J.MG                 # 注記の柱の基準x（右／左）
+SCRIM_TOP = 300                     # 見出しに敷く暗幕の高さ
+CRED_Y = 872                        # 出典の位置（字幕帯 900 のすぐ上）
 
 
-# ── p1：実写（事故機の左側面）＋右の情報柱 ────────────────
-P1_BOX = PH_L
-
-
-def p1_bg():
-    """写真の下に敷く地。**注記は別レイヤーにする**（初稿は注記側にも背景を塗って写真が消えた）。"""
-    return (J.frame(W, H) + J.title("飛行中に、屋根が消えた",
-                                   "アロハ航空243便　1988年4月28日　ボーイング737-200")
-            + J.chapter(1, 6, "何が起きたか"))
-
-
-def p1_lab():
-    """写真の枠と出典。図そのものの情報なので**カット頭から出す**。"""
-    x, y, w, h = P1_BOX
-    return photo_frame(x, y, w, h, CR_NTSB)
-
-
-def p1_a1():
-    """1行目「1988年4月28日。ハワイ上空、高度7300メートル。」に合わせる。"""
-    return (J.label(CR, 272, "巡航高度", J.LINE, 32)
-            + J.big(CR, 376, "7,300 m", J.AMBER, 96)
-            + J.rule(CR, J.RIGHT, 424, J.ALERT))
-
-
-def p1_a2():
-    """2行目「飛行中の旅客機から、屋根が消えた。」に合わせる。
-
-    赤字は 42→56px。柱の幅632pxに対して「5.5 m にわたって消失」でちょうど埋まる。
-    """
-    g = [J.leader(502, 408, 1206, 478, J.ALERT),
-         J.label(CR, 498, "客室の天井と外板が", J.ALERT, 56),
-         J.label(CR, 566, "5.5 m にわたって消失", J.ALERT, 56),
-         J.label(CR, 672, "乗客89人・乗員6人", J.INK_W, 42),
-         J.label(CR, 726, "客室乗務員1名が機外へ", J.INK_W, 42),
-         J.rule(CR, J.RIGHT, 780, J.LINE_DIM, 3),
-         J.label(CR, 846, "乗員乗客95人のうち", J.ALERT, 40),
-         J.label(CR, 890, "94人が生き延びた", J.ALERT, 40)]
+def full_bg(title, sub, ch_n, ch_name, side="right"):
+    """全画面写真カットの地。**写真の上に載る文字のための暗幕だけ**を敷く。"""
+    g = [J.scrim(0, 0, W, SCRIM_TOP, "top", 0.80)]
+    if side == "right":
+        g.append(J.scrim(1150, 0, W - 1150, H, "right", 0.62))
+    else:
+        g.append(J.scrim(0, 0, 770, H, "left", 0.62))
+    g.append(J.title(title, sub))
+    g.append(J.chapter(ch_n, 6, ch_name))
     return "".join(g)
 
 
-# ── p2：実写（事故前の N73711 本人）＋左の情報柱 ──────────
-P2_BOX = PH_R
+def credit(t):
+    """出典。全画面になったので写真の枠が無い。字幕帯のすぐ上に1行で置く。"""
+    return J.outlined(J.MG, CRED_Y, t, J.LINE, 24, sw=5)
+
+
+# ── p1：実写（事故機の左側面） ────────────────────────────
+P1_BOX = PHOTO_FULL
+
+
+def p1_bg():
+    return full_bg("飛行中に、屋根が消えた",
+                   "アロハ航空243便　1988年4月28日　ボーイング737-200",
+                   1, "何が起きたか")
+
+
+def p1_lab():
+    return credit(CR_NTSB)
+
+
+def p1_a1():
+    """1行目「1988年4月28日。ハワイ上空、高度7300メートル。」"""
+    return (J.outlined(J.RIGHT, 336, "巡航高度", J.LINE, 34, "end")
+            + J.outlined(J.RIGHT, 440, "7,300 m", J.AMBER, 104, "end", family="Dela"))
+
+
+def p1_a2():
+    """2行目「飛行中の旅客機から、屋根が消えた。」
+
+    全画面にしたので注記は**大注記2行＋事実2行**まで。数を減らして級数を上げる。
+    """
+    g = [J.outlined(J.RIGHT, 570, "客室の天井と外板が", J.ALERT, 60, "end"),
+         J.outlined(J.RIGHT, 646, "5.5 m にわたって消失", J.ALERT, 60, "end"),
+         J.outlined(J.RIGHT, 744, "乗員乗客95人のうち", J.INK_W, 44, "end"),
+         J.outlined(J.RIGHT, 800, "94人が生き延びた", J.INK_W, 44, "end")]
+    return "".join(g)
+
+
+# ── p2：実写（事故前の N73711 本人） ──────────────────────
+P2_BOX = PHOTO_FULL
 
 
 def p2_bg():
-    return (J.frame(W, H) + J.title("この機体は、19年間飛んでいた",
-                                   "事故を起こした N73711　1969年製")
-            + J.chapter(2, 6, "どの機体だったか"))
+    return full_bg("この機体は、19年間飛んでいた", "事故を起こした N73711　1969年製",
+                   2, "どの機体だったか", side="left")
 
 
 def p2_lab():
-    x, y, w, h = P2_BOX
-    return photo_frame(x, y, w, h, CR_NARA, 23)
+    return credit(CR_NARA)
 
 
 def p2_a1():
-    """ナレーションは1行だけ。**喋っていない情報だけ**を置く。
-
-    「N 7 3 7 1 1」を字間で伸ばしていたのを Dela 100px の1語に変えた。
-    登録記号は機体の身元そのものなので、ここがこのカットの主役でよい。
-    """
-    g = [J.label(CL, 272, "機体記号", J.LINE, 32),
-         J.big(CL, 366, "N73711", J.AMBER, 100),
-         J.label(CL, 416, "1969年製　ボーイング737-200", J.LINE, 32),
-         J.rule(CL, J.COL_L[1], 456, J.ALERT),
-         J.label(CL, 530, "離陸と着陸の回数だけが、", J.ALERT, 48),
-         J.label(CL, 588, "同型機の倍の速さで", J.ALERT, 48),
-         J.label(CL, 646, "積み上がっていた。", J.ALERT, 48),
-         J.rule(CL, J.COL_L[1], 700, J.LINE_DIM, 3),
-         J.label(CL, 762, "世界の737のなかで", J.INK_W, 38),
-         J.label(CL, 810, "離着陸の回数は2番目に多い", J.INK_W, 38),
-         J.label(CL, 878, "ヒロ発ホノルル行き 243便", J.LINE, 32)]
+    """ナレーションは1行だけ。**喋っていない情報だけ**を置く。"""
+    g = [J.outlined(CL, 336, "機体記号", J.LINE, 34),
+         J.outlined(CL, 440, "N73711", J.AMBER, 104, family="Dela"),
+         J.outlined(CL, 570, "離陸と着陸の回数だけが、", J.ALERT, 52),
+         J.outlined(CL, 636, "同型機の倍の速さで", J.ALERT, 52),
+         J.outlined(CL, 702, "積み上がっていた。", J.ALERT, 52),
+         J.outlined(CL, 800, "世界の737のなかで2番目に多い", J.INK_W, 40)]
     return "".join(g)
 
 
@@ -322,44 +337,32 @@ def c2_a2():
     return "".join(g)
 
 
-# ── p3：実写（着陸後の機体を見上げる調査員）＋右の情報柱 ──
-P3_BOX = PH_L
+# ── p3：実写（着陸後の機体を見上げる調査員） ──────────────
+P3_BOX = PHOTO_FULL
 
 
 def p3_bg():
-    return (J.frame(W, H) + J.title("人と並べると、大きさが分かる",
-                                   "マウイ島カフルイ空港に緊急着陸した機体")
-            + J.chapter(3, 6, "どこが失われたか"))
+    return full_bg("人と並べると、大きさが分かる", "マウイ島カフルイ空港に緊急着陸した機体",
+                   3, "どこが失われたか")
 
 
 def p3_lab():
-    x, y, w, h = P3_BOX
-    return photo_frame(x, y, w, h, CR_FAA)
+    return credit(CR_FAA)
 
 
 def p3_a1():
     """1行目「着陸した機体を、調査員が見上げている。」
-
-    14巡目は空だった。このカットの主題は**大きさ**なので、
-    喋っていない胴体径をここで出すと、写真の人と数字が噛み合う。
-    """
-    return (J.label(CR, 272, "胴体の直径", J.LINE, 32)
-            + J.big(CR, 376, "3.76 m", J.AMBER, 96)
-            + J.label(CR, 424, "人の背丈の2倍を超える", J.LINE, 32)
-            + J.rule(CR, J.RIGHT, 464, J.ALERT))
+    このカットの主題は**大きさ**なので、喋っていない胴体径をここで出す。"""
+    return (J.outlined(J.RIGHT, 336, "胴体の直径", J.LINE, 34, "end")
+            + J.outlined(J.RIGHT, 440, "3.76 m", J.AMBER, 104, "end", family="Dela"))
 
 
 def p3_a2():
     """2行目「外板が無くなり、客室の骨組みが、そのまま外に出ていた。」"""
-    g = [J.leader(700, 424, 1206, 528, J.ALERT),
-         J.label(CR, 546, "剥き出しになった", J.ALERT, 54),
-         J.label(CR, 608, "胴体のフレームと床梁", J.ALERT, 54),
-         J.rule(CR, J.RIGHT, 666, J.LINE_DIM, 3),
-         J.label(CR, 732, "この状態で、13分間飛んだ。", J.INK_W, 44),
-         # NTSB報告書の「客室床面より上」という記述をそのまま図の言葉にする。
-         # どのナレーションも触れていないのに、機体が折れなかった理由に直結する。
-         J.label(CR, 830, "破断は客室の床面で止まり、", J.LINE, 34),
-         J.label(CR, 874, "床より下の外板は残った。", J.LINE, 34)]
+    g = [J.outlined(J.RIGHT, 570, "剥き出しになった", J.ALERT, 60, "end"),
+         J.outlined(J.RIGHT, 646, "胴体のフレームと床梁", J.ALERT, 60, "end"),
+         J.outlined(J.RIGHT, 744, "この状態で、13分間飛んだ。", J.INK_W, 44, "end"),
+         J.outlined(J.RIGHT, 800, "破断は客室の床面で止まった。", J.INK_W, 44, "end")]
     return "".join(g)
 
 
@@ -583,36 +586,27 @@ def c5_a3():
     return "".join(g)
 
 
-# ── p4：実写（航路・NASA）＋左の情報柱 ───────────────────
-P4_BOX = PH_R
+# ── p4：実写（航路・NASA） ────────────────────────────────
+P4_BOX = PHOTO_FULL
 
 
 def p4_bg():
-    return (J.frame(W, H) + J.title("ヒロを出て、ホノルルへ向かっていた",
-                                   "アロハ航空243便の航路　ハワイ諸島")
-            + J.chapter(5, 6, "19年で積み上がったもの"))
+    return full_bg("ヒロを出て、ホノルルへ向かっていた", "アロハ航空243便の航路　ハワイ諸島",
+                   5, "19年で積み上がったもの", side="left")
 
 
 def p4_lab():
-    x, y, w, h = P4_BOX
-    return photo_frame(x, y, w, h, CR_NASA)
+    return credit(CR_NASA)
 
 
 def p4_a1():
-    """ナレーションは1行。**喋っていない結論だけ**を置く。
-
-    14巡目は 34px で柱の下半分が空いていた。44px に上げ、
-    回数は Dela の大きな数字にして柱の底まで使う。
-    """
-    g = [J.label(CL, 290, "与圧は、そのたびに", J.INK_W, 44),
-         J.label(CL, 346, "かかっては、抜ける。", J.INK_W, 44),
-         J.label(CL, 442, "胴体は、そのたびに", J.ALERT, 44),
-         J.label(CL, 498, "膨らんでは、縮んでいた。", J.ALERT, 44),
-         J.rule(CL, J.COL_L[1], 556, J.ALERT),
-         J.label(CL, 626, "19年間の離着陸", J.LINE, 34),
-         J.big(CL, 736, "89,680 回", J.AMBER, 100),
-         J.label(CL, 812, "1回ごとに、亀裂は", J.LINE, 34),
-         J.label(CL, 856, "わずかに伸びていく。", J.LINE, 34)]
+    """ナレーションは1行。**喋っていない結論だけ**を置く。"""
+    g = [J.outlined(CL, 336, "与圧は、そのたびに", J.INK_W, 52),
+         J.outlined(CL, 402, "かかっては、抜ける。", J.INK_W, 52),
+         J.outlined(CL, 512, "胴体は、そのたびに", J.ALERT, 52),
+         J.outlined(CL, 578, "膨らんでは、縮んでいた。", J.ALERT, 52),
+         J.outlined(CL, 672, "19年間の離着陸", J.LINE, 34),
+         J.outlined(CL, 780, "89,680 回", J.AMBER, 104, family="Dela")]
     return "".join(g)
 
 
