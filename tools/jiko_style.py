@@ -127,8 +127,9 @@ def leader(x1, y1, x2, y2, col=None):
 def dim(x1, x2, y, t, col=None):
     """寸法線。両端に矢羽根を付けて『図面』に見せる。"""
     c = col or AMBER
+    # 端の短い縦線と矢羽根が同じxで重なって「✳」に見えていたので、縦線を 24→16 に縮めた
     return (f'<path d="M{x1} {y} H{x2}" stroke="{c}" stroke-width="{LW * 0.7:.1f}"/>'
-            f'<path d="M{x1} {y - 12} v24 M{x2} {y - 12} v24" stroke="{c}" '
+            f'<path d="M{x1} {y - 8} v16 M{x2} {y - 8} v16" stroke="{c}" '
             f'stroke-width="{LW * 0.7:.1f}"/>'
             f'<path d="M{x1 + 8} {y - 8} l-12 8 l12 8" fill="none" stroke="{c}" '
             f'stroke-width="{LW * 0.6:.1f}"/>'
