@@ -1,24 +1,44 @@
 # -*- coding: utf-8 -*-
 """事故検証チャンネルのサムネイル。**必ず写真を使う**（2026-07-30 カズヤくん指示）。
 
-■ なぜ作り直したか
-`tools/thumb_photo.py`（v4）は動くが、2つ都合が悪かった。
-  ① ローカルの Edge で焼いていた（レンダリングはクラウドのみ、が本チャンネルの規則）
-  ② フォントを別リポジトリ（zankoku-sekkeizu）から読んでいた＝クラウドで落ちる
-このファイルは `tools/render.py` を通してクラウドの Chrome で焼き、
-フォントはこのリポジトリの `fonts/` を base64 で埋め込む。
+■ 2026-07-30：競合のサムネを**画素で実測**して型を作り直した
+指示は「競合を徹底的に分析して、ヒットしている動画と型をそろえる。その後でオリジナリティを足す」。
+`ゆっくり事故検証`（登録7.3万）の全期間人気順から上位12本＋下位8本の maxresdefault を落とし、
+彩度と色相で赤い行・黄色い行を検出して寸法を測った。
 
-■ 3つの型を並べて焼く（どれを採用するかはカズヤくんが決める）
-  A 証拠写真型 … 競合と同じ「全幅の黄色い事故名」。写真は全面。競合の棚に馴染む
-  B 左パネル型 … 写真を右半分に無傷で見せ、文字は左の暗いパネルに積む
-  C 数字型     … 図解チャンネルらしく巨大な数字を主役にする（競合との差が一番はっきり）
+■ 実測した競合の型（上位12本／下位8本ともまったく同じ＝これは「守って当然の土俵」）
 
-■ どの型にも必ず入るもの（チャンネルの顔）
-  1 左端の検証タブ（縦書きのカテゴリ）… 競合に無い。視聴者が系統を覚える
-  2 原因チップ「原因：〇〇」          … 「なぜ壊れたかを図解する」という約束の先出し
-  3 出典の明記                        … 一次資料で作っていることをサムネで示す
-     ⚠️ 引用の要件（出典明記）をサムネでも満たしておく。実務上の危険は訴訟ではなく
-        YouTube の権利申し立てなので、**PDが手に入る素材はPDを優先**する。
+    ┌─────────────────────────────┐  ← 写真は**全面**。上下に黒帯は無い
+    │ 赤1行  上端に密着 y=15〜170          │     字面の高さ **約150px**（画面の21%）
+    │        全幅 x=16〜1264（画面の97%）  │     色 **#c30a08**（純赤ではなく濃い臙脂）
+    │                                     │     **白フチ**（太い）
+    │   写真（左右に2枚並べることが多い）   │  ← 事故前／事故後、本体／残骸 の対比
+    │                                     │
+    │ 黄1行  下端に密着 y=525〜705         │     字面の高さ **約180px**（25%）
+    │        全幅                          │     色 **#fbfb0e** ／ **黒フチ**
+    └─────────────────────────────┘
+
+    ⚠️ **副題・カテゴリタブ・原因チップ・年代バッジ・出典は competitor には1つも無い。**
+       文字は赤1行と黄1行の**2行だけ**。それぞれを画面幅いっぱいまで潰して最大化している。
+    ⚠️ 書体は**角張った極太**（Noto Sans JP Black 相当）。Dela Gothic One の丸ゴシックではない。
+    ⚠️ 文字数は赤・黄とも **10〜14字**。
+
+■ 第1稿・第2稿が外していた点（全部直した）
+    | | 競合 | こちらの旧案 |
+    |---|---|---|
+    | 赤の字面 | 150px | 96px（1.6倍小さい） |
+    | 赤の幅 | 画面の97% | 63% |
+    | 赤のフチ | **白** | 黒 |
+    | 黄の字面 | 180px | 148px |
+    | 余計な要素 | **ゼロ** | 副題・タブ・原因チップ・バッジ・出典の5つ |
+    | 書体 | 角張った極太 | Dela（丸い） |
+    | 写真 | 2枚並べ | 1枚 |
+
+■ オリジナリティ（型を壊さない範囲でだけ足す）
+    型は competitor と同一のまま、**写真の中身だけ**を唯一無二にする。
+      左＝タイタニックの船首（NOAA・PD）／右＝**回収された耐圧殻の破断面**（NTSB・PD）
+    右は2025年10月公開の報告書の写真で、**競合の96万本（2025-02-16公開）には存在しない**。
+    枠は横並び＝競合の型そのもの。中身だけが誰も持っていない。
 
 使い方： python tools/thumb_jiko.py
 """
@@ -39,50 +59,54 @@ FONTS = HERE / "fonts"
 OUT = HERE / "out" / "thumb"
 W, H = 1280, 720
 
-TAB_W = 66
-INK = "#eef1f4"
-DARK = "#0d1015"
-YEL = "#ffd21c"
-RED = "#f0250f"
+# ── 実測した競合の値。**ここは競合に合わせる。勝手に動かさない** ────
+RED = "#c30a08"          # 上の行。純赤ではなく濃い臙脂
+YEL = "#fbfb0e"          # 下の行。緑寄りの純黄
+MG = 16                  # 左右の余白（実測 13〜26 の中央値）
+TXT_W = W - MG * 2       # 1248
+RED_CAP = 150            # 赤の字面の高さ
+RED_BASE = 168           # 赤のベースライン（字面 15〜170）
+YEL_CAP = 180            # 黄の字面の高さ
+YEL_BASE = 703           # 黄のベースライン（字面 523〜705）
 
-# Dela Gothic One の実測字幅（em）。**推定 0.72 で c7 の数字を接触させた失敗があるので
-# サムネでも同じ値を使う**。半角＝0.84 ／ 全角＝1.016
-DELA_FULL, DELA_HALF = 1.016, 0.84
+# Noto Sans JP Black の実測字幅（em）。全角はほぼ 1.0、半角数字は 0.56
+FULL, HALF = 1.0, 0.56
 
 
 def face(name, filename):
     b = base64.b64encode((FONTS / filename).read_bytes()).decode()
     return (f"@font-face{{font-family:'{name}';src:url(data:font/woff2;base64,{b}) "
-            f"format('woff2');font-weight:400;font-display:block;}}")
+            f"format('woff2');font-weight:900;font-display:block;}}")
 
 
 def units(t):
-    return sum(DELA_HALF if ord(c) < 0x2E80 else DELA_FULL for c in t)
+    return sum(HALF if ord(c) < 0x2E80 else FULL for c in t)
 
 
-def fit(t, box_w, want, lo=0.72, hi=1.06):
-    """高さ want を狙い、横は box_w に収める級数を返す。
+def size_for(t, cap):
+    """字面の高さ cap になる font-size。Noto Sans JP の字面はおよそ 0.72em。
 
-    横圧縮は textLength に任せる（文字数が増えても縦が縮まないようにするため）。
-    圧縮率が lo を下回る＝潰れすぎるときだけ級数を落とす。
+    横は textLength で全幅に潰すので、**級数は高さだけで決める**。
+    ⚠️ 文字数が多いと横に潰れすぎて読めなくなる。10〜14字に収めること
+       （競合も全部そこに収めている）。
     """
-    natural = units(t) * want
-    ratio = box_w / natural
-    if ratio < lo:
-        return box_w / (units(t) * lo)
-    if ratio > hi:
-        return box_w / (units(t) * hi)
-    return want
+    return cap / 0.72
 
 
-def photo(src, cy=0.5, contrast=1.18, color=1.12, bright=0.94, w=W, h=H):
+def line(t, base, cap, fill, stroke, sw):
+    return (f'<text x="{MG}" y="{base}" font-family="NSB" font-size="{size_for(t, cap):.1f}" '
+            f'textLength="{TXT_W}" lengthAdjust="spacingAndGlyphs" fill="{fill}" '
+            f'stroke="{stroke}" stroke-width="{sw}" stroke-linejoin="round" '
+            f'paint-order="stroke fill">{t}</text>')
+
+
+def photo(src, cy=0.5, contrast=1.18, color=1.12, bright=0.96, w=W, h=H):
     """写真を箱いっぱいに切り出して data URI にする。"""
     im = Image.open(HERE / "ref" / src).convert("RGB")
     z = max(w / im.width, h / im.height)
     cw, ch = min(im.width, w / z), min(im.height, h / z)
     l, t = (im.width - cw) / 2, (im.height - ch) * cy
-    im = im.crop((round(l), round(t), round(l + cw), round(t + ch)))
-    im = im.resize((w, h), Image.LANCZOS)
+    im = im.crop((round(l), round(t), round(l + cw), round(t + ch))).resize((w, h), Image.LANCZOS)
     im = ImageEnhance.Contrast(im).enhance(contrast)
     im = ImageEnhance.Color(im).enhance(color)
     im = ImageEnhance.Brightness(im).enhance(bright)
@@ -91,162 +115,30 @@ def photo(src, cy=0.5, contrast=1.18, color=1.12, bright=0.94, w=W, h=H):
     return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
 
 
-DEFS = f'''<defs>
-  <linearGradient id="sT" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#03060a" stop-opacity="0.90"/>
-    <stop offset="100%" stop-color="#03060a" stop-opacity="0"/></linearGradient>
-  <linearGradient id="sB" x1="0" y1="1" x2="0" y2="0">
-    <stop offset="0%" stop-color="#03060a" stop-opacity="0.96"/>
-    <stop offset="100%" stop-color="#03060a" stop-opacity="0"/></linearGradient>
-  <linearGradient id="sL" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0%" stop-color="#03060a" stop-opacity="0.96"/>
-    <stop offset="72%" stop-color="#03060a" stop-opacity="0.88"/>
-    <stop offset="100%" stop-color="#03060a" stop-opacity="0"/></linearGradient>
-  <radialGradient id="vig" cx="52%" cy="46%" r="74%">
-    <stop offset="46%" stop-color="#000" stop-opacity="0"/>
-    <stop offset="100%" stop-color="#000" stop-opacity="0.58"/></radialGradient>
-  <linearGradient id="red" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#ff7a52"/><stop offset="44%" stop-color="{RED}"/>
-    <stop offset="100%" stop-color="#960c03"/></linearGradient>
-  <linearGradient id="ylw" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#fff8c2"/><stop offset="44%" stop-color="{YEL}"/>
-    <stop offset="100%" stop-color="#cf8203"/></linearGradient>
-  <linearGradient id="wht" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#c5cdd6"/>
-  </linearGradient>
-  <pattern id="hz" width="30" height="30" patternUnits="userSpaceOnUse"
-           patternTransform="rotate(45)">
-    <rect width="30" height="30" fill="#14161a"/><rect width="15" height="30" fill="{YEL}"/>
-  </pattern>
-  <filter id="sh" x="-14%" y="-14%" width="132%" height="132%">
-    <feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#000" flood-opacity="0.74"/>
-  </filter>
-</defs>'''
+def rival_type(hero, red, yellow, split=None, extra=""):
+    """競合と同一の型。**赤1行・黄1行・写真だけ。**
 
-
-def tab(category):
-    """左端の検証タブ。どの型にも必ず入るチャンネルの顔。"""
-    return f'''
-<rect x="0" y="0" width="{TAB_W}" height="{H}" fill="#101317" opacity="0.95"/>
-<rect x="{TAB_W - 7}" y="0" width="7" height="{H}" fill="{YEL}"/>
-<rect x="14" y="26" width="38" height="38" rx="6" fill="{RED}"/>
-<text x="33" y="55" font-family="Dela" font-size="26" fill="#fff"
-      text-anchor="middle">検</text>
-<text x="33" y="112" font-family="Noto" font-size="40" font-weight="700" fill="{INK}"
-      letter-spacing="10" text-anchor="middle"
-      style="writing-mode:vertical-rl;text-orientation:upright">{category}</text>'''
-
-
-def cause_chip(x, y, cause):
-    """原因チップ。「なぜ壊れたかを図解する」というこのチャンネルの約束を先出しする。"""
-    return f'''<g filter="url(#sh)">
-  <rect x="{x}" y="{y}" width="{22 + len(cause) * 28 + 96}" height="54" rx="6"
-        fill="#101317" opacity="0.93"/>
-  <rect x="{x}" y="{y}" width="7" height="54" fill="{YEL}"/>
-  <text x="{x + 20}" y="{y + 38}" font-family="Noto" font-size="29" font-weight="700"
-        fill="{INK}">原因：{cause}</text></g>'''
-
-
-def credit(t, y=H - 14):
-    """出典。**サムネでも出す**（引用の要件を満たしておく）。"""
-    return (f'<text x="{TAB_W + 16}" y="{y}" font-family="Noto" font-size="19" '
-            f'fill="#9fb0bd" opacity="0.95">{t}</text>')
-
-
-def big(x, y, t, box_w, want, fill, anchor="start", stroke=0.19):
-    s = fit(t, box_w, want)
-    return (f'<text x="{x}" y="{y}" font-family="Dela" font-size="{s:.1f}" '
-            f'text-anchor="{anchor}" textLength="{box_w}" '
-            f'lengthAdjust="spacingAndGlyphs" fill="{fill}" stroke="#07090c" '
-            f'stroke-width="{s * stroke:.1f}" stroke-linejoin="round" '
-            f'paint-order="stroke fill" filter="url(#sh)">{t}</text>')
-
-
-# ── 型A：証拠写真型（競合と同じ「全幅の黄色い事故名」） ────────
-def type_a(uri, hook_r, hook_w, sub, title, cause, category, badge, src):
-    inner = W - TAB_W - 48
-    return f'''{DEFS}
-<image href="{uri}" x="0" y="0" width="{W}" height="{H}"
-       preserveAspectRatio="xMidYMid slice"/>
-<rect width="{W}" height="{H}" fill="url(#vig)"/>
-<rect x="0" y="0" width="{W}" height="286" fill="url(#sT)"/>
-<rect x="0" y="{H - 300}" width="{W}" height="300" fill="url(#sB)"/>
-{tab(category)}
-<rect x="{TAB_W}" y="520" width="{W - TAB_W}" height="11" fill="url(#hz)" opacity="0.92"/>
-<text x="{TAB_W + 24}" y="118" font-family="Dela" font-size="{fit(hook_r + hook_w, 812, 96):.1f}"
-      textLength="812" lengthAdjust="spacingAndGlyphs" stroke="#07090c"
-      stroke-width="{fit(hook_r + hook_w, 812, 96) * 0.20:.1f}" stroke-linejoin="round"
-      paint-order="stroke fill" filter="url(#sh)"><tspan fill="url(#red)">{hook_r}</tspan
-      ><tspan fill="url(#wht)">{hook_w}</tspan></text>
-<text x="{TAB_W + 28}" y="180" font-family="Noto" font-size="42" font-weight="700"
-      letter-spacing="-1" fill="url(#wht)" stroke="#07090c" stroke-width="11"
-      stroke-linejoin="round" paint-order="stroke fill" filter="url(#sh)">{sub}</text>
-{cause_chip(TAB_W + 24, 440, cause)}
-{big(TAB_W + inner // 2 + 24, 674, title, inner, 148, "url(#ylw)", "middle")}
-<g filter="url(#sh)">
-  <rect x="964" y="26" width="286" height="56" rx="8" fill="#101317" opacity="0.93"/>
-  <rect x="964" y="26" width="7" height="56" fill="{RED}"/>
-  <text x="1112" y="66" font-family="Noto" font-size="31" font-weight="700" fill="{INK}"
-        text-anchor="middle">{badge}</text></g>
-{credit(src, 706)}'''
-
-
-# ── 型B：左パネル型（写真を右半分に無傷で見せる） ─────────────
-def type_b(uri, hook_r, hook_w, sub, title, cause, category, badge, src):
-    px = TAB_W + 24
-    pw = 566
-    return f'''{DEFS}
-<image href="{uri}" x="0" y="0" width="{W}" height="{H}"
-       preserveAspectRatio="xMidYMid slice"/>
-<rect width="{W}" height="{H}" fill="url(#vig)"/>
-<rect x="0" y="0" width="700" height="{H}" fill="url(#sL)"/>
-{tab(category)}
-<rect x="{px}" y="176" width="{pw}" height="9" fill="url(#hz)" opacity="0.92"/>
-{big(px, 148, hook_r + hook_w, pw, 104, "url(#red)")}
-<text x="{px}" y="236" font-family="Noto" font-size="34" font-weight="700"
-      fill="url(#wht)" stroke="#07090c" stroke-width="9" stroke-linejoin="round"
-      paint-order="stroke fill" filter="url(#sh)">{sub}</text>
-{big(px, 384, title, pw, 116, "url(#ylw)")}
-{cause_chip(px, 430, cause)}
-<g filter="url(#sh)">
-  <rect x="{px}" y="530" width="286" height="56" rx="8" fill="#101317" opacity="0.93"/>
-  <rect x="{px}" y="530" width="7" height="56" fill="{RED}"/>
-  <text x="{px + 148}" y="570" font-family="Noto" font-size="31" font-weight="700"
-        fill="{INK}" text-anchor="middle">{badge}</text></g>
-{credit(src)}'''
-
-
-# ── 型C：数字型（図解チャンネルらしく数字を主役にする） ───────
-def type_c(uri, num, num_unit, num_cap, hook, title, cause, category, badge, src):
-    px = TAB_W + 26
-    pw = 560
-    return f'''{DEFS}
-<image href="{uri}" x="0" y="0" width="{W}" height="{H}"
-       preserveAspectRatio="xMidYMid slice"/>
-<rect width="{W}" height="{H}" fill="url(#vig)"/>
-<rect x="0" y="0" width="720" height="{H}" fill="url(#sL)"/>
-<rect x="0" y="{H - 250}" width="{W}" height="250" fill="url(#sB)"/>
-{tab(category)}
-<text x="{px}" y="132" font-family="Noto" font-size="32" font-weight="700"
-      fill="#9fb0bd">{num_cap}</text>
-{big(px, 292, num, pw, 190, "url(#ylw)")}
-<text x="{px}" y="348" font-family="Noto" font-size="40" font-weight="700"
-      fill="url(#wht)" stroke="#07090c" stroke-width="10" stroke-linejoin="round"
-      paint-order="stroke fill" filter="url(#sh)">{num_unit}</text>
-<rect x="{px}" y="386" width="{pw}" height="9" fill="url(#hz)" opacity="0.92"/>
-{big(px, 470, hook, pw, 78, "url(#red)")}
-{cause_chip(px, 508, cause)}
-{big(TAB_W + (W - TAB_W) // 2, 676, title, W - TAB_W - 48, 128, "url(#wht)", "middle")}
-<g filter="url(#sh)">
-  <rect x="964" y="26" width="286" height="56" rx="8" fill="#101317" opacity="0.93"/>
-  <rect x="964" y="26" width="7" height="56" fill="{RED}"/>
-  <text x="1112" y="66" font-family="Noto" font-size="31" font-weight="700" fill="{INK}"
-        text-anchor="middle">{badge}</text></g>
-{credit(src, 706)}'''
+    hero  … 全面に敷く写真の data URI
+    split … (右半分の data URI, 継ぎ目のx) を渡すと左右2枚並べになる
+    extra … オリジナリティを足すときだけ使う。**空が既定**
+    """
+    g = [f'<image href="{hero}" x="0" y="0" width="{W}" height="{H}" '
+         f'preserveAspectRatio="xMidYMid slice"/>']
+    if split:
+        uri, sx = split
+        g.append(f'<clipPath id="rt"><rect x="{sx}" y="0" width="{W - sx}" height="{H}"/>'
+                 f'</clipPath>'
+                 f'<g clip-path="url(#rt)"><image href="{uri}" x="{sx}" y="0" '
+                 f'width="{W - sx}" height="{H}" preserveAspectRatio="xMidYMid slice"/></g>')
+    g.append(extra)
+    # 赤は白フチ、黄は黒フチ（実測）。フチは太くしないと写真の上で消える
+    g.append(line(red, RED_BASE, RED_CAP, RED, "#ffffff", 17))
+    g.append(line(yellow, YEL_BASE, YEL_CAP, YEL, "#000000", 20))
+    return "".join(g)
 
 
 def bake(name, body):
-    css = face("Dela", "DelaGothicOne.woff2") + face("Noto", "NotoSansJP-Bold.woff2")
+    css = face("NSB", "NotoSansJP-Black.woff2")
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" '
            f'viewBox="0 0 {W} {H}">{body}</svg>')
     html = (f'<html><head><meta charset="utf-8"><style>*{{margin:0}}{css}'
@@ -254,71 +146,49 @@ def bake(name, body):
             f'<body>{svg}</body></html>')
     OUT.mkdir(parents=True, exist_ok=True)
     render.png(html, OUT / f"{name}.png", W, H)
-    print(name, flush=True)
+    print(name, len(body) // 1024, "KB", flush=True)
 
 
-# ── タイタン号（本番1本目）の案 ───────────────────────────
-# 🔴 2026-07-30 第1稿の敗因：地に**壊れた耐圧殻の実物写真**（NTSB図14）を使ったところ、
-#    スマホ相当（幅246px）では**流木か岩にしか見えなかった**。証拠としては最強でも、
-#    スクロール中に「潜水艇の話」だと認識されない。カズヤくん判断で
-#    **タイタニック船首のPD写真に差し替え**（深い海の話だと一目で伝わる）。
-# 壊れた耐圧殻はインセット案（A2i）に残す。動画本編では主役のまま使う。
-CR_BOW = "写真：NOAA／IFE／ロードアイランド大学（パブリックドメイン）"
-CR_NTSB = "写真：NTSB／MIR-25-36（パブリックドメイン）"
-PH_BOW = "titan_titanic_bow.jpg"    # NOAA 2004年調査：タイタニックの船首（水深3,840m）
-PH_HULL = "titan_hull_edge.jpg"     # NTSB図14下：中央破断面。層が刃のように裂けている
-
-
-def inset(uri, x, y, w, h, cap):
-    """壊れた耐圧殻の実物写真を小さく差し込む枠。**証拠は捨てずに残す**ため。"""
-    return f'''<g filter="url(#sh)">
-  <image href="{uri}" x="{x}" y="{y}" width="{w}" height="{h}"
-         preserveAspectRatio="xMidYMid slice"/>
-  <rect x="{x}" y="{y}" width="{w}" height="{h}" fill="none" stroke="{YEL}"
-        stroke-width="5"/>
-  <rect x="{x}" y="{y + h - 34}" width="{w}" height="34" fill="#101317" opacity="0.90"/>
-  <text x="{x + 10}" y="{y + h - 10}" font-family="Noto" font-size="22"
-        font-weight="700" fill="{INK}">{cap}</text></g>'''
+# ── 素材（すべてパブリックドメイン。出所は ref/CREDITS.md） ────────
+PH_BOW = "titan_titanic_bow.jpg"    # NOAA/IFE/URI 2004年調査：タイタニックの船首
+PH_HULL = "titan_hull_edge.jpg"     # NTSB図14下：耐圧殻の中央破断面。層が刃のように裂けている
+PH_INNER = "titan_hull_inner.jpg"   # NTSB図13下：耐圧殻の内面。白い部分が繊維の破断
 
 
 def titan():
-    """⚠️ ここに書く数字は**すべて NTSB/MIR-25-36 の本文で確認したもの**だけ。
+    """⚠️ 数字は**すべて NTSB/MIR-25-36 の本文で確認したもの**だけ。
 
-    引き継ぎメモにあった「約0.001秒で爆縮」は報告書を全文検索しても
-    "0.001" も "millisecond" も出てこなかったので**使わない**。
-    「8回潜り続けた」も不正確だった。報告書の表6・付録の潜航記録では、
-    ダイブ80（2022-07-15・3,840m）の直後は
-      81 = 3,840m ／ 82 = 3,840m ／ 83 = 2,954m ／ 84〜87 = 10m以下 ／ 88 = 爆縮
-    なので「そのあと3回、タイタニックの深さへ人を運んだ」が正確で、しかも強い。
+    引き継ぎメモの「約0.001秒で爆縮」は報告書に無い（全文検索で `0.001` も
+    `millisecond` も出ない）。「8回潜り続けた」も不正確で、潜航記録は
+      81 = 3,840m ／ 82 = 3,840m ／ 83 = 2,954m ／ 84〜87 = 10m以下 ／ 88 = 爆縮。
 
-    決まったタイトル（2026-07-30 カズヤくん）：
-    「船体が壊れる音を全員が聞いていた。それでも3回タイタニックへ客を運び、
-      5名が爆縮したタイタン号事故の真相【ゆっくり解説】」
-    ⚠️ サムネの決め語は**タイトルの丸写しにしない**。短く殴る側に振る。
+    決め語は競合に合わせて **赤10〜14字・黄10〜14字**。
+    競合のタイタン号（96万回）は 赤「乗客5名 爆縮の瞬間」／黄「タイタン号事故の真相」。
+    同じ土俵に乗せたうえで、**赤の中身を「報告書で初めて分かったこと」に差し替える**。
     """
-    bow = photo(PH_BOW, cy=0.46, contrast=1.20, color=1.16, bright=0.96)
-    hull = photo(PH_HULL, cy=0.52, contrast=1.26, color=1.04, bright=0.94, w=380, h=214)
+    bow = photo(PH_BOW, cy=0.46, contrast=1.22, color=1.18, bright=0.98)
+    hull = photo(PH_HULL, cy=0.52, contrast=1.30, color=1.02, bright=1.02)
+    inner = photo(PH_INNER, cy=0.50, contrast=1.26, color=1.06, bright=1.00)
 
-    # A2：証拠写真型（第1稿でいちばん読めた型）。地をタイタニック船首に差し替え
-    bake("titan_A2", type_a(
-        bow, "壊れる音", "を全員が聞いた",
-        "5名死亡・そのあと3回、同じ船でタイタニックへ",
-        "タイタン号 爆縮", "炭素繊維の層間剥離", "潜水", "2023・北大西洋", CR_BOW))
+    # R1：型どおり・写真1枚（競合の最小形）
+    bake("titan_R1", rival_type(
+        bow, "乗客5名 爆縮の瞬間", "タイタン号事故の真相"))
 
-    # A2i：A2 に「実際に壊れた耐圧殻」をインセットで差し込む。
-    #      深海だと一目で分かる地＋唯一の武器（実物写真）の両取りを狙う
-    bake("titan_A2i", type_a(
-        bow, "壊れる音", "を全員が聞いた",
-        "5名死亡・そのあと3回、同じ船でタイタニックへ",
-        "タイタン号 爆縮", "炭素繊維の層間剥離", "潜水", "2023・北大西洋",
-        CR_BOW + "　／　インセット：" + CR_NTSB)
-        + inset(hull, 866, 240, 380, 214, "回収された耐圧殻"))
+    # R2：型どおり・写真2枚並べ＋決め語をこちらの切り口に
+    #     ← **これが本命。**枠は競合と同一、中身だけが報告書の写真で唯一無二
+    bake("titan_R2", rival_type(
+        bow, "壊れた船体で3回潜航", "タイタン号事故の真相",
+        split=(hull, 640)))
 
-    # C2：数字型（図解chらしく数字を主役に）
-    bake("titan_C2", type_c(
-        bow, "3,363", "メートルの深さで爆縮", "5名が死亡した水深",
-        "壊れたあと3回潜った", "潜水艇タイタン号 5名死亡",
-        "炭素繊維の層間剥離", "潜水", "2023・北大西洋", CR_BOW))
+    # R3：R2 の右を「耐圧殻の内面」に。白い破断面のほうが遠目で目立つか比較する
+    bake("titan_R3", rival_type(
+        bow, "壊れた船体で3回潜航", "タイタン号事故の真相",
+        split=(inner, 640)))
+
+    # R4：赤を死者数の型に寄せる（競合の最頻パターン＝数字＋死者数）
+    bake("titan_R4", rival_type(
+        bow, "5名死亡 爆縮の瞬間", "タイタン号事故の真相",
+        split=(hull, 640)))
 
 
 if __name__ == "__main__":
