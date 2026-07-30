@@ -202,26 +202,18 @@ def titan():
     pair_r = photo(PH_PAIR, cy=0.50, contrast=1.28, color=1.10, bright=1.02, w=RW, h=H)
     bow_l = photo(PH_BOW, cy=0.46, contrast=1.26, color=1.34, bright=1.12, w=SX, h=H)
 
-    YEL_MAIN = "潜水艇タイタン号 爆縮"      # ← 競合との完全一致を避けた新しい黄色
+    YEL_MAIN = "潜水艇タイタン号 爆縮"      # ← 競合との完全一致を避けた黄色（2026-07-30決定）
+    RED_MAIN = "乗員5名 生還者なし"          # ← 決定。「死」を伏せ字にせず言い換えで満たす
 
-    # ★U1 本命：USCG の ROV 写真（海底に立つ尾部コーン）。**被写体がタイタン号そのもの**
-    bake("titan_U1", rival_type(rov, "壊れた船体で3回潜航", YEL_MAIN))
+    # ★★ 本番決定案。写真＝USCG の ROV が撮った後部ドームと潰れた船体
+    bake("titan_FINAL", rival_type(aft, RED_MAIN, YEL_MAIN))
 
-    # U2：後部ドームと潰れた船体。U1より「壊れている」ことが直接見える
-    bake("titan_U2", rival_type(aft, "壊れた船体で3回潜航", YEL_MAIN))
-
-    # U3：回収した炭素繊維の破片（**USCG職員の撮影＝権利の留保がゼロ**）
-    bake("titan_U3", rival_type(cf, "壊れた船体で3回潜航", YEL_MAIN))
-
-    # U4：タイタニック船首（従来案）。黄色だけ差し替えた比較用
-    bake("titan_U4", rival_type(bow, "壊れた船体で3回潜航", YEL_MAIN))
-
-    # U5：赤を人的被害に寄せた版。**「死」を使わずに全滅を伝える**言い換えの実例
-    bake("titan_U5", rival_type(rov, "乗員5名 生還者なし", YEL_MAIN))
-
-    # U6：2枚並べ（左＝タイタニック／右＝耐圧殻）。単写真に本当に負けるかの再確認
-    bake("titan_U6", rival_type(bow_l, "壊れた船体で3回潜航", YEL_MAIN,
-                                split=(pair_r, SX)))
+    # 以下は比較用に残す（写真だけを差し替えたもの）
+    bake("titan_alt_rov", rival_type(rov, RED_MAIN, YEL_MAIN))    # 海底に立つ尾部コーン
+    bake("titan_alt_cf", rival_type(cf, RED_MAIN, YEL_MAIN))      # 炭素繊維の破片（留保ゼロ）
+    bake("titan_alt_bow", rival_type(bow, RED_MAIN, YEL_MAIN))    # タイタニック船首
+    # 赤を切り口側にした版（人的被害ではなく報告書の発見を前に出す）
+    bake("titan_alt_red", rival_type(aft, "壊れた船体で3回潜航", YEL_MAIN))
 
 
 if __name__ == "__main__":
