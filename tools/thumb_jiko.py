@@ -64,26 +64,28 @@ RED = "#c30a08"          # 上の行。純赤ではなく濃い臙脂
 YEL = "#fbfb0e"          # 下の行。緑寄りの純黄
 MG = 16                  # 左右の余白（実測 13〜26 の中央値）
 TXT_W = W - MG * 2       # 1248
-RED_CAP = 150            # 赤の字面の指定値（→ font-size 208px）
-YEL_CAP = 180            # 黄の字面の指定値（→ font-size 250px）
+# 🔴 すべて競合の maxresdefault を画素で測った値。**推定値は1つも使っていない。**
+#    （最初は「字面＝0.72em」と当て推量で置き、赤が上に27px・黄が下に27px はみ出した。
+#      さらに文字が競合の1.35倍の大きさになっていた。実測に置き換えて両方直した）
+RED_CAP = 150            # 赤のインクの高さ（競合タイタン号96万回の実測値）
+YEL_CAP = 186            # 黄のインクの高さ（同上。三豊100万回は170、セウォル74万回は186）
+RED_TOP = 15             # 赤のインク上端（競合の実測 12〜18 の中央）
+YEL_BOT = 701            # 黄のインク下端（競合の実測 700〜704 の下限側）
 STROKE = 24              # フチの太さ
 
-# 🔴 ベースラインは**推定で置かず、実測値から計算する**（2026-07-30）。
-#    「字面 = 0.72em」と見なして RED_BASE=168 / YEL_BASE=710 を直に書いていたが、
-#    クラウド出力を画素で測ったら **赤は上が27px・黄は下が27px 切れていた**。
-#    Noto Sans JP Black の実際のインクは、漢字やかなで
-#      ベースラインより上 **0.88em** ／ 下 **0.10em** まで出る（0.72 ではない）。
-#    さらにフチが左右上下へ stroke/2 だけ広がる。両方を足して端から 4px 空ける。
-INK_UP, INK_DN = 0.88, 0.10        # ベースラインから上／下へ出る比（em・実測）
-EDGE = 4                           # 画面の端に残す余白
+# Noto Sans JP Black のインクの出かた（こちらのクラウド出力を画素で測った）
+#   font-size に対して 高さ 0.95em ／ ベースラインより上 0.855em ／ 下 0.091em
+INK_H, INK_UP, INK_DN = 0.95, 0.855, 0.091
 
 
 def _size(cap):
-    return cap / 0.72
+    """インクの高さ cap を出す font-size。**0.72 ではなく実測の 0.95 で割る。**"""
+    return cap / INK_H
 
 
-RED_BASE = round(EDGE + INK_UP * _size(RED_CAP) + STROKE / 2)          # → 199
-YEL_BASE = round(H - EDGE - INK_DN * _size(YEL_CAP) - STROKE / 2)      # → 679
+# ベースラインは「競合のインク位置」から逆算する
+RED_BASE = round(RED_TOP + INK_UP * _size(RED_CAP))       # → 150
+YEL_BASE = round(YEL_BOT - INK_DN * _size(YEL_CAP))       # → 683
 
 # Noto Sans JP Black の実測字幅（em）。全角はほぼ 1.0、半角数字は 0.56
 FULL, HALF = 1.0, 0.56
@@ -100,13 +102,13 @@ def units(t):
 
 
 def size_for(t, cap):
-    """字面の高さ cap になる font-size。Noto Sans JP の字面はおよそ 0.72em。
+    """インクの高さ cap になる font-size。
 
     横は textLength で全幅に潰すので、**級数は高さだけで決める**。
     ⚠️ 文字数が多いと横に潰れすぎて読めなくなる。10〜14字に収めること
        （競合も全部そこに収めている）。
     """
-    return cap / 0.72
+    return _size(cap)
 
 
 def line(t, base, cap, fill, stroke, sw):
