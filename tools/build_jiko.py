@@ -41,6 +41,18 @@ SEG = OUT / "seg"
 QA = OUT / "qa"
 
 BOOST = set()          # 元が低コントラストで沈む写真があればここに
+# 段を「描き終える」までにかける時間。
+# 🔴 割合で決めると長いカットで破綻する。0.70 にしたら尺12秒のカットで
+#    3.8秒止まって「3秒以上の静止禁止」を割った（実測7カット）。
+#    **止まる時間の側を 2.2 秒で頭打ちにする**のが正しい。
+STILL_MAX = 2.2        # 段が出そろってから次の段までに許す静止（秒）
+
+
+def draw_span(w):
+    """持ち時間 w のうち、描画にかける秒。読む間を残しつつ静止を作らない。"""
+    # 割合を混ぜると長い段でまた破綻する（0.75 だと尺12.9秒で3.15秒止まった）。
+    # **止まる時間そのもの**を STILL_MAX で固定するのが正しい。
+    return min(w * 0.9, max(0.6, w - STILL_MAX))
 
 
 def L(name):
@@ -175,13 +187,15 @@ def scene(cut, t, dur, lay, photos, meta):
     if f"{cut}_lab" in lay:
         wipe(fr, lay[f"{cut}_lab"], min(1.0, max(0.0, (t - 0.15) / (dur * 0.30))),
              span=span)
-    # 段はそれぞれの持ち時間いっぱいをかけて描かれる
+    # 段は draw_span() の秒で描き終え、残りは出そろった状態で見せる。
+    # 🔴 r6 の目視で分かった：持ち時間いっぱい使うと、引用の2行目が
+    #    カットの終わりでやっと出そろい、**読み終わる前に切り替わる**（c518 は尺3.7秒）。
     for i, (a, b) in enumerate(times):
         k = f"{cut}_a{i + 1}"
         if k not in lay:
             continue
-        wipe(fr, lay[k], max(0.0, min(1.0, (t - a) / max(0.4, b - a))), soft=70,
-             span=span)
+        wipe(fr, lay[k], max(0.0, min(1.0, (t - a) / draw_span(b - a))),
+             soft=70, span=span)
     if f"{cut}_hot" in lay:
         pulse = 0.42 + 0.58 * (0.5 + 0.5 * math.sin(t * math.tau / 1.6))
         over(fr, lay[f"{cut}_hot"], pulse)
@@ -214,7 +228,8 @@ def check_motion(meta, limit=3.0):
             continue
         if meta[cid]["photo"]:
             continue
-        iv = [(0.15, 0.15 + sec * 0.30)] + list(meta[cid]["times"])
+        iv = [(0.15, 0.15 + sec * 0.30)] + [(a, a + draw_span(b - a))
+                                            for a, b in meta[cid]["times"]]
         iv.sort()
         cur = 0.0
         gaps = []
@@ -260,7 +275,7 @@ def _load_layers(cids, idx):
     return lay
 
 
-def qa_shots(cids, idx, meta, at=0.88):
+def qa_shots(cids, idx, meta, at=0.97):
     """カットごとの検品画像。段が出そろった状態を実寸で残す。"""
     QA.mkdir(parents=True, exist_ok=True)
     secs = dict(S.CUTS)
