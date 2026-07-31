@@ -325,11 +325,11 @@ def build_layers(allow_missing=False):
     return jobs, spans
 
 
-def layer_index():
-    """build_jiko が読む索引。{cid: dict(kind, layers, span, stages)}"""
-    jobs, spans = build_layers()
+def layer_index(allow_missing=False):
+    """build_jiko が読む索引。{cid: dict(photo, layers, span, stages)}"""
+    jobs, spans = build_layers(allow_missing=allow_missing)
     idx = {}
-    for cid in ORDER:
+    for cid in [c for c in ORDER if c in spans]:
         names = [k for k in jobs if k.startswith(cid + "_")]
         ns = len([k for k in names if re.fullmatch(rf"{cid}_a\d+", k)])
         idx[cid] = {"photo": bool(SPEC[cid].get("photo")), "span": spans[cid],

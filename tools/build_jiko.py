@@ -210,6 +210,8 @@ def check_motion(meta, limit=3.0):
     """
     bad, worst = [], 0.0
     for cid, sec in S.CUTS:
+        if cid not in meta:
+            continue
         if meta[cid]["photo"]:
             continue
         iv = [(0.15, 0.15 + sec * 0.30)] + list(meta[cid]["times"])
@@ -307,7 +309,8 @@ def build_full(idx, meta, workers=None):
     SEG.mkdir(parents=True, exist_ok=True)
     secs = dict(S.CUTS)
     workers = workers or max(1, min(8, (os.cpu_count() or 2)))
-    args = [(cid, secs[cid], idx[cid], meta[cid]) for cid in S.ORDER]
+    order = [c for c in S.ORDER if c in idx]
+    args = [(cid, secs[cid], idx[cid], meta[cid]) for cid in order]
     total = 0
     print(f"mp4 を {workers} 並列で焼く（{len(args)}カット）", flush=True)
     with ProcessPoolExecutor(max_workers=workers) as ex:
@@ -325,31 +328,33 @@ def build_full(idx, meta, workers=None):
     return total
 
 
-def default_zooms():
+def default_zooms(order=None):
     """既定で拡大図を出すカット。**全226カット×4か所を出すと数百MBになる**ので絞る。
 
     章の頭・章の締め・実写カットを必ず入れ、あとは章ごとに等間隔で拾う。
     ここに無いカットを拡大したいときは `--zoom=c114,c529` のように名指しする。
     """
+    order = order or S.ORDER
     want = set()
     for pre in ("pr", "c1", "c2", "c3", "c4", "c5", "c6", "ep"):
-        ids = [c for c in S.ORDER if c.startswith(pre)]
+        ids = [c for c in order if c.startswith(pre)]
         if not ids:
             continue
         want |= {ids[0], ids[-1]}
         for k in range(1, 3):
             want.add(ids[len(ids) * k // 3])
-    want |= {c for c in S.ORDER if S.SPEC.get(c, {}).get("photo")}
+    want |= {c for c in order if S.SPEC.get(c, {}).get("photo")}
     return want
 
 
 def build_qa(idx, meta, zoom_cuts=None):
     """検品用の静止画・拡大図・一覧を作る。**5巡以上の精査はこれを見る。**"""
     QA.mkdir(parents=True, exist_ok=True)
-    shots = qa_shots(S.ORDER, idx, meta)
+    order = [c for c in S.ORDER if c in idx]     # 章を作っている途中でも回せるように
+    shots = qa_shots(order, idx, meta)
     if (OUT / "_empty.png").exists():
         L("_empty").convert("RGB").save(QA / "_empty.png")
-    zoom_cuts = zoom_cuts if zoom_cuts is not None else default_zooms()
+    zoom_cuts = zoom_cuts if zoom_cuts is not None else default_zooms(order)
     for cid, im in shots:
         if cid not in zoom_cuts:
             continue
@@ -404,7 +409,7 @@ if __name__ == "__main__":
     if mode == "shrink":
         shrink_stills()
         sys.exit(0)
-    idx, _ = S.layer_index()
+    idx, _ = S.layer_index(allow_missing="--partial" in sys.argv)
     meta = meta_of(idx)
     check_motion(meta)
     build_qa(idx, meta, zooms)

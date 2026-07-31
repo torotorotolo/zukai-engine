@@ -25,6 +25,12 @@ on:
         description: "拡大図を出すカット（例 c114,c529）。空なら章ごとの代表だけ"
         required: false
         default: ""
+      partial:
+        description: "画を作っている途中（未定義カットを飛ばして焼く）"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
 
 jobs:
   render:
@@ -55,7 +61,9 @@ jobs:
           fi
 
       # 226カット全部に「画」が割り当たっているか。抜けがあればここで止める。
+      # ⚠️ partial=true のときは抜けを見逃す（章を作っている途中の試し焼き用）。
       - name: Check cut table
+        continue-on-error: ${{ inputs.partial == 'true' }}
         run: python tools/scene_jiko.py --report
 
       # 🔴 焼く前に机上で字幅を検算する（フォントから実測）。
@@ -70,11 +78,10 @@ jobs:
 
       - name: Build QA stills
         run: |
-          if [ -n "${{ inputs.zoom }}" ]; then
-            python tools/build_jiko.py qa --zoom=${{ inputs.zoom }}
-          else
-            python tools/build_jiko.py qa
-          fi
+          ARGS="qa"
+          [ "${{ inputs.partial }}" = "true" ] && ARGS="$ARGS --partial"
+          [ -n "${{ inputs.zoom }}" ] && ARGS="$ARGS --zoom=${{ inputs.zoom }}"
+          python tools/build_jiko.py $ARGS
 
       # 画面の余白を機械で測る。基準は _empty.png（地だけを焼いたもの）との画素差。
       # ⚠️ **必ず JPEG に詰め直す前に**やる（JPEGのノイズが地との差として出るため）。
