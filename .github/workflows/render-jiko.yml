@@ -122,8 +122,13 @@ jobs:
           ls out/jiko/qa | wc -l
           du -sh out/jiko/qa
           if [ -f out/jiko/titan.mp4 ]; then
+            echo "--- 映像 ---"
             ffprobe -v error -show_entries format=duration:stream=width,height,r_frame_rate \
               -of json out/jiko/titan.mp4
+            echo "--- 音声入り（これを上げる） ---"
+            ffprobe -v error -show_entries format=duration -of default=nw=1 \
+              out/jiko/titan_audio.mp4
+            du -h out/jiko/titan_audio.mp4 out/jiko/titan.mp4
           fi
 
       # 検品はここに上がった **クラウド出力** だけを見る。
@@ -140,11 +145,12 @@ jobs:
           path: out/jiko/qa/
           retention-days: 5
 
+      # ⚠️ 34分の mp4 は数百MB〜1GB になりうる。**成果物ストレージは500MBしかない**ので
+      #    音声入りの1本だけを上げ、保持も2日に縮める。
+      #    映像だけの titan.mp4 は音声入りから作り直せるので上げない。
       - uses: actions/upload-artifact@v4
         if: inputs.mode == 'full'
         with:
           name: jiko-mp4${{ inputs.note && format('-{0}', inputs.note) || '' }}
-          path: |
-            out/jiko/titan_audio.mp4
-            out/jiko/titan.mp4
-          retention-days: 5
+          path: out/jiko/titan_audio.mp4
+          retention-days: 2
