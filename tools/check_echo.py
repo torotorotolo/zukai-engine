@@ -56,6 +56,12 @@ DATAISH = re.compile(r"^[0-9０-９,.，．%％\s"
                      r"／/・:：〜~\-−－(（)）]+$")
 
 
+# 🔴 カタカナだけで出来た語は**固有名詞**。字数が伸びるだけで節ではない。
+#    「ミッションスペシャリスト」は13字あるが、そのカットの主題そのもので、
+#    図がこれを書けないと何の話か分からなくなる。
+KATAKANA = re.compile(r"[ァ-ヶー・]+")
+
+
 def unesc(t):
     for k, v in UNESC.items():
         t = t.replace(k, v)
@@ -124,7 +130,7 @@ def main(only=None, show_all=False):
         ex = exempt.get(cid, set())
         for layer, t in bycut[cid]:
             n = norm(t)
-            if len(n) < MINLEN or DATAISH.match(t):
+            if len(n) < MINLEN or DATAISH.match(t) or KATAKANA.fullmatch(n):
                 continue
             # 折り返された断片も見出し扱いにする（para が行を割るため）
             is_ex = any(n in h or h in n for h in ex)

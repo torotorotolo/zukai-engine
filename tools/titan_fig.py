@@ -1296,7 +1296,9 @@ def window(note="", marks=None, lead=""):
     g.append(poly(top + bot, stroke=J.OK, close=True, sw=5))
     g.append(line(cx - R - 120, cy - 210, cx - R - 120, cy + 210, J.LINE_DIM, 3))
     g.append(txt(cx - R - 136, cy, "外", 30, J.LINE_DIM, "Noto", "end"))
-    g.append(txt(cx + R + 40, cy, "内", 30, J.LINE_DIM))
+    # ⚠️ 「縁は薄い」の寸法線が cx+R+190 に立つので、そのラベル（左へ伸びる）と
+    #    重なっていた。内側のラベルは寸法線の外へ出す。
+    g.append(txt(cx + R + 330, cy, "内", 30, J.LINE_DIM))
     stages = [J.vdim(cy - TC / 2, cy + TC / 2, cx - 34, "中央は厚い"),
               J.vdim(cy - TE / 2, cy + TE / 2, cx + R + 190, "縁は薄い")]
     for m in (marks or []):
