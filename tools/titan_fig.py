@@ -211,7 +211,10 @@ def depth(marks, dmax=4400, unit="m", axis_t="水深", seabed=None, note="", rig
     dmax  … 目盛りの下限。**カットごとに変えない**（比較できなくなる）
     """
     ax = BX0 + 250                       # 目盛り軸の x
-    top, bot = BY0 + 54, BY1 - 34        # 海面 / 目盛りの底
+    # ⚠️ 注記を出すカットは、目盛りの底を上げて**注記の場所を空ける**。
+    #    空けないと、目盛りの数字（4,000）や印のラベルと必ず重なる。
+    top = BY0 + 54
+    bot = BY1 - (78 if note else 34)     # 海面 / 目盛りの底
     span = bot - top
 
     def dy(d):
@@ -237,7 +240,9 @@ def depth(marks, dmax=4400, unit="m", axis_t="水深", seabed=None, note="", rig
                                     for i in range(1, 25)], stroke=J.LINE_DIM, sw=4))
         g.append(txt(BX1, y + 40, "海底", 28, J.LINE_DIM, "Noto", "end"))
     if note:
-        g.append(txtfit(BX1, bot + 4, note, 900, cap=28, col=J.LINE_DIM, anchor="end"))
+        # ⚠️ 右下に置くと「海底」ラベル（同じく右下）と必ず重なる。
+        #    seabed を渡すカットは全部これに当たった（c113a c114 c115b c121 c130）。
+        g.append(txtfit(BX0, BY1 - 6, note, BW - 300, cap=28, col=J.LINE_DIM))
 
     stages = []
     for m in marks:
@@ -304,11 +309,13 @@ def compare(items, unit="", note="", bar=True, ratio=""):
                             col=J.LINE_DIM, anchor="middle"))
         stages.append("".join(s))
         g.append(line(x + cw * 0.16, barb, x + cw * 0.84, barb, J.LINE_DIM, 3))
+    # ⚠️ ratio と note を同じ y に置いていたので、両方あるカットで必ず重なった（c115d）。
+    #    ratio は棒のすぐ下、note はいちばん下に離す。
     if ratio and n >= 2:
-        g.append(txtfit(BCX, BY1 - 26, ratio, BW * 0.8, cap=40, col=J.AMBER,
+        g.append(txtfit(BCX, BY1 - 84, ratio, BW * 0.8, cap=40, col=J.AMBER,
                         anchor="middle"))
     if note:
-        g.append(txtfit(BX0, BY1 - 26, note, BW, cap=28, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 16, note, BW, cap=28, col=J.LINE_DIM))
     return Fig("".join(g), stages, "", (BX0, BX1))
 
 
