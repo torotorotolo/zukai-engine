@@ -326,7 +326,7 @@ def compare(items, unit="", note="", bar=True, ratio=""):
 # ══════════════════════════════════════════════════════════
 #  3. quote — 引用
 # ══════════════════════════════════════════════════════════
-def quote(phrase, who="", when="", doc="", ctx="", to="", size=76):
+def quote(phrase, who="", when="", doc="", ctx="", to="", size=104):
     """引用カット。**この動画には引用が20カットある。作りを間違えると全部死ぬ。**
 
     🔴 引用の言葉そのものは、**ナレーションが読み上げ、字幕にも出ている。**
@@ -373,9 +373,11 @@ def quote(phrase, who="", when="", doc="", ctx="", to="", size=76):
     pw = BX1 - px0
     g.append(txt(px0, BY0 + 150, "「", 120, J.ALERT_DIM, "Noto"))
     g.append(txt(BX1 - 46, BY1 - 40, "」", 120, J.ALERT_DIM, "Noto", "end"))
-    lines = wrap(phrase, 13) if isinstance(phrase, str) else list(phrase)
+    lines = wrap(phrase, 10) if isinstance(phrase, str) else list(phrase)
+    # 決め所は**枠の縦を使い切る大きさ**にする。1行なら大きく、行数が増えたら詰める
+    size = min(size, int((BH - 150) / max(1, len(lines)) / 1.34))
     lh = size * 1.34
-    top = BY0 + (BH - len(lines) * lh) / 2 + size * 0.7
+    top = BY0 + (BH - len(lines) * lh) / 2 + size * 0.72
     stages = []
     for i, ln in enumerate(lines):
         stages.append(txtfit(px0 + 78, top + i * lh, ln, pw - 130, cap=size,
@@ -515,12 +517,13 @@ def breakdown(total, parts, unit="人", note="", horizontal=True):
     """
     tot = total or sum(p["v"] for p in parts)
     y = BY0 + 96
-    bh = 118
+    bh = 168
     g = [num(BX0 + 10, y - 20, f"{tot:,}", unit, "", J.INK_W, 96, "start")]
     g.append(line(BX0, y + 44, BX1, y + 44, J.LINE_DIM, 3))
     stages = []
     x = BX0
-    ly = y + 210
+    ly = y + 288
+    lstep = max(60, (BY1 - 30 - ly) / max(1, len(parts)))
     for i, p in enumerate(parts):
         w = BW * p["v"] / max(1, tot)
         c = p.get("c", J.LINE)
@@ -529,13 +532,14 @@ def breakdown(total, parts, unit="人", note="", horizontal=True):
         s.append(txt(x + w / 2, y + 62 + bh / 2 + vs * 0.36, p["v"], vs, c, "Dela",
                      "middle"))
         # 内訳の行（棒の下に縦に積む）
-        s.append(rect(BX0, ly - 30, 34, 34, c, op=0.32))
-        s.append(rect(BX0, ly - 30, 34, 34, "none", c, 3))
-        s.append(txtfit(BX0 + 52, ly, p["t"], BW - 320, cap=38, col=J.INK_W))
-        s.append(txt(BX1, ly, f'{p["v"]}{unit}', 44, c, "Dela", "end"))
+        s.append(rect(BX0, ly - 36, 44, 44, c, op=0.32))
+        s.append(rect(BX0, ly - 36, 44, 44, "none", c, 3))
+        s.append(txtfit(BX0 + 64, ly, p["t"], BW - 400, cap=46, col=J.INK_W))
+        s.append(txt(BX1, ly, f'{p["v"]}{unit}', 54, c, "Dela", "end"))
+        s.append(line(BX0, ly + 18, BX1, ly + 18, J.LINE_DIM, 2))
         stages.append("".join(s))
         x += w
-        ly += 60
+        ly += lstep
     if note:
         g.append(txtfit(BX0, BY1 - 8, note, BW, cap=26, col=J.LINE_DIM))
     return Fig("".join(g), stages, "", (BX0, BX1))
@@ -894,20 +898,24 @@ def panel(blocks, lead="", note="", cols=3):
     n = len(blocks)
     stages = []
     if n <= 3 and all(len(str(b.get("t", ""))) <= 46 for b in blocks):
-        h = min(150, (BY1 - top - 30) / max(1, n))
+        # ⚠️ 150に頭打ちしていたので、3件でも枠の下200pxが空いた（c211 32%）。
+        h = (BY1 - top - 10 - (44 if note else 0)) / max(1, n)
         for i, b in enumerate(blocks):
             y = top + i * h
             c = b.get("c", J.LINE)
             s = [rect(BX0, y, 9, h - 22, c)]
+            ks = min(72, h * 0.46)
             if b.get("k"):
-                s.append(txt(BX0 + 34, y + 62, b["k"], 56, c, "Dela"))
-            tx0 = BX0 + (120 if b.get("k") else 34)
-            body, _ = para(tx0, y + 56, b["t"], cols=int((BX1 - tx0) / 40), size=40,
-                           col=J.INK_W)
+                s.append(txt(BX0 + 34, y + h * 0.52, b["k"], ks, c, "Dela"))
+            tx0 = BX0 + (150 if b.get("k") else 34)
+            bs = min(52, h * 0.34)
+            body, _ = para(tx0, y + h * 0.46, b["t"],
+                           cols=int((BX1 - tx0 - 540) / bs), size=bs, col=J.INK_W)
             s.append(body)
             if b.get("v"):
-                s.append(txt(BX1, y + 62, b["v"],
-                             fm.fit(b["v"], 520, "Dela", cap=60), c, "Dela", "end"))
+                s.append(txt(BX1, y + h * 0.54, b["v"],
+                             fm.fit(b["v"], 500, "Dela", cap=min(76, h * 0.50)),
+                             c, "Dela", "end"))
             stages.append("".join(s))
     else:
         cw = (BW - 30 * (cols - 1)) / cols
@@ -938,8 +946,9 @@ def absent(items, lead="", note=""):
     n = len(items)
     gap = 40
     cw = (BW - gap * (n - 1)) / n
-    top = BY0 + 130
-    bh = 290
+    top = BY0 + 128
+    # ⚠️ 290 固定だと箱の下 y730〜892 が空いた。説明の行ぶんを残して枠を使い切る。
+    bh = BY1 - top - 168
     g = []
     if lead:
         g.append(txtfit(BX0, BY0 + 74, lead, BW, cap=48, col=J.INK_W))
@@ -1255,7 +1264,7 @@ def buckle(kind="local", note="", lead="", labels=True):
         g.append(txtfit(BX0, BY0 + 56, lead, BW, cap=46, col=J.INK_W))
     if note:
         g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.LINE_DIM))
-    L, T = 900, 120
+    L, T = 1240, 170
     stages = []
     if kind == "crush":
         g.append(rect(cx - L / 2, cy - T / 2, L, T, J.LINE, op=0.24))
@@ -1267,7 +1276,7 @@ def buckle(kind="local", note="", lead="", labels=True):
                       + txtfit(cx, cy + T + 60, "材料そのものが潰れる", 900, cap=40,
                                col=J.ALERT, anchor="middle"))
     elif kind in ("global", "local", "s"):
-        amp = 78 if kind == "global" else 54
+        amp = 120 if kind == "global" else 88
         seg = (0.0, 1.0) if kind == "global" else (0.34, 0.66)
 
         def wavy(t):
@@ -1297,9 +1306,10 @@ def buckle(kind="local", note="", lead="", labels=True):
         pts = [(cx - L / 2 + L * i / 40,
                 y - 4 - (0 if i > 22 else (22 - i) ** 1.7 * 0.62)) for i in range(41)]
         stages.append(poly(pts, stroke=J.ALERT, sw=8))
-        stages.append(arrow(cx - L / 2 + 40, y - 210, cx + L * 0.10, y - 60,
+        # ⚠️ 注記を上に置くと lead（BY0+56）とぶつかる。**帯の下**へ回す。
+        stages.append(arrow(cx - L / 2 + 60, y + 196, cx + L * 0.10, y + 74,
                             J.ALERT, 5, 20)
-                      + txtfit(cx - L / 2 + 40, y - 230, "縁からめくれて広がる", 720,
+                      + txtfit(cx - L / 2 + 60, y + 240, "縁からめくれて広がる", 720,
                                cap=36, col=J.ALERT))
     return Fig("".join(g), stages, "", (cx - L / 2 - 100, cx + L / 2 + 100))
 
