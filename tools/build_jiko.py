@@ -40,7 +40,9 @@ OUT = S.HERE / "out" / "jiko"
 SEG = OUT / "seg"
 QA = OUT / "qa"
 
-BOOST = set()          # 元が低コントラストで沈む写真があればここに
+# 🔴 r8 の目視：NTSB が研究室で撮った標本写真は元が低コントラストで、
+#    デュオトーンにすると灰色の塊になって形が読めない。
+BOOST = {"pr03", "pr09", "c307", "c422", "c429", "c627", "c135"}
 # 段を「描き終える」までにかける時間。
 # 🔴 割合で決めると長いカットで破綻する。0.70 にしたら尺12秒のカットで
 #    3.8秒止まって「3秒以上の静止禁止」を割った（実測7カット）。
@@ -173,7 +175,9 @@ def scene(cut, t, dur, lay, photos, meta):
     if meta[cut]["photo"]:
         box, _, bias = S.PHOTO_CUTS[cut]
         fr = lay[f"{cut}_bg"].copy()
-        ph = fit(photos[cut], box, t / max(dur, 0.001), bias)
+        # 帯写真はケンバーンズを弱くする（原寸に近いので寄ると粗が出る）
+        k = t / max(dur, 0.001)
+        ph = fit(photos[cut], box, k * (0.35 if box[3] < S.H else 1.0), bias)
         fr.paste(duotone(ph, J.BG2, "#e6eef2", boost=cut in BOOST), (box[0], box[1]))
         over(fr, lay[f"{cut}_lab"], min(1.0, max(0.0, (t - 0.15) / 0.5)))
         # 実写の注記は**フェード**で出す。写真の上を横切るワイプは汚れに見える

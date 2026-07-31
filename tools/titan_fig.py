@@ -305,6 +305,14 @@ def depth(marks, dmax=4400, unit="m", axis_t="水深", seabed=None, note="", rig
         #    seabed を渡すカットは全部これに当たった（c113a c114 c115b c121 c130）。
         g.append(txtfit(BX0, BY1 - 6, note, BW - 300, cap=28, col=J.LINE_DIM))
 
+    # 500m ごとの細い目盛り。線1本だけの海にしない
+    dd = stepm // 2
+    while dd <= dmax:
+        if dd % stepm:
+            yy = dy(dd)
+            g.append(line(ax - 9, yy, ax + 9, yy, J.LINE_DIM, 2))
+        dd += stepm // 2
+
     stages = []
     for m in marks:
         y = dy(m["d"])
@@ -313,6 +321,12 @@ def depth(marks, dmax=4400, unit="m", axis_t="水深", seabed=None, note="", rig
         s = [line(ax, y, BX1 - 8, y, c, 6 if big else 4,
                   dash=None if big else "14 10")]
         s.append(circ(ax, y, 11 if big else 8, c))
+        # ⚠️ いちばん大事な印には**潜水艇そのもの**を置く。
+        #    印が1つだけのカットが「線1本の海」になっていた（c408 c409 c420 ほか）。
+        if big:
+            s.append(rect(ax - 92, y - 26, 184, 52, J.BG2, rx=26))
+            s.append(rect(ax - 92, y - 26, 184, 52, "none", c, 5, rx=26))
+            s.append(line(ax + 62, y - 26, ax + 76, y - 46, c, 4))
         size = 76 if big else 48
         lx = ax + 40
         s.append(txt(lx, y - 16, f'{m["d"]:,}', size, c, "Dela"))
@@ -866,11 +880,15 @@ def titan(mode="side", s=1.0, cx=None, cy=None, marks=None, note="",
         g.append(rect(x - L * 0.012, cy - R * 1.04, L * 0.024, R * 2.08, "none",
                       J.AMBER, 3))
     # 尾部の推進器とフレーム
+    # ⚠️ 船体から離して置いていたので、**宙に浮いた灰色の四角**にしか見えなかった
+    #    （r8 の目視。titan を使う14カット全部に出ていた）。支柱で船体につなぐ。
     for sgn in (-1, 1):
-        g.append(rect(cx + L * 0.30, cy + sgn * R * 0.62 - L * 0.020, L * 0.055,
-                      L * 0.040, J.LINE, op=0.5))
-        g.append(rect(cx + L * 0.30, cy + sgn * R * 0.62 - L * 0.020, L * 0.055,
-                      L * 0.040, "none", J.LINE, 3))
+        px_, py_ = cx + L * 0.245, cy + sgn * R * 0.74
+        g.append(line(px_ - L * 0.02, cy + sgn * R * 0.34, px_ + L * 0.01, py_,
+                      J.LINE, 4))
+        g.append(rect(px_, py_ - L * 0.020, L * 0.058, L * 0.040, J.LINE, op=0.5))
+        g.append(rect(px_, py_ - L * 0.020, L * 0.058, L * 0.040, "none", J.LINE, 3))
+        g.append(line(px_ + L * 0.058, py_, px_ + L * 0.080, py_, J.LINE, 4))
     g.append(rect(x0 + L * 0.10, cy + R * 0.96, L * 0.74, L * 0.030, J.LINE_DIM,
                   op=0.7))
     if window:

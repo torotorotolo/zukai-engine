@@ -70,6 +70,13 @@ CR_NOAA = "出典：NOAA／海洋探査研究所／ロードアイランド大�
 
 PHOTO_CREDIT = {
     "titan_hull_edge.jpg": CR_NTSB,
+    "titan_hull_pair.jpg": CR_NTSB,
+    "titan_ntsb14_endface.jpg": CR_NTSB,
+    "titan_ntsb15_endpiece.jpg": CR_NTSB,
+    "titan_ntsb16_wrinkle.jpg": CR_NTSB,
+    "titan_ntsb16_grind.jpg": CR_NTSB,
+    "titan_ntsb17_layers.jpg": CR_NTSB,
+    "titan_ntsb17_voids.jpg": CR_NTSB,
     "titan_hull_inner.jpg": CR_NTSB,
     "titan_delam_ruler.jpg": CR_NTSB,
     "titan_rov_aft.jpg": CR_USCG_ROV,
@@ -77,8 +84,10 @@ PHOTO_CREDIT = {
     "titan_cf_evidence.jpg": CR_USCG_L,
     "titan_titanic_bow.jpg": CR_NOAA,
 }
-# ⚠️ ref/titan_hull_pair.jpg は CREDITS.md に出所が無い。**どのカットにも割り当てない。**
-BANNED_PHOTOS = {"titan_hull_pair.jpg"}
+# 2026-07-31：titan_hull_pair.jpg は **NTSB 図13**（外面と内面の2枚組）と確認できたので
+# 解禁した。報告書の画素サイズ（1609×1490）と完全一致し、図13〜18は出所表記が無い
+# ＝NTSB自身の研究室撮影＝PD。使えない写真はいまは無い。
+BANNED_PHOTOS = set()
 
 
 def face_css(name, filename):
@@ -156,6 +165,24 @@ def sub_strip(lines):
 PHOTO_FULL = (0, 0, W, H)
 SCRIM_TOP = 300
 CRED_Y = 872
+BAND_CY = 560           # 帯写真の縦中心
+
+
+def photo_box(spec):
+    """写真の置き場所。全画面か、**帯**か。
+
+    🔴 NTSB の標本写真は 1431×325 のように細長いものが多い。
+       全画面（1920×1080）に覆わせると **3.3倍に引き伸ばして左右を切り落とす**ことになり、
+       ぼやけたうえに写真の意味（層が並んでいる様子）が消える。
+       帯なら原寸に近い倍率で、横方向の情報を全部見せられる。
+    """
+    if not spec.get("band"):
+        return PHOTO_FULL
+    from PIL import Image
+    with Image.open(HERE / "ref" / spec["photo"]) as im:
+        sw, sh = im.size
+    h = min(int(W * sh / sw), 720)
+    return (0, int(BAND_CY - h / 2), W, h)
 
 
 def full_bg():
@@ -166,11 +193,15 @@ def full_bg():
 def full_top(cid, spec):
     """写真の上に載せる一式（暗幕・見出し・章マーカー・出典）。`_lab` に入れる。"""
     side = spec.get("side", "right")
-    g = [J.scrim(0, 0, W, SCRIM_TOP, "top", 0.80)]
-    if side == "right":
-        g.append(J.scrim(1150, 0, W - 1150, H, "right", 0.62))
+    if spec.get("band"):
+        # 帯のときは見出しも注記も**写真の外**に置けるので、暗幕は要らない
+        g = []
     else:
-        g.append(J.scrim(0, 0, 770, H, "left", 0.62))
+        g = [J.scrim(0, 0, W, SCRIM_TOP, "top", 0.80)]
+        if side == "right":
+            g.append(J.scrim(1150, 0, W - 1150, H, "right", 0.62))
+        else:
+            g.append(J.scrim(0, 0, 770, H, "left", 0.62))
     g.append(J.title(spec["t"], spec.get("s", "")))
     ch = chapter_of(cid)
     if ch:
@@ -188,6 +219,10 @@ def photo_ann(spec):
     x = J.RIGHT if side == "right" else J.MG
     anchor = "end" if side == "right" else "start"
     maxw = 700
+    if spec.get("band"):
+        # 帯写真の注記は写真の下に横並びで置く（写真の上に載せない）
+        x = J.MG if side != "right" else J.RIGHT
+        maxw = 1500
     y = spec.get("ann_y", 340)
     out = []
     for a in spec.get("ann", []):
@@ -246,7 +281,7 @@ CUTS, SUBS = _narration()
 ORDER = [c for c, _ in CUTS]
 
 # 全画面の実写カット。(枠, ファイル名, 縦方向の寄せ)
-PHOTO_CUTS = {cid: (PHOTO_FULL, s["photo"], s.get("bias", 0.5))
+PHOTO_CUTS = {cid: (photo_box(s), s["photo"], s.get("bias", 0.5))
               for cid, s in SPEC.items() if s.get("photo")}
 INSETS = {}
 

@@ -23,6 +23,15 @@ ref/*
 # タイタニック船首（NOAA/IFE/URI・PD）。サムネの地に使う
 !ref/titan_titanic_bow.jpg
 !ref/titan_hull_pair.jpg
+# NTSB報告書の図13〜18から取り出した標本写真（出所表記が無い＝NTSB撮影＝PD）
+!ref/titan_ntsb14_endface.jpg
+!ref/titan_ntsb15_endpiece.jpg
+!ref/titan_ntsb16_wrinkle.jpg
+!ref/titan_ntsb16_grind.jpg
+!ref/titan_ntsb17_layers.jpg
+!ref/titan_ntsb17_voids.jpg
+# 取り出しの作業用（図11・12＝Pelagic も混ざるので載せない）
+ref/_ntsb_raw/
 # USCG が公開したタイタン号本体の写真（PD）
 !ref/titan_rov_tailcone.jpg
 !ref/titan_rov_aft.jpg
