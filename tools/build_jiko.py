@@ -278,8 +278,14 @@ def qa_shots(cids, idx, meta, at=0.88):
 
 
 def _seg_worker(args):
-    """1カットぶんを mp4 に焼く。**プロセスを分けて並列に回す**。"""
-    cid, sec, idxv, metav = args
+    """1カットぶんを mp4 に焼く。**プロセスを分けて並列に回す**。
+
+    🔴 `nframes` は呼び出し側が**通し時刻から**計算して渡す。
+       カットごとに round(sec*30) すると丸め誤差が積み上がり、34分の終わりでは
+       音と数秒ずれる（226カット × 最大0.5コマ）。音声側は正確な秒で置いているので、
+       映像の側を通し時刻に合わせる。
+    """
+    cid, sec, nframes, idxv, metav = args
     import scene_jiko as S2
     lay = {n: Image.open(OUT / f"{n}.png").convert("RGBA") for n in idxv["layers"]}
     subs = {}
@@ -289,7 +295,7 @@ def _seg_worker(args):
     if idxv["photo"]:
         photos[cid] = load_photo(S2.PHOTO_CUTS[cid][1], S2.PHOTO_CUTS[cid][0])
     meta = {cid: metav}
-    n = int(round(sec * FPS))
+    n = nframes
     dst = SEG / f"{cid}.mp4"
     p = subprocess.Popen(
         ["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-f", "rawvideo",
@@ -310,7 +316,13 @@ def build_full(idx, meta, workers=None):
     secs = dict(S.CUTS)
     workers = workers or max(1, min(8, (os.cpu_count() or 2)))
     order = [c for c in S.ORDER if c in idx]
-    args = [(cid, secs[cid], idx[cid], meta[cid]) for cid in order]
+    # 通し時刻からコマの境目を出す（丸め誤差を積み上げない）
+    args, cum = [], 0.0
+    for cid in order:
+        a = int(round(cum * FPS))
+        cum += secs[cid]
+        b = int(round(cum * FPS))
+        args.append((cid, secs[cid], b - a, idx[cid], meta[cid]))
     total = 0
     print(f"mp4 を {workers} 並列で焼く（{len(args)}カット）", flush=True)
     with ProcessPoolExecutor(max_workers=workers) as ex:
