@@ -27,3 +27,15 @@ ref/*
 !ref/titan_rov_tailcone.jpg
 !ref/titan_rov_aft.jpg
 !ref/titan_cf_evidence.jpg
+
+# 🔴 ナレーションの wav はリポジトリに入れない（1本34分で163MB）。
+#    git は履歴を消せないので、作り直すたびに積み上がる。
+#    **コミットするのは audio/opus/*.opus（22MB）**。クラウドは焼く前に
+#    `python tools/audio_pack.py unpack` で wav に戻す（audio_mix.py は無変更）。
+audio/*.wav
+# 読みのドライラン結果と、通し確認用につないだ音声（どちらも作り直せる）
+audio/kana_dry.txt
+audio/_full.mp3
+# USCG報告書は335ページ26MB。ヘッダー付きでいつでも落とせるので入れない
+#   → 落とし方は Vault の引き継ぎノートに書いてある
+ref/uscg_titan_mbi.pdf

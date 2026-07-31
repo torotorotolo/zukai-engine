@@ -49,7 +49,15 @@ jobs:
       - name: Composite (PNG -> mp4)
         run: python tools/build_jiko.py
 
-      # 音声。ナレーションはローカルの AivisSpeech で作って audio/ に置いてある。
+      # 音声。ナレーションはローカルの AivisSpeech で作り、**opus に詰めて**置いてある。
+      # wav のままだと1本で163MBあり、作り直すたびに git の履歴に積み上がるため
+      # （2026-07-31 決定。詳細は tools/audio_pack.py の冒頭）。
+      # ここで wav に戻すので、audio_mix.py 側は何も変わらない。
+      - name: Unpack narration (opus -> wav)
+        run: |
+          python tools/audio_pack.py check
+          python tools/audio_pack.py unpack
+
       # BGM と効果音はここで合成する（既製音源を public リポジトリに置かないため）
       - name: Mix narration + BGM + SE
         run: |
