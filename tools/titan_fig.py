@@ -299,6 +299,13 @@ def compare(items, unit="", note="", bar=True, ratio=""):
         disp = it.get("disp") or f'{it["v"]:,}'
         u = it.get("unit", unit)
         s = []
+        if not bar:
+            # 棒を描かないカットは、代わりに枠いっぱいの面で柱を立てる。
+            # 何も置かないと下半分が丸ごと空く（c208 空き45.7%）。
+            s.append(rect(x + cw * 0.08, top + 230, cw * 0.84, barb - top - 230,
+                          c, op=0.16))
+            s.append(rect(x + cw * 0.08, top + 230, cw * 0.84, barb - top - 230,
+                          "none", c, 4))
         if bar:
             h = max(barh * 0.045, barh * abs(it["v"]) / vmax)
             s.append(rect(x + cw * 0.16, barb - h, cw * 0.68, h, c, op=0.30))
@@ -909,8 +916,12 @@ def panel(blocks, lead="", note="", cols=3):
                 s.append(txt(BX0 + 34, y + h * 0.52, b["k"], ks, c, "Dela"))
             tx0 = BX0 + (150 if b.get("k") else 34)
             bs = min(52, h * 0.34)
+            # ⚠️ v の場所（右540px）を、v が無いときまで空けていた。
+            #    17カットの多くで右半分が丸ごと余っていた原因。
+            rsv = 540 if b.get("v") else 0
             body, _ = para(tx0, y + h * 0.46, b["t"],
-                           cols=int((BX1 - tx0 - 540) / bs), size=bs, col=J.INK_W)
+                           cols=max(6, int((BX1 - tx0 - rsv) / bs)), size=bs,
+                           col=J.INK_W)
             s.append(body)
             if b.get("v"):
                 s.append(txt(BX1, y + h * 0.54, b["v"],
@@ -1179,7 +1190,7 @@ def people(nodes, edges=None, note="", lead=""):
     """
     x0, y0 = BX0 + 20, BY0 + 60
     w, h = BW - 40, BH - 150
-    bw, bh = 380, 108
+    bw, bh = 460, 140
     g = []
     if lead:
         g.append(txtfit(BX0, BY0 + 20, lead, BW, cap=40, col=J.INK_W))
