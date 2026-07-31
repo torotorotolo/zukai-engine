@@ -94,6 +94,67 @@ def wrap(t, cols):
     return out
 
 
+def balance(t, cols):
+    """決め所の言葉を**行の長さがそろうように**折る。
+
+    🔴 幅だけで折ると最後の行に2字だけ残る。実際に
+       「船体が受け台の中でず／れた」「もう一度潜ってどうな／るか見よう」と割れた
+       （r5 の目視で発見。机上の検算では出ない）。
+       行数を先に決めて、その行数で等分する。
+    """
+    t = str(t)
+    n = sum(fm.adv(c, "Noto") for c in t)
+    rows = max(1, math.ceil(n / cols))
+    if rows == 1:
+        return [t]
+    per = n / rows
+    # 切ってよい位置を点数づけする。
+    #   ＋ 読点・句点の**後ろ**（意味の切れ目）
+    #   ＋ 助詞の後ろ（「船体が｜受け台」のように語の切れ目になりやすい）
+    #   − 行頭に 、。」 が来る位置（禁則）
+    BONUS_AFTER = "、。はがをにでとのもへや"
+    # 行頭に来てはいけない字（禁則）。小書きのかなと長音符もここに入れる
+    NG_HEAD = "、。」）ァィゥェォャュョッーぁぃぅぇぉゃゅょっ"
+
+    def kata(c):
+        return "ァ" <= c <= "ヶ" or c == "ー"
+
+    def hira(c):
+        return "ぁ" <= c <= "ゖ"
+    out, start, acc, ideal = [], 0, 0.0, per
+    for i, ch in enumerate(t):
+        acc += fm.adv(ch, "Noto")
+        if len(out) >= rows - 1:
+            continue
+        if acc < ideal * 0.55:
+            continue
+        best = None
+        for j in range(i, min(len(t) - 1, i + 4) + 1):
+            w = sum(fm.adv(c, "Noto") for c in t[start:j + 1])
+            if w > ideal * 1.45:
+                break
+            sc = abs(w - ideal)
+            if t[j] in BONUS_AFTER:
+                sc -= 1.2
+            if j + 1 < len(t) and t[j + 1] in NG_HEAD:
+                sc += 5.0
+            # 語の途中で切らない。カタカナ語の途中はとくに読めなくなる
+            #（「21フ／ィートの潜水艦」が実際に出た）
+            if j + 1 < len(t) and kata(t[j]) and kata(t[j + 1]):
+                sc += 4.0
+            if j + 1 < len(t) and hira(t[j]) and hira(t[j + 1])                     and t[j] not in BONUS_AFTER:
+                sc += 1.6
+            if best is None or sc < best[0]:
+                best = (sc, j)
+        if best and (acc >= ideal or best[0] < 0):
+            j = best[1]
+            out.append(t[start:j + 1])
+            start, acc = j + 1, 0.0
+    if start < len(t):
+        out.append(t[start:])
+    return out
+
+
 def para(x, y, t, cols=28, size=34, col=None, lh=1.5, anchor="start", ol=0, fam="Noto"):
     """折り返す本文。戻り値は (svg, 最終行のベースライン y)。"""
     g = []
@@ -380,7 +441,7 @@ def quote(phrase, who="", when="", doc="", ctx="", to="", size=104):
     pw = BX1 - px0
     g.append(txt(px0, BY0 + 150, "「", 120, J.ALERT_DIM, "Noto"))
     g.append(txt(BX1 - 46, BY1 - 40, "」", 120, J.ALERT_DIM, "Noto", "end"))
-    lines = wrap(phrase, 10) if isinstance(phrase, str) else list(phrase)
+    lines = balance(phrase, 10) if isinstance(phrase, str) else list(phrase)
     # 決め所は**枠の縦を使い切る大きさ**にする。1行なら大きく、行数が増えたら詰める
     size = min(size, int((BH - 150) / max(1, len(lines)) / 1.34))
     lh = size * 1.34
