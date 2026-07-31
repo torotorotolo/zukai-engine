@@ -275,8 +275,15 @@ def _load_layers(cids, idx):
     return lay
 
 
-def qa_shots(cids, idx, meta, at=0.97):
-    """カットごとの検品画像。段が出そろった状態を実寸で残す。"""
+def qa_shots(cids, idx, meta, at=0.92):
+    """カットごとの検品画像。段が出そろった状態を実寸で残す。
+
+    🔴 撮る時刻の選び方で2回まちがえた。
+       0.88 … ワイプの途中が写り、図が切れているのか描いている最中か区別がつかない
+       0.97 … **字幕が消えたあと**を撮ってしまう（カット尻の TAIL=0.5秒は無音なので
+               字幕が出ていない）。占有率が 52.5% → 42.3% と10ポイント落ちた
+       0.92 … 段は出そろい、字幕はまだ出ている。**ここが実際の見え方に近い**
+    """
     QA.mkdir(parents=True, exist_ok=True)
     secs = dict(S.CUTS)
     subs = {c: L(f"sub_{c}") for c in cids if (OUT / f"sub_{c}.png").exists()}
