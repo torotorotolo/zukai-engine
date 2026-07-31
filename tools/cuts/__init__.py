@@ -22,11 +22,22 @@
   3 段（figの stages）の数は**ナレーションの行数に近づける**。
     行より多い段は行の間に挟まれる。少ない場合は最後の段が長く描かれる。
 """
-from . import pr, c1, c2, c3, c4, c5, c6, ep
+import importlib
+import sys
+
+# 章ごとに1ファイル。**1章が壊れていても他章は読めるようにする**
+# （章を並行して書いているあいだ、片方の書きかけで全部の検査が止まらないように）。
+CHAPTER_FILES = ("pr", "c1", "c2", "c3", "c4", "c5", "c6", "ep")
 
 SPEC = {}
-for _m in (pr, c1, c2, c3, c4, c5, c6, ep):
-    _dup = set(SPEC) & set(_m.SPEC)
-    if _dup:
-        raise RuntimeError(f"カットIDが重複しています: {sorted(_dup)}")
-    SPEC.update(_m.SPEC)
+BROKEN = {}
+for _name in CHAPTER_FILES:
+    try:
+        _m = importlib.import_module(f".{_name}", __name__)
+        _dup = set(SPEC) & set(_m.SPEC)
+        if _dup:
+            raise RuntimeError(f"カットIDが重複しています: {sorted(_dup)}")
+        SPEC.update(_m.SPEC)
+    except Exception as e:                      # noqa: BLE001
+        BROKEN[_name] = e
+        print(f"⚠️ cuts/{_name}.py を読めませんでした: {e}", file=sys.stderr)

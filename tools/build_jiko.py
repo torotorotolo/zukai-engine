@@ -325,13 +325,31 @@ def build_full(idx, meta, workers=None):
     return total
 
 
+def default_zooms():
+    """既定で拡大図を出すカット。**全226カット×4か所を出すと数百MBになる**ので絞る。
+
+    章の頭・章の締め・実写カットを必ず入れ、あとは章ごとに等間隔で拾う。
+    ここに無いカットを拡大したいときは `--zoom=c114,c529` のように名指しする。
+    """
+    want = set()
+    for pre in ("pr", "c1", "c2", "c3", "c4", "c5", "c6", "ep"):
+        ids = [c for c in S.ORDER if c.startswith(pre)]
+        if not ids:
+            continue
+        want |= {ids[0], ids[-1]}
+        for k in range(1, 3):
+            want.add(ids[len(ids) * k // 3])
+    want |= {c for c in S.ORDER if S.SPEC.get(c, {}).get("photo")}
+    return want
+
+
 def build_qa(idx, meta, zoom_cuts=None):
     """検品用の静止画・拡大図・一覧を作る。**5巡以上の精査はこれを見る。**"""
     QA.mkdir(parents=True, exist_ok=True)
     shots = qa_shots(S.ORDER, idx, meta)
     if (OUT / "_empty.png").exists():
         L("_empty").convert("RGB").save(QA / "_empty.png")
-    zoom_cuts = zoom_cuts or S.ORDER
+    zoom_cuts = zoom_cuts if zoom_cuts is not None else default_zooms()
     for cid, im in shots:
         if cid not in zoom_cuts:
             continue
@@ -340,7 +358,7 @@ def build_qa(idx, meta, zoom_cuts=None):
             z = min(2.0, S.W / c.width, S.H / c.height)
             if z > 1.02:
                 c = c.resize((round(c.width * z), round(c.height * z)), Image.LANCZOS)
-            c.save(QA / f"zoom_{cid}_{name}.png")
+            c.save(QA / f"zoom_{cid}_{name}.jpg", quality=92)
     # 一覧（章ごとに1枚）。34分を通しで俯瞰できるようにする
     for pre, label in (("pr", "プロローグ"), ("c1", "1章"), ("c2", "2章"), ("c3", "3章"),
                        ("c4", "4章"), ("c5", "5章"), ("c6", "6章"), ("ep", "エピローグ")):
@@ -359,14 +377,36 @@ def build_qa(idx, meta, zoom_cuts=None):
     print(f"検品画像 {len(shots)} カット", flush=True)
 
 
+def shrink_stills(q=88):
+    """check_space が読んだあとの `cut_*.png` を JPEG に詰め直す。
+
+    226カットを PNG のまま成果物に載せると 300MB を超えてダウンロードが実用的でない。
+    ⚠️ **check_space より先にやってはいけない。** JPEG のノイズは地との差として出るので、
+       占有率と空き矩形の判定が壊れる（地の判定は画素差でやっている）。
+    """
+    n = 0
+    for p in sorted(QA.glob("cut_*.png")):
+        Image.open(p).convert("RGB").save(p.with_suffix(".jpg"), quality=q)
+        p.unlink()
+        n += 1
+    (QA / "_empty.png").exists() and (QA / "_empty.png").unlink()
+    print(f"検品画像 {n} 枚を JPEG に詰め直した", flush=True)
+
+
 if __name__ == "__main__":
+    mode = "qa"
+    zooms = None
+    for a in sys.argv[1:]:
+        if a in ("qa", "full", "shrink"):
+            mode = a
+        elif a.startswith("--zoom="):
+            zooms = set(a.split("=", 1)[1].split(","))
+    if mode == "shrink":
+        shrink_stills()
+        sys.exit(0)
     idx, _ = S.layer_index()
     meta = meta_of(idx)
     check_motion(meta)
-    mode = "qa"
-    for a in sys.argv[1:]:
-        if a in ("qa", "full"):
-            mode = a
-    build_qa(idx, meta)
+    build_qa(idx, meta, zooms)
     if mode == "full":
         build_full(idx, meta)

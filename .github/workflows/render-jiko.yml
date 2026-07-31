@@ -3,6 +3,10 @@ name: render-jiko
 # 🔴 レンダリングはクラウドのみ（2026-07-29 カズヤくん指示）。
 #    SVG→PNG のレイヤー書き出しも、PNG→mp4 の合成も、**両方ここで実行する**。
 #    ローカルPCはメモリ4GB。ローカルでは焼かない。
+#
+# ■ 2つのモード（本編は226カット・34分06秒＝61,300コマある）
+#    qa   … 検品用の静止画・拡大図・章ごとの一覧だけを作る（既定）。**精査はこれを回す**
+#    full … mp4 まで作る。カット単位で並列に焼いて連結し、音声を乗せる
 
 on:
   workflow_dispatch:
@@ -11,11 +15,21 @@ on:
         description: "この巡で何を直したか（成果物名に入る）"
         required: false
         default: ""
+      mode:
+        description: "qa（検品画像だけ・速い）／ full（mp4まで）"
+        required: false
+        default: "qa"
+        type: choice
+        options: ["qa", "full"]
+      zoom:
+        description: "拡大図を出すカット（例 c114,c529）。空なら章ごとの代表だけ"
+        required: false
+        default: ""
 
 jobs:
   render:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
 
@@ -31,7 +45,6 @@ jobs:
           sudo apt-get install -y ffmpeg
 
       # 描画は Chrome headless。ubuntu-latest には google-chrome が入っている。
-      # 無ければ chromium を入れる（render.py が両方を探す実装）。
       - name: Ensure Chrome
         run: |
           if command -v google-chrome >/dev/null 2>&1; then
@@ -41,60 +54,82 @@ jobs:
             chromium-browser --version
           fi
 
-      # フォントは woff2 を base64 で SVG に埋め込むので、システムフォントには依存しない。
-      # それでも豆腐が出たら分かるように、書き出した PNG を必ず検品用に上げる。
+      # 226カット全部に「画」が割り当たっているか。抜けがあればここで止める。
+      - name: Check cut table
+        run: python tools/scene_jiko.py --report
+
+      # 🔴 焼く前に机上で字幅を検算する（フォントから実測）。
+      #    画面外・重なり・豆腐はここで分かるので、レンダリングを待たずに読める。
+      #    ⚠️ 失敗しても続行する（検品画像は見たいので）。ログは必ず読むこと。
+      - name: Check layout (机上の検算)
+        continue-on-error: true
+        run: python tools/check_layout.py
+
       - name: Render layers (SVG -> PNG)
         run: python tools/scene_jiko.py --force
 
-      - name: Composite (PNG -> mp4)
-        run: python tools/build_jiko.py
+      - name: Build QA stills
+        run: |
+          if [ -n "${{ inputs.zoom }}" ]; then
+            python tools/build_jiko.py qa --zoom=${{ inputs.zoom }}
+          else
+            python tools/build_jiko.py qa
+          fi
 
-      # 音声。ナレーションはローカルの AivisSpeech で作り、**opus に詰めて**置いてある。
-      # wav のままだと1本で163MBあり、作り直すたびに git の履歴に積み上がるため
-      # （2026-07-31 決定。詳細は tools/audio_pack.py の冒頭）。
-      # ここで wav に戻すので、audio_mix.py 側は何も変わらない。
+      # 画面の余白を機械で測る。基準は _empty.png（地だけを焼いたもの）との画素差。
+      # ⚠️ **必ず JPEG に詰め直す前に**やる（JPEGのノイズが地との差として出るため）。
+      - name: Check whitespace
+        continue-on-error: true
+        run: python tools/check_space.py out/jiko/qa
+
+      - name: Shrink stills for download
+        run: python tools/build_jiko.py shrink
+
+      # ── ここから下は mode=full のときだけ ──
+      # ナレーションはローカルの AivisSpeech で作り、opus に詰めて置いてある
+      # （wav のままだと1本163MB。git は履歴を消せないので作り直すたび積み上がる）。
       - name: Unpack narration (opus -> wav)
+        if: inputs.mode == 'full'
         run: |
           python tools/audio_pack.py check
           python tools/audio_pack.py unpack
 
+      - name: Composite (PNG -> mp4)
+        if: inputs.mode == 'full'
+        run: python tools/build_jiko.py full
+
       # BGM と効果音はここで合成する（既製音源を public リポジトリに置かないため）
       - name: Mix narration + BGM + SE
+        if: inputs.mode == 'full'
         run: |
           python tools/audio_mix.py
           ffmpeg -y -hide_banner -loglevel error \
-            -i out/jiko/jiko_test.mp4 -i out/jiko/mix.wav \
-            -c:v copy -c:a aac -b:a 192k -shortest out/jiko/jiko_test_audio.mp4
+            -i out/jiko/titan.mp4 -i out/jiko/mix.wav \
+            -c:v copy -c:a aac -b:a 192k -shortest out/jiko/titan_audio.mp4
           ls -la out/jiko/*.mp4 out/jiko/mix.wav
-
-      # 画面の余白を機械で測る（2026-07-30）。目視だけだと「詰めたつもり」で終わるので、
-      # 占有率と最大の空き矩形を必ずログに出す。基準は qa/_empty.png（地だけを焼いたもの）。
-      - name: Check whitespace
-        run: python tools/check_space.py out/jiko/qa
 
       - name: Summary
         run: |
-          ls -la out/jiko/*.mp4
-          ls out/jiko/qa/
-          python - <<'PY'
-          import subprocess, json
-          p = subprocess.run(["ffprobe","-v","error","-show_entries",
-                              "format=duration:stream=width,height,r_frame_rate",
-                              "-of","json","out/jiko/jiko_test.mp4"],
-                             capture_output=True, text=True)
-          print(p.stdout)
-          PY
+          ls out/jiko/qa/ | head -40
+          echo "--- qa の枚数と容量 ---"
+          ls out/jiko/qa | wc -l
+          du -sh out/jiko/qa
+          if [ -f out/jiko/titan.mp4 ]; then
+            ffprobe -v error -show_entries format=duration:stream=width,height,r_frame_rate \
+              -of json out/jiko/titan.mp4
+          fi
 
       # 検品はここに上がった **クラウド出力** だけを見る。
-      # ローカルのWindowsフォントと折返し位置が変わった実績があるため。
+      # ローカルのフォントと折返し位置が変わった実績があるため。
       - uses: actions/upload-artifact@v4
         with:
           name: jiko-qa${{ inputs.note && format('-{0}', inputs.note) || '' }}
           path: out/jiko/qa/
 
       - uses: actions/upload-artifact@v4
+        if: inputs.mode == 'full'
         with:
           name: jiko-mp4${{ inputs.note && format('-{0}', inputs.note) || '' }}
           path: |
-            out/jiko/jiko_test_audio.mp4
-            out/jiko/jiko_test.mp4
+            out/jiko/titan_audio.mp4
+            out/jiko/titan.mp4
