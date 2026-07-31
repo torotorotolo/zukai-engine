@@ -128,10 +128,17 @@ jobs:
 
       # 検品はここに上がった **クラウド出力** だけを見る。
       # ローカルのフォントと折返し位置が変わった実績があるため。
+      # ⚠️ **retention-days を必ず付ける。** ここが実際に効いてくる制限。
+      #    public リポジトリなので実行時間は無料で上限が無いが、
+      #    **成果物ストレージはアカウント共通で 500MB しかない**。
+      #    テスト映像23巡＋サムネ8巡で 57件・1.02GB まで積み上がっていた（無料枠の2倍）。
+      #    本編は226カットあり qa だけで1巡100MB前後になるので、消さないと5巡で枠を割る。
+      #    巡が終わって中身を見たら `python tools/gc_artifacts.py --keep 4` で掃除する。
       - uses: actions/upload-artifact@v4
         with:
           name: jiko-qa${{ inputs.note && format('-{0}', inputs.note) || '' }}
           path: out/jiko/qa/
+          retention-days: 5
 
       - uses: actions/upload-artifact@v4
         if: inputs.mode == 'full'
@@ -140,3 +147,4 @@ jobs:
           path: |
             out/jiko/titan_audio.mp4
             out/jiko/titan.mp4
+          retention-days: 5

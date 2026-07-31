@@ -392,7 +392,7 @@ def report():
     from collections import Counter
     total = sum(s for _, s in CUTS)
     kinds = Counter(SPEC[c]["fig"][0] if not SPEC[c].get("photo") else "photo"
-                    for c in ORDER)
+                    for c in ORDER if c in SPEC)
     print(f"カット {len(ORDER)} ／ 完成尺 {total:.1f}秒 = "
           f"{int(total // 60)}分{total % 60:04.1f}秒")
     print(f"字幕 {sum(len(v) for v in SUBS.values())} 枚")
