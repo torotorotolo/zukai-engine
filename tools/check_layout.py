@@ -1,106 +1,81 @@
 # -*- coding: utf-8 -*-
-"""レンダリング前に、文字の位置だけを机上で検算する。
+"""レンダリング前に、文字の位置を机上で検算する。
 
 なぜ要るか：
-  レンダリングはクラウドだけなので、1巡すると3分半＋ダウンロードがかかる。
-  「文字が画面外で切れる」「詰めたら注記どうしが重なった」は**字幅の計算で分かる**ので、
-  クラウドに投げる前にここで落とす。余白を詰めた15巡目からは特に効く。
+  レンダリングはクラウドだけ。226カットを焼くと数分かかるうえ、
+  「文字が画面外で切れる」「詰めたら注記どうしが重なった」は**字幅で分かる**ので、
+  クラウドに投げる前にここで落とす。
+
+🔴 字幅は**推定しない。フォントから実測する**（tools/fontmetrics.py）。
+   推定して2回事故っている：
+     ① Dela の数字を 0.72em と見て「75,00089,680」に読める画を通した
+     ② Noto Black のインクを 0.72em と見てサムネの赤と黄が上下にはみ出した
+   しかも「実測 0.84em」もまだ平均でしかなかった。
+   **Dela の数字は 0.588（1）〜0.924（4）で 1.57 倍ちがう。**
 
 やること：
-  1 scene_jiko の各レイヤーの SVG から <text> を全部拾う
-  2 字幅を推定して外接矩形を出す
-  3 画面（MG〜RIGHT・上60〜下906）から出ているものを名指しする
+  1 scene_jiko が組んだ全レイヤーの SVG から <text> を拾う
+  2 実測の字幅と字面で外接矩形を出す
+  3 画面（MG〜RIGHT・上52〜下906）から出ているものを名指しする
   4 **同じカットで同時に出ているレイヤー**どうしの重なりを名指しする
+  5 フォントに無い字（豆腐になる字）を名指しする
 
-⚠️ 字幅は推定。フォントの実測ではないので、境界の1〜2文字ぶんは信用しない。
-   ここを通っても**必ずクラウドで焼いて拡大目視する**（この道具は目視の代わりではない）。
+⚠️ ここを通っても**必ずクラウドで焼いて拡大目視する**（この道具は目視の代わりではない）。
+   重なり判定は矩形どうしなので、文字の隙間に入る飾り罫までは分からない。
 """
 import re
 import sys
+from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 sys.stdout.reconfigure(encoding="utf-8")
 
 import jiko_style as J
+import fontmetrics as fm
 import scene_jiko as S
 
-TOP, BOT = 52, 906           # 字幕帯(916)より上。見出し(Dela 62px)の字面上端が 59
+TOP, BOT = 44, 906           # 字幕帯(900)より上。
+# 見出しは全カット共通で y=104・Dela 62px。字面の上端は字によって 49〜54px に来る
+# （実測。「残」「炭」のように背の高い字だと 51px）。ここは意図した位置なので下限を 44 に置く。
 TEXT = re.compile(r'<text\s([^>]*)>([^<]*)</text>')
 ATTR = re.compile(r'([\w-]+)="([^"]*)"')
-# ベースラインより下に出る字。深さは3段階で見る（読点と数字のコンマを同じ扱いにすると
-# 「89,680」の下端を 43px も低く見積もって、単位の「回」と重なった判定になる）
-DESC_DEEP = set("gjpqy、。")          # 0.22em
-DESC_SHALLOW = set(",()（）")          # 0.10em
+UNESC = {"&amp;": "&", "&lt;": "<", "&gt;": ">"}
 
 
-def adv(ch, family):
-    """1文字の送り幅（em）。Noto/Dela の実測ではなく素朴な推定。
-
-    🔴 Dela の数字を 0.72em と見ていたが**実測は 0.84em**だった。
-       そのため c7 の「75,000」を 760px と見積もり（実際は約880px）、
-       隣の「89,680」とくっついて「75,00089,680」に読める画を通してしまった。
-       クラウド出力を実測して 0.84 に直した。
-    """
-    o = ord(ch)
-    if o >= 0x2E80:                      # 漢字・かな・全角記号
-        return 1.0
-    if ch == " ":
-        return 0.30
-    if ch in ".,":
-        return 0.30 if family == "Dela" else 0.28
-    if ch in "()（）":
-        return 0.45
-    return 0.84 if family == "Dela" else 0.56
-
-
-def width(t, size, family):
-    return sum(adv(c, family) for c in t) * size
+def unesc(t):
+    for k, v in UNESC.items():
+        t = t.replace(k, v)
+    return t
 
 
 def boxes(svg, layer):
-    """(x0, y0, x1, y1, 文字, レイヤー名) を返す。y は字面の上下で近似。"""
+    """(x0, y0, x1, y1, 文字, レイヤー名, 書体) を返す。**すべて実測値**。"""
     out = []
     for m in TEXT.finditer(svg):
         a = dict(ATTR.findall(m.group(1)))
-        t = m.group(2)
+        t = unesc(m.group(2))
         if not t.strip():
             continue
         x, y = float(a["x"]), float(a["y"])
         size, fam = float(a["font-size"]), a.get("font-family", "Noto")
-        w = width(t, size, fam)
+        w = fm.width(t, size, fam)
+        up, dn = fm.ink(t, size, fam)
         anchor = a.get("text-anchor", "start")
         x0 = x - w / 2 if anchor == "middle" else (x - w if anchor == "end" else x)
-        # 字面：ベースラインより上に 0.74em。下は下に出る字の深さで3段階
-        if any(c in DESC_DEEP or ord(c) >= 0x2E80 for c in t):
-            below = size * 0.22
-        elif any(c in DESC_SHALLOW for c in t):
-            below = size * 0.10
-        else:
-            below = size * 0.03
-        out.append((x0, y - size * 0.74, x0 + w, y + below, t, layer))
+        out.append((x0, y - up, x0 + w, y + dn, t, layer, fam))
     return out
 
 
-# カットごとに「同時に画面に出ているレイヤー」。_aN は途中から出るが、
-# カットの終盤には全部出ているので、終盤の状態で重なりを見る。
-def layers_of(cut, jobs):
-    pre = f"{cut}_"
-    return {k: v for k, v in jobs.items() if k.startswith(pre)}
+def main(only=None):
+    jobs, _ = S.build_layers(allow_missing=True)
+    if only:
+        jobs = {k: v for k, v in jobs.items() if k.startswith(only)}
+    bad = ov = tofu = 0
 
-
-def main():
-    jobs = {}
-    for name in dir(S):
-        fn = getattr(S, name)
-        if callable(fn) and re.fullmatch(r"[cp]\d_(base|bg|lab|a\d|call)", name):
-            jobs[name] = fn()
-    jobs["c7_num"] = S.c7_num(1.0)
-    bad = 0
-
-    print("── 画面から出ている文字 ──")
-    for k, svg in sorted(jobs.items()):
-        for x0, y0, x1, y1, t, _ in boxes(svg, k):
+    print(f"── 画面から出ている文字（{len(jobs)}レイヤー） ──")
+    for k in sorted(jobs):
+        for x0, y0, x1, y1, t, _, _ in boxes(jobs[k], k):
             why = []
             if x0 < J.MG - 4:
                 why.append(f"左が {x0:.0f}（下限 {J.MG}）")
@@ -116,13 +91,23 @@ def main():
     if not bad:
         print("  ✓ 全部おさまっている")
 
+    print("\n── フォントに無い字（豆腐になる） ──")
+    for k in sorted(jobs):
+        for _, _, _, _, t, _, fam in boxes(jobs[k], k):
+            miss = fm.missing(t, fam)
+            if miss:
+                tofu += 1
+                print(f"  🔴 {k}: {fam} に無い字 {miss}（「{t[:20]}」）")
+    if not tofu:
+        print("  ✓ 無い字は無い")
+
     print("\n── 同じカットで重なっている文字 ──")
-    cuts = sorted({k.split("_")[0] for k in jobs})
-    ov = 0
-    for cut in cuts:
-        bs = []
-        for k, svg in layers_of(cut, jobs).items():
-            bs += boxes(svg, k)
+    bycut = defaultdict(list)
+    for k, svg in jobs.items():
+        cid = k.rsplit("_", 1)[0]
+        bycut[cid] += boxes(svg, k)
+    for cid in sorted(bycut):
+        bs = bycut[cid]
         for i in range(len(bs)):
             for j in range(i + 1, len(bs)):
                 a, b = bs[i], bs[j]
@@ -130,15 +115,17 @@ def main():
                 iy = min(a[3], b[3]) - max(a[1], b[1])
                 if ix > 6 and iy > 6:
                     ov += 1
-                    print(f"  🔴 {cut}: 「{a[4][:16]}」({a[5]}) と "
+                    print(f"  🔴 {cid}: 「{a[4][:16]}」({a[5]}) と "
                           f"「{b[4][:16]}」({b[5]}) が {ix:.0f}×{iy:.0f}px 重なる")
     if not ov:
         print("  ✓ 重なりなし")
 
-    print(f"\n{'🔴 直すところあり' if bad or ov else '✓ 机上の検算はすべて通った'}"
-          f"（画面外 {bad}件・重なり {ov}件）")
-    return 1 if bad or ov else 0
+    n = bad + ov + tofu
+    print(f"\n{'🔴 直すところあり' if n else '✓ 机上の検算はすべて通った'}"
+          f"（画面外 {bad}件・重なり {ov}件・豆腐 {tofu}件）")
+    return 1 if n else 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    only = next((a.split("=")[1] for a in sys.argv if a.startswith("--only=")), None)
+    sys.exit(main(only))

@@ -1,42 +1,31 @@
 # -*- coding: utf-8 -*-
-"""事故検証×図解様式のテスト映像。10カット・96.3秒。
+"""本番1本目「潜水艇タイタン号」226カット・34分06秒のレイヤー書き出し。
 
-題材＝**アロハ航空243便**（1988-04-28・ボーイング737-200・N73711）。
-巡航中に胴体上部の外板が飛行中に剥離した。原因は重ね継手の接着剥離と疲労亀裂。
+■ 何がどこにあるか
+  台本の文言   … `tools/narration.py` の SCRIPT（**正本はあちら**。ここには写さない）
+  カットの尺   … `audio/narration.json`（合成後の実測秒）
+  カットの「画」… `tools/cuts/*.py`（章ごと。この場所だけを直せば図が変わる）
+  図の部品     … `tools/titan_fig.py`（型。226カットをこの部品で組む）
 
-■ 数字はすべて NTSB/AAR-89/03 本文で裏を取った（`ref/ntsb_aar8903.pdf` を検索）
-    高度 24,000 ft（7,300 m）／乗客89人・乗員6人＝95人／死者1・重傷8
-    剥離範囲「客室扉より後方・客室床面より上を約18 ft（5.5 m）」
-    N73711 の実績 35,496 飛行時間・**89,680 サイクル**（世界の737で2番目）
-    737 の経済設計寿命「20年・51,000時間・**75,000サイクル**」
-    外板の板厚 0.036 インチ（0.91 mm）
-    亀裂は S-10L 重ね継手の**最上列のリベット**に沿って発生
+■ レイヤーの命名（build_jiko がこの名前で拾う）
+  {cid}_base … 地＋見出し＋章マーカー。カット頭から出ている（動かない）
+  {cid}_lab  … 図の骨格。**カット前半で左→右に描かれる**
+  {cid}_aN   … 図の N 段目。**その段の持ち時間いっぱいをかけて左→右に描かれる**
+  {cid}_hot  … 脈打つ強調（省略可）
+  実写カットは {cid}_bg（地・写真に覆われる）と {cid}_lab（写真の上）＋{cid}_aN
 
-■ 素材はすべてパブリックドメイン（`ref/CREDITS.md` に出典と作者を記録）
-  米連邦機関（NTSB / FAA / NASA）と米国国立公文書館（NARA）の著作物。
+■ 🔴 3秒以上の静止を禁止（映像ルール4）を**構造で満たす**
+  段の持ち時間 ＝ その段が出てから次の段が出るまで（最後の段はカット終わりまで）。
+  段はその持ち時間いっぱいをかけて描かれるので、**カットの頭から終わりまで常に何かが動く**。
+  テスト映像のようにカットごとに MOTION を手で書く必要が無くなった
+  （手書きだと図を動かすたびに直し忘れる。実際 c3 のワイプ範囲で1度やっている）。
 
-■ 実写の割合（2026-07-29 カズヤくん指示で方針変更）
-  当初は競合と同水準の18%に合わせていたが、**「使える限り最大限写真を使う」**に変更。
-  全画面の実写4カット＝31.2秒 / 全体96.3秒 = **32.4%**。さらに c2 に写真インセット1点。
-  図解は骨格として残す（競合の図解比率は約7%なので、密度の差は保てている）。
-
-■ 尺はナレーションから逆算する
-  音声を先に作り、`audio/narration.json` の実測秒に前後の間を足したものをカット尺にする。
-  映像に合わせて喋らせると必ず早口になる。
-
-■ カット構成
-  p1 実写   事故機の左側面（屋根が消えている）      … 掴み
-  p2 実写   事故前の N73711 本人                    … 同じ機体だと示す
-  c2 図解   機体側面図と剥離範囲（＋写真インセット） … どこが
-  p3 実写   着陸後の機体を見上げる調査員            … 人と並べて大きさを出す
-  c3 図解   胴体断面（事故前／剥離後）              … どれだけ
-  c4 図解   重ね継手の平面図・疲労亀裂              … どこから
-  c5 図解   重ね継手の A-A 断面・接着剥離            … なぜ
-  p4 実写   ヒロ発ホノルル行きの航路（NASA）        … 舞台
-  c6 図解   高度の時系列                            … 何が起きたか
-  c7 図解   経済設計寿命と実際の回数                … 背景
+■ 🔴 写真より上に出すものは `_lab` に置く
+  build_jiko は bg の上に写真を貼るので、`_bg` に置いた文字は全画面写真に丸ごと覆われる
+  （21巡目に見出しが完全に消えた）。
 """
 import base64
+import json
 import os
 import re
 import sys
@@ -46,33 +35,50 @@ sys.path.insert(0, str(Path(__file__).parent))
 sys.stdout.reconfigure(encoding="utf-8")
 
 import jiko_style as J
+import titan_fig as F
+import fontmetrics as fm
 import render
 
 W, H = 1920, 1080
 HERE = Path(__file__).parent.parent
 FONTS = Path(os.environ.get("ZUKAI_FONTS", HERE / "fonts"))
+OUT = HERE / "out" / "jiko"
 CSS = ""
 
-# 機体側面図の置き場所。(x, y) は**機首先端・胴体上面線**（jiko_style の座標系）
-# 🔴 2026-07-30：1.5倍だと全長1080pxで右に670pxの余白が残っていた。
-#    インセット写真の手前（x=1242）まで使い切る 1.62倍にする。
-#    縦は 垂直尾翼の頂点 y=367 ／ 主脚の下端 y=787 で、本体の枠(210〜892)に収まる。
-AC_X, AC_Y, AC_S = 76, 596, 1.62
+# ── 章（章マーカーに出す名前） ────────────────────────────
+CHAPTERS = {
+    "c1": (1, "その日、10時47分"),
+    "c2": (2, "炭素繊維という選択"),
+    "c3": (3, "一度目の船体"),
+    "c4": (4, "二度目の船体"),
+    "c5": (5, "大きな音"),
+    "c6": (6, "11か月の空白"),
+}
+NCH = 6
 
+
+def chapter_of(cid):
+    """プロローグ（pr*）とエピローグ（ep*）は章マーカー無し。"""
+    return CHAPTERS.get(cid[:2])
+
+
+# ── 出典表記（ref/CREDITS.md の台帳と1対1） ───────────────
 CR_NTSB = "出典：NTSB（米国運輸安全委員会）／パブリックドメイン"
-CR_NTSB_S = "出典：NTSB／パブリックドメイン"
-CR_FAA = "出典：FAA（米国連邦航空局）／パブリックドメイン"
-CR_NARA = "出典：米国国立公文書館（NARA）／撮影 Charles O'Rear／パブリックドメイン"
-CR_NASA = "出典：NASA／パブリックドメイン"
+CR_USCG_ROV = "出典：アメリカ沿岸警備隊／ROV撮影／パブリックドメイン"
+CR_USCG_L = "出典：アメリカ沿岸警備隊／撮影 M. Leake／パブリックドメイン"
+CR_NOAA = "出典：NOAA／海洋探査研究所／ロードアイランド大学／パブリックドメイン"
 
-
-def ax(u):
-    """機体座標の x（単位）→ 画面 x"""
-    return AC_X + u * AC_S
-
-
-def ay(u):
-    return AC_Y + u * AC_S
+PHOTO_CREDIT = {
+    "titan_hull_edge.jpg": CR_NTSB,
+    "titan_hull_inner.jpg": CR_NTSB,
+    "titan_delam_ruler.jpg": CR_NTSB,
+    "titan_rov_aft.jpg": CR_USCG_ROV,
+    "titan_rov_tailcone.jpg": CR_USCG_ROV,
+    "titan_cf_evidence.jpg": CR_USCG_L,
+    "titan_titanic_bow.jpg": CR_NOAA,
+}
+# ⚠️ ref/titan_hull_pair.jpg は CREDITS.md に出所が無い。**どのカットにも割り当てない。**
+BANNED_PHOTOS = {"titan_hull_pair.jpg"}
 
 
 def face_css(name, filename):
@@ -90,29 +96,10 @@ def page(inner, w=W, h=H):
 
 
 # ── 字幕 ─────────────────────────────────────────────────
-# 🔴 字幕は必須（2026-07-30 カズヤくん指示）。1行ずつ音声を合成して尺を取っているので
-#    フレーム精度で音と合う。画面下 y=916 以下は字幕帯として空けてある。
-# 🔴 大きさは「考えすぎる葦」を実測して合わせた。
-#    Vault `analysis/assets/top10/sheet_*.jpg`（1/4縮小の一覧フレーム）から2通りで測定：
-#      ① 字面の高さ 5px × 4 = **20px**（201本の中央値。四分位も20〜20で安定）
-#      ② 1文字の幅  約5.8px × 4 = **23px**
-#    → フォントサイズ **26px**（1080に対して2.4%）。4巡目の46pxは約2倍だった。
-#    葦の文字は **細く・小さく・箱なし**、**2行まで**。太字＋帯は使わない。
-#    葦は全編ベクター画面だがこちらは実写に重ねるので、箱の代わりにごく弱い影だけ敷く。
-# ⚠️ 字幕を3秒以下に細切れにするのは**2026-07-30に不採用**（見にくいと判定された）。
-#    静止禁止は図とグラフの動きで満たす。字幕は自然な文の単位で切る。
-# 🔴 2026-07-30（カズヤくん指示）：**実写カットを全画面にしたので字幕の作りを変える。**
-#    それまでは「箱も帯もなし・影だけ・26px」だった。これは**「考えすぎる葦」（教養ch）**を
-#    実測して合わせた値で、全編ベクター画面という前提の上に成り立っていた。
-#    ⚠️ 全画面の写真の上に 26px の細い文字を影だけで載せると**物理的に読めない**。
-#    競合（ゆっくり事故検証）は**黒背景を確保したうえで字幕を載せている**ので、そちらに合わせる。
-#    → 黒帯を敷き、級数を 26→38 に上げる。**全カットで統一する**
-#      （カットごとに字幕の見た目が変わるのがいちばん読みにくい）。
+# 黒帯の上・38px・NotoSansJP-Bold・全カット統一（映像ルール1）。帯は y=900〜1080。
 SUB_Y, SUB_H = 900, 180
 SUB_SIZE = 38
-# 🔴 2026-07-30：**横長1列のほうがスッキリする**とのカズヤくん判定で 22→34 に。
-#    台本の最長は31字なので実質1行に収まる（26px×31字≒806px で1920に余裕）。
-SUB_WRAP = 26            # 38pxに上げたぶん折返しを 34→26 字に
+SUB_MAXW = 1560          # 字幕1行に許す最大の幅（px）。**実測で折る**
 XML = {"&": "&amp;", "<": "&lt;", ">": "&gt;"}
 
 
@@ -121,677 +108,278 @@ def esc(t):
 
 
 def wrap2(text):
-    """長い字幕は**2行まで**に折る（葦も2行までしか使っていない）。
-    折る位置は読点。無ければ中央付近の文字境界。"""
-    if len(text) <= SUB_WRAP:
+    """字幕は**2行まで**。折る位置は読点。無ければ幅の中央に近い文字境界。
+
+    🔴 「26字」で折っていたのを**実測幅（px）**に変えた。
+       字幕は漢字・かな・数字が混ざるので、字数で折ると1行の長さが 1.6 倍ぶれる
+       （「2023年6月18日、午前10時47分。」は16字だが数字が多く、
+         「潜水艇は、原型をとどめていなかった。」の18字より狭い）。
+    """
+    if fm.width(text, SUB_SIZE, "Noto") <= SUB_MAXW:
         return [text]
-    mid = len(text) // 2
-    cands = [m.end() for m in re.finditer("[、。]", text) if 4 <= m.end() <= len(text) - 3]
-    cut = min(cands, key=lambda i: abs(i - mid)) if cands else mid
+    half = fm.width(text, SUB_SIZE, "Noto") / 2
+    best, acc = None, 0.0
+    cands = []
+    for i, ch in enumerate(text):
+        acc += fm.adv(ch, "Noto") * SUB_SIZE
+        if ch in "、。":
+            cands.append((abs(acc - half), i + 1))
+        if best is None or abs(acc - half) < best[0]:
+            best = (abs(acc - half), i + 1)
+    cut = min(cands)[1] if cands else best[1]
     return [text[:cut], text[cut:]]
 
 
 def sub_row(text, w=W, h=SUB_H):
-    """字幕1枚。**箱も帯も敷かない**（葦式）。影だけで実写の上の可読性を持たせる。
-    1行なら下寄せ、2行なら上下に振り分ける。**最終行の位置を揃える**のが読みやすさの要。"""
+    """字幕1枚。黒帯＋太いフチ。1行なら下寄せ、2行なら上下に振り分ける。"""
     lines = wrap2(text)
     ys = [h * 0.64] if len(lines) == 1 else [h * 0.42, h * 0.78]
-    # 黒帯。上端はグラデーションで抜いて、画面を横に切る線に見せない
     g = [f'<linearGradient id="subbg" x1="0" y1="1" x2="0" y2="0">'
          f'<stop offset="0" stop-color="#000" stop-opacity="0.78"/>'
          f'<stop offset="0.62" stop-color="#000" stop-opacity="0.70"/>'
          f'<stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>'
          f'<rect x="0" y="0" width="{w}" height="{h}" fill="url(#subbg)"/>']
     for t, y in zip(lines, ys):
-        e = esc(t)
         g.append(f'<text x="{w / 2:.0f}" y="{y:.0f}" font-family="Noto" '
                  f'font-size="{SUB_SIZE}" fill="{J.INK_W}" text-anchor="middle" '
                  f'stroke="#000" stroke-width="7" stroke-linejoin="round" '
-                 f'paint-order="stroke fill">{e}</text>')
+                 f'paint-order="stroke fill">{esc(t)}</text>')
     return "".join(g)
 
 
 def sub_strip(lines):
-    """1カットぶんの字幕を縦に積んだ帯。合成時に行ごとに切り出す。"""
     return "".join(f'<g transform="translate(0,{i * SUB_H})">{sub_row(t)}</g>'
                    for i, t in enumerate(lines))
 
 
-def photo_frame(x, y, w, h, credit, size=25):
-    """写真の枠と出典。**出典は必ず画面に出す。**
-
-    🔴 2026-07-30：出典を写真の**下40px**に置いていたので、写真の下に必ず
-       高さ60pxほどの帯状の余白ができていた（10カット全部）。
-       写真の**内側の下端**に暗い帯を敷いて載せる。テレビのクレジットと同じ置き方で、
-       どの写真の出典かも曖昧にならない。写真の箱はそのぶん下まで伸ばせる。
-    """
-    g = [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="none" '
-         f'stroke="{J.LINE}" stroke-width="6"/>']
-    for cx, cy in ((x, y), (x + w, y), (x, y + h), (x + w, y + h)):
-        g.append(f'<path d="M{cx - 26} {cy} h52 M{cx} {cy - 26} v52" stroke="{J.INK_W}" '
-                 f'stroke-width="6"/>')
-    ch = size + 22
-    g.append(f'<rect x="{x + 3}" y="{y + h - ch - 3}" width="{w - 6}" height="{ch}" '
-             f'fill="{J.BG}" opacity="0.72"/>')
-    g.append(J.label(x + 16, y + h - 16, credit, J.LINE, size))
-    return "".join(g)
-
-
-# ── 実写カットの型：**全画面**（2026-07-30 カズヤくん指示で作り直した） ──
-# それまでは「写真1104×682の箱＋隣に幅632の情報柱」だった。
-# 🔴 カズヤくん指摘：「競合は画面全体に写真や動画を出し、字幕は黒背景の上に載せている。
-#    写真は画面いっぱいのほうがインパクトがある」。**そのとおりなので全面に変える。**
-#      ① 写真は 1920×1080 いっぱい。箱も枠も無し
-#      ② 見出しと注記は**写真の上に載せる**。載る側だけ暗幕（`J.scrim`）で落とし、
-#         文字には必ず太いフチを付ける（`J.outlined`）。サムネで確立した手当てと同じ
-#      ③ 余白の問題は**構造的に消える**（全面写真＝占有率100%）
-#      ④ そのぶん注記は減らす。実写カットの仕事は「衝撃」で、密度は図解カットが担う
-#         （旧型は1カットに8〜10ブロック載せていた。全面写真では邪魔になる）
+# ── 実写カットの型：全画面 ────────────────────────────────
 PHOTO_FULL = (0, 0, W, H)
-CR, CL = 1180, J.MG                 # 注記の柱の基準x（右／左）
-SCRIM_TOP = 300                     # 見出しに敷く暗幕の高さ
-CRED_Y = 872                        # 出典の位置（字幕帯 900 のすぐ上）
+SCRIM_TOP = 300
+CRED_Y = 872
 
 
 def full_bg():
-    """全画面写真カットの地。**写真がこの上に全面で乗るので、ここには何も置けない。**
-
-    🔴 21巡目の事故：見出し・章マーカー・暗幕をここに置いたら、
-       **全画面の写真に丸ごと覆われて消えた**（build_jiko は bg の上に写真を貼る）。
-       写真より上に出したいものは `_lab` に置く。
-    """
+    """全画面写真カットの地。**ここには何も置けない**（写真が全面で乗る）。"""
     return J.frame(W, H)
 
 
-def full_top(title, sub, ch_n, ch_name, credit_text, side="right"):
-    """写真の**上**に載せる一式（暗幕・見出し・章マーカー・出典）。`_lab` に入れる。"""
+def full_top(cid, spec):
+    """写真の上に載せる一式（暗幕・見出し・章マーカー・出典）。`_lab` に入れる。"""
+    side = spec.get("side", "right")
     g = [J.scrim(0, 0, W, SCRIM_TOP, "top", 0.80)]
     if side == "right":
         g.append(J.scrim(1150, 0, W - 1150, H, "right", 0.62))
     else:
         g.append(J.scrim(0, 0, 770, H, "left", 0.62))
-    g.append(J.title(title, sub))
-    g.append(J.chapter(ch_n, 6, ch_name))
-    g.append(J.outlined(J.MG, CRED_Y, credit_text, J.LINE, 24, sw=5))
+    g.append(J.title(spec["t"], spec.get("s", "")))
+    ch = chapter_of(cid)
+    if ch:
+        g.append(J.chapter(ch[0], NCH, ch[1]))
+    g.append(J.outlined(J.MG, CRED_Y, PHOTO_CREDIT[spec["photo"]], J.LINE, 24, sw=5))
     return "".join(g)
 
 
-# ── p1：実写（事故機の左側面） ────────────────────────────
-P1_BOX = PHOTO_FULL
+def photo_ann(spec):
+    """実写カットの注記。**4〜6ブロックまで**（全画面では多いと邪魔になる）。
 
-
-def p1_bg():
-    return full_bg()
-
-
-def p1_lab():
-    return full_top("飛行中に、屋根が消えた",
-                    "アロハ航空243便　1988年4月28日　ボーイング737-200",
-                    1, "何が起きたか", CR_NTSB)
-
-
-def p1_a1():
-    """1行目「1988年4月28日。ハワイ上空、高度7300メートル。」"""
-    return (J.outlined(J.RIGHT, 336, "巡航高度", J.LINE, 34, "end")
-            + J.outlined(J.RIGHT, 440, "7,300 m", J.AMBER, 104, "end", family="Dela"))
-
-
-def p1_a2():
-    """2行目「飛行中の旅客機から、屋根が消えた。」
-
-    全画面にしたので注記は**大注記2行＋事実2行**まで。数を減らして級数を上げる。
+    ann … [dict(t="巡航高度", v="7,300 m", c=J.AMBER)] を上から積む。
     """
-    g = [J.outlined(J.RIGHT, 570, "客室の天井と外板が", J.ALERT, 60, "end"),
-         J.outlined(J.RIGHT, 646, "5.5 m にわたって消失", J.ALERT, 60, "end"),
-         J.outlined(J.RIGHT, 744, "乗員乗客95人のうち", J.INK_W, 44, "end"),
-         J.outlined(J.RIGHT, 800, "94人が生き延びた", J.INK_W, 44, "end")]
+    side = spec.get("side", "right")
+    x = J.RIGHT if side == "right" else J.MG
+    anchor = "end" if side == "right" else "start"
+    maxw = 700
+    y = spec.get("ann_y", 340)
+    out = []
+    for a in spec.get("ann", []):
+        s = []
+        if a.get("t"):
+            size = fm.fit(a["t"], maxw, "Noto", cap=a.get("ts", 46), floor=24)
+            s.append(J.outlined(x, y, a["t"], a.get("c", J.INK_W), size, anchor,
+                                sw=max(6, size * 0.17)))
+            y += size + 18
+        if a.get("v"):
+            size = fm.fit(a["v"], maxw, "Dela", cap=a.get("vs", 96), floor=30)
+            s.append(J.outlined(x, y + size * 0.20, a["v"], a.get("vc", J.AMBER),
+                                size, anchor, sw=max(7, size * 0.15), family="Dela"))
+            y += size + 26
+        if a.get("d"):
+            size = fm.fit(a["d"], maxw, "Noto", cap=a.get("ds", 34), floor=22)
+            s.append(J.outlined(x, y, a["d"], a.get("dc", J.LINE), size, anchor,
+                                sw=max(5, size * 0.17)))
+            y += size + 16
+        y += 22
+        out.append("".join(s))
+    return out
+
+
+# ── 図解カットの地 ────────────────────────────────────────
+def fig_base(cid, spec):
+    g = [J.frame(W, H), J.title(spec["t"], spec.get("s", ""))]
+    ch = chapter_of(cid)
+    if ch:
+        g.append(J.chapter(ch[0], NCH, ch[1]))
     return "".join(g)
 
 
-# ── p2：実写（事故前の N73711 本人） ──────────────────────
-P2_BOX = PHOTO_FULL
+# ── カット表を読み込む ────────────────────────────────────
+def _load_spec():
+    """`tools/cuts/*.py` の SPEC を1つに束ねる。章ごとにファイルを分けてある。"""
+    import cuts
+    return cuts.SPEC
 
 
-def p2_bg():
-    return full_bg()
+SPEC = _load_spec()
 
-
-def p2_lab():
-    return full_top("この機体は、19年間飛んでいた", "事故を起こした N73711　1969年製",
-                    2, "どの機体だったか", CR_NARA, side="left")
-
-
-def p2_a1():
-    """ナレーションは1行だけ。**喋っていない情報だけ**を置く。"""
-    g = [J.outlined(CL, 336, "機体記号", J.LINE, 34),
-         J.outlined(CL, 440, "N73711", J.AMBER, 104, family="Dela"),
-         J.outlined(CL, 570, "離陸と着陸の回数だけが、", J.ALERT, 52),
-         J.outlined(CL, 636, "同型機の倍の速さで", J.ALERT, 52),
-         J.outlined(CL, 702, "積み上がっていた。", J.ALERT, 52),
-         J.outlined(CL, 800, "世界の737のなかで2番目に多い", J.INK_W, 40)]
-    return "".join(g)
-
-
-# ── c2：機体側面図（＋写真インセット） ────────────────────
-# 1巡目の粗を全部直した：
-#   引き出し線が機体を横断していた → 注記は機体の上下に置き、線を短くする
-#   5.5m 寸法が図から離れて浮いていた → 剥離範囲の真上に降ろす
-#   目盛線が胴体の上を通っていた → 機体より先に描いて下に潜らせる
-#   胴体直径の注記が機体を跨いでいた → **断面図(c3)に任せて c2 からは外す**
-C2_INSET = (1288, 236, 560, 430)
-
-
-def c2_base():
-    g = [J.frame(W, H), J.title("消えたのは、前方扉のすぐ後ろから",
-                                "ボーイング737-200　側面図（NTSB調査資料の三面図から作図）")
-            + J.chapter(3, 6, "どこが失われたか")]
-    # 機首からの距離。**実在しない station 番号を振ると図が嘘になる**ので、
-    # 実測できる「機首からの m」で目盛る（全長30.53m = 720単位）。
-    for m in range(0, 31, 5):
-        u = m * 720 / 30.53
-        g.append(f'<path d="M{ax(u):.0f} 356 V800" stroke="{J.GRID}" stroke-width="2.4"/>')
-        # 0m の目盛だけ中央寄せにすると左端が画面の余白(72)より外に出る
-        g.append(J.label(ax(u), 836, f"{m} m", J.LINE_DIM, 24,
-                         "start" if m == 0 else "middle"))
-    g.append(J.b737_side(AC_X, AC_Y, AC_S))
-    return "".join(g)
-
-
-def c2_hole():
-    return J.b737_tear(AC_X, AC_Y, AC_S, part="hole")
-
-
-def c2_tearline():
-    return J.b737_tear(AC_X, AC_Y, AC_S, part="line")
-
-
-def c2_lab():
-    """寸法と写真枠。図そのものの情報なので頭から出す。"""
-    # ⚠️ 18巡目：5.5m を y=330 に置いたら測っている剥離部（y=596）から267px離れて浮き、
-    #    19巡目に y=552 まで降ろしたら**上の帯 1240×160px が空いた**。
-    #    → 製図の作法どおり、寸法線は上に置いて**寸法補助線で剥離部まで繋ぐ**。
-    #      これで「何を測っているか分かる」と「帯が埋まる」を両立できる。
-    g = [J.dim(ax(120), ax(249.5), 330, "5.5 m", ext=254),
-         J.dim(ax(0), ax(720), 878, "全長 30.5 m")]
-    x, y, w, h = C2_INSET
-    g.append(photo_frame(x, y, w, h, CR_NTSB_S, 24))
-    return "".join(g)
-
-
-def c2_a1():
-    """1行目「失われたのは、前方の扉のすぐ後ろから、5.5メートル。」
-
-    剥離範囲は寸法線の上に注記を置く（14巡目は機体の左の空きに置いて線が長かった）。
-    ⚠️ 引き出し線は**やめた**。15巡目は「5.5 m」寸法線の白抜きを横切り、16巡目に
-       左へ逃がしても隙間が7pxしか無く、寸法線を剥離部の近くに降ろすと必ずぶつかる。
-       **寸法線そのものが指し棒**（矢羽根が剥離部の x 範囲を正確に挟んでいる）なので、
-       注記を寸法線の真上に積めば引き出し線は要らない。交差の危険も永久に無くなる。
-    """
-    return J.label((ax(120) + ax(249.5)) / 2, 288, "剥離した範囲", J.ALERT, 52, "middle")
-
-
-def c2_a2():
-    """2行目「天井から窓の下までが、一続きに剥ぎ取られていた。」
-    ナレーションが触れない情報（与圧）だけを置く。インセット写真の下の空きを使う。
-
-    ⚠️ 15巡目の「この差が、外板を内側から押す」は c5 の「内側から外へ押す力」と
-       同じことを言っていた。報告書の原記述（約18 ft）に差し替える。
-    """
-    g = [J.label(1288, 716, "客室と外気の圧力差", J.LINE, 30),
-         J.big(1288, 800, "0.5 気圧", J.AMBER, 78),
-         J.label(1288, 858, "報告書の記録は 約18 フィート", J.LINE, 32)]
-    return "".join(g)
-
-
-# ── p3：実写（着陸後の機体を見上げる調査員） ──────────────
-P3_BOX = PHOTO_FULL
-
-
-def p3_bg():
-    return full_bg()
-
-
-def p3_lab():
-    return full_top("人と並べると、大きさが分かる", "マウイ島カフルイ空港に緊急着陸した機体",
-                    3, "どこが失われたか", CR_FAA)
-
-
-def p3_a1():
-    """1行目「着陸した機体を、調査員が見上げている。」
-    このカットの主題は**大きさ**なので、喋っていない胴体径をここで出す。"""
-    return (J.outlined(J.RIGHT, 336, "胴体の直径", J.LINE, 34, "end")
-            + J.outlined(J.RIGHT, 440, "3.76 m", J.AMBER, 104, "end", family="Dela"))
-
-
-def p3_a2():
-    """2行目「外板が無くなり、客室の骨組みが、そのまま外に出ていた。」"""
-    g = [J.outlined(J.RIGHT, 570, "剥き出しになった", J.ALERT, 60, "end"),
-         J.outlined(J.RIGHT, 646, "胴体のフレームと床梁", J.ALERT, 60, "end"),
-         J.outlined(J.RIGHT, 744, "この状態で、13分間飛んだ。", J.INK_W, 44, "end"),
-         J.outlined(J.RIGHT, 800, "破断は客室の床面で止まった。", J.INK_W, 44, "end")]
-    return "".join(g)
-
-
-# ── c3：胴体断面 ──────────────────────────────────────────
-
-# 断面図の置き場所。
-# 🔴 2026-07-30：円が中空で内側の 580px 角が余白に見えていた。
-#    ① `b737_section(inside=True)` で客室と貨物室を面として塗り分け、座席を 3-3 で入れた
-#    ② 円を R=290→296 に上げ、中心を左右に開いて（520 / 1360）左右の余白を減らした
-#    本体の枠 210〜892 に対して円は y=290〜882。
-SEC_CY, SEC_R = 586, 1.48            # → R=296
-# 16巡目は 520 / 1360 で左に 224px の帯が空いていた（最大の空き 8.5%）。左へ寄せる
-SEC_L, SEC_RT = 460, 1330            # 左（事故前）と右（剥離後）の中心x
-
-
-def c3_base():
-    g = [J.frame(W, H), J.title("失われたのは、上半分だった", "胴体断面（客室1〜4列目）")
-            + J.chapter(3, 6, "どこが失われたか")]
-    for cx in (SEC_L, SEC_RT):
-        g.append(J.b737_section(cx, SEC_CY, SEC_R, floor=True))
-    return "".join(g)
-
-
-def c3_arc():
-    """破断の弧だけ。左から広げると「上部が裂けて広がっていく」動きになる。
-    装飾のズームではなく、**円周55%という情報を運ぶ動き**にしたい。"""
-    return J.b737_section(SEC_RT, SEC_CY, SEC_R, upper=(-165, -15), arc_only=True)
-
-
-def c3_lab():
-    R = 200 * SEC_R
-    fy = SEC_CY + R * 0.34
-    g = [J.label(SEC_L, 262, "事故前", J.LINE, 46, "middle"),
-         J.label(SEC_RT, 262, "剥離後", J.ALERT, 46, "middle"),
-         J.label(SEC_L, SEC_CY - R * 0.60, "客室", J.INK_W, 34, "middle"),
-         J.label(SEC_L, fy + R * 0.36, "貨物室", J.LINE, 34, "middle"),
-         # 🔴 0.90R では円周の線に被り、0.72R では**座席の上に乗った**（18巡目）。
-         #    座席は床の上に並ぶので、床のラベルは**床の線の下（貨物室側）**に置くしかない。
-         J.label(SEC_L - R * 0.86, fy + 36, "床", J.LINE, 28),
-         J.dim(SEC_L - R, SEC_L + R, 316, "3.76 m"),
-         J.label((SEC_L + SEC_RT) // 2, SEC_CY + 14, "→", J.INK_W, 76, "middle")]
-    return "".join(g)
-
-
-def c3_call():
-    """「ここが消えた」。**弧が右端まで届いてから**出すので独立させる。
-
-    ⚠️ 14巡目は「円周の約 55%」と書いていたが、これはナレーションが
-       「円周の、およそ55パーセント」とそのまま喋っている＝ルール違反だった。削除。
-       代わりに、どのナレーションも触れていない「座席が外気に出た」を置く。
-    """
-    R = 200 * SEC_R
-    g = [J.leader(SEC_RT + R * 0.70, SEC_CY - R * 0.70, 1650, 330, J.ALERT),
-         J.label(J.RIGHT, 318, "ここが消えた", J.ALERT, 46, "end"),
-         J.label(J.RIGHT, 848, "1〜4列目の座席が、", J.LINE, 32, "end"),
-         J.label(J.RIGHT, 888, "そのまま外気に出た。", J.LINE, 32, "end")]
-    return "".join(g)
-
-
-# ── c4：重ね継手の平面図 ──────────────────────────────────
-
-# 🔴 2026-07-30：0.95倍だと板が 912×475px で、右に 720×520px の穴が空いていた。
-#    `lap_joint` の伸びを 250→290 単位にして板の縦を 302〜858 まで伸ばし、
-#    右に幅602pxの情報柱を立てた。
-# ⚠️ 左端をこれ以上詰められない理由：76mm の縦寸法線は文字を線の**左**に出すので、
-#    板の左端から 150px ほどの逃げが要る（詰めすぎると「76 mm」が画面外に切れる）。
-#    その逃げに「外板（上）（下）」のラベルを入れて、空きにしないでおく。
-LJ_X, LJ_Y, LJ_S = 740, 580, 0.96
-C4_COL = 1246
-
-
-def c4_base():
-    g = [J.frame(W, H), J.title("始まりは、リベット1列の亀裂",
-                                "外板の重ね継手（ラップジョイント）を外から見た図")
-            + J.chapter(4, 6, "なぜ壊れたのか")]
-    g.append(J.lap_joint(LJ_X, LJ_Y, LJ_S, cracks=0))
-    return "".join(g)
-
-
-def c4_crack():
-    return J.lap_joint(LJ_X, LJ_Y, LJ_S, cracks=15, only_cracks=True)
-
-
-def c4_lab():
-    """図のラベルと寸法。重ね幅は**縦に測る寸法**（横に引くと図が嘘になる）。"""
-    g = [J.label(J.MG + 18, 344, "外板（上）", J.INK_W, 36),
-         J.label(J.MG + 18, 830, "外板（下）", J.LINE, 36),
-         J.vdim(LJ_Y - 62 * LJ_S, LJ_Y + 62 * LJ_S, LJ_X - 480 * LJ_S - 44, "76 mm")]
-    cx = LJ_X + 300 * LJ_S
-    g.append(f'<path d="M{cx} 286 V874" stroke="{J.AMBER}" stroke-width="3" '
-             f'stroke-dasharray="26 14"/>')
-    g.append(J.label(cx, 272, "A", J.AMBER, 38, "middle"))
-    g.append(J.label(cx, 902, "A", J.AMBER, 38, "middle"))
-    return "".join(g)
-
-
-def c4_a1():
-    """1行目「始まりは、リベット1列の、小さな亀裂だった。」"""
-    g = [J.leader(LJ_X + 200, LJ_Y - 40 * LJ_S, C4_COL - 10, 388, J.ALERT),
-         J.label(C4_COL, 368, "最上列のリベット穴から", J.ALERT, 46),
-         J.label(C4_COL, 424, "疲労亀裂が発生", J.ALERT, 46),
-         J.rule(C4_COL, J.RIGHT, 470, J.ALERT)]
-    return "".join(g)
-
-
-def c4_a2():
-    """2行目「搭乗する乗客の1人が、この亀裂を見ていた。」
-
-    14巡目は空だった。亀裂のアニメだけでは柱の中段が空くので、
-    **喋っていない継手そのものの作り**をここで出す。
-    """
-    g = [J.label(C4_COL, 556, "重ね幅 76 mm に", J.INK_W, 40),
-         J.label(C4_COL, 608, "リベットが3列", J.INK_W, 40),
-         J.label(C4_COL, 684, "外板の厚さは 0.91 mm", J.LINE, 34),
-         J.rule(C4_COL, J.RIGHT, 730, J.LINE_DIM, 3)]
-    return "".join(g)
-
-
-def c4_a3():
-    """3行目「だが、誰にも言わなかった。」— 次のカットへの繋ぎだけ。"""
-    return (J.label(C4_COL, 800, "この面を A-A で切ると、", J.AMBER, 38)
-            + J.label(C4_COL, 856, "なぜ折れたのかが見える", J.AMBER, 38))
-
-
-# ── c5：重ね継手の A-A 断面 ───────────────────────────────
-# 1巡目は図が小さく、引き出し線が図を横断し、下1/3が空いていた。
-# 図を大きくして中央に据え、注記は**図の上下の空きに置いて線を短くする**。
-# 🔴 2026-07-30：それでも図は高さ120pxの細い帯で、上下に合わせて400pxの余白が残っていた
-#    （最大の空き矩形 16.7%＝全カット中で最悪）。2つ直した：
-#      ① 板厚の誇張を 26→44 単位に上げ、横の伸びを 300→260 に詰めて図を「厚い」形にした
-#      ② 図の上下を**「外気側」と「客室側」の面**にした。空きを塗りで埋めたのではなく、
-#         どちらが外でどちらが客室かは断面図で必ず要る情報。
-#         客室側から外へ向かう矢印＝与圧が外板を押す力そのもので、事故の因果に直結する。
-SEC_X, SEC_Y, SEC_S = 960, 560, 2.25
-SEC_HL = 95 * SEC_S          # 重ね幅の半分（画面px）
-SEC_T = 44 * SEC_S           # 板厚（誇張）1枚ぶん = 99px
-C5_OUT = (J.BAND_T, SEC_Y - SEC_T - 8)        # 外気側の帯 210〜453
-C5_IN = (SEC_Y + SEC_T + 8, J.BAND_B)         # 客室側の帯 667〜892
-
-
-def c5_base():
-    g = [J.frame(W, H), J.title("荷重を分け合う相手が、いなくなった",
-                                "重ね継手 A-A 断面（板厚 0.91 mm。図では誇張している）")
-            + J.chapter(4, 6, "なぜ壊れたのか")]
-    # 外気側／客室側の面。断面図では「どちらが外か」が必ず要る
-    # 15巡目は 0.07 / 0.08 で外気側の帯がほとんど見えなかった（面として読めない）
-    g.append(J.tone(J.MG, C5_OUT[0], J.RIGHT - J.MG, C5_OUT[1] - C5_OUT[0], J.LINE, 0.11))
-    g.append(J.tone(J.MG, C5_IN[0], J.RIGHT - J.MG, C5_IN[1] - C5_IN[0], J.AMBER, 0.13))
-    # 与圧が客室側から外板を押す力。矢印を等間隔に立てる（実際に働いている力）
-    for i in range(5):
-        px = 450 + i * 225
-        g.append(f'<path d="M{px} 884 V744 m-14 20 l14 -20 l14 20" fill="none" '
-                 f'stroke="{J.AMBER}" stroke-width="4" opacity="0.55" '
-                 f'stroke-linejoin="round"/>')
-    g.append(J.lap_joint_section(SEC_X, SEC_Y, SEC_S, crack=False))
-    return "".join(g)
-
-
-def c5_crack():
-    """**亀裂だけ**を返す。7巡目までは断面図まるごとの複製だったので、
-    脈動させると図全体の濃度が揺れていた。"""
-    return J.lap_joint_section(SEC_X, SEC_Y, SEC_S, crack_only=True)
-
-
-def c5_bond():
-    """接着層が**剥がれた**状態。緑の上に灰色を左から重ねると「剥離の進行」になる。
-    事故の起点そのものなので、ここは必ず動かす。"""
-    # ⚠️ 接着層の厚みを 12→18 単位にしたとき、ここを直し忘れて
-    #    剥がれた灰色の上下に緑が縁として残っていた（17巡目の拡大で発覚）。
-    #    **jiko_style の接着層と必ず同じ高さにする。**
-    return (f'<rect x="{SEC_X - SEC_HL}" y="{SEC_Y - 9 * SEC_S:.0f}" '
-            f'width="{SEC_HL * 2:.0f}" height="{18 * SEC_S:.0f}" fill="{J.LINE_DIM}"/>')
-
-
-def c5_lab():
-    """図のラベルと寸法だけ。**ナレーションで喋る内容は書かない。**
-
-    🔴 2026-07-30 カズヤくん指摘：ここは文字が多すぎて、ナレーションと図の
-       どちらに集中すべきか分からなくなっていた。数えたら3ブロックが
-       ナレーションとほぼ同じ内容の重複だった（「設計では〜分け合うはずだった」
-       「潮風の中を19年〜剥がれていた」「荷重の行き場は〜縁だけ」）。
-       残すのは ①図の部位名 ②寸法 ③ナレーションが触れない情報 だけ。
-    """
-    # ⚠️ 部位名は**帯の中（地の上）に置く**。板の上に載せると
-    #    上の外板は INK_W の明るい塗りなので INK_W の文字が消える。
-    # 76mm の寸法線は 406→380 に上げた。15巡目は「皿もみ」の引き出し線が
-    # 寸法線の左の矢羽根(x=746)を2pxだけ避けて通っていて、拡大すると触っていた。
-    g = [J.dim(SEC_X - SEC_HL, SEC_X + SEC_HL, 380, "76 mm"),
-         J.label(J.MG + 18, 252, "機体の外側（外気）", J.LINE, 38),
-         J.label(176, 445, "外板（上）", J.INK_W, 34),
-         J.label(J.MG + 18, 706, "客室の内側（与圧）", J.AMBER, 38),
-         J.label(1500, 706, "外板（下）", J.LINE, 34),
-         J.label(J.RIGHT, 800, "内側から外へ押す力", J.AMBER, 32, "end")]
-    return "".join(g)
-
-
-def c5_a1():
-    """1行目「外板は2枚が重なり、接着とリベットで荷重を分け合う設計だった。」
-
-    引き出し線は**ラベルの文字の端まで引く**。13巡目は線の終点とラベルが
-    280px 離れていて、線が浮いて見えた。
-    """
-    return (J.leader(SEC_X - SEC_HL + 20, SEC_Y, 250, 786, J.OK)
-            + J.label(J.MG + 18, 800, "接着層", J.OK, 48))
-
-
-def c5_a2():
-    """2行目「その接着が、潮風の中で剥がれていた。」— 剥離のアニメが担う。"""
-    return ""
-
-
-def c5_a3():
-    """3行目「荷重の行き場は、リベット穴の縁だけになった。」
-    ナレーションが触れない「皿もみ」と「段差」だけを置く。"""
-    g = [J.leader(SEC_X - 62 * SEC_S, SEC_Y - SEC_T + 10, 640, 286, J.ALERT),
-         J.label(J.MG + 18, 300, "皿もみの縁は、刃のように薄い", J.ALERT, 42),
-         # 段差の起点は接着層の右端ではなく**上の外板の切り口の面**を指す。
-         # 16巡目は y=SEC_Y に打っていたので、緑の接着層の右端に丸が乗っていた。
-         J.leader(SEC_X + SEC_HL, SEC_Y - SEC_T * 0.5, 1490, 328, J.AMBER),
-         J.label(1500, 342, "段差", J.AMBER, 46)]
-    return "".join(g)
-
-
-# ── p4：実写（航路・NASA） ────────────────────────────────
-P4_BOX = PHOTO_FULL
-
-
-def p4_bg():
-    return full_bg()
-
-
-def p4_lab():
-    return full_top("ヒロを出て、ホノルルへ向かっていた", "アロハ航空243便の航路　ハワイ諸島",
-                    5, "19年で積み上がったもの", CR_NASA, side="left")
-
-
-def p4_a1():
-    """ナレーションは1行。**喋っていない結論だけ**を置く。"""
-    g = [J.outlined(CL, 336, "与圧は、そのたびに", J.INK_W, 52),
-         J.outlined(CL, 402, "かかっては、抜ける。", J.INK_W, 52),
-         J.outlined(CL, 512, "胴体は、そのたびに", J.ALERT, 52),
-         J.outlined(CL, 578, "膨らんでは、縮んでいた。", J.ALERT, 52),
-         J.outlined(CL, 672, "19年間の離着陸", J.LINE, 34),
-         J.outlined(CL, 780, "89,680 回", J.AMBER, 104, family="Dela")]
-    return "".join(g)
-
-
-# ── c6：高度の時系列 ──────────────────────────────────────
-
-PTS = [(0.00, 0.00), (0.13, 0.86), (0.30, 0.92), (0.36, 0.92),
-       (0.41, 0.60), (0.57, 0.28), (0.78, 0.09), (1.00, 0.00)]
-
-
-# グラフの枠。🔴 2026-07-30：1460×520 で右に 230px・下に 160px 余っていた。
-# 目盛ラベルの逃げ（左140px）だけ残して、残りは全部グラフにする。
-# 16巡目は上端が 288 で、副題(y=182)との間に 1920×120px の帯が空いていた
-GX, GY, GW, GH = 246, 248, 1544, 596       # → x 246〜1790, y 248〜844
-
-
-def c6_base():
-    g = [J.frame(W, H),
-         J.title("剥離から着陸まで、13分",
-                 "高度の推移（NTSB報告書の飛行記録から作図）")
-         + J.chapter(5, 6, "19年で積み上がったもの")]
-    g.append(J.alt_graph(GX, GY, GW, GH, PTS, part="frame"))
-    return "".join(g)
-
-
-def c6_line():
-    """折れ線だけ。**左から描いていく**（最初から全部出ていると動きが無い）。"""
-    return J.alt_graph(GX, GY, GW, GH, PTS, part="line")
-
-
-def c6_mark():
-    return J.alt_graph(GX, GY, GW, GH, PTS, mark=3, part="mark")
-
-
-def c6_lab():
-    g = [J.label(GX - 20, GY + 22, "7,300 m", J.AMBER, 32, "end"),
-         J.label(GX - 20, GY + GH * 0.507, "3,600 m", J.LINE_DIM, 28, "end"),
-         J.label(GX - 20, GY + GH + 8, "0", J.AMBER, 32, "end"),
-         J.label(GX, GY + GH + 46, "離陸　ヒロ", J.LINE, 30),
-         J.label(GX + GW, GY + GH + 46, "着陸　マウイ島カフルイ", J.LINE, 30, "end")]
-    return "".join(g)
-
-
-def c6_a1():
-    """1行目「剥離から着陸まで、13分。」"""
-    mx = GX + GW * 0.36
-    # グラフの左上（折れ線が上がりきる前）が空いていたので巡航区間を名付ける
-    return (J.dim(mx, GX + GW, GY + GH - 22, "13分")
-            + J.label(700, 660, "緊急降下", J.INK_W, 40)
-            + J.label(560, 292, "巡航", J.INK_W, 36))
-
-
-def c6_a2():
-    """2行目「操縦室の扉も吹き飛び、機長は、客室の空を、直接見ていた。」
-    喋る内容は書かず、位置を示すラベルだけ置く。"""
-    mx = GX + GW * 0.36
-    return (J.leader(mx, GY + GH * 0.08, 1160, 372, J.ALERT)
-            + J.label(1180, 358, "ここで剥離", J.ALERT, 46)
-            + J.label(1180, 418, "与圧を失ったまま降下した", J.LINE, 30))
-
-
-# ── c7：数字 ──────────────────────────────────────────────
-
-# 🔴 2026-07-30：数字2つが画面の中央に浮いていて、上に 840×440px の穴が空いていた。
-#    横棒を足して 1.20 倍という差を面で見せる（字で「1.20倍」と書くしかなかったのが弱点）。
-# 🔴 15巡目の事故：数字を 196px に上げたら**左右がくっついて「75,00089,680」に読めた**。
-#    Dela の数字は 1文字 0.84em（0.72 と見積もっていた）。「75,000 回」は 196px なら
-#    幅 1,100px になり、仕切り線(x=960)の左に収まらない。
-#    → 140px に下げ、単位を数字と同じ文字列に入れて（豆腐に見える小さな「回」を廃止）、
-#      中心を 500 / 1420 に開いた。左は 108〜892、右は 1028〜1812 で仕切り線を跨がない。
-C7_LX, C7_RX = 490, 1430         # 左右の列の中心x
-C7_NUM = 168                     # 数字の大きさ（これ以上上げると仕切り線を越える）
-C7_BAR = (112, 534, 776, 112)    # 棒の (左端, 上端, 最大長, 高さ)
-
-
-def c7_base():
-    g = [J.frame(W, H), J.title("設計の想定を、超えて飛んでいた",
-                                "離着陸の回数（NTSB報告書 1.17.2 節）"),
-         J.chapter(6, 6, "設計の想定と実際")]
-    g.append(f'<path d="M960 236 V846" stroke="{J.LINE_DIM}" stroke-width="4"/>')
-    g.append(J.label(960, 886, "1969年製・19年間・ハワイ諸島間の短距離を1日十数往復",
-                     J.LINE, 32, "middle"))
-    return "".join(g)
-
-
-def c7_num(k):
-    n = int(89680 * k)
-    bx, by, bw, bh = C7_BAR
-    g = [J.bignum(C7_LX, 430, "75,000", "", "経済設計寿命（20年）の離着陸回数", J.LINE, C7_NUM),
-         J.bignum(C7_RX, 430, f"{n:,}", "", "実際に飛んだ離着陸回数", J.ALERT, C7_NUM),
-         J.bar(bx, by, bw, bh, 75000 / 89680, J.LINE, "設計の想定"),
-         J.bar(bx + 920, by, bw, bh, n / 89680, J.ALERT, "実績")]
-    # 柱の下（y=760〜890）が空いていたので、就航と事故の年を左右の足元に置いた
-    g.append(J.label(C7_LX, 832, "1969年　就航", J.LINE, 34, "middle"))
-    g.append(J.label(C7_RX, 832, "1988年　事故", J.ALERT, 34, "middle"))
-    if k >= 0.999:
-        g.append(J.label(C7_RX, 726, "想定の 1.20 倍", J.ALERT, 48, "middle"))
-        g.append(J.label(C7_LX, 726, "この回数で使い切る前提だった", J.LINE, 32, "middle"))
-    return "".join(g)
-
-
-# ── カットの並びと尺 ──────────────────────────────────────
-# 🔴 尺は**ナレーションから逆算する**。映像に合わせて喋らせると必ず早口になる。
-#    `audio/narration.json` があればそれを使い、無ければ下の暫定値で焼く。
-LEAD, TAIL = 0.35, 0.50      # 台詞の前後に置く間
-_DEFAULT = [("p1", 5.0), ("p2", 3.6), ("c2", 6.2), ("p3", 3.6), ("c3", 5.4),
-            ("c4", 6.0), ("c5", 6.4), ("p4", 3.4), ("c6", 5.4), ("c7", 5.4)]
+# ── 尺と字幕（audio/narration.json の実測） ───────────────
+LEAD, TAIL = 0.35, 0.50
 
 
 def _narration():
-    import json
     p = HERE / "audio" / "narration.json"
-    if not p.exists():
-        return _DEFAULT, {}
     d = json.loads(p.read_text(encoding="utf-8"))
     dur = d["durations"]
-    cuts = [(c, round(dur[c] + LEAD + TAIL, 2)) if c in dur else (c, s)
-            for c, s in _DEFAULT]
+    cuts = [(c, round(dur[c] + LEAD + TAIL, 2)) for c in dur]
     return cuts, d.get("subtitles", {})
 
 
 CUTS, SUBS = _narration()
+ORDER = [c for c, _ in CUTS]
 
-# 全画面の実写カット。ゆっくり寄る。(枠, ファイル名, 縦方向の寄せ 0=上 0.5=中央 1=下)
-PHOTO_CUTS = {
-    "p1": (P1_BOX, "aloha_left.jpg", 0.5),
-    "p2": (P2_BOX, "aloha_normal.jpg", 0.34),   # 機体と N73711 の登録記号は上寄り
-    "p3": (P3_BOX, "ref_aloha_after.jpg", 0.5),
-    "p4": (P4_BOX, "ref_aloha_route.jpg", 0.5),
-}
-# 図解カットに差し込む写真。こちらは動かさない
-INSETS = {"c2": (C2_INSET, "ref_aloha_fuselage.png")}
+# 全画面の実写カット。(枠, ファイル名, 縦方向の寄せ)
+PHOTO_CUTS = {cid: (PHOTO_FULL, s["photo"], s.get("bias", 0.5))
+              for cid, s in SPEC.items() if s.get("photo")}
+INSETS = {}
 
 
-def render_all(force=False):
-    out = HERE / "out" / "jiko"
-    out.mkdir(parents=True, exist_ok=True)
-    jobs = {"_empty": J.frame(W, H),          # 余白測定の基準（check_space.py が使う）
-            "p1_bg": p1_bg(), "p1_lab": p1_lab(), "p1_a1": p1_a1(), "p1_a2": p1_a2(),
-            "p2_bg": p2_bg(), "p2_lab": p2_lab(), "p2_a1": p2_a1(),
-            "c2_base": c2_base(), "c2_hole": c2_hole(), "c2_tearline": c2_tearline(),
-            "c2_lab": c2_lab(), "c2_a1": c2_a1(), "c2_a2": c2_a2(),
-            "p3_bg": p3_bg(), "p3_lab": p3_lab(), "p3_a1": p3_a1(), "p3_a2": p3_a2(),
-            "c3_base": c3_base(), "c3_arc": c3_arc(), "c3_lab": c3_lab(),
-            "c3_call": c3_call(),
-            "c4_base": c4_base(), "c4_crack": c4_crack(), "c4_lab": c4_lab(),
-            "c4_a1": c4_a1(), "c4_a2": c4_a2(), "c4_a3": c4_a3(),
-            "c5_base": c5_base(), "c5_crack": c5_crack(), "c5_bond": c5_bond(),
-            "c5_lab": c5_lab(), "c5_a1": c5_a1(), "c5_a3": c5_a3(),
-            "p4_bg": p4_bg(), "p4_lab": p4_lab(), "p4_a1": p4_a1(),
-            "c6_base": c6_base(), "c6_line": c6_line(), "c6_mark": c6_mark(),
-            "c6_lab": c6_lab(), "c6_a1": c6_a1(), "c6_a2": c6_a2(),
-            "c7_base": c7_base()}
+# ── 段の持ち時間 ─────────────────────────────────────────
+def stage_times(cid, nstage):
+    """段 i が「出はじめる秒」と「描き終える秒」を返す。
+
+    段はナレーションの行に合わせて出す。行より段が多ければ余った段を等間隔で挟む。
+    **描き終える秒 ＝ 次の段が出る秒**（最後の段はカット終わりまで）。
+    こうすると、カットのどの瞬間にも必ず「描いている途中の段」が1つある。
+    """
+    sec = dict(CUTS)[cid]
+    rows = SUBS.get(cid, [])
+    starts = [r["t"] + LEAD for r in rows]
+    if not starts:
+        starts = [0.25]
+    if nstage <= len(starts):
+        st = starts[:nstage]
+    else:
+        # 行の切れ目を優先しつつ、足りないぶんは行の間に等間隔で挟む
+        st = list(starts)
+        bounds = starts + [sec]
+        while len(st) < nstage:
+            widest = max(range(len(bounds) - 1), key=lambda i: bounds[i + 1] - bounds[i])
+            mid = (bounds[widest] + bounds[widest + 1]) / 2
+            st.append(mid)
+            bounds = sorted(bounds + [mid])
+        st = sorted(st)[:nstage]
+    ends = st[1:] + [sec]
+    # 描き終わりが早すぎると止まって見える。最低でも 1.1 秒はかける
+    return [(a, max(b, a + 1.1)) for a, b in zip(st, ends)]
+
+
+# ── レイヤーの組み立て ────────────────────────────────────
+def build_layers(allow_missing=False):
+    """cid → {レイヤー名: SVG} と、ワイプの x 範囲を返す。
+
+    allow_missing … 章を1つずつ作っている途中は True で回す（未定義カットを飛ばす）。
+    """
+    jobs, spans = {}, {}
+    for cid in ORDER:
+        spec = SPEC.get(cid)
+        if spec is None:
+            if allow_missing:
+                continue
+            raise SystemExit(f"カット {cid} の画が定義されていません（tools/cuts/）")
+        if spec.get("photo"):
+            if spec["photo"] in BANNED_PHOTOS:
+                raise SystemExit(f"{cid}: {spec['photo']} は出所が無いので使えません")
+            jobs[f"{cid}_bg"] = full_bg()
+            jobs[f"{cid}_lab"] = full_top(cid, spec)
+            for i, a in enumerate(photo_ann(spec)):
+                jobs[f"{cid}_a{i + 1}"] = a
+            spans[cid] = (0, W)
+            continue
+        kind, kw = spec["fig"]
+        fig = getattr(F, kind)(**kw)
+        jobs[f"{cid}_base"] = fig_base(cid, spec)
+        lab, stages = fig.lab, list(fig.stages)
+        if not stages:
+            # 段が無いと「描いている途中」が作れず、カットが丸ごと静止する。
+            # 骨格を段に格上げして、カット全体をかけて描かせる。
+            lab, stages = "", [lab]
+        if lab:
+            jobs[f"{cid}_lab"] = lab
+        for i, s in enumerate(stages):
+            jobs[f"{cid}_a{i + 1}"] = s
+        if fig.hot:
+            jobs[f"{cid}_hot"] = fig.hot
+        # 🔴 ワイプ範囲は**必ず本体枠を含める**。
+        #    型が返す span は「図の実体」しか指していないことがあり
+        #    （例：icons は絵の並びだけで 640〜1280）、そのままだと枠の左右に置いた
+        #    見出し・注記・出典が**ワイプの外に出て永久に現れない**。
+        spans[cid] = (min(fig.span[0], F.BX0), max(fig.span[1], F.BX1))
+    return jobs, spans
+
+
+def layer_index():
+    """build_jiko が読む索引。{cid: dict(kind, layers, span, stages)}"""
+    jobs, spans = build_layers()
+    idx = {}
+    for cid in ORDER:
+        names = [k for k in jobs if k.startswith(cid + "_")]
+        ns = len([k for k in names if re.fullmatch(rf"{cid}_a\d+", k)])
+        idx[cid] = {"photo": bool(SPEC[cid].get("photo")), "span": spans[cid],
+                    "stages": ns, "layers": sorted(names)}
+    return idx, jobs
+
+
+def render_all(force=False, only=None, jobs_workers=4):
+    """SVG → PNG。**Chrome を1レイヤーにつき1回起動する**ので並列で回す。
+
+    226カット × 平均5レイヤー ＋ 字幕226枚 ＝ 約1,350回。直列だと20分近い。
+    """
+    from concurrent.futures import ThreadPoolExecutor
+    OUT.mkdir(parents=True, exist_ok=True)
+    ensure_css()
+    jobs, _ = build_layers(allow_missing=True)
+    jobs["_empty"] = J.frame(W, H)        # 余白測定の基準（check_space.py が使う）
+    todo = []
     for k, svg in jobs.items():
-        p = out / f"{k}.png"
+        if only and not k.startswith(only):
+            continue
+        p = OUT / f"{k}.png"
         if p.exists() and not force:
             continue
-        render.png(page(svg), p, W, H)
-        print(k, flush=True)
-    # 字幕帯。1カットぶんを縦に積んで1枚にする（Chrome起動を増やさないため）
+        todo.append((k, svg, p, W, H))
     for cid, rows in SUBS.items():
-        p = out / f"sub_{cid}.png"
+        if only and not cid.startswith(only):
+            continue
+        p = OUT / f"sub_{cid}.png"
         if p.exists() and not force:
             continue
         h = SUB_H * len(rows)
-        render.png(page(sub_strip([r["text"] for r in rows]), W, h), p, W, h)
-        print(f"sub_{cid} ({len(rows)}行)", flush=True)
-    p = out / "c7_num.png"
-    if force or not p.exists():
-        cols, rows, cw, ch = 4, 3, W // 2, H // 2
-        cells = "".join(
-            f'<g transform="translate({(i % cols) * cw},{(i // cols) * ch}) scale(0.5)">'
-            f'{c7_num(min(1.0, (i / 11) ** 0.55))}</g>' for i in range(12))
-        render.png(page(cells, cw * cols, ch * rows), p, cw * cols, ch * rows)
-        print("c7_num", flush=True)
-    print("done")
+        todo.append((f"sub_{cid}", sub_strip([r["text"] for r in rows]), p, W, h))
+    print(f"書き出すレイヤー {len(todo)} 枚（並列 {jobs_workers}）", flush=True)
+    done = [0]
+
+    def one(t):
+        k, svg, p, w, h = t
+        render.png(page(svg, w, h), p, w, h)
+        done[0] += 1
+        if done[0] % 50 == 0:
+            print(f"  {done[0]}/{len(todo)}", flush=True)
+
+    with ThreadPoolExecutor(max_workers=jobs_workers) as ex:
+        list(ex.map(one, todo))
+    print(f"done {len(todo)}", flush=True)
 
 
 def ensure_css():
-    """フォントの base64 は 4MB 超になる。合成側（build_jiko）では不要なので遅延で読む。"""
+    """フォントの base64 は4MB超。合成側では要らないので遅延で読む。"""
     global CSS
     if not CSS:
         CSS = (face_css("Dela", "DelaGothicOne.woff2")
@@ -799,6 +387,30 @@ def ensure_css():
                + face_css("NotoM", "NotoSansJP-Medium.woff2"))
 
 
+def report():
+    """焼く前に机上で見る要約。カット数・尺・図の種類の分布。"""
+    from collections import Counter
+    total = sum(s for _, s in CUTS)
+    kinds = Counter(SPEC[c]["fig"][0] if not SPEC[c].get("photo") else "photo"
+                    for c in ORDER)
+    print(f"カット {len(ORDER)} ／ 完成尺 {total:.1f}秒 = "
+          f"{int(total // 60)}分{total % 60:04.1f}秒")
+    print(f"字幕 {sum(len(v) for v in SUBS.values())} 枚")
+    print("図の種類:")
+    for k, v in kinds.most_common():
+        print(f"   {k:<12} {v:>3}")
+    miss = [c for c in ORDER if c not in SPEC]
+    if miss:
+        print(f"🔴 画が未定義: {miss}")
+    extra = [c for c in SPEC if c not in ORDER]
+    if extra:
+        print(f"🔴 台本に無いカット: {extra}")
+    return not (miss or extra)
+
+
 if __name__ == "__main__":
-    ensure_css()
-    render_all(force="--force" in sys.argv)
+    if "--report" in sys.argv:
+        sys.exit(0 if report() else 1)
+    render_all(force="--force" in sys.argv,
+               only=next((a.split("=")[1] for a in sys.argv if a.startswith("--only=")),
+                         None))
