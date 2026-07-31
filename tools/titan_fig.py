@@ -915,13 +915,17 @@ def panel(blocks, lead="", note="", cols=3):
             if b.get("k"):
                 s.append(txt(BX0 + 34, y + h * 0.52, b["k"], ks, c, "Dela"))
             tx0 = BX0 + (150 if b.get("k") else 34)
-            bs = min(52, h * 0.34)
             # ⚠️ v の場所（右540px）を、v が無いときまで空けていた。
-            #    17カットの多くで右半分が丸ごと余っていた原因。
             rsv = 540 if b.get("v") else 0
-            body, _ = para(tx0, y + h * 0.46, b["t"],
-                           cols=max(6, int((BX1 - tx0 - rsv) / bs)), size=bs,
-                           col=J.INK_W)
+            avail = BX1 - tx0 - rsv
+            # 🔴 器を広げても**中身が短いカットは埋まらない**（c208「圧縮」の2字など）。
+            #    1行で収まる短い文は、幅を使い切る級数まで上げる。
+            #    34分をスマホで見る動画なので、字が大きいこと自体が読みやすさになる。
+            one = fm.fit(str(b["t"]), avail, "Noto", cap=int(min(96, h * 0.52)),
+                         floor=16)
+            bs = one if fm.width(str(b["t"]), one, "Noto") <= avail else                 min(52, h * 0.34)
+            body, _ = para(tx0, y + h * 0.52, b["t"],
+                           cols=max(6, int(avail / bs)), size=bs, col=J.INK_W)
             s.append(body)
             if b.get("v"):
                 s.append(txt(BX1, y + h * 0.54, b["v"],
