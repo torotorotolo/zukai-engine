@@ -46,6 +46,25 @@ PHOTO_W = 1104                      # 情報柱と反対側に置く写真の幅
 PHOTO_H = BAND_B - BAND_T           # 682。**縦は必ず使い切る**
 
 
+def grid_only(w, h, op=0.55):
+    """方眼だけ（地の塗りを抜いたもの）。**写真を地に敷くカット用**。
+
+    🔴 2026-07-31（試写の指摘④）：写真の上に図を重ねるとき、`frame()` を
+       そのまま置くと不透明な地が写真を丸ごと隠す。かといって方眼を消すと
+       「技術図のチャンネル」という文脈まで消える。**方眼だけ薄く残す。**
+    """
+    g = [f'<g opacity="{op}">']
+    for x in range(0, w + 1, 60):
+        g.append(f'<path d="M{x} 0 V{h}" stroke="{GRID}" stroke-width="1.6"/>')
+    for y in range(0, h + 1, 60):
+        g.append(f'<path d="M0 {y} H{w}" stroke="{GRID}" stroke-width="1.6"/>')
+    for x in range(0, w + 1, 300):
+        g.append(f'<path d="M{x} 0 V{h}" stroke="{GRID}" stroke-width="3.4"/>')
+    for y in range(0, h + 1, 300):
+        g.append(f'<path d="M0 {y} H{w}" stroke="{GRID}" stroke-width="3.4"/>')
+    return "".join(g) + "</g>"
+
+
 def frame(w, h):
     """地。方眼を薄く敷いて『技術図』の文脈を作る。"""
     g = [f'<rect width="{w}" height="{h}" fill="{BG}"/>']

@@ -68,8 +68,11 @@ PHOTO_OVERRIDE = {
     "c416": dict(photo="titan_ntsb17_layers.jpg", band=True, bias=0.5, ann_y=790,
                  ann=[dict(t="1層と2層のあいだに、接着剤の面が1つ", ts=40)]),
     # 第4章：切り落とされた部分（図15）
+    # ⚠️ 注記が**ナレーションの文そのまま**だったので check_echo に 100% 一致で
+    #    引っかかった（映像ルール6違反）。図が持つのは「部位名と出どころ」であって
+    #    文ではない。話している内容は音と字幕がすでに持っている。
     "c422": dict(photo="titan_ntsb15_endpiece.jpg", band=True, bias=0.5, ann_y=830,
-                 ann=[dict(t="実物の円筒と同じ工程で作られ、同じ釜で焼かれた", ts=38)]),
+                 ann=[dict(t="円筒の端から切り落とされた部分の側面　NTSB 図15", ts=38)]),
     # 第4章：機械加工した端面（図14上）
     "c424": dict(photo="titan_ntsb14_endface.jpg", band=True, bias=0.5, ann_y=830,
                  ann=[dict(t="接着層を含めた端部を、この面で測っている", ts=38)]),
@@ -90,3 +93,66 @@ for _cid, _ov in PHOTO_OVERRIDE.items():
         continue
     _keep = {k: SPEC[_cid][k] for k in ("t", "s") if k in SPEC[_cid]}
     SPEC[_cid] = dict(_keep, **_ov)
+
+
+# ══════════════════════════════════════════════════════════
+#  ★写真を「地」に敷いて、その上に図解を重ねるカット（2026-07-31 試写の指摘④）
+# ══════════════════════════════════════════════════════════
+# カズヤくん：「時刻をグラフで出すだけのカットが多く、競合と比べて退屈」。
+# → `photo` と `fig` を**両方**持たせると、写真が地になり、暗幕を挟んで図が乗る。
+#   （上の PHOTO_OVERRIDE は図を写真に**差し替える**。こちらは図を**残す**。）
+#
+# ⚠️ **全カットに敷かない。** 敷いた瞬間に「図解チャンネル」である意味が消える。
+#    競合との差は図があることなので、退屈になりやすいカットだけに絞る。
+#
+# 🔴 選び方の原則（このチャンネルの性格＝一次資料で検証する、を壊さないため）
+#    **その写真が、そのカットで話している対象そのものであること。**
+#    「時刻の札の後ろに、関係のない残骸の写真を壁紙として敷く」のはやらない。
+#    見た目は派手になるが、写真がその場面を写しているかのように読めてしまう。
+#    出典表記は地に敷いた場合も必ず出す（`fig_base(ground=False)` が出す）。
+#
+# ⚠️ 全画面に耐える写真は**この6枚だけ**（実測。ほかは拡大率が2倍を超えて眠くなる）
+#      titan_rov_aft 1920×1080 ／ titan_rov_tailcone 1909×1080
+#      titan_titanic_bow 1480×1036 ／ titan_cf_evidence 1500×1000
+#      titan_hull_pair 1609×1490 ／ titan_hull_inner 1609×805
+#    ✗ titan_hull_edge(1830×552) と NTSB の帯写真は、16:9 に切ると2倍に拡大される
+#
+# 暗幕の濃さ（veil）は `tools/check_veil.py` の実測から 0.84 を既定にしてある。
+#   α=0.72 図が読めない ／ 0.84 読みやすさ0.55・写真L*14 ／ 0.92 写真が消える
+#
+# 🔴 USCG の ROV 画像（rov_aft / rov_tailcone）は **zoom と xbias が必須**。
+#    左上に "OceanGate / Dive: 01 / Depth (m): 3774.9"、左下に日付、
+#    下中央に "HDG" と "Alt" が**焼き込まれている**。
+#    実写カットではこれが出所の証拠になるので残すが、地に敷くと話が別で、
+#    c115a（水深3,346メートルを図で出すカット）の真上に **3774.9 という
+#    別の数字**が出た（実際に焼いて発見した）。
+#    zoom=1.30・xbias=0.95・bias≦0.45 で、焼き込みが4辺とも画面外に出る。
+#      横 … 切り出し幅 1477 → 左端 421px から。焼き込みは 340px で終わる
+#      縦 … 切り出し高 831・bias0.45 → 下端 943px。焼き込みは 960px から
+ROV = dict(zoom=1.30, xbias=0.95)
+BACKDROP = {
+    # 第1章：落ちていく先＝海底。尾部コーンは海底に立った実物
+    "c110": dict(photo="titan_rov_tailcone.jpg", bias=0.45, **ROV),
+    # 第1章：★最後の位置（3,346m）で見つかった残骸そのもの。いちばん強く効く場所
+    "c115a": dict(photo="titan_rov_aft.jpg", bias=0.40, **ROV),
+    "c116": dict(photo="titan_rov_aft.jpg", bias=0.45, **ROV),
+    "c117": dict(photo="titan_rov_tailcone.jpg", bias=0.30, **ROV),
+    # 第1章：8時間、誰も知らなかった＝その間ずっと在った深さ
+    "c124": dict(photo="titan_titanic_bow.jpg", bias=0.46),
+    # 第3章：応力解析にかけられた炭素繊維の円筒の実物（外面と内面）
+    "c301": dict(photo="titan_hull_pair.jpg", bias=0.50),
+    # 第3章：亀裂が見つかった円筒の面
+    "c323": dict(photo="titan_hull_inner.jpg", bias=0.50),
+    # 第6章：その88回目に使われた機体
+    "c615": dict(photo="titan_rov_aft.jpg", bias=0.35, **ROV),
+    # 第6章：剥離＝層が離れている面そのもの
+    "c628": dict(photo="titan_hull_inner.jpg", bias=0.42),
+}
+
+for _cid, _ov in BACKDROP.items():
+    if _cid not in SPEC:
+        print(f"⚠️ BACKDROP の {_cid} が台本にありません", file=sys.stderr)
+        continue
+    if "fig" not in SPEC[_cid]:
+        raise RuntimeError(f"{_cid} は図を持っていないので地に敷けません（実写カット）")
+    SPEC[_cid] = dict(SPEC[_cid], **_ov)

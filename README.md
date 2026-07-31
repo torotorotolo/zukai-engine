@@ -3,6 +3,31 @@
 新チャンネル（シニア向け健康解説）の映像素材を、**費用0円・SVG＋Chrome headless** で作るための基盤。
 Node も Remotion も使わない（このPCは空きディスク6GB・メモリ4GBのため）。
 
+---
+
+## 🔴 本編mp4を GitHub Actions で焼かないこと（2026-07-31）
+
+GitHub の Actions 規約は、GitHub-hosted runner を
+**そのリポジトリのソフトウェアプロジェクトと無関係な活動**に使うことを禁じている。
+**34分・61,320コマの本編動画を毎本焼くのはここに当たる**（永久BANの報告あり）。
+同一アカウント群に他チャンネルの制作基盤が全部載っているので、影響は動画1本では済まない。
+
+| 工程 | どこで回すか |
+|---|---|
+| 検品画像（qa）・3つの機械検査 | ✅ GitHub Actions（`render-jiko.yml`。`mode=full` は入力ごと削除済み） |
+| **本編mp4の製造** | ✅ **Modal**（`modal_app.py`。1本 約$0.25／無料枠 $30/月） |
+| ナレーション合成 | ローカル（AivisSpeech。⚠️ 使うときだけ起動する） |
+
+```bash
+modal setup                                        # 最初の1回だけ
+git push                                           # ★Modalは GitHub から clone する
+modal run modal_app.py::full --note r10            # 本編を焼く
+modal volume get jiko-out titan_audio-r10.mp4 out/jiko/
+```
+
+移設で**画が変わっていないこと**は `tools/layer_hash.py` の指紋で機械確認する
+（Actions の "Layer fingerprint" ステップと `modal run modal_app.py::layer_hash` が同じ値を出す）。
+
 ## 動かし方
 
 ```bash

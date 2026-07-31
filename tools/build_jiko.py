@@ -87,13 +87,17 @@ def load_photo(name, box):
     return src
 
 
-def fit(src, box, k=0.0, bias=0.5):
-    """箱を覆うように切り出す。k>0 でゆっくり寄る。bias は縦方向の寄せ。"""
+def fit(src, box, k=0.0, bias=0.5, xbias=0.5, zoom=1.0):
+    """箱を覆うように切り出す。k>0 でゆっくり寄る。bias は縦方向の寄せ。
+
+    xbias / zoom … 地に敷くとき、写真の焼き込み（ROV の深度表示など）を
+    画面外へ追い出すために使う。既定（0.5 / 1.0）は今までと同じ動き。
+    """
     _, _, w, h = box
     sw, sh = src.size
-    z = max(w / sw, h / sh) * (1.0 + 0.055 * k)
+    z = max(w / sw, h / sh) * zoom * (1.0 + 0.055 * k)
     cw, ch = min(sw, w / z), min(sh, h / z)
-    l, t = (sw - cw) / 2, (sh - ch) * bias
+    l, t = (sw - cw) * xbias, (sh - ch) * bias
     crop = src.crop((round(l), round(t), round(l + cw), round(t + ch)))
     return crop.resize((w, h), Image.LANCZOS)
 
@@ -153,8 +157,16 @@ def wipe(fr, layer, k, soft=90, span=None):
     return fr
 
 
-def subtitle(fr, cut, t, subs):
-    """その時刻に出ている字幕行を1枚だけ載せる。"""
+def subtitle(fr, cut, t, subs, band=None):
+    """黒帯を**常時**貼り、その時刻に出ている字幕行の**文字だけ**を載せる。
+
+    🔴 2026-07-31（試写の指摘③）：帯と文字を1枚のPNGに焼いていたので、
+       字幕が切り替わるたびに帯までフェードして**画面がちらついた**。
+       帯は全カット共通の1枚（`_subband`）にして貼りっぱなしにする。
+       ⚠️ 図の本体は y=892 までなので、帯を常時出しても図には一切かからない。
+    """
+    if band is not None:
+        fr.alpha_composite(band, (0, S.SUB_Y))
     rows = S.SUBS.get(cut)
     if not rows or cut not in subs:
         return fr
@@ -171,11 +183,38 @@ def subtitle(fr, cut, t, subs):
     return fr
 
 
+_VEIL = {}
+
+
+def veil_layer(a):
+    """図を読ませるために写真の上に敷く暗幕。**全面 J.BG の一様な板。**
+
+    🔴 2026-07-31（試写の指摘④）。図解は細い線と小さい文字なので、
+       写真がそのまま出ていると読めない。濃さは `tools/check_veil.py` が
+       「いちばん暗いインクと地とのコントラスト比」を測って決めている。
+       ⚠️ グラデーションにしない。薄いところに図が来ると読めなくなるので、
+          **どこに図が来ても同じ濃さ**であることのほうが大事。
+    """
+    k = round(a, 3)
+    if k not in _VEIL:
+        c = tuple(int(J.BG[i:i + 2], 16) for i in (1, 3, 5))
+        _VEIL[k] = Image.new("RGBA", (S.W, S.H), c + (int(255 * k),))
+    return _VEIL[k]
+
+
 def scene(cut, t, dur, lay, photos, meta):
     """字幕を除いた画面。"""
     span = meta[cut]["span"]
     times = meta[cut]["times"]
-    if meta[cut]["photo"]:
+    if meta[cut]["back"]:
+        # ★写真を地にして、暗幕を挟み、その上に図解を重ねる
+        k = t / max(dur, 0.001)
+        xb, zm = S.PHOTO_CROP[cut]
+        ph = fit(photos[cut], S.PHOTO_FULL, k, S.PHOTO_CUTS[cut][2], xb, zm)
+        fr = duotone(ph, J.BG2, "#e6eef2", boost=cut in BOOST)
+        fr.alpha_composite(veil_layer(meta[cut]["veil"]))
+        fr.alpha_composite(lay[f"{cut}_base"])
+    elif meta[cut]["photo"]:
         box, _, bias = S.PHOTO_CUTS[cut]
         fr = lay[f"{cut}_bg"].copy()
         # 帯写真はケンバーンズを弱くする（原寸に近いので寄ると粗が出る）
@@ -189,7 +228,8 @@ def scene(cut, t, dur, lay, photos, meta):
             if k in lay:
                 over(fr, lay[k], max(0.0, min(1.0, (t - a) / 0.45)))
         return fr
-    fr = lay[f"{cut}_base"].copy()
+    else:
+        fr = lay[f"{cut}_base"].copy()
     # 図の骨格は前半で手早く描く（骨格が未完成のまま段が乗ると図が壊れて見える）
     if f"{cut}_lab" in lay:
         wipe(fr, lay[f"{cut}_lab"], min(1.0, max(0.0, (t - 0.15) / (dur * 0.30))),
@@ -209,17 +249,23 @@ def scene(cut, t, dur, lay, photos, meta):
     return fr
 
 
-def compose(cut, t, dur, lay, photos, meta, subs=None):
+def compose(cut, t, dur, lay, photos, meta, subs=None, band=None):
     fr = scene(cut, t, dur, lay, photos, meta)
-    return subtitle(fr, cut, t, subs or {})
+    return subtitle(fr, cut, t, subs or {}, band)
+
+
+def load_band():
+    """字幕の黒帯。**全カット共通の1枚**なので1回だけ読む。"""
+    p = OUT / "_subband.png"
+    return Image.open(p).convert("RGBA") if p.exists() else None
 
 
 def meta_of(idx):
     """カットごとの合成に必要な情報をまとめる。"""
     m = {}
     for cid, v in idx.items():
-        m[cid] = {"photo": v["photo"], "span": v["span"],
-                  "times": S.stage_times(cid, v["stages"])}
+        m[cid] = {"photo": v["photo"], "back": v["back"], "veil": v["veil"],
+                  "span": v["span"], "times": S.stage_times(cid, v["stages"])}
     return m
 
 
@@ -233,7 +279,9 @@ def check_motion(meta, limit=3.0):
     for cid, sec in S.CUTS:
         if cid not in meta:
             continue
-        if meta[cid]["photo"]:
+        # 写真だけのカットはケンバーンズで常に動いている。
+        # ⚠️ **写真を地に敷いた図解カットは対象に残す**（図が止まったら止まって見える）。
+        if meta[cid]["photo"] and not meta[cid]["back"]:
             continue
         iv = [(0.15, 0.15 + sec * 0.30)] + [(a, a + draw_span(b - a))
                                             for a, b in meta[cid]["times"]]
@@ -295,12 +343,13 @@ def qa_shots(cids, idx, meta, at=0.92):
     secs = dict(S.CUTS)
     subs = {c: L(f"sub_{c}") for c in cids if (OUT / f"sub_{c}.png").exists()}
     lay = _load_layers(cids, idx)
+    band = load_band()
     photos = {c: load_photo(S.PHOTO_CUTS[c][1], S.PHOTO_CUTS[c][0])
               for c in cids if idx[c]["photo"]}
     out = []
     for cid in cids:
         sec = secs[cid]
-        im = compose(cid, sec * at, sec, lay, photos, meta, subs).convert("RGB")
+        im = compose(cid, sec * at, sec, lay, photos, meta, subs, band).convert("RGB")
         im.save(QA / f"cut_{cid}.png")
         out.append((cid, im))
     return out
@@ -323,6 +372,7 @@ def _seg_worker(args):
     photos = {}
     if idxv["photo"]:
         photos[cid] = load_photo(S2.PHOTO_CUTS[cid][1], S2.PHOTO_CUTS[cid][0])
+    band = load_band()
     meta = {cid: metav}
     n = nframes
     dst = SEG / f"{cid}.mp4"
@@ -332,7 +382,7 @@ def _seg_worker(args):
          "-c:v", "libx264", "-preset", "veryfast", "-crf", "19",
          "-pix_fmt", "yuv420p", str(dst)], stdin=subprocess.PIPE)
     for f in range(n):
-        fr = compose(cid, f / FPS, sec, lay, photos, meta, subs)
+        fr = compose(cid, f / FPS, sec, lay, photos, meta, subs, band)
         p.stdin.write(fr.convert("RGB").tobytes())
     p.stdin.close()
     p.wait()
@@ -340,10 +390,17 @@ def _seg_worker(args):
 
 
 def build_full(idx, meta, workers=None):
-    """全カットを mp4 にして連結する。カット単位で並列。"""
+    """全カットを mp4 にして連結する。カット単位で並列。
+
+    🔴 並列数は `ZUKAI_WORKERS` で外から決められる（2026-07-31）。
+       本編の製造を Modal へ移したため（`modal_app.py` 参照）、
+       `os.cpu_count()` はホストのコア数を返して**確保したコア数と一致しない**。
+       確保したぶんだけ使うよう、実行側から渡す。
+    """
     SEG.mkdir(parents=True, exist_ok=True)
     secs = dict(S.CUTS)
-    workers = workers or max(1, min(8, (os.cpu_count() or 2)))
+    workers = (workers or int(os.environ.get("ZUKAI_WORKERS", 0))
+               or max(1, min(8, (os.cpu_count() or 2))))
     order = [c for c in S.ORDER if c in idx]
     # 通し時刻からコマの境目を出す（丸め誤差を積み上げない）
     args, cum = [], 0.0
@@ -423,6 +480,46 @@ def build_qa(idx, meta, zoom_cuts=None):
     print(f"検品画像 {len(shots)} カット", flush=True)
 
 
+def veil_ladder(idx, meta, cids=None, alphas=(0.76, 0.80, 0.84, 0.88, 0.92)):
+    """★同じカットを暗幕の濃さ違いで焼き並べる（2026-07-31 試写の指摘④）。
+
+    カズヤくん指示「暗幕の濃さは焼いて目視で決めてください」。
+    `tools/check_veil.py` が机上で 0.80〜0.88 まで絞ってあるので、その前後を焼く。
+    ⚠️ **1回のクラウド実行で全部の濃さを出す**（濃さごとに回すと成果物枠を食う）。
+    """
+    QA.mkdir(parents=True, exist_ok=True)
+    back = [c for c in S.ORDER if c in idx and idx[c]["back"]]
+    cids = [c for c in (cids or back) if c in idx and idx[c]["back"]]
+    if not cids:
+        print("🔴 写真を地に敷いたカットが無い（cuts/__init__.py の BACKDROP）")
+        return
+    secs = dict(S.CUTS)
+    subs = {c: L(f"sub_{c}") for c in cids if (OUT / f"sub_{c}.png").exists()}
+    lay = _load_layers(cids, idx)
+    band = load_band()
+    photos = {c: load_photo(S.PHOTO_CUTS[c][1], S.PHOTO_CUTS[c][0]) for c in cids}
+    for cid in cids:
+        sec = secs[cid]
+        strip = []
+        for a in alphas:
+            m = {cid: dict(meta[cid], veil=a)}
+            strip.append(compose(cid, sec * 0.92, sec, lay, photos, m,
+                                 subs, band).convert("RGB"))
+        # 濃さを縦に積んで1枚にする。**並べないと差が判断できない**
+        tw = 960
+        th = round(tw * S.H / S.W)
+        sheet = Image.new("RGB", (tw, th * len(strip)), "#000")
+        for i, im in enumerate(strip):
+            sheet.paste(im.resize((tw, th), Image.LANCZOS), (0, i * th))
+        sheet.save(QA / f"veil_{cid}.jpg", quality=90)
+        # 拡大して線の読みやすさを見るぶんも出す（縮小版では判断できない）
+        for a, im in zip(alphas, strip):
+            im.crop((40, 200, 990, 900)).save(
+                QA / f"veilzoom_{cid}_{int(a * 100)}.jpg", quality=92)
+        print(f"  veil_{cid}.jpg  濃さ {'/'.join(str(a) for a in alphas)}", flush=True)
+    print(f"暗幕の見比べ {len(cids)} カット（上から {alphas[0]} → {alphas[-1]}）", flush=True)
+
+
 def shrink_stills(q=88):
     """check_space が読んだあとの `cut_*.png` を JPEG に詰め直す。
 
@@ -442,16 +539,22 @@ def shrink_stills(q=88):
 if __name__ == "__main__":
     mode = "qa"
     zooms = None
+    ladder = None
     for a in sys.argv[1:]:
-        if a in ("qa", "full", "shrink"):
+        if a in ("qa", "full", "shrink", "veil"):
             mode = a
         elif a.startswith("--zoom="):
             zooms = set(a.split("=", 1)[1].split(","))
+        elif a.startswith("--cuts="):
+            ladder = a.split("=", 1)[1].split(",")
     if mode == "shrink":
         shrink_stills()
         sys.exit(0)
     idx, _ = S.layer_index(allow_missing="--partial" in sys.argv)
     meta = meta_of(idx)
+    if mode == "veil":
+        veil_ladder(idx, meta, ladder)
+        sys.exit(0)
     check_motion(meta)
     build_qa(idx, meta, zooms)
     if mode == "full":

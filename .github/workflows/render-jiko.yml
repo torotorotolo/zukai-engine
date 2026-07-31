@@ -1,12 +1,27 @@
 name: render-jiko
 
-# 🔴 レンダリングはクラウドのみ（2026-07-29 カズヤくん指示）。
-#    SVG→PNG のレイヤー書き出しも、PNG→mp4 の合成も、**両方ここで実行する**。
-#    ローカルPCはメモリ4GB。ローカルでは焼かない。
+# 🔴🔴 **ここでは本編mp4を焼かない**（2026-07-31 決定）。
 #
-# ■ 2つのモード（本編は226カット・34分06秒＝61,300コマある）
-#    qa   … 検品用の静止画・拡大図・章ごとの一覧だけを作る（既定）。**精査はこれを回す**
-#    full … mp4 まで作る。カット単位で並列に焼いて連結し、音声を乗せる
+#   GitHub の Terms for Additional Products and Features（Actions の節）は、
+#   GitHub-hosted runner を「そのリポジトリのソフトウェアプロジェクトの
+#   production / testing / deployment / publication と無関係な活動」に
+#   使うことを禁じている。「便益に不釣り合いな負荷」も禁止列挙にある。
+#
+#     - レンダラを**試すために数フレーム焼く**のは白
+#     - **YouTubeに出す本編34分・61,320コマを毎本焼く**のは、
+#       成果物が動画でありソフトウェアではない以上、黒
+#
+#   2026年3月、Actions を CI 以外の汎用計算に使った個人が
+#   **永久BAN＋データ取り出し不可**という報告がある。
+#   ⚠️ 同一アカウント群に 深読みフクロウ・スカッと・健康スレ集・漂着日記 が載っている。
+#      BANの影響は動画1本ではなく、**全チャンネルの制作基盤**。
+#
+#   → **本編の製造は Modal で回す。`modal_app.py` を読むこと。**
+#        modal run modal_app.py::full --note r10
+#        modal volume get jiko-out titan_audio.mp4 out/jiko/
+#
+#   ここに残してよいのは **検品画像（qa）と機械検査だけ**。
+#   mode=full は入力そのものを消してあるので、うっかり回せない。
 
 on:
   workflow_dispatch:
@@ -16,11 +31,11 @@ on:
         required: false
         default: ""
       mode:
-        description: "qa（検品画像だけ・速い）／ full（mp4まで）"
+        description: "qa のみ。🔴 本編mp4は Modal で焼く（modal_app.py）"
         required: false
         default: "qa"
         type: choice
-        options: ["qa", "full"]
+        options: ["qa"]
       zoom:
         description: "拡大図を出すカット（例 c114,c529）。空なら章ごとの代表だけ"
         required: false
@@ -35,9 +50,17 @@ on:
 jobs:
   render:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+
+      # 🔴 mode に qa 以外が来たら止める。choice で弾いているが、
+      #    API を直接叩けば通せてしまうので二重に止める。
+      - name: Refuse anything but qa
+        if: inputs.mode != 'qa'
+        run: |
+          echo "::error::本編mp4を Actions で焼くのは規約違反。modal_app.py で焼くこと。"
+          exit 1
 
       - uses: actions/setup-python@v5
         with:
@@ -51,6 +74,8 @@ jobs:
           sudo apt-get install -y ffmpeg
 
       # 描画は Chrome headless。ubuntu-latest には google-chrome が入っている。
+      # ⚠️ Modal 側も **ubuntu:24.04 + google-chrome-stable** で揃えてある。
+      #    画が一致しているかは下の「Layer fingerprint」で確かめる。
       - name: Ensure Chrome
         run: |
           if command -v google-chrome >/dev/null 2>&1; then
@@ -73,8 +98,29 @@ jobs:
         continue-on-error: true
         run: python tools/check_layout.py
 
+      # 図がナレーションの複写になっていないか（映像ルール6）
+      - name: Check echo
+        continue-on-error: true
+        run: python tools/check_echo.py
+
+      # ★語尾が BGM に埋もれていないか（2026-07-31 の試写指摘①で追加）。
+      #   opus を wav に戻さないと測れないので、ここで展開する。
+      #   ⚠️ これは**検査**であって製造ではない（mp4 は作らない）。
+      - name: Check narration under BGM
+        continue-on-error: true
+        run: |
+          python tools/audio_pack.py check
+          python tools/audio_pack.py unpack
+          python tools/check_mask.py
+
       - name: Render layers (SVG -> PNG)
         run: python tools/scene_jiko.py --force
+
+      # ★Modal と画が一致しているかを突き合わせるための指紋。
+      #   `modal run modal_app.py::layer_hash` が同じ値を出す。
+      #   ここがずれたら、Actions で見た検品9巡は Modal の本編に対して無効。
+      - name: Layer fingerprint
+        run: python tools/layer_hash.py
 
       - name: Build QA stills
         run: |
@@ -92,65 +138,21 @@ jobs:
       - name: Shrink stills for download
         run: python tools/build_jiko.py shrink
 
-      # ── ここから下は mode=full のときだけ ──
-      # ナレーションはローカルの AivisSpeech で作り、opus に詰めて置いてある
-      # （wav のままだと1本163MB。git は履歴を消せないので作り直すたび積み上がる）。
-      - name: Unpack narration (opus -> wav)
-        if: inputs.mode == 'full'
-        run: |
-          python tools/audio_pack.py check
-          python tools/audio_pack.py unpack
-
-      - name: Composite (PNG -> mp4)
-        if: inputs.mode == 'full'
-        run: python tools/build_jiko.py full
-
-      # BGM と効果音はここで合成する（既製音源を public リポジトリに置かないため）
-      - name: Mix narration + BGM + SE
-        if: inputs.mode == 'full'
-        run: |
-          python tools/audio_mix.py
-          ffmpeg -y -hide_banner -loglevel error \
-            -i out/jiko/titan.mp4 -i out/jiko/mix.wav \
-            -c:v copy -c:a aac -b:a 192k -shortest out/jiko/titan_audio.mp4
-          ls -la out/jiko/*.mp4 out/jiko/mix.wav
-
       - name: Summary
         run: |
           ls out/jiko/qa/ | head -40
           echo "--- qa の枚数と容量 ---"
           ls out/jiko/qa | wc -l
           du -sh out/jiko/qa
-          if [ -f out/jiko/titan.mp4 ]; then
-            echo "--- 映像 ---"
-            ffprobe -v error -show_entries format=duration:stream=width,height,r_frame_rate \
-              -of json out/jiko/titan.mp4
-            echo "--- 音声入り（これを上げる） ---"
-            ffprobe -v error -show_entries format=duration -of default=nw=1 \
-              out/jiko/titan_audio.mp4
-            du -h out/jiko/titan_audio.mp4 out/jiko/titan.mp4
-          fi
 
       # 検品はここに上がった **クラウド出力** だけを見る。
       # ローカルのフォントと折返し位置が変わった実績があるため。
       # ⚠️ **retention-days を必ず付ける。** ここが実際に効いてくる制限。
       #    public リポジトリなので実行時間は無料で上限が無いが、
       #    **成果物ストレージはアカウント共通で 500MB しかない**。
-      #    テスト映像23巡＋サムネ8巡で 57件・1.02GB まで積み上がっていた（無料枠の2倍）。
-      #    本編は226カットあり qa だけで1巡100MB前後になるので、消さないと5巡で枠を割る。
-      #    巡が終わって中身を見たら `python tools/gc_artifacts.py --keep 4` で掃除する。
+      #    巡が終わって中身を見たら `python tools/gc_artifacts.py --keep 2` で掃除する。
       - uses: actions/upload-artifact@v4
         with:
           name: jiko-qa${{ inputs.note && format('-{0}', inputs.note) || '' }}
           path: out/jiko/qa/
           retention-days: 5
-
-      # ⚠️ 34分の mp4 は数百MB〜1GB になりうる。**成果物ストレージは500MBしかない**ので
-      #    音声入りの1本だけを上げ、保持も2日に縮める。
-      #    映像だけの titan.mp4 は音声入りから作り直せるので上げない。
-      - uses: actions/upload-artifact@v4
-        if: inputs.mode == 'full'
-        with:
-          name: jiko-mp4${{ inputs.note && format('-{0}', inputs.note) || '' }}
-          path: out/jiko/titan_audio.mp4
-          retention-days: 2

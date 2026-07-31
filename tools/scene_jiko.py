@@ -139,15 +139,32 @@ def wrap2(text):
     return [text[:cut], text[cut:]]
 
 
+def sub_band(w=W, h=SUB_H):
+    """★字幕の黒帯だけ。**文字とは別の1枚**にして、常時貼りっぱなしにする。
+
+    🔴 2026-07-31（試写の指摘③）：それまで帯と文字を1枚のPNGに焼いていたので、
+       字幕が変わるたびに**帯までいっしょにフェードして画面がちらついた**。
+       帯を分けて常時表示にすれば、消えるのは文字だけになる。
+    ⚠️ 帯は**全カット共通**なので焼くのは1枚（`_subband`）。226枚焼かない。
+    ⚠️ 図の本体は y=210〜892（jiko_style の BAND_T / BAND_B）に収まっていて、
+       帯は y=900 から下。**常時出しても図に一切かからない**（確認済み）。
+    """
+    return (f'<linearGradient id="subbg" x1="0" y1="1" x2="0" y2="0">'
+            f'<stop offset="0" stop-color="#000" stop-opacity="0.78"/>'
+            f'<stop offset="0.62" stop-color="#000" stop-opacity="0.70"/>'
+            f'<stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>'
+            f'<rect x="0" y="0" width="{w}" height="{h}" fill="url(#subbg)"/>')
+
+
 def sub_row(text, w=W, h=SUB_H):
-    """字幕1枚。黒帯＋太いフチ。1行なら下寄せ、2行なら上下に振り分ける。"""
+    """字幕1枚ぶんの**文字だけ**。1行なら下寄せ、2行なら上下に振り分ける。
+
+    ⚠️ 帯はここに含めない（`sub_band()` が別に持つ）。太いフチは残す
+       ── 帯があっても、明るい写真の上では文字がフチで持っている。
+    """
     lines = wrap2(text)
     ys = [h * 0.64] if len(lines) == 1 else [h * 0.42, h * 0.78]
-    g = [f'<linearGradient id="subbg" x1="0" y1="1" x2="0" y2="0">'
-         f'<stop offset="0" stop-color="#000" stop-opacity="0.78"/>'
-         f'<stop offset="0.62" stop-color="#000" stop-opacity="0.70"/>'
-         f'<stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>'
-         f'<rect x="0" y="0" width="{w}" height="{h}" fill="url(#subbg)"/>']
+    g = []
     for t, y in zip(lines, ys):
         g.append(f'<text x="{w / 2:.0f}" y="{y:.0f}" font-family="Noto" '
                  f'font-size="{SUB_SIZE}" fill="{J.INK_W}" text-anchor="middle" '
@@ -165,6 +182,7 @@ def sub_strip(lines):
 PHOTO_FULL = (0, 0, W, H)
 SCRIM_TOP = 300
 CRED_Y = 872
+CRED_BACK_Y = 196       # 写真を地に敷くカットの出典（右上・本体枠の上）
 BAND_CY = 560           # 帯写真の縦中心
 
 
@@ -248,8 +266,30 @@ def photo_ann(spec):
 
 
 # ── 図解カットの地 ────────────────────────────────────────
-def fig_base(cid, spec):
-    g = [J.frame(W, H), J.title(spec["t"], spec.get("s", ""))]
+# ★写真を地に敷くときの暗幕の濃さ（2026-07-31 試写の指摘④）。
+#   ⚠️ **推定で置かない。** `tools/check_veil.py` が、写真ごとに
+#      「図のいちばん細い色と地とのコントラスト比」を測って必要な濃さを出す。
+#      ここは既定値で、カットごとに `veil=` で上書きできる。
+VEIL = float(os.environ.get("ZUKAI_VEIL", 0.84))
+
+
+def fig_base(cid, spec, ground=True):
+    """図解カットの地。
+
+    ground=False … 写真を地に敷くカット。**不透明な地を置かない**（写真が隠れる）。
+                   代わりに方眼だけ薄く残し、出典表記を必ず出す。
+    """
+    if ground:
+        g = [J.frame(W, H)]
+    else:
+        # 🔴 出典は**右上**（見出しの罫の下・本体枠の上）に置く。
+        #    実写カットと同じ y=872 に置いたら、本体（BAND_T 210〜BAND_B 892）の
+        #    中に入って図の文字と重なった（check_layout が c115a と c628 で検出）。
+        #    ここは章マーカー（y=56〜158）の下、本体の上で、どの型も使わない帯。
+        g = [J.grid_only(W, H),
+             J.outlined(J.RIGHT, CRED_BACK_Y, PHOTO_CREDIT[spec["photo"]],
+                        J.LINE, 24, anchor="end", sw=5)]
+    g.append(J.title(spec["t"], spec.get("s", "")))
     ch = chapter_of(cid)
     if ch:
         g.append(J.chapter(ch[0], NCH, ch[1]))
@@ -284,6 +324,16 @@ ORDER = [c for c, _ in CUTS]
 PHOTO_CUTS = {cid: (photo_box(s), s["photo"], s.get("bias", 0.5))
               for cid, s in SPEC.items() if s.get("photo")}
 INSETS = {}
+
+# ★写真を地に敷くときの切り方 (横方向の寄せ, 拡大率)。
+# 🔴 USCG の ROV 画像には **左端と下端に焼き込み**がある
+#    （"OceanGate / Dive: 01 / Depth (m): 3774.9" と日付・HDG・Alt）。
+#    実写カットではこれは**出所の証拠**なので残す。だが地に敷くと話が変わる。
+#    c115a は「水深3,346メートル」を図で出しているカットで、
+#    その真上に **3774.9 という別の数字**が焼き込みで出てしまった（実際に焼いて発見）。
+#    → 地に敷くときだけ、焼き込みが画面外に出るところまで寄せて切る。
+PHOTO_CROP = {cid: (s.get("xbias", 0.5), s.get("zoom", 1.0))
+              for cid, s in SPEC.items() if s.get("photo")}
 
 
 # ── 段の持ち時間 ─────────────────────────────────────────
@@ -329,18 +379,21 @@ def build_layers(allow_missing=False):
             if allow_missing:
                 continue
             raise SystemExit(f"カット {cid} の画が定義されていません（tools/cuts/）")
-        if spec.get("photo"):
-            if spec["photo"] in BANNED_PHOTOS:
-                raise SystemExit(f"{cid}: {spec['photo']} は出所が無いので使えません")
+        if spec.get("photo") and spec["photo"] in BANNED_PHOTOS:
+            raise SystemExit(f"{cid}: {spec['photo']} は出所が無いので使えません")
+        if spec.get("photo") and not spec.get("fig"):
+            # 実写カット（写真だけ。注記は暗幕とフチで写真の上に載せる）
             jobs[f"{cid}_bg"] = full_bg()
             jobs[f"{cid}_lab"] = full_top(cid, spec)
             for i, a in enumerate(photo_ann(spec)):
                 jobs[f"{cid}_a{i + 1}"] = a
             spans[cid] = (0, W)
             continue
+        # ★写真を地に敷いたうえに図を重ねるカット（photo と fig を両方持つ）
+        back = bool(spec.get("photo"))
         kind, kw = spec["fig"]
         fig = getattr(F, kind)(**kw)
-        jobs[f"{cid}_base"] = fig_base(cid, spec)
+        jobs[f"{cid}_base"] = fig_base(cid, spec, ground=not back)
         lab, stages = fig.lab, list(fig.stages)
         if not stages:
             # 段が無いと「描いている途中」が作れず、カットが丸ごと静止する。
@@ -365,9 +418,13 @@ def layer_index(allow_missing=False):
     jobs, spans = build_layers(allow_missing=allow_missing)
     idx = {}
     for cid in [c for c in ORDER if c in spans]:
+        s = SPEC[cid]
         names = [k for k in jobs if k.startswith(cid + "_")]
         ns = len([k for k in names if re.fullmatch(rf"{cid}_a\d+", k)])
-        idx[cid] = {"photo": bool(SPEC[cid].get("photo")), "span": spans[cid],
+        # photo … 写真を読む必要があるか（実写カットと、地に敷くカットの両方で True）
+        # back  … **地に敷く**カットか（写真だけの実写カットと区別する）
+        idx[cid] = {"photo": bool(s.get("photo")), "back": bool(s.get("photo") and s.get("fig")),
+                    "veil": float(s.get("veil", VEIL)), "span": spans[cid],
                     "stages": ns, "layers": sorted(names)}
     return idx, jobs
 
@@ -390,6 +447,11 @@ def render_all(force=False, only=None, jobs_workers=4):
         if p.exists() and not force:
             continue
         todo.append((k, svg, p, W, H))
+    # ★字幕の黒帯。全カット共通の1枚。**常時貼るので必ず焼く**
+    if not (only and not "_subband".startswith(only)):
+        p = OUT / "_subband.png"
+        if force or not p.exists():
+            todo.append(("_subband", sub_band(), p, W, SUB_H))
     for cid, rows in SUBS.items():
         if only and not cid.startswith(only):
             continue
@@ -426,11 +488,21 @@ def report():
     """焼く前に机上で見る要約。カット数・尺・図の種類の分布。"""
     from collections import Counter
     total = sum(s for _, s in CUTS)
-    kinds = Counter(SPEC[c]["fig"][0] if not SPEC[c].get("photo") else "photo"
-                    for c in ORDER if c in SPEC)
+
+    def kind_of(c):
+        s = SPEC[c]
+        if s.get("photo") and not s.get("fig"):
+            return "photo"
+        # ★写真を地に敷いた図解カットは、型の名前に「+写真」を付けて数える
+        return s["fig"][0] + ("+写真" if s.get("photo") else "")
+
+    kinds = Counter(kind_of(c) for c in ORDER if c in SPEC)
+    nback = sum(1 for c in ORDER if c in SPEC
+                and SPEC[c].get("photo") and SPEC[c].get("fig"))
     print(f"カット {len(ORDER)} ／ 完成尺 {total:.1f}秒 = "
           f"{int(total // 60)}分{total % 60:04.1f}秒")
     print(f"字幕 {sum(len(v) for v in SUBS.values())} 枚")
+    print(f"実写 {kinds.get('photo', 0)} ／ ★写真を地に敷いた図解 {nback}")
     print("図の種類:")
     for k, v in kinds.most_common():
         print(f"   {k:<12} {v:>3}")
