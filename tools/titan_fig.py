@@ -388,7 +388,10 @@ def timeline(events, t0, t1, ticks=None, tfmt=None, title="", band=None):
 
     t は t0..t1 と同じ単位（分でも時間でも秒でもよい）。
     """
-    ax = BY0 + 330
+    # ⚠️ 軸を BY0+330 に固定していたので下が空いた（c120 c122 c124 ほか15カット）。
+    #    枠の縦中央に置き、旗の高さを伸ばして上下を使い切る。
+    # 0.50 だと下向きの旗の t2 が字幕帯（906）に食い込む（実測で5件出た）。
+    ax = BY0 + BH * 0.45
     x0, x1 = BX0 + 60, BX1 - 60
     sp = max(1e-6, t1 - t0)
 
@@ -398,10 +401,10 @@ def timeline(events, t0, t1, ticks=None, tfmt=None, title="", band=None):
     g = []
     if band:
         for b in band:
-            g.append(rect(tx(b["a"]), ax - 150, tx(b["b"]) - tx(b["a"]), 300,
+            g.append(rect(tx(b["a"]), ax - 250, tx(b["b"]) - tx(b["a"]), 500,
                           b.get("c", J.ALERT), op=b.get("op", 0.16)))
             if b.get("t"):
-                g.append(txtfit((tx(b["a"]) + tx(b["b"])) / 2, ax - 168, b["t"],
+                g.append(txtfit((tx(b["a"]) + tx(b["b"])) / 2, ax - 268, b["t"],
                                 max(180, tx(b["b"]) - tx(b["a"]) + 260), cap=30,
                                 col=b.get("c", J.ALERT), anchor="middle"))
     g.append(line(x0, ax, x1, ax, J.LINE, 5))
@@ -412,7 +415,7 @@ def timeline(events, t0, t1, ticks=None, tfmt=None, title="", band=None):
         g.append(line(x, ax - 12, x, ax + 12, J.LINE_DIM, 3))
         g.append(txt(x, ax + 46, lb, 26, J.LINE_DIM, "Noto", "middle"))
     if title:
-        g.append(txt(x0, ax + 110, title, 28, J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 8, title, BW, cap=30, col=J.LINE_DIM))
     stages = []
     up = True
     for e in events:
@@ -421,7 +424,11 @@ def timeline(events, t0, t1, ticks=None, tfmt=None, title="", band=None):
         big = e.get("big", False)
         dy = -1 if e.get("up", up) else 1
         up = not up
-        stem = 128 if not big else 190
+        # ⚠️ 旗の高さは**上と下で許される長さが違う**。
+        #    上は見出しの副題（字面の下端 190）に、下は字幕帯（906）にぶつかる。
+        #    伸ばしすぎて実測で9件ぶつけたので、軸からの余地で頭打ちにする。
+        stem = 196 if not big else 268
+        stem = min(stem, (ax - BY0 - 96) if dy < 0 else (874 - ax))
         s = [line(x, ax, x, ax + dy * stem, c, 5 if big else 4),
              circ(x, ax, 12 if big else 8, c)]
         ty = ax + dy * (stem + 12)
@@ -451,32 +458,38 @@ def moment(clock, label="", facts=None, day=None, dayspan=None, sub=""):
     day/dayspan を渡すと、下に「その日のどこか」を示す細い帯が出る。
     """
     facts = facts or []
-    cy = BY0 + 210
+    # ⚠️ 時計を上に寄せていたので、その下 y520〜800 が丸ごと空いた（10カット全部）。
+    #    時計を大きくして枠の縦中央へ置き、下に太い罫を渡して面を作る。
+    cy = BY0 + 300
     g = []
-    cs = fm.fit(clock, BW * 0.52, "Dela", cap=168, floor=60)
+    cs = fm.fit(clock, BW * 0.54, "Dela", cap=232, floor=60)
     g.append(txt(BX0 + 20, cy, clock, cs, J.INK_W, "Dela"))
+    g.append(line(BX0 + 20, cy + 46, BX0 + BW * 0.52, cy + 46, J.ALERT, 8))
     if label:
-        g.append(txtfit(BX0 + 20, cy + 74, label, BW * 0.54, cap=42, col=J.AMBER))
+        g.append(txtfit(BX0 + 20, cy + 118, label, BW * 0.52, cap=46, col=J.AMBER))
     if sub:
-        g.append(txtfit(BX0 + 20, cy + 128, sub, BW * 0.54, cap=30, col=J.LINE_DIM))
+        g.append(txtfit(BX0 + 20, cy + 176, sub, BW * 0.52, cap=32, col=J.LINE_DIM))
     # 右に事実を積む
     stages = []
     fx = BX0 + BW * 0.58
-    fy = BY0 + 90
+    # 右の柱も縦を使い切る。件数に応じて開始位置と間隔を決める
+    nf = max(1, len(facts))
+    fspan = (BY1 - 120) - (BY0 + 90)
+    fstep = max(120, fspan / nf)
+    fy = BY0 + 96
     for i, f in enumerate(facts):
         s = [line(fx, fy - 34, fx, fy + 42, J.ALERT, 5)]
         s.append(txtfit(fx + 26, fy, f.get("t", ""), BX1 - fx - 50, cap=40,
                         col=J.INK_W))
         if f.get("v"):
-            s.append(txt(fx + 26, fy + 56, f["v"],
-                         fm.fit(f["v"], BX1 - fx - 60, "Dela", cap=62, floor=30),
+            # 62 だと大きな値（Dela 76px）の字面が上の見出しに 7px 食い込む（実測）
+            s.append(txt(fx + 26, fy + 82, f["v"],
+                         fm.fit(f["v"], BX1 - fx - 60, "Dela", cap=76, floor=30),
                          f.get("c", J.AMBER), "Dela"))
-            fy += 138
-        else:
-            fy += 96
+        fy += fstep
         stages.append("".join(s))
     if day and dayspan:
-        y = BY1 - 54
+        y = BY1 - 40
         a, b = dayspan
         g.append(line(BX0 + 20, y, BX1 - 20, y, J.LINE_DIM, 4))
         for h in range(int(a), int(b) + 1, 2):
@@ -823,8 +836,10 @@ def process(steps, note="", numbered=True, cols=None):
     gap = 30
     aw = 74                                   # 矢印ぶん
     cw = (BW - gap * (cols - 1) - aw * (cols - 1)) / cols
-    top = BY0 + 96
-    bh = 300
+    # ⚠️ 箱の高さを300に固定していたので、本体枠の下 y640〜880 が丸ごと空いた
+    #    （c109 c115 など17カット全部）。**枠の縦を使い切る。**
+    top = BY0 + 62
+    bh = BY1 - top - (78 if note else 34)
     g = []
     stages = []
     for i, st in enumerate(steps):
@@ -834,23 +849,23 @@ def process(steps, note="", numbered=True, cols=None):
         if numbered:
             s.append(circ(x + 34, top - 2, 26, J.BG, c, 4))
             s.append(txt(x + 34, top + 12, i + 1, 34, c, "Dela", "middle"))
-        s.append(txtfit(x + cw / 2, top + 92, st["t"], cw - 30, cap=44, col=J.INK_W,
-                        anchor="middle"))
+        s.append(txtfit(x + cw / 2, top + 120, st["t"], cw - 30, cap=48,
+                        col=J.INK_W, anchor="middle"))
         if st.get("d"):
-            sub, _ = para(x + cw / 2, top + 146, st["d"],
-                          cols=max(6, int(cw / 28)), size=28, col=J.LINE,
+            sub, _ = para(x + cw / 2, top + 190, st["d"],
+                          cols=max(6, int(cw / 30)), size=30, col=J.LINE,
                           anchor="middle")
             s.append(sub)
         if st.get("v"):
-            s.append(txt(x + cw / 2, top + bh - 26, st["v"],
-                         fm.fit(st["v"], cw - 30, "Dela", cap=56), c, "Dela",
+            s.append(txt(x + cw / 2, top + bh - 40, st["v"],
+                         fm.fit(st["v"], cw - 30, "Dela", cap=72), c, "Dela",
                          "middle"))
         if i < n - 1:
-            s.append(arrow(x + cw + 12, top + bh / 2, x + cw + gap + aw - 12,
-                           top + bh / 2, J.LINE_DIM, 5, 20))
+            s.append(arrow(x + cw + 12, top + bh * 0.42, x + cw + gap + aw - 12,
+                           top + bh * 0.42, J.LINE_DIM, 5, 22))
         stages.append("".join(s))
     if note:
-        g.append(txtfit(BX0, BY1 - 40, note, BW, cap=30, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 8, note, BW, cap=30, col=J.LINE_DIM))
     return Fig("".join(g), stages, "", (BX0, BX1))
 
 
