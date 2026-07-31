@@ -285,8 +285,12 @@ def compare(items, unit="", note="", bar=True, ratio=""):
     cw = (BW - gap * (n - 1)) / n
     vmax = max(abs(i["v"]) for i in items) or 1
     top = BY0 + 34
-    barb = BY1 - 96                       # 棒の底
-    barh = 300
+    # ⚠️ 棒の高さ300では枠を使い切れず、値の小さい側の柱が空だった（c202 35.7%）。
+    #    数字の下から枠の底まで使う。比の小さい棒も**最低限の高さ**を持たせて
+    #    「柱がそこにある」ことは見せる（0.8pxの棒は消えているのと同じ）。
+    # 比の一行を出すカットは、その場所も先に空けておく（あとから足すと必ずはみ出す）
+    barb = BY1 - (108 if ratio else (74 if note else 34))   # 棒の底
+    barh = barb - (top + 250)
     g = []
     stages = []
     for i, it in enumerate(items):
@@ -296,7 +300,7 @@ def compare(items, unit="", note="", bar=True, ratio=""):
         u = it.get("unit", unit)
         s = []
         if bar:
-            h = barh * abs(it["v"]) / vmax
+            h = max(barh * 0.045, barh * abs(it["v"]) / vmax)
             s.append(rect(x + cw * 0.16, barb - h, cw * 0.68, h, c, op=0.30))
             s.append(rect(x + cw * 0.16, barb - h, cw * 0.68, h, "none", c, 4))
             s.append(line(x + cw * 0.16, barb, x + cw * 0.84, barb, c, 5))
@@ -312,7 +316,7 @@ def compare(items, unit="", note="", bar=True, ratio=""):
     # ⚠️ ratio と note を同じ y に置いていたので、両方あるカットで必ず重なった（c115d）。
     #    ratio は棒のすぐ下、note はいちばん下に離す。
     if ratio and n >= 2:
-        g.append(txtfit(BCX, BY1 - 84, ratio, BW * 0.8, cap=40, col=J.AMBER,
+        g.append(txtfit(BCX, barb + 56, ratio, BW * 0.8, cap=44, col=J.AMBER,
                         anchor="middle"))
     if note:
         g.append(txtfit(BX0, BY1 - 16, note, BW, cap=28, col=J.LINE_DIM))
@@ -660,10 +664,12 @@ def layers(n=5, bonds=None, delam=None, voids=None, note="", labels=True,
     voids … 空隙を描く接着面の番号
     """
     x0, x1 = BX0 + 190, BX1 - 240
-    lh = 62                                # 1層の厚み
-    bt = 16                                # 接着面の厚み
+    # ⚠️ 62+16 だと5層で374pxしかなく、枠(682)の下半分が空いた（c415 空き40.7%）。
+    #    層は「厚み」を見せる図なので、**枠の縦を使い切る厚さ**にする。
+    bt = 22                                # 接着面の厚み
+    lh = (BH - 150 - bt * (n - 1)) / n     # 1層の厚み（枠から逆算）
     tot = n * lh + (n - 1) * bt
-    top = BY0 + (BH - tot) / 2 - 20
+    top = BY0 + 62
     g = []
     y = top
     ys = []
@@ -671,11 +677,11 @@ def layers(n=5, bonds=None, delam=None, voids=None, note="", labels=True,
         g.append(rect(x0, y, x1 - x0, lh, J.LINE, op=0.20))
         g.append(rect(x0, y, x1 - x0, lh, "none", J.LINE, 4))
         # 繊維の向きが分かるよう細い線を入れる（層であることが一目で分かる）
-        for k in range(1, 4):
-            g.append(line(x0 + 6, y + lh * k / 4, x1 - 6, y + lh * k / 4,
+        for k in range(1, 6):
+            g.append(line(x0 + 6, y + lh * k / 6, x1 - 6, y + lh * k / 6,
                           J.LINE_DIM, 1.6))
         if labels:
-            g.append(txt(x0 - 22, y + lh / 2 + 12, f"{i + 1}層", 30, J.LINE,
+            g.append(txt(x0 - 22, y + lh / 2 + 13, f"{i + 1}層", 34, J.LINE,
                          "Noto", "end"))
         ys.append(y)
         y += lh
@@ -740,7 +746,9 @@ def layers(n=5, bonds=None, delam=None, voids=None, note="", labels=True,
 #     報告書の三面図に対する比で置いている：
 #       円筒長 / 全長 = 2.47 / 6.70 = 0.369
 #       ドーム突出 / 外径 = 約 0.55
-TT_L = 1180.0            # 画面上の全長（既定）
+# ⚠️ 1180 では枠(1776)に対して小さく、右側が空いた（c203 空き18.1%）。
+#    三面図は横に伸びる図なので、**枠の横をほぼ使い切る**大きさにする。
+TT_L = 1520.0            # 画面上の全長（既定）
 
 
 def titan(mode="side", s=1.0, cx=None, cy=None, marks=None, note="",
@@ -974,22 +982,27 @@ def icons(n, on=None, kind="dot", cols=None, lead="", note="", oncol=None,
     on = list(range(on)) if isinstance(on, int) else (on or [])
     cols = cols or min(n, 12)
     rows = math.ceil(n / cols)
-    cw = min(120, BW / cols)
-    ch = min(150, (BH - 150) / max(1, rows))
+    # ⚠️ 120×150 に頭打ちしていたので、5個や9個のときに絵が小さく、
+    #    下半分が丸ごと空いた（pr02 23%／ep01 25%／c501 28%／c512 28%）。
+    #    **枠を使い切る大きさ**にする。
+    lead_h = 96 if lead else 20
+    note_h = 56 if note else 10
+    cw = min(BW / cols, 300)
+    ch = min((BH - lead_h - note_h) / max(1, rows), 340)
     x0 = BCX - cw * cols / 2
-    top = BY0 + 120
+    top = BY0 + lead_h + ch * 0.42
     oc = oncol or J.ALERT
     fc = offcol or J.LINE_DIM
     g = []
     if lead:
-        g.append(txtfit(BX0, BY0 + 66, lead, BW, cap=46, col=J.INK_W))
+        g.append(txtfit(BX0, BY0 + 62, lead, BW, cap=52, col=J.INK_W))
     stages = []
     cur = []
     for i in range(n):
         x = x0 + (i % cols) * cw + cw / 2
         y = top + (i // cols) * ch
         c = oc if i in on else fc
-        r = min(cw, ch) * 0.28
+        r = min(cw, ch) * 0.40
         if kind == "person":
             cur.append(circ(x, y, r * 0.52, c))
             cur.append(poly([(x - r * 0.62, y + r * 1.9), (x - r * 0.62, y + r * 0.95),
@@ -1004,8 +1017,8 @@ def icons(n, on=None, kind="dot", cols=None, lead="", note="", oncol=None,
         else:
             cur.append(circ(x, y, r * 0.62, c))
         if labels and i < len(labels):
-            cur.append(txtfit(x, y + r * 2.6, labels[i], cw, cap=24, col=c,
-                              anchor="middle"))
+            cur.append(txtfit(x, y + r * 2.3, labels[i], cw * 0.98,
+                              cap=max(24, int(cw * 0.20)), col=c, anchor="middle"))
     stages.append("".join(cur))
     if note:
         g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.LINE_DIM))
