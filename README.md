@@ -1,7 +1,13 @@
 # zukai-engine — 図解・サムネの描画基盤
 
-新チャンネル（シニア向け健康解説）の映像素材を、**費用0円・SVG＋Chrome headless** で作るための基盤。
+事故検証チャンネル（1本目＝タイタン号）の映像素材を、
+**費用0円・SVG＋Chrome headless** で作るための基盤。
 Node も Remotion も使わない（このPCは空きディスク6GB・メモリ4GBのため）。
+
+> 2026-08-01：**シニア向け健康解説チャンネルの資産を撤去した。**
+> `character.py` `anatomy.py` `cartoon.py` と参考画像・生成物を消してある。
+> 消したものは git 履歴に残っているので `git log --diff-filter=D --oneline -- tools/` から辿れる。
+> 図解の作り方の知見は Vault `Resources/描画の知見-人体と首なしキャラ-20260801.md` に移した。
 
 ---
 
@@ -14,38 +20,50 @@ GitHub の Actions 規約は、GitHub-hosted runner を
 
 | 工程 | どこで回すか |
 |---|---|
-| 検品画像（qa）・3つの機械検査 | ✅ GitHub Actions（`render-jiko.yml`。`mode=full` は入力ごと削除済み） |
+| 検品画像（qa）・4つの機械検査 | ✅ GitHub Actions（`render-jiko.yml`。`mode=full` は入力ごと削除済み） |
 | **本編mp4の製造** | ✅ **Modal**（`modal_app.py`。1本 約$0.25／無料枠 $30/月） |
 | ナレーション合成 | ローカル（AivisSpeech。⚠️ 使うときだけ起動する） |
 
 ```bash
 modal setup                                        # 最初の1回だけ
+modal volume create jiko-assets                    # 最初の1回だけ（BGMの保管庫）
+modal volume put jiko-assets assets/bgm.mp3 bgm.mp3
 git push                                           # ★Modalは GitHub から clone する
-modal run modal_app.py::full --note r10            # 本編を焼く
-modal volume get jiko-out titan_audio-r10.mp4 out/jiko/
+modal run modal_app.py::full --note r11            # 本編を焼く
+modal volume get jiko-out titan_audio-r11.mp4 out/jiko/
 ```
 
-移設で**画が変わっていないこと**は `tools/layer_hash.py` の指紋で機械確認する
-（Actions の "Layer fingerprint" ステップと `modal run modal_app.py::layer_hash` が同じ値を出す）。
+🔴 **BGM は保管庫（`/assets/bgm.mp3`）にしか無い。**
+既製曲（DOVA-SYNDROME）は作者が再配布を禁止しており、このリポジトリは public なので置けない。
+`audio_mix.find_bgm()` は見つからないと**黙って自作ドローンに戻る**ため、
+`full` は焼き始める前に保管庫を見て、無ければ止める（`--allow-drone` で解除）。
+
+移設で**画が変わっていないこと**は `tools/layer_hash.py` の指紋で機械確認する。
+`full` がレイヤーを焼いた直後に指紋を出すので、Actions の "Layer fingerprint"
+ステップのログと見比べればよい（本編を焼かずに指紋だけ欲しいときは
+`modal run modal_app.py::layer_hash`）。
+
+**2026-08-01 実測：Actions と Modal で一致（`4c5e87a4…c378fedb` ／ 1178枚・51.4MB）。**
 
 ## 動かし方
 
 ```bash
-python tools/character.py       # キャラの検証シート3枚を out/ に出す
-python tools/scene_char_demo.py # キャラ入りの本編フレーム1枚
-python tools/scene_liver.py     # 臓器図の本編フレーム試作
-python tools/thumb_photo.py     # PD写真＋文字のサムネ
-python tools/_check_organs.py   # 腎臓・脳の形の検証シート1枚
-python tools/scene_open30.py    # 冒頭30秒の本編フレーム8枚（引数でc1a等を指定すると部分再生成）
+python tools/dump_script.py c3        # その章の台本と尺（図を書く前に必ず読む）
+python tools/scene_jiko.py --report   # 226カット全部に画があるか
+python tools/check_layout.py          # 画面外・重なり・豆腐（字幅はフォントから実測）
+python tools/check_echo.py            # 図がナレーションの複写になっていないか
+python tools/check_mask.py            # 語尾がBGMに埋もれていないか
+python tools/thumb_jiko.py            # サムネ
+python tools/brand_jiko.py --check    # アイコン／バナーを実寸で並べて見る
 ```
 
-冒頭30秒を動画にするところまで：
+検品は**クラウドで焼いたものだけ**を見る（ローカルはフォントの折返しが変わる実績がある）。
 
 ```bash
-python tools/scene_open30.py && cd out/open30 && ffmpeg -y -f concat -safe 0 -i concat.txt -t 29.6 -vf "fps=30,format=yuv420p" -c:v libx264 -crf 20 open30.mp4
+gh auth switch -u torotorotolo
+gh workflow run render-jiko.yml --repo torotorotolo/zukai-engine -f note=rN -f mode=qa
+python tools/gc_artifacts.py --keep 2   # ★巡が終わるたびに。成果物枠は500MB
 ```
-
-※ `concat.txt` は `plan.json` から作る。**本番の動画レンダはクラウド**（ここは尺の検証用）。
 
 Chrome/Edge の headless で SVG→PNG する。**追加インストールは一切不要**。
 
@@ -53,27 +71,25 @@ Chrome/Edge の headless で SVG→PNG する。**追加インストールは一
 
 | ファイル | 役割 |
 |---|---|
-| `tools/character.py` | **キャラクター部品**。表情5種×ポーズ5種＋衣装3種。比率は参考動画の実測から起こした |
-| `tools/scene_open30.py` | **冒頭30秒（4カット×2状態＝8枚）**。背景3種（キッチン／ラボ／リビング）と見出し・字幕・ボードの部品つき。尺の設計値は Vault `Resources/参考-HSS秒単位分解-20260728.md` の実測（1カット7.4秒） |
-| `tools/scene_char_demo.py` | キャラ入り本編フレームの試作（リビング・見出し・黄色字幕・棒グラフ） |
-| `tools/shading.py` | グラデーション／地紋／落ち影／周辺減光／手描き揺らぎの共通部品 |
-| `tools/anatomy.py` | 人体と臓器。**形の根拠を各関数のコメントに明記**してある。`kidney()` `brain()` は原点中心の単体プロップで、場面に浮かせて使う |
-| `tools/scene_liver.py` | 本編フレームの試作（砂糖をやめて7日目・肝臓） |
+| `tools/cuts/<章>.py` | **カットごとの「画」。ふだん直すのはここだけ** |
+| `tools/cuts/README.md` | **型の一覧と守ること（仕様書）。書く前に読む** |
+| `tools/titan_fig.py` | 図解の型21種 |
+| `tools/jiko_style.py` | 色・級数・置き場所の定数 |
+| `tools/scene_jiko.py` | レイヤー書き出しのエンジン（SVG→PNG） |
+| `tools/build_jiko.py` | 合成（`qa`／`full`／`veil`／`shrink`） |
+| `tools/fontmetrics.py` | **字幅と字面をフォントから実測**（推定値を置かないため） |
+| `tools/narration.py` | 台本の文言の正本 |
+| `tools/audio_pack.py` | wav ⇄ opus（wavはリポジトリに入れない） |
+| `tools/audio_mix.py` | ナレーション＋BGM＋効果音 |
 | `tools/thumb_photo.py` | サムネ生成器。写真＋文字4つを渡すだけ |
+| `tools/thumb_jiko.py` `tools/brand_jiko.py` | 本番サムネ／チャンネルのアイコン・バナー |
 | `tools/render.py` | SVG→PNG（Chrome/Edge headless） |
-| `tools/grab_frames.py` | ブラウザcanvasのbase64を画像に戻す（参考動画のフレーム抽出用） |
-| `ref/` | 取り寄せた実物資料（PD解剖図・PD写真・PD表情図版・PD連続写真・参考動画のフレーム） |
+| `tools/layer_hash.py` | レイヤーPNGの指紋（Actions と Modal の突き合わせ） |
+| `tools/gc_artifacts.py` | 成果物の掃除（500MB枠） |
+| `ref/` | 一次資料（NTSB/USCG/NOAA の PD写真・報告書）。出所は `ref/CREDITS.md` |
 
-### キャラクターの使い方
-
-```python
-import character as C
-svg = f'<svg ...><defs>{C.defs()}</defs>{C.character("point", "smile", at=(700, 980))}</svg>'
-C.character("hold", "normal").anchors["hand"]   # 小道具を置く座標が取れる
-```
-
-設計の正本は Vault `Resources/キャラクター設計-健康解説-20260728.md`。
-実測値と「なぜその形なのか」は `tools/character.py` の冒頭に全部書いてある。
+`tools/palette.py` `tools/shading.py` は「まちがい探し喫茶」用で、
+**どこからも import されていない**（残置）。
 
 ## 押さえておくべき技術
 
@@ -93,6 +109,12 @@ C.character("hold", "normal").anchors["hand"]   # 小道具を置く座標が取
 級数は「狙う高さ」で決め打ちし、横は textLength で圧縮する（縦長のコンデンス化）。
 これで**文字数に関係なく「幅いっぱい×縦もでかい」**が両立する。`thumb_photo.py` の `fit()` 参照。
 
+### 級数と余白を推定で置かない
+`fontmetrics.py` が woff2 の hmtx と glyf を直接読んで**全字の送り幅**を出す。
+「実測値」と言われている平均値でも足りない。Dela の数字は
+**0.588（"1"）〜0.924（"4"）で 1.57倍ちがう**ので、平均 0.84em で「4,444」を見ると
+実物より 8% 狭く出る＝**通してしまう向きの誤差**になる。
+
 ### 素材はパブリックドメインだけ
 Wikimedia Commons API で機械判定して落とす。
 ```
@@ -104,49 +126,16 @@ prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=1920   # LicenseShortName を�
 
 ### 図は必ず実物を見てから描く
 記憶で描くと形が狂う（肝臓が楕円になった実例あり）。`ref/` に資料を落としてから描く。
-
 **資料は「形が分かる図」でなく「名前が振ってある図」を探す。**
-脳は Gray728（葉が色分けされただけ）で描いて低品質になり、
-Sobotta 1909 Plate 626（**脳溝脳回に名前が振ってある実物写生**）を取り直して作り直した。
 名前が振ってあると、しわの**向き**まで決められる＝乱数で撒かずに済む。
-
-### 生き物の表面（しわ・ひだ）の描き方 ← 脳で8回作り直して出た結論
-1. **溝（谷）を細線で引くと「塗った縞」になる。** 谷1本につき「広い薄影／稜線ハイライト／
-   反対側の影／深い谷」の4層で描く。**ずらす量は溝の幅から計算**すること
-   （内側に置くと谷の線に覆われて消える）。ずらす向きは経路から機械判定する
-2. **隆起を1本ずつ管として描くのも駄目。** 短い枝が「面に転がったマカロニ」になる
-3. **手で十数本並べても面は埋まらない。** territory ごとに流れ場（基準線＋法線＋広がり）を
-   定義して族を生成し、隣どうしを短い枝でつなぐ
-4. 基準線は territory の**真ん中**に通す。端に通すと族が片側に寄る
-5. **族ごとに縄張りをクリップする。** しないと隣の族と直交してカゴ編みになる
-6. 間隔・長さ・太さは必ずばらす。ただし**端を境界に届かせたい族は縮め量を小さく**する
-7. 下地は隆起と同色に。暗くすると隙間が穴に見える
-
-詳細は `anatomy.py` の `_family()` `_sulci()` `_scallop()`。腸や皮膚のしわにもそのまま使える。
-
-### 背景は「壁＋床＋家具3つ」では足りない
-参考動画の背景には**小物が10個前後**ある。1画面あたり15点以上置く。置き場所の原則：
-- キャラの立ち位置 ±150 に背の高い物を置かない（コンロが頭に隠れた）
-- 画面上端 y<160 は見出しの帯。時計を置くと切られる
-- **主役の図を置く区画は、あらかじめ無地の壁だけにして空けておく**
-- 家具・鉢植えは必ず床に接地させる／壁の掲示物は作業台より上に置く
-- ラグは楕円でなく台形にする（楕円は床の茶色い水たまりに見える）
-
-### 首の無いキャラの姿勢
-- 頭を横へずらして前傾を表してはいけない。首が無いので「頭が付いていない」に見える。
-  **肩に沈める**（`hsink`）で表す
-- 腕の付け根は肩の半幅より**外**に出す。内側だと手前の腕が胴に貼りつき、奥の腕が隠れて
-  太さが左右で違って見える
-- **奥の足のつま先は外向きにする。** 両足を同じ向きにすると奥足が体の中心を跨いで内股に見える
-- 脚の間隔は脚の太さより広く取る。狭いと輪郭線どうしが接して「ズボン1本に線が入っただけ」になる
-
-詳細は `character.py` の `_skeleton()` と `_shoe()`。
 
 ## 直したら必ず5回以上見直す（2026-07-28・ユーザー指示）
 1回直して終わりにしない。**毎回レンダリングして拡大目視 → 直す**を繰り返す。
-検証用シートを使う：`_check_organs.py`（臓器）／`_check_pose.py`（立ち姿・中心線つき）。
-実際、脳は8回・背景は5回・脚は2回まわして、毎回別の欠陥が出た。
+機械の検査（`check_layout` `check_echo` `check_space` `check_mask`）は
+**目で見つかる粗を1件も出さない**。実際、検品9巡のうち目で見た2巡だけで
+「引用の行分けが語の途中で割れる」「箱が大きいだけで中身が上端の文字だけ」が出た。
 
 ## 動画のレンダリング
-**必ずクラウド（GitHub Actions）で行う**（ユーザー指示）。
+🔴 **必ずクラウドで行う**（ローカルはメモリ4GB）。
+**本編mp4は Modal、検品画像は GitHub Actions。**
 ローカルは台本・音声・静止画の生成までに留める。
