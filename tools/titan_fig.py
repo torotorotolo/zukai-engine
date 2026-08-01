@@ -1143,8 +1143,20 @@ def absent(items, lead="", note=""):
         x = BX0 + i * (cw + gap)
         ok = it.get("ok", False)
         c = J.OK if ok else J.ALERT
-        s = [rect(x, top, cw, bh, "none", J.LINE_DIM, 4,
-                  rx=8)] if not ok else [rect(x, top, cw, bh, J.OK, 4, rx=8, op=0.14)]
+        # 🔴 2026-08-01（r14 を焼いて目視）：ok=True の箱が**枠も中身も無い緑の面**だった。
+        #    原因は引数の渡し違い。`rect(x, top, cw, bh, J.OK, 4, rx=8, op=0.14)` は
+        #    5番目が fill、**6番目が stroke（色）**なので、`4` が色として渡っていた。
+        #    SVG は stroke="4" を色として解釈できず、**枠線が消えていた**。
+        #    → 枠線を正しい色で引き、「有る」ことが読めるように✓も入れる
+        #      （無い側には✗があるのに、有る側には何も無く対比が成立していなかった）。
+        s = []
+        if ok:
+            s = [rect(x, top, cw, bh, J.OK, op=0.14),
+                 rect(x, top, cw, bh, "none", J.OK, 4, rx=8),
+                 poly([(x + cw * 0.38, top + bh * 0.50),
+                       (x + cw * 0.47, top + bh * 0.63),
+                       (x + cw * 0.64, top + bh * 0.34)],
+                      stroke=J.OK, sw=11)]
         if not ok:
             s = [rect(x, top, cw, bh, J.BG2, op=0.5),
                  rect(x, top, cw, bh, "none", J.LINE_DIM, 4, rx=8)]
