@@ -51,6 +51,8 @@ BOOST = {"pr03", "pr09", "c135", "c307", "c308", "c411", "c416",
 #    3.8秒止まって「3秒以上の静止禁止」を割った（実測7カット）。
 #    **止まる時間の側を 2.2 秒で頭打ちにする**のが正しい。
 STILL_MAX = 2.2        # 段が出そろってから次の段までに許す静止（秒）
+# 骨格（lab）を描くのにカットの何割を使うか。型が labk を返せば、そちらが優先。
+LAB_K = 0.30
 
 
 def draw_span(w):
@@ -234,8 +236,8 @@ def scene(cut, t, dur, lay, photos, meta):
         fr = lay[f"{cut}_base"].copy()
     # 図の骨格は前半で手早く描く（骨格が未完成のまま段が乗ると図が壊れて見える）
     if f"{cut}_lab" in lay:
-        wipe(fr, lay[f"{cut}_lab"], min(1.0, max(0.0, (t - 0.15) / (dur * 0.30))),
-             span=span)
+        wipe(fr, lay[f"{cut}_lab"],
+             min(1.0, max(0.0, (t - 0.15) / (dur * meta[cut]["labk"]))), span=span)
     # 段は draw_span() の秒で描き終え、残りは出そろった状態で見せる。
     # 🔴 r6 の目視で分かった：持ち時間いっぱい使うと、引用の2行目が
     #    カットの終わりでやっと出そろい、**読み終わる前に切り替わる**（c518 は尺3.7秒）。
@@ -267,12 +269,23 @@ def meta_of(idx):
     m = {}
     for cid, v in idx.items():
         m[cid] = {"photo": v["photo"], "back": v["back"], "veil": v["veil"],
-                  "span": v["span"], "times": S.stage_times(cid, v["stages"])}
+                  "span": v["span"],
+                  # labk … 骨格を描くのにカットの何割を使うか（既定 LAB_K）。
+                  #   段が1つしかない型（作り直した quote）は、既定だと前半で
+                  #   描き終わってそのあと画が止まるので、型の側から長めに指定できる。
+                  "labk": v.get("labk") or LAB_K,
+                  "times": S.stage_times(cid, v["stages"], v.get("holds"))}
     return m
 
 
-def check_motion(meta, limit=3.0):
-    """**3秒以上、図がまったく動かない区間**が無いかを機械的に確認する。
+def check_motion(meta, limit=5.0):
+    """**limit 秒以上、図がまったく動かない区間**が無いかを機械的に確認する。
+
+    🔴 2026-08-01：上限を **3.0 → 5.0 秒**にした（カズヤくん指示）。
+       3秒は厳しすぎて、**引用の決め所を「読み終えてから出す」ことができなかった**
+       （読み終わりを待つあいだは、当然どこも動かない）。
+       ⚠️ 「動かなくてよい」ではなく「5秒までなら止まってよい」。
+          STILL_MAX（2.2秒）は**変えていない**ので、ふつうの段の見え方は今までどおり。
 
     実写はケンバーンズで常に動いているので対象外。
     図解は「骨格を描く区間」と「各段を描く区間」の合併が尺を覆っているかを見る。
@@ -285,8 +298,8 @@ def check_motion(meta, limit=3.0):
         # ⚠️ **写真を地に敷いた図解カットは対象に残す**（図が止まったら止まって見える）。
         if meta[cid]["photo"] and not meta[cid]["back"]:
             continue
-        iv = [(0.15, 0.15 + sec * 0.30)] + [(a, a + draw_span(b - a))
-                                            for a, b in meta[cid]["times"]]
+        iv = [(0.15, 0.15 + sec * meta[cid]["labk"])] + [(a, a + draw_span(b - a))
+                                                        for a, b in meta[cid]["times"]]
         iv.sort()
         cur = 0.0
         gaps = []

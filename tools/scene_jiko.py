@@ -313,11 +313,25 @@ SPEC = _load_spec()
 LEAD, TAIL = 0.35, 0.50
 
 
+# 🔴 2026-08-01：カットごとに**末尾の間**を足せるようにした（カズヤくん判断）。
+#    r13 の試写で quote に「決め所は前振りを読み終えてから出す」と指摘が出たが、
+#    実測すると**どの quote カットも末尾は きっかり 0.50 秒（TAIL）しか無い**。
+#    読み終えてから決め所を出す余地が、構造的に無かった。
+#    ⚠️ ナレーションの文言も話速も変えていない。**読み終わったあとに間を足すだけ。**
+#    16カット × 2.0 秒 ＝ 全体で +32 秒。
+TAIL_EXTRA = {"quote": 2.0}
+
+
+def _tail_extra(cid):
+    fig = (SPEC.get(cid) or {}).get("fig")
+    return TAIL_EXTRA.get(fig[0], 0.0) if fig else 0.0
+
+
 def _narration():
     p = HERE / "audio" / "narration.json"
     d = json.loads(p.read_text(encoding="utf-8"))
     dur = d["durations"]
-    cuts = [(c, round(dur[c] + LEAD + TAIL, 2)) for c in dur]
+    cuts = [(c, round(dur[c] + LEAD + TAIL + _tail_extra(c), 2)) for c in dur]
     return cuts, d.get("subtitles", {})
 
 
@@ -341,12 +355,27 @@ PHOTO_CROP = {cid: (s.get("xbias", 0.5), s.get("zoom", 1.0))
 
 
 # ── 段の持ち時間 ─────────────────────────────────────────
-def stage_times(cid, nstage):
+# 段が描き終わるのに最低限これだけは残す（秒）。
+# 🔴 2026-08-01：r13 の試写で「右端の枠が描き終わる前にカットが切り替わる」（process 17枚）。
+#    実測すると、**行より段が多いカット**では余った段を「いちばん広い隙間の真ん中」に
+#    挟んでいたので、最後の段の開始が尺の終わりぎりぎりに寄っていた
+#    （c414：尺4.86秒に対し最後の段が 4.30秒から。描画0.60秒で 4.90秒＝尺を超える）。
+#    → **最後の段は必ず尺の RESERVE 秒前までに出はじめる**ように押し戻す。
+RESERVE = 1.0
+
+# build_layers が段の時間割（holds / labk）を書き出す場所。layer_index が直後に読む。
+STAGE_META = {}
+
+
+def stage_times(cid, nstage, holds=None):
     """段 i が「出はじめる秒」と「描き終える秒」を返す。
 
     段はナレーションの行に合わせて出す。行より段が多ければ余った段を等間隔で挟む。
     **描き終える秒 ＝ 次の段が出る秒**（最後の段はカット終わりまで）。
     こうすると、カットのどの瞬間にも必ず「描いている途中の段」が1つある。
+
+    holds … 段ごとの指定（`titan_fig.Fig.holds`）。**"after_last"** の段は
+            **最後の行を読み終えてから**出す（引用の決め所など）。
     """
     sec = dict(CUTS)[cid]
     rows = SUBS.get(cid, [])
@@ -365,6 +394,17 @@ def stage_times(cid, nstage):
             st.append(mid)
             bounds = sorted(bounds + [mid])
         st = sorted(st)[:nstage]
+    # 🔴 最後の段が尺の終わりに寄りすぎていたら押し戻す（上の RESERVE を参照）
+    if st and st[-1] > sec - RESERVE:
+        st[-1] = max(st[0], sec - RESERVE)
+        st = sorted(st)
+    # ★「最後の行を読み終えてから出す」段
+    if holds:
+        last_end = (rows[-1]["t"] + rows[-1]["d"] + LEAD) if rows else 0.25
+        for i, h in enumerate(holds[:len(st)]):
+            if h == "after_last":
+                # 字幕は行末 +0.12 秒までフェードで残る。そのあとに出す
+                st[i] = min(max(last_end + 0.25, st[i]), max(0.25, sec - RESERVE))
     ends = st[1:] + [sec]
     # 描き終わりが早すぎると止まって見える。最低でも 1.1 秒はかける
     return [(a, max(b, a + 1.1)) for a, b in zip(st, ends)]
@@ -376,7 +416,7 @@ def build_layers(allow_missing=False):
 
     allow_missing … 章を1つずつ作っている途中は True で回す（未定義カットを飛ばす）。
     """
-    jobs, spans = {}, {}
+    jobs, spans, holds, labks = {}, {}, {}, {}
     for cid in ORDER:
         spec = SPEC.get(cid)
         if spec is None:
@@ -399,10 +439,12 @@ def build_layers(allow_missing=False):
         fig = getattr(F, kind)(**kw)
         jobs[f"{cid}_base"] = fig_base(cid, spec, ground=not back)
         lab, stages = fig.lab, list(fig.stages)
+        holds[cid], labks[cid] = list(fig.holds), fig.labk
         if not stages:
             # 段が無いと「描いている途中」が作れず、カットが丸ごと静止する。
             # 骨格を段に格上げして、カット全体をかけて描かせる。
             lab, stages = "", [lab]
+            holds[cid] = [None]
         if lab:
             jobs[f"{cid}_lab"] = lab
         for i, s in enumerate(stages):
@@ -414,6 +456,12 @@ def build_layers(allow_missing=False):
         #    （例：icons は絵の並びだけで 640〜1280）、そのままだと枠の左右に置いた
         #    見出し・注記・出典が**ワイプの外に出て永久に現れない**。
         spans[cid] = (min(fig.span[0], F.BX0), max(fig.span[1], F.BX1))
+    # ⚠️ 戻り値は (jobs, spans) のまま。`jobs, _ = build_layers()` と受けている
+    #    呼び出しが4か所（check_layout / check_box / peek / layer_index）あるので、
+    #    段の時間割はここに置いて layer_index が直後に読む。
+    STAGE_META.clear()
+    STAGE_META.update({c: {"holds": holds.get(c) or [], "labk": labks.get(c)}
+                       for c in spans})
     return jobs, spans
 
 
@@ -427,9 +475,11 @@ def layer_index(allow_missing=False):
         ns = len([k for k in names if re.fullmatch(rf"{cid}_a\d+", k)])
         # photo … 写真を読む必要があるか（実写カットと、地に敷くカットの両方で True）
         # back  … **地に敷く**カットか（写真だけの実写カットと区別する）
+        m = STAGE_META.get(cid, {})
         idx[cid] = {"photo": bool(s.get("photo")), "back": bool(s.get("photo") and s.get("fig")),
                     "veil": float(s.get("veil", VEIL)), "span": spans[cid],
-                    "stages": ns, "layers": sorted(names)}
+                    "stages": ns, "layers": sorted(names),
+                    "holds": m.get("holds") or [], "labk": m.get("labk")}
     return idx, jobs
 
 

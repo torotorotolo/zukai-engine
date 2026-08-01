@@ -45,13 +45,28 @@ def uid(p="g"):
 
 
 class Fig:
-    """図1枚ぶん。build 側はこの4つしか見ない。"""
+    """図1枚ぶん。build 側はこの6つしか見ない。
 
-    def __init__(self, lab, stages=None, hot="", span=None):
+    holds … 段ごとの「いつ出すか」。既定（None）はナレーションの行頭に貼る。
+            **"after_last"** … **最後の行を読み終えてから**出す。
+            🔴 2026-08-01 追加。r13 の試写で quote に5つ指摘が出た：
+              「画面に出した言葉は字幕に出さない」「時間差で少しずつ出すのをやめる」
+              「決め所は前振りを読み終えてから出す」「早く出すと続きを予測される」。
+              段を行頭に貼る既定のままでは、**引用を読み上げる前に答えが画面に出る**。
+    labk  … 骨格（lab）を描くのにカットの何割を使うか（既定 0.30）。
+            段が1つしかない型は、骨格をゆっくり描かないと途中で画が止まる。
+    """
+
+    def __init__(self, lab, stages=None, hot="", span=None, holds=None, labk=None):
         self.lab = lab
-        self.stages = [s for s in (stages or []) if s]
+        keep = [i for i, s in enumerate(stages or []) if s]
+        self.stages = [(stages or [])[i] for i in keep]
+        # holds は stages と同じ長さに揃える（空の段を捨てたぶんもここで合わせる）
+        self.holds = ([((holds or [])[i] if i < len(holds or []) else None)
+                       for i in keep] if holds else [None] * len(self.stages))
         self.hot = hot
         self.span = span or (BX0, BX1)
+        self.labk = labk
 
 
 # ── 文字の置き方（すべて実測で収める） ─────────────────────
@@ -292,18 +307,18 @@ def depth(marks, dmax=4400, unit="m", axis_t="水深", seabed=None, note="", rig
     while d <= dmax:
         y = dy(d)
         g.append(line(ax - 16, y, ax + 16, y, J.LINE_DIM, 3))
-        g.append(txt(ax - 28, y + 11, f"{d:,}", 26, J.LINE_DIM, "Noto", "end"))
+        g.append(txt(ax - 28, y + 11, f"{d:,}", 26, J.TICK, "Noto", "end"))
         d += stepm
-    g.append(txt(ax - 28, top + 28, axis_t, 26, J.LINE_DIM, "Noto", "end"))
+    g.append(txt(ax - 28, top + 28, axis_t, 26, J.TICK, "Noto", "end"))
     if seabed is not None:
         y = dy(seabed)
         g.append(poly([(BX0, y)] + [(BX0 + i * 74, y + (12 if i % 2 else -6))
                                     for i in range(1, 25)], stroke=J.LINE_DIM, sw=4))
-        g.append(txt(BX1, y + 40, "海底", 28, J.LINE_DIM, "Noto", "end"))
+        g.append(txt(BX1, y + 40, "海底", 28, J.TICK, "Noto", "end"))
     if note:
         # ⚠️ 右下に置くと「海底」ラベル（同じく右下）と必ず重なる。
         #    seabed を渡すカットは全部これに当たった（c113a c114 c115b c121 c130）。
-        g.append(txtfit(BX0, BY1 - 6, note, BW - 300, cap=28, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 6, note, BW - 300, cap=28, col=J.TICK))
 
     # 500m ごとの細い目盛り。線1本だけの海にしない
     dd = stepm // 2
@@ -336,7 +351,7 @@ def depth(marks, dmax=4400, unit="m", axis_t="水深", seabed=None, note="", rig
             s.append(txtfit(lx, y + (44 if big else 34), m["t"], BX1 - lx - 20,
                             cap=40 if big else 32, col=c))
         if m.get("sub"):
-            s.append(txtfit(BX1, y - 16, m["sub"], 620, cap=34, col=J.LINE_DIM,
+            s.append(txtfit(BX1, y - 16, m["sub"], 620, cap=34, col=J.TICK,
                             anchor="end"))
         stages.append("".join(s))
     hot = ""
@@ -392,7 +407,7 @@ def compare(items, unit="", note="", bar=True, ratio=""):
                         col=J.LINE, anchor="middle"))
         if it.get("sub"):
             s.append(txtfit(x + cw / 2, top + 218, it["sub"], cw * 0.98, cap=28,
-                            col=J.LINE_DIM, anchor="middle"))
+                            col=J.TICK, anchor="middle"))
         stages.append("".join(s))
         g.append(line(x + cw * 0.16, barb, x + cw * 0.84, barb, J.LINE_DIM, 3))
     # ⚠️ ratio と note を同じ y に置いていたので、両方あるカットで必ず重なった（c115d）。
@@ -401,7 +416,7 @@ def compare(items, unit="", note="", bar=True, ratio=""):
         g.append(txtfit(BCX, barb + 56, ratio, BW * 0.8, cap=44, col=J.AMBER,
                         anchor="middle"))
     if note:
-        g.append(txtfit(BX0, BY1 - 16, note, BW, cap=28, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 16, note, BW, cap=28, col=J.TICK))
     return Fig("".join(g), stages, "", (BX0, BX1))
 
 
@@ -435,22 +450,46 @@ def quote(phrase, who="", when="", doc="", ctx="", to="", size=104):
                        (card_x + card_w + 46, card_y + card_h * 0.50),
                        (card_x + card_w, card_y + card_h * 0.58)], fill=J.BG2,
                       close=True))
+    # 🔴 2026-08-01：札の中身を上から詰めていたので、**項目が3つのカットは
+    #    札の下が丸ごと空いていた**（check_box：16枠中7枠が空き矩形 33〜58%）。
+    #    項目数はカットによって 2〜4 と変わるので、**空いたぶんを行間に配り直す**。
+    #    ⚠️ 数字を上げるために意味のない飾りを足さない。**間隔だけを広げる。**
+    fields = [(lb, v, c) for lb, v, c in
+              (("誰が", who, J.INK_W), ("誰に", to, J.LINE),
+               ("いつ", when, J.LINE), ("どこに", doc, J.LINE)) if v]
+    ctx_h = 0
+    if ctx:
+        _, y_ctx = para(0, 0, ctx, cols=int((card_w - 60) / 26), size=26)
+        ctx_h = y_ctx + 40
+    # ① まず既定の間隔（62）で組んで、どれだけ余るかを測る
     y = card_y + 88
-    for lb, v, c in (("誰が", who, J.INK_W), ("誰に", to, J.LINE),
-                     ("いつ", when, J.LINE), ("どこに", doc, J.LINE)):
-        if not v:
-            continue
-        g.append(txt(card_x + 30, y, lb, 24, J.LINE_DIM))
+    for lb, v, c in fields:
+        _, y2 = para(0, y + 44, v, cols=int((card_w - 60) / 32), size=32)
+        y = y2 + 62
+    slack = (card_y + card_h - 34 - ctx_h) - y
+    # ② 余りを項目の数で割って、行間に足す（詰まっているときは足さない）
+    gap = 62 + max(0.0, slack) / max(1, len(fields))
+    y = card_y + 88
+    for lb, v, c in fields:
+        g.append(txt(card_x + 30, y, lb, 24, J.TICK))
         body, y2 = para(card_x + 30, y + 44, v, cols=int((card_w - 60) / 32), size=32,
                         col=c)
         g.append(body)
-        y = y2 + 62
+        y = y2 + gap
     if ctx:
         g.append(line(card_x + 30, y - 24, card_x + card_w - 30, y - 24, J.LINE_DIM, 2))
         body, _ = para(card_x + 30, y + 16, ctx, cols=int((card_w - 60) / 26), size=26,
-                       col=J.LINE_DIM)
+                       col=J.TICK)
         g.append(body)
-    # 右に決め所。**短い言葉だけ**
+    # ══ 右に決め所 ══════════════════════════════════════
+    # 🔴 2026-08-01 作り直し（r13 試写で5つ指摘）。前の作りは
+    #    **1行＝1段**だったので、段はナレーションの行頭に貼られ、
+    #      ① 引用を読み上げる**前**に決め所が出て、続きを予測されていた
+    #      ② 行ごとに少しずつ出るので「時間差で出す」演出になっていた
+    #      ③ 出ている言葉が字幕にもそのまま出て、二重表示になっていた
+    #    → **決め所は段を1つにまとめ、`holds="after_last"` で
+    #      最後の行を読み終えてから、一度に出す。**
+    #      読み終えていれば字幕はもう消えているので、二重表示も同時に消える。
     px0 = card_x + card_w + 70
     pw = BX1 - px0
     g.append(txt(px0, BY0 + 150, "「", 120, J.ALERT_DIM, "Noto"))
@@ -460,12 +499,15 @@ def quote(phrase, who="", when="", doc="", ctx="", to="", size=104):
     size = min(size, int((BH - 150) / max(1, len(lines)) / 1.34))
     lh = size * 1.34
     top = BY0 + (BH - len(lines) * lh) / 2 + size * 0.72
-    stages = []
-    for i, ln in enumerate(lines):
-        stages.append(txtfit(px0 + 78, top + i * lh, ln, pw - 130, cap=size,
-                             col=J.INK_W))
-    return Fig("".join(g), stages,
-               rect(card_x, card_y, 9, card_h, J.ALERT), (px0, BX1))
+    # ⚠️ 行に分けても**1つの段にまとめる**（分けると時間差表示に戻る）
+    block = "".join(txtfit(px0 + 78, top + i * lh, ln, pw - 130, cap=size,
+                           col=J.INK_W)
+                    for i, ln in enumerate(lines))
+    # 骨格（出どころの札）は、決め所が出るまでのあいだ**ゆっくり描く**。
+    # 既定の 0.30 だとカットの前半で描き終わり、そのあと画が止まる。
+    return Fig("".join(g), [block],
+               rect(card_x, card_y, 9, card_h, J.ALERT), (px0, BX1),
+               holds=["after_last"], labk=0.62)
 
 
 # ══════════════════════════════════════════════════════════
@@ -501,9 +543,9 @@ def timeline(events, t0, t1, ticks=None, tfmt=None, title="", band=None):
         x = tx(t if not isinstance(t, (list, tuple)) else t[0])
         lb = tfmt(t) if tfmt else (t[1] if isinstance(t, (list, tuple)) else f"{t}")
         g.append(line(x, ax - 12, x, ax + 12, J.LINE_DIM, 3))
-        g.append(txt(x, ax + 46, lb, 26, J.LINE_DIM, "Noto", "middle"))
+        g.append(txt(x, ax + 46, lb, 26, J.TICK, "Noto", "middle"))
     if title:
-        g.append(txtfit(BX0, BY1 - 8, title, BW, cap=30, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 8, title, BW, cap=30, col=J.TICK))
     stages = []
     up = True
     for e in events:
@@ -556,7 +598,7 @@ def moment(clock, label="", facts=None, day=None, dayspan=None, sub=""):
     if label:
         g.append(txtfit(BX0 + 20, cy + 118, label, BW * 0.52, cap=46, col=J.AMBER))
     if sub:
-        g.append(txtfit(BX0 + 20, cy + 176, sub, BW * 0.52, cap=32, col=J.LINE_DIM))
+        g.append(txtfit(BX0 + 20, cy + 176, sub, BW * 0.52, cap=32, col=J.TICK))
     # 右に事実を積む
     stages = []
     fx = BX0 + BW * 0.58
@@ -583,7 +625,7 @@ def moment(clock, label="", facts=None, day=None, dayspan=None, sub=""):
         for h in range(int(a), int(b) + 1, 2):
             x = BX0 + 20 + (BX1 - BX0 - 40) * (h - a) / max(1e-6, b - a)
             g.append(line(x, y - 8, x, y + 8, J.LINE_DIM, 3))
-            g.append(txt(x, y + 38, f"{h}時", 22, J.LINE_DIM, "Noto", "middle"))
+            g.append(txt(x, y + 38, f"{h}時", 22, J.TICK, "Noto", "middle"))
         x = BX0 + 20 + (BX1 - BX0 - 40) * (day - a) / max(1e-6, b - a)
         g.append(circ(x, y, 13, J.ALERT))
     return Fig("".join(g), stages, "", (BX0, BX1))
@@ -623,7 +665,7 @@ def breakdown(total, parts, unit="人", note="", horizontal=True):
         x += w
         ly += lstep
     if note:
-        g.append(txtfit(BX0, BY1 - 8, note, BW, cap=26, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 8, note, BW, cap=26, col=J.TICK))
     return Fig("".join(g), stages, "", (BX0, BX1))
 
 
@@ -651,11 +693,11 @@ def graph(series, xlab="", ylab="", xticks=None, yticks=None, xr=(0, 1), yr=(0, 
     for t in (xticks or []):
         v, lb = t if isinstance(t, (list, tuple)) else (t, f"{t:,}")
         g.append(line(px(v), gy0, px(v), gy1, J.GRID, 2))
-        g.append(txt(px(v), gy1 + 40, lb, 26, J.LINE_DIM, "Noto", "middle"))
+        g.append(txt(px(v), gy1 + 40, lb, 26, J.TICK, "Noto", "middle"))
     for t in (yticks or []):
         v, lb = t if isinstance(t, (list, tuple)) else (t, f"{t:,}")
         g.append(line(gx0, py(v), gx1, py(v), J.GRID, 2))
-        g.append(txt(gx0 - 18, py(v) + 10, lb, 26, J.LINE_DIM, "Noto", "end"))
+        g.append(txt(gx0 - 18, py(v) + 10, lb, 26, J.TICK, "Noto", "end"))
     for b in (band or []):
         g.append(rect(px(b["a"]), gy0, px(b["b"]) - px(b["a"]), gy1 - gy0,
                       b.get("c", J.ALERT), op=b.get("op", 0.14)))
@@ -669,7 +711,7 @@ def graph(series, xlab="", ylab="", xticks=None, yticks=None, xr=(0, 1), yr=(0, 
     if ylab:
         g.append(txt(gx0 - 18, gy0 - 16, ylab, 30, J.LINE, "Noto", "end"))
     if note:
-        g.append(txtfit(BX0, BY1 - 8, note, BW, cap=26, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 8, note, BW, cap=26, col=J.TICK))
 
     stages = []
     ly = gy0 + 44
@@ -712,10 +754,10 @@ def dives(items, dmax=4200, note="", ylab="深さ", show_axis=True):
         for d in range(1000, dmax + 1, 1000):
             y = top + (bot - top) * d / dmax
             g.append(line(gx0 - 20, y, gx1, y, J.GRID, 2))
-            g.append(txt(gx0 - 26, y + 10, f"{d:,}", 24, J.LINE_DIM, "Noto", "end"))
-        g.append(txt(gx0 - 26, top + 34, ylab, 24, J.LINE_DIM, "Noto", "end"))
+            g.append(txt(gx0 - 26, y + 10, f"{d:,}", 24, J.TICK, "Noto", "end"))
+        g.append(txt(gx0 - 26, top + 34, ylab, 24, J.TICK, "Noto", "end"))
     if note:
-        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.TICK))
     stages, hot = [], ""
     for i, it in enumerate(items):
         x = gx0 + slot * (i + 0.5)
@@ -734,7 +776,7 @@ def dives(items, dmax=4200, note="", ylab="深さ", show_axis=True):
         stages.append("".join(s))
         if it.get("hot"):
             hot = rect(x - bw / 2 - 8, top - 8, bw + 16, h + 16, "none", J.ALERT, 5)
-    g.append(txt(gx0 - 26, bot + 40, "潜航", 24, J.LINE_DIM, "Noto", "end"))
+    g.append(txt(gx0 - 26, bot + 40, "潜航", 24, J.TICK, "Noto", "end"))
     return Fig("".join(g), stages, hot, (gx0 - 40, gx1))
 
 
@@ -777,7 +819,7 @@ def layers(n=5, bonds=None, delam=None, voids=None, note="", labels=True,
     if labels:
         g.append(txt(x1 + 16, top + tot + 44, "接着剤の面", 28, J.OK))
     if note:
-        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.TICK))
 
     def bond_y(i):
         return top + i * (lh + bt) + lh
@@ -901,7 +943,7 @@ def titan(mode="side", s=1.0, cx=None, cy=None, marks=None, note="",
     if cut:
         g.append(line(cx, cy - R * 1.5, cx, cy + R * 1.5, J.ALERT, 4, dash="16 10"))
     if note:
-        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.TICK))
 
     anchor = {"fore": (x0 + L * 0.03, cy), "aft": (cx + L * 0.42, cy),
               "cyl": (cx, cy - R), "cylb": (cx, cy + R),
@@ -947,23 +989,35 @@ def process(steps, note="", numbered=True, cols=None):
         if numbered:
             s.append(circ(x + 34, top - 2, 26, J.BG, c, 4))
             s.append(txt(x + 34, top + 12, i + 1, 34, c, "Dela", "middle"))
-        s.append(txtfit(x + cw / 2, top + 120, st["t"], cw - 30, cap=48,
+        # 🔴 2026-08-01 作り直し（r13「枠内の余白が多い」＝17枚すべてが該当）。
+        #    箱は枠の縦を使い切る高さ（586px）なのに、中身は
+        #    **見出し48px＋説明30px の2〜3行だけ**で、下 6割が空洞だった
+        #    （check_box：48枠すべてで空き矩形 65%）。
+        #    ⚠️ 箱を縮めると今度は画面全体が空く（前にそれで一度失敗している）。
+        #    → **箱はそのまま、字を大きくして縦に配る。**
+        #      1920×1080 で見出し48pxは小さすぎるので、上限を 48→84 に上げる
+        #      （`txtfit` が幅に合わせて自動で縮めるので、長い見出しは今までどおり）。
+        has_v = bool(st.get("v"))
+        # 値が無い段（48段中41段）は、見出しと説明を箱の中央寄りに置く
+        ty = top + bh * (0.30 if has_v else 0.40)
+        dy = top + bh * (0.48 if has_v else 0.60)
+        s.append(txtfit(x + cw / 2, ty, st["t"], cw - 30, cap=84,
                         col=J.INK_W, anchor="middle"))
         if st.get("d"):
-            sub, _ = para(x + cw / 2, top + 190, st["d"],
-                          cols=max(6, int(cw / 30)), size=30, col=J.LINE,
+            sub, _ = para(x + cw / 2, dy, st["d"],
+                          cols=max(6, int(cw / 42)), size=42, col=J.LINE,
                           anchor="middle")
             s.append(sub)
-        if st.get("v"):
-            s.append(txt(x + cw / 2, top + bh - 40, st["v"],
-                         fm.fit(st["v"], cw - 30, "Dela", cap=72), c, "Dela",
+        if has_v:
+            s.append(txt(x + cw / 2, top + bh * 0.88, st["v"],
+                         fm.fit(st["v"], cw - 30, "Dela", cap=124), c, "Dela",
                          "middle"))
         if i < n - 1:
             s.append(arrow(x + cw + 12, top + bh * 0.42, x + cw + gap + aw - 12,
                            top + bh * 0.42, J.LINE_DIM, 5, 22))
         stages.append("".join(s))
     if note:
-        g.append(txtfit(BX0, BY1 - 8, note, BW, cap=30, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 8, note, BW, cap=30, col=J.TICK))
     return Fig("".join(g), stages, "", (BX0, BX1))
 
 
@@ -1012,20 +1066,41 @@ def panel(blocks, lead="", note="", cols=3):
                              c, "Dela", "end"))
             stages.append("".join(s))
     else:
+        # 🔴 2026-08-01 作り直し（r13「要点の4項目が小さい。要点なので大きく」）。
+        #    4件以上（または長文）だとこちらの格子に落ちるが、**本文が34px固定**だった。
+        #    1920×1080 で 873×321 のセルに 34px は小さすぎる。
+        #    ⚠️ ここは結論・要点を出す場所なので、**いちばん大きく出てよい**。
+        #    → セルの大きさから級数を決め、`v`（数値）も出せるようにする。
+        cols = max(1, min(cols, n))          # 件数より多い列を作らない（ep09 が2件で3列だった）
+        rows = max(1, math.ceil(n / cols))
         cw = (BW - 30 * (cols - 1)) / cols
+        rh = (BY1 - top - (44 if note else 0)) / rows
         for i, b in enumerate(blocks):
             x = BX0 + (i % cols) * (cw + 30)
-            y = top + (i // cols) * ((BY1 - top) / max(1, math.ceil(n / cols)))
+            y = top + (i // cols) * rh
             c = b.get("c", J.LINE)
             s = [line(x, y, x + cw - 20, y, c, 5)]
+            kx = 0
             if b.get("k"):
-                s.append(txt(x, y + 52, b["k"], 40, c, "Dela"))
-            body, _ = para(x, y + (104 if b.get("k") else 54), b["t"],
-                           cols=int(cw / 34), size=34, col=J.INK_W)
+                ks = min(84, rh * 0.34)
+                s.append(txt(x, y + ks * 0.92, b["k"], ks, c, "Dela"))
+                kx = ks * 1.5
+            # 数値は右下に置く。場所は数値があるときだけ空ける
+            vs = min(96, rh * 0.34) if b.get("v") else 0
+            avail = cw - 20 - kx
+            bs = fm.fit(str(b["t"]), avail, "Noto",
+                        cap=int(min(72, rh * 0.26)), floor=18)
+            body, _ = para(x + kx, y + (rh * 0.30 if b.get("k") else rh * 0.26),
+                           b["t"], cols=max(6, int(avail / bs)), size=bs,
+                           col=J.INK_W)
             s.append(body)
+            if b.get("v"):
+                s.append(txt(x + cw - 20, y + rh * 0.86, b["v"],
+                             fm.fit(str(b["v"]), cw * 0.6, "Dela", cap=int(vs)),
+                             c, "Dela", "end"))
             stages.append("".join(s))
     if note:
-        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.TICK))
     return Fig("".join(g), stages, "", (BX0, BX1))
 
 
@@ -1065,11 +1140,11 @@ def absent(items, lead="", note=""):
                         col=c, anchor="middle"))
         if it.get("d"):
             sub, _ = para(x + cw / 2, top + bh + 96, it["d"], cols=int(cw / 26),
-                          size=26, col=J.LINE_DIM, anchor="middle")
+                          size=26, col=J.TICK, anchor="middle")
             s.append(sub)
         stages.append("".join(s))
     if note:
-        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.TICK))
     return Fig("".join(g), stages, "", (BX0, BX1))
 
 
@@ -1124,7 +1199,7 @@ def icons(n, on=None, kind="dot", cols=None, lead="", note="", oncol=None,
                               cap=max(24, int(cw * 0.20)), col=c, anchor="middle"))
     stages.append("".join(cur))
     if note:
-        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.TICK))
     return Fig("".join(g), stages, "", (x0 - 20, x0 + cw * cols + 20))
 
 
@@ -1149,7 +1224,7 @@ def sound(depth_m=3840, note="", rings=4, both=True, label_a="潜水艇の中",
     g.append(arrow(sx, sy - 54, sx, sy - 130, J.LINE, 4, 16))
     g.append(txt(sx + 16, sy - 96, "浮上中", 28, J.LINE))
     if note:
-        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.TICK))
     stages = []
     ox, oy = (bx + sx) / 2, sy + 150
     for k in range(rings):
@@ -1189,9 +1264,9 @@ def gauge(hits=None, yellow=30, red=50, vmax=60, lead="", note="", marks=None):
         g.append(line(px(v), y - 26, px(v), y + h + 26, c, 5))
         g.append(txt(px(v), y - 40, f"{v}回", 38, c, "Dela", "middle"))
         g.append(txt(px(v), y + h + 62, t, 32, c, "Noto", "middle"))
-    g.append(txt(x0, y + h + 62, "0", 30, J.LINE_DIM, "Dela"))
+    g.append(txt(x0, y + h + 62, "0", 30, J.TICK, "Dela"))
     if note:
-        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.TICK))
     stages = []
     if hits is not None:
         stages.append(rect(x0, y, px(hits) - x0, h, J.LINE, op=0.75)
@@ -1224,11 +1299,11 @@ def mapfig(points, note="", link=None, scale=None, lead=""):
                    (x0 + w * 0.33, y0 + h * 0.22), (x0 + w * 0.27, y0 + h * 0.40),
                    (x0 + w * 0.09, y0 + h * 0.36)],
                   fill=J.LINE_DIM, close=True, op=0.55))
-    g.append(txt(x0 + w * 0.07, y0 + h * 0.50, "ニューファンドランド", 26, J.LINE_DIM))
+    g.append(txt(x0 + w * 0.07, y0 + h * 0.50, "ニューファンドランド", 26, J.TICK))
     if lead:
         g.append(txtfit(BX0, BY0 + 16, lead, BW, cap=40, col=J.INK_W))
     if note:
-        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.TICK))
 
     def P(p):
         return (x0 + w * p["x"], y0 + h * p["y"])
@@ -1257,7 +1332,7 @@ def mapfig(points, note="", link=None, scale=None, lead=""):
                         cap=34, col=c, anchor=anch))
         if p.get("d"):
             s.append(txtfit(x + (34 if anch == "start" else -34), y + 50, p["d"], 560,
-                            cap=26, col=J.LINE_DIM, anchor=anch))
+                            cap=26, col=J.TICK, anchor=anch))
         stages.append("".join(s))
     return Fig("".join(g), stages, "", (x0, x0 + w))
 
@@ -1278,7 +1353,7 @@ def people(nodes, edges=None, note="", lead=""):
     if lead:
         g.append(txtfit(BX0, BY0 + 20, lead, BW, cap=40, col=J.INK_W))
     if note:
-        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.TICK))
 
     def C(i):
         n = nodes[i]
@@ -1306,7 +1381,7 @@ def people(nodes, edges=None, note="", lead=""):
         s.append(txtfit(x, y + (0 if not n.get("d") else -14), n["t"], bw - 26,
                         cap=36, col=J.INK_W, anchor="middle"))
         if n.get("d"):
-            s.append(txtfit(x, y + 34, n["d"], bw - 26, cap=26, col=J.LINE_DIM,
+            s.append(txtfit(x, y + 34, n["d"], bw - 26, cap=26, col=J.TICK,
                             anchor="middle"))
         stages.append("".join(s))
     return Fig("".join(g), stages, "", (x0, x0 + w))
@@ -1330,20 +1405,27 @@ def beforeafter(a, b, note="", lead=""):
         c = side.get("c", J.LINE if i == 0 else J.ALERT)
         s = [rect(x, top, cw, bh, c, op=0.12), rect(x, top, cw, bh, "none", c, 4)]
         s.append(chip(x + 20, top - 22, side.get("k", ""), c, 28))
-        y = top + 82
-        s.append(txtfit(x + cw / 2, y, side.get("t", ""), cw - 30, cap=44,
+        # 🔴 2026-08-01 作り直し（r13「枠内の余白が多い」＝12枚24枠すべてが該当）。
+        #    箱は 843×526 なのに、中身は**見出し44px＋箇条1行だけ**で、
+        #    下 7割が空洞だった（check_box：24枠すべてで空き矩形 71%）。
+        #    実測：24枠すべてが `lines` 1行以下・`v` は1つも無い。
+        #    → 箱はそのまま、**字を大きくして縦の中央に置く**。
+        nl = len(side.get("lines", []))
+        has_v = bool(side.get("v"))
+        y = top + bh * (0.30 if (has_v or nl > 1) else 0.38)
+        s.append(txtfit(x + cw / 2, y, side.get("t", ""), cw - 30, cap=78,
                         col=J.INK_W, anchor="middle"))
-        y += 66
+        y += bh * 0.20
         for ln in side.get("lines", []):
-            s.append(txtfit(x + 24, y, "・" + ln, cw - 44, cap=32, col=J.LINE))
-            y += 46
-        if side.get("v"):
+            s.append(txtfit(x + 34, y, "・" + ln, cw - 60, cap=46, col=J.LINE))
+            y += 60
+        if has_v:
             s.append(txt(x + cw / 2, top + bh - 30, side["v"],
-                         fm.fit(side["v"], cw - 40, "Dela", cap=70), c, "Dela",
+                         fm.fit(side["v"], cw - 40, "Dela", cap=110), c, "Dela",
                          "middle"))
         stages.append("".join(s))
     if note:
-        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.TICK))
     return Fig("".join(g), stages, "", (BX0, BX1))
 
 
@@ -1357,7 +1439,7 @@ def buckle(kind="local", note="", lead="", labels=True):
     if lead:
         g.append(txtfit(BX0, BY0 + 56, lead, BW, cap=46, col=J.INK_W))
     if note:
-        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.TICK))
     L, T = 1240, 170
     stages = []
     if kind == "crush":
@@ -1419,7 +1501,7 @@ def window(note="", marks=None, lead=""):
     if lead:
         g.append(txtfit(BX0, BY0 + 56, lead, BW, cap=44, col=J.INK_W))
     if note:
-        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.LINE_DIM))
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.TICK))
     top = [(cx - R + i * 2 * R / 40,
             cy - TE / 2 - (TC - TE) / 2 * math.cos(math.pi * (i / 40 - 0.5) * 2 * 0.5))
            for i in range(41)]
@@ -1427,10 +1509,10 @@ def window(note="", marks=None, lead=""):
     g.append(poly(top + bot, fill=J.OK, close=True, op=0.24))
     g.append(poly(top + bot, stroke=J.OK, close=True, sw=5))
     g.append(line(cx - R - 120, cy - 210, cx - R - 120, cy + 210, J.LINE_DIM, 3))
-    g.append(txt(cx - R - 136, cy, "外", 30, J.LINE_DIM, "Noto", "end"))
+    g.append(txt(cx - R - 136, cy, "外", 30, J.TICK, "Noto", "end"))
     # ⚠️ 「縁は薄い」の寸法線が cx+R+190 に立つので、そのラベル（左へ伸びる）と
     #    重なっていた。内側のラベルは寸法線の外へ出す。
-    g.append(txt(cx + R + 330, cy, "内", 30, J.LINE_DIM))
+    g.append(txt(cx + R + 330, cy, "内", 30, J.TICK))
     stages = [J.vdim(cy - TC / 2, cy + TC / 2, cx - 34, "中央は厚い"),
               J.vdim(cy - TE / 2, cy + TE / 2, cx + R + 190, "縁は薄い")]
     for m in (marks or []):
