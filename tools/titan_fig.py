@@ -977,9 +977,26 @@ def process(steps, note="", numbered=True, cols=None):
     aw = 74                                   # 矢印ぶん
     cw = (BW - gap * (cols - 1) - aw * (cols - 1)) / cols
     # ⚠️ 箱の高さを300に固定していたので、本体枠の下 y640〜880 が丸ごと空いた
-    #    （c109 c115 など17カット全部）。**枠の縦を使い切る。**
-    top = BY0 + 62
-    bh = BY1 - top - (78 if note else 34)
+    #    （c109 c115 など17カット全部）。そこで**枠の縦を使い切る**ようにしたが、
+    # 🔴 2026-08-01（r14 を焼いて目視）：今度は**箱の中**が空洞になっていた。
+    #    字を大きくしても埋まらない。**箱の高さが中身の3倍ある**のが原因だった
+    #    （中身は「見出し＋説明1行」だけ。48枠のうち41枠は値を持たない）。
+    #    → **中身を先に測って箱をその高さに合わせ、枠の縦の中央に置く。**
+    #    ⚠️ 数字を埋めるために飾りを足さない。器のほうを中身に合わせる。
+    top0 = BY0 + 62
+    bh_max = BY1 - top0 - (78 if note else 34)
+    need = 0.0
+    for st in steps:
+        ts = fm.fit(str(st["t"]), cw - 30, "Noto", cap=84, floor=18)
+        h = 104 + ts * 1.15                        # 番号の丸ぶん＋見出し
+        if st.get("d"):
+            _, y2 = para(0, 0, str(st["d"]), cols=max(6, int(cw / 42)), size=42)
+            h += y2 + 30
+        if st.get("v"):
+            h += 130
+        need = max(need, h)
+    bh = max(300.0, min(bh_max, need + 56))
+    top = top0 + (bh_max - bh) / 2
     g = []
     stages = []
     for i, st in enumerate(steps):
@@ -1393,8 +1410,21 @@ def people(nodes, edges=None, note="", lead=""):
 def beforeafter(a, b, note="", lead=""):
     """左右2枚。a/b は dict(k="変更前", t="…", lines=[…], c=…)。"""
     cw = (BW - 90) / 2
-    top = BY0 + 96
-    bh = BY1 - top - 60
+    # 🔴 2026-08-01（r14 を焼いて目視）。process と同じ症状。
+    #    箱は 843×526 なのに中身は「見出し＋箇条1行」だけで、器が中身の3倍あった。
+    #    実測：24枠すべて lines が1行以下・値は1つも無い。
+    #    → **中身を測って箱をその高さにし、縦の中央に置く。**
+    top0 = BY0 + 96
+    bh_max = BY1 - top0 - 60
+    need = 0.0
+    for side in (a, b):
+        ts = fm.fit(str(side.get("t", "")), cw - 30, "Noto", cap=78, floor=18)
+        h = 60 + ts * 1.15 + 60 * len(side.get("lines", []))
+        if side.get("v"):
+            h += 130
+        need = max(need, h)
+    bh = max(280.0, min(bh_max, need + 56))
+    top = top0 + (bh_max - bh) / 2
     g = []
     if lead:
         g.append(txtfit(BX0, BY0 + 62, lead, BW, cap=44, col=J.INK_W))

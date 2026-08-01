@@ -205,7 +205,7 @@ def parse(svg, layer):
     枠   … (x, y, w, h)
     中身 … ("box", x0,y0,x1,y1) か ("pts", [(x,y), …])
     """
-    frames_, marks, texts = [], [], []
+    frames_, marks, texts, fills = [], [], [], []
     stack = [(0.0, 0.0)]
     for m in TAG.finditer(svg):
         tag, raw, selfclose = m.group(1), m.group(2), m.group(3)
@@ -226,6 +226,8 @@ def parse(svg, layer):
             if fill == "none" and stroke not in ("none", "") and w >= MIN_W and h >= MIN_H:
                 frames_.append((x, y, w, h))
             else:
+                # 同じ形の「塗り」は、枠の地色か、図形そのものか、の判断材料になる
+                fills.append((x, y, w, h, _f(a, "opacity", 1.0), fill))
                 marks.append(("box", x, y, x + w, y + h))
             continue
         if tag == "image":
@@ -260,7 +262,7 @@ def parse(svg, layer):
         x0 = x - w / 2 if anc == "middle" else (x - w if anc == "end" else x)
         marks.append(("box", x0, y - up, x0 + w, y + dn))
         texts.append((x0, y - up, x0 + w, y + dn, t))
-    return frames_, marks, texts
+    return frames_, marks, texts, fills
 
 
 def scaffold(mark):
@@ -289,7 +291,18 @@ def dedupe(frames_):
 # ══════════════════════════════════════════════════════════
 # 内側を畳んで測る
 # ══════════════════════════════════════════════════════════
-def is_container(frame_, texts):
+# 枠と同じ形の塗りが「濃い**データ色**」なら、それは器でなく**図形そのもの**。
+# 🔴 2026-08-01：`breakdown` の積み上げ棒（op=0.32）を枠として数えていた。
+#    棒は中が塗りつぶしなので「空いている」と出るが、それが正しい形。
+# ⚠️ 濃さだけで切ったら、今度は `quote` の出どころの札（BG2 op=0.72）まで外れた。
+#    札は**中身を入れる器**なので外してはいけない。
+#    → 分かれ目は濃さではなく**色**。地の色（BG/BG2/GRID）で塗ってあれば「面」＝器、
+#      データ色（LINE/ALERT/AMBER/OK…）で塗ってあれば「棒」＝図形そのもの。
+SOLID = 0.25
+GROUND_FILLS = {J.BG.lower(), J.BG2.lower(), J.GRID.lower(), "none", ""}
+
+
+def is_container(frame_, texts, fills=()):
     """その rect が「中身を入れる枠」か、「棒・面などの図形そのもの」かを分ける。
 
     🔴 最初これを分けずに測って、`compare` の**棒**を枠として数えた（26個すべて
@@ -304,6 +317,11 @@ def is_container(frame_, texts):
        中が空いていることは症状ではない）。
     """
     x, y, w, h = frame_
+    for fx, fy, fw, fh, op, col in fills:
+        if (abs(fx - x) < 6 and abs(fy - y) < 6 and abs(fw - w) < 6
+                and abs(fh - h) < 6 and op >= SOLID
+                and col.lower() not in GROUND_FILLS):
+            return False                      # 棒などの図形そのもの
     return any(x <= (t[0] + t[2]) / 2 <= x + w and y <= (t[1] + t[3]) / 2 <= y + h
                for t in texts)
 
@@ -426,7 +444,7 @@ def measure(only=None, cut=None, kind=None, hist=False, verbose=False):
 
     rows, bad = [], []
     for cid in cids:
-        frames_, marks, texts = [], [], []
+        frames_, marks, texts, fills = [], [], [], []
         for k, svg in bycut[cid]:
             # 🔴 `_base` は地（`J.frame` の方眼 1920×1080）＋見出し＋章マーカー。
             #    方眼は 60px ごとに全画面を走るので、**中身に数えると全部の箱が
@@ -434,15 +452,16 @@ def measure(only=None, cut=None, kind=None, hist=False, verbose=False):
             #    最初これで丸ごと騙された。地は中身ではない。
             if k.endswith("_base"):
                 continue
-            f, m, t = parse(svg, k)
+            f, m, t, fl = parse(svg, k)
             frames_ += f
             marks += [x for x in m if not scaffold(x)]
             texts += t
+            fills += fl
         frames_ = dedupe(frames_)
         if not frames_:
             continue
         for bi, fr in enumerate(frames_):
-            if not is_container(fr, texts):
+            if not is_container(fr, texts, fills):
                 continue                       # 棒・面などの図形そのもの。枠ではない
             x, y, w, h = fr
             grid, cx, cy, inner = occupancy(fr, marks)
