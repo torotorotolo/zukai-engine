@@ -4,8 +4,9 @@
 **費用0円・SVG＋Chrome headless** で作るための基盤。
 Node も Remotion も使わない（このPCは空きディスク6GB・メモリ4GBのため）。
 
-> 2026-08-01：**シニア向け健康解説チャンネルの資産を撤去した。**
-> `character.py` `anatomy.py` `cartoon.py` と参考画像・生成物を消してある。
+> 2026-08-01：**他チャンネルの資産を撤去した。**
+> シニア向け健康解説（`character.py` `anatomy.py` `cartoon.py` と参考画像・生成物）と
+> まちがい探し喫茶（`palette.py` `shading.py`）。
 > 消したものは git 履歴に残っているので `git log --diff-filter=D --oneline -- tools/` から辿れる。
 > 図解の作り方の知見は Vault `Resources/描画の知見-人体と首なしキャラ-20260801.md` に移した。
 
@@ -88,8 +89,9 @@ Chrome/Edge の headless で SVG→PNG する。**追加インストールは一
 | `tools/gc_artifacts.py` | 成果物の掃除（500MB枠） |
 | `ref/` | 一次資料（NTSB/USCG/NOAA の PD写真・報告書）。出所は `ref/CREDITS.md` |
 
-`tools/palette.py` `tools/shading.py` は「まちがい探し喫茶」用で、
-**どこからも import されていない**（残置）。
+> **このリポジトリは事故検証chの資産だけを置く。**
+> 2026-08-01 に健康解説ch（`character.py` `anatomy.py` ほか）と
+> まちがい探し喫茶（`palette.py` `shading.py`）を撤去した。どちらも git 履歴に残っている。
 
 ## 押さえておくべき技術
 
