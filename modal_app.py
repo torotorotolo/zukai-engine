@@ -186,6 +186,11 @@ def full(note: str = "", ref: str = "main", workers: int = 8,
     # ③ 語尾が BGM に埋もれていないか（2026-07-31 の指摘①で追加した検査）
     sh("python3 tools/check_mask.py", check=False)
 
+    # ③b ★実写「動画」を落として、必要なコマだけ切り出す（2026-08-01 追加）。
+    #     🔴 動画はリポジトリに入れていないので、ここで URL から取る。
+    #     ⚠️ 取れなくても止めない。コマが無ければ build 側は**静止画に落ちる**。
+    sh("python3 tools/footage.py", check=False)
+
     # ④ レイヤー書き出し（SVG → PNG。Chrome headless）
     sh(env + "python3 tools/scene_jiko.py --force")
 
@@ -226,6 +231,7 @@ def qa(note: str = "", ref: str = "main", zoom: str = ""):
     clone(ref)
     sh("python3 tools/scene_jiko.py --report")
     sh("python3 tools/check_layout.py", check=False)
+    sh("python3 tools/footage.py", check=False)      # ★実写動画のコマ
     sh("python3 tools/scene_jiko.py --force")
     sh(f"python3 tools/build_jiko.py qa{(' --zoom=' + zoom) if zoom else ''}")
     sh("python3 tools/check_space.py out/jiko/qa", check=False)

@@ -80,6 +80,34 @@ def duotone(im, dark, light, boost=False):
     return g.convert("RGB").point(lut).convert("RGBA")
 
 
+# ── ★実写「動画」を差し込む（2026-08-01 追加） ─────────────────
+# 🔴 コマは `python tools/footage.py fetch` が out/jiko/foot/<cid>/ に切り出しておく。
+#    **無ければ静止画に落ちる**ので、切り出さないまま焼いてもパイプラインは壊れない。
+FOOT = OUT / "foot"
+_FOOT_MISS = set()
+try:
+    import footage as _FO
+    _FOOT_USE = _FO.USE
+except Exception:                                        # noqa: BLE001
+    _FOOT_USE = {}
+
+
+def foot_frame(cut, t):
+    """そのカットに動画が当ててあれば、その時刻のコマを返す。無ければ None。"""
+    if cut in _FOOT_MISS:
+        return None
+    d = FOOT / cut
+    p = d / f"{int(round(t * FPS)):05d}.jpg"
+    if not p.exists():
+        # 尺の端でコマが足りないときは最後のコマで持たせる
+        got = sorted(d.glob("*.jpg")) if d.is_dir() else []
+        if not got:
+            _FOOT_MISS.add(cut)
+            return None
+        p = got[-1]
+    return Image.open(p).convert("RGB")
+
+
 def load_photo(name, box):
     """写真は箱の2倍程度まで先に落としておく（4GBのPCでも開けるように）。"""
     src = Image.open(S.HERE / "ref" / name).convert("RGB")
@@ -222,8 +250,17 @@ def scene(cut, t, dur, lay, photos, meta):
         fr = lay[f"{cut}_bg"].copy()
         # 帯写真はケンバーンズを弱くする（原寸に近いので寄ると粗が出る）
         k = t / max(dur, 0.001)
-        # 実写カットでも `xbias` / `zoom` を書けば焼き込みを外せる（既定は今までと同じ）
-        ph = fit(photos[cut], box, k * (0.35 if box[3] < S.H else 1.0), bias, xb, zm)
+        # ★動画を当てたカットは、そのコマを写真の代わりに使う
+        #   ⚠️ 映像そのものが動いているので、寄り（ケンバーンズ）は**かけない**。
+        #     動く絵に寄りを重ねると手ブレのように見える。
+        src = foot_frame(cut, t)
+        if src is not None:
+            xb, zm = meta[cut].get("fxb", xb), meta[cut].get("fzm", zm)
+            ph = fit(src, box, 0.0, meta[cut].get("fbias", bias), xb, zm)
+        else:
+            src = photos[cut]
+            # 実写カットでも `xbias` / `zoom` を書けば焼き込みを外せる（既定は今までと同じ）
+            ph = fit(src, box, k * (0.35 if box[3] < S.H else 1.0), bias, xb, zm)
         fr.paste(duotone(ph, J.BG2, "#e6eef2", boost=cut in BOOST), (box[0], box[1]))
         over(fr, lay[f"{cut}_lab"], min(1.0, max(0.0, (t - 0.15) / 0.5)))
         # 実写の注記は**フェード**で出す。写真の上を横切るワイプは汚れに見える
@@ -275,6 +312,11 @@ def meta_of(idx):
                   #   描き終わってそのあと画が止まるので、型の側から長めに指定できる。
                   "labk": v.get("labk") or LAB_K,
                   "times": S.stage_times(cid, v["stages"], v.get("holds"))}
+        # ★動画を当てたカットの切り方（焼き込みを画面外へ追い出すための寄せ・拡大）
+        u = _FOOT_USE.get(cid)
+        if u:
+            m[cid].update(fxb=u.get("xbias", 0.5), fzm=u.get("zoom", 1.0),
+                          fbias=u.get("bias", 0.5))
     return m
 
 

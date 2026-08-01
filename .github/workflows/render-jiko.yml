@@ -85,6 +85,14 @@ jobs:
             chromium-browser --version
           fi
 
+      # ★実写「動画」を落として、必要なコマだけ切り出す（2026-08-01 追加）。
+      #   🔴 動画はリポジトリに入れていないので、ここで URL から取る。
+      #   ⚠️ 失敗しても続行する。コマが無ければ build 側は**静止画に落ちる**ので、
+      #     素材が取れない日でも検品は回せる（パイプラインは壊れない）。
+      - name: Fetch footage (実写動画)
+        continue-on-error: true
+        run: python tools/footage.py
+
       # 226カット全部に「画」が割り当たっているか。抜けがあればここで止める。
       # ⚠️ partial=true のときは抜けを見逃す（章を作っている途中の試し焼き用）。
       - name: Check cut table

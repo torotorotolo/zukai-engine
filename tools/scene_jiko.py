@@ -90,6 +90,24 @@ PHOTO_CREDIT = {
 BANNED_PHOTOS = set()
 
 
+def credit_of(cid, spec):
+    """そのカットに出す出典。**動画を当てたカットは動画の出典を出す。**
+
+    🔴 2026-08-01：動画を差し込むとき、静止画の出典（NTSB／PD）をそのまま
+       出してしまうと**出所を偽ることになる**。ROV映像は沿岸警備隊の公開資料だが
+       撮影は Pelagic Research Services で、パブリックドメインではない。
+       検証番組で出所を偽ると、内容そのものの信用が落ちる。
+    """
+    try:
+        import footage as FO
+        c = FO.credit_of(cid)
+        if c and FO.have(cid):
+            return c
+    except Exception:                                    # noqa: BLE001
+        pass
+    return PHOTO_CREDIT[spec["photo"]]
+
+
 def face_css(name, filename):
     b = base64.b64encode((FONTS / filename).read_bytes()).decode()
     return (f"@font-face{{font-family:'{name}';src:url(data:font/woff2;base64,{b}) "
@@ -224,7 +242,7 @@ def full_top(cid, spec):
     ch = chapter_of(cid)
     if ch:
         g.append(J.chapter(ch[0], NCH, ch[1]))
-    g.append(J.outlined(J.MG, CRED_Y, PHOTO_CREDIT[spec["photo"]], J.LINE, 24, sw=5))
+    g.append(J.outlined(J.MG, CRED_Y, credit_of(cid, spec), J.LINE, 24, sw=5))
     return "".join(g)
 
 
@@ -291,7 +309,7 @@ def fig_base(cid, spec, ground=True):
         #    中に入って図の文字と重なった（check_layout が c115a と c628 で検出）。
         #    ここは章マーカー（y=56〜158）の下、本体の上で、どの型も使わない帯。
         g = [J.grid_only(W, H),
-             J.outlined(J.RIGHT, CRED_BACK_Y, PHOTO_CREDIT[spec["photo"]],
+             J.outlined(J.RIGHT, CRED_BACK_Y, credit_of(cid, spec),
                         J.LINE, 24, anchor="end", sw=5)]
     g.append(J.title(spec["t"], spec.get("s", "")))
     ch = chapter_of(cid)

@@ -1208,7 +1208,19 @@ def icons(n, on=None, kind="dot", cols=None, lead="", note="", oncol=None,
                              (x - r * 0.62, y + r * 0.72)], fill=c, close=True))
             cur.append(rect(x - r * 0.20, y - r * 0.86, r * 0.40, r * 0.86, c))
         elif kind == "sub":
-            cur.append(rect(x - r, y - r * 0.44, r * 2, r * 0.88, c, rx=r * 0.44))
+            # 🔴 2026-08-01（r14 を焼いて目視）：角丸の棒を1本置いていただけなので、
+            #    9隻・49回のカットが**ただの棒の列**に見えていた。潜水艇の形にする。
+            #    前が丸く、後ろが細くなり、上に小さなフィン、前にのぞき窓。
+            hh = r * 0.42
+            cur.append(poly([(x - r, y), (x - r * 0.90, y - hh * 0.80),
+                             (x + r * 0.26, y - hh), (x + r * 0.70, y - hh * 0.56),
+                             (x + r, y - hh * 0.22), (x + r, y + hh * 0.22),
+                             (x + r * 0.70, y + hh * 0.56), (x + r * 0.26, y + hh),
+                             (x - r * 0.90, y + hh * 0.80)], fill=c, close=True))
+            cur.append(poly([(x + r * 0.30, y - hh), (x + r * 0.54, y - hh * 1.86),
+                             (x + r * 0.72, y - hh * 1.86), (x + r * 0.62, y - hh)],
+                            fill=c, close=True))
+            cur.append(circ(x - r * 0.62, y, hh * 0.34, J.BG))
         else:
             cur.append(circ(x, y, r * 0.62, c))
         if labels and i < len(labels):
