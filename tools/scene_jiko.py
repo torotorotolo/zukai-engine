@@ -270,7 +270,10 @@ def photo_ann(spec):
 #   ⚠️ **推定で置かない。** `tools/check_veil.py` が、写真ごとに
 #      「図のいちばん細い色と地とのコントラスト比」を測って必要な濃さを出す。
 #      ここは既定値で、カットごとに `veil=` で上書きできる。
-VEIL = float(os.environ.get("ZUKAI_VEIL", 0.84))
+# 2026-08-01 カズヤくん判定「もう少し薄く」→ 0.84 → **0.80**。
+# 実測では 0.80 で「図の読みやすさ 0.45／写真の見え L*17」。
+# ⚠️ これ以上薄くすると図が読めなくなる（0.72 で 0.28 まで落ちる）。
+VEIL = float(os.environ.get("ZUKAI_VEIL", 0.80))
 
 
 def fig_base(cid, spec, ground=True):

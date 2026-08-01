@@ -47,6 +47,8 @@
   検査 … `python tools/check_mask.py`（語尾とドローンの余裕 dB を全417行で測る）
 """
 import json
+import os
+import subprocess
 import sys
 import wave
 from pathlib import Path
@@ -60,8 +62,33 @@ import scene_jiko as S
 
 SR = 44100
 HERE = S.HERE
+
+# ── ★既製BGM（2026-08-01 カズヤくん指定） ─────────────────
+# 「陰鬱な灰色の気配」蒲鉾さちこ（DOVA-SYNDROME・2分23秒）
+#   https://dova-s.jp/bgm/detail/21602
+#   商用利用OK／クレジット任意。**ただし作者が音源の再配布を禁止している。**
+#
+# 🔴 だから **リポジトリに置かない**（このリポジトリは public なので、
+#    置いた時点で再配布に当たる）。.gitignore にも入れてある。
+#    置き場所は3つのどれか。見つかった順に使う：
+#      ① 環境変数 ZUKAI_BGM が指すファイル
+#      ② Modal の保管庫  /assets/bgm.mp3     ← クラウドで焼くときはここ
+#      ③ ローカルの     assets/bgm.mp3       ← 手元で試すときはここ
+#    どれも無ければ**自作のドローンに自動で戻る**（パイプラインは壊れない）。
+#
+#    Modal への置き方（最初の1回だけ）：
+#      modal volume put jiko-assets "ダウンロードしたファイル.mp3" bgm.mp3
+BGM_PATHS = [os.environ.get("ZUKAI_BGM", ""), "/assets/bgm.mp3",
+             str(S.HERE / "assets" / "bgm.mp3")]
+BGM_CREDIT = "BGM：陰鬱な灰色の気配／蒲鉾さちこ（DOVA-SYNDROME）"
+# 既製曲は音の詰まり方が自作ドローンと違うので、**音量は割合でなく実測で決める**。
+# ⚠️ カズヤくん指示「音量は控えめに」。ナレーションに対して十分下げたところから始め、
+#    `python tools/check_mask.py` の余裕dBを見て詰める。
+BGM_RMS = -34.0          # BGMだけのときの実効音量（dBFS RMS）。控えめ側の値
+BGM_XFADE = 3.0          # ループの継ぎ目をまたぐクロスフェード（秒）
+
 V_NARR = 1.00
-V_BGM = 0.12
+V_BGM = 0.12             # ★自作ドローンに戻ったときだけ使う値
 V_HEART = 0.10
 V_IMPACT = 0.30
 
@@ -151,6 +178,56 @@ def drone(n):
     air = np.convolve(air, np.ones(k) / k, mode="same")
     y += 0.10 * air / (np.abs(air).max() + 1e-9)
     return y
+
+
+def find_bgm():
+    """既製BGMの実体を探す。無ければ None（自作ドローンに戻る）。"""
+    for p in BGM_PATHS:
+        if p and Path(p).exists():
+            return Path(p)
+    return None
+
+
+def music(n, path):
+    """既製BGMを尺いっぱいに敷く。**継ぎ目はクロスフェードでつなぐ。**
+
+    ⚠️ 2分23秒の曲を34分に敷くと **14回以上ループ**する。
+       ぶつ切りで並べると継ぎ目でプツッと鳴るので、必ず重ねて渡す。
+    ⚠️ 音量は「元ファイルの何倍」ではなく **実効音量（RMS）を測って揃える**。
+       曲を差し替えても体感の大きさが変わらないようにするため。
+    """
+    # mp3 → 生の 44.1kHz モノラルに落とす（ffmpeg は既に使っている）
+    r = subprocess.run(
+        ["ffmpeg", "-v", "error", "-i", str(path), "-f", "s16le",
+         "-acodec", "pcm_s16le", "-ar", str(SR), "-ac", "1", "-"],
+        capture_output=True)
+    if r.returncode or not r.stdout:
+        print(f"🔴 BGM を読めなかった: {path} … 自作ドローンに戻す")
+        return None
+    src = np.frombuffer(r.stdout, dtype="<i2").astype(np.float64) / 32768.0
+    if len(src) < SR * 5:
+        print(f"🔴 BGM が短すぎる（{len(src)/SR:.1f}秒）… 自作ドローンに戻す")
+        return None
+    # 実効音量をそろえる
+    rms = np.sqrt((src ** 2).mean())
+    src *= 10 ** (BGM_RMS / 20.0) / max(rms, 1e-9)
+
+    xf = int(BGM_XFADE * SR)
+    body = len(src) - xf
+    out = np.zeros(n + len(src))
+    fade_in = np.linspace(0.0, 1.0, xf)
+    pos, first = 0, True
+    while pos < n:
+        seg = src.copy()
+        if not first:
+            seg[:xf] *= fade_in            # 頭を持ち上げながら
+        seg[-xf:] *= fade_in[::-1]         # 尻を落として重ねる
+        out[pos:pos + len(seg)] += seg
+        pos += body
+        first = False
+    print(f"BGM「{path.name}」{len(src)/SR:.0f}秒を "
+          f"{-(-n // body)} 回つないだ（継ぎ目 {BGM_XFADE:.0f}秒の重ね）", flush=True)
+    return out[:n]
 
 
 def heartbeat(n, bpm=48.0):
@@ -263,7 +340,12 @@ def main(head=None, out_name="mix.wav", duck=True):
         cuts = keep
     total = sum(s for _, s in cuts)
     n = int(total * SR) + SR
-    bed = drone(n) * V_BGM
+    # ★既製BGMがあればそれを、無ければ自作ドローンを敷く
+    src = find_bgm()
+    bed = music(n, src) if src else None
+    if bed is None:
+        bed = drone(n) * V_BGM
+        print("BGM＝自作のドローン（既製BGMが見つからない）", flush=True)
     mix = np.zeros(n)
 
     starts, t = {}, 0.0

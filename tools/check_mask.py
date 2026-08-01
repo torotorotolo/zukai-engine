@@ -95,12 +95,20 @@ def bed_db(mixmod=None):
     聞こえるかどうかが決め手なので、山（t=5.5秒あたり）で測る。
     """
     A = mixmod or __import__("audio_mix")
-    d = A.drone(A.SR * 12) * A.V_BGM
+    # ★既製BGMがあればそれを測る（自作ドローンとは帯域も音量も違う）。
+    src = A.find_bgm() if hasattr(A, "find_bgm") else None
+    if src is not None:
+        d = A.music(A.SR * 40, src)
+        if d is None:
+            d = A.drone(A.SR * 12) * A.V_BGM
+    else:
+        d = A.drone(A.SR * 12) * A.V_BGM
     # サイドチェインで下がった状態を見る。**語尾が聞こえるかを決めるのは
     # 話しているあいだの寝床**であって、無音での寝床ではない。
     d = d * 10 ** (-getattr(A, "DUCK_DB", 0.0) / 20)
-    _, e = envelope(bandpass(d[int(4.5 * A.SR):int(6.5 * A.SR)], A.SR), A.SR)
-    return float(np.percentile(e, 90))
+    _, e = envelope(bandpass(d, A.SR), A.SR)
+    # 曲は場所によって濃さが変わる。**いちばん大きいところ**で判定する
+    return float(np.percentile(e, 95))
 
 
 def speech_end(x, sr, a, b, floor=-46.0):

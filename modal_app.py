@@ -106,6 +106,17 @@ image = (
 app = modal.App("zukai-jiko")
 vol = modal.Volume.from_name("jiko-out", create_if_missing=True)
 
+# 🔴 既製BGM（DOVA-SYNDROME「陰鬱な灰色の気配」）の置き場所。
+#    **作者が音源の再配布を禁止**しており、このリポジトリは public なので
+#    リポジトリには入れられない。保管庫に1回入れておき、焼くときだけ読む。
+#
+#      modal volume put jiko-assets "ダウンロードしたファイル.mp3" bgm.mp3
+#      modal volume ls jiko-assets            … 入っているか確認
+#
+#    ⚠️ 保管庫は自分のワークスペースにしか見えない＝再配布にならない。
+ASSETS = "/assets"
+assets = modal.Volume.from_name("jiko-assets", create_if_missing=True)
+
 CPU = 8.0            # 物理コア。build_jiko は最大8並列で焼く
 MEM = 16384          # MiB。audio_mix が34分ぶんの float64 配列を数本持つ
 HOURS = 4
@@ -134,7 +145,7 @@ def clone(ref):
 
 # ── ★本編mp4を焼く ────────────────────────────────────────
 @app.function(image=image, cpu=CPU, memory=MEM, timeout=HOURS * 3600,
-              volumes={VOL: vol})
+              volumes={VOL: vol, ASSETS: assets})
 def full(note: str = "", ref: str = "main", workers: int = 8):
     """226カット・61,320コマを mp4 にして、音を乗せて保管庫に置く。
 
@@ -163,6 +174,8 @@ def full(note: str = "", ref: str = "main", workers: int = 8):
     sh(env + "python3 tools/build_jiko.py full")
 
     # ⑥ ナレーション＋BGM＋効果音 → 映像に乗せる
+    # ⚠️ BGM は保管庫（/assets/bgm.mp3）から読む。無ければ自作ドローンに戻る。
+    sh(f"ls -la {ASSETS}/ || true", check=False)
     sh("python3 tools/audio_mix.py")
     sh("ffmpeg -y -hide_banner -loglevel error "
        "-i out/jiko/titan.mp4 -i out/jiko/mix.wav "

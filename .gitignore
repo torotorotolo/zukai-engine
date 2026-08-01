@@ -48,3 +48,7 @@ audio/_full.mp3
 # USCG報告書は335ページ26MB。ヘッダー付きでいつでも落とせるので入れない
 #   → 落とし方は Vault の引き継ぎノートに書いてある
 ref/uscg_titan_mbi.pdf
+
+# 🔴 既製BGM（DOVA-SYNDROME）は**作者が再配布を禁止**しているので置かない。
+#    このリポジトリは public。Modal の保管庫から読む（tools/audio_mix.py 参照）
+assets/
