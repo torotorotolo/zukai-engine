@@ -297,10 +297,13 @@ def banner_crops(p):
 
 def main():
     print("チャンネル素材を焼く", flush=True)
-    paths = [bake("icon_A_moment", icon_moment(), IC, IC),
-             bake("icon_A_plain", icon_moment(ticks=False), IC, IC),
-             bake("icon_B_section", icon_section(), IC, IC),
-             bake("icon_C_mark", icon_question(), IC, IC)]
+    # ★2026-08-01 カズヤくん採用＝A案・目盛りなし。**これが本番**
+    #   24px（登録リスト・コメント欄）で残るのが「赤い縦棒＋点」だけになり、
+    #   目盛りありは同じ大きさで潰れて汚れに見えたため。
+    paths = [bake("icon", icon_moment(ticks=False), IC, IC),          # ★本番
+             bake("icon_alt_A_ticks", icon_moment(), IC, IC),         # 以下は比較用
+             bake("icon_alt_B_section", icon_section(), IC, IC),
+             bake("icon_alt_C_mark", icon_question(), IC, IC)]
     bn = bake("banner", banner(), BN_W, BN_H)
     if "--check" in sys.argv:
         check_sheet(paths)
