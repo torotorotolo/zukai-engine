@@ -82,9 +82,9 @@ USE = {
     "pr01": dict(clip="rov_aftdome", start=41.0, xbias=0.62, zoom=1.42, bias=0.55),
     # 「6月22日、海底で残骸を見つけた。尾部と、2つのチタンのドーム」
     #   ⭐この映像そのものが**尾部コーン**で、焼き込みの日付も 06-22-2023 で一致する
-    "c132": dict(clip="rov_tailcone", start=22.0, xbias=0.62, zoom=1.42, bias=0.55),
+    "c132": dict(clip="rov_tailcone", start=18.0, xbias=0.62, zoom=1.42, bias=0.55),
     # 「海底の残骸は、この形と一致していた。円筒は層に分かれていた」
-    "c624": dict(clip="rov_aftdome", start=79.0, xbias=0.62, zoom=1.42, bias=0.55),
+    "c624": dict(clip="rov_aftdome", start=60.0, xbias=0.62, zoom=1.42, bias=0.55),
 }
 # ❌ 当てるのをやめたところ（記録）
 #   c129「最初に無人探査機を積んだ船が着いた。だが3,000メートルまでしか潜れない」
