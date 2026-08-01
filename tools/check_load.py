@@ -47,6 +47,24 @@ UNESC = {"&amp;": "&", "&lt;": "<", "&gt;": ">"}
 NGRAM = 4          # 一致と見なす最短の連続長。語の長さで切る
 DROP = re.compile(r"[、。，．\s「」『』（）()【】・…　]")
 
+# ── 🔴 「読む文」だけを数えるための除外（2026-08-01・実物を見て足した）──
+#    最初は <text> を全部数えていたが、それだと的を外すと分かった。
+#      c124 … 113字のうち **36字が出典表記・18字が時刻の目盛り**
+#      c414 … 「巻いて焼く」が5回・「1インチ」が5回で45字。
+#              **同じ文字列は1回読めば済む**（5回の繰り返しは絵の意味であって読む量ではない）
+#      pr03 … 74字のうち32字が出典
+#    出典は法的に要るし、端の小さな字で読ませる対象ではない。目盛りは眺めるもの。
+CREDIT = re.compile(r"^(出典|出どころ|Source|©)")
+# 数値・単位・時刻だけで出来た札。図が持つべき情報で、文として読む対象ではない
+DATAISH = re.compile(r"^[0-9０-９,.，．%％\s:：/／~〜\-−－a-zA-Z"
+                     r"年月日時分秒回本個名人隻機層枚倍度円m]+$")
+
+
+def is_prose(t):
+    """読ませる文か。出典・目盛り・数値の札は数えない。"""
+    n = DROP.sub("", t)
+    return len(n) >= 4 and not CREDIT.match(t) and not DATAISH.match(t)
+
 
 def unesc(t):
     for k, v in UNESC.items():
@@ -97,18 +115,26 @@ def measure(only=None):
         if cid not in by or (only and not cid.startswith(only)):
             continue
         narr = norm("".join(r["text"] for r in S.SUBS.get(cid, [])))
-        items = []
+        items, seen = [], set()
+        prose = pdup = 0
         for layer, t in by[cid]:
             n = norm(t)
             if not n:
                 continue
-            items.append((layer, t, len(n), covered(n, narr)))
+            cv = covered(n, narr)
+            items.append((layer, t, len(n), cv))
+            # ★読む量は「出典と目盛りを除いた散文」を、**同じ文字列は1回だけ**数える
+            if is_prose(t) and n not in seen:
+                seen.add(n)
+                prose += len(n)
+                pdup += cv
         chars = sum(x[2] for x in items)
         dup = sum(x[3] for x in items)
         sec = secs[cid]
         rows.append({"cid": cid, "sec": sec, "chars": chars, "dup": dup,
-                     "cps": chars / sec if sec else 0,
-                     "ratio": dup / chars if chars else 0, "items": items,
+                     "prose": prose, "pdup": pdup,
+                     "cps": prose / sec if sec else 0,
+                     "ratio": pdup / prose if prose else 0, "items": items,
                      "narr": len(narr)})
     return rows
 
@@ -139,26 +165,30 @@ def main():
         return 0
 
     tot_c = sum(r["chars"] for r in rows)
-    tot_d = sum(r["dup"] for r in rows)
-    print(f"■ {len(rows)}カット ／ 図の総字数 {tot_c:,}字 ／ "
-          f"うちナレーションと重複 {tot_d:,}字（{tot_d / max(tot_c,1):.0%}）\n")
+    tot_p = sum(r["prose"] for r in rows)
+    tot_d = sum(r["pdup"] for r in rows)
+    print(f"■ {len(rows)}カット ／ 画面の全文字 {tot_c:,}字 ／ "
+          f"うち**読ませる散文** {tot_p:,}字（出典と目盛りと繰り返しを除く）")
+    print(f"   散文のうちナレーションと重複 {tot_d:,}字（{tot_d / max(tot_p,1):.0%}）\n")
 
     cps = sorted(r["cps"] for r in rows)
     n = len(cps)
-    print(f"字/秒  中央 {cps[n//2]:.2f} ／ 上位1割 {cps[-max(1,n//10)]:.2f} "
-          f"／ 最大 {cps[-1]:.2f}\n")
+    print(f"散文の字/秒  中央 {cps[n//2]:.2f} ／ 上位1割 {cps[-max(1,n//10)]:.2f} "
+          f"／ 最大 {cps[-1]:.2f}")
+    print("   ⚠️ 目安：日本語の楽な黙読は 7〜10字/秒。ここに字幕が約5字/秒 乗る。\n")
 
-    print("── 削れる字数が多い順（重複＝耳で聞いている情報） ──")
-    print(f"{'カット':<8}{'尺':>6}{'字数':>6}{'重複':>6}{'割合':>6}{'字/秒':>7}")
-    for r in sorted(rows, key=lambda x: -x["dup"])[:25]:
-        print(f"{r['cid']:<8}{r['sec']:>6.1f}{r['chars']:>6}{r['dup']:>6}"
-              f"{r['ratio']:>5.0%}{r['cps']:>7.2f}")
+    HD = f"{'カット':<8}{'尺':>6}{'散文':>6}{'重複':>6}{'割合':>6}{'字/秒':>7}{'全文字':>7}"
+    print("── 散文の字/秒 が高い順（＝読み切れない。ここが本丸） ──")
+    print(HD)
+    for r in sorted(rows, key=lambda x: -x["cps"])[:20]:
+        print(f"{r['cid']:<8}{r['sec']:>6.1f}{r['prose']:>6}{r['pdup']:>6}"
+              f"{r['ratio']:>5.0%}{r['cps']:>7.2f}{r['chars']:>7}")
 
-    print("\n── 字/秒 が高い順（重複が無くても読み切れない） ──")
-    print(f"{'カット':<8}{'尺':>6}{'字数':>6}{'重複':>6}{'割合':>6}{'字/秒':>7}")
-    for r in sorted(rows, key=lambda x: -x["cps"])[:15]:
-        print(f"{r['cid']:<8}{r['sec']:>6.1f}{r['chars']:>6}{r['dup']:>6}"
-              f"{r['ratio']:>5.0%}{r['cps']:>7.2f}")
+    print("\n── 削れる字数が多い順（重複＝耳で聞いている情報） ──")
+    print(HD)
+    for r in sorted(rows, key=lambda x: -x["pdup"])[:20]:
+        print(f"{r['cid']:<8}{r['sec']:>6.1f}{r['prose']:>6}{r['pdup']:>6}"
+              f"{r['ratio']:>5.0%}{r['cps']:>7.2f}{r['chars']:>7}")
     print("\n内訳は --detail=カットID で出る。")
     return 0
 
