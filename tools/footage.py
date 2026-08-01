@@ -26,6 +26,7 @@
 import json
 import subprocess
 import sys
+import time
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -43,11 +44,19 @@ IA = "https://archive.org/download/uscg-titan-submersible-hearings/"
 # ── 使う動画（Internet Archive の USCG 海難審判部アーカイブ） ──────
 CLIPS = {
     "rov_tailcone": dict(
+        # ⚠️ 同じ中身の複製が複数ある。1つが 500 を返しても次を試せるように並べておく
+        #    （2026-08-01 の r16 で実際に archive.org のノードが 500 を返した）。
+        paths=["Testimony Media/04_ROV Titan Submersible Tail Cone.mp4",
+               "NTSB Titan Docket - DCA23FM036/04_ROV SNIPS-Rel.mp4",
+               "Testimony Media/04_ROV Titan Submersible Tail Cone.ia.mp4"],
         path="Testimony Media/04_ROV Titan Submersible Tail Cone.mp4",
         credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
         note="60.7秒 1920×1080 30fps。尾部コーンに寄っていく。中盤に開口部の中が見える",
     ),
     "rov_aftdome": dict(
+        paths=["Testimony Media/07_ROV Titan Submersible Aft Dome Aft Ring Hull Remnants.mp4",
+               "NTSB Titan Docket - DCA23FM036/07_ROV SNIPS-Rel.mp4",
+               "Testimony Media/07_ROV Titan Submersible Aft Dome Aft Ring Hull Remnants.ia.mp4"],
         path="Testimony Media/07_ROV Titan Submersible Aft Dome Aft Ring Hull Remnants.mp4",
         credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
         note="107.4秒 1920×1080 30fps。後部ドーム・リング・耐圧殻の破片",
@@ -84,8 +93,9 @@ USE = {
 #   c133「捜索に加わったのは船が11隻」／ep07「同じ音が聞こえていた」も同じ理由で当てない。
 
 
-def url_of(name):
-    return IA + urllib.parse.quote(CLIPS[name]["path"])
+def urls_of(name):
+    c = CLIPS[name]
+    return [IA + urllib.parse.quote(p) for p in c.get("paths") or [c["path"]]]
 
 
 def have(cid):
@@ -103,17 +113,33 @@ def _dl(name):
     if dst.exists() and dst.stat().st_size > 1_000_000:
         print(f"  {name}: すでにある（{dst.stat().st_size/1e6:.0f}MB）")
         return dst
-    u = url_of(name)
-    print(f"  {name}: 落とす {u}", flush=True)
-    req = urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=900) as r, open(dst, "wb") as f:
-        while True:
-            b = r.read(1 << 20)
-            if not b:
-                break
-            f.write(b)
-    print(f"     → {dst.stat().st_size/1e6:.0f}MB")
-    return dst
+    # 🔴 archive.org は `/download/` から実体のノードへ 302 で飛ばす。
+    #    そのノードが 500 を返すことがある（2026-08-01 の r16 で実際に起きた）。
+    #    **複製を順に試し、それぞれ数回まで粘る。**
+    last = None
+    for u in urls_of(name):
+        for attempt in range(3):
+            try:
+                print(f"  {name}: 落とす {u}" + (f"（{attempt+1}回目）" if attempt else ""),
+                      flush=True)
+                req = urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0"})
+                with urllib.request.urlopen(req, timeout=900) as r, open(dst, "wb") as f:
+                    while True:
+                        b = r.read(1 << 20)
+                        if not b:
+                            break
+                        f.write(b)
+                if dst.stat().st_size > 1_000_000:
+                    print(f"     → {dst.stat().st_size/1e6:.0f}MB")
+                    return dst
+                last = f"中身が小さすぎる（{dst.stat().st_size}バイト）"
+            except Exception as e:                       # noqa: BLE001
+                last = f"{type(e).__name__}: {e}"
+                print(f"     ⚠️ {last}", flush=True)
+                time.sleep(4 * (attempt + 1))
+    print(f"  🔴 {name}: どの複製も落とせなかった（最後の理由 {last}）")
+    print("     ⚠️ このカットは**静止画に落ちる**。パイプラインは止めない。")
+    return None
 
 
 def fetch(check=False):
@@ -128,9 +154,13 @@ def fetch(check=False):
         print(f"  {cid}  尺{secs[cid]:5.2f}s  ← {u['clip']} の {u['start']}秒目から")
     if check:
         return 0
+    got_clip = {}
     for name in {u["clip"] for u in USE.values()}:
-        _dl(name)
+        got_clip[name] = _dl(name) is not None
     for cid, u in USE.items():
+        if not got_clip.get(u["clip"]):
+            print(f"  {cid}: 動画が無いので飛ばす（静止画のまま）")
+            continue
         d = FOOT / cid
         d.mkdir(parents=True, exist_ok=True)
         n = int(round(secs[cid] * FPS)) + 2
@@ -148,7 +178,8 @@ def fetch(check=False):
         if got < n - 4:
             print(f"  🔴 {cid}: コマが足りない（{got}/{n}）。start が終端に近すぎる")
             return 1
-    print("✓ 切り出し完了")
+    done = [c for c in USE if have(c)]
+    print(f"✓ 切り出し完了 {len(done)}/{len(USE)} カット: {'、'.join(done) or 'なし'}")
     return 0
 
 
