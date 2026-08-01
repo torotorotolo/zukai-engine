@@ -75,26 +75,52 @@ def biggest_hole(grid, cx, cy):
     return best
 
 
+def photo_cuts():
+    """写真が画面全体にあるカット。**この検査では占有率を判定に使えない。**
+
+    🔴 2026-08-01：写真を地に敷くカットを入れたら、その9カットが **97〜99%** と出た。
+       この検査は `_empty.png`（地だけ）との**画素差**で測るので、
+       全面に写真があると**図の良し悪しと無関係に満点になる**。
+       平均に混ぜると「詰まった」ように見えて数字が嘘をつく（実際 55.7%→58.7% に動いた）。
+       → **平均からも判定からも外し、別枠で数えるだけにする。**
+    """
+    import sys as _s
+    _s.path.insert(0, str(Path(__file__).parent))
+    try:
+        import scene_jiko as S
+        return {c for c, v in S.SPEC.items() if v.get("photo")}
+    except Exception as e:                       # noqa: BLE001
+        print(f"⚠️ カット表を読めないので写真カットを除外できません: {e}")
+        return set()
+
+
 def report(d):
     d = Path(d)
     files = sorted(d.glob("cut_*.png"))
     if not files:
         print(f"検品PNGが無い: {d}")
         return 1
+    skip = photo_cuts()
     rp = d / "_empty.png"
     if not rp.exists():
         print(f"🔴 地の基準画像が無い: {rp}（scene_jiko が焼く `_empty.png` を検品に入れる）")
         return 1
     ref = Image.open(rp).convert("RGB")
-    bad, fills = [], []
+    bad, fills, holes, nphoto = [], [], [], 0
     print(f"{'カット':<6}{'占有率':>8}{'最大の空き':>11}  場所（px）")
     for p in files:
         grid, cx, cy = cells(p, ref)
         fill = sum(sum(r) for r in grid) / (cx * cy)
-        fills.append(fill)
         area, hx, hy, hw, hh = biggest_hole(grid, cx, cy)
         hole = area / (cx * cy)
         cut = p.stem[4:]
+        if cut in skip:
+            nphoto += 1
+            print(f"{cut:<6}{fill * 100:>7.1f}%{hole * 100:>10.1f}%  "
+                  f"（写真カット＝この検査の対象外）")
+            continue
+        fills.append(fill)
+        holes.append(hole)
         flag = ""
         if fill < FILL_MIN:
             flag += " 🔴占有率"
@@ -104,11 +130,18 @@ def report(d):
             bad.append((cut, round(fill, 3), round(hole, 3), flag.strip()))
         print(f"{cut:<6}{fill * 100:>7.1f}%{hole * 100:>10.1f}%  "
               f"x{hx * CELL}〜{(hx + hw) * CELL} y{hy * CELL}〜{(hy + hh) * CELL}{flag}")
-    print(f"\n平均占有率 = {sum(fills) / len(fills) * 100:.1f}%")
+    if not fills:
+        print("\n🔴 図解カットが1つも無い")
+        return 1
+    print(f"\n平均占有率 = {sum(fills) / len(fills) * 100:.1f}%"
+          f"（図解 {len(fills)} カット。写真 {nphoto} カットは除外）")
+    b = [sum(1 for h in holes if h <= 0.08), sum(1 for h in holes if 0.08 < h <= 0.15),
+         sum(1 for h in holes if 0.15 < h <= 0.25), sum(1 for h in holes if h > 0.25)]
+    print(f"空き矩形  8%以内 {b[0]} ／ 8〜15% {b[1]} ／ 15〜25% {b[2]} ／ 25%超 {b[3]}")
     if bad:
-        print(f"🔴 余白が多いカット {len(bad)}件：" + "、".join(b[0] for b in bad))
+        print(f"🔴 余白が多いカット {len(bad)}件：" + "、".join(x[0] for x in bad))
     else:
-        print(f"✓ 全{len(files)}カットが占有率{FILL_MIN * 100:.0f}%以上／"
+        print(f"✓ 全{len(fills)}カットが占有率{FILL_MIN * 100:.0f}%以上／"
               f"空き矩形{HOLE_MAX * 100:.0f}%未満")
     return 0
 

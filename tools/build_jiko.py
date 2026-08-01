@@ -216,10 +216,12 @@ def scene(cut, t, dur, lay, photos, meta):
         fr.alpha_composite(lay[f"{cut}_base"])
     elif meta[cut]["photo"]:
         box, _, bias = S.PHOTO_CUTS[cut]
+        xb, zm = S.PHOTO_CROP[cut]
         fr = lay[f"{cut}_bg"].copy()
         # 帯写真はケンバーンズを弱くする（原寸に近いので寄ると粗が出る）
         k = t / max(dur, 0.001)
-        ph = fit(photos[cut], box, k * (0.35 if box[3] < S.H else 1.0), bias)
+        # 実写カットでも `xbias` / `zoom` を書けば焼き込みを外せる（既定は今までと同じ）
+        ph = fit(photos[cut], box, k * (0.35 if box[3] < S.H else 1.0), bias, xb, zm)
         fr.paste(duotone(ph, J.BG2, "#e6eef2", boost=cut in BOOST), (box[0], box[1]))
         over(fr, lay[f"{cut}_lab"], min(1.0, max(0.0, (t - 0.15) / 0.5)))
         # 実写の注記は**フェード**で出す。写真の上を横切るワイプは汚れに見える
