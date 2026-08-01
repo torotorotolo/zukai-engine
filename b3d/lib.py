@@ -160,6 +160,46 @@ def taper(name, r_root, r_tip, depth, root_y, toward=+1, verts=64):
     return ob
 
 
+def solid_arc(name, r_in, r_out, length, a0=0.0, a1=180.0, seg=96,
+              loc=(0, 0, 0)):
+    """環状扇形（ちくわを縦に割った形）を、中実の立体として最初から作る。
+
+    🔴 4巡目までの失敗の総括：
+       「丸ごと作ってから bmesh で切る」やり方は2つの問題を同時に抱えていた。
+         ① 切ったあとの穴埋め（holes_fill）が不正な面を作り、
+            ドームの断面に三角形のゴミが出た
+         ② 実寸の壁（直径1,674mmに対し127mm）は切っても細すぎて読めない
+       → **切らない。最初から欲しい形だけを作る。**
+          断面は「切った跡」ではなく、最初から在る面になるので必ず正しく出る。
+
+    r_in..r_out … 壁の内半径・外半径（この幅が断面の帯になる）
+    a0..a1      … 角度（度）。0..180 なら半割り、55..125 なら細い扇形
+    length      … Y方向の長さ
+    """
+    me = bpy.data.meshes.new(name)
+    ob = bpy.data.objects.new(name, me)
+    bpy.context.scene.collection.objects.link(ob)
+
+    bm = bmesh.new()
+    y0 = -length / 2.0
+    ts = [math.radians(a0 + (a1 - a0) * i / seg) for i in range(seg + 1)]
+    outer = [bm.verts.new((r_out * math.cos(t), y0, r_out * math.sin(t))) for t in ts]
+    inner = [bm.verts.new((r_in * math.cos(t), y0, r_in * math.sin(t)))
+             for t in reversed(ts)]
+    cap = bm.faces.new(outer + inner)
+
+    ret = bmesh.ops.extrude_face_region(bm, geom=[cap])
+    moved = [v for v in ret["geom"] if isinstance(v, bmesh.types.BMVert)]
+    bmesh.ops.translate(bm, verts=moved, vec=(0, length, 0))
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+
+    bm.to_mesh(me)
+    bm.free()
+    me.update()
+    ob.location = loc
+    return ob
+
+
 def apply_modifiers(ob):
     """モディファイアを確定させる。切る前に必ず通す。
 
@@ -176,7 +216,7 @@ def apply_modifiers(ob):
     return ob
 
 
-def cut(ob, plane_co=(0, 0, 0), plane_no=(1, 0, 0), clear="outer"):
+def cut(ob, plane_co=(0, 0, 0), plane_no=(1, 0, 0), clear="outer", fill=False):
     """平面で切って片側を捨てる。
 
     🔴 法線は必ずローカル空間へ変換してから渡すこと。
@@ -201,11 +241,13 @@ def cut(ob, plane_co=(0, 0, 0), plane_no=(1, 0, 0), clear="outer"):
         plane_co=co_l, plane_no=no_l,
         clear_outer=(clear == "outer"), clear_inner=(clear == "inner"))
 
-    # 🔴 切っただけでは断面が「空いたまま」になる。
-    #    穴を塞がないと、炭素繊維の層が帯として読めず、向こう側が透けて見える。
-    #    層の枚数を見せるのがこのカットの目的なので、ここは必須。
+    # 🔴 穴埋めは既定で **切**。
+    #    4巡目に holes_fill が不正な面を作り、ドームの断面に三角形のゴミが出た。
+    #    厚みのある殻（Solidify済み）なら、切り口は壁の厚みぶんしか開かないので
+    #    塞がなくてもほぼ見えない。断面をきちんと見せたい形は
+    #    solid_arc() で「最初から中実に作る」こと。
     cut_edges = [e for e in res.get("geom_cut", [])
-                 if isinstance(e, bmesh.types.BMEdge)]
+                 if isinstance(e, bmesh.types.BMEdge)] if fill else []
     if cut_edges:
         try:
             bmesh.ops.holes_fill(bm, edges=cut_edges, sides=0)
@@ -293,7 +335,7 @@ def setup_scene(res_x=1920, res_y=1080, samples=32, denoise=True, fps=15):
     return sc
 
 
-def deep_sea(sc, density=0.012, color="#12384a", bg_strength=0.18):
+def deep_sea(sc, density=0.040, color="#12384a", bg_strength=0.16):
     """深海の空間。参照chの実装は「体積フォグの箱1つ＋スポット1灯」以上のことをしていない。"""
     w = bpy.data.worlds.new("W")
     sc.world = w
@@ -315,18 +357,115 @@ def deep_sea(sc, density=0.012, color="#12384a", bg_strength=0.18):
     o = nt.nodes.new("ShaderNodeOutputMaterial")
     nt.links.new(s.outputs["Volume"], o.inputs["Volume"])
     fog.data.materials.append(m)
+    marine_snow()
     return fog
 
 
-def studio(sc, bg="#16232e", strength=0.35):
-    """図解用の平坦な地。単色グラデ＋やわらかい上方光＋接地影だけ。"""
+def marine_snow(count=170, seed=7, span=(6.5, 9.0, 4.0), r=(0.006, 0.016)):
+    """マリンスノー（深海に舞う白い粒）。
+
+    🔴 9巡目の失敗：粒を自己発光させ、大きく、広く均一に撒いたら
+       **「星空」になった**。深海ではなく宇宙空間に見える。
+       深海に見せる条件は粒ではなく **水の濁り（体積フォグ）** のほうが主。
+       粒は「濁りの中に少しだけ」が正しい。
+
+       ・発光させない（周りの光で照らされるだけにする）
+       ・小さく（6〜16mm）
+       ・被写体の周りに寄せる（遠くまで撒くと星になる）
+       ・数を抑える
+
+    🔴 seed を固定する。同じ発注書から同じ絵が出ないと5巡のQCが成立しない。
+    """
+    import random
+    rnd = random.Random(seed)
+
+    base = bpy.data.materials.get("m_snow")
+    if base is None:
+        base = bpy.data.materials.new("m_snow")
+        base.use_nodes = True
+        b = base.node_tree.nodes["Principled BSDF"]
+        b.inputs["Base Color"].default_value = (0.58, 0.66, 0.72, 1.0)
+        b.inputs["Roughness"].default_value = 0.95
+        # 🔴 発光させない。光らせると星になる。
+
+    # 1個だけ作って残りは複製（メッシュを共有するので軽い）
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1, radius=1.0,
+                                          location=(0, 0, 0))
+    src = bpy.context.object
+    src.name = "snow_src"
+    src.data.materials.append(base)
+
+    for i in range(count):
+        ob = src.copy()                     # メッシュは共有
+        ob.location = (rnd.uniform(-span[0], span[0]),
+                       rnd.uniform(-span[1], span[1]),
+                       rnd.uniform(-span[2], span[2]))
+        k = rnd.uniform(r[0], r[1])
+        ob.scale = (k, k, k)
+        bpy.context.scene.collection.objects.link(ob)
+    bpy.data.objects.remove(src, do_unlink=True)
+    return None
+
+
+def studio(sc, top="#6f8798", bottom="#18242e", strength=1.8):
+    """図解用の地。上が明るく下が暗い縦グラデ。
+
+    🔴 2巡目は単色 #16232e（暗い）1枚で、耐圧殻も断面も真っ黒に沈んだ。
+       参照chの図解パートは**明るいグラデ背景**で、物がはっきり見えている。
+       グラデにすると、映り込む「空」ができるので金属も黒く落ちない。
+    """
     w = bpy.data.worlds.new("W")
     sc.world = w
     w.use_nodes = True
-    b = w.node_tree.nodes["Background"]
-    b.inputs["Color"].default_value = hexcol(bg)
-    b.inputs["Strength"].default_value = strength
+    nt = w.node_tree
+    nt.nodes.clear()
+
+    tex = nt.nodes.new("ShaderNodeTexCoord")
+    sep = nt.nodes.new("ShaderNodeSeparateXYZ")
+    # 🔴 ワールドの Generated は **−1〜+1** を返す（3巡目はこれを 0〜1 と思い込み、
+    #    画面のほぼ全域が暗いほうの色一色になった）。まず 0〜1 に写し直す。
+    rng = nt.nodes.new("ShaderNodeMapRange")
+    rng.inputs["From Min"].default_value = -0.55
+    rng.inputs["From Max"].default_value = 0.75
+    rng.inputs["To Min"].default_value = 0.0
+    rng.inputs["To Max"].default_value = 1.0
+    rng.clamp = True
+
+    ramp = nt.nodes.new("ShaderNodeValToRGB")
+    ramp.color_ramp.elements[0].position = 0.0
+    ramp.color_ramp.elements[0].color = hexcol(bottom)
+    ramp.color_ramp.elements[1].position = 1.0
+    ramp.color_ramp.elements[1].color = hexcol(top)
+    bg = nt.nodes.new("ShaderNodeBackground")
+    bg.inputs["Strength"].default_value = strength
+    out = nt.nodes.new("ShaderNodeOutputWorld")
+
+    nt.links.new(tex.outputs["Generated"], sep.inputs["Vector"])
+    nt.links.new(sep.outputs["Z"], rng.inputs["Value"])
+    nt.links.new(rng.outputs["Result"], ramp.inputs["Fac"])
+    nt.links.new(ramp.outputs["Color"], bg.inputs["Color"])
+    nt.links.new(bg.outputs["Background"], out.inputs["Surface"])
     return None
+
+
+def inside_light(target, energy=120.0, offset=(0.0, 0.0, 0.0)):
+    """断面カットの「中」を照らす。
+
+    🔴 半割りにしても、内側に光が入らないと真っ黒な板にしかならない
+       （2巡目で実際にそうなった）。層を読ませたいなら中を照らす。
+
+    🔴 offset を必ず指定すること。既定の「重心」に置くと、
+       中に人を置いたカットでは**光が人の胴体の中に入ってしまい**、
+       その人だけ黒い点が出る（7巡目で実際に出た）。
+    """
+    d = bpy.data.lights.new("inside", type="POINT")
+    d.energy = energy
+    d.shadow_soft_size = 0.5
+    lt = bpy.data.objects.new("inside", d)
+    bpy.context.scene.collection.objects.link(lt)
+    center, _, _ = bounds(target)
+    lt.location = (center.x + offset[0], center.y + offset[1], center.z + offset[2])
+    return lt
 
 
 def key_light(target, energy=4000.0, loc=(5, -7, 4), spot=True, size=1.1):
@@ -342,9 +481,12 @@ def key_light(target, energy=4000.0, loc=(5, -7, 4), spot=True, size=1.1):
     d.energy = energy
     if spot:
         d.spot_size = size
-        d.spot_blend = 0.4
+        d.spot_blend = 0.5
     else:
-        d.size = 6.0
+        # 🔴 面光源は「大きくする」ほど影と反射がやわらぐ。
+        #    1巡目は小さい強いスポットで白飛びした。参照chの絵は平坦で
+        #    ハイライトがほぼ無いので、大きく・弱くが正解。
+        d.size = size
     lt = bpy.data.objects.new("key", d)
     bpy.context.scene.collection.objects.link(lt)
     lt.location = loc
@@ -367,18 +509,98 @@ def fill_light(target, energy=300.0, loc=(-6, 4, 2)):
     return lt
 
 
-def camera(sc, target, azimuth=45.0, elevation=12.0, distance=12.0, lens=50.0):
-    """注視点まわりの球面座標でカメラを置く。カット表からはこの3つの数字だけ渡す。"""
+def bounds(root):
+    """root にぶら下がる全メッシュの、ワールド座標での中心と半径を返す。
+
+    🔴 カメラ距離を手で置かないための土台。
+       2巡目は distance=3.6 を手書きして**対象を突き抜けた**。
+       「レイアウトは測ってから直す。目視で置かない」を3Dでも守る。
+    """
+    from mathutils import Vector
+
+    dg = bpy.context.evaluated_depsgraph_get()
+    pts = []
+
+    def walk(ob):
+        if ob.type == "MESH":
+            ev = ob.evaluated_get(dg)
+            mw = ev.matrix_world
+            for c in ev.bound_box:
+                pts.append(mw @ Vector(c))
+        for ch in ob.children:
+            walk(ch)
+
+    walk(root)
+    if not pts:
+        return Vector((0, 0, 0)), 1.0, []
+    lo = Vector((min(p.x for p in pts), min(p.y for p in pts), min(p.z for p in pts)))
+    hi = Vector((max(p.x for p in pts), max(p.y for p in pts), max(p.z for p in pts)))
+    center = (lo + hi) / 2.0
+    radius = max((p - center).length for p in pts)
+    return center, radius, pts
+
+
+def camera(sc, target, azimuth=45.0, elevation=12.0, lens=50.0,
+           fill=0.80, distance=None):
+    """対象を必ず画面に収めるカメラ。
+
+    fill … 対象が画面の短辺に占める割合（0.80 なら余白2割）。
+           distance を明示すればそちらが優先されるが、**原則 fill で決める**。
+    """
+    from mathutils import Vector
+
+    bpy.context.view_layer.update()
+    center, radius, pts = bounds(target)
+
     a, e = math.radians(azimuth), math.radians(elevation)
-    loc = (distance * math.cos(e) * math.cos(a),
-           distance * math.cos(e) * math.sin(a),
-           distance * math.sin(e))
+    d = Vector((math.cos(e) * math.cos(a), math.cos(e) * math.sin(a), math.sin(e)))
+
+    if distance is None:
+        # 🔴 外接球で決めてはいけない（3巡目の失敗）。
+        #    全長6.7mの細長い物体は外接球の半径が3.5mになり、それを画面の短辺に
+        #    収めようとすると左右に巨大な余白ができて、対象が画面の1/3になる。
+        #    正しくは「カメラから見たときの、横と縦の広がり」を別々に測る。
+        sensor = 36.0
+        aspect = sc.render.resolution_x / max(1, sc.render.resolution_y)
+        half_fov_x = math.atan(sensor / 2.0 / lens)
+        half_fov_y = math.atan(math.tan(half_fov_x) / aspect)
+
+        fwd = -d                                   # カメラから対象へ向く向き
+        up_w = Vector((0, 0, 1))
+        right = fwd.cross(up_w)
+        right = right.normalized() if right.length > 1e-6 else Vector((1, 0, 0))
+        up = right.cross(fwd).normalized()
+
+        mx = my = mz = 0.0
+        for p in pts:
+            v = p - center
+            mx = max(mx, abs(v.dot(right)))
+            my = max(my, abs(v.dot(up)))
+            mz = max(mz, v.dot(-fwd))              # カメラ側へどれだけ出っ張るか
+        dx = mx / math.tan(half_fov_x)
+        dy = my / math.tan(half_fov_y)
+        distance = max(dx, dy) / max(0.05, fill) + mz
+        print(f"[cam] 投影 幅±{mx:.2f}m 高±{my:.2f}m → dx={dx:.1f} dy={dy:.1f}")
+
+    offset = d * distance
+
+    # 注視点は「原点」ではなく「対象の重心」。ここを外すと画面の端に寄る
+    aim = new_empty("cam_aim", loc=tuple(center))
+    aim.parent = target
+
     d = bpy.data.cameras.new("cam")
     d.lens = lens
     cam = bpy.data.objects.new("cam", d)
     sc.collection.objects.link(cam)
-    cam.location = loc
+    cam.location = tuple(center + offset)
     c = cam.constraints.new("TRACK_TO")
-    c.target = target
+    c.target = aim
     sc.camera = cam
+    print(f"[cam] r={radius:.2f}m dist={distance:.2f}m lens={lens}mm "
+          f"center=({center.x:.2f},{center.y:.2f},{center.z:.2f})")
     return cam
+
+
+def Vector_(t):
+    from mathutils import Vector
+    return Vector(t)

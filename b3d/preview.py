@@ -42,27 +42,41 @@ os.makedirs(OUT, exist_ok=True)
 
 
 # ── 3つの見え方 ────────────────────────────────────────────────
+# 🔴 distance は書かない。対象の大きさから自動で決める（L.camera の fill）。
+#    2巡目は distance=3.6 を手で置いて対象を突き抜けた。
+#    fill … 対象が画面の短辺に占める割合。0.78 なら余白2割強。
 SHOTS = [
     dict(
         name="1_exterior",
         note="深海のヒーローショット。参照chの冒頭と同じ位置づけ",
         mode="exterior", world="deep_sea",
-        cam=dict(azimuth=38, elevation=8, distance=13.5, lens=52),
-        light=dict(energy=9000, loc=(6.5, -8.5, 4.5), spot=True, size=1.25),
+        cam=dict(azimuth=34, elevation=7, lens=85, fill=0.80),
+        light=dict(energy=14000, loc=(7.0, -9.0, 5.0), spot=True, size=1.30),
+        fill_light=420.0,
     ),
     dict(
         name="2_hull_layers",
-        note="炭素繊維5層。3層目を剥離させて朱赤で見せる",
+        note="炭素繊維5層＋接着面4つの模式図。3層目が剥離（c414/c416/c428）",
         mode="hull_layers", highlight=(3,), world="studio",
-        cam=dict(azimuth=62, elevation=16, distance=7.4, lens=60),
-        light=dict(energy=1200, loc=(4, -5, 5), spot=False),
+        cam=dict(azimuth=76, elevation=13, lens=75, fill=0.84),
+        light=dict(energy=1600, loc=(3.0, 5.0, 4.5), spot=False, size=6.0),
+        fill_light=700.0,
     ),
     dict(
         name="3_cutaway",
-        note="断面。中の空間の狭さと、層の重なりを同時に見せる",
+        note="耐圧殻の半割り。5人が座る狭さと壁の厚みを同時に（c107/c204/c308）",
         mode="cutaway", highlight=(3,), world="studio",
-        cam=dict(azimuth=118, elevation=14, distance=7.0, lens=58),
-        light=dict(energy=1500, loc=(-4, -5, 5), spot=False),
+        cam=dict(azimuth=18, elevation=17, lens=68, fill=0.84),
+        light=dict(energy=1800, loc=(6.0, -4.0, 5.0), spot=False, size=8.0),
+        fill_light=300.0, inside=150.0, inside_at=(0.45, 0.0, 0.52),
+    ),
+    dict(
+        name="4_hull",
+        note="耐圧殻の外観。継ぎ目リングとボルト18本（c204/c205/c417）",
+        mode="hull", world="studio",
+        cam=dict(azimuth=52, elevation=11, lens=80, fill=0.80),
+        light=dict(energy=1700, loc=(5.0, -6.0, 4.5), spot=False, size=8.0),
+        fill_light=600.0,
     ),
 ]
 
@@ -80,7 +94,10 @@ def render_one(shot):
     root = sub_titan.build(mode=shot["mode"], highlight=shot.get("highlight", ()))
 
     L.key_light(root, **shot["light"])
-    L.fill_light(root, energy=180.0)
+    L.fill_light(root, energy=shot.get("fill_light", 200.0))
+    if shot.get("inside"):
+        L.inside_light(root, energy=shot["inside"],
+                       offset=shot.get("inside_at", (0.0, 0.0, 0.5)))
     L.camera(sc, root, **shot["cam"])
 
     sc.render.filepath = os.path.join(OUT, f"titan_{shot['name']}.png")

@@ -29,9 +29,15 @@ import os
 import pathlib
 
 # ── 上限（ここを変えるとき以外は触らない）──────────────────────
-CAP_USD = 5.00              # プロジェクト総額の上限
-CAP_PER_RUN_USD = 1.00      # 1回の実行の上限
-FREE_CREDIT_USD = 30.00     # Modal Starter の月次無料クレジット（参考表示用）
+# 🔴 2026-08-01 訂正：Modal Starter の無料クレジットは **$1.00/月**（$30ではない）。
+#    公式価格ページの $30 は別プラン。実際のダッシュボード
+#    （modal.com/settings/torotorotolo/usage）で確認した値がこれ。
+#    さらに Modal 側にも「$1 per billing period で実行中のアプリを停止」
+#    というハード上限がある。途中で切られると焼きかけが無駄になるので、
+#    こちらの上限はそれより**内側**に置く。
+FREE_CREDIT_USD = 1.00      # Modal Starter の月次無料クレジット（実測）
+CAP_USD = 0.85              # 月の総額上限。$1 の内側に置く
+CAP_PER_RUN_USD = 0.10      # 1回の実行の上限（プレビュー1巡は約$0.03）
 
 OVERHEAD_SEC = 120          # コンテナ起動などの固定費（多めに置く）
 SAFETY = 1.5                # レンダ時間の見積もり係数（機体差±20%を吸収）
@@ -52,8 +58,9 @@ def _load():
     if LEDGER.exists():
         return json.loads(LEDGER.read_text(encoding="utf-8"))
     # 2026-08-01 の切り分け（EEVEE/Cycles/GPU比較/デノイズ）の実績を初期値に入れてある
-    return {"spent_usd": 0.30, "runs": [
-        {"label": "2026-08-01 スモークテスト一式（実測ベース概算）", "usd": 0.30}
+    # 🔴 初期値はダッシュボードの実測値。自前の概算を信じない。
+    return {"spent_usd": 0.45, "runs": [
+        {"label": "2026-08-01 実測（ダッシュボード Usage $0.45）", "usd": 0.45}
     ]}
 
 
@@ -84,7 +91,9 @@ def check(gpu: str, frames: int, sec_per_frame: float, label: str,
     print(f"│   今回の見込み : ${est:.4f}（約¥{est * 160:.1f}）")
     print(f"│   これまで     : ${spent:.4f}")
     print(f"│   合計         : ${spent + est:.4f} / 上限 ${CAP_USD:.2f}")
-    print(f"│   無料枠の残り : 約 ${FREE_CREDIT_USD - spent - est:.2f} / ${FREE_CREDIT_USD:.0f}")
+    left = FREE_CREDIT_USD - spent - est
+    print(f"│   無料枠の残り : 約 ${left:.3f} / ${FREE_CREDIT_USD:.2f}"
+          f"{'  ⚠️ 残り僅か' if left < 0.15 else ''}")
     print("└" + "─" * 60)
 
     if est > CAP_PER_RUN_USD:

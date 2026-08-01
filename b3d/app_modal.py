@@ -217,19 +217,19 @@ def bench_all(sample_list: list, res: int = 1920,
 
 @app.local_entrypoint()
 def look(res: int = 1920, samples: int = 32, out: str = "out/jiko/b3d"):
-    """潜写艇を3カット焼いて手元に持ち帰る（拡大目視用）。
+    """潜水艇を3カット焼いて手元に持ち帰る（拡大目視用）。
 
     🔴 Modal を呼ぶ前に必ず budget.check() を通す。
        上限を超える見込みなら、1バイトも課金せずにここで止まる。
     """
     import budget
 
-    FRAMES = 3
+    FRAMES = 4
     SPF = 1.89                      # L4 / 1920px / 32サンプルの実測値
-    est = budget.check("L4", FRAMES, SPF, f"潜水艇プレビュー3枚 {res}px")
+    est = budget.check("L4", FRAMES, SPF, f"潜水艇プレビュー4枚 {res}px")
 
     r = preview.remote(res=res, samples=samples)
-    budget.record("L4", r.get("wall_sec", 0.0), f"潜水艇プレビュー3枚 {res}px", est)
+    budget.record("L4", r.get("wall_sec", 0.0), f"潜水艇プレビュー4枚 {res}px", est)
 
     if not r.get("ok"):
         print("❌ 失敗しました")
