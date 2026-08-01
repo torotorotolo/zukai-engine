@@ -197,6 +197,31 @@ def qa(note: str = "", ref: str = "main", zoom: str = ""):
     print(f"\n✓ modal volume get jiko-out {name} out/jiko/", flush=True)
 
 
+# ── 疎通確認（いちばん安い。移設直後とエラーの切り分けに使う） ──────
+@app.function(image=image, cpu=2.0, memory=4096, timeout=900)
+def check(ref: str = "main"):
+    """★焼く前に**環境だけ**を確かめる。数十秒で終わるので費用はほぼゼロ。
+
+    ここで見るのは4つ。どれか欠けると本編レンダが途中で落ちる。
+      ① Chrome が入っているか（図は Chrome が SVG から焼く）
+      ② ffmpeg が入っているか（コマを mp4 にする）
+      ③ GitHub から clone できるか
+      ④ 音声（opus）とフォントがそろっているか
+    """
+    sh("google-chrome --version", cwd="/")
+    sh("ffmpeg -version | head -1", cwd="/")
+    clone(ref)
+    sh("python3 -c \"import PIL,numpy,fontTools;print('Pillow',PIL.__version__,"
+       "'numpy',numpy.__version__)\"")
+    sh("ls fonts/ && ls audio/opus/ | wc -l && ls ref/*.jpg | wc -l")
+    sh("python3 tools/scene_jiko.py --report")
+    sh("python3 tools/audio_pack.py check")
+    # レイヤーを1枚だけ焼いて、Chrome が実際に絵を出せることまで確かめる
+    sh("python3 tools/scene_jiko.py --force --only=pr01 && ls -la out/jiko/")
+    print("\n✓ 環境はそろっている。本編は `modal run modal_app.py::full` で焼ける。",
+          flush=True)
+
+
 # ── ★Modal の描画が Actions と一致しているかを機械で確かめる ──────
 @app.function(image=image, cpu=CPU, memory=MEM, timeout=3600)
 def layer_hash(ref: str = "main"):

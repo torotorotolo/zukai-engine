@@ -139,7 +139,15 @@ def scan(only=None, mixmod=None):
         if not p.exists():
             continue
         x, sr = read(p)
-        bp = bandpass(x, sr)
+        # 🔴 **時刻は元の音から、音量は実際に流れる音から**取る（2026-08-01）。
+        #    audio_mix は wav をそのまま乗せず圧縮してから乗せるので、
+        #    音量は圧縮後で測らないと語尾を低く見積もる。
+        #    ⚠️ ただし発話の終わりまで圧縮後で探すと、**持ち上がった無音を発話と
+        #       見なして終端が後ろへずれ**、語尾のピークが窓から外れる
+        #       （中央値が 28.3→22.0 と下がって気づいた）。時刻は元の音で決める。
+        A = mixmod or __import__("audio_mix")
+        played = A.compress(x) if hasattr(A, "compress") else x
+        bp = bandpass(played, sr)
         t, e = envelope(bp, sr)
         for r in rs:
             a, b = r["t"], r["t"] + r["d"]
