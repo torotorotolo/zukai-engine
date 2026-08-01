@@ -41,7 +41,10 @@ Starter プランに **毎月 $30 の無料枠**がある（2026-08-01 時点の
     # ② 焼けた mp4 を手元に落とす
     modal volume get jiko-out titan_audio.mp4 out/jiko/
 
-    # ③ Modal の描画が Actions と一致しているかを確かめる（移設直後に1回）
+    # ③ Modal の描画が Actions と一致しているかを確かめる
+    #    ⚠️ ふだんは要らない。`full` が焼いたレイヤーの指紋をログに出すので、
+    #       そちらを Actions の「Layer fingerprint」と見比べれば足りる。
+    #       こちらは本編を焼かずに指紋だけ取りたいときに使う。
     modal run modal_app.py::layer_hash
 
     # 特定のコミットで焼きたいとき
@@ -146,12 +149,28 @@ def clone(ref):
 # ── ★本編mp4を焼く ────────────────────────────────────────
 @app.function(image=image, cpu=CPU, memory=MEM, timeout=HOURS * 3600,
               volumes={VOL: vol, ASSETS: assets})
-def full(note: str = "", ref: str = "main", workers: int = 8):
+def full(note: str = "", ref: str = "main", workers: int = 8,
+         allow_drone: bool = False):
     """226カット・61,320コマを mp4 にして、音を乗せて保管庫に置く。
 
     手順は `.github/workflows/render-jiko.yml` の mode=full と**まったく同じ**。
     実行環境だけが Actions から Modal に変わっている。
     """
+    # 🔴 焼く前に BGM の実体を確かめる（2026-08-01 追加）。
+    #    `audio_mix.find_bgm()` は既製BGMが見つからないと**黙って自作ドローンに戻る**。
+    #    パイプラインは壊れないので、ここで止めないと
+    #    **30分かけて「BGMが違う34分」が焼き上がるまで気づけない。**
+    #      直し方: modal volume put jiko-assets "...\\assets\\bgm.mp3" bgm.mp3
+    #    ドローンで焼きたいときだけ `--allow-drone` を付ける。
+    bgm = os.path.join(ASSETS, "bgm.mp3")
+    size = os.path.getsize(bgm) if os.path.exists(bgm) else 0
+    print(f"BGM … {bgm} / {size / 1e6:.2f} MB", flush=True)
+    if size < 1_000_000 and not allow_drone:
+        raise SystemExit(
+            "🔴 保管庫に BGM が無い（か壊れている）ので焼かずに止めた。\n"
+            '   modal volume put jiko-assets "<手元の assets\\bgm.mp3>" bgm.mp3\n'
+            "   ドローンのまま焼いてよいときだけ --allow-drone を付ける。")
+
     clone(ref)
     env = f"ZUKAI_WORKERS={workers} "
 
@@ -169,6 +188,13 @@ def full(note: str = "", ref: str = "main", workers: int = 8):
 
     # ④ レイヤー書き出し（SVG → PNG。Chrome headless）
     sh(env + "python3 tools/scene_jiko.py --force")
+
+    # ★この本編を作ったレイヤー**そのもの**の指紋（2026-08-01 追加）。
+    #   Actions の「Layer fingerprint」ステップと突き合わせる。
+    #   `layer_hash` を別に走らせるより強い。あちらは「同じソースをもう一度焼いた結果」で、
+    #   ここは「いま出荷する mp4 の中身そのもの」だから。1回ぶんの焼き代も浮く。
+    #   ⚠️ ここが落ちても製造は続ける（指紋は検品の裏取りであって製造工程ではない）。
+    sh("python3 tools/layer_hash.py", check=False)
 
     # ⑤ 合成（PNG → mp4）。**ここが Actions で回してはいけなかった工程**
     sh(env + "python3 tools/build_jiko.py full")
