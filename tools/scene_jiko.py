@@ -387,6 +387,46 @@ INSETS = {}
 PHOTO_CROP = {cid: (s.get("xbias", 0.5), s.get("zoom", 1.0))
               for cid, s in SPEC.items() if s.get("photo")}
 
+# ★写真そのものを先に切り落とす (x0, y0, x1, y1)。**元画像に対する割合**で書く。
+# 🔴 2026-08-02（r25 の目視・カズヤくん判断「切って英字を逃がす」）：
+#    NTSB の標本写真には、**報告書の英字ラベルがビットマップに焼き込まれている**。
+#    `extract_figs.py` に「英字はベクタなので付いてこない」と書いたが、実物は違った。
+#      "Delamination" "Circumferential" "INCH" "Voids" "Layer 1／2" "Adhesive"
+#      "Void in adhesive" "Grinding of composite plies at wrinkles" "0.200in"
+#    日本語の注記のすぐ横に英語が並ぶうえ、c429 では**出典が英字の白箱に重なって
+#    両方読めなく**なっていた。
+#    → 英字が入らない帯を1枚ずつ実測して切る。**寸法は目分量で置かない。**
+#    ⚠️ `zoom`/`xbias` では逃がせない（あれは切ったあとの寄せで、
+#      英字が上下左右に散っている写真は寄せても必ずどれかが残る）。
+#    ⚠️ 切る場所は**その写真の性質**なので、カットではなくファイルに紐づける
+#      （`titan_delam_ruler` は c307 と c627 の2カットで使う。同じ英字が同じ場所にある）。
+#      値は1枚ずつ画素で測って、切った結果を目で見て確かめたもの。
+TRIM_BY_PHOTO = {
+    # 上の「Circumferential」、左の「Delamination」、下の定規を外し、
+    # 剥離の割れ目とその指し矢印だけを残す
+    "titan_delam_ruler.jpg":    (0.3440, 0.1085, 1.0000, 0.8006),
+    # 「Void in adhesive」の白箱（上）と定規（下）を外す。橙の輪と矢印は残る
+    "titan_ntsb16_wrinkle.jpg": (0.0000, 0.2832, 1.0000, 0.6068),
+    # 「Adhesive」「Layer 1」「Layer 2」「0.200in」を外し、接着剤の線の帯だけ残す
+    "titan_ntsb17_layers.jpg":  (0.0000, 0.3938, 1.0000, 0.6585),
+    # 黄色い定規（"INCH" "U.S.A."）を外す。標本そのものは全部残る
+    "titan_ntsb14_endface.jpg": (0.0000, 0.0000, 1.0000, 0.7108),
+    # 上下の「Voids」と「0.200in」を外し、標本の帯と白い輪だけ残す
+    "titan_ntsb17_voids.jpg":   (0.0000, 0.2591, 1.0000, 0.7708),
+    # 「Grinding of composite plies at wrinkles」の白箱と定規を外す
+    "titan_ntsb16_grind.jpg":   (0.0000, 0.0606, 1.0000, 0.4356),
+    # ⚠️ これは英字が主目的ではない。**黄色い実物の定規が下1/3で白飛びし、
+    #    その上に字幕と出典が乗って両方読めなかった**（pr09・c135）。
+    #    定規を落とすと、見せたい破断面が画面いっぱいに残る。
+    "titan_hull_edge.jpg":      (0.0000, 0.0000, 1.0000, 0.6650),
+}
+# ❌ `titan_ntsb15_endpiece.jpg`（c422）は切らない。定規は小さく標本に重なっており、
+#    外そうとすると見せたいリングの上端まで落ちる。"INCH" は実物の目盛りの一部で、
+#    報告書が上から載せた注記ではない。
+PHOTO_TRIM = {cid: s.get("trim") or TRIM_BY_PHOTO.get(s["photo"])
+              for cid, s in SPEC.items() if s.get("photo")}
+PHOTO_TRIM = {c: t for c, t in PHOTO_TRIM.items() if t}
+
 
 # ── 段の持ち時間 ─────────────────────────────────────────
 # 段が描き終わるのに最低限これだけは残す（秒）。

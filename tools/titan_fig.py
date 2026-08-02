@@ -1233,9 +1233,19 @@ def titan(mode="side", s=1.0, cx=None, cy=None, marks=None, note="",
                       J.OK, 4, rx=6))
         g.append(circ(x0 + L * 0.026, cy, R * 0.22, J.BG, J.OK, 5))
     if bolts:
-        for i in range(10):
-            a = math.pi * (i / 9.0) - math.pi / 2
-            g.append(circ(xc0 + math.cos(a) * 6, cy + math.sin(a) * R * 0.92, 7,
+        # 🔴 2026-08-02（r25 の目視）：**10個しか描いていなかった。**
+        #    使っているのは c205 ただ1カットで、その画面には「18 本」と大きく出ていて
+        #    ナレーションも「18本のボルトで留められる」と言う。
+        #    数えられる絵で数が合わないのは、図が嘘をつくのと同じ。
+        #    → `bolts=True` は 18、数を渡せばその数を描く。
+        #    リングを真横から見ているので、点は縦1列に並ぶ（x はほとんど動かない）。
+        #    ⚠️ 数が増えると点が重なるので、**半径は間隔から決める**（推定で置かない）。
+        n_b = 18 if bolts is True else int(bolts)
+        span = R * 0.92 * 2                      # 上端から下端までの実距離
+        r_b = max(3.0, min(7.0, span / n_b * 0.42))
+        for i in range(n_b):
+            a = math.pi * (i / (n_b - 1.0)) - math.pi / 2
+            g.append(circ(xc0 + math.cos(a) * 6, cy + math.sin(a) * R * 0.92, r_b,
                           J.AMBER))
     if cut:
         mid = (xc0 + xc1) / 2

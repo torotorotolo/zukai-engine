@@ -114,9 +114,18 @@ def foot_frame(cut, t):
     return Image.open(p).convert("RGB")
 
 
-def load_photo(name, box):
-    """写真は箱の2倍程度まで先に落としておく（4GBのPCでも開けるように）。"""
+def load_photo(name, box, trim=None):
+    """写真は箱の2倍程度まで先に落としておく（4GBのPCでも開けるように）。
+
+    trim … (x0, y0, x1, y1) を**元画像に対する割合**で渡すと、先に切り落とす。
+           報告書の英字ラベルを画面に出さないために使う（`S.PHOTO_TRIM`）。
+    """
     src = Image.open(S.HERE / "ref" / name).convert("RGB")
+    if trim:
+        w, h = src.size
+        x0, y0, x1, y1 = trim
+        src = src.crop((round(x0 * w), round(y0 * h),
+                        round(x1 * w), round(y1 * h)))
     lim = box[2] * 2
     if src.width > lim:
         src = src.resize((lim, round(src.height * lim / src.width)), Image.LANCZOS)
@@ -327,6 +336,10 @@ def meta_of(idx):
                   #   段が1つしかない型（作り直した quote）は、既定だと前半で
                   #   描き終わってそのあと画が止まるので、型の側から長めに指定できる。
                   "labk": v.get("labk") or LAB_K,
+                  # ★「最後の行を読み終えてから出す」段（quote の決め所）の番号。
+                  #   検品画像をこの段より**あと**で撮るために要る（qa_shots を見よ）。
+                  "held": [i for i, h in enumerate(v.get("holds") or [])
+                           if h == "after_last"],
                   "times": S.stage_times(cid, v["stages"], v.get("holds"))}
         # ★動画を当てたカットの切り方（焼き込みを画面外へ追い出すための寄せ・拡大）
         u = _FOOT_USE.get(cid)
@@ -434,11 +447,27 @@ def qa_shots(cids, idx, meta, at=0.92):
         # subtitle() のフェード：b = t + d + LEAD + 0.12、最後の 0.14 秒で消える
         full_until = last["t"] + last["d"] + S.LEAD + 0.12 - 0.14
         # 段が出そろう時刻（既定 0.92）より前には戻さない範囲で、遅いほうを採る
-        return max(min(sec * at, full_until), min(sec * 0.70, full_until))
+        t = max(min(sec * at, full_until), min(sec * 0.70, full_until))
+        # 🔴 2026-08-02（r25 の目視）：**引用16カットの決め所が1枚も写っていなかった。**
+        #    `quote` の決め所は `holds="after_last"`＝最後の行を読み終えてから出る段で、
+        #    上の式は「最後の字幕がまだ完全に出ている」時刻を選ぶので、
+        #    **必ず決め所が出る直前**を撮ってしまう。
+        #    そのため検品画像はどれも右2/3が空で、掛け値なしに「画が空」と読めた
+        #    （実際には決め所が 2.25秒ぶん出る。尺と段の時刻で実測した）。
+        #    → 保持段があるカットは、**その段が出たあと**を撮る。
+        #      字幕はそのとき消えているが、それはこの型の設計そのもの
+        #      （画面に出す言葉を字幕に出さない）。
+        held = (meta.get(cid) or {}).get("held") or []
+        if held:
+            times = meta[cid]["times"]
+            start = max(times[i][0] for i in held if i < len(times))
+            t = max(t, min(start + 0.6, sec - 0.10))
+        return t
     subs = {c: L(f"sub_{c}") for c in cids if (OUT / f"sub_{c}.png").exists()}
     lay = _load_layers(cids, idx)
     band = load_band()
-    photos = {c: load_photo(S.PHOTO_CUTS[c][1], S.PHOTO_CUTS[c][0])
+    photos = {c: load_photo(S.PHOTO_CUTS[c][1], S.PHOTO_CUTS[c][0],
+                            S.PHOTO_TRIM.get(c))
               for c in cids if idx[c]["photo"]}
     out = []
     for cid in cids:
@@ -466,7 +495,8 @@ def _seg_worker(args):
         subs[cid] = Image.open(OUT / f"sub_{cid}.png").convert("RGBA")
     photos = {}
     if idxv["photo"]:
-        photos[cid] = load_photo(S2.PHOTO_CUTS[cid][1], S2.PHOTO_CUTS[cid][0])
+        photos[cid] = load_photo(S2.PHOTO_CUTS[cid][1], S2.PHOTO_CUTS[cid][0],
+                                 S2.PHOTO_TRIM.get(cid))
     band = load_band()
     meta = {cid: metav}
     n = nframes
@@ -592,7 +622,8 @@ def veil_ladder(idx, meta, cids=None, alphas=(0.76, 0.80, 0.84, 0.88, 0.92)):
     subs = {c: L(f"sub_{c}") for c in cids if (OUT / f"sub_{c}.png").exists()}
     lay = _load_layers(cids, idx)
     band = load_band()
-    photos = {c: load_photo(S.PHOTO_CUTS[c][1], S.PHOTO_CUTS[c][0]) for c in cids}
+    photos = {c: load_photo(S.PHOTO_CUTS[c][1], S.PHOTO_CUTS[c][0],
+                            S.PHOTO_TRIM.get(c)) for c in cids}
     for cid in cids:
         sec = secs[cid]
         strip = []
