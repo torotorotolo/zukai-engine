@@ -27,8 +27,10 @@ SPEC = {
         t="2代目の技術部長",
         s="2020年　2号殻の設計が始まる",
         fig=("people", dict(
-            nodes=[dict(x=0.22, y=0.36, t="技術部長", d="2代目", c=J.LINE),
-                   dict(x=0.76, y=0.36, t="2号殻", d="設計", c=J.AMBER)],
+            nodes=[dict(x=0.22, y=0.36, t="技術部長", d="2代目", kind="person",
+                        c=J.LINE),
+                   dict(x=0.76, y=0.36, t="2号殻", d="設計", kind="part",
+                        c=J.AMBER)],
             edges=[dict(a=0, b=1, t="2020年", c=J.AMBER)])),
     ),
 
@@ -198,9 +200,11 @@ SPEC = {
     "c418": dict(
         t="縮尺模型は1つも無い",
         s="報告書が最も強く指摘した点",
-        fig=("absent", dict(lead="縮尺模型で試したか", items=[
-            dict(t="変更前の作り方", d="2つ作って試験した", ok=True),
-            dict(t="コボンド", d="1つも作っていない", ok=False)])),
+        # 見せ方は対比（pair）。**作った数**が報告書に出ているので、数で比べる
+        # （2 と 0 の差は、言葉より個数の絵のほうが速い）。
+        fig=("absent", dict(mode="pair", lead="縮尺模型で試したか", items=[
+            dict(t="変更前の作り方", d="作って試験した", n=2, unit="個", ok=True),
+            dict(t="コボンド", d="試験していない", n=0, unit="個", ok=False)])),
     ),
 
     # ── c419 この作り方で存在した物は実物ただ1つ ───────────

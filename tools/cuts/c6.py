@@ -47,8 +47,10 @@ SPEC = {
     "c602": dict(
         t="置かれたのは屋外だった",
         s="セントジョンズ　2022年7月25日から",
+        # ⚠️ 第6章は absent が6カットある。**見せ方を交互にする**
+        #    （c602 台帳 / c608 棚 / c612 1件 / c630 台帳 / c636 棚 / c640 台帳）。
         fig=("absent", dict(
-            lead="保管の場所　屋外の駐車場",
+            mode="ledger", lead="保管の場所　屋外の駐車場",
             items=[dict(t="屋内での保管", d="していない", ok=False),
                    dict(t="覆い", d="無し", ok=False)])),
     ),
@@ -119,7 +121,7 @@ SPEC = {
         t="影響は、調べられていない",
         s="曳航が炭素繊維の耐圧殻に与える力",
         fig=("absent", dict(
-            lead="会社が行ったこと",
+            mode="seat", lead="会社が行ったこと",
             items=[dict(t="曳航の影響の調査", d="行っていない", ok=False),
                    dict(t="影響の大きさ", d="今も分からない", ok=False)])),
     ),
@@ -156,9 +158,12 @@ SPEC = {
     "c612": dict(
         t="87回目は中止になった",
         s="6月12日　装置の不具合",
+        # 🔴 1件しかないので **single**（器を作らない）。カズヤくん指摘
+        #    「1項目だけの c612 は箱が巨大で空」。幅1,776pxの箱に中身が1つも無かった。
+        # ⚠️ 「装置の不具合」は副題が言っている。図が三度言わない（判は「中止」だけ）。
         fig=("absent", dict(
-            lead="87回目　装置の不具合",
-            items=[dict(t="87回目の潜航", d="装置の不具合で中止", ok=False)])),
+            mode="single", lead="2023年の潜航",
+            items=[dict(t="87回目の潜航", d="中止", ok=False)])),
     ),
 
     # ── c613 ★2023年の潜航はすべて10m以下。棒が見えないことが答え ──
@@ -339,7 +344,7 @@ SPEC = {
         t="原因の分からない別の損傷",
         s="82回目の潜航のあと",
         fig=("absent", dict(
-            lead="82回目の潜航のあとに加わったもの",
+            mode="ledger", lead="82回目の潜航のあとに加わったもの",
             items=[dict(t="別の損傷の原因", d="分かっていない", ok=False),
                    dict(t="必要な深さに耐える力", d="失われた", ok=False)])),
     ),
@@ -410,7 +415,7 @@ SPEC = {
         t="主たる原因",
         s="確立された技術の手順に従わなかった",
         fig=("absent", dict(
-            lead="確立された技術の手順",
+            mode="seat", lead="確立された技術の手順",
             items=[dict(t="安全", d="従っていない", ok=False),
                    dict(t="試験", d="従っていない", ok=False),
                    dict(t="整備", d="従っていない", ok=False)])),
@@ -460,9 +465,10 @@ SPEC = {
         t="口に出させなかった",
         s="解雇と、解雇されるという圧力",
         fig=("people", dict(
-            nodes=[dict(x=0.16, y=0.18, t="オーシャンゲート", c=J.ALERT),
-                   dict(x=0.16, y=0.82, t="上級社員", c=J.AMBER),
-                   dict(x=0.80, y=0.50, t="従業員と請負業者", c=J.LINE)],
+            nodes=[dict(x=0.16, y=0.18, t="オーシャンゲート", kind="org", c=J.ALERT),
+                   dict(x=0.16, y=0.82, t="上級社員", kind="person", c=J.AMBER),
+                   dict(x=0.80, y=0.50, t="従業員と請負業者", kind="person",
+                        c=J.LINE)],
             edges=[dict(a=0, b=1, t="解雇", c=J.ALERT),
                    dict(a=0, b=2, t="圧力", c=J.ALERT)])),
     ),
@@ -472,7 +478,7 @@ SPEC = {
         t="調べず、整備もしなかった",
         s="事故の前に起きた不具合",
         fig=("absent", dict(
-            lead="事故の前に、会社がしなかったこと",
+            mode="ledger", lead="事故の前に、会社がしなかったこと",
             items=[dict(t="起きた不具合の調査", d="詳しく調べていない", ok=False),
                    dict(t="予防のための整備", d="していない", ok=False)])),
     ),
@@ -494,9 +500,9 @@ SPEC = {
         s="違うところを見た2つの報告書",
         fig=("people", dict(
             lead="別々に調べ、同じ結論へ",
-            nodes=[dict(x=0.16, y=0.16, t="NTSB", c=J.LINE),
-                   dict(x=0.16, y=0.84, t="沿岸警備隊", c=J.AMBER),
-                   dict(x=0.80, y=0.50, t="同じ結論", c=J.ALERT)],
+            nodes=[dict(x=0.16, y=0.16, t="NTSB", kind="org", c=J.INST),
+                   dict(x=0.16, y=0.84, t="沿岸警備隊", kind="org", c=J.AMBER),
+                   dict(x=0.80, y=0.50, t="同じ結論", kind="doc", c=J.ALERT)],
             edges=[dict(a=0, b=2, t="材料と設計から", c=J.LINE),
                    dict(a=1, b=2, t="会社の中から", c=J.AMBER)])),
     ),

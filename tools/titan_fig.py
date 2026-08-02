@@ -77,8 +77,18 @@ def esc(t):
     return "".join(XML.get(c, c) for c in str(t))
 
 
+# 🔴 沈める色を**文字に使わない**ための振り替え（2026-08-02）。
+#    r13 の試写「目盛りの文字が背景と同化して読めない」で TICK を足したが、
+#    直したのは型の内部だけだった。**カット側が `c=J.LINE_DIM` を渡すと、
+#    その色がそのまま文字に使われていた**（実測 27か所）。
+#    線・面は沈めたままでよいので、**文字のときだけ**読める色へ振り替える。
+#    ⚠️ `ALERT_DIM` は引用の大きな「」など**わざと沈めた飾り**に使うので入れない。
+DIM_INK = {J.LINE_DIM: J.TICK, J.GRID: J.TICK}
+
+
 def txt(x, y, t, size=32, col=None, fam="Noto", anchor="start", ol=0):
     """1行。`ol` にフチの太さを渡すと写真や図の上でも読める。"""
+    col = DIM_INK.get(col, col)
     o = ""
     if ol:
         o = (f' stroke="{J.BG}" stroke-width="{ol}" stroke-linejoin="round"'
@@ -180,11 +190,12 @@ def para(x, y, t, cols=28, size=34, col=None, lh=1.5, anchor="start", ol=0, fam=
     return "".join(g), yy - size * lh
 
 
-def rect(x, y, w, h, fill="none", stroke=None, sw=4, rx=0, op=None):
+def rect(x, y, w, h, fill="none", stroke=None, sw=4, rx=0, op=None, dash=None):
     o = f' opacity="{op}"' if op is not None else ""
     s = f' stroke="{stroke}" stroke-width="{sw}"' if stroke else ""
+    d = f' stroke-dasharray="{dash}"' if dash else ""
     return (f'<rect x="{x:.0f}" y="{y:.0f}" width="{max(0, w):.0f}" '
-            f'height="{max(0, h):.0f}" rx="{rx}" fill="{fill}"{s}{o}/>')
+            f'height="{max(0, h):.0f}" rx="{rx}" fill="{fill}"{s}{d}{o}/>')
 
 
 def line(x1, y1, x2, y2, col=None, sw=None, dash=None, op=None):
@@ -475,6 +486,12 @@ def quote(phrase, who="", when="", doc="", ctx="", to="", size=104):
         body, y2 = para(card_x + 30, y + 44, v, cols=int((card_w - 60) / 32), size=32,
                         col=c)
         g.append(body)
+        # 🔴 2026-08-02：札は 470×612 あるのに、値が短い項目（「CEO」など）は
+        #    行の右が丸ごと空いていた（16枠中8枠が空き矩形 30〜53%・占有 11〜36%）。
+        #    飾りで埋めるのではなく、**書類の罫**を引く。札は書類なのだから、
+        #    罫があるほうが図として正しく、空きも横に割れる。色は DOC（書類の色）。
+        g.append(line(card_x + 30, y2 + 22, card_x + card_w - 30, y2 + 22,
+                      J.DOC_DIM, 2))
         y = y2 + gap
     if ctx:
         g.append(line(card_x + 30, y - 24, card_x + card_w - 30, y - 24, J.LINE_DIM, 2))
@@ -672,14 +689,53 @@ def breakdown(total, parts, unit="人", note="", horizontal=True):
 # ══════════════════════════════════════════════════════════
 #  7. graph — XY 折れ線（第5章の核心）
 # ══════════════════════════════════════════════════════════
+def _emptiest_corner(series, px, py, gx0, gy0, gx1, gy1, taken=()):
+    """折れ線がいちばん通っていない隅（"tl"/"tr"/"bl"/"br"）を返す。
+
+    🔴 2026-08-02（カズヤくん指摘「graph の直線1本のカットが続く」）。
+       直線1本のグラフは、線の上か下の**三角が必ず空く**。そこに何も置かないから
+       「直線が1本あるだけの画」に見えていた。凡例と注記はその空いた隅に置く。
+    ⚠️ どの隅が空くかは形で変わる。**推定で決めずに、線上の点を数える。**
+    ⚠️ 帯（band）の見出しも隅を占める。数えないと凡例とぶつかる
+       （c529 で実際にぶつかった。線だけ数えていたのが原因）。`taken` に渡す。
+    """
+    hw, hh = (gx1 - gx0) / 2, (gy1 - gy0) / 2
+    box = {"tl": (gx0, gy0), "tr": (gx0 + hw, gy0),
+           "bl": (gx0, gy0 + hh), "br": (gx0 + hw, gy0 + hh)}
+    cnt = dict.fromkeys(box, 0)
+    for x, y in taken:
+        for nm, (bx, by) in box.items():
+            if bx <= x <= bx + hw and by <= y <= by + hh:
+                cnt[nm] += 200                 # 帯の見出しは線より強く隅を塞ぐ
+    for s in series:
+        p = [(px(a), py(b)) for a, b in s["pts"]]
+        for i in range(len(p) - 1):            # 線分を刻んで、通った隅を数える
+            for k in range(21):
+                x = p[i][0] + (p[i + 1][0] - p[i][0]) * k / 20
+                y = p[i][1] + (p[i + 1][1] - p[i][1]) * k / 20
+                for nm, (bx, by) in box.items():
+                    if bx <= x <= bx + hw and by <= y <= by + hh:
+                        cnt[nm] += 1
+    order = ["tl", "bl", "tr", "br"]           # 同点なら左上を好む（視線の始まり）
+    return min(order, key=lambda k: (cnt[k], order.index(k)))
+
+
 def graph(series, xlab="", ylab="", xticks=None, yticks=None, xr=(0, 1), yr=(0, 1),
-          note="", legend=True, marks=None, band=None):
+          note="", legend=True, marks=None, band=None, area=False, gap=None,
+          axis_map=None, x2=None):
     """折れ線グラフ。**左から描かれていく**のがこの動画の主要な動きになる。
 
-    series … [dict(pts=[(x,y),...], t="ダイブ80", c=..., dash=None, sw=None)]
+    series … [dict(pts=[(x,y),...], t="ダイブ80", c=..., dash=None, sw=None,
+                   area=True, dot=True)]
+    area     … 折れ線の下を薄く塗る（系列ごとに指定してもよい）。**面を持たせる**
+    gap      … (i, j) 2つの系列のあいだを塗る。**ずれそのものが主張のとき**に使う
+    axis_map … [("深さ（m）", "かかる力")] 軸の対応表を空いた隅に置く
+    x2       … dict(lab="", ticks=[(v, "表示")]) 第2の横軸（下にもう1本）
     """
     gx0, gx1 = BX0 + 150, BX1 - 40
-    gy0, gy1 = BY0 + 46, BY1 - 96
+    # ⚠️ 第2の横軸を出すカットは、**軸2本＋目盛り2段＋注記**が下に積まれる。
+    #    高さを 96 のままにしたら 3か所ぶつかった（check_layout が実測で検出）。
+    gy0, gy1 = BY0 + 46, BY1 - (200 if x2 else 96)
     x0, x1 = xr
     y0, y1 = yr
 
@@ -707,31 +763,94 @@ def graph(series, xlab="", ylab="", xticks=None, yticks=None, xr=(0, 1), yr=(0, 
                             col=b.get("c", J.ALERT), anchor="middle"))
     g.append(rect(gx0, gy0, gx1 - gx0, gy1 - gy0, "none", J.LINE, 4))
     if xlab:
-        g.append(txt(gx1, gy1 + 78, xlab, 30, J.LINE, "Noto", "end"))
+        # 軸名はふつう右下。⚠️ 第2の横軸があるカットだけは**目盛りの行の左**へ回す
+        #    （右下は第2の軸の名前が使うため）。
+        if x2:
+            g.append(txtfit(gx0 - 18, gy1 + 40, xlab, gx0 - BX0 - 24, cap=28,
+                            col=J.LINE, anchor="end"))
+        else:
+            g.append(txt(gx1, gy1 + 78, xlab, 30, J.LINE, "Noto", "end"))
     if ylab:
         g.append(txt(gx0 - 18, gy0 - 16, ylab, 30, J.LINE, "Noto", "end"))
+    if x2:
+        # 第2の横軸。**同じ横軸が別の量でも読めること**を見せるために引く
+        y2 = gy1 + 92
+        g.append(line(gx0, y2, gx1, y2, J.DOC, 4))
+        for v, lb in x2.get("ticks", []):
+            # ⚠️ 右端の目盛りは中央寄せなので**枠の外へ出る**（実測で 1870 まで出た）。
+            #    端の2つだけ内側へ寄せる。
+            anch = ("end" if px(v) > gx1 - 60 else
+                    ("start" if px(v) < gx0 + 60 else "middle"))
+            g.append(line(px(v), y2 - 10, px(v), y2 + 10, J.DOC, 3))
+            g.append(txt(px(v), y2 + 48, lb, 26, J.DOC, "Noto", anch))
+        if x2.get("lab"):
+            g.append(txt(gx1, y2 - 18, x2["lab"], 28, J.DOC, "Noto", "end"))
     if note:
         g.append(txtfit(BX0, BY1 - 8, note, BW, cap=26, col=J.TICK))
 
+    # 凡例・対応表は**線が通っていない隅**に置く（直線1本のカットの空きを埋める）
+    taken = [((px(b["a"]) + px(b["b"])) / 2, gy0 + 40)
+             for b in (band or []) if b.get("t")]
+    corner = _emptiest_corner(series, px, py, gx0, gy0, gx1, gy1, taken)
+    lft = corner in ("tl", "bl")
+    top_c = corner in ("tl", "tr")
+    lx = (gx0 + 26) if lft else (gx1 - 26)
+    anch = "start" if lft else "end"
+    nleg = sum(1 for s in series if legend and s.get("t"))
+    ly = (gy0 + 48) if top_c else (gy1 - 34 - 44 * (nleg - 1))
+
     stages = []
-    ly = gy0 + 44
+    if axis_map:
+        # 軸の意味の対応表。「別の図と軸がそろっている」ことは、線では言えない
+        ax = gx0 + 40 if lft else gx1 - 40 - 470
+        ay = gy0 + 56 if top_c else gy1 - 56 - 62 * len(axis_map)
+        s = [rect(ax - 22, ay - 52, 514, 62 * len(axis_map) + 46, J.BG, J.DOC_DIM, 3,
+                  rx=8, op=0.86)]
+        for i, (a, b) in enumerate(axis_map):
+            yy = ay + 62 * i
+            s.append(txtfit(ax, yy, a, 240, cap=32, col=J.LINE))
+            s.append(txt(ax + 258, yy, "＝", 30, J.DOC, "Noto", "middle"))
+            s.append(txtfit(ax + 296, yy, b, 190, cap=32, col=J.DOC))
+        stages.append("".join(s))
+        # ⚠️ 対応表と凡例は同じ隅に来る。**凡例を対応表の下へ押し下げる**
+        #    （ぶつけたまま焼くと、対応表の枠の中に凡例の字が入る）
+        if top_c:
+            ly = ay + 62 * len(axis_map) + 30
+        else:
+            ly = ay - 62 - 44 * nleg
+    if gap and len(series) > max(gap):
+        a, b = series[gap[0]], series[gap[1]]
+        pa = [(px(u), py(v)) for u, v in a["pts"]]
+        pb = [(px(u), py(v)) for u, v in b["pts"]]
+        stages.append(poly(pa + list(reversed(pb)),
+                           fill=b.get("c", J.ALERT), close=True, op=0.20))
     for s in series:
         c = s.get("c", J.LINE)
         pts = [(px(a), py(b)) for a, b in s["pts"]]
-        seg = [poly(pts, stroke=c, sw=s.get("sw", 6), dash=s.get("dash"))]
-        if s.get("dot"):
-            seg += [circ(x, y, 7, c) for x, y in pts]
+        seg = []
+        if s.get("area", area):
+            # 折れ線の下を塗る。**装飾ではなく「そこまで積み上がった量」**を面で読ませる
+            seg.append(poly(pts + [(pts[-1][0], py(y0)), (pts[0][0], py(y0))],
+                            fill=c, close=True, op=0.14))
+        if not s.get("dots_only"):
+            seg.append(poly(pts, stroke=c, sw=s.get("sw", 6), dash=s.get("dash")))
+        if s.get("dot") or s.get("dots_only"):
+            seg += [circ(x, y, s.get("dotr", 7), c) for x, y in pts]
         if legend and s.get("t"):
-            lx = gx1 - 24
-            seg.append(line(lx - 74, ly - 10, lx - 24, ly - 10, c, 6,
+            seg.append(line(lx, ly - 10, lx + (50 if lft else -50), ly - 10, c, 6,
                             dash=s.get("dash")))
-            seg.append(txtfit(lx - 88, ly, s["t"], 460, cap=30, col=c, anchor="end"))
+            seg.append(txtfit(lx + (64 if lft else -64), ly, s["t"], 460, cap=30,
+                              col=c, anchor=anch))
             ly += 44
         stages.append("".join(seg))
     for m in (marks or []):
-        stages.append(circ(px(m["x"]), py(m["y"]), 14, "none", m.get("c", J.ALERT), 5)
-                      + txtfit(px(m["x"]) + 26, py(m["y"]) - 18, m.get("t", ""), 460,
-                               cap=32, col=m.get("c", J.ALERT)))
+        # dx/dy/anchor … 近い2点に印を打つカット（c525）は、そのままだと札が重なる
+        mx, my = px(m["x"]), py(m["y"])
+        a = m.get("anchor", "start")
+        stages.append(circ(mx, my, 14, "none", m.get("c", J.ALERT), 5)
+                      + txtfit(mx + m.get("dx", 26), my + m.get("dy", -18),
+                               m.get("t", ""), 460, cap=32,
+                               col=m.get("c", J.ALERT), anchor=a))
     return Fig("".join(g), stages, "", (gx0, gx1))
 
 
@@ -868,15 +987,35 @@ def layers(n=5, bonds=None, delam=None, voids=None, note="", labels=True,
 # ══════════════════════════════════════════════════════════
 # 10. titan — 潜水艇そのもの
 # ══════════════════════════════════════════════════════════
-#  形の根拠：NTSB/MIR-25-36 図3（三面図・NTSB作成＝PD）を実測。
-#  全長22フィート＝6.7m、円筒部 8.1フィート＝2.47m、外径 約1.7m。
-#  🔴 記憶で描くと必ず形が狂う（[[feedback-drawing-from-reference]]）。
-#     報告書の三面図に対する比で置いている：
-#       円筒長 / 全長 = 2.47 / 6.70 = 0.369
-#       ドーム突出 / 外径 = 約 0.55
-# ⚠️ 1180 では枠(1776)に対して小さく、右側が空いた（c203 空き18.1%）。
-#    三面図は横に伸びる図なので、**枠の横をほぼ使い切る**大きさにする。
-TT_L = 1520.0            # 画面上の全長（既定）
+#  形の根拠：NTSB/MIR-25-36 **図3（外形図・内部図）を画素で実測**（2026-08-02）。
+#  `ref/ntsb_titan_MIR2536.pdf` の 12 ページ目から図を取り出して測った。
+#
+#  🔴 2026-08-02：前の版は**自分で書いた実測メモと実装が食い違っていた**。
+#     コメントには「ドーム突出 / 外径 = 約 0.55」と書いてあるのに、
+#     実装は `A{R*0.62} {R}`（＝突出 / 外径 0.31）で、**ドームが半分の厚みしか
+#     無かった**。r5 の目視で出ていた「ドームが平らに見えて形が崩れた」の正体がこれ。
+#     さらに **尾部コーンが1本も描かれていなかった**。実機は尾部コーンが
+#     全長の3割を占める最大の外形要素なので、無いと「タイタンに見えない」。
+#
+#  ■ 図3から測った値（画素・1737×1946 の取り出し画像）
+#      耐圧殻 上端 y=1272 / 下端 y=1641      → 直径 369px（半径 185）
+#      円筒部（チタンリングのあいだ）x 700〜1340 → 640px
+#      前ドームの頂点 x≒1520 ／ 後ドームの頂点 x≒505
+#      → 円筒長/耐圧殻長 = 640/1015 = 0.63
+#         ドーム突出/半径 = 180/185 = 0.97、195/185 = 1.05  ＝**ほぼ半球**
+#      機体全長（尾部コーンの先〜のぞき窓）≒1535px
+#      → 耐圧殻長/全長 = 0.66 ／ 半径/全長 = 0.121
+#  ■ 実機との突き合わせ
+#      全長22フィート＝6.7m、円筒部 8.1フィート＝2.47m、外径 約1.7m。
+#      全長/直径 = 3.94 に対し、図3の実測は 4.15。図の見出しにも
+#      「scale approximate」とあるので、**図3の比を採る**（作図の下敷きは図3）。
+#  ⚠️ 向きは**機首を左**にする（`icons` の潜水艇の絵と同じ向きにそろえる）。
+#     図3 は機首が右なので、左右を反転して起こしてある。
+TT_L = 1520.0            # 画面上の全長（既定・尾部コーンの先まで含む）
+TT_R = 0.121             # 半径 / 全長
+TT_NOSE = 0.026          # のぞき窓の出っぱりぶん（機首の余白）
+TT_CYL = 0.417           # 円筒長 / 全長
+TT_DOME = 0.97           # ドーム突出 / 半径（＝ほぼ半球）
 
 
 def titan(mode="side", s=1.0, cx=None, cy=None, marks=None, note="",
@@ -888,15 +1027,27 @@ def titan(mode="side", s=1.0, cx=None, cy=None, marks=None, note="",
     L = TT_L * s
     cx = BCX if cx is None else cx
     cy = (BY0 + BH * 0.44) if cy is None else cy
-    R = L * 0.128                      # 外径の半分
-    cyl = L * 0.369                    # 円筒部の長さ
-    x0 = cx - L / 2
-    xc0, xc1 = cx - cyl / 2, cx + cyl / 2
+    R = L * TT_R                       # 外径の半分（図3の実測 半径/全長 = 0.121）
+    cyl = L * TT_CYL                   # 円筒部の長さ
+    x0 = cx - L / 2                    # 機首（のぞき窓の外面）側の端
+    dm = R * TT_DOME                   # ドームの突出（ほぼ半球）
+    xc0 = x0 + L * TT_NOSE + dm        # 円筒の前端（前のチタンリング）
+    xc1 = xc0 + cyl                    # 円筒の後端（後のチタンリング）
+    xhull = xc1 + dm                   # 後ドームの頂点
+    xtail = x0 + L                     # 尾部コーンの先
     g = []
-    # 外形：前後のドーム＋円筒＋尾部フェアリング
+    # ── 尾部コーン。**全長の3割を占める最大の外形要素**（前の版には無かった）──
+    #    図3どおり、上の縁は船体の上面線をそのまま延ばし、下の縁が持ち上がる。
+    #    塗らずに輪郭だけにする（図3も輪郭だけで描かれている）。
+    g.append(f'<path d="M{xc1:.1f} {cy - R:.1f} L{xtail:.1f} {cy - R * 0.96:.1f} '
+             f'C{xtail - L * 0.11:.1f} {cy + R * 0.12:.1f} '
+             f'{xc1 + L * 0.16:.1f} {cy + R:.1f} '
+             f'{xc1 + L * 0.02:.1f} {cy + R:.1f}" fill="{J.BG2}" opacity="0.45" '
+             f'stroke="{J.LINE}" stroke-width="4" stroke-linejoin="round"/>')
+    # 外形：前後のドーム＋円筒（＝耐圧殻。ここだけが圧力を受ける本体）
     body = (f'M{xc0:.1f} {cy - R:.1f} H{xc1:.1f} '
-            f'A{R * 0.62:.1f} {R:.1f} 0 0 1 {xc1:.1f} {cy + R:.1f} '
-            f'H{xc0:.1f} A{R * 0.62:.1f} {R:.1f} 0 0 1 {xc0:.1f} {cy - R:.1f} Z')
+            f'A{dm:.1f} {R:.1f} 0 0 1 {xc1:.1f} {cy + R:.1f} '
+            f'H{xc0:.1f} A{dm:.1f} {R:.1f} 0 0 1 {xc0:.1f} {cy - R:.1f} Z')
     if mode == "section":
         g.append(f'<path d="{body}" fill="{J.BG2}" stroke="{J.INK_W}" '
                  f'stroke-width="5"/>')
@@ -921,34 +1072,49 @@ def titan(mode="side", s=1.0, cx=None, cy=None, marks=None, note="",
                       op=0.55))
         g.append(rect(x - L * 0.012, cy - R * 1.04, L * 0.024, R * 2.08, "none",
                       J.AMBER, 3))
-    # 尾部の推進器とフレーム
-    # ⚠️ 船体から離して置いていたので、**宙に浮いた灰色の四角**にしか見えなかった
-    #    （r8 の目視。titan を使う14カット全部に出ていた）。支柱で船体につなぐ。
-    for sgn in (-1, 1):
-        px_, py_ = cx + L * 0.245, cy + sgn * R * 0.74
-        g.append(line(px_ - L * 0.02, cy + sgn * R * 0.34, px_ + L * 0.01, py_,
-                      J.LINE, 4))
-        g.append(rect(px_, py_ - L * 0.020, L * 0.058, L * 0.040, J.LINE, op=0.5))
-        g.append(rect(px_, py_ - L * 0.020, L * 0.058, L * 0.040, "none", J.LINE, 3))
-        g.append(line(px_ + L * 0.058, py_, px_ + L * 0.080, py_, J.LINE, 4))
-    g.append(rect(x0 + L * 0.10, cy + R * 0.96, L * 0.74, L * 0.030, J.LINE_DIM,
-                  op=0.7))
+    # 推進器。図3では**円筒の上**と**後リングの脇**に付いている。
+    # ⚠️ 前の版は船体から離して置いていたので**宙に浮いた灰色の四角**に見えた
+    #    （r8 の目視。titan を使う14カット全部に出ていた）。船体に接して描く。
+    for px_, py_, vert in ((xc0 + cyl * 0.62, cy - R, True),
+                           (xc1, cy + R * 0.30, False)):
+        if vert:
+            g.append(rect(px_ - L * 0.016, py_ - L * 0.030, L * 0.032, L * 0.030,
+                          J.LINE, J.LINE, 3, op=0.6))
+            g.append(rect(px_ - L * 0.024, py_ - L * 0.040, L * 0.048, L * 0.012,
+                          J.LINE, J.LINE, 3, op=0.6))
+        else:
+            g.append(rect(px_ - L * 0.004, py_ - L * 0.016, L * 0.030, L * 0.032,
+                          J.LINE, J.LINE, 3, op=0.6))
+            g.append(rect(px_ + L * 0.026, py_ - L * 0.024, L * 0.012, L * 0.048,
+                          J.LINE, J.LINE, 3, op=0.6))
+    # 着底フレーム。図3どおり、2本の柱と1本のそり
+    fy = cy + R + L * 0.055
+    for px_ in (xc0, xc1):
+        g.append(rect(px_ - L * 0.006, cy + R, L * 0.012, fy - cy - R, J.LINE_DIM,
+                      op=0.85))
+    g.append(rect(xc0 - L * 0.05, fy, (xc1 - xc0) + L * 0.10, L * 0.014,
+                  J.LINE_DIM, op=0.85))
     if window:
-        g.append(circ(x0 + L * 0.045, cy, R * 0.30, J.BG, J.OK, 5))
+        # のぞき窓。**前ドームの頂点に付く出っぱり**（宙に浮かせない）
+        g.append(rect(x0 + L * 0.004, cy - R * 0.30, L * 0.024, R * 0.60, J.BG2,
+                      J.OK, 4, rx=6))
+        g.append(circ(x0 + L * 0.026, cy, R * 0.22, J.BG, J.OK, 5))
     if bolts:
         for i in range(10):
             a = math.pi * (i / 9.0) - math.pi / 2
             g.append(circ(xc0 + math.cos(a) * 6, cy + math.sin(a) * R * 0.92, 7,
                           J.AMBER))
     if cut:
-        g.append(line(cx, cy - R * 1.5, cx, cy + R * 1.5, J.ALERT, 4, dash="16 10"))
+        mid = (xc0 + xc1) / 2
+        g.append(line(mid, cy - R * 1.5, mid, cy + R * 1.5, J.ALERT, 4, dash="16 10"))
     if note:
         g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.TICK))
 
-    anchor = {"fore": (x0 + L * 0.03, cy), "aft": (cx + L * 0.42, cy),
-              "cyl": (cx, cy - R), "cylb": (cx, cy + R),
+    xmid = (xc0 + xc1) / 2
+    anchor = {"fore": (x0 + L * TT_NOSE + dm * 0.45, cy), "aft": (xhull - dm * 0.45, cy),
+              "cyl": (xmid, cy - R), "cylb": (xmid, cy + R),
               "ring": (xc0, cy - R), "ring2": (xc1, cy - R),
-              "win": (x0 + L * 0.045, cy)}
+              "win": (x0 + L * 0.026, cy)}
     stages = []
     used_up, used_dn = [], []
     for m in (marks or []):
@@ -985,49 +1151,69 @@ def process(steps, note="", numbered=True, cols=None):
     #    ⚠️ 数字を埋めるために飾りを足さない。器のほうを中身に合わせる。
     top0 = BY0 + 62
     bh_max = BY1 - top0 - (78 if note else 34)
-    need = 0.0
-    for st in steps:
-        ts = fm.fit(str(st["t"]), cw - 30, "Noto", cap=84, floor=18)
-        h = 104 + ts * 1.15                        # 番号の丸ぶん＋見出し
-        if st.get("d"):
-            _, y2 = para(0, 0, str(st["d"]), cols=max(6, int(cw / 42)), size=42)
-            h += y2 + 30
-        if st.get("v"):
-            h += 130
-        need = max(need, h)
-    bh = max(300.0, min(bh_max, need + 56))
+    # 🔴 2026-08-02：箱の高さは中身から出していたのに、**中身の置き場所は
+    #    箱の割合（bh*0.30 / 0.48 / 0.88）**で決めていた。だから高さを詰めても
+    #    中身は箱の上のほうに固まったままで、下が空いた（check_box：48枠中12枠が
+    #    空き矩形 32〜55%・文字の下が 39〜58% 空洞）。
+    #    → **中身の高さを段ごとに積算し、その積算どおりの絶対位置に置く。**
+    PAD_T, GAP1, LH, GAP2, PAD_B = 40.0, 24.0, 58.0, 28.0, 34.0
+
+    def _mm(st):
+        """その段の (見出しの級数, 説明の行, 値の級数, 中身の高さ)。"""
+        ts = fm.fit(str(st["t"]), cw - 40, "Noto", cap=84, floor=18)
+        lines = wrap(str(st["d"]), max(6, int((cw - 40) / 42))) if st.get("d") else []
+        vs = fm.fit(str(st["v"]), cw - 40, "Dela", cap=124) if st.get("v") else 0
+        h = PAD_T + ts + PAD_B
+        if lines:
+            h += GAP1 + LH * len(lines)
+        if vs:
+            h += GAP2 + vs
+        return ts, lines, vs, h
+
+    mm = [_mm(st) for st in steps]
+    bh = max(230.0, min(bh_max, max(m[3] for m in mm)))
+    # ⚠️ 幅も中身から抑える。段が2つのカットは1枠 836px あり、
+    #    中身が「機械」（248px）だけの段は左右がまとめて空いた（実測 35%）。
+    each = []
+    for (ts_, dl_, vs_, _), st in zip(mm, steps):
+        n_ = fm.width(str(st["t"]), ts_, "Noto")
+        for ln in dl_:
+            n_ = max(n_, fm.width(ln, 42, "Noto"))
+        if vs_:
+            n_ = max(n_, fm.width(str(st["v"]), vs_, "Dela"))
+        each.append(n_ + 60)
+    # ⚠️ 下限（360）を先に効かせてはいけない。段が5つのカット（c414）は
+    #    枠いっぱいでも1枠 272px しかないので、360 を下限にすると**列が枠から溢れる**
+    #    （実測：左が -124px、右が 2003px）。**必ず元の幅で頭打ちにする。**
+    cw = min(cw, max(360.0, min(max(each) + 90, max(min(each) * 2.0, 360.0))))
     top = top0 + (bh_max - bh) / 2
+    x_left = BCX - (cw * cols + (gap + aw) * (cols - 1)) / 2   # 詰めた列を中央に
     g = []
     stages = []
     for i, st in enumerate(steps):
-        x = BX0 + i * (cw + gap + aw)
+        x = x_left + i * (cw + gap + aw)
         c = st.get("c", J.LINE)
+        ts, dlines, vs, ch = mm[i]
         s = [rect(x, top, cw, bh, c, op=0.14), rect(x, top, cw, bh, "none", c, 4)]
         if numbered:
             s.append(circ(x + 34, top - 2, 26, J.BG, c, 4))
             s.append(txt(x + 34, top + 12, i + 1, 34, c, "Dela", "middle"))
-        # 🔴 2026-08-01 作り直し（r13「枠内の余白が多い」＝17枚すべてが該当）。
-        #    箱は枠の縦を使い切る高さ（586px）なのに、中身は
-        #    **見出し48px＋説明30px の2〜3行だけ**で、下 6割が空洞だった
-        #    （check_box：48枠すべてで空き矩形 65%）。
-        #    ⚠️ 箱を縮めると今度は画面全体が空く（前にそれで一度失敗している）。
-        #    → **箱はそのまま、字を大きくして縦に配る。**
-        #      1920×1080 で見出し48pxは小さすぎるので、上限を 48→84 に上げる
-        #      （`txtfit` が幅に合わせて自動で縮めるので、長い見出しは今までどおり）。
-        has_v = bool(st.get("v"))
-        # 値が無い段（48段中41段）は、見出しと説明を箱の中央寄りに置く
-        ty = top + bh * (0.30 if has_v else 0.40)
-        dy = top + bh * (0.48 if has_v else 0.60)
-        s.append(txtfit(x + cw / 2, ty, st["t"], cw - 30, cap=84,
-                        col=J.INK_W, anchor="middle"))
-        if st.get("d"):
-            sub, _ = para(x + cw / 2, dy, st["d"],
-                          cols=max(6, int(cw / 42)), size=42, col=J.LINE,
-                          anchor="middle")
-            s.append(sub)
-        if has_v:
-            s.append(txt(x + cw / 2, top + bh * 0.88, st["v"],
-                         fm.fit(st["v"], cw - 30, "Dela", cap=124), c, "Dela",
+        # 段ごとの中身を、その段の高さぶんだけ**箱の縦中央に置く**。
+        # 1920×1080 で見出し48pxは小さすぎるので上限は 84 のまま
+        # （`fm.fit` が幅に合わせて縮めるので、長い見出しは今までどおり）。
+        cy = top + (bh - ch) / 2
+        yy = cy + PAD_T + ts * 0.78
+        s.append(txt(x + cw / 2, yy, st["t"], ts, J.INK_W, "Noto", "middle"))
+        yy = cy + PAD_T + ts
+        if dlines:
+            yy += GAP1
+            for ln in dlines:
+                s.append(txt(x + cw / 2, yy + 42 * 0.78, ln, 42, J.LINE, "Noto",
+                             "middle"))
+                yy += LH
+        if vs:
+            yy += GAP2
+            s.append(txt(x + cw / 2, yy + vs * 0.78, st["v"], vs, c, "Dela",
                          "middle"))
         if i < n - 1:
             s.append(arrow(x + cw + 12, top + bh * 0.42, x + cw + gap + aw - 12,
@@ -1124,57 +1310,274 @@ def panel(blocks, lead="", note="", cols=3):
 # ══════════════════════════════════════════════════════════
 # 13. absent — 「無い」ことを見せる
 # ══════════════════════════════════════════════════════════
-def absent(items, lead="", note=""):
-    """空欄・破線・×で「存在しない／受けていない」を見せる。
+def _tick_mark(x, y, r, col):
+    """✓。「有る」側にだけ付ける。"""
+    return poly([(x - r, y), (x - r * 0.25, y + r * 0.72), (x + r, y - r * 0.80)],
+                stroke=col, sw=max(5, r * 0.42))
 
-    第2章の「規格が無い」「登録が無い」「検査が無い」はこの型でしか強くならない。
+
+def _cross_mark(x, y, r, col):
+    """✗。**小さく打つ。** 大きな✗は「無い」ものをいちばん重く見せてしまう。"""
+    return (line(x - r, y - r, x + r, y + r, col, max(4, r * 0.38))
+            + line(x + r, y - r, x - r, y + r, col, max(4, r * 0.38)))
+
+
+def _absent_ledger(items, lead, note):
+    """台帳の行が空欄。**制度・登録・記録が「そこに書かれていない」**ことを見せる。
+
+    構図は**横に長い行が縦に積まれる**（他の3つの見せ方と重ならないように）。
+    記入欄は「有る」なら実線の枠に値が入り、「無い」なら破線の枠が空のまま。
     """
     n = len(items)
-    gap = 40
-    cw = (BW - gap * (n - 1)) / n
-    top = BY0 + 128
-    # ⚠️ 290 固定だと箱の下 y730〜892 が空いた。説明の行ぶんを残して枠を使い切る。
-    bh = BY1 - top - 168
+    top = BY0 + (100 if lead else 26)
+    bot = BY1 - (54 if note else 12)
     g = []
     if lead:
-        g.append(txtfit(BX0, BY0 + 74, lead, BW, cap=48, col=J.INK_W))
+        g.append(txtfit(BX0, BY0 + 64, lead, BW - 40, cap=46, col=J.INK_W))
+        g.append(line(BX0, BY0 + 82, BX1, BY0 + 82, J.DOC, 4))
+    rh = (bot - top) / n
+    # 記入欄の幅は**いちばん長い結果の文字から実測**して決める（推定で置かない）
+    res = [str(it.get("d") or ("有り" if it.get("ok") else "無し")) for it in items]
+    rs = min(48, min(fm.fit(t, 520, "Noto", cap=48, floor=26) for t in res))
+    ew = max(fm.width(t, rs, "Noto") for t in res) + 150      # ✓／✗ と左右の余白
+    ew = min(ew, BW * 0.44)
+    ex = BX1 - ew
+    eh = min(140.0, rh * 0.52)
+    # 用紙の罫（骨格）。行の切れ目をここで作っておく
+    for i in range(n):
+        g.append(line(BX0, top + (i + 1) * rh - rh * 0.04, BX1,
+                      top + (i + 1) * rh - rh * 0.04, J.DOC_DIM, 2))
     stages = []
     for i, it in enumerate(items):
-        x = BX0 + i * (cw + gap)
         ok = it.get("ok", False)
         c = J.OK if ok else J.ALERT
-        # 🔴 2026-08-01（r14 を焼いて目視）：ok=True の箱が**枠も中身も無い緑の面**だった。
-        #    原因は引数の渡し違い。`rect(x, top, cw, bh, J.OK, 4, rx=8, op=0.14)` は
-        #    5番目が fill、**6番目が stroke（色）**なので、`4` が色として渡っていた。
-        #    SVG は stroke="4" を色として解釈できず、**枠線が消えていた**。
-        #    → 枠線を正しい色で引き、「有る」ことが読めるように✓も入れる
-        #      （無い側には✗があるのに、有る側には何も無く対比が成立していなかった）。
+        cy = top + rh * (i + 0.5) - rh * 0.02
+        s = [txt(BX0 + 4, cy + rh * 0.10, f"{i + 1}", min(40, rh * 0.20), J.DOC,
+                 "Dela")]
+        # 項目名。**行の高さから級数を決める**（1920×1080 で小さい字は読めない）
+        # `c` を渡すとその色で出る（制度・第三者機関の名前は J.INST）
+        s.append(txtfit(BX0 + 62, cy + rh * 0.12, it["t"], ex - BX0 - 120,
+                        cap=int(min(96, rh * 0.42)), col=it.get("c", J.INK_W)))
+        # 記入欄
+        if ok:
+            s.append(rect(ex, cy - eh / 2, ew, eh, J.OK, J.OK, 4, rx=8, op=0.14))
+        else:
+            # 🔴 「無い」側は**塗らない・網掛けにしない**。破線の枠が空のまま、が正しい
+            s.append(rect(ex, cy - eh / 2, ew, eh, "none", J.LINE_DIM, 4, rx=8,
+                          dash="18 12"))
+        mr = min(20.0, eh * 0.20)
+        s.append(_tick_mark(ex + 46, cy, mr, c) if ok
+                 else _cross_mark(ex + 46, cy, mr, c))
+        s.append(txt(ex + 46 + mr + 26, cy + rs * 0.36, res[i], rs, c))
+        stages.append("".join(s))
+    if note:
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.TICK))
+    return Fig("".join(g), stages, "", (BX0, BX1))
+
+
+def _absent_seat(items, lead, note):
+    """並んだ席のうち、空いているものがある。**候補を当たって、当てはまらない。**
+
+    構図は**棚の上に小さな器が横に並ぶ**。器は台帳より小さく、名前は棚の下。
+    「有る」器だけが中身（記録の帯）を持ち、「無い」器は破線の輪郭だけ。
+    """
+    n = len(items)
+    lead_h = 92 if lead else 18
+    note_h = 46 if note else 6
+    top = BY0 + lead_h
+    bot = BY1 - note_h
+    # 下に名前と補足を置くぶんを先に取る（あとから足すと必ずはみ出す）
+    has_d = any(it.get("d") for it in items)
+    cap_h = 56 + (64 if has_d else 0)
+    shelf = bot - cap_h
+    bh = min(shelf - top - 16, 340.0)
+    slot = BW / n
+    bw = min(slot * 0.74, 360.0)
+    g = []
+    if lead:
+        g.append(txtfit(BX0, BY0 + 62, lead, BW, cap=48, col=J.INK_W))
+    # 棚。器がそこに「置かれている」ことを作る線
+    g.append(line(BX0, shelf, BX1, shelf, J.LINE, 5))
+    stages = []
+    for i, it in enumerate(items):
+        cx = BX0 + slot * (i + 0.5)
+        ok = it.get("ok", False)
+        c = J.OK if ok else J.ALERT
+        x, y = cx - bw / 2, shelf - bh
         s = []
         if ok:
-            s = [rect(x, top, cw, bh, J.OK, op=0.14),
-                 rect(x, top, cw, bh, "none", J.OK, 4, rx=8),
-                 poly([(x + cw * 0.38, top + bh * 0.50),
-                       (x + cw * 0.47, top + bh * 0.63),
-                       (x + cw * 0.64, top + bh * 0.34)],
-                      stroke=J.OK, sw=11)]
-        if not ok:
-            s = [rect(x, top, cw, bh, J.BG2, op=0.5),
-                 rect(x, top, cw, bh, "none", J.LINE_DIM, 4, rx=8)]
-            s.append(hatch(x + 4, top + 4, cw - 8, bh - 8, J.LINE_DIM, 22, 0.35))
-            s.append(line(x + cw * 0.30, top + bh * 0.30, x + cw * 0.70,
-                          top + bh * 0.70, J.ALERT, 9))
-            s.append(line(x + cw * 0.70, top + bh * 0.30, x + cw * 0.30,
-                          top + bh * 0.70, J.ALERT, 9))
-        s.append(txtfit(x + cw / 2, top + bh + 52, it["t"], cw + 20, cap=38,
-                        col=c, anchor="middle"))
+            # 中身がある＝記録の帯が詰まっている
+            s.append(rect(x, y, bw, bh, J.OK, J.OK, 4, rx=6, op=0.16))
+            for k in range(5):
+                by = y + bh * (0.16 + k * 0.16)
+                s.append(rect(x + bw * 0.12, by, bw * 0.76, bh * 0.085, J.OK,
+                              op=0.55))
+            s.append(_tick_mark(cx, y - 34, 20, c))
+        else:
+            # 🔴 空の器。**破線の輪郭だけ**。網掛けも塗りも入れない
+            s.append(rect(x, y, bw, bh, "none", J.LINE_DIM, 4, rx=6, dash="20 14"))
+            s.append(_cross_mark(cx, y + bh * 0.46, 30, c))
+            s.append(line(x + bw * 0.16, y + bh * 0.74, x + bw * 0.84,
+                          y + bh * 0.74, J.LINE_DIM, 3, dash="14 10"))
+        s.append(txtfit(cx, shelf + 50, it["t"], slot * 0.96, cap=40,
+                        col=it.get("c", c), anchor="middle"))
         if it.get("d"):
-            sub, _ = para(x + cw / 2, top + bh + 96, it["d"], cols=int(cw / 26),
-                          size=26, col=J.TICK, anchor="middle")
+            sub, _ = para(cx, shelf + 100, it["d"], cols=max(6, int(slot / 30)),
+                          size=30, col=J.TICK, anchor="middle")
             s.append(sub)
         stages.append("".join(s))
     if note:
         g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.TICK))
     return Fig("".join(g), stages, "", (BX0, BX1))
+
+
+def _absent_single(items, lead, note):
+    """1件だけ。**箱を作らない。**
+
+    🔴 2026-08-02 カズヤくん指摘「1項目だけの c612 は箱が巨大で空」。
+       件数が1でも横一列の器を1つ作っていたので、幅1,776px の箱が
+       中身ゼロで居座っていた。1件のときは器そのものをやめる。
+       構図は**左に大きな見出し、右に空欄の罫、その上に斜めの判**。
+    """
+    it = items[0]
+    ok = it.get("ok", False)
+    c = J.OK if ok else J.ALERT
+    g = []
+    if lead:
+        g.append(txtfit(BX0, BY0 + 56, lead, BW * 0.7, cap=36, col=J.TICK))
+    ty = BY0 + 300
+    ts = fm.fit(str(it["t"]), BW * 0.42, "Dela", cap=150, floor=52)
+    g.append(txt(BX0 + 10, ty, it["t"], ts, J.INK_W, "Dela"))
+    g.append(line(BX0 + 10, ty + 46, BX0 + 10 + fm.width(str(it["t"]), ts, "Dela"),
+                  ty + 46, c, 8))
+    # 右：本来そこに記録が入るはずだった欄。**罫だけを引いて、何も書かない**
+    fx = BX0 + BW * 0.50
+    fw = BX1 - fx
+    fy = BY0 + 120
+    g.append(txt(fx, fy - 26, "記録", 30, J.DOC))
+    for k in range(4):
+        g.append(line(fx, fy + 92 * k + 40, BX1, fy + 92 * k + 40, J.DOC_DIM, 3,
+                      dash="20 14"))
+    stages = []
+    # 斜めの判。空欄の上を横切らせる（「ここは埋まらなかった」を1枚で言う）
+    d = str(it.get("d") or ("有り" if ok else "無し"))
+    ds = fm.fit(d, fw - 190, "Dela", cap=88, floor=40)
+    dw = fm.width(d, ds, "Dela")
+    scx, scy = fx + fw / 2, fy + 148
+    bw_, bh_ = dw + 130, ds * 1.66
+    stages.append(
+        f'<g transform="rotate(-7 {scx:.0f} {scy:.0f})">'
+        + rect(scx - bw_ / 2, scy - bh_ / 2, bw_, bh_, J.BG, c, 7, rx=12)
+        + txt(scx, scy + ds * 0.36, d, ds, c, "Dela", "middle")
+        + '</g>')
+    if note:
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.TICK))
+    return Fig("".join(g), stages, "", (BX0, BX1), labk=0.52)
+
+
+def _absent_pair(items, lead, note):
+    """有る側と無い側を2枚で比べる。**数が出せるときは数で比べる。**
+
+    構図は左右2枚。⚠️ 矢印でつながない（前→後の変化ではなく、同時の対比なので）。
+    """
+    a, b = items[0], items[1]
+    if a.get("ok") is not True and b.get("ok") is True:
+        a, b = b, a                          # 「有る」側を必ず左に置く
+    cw = (BW - 120) / 2
+    lead_h = 84 if lead else 20
+    top = BY0 + lead_h
+    bot = BY1 - (48 if note else 10)
+    cap_h = 52 + (62 if (a.get("d") or b.get("d")) else 0)
+    bh = min(bot - cap_h - top, 372.0)
+    g = []
+    if lead:
+        g.append(txtfit(BX0, BY0 + 58, lead, BW, cap=46, col=J.INK_W))
+    # 対比の軸（中央の縦罫）。矢印にしない
+    g.append(line(BCX, top, BCX, top + bh + 26, J.LINE_DIM, 3, dash="16 12"))
+    stages = []
+    for i, side in enumerate((a, b)):
+        x = BX0 + i * (cw + 120)
+        ok = side.get("ok", False)
+        c = J.OK if ok else J.ALERT
+        nn = side.get("n")
+        s = []
+        if ok:
+            s.append(rect(x, top, cw, bh, J.OK, J.OK, 4, rx=8, op=0.14))
+            # 中身を「個」で見せる。n が無ければ記録の帯で埋める
+            if isinstance(nn, int) and 0 < nn <= 24:
+                cols = min(nn, 5)
+                rows = math.ceil(nn / cols)
+                uw = min(cw / (cols + 1), bh / (rows + 1.4))
+                ox = x + cw / 2 - uw * cols / 2
+                oy = top + bh * 0.30 - uw * (rows - 1) / 2
+                for k in range(nn):
+                    s.append(circ(ox + uw * (k % cols) + uw / 2,
+                                  oy + uw * (k // cols), uw * 0.30, J.OK))
+            else:
+                for k in range(5):
+                    s.append(rect(x + cw * 0.12, top + bh * (0.16 + k * 0.13),
+                                  cw * 0.76, bh * 0.07, J.OK, op=0.55))
+        else:
+            # 🔴 「無い」側は破線の輪郭と罫だけ。塗らない
+            s.append(rect(x, top, cw, bh, "none", J.LINE_DIM, 4, rx=8, dash="20 14"))
+            for k in range(3):
+                s.append(line(x + cw * 0.14, top + bh * (0.30 + k * 0.18),
+                              x + cw * 0.86, top + bh * (0.30 + k * 0.18),
+                              J.LINE_DIM, 3, dash="14 10"))
+        if isinstance(nn, int):
+            s.append(num(x + cw / 2, top + bh - 44, f"{nn}", side.get("unit", ""),
+                         "", c, min(132, bh * 0.36)))
+        elif not ok:
+            s.append(_cross_mark(x + cw / 2, top + bh * 0.62, 34, c))
+        s.append(txtfit(x + cw / 2, top + bh + 52, side["t"], cw + 40, cap=42,
+                        col=c, anchor="middle"))
+        if side.get("d"):
+            sub, _ = para(x + cw / 2, top + bh + 104, side["d"],
+                          cols=max(6, int(cw / 30)), size=30, col=J.TICK,
+                          anchor="middle")
+            s.append(sub)
+        stages.append("".join(s))
+    if note:
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.TICK))
+    return Fig("".join(g), stages, "", (BX0, BX1))
+
+
+def absent(items, lead="", note="", mode=None):
+    """「無い」ことを見せる。**無いものを重く描かない。**
+
+    🔴 2026-08-02 作り直し（カズヤくん指摘「大きな網掛け＋✗が並ぶだけで単調。
+       とくに1項目だけの c612 は箱が巨大で空」）。前の作りは16カットすべてが
+       **網掛けの大きな箱＋巨大な✗**で、しかも「無い」ものがいちばん重く見えていた。
+       図としても嘘で、無いものはそこに大きな塊としては無い。
+
+    → 作り直しの原則（4つの見せ方に共通）
+       **「無い」側は破線と罫だけ。実体（塗り・中身）を持つのは「有る」側だけ。**
+       網掛け（`hatch`）はこの型では使わない。
+
+    mode … "ledger" 台帳の行が空欄（制度・登録・記録が無い）＝横長の行が縦に積まれる
+           "seat"   棚に並んだ器のうち空いている（候補を当たって当てはまらない）
+           "single" 1件だけ（大きな見出し＋空欄の罫＋斜めの判）＝器を作らない
+           "pair"   有る側と無い側を数で比べる（2件のとき）
+           省略時は件数と ok の有無で自動で選ぶ。
+    ⚠️ **同じ章で見せ方が続かないように、カット側で mode を名指しする**
+       （自動任せにすると第6章の6カットが全部 ledger になる）。
+    """
+    items = list(items)
+    n = len(items)
+    if not mode:
+        oks = sum(1 for it in items if it.get("ok"))
+        mode = ("single" if n <= 1 else
+                "pair" if (n == 2 and oks == 1) else
+                "seat" if oks else "ledger")
+    fn = {"ledger": _absent_ledger, "seat": _absent_seat,
+          "single": _absent_single, "pair": _absent_pair}.get(mode)
+    if fn is None:
+        raise ValueError(f"absent の mode が不正です: {mode}")
+    if mode == "single" and n != 1:
+        raise ValueError(f"absent(mode='single') は1件のときだけ（いまは {n} 件）")
+    if mode == "pair" and n != 2:
+        raise ValueError(f"absent(mode='pair') は2件のときだけ（いまは {n} 件）")
+    return fn(items, lead, note)
 
 
 # ══════════════════════════════════════════════════════════
@@ -1381,49 +1784,170 @@ def mapfig(points, note="", link=None, scale=None, lead=""):
 # ══════════════════════════════════════════════════════════
 # 18. people — 人と組織のあいだで起きたこと
 # ══════════════════════════════════════════════════════════
-def people(nodes, edges=None, note="", lead=""):
-    """人・組織を箱で置き、あいだの出来事を矢印に書く。第3章の解雇の連鎖に使う。
+def _glyph(kind, cx, cy, s, col):
+    """節の中に置く小さな絵。**箱に名前が書いてあるだけの図にしない。**
 
-    nodes … [dict(x=0.1, y=0.3, t="海洋運用部長", c=...)]（x,y は 0〜1）
-    edges … [dict(a=0, b=1, t="1月19日 会話", c=...)]
+    kind … "person" 人 ／ "org" 組織・機関 ／ "doc" 書類・記録 ／ "part" 物・部品
     """
-    x0, y0 = BX0 + 20, BY0 + 60
-    w, h = BW - 40, BH - 150
-    bw, bh = 460, 140
-    g = []
-    if lead:
-        g.append(txtfit(BX0, BY0 + 20, lead, BW, cap=40, col=J.INK_W))
-    if note:
-        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.TICK))
+    if kind == "person":
+        return (circ(cx, cy - s * 0.26, s * 0.22, col)
+                + poly([(cx - s * 0.40, cy + s * 0.46), (cx - s * 0.40, cy + s * 0.10),
+                        (cx, cy - s * 0.06), (cx + s * 0.40, cy + s * 0.10),
+                        (cx + s * 0.40, cy + s * 0.46)], fill=col, close=True))
+    if kind == "org":
+        # 建物。屋根の帯＋窓の列（24pxでも「組織」と読める形にする）
+        g = [rect(cx - s * 0.46, cy - s * 0.34, s * 0.92, s * 0.14, col, rx=3),
+             rect(cx - s * 0.40, cy - s * 0.16, s * 0.80, s * 0.62, "none", col, 4)]
+        for k in range(3):
+            g.append(rect(cx - s * 0.26 + k * s * 0.26, cy - s * 0.02, s * 0.13,
+                          s * 0.30, col, op=0.75))
+        return "".join(g)
+    if kind == "doc":
+        # 書類。角を折る＋本文の罫3本
+        w_, h_ = s * 0.66, s * 0.86
+        x_, y_ = cx - w_ / 2, cy - h_ / 2
+        g = [poly([(x_, y_), (x_ + w_ - s * 0.20, y_), (x_ + w_, y_ + s * 0.20),
+                   (x_ + w_, y_ + h_), (x_, y_ + h_)], fill="none", stroke=col,
+                  sw=4, close=True)]
+        for k in range(3):
+            g.append(line(x_ + s * 0.10, y_ + s * 0.42 + k * s * 0.17,
+                          x_ + w_ - s * 0.10, y_ + s * 0.42 + k * s * 0.17, col, 3))
+        return "".join(g)
+    if kind == "part":
+        # 物・部品（耐圧殻・模型）。円筒の側面
+        return (rect(cx - s * 0.44, cy - s * 0.22, s * 0.88, s * 0.44, "none", col,
+                     4, rx=s * 0.20)
+                + line(cx - s * 0.16, cy - s * 0.22, cx - s * 0.16, cy + s * 0.22,
+                       col, 3)
+                + line(cx + s * 0.16, cy - s * 0.22, cx + s * 0.16, cy + s * 0.22,
+                       col, 3))
+    return ""
+
+
+def _box_edge(cx, cy, bw, bh, tx, ty):
+    """(cx,cy) の箱の**縁**のうち、(tx,ty) へ向かう向きにある点を返す。
+
+    🔴 前は `bw*0.5` `bh*0.62` と楕円で近似していたので、矢印の根元が
+       箱の中に食い込んだり、離れて浮いたりしていた（11カット全部）。
+       「関係が読み取れない」の一因はここ。矩形なら交点は式で出る。
+    """
+    dx, dy = tx - cx, ty - cy
+    if abs(dx) < 1e-6 and abs(dy) < 1e-6:
+        return (cx, cy)
+    t = min(bw / 2 / abs(dx) if dx else 1e9, bh / 2 / abs(dy) if dy else 1e9)
+    return (cx + dx * t, cy + dy * t)
+
+
+def people(nodes, edges=None, note="", lead=""):
+    """人・組織のあいだで起きたこと。第3章の解雇の連鎖に使う。
+
+    nodes … [dict(x=0.1, y=0.3, t="海洋運用部長", d="", c=..., kind="person")]
+    edges … [dict(a=0, b=1, t="1月19日 会話", c=...)]
+
+    🔴 2026-08-02 作り直し（カズヤくん指摘「people がスカスカ」）。
+       前は箱が **460×140 の固定**で、11カット中8カットは節が2つしか無い。
+       1,736×532 の枠に小さな箱が2つ浮いているだけで、占有は 14% しかなかった。
+       ⚠️ ただ大きくすると節どうしがぶつかる（位置はカット側が決めている）。
+       → **ぶつからない最大の大きさを二分探索で出す**（推定で置かない）。
+       あわせて ①矢印を箱の縁にきっちり当てる ②節に小さな絵を入れる
+       （kind）ので、「箱に名前が書いてあるだけ」の図ではなくなる。
+    """
+    x0, y0 = BX0 + 20, BY0 + (76 if lead else 30)
+    w = BW - 40
+    h = (BY1 - (46 if note else 8)) - y0
 
     def C(i):
         n = nodes[i]
         return (x0 + w * n["x"], y0 + h * n["y"])
 
+    # ── 節の大きさ ───────────────────────────────────────────
+    # 🔴 高さは**中身から決める**（process と beforeafter で学んだのと同じ）。
+    #    最初は幅も高さもいっしょに大きくしたら、`check_box` が people 26枠のうち
+    #    16枠を「空き矩形 32〜33%」で落とした。**器だけ大きくしても中は埋まらない。**
+    #    → 高さは 絵＋名前＋補足 の実寸に合わせ、**幅だけ**ぶつからない最大を探す。
+    GS = 118.0                                   # 節の中に置く絵の大きさ
+    PADY = 36.0
+    bh = GS + PADY * 2                           # = 190
+    if all(not n.get("d") for n in nodes):
+        bh = GS + PADY * 1.7
+    # 幅の上限は**いちばん中身が長い節**から出す。無闇に広げると、名前が短い節
+    # （「2号殻」「NTSB」）の左右が穴になる（check_box が実測で落とした）。
+    need = 0.0
+    for n in nodes:
+        gs_ = GS if n.get("kind") else 0.0
+        need = max(need, 52 + (gs_ + 26 if gs_ else 0)
+                   + max(fm.width(str(n["t"]), 56, "Noto"),
+                         fm.width(str(n.get("d", "")), 34, "Noto")))
+    BW_MAX, PAD = max(380.0, min(780.0, need + 200)), 44.0
+
+    def fits(bw_):
+        for i in range(len(nodes)):
+            ax, ay = C(i)
+            if not (BX0 <= ax - bw_ / 2 and ax + bw_ / 2 <= BX1):
+                return False
+            if not (y0 - 10 <= ay - bh / 2 and ay + bh / 2 <= y0 + h + 10):
+                return False
+            for j in range(i + 1, len(nodes)):
+                bx, by = C(j)
+                if (abs(ax - bx) < bw_ + PAD) and (abs(ay - by) < bh + PAD):
+                    return False
+        return True
+
+    lo, hi = 300.0, BW_MAX
+    if not fits(lo):
+        hi = lo                                  # どうしても入らない配置は最小で置く
+    else:
+        for _ in range(26):
+            mid = (lo + hi) / 2
+            if fits(mid):
+                lo = mid
+            else:
+                hi = mid
+    bw = lo
+    g = []
+    if lead:
+        g.append(txtfit(BX0, BY0 + 62, lead, BW, cap=44, col=J.INK_W))
+    if note:
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.TICK))
+
     stages = []
     for e in (edges or []):
         a, b = C(e["a"]), C(e["b"])
         c = e.get("c", J.LINE)
-        ang = math.atan2(b[1] - a[1], b[0] - a[0])
-        a2 = (a[0] + math.cos(ang) * bw * 0.5, a[1] + math.sin(ang) * bh * 0.62)
-        b2 = (b[0] - math.cos(ang) * bw * 0.54, b[1] - math.sin(ang) * bh * 0.66)
-        s = [arrow(a2[0], a2[1], b2[0], b2[1], c, 5, 20)]
+        a2 = _box_edge(a[0], a[1], bw + 16, bh + 16, b[0], b[1])
+        b2 = _box_edge(b[0], b[1], bw + 30, bh + 30, a[0], a[1])
+        s = [arrow(a2[0], a2[1], b2[0], b2[1], c, 6, 24)]
         if e.get("t"):
             mx, my = (a2[0] + b2[0]) / 2, (a2[1] + b2[1]) / 2
-            tw = fm.width(e["t"], 30, "Noto") + 24
-            s.append(rect(mx - tw / 2, my - 24, tw, 44, J.BG, rx=6))
-            s.append(txtfit(mx, my + 8, e["t"], tw, cap=30, col=c, anchor="middle"))
+            es = 34
+            tw = fm.width(e["t"], es, "Noto") + 34
+            s.append(rect(mx - tw / 2, my - 30, tw, 58, J.BG, c, 3, rx=8))
+            s.append(txtfit(mx, my + 10, e["t"], tw - 20, cap=es, col=c,
+                            anchor="middle"))
         stages.append("".join(s))
     for n in nodes:
         x, y = x0 + w * n["x"], y0 + h * n["y"]
         c = n.get("c", J.LINE)
         s = [rect(x - bw / 2, y - bh / 2, bw, bh, c, op=0.16),
-             rect(x - bw / 2, y - bh / 2, bw, bh, "none", c, 4, rx=6)]
-        s.append(txtfit(x, y + (0 if not n.get("d") else -14), n["t"], bw - 26,
-                        cap=36, col=J.INK_W, anchor="middle"))
-        if n.get("d"):
-            s.append(txtfit(x, y + 34, n["d"], bw - 26, cap=26, col=J.TICK,
-                            anchor="middle"))
+             rect(x - bw / 2, y - bh / 2, bw, bh, "none", c, 4, rx=8)]
+        # 絵は左、文字は右。**その2つを1組にして、箱の中で中央に置く。**
+        # 🔴 最初は左詰めにしていたら、名前が短い節（「CEO」「2号殻」「NTSB」）で
+        #    右半分が丸ごと空いた（check_box：26枠中13枠が空き矩形 32〜58%）。
+        #    左詰めだと空きが片側にまとまるので「穴」になる。中央に置けば両側に割れる。
+        gs = min(GS, bh - 48, bw * 0.34) if n.get("kind") else 0.0
+        tw_max = bw - 52 - (gs + 26 if gs else 0)
+        ts = fm.fit(str(n["t"]), tw_max, "Noto", cap=56, floor=20)
+        ds = fm.fit(str(n.get("d", "")), tw_max, "Noto", cap=34, floor=18) if n.get("d") else 0
+        tw = max(fm.width(str(n["t"]), ts, "Noto"),
+                 fm.width(str(n.get("d", "")), ds, "Noto") if ds else 0)
+        cw_ = (gs + 26 if gs else 0) + tw
+        sx = x - cw_ / 2
+        if gs:
+            s.append(_glyph(n["kind"], sx + gs / 2, y, gs, c))
+        cx = sx + (gs + 26 if gs else 0)
+        s.append(txt(cx, y + (16 if not n.get("d") else -8), n["t"], ts, J.INK_W))
+        if ds:
+            s.append(txt(cx, y + 46, n["d"], ds, J.TICK))
         stages.append("".join(s))
     return Fig("".join(g), stages, "", (x0, x0 + w))
 
@@ -1433,49 +1957,75 @@ def people(nodes, edges=None, note="", lead=""):
 # ══════════════════════════════════════════════════════════
 def beforeafter(a, b, note="", lead=""):
     """左右2枚。a/b は dict(k="変更前", t="…", lines=[…], c=…)。"""
-    cw = (BW - 90) / 2
+    cw = (BW - 90) / 2                       # 上限。下で中身に合わせて詰める
     # 🔴 2026-08-01（r14 を焼いて目視）。process と同じ症状。
     #    箱は 843×526 なのに中身は「見出し＋箇条1行」だけで、器が中身の3倍あった。
     #    実測：24枠すべて lines が1行以下・値は1つも無い。
     #    → **中身を測って箱をその高さにし、縦の中央に置く。**
     top0 = BY0 + 96
     bh_max = BY1 - top0 - 60
-    need = 0.0
-    for side in (a, b):
-        ts = fm.fit(str(side.get("t", "")), cw - 30, "Noto", cap=78, floor=18)
-        h = 60 + ts * 1.15 + 60 * len(side.get("lines", []))
-        if side.get("v"):
-            h += 130
-        need = max(need, h)
-    bh = max(280.0, min(bh_max, need + 56))
+    # 🔴 2026-08-02：process とまったく同じ症状。高さは中身から出していたのに、
+    #    中身は bh*0.30／+bh*0.20 と**箱の割合**で置いていたので、
+    #    どの箱も下 4割が空洞のままだった（24枠中11枠が空き矩形 32〜60%）。
+    PAD_T, GAP1, LH, GAP2, PAD_B = 44.0, 26.0, 60.0, 30.0, 38.0
+
+    def _mm(side):
+        ts = fm.fit(str(side.get("t", "")), cw - 40, "Noto", cap=78, floor=18)
+        lines = list(side.get("lines", []))
+        vs = fm.fit(str(side["v"]), cw - 50, "Dela", cap=110) if side.get("v") else 0
+        h = PAD_T + ts + PAD_B
+        if lines:
+            h += GAP1 + LH * len(lines)
+        if vs:
+            h += GAP2 + vs
+        return ts, lines, vs, h
+
+    mm = [_mm(a), _mm(b)]
+    bh = max(190.0, min(bh_max, max(m[3] for m in mm)))
+    # 🔴 高さを詰めたら、今度は**横**が空いた（11枠が空き矩形 32〜60%）。
+    #    見出しだけ中央寄せ・箇条は左寄せ、という不揃いのせいで、
+    #    短い見出しの左右と、箇条の右が別々に大きく空いていた。
+    #    → ①中身をすべて左寄せにそろえる ②箱の幅を中身に合わせて詰める。
+    each = []
+    for (ts_, lines_, vs_, _), side in zip(mm, (a, b)):
+        n_ = fm.width(str(side.get("t", "")), ts_, "Noto") + 68
+        for ln in lines_:
+            n_ = max(n_, fm.width("・" + ln, 46, "Noto") + 68)
+        if vs_:
+            n_ = max(n_, fm.width(str(side["v"]), vs_, "Dela") + 68)
+        each.append(n_)
+    # ⚠️ 左右で中身の長さが違うカットがある（c426「5.166 / 5.175 インチ」対「5 インチ」）。
+    #    長いほうに幅を合わせると、**短いほうの右が丸ごと空く**（実測 59%）。
+    #    → 幅は短いほうからも抑える。中身は左右とも中央にそろえるので、
+    #      空きは両側に割れる（片側にまとまると「穴」になる）。
+    cw = max(440.0, min(cw, max(each) + 90, max(min(each) * 2.0, 440.0)))
     top = top0 + (bh_max - bh) / 2
+    x_left = BCX - cw - 45                   # 詰めた2枚を画面の中央にそろえる
     g = []
     if lead:
         g.append(txtfit(BX0, BY0 + 62, lead, BW, cap=44, col=J.INK_W))
     g.append(arrow(BCX - 26, top + bh / 2, BCX + 26, top + bh / 2, J.AMBER, 6, 22))
     stages = []
     for i, side in enumerate((a, b)):
-        x = BX0 + i * (cw + 90)
+        x = x_left + i * (cw + 90)
         c = side.get("c", J.LINE if i == 0 else J.ALERT)
         s = [rect(x, top, cw, bh, c, op=0.12), rect(x, top, cw, bh, "none", c, 4)]
         s.append(chip(x + 20, top - 22, side.get("k", ""), c, 28))
-        # 🔴 2026-08-01 作り直し（r13「枠内の余白が多い」＝12枚24枠すべてが該当）。
-        #    箱は 843×526 なのに、中身は**見出し44px＋箇条1行だけ**で、
-        #    下 7割が空洞だった（check_box：24枠すべてで空き矩形 71%）。
-        #    実測：24枠すべてが `lines` 1行以下・`v` は1つも無い。
-        #    → 箱はそのまま、**字を大きくして縦の中央に置く**。
-        nl = len(side.get("lines", []))
-        has_v = bool(side.get("v"))
-        y = top + bh * (0.30 if (has_v or nl > 1) else 0.38)
-        s.append(txtfit(x + cw / 2, y, side.get("t", ""), cw - 30, cap=78,
-                        col=J.INK_W, anchor="middle"))
-        y += bh * 0.20
-        for ln in side.get("lines", []):
-            s.append(txtfit(x + 34, y, "・" + ln, cw - 60, cap=46, col=J.LINE))
-            y += 60
-        if has_v:
-            s.append(txt(x + cw / 2, top + bh - 30, side["v"],
-                         fm.fit(side["v"], cw - 40, "Dela", cap=110), c, "Dela",
+        # 中身の積算どおりに、箱の縦中央から絶対位置で置く
+        ts, lines, vs, ch = mm[i]
+        cy = top + (bh - ch) / 2
+        s.append(txtfit(x + cw / 2, cy + PAD_T + ts * 0.78, side.get("t", ""),
+                        cw - 68, cap=ts, col=J.INK_W, anchor="middle"))
+        y = cy + PAD_T + ts
+        if lines:
+            y += GAP1
+            for ln in lines:
+                s.append(txtfit(x + cw / 2, y + 46 * 0.78, "・" + ln, cw - 68,
+                                cap=46, col=J.LINE, anchor="middle"))
+                y += LH
+        if vs:
+            y += GAP2
+            s.append(txt(x + cw / 2, y + vs * 0.78, side["v"], vs, c, "Dela",
                          "middle"))
         stages.append("".join(s))
     if note:

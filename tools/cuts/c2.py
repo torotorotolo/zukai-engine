@@ -97,13 +97,14 @@ SPEC = {
     # ── c207 ★規格が無い ───────────────────────────────────
     # 🔴 2026-08-01 減量（10.6字/秒）。枕「炭素繊維の耐圧殻」は副題と同じ話で、
     #    説明「認められたものが無い」は**2枚とも同じ文**。
-    #    absent は ok=False で網掛けと大きな×を描くので、**絵が既に「無い」と言っている。**
+    #    absent は「無い」ことを**空欄**で描くので、**絵が既に「無い」と言っている。**
+    # 見せ方は台帳（ledger）。規格の欄が空のまま、という形が意味そのもの。
     "c207": dict(
         t="規格が存在しない",
         s="炭素繊維でできた耐圧殻について",
-        fig=("absent", dict(items=[
-            dict(t="国内の規格", ok=False),
-            dict(t="国際的な規格", ok=False)],
+        fig=("absent", dict(mode="ledger", items=[
+            dict(t="国内の規格", ok=False, c=J.INST),
+            dict(t="国際的な規格", ok=False, c=J.INST)],
             note="出どころ：アメリカ沿岸警備隊　海難審判部　報告書")),
     ),
 
@@ -168,8 +169,9 @@ SPEC = {
         t="当初はロイズかDNV",
         s="2016年　海洋運用部長の証言",
         fig=("people", dict(
-            nodes=[dict(x=0.20, y=0.46, t="オーシャンゲート", c=J.LINE),
-                   dict(x=0.78, y=0.46, t="ロイズ／DNV", c=J.OK)],
+            nodes=[dict(x=0.20, y=0.46, t="オーシャンゲート", kind="org", c=J.LINE),
+                   dict(x=0.78, y=0.46, t="ロイズ／DNV", d="船級協会",
+                        kind="org", c=J.INST)],
             edges=[dict(a=0, b=1, t="船級を取る計画", c=J.OK)])),
     ),
 
@@ -206,9 +208,9 @@ SPEC = {
         s="2018年2月",
         fig=("people", dict(
             nodes=[dict(x=0.22, y=0.28, t="海洋技術協会", d="潜水艦委員会",
-                        c=J.LINE),
+                        kind="org", c=J.INST),
                    dict(x=0.76, y=0.74, t="CEO", d="オーシャンゲート",
-                        c=J.ALERT)],
+                        kind="person", c=J.ALERT)],
             edges=[dict(a=0, b=1, t="書簡の草案", c=J.AMBER)])),
     ),
 
@@ -277,14 +279,15 @@ SPEC = {
 
     # ── c224 ★「実験的」という区分は無い ────────────────────
     # 🔴 2026-08-01 減量（10.2字/秒）。説明「そのような区分は無い」が**2枚とも同じ文**で、
-    #    しかも absent は網掛けと大きな×で「無い」を描いている。**絵と同じ文は要らない。**
+    #    しかも absent は空欄で「無い」を描いている。**絵と同じ文は要らない。**
     #    枕も見出しと同じ語なので落とす。
+    # 見せ方は棚（seat）。c207・c230 が台帳なので、この章で3枚続かないようにする。
     "c224": dict(
         t="実験的という区分は無い",
         s="沿岸警備隊にも、船級協会にも",
-        fig=("absent", dict(items=[
-            dict(t="沿岸警備隊", ok=False),
-            dict(t="船級協会", ok=False)],
+        fig=("absent", dict(mode="seat", items=[
+            dict(t="沿岸警備隊", ok=False, c=J.INST),
+            dict(t="船級協会", ok=False, c=J.INST)],
             note="出どころ：アメリカ沿岸警備隊　海難審判部　報告書")),
     ),
 
@@ -349,22 +352,23 @@ SPEC = {
         s="会社の運営の合法性への懸念",
         fig=("people", dict(
             nodes=[dict(x=0.50, y=0.24, t="元技術者", d="沿岸警備隊にいた",
-                        c=J.LINE),
-                   dict(x=0.50, y=0.76, t="オーシャンゲート", c=J.LINE_DIM)],
+                        kind="person", c=J.LINE),
+                   dict(x=0.50, y=0.76, t="オーシャンゲート", kind="org",
+                        c=J.LINE_DIM)],
             edges=[dict(a=0, b=1, t="辞めた", c=J.ALERT)])),
     ),
 
     # ── c230 ★登録も検査も無い。3つの空欄で終わる ────────────
     # 🔴 2026-08-01 減量（11.4字/秒＝この章の最悪と同率）。
     #    副題が3枚の見出しをそのまま並べたもので、説明も「受けていない」が2枚同じ。
-    #    absent の網掛けと×が「無い」を描いているので、**言葉で言い直さない。**
+    #    absent の空欄が「無い」を描いているので、**言葉で言い直さない。**
     "c230": dict(
         t="登録も検査も無かった",
         s="タイタンが受けていたもの",
-        fig=("absent", dict(items=[
-            dict(t="州の登録", ok=False),
-            dict(t="国の船舶登録", ok=False),
-            dict(t="どこかの国の検査", ok=False)],
+        fig=("absent", dict(mode="ledger", items=[
+            dict(t="州の登録", ok=False, c=J.INST),
+            dict(t="国の船舶登録", ok=False, c=J.INST),
+            dict(t="どこかの国の検査", ok=False, c=J.INST)],
             note="出どころ：アメリカ沿岸警備隊　海難審判部　報告書")),
     ),
 }

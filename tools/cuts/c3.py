@@ -105,8 +105,9 @@ SPEC = {
         t="社内から1通の報告書",
         s="2018年1月　品質検査の報告書",
         fig=("people", dict(
-            nodes=[dict(x=0.18, y=0.30, t="海洋運用部長", c=J.LINE),
-                   dict(x=0.78, y=0.30, t="CEOと役員たち", c=J.LINE)],
+            nodes=[dict(x=0.18, y=0.30, t="海洋運用部長", kind="person", c=J.LINE),
+                   dict(x=0.78, y=0.30, t="CEOと役員たち", kind="person",
+                        c=J.LINE)],
             edges=[dict(a=0, b=1, t="2018年1月　品質検査の報告書", c=J.AMBER)])),
     ),
 
@@ -167,8 +168,9 @@ SPEC = {
         s="船員を守る法律にもとづく申し立て",
         fig=("people", dict(
             nodes=[dict(x=0.18, y=0.30, t="海洋運用部長", d="解雇された",
-                        c=J.LINE),
-                   dict(x=0.78, y=0.30, t="労働安全衛生局", c=J.AMBER)],
+                        kind="person", c=J.LINE),
+                   dict(x=0.78, y=0.30, t="労働安全衛生局", kind="org",
+                        c=J.INST)],
             edges=[dict(a=0, b=1, t="船員を守る法律にもとづく申し立て",
                         c=J.AMBER)])),
     ),
@@ -206,8 +208,9 @@ SPEC = {
         s="労働安全衛生局と沿岸警備隊",
         fig=("people", dict(
             nodes=[dict(x=0.18, y=0.32, t="労働安全衛生局", d="申し立てを受けた",
-                        c=J.LINE),
-                   dict(x=0.78, y=0.32, t="アメリカ沿岸警備隊", c=J.ALERT)],
+                        kind="org", c=J.INST),
+                   dict(x=0.78, y=0.32, t="アメリカ沿岸警備隊", kind="org",
+                        c=J.ALERT)],
             edges=[dict(a=0, b=1, t="通常なら手紙で通知", c=J.ALERT)])),
     ),
 
@@ -265,8 +268,10 @@ SPEC = {
     "c326": dict(
         t="遠征の承認を拒んだ",
         s="その年に予定されていた遠征",
-        fig=("absent", dict(lead="技術部長の承認", items=[
-            dict(t="2019年の遠征", d="承認されなかった", ok=False)])),
+        # 🔴 1件しかないので **single**（器を作らない）。
+        #    前は横一列の器を1つ作っていたので、幅1,776pxの箱が中身ゼロで居座っていた。
+        fig=("absent", dict(mode="single", lead="技術部長の承認", items=[
+            dict(t="2019年の遠征", d="承認なし", ok=False)])),
     ),
 
     # ── c327 予約は入っていた。そして2人目が解雇された ──────────
