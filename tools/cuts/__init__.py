@@ -62,7 +62,11 @@ PHOTO_OVERRIDE = {
                  ann=[dict(t="上が外側の面　下が内側の面　白い部分は繊維の破断",
                            ts=38)]),
     # 第4章：しわ（図16上）
-    "c411": dict(photo="titan_ntsb16_wrinkle.jpg", band=True, bias=0.5, ann_y=800,
+    # 🔴 2026-08-02（r21 の目視）：bias=0.5 だと、**報告書の図に元から入っている
+    #    英文の注記ボックス**が帯の上端にかかり、見出し帯に切られて
+    #    「中身が空の白い箱から矢印だけが出ている」画になっていた。
+    #    箱が入らないところまで下げる。
+    "c411": dict(photo="titan_ntsb16_wrinkle.jpg", band=True, bias=0.60, ann_y=800,
                  ann=[dict(t="しわの上で、接着の層に空隙ができている", ts=40)]),
     # 第4章：層と層のあいだの接着剤（図17上）
     "c416": dict(photo="titan_ntsb17_layers.jpg", band=True, bias=0.5, ann_y=790,

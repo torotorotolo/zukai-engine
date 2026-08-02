@@ -339,9 +339,23 @@ def depth(marks, dmax=4400, unit="m", axis_t="水深", seabed=None, note="", rig
             g.append(line(ax - 9, yy, ax + 9, yy, J.LINE_DIM, 2))
         dd += stepm // 2
 
+    # 🔴 2026-08-02（r21 の目視・c616）：印が縦に近いと、**上の印の潜水艇の絵が
+    #    下の印の数字の頭を削る**。c616 は 3,346（big）と 3,840 が 60px しか離れて
+    #    おらず、カプセル（y±22）が「3,840」の上を 108×8px 覆っていた。
+    #    ⚠️ 机上検査もこれを 1px の差で見逃していた（`iy <= 8` のしきい値）。
+    #    → 近すぎる印は、下側の数字を**絵の下へ**逃がす。
+    NEED = 78.0                       # 絵の下端(y+22) と 数字の字面上端 が離れる量
+    lab_dy = {}
+    order_ = sorted(range(len(marks)), key=lambda i: marks[i]["d"])
+    for a_, b_ in zip(order_, order_[1:]):
+        gap_ = dy(marks[b_]["d"]) - dy(marks[a_]["d"])
+        if marks[a_].get("big") and gap_ < NEED:
+            lab_dy[b_] = NEED - gap_
+
     stages = []
-    for m in marks:
+    for mi, m in enumerate(marks):
         y = dy(m["d"])
+        ldy = lab_dy.get(mi, 0.0)
         c = m.get("c", J.AMBER)
         big = m.get("big", False)
         s = [line(ax, y, BX1 - 8, y, c, 6 if big else 4,
@@ -360,14 +374,14 @@ def depth(marks, dmax=4400, unit="m", axis_t="水深", seabed=None, note="", rig
         size = 76 if big else 48
         # ⚠️ 文字は絵の外から始める（r19 の目視で数字と札が絵に重なっていた）
         lx = ax + (164 if big else 40)
-        s.append(txt(lx, y - 16, f'{m["d"]:,}', size, c, "Dela"))
+        s.append(txt(lx, y - 16 + ldy, f'{m["d"]:,}', size, c, "Dela"))
         nw = fm.width(f'{m["d"]:,}', size, "Dela")
-        s.append(txt(lx + nw + 10, y - 16, unit, size * 0.36, c))
+        s.append(txt(lx + nw + 10, y - 16 + ldy, unit, size * 0.36, c))
         if m.get("t"):
-            s.append(txtfit(lx, y + (44 if big else 34), m["t"], BX1 - lx - 20,
-                            cap=40 if big else 32, col=c))
+            s.append(txtfit(lx, y + (44 if big else 34) + ldy, m["t"],
+                            BX1 - lx - 20, cap=40 if big else 32, col=c))
         if m.get("sub"):
-            s.append(txtfit(BX1, y - 16, m["sub"], 620, cap=34, col=J.TICK,
+            s.append(txtfit(BX1, y - 16 + ldy, m["sub"], 620, cap=34, col=J.TICK,
                             anchor="end"))
         stages.append("".join(s))
     hot = ""
@@ -2223,7 +2237,13 @@ def beforeafter(a, b, note="", lead=""):
         x = x_left + i * (cw + 90)
         c = side.get("c", J.LINE if i == 0 else J.ALERT)
         s = [rect(x, top, cw, bh, c, op=0.12), rect(x, top, cw, bh, "none", c, 4)]
-        s.append(chip(x + 20, top - 22, side.get("k", ""), c, 28))
+        # 🔴 2026-08-02（r21 の目視・c406 c605 c622 c633 c637）：札は箱の上辺に
+        #    またがって置くのに **地を敷いていなかった**ので、箱の上辺の線が
+        #    札の文字の**真ん中を横切って取り消し線に見えていた**（12カット全部）。
+        #    ⚠️ check_layout は「文字のほうがあとに描かれる＝隠れない」で見逃す。
+        #      線は字の隙間から見えるので、**あとに描いても読みにくさは消えない**。
+        #      地を敷いて、線そのものを札の裏に隠す。
+        s.append(chip(x + 20, top - 22, side.get("k", ""), c, 28, fill=J.BG))
         # 中身の積算どおりに、箱の縦中央から絶対位置で置く
         ts, lines, vs, ch = mm[i]
         cy = top + (bh - ch) / 2

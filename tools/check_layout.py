@@ -225,7 +225,16 @@ def main(only=None):
                 mx0, my0, mx1, my1 = geo
                 ix = min(t[2], mx1) - max(t[0], mx0)
                 iy = min(t[3], my1) - max(t[1], my0)
-                if ix <= 8 or iy <= 8:
+                # 🔴 2026-08-02（r21 の目視・c616）：**8px 固定のしきい値で1px 取り逃した。**
+                #    depth の潜水艇のカプセルが「3,840」の上を 108×8px 覆っていたのに、
+                #    `iy <= 8` で切っていたので黙っていた。字の高さは42pxなので
+                #    8px は上端の 19%＝数字の頭が削れる量。**固定 px では大きい字ほど
+                #    甘くなる**（同じ8pxでも 26px の字なら3割、100px の字なら1割未満）。
+                #    → 字の大きさに対する割合で見る。
+                bw_, bh_ = max(1.0, t[2] - t[0]), max(1.0, t[3] - t[1])
+                if ix <= 4 or iy <= 4:
+                    continue
+                if not (ix / bw_ >= 0.20 and iy / bh_ >= 0.15):
                     continue
                 if mx0 <= t[0] + 2 and my0 <= t[1] + 2 and mx1 >= t[2] - 2 \
                         and my1 >= t[3] - 2:
