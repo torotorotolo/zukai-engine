@@ -26,6 +26,7 @@
      テスト映像では c3 に「円周の約55%」と書いてナレーションと重複した（違反1件）。
 """
 import math
+import re
 
 import jiko_style as J
 import fontmetrics as fm
@@ -86,9 +87,41 @@ def esc(t):
 DIM_INK = {J.LINE_DIM: J.TICK, J.GRID: J.TICK}
 
 
+_DIGIT = re.compile(r"[0-9０-９]")
+
+
+def numfam(t, fam):
+    """**Dela は数字のための書体**。漢字を入れると画がつぶれて読めない。
+
+    🔴 2026-08-02（r25 の拡大目視）：Dela Gothic One は極太の見出し書体で、
+       画数の多い漢字を入れると**線が互いに埋まって字の中の空きが消える**。
+       実測した3例：
+         c407 「機械」          … 124px でも塊にしか見えない
+         c301 「円筒（炭素繊維）」… 「繊維」がつぶれる
+         c604 「液体」「固体」   … **同じ箱の中の「水」「氷」（Noto）は読める**
+       ＝ 書体の選択がまちがっているだけで、級数の問題ではない。
+
+    → 数字を含まない文字列は Noto に落とす（数字は Dela のまま）。
+
+    ⚠️ 級数は呼び出し側が **Dela の字幅で測ってから**渡してくる。
+       漢字・かなは Dela と Noto で字幅が同じ（実測 1.000）なので入れ替えても
+       はみ出さないが、**「・」だけは Dela 0.351 / Noto 1.000 と違う**ので
+       その字を含むものは触らない。字幅が変わらない字だけ入れ替える。
+    """
+    if fam != "Dela" or not t:
+        return fam
+    s = str(t)
+    if _DIGIT.search(s):
+        return fam
+    if any(abs(fm.adv(c, "Dela") - fm.adv(c, "Noto")) > 0.001 for c in s):
+        return fam
+    return "Noto"
+
+
 def txt(x, y, t, size=32, col=None, fam="Noto", anchor="start", ol=0):
     """1行。`ol` にフチの太さを渡すと写真や図の上でも読める。"""
     col = DIM_INK.get(col, col)
+    fam = numfam(t, fam)
     o = ""
     if ol:
         o = (f' stroke="{J.BG}" stroke-width="{ol}" stroke-linejoin="round"'

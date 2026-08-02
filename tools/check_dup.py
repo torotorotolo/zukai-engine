@@ -85,6 +85,29 @@ def collect(only=None):
     return bycut
 
 
+def span(h, n):
+    """ラベル `n` が見出し `h` のどこを覆っているか（連続一致の最長）。無ければ None。
+
+    🔴 2026-08-02：**「どちらかがどちらかの部分文字列」で見ていたので取り逃していた。**
+       quote の決め所は幅で折り返され、レイヤーに別々の <text> として入る。
+         c516 … 見出し「受け台の中でずれた」／決め所は
+                '金属の受け台の' ＋ '中でずれた' の2行
+         '金属の受け台の' はどちらの向きでも部分文字列にならないので**丸ごと捨てられ**、
+         '中でずれた' だけが当たって 56%。しきい値70%に届かず**黙っていた**。
+       → 部分文字列かどうかでなく、**連続一致した部分がどこを覆ったか**で測る。
+         上の例は '受け台の'(0-4) ＋ '中でずれた'(4-9) で 9/9 ＝ 100%。
+       ⚠️ 「見出しの一部を図が数値として出す」設計（c113a）は覆う割合が
+         70%に届かないので、これまでどおり黙る。
+    """
+    best = (0, 0)
+    for i in range(len(n)):
+        for j in range(i + MINLEN, len(n) + 1):
+            k = h.find(n[i:j])
+            if k >= 0 and j - i > best[0]:
+                best = (j - i, k)
+    return None if best[0] < MINLEN else (best[1], best[1] + best[0])
+
+
 def scan(only=None):
     bycut = collect(only)
     hits = []
@@ -115,8 +138,9 @@ def scan(only=None):
                 h = norm(hv)
                 if len(h) < MINLEN:
                     continue
-                if n in h or h in n:
-                    cover[kind].setdefault(hv, []).append((t, n, layer))
+                sp = span(h, n)
+                if sp:
+                    cover[kind].setdefault(hv, []).append((t, sp, layer))
                     break
         # 🔴 ここを「重なりが1つでもあれば言う」にしたら、**使えなかった**。
         #    見出し「毎分33メートルで降りていた」に対して図が「毎分33メートル」と
@@ -127,12 +151,8 @@ def scan(only=None):
             for hv, got in d.items():
                 h = norm(hv)
                 covered = set()
-                for t, n, layer in got:
-                    i = h.find(n)
-                    if i >= 0:
-                        covered.update(range(i, i + len(n)))
-                    elif n.find(h) >= 0:
-                        covered.update(range(len(h)))
+                for t, sp, layer in got:
+                    covered.update(range(*sp))
                 r = len(covered) / len(h) if h else 0
                 if r >= 0.70:
                     hits.append((cid, kind, hv, got[0][2],
@@ -151,11 +171,9 @@ def covers(head, labels):
         n = norm(t)
         if len(n) < MINLEN or DATAISH.match(t) or KATAKANA1.match(n):
             continue
-        i = h.find(n)
-        if i >= 0:
-            got.update(range(i, i + len(n)))
-        elif n.find(h) >= 0:
-            got.update(range(len(h)))
+        sp = span(h, n)
+        if sp:
+            got.update(range(*sp))
     return len(got) / len(h)
 
 
@@ -179,6 +197,15 @@ def selfcheck():
          "毎分33メートルで降りていた", ["毎分33メートル"], False),
         ("図が部位名を持つだけ（**直さない**）",
          "リングと円筒のあいだは接着剤", ["接着剤"], False),
+        # 🔴 2026-08-02 追加：**折り返しで割れた決め所**（c516 で実際に起きた形）。
+        #    行ごとに部分文字列で見ていたころは '金属の受け台の' が丸ごと捨てられ、
+        #    56% で黙っていた。割れる位置しだいで見つかったり見つからなかったりする、
+        #    という**逆の道具**だった。
+        ("決め所が折り返しで2行に割れている（c516 で実際に起きた形）",
+         "受け台の中でずれた", ["金属の受け台の", "中でずれた"], True),
+        # 折り返しても、**設計どおり数値だけを出している**場合は黙るままであること
+        ("折り返した札が数値だけを出す（**直さない**）",
+         "毎分33メートルで降りていた", ["毎分33", "メートル"], False),
     ]
     for name, head, labels, should in fixtures:
         r = covers(head, labels)
