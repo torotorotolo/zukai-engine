@@ -486,7 +486,11 @@ SPEC = {
     "c132": dict(
         t="尾部と、2つのドームだった",
         s="6月22日 午前9時40分　海底で発見",
-        photo="titan_rov_aft.jpg", bias=0.48, side="left", ann_y=356,
+        # 🔴 2026-08-02：**発見そのものを写した写真に差し替えた。**
+        #    旧 rov_aft は残骸の寄りで、「見つけた瞬間」ではなかった。
+        #    報告書の図11は "Titan wreckage **as discovered** on the ocean floor"
+        #    で、焼き込みの日付 06-22-2023 が台本の「6月22日」と一致する。
+        photo="titan_f11_wreck.png", bias=0.50, side="left", ann_y=356,
         ann=[dict(t="見つかった場所", c=J.INK_W, ts=40),
              dict(t="船首のすぐそば", c=J.ALERT, ts=48)],
     ),

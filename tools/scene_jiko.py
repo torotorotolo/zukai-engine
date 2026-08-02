@@ -83,6 +83,22 @@ PHOTO_CREDIT = {
     "titan_rov_tailcone.jpg": CR_USCG_ROV,
     "titan_cf_evidence.jpg": CR_USCG_L,
     "titan_titanic_bow.jpg": CR_NOAA,
+    # ── 2026-08-02 追加。**PD限定をやめた**ので報告書の図を戻した ─────────
+    #    方針変更は 2026-08-01（[[引き継ぎ-事故検証-タイタン号-r13試写指摘-20260801]] §5）。
+    #    ⚠️ ところが**解禁したまま、捨てた素材を戻していなかった**ので、
+    #      実写の比率は 12.0% → 12.7% までしか動いていなかった。
+    #    ⚠️ うち図18は**出所の記載が無い＝NTSB作成＝PD**で、従来の縛りでも
+    #      使えたはずの取りこぼし（図13〜18をPDと判定したとき18だけ拾い忘れた）。
+    "titan_f18_delam.png": CR_NTSB,
+    "titan_f01_descend.jpg": "出典：NTSB 報告書 図1（撮影：オーシャンゲート）",
+    "titan_f04_lars.png": "出典：NTSB 報告書 図4（撮影：G. Comber）",
+    "titan_f08_launch.png": "出典：NTSB 報告書 図8（撮影：G. Comber）",
+    "titan_f09_parking.png": "出典：NTSB 報告書 図9（撮影：A. Harvey）",
+    "titan_f10_mishap.png": "出典：NTSB 報告書 図10（撮影：S. Taragel）",
+    "titan_f11_wreck.png":
+        "出典：NTSB 報告書 図11（ROV撮影：Pelagic Research Services）",
+    "titan_f12_wreck.png":
+        "出典：NTSB 報告書 図12（ROV撮影：Pelagic Research Services）",
 }
 # 2026-07-31：titan_hull_pair.jpg は **NTSB 図13**（外面と内面の2枚組）と確認できたので
 # 解禁した。報告書の画素サイズ（1609×1490）と完全一致し、図13〜18は出所表記が無い
