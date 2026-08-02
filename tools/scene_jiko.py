@@ -607,24 +607,45 @@ def report():
     #    ローカルにはファイルがあるから机上検査は全部通り、写真を実際に開くのは
     #    クラウドの `build_jiko` だけなので、**40分焼いた最後に FileNotFoundError**
     #    になる。押す前にここで気づけるようにする。
+    #
+    # ⚠️ **この検査は最初に作ったとき間違っていた**（2026-08-02・作り直し）。
+    #    `git ls-files` は**索引（add した状態）**を答えるので、
+    #    `git add` して**commit していない**ファイルを「入っている」と言う。
+    #    r24 が落ちたときのリポジトリがまさにその状態で、
+    #    **この検査は 0件と答えていた**。クラウドが checkout するのは索引ではなく
+    #    **push 済みのコミット**なので、そこを見なければ意味が無い。
+    #    → HEAD のツリー（`ls-tree`）を見る。さらに push 済みかも見る。
     used = sorted({v[1] for v in PHOTO_CUTS.values()})
     nofile = [n for n in used if not (HERE / "ref" / n).exists()]
     if nofile:
         print(f"🔴 ref に実体が無い写真: {nofile}")
-    untracked = []
-    try:
+
+    def _git(*a):
         import subprocess
-        tracked = set(subprocess.run(
-            ["git", "ls-files", "ref/"], cwd=HERE, capture_output=True,
-            text=True, timeout=20).stdout.split())
-        untracked = [n for n in used if f"ref/{n}" not in tracked]
-    except Exception as e:                      # git が無い環境（クラウド）では黙る
-        print(f"   （git を確認できないので追跡の検査は飛ばす: {e}）")
-    if untracked:
-        print(f"🔴 **git に入っていない写真** {len(untracked)}件: {untracked}")
-        print("   → .gitignore の許可制リストに `!ref/<名前>` を1行ずつ足す。"
-              "足さないと push しても**クラウドに届かない**。")
-    return not (miss or extra or nofile or untracked)
+        r = subprocess.run(["git", *a], cwd=HERE, capture_output=True,
+                           text=True, timeout=20)
+        return r.stdout if r.returncode == 0 else None
+
+    uncommitted = []
+    head = _git("ls-tree", "-r", "--name-only", "HEAD", "ref/")
+    if head is None:                            # git が無い環境（クラウド）では黙る
+        print("   （git を確認できないので追跡の検査は飛ばす）")
+    else:
+        intree = set(head.split())
+        uncommitted = [n for n in used if f"ref/{n}" not in intree]
+        if uncommitted:
+            print(f"🔴 **コミットされていない写真** {len(uncommitted)}件: {uncommitted}")
+            print("   → `.gitignore` の許可制リストに `!ref/<名前>` を1行ずつ足して"
+                  "**commit する**。add しただけではクラウドに届かない。")
+        # コミット済みでも push していなければクラウドは古い版を焼く
+        ahead = _git("rev-list", "--count", "@{u}..HEAD")
+        if ahead is None:
+            print("   （上流が無いので push の検査は飛ばす）")
+        elif int(ahead.strip() or 0):
+            # 押せば直る（写真そのものは在る）ので、戻り値は落とさず警告だけ出す
+            print(f"🔴 **push していないコミットが {ahead.strip()} 個ある。**"
+                  "クラウドは古い版を焼く → `git push` してから回すこと")
+    return not (miss or extra or nofile or uncommitted)
 
 
 if __name__ == "__main__":
