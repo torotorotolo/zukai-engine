@@ -67,7 +67,24 @@ CLIPS = {
         credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
         note="107.4秒 1920×1080 30fps。後部ドーム・リング・耐圧殻の破片",
     ),
+    # ★2026-08-02 採用。scan で6本の中身を見たうえで選んだ。
+    #   焼き込みの日付が **06-22-2023＝残骸が見つかった当日**で、
+    #   海底の残骸を広く捉えている（他の2本は寄りの絵）。
+    "rov_debris": dict(
+        paths=["Testimony Media/DOD_110571004.mp4"],
+        credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
+        note="107.3秒 1920×1080。DVIDS 937093。06-22-2023 の残骸。"
+             "使える帯は 24〜82秒（前後は空の海底）",
+    ),
 }
+# ❌ 見たうえで使わないと決めたもの（記録として残す）
+#   mbi_board（DVIDS 888248）… 沿岸警備隊の**記者会見**。実名の人物の顔が写る。
+#     台本はこの会見に一度も触れていないし、失敗を語る文の下に人の顔を出すと
+#     言っていないことを言ったように読める。**煽らない**という決めに反する。
+#   mbi_exhibit（DVIDS 963844）… 冒頭に **"Provided by OceanGate Inc."** と出る。
+#     沿岸警備隊の証拠ではあるが**著作権は他社**。図1・2 を外したのと同じ理由で使わない。
+#   rov_salvage_b（DVIDS 937622）… 全編ほぼ白濁で形が読めない。
+#   rov_long（DVIDS 937609）… 前半は salvage_a と同内容、13分以降は籠が昇るだけ。
 
 # ── 中身を見るだけの候補（2026-08-02 カズヤくん指示「実写の比率を上げる」）──
 # 🔴 出所は `DVIDS_VIDIEOS.txt`（アーカイブに同梱）で1本ずつ確かめた。
@@ -91,10 +108,6 @@ SCAN = {
         paths=["Testimony Media/DOD_110579532-1920x1080-9000k.mp4"],
         credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
         note="1800秒（30分）。DVIDS 937609「引き揚げのROV映像」"),
-    "rov_salvage_c": dict(
-        paths=["Testimony Media/DOD_110571004.mp4"],
-        credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
-        note="107.3秒。DVIDS 937093。既出の後部ドーム映像と同じ長さ＝同一かを確かめる"),
     "mbi_board": dict(
         paths=["Testimony Media/DOD_109728593.mp4"],
         credit="出典：アメリカ沿岸警備隊／海難審判部の公開映像／パブリックドメイン",
@@ -127,6 +140,22 @@ USE = {
     "c132": dict(clip="rov_tailcone", start=18.0, xbias=0.62, zoom=1.42, bias=0.55),
     # 「海底の残骸は、この形と一致していた。円筒は層に分かれていた」
     "c624": dict(clip="rov_aftdome", start=60.0, xbias=0.62, zoom=1.42, bias=0.55),
+
+    # ── ★2026-08-02 追加：地に敷いていた9カットのうち、**すでに残骸の写真を
+    #    敷くと決めてある**ものを動画に差し替える（編集判断は変えていない。
+    #    静止画が動くようになるだけ）。build_jiko が地でもコマを使えるようにした。
+    "c110":  dict(clip="rov_tailcone", start=40.0, xbias=0.62, zoom=1.42, bias=0.55),
+    "c115a": dict(clip="rov_aftdome",  start=20.0, xbias=0.62, zoom=1.42, bias=0.55),
+    "c116":  dict(clip="rov_aftdome",  start=78.0, xbias=0.62, zoom=1.42, bias=0.55),
+    "c117":  dict(clip="rov_tailcone", start=5.0,  xbias=0.62, zoom=1.42, bias=0.55),
+    "c615":  dict(clip="rov_aftdome",  start=92.0, xbias=0.62, zoom=1.42, bias=0.55),
+
+    # ── ★新しく地に敷くカット（2カットだけ）。**話している対象そのもの**である。
+    #   c134「無人探査機を現場に入れるまで2週間かかるところを4日で」
+    #     … 映っているのは Pelagic の ROV。**残骸を見つけたのと同じ運用者の機体**。
+    "c134": dict(clip="rov_debris", start=33.0, xbias=0.62, zoom=1.42, bias=0.55),
+    #   c626「残骸の中央で見つかった破片には、S字に曲がった座屈の跡」
+    "c626": dict(clip="rov_debris", start=49.0, xbias=0.62, zoom=1.42, bias=0.55),
 }
 # ❌ 当てるのをやめたところ（記録）
 #   c129「最初に無人探査機を積んだ船が着いた。だが3,000メートルまでしか潜れない」

@@ -147,6 +147,15 @@ BACKDROP = {
     "c615": dict(photo="titan_rov_aft.jpg", bias=0.35, **ROV),
     # 第6章：剥離＝層が離れている面そのもの
     "c628": dict(photo="titan_hull_inner.jpg", bias=0.42),
+    # ── ★2026-08-02 追加（カズヤくん指示「実写の比率を上げる」）──────
+    # 🔴 素材を増やしたのではなく、**その対象を写した映像がある2カット**を足した。
+    #    どちらも `tools/footage.py` で ROV の動画を当てている（静止画は落ちたとき用）。
+    # 第1章：「無人探査機を現場に入れるまで2週間かかるところを4日で」
+    #   … 映っているのは Pelagic の ROV ＝ 6月22日に残骸を見つけたのと同じ運用者の機体。
+    #   ⚠️ 残骸が見つかる前の c129・c131・c133 には**当てない**（先に答えが出てしまう）。
+    "c134": dict(photo="titan_rov_aft.jpg", bias=0.45, **ROV),
+    # 第6章：「残骸の中央で見つかった破片には、S字に曲がった座屈の跡」
+    "c626": dict(photo="titan_rov_aft.jpg", bias=0.45, **ROV),
 }
 
 for _cid, _ov in BACKDROP.items():

@@ -354,7 +354,10 @@ def depth(marks, dmax=4400, unit="m", axis_t="水深", seabed=None, note="", rig
             s.append(rect(ax - 92, y - 26, 184, 52, "none", c, 5, rx=26))
             s.append(line(ax + 62, y - 26, ax + 76, y - 46, c, 4))
         size = 76 if big else 48
-        lx = ax + 40
+        # ⚠️ big の印は潜水艇の絵（ax±92）を描くので、**その外から**文字を始める。
+        #    r19 の目視で「1,600 m」と「浮上している途中」が絵に重なっていた
+        #    （check_layout は文字どうししか見ないので机上では出ない）。
+        lx = ax + (108 if big else 40)
         s.append(txt(lx, y - 16, f'{m["d"]:,}', size, c, "Dela"))
         nw = fm.width(f'{m["d"]:,}', size, "Dela")
         s.append(txt(lx + nw + 10, y - 16, unit, size * 0.36, c))
@@ -837,8 +840,14 @@ def graph(series, xlab="", ylab="", xticks=None, yticks=None, xr=(0, 1), yr=(0, 
         if s.get("dot") or s.get("dots_only"):
             seg += [circ(x, y, s.get("dotr", 7), c) for x, y in pts]
         if legend and s.get("t"):
-            seg.append(line(lx, ly - 10, lx + (50 if lft else -50), ly - 10, c, 6,
-                            dash=s.get("dash")))
+            # ⚠️ 凡例は**その系列の描かれ方**を出す。点だけの系列に実線を出すと
+            #    凡例が嘘になる（r19 の目視で c527 に出た）。
+            if s.get("dots_only"):
+                seg += [circ(lx + (12 + k * 19 if lft else -12 - k * 19), ly - 10,
+                             6, c) for k in range(3)]
+            else:
+                seg.append(line(lx, ly - 10, lx + (50 if lft else -50), ly - 10, c,
+                                6, dash=s.get("dash")))
             seg.append(txtfit(lx + (64 if lft else -64), ly, s["t"], 460, cap=30,
                               col=c, anchor=anch))
             ly += 44
@@ -1072,21 +1081,19 @@ def titan(mode="side", s=1.0, cx=None, cy=None, marks=None, note="",
                       op=0.55))
         g.append(rect(x - L * 0.012, cy - R * 1.04, L * 0.024, R * 2.08, "none",
                       J.AMBER, 3))
-    # 推進器。図3では**円筒の上**と**後リングの脇**に付いている。
+    # 推進器。図3では**円筒の上**と**船体の後ろ端**に付いている。
     # ⚠️ 前の版は船体から離して置いていたので**宙に浮いた灰色の四角**に見えた
     #    （r8 の目視。titan を使う14カット全部に出ていた）。船体に接して描く。
-    for px_, py_, vert in ((xc0 + cyl * 0.62, cy - R, True),
-                           (xc1, cy + R * 0.30, False)):
-        if vert:
-            g.append(rect(px_ - L * 0.016, py_ - L * 0.030, L * 0.032, L * 0.030,
-                          J.LINE, J.LINE, 3, op=0.6))
-            g.append(rect(px_ - L * 0.024, py_ - L * 0.040, L * 0.048, L * 0.012,
-                          J.LINE, J.LINE, 3, op=0.6))
-        else:
-            g.append(rect(px_ - L * 0.004, py_ - L * 0.016, L * 0.030, L * 0.032,
-                          J.LINE, J.LINE, 3, op=0.6))
-            g.append(rect(px_ + L * 0.026, py_ - L * 0.024, L * 0.012, L * 0.048,
-                          J.LINE, J.LINE, 3, op=0.6))
+    # 🔴 r19 の目視：後ろの1つを `cy + R*0.30` に置いたら**船体の中**に入り、
+    #    ハッチのように見えた。図3どおり**後ドームの頂点から後ろへ**出す。
+    g.append(rect(xc0 + cyl * 0.62 - L * 0.016, cy - R - L * 0.030,
+                  L * 0.032, L * 0.030, J.LINE, J.LINE, 3, op=0.6))
+    g.append(rect(xc0 + cyl * 0.62 - L * 0.024, cy - R - L * 0.042,
+                  L * 0.048, L * 0.012, J.LINE, J.LINE, 3, op=0.6))
+    g.append(rect(xhull - L * 0.004, cy - L * 0.016, L * 0.030, L * 0.032,
+                  J.LINE, J.LINE, 3, op=0.6))
+    g.append(rect(xhull + L * 0.026, cy - L * 0.024, L * 0.012, L * 0.048,
+                  J.LINE, J.LINE, 3, op=0.6))
     # 着底フレーム。図3どおり、2本の柱と1本のそり
     fy = cy + R + L * 0.055
     for px_ in (xc0, xc1):
@@ -1356,8 +1363,15 @@ def _absent_ledger(items, lead, note):
                  "Dela")]
         # 項目名。**行の高さから級数を決める**（1920×1080 で小さい字は読めない）
         # `c` を渡すとその色で出る（制度・第三者機関の名前は J.INST）
-        s.append(txtfit(BX0 + 62, cy + rh * 0.12, it["t"], ex - BX0 - 120,
-                        cap=int(min(96, rh * 0.42)), col=it.get("c", J.INK_W)))
+        ns = int(min(96, rh * 0.42))
+        ns = fm.fit(str(it["t"]), ex - BX0 - 120, "Noto", cap=ns, floor=20)
+        s.append(txt(BX0 + 62, cy + rh * 0.12, it["t"], ns, it.get("c", J.INK_W)))
+        # 🔴 r19 の目視：項目名の右端から記入欄まで 1,100px 空いていた。
+        #    目次と同じ**点リーダー**で結ぶ。台帳という見立てにも合う。
+        lead_x0 = BX0 + 62 + fm.width(str(it["t"]), ns, "Noto") + 40
+        if ex - 30 - lead_x0 > 80:
+            s.append(line(lead_x0, cy + rh * 0.12 - ns * 0.22, ex - 30,
+                          cy + rh * 0.12 - ns * 0.22, J.DOC_DIM, 4, dash="4 20"))
         # 記入欄
         if ok:
             s.append(rect(ex, cy - eh / 2, ew, eh, J.OK, J.OK, 4, rx=8, op=0.14))
@@ -1390,9 +1404,11 @@ def _absent_seat(items, lead, note):
     has_d = any(it.get("d") for it in items)
     cap_h = 56 + (64 if has_d else 0)
     shelf = bot - cap_h
-    bh = min(shelf - top - 16, 340.0)
+    # ⚠️ 340 で頭打ちにしていたので、器の上に 100px 以上の空きが残った（r19 の目視）。
+    #    棚の上は全部使う。
+    bh = max(180.0, shelf - top - 12)
     slot = BW / n
-    bw = min(slot * 0.74, 360.0)
+    bw = min(slot * 0.74, 400.0)
     g = []
     if lead:
         g.append(txtfit(BX0, BY0 + 62, lead, BW, cap=48, col=J.INK_W))
@@ -1405,20 +1421,22 @@ def _absent_seat(items, lead, note):
         c = J.OK if ok else J.ALERT
         x, y = cx - bw / 2, shelf - bh
         s = []
+        # 🔴 有る／無いの差は「器の中身」で見せる。**同じ場所に同じ数の段**を置き、
+        #    有るほうは詰まっていて、無いほうは段だけが破線で残っている。
+        #    （r19 の目視：空の器の中に短い破線が1本だけあって意味不明だった）
+        slots = [(y + bh * (0.14 + k * 0.155), bh * 0.085) for k in range(5)]
         if ok:
-            # 中身がある＝記録の帯が詰まっている
             s.append(rect(x, y, bw, bh, J.OK, J.OK, 4, rx=6, op=0.16))
-            for k in range(5):
-                by = y + bh * (0.16 + k * 0.16)
-                s.append(rect(x + bw * 0.12, by, bw * 0.76, bh * 0.085, J.OK,
-                              op=0.55))
+            for by, hh in slots:
+                s.append(rect(x + bw * 0.12, by, bw * 0.76, hh, J.OK, op=0.55))
             s.append(_tick_mark(cx, y - 34, 20, c))
         else:
-            # 🔴 空の器。**破線の輪郭だけ**。網掛けも塗りも入れない
+            # 空の器。**破線の輪郭と、空のままの段だけ**。網掛けも塗りも入れない
             s.append(rect(x, y, bw, bh, "none", J.LINE_DIM, 4, rx=6, dash="20 14"))
-            s.append(_cross_mark(cx, y + bh * 0.46, 30, c))
-            s.append(line(x + bw * 0.16, y + bh * 0.74, x + bw * 0.84,
-                          y + bh * 0.74, J.LINE_DIM, 3, dash="14 10"))
+            for by, hh in slots:
+                s.append(rect(x + bw * 0.12, by, bw * 0.76, hh, "none", J.LINE_DIM,
+                              2, dash="12 10"))
+            s.append(_cross_mark(cx, y - 34, 22, c))
         s.append(txtfit(cx, shelf + 50, it["t"], slot * 0.96, cap=40,
                         col=it.get("c", c), anchor="middle"))
         if it.get("d"):
@@ -1443,27 +1461,33 @@ def _absent_single(items, lead, note):
     ok = it.get("ok", False)
     c = J.OK if ok else J.ALERT
     g = []
+    # 🔴 r19 の目視：上半分だけを使っていて、下 300px が丸ごと空いていた。
+    #    枠（210〜892）の**縦を使い切る**ように置き直す。
+    top = BY0 + (76 if lead else 24)
+    bot = BY1 - (48 if note else 16)
+    mid = (top + bot) / 2
     if lead:
         g.append(txtfit(BX0, BY0 + 56, lead, BW * 0.7, cap=36, col=J.TICK))
-    ty = BY0 + 300
-    ts = fm.fit(str(it["t"]), BW * 0.42, "Dela", cap=150, floor=52)
-    g.append(txt(BX0 + 10, ty, it["t"], ts, J.INK_W, "Dela"))
-    g.append(line(BX0 + 10, ty + 46, BX0 + 10 + fm.width(str(it["t"]), ts, "Dela"),
-                  ty + 46, c, 8))
+    ts = fm.fit(str(it["t"]), BW * 0.44, "Dela", cap=150, floor=52)
+    g.append(txt(BX0 + 10, mid + ts * 0.30, it["t"], ts, J.INK_W, "Dela"))
+    g.append(line(BX0 + 10, mid + ts * 0.30 + 46,
+                  BX0 + 10 + fm.width(str(it["t"]), ts, "Dela"),
+                  mid + ts * 0.30 + 46, c, 8))
     # 右：本来そこに記録が入るはずだった欄。**罫だけを引いて、何も書かない**
     fx = BX0 + BW * 0.50
     fw = BX1 - fx
-    fy = BY0 + 120
-    g.append(txt(fx, fy - 26, "記録", 30, J.DOC))
-    for k in range(4):
-        g.append(line(fx, fy + 92 * k + 40, BX1, fy + 92 * k + 40, J.DOC_DIM, 3,
-                      dash="20 14"))
+    g.append(txt(fx, top + 34, "記録", 30, J.DOC))
+    rows = 5
+    step = (bot - top - 70) / rows
+    for k in range(rows):
+        g.append(line(fx, top + 70 + step * (k + 0.5), BX1,
+                      top + 70 + step * (k + 0.5), J.DOC_DIM, 3, dash="20 14"))
     stages = []
     # 斜めの判。空欄の上を横切らせる（「ここは埋まらなかった」を1枚で言う）
     d = str(it.get("d") or ("有り" if ok else "無し"))
-    ds = fm.fit(d, fw - 190, "Dela", cap=88, floor=40)
+    ds = fm.fit(d, fw - 190, "Dela", cap=104, floor=40)
     dw = fm.width(d, ds, "Dela")
-    scx, scy = fx + fw / 2, fy + 148
+    scx, scy = fx + fw / 2, mid
     bw_, bh_ = dw + 130, ds * 1.66
     stages.append(
         f'<g transform="rotate(-7 {scx:.0f} {scy:.0f})">'
@@ -1488,7 +1512,8 @@ def _absent_pair(items, lead, note):
     top = BY0 + lead_h
     bot = BY1 - (48 if note else 10)
     cap_h = 52 + (62 if (a.get("d") or b.get("d")) else 0)
-    bh = min(bot - cap_h - top, 372.0)
+    # ⚠️ 372 で頭打ちにしていたので下が空いた（r19 の目視）。枠の縦を使い切る。
+    bh = max(220.0, bot - cap_h - top)
     g = []
     if lead:
         g.append(txtfit(BX0, BY0 + 58, lead, BW, cap=46, col=J.INK_W))
@@ -1507,9 +1532,9 @@ def _absent_pair(items, lead, note):
             if isinstance(nn, int) and 0 < nn <= 24:
                 cols = min(nn, 5)
                 rows = math.ceil(nn / cols)
-                uw = min(cw / (cols + 1), bh / (rows + 1.4))
+                uw = min(cw / (cols + 1), bh / (rows + 2.2))
                 ox = x + cw / 2 - uw * cols / 2
-                oy = top + bh * 0.30 - uw * (rows - 1) / 2
+                oy = top + bh * 0.34 - uw * (rows - 1) / 2
                 for k in range(nn):
                     s.append(circ(ox + uw * (k % cols) + uw / 2,
                                   oy + uw * (k // cols), uw * 0.30, J.OK))
@@ -1518,12 +1543,28 @@ def _absent_pair(items, lead, note):
                     s.append(rect(x + cw * 0.12, top + bh * (0.16 + k * 0.13),
                                   cw * 0.76, bh * 0.07, J.OK, op=0.55))
         else:
-            # 🔴 「無い」側は破線の輪郭と罫だけ。塗らない
+            # 🔴 「無い」側は破線の輪郭と、**有る側と同じ場所の空の枠**だけ。塗らない
             s.append(rect(x, top, cw, bh, "none", J.LINE_DIM, 4, rx=8, dash="20 14"))
-            for k in range(3):
-                s.append(line(x + cw * 0.14, top + bh * (0.30 + k * 0.18),
-                              x + cw * 0.86, top + bh * (0.30 + k * 0.18),
-                              J.LINE_DIM, 3, dash="14 10"))
+            # 有る側と同じ場所に、同じ数の**空の枠**を置く。さらに上下に空の罫を渡して
+            # 「欄はあるのに、どこにも入っていない」を見せる
+            # （r19 の目視＋check_box：丸だけだと箱の中が 11% しか埋まらなかった）。
+            oc = a.get("n") if isinstance(a.get("n"), int) else 0
+            for k in (0.16, 0.60):
+                s.append(line(x + cw * 0.14, top + bh * k, x + cw * 0.86,
+                              top + bh * k, J.LINE_DIM, 3, dash="14 10"))
+            if 0 < oc <= 24:
+                cols = min(oc, 5)
+                rows = math.ceil(oc / cols)
+                uw = min(cw / (cols + 1), bh / (rows + 2.2))
+                ox = x + cw / 2 - uw * cols / 2
+                oy = top + bh * 0.34 - uw * (rows - 1) / 2
+                for k in range(oc):
+                    s.append(circ(ox + uw * (k % cols) + uw / 2,
+                                  oy + uw * (k // cols), uw * 0.30, "none",
+                                  J.LINE_DIM, 3))
+            else:
+                s.append(line(x + cw * 0.14, top + bh * 0.38, x + cw * 0.86,
+                              top + bh * 0.38, J.LINE_DIM, 3, dash="14 10"))
         if isinstance(nn, int):
             s.append(num(x + cw / 2, top + bh - 44, f"{nn}", side.get("unit", ""),
                          "", c, min(132, bh * 0.36)))
@@ -1916,14 +1957,30 @@ def people(nodes, edges=None, note="", lead=""):
         c = e.get("c", J.LINE)
         a2 = _box_edge(a[0], a[1], bw + 16, bh + 16, b[0], b[1])
         b2 = _box_edge(b[0], b[1], bw + 30, bh + 30, a[0], a[1])
-        s = [arrow(a2[0], a2[1], b2[0], b2[1], c, 6, 24)]
+        s = []
         if e.get("t"):
+            # 🔴 r19 の目視：札を矢印の真ん中に置いたら、**矢印が札に丸ごと隠れた**
+            #    （節どうしが近いカットでは、あいだが札の高さより狭い）。
+            #    → 札の手前で軸を切り、札の向こう側から矢羽根を出す。
             mx, my = (a2[0] + b2[0]) / 2, (a2[1] + b2[1]) / 2
             es = 34
             tw = fm.width(e["t"], es, "Noto") + 34
-            s.append(rect(mx - tw / 2, my - 30, tw, 58, J.BG, c, 3, rx=8))
+            th = 58.0
+            ln = math.hypot(b2[0] - a2[0], b2[1] - a2[1]) or 1.0
+            ux, uy = (b2[0] - a2[0]) / ln, (b2[1] - a2[1]) / ln
+            # 札の外周までの距離（矩形なので、向きに応じて幅か高さで決まる）
+            cut = min(tw / 2 / abs(ux) if abs(ux) > 1e-6 else 1e9,
+                      th / 2 / abs(uy) if abs(uy) > 1e-6 else 1e9) + 10
+            if ln / 2 - cut > 14:              # 軸が見える長さが残るときだけ割る
+                s.append(line(a2[0], a2[1], mx - ux * cut, my - uy * cut, c, 6))
+                s.append(arrow(mx + ux * cut, my + uy * cut, b2[0], b2[1], c, 6, 24))
+            else:
+                s.append(arrow(a2[0], a2[1], b2[0], b2[1], c, 6, 24))
+            s.append(rect(mx - tw / 2, my - th / 2, tw, th, J.BG, c, 3, rx=8))
             s.append(txtfit(mx, my + 10, e["t"], tw - 20, cap=es, col=c,
                             anchor="middle"))
+        else:
+            s.append(arrow(a2[0], a2[1], b2[0], b2[1], c, 6, 24))
         stages.append("".join(s))
     for n in nodes:
         x, y = x0 + w * n["x"], y0 + h * n["y"]
