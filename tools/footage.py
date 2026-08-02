@@ -86,6 +86,15 @@ SCAN = {
         credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
         note="140.0秒。DVIDS 937622「引き揚げのROV映像」"),
     # ★審判部そのもの。**海底と実験室しか出てこない本編に、人と部屋の絵が入る**
+    # 30分の ROV 映像。**残骸のいろいろな場所が写っている見込み**なので中身を見る
+    "rov_long": dict(
+        paths=["Testimony Media/DOD_110579532-1920x1080-9000k.mp4"],
+        credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
+        note="1800秒（30分）。DVIDS 937609「引き揚げのROV映像」"),
+    "rov_salvage_c": dict(
+        paths=["Testimony Media/DOD_110571004.mp4"],
+        credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
+        note="107.3秒。DVIDS 937093。既出の後部ドーム映像と同じ長さ＝同一かを確かめる"),
     "mbi_board": dict(
         paths=["Testimony Media/DOD_109728593.mp4"],
         credit="出典：アメリカ沿岸警備隊／海難審判部の公開映像／パブリックドメイン",

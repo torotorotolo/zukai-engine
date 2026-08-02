@@ -240,7 +240,17 @@ def scene(cut, t, dur, lay, photos, meta):
         # ★写真を地にして、暗幕を挟み、その上に図解を重ねる
         k = t / max(dur, 0.001)
         xb, zm = S.PHOTO_CROP[cut]
-        ph = fit(photos[cut], S.PHOTO_FULL, k, S.PHOTO_CUTS[cut][2], xb, zm)
+        # 🔴 2026-08-02：地に敷くカットも**動画にできる**ようにした。
+        #    それまでは実写カット（写真だけ）しか動画に差し替えられず、
+        #    地に敷く9カットは静止画のまま寄るだけだった。
+        #    ⚠️ 動くコマに寄り（ケンバーンズ）を重ねると手ブレに見えるので k=0。
+        #    ⚠️ 切り方は**動画側の実測値**を使う（写真用の寄せでは焼き込みが残る）。
+        src = foot_frame(cut, t)
+        if src is not None:
+            ph = fit(src, S.PHOTO_FULL, 0.0, meta[cut].get("fbias", 0.5),
+                     meta[cut].get("fxb", xb), meta[cut].get("fzm", zm))
+        else:
+            ph = fit(photos[cut], S.PHOTO_FULL, k, S.PHOTO_CUTS[cut][2], xb, zm)
         fr = duotone(ph, J.BG2, "#e6eef2", boost=cut in BOOST)
         fr.alpha_composite(veil_layer(meta[cut]["veil"]))
         fr.alpha_composite(lay[f"{cut}_base"])
