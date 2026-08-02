@@ -98,30 +98,68 @@ python tools/build_jiko.py veil --cuts=c115a     # 濃さ違いを1回で焼き�
 | 型 | 何の図か | 主な引数 |
 |---|---|---|
 | `depth` | 海面から下へ伸びる深度目盛り。**いちばん多く使う** | `marks=[dict(d=3346,t="爆縮",c=J.ALERT,big=True,sub="10:47:09",hot=True)]`, `dmax=4400`, `seabed=3840`, `note` |
-| `compare` | 2〜4個の数値を棒の長さで比べる | `items=[dict(v=13200,t="計算値",c=,disp="13,200",unit="m",sub="")]`, `ratio="およそ80%"`, `note` |
+| `compare` | 2〜4個の数値を棒の長さで比べる | `items=[dict(v=13200,t="計算値",c=,disp="13,200",unit="m",sub="")]`, `ratio="およそ80%"`, `vmax=`, `ref=""`, `note` |
+| | 🔴 **`vmax` を渡さないと、その場の最大値が満杯になる。**「10メートル」が2本とも満杯の棒になった実例あり（c611）。外の基準で測るときは `vmax` と `ref` を渡す | |
+| `people` | 人と組織のあいだで起きたこと | `nodes=[dict(x=,y=,t=,d=,c=,kind="person"\|"org"\|"doc"\|"part")]`, `edges=[dict(a=,b=,t=,c=)]`, `lead`, `note` |
 | `quote` | 引用の**出どころ**＋短い決め所 | `phrase`（20字以内）, `who`, `to`, `when`, `doc`, `ctx` |
 | `timeline` | 横の時間軸に出来事を打つ | `events=[dict(t=647,top="10:47",t2="重り2つ",c=,big=True)]`, `t0`, `t1`, `ticks=[(v,"表示")]`, `band=[dict(a=,b=,t=,c=)]` |
 | `moment` | 大きな時刻＋その時の事実（第1章の骨） | `clock="05:15"`, `label`, `facts=[dict(t="",v="",c=)]`, `day=5.25`, `dayspan=(4,20)`, `sub` |
 | `breakdown` | 全体を内訳に分ける積み上げ棒 | `total=42`, `parts=[dict(v=17,t="船の乗組員",c=)]`, `unit="人"`, `note` |
-| `graph` | XY 折れ線。**左から描かれる** | `series=[dict(pts=[(x,y)],t="",c=,dash="14 10",sw=6,dot=True)]`, `xr`, `yr`, `xticks`, `yticks`, `band`, `marks=[dict(x=,y=,t=,c=)]`, `xlab`, `ylab`, `note` |
+| `graph` | XY 折れ線。**左から描かれる** | `series=[dict(pts=[(x,y)],t="",c=,dash=,sw=,dot=,dots_only=,area=)]`, `xr`, `yr`, `xticks`, `yticks`, `band`, `marks=[dict(x=,y=,t=,c=,dx=,dy=,anchor=)]`, `area`, `gap=(i,j)`, `axis_map=[(左,右)]`, `x2=dict(lab=,ticks=)`, `xlab`, `ylab`, `note` |
 | `dives` | 潜航番号×到達深度の棒 | `items=[dict(n=81,d=3840,c=,nt="81",t="",hot=True)]`, `dmax=4200`, `note` |
 | `layers` | 積層断面（5層＋接着面4つ） | `n=5`, `bonds=[dict(i=1,t="1-2",c=)]`, `delam=[1,3]`, `voids=[1,3]`, `dims=[dict(a=.1,b=.5,t="0.6インチ")]`, `note` |
 | `titan` | 潜水艇の側面／縦断面 | `mode="side"\|"section"`, `s=1.0`, `marks=[dict(at="cyl"\|"fore"\|"aft"\|"ring"\|"ring2"\|"win"\|"cylb", t="", v="", c=, up=True)]`, `window=True`, `bolts=True`, `note` |
 | `process` | N 段の工程を左から右へ | `steps=[dict(t="巻く",d="1インチぶん",v="×5",c=)]`, `note` |
 | `panel` | 構造のある文字パネル（結論・箇条） | `blocks=[dict(k="1",t="…",v="",c=)]`, `lead`, `note`, `cols=3` |
-| `absent` | 「無い」ことを見せる（破線＋×） | `items=[dict(t="船級",d="受けていない",ok=False)]`, `lead`, `note` |
+| `absent` | 「無い」ことを見せる（**4つの見せ方**。下記） | `mode=`, `items=[dict(t="船級",d="受けていない",ok=False,c=,n=)]`, `lead`, `note` |
 | `icons` | 個数を絵で見せる | `n=9`, `on=[0,1]` or `on=5`, `kind="dot"\|"person"\|"ship"\|"sub"`, `cols`, `lead`, `note`, `labels=[]` |
 | `sound` | 2点で同じ音を聞いた | `rings=4`, `both=True`, `label_a`, `label_b`, `note` |
 | `gauge` | 監視装置のしきい値（黄30・赤50） | `hits=12`, `yellow=30`, `red=50`, `vmax=60`, `lead`, `marks=["…"]`, `note` |
 | `mapfig` | 位置関係（Google Maps は使えないので自作） | `points=[dict(x=0.2,y=0.3,t="",d="",c=,kind="wreck")]`, `link=(0,1)`, `scale="約 600 km"`, `lead`, `note` |
-| `people` | 人と組織のあいだで起きたこと | `nodes=[dict(x=.2,y=.3,t="海洋運用部長",d="",c=)]`, `edges=[dict(a=0,b=1,t="1月19日 会話",c=)]`, `lead`, `note` |
 | `beforeafter` | 前と後の2枚 | `a=dict(k="変更前",t="",lines=[],v="",c=)`, `b=...`, `lead`, `note` |
 | `buckle` | 圧縮での壊れ方 | `kind="crush"\|"global"\|"local"\|"peel"\|"s"`, `lead`, `note` |
 | `window` | のぞき窓の断面（中央が厚く縁が薄い） | `marks=["…"]`, `lead`, `note` |
 
-色は `import jiko_style as J` で
-`J.LINE`（技術線・既定）／`J.INK_W`（主図形）／`J.ALERT`（破壊・欠陥・赤）／
-`J.AMBER`（数値）／`J.OK`（接着・正常・緑）／`J.LINE_DIM`（沈める）。
+### `absent` の4つの見せ方（2026-08-02 作り直し）
+
+🔴 **原則：「無い」側は破線と罫だけ。実体（塗り・中身）を持つのは「有る」側だけ。**
+　　網掛け（`hatch`）はこの型では使わない。前は「無い」ものがいちばん重く見えていた。
+
+| mode | 構図 | 何に使うか |
+|---|---|---|
+| `ledger` | 横に長い行が縦に積まれる（台帳） | 制度・登録・記録の欄が空（c207 c230 c536 c602 c630 c640） |
+| `seat` | 棚の上に器が横に並ぶ | 候補を当たって当てはまらない（c112 c224 c511 c608 c636 ep08b） |
+| `single` | 大きな見出し＋空欄の罫＋斜めの判 | **1件のとき。器を作らない**（c326 c612） |
+| `pair` | 左右2枚を数で比べる | 有る側と無い側が2つ（c418 ep03） |
+
+⚠️ **`mode` はカット側で名指しする。** 自動任せにすると第6章の6カットが全部 `ledger` になる。
+　　**同じ章で見せ方が続かないように**割り当てる（第6章＝台帳/棚/1件/台帳/棚/台帳）。
+
+---
+
+## 2b. 色の使い分け（2026-08-02 に2色増やした）
+
+`import jiko_style as J`。**`tools/check_color.py` で地との比とΔEを実測してから足した。**
+
+| 色 | 何を指すか |
+|---|---|
+| `J.INK_W` | 主図形（船体・断面） |
+| `J.LINE` | 技術線・物 |
+| `J.AMBER` | 数値 |
+| `J.ALERT` | 破壊・欠陥・会社が選んだ危ないほう |
+| `J.OK` | 接着・正常・「有る」 |
+| **`J.INST`** | **制度・第三者機関**（船級協会・沿岸警備隊・OSHA・規格・登録） |
+| **`J.DOC`** | **書類・記録・データ**（報告書・書簡・ログ・引用の出どころ） |
+| `J.TICK` | 目盛り・注記（LINE の暗い版） |
+| `*_DIM` / `J.GRID` | 沈める用。**文字には使わない**（比 2.6 で読めない） |
+
+⚠️ `c=J.LINE_DIM` を渡しても、**文字になるところは自動で `TICK` に振り替わる**
+　（`titan_fig.DIM_INK`）。線・面は沈めたままなので、今までの見え方は変わらない。
+
+```bash
+python tools/check_color.py --check   # ★色を足す前にこれ（道具そのものを検算する）
+python tools/check_color.py           # 地との比・色どうしの距離・並べたときの比
+```
 
 ---
 

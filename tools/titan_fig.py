@@ -379,15 +379,21 @@ def depth(marks, dmax=4400, unit="m", axis_t="水深", seabed=None, note="", rig
 # ══════════════════════════════════════════════════════════
 #  2. compare — 数値をならべて比べる
 # ══════════════════════════════════════════════════════════
-def compare(items, unit="", note="", bar=True, ratio=""):
+def compare(items, unit="", note="", bar=True, ratio="", vmax=None, ref=""):
     """2〜4個の数値を、棒の長さで比べる。
 
     items … [dict(v=13200, t="計算が示した爆縮深度", c=J.LINE, disp="13,200")]
+    vmax  … 棒の基準。**渡さないと、その場の最大値が満杯になる。**
+            🔴 2026-08-02（r19 の一覧を目視）：c611 は「85回目と86回目は10メートル」
+            なのに、10 と 10 が最大値なので**2本とも満杯の棒**になっていた。
+            数字は 10 と書いてあるのに絵は「いっぱい」と言う ＝ 図が嘘をつく。
+            外の基準（タイタニックの深さ 3,840m）で測ればそのまま「ほとんど無い」になる。
+    ref   … その基準の名前（薄い枠で満杯の棒を1本置き、そこに書く）
     """
     n = len(items)
     gap = 40
     cw = (BW - gap * (n - 1)) / n
-    vmax = max(abs(i["v"]) for i in items) or 1
+    vmax = vmax or max(abs(i["v"]) for i in items) or 1
     top = BY0 + 34
     # ⚠️ 棒の高さ300では枠を使い切れず、値の小さい側の柱が空だった（c202 35.7%）。
     #    数字の下から枠の底まで使う。比の小さい棒も**最低限の高さ**を持たせて
@@ -411,6 +417,10 @@ def compare(items, unit="", note="", bar=True, ratio=""):
             s.append(rect(x + cw * 0.08, top + 230, cw * 0.84, barb - top - 230,
                           "none", c, 4))
         if bar:
+            if ref:
+                # 基準の高さを薄い枠で先に見せる（棒がどれだけ小さいかが読める）
+                s.append(rect(x + cw * 0.16, barb - barh, cw * 0.68, barh, "none",
+                              J.LINE_DIM, 3, dash="16 12"))
             h = max(barh * 0.045, barh * abs(it["v"]) / vmax)
             s.append(rect(x + cw * 0.16, barb - h, cw * 0.68, h, c, op=0.30))
             s.append(rect(x + cw * 0.16, barb - h, cw * 0.68, h, "none", c, 4))
@@ -1396,7 +1406,9 @@ def _absent_seat(items, lead, note):
     「有る」器だけが中身（記録の帯）を持ち、「無い」器は破線の輪郭だけ。
     """
     n = len(items)
-    lead_h = 92 if lead else 18
+    # ⚠️ ✓／✗ は器の**上**（y-34・半径22）に打つので、その56pxを先に空けておく。
+    #    空けずに器を伸ばしたら、印が見出しの副題の高さ（184px）まで上がった。
+    lead_h = 92 if lead else 66
     note_h = 46 if note else 6
     top = BY0 + lead_h
     bot = BY1 - note_h
