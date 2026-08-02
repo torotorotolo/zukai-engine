@@ -411,9 +411,30 @@ def qa_shots(cids, idx, meta, at=0.92):
        0.97 … **字幕が消えたあと**を撮ってしまう（カット尻の TAIL=0.5秒は無音なので
                字幕が出ていない）。占有率が 52.5% → 42.3% と10ポイント落ちた
        0.92 … 段は出そろい、字幕はまだ出ている。**ここが実際の見え方に近い**
+
+    🔴 2026-08-02（r21 の目視）：**0.92 でもまだ足りていなかった。**
+       尺の短いカットでは 0.92 が字幕のフェードアウトの最中に当たる。
+       実測すると **229 カット中 36 カット**で字幕が薄い／消えていた
+       （c107 は 5.0 秒で不透明度 0.13、c414 は 0.04、c124 など9カットは 0）。
+       ⚠️ これは映像の粗ではなく**検品画像の撮り方の穴**だが、
+         そのせいで「字幕が読めるか」をこの36カットで**判定できなかった**。
+         実際 r21 の目視で「c107 の字幕だけ色が壊れている」と誤って上がっている。
+       → カットごとに「**最後の字幕がまだ完全に出ている**いちばん遅い時刻」を選ぶ。
+         段が出そろうのを待ちたいので、その範囲で**できるだけ遅く**撮る。
     """
     QA.mkdir(parents=True, exist_ok=True)
     secs = dict(S.CUTS)
+
+    def shot_at(cid, sec):
+        """字幕が完全に出ている範囲で、いちばん遅い時刻。"""
+        rows = S.SUBS.get(cid)
+        if not rows:
+            return sec * at
+        last = rows[-1]
+        # subtitle() のフェード：b = t + d + LEAD + 0.12、最後の 0.14 秒で消える
+        full_until = last["t"] + last["d"] + S.LEAD + 0.12 - 0.14
+        # 段が出そろう時刻（既定 0.92）より前には戻さない範囲で、遅いほうを採る
+        return max(min(sec * at, full_until), min(sec * 0.70, full_until))
     subs = {c: L(f"sub_{c}") for c in cids if (OUT / f"sub_{c}.png").exists()}
     lay = _load_layers(cids, idx)
     band = load_band()
@@ -422,7 +443,8 @@ def qa_shots(cids, idx, meta, at=0.92):
     out = []
     for cid in cids:
         sec = secs[cid]
-        im = compose(cid, sec * at, sec, lay, photos, meta, subs, band).convert("RGB")
+        im = compose(cid, shot_at(cid, sec), sec, lay, photos, meta, subs,
+                     band).convert("RGB")
         im.save(QA / f"cut_{cid}.png")
         out.append((cid, im))
     return out

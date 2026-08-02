@@ -395,6 +395,22 @@ def compare(items, unit="", note="", bar=True, ratio="", vmax=None, ref=""):
     n = len(items)
     gap = 40
     cw = (BW - gap * (n - 1)) / n
+    # 🔴 2026-08-02（r21 の目視）：c611 の裏返しの嘘があった。
+    #    値どうしが**ほとんど同じ**カットでは、棒が全部同じ長さになる。
+    #    見出しは「22メートル違う」「想定より厚かった」と言うのに、
+    #    絵は「まったく同じ」と言っていた（c115d 0.5%差・c423 3.5%差・c126 4.5%差）。
+    #    ⚠️ これは vmax では直らない。**棒という見せ方がこの数値に合っていない**。
+    #      差が5%を切ったら棒をやめ、数字に語らせる（bar=False）。
+    #    ⚠️ しきい値5%は実測で決めた。c421（3,840 対 4,200＝8.6%差）は
+    #      「棒の長さの差が、余裕のすべて」と言うカットで、棒が主役として効いている。
+    #      10%にすると、この生きているカットまで落ちる。
+    if bar and not ref:
+        vs = [abs(i["v"]) for i in items if i.get("v")]
+        if len(vs) >= 2 and min(vs) / max(vs) > 0.95:
+            raise ValueError(
+                f"compare: 値の差が {100 * (1 - min(vs) / max(vs)):.1f}% しかないので、"
+                f"棒は全部同じ長さになる（図が『同じだ』と言ってしまう）。"
+                f"bar=False で数字に語らせるか、ref= で外の基準を渡すこと。値={vs}")
     vmax = vmax or max(abs(i["v"]) for i in items) or 1
     top = BY0 + 34
     # ⚠️ 棒の高さ300では枠を使い切れず、値の小さい側の柱が空だった（c202 35.7%）。
@@ -571,14 +587,21 @@ def timeline(events, t0, t1, ticks=None, tfmt=None, title="", band=None):
                                 col=b.get("c", J.ALERT), anchor="middle"))
     g.append(line(x0, ax, x1, ax, J.LINE, 5))
     g.append(arrow(x1 - 4, ax, x1 + 34, ax, J.LINE, 5))
+    # 🔴 2026-08-02（r21 の目視・c122）：**フチでは足りなかった。**
+    #    目盛りは base、旗は stages なので、旗のほうが必ず**あとから上に**描かれる。
+    #    6px のフチは細い罫には勝てても、**字の真ん中を貫く 4〜5px の軸**には勝てない。
+    #    c122 は赤い軸が「18:00」のコロンを潰して「18|00」に見えていた。
+    #    ⚠️ 新しく作った「図形が文字を覆う」検査もこれを通した。フチ付きの文字を
+    #      無条件に「守られている」と見なしていたため（＝道具のほうの穴）。
+    #    → 旗の軸のほうを、目盛りの字のところで**切る**。
+    tick_boxes = []                      # (x中心, 半幅) …下向きの旗はここを避ける
     for t in (ticks or []):
         x = tx(t if not isinstance(t, (list, tuple)) else t[0])
         lb = tfmt(t) if tfmt else (t[1] if isinstance(t, (list, tuple)) else f"{t}")
         g.append(line(x, ax - 12, x, ax + 12, J.LINE_DIM, 3))
-        # ⚠️ 出来事の旗が目盛りと同じ位置に立つと、軸が目盛りの数字を貫く
-        #    （c108「5分」・c603「2023年1月」・ep04「1993年」で実際に起きていた）。
-        #    フチを付けて、下を線が通っても読めるようにする。
         g.append(txt(x, ax + 46, lb, 26, J.TICK, "Noto", "middle", ol=6))
+        tick_boxes.append((x, fm.width(str(lb), 26, "Noto") / 2 + 5))
+    LAB_T, LAB_B = ax + 46 - 26 * 0.86, ax + 46 + 26 * 0.30   # 字面の上下（実測比）
     if title:
         g.append(txtfit(BX0, BY1 - 8, title, BW, cap=30, col=J.TICK))
     stages = []
@@ -594,8 +617,15 @@ def timeline(events, t0, t1, ticks=None, tfmt=None, title="", band=None):
         #    伸ばしすぎて実測で9件ぶつけたので、軸からの余地で頭打ちにする。
         stem = 196 if not big else 268
         stem = min(stem, (ax - BY0 - 96) if dy < 0 else (874 - ax))
-        s = [line(x, ax, x, ax + dy * stem, c, 5 if big else 4),
-             circ(x, ax, 12 if big else 8, c)]
+        # 下向きの旗は、目盛りの字の高さに来る。字にかかるなら軸を2本に割って
+        # **字のぶんだけ空ける**（旗が目盛りの上を素通りしない）。
+        cross = dy > 0 and any(abs(x - bx) < bw for bx, bw in tick_boxes)
+        if cross:
+            s = [line(x, ax, x, LAB_T - 4, c, 5 if big else 4),
+                 line(x, LAB_B + 4, x, ax + dy * stem, c, 5 if big else 4)]
+        else:
+            s = [line(x, ax, x, ax + dy * stem, c, 5 if big else 4)]
+        s.append(circ(x, ax, 12 if big else 8, c))
         ty = ax + dy * (stem + 12)
         anch = "middle"
         w = 420 if big else 320
@@ -838,6 +868,17 @@ def graph(series, xlab="", ylab="", xticks=None, yticks=None, xr=(0, 1), yr=(0, 
             ly = ay - 62 - 44 * nleg
     if gap and len(series) > max(gap):
         a, b = series[gap[0]], series[gap[1]]
+        # 🔴 2026-08-02（r21 の目視・c531）：2本の x の範囲がずれていると、
+        #    塗りが**端で閉じて**「そこだけ差がゼロ」に見える。c531 は
+        #    片方が 3,600 で終わっていたので、いちばん深いところで2本が
+        #    1点に合流した絵になり、注記「どの深さでも上へずれる」と
+        #    真っ向から食い違っていた。**塗りは端を勝手に閉じる**ので気付きにくい。
+        ax_, bx_ = [p[0] for p in a["pts"]], [p[0] for p in b["pts"]]
+        if abs(ax_[0] - bx_[0]) > 1e-6 or abs(ax_[-1] - bx_[-1]) > 1e-6:
+            raise ValueError(
+                f"graph(gap=): 塗る2本の x の範囲が違う（{ax_[0]}〜{ax_[-1]} と "
+                f"{bx_[0]}〜{bx_[-1]}）。端で塗りが閉じて『差がゼロ』に見える。"
+                f"両方を同じ x まで伸ばすこと。")
         pa = [(px(u), py(v)) for u, v in a["pts"]]
         pb = [(px(u), py(v)) for u, v in b["pts"]]
         stages.append(poly(pa + list(reversed(pb)),
@@ -969,7 +1010,23 @@ def layers(n=5, bonds=None, delam=None, voids=None, note="", labels=True,
         g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.TICK))
 
     def bond_y(i):
-        return top + i * (lh + bt) + lh
+        """接着面 i（**1 が 1層と2層のあいだ**）の y。
+
+        🔴 2026-08-02（r21 の目視で3人が同じ指摘）：ここが **0 始まり**だったのに、
+           docstring も章ファイルも **1 始まり**で書かれていた。結果：
+             ・c431 c432 c625 … 「1-2」の札が付いた赤帯が **2層と3層のあいだ**に、
+               「3-4」の札が **4層と5層のあいだ**に描かれていた。
+               ＝**この動画の結論そのもの**（1-2面と3-4面が剥離した）が
+                 1層ずれた場所を指していた。
+             ・c428 … voids=[1,2,3,4] の 4 が範囲外で、**積層の下**に空隙の帯が
+               1本はみ出していた（5層なら接着面は4つしかない）。
+           実測：lh=88.8 / bt=22 / top=272 のとき、旧 bond_y(1)=471.6 で
+           これは 2層(382.8-471.6) と 3層(493.6-582.4) のあいだ。
+        """
+        if not 1 <= i <= n - 1:
+            raise ValueError(
+                f"layers: 接着面の番号は 1〜{n - 1}（1 が1層と2層のあいだ）。i={i}")
+        return top + (i - 1) * (lh + bt) + lh
 
     stages = []
     for b in (bonds or []):
@@ -1086,11 +1143,14 @@ def titan(mode="side", s=1.0, cx=None, cy=None, marks=None, note="",
         g.append(rect(xc0, cy - R, cyl, t, "none", J.LINE, 3))
         g.append(rect(xc0, cy + R - t, cyl, t, "none", J.LINE, 3))
         # 中の5人（小さい人型。大きさの実感を出す）
+        # 🔴 2026-08-02（r21 の目視・c533）：**丸＋縦棒だと「人」に見えない。**
+        #    黄色い丸から線が下がった形が5つ並ぶので、ひずみ計やセンサーの
+        #    印のように読めた（このカットは「そのひずみ計」の話をしているので、
+        #    印だと思うと数が合わなくなる）。
+        #    → people 型と同じ人型（`_glyph`）を使い、絵の語彙をそろえる。
         for i in range(5):
             px_ = xc0 + cyl * (0.17 + i * 0.165)
-            g.append(circ(px_, cy + R * 0.10, R * 0.10, J.AMBER))
-            g.append(poly([(px_, cy + R * 0.22), (px_, cy + R * 0.60)],
-                          stroke=J.AMBER, sw=5))
+            g.append(_glyph("person", px_, cy + R * 0.28, R * 0.86, J.AMBER))
     else:
         g.append(f'<path d="{body}" fill="{J.BG2}" stroke="{J.INK_W}" '
                  f'stroke-width="5"/>')
@@ -1642,6 +1702,20 @@ def absent(items, lead="", note="", mode=None):
         raise ValueError(f"absent(mode='single') は1件のときだけ（いまは {n} 件）")
     if mode == "pair" and n != 2:
         raise ValueError(f"absent(mode='pair') は2件のときだけ（いまは {n} 件）")
+    # 🔴 2026-08-02（r21 の目視）：**「有る」側が1つも無い seat / pair は画が空になる。**
+    #    「無い側は破線と罫だけ」という原則を、有る側が存在しないカットに当てると、
+    #    画面が破線の輪郭だけになって「作りかけ」に見える。実例：
+    #      c224（2件）… 大きな破線の器が2つ、中の段も破線、✗が小さく浮くだけ
+    #      c636（3件）… 同じ器が3つ並び、名前の下は3つとも「従っていない」
+    #      c608（2件）… 同上
+    #    ⚠️ ledger は同じ「全部無い」でも読めた（c230 c602 c630 c640）。
+    #      **項目名が大きく左に立ち、点リーダーと記入欄が紙の骨格を作る**から。
+    #      器の中身で語る seat と、行で語る ledger の差。
+    #    → 有る側が無いなら seat/pair は使わせない。ledger へ倒す。
+    if mode in ("seat", "pair") and not any(it.get("ok") for it in items):
+        raise ValueError(
+            f"absent(mode='{mode}') は「有る」側が1つ以上要る（いまは全部『無い』）。"
+            f"全部『無い』なら mode='ledger' を使う（項目名で見せる）。")
     return fn(items, lead, note)
 
 
@@ -1649,10 +1723,16 @@ def absent(items, lead="", note="", mode=None):
 # 14. icons — 個数を絵で見せる
 # ══════════════════════════════════════════════════════════
 def icons(n, on=None, kind="dot", cols=None, lead="", note="", oncol=None,
-          offcol=None, labels=None):
+          offcol=None, labels=None, offkind=None):
     """n 個のうち on 個（または on のリスト）を強調する。
 
-    kind … "dot"／"person"／"ship"／"sub"
+    kind    … "dot"／"person"／"ship"／"sub"／"plane"
+    offkind … **強調しない側だけ形を変える**（省略時は kind と同じ）
+
+    🔴 2026-08-02（r21 の目視・c133）：`kind` が1つしか無かったので、
+       「船11隻、航空機4機」のカットが **15個ぜんぶ船の絵**になっていた。
+       注記には「灰色が航空機4機」と書いてあるので、**図が嘘をついていた**。
+       色を変えるだけでは種類の違いは出ない。形が違うものは形で分ける。
     """
     on = list(range(on)) if isinstance(on, int) else (on or [])
     cols = cols or min(n, 12)
@@ -1678,16 +1758,31 @@ def icons(n, on=None, kind="dot", cols=None, lead="", note="", oncol=None,
         y = top + (i // cols) * ch
         c = oc if i in on else fc
         r = min(cw, ch) * 0.40
-        if kind == "person":
+        kind_i = kind if i in on else (offkind or kind)
+        if kind_i == "plane":
+            # 上から見た機体。胴＋後退翼＋尾翼（船と**輪郭で**見分けが付く形）
+            cur.append(poly([(x, y - r * 0.95), (x + r * 0.16, y - r * 0.30),
+                             (x + r * 0.16, y + r * 0.42), (x, y + r * 0.72),
+                             (x - r * 0.16, y + r * 0.42),
+                             (x - r * 0.16, y - r * 0.30)], fill=c, close=True))
+            cur.append(poly([(x, y - r * 0.18), (x + r, y + r * 0.34),
+                             (x + r, y + r * 0.54), (x, y + r * 0.22),
+                             (x - r, y + r * 0.54), (x - r, y + r * 0.34)],
+                            fill=c, close=True))
+            cur.append(poly([(x, y + r * 0.44), (x + r * 0.40, y + r * 0.76),
+                             (x + r * 0.40, y + r * 0.90), (x, y + r * 0.72),
+                             (x - r * 0.40, y + r * 0.90),
+                             (x - r * 0.40, y + r * 0.76)], fill=c, close=True))
+        elif kind_i == "person":
             cur.append(circ(x, y, r * 0.52, c))
             cur.append(poly([(x - r * 0.62, y + r * 1.9), (x - r * 0.62, y + r * 0.95),
                              (x, y + r * 0.62), (x + r * 0.62, y + r * 0.95),
                              (x + r * 0.62, y + r * 1.9)], fill=c, close=True))
-        elif kind == "ship":
+        elif kind_i == "ship":
             cur.append(poly([(x - r, y), (x + r, y), (x + r * 0.62, y + r * 0.72),
                              (x - r * 0.62, y + r * 0.72)], fill=c, close=True))
             cur.append(rect(x - r * 0.20, y - r * 0.86, r * 0.40, r * 0.86, c))
-        elif kind == "sub":
+        elif kind_i == "sub":
             # 🔴 2026-08-01（r14 を焼いて目視）：角丸の棒を1本置いていただけなので、
             #    9隻・49回のカットが**ただの棒の列**に見えていた。潜水艇の形にする。
             #    前が丸く、後ろが細くなり、上に小さなフィン、前にのぞき窓。
@@ -1921,9 +2016,19 @@ def people(nodes, edges=None, note="", lead=""):
     w = BW - 40
     h = (BY1 - (46 if note else 8)) - y0
 
+    # 🔴 2026-08-02（r21 の目視）：節が**同じ高さに並ぶ**カットは、かたまりが
+    #    帯の上のほうに置かれ、**下半分が丸ごと空いていた**（c215 c310 c316 c320 c401）。
+    #    check_space も同じものを「x0〜1920 の帯が 22〜30% 空き」と出していたが、
+    #    163件の並びに埋もれて読めていなかった。
+    #    → 節のかたまりの中心を、帯の縦の中心へ寄せる。
+    #    ⚠️ 位置はカット側が決めているので、**relative な並びは変えない**
+    #      （ずらすのはかたまり全体。節どうしの上下関係は保つ）。
+    _ys = [n["y"] for n in nodes]
+    _shift = 0.5 - (min(_ys) + max(_ys)) / 2
+
     def C(i):
         n = nodes[i]
-        return (x0 + w * n["x"], y0 + h * n["y"])
+        return (x0 + w * n["x"], y0 + h * (n["y"] + _shift))
 
     # ── 節の大きさ ───────────────────────────────────────────
     # 🔴 高さは**中身から決める**（process と beforeafter で学んだのと同じ）。
@@ -1932,7 +2037,18 @@ def people(nodes, edges=None, note="", lead=""):
     #    → 高さは 絵＋名前＋補足 の実寸に合わせ、**幅だけ**ぶつからない最大を探す。
     GS = 118.0                                   # 節の中に置く絵の大きさ
     PADY = 36.0
-    bh = GS + PADY * 2                           # = 190
+    # 🔴 節が1段しか無いカット（横に2つ並ぶだけ）は、縦に 640px 使えるのに
+    #    190px の箱を置いていた。中心に寄せても**上下に 230px ずつ余る**。
+    #    → 段が1つのときだけ、絵と字を大きくして箱ごと持ち上げる。
+    #    ⚠️ 器だけ大きくしても中は埋まらない（people の作り直しで学んだ）。
+    #      **絵の大きさ GS を上げる**＝中身が育つので、箱の高さは中身から出たまま。
+    #    ⚠️ 段が2つ以上あるカットでは触らない（節どうしがぶつかる）。
+    if max(_ys) - min(_ys) < 0.02:
+        GS = min(190.0, (h - 96) * 0.42)
+    TS_CAP = 56.0 * min(1.5, GS / 118.0)         # 名前の級数も絵に合わせる
+    DS_CAP = 34.0 * min(1.5, GS / 118.0)
+    PADY = PADY * min(1.4, GS / 118.0)
+    bh = GS + PADY * 2
     if all(not n.get("d") for n in nodes):
         bh = GS + PADY * 1.7
     # 幅の上限は**いちばん中身が長い節**から出す。無闇に広げると、名前が短い節
@@ -1941,8 +2057,8 @@ def people(nodes, edges=None, note="", lead=""):
     for n in nodes:
         gs_ = GS if n.get("kind") else 0.0
         need = max(need, 52 + (gs_ + 26 if gs_ else 0)
-                   + max(fm.width(str(n["t"]), 56, "Noto"),
-                         fm.width(str(n.get("d", "")), 34, "Noto")))
+                   + max(fm.width(str(n["t"]), TS_CAP, "Noto"),
+                         fm.width(str(n.get("d", "")), DS_CAP, "Noto")))
     BW_MAX, PAD = max(380.0, min(780.0, need + 200)), 44.0
 
     def fits(bw_):
@@ -2023,7 +2139,7 @@ def people(nodes, edges=None, note="", lead=""):
             s.append(arrow(a2[0], a2[1], b2[0], b2[1], c, 6, 24))
         stages.append("".join(s))
     for n in nodes:
-        x, y = x0 + w * n["x"], y0 + h * n["y"]
+        x, y = x0 + w * n["x"], y0 + h * (n["y"] + _shift)
         c = n.get("c", J.LINE)
         s = [rect(x - bw / 2, y - bh / 2, bw, bh, c, op=0.16),
              rect(x - bw / 2, y - bh / 2, bw, bh, "none", c, 4, rx=8)]
@@ -2033,8 +2149,8 @@ def people(nodes, edges=None, note="", lead=""):
         #    左詰めだと空きが片側にまとまるので「穴」になる。中央に置けば両側に割れる。
         gs = min(GS, bh - 48, bw * 0.34) if n.get("kind") else 0.0
         tw_max = bw - 52 - (gs + 26 if gs else 0)
-        ts = fm.fit(str(n["t"]), tw_max, "Noto", cap=56, floor=20)
-        ds = fm.fit(str(n.get("d", "")), tw_max, "Noto", cap=34, floor=18) if n.get("d") else 0
+        ts = fm.fit(str(n["t"]), tw_max, "Noto", cap=TS_CAP, floor=20)
+        ds = fm.fit(str(n.get("d", "")), tw_max, "Noto", cap=DS_CAP, floor=18) if n.get("d") else 0
         tw = max(fm.width(str(n["t"]), ts, "Noto"),
                  fm.width(str(n.get("d", "")), ds, "Noto") if ds else 0)
         cw_ = (gs + 26 if gs else 0) + tw

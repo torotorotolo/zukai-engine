@@ -171,10 +171,20 @@ def main(only=None):
             bymark[cid].append(("pts" if kind == "pts" else "box",
                                 v[0] if kind == "pts" else (v[0], v[1], v[2], v[3]),
                                 k))
+    # 🔴 3回目の作り直し（2026-08-02・r21 の目視で c122 が出た）。
+    #    フチ付きの文字を**無条件に「守られている」**と見なしていたのが穴だった。
+    #    フチ（stroke 6px ＝ 片側 3px の暈し）は、字のそばをかすめる細い罫には勝つが、
+    #    **字の芯を貫く 4〜6px の軸**には勝たない。c122 は赤い旗の軸が
+    #    「18:00」のコロンを潰して「18|00」に見えていたのに、ここを素通りした。
+    #    → フチ付きでも「**字の芯（中央 50%）を通る**」場合は数える。
+    def core_hits(t, pts):
+        cx, cy = (t[0] + t[2]) / 2, (t[1] + t[3]) / 2
+        hw, hh = (t[2] - t[0]) * 0.25, (t[3] - t[1]) * 0.25
+        return sum(1 for px_, py_ in pts
+                   if cx - hw < px_ < cx + hw and cy - hh < py_ < cy + hh)
+
     for cid in sorted(bycut):
         for t in bycut[cid]:
-            if t[7]:
-                continue                       # フチ付き＝下を線が通っても読める
             if any(gx0 <= t[0] + 2 and gy0_ <= t[1] + 2 and gx1 >= t[2] - 2
                    and gy1_ >= t[3] - 2
                    for gx0, gy0_, gx1, gy1_ in guard.get(t[5], [])):
@@ -183,13 +193,34 @@ def main(only=None):
                 if order(mk) <= order(t[5]):
                     continue                   # 文字のほうがあとに乗る＝隠れない
                 if kind == "pts":
-                    hit = sum(1 for px_, py_ in geo
-                              if t[0] + 4 < px_ < t[2] - 4 and t[1] + 4 < py_ < t[3] - 4)
-                    if hit < 3:
+                    # 🔴 これで4回目の作り直し（2026-08-02・c122）。
+                    #    ここまで **点の数**（3点以上）や **点の広がり**で測っていたが、
+                    #    どちらも**背の低い文字ほど守られる**という逆の道具だった。
+                    #    目盛りの「18:00」は字面の高さが 20px しかない。内側に4px 詰めて
+                    #    STEP=5px で拾うと、中に入る点は2つ・広がりは5px にしかならず、
+                    #    どんなしきい値を置いても「貫いている」に届かない。
+                    #    実測して初めて分かった（`_dbg_c122.py`）。旗の軸は
+                    #    x=1374・y=517〜713、字は x=1339〜1409・y=543〜563。
+                    #    **どう見ても貫いているのに、点の勘定では出ない。**
+                    # → 数えるのをやめる。「**上から入って下へ抜けたか**」を見る。
+                    #   これは STEP にも字の大きさにも左右されない。
+                    bw_, bh_ = t[2] - t[0], t[3] - t[1]
+                    inx = [p for p in geo if t[0] + 2 < p[0] < t[2] - 2]
+                    iny = [p for p in geo if t[1] + 2 < p[1] < t[3] - 2]
+                    thru_v = (any(p[1] <= t[1] for p in inx)
+                              and any(p[1] >= t[3] for p in inx))
+                    thru_h = (any(p[0] <= t[0] for p in iny)
+                              and any(p[0] >= t[2] for p in iny))
+                    if not (thru_v or thru_h):
                         continue
+                    # ⚠️ フチ（paint-order）は**かすめる罫**には勝つが、字を端から端まで
+                    #    貫く軸には勝たない。上の判定はかすめる線では成立しないので、
+                    #    ここまで来たらフチの有無によらず読めない。
                     cross += 1
-                    print(f"  🔴 {cid}: 「{t[4][:16]}」({t[5]}) の中を {mk} の線が "
-                          f"{hit}点ぶん通る")
+                    print(f"  🔴 {cid}: 「{t[4][:16]}」({t[5]}) を {mk} の線が"
+                          f"{'縦' if thru_v else '横'}に貫いている"
+                          f"（字 {bw_:.0f}×{bh_:.0f}px"
+                          f"{'・フチ付きでも読めない' if t[7] else ''}）")
                     continue
                 mx0, my0, mx1, my1 = geo
                 ix = min(t[2], mx1) - max(t[0], mx0)
