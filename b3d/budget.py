@@ -29,15 +29,24 @@ import os
 import pathlib
 
 # ── 上限（ここを変えるとき以外は触らない）──────────────────────
-# 🔴 2026-08-01 訂正：Modal Starter の無料クレジットは **$1.00/月**（$30ではない）。
-#    公式価格ページの $30 は別プラン。実際のダッシュボード
-#    （modal.com/settings/torotorotolo/usage）で確認した値がこれ。
-#    さらに Modal 側にも「$1 per billing period で実行中のアプリを停止」
-#    というハード上限がある。途中で切られると焼きかけが無駄になるので、
-#    こちらの上限はそれより**内側**に置く。
-FREE_CREDIT_USD = 1.00      # Modal Starter の月次無料クレジット（実測）
-CAP_USD = 0.85              # 月の総額上限。$1 の内側に置く
-CAP_PER_RUN_USD = 0.10      # 1回の実行の上限（プレビュー1巡は約$0.03）
+# 🔴 2026-08-02 再訂正：**無料クレジットは $30/月で正しい。**
+#    2026-08-01 にここを $1.00 へ書き換えたが、**それが誤り**だった。
+#    一次情報3つが $30 で一致する（modal.com/pricing・/signup・/llms.txt）。
+#
+#    ではダッシュボードで見えた $1 は何か ＝ **支出上限（Workspace budget）**。
+#      docs/guide/budgets:「The maximum budget you can set depends on
+#        **prior successful charges** for the Workspace.」
+#      docs/guide/billing:「you must have a payment method on file in order to use Modal.」
+#    ＝ 支払い方法が未登録だと上限が $1 に抑えられ、**$30 は付いていても使えない**。
+#    2026-08-02、事故検証の本編がレイヤー 650/1188 で `workspace is disabled` に
+#    なって止まったのはこれ。**枠切れではなく上限切れ。**
+#
+# ⚠️ **超過しても Modal は止めてくれない**（閾値を超えると自動請求に化ける）。
+#    だからこの門番は $30 に合わせて上げない。**意図的にずっと内側**に置く。
+#    決め方は「無料枠がいくらか」ではなく「**事故ってもこの額しか出ない**」。
+FREE_CREDIT_USD = 30.00     # Modal Starter の月次無料クレジット（公式・毎月リセット）
+CAP_USD = 5.00              # 月の総額上限。無料枠の 1/6。使い切っても $25 残る
+CAP_PER_RUN_USD = 1.00      # 1回の実行の上限（本編1本 約$0.25／プレビュー1巡 約$0.03）
 
 OVERHEAD_SEC = 120          # コンテナ起動などの固定費（多めに置く）
 SAFETY = 1.5                # レンダ時間の見積もり係数（機体差±20%を吸収）
