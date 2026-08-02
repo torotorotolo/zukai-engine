@@ -22,6 +22,12 @@
 ■ 使い方
      python tools/footage.py fetch          … 落として、必要なコマだけ切り出す
      python tools/footage.py fetch --check  … 落とさずに、割り当てだけ確認する
+     python tools/footage.py scan           … ★候補クリップの中身を一覧シートにする
+
+■ 🔴 秒数は**見てから決める**（r17 で1度失敗している）
+   c132 は白飛び、c624 は何も無い海底を選んでいた。原因は「たぶんこの辺」で
+   秒数を書いたこと。`scan` はクリップ全体を一定間隔で並べたシートを出すので、
+   **そのシートを見てから `USE` の start を書く**。
 """
 import json
 import subprocess
@@ -63,6 +69,33 @@ CLIPS = {
     ),
 }
 
+# ── 中身を見るだけの候補（2026-08-02 カズヤくん指示「実写の比率を上げる」）──
+# 🔴 出所は `DVIDS_VIDIEOS.txt`（アーカイブに同梱）で1本ずつ確かめた。
+#    DVIDS は米国防総省の広報配信で、**合衆国政府の著作物＝パブリックドメイン**。
+#    ⚠️ ただし ROV 映像は凡例が "courtesy of Pelagic Research Services" なので、
+#      **PDとは書かない**（撮影は民間会社）。審判部そのものを写した映像は
+#      沿岸警備隊の撮影なので PD と書いてよい。
+SCAN = {
+    # ROV 映像。すでに使っている2本とは**別の素材**（長さが違う）
+    "rov_salvage_a": dict(
+        paths=["Testimony Media/DOD_110579329.mp4"],
+        credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
+        note="127.3秒。DVIDS 937600「引き揚げのROV映像」"),
+    "rov_salvage_b": dict(
+        paths=["Testimony Media/DOD_110579650.mp4"],
+        credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
+        note="140.0秒。DVIDS 937622「引き揚げのROV映像」"),
+    # ★審判部そのもの。**海底と実験室しか出てこない本編に、人と部屋の絵が入る**
+    "mbi_board": dict(
+        paths=["Testimony Media/DOD_109728593.mp4"],
+        credit="出典：アメリカ沿岸警備隊／海難審判部の公開映像／パブリックドメイン",
+        note="774.6秒。DVIDS 888248「海難審判部の招集」"),
+    "mbi_exhibit": dict(
+        paths=["May 2025 Update/Testimony Media/DOD_111016570.mp4"],
+        credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／パブリックドメイン",
+        note="154.6秒。DVIDS 963844「審判部 証拠 CG 141」。中身は未確認"),
+}
+
 # ── どのカットに、どの動画の何秒目から当てるか ────────────────
 # 🔴 守ること
 #   1. **そのカットで話している対象そのもの**であること（壁紙にしない）
@@ -94,7 +127,7 @@ USE = {
 
 
 def urls_of(name):
-    c = CLIPS[name]
+    c = CLIPS.get(name) or SCAN[name]
     return [IA + urllib.parse.quote(p) for p in c.get("paths") or [c["path"]]]
 
 
@@ -183,5 +216,66 @@ def fetch(check=False):
     return 0
 
 
+def _duration(p):
+    r = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration",
+                        "-of", "default=nw=1:nk=1", str(p)],
+                       capture_output=True, text=True)
+    try:
+        return float(r.stdout.strip())
+    except ValueError:
+        return 0.0
+
+
+def scan(only=None, cols=5, rows=5):
+    """候補クリップの中身を**一定間隔で並べたシート**にする。
+
+    🔴 これを見てから `USE` の start を書く。r17 では見ずに書いて、
+       c132 が白飛び・c624 が何も無い海底になった。
+    ⚠️ シートは `out/jiko/qa/` に出す（成果物として持ち帰るのはここだけ）。
+    """
+    from PIL import Image, ImageDraw
+    qa = HERE / "out" / "jiko" / "qa"
+    qa.mkdir(parents=True, exist_ok=True)
+    names = [n for n in SCAN if not only or n in only.split(",")]
+    print(f"■ 中身を見る候補 {len(names)} 本", flush=True)
+    for name in names:
+        print(f"── {name}：{SCAN[name]['note']}", flush=True)
+        p = _dl(name)
+        if p is None:
+            continue
+        dur = _duration(p)
+        n = cols * rows
+        step = max(1.0, dur / (n + 1))
+        tw = 384
+        th = round(tw * 9 / 16)
+        sheet = Image.new("RGB", (tw * cols, th * rows), "#101010")
+        d = ImageDraw.Draw(sheet)
+        tmp = CLIP / "_scan"
+        tmp.mkdir(exist_ok=True)
+        got = 0
+        for i in range(n):
+            t = step * (i + 1)
+            f = tmp / f"{i:03d}.jpg"
+            subprocess.run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error",
+                            "-ss", f"{t:.2f}", "-i", str(p), "-frames:v", "1",
+                            "-q:v", "4", str(f)], check=False)
+            if not f.exists():
+                continue
+            im = Image.open(f).convert("RGB").resize((tw, th), Image.LANCZOS)
+            x, y = (i % cols) * tw, (i // cols) * th
+            sheet.paste(im, (x, y))
+            d.text((x + 8, y + 8), f"{int(t // 60)}:{t % 60:05.2f}", fill="#ffe08a")
+            d.rectangle([x, y, x + tw - 1, y + th - 1], outline="#404040")
+            f.unlink()
+            got += 1
+        out = qa / f"scan_{name}.jpg"
+        sheet.save(out, quality=86)
+        print(f"   → {out.name}（{dur:.1f}秒を {got}枚・{step:.1f}秒おき）", flush=True)
+    return 0
+
+
 if __name__ == "__main__":
+    g = lambda p: next((a.split("=", 1)[1] for a in sys.argv if a.startswith(p)), None)
+    if "scan" in sys.argv:
+        sys.exit(scan(only=g("--only=")))
     sys.exit(fetch(check="--check" in sys.argv))

@@ -46,6 +46,12 @@ on:
         default: "false"
         type: choice
         options: ["false", "true"]
+      scan:
+        description: "★実写候補の中身だけを一覧シートにする（226カットは焼かない）"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
 
 jobs:
   render:
@@ -90,12 +96,29 @@ jobs:
       #   ⚠️ 失敗しても続行する。コマが無ければ build 側は**静止画に落ちる**ので、
       #     素材が取れない日でも検品は回せる（パイプラインは壊れない）。
       - name: Fetch footage (実写動画)
+        if: inputs.scan != 'true'
         continue-on-error: true
         run: python tools/footage.py
+
+      # ★候補クリップの中身だけを一覧シートにする（秒数を**見てから**決めるため）。
+      #   🔴 r17 で見ずに秒数を書いて、白飛び・何も無い海底を選んだ。同じ轍を踏まない。
+      #   ⚠️ scan=true のときは**ここで終わる**（226カットは焼かない）。
+      - name: Scan footage candidates
+        if: inputs.scan == 'true'
+        run: python tools/footage.py scan
+
+      - name: Upload scan sheets
+        if: inputs.scan == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: jiko-scan${{ inputs.note && format('-{0}', inputs.note) || '' }}
+          path: out/jiko/qa/scan_*.jpg
+          retention-days: 5
 
       # 226カット全部に「画」が割り当たっているか。抜けがあればここで止める。
       # ⚠️ partial=true のときは抜けを見逃す（章を作っている途中の試し焼き用）。
       - name: Check cut table
+        if: inputs.scan != 'true'
         continue-on-error: ${{ inputs.partial == 'true' }}
         run: python tools/scene_jiko.py --report
 
@@ -103,11 +126,13 @@ jobs:
       #    画面外・重なり・豆腐はここで分かるので、レンダリングを待たずに読める。
       #    ⚠️ 失敗しても続行する（検品画像は見たいので）。ログは必ず読むこと。
       - name: Check layout (机上の検算)
+        if: inputs.scan != 'true'
         continue-on-error: true
         run: python tools/check_layout.py
 
       # 図がナレーションの複写になっていないか（映像ルール6）
       - name: Check echo
+        if: inputs.scan != 'true'
         continue-on-error: true
         run: python tools/check_echo.py
 
@@ -115,6 +140,7 @@ jobs:
       #   opus を wav に戻さないと測れないので、ここで展開する。
       #   ⚠️ これは**検査**であって製造ではない（mp4 は作らない）。
       - name: Check narration under BGM
+        if: inputs.scan != 'true'
         continue-on-error: true
         run: |
           python tools/audio_pack.py check
@@ -122,15 +148,18 @@ jobs:
           python tools/check_mask.py
 
       - name: Render layers (SVG -> PNG)
+        if: inputs.scan != 'true'
         run: python tools/scene_jiko.py --force
 
       # ★Modal と画が一致しているかを突き合わせるための指紋。
       #   `modal run modal_app.py::layer_hash` が同じ値を出す。
       #   ここがずれたら、Actions で見た検品9巡は Modal の本編に対して無効。
       - name: Layer fingerprint
+        if: inputs.scan != 'true'
         run: python tools/layer_hash.py
 
       - name: Build QA stills
+        if: inputs.scan != 'true'
         run: |
           ARGS="qa"
           [ "${{ inputs.partial }}" = "true" ] && ARGS="$ARGS --partial"
@@ -140,13 +169,16 @@ jobs:
       # 画面の余白を機械で測る。基準は _empty.png（地だけを焼いたもの）との画素差。
       # ⚠️ **必ず JPEG に詰め直す前に**やる（JPEGのノイズが地との差として出るため）。
       - name: Check whitespace
+        if: inputs.scan != 'true'
         continue-on-error: true
         run: python tools/check_space.py out/jiko/qa
 
       - name: Shrink stills for download
+        if: inputs.scan != 'true'
         run: python tools/build_jiko.py shrink
 
       - name: Summary
+        if: inputs.scan != 'true'
         run: |
           ls out/jiko/qa/ | head -40
           echo "--- qa の枚数と容量 ---"
@@ -159,7 +191,8 @@ jobs:
       #    public リポジトリなので実行時間は無料で上限が無いが、
       #    **成果物ストレージはアカウント共通で 500MB しかない**。
       #    巡が終わって中身を見たら `python tools/gc_artifacts.py --keep 2` で掃除する。
-      - uses: actions/upload-artifact@v4
+      - if: inputs.scan != 'true'
+        uses: actions/upload-artifact@v4
         with:
           name: jiko-qa${{ inputs.note && format('-{0}', inputs.note) || '' }}
           path: out/jiko/qa/
