@@ -1898,10 +1898,16 @@ def sound(depth_m=3840, note="", rings=4, both=True, label_a="潜水艇の中",
     # 海面のボート
     g.append(poly([(bx - 74, by), (bx + 74, by), (bx + 48, by - 34), (bx - 48, by - 34)],
                   fill=J.INK_W, close=True))
-    g.append(txtfit(bx, by - 60, label_b, 460, cap=32, col=J.INK_W, anchor="middle"))
+    # 🔴 2026-08-02（r28 の拡大目視）：**音の輪が札の後ろを通る**ので、
+    #    赤い線が字にかかって読みづらい。ep08 は札を短くしても、いちばん外の輪が
+    #    「中」を横切っていた。輪は画面いっぱいに広がるので、**避ける場所が無い**。
+    #    → 札にフチを付けて地から浮かせる（写真の上で読ませるのと同じ手）。
+    g.append(txtfit(bx, by - 60, label_b, 460, cap=32, col=J.INK_W, anchor="middle",
+                    ol=7))
     # 潜水艇
     g.append(rect(sx - 92, sy - 34, 184, 68, J.INK_W, rx=34))
-    g.append(txtfit(sx, sy + 82, label_a, 460, cap=32, col=J.INK_W, anchor="middle"))
+    g.append(txtfit(sx, sy + 82, label_a, 460, cap=32, col=J.INK_W, anchor="middle",
+                    ol=7))
     if moving:
         # 札だけ替えると絵と逆になるので、矢印の向きも変える。
         # ⚠️ 下向きでも**場所は艇の上のまま**にする。艇の下は label_a（水深）が
@@ -1909,7 +1915,7 @@ def sound(depth_m=3840, note="", rings=4, both=True, label_a="潜水艇の中",
         up = moving != "降下中"
         y0, y1 = (sy - 54, sy - 130) if up else (sy - 130, sy - 54)
         g.append(arrow(sx, y0, sx, y1, J.LINE, 4, 16))
-        g.append(txt(sx + 16, sy - 96, moving, 28, J.LINE))
+        g.append(txt(sx + 16, sy - 96, moving, 28, J.LINE, ol=6))
     if note:
         g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.TICK))
     stages = []
