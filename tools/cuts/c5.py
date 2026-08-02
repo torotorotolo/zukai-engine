@@ -217,10 +217,13 @@ SPEC = {
         t="データを見たあとの判断",
         s="CEOと技術部長",
         fig=("people", dict(
-            nodes=[dict(x=0.20, y=0.30, t="ひずみと音のデータ", d="80回目の記録",
+            # ⚠️ 節の縦の間隔は**箱の高さ（190px）＋札（58px）＋余白**が要る。
+            #    0.30/0.72 だと箱のあいだが 45px しかなく、**矢印が札に隠れた**
+            #    （r20 の目視）。0.20/0.82 に開けて 124px 取る。
+            nodes=[dict(x=0.20, y=0.20, t="ひずみと音のデータ", d="80回目の記録",
                         kind="doc", c=J.DOC),
-                   dict(x=0.50, y=0.72, t="CEO", kind="person", c=J.ALERT),
-                   dict(x=0.82, y=0.30, t="技術部長", kind="person", c=J.LINE)],
+                   dict(x=0.50, y=0.82, t="CEO", kind="person", c=J.ALERT),
+                   dict(x=0.82, y=0.20, t="技術部長", kind="person", c=J.LINE)],
             edges=[dict(a=0, b=1, t="見たうえで", c=J.LINE_DIM),
                    dict(a=1, b=2, t="運航を続けたい", c=J.ALERT)],
             lead="止める材料ではなく、続ける前提で扱われた")),

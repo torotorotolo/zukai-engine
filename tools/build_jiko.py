@@ -103,6 +103,12 @@ def foot_frame(cut, t):
         got = sorted(d.glob("*.jpg")) if d.is_dir() else []
         if not got:
             _FOOT_MISS.add(cut)
+            # 🔴 2026-08-02：動画を当てているのにコマが無いと**黙って静止画に落ちる**。
+            #    r16 で archive.org が 500 を返したとき、失敗したのに ✓ に見えた。
+            #    動画のカットが 3 → 10 に増えたので、落ちたことが必ずログに出るようにする。
+            if cut in _FOOT_USE:
+                print(f"  ⚠️ {cut}: 動画のコマが無いので**静止画に落ちた**"
+                      f"（tools/footage.py が取れていない）", flush=True)
             return None
         p = got[-1]
     return Image.open(p).convert("RGB")

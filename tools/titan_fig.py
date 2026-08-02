@@ -350,14 +350,16 @@ def depth(marks, dmax=4400, unit="m", axis_t="水深", seabed=None, note="", rig
         # ⚠️ いちばん大事な印には**潜水艇そのもの**を置く。
         #    印が1つだけのカットが「線1本の海」になっていた（c408 c409 c420 ほか）。
         if big:
-            s.append(rect(ax - 92, y - 26, 184, 52, J.BG2, rx=26))
-            s.append(rect(ax - 92, y - 26, 184, 52, "none", c, 5, rx=26))
-            s.append(line(ax + 62, y - 26, ax + 76, y - 46, c, 4))
+            # 🔴 2026-08-02：潜水艇の絵を軸の中心（ax±92）に置いていたので、
+            #    **軸の左に出している目盛りの数字（ax-28 で右寄せ）を覆っていた**
+            #    （c130・c420・c510・c610・c121 の「4,000」「2,000」「水深」が消えていた）。
+            #    新しく作った「図形が文字を横切る」検査が拾った。絵を軸の右へ寄せる。
+            s.append(rect(ax - 20, y - 22, 168, 44, J.BG2, rx=22))
+            s.append(rect(ax - 20, y - 22, 168, 44, "none", c, 5, rx=22))
+            s.append(line(ax + 104, y - 22, ax + 118, y - 42, c, 4))
         size = 76 if big else 48
-        # ⚠️ big の印は潜水艇の絵（ax±92）を描くので、**その外から**文字を始める。
-        #    r19 の目視で「1,600 m」と「浮上している途中」が絵に重なっていた
-        #    （check_layout は文字どうししか見ないので机上では出ない）。
-        lx = ax + (108 if big else 40)
+        # ⚠️ 文字は絵の外から始める（r19 の目視で数字と札が絵に重なっていた）
+        lx = ax + (164 if big else 40)
         s.append(txt(lx, y - 16, f'{m["d"]:,}', size, c, "Dela"))
         nw = fm.width(f'{m["d"]:,}', size, "Dela")
         s.append(txt(lx + nw + 10, y - 16, unit, size * 0.36, c))
@@ -573,7 +575,10 @@ def timeline(events, t0, t1, ticks=None, tfmt=None, title="", band=None):
         x = tx(t if not isinstance(t, (list, tuple)) else t[0])
         lb = tfmt(t) if tfmt else (t[1] if isinstance(t, (list, tuple)) else f"{t}")
         g.append(line(x, ax - 12, x, ax + 12, J.LINE_DIM, 3))
-        g.append(txt(x, ax + 46, lb, 26, J.TICK, "Noto", "middle"))
+        # ⚠️ 出来事の旗が目盛りと同じ位置に立つと、軸が目盛りの数字を貫く
+        #    （c108「5分」・c603「2023年1月」・ep04「1993年」で実際に起きていた）。
+        #    フチを付けて、下を線が通っても読めるようにする。
+        g.append(txt(x, ax + 46, lb, 26, J.TICK, "Noto", "middle", ol=6))
     if title:
         g.append(txtfit(BX0, BY1 - 8, title, BW, cap=30, col=J.TICK))
     stages = []
@@ -852,6 +857,10 @@ def graph(series, xlab="", ylab="", xticks=None, yticks=None, xr=(0, 1), yr=(0, 
         if legend and s.get("t"):
             # ⚠️ 凡例は**その系列の描かれ方**を出す。点だけの系列に実線を出すと
             #    凡例が嘘になる（r19 の目視で c527 に出た）。
+            # ⚠️ 凡例の下を折れ線が通ることがある（c525 で実測）。**地を敷いてから**置く
+            lw_ = 64 + fm.width(str(s["t"]), 30, "Noto") + 16
+            seg.append(rect(lx - (10 if lft else lw_ - 10), ly - 34, lw_, 46,
+                            J.BG, rx=6, op=0.82))
             if s.get("dots_only"):
                 seg += [circ(lx + (12 + k * 19 if lft else -12 - k * 19), ly - 10,
                              6, c) for k in range(3)]
@@ -1406,9 +1415,7 @@ def _absent_seat(items, lead, note):
     「有る」器だけが中身（記録の帯）を持ち、「無い」器は破線の輪郭だけ。
     """
     n = len(items)
-    # ⚠️ ✓／✗ は器の**上**（y-34・半径22）に打つので、その56pxを先に空けておく。
-    #    空けずに器を伸ばしたら、印が見出しの副題の高さ（184px）まで上がった。
-    lead_h = 92 if lead else 66
+    lead_h = 92 if lead else 24
     note_h = 46 if note else 6
     top = BY0 + lead_h
     bot = BY1 - note_h
@@ -1436,19 +1443,24 @@ def _absent_seat(items, lead, note):
         # 🔴 有る／無いの差は「器の中身」で見せる。**同じ場所に同じ数の段**を置き、
         #    有るほうは詰まっていて、無いほうは段だけが破線で残っている。
         #    （r19 の目視：空の器の中に短い破線が1本だけあって意味不明だった）
-        slots = [(y + bh * (0.14 + k * 0.155), bh * 0.085) for k in range(5)]
+        # ⚠️ ✓／✗ は**器の中の上**に置く。器の外（上）に出したら、器を高くしたぶん
+        #    枕の文字に重なった（r20 の目視。機械は文字どうししか見ないので出ない）。
+        mr = min(24.0, bh * 0.11)
+        s0 = y + mr * 2 + 34
+        step = (y + bh - 22 - s0) / 5
+        slots = [(s0 + step * k, min(step * 0.60, bh * 0.085)) for k in range(5)]
         if ok:
             s.append(rect(x, y, bw, bh, J.OK, J.OK, 4, rx=6, op=0.16))
             for by, hh in slots:
                 s.append(rect(x + bw * 0.12, by, bw * 0.76, hh, J.OK, op=0.55))
-            s.append(_tick_mark(cx, y - 34, 20, c))
+            s.append(_tick_mark(cx, y + mr + 16, mr * 0.9, c))
         else:
             # 空の器。**破線の輪郭と、空のままの段だけ**。網掛けも塗りも入れない
             s.append(rect(x, y, bw, bh, "none", J.LINE_DIM, 4, rx=6, dash="20 14"))
             for by, hh in slots:
                 s.append(rect(x + bw * 0.12, by, bw * 0.76, hh, "none", J.LINE_DIM,
                               2, dash="12 10"))
-            s.append(_cross_mark(cx, y - 34, 22, c))
+            s.append(_cross_mark(cx, y + mr + 16, mr, c))
         s.append(txtfit(cx, shelf + 50, it["t"], slot * 0.96, cap=40,
                         col=it.get("c", c), anchor="middle"))
         if it.get("d"):
@@ -1980,14 +1992,30 @@ def people(nodes, edges=None, note="", lead=""):
             th = 58.0
             ln = math.hypot(b2[0] - a2[0], b2[1] - a2[1]) or 1.0
             ux, uy = (b2[0] - a2[0]) / ln, (b2[1] - a2[1]) / ln
-            # 札の外周までの距離（矩形なので、向きに応じて幅か高さで決まる）
-            cut = min(tw / 2 / abs(ux) if abs(ux) > 1e-6 else 1e9,
-                      th / 2 / abs(uy) if abs(uy) > 1e-6 else 1e9) + 10
-            if ln / 2 - cut > 14:              # 軸が見える長さが残るときだけ割る
-                s.append(line(a2[0], a2[1], mx - ux * cut, my - uy * cut, c, 6))
-                s.append(arrow(mx + ux * cut, my + uy * cut, b2[0], b2[1], c, 6, 24))
+            # 札が矢印の向きに占める長さ（矩形なので、向きに応じて幅か高さで決まる）
+            half = min(tw / 2 / abs(ux) if abs(ux) > 1e-6 else 1e9,
+                       th / 2 / abs(uy) if abs(uy) > 1e-6 else 1e9) + 10
+            # ⚠️ しきい値は**実測して決めた**。44 だと片側 22px しか残らず、
+            #    c218 で軸が 32px になって矢印に見えなかった（r20 のあと実測）。
+            #    片側 60px は要る。
+            if ln - half * 2 >= 120:
+                # あいだに軸が見える長さが残る → 札の手前で切り、向こう側から矢羽根
+                s.append(line(a2[0], a2[1], mx - ux * half, my - uy * half, c, 6))
+                s.append(arrow(mx + ux * half, my + uy * half, b2[0], b2[1], c, 6, 24))
             else:
+                # 🔴 r20 の目視：**札のほうが隙間より広い**カットが5枚あった
+                #    （c310 は隙間354pxに札508px）。線の上に置くと矢印が消えるので、
+                #    矢印はそのまま引いて、**札を線と直角の向きへ逃がす**。
+                #    逃がす量は節の箱を跨ぐぶん（bh/2 ＋ 札の半分 ＋ 余白）。
                 s.append(arrow(a2[0], a2[1], b2[0], b2[1], c, 6, 24))
+                d0 = bh / 2 + th / 2 + 16
+                nx, ny = -uy, ux
+                if abs(uy) > abs(ux):          # 縦向きの矢印は横へ逃がす
+                    nx, ny = (1.0, 0.0) if mx + d0 + tw / 2 < BX1 else (-1.0, 0.0)
+                    d0 = bw / 2 + tw / 2 + 16
+                elif ny > 0:                   # 横向きは上へ（下は字幕帯が近い）
+                    nx, ny = -nx, -ny
+                mx, my = mx + nx * d0, my + ny * d0
             s.append(rect(mx - tw / 2, my - th / 2, tw, th, J.BG, c, 3, rx=8))
             s.append(txtfit(mx, my + 10, e["t"], tw - 20, cap=es, col=c,
                             anchor="middle"))
