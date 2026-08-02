@@ -600,7 +600,31 @@ def report():
     extra = [c for c in SPEC if c not in ORDER]
     if extra:
         print(f"🔴 台本に無いカット: {extra}")
-    return not (miss or extra)
+
+    # 🔴 2026-08-02：**写真が git に入っていなくて r24 が失敗した。**
+    #    `.gitignore` が `ref/*` を除外して許可制（`!ref/…` を1行ずつ）にしているので、
+    #    新しい写真を置いても `git add -A` が**黙って落とす**。
+    #    ローカルにはファイルがあるから机上検査は全部通り、写真を実際に開くのは
+    #    クラウドの `build_jiko` だけなので、**40分焼いた最後に FileNotFoundError**
+    #    になる。押す前にここで気づけるようにする。
+    used = sorted({v[1] for v in PHOTO_CUTS.values()})
+    nofile = [n for n in used if not (HERE / "ref" / n).exists()]
+    if nofile:
+        print(f"🔴 ref に実体が無い写真: {nofile}")
+    untracked = []
+    try:
+        import subprocess
+        tracked = set(subprocess.run(
+            ["git", "ls-files", "ref/"], cwd=HERE, capture_output=True,
+            text=True, timeout=20).stdout.split())
+        untracked = [n for n in used if f"ref/{n}" not in tracked]
+    except Exception as e:                      # git が無い環境（クラウド）では黙る
+        print(f"   （git を確認できないので追跡の検査は飛ばす: {e}）")
+    if untracked:
+        print(f"🔴 **git に入っていない写真** {len(untracked)}件: {untracked}")
+        print("   → .gitignore の許可制リストに `!ref/<名前>` を1行ずつ足す。"
+              "足さないと push しても**クラウドに届かない**。")
+    return not (miss or extra or nofile or untracked)
 
 
 if __name__ == "__main__":
