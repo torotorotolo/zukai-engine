@@ -1878,8 +1878,18 @@ def icons(n, on=None, kind="dot", cols=None, lead="", note="", oncol=None,
 # 15. sound — 2点で同じ音を聞いた（プロローグと第5章の核心）
 # ══════════════════════════════════════════════════════════
 def sound(depth_m=3840, note="", rings=4, both=True, label_a="潜水艇の中",
-          label_b="海面のボート"):
-    """海面のボートと浮上中の潜水艇。**2点同時に届いた**ことが要点。"""
+          label_b="海面のボート", moving="浮上中"):
+    """海面のボートと潜水艇。**2点同時に届いた**ことが要点。
+
+    🔴 2026-08-02（r25 の目視）：`浮上中` を**この型に焼き込んでいた**。
+       使う4カットのうち3つ（pr05・c504・ep08）は 2022年の80回目の潜航で、
+       音がしたのは**浮上中**なので正しい。
+       だが **c115c は 2023年6月18日 10時47分の爆縮**で、
+       このとき潜水艇は 3,346m を**降下している途中**だった
+       （c110「09:14 台から切り離し、重りで落ちていく」→ c115a 10:47:08 で 3,346m）。
+       ＝ 図が「浮上中」と言い、台本が「降下して爆縮した」と言う食い違いだった。
+    → 向きはカット側から渡す。`moving=""` を渡せば矢印ごと消える。
+    """
     top, bot = BY0 + 70, BY1 - 60
     g = [watertone(BX0, top, BW, bot - top, 0.08, 0.40),
          line(BX0, top, BX1, top, J.INK_W, 5)]
@@ -1892,8 +1902,14 @@ def sound(depth_m=3840, note="", rings=4, both=True, label_a="潜水艇の中",
     # 潜水艇
     g.append(rect(sx - 92, sy - 34, 184, 68, J.INK_W, rx=34))
     g.append(txtfit(sx, sy + 82, label_a, 460, cap=32, col=J.INK_W, anchor="middle"))
-    g.append(arrow(sx, sy - 54, sx, sy - 130, J.LINE, 4, 16))
-    g.append(txt(sx + 16, sy - 96, "浮上中", 28, J.LINE))
+    if moving:
+        # 札だけ替えると絵と逆になるので、矢印の向きも変える。
+        # ⚠️ 下向きでも**場所は艇の上のまま**にする。艇の下は label_a（水深）が
+        #    使っており、そこへ矢印を下ろすと図形が文字を貫く。
+        up = moving != "降下中"
+        y0, y1 = (sy - 54, sy - 130) if up else (sy - 130, sy - 54)
+        g.append(arrow(sx, y0, sx, y1, J.LINE, 4, 16))
+        g.append(txt(sx + 16, sy - 96, moving, 28, J.LINE))
     if note:
         g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.TICK))
     stages = []
