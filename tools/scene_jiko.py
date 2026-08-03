@@ -448,8 +448,12 @@ def stage_times(cid, nstage, holds=None):
     **描き終える秒 ＝ 次の段が出る秒**（最後の段はカット終わりまで）。
     こうすると、カットのどの瞬間にも必ず「描いている途中の段」が1つある。
 
-    holds … 段ごとの指定（`titan_fig.Fig.holds`）。**"after_last"** の段は
-            **最後の行を読み終えてから**出す（引用の決め所など）。
+    holds … 段ごとの指定（`titan_fig.Fig.holds`）。
+      **"with_last"** … 🔴 **最後の行を読み"始める"のと同時**に出はじめ、
+            その行を読み終えるころに出そろう（引用の決め所。2026-08-03 カズヤくん指示）。
+      **"after_last"** … 最後の行を**読み終えてから**出す。⚠️ **2026-08-03 に撤回。**
+            「読み終えてから出す」と、視聴者はもう答えを聞いてしまっているので
+            **画面に出ても何の意外性もない**。新規に使わないこと。
     """
     sec = dict(CUTS)[cid]
     rows = SUBS.get(cid, [])
@@ -472,16 +476,31 @@ def stage_times(cid, nstage, holds=None):
     if st and st[-1] > sec - RESERVE:
         st[-1] = max(st[0], sec - RESERVE)
         st = sorted(st)
-    # ★「最後の行を読み終えてから出す」段
+    ends = st[1:] + [sec]
     if holds:
+        last_beg = (rows[-1]["t"] + LEAD) if rows else 0.25
         last_end = (rows[-1]["t"] + rows[-1]["d"] + LEAD) if rows else 0.25
         for i, h in enumerate(holds[:len(st)]):
-            if h == "after_last":
-                # 字幕は行末 +0.12 秒までフェードで残る。そのあとに出す
+            if h == "with_last":
+                # ★決め所は「最後の行を読み始めるのと同時」に出はじめ、
+                #   **その行を読み終えるころに出そろう**。
+                #   終わりを sec でなく行末に合わせるのが肝。sec まで引き延ばすと、
+                #   声が終わったあともだらだら描き続けることになる。
+                st[i] = min(last_beg, max(0.25, sec - RESERVE))
+                ends[i] = max(last_end, st[i] + 1.1)
+            elif h == "after_last":
+                # ⚠️ 2026-08-03 撤回。既存カットの再現用にだけ残す
                 st[i] = min(max(last_end + 0.25, st[i]), max(0.25, sec - RESERVE))
-    ends = st[1:] + [sec]
+                ends[i] = sec
     # 描き終わりが早すぎると止まって見える。最低でも 1.1 秒はかける
     return [(a, max(b, a + 1.1)) for a, b in zip(st, ends)]
+
+
+# 🔴 決め所と**同じ行**の字幕は出さない（画面に出した言葉は字幕に出さない）。
+#    "after_last" のときは「読み終えてから出す」ので字幕は自然に消えていたが、
+#    "with_last" は**声と同時**なので、消さないと二重表示になる。
+#    {cid: {消す行番号, ...}}。build_layers が埋める。
+SUB_MUTE = {}
 
 
 # ── レイヤーの組み立て ────────────────────────────────────
@@ -536,6 +555,13 @@ def build_layers(allow_missing=False):
     STAGE_META.clear()
     STAGE_META.update({c: {"holds": holds.get(c) or [], "labk": labks.get(c)}
                        for c in spans})
+    # 🔴 決め所と同じ行の字幕を消す（"with_last" のときだけ）。
+    SUB_MUTE.clear()
+    for c, hs in holds.items():
+        if "with_last" in (hs or []):
+            n = len(SUBS.get(c) or [])
+            if n:
+                SUB_MUTE[c] = {n - 1}
     return jobs, spans
 
 

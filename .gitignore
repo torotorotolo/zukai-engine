@@ -66,3 +66,10 @@ ref/uscg_titan_mbi.pdf
 # 🔴 既製BGM（DOVA-SYNDROME）は**作者が再配布を禁止**しているので置かない。
 #    このリポジトリは public。Modal の保管庫から読む（tools/audio_mix.py 参照）
 assets/
+
+# 🔴🔴 YouTube の OAuth トークンと投稿メタ（2026-08-02）。**このリポジトリは public。**
+#    token を1度でも push したら、その瞬間にチャンネルを他人へ渡したのと同じになる。
+#    git は履歴を消せないので、消しても取り返せない。
+#    → `tools/upload_jiko.py` は保存する前に `git check-ignore` で無視を実測し、
+#      無視されていなければ**書かずに落ちる**（この行を消すと落ちるようにしてある）。
+config/

@@ -202,13 +202,15 @@ def wipe(fr, layer, k, soft=90, span=None):
     return fr
 
 
-def subtitle(fr, cut, t, subs, band=None):
+def subtitle(fr, cut, t, subs, band=None, mute=()):
     """黒帯を**常時**貼り、その時刻に出ている字幕行の**文字だけ**を載せる。
 
     🔴 2026-07-31（試写の指摘③）：帯と文字を1枚のPNGに焼いていたので、
        字幕が切り替わるたびに帯までフェードして**画面がちらついた**。
        帯は全カット共通の1枚（`_subband`）にして貼りっぱなしにする。
        ⚠️ 図の本体は y=892 までなので、帯を常時出しても図には一切かからない。
+
+    mute … 出さない行の番号。**呼び出し側が `meta` から渡す**（下記）。
     """
     if band is not None:
         fr.alpha_composite(band, (0, S.SUB_Y))
@@ -217,6 +219,8 @@ def subtitle(fr, cut, t, subs, band=None):
         return fr
     strip = subs[cut]
     for i, r in enumerate(rows):
+        if i in mute:
+            continue
         a, b = r["t"] + S.LEAD, r["t"] + r["d"] + S.LEAD + 0.12
         if a - 0.10 <= t <= b:
             row = strip.crop((0, i * S.SUB_H, S.W, (i + 1) * S.SUB_H))
@@ -317,7 +321,12 @@ def scene(cut, t, dur, lay, photos, meta):
 
 def compose(cut, t, dur, lay, photos, meta, subs=None, band=None):
     fr = scene(cut, t, dur, lay, photos, meta)
-    return subtitle(fr, cut, t, subs or {}, band)
+    # 🔴 決め所（quote）と同じ行は字幕に出さない。図が同じ言葉を大きく出しているので、
+    #    そのまま出すと二重表示になる（2026-08-03。"with_last" で声と同時に出すようにした）。
+    #    ★どの行を消すかは **meta から取る**。`S.SUB_MUTE` を直接見てはいけない
+    #      （理由は meta_of() の "mute" を見よ）。
+    return subtitle(fr, cut, t, subs or {}, band,
+                    (meta.get(cut) or {}).get("mute") or ())
 
 
 def load_band():
@@ -340,6 +349,16 @@ def meta_of(idx):
                   #   検品画像をこの段より**あと**で撮るために要る（qa_shots を見よ）。
                   "held": [i for i, h in enumerate(v.get("holds") or [])
                            if h == "after_last"],
+                  # 🔴 字幕に出さない行（決め所と同じ行）。**必ずここに入れて持ち回る。**
+                  #    `S.SUB_MUTE` は build_layers が埋めるモジュール変数で、
+                  #    build_full は ProcessPoolExecutor で焼く。子プロセスは
+                  #    `import scene_jiko` をやり直すだけで build_layers を呼ばないので、
+                  #    **子の SUB_MUTE は空のまま**になる。
+                  #    Linux(fork)の Modal では親の記憶を受け継ぐので今は効くが、
+                  #    Windows(spawn) で full を回すと決め所が字幕と二重表示になる。
+                  #    しかも検品(qa)は同一プロセスなので**画像だけ正しく見えて気づけない**。
+                  #    → meta に入れて `_seg_worker` へ引数として渡す（2026-08-03）。
+                  "mute": sorted(S.SUB_MUTE.get(cid) or []),
                   "times": S.stage_times(cid, v["stages"], v.get("holds"))}
         # ★動画を当てたカットの切り方（焼き込みを画面外へ追い出すための寄せ・拡大）
         u = _FOOT_USE.get(cid)
