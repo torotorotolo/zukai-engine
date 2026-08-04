@@ -203,8 +203,8 @@ SPEC = {
         t="東伊豆町の沖、水深160メートル",
         s="報道",
         fig=("mapfig", dict(
-            points=[dict(x=0.32, y=0.44, t="東伊豆町", c=J.INK_W),
-                    dict(x=0.56, y=0.52, t="沖 約2.5 km", c=J.AMBER,
+            points=[dict(x=0.30, y=0.32, t="東伊豆町", c=J.INK_W),
+                    dict(x=0.62, y=0.66, t="沖 約2.5 km", c=J.AMBER,
                          kind="wreck")],
             link=(0, 1), scale="水深 約160 m",
             # 🔴 海岸線の「形」は描かない（記憶で描くと必ず狂う）。
