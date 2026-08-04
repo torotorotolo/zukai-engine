@@ -2121,8 +2121,16 @@ def mapfig(points, note="", link=None, scale=None, lead="", coast=None):
         s = [poly([a, ((a[0] + b[0]) / 2, (a[1] + b[1]) / 2 - 60), b],
                   stroke=J.AMBER, sw=5, dash="18 12")]
         if scale:
-            s.append(txtfit((a[0] + b[0]) / 2, (a[1] + b[1]) / 2 - 76, scale, 620,
-                            cap=34, col=J.AMBER, anchor="middle"))
+            # 🔴 2026-08-04（r03 の拡大目視）：札を経路の頂点の 16px 上に置いていたが、
+            #    経路は a →（中点の60px上）→ b の**折れ線**なので、
+            #    b が頂点より上にあるカットでは、右半分の線が**札の文字を貫く**
+            #    （c127「ここから山の中へ入っていった」の後ろ4字が取り消し線に見えた）。
+            #    ⚠️ check_layout の「図形が文字を横切る」は層をまたぐと見えない（既知の穴）。
+            # → ①折れ線のいちばん高いところより上へ置く ②フチを付けて線の上で読ませる
+            #    （音の輪と同じ手。README §15 の「札にフチを付けて地から浮かせる」）。
+            top_y = min(a[1], b[1], (a[1] + b[1]) / 2 - 60)
+            s.append(txtfit((a[0] + b[0]) / 2, max(y0 + 46, top_y - 22), scale, 620,
+                            cap=34, col=J.AMBER, anchor="middle", ol=7))
         stages.append("".join(s))
     for p in points:
         x, y = P(p)
