@@ -518,7 +518,8 @@ def compare(items, unit="", note="", bar=True, ratio="", vmax=None, ref=""):
 # ══════════════════════════════════════════════════════════
 #  3. quote — 引用
 # ══════════════════════════════════════════════════════════
-def quote(phrase, who="", when="", doc="", ctx="", to="", size=104):
+def quote(phrase, who="", when="", doc="", ctx="", to="", size=104, rows=None,
+          paper=None):
     """引用カット。**この動画には引用が20カットある。作りを間違えると全部死ぬ。**
 
     🔴 引用の言葉そのものは、**ナレーションが読み上げ、字幕にも出ている。**
@@ -528,6 +529,16 @@ def quote(phrase, who="", when="", doc="", ctx="", to="", size=104):
        図に出す言葉は**短い決め所だけ**（`phrase`）にして、文は字幕に任せる。
 
     ⚠️ `phrase` が長いと結局は字幕の複写になる。20字を超えたら短くする。
+
+    rows … 🔴 2026-08-04（r02 の拡大目視）：**札の見出しと中身が合っていなかった。**
+       欄が「誰が／誰に／いつ／どこに」に固定されているので、
+       当てはまらない情報を無理に入れると**画面が嘘の見出しを出す**。
+       11カット中8カットで起きていた。実例：
+         c306「**いつ**：現役の操縦士による」　c602「**いつ**：発言そのものが確認できない」
+         c339「**どこに**：機器が常に正常であれば説明できない事象ではあっても」
+         CVR の5カット「**誰に**：操縦室の会話記録（CVR）に残る」（＝場所であって相手ではない）
+       → `rows=[("見出し", "中身", 色), …]` を渡せば、その札の見出しごと差し替える。
+          渡さなければ従来どおり。**欄に入らないものは、欄の名前のほうを変える。**
     """
     g = []
     # 出どころの札（文書 or 会話）を左に立てる
@@ -535,8 +546,9 @@ def quote(phrase, who="", when="", doc="", ctx="", to="", size=104):
     card_h = BH - 70
     g.append(rect(card_x, card_y, card_w, card_h, J.BG2, op=0.72))
     g.append(rect(card_x, card_y, card_w, card_h, "none", J.LINE_DIM, 3))
-    # 書類の角折れ。会話（doc なし）のときは吹き出しの尻尾にする
-    if doc:
+    # 書類の角折れ。会話（doc なし）のときは吹き出しの尻尾にする。
+    # ⚠️ rows= を使うと doc が空になるので、そのときは `paper=` で明示する。
+    if doc if paper is None else paper:
         g.append(poly([(card_x + card_w - 74, card_y), (card_x + card_w, card_y + 74),
                        (card_x + card_w - 74, card_y + 74)], fill=J.LINE_DIM,
                       close=True, op=0.6))
@@ -550,8 +562,8 @@ def quote(phrase, who="", when="", doc="", ctx="", to="", size=104):
     #    項目数はカットによって 2〜4 と変わるので、**空いたぶんを行間に配り直す**。
     #    ⚠️ 数字を上げるために意味のない飾りを足さない。**間隔だけを広げる。**
     fields = [(lb, v, c) for lb, v, c in
-              (("誰が", who, J.INK_W), ("誰に", to, J.LINE),
-               ("いつ", when, J.LINE), ("どこに", doc, J.LINE)) if v]
+              (rows or (("誰が", who, J.INK_W), ("誰に", to, J.LINE),
+                        ("いつ", when, J.LINE), ("どこに", doc, J.LINE))) if v]
     ctx_h = 0
     if ctx:
         _, y_ctx = para(0, 0, ctx, cols=int((card_w - 60) / 26), size=26)
