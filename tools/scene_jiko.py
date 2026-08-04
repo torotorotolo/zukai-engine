@@ -121,6 +121,31 @@ BANNED_PHOTOS = set()
 CR_JTSB = "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）"
 JA123 = re.compile(r"^(?:a(\d))?([pf])(\d{3})\.jpg$")
 
+# ── 解説書（`jtsb_kaisetsu.pdf`）から切り出した図と表（2026-08-04）─────────
+# 🔴 報告書とは**別の文書**なので、出典表記も分ける。混ぜると
+#    「報告書に書いてある」と「解説書に書いてある」の取り違えを画面が起こす
+#    （台本 §2 で2件やらかしている型）。
+#    名前は `tools/extract_kaisetsu.py` の CROP と対応：`kz009`→図9／`kh001`→表1。
+CR_KAI = "出典：運輸安全委員会 事故調査報告書についての解説（62-2 JA8119）"
+KAISETSU = re.compile(r"^k([zh])(\d{3})\.png$")
+# 番号を持たない切り出しだけ、ここに1件ずつ書く。**書き忘れると KeyError で落ちる。**
+KAI_EXTRA = {
+    "k_keiki.png": "図11・図12",
+    "k_camera.png": "10.(3) えい航式深海カメラ",
+}
+
+
+def kaisetsu_credit(name):
+    """解説書から切り出した図・表の出典。当てはまらなければ None。"""
+    n = Path(name).name
+    if n in KAI_EXTRA:
+        return f"{CR_KAI}{KAI_EXTRA[n]}／切出"
+    m = KAISETSU.match(n)
+    if not m:
+        return None
+    kind, num = m.groups()
+    return f"{CR_KAI}{'図' if kind == 'z' else '表'}{int(num)}／切出"
+
 
 def ja123_credit(name):
     """`ref/ja123/` の名前から出典表記を作る。当てはまらなければ None。
@@ -153,7 +178,8 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    return ja123_credit(spec["photo"]) or PHOTO_CREDIT[spec["photo"]]
+    return (kaisetsu_credit(spec["photo"]) or ja123_credit(spec["photo"])
+            or PHOTO_CREDIT[spec["photo"]])
 
 
 def face_css(name, filename):

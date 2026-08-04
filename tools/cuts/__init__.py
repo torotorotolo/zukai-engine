@@ -25,6 +25,8 @@
 import importlib
 import sys
 
+import jiko_style as J
+
 # 章ごとに1ファイル。**1章が壊れていても他章は読めるようにする**
 # （章を並行して書いているあいだ、片方の書きかけで全部の検査が止まらないように）。
 CHAPTER_FILES = ("pr", "c1", "c2", "c3", "c4", "c5", "c6", "ep")
@@ -58,7 +60,88 @@ for _name in CHAPTER_FILES:
 #      取り出しの時点で長辺1200pxへ落としてぼかしてあるので、
 #      **額装パネル（`panel=True`）で出す**のが既定。全画面には置かない。
 #    ⚠️ 付図（`f001`〜`f038`）は線画なので2値が最適。劣化しないので自由に使える。
+# 🔴 2026-08-04：**解説書から切り出した図と表**を当てた（`tools/extract_kaisetsu.py`）。
+#    当てる先は「時計が `—` の moment」＝**画がいちばん静かなカット**に寄せてある。
+#    ⚠️ 解説書の図表は**白地に細い線と文字**なので、地に敷くと暗幕で沈む
+#      （付図と同じ理由。BACKDROP の注意書きを参照）。**必ず前に出す。**
+#    ⚠️ ここに書いたカットは**章ファイルの図が捨てられる**（t と s だけ残る）。
+#      だから「図があったほうが強いカット」には当てていない
+#      （c312〜c315 の beforeafter、c327 の温度グラフ、c418〜c420 の時計は残した）。
+#
+# 🔴 引き継ぎ §4 の「`c326`→図2」は**採らなかった**。図2 は §4「風の強さの説明」の
+#    川の例で、c326（空調の能力・約7秒）とは別の節。→ 図2 は c318 へ当てた。
+#    同じく「`c327`→図9」も、c327 は自作グラフのほうが読めるので**c325 へ回した**
+#    （c325 のナレーションが「こちらも計算が示されている」で、図9 の出しどころ）。
 PHOTO_OVERRIDE = {
+    # ── 第3章 ────────────────────────────────────────
+    # 図1 は B737-3H4 A=0.135m² の曲線を名指しで持っている＝このカットの穴そのもの
+    "c310": dict(photo="ja123/kz001.png", panel=True, side="right",
+                 ann=[dict(t="そのときの高度", v="35,000 ft", vc=J.LINE, vs=58),
+                      dict(t="開いた穴", v="約0.135 m²", vc=J.ALERT, vs=58)]),
+    # 表1＝「このとき機内で何が起きたかの記録」そのもの
+    "c311": dict(photo="ja123/kh001.png", panel=True, side="right",
+                 ann=[dict(t="そのあと", d="近くの空港へ着陸", dc=J.OK, ds=32),
+                      dict(t="残ったもの", d="機内で起きたことの記録",
+                           dc=J.AMBER, ds=32)]),
+    "c318": dict(photo="ja123/kz002.png", panel=True, side="right",
+                 ann=[dict(t="解説書がまず出す例", d="川幅と流れの速さ",
+                           dc=J.LINE, ds=32),
+                      dict(t="効いてくるもの", d="流れの断面積", dc=J.AMBER,
+                           ds=32)]),
+    "c325": dict(photo="ja123/kz009.png", panel=True, side="right",
+                 ann=[dict(t="解説書が示した計算", d="温度回復のシミュレーション",
+                           dc=J.AMBER, ds=30),
+                      dict(t="横軸", d="0〜600秒", dc=J.LINE, ds=32)]),
+
+    # ── 第4章 ────────────────────────────────────────
+    # 表3＝「公の記録に残っている時刻」の一覧そのもの
+    "c416": dict(photo="ja123/kh003.png", panel=True, side="right",
+                 ann=[dict(t="記録された通報", v="7件", vc=J.AMBER, vs=64),
+                      dict(t="並んでいるもの", d="時刻・機体・位置・誤差",
+                           dc=J.LINE, ds=32)]),
+    # 図13＝通報された位置と墜落位置のずれを地図で見せる（付図-2 から差し替え）
+    "c421": dict(photo="ja123/kz013.png", panel=True, side="right",
+                 ann=[dict(t="3回の確認の誤差", v="3 km ／ 6 km ／ 4 km",
+                           vc=J.ALERT, vs=50),
+                      dict(t="山の中では", d="上空からは見えるのに、地上からは着けない",
+                           dc=J.LINE, ds=28)]),
+    # 図11・図12＝当時の計器（距離と方位を読むしかなかった）
+    "c423": dict(photo="ja123/k_keiki.png", panel=True, side="right",
+                 ann=[dict(t="読めたもの", d="地上局からの方位・距離",
+                           dc=J.AMBER, ds=30),
+                      dict(t="衛星による測位", d="当時は無い", dc=J.ALERT,
+                           ds=32)]),
+    # c421 から外した付図-2（墜落現場付近図）をこちらへ回す
+    "c424": dict(photo="ja123/f002.jpg", panel=True, side="right",
+                 ann=[dict(t="時刻", v="01:00", vc=J.INK_W, vs=76),
+                      dict(t="結果", d="県警の誘導に失敗", dc=J.ALERT, ds=32)]),
+
+    # ── 第5章 ────────────────────────────────────────
+    "c508": dict(photo="ja123/kh004.png", panel=True, side="right",
+                 ann=[dict(t="事故当時の装置", v="SMS960", vc=J.LINE, vs=58),
+                      dict(t="分解能", v="1.1 × 1.3 m", vc=J.AMBER, vs=58)]),
+    "c513": dict(photo="ja123/kz018.png", panel=True, side="right",
+                 ann=[dict(t="当時の航跡図", d="えい航式深海カメラ", dc=J.LINE,
+                           ds=32),
+                      dict(t="示されているもの", d="通った線と、通っていない面",
+                           dc=J.AMBER, ds=30)]),
+    "c514": dict(photo="ja123/k_camera.png", panel=True, side="right", pw=820,
+                 ann=[dict(t="撮影幅", v="約1.5 m", vc=J.AMBER, vs=64),
+                      dict(t="えい航速度", v="約2 kt", vc=J.AMBER, vs=64)]),
+    # 表5＝いまも落ちたままのものの一覧そのもの（付図-20 から差し替え）
+    "c526": dict(photo="ja123/kh005.png", panel=True, side="right",
+                 ann=[dict(t="沈んでいる可能性大", d="APU／アクチュエータ×2",
+                           dc=J.LINE, ds=30),
+                      dict(t="漂流した部分がある", d="上方・下方の方向舵",
+                           dc=J.LINE, ds=30)]),
+
+    # ── エピローグ ─────────────────────────────────────
+    # 付図-7 尾翼ステーション図＝点検用の穴が加えられた場所
+    "ep16": dict(photo="ja123/f007.jpg", panel=True, side="right",
+                 ann=[dict(t="加えられた場所", d="垂直尾翼の内部", dc=J.LINE,
+                           ds=32),
+                      dict(t="加えられたもの", d="点検用の穴とカバー", dc=J.OK,
+                           ds=32)]),
 }
 
 for _cid, _ov in PHOTO_OVERRIDE.items():

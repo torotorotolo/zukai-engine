@@ -26,25 +26,24 @@ SPEC = {
         s="本文2.1／2.14.2",
         fig=("moment", dict(clock="18:56", label="救い出されたのは翌朝",
                             day=18.93, dayspan=(18, 24),
-                            facts=[dict(t="墜落", v="18:56", c=J.ALERT),
+                            facts=[dict(t="この日の日没", v="18:40", c=J.LINE),
                                    dict(t="生存者の発見", v="翌 10:45ごろ",
                                         c=J.AMBER)])),
     ),
 
     "c402": dict(
         t="こう言われることがある",
-        s="—",
+        s="この章が扱う問い",
         fig=("panel", dict(blocks=[
-            dict(k="問い", c=J.AMBER,
-                 t="もっと早ければ、助かった人がいたのではないか")],
-            lead="この章が扱う問い")),
+            dict(k="問い", c=J.AMBER, t="救助は間に合わなかったのか")],
+            lead="言われていること")),
     ),
 
     "c403": dict(
-        t="答えは出ていない",
+        t="答えは出ないままである",
         s="出ていないこと自体が記録に残っている",
         fig=("absent", dict(mode="single", items=[
-            dict(t="この問いへの答え", d="はっきりしたものは出ていない", ok=False)],
+            dict(t="この問いへの答え", d="示されていない", ok=False)],
             lead="報告書と解説書を読むかぎり")),
     ),
 
@@ -69,7 +68,7 @@ SPEC = {
         s="付図-14　残骸分布図―墜落地点（本文2.13.2）",
         photo="ja123/f014.jpg", panel=True, side="right",
         ann=[dict(t="前の方の部位", d="激突した地点の近く", dc=J.LINE, ds=32),
-             dict(t="中ほどの部位", d="尾根の上や右前方の斜面に広く", dc=J.AMBER,
+             dict(t="中ほどの部位", d="尾根の上／右前方の斜面", dc=J.AMBER,
                   ds=30)],
     ),
 
@@ -85,19 +84,17 @@ SPEC = {
         t="4人はこの部位から救出された",
         s="写真-5　後部胴体の残骸（2）（本文2.13.2／2.13.3）",
         photo="ja123/p005.jpg", panel=True, side="right",
-        ann=[dict(t="報告書の記述", d="比較的損傷の少ないものも認められた",
-                  dc=J.LINE, ds=30),
+        ann=[dict(t="この部位（E部位）", d="比較的損傷が少ない", dc=J.LINE, ds=30),
              dict(t="生存者4人", d="いずれもこの部位から", dc=J.OK, ds=32)],
     ),
 
     # ── c409 報告書の原文どおりの表記。**煽らない。淡々と置く** ────────
     "c409": dict(
         t="報告書はこう書いている",
-        s="本文2.13.3　医師の検案にもとづく記述",
+        s="本文2.13.3　遺体の損傷状況",
         fig=("panel", dict(blocks=[
-            dict(k="原文", c=J.DOC,
-                 t="生存者4名を除いた他の者は、即死若しくはそれに近い状況であった"),
-            dict(k="根拠", c=J.LINE, t="遺体を検案した医師の所見にもとづく")],
+            dict(k="対象", c=J.LINE, t="生存者4名を除く", v="520名"),
+            dict(k="根拠", c=J.DOC, t="医師の検案")],
             cols=1)),
     ),
 
@@ -105,8 +102,8 @@ SPEC = {
         t="記録のほうを見ておきたい",
         s="生存者は何を語り、何に使われたのか",
         fig=("moment", dict(clock="—", label="口述という記録",
-                            facts=[dict(t="何を語ったか", v="—", c=J.LINE),
-                                   dict(t="何に使われたか", v="—", c=J.AMBER)])),
+                            facts=[dict(t="記録の種類", v="口述", c=J.LINE),
+                                   dict(t="使われ方", v="証拠として", c=J.AMBER)])),
     ),
 
     # ── c411 口述は**証拠として使われている**（3行＝3段）───────────
@@ -116,7 +113,7 @@ SPEC = {
         fig=("panel", dict(blocks=[
             dict(k="1", c=J.OK, t="客室に霧が出たこと"),
             dict(k="2", c=J.OK, t="酸素ボトルの状態"),
-            dict(k="3", c=J.OK, t="異常が起きた直後の、音のこと")], cols=1)),
+            dict(k="3", c=J.OK, t="異常発生直後の音")], cols=1)),
     ),
 
     # ── c412 使われているのは、そこまで（3行＝3段）───────────────
@@ -135,26 +132,26 @@ SPEC = {
         s="本文2.13.1／2.14.2",
         fig=("panel", dict(blocks=[
             dict(k="2.13.1", c=J.DOC, t="生存者の受傷の状況"),
-            dict(k="2.14.2", c=J.DOC, t="生存者発見から救出収容までの状況"),
+            dict(k="2.14.2", c=J.DOC, t="生存者発見 → 救出収容"),
             dict(k="中身", c=J.LINE, t="時刻と、場所と、傷の程度")],
             cols=1)),
     ),
 
     "c414": dict(
         t="無かったのは、仕組みのほう",
-        s="—",
+        s="記録の空白について",
         fig=("absent", dict(mode="single", items=[
             dict(t="尋ねて記録する仕組み", d="当時は無かった", ok=False)],
-            lead="そのあいだ何を見て、何を聞いたのか")),
+            lead="墜落後に見聞きしたこと")),
     ),
 
     # ── c415 空白（3行＝3段）──────────────────────────────
     "c415": dict(
         t="あるのは空白である",
-        s="—",
+        s="この章が行き着いたところ",
         fig=("panel", dict(blocks=[
             dict(k="×", c=J.LINE, t="食い違いではない"),
-            dict(k="—", c=J.ALERT, t="空白である"),
+            dict(k="実際", c=J.ALERT, t="空白である"),
             dict(k="いま", c=J.AMBER, t="40年たっても埋まっていない")],
             cols=1)),
     ),
@@ -177,35 +174,38 @@ SPEC = {
 
     "c418": dict(
         t="19時15分、火災を発見",
-        s="本文2.14.1.1　アメリカ軍の輸送機",
-        fig=("moment", dict(clock="19:15", label="アメリカ軍の輸送機が火災を発見",
+        s="解説書 表3　各航空機の測位結果",
+        fig=("moment", dict(clock="19:15", label="救難調整本部が受けた情報",
                             day=19.25, dayspan=(18, 24),
-                            facts=[dict(t="位置の誤差", v="約3 km", c=J.AMBER)])),
+                            facts=[dict(t="発見した機（米軍）", v="C-130", c=J.LINE),
+                                   dict(t="位置の誤差", v="約3 km", c=J.AMBER)])),
     ),
 
     "c419": dict(
         t="19時21分、戦闘機が確認",
-        s="本文2.14　航空自衛隊",
-        fig=("moment", dict(clock="19:21", label="戦闘機2機が炎を確認",
+        s="解説書 表3　各航空機の測位結果",
+        fig=("moment", dict(clock="19:21", label="航空自衛隊の戦闘機",
                             day=19.35, dayspan=(18, 24),
-                            facts=[dict(t="位置の誤差", v="約6 km", c=J.AMBER)])),
+                            facts=[dict(t="確認した機", v="F-4EJ ×2", c=J.LINE),
+                                   dict(t="位置の誤差", v="約6 km", c=J.AMBER)])),
     ),
 
     "c420": dict(
         t="20時42分、ヘリが確認",
-        s="本文2.14　自衛隊のヘリコプター",
-        fig=("moment", dict(clock="20:42", label="ヘリコプターが確認",
+        s="解説書 表3　各航空機の測位結果",
+        fig=("moment", dict(clock="20:42", label="3回目の位置確認",
                             day=20.7, dayspan=(18, 24),
-                            facts=[dict(t="位置の誤差", v="約4 km", c=J.AMBER)])),
+                            facts=[dict(t="確認した機", v="V-107", c=J.LINE),
+                                   dict(t="位置の誤差", v="約4 km", c=J.AMBER)])),
     ),
 
     "c421": dict(
         t="場所が正確に決まらない",
-        s="付図-2　墜落現場付近図（本文2.14／解説書 §9）",
-        photo="ja123/f002.jpg", panel=True, side="right",
-        ann=[dict(t="3回の確認の誤差", v="3 km ／ 6 km ／ 4 km", vc=J.ALERT, vs=54),
-             dict(t="山の中では", d="上空からは見えるのに、地上からは着けない",
-                  dc=J.LINE, ds=30)],
+        # 🔴 2026-08-04：付図-2（現場付近図）から**解説書 図13**へ差し替えた。
+        #    図13 は通報された位置①〜⑦と墜落位置を同じ地図に打ってあり、
+        #    「上空からは見えているのに地上からはたどり着けない」がそのまま画になる。
+        #    実物は `tools/cuts/__init__.py` の PHOTO_OVERRIDE が当てる。
+        s="解説書 図13　通報された位置と墜落位置",
     ),
 
     "c422": dict(
@@ -213,7 +213,8 @@ SPEC = {
         s="解説書 §9",
         fig=("beforeafter", dict(
             a=dict(k="いま", t="GPSがある", lines=["位置はすぐに分かる"], c=J.OK),
-            b=dict(k="1985年", t="それは無かった", c=J.ALERT))),
+            b=dict(k="1985年", t="それは無かった",
+                   lines=["位置は自分では出せない"], c=J.ALERT))),
     ),
 
     "c423": dict(
@@ -223,22 +224,23 @@ SPEC = {
             dict(t="衛星による測位", d="当時は無い", ok=False),
             dict(t="地上の電波施設", d="方位と距離を読む", ok=True),
             dict(t="夜間の目視", d="炎は見えるが位置が決まらない", ok=False)],
-            lead="夜間に航空機から墜落場所を特定する方法")),
+            lead="当時の測位の手だて")),
     ),
 
     "c424": dict(
         t="午前1時、誘導に失敗",
-        s="本文2.14",
-        fig=("moment", dict(clock="01:00", label="ヘリが地上の県警を誘導しようとした",
+        s="付図-2　墜落現場付近図",
+        fig=("moment", dict(clock="01:00", label="県警の誘導を試みた",
                             day=1.0, dayspan=(0, 12),
-                            facts=[dict(t="結果", v="失敗している", c=J.ALERT)])),
+                            facts=[dict(t="誘導した機", v="V-107", c=J.LINE),
+                                   dict(t="結果", v="失敗している", c=J.ALERT)])),
     ),
 
     "c425": dict(
         t="なぜ降りなかったのか",
         s="解説書 §9　そこにも答えている",
         fig=("moment", dict(clock="—", label="火が見えているのなら",
-                            facts=[dict(t="問い", v="ヘリで降りればよいのでは",
+                            facts=[dict(t="問い", v="ヘリで降下できないか",
                                         c=J.AMBER)])),
     ),
 
@@ -255,21 +257,20 @@ SPEC = {
         s="解説書 §9",
         fig=("absent", dict(mode="ledger", items=[
             dict(t="照明弾", d="火災のおそれがあり落とせない", ok=False),
-            dict(t="自動操縦での進入", d="段差のある山岳地帯ではできない",
-                 ok=False)],
+            dict(t="自動操縦での進入", d="段差のある地形で不可", ok=False)],
             lead="地上（山岳地帯）では")),
     ),
 
     "c428": dict(
-        t="暗視装置は無かった",
+        t="当時、装備そのものが無い",
         s="解説書 §9",
         fig=("absent", dict(mode="single", items=[
-            dict(t="当時の自衛隊の暗視装置", d="その装備は無かった", ok=False)],
-            lead="暗視装置を着けて操縦する方法もあるが")),
+            dict(t="暗視装置", d="当時の自衛隊には無い", ok=False)],
+            lead="夜間の操縦を助ける装備")),
     ),
 
     "c429": dict(
-        t="二次災害の危険が極めて高い",
+        t="降りられる状況ではなかった",
         s="解説書 §9",
         fig=("panel", dict(blocks=[
             dict(k="分からない", c=J.ALERT, t="障害物"),
@@ -317,9 +318,9 @@ SPEC = {
         t="およそ15時間半",
         s="本文2.14　19:15 → 翌 10:45〜11:40",
         fig=("timeline", dict(t0=19, t1=35,
-                              ticks=[(19, "19:15"), (24, "0時"), (29, "5時"),
-                                     (34.7, "10:45")],
-                              band=[dict(a=19, b=29.5, c=J.ALERT, op=0.20,
+                              ticks=[(19, "19:15"), (24, "0時"),
+                                     (28.92, "日出 04:55"), (34.7, "10:45")],
+                              band=[dict(a=19, b=28.92, c=J.ALERT, op=0.20,
                                          t="そのほとんどが夜")],
                               events=[dict(t=19, top="火を確認", c=J.AMBER),
                                       dict(t=34.7, top="救出", c=J.OK,
@@ -328,9 +329,10 @@ SPEC = {
 
     "c435": dict(
         t="報告書は答えていない",
-        s="—",
-        fig=("moment", dict(clock="—", label="もっと早く着いていれば助かったのか",
-                            facts=[dict(t="報告書の答え", v="無い", c=J.ALERT)])),
+        s="第4章の問いに戻る",
+        fig=("moment", dict(clock="—", label="この章のはじめの問い",
+                            facts=[dict(t="この問いへの記述", v="無い",
+                                        c=J.ALERT)])),
     ),
 
     "c436": dict(
@@ -338,14 +340,14 @@ SPEC = {
         s="解説書 §9",
         fig=("absent", dict(mode="single", items=[
             dict(t="被害の軽減を調べる仕組み", d="当時は無かった", ok=False)],
-            lead="答えなかったのではなく")),
+            lead="理由は別のところにある")),
     ),
 
     "c437": dict(
         t="解説書に書かれていること",
         s="解説書 §9",
         fig=("panel", dict(blocks=[
-            dict(k="当時", c=J.LINE, t="事故の原因は調査していた")],
+            dict(k="当時", c=J.LINE, t="原因の調査は行っていた")],
             lead="調査の範囲")),
     ),
 
@@ -354,8 +356,7 @@ SPEC = {
         s="解説書 §9",
         fig=("absent", dict(mode="pair", items=[
             dict(t="事故の原因", d="調査していた", ok=True, n=1),
-            dict(t="被害をどう軽減できたか", d="調査を行うようになっていなかった",
-                 ok=False, n=0)],
+            dict(t="被害をどう軽減できたか", d="調査していない", ok=False, n=0)],
             lead="当時の調査の範囲")),
     ),
 
@@ -371,25 +372,27 @@ SPEC = {
 
     "c440": dict(
         t="無いことが、隠したに見える",
-        s="—",
+        s="記録に無い、ということ",
         fig=("beforeafter", dict(
-            a=dict(k="言い換え", t="隠していた", c=J.ALERT),
-            b=dict(k="記録が示すこと", t="そこまで調べる決まりが無かった",
+            a=dict(k="言い換え", t="隠していた",
+                   lines=["言い換えはできる"], c=J.ALERT),
+            b=dict(k="記録が示すこと", t="調べる決まりが無かった",
                    lines=["記録に無いことが、隠したことのように見える"], c=J.LINE))),
     ),
 
     "c441": dict(
-        t="いまは、そこまで調べる",
+        t="いまの制度は違っている",
         s="解説書 冒頭　運輸安全委員会",
         fig=("beforeafter", dict(
-            a=dict(k="当時", t="原因の調査まで", c=J.LINE),
-            b=dict(k="いま", t="被害をどう減らせたかまで",
-                   lines=["遺族への説明も法律に書かれている"], c=J.OK))),
+            a=dict(k="当時", t="原因の調査まで",
+                   lines=["被害の軽減は対象外"], c=J.LINE),
+            b=dict(k="いま", t="被害の軽減まで調べる",
+                   lines=["遺族への説明は法律に規定"], c=J.OK))),
     ),
 
     "c442": dict(
-        t="分からないままである",
-        s="—",
+        t="それでも、残る問いがある",
+        s="この章が残したもの",
         fig=("moment", dict(clock="—", label="あの夜、何ができたのか",
                             facts=[dict(t="確かなこと", v="分からない、ということ",
                                         c=J.LINE)])),
