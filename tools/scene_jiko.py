@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-"""本番1本目「潜水艇タイタン号」226カット・34分06秒のレイヤー書き出し。
+"""事故検証チャンネルのレイヤー書き出し。**いまは本番2本目「日本航空123便」**。
+
+  1本目 潜水艇タイタン号 229カット・35分02.9秒（公開ずみ。`57e6c16` が最終）
+  2本目 日本航空123便   248カット・約38分（制作中）
+
 
 ■ 何がどこにあるか
   台本の文言   … `tools/narration.py` の SCRIPT（**正本はあちら**。ここには写さない）
@@ -46,13 +50,15 @@ OUT = HERE / "out" / "jiko"
 CSS = ""
 
 # ── 章（章マーカーに出す名前） ────────────────────────────
+# 🔴 2026-08-04：本番2本目「日本航空123便」へ差し替え。
+#    1本目（潜水艇タイタン号）の章名は git の `57e6c16` にある。
 CHAPTERS = {
-    "c1": (1, "その日、10時47分"),
-    "c2": (2, "炭素繊維という選択"),
-    "c3": (3, "一度目の船体"),
-    "c4": (4, "二度目の船体"),
-    "c5": (5, "大きな音"),
-    "c6": (6, "11か月の空白"),
+    "c1": (1, "その日の32分間"),
+    "c2": (2, "吹き出したヤニ"),
+    "c3": (3, "毎秒10メートルの風"),
+    "c4": (4, "15時間半"),
+    "c5": (5, "4,500時間"),
+    "c6": (6, "噂はどこから来たのか"),
 }
 NCH = 6
 
@@ -105,6 +111,32 @@ PHOTO_CREDIT = {
 # ＝NTSB自身の研究室撮影＝PD。使えない写真はいまは無い。
 BANNED_PHOTOS = set()
 
+# ── 本番2本目：日本航空123便（2026-08-04）──────────────────
+# 🔴 1本目（NTSB）とは**権利の性質が違う**。あちらはパブリックドメインだったが、
+#    運輸安全委員会は **公共データ利用規約 PDL1.0（CC BY 4.0 互換）** で、
+#    「出典の明示」と「**加工した旨**」が**条件**になっている。
+#    → 出典表記を画面から外した時点で条件違反になるので、
+#      **168枚ぶんを1件ずつ書かず、名前から機械的に必ず作る**（書き忘れを起こさない）。
+#    台帳は `ref/ja123/INDEX.md`、取り出しは `tools/extract_photos.py`。
+CR_JTSB = "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）"
+JA123 = re.compile(r"^(?:a(\d))?([pf])(\d{3})\.jpg$")
+
+
+def ja123_credit(name):
+    """`ref/ja123/` の名前から出典表記を作る。当てはまらなければ None。
+
+      ja123/p043.jpg   → 出典：運輸安全委員会 …（JA8119）写真-43／縮小・切出
+      ja123/f012.jpg   → 同上 付図-12
+      ja123/a1f003.jpg → 同上 別添1 付図-3
+    """
+    m = JA123.match(Path(name).name)
+    if not m:
+        return None
+    annex, kind, num = m.groups()
+    head = f"別添{annex} " if annex else ""
+    return (f"{CR_JTSB}{head}{'写真' if kind == 'p' else '付図'}-{int(num)}"
+            f"／縮小・切出")
+
 
 def credit_of(cid, spec):
     """そのカットに出す出典。**動画を当てたカットは動画の出典を出す。**
@@ -121,7 +153,7 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    return PHOTO_CREDIT[spec["photo"]]
+    return ja123_credit(spec["photo"]) or PHOTO_CREDIT[spec["photo"]]
 
 
 def face_css(name, filename):
@@ -220,14 +252,46 @@ CRED_BACK_Y = 196       # 写真を地に敷くカットの出典（右上・本
 BAND_CY = 560           # 帯写真の縦中心
 
 
+# ── ★額装パネル（2026-08-04・本番2本目のために追加）───────────
+# 🔴 **報告書のスキャンは 1ビット（2値・JBIG2）で、全画面に置けない。**
+#    中間調が1階調も無く、濃淡はすべて誤差拡散ディザ（網点）。1920px へ伸ばすと
+#    砂目がそのまま出て、写真として読めない（2026-08-03 に実写して確認）。
+#    → **長辺1200px以下の枠に収めて出す**と、ディザが階調に戻って写真になる。
+#    ⚠️ 1本目の「実写カットは全画面／写真を箱に入れる作りは廃止」は、
+#      **この題材では成立しない。** 素材の性質が違う（PDF スキャン vs デジタル写真）。
+#    ⚠️ 縮小は取り出しの時点で済ませてある（`tools/extract_photos.py --cap 1200`）。
+#      ここでやるのは**置き場所**だけ。
+# 🔴 高さは本体枠から **出典1行ぶん（34px）を引いて**おく。
+#    引かないと額装が y=892 まで届き、出典を右上（副題と同じ帯）へ逃がすことになって
+#    **長い副題と重なる**（123便で7件検出）。出典は額の真下に置くのが正しい。
+PANEL_MAXW, PANEL_MAXH = 1120, J.BAND_B - J.BAND_T - 34   # 1120 × 648
+PANEL_GAP = 56                                       # 写真と注記のあいだ
+PANEL_CRED_Y = J.BAND_B - 4                          # 額の下に出す出典の位置
+
+
 def photo_box(spec):
-    """写真の置き場所。全画面か、**帯**か。
+    """写真の置き場所。**額装パネル**か、帯か、全画面か。
 
     🔴 NTSB の標本写真は 1431×325 のように細長いものが多い。
        全画面（1920×1080）に覆わせると **3.3倍に引き伸ばして左右を切り落とす**ことになり、
        ぼやけたうえに写真の意味（層が並んでいる様子）が消える。
        帯なら原寸に近い倍率で、横方向の情報を全部見せられる。
     """
+    if spec.get("panel"):
+        from PIL import Image
+        with Image.open(HERE / "ref" / spec["photo"]) as im:
+            sw, sh = im.size
+        mw = spec.get("pw", PANEL_MAXW)
+        z = min(mw / sw, PANEL_MAXH / sh)
+        w, h = int(sw * z), int(sh * z)
+        # 注記は写真の**反対側**に置く（side は注記を出す側）
+        if spec.get("side", "right") == "right":
+            x = J.MG
+        else:
+            x = J.RIGHT - w
+        if not spec.get("ann"):
+            x = (W - w) // 2                 # 注記が無いカットは真ん中
+        return (x, J.BAND_T + (PANEL_MAXH - h) // 2, w, h)
     if not spec.get("band"):
         return PHOTO_FULL
     from PIL import Image
@@ -245,8 +309,8 @@ def full_bg():
 def full_top(cid, spec):
     """写真の上に載せる一式（暗幕・見出し・章マーカー・出典）。`_lab` に入れる。"""
     side = spec.get("side", "right")
-    if spec.get("band"):
-        # 帯のときは見出しも注記も**写真の外**に置けるので、暗幕は要らない
+    if spec.get("band") or spec.get("panel"):
+        # 帯・額装のときは見出しも注記も**写真の外**に置けるので、暗幕は要らない
         g = []
     else:
         g = [J.scrim(0, 0, W, SCRIM_TOP, "top", 0.80)]
@@ -254,11 +318,27 @@ def full_top(cid, spec):
             g.append(J.scrim(1150, 0, W - 1150, H, "right", 0.62))
         else:
             g.append(J.scrim(0, 0, 770, H, "left", 0.62))
+    if spec.get("panel"):
+        # ★額装の縁。**写真の外周1本だけ**。図解の罫と同じ色にして、
+        #   「資料を1枚貼ってある」と読めるようにする（枠が無いと地に溶ける）。
+        x, y, w, h = photo_box(spec)
+        g.append(f'<rect x="{x - 3}" y="{y - 3}" width="{w + 6}" height="{h + 6}" '
+                 f'fill="none" stroke="{J.LINE}" stroke-width="3"/>')
     g.append(J.title(spec["t"], spec.get("s", "")))
     ch = chapter_of(cid)
     if ch:
         g.append(J.chapter(ch[0], NCH, ch[1]))
-    g.append(J.outlined(J.MG, CRED_Y, credit_of(cid, spec), J.LINE, 24, sw=5))
+    # 🔴 出典の置き場所。全画面写真は写真の上（y=872）でよいが、
+    #    額装は写真の外に地が見えているので、**図解カットと同じ右上**へ置く。
+    #    写真の上に重ねると、額の中に文字が入って「資料に書き込んだ」ように見える。
+    if spec.get("panel"):
+        # 額の**真下**の空き帯に、画面の右余白でそろえて出す。
+        # ⚠️ 額の右端に合わせると、額が左寄せのカットで**文字が画面の外へ出る**
+        #    （出典は約1,000px あるので、額の右端が 972px だと左端が -28 になる）。
+        g.append(J.outlined(J.RIGHT, PANEL_CRED_Y, credit_of(cid, spec),
+                            J.LINE, 24, anchor="end", sw=5))
+    else:
+        g.append(J.outlined(J.MG, CRED_Y, credit_of(cid, spec), J.LINE, 24, sw=5))
     return "".join(g)
 
 
@@ -276,6 +356,15 @@ def photo_ann(spec):
         x = J.MG if side != "right" else J.RIGHT
         maxw = 1500
     y = spec.get("ann_y", 340)
+    if spec.get("panel"):
+        # ★額装のときは、注記は**写真の外**の残った幅に収める。
+        #   写真の上に載せると、報告書の資料に書き込んだように見える。
+        px, _py, pw, _ph = photo_box(spec)
+        if side == "right":
+            maxw = J.RIGHT - (px + pw + PANEL_GAP)
+        else:
+            maxw = (px - PANEL_GAP) - J.MG
+        y = spec.get("ann_y", J.BAND_T + 34)
     out = []
     for a in spec.get("ann", []):
         s = []
@@ -401,28 +490,15 @@ PHOTO_CROP = {cid: (s.get("xbias", 0.5), s.get("zoom", 1.0))
 #    ⚠️ 切る場所は**その写真の性質**なので、カットではなくファイルに紐づける
 #      （`titan_delam_ruler` は c307 と c627 の2カットで使う。同じ英字が同じ場所にある）。
 #      値は1枚ずつ画素で測って、切った結果を目で見て確かめたもの。
+#
+# 🔴 2026-08-04：**1本目（タイタン号）の7件を落とした。**2本目では1件も当たらない。
+#    中身は git の `57e6c16` にある。上の設計理由4点は題材が変わっても効くので残す。
+# ⚠️ 123便では、**キャプション文字は取り出しの時点で外してある**
+#    （`tools/extract_photos.py` の `clip_text`）。それでも写真の中に
+#    「上方」「前方」「第2ストラップ」等が**焼き込まれている**ものがあるので、
+#    使う1枚ごとに等倍で目視して、必要ならここに足す。
 TRIM_BY_PHOTO = {
-    # 上の「Circumferential」、左の「Delamination」、下の定規を外し、
-    # 剥離の割れ目とその指し矢印だけを残す
-    "titan_delam_ruler.jpg":    (0.3440, 0.1085, 1.0000, 0.8006),
-    # 「Void in adhesive」の白箱（上）と定規（下）を外す。橙の輪と矢印は残る
-    "titan_ntsb16_wrinkle.jpg": (0.0000, 0.2832, 1.0000, 0.6068),
-    # 「Adhesive」「Layer 1」「Layer 2」「0.200in」を外し、接着剤の線の帯だけ残す
-    "titan_ntsb17_layers.jpg":  (0.0000, 0.3938, 1.0000, 0.6585),
-    # 黄色い定規（"INCH" "U.S.A."）を外す。標本そのものは全部残る
-    "titan_ntsb14_endface.jpg": (0.0000, 0.0000, 1.0000, 0.7108),
-    # 上下の「Voids」と「0.200in」を外し、標本の帯と白い輪だけ残す
-    "titan_ntsb17_voids.jpg":   (0.0000, 0.2591, 1.0000, 0.7708),
-    # 「Grinding of composite plies at wrinkles」の白箱と定規を外す
-    "titan_ntsb16_grind.jpg":   (0.0000, 0.0606, 1.0000, 0.4356),
-    # ⚠️ これは英字が主目的ではない。**黄色い実物の定規が下1/3で白飛びし、
-    #    その上に字幕と出典が乗って両方読めなかった**（pr09・c135）。
-    #    定規を落とすと、見せたい破断面が画面いっぱいに残る。
-    "titan_hull_edge.jpg":      (0.0000, 0.0000, 1.0000, 0.6650),
 }
-# ❌ `titan_ntsb15_endpiece.jpg`（c422）は切らない。定規は小さく標本に重なっており、
-#    外そうとすると見せたいリングの上端まで落ちる。"INCH" は実物の目盛りの一部で、
-#    報告書が上から載せた注記ではない。
 PHOTO_TRIM = {cid: s.get("trim") or TRIM_BY_PHOTO.get(s["photo"])
               for cid, s in SPEC.items() if s.get("photo")}
 PHOTO_TRIM = {c: t for c, t in PHOTO_TRIM.items() if t}

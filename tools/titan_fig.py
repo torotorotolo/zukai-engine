@@ -1411,14 +1411,23 @@ def panel(blocks, lead="", note="", cols=3):
     if n <= 3 and all(len(str(b.get("t", ""))) <= 46 for b in blocks):
         # ⚠️ 150に頭打ちしていたので、3件でも枠の下200pxが空いた（c211 32%）。
         h = (BY1 - top - 10 - (44 if note else 0)) / max(1, n)
+        # 🔴 2026-08-04：**k の幅を実測して本文の左端を決める。**
+        #    それまで「150px あれば足りる」と決め打っていたので、
+        #    k が2文字以上のカットで**本文が k の上に乗った**（123便で45件検出）。
+        #    k は "1" のような1桁とはかぎらない（"噂" "原文" "2.13.1" など）。
+        #    ⚠️ 幅は**実際に使う書体**で測る。`numfam()` が数字を含まない文字列を
+        #      Noto に落とすので、Dela 固定で測ると漢字の k を測り違える。
+        ks = min(72, h * 0.46)
+        kw = max((fm.width(str(b["k"]), ks, numfam(str(b["k"]), "Dela"))
+                  for b in blocks if b.get("k")), default=0.0)
+        kcol = 34 + (kw + 40 if kw else 0)
         for i, b in enumerate(blocks):
             y = top + i * h
             c = b.get("c", J.LINE)
             s = [rect(BX0, y, 9, h - 22, c)]
-            ks = min(72, h * 0.46)
             if b.get("k"):
                 s.append(txt(BX0 + 34, y + h * 0.52, b["k"], ks, c, "Dela"))
-            tx0 = BX0 + (150 if b.get("k") else 34)
+            tx0 = BX0 + (kcol if b.get("k") else 34)
             # ⚠️ v の場所（右540px）を、v が無いときまで空けていた。
             rsv = 540 if b.get("v") else 0
             avail = BX1 - tx0 - rsv
@@ -1428,7 +1437,16 @@ def panel(blocks, lead="", note="", cols=3):
             one = fm.fit(str(b["t"]), avail, "Noto", cap=int(min(96, h * 0.52)),
                          floor=16)
             bs = one if fm.width(str(b["t"]), one, "Noto") <= avail else                 min(52, h * 0.34)
-            body, _ = para(tx0, y + h * 0.52, b["t"],
+            # 🔴 2026-08-04：**折り返したときの高さを見ていなかった。**
+            #    本文は「幅に収まる級数」だけで決めていたので、2行に折れると
+            #    2行目が段の外（＝いちばん下の段では枠の外）へ落ちた。
+            #    → 行数を数えて、段の真ん中で上下に振り分ける。
+            #      それでも収まらなければ級数を落とす（幅ではなく**高さ**で決める）。
+            nl = len(wrap(str(b["t"]), max(6, int(avail / bs))))
+            while nl > 1 and nl * bs * 1.5 > h * 0.86 and bs > 18:
+                bs *= 0.88
+                nl = len(wrap(str(b["t"]), max(6, int(avail / bs))))
+            body, _ = para(tx0, y + h * 0.52 - (nl - 1) * bs * 0.75, b["t"],
                            cols=max(6, int(avail / bs)), size=bs, col=J.INK_W)
             s.append(body)
             if b.get("v"):
@@ -1454,8 +1472,9 @@ def panel(blocks, lead="", note="", cols=3):
             kx = 0
             if b.get("k"):
                 ks = min(84, rh * 0.34)
+                # 🔴 ここも「1文字ぶん（ks×1.5）で足りる」と決め打っていた。実測する。
                 s.append(txt(x, y + ks * 0.92, b["k"], ks, c, "Dela"))
-                kx = ks * 1.5
+                kx = fm.width(str(b["k"]), ks, numfam(str(b["k"]), "Dela")) + ks * 0.5
             # 数値は右下に置く。場所は数値があるときだけ空ける
             vs = min(96, rh * 0.34) if b.get("v") else 0
             avail = cw - 20 - kx
