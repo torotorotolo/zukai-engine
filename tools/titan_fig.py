@@ -1034,14 +1034,29 @@ def dives(items, dmax=4200, note="", ylab="深さ", show_axis=True):
 #  9. layers — 積層（剥離・空隙・接着面）
 # ══════════════════════════════════════════════════════════
 def layers(n=5, bonds=None, delam=None, voids=None, note="", labels=True,
-           split=None, dims=None):
-    """炭素繊維の積層断面。5層＋接着面4つ。第4章と第6章の核心。
+           split=None, dims=None, bondlab="", fiber=True):
+    """重なった板の断面。
 
-    bonds … 接着面の番号(1..n-1)に注記 [dict(i=1, t="1-2", c=..., big=True)]
-    delam … 剥離させる接着面の番号
-    voids … 空隙を描く接着面の番号
+    bonds … 面の番号(1..n-1)に注記 [dict(i=1, t="1-2", c=..., big=True)]
+    delam … 剥離させる面の番号
+    voids … 空隙を描く面の番号
+    labels … True なら「1層」「2層」…／**文字列のリストを渡すとその名前**になる
+    bondlab … 面そのものの凡例（右下）。**渡さなければ出さない**
+    fiber … 層の中に繊維の向きの細線を引くか
+
+    🔴 2026-08-04（r01 の拡大目視）：`labels=True` に
+       **「接着剤の面」という凡例が焼き込まれていた。**
+       123便の c231・c332 は**断熱材**のカットで、接着剤は関係が無い。
+       しかも同じ緑帯を、カット側が渡した「断熱材の面」と、
+       この凡例の「接着剤の面」の**両方が指していて矛盾**していた。
+       段も「1層/2層/3層/4層」の無名のままで、1本目の積層の見た目が残っていた。
+    → 凡例は `bondlab`、段の名前は `labels` のリストでカット側から渡す。
     """
-    x0, x1 = BX0 + 190, BX1 - 240
+    # 段に名前を付けるときは、左の余白を広げる。
+    # ⚠️ 190px は「1層」（2字）ぶんしか無く、名前を入れると txtfit が
+    #    14px まで潰して読めなくなる（推定で置かず、字幅から逆算した）。
+    gut = 330 if isinstance(labels, (list, tuple)) else 190
+    x0, x1 = BX0 + gut, BX1 - 240
     # ⚠️ 62+16 だと5層で374pxしかなく、枠(682)の下半分が空いた（c415 空き40.7%）。
     #    層は「厚み」を見せる図なので、**枠の縦を使い切る厚さ**にする。
     bt = 22                                # 接着面の厚み
@@ -1051,14 +1066,23 @@ def layers(n=5, bonds=None, delam=None, voids=None, note="", labels=True,
     g = []
     y = top
     ys = []
+    names = labels if isinstance(labels, (list, tuple)) else None
+    if names is not None and len(names) != n:
+        raise ValueError(f"layers: labels の数が層の数と合っていません "
+                         f"（labels={len(names)} / n={n}）")
     for i in range(n):
         g.append(rect(x0, y, x1 - x0, lh, J.LINE, op=0.20))
         g.append(rect(x0, y, x1 - x0, lh, "none", J.LINE, 4))
         # 繊維の向きが分かるよう細い線を入れる（層であることが一目で分かる）
-        for k in range(1, 6):
-            g.append(line(x0 + 6, y + lh * k / 6, x1 - 6, y + lh * k / 6,
-                          J.LINE_DIM, 1.6))
-        if labels:
+        if fiber:
+            for k in range(1, 6):
+                g.append(line(x0 + 6, y + lh * k / 6, x1 - 6, y + lh * k / 6,
+                              J.LINE_DIM, 1.6))
+        if names is not None:
+            # 名前は「1層」より長いので、左の余白（190px）に収まるまで詰める
+            g.append(txtfit(x0 - 22, y + lh / 2 + 12, names[i], x0 - BX0 - 30,
+                            cap=34, col=J.LINE, anchor="end"))
+        elif labels:
             g.append(txt(x0 - 22, y + lh / 2 + 13, f"{i + 1}層", 34, J.LINE,
                          "Noto", "end"))
         ys.append(y)
@@ -1066,8 +1090,8 @@ def layers(n=5, bonds=None, delam=None, voids=None, note="", labels=True,
         if i < n - 1:
             g.append(rect(x0, y, x1 - x0, bt, J.OK, op=0.55))
             y += bt
-    if labels:
-        g.append(txt(x1 + 16, top + tot + 44, "接着剤の面", 28, J.OK))
+    if bondlab:
+        g.append(txt(x1 + 16, top + tot + 44, bondlab, 28, J.OK))
     if note:
         g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.TICK))
 
@@ -1912,37 +1936,62 @@ def icons(n, on=None, kind="dot", cols=None, lead="", note="", oncol=None,
 # 15. sound — 2点で同じ音を聞いた（プロローグと第5章の核心）
 # ══════════════════════════════════════════════════════════
 def sound(depth_m=3840, note="", rings=4, both=True, label_a="潜水艇の中",
-          label_b="海面のボート", moving="浮上中"):
-    """海面のボートと潜水艇。**2点同時に届いた**ことが要点。
+          label_b="海面のボート", moving="浮上中", scene="sea",
+          caption="同じ音を、同じときに"):
+    """1つの音が2点に届いたことを見せる。**2点同時**が要点。
+
+    scene … "sea"    海面のボートと潜水艇（1本目）
+            "record" 海を描かない。**2つの記録**を並べる（123便 c111）
 
     🔴 2026-08-02（r25 の目視）：`浮上中` を**この型に焼き込んでいた**。
-       使う4カットのうち3つ（pr05・c504・ep08）は 2022年の80回目の潜航で、
-       音がしたのは**浮上中**なので正しい。
-       だが **c115c は 2023年6月18日 10時47分の爆縮**で、
-       このとき潜水艇は 3,346m を**降下している途中**だった
-       （c110「09:14 台から切り離し、重りで落ちていく」→ c115a 10:47:08 で 3,346m）。
-       ＝ 図が「浮上中」と言い、台本が「降下して爆縮した」と言う食い違いだった。
+       c115c は降下中の爆縮なので、図が「浮上中」と言い台本が「降下」と言っていた。
     → 向きはカット側から渡す。`moving=""` を渡せば矢印ごと消える。
+
+    🔴 2026-08-04（r01 の拡大目視）：**上の直しでは足りていなかった。**
+       123便の c111（高度24,000ft・上昇中の旅客機）に、
+       **海のグラデーション地・水面線・船のシルエット・カプセル型の潜水艇・
+       上向きの矢印「浮上中」**がそのまま描かれていた。
+       語を1つ外に出しても、**絵そのものが1本目の事実を焼き込んでいれば同じこと**。
+    → 海の道具立てごと `scene` で切り替える。
     """
     top, bot = BY0 + 70, BY1 - 60
-    g = [watertone(BX0, top, BW, bot - top, 0.08, 0.40),
-         line(BX0, top, BX1, top, J.INK_W, 5)]
-    bx, by = BCX - 380, top
-    sx, sy = BCX + 240, top + (bot - top) * 0.52
-    # 海面のボート
-    g.append(poly([(bx - 74, by), (bx + 74, by), (bx + 48, by - 34), (bx - 48, by - 34)],
-                  fill=J.INK_W, close=True))
+    g = []
+    if scene == "sea":
+        g += [watertone(BX0, top, BW, bot - top, 0.08, 0.40),
+              line(BX0, top, BX1, top, J.INK_W, 5)]
+        bx, by = BCX - 380, top
+        sx, sy = BCX + 240, top + (bot - top) * 0.52
+        # 海面のボート
+        g.append(poly([(bx - 74, by), (bx + 74, by),
+                       (bx + 48, by - 34), (bx - 48, by - 34)],
+                      fill=J.INK_W, close=True))
+    else:
+        # 記録どうし。海も乗り物も描かない。**同じ高さに並べる**
+        # （上下に置くと「深さ」の意味が生まれてしまう）。
+        bx, by = BCX - 380, top + (bot - top) * 0.30
+        sx, sy = BCX + 240, by
+        for cx_ in (bx, sx):
+            g.append(rect(cx_ - 122, by - 78, 244, 156, J.BG2, op=0.80, rx=8))
+            g.append(rect(cx_ - 122, by - 78, 244, 156, "none", J.DOC, 4, rx=8))
+            # 書類の角折れ
+            g.append(poly([(cx_ + 122 - 46, by - 78), (cx_ + 122, by - 78 + 46),
+                           (cx_ + 122 - 46, by - 78 + 46)],
+                          fill=J.DOC, close=True, op=0.55))
+            for k in range(1, 5):
+                g.append(line(cx_ - 86, by - 40 + k * 28, cx_ + 60, by - 40 + k * 28,
+                              J.DOC, 3))
     # 🔴 2026-08-02（r28 の拡大目視）：**音の輪が札の後ろを通る**ので、
     #    赤い線が字にかかって読みづらい。ep08 は札を短くしても、いちばん外の輪が
     #    「中」を横切っていた。輪は画面いっぱいに広がるので、**避ける場所が無い**。
     #    → 札にフチを付けて地から浮かせる（写真の上で読ませるのと同じ手）。
-    g.append(txtfit(bx, by - 60, label_b, 460, cap=32, col=J.INK_W, anchor="middle",
-                    ol=7))
-    # 潜水艇
-    g.append(rect(sx - 92, sy - 34, 184, 68, J.INK_W, rx=34))
-    g.append(txtfit(sx, sy + 82, label_a, 460, cap=32, col=J.INK_W, anchor="middle",
-                    ol=7))
-    if moving:
+    g.append(txtfit(bx, by - (60 if scene == "sea" else 104), label_b, 460, cap=32,
+                    col=J.INK_W, anchor="middle", ol=7))
+    if scene == "sea":
+        # 潜水艇
+        g.append(rect(sx - 92, sy - 34, 184, 68, J.INK_W, rx=34))
+    g.append(txtfit(sx, sy + (82 if scene == "sea" else 122), label_a, 460, cap=32,
+                    col=J.INK_W, anchor="middle", ol=7))
+    if moving and scene == "sea":
         # 札だけ替えると絵と逆になるので、矢印の向きも変える。
         # ⚠️ 下向きでも**場所は艇の上のまま**にする。艇の下は label_a（水深）が
         #    使っており、そこへ矢印を下ろすと図形が文字を貫く。
@@ -1960,9 +2009,10 @@ def sound(depth_m=3840, note="", rings=4, both=True, label_a="潜水艇の中",
                       f'{ox + r:.0f} {oy:.0f}" fill="none" stroke="{J.ALERT}" '
                       f'stroke-width="{6 - k * 0.8:.1f}" opacity="{0.95 - k * 0.16:.2f}"/>')
     if both:
-        stages.append(circ(bx, by - 4, 22, "none", J.ALERT, 5)
+        stages.append(circ(bx, by - (4 if scene == "sea" else 0), 22, "none",
+                           J.ALERT, 5)
                       + circ(sx, sy, 22, "none", J.ALERT, 5)
-                      + txtfit(BCX, bot + 6, "同じ音を、同じときに", BW * 0.7, cap=40,
+                      + txtfit(BCX, bot + 6, caption, BW * 0.7, cap=40,
                                col=J.ALERT, anchor="middle"))
     return Fig("".join(g), stages, circ(ox, oy, 40, "none", J.ALERT, 4), (BX0, BX1))
 
@@ -2008,25 +2058,40 @@ def gauge(hits=None, yellow=30, red=50, vmax=60, lead="", note="", marks=None):
 # ══════════════════════════════════════════════════════════
 # 17. mapfig — 位置関係（Google Maps は使えないので自作）
 # ══════════════════════════════════════════════════════════
-def mapfig(points, note="", link=None, scale=None, lead=""):
-    """北大西洋の簡略図。points=[dict(x=0.2,y=0.3,t="セントジョンズ",c=...,kind=)]
+def mapfig(points, note="", link=None, scale=None, lead="", coast=None):
+    """位置関係の略図。points=[dict(x=0.2,y=0.3,t="大島",c=...,kind=)]
 
     x,y は本体枠に対する 0〜1。**地図の正確さではなく位置関係だけを持たせる。**
+
+    🔴 2026-08-04（r01 の拡大目視）：**1本目（タイタン号）の
+       「ニューファンドランドの島影」とラベルを、この型に焼き込んでいた。**
+       123便の6カット（c101 c115 c124 c127 c521 c611）すべてに描かれていて、
+       羽田→大阪の便も、東伊豆町も、大阪の事業所も、
+       **ニューファンドランドの隣**に置かれていた。
+       README §0-4「型に事実を焼き込まない」そのもの。**題材が変わると必ず嘘になる。**
+    → 陸はカット側から渡す。渡さなければ描かない（既定）。
+
+    coast … dict(x=0.30, t="陸（伊豆半島）", side="left")
+       ⚠️ **海岸線の「形」は描かない。** 記憶で海岸線を描くと必ず形が狂うので、
+          陸と海の境を **1本の直線**で示すだけにする。x は 0〜1。
     """
     x0, y0 = BX0 + 40, BY0 + 40
     w, h = BW - 80, BH - 110
     g = [rect(x0, y0, w, h, J.BG2, op=0.55), rect(x0, y0, w, h, "none", J.LINE_DIM, 3)]
-    # 海の地紋（緯線・経線）
+    # 地紋（緯線・経線）
     for i in range(1, 8):
         g.append(line(x0, y0 + h * i / 8, x0 + w, y0 + h * i / 8, J.GRID, 2))
     for i in range(1, 10):
         g.append(line(x0 + w * i / 10, y0, x0 + w * i / 10, y0 + h, J.GRID, 2))
-    # ニューファンドランドの島影（形は似せない。陸だと分かればよい）
-    g.append(poly([(x0 + w * 0.05, y0 + h * 0.10), (x0 + w * 0.26, y0 + h * 0.05),
-                   (x0 + w * 0.33, y0 + h * 0.22), (x0 + w * 0.27, y0 + h * 0.40),
-                   (x0 + w * 0.09, y0 + h * 0.36)],
-                  fill=J.LINE_DIM, close=True, op=0.55))
-    g.append(txt(x0 + w * 0.07, y0 + h * 0.50, "ニューファンドランド", 26, J.TICK))
+    if coast:
+        cx_ = x0 + w * coast.get("x", 0.30)
+        left = coast.get("side", "left") == "left"
+        lx, lw = (x0, cx_ - x0) if left else (cx_, x0 + w - cx_)
+        g.append(rect(lx, y0, lw, h, J.LINE_DIM, op=0.42))
+        g.append(line(cx_, y0, cx_, y0 + h, J.LINE_DIM, 4))
+        if coast.get("t"):
+            g.append(txtfit(lx + lw / 2, y0 + h - 24, coast["t"],
+                            max(140, lw - 24), cap=26, col=J.TICK, anchor="middle"))
     if lead:
         g.append(txtfit(BX0, BY0 + 16, lead, BW, cap=40, col=J.INK_W))
     if note:
