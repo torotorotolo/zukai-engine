@@ -307,6 +307,19 @@ def photo_box(spec):
         from PIL import Image
         with Image.open(HERE / "ref" / spec["photo"]) as im:
             sw, sh = im.size
+        # 🔴 2026-08-06（r11 の拡大目視）：**切り出しを勘定に入れていなかった。**
+        #    額の箱を「切る**前**の縦横比」で作り、そこへ切ったあとの画像を
+        #    `build_jiko.fit()` が**覆い**（cover）ではめる。だから
+        #    画素で測って切った端が、もう一度切り落とされていた。
+        #    実測（8カット）：ep05 30.8%・ep06 24.2%・c233/c330 19.1%・
+        #    c230/c333 17.0%・c222 14.1%・c136 38.1% を失っていた。
+        #    c136 では**尾部が枠の外に出て、生存者の斜線が4席のうち3席しか映らなかった**
+        #    （見出しは「4人」なので、図が数を裏切る）。
+        #    → 箱は**切ったあとの縦横比**で作る。そうすれば覆いは等倍になり何も落ちない。
+        t = spec.get("trim") or TRIM_BY_PHOTO.get(spec["photo"])
+        if t:
+            sw = max(1, int(sw * (t[2] - t[0])))
+            sh = max(1, int(sh * (t[3] - t[1])))
         mw = spec.get("pw", PANEL_MAXW)
         z = min(mw / sw, PANEL_MAXH / sh)
         w, h = int(sw * z), int(sh * z)
@@ -487,9 +500,6 @@ def _narration():
 CUTS, SUBS = _narration()
 ORDER = [c for c, _ in CUTS]
 
-# 全画面の実写カット。(枠, ファイル名, 縦方向の寄せ)
-PHOTO_CUTS = {cid: (photo_box(s), s["photo"], s.get("bias", 0.5))
-              for cid, s in SPEC.items() if s.get("photo")}
 INSETS = {}
 
 # ★写真を地に敷くときの切り方 (横方向の寄せ, 拡大率)。
@@ -551,6 +561,12 @@ TRIM_BY_PHOTO = {
 PHOTO_TRIM = {cid: s.get("trim") or TRIM_BY_PHOTO.get(s["photo"])
               for cid, s in SPEC.items() if s.get("photo")}
 PHOTO_TRIM = {c: t for c, t in PHOTO_TRIM.items() if t}
+
+# 全画面の実写カット。(枠, ファイル名, 縦方向の寄せ)
+# ⚠️ `photo_box` が `TRIM_BY_PHOTO` を見るので、**この行は必ず上の定義より後**に置く
+#    （2026-08-06 に額の箱を切り出し後の比で作るよう直したときの制約）。
+PHOTO_CUTS = {cid: (photo_box(s), s["photo"], s.get("bias", 0.5))
+              for cid, s in SPEC.items() if s.get("photo")}
 
 
 # ── 段の持ち時間 ─────────────────────────────────────────
