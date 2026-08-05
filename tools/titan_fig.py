@@ -472,6 +472,36 @@ def compare(items, unit="", note="", bar=True, ratio="", vmax=None, ref=""):
     # 比の一行を出すカットは、その場所も先に空けておく（あとから足すと必ずはみ出す）
     barb = BY1 - (108 if ratio else (74 if note else 34))   # 棒の底
     barh = barb - (top + 250)
+    # 🔴 2026-08-04（r05 の拡大目視）：bar=False のカットは、棒の代わりに
+    #    **枠いっぱいの空の板**を全項目に立てていた（旧 c208 対策）。
+    #    bar=False は「棒にすると全部同じ長さに見えて、絵が『同じだ』と嘘をつく」から
+    #    棒をやめた入口なのに、その代わりに置いたのが**全項目まったく同じ大きさの面**で、
+    #    避けたはずの嘘がそのまま戻っていた。しかも中身が無い。
+    #    実害：6カット（c107 c320 c321 c509 c510 c515）で約1分間、空の長方形が並ぶ。
+    #      c320 は 19.6m² と 10m/秒 という**単位の違う2つ**が同じ大きさの板で並んでいた。
+    #      c321 と c510 は項目が1つなので、空の板が1枚ぽつんと出るだけだった。
+    #    → 面をやめ、**数字を大きくして空いた高さを数字自身で埋める**。
+    #      「数字に語らせる」はもともとそういう意味。列は下の罫だけで作る。
+    def numfit(disp, u, w, cap):
+        """**数字＋単位を合わせた幅**で級数を決める。
+
+        `num()` は単位を数字のうしろ・同じ行に置くので、数字だけで測ると
+        単位のぶんだけはみ出す。cap を 112 から 208 へ上げたとき、
+        c320「m/秒」と c515「時間」が実際に画面の右（1848）を越えた。
+        """
+        s = fm.fit(str(disp), w, "Dela", cap=cap, floor=40)
+        while s > 40:
+            nw = fm.width(str(disp), s, "Dela")
+            uw = fm.width(u, s * 0.34, "Noto") + (s * 0.10 if u else 0)
+            if nw + uw <= w:
+                break
+            s -= 4
+        return s
+
+    if not bar:
+        _ns = max(numfit(it.get("disp") or f'{it["v"]:,}', it.get("unit", unit),
+                         cw * 0.86, 208) for it in items)
+        nb = (top + barb) / 2 - (130 - _ns * 0.72) / 2
     g = []
     stages = []
     for i, it in enumerate(items):
@@ -480,13 +510,6 @@ def compare(items, unit="", note="", bar=True, ratio="", vmax=None, ref=""):
         disp = it.get("disp") or f'{it["v"]:,}'
         u = it.get("unit", unit)
         s = []
-        if not bar:
-            # 棒を描かないカットは、代わりに枠いっぱいの面で柱を立てる。
-            # 何も置かないと下半分が丸ごと空く（c208 空き45.7%）。
-            s.append(rect(x + cw * 0.08, top + 230, cw * 0.84, barb - top - 230,
-                          c, op=0.16))
-            s.append(rect(x + cw * 0.08, top + 230, cw * 0.84, barb - top - 230,
-                          "none", c, 4))
         if bar:
             if ref:
                 # 基準の高さを薄い枠で先に見せる（棒がどれだけ小さいかが読める）
@@ -496,15 +519,22 @@ def compare(items, unit="", note="", bar=True, ratio="", vmax=None, ref=""):
             s.append(rect(x + cw * 0.16, barb - h, cw * 0.68, h, c, op=0.30))
             s.append(rect(x + cw * 0.16, barb - h, cw * 0.68, h, "none", c, 4))
             s.append(line(x + cw * 0.16, barb, x + cw * 0.84, barb, c, 5))
-        ns = fm.fit(disp, cw * 0.86, "Dela", cap=112, floor=40)
-        s.append(num(x + cw / 2, top + 118, disp, u, "", c, ns))
-        s.append(txtfit(x + cw / 2, top + 176, it["t"], cw * 0.98, cap=34,
+        ns = (fm.fit(disp, cw * 0.86, "Dela", cap=112, floor=40) if bar
+              else numfit(disp, u, cw * 0.86, 208))
+        ny = top + 118 if bar else nb
+        s.append(num(x + cw / 2, ny, disp, u, "", c, ns))
+        s.append(txtfit(x + cw / 2, ny + 58, it["t"], cw * 0.98, cap=34,
                         col=J.LINE, anchor="middle"))
         if it.get("sub"):
-            s.append(txtfit(x + cw / 2, top + 218, it["sub"], cw * 0.98, cap=28,
+            s.append(txtfit(x + cw / 2, ny + 100, it["sub"], cw * 0.98, cap=28,
                             col=J.TICK, anchor="middle"))
         stages.append("".join(s))
-        g.append(line(x + cw * 0.16, barb, x + cw * 0.84, barb, J.LINE_DIM, 3))
+        if bar:
+            g.append(line(x + cw * 0.16, barb, x + cw * 0.84, barb, J.LINE_DIM, 3))
+        else:
+            # 棒が無いので、柱の代わりに**下の罫だけ**を置いて列を作る。
+            # 面を張らないので「どれも同じ大きさ」とは言わない。
+            g.append(line(x + cw * 0.08, barb, x + cw * 0.92, barb, J.LINE_DIM, 3))
     # ⚠️ ratio と note を同じ y に置いていたので、両方あるカットで必ず重なった（c115d）。
     #    ratio は棒のすぐ下、note はいちばん下に離す。
     if ratio and n >= 2:
@@ -731,13 +761,26 @@ def moment(clock, label="", facts=None, day=None, dayspan=None, sub=""):
     #    時計を大きくして枠の縦中央へ置き、下に太い罫を渡して面を作る。
     cy = BY0 + 300
     g = []
-    cs = fm.fit(clock, BW * 0.54, "Dela", cap=232, floor=60)
-    g.append(txt(BX0 + 20, cy, clock, cs, J.INK_W, "Dela"))
-    g.append(line(BX0 + 20, cy + 46, BX0 + BW * 0.52, cy + 46, J.ALERT, 8))
-    if label:
-        g.append(txtfit(BX0 + 20, cy + 118, label, BW * 0.52, cap=46, col=J.AMBER))
-    if sub:
-        g.append(txtfit(BX0 + 20, cy + 176, sub, BW * 0.52, cap=32, col=J.TICK))
+    # 🔴 2026-08-04（r05 の拡大目視）：時刻を持たないカット（章の橋渡し・言い換え）は
+    #    `clock="—"` と書いていた。これを 232px の Dela で打つと、画面に
+    #    **説明のない大きな白い横棒**が焼かれる。`c239` で「白い矩形が1個だけ浮いている」
+    #    として上がったが、**同じ書き方が23カット（動画の約1割）にある**。
+    # → ダッシュや空文字は「時刻が無い」の意味なので、時計を描かず label を大きく出す。
+    blank = str(clock).strip() in ("", "—", "―", "-", "‐", "－", "ー")
+    if blank:
+        if label:
+            g.append(txtfit(BX0 + 20, cy, label, BW * 0.52, cap=96, col=J.INK_W))
+        g.append(line(BX0 + 20, cy + 46, BX0 + BW * 0.52, cy + 46, J.ALERT, 8))
+        if sub:
+            g.append(txtfit(BX0 + 20, cy + 112, sub, BW * 0.52, cap=36, col=J.TICK))
+    else:
+        cs = fm.fit(clock, BW * 0.54, "Dela", cap=232, floor=60)
+        g.append(txt(BX0 + 20, cy, clock, cs, J.INK_W, "Dela"))
+        g.append(line(BX0 + 20, cy + 46, BX0 + BW * 0.52, cy + 46, J.ALERT, 8))
+        if label:
+            g.append(txtfit(BX0 + 20, cy + 118, label, BW * 0.52, cap=46, col=J.AMBER))
+        if sub:
+            g.append(txtfit(BX0 + 20, cy + 176, sub, BW * 0.52, cap=32, col=J.TICK))
     # 右に事実を積む
     stages = []
     fx = BX0 + BW * 0.58
@@ -2073,10 +2116,29 @@ def gauge(hits=None, yellow=30, red=50, vmax=60, lead="", note="", marks=None):
 # ══════════════════════════════════════════════════════════
 # 17. mapfig — 位置関係（Google Maps は使えないので自作）
 # ══════════════════════════════════════════════════════════
-def mapfig(points, note="", link=None, scale=None, lead="", coast=None):
+def mapfig(points, note="", link=None, scale=None, lead="", coast=None, turn=None):
     """位置関係の略図。points=[dict(x=0.2,y=0.3,t="大島",c=...,kind=)]
 
     x,y は本体枠に対する 0〜1。**地図の正確さではなく位置関係だけを持たせる。**
+
+    🔴 2026-08-04（r05 の拡大目視）：**「位置関係だけ」は方角まで免れる断りではない。**
+       note に「縮尺は正確ではない」と書いてあるので角度の狂いは断ってあるつもりでいたが、
+       **上下・左右の向きそのものが逆**になっていたカットが3枚あった。
+       これは縮尺の話ではなく、図が事実と食い違っている（README §2 の最優先）。
+
+       | カット | 描いていたもの | 報告書 |
+       |---|---|---|
+       | `c124` | 123便を横田の**南東**に置いていた | 「横田TACANから**305度**、35海里の地点に火災」＝**西北西** |
+       | `c127` | 山中を大月市の**南西**に置いていた | 「奥多摩町付近上空から左へ変針し**西北西**に向かって」 |
+       | `c115` | 大島を異常発生地点の**北**に置いていた | 大島は南（東京コントロールの指示は針路90度＝東） |
+
+       → 決めた約束：**縮尺と角度は約束しない。上下（南北）と左右（東西）の
+         「どちら側か」だけは必ず合わせる。** 置く前に一次資料で向きを確かめる。
+
+    turn … dict(at=0, t="約3分間でほぼ360度", r=86, side="below")
+       その点の上で旋回したことを、時計回りの破線の輪で見せる。
+       ⚠️ 見出しが「大きく旋回」と言っているのに図が直線1本だと、
+          **図が見出しを支えていない**（c127 が実際にそうだった）。
 
     🔴 2026-08-04（r01 の拡大目視）：**1本目（タイタン号）の
        「ニューファンドランドの島影」とラベルを、この型に焼き込んでいた。**
@@ -2131,6 +2193,23 @@ def mapfig(points, note="", link=None, scale=None, lead="", coast=None):
             top_y = min(a[1], b[1], (a[1] + b[1]) / 2 - 60)
             s.append(txtfit((a[0] + b[0]) / 2, max(y0 + 46, top_y - 22), scale, 620,
                             cap=34, col=J.AMBER, anchor="middle", ol=7))
+        stages.append("".join(s))
+    if turn and 0 <= turn.get("at", 0) < len(points):
+        cx, cy = P(points[turn.get("at", 0)])
+        r = turn.get("r", 84)
+        # 時計回り（右旋回）。画面は y が下向きなので、角度を増やすと時計回りに回る。
+        # 1周ぶん閉じずに 0.88 周だけ描いて、終わりに矢印を付ける（向きが読める）。
+        a0 = -math.pi / 2
+        a1 = a0 + 2 * math.pi * turn.get("frac", 0.88)
+        pts = [(cx + r * math.cos(a0 + (a1 - a0) * k / 48),
+                cy + r * math.sin(a0 + (a1 - a0) * k / 48)) for k in range(49)]
+        s = [poly(pts, stroke=J.AMBER, sw=5, dash="18 12"),
+             arrow(*pts[-2], *pts[-1], J.AMBER, 5, 24)]
+        if turn.get("t"):
+            side = turn.get("side", "below")
+            ty = cy + r + 46 if side == "below" else cy - r - 24
+            s.append(txtfit(cx, min(ty, y0 + h - 12), turn["t"], 620, cap=32,
+                            col=J.AMBER, anchor="middle", ol=7))
         stages.append("".join(s))
     for p in points:
         x, y = P(p)
