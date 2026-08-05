@@ -2190,8 +2190,11 @@ def mapfig(points, note="", link=None, scale=None, lead="", coast=None, turn=Non
             #    ⚠️ check_layout の「図形が文字を横切る」は層をまたぐと見えない（既知の穴）。
             # → ①折れ線のいちばん高いところより上へ置く ②フチを付けて線の上で読ませる
             #    （音の輪と同じ手。README §15 の「札にフチを付けて地から浮かせる」）。
+            # 🔴 2026-08-04（r06）：逃がし幅 22px では足りなかった。点の札は
+            #    点の 12px 下に 34px の級数で出るので、22px だとちょうど接する
+            #    （c124 で接触、c127 では重なった）。46px 空ける。
             top_y = min(a[1], b[1], (a[1] + b[1]) / 2 - 60)
-            s.append(txtfit((a[0] + b[0]) / 2, max(y0 + 46, top_y - 22), scale, 620,
+            s.append(txtfit((a[0] + b[0]) / 2, max(y0 + 46, top_y - 46), scale, 620,
                             cap=34, col=J.AMBER, anchor="middle", ol=7))
         stages.append("".join(s))
     if turn and 0 <= turn.get("at", 0) < len(points):
