@@ -167,7 +167,10 @@ SPEC = {
     "c614": dict(
         t="3つめは、ごく最近のもの",
         s="ファクトチェック　2025年",
-        fig=("moment", dict(clock="—", label="2025年に広まった話",
+        # ⚠️ r08：moment が label を大きく出すようになったので、
+        #    label「2025年に広まった話」と fact「いつ 2025年」で**年が2か所**に出た。
+        #    label は何についての噂かを持つ。
+        fig=("moment", dict(clock="—", label="操縦室の録音をめぐる話",
                             facts=[dict(t="いつ", v="2025年", c=J.ALERT)])),
     ),
 

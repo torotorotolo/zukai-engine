@@ -779,6 +779,19 @@ def report():
     print("図の種類:")
     for k, v in kinds.most_common():
         print(f"   {k:<12} {v:>3}")
+
+    # 🔴 2026-08-05（r08）：`ep16` の中身を章ファイルの `fig` 側で直したのに、
+    #    `cuts/__init__.py` の PHOTO_OVERRIDE が勝っていて**古い ann のまま焼かれた**。
+    #    章ファイルだけ見ていると気づけないので、上書きされているカットを毎回出す。
+    import cuts as _C
+    ov = sorted(_C.PHOTO_OVERRIDE)
+    print(f"\n⚠️ cuts/__init__.py が**中身ごと上書き**しているカット（{len(ov)}件）:")
+    print("   " + " ".join(ov))
+    print("   章ファイルの fig / ann を直すときは、ここに載っていないか必ず見ること。")
+    dead = [c for c in ov if c in SPEC and _C.PHOTO_OVERRIDE[c].get("photo")
+            and "fig" in SPEC[c]]
+    if dead:
+        print(f"   🔴 図が捨てられているのに fig が残っているカット: {' '.join(dead)}")
     miss = [c for c in ORDER if c not in SPEC]
     if miss:
         print(f"🔴 画が未定義: {miss}")
