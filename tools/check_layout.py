@@ -103,6 +103,33 @@ def main(only=None):
     if not tofu:
         print("  ✓ 無い字は無い")
 
+    # 🔴 2026-08-05（r07 の目視）：**Dela に漢字の文を入れて画がつぶれた**（c435）。
+    #    README §0-10 のとおり Dela は数字のための書体で、画数の多い漢字を入れると
+    #    線が互いに埋まって字の中の空きが消える。`numfam()` は「数字を含まない
+    #    文字列」を Noto に落とすが、**数字入りの文**（節番号つきの一文など）は
+    #    Dela のまま残るので素通りしていた。同じ穴は c407・c301・c604 でも起きている。
+    # ⚠️ 最初「漢字5字以上の Dela」で書いたら、**見出し**（Dela 62px）が
+    #    32件まとめて鳴った。見出しは焼いて見るかぎり読めているので、
+    #    つぶれるかどうかを分けているのは字数ではなく**級数**のほう。
+    # → 小さい Dela（48px 未満）に漢字の句が入っているものだけ止める。
+    #    単位まじりの数値（「601万回超」「片側1列」）は漢字3字以下なので通る。
+    # ⚠️ boxes() は級数を返さないので、ここでは SVG を直接読む。
+    print("\n── 小さい Dela に漢字の句が入っている ──")
+    dela = 0
+    for k in sorted(jobs):
+        for m in TEXT.finditer(jobs[k]):
+            a = dict(ATTR.findall(m.group(1)))
+            t = unesc(m.group(2))
+            if a.get("font-family") != "Dela" or not t.strip():
+                continue
+            size = float(a["font-size"])
+            n = sum(1 for c in t if "一" <= c <= "鿿")
+            if size < 48 and n >= 4:
+                dela += 1
+                print(f"  🔴 {k}「{t[:24]}」… {size:.0f}px・漢字{n}字。つぶれる")
+    if not dela:
+        print("  ✓ つぶれる大きさの Dela に漢字の句は無い")
+
     print("\n── 同じカットで重なっている文字 ──")
     bycut = defaultdict(list)
     for k, svg in jobs.items():
