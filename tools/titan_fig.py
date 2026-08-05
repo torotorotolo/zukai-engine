@@ -153,7 +153,16 @@ def txtfit(x, y, t, maxw, cap=40, col=None, fam="Noto", anchor="start", ol=0, fl
 
 
 def wrap(t, cols):
-    """全角換算 cols 字で折る。読点・句点を優先して折る。"""
+    """全角換算 cols 字で折る。読点・句点を優先して折る。
+
+    🔴 2026-08-05（r10 の拡大目視）：**最後の行に1〜2字だけ残る**箇所が10あった。
+       いちばんひどいのは c505「サイド・スキャン・ソナ／**ー**」＝長音符だけの行。
+       原因はここが**字数で折っている**こと（`balance()` と違って禁則も
+       語中の切れも見ていない）。同じ轍は決め所で一度踏んでいて、
+       そのとき作ったのが `balance()` なのに、こちらへは回していなかった。
+       → **尻切れになったときだけ** `balance()` に投げ直す。
+          行が増えると箱の高さが変わるので、増えるときは元のまま返す。
+    """
     t = str(t)
     out, line, n = [], "", 0.0
     for i, ch in enumerate(t):
@@ -165,6 +174,10 @@ def wrap(t, cols):
             line, n = "", 0.0
     if line:
         out.append(line)
+    if len(out) > 1 and sum(fm.adv(c, "Noto") for c in out[-1]) <= 2.0:
+        b = balance(t, cols)
+        if len(b) <= len(out):
+            return b
     return out
 
 
