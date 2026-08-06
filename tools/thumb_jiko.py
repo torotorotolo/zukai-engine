@@ -118,12 +118,17 @@ def line(t, base, cap, fill, stroke, sw):
             f'paint-order="stroke fill">{t}</text>')
 
 
-def photo(src, cy=0.5, contrast=1.18, color=1.12, bright=0.96, w=W, h=H):
-    """写真を箱いっぱいに切り出して data URI にする。"""
+def photo(src, cy=0.5, contrast=1.18, color=1.12, bright=0.96, w=W, h=H, zoom=1.0, cx=0.5):
+    """写真を箱いっぱいに切り出して data URI にする。
+
+    zoom … 1.0 より大きいと**寄る**（2026-08-06 追加）。123便の飛行中の写真は
+           機影が画面の35%しかなく、縮めると何の絵か分からなかった。
+    cx   … 横方向の寄せ。既定は中央。
+    """
     im = Image.open(HERE / "ref" / src).convert("RGB")
-    z = max(w / im.width, h / im.height)
+    z = max(w / im.width, h / im.height) * zoom
     cw, ch = min(im.width, w / z), min(im.height, h / z)
-    l, t = (im.width - cw) / 2, (im.height - ch) * cy
+    l, t = (im.width - cw) * cx, (im.height - ch) * cy
     im = im.crop((round(l), round(t), round(l + cw), round(t + ch))).resize((w, h), Image.LANCZOS)
     im = ImageEnhance.Contrast(im).enhance(contrast)
     im = ImageEnhance.Color(im).enhance(color)
@@ -244,5 +249,68 @@ def titan():
     bake("titan_alt_red", rival_type(aft, "壊れた船体で3回潜航", YEL_MAIN))
 
 
+# ── 2本目：日本航空123便 ────────────────────────────────
+# ⚠️ 報告書の写真はすべて**白黒のスキャン**なので、1本目のような彩度は乗らない。
+#    `color` を上げても効かない。**コントラストと明るさ**で立たせる。
+JA_FLIGHT = "ja123/p124.jpg"   # 写真-124：奥多摩町上空を飛行中の事故機（尾翼を失っている）
+JA_BULK = "ja123/p024.jpg"     # 写真-24：復元した後部圧力隔壁（破れが白く抜ける）
+JA_REAR = "ja123/p005.jpg"     # 写真-5：後部胴体の残骸（2）＝4人が救出された部位
+
+
+def ja123():
+    """🔴 決め語は 2026-08-06 にカズヤくん承認ずみ。
+
+      赤「生存者4人 全員が最後尾」（12字）
+        裏付け＝本文2.13.1「いずれも機体後部の座席列番号54から60、左側及び中央部の
+        座席に着席していた（付図-5参照）」。
+        ⚠️ 実測で効くのは「証言・記録・生存者」（1.94倍）で、
+          「噂・隠蔽・周年」は効かない。だからそちら側の語は入れない。
+      黄「日航123便 26年後の解説」（13字）
+        差別化＝2011年7月の「事故調査報告書についての解説」。
+        競合は1987年の報告書までしか扱っていない。
+
+    ⚠️ 写真-4・写真-5 は現場に救助の人が大勢写っていて、**煽りに寄る**うえ
+       縮めると灰色の塊にしか見えない。本命では使わない（比較用にだけ焼く）。
+    ⚠️ 型は競合と同一。**赤1行・黄1行・写真だけ。**副題もタブも出典も足さない。
+       チャンネル名・アイコン・ロゴも入れない。
+    """
+    SX = 620
+    RW = W - SX
+    RED_MAIN = "生存者4人 全員が最後尾"
+    YEL_MAIN = "日航123便 26年後の解説"
+
+    # 🔴 2026-08-06：1本目と同じ強さ（contrast 1.3前後）を当てたら**両方とも壊れた**。
+    #    左は紙の粒子まで持ち上がって機体が黒い塊になり、右は隔壁の白が飛んで
+    #    構造が消えた。白黒スキャンは元から階調が狭いので、**弱くかける**のが正しい。
+    flight = photo(JA_FLIGHT, cy=0.44, contrast=1.16, color=1.0, bright=1.00)
+    flight_l = photo(JA_FLIGHT, cy=0.44, contrast=1.16, color=1.0, bright=1.00, w=SX, h=H)
+    bulk = photo(JA_BULK, cy=0.46, contrast=1.04, color=1.0, bright=0.96)
+    bulk_r = photo(JA_BULK, cy=0.46, contrast=1.04, color=1.0, bright=0.96, w=RW, h=H)
+    rear_r = photo(JA_REAR, cy=0.52, contrast=1.12, color=1.0, bright=1.00, w=RW, h=H)
+
+    # 🔴 2026-08-06：左右2枚並べは**この題材では成立しなかった**。
+    #    左（飛行中）は明るい灰色、右（隔壁）は白飛びした白黒で、継ぎ目で調子が反転する。
+    #    1本目はどちらもカラーの海底写真だったので並べられた。
+    #    → 飛行中の1枚に絞る。**尾翼を失った機影**は、この事故にしか無い絵で、
+    #      縮めても何の絵か分かる（隔壁は縮めると「白い塊」になる）。
+    # ★★ 本番決定案（2026-08-06）。寄り1.30・明るさ0.85・コントラスト1.30。
+    #    ⚠️ 明るさを落とすのは**赤の白フチを地から離すため**。素のままだと
+    #      地が明るい灰色で、白フチが溶けて赤い行が沈む（1本目は暗い海底写真だった）。
+    #    ⚠️ 寄り1.60 は機体が枠に触れて「飛行機」に見えなくなる。1.30 が上限。
+    hero = photo(JA_FLIGHT, cy=0.46, contrast=1.30, color=1.0, bright=0.85, zoom=1.30)
+    bake("ja123_FINAL", rival_type(hero, RED_MAIN, YEL_MAIN))
+    # 見比べ用（暗さと寄りの振り）
+    bake("ja123_try_d78", rival_type(
+        photo(JA_FLIGHT, cy=0.46, contrast=1.36, color=1.0, bright=0.78, zoom=1.30),
+        RED_MAIN, YEL_MAIN))
+    bake("ja123_try_z16", rival_type(
+        photo(JA_FLIGHT, cy=0.46, contrast=1.30, color=1.0, bright=0.85, zoom=1.60),
+        RED_MAIN, YEL_MAIN))
+    # 比較用に残す
+    bake("ja123_alt_bulk", rival_type(bulk, RED_MAIN, YEL_MAIN))       # 隔壁1枚
+    bake("ja123_alt_flight", rival_type(flight, RED_MAIN, YEL_MAIN))   # 寄せない版
+    bake("ja123_alt_pair", rival_type(flight_l, RED_MAIN, YEL_MAIN, split=(bulk_r, SX)))
+
+
 if __name__ == "__main__":
-    titan()
+    ja123()
