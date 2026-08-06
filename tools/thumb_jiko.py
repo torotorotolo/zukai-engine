@@ -236,8 +236,15 @@ FX = {
 }
 
 
-def fx_type(hero, red, yellow, fx):
-    """`rival_type` と同じ型のまま、**文字の質感だけ**を足す。"""
+def fx_type(hero, red, yellow, fx, yel_plain=False, ground=True):
+    """`rival_type` と同じ型のまま、**文字の質感だけ**を足す。
+
+    yel_plain … 黄の行だけ**最初のデザイン**（単色ベタ＋黒フチ1本）に戻す
+                （2026-08-06 カズヤくん指示「新案の赤字だけ残して黄色は元に戻す」）。
+                ⚠️ 黄は下端に密着していて、下の暗幕と黒フチで十分に立つ。
+                  二重フチ（外に白）を足すと**縁が主役になって字が読みにくくなる**側だった。
+    ground    … 地の演出（上の暗幕・ビネット）を出すか。False で最初の地に戻る
+    """
     k = FX[fx]
     g = [f'<image href="{hero}" x="0" y="0" width="{W}" height="{H}" '
          f'preserveAspectRatio="xMidYMid slice"/>']
@@ -252,7 +259,7 @@ def fx_type(hero, red, yellow, fx):
         defs.append(grad("gy", *k["yg"]))
         yf = "url(#gy)"
     g.append("".join(defs))
-    if k.get("veil"):
+    if k.get("veil") and ground:
         # 上の暗幕（赤の下地）と四隅のビネット。**型は変えない**（文字も写真も動かさない）。
         defs2 = (f'<linearGradient id="st" x1="0" y1="0" x2="0" y2="1">'
                  f'<stop offset="0" stop-color="#000" stop-opacity="0.42"/>'
@@ -267,8 +274,11 @@ def fx_type(hero, red, yellow, fx):
     # 外フチは内フチより太くする（stroke は線の中心に乗るので、同じ太さだと隠れる）
     g.append(line_fx(red, RED_BASE, RED_CAP, rf, "#ffffff", STROKE,
                      k["ro"], STROKE + 16, k["sh"]))
-    g.append(line_fx(yellow, YEL_BASE, YEL_CAP, yf, "#000000", STROKE,
-                     k["yo"], STROKE + 16, k["sh"]))
+    if yel_plain:
+        g.append(line(yellow, YEL_BASE, YEL_CAP, YEL, "#000000", STROKE))
+    else:
+        g.append(line_fx(yellow, YEL_BASE, YEL_CAP, yf, "#000000", STROKE,
+                         k["yo"], STROKE + 16, k["sh"]))
     return "".join(g)
 
 
@@ -408,11 +418,18 @@ def ja123():
     #    → **e_veil を採用**（二重フチ＋縦グラデ＋影＋上の暗幕とビネット）。
     #      ⚠️ いちばん効いたのは文字そのものより**地を締めたこと**だった。
     #        地が一様な明るい灰色だと、文字だけ濃くしても画面の平板さが残る。
-    #      ⚠️ d_deep（影を最大）は行き過ぎ。黄の下half が茶色に寄って「黄色」でなくなる。
-    bake("ja123_FINAL", fx_type(hero, RED_MAIN, YEL_MAIN, "e_veil"))
-    bake("ja123_fx0_flat", rival_type(hero, RED_MAIN, YEL_MAIN))   # 旧＝単色ベタ＋フチ1本
-    for k in FX:
-        bake(f"ja123_fx_{k}", fx_type(hero, RED_MAIN, YEL_MAIN, k))
+    #      ⚠️ d_deep（影を最大）は行き過ぎ。黄の下半分が茶色に寄って「黄色」でなくなる。
+    #
+    # 🔴 2026-08-06 カズヤくん指示：**赤は新案のまま、黄だけ最初のデザインに戻す。**
+    #    赤は上端で明るい地に接するので二重フチとグラデが要る。
+    #    黄は下端に密着していて下の暗幕と黒フチだけで十分に立つ側で、
+    #    外に白フチを足すと**縁が主役になって字が読みにくくなる**。
+    bake("ja123_FINAL", fx_type(hero, RED_MAIN, YEL_MAIN, "e_veil", yel_plain=True))
+    # 地の演出（上の暗幕とビネット）を切った版。どちらが良いか見比べる用
+    bake("ja123_alt_noveil",
+         fx_type(hero, RED_MAIN, YEL_MAIN, "e_veil", yel_plain=True, ground=False))
+    bake("ja123_fx0_flat", rival_type(hero, RED_MAIN, YEL_MAIN))   # 最初＝両方とも単色ベタ
+    bake("ja123_fx_both_new", fx_type(hero, RED_MAIN, YEL_MAIN, "e_veil"))  # 両方とも新案
     # 比較用に残す
     bake("ja123_alt_bulk", rival_type(bulk, RED_MAIN, YEL_MAIN))       # 隔壁1枚
     bake("ja123_alt_flight", rival_type(flight, RED_MAIN, YEL_MAIN))   # 寄せない版
