@@ -118,6 +118,52 @@ def line(t, base, cap, fill, stroke, sw):
             f'paint-order="stroke fill">{t}</text>')
 
 
+# ── 文字の演出（2026-08-06 カズヤくん指摘「のっぺりしていてインパクトが弱い」）──
+#
+# 旧 `line()` は **単色ベタ＋フチ1本**だけだった。競合の寸法（級数・幅・色・フチ）は
+# 画素で測って合わせてあるが、**質感までは測っていなかった**。
+# 足せるのは3つ。どれも型（赤1行・黄1行・写真だけ）を壊さない。
+#   ① 二重フチ … 内側に白（または黒）、その外にもう1本。字が地から完全に浮く
+#   ② 縦グラデーション … 上を明るく下を暗く。ベタ塗りの平面感が消える
+#   ③ 影 … 右下に硬い影。厚みが出る
+# ⚠️ 位置と大きさは動かさない。`textLength` を同じにして重ねるので、
+#    何枚重ねても字面の寸法は `RED_CAP` / `YEL_CAP` のまま。
+
+def grad(gid, top, bot):
+    """縦のグラデーション。上が明るく下が暗い（光が上から当たっている見え方）。"""
+    return (f'<linearGradient id="{gid}" x1="0" y1="0" x2="0" y2="1">'
+            f'<stop offset="0" stop-color="{top}"/>'
+            f'<stop offset="1" stop-color="{bot}"/></linearGradient>')
+
+
+def line_fx(t, base, cap, fill, inner, sw_in, outer=None, sw_out=0, shadow=None):
+    """演出つきの1行。
+
+    fill   … 塗り。`url(#gid)` を渡せばグラデーションになる
+    inner  … 内側のフチ（競合の実測どおり 赤は白・黄は黒）
+    outer  … その外にもう1本。None なら1本だけ
+    shadow … (dx, dy, 色, 不透明度)。字の下に硬い影を落とす
+    ⚠️ フチは**太い順に描いて重ねる**。SVG の stroke は線の中心に乗るので、
+       外側の1本は内側より太くないと隠れる。
+    """
+    size = size_for(t, cap)
+    head = (f'<text x="{MG}" y="{base}" font-family="NSB" font-size="{size:.1f}" '
+            f'textLength="{TXT_W}" lengthAdjust="spacingAndGlyphs"')
+    g = []
+    if shadow:
+        dx, dy, col, op = shadow
+        g.append(f'{head} transform="translate({dx},{dy})" fill="{col}" stroke="{col}" '
+                 f'stroke-width="{max(sw_out, sw_in)}" stroke-linejoin="round" '
+                 f'opacity="{op}" paint-order="stroke fill">{t}</text>')
+    if outer:
+        g.append(f'{head} fill="none" stroke="{outer}" stroke-width="{sw_out}" '
+                 f'stroke-linejoin="round">{t}</text>')
+    g.append(f'{head} fill="none" stroke="{inner}" stroke-width="{sw_in}" '
+             f'stroke-linejoin="round">{t}</text>')
+    g.append(f'{head} fill="{fill}">{t}</text>')
+    return "".join(g)
+
+
 def photo(src, cy=0.5, contrast=1.18, color=1.12, bright=0.96, w=W, h=H, zoom=1.0, cx=0.5):
     """写真を箱いっぱいに切り出して data URI にする。
 
@@ -166,6 +212,63 @@ def rival_type(hero, red, yellow, split=None, extra=""):
     # フチの太さも実測に合わせた。17pxでは競合より細く、写真に接した部分が読みにくかった
     g.append(line(red, RED_BASE, RED_CAP, RED, "#ffffff", STROKE))
     g.append(line(yellow, YEL_BASE, YEL_CAP, YEL, "#000000", STROKE))
+    return "".join(g)
+
+
+# ── 演出の段階（2026-08-06）。寸法は `rival_type` と1画素も変えていない ──
+FX = {
+    # ① 二重フチだけ。赤＝白フチの外に黒、黄＝黒フチの外に白
+    "a_edge": dict(rg=None, yg=None, ro="#1a0000", yo="#ffffff", sh=None),
+    # ② ①＋縦グラデーション（上が明るく下が暗い）
+    "b_grad": dict(rg=("#e8352c", "#8e0402"), yg=("#fffb8a", "#e8b400"),
+                   ro="#1a0000", yo="#ffffff", sh=None),
+    # ③ ②＋右下に硬い影
+    "c_shadow": dict(rg=("#e8352c", "#8e0402"), yg=("#fffb8a", "#e8b400"),
+                     ro="#1a0000", yo="#ffffff", sh=(9, 9, "#000000", 0.55)),
+    # ④ ③の影をもっと落とす（厚みを最大に）
+    "d_deep": dict(rg=("#f04338", "#7d0301"), yg=("#fffcae", "#dfa200"),
+                   ro="#140000", yo="#ffffff", sh=(13, 13, "#000000", 0.7)),
+    # ⑤ ③に**上の暗幕とビネット**を足す。地がのっぺりした明るい灰色なので、
+    #    文字の側だけ濃くしても画面全体の平板さは残る。地のほうを締める。
+    "e_veil": dict(rg=("#e8352c", "#8e0402"), yg=("#fffb8a", "#e8b400"),
+                   ro="#1a0000", yo="#ffffff", sh=(9, 9, "#000000", 0.55),
+                   veil=True),
+}
+
+
+def fx_type(hero, red, yellow, fx):
+    """`rival_type` と同じ型のまま、**文字の質感だけ**を足す。"""
+    k = FX[fx]
+    g = [f'<image href="{hero}" x="0" y="0" width="{W}" height="{H}" '
+         f'preserveAspectRatio="xMidYMid slice"/>']
+    defs = [f'<linearGradient id="sb" x1="0" y1="1" x2="0" y2="0">'
+            f'<stop offset="0" stop-color="#000" stop-opacity="0.46"/>'
+            f'<stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>']
+    rf, yf = RED, YEL
+    if k["rg"]:
+        defs.append(grad("gr", *k["rg"]))
+        rf = "url(#gr)"
+    if k["yg"]:
+        defs.append(grad("gy", *k["yg"]))
+        yf = "url(#gy)"
+    g.append("".join(defs))
+    if k.get("veil"):
+        # 上の暗幕（赤の下地）と四隅のビネット。**型は変えない**（文字も写真も動かさない）。
+        defs2 = (f'<linearGradient id="st" x1="0" y1="0" x2="0" y2="1">'
+                 f'<stop offset="0" stop-color="#000" stop-opacity="0.42"/>'
+                 f'<stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>'
+                 f'<radialGradient id="vg" cx="0.5" cy="0.5" r="0.75">'
+                 f'<stop offset="0.45" stop-color="#000" stop-opacity="0"/>'
+                 f'<stop offset="1" stop-color="#000" stop-opacity="0.55"/></radialGradient>')
+        g.append(defs2)
+        g.append(f'<rect x="0" y="0" width="{W}" height="{H}" fill="url(#vg)"/>')
+        g.append(f'<rect x="0" y="0" width="{W}" height="230" fill="url(#st)"/>')
+    g.append(f'<rect x="0" y="{H - 260}" width="{W}" height="260" fill="url(#sb)"/>')
+    # 外フチは内フチより太くする（stroke は線の中心に乗るので、同じ太さだと隠れる）
+    g.append(line_fx(red, RED_BASE, RED_CAP, rf, "#ffffff", STROKE,
+                     k["ro"], STROKE + 16, k["sh"]))
+    g.append(line_fx(yellow, YEL_BASE, YEL_CAP, yf, "#000000", STROKE,
+                     k["yo"], STROKE + 16, k["sh"]))
     return "".join(g)
 
 
@@ -298,14 +401,18 @@ def ja123():
     #      地が明るい灰色で、白フチが溶けて赤い行が沈む（1本目は暗い海底写真だった）。
     #    ⚠️ 寄り1.60 は機体が枠に触れて「飛行機」に見えなくなる。1.30 が上限。
     hero = photo(JA_FLIGHT, cy=0.46, contrast=1.30, color=1.0, bright=0.85, zoom=1.30)
-    bake("ja123_FINAL", rival_type(hero, RED_MAIN, YEL_MAIN))
-    # 見比べ用（暗さと寄りの振り）
-    bake("ja123_try_d78", rival_type(
-        photo(JA_FLIGHT, cy=0.46, contrast=1.36, color=1.0, bright=0.78, zoom=1.30),
-        RED_MAIN, YEL_MAIN))
-    bake("ja123_try_z16", rival_type(
-        photo(JA_FLIGHT, cy=0.46, contrast=1.30, color=1.0, bright=0.85, zoom=1.60),
-        RED_MAIN, YEL_MAIN))
+
+    # 🔴 2026-08-06 カズヤくん指摘「文字がのっぺりしていてインパクトが弱い」。
+    #    競合の**寸法**は測って合わせてあったが、**質感**は測っていなかった。
+    #    位置も大きさも1画素も変えずに、二重フチ→グラデ→影 と段階で足して見比べる。
+    #    → **e_veil を採用**（二重フチ＋縦グラデ＋影＋上の暗幕とビネット）。
+    #      ⚠️ いちばん効いたのは文字そのものより**地を締めたこと**だった。
+    #        地が一様な明るい灰色だと、文字だけ濃くしても画面の平板さが残る。
+    #      ⚠️ d_deep（影を最大）は行き過ぎ。黄の下half が茶色に寄って「黄色」でなくなる。
+    bake("ja123_FINAL", fx_type(hero, RED_MAIN, YEL_MAIN, "e_veil"))
+    bake("ja123_fx0_flat", rival_type(hero, RED_MAIN, YEL_MAIN))   # 旧＝単色ベタ＋フチ1本
+    for k in FX:
+        bake(f"ja123_fx_{k}", fx_type(hero, RED_MAIN, YEL_MAIN, k))
     # 比較用に残す
     bake("ja123_alt_bulk", rival_type(bulk, RED_MAIN, YEL_MAIN))       # 隔壁1枚
     bake("ja123_alt_flight", rival_type(flight, RED_MAIN, YEL_MAIN))   # 寄せない版
