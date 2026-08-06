@@ -266,7 +266,13 @@ def cmd_who(args) -> int:
 
 
 def main() -> int:
+    global META
     ap = argparse.ArgumentParser(description="事故検証ch の投稿・予約")
+    # 🔴 2026-08-06：2本目（123便）から**題材ごとにメタを分ける**。
+    #    それまで META は1本目に固定で、`thumb` も `up` も
+    #    **黙って1本目のタイトルとサムネを当てる**作りだった。
+    #    → どのコマンドでも `--meta config/meta_ja123.json` を渡せるようにする。
+    ap.add_argument("--meta", help=f"省略時 {META.name}")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     p = sub.add_parser("up", help="非公開で上げる")
@@ -293,6 +299,11 @@ def main() -> int:
     p.set_defaults(fn=cmd_who)
 
     args = ap.parse_args()
+    if args.meta:
+        META = Path(args.meta) if Path(args.meta).is_absolute() else HERE / args.meta
+        if not META.exists():
+            raise SystemExit(f"メタファイルが無い: {META}")
+    print(f"メタ: {META.name}")
     return args.fn(args)
 
 
