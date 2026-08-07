@@ -83,3 +83,7 @@ assets/
 #    → `tools/upload_jiko.py` は保存する前に `git check-ignore` で無視を実測し、
 #      無視されていなければ**書かずに落ちる**（この行を消すと落ちるようにしてある）。
 config/
+
+# 🔴 アナリティクスの取得結果は public リポジトリに置かない（2026-08-07）。
+#    チャンネルの内部数字（再生・維持・CTR・Studio の CSV）が入る。
+analytics/

@@ -29,7 +29,14 @@
 ■ 使い方
     python tools/guard_cost.py            … いまの状態を見るだけ
     python tools/guard_cost.py --est 0.30 … $0.30 使う予定で回してよいか判定
+    python tools/guard_cost.py --selftest … 🔴 物差しそのものを検算する
   終了コード 0 なら回してよい。1 なら**回してはいけない**。
+
+■ 🔴 2026-08-07：**この門番は一度壊れていた**（下の parse() の注記を読むこと）
+  modal の出力形式が表に変わり、金額を1つも読めないまま **$0.00 と表示して
+  「✓ 回してよい」と言い続けていた**。読めないものを 0 と見なす作りだったため。
+  → いまは **fail closed**（読めなければ止まる）。
+  ⚠️ **modal を上げたら `--selftest` を通す。** 出力形式はまた変わる。
 """
 import re
 import subprocess
@@ -56,12 +63,77 @@ def summary():
         # ワークスペースが止められているとここに落ちる
         return None, (r.stderr or r.stdout or "").strip()[:400]
     txt = r.stdout
+    got = parse(txt)
+    if got is None:
+        return None, ("請求額を1つも読み取れなかった。modal の出力形式が変わった可能性。\n"
+                      f"   --- 実際の出力 ---\n{txt.strip()[:400]}")
+    return got, txt
 
+
+# ══ 🔴 2026-08-07：**この門番は壊れていた** ═══════════════════════════
+#  `modal billing summary` の出力が**枠線つきの表**に変わっていた：
+#        | Metered Cost:     |  1.83 |
+#  旧 `rf"{label}:\s*\$?(-?[\d.]+)"` は `:` の直後の `|` で止まるので**全項目 None**。
+#  それを main() の `used = used or 0.0` / `billed = billed or 0.0` が
+#  **黙って $0.00 に化かしていた**。
+#  → 実測 $1.83 使っているのに「使用量 $0.00・クレジット残 $30.00・予算まで $4.50」と
+#    表示し、**役目①（請求が出ていたら止める）が完全に無効**になっていた。
+#    Billed Cost が $12 でも「✓ 回してよい」と言う状態だった。
+#  直しは2つ。**両方入れる**：
+#    ① 枠線を許す正規表現にする（新旧どちらの形でも読める）
+#    ② 🔴 **読めなかったら 0 で埋めずに止める（fail closed）**。
+#       門番が「読めない」を「安全」と読み替えるのがいちばん危ない。
+#  → [[feedback-verify-your-own-instrument]]（自分の物差しをまず疑う）
+#  ⚠️ この `_NUM` も**最初に書いたものは間違っていた**（`:` と `|` のあいだの空白を
+#     取りこぼし、実物の表を読めなかった）。`--selftest` が拾った。
+#     コロンのあと → 空白 → 縦棒(省略可) → 空白 → $(省略可) → 数値、の順で書く。
+_NUM = r"\s*\|?\s*\$?\s*(-?\$?[\d,]+\.?\d*)"
+
+
+def parse(txt: str):
+    """(使用量, 充当クレジット, 請求額) を返す。**1つでも読めなければ None**。"""
     def pick(label):
-        m = re.search(rf"{label}:\s*\$?(-?[\d.]+)", txt)
-        return float(m.group(1)) if m else None
+        m = re.search(rf"{re.escape(label)}\s*:{_NUM}", txt)
+        if not m:
+            return None
+        return float(m.group(1).replace(",", "").replace("$", ""))
 
-    return (pick("Metered Cost"), pick("Credits"), pick("Billed Cost")), txt
+    vals = (pick("Metered Cost"), pick("Credits"), pick("Billed Cost"))
+    return None if any(v is None for v in vals) else vals
+
+
+def selftest() -> int:
+    """🔴 物差しは、既知の1件で当ててから信じる。
+    新しい表形式・昔の平文・読めない形の3種を通す。"""
+    cases = [
+        ("表形式（2026-08-07 の実物）",
+         "+---------------------------+\n"
+         "| Metered Cost:     |  1.83 |\n"
+         "|   Ephemeral Apps: |  1.83 |\n"
+         "|   Volumes:        |  0.01 |\n"
+         "| Credits:          | -1.83 |\n"
+         "| Free Storage:     | -0.01 |\n"
+         "| Billed Cost:      | $0.00 |\n"
+         "+---------------------------+\n", (1.83, -1.83, 0.00)),
+        ("平文（旧形式・これは前から読めていた）",
+         "Metered Cost: $12.34\nCredits: -10.00\nBilled Cost: $2.34\n", (12.34, -10.0, 2.34)),
+        ("桁区切りあり", "| Metered Cost: | 1,234.50 |\n| Credits: | -30.00 |\n"
+                    "| Billed Cost: | $1,204.50 |\n", (1234.50, -30.0, 1204.50)),
+        ("マイナスの$（-$10.00）", "Metered Cost: 5.00\nCredits: -$5.00\nBilled Cost: $0.00\n",
+         (5.0, -5.0, 0.0)),
+        ("🔴 読めない形 → None（0で埋めない）", "Something went wrong\n", None),
+        ("🔴 項目が欠けた形 → None", "| Metered Cost: | 1.83 |\n| Billed Cost: | $0.00 |\n", None),
+    ]
+    ng = 0
+    for name, txt, want in cases:
+        got = parse(txt)
+        ok = (got is None and want is None) or (
+            got is not None and want is not None
+            and all(abs(a - b) < 1e-9 for a, b in zip(got, want)))
+        print(f"  {'✓' if ok else '✗'} {name}\n      → {got}（期待 {want}）")
+        ng += 0 if ok else 1
+    print("\n✓ 物差しは正しい。" if not ng else f"\n🔴 {ng}件ずれている。信じてはいけない。")
+    return 1 if ng else 0
 
 
 def main(est=0.0):
@@ -73,14 +145,15 @@ def main(est=0.0):
         print("      https://modal.com/settings/torotorotolo/usage を見ること。")
         return 1
 
+    # 🔴 `or 0.0` で埋めない。summary() は1つでも読めなければ None を返して
+    #    上で止まる作りにしたので、ここに来たときは3つとも読めている。
+    #    （前は None を 0.0 に化かしていて、それが門番を無効にしていた）
     used, credits, billed = got
-    used = used or 0.0
-    billed = billed or 0.0
     avail = CREDITS_USD - used            # 残っているクレジット
     room = BUDGET_USD * MARGIN - used     # 予算まであとどれだけ使えるか
 
     print(f"  使用量        ${used:.2f}")
-    print(f"  充当クレジット ${credits or 0.0:.2f}")
+    print(f"  充当クレジット ${credits:.2f}")
     print(f"  **請求額      ${billed:.2f}**")
     print(f"  クレジット残  ${avail:.2f} / ${CREDITS_USD:.2f}")
     print(f"  予算まで      ${room:.2f}（上限 ${BUDGET_USD:.2f} の {MARGIN:.0%} まで使う）")
@@ -119,6 +192,8 @@ def main(est=0.0):
 
 
 if __name__ == "__main__":
+    if "--selftest" in sys.argv:
+        sys.exit(selftest())
     e = 0.0
     for i, a in enumerate(sys.argv):
         if a == "--est" and i + 1 < len(sys.argv):
