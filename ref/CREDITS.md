@@ -307,6 +307,7 @@ commit するのは写真部分を切り出した 2400px 版のみ。
 | `cm_USS_Thresher__SSN-593_.jpg` | 5677x4441 | Public domain | USS Thresher (SSN-593).jpg |
 | `cm_USS_Thresher__SSN-593__bow.jpg` | 4918x6136 | Public domain | USS Thresher (SSN-593) bow.jpg |
 
+| `cm_330-PSA-99-64a__22356922549_.jpg` | 2272x3092 | Public domain | 330-PSA-99-64a (22356922549).jpg |
 ### ②b NARA 静止画（General B&W Photographic File）
 
 | ファイル | 実測 | 出典 | 中身 |
