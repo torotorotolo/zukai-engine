@@ -61,6 +61,17 @@ ref/_ntsb_raw/
 # 権利は **公共データ利用規約 PDL1.0**（CC BY 4.0 互換。複製・公衆送信・翻案を許諾）。
 !ref/ja123/
 
+# ══ 3本目：スレッシャー号（USS Thresher SSN-593 / 1963-04-10）══════════
+# 中身は3つ。出どころと根拠は ref/CREDITS.md の台帳と1対1。
+#   thr_t1〜t41.jpg … NARA 289-T アルバム41ページから写真部分を切り出したもの
+#   thr_fig*.png    … 査問会記録 第9・10次公開から取り出した海図・データ表
+#   thr_cm_*.jpg    … Wikimedia Commons の PD 写真（CC BY-SA は入れない＝継承を避ける）
+# 権利＝米海軍の職務著作でパブリックドメイン（NARA "Works of the U.S. Government"）
+!ref/thresher/
+# 🔴 原本（アルバム5860px×41点＝350MB）と査問会PDF（128MB）は**入れない**。
+#    このリポジトリは public で、git は履歴を消せない。原本は下の作業用に置く。
+ref/_thresher_raw/
+
 # 🔴 ナレーションの wav はリポジトリに入れない（1本34分で163MB）。
 #    git は履歴を消せないので、作り直すたびに積み上がる。
 #    **コミットするのは audio/opus/*.opus（22MB）**。クラウドは焼く前に

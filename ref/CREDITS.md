@@ -226,3 +226,134 @@ S. Taragel）は、**申し立てを受けうる種類**であることを承知
 　 出典表記も記事名と年月まで出すように変えた。
 ⚠️ `c619` の旧「取材に対し、放送局は偽の動画であると答えている」は、
 　 **どちらの文献にも、周辺の報道にも見当たらなかった**ので差し替えた。
+
+## USS Thresher (SSN-593)（1963-04-10・3本目）
+
+**権利：すべて米海軍の職務著作＝パブリックドメイン。**
+根拠＝NARA「Works of the U.S. Government … are in the public domain」
+<https://www.archives.gov/global-pages/privacy.html>
+→ **継承義務も Content ID リスクも無い。切って寄せてよい。**
+
+### ① NARA 289-T アルバム（RG 289 Records of the Naval Intelligence Command）
+
+fileUnit `138924735`「Photographs Taken During the Search for the USS Thresher」
+（1964年9月に海軍が編纂／TRIESTE・曳航カメラ NRL/MIZAR が撮影）。
+取得＝`https://catalog.archives.gov/proxy/records/search?ancestorNaId=138924735`
+（🔴 公式 `api/v2` はHTMLを返すので使えない）。
+
+原本は 5831〜6879px・8bitグレー・41点350MB。**原本は `ref/_thresher_raw/`（git 管理外）**、
+commit するのは写真部分を切り出した 2400px 版のみ。
+
+| ファイル | 原本 | 出典番号 | 中身 |
+|---|---|---|---|
+| `thr_t1.jpg` | 5831x3659 | 289-T-1 | USS Thresher (SSN-593) 1963-1964 Search Photography Cover |
+| `thr_t2.jpg` | 5850x3555 | 289-T-2 | Acknowledgment Page |
+| `thr_t3.jpg` | 5850x3555 | 289-T-3 | Photograph of the Bow Outer Hull Section |
+| `thr_t4.jpg` | 5850x3555 | 289-T-4 | Photograph of Bow Outer Hull Aft of Sonar Dome |
+| `thr_t5.jpg` | 5850x3555 | 289-T-5 | Photograph of Bow Plating |
+| `thr_t6.jpg` | 5850x3640 | 289-T-6 | Photograph of Steel Webbing Supports |
+| `thr_t7.jpg` | 5850x3640 | 289-T-7 | Photograph of Bow Outer Hull Plating |
+| `thr_t8.jpg` | 5850x3688 | 289-T-8 | Photograph of Torn Bow Section |
+| `thr_t9.jpg` | 5850x3688 | 289-T-9 | Photograph of Bow Section Seen from Aft |
+| `thr_t10.jpg` | 5850x3688 | 289-T-10 | Photograph of Pressure Hull Portion |
+| `thr_t11.jpg` | 5850x3688 | 289-T-11 | Photograph of Outer Hull, Right Hand Portion |
+| `thr_t12.jpg` | 5850x3688 | 289-T-12 | Photograph of Light Debris |
+| `thr_t13.jpg` | 5917x3745 | 289-T-13 | Photograph of Miscellaneous Debris |
+| `thr_t14.jpg` | 5917x3745 | 289-T-14 | Shipyard Photograph |
+| `thr_t15.jpg` | 5917x3745 | 289-T-15 | Photograph of Run #0029-C, Closeup |
+| `thr_t16.jpg` | 5917x3745 | 289-T-16 | Photograph of Sail, Starboard Side |
+| `thr_t17.jpg` | 6879x4879 | 289-T-17 | Mosaic of the Sail |
+| `thr_t18.jpg` | 6879x4879 | 289-T-18 | Photograph of Air Bottle, Torpedo Shutter Door, and Sail, Upper Portion |
+| `thr_t19.jpg` | 6879x4879 | 289-T-19 | Photograph of the Outer Hull |
+| `thr_t20.jpg` | 6879x4879 | 289-T-20 | Photograph of the Bridge Access Trunk and ECM Mast |
+| `thr_t21.jpg` | 6879x4879 | 289-T-21 | Photograph of the Diesel Exhaust Line |
+| `thr_t22.jpg` | 5860x3726 | 289-T-22 | Shipyard Photograph |
+| `thr_t23.jpg` | 5860x3726 | 289-T-23 | Mosaic Photograph of the Tail Section |
+| `thr_t24.jpg` | 5860x3774 | 289-T-24 | Photograph of Draft Markers on Topside Rudder |
+| `thr_t25.jpg` | 5860x3774 | 289-T-25 | Photograph of Port Stern Plane PUFFS Hydrophone |
+| `thr_t26.jpg` | 5860x3774 | 289-T-26 | Photograph of Starboard Stern Plane PUFFS Hydrophone. |
+| `thr_t27.jpg` | 5860x3774 | 289-T-27 | Photograph of Tail Section, Top View |
+| `thr_t28.jpg` | 5860x3736 | 289-T-28 | Photograph of the Anchor |
+| `thr_t29.jpg` | 5860x3736 | 289-T-29 | Photograph of Break at Frame 78, with Outer Hull |
+| `thr_t30.jpg` | 5860x3736 | 289-T-30 | Photograph of Break at Frame 78, Top View |
+| `thr_t31.jpg` | 5860x3802 | 289-T-31 | Photograph of Messenger Buoy Cable, Line Locker, and Escape Trunk Hatch |
+| `thr_t32.jpg` | 5860x3679 | 289-T-32 | Photograph of Line Locker, Messenger Buoy Cable Reel Recess, Hand Recesses, Salvage Air Fi |
+| `thr_t33.jpg` | 5860x3717 | 289-T-33 | Mosaic Photograph of the Outer Hull, Aft. |
+| `thr_t34.jpg` | 5908x3755 | 289-T-34 | Photograph of Stern Chock Section, Top View |
+| `thr_t35.jpg` | 5908x3698 | 289-T-35 | Photograph of Light Debris |
+| `thr_t36.jpg` | 5860x3698 | 289-T-36 | Photograph of Shoe Cover |
+| `thr_t37.jpg` | 5860x3698 | 289-T-37 | Photograph of Air Bottle |
+| `thr_t38.jpg` | 5860x3774 | 289-T-38 | Photograph of Correspondence Paper Debris |
+| `thr_t39.jpg` | 5860x3631 | 289-T-39 | Photograph of Outer Hull Plating |
+| `thr_t40.jpg` | 5860x3631 | 289-T-40 | Photograph of Debris, Ladder |
+| `thr_t41.jpg` | 5860x3631 | 289-T-41 | TRIESTE II Tracks |
+
+⚠️ **ページには英字の説明札が貼ってあり、機械の切り出しでは 41点中およそ27点で残っている。**
+　 全画面で使うカットは `scene_jiko.TRIM_BY_PHOTO` に**ファイル単位で手で**入れる。
+⚠️ 左上と右下の黒帯は**機密指定印を手で塗り潰したもの**（切り出しでほぼ落ちている）。
+
+### ② Wikimedia Commons（PD / CC0 のみ）
+
+⚠️ カテゴリ50点の内訳は PD 40／CC BY-SA 4.0 4／CC0 2／CC BY-SA 3.0 2／CC BY 3.0 1／CC BY 2.5 1。
+**CC BY-SA は継承が生じるので落としていない。**
+
+| ファイル | 実測 | ライセンス | 元の名前 |
+|---|---|---|---|
+| `cm_330-PSA-309-64a__22791587391_.jpg` | 2396x3237 | Public domain | 330-PSA-309-64a (22791587391).jpg |
+| `cm_anp_thresher_1963.jpg` | 4095x3304 | CC0 | Amerikaanse atoomduikboot Thesher met 129 man vermist, Bestanddeelnr 915-0380.jpg |
+| `cm_NH_97544_USS_Thresher.png` | 5677x4441 | Public domain | NH 97544 USS Thresher.png |
+| `cm_USN_1048964_USS_Thresher__SSN-593_.jpg` | 5706x4554 | Public domain | USN 1048964 USS Thresher (SSN-593).jpg |
+| `cm_USN_1048964_USS_Thresher__SSN-593_.png` | 5706x4554 | Public domain | USN 1048964 USS Thresher (SSN-593).png |
+| `cm_USS_Thresher__SSN-593_.jpg` | 5677x4441 | Public domain | USS Thresher (SSN-593).jpg |
+| `cm_USS_Thresher__SSN-593__bow.jpg` | 4918x6136 | Public domain | USS Thresher (SSN-593) bow.jpg |
+
+### ②b NARA 静止画（General B&W Photographic File）
+
+| ファイル | 実測 | 出典 | 中身 |
+|---|---|---|---|
+| `nara_428-N-1057645.jpg` | 2301x2850 RGB | NARA `175539769`（428-N-1057645） | Bow View of the Nuclear-Powered Attack Submarine USS Thresher。**PD** |
+
+### ③ 査問会記録（Court of Inquiry・2020〜2021年に機密解除）
+
+| 資料 | URL | 中身 |
+|---|---|---|
+| Volume I（300ページ・87.3MB） | `https://assets.documentcloud.org/documents/7216658/Ocr-THRESHER-Pg-1-300.pdf` | 本文741,536文字。Findings of Fact はPDF 34〜56ページ |
+| 第9・10次公開（600ページ・41.0MB） | `https://s3.documentcloud.org/documents/20986255/tresher9_10_reduced.pdf` | 本文632,904文字。海図・緊急浮上試験のデータ表・SKYLARK の記録 |
+
+⚠️ `curl -sL -o` は0バイトで落ちる。`--fail --retry 3 -A "Mozilla/5.0" -e "https://www.documentcloud.org/"` で取る。
+**PDFは `ref/_thresher_raw/` に置く（git 管理外）。**
+
+取り出した図版（`tools` 相当の処理は `scratchpad/pdf_figs.py` + `pick_figs.py`）：
+
+| ファイル | 元 | 実測 | 中身 |
+|---|---|---|---|
+| `thr_fig_chart_exhibit50.jpg` | 第9・10次 PDF 131ページ | 2600x1864（原 7808x5600） | 捜索海図（EXHIBIT 50・線画・航跡と爆発位置） |
+| `thr_fig_chart_redact_a.jpg` | 第9・10次 PDF 132ページ | 2600x1835（原 3964x2799） | 捜索海図（鉛筆の航跡・白い塗り潰し 173x120px） |
+| `thr_fig_chart_redact_b.jpg` | 第9・10次 PDF 135ページ | 2600x1824（原 3988x2799） | 捜索海図（鉛筆の航跡・白い塗り潰し 367x236px） |
+| `thr_fig_chart_c.jpg` | 第9・10次 PDF 133ページ | 2600x1834（原 3966x2799） | 捜索海図（同系・別葉） |
+| `thr_fig_table_thresher.jpg` | 第9・10次 PDF 490ページ | 2600x1615（原 4224x2624） | TABLE I 緊急浮上試験の実測（THRESHER SSN-593） |
+| `thr_fig_table_permit.jpg` | 第9・10次 PDF 491ページ | 2600x1615（原 4224x2624） | TABLE 2 同（PERMIT SSN-594） |
+| `thr_fig_log_cover.jpg` | 第9・10次 PDF 119ページ | 1540x2600（原 2560x4320） | SKYLARK 報告 表紙（ORIGINAL 印） |
+| `thr_fig_log_p1.jpg` | 第9・10次 PDF 120ページ | 1540x2600（原 2560x4320） | SKYLARK 経過記録 1 |
+| `thr_fig_log_p2.jpg` | 第9・10次 PDF 121ページ | 1540x2600（原 2560x4320） | SKYLARK 経過記録 2 |
+| `thr_fig_log_p3.jpg` | 第9・10次 PDF 122ページ | 1540x2600（原 2560x4320） | SKYLARK 経過記録 3（0900〜0917R） |
+
+🔴 `thr_fig_chart_redact_a/b.jpg` の**白い矩形は塗り潰し**（実物で確認）。
+　 紙の明るさ 185〜187 に対して 255 の純白が乗っている。**加工ではない。**
+
+### ④ NARA 記録映画（すべてPD・**720x480 の4:3**）
+
+動画はリポジトリに入れない（`tools/footage.py` の約束どおり URL から落とす）。
+
+| naId | 尺 | 中身 |
+|---|---|---|
+| `85185` | 789秒 | USS THRESHER (SSN-593) |
+| `83755` | 670秒 | SEARCH FOR USS THRESHER (SSN-593) TRIESTE Test Dive |
+| `83737` | 515秒 | SEARCH FOR USS THRESHER (SSN-593) 250 Miles East of Cape Cod over Atlantic |
+| `83740` | 328秒 | THRESHER MEMORIAL SERVICE Portsmouth, N. H |
+| `83750` | 282秒 | SEARCH FOR USS THRESHER (SSN-593) |
+| `83213` | 190秒 | LAUNCHING OF USS THRESHER (SSN-593) Naval Shipyard, Portsmouth |
+
+ほかに未取得14本（83741 / 83746 / 83754 / 83757 / 83758 / 83759 / 83760 /
+83766 / 83767 / 83771 / 83795 / 84149 ほか）。計20本・2,328MB。
+🔴 **83774（記者会見）は使わない**（人の顔が写る記者会見は使わない、というルール）。
