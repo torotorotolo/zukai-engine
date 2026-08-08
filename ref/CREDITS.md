@@ -296,18 +296,30 @@ commit するのは写真部分を切り出した 2400px 版のみ。
 
 ⚠️ カテゴリ50点の内訳は PD 40／CC BY-SA 4.0 4／CC0 2／CC BY-SA 3.0 2／CC BY 3.0 1／CC BY 2.5 1。
 **CC BY-SA は継承が生じるので落としていない。**
+⚠️ **原寸URLは 429 を返す。** API に `iiurlwidth` を渡して `thumburl` をもらうと通る
+（勝手な幅の `/thumb/.../NNNpx-` は 400「Use thumbnail sizes listed on ...」で弾かれる）。
+そのため 1920px 幅のものが混ざっている（本編は1920x1080なので実害なし）。
+⚠️ 同じ絵の PNG/JPG 重複2組と、URLのクエリが名前に混ざった1点は削除ずみ（32bit指紋で検出）。
 
-| ファイル | 実測 | ライセンス | 元の名前 |
+| ファイル | 実測 | ライセンス | 中身 |
 |---|---|---|---|
-| `cm_330-PSA-309-64a__22791587391_.jpg` | 2396x3237 | Public domain | 330-PSA-309-64a (22791587391).jpg |
-| `cm_anp_thresher_1963.jpg` | 4095x3304 | CC0 | Amerikaanse atoomduikboot Thesher met 129 man vermist, Bestanddeelnr 915-0380.jpg |
-| `cm_NH_97544_USS_Thresher.png` | 5677x4441 | Public domain | NH 97544 USS Thresher.png |
-| `cm_USN_1048964_USS_Thresher__SSN-593_.jpg` | 5706x4554 | Public domain | USN 1048964 USS Thresher (SSN-593).jpg |
-| `cm_USN_1048964_USS_Thresher__SSN-593_.png` | 5706x4554 | Public domain | USN 1048964 USS Thresher (SSN-593).png |
-| `cm_USS_Thresher__SSN-593_.jpg` | 5677x4441 | Public domain | USS Thresher (SSN-593).jpg |
-| `cm_USS_Thresher__SSN-593__bow.jpg` | 4918x6136 | Public domain | USS Thresher (SSN-593) bow.jpg |
+| `cm_330-PSA-110-63__USN_711302___22171571340_.jpg` | 2160x1736 | Public domain | 海底の残骸（セピア調）。**289-T アルバムとは別の色味** |
+| `cm_330-PSA-110-63__USN_711303___22172737989_.jpg` | 1920x1555 | Public domain | 海底の残骸（セピア調） |
+| `cm_330-PSA-110-63__USN_711304___22333570016_.jpg` | 1920x1577 | Public domain | 海底の残骸（セピア調） |
+| `cm_330-PSA-191-63__USN_711349___22333493576_.jpg` | 1920x1493 | Public domain | 粗い探査画像（青みがかった走査像） |
+| `cm_330-PSA-191-65__USN_711345___22172639369_.jpg` | 1920x1503 | Public domain | ねじれた金属の高コントラスト写真 |
+| `cm_330-PSA-309-64a__22791587391_.jpg` | 2396x3237 | Public domain | 🔴 **国防総省 NEWS RELEASE 1964-10-01「NAVY CONCLUDES RESEARCH OPERATIONS IN THRESHER SEARCH AREA」**（DoD の紋章つき・タイプ打ち原文） |
+| `cm_330-PSA-309-64b__22766848982_.jpg` | 1920x2634 | Public domain | 同 2ページ目（TRIESTE II の運用・捜索の記述） |
+| `cm_330-PSA-309-64c__22159229233_.jpg` | 1920x2063 | Public domain | 同 3ページ目（END まで） |
+| `cm_330-PSA-99-64a__22356922549_.jpg` | 2272x3092 | Public domain | 🔴 **国防総省 NEWS RELEASE 1964-04-28「NAVY RELEASES REPORT OF ITS DEEP SUBMERGENCE SYSTEMS REVIEW GROUP」** |
+| `cm_330-PSA-99-64b__22355788950_.jpg` | 1920x2613 | Public domain | 同 2ページ目（審査グループの構成員一覧） |
+| `cm_SSN593_service_entering.jpg` | 1750x1211 | Public domain | 岸壁のスレッシャー。セイルの593と乗員が写る |
+| `cm_USN_1048964_USS_Thresher__SSN-593_.jpg` | 5706x4554 | Public domain | ⭐造船所のスレッシャー。**艦首のソナードームと建造中の船体**・岸に人 |
+| `cm_USS_Thresher__SSN-593_.jpg` | 5677x4441 | Public domain | ⭐**いちばん有名な航走中の写真**（競合17本の大半が使っている絵） |
+| `cm_USS_Thresher__SSN-593__bow.jpg` | 4918x6136 | Public domain | ⭐**正面から見た艦首**。競合が使っていない構図 |
+| `cm_USS_Thresher__SSN-593__bow__cropped_.jpg` | 1920x2429 | Public domain | 同・切り抜き版 |
+| `cm_anp_thresher_1963.jpg` | 4095x3304 | Public domain | 1963年の報道写真（プリントを台紙に留めた状態で撮ったもの） |
 
-| `cm_330-PSA-99-64a__22356922549_.jpg` | 2272x3092 | Public domain | 330-PSA-99-64a (22356922549).jpg |
 ### ②b NARA 静止画（General B&W Photographic File）
 
 | ファイル | 実測 | 出典 | 中身 |
