@@ -147,13 +147,37 @@ BACKDROP = {
     # HY-80 は船体の鋼材。海底で撮られた外板そのもの（約10フィート四方）
     "c520": dict(photo="thresher/thr_t39.jpg", bias=0.46, veil=0.86),
 
+    # ── プロローグ（2026-08-09 追加）────────────────────────────
+    # 「残骸は、この深さの海底にある」＝その海底そのもの（軽い破片が散る一面）
+    "pr04": dict(photo="thresher/thr_t12.jpg", bias=0.48, veil=0.86),
+    # 「公開されたのは2020年と2021年／全12巻」＝公開された記録の紙そのもの
+    "pr09": dict(photo="thresher/thr_fig_log_p1.jpg", bias=0.30, veil=0.88),
+    # 「立つのは記録だけである」＝記録の紙（緊急浮上試験の実測表）
+    "pr10": dict(photo="thresher/thr_fig_table_thresher.jpg", bias=0.46,
+                 veil=0.88),
+
+    # ── 第1章（2026-08-09 追加）──────────────────────────────
+    # 「新しい級の、1番艦だった」＝その艦そのもの（正面から見た艦首）
+    "c102": dict(photo="thresher/cm_USS_Thresher__SSN-593__bow.jpg",
+                 bias=0.44, veil=0.86),
+
     # ── 第6章：この章は写真が主役なので、図のカットにも当てられる ────────
     "c613": dict(photo="thresher/thr_t23.jpg", bias=0.48, veil=0.86),
-    "c615": dict(photo="thresher/thr_t24.jpg", bias=0.40, xbias=0.36,
-                 zoom=1.30, veil=0.86),
+    # 🔴 c615 は台本から落としたので、地に敷く割り当ても外した（2026-08-09）。
     "c616": dict(photo="thresher/thr_t16.jpg", bias=0.48, veil=0.86),
     "c627": dict(photo="thresher/thr_t38.jpg", bias=0.46, veil=0.86),
     "c629": dict(photo="thresher/thr_t1.jpg", bias=0.44, veil=0.88),
+    # 2026-08-09 追加（アルバムを使い切る・カズヤくん判断）
+    # 「世界で最も徹底的に調べられた海の一区画」＝その一区画そのもの
+    "c608": dict(photo="thresher/thr_t35.jpg", bias=0.48, veil=0.86),
+    # 「写真は2通りの方法で撮られた」＝曳航カメラがつないだモザイクそのもの
+    "c610": dict(photo="thresher/thr_t33.jpg", bias=0.46, veil=0.86),
+    # 🔴 c611 は台本から落としたので、地に敷く割り当ても外した（2026-08-09）。
+    # 「撮れたものが2つ、名指しで書いてある」＝その発表の紙（3ページ目）
+    "c612": dict(photo="thresher/cm_330-PSA-309-64c__22159229233_.jpg",
+                 bias=0.32, veil=0.88),
+    # 「写真が撮れたのは、探す技術を試したからである」＝その技術が撮った1枚
+    "c631": dict(photo="thresher/thr_t19.jpg", bias=0.48, veil=0.86),
 }
 
 for _cid, _ov in BACKDROP.items():
