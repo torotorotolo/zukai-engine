@@ -163,6 +163,81 @@ def ja123_credit(name):
             f"／縮小・切出")
 
 
+# ══ 3本目（スレッシャー号）の出典 ══════════════════════════
+# 🔴 **出典は撮影者・機関まで画面に出す**（ルール統合版 §3）。台帳＝`ref/CREDITS.md`。
+#    ja123 と同じく、名前の規則から作る。**書き忘れると KeyError で落ちる**ので、
+#    ref/thresher/ に足したファイルは必ずどれかの規則に当たるようにする。
+CR_NARA_T = "出典：米国国立公文書館 NARA 289-T"          # 捜索写真アルバム41点
+CR_INQ = "出典：スレッシャー号査問会記録 第9・10次公開"   # 報告書から取り出した図
+CR_USN_PD = "出典：米海軍（パブリックドメイン）"
+
+THR_ALBUM = re.compile(r"^thr_t(\d{1,2})\.jpg$")
+# 🔴 2026-08-09 追加：アルバムの**ページ全体**（写真部分だけを切り出す前のもの）。
+#    第6章 c630 は「ページの左上と右下に、機密指定の印を手で消した跡が残っている」
+#    という話なので、**切り出した写真では跡が落ちていて出せない**。
+THR_PAGE = re.compile(r"^thr_page(\d{1,2})\.jpg$")
+THR_FIG = re.compile(r"^thr_fig_(.+)\.jpg$")
+# 報告書の図は、どのページから切ったかまで出す（あとで照合できるように）
+THR_FIG_PAGE = {
+    "chart_exhibit50": ("131", "EXHIBIT 50 捜索海図"),
+    "chart_redact_a": ("132", "捜索海図"),
+    "chart_redact_b": ("135", "捜索海図"),
+    # 🔴 2026-08-09 追加：原本（3988x2799）から書き込みの一角だけを切り出したもの。
+    #    2600px 版から寄ると 8倍に伸びるが、原本から切れば 1.2〜1.8倍で足りる。
+    "chart_redact_b2": ("135", "捜索海図　書き込みの一角"),
+    "chart_c": ("133", "捜索海図"),
+    "table_thresher": ("490", "TABLE I 緊急浮上試験"),
+    "table_permit": ("491", "TABLE 2 緊急浮上試験（PERMIT）"),
+    "log_cover": ("119", "SKYLARK 報告 表紙"),
+    "log_p1": ("120", "経過記録"),
+    "log_p2": ("121", "経過記録"),
+    "log_p3": ("122", "経過記録"),
+}
+# Commons の 330-PSA は撮影番号が名前に入っているので、そこまで出す
+THR_PSA = re.compile(r"^cm_(330-PSA-[\w-]+?)__")
+THR_CM = {
+    "cm_SSN593_service_entering.jpg": f"{CR_USN_PD}　USS THRESHER (SSN-593)",
+    "cm_USN_1048964_USS_Thresher__SSN-593_.jpg":
+        f"{CR_USN_PD}　USN 1048964（造船所）",
+    "cm_USS_Thresher__SSN-593_.jpg": f"{CR_USN_PD}　USS THRESHER (SSN-593)",
+    "cm_USS_Thresher__SSN-593__bow.jpg": f"{CR_USN_PD}　艦首",
+    "cm_USS_Thresher__SSN-593__bow__cropped_.jpg": f"{CR_USN_PD}　艦首／切出",
+    "cm_anp_thresher_1963.jpg": f"{CR_USN_PD}　1963年",
+    "nara_428-N-1057645.jpg": "出典：米国国立公文書館 NARA 428-N-1057645（米海軍撮影）",
+}
+
+
+def thresher_credit(name):
+    """`ref/thresher/` の名前から出典表記を作る。当てはまらなければ None。
+
+      thr_t24.jpg              → 出典：NARA 289-T-24（米海軍／NRL・MIZAR 撮影）
+      thr_fig_chart_redact_b   → 出典：査問会記録 第9・10次公開 135ページ 捜索海図
+      cm_330-PSA-309-64a__…    → 出典：米海軍 330-PSA-309-64a（パブリックドメイン）
+    """
+    n = Path(name).name
+    if n in THR_CM:
+        return THR_CM[n]
+    m = THR_ALBUM.match(n)
+    if m:
+        return (f"{CR_NARA_T}-{int(m.group(1))}"
+                f"（米海軍／NRL・MIZAR ほか撮影・1964年編纂）")
+    m = THR_PAGE.match(n)
+    if m:
+        return (f"{CR_NARA_T}-{int(m.group(1))}"
+                f"（アルバムのページ全体・米海軍／NRL・MIZAR ほか撮影・1964年編纂）")
+    m = THR_FIG.match(n)
+    if m:
+        key = m.group(1)
+        if key not in THR_FIG_PAGE:
+            return None                  # 🔴 黙って通さない。KeyError で気づかせる
+        page_no, what = THR_FIG_PAGE[key]
+        return f"{CR_INQ} {page_no}ページ　{what}／切出"
+    m = THR_PSA.match(n)
+    if m:
+        return f"{CR_USN_PD}　{m.group(1)}"
+    return None
+
+
 def credit_of(cid, spec):
     """そのカットに出す出典。**動画を当てたカットは動画の出典を出す。**
 
@@ -178,8 +253,13 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    return (kaisetsu_credit(spec["photo"]) or ja123_credit(spec["photo"])
-            or PHOTO_CREDIT[spec["photo"]])
+    cr = (thresher_credit(spec["photo"]) or kaisetsu_credit(spec["photo"])
+          or ja123_credit(spec["photo"]) or PHOTO_CREDIT[spec["photo"]])
+    # 🔴 階調を伸ばした写真は、そのことを出典の行に出す（2026-08-09）。
+    #    切り抜きに「／切出」と付けているのと同じ扱い。黙って手を入れない。
+    if spec.get("levels") or LEVELS_BY_PHOTO.get(spec["photo"]):
+        cr += "・濃淡補正"
+    return cr
 
 
 def face_css(name, filename):
@@ -561,6 +641,27 @@ TRIM_BY_PHOTO = {
 PHOTO_TRIM = {cid: s.get("trim") or TRIM_BY_PHOTO.get(s["photo"])
               for cid, s in SPEC.items() if s.get("photo")}
 PHOTO_TRIM = {c: t for c, t in PHOTO_TRIM.items() if t}
+
+# ── 階調を伸ばす写真（切り抜きと同じく**ファイル単位**で持つ）──────────
+# 🔴 2026-08-09（カズヤくん承認）：捜索海図は**線と紙の明るさの差が
+#    255階調中12〜16しかない**（実測）。素のまま出すと鉛筆の航跡も船名も見えない。
+#      thr_fig_chart_redact_a  min 38 / p1 141 / median 182 / p99 198 / max 255
+#      thr_fig_chart_redact_b  min 43 / p1 159 / median 185 / p99 199 / max 255
+#      thr_fig_chart_c         min 40 / p1 156 / median 185 / max 212
+#    → (118, 196) で伸ばすと、紙が 210〜255・鉛筆が 75〜135 になって読める
+#      （切った結果を目で見て決めた。数値だけで決めていない）。
+# ⚠️ **中身は足さない・消さない。** 出典の行に「濃淡補正」と出す（`credit_of`）。
+# ⚠️ 白い塗り潰し（ちょうど255）は伸ばしても255のまま。**塗り潰しの実測値は
+#    伸ばす前の原本で測ってある**（内側 254.95〜254.99・標準偏差 0.09〜0.22）。
+LEVELS_BY_PHOTO = {
+    "thresher/thr_fig_chart_redact_a.jpg": (118, 196),
+    "thresher/thr_fig_chart_redact_b.jpg": (118, 196),
+    "thresher/thr_fig_chart_redact_b2.jpg": (118, 196),
+    "thresher/thr_fig_chart_c.jpg": (118, 196),
+}
+PHOTO_LEVELS = {cid: s.get("levels") or LEVELS_BY_PHOTO.get(s["photo"])
+                for cid, s in SPEC.items() if s.get("photo")}
+PHOTO_LEVELS = {c: v for c, v in PHOTO_LEVELS.items() if v}
 
 # 全画面の実写カット。(枠, ファイル名, 縦方向の寄せ)
 # ⚠️ `photo_box` が `TRIM_BY_PHOTO` を見るので、**この行は必ず上の定義より後**に置く

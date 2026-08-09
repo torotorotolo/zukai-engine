@@ -119,13 +119,36 @@ def foot_frame(cut, t):
     return Image.open(p).convert("RGB")
 
 
-def load_photo(name, box, trim=None):
+def stretch(src, levels):
+    """階調を伸ばす。**中身は足さない・消さない。濃淡だけを強める。**
+
+    🔴 2026-08-09（カズヤくん承認）：捜索海図は**線と紙の明るさの差が
+       255階調中わずか12〜16**（実測：紙の中央部 median 182〜185 / p5 166〜172）。
+       素のまま出すと、鉛筆の航跡も書き込まれた船名も画面でまったく見えない。
+       第5章はその海図が主役なので、**読めないままでは章が成立しない。**
+    ⚠️ 引用の要件④「改変しない」は**中身を変えないこと**であって、
+       すでに `trim`（切り抜き）を掛けているのと同じ範囲の処理として扱う。
+       出典の行に「濃淡補正」と出す（`scene_jiko.credit_of`）。
+    """
+    lo, hi = levels
+    if not 0 <= lo < hi <= 255:
+        raise ValueError(f"levels が不正です: {levels}")
+    lut = [max(0, min(255, round((v - lo) * 255 / (hi - lo)))) for v in range(256)]
+    return src.point(lut * len(src.getbands()))
+
+
+def load_photo(name, box, trim=None, levels=None):
     """写真は箱の2倍程度まで先に落としておく（4GBのPCでも開けるように）。
 
-    trim … (x0, y0, x1, y1) を**元画像に対する割合**で渡すと、先に切り落とす。
-           報告書の英字ラベルを画面に出さないために使う（`S.PHOTO_TRIM`）。
+    trim   … (x0, y0, x1, y1) を**元画像に対する割合**で渡すと、先に切り落とす。
+             報告書の英字ラベルを画面に出さないために使う（`S.PHOTO_TRIM`）。
+    levels … (lo, hi) を渡すと**階調を伸ばす**（`S.PHOTO_LEVELS`）。
+             ⚠️ 切る前・縮める前に掛ける。あとから掛けると、縮小で平均化された
+               画素に対して伸ばすことになり、測った値と合わなくなる。
     """
     src = Image.open(S.HERE / "ref" / name).convert("RGB")
+    if levels:
+        src = stretch(src, levels)
     if trim:
         w, h = src.size
         x0, y0, x1, y1 = trim
@@ -491,7 +514,7 @@ def qa_shots(cids, idx, meta, at=0.92):
     lay = _load_layers(cids, idx)
     band = load_band()
     photos = {c: load_photo(S.PHOTO_CUTS[c][1], S.PHOTO_CUTS[c][0],
-                            S.PHOTO_TRIM.get(c))
+                            S.PHOTO_TRIM.get(c), S.PHOTO_LEVELS.get(c))
               for c in cids if idx[c]["photo"]}
     out = []
     for cid in cids:
@@ -520,7 +543,7 @@ def _seg_worker(args):
     photos = {}
     if idxv["photo"]:
         photos[cid] = load_photo(S2.PHOTO_CUTS[cid][1], S2.PHOTO_CUTS[cid][0],
-                                 S2.PHOTO_TRIM.get(cid))
+                                 S2.PHOTO_TRIM.get(cid), S2.PHOTO_LEVELS.get(cid))
     band = load_band()
     meta = {cid: metav}
     n = nframes
@@ -647,7 +670,8 @@ def veil_ladder(idx, meta, cids=None, alphas=(0.76, 0.80, 0.84, 0.88, 0.92)):
     lay = _load_layers(cids, idx)
     band = load_band()
     photos = {c: load_photo(S.PHOTO_CUTS[c][1], S.PHOTO_CUTS[c][0],
-                            S.PHOTO_TRIM.get(c)) for c in cids}
+                            S.PHOTO_TRIM.get(c), S.PHOTO_LEVELS.get(c))
+              for c in cids}
     for cid in cids:
         sec = secs[cid]
         strip = []
