@@ -240,10 +240,14 @@ SPEC = {
         s="国防総省 NEWS RELEASE 343-64　1964年4月28日",
         photo="thresher/cm_330-PSA-99-64a__22356922549_.jpg",
         bias=0.30, side="right", ann_y=320,
-        ann=[dict(t="見出しの原文", d="NAVY RELEASES REPORT OF ITS",
-                  dc=J.DOC, ds=28),
-             dict(t="続き", d="DEEP SUBMERGENCE SYSTEMS REVIEW GROUP",
-                  dc=J.DOC, ds=28)],
+        # 🔴 2026-08-10：注記2件を外した。焼いて見たら
+        #    「NAVY RELEASES REPORT OF ITS ／ DEEP SUBMERGENCE SYSTEMS REVIEW
+        #     GROUP」は**紙の真ん中に大きく、そのまま読める形で写っている**。
+        #    その同じ英字を右にもう一度書き写していた＝ルール統合版 §1 の二度出し。
+        #    しかも書き写しは本文の段落の上に重なっていて、**紙のほうを隠していた**。
+        #    ⚠️ 机上検査は通る。図と写真の中の文字は突き合わせていないため
+        #      （[[feedback-desk-checks-dont-see-pictures]]）。
+        ann=[],
     ),
 
     # ── ep18 何のための組織か ───────────────────────────────
