@@ -152,6 +152,11 @@ def txtfit(x, y, t, maxw, cap=40, col=None, fam="Noto", anchor="start", ol=0, fl
                anchor, ol)
 
 
+def _wordch(c):
+    """英語の「語の中の字」か。空白で語を区切る言語だけを対象にする。"""
+    return bool(c) and c.isascii() and (c.isalnum() or c in "-'’")
+
+
 def wrap(t, cols):
     """全角換算 cols 字で折る。読点・句点を優先して折る。
 
@@ -162,19 +167,43 @@ def wrap(t, cols):
        そのとき作ったのが `balance()` なのに、こちらへは回していなかった。
        → **尻切れになったときだけ** `balance()` に投げ直す。
           行が増えると箱の高さが変わるので、増えるときは元のまま返す。
+
+    🔴 2026-08-10（r24 の拡大目視）：**英字が語の途中で折れていた。**
+       決め所12件の札はどれも `ctx="原文 …"` に英語の原文を持っており、
+       そこが「Experiencing minor difficu／lties.」「negl／ect」「b／locked」
+       「indi／viduals」と割れていた。ここは**字幅だけで折っている**ので、
+       日本語には正しいが、空白で語を区切る英語には効かない。
+       → **英字の語をまたぐ位置で折りそうになったら、直前の空白まで戻す。**
+       ⚠️ 日本語だけの文では `_wordch` が常に偽なので、動きは一切変わらない。
     """
     t = str(t)
     out, line, n = [], "", 0.0
     for i, ch in enumerate(t):
+        if not line and ch == " ":
+            continue                             # 折り返した行の頭に空白を残さない
         line += ch
         n += fm.adv(ch, "Noto")
         brk = ch in "、。）」"
         if n >= cols or (brk and n >= cols * 0.55):
+            nxt = t[i + 1] if i + 1 < len(t) else ""
+            # 英字の文脈で、次の字が行頭に来てはいけないとき（語の途中・句読点）は
+            # 直前の空白まで戻す。**空白の直後でしか折らない**のが英語の折り方。
+            ascii_ctx = _wordch(ch) or _wordch(nxt) or nxt in ".,;:!?)]}"
+            if not brk and ascii_ctx and nxt not in ("", " "):
+                cut = line.rstrip().rfind(" ")
+                if cut > 0:                      # 行頭から続く1語なら戻せない
+                    out.append(line[:cut])
+                    line = line[cut + 1:].lstrip()
+                    n = sum(fm.adv(c, "Noto") for c in line)
+                    continue
             out.append(line)
             line, n = "", 0.0
     if line:
         out.append(line)
-    if len(out) > 1 and sum(fm.adv(c, "Noto") for c in out[-1]) <= 2.0:
+    # ⚠️ `balance()` も日本語の禁則しか見ていないので、英字を含む文では呼ばない
+    #    （呼ぶと語の途中の割れが戻ってしまう）。
+    if (len(out) > 1 and sum(fm.adv(c, "Noto") for c in out[-1]) <= 2.0
+            and not any(_wordch(c) for c in t)):
         b = balance(t, cols)
         if len(b) <= len(out):
             return b

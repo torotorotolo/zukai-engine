@@ -182,8 +182,13 @@ SPEC = {
             phrase="人間が発したものは無かった",
             who="査問会", to="—", when="1963年",
             doc="査問会記録 認定35",
-            ctx="原文 None of the signals which SEAWOLF received equated "
-                "with anything that could have been originated by human beings.")),
+            # 🔴 2026-08-10：英字を語の途中で折らなくしたら1行増えて、
+            #    「by human beings.」が y=930＝**字幕の帯（900〜）を割って画面外**へ出た
+            #    （check_layout が検出）。台本 §注意14「引くのは要点だけ」に従って詰める。
+            #    ⚠️ 省いた部分は「…」で示す。**語を継ぎ足して短くしない**
+            #      （[[feedback-verify-every-onscreen-quote]]）。
+            ctx="原文 None of the signals … could have been "
+                "originated by human beings.")),
     ),
 
     # ── c213 章の折り返し ──────────────────────────────────
