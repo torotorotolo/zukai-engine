@@ -253,6 +253,41 @@ def cmd_schedule(args) -> int:
     return 0
 
 
+def cmd_public(args) -> int:
+    """🔴 いますぐ公開する（予約ではない）。2026-08-16 追加。
+
+    `schedule` は**未来の時刻しか受け付けない**ので「いますぐ出す」ができなかった。
+    ⚠️ `schedule` と同じ門番を残す：**処理が終わる前に公開すると、初速の視聴者に
+       低い解像度が配信されて維持率が実力より低く出る。**--force で無視できる。
+    ⚠️ `videos.update` は part を丸ごと置き換えるので、いまの status を読んでから
+       書ける項目だけ差し替える（消すと「子ども向け」などが既定に戻る）。
+       `publishAt` は送らない＝予約が入っていたら外れる。
+    """
+    yt = api()
+    r = yt.videos().list(part="status,processingDetails,snippet",
+                         id=args.video_id).execute()
+    if not r.get("items"):
+        raise SystemExit(f"動画が見つからない: {args.video_id}")
+    it = r["items"][0]
+    ps = it["processingDetails"].get("processingStatus")
+    if ps != "succeeded" and not args.force:
+        raise SystemExit(
+            f"[中止] 処理がまだ終わっていない（{ps}）。\n"
+            "  この状態で公開すると、初速の視聴者に低い解像度が配信されて\n"
+            "  維持率が実力より低く出る。終わるまで待つ（--force で無視できる）。")
+
+    WRITABLE = ("license", "embeddable", "publicStatsViewable",
+                "selfDeclaredMadeForKids")
+    st = {k: v for k, v in it["status"].items() if k in WRITABLE}
+    st["privacyStatus"] = "public"
+    yt.videos().update(part="status",
+                       body={"id": args.video_id, "status": st}).execute()
+    print(f"公開した: https://youtu.be/{args.video_id}")
+    print(f"  題　　: {it['snippet']['title']}")
+    print(f"  確認  : https://studio.youtube.com/video/{args.video_id}/edit")
+    return 0
+
+
 def cmd_thumb(args) -> int:
     yt = api()
     set_thumb(yt, args.video_id, load_meta())
@@ -290,6 +325,11 @@ def main() -> int:
     p.add_argument("--at", required=True, help='例 "2026-08-03T19:00:00+09:00"')
     p.add_argument("--force", action="store_true", help="処理未完でも入れる")
     p.set_defaults(fn=cmd_schedule)
+
+    p = sub.add_parser("public", help="いますぐ公開する（予約ではない）")
+    p.add_argument("video_id")
+    p.add_argument("--force", action="store_true", help="処理未完でも公開する")
+    p.set_defaults(fn=cmd_public)
 
     p = sub.add_parser("thumb", help="サムネを貼り直す")
     p.add_argument("video_id")
