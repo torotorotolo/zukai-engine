@@ -436,5 +436,99 @@ def ja123():
     bake("ja123_alt_pair", rival_type(flight_l, RED_MAIN, YEL_MAIN, split=(bulk_r, SX)))
 
 
+TH_TORN = "thresher/thr_t23.jpg"    # 289-T-23：引き裂かれた船体（ぎざぎざの断面）
+TH_HULL = "thresher/thr_t33.jpg"    # 289-T-33：外殻（上部構造）の大きな曲面
+TH_DRAFT = "thresher/thr_t24.jpg"   # 289-T-24：喫水の目盛（4 5 6 7 8 9 30 …）
+TH_CRATER = "thresher/thr_t41.jpg"  # 289-T-41：海底に残った黒い跡
+# 🔴 2026-08-10 カズヤくん指摘：**アルバム41点はどれも何の写真か伝わらない。**
+#    海底の白黒は縮めると灰色の塊になる。「競合17本中0本」の珍しさを取って
+#    肝心の「一目で何か分かる」を捨てていた。→ 艦そのものの写真を候補に足す。
+TH_BOW = "thresher/cm_USS_Thresher__SSN-593__bow.jpg"          # 正面から迫る艦首
+TH_BOWC = "thresher/cm_USS_Thresher__SSN-593__bow__cropped_.jpg"  # 同・寄り
+TH_SEA = "thresher/cm_USS_Thresher__SSN-593_.jpg"              # 航走中。**593が読める**
+TH_BOW2 = "thresher/nara_428-N-1057645.jpg"                    # 別カットの艦首
+TH_DEBRIS = "thresher/cm_330-PSA-110-63__USN_711302___22171571340_.jpg"  # 海底の残骸（褐色）
+# 🔴 2026-08-10 3巡目：**記録映画からコマを抜いた。**
+#    静止画はどれも白黒だが、記録映画 `thr_85185`（naId 85185・789秒）は**カラー**。
+#    この題材でカラーの艦影は競合にまず無い＝一覧で色が違うだけで目を引く。
+#    ⚠️ 元が 720x480 なので 1280x720 へは1.78倍に伸びる。**原寸では甘い**が、
+#      一覧の210pxでは分からない。サムネは実寸で判断する。
+TH_FILM_A = "thresher/thr_film593_a.jpg"   # 622秒。セイルやや左・白波
+TH_FILM_B = "thresher/thr_film593_b.jpg"   # 628秒。**セイル中央・593が大きい・波が左右対称**
+TH_FILM_C = "thresher/thr_film593_c.jpg"   # 631秒。セイルやや右
+
+
+def thresher():
+    """🔴 決め語は 2026-08-10 にカズヤくん承認ずみ。
+
+      赤「129名圧壊 海底2600m」（units 10.0）
+        ⚠️ **「水深2600m」ではない。** 台本 pr04 は「**沈んだ場所の**水深は、
+          およそ8,500フィート」＝2,600mは**海底の深さ**であって圧壊した深さでは
+          ない（圧壊はもっと浅い）。「水深」と書くと事実と違うことを言ってしまう。
+      黄「機密解除された査問会記録」（units 12.0）
+        差別化＝査問会記録が 2020-09-23 と 2021-07-09 に公開された。
+        競合17本はどれも扱っていない。
+
+    ⚠️ 型は競合と同一。**赤1行・黄1行・写真だけ。**副題もタブも出典も足さない。
+       チャンネル名・アイコン・ロゴも入れない。
+    ⚠️ **アルバム41点はどれも打字の説明札が貼り込まれている。**
+       そのまま使うと白い札が写って画面に文字が2種類出るので、
+       `cx` / `zoom` で札を画面の外へ逃がすこと。
+    """
+    RED_MAIN = "129名圧壊 海底2600m"
+    YEL_MAIN = "機密解除された査問会記録"
+
+    # 札は t23=右上／t33=右／t24=右下／t41=右下。どれも左へ寄せて逃がす。
+    # 🔴 1巡目（cx 0.28〜0.34）では **hull・draft・crater の3枚とも札が画面に残った**
+    #    （"superst… break ap…" "Draft markers…" "TRIESTE I…" が右端に読めた）。
+    #    札はどれも右端に貼ってあるので、cx を 0.1 前後まで左へ振って寄りも強める。
+    torn = photo(TH_TORN, cx=0.30, cy=0.52, contrast=1.22, color=1.0,
+                 bright=0.92, zoom=1.30)
+    hull = photo(TH_HULL, cx=0.08, cy=0.50, contrast=1.20, color=1.0,
+                 bright=0.92, zoom=1.50)
+    draft = photo(TH_DRAFT, cx=0.10, cy=0.44, contrast=1.30, color=1.0,
+                  bright=0.96, zoom=1.50)
+    crater = photo(TH_CRATER, cx=0.06, cy=0.50, contrast=1.24, color=1.0,
+                   bright=0.94, zoom=1.60)
+
+    # 🔴 2巡目。艦そのものが写っているほう。地が明るい海なので **bright を落として**
+    #    赤の白フチを地から離す（123便の飛行中の写真と同じ理屈）。
+    # 🔴 2巡目で分かったこと（カズヤくん指摘を受けて艦の写真を試した）
+    #    ・**艦首から見た3枚（bow/bowc/bow2）は駄目。** セイルが真上に伸びていて、
+    #      上端に密着する赤の帯に**必ず切られる**。艦の形が「黒い柱」にしか見えない。
+    #    ・**航走中の1枚（sea）が最も読める。** 艦影が横に寝ているので赤と黄の
+    #      あいだにきれいに収まり、しかも**セイルの「593」が読める**。
+    #    → sea を3通りの寄りで詰める。
+    sea = photo(TH_SEA, cy=0.50, cx=0.45, contrast=1.26, color=1.0,
+                bright=0.84, zoom=1.15)
+    sea_z = photo(TH_SEA, cy=0.52, cx=0.42, contrast=1.30, color=1.0,
+                  bright=0.82, zoom=1.45)
+    sea_zz = photo(TH_SEA, cy=0.53, cx=0.40, contrast=1.34, color=1.0,
+                   bright=0.80, zoom=1.75)
+    debris = photo(TH_DEBRIS, cy=0.50, contrast=1.22, color=1.10,
+                   bright=0.94, zoom=1.20)
+
+    # 🔴 3巡目。記録映画のカラー。地が明るい空と海なので bright を落として
+    #    赤の白フチを地から離す。**寄りすぎると 720x480 の粗が出る**ので控えめに。
+    film_a = photo(TH_FILM_A, cy=0.50, contrast=1.12, color=1.06,
+                   bright=0.90, zoom=1.10)
+    film_b = photo(TH_FILM_B, cy=0.50, contrast=1.12, color=1.06,
+                   bright=0.90, zoom=1.10)
+    film_c = photo(TH_FILM_C, cy=0.50, contrast=1.12, color=1.06,
+                   bright=0.90, zoom=1.10)
+    # 同じコマを濃いめに焼いた版（フィルムは眠いので締めたほうが一覧で立つか試す）
+    film_b2 = photo(TH_FILM_B, cy=0.50, contrast=1.26, color=1.20,
+                    bright=0.86, zoom=1.10)
+    film_b3 = photo(TH_FILM_B, cy=0.52, contrast=1.26, color=1.20,
+                    bright=0.86, zoom=1.32)
+
+    # 123便で採った作り（赤＝二重フチ＋グラデ＋影、黄＝単色ベタ）をそのまま当てる。
+    for nm, hero in (("film_b", film_b), ("film_b2", film_b2), ("film_b3", film_b3),
+                     ("sea_z", sea_z), ("debris", debris)):
+        bake(f"thr_{nm}", fx_type(hero, RED_MAIN, YEL_MAIN, "e_veil",
+                                  yel_plain=True))
+
+
 if __name__ == "__main__":
-    ja123()
+    import sys
+    (thresher if "thresher" in sys.argv else ja123)()
