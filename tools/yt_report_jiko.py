@@ -58,7 +58,16 @@ SCOPES = ["https://www.googleapis.com/auth/youtube.readonly",
 #    serviceusage 権限が無い → **403「Caller does not have required permission」**で落ちる
 #    （2026-08-07 に実測。引き継ぎの作りをそのまま引き写して踏んだ）。
 #    → 既定は None（＝クライアントの所属プロジェクトに課金）。必要なら --quota で渡す。
-QUOTA_PROJECT = None
+# 🔴 2026-09-04 に決着。既定を None から "drift-diary" に変えた。
+#    ・OAuth クライアントの所属は **project 581571570264（＝zunda-5ch／フクロウ側）**。
+#      そこでは YouTube Analytics API が**無効**で、403 accessNotConfigured になる。
+#      しかも torotorotolo@gmail.com には zunda-5ch の権限が無いので**有効化できない**
+#      （--quota zunda-5ch は "Caller does not have required permission"）。
+#    ・カズヤくんの Cloud プロジェクト **drift-diary では Analytics API が有効**で、
+#      torotorotolo@gmail.com に serviceusage の権限もある → **ここへ課金先を移すと通る**（実測）。
+#    ⚠️ Data API v3（動画別の再生数・チャンネル情報）は既定のままでも通る。
+#       効かないのは Analytics（維持率カーブ・流入元・日別）だけ。
+QUOTA_PROJECT = "drift-diary"
 CSV_DIR = HERE / "analytics" / "studio_csv"
 SNAP_DIR = HERE / "analytics" / "snapshots"
 CHANNEL = "そのとき、何が起きたか"
@@ -94,14 +103,22 @@ def get_creds(interactive: bool = False) -> Credentials:
         TOKEN.parent.mkdir(parents=True, exist_ok=True)
         U.assert_ignored(TOKEN)      # ★書く直前にもう一度
         TOKEN.write_text(creds.to_json(), encoding="utf-8")
-    if QUOTA_PROJECT:
-        creds = creds.with_quota_project(QUOTA_PROJECT)
     return creds
 
 
 def apis(interactive: bool = False):
+    """🔴 **API ごとに課金先を分ける。**（2026-09-04 実測で必要になった）
+
+    ・YouTube **Analytics** API … 581571570264(zunda-5ch) では無効・権限も無い。
+      　　　　　　　　　　　　　　 → `drift-diary` へ移すと通る
+    ・YouTube **Data** API v3 …… 581571570264 では有効。
+      　　　　　　　　　　　　　　 → `drift-diary` では**無効**なので**移すと逆に落ちる**
+    どちらか一方に揃えようとすると必ず片方が落ちる。**分けるのが正しい。**
+    """
     c = get_creds(interactive)
-    return build("youtubeAnalytics", "v2", credentials=c), build("youtube", "v3", credentials=c)
+    ca = c.with_quota_project(QUOTA_PROJECT) if QUOTA_PROJECT else c
+    return (build("youtubeAnalytics", "v2", credentials=ca),
+            build("youtube", "v3", credentials=c))
 
 
 def guard_channel(yt) -> dict:
@@ -139,14 +156,47 @@ def fmt_ms(sec: float) -> str:
 
 
 # ─────────────────────────────────────────────── Studio CSV（CTR）
-_IMP = re.compile(r"(インプレッション数|^impressions$)", re.I)
-_CTR = re.compile(r"(インプレッション.*クリック率|click-?through rate)", re.I)
-_ID = re.compile(r"^(動画|content|video)$", re.I)
+# 🔴 2026-09-04：**Studio が列名を変えていた。**古い名前で探していたので、
+#    新しいエクスポートが**黙って取り込まれずに素通り**していた（エラーも出ない）。
+#      旧「インプレッション数」           → 新「サムネイルのインプレッション」（"数"が無い）
+#      旧「インプレッションのクリック率」  → 新「サムネイルのクリック率 (%)」（"インプレッション"が付かない）
+#      動画IDの列は 旧・新とも「コンテンツ」で、`^動画$` では**一度も当たっていなかった**
+#    → 三つとも受ける形にする。⚠️ また変わる。**取り込み0件なら黙らずに言う**
+#    （[[feedback-gates-go-stale-when-upstream-changes]]）
+_IMP = re.compile(r"(インプレッション|impressions)", re.I)
+_CTR = re.compile(r"(クリック率|click-?through rate|\bctr\b)", re.I)
+_ID = re.compile(r"^(動画|コンテンツ|content|video)$", re.I)
 _TTL = re.compile(r"(動画のタイトル|video title)", re.I)
+# CSV から取れるものは全部取る（Analytics API が無効でも表を出すため）
+_VIEWS = re.compile(r"(^視聴回数$|^views$)", re.I)
+_AVGT = re.compile(r"(平均視聴時間|average view duration)", re.I)
+_AVGP = re.compile(r"(平均視聴率|average percentage viewed)", re.I)
+_DUR = re.compile(r"(^長さ$|^duration$)", re.I)
+_SUBS = re.compile(r"(チャンネル登録者|^subscribers$)", re.I)
 
 
 def _norm(s: str) -> str:
     return re.sub(r"\s+", "", (s or "")).lower()
+
+
+def _span(a: str, b: str) -> int:
+    """CSV の期間の日数。広い窓のほうを勝たせるために使う。"""
+    try:
+        return (dt.date.fromisoformat(b) - dt.date.fromisoformat(a)).days
+    except ValueError:
+        return 0
+
+
+def _hms(s: str) -> int:
+    """"0:11:47" → 707 秒。🔴 維持は秒で見る。読めなければ 0 でなく -1 を返す
+    （0だと「0秒だった」と見分けが付かない）。"""
+    parts = (s or "").strip().split(":")
+    if not parts or not all(p.strip().isdigit() for p in parts):
+        return -1
+    v = 0
+    for p in parts:
+        v = v * 60 + int(p)
+    return v
 
 
 def auto_ingest_downloads(max_age_days: int = 60) -> int:
@@ -180,11 +230,30 @@ def auto_ingest_downloads(max_age_days: int = 60) -> int:
     return got
 
 
-def load_studio_csv() -> dict:
+def load_studio_csv(only_channel: str | None = None) -> dict:
+    """🔴 `only_channel` を渡すと、**そのチャンネルの CSV だけ**読む。
+
+    `analytics/studio_csv/` には**深読みフクロウの CSV も入っている**。
+    動画IDで引くだけなら混ざっても害は無かったが、一覧として並べると
+    **他チャンネルの動画が混ざる**（2026-09-04 に実際に出した）。
+    Studio のエクスポートはファイル名にチャンネル名が入るので、それで絞る。
+    """
     if not CSV_DIR.exists():
         return {}
     out: dict[str, dict] = {}
-    for path in sorted(CSV_DIR.glob("*.csv"), key=lambda p: p.stat().st_mtime):
+    # 🔴 同じ動画が複数の CSV に出る。**あとから読んだものが勝つ**ので、
+    #    「期間が新しく・広い」ものを最後に読む。
+    #    ⚠️ mtime で並べると、同じ実行で取り込んだ CSV どうしの順序が不定になり、
+    #    　 8/1〜8/6 の古い窓（1本目が57再生）が 90日窓を上書きしていた（2026-09-04）。
+    def _rank(p):
+        m = re.search(r"(\d{4}-\d{2}-\d{2})_(\d{4}-\d{2}-\d{2})", p.name)
+        if not m:
+            return ("", "", p.stat().st_mtime)
+        return (m.group(2), m.group(1) and _span(m.group(1), m.group(2)), p.stat().st_mtime)
+
+    for path in sorted(CSV_DIR.glob("*.csv"), key=_rank):
+        if only_channel and only_channel not in path.name:
+            continue
         try:
             with path.open(encoding="utf-8-sig", newline="") as f:
                 rows = list(csv.reader(f))
@@ -192,17 +261,17 @@ def load_studio_csv() -> dict:
             continue
         if not rows:
             continue
-        idx = {"imp": None, "ctr": None, "id": None, "ttl": None}
+        # 🔴 Analytics API が無効でも表が出せるよう、**CSV から取れるものは全部取る**
+        pats = {"imp": _IMP, "ctr": _CTR, "id": _ID, "ttl": _TTL,
+                "views": _VIEWS, "avgsec": _AVGT, "avgpct": _AVGP,
+                "dur": _DUR, "subs": _SUBS}
+        idx = {k: None for k in pats}
         for i, h in enumerate(rows[0]):
             h = h.strip()
-            if idx["imp"] is None and _IMP.search(h):
-                idx["imp"] = i
-            elif idx["ctr"] is None and _CTR.search(h):
-                idx["ctr"] = i
-            elif idx["id"] is None and _ID.match(h):
-                idx["id"] = i
-            elif idx["ttl"] is None and _TTL.search(h):
-                idx["ttl"] = i
+            for k, pat in pats.items():
+                if idx[k] is None and pat.search(h):
+                    idx[k] = i
+                    break
         if idx["imp"] is None or idx["ctr"] is None:
             continue
         need = max(v for v in idx.values() if v is not None)
@@ -214,10 +283,22 @@ def load_studio_csv() -> dict:
             if not key or key.lower() in ("total", "合計"):
                 continue
             try:
-                out[key] = {"impressions": int(float(r[idx["imp"]] or 0)),
-                            "ctr": float(r[idx["ctr"]] or 0)}
+                rec = {"impressions": int(float(r[idx["imp"]] or 0)),
+                       "ctr": float(r[idx["ctr"]] or 0)}
             except ValueError:
                 continue
+            if idx["ttl"] is not None:
+                rec["csvTitle"] = r[idx["ttl"]]
+            for k, cast in (("views", int), ("avgpct", float),
+                            ("dur", int), ("subs", int)):
+                if idx[k] is not None:
+                    try:
+                        rec[k] = cast(float(r[idx[k]] or 0))
+                    except ValueError:
+                        pass
+            if idx["avgsec"] is not None:      # "0:11:47" 形式
+                rec["avgsec"] = _hms(r[idx["avgsec"]])
+            out[key] = rec
     return out
 
 
@@ -238,9 +319,31 @@ def cmd_report(a) -> int:
           f" ／ 公開本数 {ch['statistics'].get('videoCount')}")
     print("⚠️ Analytics は直近1〜3日ぶんが未確定（あとから増える）")
 
-    cols, rows = q(ya, since, until,
-                   "views,estimatedMinutesWatched,averageViewDuration,averageViewPercentage,"
-                   "subscribersGained,subscribersLost,likes,comments,shares")
+    # 🔴 Analytics API が無効でも、Studio CSV の数字までは出す。
+    #    2026-09-04：403 ひとつで全部落ちて、取れている CSV すら見られなかった。
+    #    **片方が死んでも、もう片方は出す**（[[feedback-parsers-fail-closed]] の逆側の教訓＝
+    #    「読めないものは0で埋めない」が「読めるものまで捨てる」ことにならないように）
+    def try_q(*args, **kw):
+        try:
+            return q(ya, *args, **kw), None
+        except Exception as e:      # noqa: BLE001
+            msg = str(e)
+            if "has not been used in project" in msg or "accessNotConfigured" in msg:
+                return None, ("🔴 **YouTube Analytics API がこのプロジェクトで無効**。"
+                              "維持率カーブ・流入元・日別は取れない。"
+                              "→ Cloud Console で有効化するか --quota で別プロジェクトを指定")
+            return None, f"取得できず: {msg[:200]}"
+
+    ANALYTICS_OFF = []
+    res, err = try_q(since, until,
+                     "views,estimatedMinutesWatched,averageViewDuration,averageViewPercentage,"
+                     "subscribersGained,subscribersLost,likes,comments,shares")
+    if err:
+        print(f"\n[期間合計] {err}")
+        ANALYTICS_OFF.append(err)
+        cols, rows = [], []
+    else:
+        cols, rows = res
     tot = dict(zip(cols, rows[0])) if rows else {}
     if tot:
         net = int(tot["subscribersGained"]) - int(tot["subscribersLost"])
@@ -251,34 +354,42 @@ def cmd_report(a) -> int:
               f" / 高評価 {int(tot['likes'])} コメント {int(tot['comments'])} 共有 {int(tot['shares'])}")
 
     # 日別
-    _, drows = q(ya, since, until, "views,estimatedMinutesWatched,subscribersGained", "day")
+    res, err = try_q(since, until, "views,estimatedMinutesWatched,subscribersGained", "day")
+    drows = res[1] if res else []
     if drows:
         print("\n[日別]")
         for r in drows:
             print(f"  {r[0]}  再生 {int(r[1]):>5}  視聴 {int(r[2]):>5}分  登録 +{int(r[3])}")
 
     # 流入元 ← 「そもそも配信されているか」はここに出る
-    try:
-        _, trows = q(ya, since, until, "views,estimatedMinutesWatched",
+    res, err = try_q(since, until, "views,estimatedMinutesWatched",
                      "insightTrafficSourceType", "-views")
+    if err:
+        print(f"\n[流入元] {err}")
+    else:
+        trows = res[1]
         tv = sum(int(r[1]) for r in trows) or 1
         print("\n[流入元]  ← 配信されているかはここに出る")
         for r in trows:
             print(f"  {r[0]:<26} {int(r[1]):>5} 回 ({int(r[1])/tv*100:5.1f}%)"
                   f"  視聴 {int(r[2]):>5}分")
-    except Exception as e:
-        print(f"\n[流入元] 取得できず: {e}")
 
     # 動画別
-    ctr_map = load_studio_csv()
-    try:
-        _, vrows = q(ya, since, until,
+    ctr_map = load_studio_csv(only_channel=CHANNEL)   # ★他chの CSV を混ぜない
+    print(f"\n[Studio CSV] {len(ctr_map)} 行ぶんの CTR/インプレッションを読み込み"
+          f"（今回取り込んだ ZIP: {ingested}／`{CHANNEL}` のCSVだけ）")
+    if not ctr_map:
+        print("  🔴 **0本。取り込めていない。** Studio の列名が変わった可能性がある。"
+              "`analytics/studio_csv/` の1行目を見て _IMP/_CTR/_ID を直すこと")
+    res, err = try_q(since, until,
                      "views,averageViewPercentage,averageViewDuration,subscribersGained,"
                      "estimatedMinutesWatched,likes",
                      "video", "-views", maxr=50)
-    except Exception as e:
-        print(f"\n[動画別] 取得できず: {e}")
+    if err:
+        print(f"\n[動画別] {err}")
         vrows = []
+    else:
+        vrows = res[1]
     videos = []
     if vrows:
         ids = [r[0] for r in vrows]
@@ -307,6 +418,31 @@ def cmd_report(a) -> int:
             print(f"  {rec['views']:>5} {fmt_ms(rec['avgViewSec']):>8} {rec['avgViewPct']:>5.1f}%"
                   f" {fmt_ms(sec):>8} {rec['subsGained']:>+5} {ctr:>7}"
                   f"  {pub[:10]} {title[:34]}{flag}")
+
+    # 🔴 Analytics が使えないときは Studio CSV だけで表を作る。
+    #    CSV には 視聴回数・平均視聴時間・平均視聴率・尺・登録者・インプレ・CTR が入っている。
+    #    取れないのは **維持率カーブ（離脱点）と流入元と日別** だけ。
+    if not videos and ctr_map:
+        print("\n[動画別（Studio CSV だけで作成）]  🔴 維持は秒で見る（%は尺で自動に動く）")
+        print(f"  {'再生':>5} {'維持秒':>8} {'(%)':>6} {'尺':>8} {'登録':>5} "
+              f"{'インプレ':>7} {'CTR':>6}  タイトル")
+        for key, c in sorted(ctr_map.items(), key=lambda kv: -(kv[1].get("views") or 0)):
+            if not re.fullmatch(r"[A-Za-z0-9_-]{11}", key):
+                continue          # 題名キーの行（同じ動画の重複）は出さない
+            sec = c.get("dur") or 0
+            rec = {"videoId": key, "title": c.get("csvTitle", ""),
+                   "durSec": sec, "views": c.get("views", 0),
+                   "avgViewSec": c.get("avgsec", -1),
+                   "avgViewPct": c.get("avgpct", 0.0),
+                   "subsGained": c.get("subs", 0),
+                   "impressions": c.get("impressions"), "ctr": c.get("ctr"),
+                   "source": "studio_csv"}
+            videos.append(rec)
+            flag = "" if rec["views"] >= MIN_VIEWS_AVG else "  ※参考値"
+            print(f"  {rec['views']:>5} {fmt_ms(rec['avgViewSec']):>8} "
+                  f"{rec['avgViewPct']:>5.1f}% {fmt_ms(sec):>8} {rec['subsGained']:>+5} "
+                  f"{rec['impressions']:>7} {rec['ctr']:>5.1f}%  {rec['title'][:38]}{flag}")
+        print("  ⚠️ この表は Studio の CSV が出どころ。**離脱点・流入元・日別は入っていない**")
 
     if not ctr_map:
         print("\n※ CTR とインプレッションは YouTube の公開APIに無い。"
@@ -401,7 +537,11 @@ def cmd_auth(a) -> int:
 
 
 def main() -> int:
+    global QUOTA_PROJECT
     ap = argparse.ArgumentParser(description="事故検証ch の成績を読む")
+    ap.add_argument("--quota", default=QUOTA_PROJECT,
+                    help="課金先(quota project)。既定 drift-diary。"
+                         "🔴 ここを None にすると Analytics が 403 になる（上のコメント参照）")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     p = sub.add_parser("auth", help="Analytics 用トークンを発行（初回だけ）")
@@ -420,6 +560,7 @@ def main() -> int:
     p.set_defaults(fn=cmd_retention)
 
     a = ap.parse_args()
+    QUOTA_PROJECT = a.quota or None
     return a.fn(a)
 
 
