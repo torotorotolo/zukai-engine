@@ -5,6 +5,8 @@
   python qa_out/ss_seen.py mark c101 c102 c103 c104   # 見た枚を追記
   python qa_out/ss_seen.py check                        # 見た枚数・次の4枚・残り
   python qa_out/ss_seen.py unmark c104                  # 取り消し
+  python qa_out/ss_seen.py check --photo                # 案2（2026-09-05）＝写真カットだけの残りと次の4枚
+⚠️ Git Bash では出力が文字化けする＝ PYTHONIOENCODING=utf-8 を付けて読む。
 順番＝ `ls out/jiko/qa_ss-r01/cut_*.jpg` の順（c101→…→ep16→pr01…）。pr は最後。
 """
 import os, sys
@@ -13,6 +15,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 QA_DIR = os.path.join(ROOT, "out", "jiko", "qa_ss-r01")
 SEEN = os.path.join(HERE, "surfside_seen.txt")
+PHOTO = os.path.join(HERE, "surfside_photo_rest.txt")   # 案2＝写真カットだけ見る順番（`check --photo`）
 PER_CHAT = 40
 
 
@@ -49,6 +52,14 @@ def main():
     rest = [c for c in cuts if c not in s]
     n_chat = len(s) % PER_CHAT or (PER_CHAT if s else 0)
     print(f"全 {len(cuts)} ／ 見た {len(s)}（このチャット {n_chat}/{PER_CHAT}）／ 残り {len(rest)}")
+    if "--photo" in sys.argv:
+        # 2026-09-05 カズヤくん決定（案2）＝残りの目視は写真カットだけ。順番は surfside_photo_rest.txt
+        with open(PHOTO, encoding="utf-8") as f:
+            photo = [l.strip() for l in f if l.strip()]
+        prest = [c for c in photo if c not in s]
+        print(f"写真カットの残り {len(prest)}／{len(photo)}（型カットは門番に任せる）")
+        print("次の4枚:", " ".join(prest[:4]) if prest else "（写真カット完了）")
+        return
     print("次の4枚:", " ".join(rest[:4]) if rest else "（全数完了）")
 
 
