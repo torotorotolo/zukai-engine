@@ -85,6 +85,24 @@ def duotone(im, dark, light, boost=False):
     return g.convert("RGB").point(lut).convert("RGBA")
 
 
+def tone(ph, cut, meta):
+    """写真の色の扱い。既定はデュオトーン（図解から浮かせない）。
+
+    🔴 2026-09-05（4本目）：**NIST のスライドは色に意味がある**
+       （p16 の赤＝重い不足・黄＝中くらい／p75 の黄色い線＝鉄筋の深さ／p133 の青＝崩れた範囲／
+        p65 の柱の緑・黄・赤）。デュオトーンにすると「黄色い線が2本」と言う声の下で
+       灰色の線が出て、**図が声と食い違う**。
+       → カット側が `color=0.0〜1.0` を書くと、そのぶん原色を残す（残りはデュオトーン）。
+       ⚠️ 全カットに色を残さない。実写と、色が意味を持たないスライドは今までどおり沈める。
+    """
+    keep = float((meta.get(cut) or {}).get("color", 0.0) or 0.0)
+    duo = duotone(ph, J.BG2, "#e6eef2", boost=cut in BOOST)
+    if keep <= 0.001:
+        return duo
+    raw = ph.convert("RGBA")
+    return Image.blend(duo, raw, min(1.0, keep))
+
+
 # ── ★実写「動画」を差し込む（2026-08-01 追加） ─────────────────
 # 🔴 コマは `python tools/footage.py fetch` が out/jiko/foot/<cid>/ に切り出しておく。
 #    **無ければ静止画に落ちる**ので、切り出さないまま焼いてもパイプラインは壊れない。
@@ -298,7 +316,7 @@ def scene(cut, t, dur, lay, photos, meta):
                      meta[cut].get("fxb", xb), meta[cut].get("fzm", zm))
         else:
             ph = fit(photos[cut], S.PHOTO_FULL, k, S.PHOTO_CUTS[cut][2], xb, zm)
-        fr = duotone(ph, J.BG2, "#e6eef2", boost=cut in BOOST)
+        fr = tone(ph, cut, meta)
         fr.alpha_composite(veil_layer(meta[cut]["veil"]))
         fr.alpha_composite(lay[f"{cut}_base"])
     elif meta[cut]["photo"]:
@@ -318,7 +336,7 @@ def scene(cut, t, dur, lay, photos, meta):
             src = photos[cut]
             # 実写カットでも `xbias` / `zoom` を書けば焼き込みを外せる（既定は今までと同じ）
             ph = fit(src, box, k * (0.35 if box[3] < S.H else 1.0), bias, xb, zm)
-        fr.paste(duotone(ph, J.BG2, "#e6eef2", boost=cut in BOOST), (box[0], box[1]))
+        fr.paste(tone(ph, cut, meta), (box[0], box[1]))
         over(fr, lay[f"{cut}_lab"], min(1.0, max(0.0, (t - 0.15) / 0.5)))
         # 実写の注記は**フェード**で出す。写真の上を横切るワイプは汚れに見える
         for i, (a, b) in enumerate(times):
@@ -387,6 +405,8 @@ def meta_of(idx):
                   #    しかも検品(qa)は同一プロセスなので**画像だけ正しく見えて気づけない**。
                   #    → meta に入れて `_seg_worker` へ引数として渡す（2026-08-03）。
                   "mute": sorted(S.SUB_MUTE.get(cid) or []),
+                  # ★色を残す割合（0＝デュオトーン／1＝原色）。`tone()` を見よ
+                  "color": float((S.SPEC.get(cid) or {}).get("color", 0.0)),
                   "times": S.stage_times(cid, v["stages"], v.get("holds"))}
         # ★動画を当てたカットの切り方（焼き込みを画面外へ追い出すための寄せ・拡大）
         u = _FOOT_USE.get(cid)

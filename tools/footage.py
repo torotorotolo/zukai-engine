@@ -1,39 +1,47 @@
 # -*- coding: utf-8 -*-
-"""実写**動画**を差し込むための素材まわり（2026-08-01 追加）。
+"""実写**動画**を差し込むための素材まわり（2026-08-01 追加／2026-09-05 4本目で作り直し）。
 
 🔴 なぜ入れたか（カズヤくん指示・2026-08-01）
    「PDでない写真・動画であっても積極的に使ってください。競合はそうしています。」
    ＋ r13 の試写「色使いが少なく、似た演出が続いて視覚的に飽きる」。
-   静止画をもう1枚足すより、**海底で実際に動いている映像**を入れるほうが効く。
+   静止画をもう1枚足すより、**実際に動いている映像**を入れるほうが効く。
 
 ■ 置き場所の約束
    🔴 **動画をリポジトリに入れない**（wav 163MB で学んだのと同じ問題）。
-      ワークフローの中で URL から落とし、コマを切り出して使う。
-      落とした mp4     … out/jiko/clip/<name>.mp4   （gitignore）
+      ワークフローの中で URL から取り、コマを切り出して使う。
+      落とした mp4     … out/jiko/clip/<name>.mp4   （gitignore・落とす方式のときだけ）
       切り出したコマ    … out/jiko/foot/<cid>/00000.jpg …（gitignore）
 
+■ 🔴 4本目（サーフサイド）：**落とさずに、使う区間だけを URL から直接切り出す**
+   NIST の記録映像は Kaltura 配信で、1本 600MB〜2GB（4K）。8本を全部落とすと 10GB を超えて
+   Actions のランナーにも C: にも入らない。Kaltura の実ファイルは HTTP の範囲取得に対応しているので
+   （②素材の実測。1コマ 3.5秒）、`ffmpeg -ss <秒> -i <URL>` で**その区間だけ**を読む。
+   ⚠️ 署名付き URL は期限があるので、毎回 playManifest から取り直す（`kaltura_url`）。
+
+■ 🔴 rate（スロー）
+   B-Roll は1ショットが 3〜6 秒しかなく、カットの尺（6〜15秒）より短い。
+   `rate=0.5` と書くと 0.5倍速（=2倍の長さ）で切り出す。ffmpeg の setpts でコマを複製するだけ
+   （補間しない）。動きの少ないショットに使う。**顔のあるショットには使わない**。
+   タイムラプス（6.8秒）は `rate=0.25` で3カットに割る（台本 §5 注意 7）。
+
 ■ 出典の書き方（★ここを間違えない）
-   ⚠️ USCG の公開資料に載っている ROV 映像は、凡例が
-      "U.S. Coast Guard video courtesy of Pelagic Research Services" となっている。
-      **これを「パブリックドメイン」と書いてはいけない。** 撮影は民間会社である。
-      → 事実のとおり「沿岸警備隊 海難審判部の公開資料／撮影：Pelagic Research Services」
-        と出す。検証番組で出所を偽ると、内容そのものの信用が落ちる。
+   NIST（米国立標準技術研究所）の職務著作＝パブリックドメイン。B-Roll は "for the media" で配布。
+   ⚠️ B-Roll #8 は**ミネソタ大学の試験場**で撮られている（撮影は NIST）。撮影者と場所を分けて書く。
+   ⚠️ 1本目の ROV 映像（"courtesy of Pelagic Research Services"）のように**PDでない映像**を
+      PD と書いてはいけない。今回の素材は全部 NIST 撮影なので当たらない。
 
 ■ 使い方
-     python tools/footage.py fetch          … 落として、必要なコマだけ切り出す
-     python tools/footage.py fetch --check  … 落とさずに、割り当てだけ確認する
-     python tools/footage.py scan           … ★候補クリップの中身を一覧シートにする
+     python tools/footage.py fetch          … 使う区間だけ切り出す（落とさない）
+     python tools/footage.py fetch --check  … 切り出さずに、割り当てだけ確認する
 
 ■ 🔴 秒数は**見てから決める**（r17 で1度失敗している）
-   c132 は白飛び、c624 は何も無い海底を選んでいた。原因は「たぶんこの辺」で
-   秒数を書いたこと。`scan` はクリップ全体を一定間隔で並べたシートを出すので、
-   **そのシートを見てから `USE` の start を書く**。
+   4本目は 1秒刻みの見取り図（scratchpad の sheet_*.jpg）を見て**ショットの境目**を書いた。
+   下の USE の注記が、そのショットが何秒から何秒までかの実測。
 """
 import json
 import subprocess
 import sys
 import time
-import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -44,200 +52,175 @@ HERE = Path(__file__).parent.parent
 CLIP = HERE / "out" / "jiko" / "clip"
 FOOT = HERE / "out" / "jiko" / "foot"
 FPS = 30
+UA = ("zukai-engine/1.0 (accident-documentary research; "
+      "https://github.com/torotorotolo/zukai-engine; konariri8@gmail.com)")
 
-IA = "https://archive.org/download/uscg-titan-submersible-hearings/"
+# ── Kaltura（NIST の配信）──────────────────────────────────
+# 🔴 1〜3本目（Internet Archive の USCG 資料・NARA の記録映画）の CLIPS/USE は
+#    git の `ad6882a` にある。カットIDが題材をまたいでぶつかるので**残さない**。
+KALTURA = ("https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest"
+           "/entryId/{e}/format/download/protocol/https/flavorParamId/0")
+CR_NIST = "出典：NIST（米国立標準技術研究所）"
 
-# ── 3本目（スレッシャー号）の記録映画 ────────────────────────────
-# 🔴 2026-08-09：**URL は NARA のカタログAPIで1本ずつ取り直した**（引き継ぎに無かった）。
-#    `https://catalog.archives.gov/proxy/records/search?naId=<naId>` の
-#    `digitalObjects[].objectUrl` に mp4 の実体が入っている
-#    （⚠️ 公式 `api/v2` は HTML を返すので使えない。CREDITS §① と同じ事情）。
-#    ✅ 6本とも **naId と題名が CREDITS の表と一致すること**を確認ずみ。
-# ⚠️ **すべて 720x480（4:3・SD）。** 1920x1080 に上げると 2.67倍になる。
-#    1963年の記録映画として見せるなら成立するが、**寄り（ケンバーンズ）は掛けない**
-#    （build_jiko は動画のコマに寄りを掛けない作りになっている）。
-# ⚠️ 権利：NARA の `useRestriction` は6本とも **"Undetermined"**（"Unrestricted" ではない）。
-#    製作は海軍写真センター＝合衆国政府の職務著作なので法的にはPDだが、
-#    **NARA が「制限なし」と明示しているわけではない**ので、画面の出典に
-#    「パブリックドメイン」とは書かず、**機関名と撮影番号だけ**を出す。
-NARA_MOPIX = "https://catalog.archives.gov/medialz/mopix/428/NPC/"
-_NARA_FILMS = {
-    # name          naId     428-NPC 番号   尺(秒)  中身
-    "thr_85185": ("85185", "36843", 789, "カラー。航走中のスレッシャー。"
-                  "593のセイル、艦橋の乗員、全速の航走、マストだけ出した潜航状態"),
-    "thr_83755": ("83755", "32798", 670, "TRIESTE（白と橙の潜水球）の曳航・浮上・潜航。"
-                  "41点の写真を撮った当の艇"),
-    "thr_83737": ("83737", "32762", 515, "哨戒機からの捜索（橙の翼端が入る）。"
-                  "灰色の海と捜索艦"),
-    "thr_83740": ("83740", "32766", 328, "ポーツマス海軍造船所の追悼の式。"
-                  "🔴 **先頭9秒**を必ず切る（ロゴ0-2／文字カード3-5／橙のリーダー6-9）。"
-                  "⚠️『冒頭2秒』は誤り。start は10秒以降にすること"),
-    "thr_83750": ("83750", "32793", 282, "捜索艦の遠景"),
-    "thr_83213": ("83213", "28682", 190, "1960年の進水。空撮で艦体が水に入る"),
+# name: (entry_id, 尺(秒), 幅, 高さ, 出典, 中身)
+_SS = {
+    "ss_b1": ("1_ju6nndhb", 250.1, 1920, 1014,
+              f"{CR_NIST} 記録映像 B-Roll #1（崩落現場）／パブリックドメイン",
+              "崩落現場。0:07まで題名カード／3:24以降はインタビュー。顔の寄りが多い"),
+    "ss_b2": ("1_64zdekws", 309.7, 4096, 2160,
+              f"{CR_NIST} 記録映像 B-Roll #2（空撮・現場）／パブリックドメイン",
+              "0:08〜0:11 海岸線の空撮／0:12〜0:14 現場と 87 Park／1:39〜1:53 ドローン／1:54以降インタビュー"),
+    "ss_b3": ("1_h4yeyz2f", 74.2, 1920, 1080,
+              f"{CR_NIST} 記録映像 B-Roll #3（証拠倉庫）／パブリックドメイン",
+              "倉庫で部材と鉄筋を測る"),
+    "ss_b4": ("1_jvdq95ze", 216.3, 1920, 1080,
+              f"{CR_NIST} 記録映像 B-Roll #4（部材の搬送）／パブリックドメイン",
+              "部材の梱包・積み込み・トレーラーでの搬送"),
+    "ss_b5": ("1_ecar0b6h", 333.4, 3840, 2160,
+              f"{CR_NIST} 記録映像 B-Roll #5（コア抜き・倉庫）／パブリックドメイン",
+              "倉庫の床一面の部材／コア抜き／コアの記録"),
+    "ss_b6": ("1_zdyysoml", 263.2, 3840, 2160,
+              f"{CR_NIST} 記録映像 B-Roll #6（コンクリートコアの試験）／パブリックドメイン",
+              "圧縮試験・弾性係数試験"),
+    "ss_b7": ("1_glesd05g", 337.0, 3840, 2160,
+              f"{CR_NIST} 記録映像 B-Roll #7（鉄筋の試験）／パブリックドメイン",
+              "鉄筋の標本・引張試験機"),
+    "ss_b8": ("1_lebmphjw", 207.0, 3840, 2160,
+              f"{CR_NIST} 記録映像 B-Roll #8（実物大試験・ミネソタ大学）／パブリックドメイン",
+              "0:08まで表題カード。実物大レプリカ試験。2:08〜ワシントン大の試験"),
+    "ss_tl": ("1_gvpcaamy", 6.8, 3840, 2160,
+              f"{CR_NIST} 材料試験タイムラプス（スラブ・梁・柱の試験）／パブリックドメイン",
+              "6.8秒。柱まわりのスラブが割れて外れる。⚠️ 右下に NIST の透かし（x0.63〜0.95・y0.84〜0.89）"),
 }
+CLIPS = {}
+for _n, (_e, _sec, _w, _h, _cr, _note) in _SS.items():
+    CLIPS[_n] = dict(entry=_e, sec=_sec, w=_w, h=_h, credit=_cr, note=_note, stream=True)
+# NIST が公開したパンチング・シアの動く図（GIF・1920x1080・167コマ）
+CLIPS["ss_gif"] = dict(
+    url=("https://www.nist.gov/sites/default/files/styles/2800_x_2800_limit/public/"
+         "images/2026/06/22/PunchingShear_001.gif?itok=e2hzBAS5"),
+    sec=17.0, w=1920, h=1080, stream=True,
+    credit=f"{CR_NIST} 押し抜きせん断の動画図（2026年6月22日公表）／パブリックドメイン",
+    note="167コマ。力が柱の周りに集まり、ひびが回り込んで抜ける")
 
-# ── 使う動画（Internet Archive の USCG 海難審判部アーカイブ） ──────
-CLIPS = {
-    "rov_tailcone": dict(
-        # ⚠️ 同じ中身の複製が複数ある。1つが 500 を返しても次を試せるように並べておく
-        #    （2026-08-01 の r16 で実際に archive.org のノードが 500 を返した）。
-        paths=["Testimony Media/04_ROV Titan Submersible Tail Cone.mp4",
-               "NTSB Titan Docket - DCA23FM036/04_ROV SNIPS-Rel.mp4",
-               "Testimony Media/04_ROV Titan Submersible Tail Cone.ia.mp4"],
-        path="Testimony Media/04_ROV Titan Submersible Tail Cone.mp4",
-        credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
-        note="60.7秒 1920×1080 30fps。尾部コーンに寄っていく。中盤に開口部の中が見える",
-    ),
-    "rov_aftdome": dict(
-        paths=["Testimony Media/07_ROV Titan Submersible Aft Dome Aft Ring Hull Remnants.mp4",
-               "NTSB Titan Docket - DCA23FM036/07_ROV SNIPS-Rel.mp4",
-               "Testimony Media/07_ROV Titan Submersible Aft Dome Aft Ring Hull Remnants.ia.mp4"],
-        path="Testimony Media/07_ROV Titan Submersible Aft Dome Aft Ring Hull Remnants.mp4",
-        credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
-        note="107.4秒 1920×1080 30fps。後部ドーム・リング・耐圧殻の破片",
-    ),
-    # ★2026-08-02 採用。scan で6本の中身を見たうえで選んだ。
-    #   焼き込みの日付が **06-22-2023＝残骸が見つかった当日**で、
-    #   海底の残骸を広く捉えている（他の2本は寄りの絵）。
-    "rov_debris": dict(
-        paths=["Testimony Media/DOD_110571004.mp4"],
-        credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
-        note="107.3秒 1920×1080。DVIDS 937093。06-22-2023 の残骸。"
-             "使える帯は 24〜82秒（前後は空の海底）",
-    ),
-}
 
-# スレッシャー号の6本を CLIPS に足す（1本ずつ手で書くと naId と番号がずれるので機械で作る）
-for _n, (_na, _npc, _sec, _note) in _NARA_FILMS.items():
-    CLIPS[_n] = dict(
-        paths=[f"428/NPC/428-npc-{_npc}.mp4"],          # urls_of は使わない（下で上書き）
-        url=f"{NARA_MOPIX}428-npc-{_npc}.mp4",
-        credit=f"出典：米国国立公文書館 NARA 428-NPC-{_npc}"
-               f"（naId {_na}／米海軍 海軍写真センター撮影・1963〜64年）",
-        note=f"{_sec}秒 720x480。{_note}",
-    )
-# ❌ 見たうえで使わないと決めたもの（記録として残す）
-#   mbi_board（DVIDS 888248）… 沿岸警備隊の**記者会見**。実名の人物の顔が写る。
-#     台本はこの会見に一度も触れていないし、失敗を語る文の下に人の顔を出すと
-#     言っていないことを言ったように読める。**煽らない**という決めに反する。
-#   mbi_exhibit（DVIDS 963844）… 冒頭に **"Provided by OceanGate Inc."** と出る。
-#     沿岸警備隊の証拠ではあるが**著作権は他社**。図1・2 を外したのと同じ理由で使わない。
-#   rov_salvage_b（DVIDS 937622）… 全編ほぼ白濁で形が読めない。
-#   rov_long（DVIDS 937609）… 前半は salvage_a と同内容、13分以降は籠が昇るだけ。
+def kaltura_url(entry):
+    """playManifest → 実ファイルの署名付き URL（期限あり。毎回取り直す）。"""
+    req = urllib.request.Request(KALTURA.format(e=entry),
+                                 headers={"User-Agent": UA, "Range": "bytes=0-0"})
+    last = None
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return r.geturl()
+        except Exception as e:                           # noqa: BLE001
+            last = f"{type(e).__name__}: {e}"
+            time.sleep(3 * (attempt + 1))
+    raise RuntimeError(f"Kaltura の URL が取れない（{entry}）: {last}")
 
-# ── 中身を見るだけの候補（2026-08-02 カズヤくん指示「実写の比率を上げる」）──
-# 🔴 出所は `DVIDS_VIDIEOS.txt`（アーカイブに同梱）で1本ずつ確かめた。
-#    DVIDS は米国防総省の広報配信で、**合衆国政府の著作物＝パブリックドメイン**。
-#    ⚠️ ただし ROV 映像は凡例が "courtesy of Pelagic Research Services" なので、
-#      **PDとは書かない**（撮影は民間会社）。審判部そのものを写した映像は
-#      沿岸警備隊の撮影なので PD と書いてよい。
-SCAN = {
-    # ROV 映像。すでに使っている2本とは**別の素材**（長さが違う）
-    "rov_salvage_a": dict(
-        paths=["Testimony Media/DOD_110579329.mp4"],
-        credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
-        note="127.3秒。DVIDS 937600「引き揚げのROV映像」"),
-    "rov_salvage_b": dict(
-        paths=["Testimony Media/DOD_110579650.mp4"],
-        credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
-        note="140.0秒。DVIDS 937622「引き揚げのROV映像」"),
-    # ★審判部そのもの。**海底と実験室しか出てこない本編に、人と部屋の絵が入る**
-    # 30分の ROV 映像。**残骸のいろいろな場所が写っている見込み**なので中身を見る
-    "rov_long": dict(
-        paths=["Testimony Media/DOD_110579532-1920x1080-9000k.mp4"],
-        credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／ROV撮影：Pelagic Research Services",
-        note="1800秒（30分）。DVIDS 937609「引き揚げのROV映像」"),
-    "mbi_board": dict(
-        paths=["Testimony Media/DOD_109728593.mp4"],
-        credit="出典：アメリカ沿岸警備隊／海難審判部の公開映像／パブリックドメイン",
-        note="774.6秒。DVIDS 888248「海難審判部の招集」"),
-    "mbi_exhibit": dict(
-        paths=["May 2025 Update/Testimony Media/DOD_111016570.mp4"],
-        credit="出典：アメリカ沿岸警備隊 海難審判部 公開資料／パブリックドメイン",
-        note="154.6秒。DVIDS 963844「審判部 証拠 CG 141」。中身は未確認"),
-}
 
 # ── どのカットに、どの動画の何秒目から当てるか ────────────────
 # 🔴 守ること
 #   1. **そのカットで話している対象そのもの**であること（壁紙にしない）
-#   2. 全部の実写カットを動画にしない。**動くのは数カットだけ**だから効く
-#   3. ROV映像には焼き込みがある。本編は爆縮地点を **3,346m** と言っているので、
-#      **深度の数字が1桁でも読める切り方をしない**（写真のときと同じ理由）。
-#      🔴 実測した焼き込みの位置（1920×1080 の原寸）：
-#        左上 "OceanGate"(y≈40) "Dive: 01"(y≈75) "Depth (m): 3775.5"(y≈110)／右端 x≈310 まで
-#        下   日付(y≈1000)／"HDG"・"Alt"(y≈1035)
-#        左端 ROV自身のアーム（x≈120 まで）
-#      → 安全な窓は **y 130〜980・x 320〜1920**。
-#        zoom=1.42（切り出し高さ 771px）／bias=0.55（上端 y≈170）／xbias=0.62（左端 x≈340）
-#      ⚠️ 最初 zoom=1.30・bias=0.50 で切ったら上端が y≈124 になり、
-#        深度表示の下半分が残って「776.1」と読めた（焼いて確認した）。
-# 🔴 2026-08-04：**2本目（日本航空123便）では動画を使わないことが確定したので空にした。**
-#    1本目（タイタン号）の10カットぶんは git の `57e6c16` にある。
-#    ⚠️ 空でも壊れない。`build_jiko.foot_frame()` は当てが無ければ None を返すだけで、
-#      写真（＝ふだんの画）がそのまま出る。
-#    ⚠️ 逆に、**入れたまま残すと写真より優先されて**、123便のカットに
-#      潜水艇の海底映像が出る（動画は写真より上）。
+#   2. 顔の寄り・NIST ロゴ入りヘルメットの寄り・表題カードは使わない（台本 §5 注意 5・6）
+#   3. ショットの長さがカットより短いときは `rate` で遅くする（上の説明）。
+#      注記の「N〜M秒」が見取り図で確かめたショットの範囲。**次のショットに食い込ませない**
+#   4. `zoom` `xbias` `bias` は切り方（`build_jiko.fit` と同じ意味）。4K は zoom 2 まで劣化しない
 USE = {
-    # 🔴 2026-08-09（3本目・スレッシャー号）。**4本のシートを自分の目で見てから決めた。**
-    #
-    # ⚠️⚠️ **NARA の mp4 は先頭9秒が現代のアーカイブの頭出しである。**
-    #      引き継ぎと台本 §0 は「冒頭2秒にロゴカード」と書いていたが、**足りない**。
-    #      1コマ刻みで見た実測（thr_83740）：
-    #        0〜2秒 … NATIONAL ARCHIVES のロゴ＋ www.archives.gov
-    #        3〜5秒 … 「428.NPC.32766 / Source: Digital Betacam (I Copy)」の文字カード
-    #        6〜9秒 … 橙色のリーダー
-    #        10秒〜 … 本編（撮影スレート）
-    #      → **`start` は必ず 10秒以降**にする。2秒では他機関の文字が画面に出る。
-    # ⚠️ 終端にも色のリーダーが入る（83213 は 2:57 以降が橙と白、83737 は 8:18 以降が黄）。
-    #    **終端から20秒は使わない。**
-
-    # c104「1960年に進水し、1961年8月3日に就役した」（11.81秒）
-    #   → 進水そのものの記録映画。**日付が台本と一致する唯一の映像。**
-    #     48〜60秒＝空撮で、水に入った艦体とタグボート。曳き船の白い航跡が動く
-    "c104": dict(clip="thr_83213", start=48),
-
-    # c107「1963年4月9日の朝、ポーツマスを出た／工事明けの海上試験へ」（9.66秒）
-    #   → 航走中のスレッシャー（カラー）。526〜536秒＝セイルの **593 が読める**まま
-    #     だんだん大きくなる。⚠️ 4:00〜4:30 は乗員の顔が大きく写るので使わない
-    "c107": dict(clip="thr_85185", start=526),
-
-    # c205「広がっていく形で探しはじめた／午後には哨戒機とレカバリーが加わった」（10.37秒）
-    #   → 🔴 スレートは「SEARCH FOR SSN THRESHER: SHOT FROM P2V. **4-11-63**」。
-    #     **撮影は4月11日＝台本の4月10日ではない。** 注記でその日付を出す（下の ann）。
-    #     24〜34秒＝灰色のうねりの中を進む捜索艦。37秒以降は機体の枠が入るので使わない
-    "c205": dict(clip="thr_83737", start=24),
-
-    # ep07「4月17日、追悼の式が行われた／記録映画のスレートに、その日付が残っている」（10.31秒）
-    #   → 10〜12秒＝撮影スレート「PNSY MAIN GATE **4/17/63** ROLL 3」が読める。
-    #     13秒以降＝造船所の正門の引きの画（人影は小さく、顔は判別できない）。
-    #     🔴 **寄りの画は使わない**（1:45 の将官の顔、5:06 の枢機卿など）
-    "ep07": dict(clip="thr_83740", start=10),
+    # ── プロローグ ─────────────────────────────────────
+    # 8〜10秒 建物の銘板「CHAMPLAIN TOWERS 8777 SOUTH」／11〜14秒 崩れた棟の正面／15〜18秒 瓦礫と捜索
+    "pr01": dict(clip="ss_b1", start=8.0, rate=0.5),
+    # 54〜57.5秒 瓦礫の山と、その奥に残った棟（58秒から顔の寄り）
+    "pr02": dict(clip="ss_b1", start=53.8, rate=0.36),
+    # 15〜18.8秒 せん断された断面の下、瓦礫の上の捜索隊（19秒から別の引き）
+    "pr03": dict(clip="ss_b1", start=15.0, rate=0.5),
+    # ── 第1章 ────────────────────────────────────────
+    # 8〜11.9秒 海岸線の空撮（12秒から現場の寄り）
+    "c106": dict(clip="ss_b2", start=8.0, rate=0.38),
+    # 99〜107秒 ドローン。片づいたデッキの床面と重機
+    "c119": dict(clip="ss_b2", start=99.0),
+    # 115〜118.9秒 瓦礫の上の捜索隊と柱（119秒からクレーンの吊り）
+    "c128": dict(clip="ss_b1", start=115.0, rate=0.6),
+    # ── 第2章 ────────────────────────────────────────
+    # 95.8〜98.8秒 デッキ面の引き（99秒からドローン）
+    "c204": dict(clip="ss_b2", start=95.8, rate=0.4),
+    # 74〜77.8秒 現場の床面。鉄筋の出た版とコーン（78秒から潰れた車）
+    "c217": dict(clip="ss_b1", start=74.0, rate=0.5),
+    # 78〜81秒 駐車場の潰れた車（81秒から重機）
+    "c223": dict(clip="ss_b1", start=78.0, rate=0.33),
+    # ── 第3章 ────────────────────────────────────────
+    "c315": dict(clip="ss_gif", start=0.0),
+    # 10〜16.7秒 試験場の引き。試験機と背を向けた技術者（17秒から顔の寄り）
+    "c321": dict(clip="ss_b8", start=10.0, rate=0.75),
+    # 128〜133.9秒 レプリカと試験機の全景（134秒から計測器の寄り）
+    "c322": dict(clip="ss_b8", start=128.0, rate=0.6),
+    # 188〜197秒 スラブを真上から。格子と計測器
+    "c324": dict(clip="ss_b8", start=188.0),
+    # 47〜52.5秒 圧縮試験機に入ったコア（53秒から人）
+    "c325": dict(clip="ss_b6", start=47.0, rate=0.7),
+    # 24〜34秒 鉄筋の引張試験機（36秒からカード）
+    "c326": dict(clip="ss_b7", start=24.0),
+    # 80〜87秒 柱まわり。スラブの裏側のひびと露出した鉄筋
+    "c327": dict(clip="ss_b8", start=80.0),
+    # 64〜71秒 スラブの面を走るひびと計測カメラ
+    "c328": dict(clip="ss_b8", start=64.0, rate=0.9),
+    # 193.5〜202.5秒 真上から。上の面はまだ平ら（c324 と同じショットの後半・寄り違い）
+    "c329": dict(clip="ss_b8", start=193.5, zoom=1.35, xbias=0.5, bias=0.55),
+    # 121〜127秒 外れて落ちたスラブの裏側（128秒からカード）
+    "c331": dict(clip="ss_b8", start=121.0),
+    # ── タイムラプス 6.8秒を 0.25倍で3カットに割る。透かし（右下）を切り方で外す ──
+    "c332": dict(clip="ss_tl", start=0.0, rate=0.25, zoom=1.25, xbias=0.5, bias=0.0),
+    "c333": dict(clip="ss_tl", start=2.2, rate=0.25, zoom=2.0, xbias=0.45, bias=0.2),
+    "c334": dict(clip="ss_tl", start=4.7, rate=0.25, zoom=1.5, xbias=0.4, bias=0.0),
+    # ── 第4章 ────────────────────────────────────────
+    # 40〜45秒 証拠倉庫で部材の鉄筋を測る（人は背中側）
+    "c419": dict(clip="ss_b3", start=40.0, rate=0.6),
+    # 102〜109秒 倉庫の引き。並んだ部材のあいだを歩く
+    "c430": dict(clip="ss_b5", start=102.0),
+    # 108〜118秒 部材を積んだトレーラーが走る（120秒からカード）
+    "c431": dict(clip="ss_b4", start=108.0),
+    # 8〜11.9秒 海岸線の空撮（c106 と同じショット・寄せを変える）
+    "c434": dict(clip="ss_b2", start=8.0, rate=0.38, zoom=1.3, xbias=0.55, bias=0.4),
+    # ── 第5章 ────────────────────────────────────────
+    # 46〜49.8秒 デッキの床面を歩く作業員（50秒から試料袋の寄り）
+    "c505": dict(clip="ss_b2", start=46.0, rate=0.45),
+    # 42〜46秒 錆びた鉄筋の標本（袋と札）（48秒から人）
+    "c513": dict(clip="ss_b7", start=42.0, rate=0.5),
+    # 39〜48秒 コア抜きの刃と水
+    "c519": dict(clip="ss_b5", start=39.0),
+    # 116〜124秒 圧縮試験機の中のコア（計測器つき）
+    "c520": dict(clip="ss_b6", start=116.0),
+    # 11〜17秒 倉庫の床一面の部材（18秒からコア抜き機の寄り）
+    "c521": dict(clip="ss_b5", start=11.0, rate=0.65),
+    # ── 第6章 ────────────────────────────────────────
+    # 32〜37.7秒 試験機の全景（38秒から顔）
+    "c607": dict(clip="ss_b8", start=32.0, rate=0.65),
+    # 158〜163.6秒 残った棟の断面。刃物で切ったように立つ床（164秒から人）
+    "c628": dict(clip="ss_b1", start=158.0, rate=0.55),
+    # ── 第7章 ────────────────────────────────────────
+    # 198〜204秒 高い所からの現場の引き（海が見える）（204秒からカード）
+    "c703": dict(clip="ss_b1", start=198.0),
+    # 138〜141.9秒 残った棟＝住民が住んでいた建物の断面（142秒から顔）
+    "c709": dict(clip="ss_b1", start=138.0, rate=0.42),
+    # 153〜159秒 コアに計測器をあてる手元
+    "c713": dict(clip="ss_b5", start=153.0, rate=0.65),
+    # 110〜114.4秒 ドローン。現場の引き（114秒からカード）
+    "c726": dict(clip="ss_b2", start=110.0, rate=0.5),
 }
-# ❌ 見たうえで**当てないと決めた**もの（2026-08-09・記録として残す）
-#   thr_83755「TRIESTE Test Dive」… スレートは "USS PRESERVER + TRIESTE"。
-#     映っているのは **TRIESTE（初代）** で、第6章が語る **トリエステ2世**（1964年）ではない。
-#     c604 / c609 に当てると別の艇を「トリエステ2世」として見せることになる。
-#     🔴 台本 §5 は c114 / c609 に当てる想定だったが、**採らない**。
-#     （絵は良い。だが「図が嘘をつかない」に反する。使うなら初代を語る行が要る）
-#   thr_83750「捜索艦の遠景」… 写っている艦が **SKYLARK と特定できない**。
-#     c201 は「スカイラークは潜水艦救難艦である」と言うカットなので、
-#     別の艦を出すと誤認になる。
-#   c123「9時13分、声がスカイラークに届いた」… 83737 は 4月11日の空撮。
-#     **09:13 の交信の場面ではない**ので当てない（写真も残骸から記録の紙に替えた）。
-# ❌ 当てるのをやめたところ（1本目の記録）
-#   c129「最初に無人探査機を積んだ船が着いた。だが3,000メートルまでしか潜れない」
-#     … これは**捜索側の話**で、残骸の映像ではない。ここに残骸を出すと
-#       「6月20日に見つかった」と読めてしまう。実際に見つかるのは6月22日。
-#   c133「捜索に加わったのは船が11隻」／ep07「同じ音が聞こえていた」も同じ理由で当てない。
+# ❌ 見たうえで**当てないと決めた**もの（2026-09-05・記録として残す）
+#   c705（87 Park）… B-Roll #2 の 12〜14秒しか写っていない（3秒）。0.3倍速はコマ落ちが目立つので
+#     **1コマを静止画で抜き**、ゆっくり寄る（`ref/surfside/ss_b2_87park.jpg`）。
+#   pr10・ep16（銘板の寄り）… 8〜10秒の3秒しか無い。同じく静止画（`ss_b1_sign.jpg`）。
+#   B-Roll #1 4:02 前後（NIST ロゴ入りヘルメットの寄り）／各巻の 1:41 2:10 2:25 などの顔の寄り
+#   B-Roll #2 1:30 1:45 2:10（台本第3版の候補）… 1:30 は人物、2:10 はインタビュー。**使わない**
+#     → c119 c505 c204 は上の秒に差し替えた（実見して決めた）
 
 
 def urls_of(name):
-    c = CLIPS.get(name) or SCAN[name]
-    # 🔴 NARA の記録映画は Internet Archive ではないので、`url` を直に持たせてある。
-    #    ここで IA の前置きを付けると 404 になる（2026-08-09）。
+    c = CLIPS[name]
     if c.get("url"):
         return [c["url"]]
-    return [IA + urllib.parse.quote(p) for p in c.get("paths") or [c["path"]]]
+    return [kaltura_url(c["entry"])]
 
 
 def have(cid):
@@ -249,39 +232,37 @@ def credit_of(cid):
     return CLIPS[USE[cid]["clip"]]["credit"] if cid in USE else None
 
 
-def _dl(name):
-    CLIP.mkdir(parents=True, exist_ok=True)
-    dst = CLIP / f"{name}.mp4"
-    if dst.exists() and dst.stat().st_size > 1_000_000:
-        print(f"  {name}: すでにある（{dst.stat().st_size/1e6:.0f}MB）")
-        return dst
-    # 🔴 archive.org は `/download/` から実体のノードへ 302 で飛ばす。
-    #    そのノードが 500 を返すことがある（2026-08-01 の r16 で実際に起きた）。
-    #    **複製を順に試し、それぞれ数回まで粘る。**
+def _cut_stream(cid, u, secs):
+    """URL から、そのカットに要る区間だけをコマに切り出す（落とさない）。"""
+    c = CLIPS[u["clip"]]
+    rate = float(u.get("rate", 1.0))
+    n = int(round(secs * FPS)) + 2
+    vf = []
+    if abs(rate - 1.0) > 1e-6:
+        vf.append(f"setpts={1.0 / rate:.4f}*PTS")
+    vf.append(f"fps={FPS}")
+    # 4K はそのまま切り出すと 1コマ 1.5MB。寄り（zoom）に要る幅だけ残して縮める
+    want = min(int(c["w"]), int(round(1920 * float(u.get("zoom", 1.0)) * 1.02)))
+    if want < int(c["w"]):
+        vf.append(f"scale={want}:-2")
+    d = FOOT / cid
+    d.mkdir(parents=True, exist_ok=True)
     last = None
-    for u in urls_of(name):
+    for url in urls_of(u["clip"]):
         for attempt in range(3):
-            try:
-                print(f"  {name}: 落とす {u}" + (f"（{attempt+1}回目）" if attempt else ""),
-                      flush=True)
-                req = urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0"})
-                with urllib.request.urlopen(req, timeout=900) as r, open(dst, "wb") as f:
-                    while True:
-                        b = r.read(1 << 20)
-                        if not b:
-                            break
-                        f.write(b)
-                if dst.stat().st_size > 1_000_000:
-                    print(f"     → {dst.stat().st_size/1e6:.0f}MB")
-                    return dst
-                last = f"中身が小さすぎる（{dst.stat().st_size}バイト）"
-            except Exception as e:                       # noqa: BLE001
-                last = f"{type(e).__name__}: {e}"
-                print(f"     ⚠️ {last}", flush=True)
-                time.sleep(4 * (attempt + 1))
-    print(f"  🔴 {name}: どの複製も落とせなかった（最後の理由 {last}）")
-    print("     ⚠️ このカットは**静止画に落ちる**。パイプラインは止めない。")
-    return None
+            cmd = ["ffmpeg", "-y", "-nostdin", "-hide_banner", "-loglevel", "error",
+                   "-user_agent", UA, "-ss", f"{float(u['start']):.2f}", "-i", url,
+                   "-t", f"{secs + 0.6:.2f}", "-vf", ",".join(vf),
+                   "-frames:v", str(n), "-q:v", "3", "-start_number", "0",
+                   str(d / "%05d.jpg")]
+            r = subprocess.run(cmd, capture_output=True, text=True, timeout=1800)
+            got = len(list(d.glob("*.jpg")))
+            if r.returncode == 0 and got >= n - 4:
+                return got, n
+            last = (r.stderr or "").strip()[-200:] or f"コマ {got}/{n}"
+            print(f"     ⚠️ {cid}: {last}（{attempt + 1}回目）", flush=True)
+            time.sleep(4 * (attempt + 1))
+    return len(list(d.glob("*.jpg"))), n
 
 
 def fetch(check=False):
@@ -293,98 +274,40 @@ def fetch(check=False):
         return 1
     print(f"■ 動画を当てるカット {len(USE)} 件")
     for cid, u in USE.items():
-        print(f"  {cid}  尺{secs[cid]:5.2f}s  ← {u['clip']} の {u['start']}秒目から")
+        c = CLIPS[u["clip"]]
+        rate = float(u.get("rate", 1.0))
+        end = float(u["start"]) + secs[cid] * rate
+        flag = "" if end <= float(c["sec"]) + 0.05 else "  🔴 動画の終端を越える"
+        print(f"  {cid}  尺{secs[cid]:5.2f}s  ← {u['clip']} {u['start']:.1f}〜{end:.1f}秒"
+              f"（{rate:.2f}倍速）{flag}")
     if check:
         return 0
-    got_clip = {}
-    for name in {u["clip"] for u in USE.values()}:
-        got_clip[name] = _dl(name) is not None
+    bad = 0
     for cid, u in USE.items():
-        if not got_clip.get(u["clip"]):
-            print(f"  {cid}: 動画が無いので飛ばす（静止画のまま）")
+        if have(cid):
+            print(f"  {cid}: すでにある", flush=True)
             continue
-        d = FOOT / cid
-        d.mkdir(parents=True, exist_ok=True)
-        n = int(round(secs[cid] * FPS)) + 2
-        src = CLIP / f"{u['clip']}.mp4"
-        print(f"  {cid}: {n}コマ切り出す", flush=True)
-        # ⚠️ -ss を -i の前に置く（キーフレーム単位で速く飛べる）。
-        #    画質は元が 1920×1080 なので、そのまま出して build 側で切る。
-        subprocess.run(
-            ["ffmpeg", "-y", "-hide_banner", "-loglevel", "error",
-             "-ss", str(u["start"]), "-i", str(src),
-             "-frames:v", str(n), "-q:v", "3", "-start_number", "0",
-             str(d / "%05d.jpg")], check=True)
-        got = len(list(d.glob("*.jpg")))
-        print(f"     → {got}コマ")
+        print(f"  {cid}: {u['clip']} の {u['start']}秒目から切り出す", flush=True)
+        try:
+            got, n = _cut_stream(cid, u, secs[cid])
+        except Exception as e:                           # noqa: BLE001
+            print(f"  🔴 {cid}: {type(e).__name__}: {e}")
+            bad += 1
+            continue
+        print(f"     → {got}コマ（要 {n}）")
         if got < n - 4:
             print(f"  🔴 {cid}: コマが足りない（{got}/{n}）。start が終端に近すぎる")
-            return 1
+            bad += 1
     done = [c for c in USE if have(c)]
     print(f"✓ 切り出し完了 {len(done)}/{len(USE)} カット: {'、'.join(done) or 'なし'}")
-    return 0
-
-
-def _duration(p):
-    r = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration",
-                        "-of", "default=nw=1:nk=1", str(p)],
-                       capture_output=True, text=True)
-    try:
-        return float(r.stdout.strip())
-    except ValueError:
-        return 0.0
-
-
-def scan(only=None, cols=5, rows=5):
-    """候補クリップの中身を**一定間隔で並べたシート**にする。
-
-    🔴 これを見てから `USE` の start を書く。r17 では見ずに書いて、
-       c132 が白飛び・c624 が何も無い海底になった。
-    ⚠️ シートは `out/jiko/qa/` に出す（成果物として持ち帰るのはここだけ）。
-    """
-    from PIL import Image, ImageDraw
-    qa = HERE / "out" / "jiko" / "qa"
-    qa.mkdir(parents=True, exist_ok=True)
-    names = [n for n in SCAN if not only or n in only.split(",")]
-    print(f"■ 中身を見る候補 {len(names)} 本", flush=True)
-    for name in names:
-        print(f"── {name}：{SCAN[name]['note']}", flush=True)
-        p = _dl(name)
-        if p is None:
-            continue
-        dur = _duration(p)
-        n = cols * rows
-        step = max(1.0, dur / (n + 1))
-        tw = 384
-        th = round(tw * 9 / 16)
-        sheet = Image.new("RGB", (tw * cols, th * rows), "#101010")
-        d = ImageDraw.Draw(sheet)
-        tmp = CLIP / "_scan"
-        tmp.mkdir(exist_ok=True)
-        got = 0
-        for i in range(n):
-            t = step * (i + 1)
-            f = tmp / f"{i:03d}.jpg"
-            subprocess.run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error",
-                            "-ss", f"{t:.2f}", "-i", str(p), "-frames:v", "1",
-                            "-q:v", "4", str(f)], check=False)
-            if not f.exists():
-                continue
-            im = Image.open(f).convert("RGB").resize((tw, th), Image.LANCZOS)
-            x, y = (i % cols) * tw, (i // cols) * th
-            sheet.paste(im, (x, y))
-            d.text((x + 8, y + 8), f"{int(t // 60)}:{t % 60:05.2f}", fill="#ffe08a")
-            d.rectangle([x, y, x + tw - 1, y + th - 1], outline="#404040")
-            f.unlink()
-            got += 1
-        out = qa / f"scan_{name}.jpg"
-        sheet.save(out, quality=86)
-        print(f"   → {out.name}（{dur:.1f}秒を {got}枚・{step:.1f}秒おき）", flush=True)
-    return 0
+    if bad:
+        print(f"⚠️ {bad} カットは**静止画に落ちる**。パイプラインは止めない。")
+    return 1 if bad else 0
 
 
 if __name__ == "__main__":
-    g = lambda p: next((a.split("=", 1)[1] for a in sys.argv if a.startswith(p)), None)
     if "scan" in sys.argv:
-        sys.exit(scan(only=g("--only=")))
+        # 4本目は Kaltura から範囲取得で見取り図を作った（scratchpad の sheet_*.jpg）。ここでは作らない
+        print("scan は4本目では使わない（見取り図は手元で作った）。何もしない")
+        sys.exit(0)
     sys.exit(fetch(check="--check" in sys.argv))

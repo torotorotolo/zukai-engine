@@ -59,15 +59,18 @@ CSS = ""
 #    机上検査5種は**1つも落ちない**。重なりも複写も無く、文字として正しく出るため。
 #    → `--report` が章名を必ず出すようにした。回すたびに目に入る（下の print）。
 #    1本目（潜水艇タイタン号）の章名は git の `57e6c16`、2本目は `8b5d129` にある。
+# 🔴 2026-09-05：**4本目「サーフサイド」へ差し替え**（台本第3版 §3 の章名。7章＋プロローグ＋エピローグ）。
+#    3本目（スレッシャー号）の章名は git の `ad6882a` にある。
 CHAPTERS = {
-    "c1": (1, "くぐもった、鈍い音"),
-    "c2": (2, "850フィート"),
-    "c3": (3, "13.8パーセント"),
-    "c4": (4, "30秒"),
-    "c5": (5, "空欄"),
-    "c6": (6, "標的"),
+    "c1": (1, "開かなくなった門"),
+    "c2": (2, "4インチの隙間"),
+    "c3": (3, "柱が床を突き抜ける"),
+    "c4": (4, "図面と、実物"),
+    "c5": (5, "上に載せたもの"),
+    "c6": (6, "塔へ渡った"),
+    "c7": (7, "そうではなかったもの"),
 }
-NCH = 6
+NCH = 7
 
 
 def chapter_of(cid):
@@ -245,6 +248,41 @@ def thresher_credit(name):
     return None
 
 
+# ══ 4本目（サーフサイド）の出典 ══════════════════════════
+# 🔴 素材は3種。すべて NIST（米国立標準技術研究所）の職務著作＝パブリックドメイン。台帳＝`ref/CREDITS.md`。
+#   tf_pNNN_*.jpg … 技術的知見（2026-06-22 公表・77分の4K動画）のスライドを1コマ抜いて切り出したもの
+#   fb_<cid>.jpg  … 記録映像（B-Roll）の**ひかえの静止画**。動画のコマが取れたときは動画の出典が勝つ
+#   ss_*.jpg      … 記録映像から**わざと**1コマ抜いた静止画（空撮など、動画のままでは短すぎる場面）
+# ⚠️ ここに当たらない名前は None を返し、最後の PHOTO_CREDIT で KeyError にして気づかせる。
+CR_TF = "出典：NIST 技術的知見（2026年6月22日公表）"
+TF_SLIDE = re.compile(r"^surfside/tf_p(\d{3})_.+\.jpg$")
+SS_FALLBACK = re.compile(r"^surfside/fb_([a-z]{1,2}\d{2,3})\.jpg$")   # c106 / pr01 / ep16
+SS_STILL = {
+    "surfside/ss_b2_87park.jpg":
+        "出典：NIST 記録映像 B-Roll #2（空撮）の1コマ／パブリックドメイン",
+    "surfside/ss_b1_sign.jpg":
+        "出典：NIST 記録映像 B-Roll #1（建物の銘板）の1コマ／パブリックドメイン",
+}
+
+
+def surfside_credit(name):
+    """`ref/surfside/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if name in SS_STILL:
+        return SS_STILL[name]
+    m = TF_SLIDE.match(name)
+    if m:
+        return f"{CR_TF} スライド{int(m.group(1))}ページ／パブリックドメイン／切出"
+    m = SS_FALLBACK.match(name)
+    if m:
+        try:
+            import footage as FO
+            c = FO.credit_of(m.group(1))
+        except Exception:                                # noqa: BLE001
+            c = None
+        return (c + "（静止画）") if c else None
+    return None
+
+
 def credit_of(cid, spec):
     """そのカットに出す出典。**動画を当てたカットは動画の出典を出す。**
 
@@ -260,8 +298,9 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (thresher_credit(spec["photo"]) or kaisetsu_credit(spec["photo"])
-          or ja123_credit(spec["photo"]) or PHOTO_CREDIT[spec["photo"]])
+    cr = (surfside_credit(spec["photo"]) or thresher_credit(spec["photo"])
+          or kaisetsu_credit(spec["photo"]) or ja123_credit(spec["photo"])
+          or PHOTO_CREDIT[spec["photo"]])
     # 🔴 階調を伸ばした写真は、そのことを出典の行に出す（2026-08-09）。
     #    切り抜きに「／切出」と付けているのと同じ扱い。黙って手を入れない。
     if spec.get("levels") or LEVELS_BY_PHOTO.get(spec["photo"]):

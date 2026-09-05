@@ -2687,3 +2687,157 @@ def window(note="", marks=None, lead=""):
         stages.append(txtfit(BX0, BY1 - 150 + 56 * len(stages), m, BW, cap=38,
                              col=J.ALERT))
     return Fig("".join(g), stages, "", (cx - R - 160, cx + R + 300))
+
+
+# ══════════════════════════════════════════════════════════
+# 22. punch — 押し抜きせん断（パンチング・シア）の断面（4本目・第3章）
+# ══════════════════════════════════════════════════════════
+#  🔴 2026-09-05 新設（カズヤくん決定 §8-4）。既存の型に無い：`layers` は積層、`buckle` は圧縮座屈。
+#  形の根拠は NIST 技術的知見 p36 の線図（柱の上にスラブ、柱を頂点にすり鉢を伏せた破壊面）。
+#  ⚠️ **図の中に NIST の数値を書かない**（出どころが混ざる。台本 §5 注意 9・10）。
+#     ここが持つのは**部位の名前と関係**だけ。寸法・角度・荷重の数字は一切出さない。
+#  ■ 8段（c304〜c311）。`stage=k` で「k 段目まで」の状態を返し、k 段目だけが段（stages）として描かれる。
+#     1 柱とスラブが一体に打たれた断面    5 柱の周りに集まる力（垂直に切ろうとする向き）
+#     2 スラブの上に重さが載る            6 すり鉢を伏せた形の破壊面が入る
+#     3 柱が下から受ける                  7 スラブが柱から外れて落ちる（柱は立ったまま）
+#     4 接している面積＝柱の断面だけ      8 突き抜けた形で止まる（名前の由来）
+PN_ST = 150                  # スラブの厚み
+PN_CW = 170                  # 柱の幅
+PN_DROP = 78                 # 7段目でスラブが落ちる量
+
+
+def punch(stage=1, note="", lead=""):
+    """押し抜きせん断の断面。stage=1〜8。"""
+    k = int(stage)
+    if not 1 <= k <= 8:
+        raise ValueError(f"punch: stage は 1〜8（いまは {k}）")
+    sx0, sx1 = BX0 + 140, BX1 - 140                 # スラブの左右
+    sy = BY0 + 150                                  # スラブの上面
+    sb = sy + PN_ST                                 # スラブの下面
+    cx = BCX
+    cl, cr_ = cx - PN_CW / 2, cx + PN_CW / 2        # 柱の左右
+    yb = BY1 - 96                                   # 柱の下端
+    cone = PN_ST * 1.5                              # 破壊面の張り出し（上面での柱からの距離）
+    tl, tr = cl - cone, cr_ + cone                  # 破壊面が上面に出る x
+    drop = PN_DROP if k >= 7 else 0
+    bar_t, bar_b = sy + 30, sb - 30                 # 上端筋・下端筋の y
+
+    def slab_piece(x_out, x_top_in, x_bot_in, dy):
+        """落ちる側のスラブ片（外側の縁 x_out、内側は破壊面の斜め）。"""
+        return poly([(x_out, sy + dy), (x_top_in, sy + dy), (x_bot_in, sb + dy),
+                     (x_out, sb + dy)], fill=J.LINE, close=True, op=0.22) + \
+            poly([(x_out, sy + dy), (x_top_in, sy + dy), (x_bot_in, sb + dy),
+                  (x_out, sb + dy)], stroke=J.INK_W, close=True, sw=4)
+
+    def bars(x0, x1, dy):
+        s = ""
+        for yy in (bar_t, bar_b):
+            s += line(x0 + 12, yy + dy, x1 - 12, yy + dy, J.AMBER, 5, dash="26 14",
+                      op=0.85)
+        return s
+
+    g = []
+    if lead:
+        g.append(txtfit(BX0, BY0 + 56, lead, BW, cap=44, col=J.INK_W))
+    if note:
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.TICK))
+    body = []
+    if k < 7:
+        # ── 一体の断面（スラブ＋柱を1つの多角形で描く＝つなぎ目の線を引かない） ──
+        shape = [(sx0, sy), (sx1, sy), (sx1, sb), (cr_, sb), (cr_, yb), (cl, yb), (cl, sb),
+                 (sx0, sb)]
+        body.append(poly(shape, fill=J.LINE, close=True, op=0.22))
+        body.append(poly(shape, stroke=J.INK_W, close=True, sw=4))
+        body.append(bars(sx0, sx1, 0))
+    else:
+        # ── 外れて落ちたスラブ2片。柱と、柱に残ったすり鉢の芯は元の高さのまま ──
+        body.append(slab_piece(sx0, tl, cl, drop))
+        body.append(slab_piece(sx1, tr, cr_, drop))
+        body.append(bars(sx0, tl - 30, drop))
+        body.append(bars(tr + 30, sx1, drop))
+        core = [(tl, sy), (tr, sy), (cr_, sb), (cr_, yb), (cl, yb), (cl, sb)]
+        body.append(poly(core, fill=J.LINE, close=True, op=0.22))
+        body.append(poly(core, stroke=J.INK_W, close=True, sw=4))
+        body.append(line(tl + 40, bar_t, tr - 40, bar_t, J.AMBER, 5, dash="26 14", op=0.85))
+        body.append(line(cl - 60, bar_b, cr_ + 60, bar_b, J.AMBER, 5, dash="26 14", op=0.85))
+        # 落ちる前の上面（破線）＝どれだけ下がったかの目安。数字は書かない
+        body.append(line(sx0, sy, tl - 10, sy, J.LINE_DIM, 3, dash="12 10"))
+        body.append(line(tr + 10, sy, sx1, sy, J.LINE_DIM, 3, dash="12 10"))
+    # ⚠️ 鉄筋の札はスラブの**上**（右端）に置く。スラブの中に置くと破線と重なって読めない（手元で描いて確認）
+    labels = [txt(sx0, sy - 22, "スラブ（床の板）", 30, J.TICK),
+              txt(cr_ + 26, yb - 16, "柱", 30, J.TICK),
+              txt(sx1, sy - 22, "鉄筋　上・下2段（破線）", 26, J.AMBER, "Noto", "end")]
+
+    # ── 段ごとの要素（k より前の段は骨格に含め、k 段目だけを段として描く） ──
+    def s_load():
+        a = ""
+        n = 9
+        for i in range(n):
+            x = sx0 + 60 + (sx1 - sx0 - 120) * i / (n - 1)
+            a += arrow(x, sy - 118, x, sy - 14, J.AMBER, 5, 20)
+        return [a, txt(sx0 + 60, sy - 140, "上に載る重さ", 30, J.AMBER)]
+
+    def s_react():
+        return [arrow(cx, BY1 - 8, cx, yb + 12, J.OK, 8, 26),
+                txt(cx + 40, BY1 - 22, "柱が下から受ける", 30, J.OK)]
+
+    def s_contact():
+        # ⚠️ 「床の幅」の寸法線は置かない。スラブの上は載荷の矢印で埋まっていて、
+        #    その上に置くと見出しの帯（y<210）に入る（手元で描いて確認）。広い床と細い接触面の対比は絵で足りる
+        return [rect(cl, sb - 12, PN_CW, 24, J.INK_W, op=0.95)
+                + J.dim(cl, cr_, sb + 60, "柱の幅", J.INK_W),
+                txt(cr_ + 120, sb + 72, "触れているのは、この幅だけ", 28, J.INK_W)]
+
+    def s_gather():
+        a = ""
+        for i in range(4):
+            xl = sx0 + 80 + i * 150
+            xr = sx1 - 80 - i * 150
+            a += arrow(xl, sy + PN_ST / 2, xl + 100, sy + PN_ST / 2, J.ALERT, 4, 16)
+            a += arrow(xr, sy + PN_ST / 2, xr - 100, sy + PN_ST / 2, J.ALERT, 4, 16)
+        # 柱の面で、上下逆向きの一対（垂直に切ろうとする向き）
+        b = (arrow(cl - 34, sy - 60, cl - 34, sb + 30, J.ALERT, 6, 20)
+             + arrow(cr_ + 34, sy - 60, cr_ + 34, sb + 30, J.ALERT, 6, 20)
+             + arrow(cl + 30, sb + 30, cl + 30, sy - 60, J.ALERT, 6, 20)
+             + arrow(cr_ - 30, sb + 30, cr_ - 30, sy - 60, J.ALERT, 6, 20))
+        return [a, b]
+
+    def s_cone():
+        a = (line(cl, sb, tl, sy, J.ALERT, 7, dash="18 12")
+             + line(cr_, sb, tr, sy, J.ALERT, 7, dash="18 12"))
+        return [a, txt(tr + 30, sy + 70, "破壊面（すり鉢を伏せた形）", 30, J.ALERT)]
+
+    def s_drop():
+        # ⚠️ 矢印は「スラブ（床の板）」の札（sx0〜）の右に置く。札を貫くと check_layout が止める
+        a = (arrow(sx0 + 380, sy - 100, sx0 + 380, sy + drop - 14, J.ALERT, 6, 22)
+             + arrow(sx1 - 380, sy - 100, sx1 - 380, sy + drop - 14, J.ALERT, 6, 22))
+        return [a, txt(sx0 + 410, sy - 112, "外れて落ちる", 30, J.ALERT)]
+
+    def s_stand():
+        # ⚠️ 札は破壊面（hot の多角形）の外＝右下に置く
+        return [rect(cl - 14, sy - 14, PN_CW + 28, yb - sy + 28, "none", J.INK_W, 4,
+                     dash="14 10"),
+                txt(sx1, sb + drop + 70, "柱は突き抜けた形で立つ", 30, J.INK_W, "Noto", "end")]
+
+    per = {2: s_load, 3: s_react, 4: s_contact, 5: s_gather, 6: s_cone, 7: s_drop,
+           8: s_stand}
+    prev = []
+    for i in range(2, k):
+        # 7段目以降は、載った重さの矢印と破壊面の線を落ちた形に合わせて描き直さない
+        # （すでに外れているので、力の矢印を残すと「まだ載っている」と読める）
+        if k >= 7 and i in (2, 3, 4, 5, 6):
+            continue
+        prev += per[i]()
+    if k == 1:
+        stages = ["".join(body), "".join(labels)]
+        lab = ""
+    else:
+        lab = "".join(body) + "".join(labels) + "".join(prev)
+        stages = [s for s in per[k]() if s]
+    hot = ""
+    if k in (6,):
+        hot = (line(cl, sb, tl, sy, J.ALERT, 9) + line(cr_, sb, tr, sy, J.ALERT, 9))
+    if k >= 7:
+        hot = poly([(tl, sy), (tr, sy), (cr_, sb), (cl, sb)], stroke=J.ALERT, close=True, sw=6)
+    return Fig("".join(g), stages, hot, (sx0 - 40, sx1 + 40), labk=0.34) \
+        if lab == "" else Fig("".join(g) + lab, stages, hot, (sx0 - 40, sx1 + 40), labk=0.34)
