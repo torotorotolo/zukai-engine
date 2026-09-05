@@ -80,6 +80,9 @@ audio/*.wav
 # 読みのドライラン結果と、通し確認用につないだ音声（どちらも作り直せる）
 audio/kana_dry.txt
 audio/_full.mp3
+# 🔴 ElevenLabs の行ごとの合成キャッシュ（pcm。1本で約100MB・作り直せる）。
+#    検査の記録 audio/el_qa/*.tsv は小さいので入れる（検査台帳の正本）
+audio/el_cache/
 # USCG報告書は335ページ26MB。ヘッダー付きでいつでも落とせるので入れない
 #   → 落とし方は Vault の引き継ぎノートに書いてある
 ref/uscg_titan_mbi.pdf
