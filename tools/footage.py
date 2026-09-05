@@ -131,12 +131,14 @@ USE = {
     # 8〜10秒 建物の銘板「CHAMPLAIN TOWERS 8777 SOUTH」／11〜14秒 崩れた棟の正面／15〜18秒 瓦礫と捜索
     "pr01": dict(clip="ss_b1", start=8.0, rate=0.5),
     # 54〜57.5秒 瓦礫の山と、その奥に残った棟（58秒から顔の寄り）
-    "pr02": dict(clip="ss_b1", start=53.8, rate=0.36),
+    # 🔴 still=True … 0.33〜0.38倍のスローはコマ落ちが目立つ（⑤b の決定・2026-09-05）。動画を当てず
+    #    `ref/surfside/fb_<cid>.jpg` の静止画をゆっくり寄って使う。clip/start は出典と「どのショットか」の記録
+    "pr02": dict(clip="ss_b1", start=53.8, still=True),
     # 15〜18.8秒 せん断された断面の下、瓦礫の上の捜索隊（19秒から別の引き）
     "pr03": dict(clip="ss_b1", start=15.0, rate=0.5),
     # ── 第1章 ────────────────────────────────────────
     # 8〜11.9秒 海岸線の空撮（12秒から現場の寄り）
-    "c106": dict(clip="ss_b2", start=8.0, rate=0.38),
+    "c106": dict(clip="ss_b2", start=8.0, still=True),
     # 99〜107秒 ドローン。片づいたデッキの床面と重機
     "c119": dict(clip="ss_b2", start=99.0),
     # 115〜118.9秒 瓦礫の上の捜索隊と柱（119秒からクレーンの吊り）
@@ -146,8 +148,9 @@ USE = {
     "c204": dict(clip="ss_b2", start=95.8, rate=0.4),
     # 74〜77.8秒 現場の床面。鉄筋の出た版とコーン（78秒から潰れた車）
     "c217": dict(clip="ss_b1", start=74.0, rate=0.5),
-    # 78〜81秒 駐車場の潰れた車（81秒から重機）
-    "c223": dict(clip="ss_b1", start=78.0, rate=0.33),
+    # 🔴 2026-09-06（⑤c B-20）：78秒（潰れた車）は c217 の 74秒と同じショットで、6カットおいて使い回しに見えた。
+    #    100〜104秒 瓦礫の山と重機の腕（99秒までと 105秒からは顔の寄り）の1コマを静止画で。0.33倍のスローもやめる
+    "c223": dict(clip="ss_b1", start=102.5, still=True),
     # ── 第3章 ────────────────────────────────────────
     # 167コマ≒6.7秒しか無い（ss-r01 で 200/306 コマ＝末尾 3.5秒が止まった）。0.65倍で 10.1秒に伸ばす
     "c315": dict(clip="ss_gif", start=0.0, rate=0.65),
@@ -181,7 +184,7 @@ USE = {
     # 108〜118秒 部材を積んだトレーラーが走る（120秒からカード）
     "c431": dict(clip="ss_b4", start=108.0),
     # 8〜11.9秒 海岸線の空撮（c106 と同じショット・寄せを変える）
-    "c434": dict(clip="ss_b2", start=8.0, rate=0.38, zoom=1.3, xbias=0.55, bias=0.4),
+    "c434": dict(clip="ss_b2", start=8.0, still=True),
     # ── 第5章 ────────────────────────────────────────
     # 46〜49.8秒 デッキの床面を歩く作業員（50秒から試料袋の寄り）
     "c505": dict(clip="ss_b2", start=46.0, rate=0.45),
@@ -273,9 +276,13 @@ def fetch(check=False):
     if missing:
         print(f"🔴 台本に無いカットに動画を割り当てている: {missing}")
         return 1
-    print(f"■ 動画を当てるカット {len(USE)} 件")
+    stills = [c for c, u in USE.items() if u.get("still")]
+    print(f"■ 動画を当てるカット {len(USE) - len(stills)} 件（＋静止画で受ける {len(stills)} 件: {' '.join(stills)}）")
     for cid, u in USE.items():
         c = CLIPS[u["clip"]]
+        if u.get("still"):
+            print(f"  {cid}  尺{secs[cid]:5.2f}s  ← {u['clip']} {u['start']:.1f}秒の静止画（fb_{cid}.jpg・ゆっくり寄る）")
+            continue
         rate = float(u.get("rate", 1.0))
         end = float(u["start"]) + secs[cid] * rate
         flag = "" if end <= float(c["sec"]) + 0.05 else "  🔴 動画の終端を越える"
@@ -285,6 +292,8 @@ def fetch(check=False):
         return 0
     bad = 0
     for cid, u in USE.items():
+        if u.get("still"):
+            continue
         if have(cid):
             print(f"  {cid}: すでにある", flush=True)
             continue
@@ -300,7 +309,7 @@ def fetch(check=False):
             print(f"  🔴 {cid}: コマが足りない（{got}/{n}）。start が終端に近すぎる")
             bad += 1
     done = [c for c in USE if have(c)]
-    print(f"✓ 切り出し完了 {len(done)}/{len(USE)} カット: {'、'.join(done) or 'なし'}")
+    print(f"✓ 切り出し完了 {len(done)}/{len(USE) - len(stills)} カット: {'、'.join(done) or 'なし'}")
     if bad:
         print(f"⚠️ {bad} カットは**静止画に落ちる**。パイプラインは止めない。")
     return 1 if bad else 0

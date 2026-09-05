@@ -128,10 +128,10 @@ python tools/build_jiko.py veil --cuts=c115a     # 濃さ違いを1回で焼き�
 | `sound` | 2点で同じ音を聞いた | `rings=4`, `both=True`, `label_a`, `label_b`, `note` |
 | `gauge` | 監視装置のしきい値（黄30・赤50） | `hits=12`, `yellow=30`, `red=50`, `vmax=60`, `lead`, `marks=["…"]`, `note` |
 | `mapfig` | 位置関係（Google Maps は使えないので自作） | `points=[dict(x=0.2,y=0.3,t="",d="",c=,kind="wreck")]`, `link=(0,1)`, `scale="約 600 km"`, `lead`, `note` |
-| `beforeafter` | 前と後の2枚 | `a=dict(k="変更前",t="",lines=[],v="",c=)`, `b=...`, `lead`, `note` |
+| `beforeafter` | 前と後の2枚 | `a=dict(k="変更前",t="",lines=[],v="",c=)`, `b=...`, `lead`, `note`, `arrow=True`。🔴 **対比**（A vs B）に使うときは `arrow=False`＝中央の「前→後」の矢印を消す（矢印は「A が B になる」と読める。c216・c313。2026-09-06） |
 | `buckle` | 圧縮での壊れ方 | `kind="crush"\|"global"\|"local"\|"peel"\|"s"`, `lead`, `note` |
 | `window` | のぞき窓の断面（中央が厚く縁が薄い） | `marks=["…"]`, `lead`, `note` |
-| `punch` | **押し抜きせん断の断面**（4本目・2026-09-05 新設）。スラブ・柱・すり鉢状の破壊面・鉄筋2段。`stage=k` で k 段目までの状態 | `stage=1..8`, `lead`, `note`。🔴 図の中に NIST の数値を書かない（自作の図） |
+| `punch` | **押し抜きせん断の断面**（4本目・2026-09-05 新設）。スラブ・柱・すり鉢状の破壊面・鉄筋2段。`stage=k` で k 段目までの状態 | `stage=1..8`, `lead`, `note`, `zones=(上の札, 下の札)`（断面の上下が何かを言うときだけ。c105）。🔴 図の中に NIST の数値を書かない（自作の図）。⚠️ 札（スラブ・鉄筋）はスラブの**下・左**に置く＝上に置くと段2の載荷の矢印9本が貫く（⑤c C-06・2026-09-06） |
 
 ### 4本目で足した引数（2026-09-05）
 - 写真カットの **`color=0.0〜1.0`** … デュオトーンに原色を混ぜる割合。NIST のスライドは**色に意味がある**

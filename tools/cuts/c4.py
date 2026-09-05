@@ -97,7 +97,7 @@ SPEC = {
     # ── c409 スラブ断面の実物 ───────────────────
     "c409": dict(
         t="計算ではなく、実物",
-        s="瓦礫から回収された床の断面（p75）",
+        s="回収されたスラブの断面（p75）",
         photo=ss.P075, side="right", ann_y=330, color=0.5,
         **ss.focus(ss.P075, 0.45, 0.55, 1.15),
         ann=[dict(t="As-Built Conditions", d="実際に建てられていた状態", dc=J.LINE, ds=30)],
@@ -120,7 +120,7 @@ SPEC = {
         fig=("panel", dict(
             lead="かぶり（cover）",
             blocks=[dict(k="何", t="鉄筋の上のコンクリート層の厚さ", c=J.INK_W),
-                    dict(k="役目", t="鉄筋を錆から守る。わざと付けてある", c=J.LINE)],
+                    dict(k="役目", t="錆を防ぐ。意図した厚み", c=J.LINE)],
             cols=2)),
     ),
 
@@ -149,8 +149,8 @@ SPEC = {
 
     # ── c414 厚いほうが良さそうに見える ────────────────
     "c414": dict(
-        t="一見、悪いことに思えない",
-        s="かぶりが厚いということ",
+        t="厚いほうが良い、とは限らない",
+        s="厚いかぶりは、良いことか",
         fig=("panel", dict(
             lead="かぶりが厚いと",
             blocks=[dict(k="○", t="錆に対しては、有利", c=J.OK),
@@ -170,7 +170,7 @@ SPEC = {
 
     # ── c416 設計の鉄筋位置と実物 ───────────────────
     "c416": dict(
-        t="変わるのは、鉄筋の深さだけ",
+        t="板は同じ。鉄筋だけが沈む",
         s="設計と実物（p75）",
         fig=("beforeafter", dict(
             a=dict(k="設計", t="かぶり ¾インチ", lines=["鉄筋から下面まで、長い"], c=J.AMBER),
@@ -181,7 +181,7 @@ SPEC = {
     # ── c417 有効せい ───────────────────────
     "c417": dict(
         t="この距離が、耐える力を決める",
-        s="有効せいという考え方",
+        s="用語・2つめ",
         fig=("panel", dict(
             lead="有効せい（有効高さ）",
             blocks=[dict(k="何", t="鉄筋から、板の下面までの距離", c=J.INK_W),
@@ -214,7 +214,7 @@ SPEC = {
         s="当時の設計図の抜粋（p76・図面は Town of Surfside 提供）",
         photo=ss.P076, side="right", ann_y=330, color=0.4,
         **ss.focus(ss.P076, 0.60, 0.36, 1.6),
-        ann=[dict(t="From design drawings", d="当時の設計図", dc=J.DOC, ds=30),
+        ann=[dict(t="From design drawings", d="図面は町（Town）の保管分", dc=J.DOC, ds=30),
              dict(t="赤枠", d="手書きの注記", dc=J.ALERT, ds=30)],
     ),
 
@@ -260,7 +260,7 @@ SPEC = {
     # ── c425 4本と2本 ─────────────────────────
     "c425": dict(
         t="あるべき4本のうち、2本",
-        s="片方向の上端筋（柱の真上）",
+        s="数えた本数（p76）",
         fig=("icons", dict(
             n=4, on=[0, 1], kind="dot", cols=4, oncol=J.ALERT, offcol=J.LINE_DIM,
             lead="柱の真上を通る上端筋（片方向）",
@@ -293,7 +293,7 @@ SPEC = {
 
     # ── c428 NIST の書き方は慎重 ───────────────────
     "c428": dict(
-        t="この場所では、という断り",
+        t="言い切りを、避けている",
         s="NIST の書き方（p76）",
         photo=ss.P076, side="left", ann_y=330, color=0.4,
         **ss.focus(ss.P076, 0.84, 0.74, 2.2),

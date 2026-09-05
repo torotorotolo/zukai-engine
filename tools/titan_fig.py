@@ -567,6 +567,13 @@ def compare(items, unit="", note="", bar=True, ratio="", vmax=None, ref=""):
                 # 基準の高さを薄い枠で先に見せる（棒がどれだけ小さいかが読める）
                 s.append(rect(x + cw * 0.16, barb - barh, cw * 0.68, barh, "none",
                               J.LINE_DIM, 3, dash="16 12"))
+                # 🔴 2026-09-06（サーフサイド ⑤c G-03）：`ref` の文字列を一度も描いていなかった＝破線の枠が
+                #    「何の基準か」画面に無い（c114）。docstring の「そこに書く」と食い違っていた。
+                #    枠の**内側の上端**に、枠の幅で置く（左の1本にだけ）。⚠️ 枠の上（-14）に置くと
+                #    項目の sub（ny+100）と 10×7px 重なった（check_layout で実測）
+                if i == 0:
+                    s.append(txtfit(x + cw * 0.16 + 10, barb - barh + 30, str(ref), cw * 0.68 - 20,
+                                    cap=26, col=J.TICK))
             h = max(barh * 0.045, barh * abs(it["v"]) / vmax)
             s.append(rect(x + cw * 0.16, barb - h, cw * 0.68, h, c, op=0.30))
             s.append(rect(x + cw * 0.16, barb - h, cw * 0.68, h, "none", c, 4))
@@ -2513,8 +2520,16 @@ def people(nodes, edges=None, note="", lead=""):
 # ══════════════════════════════════════════════════════════
 # 19. beforeafter — 前と後
 # ══════════════════════════════════════════════════════════
-def beforeafter(a, b, note="", lead=""):
-    """左右2枚。a/b は dict(k="変更前", t="…", lines=[…], c=…)。"""
+_ARROW = arrow
+
+
+def beforeafter(a, b, note="", lead="", arrow=True):
+    """左右2枚。a/b は dict(k="変更前", t="…", lines=[…], c=…)。
+
+    arrow … 中央の「前→後」の矢印。🔴 2026-09-06（サーフサイド ⑤c C-18）：**対比**（曲げ破壊 vs 押し抜き・
+            割れ vs 隙間）に使うと矢印が「前が後になる」と嘘をつく。対比のカットは arrow=False。
+            既定 True なので、過去の回の絵は1画素も変わらない。
+    """
     cw = (BW - 90) / 2                       # 上限。下で中身に合わせて詰める
     # 🔴 2026-08-01（r14 を焼いて目視）。process と同じ症状。
     #    箱は 843×526 なのに中身は「見出し＋箇条1行」だけで、器が中身の3倍あった。
@@ -2562,7 +2577,8 @@ def beforeafter(a, b, note="", lead=""):
     g = []
     if lead:
         g.append(txtfit(BX0, BY0 + 62, lead, BW, cap=44, col=J.INK_W))
-    g.append(arrow(BCX - 26, top + bh / 2, BCX + 26, top + bh / 2, J.AMBER, 6, 22))
+    if arrow:
+        g.append(_ARROW(BCX - 26, top + bh / 2, BCX + 26, top + bh / 2, J.AMBER, 6, 22))
     stages = []
     for i, side in enumerate((a, b)):
         x = x_left + i * (cw + 90)
@@ -2706,8 +2722,12 @@ PN_CW = 170                  # 柱の幅
 PN_DROP = 78                 # 7段目でスラブが落ちる量
 
 
-def punch(stage=1, note="", lead=""):
-    """押し抜きせん断の断面。stage=1〜8。"""
+def punch(stage=1, note="", lead="", zones=None):
+    """押し抜きせん断の断面。stage=1〜8。
+
+    zones … (上の札, 下の札)。第1章 c105「板一枚をはさんで、下は車」のように、断面の上下が何かを
+            言いたいときだけ渡す（例 ("プールデッキ（人・土・舗装）", "駐車場（車）")）。既定 None＝描かない。
+    """
     k = int(stage)
     if not 1 <= k <= 8:
         raise ValueError(f"punch: stage は 1〜8（いまは {k}）")
@@ -2759,14 +2779,23 @@ def punch(stage=1, note="", lead=""):
         body.append(poly(core, fill=J.LINE, close=True, op=0.22))
         body.append(poly(core, stroke=J.INK_W, close=True, sw=4))
         body.append(line(tl + 40, bar_t, tr - 40, bar_t, J.AMBER, 5, dash="26 14", op=0.85))
-        body.append(line(cl - 60, bar_b, cr_ + 60, bar_b, J.AMBER, 5, dash="26 14", op=0.85))
+        # ⚠️ 芯に残る下端筋は破壊面の斜線の内側まで（±60 だと斜線から約15px はみ出す＝⑤c C-13）
+        body.append(line(cl - 40, bar_b, cr_ + 40, bar_b, J.AMBER, 5, dash="26 14", op=0.85))
         # 落ちる前の上面（破線）＝どれだけ下がったかの目安。数字は書かない
         body.append(line(sx0, sy, tl - 10, sy, J.LINE_DIM, 3, dash="12 10"))
         body.append(line(tr + 10, sy, sx1, sy, J.LINE_DIM, 3, dash="12 10"))
-    # ⚠️ 鉄筋の札はスラブの**上**（右端）に置く。スラブの中に置くと破線と重なって読めない（手元で描いて確認）
-    labels = [txt(sx0, sy - 22, "スラブ（床の板）", 30, J.TICK),
+    # 🔴 2026-09-06（⑤c C-06）：札はスラブの**下**・左に2行で置く。
+    #    以前はスラブの上（左＝スラブ・右＝鉄筋）に置いていたが、段2以降の載荷の矢印9本（sy-118〜sy-14）が
+    #    両方の札を縦に貫いていた（check_layout は層をまたぐ交差を見ない）。スラブの下・左は
+    #    段3〜8のどの要素（反力の矢印＝中央下・柱の幅の寸法線＝中央・破壊面の札＝右）とも重ならない。
+    #    段7以降はスラブが drop ぶん下がるので札も一緒に下げる。
+    labels = [txt(sx0, sb + drop + 34, "スラブ（床の板）", 30, J.TICK),
               txt(cr_ + 26, yb - 16, "柱", 30, J.TICK),
-              txt(sx1, sy - 22, "鉄筋　上・下2段（破線）", 26, J.AMBER, "Noto", "end")]
+              txt(sx0, sb + drop + 68, "鉄筋　上・下2段（破線）", 26, J.AMBER)]
+    if zones:
+        # 上の札は lead（BY0+56）から離し、スラブの上面（sy）に寄せる（sy-60 だと lead の直下に付いた＝手元で確認）
+        labels.append(txt(sx0, sy - 34, str(zones[0]), 28, J.TICK))
+        labels.append(txt(sx0, sb + drop + 124, str(zones[1]), 28, J.TICK))
 
     # ── 段ごとの要素（k より前の段は骨格に含め、k 段目だけを段として描く） ──
     def s_load():
@@ -2805,7 +2834,9 @@ def punch(stage=1, note="", lead=""):
     def s_cone():
         a = (line(cl, sb, tl, sy, J.ALERT, 7, dash="18 12")
              + line(cr_, sb, tr, sy, J.ALERT, 7, dash="18 12"))
-        return [a, txt(tr + 30, sy + 70, "破壊面（すり鉢を伏せた形）", 30, J.ALERT)]
+        # ⚠️ 札はスラブの**下**（右）。スラブの中（sy+70）だと段5の赤い水平矢印の上に同じ赤で載る（⑤c C-11）。
+        #    sb+118 は「触れているのは、この幅だけ」（sb+72）の下・柱の右の空き
+        return [a, txt(tr + 30, sb + 118, "破壊面（すり鉢を伏せた形）", 30, J.ALERT)]
 
     def s_drop():
         # ⚠️ 矢印は「スラブ（床の板）」の札（sx0〜）の右に置く。札を貫くと check_layout が止める

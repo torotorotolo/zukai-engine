@@ -28,6 +28,16 @@
     ・c310 は出る（実際に目視で見つけた）
     ・数字・単位だけ、4字未満、カタカナ語1語は出ない（部位名・固有名詞なので）
 
+■ 🔴 2026-09-06 に足した3つ（サーフサイド ⑤c の目視で素通りした形。型カットを目視しない案2の目）
+  ① timeline の**目盛りの札**と**旗（top／t2）**が同じ語（c201「3週間前」・c218「9時間前」・c228「9分前」「崩落」）
+     → 目盛りは日付か素の数字にする。旗はそのまま
+  ② **副題（s）と図の札が同じ語**を持つ（4字以上の語、または3字以上の丸ごとの区切り）
+     （c314 s「押し抜きの場合」× lead「押し抜きが起きたとき」／c309 s「…すり鉢を伏せた形の破壊面」×
+     札「破壊面（すり鉢を伏せた形）」／c304 s「…（模式図・寸法なし）」× note「…（模式図）」）
+     ⚠️ 7割の「覆う」規則はいちばん長い一致1つで測るので、語が2つに割れると 57% で黙っていた
+     ⚠️ カタカナ1語・数字と単位・ひらがなだけの並び（「ている」）は語と見なさない
+  ③ **制作の用語**が画面の文字にある（「次のカット」「ナレーション」「字幕」「台本」…）
+
 使い方： python tools/check_dup.py [--only=c3] [--check]
 """
 import re
@@ -48,11 +58,63 @@ MINLEN = 4
 DATAISH = re.compile(r"^[0-9０-９,.，．%％\s"
                      r"a-zA-Zａ-ｚＡ-Ｚ"
                      r"年月日時分秒回本個名人隻機層枚倍度円m"
+                     r"週間か前後ごろ午初旬中末"          # 「3週間前」「1か月前」「6月初旬」＝時の語（副題の役目）
+                     r"メートルインチフィートポンドマイルパーセントキロセンチミリ"   # 単位
                      r"／/・:：〜~\-−－(（)）]+$")
 
 # 「見出し／副題に出てよい」語。図がラベルとして持つのが当たり前のもの。
 # ⚠️ ここを広げすぎると道具が何も言わなくなる。**固有名詞1語だけ**に絞る。
 KATAKANA1 = re.compile(r"^[ァ-ヶー]+$")
+HIRAGANA = re.compile(r"^[ぁ-ゖー]+$")          # 助詞・活用語尾の並び。語ではない
+WORDLEN = 4                                       # 副題と札の「同じ語」と見なす最短
+SEGLEN = 3                                        # 丸ごとの区切り（「模式図」）ならここまで短くてよい
+SEG = re.compile(r"[　 ・（）()／/、。:：=＝⇄→※]+")  # 副題・札を「区切り」に割る記号
+PARTICLE = "のはがをにでともへやてっ"                 # 一致の両端に付いた助詞は語の一部でない
+MARKER = re.compile(r"^\d+\s*/\s*\d+$")           # 章マーカー「3 / 7」
+# 視聴者の画面に出てはいけない制作の用語（c312 c213「次のカット」で実際に出た）
+PRODUCTION = re.compile(r"次のカット|前のカット|カット|ナレーション|字幕|台本|テロップ|レイヤー")
+
+
+def frame_texts():
+    """図の中の文字ではない、枠の文字（章名）。副題との同語の対象から外す。"""
+    return {norm(v[1]) for v in getattr(S, "CHAPTERS", {}).values()}
+
+
+def wordish(w):
+    """比べてよい語か（数字と単位だけ・カタカナ1語・ひらがなだけの並びは語と見なさない）。"""
+    return (len(w) >= WORDLEN and not DATAISH.match(w) and not KATAKANA1.match(w)
+            and not HIRAGANA.match(w))
+
+
+def segments(s):
+    return {norm(x) for x in SEG.split(str(s)) if norm(x)}
+
+
+def shared_word(a, b):
+    """副題 a と札 b（生の文字列）が持つ同じ語。(語, "hard"|"soft") か None。
+
+    hard … **どちらかの区切りを丸ごと**写している（札「コア抜き」が副題「コア抜き（記録映像）」に丸ごと／
+           副題の「模式図」が note にも）。これは c310 と同じ「同じ文字列が2か所」＝直す
+    soft … 語の一部だけ重なる（「集まる力」「錆び続け」）。--all で見せる参考。直すかは判断
+    ① いちばん長い連続一致の両端の助詞を落とし、WORDLEN 字以上で語らしい → その語
+    ② 区切りで割った片が丸ごと一致（SEGLEN 字以上・数字と単位だけでない） → その片（hard）
+    """
+    an, bn = norm(a), norm(b)
+    sa, sb = segments(a), segments(b)
+    best = ""
+    for i in range(len(bn)):
+        for j in range(i + WORDLEN, len(bn) + 1):
+            w = bn[i:j]
+            if j - i > len(best) and w in an:
+                best = w
+    best = best.strip(PARTICLE)
+    if best and wordish(best):
+        return best, ("hard" if best in sa or best in sb else "soft")
+    for w in sorted(sa & sb, key=len, reverse=True):
+        if len(w) >= SEGLEN and not DATAISH.match(w) and not KATAKANA1.match(w) \
+                and not HIRAGANA.match(w):
+            return w, "hard"
+    return None
 
 
 def unesc(t):
@@ -110,14 +172,54 @@ def span(h, n):
 
 def scan(only=None):
     bycut = collect(only)
-    hits = []
+    frame = frame_texts()
+    hits, softs = [], []
     for cid in sorted(bycut):
         spec = S.SPEC.get(cid, {})
         heads = [("見出し", str(spec.get("t", "") or "")),
                  ("副題", str(spec.get("s", "") or ""))]
         heads = [(kind, v) for kind, v in heads if norm(v)]
+
+        # ── ③ 制作の用語（見出し・副題・図のどこに出ても言う） ──
+        for layer, t in bycut[cid]:
+            m = PRODUCTION.search(t)
+            if m:
+                hits.append((cid, "制作用語", t, layer,
+                             f"視聴者の画面に制作の用語「{m.group(0)}」"))
+
+        # ── ① timeline の目盛りの札 と 旗（top／t2）の同語 ──
+        fig = spec.get("fig")
+        if fig and fig[0] == "timeline":
+            ticks = {norm(lbl) for _, lbl in fig[1].get("ticks", []) if norm(lbl)}
+            for ev in fig[1].get("events", []):
+                for key in ("top", "t2"):
+                    v = str(ev.get(key, "") or "")
+                    if len(norm(v)) >= 2 and norm(v) in ticks:
+                        hits.append((cid, "目盛り", v, "timeline",
+                                     f"軸の目盛りの札と旗の {key} が同じ語＝目盛りを日付か素の数字にする"))
+
         if not heads:
             continue
+        # ── ② 副題 と 図の札 の同語 ──
+        sv = str(spec.get("s", "") or "")
+        if norm(sv):
+            hn = {norm(v) for _, v in heads}
+            found = {}
+            for layer, t in bycut[cid]:
+                n = norm(t)
+                if not n or n in hn or n in frame or t.startswith("出典") or MARKER.match(t):
+                    continue
+                got = shared_word(sv, t)
+                if got:
+                    w, grade = got
+                    found.setdefault((w, grade), []).append(t)
+            for (w, grade), ts in found.items():
+                row = (cid, "副題", sv, "同語",
+                       f"図の札「{ts[0]}」{'ほか' + str(len(ts) - 1) + 'か所' if len(ts) > 1 else ''}"
+                       f"と同じ語「{w}」＝"
+                       + ("札か副題の区切りを丸ごと写している。副題を「何を見ている図か」に"
+                          if grade == "hard" else "語の一部が重なる（参考）"))
+                (hits if grade == "hard" else softs).append(row)
         # 図の中の文字。**見出し・副題そのものを描いているレイヤーは除く**
         # （見出しは画面に1回出るだけなので、それ自身とは比べない）。
         headn = {norm(v) for _, v in heads}
@@ -158,6 +260,7 @@ def scan(only=None):
                     hits.append((cid, kind, hv, got[0][2],
                                  f"図のラベル {'／'.join(t for t, _, _ in got)} が"
                                  f"{r:.0%}を覆う＝{kind}が図の写しになっている"))
+    scan.softs = softs
     return hits
 
 
@@ -226,6 +329,37 @@ def selfcheck():
             ok = False
         print(f"  {mark} 「{s}」… {'見ない' if skipped else '見る'}"
               f"（そうあるべき: {'見ない' if should_skip else '見る'}）")
+
+    # 🔴 2026-09-06 追加：副題と札の同語（②）。⑤c で実際に目視で出た形と、黙るべき形
+    words = [
+        ("s と lead が同じ4字の語（c314 の形）", "押し抜きの場合", "押し抜きが起きたとき", "押し抜き"),
+        ("語が2つに割れて7割に届かない（c309 の形）", "段6　すり鉢を伏せた形の破壊面",
+         "破壊面（すり鉢を伏せた形）", "すり鉢を伏せた形"),
+        ("3字の丸ごとの区切り（c304 の形）", "押し抜きせん断の断面　段1（模式図・寸法なし）",
+         "柱の上に置かれているのではなく、つながっている（模式図）", "模式図"),
+        ("カタカナ1語は部位名（**黙る**）", "プールデッキ上の位置（p57）", "プールデッキ", None),
+        ("数字と単位だけ（**黙る**）", "2021年6月23日 朝　NIST の3D（p57）", "6月23日", None),
+        ("ひらがなの並び（**黙る**）", "書き手が否定したこと（p58）", "したことで、ものが", None),
+        ("2字の語（**黙る**）", "崩落までの時間", "崩落", None),
+    ]
+    for name, s, label, want in words:
+        got = shared_word(s, label)
+        w = got[0] if got else None
+        mark = "✓" if w == want else "✗"
+        if w != want:
+            ok = False
+        print(f"  {mark} {name}\n      「{s}」×「{label}」→ "
+              f"{'「' + w + '」を言う（' + got[1] + '）' if got else '黙る'}"
+              f"（そうあるべき: {'「' + want + '」を言う' if want else '黙る'}）")
+    # 制作の用語（③）
+    for s, should in [("曲げ破壊との違いは次のカット", True), ("書かれていたものは、次のカットで", True),
+                      ("カッターで切った断面", False), ("字幕帯", True), ("押し抜き（punching）", False)]:
+        hit = bool(PRODUCTION.search(s))
+        mark = "✓" if hit == should else "✗"
+        if hit != should:
+            ok = False
+        print(f"  {mark} 制作用語「{s}」… {'言う' if hit else '黙る'}"
+              f"（そうあるべき: {'言う' if should else '黙る'}）")
     print(f"── {'✓ 道具は使える' if ok else '🔴 道具が壊れている。直してから使う'} ──\n")
     return ok
 
@@ -243,17 +377,28 @@ def main(only=None, do_check=False):
         f = S.SPEC.get(cid, {}).get("fig")
         return bool(f) and f[0] == "quote"
 
-    real = [h for h in hits if not is_quote(h[0])]
-    design = [h for h in hits if is_quote(h[0])]
+    def is_design(h):
+        # 引用カットの「見出し／副題＝決め所」（覆う規則）だけが作りの選択。①②③は引用でも直す
+        return is_quote(h[0]) and h[1] in ("見出し", "副題") and "覆う" in h[4]
+
+    real = [h for h in hits if not is_design(h)]
+    design = [h for h in hits if is_design(h)]
     for cid, kind, hv, layer, why in real:
         print(f"  🔴 {cid} {kind}「{hv}」\n      {why}  [{layer}]")
+    softs = getattr(scan, "softs", [])
+    if softs and "--all" in sys.argv:
+        print("\n  ── 副題と札で語の一部が重なる（参考。直すかは判断） ──")
+        for cid, kind, hv, layer, why in softs:
+            print(f"  ・ {cid} {kind}「{hv}」 {why}")
     if design:
         print("\n  ── 引用カット（見出し＝決め所）。**作りの選択**なので別扱い ──")
         for cid, kind, hv, layer, why in design:
             print(f"  ・ {cid} {kind}「{hv}」")
         print("     直すなら6カットまとめて、見出しを「誰が・何について」に振り替える。")
     print(f"\n{'🔴 同じ画面に同じ言葉が二度出ている' if real else '✓ 二重表示は無い'}"
-          f"（直すもの {len(real)}件／引用の作り {len(design)}件）")
+          f"（直すもの {len(real)}件／引用の作り {len(design)}件／語の一部の重なり {len(softs)}件）")
+    if softs and "--all" not in sys.argv:
+        print("   （語の一部の重なりは --all で出る）")
     return 1 if real else 0
 
 

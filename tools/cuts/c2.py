@@ -20,7 +20,7 @@ SPEC = {
         s="NIST の数え方　section 2",
         fig=("timeline", dict(
             t0=-21, t1=0, title="単位は日。崩落を 0 とする（NIST は「〜週間前」「〜時間前」と数える）",
-            ticks=[(-21, "3週間前"), (-7, "1週間前"), (0, "崩落")],
+            ticks=[(-21, "6月3日"), (-7, "6月17日"), (0, "6月24日")],   # B-01: 目盛りと旗が同じ語だった。目盛りは日付に
             events=[dict(t=-21, top="3週間前", c=J.LINE, up=True),
                     dict(t=-7, top="1週間前", c=J.LINE, up=True),
                     dict(t=-0.7, top="17時間前", t2="ここから時間で数える", c=J.ALERT, big=True,
@@ -31,9 +31,9 @@ SPEC = {
     "c202": dict(
         t="次の記録は、17時間前",
         s="2021年6月23日 朝　NIST の3D（p57）",
-        photo=ss.P057_3D, side="right", ann_y=330, color=0.4,
-        **ss.focus(ss.P057_3D, 0.50, 0.55, 1.2),
-        ann=[dict(t="~17 hours before collapse", d="6月23日（水）の朝", dc=J.ALERT, ds=30),
+        photo=ss.P057_3D, side="left", ann_y=330, color=0.4,
+        **ss.focus(ss.P057_3D, 0.48, 0.75, 1.5),   # B-02: 吹き出しが字幕帯にかかり North が見出しの裏だった
+        ann=[dict(t="17時間前", d="6月23日（水）の朝", dc=J.ALERT, ds=30),
              dict(t="崩落", d="6月24日（木）午前1時22分", dc=J.LINE, ds=30)],
     ),
 
@@ -42,7 +42,7 @@ SPEC = {
         t="場所は、人が歩く床の上",
         s="プールデッキ上の位置（p57）",
         photo=ss.P057_3D, side="left", ann_y=330, color=0.4,
-        **ss.focus(ss.P057_3D, 0.60, 0.68, 1.7),
+        **ss.focus(ss.P057_3D, 0.60, 0.52, 1.7),   # B-03: 左下に吹き出しの断片が残っていた
         ann=[dict(t="プールデッキ", d="タイル張りの面", dc=J.LINE, ds=32),
              dict(t="17時間前", d="この面の上で", dc=J.ALERT, ds=32)],
     ),
@@ -81,7 +81,7 @@ SPEC = {
         t="書き込みは、13.1 と K の近く",
         s="メモの位置と柱の記号（p57）",
         photo=ss.P057_MEMO, side="left", ann_y=330, color=0.3,
-        **ss.focus(ss.P057_MEMO, 0.55, 0.40, 1.4),
+        **ss.focus(ss.P057_MEMO, 0.55, 0.44, 1.4),   # B-05: 出典行がメモの最終行に載っていた
         ann=[dict(t="Grid Point", v="K-13.1", d="プランターのひびと同じ柱", vc=J.ALERT,
                   vs=96, dc=J.LINE, ds=28)],
     ),
@@ -101,20 +101,20 @@ SPEC = {
     # ── c209 排水の記号（自作）─────────────────────────
     "c209": dict(
         t="図には、排水口の記号が2種類",
-        s="メモの凡例（p57）",
+        s="p57 の凡例",
         fig=("icons", dict(
             n=2, on=[0], kind="dot", cols=2,
-            lead="メモの凡例にある2つの記号",
-            labels=["Pool Deck Drains", "Planter Drains"],
-            note="プールデッキの排水口／プランターの排水口（p57 の凡例）")),
+            lead="メモに描かれた2つの記号",
+            labels=["Pool Deck", "Planter"],   # B-06: 札が横に接して1行に読めた。短くして正式名は note に
+            note="凡例の正式名＝Pool Deck Drains／Planter Drains（p57）")),
     ),
 
     # ── c210 なぜ排水が描かれたか ────────────────────────
     "c210": dict(
-        t="水は、話に出ていた",
-        s="なぜ排水が図に描き込まれたか",
+        t="排水口が描かれた理由",
+        s="聞き取りの図の凡例から（p57）",
         fig=("panel", dict(
-            lead="聞き取りの図に排水口が描かれる、ということ",
+            lead="図に排水口を描く、ということ",
             blocks=[dict(k="問", t="水がどこへ抜けていくか", c=J.LINE),
                     dict(k="答", t="排水口を描くほど、水が話題に", c=J.ALERT)],
             cols=2, note="推論。図に排水の凡例があるのは事実（p57）")),
@@ -122,10 +122,10 @@ SPEC = {
 
     # ── c211 メモの前段（日付）────────────────────────
     "c211": dict(
-        t="手書きの文は、日付から始まる",
+        t="1行目に、日付がある",
         s="メモの拡大　前段（p57）",
         photo=ss.P057_MEMO, side="left", ann_y=330, color=0.3,
-        **ss.focus(ss.P057_MEMO, 0.50, 0.50, 2.2),
+        **ss.focus(ss.P057_MEMO, 0.50, 0.42, 2.6),   # B-08: 4行全部が写り「4inches」まで読めた。上2行だけに
         ann=[dict(t="書き出し", v="Morning June 23", vc=J.INK_W, vs=64)],
     ),
 
@@ -134,7 +134,7 @@ SPEC = {
         t="床のあたりに、あるものがあった",
         s="メモの拡大　中段（p57）",
         photo=ss.P057_MEMO, side="right", ann_y=330, color=0.3,
-        **ss.focus(ss.P057_MEMO, 0.52, 0.56, 2.2),
+        **ss.focus(ss.P057_MEMO, 0.52, 0.50, 2.2),   # B-09: 1行目が見出しの裏だった
         ann=[dict(t="続き", d="noticed in the floor area", dc=J.INK_W, ds=34)],
     ),
 
@@ -148,18 +148,18 @@ SPEC = {
                    dict(t="汚れ", d="書かれていない", ok=False, c=J.LINE),
                    dict(t="たわみ", d="書かれていない", ok=False, c=J.LINE),
                    dict(t="水たまり", d="書かれていない", ok=False, c=J.LINE)],
-            note="書かれていたものは、次のカットで")),
+            note="書かれていたものは、次に")),   # C-16: 「次のカット」は制作の用語
     ),
 
     # ── c214 ★決め所「床に、4インチの隙間」──────────────────
     "c214": dict(
-        t="幅まで、書き込まれている",
+        t="幅の数字まで、残っている",
         s="目撃者の手書き（p57）",
         fig=("quote", dict(
             phrase="床に、4インチの隙間",
             rows=[("誰が", "目撃者（NIST の聞き取り）", J.INK_W),
                   ("いつ", "2021年6月23日 朝（崩落の約17時間前）", J.LINE),
-                  ("どこに", "手書きの図と文　技術的知見 スライド57", J.DOC)],
+                  ("どこに", "スライド57　手書きの図と文", J.DOC)],   # B-10: 欄の途中で折り返していた（14字以内に）
             ctx="原文 Morning June 23 noticed in the floor area, a space or gap of 4 inches",
             paper=True)),
     ),
@@ -182,13 +182,14 @@ SPEC = {
         fig=("beforeafter", dict(
             a=dict(k="割れ", t="床が割れる", lines=["面は続いている"], c=J.LINE),
             b=dict(k="隙間", t="床が離れる", lines=["10センチぶん、面が離れる"], c=J.ALERT),
+            arrow=False,   # 対比（割れ vs 隙間）。矢印だと「割れが隙間になる」と読める（⑤c C-18）
             note="推論。メモの語は space or gap（隙間）")),
     ),
 
     # ── c217 まだ17時間ある ────────────────────────
     "c217": dict(
-        t="まる一日近くが、残っていた",
-        s="現場の床面（NIST 記録映像）",
+        t="まだ、まる一日ある",
+        s="崩落現場（NIST 記録映像 B-Roll #1）",   # B-13: 床面の引きではなく瓦礫と車の前面
         photo=ss.fb("c217"), bias=0.5, side="right", ann_y=340,
         ann=[dict(t="残っていた時間", v="約17時間", vc=J.AMBER, vs=96)],
     ),
@@ -201,7 +202,7 @@ SPEC = {
             t0=-20, t1=0, title="単位は時間。崩落（6月24日 01:22）を 0 とする",
             ticks=[(-17, "17時間前"), (-9, "9時間前"), (-3, "3時間前"), (0, "崩落")],
             events=[dict(t=-17, top="朝", t2="床の隙間", c=J.AMBER),
-                    dict(t=-9, top="夕方〜夜", t2="9時間前", c=J.ALERT, big=True)])),
+                    dict(t=-9, top="夕方〜夜", t2="次の記録", c=J.ALERT, big=True)])),   # B-14: 目盛りと同語だった
     ),
 
     # ── c219 場所が変わる・駐車場 ────────────────────────
@@ -209,19 +210,20 @@ SPEC = {
         t="今度は、床の下の駐車場",
         s="9時間前の3D（p58）",
         photo=ss.P058_3D, side="right", ann_y=330, color=0.4,
-        **ss.focus(ss.P058_3D, 0.48, 0.60, 1.3),
-        ann=[dict(t="~9 hours before collapse", d="プールデッキの下、車の停まる空間", dc=J.ALERT,
+        **ss.focus(ss.P058_3D, 0.48, 0.64, 1.3),   # B-15: 吹き出しの英文に出典行がかかっていた
+        ann=[dict(t="9時間前", d="プールデッキの下、車の停まる空間", dc=J.ALERT,
                   ds=30)],
     ),
 
     # ── c220 駐車場の区画図 ────────────────────────
     # ⚠️ 原図は管財人（CTS Receiver）。**付箋の周りだけ**を切ったファイル（p58）。
     "c220": dict(
-        t="区画には、番号がふられている",
+        t="区画図の上に、丸と付箋",   # B-16: 切り出しファイルに区画番号は写っていない。番号は耳だけで持つ
         s="駐車場の区画図に足された付箋（p58）",
         photo=ss.P058_NOTE, side="right", ann_y=330, color=0.3,
         **ss.focus(ss.P058_NOTE, 0.35, 0.55, 1.0),
-        ann=[dict(t="区画番号", d="048 046 045 044 …", dc=J.LINE, ds=32),
+        ann=[dict(t="丸印", d="目撃の場所", dc=J.LINE, ds=32),
+             dict(t="付箋", d="聞き取りの注記", dc=J.LINE, ds=32),
              dict(t="原図", d="管財人の図面に NIST が注記", dc=J.TICK, ds=28)],
     ),
 
@@ -229,9 +231,9 @@ SPEC = {
     "c221": dict(
         t="付箋も、聞き取りで足された",
         s="付箋の位置（p58）",
-        photo=ss.P058_NOTE, side="left", ann_y=330, color=0.3,
-        **ss.focus(ss.P058_NOTE, 0.62, 0.45, 1.6),
-        ann=[dict(t="Annotations", d="from an eyewitness interview", dc=J.INST, ds=30)],
+        photo=ss.P058_NOTE, side="right", ann_y=330, color=0.3,
+        **ss.focus(ss.P058_NOTE, 0.48, 0.45, 1.3),   # B-18: 右44%が白い空白＋注記が付箋に載っていた。0.42 だと付箋の右端（x≈1650）が注記に接する
+        ann=[dict(t="Annotations", d="目撃者の聞き取りから", dc=J.INST, ds=30)],
     ),
 
     # ── c222 天井から水 ────────────────────────────
@@ -240,7 +242,7 @@ SPEC = {
         s="駐車場での目撃（p58）",
         fig=("panel", dict(
             lead="付箋に書かれていること",
-            blocks=[dict(k="1", t="天井から水が漏れていた", c=J.LINE),
+            blocks=[dict(k="1", t="天井からの水", c=J.LINE),   # B-19: 字幕の写しだった
                     dict(k="2", t="それだけでは、印にならない", c=J.TICK)],
             cols=2, note="次の1行が、この付箋の値打ち")),
     ),
@@ -248,10 +250,10 @@ SPEC = {
     # ── c223 駐車場の水漏れはよくある ───────────────────────
     "c223": dict(
         t="地下駐車場の水漏れは、よくある",
-        s="駐車場側の瓦礫（NIST 記録映像）",
+        s="瓦礫の山（NIST 記録映像 B-Roll #1）",   # B-20: c217 と同じショットだった。1:42 の別ショットの静止画に
         photo=ss.fb("c223"), bias=0.5, side="right", ann_y=360,
         ann=[dict(t="上にプール", d="配管も通っている", dc=J.LINE, ds=32),
-             dict(t="水漏れ", d="それだけでは印にならない", dc=J.TICK, ds=30)],
+             dict(t="水漏れ", d="めずらしくない", dc=J.TICK, ds=30)],   # B-19: c222 のブロック2と隣のカットで同文だった
     ),
 
     # ── c224 否定を書き足している ──────────────────────
@@ -266,13 +268,13 @@ SPEC = {
 
     # ── c225 ★決め所「配管ではない。天井からの漏れ」──────────────
     "c225": dict(
-        t="割れの深さまで、書いてある",
+        t="深さも、数字で書いてある",
         s="付箋（p58）",
         fig=("quote", dict(
             phrase="配管ではない。天井からの漏れ",
             rows=[("誰が", "目撃者（NIST の聞き取り）", J.INK_W),
                   ("いつ", "2021年6月23日 夜（崩落の約9時間前）", J.LINE),
-                  ("どこに", "駐車場の区画図の付箋　技術的知見 スライド58", J.DOC)],
+                  ("どこに", "スライド58　区画図の付箋", J.DOC)],   # B-10: 欄の途中で折り返していた
             ctx="原文 Leak from the ceiling, not the pipe - 1/4 inch deep crack",
             paper=True)),
     ),
@@ -297,16 +299,16 @@ SPEC = {
             ticks=[(-17, "17時間前"), (-9, "9時間前"), (-3, "3時間前"), (0, "崩落")],
             events=[dict(t=-17, top="朝", t2="床の隙間", c=J.AMBER),
                     dict(t=-9, top="夜", t2="天井の漏れ", c=J.AMBER),
-                    dict(t=-3, top="22:22ごろ", t2="記録あり", c=J.ALERT, big=True)])),
+                    dict(t=-3, top="夜10時すぎ", t2="記録あり", c=J.ALERT, big=True)])),   # B-24: 「22:22」は計算値で出典に無い
     ),
 
     # ── c228 分の単位 ─────────────────────────────
     "c228": dict(
-        t="刻みは、分の単位になる",
+        t="最後は、分で刻まれる",
         s="崩落前の数分（section 2）",
         fig=("timeline", dict(
             t0=-10, t1=0, title="単位は分。崩落（01:22）を 0 とする",
-            ticks=[(-9, "9分前"), (-6, "6分前"), (-3, "3分前"), (0, "崩落")],
+            ticks=[(-9, "9"), (-6, "6"), (-3, "3"), (0, "0")],   # B-25: 目盛りと旗が同語だった。title が単位を言うので素の数字に
             events=[dict(t=-9, top="9分前", c=J.AMBER, up=True),
                     dict(t=-6.5, top="6〜7分前", c=J.AMBER, up=False),
                     dict(t=-5.5, top="5〜6分前", c=J.ALERT, up=True),
@@ -318,8 +320,8 @@ SPEC = {
     "c229": dict(
         t="9分前の駐車場は、模型にある",
         s="車と柱の3D（p65）",
-        photo=ss.P065, side="left", ann_y=330, color=0.45,
-        **ss.focus(ss.P065, 0.55, 0.45, 1.15),
+        photo=ss.P065, side="right", ann_y=560, color=0.45,   # 480 だと1行目が「K – 13.1」の箱（y≤470）に載る（手元で確認）
+        **ss.focus(ss.P065, 0.56, 0.25, 1.8),   # B-26: 柱の札が見出しの裏・章マーカーに接し・両端で切れていた
         ann=[dict(t="~9 min before collapse", d="車が並び、柱が立つ", dc=J.LINE, ds=30),
              dict(t="柱の記号", d="K・L ／ 9.1・11.1・13.1", dc=J.AMBER, ds=30)],
     ),
@@ -328,8 +330,9 @@ SPEC = {
     "c230": dict(
         t="床のたわみが、色で分けられる",
         s="6〜7分前の3D（p67）",
-        photo=ss.P067, side="right", ann_y=330, color=0.5,
-        **ss.focus(ss.P067, 0.42, 0.55, 1.25),
+        photo=ss.P067, side="left", ann_y=560, color=0.5,   # 650 だと3行目が North の矢印（y 730〜）に載る（手元で確認）
+        **ss.focus(ss.P067, 0.42, 0.40, 1.25),   # B-27: 左下に c231 の主役（断面パネル）が半分写り込んでいた。
+        # ⚠️ 断面パネルの上端は字幕帯の裏（y≈1000〜）にうすく透ける。zoom を上げると a/b/c の下の札が帯に入るので据え置き
         ann=[dict(t="a / b / c", d="たわみの深さで3段階", dc=J.AMBER, ds=32),
              dict(t="~6-7 min before collapse", d="", dc=J.LINE, ds=28)],
     ),
@@ -339,14 +342,14 @@ SPEC = {
         t="沈みは、北側で深い",
         s="たわみの断面（p67 左下）",
         photo=ss.P067, side="right", ann_y=330, color=0.5,
-        **ss.focus(ss.P067, 0.20, 0.86, 2.4),
+        **ss.focus(ss.P067, 0.18, 0.86, 2.4),   # B-28: 左端の札「c」が画面の左で切れていた
         ann=[dict(t="浅い皿の形", d="北側（建物側）ほど深い", dc=J.ALERT, ds=32)],
     ),
 
     # ── c232 残っていないもの（出さない映像）──────────────────
     "c232": dict(
-        t="その映像は、ここでは出さない",
-        s="崩落の瞬間の映像（p119）について",
+        t="映像は、残っている",   # B-30: 字幕と同文＋「出さない」が画面に3回
+        s="NIST が持つ映像の扱い（p119）",
         fig=("absent", dict(
             mode="single", lead="このあとの数分",
             items=[dict(t="崩落の瞬間の映像", d="この動画では出さない", ok=False, c=J.LINE)],
