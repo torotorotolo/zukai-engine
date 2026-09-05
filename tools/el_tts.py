@@ -28,6 +28,11 @@ r"""el_tts.py — ElevenLabs で1行ずつ合成する。tools/el_build.py か�
 ⚠️ 前後の無音は切る:
     ElevenLabs は行の頭と尻に無音を付けてくる。これを残すと gen_audio の GAP(0.55秒) に
     上乗せされて間延びする。ここで切って、間の設計は GAP 側に一本化する。
+    ⚠️ 2026-09-05 実測：eleven_v3 は**行の6割で先頭に無音を付けない**（声が 0ms から始まる。261行中161行）。
+       それ自体は頭欠けの証拠ではない（0ms 始まりの7テイクが全部正しく聞き取れた）。ただしテイクによって
+       文頭の子音が弱くなり「隙間→暇」「門→王」と聞こえることがある。切る前と切った後を同じテイクで
+       文字起こしして一致したので _trim は無関係。直し方＝tools/el_retake.py（文字起こしで確かめながら振り直す）。
+       文頭に「、」「…」を足しても先頭の無音は作れなかった（6テイク中1回だけ 90ms）。
 """
 import hashlib
 import json
@@ -198,11 +203,16 @@ def _trim(pcm: bytes) -> bytes:
 
 
 def synth(text: str, scene_id: str = "", slug: str = "ep000",
-          settings=None, refresh: bool = False) -> bytes:
-    """1行を合成して 16bit/24kHz モノラルの生PCMを返す。キャッシュが効く。"""
+          settings=None, refresh: bool = False, send_text: str = None) -> bytes:
+    """1行を合成して 16bit/24kHz モノラルの生PCMを返す。キャッシュが効く。
+
+    send_text … API に実際に送る文字列を差し替える（キャッシュの鍵は text のまま）。
+      2026-09-05: 文頭の子音が切れるテイクを避けるため、el_retake が「　、」を頭に足して振り直すのに使う。
+      足した分は無音なので _trim が切る＝音の中身は text と同じ。meta に "sent" として記録する。"""
     text = text.strip()
     if not text:
         raise ValueError(f"空の本文です（{scene_id}）")
+    req_text = send_text if send_text else text
     ck = _cache_key(text, settings)
     cache = _cache_dir(slug) / f"{ck}.pcm"
     meta = _cache_dir(slug) / f"{ck}.json"
@@ -214,9 +224,9 @@ def synth(text: str, scene_id: str = "", slug: str = "ep000",
     # 🔴 異音の門番: 合成 → 検出 → 余計な音があれば振り直す（最大 MAX_TAKES 回）
     takes = []   # [(pcm, items, raw_sec)]
     for _ in range(MAX_TAKES):
-        raw = _post(text, settings)
+        raw = _post(req_text, settings)
         _stats["api"] += 1
-        _stats["chars"] += len(text)
+        _stats["chars"] += len(req_text)
         pcm = _trim(raw)
         sec = len(pcm) / 2 / SR
         # fail closed: 文があるのに音がほぼ無いのは異常。0で埋めて先へ進めない。
@@ -251,7 +261,7 @@ def synth(text: str, scene_id: str = "", slug: str = "ep000",
 
     cache.write_bytes(pcm)
     meta.write_text(json.dumps({
-        "scene_id": scene_id, "text": text, "voice": VOICE, "model": MODEL,
+        "scene_id": scene_id, "text": text, "sent": req_text, "voice": VOICE, "model": MODEL,
         "settings": settings, "sec": round(sec, 3), "chars": len(text),
         "raw_sec": raw_sec, "takes": len(takes), "decision": decision,
         "flags": [x["msg"] for x in ART.blips(items)],

@@ -30,7 +30,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from check_numbers_heard import kan2int, KANNUM  # noqa: E402  漢数字→数（同じ物差しを2か所に持たない）
 
 # 同形異音語＝読みが複数ある常用の字（ep034 で「話・歳」を漏らした反省＋この台本の語）
-HOMOGRAPH = set("話歳方間日人上下目生表家物事角一門側量前後中段柱床")
+# ＋この台本で**意味を決める字**（方角・部位・材料）。1字でも聞取から消えたら当たりにする
+#   （2026-09-05 実測：c504-1「北側」→聞取「西側」は一致率 95% で、字の欠け（2字以上）にも掛からなかった）
+HOMOGRAPH = set("話歳方間日人上下目生表家物事角一門側量前後中段柱床"
+                "北南東西左右塔板壁錆塩筋層面赤黄門隙")
 KANJI_RE = re.compile(r"[一-鿿々]")
 NUM_KANJI = set("〇一二三四五六七八九十百千万")
 
@@ -63,12 +66,18 @@ def check_row(text, heard):
     hs = re.sub(r"^[「『（\s]+", "", h)
     if ts and hs:
         nt, nh = _lead_num(ts), _lead_num(hs)
+        kana_num = re.match(r"(ひと|ふた|みっ|よっ|いつ|むっ|なな|やっ|ここの|とお)", ts)   # 「ひとつ」→聞取「一つ」は表記
         if nt is not None or nh is not None:
-            if nt != nh:
+            if nt != nh and not (nt is None and kana_num):
                 flags.append(("頭欠け", f"{nt}→{nh}"))
         else:
             a, b = ts[0], hs[0]
-            if a != b and not (KANJI_RE.match(a) and KANJI_RE.match(b)):
+            hira = lambda c: chr(ord(c) - 0x60) if "ァ" <= c <= "ヶ" else c      # カナ→かな（ひ→ヒ は同じ音）
+            a2, b2 = hira(a), hira(b)
+            ka, kb = bool(KANJI_RE.match(a)), bool(KANJI_RE.match(b))
+            # 当てるのは ①漢字→かな（読みが崩れて字にならない：崩→ス・瓦→グ） ②かな→別のかな。
+            # 漢字→漢字（群/郡）と かな→漢字（あと→後・なか→中）は表記のゆれなので当てない
+            if a2 != b2 and ((ka and not kb) or (not ka and not kb)):
                 flags.append(("頭欠け", f"{a}→{b}"))
     # ③ 字の欠け：台本の漢字（数字の漢数字は除く）で聞取に無いものが2字以上
     miss_k = sorted({c for c in KANJI_RE.findall(t) if c not in h and c not in NUM_KANJI and c not in HOMOGRAPH})
