@@ -55,6 +55,16 @@ def judge(text, heard):
     miss = numbers_missing(text, heard)
     if miss:
         flags.append("数:" + ",".join(miss))
+    # 台本に無い数が聞取に**増えている**（2026-09-05 c228-2「分の単位」→「十分の単位」＝声が「じゅっぷん」と読んだ型）。
+    # 数字を含む行だけ見る。1〜3 は「ひとつ／ふたつ／みっつ」を Scribe が 一つ／二つ／三つ と書くので除く。
+    import re
+    from check_numbers_heard import heard_numbers
+    if re.search(r"\d", text):
+        have = set(re.findall(r"\d+(?:\.\d+)?", text.replace("¾", "4分の3")))
+        extra = sorted(n for n in heard_numbers(heard) if n not in have and n not in {"1", "2", "3"}
+                       and not any(n == m.rstrip("0").rstrip(".") for m in have))
+        if extra:
+            flags.append("数の余り:" + ",".join(extra))
     return flags
 
 

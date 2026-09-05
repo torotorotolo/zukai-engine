@@ -75,9 +75,12 @@ def check_row(text, heard):
             hira = lambda c: chr(ord(c) - 0x60) if "ァ" <= c <= "ヶ" else c      # カナ→かな（ひ→ヒ は同じ音）
             a2, b2 = hira(a), hira(b)
             ka, kb = bool(KANJI_RE.match(a)), bool(KANJI_RE.match(b))
+            latin = lambda c: c.isascii() and c.isalpha()
             # 当てるのは ①漢字→かな（読みが崩れて字にならない：崩→ス・瓦→グ） ②かな→別のかな。
-            # 漢字→漢字（群/郡）と かな→漢字（あと→後・なか→中）は表記のゆれなので当てない
-            if a2 != b2 and ((ka and not kb) or (not ka and not kb)):
+            # 漢字→漢字（群/郡）と かな→漢字（あと→後・なか→中）は表記のゆれなので当てない。
+            # 英字が絡む先頭（NIST→ニスト／nist、ゾーン→Zone）は Scribe の表記の癖なので当てない
+            #   （NIST の読みは語の幅＝el_probe_words で見る）
+            if a2 != b2 and ((ka and not kb) or (not ka and not kb)) and not (latin(a) or latin(b)):
                 flags.append(("頭欠け", f"{a}→{b}"))
     # ③ 字の欠け：台本の漢字（数字の漢数字は除く）で聞取に無いものが2字以上
     miss_k = sorted({c for c in KANJI_RE.findall(t) if c not in h and c not in NUM_KANJI and c not in HOMOGRAPH})

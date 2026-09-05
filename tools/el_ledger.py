@@ -103,6 +103,37 @@ def main():
     p.write_text("\n".join(out) + "\n", encoding="utf-8")
     print(f"台帳 {len(lines)}行 → {p}")
     print(f"文字起こし {len(yomi)}行／疑い {n_sus}／未判定 {n_unj}")
+
+    # ── 要耳一覧（試写パッケージ用）：扱いが「要耳」で始まる行を、本編の秒つきで並べる ──────
+    # 本編の秒＝audio/narration.json の durations を LEAD 0.35＋TAIL 0.50（quote は＋2.0）で積んだ見込み。
+    # ⚠️ 正確な秒は ⑤b の scene_jiko が決める（章マーカー等が入れば少し動く）。当たりとして使う。
+    import json
+    jp = ROOT / "audio" / "narration.json"
+    d = json.loads(jp.read_text(encoding="utf-8")) if jp.exists() else {}
+    Q = {"c112", "c126", "c214", "c225", "c318", "c412", "c426", "c515", "c614", "c717", "c722", "ep11"}
+    t, start = 0.0, {}
+    for cid, sec in d.get("durations", {}).items():
+        start[cid] = t
+        t += sec + 0.35 + 0.50 + (2.0 if cid in Q else 0.0)
+    rows = []
+    for ln in lines:
+        v = verdicts.get(ln.lid)
+        if not v or not v[1].startswith("要耳"):
+            continue
+        off = 0.0
+        for r in d.get("subtitles", {}).get(ln.cid, []):
+            if r["text"] == ln.text:
+                off = r["t"]
+                break
+        s = start.get(ln.cid, 0.0) + 0.35 + off
+        rows.append(f"| {ln.lid} | {int(s//60)}:{int(s%60):02d} | {ln.text} | {v[2] if len(v) > 2 else ''} |")
+    yp = ES.qa_path("youmimi.md")
+    yp.write_text("# 要耳一覧（試写で、この秒だけ注意して聴く）\n\n"
+                  f"機械の網（Scribe 照合・数の照合・同形異音語・2テイク合議・A/B・取り直し）で決着しなかった行。{len(rows)}行。\n"
+                  "秒は narration.json から積んだ見込み（⑤b で章マーカー等が入ると数秒動く）。\n\n"
+                  "| 行 | 本編の秒 | 台本 | 疑いの中身 |\n|---|---:|---|---|\n" + "\n".join(rows) + "\n",
+                  encoding="utf-8")
+    print(f"要耳一覧 {len(rows)}行 → {yp}")
     return 1 if n_unj else 0
 
 
