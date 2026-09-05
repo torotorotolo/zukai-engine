@@ -124,7 +124,7 @@ SPEC = {
     "c315": dict(
         t="NIST は、動く図にして公開した",
         s="押し抜きせん断の動画図（NIST 2026年6月22日）",
-        photo=ss.fb("c315"), bias=0.5, side="right", ann_y=360,
+        photo=ss.fb("c315"), bias=1.0, zoom=1.4, xbias=0.5, side="right", ann_y=360,   # C-21: 絵が画面の下1/3で出典行がスラブに載っていた（動画側の切り方は footage.USE）
         ann=[dict(t="1", d="力が柱の周りに集まる", dc=J.LINE, ds=32),
              dict(t="2", d="ひびが回り込む", dc=J.LINE, ds=32),
              dict(t="3", d="抜ける", dc=J.ALERT, ds=32)],
