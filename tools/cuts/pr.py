@@ -30,7 +30,7 @@ SPEC = {
     # 🔴 死者数の出どころを画面に出す（台本 §5 注意 15。pr06 を削ったので本文から郡の名が消えた）
     "pr02": dict(
         t="およそ半分が、数秒で崩れた",
-        s="残った棟と瓦礫の山　2021年7月",
+        s="瓦礫の山と、捜索の列　2021年7月",
         photo=ss.fb("pr02"), bias=0.5, side="right", ann_y=320,
         ann=[dict(t="亡くなった人", v="98", d="出典：マイアミ・デイド郡の発表 2021-07-26",
                   vc=J.ALERT, vs=104, dc=J.LINE, ds=28)],
@@ -52,7 +52,11 @@ SPEC = {
         t="最初の印は、門だった",
         s="NIST の描き起こし　目撃証言にもとづく（p50）",
         photo=ss.P050_GATE, side="left", ann_y=330, color=0.5,
-        **ss.focus(ss.P050_GATE, 0.62, 0.62, 1.15),
+        # 🔴 PR-07/PR-08：focus(0.62,0.62,1.15) は余りが 234x110px しか無く
+        #    xbias・bias とも 1.0 に丸まって**右下端**に寄っていた。門の絵は原画 y 140〜540
+        #    にしか無いので画面の下 4割が地の白になり、そこに焼き込みの
+        #    "Source: NIST (artist rendering…)" が字幕帯の中へ出ていた。**上端に寄せる**
+        xbias=1.0, bias=0.0, zoom=1.15,
         ann=[dict(t="沈んだ量", v="約1.2 cm", d="2分の1インチに満たない", vc=J.ALERT,
                   vs=104, dc=J.LINE, ds=30),
              dict(t="崩落の", v="3週間前", vc=J.INK_W, vs=88)],
@@ -99,9 +103,10 @@ SPEC = {
     "pr10": dict(
         t="公表されたのは、途中の結論",
         s="技術的知見（Technical Findings）　2026年6月22日",
-        photo=ss.S_SIGN, side="right", ann_y=330, bias=0.45, xbias=0.35, zoom=1.35,
-        ann=[dict(t="公表", v="2026-06-22", d="技術的知見（Technical Findings）",
-                  vc=J.DOC, vs=76, dc=J.LINE, ds=28),
+        photo=ss.S_SIGN, side="left", ann_y=330, bias=0.45, xbias=0.20, zoom=1.35,
+        # 🔴 PR-10：d が副題「技術的知見（Technical Findings）」の丸写しだった（日付も二度）
+        # 🔴 PR-11：side="right" だと注記が現場の作業員3人の上に載る（指す先が無い）
+        ann=[dict(t="公表", v="2026-06-22", vc=J.DOC, vs=76),
              dict(t="目撃の記録の起点", d="門（3週間前）", dc=J.ALERT, ds=34)],
     ),
 }

@@ -27,7 +27,9 @@ SPEC = {
         t="括弧に入るのは、左の2つ",
         s="p86 の下の波括弧",
         photo=ss.P086, side="right", ann_y=330,
-        **ss.focus(ss.P086, 0.30, 0.68, 2.2),
+        # 🔴 2026-09-06（⑤c' 直す #2）：D-02：注記が括弧の外の箱3に載り、左端で英文が語の途中で切れていた
+        #    切り方は `check_slide.py` の粗の数がいちばん少ない値を総当たりで探した
+        xbias=0.35, bias=0.575, zoom=2.15,
         ann=[dict(t="括弧の中", d="左の2つだけ", dc=J.ALERT, ds=34)],
     ),
 
@@ -64,8 +66,11 @@ SPEC = {
     "c406": dict(
         t="赤は重い不足、黄は中くらい",
         s="凡例（p16）",
-        photo=ss.P016_MAP, side="left", ann_y=330, color=0.7,
-        **ss.focus(ss.P016_MAP, 0.85, 0.84, 2.2),
+        # 🔴 2026-09-06（D-04）：凡例は `tf_p016_legend.jpg` に切り出した。
+        #    地図（c405）と同じファイルを寄り違いで使っていたので、
+        #    c405 の右下に凡例が、c406 の裏に地図のキャプションが透けていた（D-07）
+        photo=ss.P016_LEGEND, side="left", ann_y=330, color=0.7,
+        **ss.focus(ss.P016_LEGEND, 0.5, 0.5, 1.0),
         ann=[dict(t="severe", d="赤＝重い不足", dc=J.ALERT, ds=34),
              dict(t="moderate", d="黄＝中くらいの不足", dc=J.AMBER, ds=34)],
     ),
@@ -204,7 +209,9 @@ SPEC = {
     "c419": dict(
         t="机の上でなく、測って出た数字",
         s="証拠倉庫の実物部材（NIST 記録映像）",
-        photo=ss.fb("c419"), bias=0.5, side="right", ann_y=360,
+        # ⚠️ D-11：side="right" だと注記が右の人物（マスク・眼鏡）のベストの上に載り、
+        #    部材でなく人を指して見えた。左は奥の棚で無地に近い
+        photo=ss.fb("c419"), bias=0.5, side="left", ann_y=360,
         ann=[dict(t="回収した部材", d="実際に測る", dc=J.LINE, ds=34)],
     ),
 
@@ -213,7 +220,8 @@ SPEC = {
         t="設計図に、手書きの注記",
         s="当時の設計図の抜粋（p76・図面は Town of Surfside 提供）",
         photo=ss.P076, side="right", ann_y=330, color=0.4,
-        **ss.focus(ss.P076, 0.60, 0.36, 1.6),
+        # 🔴 2026-09-06（⑤c' 直す #2）：D-12：p76 を抜き直したので、図面と赤枠が枠に入る値へ
+        xbias=0.0, bias=0.0, zoom=1.6,
         ann=[dict(t="From design drawings", d="図面は町（Town）の保管分", dc=J.DOC, ds=30),
              dict(t="赤枠", d="手書きの注記", dc=J.ALERT, ds=30)],
     ),
@@ -223,7 +231,8 @@ SPEC = {
         t="25%以上を、柱の真上に集めよ",
         s="赤枠の注記（p76）",
         photo=ss.P076, side="left", ann_y=330, color=0.5,
-        **ss.focus(ss.P076, 0.62, 0.14, 2.6),
+        # 🔴 2026-09-06（⑤c' 直す #2）：D-13：赤枠（原画 x 125〜1364・y 234〜343）が枠外だった。c420 と寄りで分ける
+        xbias=0.0, bias=0.0, zoom=2.0,
         ann=[dict(t="注記", d="AT LEAST 25% OF ALL COLUMN STRIP REINF.", dc=J.INK_W, ds=26),
              dict(t="", d="SHALL BE CENTERED OVER THE COLUMN", dc=J.INK_W, ds=26)],
     ),
@@ -244,7 +253,8 @@ SPEC = {
         t="では、実物はどうだったか",
         s="回収された柱の標本（p76）",
         photo=ss.P076, side="right", ann_y=330, color=0.4,
-        **ss.focus(ss.P076, 0.60, 0.72, 1.6),
+        # 🔴 2026-09-06（⑤c' 直す #2）：D-14：柱標本の写真（原画 x 480〜970・y 950〜1350）が枠外だった
+        xbias=0.15, bias=0.9, zoom=1.9,
         ann=[dict(t="Example column specimen", d="床の断面が付いたまま残っていた", dc=J.LINE, ds=30)],
     ),
 
@@ -253,7 +263,8 @@ SPEC = {
         t="残っていた上端の鉄筋を、数えた",
         s="標本を指す2本の矢印（p76）",
         photo=ss.P076, side="left", ann_y=330, color=0.4,
-        **ss.focus(ss.P076, 0.62, 0.68, 2.2),
+        # 🔴 2026-09-06（⑤c' 直す #2）：D-15：札「2 slab top reinforcement bars」2つ（原画 x 144〜1492）が枠外だった
+        xbias=0.0, bias=1.0, zoom=1.6,
         ann=[dict(t="矢印", d="2 slab top reinforcement bars", dc=J.ALERT, ds=30)],
     ),
 
@@ -296,7 +307,8 @@ SPEC = {
         t="言い切りを、避けている",
         s="NIST の書き方（p76）",
         photo=ss.P076, side="left", ann_y=330, color=0.4,
-        **ss.focus(ss.P076, 0.84, 0.74, 2.2),
+        # 🔴 2026-09-06（⑤c' 直す #2）：D-16：引用「At this location, only 2 rather than 4…」が枠外だった
+        xbias=0.4, bias=0.925, zoom=2.2,
         ann=[dict(t="原文", d="At this location, …", dc=J.INK_W, ds=32),
              dict(t="", d="断りが、はっきり付いている", dc=J.LINE, ds=30)],
     ),
@@ -333,7 +345,9 @@ SPEC = {
         t="設計が足りず、施工はさらに外れた",
         s="括弧の中の2つ・再掲（p86）",
         photo=ss.P086, side="left", ann_y=330,
-        **ss.focus(ss.P086, 0.28, 0.62, 2.0),
+        # 🔴 2026-09-06（⑤c' 直す #2）：D-19：注記が箱1の英文の上に載り、箱2の1行目が見出しの裏だった
+        #    切り方は `check_slide.py` の粗の数がいちばん少ない値を総当たりで探した
+        xbias=0.0, bias=0.55, zoom=2.05,
         ann=[dict(t="1", d="設計の耐力不足", dc=J.ALERT, ds=32),
              dict(t="2", d="施工の逸脱", dc=J.ALERT, ds=32)],
     ),

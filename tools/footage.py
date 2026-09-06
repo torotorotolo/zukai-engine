@@ -128,89 +128,108 @@ def kaltura_url(entry):
 #   4. `zoom` `xbias` `bias` は切り方（`build_jiko.fit` と同じ意味）。4K は zoom 2 まで劣化しない
 USE = {
     # ── プロローグ ─────────────────────────────────────
-    # 8〜10秒 建物の銘板「CHAMPLAIN TOWERS 8777 SOUTH」／11〜14秒 崩れた棟の正面／15〜18秒 瓦礫と捜索
-    "pr01": dict(clip="ss_b1", start=8.0, rate=0.5),
+    # 🔴 2026-09-06（⑤c PR-01）：もとは start=8.0・rate=0.5 で **8.00〜15.29秒**を使っており、
+    #    注記が言う3つのショット（8〜10 銘板／11.4〜14 崩れた棟／15〜18 瓦礫と捜索）を
+    #    **2回またいでいた**＝動画のいちばん最初のカットの中で画が2回切り替わる。
+    #    さらに 15.00〜15.29秒は pr03（15.0〜）と重なり、同じコマが2度出ていた。
+    #    尺 14.58秒に対しどのショットも3秒しかなく、rate を下げるとコマ落ちが目立つ
+    #    （⑤b の決定）＝**静止画にする**。⚠️ `fb_pr01.jpg` は 9秒台の**銘板**のコマで、
+    #    pr10・ep16（`ss_b1_sign.jpg`）と同じ絵だった（相関 0.80）ので、
+    #    崩れた棟のショットの 12.5秒に**差し替えた**
+    "pr01": dict(clip="ss_b1", start=12.5, still=True, until=14.0),
     # 54〜57.5秒 瓦礫の山と、その奥に残った棟（58秒から顔の寄り）
     # 🔴 still=True … 0.33〜0.38倍のスローはコマ落ちが目立つ（⑤b の決定・2026-09-05）。動画を当てず
     #    `ref/surfside/fb_<cid>.jpg` の静止画をゆっくり寄って使う。clip/start は出典と「どのショットか」の記録
     "pr02": dict(clip="ss_b1", start=53.8, still=True),
     # 15〜18.8秒 せん断された断面の下、瓦礫の上の捜索隊（19秒から別の引き）
-    "pr03": dict(clip="ss_b1", start=15.0, rate=0.5),
+    "pr03": dict(clip="ss_b1", start=15.0, rate=0.5, until=18.8),
     # ── 第1章 ────────────────────────────────────────
     # 8〜11.9秒 海岸線の空撮（12秒から現場の寄り）
     "c106": dict(clip="ss_b2", start=8.0, still=True),
     # 99〜107秒 ドローン。片づいたデッキの床面と重機
-    "c119": dict(clip="ss_b2", start=99.0),
+    "c119": dict(clip="ss_b2", start=99.0, until=108.0),
     # 115〜118.9秒 瓦礫の上の捜索隊と柱（119秒からクレーンの吊り）
-    "c128": dict(clip="ss_b1", start=115.0, rate=0.6),
+    "c128": dict(clip="ss_b1", start=115.0, rate=0.53, until=118.5),
     # ── 第2章 ────────────────────────────────────────
     # 95.8〜98.8秒 デッキ面の引き（99秒からドローン）
-    "c204": dict(clip="ss_b2", start=95.8, rate=0.4),
+    "c204": dict(clip="ss_b2", start=95.8, rate=0.4, until=98.8),
     # 74〜77.8秒 現場の床面。鉄筋の出た版とコーン（78秒から潰れた車）
-    "c217": dict(clip="ss_b1", start=74.0, rate=0.5),
+    "c217": dict(clip="ss_b1", start=74.0, rate=0.5, until=77.8),
     # 🔴 2026-09-06（⑤c B-20）：78秒（潰れた車）は c217 の 74秒と同じショットで、6カットおいて使い回しに見えた。
     #    100〜104秒 瓦礫の山と重機の腕（99秒までと 105秒からは顔の寄り）の1コマを静止画で。0.33倍のスローもやめる
     "c223": dict(clip="ss_b1", start=102.5, still=True),
     # ── 第3章 ────────────────────────────────────────
     # 167コマ≒6.7秒しか無い（ss-r01 で 200/306 コマ＝末尾 3.5秒が止まった）。0.65倍で 10.1秒に伸ばす
     # ⑤c C-21：全面（zoom 1.0）だと絵が画面の下 1/3 で出典行がスラブに載る。下寄せ 1.4 倍で スラブ y≈715〜841 に
-    "c315": dict(clip="ss_gif", start=0.0, rate=0.65, zoom=1.4, xbias=0.5, bias=1.0),
+    "c315": dict(clip="ss_gif", start=0.0, rate=0.65, zoom=1.4, xbias=0.5, bias=1.0, until=6.7),
     # 10〜16.7秒 試験場の引き。試験機と背を向けた技術者（17秒から顔の寄り）
-    "c321": dict(clip="ss_b8", start=10.0, rate=0.75),
-    # 128〜133.9秒 レプリカと試験機の全景（134秒から計測器の寄り）
-    "c322": dict(clip="ss_b8", start=128.0, rate=0.6),
+    "c321": dict(clip="ss_b8", start=10.0, rate=0.6, until=16.75),
+    # 🔴 2026-09-06（⑤c C-27）：もとは start=128.0 で、**128〜132.9秒が黒い表題カード**
+    #    「Univ. of Washington | Laboratory Testing: Replicas of the CTS Pool-Deck
+    #    Slab-Column Connections」だった（台本 §5 注意6「表題カードは使わない」に反する）。
+    #    133秒からは実験室の壁の "STRUCTURES" の文字で、これも「レプリカの全景」ではない。
+    #    ⚠️ 注記の「128〜133.9秒 レプリカと試験機の全景」が誤り＝**見取り図を1秒刻みで
+    #    見直して見つけた**。実物大の試験機と試験体が引きで写るのは **138.5〜148.25秒**
+    #    （境目は `surfside_vidsheet.py cuts` で実測）
+    "c322": dict(clip="ss_b8", start=139.0, rate=0.90, until=148.25),
     # 188〜197秒 スラブを真上から。格子と計測器
-    "c324": dict(clip="ss_b8", start=188.0),
+    "c324": dict(clip="ss_b8", start=188.0, until=198.0),
     # 47〜52.5秒 圧縮試験機に入ったコア（53秒から人）
-    "c325": dict(clip="ss_b6", start=47.0, rate=0.7),
+    "c325": dict(clip="ss_b6", start=47.0, rate=0.6, until=51.75),
     # 24〜34秒 鉄筋の引張試験機（36秒からカード）
-    "c326": dict(clip="ss_b7", start=24.0),
+    "c326": dict(clip="ss_b7", start=24.0, until=34.75, rate=0.98),
     # 80〜87秒 柱まわり。スラブの裏側のひびと露出した鉄筋
-    "c327": dict(clip="ss_b8", start=80.0),
+    "c327": dict(clip="ss_b8", start=80.0, until=88.0, rate=1.0),
     # 64〜71秒 スラブの面を走るひびと計測カメラ
-    "c328": dict(clip="ss_b8", start=64.0, rate=0.9),
+    "c328": dict(clip="ss_b8", start=64.0, rate=0.8, until=70.0),
     # 193.5〜202.5秒 真上から。上の面はまだ平ら（c324 と同じショットの後半・寄り違い）
-    "c329": dict(clip="ss_b8", start=193.5, zoom=1.35, xbias=0.5, bias=0.55),
+    "c329": dict(clip="ss_b8", start=193.5, zoom=1.35, xbias=0.5, bias=0.55, until=202.5, rate=0.98),
     # 121〜127秒 外れて落ちたスラブの裏側（128秒からカード）
-    "c331": dict(clip="ss_b8", start=121.0),
+    "c331": dict(clip="ss_b8", start=121.0, until=127.75, rate=0.92),
     # ── タイムラプス 6.8秒を 0.25倍で3カットに割る。透かし（右下）を切り方で外す ──
-    "c332": dict(clip="ss_tl", start=0.0, rate=0.25, zoom=1.25, xbias=0.5, bias=0.0),
-    "c333": dict(clip="ss_tl", start=2.2, rate=0.25, zoom=2.0, xbias=0.45, bias=0.2),
-    "c334": dict(clip="ss_tl", start=4.7, rate=0.25, zoom=1.5, xbias=0.4, bias=0.0),
+    "c332": dict(clip="ss_tl", start=0.0, rate=0.25, zoom=1.25, xbias=0.5, bias=0.0, until=6.8),
+    "c333": dict(clip="ss_tl", start=2.2, rate=0.25, zoom=2.0, xbias=0.45, bias=0.2, until=6.8),
+    "c334": dict(clip="ss_tl", start=4.7, rate=0.25, zoom=1.5, xbias=0.4, bias=0.0, until=6.8),
     # ── 第4章 ────────────────────────────────────────
     # 40〜45秒 証拠倉庫で部材の鉄筋を測る（人は背中側）
-    "c419": dict(clip="ss_b3", start=40.0, rate=0.6),
+    "c419": dict(clip="ss_b3", start=40.0, rate=0.6, until=46.0),
     # 102〜109秒 倉庫の引き。並んだ部材のあいだを歩く
-    "c430": dict(clip="ss_b5", start=102.0),
+    "c430": dict(clip="ss_b5", start=102.0, until=109.0, rate=0.55),
     # 108〜118秒 部材を積んだトレーラーが走る（120秒からカード）
-    "c431": dict(clip="ss_b4", start=108.0),
+    "c431": dict(clip="ss_b4", start=108.0, until=118.0, rate=0.95),
     # 8〜11.9秒 海岸線の空撮（c106 と同じショット・寄せを変える）
     "c434": dict(clip="ss_b2", start=8.0, still=True),
     # ── 第5章 ────────────────────────────────────────
     # 46〜49.8秒 デッキの床面を歩く作業員（50秒から試料袋の寄り）
-    "c505": dict(clip="ss_b2", start=46.0, rate=0.45),
+    "c505": dict(clip="ss_b2", start=46.0, rate=0.41, until=49.5),
     # 42〜46秒 錆びた鉄筋の標本（袋と札）（48秒から人）
-    "c513": dict(clip="ss_b7", start=42.0, rate=0.5),
+    "c513": dict(clip="ss_b7", start=42.0, rate=0.5, until=46.25),
     # 39〜48秒 コア抜きの刃と水
-    "c519": dict(clip="ss_b5", start=39.0),
+    "c519": dict(clip="ss_b5", start=39.0, until=46.5, rate=0.98),
     # 116〜124秒 圧縮試験機の中のコア（計測器つき）
-    "c520": dict(clip="ss_b6", start=116.0),
+    "c520": dict(clip="ss_b6", start=116.0, until=125.0, rate=0.97),
     # 11〜17秒 倉庫の床一面の部材（18秒からコア抜き機の寄り）
-    "c521": dict(clip="ss_b5", start=11.0, rate=0.65),
+    "c521": dict(clip="ss_b5", start=11.0, rate=0.58, until=16.3),
     # ── 第6章 ────────────────────────────────────────
     # 32〜37.7秒 試験機の全景（38秒から顔）
-    "c607": dict(clip="ss_b8", start=32.0, rate=0.65),
-    # 158〜163.6秒 残った棟の断面。刃物で切ったように立つ床（164秒から人）
-    "c628": dict(clip="ss_b1", start=158.0, rate=0.55),
+    "c607": dict(clip="ss_b8", start=32.0, rate=0.64, until=37.75),
+    # 🔴 2026-09-06（⑤c F-25）：注記「刃物で切ったようにまっすぐな床の断面」が指す絵が
+    #    出ていなかった。1秒刻みの見取り図で見ると **158秒は男性2人の顔の寄り**（158.0〜158.5
+    #    で切り替わる）、159秒から棟の断面、**160秒以降は重機（ALPI）の腕が手前に入り込み**、
+    #    163秒では断面が隠れる。尺 10.18秒に対し断面が見えるのは 159〜160秒の**1秒だけ**＝
+    #    rate を下げるとコマ落ちが目立つ（⑤b の決定）ので**静止画にする**。
+    #    `fb_c628.jpg` は 159.3秒のコマに差し替えた（重機の腕がいちばん浅い）
+    "c628": dict(clip="ss_b1", start=159.3, still=True, until=160.0),
     # ── 第7章 ────────────────────────────────────────
     # 198〜204秒 高い所からの現場の引き（海が見える）（204秒からカード）
-    "c703": dict(clip="ss_b1", start=198.0),
+    "c703": dict(clip="ss_b1", start=198.0, until=203.5, rate=0.85),
     # 138〜141.9秒 残った棟＝住民が住んでいた建物の断面（142秒から顔）
-    "c709": dict(clip="ss_b1", start=138.0, rate=0.42),
-    # 153〜159秒 コアに計測器をあてる手元
-    "c713": dict(clip="ss_b5", start=153.0, rate=0.65),
+    "c709": dict(clip="ss_b1", start=138.0, rate=0.42, until=143.0),
+    # ❌ c713 は 2026-09-06（H-10）に**動画をやめた**。153〜159秒は「倉庫でコアに計測器を
+    #    あてる手元」で、ナレーション「この土地の地盤の性質」と別物だった。
+    #    B-Roll に地盤の計測は無いので、p185 の分解図の地盤の層に差し替え（cuts/c7.py）
     # 110〜114.4秒 ドローン。現場の引き（114秒からカード）
-    "c726": dict(clip="ss_b2", start=110.0, rate=0.5),
+    "c726": dict(clip="ss_b2", start=110.0, rate=0.37, until=113.25),
 }
 # ❌ 見たうえで**当てないと決めた**もの（2026-09-05・記録として残す）
 #   c705（87 Park）… B-Roll #2 の 12〜14秒しか写っていない（3秒）。0.3倍速はコマ落ちが目立つので
@@ -219,6 +238,89 @@ USE = {
 #   B-Roll #1 4:02 前後（NIST ロゴ入りヘルメットの寄り）／各巻の 1:41 2:10 2:25 などの顔の寄り
 #   B-Roll #2 1:30 1:45 2:10（台本第3版の候補）… 1:30 は人物、2:10 はインタビュー。**使わない**
 #     → c119 c505 c204 は上の秒に差し替えた（実見して決めた）
+
+
+# ── 🔴 G-11：カットの尻が、そのショットの終わりを越えていないか ─────────
+#   なぜ要るか（2026-09-06・⑤c 見る C）
+#     c703 と c726 は**検品画像が NIST の表題カードそのもの**だった。カットの尻が
+#     注記の言うショットの終わり（「204秒からカード」「114秒からカード」）を
+#     0.45秒・0.39秒だけ越えていたため。台本 §5 注意6「表題カードは使わない」に反し、
+#     c726 は**実在の個人名のテロップ**まで出ていた。
+#   ⚠️ 真因は「注記が自由記述で、機械が読んでいなかった」こと。だから注記ではなく
+#     **`until=`（そのショットが終わる秒）**という欄を USE に足して、そこを見る。
+#   しきい値 0.10秒（3コマ）… 本番 37カットに当てて出た越えは
+#     0.01/0.03/0.05×3/0.06×2/0.09 と 0.16/0.21/0.39/0.43/0.45×3/0.65/5.29 に割れる。
+#     台帳の ⚠️ と ・ の境がちょうどここ（[[feedback-gate-threshold-from-ledger-split]]）。
+TOL = 0.10
+
+
+def overruns(use=None, secs=None):
+    """(cid, 越えた秒, start, end, until) の一覧。**判定はここ1本**（本番も検算も通る）。"""
+    if secs is None:
+        import scene_jiko as S
+        secs = dict(S.CUTS)
+    use = USE if use is None else use
+    out = []
+    for cid, u in use.items():
+        if u.get("still"):
+            continue
+        if cid not in secs:
+            continue
+        # 🔴 fail closed：until が無いカットは「測れない」＝落とす（0 で埋めない）
+        if u.get("until") is None:
+            out.append((cid, None, float(u["start"]), None, None))
+            continue
+        end = float(u["start"]) + secs[cid] * float(u.get("rate", 1.0))
+        gap = end - float(u["until"])
+        if gap > TOL:
+            out.append((cid, gap, float(u["start"]), end, float(u["until"])))
+    return out
+
+
+def check_until():
+    bad = overruns()
+    for cid, gap, st, end, until in sorted(bad, key=lambda r: -(r[1] or 1e9)):
+        if gap is None:
+            print(f"  🔴 {cid}: until= が無い（そのショットが何秒で終わるか機械が読めない）")
+        else:
+            print(f"  🔴 {cid}: 尻が {gap:+.2f}秒 はみ出す"
+                  f"（{st:.1f}〜{end:.2f}秒／ショットの終わり {until:.1f}秒）")
+    if bad:
+        print(f"🔴 ショットの終わりを {TOL:.2f}秒 より越えているカットが {len(bad)} 件")
+    else:
+        print(f"✓ どのカットの尻も、ショットの終わりを {TOL:.2f}秒 より越えていない")
+    return bad
+
+
+def selftest():
+    """陽性対照。**本番の `overruns()` そのもの**に、わざと越えを1件入れて鳴らす。"""
+    import scene_jiko as S
+    secs = dict(S.CUTS)
+    ok = True
+    base = {c for c, *_ in overruns(USE, secs)}
+    victim = next((c for c, u in USE.items()
+                   if not u.get("still") and c in secs and c not in base), None)
+    if victim is None:
+        print("🔴 素で通っているカットが無い＝陽性対照を当てられない")
+        return False
+    u = USE[victim]
+    end = float(u["start"]) + secs[victim] * float(u.get("rate", 1.0))
+    for name, patched, should in (
+            ("尻を 0.5秒 はみ出させる", dict(u, until=end - 0.5), True),
+            ("しきい値の内側（0.05秒）", dict(u, until=end - 0.05), False),
+            ("until を消す（fail closed）", {k: v for k, v in u.items() if k != "until"},
+             True)):
+        got = {c for c, *_ in overruns({victim: patched}, secs)}
+        hit = victim in got
+        ok &= hit == should
+        print(f"  {'✓' if hit == should else '🔴'} {victim}：{name} … "
+              f"{'鳴る' if hit else '黙る'}（期待 {'鳴る' if should else '黙る'}）")
+    got = {c for c, *_ in overruns({victim: u}, secs)}
+    ok &= victim not in got
+    print(f"  {'✓' if victim not in got else '🔴'} {victim}：戻す … "
+          f"{'黙る' if victim not in got else '鳴る'}")
+    print("  " + ("✓ 陽性対照 4/4" if ok else "🔴 陽性対照に落ちた"))
+    return ok
 
 
 def urls_of(name):
@@ -289,8 +391,9 @@ def fetch(check=False):
         flag = "" if end <= float(c["sec"]) + 0.05 else "  🔴 動画の終端を越える"
         print(f"  {cid}  尺{secs[cid]:5.2f}s  ← {u['clip']} {u['start']:.1f}〜{end:.1f}秒"
               f"（{rate:.2f}倍速）{flag}")
+    over = check_until()
     if check:
-        return 0
+        return 1 if over else 0
     bad = 0
     for cid, u in USE.items():
         if u.get("still"):
@@ -321,4 +424,6 @@ if __name__ == "__main__":
         # 4本目は Kaltura から範囲取得で見取り図を作った（scratchpad の sheet_*.jpg）。ここでは作らない
         print("scan は4本目では使わない（見取り図は手元で作った）。何もしない")
         sys.exit(0)
+    if "--selftest" in sys.argv:
+        sys.exit(0 if selftest() else 1)
     sys.exit(fetch(check="--check" in sys.argv))

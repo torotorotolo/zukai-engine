@@ -26,8 +26,9 @@ SPEC = {
         s="5つの箱　左の2つ（p191）",
         photo=ss.P191, side="right", ann_y=330,
         **ss.focus(ss.P191, 0.22, 0.40, 2.2),
-        ann=[dict(t="1", d="Design understrength", dc=J.ALERT, ds=30),
-             dict(t="2", d="Deviations in as-built construction", dc=J.ALERT, ds=30)],
+        # ⚠️ EP-02/G-09：d が箱の英文の丸写しで、その英文の真上に載っていた
+        ann=[dict(t="1", d="図面どおりでも、耐力が足りない", dc=J.ALERT, ds=30),
+             dict(t="2", d="図面どおりには造られていない", dc=J.ALERT, ds=30)],
     ),
 
     # ── ep03 右の3つ ────────────────────
@@ -36,9 +37,10 @@ SPEC = {
         s="5つの箱　右の3つ（p191）",
         photo=ss.P191, side="left", ann_y=330,
         **ss.focus(ss.P191, 0.78, 0.40, 2.2),
-        ann=[dict(t="3", d="Heavier, more extensive planters", dc=J.AMBER, ds=28),
-             dict(t="4", d="Added fill and paving", dc=J.AMBER, ds=28),
-             dict(t="5", d="Degradation over time", dc=J.AMBER, ds=28)],
+        # ⚠️ EP-05/G-09：d が箱の英文の丸写し（"Added fill and paving" は同じ英文の真上）
+        ann=[dict(t="3", d="土と植木が、重く広く", dc=J.AMBER, ds=28),
+             dict(t="4", d="上に土と舗装を足した", dc=J.AMBER, ds=28),
+             dict(t="5", d="年月による傷み", dc=J.AMBER, ds=28)],
     ),
 
     # ── ep04 最大・広範の札 ───────────────
@@ -47,8 +49,9 @@ SPEC = {
         s="箱に書き添えられた言葉（p191）",
         photo=ss.P191, side="right", ann_y=330,
         **ss.focus(ss.P191, 0.20, 0.42, 2.6),
-        ann=[dict(t="largest, pervasive", d="最大、そして広い範囲", dc=J.ALERT, ds=30),
-             dict(t="pervasive", d="2つめにも「広い範囲」", dc=J.ALERT, ds=30)],
+        # ⚠️ EP-06/G-09：t が箱の英文の丸写し。指しているのは**左の箱1**なので side も左へ
+        ann=[dict(t="1つめに添えられた語", d="最大、そして広い範囲", dc=J.ALERT, ds=30),
+             dict(t="2つめにも同じ語", d="広い範囲（pervasive）", dc=J.ALERT, ds=30)],
     ),
 
     # ── ep05 波括弧 ──────────────────
@@ -77,7 +80,8 @@ SPEC = {
         s="括弧の下の一文　前半（p191）",
         photo=ss.P191, side="left", ann_y=330,
         **ss.focus(ss.P191, 0.28, 0.78, 2.6),
-        ann=[dict(t="原文", d="These caused the bulk of the critically low margins against failure", dc=J.INK_W, ds=24)],
+        # ⚠️ EP-12/G-09：d が画面の同じ一文の写し＝1つの画面に同じ文が大小2回出ていた
+        ann=[dict(t="原文の語", d="bulk＝大半", dc=J.INK_W, ds=28)],
     ),
 
     # ── ep08 余裕とは ─────────────────
@@ -97,7 +101,8 @@ SPEC = {
         s="括弧の下の一文　後半（p191）",
         photo=ss.P191, side="right", ann_y=330,
         **ss.focus(ss.P191, 0.32, 0.84, 2.2),
-        ann=[dict(t="原文", d="from the time construction was complete.", dc=J.INK_W, ds=28)],
+        # ⚠️ EP-14/G-09：d が画面の同じ英文の写し。訳を出す
+        ann=[dict(t="原文の訳", d="建設が終わった時点から", dc=J.INK_W, ds=28)],
     ),
 
     # ── ep10 1981 → 2021 ─────────────

@@ -1,0 +1,3526 @@
+{
+ "tf_p003_model.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     2493,
+     196,
+     2715,
+     272
+    ],
+    "text": "penthouse"
+   },
+   {
+    "box": [
+     2499,
+     489,
+     2578,
+     750
+    ],
+    "text": "〔 色 070 「 「"
+   },
+   {
+    "box": [
+     2451,
+     450,
+     2519,
+     655
+    ],
+    "text": "3 一 」 0 「"
+   },
+   {
+    "box": [
+     1814,
+     509,
+     2061,
+     547
+    ],
+    "text": "East Part of"
+   },
+   {
+    "box": [
+     1868,
+     575,
+     2002,
+     610
+    ],
+    "text": "Tower"
+   },
+   {
+    "box": [
+     1819,
+     634,
+     2052,
+     682
+    ],
+    "text": "(collapsed)"
+   },
+   {
+    "box": [
+     1440,
+     509,
+     1692,
+     547
+    ],
+    "text": "Middle Part"
+   },
+   {
+    "box": [
+     1471,
+     572,
+     1661,
+     610
+    ],
+    "text": "of Tower"
+   },
+   {
+    "box": [
+     1449,
+     634,
+     1681,
+     682
+    ],
+    "text": "(collapsed)"
+   },
+   {
+    "box": [
+     889,
+     509,
+     1159,
+     548
+    ],
+    "text": "West Part Of"
+   },
+   {
+    "box": [
+     956,
+     575,
+     1089,
+     610
+    ],
+    "text": "Tower"
+   },
+   {
+    "box": [
+     883,
+     631,
+     1163,
+     682
+    ],
+    "text": "(demolished)"
+   },
+   {
+    "box": [
+     2458,
+     861,
+     2668,
+     951
+    ],
+    "text": "8 0E0 の ~"
+   },
+   {
+    "box": [
+     840,
+     1164,
+     959,
+     1202
+    ],
+    "text": "North"
+   },
+   {
+    "box": [
+     1124,
+     1270,
+     1292,
+     1307
+    ],
+    "text": "HotTub"
+   },
+   {
+    "box": [
+     1268,
+     1350,
+     1319,
+     1385
+    ],
+    "text": "Po"
+   },
+   {
+    "box": [
+     1335,
+     1479,
+     1460,
+     1518
+    ],
+    "text": "Beach"
+   }
+  ]
+ },
+ "tf_p016_body.jpg": {
+  "size": [
+   3200,
+   1224
+  ],
+  "lines": [
+   {
+    "box": [
+     152,
+     180,
+     1308,
+     250
+    ],
+    "text": "CriticalIy low margins againstfailure"
+   },
+   {
+    "box": [
+     153,
+     277,
+     919,
+     347
+    ],
+    "text": "・ Design understrength"
+   },
+   {
+    "box": [
+     153,
+     354,
+     1324,
+     410
+    ],
+    "text": "・ Deviations in as-built construction"
+   },
+   {
+    "box": [
+     2204,
+     351,
+     2266,
+     388
+    ],
+    "text": "←"
+   },
+   {
+    "box": [
+     2330,
+     350,
+     2392,
+     391
+    ],
+    "text": "←"
+   },
+   {
+    "box": [
+     1766,
+     332,
+     1793,
+     508
+    ],
+    "text": "あ 0 一 8u!F)l!n8"
+   },
+   {
+    "box": [
+     2823,
+     386,
+     2860,
+     400
+    ],
+    "text": "11.1"
+   },
+   {
+    "box": [
+     1700,
+     398,
+     1737,
+     412
+    ],
+    "text": "12.1"
+   },
+   {
+    "box": [
+     2824,
+     494,
+     2860,
+     509
+    ],
+    "text": "13.1"
+   },
+   {
+    "box": [
+     1708,
+     524,
+     1729,
+     539
+    ],
+    "text": "14"
+   },
+   {
+    "box": [
+     1700,
+     651,
+     1737,
+     665
+    ],
+    "text": "14.1"
+   },
+   {
+    "box": [
+     2520,
+     654,
+     2541,
+     669
+    ],
+    "text": "15"
+   },
+   {
+    "box": [
+     2871,
+     746,
+     3133,
+     767
+    ],
+    "text": "Location of Understrength"
+   },
+   {
+    "box": [
+     2851,
+     793,
+     2974,
+     810
+    ],
+    "text": "Slab-Column"
+   },
+   {
+    "box": [
+     2666,
+     796,
+     2812,
+     813
+    ],
+    "text": "und れ h"
+   },
+   {
+    "box": [
+     3029,
+     808,
+     3147,
+     825
+    ],
+    "text": "Slab Flexure"
+   },
+   {
+    "box": [
+     2851,
+     823,
+     2974,
+     839
+    ],
+    "text": "Connections"
+   },
+   {
+    "box": [
+     2691,
+     767,
+     2789,
+     789
+    ],
+    "text": "Degreeof"
+   },
+   {
+    "box": [
+     1706,
+     786,
+     1803,
+     801
+    ],
+    "text": "ou 「 : NIST"
+   },
+   {
+    "box": [
+     1856,
+     833,
+     2578,
+     864
+    ],
+    "text": "PO Deck Slab and Part of Street-Level Parking Slab"
+   },
+   {
+    "box": [
+     1895,
+     901,
+     2540,
+     923
+    ],
+    "text": "Locations where the Design Strength of SIab-CoIumn Connections"
+   },
+   {
+    "box": [
+     1985,
+     931,
+     2447,
+     953
+    ],
+    "text": "and Slab Flexure Does NOT Meet Original Code"
+   },
+   {
+    "box": [
+     2707,
+     874,
+     2771,
+     885
+    ],
+    "text": "severe"
+   },
+   {
+    "box": [
+     2691,
+     919,
+     2787,
+     937
+    ],
+    "text": "moderate"
+   },
+   {
+    "box": [
+     100,
+     1174,
+     307,
+     1201
+    ],
+    "text": "Source: NIST"
+   }
+  ]
+ },
+ "tf_p016_map.jpg": {
+  "size": [
+   1920,
+   1210
+  ],
+  "lines": [
+   {
+    "box": [
+     306,
+     175,
+     1453,
+     259
+    ],
+    "text": "平 ー ー 早 ー ー 甲 ー 平 早 平 ー"
+   },
+   {
+    "box": [
+     119,
+     391,
+     164,
+     409
+    ],
+    "text": "12.1"
+   },
+   {
+    "box": [
+     130,
+     542,
+     155,
+     561
+    ],
+    "text": "14"
+   },
+   {
+    "box": [
+     120,
+     695,
+     164,
+     713
+    ],
+    "text": "14.1"
+   },
+   {
+    "box": [
+     115,
+     858,
+     244,
+     875
+    ],
+    "text": "Sou 「 : NIST"
+   },
+   {
+    "box": [
+     1280,
+     869,
+     1454,
+     890
+    ],
+    "text": "リ れ de 「 「 0 れ h"
+   },
+   {
+    "box": [
+     1310,
+     834,
+     1426,
+     861
+    ],
+    "text": "02g e of"
+   },
+   {
+    "box": [
+     1104,
+     699,
+     1130,
+     717
+    ],
+    "text": "15"
+   },
+   {
+    "box": [
+     1310,
+     1017,
+     1425,
+     1038
+    ],
+    "text": "moderate"
+   },
+   {
+    "box": [
+     1328,
+     963,
+     1406,
+     976
+    ],
+    "text": "severe"
+   },
+   {
+    "box": [
+     463,
+     1031,
+     1016,
+     1058
+    ],
+    "text": "and SIab FIexure Does NOT Meet Original Code"
+   },
+   {
+    "box": [
+     354,
+     995,
+     1128,
+     1022
+    ],
+    "text": "Locations where the Design Strength 0fSlab-Column Connections"
+   },
+   {
+    "box": [
+     308,
+     914,
+     1173,
+     951
+    ],
+    "text": "Po Deck Slab and Part of Street-LeveI Parking Slab"
+   },
+   {
+    "box": [
+     1473,
+     245,
+     1506,
+     264
+    ],
+    "text": "9.1"
+   },
+   {
+    "box": [
+     1468,
+     377,
+     1513,
+     395
+    ],
+    "text": "11.1"
+   },
+   {
+    "box": [
+     1468,
+     507,
+     1513,
+     524
+    ],
+    "text": "13.1"
+   },
+   {
+    "box": [
+     1502,
+     901,
+     1649,
+     920
+    ],
+    "text": "Connections"
+   },
+   {
+    "box": [
+     1714,
+     883,
+     1856,
+     904
+    ],
+    "text": "Slab Flexure"
+   },
+   {
+    "box": [
+     1501,
+     865,
+     1650,
+     886
+    ],
+    "text": "Slab-Column"
+   },
+   {
+    "box": [
+     1525,
+     809,
+     1840,
+     835
+    ],
+    "text": "Locatio れ 0f Understrength"
+   }
+  ]
+ },
+ "tf_p016_q.jpg": {
+  "size": [
+   3200,
+   378
+  ],
+  "lines": [
+   {
+    "box": [
+     215,
+     68,
+     2938,
+     161
+    ],
+    "text": "Why did the structure collapse on 」 une 24 , 2021 , 40 years after"
+   },
+   {
+    "box": [
+     972,
+     196,
+     2179,
+     289
+    ],
+    "text": "construction was complete?"
+   }
+  ]
+ },
+ "tf_p029_model.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     2859,
+     5,
+     3066,
+     37
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     2535,
+     500,
+     2783,
+     544
+    ],
+    "text": "East part 0f"
+   },
+   {
+    "box": [
+     2591,
+     570,
+     2726,
+     606
+    ],
+    "text": "Tower"
+   },
+   {
+    "box": [
+     2543,
+     628,
+     2778,
+     680
+    ],
+    "text": "(collapsed)"
+   },
+   {
+    "box": [
+     1607,
+     521,
+     1879,
+     565
+    ],
+    "text": "West part 0f"
+   },
+   {
+    "box": [
+     1677,
+     591,
+     1811,
+     627
+    ],
+    "text": "Towe 「"
+   },
+   {
+    "box": [
+     1605,
+     648,
+     1887,
+     702
+    ],
+    "text": "(demolished)"
+   },
+   {
+    "box": [
+     1573,
+     1183,
+     1694,
+     1223
+    ],
+    "text": "North"
+   },
+   {
+    "box": [
+     2161,
+     512,
+     2414,
+     552
+    ],
+    "text": "MiddIe Part"
+   },
+   {
+    "box": [
+     2193,
+     576,
+     2383,
+     615
+    ],
+    "text": "of Tower"
+   },
+   {
+    "box": [
+     2172,
+     636,
+     2406,
+     689
+    ],
+    "text": "(collapsed)"
+   },
+   {
+    "box": [
+     2078,
+     1487,
+     2204,
+     1527
+    ],
+    "text": "Beach"
+   }
+  ]
+ },
+ "tf_p036_punch.jpg": {
+  "size": [
+   3200,
+   1427
+  ],
+  "lines": [
+   {
+    "box": [
+     3147,
+     1355,
+     3189,
+     1384
+    ],
+    "text": "36"
+   }
+  ]
+ },
+ "tf_p048_deck.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     2876,
+     38,
+     3083,
+     66
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     359,
+     852,
+     493,
+     895
+    ],
+    "text": "North"
+   },
+   {
+    "box": [
+     2178,
+     938,
+     2266,
+     974
+    ],
+    "text": "11.1"
+   },
+   {
+    "box": [
+     2011,
+     1048,
+     2099,
+     1084
+    ],
+    "text": "13 ユ"
+   },
+   {
+    "box": [
+     1864,
+     1212,
+     1912,
+     1248
+    ],
+    "text": "15"
+   },
+   {
+    "box": [
+     1117,
+     1351,
+     1257,
+     1393
+    ],
+    "text": "Beach"
+   },
+   {
+    "box": [
+     3055,
+     1485,
+     3094,
+     1512
+    ],
+    "text": "48"
+   }
+  ]
+ },
+ "tf_p050_3d.jpg": {
+  "size": [
+   2016,
+   1285
+  ],
+  "lines": [
+   {
+    "box": [
+     137,
+     81,
+     386,
+     114
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     332,
+     271,
+     494,
+     322
+    ],
+    "text": "North"
+   },
+   {
+    "box": [
+     1638,
+     66,
+     1715,
+     93
+    ],
+    "text": "、 Ⅲ Ⅲ Ⅲ 膚"
+   },
+   {
+    "box": [
+     543,
+     927,
+     1285,
+     990
+    ],
+    "text": "~ 3 weeks before collapse"
+   }
+  ]
+ },
+ "tf_p050_gate.jpg": {
+  "size": [
+   1536,
+   842
+  ],
+  "lines": [
+   {
+    "box": [
+     1040,
+     168,
+     1339,
+     186
+    ],
+    "text": "1 MONTH BEFORE COLLAPSE"
+   },
+   {
+    "box": [
+     1032,
+     220,
+     1370,
+     247
+    ],
+    "text": "Ⅳ 0m1 引 卯 te 叩 pearance 田 ld"
+   },
+   {
+    "box": [
+     1031,
+     255,
+     1154,
+     281
+    ],
+    "text": "alignment."
+   },
+   {
+    "box": [
+     1004,
+     371,
+     1302,
+     390
+    ],
+    "text": "3WEEKSBEFORE COLLAPSE"
+   },
+   {
+    "box": [
+     998,
+     417,
+     1315,
+     443
+    ],
+    "text": "Less 肱 an 1 / 2 \" ve な i 〔 引 shift."
+   },
+   {
+    "box": [
+     992,
+     460,
+     1341,
+     481
+    ],
+    "text": "Gate dooris s れ に 々 田 ld 〔 田 川 0 亡"
+   },
+   {
+    "box": [
+     1027,
+     495,
+     1110,
+     521
+    ],
+    "text": "opened"
+   },
+   {
+    "box": [
+     527,
+     397,
+     580,
+     417
+    ],
+    "text": "《 1 ′ 2 ”"
+   },
+   {
+    "box": [
+     77,
+     705,
+     204,
+     753
+    ],
+    "text": "Nort"
+   },
+   {
+    "box": [
+     682,
+     774,
+     1401,
+     801
+    ],
+    "text": "SOLI 2 : NIST [artist nde 四 based on 2 リ ew 磨 less 0 〔 〔 ou 厩 引 ."
+   }
+  ]
+ },
+ "tf_p052_3d.jpg": {
+  "size": [
+   2016,
+   1134
+  ],
+  "lines": [
+   {
+    "box": [
+     137,
+     81,
+     386,
+     114
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     332,
+     271,
+     494,
+     322
+    ],
+    "text": "North"
+   },
+   {
+    "box": [
+     1617,
+     71,
+     1694,
+     99
+    ],
+    "text": "・ リ Ⅲ Ⅳ 可"
+   },
+   {
+    "box": [
+     705,
+     256,
+     1189,
+     375
+    ],
+    "text": "/ 卩 ロ コ"
+   },
+   {
+    "box": [
+     828,
+     373,
+     905,
+     390
+    ],
+    "text": "曇 当 Ⅷ 羈"
+   },
+   {
+    "box": [
+     1274,
+     219,
+     1569,
+     377
+    ],
+    "text": "イ ! い"
+   },
+   {
+    "box": [
+     592,
+     927,
+     1306,
+     990
+    ],
+    "text": "~ 1 week before collapse"
+   }
+  ]
+ },
+ "tf_p052_gate.jpg": {
+  "size": [
+   1536,
+   853
+  ],
+  "lines": [
+   {
+    "box": [
+     1040,
+     179,
+     1339,
+     197
+    ],
+    "text": "1 MONTH BEFORE COLLAPSE"
+   },
+   {
+    "box": [
+     1032,
+     232,
+     1370,
+     257
+    ],
+    "text": "NOI ・ mal te 叩 pearance 田 ld"
+   },
+   {
+    "box": [
+     1031,
+     266,
+     1154,
+     292
+    ],
+    "text": "alignment."
+   },
+   {
+    "box": [
+     1004,
+     383,
+     1302,
+     401
+    ],
+    "text": "3WEEKSBEFORE COLLAPSE"
+   },
+   {
+    "box": [
+     998,
+     428,
+     1315,
+     454
+    ],
+    "text": "Less 肱 an 1 / 2 \" ve な i 〔 引 shift."
+   },
+   {
+    "box": [
+     992,
+     471,
+     1341,
+     492
+    ],
+    "text": "Gate dooris st リ 〔 々 田 ld 〔 田 川 0 亡"
+   },
+   {
+    "box": [
+     1027,
+     506,
+     1110,
+     532
+    ],
+    "text": "opened"
+   },
+   {
+    "box": [
+     971,
+     591,
+     1254,
+     609
+    ],
+    "text": "IWEEKBEFORE COLLAPSE"
+   },
+   {
+    "box": [
+     961,
+     650,
+     1389,
+     676
+    ],
+    "text": "Approx. 1 \" vertical s わ れ 可 t p ⅲ 門 ."
+   },
+   {
+    "box": [
+     77,
+     716,
+     204,
+     764
+    ],
+    "text": "Nort"
+   },
+   {
+    "box": [
+     775,
+     785,
+     1401,
+     812
+    ],
+    "text": "NIST [artist rendering based on e リ ew 磨 less 0 〔 〔 ou 厩 引 ."
+   },
+   {
+    "box": [
+     682,
+     787,
+     765,
+     807
+    ],
+    "text": "SOLI 2 :"
+   }
+  ]
+ },
+ "tf_p057_3d.jpg": {
+  "size": [
+   2016,
+   1177
+  ],
+  "lines": [
+   {
+    "box": [
+     104,
+     85,
+     353,
+     118
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     332,
+     271,
+     494,
+     322
+    ],
+    "text": "North"
+   },
+   {
+    "box": [
+     1639,
+     82,
+     1717,
+     110
+    ],
+    "text": "、 Ⅲ Ⅲ 4 川 可"
+   },
+   {
+    "box": [
+     868,
+     100,
+     1189,
+     148
+    ],
+    "text": "当 Ⅷ 幽 ド 卩 」 川 Ⅷ 丨 Ⅷ"
+   },
+   {
+    "box": [
+     781,
+     140,
+     1463,
+     268
+    ],
+    "text": ") 庫 ロ な コ は"
+   },
+   {
+    "box": [
+     481,
+     961,
+     1328,
+     1030
+    ],
+    "text": "~ 17 hours before collapse"
+   }
+  ]
+ },
+ "tf_p057_memo.jpg": {
+  "size": [
+   1248,
+   810
+  ],
+  "lines": [
+   {
+    "box": [
+     618,
+     190,
+     638,
+     210
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     224,
+     203,
+     244,
+     224
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     416,
+     343,
+     818,
+     388
+    ],
+    "text": "00 ( eJ ー 論 0 。"
+   },
+   {
+    "box": [
+     415,
+     445,
+     571,
+     484
+    ],
+    "text": "0 石 4 ー の"
+   },
+   {
+    "box": [
+     1098,
+     433,
+     1122,
+     526
+    ],
+    "text": "BuiIding"
+   },
+   {
+    "box": [
+     631,
+     522,
+     652,
+     543
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     230,
+     558,
+     250,
+     578
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     780,
+     630,
+     828,
+     677
+    ],
+    "text": "ロ"
+   },
+   {
+    "box": [
+     412,
+     669,
+     605,
+     693
+    ],
+    "text": "po Deck Drains"
+   },
+   {
+    "box": [
+     414,
+     718,
+     576,
+     742
+    ],
+    "text": "PIanter Drains"
+   },
+   {
+    "box": [
+     352,
+     719,
+     377,
+     741
+    ],
+    "text": "0"
+   }
+  ]
+ },
+ "tf_p058_3d.jpg": {
+  "size": [
+   1920,
+   1220
+  ],
+  "lines": [
+   {
+    "box": [
+     104,
+     85,
+     353,
+     118
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     332,
+     271,
+     494,
+     322
+    ],
+    "text": "North"
+   },
+   {
+    "box": [
+     903,
+     119,
+     1502,
+     268
+    ],
+    "text": "ロ は コ 」 は"
+   },
+   {
+    "box": [
+     539,
+     936,
+     1344,
+     1005
+    ],
+    "text": "~ 9 hours before collapse"
+   }
+  ]
+ },
+ "tf_p058_note.jpg": {
+  "size": [
+   1018,
+   583
+  ],
+  "lines": [
+   {
+    "box": [
+     434,
+     135,
+     665,
+     166
+    ],
+    "text": "Leak from the"
+   },
+   {
+    "box": [
+     457,
+     178,
+     642,
+     217
+    ],
+    "text": "ceiling. no 【"
+   },
+   {
+    "box": [
+     437,
+     222,
+     661,
+     260
+    ],
+    "text": "the pipe ・ 1 / 4"
+   },
+   {
+    "box": [
+     506,
+     308,
+     593,
+     339
+    ],
+    "text": "crack"
+   },
+   {
+    "box": [
+     469,
+     265,
+     631,
+     303
+    ],
+    "text": "inch deep"
+   },
+   {
+    "box": [
+     958,
+     273,
+     974,
+     305
+    ],
+    "text": "0"
+   }
+  ]
+ },
+ "tf_p062_summary.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     334,
+     819,
+     468,
+     862
+    ],
+    "text": "North"
+   },
+   {
+    "box": [
+     1397,
+     55,
+     2086,
+     114
+    ],
+    "text": "~ 3 weeks before collapse"
+   },
+   {
+    "box": [
+     1437,
+     133,
+     2120,
+     186
+    ],
+    "text": "Damage observed in planter"
+   },
+   {
+    "box": [
+     1436,
+     206,
+     1968,
+     248
+    ],
+    "text": "near Grid Point K -13 ユ"
+   },
+   {
+    "box": [
+     1437,
+     277,
+     2048,
+     330
+    ],
+    "text": "Damage observed in gate"
+   },
+   {
+    "box": [
+     1436,
+     350,
+     2000,
+     403
+    ],
+    "text": "between pooldeck and"
+   },
+   {
+    "box": [
+     1434,
+     422,
+     1899,
+     474
+    ],
+    "text": "s reet-level parking"
+   },
+   {
+    "box": [
+     1864,
+     1212,
+     1912,
+     1248
+    ],
+    "text": "15"
+   },
+   {
+    "box": [
+     2178,
+     939,
+     2225,
+     974
+    ],
+    "text": "11"
+   },
+   {
+    "box": [
+     1401,
+     1467,
+     1541,
+     1509
+    ],
+    "text": "Beach"
+   },
+   {
+    "box": [
+     2876,
+     38,
+     3083,
+     66
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     2322,
+     743,
+     2986,
+     801
+    ],
+    "text": "~ 1 week before collapse"
+   },
+   {
+    "box": [
+     2362,
+     845,
+     3018,
+     898
+    ],
+    "text": "Damage iS, again, observed"
+   },
+   {
+    "box": [
+     2361,
+     917,
+     3000,
+     970
+    ],
+    "text": "in gate between po deck"
+   },
+   {
+    "box": [
+     2360,
+     989,
+     2930,
+     1042
+    ],
+    "text": "and street-level parking"
+   },
+   {
+    "box": [
+     2359,
+     1061,
+     2849,
+     1103
+    ],
+    "text": "Waterfunnels down"
+   },
+   {
+    "box": [
+     2360,
+     1133,
+     2867,
+     1186
+    ],
+    "text": "column in thegarage"
+   }
+  ]
+ },
+ "tf_p065_garage.jpg": {
+  "size": [
+   3200,
+   1377
+  ],
+  "lines": [
+   {
+    "box": [
+     1990,
+     154,
+     2182,
+     195
+    ],
+    "text": "K ー 11.1"
+   },
+   {
+    "box": [
+     2159,
+     263,
+     2351,
+     304
+    ],
+    "text": "K ー 13.1"
+   },
+   {
+    "box": [
+     2558,
+     274,
+     2782,
+     315
+    ],
+    "text": "、 」 .1 ー 15"
+   },
+   {
+    "box": [
+     1213,
+     505,
+     1372,
+     547
+    ],
+    "text": "K ー 9.1"
+   },
+   {
+    "box": [
+     1691,
+     263,
+     1876,
+     304
+    ],
+    "text": "し 一 13.1"
+   }
+  ]
+ },
+ "tf_p067_deflect.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     348,
+     543,
+     483,
+     610
+    ],
+    "text": "Ⅳ 0 な わ"
+   },
+   {
+    "box": [
+     33,
+     771,
+     142,
+     819
+    ],
+    "text": "SO 00"
+   },
+   {
+    "box": [
+     4,
+     1047,
+     110,
+     1099
+    ],
+    "text": "Ⅳ 0 な わ"
+   },
+   {
+    "box": [
+     219,
+     1114,
+     265,
+     1148
+    ],
+    "text": "ユ 5"
+   },
+   {
+    "box": [
+     3003,
+     339,
+     3125,
+     387
+    ],
+    "text": "so ce ・"
+   },
+   {
+    "box": [
+     1939,
+     1133,
+     2025,
+     1184
+    ],
+    "text": "73.7"
+   },
+   {
+    "box": [
+     1247,
+     1410,
+     1388,
+     1478
+    ],
+    "text": "Beach"
+   }
+  ]
+ },
+ "tf_p075_cover.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     1603,
+     73,
+     3133,
+     154
+    ],
+    "text": "% in. cover as shown on design drawings"
+   },
+   {
+    "box": [
+     1771,
+     224,
+     2454,
+     289
+    ],
+    "text": "2 in. coveras built"
+   },
+   {
+    "box": [
+     63,
+     88,
+     406,
+     163
+    ],
+    "text": "As-BuiIt"
+   },
+   {
+    "box": [
+     66,
+     216,
+     535,
+     291
+    ],
+    "text": "Conditions"
+   },
+   {
+    "box": [
+     100,
+     1484,
+     307,
+     1512
+    ],
+    "text": "Source: NIST"
+   }
+  ]
+ },
+ "tf_p076_bars.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     1827,
+     61,
+     3083,
+     114
+    ],
+    "text": "The measured spacing of the top reinforcing bars in"
+   },
+   {
+    "box": [
+     1886,
+     126,
+     3029,
+     179
+    ],
+    "text": "the areas ofthe po deck slab specimens near"
+   },
+   {
+    "box": [
+     1838,
+     191,
+     3077,
+     244
+    ],
+    "text": "columns commonly ranges from about 20%t0 40%"
+   },
+   {
+    "box": [
+     1918,
+     256,
+     2994,
+     309
+    ],
+    "text": "widerthan required bythe structural design"
+   },
+   {
+    "box": [
+     1830,
+     321,
+     3086,
+     374
+    ],
+    "text": "drawings, resulting in less reinforcing in these areas"
+   },
+   {
+    "box": [
+     1979,
+     386,
+     2935,
+     439
+    ],
+    "text": "ofthe slab than required bythe design."
+   },
+   {
+    "box": [
+     17,
+     84,
+     1499,
+     137
+    ],
+    "text": "Typically, fewer than the specified number 0f top reinforcing"
+   },
+   {
+    "box": [
+     75,
+     149,
+     1444,
+     202
+    ],
+    "text": "bars are centered overthe column in the po deck slab."
+   },
+   {
+    "box": [
+     258,
+     243,
+     1298,
+     291
+    ],
+    "text": "丁 匸 A ク T 2 彡 殄 彡 戸 凵 、 ツ ロ M = . ぞ 物 凱 -"
+   },
+   {
+    "box": [
+     222,
+     292,
+     1238,
+     334
+    ],
+    "text": "44ALL 夛 崖 ~ 年 フ ク V 彡 〒 凵 三 し 凵 M ド ,"
+   },
+   {
+    "box": [
+     889,
+     373,
+     1001,
+     411
+    ],
+    "text": "E 十 1"
+   },
+   {
+    "box": [
+     1087,
+     594,
+     1569,
+     641
+    ],
+    "text": "From design drawings"
+   },
+   {
+    "box": [
+     483,
+     662,
+     522,
+     775
+    ],
+    "text": "守 靠 7J 一"
+   },
+   {
+    "box": [
+     2767,
+     754,
+     2957,
+     807
+    ],
+    "text": "slab top"
+   },
+   {
+    "box": [
+     2769,
+     819,
+     3112,
+     862
+    ],
+    "text": "reinforcement"
+   },
+   {
+    "box": [
+     2767,
+     896,
+     2946,
+     936
+    ],
+    "text": "spacmg"
+   },
+   {
+    "box": [
+     2533,
+     944,
+     2584,
+     953
+    ],
+    "text": "- 、 -0 バ ツ を"
+   },
+   {
+    "box": [
+     1031,
+     931,
+     1264,
+     984
+    ],
+    "text": "2 slab top"
+   },
+   {
+    "box": [
+     1032,
+     996,
+     1492,
+     1039
+    ],
+    "text": "reinforcement bars"
+   },
+   {
+    "box": [
+     980,
+     1115,
+     1562,
+     1161
+    ],
+    "text": "Example column specimen"
+   },
+   {
+    "box": [
+     977,
+     1178,
+     1405,
+     1217
+    ],
+    "text": "with section Of slab"
+   },
+   {
+    "box": [
+     974,
+     1241,
+     1805,
+     1294
+    ],
+    "text": "At this location, 0 司 y 2 ratherthan"
+   },
+   {
+    "box": [
+     974,
+     1306,
+     1806,
+     1359
+    ],
+    "text": "4top bars were centered overthe"
+   },
+   {
+    "box": [
+     976,
+     1370,
+     1588,
+     1413
+    ],
+    "text": "column in each direction."
+   },
+   {
+    "box": [
+     253,
+     1188,
+     486,
+     1241
+    ],
+    "text": "2 slabtop"
+   },
+   {
+    "box": [
+     144,
+     1253,
+     487,
+     1296
+    ],
+    "text": "reinforcement"
+   },
+   {
+    "box": [
+     388,
+     1317,
+     487,
+     1360
+    ],
+    "text": "bars"
+   },
+   {
+    "box": [
+     1234,
+     1506,
+     2357,
+     1542
+    ],
+    "text": "Source fO 「 photographs: NIST; Source fO 「 drawing: Town Of Surfside"
+   }
+  ]
+ },
+ "tf_p084_salt.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     333,
+     97,
+     1358,
+     185
+    ],
+    "text": "SaIt-Water Bath with Electrodes"
+   },
+   {
+    "box": [
+     2190,
+     160,
+     2593,
+     226
+    ],
+    "text": "End ofa Test"
+   },
+   {
+    "box": [
+     77,
+     1434,
+     285,
+     1468
+    ],
+    "text": "Source: NIST"
+   }
+  ]
+ },
+ "tf_p086_causes.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     165,
+     178,
+     3034,
+     262
+    ],
+    "text": "Causes and contributors tO slab-column connection failures"
+   },
+   {
+    "box": [
+     497,
+     322,
+     2705,
+     427
+    ],
+    "text": "in the pool deck and street-levelparking slabs"
+   },
+   {
+    "box": [
+     249,
+     738,
+     408,
+     789
+    ],
+    "text": "Design"
+   },
+   {
+    "box": [
+     154,
+     809,
+     503,
+     862
+    ],
+    "text": "understrength"
+   },
+   {
+    "box": [
+     96,
+     880,
+     560,
+     933
+    ],
+    "text": "(largest, pervasive)"
+   },
+   {
+    "box": [
+     706,
+     665,
+     1225,
+     708
+    ],
+    "text": "Deviations in as-built"
+   },
+   {
+    "box": [
+     743,
+     737,
+     1183,
+     780
+    ],
+    "text": "construction from"
+   },
+   {
+    "box": [
+     741,
+     809,
+     1188,
+     862
+    ],
+    "text": "design documents"
+   },
+   {
+    "box": [
+     791,
+     882,
+     1138,
+     924
+    ],
+    "text": "and standards"
+   },
+   {
+    "box": [
+     829,
+     952,
+     1098,
+     1006
+    ],
+    "text": "(pervasive)"
+   },
+   {
+    "box": [
+     1430,
+     702,
+     1772,
+     751
+    ],
+    "text": "Heavier, more"
+   },
+   {
+    "box": [
+     1377,
+     773,
+     1824,
+     826
+    ],
+    "text": "extensive planters"
+   },
+   {
+    "box": [
+     1371,
+     844,
+     1832,
+     897
+    ],
+    "text": "(near north side 0f"
+   },
+   {
+    "box": [
+     1538,
+     917,
+     1662,
+     970
+    ],
+    "text": "P00 り"
+   },
+   {
+    "box": [
+     1974,
+     773,
+     2498,
+     826
+    ],
+    "text": "Added fill and paving"
+   },
+   {
+    "box": [
+     2121,
+     845,
+     2352,
+     898
+    ],
+    "text": "(variable)"
+   },
+   {
+    "box": [
+     110,
+     1227,
+     1183,
+     1278
+    ],
+    "text": "These caused the bulkofthe criticallylow"
+   },
+   {
+    "box": [
+     180,
+     1300,
+     1114,
+     1351
+    ],
+    "text": "margins againstfailurefrom thetime"
+   },
+   {
+    "box": [
+     288,
+     1371,
+     1003,
+     1423
+    ],
+    "text": "constructionwas complete."
+   },
+   {
+    "box": [
+     2660,
+     774,
+     3088,
+     826
+    ],
+    "text": "Degradation over"
+   },
+   {
+    "box": [
+     2815,
+     847,
+     2928,
+     888
+    ],
+    "text": "time"
+   },
+   {
+    "box": [
+     3055,
+     1485,
+     3094,
+     1512
+    ],
+    "text": "86"
+   }
+  ]
+ },
+ "tf_p133_plan.jpg": {
+  "size": [
+   1574,
+   1728
+  ],
+  "lines": [
+   {
+    "box": [
+     668,
+     281,
+     989,
+     329
+    ],
+    "text": "ー ← Zone B"
+   },
+   {
+    "box": [
+     947,
+     496,
+     1439,
+     559
+    ],
+    "text": "Extent 0f ( 0 鬮 aps"
+   },
+   {
+    "box": [
+     1181,
+     565,
+     1241,
+     616
+    ],
+    "text": "of"
+   },
+   {
+    "box": [
+     900,
+     634,
+     1522,
+     700
+    ],
+    "text": "MiddIe Part of e 「"
+   },
+   {
+    "box": [
+     871,
+     807,
+     1077,
+     854
+    ],
+    "text": "Zone A"
+   }
+  ]
+ },
+ "tf_p139_bars.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     2876,
+     38,
+     3083,
+     66
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     1129,
+     1104,
+     1578,
+     1133
+    ],
+    "text": "BO 廿 reinforcement tears"
+   },
+   {
+    "box": [
+     1181,
+     1153,
+     1524,
+     1182
+    ],
+    "text": "out of bottom of slab"
+   },
+   {
+    "box": [
+     3037,
+     1485,
+     3094,
+     1512
+    ],
+    "text": "139"
+   }
+  ]
+ },
+ "tf_p174_corr.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     2876,
+     38,
+     3083,
+     66
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     2030,
+     235,
+     2050,
+     249
+    ],
+    "text": "5 豸"
+   },
+   {
+    "box": [
+     2275,
+     1399,
+     2295,
+     1481
+    ],
+    "text": "ー 第 に を"
+   },
+   {
+    "box": [
+     2170,
+     1409,
+     2179,
+     1489
+    ],
+    "text": "ー ぐ ー 」 引 を"
+   },
+   {
+    "box": [
+     159,
+     136,
+     1374,
+     211
+    ],
+    "text": "Corrosion Of Reinforcement"
+   },
+   {
+    "box": [
+     136,
+     312,
+     1210,
+     382
+    ],
+    "text": "・ Most likely source of long-term"
+   },
+   {
+    "box": [
+     210,
+     380,
+     594,
+     449
+    ],
+    "text": "degradation"
+   },
+   {
+    "box": [
+     210,
+     487,
+     1232,
+     557
+    ],
+    "text": "Ongoing for more than 25 years"
+   },
+   {
+    "box": [
+     213,
+     594,
+     1459,
+     650
+    ],
+    "text": "NlST's investi ation assessed hundreds"
+   },
+   {
+    "box": [
+     210,
+     611,
+     1162,
+     731
+    ],
+    "text": "0f samples oeremforcing bars"
+   },
+   {
+    "box": [
+     2686,
+     611,
+     3090,
+     664
+    ],
+    "text": "lmages shown at"
+   },
+   {
+    "box": [
+     2752,
+     684,
+     3022,
+     737
+    ],
+    "text": "larger scale"
+   },
+   {
+    "box": [
+     2675,
+     756,
+     3099,
+     808
+    ],
+    "text": "earlier illustrating"
+   },
+   {
+    "box": [
+     2792,
+     841,
+     2981,
+     881
+    ],
+    "text": "range ln"
+   },
+   {
+    "box": [
+     2774,
+     912,
+     2998,
+     943
+    ],
+    "text": "corroslon"
+   },
+   {
+    "box": [
+     3037,
+     1485,
+     3095,
+     1512
+    ],
+    "text": "174"
+   }
+  ]
+ },
+ "tf_p185_87park.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     75,
+     60,
+     1469,
+     126
+    ],
+    "text": "Vibrations from 87 Park Construction"
+   },
+   {
+    "box": [
+     1799,
+     108,
+     2870,
+     154
+    ],
+    "text": "Soil-Structure lnteraction Evaluations"
+   },
+   {
+    "box": [
+     1981,
+     186,
+     2691,
+     238
+    ],
+    "text": "0f87 ParkSheet Pile Driving"
+   },
+   {
+    "box": [
+     2324,
+     396,
+     2389,
+     447
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     1248,
+     417,
+     1386,
+     455
+    ],
+    "text": "わ u 〃 d ⅲ 9"
+   },
+   {
+    "box": [
+     47,
+     417,
+     375,
+     450
+    ],
+    "text": "supe レ リ c u 尾 →"
+   },
+   {
+    "box": [
+     1271,
+     845,
+     1440,
+     875
+    ],
+    "text": "わ ase れ t"
+   },
+   {
+    "box": [
+     39,
+     893,
+     255,
+     923
+    ],
+    "text": "substructure"
+   },
+   {
+    "box": [
+     1753,
+     921,
+     3090,
+     965
+    ],
+    "text": "Vibrations were greatly reduced by the south basement and sheet"
+   },
+   {
+    "box": [
+     1756,
+     981,
+     3075,
+     1025
+    ],
+    "text": "pile wall 0f CTS, and they further decayed rapidly before reaching"
+   },
+   {
+    "box": [
+     1755,
+     1041,
+     2635,
+     1085
+    ],
+    "text": "critical parts Of the CTS po deck structure."
+   },
+   {
+    "box": [
+     1755,
+     1127,
+     3141,
+     1172
+    ],
+    "text": "Computed vibrations at critical slab-column connections Of CTS were"
+   },
+   {
+    "box": [
+     1753,
+     1187,
+     2839,
+     1232
+    ],
+    "text": "t00 small tO damage even the distressed connections."
+   },
+   {
+    "box": [
+     1754,
+     1274,
+     3069,
+     1319
+    ],
+    "text": "AnaIyses corroborate reports that people inside CTS tower would"
+   },
+   {
+    "box": [
+     1756,
+     1334,
+     3100,
+     1379
+    ],
+    "text": "have perceived these vibrations. Humans can sense vibrations that"
+   },
+   {
+    "box": [
+     1755,
+     1394,
+     2865,
+     1438
+    ],
+    "text": "are well below levels that would damage the structure."
+   },
+   {
+    "box": [
+     1270,
+     1173,
+     1414,
+     1203
+    ],
+    "text": "50 〃 イ 0 ( k"
+   },
+   {
+    "box": [
+     100,
+     1484,
+     307,
+     1512
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     3037,
+     1485,
+     3094,
+     1512
+    ],
+    "text": "185"
+   }
+  ]
+ },
+ "tf_p189_not.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     204,
+     103,
+     2990,
+     208
+    ],
+    "text": "Things that did notcontribute significantlyto the collapse"
+   },
+   {
+    "box": [
+     3037,
+     1485,
+     3094,
+     1512
+    ],
+    "text": "189"
+   },
+   {
+    "box": [
+     308,
+     1133,
+     2464,
+     1227
+    ],
+    "text": "anchor project ongoing atthe time 0fthe collapse"
+   },
+   {
+    "box": [
+     305,
+     1031,
+     2987,
+     1125
+    ],
+    "text": "AccidentalIoads or overloads caused by the roof repair & roof"
+   },
+   {
+    "box": [
+     312,
+     870,
+     969,
+     963
+    ],
+    "text": "lmpulsive loads"
+   },
+   {
+    "box": [
+     312,
+     706,
+     1802,
+     799
+    ],
+    "text": "Hurricanes and storm surge effects"
+   },
+   {
+    "box": [
+     312,
+     545,
+     2687,
+     634
+    ],
+    "text": "Foundation failure, sinkholes, or differential settlement"
+   },
+   {
+    "box": [
+     305,
+     381,
+     2174,
+     457
+    ],
+    "text": "Vibrations from the construction of 87 Park"
+   }
+  ]
+ },
+ "tf_p191_closing.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     283,
+     567,
+     443,
+     618
+    ],
+    "text": "Design"
+   },
+   {
+    "box": [
+     188,
+     638,
+     537,
+     691
+    ],
+    "text": "understrength"
+   },
+   {
+    "box": [
+     130,
+     709,
+     594,
+     763
+    ],
+    "text": "(largest, pervasive)"
+   },
+   {
+    "box": [
+     724,
+     493,
+     1241,
+     536
+    ],
+    "text": "Deviations in as-built"
+   },
+   {
+    "box": [
+     761,
+     566,
+     1201,
+     608
+    ],
+    "text": "construction from"
+   },
+   {
+    "box": [
+     758,
+     638,
+     1205,
+     690
+    ],
+    "text": "design documents"
+   },
+   {
+    "box": [
+     807,
+     710,
+     1155,
+     753
+    ],
+    "text": "and standards"
+   },
+   {
+    "box": [
+     847,
+     781,
+     1116,
+     834
+    ],
+    "text": "(pervasive)"
+   },
+   {
+    "box": [
+     1430,
+     531,
+     1772,
+     581
+    ],
+    "text": "Heavier, more"
+   },
+   {
+    "box": [
+     1377,
+     602,
+     1824,
+     655
+    ],
+    "text": "extensive planters"
+   },
+   {
+    "box": [
+     1371,
+     673,
+     1832,
+     727
+    ],
+    "text": "(near north side 0f"
+   },
+   {
+    "box": [
+     1474,
+     746,
+     1727,
+     799
+    ],
+    "text": "P06 deck)"
+   },
+   {
+    "box": [
+     1957,
+     602,
+     2481,
+     654
+    ],
+    "text": "Added fill and paving"
+   },
+   {
+    "box": [
+     2103,
+     673,
+     2334,
+     727
+    ],
+    "text": "(variable)"
+   },
+   {
+    "box": [
+     291,
+     1057,
+     1067,
+     1104
+    ],
+    "text": "These caused the bulk ofthe"
+   },
+   {
+    "box": [
+     295,
+     1137,
+     1068,
+     1196
+    ],
+    "text": "critically IOW margins against"
+   },
+   {
+    "box": [
+     399,
+     1217,
+     960,
+     1264
+    ],
+    "text": "failure from the time"
+   },
+   {
+    "box": [
+     310,
+     1297,
+     1050,
+     1355
+    ],
+    "text": "construction was complete."
+   },
+   {
+    "box": [
+     2626,
+     602,
+     3054,
+     654
+    ],
+    "text": "Degradation over"
+   },
+   {
+    "box": [
+     2781,
+     675,
+     2893,
+     717
+    ],
+    "text": "time"
+   },
+   {
+    "box": [
+     3037,
+     1485,
+     3094,
+     1512
+    ],
+    "text": "191"
+   }
+  ]
+ },
+ "ss_b1_sign.jpg": {
+  "size": [
+   1920,
+   1014
+  ],
+  "lines": [
+   {
+    "box": [
+     675,
+     256,
+     746,
+     482
+    ],
+    "text": ":c 0 7"
+   }
+  ]
+ },
+ "ss_b2_87park.jpg": {
+  "size": [
+   3840,
+   2026
+  ],
+  "lines": []
+ },
+ "fb_c106.jpg": {
+  "size": [
+   1920,
+   1012
+  ],
+  "lines": []
+ },
+ "fb_c119.jpg": {
+  "size": [
+   1920,
+   1012
+  ],
+  "lines": []
+ },
+ "fb_c128.jpg": {
+  "size": [
+   1920,
+   1014
+  ],
+  "lines": []
+ },
+ "fb_c204.jpg": {
+  "size": [
+   1920,
+   1012
+  ],
+  "lines": [
+   {
+    "box": [
+     1836,
+     451,
+     1854,
+     462
+    ],
+    "text": "2 0"
+   }
+  ]
+ },
+ "fb_c217.jpg": {
+  "size": [
+   1920,
+   1014
+  ],
+  "lines": []
+ },
+ "fb_c223.jpg": {
+  "size": [
+   1920,
+   1014
+  ],
+  "lines": []
+ },
+ "fb_c315.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c321.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c322.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     273,
+     419,
+     1624,
+     491
+    ],
+    "text": "Univ. Of WashingtonI Laboratory Testing."
+   },
+   {
+    "box": [
+     447,
+     508,
+     1475,
+     580
+    ],
+    "text": "RepIicas Of the CTS PooI-Deck"
+   },
+   {
+    "box": [
+     526,
+     598,
+     1392,
+     656
+    ],
+    "text": "SIab-CoIumn Connections"
+   }
+  ]
+ },
+ "fb_c324.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c325.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     665,
+     266,
+     764,
+     324
+    ],
+    "text": "◆ ◆ ◆"
+   },
+   {
+    "box": [
+     629,
+     310,
+     808,
+     362
+    ],
+    "text": "》 ◆ ◆ ◆ ."
+   },
+   {
+    "box": [
+     642,
+     421,
+     822,
+     476
+    ],
+    "text": "◆ ◆ ◆ ◆ ,"
+   },
+   {
+    "box": [
+     638,
+     726,
+     818,
+     759
+    ],
+    "text": "◆ ◆ ◆ ・ ヤ ,"
+   },
+   {
+    "box": [
+     637,
+     770,
+     814,
+     825
+    ],
+    "text": "◆ ◆ ◆ ◆ ◆ ."
+   },
+   {
+    "box": [
+     1040,
+     792,
+     1165,
+     825
+    ],
+    "text": "ー 、 今 ◆"
+   },
+   {
+    "box": [
+     53,
+     336,
+     208,
+     386
+    ],
+    "text": "い ◆ い ◆"
+   },
+   {
+    "box": [
+     71,
+     473,
+     169,
+     517
+    ],
+    "text": "ヾ リ"
+   },
+   {
+    "box": [
+     797,
+     910,
+     864,
+     922
+    ],
+    "text": "ー n 、 「 f 日 い"
+   }
+  ]
+ },
+ "fb_c326.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     615,
+     215,
+     672,
+     311
+    ],
+    "text": "ま ・"
+   }
+  ]
+ },
+ "fb_c327.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c328.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     505,
+     713,
+     587,
+     745
+    ],
+    "text": "0.8 )"
+   }
+  ]
+ },
+ "fb_c329.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c331.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c332.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     1599,
+     909,
+     1720,
+     926
+    ],
+    "text": "STITUTE OF"
+   },
+   {
+    "box": [
+     1601,
+     930,
+     1799,
+     947
+    ],
+    "text": "AND TECHNOLOGY"
+   },
+   {
+    "box": [
+     1610,
+     951,
+     1781,
+     967
+    ],
+    "text": "NT OF COMMERCE"
+   }
+  ]
+ },
+ "fb_c333.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     1560,
+     969,
+     1681,
+     996
+    ],
+    "text": "STITUTE OF"
+   },
+   {
+    "box": [
+     1575,
+     992,
+     1758,
+     1025
+    ],
+    "text": "ND TECHNOLOGY"
+   },
+   {
+    "box": [
+     1580,
+     1014,
+     1738,
+     1043
+    ],
+    "text": "T OF COMMERCE"
+   }
+  ]
+ },
+ "fb_c334.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c419.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c430.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c431.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c434.jpg": {
+  "size": [
+   1920,
+   1012
+  ],
+  "lines": []
+ },
+ "fb_c505.jpg": {
+  "size": [
+   1920,
+   1012
+  ],
+  "lines": []
+ },
+ "fb_c513.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c519.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c520.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     718,
+     215,
+     843,
+     229
+    ],
+    "text": "0 J k 浦 PO 朝 CO リ れ"
+   },
+   {
+    "box": [
+     728,
+     231,
+     799,
+     246
+    ],
+    "text": "op は PA 熔 063"
+   },
+   {
+    "box": [
+     704,
+     246,
+     795,
+     259
+    ],
+    "text": "址 、 80D -367 。 6397"
+   },
+   {
+    "box": [
+     718,
+     261,
+     785,
+     272
+    ],
+    "text": ": 法 -346 ・ 7408"
+   },
+   {
+    "box": [
+     704,
+     275,
+     829,
+     287
+    ],
+    "text": "rnFORNEYonline.com"
+   },
+   {
+    "box": [
+     703,
+     290,
+     828,
+     302
+    ],
+    "text": "\"ks?FORNEYonline.com"
+   }
+  ]
+ },
+ "fb_c521.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     1079,
+     485,
+     1694,
+     699
+    ],
+    "text": "、 1 卩"
+   }
+  ]
+ },
+ "fb_c607.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c628.jpg": {
+  "size": [
+   1920,
+   1014
+  ],
+  "lines": []
+ },
+ "fb_c703.jpg": {
+  "size": [
+   1920,
+   1014
+  ],
+  "lines": [
+   {
+    "box": [
+     1,
+     460,
+     118,
+     500
+    ],
+    "text": "ALPHA"
+   }
+  ]
+ },
+ "fb_c709.jpg": {
+  "size": [
+   1920,
+   1014
+  ],
+  "lines": []
+ },
+ "fb_c713.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c726.jpg": {
+  "size": [
+   1920,
+   1012
+  ],
+  "lines": []
+ },
+ "fb_pr01.jpg": {
+  "size": [
+   1920,
+   1014
+  ],
+  "lines": [
+   {
+    "box": [
+     483,
+     423,
+     1224,
+     484
+    ],
+    "text": "ゝ 、 ゝ ク 刀 50 ま 「 H 、 こ"
+   }
+  ]
+ },
+ "fb_pr02.jpg": {
+  "size": [
+   1920,
+   1014
+  ],
+  "lines": []
+ },
+ "fb_pr03.jpg": {
+  "size": [
+   1920,
+   1014
+  ],
+  "lines": []
+ }
+}

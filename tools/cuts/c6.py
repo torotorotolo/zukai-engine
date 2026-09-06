@@ -83,7 +83,8 @@ SPEC = {
         t="作ったのは、まさにこの境目",
         s="試験の全景（NIST 記録映像・ミネソタ大学）",
         photo=ss.fb("c607"), bias=0.5, side="right", ann_y=360,
-        ann=[dict(t="レプリカ", d="デッキと塔の境目（interface）", dc=J.ALERT, ds=32)],
+        # ⚠️ F-04：注記が指す「レプリカ」が画面のどこか分からない（全景は試験機の鉄骨）
+        ann=[dict(t="実物大の試験機", d="デッキと塔の境目を再現して載せる", dc=J.ALERT, ds=32)],
     ),
 
     # ── c608 試験の名前 ───────────────────────
@@ -122,7 +123,8 @@ SPEC = {
         s="傾く床（p139）",
         photo=ss.P139, side="left", ann_y=330, color=0.4,
         **ss.focus(ss.P139, 0.72, 0.55, 1.7),
-        ann=[dict(t="H・I の側", d="端に行くほど、深く落ちる", dc=J.ALERT, ds=32)],
+        # ⚠️ F-09：H・I の札は原画 y 130〜240 で、この切り方では画面に無い＝名前で呼ばない
+        ann=[dict(t="床の傾き", d="端に行くほど、深く落ちる", dc=J.ALERT, ds=32)],
     ),
 
     # ── c612 つなぎ目で切れる ──────────────────
@@ -141,7 +143,8 @@ SPEC = {
         s="NIST の札（p139）",
         photo=ss.P139, side="right", ann_y=330, color=0.4,
         **ss.focus(ss.P139, 0.42, 0.66, 2.2),
-        ann=[dict(t="札", d="Bottom reinforcement tears out of bottom of slab", dc=J.ALERT, ds=26)],
+        # ⚠️ F-11/F-12：d が画面の同じ英文の写し（G-09）／t「札」1字では何の札か伝わらない
+        ann=[dict(t="札の語", d="tears out＝引き抜ける", dc=J.ALERT, ds=26)],
     ),
 
     # ── c614 ★決め所「下端筋が、下から抜けていく」──────────
@@ -212,8 +215,13 @@ SPEC = {
         t="青いところが、崩れた範囲",
         s="崩落範囲の平面図（p133・左）",
         photo=ss.P133, side="right", ann_y=330, color=0.6,
-        **ss.focus(ss.P133, 0.55, 0.40, 1.0),
-        ann=[dict(t="Extent of Collapse", d="中央部の崩れた範囲", dc=J.ALERT, ds=30)],
+        # 🔴 2026-09-06（⑤c' 直す #2）：F-15/F-16：注記を消したうえで、黄色い英文が帯に入らない位置へ
+        #    切り方は `check_slide.py` の粗の数がいちばん少ない値を総当たりで探した
+        xbias=0.5, bias=0.125, zoom=1.0,
+        # 🔴 F-15：注記「Extent of Collapse」が、画面の黄色い同じ英文の**真上**に載って
+        #    両方読めなくなっていた（G-09 の最も明白な例）。見出しが要点を言っているので
+        #    注記は置かない（[[feedback-reduce-dont-slow-down]]＝足すのでなく減らす）
+        ann=[],
     ),
 
     # ── c621 ZoneA と ZoneB ─────────────────
@@ -261,9 +269,10 @@ SPEC = {
         s="p29 の3D　部分の名前",
         photo=ss.P029, side="left", ann_y=330, color=0.35,
         **ss.focus(ss.P029, 0.60, 0.40, 1.35),
-        ann=[dict(t="Middle Part", d="中央部（崩落）", dc=J.ALERT, ds=30),
-             dict(t="East Part", d="東側（崩落）", dc=J.ALERT, ds=30),
-             dict(t="West Part", d="西側（残って解体）", dc=J.LINE, ds=30)],
+        # ⚠️ F-23：注記の並びが画面のラベルの並び（左から West→Middle→East）と逆だった
+        ann=[dict(t="West Part", d="西側（残って解体）", dc=J.LINE, ds=30),
+             dict(t="Middle Part", d="中央部（崩落）", dc=J.ALERT, ds=30),
+             dict(t="East Part", d="東側（崩落）", dc=J.ALERT, ds=30)],
     ),
 
     # ── c626 中央から東へ ──────────────────

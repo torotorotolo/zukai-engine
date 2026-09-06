@@ -32,7 +32,8 @@ SPEC = {
         s="プランターの箱（p86）",
         photo=ss.P086, side="left", ann_y=330,
         **ss.focus(ss.P086, 0.50, 0.62, 2.6),
-        ann=[dict(t="Heavier, more extensive planters", d="植木のための箱", dc=J.LINE,
+        # ⚠️ G-09：t は箱に焼き込まれた英文の丸写しだった＝**絵に無い読み方**を足す
+        ann=[dict(t="重さの出どころ", d="土・水・育つ植木が、まるごと載る", dc=J.LINE,
                   ds=28)],
     ),
 
@@ -40,10 +41,12 @@ SPEC = {
     "c503": dict(
         t="より重く、より広く",
         s="プールデッキ上の配置（p29）",
-        photo=ss.P029, side="right", ann_y=330, color=0.35,
+        photo=ss.P029, side="left", ann_y=330, color=0.35,
         **ss.focus(ss.P029, 0.50, 0.68, 1.6),
-        ann=[dict(t="場所", d="near north side of pool deck", dc=J.ALERT, ds=32),
-             dict(t="出典", d="p191 の書き方に寄せた（p86 は north side of pool）", dc=J.TICK, ds=24)],
+        # ⚠️ E-04：d「p191 の書き方に寄せた」は**制作メモ**＝視聴者の画面に出す言葉ではない
+        # 🔴 E-03：side="right" だと注記が p29 の黄色い印「1」を貫く。左は 3D の黒地
+        ann=[dict(t="場所", d="プールデッキの北側寄り", dc=J.ALERT, ds=32),
+             dict(t="出典", d="NIST p191（p86 は north side of pool）", dc=J.TICK, ds=24)],
     ),
 
     # ── c504 北側という指定 ───────────────────────
@@ -62,7 +65,9 @@ SPEC = {
         t="載る重さは、年ごとに増える",
         s="デッキの床面（NIST 記録映像）",
         photo=ss.fb("c505"), bias=0.5, side="right", ann_y=360,
-        ann=[dict(t="プランターに入るもの", d="土・水・育つ植木", dc=J.LINE, ds=32)],
+        # ⚠️ E-05：B-Roll #2 の前半にプランターは1コマも写らない（1秒刻みで確かめた）。
+        #    絵にある「デッキの床」を主語にして、載る物を言う形に変える
+        ann=[dict(t="この床の上に", d="土・水・育つ植木が載る", dc=J.LINE, ds=32)],
     ),
 
     # ── c506 土と水の重さ ────────────────────────
@@ -82,7 +87,8 @@ SPEC = {
         s="盛土と舗装の箱（p86）",
         photo=ss.P086, side="left", ann_y=330,
         **ss.focus(ss.P086, 0.70, 0.62, 2.6),
-        ann=[dict(t="Added fill and paving", d="（variable＝ばらつきがある）", dc=J.LINE, ds=30)],
+        # ⚠️ G-09：t は箱の英文の丸写し。variable の1語だけ読み方を残す
+        ann=[dict(t="足された厚み", d="variable＝場所ごとに違う", dc=J.LINE, ds=30)],
     ),
 
     # ── c508 舗装が重ねられる理由 ───────────────────
@@ -121,8 +127,11 @@ SPEC = {
         t="みっつめは、時間",
         s="腐食した鉄筋の標本（p174）",
         photo=ss.P174, side="left", ann_y=330, color=0.4,
-        **ss.focus(ss.P174, 0.70, 0.55, 1.3),
-        ann=[dict(t="Corrosion of Reinforcement", d="NIST は別の節を立てている", dc=J.INST, ds=30)],
+        # 🔴 2026-09-06（⑤c' 直す #2）：E-07：注記の裏に箇条の断片が透け、出典行が写真を横切っていた
+        #    切り方は `check_slide.py` の粗の数がいちばん少ない値を総当たりで探した
+        xbias=1.0, bias=0.6, zoom=1.6,
+        # ⚠️ G-09：t はスライドの題の丸写し
+        ann=[dict(t="鉄筋の腐食", d="NIST は別の節を立てている", dc=J.INST, ds=30)],
     ),
 
     # ── c512 見出し ────────────────────────────
@@ -131,7 +140,8 @@ SPEC = {
         s="p174 の見出しと箇条",
         photo=ss.P174, side="right", ann_y=330, color=0.4,
         **ss.focus(ss.P174, 0.25, 0.32, 1.8),
-        ann=[dict(t="Most likely source", d="長期の劣化の最有力", dc=J.ALERT, ds=28)],
+        # ⚠️ G-09：t は箇条1の英文の頭の丸写し
+        ann=[dict(t="箇条1の言い方", d="長期の劣化の最有力", dc=J.ALERT, ds=28)],
     ),
 
     # ── c513 鉄筋は錆びると体積が増える ──────────────
@@ -194,7 +204,8 @@ SPEC = {
         s="p174 の箇条",
         photo=ss.P174, side="right", ann_y=330, color=0.4,
         **ss.focus(ss.P174, 0.25, 0.50, 1.8),
-        ann=[dict(t="hundreds of samples", d="鉄筋の標本＝数百本", dc=J.INK_W, ds=30)],
+        # ⚠️ E-09/G-09：t が画面の "hundreds" の真上に載って同じ語が二重だった
+        ann=[dict(t="標本の数", d="数百本の単位で調べた", dc=J.INK_W, ds=30)],
     ),
 
     # ── c519 コア抜き ────────────────────────
@@ -227,7 +238,8 @@ SPEC = {
         s="腐食の試験（p84）",
         photo=ss.P084, side="right", ann_y=330, color=0.35,
         **ss.focus(ss.P084, 0.35, 0.55, 1.1),
-        ann=[dict(t="Salt-Water Bath with Electrodes", d="塩水浴＋電極（p84）", dc=J.LINE,
+        # ⚠️ E-14：電極が絵で判別できない／t がスライドの英文の写し（G-09）
+        ann=[dict(t="塩水に浸けた試験体", d="腐食を早める試験（p84）", dc=J.LINE,
                   ds=28)],
     ),
 
