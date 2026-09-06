@@ -104,9 +104,13 @@ SPEC = {
         t="計算ではなく、実物",
         s="回収されたスラブの断面（p75）",
         photo=ss.P075, side="right", ann_y=330, color=0.5,
-        # 2026-09-06（6）G-10：見出し「As-Built Conditions」が左端で 165px 欠けていた（k=1）。
-        #   xbias を下げると寄りのぶん右の札「2 in. cover as built」が右端で切れるので、zoom も少し戻す
-        xbias=0.05, bias=0.883, zoom=1.08,
+        # 2026-09-06（6）🔴 焼いた絵を見て決め直した。G-10 を消すために xbias を下げたら、
+        #   焼き込みの見出し「As-Built Conditions」が**全部見えるようになって私の見出しと衝突**した
+        #   （門番の数字は 0 になったが絵は悪くなった＝[[feedback-desk-checks-dont-see-pictures]]）。
+        #   → このカットの主役は**回収されたスラブの写真**で、スライドの文字は1つも要らない。
+        #   p75 の文字は上（y 73〜291）と左下（Source: y 1484〜1512）にしかないので、
+        #   その間だけを切る。結果：画面に入る焼き込みの文字 **0個**。
+        xbias=0.565, bias=0.75, zoom=1.35,
         # 2026-09-06（6）G-09：注記が画面の見出し「As-Built Conditions」の写しだった
         ann=[dict(t="実際に建った状態", d="回収されたスラブの現物", dc=J.LINE, ds=30)],
     ),
@@ -236,8 +240,10 @@ SPEC = {
         s="赤枠の注記（p76）",
         photo=ss.P076, side="left", ann_y=330, color=0.5,
         # 🔴 2026-09-06（⑤c' 直す #2）：D-13：赤枠（原画 x 125〜1364・y 234〜343）が枠外だった。c420 と寄りで分ける
-        xbias=0.0, bias=0.0, zoom=2.0,
-                # 2026-09-06（6）G-14：注記が焼き込みの英文の上に載っていた。dy で逃がす（枠外にならないことは check_layout の実測箱で確認）
+        # 2026-09-06（6）焼いた絵を見て：上の段落と「From design drawings」が右端で切れていた。
+        #   zoom 2.0→1.75 で右切れ 6件→1件。手書きの注記は画面 x 267〜1490 とじゅうぶん大きいまま
+        xbias=0.0, bias=0.0, zoom=1.75,
+        # 2026-09-06（6）G-14：注記が焼き込みの英文の上に載っていた。dy で逃がす（枠外にならないことは check_layout の実測箱で確認）
         ann=[dict(t="注記", dy=120, d="AT LEAST 25% OF ALL COLUMN STRIP REINF.", dc=J.INK_W, ds=26),
              dict(t="", d="SHALL BE CENTERED OVER THE COLUMN", dc=J.INK_W, ds=26)],
     ),
