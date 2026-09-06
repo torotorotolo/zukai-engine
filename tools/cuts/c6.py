@@ -231,7 +231,8 @@ SPEC = {
         photo=ss.P133, side="right", ann_y=330, color=0.6,
         **ss.focus(ss.P133, 0.58, 0.40, 1.5),
         ann=[dict(t="Zone A", d="ゾーンA", dc=J.OK, ds=32),
-             dict(t="Zone B", d="ゾーンB", dc=J.LINE, ds=32)],
+                     # 2026-09-06（6）G-14：注記が焼き込みの英文の上に載っていた。dy で逃がす（枠外にならないことは check_layout の実測箱で確認）
+        dict(t="Zone B", dy=160, d="ゾーンB", dc=J.LINE, ds=32)],
     ),
 
     # ── c622 ZoneA＝壁 ─────────────────────

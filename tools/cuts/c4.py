@@ -104,8 +104,11 @@ SPEC = {
         t="計算ではなく、実物",
         s="回収されたスラブの断面（p75）",
         photo=ss.P075, side="right", ann_y=330, color=0.5,
-        **ss.focus(ss.P075, 0.45, 0.55, 1.15),
-        ann=[dict(t="As-Built Conditions", d="実際に建てられていた状態", dc=J.LINE, ds=30)],
+        # 2026-09-06（6）G-10：見出し「As-Built Conditions」が左端で 165px 欠けていた（k=1）。
+        #   xbias を下げると寄りのぶん右の札「2 in. cover as built」が右端で切れるので、zoom も少し戻す
+        xbias=0.05, bias=0.883, zoom=1.08,
+        # 2026-09-06（6）G-09：注記が画面の見出し「As-Built Conditions」の写しだった
+        ann=[dict(t="実際に建った状態", d="回収されたスラブの現物", dc=J.LINE, ds=30)],
     ),
 
     # ── c410 黄色い線＝鉄筋の深さ ──────────────────
@@ -222,7 +225,8 @@ SPEC = {
         photo=ss.P076, side="right", ann_y=330, color=0.4,
         # 🔴 2026-09-06（⑤c' 直す #2）：D-12：p76 を抜き直したので、図面と赤枠が枠に入る値へ
         xbias=0.0, bias=0.0, zoom=1.6,
-        ann=[dict(t="From design drawings", d="図面は町（Town）の保管分", dc=J.DOC, ds=30),
+        # 2026-09-06（6）G-09：注記が画面の「From design drawings」の写しだった
+        ann=[dict(t="設計図から起こした", d="図面は町（Town）の保管分", dc=J.DOC, ds=30),
              dict(t="赤枠", d="手書きの注記", dc=J.ALERT, ds=30)],
     ),
 
@@ -233,7 +237,8 @@ SPEC = {
         photo=ss.P076, side="left", ann_y=330, color=0.5,
         # 🔴 2026-09-06（⑤c' 直す #2）：D-13：赤枠（原画 x 125〜1364・y 234〜343）が枠外だった。c420 と寄りで分ける
         xbias=0.0, bias=0.0, zoom=2.0,
-        ann=[dict(t="注記", d="AT LEAST 25% OF ALL COLUMN STRIP REINF.", dc=J.INK_W, ds=26),
+                # 2026-09-06（6）G-14：注記が焼き込みの英文の上に載っていた。dy で逃がす（枠外にならないことは check_layout の実測箱で確認）
+        ann=[dict(t="注記", dy=120, d="AT LEAST 25% OF ALL COLUMN STRIP REINF.", dc=J.INK_W, ds=26),
              dict(t="", d="SHALL BE CENTERED OVER THE COLUMN", dc=J.INK_W, ds=26)],
     ),
 
@@ -254,8 +259,11 @@ SPEC = {
         s="回収された柱の標本（p76）",
         photo=ss.P076, side="right", ann_y=330, color=0.4,
         # 🔴 2026-09-06（⑤c' 直す #2）：D-14：柱標本の写真（原画 x 480〜970・y 950〜1350）が枠外だった
-        xbias=0.15, bias=0.9, zoom=1.9,
-        ann=[dict(t="Example column specimen", d="床の断面が付いたまま残っていた", dc=J.LINE, ds=30)],
+        # 2026-09-06（6）G-10：札「2 slab top / reinforcement」が左端で 25/175px 欠けていた（k=1）
+        xbias=0.07, bias=0.9, zoom=1.8,
+        # 2026-09-06（6）G-09：注記が画面の「Example column specimen」の写しだった
+                # 2026-09-06（6）G-14：注記が焼き込みの英文の上に載っていた。dy で逃がす（枠外にならないことは check_layout の実測箱で確認）
+        ann=[dict(t="柱の試験体", dy=40, d="床の断面が付いたまま残っていた", dc=J.LINE, ds=30)],
     ),
 
     # ── c424 2本の矢印 ────────────────────────
@@ -265,7 +273,8 @@ SPEC = {
         photo=ss.P076, side="left", ann_y=330, color=0.4,
         # 🔴 2026-09-06（⑤c' 直す #2）：D-15：札「2 slab top reinforcement bars」2つ（原画 x 144〜1492）が枠外だった
         xbias=0.0, bias=1.0, zoom=1.6,
-        ann=[dict(t="矢印", d="2 slab top reinforcement bars", dc=J.ALERT, ds=30)],
+        # 2026-09-06（6）G-09：d が画面の札「2 slab top reinforcement bars」の写しだった
+        ann=[dict(t="矢印", d="上端の鉄筋2本を指している", dc=J.ALERT, ds=30)],
     ),
 
     # ── c425 4本と2本 ─────────────────────────
@@ -309,7 +318,8 @@ SPEC = {
         photo=ss.P076, side="left", ann_y=330, color=0.4,
         # 🔴 2026-09-06（⑤c' 直す #2）：D-16：引用「At this location, only 2 rather than 4…」が枠外だった
         xbias=0.4, bias=0.925, zoom=2.2,
-        ann=[dict(t="原文", d="At this location, …", dc=J.INK_W, ds=32),
+        # 2026-09-06（6）G-09：d が画面の引用の写しだった。書き方のどこが慎重かを言う
+        ann=[dict(t="原文の言い方", d="「この場所では」と、場所を限っている", dc=J.INK_W, ds=32),
              dict(t="", d="断りが、はっきり付いている", dc=J.LINE, ds=30)],
     ),
 
@@ -358,7 +368,8 @@ SPEC = {
         s="残る3つ（p86）",
         photo=ss.P086, side="left", ann_y=330,
         **ss.focus(ss.P086, 0.74, 0.60, 2.0),
-        ann=[dict(t="あとから足された", d="重さ", dc=J.AMBER, ds=34),
+                # 2026-09-06（6）G-14：注記が焼き込みの英文の上に載っていた。dy で逃がす（枠外にならないことは check_layout の実測箱で確認）
+        ann=[dict(t="あとから足された", dy=80, d="重さ", dc=J.AMBER, ds=34),
              dict(t="そして", d="時間", dc=J.AMBER, ds=34)],
     ),
 

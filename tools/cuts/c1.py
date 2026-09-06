@@ -21,7 +21,8 @@ SPEC = {
         s="NIST の3Dモデルに書き込まれた寸法（p3）",
         photo=ss.P003, side="left", ann_y=330, color=0.35,
         **ss.focus(ss.P003, 0.55, 0.42, 1.25),   # A-02: 右端で切れていた寸法札を入れる。注記は左へ
-        ann=[dict(t="高さ", v="33.8 m", d="12 stories　110'-10\"", vc=J.AMBER, vs=110,
+                # 2026-09-06（6）G-14：注記が焼き込みの英文の上に載っていた。dy で逃がす（枠外にならないことは check_layout の実測箱で確認）
+        ann=[dict(t="高さ", dy=-40, v="33.8 m", d="12 stories　110'-10\"", vc=J.AMBER, vs=110,
                   dc=J.LINE, ds=28)],
     ),
 
@@ -30,7 +31,9 @@ SPEC = {
         t="L字の平面、竣工は1981年",
         s="p3 の寸法と、竣工年",   # 札「辺の長さ」と同語だった
         photo=ss.P003, side="left", ann_y=320, color=0.35,
-        **ss.focus(ss.P003, 0.62, 0.30, 1.35),
+        # 2026-09-06（6）G-13：焼き込みの英文が字幕帯の中に入っていた。構図を壊さない範囲で逃がす
+        #   （元の focus() の値を書き下したうえで、bias/zoom だけを動かした）
+        xbias=0.839, bias=0.06, zoom=1.35,
         ann=[dict(t="辺の長さ", v="45.7 m", d="150'-0\"", vc=J.AMBER, vs=92, dc=J.LINE, ds=26),
              dict(t="", v="61.0 m", d="200'-0\"", vc=J.AMBER, vs=92, dc=J.LINE, ds=26),
              dict(t="竣工から崩落まで", v="40年", vc=J.INK_W, vs=80)],
@@ -113,7 +116,9 @@ SPEC = {
         s="門の描き起こし　1段目（p50）",
         photo=ss.P050_GATE, side="right", ann_y=330, color=0.5,
         **ss.focus(ss.P050_GATE, 0.47, 0.20, 2.3),   # A-05: 2段目の札が下に見えないよう1段目だけに寄る
-        ann=[dict(t="1 MONTH BEFORE COLLAPSE", d="見た目・位置合わせとも正常", dc=J.OK, ds=30)],
+        # 🔴 2026-09-06（⑥）G-09：注記が画面の焼き込み「1 MONTH BEFORE COLLAPSE」の写しだった。
+        #   日本語の読者に英字を書き写しても情報量は 0＝**訳を出す**
+        ann=[dict(t="崩落の1か月前", d="見た目・位置合わせとも正常", dc=J.OK, ds=30)],
     ),
 
     # ── c111 3週間前 ───────────────────────────────────
@@ -172,7 +177,8 @@ SPEC = {
         s="NIST のまとめ　3週間前の吹き出し（p62）",
         photo=ss.P062, side="left", ann_y=330, color=0.4,
         **ss.focus(ss.P062, 0.39, 0.25, 1.5),   # A-09: 注記が吹き出しの英文の真上に載っていた。吹き出しを右へ
-        ann=[dict(t="~3 weeks before collapse", d="プランターの損傷", dc=J.ALERT, ds=30),
+        # 2026-09-06（6）G-09：注記が吹き出しの「~ 3 weeks before collapse」の写しだった
+        ann=[dict(t="崩落の約3週間前", d="プランターの損傷", dc=J.ALERT, ds=30),
              dict(t="", d="門の損傷", dc=J.ALERT, ds=30)],
     ),
 

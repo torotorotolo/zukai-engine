@@ -137,9 +137,11 @@ SPEC = {
         photo=ss.P185, side="right", ann_y=330, color=0.4,
         # 🔴 2026-09-06（⑤c' 直す #2）：H-07/H-08：注記の層の名前が絵の層とずれ、灰字 basement と同じ行に重なっていた
         xbias=0.025, bias=0.35, zoom=1.7,
-        ann=[dict(t="superstructure", d="上の骨組み", dc=J.LINE, ds=28),
-             dict(t="basement / foundations", d="地下・基礎", dc=J.LINE, ds=28),
-             dict(t="soil-rock", d="地盤", dc=J.LINE, ds=28)],
+        # 2026-09-06（6）G-09：t が画面の焼き込みの層名の写しだった（superstructure /
+        #   substructure / soil-rock は原画に焼き込まれている）。訳だけを出す
+        ann=[dict(t="上の骨組み", ts=34),
+             dict(t="地下・基礎", ts=34),
+             dict(t="地盤", ts=34)],
     ),
 
     # ── c713 地盤の層 ─────────────────
@@ -153,7 +155,8 @@ SPEC = {
         s="解析モデルのいちばん下の層（p185）",
         photo=ss.P185, side="right", ann_y=360, color=0.4,
         xbias=0.0, bias=0.80, zoom=1.86,
-        ann=[dict(t="伝わり方", d="地盤で、伝わり方が別物になる", dc=J.LINE, ds=30)],
+                # 2026-09-06（6）G-14：注記が焼き込みの英文の上に載っていた。dy で逃がす（枠外にならないことは check_layout の実測箱で確認）
+        ann=[dict(t="伝わり方", dy=80, d="地盤で、伝わり方が別物になる", dc=J.LINE, ds=30)],
     ),
 
     # ── c714 1つめの結論 ─────────────────
@@ -191,7 +194,8 @@ SPEC = {
         xbias=0.96, bias=1.0, zoom=1.9,
         # ⚠️ 「N つめ」を言うのに画面に印が無かった（H-11/H-15/H-19）。
         #    型に「箇条の1行だけ明るくする」手段は無いので、注記を箇条2（画面 y 469〜715）の高さへ置いて印にする
-        ann=[dict(t="2", d="つなぎ目に届いた振動の大きさ", dc=J.INK_W, ds=32)],
+                # 2026-09-06（6）G-14：注記が焼き込みの英文の上に載っていた。dy で逃がす（枠外にならないことは check_layout の実測箱で確認）
+        ann=[dict(t="2", dy=80, d="つなぎ目に届いた振動の大きさ", dc=J.INK_W, ds=32)],
     ),
 
     # ── c717 ★決め所「傷んだつなぎ目を壊すにも、小さすぎた」──────
