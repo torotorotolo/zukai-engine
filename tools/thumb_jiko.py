@@ -529,6 +529,61 @@ def thresher():
                                   yel_plain=True))
 
 
+# ── 4本目 サーフサイド（2026-09-06・⑥）─────────────────────
+SS_FACE = "surfside/fb_pr01.jpg"    # B-Roll #1 12.5秒：せん断した棟の断面（NIST／PD）
+SS_PILE = "surfside/fb_pr02.jpg"    # 同 53.8秒：瓦礫の山と背後に残った棟
+SS_WIDE = "surfside/fb_pr03.jpg"    # 同 15.0秒：瓦礫と捜索隊の引き
+
+
+def surfside():
+    """4本目のサムネ。⚠️ **決め語はまだカズヤくんの承認を取っていない**（案を3通り焼く）。
+
+    型は競合と同一＝**赤1行・黄1行・写真だけ**（[[feedback-jiko-thumbnail-rival-format]]）。
+    副題・タブ・出典・チャンネル名・ロゴは足さない。
+
+    ■ 決め語の考え方（3本目 thresher の型に合わせた）
+      赤＝被害の規模。thresher は「129名圧壊 海底2600m」。
+        ⚠️ 「即死」「圧死」は使わない（[[feedback-jiko-death-word-policy]]＝
+           報告書の語は本編で原文どおり読むが、**タイトル・サムネは言い換えのまま**）。
+      黄＝この動画の差別化。thresher は「機密解除された査問会記録」。
+        サーフサイドの差別化は **NIST の技術的知見が 2026年6月22日に出たばかり**であること。
+        ⚠️ 実測で効くのは「証言・記録・生存者」＝1.94倍（[[feedback-what-drives-views]]）。
+           逆に「隠蔽」0.80／「衝撃」0.83／「闇」0.92 は逆効果なので使わない。
+
+    ■ 地の作り
+      fb_pr01 は平均輝度 160.8・彩度 8.0 ＝**明るくて色の無い地**。
+      123便・thresher と同じ理屈で **bright を落として**赤の白フチを地から離す。
+    """
+    RED_A = "98名死亡 12階が数秒で"
+    YEL_A = "2026年6月公表 NISTの技術的知見"
+    YEL_B = "4本のはずが2本だった鉄筋"
+    RED_B = "98名死亡 崩落は3週間前から"
+
+    face = photo(SS_FACE, cy=0.50, cx=0.50, contrast=1.24, color=1.0,
+                 bright=0.82, zoom=1.10)
+    pile = photo(SS_PILE, cy=0.50, cx=0.50, contrast=1.22, color=1.05,
+                 bright=0.88, zoom=1.10)
+    wide = photo(SS_WIDE, cy=0.50, cx=0.50, contrast=1.22, color=1.05,
+                 bright=0.86, zoom=1.15)
+
+    # 🔴 210px（YouTube のサイドバーの実寸）で測った結果：
+    #    黄は**字数が少ないほど読める**。17字（YEL_A）は詰まって読みにくく、
+    #    12字（YEL_B・YEL_C）ははっきり読める（[[feedback-thumbnail-must-read-at-210px]]）。
+    YEL_C = "2026年6月 NISTが公表"
+    for nm, hero, r, y in (("a_face", face, RED_A, YEL_A),
+                           ("b_face_bars", face, RED_A, YEL_B),
+                           ("c_pile", pile, RED_A, YEL_A),
+                           ("d_face_3weeks", face, RED_B, YEL_A),
+                           ("e_wide", wide, RED_A, YEL_A),
+                           ("f_face_new", face, RED_A, YEL_C)):
+        bake(f"ss_{nm}", fx_type(hero, r, y, "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    (thresher if "thresher" in sys.argv else ja123)()
+    if "surfside" in sys.argv:
+        surfside()
+    elif "thresher" in sys.argv:
+        thresher()
+    else:
+        ja123()
