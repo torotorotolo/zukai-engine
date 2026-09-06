@@ -15,14 +15,21 @@
   3. 音声が入っているか。**映像と音声の尺の差**（音ズレの目安）
   4. 解像度・fps・コーデック
   5. 無音で終わっていないか（末尾 5秒の実効音量）
+  6. 🔴 **章名が前作のまま残っていないか**（2026-09-07 追加・設計ノート §9-6）
 
-⚠️ これは**カズヤくんが本番動画を見る「試写」の代わりにはならない**
-   （[[feedback-confirm-before-video-render]]＝公開ゲートは2段）。
+■ 🔴 6 の章名（3本目スレッシャー号で実際に落ちた穴）
+  `scene_jiko.CHAPTERS` は**画面の隅に出る章名**、台本の章見出しは `narration.py` の
+  `# ── 第N章　…` のコメント。**別々に書くので、片方だけ差し替えると食い違う。**
+  3本目は本編を焼き上げたあとで、隅が「3/6 毎秒10メートルの風」＝**2本目（123便）の
+  章名のまま**だったことに気づいた。机上検査5種は1つも落ちない（文字として正しく出るため）。
+  → 焼けた mp4 を見るこの道具で、**章の数・番号・名前を1件ずつ突き合わせる**。
+  ⚠️ 台本側の見出しは `# ── 第N章　<名前>（…` の形だけを読む。本文中の「第4章」は読まない。
 
 使い方:
     python tools/check_final.py out/jiko/titan_audio-ss.mp4
 """
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -53,9 +60,118 @@ def expected():
     return sum(round(dur[c] + S.LEAD + S.TAIL + S._tail_extra(c), 2) for c in dur), len(dur)
 
 
+CH_RE = re.compile(r"^\s*#\s*─+\s*第(\d+)章[　\s]+(.+?)(?:（|\(|\s*─|$)")
+
+
+def script_chapters():
+    """台本（`narration.py` の `# ── 第N章　…`）側の章見出し {番号: 名前}。
+
+    🔴 fail closed：1件も読めなければ 0件を返さずに落とす（形が変わったのに
+       「合っている」と言わせない。[[feedback-parsers-fail-closed]]）。
+    """
+    src = Path(__file__).parent / "narration.py"
+    out = {}
+    for ln in src.read_text(encoding="utf-8").splitlines():
+        m = CH_RE.match(ln)
+        if m:
+            n = int(m.group(1))
+            name = m.group(2).strip().rstrip("─ 　")
+            if n in out and out[n] != name:
+                raise SystemExit(f"🔴 台本に第{n}章の見出しが2通りある: "
+                                 f"{out[n]!r} と {name!r}")
+            out[n] = name
+    if not out:
+        raise SystemExit("🔴 台本から章見出しを1件も読めなかった "
+                         "（`# ── 第N章　…` の形が変わった？ 0件で通さない）")
+    return out
+
+
+def check_chapters():
+    """🔴 画面に出る章名（`scene_jiko.CHAPTERS`）と台本の章見出しを1件ずつ突き合わせる。"""
+    import scene_jiko as S
+    screen = {n: nm for _, (n, nm) in S.CHAPTERS.items()}
+    book = script_chapters()
+    ng = []
+    print(f"   章 画面 {len(screen)} ／ 台本 {len(book)}")
+    for n in sorted(set(screen) | set(book)):
+        a, b = screen.get(n), book.get(n)
+        if a == b:
+            print(f"     ✓ {n}/{len(screen)} {a}")
+        else:
+            print(f"     🔴 第{n}章  画面「{a}」 ≠ 台本「{b}」")
+            ng.append(f"第{n}章の章名が食い違う（画面「{a}」／台本「{b}」）"
+                      f"＝前作のまま残っている恐れ")
+    if len(screen) != getattr(S, "NCH", len(screen)):
+        ng.append(f"CHAPTERS が {len(screen)}件 なのに NCH が {S.NCH}"
+                  f"（隅の「n/{S.NCH}」が合わない）")
+    return ng
+
+
+def selftest():
+    """🔴 章名の門番の陽性対照。**本番の `check_chapters()` そのもの**を通す。
+
+    陽性対照は作り物ではなく、**実際に起きた事故の状態**を git から取って復元する
+    （3本目スレッシャー号を焼いたとき、隅が2本目 123便の章名のままだった）。
+    """
+    import scene_jiko as S
+    ok = True
+
+    def say(cond, msg):
+        nonlocal ok
+        ok &= bool(cond)
+        print(f"  {'✓' if cond else '🔴'} {msg}")
+
+    book = script_chapters()
+    say(len(book) >= 1, f"台本から章見出しを {len(book)}件 読めた: "
+                        + "／".join(f"{n} {book[n]}" for n in sorted(book)))
+    ng = check_chapters()
+    say(not ng, f"いまの CHAPTERS と台本は合っている（粗 {len(ng)}件）")
+
+    # 🔴 事故の復元＝**前作の章名のまま**（git から取る。2本目 8b5d129／3本目 ad6882a）
+    keep = S.CHAPTERS, getattr(S, "NCH", len(S.CHAPTERS))
+    for commit, label in (("8b5d129", "2本目 123便"), ("ad6882a", "3本目 スレッシャー号")):
+        r = subprocess.run(["git", "show", f"{commit}:tools/scene_jiko.py"],
+                           cwd=Path(__file__).parent.parent,
+                           capture_output=True, text=True, encoding="utf-8",
+                           errors="replace")
+        m = re.search(r"^CHAPTERS = \{(.*?)^\}", r.stdout, re.S | re.M)
+        if r.returncode != 0 or not m:
+            say(False, f"git から {label} の CHAPTERS を取り出せない（陽性対照が作れない）")
+            continue
+        old = {}
+        for k, n, nm in re.findall(r'"(c\d)":\s*\((\d+),\s*"([^"]+)"\)', m.group(1)):
+            old[k] = (int(n), nm)
+        try:
+            S.CHAPTERS, S.NCH = old, len(old)
+            got = check_chapters()
+        finally:
+            S.CHAPTERS, S.NCH = keep
+        say(len(got) >= len(old),
+            f"{label} の章名のままだと {len(got)}件 鳴る（{len(old)}章とも食い違う）")
+    say(check_chapters() == [], "戻すと黙る")
+
+    # 🔴 読めない形は 0件で通さない（fail closed）
+    keep_re = globals()["CH_RE"]
+    try:
+        globals()["CH_RE"] = re.compile(r"^\s*#\s*ZZZ第(\d+)章[　\s]+(.+?)$")
+        script_chapters()
+        say(False, "章見出しを1件も読めないのに落ちなかった")
+    except SystemExit:
+        say(True, "章見出しを1件も読めなければ落ちる（0件で通さない）")
+    finally:
+        globals()["CH_RE"] = keep_re
+
+    # ⚠️ 本文中の「第4章」を拾っていないか（narration.py の c525・c625 に実在する）
+    body = script_chapters()
+    say(all(len(v) < 30 for v in body.values()),
+        "本文中の「第4章…」は拾っていない（見出しだけ）")
+    print("  " + ("✓ 陽性対照 7/7" if ok else "🔴 陽性対照に落ちた"))
+    return ok
+
+
 def main():
     if len(sys.argv) < 2:
-        raise SystemExit("使い方: python tools/check_final.py <mp4>")
+        raise SystemExit("使い方: python tools/check_final.py <mp4>　／　--selftest")
     p = Path(sys.argv[1])
     if not p.exists():
         raise SystemExit(f"🔴 mp4 が無い: {p}")
@@ -121,16 +237,20 @@ def main():
         else:
             ng.append("末尾5秒の音量が測れなかった（volumedetect が読めない）")
 
+    ng += check_chapters()
+
     print()
     if ng:
         for x in ng:
             print("🔴", x)
         print(f"🔴 通し検品に粗 {len(ng)}件")
         return 1
-    print("✓ 通し検品は通った（尺・コマ数・解像度・音声・音ズレ・末尾）")
+    print("✓ 通し検品は通った（尺・コマ数・解像度・音声・音ズレ・末尾・章名）")
     print("⚠️ これは試写の代わりではない。**カズヤくんが本番動画を見るまで公開しない。**")
     return 0
 
 
 if __name__ == "__main__":
+    if "--selftest" in sys.argv:
+        sys.exit(0 if selftest() else 1)
     sys.exit(main())

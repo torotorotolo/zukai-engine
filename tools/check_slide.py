@@ -9,6 +9,20 @@
   G-09 … 注記 d が、画面に写っているスライド自身の英文と**同じ**（見る C で 11件）
   G-10 … 寄りすぎて、英文の行が**左端で語の途中から始まる**（見る C で 5件）
   G-13 … 焼き込みの英文が**字幕帯／見出し帯の中**に入る（pr04 の "Source: NIST…" が実例）
+  G-15 … 🔴 **注記が名指した語が、切り出し窓の中に無い**（2026-09-07 追加・設計ノート §9-4）
+
+■ 🔴 G-15 名指し規則（2026-09-07 新設）
+  注記に "Zone B"・"south basement" と書いておきながら、**その語が画面に写っていない**。
+  4本目の実例（旧 spec を git `431474d` から取って実測した）:
+    c621 … Zone A と Zone B を名指すが、窓に入るのは Zone A だけ
+    c622 … Zone A も Zone B も窓の外（どちらも素材には在る）
+    c715 … "south basement" を名指すが窓の外
+  ⚠️ **OCR の見落としと区別する。** この規則だけは「**見つからないと鳴る**」向きなので、
+     OCR が拾えなかっただけで誤報になる（ほかの規則は「一致したら鳴らす」向き）。
+     → **その語が同じ素材の OCR のどこかには在る**ときだけ 🔴 にする。
+       素材の OCR に1度も出ない語は「読めていないのか本当に無いのか決まらない」＝・（参考）。
+  ⚠️ 「窓の中にある」＝ k=0 か k=1 の**どちらかで丸ごと画面に入る**こと。
+     端で切れているだけなら G-10 の担当なので、ここでは鳴らさない（二重に数えない）。
 
 ■ 🔴 ケンバーンズ（2026-09-06 に実測して分かったこと）
   `build_jiko.fit()` は z に **(1 + 0.055k)** を掛ける（k = その時刻 / 尺）。
@@ -28,6 +42,8 @@
     python tools/check_slide.py           # 検査
     python tools/check_slide.py --check   # 陽性対照。**本番の経路で**鳴り・戻して黙るのを見る
     python tools/check_slide.py --all     # ・（記録だけ）も出す
+    python tools/check_slide.py --draw c621        # 切り出しを PNG に描く（描くだけ・読まない）
+    python tools/check_slide.py --draw c621 --boxes  # OCR の行と自分の文字の箱も重ねる
 """
 import copy
 import json
@@ -59,6 +75,10 @@ BAND_WIDE = 800         # G-13：高さが足りなくても、これだけ横�
 OVER_W = 40             # G-14：この幅より狭い重なりは見ない（台帳の「15px 未満は据え置き」）
 OVER_H = 12             # G-14：縦の重なりの下限
 OVER_W2 = 90            # G-14：これ以上重なったら 🔴（それ未満は参考）
+NAME_MIN = 4            # G-15：名指しとして数える英字の最小数（"of" などを拾わない）
+# ⚠️ G-15 で名指しから外す語。**画面の中の物を指していない**もの
+#    （出典・こちらの語彙・ページ番号）。消すと誤報が増えるので理由なしに足さない
+NAME_SKIP = {"nist", "source", "photo", "figure", "note", "credit"}
 
 
 # ⚠️ Windows の OCR がよく取り違える字（**両側に同じ変換を掛ける**ので誤検出は増えない）
@@ -154,6 +174,37 @@ def spec_strings(spec):
         for key in ("t", "v", "d"):
             if a.get(key):
                 out.append((f"ann{i + 1}.{key}", a[key]))
+    return out
+
+
+def named_terms(spec):
+    """G-15：注記が**名指している語**を (どこ, 語) で返す。
+
+    拾うのは ①英字の連なり（"Zone B"・"south basement"）②「箱N」の N。
+    ⚠️ 見出し `t` と副題 `s` は入れない（**主張を言う**欄で、画面の物を名指す欄ではない）。
+    ⚠️ ページ番号（p133）と NAME_SKIP の語は外す（画面の中の物を指していないため）。
+    """
+    out = []
+    for i, a in enumerate(spec.get("ann") or []):
+        for key in ("t", "v", "d"):
+            v = a.get(key)
+            if not v:
+                continue
+            where = f"ann{i + 1}.{key}"
+            # ⚠️ 「町（Town）」の形＝**日本語に英訳を添えただけ**で、画面の物を名指していない。
+            #    2026-09-07 に c420 でこれが誤報になったので、丸かっこの中が英字だけなら外す。
+            #    （「basement＝地下（p185 の左の3D）」のように中身が日本語のものは残る）
+            v = re.sub(r"（\s*[A-Za-z][A-Za-z&'\-. ]*\s*）", "", v)
+            for m in re.findall(r"[A-Za-z][A-Za-z&'\-. ]{2,}", v):
+                term = m.strip(" .-'")
+                letters = re.sub(r"[^A-Za-z]", "", term)
+                if len(letters) < NAME_MIN or letters.lower() in NAME_SKIP:
+                    continue
+                if re.fullmatch(r"[pP]\d+", term):
+                    continue
+                out.append((where, term))
+            for m in re.findall(r"箱\s*(\d+)", v):
+                out.append((where, f"箱{m}"))
     return out
 
 
@@ -300,6 +351,35 @@ def scan(spec_map, ocr, photo_of, box_of, skip, jobs=None):
                     else:
                         continue
                     break
+
+        # ── G-15 注記が名指した語が、切り出し窓の中に無い ─────────
+        # ⚠️ ここだけ「見つからないと鳴る」向き。OCR の見落としと区別するため、
+        #    **その素材の OCR のどこかには在る**ときだけ 🔴 にする（無ければ ・）
+        whole = " ".join(l["text"] for l in g["lines"])
+        src_txt = norm_en(whole)
+        in_win = []
+        for v in vis_lines:
+            for k in (0.0, 1.0):
+                x0, y0, x1, y1 = v["scr"][k]
+                if x0 >= 0 and x1 <= W and y0 >= 0 and y1 <= H:   # 丸ごと入っている
+                    in_win.append(norm_en(v["txt"]))
+                    break
+        win_txt = " ".join(in_win)
+        said = set()
+        for where, term in named_terms(spec):
+            key = norm_en(term) or re.sub(r"\s", "", term)
+            if not key or key in said:
+                continue
+            said.add(key)
+            if key in win_txt or (term.startswith("箱") and term[1:] in whole
+                                  and any(term[1:] in t for t in in_win)):
+                continue                                   # 画面に写っている＝合格
+            in_src = key in src_txt or (term.startswith("箱") and term[1:] in whole)
+            row = (cid, "G-15 名指しが画面に無い", term, where,
+                   (f"素材（{g['name']}）には在るが、切り出し窓の中に無い"
+                    if in_src else
+                    f"素材の OCR にも1度も出ない（読めていないのか無いのか決まらない）"))
+            (hits if in_src else softs).append(row)
     return hits, softs
 
 
@@ -328,6 +408,65 @@ def jobs_for(spec_map):
     finally:
         S.SPEC = keep
     return jobs
+
+
+def draw(cid, boxes=False):
+    """🔴 そのカットの切り出し（k=0 と k=1）を PNG に描く（設計ノート §9-4）。
+
+    **描くだけ。読まない。** 台帳の「直しの当たり」は式で書くが、2026-09-04 に2件・
+    09-06 に3件外れている（[[feedback-verify-the-ledgers-suggested-fix]]）。
+    当たりをコミットする前に、k=0/k=1 の両端を描いて自分の目で見るための道具。
+    絵を見るのは⑤c'（直すチャット）で、この道具チャットでは焼くところまで。
+
+    出す先 out/jiko/draw/<cid>_k0.png ・ <cid>_k1.png（**画面と同じ 1920x1080**）。
+    --boxes を付けると OCR の行（黄）と、こちらが描く文字の箱（水色）を重ねる。
+    """
+    from PIL import Image, ImageDraw   # ここでだけ使う（検査本体は PIL を要らない）
+    Image.MAX_IMAGE_PIXELS = None
+    ocr = load_ocr()
+    sm, po, bo, skip = production_inputs()
+    if cid not in sm:
+        raise SystemExit(f"🔴 {cid} は SPEC に無い")
+    g = cut_geom(cid, sm[cid], ocr, po, bo, skip)
+    if not g:
+        raise SystemExit(f"🔴 {cid} はスライドが映るカットではない"
+                         f"（動画を当てたカット／写真の割り当てが無い）")
+    src = HERE / "ref" / po[cid]
+    dst = HERE / "out" / "jiko" / "draw"
+    dst.mkdir(parents=True, exist_ok=True)
+    mine = my_boxes(cid, jobs_for({cid: sm[cid]})) if boxes else []
+    made = []
+    with Image.open(src) as im:
+        im = im.convert("RGB")
+        for k in (0.0, 1.0):
+            r = g["rects"][k]
+            box = r["box"]
+            win = im.crop((int(r["left"]), int(r["top"]),
+                           int(r["left"] + r["cw"]), int(r["top"] + r["ch"])))
+            canvas = Image.new("RGB", (W, H), (12, 12, 14))
+            canvas.paste(win.resize((int(box[2]), int(box[3])), Image.LANCZOS),
+                         (int(box[0]), int(box[1])))
+            d = ImageDraw.Draw(canvas)
+            d.rectangle([0, 0, W - 1, BAND_TOP], outline=(255, 90, 90))      # 見出し帯
+            d.rectangle([0, BAND_BOT, W - 1, H - 1], outline=(255, 90, 90))  # 字幕帯
+            if boxes:
+                for ln in g["lines"]:
+                    s = to_screen(ln["box"], r)
+                    if s[2] > 0 and s[0] < W and s[3] > 0 and s[1] < H:
+                        d.rectangle([s[0], s[1], s[2], s[3]], outline=(255, 214, 80))
+                for mb in mine:
+                    d.rectangle([mb[0], mb[1], mb[2], mb[3]], outline=(120, 220, 255))
+            out = dst / f"{cid}_k{int(k)}.png"
+            canvas.save(out)
+            made.append(out)
+            print(f"  ✓ {out.relative_to(HERE)}  窓 原画 x {r['left']:.0f}〜"
+                  f"{r['left'] + r['cw']:.0f} / y {r['top']:.0f}〜{r['top'] + r['ch']:.0f}"
+                  f"（幅 {r['cw']:.0f}px・{g['name']}）")
+    print(f"■ {cid} {g['name']}  xbias={sm[cid].get('xbias', 0.5)} "
+          f"bias={sm[cid].get('bias', 0.5)} zoom={sm[cid].get('zoom', 1.0)}"
+          + ("  ／ 黄＝焼き込みの行・水色＝こちらの文字・赤＝帯" if boxes else ""))
+    print("⚠️ 描いただけ。見るのは⑤c'（直すチャット）で、1メッセージ4枚まで")
+    return made
 
 
 def selfcheck():
@@ -463,17 +602,86 @@ def selfcheck():
         one["ann_y"] = round((sc[1] + sc[3]) / 2 + 14)
         return one, "かさなり試験の行です", f"注記を y={one['ann_y']} に置く"
 
+    def b15(cid, g, vis):
+        """🔴 G-15：**素材には在るが窓の外にある行**を注記に名指しさせる。
+
+        ⚠️ 「窓の中にある行」を名指しても鳴らない（それが正しい）。**窓の外の行**を探す。
+           見つからなければ次のカットへ渡り歩く（[[feedback-verify-your-own-instrument]] 10例目2）。
+        """
+        r0 = g["rects"][0.0]
+        r1 = g["rects"][1.0]
+        for ln in g["lines"]:
+            en = re.sub(r"[^A-Za-z ]", " ", ln["text"]).strip()
+            if len(re.sub(r"[^A-Za-z]", "", en)) < NAME_MIN + 2:
+                continue
+            outside = True
+            for r in (r0, r1):
+                s = to_screen(ln["box"], r)
+                if s[0] >= 0 and s[2] <= W and s[1] >= 0 and s[3] <= H:
+                    outside = False
+            if not outside:
+                continue
+            one = copy.deepcopy(spec_map[cid])
+            one["ann"] = [dict(t=en[:40], d="名指し試験")]
+            return one, en[:40], f"窓の外の行「{en[:24]}」を注記に名指しさせる"
+        return None
+
     ok = probe("G-09", b09)
     ok &= probe("G-10", b10)
     ok &= probe("G-13", b13)
     ok &= probe("G-14", b14)
+    ok &= probe("G-15", b15)
+
+    # 🔴 G-15 は「見つからないと鳴る」向きなので、**鳴りすぎない**ことも見る。
+    #    ①窓の中にある行を名指しても黙る ②素材の OCR に無い語は ・ に落ちる
+    quiet = True
+    for cid, g, vis in candidates()[:6]:
+        inside = None
+        for ln in g["lines"]:
+            en = re.sub(r"[^A-Za-z ]", " ", ln["text"]).strip()
+            if len(re.sub(r"[^A-Za-z]", "", en)) < NAME_MIN + 2:
+                continue
+            s = to_screen(ln["box"], g["rects"][0.0])
+            if s[0] >= 0 and s[2] <= W and s[1] >= 0 and s[3] <= H:
+                inside = en[:40]
+                break
+        if inside is None:
+            continue
+        one = copy.deepcopy(spec_map[cid])
+        one["ann"] = [dict(t=inside, d="名指し試験")]
+        h, sf = scan({cid: one}, ocr, photo_of, box_of, skip, jobs_for({cid: one}))
+        quiet = not [x for x in h if x[1].startswith("G-15")]
+        print(f"  {'✓' if quiet else '🔴'} G-15 の逆（{cid}：窓の中の行「{inside[:22]}」を"
+              f"名指し）… {'黙る' if quiet else '鳴ってしまう'}")
+        break
+    ok &= quiet
+    one = copy.deepcopy(spec_map[candidates()[0][0]])
+    one["ann"] = [dict(t="Xyzzy Plugh Quux", d="素材に無い語")]
+    cid0 = candidates()[0][0]
+    h, sf = scan({cid0: one}, ocr, photo_of, box_of, skip, jobs_for({cid0: one}))
+    to_soft = (not [x for x in h if x[1].startswith("G-15")]
+               and [x for x in sf if x[1].startswith("G-15")])
+    ok &= bool(to_soft)
+    print(f"  {'✓' if to_soft else '🔴'} G-15：素材の OCR に無い語は 🔴 でなく ・ に落ちる"
+          f"（OCR の見落としと区別する）")
 
     a = crop_rect(3200, 1570, (0, 0, W, H), 0.0, 0.5, 0.5, 2.0)
     b = crop_rect(3200, 1570, (0, 0, W, H), 1.0, 0.5, 0.5, 2.0)
     narrower = b["cw"] < a["cw"] and abs(b["z"] / a["z"] - 1.055) < 1e-9
     ok &= narrower
     print(f"  {'✓' if narrower else '🔴'} 幾何：k=1 は k=0 の 1.055倍に寄る")
-    print("  " + ("✓ 陽性対照 5/5" if ok else "🔴 陽性対照に落ちた"))
+
+    # 🔴 G-15 の名指しの拾い方（2026-09-07 に c420 で誤報を出した型を固定しておく）
+    got = {t for _, t in named_terms(dict(ann=[dict(t="赤枠", d="図面は町（Town）の保管分")]))}
+    say_town = "Town" not in got
+    ok &= say_town
+    print(f"  {'✓' if say_town else '🔴'} 名指し：「町（Town）」は名指しに数えない（訳の添え書き）")
+    got2 = {t for _, t in named_terms(dict(ann=[dict(t="Zone B", d="basement＝地下（p185 の左）")]))}
+    pick = "Zone B" in got2 and "basement" in got2 and not any(x.startswith("p1") for x in got2)
+    ok &= pick
+    print(f"  {'✓' if pick else '🔴'} 名指し：Zone B と basement は拾い、p185 は拾わない → {sorted(got2)}")
+
+    print("  " + ("✓ 陽性対照 10/10" if ok else "🔴 陽性対照に落ちた"))
     return ok
 
 
@@ -552,6 +760,12 @@ if __name__ == "__main__":
                             encoding="utf-8")
         n = sum(len(v["lines"]) for v in data.values())
         print(f"✓ OCR {len(data)} ファイル・{n} 行 → {OCR_JSON.relative_to(HERE)}")
+        sys.exit(0)
+    if "--draw" in sys.argv:
+        i = sys.argv.index("--draw")
+        if i + 1 >= len(sys.argv) or sys.argv[i + 1].startswith("-"):
+            raise SystemExit("🔴 --draw のあとにカットIDを書く（例 --draw c621）")
+        draw(sys.argv[i + 1], boxes="--boxes" in sys.argv)
         sys.exit(0)
     if "--check" in sys.argv:
         sys.exit(0 if selfcheck() else 1)

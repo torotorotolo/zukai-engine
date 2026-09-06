@@ -33,6 +33,15 @@
 ■ 使い方
      python tools/footage.py fetch          … 使う区間だけ切り出す（落とさない）
      python tools/footage.py fetch --check  … 切り出さずに、割り当てだけ確認する
+     python tools/footage.py --selftest     … 陽性対照
+
+■ 🔴 exit コード（2026-09-07・設計ノート §9-5 で `until=` を必須にした）
+     0 … 通った
+     1 … カットの尻がショットの終わりを越えている（`TOL` 超）
+     **2 … `until=` が書いていない欄がある**＝「測れる状態になっていない」。1 より重い
+     ⚠️ **静止画（`still=True`）の欄も必須**。`overruns()` は静止画を飛ばすので、
+        ここを飛ばすと**構造上見えない穴**になる（2026-09-07 に実測：36欄中4欄が
+        until 無しのまま4本目を通っていた＝c106 c223 c434 pr02。どれも `still`）。
 
 ■ 🔴 秒数は**見てから決める**（r17 で1度失敗している）
    4本目は 1秒刻みの見取り図（scratchpad の sheet_*.jpg）を見て**ショットの境目**を書いた。
@@ -263,6 +272,12 @@ def overruns(use=None, secs=None):
     out = []
     for cid, u in use.items():
         if u.get("still"):
+            # 静止画は1コマだけなので「尻がはみ出す」は起きないが、**その1コマが
+            # ショットの中に在るか**は同じ根拠で言える（2026-09-07 追加）。
+            # ⚠️ until を義務にしただけだと「数が入っていればよい」になるので、ここで意味を持たせる
+            if u.get("until") is not None and float(u["start"]) > float(u["until"]):
+                out.append((cid, float(u["start"]) - float(u["until"]),
+                            float(u["start"]), float(u["start"]), float(u["until"])))
             continue
         if cid not in secs:
             continue
@@ -277,19 +292,36 @@ def overruns(use=None, secs=None):
     return out
 
 
+def missing_until(use=None):
+    """🔴 `until=` が書いていない USE の欄（2026-09-07・設計ノート §9-5 で**必須**にした）。
+
+    ⚠️ `overruns()` は静止画（`still=True`）を飛ばすが、こちらは**全部の欄**を見る。
+       静止画でも「そのショットが何秒で終わるか」は切り出しの当たりを決める根拠なので、
+       書いていないなら**書いてから通す**（自由記述の注記に書き戻さない）。
+    ⚠️ ここが空でも `overruns()` は 0件と答えられてしまう＝**黙って通る穴**になる。
+       なので `fetch --check` は overrun（exit 1）より重い **exit 2** で落とす。
+    """
+    use = USE if use is None else use
+    return sorted(c for c, u in use.items() if u.get("until") is None)
+
+
 def check_until():
-    bad = overruns()
-    for cid, gap, st, end, until in sorted(bad, key=lambda r: -(r[1] or 1e9)):
-        if gap is None:
-            print(f"  🔴 {cid}: until= が無い（そのショットが何秒で終わるか機械が読めない）")
-        else:
-            print(f"  🔴 {cid}: 尻が {gap:+.2f}秒 はみ出す"
-                  f"（{st:.1f}〜{end:.2f}秒／ショットの終わり {until:.1f}秒）")
+    """(はみ出し, until が無い欄) を返す。呼び手が exit コードを決める。"""
+    miss = missing_until()
+    for cid in miss:
+        print(f"  🔴 {cid}: until= が無い（そのショットが何秒で終わるか機械が読めない）")
+    bad = [r for r in overruns() if r[1] is not None]
+    for cid, gap, st, end, until in sorted(bad, key=lambda r: -r[1]):
+        print(f"  🔴 {cid}: 尻が {gap:+.2f}秒 はみ出す"
+              f"（{st:.1f}〜{end:.2f}秒／ショットの終わり {until:.1f}秒）")
+    if miss:
+        print(f"🔴 `until=` が無い欄が {len(miss)} 件（必須。書くまで切り出さない）")
     if bad:
         print(f"🔴 ショットの終わりを {TOL:.2f}秒 より越えているカットが {len(bad)} 件")
-    else:
-        print(f"✓ どのカットの尻も、ショットの終わりを {TOL:.2f}秒 より越えていない")
-    return bad
+    if not miss and not bad:
+        print(f"✓ 全 {len(USE)} 欄に until= があり、どのカットの尻も "
+              f"{TOL:.2f}秒 より越えていない")
+    return bad, miss
 
 
 def selftest():
@@ -319,7 +351,43 @@ def selftest():
     ok &= victim not in got
     print(f"  {'✓' if victim not in got else '🔴'} {victim}：戻す … "
           f"{'黙る' if victim not in got else '鳴る'}")
-    print("  " + ("✓ 陽性対照 4/4" if ok else "🔴 陽性対照に落ちた"))
+
+    # 🔴 2026-09-07：`until=` の必須化（設計ノート §9-5）
+    # ⚠️ ここは**道具の検算**なので、本番の中身の良し悪しで緑／赤を決めない
+    #    （本番の合否は `fetch --check` の exit で言う）。状態は必ず表に出す
+    now = missing_until(USE)
+    print(f"  ⚠️ いまの USE は {len(USE)}欄中 {len(now)}欄に until= が無い"
+          f"{'（' + ' '.join(now) + '）' if now else '＝全部ある'}")
+    dropped = {k: v for k, v in u.items() if k != "until"}
+    hit = missing_until({victim: dropped}) == [victim]
+    ok &= hit
+    print(f"  {'✓' if hit else '🔴'} {victim}：until を消すと missing_until が名指しで拾う")
+    # ⚠️ **静止画の欄も見る**（overruns は飛ばすので、ここが抜けると穴になる）
+    still = next((c for c, x in USE.items() if x.get("still")), None)
+    if still:
+        s_hit = missing_until(
+            {still: {k: v for k, v in USE[still].items() if k != "until"}}) == [still]
+        ok &= s_hit
+        print(f"  {'✓' if s_hit else '🔴'} {still}（静止画）：until を消しても拾う"
+              f"（overruns は静止画を飛ばすので、ここが抜けると穴になる）")
+    keep_use = dict(USE)
+    try:
+        globals()["USE"] = {victim: dropped}
+        rc = fetch(check=True)
+    finally:
+        globals()["USE"] = keep_use
+    ok &= rc == 2
+    print(f"  {'✓' if rc == 2 else '🔴'} until が無いと `fetch --check` は exit {rc}（期待 2）")
+    # 静止画の1コマがショットの外に置かれたら鳴る／中なら黙る
+    if still:
+        s0 = USE[still]
+        late = overruns({still: dict(s0, until=float(s0["start"]) - 1.0)}, secs)
+        fine = overruns({still: dict(s0, until=float(s0["start"]) + 1.0)}, secs)
+        good = bool(late) and not fine
+        ok &= good
+        print(f"  {'✓' if good else '🔴'} {still}（静止画）：その1コマがショットの終わりより"
+              f"後なら鳴り、中なら黙る")
+    print("  " + ("✓ 陽性対照 8/8" if ok else "🔴 陽性対照に落ちた"))
     return ok
 
 
@@ -391,7 +459,13 @@ def fetch(check=False):
         flag = "" if end <= float(c["sec"]) + 0.05 else "  🔴 動画の終端を越える"
         print(f"  {cid}  尺{secs[cid]:5.2f}s  ← {u['clip']} {u['start']:.1f}〜{end:.1f}秒"
               f"（{rate:.2f}倍速）{flag}")
-    over = check_until()
+    over, miss = check_until()
+    # 🔴 `until=` は必須（2026-09-07・設計ノート §9-5）。無ければ **exit 2** で落とす。
+    #    ⚠️ はみ出し（exit 1）より重い。「測れる状態になっていない」ので切り出しにも進まない
+    if miss:
+        print("🔴 exit 2 ＝ `until=`（そのショットが終わる秒）を USE に書いてから通す。"
+              "見取り図は `python tools/surfside_vidsheet.py cuts <clip> <t0> <t1>` で測る")
+        return 2
     if check:
         return 1 if over else 0
     bad = 0
