@@ -363,6 +363,83 @@ def impact(dur=2.4):
     return y / (np.abs(y).max() + 1e-9)
 
 
+# 🔴 2026-09-06（⑥）ラウドネスの狙い。
+#   YouTube は **-14 LUFS を超えたぶんだけ下げる。小さいものは上げない。**
+#   長尺のナレーションの標準帯は -16〜-14 LUFS。-15.0 なら
+#   YouTube 側で触られず、かつ十分に大きい。
+#   ⚠️ 実測は必ず**全長**で取る。抜粋（--head）はピークが低いので値が違う。
+TARGET_LUFS = -15.0
+CEILING = 0.97           # リミッタの天井（真のピーク）
+
+
+def peak_abs(x, chunk=4_000_000):
+    """|x| の最大。**丸ごとの複製を作らない**（34分＝9,400万サンプルで 716MB になる）。"""
+    m = 0.0
+    for i in range(0, len(x), chunk):
+        m = max(m, float(np.abs(x[i:i + chunk]).max()))
+    return m
+
+
+def limit(x, ceiling=CEILING, atk=0.002, rel=0.05):
+    """天井を超える尖りだけを潰す。**全体は下げない。x をその場で書き換えて返す。**
+
+    ⚠️ 1サンプルずつ回すと 34分＝9,400万回で終わらないので、`compress()` と同じく
+       **1ms のブロック単位**で利得を出して掛ける（ブロックの最大値で見るので
+       ブロック内の1サンプルの尖りも拾える）。
+    🔴 2026-09-06：**メモリで1回落ちた**（12GB の PC で `np.abs(x)` が 716MB を要求）。
+       `np.abs()` も `np.repeat()` も丸ごとの複製を作る。
+       → 最大はチャンクで取り、利得は **reshape したビューにその場で掛ける**。
+    """
+    if peak_abs(x) <= ceiling:
+        return x
+    blk = max(1, int(0.001 * SR))
+    k = len(x) // blk
+    if k < 2:
+        np.clip(x, -ceiling, ceiling, out=x)
+        return x
+    view = x[:k * blk].reshape(k, blk)
+    lv = np.empty(k, dtype=np.float64)
+    step = max(1, 4_000_000 // blk)
+    for i in range(0, k, step):                     # ブロックごとの最大（複製を作らない）
+        lv[i:i + step] = np.abs(view[i:i + step]).max(axis=1)
+    need = np.minimum(1.0, ceiling / np.maximum(lv, 1e-12))
+    ka = 1 - np.exp(-blk / SR / max(atk, 1e-6))
+    kr = 1 - np.exp(-blk / SR / max(rel, 1e-6))
+    g = np.empty(k)
+    cur = 1.0
+    for i in range(k):                              # 下がるのは速く、戻るのはゆっくり
+        tgt = need[i]
+        cur += (tgt - cur) * (ka if tgt < cur else kr)
+        g[i] = cur
+    view *= g[:, None].astype(x.dtype)              # ★その場で掛ける
+    x[k * blk:] *= x.dtype.type(g[-1])
+    np.clip(x, -ceiling, ceiling, out=x)            # ブロック境界の取りこぼしだけ硬く止める
+    return x
+
+
+def measure_lufs(path):
+    """ffmpeg の EBU R128 で統合ラウドネスを測る。
+
+    ⚠️ **読めなければ None を返して呼び出し側を止める**（0 で埋めない）。
+    ⚠️ `-v error` にすると ebur128 の出力ごと消えるので info で読む。
+    """
+    import subprocess
+    try:
+        r = subprocess.run(
+            ["ffmpeg", "-hide_banner", "-nostats", "-v", "info", "-i", str(path),
+             "-af", "ebur128=framelog=quiet", "-f", "null", "-"],
+            capture_output=True, text=True, encoding="utf-8", errors="replace")
+    except FileNotFoundError:
+        return None
+    hit = [ln for ln in r.stderr.splitlines() if ln.strip().startswith("I:")]
+    if not hit:
+        return None
+    try:
+        return float(hit[-1].split(":")[1].strip().split()[0])
+    except (IndexError, ValueError):
+        return None
+
+
 def compress(x, t=COMP_T, r=COMP_R, atk=COMP_ATK, rel=COMP_REL):
     """ナレーションを圧縮して、**弱い語尾を相対的に持ち上げる。**
 
@@ -513,21 +590,64 @@ def main(head=None, out_name="mix.wav", duck=True):
     #    ⚠️ 耳で3回詰めた記録（-38→-30→-24）は `--head` の短い抜粋で聴いた値。
     #      **抜粋はピークが低いので正規化量が違い、全長では数dB小さくなる。**
     mix += bed
-    peak = np.abs(mix).max()
-    if peak > 0.97:
-        mix *= 0.97 / peak
-        print(f"ピークが {peak:.2f} だったので {0.97 / peak:.3f} 倍に下げた")
-        print(f"　→ BGMの実効音量は設定より {-20 * np.log10(0.97 / peak):.1f}dB 小さくなる")
 
+    # 🔴🔴 2026-09-06（⑥ サーフサイド）カズヤくん「ナレーションの音声が小さいです」。
+    #
+    #   ■ 何が起きていたか（実測）
+    #     ここは前まで **素のピーク正規化**だった：
+    #         peak = np.abs(mix).max()          # 3.17
+    #         if peak > 0.97: mix *= 0.97/peak  # 全体を 0.302 倍 = -10.4dB
+    #     焼いた mp4 の実測は **-23.4 LUFS**。YouTube の基準は -14 LUFS で、
+    #     **YouTube は小さい音を上げない（大きい音を下げるだけ）**ので、
+    #     9.4dB 小さいまま再生されていた。
+    #
+    #   ■ なぜ悪手だったか
+    #     0.97 を超えるサンプルは **全体の 0.42%（8.95秒／35分27秒）**しかなく、
+    #     3.0 を超えるのは **8サンプル**だけだった。
+    #     **0.4% の一瞬の尖りに合わせて、35分ぜんぶを 10.4dB 下げていた。**
+    #
+    #   ■ 直し方
+    #     ① 狙いのラウドネスまで**一様に**上げる（比は変わらない）
+    #     ② 天井を超える尖りだけを**リミッタで潰す**（全体は下げない）
+    #     ③ 実測して足りなければ ①へ戻る（最大3周）
+    #     ⚠️ 一様な利得なので **ナレーションと BGM の比は変わらない**
+    #        ＝`check_mask` の測り方（正規化を含めずに比を測る）は今までどおり有効。
+    #        禁じられているのは「BGM を足す前にナレーションだけ正規化する」順序のほう。
     out = HERE / "out" / "jiko"
     out.mkdir(parents=True, exist_ok=True)
     p = out / out_name
-    with wave.open(str(p), "w") as w:
-        w.setnchannels(1)
-        w.setsampwidth(2)
-        w.setframerate(SR)
-        w.writeframes((mix * 32767).astype(np.int16).tobytes())
-    print(f"wrote {p}  {total:.1f}秒  ピーク {np.abs(mix).max():.2f}")
+
+    def _write(a):
+        """⚠️ 34分ぶんを一度に int16 化すると複製が2つ増える。**チャンクで書く。**"""
+        with wave.open(str(p), "w") as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(SR)
+            for i in range(0, len(a), 4_000_000):
+                c = np.clip(a[i:i + 4_000_000], -1.0, 1.0)
+                w.writeframes((c * 32767).astype(np.int16).tobytes())
+
+    # 🔴 12GB の PC で回るように float32 にする（float64 のままだと 716MB×3 で落ちる）
+    base = mix.astype(np.float32)
+    del mix
+    work = np.empty_like(base)
+    gain_db = 0.0
+    for it in range(3):
+        np.multiply(base, np.float32(10 ** (gain_db / 20.0)), out=work)
+        y = limit(work, CEILING)
+        _write(y)
+        lufs = measure_lufs(p)
+        if lufs is None:                       # 測れなければ動かさない（fail closed）
+            print("⚠️ ラウドネスが測れなかったので、利得を動かさずに書き出した")
+            break
+        print(f"  {it + 1}周目：利得 {gain_db:+.1f}dB → 実測 {lufs:.1f} LUFS "
+              f"／ ピーク {np.abs(y).max():.3f}")
+        if abs(lufs - TARGET_LUFS) <= 0.3:
+            break
+        gain_db += TARGET_LUFS - lufs
+    mix = y
+
+    print(f"wrote {p}  {total:.1f}秒  ピーク {peak_abs(mix):.3f}")
 
 
 if __name__ == "__main__":
