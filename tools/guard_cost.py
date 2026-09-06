@@ -98,7 +98,17 @@ def parse(txt: str):
             return None
         return float(m.group(1).replace(",", "").replace("$", ""))
 
-    vals = (pick("Metered Cost"), pick("Credits"), pick("Billed Cost"))
+    # ⚠️ 2026-09-05（modal 1.5.3）: **クレジットが1件も充当されない月は `Credits:` の行が
+    #    そもそも出ない**。実物は Metered Cost 0.02 / Volumes 0.02 / Free Storage -0.02 /
+    #    Billed Cost $0.00 の4行だけで、`Credits` が無いために parse が None を返し、
+    #    請求 $0.00・ワークスペース健全なのに門番が「止める」と言い続けていた。
+    #    → 充当の行は `Credits` か `Free Storage` の**どちらかがあればよい**とする。
+    #      どちらも無ければ従来どおり None（＝0で埋めない・fail closed は崩さない）。
+    #      credits は表示にしか使われず、判定は used / billed と定数で行うので影響しない。
+    credits = pick("Credits")
+    if credits is None:
+        credits = pick("Free Storage")
+    vals = (pick("Metered Cost"), credits, pick("Billed Cost"))
     return None if any(v is None for v in vals) else vals
 
 
@@ -115,6 +125,11 @@ def selftest() -> int:
          "| Free Storage:     | -0.01 |\n"
          "| Billed Cost:      | $0.00 |\n"
          "+---------------------------+\n", (1.83, -1.83, 0.00)),
+        ("クレジット行なし（2026-09-05・modal 1.5.3 の実物）",
+         "Metered Cost:    0.02  \n"
+         "    Volumes:       0.02  \n"
+         "  Free Storage:   -0.02  \n"
+         "  Billed Cost:    $0.00\n", (0.02, -0.02, 0.00)),
         ("平文（旧形式・これは前から読めていた）",
          "Metered Cost: $12.34\nCredits: -10.00\nBilled Cost: $2.34\n", (12.34, -10.0, 2.34)),
         ("桁区切りあり", "| Metered Cost: | 1,234.50 |\n| Credits: | -30.00 |\n"
