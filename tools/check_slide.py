@@ -508,7 +508,38 @@ def main(show_all=False):
         print(f"🔴 焼き込みの文字と切り方に粗（{tail or '0件'}／参考 {len(softs)}件）")
     else:
         print(f"✓ 焼き込みの文字と切り方は通った（参考 {len(softs)}件）")
+    lab_summary(softs)
     return 1 if hits else 0
+
+
+def lab_summary(softs):
+    """🔴 2026-09-06（⑥）：**見出し・副題・出典が焼き込みの文字に載る件数を必ず表に出す。**
+
+    なぜ：G-14 の判定は 297行で
+        hard = ow >= OVER_W2 and not mb[5].endswith("_lab")
+    としており、**`_lab`（見出し・副題・出典）の重なりは、どれだけ大きくても 🔴 にしない。**
+    その結果 240件を超える「参考」の中に埋もれ、**誰も読まない**。
+    c409 で「私の見出しが焼き込みの "As-Built Conditions" と重なって読めない」のに
+    門番が 🔴0 と言った真因がこれだった（焼いた絵を見るまで分からなかった）。
+
+    ⚠️ 判定そのものは変えていない（🔴 に格上げすると本番の 🔴 が 20件増えて意味が変わる）。
+       **黙らせないことだけを直した。** 分類の見直しは次の題材の ⑤ でやる。
+    """
+    import re as _re
+    lab = [r for r in softs if "G-14" in r[1] and r[3].endswith("_lab")]
+    if not lab:
+        return
+    def w(msg):
+        m = _re.search(r"と (\d+)×", msg)
+        return int(m.group(1)) if m else 0
+    big = [r for r in lab if w(r[4]) >= 200]
+    print(f"⚠️ 見出し・副題・出典が焼き込みの文字に載る "
+          f"{len(lab)}件（{len({r[0] for r in lab})}カット）"
+          f"／うち重なり 200px 以上 {len(big)}件"
+          f"　🔴 には数えない決まりなので、ここで別に出している（--lab で全件）")
+    if "--lab" in sys.argv:
+        for r in sorted(lab, key=lambda r: -w(r[4])):
+            print(f"   {r[0]:<6} {w(r[4]):5}px 「{r[2][:26]}」 {r[4][:58]}")
 
 
 if __name__ == "__main__":
