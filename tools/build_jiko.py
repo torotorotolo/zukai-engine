@@ -337,6 +337,15 @@ def scene(cut, t, dur, lay, photos, meta):
             # 実写カットでも `xbias` / `zoom` を書けば焼き込みを外せる（既定は今までと同じ）
             ph = fit(src, box, k * (0.35 if box[3] < S.H else 1.0), bias, xb, zm)
         fr.paste(tone(ph, cut, meta), (box[0], box[1]))
+        # 🔴 2026-09-07（5本目 SL-1）：**実写カットにも暗幕をかけられるようにした。**
+        #    それまで暗幕は「写真を地にして図を重ねるカット」だけだった。
+        #    5本目は**報告書の本文ページ**を写真として出すカットが 26 あり、
+        #    紙いちめんの英字の上に日本語の注記が載っていた
+        #    （`check_slide` G-13 108件・G-14 61件）。暗幕を敷くと英字は 16〜22% に沈み、
+        #    こちらの文字だけが残る。⚠️ **spec に `veil=` を書いたカットだけ**（既定は今までどおり無し）。
+        vp = meta[cut].get("pveil")
+        if vp:
+            fr.alpha_composite(veil_layer(vp))
         over(fr, lay[f"{cut}_lab"], min(1.0, max(0.0, (t - 0.15) / 0.5)))
         # 実写の注記は**フェード**で出す。写真の上を横切るワイプは汚れに見える
         for i, (a, b) in enumerate(times):

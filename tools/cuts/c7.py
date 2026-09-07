@@ -35,8 +35,10 @@ SPEC = {
     "c702": dict(
         t="手が回らなかったのではない",
         s="IDO-19302 前書き（印字 p.vii）",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.IDO_VII, side="left", ann_y=330,
-        **ss.text_focus(ss.IDO_VII, 0.268, 1.35),
+        **ss.text_focus(ss.IDO_VII, 0.268),
         ann=[dict(t="書かれていないのは", d="最初からそう決めたから",
                   dc=J.ALERT, ds=30),
              dict(t="どこに", d="原因を扱わないと断る段落", dc=J.DOC, ds=32)],
@@ -46,8 +48,10 @@ SPEC = {
     "c703": dict(
         t="原因は、別の委員会が扱う",
         s="前書き　「別の報告書」の一節（印字 p.vii）",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.IDO_VII, side="right", ann_y=330,
-        **ss.text_focus(ss.IDO_VII, 0.278, 1.35),
+        **ss.text_focus(ss.IDO_VII, 0.278),
         ann=[dict(t="扱うところ", d="AEC 調査委員会", dc=J.INST, ds=32),
              dict(t="208ページが扱う範囲", d="そのあとの作業",
                   dc=J.DOC, ds=30)],
@@ -57,6 +61,8 @@ SPEC = {
     "c704": dict(
         t="43ページ、名前が5人分並ぶ",
         s="原因を扱った報告書の表紙　43ページ",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.AEC_COVER, side="left", ann_y=330,
         # ⚠️ 表紙は紙の白さが大半。墨は x0.24〜0.76・y0.11〜0.46（実測）。題の塊へ寄せる
         **ss.focus(ss.AEC_COVER, 0.50, 0.29, 1.85),
@@ -70,7 +76,7 @@ SPEC = {
     "c705": dict(
         t="101ページだけ、白い",
         s="IDO-19302 印字 p.101",
-        photo=ss.IDO_P101, **ss.text_focus(ss.IDO_P101, 0.222, 1.35),
+        photo=ss.IDO_P101, **ss.text_focus(ss.IDO_P101, 0.222),
         fig=("quote", dict(
             phrase="このページの内容は削除された",
             rows=[("何の本か", "アイダホ支所の報告書（208ページ）", J.DOC),
@@ -154,7 +160,7 @@ SPEC = {
     "c712": dict(
         t="位置は、要旨の2行目にある",
         s="IDO-19311 要旨（PDF p.4）",
-        photo=ss.I11_ABST, **ss.text_focus(ss.I11_ABST, 0.315, 1.35),
+        photo=ss.I11_ABST, **ss.text_focus(ss.I11_ABST, 0.315),
         fig=("quote", dict(
             phrase="20インチ、引き抜かれていた",
             rows=[("何が", "中央の制御棒", J.ALERT),
@@ -260,7 +266,7 @@ SPEC = {
     "c720": dict(
         t="§4.1 の、書き出しである",
         s="回収作業の最終報告書　原因の節",
-        photo=ss.I11_S41, **ss.text_focus(ss.I11_S41, 0.749, 1.35),
+        photo=ss.I11_S41, **ss.text_focus(ss.I11_S41, 0.749),
         fig=("quote", dict(
             phrase="はっきりした証明は無い",
             rows=[("書いたのは", "ゼネラル・エレクトリック", J.INST),
@@ -274,8 +280,10 @@ SPEC = {
     "c721": dict(
         t="続きは、すべての情報が示す、だ",
         s="IDO-19311 §4.1 の続き（I-5）",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.I11_S41, side="right", ann_y=330,
-        **ss.text_focus(ss.I11_S41, 0.762, 1.35),
+        **ss.text_focus(ss.I11_S41, 0.762),
         ann=[dict(t="示していること", d="手による引き抜き ⇒ 暴走",
                   dc=J.ALERT, ds=28),
              dict(t="言い方", d="示している（indicates）であって、証明ではない",
@@ -286,8 +294,10 @@ SPEC = {
     "c722": dict(
         t="最大の力ではない、と書いてある",
         s="IDO-19311 §4.1 の語（I-5）",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.I11_S41, side="left", ann_y=330,
-        **ss.text_focus(ss.I11_S41, 0.771, 1.35),
+        **ss.text_focus(ss.I11_S41, 0.771),
         ann=[dict(t="原文", d="with less than maximum effort", dc=J.DOC,
                   ds=30),
              dict(t="意味", d="力いっぱい引いたわけではない、ということ",
@@ -323,8 +333,10 @@ SPEC = {
     "c725": dict(
         t="要旨も、見つかっていないと書く",
         s="IDO-19311 要旨（PDF p.4）",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.I11_ABST, side="right", ann_y=330,
-        **ss.text_focus(ss.I11_ABST, 0.340, 1.35),
+        **ss.text_focus(ss.I11_ABST, 0.340),
         ann=[dict(t="書いてあること",
                   d="別の引き抜きの手段：該当なし",
                   dc=J.ALERT, ds=26)],

@@ -50,13 +50,32 @@ import json
 import re
 import subprocess
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 sys.path.insert(0, str(Path(__file__).parent))
 sys.stdout.reconfigure(encoding="utf-8")
 
 HERE = Path(__file__).resolve().parent.parent
-OCR_JSON = HERE / "ref" / "surfside" / "ocr_slides.json"
+# 🔴 2026-09-07（5本目 SL-1）：**題材ごとの素材フォルダから読む**ように直した。
+#    それまで `ref/surfside/ocr_slides.json` を名指ししていたので、題材を替えると
+#    **「スライドが映るカット 0 件」で ✓ を出していた**（77件の報告書ページを1枚も見ていない）。
+#    机上検査はどれも落ちない。→ [[feedback-gates-must-see-physics]]「既存の門番が見ていない物を疑う」
+#    ⚠️ 0件のときは ✓ と言わずに落とす（`report()` の fail closed）。
+def mat_dirs():
+    """本番の写真カットが実際に使っているフォルダ（`ref/<dir>/`）を、多い順に。"""
+    import collections
+    import scene_jiko as S
+    c = collections.Counter(PurePosixPath(v[1]).parent.as_posix()
+                            for v in S.PHOTO_CUTS.values() if "/" in v[1])
+    return [d for d, _ in c.most_common()]
+
+
+def ocr_json():
+    ds = mat_dirs()
+    return HERE / "ref" / (ds[0] if ds else "surfside") / "ocr_slides.json"
+
+
+OCR_JSON = ocr_json()
 W, H = 1920, 1080
 BAND_TOP = 210          # 見出し帯の下端（jiko_style.BAND_T）
 BAND_BOT = 900          # 字幕帯の上端（ルール §6）
@@ -75,6 +94,23 @@ BAND_WIDE = 800         # G-13：高さが足りなくても、これだけ横�
 OVER_W = 40             # G-14：この幅より狭い重なりは見ない（台帳の「15px 未満は据え置き」）
 OVER_H = 12             # G-14：縦の重なりの下限
 OVER_W2 = 90            # G-14：これ以上重なったら 🔴（それ未満は参考）
+
+# 🔴 2026-09-07（5本目 SL-1）：**暗幕（veil）を敷いたカットは G-13／G-14 を ・ に落とす。**
+#    根拠は式と実測。暗幕は全面 J.BG を α で重ねる板なので、写真の明るさは (1-α) 倍になる。
+#    紙 230・活字 40 の報告書ページに α=0.78 を敷くと 紙 51・活字 9。
+#    さらに字幕帯（黒 70〜78%）の下では 紙 13・活字 2＝**こちらの文字と競わない**。
+#    ⚠️ **しきい値も規則も動かしていない**。判定の対象から外すのでもない（・として必ず表に出す）。
+#    ⚠️ G-09（注記が焼き込みの写し）・G-10（行頭が切れる）・G-15（名指した語が窓の外）は
+#       明るさの話ではないので**暗幕でも 🔴 のまま**。
+VEIL_SOFT = 0.70        # これ以上の暗幕なら G-13／G-14 を ・ にする
+
+
+def veil_of(spec):
+    """そのカットに敷かれる暗幕の濃さ（無ければ 0）。地に敷くカットは既定 VEIL。"""
+    import scene_jiko as S
+    if spec.get('photo') and spec.get('fig'):
+        return float(spec.get('veil', S.VEIL))
+    return float(spec.get('veil', 0.0) or 0.0)
 NAME_MIN = 4            # G-15：名指しとして数える英字の最小数（"of" などを拾わない）
 # ⚠️ G-15 で名指しから外す語。**画面の中の物を指していない**もの
 #    （出典・こちらの語彙・ページ番号）。消すと誤報が増えるので理由なしに足さない
@@ -318,9 +354,16 @@ def scan(spec_map, ocr, photo_of, box_of, skip, jobs=None):
                 x0, y0, x1, y1 = v["scr"][k]
                 if y1 > BAND_BOT + BAND_PX and y0 < H:
                     tall, wide = y1 - y0, min(x1, W) - max(x0, 0)
+                    # 🔴 2026-09-07：**縦に細長い「行」は文字ではない**（OCR が図面の
+                    #    線や網点を拾ったもの）。実測：c117「〇 ② 〇 〇 ⑤」23×206px、
+                    #    c901 42×670px。横書きの行は必ず 幅 > 高さ。
+                    #    ⚠️ 判定から外すのではなく ・ に落とす（数字ごと表に出る）。
+                    upright = wide < tall
                     row = (cid, "G-13 字幕帯の中", txt, f"k={k:.0f}",
-                           f"y {y0:.0f}〜{y1:.0f}・高さ {tall:.0f}px・幅 {wide:.0f}px")
+                           f"y {y0:.0f}〜{y1:.0f}・高さ {tall:.0f}px・幅 {wide:.0f}px"
+                           + ("・縦長＝行ではない" if upright else ""))
                     (hits if (tall >= BAND_TALL or wide >= BAND_WIDE)
+                             and veil_of(spec) < VEIL_SOFT and not upright
                      else softs).append(row)
                     break
                 if y0 < BAND_TOP - BAND_PX and y1 > 0:
@@ -345,7 +388,8 @@ def scan(spec_map, ocr, photo_of, box_of, skip, jobs=None):
                             row = (cid, "G-14 焼き込みの上に載る", mb[4], mb[5],
                                    f"画面の「{v['txt']}」と {ow:.0f}×{oh:.0f}px 重なる"
                                    f"（k={k:.0f}）")
-                            hard = ow >= OVER_W2 and not mb[5].endswith("_lab")
+                            hard = (ow >= OVER_W2 and not mb[5].endswith("_lab")
+                                    and veil_of(spec) < VEIL_SOFT)
                             (hits if hard else softs).append(row)
                             break
                     else:
@@ -681,7 +725,42 @@ def selfcheck():
     ok &= pick
     print(f"  {'✓' if pick else '🔴'} 名指し：Zone B と basement は拾い、p185 は拾わない → {sorted(got2)}")
 
-    print("  " + ("✓ 陽性対照 10/10" if ok else "🔴 陽性対照に落ちた"))
+    # ── 🔴 2026-09-07 に足した2つの規則の検算（規則を足したら検算も足す）──
+    #    しきい値そのものを試す検算が無いと、値を書き換えても誰も気づかない。
+    import copy as _copy
+    vict = "c916"
+    base = _copy.deepcopy(spec_map[vict])
+    crime = _copy.deepcopy(base)
+    crime["bias"], crime["zoom"] = 1.0, 2.19        # 帯の中へ大量に押し込む
+    crime.pop("veil", None)
+    h0, s0 = scan({vict: crime}, ocr, photo_of, box_of, skip,
+                  jobs_for({vict: crime}))
+    crime2 = dict(crime, veil=0.78)
+    h1, s1 = scan({vict: crime2}, ocr, photo_of, box_of, skip,
+                  jobs_for({vict: crime2}))
+
+    def _n(rows, g):
+        return sum(1 for r in rows if r[1].startswith(g))
+
+    def say(cond, msg):
+        nonlocal_ok.append(bool(cond))
+        print(f"  {'✓' if cond else '🔴'} {msg}")
+
+    nonlocal_ok = []
+    hard0 = _n(h0, "G-13") + _n(h0, "G-14")
+    hard1 = _n(h1, "G-13") + _n(h1, "G-14")
+    soft1 = _n(s1, "G-13") + _n(s1, "G-14")
+    say(hard0 > 0, f"暗幕なしなら G-13/G-14 が 🔴 になる（{hard0}件）")
+    say(hard1 == 0 and soft1 > 0,
+        f"暗幕 0.78 を敷くと ・ に落ちる（🔴 {hard1}件・・ {soft1}件）＝黙って消えてはいない")
+    say(_n(h0, "G-10") == _n(h1, "G-10"),
+        f"暗幕は G-10（行頭が切れる）には効かない（明るさの話ではない）")
+    # 縦長の「行」＝ OCR が図面の線を拾ったもの。幅 < 高さ なら ・
+    say(BAND_TALL < 206 and True, "縦長の判定は 幅<高さ（c117 の 23×206px が実例）")
+
+    ok = ok and all(nonlocal_ok)
+    print("  " + (f"✓ 陽性対照 {10 + len(nonlocal_ok)}/{10 + len(nonlocal_ok)}"
+                  if ok else "🔴 陽性対照に落ちた"))
     return ok
 
 
@@ -692,6 +771,15 @@ def main(show_all=False):
     seen = sum(1 for c in spec_map
                if cut_geom(c, spec_map[c], ocr, photo_of, box_of, skip))
     print(f"■ スライドが映るカット {seen} 件を、k=0 と k=1 の両端で見た")
+    # 🔴 fail closed：**見ていないのに ✓ を出さない**（2026-09-07・5本目で踏んだ穴）。
+    #    OCR キャッシュが前の題材のものだと `cut_geom` が全件 None を返し、
+    #    「0件を見た → 粗なし ✓」になる。写真カットが在るのに 0 件なら**落とす**。
+    n_photo = sum(1 for c in spec_map if photo_of.get(c) and c not in skip)
+    if n_photo and not seen:
+        print(f"🔴 写真の映るカットが {n_photo} 件あるのに、OCR キャッシュに1枚も無い"
+              f"（{OCR_JSON.relative_to(HERE)}）。"
+              f"先に `python tools/check_slide.py --ocr` を回すこと")
+        return 1
     # 🔴 **カットごと**にまとめる（行ごとに出すと1カットで8行になり、直す単位と合わない）
     by = {}
     for cid, kind, txt, where, why in hits:
@@ -752,9 +840,10 @@ def lab_summary(softs):
 
 if __name__ == "__main__":
     if "--ocr" in sys.argv:
-        files = sorted((HERE / "ref" / "surfside").glob("tf_*.jpg")) + \
-                sorted((HERE / "ref" / "surfside").glob("ss_*.jpg")) + \
-                sorted((HERE / "ref" / "surfside").glob("fb_*.jpg"))
+        # 🔴 本番が実際に使っている写真だけを OCR する（題材を替えても当たる）
+        import scene_jiko as _S
+        files = sorted({HERE / "ref" / v[1] for v in _S.PHOTO_CUTS.values()})
+        files = [f for f in files if f.exists()]
         data = run_ocr(files)
         OCR_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=1),
                             encoding="utf-8")

@@ -101,26 +101,66 @@ def focus(name, fx, fy, zoom=1.0, box=(W, H)):
                 bias=round(min(1.0, max(0.0, yb)), 3), zoom=zoom)
 
 
-# 報告書の本文ページで、文字が入っている横の帯（実測。左右の余白を除いた割合）
-TEXT_X0, TEXT_X1 = 0.13, 0.87
+# 報告書の本文ページで、文字が入っている横の帯（**ファイルごとに実測**）
+# 🔴 2026-09-07：はじめは全ファイル共通で 0.13〜0.87 と置いていたが、実測すると
+#    0.516（AEC 表紙）〜0.970（ANL 表紙）まで**倍近く違った**。共通の値で zoom を決めると
+#    行が左端で語の途中から始まる（`check_slide` G-10 が 177件）。
+#    → OCR の行の箱（`ref/sl1/ocr_slides.json`）から、そのファイルの文字の帯を読む。
+#    → [[feedback-measure-before-fixing-layout]]／[[feedback-gates-dont-see-text-burned-into-the-picture]] の3
+TEXT_X0, TEXT_X1 = 0.13, 0.87          # OCR が無いときの保険（狭いほうに倒す）
+_OCR = HERE / "ref" / "sl1" / "ocr_slides.json"
 
 
-def text_focus(name, fy, zoom=1.35):
-    """報告書の**本文ページ**に寄る（縦だけ動かし、横は必ず全幅を入れる）。
+@lru_cache(maxsize=None)
+def text_band(name):
+    """そのページで文字が入っている横の帯 (x0, x1)。OCR が無ければ既定に落ちる。"""
+    import json
+    from pathlib import PurePosixPath
+    if not _OCR.exists():
+        return TEXT_X0, TEXT_X1
+    o = json.loads(_OCR.read_text(encoding="utf-8")).get(PurePosixPath(name).name)
+    if not o or not o.get("lines"):
+        return TEXT_X0, TEXT_X1
+    w = o["size"][0]
+    # ⚠️ 上限ぴったりだと、いちばん左の行が 12〜112px 欠けた（`check_slide` G-10 の実測）。
+    #    帯の外に 1.5% ずつ余白を取る。
+    m = 0.015
+    return (min(l["box"][0] for l in o["lines"]) / w - m,
+            max(l["box"][2] for l in o["lines"]) / w + m)
+
+
+# 🔴 ケンバーンズ：`build_jiko.fit()` は z に **(1 + 0.055k)** を掛ける（k＝その時刻/尺）。
+#    ＝**カットの尻（k=1）では 5.5% よけいに寄る**。上限はそのぶん割っておく。
+#    （2026-09-07：これを入れ忘れて G-10 が 177→140 までしか減らなかった）
+KEN = 1.055
+
+
+def max_text_zoom(name):
+    """行頭・行末を切らずに寄れる上限。**1/(zoom×1.055) ≧ 文字の帯の幅**。"""
+    a, b = text_band(name)
+    return 1.0 / (max(1e-6, b - a) * KEN)
+
+
+def text_focus(name, fy, zoom=None):
+    """報告書の**本文ページ**に寄る（縦だけ動かし、横は必ず文字の帯を全部入れる）。
 
     🔴 4本目の⑤cで5件出た「行が左端で語の途中から始まる」を、式で止める。
-       切り出し幅 cw = sw/zoom。本文は x {TEXT_X0}〜{TEXT_X1} にあるので、
-       **1/zoom ≥ TEXT_X1 − TEXT_X0** でなければ、どこに寄せても行が切れる。
-       → [[feedback-gates-dont-see-text-burned-into-the-picture]] の3
-    ⚠️ これを守ると zoom は 1.35 が上限（0.74 ≧ 0.74）。もっと寄りたいときは
-       **ファイルを切る**（`scene_jiko.TRIM_BY_PHOTO`）。寄せでは逃げられない。
+    ⚠️ `zoom` を省くとそのファイルの上限（実測）を使う。上限を超えた値を渡すと落ちる。
+       もっと寄りたいときは**ファイルを切る**（`scene_jiko.TRIM_BY_PHOTO`）。寄せでは逃げられない。
     """
-    need = TEXT_X1 - TEXT_X0
-    if 1.0 / zoom < need - 1e-9:
+    lim = max_text_zoom(name)
+    if zoom is None:
+        zoom = round(lim - 0.005, 2)
+    if zoom > lim + 1e-9:
+        a, b = text_band(name)
         raise ValueError(
-            f"{name}: zoom={zoom} だと切り出し幅が本文の {need:.2f} に足りない"
-            f"（1/zoom={1 / zoom:.3f}）。行頭が切れる。zoom ≦ {1 / need:.2f} にする")
-    return focus(name, 0.5, fy, zoom)
+            f"{name}: zoom={zoom} だと切り出し幅が文字の帯 {b - a:.3f} に足りない"
+            f"（行頭が切れる）。このファイルの上限は {lim:.2f}")
+    # 🔴 横は**紙の中央**でなく**文字の帯の中央**に合わせる。
+    #    報告書の版面は左右で余白が違い（p.4 は 0.107〜0.805＝中央 0.456）、
+    #    0.5 に合わせると左の行が窓の外へ出る（c218 で 6行が欠けた実測）。
+    a, b = text_band(name)
+    return focus(name, (a + b) / 2, fy, zoom)
 
 
 def fb(cid):

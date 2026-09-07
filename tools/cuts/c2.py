@@ -211,8 +211,10 @@ SPEC = {
     "c218": dict(
         t="動かすのは、翌朝だった",
         s="夜間指示書の2番（印字 p.4）",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.IDO_P4, side="right", ann_y=330,
-        **ss.text_focus(ss.IDO_P4, 0.693, 1.35),
+        **ss.text_focus(ss.IDO_P4, 0.693),
         ann=[dict(t="この夜", d="起動のための組み立て", dc=J.INK_W, ds=32),
              dict(t="出力を上げるのは", d="翌朝", dc=J.LINE, ds=32)],
     ),
@@ -244,8 +246,10 @@ SPEC = {
     "c221": dict(
         t="日誌は、水位で終わっている",
         s="運転日誌の最後の記載（印字 p.21）　前半",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.IDO_P21, side="left", ann_y=330,
-        **ss.text_focus(ss.IDO_P21, 0.215, 1.35),
+        **ss.text_focus(ss.IDO_P21, 0.215),
         ann=[dict(t="書かれた時刻", d="17時30分〜21時00分のあいだ",
                   dc=J.LINE, ds=30),
              dict(t="水位計", v="+5 ft", vc=J.AMBER, vs=104)],
@@ -255,9 +259,11 @@ SPEC = {
     "c222": dict(
         t="続きは、栓と筒を戻す作業だ",
         s="運転日誌の最後の記載（印字 p.21）　後半",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.IDO_P21, side="right", ann_y=330,
-        **ss.text_focus(ss.IDO_P21, 0.238, 1.35),
-        ann=[dict(t="原文", d="Replacing plugs, thimbles, etc., to all rods",
+        **ss.text_focus(ss.IDO_P21, 0.238),
+        ann=[dict(t="日誌の最後の語", d="栓と筒を、全部の棒に戻している",
                   dc=J.DOC, ds=28),
              dict(t="対応する項目", v="2番", vc=J.ALERT, vs=104)],
     ),

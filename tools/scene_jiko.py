@@ -939,6 +939,8 @@ def layer_index(allow_missing=False):
         m = STAGE_META.get(cid, {})
         idx[cid] = {"photo": bool(s.get("photo")), "back": bool(s.get("photo") and s.get("fig")),
                     "veil": float(s.get("veil", VEIL)), "span": spans[cid],
+                    # 🔴 実写カット（fig の無いカット）にかける暗幕。**書いたカットだけ**
+                    "pveil": (float(s["veil"]) if s.get("veil") and not s.get("fig") else None),
                     "stages": ns, "layers": sorted(names),
                     "holds": m.get("holds") or [], "labk": m.get("labk")}
     return idx, jobs

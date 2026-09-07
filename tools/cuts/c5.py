@@ -165,8 +165,10 @@ SPEC = {
     "c513": dict(
         t="22時50分、5人が担架を持って",
         s="救助の記述（印字 p.90）",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.IDO_P90, side="right", ann_y=330,
-        **ss.text_focus(ss.IDO_P90, 0.483, 1.35),
+        **ss.text_focus(ss.IDO_P90, 0.483),
         ann=[dict(t="入ったのは", v="5人", d="担架2つを持って", vc=J.INK_W,
                   vs=104, dc=J.LINE, ds=30),
              dict(t="目的", d="1人目の搬出",
@@ -212,8 +214,10 @@ SPEC = {
     "c517": dict(
         t="23時、道路で救急車と落ち合う",
         s="救助の記述（印字 p.91）",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.IDO_P91, side="left", ann_y=330,
-        **ss.text_focus(ss.IDO_P91, 0.360, 1.35),
+        **ss.text_focus(ss.IDO_P91, 0.360),
         ann=[dict(t="載せた車", d="連絡車", dc=J.LINE, ds=32),
              dict(t="落ち合った場所", v="1/4マイル", d="門から離れた道路",
                   vc=J.AMBER, vs=92, dc=J.LINE, ds=28)],

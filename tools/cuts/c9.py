@@ -46,6 +46,8 @@ SPEC = {
     "c903": dict(
         t="まず、原因を扱った報告書",
         s="原因を扱った報告書の表紙",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.AEC_COVER, side="left", ann_y=330,
         **ss.focus(ss.AEC_COVER, 0.50, 0.29, 1.85),
         ann=[dict(t="調べ方", d="全文を機械で調べた", dc=J.DOC, ds=32)],
@@ -101,6 +103,8 @@ SPEC = {
     "c908": dict(
         t="1962年11月の、振り返りの一冊",
         s="ANL-6692　1962年11月・54ページ",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.ANL_COVER, side="left", ann_y=330,
         **ss.focus(ss.ANL_COVER, 0.50, 0.36, 1.90),
         ann=[dict(t="出したところ", d="アルゴンヌ国立研究所", dc=J.INST,
@@ -113,7 +117,7 @@ SPEC = {
     "c909": dict(
         t="第8章に、F という節がある",
         s="単一の誤り、という基準（印字 p.35〜36）",
-        photo=ss.ANL_VF, **ss.text_focus(ss.ANL_VF, 0.210, 1.35),
+        photo=ss.ANL_VF, **ss.text_focus(ss.ANL_VF, 0.210),
         fig=("quote", dict(
             phrase="断定的に、こう述べたい",
             rows=[("書いたのは", "アルゴンヌ国立研究所", J.INST),
@@ -163,10 +167,12 @@ SPEC = {
     "c913": dict(
         t="同じ節に、いちばん鋭い数字がある",
         s="ANL-6692 印字 p.36　減速比の話",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.ANL_VF, side="left", ann_y=330,
-        **ss.text_focus(ss.ANL_VF, 0.451, 1.35),
+        **ss.text_focus(ss.ANL_VF, 0.451),
         ann=[dict(t="何の話か", d="歯棒と歯車の減速比", dc=J.LINE, ds=32),
-             dict(t="原文", d="reactivity insertion rate", dc=J.DOC, ds=30)],
+             dict(t="決めているもの", d="反応度が入る速さの上限", dc=J.DOC, ds=30)],
     ),
 
     # ── c914 毎秒0.01% ─────────────────────────────
@@ -185,7 +191,7 @@ SPEC = {
     "c915": dict(
         t="差は、2000倍になりうる",
         s="ANL-6692 印字 p.36　§VIII-F",
-        photo=ss.ANL_VF, bias=0.45, xbias=0.5, zoom=1.20,
+        photo=ss.ANL_VF, **ss.text_focus(ss.ANL_VF, 0.45),
         fig=("quote", dict(
             phrase="止めた炉で棒を扱う危険",
             rows=[("何の差か", "毎秒0.01% と 毎秒20%（2000倍）", J.ALERT),
@@ -200,8 +206,10 @@ SPEC = {
     "c916": dict(
         t="条文は1971年2月20日である",
         s="官報 36 FR 3258　一般設計基準 25・26",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.FR_GDC, side="right", ann_y=330,
-        **ss.text_focus(ss.FR_GDC, 0.547, 1.35),
+        **ss.text_focus(ss.FR_GDC, 0.547),
         ann=[dict(t="25番", d="Criterion 25（原文の見出し）",
                   dc=J.INST, ds=26),
              dict(t="どこに", d="10 CFR 50 付録A", dc=J.DOC, ds=30)],

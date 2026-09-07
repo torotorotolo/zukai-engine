@@ -1,0 +1,11056 @@
+{
+ "aec_p001_cover.png": {
+  "size": [
+   1836,
+   2376
+  ],
+  "lines": [
+   {
+    "box": [
+     509,
+     266,
+     635,
+     288
+    ],
+    "text": "UN 工 TED"
+   },
+   {
+    "box": [
+     597,
+     550,
+     678,
+     573
+    ],
+    "text": "SL?I"
+   },
+   {
+    "box": [
+     1094,
+     550,
+     1125,
+     577
+    ],
+    "text": "3 ′"
+   },
+   {
+    "box": [
+     662,
+     266,
+     786,
+     288
+    ],
+    "text": "STATES"
+   },
+   {
+    "box": [
+     810,
+     266,
+     938,
+     288
+    ],
+    "text": "ATOM 工 C"
+   },
+   {
+    "box": [
+     962,
+     266,
+     1089,
+     288
+    ],
+    "text": "ENERGY"
+   },
+   {
+    "box": [
+     1114,
+     266,
+     1328,
+     288
+    ],
+    "text": "COMM 工 SS 工 ON"
+   },
+   {
+    "box": [
+     1159,
+     550,
+     1238,
+     573
+    ],
+    "text": "19 61"
+   },
+   {
+    "box": [
+     445,
+     796,
+     505,
+     817
+    ],
+    "text": "THE"
+   },
+   {
+    "box": [
+     779,
+     510,
+     905,
+     532
+    ],
+    "text": "REPORT"
+   },
+   {
+    "box": [
+     706,
+     551,
+     888,
+     577
+    ],
+    "text": "工 NC 工 DENT ′"
+   },
+   {
+    "box": [
+     702,
+     795,
+     894,
+     818
+    ],
+    "text": "MANAGER ー S"
+   },
+   {
+    "box": [
+     930,
+     510,
+     1056,
+     532
+    ],
+    "text": "ON THE"
+   },
+   {
+    "box": [
+     921,
+     551,
+     1068,
+     573
+    ],
+    "text": "JANUARY"
+   },
+   {
+    "box": [
+     531,
+     796,
+     679,
+     818
+    ],
+    "text": "GENERAL"
+   },
+   {
+    "box": [
+     919,
+     796,
+     1024,
+     818
+    ],
+    "text": "B OARD"
+   },
+   {
+    "box": [
+     1049,
+     796,
+     1088,
+     818
+    ],
+    "text": "OF"
+   },
+   {
+    "box": [
+     1116,
+     796,
+     1392,
+     818
+    ],
+    "text": "工 NVEST 工 GAT 工 ON"
+   },
+   {
+    "box": [
+     740,
+     918,
+     925,
+     940
+    ],
+    "text": "Cu rt ェ s A ."
+   },
+   {
+    "box": [
+     740,
+     957,
+     910,
+     981
+    ],
+    "text": "C1ifford"
+   },
+   {
+    "box": [
+     739,
+     1000,
+     903,
+     1022
+    ],
+    "text": "P et e r A ."
+   },
+   {
+    "box": [
+     739,
+     1040,
+     925,
+     1063
+    ],
+    "text": "D 〇 n a 1 d 工 ."
+   },
+   {
+    "box": [
+     954,
+     917,
+     1096,
+     944
+    ],
+    "text": "NeIson ′"
+   },
+   {
+    "box": [
+     934,
+     958,
+     1082,
+     981
+    ],
+    "text": "K . B e c k"
+   },
+   {
+    "box": [
+     933,
+     1000,
+     1059,
+     1022
+    ],
+    "text": "MO r r 工 S"
+   },
+   {
+    "box": [
+     954,
+     1040,
+     1082,
+     1063
+    ],
+    "text": "Wa 工 ke r"
+   },
+   {
+    "box": [
+     739,
+     1081,
+     1060,
+     1103
+    ],
+    "text": "F 〇 r re s t We s t e rn"
+   }
+  ]
+ },
+ "anl_p001_cover.png": {
+  "size": [
+   1724,
+   2247
+  ],
+  "lines": [
+   {
+    "box": [
+     1,
+     1995,
+     70,
+     2059
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     1306,
+     49,
+     1485,
+     78
+    ],
+    "text": "ANL - 6692"
+   },
+   {
+    "box": [
+     1306,
+     93,
+     1663,
+     125
+    ],
+    "text": "Reactor Techn010gy"
+   },
+   {
+    "box": [
+     1309,
+     131,
+     1674,
+     166
+    ],
+    "text": "( TID - 4500 , 19 物 Ed. )"
+   },
+   {
+    "box": [
+     1306,
+     175,
+     1644,
+     201
+    ],
+    "text": "AEC Research and"
+   },
+   {
+    "box": [
+     1307,
+     218,
+     1670,
+     248
+    ],
+    "text": "Deve10pment Report"
+   },
+   {
+    "box": [
+     551,
+     343,
+     1240,
+     369
+    ],
+    "text": "ARGONNE NATIONAL LABORATORY"
+   },
+   {
+    "box": [
+     677,
+     385,
+     1106,
+     412
+    ],
+    "text": "9700 South Cass Avenue"
+   },
+   {
+    "box": [
+     742,
+     427,
+     1044,
+     459
+    ],
+    "text": "Argonne, lllinois"
+   },
+   {
+    "box": [
+     476,
+     802,
+     1311,
+     827
+    ],
+    "text": "A RETROSPECTIVE ANALYSIS 0 ASPECTS"
+   },
+   {
+    "box": [
+     613,
+     842,
+     1170,
+     875
+    ],
+    "text": "OF THE ALPR (SL- 1 ) DESIGN"
+   },
+   {
+    "box": [
+     871,
+     928,
+     912,
+     960
+    ],
+    "text": "by"
+   },
+   {
+    "box": [
+     613,
+     1011,
+     1170,
+     1036
+    ],
+    "text": "W . J. Kann and D. H. Shaftman"
+   },
+   {
+    "box": [
+     645,
+     1135,
+     1163,
+     1166
+    ],
+    "text": ". Engineering Division"
+   },
+   {
+    "box": [
+     753,
+     1506,
+     1031,
+     1536
+    ],
+    "text": "November 1962"
+   },
+   {
+    "box": [
+     533,
+     1946,
+     1240,
+     1978
+    ],
+    "text": "Operated by The University of Chicago"
+   },
+   {
+    "box": [
+     641,
+     2031,
+     1129,
+     2063
+    ],
+    "text": "Contract W ー 31-109- e れ g ー 38"
+   },
+   {
+    "box": [
+     817,
+     2074,
+     959,
+     2098
+    ],
+    "text": "with the"
+   },
+   {
+    "box": [
+     579,
+     2113,
+     1192,
+     2147
+    ],
+    "text": "U. S. Atomic Energy Commission"
+   }
+  ]
+ },
+ "anl_p038_vf.png": {
+  "size": [
+   1710,
+   2239
+  ],
+  "lines": [
+   {
+    "box": [
+     44,
+     46,
+     81,
+     72
+    ],
+    "text": "3 6"
+   },
+   {
+    "box": [
+     147,
+     170,
+     1485,
+     202
+    ],
+    "text": "center rod effectively left unprotected a portion 0f the core that was large"
+   },
+   {
+    "box": [
+     147,
+     211,
+     1471,
+     237
+    ],
+    "text": "in terms Of the characteristic diffusion distance Of thermal neutrons . AS"
+   },
+   {
+    "box": [
+     145,
+     252,
+     1424,
+     284
+    ],
+    "text": "a result, the cold fresh reactor was supercritical in the absence Of the"
+   },
+   {
+    "box": [
+     147,
+     294,
+     1498,
+     323
+    ],
+    "text": "center co れ t で 01 て od. SO far as can be ascertained at this time, the SL-I in-"
+   },
+   {
+    "box": [
+     147,
+     335,
+     1428,
+     368
+    ],
+    "text": "cident could have been brought about, in the same manner, in the fresh"
+   },
+   {
+    "box": [
+     147,
+     381,
+     289,
+     402
+    ],
+    "text": "reactor."
+   },
+   {
+    "box": [
+     283,
+     460,
+     1446,
+     492
+    ],
+    "text": "lt would be tempting tO state categorically that れ 0 future reactor"
+   },
+   {
+    "box": [
+     147,
+     502,
+     1462,
+     534
+    ],
+    "text": "design should be accepted if, at SO e time in reactor life, and at certain"
+   },
+   {
+    "box": [
+     148,
+     543,
+     1505,
+     575
+    ],
+    "text": "conditions Of temperature, pressure, etcetera, withdrawal Of a single CO れ 1 ー"
+   },
+   {
+    "box": [
+     147,
+     579,
+     1435,
+     617
+    ],
+    "text": "ponent Of the C011tr01 system (e ・ g ・ , a single CO 靆 trol rod) would result i11"
+   },
+   {
+    "box": [
+     149,
+     626,
+     1432,
+     658
+    ],
+    "text": "reactor supercriticality even though the rest Of the control system was"
+   },
+   {
+    "box": [
+     147,
+     667,
+     1441,
+     700
+    ],
+    "text": "fully effective. Certain1y, it should be a prime goal 0f the design effort"
+   },
+   {
+    "box": [
+     147,
+     709,
+     1450,
+     741
+    ],
+    "text": "tO avoid such a possibility. lt n?ay be, however, that in the avoidance Of"
+   },
+   {
+    "box": [
+     147,
+     751,
+     1476,
+     782
+    ],
+    "text": "this undesirable situation, the reactor design would be affected adversely"
+   },
+   {
+    "box": [
+     148,
+     792,
+     1462,
+     823
+    ],
+    "text": "in Other xmportant respects. Ⅱ 1 such a case, the reactor designers must"
+   },
+   {
+    "box": [
+     148,
+     833,
+     1427,
+     865
+    ],
+    "text": "arrive at a decision as tO the extent Of a comprornise Of the conflicting"
+   },
+   {
+    "box": [
+     148,
+     875,
+     249,
+     906
+    ],
+    "text": "goals?"
+   },
+   {
+    "box": [
+     284,
+     957,
+     1509,
+     990
+    ],
+    "text": "丘 the ALPR, the gearings of the rack-and-pinion drive were chosen"
+   },
+   {
+    "box": [
+     150,
+     991,
+     1468,
+     1035
+    ],
+    "text": "SO as tO limit the reactivity insertion rate to approximately 0.01 % / sec in"
+   },
+   {
+    "box": [
+     562,
+     1027,
+     1403,
+     1073
+    ],
+    "text": "( 42 ) This rate is in sharp contrast to the very"
+   },
+   {
+    "box": [
+     149,
+     1040,
+     554,
+     1065
+    ],
+    "text": "the cold fresh reactor."
+   },
+   {
+    "box": [
+     147,
+     1082,
+     1430,
+     1114
+    ],
+    "text": "much higher reactivity insertion rate that could be achieved by manual"
+   },
+   {
+    "box": [
+     149,
+     1123,
+     1496,
+     1151
+    ],
+    "text": "rod withdrawal, when the drive was disconnected fro れ its て Od 。 Fro れ 1 data"
+   },
+   {
+    "box": [
+     149,
+     1152,
+     1450,
+     1197
+    ],
+    "text": "obtained and tests performed by Combustion Engineering, 血 c 。 ( 7 ) and by"
+   },
+   {
+    "box": [
+     148,
+     1191,
+     1443,
+     1238
+    ],
+    "text": "the Genera1 E1ectric CO. ( 9 ) it may be inferred that a reactivity addition"
+   },
+   {
+    "box": [
+     149,
+     1239,
+     1486,
+     1284
+    ],
+    "text": "rate Of perhaps 20%/sec could have been obtained by a rapid rnanual with-"
+   },
+   {
+    "box": [
+     149,
+     1288,
+     1427,
+     1314
+    ],
+    "text": "drawal of the center control rod at the tirne of the SL- 1 incidente This"
+   },
+   {
+    "box": [
+     149,
+     1330,
+     1500,
+     1362
+    ],
+    "text": "result dramatically illustrated a possible hazard 0f rod handling in a shut-"
+   },
+   {
+    "box": [
+     149,
+     1371,
+     1432,
+     1403
+    ],
+    "text": "down reactor, whether 0 て れ Ot the SL- 1 incident was caused in this way,"
+   },
+   {
+    "box": [
+     332,
+     1454,
+     1474,
+     1486
+    ],
+    "text": "some reactor designs it may be feasible to require that, before"
+   },
+   {
+    "box": [
+     148,
+     1495,
+     1463,
+     1528
+    ],
+    "text": "any control rods may be handled manually, enough 血 el must be removed"
+   },
+   {
+    "box": [
+     149,
+     1536,
+     1464,
+     1563
+    ],
+    "text": "f で 0n1 the shutdown reactor so that it would remain subcritical even if a11"
+   },
+   {
+    "box": [
+     149,
+     1578,
+     1484,
+     1612
+    ],
+    "text": "CO trol rods were withdrawn fully. The fuel would be stored in a suitably"
+   },
+   {
+    "box": [
+     149,
+     1619,
+     1468,
+     1652
+    ],
+    "text": "C011tr011ed facility until the co Ⅱ t て 01 rod drives were reassembled to their"
+   },
+   {
+    "box": [
+     149,
+     1662,
+     237,
+     1686
+    ],
+    "text": "r Od S 。"
+   },
+   {
+    "box": [
+     283,
+     1745,
+     1466,
+     1777
+    ],
+    "text": "One alternative tO this procedure is tO introduce temporary addi-"
+   },
+   {
+    "box": [
+     149,
+     1787,
+     1466,
+     1819
+    ],
+    "text": "tional cont で 01 as a routine procedure in the process Of reactor shutdown."
+   },
+   {
+    "box": [
+     150,
+     1828,
+     1437,
+     1861
+    ],
+    "text": "For example, in the case of a water-rnoderated reactor C011tr011ed by a"
+   },
+   {
+    "box": [
+     152,
+     1869,
+     1444,
+     1902
+    ],
+    "text": "system 0f cont て 01 rods, perhaps boric acid solution could be introduced"
+   },
+   {
+    "box": [
+     150,
+     1912,
+     1429,
+     1945
+    ],
+    "text": "into the reactor water during shutdown, for additional protection of the"
+   },
+   {
+    "box": [
+     150,
+     1953,
+     1435,
+     1986
+    ],
+    "text": "cold reactor. S01ub1e poison was not used in this manner in ALPR, for"
+   },
+   {
+    "box": [
+     150,
+     1995,
+     738,
+     2020
+    ],
+    "text": "reasons stated in Section VIII-D."
+   }
+  ]
+ },
+ "fb_c202.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c301.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c305.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c318.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c321.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c407.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c501.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     882,
+     211,
+     1069,
+     1073
+    ],
+    "text": "ッ て 一 一 彡 彡 一"
+   }
+  ]
+ },
+ "fb_c504.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c508.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c520.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c601.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c603.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c701.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c708.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c710.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c711.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c717.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c719.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c726.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c801.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c802.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c806.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c807.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c811.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c813.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c814.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c815.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c821.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c822.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c905.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c912.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_ep06.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_pr01.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_pr03.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_pr10.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fr_p3258_gdc.png": {
+  "size": [
+   1707,
+   2361
+  ],
+  "lines": [
+   {
+    "box": [
+     117,
+     104,
+     177,
+     127
+    ],
+    "text": "3258"
+   },
+   {
+    "box": [
+     116,
+     161,
+     611,
+     182
+    ],
+    "text": "〃 . P お 0 c 0 れ リ ゆ F お 0 れ 2 「 0 00"
+   },
+   {
+    "box": [
+     319,
+     184,
+     406,
+     200
+    ],
+    "text": "Ba 「 月 0r3"
+   },
+   {
+    "box": [
+     139,
+     217,
+     611,
+     237
+    ],
+    "text": "C 日 0 れ 10 ea の degign. 丁 he reactor"
+   },
+   {
+    "box": [
+     116,
+     239,
+     611,
+     258
+    ],
+    "text": "00 「 0 れ は ssoci 0 は 0001 ま nt. contro and"
+   },
+   {
+    "box": [
+     116,
+     262,
+     611,
+     284
+    ],
+    "text": "protection systems shall be designed w れ れ"
+   },
+   {
+    "box": [
+     117,
+     283,
+     611,
+     306
+    ],
+    "text": "appropriate m 良 「 g ⅲ tO assure that specifled"
+   },
+   {
+    "box": [
+     116,
+     307,
+     611,
+     328
+    ],
+    "text": "acceptable fuel d Ⅱ 1 ⅱ れ 一 協 a 「 0 not 0 -"
+   },
+   {
+    "box": [
+     116,
+     328,
+     611,
+     349
+    ],
+    "text": "ceeded during any CO Ⅱ d れ 一 0 Ⅱ 0 ( れ 0 ー ma ー OP ・"
+   },
+   {
+    "box": [
+     116,
+     349,
+     611,
+     371
+    ],
+    "text": "era い 0 Ⅱ . including the 0 ec 0 ー anticipated"
+   },
+   {
+    "box": [
+     117,
+     375,
+     385,
+     395
+    ],
+    "text": "operational occurrences."
+   },
+   {
+    "box": [
+     140,
+     394,
+     613,
+     415
+    ],
+    "text": "C 0 ル 11 ・ 一 一 e00 0 「 一 れ れ 0 「 e t p 0 ~ c ⅱ 0 れ ."
+   },
+   {
+    "box": [
+     130,
+     418,
+     611,
+     436
+    ],
+    "text": "第 0 reactor core and れ ss ( te は coolant SYS-"
+   },
+   {
+    "box": [
+     117,
+     440,
+     613,
+     461
+    ],
+    "text": "tems sh 紋 Ⅱ be de gne は 80 that ー れ the power"
+   },
+   {
+    "box": [
+     117,
+     462,
+     613,
+     485
+    ],
+    "text": "operati ng range the れ et effeet 0 【 t れ 0 prompt"
+   },
+   {
+    "box": [
+     116,
+     485,
+     613,
+     504
+    ],
+    "text": "ー れ he 「 e れ t nuclear feedback 0h3ra03 月 8 い CS"
+   },
+   {
+    "box": [
+     118,
+     507,
+     613,
+     529
+    ],
+    "text": "tends tO compensate for rapid 「 09S0 ー れ"
+   },
+   {
+    "box": [
+     116,
+     533,
+     227,
+     552
+    ],
+    "text": "reactivity."
+   },
+   {
+    "box": [
+     185,
+     552,
+     588,
+     572
+    ],
+    "text": "e 0 ル 12 ー - S P 5 飜 0 れ 可 な 0 0 ア 勲 0 社"
+   },
+   {
+    "box": [
+     117,
+     574,
+     614,
+     595
+    ],
+    "text": "090 ⅱ れ 01 . 第 0 reactor core a れ は associated"
+   },
+   {
+    "box": [
+     117,
+     598,
+     553,
+     618
+    ],
+    "text": "( ) 】 田 it. control. 2 れ は p 「 03C 社 0 Ⅱ sYstems"
+   },
+   {
+    "box": [
+     117,
+     620,
+     613,
+     641
+    ],
+    "text": "わ 0 designed tO assure that power oscma 0n8"
+   },
+   {
+    "box": [
+     117,
+     642,
+     613,
+     662
+    ],
+    "text": "which can result ー Ⅱ CO れ d ー い 0 第 & exceeding"
+   },
+   {
+    "box": [
+     117,
+     664,
+     614,
+     688
+    ],
+    "text": "6P06 れ ed acceptable fuel design limits a て 0"
+   },
+   {
+    "box": [
+     117,
+     686,
+     614,
+     710
+    ],
+    "text": "れ 0t po & わ le 0 ー 02 Ⅱ be reliably a れ は readilY"
+   },
+   {
+    "box": [
+     117,
+     710,
+     392,
+     731
+    ],
+    "text": "detected a れ は suppressed."
+   },
+   {
+    "box": [
+     141,
+     730,
+     614,
+     751
+    ],
+    "text": "C ~ 田 ツ 0 れ 13- ー れ い 社 襯 夜 0 れ 0 れ 0 れ d control?"
+   },
+   {
+    "box": [
+     117,
+     754,
+     591,
+     774
+    ],
+    "text": "lnstrumentation . and control shall be r"
+   },
+   {
+    "box": [
+     117,
+     777,
+     604,
+     796
+    ],
+    "text": "平 ー e は tO mo Ⅱ れ 0 「 variables a れ は systems 0V0"
+   },
+   {
+    "box": [
+     118,
+     799,
+     614,
+     821
+    ],
+    "text": "t れ 0 Ⅱ い cip れ t ・ は 一 れ ge fOr れ 0 て m 引 operauon"
+   },
+   {
+    "box": [
+     117,
+     822,
+     499,
+     841
+    ],
+    "text": "a れ は accident con け れ 一 on 嶄 a れ tO"
+   },
+   {
+    "box": [
+     117,
+     844,
+     614,
+     866
+    ],
+    "text": "them withln prescribed operatmg ranges?"
+   },
+   {
+    "box": [
+     118,
+     866,
+     614,
+     888
+    ],
+    "text": "including t れ 0S0 var ー a わ 10S れ れ は systems w ⅱ れ"
+   },
+   {
+    "box": [
+     119,
+     888,
+     614,
+     909
+    ],
+    "text": "0 1 ect t ぬ 0 8 on P 「 0C055 , t'he int?egrity Of"
+   },
+   {
+    "box": [
+     118,
+     911,
+     614,
+     931
+    ],
+    "text": "t れ 0 reactor 00r0 , the reactor coolant pressure"
+   },
+   {
+    "box": [
+     119,
+     934,
+     615,
+     955
+    ],
+    "text": "boundary. 田 1 臧 the containment and れ 5"
+   },
+   {
+    "box": [
+     118,
+     959,
+     328,
+     977
+    ],
+    "text": "asso 朝 れ te は systems."
+   },
+   {
+    "box": [
+     142,
+     978,
+     614,
+     997
+    ],
+    "text": "C な 0 ル 14 ー ー 00 0 ド 000 れ t ア 社 尾"
+   },
+   {
+    "box": [
+     119,
+     1001,
+     615,
+     1023
+    ],
+    "text": "わ 0 れ 0 の ツ . The ー e 0t0 「 006 れ pre 覊 u 【 0"
+   },
+   {
+    "box": [
+     119,
+     1023,
+     615,
+     1045
+    ],
+    "text": "boundary 8 ぬ Ⅱ わ 0 d 取 ne 山 一 ab 月 0 は ,"
+   },
+   {
+    "box": [
+     119,
+     1046,
+     614,
+     1065
+    ],
+    "text": "0r0 ぐ t 毛 0. und tested 30 tO れ 庇 ve extremely"
+   },
+   {
+    "box": [
+     118,
+     1068,
+     615,
+     1090
+    ],
+    "text": "10 probabllity abnormal ieakage. 矼"
+   },
+   {
+    "box": [
+     119,
+     1091,
+     614,
+     1113
+    ],
+    "text": "rapidly propagating ね il 載 代 を and 可 g 「 0 時"
+   },
+   {
+    "box": [
+     118,
+     1117,
+     209,
+     1136
+    ],
+    "text": "rupture."
+   },
+   {
+    "box": [
+     144,
+     1136,
+     614,
+     1156
+    ],
+    "text": "C 月 月 0 れ 15- ー れ 00 0 000 れ t 3 就 em de-"
+   },
+   {
+    "box": [
+     139,
+     1160,
+     615,
+     1182
+    ],
+    "text": "0 れ . The reactor 0001 れ t system and asso ・"
+   },
+   {
+    "box": [
+     120,
+     1183,
+     615,
+     1203
+    ],
+    "text": "ciated auxiliary. cont 「 0 し and protection syg?"
+   },
+   {
+    "box": [
+     120,
+     1206,
+     615,
+     1225
+    ],
+    "text": "tems shall be は e g Ⅱ 0 は w れ れ れ 一 れ"
+   },
+   {
+    "box": [
+     119,
+     1227,
+     615,
+     1247
+    ],
+    "text": "tO 0 ure that the design 00 Ⅱ 0 れ れ S Of t 0"
+   },
+   {
+    "box": [
+     119,
+     1249,
+     615,
+     1270
+    ],
+    "text": "reactor C00 】 合 nt pressure わ ou れ d Y are れ Ot"
+   },
+   {
+    "box": [
+     119,
+     1271,
+     615,
+     1292
+    ],
+    "text": "exc は 0 は dur:ng れ y CO れ 山 い 0 Ⅱ 0 ー れ 0 ー れ 1 心"
+   },
+   {
+    "box": [
+     119,
+     1294,
+     594,
+     1316
+    ],
+    "text": "opera ⅱ 0 れ . including anticipated 0 era い 0 Ⅱ"
+   },
+   {
+    "box": [
+     120,
+     1321,
+     253,
+     1335
+    ],
+    "text": "occurreuces."
+   },
+   {
+    "box": [
+     144,
+     1343,
+     615,
+     1362
+    ],
+    "text": "0 「 催 の れ 16- ー CO れ を れ e れ t de 訂 0 れ . Reac-"
+   },
+   {
+    "box": [
+     120,
+     1366,
+     615,
+     1385
+    ],
+    "text": "tor ぐ 0 れ ね ⅱ れ 0 取 t and assoc te は systems s わ 21"
+   },
+   {
+    "box": [
+     120,
+     1388,
+     615,
+     1409
+    ],
+    "text": "be pro ⅵ ed tO establish Ⅱ essentially leak ・"
+   },
+   {
+    "box": [
+     120,
+     1411,
+     615,
+     1431
+    ],
+    "text": "tight barrier agamst the れ cont 「 0u0 ・"
+   },
+   {
+    "box": [
+     121,
+     1433,
+     615,
+     1453
+    ],
+    "text": "lease rudtoactivity tO t れ 0 田 】 ⅵ 了 onn 畑 れ t and"
+   },
+   {
+    "box": [
+     120,
+     1455,
+     615,
+     1474
+    ],
+    "text": "tO 33 迂 0 that t わ 0 00 れ ta ⅱ れ e Ⅱ t design 00 Ⅱ ・"
+   },
+   {
+    "box": [
+     119,
+     1477,
+     615,
+     1497
+    ],
+    "text": "d れ れ 3 important tO safety are れ Ot ex-"
+   },
+   {
+    "box": [
+     121,
+     1500,
+     615,
+     1520
+    ],
+    "text": "ceeded ー 0 「 long as postulated cc 馗 ent"
+   },
+   {
+    "box": [
+     121,
+     1524,
+     326,
+     1542
+    ],
+    "text": "conditions req 収 0."
+   },
+   {
+    "box": [
+     143,
+     1548,
+     616,
+     1564
+    ],
+    "text": "C 減 0 れ 17- ー E 0 わ ・ Otc 計 e 川 3. An"
+   },
+   {
+    "box": [
+     121,
+     1571,
+     615,
+     1591
+    ],
+    "text": "0n5 れ 0 0 c い 地 power system 3 れ d an 0 灯 訂 te"
+   },
+   {
+    "box": [
+     121,
+     1593,
+     616,
+     1614
+    ],
+    "text": "electrical power system れ Ⅱ わ 0 で 0 ⅵ de は"
+   },
+   {
+    "box": [
+     120,
+     1616,
+     615,
+     1636
+    ],
+    "text": "tO pe ロ れ れ functloning 0 ー st 「 uctu 「 0 SYS?"
+   },
+   {
+    "box": [
+     121,
+     1638,
+     615,
+     1657
+    ],
+    "text": "tems, れ d 00m 0n0 れ 協 important safety."
+   },
+   {
+    "box": [
+     121,
+     1660,
+     616,
+     1680
+    ],
+    "text": "The safety functton ー 0 ー 0 c ぬ system (assum?"
+   },
+   {
+    "box": [
+     121,
+     1682,
+     611,
+     1703
+    ],
+    "text": "ing the Ot れ e 「 sy 試 em れ Ot れ 一 れ c 朝 0 Ⅱ ー ng )"
+   },
+   {
+    "box": [
+     121,
+     1705,
+     615,
+     1725
+    ],
+    "text": "Sha11 be tO 0 「 0 ⅵ は 日 sufficient eapacity and"
+   },
+   {
+    "box": [
+     121,
+     1727,
+     616,
+     1747
+    ],
+    "text": "capability tO as ・ that ( 1 ) specifled ac?"
+   },
+   {
+    "box": [
+     121,
+     1749,
+     616,
+     1769
+    ],
+    "text": "ceptable れ 肥 ー design Ⅱ Ⅱ ⅱ an は design 00n -"
+   },
+   {
+    "box": [
+     120,
+     1771,
+     616,
+     1790
+    ],
+    "text": "d れ 一 0n6 0 ー t れ 0 「 0a0t0 ー 000 ー 盟 北 pressure bound?"
+   },
+   {
+    "box": [
+     121,
+     1793,
+     615,
+     1813
+    ],
+    "text": "ary are れ Ot exceeaed as 良 「 es 比 Of antic?"
+   },
+   {
+    "box": [
+     121,
+     1815,
+     617,
+     1835
+    ],
+    "text": "ipated op a い 0 れ occurrences a れ ( 2 ) the"
+   },
+   {
+    "box": [
+     122,
+     1838,
+     616,
+     1857
+    ],
+    "text": "00r0 C00 d and containment れ 0 れ y a れ は"
+   },
+   {
+    "box": [
+     122,
+     1860,
+     616,
+     1876
+    ],
+    "text": "othe 「 v れ runctions a 「 0 maintalned ー Ⅱ t れ 0"
+   },
+   {
+    "box": [
+     123,
+     1882,
+     445,
+     1902
+    ],
+    "text": "event 0 ー post Ⅱ late は accidents."
+   },
+   {
+    "box": [
+     145,
+     1908,
+     615,
+     1928
+    ],
+    "text": "The onsite electrical power SO ー 83 , includ-"
+   },
+   {
+    "box": [
+     122,
+     1931,
+     616,
+     1950
+    ],
+    "text": "ing the わ tte 可 es , and t れ 0 on te elec い al"
+   },
+   {
+    "box": [
+     122,
+     1953,
+     615,
+     1973
+    ],
+    "text": "d お t ⅵ わ Ⅱ い 0 Ⅱ system, shall have 8 Ⅱ 用 0 nt in ・"
+   },
+   {
+    "box": [
+     122,
+     1976,
+     616,
+     1995
+    ],
+    "text": "dependence, redundancy, a れ testabil ity tO"
+   },
+   {
+    "box": [
+     122,
+     1998,
+     616,
+     2018
+    ],
+    "text": "perform their 5 ety functions assuming a"
+   },
+   {
+    "box": [
+     122,
+     2021,
+     273,
+     2040
+    ],
+    "text": "stngle ー 社 「 0."
+   },
+   {
+    "box": [
+     146,
+     2047,
+     616,
+     2067
+    ],
+    "text": "Electrica1 power な om t わ 0 transmission net-"
+   },
+   {
+    "box": [
+     124,
+     2070,
+     616,
+     2089
+    ],
+    "text": "work tO the switchyard shall be supplled by"
+   },
+   {
+    "box": [
+     123,
+     2092,
+     617,
+     2111
+    ],
+    "text": "t 響 0 physically independent ・ transmission"
+   },
+   {
+    "box": [
+     123,
+     2114,
+     617,
+     2134
+    ],
+    "text": "lines ( れ Ot れ ece 覊 Ⅱ y 0 れ separate rights 0 ー"
+   },
+   {
+    "box": [
+     123,
+     2136,
+     617,
+     2157
+    ],
+    "text": "way) destgned and 18at0 は su れ a わ ly"
+   },
+   {
+    "box": [
+     706,
+     104,
+     1065,
+     127
+    ],
+    "text": "RULES AND REGULATIONS"
+   },
+   {
+    "box": [
+     637,
+     161,
+     1134,
+     178
+    ],
+    "text": "mlntmize tl likellhood of their m ⅲ t n00 3"
+   },
+   {
+    "box": [
+     638,
+     184,
+     1133,
+     204
+    ],
+    "text": "failure nde 「 operattng and p ( れ Ⅱ 良 te は 仭 cc ト"
+   },
+   {
+    "box": [
+     640,
+     206,
+     1134,
+     223
+    ],
+    "text": "dent and environmental conditions. TWO"
+   },
+   {
+    "box": [
+     640,
+     229,
+     1134,
+     249
+    ],
+    "text": "physically independent ぐ 0 ⅲ from the"
+   },
+   {
+    "box": [
+     639,
+     251,
+     1134,
+     271
+    ],
+    "text": "sw ー y r 臧 tO t れ 0 on te 0 c い distribu ・"
+   },
+   {
+    "box": [
+     639,
+     273,
+     1135,
+     293
+    ],
+    "text": "幻 on system shall be provided. Each Of these"
+   },
+   {
+    "box": [
+     639,
+     295,
+     1134,
+     315
+    ],
+    "text": "0 c Ⅱ ー 朝 Shall be de gne は tO be avallable ー れ"
+   },
+   {
+    "box": [
+     639,
+     318,
+     1134,
+     338
+    ],
+    "text": "sumcient me fO Ⅱ OW い lg 魯 10 Of on te"
+   },
+   {
+    "box": [
+     639,
+     341,
+     1135,
+     360
+    ],
+    "text": "alternatfng current powe 「 sources and the"
+   },
+   {
+    "box": [
+     640,
+     363,
+     1135,
+     383
+    ],
+    "text": "Othe 「 0 を t 月 02 power circttit. tO assure"
+   },
+   {
+    "box": [
+     639,
+     386,
+     1135,
+     405
+    ],
+    "text": "that specifle は acceptable fuel は 0 引 g Ⅱ limits"
+   },
+   {
+    "box": [
+     639,
+     408,
+     1135,
+     428
+    ],
+    "text": "and design cond ー い 0 Ⅱ 3 Of the reactor C00 Ⅱ t"
+   },
+   {
+    "box": [
+     640,
+     430,
+     1135,
+     450
+    ],
+    "text": "pressure boundary are not exceeded. 0n0 0 ー"
+   },
+   {
+    "box": [
+     641,
+     452,
+     1134,
+     472
+    ],
+    "text": "these circuits shall be de?3igued tO be avall-"
+   },
+   {
+    "box": [
+     653,
+     475,
+     1135,
+     494
+    ],
+    "text": "わ w れ 11 a few seconds followlng a ー 0 ・"
+   },
+   {
+    "box": [
+     640,
+     497,
+     1135,
+     514
+    ],
+    "text": "0 006a れ t accldent tO su て 0 that 00r0 cool?"
+   },
+   {
+    "box": [
+     639,
+     519,
+     1072,
+     540
+    ],
+    "text": "一 g. containment integrity, and Ot れ 0 ー"
+   },
+   {
+    "box": [
+     640,
+     542,
+     1006,
+     562
+    ],
+    "text": "3 ety f Ⅱ nc い 0n8 a 「 0 maintained."
+   },
+   {
+    "box": [
+     663,
+     564,
+     1135,
+     581
+    ],
+    "text": "P 「 0 ⅵ 0n8 shall be included tO れ 1 ⅱ Ⅱ れ 20"
+   },
+   {
+    "box": [
+     641,
+     586,
+     1135,
+     607
+    ],
+    "text": "t れ 0 probability 0 ( 10 引 ng electrical power"
+   },
+   {
+    "box": [
+     661,
+     609,
+     1135,
+     629
+    ],
+    "text": "om any 0 ー the remaining sources a result"
+   },
+   {
+    "box": [
+     641,
+     632,
+     1135,
+     651
+    ],
+    "text": "0 0 ー coincident wlth. the ー 0 Of power gen?"
+   },
+   {
+    "box": [
+     641,
+     653,
+     1136,
+     674
+    ],
+    "text": "er は by t れ 0 nuclear power Ⅱ れ れ . the 1033 0 ー"
+   },
+   {
+    "box": [
+     641,
+     676,
+     1136,
+     697
+    ],
+    "text": "power な om the transmission network, 0 「 thO"
+   },
+   {
+    "box": [
+     642,
+     699,
+     1136,
+     719
+    ],
+    "text": "1033 power ー 「 om t れ 0 0n3 れ 0 013t ⅵ cal powe 「"
+   },
+   {
+    "box": [
+     641,
+     725,
+     726,
+     738
+    ],
+    "text": "sources."
+   },
+   {
+    "box": [
+     665,
+     742,
+     1137,
+     763
+    ],
+    "text": "C 0 ル ー 8 ー イ ル ec れ 0 れ 0 れ d 加 就 0 0 /"
+   },
+   {
+    "box": [
+     661,
+     766,
+     1136,
+     786
+    ],
+    "text": "ec ⅳ 化 迎 ー 202 sy 就 e 襯 3. EIectrical power sye-"
+   },
+   {
+    "box": [
+     641,
+     788,
+     1137,
+     808
+    ],
+    "text": "tems ー 刈 れ a れ t の safety shall わ 0 de 引 g Ⅱ 00"
+   },
+   {
+    "box": [
+     641,
+     810,
+     1137,
+     831
+    ],
+    "text": "tO pe ロ 1 ⅱ t pe 月 」 0 加 8P00 on and testing 0 ("
+   },
+   {
+    "box": [
+     642,
+     833,
+     1136,
+     853
+    ],
+    "text": "important areas andfeatures. such 5 wirtng."
+   },
+   {
+    "box": [
+     642,
+     856,
+     1137,
+     875
+    ],
+    "text": "ー れ sula い 0 れ , 00n れ ec 0 れ and switchboards,"
+   },
+   {
+    "box": [
+     642,
+     878,
+     1137,
+     898
+    ],
+    "text": "tO assess the 00 Ⅱ い nu れ y Of the systems れ は"
+   },
+   {
+    "box": [
+     642,
+     901,
+     1137,
+     920
+    ],
+    "text": "t れ 0 00 Ⅱ di い 0 Ⅱ t れ 0 components. The sys?"
+   },
+   {
+    "box": [
+     641,
+     923,
+     1138,
+     943
+    ],
+    "text": "tems & ⅱ Ⅱ be deslgned with 竄 capability tO"
+   },
+   {
+    "box": [
+     642,
+     945,
+     1137,
+     966
+    ],
+    "text": "test periodicalJY い ) the operability a は"
+   },
+   {
+    "box": [
+     641,
+     969,
+     1137,
+     988
+    ],
+    "text": "f Ⅱ nc い 0 れ a ー performance 0 ー the com 国 ) れ en 協"
+   },
+   {
+    "box": [
+     641,
+     991,
+     1137,
+     1011
+    ],
+    "text": "0 ー the systems, such on 引 t ・ powe 「 sources,"
+   },
+   {
+    "box": [
+     641,
+     1013,
+     1137,
+     1033
+    ],
+    "text": "relays, switches, and buses, a れ は ( 2 ) the op?"
+   },
+   {
+    "box": [
+     642,
+     1035,
+     1137,
+     1056
+    ],
+    "text": "erability 0 ー t ぬ 0 systems as 驫 w ぬ 01e a れ は . Ⅱ de ー"
+   },
+   {
+    "box": [
+     642,
+     1058,
+     1137,
+     1078
+    ],
+    "text": "condltions as C105e tO design as practical. the"
+   },
+   {
+    "box": [
+     641,
+     1080,
+     1138,
+     1100
+    ],
+    "text": "iull operation 30q ence that brings t れ 0 sys?"
+   },
+   {
+    "box": [
+     642,
+     1103,
+     1138,
+     1123
+    ],
+    "text": "t0n15 ー れ tO 0 ー ー a 0 れ . including oper on Of"
+   },
+   {
+    "box": [
+     642,
+     1125,
+     1137,
+     1146
+    ],
+    "text": "applicable po 「 い 0n8 Of the protec い on system ー"
+   },
+   {
+    "box": [
+     642,
+     1148,
+     1137,
+     1167
+    ],
+    "text": "and the transfer Of power among the れ 0 竄 「"
+   },
+   {
+    "box": [
+     642,
+     1171,
+     1137,
+     1191
+    ],
+    "text": "00W0r unit, the 0 引 te ー 2W0 「 system, a れ t れ 0"
+   },
+   {
+    "box": [
+     643,
+     1194,
+     865,
+     1213
+    ],
+    "text": "on 靆 te powe 「 system."
+   },
+   {
+    "box": [
+     666,
+     1214,
+     1137,
+     1232
+    ],
+    "text": "C 月 te 月 0 れ 19 ー - C01 社 「 0 ー ア 00m. A CO れ い 01 ー 00 れ 1"
+   },
+   {
+    "box": [
+     642,
+     1238,
+     1138,
+     1258
+    ],
+    "text": "shall わ 0 provided な om whlch ctiO Ⅱ 5 can be"
+   },
+   {
+    "box": [
+     642,
+     1260,
+     1137,
+     1280
+    ],
+    "text": "taken ・ の operate the れ 設 clea ー power Ⅱ れ れ"
+   },
+   {
+    "box": [
+     641,
+     1283,
+     1137,
+     1303
+    ],
+    "text": "safely under れ 0 ロ れ a ー 00n は 一 tion a れ は tO main?"
+   },
+   {
+    "box": [
+     642,
+     1305,
+     1138,
+     1322
+    ],
+    "text": "tatn れ ⅲ a 聞 fe 00 Ⅱ d れ Ⅱ 盟 れ d げ accldent"
+   },
+   {
+    "box": [
+     643,
+     1328,
+     1137,
+     1347
+    ],
+    "text": "conditions, including ー 0 - Of - coolant acci?"
+   },
+   {
+    "box": [
+     642,
+     1350,
+     1138,
+     1370
+    ],
+    "text": "den . Adequate 「 れ d ー a い on p ー Otec い 0 Ⅱ shall be"
+   },
+   {
+    "box": [
+     642,
+     1370,
+     1138,
+     1393
+    ],
+    "text": "provided to permit ・ access and occupancy 0 ("
+   },
+   {
+    "box": [
+     642,
+     1395,
+     1138,
+     1411
+    ],
+    "text": "the 00 Ⅱ い 0 ー 【 00n 】 載 れ は e 「 accident CO れ d ー い 0 Ⅱ S"
+   },
+   {
+    "box": [
+     642,
+     1417,
+     1137,
+     1437
+    ],
+    "text": "Without p SO れ れ receiving radiation ex-"
+   },
+   {
+    "box": [
+     642,
+     1440,
+     1137,
+     1460
+    ],
+    "text": "ー ures ー Ⅱ excess Of 5 rem whole bOdy, or"
+   },
+   {
+    "box": [
+     642,
+     1462,
+     1138,
+     1482
+    ],
+    "text": "ー equivalent any p 庇 れ t れ 0 bOdy. for"
+   },
+   {
+    "box": [
+     645,
+     1485,
+     955,
+     1502
+    ],
+    "text": "the d Ⅱ r 竄 い 0 Ⅱ the accident."
+   },
+   {
+    "box": [
+     666,
+     1506,
+     1137,
+     1527
+    ],
+    "text": "Equipment appropriate 0 い 0 れ & 0 Ⅱ い"
+   },
+   {
+    "box": [
+     642,
+     1530,
+     1134,
+     1550
+    ],
+    "text": "slde the control ~ 00m shall be provided ( 1 )"
+   },
+   {
+    "box": [
+     643,
+     1552,
+     1137,
+     1572
+    ],
+    "text": "w れ れ design capability for prompt れ Ot shut-"
+   },
+   {
+    "box": [
+     642,
+     1574,
+     1140,
+     1594
+    ],
+    "text": "down 0 ( the reacto ら 一 ncl 山 れ g necessary"
+   },
+   {
+    "box": [
+     643,
+     1597,
+     1138,
+     1613
+    ],
+    "text": "ー れ & t れ れ e れ い 0 れ and 00 Ⅱ い OIS tO れ 一 れ ta ー れ"
+   },
+   {
+    "box": [
+     642,
+     1619,
+     1137,
+     1639
+    ],
+    "text": "the 載 n れ 一 れ safe cond れ れ during れ Ot shut?"
+   },
+   {
+    "box": [
+     643,
+     1642,
+     1138,
+     1661
+    ],
+    "text": "down を れ d ( 2 ) れ h a po n capability"
+   },
+   {
+    "box": [
+     642,
+     1664,
+     1137,
+     1683
+    ],
+    "text": "for subsequent 001 は shutdown Of the 【 eactor"
+   },
+   {
+    "box": [
+     643,
+     1687,
+     1090,
+     1706
+    ],
+    "text": "through the use 0 ー suitable procedu ー 05."
+   },
+   {
+    "box": [
+     686,
+     1722,
+     1075,
+     1739
+    ],
+    "text": "〃 れ P 「 0 c な 0 れ 0 れ れ 00 ⅵ CO れ な"
+   },
+   {
+    "box": [
+     847,
+     1745,
+     935,
+     1764
+    ],
+    "text": "Systems"
+   },
+   {
+    "box": [
+     667,
+     1778,
+     1138,
+     1798
+    ],
+    "text": "C 「 れ に 0 れ 2 住 ー Pro ~ ec 0 れ 就 e 加 / れ 0 ."
+   },
+   {
+    "box": [
+     642,
+     1802,
+     1134,
+     1821
+    ],
+    "text": "The rot は 0 Ⅱ system shall be designed ( 1 )"
+   },
+   {
+    "box": [
+     643,
+     1824,
+     1138,
+     1843
+    ],
+    "text": "tO ー n 比 ね し 日 automatically the ope 「 a い 0 Ⅱ 0 ("
+   },
+   {
+    "box": [
+     643,
+     1846,
+     1137,
+     1866
+    ],
+    "text": "app 「 op 竄 systems mcludi ng t れ 0 reactivity"
+   },
+   {
+    "box": [
+     643,
+     1869,
+     1138,
+     1888
+    ],
+    "text": "control systems, tO 日 Ⅱ 「 0 that specified ac-"
+   },
+   {
+    "box": [
+     643,
+     1891,
+     1139,
+     1911
+    ],
+    "text": "ceptable fuel design Ⅱ m れ 日 are れ Ot exceeded"
+   },
+   {
+    "box": [
+     682,
+     1913,
+     1138,
+     1932
+    ],
+    "text": "a result は anticipated ope 「 a 社 on 00-"
+   },
+   {
+    "box": [
+     643,
+     1936,
+     1138,
+     1955
+    ],
+    "text": "cu 「 renc 時 れ は ( 2 ) tO sense accident condi-"
+   },
+   {
+    "box": [
+     643,
+     1958,
+     1138,
+     1978
+    ],
+    "text": "鹹 on & れ は tO ー れ 比 iate t ぬ 0 ope ー い 0 Ⅱ 可 3Y8t0m8"
+   },
+   {
+    "box": [
+     645,
+     1981,
+     1045,
+     2000
+    ],
+    "text": "ond 00 Ⅱ れ e Ⅱ t & important tO safety."
+   },
+   {
+    "box": [
+     667,
+     2003,
+     1138,
+     2023
+    ],
+    "text": "C ⅱ 0 れ 21 ー ー P 「 0 e む れ 0 れ 5 ン 就 に 0 わ れ れ y"
+   },
+   {
+    "box": [
+     643,
+     2025,
+     1138,
+     2045
+    ],
+    "text": "な れ を t ~ 0 わ に 既 The や rotec 社 0 れ system s Ⅱ"
+   },
+   {
+    "box": [
+     643,
+     2048,
+     1139,
+     2068
+    ],
+    "text": "be は e gne for htgh functional reliability"
+   },
+   {
+    "box": [
+     643,
+     2070,
+     1138,
+     2090
+    ],
+    "text": "a れ は mservice test@bility commensurate with"
+   },
+   {
+    "box": [
+     643,
+     2092,
+     1138,
+     2113
+    ],
+    "text": "the safety functions tO be pe orn 】 0 山 Re?"
+   },
+   {
+    "box": [
+     643,
+     2114,
+     1138,
+     2135
+    ],
+    "text": "dundancy 窿 n は i.ndependence 社 0 引 gned lnto"
+   },
+   {
+    "box": [
+     643,
+     2137,
+     1103,
+     2157
+    ],
+    "text": "the p 「 0 c い 0 れ system 】 心 1 be sumcient"
+   },
+   {
+    "box": [
+     1194,
+     161,
+     1631,
+     183
+    ],
+    "text": "設 that ( 1 ) れ 0 れ g faiture restflts ⅲ"
+   },
+   {
+    "box": [
+     1162,
+     183,
+     1598,
+     207
+    ],
+    "text": "ー 0 of the p 「 0 0 材 on function and ( 2 )"
+   },
+   {
+    "box": [
+     1161,
+     206,
+     1584,
+     228
+    ],
+    "text": "れ 】 ova ー from 60 「 ⅵ Of any ( ompo れ e"
+   },
+   {
+    "box": [
+     1162,
+     228,
+     1631,
+     249
+    ],
+    "text": "0 れ a れ Ⅱ 00 れ Ot 【 ⅲ t in loss 破 山 0 ."
+   },
+   {
+    "box": [
+     1162,
+     250,
+     1631,
+     271
+    ],
+    "text": "quired m.illimum redundancy 設 れ ss t れ 0 ・"
+   },
+   {
+    "box": [
+     1162,
+     273,
+     1613,
+     294
+    ],
+    "text": "ceptable reHabfltty Of 0 「 庇 い 0 Ⅱ ー"
+   },
+   {
+    "box": [
+     1162,
+     296,
+     1632,
+     316
+    ],
+    "text": "protectfon system 0 龕 Ⅱ be otherwise d を mo Ⅱ ・"
+   },
+   {
+    "box": [
+     1161,
+     317,
+     1632,
+     338
+    ],
+    "text": "strated. T わ 0 p ー 030M0n 3Y5 m shall be ・"
+   },
+   {
+    "box": [
+     1162,
+     340,
+     1631,
+     361
+    ],
+    "text": "signed permit pe 0 山 0 testing 0 ー れ 3 取 ・"
+   },
+   {
+    "box": [
+     1162,
+     362,
+     1631,
+     385
+    ],
+    "text": "tioning When the reactor ⅲ 0 ! ra 0 以"
+   },
+   {
+    "box": [
+     1162,
+     384,
+     1632,
+     405
+    ],
+    "text": "including a capabllity ・ の 計 channels ⅲ ・"
+   },
+   {
+    "box": [
+     1163,
+     406,
+     1580,
+     426
+    ],
+    "text": "dependently tO 00t0 ロ Ⅱ ー ne failures 3 れ d"
+   },
+   {
+    "box": [
+     1163,
+     429,
+     1591,
+     449
+    ],
+    "text": "0 ー redundancy that may have occurred."
+   },
+   {
+    "box": [
+     1186,
+     451,
+     1631,
+     472
+    ],
+    "text": "C 料 ー e 内 0 記 22 ー Pro ~ ec れ 0 れ 33 計 e i れ de ・"
+   },
+   {
+    "box": [
+     1162,
+     474,
+     1631,
+     496
+    ],
+    "text": "に れ ce. ' 以 10 on sysyem 8ha11 be ・"
+   },
+   {
+    "box": [
+     1183,
+     496,
+     1631,
+     516
+    ],
+    "text": "gne は tO 編 5 な 0 that the 0 00 お れ at 載"
+   },
+   {
+    "box": [
+     1164,
+     518,
+     1630,
+     540
+    ],
+    "text": "p れ ・ れ omena. n 0 ー れ 0 「 mal operating. ma?.n ・"
+   },
+   {
+    "box": [
+     1164,
+     540,
+     1631,
+     561
+    ],
+    "text": "tenance. 加 8 い ng. a.nd postulated accident"
+   },
+   {
+    "box": [
+     1164,
+     563,
+     1631,
+     582
+    ],
+    "text": "00 れ 山 い 0 Ⅱ 3 0 Ⅱ redundant 0 れ a Ⅱ Ⅱ e 地 do 00 :"
+   },
+   {
+    "box": [
+     1163,
+     585,
+     1631,
+     605
+    ],
+    "text": "ー es Ⅱ れ iu 10 Of t れ 0 p ー 0t00 い on : u れ c 材 0 新 0 !"
+   },
+   {
+    "box": [
+     1163,
+     606,
+     1621,
+     628
+    ],
+    "text": "shaii be は en ー 0n8 い ate は to 一 地 acceptable 0"
+   },
+   {
+    "box": [
+     1163,
+     629,
+     1632,
+     651
+    ],
+    "text": "some Other defined わ . Design techniques."
+   },
+   {
+    "box": [
+     1164,
+     652,
+     1607,
+     673
+    ],
+    "text": "8 設 0 れ 日 8 functional diversity 山 れ 島 れ y"
+   },
+   {
+    "box": [
+     1164,
+     674,
+     1631,
+     695
+    ],
+    "text": "component d Ⅱ and principleg 0 ! ope ・"
+   },
+   {
+    "box": [
+     1165,
+     696,
+     1632,
+     717
+    ],
+    "text": "い on. shall be れ se 臧 tO t れ 0 0X3 れ む prac い 0 : 0"
+   },
+   {
+    "box": [
+     1165,
+     718,
+     1585,
+     738
+    ],
+    "text": "prevent 10 を s Of the protection ー u れ c い 0 広"
+   },
+   {
+    "box": [
+     1188,
+     740,
+     1595,
+     761
+    ],
+    "text": "C 地 月 0 ル 23 ・ 一 P ′ otec ー 書 ys 禰 担"
+   },
+   {
+    "box": [
+     1187,
+     763,
+     1633,
+     783
+    ],
+    "text": "0 es. T わ 0 p ー 0t00 0 Ⅱ sy 計 em shfdl ・"
+   },
+   {
+    "box": [
+     1165,
+     785,
+     1603,
+     804
+    ],
+    "text": "signed tO fall ー れ tO safe state 0 「 into a 8"
+   },
+   {
+    "box": [
+     1166,
+     807,
+     1617,
+     827
+    ],
+    "text": "demons い 良 te は tO わ 0 000Pt b on some 0 物"
+   },
+   {
+    "box": [
+     1165,
+     829,
+     1633,
+     846
+    ],
+    "text": "de Ⅱ Ⅱ 0 は b 、 00n 山 い 0 s 8 ch 簡 山 0 ロ ・"
+   },
+   {
+    "box": [
+     1165,
+     852,
+     1633,
+     872
+    ],
+    "text": "れ 8t10 れ 0 ー t れ 0 5Y53 田 . 10 0 ( 0n0 宿 y ( 0 ・ g.."
+   },
+   {
+    "box": [
+     1166,
+     874,
+     1634,
+     894
+    ],
+    "text": "electric po 専 0 tnstrument air) . or postu t04"
+   },
+   {
+    "box": [
+     1165,
+     896,
+     1609,
+     916
+    ],
+    "text": "adverse environments ( 0. g ” ex い 0m0 heat"
+   },
+   {
+    "box": [
+     1165,
+     918,
+     1634,
+     937
+    ],
+    "text": "00 ー は , れ re. ー essu 【 0. 8 am. water, 龜 Ⅱ は d は ・"
+   },
+   {
+    "box": [
+     1184,
+     941,
+     1407,
+     960
+    ],
+    "text": "on ) 0 expe 0 Ⅱ 00 山"
+   },
+   {
+    "box": [
+     1190,
+     965,
+     1634,
+     987
+    ],
+    "text": "0 月 te 月 0 れ 24 ・ 一 Se 0 ア 0 れ 0 れ 0 / p 「 0 0 日 0 れ 聞 は"
+   },
+   {
+    "box": [
+     1166,
+     989,
+     1614,
+     1009
+    ],
+    "text": "00 ル ま ′ 0 ー & ys 襯 The protection system 由"
+   },
+   {
+    "box": [
+     1166,
+     1011,
+     1634,
+     1031
+    ],
+    "text": "be separated om 00 Ⅱ い 0 ー 8Y33m5 tO t わ 0 ・"
+   },
+   {
+    "box": [
+     1167,
+     1034,
+     1634,
+     1054
+    ],
+    "text": "tent thRt f 仭 il 設 「 0 any れ g10 00 Ⅱ に 01 sys 田"
+   },
+   {
+    "box": [
+     1166,
+     1056,
+     1620,
+     1075
+    ],
+    "text": "component 0 「 channel, 0 ー failure 【 0m0 「"
+   },
+   {
+    "box": [
+     1166,
+     1078,
+     1634,
+     1099
+    ],
+    "text": "ー 【 0 田 ー ⅵ ce 0 ー any single protectlon system"
+   },
+   {
+    "box": [
+     1166,
+     1099,
+     1634,
+     1120
+    ],
+    "text": "component 0 ー C れ n れ w 加 0 れ common t0"
+   },
+   {
+    "box": [
+     1166,
+     1122,
+     1634,
+     1143
+    ],
+    "text": "the 00 れ い and prot ・ 0 い on systems : 0 ・"
+   },
+   {
+    "box": [
+     1166,
+     1145,
+     1634,
+     1165
+    ],
+    "text": "tact a system 3 就 應 ー ng 田 一 記 Ⅱ a わ Ⅲ を Y. ・"
+   },
+   {
+    "box": [
+     1166,
+     1166,
+     1635,
+     1187
+    ],
+    "text": "dundancy. and independence q 山 me 加 5"
+   },
+   {
+    "box": [
+     1165,
+     1187,
+     1635,
+     1209
+    ],
+    "text": "0 ー も れ 0 p ー Otec い 0 Ⅱ 5Y3t0 ロ 】 . lnterconnection 可"
+   },
+   {
+    "box": [
+     1166,
+     1211,
+     1585,
+     1231
+    ],
+    "text": "t れ 0 rot 0 い 0 Ⅱ and 00 Ⅱ t 「 0 】 systemg 8 れ"
+   },
+   {
+    "box": [
+     1166,
+     1233,
+     1635,
+     1254
+    ],
+    "text": "limited tO s Ⅱ 「 0 that safety Ⅱ 0 し g ・"
+   },
+   {
+    "box": [
+     1166,
+     1257,
+     1379,
+     1277
+    ],
+    "text": "niflcantly ー mpaire 山"
+   },
+   {
+    "box": [
+     1189,
+     1282,
+     1635,
+     1300
+    ],
+    "text": "0 「 e 0 ル 25 ・ 一 pro 0 0 ル 計 円 ル な 4 ・"
+   },
+   {
+    "box": [
+     1180,
+     1302,
+     1622,
+     1324
+    ],
+    "text": "肥 れ な / 0 ′ 00 れ 00 れ ま 「 0 ー m / れ c れ 0 月"
+   },
+   {
+    "box": [
+     1165,
+     1324,
+     1609,
+     1347
+    ],
+    "text": "T れ 0 p 「 0t00 い 0 れ 3Y3 m shall be deslgned"
+   },
+   {
+    "box": [
+     1166,
+     1347,
+     1634,
+     1370
+    ],
+    "text": "ass Ⅱ 「 9 thst specified acceptable れ 肥 ー deslgn"
+   },
+   {
+    "box": [
+     1167,
+     1368,
+     1635,
+     1391
+    ],
+    "text": "limita 0 れ Ot 0X000 は 0 臧 ー 0 ー any 5ingle ma ト"
+   },
+   {
+    "box": [
+     1166,
+     1392,
+     1635,
+     1414
+    ],
+    "text": "functton Of t 0 reactivity 00 れ trol systems."
+   },
+   {
+    "box": [
+     1165,
+     1414,
+     1636,
+     1435
+    ],
+    "text": "such as accidental withdrawal ( Ⅱ 0 し 00 0 Ⅱ"
+   },
+   {
+    "box": [
+     1165,
+     1436,
+     1618,
+     1458
+    ],
+    "text": "0 ー dm ー 刈 載 t ) Of control ー 003 Ⅲ 淞 nn"
+   },
+   {
+    "box": [
+     1166,
+     1461,
+     1451,
+     1481
+    ],
+    "text": "dilution 0 ー soluble po 0 Ⅱ ・"
+   },
+   {
+    "box": [
+     1190,
+     1485,
+     1637,
+     1504
+    ],
+    "text": "Criterion 26- ー e00 00 れ 行 0 ー 斗 & m ・"
+   },
+   {
+    "box": [
+     1181,
+     1503,
+     1637,
+     1529
+    ],
+    "text": "社 の 紀 リ 0 れ d cg 製 0 し れ 難 y. TWO lndependent"
+   },
+   {
+    "box": [
+     1167,
+     1528,
+     1636,
+     1552
+    ],
+    "text": "reactivtty con い 0 ー systems Of different design"
+   },
+   {
+    "box": [
+     1168,
+     1549,
+     1618,
+     1574
+    ],
+    "text": "principles and p ー 「 ab 取 including Ⅲ"
+   },
+   {
+    "box": [
+     1167,
+     1573,
+     1636,
+     1595
+    ],
+    "text": "れ 肥 chan means for inserting con は : 5 ・"
+   },
+   {
+    "box": [
+     1167,
+     1593,
+     1636,
+     1619
+    ],
+    "text": "shall わ 0 p 【 0 ⅵ ded. Each 3Y3 m s れ 3 Ⅱ れ 6 the"
+   },
+   {
+    "box": [
+     1166,
+     1615,
+     1619,
+     1641
+    ],
+    "text": "capability tO CO Ⅱ い the ー 3t0 Of 代 師 目 ⅵ"
+   },
+   {
+    "box": [
+     1166,
+     1640,
+     1622,
+     1663
+    ],
+    "text": "changes reaulting from P れ ned , Ⅱ m"
+   },
+   {
+    "box": [
+     1181,
+     1660,
+     1636,
+     1685
+    ],
+    "text": "owe 「 c nges い Ⅱ 0 ー Ⅱ は 一 ng xe れ 0 Ⅱ わ u 「 nou い : 0"
+   },
+   {
+    "box": [
+     1166,
+     1684,
+     1619,
+     1708
+    ],
+    "text": "3 re acceptable f design 0 れ"
+   },
+   {
+    "box": [
+     1166,
+     1706,
+     1637,
+     1729
+    ],
+    "text": "exceeded. 0 ぬ 0 Of t れ 0 systems shall be capa ・"
+   },
+   {
+    "box": [
+     1166,
+     1726,
+     1638,
+     1752
+    ],
+    "text": "b10 Of reliablY controrung reactiVitY changes"
+   },
+   {
+    "box": [
+     1165,
+     1745,
+     1636,
+     1771
+    ],
+    "text": "tO ass Ⅱ 「 0 t コ under cond れ 地 Ⅱ s 0 ( nortnal"
+   },
+   {
+    "box": [
+     1165,
+     1768,
+     1636,
+     1797
+    ],
+    "text": "0P0 「 a 0 れ 8. inclttding antlcipated ope 「 ! 0 れ 心"
+   },
+   {
+    "box": [
+     1166,
+     1797,
+     1559,
+     1818
+    ],
+    "text": "0C0 載 な enc . and w れ 明 ) p 「 op ⅵ 0"
+   },
+   {
+    "box": [
+     1166,
+     1812,
+     1637,
+     1838
+    ],
+    "text": "for m Ⅱ nc い 0n3 8M0 as stuck ー 0d5. 0 ト"
+   },
+   {
+    "box": [
+     1167,
+     1837,
+     1636,
+     1864
+    ],
+    "text": "れ 0 は ぐ c ぐ p b10 fuel 取 n Ⅱ m れ 3 are れ ot ・"
+   },
+   {
+    "box": [
+     1167,
+     1856,
+     1637,
+     1885
+    ],
+    "text": "ceeded. 0n0 the systems shall be c 叩 3 粉 0"
+   },
+   {
+    "box": [
+     1168,
+     1884,
+     1559,
+     1908
+    ],
+    "text": "Of れ 0 ー Ⅱ g the 良 0t0 ー C02 subC れ t に"
+   },
+   {
+    "box": [
+     1167,
+     1911,
+     1340,
+     1928
+    ],
+    "text": "COId con 山 い ons."
+   },
+   {
+    "box": [
+     1190,
+     1930,
+     1622,
+     1953
+    ],
+    "text": "C 月 可 し 27 ー - CO ・ れ e ′ 0 れ 00 「"
+   },
+   {
+    "box": [
+     1167,
+     1969,
+     1637,
+     2001
+    ],
+    "text": "systems shall be designed tO have a commned"
+   },
+   {
+    "box": [
+     1166,
+     1992,
+     1637,
+     2024
+    ],
+    "text": "capabillty. ー Ⅱ 00 Ⅱ 」 u れ c 社 0 Ⅱ w れ れ ⅱ 50n 面 山 ・"
+   },
+   {
+    "box": [
+     1166,
+     2017,
+     1637,
+     2046
+    ],
+    "text": "t10 Ⅱ by t れ 0 emergency 00r0 cooung 卵 5 rn ・"
+   },
+   {
+    "box": [
+     1166,
+     2042,
+     1611,
+     2068
+    ],
+    "text": "Of reliably 00 れ い 01 Ⅱ ng 23t ⅳ 0 れ 3 第 g05"
+   },
+   {
+    "box": [
+     1166,
+     2061,
+     1637,
+     2091
+    ],
+    "text": "2331 肛 0 that 載 Ⅱ は er postuiated a00 馗 0 れ 一 co 止"
+   },
+   {
+    "box": [
+     1168,
+     2081,
+     1638,
+     2112
+    ],
+    "text": "山 い 0 れ s 金 n w 蛇 appropriBte れ 「 g ー 可"
+   },
+   {
+    "box": [
+     1166,
+     2106,
+     1617,
+     2135
+    ],
+    "text": "stuck ー 0 臧 8 ・ は capabiiity ・ の 0 ( 1 は れ 0 代"
+   },
+   {
+    "box": [
+     1168,
+     2138,
+     1297,
+     2154
+    ],
+    "text": "m Ⅱ t ne 山"
+   },
+   {
+    "box": [
+     509,
+     2208,
+     1266,
+     2231
+    ],
+    "text": "FEDERAL REGISTER, VO し 36. NO. 35 SAT リ RDAY を FEBRUARY 20. 197 ー"
+   }
+  ]
+ },
+ "haer_14.jpg": {
+  "size": [
+   3840,
+   3119
+  ],
+  "lines": [
+   {
+    "box": [
+     555,
+     117,
+     2067,
+     200
+    ],
+    "text": "〃 4 心 彡 . 工 り 一 3 多 ー り 一 / デ"
+   }
+  ]
+ },
+ "haer_15.jpg": {
+  "size": [
+   3840,
+   3119
+  ],
+  "lines": [
+   {
+    "box": [
+     3504,
+     1413,
+     3588,
+     2753
+    ],
+    "text": "、 ー ー 町 ー ea 、 新 3 マ"
+   },
+   {
+    "box": [
+     1440,
+     2021,
+     1521,
+     2267
+    ],
+    "text": "ロ 一 一"
+   },
+   {
+    "box": [
+     1326,
+     2022,
+     1423,
+     2285
+    ],
+    "text": "ロ 三 ロ 謇"
+   },
+   {
+    "box": [
+     2882,
+     1793,
+     2902,
+     1855
+    ],
+    "text": "第 ■ を"
+   },
+   {
+    "box": [
+     2416,
+     2002,
+     2459,
+     2200
+    ],
+    "text": "一 0 ! 0 当"
+   },
+   {
+    "box": [
+     2370,
+     2007,
+     2413,
+     2185
+    ],
+    "text": "延 ■ 一 0 第"
+   },
+   {
+    "box": [
+     2316,
+     2008,
+     2364,
+     2148
+    ],
+    "text": "0 ー"
+   },
+   {
+    "box": [
+     445,
+     2900,
+     1698,
+     2959
+    ],
+    "text": "ー ・ - 、 一 。 以 ユ , ミ . ん み に 心 よ 昊 ズ \" ン を"
+   }
+  ]
+ },
+ "haer_52.jpg": {
+  "size": [
+   3840,
+   3080
+  ],
+  "lines": [
+   {
+    "box": [
+     2182,
+     947,
+     2429,
+     993
+    ],
+    "text": "亠 一 ユ 1"
+   },
+   {
+    "box": [
+     1518,
+     2479,
+     1661,
+     2509
+    ],
+    "text": "ツ つ 第 当"
+   },
+   {
+    "box": [
+     1810,
+     2772,
+     2784,
+     2846
+    ],
+    "text": "ZD ー ラ ろ ー ① 一 三 わ"
+   },
+   {
+    "box": [
+     1076,
+     2778,
+     1690,
+     2855
+    ],
+    "text": "H A E 疋 つ ."
+   },
+   {
+    "box": [
+     3400,
+     2640,
+     3439,
+     2739
+    ],
+    "text": "8 x ち"
+   }
+  ]
+ },
+ "haer_53.jpg": {
+  "size": [
+   3840,
+   3136
+  ],
+  "lines": [
+   {
+    "box": [
+     1009,
+     2051,
+     1099,
+     2089
+    ],
+    "text": "町 一"
+   },
+   {
+    "box": [
+     1053,
+     2827,
+     1616,
+     2898
+    ],
+    "text": "H 4 E 疋 り ."
+   },
+   {
+    "box": [
+     1895,
+     2829,
+     2558,
+     2908
+    ],
+    "text": "ー 35 ー の 一 3"
+   }
+  ]
+ },
+ "haer_56.jpg": {
+  "size": [
+   3840,
+   4820
+  ],
+  "lines": [
+   {
+    "box": [
+     3347,
+     569,
+     3471,
+     618
+    ],
+    "text": "8 ぇ 10"
+   }
+  ]
+ },
+ "haer_64.jpg": {
+  "size": [
+   3840,
+   2985
+  ],
+  "lines": [
+   {
+    "box": [
+     282,
+     1023,
+     299,
+     1082
+    ],
+    "text": "ル ・ を"
+   }
+  ]
+ },
+ "haer_65.jpg": {
+  "size": [
+   3840,
+   3117
+  ],
+  "lines": [
+   {
+    "box": [
+     3422,
+     2671,
+     3461,
+     2769
+    ],
+    "text": "8 x ち"
+   }
+  ]
+ },
+ "haer_67.jpg": {
+  "size": [
+   3840,
+   4760
+  ],
+  "lines": []
+ },
+ "haer_69.jpg": {
+  "size": [
+   3840,
+   3140
+  ],
+  "lines": []
+ },
+ "haer_70.jpg": {
+  "size": [
+   3840,
+   3118
+  ],
+  "lines": [
+   {
+    "box": [
+     1742,
+     2825,
+     2128,
+     2889
+    ],
+    "text": "て の 一 凸 3"
+   }
+  ]
+ },
+ "haer_73.jpg": {
+  "size": [
+   3840,
+   3134
+  ],
+  "lines": []
+ },
+ "haer_74.jpg": {
+  "size": [
+   3840,
+   3064
+  ],
+  "lines": [
+   {
+    "box": [
+     2346,
+     415,
+     3257,
+     886
+    ],
+    "text": "00 ("
+   },
+   {
+    "box": [
+     2039,
+     1388,
+     2183,
+     1401
+    ],
+    "text": "・ 0 ・ 物 ・ 0 を 感 ” ・"
+   },
+   {
+    "box": [
+     3350,
+     2659,
+     3398,
+     2783
+    ],
+    "text": "8 尸"
+   }
+  ]
+ },
+ "haer_76.jpg": {
+  "size": [
+   3840,
+   3091
+  ],
+  "lines": []
+ },
+ "haer_78.jpg": {
+  "size": [
+   3840,
+   3091
+  ],
+  "lines": [
+   {
+    "box": [
+     1057,
+     2783,
+     1335,
+     2857
+    ],
+    "text": "〃 4E 尺"
+   },
+   {
+    "box": [
+     1568,
+     1102,
+     1694,
+     1159
+    ],
+    "text": "第 を"
+   },
+   {
+    "box": [
+     1454,
+     2782,
+     1982,
+     2852
+    ],
+    "text": "ク . 工 の 一 3"
+   }
+  ]
+ },
+ "i11_p004_abstract.png": {
+  "size": [
+   1861,
+   2407
+  ],
+  "lines": [
+   {
+    "box": [
+     872,
+     274,
+     1081,
+     299
+    ],
+    "text": "ABSTRACT"
+   },
+   {
+    "box": [
+     223,
+     379,
+     1734,
+     414
+    ],
+    "text": "ln May, 1961 , it was determined no renewed nuclear reaction in the SL-I pressure"
+   },
+   {
+    "box": [
+     223,
+     418,
+     1689,
+     452
+    ],
+    "text": "ves sel was possible as 10 れ g as water was excluded. lt was therefore possible to"
+   },
+   {
+    "box": [
+     223,
+     453,
+     1697,
+     487
+    ],
+    "text": "proceed with the final phase Of the SL-I recovery, known as phase 3. This work"
+   },
+   {
+    "box": [
+     225,
+     490,
+     1703,
+     524
+    ],
+    "text": "consisted Of moving the pressure vessel and core to the H0t Shop at the れ 0 で th end"
+   },
+   {
+    "box": [
+     224,
+     526,
+     1748,
+     560
+    ],
+    "text": "Of the Nationa1 Reactor Testing Station, dis secting and analyzing the reactor and its"
+   },
+   {
+    "box": [
+     225,
+     564,
+     1700,
+     597
+    ],
+    "text": "components, cutting up and burying the reactor building, and decontaminating the"
+   },
+   {
+    "box": [
+     224,
+     599,
+     1680,
+     632
+    ],
+    "text": "rest Of the SL-I area. These things were accomplished by the Genera1 Electric"
+   },
+   {
+    "box": [
+     224,
+     634,
+     993,
+     668
+    ],
+    "text": "Company between May 1961 and Ju1y 1962."
+   },
+   {
+    "box": [
+     222,
+     707,
+     1730,
+     741
+    ],
+    "text": "lt was detertnined that the central co れ t で 01 工 od was bound in its shroud at a position"
+   },
+   {
+    "box": [
+     222,
+     744,
+     1727,
+     777
+    ],
+    "text": "corresponding tO 20 inch withdrawal. Analysis of the pertinent data shows that the"
+   },
+   {
+    "box": [
+     222,
+     780,
+     1747,
+     814
+    ],
+    "text": "amount Of reactivity associated with this て Od position, inserted at a rate compatible"
+   },
+   {
+    "box": [
+     219,
+     816,
+     1688,
+     849
+    ],
+    "text": "with manual withdrawal Of the で od , can explain a11 the significant evidence which"
+   },
+   {
+    "box": [
+     219,
+     851,
+     1679,
+     885
+    ],
+    "text": "has been collected. NO Other means of withdrawing the で od has been found to be"
+   },
+   {
+    "box": [
+     218,
+     889,
+     1681,
+     922
+    ],
+    "text": "ln accordance with the evidence. The most striking and unexpected phenomenon"
+   },
+   {
+    "box": [
+     220,
+     925,
+     1698,
+     958
+    ],
+    "text": "discovered was that the relatively 10W yield ( 130 Mw-sec) nuclear excursion p で 0-"
+   },
+   {
+    "box": [
+     220,
+     960,
+     1666,
+     994
+    ],
+    "text": "duced a water hammer with pressures up to 10 , 000 psi, which, in turn, caused"
+   },
+   {
+    "box": [
+     220,
+     998,
+     1133,
+     1026
+    ],
+    "text": "the pressure vessel tO rise some 9 feet ."
+   }
+  ]
+ },
+ "i11_p019_sec41.png": {
+  "size": [
+   1846,
+   2392
+  ],
+  "lines": [
+   {
+    "box": [
+     125,
+     485,
+     179,
+     510
+    ],
+    "text": "3. 3"
+   },
+   {
+    "box": [
+     123,
+     730,
+     181,
+     755
+    ],
+    "text": "3. 4"
+   },
+   {
+    "box": [
+     120,
+     1045,
+     150,
+     1071
+    ],
+    "text": "4."
+   },
+   {
+    "box": [
+     116,
+     1952,
+     172,
+     1978
+    ],
+    "text": "4. 2"
+   },
+   {
+    "box": [
+     255,
+     274,
+     1554,
+     307
+    ],
+    "text": "lnspection Of the core revealed that melting 0 で vaporization Of the central"
+   },
+   {
+    "box": [
+     254,
+     310,
+     1487,
+     335
+    ],
+    "text": "fuel elernents had occurred. in a 0f severe"
+   },
+   {
+    "box": [
+     255,
+     346,
+     1568,
+     378
+    ],
+    "text": "dis ruption with many Of the core components badly distorted and displaced"
+   },
+   {
+    "box": [
+     255,
+     380,
+     1607,
+     412
+    ],
+    "text": "both laterally and vertically. The entire core was measured to be displaced"
+   },
+   {
+    "box": [
+     254,
+     415,
+     763,
+     446
+    ],
+    "text": "upward by al れ ユ ost half a f00t."
+   },
+   {
+    "box": [
+     254,
+     485,
+     448,
+     509
+    ],
+    "text": "F1ux Wires"
+   },
+   {
+    "box": [
+     256,
+     554,
+     1533,
+     587
+    ],
+    "text": "Fortunately, new f 五 wires had been placed in the reactor core prior to"
+   },
+   {
+    "box": [
+     253,
+     590,
+     1501,
+     622
+    ],
+    "text": "the accident. Most Of these flux wires were recovered and analysis of"
+   },
+   {
+    "box": [
+     252,
+     625,
+     1533,
+     658
+    ],
+    "text": "them provided a direct measurement of the f11. and energy densities fo で"
+   },
+   {
+    "box": [
+     253,
+     660,
+     467,
+     685
+    ],
+    "text": "the incident."
+   },
+   {
+    "box": [
+     254,
+     731,
+     611,
+     763
+    ],
+    "text": "Laboratory Ana1ysis"
+   },
+   {
+    "box": [
+     253,
+     801,
+     1612,
+     834
+    ],
+    "text": "ChemicaI analysis was performed in the laboratories on many samples taken"
+   },
+   {
+    "box": [
+     252,
+     836,
+     1635,
+     869
+    ],
+    "text": "during the recovery operations and on the debris recovel ・ ed f で 0 れ 1 the pressure"
+   },
+   {
+    "box": [
+     251,
+     872,
+     1605,
+     904
+    ],
+    "text": "vessel. Meta11urgica1 analysis was also performed on many sarnples 0 王 王 el"
+   },
+   {
+    "box": [
+     252,
+     906,
+     1554,
+     939
+    ],
+    "text": "elements and other reactor C01 po e れ ts. These analyses were especially"
+   },
+   {
+    "box": [
+     251,
+     942,
+     1552,
+     974
+    ],
+    "text": "valuable in establishing the range of temperatures and pressures reached"
+   },
+   {
+    "box": [
+     251,
+     977,
+     591,
+     1007
+    ],
+    "text": "during the incident."
+   },
+   {
+    "box": [
+     184,
+     1046,
+     629,
+     1077
+    ],
+    "text": "Ana1ys is and Conc1usions"
+   },
+   {
+    "box": [
+     251,
+     1117,
+     711,
+     1142
+    ],
+    "text": "lnitiation 0f the Excursion"
+   },
+   {
+    "box": [
+     251,
+     1187,
+     1584,
+     1218
+    ],
+    "text": "The recovery of the central co r01 で od , locked ⅲ its shroud at the 20-inch"
+   },
+   {
+    "box": [
+     250,
+     1222,
+     1403,
+     1253
+    ],
+    "text": "withdrawn POSition With Of れ 0 s"
+   },
+   {
+    "box": [
+     250,
+     1256,
+     1542,
+     1290
+    ],
+    "text": "definitely established the condition which made the reactor supercritical."
+   },
+   {
+    "box": [
+     251,
+     1292,
+     1524,
+     1325
+    ],
+    "text": "The reactor was れ ot no て mally operated with only the central co れ t で 01 で od"
+   },
+   {
+    "box": [
+     249,
+     1327,
+     1561,
+     1360
+    ],
+    "text": "withdrawn, but f で 0n1 the limited critical expe riment data available fo て this"
+   },
+   {
+    "box": [
+     251,
+     1362,
+     1570,
+     1394
+    ],
+    "text": "て Od configu で ation, it is estimated that the reactor 0 ld have been critical"
+   },
+   {
+    "box": [
+     249,
+     1397,
+     1574,
+     1431
+    ],
+    "text": "with the central て od withdrawn to 16. 7 inches. At the 20-inch position, the"
+   },
+   {
+    "box": [
+     251,
+     1428,
+     1054,
+     1465
+    ],
+    "text": "reactivity would have been ( 2.4 士 0.3 ) % △ k/k."
+   },
+   {
+    "box": [
+     249,
+     1502,
+     1501,
+     1531
+    ],
+    "text": "Tests 0 れ a mockup of the rate at which the central cont て 01 工 od could be"
+   },
+   {
+    "box": [
+     248,
+     1534,
+     1569,
+     1568
+    ],
+    "text": "withdrawn have shown that manual withdrawal to the 20-inch position could"
+   },
+   {
+    "box": [
+     249,
+     1570,
+     1494,
+     1597
+    ],
+    "text": "occur in t ー 1 ユ e tO excursion."
+   },
+   {
+    "box": [
+     248,
+     1604,
+     1595,
+     1638
+    ],
+    "text": "Other explanations fo で the 20 -inch rod withdrawal have been sought, without"
+   },
+   {
+    "box": [
+     249,
+     1641,
+     1559,
+     1673
+    ],
+    "text": "success. testS Of components"
+   },
+   {
+    "box": [
+     246,
+     1675,
+     1529,
+     1708
+    ],
+    "text": "have ruled out the possibility that a chemical explosive lifted the central"
+   },
+   {
+    "box": [
+     248,
+     1710,
+     1527,
+     1742
+    ],
+    "text": "cont で 01 て Od. Likewise, an. explogion of hydrogen, accumulated from the"
+   },
+   {
+    "box": [
+     247,
+     1745,
+     1569,
+     1775
+    ],
+    "text": "decomposition Of water in a radiation field cannot account 王 0 で the initiation"
+   },
+   {
+    "box": [
+     248,
+     1779,
+     1572,
+     1812
+    ],
+    "text": "of the incident. Though positive p で 00f is lacking, a11 information indicates"
+   },
+   {
+    "box": [
+     246,
+     1814,
+     1470,
+     1846
+    ],
+    "text": "that the excursion was caused by the 1a れ 矼 withdrawl, with 1e33 a"
+   },
+   {
+    "box": [
+     246,
+     1848,
+     1579,
+     1882
+    ],
+    "text": "maximum effort, Of the central CO t で 01 で od during the assembly of the で od -"
+   },
+   {
+    "box": [
+     247,
+     1884,
+     384,
+     1907
+    ],
+    "text": "drive m."
+   },
+   {
+    "box": [
+     247,
+     1954,
+     627,
+     1979
+    ],
+    "text": "The Power ExcurSion"
+   },
+   {
+    "box": [
+     245,
+     2022,
+     1631,
+     2058
+    ],
+    "text": "F01 lowing the i れ se で tio れ of approximately 2.4 % of exce 3 日 reactivity, the power"
+   },
+   {
+    "box": [
+     247,
+     2060,
+     1562,
+     2093
+    ],
+    "text": "rose on approximately a four millis e cond pe riod until sufficient steam was"
+   },
+   {
+    "box": [
+     244,
+     2087,
+     1563,
+     2127
+    ],
+    "text": "formed to end the power increase at ( 1.9 士 0.4 ) x 1010 watts. At 新 iB time,"
+   }
+  ]
+ },
+ "ido_p004_night.png": {
+  "size": [
+   1838,
+   2386
+  ],
+  "lines": [
+   {
+    "box": [
+     233,
+     193,
+     1362,
+     224
+    ],
+    "text": "lrmediately p て i0 て to reactor shutdown on Decembe て 23 , 1960 , the"
+   },
+   {
+    "box": [
+     229,
+     231,
+     1361,
+     260
+    ],
+    "text": "reactor was operated fO て core burn?up and fO て testing and final"
+   },
+   {
+    "box": [
+     230,
+     265,
+     1325,
+     296
+    ],
+    "text": "check?out 0f a Portab1e LOW (PL) Power React0 て Loop condenser"
+   },
+   {
+    "box": [
+     237,
+     302,
+     1282,
+     334
+    ],
+    "text": "(a 100P f0 て testing components 0f the PL type て eac 亡 0 て ) . 皿"
+   },
+   {
+    "box": [
+     229,
+     339,
+     1379,
+     370
+    ],
+    "text": "reactor was then shut-down and secured on December 23 , 1960 , fo て"
+   },
+   {
+    "box": [
+     232,
+     377,
+     602,
+     407
+    ],
+    "text": "the Christmas pe て 10d."
+   },
+   {
+    "box": [
+     231,
+     448,
+     1411,
+     479
+    ],
+    "text": "Du て ing the period 0f Decembe て 27 t0 30 , 1960 , て outine maintenance,"
+   },
+   {
+    "box": [
+     233,
+     484,
+     1378,
+     515
+    ],
+    "text": "instrumentation calibration, modification Of the condensate pump"
+   },
+   {
+    "box": [
+     228,
+     521,
+     1416,
+     551
+    ],
+    "text": "with accompanying valving, piping, and controls , addition 0f a new"
+   },
+   {
+    "box": [
+     233,
+     556,
+     1344,
+     587
+    ],
+    "text": "type 0f valve t0 the auxiliary steam system, and minor modifi?"
+   },
+   {
+    "box": [
+     224,
+     593,
+     1321,
+     623
+    ],
+    "text": "c ations t0 the plant load condenser system were accomplished."
+   },
+   {
+    "box": [
+     255,
+     665,
+     1451,
+     697
+    ],
+    "text": "1 ope て ating crew 0f four opened the SL-I buildings 0 the midnight-"
+   },
+   {
+    "box": [
+     232,
+     701,
+     1415,
+     732
+    ],
+    "text": "to?eight shift Of Janua て y 3 , 1961 , and, under written inst て uctions"
+   },
+   {
+    "box": [
+     231,
+     737,
+     1450,
+     768
+    ],
+    "text": "f て om the P1ant Superintendent, proceeded to remove the shield blocks"
+   },
+   {
+    "box": [
+     232,
+     774,
+     1450,
+     804
+    ],
+    "text": "from around the reactor head. Next, the reactor pressure vessel was"
+   },
+   {
+    "box": [
+     232,
+     811,
+     1398,
+     840
+    ],
+    "text": "fi11ed with water tO within one fOOt Of the top p て 10 て tO removing"
+   },
+   {
+    "box": [
+     233,
+     847,
+     1361,
+     874
+    ],
+    "text": "the con た て 01 rod drive assemblies and shield plugs. reactor"
+   },
+   {
+    "box": [
+     229,
+     880,
+     1416,
+     911
+    ],
+    "text": "pressure vessel was then filled with wate て 亡 0 within six inches Of"
+   },
+   {
+    "box": [
+     232,
+     916,
+     1395,
+     946
+    ],
+    "text": "the bottom of the head in preparation fO て insertion Of flux て Ods."
+   },
+   {
+    "box": [
+     230,
+     989,
+     1418,
+     1019
+    ],
+    "text": "During the day 0f January 3 , routine maintenance was performed and"
+   },
+   {
+    "box": [
+     229,
+     1025,
+     1417,
+     1050
+    ],
+    "text": "a 亡 0 亡 al Of 44 flux rods was inserted intO the reactor between fuel"
+   },
+   {
+    "box": [
+     228,
+     1062,
+     1362,
+     1091
+    ],
+    "text": "plates lnside 0f the fuel assemblies. Locations were chosen tO"
+   },
+   {
+    "box": [
+     229,
+     1097,
+     1395,
+     1123
+    ],
+    "text": "obtain maxumum information about flux conditions within the CO て e."
+   },
+   {
+    "box": [
+     231,
+     1134,
+     1382,
+     1159
+    ],
+    "text": "These flux rods were Of tubular aluminum const て uction with short"
+   },
+   {
+    "box": [
+     232,
+     1166,
+     1363,
+     1202
+    ],
+    "text": "lengths 0f 0.5 per cent cobalt-aluminum a110Y wire, 3 / 32 inches"
+   },
+   {
+    "box": [
+     231,
+     1206,
+     1381,
+     1237
+    ],
+    "text": "long by approximately 20 mils in diameter' placed inside. lhe-se"
+   },
+   {
+    "box": [
+     232,
+     1243,
+     1287,
+     1273
+    ],
+    "text": "segments were spaced within the て Ods with aluminum spacers."
+   },
+   {
+    "box": [
+     229,
+     1279,
+     1399,
+     1310
+    ],
+    "text": "purpose Of these flux rods was tO determine the neut て on f1ux dis?"
+   },
+   {
+    "box": [
+     232,
+     1315,
+     1364,
+     1345
+    ],
+    "text": "tribution Of the reactor core, and the flux rods were Of a type"
+   },
+   {
+    "box": [
+     229,
+     1352,
+     981,
+     1382
+    ],
+    "text": "used in previous flux mapping experimentso"
+   },
+   {
+    "box": [
+     230,
+     1423,
+     1382,
+     1454
+    ],
+    "text": "At 4 : 00 p. m. , January 3 , a three?man crew relieved the day?shift"
+   },
+   {
+    "box": [
+     232,
+     1459,
+     1382,
+     1489
+    ],
+    "text": "operating crew. lnstructions fO て the nlght Of January 3 , issued"
+   },
+   {
+    "box": [
+     228,
+     1495,
+     1452,
+     1526
+    ],
+    "text": "by the P1ant Superintendent in the night order b00k were as f0110 s :"
+   },
+   {
+    "box": [
+     231,
+     1642,
+     260,
+     1668
+    ],
+    "text": "2 ."
+   },
+   {
+    "box": [
+     232,
+     1896,
+     262,
+     1920
+    ],
+    "text": "5 ."
+   },
+   {
+    "box": [
+     233,
+     1968,
+     263,
+     1995
+    ],
+    "text": "6."
+   },
+   {
+    "box": [
+     303,
+     1567,
+     1252,
+     1598
+    ],
+    "text": "Pe て form a reactor water pump?down - Procedure NO. 54."
+   },
+   {
+    "box": [
+     302,
+     1640,
+     1362,
+     1671
+    ],
+    "text": "Reassemb1e cont て 01 rods, install plugs, place shield blocks"
+   },
+   {
+    "box": [
+     304,
+     1677,
+     855,
+     1708
+    ],
+    "text": "in place, leave top shield off."
+   },
+   {
+    "box": [
+     304,
+     1751,
+     748,
+     1776
+    ],
+    "text": "Connect て Od drive motors."
+   },
+   {
+    "box": [
+     304,
+     1822,
+     1161,
+     1853
+    ],
+    "text": "E1ect て ically and mechanically zero control て 0ds."
+   },
+   {
+    "box": [
+     303,
+     1894,
+     1269,
+     1925
+    ],
+    "text": "Accomplish cont て 01 て 00m and plant startup check lists."
+   },
+   {
+    "box": [
+     304,
+     1968,
+     712,
+     1997
+    ],
+    "text": "Perform cold て od drops."
+   },
+   {
+    "box": [
+     829,
+     2117,
+     845,
+     2141
+    ],
+    "text": "4"
+   }
+  ]
+ },
+ "ido_p013_fig11.png": {
+  "size": [
+   2376,
+   1821
+  ],
+  "lines": [
+   {
+    "box": [
+     1325,
+     291,
+     1504,
+     328
+    ],
+    "text": "STATION"
+   },
+   {
+    "box": [
+     543,
+     294,
+     740,
+     329
+    ],
+    "text": "NATIONAL"
+   },
+   {
+    "box": [
+     801,
+     294,
+     1004,
+     329
+    ],
+    "text": "PEACTOQ"
+   },
+   {
+    "box": [
+     1065,
+     294,
+     1248,
+     328
+    ],
+    "text": "TESTING"
+   },
+   {
+    "box": [
+     833,
+     400,
+     892,
+     411
+    ],
+    "text": "し E G E N 0"
+   },
+   {
+    "box": [
+     820,
+     420,
+     851,
+     429
+    ],
+    "text": "、 RT 5"
+   },
+   {
+    "box": [
+     873,
+     420,
+     941,
+     429
+    ],
+    "text": "日 0 し N 0 R Y"
+   },
+   {
+    "box": [
+     820,
+     442,
+     933,
+     451
+    ],
+    "text": "PAVE 0 H ー 6 日 WAY"
+   },
+   {
+    "box": [
+     820,
+     464,
+     919,
+     473
+    ],
+    "text": "G R AV F L R 0 A 0"
+   },
+   {
+    "box": [
+     547,
+     484,
+     724,
+     492
+    ],
+    "text": "APPROXI\"ATE 50A し ミ 内 し を 5"
+   },
+   {
+    "box": [
+     844,
+     534,
+     880,
+     656
+    ],
+    "text": "一 こ 4 一 矍"
+   },
+   {
+    "box": [
+     604,
+     634,
+     637,
+     680
+    ],
+    "text": "z 一"
+   },
+   {
+    "box": [
+     1225,
+     684,
+     1252,
+     695
+    ],
+    "text": "ANP"
+   },
+   {
+    "box": [
+     1176,
+     699,
+     1200,
+     708
+    ],
+    "text": "AMA"
+   },
+   {
+    "box": [
+     1451,
+     688,
+     1519,
+     698
+    ],
+    "text": "TERRETON"
+   },
+   {
+    "box": [
+     1210,
+     736,
+     1239,
+     745
+    ],
+    "text": "し PT ド"
+   },
+   {
+    "box": [
+     1790,
+     759,
+     1827,
+     770
+    ],
+    "text": "G CRE"
+   },
+   {
+    "box": [
+     1027,
+     795,
+     1102,
+     803
+    ],
+    "text": "ド NK い 、 月 し VO"
+   },
+   {
+    "box": [
+     918,
+     1029,
+     945,
+     1040
+    ],
+    "text": "NRF"
+   },
+   {
+    "box": [
+     906,
+     1055,
+     927,
+     1064
+    ],
+    "text": "引 W"
+   },
+   {
+    "box": [
+     1026,
+     1041,
+     1160,
+     1053
+    ],
+    "text": "F 旧 E STATION 20. 2"
+   },
+   {
+    "box": [
+     1904,
+     1064,
+     1962,
+     1075
+    ],
+    "text": "SUPPORT"
+   },
+   {
+    "box": [
+     1904,
+     1076,
+     1970,
+     1087
+    ],
+    "text": "E に 灯 旧 S"
+   },
+   {
+    "box": [
+     723,
+     1089,
+     856,
+     1100
+    ],
+    "text": "FIRE STATION NO コ"
+   },
+   {
+    "box": [
+     723,
+     1105,
+     833,
+     1117
+    ],
+    "text": "CF DISPENSARY"
+   },
+   {
+    "box": [
+     1199,
+     1113,
+     1232,
+     1122
+    ],
+    "text": "TREAT"
+   },
+   {
+    "box": [
+     1252,
+     1114,
+     1289,
+     1125
+    ],
+    "text": "EBR Ⅱ"
+   },
+   {
+    "box": [
+     1337,
+     1118,
+     1473,
+     1130
+    ],
+    "text": "FIRE STATION NO. 3"
+   },
+   {
+    "box": [
+     858,
+     1145,
+     884,
+     1156
+    ],
+    "text": "ETR"
+   },
+   {
+    "box": [
+     995,
+     1177,
+     1038,
+     1188
+    ],
+    "text": "SPE RT"
+   },
+   {
+    "box": [
+     967,
+     1234,
+     1039,
+     1258
+    ],
+    "text": "R7 / GCRE"
+   },
+   {
+    "box": [
+     1055,
+     1249,
+     1091,
+     1260
+    ],
+    "text": "AREA"
+   },
+   {
+    "box": [
+     1329,
+     1207,
+     1475,
+     1218
+    ],
+    "text": "us. に 03 TO ー 04H0 FALLS"
+   },
+   {
+    "box": [
+     822,
+     1237,
+     858,
+     1246
+    ],
+    "text": "BNAX"
+   },
+   {
+    "box": [
+     792,
+     1270,
+     818,
+     1278
+    ],
+    "text": "R ー A L"
+   },
+   {
+    "box": [
+     1735,
+     1414,
+     1989,
+     1426
+    ],
+    "text": "ENLARGED DETAIL SL-I VICINITY"
+   },
+   {
+    "box": [
+     777,
+     1490,
+     885,
+     1502
+    ],
+    "text": "0 50 し 1 材 に AN 日 リ T ー こ"
+   },
+   {
+    "box": [
+     1911,
+     1610,
+     2059,
+     1634
+    ],
+    "text": "FIGURE 凵"
+   }
+  ]
+ },
+ "ido_p014_fig12.png": {
+  "size": [
+   1821,
+   2376
+  ],
+  "lines": [
+   {
+    "box": [
+     665,
+     422,
+     726,
+     432
+    ],
+    "text": "000 eAL"
+   },
+   {
+    "box": [
+     819,
+     474,
+     919,
+     487
+    ],
+    "text": "! 砂 STA 第 ON"
+   },
+   {
+    "box": [
+     706,
+     588,
+     753,
+     602
+    ],
+    "text": "ラ 物"
+   },
+   {
+    "box": [
+     843,
+     683,
+     966,
+     694
+    ],
+    "text": "HEAT EXCHANGER"
+   },
+   {
+    "box": [
+     506,
+     794,
+     516,
+     848
+    ],
+    "text": "・ 09 ー - コ"
+   },
+   {
+    "box": [
+     489,
+     734,
+     500,
+     928
+    ],
+    "text": "き ・ つ の ト 0 っ 5 コ 、 0 工 0 編 」"
+   },
+   {
+    "box": [
+     462,
+     775,
+     472,
+     881
+    ],
+    "text": "第 0- ト 、 誕 ト ! ~ 一 第 0 、"
+   },
+   {
+    "box": [
+     912,
+     726,
+     985,
+     736
+    ],
+    "text": "DETENTIOX"
+   },
+   {
+    "box": [
+     925,
+     738,
+     958,
+     748
+    ],
+    "text": "TANK"
+   },
+   {
+    "box": [
+     763,
+     810,
+     773,
+     862
+    ],
+    "text": "、 0 ・ よ 1 ・"
+   },
+   {
+    "box": [
+     750,
+     752,
+     761,
+     918
+    ],
+    "text": "コ 2 53 一 と も 《 」 を 00 つ の"
+   },
+   {
+    "box": [
+     1004,
+     746,
+     1083,
+     756
+    ],
+    "text": "SEP 引 0 T 画 物"
+   },
+   {
+    "box": [
+     994,
+     763,
+     1133,
+     779
+    ],
+    "text": "( 、 て 創 NE TREAT."
+   },
+   {
+    "box": [
+     1050,
+     782,
+     1081,
+     791
+    ],
+    "text": "TANK"
+   },
+   {
+    "box": [
+     1017,
+     797,
+     1112,
+     808
+    ],
+    "text": "CH し OR ー 物 画 れ 0 物"
+   },
+   {
+    "box": [
+     1038,
+     812,
+     1072,
+     822
+    ],
+    "text": "物 L00"
+   },
+   {
+    "box": [
+     1318,
+     824,
+     1407,
+     835
+    ],
+    "text": "SE [ 0 を PIT"
+   },
+   {
+    "box": [
+     839,
+     835,
+     903,
+     845
+    ],
+    "text": "RES' STOR"
+   },
+   {
+    "box": [
+     843,
+     848,
+     893,
+     856
+    ],
+    "text": "を L ー ・ 10 、"
+   },
+   {
+    "box": [
+     917,
+     854,
+     982,
+     863
+    ],
+    "text": "を し EL 0 ー L"
+   },
+   {
+    "box": [
+     929,
+     866,
+     963,
+     874
+    ],
+    "text": "TA K"
+   },
+   {
+    "box": [
+     625,
+     1062,
+     635,
+     1195
+    ],
+    "text": "040 を 3 い 、 エ ト ~ 3"
+   },
+   {
+    "box": [
+     726,
+     1114,
+     829,
+     1125
+    ],
+    "text": "・ 物 0 HOUSE"
+   },
+   {
+    "box": [
+     626,
+     1222,
+     636,
+     1265
+    ],
+    "text": "ト ′ 41d"
+   },
+   {
+    "box": [
+     765,
+     1286,
+     822,
+     1296
+    ],
+    "text": "PARKING"
+   },
+   {
+    "box": [
+     849,
+     1286,
+     884,
+     1295
+    ],
+    "text": "A R E A"
+   },
+   {
+    "box": [
+     1113,
+     1335,
+     1149,
+     1345
+    ],
+    "text": "引 . 0."
+   },
+   {
+    "box": [
+     1015,
+     1335,
+     1085,
+     1345
+    ],
+    "text": "ド ー し L 0 R E"
+   },
+   {
+    "box": [
+     788,
+     1535,
+     958,
+     1560
+    ],
+    "text": "FIGURE 1.2"
+   },
+   {
+    "box": [
+     793,
+     1571,
+     957,
+     1595
+    ],
+    "text": "PLOT PLAN"
+   },
+   {
+    "box": [
+     859,
+     1605,
+     890,
+     1623
+    ],
+    "text": "OF"
+   },
+   {
+    "box": [
+     764,
+     1635,
+     986,
+     1668
+    ],
+    "text": "SL-I AREA"
+   },
+   {
+    "box": [
+     648,
+     1677,
+     1102,
+     1702
+    ],
+    "text": "NATIONAL REACTOR TESTING STATION"
+   }
+  ]
+ },
+ "ido_p015_fig13.png": {
+  "size": [
+   2376,
+   1821
+  ],
+  "lines": [
+   {
+    "box": [
+     1401,
+     1511,
+     1581,
+     1554
+    ],
+    "text": "FiGURE 1?3"
+   },
+   {
+    "box": [
+     1327,
+     1573,
+     1486,
+     1616
+    ],
+    "text": "REACTOR"
+   },
+   {
+    "box": [
+     1812,
+     1216,
+     1859,
+     1228
+    ],
+    "text": "ⅵ 0 0"
+   }
+  ]
+ },
+ "ido_p016_fig14.png": {
+  "size": [
+   2378,
+   1823
+  ],
+  "lines": [
+   {
+    "box": [
+     1069,
+     340,
+     1084,
+     351
+    ],
+    "text": "22"
+   },
+   {
+    "box": [
+     1666,
+     370,
+     1674,
+     381
+    ],
+    "text": "2"
+   },
+   {
+    "box": [
+     1061,
+     404,
+     1074,
+     415
+    ],
+    "text": "2 ー"
+   },
+   {
+    "box": [
+     1666,
+     410,
+     1674,
+     421
+    ],
+    "text": "3"
+   },
+   {
+    "box": [
+     1667,
+     452,
+     1674,
+     462
+    ],
+    "text": "4"
+   },
+   {
+    "box": [
+     1727,
+     480,
+     1806,
+     491
+    ],
+    "text": "ド [ ( OR LEVEL"
+   },
+   {
+    "box": [
+     1025,
+     671,
+     1039,
+     905
+    ],
+    "text": "2 田 け 巧 4 口 に"
+   },
+   {
+    "box": [
+     783,
+     707,
+     826,
+     719
+    ],
+    "text": "LEGENO"
+   },
+   {
+    "box": [
+     724,
+     737,
+     869,
+     748
+    ],
+    "text": "ー A 副 、 A 0 ー SHIELD"
+   },
+   {
+    "box": [
+     695,
+     753,
+     707,
+     763
+    ],
+    "text": "2."
+   },
+   {
+    "box": [
+     724,
+     753,
+     833,
+     763
+    ],
+    "text": "CONCRETE SHIELO"
+   },
+   {
+    "box": [
+     695,
+     769,
+     707,
+     779
+    ],
+    "text": "3 ・"
+   },
+   {
+    "box": [
+     724,
+     769,
+     854,
+     780
+    ],
+    "text": "DRY 5 E し 0 \" は E"
+   },
+   {
+    "box": [
+     695,
+     785,
+     707,
+     795
+    ],
+    "text": "4."
+   },
+   {
+    "box": [
+     726,
+     785,
+     831,
+     796
+    ],
+    "text": "ー お TR し N ー 氈 は"
+   },
+   {
+    "box": [
+     695,
+     802,
+     707,
+     812
+    ],
+    "text": "5."
+   },
+   {
+    "box": [
+     724,
+     801,
+     803,
+     812
+    ],
+    "text": "CO 、 一 [ RO"
+   },
+   {
+    "box": [
+     695,
+     818,
+     707,
+     829
+    ],
+    "text": "6."
+   },
+   {
+    "box": [
+     724,
+     818,
+     824,
+     829
+    ],
+    "text": "CORE STRtETURE"
+   },
+   {
+    "box": [
+     695,
+     834,
+     707,
+     845
+    ],
+    "text": "7."
+   },
+   {
+    "box": [
+     724,
+     834,
+     766,
+     845
+    ],
+    "text": "GRAVEL"
+   },
+   {
+    "box": [
+     695,
+     851,
+     707,
+     861
+    ],
+    "text": "8."
+   },
+   {
+    "box": [
+     724,
+     851,
+     853,
+     861
+    ],
+    "text": "DRY 炬 し O UIXTURE"
+   },
+   {
+    "box": [
+     694,
+     867,
+     707,
+     878
+    ],
+    "text": "9."
+   },
+   {
+    "box": [
+     724,
+     867,
+     825,
+     878
+    ],
+    "text": "T 離 R し SYIELD"
+   },
+   {
+    "box": [
+     690,
+     882,
+     707,
+     894
+    ],
+    "text": "9."
+   },
+   {
+    "box": [
+     724,
+     883,
+     917,
+     894
+    ],
+    "text": "PRESSURE VESSEL - ぐ -6 0.0."
+   },
+   {
+    "box": [
+     724,
+     916,
+     788,
+     927
+    ],
+    "text": "AIR SPACE"
+   },
+   {
+    "box": [
+     689,
+     932,
+     706,
+     943
+    ],
+    "text": "ー 3."
+   },
+   {
+    "box": [
+     724,
+     932,
+     839,
+     944
+    ],
+    "text": "SuPPCm こ れ 一 を R"
+   },
+   {
+    "box": [
+     724,
+     949,
+     875,
+     960
+    ],
+    "text": "LEAD ー 液 R [ 一 阯 0 ー"
+   },
+   {
+    "box": [
+     723,
+     965,
+     817,
+     976
+    ],
+    "text": "COO い CO 5"
+   },
+   {
+    "box": [
+     724,
+     981,
+     875,
+     992
+    ],
+    "text": "FEEO R Y RING"
+   },
+   {
+    "box": [
+     723,
+     997,
+     839,
+     1008
+    ],
+    "text": "SEPARATOR RETURN"
+   },
+   {
+    "box": [
+     723,
+     1013,
+     888,
+     1025
+    ],
+    "text": "P 圏 洋 一 CA 日 円 爪 い 、 E"
+   },
+   {
+    "box": [
+     724,
+     1029,
+     838,
+     1041
+    ],
+    "text": "「 E を 0 IATER INLET"
+   },
+   {
+    "box": [
+     744,
+     1046,
+     802,
+     1057
+    ],
+    "text": "0 、 SPRAY"
+   },
+   {
+    "box": [
+     722,
+     1062,
+     777,
+     1073
+    ],
+    "text": "STEA\" い"
+   },
+   {
+    "box": [
+     686,
+     1078,
+     705,
+     1089
+    ],
+    "text": "2 に"
+   },
+   {
+    "box": [
+     721,
+     1078,
+     873,
+     1090
+    ],
+    "text": "CONTROL RO DRIVE 劇 T"
+   },
+   {
+    "box": [
+     721,
+     1094,
+     844,
+     1106
+    ],
+    "text": "( 0 ル R(I) DR IVE"
+   },
+   {
+    "box": [
+     743,
+     1114,
+     809,
+     1126
+    ],
+    "text": "A 【 SHtELD"
+   },
+   {
+    "box": [
+     1550,
+     759,
+     1681,
+     770
+    ],
+    "text": "極 ) R\" し *ATER LEVEL"
+   },
+   {
+    "box": [
+     1594,
+     803,
+     1601,
+     814
+    ],
+    "text": "5"
+   },
+   {
+    "box": [
+     1594,
+     834,
+     1602,
+     845
+    ],
+    "text": "6"
+   },
+   {
+    "box": [
+     1674,
+     981,
+     1754,
+     993
+    ],
+    "text": "ACTIVE C を"
+   },
+   {
+    "box": [
+     1832,
+     1262,
+     1898,
+     1273
+    ],
+    "text": "A/R SPEE"
+   },
+   {
+    "box": [
+     724,
+     1364,
+     788,
+     1379
+    ],
+    "text": "SCALE"
+   },
+   {
+    "box": [
+     806,
+     1366,
+     827,
+     1379
+    ],
+    "text": "OF"
+   },
+   {
+    "box": [
+     844,
+     1366,
+     889,
+     1379
+    ],
+    "text": "FEET"
+   },
+   {
+    "box": [
+     1200,
+     1414,
+     1408,
+     1440
+    ],
+    "text": "日 G U RE l. 4"
+   },
+   {
+    "box": [
+     1059,
+     1469,
+     1539,
+     1500
+    ],
+    "text": "REACTOR INSTALLATION"
+   },
+   {
+    "box": [
+     1105,
+     1511,
+     1497,
+     1541
+    ],
+    "text": "VERTICAL SECTION"
+   }
+  ]
+ },
+ "ido_p017_fig15.png": {
+  "size": [
+   1825,
+   2380
+  ],
+  "lines": [
+   {
+    "box": [
+     1293,
+     344,
+     1441,
+     367
+    ],
+    "text": "PRESSURE"
+   },
+   {
+    "box": [
+     1311,
+     373,
+     1422,
+     396
+    ],
+    "text": "VE S S E L"
+   },
+   {
+    "box": [
+     363,
+     436,
+     713,
+     459
+    ],
+    "text": "A D T N A L C 0 N T R OL"
+   },
+   {
+    "box": [
+     445,
+     470,
+     618,
+     491
+    ],
+    "text": "ROD SPACE"
+   },
+   {
+    "box": [
+     343,
+     545,
+     557,
+     567
+    ],
+    "text": "PO -Be SOURCE"
+   },
+   {
+    "box": [
+     1309,
+     1442,
+     1614,
+     1466
+    ],
+    "text": "R E F E R E N C E D E S ℃ N"
+   },
+   {
+    "box": [
+     1354,
+     1476,
+     1574,
+     1499
+    ],
+    "text": "FUEL LOADING"
+   },
+   {
+    "box": [
+     304,
+     1459,
+     580,
+     1484
+    ],
+    "text": "ADDITIONAL FUEL"
+   },
+   {
+    "box": [
+     316,
+     1493,
+     570,
+     1518
+    ],
+    "text": "ELEMENT SPACE"
+   },
+   {
+    "box": [
+     853,
+     1716,
+     1068,
+     1743
+    ],
+    "text": "日 G IJ RE に 5"
+   },
+   {
+    "box": [
+     708,
+     1768,
+     1205,
+     1798
+    ],
+    "text": "LOCATION OF PO 刊 ONS"
+   },
+   {
+    "box": [
+     925,
+     1810,
+     1002,
+     1838
+    ],
+    "text": "AND"
+   },
+   {
+    "box": [
+     693,
+     1846,
+     1220,
+     1878
+    ],
+    "text": "CORE LOADING PATTERN"
+   },
+   {
+    "box": [
+     950,
+     2092,
+     979,
+     2113
+    ],
+    "text": "17"
+   }
+  ]
+ },
+ "ido_p018_fig16.png": {
+  "size": [
+   1823,
+   2378
+  ],
+  "lines": [
+   {
+    "box": [
+     514,
+     143,
+     719,
+     170
+    ],
+    "text": "060 \" CADMIUM"
+   },
+   {
+    "box": [
+     521,
+     258,
+     882,
+     286
+    ],
+    "text": ".080 “ ALUMINUM - N ℃ KEL"
+   },
+   {
+    "box": [
+     501,
+     364,
+     653,
+     388
+    ],
+    "text": "SPOTWELD"
+   },
+   {
+    "box": [
+     454,
+     564,
+     533,
+     592
+    ],
+    "text": ".220 “"
+   },
+   {
+    "box": [
+     1166,
+     750,
+     1178,
+     763
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     1051,
+     750,
+     1063,
+     763
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     503,
+     732,
+     579,
+     754
+    ],
+    "text": "WELD"
+   },
+   {
+    "box": [
+     1245,
+     751,
+     1257,
+     763
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     973,
+     750,
+     985,
+     763
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     522,
+     823,
+     805,
+     847
+    ],
+    "text": "ALUMINUM - NICKEL"
+   },
+   {
+    "box": [
+     1203,
+     864,
+     1215,
+     875
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     1011,
+     865,
+     1024,
+     876
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     1245,
+     979,
+     1257,
+     991
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     363,
+     981,
+     562,
+     1004
+    ],
+    "text": "SECTION A-A"
+   },
+   {
+    "box": [
+     1010,
+     1040,
+     1024,
+     1053
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     583,
+     1097,
+     660,
+     1118
+    ],
+    "text": "WELD"
+   },
+   {
+    "box": [
+     1168,
+     1154,
+     1181,
+     1167
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     1051,
+     1155,
+     1064,
+     1168
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     1384,
+     1350,
+     1520,
+     1374
+    ],
+    "text": "ONE ROD"
+   },
+   {
+    "box": [
+     1371,
+     1414,
+     1533,
+     1437
+    ],
+    "text": "FOUR RODS"
+   },
+   {
+    "box": [
+     434,
+     1586,
+     602,
+     1622
+    ],
+    "text": "協 4 CROSS"
+   },
+   {
+    "box": [
+     420,
+     1669,
+     622,
+     1692
+    ],
+    "text": "SECTION B- B"
+   },
+   {
+    "box": [
+     763,
+     1872,
+     952,
+     1900
+    ],
+    "text": "FIGURE 1.6"
+   },
+   {
+    "box": [
+     587,
+     1937,
+     1130,
+     1968
+    ],
+    "text": "CROSS TYPE CONTROL ROD"
+   },
+   {
+    "box": [
+     836,
+     2071,
+     866,
+     2096
+    ],
+    "text": "18"
+   }
+  ]
+ },
+ "ido_p019_fig17.png": {
+  "size": [
+   1821,
+   2376
+  ],
+  "lines": [
+   {
+    "box": [
+     950,
+     267,
+     971,
+     322
+    ],
+    "text": "7 一 8"
+   },
+   {
+    "box": [
+     817,
+     356,
+     882,
+     383
+    ],
+    "text": ". 引 び"
+   },
+   {
+    "box": [
+     399,
+     540,
+     608,
+     563
+    ],
+    "text": "S ECT ℃ N A ー A"
+   },
+   {
+    "box": [
+     707,
+     452,
+     1162,
+     476
+    ],
+    "text": "℃ 50 ALUMINUM -URANIUM CORE"
+   },
+   {
+    "box": [
+     707,
+     491,
+     1143,
+     516
+    ],
+    "text": ".035 ALUMINUM-NICKEL CLAD"
+   },
+   {
+    "box": [
+     1172,
+     664,
+     1584,
+     688
+    ],
+    "text": "BORON STRIP FULL LENGTH"
+   },
+   {
+    "box": [
+     1262,
+     703,
+     1488,
+     727
+    ],
+    "text": "OF SIDE PLATE"
+   },
+   {
+    "box": [
+     666,
+     980,
+     737,
+     1003
+    ],
+    "text": ".05b"
+   },
+   {
+    "box": [
+     468,
+     1765,
+     558,
+     1787
+    ],
+    "text": "3 ー SQ"
+   },
+   {
+    "box": [
+     453,
+     1840,
+     566,
+     1861
+    ],
+    "text": "3.6 ℃ SQ"
+   },
+   {
+    "box": [
+     856,
+     1960,
+     1046,
+     1987
+    ],
+    "text": "FIGURE i.7"
+   },
+   {
+    "box": [
+     796,
+     2023,
+     1107,
+     2054
+    ],
+    "text": "FUEL ELEMENT"
+   },
+   {
+    "box": [
+     913,
+     2113,
+     944,
+     2137
+    ],
+    "text": "19"
+   }
+  ]
+ },
+ "ido_p020_fig18.png": {
+  "size": [
+   2376,
+   1821
+  ],
+  "lines": [
+   {
+    "box": [
+     980,
+     246,
+     1244,
+     293
+    ],
+    "text": "CONTROL"
+   },
+   {
+    "box": [
+     1317,
+     246,
+     1650,
+     294
+    ],
+    "text": "ROD DRIVE"
+   },
+   {
+    "box": [
+     823,
+     506,
+     925,
+     519
+    ],
+    "text": "SE?CTU* A-A"
+   },
+   {
+    "box": [
+     1599,
+     538,
+     1683,
+     551
+    ],
+    "text": "CT 、 日 咽"
+   },
+   {
+    "box": [
+     370,
+     796,
+     399,
+     1028
+    ],
+    "text": "F 一 G U R E 一 . 8"
+   },
+   {
+    "box": [
+     1727,
+     865,
+     1749,
+     879
+    ],
+    "text": "デ 5"
+   },
+   {
+    "box": [
+     1332,
+     1345,
+     1470,
+     1356
+    ],
+    "text": "2 STO 5 几 KEsTOCK"
+   },
+   {
+    "box": [
+     1354,
+     1358,
+     1391,
+     1368
+    ],
+    "text": "ー 00"
+   },
+   {
+    "box": [
+     942,
+     1332,
+     1105,
+     1343
+    ],
+    "text": "NJT 7.0T1 を 0 55f ー 00"
+   },
+   {
+    "box": [
+     943,
+     1344,
+     1091,
+     1355
+    ],
+    "text": "COTTER 一 55 ー ー 0 の"
+   },
+   {
+    "box": [
+     943,
+     1358,
+     1080,
+     1368
+    ],
+    "text": "ACO C を ZP ル 29"
+   },
+   {
+    "box": [
+     738,
+     1382,
+     887,
+     1393
+    ],
+    "text": "圧 、 0 石 ~ 00"
+   },
+   {
+    "box": [
+     944,
+     1383,
+     1025,
+     1393
+    ],
+    "text": "5T0 , 久 望 を R"
+   },
+   {
+    "box": [
+     922,
+     1394,
+     1004,
+     1404
+    ],
+    "text": "に A9- 日 ・ イ 9"
+   },
+   {
+    "box": [
+     739,
+     1407,
+     857,
+     1416
+    ],
+    "text": "CAT NO ) ) ) ・ る W"
+   },
+   {
+    "box": [
+     944,
+     1407,
+     983,
+     1416
+    ],
+    "text": "ー 00"
+   },
+   {
+    "box": [
+     739,
+     1432,
+     864,
+     1442
+    ],
+    "text": "爻 AR ↑ TY 3304"
+   },
+   {
+    "box": [
+     953,
+     1432,
+     1078,
+     1442
+    ],
+    "text": "光 HO (. ・ ′ W"
+   },
+   {
+    "box": [
+     718,
+     1437,
+     1241,
+     1461
+    ],
+    "text": "日 STEWTE ↓ し 5 & R ミ 5 ( 直 ) 、 め 亂 第 に -2A 引 み し 0. け 催 00 ( こ 打 発 ス . カ ・"
+   },
+   {
+    "box": [
+     739,
+     1456,
+     885,
+     1466
+    ],
+    "text": "5 引 TAr を RS . 2 ロ の"
+   },
+   {
+    "box": [
+     943,
+     1458,
+     1104,
+     1468
+    ],
+    "text": "STAN-ESS ST こ 江 TYA 、 303"
+   },
+   {
+    "box": [
+     1150,
+     1484,
+     1265,
+     1494
+    ],
+    "text": "望 、 呼 . 、 美 S"
+   },
+   {
+    "box": [
+     717,
+     1492,
+     884,
+     1503
+    ],
+    "text": "9 ANL 「 G 第 ユ ( :"
+   },
+   {
+    "box": [
+     921,
+     1493,
+     1002,
+     1504
+    ],
+    "text": "ー 4 【 冷 。 2- ~ 3"
+   },
+   {
+    "box": [
+     740,
+     1504,
+     778,
+     1514
+    ],
+    "text": "ー 00"
+   },
+   {
+    "box": [
+     944,
+     1505,
+     982,
+     1515
+    ],
+    "text": "ー 00"
+   },
+   {
+    "box": [
+     1150,
+     1506,
+     1186,
+     1517
+    ],
+    "text": "ー 0 の"
+   },
+   {
+    "box": [
+     1765,
+     1333,
+     1914,
+     1344
+    ],
+    "text": "紙 ー ー 紙 0 の"
+   },
+   {
+    "box": [
+     1557,
+     1333,
+     1678,
+     1343
+    ],
+    "text": "a. ・ め WER 望 ."
+   },
+   {
+    "box": [
+     1535,
+     1344,
+     1611,
+     1354
+    ],
+    "text": "26 ( 0 ・ 十 28"
+   },
+   {
+    "box": [
+     1557,
+     1356,
+     1597,
+     1367
+    ],
+    "text": "ー 催 0 ・ D"
+   },
+   {
+    "box": [
+     1558,
+     1444,
+     1676,
+     1454
+    ],
+    "text": "A し 一 一 十 61"
+   },
+   {
+    "box": [
+     1534,
+     1493,
+     1690,
+     1504
+    ],
+    "text": "29 ANL ー 十 関 3 ("
+   },
+   {
+    "box": [
+     1558,
+     1544,
+     1679,
+     1555
+    ],
+    "text": "ANL 十 6 物 ・"
+   },
+   {
+    "box": [
+     501,
+     1336,
+     526,
+     1558
+    ],
+    "text": "〇 ② 〇 〇 ⑤"
+   },
+   {
+    "box": [
+     1765,
+     1445,
+     1889,
+     1456
+    ],
+    "text": "( ー .470"
+   },
+   {
+    "box": [
+     709,
+     1337,
+     734,
+     1559
+    ],
+    "text": "〇 ① 〇 〇 〇"
+   },
+   {
+    "box": [
+     1943,
+     1338,
+     1969,
+     1463
+    ],
+    "text": "〇 ⑨ 〇"
+   },
+   {
+    "box": [
+     1330,
+     1445,
+     1409,
+     1456
+    ],
+    "text": "23 A9 ト 2 灯 1"
+   },
+   {
+    "box": [
+     1355,
+     1457,
+     1393,
+     1468
+    ],
+    "text": "ー 紙 00"
+   },
+   {
+    "box": [
+     1354,
+     1481,
+     1511,
+     1493
+    ],
+    "text": "工 ( ・ 紙 A 都 .9 化 水"
+   },
+   {
+    "box": [
+     1330,
+     1494,
+     1489,
+     1505
+    ],
+    "text": "24 LDCM\"--ER 0 非 1"
+   },
+   {
+    "box": [
+     1355,
+     1506,
+     1435,
+     1517
+    ],
+    "text": "日 こ ) 0 00"
+   },
+   {
+    "box": [
+     1330,
+     1545,
+     1509,
+     1556
+    ],
+    "text": "為 [ 1- C ・ W"
+   },
+   {
+    "box": [
+     513,
+     1342,
+     725,
+     1353
+    ],
+    "text": "ー SE C ( x nTER ・ を E 「 6"
+   },
+   {
+    "box": [
+     510,
+     1441,
+     600,
+     1453
+    ],
+    "text": "3 ROO s て 廴"
+   },
+   {
+    "box": [
+     1558,
+     1505,
+     1604,
+     1516
+    ],
+    "text": "4 催 02"
+   }
+  ]
+ },
+ "ido_p021_log.png": {
+  "size": [
+   1825,
+   2380
+  ],
+  "lines": [
+   {
+    "box": [
+     82,
+     1923,
+     141,
+     1975
+    ],
+    "text": "ツ"
+   },
+   {
+    "box": [
+     802,
+     161,
+     959,
+     182
+    ],
+    "text": "SECTION 2"
+   },
+   {
+    "box": [
+     479,
+     231,
+     1322,
+     257
+    ],
+    "text": "SEQUENCE OF EVENTS RELATED TO THE SL-I 工 NC 工 DENT"
+   },
+   {
+    "box": [
+     781,
+     268,
+     978,
+     290
+    ],
+    "text": "AT THE NRTS"
+   },
+   {
+    "box": [
+     657,
+     303,
+     1121,
+     327
+    ],
+    "text": "JANUARY 3 THROUGH 15 1961"
+   },
+   {
+    "box": [
+     295,
+     377,
+     473,
+     399
+    ],
+    "text": "LO Status"
+   },
+   {
+    "box": [
+     296,
+     447,
+     1589,
+     476
+    ],
+    "text": "On January 3 , 1961 , between 5 : 30 and 9 : 00 p . m. the f0110 土 ng final entry"
+   },
+   {
+    "box": [
+     367,
+     483,
+     1406,
+     511
+    ],
+    "text": "written int0 the Operations Log B00k at the SL?I facility:"
+   },
+   {
+    "box": [
+     1465,
+     483,
+     1571,
+     511
+    ],
+    "text": "Pumped"
+   },
+   {
+    "box": [
+     296,
+     519,
+     1512,
+     543
+    ],
+    "text": "reactor water tank until reactor water 1eve1 recorder came on scale ."
+   },
+   {
+    "box": [
+     300,
+     555,
+     1188,
+     585
+    ],
+    "text": "lndicates 十 5 ft. Rep1acing plugs, thimbles, etc ."
+   },
+   {
+    "box": [
+     1234,
+     555,
+     1440,
+     578
+    ],
+    "text": "to a11 て ods ."
+   },
+   {
+    "box": [
+     296,
+     629,
+     617,
+     652
+    ],
+    "text": "Weather Conditions"
+   },
+   {
+    "box": [
+     297,
+     701,
+     1514,
+     730
+    ],
+    "text": "盟 le estimated weather conditions at the SL?I Area at 9 : 00 p . m. were:"
+   },
+   {
+    "box": [
+     298,
+     732,
+     901,
+     766
+    ],
+    "text": "temperature at 5 ft. , 十 1.4 十 20F."
+   },
+   {
+    "box": [
+     944,
+     732,
+     1570,
+     765
+    ],
+    "text": "at 250 ft. , 十 13.8 十 20F. Winds at"
+   },
+   {
+    "box": [
+     298,
+     768,
+     994,
+     801
+    ],
+    "text": "the surface, 2 miles per hour from 0000"
+   },
+   {
+    "box": [
+     1303,
+     771,
+     1498,
+     800
+    ],
+    "text": "6 miles per"
+   },
+   {
+    "box": [
+     1034,
+     773,
+     1260,
+     795
+    ],
+    "text": "above 100 ft ."
+   },
+   {
+    "box": [
+     296,
+     805,
+     545,
+     833
+    ],
+    "text": "hour from 0450"
+   },
+   {
+    "box": [
+     586,
+     808,
+     1313,
+     832
+    ],
+    "text": "inversion conditions extended t0 3500 ft ."
+   },
+   {
+    "box": [
+     297,
+     882,
+     653,
+     909
+    ],
+    "text": "Chronology 0f Events"
+   },
+   {
+    "box": [
+     296,
+     952,
+     1480,
+     982
+    ],
+    "text": "At 9 : 01 p . m. an automatic heat detectlon alarm located in the SL?I"
+   },
+   {
+    "box": [
+     1435,
+     987,
+     1570,
+     1016
+    ],
+    "text": "( 1 ) Fire"
+   },
+   {
+    "box": [
+     296,
+     988,
+     1387,
+     1018
+    ],
+    "text": "Reactor Building started transmitting a continuous signal tO :"
+   },
+   {
+    "box": [
+     298,
+     1023,
+     1516,
+     1053
+    ],
+    "text": "Station NO . 1 located in the Centra1 Facilities Area (CFA) , ( 2 ) Fire"
+   },
+   {
+    "box": [
+     298,
+     1060,
+     1516,
+     1089
+    ],
+    "text": "Station NO. 2 located on Lincoln Blvd. between the Materials Testing"
+   },
+   {
+    "box": [
+     296,
+     1095,
+     1570,
+     1127
+    ],
+    "text": "Reactor 0 R ) and the Nava1 Reactor Faci1ity (NRF) , and ( 3 ) the Commun-"
+   },
+   {
+    "box": [
+     298,
+     1132,
+     1188,
+     1163
+    ],
+    "text": "ications Building located at CFA (see Figure 1 . 1 ) ."
+   },
+   {
+    "box": [
+     295,
+     1205,
+     1589,
+     1236
+    ],
+    "text": "At approximately 9 : 01 p. m. the Idah0 Operations Office Patrolman on duty"
+   },
+   {
+    "box": [
+     296,
+     1241,
+     1552,
+     1272
+    ],
+    "text": "at the Gas-C001ed Reactor Experiment (GCRE) Gate House, sltuated about"
+   },
+   {
+    "box": [
+     296,
+     1278,
+     1570,
+     1307
+    ],
+    "text": "0.9 miles northwest Of the SL-I, notified an Aerojet-General Nucleonics"
+   },
+   {
+    "box": [
+     296,
+     1313,
+     1498,
+     1343
+    ],
+    "text": "official stationed in the GCRE control room that, ( 1 ) the personnel"
+   },
+   {
+    "box": [
+     294,
+     1349,
+     1515,
+     1379
+    ],
+    "text": "moni に 0 て at the gate house had alarmed with a11 meter needles on full"
+   },
+   {
+    "box": [
+     298,
+     1383,
+     1571,
+     1415
+    ],
+    "text": "scale, and ( 2 ) the instrument could not be reset. A check Of radiation"
+   },
+   {
+    "box": [
+     295,
+     1420,
+     1639,
+     1447
+    ],
+    "text": "monitors in the cont て 01 て 00m Of the GCRE indicated no release Of て adia 亡 10n ,"
+   },
+   {
+    "box": [
+     297,
+     1454,
+     1608,
+     1487
+    ],
+    "text": "and a radiation survey made 0f the GCRE Gate House showed only background"
+   },
+   {
+    "box": [
+     297,
+     1494,
+     596,
+     1517
+    ],
+    "text": "radiation levels ."
+   },
+   {
+    "box": [
+     296,
+     1563,
+     1589,
+     1593
+    ],
+    "text": "As a result of the fire alarm from the SL-I, a six-man crew boarded Fire"
+   },
+   {
+    "box": [
+     298,
+     1599,
+     1553,
+     1631
+    ],
+    "text": "Engine NO . 3 stationed at Fire Station NO. 1 and departed f0 て the SL-I"
+   },
+   {
+    "box": [
+     427,
+     1635,
+     1571,
+     1667
+    ],
+    "text": "工 n addition, the Assistant Fire Chief departed by automobile for"
+   },
+   {
+    "box": [
+     298,
+     1639,
+     381,
+     1662
+    ],
+    "text": "Area ."
+   },
+   {
+    "box": [
+     589,
+     1671,
+     1625,
+     1700
+    ],
+    "text": "工 n accordance with standard operating procedures, the Fire"
+   },
+   {
+    "box": [
+     301,
+     1674,
+     543,
+     1696
+    ],
+    "text": "the SL-I Area."
+   },
+   {
+    "box": [
+     298,
+     1706,
+     1606,
+     1739
+    ],
+    "text": "Department A1arm Operator on duty notified the 工 DO Chief, Hazards Con に r01"
+   },
+   {
+    "box": [
+     298,
+     1744,
+     1315,
+     1775
+    ],
+    "text": "Branch, and the 工 DO Chief, Fire Department, 0f the alarm."
+   },
+   {
+    "box": [
+     298,
+     1816,
+     1573,
+     1847
+    ],
+    "text": "At 9 : 02 p . m. the A1arm Operator informed the 工 DO Dispatcher by intercom"
+   },
+   {
+    "box": [
+     301,
+     1850,
+     1588,
+     1883
+    ],
+    "text": "that a fire engine had been dispatched t0 the SL-I Area. Dispatcher"
+   },
+   {
+    "box": [
+     300,
+     1888,
+     1517,
+     1921
+    ],
+    "text": "subsequently broadcasted the alarm over the Nationa1 Reactor Testing"
+   },
+   {
+    "box": [
+     300,
+     1923,
+     1571,
+     1955
+    ],
+    "text": "Station (NRTS) て adi0 network. He then informed an official 0f the 工 DO -"
+   },
+   {
+    "box": [
+     300,
+     1958,
+     1629,
+     1992
+    ],
+    "text": "Security Division 0f the alarm and, next, requested the Phi11ips Petr01eum"
+   },
+   {
+    "box": [
+     298,
+     1996,
+     1555,
+     2029
+    ],
+    "text": "Company (Phi11ips) secu て ity DutY Officer located at the MTR t0 bring a"
+   },
+   {
+    "box": [
+     289,
+     2035,
+     1030,
+     2066
+    ],
+    "text": "Hea1th Physicist (). P. ) t0 the SL-I Area."
+   },
+   {
+    "box": [
+     948,
+     2099,
+     980,
+     2122
+    ],
+    "text": "21"
+   }
+  ]
+ },
+ "ido_p022_fire.png": {
+  "size": [
+   1840,
+   2389
+  ],
+  "lines": [
+   {
+    "box": [
+     297,
+     172,
+     1510,
+     202
+    ],
+    "text": "lmmediately upon notification of the alarm, an IDO Security Captain,"
+   },
+   {
+    "box": [
+     294,
+     208,
+     1550,
+     237
+    ],
+    "text": "Lieutenant, and Patrolman departed f0 て the SL-I from CFA. 工 n て esponse"
+   },
+   {
+    "box": [
+     800,
+     242,
+     1534,
+     273
+    ],
+    "text": "the Phi11ipst Duty Officer located an M ."
+   },
+   {
+    "box": [
+     296,
+     245,
+     755,
+     274
+    ],
+    "text": "t0 the request for an 日 . P."
+   },
+   {
+    "box": [
+     293,
+     281,
+     1514,
+     310
+    ],
+    "text": "H. P. and departed with him fo て the SL?I at 9 : 04 p. m. Enroute to the"
+   },
+   {
+    "box": [
+     296,
+     317,
+     1535,
+     346
+    ],
+    "text": "SL-I Area, the Duty Officer and 公 R H. P. received Scott Air-Paks from"
+   },
+   {
+    "box": [
+     294,
+     353,
+     1584,
+     382
+    ],
+    "text": "a Ph 土 11 土 p Security Guard who had been dispatched at the request of the"
+   },
+   {
+    "box": [
+     304,
+     389,
+     575,
+     413
+    ],
+    "text": "Ⅱ 只 H. P . Office ."
+   },
+   {
+    "box": [
+     292,
+     460,
+     1512,
+     489
+    ],
+    "text": "At approximately 9 : 10 P . m. the Assistant Fire Chief followed by Fire"
+   },
+   {
+    "box": [
+     294,
+     496,
+     1533,
+     525
+    ],
+    "text": "Engine NO. 3 arrived at the SL-I Area, app て oximately eight miles from"
+   },
+   {
+    "box": [
+     294,
+     532,
+     1532,
+     561
+    ],
+    "text": "CFA. A11 of the Firemen wore regular fire protection clothing. Upon"
+   },
+   {
+    "box": [
+     294,
+     568,
+     1568,
+     597
+    ],
+    "text": "a て rival at the SL-I Area, the Assistant Fire Chief noted that the steam"
+   },
+   {
+    "box": [
+     292,
+     604,
+     1458,
+     634
+    ],
+    "text": "he observed above the reactor buildlng appeared no て mal. 衄 Fire"
+   },
+   {
+    "box": [
+     294,
+     640,
+     1566,
+     670
+    ],
+    "text": "Captain Of Engine NO. 3 entered the SL-I guard house and telephoned the"
+   },
+   {
+    "box": [
+     295,
+     676,
+     1548,
+     706
+    ],
+    "text": "SL-I control room, but received no answer. During this time, the Fire"
+   },
+   {
+    "box": [
+     294,
+     713,
+     1512,
+     743
+    ],
+    "text": "Captain heard an alarm buzzing ; whether this was a radiation or fire"
+   },
+   {
+    "box": [
+     294,
+     749,
+     1525,
+     779
+    ],
+    "text": "alarm could not be determined by the sound. AISO, at about 9 : 10 p . m."
+   },
+   {
+    "box": [
+     295,
+     786,
+     1550,
+     815
+    ],
+    "text": "the 工 DO Security Lieutenant and Patr01man arrived at the SL?I Area and"
+   },
+   {
+    "box": [
+     293,
+     821,
+     1495,
+     853
+    ],
+    "text": "parked their vehicle about fifteen feet from the vehicle gate. The"
+   },
+   {
+    "box": [
+     293,
+     858,
+     1222,
+     885
+    ],
+    "text": "patrolman then unlocked and opened the vehicle gate ."
+   },
+   {
+    "box": [
+     291,
+     928,
+     1551,
+     957
+    ],
+    "text": "At 9 : 12 p . m. Fire Engine NO . 3 entered the SL-I Area and parked at the"
+   },
+   {
+    "box": [
+     294,
+     962,
+     1514,
+     994
+    ],
+    "text": "southeast slde 0f Building 613 (see Figure 1 . 2 ) . 盟 Assistant Fire"
+   },
+   {
+    "box": [
+     292,
+     1000,
+     1479,
+     1031
+    ],
+    "text": "Chief, wearing a fifteen minute SCOtt Air?Pak, made his way t0 the"
+   },
+   {
+    "box": [
+     293,
+     1036,
+     1585,
+     1064
+    ],
+    "text": "southeast d00 て 0f the corridor which connects Building 613 with Building"
+   },
+   {
+    "box": [
+     292,
+     1072,
+     1461,
+     1103
+    ],
+    "text": "602 . Upon finding the door locked, he kicked and pounded upon 1 亡"
+   },
+   {
+    "box": [
+     290,
+     1108,
+     1567,
+     1139
+    ],
+    "text": "but got no response. Next, the Assistant Fire Ch1ef went 亡 0 the south?"
+   },
+   {
+    "box": [
+     289,
+     1143,
+     1495,
+     1173
+    ],
+    "text": "west entrance t0 Building 613 where he was joined by the Captain 0f"
+   },
+   {
+    "box": [
+     291,
+     1179,
+     1513,
+     1210
+    ],
+    "text": "Fire Engine NO. 3 and the Security Force Captain and Lieutenant, whO"
+   },
+   {
+    "box": [
+     292,
+     1215,
+     1239,
+     1245
+    ],
+    "text": "unlocked the electrical control door t0 Building 613 ."
+   },
+   {
+    "box": [
+     1285,
+     1215,
+     1563,
+     1244
+    ],
+    "text": "工 n the meantime,"
+   },
+   {
+    "box": [
+     292,
+     1252,
+     1512,
+     1283
+    ],
+    "text": "a Fire lnspector went t0 the northeast side 0f Building 613 where he"
+   },
+   {
+    "box": [
+     292,
+     1289,
+     933,
+     1314
+    ],
+    "text": "entered and checked the boiler room."
+   },
+   {
+    "box": [
+     316,
+     1360,
+     1531,
+     1391
+    ],
+    "text": "ie four people already at the southwest entrance were soon joined by"
+   },
+   {
+    "box": [
+     292,
+     1395,
+     1508,
+     1427
+    ],
+    "text": "a Fire lnspector and Fireman. This g て oup then entered Building 613 ."
+   },
+   {
+    "box": [
+     292,
+     1432,
+     1567,
+     1464
+    ],
+    "text": "盟 ie Fire 工 nspector went through Bui1ding 613 , blocked open the corridor"
+   },
+   {
+    "box": [
+     292,
+     1469,
+     1496,
+     1495
+    ],
+    "text": "d00 て and returned tO the southwest entrance. A check Of 亡 WO Jordan"
+   },
+   {
+    "box": [
+     291,
+     1503,
+     1566,
+     1531
+    ],
+    "text": "Radiation Detectors made at the southwest entrance indicated a 1 . 5 R/hr"
+   },
+   {
+    "box": [
+     292,
+     1544,
+     573,
+     1568
+    ],
+    "text": "radiation level ."
+   },
+   {
+    "box": [
+     291,
+     1613,
+     1620,
+     1645
+    ],
+    "text": "Because of this high て adiation level, the Assistant Fire Chief ordered the"
+   },
+   {
+    "box": [
+     292,
+     1649,
+     1512,
+     1680
+    ],
+    "text": "fire crew to take Fire Engine NO. 3 out 0f the SL-I Area t0 Fillmore"
+   },
+   {
+    "box": [
+     291,
+     1686,
+     1364,
+     1716
+    ],
+    "text": "B1vd. and to await the a て て ival 0f health physics assistance."
+   },
+   {
+    "box": [
+     1409,
+     1686,
+     1548,
+     1709
+    ],
+    "text": "工 n addi-"
+   },
+   {
+    "box": [
+     294,
+     1722,
+     1565,
+     1755
+    ],
+    "text": "tion, the securuty men retu て ned tO the guard house area. Assistant"
+   },
+   {
+    "box": [
+     292,
+     1758,
+     1529,
+     1790
+    ],
+    "text": "Fire Chief saw no pe て sonnel, smoke, no て fire from his position at the"
+   },
+   {
+    "box": [
+     289,
+     1794,
+     1529,
+     1825
+    ],
+    "text": "main entrance. NO Fire Department personnel had gone beyond Bui1ding"
+   },
+   {
+    "box": [
+     292,
+     1830,
+     1509,
+     1863
+    ],
+    "text": "613 , and it was estimated that about tWO tO tWO and one-half minutes"
+   },
+   {
+    "box": [
+     290,
+     1868,
+     915,
+     1899
+    ],
+    "text": "had elapsed from the initial entry."
+   },
+   {
+    "box": [
+     291,
+     1940,
+     1528,
+     1972
+    ],
+    "text": "At 9 : 15 p. m. the Assistant Fire Chief obtained a Jordan Radiation De-"
+   },
+   {
+    "box": [
+     294,
+     1977,
+     1583,
+     2009
+    ],
+    "text": "tector and proceeded through Buildings 613 and 602 as far as the d00 て way"
+   },
+   {
+    "box": [
+     893,
+     2084,
+     926,
+     2108
+    ],
+    "text": "2 2"
+   }
+  ]
+ },
+ "ido_p023_ctrl.png": {
+  "size": [
+   1838,
+   2388
+  ],
+  "lines": [
+   {
+    "box": [
+     312,
+     183,
+     1544,
+     211
+    ],
+    "text": "tO the covered stairway which leads up こ 0 the reactor ope て ating room."
+   },
+   {
+    "box": [
+     309,
+     218,
+     1565,
+     247
+    ],
+    "text": "He quickly made his way back through Buildings 602 and 613 to Fi11more"
+   },
+   {
+    "box": [
+     1485,
+     252,
+     1583,
+     282
+    ],
+    "text": "( 1 ) no"
+   },
+   {
+    "box": [
+     310,
+     254,
+     1452,
+     283
+    ],
+    "text": "B1vd. ie Assistant Fire Chief observed during this entry that,"
+   },
+   {
+    "box": [
+     310,
+     289,
+     1565,
+     319
+    ],
+    "text": "personnel, fi て e or smoke could be seen on the main f100 て , ( 2 ) the con?"
+   },
+   {
+    "box": [
+     312,
+     327,
+     1547,
+     355
+    ],
+    "text": "亡 r01 て 00m contained jackets and outer coats for three men, as well as"
+   },
+   {
+    "box": [
+     837,
+     362,
+     1547,
+     391
+    ],
+    "text": "( 3 ) the lights on the control panel were"
+   },
+   {
+    "box": [
+     312,
+     363,
+     806,
+     392
+    ],
+    "text": "lunch pails and coffee cups,"
+   },
+   {
+    "box": [
+     311,
+     399,
+     1547,
+     429
+    ],
+    "text": "out, ( 4 ) it appeared dark beyond the con 亡 て 01 て 00m , ( 5 ) fogging 0f the"
+   },
+   {
+    "box": [
+     311,
+     435,
+     1564,
+     464
+    ],
+    "text": "face mask made it extremely difficult 亡 0 see, and ( 6 ) radiation levels"
+   },
+   {
+    "box": [
+     312,
+     469,
+     1524,
+     499
+    ],
+    "text": "from 200-250 MR/hr were encountered at the entrance to the stairway."
+   },
+   {
+    "box": [
+     309,
+     543,
+     1529,
+     571
+    ],
+    "text": "About the time the Assistant Fire Chief started the penetration, the"
+   },
+   {
+    "box": [
+     312,
+     577,
+     1565,
+     608
+    ],
+    "text": "Security Lieutenant observed a reading Of 100 MR/hr near an automobile"
+   },
+   {
+    "box": [
+     312,
+     615,
+     1547,
+     645
+    ],
+    "text": "located by the guard house; therefore, a11 personnel in the SL-I Area"
+   },
+   {
+    "box": [
+     310,
+     653,
+     698,
+     675
+    ],
+    "text": "donned Scott Air-Paks."
+   },
+   {
+    "box": [
+     309,
+     723,
+     1547,
+     752
+    ],
+    "text": "A11 0f the above personnel were outside the SL-I Area and on Fillmore"
+   },
+   {
+    "box": [
+     309,
+     759,
+     806,
+     788
+    ],
+    "text": "B1vd. by 0 て before 9 : 17 p . m."
+   },
+   {
+    "box": [
+     310,
+     831,
+     1133,
+     859
+    ],
+    "text": "First Entry tO SL-I Area with Hea1th Physicist"
+   },
+   {
+    "box": [
+     332,
+     903,
+     1582,
+     934
+    ],
+    "text": "le Phi11ips MTR H. P. arrived at the SL-I Area at 9 : 17 p. m. He 皿 ed 土 -"
+   },
+   {
+    "box": [
+     309,
+     939,
+     1547,
+     970
+    ],
+    "text": "ately surveyed the area in front 0f the SL-I guard house and observed"
+   },
+   {
+    "box": [
+     309,
+     973,
+     985,
+     1001
+    ],
+    "text": "radiation rates from 125 to 150 俍 / h て ."
+   },
+   {
+    "box": [
+     1030,
+     976,
+     1547,
+     1003
+    ],
+    "text": "Since the wind was coming out"
+   },
+   {
+    "box": [
+     309,
+     1011,
+     1583,
+     1041
+    ],
+    "text": "Of the north-northeast at about six miles per hour, the H. P. instructed"
+   },
+   {
+    "box": [
+     311,
+     1049,
+     1416,
+     1078
+    ],
+    "text": "the firemen tO position themselves and their equipment upwind."
+   },
+   {
+    "box": [
+     310,
+     1122,
+     1529,
+     1150
+    ],
+    "text": "Then the MTR H. P. and the Fire Captain, wearing SCO 亡 に Air-Paks, made"
+   },
+   {
+    "box": [
+     311,
+     1158,
+     1564,
+     1188
+    ],
+    "text": "their way from the vehicle gate tO the main d00 て on the southwest side"
+   },
+   {
+    "box": [
+     632,
+     1193,
+     1583,
+     1222
+    ],
+    "text": "Because this door was found locked, they proceeded tO"
+   },
+   {
+    "box": [
+     309,
+     1194,
+     589,
+     1224
+    ],
+    "text": "of Bui1ding 613 ."
+   },
+   {
+    "box": [
+     311,
+     1228,
+     1527,
+     1257
+    ],
+    "text": "the door on the southeast side 0f the corridor between Buildlngs 613"
+   },
+   {
+    "box": [
+     309,
+     1265,
+     1529,
+     1295
+    ],
+    "text": "and 602 ln order tO gain entrance . 以 1 て 土 ng this penetration, the MTR"
+   },
+   {
+    "box": [
+     307,
+     1300,
+     1563,
+     1328
+    ],
+    "text": "H. . measu て ed a radiation level 0f 700 ト / h て near the southwest corner"
+   },
+   {
+    "box": [
+     309,
+     1336,
+     1509,
+     1366
+    ],
+    "text": "0f Bui1ding 613 , 250 き / h て at the southwest entrance, and 500 さ 俍 / h て"
+   },
+   {
+    "box": [
+     308,
+     1373,
+     715,
+     1397
+    ],
+    "text": "near the corridor d00 て ."
+   },
+   {
+    "box": [
+     307,
+     1442,
+     1511,
+     1474
+    ],
+    "text": "As these two people made their way through Building 602 towards the"
+   },
+   {
+    "box": [
+     308,
+     1480,
+     1565,
+     1510
+    ],
+    "text": "reactor building, they t00k a quick 100k int0 almost every て 00m trying"
+   },
+   {
+    "box": [
+     311,
+     1514,
+     1565,
+     1546
+    ],
+    "text": "to locate the three military personnel believed t0 be in the area, but"
+   },
+   {
+    "box": [
+     310,
+     1551,
+     1583,
+     1580
+    ],
+    "text": "found no one . When the 亡 WO men came tO the covered stalrway Leading tO"
+   },
+   {
+    "box": [
+     311,
+     1588,
+     1529,
+     1618
+    ],
+    "text": "the reactor operating て 00m , the Fire Captain remained at the base Of"
+   },
+   {
+    "box": [
+     311,
+     1623,
+     1511,
+     1655
+    ],
+    "text": "the stairway as the R H. p. proceeded up the stairs . At about the"
+   },
+   {
+    "box": [
+     312,
+     1660,
+     1581,
+     1690
+    ],
+    "text": "third or fourth step the Juno Radiation Detector which the MTR H. P. was"
+   },
+   {
+    "box": [
+     309,
+     1694,
+     1563,
+     1726
+    ],
+    "text": "carrying pegged at 25 R/hr . Fire Cap 亡 ain and the 只 H. P. , there-"
+   },
+   {
+    "box": [
+     310,
+     1731,
+     1545,
+     1762
+    ],
+    "text": "fore, evacuated frotn the area stopping at the guard house. tOta1"
+   },
+   {
+    "box": [
+     309,
+     1768,
+     1487,
+     1798
+    ],
+    "text": "estimated time for this entry was one and one?half tO tWO minutes?"
+   },
+   {
+    "box": [
+     307,
+     1804,
+     1545,
+     1835
+    ],
+    "text": "Aga1n, as during the previous entry, no personnel, fire or smoke were"
+   },
+   {
+    "box": [
+     311,
+     1838,
+     1563,
+     1870
+    ],
+    "text": "seen . Outside the buildings, the MTR H. . noted steam coming from the"
+   },
+   {
+    "box": [
+     850,
+     1874,
+     1547,
+     1904
+    ],
+    "text": "工 に should be noted that the fogging and"
+   },
+   {
+    "box": [
+     310,
+     1878,
+     805,
+     1908
+    ],
+    "text": "top 0f the reactor building ."
+   },
+   {
+    "box": [
+     311,
+     1910,
+     1546,
+     1943
+    ],
+    "text": "the frosting 0f the maskst eyepieces partially impeded viewing during"
+   },
+   {
+    "box": [
+     310,
+     1951,
+     552,
+     1979
+    ],
+    "text": "the operation."
+   },
+   {
+    "box": [
+     307,
+     2020,
+     1564,
+     2053
+    ],
+    "text": "At 9 : 22 p. m. the IDO Dispatcher reported that the 工 DO Chief, Site Sur-"
+   },
+   {
+    "box": [
+     306,
+     2058,
+     1501,
+     2090
+    ],
+    "text": "vey Branch, had been notified 0f the emergency situation. 工 DO"
+   },
+   {
+    "box": [
+     928,
+     2138,
+     960,
+     2161
+    ],
+    "text": "23"
+   }
+  ]
+ },
+ "ido_p035_fig21.png": {
+  "size": [
+   2376,
+   1821
+  ],
+  "lines": [
+   {
+    "box": [
+     869,
+     1098,
+     882,
+     1131
+    ],
+    "text": "」 に 1"
+   },
+   {
+    "box": [
+     1284,
+     331,
+     1358,
+     342
+    ],
+    "text": "早 を し 気 : を"
+   },
+   {
+    "box": [
+     1568,
+     1322,
+     1606,
+     1333
+    ],
+    "text": "ゞ 当 を 、"
+   },
+   {
+    "box": [
+     1816,
+     1608,
+     1938,
+     1628
+    ],
+    "text": "0 : ) 叮 盞 ま ' 40 ~ -"
+   },
+   {
+    "box": [
+     259,
+     938,
+     285,
+     953
+    ],
+    "text": "3"
+   },
+   {
+    "box": [
+     1214,
+     1584,
+     1392,
+     1611
+    ],
+    "text": "FIGURE? 2 」"
+   }
+  ]
+ },
+ "ido_p036_fig22.png": {
+  "size": [
+   2376,
+   1821
+  ],
+  "lines": [
+   {
+    "box": [
+     1072,
+     382,
+     1130,
+     404
+    ],
+    "text": "イ 第 イ"
+   },
+   {
+    "box": [
+     1090,
+     548,
+     1195,
+     568
+    ],
+    "text": "を い 物 い : 3 ~"
+   },
+   {
+    "box": [
+     1781,
+     265,
+     1793,
+     297
+    ],
+    "text": "言 の 二"
+   },
+   {
+    "box": [
+     1857,
+     1431,
+     1871,
+     1464
+    ],
+    "text": "瑩 【 強"
+   },
+   {
+    "box": [
+     1278,
+     1450,
+     1395,
+     1475
+    ],
+    "text": "FIGURE"
+   },
+   {
+    "box": [
+     1422,
+     1450,
+     1473,
+     1474
+    ],
+    "text": "2 2"
+   },
+   {
+    "box": [
+     519,
+     1503,
+     858,
+     1547
+    ],
+    "text": "な 舞 第 上 当 ま 豊 を 要 立 こ : こ :"
+   },
+   {
+    "box": [
+     533,
+     1503,
+     693,
+     1528
+    ],
+    "text": "、 、 洋 ま 第 拠 戸"
+   }
+  ]
+ },
+ "ido_p090_found.png": {
+  "size": [
+   1821,
+   2376
+  ],
+  "lines": [
+   {
+    "box": [
+     801,
+     195,
+     958,
+     218
+    ],
+    "text": "SECT 工 ON 5"
+   },
+   {
+    "box": [
+     746,
+     268,
+     1015,
+     290
+    ],
+    "text": "CASUALTY REPORT"
+   },
+   {
+    "box": [
+     261,
+     339,
+     1515,
+     370
+    ],
+    "text": "The purpose Of thiS section iS tO reCOt1Strt1Ct, as accurately as possi?"
+   },
+   {
+    "box": [
+     260,
+     376,
+     1463,
+     406
+    ],
+    "text": "ble, the events which tOOk place in connection with the recovery Of"
+   },
+   {
+    "box": [
+     261,
+     412,
+     1445,
+     442
+    ],
+    "text": "each casualty from the SL- 1 Reactor Building, the transfer Of each"
+   },
+   {
+    "box": [
+     261,
+     448,
+     1533,
+     478
+    ],
+    "text": "casualty from the SL-I Area t0 the Chemical Processing Plant (CPP) , the"
+   },
+   {
+    "box": [
+     261,
+     485,
+     1426,
+     514
+    ],
+    "text": "activities after the receipt Of each casualty at the CPP, and the"
+   },
+   {
+    "box": [
+     262,
+     521,
+     1226,
+     550
+    ],
+    "text": "circumstances surrounding the burial Of each casualty."
+   },
+   {
+    "box": [
+     261,
+     594,
+     636,
+     618
+    ],
+    "text": "Location Of Personnel"
+   },
+   {
+    "box": [
+     260,
+     666,
+     1409,
+     697
+    ],
+    "text": "At approximately 10 : 45 p . m. on January 3 , 1961 , two men equipped"
+   },
+   {
+    "box": [
+     259,
+     703,
+     1427,
+     732
+    ],
+    "text": "with Scott Air-Paks made their way through the Support Faci1ities"
+   },
+   {
+    "box": [
+     261,
+     738,
+     1462,
+     769
+    ],
+    "text": "Bui1ding ( # 602 ) (see Figure 1 . 2 ) and up the covered stairway に 0 the"
+   },
+   {
+    "box": [
+     261,
+     776,
+     1465,
+     805
+    ],
+    "text": "reactor operating room 1 Ⅱ search Of three persons beLieved tO be in"
+   },
+   {
+    "box": [
+     262,
+     811,
+     1533,
+     841
+    ],
+    "text": "the area. prior attempts tO locate these three people in nearby facil?"
+   },
+   {
+    "box": [
+     263,
+     849,
+     1136,
+     875
+    ],
+    "text": "ities and adjacent sites had proven unsuccessful ."
+   },
+   {
+    "box": [
+     261,
+     918,
+     1481,
+     942
+    ],
+    "text": "Penetrat10n Of tWO tO three feet on に 0 the reactor f100r revealed one"
+   },
+   {
+    "box": [
+     259,
+     954,
+     1427,
+     985
+    ],
+    "text": "person positioned near the M0tor Con に r01 Board (MCB) , and another"
+   },
+   {
+    "box": [
+     259,
+     990,
+     1481,
+     1020
+    ],
+    "text": "person positioned between the shield block and the reactor head (see"
+   },
+   {
+    "box": [
+     260,
+     1025,
+     1500,
+     1057
+    ],
+    "text": "Figure 5 . 1 ) . Radiation readings 0f 500 R/hr were noted at the top 0f"
+   },
+   {
+    "box": [
+     260,
+     1064,
+     1410,
+     1093
+    ],
+    "text": "the landing to the operating f100r , and a radiation level of 500"
+   },
+   {
+    "box": [
+     1468,
+     1064,
+     1518,
+     1087
+    ],
+    "text": "700"
+   },
+   {
+    "box": [
+     259,
+     1098,
+     1481,
+     1127
+    ],
+    "text": "R/hr was estimated tO exist about two feet inside the room. Because"
+   },
+   {
+    "box": [
+     258,
+     1137,
+     1422,
+     1165
+    ],
+    "text": "movement Of the first victim had been observed during the search,"
+   },
+   {
+    "box": [
+     261,
+     1173,
+     1465,
+     1202
+    ],
+    "text": "the tWO investigators hurriedly departed tO obtain assistance for a"
+   },
+   {
+    "box": [
+     259,
+     1208,
+     1517,
+     1238
+    ],
+    "text": "rescue operation. The entire operation tO locate the first and second"
+   },
+   {
+    "box": [
+     258,
+     1245,
+     1499,
+     1274
+    ],
+    "text": "victims was accomplished in approximately three minutes . AS a result"
+   },
+   {
+    "box": [
+     260,
+     1281,
+     1427,
+     1309
+    ],
+    "text": "Of these observations, an ambulance and a dispensary vehicle were"
+   },
+   {
+    "box": [
+     259,
+     1317,
+     757,
+     1346
+    ],
+    "text": "dispatched tO the SL-I Area."
+   },
+   {
+    "box": [
+     260,
+     1389,
+     1481,
+     1419
+    ],
+    "text": "F0110W1ng the recovery of the first casualty, a two-man team entered"
+   },
+   {
+    "box": [
+     261,
+     1425,
+     1480,
+     1454
+    ],
+    "text": "the reactor operating room and located the third deceased victim im-"
+   },
+   {
+    "box": [
+     259,
+     1461,
+     1172,
+     1491
+    ],
+    "text": "paled tO the ceil 土 れ g Of the reactor operating て 00m."
+   },
+   {
+    "box": [
+     260,
+     1534,
+     960,
+     1565
+    ],
+    "text": "Rescue Operation for the First Casua1ty"
+   },
+   {
+    "box": [
+     258,
+     1606,
+     1493,
+     1636
+    ],
+    "text": "At 10 : 50 p . m. five men, including the two whO made the 1 竄 1t1a1 entry,"
+   },
+   {
+    "box": [
+     259,
+     1643,
+     1408,
+     1672
+    ],
+    "text": "entered the reactor operating room with tWO stretchers tO rescue"
+   },
+   {
+    "box": [
+     261,
+     1679,
+     1296,
+     1709
+    ],
+    "text": "the first casualty and, if necessary, the second casualty ."
+   },
+   {
+    "box": [
+     870,
+     2080,
+     903,
+     2103
+    ],
+    "text": "9 0"
+   }
+  ]
+ },
+ "ido_p091_rescue.png": {
+  "size": [
+   1842,
+   2392
+  ],
+  "lines": [
+   {
+    "box": [
+     298,
+     200,
+     1464,
+     230
+    ],
+    "text": "Arriving on the operating f100r , the men positioned one stretcher"
+   },
+   {
+    "box": [
+     298,
+     236,
+     1428,
+     265
+    ],
+    "text": "near the entrance. Next, tWO men carried the casualty 亡 0 where"
+   },
+   {
+    "box": [
+     301,
+     272,
+     1427,
+     302
+    ],
+    "text": "this stretcher was located and placed him upon it. During this"
+   },
+   {
+    "box": [
+     301,
+     308,
+     1423,
+     337
+    ],
+    "text": "operation, it determined that the second casualty was dead."
+   },
+   {
+    "box": [
+     298,
+     380,
+     1446,
+     410
+    ],
+    "text": "Because one member 0f the rescue party developed a clogged SC0tt"
+   },
+   {
+    "box": [
+     298,
+     416,
+     1482,
+     445
+    ],
+    "text": "Air?Pak, it was decided む 0 attempt む 0 depart the reactor room with"
+   },
+   {
+    "box": [
+     301,
+     452,
+     1464,
+     482
+    ],
+    "text": "the stretcher via the emergency exit. 1 土 s plan proved 亡 0 be un?"
+   },
+   {
+    "box": [
+     301,
+     488,
+     1464,
+     516
+    ],
+    "text": "successful because the stretcher could not be maneuvered past the"
+   },
+   {
+    "box": [
+     300,
+     524,
+     1464,
+     553
+    ],
+    "text": "electrical generator; and, as a result, the 亡 WO men had tO depart"
+   },
+   {
+    "box": [
+     297,
+     560,
+     1534,
+     590
+    ],
+    "text": "with the s 亡 retcher the way they entered. ie entire rescue operation"
+   },
+   {
+    "box": [
+     297,
+     596,
+     1463,
+     626
+    ],
+    "text": "was accomplished in about eight minutes ; about three minutes were"
+   },
+   {
+    "box": [
+     301,
+     632,
+     1480,
+     662
+    ],
+    "text": "spent in the operating て 00m and about five minutes within the SL?I"
+   },
+   {
+    "box": [
+     301,
+     670,
+     489,
+     693
+    ],
+    "text": "fence area ."
+   },
+   {
+    "box": [
+     300,
+     743,
+     1231,
+     770
+    ],
+    "text": "Transfer of the First Casua1ty from SL-I to CPP Area"
+   },
+   {
+    "box": [
+     298,
+     813,
+     1500,
+     844
+    ],
+    "text": "At 11 : 00 p. m. the stretcher was placed 土 れ t0 a courier vehicle which"
+   },
+   {
+    "box": [
+     1361,
+     849,
+     1464,
+     872
+    ],
+    "text": "工 n the"
+   },
+   {
+    "box": [
+     298,
+     850,
+     1316,
+     880
+    ],
+    "text": "was then driven from the SL-I gate tO meet the ambulance."
+   },
+   {
+    "box": [
+     297,
+     885,
+     1500,
+     916
+    ],
+    "text": "meantime, the ambulance had departed from the Contr01 point for the"
+   },
+   {
+    "box": [
+     301,
+     922,
+     1446,
+     952
+    ],
+    "text": "SL-I gate. The vehicle and ambulance met about one-quarter 0f a"
+   },
+   {
+    "box": [
+     296,
+     958,
+     1464,
+     988
+    ],
+    "text": "mile from the SL-I gate on FiIImore Boulevard where the stretcher"
+   },
+   {
+    "box": [
+     298,
+     994,
+     1499,
+     1019
+    ],
+    "text": "was transferred intO the ambulance . The ambulance then returned 亡 0"
+   },
+   {
+    "box": [
+     301,
+     1029,
+     1518,
+     1059
+    ],
+    "text": "the Contr01 P0int . At 11 : 05 p. m. the f 土 て s 亡 victim was examined by a"
+   },
+   {
+    "box": [
+     297,
+     1065,
+     1518,
+     1096
+    ],
+    "text": "nurse at the Con 亡 r01 P0int and, even though he appeared tO expire in"
+   },
+   {
+    "box": [
+     301,
+     1100,
+     1518,
+     1131
+    ],
+    "text": "the nursels presence, a resuscitator was applied. At 11 : 14 p. m. the"
+   },
+   {
+    "box": [
+     299,
+     1138,
+     884,
+     1168
+    ],
+    "text": "first victim was pronounced dead."
+   },
+   {
+    "box": [
+     301,
+     1210,
+     1446,
+     1240
+    ],
+    "text": "In an attempt 亡 0 reduce the high radiation 1eve1s from the first"
+   },
+   {
+    "box": [
+     295,
+     1246,
+     1428,
+     1277
+    ],
+    "text": "victim, it was decided tO remove the contaminated cLothing. On"
+   },
+   {
+    "box": [
+     298,
+     1282,
+     1426,
+     1314
+    ],
+    "text": "January 4 , at 5 : 30 a. m. a five-man team performed the disrobing"
+   },
+   {
+    "box": [
+     298,
+     1318,
+     1423,
+     1349
+    ],
+    "text": "operation. 51e member acted as timer, one as health physicist,"
+   },
+   {
+    "box": [
+     298,
+     1354,
+     1465,
+     1382
+    ],
+    "text": "another as recorder, and 亡 WO persons did the actual disrobing ・ A"
+   },
+   {
+    "box": [
+     297,
+     1388,
+     1480,
+     1419
+    ],
+    "text": "one minute working interval was established fO て this task. During"
+   },
+   {
+    "box": [
+     874,
+     1423,
+     1427,
+     1451
+    ],
+    "text": "200 R/hr were observed 0 Ⅳ e て the"
+   },
+   {
+    "box": [
+     299,
+     1426,
+     816,
+     1455
+    ],
+    "text": "the operation て eadings 0f 100"
+   },
+   {
+    "box": [
+     295,
+     1460,
+     1446,
+     1493
+    ],
+    "text": "body and 300 R/hr at the upper extremity ; however, the operation"
+   },
+   {
+    "box": [
+     298,
+     1496,
+     1441,
+     1526
+    ],
+    "text": "failed to decrease the て ad 土 a こ 10n level by any noticeable amount."
+   },
+   {
+    "box": [
+     299,
+     1530,
+     1482,
+     1565
+    ],
+    "text": "Subsequent1y, the first victim was wrapped in a blanket and placed"
+   },
+   {
+    "box": [
+     300,
+     1567,
+     1498,
+     1599
+    ],
+    "text": "intO the ambulance against lead aprons situated behind the drlver s"
+   },
+   {
+    "box": [
+     300,
+     1604,
+     1480,
+     1631
+    ],
+    "text": "seat . A radiation level of 800 MR/hr was observed in the driver s"
+   },
+   {
+    "box": [
+     300,
+     1646,
+     380,
+     1667
+    ],
+    "text": "seat ."
+   },
+   {
+    "box": [
+     298,
+     1711,
+     1587,
+     1745
+    ],
+    "text": "prior arrangements had been made bOth f0 て p て 10 て 土 ty t0 be glven the traf-"
+   },
+   {
+    "box": [
+     299,
+     1748,
+     1583,
+     1779
+    ],
+    "text": "fic transfer て ing the first victlm and fO て CPP Hea1th Physics assistance ."
+   },
+   {
+    "box": [
+     298,
+     1783,
+     1481,
+     1815
+    ],
+    "text": "At 6 : 27 a. m. the ambulance departed from the SL-I Area f0 て the CPP"
+   },
+   {
+    "box": [
+     900,
+     2119,
+     931,
+     2142
+    ],
+    "text": "91"
+   }
+  ]
+ },
+ "ido_p095_lead.png": {
+  "size": [
+   1838,
+   2387
+  ],
+  "lines": [
+   {
+    "box": [
+     731,
+     195,
+     819,
+     218
+    ],
+    "text": "Chest"
+   },
+   {
+    "box": [
+     731,
+     234,
+     871,
+     257
+    ],
+    "text": "Buttocks"
+   },
+   {
+    "box": [
+     730,
+     272,
+     800,
+     293
+    ],
+    "text": "Feet"
+   },
+   {
+    "box": [
+     1021,
+     193,
+     1178,
+     220
+    ],
+    "text": "-1.5 R/hr"
+   },
+   {
+    "box": [
+     1004,
+     232,
+     1178,
+     259
+    ],
+    "text": "ー -5 . 0 R/hr"
+   },
+   {
+    "box": [
+     1020,
+     268,
+     1177,
+     295
+    ],
+    "text": "-0 . 6 R/hr"
+   },
+   {
+    "box": [
+     324,
+     341,
+     1447,
+     372
+    ],
+    "text": "le body was wrapped in 1 / 8 inch lead sheeting with extra pieces"
+   },
+   {
+    "box": [
+     301,
+     376,
+     1466,
+     408
+    ],
+    "text": "added about the head. A maximum reading of 2.1 R/hr was observed"
+   },
+   {
+    "box": [
+     301,
+     414,
+     1483,
+     444
+    ],
+    "text": "on contact in the head region; and at a distance Of one fOOt above"
+   },
+   {
+    "box": [
+     303,
+     448,
+     1556,
+     480
+    ],
+    "text": "the \" ho spot, a reading of 500 MR/hr was obtained. Next, the leaded"
+   },
+   {
+    "box": [
+     300,
+     486,
+     1501,
+     516
+    ],
+    "text": "package was banded with metal straps and placed in a casket. After"
+   },
+   {
+    "box": [
+     301,
+     523,
+     1537,
+     553
+    ],
+    "text": "extra lead strips we て e positioned in the casket tO further reduce the"
+   },
+   {
+    "box": [
+     299,
+     559,
+     1483,
+     589
+    ],
+    "text": "radiation levels, the 1 土 d was closed. Before locking the casket a"
+   },
+   {
+    "box": [
+     300,
+     592,
+     1447,
+     625
+    ],
+    "text": "cardboa て d \"Caution - High Radiation Area ー and a plastic ー Caution"
+   },
+   {
+    "box": [
+     299,
+     630,
+     1298,
+     661
+    ],
+    "text": "Radioactive Materia1s ー sign were placed intO the casket."
+   },
+   {
+    "box": [
+     1343,
+     631,
+     1568,
+     661
+    ],
+    "text": "Subsequent1y,"
+   },
+   {
+    "box": [
+     301,
+     667,
+     1483,
+     697
+    ],
+    "text": "the casket was locked, the vault cover positioned, and the surface"
+   },
+   {
+    "box": [
+     302,
+     704,
+     1483,
+     733
+    ],
+    "text": "surveyed at contact. maximum radiatlon readings observed were"
+   },
+   {
+    "box": [
+     300,
+     738,
+     1519,
+     766
+    ],
+    "text": "375 tvR/hr on the vault cover and 1 . 3 R/hr on the vault base . Radia-"
+   },
+   {
+    "box": [
+     302,
+     777,
+     1483,
+     806
+    ],
+    "text": "tion readings taken at a distance 0f one fOOt from the vault cover"
+   },
+   {
+    "box": [
+     299,
+     811,
+     1519,
+     842
+    ],
+    "text": "yielded a maximum of 130 俍 / hr . A11 points れ 0 て mally accessible were"
+   },
+   {
+    "box": [
+     299,
+     847,
+     761,
+     875
+    ],
+    "text": "below 1.0 R/hr at contact."
+   },
+   {
+    "box": [
+     301,
+     921,
+     568,
+     952
+    ],
+    "text": "Second Casua1ty"
+   },
+   {
+    "box": [
+     299,
+     993,
+     1483,
+     1024
+    ],
+    "text": "prior tO preparing the second casualty for placement in the casket"
+   },
+   {
+    "box": [
+     300,
+     1030,
+     1447,
+     1060
+    ],
+    "text": "a survey was perfO て med and the f0110W 土 ng radiation readings were"
+   },
+   {
+    "box": [
+     300,
+     1067,
+     654,
+     1091
+    ],
+    "text": "observed at contact :"
+   },
+   {
+    "box": [
+     694,
+     1140,
+     765,
+     1161
+    ],
+    "text": "Head"
+   },
+   {
+    "box": [
+     694,
+     1176,
+     765,
+     1204
+    ],
+    "text": "Body"
+   },
+   {
+    "box": [
+     695,
+     1214,
+     765,
+     1234
+    ],
+    "text": "Knee"
+   },
+   {
+    "box": [
+     914,
+     1135,
+     1231,
+     1163
+    ],
+    "text": "-12 . 0 to 15 . 0 R/hr"
+   },
+   {
+    "box": [
+     947,
+     1172,
+     1088,
+     1199
+    ],
+    "text": "2 . 5 R/hr"
+   },
+   {
+    "box": [
+     948,
+     1209,
+     1087,
+     1236
+    ],
+    "text": "2 . 5 R/hr"
+   },
+   {
+    "box": [
+     298,
+     1282,
+     1536,
+     1314
+    ],
+    "text": "After wrapping the body in 1 / 8 inch thick lead sheeting, extra strips"
+   },
+   {
+    "box": [
+     298,
+     1319,
+     1536,
+     1349
+    ],
+    "text": "were placed about the head tO reduce the radiation levels in that re-"
+   },
+   {
+    "box": [
+     299,
+     1352,
+     1482,
+     1382
+    ],
+    "text": "gion t0 2 . 1 R/hr maximum on contact. Next, the leaded package was"
+   },
+   {
+    "box": [
+     299,
+     1387,
+     1557,
+     1418
+    ],
+    "text": "placed intO a casket. Because Of the high radiation levels noted from"
+   },
+   {
+    "box": [
+     302,
+     1424,
+     1538,
+     1455
+    ],
+    "text": "the package, the casket had been provided with extra lead sheeting on"
+   },
+   {
+    "box": [
+     302,
+     1460,
+     1538,
+     1491
+    ],
+    "text": "the bottom, sides, and end where the head was located. After placing"
+   },
+   {
+    "box": [
+     301,
+     1498,
+     1484,
+     1527
+    ],
+    "text": "the lead encased bOdy intO the casket, the entire package? was com?"
+   },
+   {
+    "box": [
+     300,
+     1532,
+     1555,
+     1563
+    ],
+    "text": "pletely covered with a lead sheet 1 / 8 inch thick and banded with steel"
+   },
+   {
+    "box": [
+     302,
+     1567,
+     1573,
+     1599
+    ],
+    "text": "straps . Additional lead strips were strategically placed on the inside"
+   },
+   {
+    "box": [
+     301,
+     1601,
+     1448,
+     1629
+    ],
+    "text": "of the casket tO further reduce the radiation level. A \"Caution"
+   },
+   {
+    "box": [
+     299,
+     1639,
+     1465,
+     1669
+    ],
+    "text": "Radioactive Mate て and a \"Caution - High Radiation sign"
+   },
+   {
+    "box": [
+     299,
+     1676,
+     1500,
+     1707
+    ],
+    "text": "were placed intO the casket prior tO closing the cover . entire"
+   },
+   {
+    "box": [
+     303,
+     1710,
+     1465,
+     1743
+    ],
+    "text": "surface of the casket was surveyed and a 750 MR/hr maximum on the"
+   },
+   {
+    "box": [
+     299,
+     1747,
+     1429,
+     1779
+    ],
+    "text": "upper surface Of the casket and a 1 .8 R/hr maximum at one P0int"
+   },
+   {
+    "box": [
+     300,
+     1783,
+     1483,
+     1814
+    ],
+    "text": "underneath the vault was observed. A11 points normally accessible"
+   },
+   {
+    "box": [
+     903,
+     2114,
+     933,
+     2137
+    ],
+    "text": "95"
+   }
+  ]
+ },
+ "ido_p096_ship.png": {
+  "size": [
+   1827,
+   2382
+  ],
+  "lines": [
+   {
+    "box": [
+     280,
+     180,
+     1494,
+     210
+    ],
+    "text": "were below 1.0 R/hr . Upon completion 0f this preparation operation,"
+   },
+   {
+    "box": [
+     284,
+     216,
+     1536,
+     246
+    ],
+    "text": "the casket 11d was locked, the vault cover positioned, and the surface"
+   },
+   {
+    "box": [
+     284,
+     250,
+     1459,
+     285
+    ],
+    "text": "surveyed at contact. A maximum reading 0f 450 MR/hr was observed."
+   },
+   {
+    "box": [
+     305,
+     329,
+     531,
+     359
+    ],
+    "text": "lird Casua1t_y"
+   },
+   {
+    "box": [
+     283,
+     399,
+     1318,
+     429
+    ],
+    "text": "The foILowing radiation readings we て e observed at contact :"
+   },
+   {
+    "box": [
+     730,
+     471,
+     801,
+     494
+    ],
+    "text": "Head"
+   },
+   {
+    "box": [
+     731,
+     508,
+     818,
+     531
+    ],
+    "text": "Chest"
+   },
+   {
+    "box": [
+     949,
+     468,
+     1087,
+     495
+    ],
+    "text": "-30 R/hr"
+   },
+   {
+    "box": [
+     931,
+     504,
+     1087,
+     532
+    ],
+    "text": "- -50 R/hr"
+   },
+   {
+    "box": [
+     283,
+     577,
+     1499,
+     610
+    ],
+    "text": "'lhe third casualty previously covered with 3 / 4 inch lead sheets, was"
+   },
+   {
+    "box": [
+     282,
+     614,
+     1538,
+     647
+    ],
+    "text": "placed int0 a casket and the casket lid closed. Except f0 て the bottom"
+   },
+   {
+    "box": [
+     284,
+     654,
+     1018,
+     681
+    ],
+    "text": "surface Of the casket, a survey"
+   },
+   {
+    "box": [
+     282,
+     685,
+     1520,
+     715
+    ],
+    "text": "of 500 MR/hr on contact. Afte て a cardboard \"Caution - High Radiation"
+   },
+   {
+    "box": [
+     281,
+     720,
+     1412,
+     754
+    ],
+    "text": "Area\" and a plastic - Radioactive te て 土 a1s \" sign were"
+   },
+   {
+    "box": [
+     282,
+     759,
+     1465,
+     792
+    ],
+    "text": "placed int0 the casket, the casket was locked' and the metal vault"
+   },
+   {
+    "box": [
+     283,
+     797,
+     1071,
+     828
+    ],
+    "text": "cover was positioned. 1. surface Of"
+   },
+   {
+    "box": [
+     283,
+     831,
+     1411,
+     863
+    ],
+    "text": "and a maximum reading 0f 600 公 俍 / h て was observed at 0 良 e P0int on"
+   },
+   {
+    "box": [
+     284,
+     865,
+     1450,
+     896
+    ],
+    "text": "the bottom and a reading 0f 350 MR/hr at contact on the cover. A"
+   },
+   {
+    "box": [
+     279,
+     901,
+     1467,
+     933
+    ],
+    "text": "maximum reading 0f 200 Whr was obtained from a survey meter held"
+   },
+   {
+    "box": [
+     281,
+     939,
+     1121,
+     963
+    ],
+    "text": "at a distance Of one fOOt from the vault cover ."
+   },
+   {
+    "box": [
+     460,
+     1010,
+     1379,
+     1035
+    ],
+    "text": "BURIALS OF CASUALT 工 ES INVOLVED IN 1 E SL-I INC 工 DE 工"
+   },
+   {
+    "box": [
+     280,
+     1082,
+     1467,
+     1114
+    ],
+    "text": "From January 13 -22 , arrangements were made for the final interment"
+   },
+   {
+    "box": [
+     281,
+     1118,
+     1502,
+     1148
+    ],
+    "text": "of the three victims, and on January 22 , a U. S. Air Force C -54 air-"
+   },
+   {
+    "box": [
+     282,
+     1153,
+     1502,
+     1185
+    ],
+    "text": "craft containing the caskets 0f two 0f the casualties departed ldaho"
+   },
+   {
+    "box": [
+     281,
+     1190,
+     1468,
+     1221
+    ],
+    "text": "Fa11s, 工 daho, accompanied by two U. S. Army Representatives and an"
+   },
+   {
+    "box": [
+     281,
+     1226,
+     1466,
+     1256
+    ],
+    "text": "AEC Official. le plane arrived late that same evening at Griffis"
+   },
+   {
+    "box": [
+     281,
+     1263,
+     1374,
+     1293
+    ],
+    "text": "Ai て Force Base, Rome, New York, where one casket was ;"
+   },
+   {
+    "box": [
+     279,
+     1298,
+     1502,
+     1330
+    ],
+    "text": "military escort and the AEC official accompanied this casket. Later"
+   },
+   {
+    "box": [
+     284,
+     1335,
+     1467,
+     1364
+    ],
+    "text": "the aircraft continued on tO Washington, D. C. where the remaining"
+   },
+   {
+    "box": [
+     283,
+     1372,
+     1265,
+     1400
+    ],
+    "text": "casket was delivered for burial in Arlington, Virginia ."
+   },
+   {
+    "box": [
+     281,
+     1443,
+     1484,
+     1474
+    ],
+    "text": "At Griffis Air Base, the casket was removed from the plane by means"
+   },
+   {
+    "box": [
+     282,
+     1479,
+     1502,
+     1511
+    ],
+    "text": "Of a fork lift, transferred tO an Air Force truck and transported tO"
+   },
+   {
+    "box": [
+     284,
+     1516,
+     1193,
+     1548
+    ],
+    "text": "the garage 0f an armory located in Utica' New York."
+   },
+   {
+    "box": [
+     282,
+     1589,
+     1468,
+     1620
+    ],
+    "text": "On the morning Of January 23 , radiation measurements were taken at"
+   },
+   {
+    "box": [
+     284,
+     1625,
+     1485,
+     1653
+    ],
+    "text": "the surface Of the vault with a Jordan detector instrument, and are"
+   },
+   {
+    "box": [
+     284,
+     1661,
+     1448,
+     1691
+    ],
+    "text": "listed below. contamination surveys by Of SITlearS"
+   },
+   {
+    "box": [
+     281,
+     1697,
+     1211,
+     1727
+    ],
+    "text": "which were read on a Geiger 恒 elle て (GM) instrument."
+   },
+   {
+    "box": [
+     881,
+     2104,
+     912,
+     2127
+    ],
+    "text": "96"
+   }
+  ]
+ },
+ "ido_p100_kingston.png": {
+  "size": [
+   1832,
+   2383
+  ],
+  "lines": [
+   {
+    "box": [
+     277,
+     190,
+     1461,
+     220
+    ],
+    "text": "Upon arrival 0f the Navy plane, the shippung container was removed"
+   },
+   {
+    "box": [
+     276,
+     226,
+     1513,
+     256
+    ],
+    "text": "by a fork-lift and loaded on a truck, which then transported the con-"
+   },
+   {
+    "box": [
+     280,
+     262,
+     1461,
+     291
+    ],
+    "text": "tainer tO a 10Ca1 vault CO て po て ation where it was stored under lock"
+   },
+   {
+    "box": [
+     278,
+     298,
+     1508,
+     328
+    ],
+    "text": "overnight. 51 January 23 , the container was t て ansported tO Kingston,"
+   },
+   {
+    "box": [
+     278,
+     334,
+     1366,
+     364
+    ],
+    "text": "Michigan, which is approximately sixty miles west 0f Saginaw."
+   },
+   {
+    "box": [
+     278,
+     407,
+     1478,
+     437
+    ],
+    "text": "Radiation readings taken with a Juno detector instrument held about"
+   },
+   {
+    "box": [
+     1249,
+     442,
+     1531,
+     469
+    ],
+    "text": "180 MR/hr at the"
+   },
+   {
+    "box": [
+     280,
+     445,
+     1207,
+     468
+    ],
+    "text": "three inches from the surface Of the container were :"
+   },
+   {
+    "box": [
+     279,
+     478,
+     1495,
+     507
+    ],
+    "text": "foot to a maximum 0f 300 MR/hr at the bottom left hand corner 0f the"
+   },
+   {
+    "box": [
+     279,
+     518,
+     487,
+     541
+    ],
+    "text": "casket head ."
+   },
+   {
+    "box": [
+     278,
+     589,
+     1476,
+     619
+    ],
+    "text": "At the Kingston Cemetery, a request was made that the casket be re-"
+   },
+   {
+    "box": [
+     276,
+     625,
+     1459,
+     655
+    ],
+    "text": "moved from 1 に s shipping container and displayed. As a result, the"
+   },
+   {
+    "box": [
+     279,
+     662,
+     1548,
+     692
+    ],
+    "text": "casket was displayed in military style . Radiation readings taken th て ee"
+   },
+   {
+    "box": [
+     280,
+     695,
+     1531,
+     727
+    ],
+    "text": "inches from the surface ranged from 240 俍 / h て t0 500 公 俍 / h て , the lowest"
+   },
+   {
+    "box": [
+     278,
+     734,
+     1513,
+     764
+    ],
+    "text": "reading being at the f00t and the highest at the head. graveside"
+   },
+   {
+    "box": [
+     280,
+     770,
+     1025,
+     794
+    ],
+    "text": "interment service tOOk about five minutes ."
+   },
+   {
+    "box": [
+     1070,
+     770,
+     1477,
+     793
+    ],
+    "text": "工 t should be noted that"
+   },
+   {
+    "box": [
+     276,
+     806,
+     1513,
+     836
+    ],
+    "text": "most Of the persons attending the servlce were located at an approxl?"
+   },
+   {
+    "box": [
+     276,
+     842,
+     1240,
+     865
+    ],
+    "text": "mated distance of more than five feet from the casket ."
+   },
+   {
+    "box": [
+     275,
+     912,
+     1545,
+     942
+    ],
+    "text": "Approximately ten minutes were spent placing the casket intO the grave."
+   },
+   {
+    "box": [
+     278,
+     947,
+     1495,
+     978
+    ],
+    "text": "工 yards of concrete had been previously poured 亡 0 form the base 0f"
+   },
+   {
+    "box": [
+     279,
+     984,
+     1425,
+     1014
+    ],
+    "text": "the grave, and another SiX 0 て yards Of concrete added"
+   },
+   {
+    "box": [
+     279,
+     1020,
+     467,
+     1045
+    ],
+    "text": "the casket."
+   },
+   {
+    "box": [
+     513,
+     1020,
+     1515,
+     1049
+    ],
+    "text": "It is estimated that the casket is encased in a crypt Of"
+   },
+   {
+    "box": [
+     278,
+     1056,
+     1477,
+     1085
+    ],
+    "text": "concrete measuring approximately eighteen inches on the bottom, tWO"
+   },
+   {
+    "box": [
+     277,
+     1092,
+     1508,
+     1122
+    ],
+    "text": "feet on a11 sides and approximately twenty inches tO tWO feet on top ."
+   },
+   {
+    "box": [
+     278,
+     1165,
+     1496,
+     1194
+    ],
+    "text": "Time was allowed f0 て the newly poured concrete t0 harden after which"
+   },
+   {
+    "box": [
+     277,
+     1201,
+     1496,
+     1225
+    ],
+    "text": "a set Of radiation measurements were taken . The measurement did no 亡"
+   },
+   {
+    "box": [
+     278,
+     1236,
+     1479,
+     1267
+    ],
+    "text": "indicate any activity above background. The grave was then covered"
+   },
+   {
+    "box": [
+     276,
+     1272,
+     1330,
+     1302
+    ],
+    "text": "with earth and the readings repeated with the same results ."
+   },
+   {
+    "box": [
+     869,
+     2115,
+     919,
+     2138
+    ],
+    "text": "100"
+   }
+  ]
+ },
+ "ido_p101_deleted.png": {
+  "size": [
+   1827,
+   2382
+  ],
+  "lines": [
+   {
+    "box": [
+     611,
+     460,
+     1316,
+     492
+    ],
+    "text": "ぬ te て 1a1 previously printed on this page"
+   },
+   {
+    "box": [
+     598,
+     517,
+     1189,
+     548
+    ],
+    "text": "has been deleted from this report"
+   },
+   {
+    "box": [
+     881,
+     2127,
+     930,
+     2150
+    ],
+    "text": "101"
+   }
+  ]
+ },
+ "ido_p103_fig51.png": {
+  "size": [
+   2376,
+   1821
+  ],
+  "lines": [
+   {
+    "box": [
+     286,
+     441,
+     319,
+     450
+    ],
+    "text": "、 0 物 ー H"
+   },
+   {
+    "box": [
+     921,
+     450,
+     1040,
+     463
+    ],
+    "text": "00 、 0 ー N 庇 . 物 を 1 リ 、"
+   },
+   {
+    "box": [
+     945,
+     459,
+     1023,
+     470
+    ],
+    "text": "リ 、 げ ・ に - 円"
+   },
+   {
+    "box": [
+     681,
+     502,
+     803,
+     512
+    ],
+    "text": "・ 第 Ⅳ を ー 0 物"
+   },
+   {
+    "box": [
+     723,
+     513,
+     769,
+     522
+    ],
+    "text": "ー 第 NE T"
+   },
+   {
+    "box": [
+     683,
+     524,
+     725,
+     533
+    ],
+    "text": "を 一 C 洋 を R"
+   },
+   {
+    "box": [
+     1004,
+     539,
+     1046,
+     548
+    ],
+    "text": "T し R 、 を"
+   },
+   {
+    "box": [
+     1226,
+     592,
+     1352,
+     601
+    ],
+    "text": "10 、 を 、 AG を 一 0 ・ 物 0"
+   },
+   {
+    "box": [
+     1252,
+     615,
+     1371,
+     624
+    ],
+    "text": "\"OT 物 A を 興 を 一 E ・"
+   },
+   {
+    "box": [
+     1259,
+     625,
+     1352,
+     634
+    ],
+    "text": "を A ー を XC ト 、 G を 物"
+   },
+   {
+    "box": [
+     1276,
+     650,
+     1430,
+     659
+    ],
+    "text": "画 u 第 い A 一 ・ 画 を 物 ( 00 し を 0"
+   },
+   {
+    "box": [
+     1318,
+     662,
+     1386,
+     671
+    ],
+    "text": "0 ル CO?O ・"
+   },
+   {
+    "box": [
+     807,
+     594,
+     869,
+     603
+    ],
+    "text": "6 を 、 [ R ・ 10 物"
+   },
+   {
+    "box": [
+     427,
+     623,
+     501,
+     632
+    ],
+    "text": "自 0 料 0 、 PuMP"
+   },
+   {
+    "box": [
+     383,
+     683,
+     472,
+     691
+    ],
+    "text": "日 0R0 、 5 ー 0 第 を"
+   },
+   {
+    "box": [
+     1340,
+     708,
+     1432,
+     718
+    ],
+    "text": "修 ・ 円 物 ! 5 を"
+   },
+   {
+    "box": [
+     1134,
+     753,
+     1168,
+     762
+    ],
+    "text": "日 OA 物 0"
+   },
+   {
+    "box": [
+     314,
+     763,
+     409,
+     772
+    ],
+    "text": "い AR V ド 飛 ー し 8 E"
+   },
+   {
+    "box": [
+     305,
+     775,
+     402,
+     784
+    ],
+    "text": "5 ト ー E し 0 000 し を お"
+   },
+   {
+    "box": [
+     1073,
+     768,
+     1103,
+     776
+    ],
+    "text": "0 E"
+   },
+   {
+    "box": [
+     1267,
+     827,
+     1313,
+     836
+    ],
+    "text": "0 リ 製 、 0 ー"
+   },
+   {
+    "box": [
+     621,
+     850,
+     655,
+     859
+    ],
+    "text": "0 村 一 E"
+   },
+   {
+    "box": [
+     314,
+     854,
+     402,
+     863
+    ],
+    "text": "5 泓 E し 0 C05. [ R"
+   },
+   {
+    "box": [
+     1040,
+     856,
+     1056,
+     864
+    ],
+    "text": "円 N"
+   },
+   {
+    "box": [
+     292,
+     894,
+     417,
+     903
+    ],
+    "text": "SHIELD 00 - ER Pu\"P"
+   },
+   {
+    "box": [
+     960,
+     926,
+     974,
+     940
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     925,
+     894,
+     946,
+     976
+    ],
+    "text": "0 0 ◎"
+   },
+   {
+    "box": [
+     908,
+     942,
+     926,
+     976
+    ],
+    "text": "0 。"
+   },
+   {
+    "box": [
+     1850,
+     900,
+     2011,
+     912
+    ],
+    "text": "SUPPORT FACll-lTiES"
+   },
+   {
+    "box": [
+     1901,
+     917,
+     1932,
+     929
+    ],
+    "text": "日 し に"
+   },
+   {
+    "box": [
+     852,
+     1020,
+     913,
+     1030
+    ],
+    "text": "物 00 引 ー"
+   },
+   {
+    "box": [
+     1183,
+     1031,
+     1265,
+     1040
+    ],
+    "text": "襲 画 し 一 新 、 ・"
+   },
+   {
+    "box": [
+     1448,
+     1052,
+     1497,
+     1061
+    ],
+    "text": "00 [ REO"
+   },
+   {
+    "box": [
+     338,
+     1118,
+     399,
+     1126
+    ],
+    "text": "E\" を RG を 、 0 ヤ"
+   },
+   {
+    "box": [
+     710,
+     1157,
+     782,
+     1166
+    ],
+    "text": "ー 物 0- 0 画 ・ L ー"
+   },
+   {
+    "box": [
+     454,
+     1182,
+     530,
+     1190
+    ],
+    "text": "04R00 000 ・"
+   },
+   {
+    "box": [
+     1373,
+     1206,
+     1502,
+     1215
+    ],
+    "text": "円 円 物 0 TO 無 画 響 画 1 ー 興"
+   },
+   {
+    "box": [
+     1393,
+     1216,
+     1472,
+     1225
+    ],
+    "text": "0 「 ・ 物 [ 農 し な E"
+   },
+   {
+    "box": [
+     492,
+     1231,
+     612,
+     1240
+    ],
+    "text": "( 0N0 を 、 、 一 E R を TL 、"
+   },
+   {
+    "box": [
+     512,
+     1241,
+     591,
+     1251
+    ],
+    "text": "リ 、 、 ・ tHP)"
+   },
+   {
+    "box": [
+     891,
+     1300,
+     948,
+     1308
+    ],
+    "text": "ト [ [ D 響 AT ["
+   },
+   {
+    "box": [
+     907,
+     1311,
+     942,
+     1320
+    ],
+    "text": "PuVPS"
+   },
+   {
+    "box": [
+     1310,
+     1309,
+     1383,
+     1319
+    ],
+    "text": "す 00 し ・ 0 ・ 物 0"
+   },
+   {
+    "box": [
+     1086,
+     1401,
+     1155,
+     1410
+    ],
+    "text": "00N0 を 、 Ar を"
+   },
+   {
+    "box": [
+     1087,
+     1412,
+     1143,
+     1421
+    ],
+    "text": "0 物 05- 画 第"
+   },
+   {
+    "box": [
+     1943,
+     1471,
+     2048,
+     1486
+    ],
+    "text": "FIGURE 5 ヨ"
+   },
+   {
+    "box": [
+     1930,
+     1501,
+     2064,
+     1517
+    ],
+    "text": "DIAGRAM OF"
+   },
+   {
+    "box": [
+     2129,
+     1522,
+     2222,
+     1538
+    ],
+    "text": "INCIDENT"
+   },
+   {
+    "box": [
+     1767,
+     1523,
+     2111,
+     1540
+    ],
+    "text": "SL?I OPERATING FLOOR AFTER"
+   }
+  ]
+ },
+ "ido_pvii_foreword.png": {
+  "size": [
+   1821,
+   2376
+  ],
+  "lines": [
+   {
+    "box": [
+     817,
+     170,
+     906,
+     194
+    ],
+    "text": "OR 犯"
+   },
+   {
+    "box": [
+     296,
+     273,
+     1538,
+     311
+    ],
+    "text": "On Tuesday, January 3 , 工 1 , at 9 : 01 ・ m ・ a nuclear incident occurred"
+   },
+   {
+    "box": [
+     296,
+     310,
+     1538,
+     345
+    ],
+    "text": "at the stationary OW power Reactor NO. 工 , 180m1 as the located"
+   },
+   {
+    "box": [
+     296,
+     343,
+     1520,
+     379
+    ],
+    "text": "at the Nationa1 Reactor Testing station い 田 s ) , 工 d 曲 0. This nuclear"
+   },
+   {
+    "box": [
+     297,
+     383,
+     1465,
+     413
+    ],
+    "text": "incident resulted in three fatalities extensive damage tO the"
+   },
+   {
+    "box": [
+     296,
+     419,
+     1556,
+     452
+    ],
+    "text": "reactor core. On1y S113 ユ physical damaze was incurred tO the reactor"
+   },
+   {
+    "box": [
+     294,
+     454,
+     1556,
+     491
+    ],
+    "text": "わ u 土 1d1 豆 g , no significant 50 】 t Of CO 江 inat 主 on was released into"
+   },
+   {
+    "box": [
+     370,
+     497,
+     742,
+     525
+    ],
+    "text": "S 設 ITOI. な 土 1 瑠 environs ."
+   },
+   {
+    "box": [
+     295,
+     564,
+     1520,
+     597
+    ],
+    "text": "旺 土 s 工 DO SL-I Report is intended tO SI. せ 】 ose activities vhich"
+   },
+   {
+    "box": [
+     297,
+     600,
+     1502,
+     635
+    ],
+    "text": "tOOk p1ace f0115 瑠 incident does not attempt tO determine"
+   },
+   {
+    "box": [
+     297,
+     637,
+     1520,
+     670
+    ],
+    "text": "the cause Of the incident' ic れ is the subject Of a separate report"
+   },
+   {
+    "box": [
+     295,
+     672,
+     1537,
+     708
+    ],
+    "text": "by the Board Of 工 nvestigation ・ TO make the report as complete as"
+   },
+   {
+    "box": [
+     315,
+     708,
+     1502,
+     743
+    ],
+    "text": "ossi 1e it respect tO the 0 e で at 土 on . aspects f0110 ing the SL-I"
+   },
+   {
+    "box": [
+     298,
+     745,
+     1612,
+     781
+    ],
+    "text": "工 豆 ci e Ⅱ t , certain limited areas covered in the Board Of 工 nvestigation"
+   },
+   {
+    "box": [
+     296,
+     787,
+     814,
+     817
+    ],
+    "text": "Report appear in this で e 0 で ・"
+   },
+   {
+    "box": [
+     297,
+     856,
+     1378,
+     888
+    ],
+    "text": "Since the reader may be w 土 1 the SL-I a"
+   },
+   {
+    "box": [
+     316,
+     892,
+     1449,
+     921
+    ],
+    "text": "escri t10 Of せ 】 e SL-I Reactor and the operating training で og で"
+   },
+   {
+    "box": [
+     295,
+     927,
+     1467,
+     957
+    ],
+    "text": "which was utilized で 土 0 で tO the incident has been included in the"
+   },
+   {
+    "box": [
+     299,
+     962,
+     1540,
+     993
+    ],
+    "text": "土 n 土 ti 0 で ti0 ユ Of せ で e 0 で t. This introductory section is fO 工 工 0 ed"
+   },
+   {
+    "box": [
+     296,
+     1000,
+     1575,
+     1035
+    ],
+    "text": "by a わ で ief resume ー Of events 曾 土 c tOOk P1ace after the w れ 土 工 e"
+   },
+   {
+    "box": [
+     298,
+     1036,
+     1520,
+     1068
+    ],
+    "text": "the remainder Of report SUPP1ies detailed infomation on various"
+   },
+   {
+    "box": [
+     298,
+     1075,
+     1049,
+     1106
+    ],
+    "text": "aspects Of the post-incident developments ・"
+   },
+   {
+    "box": [
+     295,
+     1144,
+     1522,
+     1179
+    ],
+    "text": "What わ ege れ as a ro 設 t 土 e fire-alarm situation eventually involvea 訌 工"
+   },
+   {
+    "box": [
+     298,
+     1181,
+     1468,
+     1211
+    ],
+    "text": "of せ ie Divisions at the 工 da 0 Operations Office' , a number Of"
+   },
+   {
+    "box": [
+     298,
+     1218,
+     1486,
+     1250
+    ],
+    "text": "federal agencies, 11Y on- and off-site contractors' and 0 で"
+   },
+   {
+    "box": [
+     299,
+     1259,
+     565,
+     1286
+    ],
+    "text": "outside g で 0 s ・"
+   },
+   {
+    "box": [
+     891,
+     2088,
+     943,
+     2110
+    ],
+    "text": "vi 1"
+   }
+  ]
+ }
+}

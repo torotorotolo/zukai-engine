@@ -44,7 +44,7 @@ SPEC = {
     "ep03": dict(
         t="前書きは、最終段落をこう始める",
         s="IDO-19302 前書き（印字 p.vii）",
-        photo=ss.IDO_VII, **ss.text_focus(ss.IDO_VII, 0.490, 1.35),
+        photo=ss.IDO_VII, **ss.text_focus(ss.IDO_VII, 0.490),
         fig=("quote", dict(
             phrase="ふつうの火災警報のはずだった",
             rows=[("書いたのは", "米原子力委員会アイダホ支所", J.INST),
@@ -60,8 +60,10 @@ SPEC = {
     "ep04": dict(
         t="巻き込んだ先が、続きに並ぶ",
         s="前書きの最終段落　続き（印字 p.vii）",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.IDO_VII, side="right", ann_y=330,
-        **ss.text_focus(ss.IDO_VII, 0.505, 1.35),
+        **ss.text_focus(ss.IDO_VII, 0.505),
         ann=[dict(t="巻き込んだ先", d="アイダホ支所の全部署",
                   dc=J.INST, ds=30),
              dict(t="ほかに", d="連邦機関・社外の関係者",
@@ -73,8 +75,10 @@ SPEC = {
     "ep05": dict(
         t="始まりは、火災の一件だった",
         s="時系列　消防の出動（印字 p.21）",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.IDO_P21, side="left", ann_y=330,
-        **ss.text_focus(ss.IDO_P21, 0.470, 1.35),
+        **ss.text_focus(ss.IDO_P21, 0.470),
         ann=[dict(t="出たのは", v="6人", d="消防隊", vc=J.INK_W, vs=110,
                   dc=J.LINE, ds=30),
              dict(t="火は", d="出ていなかった", dc=J.ALERT, ds=34)],

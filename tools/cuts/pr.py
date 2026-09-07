@@ -37,8 +37,10 @@ SPEC = {
     "pr02": dict(
         t="信号は、8マイル先へ届いた",
         s="IDO-19302 の時系列　1月3日 21時01分の記述",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.IDO_P21, side="left", ann_y=330,
-        **ss.text_focus(ss.IDO_P21, 0.405, 1.35),
+        **ss.text_focus(ss.IDO_P21, 0.405),
         ann=[dict(t="距離", v="8マイル", d="中央施設から SL-1 まで", vc=J.AMBER,
                   vs=104, dc=J.LINE, ds=30),
              dict(t="出たのは", v="6人", d="消防車1台と、副隊長の車", vc=J.INK_W,
@@ -60,7 +62,7 @@ SPEC = {
     "pr04": dict(
         t="208ページの、最初のページ",
         s="IDO-19302 前書き（1962年）",
-        photo=ss.IDO_VII, **ss.text_focus(ss.IDO_VII, 0.268, 1.35),
+        photo=ss.IDO_VII, **ss.text_focus(ss.IDO_VII, 0.268),
         fig=("quote", dict(
             phrase="原因は、この報告書では決めない",
             rows=[("書いたのは", "米原子力委員会アイダホ支所", J.INST),
@@ -109,8 +111,10 @@ SPEC = {
     "pr08": dict(
         t="日誌は、作業の途中で終わる",
         s="運転日誌の最後の記載（p.21 に転記）",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.IDO_P21, side="right", ann_y=330,
-        **ss.text_focus(ss.IDO_P21, 0.222, 1.35),
+        **ss.text_focus(ss.IDO_P21, 0.222),
         ann=[dict(t="水位計", v="+5 ft", vc=J.AMBER, vs=104),
              dict(t="書かれた時刻", d="17時30分〜21時00分のあいだ",
                   dc=J.LINE, ds=30)],

@@ -85,7 +85,7 @@ SPEC = {
     "c606": dict(
         t="手順が、1行ずつ書いてある",
         s="埋葬のために整えた手順（印字 p.95）",
-        photo=ss.IDO_P95, **ss.text_focus(ss.IDO_P95, 0.149, 1.35),
+        photo=ss.IDO_P95, **ss.text_focus(ss.IDO_P95, 0.149),
         fig=("quote", dict(
             phrase="鉛で包み、帯で締めた",
             rows=[("やったのは", "8人の組", J.INK_W),
@@ -126,8 +126,10 @@ SPEC = {
     "c609": dict(
         t="1月22日、3人は別々に運ばれた",
         s="輸送の記述（印字 p.96）",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.IDO_P96, side="right", ann_y=330,
-        **ss.text_focus(ss.IDO_P96, 0.294, 1.35),
+        **ss.text_focus(ss.IDO_P96, 0.294),
         ann=[dict(t="空軍機", v="2人", d="東海岸の2か所",
                   vc=J.INK_W, vs=96, dc=J.LINE, ds=28),
              dict(t="海軍機", v="1人", d="ミシガンへ", vc=J.INK_W, vs=96,
@@ -138,8 +140,10 @@ SPEC = {
     "c610": dict(
         t="棺を出して並べてほしい、と",
         s="キングストンでの記述（印字 p.100）",
+        # 🔴 報告書の**本文ページ**なので暗幕を敷く（紙いちめんの英字の上に日本語が載るため）。濃さは `check_veil.py` の実測（この3ページは 0.79〜0.83 が必要）→ 0.84
+        veil=0.84,
         photo=ss.IDO_P100, side="left", ann_y=330,
-        **ss.text_focus(ss.IDO_P100, 0.283, 1.35),
+        **ss.text_focus(ss.IDO_P100, 0.283),
         ann=[dict(t="求められたこと", d="墓地からの求め",
                   dc=J.LINE, ds=30),
              dict(t="報告書の書き方", d="軍の形式で並べられた", dc=J.DOC,
