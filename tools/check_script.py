@@ -24,7 +24,18 @@ LEAD, TAIL = 0.35, 0.50
 TAIL_EXTRA_QUOTE = 2.0
 EP2_CPS = 5.00          # ep2 の設計値
 MAX_CHARS_PER_LINE = 41
-DUR_MIN, DUR_MAX = 35 * 60, 38 * 60
+# 🔴 2026-09-07 カズヤくん指示「尺の下限を30分に変更してください」（**事故検証chだけ**）。
+#    旧＝35分（1本目35分／2本目38分の実測から置いた値）。
+#    ⚠️ これは 2026-08-03 の「固定の下限は置かない（題材ごとに競合を実測して決める）」を
+#       **上書きする**（新しい指示を採る）。上限 38分は動かしていない。
+#    ⚠️ 実測では **35〜50分帯が1.47倍**。30〜35分はその帯の外側なので、
+#       そこに寄せるなら題材の側に理由が要る（この門番は「外」とは言わなくなるだけ）。
+DUR_MIN, DUR_MAX = 30 * 60, 38 * 60
+
+
+def dur_ok(sec):
+    """🔴 尺の合否はここ1本（本番も検算も通る。判定を2か所に書かない）。"""
+    return DUR_MIN <= sec <= DUR_MAX
 PHOTO_LO, PHOTO_HI = 0.45, 0.50
 HOOK_DEADLINE = 46.0    # 冒頭のこの秒までに引きを置き切る（3本の実測）
 
@@ -107,8 +118,9 @@ def report(cuts):
     print('   3通りの開き %s' % fmt(spread))
     if spread > 120:
         W.append('W 尺の3通りの開きが %s ある。①は字数を見ていないので、①だけ見ると気づけない' % fmt(spread))
-    if not (DUR_MIN <= m['med'] <= DUR_MAX):
-        E.append('E 尺 %s が 35〜38分の外' % fmt(m['med']))
+    if not dur_ok(m['med']):
+        # ⚠️ しきい値を直したら文言も一緒に動くようにする（定数と文が食い違わないため）
+        E.append('E 尺 %s が %s〜%s の外' % (fmt(m['med']), fmt(DUR_MIN), fmt(DUR_MAX)))
 
     # 1行41字 / 1カット1〜3行
     for cid, _, ls in cuts:
@@ -247,6 +259,18 @@ def selftest():
     chk('二重表示を検出', report_quiet(parse(bad3)) > 0, True)
     bad4 = SAMPLE.replace('> あいうえお', '> 即死であった')
     chk('煽り語を検出', report_quiet(parse(bad4)) > 0, True)
+
+    # 🔴 尺の下限・上限（2026-09-07 に下限を 35分→30分 にしたとき新設）。
+    #    ⚠️ それまで**しきい値そのものを試す検算が1本も無かった**＝
+    #       値を書き換えても誰も気づかない状態だった（[[feedback-rules-need-gates]]）。
+    #    境目のちょうど上・ちょうど下・1秒外を、**本番の dur_ok() そのもの**に入れる。
+    chk('尺 30分00秒は通る', dur_ok(30 * 60), True)
+    chk('尺 29分59秒は落ちる', dur_ok(30 * 60 - 1), False)
+    chk('尺 38分00秒は通る', dur_ok(38 * 60), True)
+    chk('尺 38分01秒は落ちる', dur_ok(38 * 60 + 1), False)
+    # 旧の下限（35分）だった帯が、いまは通ること＝変更が効いていること
+    chk('尺 32分（旧下限の下）が通る', dur_ok(32 * 60), True)
+    chk('下限の表示が定数と揃う', fmt(DUR_MIN), '30分00秒')
 
     print('selftest:', 'PASS' if ok else '🔴FAIL')
     return ok

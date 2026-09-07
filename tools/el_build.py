@@ -156,8 +156,14 @@ def build(cuts=None, dry=False):
     if skipped:
         print(f"⚠️ まだ作っていないカット {len(skipped)}: {','.join(skipped[:8])}{'…' if len(skipped) > 8 else ''}")
     print(f"作ったぶん: {len(durs)}カット {chars}字 → 発話＋行間 {speech:.1f}秒（{rate:.2f}字/秒・行間込み。AivisSpeech は 5.52）")
+    # 🔴 許容範囲は **`check_script` の定数から取る**（2026-09-07）。
+    #    ⚠️ ここは長らく「設計 36分43秒・許容 35〜38分」と**文字で書いてあった**＝
+    #       下限を 35分→30分 に変えても、書き手には古い範囲が表示され続ける形だった。
+    #       「設計 36分43秒」もサーフサイド固有なので落とした（次の題材では嘘になる）。
+    import check_script as CSC
+    lo, hi = CSC.DUR_MIN / 60, CSC.DUR_MAX / 60
     print(f"本編の見込み {est/60:.1f}分（全 {chars_all}字をこの速さで＋LEAD/TAIL 0.85×{n}＋quote 2.0×12。"
-          f"設計 36分43秒・許容 35〜38分）")
+          f"許容 {lo:.0f}〜{hi:.0f}分{'' if CSC.dur_ok(est) else ' ← 🔴 外'}）")
     print(f"最長の1行 = {longest[0]:.2f}秒「{longest[1]}」")
     if not dry:
         st = el_tts.stats()
