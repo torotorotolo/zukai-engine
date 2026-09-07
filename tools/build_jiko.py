@@ -395,6 +395,15 @@ def meta_of(idx):
     m = {}
     for cid, v in idx.items():
         m[cid] = {"photo": v["photo"], "back": v["back"], "veil": v["veil"],
+                  # 🔴🔴 2026-09-07（5本目 SL-1 ⑤c'）：**この1行が抜けていた。**
+                  #    scene_jiko.layer_index() は `pveil` を正しく作っていたのに
+                  #    ここで写していなかったので、build_jiko.py:346 の
+                  #    `meta[cut].get("pveil")` が**常に None**。
+                  #    ＝ spec に veil=0.84 と書いた **26カットすべてで暗幕が1枚も
+                  #    かかっていなかった**（実効 0.08＝tone() の写りだけ）。
+                  #    門番 check_slide は「絵」でなく SPEC を読んでいたので黙っていた。
+                  #    → [[feedback-settings-may-not-reach-the-picture]]
+                  "pveil": v.get("pveil"),
                   "span": v["span"],
                   # labk … 骨格を描くのにカットの何割を使うか（既定 LAB_K）。
                   #   段が1つしかない型（作り直した quote）は、既定だと前半で
