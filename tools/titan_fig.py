@@ -167,6 +167,11 @@ def _wordch(c):
 #    ⚠️ ここを2か所に書くと、片方だけ直して食い違う（過去に何度も踏んでいる型）。
 _NG_HEAD = "、。」）ァィゥェォャュョッーぁぃぅぇぉゃゅょっ"
 _TAIL_OK = "、。はがをにでとのもへやりてた"     # ここで切るのは語の切れ目（減点しない）
+# 🔴 2026-09-07（⑤c' r02 の原寸で見つけた）：**行末に置いてはいけない字**（始め括弧）。
+#    _NG_HEAD（行頭に来てはいけない字）だけ見ていたので、「208ページ」の割れを直した
+#    拍子に c705 が「アイダホ支所の報告書（／208ページ）」となり、**今度は「（」が
+#    行末に残った**。＝ 禁則は「行頭」と「行末」の両方を見ないと片側に押し出されるだけ。
+_NG_TAIL = "（「『｛〔【〈《([{"
 # 数字のうしろに来て**1つの量**を作る字。ここで切ると「21」と「時01分」に見える
 _UNIT_HEAD = "時分秒年月日人体倍度回本枚個名件％%キメフセミインリグトルド"
 
@@ -187,14 +192,18 @@ def _midword(x, y):
     """x で行を切り、y が次の行の頭に来る——それが**語の途中**なら True。"""
     if not x or not y:
         return False
-    if x.isdigit() and y.isdigit():
+    # 🔴 小数点・桁区切りも数の一部（「14.／5フィート」＝14.5 が割れた。r02 の原寸で発見）
+    if (x.isdigit() or x in ".,") and (y.isdigit() or y in ".,"):
         return True                       # 「20／8ページ」＝208 が割れる
     if x.isdigit() and y in _UNIT_HEAD:
         return True                       # 「21／時01分」＝数と単位が離れる
-    if y in _NG_HEAD:
+    if y in _NG_HEAD or x in _NG_TAIL:
         return True
     if x in _TAIL_OK:
         return False
+    # 漢字の直後に活用のかな＝語の途中（「手を触／れるため」）。助詞は _TAIL_OK 側で除く
+    if _kanji(x) and y in "れりるらえいきしせためべっつ":
+        return True
     return ((_kanji(x) and _kanji(y)) or (_kata(x) and _kata(y))
             or (_hira(x) and _hira(y)))
 
@@ -350,14 +359,22 @@ def balance(t, cols):
                 sc -= 1.2
             if j + 1 < len(t) and t[j + 1] in NG_HEAD:
                 sc += 5.0
+            # 🔴 行末に始め括弧を残さない（NG_HEAD と対。片側だけだと押し出されるだけ）
+            if t[j] in _NG_TAIL:
+                sc += 5.0
             # 語の途中で切らない。カタカナ語の途中はとくに読めなくなる
             #（「21フ／ィートの潜水艦」が実際に出た）
             if j + 1 < len(t) and kata(t[j]) and kata(t[j + 1]):
                 sc += 4.0
             # 🔴 2026-09-07：**数字の連続を割らない**（「208ページ」が 20／8 に割れた）。
             #    カタカナ語より重くする＝桁が割れた数字は別の数に読めてしまう
-            if j + 1 < len(t) and t[j].isdigit() and t[j + 1].isdigit():
+            if (j + 1 < len(t) and (t[j].isdigit() or t[j] in ".,")
+                    and (t[j + 1].isdigit() or t[j + 1] in ".,")):
                 sc += 6.0
+            # 🔴 漢字のうしろに活用のかなが来る位置で切らない（「手を触／れるため」）。
+            #    ⚠️ 助詞（は が を に で と の も へ や）は行頭に来てよいので入れない
+            if j + 1 < len(t) and kanji(t[j]) and t[j + 1] in "れりるらえいきしせためべっつ":
+                sc += 2.5
             # 数と単位を離さない（「21／時01分」＝「21」という別の量に見える）
             if j + 1 < len(t) and t[j].isdigit() and t[j + 1] in _UNIT_HEAD:
                 sc += 3.0
