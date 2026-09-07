@@ -39,6 +39,10 @@ CLIP = HERE / "out" / "jiko" / "clip"
 WORK = HERE / "out" / "jiko" / "shotscan"
 SHOTS_JSON = HERE / "ref" / "sl1" / "shots.json"
 CELL = (640, 360)
+try:
+    from footage import UA as _UA
+except Exception:                                       # noqa: BLE001
+    _UA = "Mozilla/5.0"
 GRID = (5, 4)              # 1枚 20コマ＝3200x1440。**識別のための当たり付け**
 
 
@@ -50,6 +54,25 @@ def shots(clip):
 def _at(a, b):
     """そのショットの代表の秒。**頭は切り替わりの残りが写る**ので 30% の位置を採る。"""
     return a + (b - a) * 0.30
+
+
+# 🔴🔴 2026-09-07（5本目 SL-1 ⑤c'・L-03/L-06）：**1ショット1コマでは足りない。**
+#    pr01 に使った #137（1478〜1491秒）は、30% の位置（t=1482）では OCR が0件。
+#    ところが **t=1490（終端の1秒前）では「THE END」「THE U.S. ATOMIC ENERGY
+#    COMMISSION」が読める**。記録映画の終幕タイトルは **ディゾルブ**で1つ前の
+#    ショットに重なって浮き上がるので、**ショットの尻でしか見えない**。
+#    ＝「文字なし」と判定した #135 #136 #137 は、**尻を見ていなかっただけ**。
+#    → 頭・中・尻の3コマを抜く。ファイル名は
+#      `NNNN.jpg`（中＝これまでどおり。stat とシートはこれを使う）／
+#      `NNNN_h.jpg`（頭）／`NNNN_t.jpg`（尻）。**番号とショットの対応は崩さない。**
+def _positions(a, b):
+    """そのショットから抜く秒。(接尾辞, 秒) の3つ。短いショットでも順序が崩れない。"""
+    d = max(b - a, 0.0)
+    head = a + min(0.5, d * 0.10)          # 切り替わりの残りを避けて頭
+    mid = _at(a, b)                        # 30%（これまでの代表コマ）
+    tail = b - min(1.0, d * 0.10)          # 🔴 尻の1秒前（SL-1 の THE END はここ）
+    tail = max(tail, mid + 0.01)
+    return [("_h", head), ("", mid), ("_t", tail)]
 
 
 def frames(clip=None):
@@ -64,26 +87,38 @@ def frames(clip=None):
     for name in ([clip] if clip else ["sl1_ph12", "sl1_ph3"]):
         src = CLIP / f"{name}.mp4"
         if not src.exists():
-            print(f"  🔴 {src} が無い（`footage.CLIPS` の url から落とす）")
-            continue
+            # 🔴 2026-09-07（⑤c'）：手元に mp4 が無くても**URL から直に抜ける**
+            #    （`footage._cut_stream` と同じやり方＝範囲取得。落とさない）。
+            #    それまでは「無い」で黙って0枚になり、道具が回らなかった。
+            import footage as _F
+            c = _F.CLIPS.get(name)
+            if not c:
+                print(f"  🔴 {name} は footage.CLIPS に無い")
+                continue
+            src = c["url"]
+            print(f"  ⚠️ {name}.mp4 が手元に無いので URL から抜く（{src[:56]}…）")
+        src = str(src)
         out = WORK / name
         out.mkdir(parents=True, exist_ok=True)
         sh = shots(name)
         miss = []
         for i, (a, b, _mo) in enumerate(sh):
-            dest = out / f"{i:04d}.jpg"
-            if dest.exists():
-                continue
-            cmd = ["ffmpeg", "-y", "-nostdin", "-hide_banner", "-loglevel", "error",
-                   "-ss", f"{_at(a, b):.2f}", "-i", str(src), "-frames:v", "1",
-                   "-vf", f"scale={CELL[0]}:{CELL[1]}", "-q:v", "4", str(dest)]
-            subprocess.run(cmd, capture_output=True, timeout=300)
-            if not dest.exists():
-                miss.append(i)
+            for suf, sec in _positions(a, b):
+                dest = out / f"{i:04d}{suf}.jpg"
+                if dest.exists():
+                    continue
+                cmd = ["ffmpeg", "-y", "-nostdin", "-hide_banner", "-loglevel", "error",
+                       "-user_agent", _UA, "-ss", f"{sec:.2f}", "-i", src,
+                       "-frames:v", "1",
+                       "-vf", f"scale={CELL[0]}:{CELL[1]}", "-q:v", "4", str(dest)]
+                subprocess.run(cmd, capture_output=True, timeout=300)
+                if not dest.exists():
+                    miss.append(f"{i}{suf}")
             if (i + 1) % 40 == 0:
                 print(f"    {name}: {i + 1}/{len(sh)}", flush=True)
         got = sorted(out.glob("*.jpg"))
         print(f"  {name}: ショット {len(sh)} 本 → コマ {len(got)} 枚"
+              f"（1ショット3コマ＝頭・中・尻）"
               + (f"  🔴 取れなかった {miss}" if miss else ""))
         n += len(got)
     print(f"■ 合計 {n} 枚 → {WORK}")
@@ -151,7 +186,8 @@ def stat():
     rows = []
     for name in ("sl1_ph12", "sl1_ph3"):
         sh = shots(name)
-        files = sorted((WORK / name).glob("*.jpg"))
+        # 明るさ等は**中のコマ**（`NNNN.jpg`）で測る（これまでと同じ値になる）
+        files = sorted(f for f in (WORK / name).glob("*.jpg") if "_" not in f.stem)
         if len(files) != len(sh):
             print(f"  ⚠️ {name}: コマ {len(files)} ≠ ショット {len(sh)}。"
                   f"番号の対応が崩れるので stat は出さない")
@@ -161,7 +197,11 @@ def stat():
             g = im.convert("L")
             st = ImageStat.Stat(g)
             hsv = im.convert("HSV").split()[1]
-            lines = ocr_d.get(f"{name}/{f.stem}", [])
+            # 🔴 文字は**頭・中・尻の3コマぶんを合わせて**見る（L-03：終幕タイトルは
+            #    ディゾルブで尻にしか出ない。中の1コマだけだと「文字なし」になる）
+            lines = []
+            for _suf in ("_h", "", "_t"):
+                lines += ocr_d.get(f"{name}/{f.stem}{_suf}", [])
             # OCR の行は「x0,y0,x1,y1<TAB>文字」の形。文字だけ取る
             words = " ".join(ln.split("\t")[-1] for ln in lines)
             rows.append(dict(clip=name, idx=i, start=round(a, 1), until=round(b, 1),
@@ -251,6 +291,19 @@ def selftest():
     chk("代表の秒は頭から 30%（10〜20秒 → 13.0秒）", abs(_at(10, 20) - 13.0) < 1e-6)
     chk("1秒のショットでも中に入る（5〜6秒 → 5.3秒）",
         5.0 < _at(5, 6) < 6.0)
+    # 🔴 頭・中・尻の3コマ（L-03：SL-1 の終幕タイトルは #137 の t=1490 でしか読めない）
+    ph = dict(_positions(1478.0, 1491.0))
+    chk("尻のコマは終端の1秒前（#137 → 1490.0秒）", abs(ph["_t"] - 1490.0) < 1e-6)
+    chk("中のコマはこれまでどおり 30%（#137 → 1481.9秒）",
+        abs(ph[""] - 1481.9) < 1e-6)
+    chk("3コマの秒は 頭 < 中 < 尻 の順", ph["_h"] < ph[""] < ph["_t"])
+    sh0 = _positions(100.0, 100.2)      # 0.2秒しかないショットでも順序が崩れない
+    chk("短いショットでも 頭 < 中 < 尻（0.2秒）",
+        sh0[0][1] < sh0[1][1] < sh0[2][1])
+    chk("3コマとも枠の中（0.2秒）",
+        100.0 <= sh0[0][1] and sh0[2][1] <= 100.2 + 1e-9)
+    chk("接尾辞は 中だけ空（stat とシートは NNNN.jpg を使う）",
+        [x for x, _ in _positions(0, 10)] == ["_h", "", "_t"])
     if SHOTS_JSON.exists():
         chk("ショット表が読める（ph12 は 139本）", len(shots("sl1_ph12")) == 139)
         chk("ショット表が読める（ph3 は 271本）", len(shots("sl1_ph3")) == 271)

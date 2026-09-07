@@ -124,6 +124,47 @@ def shot_of(clip, t):
     return None
 
 
+# 🔴🔴 使ってはいけない**秒**（2026-09-07・5本目 SL-1 ⑤c'・J-01/L-03/L-06）
+#    `sl1_shots.BANNED` は「ショット単位」の禁止札だが、SL-1 の終幕タイトルは
+#    **ショットの途中からディゾルブで浮き上がる**ので、ショット単位では表せない。
+#    ＝ pr01（動画の1カット目）は禁止札の付いていない #137 を使いながら、
+#      画面のまん中に「THE END」を出したまま焼き上がっていた。
+#    ⚠️ **OCR は 1485〜1489 で1文字も読めない**（大きく潰れた字＋背景が忙しい）。
+#      だから「OCR が0件だから文字は無い」で決めてはいけない
+#      → [[feedback-absence-of-a-word-is-not-absence]]
+#    実測（相対しきい値＝画面の p98 を超える画素の割合。対照＝すぐ左の同じ高さは全時刻 0.00%）:
+#      1485.0 まで 0.00%／**1485.1 で 0.04%（浮き始め）**／1485.4 で 2.83%／1486.0 で 14.69%
+#    ＝ 使ってよいのは **1478.0〜1485.0**。
+NOGO = {
+    "sl1_ph12": [(1485.0, 1495.0,
+                  "終幕タイトル（THE END／THE U.S. ATOMIC ENERGY COMMISSION／"
+                  "Contract No. AT(10-1)-1087）がディゾルブで浮く。実測 1485.1 から")],
+}
+
+
+def in_nogo(use=None, secs=None):
+    """🔴 実際に読む秒が「使ってはいけない秒」に掛かっている欄。
+
+    ⚠️ `until` だけを見ても止まらない。`until` は**ショットの終わり**として書かれるので、
+       ショットの途中から禁止の秒が始まる場合に構造上見えない（pr01 がその実例）。
+    """
+    if secs is None:
+        import scene_jiko as S
+        secs = dict(S.CUTS)
+    use = USE if use is None else use
+    out = []
+    for cid, u in use.items():
+        rng = NOGO.get(u.get("clip"))
+        if not rng:
+            continue
+        a = float(u["start"])
+        b = a if u.get("still") else a + secs.get(cid, 0.0) * float(u.get("rate", 1.0))
+        for x0, x1, why in rng:
+            if b > x0 + 1e-9 and a < x1:
+                out.append((cid, u["clip"], a, b, x0, x1, why))
+    return out
+
+
 def outside_shot(use=None):
     """🔴 (start, until) が1本のショットに収まっていない欄。
 
@@ -174,7 +215,15 @@ def outside_shot(use=None):
 #       リールを振り替えてある（同じ主題なので代用ではない）。
 USE = {
     # ── 冒頭 ─────────────────────────────────────────
-    "pr01": dict(clip="sl1_ph12", start=1478.0, until=1491.0),   # #137 敷地の空撮（昼・建物と道路）
+    # 🔴🔴 2026-09-07（⑤c' J-01/L-03）：**動画の1カット目に「THE END」が写っていた。**
+    #    #137（1478〜1491）は SL-1 の敷地を俯瞰する理想的な引きだが、
+    #    **1485.1秒から終幕タイトルがディゾルブで浮く**（`NOGO` を見よ）。
+    #    ⚠️ 台帳の直し案「#135（1420〜1470）へ振り替える」は**不成立**＝#135 は
+    #      屋内のトーキングヘッド（L-04）。#136 は ep06 が使っている（同じ俯瞰の続き）。
+    #    → 絵は変えず、**読む秒を 1478.0〜1484.6 に縮めて rate で埋める**。
+    #      式＝尺 11.57秒 × rate 0.57 ＝ 6.60秒。終わり 1484.60（浮き始めまで 0.50秒）。
+    #      0.57 は本編で既に使っている遅回しの幅の中（c508 が 0.57）。
+    "pr01": dict(clip="sl1_ph12", start=1478.0, until=1485.0, rate=0.57),
     "pr03": dict(clip="sl1_ph3", start=794.0, until=805.0, rate=0.88),   # #099 屋外の覆いのある階段
     "pr10": dict(clip="sl1_ph3", start=707.0, until=724.0),      # #087 クレーンのブームと建屋
     # ── 第2〜3章 ────────────────────────────────────
@@ -308,11 +357,19 @@ def check_until():
     if out:
         print(f"🔴 実測のショットをまたいでいるカットが {len(out)} 件"
               f"（秒は ref/sl1/shots.json から採る）")
-    if not miss and not bad and not out:
+    nog = in_nogo()
+    for cid, clip, a, b, x0, x1, why in nog:
+        print(f"  🔴 {cid}: {a:.1f}〜{b:.2f}秒 が**使ってはいけない秒** "
+              f"{x0:.1f}〜{x1:.1f} に掛かる（{clip}）＝{why}")
+    if nog:
+        print(f"🔴 使ってはいけない秒に掛かっているカットが {len(nog)} 件"
+              f"（`footage.NOGO` を見よ。rate を下げるか、別のショットへ振り替える）")
+    if not miss and not bad and not out and not nog:
         n_sh = sum(len(v) for v in SHOTS.values())
         print(f"✓ 全 {len(USE)} 欄に until= があり、尻のはみ出しも "
-              f"ショットまたぎも無い（実測ショット {n_sh} 本と照合）")
-    return bad, miss, out
+              f"ショットまたぎも無く、使ってはいけない秒にも掛かっていない"
+              f"（実測ショット {n_sh} 本と照合）")
+    return bad, miss, out, nog
 
 
 def selftest():
@@ -333,6 +390,7 @@ def selftest():
 
     # 作り物のショット表＝10〜20秒／20〜35秒 の2本
     keep_shots, keep_use, keep_clips = dict(SHOTS), dict(USE), dict(CLIPS)
+    keep_nogo = dict(NOGO)
     try:
         globals()["SHOTS"] = {"t_clip": [(10.0, 20.0, 5.0), (20.0, 35.0, 1.0)]}
         CLIPS["t_clip"] = dict(url="http://example.invalid/t.mp4", sec=35.0,
@@ -368,7 +426,23 @@ def selftest():
         chk("ショット表の無いクリップは対象外（fail open にしない＝黙る）",
             bool(outside_shot({"x03": dict(clip="sl1_ph12", start=12.0, until=25.0)})), False)
 
-        # ④ exit コードが 2（until 無し）→ 3（またぎ）の順で重いこと
+        # ④ 🔴 in_nogo：**書いた数は正しいのに、実際に読む秒が禁止の秒に掛かる**
+        #    （2026-09-07・pr01 がその実例。until はショットの終わりとして正しかった）
+        globals()["NOGO"] = {"t_clip": [(17.0, 30.0, "（検算用）表題カード")]}
+        chk("読む秒が禁止の秒に掛かる（12.0〜18.0／禁止 17.0〜）",
+            bool(in_nogo({"x01": dict(clip="t_clip", start=12.0, until=20.0)}, secs)), True)
+        chk("rate を下げれば掛からない（12.0〜15.0）",
+            bool(in_nogo({"x01": dict(clip="t_clip", start=12.0, until=20.0, rate=0.5)},
+                         secs)), False)
+        chk("until が正しくても読む秒で判定する（until=20.0 は禁止に掛からない）",
+            bool(in_nogo({"x01": dict(clip="t_clip", start=12.0, until=17.0)}, secs)), True)
+        chk("静止画は1コマだけなので掛からない（start=12.0）",
+            bool(in_nogo({"x02": dict(clip="t_clip", start=12.0, until=20.0, still=True)},
+                         secs)), False)
+        chk("禁止の表に無いクリップは対象外",
+            bool(in_nogo({"x03": dict(clip="zz_clip", start=12.0, until=20.0)}, secs)), False)
+
+        # ⑤ exit コードが 2（until 無し）→ 3（またぎ）→ 4（禁止の秒）の順で重いこと
         import scene_jiko as S
         keep_cuts = S.CUTS
         try:
@@ -378,16 +452,20 @@ def selftest():
             globals()["USE"] = {"x01": dict(clip="t_clip", start=12.0, until=25.0)}
             rc3 = fetch(check=True)
             globals()["USE"] = {"x01": dict(clip="t_clip", start=12.0, until=20.0)}
+            rc4 = fetch(check=True)                       # 禁止 17.0〜 に掛かる
+            globals()["NOGO"] = {}
             rc0 = fetch(check=True)
         finally:
             S.CUTS = keep_cuts
-        for name, rc, want in (("until 無し", rc2, 2), ("ショットまたぎ", rc3, 3), ("正しい欄", rc0, 0)):
+        for name, rc, want in (("until 無し", rc2, 2), ("ショットまたぎ", rc3, 3),
+                               ("禁止の秒", rc4, 4), ("正しい欄", rc0, 0)):
             ok.append(rc == want)
             print(f"  {'✓' if rc == want else '🔴'} {name} → `fetch --check` exit {rc}（期待 {want}）")
     finally:
         globals()["SHOTS"] = keep_shots
         globals()["USE"] = keep_use
         globals()["CLIPS"] = keep_clips
+        globals()["NOGO"] = keep_nogo
 
     # ⚠️ 本番の状態は「検算の合否」と分けて必ず表に出す（道具の緑と中身の緑を混ぜない）
     now = missing_until(USE)
@@ -468,7 +546,7 @@ def fetch(check=False):
         flag = "" if end <= float(c["sec"]) + 0.05 else "  🔴 動画の終端を越える"
         print(f"  {cid}  尺{secs[cid]:5.2f}s  ← {u['clip']} {u['start']:.1f}〜{end:.1f}秒"
               f"（{rate:.2f}倍速）{flag}")
-    over, miss, out = check_until()
+    over, miss, out, nog = check_until()
     # 🔴 `until=` は必須（2026-09-07・設計ノート §9-5）。無ければ **exit 2** で落とす。
     #    ⚠️ はみ出し（exit 1）より重い。「測れる状態になっていない」ので切り出しにも進まない
     if miss:
@@ -482,6 +560,14 @@ def fetch(check=False):
         print("🔴 exit 3 ＝ (start, until) を1本のショットの中に収める。"
               "`python tools/shots.py show ref/sl1/shots.json --key <clip>` で境目を見る")
         return 3
+    # 🔴 exit 4 ＝ 実際に読む秒が「使ってはいけない秒」に掛かる（2026-09-07・5本目 ⑤c'）。
+    #    ⚠️ exit 2/3 は**書いた数**を見る門番で、ここだけが**実際に読む範囲**を見る。
+    #       pr01 は until=1491.0（ショットの終わり）と正しく書いてあったのに、
+    #       尺 10.72秒 × rate 1.0 ＝ 1488.7秒まで読み、終幕タイトルを画面に出していた。
+    if nog:
+        print("🔴 exit 4 ＝ `footage.NOGO` の秒に掛かっている。"
+              "rate を下げて読む秒を縮めるか、別のショットへ振り替える")
+        return 4
     if check:
         return 1 if over else 0
     bad = 0

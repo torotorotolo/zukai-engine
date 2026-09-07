@@ -47,6 +47,7 @@ GATES = [
     ("color", ["tools/check_color.py"], "地との比と色どうしの離れ方"),
     ("slide", ["tools/check_slide.py"], "焼き込みの文字×切り方（G-09/10/13/14/15）"),
     ("blank", ["tools/check_blank.py"], "切り出し窓が空っぽでないか"),
+    ("wrap", ["tools/check_wrap.py"], "行が語の途中で割れていないか（L-15）"),
     ("footage", ["tools/footage.py", "fetch", "--check"], "until＝ショットの終わり"),
 ]
 

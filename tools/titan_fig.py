@@ -37,6 +37,11 @@ BY0, BY1 = J.BAND_T, J.BAND_B         # 本体の上下 210 / 892
 BW, BH = BX1 - BX0, BY1 - BY0         # 1776 × 682
 BCX = (BX0 + BX1) / 2                 # 960
 
+# 🔴 compare() の棒の最低の高さ（barh に対する割合）。**0.8pxの棒は消えているのと同じ**
+#    なので下限を置いているが、**この下限を超える比は全部 1/BAR_FLOOR に潰れる**。
+#    ＝ 4.5% なら **22.2:1 より大きい比は描けない**（K-06）。カットごとに `floor=` で下げる。
+BAR_FLOOR = 0.045
+
 _uid = [0]
 
 
@@ -157,6 +162,58 @@ def _wordch(c):
     return bool(c) and c.isascii() and (c.isalnum() or c in "-'’")
 
 
+# 🔴 2026-09-07（5本目 SL-1 ⑤c'）：**行の境目が語の途中かどうか**を1か所で決める。
+#    `balance()` は減点表として、`wrap()` は「balance に投げ直すか」の合図として同じ規則を使う。
+#    ⚠️ ここを2か所に書くと、片方だけ直して食い違う（過去に何度も踏んでいる型）。
+_NG_HEAD = "、。」）ァィゥェォャュョッーぁぃぅぇぉゃゅょっ"
+_TAIL_OK = "、。はがをにでとのもへやりてた"     # ここで切るのは語の切れ目（減点しない）
+# 数字のうしろに来て**1つの量**を作る字。ここで切ると「21」と「時01分」に見える
+_UNIT_HEAD = "時分秒年月日人体倍度回本枚個名件％%キメフセミインリグトルド"
+
+
+def _kanji(c):
+    return "一" <= c <= "鿿" or c == "々"
+
+
+def _kata(c):
+    return "ァ" <= c <= "ヶ" or c == "ー"
+
+
+def _hira(c):
+    return "ぁ" <= c <= "ゖ"
+
+
+def _midword(x, y):
+    """x で行を切り、y が次の行の頭に来る——それが**語の途中**なら True。"""
+    if not x or not y:
+        return False
+    if x.isdigit() and y.isdigit():
+        return True                       # 「20／8ページ」＝208 が割れる
+    if x.isdigit() and y in _UNIT_HEAD:
+        return True                       # 「21／時01分」＝数と単位が離れる
+    if y in _NG_HEAD:
+        return True
+    if x in _TAIL_OK:
+        return False
+    return ((_kanji(x) and _kanji(y)) or (_kata(x) and _kata(y))
+            or (_hira(x) and _hira(y)))
+
+
+def _has_midword(lines):
+    """折った行のどこかが語の途中で割れているか。"""
+    return any(_midword(lines[i].rstrip()[-1:], lines[i + 1].lstrip()[:1])
+               for i in range(len(lines) - 1)
+               if lines[i].strip() and lines[i + 1].strip())
+
+
+def _splits_ascii(lines):
+    """英単語をまたいで割っているか。`balance()` は英語の語境を知らないので、
+    その結果を採ってよいかの門にする（**英字が在るか**ではなく**割ったか**で見る）。"""
+    return any(_wordch(lines[i].rstrip()[-1:]) and _wordch(lines[i + 1].lstrip()[:1])
+               for i in range(len(lines) - 1)
+               if lines[i].strip() and lines[i + 1].strip())
+
+
 def wrap(t, cols):
     """全角換算 cols 字で折る。読点・句点を優先して折る。
 
@@ -196,16 +253,52 @@ def wrap(t, cols):
                     line = line[cut + 1:].lstrip()
                     n = sum(fm.adv(c, "Noto") for c in line)
                     continue
+            # 🔴 2026-09-07（L-15 の続き）：空白へ戻せないときでも、**語の途中なら
+            #    少しだけ戻す**。「ANL-6692（196／2年11月）」＝空白が1つも無い文なので
+            #    上の戻しが効かず、数字 1962 が割れていた（本番 214文の全数で実測）。
+            #    ⚠️ 戻しすぎると行が短くなって行数が増えるので、**行の 6割**までしか戻さない。
+            k = len(line)
+            while k > 1 and n * (k / max(len(line), 1)) > cols * 0.60:
+                y = line[k] if k < len(line) else nxt
+                if not y or not (_midword(line[k - 1], y)
+                                 or (_wordch(line[k - 1]) and _wordch(y))):
+                    break
+                k -= 1
+            if k < len(line):
+                out.append(line[:k])
+                line = line[k:]
+                n = sum(fm.adv(c, "Noto") for c in line)
+                continue
             out.append(line)
             line, n = "", 0.0
     if line:
         out.append(line)
     # ⚠️ `balance()` も日本語の禁則しか見ていないので、英字を含む文では呼ばない
     #    （呼ぶと語の途中の割れが戻ってしまう）。
-    if (len(out) > 1 and sum(fm.adv(c, "Noto") for c in out[-1]) <= 2.0
-            and not any(_wordch(c) for c in t)):
+    # 🔴 2026-09-07（5本目 SL-1 ⑤c'・L-15）：**その門が閉まりすぎていた。**
+    #    `any(_wordch(c) …)` は **ASCII の字が1つでもあれば**閉じるので、
+    #    「20/8ページ」「14.5フィート」「21時15分ごろ」のように**日本語に数字が
+    #    混じるだけ**で `balance()` に回らず、日付・寸法の欄が全部素通りしていた
+    #    （札の欄と原文 68件のうち 9件が語の途中・禁則で割れていた）。
+    #    → 閉じるのは「**2字以上の英単語**があるとき」だけにする。
+    #      数字だけの混入では閉じない。⚠️ 行数は増えない（下の `len(b) <= len(out)`）。
+    # 🔴 2026-09-07（L-15 の検算）：台帳の当たり（門を英単語だけにする）を入れて
+    #    実測したら、**12件中 5件しか直らず、しかも c223 が新しく割れた**
+    #    （「1961年1月3日 2／1時01分の時点」＝数字 21 が割れる）。
+    #    真因は投げ直しの**条件**のほうだった＝「最後の行が2字以下」のときしか
+    #    balance に回らないので、途中の行が語を割っていても素通りする。
+    #    → **どこかの境目が語の途中なら投げ直す**（行数が増えないときだけ採る）。
+    #    🔴 さらに（同じ日の実測）：**「英字が1語でもあれば投げ直さない」も広すぎた。**
+    #    本番の経路を全部通して測ると、「AEC 調査委員会／報告（1961年6月／）」
+    #    「ANL-6692（196／2年11月）」のように、**英字は行の頭に固まっているのに
+    #    割れているのは日本語と数字**という文が 4件あった。
+    #    → 投げ直しは止めず、**balance の結果が英単語をまたいでいたら採らない**に変える。
+    #      ＝「英字があるか」ではなく「**英単語を割ったか**」で決める（中身で見る）。
+    ragged = sum(fm.adv(c, "Noto") for c in out[-1]) <= 2.0
+    if len(out) > 1 and (ragged or _has_midword(out)):
         b = balance(t, cols)
-        if len(b) <= len(out):
+        if (len(b) <= len(out) and not _splits_ascii(b)
+                and not _has_midword(b)):
             return b
     return out
 
@@ -237,6 +330,9 @@ def balance(t, cols):
 
     def hira(c):
         return "ぁ" <= c <= "ゖ"
+
+    def kanji(c):
+        return "一" <= c <= "鿿" or c == "々"
     out, start, acc, ideal = [], 0, 0.0, per
     for i, ch in enumerate(t):
         acc += fm.adv(ch, "Noto")
@@ -258,8 +354,22 @@ def balance(t, cols):
             #（「21フ／ィートの潜水艦」が実際に出た）
             if j + 1 < len(t) and kata(t[j]) and kata(t[j + 1]):
                 sc += 4.0
+            # 🔴 2026-09-07：**数字の連続を割らない**（「208ページ」が 20／8 に割れた）。
+            #    カタカナ語より重くする＝桁が割れた数字は別の数に読めてしまう
+            if j + 1 < len(t) and t[j].isdigit() and t[j + 1].isdigit():
+                sc += 6.0
+            # 数と単位を離さない（「21／時01分」＝「21」という別の量に見える）
+            if j + 1 < len(t) and t[j].isdigit() and t[j + 1] in _UNIT_HEAD:
+                sc += 3.0
             if j + 1 < len(t) and hira(t[j]) and hira(t[j + 1])                     and t[j] not in BONUS_AFTER:
                 sc += 1.6
+            # 🔴 2026-09-07（K-10）：**漢字の連続＝漢語の熟語**を割らない。
+            #    「炉から完／全に外れていた」「この報告／書では決めない」
+            #    「ふつうの火災警／報のはずだった」の3件が実際に割れていた。
+            #    ⚠️ +2.0 でも +6.0 でも結果は同じ（熟語割れ 0件・割り方が変わるのは
+            #      その3カットだけ・行数は増えない）＝しきい値に敏感でない。
+            if j + 1 < len(t) and kanji(t[j]) and kanji(t[j + 1]):
+                sc += 3.0
             if best is None or sc < best[0]:
                 best = (sc, j)
         if best and (acc >= ideal or best[0] < 0):
@@ -486,7 +596,8 @@ def depth(marks, dmax=4400, unit="m", axis_t="水深", seabed=None, note="", rig
 # ══════════════════════════════════════════════════════════
 #  2. compare — 数値をならべて比べる
 # ══════════════════════════════════════════════════════════
-def compare(items, unit="", note="", bar=True, ratio="", vmax=None, ref=""):
+def compare(items, unit="", note="", bar=True, ratio="", vmax=None, ref="",
+            floor=None):
     """2〜4個の数値を、棒の長さで比べる。
 
     items … [dict(v=13200, t="計算が示した爆縮深度", c=J.LINE, disp="13,200")]
@@ -496,6 +607,14 @@ def compare(items, unit="", note="", bar=True, ratio="", vmax=None, ref=""):
             数字は 10 と書いてあるのに絵は「いっぱい」と言う ＝ 図が嘘をつく。
             外の基準（タイタニックの深さ 3,840m）で測ればそのまま「ほとんど無い」になる。
     ref   … その基準の名前（薄い枠で満杯の棒を1本置き、そこに書く）
+    floor … 棒の最低の高さ（barh に対する割合。既定 BAR_FLOOR＝4.5%）。
+            🔴🔴 2026-09-07（5本目 SL-1 ⑤c'・K-06/L-14）：**この下限が逆向きの嘘を作る。**
+            `h = max(barh*floor, barh*v/vmax)` なので、**1/floor（=22.2）を超える比は
+            全部 22.2:1 に潰れる**。実測 c914 は値 1:2000 が絵で **1:16.5**（121分の1）、
+            c816 は値 1:52.8 が **1:16.5**（3.2分の1）。どちらも棒の高さは 20px と 330px。
+            → 下限が実際に効いたら **ValueError で落とす**（下の門番）。
+              直し方は2つだけ ①`bar=False` にして数字に語らせる
+              ②その比が描けるところまで `floor` を下げる（棒が見える下限は線幅込みで 10px）
     """
     n = len(items)
     gap = 40
@@ -517,6 +636,21 @@ def compare(items, unit="", note="", bar=True, ratio="", vmax=None, ref=""):
                 f"棒は全部同じ長さになる（図が『同じだ』と言ってしまう）。"
                 f"bar=False で数字に語らせるか、ref= で外の基準を渡すこと。値={vs}")
     vmax = vmax or max(abs(i["v"]) for i in items) or 1
+    fl = BAR_FLOOR if floor is None else float(floor)
+    # 🔴🔴 逆向きの門番（上の「差が5%未満」と対）。**下限が効いたら図が嘘をつく。**
+    #    上の門番は「差が小さすぎて棒が全部同じに見える」ときに鳴る。
+    #    こちらは「差が**大きすぎて**、小さいほうが下限に張り付く」ときに鳴る。
+    #    本番 14件に当てると鳴るのは c914（1:2000）と c816（1:52.8）の2件だけで、
+    #    3番目に小さい c810（1:18.0）は下限に触らない＝誤報は出ない。
+    if bar:
+        _vs = [abs(i["v"]) for i in items if i.get("v")]
+        if _vs and min(_vs) / vmax < fl:
+            raise ValueError(
+                f"compare: いちばん小さい値が最大の {100 * min(_vs) / vmax:.3f}% しかなく、"
+                f"棒の下限 {100 * fl:.1f}% に張り付く"
+                f"（値の比 1:{vmax / min(_vs):.1f} → 絵の比 1:{1 / fl:.1f}＝図が嘘をつく）。"
+                f"bar=False で数字に語らせるか、floor={min(_vs) / vmax * 0.95:.4f} 以下まで"
+                f"下げること。値={_vs}／vmax={vmax}")
     top = BY0 + 34
     # ⚠️ 棒の高さ300では枠を使い切れず、値の小さい側の柱が空だった（c202 35.7%）。
     #    数字の下から枠の底まで使う。比の小さい棒も**最低限の高さ**を持たせて
@@ -574,7 +708,7 @@ def compare(items, unit="", note="", bar=True, ratio="", vmax=None, ref=""):
                 if i == 0:
                     s.append(txtfit(x + cw * 0.16 + 10, barb - barh + 30, str(ref), cw * 0.68 - 20,
                                     cap=26, col=J.TICK))
-            h = max(barh * 0.045, barh * abs(it["v"]) / vmax)
+            h = max(barh * fl, barh * abs(it["v"]) / vmax)
             s.append(rect(x + cw * 0.16, barb - h, cw * 0.68, h, c, op=0.30))
             s.append(rect(x + cw * 0.16, barb - h, cw * 0.68, h, "none", c, 4))
             s.append(line(x + cw * 0.16, barb, x + cw * 0.84, barb, c, 5))
