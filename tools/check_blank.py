@@ -145,14 +145,32 @@ def scan(spec_map, photo_of, box_of, skip):
     return rows
 
 
+# ── 🔴 承知のうえで薄いカット（2026-09-07・5本目 SL-1）─────────────
+# ⚠️ **しきい値は動かさない。**5本目の本番77件に当てても分布の切れ目は同じ場所に在る
+#    （0.00〜0.04 に 7件・0.04〜0.05 に 0件・0.05〜0.07 に 14件）。動かすと
+#    「白紙側を向いた xbias」を二度と拾えなくなる。→ [[feedback-gates-go-stale-when-upstream-changes]]
+# 🔴 代わりに**カットを名指しで、理由つきで**外す。理由の無い名前は置けない（下の検算で落ちる）。
+# ⚠️ 外した件も**数字ごと必ず表に出す**（黙って消さない）。
+ON_PURPOSE = {
+    "c705": "報告書の p.101 は本文が2行だけの白紙ページ。**白いことがこのカットの中身**",
+    "c704": "AEC 調査委員会報告の表紙。1962年の報告書の表紙は紙の白さが大半（墨は題の塊だけ）",
+    "c903": "同上（c704 と同じ表紙・別の寄り）",
+    "c908": "ANL-6692 の表紙。同じ理由",
+}
+
+
 def report(rows, show_all=False, hist=False):
-    bad = [r for r in rows if r[6]]
+    bad = [r for r in rows if r[6] and r[0] not in ON_PURPOSE]
+    knew = [r for r in rows if r[6] and r[0] in ON_PURPOSE]
     print(f"■ スライドが映るカット {len(rows)} 件を、k=0 と k=1 の両端で見た"
           f"（インク＝R,G,B のどれかが {INK_DARK} 未満）")
     for cid, name, k, ink, band, white, why in sorted(bad, key=lambda r: (r[3] or 0)):
         kk = f"k={k:.0f}" if k is not None else "—"
         extra = f"  白紙率 {white:.0%}" if white is not None else ""
         print(f"  🔴 {cid}  {why}（{kk}・{name}）{extra}")
+    for cid, name, k, ink, band, white, why in sorted(knew, key=lambda r: (r[3] or 0)):
+        print(f"  ⚠️ {cid}  {why}（{name}）  白紙率 {white:.0%}")
+        print(f"      承知のうえ：{ON_PURPOSE[cid]}")
     if show_all or hist:
         near = [r for r in rows if not r[6] and r[3] is not None
                 and (r[3] < INK_MIN * 2 or r[4] > BAND_MAX * 0.75)]
@@ -173,13 +191,23 @@ def report(rows, show_all=False, hist=False):
         w80 = sum(1 for r in ok if r[5] > 0.80)
         print(f"  ⚠️ 参考：白紙率 80% 超は {w80}件"
               f"（設計ノートの旧しきい値。**白い紙の図面がここに入る**ので 🔴 にしない）")
-    if bad:
-        print(f"🔴 切り出し窓が空っぽのカットが {len(bad)} 件")
+    # 🔴 名指しの例外に、いま鳴っていないカットが残っていたら**それも粗**（陳腐化した除外）
+    stale = sorted(set(ON_PURPOSE) - {r[0] for r in rows if r[6]})
+    for cid in stale:
+        print(f"  🔴 {cid} は `ON_PURPOSE` に載っているが、いまは鳴っていない。"
+              f"除外を消すこと（陳腐化した除外は、次の粗を黙って通す）")
+    if bad or stale:
+        print(f"🔴 切り出し窓が空っぽのカットが {len(bad)} 件"
+              + (f"／陳腐化した除外 {len(stale)} 件" if stale else ""))
     else:
-        thin = min((r[3] for r in rows if r[3] is not None), default=0)
-        wide = max((r[4] for r in rows if r[4] is not None), default=0)
+        thin = min((r[3] for r in rows if r[3] is not None and r[0] not in ON_PURPOSE),
+                   default=0)
+        wide = max((r[4] for r in rows if r[4] is not None and r[0] not in ON_PURPOSE),
+                   default=0)
         print(f"✓ どのカットの切り出し窓にも中身がある"
-              f"（いちばん薄いインク率 {thin:.1%}／いちばん広い空白帯 {wide:.0%}）")
+              f"（いちばん薄いインク率 {thin:.1%}／いちばん広い空白帯 {wide:.0%}）"
+              + (f"／承知のうえで薄い {len(knew)} 件" if knew else ""))
+    return bool(bad or stale)
     return len(bad)
 
 
@@ -209,12 +237,32 @@ def selfcheck():
         ok &= bool(cond)
         print(f"  {'✓' if cond else '🔴'} {msg}")
 
+    # 🔴 名指しの除外そのものの検算（本番の中身に依らない。ここは題材を替えても回る）
+    #    ⚠️ 2026-09-07：`ON_PURPOSE` を足したので、**除外が何でも飲み込まないこと**を先に見る。
+    fake = [("x01", "a.png", 0.0, 0.001, 0.9, 0.99, "インク率 0.1%"),
+            ("c705", "b.png", 0.0, 0.008, 0.47, 0.99, "インク率 0.8%")]
+    import io as _io
+    import contextlib
+    buf = _io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        rc = report(fake)
+    say(rc is True, "名指しに載っていない薄いカット（x01）は、除外があっても鳴る")
+    say("⚠️ c705" in buf.getvalue(),
+        "名指しに載っているカット（c705）は、数字ごと ⚠️ で表に出る")
+    with contextlib.redirect_stdout(buf):
+        rc2 = report([r for r in fake if r[0] == "c705"])
+    say(rc2 is True, "🔴 除外が陳腐化していない（x01 が消えたら『載っているのに鳴っていない』で落ちる）")
+
     sm, po, bo, skip = CS.production_inputs()
     victims = sorted(c for c, n in po.items()
                      if Path(n).name == Path(OLD_FILE).name and c not in skip)
     if not victims:
-        print(f"🔴 {Path(OLD_FILE).name} を使うカットが1つも無い＝陽性対照を当てられない")
-        return False
+        print(f"  ⚠️ {Path(OLD_FILE).name} を使うカットが1つも無い"
+              f"（4本目の素材。題材を替えたので当てられない）"
+              f"→ 絵を使う陽性対照は飛ばし、上の3項目だけで判定する")
+        print("  " + ("✓ 陽性対照（除外の検算のみ）" if ok
+                      else "🔴 陽性対照が落ちた"))
+        return ok
 
     # 1) いまの本番の spec では黙る（鳴りすぎの検算）
     base = scan({c: sm[c] for c in victims}, po, bo, skip)

@@ -61,16 +61,20 @@ CSS = ""
 #    1本目（潜水艇タイタン号）の章名は git の `57e6c16`、2本目は `8b5d129` にある。
 # 🔴 2026-09-05：**4本目「サーフサイド」へ差し替え**（台本第3版 §3 の章名。7章＋プロローグ＋エピローグ）。
 #    3本目（スレッシャー号）の章名は git の `ad6882a` にある。
+# 🔴 2026-09-07：**5本目「SL-1 原子炉暴走事故」へ差し替え**（台本第2版 §3 の章名。9章）。
+#    4本目（サーフサイド）の章名は git の `3c9ff2d` にある。
 CHAPTERS = {
-    "c1": (1, "開かなくなった門"),
-    "c2": (2, "4インチの隙間"),
-    "c3": (3, "柱が床を突き抜ける"),
-    "c4": (4, "図面と、実物"),
-    "c5": (5, "上に載せたもの"),
-    "c6": (6, "塔へ渡った"),
-    "c7": (7, "そうではなかったもの"),
+    "c1": (1, "北極でも動く炉"),
+    "c2": (2, "1961年1月3日"),
+    "c3": (3, "午後9時1分"),
+    "c4": (4, "最初に着いた人たち"),
+    "c5": (5, "3人目"),
+    "c6": (6, "鉛"),
+    "c7": (7, "書かれなかったこと"),
+    "c8": (8, "炉を掘り出す"),
+    "c9": (9, "そのあと"),
 }
-NCH = 7
+NCH = 9
 
 
 def chapter_of(cid):
@@ -283,6 +287,67 @@ def surfside_credit(name):
     return None
 
 
+# ══ 5本目（SL-1 原子炉暴走事故）の出典 ════════════════════
+# 🔴 素材は4種。すべてパブリックドメイン。台帳＝`ref/CREDITS.md`。取り出しは `tools/sl1_assets.py`。
+#   ido_pNNN_*.png / i11_* / anl_* / aec_* / fr_*  … 報告書・官報のページを PNG に焼いたもの
+#   haer_NN.jpg   … HAER No. ID-33-D の記録写真（米議会図書館）
+#   fb_<cid>.jpg  … 記録映画の**ひかえの静止画**。動画のコマが取れたときは動画の出典が勝つ
+# 🔴 **画面に出すのは印字ページ**（PDF ページではない）。IDO-19302 は PDF ＝ 印字 ＋ 11 なので、
+#    ファイル名の数字（印字）をそのまま出す。混ぜると出典が1ページずれる。
+# ⚠️ ここに当たらない名前は None を返し、最後の PHOTO_CREDIT で KeyError にして気づかせる。
+CR_IDO02 = "出典：IDO-19302（米原子力委員会アイダホ支所・1962）"
+CR_IDO11 = "出典：IDO-19311（米原子力委員会／ゼネラル・エレクトリック・1962）"
+CR_ANL = "出典：ANL-6692（アルゴンヌ国立研究所・1962）"
+CR_AEC_BD = "出典：米原子力委員会 SL-1 事故 調査委員会報告（1961年6月）"
+CR_FR = "出典：連邦官報 36 FR 3258（1971年2月20日）／10 CFR 50 付録A"
+CR_HAER = "出典：米議会図書館 HAER ID-33-D"
+
+SL1_PAGE = re.compile(r"^sl1/(ido|i11|anl|aec|fr)_p([0-9a-z]+)_[a-z0-9]+\.png$")
+SL1_HAER = re.compile(r"^sl1/haer_(\d{2})\.jpg$")
+SL1_FB = re.compile(r"^sl1/fb_([a-z]{1,2}\d{2,3})\.jpg$")
+# 🔴 ファイル名の数字は**そのファイルの印字ページ**。画面に出す形はここで決める
+#    （`i11` は印字が「ii」「I-5」なのでページ番号を作れない＝名指しで持つ）。
+SL1_PRINTED = {
+    ("ido", "vii"): "p.vii", ("ido", "004"): "p.4", ("ido", "013"): "p.13",
+    ("ido", "014"): "p.14", ("ido", "015"): "p.15", ("ido", "016"): "p.16",
+    ("ido", "017"): "p.17", ("ido", "018"): "p.18", ("ido", "019"): "p.19",
+    ("ido", "020"): "p.20", ("ido", "021"): "p.21", ("ido", "022"): "p.22",
+    ("ido", "023"): "p.23", ("ido", "035"): "p.35", ("ido", "036"): "p.36",
+    ("ido", "090"): "p.90", ("ido", "091"): "p.91", ("ido", "095"): "p.95",
+    ("ido", "096"): "p.96", ("ido", "100"): "p.100",
+    ("ido", "101"): "p.101", ("ido", "103"): "p.103",
+    ("i11", "004"): "要旨 ii", ("i11", "019"): "I-5",
+    ("anl", "001"): "表紙", ("anl", "038"): "p.36",
+    ("aec", "001"): "表紙", ("fr", "3258"): "3258ページ",
+}
+SL1_DOC = {"ido": CR_IDO02, "i11": CR_IDO11, "anl": CR_ANL,
+           "aec": CR_AEC_BD, "fr": CR_FR}
+
+
+def sl1_credit(name):
+    """`ref/sl1/` の名前から出典表記を作る。当てはまらなければ None。"""
+    m = SL1_PAGE.match(name)
+    if m:
+        doc, pg = m.group(1), m.group(2)
+        pr = SL1_PRINTED.get((doc, pg))
+        if pr is None:                       # 🔴 表に無いページは黙って通さない
+            return None
+        tail = "" if doc == "fr" else f" {pr}"
+        return f"{SL1_DOC[doc]}{tail}／パブリックドメイン"
+    m = SL1_HAER.match(name)
+    if m:
+        return f"{CR_HAER}-{int(m.group(1))}／パブリックドメイン"
+    m = SL1_FB.match(name)
+    if m:
+        try:
+            import footage as FO
+            c = FO.credit_of(m.group(1))
+        except Exception:                                # noqa: BLE001
+            c = None
+        return (c + "（静止画）") if c else None
+    return None
+
+
 def credit_of(cid, spec):
     """そのカットに出す出典。**動画を当てたカットは動画の出典を出す。**
 
@@ -298,9 +363,9 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (surfside_credit(spec["photo"]) or thresher_credit(spec["photo"])
-          or kaisetsu_credit(spec["photo"]) or ja123_credit(spec["photo"])
-          or PHOTO_CREDIT[spec["photo"]])
+    cr = (sl1_credit(spec["photo"]) or surfside_credit(spec["photo"])
+          or thresher_credit(spec["photo"]) or kaisetsu_credit(spec["photo"])
+          or ja123_credit(spec["photo"]) or PHOTO_CREDIT[spec["photo"]])
     # 🔴 階調を伸ばした写真は、そのことを出典の行に出す（2026-08-09）。
     #    切り抜きに「／切出」と付けているのと同じ扱い。黙って手を入れない。
     if spec.get("levels") or LEVELS_BY_PHOTO.get(spec["photo"]):
