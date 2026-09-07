@@ -1,0 +1,2215 @@
+
+
+===== PDF PAGE 1 =====
+ANL-6692 
+Reactor Technology 
+(TID-4500, 19th Ed.) 
+AEC Research and 
+Development Report 
+ARGONNE NATIONAL LABORATORY 
+9700 South Cass Avenue 
+Argonne, Illinois 
+A RETROSPECTIVE ANALYSIS OF ASPECTS 
+OF THE ALPR (SL-1) DESIGN 
+by 
+W. J. Kann and D. H. Shaftman 
+Reactor Engineering Division 
+November 1962 
+Operated by The University of Chicago 
+under 
+Contract W-31-109-eng-38 
+with the 
+U. S. Atomic Energy Commission 
+
+
+===== PDF PAGE 2 =====
+DISCLAIMER 
+ 
+This report was prepared as an account of work sponsored by an 
+agency of the United States Government.  Neither the United States 
+Government nor any agency Thereof, nor any of their employees, 
+makes any warranty, express or implied, or assumes any legal 
+liability or responsibility for the accuracy, completeness, or 
+usefulness of any information, apparatus, product, or process 
+disclosed, or represents that its use would not infringe privately 
+owned rights.  Reference herein to any specific commercial product, 
+process, or service by trade name, trademark, manufacturer, or 
+otherwise does not necessarily constitute or imply its endorsement, 
+recommendation, or favoring by the United States Government or any 
+agency thereof.  The views and opinions of authors expressed herein 
+do not necessarily state or reflect those of the United States 
+Government or any agency thereof. 
+
+
+===== PDF PAGE 3 =====
+DISCLAIMER 
+ 
+Portions of this document may be illegible in 
+electronic image products.  Images are produced 
+from the best available original document. 
+ 
+
+
+===== PDF PAGE 4 =====
+2 
+TABLE OF CONTENTS 
+Page 
+ACKNOWLEDGMENTS 
+4 
+I. INTRODUCTION 
+5 
+II. CHRONOLOGY OF DESIGN AND OPERATION 
+5 
+III. THE SL-1 INCIDENT 
+8 
+IV. DESCRIPTION OF REACTOR COMPONENTS 
+10 
+A. 
+Fuel Assembly. 
+11 
+B. 
+Burnable-Poison Strips 
+12 
+C. 
+Core Shroud 
+12 
+D. 
+Control Rods 
+12 
+E. 
+Control Rod Drives 
+l6 
+F. 
+Soluble-Poison System 
+, 
+l6 
+V. BASIS OF DESIGN OF CONTROL SYSTEM 
+18 
+VI. REACTOR PHYSICS DATA 
+19 
+A. 
+The Cold Fresh Reactor 
+20 
+B. 
+The Cold Operated Reactor 
+21 
+VII. EVALUATION OF THE PERFORMANCE OF THE 
+CONTROL SYSTEM 
+22 
+A. 
+Burnable-Poison Strips 
+22 
+B. 
+Sticking of Control Rods , 
+24 
+VIII. CRITIQUE OF THE CONTROL SYSTEM; 
+GENERALIZATIONS. . 
+26 
+A. 
+Top Mounting vs Bottom Mounting of Control Rod 
+Drives 
+. 
+26 
+B. 
+Assemibly (Disassembly) of the Drive to Its Control 
+Rod 
+27 
+C. 
+Burnable Poison. 
+29 
+D. 
+Soluble Poison 
+31 
+E. 
+Reactor Shutdown Margin. . 
+34 
+F. 
+The "Single-Mistake" Criterion 
+35 
+IX. SUMMARY AND REMARKS . 
+37 
+APPENDIX A: TECHNICAL CHARACTERISTICS - ARGONNE 
+LOW POWER REACTOR (ALPR) 
+41 
+REFERENCES 
+50 
+
+
+===== PDF PAGE 5 =====
+LIST OF FIGURES 
+Title 
+Page 
+SL-1 Excursion Summary . . . . . . . . . . . . . . . . . . . . . . . 
+9 
+Fuel Assembly. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+11 
+Core Plan, Section . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+13 
+Cross-Shaped Control Rod . . . . . . . . . . . . . . . . . . . . . . . 
+14 
+Sequence of Control Rod Positions during Assembly of a 
+Drive to Its Control Rod . . . . . . . . . . . . . . . . . . . . . . . . 
+15 
+Control Rod Drive . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+17 
+Critical Positions of Control Rods at Room Temperature 
+vs Total Energy Output (No Xenon-135) . . . . . . . . . . . . . . 
+22 
+
+
+===== PDF PAGE 6 =====
+ACKNOW LEDGMENTS 
+The authors wish to acknowledge the following Argonne National 
+Laboratory personnel: 
+Mr. E. E. Hamer, for general comments and for discussions with 
+regard to the development of the ALPR design. 
+Messrs. J. E. Draley and S. Greenberg, for discussions about cor 
+rosion of burnable-poison strips in hot water. 
+Messrs, R. A. Noland and D. E. Walker, for consultations with 
+regard to the use of burnable poisons in reactors. 
+Messrs. C. R. Breden and N. R. Grant, for discussions concerning 
+the use of soluble poison for control of boiling water reactors. 
+Messrs. R. O. Brittan, H. H. Hooker, W. C. Lipinski, G. C. Milak, 
+A. Smaardyk, and B. I. Spinrad for consultations and numerous helpful 
+suggestions. 
+
+
+===== PDF PAGE 7 =====
+5 
+A RETROSPECTIVE ANALYSIS OF ASPECTS 
+OF THE ALPR (SL-1)* DESIGN 
+by 
+W. J. Kann and D. H. Shaftman 
+I. INTRODUCTION 
+The Argonne Low Power Reactor (ALPR) was designed by Argonne 
+National Laboratory (ANL) as a prototype of a nuclear power plant intended 
+for DEW Line sites. It was constructed at the National Reactor Testing 
+Station, IdahO; and was tested and operated briefly by ANL. In February, 
+1959s responsibility for operation of the plant (designated SL-1) was trans-
+ferred to Combustion Engineering, Inc., as operating contractor. On 
+January 3, 1961, the reactor was destroyed in a nuclear incident. 
+A primary purpose of this report is to examine various aspects of 
+the control system of the ALPR (SL-l), in the perspective of the occurrence 
+of the incident and of the investigations and discussions stimulated by the 
+incident. 
+Another major purpose is to present ideas, fostered by these dis-
+cussions, which are relevant to the evaluation of the safety of reactor 
+design and operation, and, in particular, of control system design. 
+II. CHRONOLOGY OF DESIGN AND OPERATION 
+P r i m a r y purposes of this report are: 
+(1) to present a critique of aspects of the reactor design, in the 
+retrospect of the operational history of the reactor, and the 
+fact that the incident occurred; and 
+(2) 
+to discuss certain concepts of the philosophy of reactor 
+control. 
+*Throughout this report, the designation ALPR is used when reference 
+is made to the Argonne Low Power Reactor as designed, tested, and 
+operated by Argonne National Laboratory. 
+The reactor designation 
+SL-1 is used in discussions concerning the subsequent period of 
+operation of the plant. 
+
+
+===== PDF PAGE 8 =====
+6 
+The critique of the design proceeds on two levels. On the one 
+hand, if the reactor had been designed for purposes of experimentation, or 
+for use as a civilian power plant, the plant design would have been differ-
+ent in a number of respects. However, one must keep in mind that the 
+reactor was intended for certain, specific purposes which strongly in-
+fluenced the reactor design. Therefore, it is useful to review here some 
+of the goals of and criteria for the reactor design. ^^/ For convenience, 
+the specifications for the reactor plant are set forth in Appendix A: 
+"Technical Characteristics - Argonne Low Power Reactor (ALPR)." 
+The ALPR was designed as the prototype for a nuclear power 
+plant which would meet the needs of an Auxiliary Station, DEW Line, and 
+would be compatible with arctic environmental conditions. \2j in accord-
+ance with the specifications, the ALPR was constructed at the National 
+Reactor Testing Station, Idaho, in an area set aside for military reactors. 
+As a prototype plant, the ALPR was to contain essentially only 
+those extra features which were required for the safety of the personnel 
+and of the plant, e.g., extra nuclear instrumentation used in the p r e -
+operational program of reactor physics experiments. In proving the 
+design, it was intended that the reactor would be tested primarily for its 
+capacity to meet the requirements of successful routine operation. Thus, 
+it was expected that the plant would be in essentially sustained operation 
+for a period of approximately three years. Training of military personnel 
+was to be a part of the operation, but it was expected that the training 
+would be subordinate to and coincidental with the routine operation of the 
+plant. (3) 
+In further accordance with the design specifications, the reactor 
+was designed as a thermal, heterogeneous system, fueled with assemblies 
+of clad plates containing uraniura highly enriched in U^^^, and cooled and 
+moderated by the natural circulation of water within the pressure vessel 
+containing the core. The normal means for controlling the reactor was a 
+combination of control rods, containing natural cadmium, and a set of 
+burnable-poison strips (highly enriched boron, dispersed in alurainum-
+nickel) which were fusion-welded to side plates of fuel assemblies. In 
+addition, the design included a backup, non-emergency control system 
+based on the introduction of a solution of boric acid into the reactor water. 
+(A more detailed description of plant components is given in Section IV.) 
+As designed and built, the reactor core structure provided spaces 
+for as many as 59 fuel assemblies, plus one neutron-source assembly. 
+The reference ALPR reactor, with a nomiinal therm.al power rating of 
+3 Mwt, included 40 fuel assemblies and five cross-shaped control rods. 
+However, additional spaces, for four tee-shaped control rods, were avail-
+able at the periphery of the full core structure. 
+
+
+===== PDF PAGE 9 =====
+Critical experimentation began on August 11, 1958, at which time 
+a critical array, consisting of ten fuel assemblies without poison strips, 
+was attained at room temperature. During the ensuing weeks, an experi-
+mental program was carried out both at room temperature and at operating 
+temperature (~420°F), and a final reference core was selected for use in 
+the prototype plant. Details of the zero-power experimental work are 
+given in Ref. 4. A chronology, both of these pre-power experiments 
+(Experianents No. 1 to 122), and of the subsequent tests at power (Experi-
+ments No. 123 to 210B), is supplied in Ref. 5. 
+On October 23, 1958, a series of check criticals were begun at 
+room temperature, and were continued to various temperatures up to the 
+design operating value, 420°F. In this sequence, nuclear power (^-^ Mwt) 
+was used to heat the reactor water. In continuation of this work, the 
+reactor power level was raised, in steps of 1,000 lb steam/hr, to a steam 
+mass flow rate of 9,150 Ib/hr, at which time (October 24, 1958) the turbine-
+generator equipment was placed in operation. 
+Between October 24, 1958 and November 10, 1958, power runs were 
+made to determine such reactor characteristics as: 
+(1) the reactivity effect of equilibrium xenon at full power; 
+(2) the buildup of maximum xenon after reactor shutdown from 
+full power; 
+(3) 
+relative positions of the five cross-shaped control rods as a 
+function of the measured steam mass flow rate; 
+(4) 
+response of the reactor to " step-function" changes in feedwater 
+flow rate, and in the jxiass flow rate of steam to the turbine; 
+(5) the proper functioning of steamt safety and pressure-relief 
+valves; 
+(6) 
+response of the reactor, when under automatic power demand 
+control, to programmed changes in power demand; in these 
+runs, various settings of the dead band and the travel ratio on 
+the automatically operated drive for the center control rod were 
+tested; 
+(7) 
+the proper operation of the safety devices which shut down the 
+reactor when positions of high or low water level (in the vessel) 
+are reached; and 
+(8) the response of the reactor to "blind startup." 
+Also, during this period, tests were made to investigate the r e -
+sponse of the turbine-generator equipment to programmed sequences of 
+step changes in load demand. 
+
+
+===== PDF PAGE 10 =====
+8 
+Between November 19, 1958 and December 11, 1958, a 500-hr plant 
+performance acceptance test was completed, with a chargeable down-time 
+percentage of less than 3%. During this tim.e, the automatic power demand 
+system was modified, teinporarily, to investigate the response of the re-
+actor to a control system in which the position of the center control rod 
+was regulated by a signal of the deviation of reactor pressure from a 
+fixed value. 1^) 
+The period between December 12, 1958 and February 5, 1959 was 
+devoted to: 
+(1) 
+additional training of military personnel in the routine 
+operation of the plant; 
+(2) modifications of the plant to correct various deficiencies 
+observed;(6} 
+(3) 
+additional plant performance tests (January 5, 1959 to 
+January 9, 1959);(6) 
+(4) 
+a perraanent modification of the automatic control system, 
+as described in the preceding paragraph, and power opera-
+tion which verified that the new controller was satisfactory; 
+and 
+(5) 
+a period of training of personnel of the new operating con-
+tractor. Combustion Engineering, Inc. 
+On February 5, 1959, Combustion Engineering, Inc. became the 
+operating contractor of the SL-1. 
+Details of the subsequent history of reactor operations are avail-
+able in a number of reports by Combustion Engineering, Inc. (C.E.), some 
+of which are listed in the References of Ref. 7. In Section VII of the 
+present report, some of the problems noted by C.E. during their period 
+of reactor operation are described. 
+On January 3, 1961, after approximately ten days of end-of-year 
+shutdown, and during the process of reassembling the drive mechanisms 
+to their control rods, a nuclear incident occurred resulting in the destruc-
+tion of the reactor core and the death of the three military personnel on 
+duty. 
+III. THE SL-1 INCIDENT 
+The men on duty at the time of the incident had been assigned a 
+series of tasks to perform during that shift period of eight hours. It ap-
+pears that, at the moment of the incident, all three men were standing on 
+
+
+===== PDF PAGE 11 =====
+the top head of the pressure vessel, 
+activities is as follows:(8) 
+The official reconstruction of their 
+"At the time of the explosion, the reactor crew was naost 
+probably engaged in reassembly of the number 9 control rod (the 
+central control rod) assembly. 
+To the Board, it appears quite 
+plausible that the shift supervisor and the other regular miember 
+of the crew were located on top of the reactor vessel at the time 
+of the explosion. The third member of the crew, who was a 
+trainee, might have been partially over the reactor top or close to 
+the edge of the reactor top. Based on medical evidence of injury, 
+location of the m.en after the incident and knowledge of the individual 
+capabilities and job assignments, it appears reasonable to hypoth-
+esize that the supervisor was in a crouched or squatting position 
+which would be normal for manipulation of the C-clamp during the 
+reassembly of the number 9 control rod drive. Similarly, it would 
+appear reasonable to hypothesize that the regular crew member 
+was located in,a position for lifting the number 9 control rod a s -
+sembly with the handling tool. 
+There is no direct evidence to 
+corroborate these hypothetical assertions." 
+In their final report,(9) summarizing the evidence obtained during 
+their 13 months of cleanup and investigation of the SL-1, the General 
+Electric Co. (G.E.) group outlined a possible sequence of events, following 
+a manual withdrawal of the center control rod. In this postulated sequence, 
+shown in Fig. 1, a minimum reactor period of approximately 4 m s is de-
+rived, corresponding to a maximum reactivity insertion of approximately 2.4%. 
+t ' -500 milliseconds 
+Central Control 
+Rod Withdrawal 
+Commences 
+Portion of Plates 
+Reach Vaporization 
+Temperature 
+Wfff'O 
+t = -120 milliseconds 
+Reactor Goes 
+Critical with Rod 
+at 16.7 Inches 
+Central Rod 
+at 2) Inches 
+(2.4% AK) 
+t ' 0.5 inilljseconds 
+Prompt Nuclear Energy 
+Release Ends. Total 
+Nuclear Energy of 
+Excursion = 130 Mw-sec 
+t = 0 milliseconds 
+Peak of Power 
+Burst; 19,000 (V 
+20% of plate area destroyed. Metal-water 
+reaction increases total energy about 20-5. 
+Center 16 elements and central shroud 
+and control blade ejected from core. 
+Water column atjowe 
+core accelerated by . 
+average pressure of 
+5(»psi 
+{ = M milliseconds 
+Water slams against lid 
+of vessel. Maximum 
+pressure = lO.OCWpsi 
+Head shielding ejected. Plugs ejected with 
+velocity of 85 ft/sec or less. Vessel rises, 
+shearing connecting pipes. Guide tubes 
+collapse, f^ozzles §t vessel expand. 
+t - 160 milliseconds 
+First plug hits 
+ceiling 
+112-2342 
+2/3 of water 
+' expelled. 
+About 5% of 
+fission products 
+expelled. 
+t = SIM milliseconds 
+Vessel hits 
+ceiling 
+Insulation 
+ripped 
+from 
+vessel. 
+t = 2000-4000 milliseconds 
+Vessel comes to rest in 
+support cylinder. 
+Fig. 1. SL-1 Excursion Summary (Reproduced from Fig. IV-4 of Ref. 9-
+Values are approximate as discussed in Ref. 9.) 
+
+
+===== PDF PAGE 12 =====
+Although the accuracy of some of the details included in Fig. 1 is 
+open to question, there is little doubt that the incident was caused by a 
+manual withdrawal of the center control rod far beyond the maximum posi-
+tion specified in the instructions for assembling the drive mechanism to 
+its control rod.w) 
+Attempts to pinpoint the reason for a rod withdrawal apparently so 
+m.uch in violation of the specified assembly procedure have been unsuc-
+cessful. 
+The extensive history of earlier assembly operations of this 
+type, for the center control rod, offers no indication of difficulty. On the 
+morning of January 3, 1961, a disassembly of the center rod from its drive 
+was accomplished without difficulty. 
+In their post-incident work, G. E. 
+found no evidence -which might indicate that the center rod had stuck and 
+that an attempt had been made to pull it loose. (On the other hand, there 
+was no proof that this was not the cause of the incident.)!*Oj 
+In the letter of submission of their final report, the Board of 
+Investigation for the SL-1 Incident stated:U-^) 
+"One or more of the following circumstances may have 
+resulted in the abnormal manual withdrawal of the blade: 
+Inadequate or faulty procedure or training, 
+(The Board 
+has no reason to change its previous conclusion that the training 
+of the military personnel for this maintenance operation was 
+adequate.) 'Human error,' for example, incorrect manipulation 
+of the blade owing to preoccupation of the manipulator with ex-
+traneous matters. Involuntary performance of the individual 
+manipulating the blade as a result of unusual or unexpected 
+stimulus. Deliberate malperformance motivated, for example, 
+by emotional stress or instability." 
+For further details of the results of the recovery operations on 
+the SL-1, and of the analysis of the accident, the reader is referred to the 
+G.E. final report.(9) The brief summary presented above is intended to 
+set the scene for the following sections, where the reactor design is sum-
+marized, some changes observed during operation are discussed, and a 
+critique is made of the control system design. 
+IV. DESCRIPTION OF REACTOR COMPONENTS* 
+The reference 3-Mwt ALPR core, containing 40 fuel assemblies, 
+was controlled by a system of five cross-shaped control rods, and full-
+length and half-length burnable-poison strips attached to the side plates 
+*A more detailed description of components can be found in Ref. 1. 
+
+
+===== PDF PAGE 13 =====
+11 
+of fuel assemblies. The core shroud structure provided spaces for as many 
+as 59 fuel assemblies, plus one neutron source assembly. For control of 
+so large a reactor, channels for four tee-shaped control rods were avail-
+able. In the reference core, dummy fuel assemblies were inserted so as 
+to fill compartments and, thereby, to keep the fuel assemblies and the 
+source assembly in vertical alignment. A manually operated boric acid 
+system was available for slow, non-emergency shutdown. 
+A. Fuel Assembly 
+The reference core contained 40 fuel assemblies. Each fuel a s -
+sembly (Fig. 2) contained nine fuel plates. The active portion of the fuel 
+plate consisted of a center zone (0.050in.x3.50in.x25.8in. long), of an 
+.050 ALUMINUM-URANIUM CORE 
+.035 ALUMINUM-NICKEL CLAD 
+SECTION A-A 
+050 
+®3.610 SO 
+112-2347 
+^ I L 
+DIHEMSIONS 
+IM 
+INCHES 
+Fig. 2 
+Fuel Assembly 
+
+
+===== PDF PAGE 14 =====
+alloy of uranium, aluminum, and nickel. The uranium was enriched to 
+~93 wt-% U^'^; the nickel constituted ~1.6 wt-% of the fuel-plate core.(l2) 
+The fuel-plate core was clad on both faces with a 0.035-in. thickness of 
+aluminum-nickel alloy, X8001. 
+B. Burnable-Poison Strips 
+Thin burnable-poison strips were fusion-welded to one or both 
+side plates of the fuel assembly. The strips, extruded from a miixture of 
+aluminum-nickel and boron highly enriched (>90%) in B^" (boron-10), 
+assisted in the control of the excess reactivity of the core. In the refer-
+ence core, one full-length (25.8 in.) poison strip, containing ~0.5 gm B^'', 
+was welded to a side plate of each fuel assembly. One half-length (12.9 in.) 
+strip, containing ~0.2 gra B^", was welded to the bottom half of the other 
+side plate of each of the 16 central fuel assemblies."^) 
+Burnable-poison 
+strips of a simLilar type had been used successfully in BORAX-III.l•'•'*) 
+C. Core Shroud 
+As shown in Fig. 3, the core shroud structure divided the core 
+into 16 compartments, twelve designed to accommodate four assemblies 
+each and four corner compartments each capable of accommodating 
+three assemblies. 
+The sides of the compartments provided vertical guide channels 
+for the control rods. A water-channel thickness of 0.5 in. gave an ade-
+quate average clearance of approximately 0.14 in. on either side of the 
+rod. The entire core shroud was fabricated from the aluminum-nickel 
+alloy X8001. 
+D. Control Rods 
+As shown in Fig. 4, each of the five cross-shaped control rods 
+consisted of a cadraium absorber section (0.060 in. x 14 in. x 34 in. long) 
+clad with O.OSO-in.-thick aluminum-nickel alloy, X8001; the total rod 
+thickness was 0.220 inches. The central control rod had a 17-in.-long 
+follower, and the other four rods had 5~in.-long followers. A stainless 
+steel ball-joint end fitting afforded a simple naeans of connecting the 
+drive mechanism to the rod. 
+Although the active core length was only 25.8 in., the additional 
+absorber length (more than 8 in.) of the control rods gave essentially 
+full coverage of the core during normal shutdown, and during the process 
+of engaging the drive mechanism to, or disengaging it from, the control 
+rod (Fig. 5). 
+
+
+===== PDF PAGE 15 =====
+TEE-SHAPED 
+CONTROL ROD 
+CHANNEL 
+POINTER RIVET 
+FOR FULL-LENGTH 
+BURN ABLE-POISON 
+STRIP 
+CROSS-SHAPED 
+CONTROL ROD 
+IN CHANNEL 
+CONTROL ROD SHROUD 
+0 
+t 
+4 
+® 
+' • l . l . l . l . l . l 
+SCALE-INCHES 
+CORE SUPPORT BRACKET 
+THERMAL SHIELD 
+PRESSURE VESSEL 
+FUEL ASSENBLY GRID 
+(DOTTED) 
+112-2345 
+Fig. 3. Core Plan, Section 
+
+
+===== PDF PAGE 16 =====
+14 
+,060 CADMIUM 
+.080 ALUMINUM-
+NICKEL 
+SPOTWELD 
+-.220 
+.060ALUMINUM-
+NICKEL 
+SECTION A--A 
+•WELD 
+. ^ I 
+CROSS 
+SECTION B-B 
+17 
+(CENTER ROD) 
+(OTHER RODS) 
+ALL 
+DIMENSIONS 
+IN 
+i NCHES 
+1 1 2 - 2 3 4 4 
+Fig. 4. Cross-Shaped Control Rod 
+
+
+===== PDF PAGE 17 =====
+15 
+C CLAMP 
+T i W D AT MiT ON CONTROL M D IHiSUD 
+•-C^ M8 Al IHBICATED liTO 
+•-- 
+LOAD m SPRI«@ 
+,_^ ROB AT M I 8 M FOSITISH 
+(i 
+FOR ^TTMHIie WASHEH, 
+HUT I eOTTEK FIN 
+ALL DIMENSIONS IM liCHES 
+TOP OF SWING (NO LOAD) 
+ttnia 
+LINE OF 
+PIHION SHAFT 
+TOP OF PKE8SURE 
+VESSEL FLANflE 
+TOP OF PRESSURE VESSEL 
+TOP OF SitOiB 
+TOP OF ACTIVE CORI 
+ACTIVE CO^E RESIOi 
+IOTT0M OF AOTIVE CORE 
+iOnON OF SHROUD 
+lOTTCW OF PRESSURE VESSEL 
+112-2113 
+Fig. 5. Sequence of Control Rod Positions during 
+Assembly of a Drive to Its Control Rod 
+
+
+===== PDF PAGE 18 =====
+E. Control Rod Drives 
+The control rod drive, shown in Fig. 6, was a rack-and-pinion type 
+mechanism. A drive of this type was chosen for ALPR for two major 
+reasons. First, it was based upon a rather simple design concept. Sec-
+ond, a drive quite similar to it had been tested intensively, in a water 
+environment, for use in the Army Package Power Reactor (APPR).^-'-^'^^'-^''/ 
+The rack and pinion, the pinion-support bearings, and the rack 
+backup roller operated in the atmosphere of saturated steam and water 
+above the reactor pressure vessel, within a housing mounted on top of 
+the vessel. The rack-and-pinion teeth were chrome plated. The pinion-
+support ball bearings were of Stellite material. 
+The pinion was connected to its electric gear m.otor, located outside 
+of the pressure vessel, by a drive shaft. 
+Where the pinion drive shaft 
+penetrated the rod drive housing, a labyrinth-type pressure-breakdown 
+seal was used. 
+F. Soluble-Poison System 
+As discussed in Section VIII-D, it was decided not to use soluble 
+poison for routine operation, or for routine shutdown of the reactor. 
+Moreover, there appeared to be no reactivity problem in shutting down 
+the reactor with the system of control rods (even if one control rod were 
+fully withdrawn) if the reactor was operating at design temperature and 
+pressure. 
+Therefore, a backup shutdown system, using a relatively con-
+centrated solution of boric acid (100 gm HsBOs/gal) at ambient temperature 
+was included to provide additional control, if needed, as the tem,perature 
+of the reactor water decreased. 
+This boric acid system included a hand-
+operated pump, to be used when the reactor was at above-atmospheric 
+pressure. At atmospheric pressure, the solution could flow into the 
+vessel by means of gravity. 
+The boric acid system was designed as an 
+auxiliary shutdown control measure to be used at the discretion of the 
+operations supervisor. It was not designed for use as an emergency-
+control device. 
+
+
+===== PDF PAGE 19 =====
+ROD DRIVE HOUSING 
+ALL DIMENSIONS 
+IN INCHES 
+SEAL ELEMENTS 
+SEAL WATER INLET 
+GUIDE BUSHING 
+CONTROL ROD GRIPPER 
+CONTROL ROD 
+112-2346 
+Fig. 6. Control Rod Drive 
+
+
+===== PDF PAGE 20 =====
+V. BASIS OF DESIGN OF CONTROL SYSTEM 
+According to the specifications,'^/ the maximum height of the r e -
+actor building above grade was 50 feet. Moreover, an air space was to be 
+present between the ground and the bottom of the reactor building. In this 
+compact plant design, there was no space for a sub-reactor area where 
+maintenance of the control rod drives could be performed. 
+Consequently, 
+the mounting of the control rod drives on top of the reactor was essen-
+tially mandatory, 
+A special feature of the reactor design was that refueling could 
+take place without removing the head of the pressure vessel. This was 
+accomplished by sizing the control-rod-drive nozzles, in the top head of 
+the pressure vessel, to permit the loading of fuel assemblies through the 
+nozzles. It was felt that this concept of fuel handling would simplify 
+significantly changes in the core loading in the ultimate power plants.l-'-°/ 
+Fuel assembly sizes smaller than 3 in. square were not admitted 
+in order to limit the number of fuel assemblies to a tractable value. 
+The 
+advantages of this limitation were expected to be reduced handling of fuel, 
+siraplified accounting, and a lower fabrication cost for the core. 
+Various 
+arrangeraents of control rods were studied with the goal of a design where 
+the cold reactor would be subcritical if any one control rod were with-
+drawn, provided that the other control rods were inserted fully into the 
+reactor core. Square arrays of nine cross-shaped control rods were con-
+sidered for the reference 3-Mwt core. For fuel assembly sizes ranging 
+from 3-in, squares to 4-in. squares, it was geometrically impossible to 
+set up a 3 X 3 array of control rods so that, at the same time, each central 
+compartment contained four fuel assemblies and each rod-drive nozzle 
+was sized to pass a fuel assembly. 
+The space limitation could not be over-
+come even with small, non-standard flanges on these nozzles. 
+Moreover, 
+it appeared that a central-compartment design of nine fuel assemblies, in 
+a 3 X 3 array, would present a difficulty of controlling the cold reactor if 
+the central control rod were to be withdrawn. Also, there would have been 
+additional complications of loading fuel, in this case. 
+If, instead, the size of the control-rod-drive nozzle had been r e -
+duced, and separate fuel-loading nozzles had been located farther out 
+(radially), a difficult offset loading of fuel assemblies would have been 
+required. 
+Alternative centerings of systems from control rod drives were in-
+vestigated.'>•'•"/ A suggested four-rod configuration was rejected because 
+of the difficulty of control with any one rod withdrawn. A design of nine 
+control rods and five drives was examined. 
+In this concept, each of four 
+drives controlled a pair of control rods, and the center rod was controlled 
+
+
+===== PDF PAGE 21 =====
+by the tifth drive. This design was rejected because of the problem of 
+imparting linear motion to two rods, by a drive not centered over either 
+rod, while maintaining vertical alignment of the rods. 
+Consequently, a reference design employing five cross-shaped 
+control rods, each with its own drive mechanism, to serve as a movable-
+control system for a core of forty, 3"g—in.-square fuel assemblies, was 
+selected. 
+VI. REACTOR PHYSICS DATA 
+The data presented below for the fresh reactor have been taken 
+largely from Ref. 4, the Argonne National Laboratory report on the zero-
+power reactor physics experiments on the fresh ALPR. The information 
+of particular interest for the purposes of the present report concerns 
+such raatters of reactor control as: 
+(1) the listing of positions of the control rods for criticality; 
+(2) the reactor shutdown margin; 
+(3) the reactivity gain resulting from a full withdrawal of the 
+central control rod from its position of criticality, with the 
+other control rods at indicated zero, and the xenon-free 
+reactor at room temperature; and 
+(4) the reactivity controlled by the burnable-poison strips. 
+The SL- 1 was in operation during a period of approximately two 
+years, following completion of the program of critical experimentation 
+on the fresh system. In that time, an estimated 931 Mwd of thermal 
+energy were produced, and some of the U 
+fuel atoms and much of the 
+B 
+burnable-poison atoms were destroyed in the process of neutron ab-
+sorption. The values of the reactor-control parameters enumerated 
+above varied with time, because of these effects of the production of 
+power. 
+To these effects one must add the influence of deterioration of 
+the burnable-poison strips. Thus, the direct applicability of the data for 
+the fresh reactor to the case of the reactor at the time of the incident is 
+seriously in question. 
+Some control rod calibration experiments were performed in 
+August-September, 1960, W/ using a procedure where one or more rods 
+not being calibrated were repositioned for criticality. It has been noted 
+that such a procedure involves corrections to acco^Jnt for interaction 
+effects between control rods. Since the degree of loss of B'' due to strip , 
+deterioration is unknown, only the first-listed parameter (critical rod 
+position) is known reasonably well as a function of the cumulative energy 
+output of the reactor. 
+
+
+===== PDF PAGE 22 =====
+20 
+A. The Cold Fresh Reactor (no Xe"^ or Sm^^^)^^) 
+In the fresh reference 3-Mwt reactor (ALPR Loading No. 57), criti-
+cality was achieved at 94°F with the center control rod at an indicated 
+position of 19-1 in. and the other four cross-shaped control rods at indi-
+cated zero (fully inserted). Alternatively, the reactor was critical with 
+the five cross-shaped control rods banked at an indicated position of 
+~12.6 inches. 
+At room temperature, this loading was subcritical with the center 
+control rod plus any three other control rods fully inserted. 
+Without 
+poisoning by Sm^^' or Xe^^ , it is doubtful that shutdown of the cold system 
+could have been accomplished with two off-center rods withdrawn. How-
+ever, early in core life, but after Sm 
+had accumulated, it was possible 
+to keep the reactor shut down with two off-center rods at 30 inches. 
+Prob-
+ably the reactor could have been shut down throughout its operating life in 
+the absence of one off-center control rod. 
+As has been noted (Section IV), the final, fresh reference system 
+included 40 full-length poison strips, each containing (nominally) 0.5 gmB^ , 
+and 16 half-length strips, each with -0.2 gm B^ . In the course of the zero-
+power reactor physics experimentation, an initial 40-fuel-assembly core 
+was studied where only the full-length strips were present. In this initial 
+system, the reactivity shutdown margin was ~5 dollars (or ~3-|-%). Upon 
+adding the half-length strips, the shutdown margin was made still larger, 
+though not by much, since to some extent the half-length strips were 
+shadowed by the adjacent control rods. 
+Two differential-worth measurements were made on the center 
+control rod, with the other four rods at zero.* At an indicated position of 
+19.3 in., the differential reactivity worth was ~1.1 dollars/inch. 
+At 
+22.4 in., the worth of the center rod (No. 9) was ~0.57 dollars/inch. 
+In 
+each case, the differential worth was roughly l y times the differential 
+reactivity worth of rod No. 9 as measured from the five-rod bank. As-
+suming that this factor (l-|-) applied over the range from 19 in. to 30 in., 
+and using Fig. 32 of Ref. 4, it is estimated that the cold, fresh reactor 
+would have been supercritical by 4-|- dollars with the center control rod 
+at 30 inches. 
+The total reactivity worths of burnable-poison strips were meas-
+ured with enough boric acid dissolved in the reactor water to attain a 
+five-rod-bank position of 20 in, at criticality. The 40 full-length strips 
+controlled '-'13 dollars; the 16 half-length strips controlled ~5 dollars. 
+*Unpublished. 
+
+
+===== PDF PAGE 23 =====
+B. The Cold Operated Reactor (no Xe^^^) 
+The control rod calibrations performed in the fresh reactor, in the 
+Fall of 1958, involved the addition of a soluble neutron poison, boric acid 
+(H3BO3), to the reactor water so as to calibrate rods from various rod bank 
+positions. In August-September, I960, some control rod calibrations were 
+made using a procedure of attaining criticality by the repositioning of one 
+or more of the rods not being calibrated.V'7) Moreover, the strong neutron 
+source was left in place, and this may have introduced perturbations and 
+uncertainties in the positive-period rod calibrations. 
+It was noted above that the half-length strips provided little extra 
+reactivity control when the control rods were inserted fully, because these 
+strips were positioned near the surfaces of the thermally-black control 
+rod blades. However, as the adjacent control rod was withdrawn, each 
+half-length strip became more effective. 
+As a result, the curve of differ-
+ential reactivity worth of the rod versus rod position, obtained for the initial 
+reference core without the half-length strips, was shifted upward and was 
+distorted when the half-length strips were added. Thus, one major effect 
+of the removal of B^° from these half-length strips, as a result of neutron 
+capture and strip deterioration, was to tend to shift the differential worth 
+curve back to the curve realized in the fresh reactor in the absence of 
+half-length strips. Another effect of power production was to reduce pref-
+erentially the U 
+content of fuel assemblies in the central 16 fuel assem-
+blies and in the bottom half of the reactor core. Two effects of this 
+preferential burnup were: 
+(1) to reduce the over-all worth of the center control rod, because 
+of the relatively lower fuel content near the center of the r e -
+actor core; and 
+(2) to increase the control capacity of this rod, because of the 
+increase in the "thermal migration area" in the vicinity of 
+the rod. 
+It is the opinion of the authors that the net effect of actual reactor opera-
+tion was to increase the differential worth of the central control rod in the 
+bottom half of the reactor core, relative to the differential worth curve 
+obtained in the fresh reactor. 1^^/ If this is indeed the case, then the curves 
+of "estimated shutdown margin"l2lj underestimate the per cent subcriti-
+cality in the operated reactor in the situation where all five control rods 
+were inserted fully. 
+The conclusion would be that even without the total of 
+six extra cadmium blades added in two tee-rod locations in November, I960 
+(Section V I I - A ) , throughout its period of operation the cold, xenon-free 
+reactor would have been subcritical by more than 3 dollars with all five 
+cross-shaped control rods at indicated zero. 
+
+
+===== PDF PAGE 24 =====
+There is no measured datum point for the critical position of the 
+center rod, with the other rods at zero, on the morning of the day of the 
+incident. An estimate of 16.7 in. has been reported;(22) this point is shown 
+on Fig. 7. Thus, there appears to have been a margin of at least one (l) ft 
+between the point of delayed criticality and the maximum position speci-
+fied in the written instructions^ 
+z for assembling the control rod drive to 
+its rod (Fig. 5). 
+0 
+100 
+200 
+300 
+400 
+500 
+600 
+700 
+800 
+900 
+1000 
+TOTAL THERMAL ENERGY OUTPUT, Mwd 
+112-2343 
+Fig. 7. Critical Positions of Control Rods at Room Temperature 
+vs Total Energy Output (No Xenon-135). [Data shown have 
+been taken from Ref. 24] 
+Vll. EVALUATION OF THE PERFORMANCE OF 
+THE CONTROL SYSTEM 
+A. Burnable-Poison Strips 
+After approximately 400 Mwd of reactor operation (February, I960) 
+it became evident that the actual rod bank position, at power, was dropping 
+much more rapidly than had been expected. 
+During a periodic inspection of fuel assemblies, in August, 1959, 
+it had been observed that some bowing of burnable-poison strips had oc-
+curred between fusion welds which held the strips to the side plates of fuel 
+assemblies.(25) in August, I960, a second inspection of fuel assemblies 
+revealed that poison strips were deteriorating.!^^/ Removal of fuel 
+
+
+===== PDF PAGE 25 =====
+23 
+assemblies from the region of the center of the reactor core was accom-
+plished only after considerable difficulty. 
+These assemblies were bound 
+tightly within the four-assembly compartment, probably because of the 
+extreme bowing and deterioration of the poison strips in this region of 
+higher power density. In the peripheral region of the reactor core, fuel 
+assemblies were not held tightly, and the burnable-poison strips appeared 
+to be in much better condition. (These remarks about the condition of 
+burnable-poison strips are based on the remote viewing of a small num-
+ber of samples at some distance under water.)\25) 
+It is probable that, in part, the progressive lowering of the critical 
+position of the control-rod bank during reactor operation was due to a 
+more rapid loss of B'' from the reactor core, because of burnup and/or 
+strip deterioration, than had been anticipated. 
+To compensate for this ap-
+parent loss in stationary reactivity control, in November, I960, three 
+cadmium blades were inserted in each of two diametrically opposite loca-
+tions of tee-shaped rods.i^"/ 
+These served as fixed, tee-shaped control 
+rods in the reactor core. 
+From accelerated-corrosion experiments performed at Argonne 
+National Laboratory, using water at 500*'F, it appears that the type of 
+bowing exhibited by the SL-1 poison strips would occur in the absence of 
+neutron radiation, simply because of strip growth resulting from exposure 
+of the constrained thin plates to hot water. 
+The bowing reflects the forces 
+of this volume expansion between the fusion welds which defined the r e -
+gions of constraint. V^'/ 
+Personnel of Combustion Engineering, Inc., have reported results 
+of various tests performed on samples of poison strips, including, among 
+others: (28) 
+(1) metallographic inspection both of irradiated and of unirra-
+diated samples; 
+(2) 
+corrosion tests in a water environment approximating the 
+operating conditions of SL- 1 except for the absence of a 
+neutron radiation field. 
+For the corrosion experiments, irradiated samples were taken 
+from poison strips which had been in the SL-1 core. Unirradiated samples 
+were taken from an unused poison strip. 
+Some summary remarks and conclusions of particular interest 
+are:(28) 
+(1) 
+"A dependency of corrosion rate on boron burn-up was found 
+by post-irradiation corrosion tests. The section of one of the 
+recovered poison strips taken from the high flux end of the 
+
+
+===== PDF PAGE 26 =====
+24 
+remnant exhibited a calculated penetration after 42 days of 
+test greater than 10 times that of either an unirradiated 
+sample or sections taken from lower flux regions of the same 
+recovered poison strip. Corrosion behavior of the lower flux 
+sections were similar to unirradiated samples. These data 
+are indicative of a possible threshold burn-up value for ac-
+celerated corrosion attack." 
+(2) 
+"Further evidence of the possible boron burn-up dependency 
+of corrosion behavior was obtained from visual examination of 
+entire lengths of poison strip remnants in which excessive 
+pitting was observed to be concentrated near the irregular 
+(high burn-up) end. Metallographic sections through these r e -
+gions confirmed the existence of gross general corrosion in 
+these areas." 
+(3) 
+"Swelling of the Al -B plates on the order of 12% occurred as 
+a result of the helium generated during the B^° iiEi^Li^ 
+transmutation." 
+(4) 
+"There is a high probability that the failure of these poison 
+strips was (sic) attributed to either excessive corrosion, cor-
+rosion induced embrittlement, or a combination of corrosion 
+induced mechanisms together with porosity and crack forma-
+tion occurring at the high burn-up regions of the poison strips." 
+B. Sticking of Control Rods 
+During reactor operation, a history of 84 occasions of "sticking of 
+the control rods" was accumulated. 
+This "sticking" has been categorized 
+into three types:(29) 
+"Type I - Sticking of a control rod resulting in failure to meet the 
+drop time requirements (one second for 10" drop; two seconds 
+for a 30" drop) and which did not require a power assist from the 
+drive assembly." 
+"Type II - Sticking of a control rod in which the control rod stopped 
+and required a power assist to enable the control rod to reach its 
+zero position (even if it subsequently fell free at a lower level)." 
+"Type III - Sticking of a control rod in which it was not possible to 
+drive the control rod in a desired direction, e.g., clutch slippage 
+during a rod withdrawal, or failure of a drive assembly shear key 
+or gears resulting in failure to drive a control rod," 
+There were 19 Type-I, 52 Type-II, and 13 Type-Ill stickings. 
+
+
+===== PDF PAGE 27 =====
+So far as we know, no measurements were made, with the reactor 
+at operating temperature and pressure, to check the dimensions of the 
+pressure vessel head with regard to alignment of the drive mechanisms 
+and the control rods. However, it is difficult to see why, if there had been 
+misalignment of a control rod drive relative to the control rod guide 
+shroud, stickings did not occur in a much greater percentage of the rod 
+movements. 
+During the early post-incident investigations, it was suggested that 
+bowing of poison strips might have led to bending of control rod guide 
+shrouding, with a resultant narrowing of the control rod channels. This is 
+no longer offered as an explanation of "rod stickings" experienced during 
+reactor operation. In one instance (November, I960), a "burr" was r e -
+moved from one control rod guide shroud, l^^/ This did not eliminate 
+stickings in this location. Indeed, after the burr removal, a total of nine 
+stickings occurred within a period of ly months, out of a total of 20 such 
+occurrences between May, 1959 and the end of 1960.131) 
+Post-incident examination of the shrouds and the control rod blades 
+has revealed that only a thin film of corrosion was present. Rub marks 
+and scratches found on the guide shrouds and control rod blades are at-
+tributed to normal wear during pre-incident operation. No evidence of 
+inward bowing or warping of the shroud, or abnormal wear of rods or 
+shrouding was found. Also, there was no evidence of a buildup of crud in 
+the control rod channels. V l^/ 
+Among other possible causes of what has been termed "control rod 
+sticking" are: 
+(1) 
+Crud in the rod drive seal; 
+(2) 
+Crud in, and wear of the Stellite, pinion-support ball bearings; 
+(3) 
+Crud in, and wear and corrosion of the replacement pinion-
+support standard-alloy carbon steel ball bearings. It was found 
+that, due to wear, the Stellite, pinion-support ball bearings 
+were operating somewhat erratically. Subsequently, because 
+Stellite bearings were not readily available, standard-alloy 
+carbon steel bearings were usedi^^j and were replaced from 
+time to time. These ball bearings are highly susceptible to 
+corrosion. 
+(4) A "hydraulic piston" effect - a momentary partial vacuum in 
+the space above the rack as the rod was dropped. This effect 
+had been noticed during the testing of a prototype rod drive 
+mechanism at Argonne National Laboratory. 
+Consequently, 
+the washer on top of the rack was modified (reduced slightly 
+in diameter) to permit a more rapid equalization of pressures 
+
+
+===== PDF PAGE 28 =====
+between the reactor and the top of the rack housing. 
+This 
+modification appeared to have eliminated the effect, as shown 
+by further testing. A piston effect of this sort has been ob-
+served on a similar drive mechanism, intended for another 
+reactor.i^/ 
+The degree of this effect is influenced by such 
+parameters as reactor pressure and water temperature, seal-
+water inlet temperature, and the level of water in the rack 
+housing. 
+In summary, no one cause of the stickings has been established. 
+It 
+is very likely that there were several contributing factors. 
+VIII. CRITIQUE OF THE CONTROL SYSTEM; GENERALIZATIONS 
+A. Top Mounting vs Bottom Mounting of Control Rod Drives 
+Early in the post-incident investigation, several possibilities were 
+discussed which illustrate the decreased accident potential of bottom-
+moiinted control rod drives. It was noted earlier in this report that, for 
+the ALPR, the top mounting of rod drives was essentially mandatory. A 
+possible cause of the incident, suggested during the post-incident investi-
+gation, was that a gas explosion had occurred in the pressure vessel. 
+When it was discovered that a nuclear transient had occurred, it was con-
+jectured that hydrogen had accumulated in the vessel, had exploded, and 
+had raised one or more control rods far enough to initiate a flux transient. 
+In the SL-1, the likelihood of a hydrogen buildup was extremely remote, 
+in the state of assembly existing at the time of the incident, because of the 
+relatively large clearances in the drive mechanism components. 
+However, 
+in another reactor design with top-mounted drives, such an accumulation 
+of an explosive gas might occur. If there were a gas explosion, it is con-
+ceivable that control rods would be raised and that a nuclear transient 
+might result. 
+In the case of bottom-mounted rod drives, usually the lower 
+grid structure serves as a positive stop of the control rods in their posi-
+tion of full reactivity control. Thus, a pressure transient would tend to 
+hold control rods in the configuration of maximum effectiveness. 
+In the SL- 1 incident, control rod guide shrouds collapsed soon 
+enough to trap the off-center control rods essentially in the position of 
+full insertion. When the shield plugs were ejected from the vessel, the 
+off-center rods were held by the shrouding, and breaks occurred at 
+weaker points, in the drive naechanisms. Otherwise, withdrawal of the 
+center control rod might have led to a raising of other control rods, and 
+possibly to a more energetic transient. 
+
+
+===== PDF PAGE 29 =====
+27 
+For other reactor designs where control rod drives are to be 
+naounted on the top head or bottom head of a pressure vessel, one should 
+consider the following merits of bottom mounting: 
+(1) Bottom mounting of drives would reduce congestion of equip-
+ment on the top head of the pressure vessel, making access 
+easier. 
+(2) 
+Whenever the top head of the pressure vessel is to be re-
+moved, for example for fuel handling, the system of control 
+rods could remain fully operative. Among the obvious ad-
+vantages are: 
+(a) 
+accurate indication of rod position at all times; 
+(b) the possibility of using rods as "cocked" safety rods; and 
+(c) 
+less frequent handling of control rods. 
+In judging relative advantages of top mounting and bottom moionting 
+of control rod drives in fluid-cooled reactors, there are disadvantages of 
+bottom mounting that must be weighed. Among these are: 
+(1) 
+In a cornpact plant, it might be difficult to provide the additional 
+space required below the reactor vessel for the drives and for 
+their maintenance. Also, additional shielding below the reactor 
+vessel might be required. 
+(2) 
+Corrosion products and other debris tend to collect or settle 
+in drive thimbles at the bottom of the reactor vessel and inter-
+fere with drive mechanism operation. Since some of this 
+naaterial is radioactive, drive mechanism, maintenance and 
+replacement would become a more difficult task. 
+(3) Openings in the bottom head of the pressure vessel increase 
+the likelihood of an inadvertent draining of coolant from the 
+vessel. In the event of rupture of a drive thimble, it would be 
+difficult to maintain adequate shutdown cooling of the fuel 
+assemblies. 
+The choice between top mounting and bottom mounting of the drive 
+mechanisms must be specific to the particular reactor design, although, 
+in general, bottom inounting appears to be preferable. 
+B. Assembly (Disassembly) of the Drive to Its Control Rod 
+If the SL- 1 incident occurred as postulated (Section III), three 
+aspects of the control system design and assembly procedure were factors: 
+
+
+===== PDF PAGE 30 =====
+(1) 
+The reactor could achieve super-prompt criticality, with 
+the center rod partially withdrawn, even though the other four 
+rods were inserted fully into the core. 
+(2) 
+The procedure for attaching a drive mechanism to its control 
+rod required that the rod be raised manually. 
+(3) Mechanical stops, which would limit the upward manual motion 
+of the control rod, ^were not included. 
+A discussion of item (l) is presented in Section VIII-E, Items (2) 
+and (3) are discussed below. 
+In the procedure of disassembling a drive from its control rod, in 
+SL- 1, once the seal and rack housings were removed, the control rod 
+rested on the internal dashpot spring. The next step was to raise the con-
+trol rod a short distance in order to attach a C-clamp to the rack so as to 
+prevent it from dropping while the nut and washer were being removed 
+from the top of the rack. In this step, the normal procedure required the 
+cooperative efforts of two men, one to lift or hold the rod, and the other to 
+attach or remove the C-clamp. 
+Subsequently, this clamp was to be r e -
+moved and the control rod lowered to its rest position. 
+In formiulating the instructions for operations personnel for the 
+disassembly (or assembly) of a drive mechanism from its control rod, ac-
+count was taken of the hazard of withdrawing the center control rod too far. 
+The instructions stated explicitly that no control rod was to be raised 
+more than 4 in.l^Sj during the disassembly (or assembly) procedure. In 
+other words, the control rod was not to be raised beyond an indicated posi-
+tion of 4 in. (Fig. 5). The normal procedure was to work with only one 
+control rod unit at any given time. The other control rods were to be in-
+serted fully. However, very little reactivity would have been added had 
+all five cross control rods been at 4 in., indicated position, and the control 
+margin was sufficient to override this extra reactivity. At this point, be-
+cause the absorber overlapped the core when the rod was at indicated 
+zero, the bottom of the cadmium section was approximately one (l) in. 
+above the bottom of the active reactor core. At the time of the incident, 
+with the other four cross-shaped control rods at indicated zero, it is 
+estimated^") that, to reach delayed criticality, the center rod would have 
+had to be raised at least one (l) ft more than the instructions specified. 
+This left a substantial safety margin for manual manipulation of the con-
+trol rods. 
+Two other factors which lessened the likelihood of a fast rod with-
+drawal into the region of supercriticality were the weight of the mass 
+being lifted (85 lb in water), and the congestion of equipment on the pres-
+sure vessel head, which tended to restrict bodily movements. 
+
+
+===== PDF PAGE 31 =====
+29 
+In spite of these various factors, acting to reduce the probability 
+of a nuclear incident being caused by manual withdrawal of the center 
+control rod, it appears that just such an incident, in fact, did occur. 
+It is now evident that the procedure selected to connect the control 
+rod to its drive, though simple in concept, had an essential disadvantage, 
+namely, the requirement of manual lifting of the rod. This disadvantage 
+could not have been overcome by the addition of one or more mechanical 
+stops, positioned so as to limit the upward travel of the rod during the 
+assembly. It was not intended that the operation of attaching the drive to 
+its control rod would be performed often, or that it would be a routine 
+procedure. Nevertheless, less reliance should have been placed on the 
+following of instructions and on the margins for error described above. 
+In retrospect, it is clear that a different method of disassembly and a s -
+sembly should have been designed, namely, one which did not require 
+raising of the control rod from its position of full insertion. Reliance on 
+mechanical stops is illusory, for, at some point during the procedure, the 
+stops must be engaged and then they must be removed. Personnel per-
+forming the assembly operation might become so dependent on the safe-
+guard afforded by these stops that a lessened vigilance could lead to an 
+accident because of an unrealized failure to actuate them. 
+It must be remembered that, in typical control system designs, 
+there is normally no indication of rod position when the control rod is not 
+attached to its drive mechanism. 
+This ignorance of rod position com-
+pounds the hazard of assembly, and it exists whether the control rod is 
+moved manually or by other means. Therefore, such an assembly/ 
+disassembly operation requires careful supervision, and must not be con-
+sidered routine. In this type of operation, as well as in others involving 
+a possible increase in reactivity, use of a checklist system would tend to 
+lessen the hazard. 
+C. Burnable Poison 
+In the early stages of the design of ALPR, various thermal-neutron 
+absorbers were considered for use as burnable poisons.(33) Among those 
+nuclides considered, having microscopic thermal neutron absorption cross 
+sections in the range of hundreds of barns to thousands of barns, were 
+Li , B'^ , Eu'^ ^, and Hg 
+. These absorbers offer advantages of burning up 
+slowly enough, in a thermal neutron flux of the order of 10 n-cm/(cm -sec), 
+to supply reactivity at a rate roughly commensurable with the rate of loss 
+of reactivity resulting from the consumption of U^^ . The B^ isotope was 
+considered to be particularly useful for ALPR, for several reasons: 
+(l) 
+the B^ is consumed at a sufficiently high rate that little of it 
+would have been left, by the end of a core cycle, in regions of 
+high statistical importance; 
+
+
+===== PDF PAGE 32 =====
+30 
+(2) there was more over-all experience with boron, as a burnable 
+poison, than with any of the other isotopes mentioned above; 
+and 
+(3) B'"' was available, in a reasonably pure form of boron highly 
+enriched in B^°, at a relatively low cost. 
+The basic ALPR core design involved the use of boron, highly en-
+riched in B^°, as a constituent of the fuel-plate core. The intention was to 
+provide a negative reactivity contribution of approximately 11%, in the cold 
+fresh reactor. 
+This was to counteract most of the positive reactivity effect 
+of adding U 
+to the fresh reactor to meet the requirements of power pro-
+duction for a core cycle of three years. It was not until contractual r e -
+search and development programs failed to produce suitable fuel plates 
+that the design concept of mixing fuel and burnable poison was altered.(3) 
+Much theoretical work has been performed to examine the subtle-
+ties of using burnable poisons in discrete masses, such as rods or strips, 
+(For example, see Ref. 34.) Even when a poison supposedly is homogene-
+ously distributed in a fuel-plate core, there may be a significant loss in 
+effectiveness because of the microscopic lump structure.(35) Ideally, with 
+a freedom of choice permitted in varying the location of the poison in the 
+reactor core, and in varying the mass of poison per unit surface area of 
+the poison lump, one can minimize the reactivity variation resulting from 
+equilibrium power production. However, for single-batch core loadings, 
+additional fissionable material would be needed initially to counteract the 
+negative reactivity effect of the neutron poison remaining at the end of the 
+core cycle. The amount of this extra fissionable material would depend 
+upon the statistically averaged relative absorption rates of the burnable 
+poison and the fuel, and upon the statistically averaged fractional burnup 
+of fuel atoms. 
+Often, a designer attempting to use burnable poison in a power 
+reactor operating at high temperature encounters problems of fabrication 
+and/or problems peculiar to the particular choice of neutron poison or 
+the form in which the poison is to be introduced. In the case of the 
+burnable-poison strips of ALPR (Section I V - B ) , there had been earlier 
+experience, in the BORAX-III core, with similar strips fabricated by 
+powder metallurgy techniques.(14) This favorable experience of some 
+six months use of burnable-poison strips in BORAX-III proved to be mis-
+leading, in terms of an expectation that strips of this type would be satis-
+factory for the anticipated core cycle of three years. Since the incident, 
+additional experimentation at ANL has shown that poison strips as thin 
+as the ones used in ALPR are not strong enough to resist the forces of 
+a volume expansion resulting from the corrosion of the strip.(36) 
+Prob-
+ably, this growth in strip size in SL-1 caused a bowing of the strip in the 
+regions between points of constraint where the strip was fusion-welded to 
+
+
+===== PDF PAGE 33 =====
+a side plate of a fuel assembly. Even now, considering information avail-
+able concerning the influence of neutron radiation on the corrosion rate of 
+a poison strip of this type (Section VII-A), it is not loiown whether the use 
+of much thicker strips, e.g., twice as thick as those used, would have en-
+sured that the burnable-poison strips would remain in good condition for 
+the entire core cycle. For that matter, it is not certain that, if the B'' had 
+been dispersed in the core matrix, the fuel plates would have remained in 
+such excellent condition for a three-year core cycle. 
+The unfavorable experience, in SL-1, with poison strips having a 
+carrier of aluminum-nickel alloy should be instructive in two major 
+respects. First, it is clear that extrapolation from an experience of a 
+relatively short period of prototype testing to a situation where the item 
+is to be in service for a very much longer period of time is uncertain, at 
+best. In the event that such an extrapolation is forced upon the designer, 
+a special effort should be made, during subsequent reactor operation, to 
+check on the continued serviceability of the itein at specified, regular in-
+tervals. This is not a novel suggestion, but all too often such checking is 
+not performed often enough, or is performed haphazardly. Second, since 
+burnable poison is an agent of reactor control, it is all the more important 
+that it remain in its intended location and contribute a positive reactivity 
+component at an expected rate. A dramatic deviation in the control r e -
+quirement of the adjustable control system, either in the form of a sudden 
+change or in the form of a sustained and steadily increasing deviation 
+should be cause for a prompt, detailed examination of the poison carriers. 
+Burnable poisons can serve a variety of control purposes in reac-
+tors, and it is likely that they will receive increasing attention. In 
+boiling-water reactors, another control scheme that could provide shim 
+control and, possibly, essentially the entire control of the reactor, is that 
+of soluble poison. 
+D. Soluble Poison 
+The use of soluble neutron poisons for control of thermal, water-
+moderated reactors has been discussed in severalreports and articles,i3'>-
+At various stages in the formulation of the ALPR design, serious consid-
+eration was given to the use of boric acid solution for: 
+(l) reactivity 
+control at teinperatures ranging from ambient to operating ( 4 2 0 ° F ) ; or 
+(2) routine, auxiliary shutdown of the reactor; or (3) non-routine, auxiliary 
+shutdown. In the following paragraphs, attention is focused upon the prob-
+lems, technical and/or logistical, which led to a decision to use boric acid 
+only for non-routine, auxiliary shutdown of the ALPR. 
+It should be realized that special logistical needs played a vital 
+role in this decision for the ALPR. Since then, soluble poison has been 
+employed in other ways for control of boiling water reactors, as discussed 
+briefly in the second part of this section. 
+
+
+===== PDF PAGE 34 =====
+32 
+The ultimate reactors, for which the ALPR was to serve as a pro-
+totype, were to be situated in geographically renaote locations. In the de-
+sign specificationsi^) jt was indicated that a source of fresh water might 
+or might not be available, other than melted snow, and that this water 
+probably would contain much mineral and organic matter. Also, in view 
+of the difficulty and the cost of transporting plant components to these 
+sites, considerable emphasis was placed on the design of a small, com-
+pact plant. Consequently, a basic criterion adopted by the reactor de-
+signers was the minimization of requirements of water supply, storage of 
+demineralized water, and storage of radioactive waste water. 
+Since the reactor plants were to relieve problems of logistics in 
+supplying petroleum for diesel generators, it was important to minimize 
+the dependence on power from these generators which were to serve for 
+emergency power production. For this reason, it was stipulated that "the 
+nuclear plant must be capable of restarting after a shutdown occurring 
+anytime during the core life" (Appendix A, Operational Requirements, 3). 
+In particular, this meant that it was necessary to be able to take the re-
+actor to full power after shutdown. 
+Auxiliary Shutdown of ALPR 
+If, as a routine procedure of reactor shutdown, enough boric acid 
+were introduced into the reactor water to keep the cold, xenon-free reac-
+tor subcritical with any one control rod withdrawn, it is doubtful that the 
+aforementioned criterion of power operation would have been met. A 
+compromise would have been to add a smaller amount of boric acid, to 
+reduce the magnitude of the excess reactivity potential in withdrawal of 
+the center control rod. 
+Renaoval of the boric acid from the reactor water could have been 
+accomplished by one of several methods, each method requiring additional 
+equipment and/or additional material or storage space: 
+(1) by pumping reactor water through ion exchange columns con-
+taining a special resin, and returning the clean water to the 
+reactor; 
+(2) by distilling reactor water containing boric acid, and returning 
+the clean water to the reactor; or 
+(3) by massive dilutions of the reactor water with demLineralized 
+water. 
+In principle, methods (l) and (2) above, are quite similar. In both 
+cases, the initial concentration, N(0), of boric acid in the reactor water is 
+reduced according to an exponential law: 
+N(t) = N(0) exp(-t/T) 
+
+
+===== PDF PAGE 35 =====
+Here, N(t) is the boric acid concentration at a time t after the initiation 
+of cleanup; T is the time required to process, on a once-through basis, a 
+volume of water equal to that in the pressure vessel, the purification sys-
+tem, and any other components which contain water to be purified; and the 
+assumptions have been made that cleanup is 100% effective, and that the 
+clean water is mixed uniformly and continuously with the water being 
+purged. Typically, in a boiling water reactor, the coolant fluid is kept 
+clean by low-rate, continuous purge. This was the case for the ALPR. 
+Consequently, unless special provisions had been made to increase sub-
+stantially the rate of cleanup, for example, by use of a separate purge sys-
+tem, it would have taken many hours to remove, say, 90% of the boric acid. 
+If ion-exchange columns had been used for removal of boric acid, 
+a large inventory of costly resin would have been required, sufficient for 
+the period between times of accessibility for supply to the remote site. 
+Cleanup by distillation would have required additional equipment, including 
+means of flushing the residue, and probably would have involved extensive 
+use of diesel-generator power if full auxiliary shutdown control by boric 
+acid were employed. 
+The third method, that of massive dilution of the reactor water, 
+would have required a much larger supply of demineralized water and a 
+larger sump for radioactive waste water. 
+The reactor designers concluded that the special logistics problems 
+of the ultimate plant made it highly tmdesirable to use soluble poison for 
+routine auxiliary control for shutdown. Therefore, the soluble-poison 
+system of ALPR was designed for non-routine, backup control, to be used 
+at the discretion of the operations supervisor. 
+In the prototype plant itself, there was less reason not to add boric 
+acid solution routinely in the process of reactor shutdown. Cleanup by 
+ion exchange was feasible, though costly and slow. Moreover, this pro-
+cedure of shutdown would have been special to the prototype plant. 
+Never-
+theless, if such an incident as did occur had not been considered to be so 
+unlikely, probably the routine addition of boric acid would have been made 
+an integral part of the procedure of shutdown of the prototype reactor 
+whenever assembly of the drive to (or disassembly of it from) the central 
+control rod was to be performed. 
+Operational Control with Soluble Poison 
+For an early conceptual version of the ALPR, consideration was 
+given to a control system where boric acid, in solution, would supplant 
+the customary control by rods, with the exception of perhaps one control 
+rod available and cocked as a safety rod, 139) 
+
+
+===== PDF PAGE 36 =====
+It is doubtful that a good core design would have permitted the use 
+of enough soluble poison to preclude the need for an auxiliary control in 
+the form of a burnable poison. Without burnable poison, so much control 
+capacity would have been needed that there might have been a large initial 
+positive void coefficient in the cold fresh reactor. Also, at this time, not 
+enough data had been accumulated from operating boiling-water reactors 
+to support the use of a soluble-poison control system at operating tem-
+perature ( 4 2 0 ° F ) in the ALPR. 
+Now, there is more information available about the use of soluble 
+poison for control of boiling water reactors. Boric acid has been used for 
+shim control of the YANKEE reactor.(40) in the course of the recent ex-
+periments where the EBWR power level was raised to 100 Mwt, boric acid 
+was used to assist control of the reactor. 
+The H3BO3 concentration was 
+adjusted as reactor power was varied. 
+These are rather special uses of 
+soluble poison, and they do not adequately demonstrate the full utility of 
+soluble poison in boiling water reactors, namely, for control of a power 
+reactor at operating conditions for long periods of time. There remain 
+questions as to how well a particular boiling-water reactor would perform 
+with a dilution/concentration procedure of routine reactor operation with 
+soluble-poison control. A reliable procedure for controlling the boric acid 
+concentration in the reactor water would be required. Also, it would be 
+useful, but perhaps not essential, to have a procedure of sampling the r e -
+actor water at regular intervals, or continuously, and determining the 
+boric acid concentration. A typical cleanup procedure (e.g., ion exchange) 
+is slow. On the other hand, it is precisely this slowness of cleanup that is 
+one of the safety advantages of control by soluble poison, for unintentional 
+removal of poison from the reactor water would be a slow process, 
+E. Reactor Shutdown Margin 
+The concept of "reactor shutdown margin" has been defined rather 
+poorly, in the past, in terms of its significance for an evaluation of hazards 
+associated with a given reactor design. Sometimes, what is listed as the 
+shutdown margin is the numerical value of the shutdown margin in the 
+fresh reactor. 
+This is defined to be the per cent reactivity by which the 
+reactor is subcritical, with the normal control system fully effective, and 
+with the reactor otherwise at its maximum reactivity. 
+Typically, the r e -
+actor possesses maximum reactivity when it is cold and there is minimum 
+void and xenon in the reactor core. This concept of shutdown margin is 
+too limited, for often the fresh reactor offers less of a hazard than a r e -
+actor which has been operated at power and in which fission products have 
+accumulated. 
+More generally, the shutdown margin is the smallest value of r e -
+activity that must be added to bring the reactor to delayed criticality, at 
+any time in reactor life, and under all possible reactor states of tempera-
+ture, pressure, etcetera, when the normal, adjustable reactivity-control 
+
+
+===== PDF PAGE 37 =====
+system is exercising its maximum effect. 
+If, as m the case of the SL-1 
+reactor, a backup, non-emergency control system is available, some of 
+this auxiliary control may be added when needed to increase the shutdown 
+margin. However, unless such auxiliary control is introduced automati-
+cally, and rapidly, its effect should not be included in the determination of 
+the numerical value of the shutdown margin. 
+It has been pointed outi^l) that even the more general concept of 
+shutdown margin may be inadequate as a criterion to be used in assessing 
+the safety of a proposed reactor. Batesl^l) has assembled data concern-
+ing the shutdown margin for a number of power reactors, illustrating a 
+remarkably large variation in what different design groups have considered 
+to be acceptable or desirable. One should not infer that a given reactor 
+design, with an actual shutdown margin of, say, 6% reactivity, would have 
+been unacceptable if the margin had been only 4%. Normal design practice 
+requires that the calculated shutdown margin be conservative, relative to 
+actual needs, to allow for uncertainty in the calculation. 
+A margin of reactor control is required for a variety of reasons, 
+and the size of this margin is set, in part, by these reasons. For exanaple, 
+the shutdown margin should be large enough so that one need not be overly 
+much concerned about the reactivity hazards of small errors in fuel 
+loading. In the SL-1 reactor, the shutdown margin was in excess of 2% 
+reactivity, and probably at least 3%, even without the total of six cadmium 
+blades added (November, I960) in two of the four tee-rod locations for 
+additional fixed control. (The cold fresh reactor was subcritical by ap-
+proximately S-y % with all five cross-shaped control rods at indicated 
+zero.) This margin was more than enough to override such possible mis-
+takes in fuel loading changes as: 
+(1) the inadvertent loading of a fuel assembly without poison 
+strips; 
+(2) 
+a mis orientation of a fuel assembly; or 
+(3) the addition of an extra fuel assembly at the periphery of the 
+reactor core. 
+Moreover, it appears that, at any time during core life, removal of 
+any one of the off-center cross-shaped control rods would have left the 
+reactor subcritical if the four remaining cross-shaped control rods were 
+inserted fully. 
+Yet, the shutdown margin was instifficient, in the sense that 
+presumably it was the withdrawal of the central control rod that led to the 
+transient that destroyed the SL-1 core on January 3, 1961. 
+F. The "Single-Mistake" Criterion 
+In the case of SL-1, each cross control rod was of a large span 
+(14 in. of absorber), and the rods were so far apart that withdrawal of the 
+
+
+===== PDF PAGE 38 =====
+36 
+center rod effectively left unprotected a portion of the core that was large 
+in terms of the characteristic diffusion distance of thermal neutrons. As 
+a result, the cold fresh reactor was supercritical in the absence of the 
+center control rod. So far as can be ascertained at this time, the SL-1 in-
+cident could have been brought about, in the same manner, in the fresh 
+reactor. 
+It would be tempting to state categorically that no future reactor 
+design should be accepted if, at some time in reactor life, and at certain 
+conditions of temperature, pressure, etcetera, withdrawal of a single com-
+ponent of the control system (e.g., a single control rod) would result in 
+reactor supercriticality even though the rest of the control system was 
+fully effective. 
+Certainly, it should be a prime goal of the design effort 
+to avoid such a possibility. 
+It naay be, however, that in the avoidance of 
+this undesirable situation, the reactor design would be affected adversely 
+in other important respects. In such a case, the reactor designers must 
+arrive at a decision as to the extent of a compromise of the conflicting 
+goals. 
+In the ALPR, the gearings of the rack-and-pinion drive were chosen 
+so as to limit the reactivity insertion rate to approximately 0.01%/sec in 
+the cold fresh reactor.(42) This rate is in sharp contrast to the very 
+much higher reactivity insertion rate that could be achieved by manual 
+rod withdrawal, when the drive was disconnected from its rod. From data 
+obtained and tests performed by Combustion Engineering, Inc.(7) and by 
+the General Electric Co.,i°)it may be inferred that a reactivity addition 
+rate of perhaps 20%/sec could have been obtained by a rapid manual with-
+drawal of the center control rod at the time of the SL- 1 incident. 
+This 
+result dramatically illustrated a possible hazard of rod handling in a shut-
+down reactor, whether or not the SL-1 incident was caused in this way. 
+In some reactor designs it may be feasible to require that, before 
+any control rods may be handled manually, enough fuel must be removed 
+from the shutdown reactor so that it would remain subcritical even if all 
+control rods were withdrawn fully. 
+The fuel would be stored in a suitably 
+controlled facility until the control rod drives were reassembled to their 
+rods. 
+One alternative to this procedure is to introduce temporary addi-
+tional control as a routine procedure in the process of reactor shutdown. 
+For example, in the case of a water-moderated reactor controlled by a 
+system of control rods, perhaps boric acid solution could be introduced 
+into the reactor water during shutdown, for additional protection of the 
+cold reactor. 
+Soluble poison was not used in this manner in ALPR, for 
+reasons stated in Section VIII-D. 
+
+
+===== PDF PAGE 39 =====
+A less restrictive condition that may be acceptable is that no 
+single mistake in manipulation, and no single malfunction of one compo-
+nent of the reactivity-control system should lead to an excursion that 
+would damage the reactor or result in a serious hazard to personnel. 
+Thus, for example, if, upon full withdrawal of a single control rod, 
+the system would be below prompt critical, at worst a relatively slow rise 
+in the level of neutron flux would result, and the reactor should be capable 
+of compensating automatically for this excess reactivity, either because 
+of negative reactivity coefficients or by virtue of an auxiliary and/or 
+emergency control system., without a transient that would damage the r e -
+actor or would expose personnel to a severe radiation hazard or to other 
+serious injury. 
+In any event, the reactor design should be such that, 
+whether or not the reactor is damaged, personnel in the area would not 
+suffer serious injury; for some types of reactors, this less restrictive 
+criterion might be satisfied even if the net uncompensated reactivity was 
+more than one (l) dollar. 
+IX, SUMMARY AND REMARKS 
+The SL-1 incident has focused attention on certain design features 
+and operating procedures of the prototype nuclear reactor power plant. 
+In this report, emphasis has been placed on the design and the perform-
+ance of the ALPR (SL- l) reactivity control system. 
+Criteria for the 
+reactor and the attendant motivations for the control system design have 
+been reviewed. 
+The post-incident investigations and reviews have spotlighted such 
+diverse features of reactor design and performance as: deterioration of 
+burnable-poison strips; top mounting of the control rod drives; "sticking 
+of control rods"; the fact that at least partial insertion of the center con-
+trol rod was required for reactor shutdown under certain conditions; and 
+the procedure of assembling the control rod drives to their respective 
+control rods. 
+It is now clear that such an incident, in principle, could have oc-
+curred in the unoperated prototype reactor, under conditions where the 
+burnable-poison strips were intact and where the control'rods operated 
+freely. 
+Under certain circumstances, in other reactor designs involving 
+the use of top-mounted control rod drives, a non-nuclear accident might 
+initiate a nuclear excursion. 
+For exanaple, a gas explosion inside a 
+pressure vessel would exert a force on components of the control rod 
+drives, possibly lifting the control rods. It has been shown that such an 
+
+
+===== PDF PAGE 40 =====
+38 
+event did not occur in the SL-1, Thus, top mounting played only an in-
+direct role in initiating the incident, largely through its influence on the 
+procedure of attaching drives to the control rods, in terms of the sequence 
+of events postulated for the incident. 
+Various designs of systems of control rods were considered for 
+the ALPR, in an attempt to secure a system where reactor shutdown was 
+assured in the event of a full withdrawal of any one control rod. The final 
+choice was a design compromise wherein the control provided by the 
+center control rod plus any three of the four other control rods was suffi-
+cient for shutdown of the reactor in its state of highest reactivity. 
+The 
+designs of the control rod and drive were tailored to a simple assembly-
+disassembly procedure, which involved a manual lifting of the control rod 
+to a position only a few inches above its position of full insertion. Written 
+instructions for the procedure of assembling a drive to its control rod 
+specified that the rod was not to be raised more than 4 inches.v'-3) 
+This 
+left a margin of at least one (l) ft additional withdrawal of the center con-
+trol rod, even to the position of delayed criticality. Other features of the 
+reactor design militated against a withdrawal of a control rod so far and 
+so rapidly as to cause a dangerous nuclear excursion. 
+Yet, all available 
+evidence indicates that the SL-1 excursion was caused by a manual with-
+drawal of the center control rod. 
+In retrospect, it is clear that less reliance should have been placed 
+on awareness of hazards and on written instructions. Perhaps a checklist 
+procedure would have prevented this particular incident, but this falls 
+into the same category. Instead, a different assembly procedure, not r e -
+quiring the manual raising of control rods, should have been designed. 
+Also, there should have been even greater emphasis on achieving a r e -
+actor design wherein, when the other control rods were inserted fully, 
+rapid withdrawal of a single control rod could not lead to a catastrophic 
+reactor excursion. 
+One must remember that, so long as a reactor can be made super-
+critical by the motion of a control rod, it is conceivable that a nuclear 
+incident could be initiated by rod withdrawal. This is less likely if the 
+reactor can be shut down with any single control rod withdrawn. How-
+ever, the satisfaction of the latter condition does not eliminate the possi-
+bility of such an event. For example, if some of the other control rods 
+were withdrawn partially, a fast partial withdrawal of one control rod then 
+might lead to a short-period excursion. 
+Reactor designers must take into account the practical aspects of 
+actual reactor operation. 
+They should communicate to the reactor oper-
+ators their motivations for the particular choices of reactor design, 
+stressing known potential hazards of the design selected. 
+It would be 
+
+
+===== PDF PAGE 41 =====
+useful if the designers also indicated disadvantages and potential hazards 
+of alternative, rejected designs, for then the reactor operators would be 
+made more cognizant of the problems which they might encounter because 
+of seemingly innocuous modifications of reactor design or operating pro-
+cedure. The reactor operators should consider the significance to reactor 
+safety of an accumulation of small modifications, periodically reviewing 
+the state of the reactor, preferably with an independent evaluation by a 
+competent group not associated with the operation of that particular 
+reactor. 
+In the final analysis, vigilance and deliberateness of action on the 
+part of the reactor operators must be stressed. All operating personnel 
+should be made fully aware of known potential hazards of any of the oper-
+ations which they might be called upon to perform, and the consequences 
+of a violation of instructions. No task involving a possible gain in reac-
+tivity should ever be considered to be routine. The written, detailed in-
+structions for these operations must be clear and unambiguous, and the 
+existence of these potential hazards should be stated in boldly evident 
+precautionary notes. 
+
+
+===== PDF PAGE 42 =====
+4^ 
+o 
+
+
+===== PDF PAGE 43 =====
+APPENDIX A* 
+TECHNICAL CHARACTERISTICS 
+ARGONNE LOW POWER REACTOR (ALPR) 
+(March 9, 1956) 
+Note: 
+The following characteristics include Change No. 1 
+(May 1, 1956), Change No. 2 (June 14, 1956), and in-
+terpretation of the specifications ensuing from a 
+meeting between Army Reactors Branch and Argonne 
+National Laboratory personnel on August 21, 1956. 
+The Argonne Low Power Reactor Project (ALPR) has been estab-
+lished by the Atomic Energy Commission, at the request of the Department 
+of Defense, as an ultimate member of a family of nuclear power plants to 
+produce electric power and heat at remote railitary bases. 
+The ALPR should be designed to provide the best possible boiling 
+heterogeneous nuclear power plant system that meets the requirements of 
+an Auxiliary Station, DEW Line, and is compatible with arctic environmental 
+conditions. The plant will include the structure housing and auxiliary sys-
+tems. The prototype plant will be constructed at the National Reactor 
+Testing Station, Idaho. The purpose of prototype construction is to obtain 
+information and data on new features of the system, A major objective 
+of the prototype design is to minimize the engineering modifications that 
+need be made when adapting this design to a specific Auxiliary Station. 
+Construction of the prototype power plant system should include as 
+many features peculiar to arctic conditions as is possible. For example, 
+the air space required between grade and the bottom of the plant structure 
+will be provided. Whether such air space is provided in the prototype struc-
+ture by placing it on piling, as it must be in the arctic, or by some other 
+construction design, may be determined by considerations of local economy. 
+Whenever it is necessary to deviate from arctic practices, it is de-
+sired that appropriate recommendations be made through the Chicago Oper-
+ations Office to the Army Reactors Branch, Division of Reactor Development, 
+Washington, D. C. 
+These Technical Characterisitcs are to be construed as design ob-
+jectives for the prototype plant and not as performance guarantees. 
+Changes 
+may be made to ensure the design of a simple, reliable nuclear power plant 
+Reproduced from Appendix V of Ref. 1: ANL-6076, "Design of the 
+Argonne Low Power Reactor (ALPR)," with references deleted. 
+
+
+===== PDF PAGE 44 =====
+for the intended application. Recommendation for changes or modifications 
+should be made to the Army Reactors Branch through the Chicago Operations 
+Office. 
+The DEW Line is now under construction. Specific information on 
+loads, load factors, and curves are not available. A specific site for the 
+installation of the first operating unit has not been selected. Therefore, for 
+many items in this specification, only "average arctic conditions" are given. 
+As these and other application information becomes available, data will be 
+furnished to Argonne National Laboratory. 
+It is desired that, insofar as possible, the materials, components, 
+and systems of the nuclear power plant, especially for the reactor compo-
+nent, should be acceptance tested under simulated operation conditions be-
+fore prototype construction. 
+Washington supervision of this project rests in the Army Reactors 
+Branch, Division of Reactor Development, U. S. Atomic Energy Commission. 
+General Requirements 
+1. 
+Capacity (Design) 
+200 kw Electrical 
+400 kw Heat, Net (approximately 1,300,000 Btu/hr) 
+2. 
+Frequency 
+60 cps 
+3. 
+Voltage (Busbar) 
+120/208, 3-phase, 4-wire, wye connected 
+4. 
+Power Factor 
+0.8 
+5. 
+Plant Factor 
+0.7 
+6. 
+Standby Equipment 
+Full capacity, electrical and heating, in conventional diesel-
+electric power plants and/or oil-fired furnaces assumed.* 
+'The full-capacity electrical requirennent is for an arctic installation. 
+The prototype installation was approved with 60-kw diesel-electric. 
+
+
+===== PDF PAGE 45 =====
+7. 
+Transportability 
+Sealift, airlift, and overland transportation are available in the 
+Arctic. Sealift is used only during the summer months, whereas airlift may 
+operate the year round. The runways at some DEW Line sites become soft 
+during the summer which prevents aircraft operation. 
+Aircraft operating to DEW Line stations are C-123 and C-124, 
+Details on cargo preparation for these aircraft will be furnished separately.* 
+The prototype plant must be designed to incorporate this air transportability 
+feature, by components, prior to initial operation. 
+8. 
+Personnel 
+Every man stationed at a remote arctic site increases the logis-
+tic support problem for that location. For this reason, the number of operat-
+ing personnel to run this plant must be a minimum. It may be assumed that 
+certain members of the organization will have some training in the operation 
+of this plant to the extent of routine operation, inspections, and preventive 
+maintenance. Such training will include basic steam technology, power plant 
+operation, parallel operation of generators and instruction in reactor oper-
+ation; health physics, nuclear instrumentation, etc. These individuals un-
+doubtedly will be utilized in the discharge of the primary mission of the 
+remote site. 
+The supervisory personnel at this remote site may be expected 
+to have very little knowledge of reactor technology. The reliance for un-
+interrupted operation is placed upon the technological development of the 
+plant components, the plant design and the operating personnel. Thus, a 
+nuclear plant that will operate reliably for prolonged periods of time with 
+the minimum of supervision and logistic support is required. 
+The military personnel assigned to remote arctic stations are 
+relieved every 12 months, or less, and replaced by a new group. It should 
+be assumed, therefore, the background and training of the incoming per-
+sonnel is the bare minimum to satisfactorily accomplish their mission. 
+The present plans are to operate the DEW Line by contract. It 
+should be assumed the initial operators will be civilians. Major mainte-
+nance, fuel changing and radioactive waste disposal will be accomplished by 
+especially trained personnel, civilian and/or military. 
+The air transportability feature limiited all "packages" to 7-~ ft x 9 ft x 
+20 ft, and 20,000 lb in weight. 
+
+
+===== PDF PAGE 46 =====
+9. 
+Facilities 
+The buildings designed for the Auxiliary Station of the DEW 
+Line consist of modules* approximately 16 ft x 28 ft x 16 ft. 
+These 
+modules are connected in one line so that the ultimate structure is 
+28 ft wide and up to 412 ft long, depending on the number of modules used. 
+The radar antenna dome is above these modules. Each module, the a s -
+sembly, and the radome is designed for winds of 125 mph, 2 in. of ice, and 
+30 Ib/ft^ of snow. 
+The modules are designed to be compatible with arctic 
+conditions: 
+(a) 
+Comfortable, adequate, and flexible to meet personnel 
+and equipment requirements. 
+(b) 
+Resistant to fire, wind, cold, storm, and deterioration. 
+(c) 
+Simple and economical to transport, construct, and 
+maintain at arctic sites. 
+The building design is to emphasize maximum, resistance to, 
+prevention of, detection of, and control of fire, consistent with associated 
+problem.s of arctic construction, maintenance, operations, economics, and 
+logistics. 
+The floor of the antenna in the radome over the building train 
+is 50 ft above the local terrain. 
+The highest point of the building housing 
+this power plant should not be higher than 50 ft above ground. Should this 
+height be exceeded, the Army Reactors Branch, AEC, should be so informed 
+before the design is approved. 
+Outside access doors must not be encroached upon by building 
+design lest the requisite area for sno\v removal by mechanized equipment 
+be hampered. 
+The building housing this plant should conform to these general 
+DEW Line requirements. 
+Operational Requirements 
+1. 
+Environmental Conditions 
+Outside ambient temperature: -60°F to +60°F. The plant should 
+be designed for 60 kw electrical overload at 40°F outside ambient air tem-
+perature. 
+(See No. 4 below.) 
+*The module requireinent is for an arctic installation. 
+The prefabri-
+cated support facilities structure for the prototype was approved. 
+
+
+===== PDF PAGE 47 =====
+Winds: The specifications on the present structures require 
+a building to withstand 125-mph gusts, 30 Ib/ft^ of snow, and 2 in. of ice. 
+Permafrost: 
+Permafrost may be expected throughout the DEW 
+Line region. Thawing of the permafrost introduces undesirable stresses in 
+the buildings. Adequate protection must be provided to preserve the pernna-
+frost regime. Should refrigeration be required, this electrical load must be 
+considered parasitic. 
+Annual precipitation: The arctic coast, in general, has very 
+little precipitation. 
+That section of the coast in Alaska proposed for the 
+first installation receives approximately 4.5 in./yr. 
+Water availability: Many of the DEW Stations have available a 
+source of fresh water, other than melted snow. This water may be expected 
+to have a high inineral and organic material content. Detailed information 
+will be made available at a later date. 
+Site materials: Information on this subject is limited. 
+Gravel 
+has been used at many DEW Line Stations. Detailed information will be 
+furnished at a later date.* 
+2. 
+Routine Operation 
+Upon successful completion of acceptance tests, the operational 
+nuclear plant is expected to be placed in routine operation. The plant will 
+be prepared for operation by an operator in accordance with standard pro-
+cedures for starting up the plant. When ready to take the electric and/or 
+heating loads, parallel operation with the conventional systems will be e s -
+tablished, the load shifted to the nuclear plant, the conventional system 
+shut down as prescribed by standard operating procedures. The plant will 
+be adjusted to the load conditions and placed into "demand controlled op-
+eration" by the operator. When the plant is operating stably and to the 
+satisfaction of the operator, further detailed and constant attention by op-
+erating personnel should be unnecessary. The operator will be performing 
+other duties elsewhere. Routine inspections and preventive maintenance 
+(such as keeping oil reservoirs filled) will be necessary. 
+Guidance on frequency and extent of inspections and mainte-
+nance is expected of Argonne National Laboratory, and the Architect-
+Engineer. 
+Whenever required and foreseen, the shutdown of the nuclear 
+plant will be accomplished manually in accordance with standard operating 
+procedures. 
+Gravel from a DEW Line Station was examined and appraised as being 
+acceptable for biological shield material. 
+
+
+===== PDF PAGE 48 =====
+3. 
+Restart 
+Normal startups will be under the control of an operator in 
+accordance with standard procedures. This action will follow core r e -
+placements, scheduled shutdowns, and emergency shutdowns. The nuclear 
+plant must be capable of restarting after a shutdown occurring anytime 
+during the core life. Plant down time only reintroduces the petroleum 
+logistics problem that nuclear plants are to relieve, hence, the need to 
+restart at the earliest possible moment. 
+4. 
+Plant Overload 
+This plant must be capable of a 60-kw (electrical) overload 
+for a period of one (I) hour or less in each 24-hour cycle. Such a con-
+dition may result from the simultaneous utilization of equipment with 
+low diversity factor or the energizing of radome heaters. Under this 
+condition of operation, the plant must be stable and respond readily and 
+automatically to deinand control signals; an operator must not be required 
+This overload requirement may be relaxed if a non-standard 
+turbine-generator size should be necessary. 
+When in this overload condition, the reactor must have suf-
+ficient control capability so that for steady operation, or for sudden r e -
+duction of load, the reactor will not present any unusual hazard. 
+5. 
+Stability and Regulation 
+The plant must be stable throughout its operating range, which 
+is defined as any heating load up to 400 kw plus a net electrical load from 
+20 to 260 kw. The maximum load of 260 kw includes a 60-kw overload. 
+The following voltage and frequency conditions must be observed; 
+(a) 
+Voltage inay not vary more than ±5% from the design 
+rated value with load varying froin 20 to 260 kw. 
+Loads 
+may be applied in increments of as much as 60 kw. 
+(b) 
+Frequency must not vary more than ±5% from the design 
+rated value with load varying from 20 to 260 kw. 
+(c) 
+Voltage may not vary more than ±2% from the steady-
+state value at any given load within the operating range. 
+(d) 
+Frequency may not vary more than ± 0.1 cps from the 
+steady-state value at any given load within the operating 
+range. 
+
+
+===== PDF PAGE 49 =====
+(e) 
+Transient voltages nnay not vary more than ±5% from 
+steady-state values. Steady-state voltage must be r e -
+established within 5 sec. 
+(f) 
+Transient frequencies may not vary more than ±0,5 cps 
+from steady-state values. Steady-state frequency must 
+be re-established within 5 sec. 
+If a bypass steam system is utilized to meet the requirennent 
+for control and 60-kw load increments, up to approximately 1300 Ib/hr of 
+steami may be bypassed from the main steam line through a heat exchanger 
+to the condenser. A dead band of approximately 200-300 Ib/hr will be 
+allowed to avoid excessive operation of the control system. It must be 
+possible to adjust manually the amount of steam which is bypassed. 
+The 
+bypass steam flow rate naust be re-established within 30 sec. 
+The voltage and frequency requirements listed above are dic-
+tated by the requirements of the radar-communications equipment at the 
+DEW Line Station. The sensitivity of this equipment to frequency and volt-
+age changes is being investigated and as detailed data becomes available 
+this information will be furnished Argonne National Laboratory. In order 
+to provide this high-quality electrical power to the electronics equipment, 
+the conventional plant is so arranged that transient-producing utility type 
+equipment is isolated from the radar by using (a) separate diesel-
+generator(s). Consideration should be given to the isolation of the radar-
+communications equipinent load by some suitable arrangement. 
+However, 
+if this is not feasible, this regulation of voltage and frequency must be 
+applied to the full plant load. If the sensitive electronics load can be ef-
+fectively isolated, the voltage and frequency regulation for the balance of 
+the station load need only conform to current practice of ±5% voltage and 
+±2% frequency variations. The characteristics of the nuclear plant must 
+be such as to provide for stable parallel operation under all load conditions 
+with the conventional diesel-electric equipment now used. 
+6. 
+Instrumentation 
+Instrumentation of the nuclear plant should be a minimum con-
+sistent with the safety of the plant and personnel. The prototype of this 
+plant may be instrumented as necessary to meet the AEC Advisory Com-
+mittee on Reactor Safeguards (ACRS) requirements, but analysis should 
+be made and experimentation should be conducted on the prototype to con-
+firm the minimum requisite instrumentation. Provision should be made 
+for audible warning when hazardous operating conditions are imminent. 
+Unless otherwise available, controls and instrumentation 
+sufficient for satisfactory parallel operation with the conventional plant 
+must be provided. 
+
+
+===== PDF PAGE 50 =====
+The complete control operation - startup, manual and/or 
+automatic load changes, parallel operation and shutdown - should be per-
+formed from one control panel. All visual and recording instruments of 
+the nuclear plant must be available at one location. Duplicate instruments 
+may be provided at desired locations. 
+Power Plant Components 
+1. 
+Reactor 
+The reactor of the boiling heterogeneous type is to have the 
+inherent ability to adjust the power generation, and hence, the stean-i out-
+put, to meet the load demand placed upon the power plant. The load de-
+mand may be heating or electrical and any combination of the two. The 
+reactor must be stable at all reactor power levels from a. "zero power 
+critical" condition through a power level equivalent to a plant electrical 
+overload of 50% throughout the core life. Provisions must be incornorated 
+in the design to provide a sub-critical core at all times during the core or 
+fuel assembly replacement operation and the subsequent cooling period. 
+Minimum mechanical equipment should be within the biological 
+shield of the reactor. 
+Components with rotating or movable parts should 
+be readily available for inspection and maintenance. 
+Unless the reactor design is adequate to accommodate the dis-
+sipation of heat after shutdown, cooling must be provided, including the 
+cooling of spent cores in storage, if necessary. 
+2. 
+Component Contamination 
+The conceptual design places the turbine in the primary loop 
+and outside of the biological shield. 
+This planning requires maximum water 
+purity, miniinum entrainment of radioactive particles in the steam, high 
+fuel plate integrity, and a system, for the detection of excessive radioactivitv 
+in the primary loop. 
+3. 
+Core Life 
+The life of the reactor core must be at least two (2) years at 
+full design load. It is expected that fuel changes will be niade every three (3) 
+years. 
+The fuel plates must withstand the etfects of burnup, corro.sion, 
+erosion, heat generation, and retain the fission products for these periods * 
+*Since there was insufficient operating experience with aluminum-
+type X8001-clad fuel plates in a boiling water reactor, a firm guar-
+antee of a 3-year core life could not be provided 
+The Army Reactoi s 
+Branch was made cognizant of this fact earlv m the design phases ol 
+the program. An effort has been made to lengthen the operational life 
+of the fuel plate by increasing the cladding thickness, and b\ using 
+Al-Ni-U fuel plate "meat" that is almost as corrosion resistant in 
+boiling water as the cladding material. 
+It is believed that at the 
+present (February 5, 1959) operating conditions oi the reactor, the 
+assemblies of fuel plates should fulfill the design goal of core life 
+
+
+===== PDF PAGE 51 =====
+This requirement is necessary to hold down the logistic support of this 
+plant and to minimize the time required to reach the point of more eco -
+nomic operation than by conventional plants. The plant down time for any 
+reason must be a minimum in order to keep the petroleum consumption 
+low. 
+4. 
+Shielding 
+The shielding of the reactor component represents the great-
+est single volume of the plant, and emphasis should be placed upon real-
+izing the smallest volume and weight of shield necessary.* 
+On the other hand, personnel at the reinote site must not be 
+exposed to a radiation dose in excess of 50 inr/V-day week. In the shield 
+design, consideration may be given to the use of exclusion areas and/or 
+shadow shielding, provided the above maximum dose rate is not exceeded. 
+The personnel safety criteria for shielding the reactor apply to the shield-
+ing of the spent fuel storage pit. 
+5. 
+Fuel Storage 
+Fuel storage for spent fuel assemblies of one core must be 
+provided. The time spent in "cooling" is subject to economic evaluation. 
+It may be assuined that a spent core will cool for one year, and possibly 
+for one core life. Adequate safety provisions must be incorporated to 
+inaintain the spent fuel in a subcritical condition at all times during 
+storage. 
+The fuel storage chamber should be so designed and situated 
+with respect to the reactor and the power plant that removal of the spent 
+assemblies is facilitated and the "cooling off" does not interfere with the 
+operation and maintenance of the plant. 
+'The shielding criteria were based upon the necessity to transport all 
+shield materials by air. The use of locally available gravel for shield-
+ing relaxed the requirement. 
+
+
+===== PDF PAGE 52 =====
+REFERENCES 
+E. E. Hamer (ed.), "Design of the Argonne Low Power Reactor 
+(ALPR)," ANL-6076 (May 1961). 
+Ibid, Appendix V, pp. 257-265. 
+"Statements to the SL-1 Board of Investigation by Combustion Engi-
+neering, Inc., and Argonne National Laboratory on the SL-1 Accident," 
+IDO-19312 (August 1962). 
+D. H. Shaftman, "Zero-Power Experiments on the Argonne Low Power 
+Reactor," ANL-6078 (May 1961). 
+E. E. Hamier (ed,), "Initial Testing and Operation of the Argonne Low 
+Power Reactor (ALPR)," ANL-6084 (December 1959), pp. 101-125 and 
+157-160. 
+Ibid, pp. 147-156. 
+"SL-1 Reactor Accident on January 3, 1961, Interim Report," 
+IDO-19300 (May 1961). 
+"Final Report on the SL-1 Incident, January 3, 1961," (Attachment 
+with USAEC Release of Information for P r e s s and Radio No. E-326, 
+Washington, D. C , September 24, 1962). 
+"Final Report of SL-1 Recovery Operation, May 1961 through July 
+1962," IDO-19311 (July 1962). 
+Personal Communication from G. G. Plastino; SL-1 Project; Nuclear 
+Materials and Propulsion Operation, General Electric Company, Idaho, 
+Letter from SL-1 Board of Investigation Chairman C. A. Nelson to 
+A. R. Luedecke, September 5, 1962, Subject: Final Report of the 
+SL-1 Board of Investigation. (Attachment with USAEC Release of 
+Information for P r e s s and Radio No. E-326, Washington, D. C , 
+September 24, 1962). 
+Ibid, Ref. 4, Appendix B. 
+Ibid, Ref. 4, Appendix C. 
+Ibid, Ref. 1, p. 216. 
+"Phase III Design Analysis for the Army Package Power Reactor, 
+Volume I - Design Analysis," APAE-10 (Vol. I), (August 1956). 
+
+
+===== PDF PAGE 53 =====
+16. 
+"Control Rod Drive Development," APAE-Memo-106 (1957). 
+17. 
+"APPR-1; Design, Construction and Operation," APAE-23 (November 
+1957). 
+18. 
+M. Treshow, "ALPR Preliminary Design Study (Argonne Low Power 
+Reactor) Phase I," ANL-5566 (April 1956), p. 9. 
+19. 
+Ibid, Ref. 1, p. 215. 
+20. 
+Ibid, Ref. 4, Fig. 31. 
+21. 
+Ibid, Ref. 7, Figs. 34 and 35, 
+22. 
+Ibid, Ref. 9, p. III-107. 
+23. 
+Ibid, Ref. 7, p. 57. 
+24. 
+Ibid, Ref, 7, Fig. 30. 
+25. 
+Ibid, Ref. 7, pp. 30-32. 
+26. 
+Ibid, Ref. 7, pp. 32-33, 
+27. 
+Personal Communication fromi S, Greenberg, Metallurgy Division, 
+Argonne National Laboratory. 
+28. 
+J. Kozol, D. E. Nulk, and W. P. Chernock, "Evaluation of SL-1 
+Poison Strips," IDO-19032 (August 1961). 
+29. 
+Ibid, Ref, 7, p. 61. 
+30. 
+Ibid, Ref. 7, p. 63. 
+31. 
+Ibid, Ref. 7, Appendix A, pp. A-1, A-2. 
+32. 
+Ibid, Ref, 7, p. 67. 
+33. 
+M. Treshow, A. R. Snider, and D. H. Shaftman, "Design Study of a 
+Nuclear Power Plant for 100-kw Electric and 400-kw Heat Capacity," 
+ANL-5452 (May 1955). 
+34. 
+A. Radkowski, "Theory and Application of Burnable Poisons," p / l 9 0 0 . 
+Proceedings of the Second United Nations International Conference on 
+the Peaceful Uses of Atomic Energy, Geneva (1958), Vol. 13, 
+pp. 426-445. 
+
+
+===== PDF PAGE 54 =====
+35. 
+H. Hurwitz, Jr., and P. F. Zweifel, "Self-Shielding of Lumped-Poison 
+Mixtures," Nuclear Science and Engineering, 1, 5 (October 1956), 
+pp. 438-440. 
+~ 
+36. 
+Personal Communication from S. Greenberg and D. E. Walker, 
+Metallurgy Division, Argonne National Laboratory. 
+37. 
+C. R. Breden, W. S. Brown, and M. Sivetz, "Soluble Poisons in Re-
+actor Control," ANL-5244 (November 1955). 
+38. 
+J. A, Thie, "Fluid Poison Control of Boiling Water Reactors," 
+Nucleonics, 
+j ^ , 
+5 (May 1958), pp. 82-83. 
+39. 
+Ibid, Ref. 5, p. 198. 
+40. 
+"Yankee Nuclear Power Station Technical Information and Final 
+Hazards Summary Report, " YAEC-167, Vols. 1 and 2 (l959), 
+pp. 103-108. 
+41. 
+A. E. G. Bates, "Control Rods and Control-Rod Drives in Power 
+Reactors," Nuclear Safety, _2^, 4 (June 196l), pp. 17-37, 
+42. 
+A. Smiaardyk (ed.), "Hazard Sumimary Report on the Argonne Low 
+Power Reactor (ALPR)," ANL-5744 (October 1957), p. 13. 

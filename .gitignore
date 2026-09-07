@@ -117,3 +117,17 @@ analytics/
 !ref/sl1/shots.json
 !ref/sl1/materials.json
 ref/sl1/*.pdf
+
+# ── 2026-09-07（④台本）：一次資料の**本文**だけリポに入れる ──
+# 🔴 PDF（IDO-19302 17MB／IDO-19311 29MB／IDO-19313 33MB／ANL-6692 5.6MB／HAER 7.4MB）は
+#    上の `ref/sl1/*.pdf` で入れない。取り直しの URL は ref/CREDITS.md に実測つきで書いた。
+# ⚠️ ただし**本文が手元に無いと原文照合ができない**（OSTI が落ちたら止まる）ので、
+#    抜き出した全文テキストだけは入れる。1.1MB。
+!ref/sl1/ido_all.txt
+!ref/sl1/IDO-19311_all.txt
+!ref/sl1/IDO-19313_all.txt
+!ref/sl1/ANL-6692_all.txt
+!ref/sl1/HAER_ID-33-D_all.txt
+# ページ単位に割ったものと切り出した PNG は入れない（全文と PDF から作り直せる）
+ref/sl1/*_text/
+ref/sl1/_crops/

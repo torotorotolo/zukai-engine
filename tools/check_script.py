@@ -46,7 +46,7 @@ MAX_CHARS_PER_LINE = 41
 DUR_MIN, DUR_MAX = 30 * 60, 38 * 60
 
 
-def measured_cps(cids=None, path="audio/narration.json"):
+def measured_cps(cuts=None, path="audio/narration.json"):
     """🔴 実際に合成した音から 文字/秒 を測る。無ければ／別の回のものなら None（定数に落ちる）。
 
     ⚠️ `narration.json` の `speed` 欄は**帳簿の値**であって送った値ではない
@@ -55,8 +55,15 @@ def measured_cps(cids=None, path="audio/narration.json"):
     ⚠️⚠️ **`narration.json` は前の回のものが残る。**
        題材を替えた直後は 4本目（サーフサイド）の音が置いたままなので、
        そのまま測ると**別の回の速さを 5本目の台本に当てる**。
-       `cids`（いま検査している台本のカットID）を渡して、**重なりが半分未満なら使わない**。
+       `cuts`（いま検査している台本）を渡して、**重なりが半分未満なら使わない**。
        → [[feedback-gates-go-stale-when-upstream-changes]]
+
+    🔴🔴 2026-09-07（5本目④）：**カットIDの重なりだけでは足りなかった。**
+       `pr01` `c101` `c201` … は題材をまたいで必ずぶつかる（1本目229中201件が2本目と重複した実績）。
+       SL-1 の台本を掛けたら重なりが半分を超え、**4本目の 6.12 文字/秒（実効 speed 1.14）が
+       黙って採用された**。尺の表には「narration.json の実測」と出るので、気づけない形の誤りだった。
+       → **IDが重なっても「文が違えば別の回」**とする層を足した（空白を除いた文字列の一致）。
+       ⚠️ 門番は壊れず、**黙って間違った合格**を出す。
     """
     import json
     from pathlib import Path
@@ -66,11 +73,22 @@ def measured_cps(cids=None, path="audio/narration.json"):
     try:
         d = json.loads(p.read_text(encoding="utf-8"))
         sub = d["subtitles"]
-        if cids is not None:
-            cids = set(cids)
-            hit = len(cids & set(sub))
-            if not cids or hit / len(cids) < 0.5:
-                return None, f"narration.json は別の回のもの（カットの重なり {hit}/{len(cids)}）"
+        if cuts is not None:
+            want = {cid: [clean(x) for x in ls] for cid, _, ls in cuts}
+            hit = same = 0
+            for cid, lines in want.items():
+                segs = sub.get(cid)
+                if not segs:
+                    continue
+                hit += 1
+                a = re.sub(r'\s', '', ''.join(lines))
+                b = re.sub(r'\s', '', ''.join(s.get("text", "") for s in segs))
+                same += (a == b)
+            if not want or hit / len(want) < 0.5:
+                return None, f"narration.json は別の回のもの（カットの重なり {hit}/{len(want)}）"
+            if same / hit < 0.5:
+                return None, (f"🔴 カットIDは重なるが**文が違う**＝別の回の音"
+                              f"（ID一致 {hit}/{len(want)}・文一致 {same}/{hit}）")
         c = s = 0
         for segs in sub.values():
             for x in segs:
@@ -85,10 +103,10 @@ def measured_cps(cids=None, path="audio/narration.json"):
 CPS, CPS_SOURCE = CPS_FALLBACK, "定数（話速1.0 の推定）"
 
 
-def use_measured_cps(cids):
+def use_measured_cps(cuts):
     """検査する台本が決まった時点で CPS を実測に差し替える（合わなければ定数のまま）。"""
     global CPS, CPS_SOURCE
-    v, why = measured_cps(cids)
+    v, why = measured_cps(cuts)
     CPS, CPS_SOURCE = (v, why) if v else (CPS_FALLBACK, f"定数（話速1.0 の推定・{why}）")
     return CPS
 
@@ -155,7 +173,7 @@ def fmt(s):
 
 def measure(cuts):
     # 🔴 実測の 文字/秒 に差し替えられるならする（別の回の音なら定数のまま）
-    use_measured_cps([c for c, _, _ in cuts])
+    use_measured_cps(cuts)
     lines = [clean(l) for _, _, ls in cuts for l in ls]
     chars = sum(len(l) for l in lines)
     n, nq = len(cuts), sum(1 for _, _, ls in cuts if any(STAR_RE.match(l) for l in ls))
@@ -335,6 +353,32 @@ def selftest():
     # 旧の下限（35分）だった帯が、いまは通ること＝変更が効いていること
     chk('尺 32分（旧下限の下）が通る', dur_ok(32 * 60), True)
     chk('下限の表示が定数と揃う', fmt(DUR_MIN), '30分00秒')
+
+    # 🔴🔴 2026-09-07 新設：**カットIDが重なっても「文が違えば別の回」**と判定できるか。
+    #    ⚠️ ここが無かったせいで、5本目の台本に 4本目（サーフサイド・実効 speed 1.14）の
+    #       6.12 文字/秒 が黙って当たった。尺の表は「narration.json の実測」と出るので気づけない。
+    #    陽性対照（同じ回＝使う）・陰性対照2種（文が違う／IDが違う＝使わない）の3本を本番の関数に入れる。
+    import json as _json, os as _os, tempfile as _tf
+    _tmp = _os.path.join(_tf.gettempdir(), 'check_script_selftest_narration.json')
+
+    def _write(subs):
+        with open(_tmp, 'w', encoding='utf-8') as f:
+            _json.dump({'subtitles': subs}, f, ensure_ascii=False)
+
+    A, B = 'あいうえおかきくけこ', 'さしすせそたちつてと'          # 10字ずつ＝合計20字
+    tc = [('pr01', '実写', [A]), ('c101', '実写', [B])]
+    try:
+        _write({'pr01': [{'text': A, 'd': 2.0}], 'c101': [{'text': B, 'd': 2.0}]})
+        chk('同じ回の音は実測を使う', measured_cps(tc, _tmp)[0], 5.0)          # 20字÷4.0秒
+        _write({'pr01': [{'text': 'まったくちがうもんくです', 'd': 2.0}],
+                'c101': [{'text': 'これもちがうもんくです', 'd': 2.0}]})
+        chk('🔴IDが重なっても文が違えば捨てる', measured_cps(tc, _tmp)[0], None)
+        _write({'zz01': [{'text': A, 'd': 2.0}]})
+        chk('IDが重ならなければ捨てる', measured_cps(tc, _tmp)[0], None)
+        chk('音が無ければ定数に落ちる', measured_cps(tc, _tmp + '.nope')[0], None)
+    finally:
+        if _os.path.exists(_tmp):
+            _os.remove(_tmp)
 
     print('selftest:', 'PASS' if ok else '🔴FAIL')
     return ok

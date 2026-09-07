@@ -1,0 +1,2816 @@
+
+
+===== PDF PAGE 1 =====
+TOR 
+0 
+
+
+===== PDF PAGE 2 =====
+i 
+HISTORICAL AMERICAN ENGINEERING RECORD 
+IDAHO NATIONAL ENGINEERING LABORATORY, 
+ARMY REACTORS EXPERIMENTAL AREA HAER No. ID-33-D 
+Location: Within the Idaho National Engineering and Environmental 
+Laboratory, approximately 45 miles west of Idaho Falls, 
+Idaho, Butte County, Sections 1 and 12, Township 2 
+North, Range 30 East, Boise Meridian. 
+Date of Construction: 1957-1965 
+Designer/Architect: Various: Pioneer Services and Engineering 
+Company of Chicago, Aerojet-General Corporation, Norman 
+Engineering Company, Idaho Nuclear Corporation, C.A. 
+Sundberg and Associates, EG&G Company. 
+Builder: 
+Various 
+Present Owner: United States Department of Energy 
+Present Use: 
+Entire site has been demolished and cleared. 
+Significance: 
+The Army Reactors Experimental Area was built for 
+the United States Army to test reactor concepts 
+suitable for mobile power plants. The objective 
+was to develop a family of nuclear power plants in 
+a range of kilowatt capacity configurations. Some 
+would be stationary; others, mobile. They were 
+intended to replace diesel-powered plants in 
+isolated or challenging locations where fuel 
+supply lines were costly to maintain. 
+Between 1957 and 1965, three test reactors 
+operated: SL-1, GCRE, and ML-1. The SL-1 was a 
+boiling water concept, used to train military 
+crews in reactor operations. The GCRE was a gas-
+cooled concept, expected to reduce the complexity, 
+size, and weight of the power plant by eliminating 
+apparatus required for water-cooled heat transfer 
+systems. ML-1 was a gas-cooled field unit. 
+The SL-1 was destroyed in a 1961 accident 
+that killed three men. The accident remains the 
+only reactor explosion resulting in the direct 
+loss of human life in the United States. 
+The Army canceled the program in 1965, partly 
+because the high cost of building and operating 
+the plants resulted in few orders. Expenditures 
+for the Vietnam War mounted in the 1960s, and war 
+priorities supplanted the funding for the Army's 
+developmental program. Outside of Idaho, the Army 
+operated five plants in isolated locations. 
+After the Army cancellation, the Department 
+of Energy {and its successor agencies) adapted the 
+facilities for other research purposes. 
+
+
+===== PDF PAGE 3 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 2) 
+Part 1 
+Part 2 
+TABLE OF CONTENTS 
+Introduction to the Idaho National 
+Engineering and Environmental Laboratory . 
+. 4 
+Origin of the Army Reactors Program 
+at NRTS: 1957-1965 . 
+• 
+• 
+• 6 
+Part 3 
+Part 4 
+Part 5 
+Part 6 
+Part 7 
+Part 8 
+Part 9 
+The Army Comes to the National Reactor 
+Testing Station 
+..... 
+Siting the Army Reactors Experimental Area . 
+Descriptions of Major ARA Facilities .. 
+ARA-I . . 
+. . . . . . . . 
+ARA-II 
+ARA-III . 
+ARA-IV 
+The Progress of the Army's NRTS Experiments. 
+The SL-1 and the SL-1 Accident 
+The GCRE and the ML-1 
+The End of the Army Reactors Program. 
+Re-use of the Army Reactors Area Facilities. 
+ARA-I . 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+ARA-II 
+.... 
+ARA-III 
+ARA-IV. . 
+The Significance of the Army Reactors Program. 
+Appendix A: Vicinity Map 
+Appendix B: Plot Plans 
+ARA-I . . 
+ARA-II 
+ARA-III . 
+ARA-IV. . 
+Appendix C: ML-1 Structural and Other Drawings 
+Bibliography. 
+. 
+9 
+10 
+13 
+16 
+20 
+23 
+26 
+27 
+27 
+36 
+44 
+45 
+45 
+46 
+46 
+47 
+49 
+51 
+52 
+53 
+54 
+55 
+56 
+60 
+
+
+===== PDF PAGE 4 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 3) 
+LIST OF ILLUSTRATIONS 
+Figure 1. Trailer-mounted power plant. 
+. 8 
+Figure 2. Plot plan for ARA-I 
+12 
+Figure 3. Plot plan for ARA-IV. 
+15 
+Figure 4. Floor plan of Hot Cell Building, ARA-I . 
+17 
+Figure 5. Elevations for Metallurgy Lab, ARA-1 . 
+19 
+Figure 6. Schematic diagram of SL-1 power plant. 
+21 
+Figure 7. Schematic diagram of ML-1 in GCRE reactor pit. 
+24 
+Figure 8. Plot plan of ML-1 Test Building 
+28 
+Figure 9. Elevations of ML-1 Test Building. 
+29 
+Figure 10. Radioactivity around SL-1 reactor building. 
+32 
+Figure 11. Burial ground for SL-1 accident debris 
+34 
+Figure 12. Control Cab for ML-1. 
+37 
+Figure 13. Weights and dimensions of ML-1 components . 
+38 
+Figure 14. Cutaway drawing of the ML-1 power plant. 
+39 
+Figure 15. Cross section of ML-1 reactor 
+40 
+Figure 16. ML-1 fuel element . 
+41 
+Figure 17. RSTA treatment area (ARA-IV) 
+48 
+
+
+===== PDF PAGE 5 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 4} 
+PART ONE 
+INTRODUCTION TO THE IDAHO NATIONAL ENGINEERING 
+AND ENVIRONMENTAL LABORATORY 
+The Atomic Energy Commission (AEC} established the National 
+Reactor Testing Station (NRTS) in 1949 as a place for the safe 
+development of nuclear energy. It selected the desert site in 
+eastern Idaho on the Snake River Plain for its abundant supply of 
+subsurface water and its relative isolation from densely 
+populated settlements. The land already was in public ownership 
+because the United States Navy had used it as a proving ground in 
+connection with its Pocatello Ordnance Depot during World War II. 
+The NRTS presently consists of about 890 square miles. Its 
+name was changed to Idaho National Engineering Laboratory in 1974 
+and then to Idaho National Engineering and Environmental 
+Laboratory in 1997. The business of the NRTS was to experiment 
+with and then accumulate and disseminate knowledge about nuclear 
+reactors. One of the major goals of the United States Congress 
+was to promote a commercial nuclear power industry. Much of the 
+testing and experimentation at the NRTS was related to reactor 
+safety and promoted this goal directly. Military applications, 
+although focused on weapon systems such as nuclear-powered 
+submarines and aircraft bombers, were expected to generate 
+knowledge and experience transferable to a commercial industry. 
+The AEC hired a private contractor to operate the central 
+management functions of the testing station, while subcontractors 
+built individual reactors and related experiments and projects. 
+By 1957, when construction began for the Army's first reactor 
+experiments, central services such as fire protection, electrical 
+service, laboratory support, library, records management, health 
+physics support, bus service, and others were well established. 
+Scattered across the site are a series of intense activity 
+centers where experiments took place or where operations continue 
+today. The centers are connected by roads, railroads, and utility 
+lines. From the air, these activity centers appear as small, 
+
+
+===== PDF PAGE 6 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 5) 
+mostly rectangular complexes, each packed with closely spaced 
+buildings, exhaust stacks, an occasional domed reactor 
+containment building, settling ponds, earthwork berms, and other 
+features. Each complex is secured with perimeter fencing and 
+guarded entrance gates. Various safety and distance principles 
+guided the selection of locations so that reactors would be well 
+separated from each other as a matter of prudence and safety. 
+In 2000, a considerable range in activity levels prevails at 
+these centers. Areas such as Test Area North exhibit the bustle 
+and noise of construction and accomplishment, but others--like 
+the Army Reactors Experimental Area--are completely vacant. Their 
+missions were accomplished long ago, and many remaining buildings 
+have no prospects for new missions. 
+This Historic American Engineering Record (HAER) is being 
+prepared because the Department of Energy (DOE) declared the 
+buildings and structures at the old Army Reactors Experimental 
+Area (AREA, but also known as Army Reactor Area, or ARA; later 
+named Auxiliary Reactor Area, also ARA) to be surplus and 
+proceeded to decontaminate and dismantle them. Dismantlement has 
+eliminated the cost of maintaining buildings with no further 
+purpose. In addition, DOE is committed to eliminating hazardous 
+waste sites and otherwise ''cleaning up" the environment that was 
+compromised by nuclear testing activities. 
+This report uses the acronym "ARA" to refer to "Army 
+Reactors Experimental Area," "Army Reactor Area," and "Auxiliary 
+Reactor Area." The original acronym, AREA, went out of use not 
+long after it was created, and ARA is the more familiar acronym. 
+Furthermore, buildings have historically been identified with the 
+initials "ARA'' followed by the building's number, as in ARA-608. 
+Because the Idaho State Historic Preservation Office 
+regarded the ARA to be historically significant, it negotiated a 
+Memorandum of Agreement (MOA) among itself, DOE and the Advisory 
+Council on Historic Preservation to record the site. DOE signed 
+the MOA on August 13, 1993, and agreed to prepare a HAER report 
+documenting the buildings remaining at the sites known as ARA-I, 
+ARA-II, and ARA-III. For the sake of appropriate historical 
+context, the photographs and engineering drawings included in 
+this report also document ARA-IV, the field station where the ML-
+1 reactor was taken for its experimental runs. 1 
+1 Signatory dates for "Memorandum of Agreement Among the 
+United States Department of Energy, Idaho Field Office, The Idaho 
+State Historic Preservation Office, and The Advisory Council on 
+
+
+===== PDF PAGE 7 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 6) 
+PART TWO 
+ORIGIN OF THE ARMY REACTORS PROGRAM AT NRTS: 1957-1965 
+In the 1950s (and today}, the conventional method of 
+supplying electricity to any isolated United States Army base or 
+mobile field station was to transport a diesel generator to the 
+site and then operate a supply line from the nearest depot to 
+keep the station supplied with operating fuel. Trucking or flying 
+the fuel to bases such as those at Arctic locations where road 
+access was impossible or flying weather-restricted, was 
+difficult, dangerous, and costly. 
+After World War II, the possibilities of atomic power 
+tempted the Army as they did the U.S. Navy and U.S. Air Force. 
+That a tiny handful of nuclear fuel could replace the logistical 
+headache of fuel transport to remote locations was an idea hard 
+to resist. A nuclear power plant might be mobile, able to move 
+with a field hospital or command center. Perhaps it could be 
+portable, mounted on a barge and towable from one port to another 
+as needed. Reactors might be small, medium, and large, varying in 
+capacity for a wide range of applications. The power plants only 
+needed to be small enough, light-weight enough, and cheap enough. 
+The Army's nuclear program aimed to meet these three challenges. 
+The Army organized an Office of Research and Development in 
+1951 to begin a program. Its chief, General K.D. Nichols, thought 
+that the Army's efforts, in addition to supplying the Army with a 
+useful power plant alternative, might help to speed up the 
+ultimate development of a commercial industry. He and others 
+often used this argument as they enlisted support for the idea. 
+The Army placed the Nuclear Development program under the 
+supervision of the United States Army Corps of Engineers. 2 
+Meeting initial resistance from the AEC staff, which desired 
+to retain an exclusive initiative in developing a commercial 
+industry, the Army gradually acquired allies in Alvin Weinberg, 
+director of the Oak Ridge National Laboratory; and Admiral Lewis 
+Historic Preservation" are A.A. Pitrilo (DOE), August 13, 1993; 
+John R. Hill (Idaho SHPO}, July 1, 1993; and Robert D. Bush, 
+August 15, 1993. 
+2 Lawrence H. Suid, The Army's Nuclear Power Program, The 
+Evolution of a Support Agency (New York: Glenwood Press, 1990), 
+p. 3-8. This book is the most complete and useful source on the 
+history of the Army nuclear program. 
+
+
+===== PDF PAGE 8 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 7) 
+Strauss, an AEC Commissioner after July 1953. The Joint Chiefs of 
+Staff eventually lined up as well and declared an official 
+military "requirement" for a nuclear power plant in December of 
+1953. The AEC and the Army organized their first project, a 
+demonstration power plant at Fort Belvoir, Virginia, the 
+headquarters of the U.S. Army Corps o~ Engineers. The AEC 
+approved it for funding in July 1954. 
+The Army intended to develop a family of three basic types 
+of power plants. A stationary plant would be a permanent 
+installation that could serve a base in a remote area otherwise 
+difficult to supply with fuel. It would not be designed for 
+relocation elsewhere. A portable power plant would be pre-
+assembled for rapid erection in the field. A limited number of 
+"packages" would make up the plant, each of which could fit in an 
+air cargo transport or truck. The plant could be disassembled and 
+then relocated to another site. A mobile power plant could move 
+intact from one site to another without being broken down and 
+reassembled at all--possibly operate even while being moved. 4 
+Further refining its goals, the Army selected operating 
+ranges for its nuclear plants. A "low power" reactor would 
+produce in the range of 100 to 1,000 kilowatts. "Medium power" 
+reactors would supply from 1,000 to 10,000 kilowatts, and "high 
+power" facilities could range between 10 to 40 megawatts. 5 
+The Army institutionalized these concepts in the names of 
+its prototypes and experiments. Its first prototype, which went 
+on line at Fort Belvoir, thus carried the designation SM-1, a 
+"Stationary Medium Power" reactor. In its early enthusiasm, the 
+Army planned to build seventeen different projects. Not all of 
+them materialized. Seven projects went into service, seven others 
+were designed and not completed, and three were experiments built 
+at the National Reactor Testing Station in Idaho. 6 
+3 Suid, p. 20-24. 
+4 "The Army Reactor Program," Nucleonics (February 1959}, p. 
+54; and John F. Hogerton, The Atomic Energy Deskbook (New York: 
+Reinhold Publishing, 1963), p. 32. 
+5 Hoger ton, p. 32. 
+6 Hogerton, p. 33. Plants on the line were: SM-1, Fort 
+Belvoir; SM-1A, Fort Greeley, Alaska; PM-2A, Camp Century, 
+Greenland; PM-1, Sundance Air Force Base, Wyoming; PM-3A, McMurdo 
+Sound, Antarctica; PL-3, Byrd Station; and Sturgis, a barge. 
+
+
+===== PDF PAGE 9 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive D~ta (Page 8} 
+Figure 1. Artist's rendition of a trailer-mounted power plant, 
+the ultimate objective of the Army's gas-cooled reactor program. 
+Source: Nucleonics, February 1959, page 48. 
+
+
+===== PDF PAGE 10 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 9) 
+PART THREE 
+THE ARMY COMES TO THE NATIONAL REACTOR TESTING STATION 
+The Fort Belvoir reactor, within eighteen miles of The White 
+House, was a pressurized water reactor, the same concept that 
+U.S. Navy Admiral Hyman Rickover had installed in Nautilus, the 
+submarine. Although other reactor concepts promised to embody 
+virtues of light weight and simplicity so eagerly sought by the 
+Army, pressurized water technology was the proven state of the 
+art at the time. In April 1957, in a ceremony designed to 
+symbolize its potential for both civilian and military 
+applications, Fort Belvoir's first nuclear-generat7d electricity 
+powered both a printing press and a radar antenna. 
+Reactors cooled with pressurized water had several 
+disadvantages. The coolant circulated in a primary loop through 
+the reactor and collected heat. The heat was transferred to water 
+in a secondary loop. This loop transferred heat to a boiler, 
+which produced steam to run a turbine/generator set. The coolant 
+piping, pumps, valves, controls, and instrumentation added 
+considerable weight, bulk, and complexity to the total outfit. 
+The Army, therefore, set out to experiment with two 
+alternative reactor concepts. The first was a boiling water 
+reactor. In this design, ordinary water boils as it passes 
+through the hot reactor core. The steam powers the turbine. The 
+system eliminates the secondary loop and the heat exchanger 
+equipment. The Army and the AEC engaged Argonne National 
+Laboratory to design a stationary reactor in the "low" power 
+range that might be suitable for a remote location. The Army had 
+the DEW Line (Defense Early Warning, later the Ballistic Missile 
+Early Warning System) in mind. The DEW Line consisted of dozens 
+of manned radar stations ringing the Arctic Circle on the watch 
+for Soviet air invasion. The Army wanted the plant small enough 
+to haul on a 30-ton trailer. The prototype was named SL-1, and it 
+was built on the NRTS at the Army Reactors Experimental Area. 8 
+The second alternative was a "gas-cooled" reactor, the 
+experiments for which were named "GCRE." In this concept, a gas 
+7 Suid, p. 36-37. 
+8 Suid, p. 82. For more technical detail on the SL-1 reactor 
+and artist's renderings of DEW Line packages, barge-mounted 
+reactors, and other applications, see ''Army Reactor Program," 
+Nucleonics (February 1969), p. 53-54 and insert. 
+
+
+===== PDF PAGE 11 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 10) 
+circulates in a closed loop through a water-moderated reactor to 
+collect the heat. The loop passes through a steam generator, 
+which then runs the turbine. This system promised to be smaller 
+and lighter than either of the other concepts. The Army hoped 
+that ambient air might eventually be used as the gas coolant. The 
+Army and the AEC selected Aerojet-General Corporation to design 
+the experiment. As this would be the nation's first gas-cooled 
+reactor, testing was required to determine its operating 
+parameters and how best to design the fuel elements. Once that 
+information was available, the plan was for Aerojet to build a 
+prototype of a "mobile low-power'' reactor--the ML-1. The two 
+alternatives and the ML-1 all were tested at the NRTS, each of 
+them generating a cluster of buildings at ARA. 9 
+PART FOUR 
+SITING THE ARMY REACTORS EXPERIMENTAL AREA 
+The SL-1 was the first experiment ready to build. In August 
+1955, the AEC chose Pioneer Services and Engineering Company of 
+Chicago as the architect/engineer. Bid requests began to go out 
+in 1956, including one to build the circular steel tank that 
+would house the reactor. 10 The Fegles Construction Company began 
+building in the summer of 1957 and finished in July 1958. 11 
+By the late 1950s at NRTS, reactors and tests dotted the 
+terrain. Each new experiment had to meet siting criteria 
+administered by a Site Selection Committee at the NRTS and 
+approved by the AEC in Washington. The Committee knew from the 
+outset that the Army program would consist of three experiments. 
+It directed that the site be placed a few miles west of Argonne 
+9 The GCRE was the eighth reactor type developed by the AEC 
+Nuclear Reactor development program, selected for both military 
+and civilian potential. US AEC press release, June 6, 1956; 
+Papers of Senator Henry Dworshak, Idaho Historical Society, Mss 
+84, Box 55, File "AEC--Idaho Plant." Hereafter referred to as 
+"Dworshak Papers." 
+10us AEC/Idaho Operations press release, December 11, 1956. 
+Dworshak Papers, Box 55, File "AEC--Idaho Plant." The SL-1 was 
+originally known as the Argonne Low Power Reactor, or ALPR. 
+11 INEEL Photo Archive, photo envelope for 57-4212. 
+Construction had progressed to four percent of the work by August 
+22, 1957. 
+
+
+===== PDF PAGE 12 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 11) 
+West and five miles east of the Central Facilities Area. 12 
+The area was a master-planned four-cluster complex. The 
+cluster named ARA-I was originally referred to as ''Support 
+Facilities" and did not include a reactor. The three reactor 
+experiments were strung out along a connecting road and as close 
+together as possible without compromising rules establishing 
+minimum distances between reactors. (See Appendix A.} The SL-1 
+and GCRE each required one mile; the ML-1, only a half a mile. 
+(SL-1 was closer than one mile to the public highway, but it 
+commenced before the one-mile rule was established and applied.) 
+The four-cluster string was perpendicular to the direction of the 
+most prevalent winds. This orientation reduced the risk that 
+accidental releases of radioactive ~~ses from one reactor might 
+be blown over to the other centers. 
+ARA-1 was the southern-most cluster of the four. It 
+contained a hot cell building, a shop and maintenance building, 
+guardhouse, pumphouse, hydraulic test power facility, and water 
+and electrical utilities. Office trailers and a crew training 
+building eventually were added. The first buildings went under 
+construction in 1959 and were completed in 1960. 1 ij 
+SL-1, the first of the three experiments, was next up the 
+road at ARA-II. Completed in 1958, the site consisted of the 
+cylindrical reactor building, a control-room building with 
+auxiliary equipment, and several small service buildings. The 
+Army planned to use the SL-1 for training, so its operating 
+contractor, Combustion Engineering, employed a military crew. 
+Several earth berms were constructed at strategic places on the 
+site. As at every other test area at the NRTS, a security fence 
+and guard gate controlled entry. 
+12 John Horan, telephone interview with Susan Stacy, July 
+29, 1997. 
+13 Norman Engineering Co., Master Plan Study for the Army 
+Reactor Experimental Area (Idaho Falls: Norman Engineering Report 
+No. ID0-24033, 1959}, Section II (no page numbers). The master 
+plan also provided for other facilities that the Army never did 
+build. 
+14 The 1973 United States Geological Survey quad map 
+"Circular Butte 3 SE, Idaho'' identifies the location of the ARA 
+complexes as follows. ARA-I and ARA-11 was in the NE 1/4 of 
+Section 12, T2N R30E; ARA-III was in the NW 1/4 of Section 1, T2N 
+R30E; and ARA-IV was in the SW 1/4 of Section 36, T3N R30E. 
+
+
+===== PDF PAGE 13 =====
+\ 
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 12)· 
+L---------------------..!..•• '· o 
+!.1'•0 
+M'·OI 
+~----~~~~~'-~-----~-----_.!t,t:l~!.:~:B+----+------1.i.-='-o~ 
+__ ./&9!.:°~_: __ 
+4-_.:,:ff.,._'•:.:Cl::..."-+---"':5a"-'-o""-+-''"C:.:.:'•O::;."+ 
+,lu 
+ll 
+~ 
+~ 
+~ ' 
+'I 
+~ ! 
+_.SO~C!~ 
+-r--· 
+' ~, 
+~1 
+I . 
+. o .. 
+Ill 
+Ill 
+Ill 
+·tf .~-
+. 
+---- \~ l 
+' 
+~ 
+~----· 
+I ---
+,.,(.'-"c;;----._ 
+I 
+--------
+Th_ ico. --..... -..._ 
+• 
+.• .. 
+·-------···--. 
+.. 
+i 
+I 
+01 
+~i ... 
+-! 
+-~ 
+=-~10.- ! 
+QILIIU,...,'5 to) : 
+.,. .. -..... ...,_;~ . 
+' ! .L 
+Figure 2. Plot plan of ARA-I, Support Facilities Area. SL-1 and 
+other experiments were to the west. Source: INEEL drawing No. 
+068-0101- -613-102704 (961-AREA/SF-101-1). 
+
+
+===== PDF PAGE 14 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 13} 
+The GCRE at ARA-III was the next complex, ready for action 
+in 1959. The reactor was inside a rectangular building (ARA-608) 
+that contained a sunken "swimming pool" filled with moderating 
+water for the reactor. At the northern corner of the complex 
+stood a large tank for contaminated water, heavily bermed. The 
+layout included a control and test building, a service building, 
+a warehouse, gatehouse, petroleum storage, nitrogen storage 
+tanks, and cooling tower along with fire protection, water, and 
+sewer utilities. One of the buildings was a laboratory and 
+fabrication center related to the development of the next project 
+down the road at ARA-IV, the ML-1 prototype. 
+The ML-1 reactor was assembled in Downey, California, put on 
+an Army semi-t1~iler, and hauled to Idaho, where it arrived in 
+February 1961. 
+The ML-I site (ARA-IV) was intended to simulate 
+field conditions for training; therefore, it remained relatively 
+undey~loped. For example, water was trucked to the site from ARA-
+III. 
+However, to protect the reactor during tests and 
+experiments, operators built a weather-sheltering metal building 
+in the center of the ARA-IV area. The reactor control building 
+was 500 feet away from the reactor just outside the perimeter 
+fence. Evaluation, repair, and studies of the ML-1 took place 
+within the GCRE buildings at ARA-III. (See HAER Photo Nos. ID-33-
+D-96 through ID-33-D-102 for views of ML-1 being moved from ARA-
+IV to ARA-III and set up for examination at in the GCRE pool.) 
+PART FIVE 
+DESCRIPTIONS OF MAJOR ARA FACILITIES 
+Like all of the other buildings at the NRTS, the ARA 
+buildings were subject to AEC design guidelines and standards. 
+These policies required buildings to be economical and to use 
+standard materials. After a building or group of buildings was 
+designed, construction contractors bid for the jobs, the low 
+bidder typically winning the work. 
+As a result of these practices, ARA buildings resembled the 
+vast majority of buildings clustered at the NRTS. Most of them 
+were rectangular in shape. Their walls were made of concrete, 
+pumice block, or metal. Wood siding was very scarce at all ARA 
+15AEC/Idaho Operations press release, February 11, 1961. 
+Dworshak Papers, Box 122 B, File ''AEC--Press Releases." 
+16ID0-24033, Section II. 
+
+
+===== PDF PAGE 15 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 14) 
+facilities. Interior and exterior walls designed for biological 
+shielding or blast protection were constructed of reinforced 
+(poured) concrete. Heavy equipment required reinforced concrete 
+floors or pads. The presence or absence of monorail or bridge 
+cranes determined building heights; parts of buildings with 
+cranes had a higher profile and were referred to as "high bay" 
+sections. Roof shapes depended partly on the type of framing for 
+a building. Some prefabricated metal buildings had gable roofs, 
+while others had flat or shed roofs. Some roofs required access, 
+so roof shape also depended upon the type of access needed. Most 
+laboratories and reactor buildings had a multitude of lines and 
+pipes importing or exhausting various materials: clean air, 
+contaminated air, fuel, nitrogen gas, raw water, demineralized 
+water, contaminated water, cooling water. Most of these pipes 
+were buried in trenches underground, but piping or conduit 
+sometimes penetrated building walls above grade. 
+Interiors were as decoratively unembellished as the 
+exteriors, although considerably more interesting. In "hot" work 
+areas and laboratories, complicated layouts of electrical wiring, 
+air venting and ductwork, piping, and instrumentation provided 
+the working environment. Laboratories and shops contained a 
+variety of equipment related to the type of specialty: chemical, 
+metallurgical, photographic, or radiological labs; mechanical, 
+fabrication, or electrical shops. Consoles, instrumentation 
+panels, read-out screens, and control panels were typical 
+furnishings in reactor control areas. Other areas were more 
+mundane, containing administrative offices, lunchrooms, and 
+conference rooms. 
+In addition to occupied buildings, the ARA landscape 
+included a variety of storage tanks and their associated pumps. 
+Tanks stored raw water, fuel oil, contaminated liquid wastes, 
+contaminated gas, and propane, for example. Tanks requiring 
+shielding either were buried underground or covered with an earth 
+berm. Fuel oil was stored above grade but surrounded by 
+protective berms. 
+Each ARA complex was equipped with electrical, 
+communication, and sewer utilities. Water, pumped directly from 
+the aquifer at ARA-I, -II, and -III, was not pumped at ARA-IV. 
+Settling basins provided disposal for low-level liquid waste. 
+Septic tanks for sanitary wastes were installed at all of the 
+complexes. Access to the site was via bus or auto, and parking 
+areas were provided at each area. 
+Finally, a security fence surrounded each complex. Equipped 
+with security lighting on wooden standards, the perimeter was 
+
+
+===== PDF PAGE 16 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 15) 
+Figure 3. Site Plan for ARA-IV, the test site for the ML-1 
+reactor. Source: INEEL Drawing No. 066-101- -618-102782 (961-
+AREA/ML-1-101-1). 
+
+
+===== PDF PAGE 17 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 16) 
+rectangular, fenced with barbed wire, and accessed through a gate 
+next to a guard house. The security fence at ARA-IV, however, was 
+circular, surrounding the test building in the center of the 
+circle. Access restriction functioned more to prevent unequipped, 
+unescorted, or untrained personnel from entering dangerous places 
+than to preserve secrecy. The Army's mobile reactors program was 
+not a classified military project. It's progress was fol±9wed 
+closely and reported to the public by the nuclear press. 
+ARA-I: The Support Facilities Area 
+The Hot Cell Building (ARA-626) and the Shop and Maintenance 
+Building (ARA-627) were the two most significant operational 
+areas at ARA-I. The two buildings were situated on a north/south 
+axis and located next to each other with the bermed fuel storage 
+tank between them. The Shop Building was anticipated for eventual 
+expansion, and space was planned for this on its east side. (See 
+Figure 2, page 12). 
+ARA-I was not the first complex to go under construction. By 
+the time it went up, both the SL-1 and GCRE complexes were well 
+underway or operating. ARA-I was situated immediately east of the 
+SL-1 complex, where its hot cells and shops would be convenient. 
+The Hot Cell Building was a one-story building 113 feet long 
+and 59 feet wide. Its high-bay section was situated over the two 
+hot cells and their associated service area. A remotely operated 
+three-ton bridge crane helped move fuel elements in and out of 
+storage pits and into the hot cells for examination. The cells 
+were heavily shielded laboratories designed for the analysis of 
+radioactive materials. Operators stood outside the shielding 
+walls and viewing windows where they manipulated tools and 
+materials within the cells by means of "master/slave" mechanisms. 
+(See Figure 4, page 17.) The larger of the two cells (8 feet by 
+16 feet of operating space) had two viewing windows; the smaller 
+(8 feet by 8 feet), only one. (See HAER Photo Nos. ID-33-D-115 
+and -116 for hot cell details and HAER Photo No. ID-33-D-114 for 
+details of the shielded concrete pit for storing fuel elements.) 
+Other work areas included equipment decontamination, hot 
+cell service area, isolation rooms and operating areas for the 
+two hot cells, operating area for the hot cells, dark room, 
+supervisor office, electrical equipment room, boiler room, 
+office, records and storage room, health physics room, and radio 
+chemistry laboratory. 
+17 Magazines that covered the nuclear industry included 
+Nucleonics and Nuclear News. 
+
+
+===== PDF PAGE 18 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive nata (Page 17) 
+---~·~·-···- -
+·-·- ··---, 
+----·~~··o.. 
+,q._o. 
+I 
+]Q:c:,"' 
+! 
+' 
+_;,_.-1. a• a• 
+I 
+•'7••· 
+. 
+----- e.:SL. 
+'. 
+: 
+~ 
+--· -- 2.!.-.~ 
+• 
+. 
+•.. -!------,·· --· -----j 
+----.:-=~~ 
+. 
+: 
+I 
+i-···· 
+., 
+-. ....... 4~ 
+t i~-
+I 
+~~[ 
+I ji_ 
+_ ·__l __ 
+~; 
+H----...---
+~----
+.: .. 
+,.. 
+~ t-- ,---· 
+•• 2 
+. 
+0 i -, 
++--~ 
+Figure 4. Floor plan, Hot Cell Building, ARA-I. Shielded viewing 
+windows on south side of hot cells. Source: !NEEL Drawing No. 
+068-0626-00-613-102721 (961-AREA/SF-625-A-1). 
+
+
+===== PDF PAGE 19 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 18} 
+The building had sections built to three different heights: 
+the high-bay section, 28 feet; other sections either 18 or 22 
+feet. All walls were made of 12-inch pumice block. Entry to the 
+building was via personnel doors or, for vehicles and fuel-
+element carriers, larger metal roll-up doors. Ventilating 
+equipment was located on the roof, so the flat roof contained a 
+boardwalk with ladder access from the east side of the building. 
+(See HAER Photo No. ID-33-D-112.) 
+The Shop and Maintenance Building {ARA-627) was 102 feet 
+long and 42 feet wide, also made of 12-inch pumice block walls, 
+and 16 feet from grade to the top of the parapet. The building 
+contained a machine shop, tool room, maintenance shop, offices, 
+and locker room. It contained two three-ton monorail cranes 16 
+feet high to the top of its parapet. The composition roof was 
+slightly sloped from a center ridge. Craftsmen in the building 
+used equipment such as a drill press, shaper, welding machine, 
+lathes, power saw, grinder, belt sander. Interior partitions in 
+the Shop Building included mesh doors. (See HAER Photo Nos. ID-
+33-D-117 , -118, and -119 for floor plan, elevations, and 
+details.) 
+As expected, the Shop and Maintenance Building was later 
+enlarged to about twice its original size, but not for the Army 
+Program, which lasted only until 1965. Rather, the general 
+contractor for the AEC, which in 1970 was Idaho Nuclear 
+Corporation, expanded the building for the creation of a 
+Materials and Metallurgy Laboratory. The addition was built of 
+12-inch pumice block, had a flat roof and was two feet higher 
+than the original building. (See Figure 5 for elevation drawings. 
+See HAER Photo No. ID-33-D-3.) 
+The new addition included spaces for a microprobe room, 
+microscope room, preparation room, offices, conference room, 
+fatigue testing room, gas analyzer room, and other laboratories. 
+Offices were provided along the windowed east side of the 
+building. (See HAER Photo No. ID-33-D-120 for floor plan of the 
+addition.) 
+The guard house (ARA-628), along the south perimeter fence 
+and just south of the fuel oil tank, was 12 feet by 16 feet, 
+built of pumice block, with a flat composition roof. Like the 
+other buildings at ARA-I, a metal cap topped the pumice block 
+walls. The guard house contained a counter, turnstile, and doors 
+in the west, east, and north sides. (See HAER Photo No. ID-33-D-
+121.) 
+
+
+===== PDF PAGE 20 =====
+' 0 ., 
+~ 
+' 
+I 
+lh: 
+I 
+.. ' 
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 19) 
+a 
+.,;;F 
+. 
+;.,..,.,.I ~rrrnlrrrrnui::rt-t _J I 
+-i.., 
+11 
+1, 
+: I 
+11 
+11 
+11 
+11 
+11 
+11 
+11 
+11 
+11 
+11 , I 
+'1 
+11 
+1, 
+-i-- __::::_-==.-_ -r-=-~ 
+; 
+I 
+I 
+~ 
+: 
+I 
+I 
+~ 
+: 
+' I 
+I 
+\i : f 
+: 11 
+I 
+~ 
+I 
+~ I' 
+I 
+1' : 
+I 
+I 
+I 
+:\ 
+[ITT]' ' 
+: 
+'. 
+[IT] 
+I 
+: \ 
+I 
+I 
+~ 
+\ 
+\ 
+I 
+I 
+'. 
+I 
+I 
+-_J-- - ==-=-=--·-· ..=-..=-.:J 
+Figure 5. South and east elevations of addition to Shop and 
+Maintenance Building for reuse as Materials and Metallurgy Lab, 
+ARA-1. Source: INEEL Drawing Nos. 068-0672-00-400-154065 and 
+-154064 (1230-ARA-627-A-8 and -A-7). 
+
+
+===== PDF PAGE 21 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 20) 
+The pump house (ARA-629), built of pumice block, had a gable 
+roof with wood siding in the gable ends. The building sheltered 
+the water pump and its related chlorination equipment. HAER Photo 
+No. ID-33-D-13 shows the interior of the pump house with the 
+chlorination storage room to left of the view. 
+Other structures at the site included an electrical 
+substation, a 100,000-gallon capacity water tank (also called the 
+reservoir), and a 10,000-gallon contaminated-waste tank. The 
+latter was buried underground for the benefit of earth-shielding. 
+Waste was sent to this tank in "influent" pipes and periodically 
+removed for disposal elsewhere at the NRTS. 
+ARA-II: SL-1 Reactor Operating Area 
+The heart of the SL-1 area was the Power Plant Building 
+itself (ARA-603) and its Control Building (ARA-602). Building 
+ARA-606, originally named the Administrative and Technical 
+Support Building, expanded the support space and added classroom 
+areas for crew training. (See HAER Photo No. ID-33-D-126 for plot 
+plan.) 
+As an experiment, the SL-1 power plant was designed to test 
+not only the reactor and its heat-conversion equipment, but also 
+to test the construction of its container. The building was a 
+cylindrical, tank-like steel building set on dummy piles to 
+simulate construction methods used at DEW Line radar stations in 
+permafrost. The piers in the Arctic would project two feet above 
+the permafrost with air space between the floor and the ground to 
+prevent heat transfer to the permafrost. The steel plate was a 
+quarter-inch thick secured on a framework of structural steel; 
+the diameter of the cylinder was 38 feet and 7 inches; it was 48 
+feet high. In the lower part of the cylinder were the reactor 
+vessel, fuel storage well, and demineralizer. These were shielded 
+with gravel. Other equipment and shielding were in the upper two-
+thirds of the building. See Figure 6, page 21, for a schematic 
+diagram of the interior of the plant and the arrangement of its 
+major components. Note the location of a ''fan floor" which 
+supported a condenser fan and condenser. On one side of the tank, 
+a large o~ening on the fan floor provided for both air intake and 
+exhaust. 1 (See HAER Photo No. ID-33-D-62 for a construction view 
+of the fan.) A weather-protected stairway snaked up the side of 
+the reactor building to provide access from the control 
+18 These drawings are from "Description of ALPR," Nucleonics 
+(February 1958), in a special pull-out section following page 54. 
+ALPR meant "Argonne Low Power Reactor," the name of the reactor 
+before the Army assigned its own serial number to the reactor. 
+
+
+===== PDF PAGE 22 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+. 
+Historical and Descriptive Data (Page 21) 
+Figure 6: Schematic shows housing for SL-1 plant and connection 
+to its control room. Continuous-welded steel shell is 38 feet, 7 
+inches in diameter and 48 feet high. Bottom of housing rests on 
+concrete piers 2 feet above grade. Source: Nucleonics, February 
+1959, page 46. 
+
+
+===== PDF PAGE 23 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 22} 
+building to the operating floor of the reactor. (See HAER Photo 
+Nos. ID-33-D-66 and -67.) 
+The original drawings for the SL-1 reactor and the Control 
+Building were no longer extant at the time this HAER study was 
+prepared. However, HAER Photo Nos. ID-33-D-51 through -53 are 
+construction documentation drawings which illustrate the concrete 
+pier foundations that supported the SL-1 building and the 
+erection of the steel plate shell. Subsequent photos provide 
+interior views showing other construction details. 
+The Control Building {ARA-602) was situated immediately 
+south of the SL-1 power plant and connected to it by means of a 
+sheltered passageway. The one-story building contained the 
+control room, with its consoles of instrument readouts and 
+switches. The gable-roofed building--walls and roof--was made of 
+prefabricated metal. See HAER Photo No. ID-33-D-75 for a view of 
+the building as it looked in 1960. 
+The site contractor for the AEC, EG&G Company, later 
+remodeled the interior of ARA-602 as a Research and Development 
+Joining Laboratory. Here, welders were trained and qualified for 
+the specialized welding requirements of nuclear fabrication at 
+the NRTS. (See HAER Photo Nos. ID-33-D-138, -77, and -78.) 
+Like ARA-602, the new Administration and Support Building 
+{ARA-606) was also a prefabricated building with metal siding and 
+walls. This one was 100 feet by 40 feet, one story high. A second 
+building (ARA-613), part of the same expansion program, was 
+constructed about the same time as ARA-606. Building 613 was 
+positioned just south of the reactor control building and 
+connected to it by a covered passageway. ARA-613 was two stories, 
+32 feet by 40 feet, and capped with a flat roof. The boxy 
+building was made of 12-inch pumice block. The building contained 
+mostly offices and conference rooms, although some laboratory 
+space was provided on the ground floor. 
+An accident at SL-1 in January 1961 led to the creation of a 
+unique land form near the ARA-II site and the erection of another 
+building near the reactor tank. Called the "SL-1 Decontamination 
+and Lay Down Building," ARA-614 served the clean-up crews as they 
+dismantled the building in the aftermath of the accident. After 
+considering several alternatives, contaminated debris from the 
+building was moved to a special ''burial ground" northeast of the 
+ARA-II. (See HAER Photo No. ID-33-D-133.) 
+As was the case elsewhere at the NRTS and in the ARA 
+complex, security fencing {arranged in a rectangle around the 
+
+
+===== PDF PAGE 24 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 23) 
+site), lighting, and guard house provided security. Utilities 
+were similar to those provided at ARA-I. 
+ARA-III: GCRE Reactor Operating Area 
+The second experimental reactor concept for a gas-cooled 
+nuclear power plant required substantially different kinds of 
+facilities than the SL-1. Instead of using water to carry heat 
+away from the nuclear reaction, this concept required that a gas 
+(nitrogen) pick up and transfer the heat to a steam boiler that 
+would drive a turbine/generator set. However, a turbine/generator 
+was not to be part of the experiment, so heat had to be wasted 
+directly to the environment. The gas-cooled concept had 
+implications for the construction of the reactor building, the 
+cooling apparatus, and the volume of contaminated water that 
+would have to be stored at the site. In addition, the gas-cooled 
+reactor was preparatory to a very small and mobile reactor. The 
+main building and the site were designed with future tests of a 
+mobile prototype, the ML-1, in mind. (See Figure 7, page 24.) 
+The major buildings at ARA-III were the Reactor and Control 
+buildings. Although these were each given a separate number, ARA-
+608 and ARA-607, they were built at the same time and connected 
+to each other. The pumice-block building was 140 feet long and 74 
+feet wide and oriented with its length on an east-west axis. One 
+notable detail of its construction was the creation of a blast 
+wall separating the reactor area from the control room. The floor 
+plan (HAER Photo No. ID-33-D-143) shows the blast wall on the 
+east side of the control room. Construction photographs (HAER 
+Photo Nos. ID-33-D-83 and -84 show the wall as it took shape 
+between the two sections. The blast wall was two feet thick and 
+made of reinforced concrete. 
+The one-story Control Building was organized around the 
+control room in the center, identified easily by its U-shaped 
+control console and the elaborate wiring and instrumentation 
+leading to and from it. The walls surrounding this room (other 
+than the blast wall) were constructed of concrete blocks. Viewing 
+windows afforded views into the control room from the south and 
+east sides. Adjacent to the control room on the west side were 
+special rooms designed for the storage of (unirradiated) fuel 
+elements, a health physics room, and an instrument repair room. 
+On the west side of the control room on the other side of the 
+blast wall was a "hot" work area designed for the handling of 
+radioactive materials. 
+Along the west side of the building were a conference room, 
+offices, counting (contamination detection) and computing rooms. 
+Along the south side wall was the first-aid room, chemistry 
+
+
+===== PDF PAGE 25 =====
+BLOWER AND VENTILATION 
+DUCTING (NEW) 
+GCRE INSTRUMENT ~;;:;;;;,::;:;:z;;~ 
+PANELS ANO CONSOL 
+(MODIFIED) 
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 24) 
+EXISTING 
+BLDG WAL[ 
+VENTILATION EXHAUST 
+DUCT (NEW) 
+HEAT EXCHANGER COOLING 
+WATER PIPING (NEW) 
+WATER, AIR ANO ELECTRICITY 
+~ 
+SERVICE (NEW) 
+lnt'~i::::-'iballl!~ 
+--..c:::fl'l..,e'lm~ PIT ACCESS STAIRWAY 
+(NEW) 
+Figure 7. Conceptual schematic showing how GCRE 
+would be adapted for ML-1 reactor examinations. 
+Report ID0-28560, Figure 1. 
+reactor pool 
+Source: INEEL 
+
+
+===== PDF PAGE 26 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 25) 
+laboratory, lounges and lockers, and a maintenance wash-down 
+room. The Reactor Building was to the east, and the north side 
+had a mechanical and equipment room, a boiler room, and an entry 
+vestibule. 
+The GCRE Reactor Building was unique at the ARA suite of 
+complexes due to its deep below-grade excavation. The 30-foot 
+deep pit was part of the shielding for the reactors that would 
+reside and operate in the building. See HAER Photo Nos. ID-33-D-
+79, -80, and-81 for construction progress documentation of the 
+excavation and concrete pours for the sides of the pit. Two 
+additional 30-foot deep pits provided for a heater and piping, 
+and a 20-foot deep pit was called the Mechanical Loop Pit. 
+The high bay portion of the Reactor Building was 25 feet 
+high and sided with corrugated asbestos, while the one-story 
+sections were ten and a half feet high and built of concrete 
+block. The high bay provided space for cranes to operate over the 
+reactor and other pits and the work area. The reactor pit was 
+just east of the "hot" work area in the Control Building. East of 
+this pit was the Mechanical Loop pit. An industrial heater made 
+by Petro-Chem occupied the heater pit on the south wall of the 
+building. HAER Photo Nos. ID-33-D-88 and -89 show the heater 
+being hoisted and installed in the building. 
+Other than the pits, the specialized areas in the Reactor 
+Building included rooms for mechanical and electric equipment, 
+storage, and general work. Large vehicle access into the work 
+area was provided by a roll-up door on the east side with twelve 
+feet of clearance. 
+In typical operation, the reactor pit contained water, which 
+acted as part of the biological shielding protecting workers. The 
+early work done at the GCRE complex was to experiment with 
+different fuel element designs that would be suitable for a gas-
+cooled reactor. The reactor went critical inside the water-filled 
+pit, the water acting as moderator, coolant, and shield. Later, 
+after field runs, the ML-1 prototype was brought into the 
+building and lowered into the pit for examination and repair. To 
+facilitate all reactor operations, the pit was equipped with a 
+moveable work bridge. The bridge was built on rails and could 
+slide back and forth across the top of both the piping and 
+reactor pits. See HAER Photo No. ID-33-D-156 for plans and HAER 
+Photo Nos. ID-33-D-98, -99, and -100 for typical work scenes. 
+Surrounding the Control and Reactor buildings were assorted 
+small service buildings and a variety of storage tanks. A guard 
+house on the south perimeter fence controlled access to the site. 
+
+
+===== PDF PAGE 27 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 26) 
+Prefabricated metal buildings provided room for storage and a 
+small shop. A concrete block building sheltered the water pump. A 
+cooling tower was constructed at the southeast corner of the 
+site, but by the time the complex was being prepared for 
+demolition, it had long since been removed and only its 
+foundation remained. See HAER Photo No. ID-33-D-45. A view of the 
+cooling tower--and the rest of the buildings at the site--is 
+afforded in HAER Photo No. ID-33-D-92. 
+Storage tanks for utility water, fuel oil, waste nitrogen, 
+and contaminated liquids were situated northeast of the reactor 
+building and surrounded by earth berming. One other notable 
+feature of the GCRE landscape was a pair of slender exhaust 
+stacks 150 feet high. The "ventilation stack" (ARA-715} was 
+located on the north side of the reactor building, and the 
+''process stack" (ARA-714} was in the northeast corner of the site 
+just north of the waste water storage tank (ARA-708). 
+The interior of many GCRE buildings were remodeled after the 
+Army ended its reactor program. Buildings ARA-621 and ARA-630 
+were added in 1969 as an Instrument Development Laboratory and 
+Prototype Assembly and Evaluation Laboratory respectively. 
+Trailers for auxiliary office space also appeared on the scene. 
+The pits in the Reactor Building were remodeled and used as a 
+high-temperature, high-pressure autoclave and furnace test area. 
+(See HAER Photo No. ID-33-D-105.) 
+ARA-IV: ML-I Field Test Area 
+The ultimate object of all the activity at the GCRE complex 
+was the creation of a mobile power plant that could be moved 
+overland or by aircraft to positions in the field where it was 
+needed briefly or temporarily. ARA-IV was the field area in which 
+tests of the ML-1 prototype took place. Crews trucked the reactor 
+to the weather-protected Test Building in the center of the 
+circular fenced area and hoisted it inside. They connected its 
+communication, instrumentation, and other lines, and then 
+departed for the Auxiliary Control Building just outside the 
+perimeter fence to conduct the tests. 
+The site plan {Figure 3, page 15} shows the Test Building 
+{ARA-616) at the center of the field, 500 feet equidistant from 
+the perimeter fence. A walking path led from the Test Building to 
+the Control Cab (part of the prototype equipment), and the 
+Auxiliary Control Building {ARA-617) just beyond it. An earth 
+berm offered protection from radiation or an accident should one 
+occur at the Test Building during a critical run. A road from 
+ARA-III, the GCRE complex, also penetrated the perimeter fence, 
+swinging widely to the north and west to a concrete pad in front 
+
+
+===== PDF PAGE 28 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 27} 
+of the Test Building doors. Other features at the site included a 
+fuel storage tank, sanitary facilities, communication and 
+electrical lines, and tanks for storing contaminated liquid. 
+Figures 8 and 9, pages 29 and 29, show how these were arranged 
+around the Test Building and elevations of the Test Building. 
+Floor plans for the Test Building are no longer extant, but 
+a floor plan for the pumice-block Auxiliary Control Building (See 
+Field Notes 961 AREA/ML-1-617-A-1} show an equipment room for an 
+emergency power generator, water tank and pump. The rest of the 
+space contained consoles and other control equipment. For a view 
+of typical work activity moving the ML-1 from the Test Building 
+to the GCRE Reactor Building, see HAER Photo No. ID-33-D-96. Just 
+outside the Auxiliary Control Building was a shelter for the 
+Control Cab. See Appendix C for additional design details of the 
+Auxiliary Control Building Enclosure Shelter and Control Cab. 
+In 1985, ARA-IV was converted for use as a safe place to 
+store explosive and chemically reactive materials generated 
+elsewhere on the INEL site. The new facilities included storage 
+vaults and a blast bunker. 
+PART SIX 
+THE PROGRESS OF THE ARMY'S NRTS EXPERIMENTS 
+The SL-1 and the SL-1 Accident 
+Because the contemplated mission of the Stationary Low-Power 
+Reactor was to supply power to a DEW Line radar station, the Army 
+decided to operate the plant with military crews that would be 
+trained at the SL-1 site. With expectations that all of the 
+military services would eventually order future versions of the 
+SL-1 plant, the Army invited the Navy and the Air Force to send 
+operating crews for traininij duty. The first crew included men 
+from each of the services. 1 
+The construction contractor, Fegles Construction Company, 
+went to work on the plant in 1957. It was ready for operation in 
+less than a year, during which time its operating crews underwent 
+training at Argonne Laboratory near Chicago and at the NRTS. The 
+cylindrical tank building was not designed as a containment 
+vessel around the reactor because such protection was deemed 
+unnecessary due to its remoteness in the Idaho desert. Future 
+19 suid, p. 82. 
+
+
+===== PDF PAGE 29 =====
+170' 
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 28} 
+ALT. WASTE TANK, LOCATION 
+ABOVE GROUND, DIRT SHIELDED(ALT. 2) 
+,___ __ 60 , ___ 
+_,, 
+WATER TANKO 
+5000 GAL. 
+CONCRETE 
+TEST PAD 
+PERSONNEL 
+CHANGE BLDG. 
+T 
+so' 
+24' ROAD 
+'----50 1----i 
+'-------t/-----ll---'f----1'-----<<------l<---lf-----~------·---r--1r--' 
+i--------------- 224' -------------
+ML-/ TEST BUILDING, PLOT PLAN 
+SCALE: !" = 20' 
+SECURITY 
+FENCE 
+Figure 8: Plot plan of ML-1 Test Building. Source: INEEL Report 
+No. ID0-28584 (fig. 31). 
+
+
+===== PDF PAGE 30 =====
+F. L. 
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 29} 
+3' 
+r-,--------"'~ 
+: :CASK 
+6' 
+,--!:..---L,------+ 
+I 
+I 
+I 
+I 
+: 
+:TANK 
+I 
+10' 
+I 
+I 
+·- - -1 
+rJ. ____ .._,-----.l-
+1 
+I 
+I 
+: 
+1 
+:rANK 
+10' 
+: 
+I 
+I 
+- - -- -'--'-- ----~~----~+ 
+I 't 
+\ 
+1, I 
+3 
+r--------- 62 1----------l 
+SLIDING DBL. 
+DOOR 
+\ ,--
+1 
+r-, 
+I 
+I 
+I 
+I 
+I 
+r_J-_-o.-L--, 
+I 
+I 
+I 
+I 
+: 
+: 
+I 
+: 
+I 
+r----i 
+I 
+I 
+I 
+I 
+--n 
+38' 
+33' I 
+I 
+I PERS. 
+: 
+1 
+CHANGE 
+I 
+I 
+~-B_L_D_G_._..__...LL. ___ 
+....u\~iL: -;_;;_~3;~'--. ___ 
+_u _ __,__F._. _L_. _ 
+_1__J 
+-----35 '-----. 
+Figure 9: Elevations of ML-1 Test Building. Source: INEEL Report 
+No. ID0-28584 (fig. 32). 
+
+
+===== PDF PAGE 31 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 30) 
+uses would most likely occur at remote locat~gns and also would 
+not be designed with containment structures. 
+SL-1 went critical for the first time on August 11, 1958, 
+and produced electricity two months later on October 24. It was 
+the first power plant reactor in the country to use aluminum-clad 
+fuel elements, which heretofore had been used only in test 
+reactors like the MTR. A new alloy overcame the low melting point 
+of aluminum. After SL-1, aluminum alloys were used widely. 21 
+The reactor operated fairly routinely after its successful 
+first run of 500 hours. The AEC contracted Combustion Engineering 
+Company to operate the plant and train future crews. The purpose 
+of the reactor was to accumulate and record operating data on 
+core burn-up, test proposed components for future reactors, and 
+make improvements in the design and operation of the plant. 
+Several cadres of trainees were certified. 
+On December 23, 1960, the operators shut down SL-1 for 
+routine maintenance. Chores included calibrating instruments and 
+installing flux wires in the reactor core. On January 3, 1961, 
+three military crew members on an evening shift were winding up 
+the maintenance work and reassembling the reactor in preparation 
+for another run that would begin the next day. 
+At 9:01 pm a violent explosion occurred in the reactor 
+vessel, killing all three men. This was the first fatal accident 
+in the AEC's history of reactor operations. 
+The events of the next few days saw a mobilization of effort 
+on several levels of operation. The first necessity was to remove 
+the bodies of the men from the reactor building. One of the men 
+was relatively easily accessible and was removed the night of the 
+accident still alive. He died on the way to a dispensary. Teams 
+working in relays, fully dressed in protective clothing and full-
+face respirators, and allowed to remain in the reactor building 
+for only seconds at a time, managed to retrieve the second man 
+later on January 4.22 
+The third man was found pinned to the ceiling of the reactor 
+20 suid, p. 83. 
+21 suid, p. 83. 
+22 Press release, January 5, 1961. Dworshak Papers, Box 122 
+B, File "AEC Idaho Press Releases." 
+
+
+===== PDF PAGE 32 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 31) 
+building by the shield plug of the reactor's central control rod. 
+It required several days and a specialized team of 29 men from 
+the Army's Chemical Radiological Unit at Dugway Proving Grounds 
+in Utah to recover his body. The team planned and rehearsed every 
+move. Access into the reactor was to be via the fan door on the 
+upper level of the cylinder. But the fan door was stuck shut 
+because of an I-beam monorail that had been thrust partly outside 
+the building during the explosion. Workers crawled into a 
+specially made shielded box equipped with arm holes and a lead-
+glass window. A crane lifted the box to the fan door, where the 
+workers used an acetylene torch to remove the monorail. Using a 
+special sling and casket, 22 of the men, again operating in team 
+relays, recovered the body.23HAER Photo No. ID-33-D-76 shows 
+the crane and the shielded box in position at the fan floor door. 
+The scene immediately around the ARA-II reactor complex was 
+quiet, people absent because of high radiation levels. The crane 
+operator was enclosed in a shielded cab. The body, when 
+recove~ed, was taken to a hot lab~iatory elsewhere at NRTS, and 
+autopsied, as were the other two. 
+Immediately after the accident, the AEC initiated another 
+phase of post-accident reaction and appointed an investigating 
+committee to discover what had caused the accident. Despite 
+interviewing hundreds of people, the committee never could say 
+conclusively what had caused it. High levels of radioactivity in 
+the building prohibited a detailed examination of its contents, 
+although the technicians did manage to photograph parts of it 
+remotely. 
+It seemed plausible that one of the crew had moved a control 
+rod farther out of the reactor than was specified in the 
+maintenance procedures. In four milliseconds, the reactor went 
+critical, heated rapidly, and caused water in the core to flash 
+to steam. The column of steam slammed into the lid of the 
+pressure vessel, causing the entire vessel to jump from its 
+foundation, shearing all of its piping connections and blowing 
+shield plugs and shielding material from the top of the vessel. 
+The men died from the impacts of the explosion rather than from 
+the effects of nuclear radiation (although radiation in the 
+reactor building was at lethal levels after the accident). Most 
+23 Press releases, January 7 and January 9, 1961. Dworshak 
+Papers, Box 122 B, File "AEC Idaho Press Releases.'' 
+24 C.C. Lushbauer, et al, The SL-1 Reactor Accident Autopsy 
+Procedures and Results (Los Alamos, New Mexico: Los Alamos 
+Scientific Laboratory, June 1961), p. 8-9. 
+
+
+===== PDF PAGE 33 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 32} 
+Iodine -131 deposition on vegetation and 
+average concentration in air 
+January 4-11, 1961 
+Veyetation 
+Air 
+D >100xbackground 
+>7.4x1or11 ucicc 
+• 
+>S0xbackground 
+>3.7x10·11uctcc 
+• 
+>10xbackground 
+>11.3x10"11uctcc 
+~ 
+> 2 x background 
+> 1.6 x 10·12uctcc 
+10 
+10 
+20 
+Scale in miles 
+00f/lD12119VOl.1 
+Figure 10. Iodine-131 deposition after SL-1 accident. Source: 
+INEEL Report No. DOE/ID-12119, Volume 1. 
+
+
+===== PDF PAGE 34 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 33) 
+of the radiation released from the reac;gr vessel by the 
+explosion remained inside the building. 
+The investigating committee identified many problems with 
+the management of the SL-1 reactor. One of the worst, and 
+possibly a contributing cause of the accident, was that the fuel 
+elements had been allowed to deteriorate "to such an extent that 
+a prudent operator would not have allowed operation of the 
+reactor to continue without a thorough analysis and review, and 
+subsequent appropriate corrective action. 1126 
+The AEC hired the General Electric Company (a contractor 
+elsewhere at the NRTS) to evaluate options for disposal of the 
+reactor building. By May 1961, analysis had determined that the 
+reactor area was dry and not likely to become critical without 
+the moderating effect of water. Eventually, the reactor core, 
+vessel, and fuel went to General Electric's Test Area North Hot 
+Shop for examination and ended up at the Radioactive Waste 
+Management Complex (RWMC, known in 1961 as the Burial Ground) at 
+the southwestern corner of NRTS. The rest of the lower-level 
+radioactive debris and contaminated soil was placed in a "burial 
+ground" about 1,600 feet from its original location. Two pits and 
+a trench dug to bedrock accepted the waste. Backfill over the 
+debris provided shielding, and an exclusion fence surrounded the 
+burial zone. This on-site burial was considered a better approach 
+than transporting the material sixteen miles on a public highway 
+to the RWMC and risking public exposure.27 
+25 Many sources describe and discuss the SL-1 accident, 
+among them "SL-1 Explosion Kills 3; Cause and Significance Still 
+Unclear," Nucleonics (February 1961), p. 17-23; a series of press 
+releases in Dworshak Papers, Box 122B, File ''AEC-Idaho Press 
+Releases;" "Summary of the SL-1 Reactor Incident at the National 
+Reactor Testing Station in Idaho on January 3, 1961," prepared by 
+the Staff of the JCAE, January 10, 1961, also in Dworshak Papers, 
+Box 122B, File "AEC-Idaho Press Releases;" "SL-1 Accident, 
+Findings of the Board of Investigation," published verbatim in 
+Nuclear News (July 1961), p. 13-16. A videotape The SL-1 Accident 
+produced by the NRTS Idaho Operations Office shows film of the 
+recovery effort and the disposition of the reactor building. 
+2611Findings of the Board of Investigation," Nuclear News 
+(July 1961), p. 13. 
+27 The SL-1 Burial Ground was regraded and recontoured in 
+1997 after a 1996 "Record of Decision" signed by the Department 
+of Energy, the Environmental Protection Agency," and the State of 
+
+
+===== PDF PAGE 35 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 34) 
+After decontamination, the remaining ARA-II buildings were 
+converted for use as offices. In 1970, an NRTS contractor set up 
+a welding shop to provide training and qualification testing for 
+welders and braziers. 
+The accident may have aroused doubts in the minds of some 
+about the Army's nuclear power plant program--or the safety of 
+nuclear power in general--but if so, such effects were not 
+immediate. Editorials from nuclear industry publications such as 
+Nucleonics said that accidents should be considered inevitable, 
+but that the industry should do everything it could to protect 
+its outstanding safety record to date. The AEC soon prohibited 
+reactors that were controllable with only one control rod. It 
+also undertook to revise operating proce~~res and licenses for 
+all operators of small nuclear reactors. 
+The accident aroused protests from the local Oil, Chemical, 
+and Atomic Workers International Union, which urged Congress to 
+enact legislation to improve safety of nuclear workers. The Union 
+also protested the lack of an isolation ward at the NRTS 
+dispensary, lack of shielded lead caskets for burials, and lack 
+of instrum~ijts available to read radiation levels higher than 500 
+roentgens. 
+Site managers agreed that they had been ill-
+equipped to deal with high-radiation casualties, but they also 
+felt that their p30-planned emergency procedures had been carried 
+out in the event. 
+Eventually, the Idaho Operations Office of 
+the AEC formalized its evaluation of accident response in a 
+Idaho. The new natural-material "cap" improved the isolation of 
+hazardous materials from humans and the surrounding environment. 
+Erik Simpson, "Agencies agree to cap reactor burial grounds," 
+INEL News February 6, 1996, p. 7. 
+28 see Susan M. Stacy, Proving the Principle, A History of 
+the Idaho National Engineering and Environmental Laboratory, 
+1949-1999 (Idaho Falls: Department of Energy, Idaho Operations 
+Office, 2000), especially chapters 15 and 16, for more about the 
+SL-1 accident and its aftermath. 
+29 To Senator Henry Dworshak from Donald E. Seifert and 
+George Drazich for Local 2-652, May 11, 1961. Dworshak Papers, 
+Box 122B, File "AEC--Idaho Plant." 
+30 John R. Horan and C. Wayne Bills, "What Have We Learned? 
+Health Physics at SL-1," Nucleonics (December 1961), p. 43-46. 
+
+
+===== PDF PAGE 36 =====
+To 
+ARA-Ill 
+WAGS facility 
+boundary groundwater 
+re<;eptor localion 
+/ 
+\ 
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data {Page 35) 
+Operable Unit 5-0.S 
+bounc:aiy groundwater 
+recaptor locallon 
+9 
+1SO 
+300 It 
+r1:===t=I ===11 
+-
+Fence 
+To U.S. 20 
+Figure 11. The special SL-1 burial ground was northeast of the 
+SL-1 accident site at ARA-II. Source: INEEL Report No. PT-WM-84-
+010, page A-33. 
+
+
+===== PDF PAGE 37 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 36} 
+program designed to reduc§ personnel risks and save equipment in 
+the event of an accident. 1 
+In considering the future of the boiling-water reactor 
+concept, the AEC decided that the cost of continuing to fund 
+tests of boiling water reactors like SL-1 would not produce 
+worthwhile benefits. It phased out the program and shelved it for 
+possible future use. The Army felt that the concept had 
+progr§~sed ''quite well," but it stopped funding the concept 
+also. 
+Perhaps the long-term impact of the SL-1 accident is best 
+measured by the frequency with which it was mentioned by anti-
+nuclear interests and writers. The first such mention occurred 
+only two days after the accident, when Walter P. Reuther, 
+president of the AFL-CIO, issued a press release saying that the 
+SL-1 accident and 40 other documented reactor accidents confirmed 
+the "validity of trade union opposition to the constructio~ of 
+the untested fast breeder reactor near Detroit, Michigan." 3 In 
+the 1970s and 1980s, nuclear-protest literature listed nuclear 
+accidents, near-accidents, and mishaps, describing them in 
+language aimed to outrage or frighten the reader. Sometimes the 
+accounts of SL-1 were quite inaccurate, but they helped alarm the 
+public and inspire protests against nuclear power plants. 
+The GCRE and ML-1 
+The GCRE, which went critical for the first time on February 
+23, 1960, tested two types of fuel elements: plate-type and pin-
+type. The object was to find a fuel configuration that would have 
+a long run before depletion. The pin-type promised to produce 300 
+to 500 kilowatts for a year without refueling. This design also 
+reduced the shielding requirements for the reactor, which meant 
+that the ML-1 prototype might meet the Army's goal of being 
+transportable in four packages totaling no more than 38 tons. 34 
+3111Reactor Safety: Accident Control Study," Nucleonics 
+(April 1964), p. 28. 
+3 2 Suid, p. 8 7 . 
+3311 Press release from Industrial Union Department of AFL-
+CIO," January 5, 1961, Dworshak Papers, Box 122 B, File "AEC 
+Idaho Plant." 
+34 To James T. Ramey from Richard X. Donovan, November 21, 
+1960. Dworshak Papers, Box 112, File "AEC Idaho Plant." See also 
+Thumbnail Sketch, April 1960, p. 17 
+
+
+===== PDF PAGE 38 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 37) 
+Figure 12. The Control Cab for the ML-1 was transported by truck 
+to test locations. Source: INEEL Report No. ID0-28550. 
+
+
+===== PDF PAGE 39 =====
+I' 
+Bl" 
+l 
+6" 
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 38) 
+EXTERNAL CONNECTIONS 
+2 -
+10 in. gas ducts to power conversion 
+2 -
+4 in. moderator pipes to power conversion 
+4 - electrical cables to power conversion 
+2 - water supply pipes· during startup 
+93" 
+POWER CONVERSION 
+EQUIPMENT 
+113" 
+30,000 lb 
+EXTERNAL CONNECTIONS 
+2 -
+10 in. ga.s ducts to reactor 
+2 -
+4 in. moderator pipes to reactor 
+4 - electrical cables to reactor 
+4 - electrical cables to control cab 
+- ele ctrica.1 cable to auxiliary 
+power source for startup 
+- electrical cable to load 
+4 -
+1 / 2 in. gas lines to gas systems 
+EXTERNAL CONNECTIONS 
+4 - electrical cables to power ~onversion 
+~ 0 
+145" 
+:J 
+D 
+D 
+D 
+D 
+D 
+AUXILIARIES 
+CABLE REEL 
+6QOO lb 
+WATER MAKEUP 
+900 lb 
+WASTE GAS SYSTEM 
+2000 lb 
+EXTERNAt CQNNECTIQNS 
+NONE 
+2 -
+PIPES TO REACTOR DURING STARTUP 
+~82" 
+CONTROL CAB 
+5, 000 lb 
+GAS SUPPLY 
+2000 lb 
+BORON COMPOUND 
+1200 lb 
+3 - l/2 IN. LINES TO POWER CONVERSION 
+l - l/2 IN. LINE TO POWER CONVERSION 
+NONE 
+Figure 13. Weights and dimensions of 
+components. Source: INEEL Report No. 
+the three basic ML-1 
+ID0-28550, page 7. 
+
+
+===== PDF PAGE 40 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 39) 
+Figure 14. Cutaway drawing of the ML-1 power plant. Reactor is to 
+the right; power conversion unit is on left. Source: INEEL Report 
+No. ID0-28550. 
+
+
+===== PDF PAGE 41 =====
+CAB 
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 40} 
+Figure 15. Cross section of ML-1 reactor shows location of 
+control rods amidst hexagonal matrix of fuel positions. Source: 
+INEEL Report No. ID0-28550, page 38. 
+
+
+===== PDF PAGE 42 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 41) 
+PIN SPACER 
+OUTER LINER 
+INNER LINER 
+11.00 FOIL BURNABLE POl50N 
+22.00 FUEL_j 
+-----ft\~ OVERALL LENGTH OF' EL.EMENT---
+FUEL PELLET-810·U04 
+Figure 16. The ML-1 pin-type fuel element. Source: INEEL Report 
+No. ID0-28550. 
+
+
+===== PDF PAGE 43 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 42) 
+The GCRE had frequent maintenance problems, however, and on April 
+6, 1961, the reactor was shut down for the last time because of a 
+leak in some of its stainless steel piping. By July 1, 1962, it 
+was deactivated. 
+In a summary report on the gas-cooled reactor experiment, 
+the scientists concluded that the reactor would not be able to 
+meet the Army's requirements for light weight and small size. The 
+next reactor--the ML-1--would have to be considerably more 
+compact. Also, the operating characteristics of the reactor would 
+not meet Army specifications for performance. The flow of coolant 
+was too slow, system pressures were too low, and the power level 
+was too low. Despite these disappointments, however, the insight 
+into fuel element design would carry over for future reactor 
+designs. 35 
+With the data and information that had been produced by the 
+GCRE experiments, Aerojet-General was able to build the ML-1 
+prototype at its Downey plant. Aerojet and the Army then turned 
+ARA-III to the support and testing of the ML-1. On September 21, 
+1962, ML-1 operated as a power plant for the first time in a 
+short two-hour run, making history as the smallest nuclear power 
+plant on record to produce electricity. Also, it produced the 
+highest core temperature of any previous reactor--1,225 degrees 
+F. Furthermore, this was the first time a reactor was connected 
+to a closed-cycle, gas-driven turbo-generator. It reached full-
+i~:;~3gperation on February 28, 1963, and ran until March 4, 
+Despite these benchmarks, the ML-1 proved disappointing, 
+typically operating only a few days or hours before shutting down 
+because of leaks, failed welds, and other problems. After its 
+four-day March 1963 run, for instance, the crew found that 
+nitrogen gas, the coolant, had been leaking into the moderator 
+water. A weld beneath the pressure vessel appeared to have 
+failed. (See Figures 12 through 18 for 
+Photo logs at INEEL's Photo Archive document a year-long 
+list of activities required to deal with the problem: "CSN-1 
+removal from pressure vessel" in April; ''Power conversion unit 
+being dismantled and removed from reactor" in April; "Fuel cells 
+35 Aerojet-General. Army Gas-Cooled Reactor Systems Program, 
+Final Summary Report of the Gas-Cooled Reactor Experiment-I 
+(Idaho Falls: Aerojet-General Report ID0-28598), p. I-1 to I-3. 
+36 suid, p. 91. 
+
+
+===== PDF PAGE 44 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 43) 
+being removed from casks at GCRE canal" in May; "Moving and 
+unloading reactor" in May; "Dismantle ML-1" in June; and then 
+"ML-1 pressure vessel welding," "ML-1 under water," "Install 
+thermocouples." In January 1964, the crews were repairing fuel 
+elements. 
+At last the reactor was ready once again for action in April 
+1964. The crews took the reactor to its Test Building, mobilized 
+the Control Cab, and attempted a 500-hour run. After this, the 
+reactor moved back and forth between GCRE and the Test Building 
+several times. Its final operational period apparently was 
+between December 17, 1964, to January 26, 1965. Thereafter the 
+1965 photo log references refer to the ML-1 as "in th~7pit." The 
+last reference to the ML-1 was on September 24, 1965. 
+The ML-1 reactor was disassembled for the last time at the 
+TAN Hot Cell in order to discover the reason for its most recent 
+failure. High heat had caused corrosion resulting in the 
+degeneration of pressure tubes (containing the gas). Welds had 
+failed, and the metal was pitted and cracked. Once again, gas had 
+leaked into the moderator water. The analysis concluded that the 
+steel material was "unsuitable for use" in a reactor expected to 
+operate at temperatures of the ML-l's 1200 degrees F. By the time 
+the analysis was completed, the Army program had ended. The 
+reactor skid, control rod shields, and other parts went to the 
+NRTS "Burial Ground," later named and now known as the 
+Radioactive Waste Management Complex. 38 
+Among its breakdown problems, the ML-1 released 
+radioactivity at levels too high for crew safety in the field. In 
+actual operating conditions in a typical field station, it would 
+place its military operators in danger. In light of all of these 
+problems, and others associated with the power conversion 
+facility being tested at the s~we time in Fort Belvoir, the Army 
+decided to review the program. 
+During the years that the Army Reactor Group's contractors 
+had been experimenting at the NRTS, the Army had placed several 
+prototype reactors on line in Greenland, Alaska, Wyoming, and 
+37 
+"d 
+9 
+Sui , p. 
+2. 
+38 T.L. Murphy, Final Disassembly and Examination of the ML-
+1 Reactor Core (Idaho Falls: Phillips Petroleum Report ID0-171-
+90, June 1966}, p. 110-111. 
+39suid, p. 92-93. 
+
+
+===== PDF PAGE 45 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 44) 
+Antarctica. Even though these had acquitted themselves well, the 
+Group was having trouble persuading any of the services, 
+including the Army, to order any of the plants. It appeared that 
+the ''life time" cost of a nuclear plant was lower than that of a 
+conventional one, but the initial cost was far higher. When it 
+came time actually to set a budget, the services opted for low 
+first-cost alternatives. Economists suggested that this was false 
+economy, but "balance the budget" pressures were more 
+powerfui. 40 
+PART SEVEN 
+THE END OF THE ARMY REACTORS PROGRAM 
+In view of the continuing difficulty finding missions for 
+their small reactors--and the continuing difficulty in keeping 
+the ML-1 from breaking down--the Army and the AEC concluded that 
+the ML-1 program might eventually achieve its objectives, but 
+that it would cost too much to achieve. Nuclear plants, 
+particularly in the low-power end of the spectrum, could not 
+compete with diesel plants: Using the Army's Antarctica reactor 
+as an example, the initial cost of the nuclear plant was $6-7 
+million; for diesel, $350,000. A nuclear plant required a crew of 
+20 highly trained men; a diesel plant, six. 
+Partly explaining the Army's reluctance to continue 
+financing nuclear experiments was the nation's growing 
+involvement in the Vietnam War. The Department of Defense needed 
+funds to prosecute the war. First the AEC and then the Army 
+phased out the funding for the ML-1 development program by June 
+1966. 41 This action effectively ended the involvement of the 
+NRTS in the Army's nuclear development program. 
+An Army Ad Hoc Study Group took up the question of the rest 
+of its program in 1969. One of the participants summed up the 
+situation by saying, "Nuclear power is a solution in search of a 
+problem." In the end, the group decided that it was only in 
+selected remote situations that nuclear systems were cost-
+competitive with conventional diesel plants. Basically, no 
+military requirements really existed for nuclear power, but may 
+4011 Economic Military Power Arrives, But Pentagon 
+Hesitates," Nucleonics (April 1960}, p. 27. 
+41 Suid, p. 9 3. 
+
+
+===== PDF PAGE 46 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 45) 
+emerge in the future. Experiments should stop. Study groups could 
+continue. 42 
+However, the Chief of Engineers, Lt. Gen. Frederick J. 
+Clarke, could see little reason even to continue study groups. He 
+permitted existing plants to operate until major problems forced 
+them to shut down. In 1971, the Army Engineer Reactor Group lost 
+its name and became the Engineer Power Group. Soon they were 
+examining excess generators returning from Vietnam. The Army 
+experiment with nuclear reactors was over. 43 
+PART EIGHT 
+RE-USE OF THE ARMY REACTORS AREA FACILITIES 
+ARA-I 
+The Metallurgical Laboratory at ARA-626 performed analytical 
+and test work to support other contractors and their research at 
+NRTS. Work included the taking of fatigue measurements on 
+materials that had been irradiated at the Advanced Test Reactor 
+(located at the Test Reactor Area of NRTS} or other NRTS 
+reactors, designing and testing materials, and studying 
+thermonuclear reactor design. Non-nuclear research included the 
+study of crystal growth in connection with geothermal research at 
+Raft River, Idaho. The Lab also contributed to studies related to 
+the development of stable forms of radioactive waste, 
+particularly in the field of ceramics. 
+The Hot Cell Building (ARA-626} was periodically modified or 
+remodeled for continued use in support of general activities at 
+NRTS. The two cells continued to be the scene of assembly, 
+disassembly, storage, inspection, and general examination of 
+reactor operations, research and development, and waste 
+management. 
+The buildings at ARA-I showed their age by the early 1980s, 
+when facility planners noted inadequate electrical installations, 
+overcrowding within the buildings, and the subsequent use of 
+substandard double-wide office trailers to supply extra office 
+space. The site was remote from the Central Facilities Area and 
+was thus costly and inefficient to maintain. By 1983, plans for 
+ARA-I were to abandon all of the buildings as soon as their 
+42suid, p. 103-105. 
+43 suid, p. 108. 
+
+
+===== PDF PAGE 47 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 46) 
+functions could be replaced elsewhere on the site. The Idaho 
+Laboratory Facility was under construction in Idaho Falls at the 
+time and was expected to take the non-radioactive poriions of the 
+work. Radioactive work went to the Test Reactor Area. 4 
+The buildings were evaluated for the presence of 
+contamination; demolition proceedings were underway in 1994 when 
+the HAER report photography began. 
+ARA-II 
+After the SL-1 reactor had been dismantled and its 3,035 
+cubic yards of soil and hardware buried, the site continued to 
+receive regular inspection and surveillance. The three main 
+buildings, ARA-602, -606, and -613 were used for office~ and for 
+the welding qualification program. Research conducted at the labs 
+developed special brazing and joining procedures and techniques 
+for the joining of exotic metals. 
+Like the ARA-I complex, ARA-II eventually went out of 
+compliance with updated electrical codes. The soil surrounding 
+the area was radioactively contaminated. Although a thin layer of 
+top soil and asphalt had been spread over the site for 
+protection, this coating had broken up by 1983. Tank trucks 
+making deliveries or collections were contaminating their tires. 
+By 1983, all of the buildings except ARA-606 were vacant and 
+unoccupied. The last remaining activity, the welding 
+qualification program was moved in 1984 to the Central Facilities 
+Area. The buildings were evaluaSed for contamination and by 1994 
+were undergoing dismantlement. 
+ARA-III 
+After the Army abandoned the ML-1 program, the NRTS site 
+manager recruited the GCRE Reactor and Control buildings for 
+other site-wide service uses. Large concrete blocks were made to 
+fit over the reactor pit, shielding those above from residual 
+radioactivity. (See HAER Photo No. ID-33-D-108.) 
+ARA-III became a center for the fabrication of 
+instrumentation for other reactors and labs at the NRTS. 
+Equipment in the various laboratories tested reactor components. 
+Special labs included one for geosciences hydrochemical research 
+44 EG&G, Site Development Plan, Site Characteristics, Volume 
+1 (Idaho Falls: EG&G, 1987), p. 14-9 to 14-10. 
+45 site Characteristics, Volume 1, p. 14-31 to 14-32. 
+
+
+===== PDF PAGE 48 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 47) 
+and computers. After a reactor accident at Three Mile Island, its 
+components were sent to Idaho. Many of them ended up in ARA-610, 
+the service building, which was fitted with glove boxes, an air 
+filter system, and a contaminated component test tent. (See HAER 
+Photo No. ID-33-D-107.) Other buildings at ARA-III were used for 
+general cold storage. 
+Problems with the aging facilities included substandard 
+electrical installations and unreliable water pumps that no 
+longer supplied sufficient pressure or flow. Water supply lines 
+leaked. 
+By 1983, the site managers had decided to abandon ARA-III 
+and move its functions to the Central Facilities Area as space 
+and funding became available. After the Idaho Laboratory Facility 
+(in Idaho Falls) was completed, several scientists moved there 
+and took much of the contents of the labs with them. The area was 
+evaluated for radioactive and other hazards in 1985. 
+Dismantlement activities were underway in 1994. 
+ARA-IV 
+Sometime prior to 1983, the buildings at ARA-IV had been 
+removed. In November 1987, the Demolition and Decontamination 
+program at INEL appropriated the area as part of INEL's waste 
+management program and named it the Reactives Storage and 
+Treatment Area (RSTA). The purpose of the RSTA program was to 
+provide a remote, safe location to store potentially reactive and 
+explosive waste before shipping it off the INEL site or treating 
+it further on-site. 
+Among the many waste substances that accumulated at the 
+various reactors and laboratories of INEL were potentially 
+hazardous zirconium chips, ducting materials containing 
+perchloric acid, and piping potentially contaminated with sodium. 
+If indeed present, these materials were potentially explosive or 
+reactive when placed in contact with air or other materials. 
+Until 1988, these types of wastes were destroyed at the Naval 
+Ordnance Disposal Area (NODA). Because of safety concerns, NODA 
+went on inactive status in May of 1988, leaving no other site 
+available until the ML-1 site was adapted by installing various 
+storage facilities. 
+The treatment activities carried on at the RSTA site were 
+detonation, open burning, and the chemical reaction of reactive 
+and explosive waste. The site contained two units, a container 
+storage unit and a thermal treatment unit. The storage unit had 
+four above-ground reinforced concrete vaults and one modified 
+metal bin in the fenced area once occupied by the ML-1 reactor. 
+
+
+===== PDF PAGE 49 =====
+o 1s 20 .dS ea 
+I 
+I 
+I 
+· Appro":ma.a scaie in metars 
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 48) 
+Figure 17. ARA-IV was adapted for Reactives Storage and Treatment 
+Area (RSTA). Source: Spry and Lodman, Sampling and Analysis Plan 
+for the Reactives Storage and Treatment Area, page A-2, no report 
+number available.) 
+
+
+===== PDF PAGE 50 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 49) 
+The vaults stored the potentially hazardous materials. The metal 
+bin stored blower motors from fans that were thought to have been 
+contaminated with perchloric acid. (See HAER Photo No. ID-33-D-
+182 for engineering drawing of the blast bunker). 
+As the INEL mission in nuclear research gradually declined, 
+the use and accumulation of reactive materials declined also. The 
+need to dispose of them diminished. During RSTA's operation, only 
+one detonation took place at ARA-IV. Still, the cost of 
+maintaining the site and its required operating permits was high. 
+INEL decided to close it. The waste and the containers were 
+examined: none of the suspected chemicals were detected. The 
+materials were classified as non-reactive and non-hazardous, and 
+moved to an excess-materials storage yard at the Central 
+Facilities Area. The Closure Plan for RSTA was published in 
+September 1992 and was subsequently carried out. No operable or 
+auxiliary structures remain in the area. 4 b 
+PART NINE 
+THE SIGNIFICANCE OF THE ARMY REACTORS PROGRAM 
+The Army Reactors Program grew out of an idea that derived 
+in great part from the nuclear enthusiasm and nuclear naivete of 
+the post-World War II world. From the vantage of the turn of the 
+20th Century, it also appears that the idea simply may have 
+arisen ahead of its time. 
+The naivete that beguiled the Army and everyone else who 
+hoped that fissioning atoms could be used for the peaceful 
+generation of electrical power was that it was only a matter of 
+study, application, financing, and engineering before problems 
+would be solved and unit costs for small-scale units would come 
+down. Unit costs for large-scale nuclear power plants did, in 
+fact, come down, and nuclear power became competitive with 
+conventional power generation in some parts of the United States. 
+However, the economies of scale did not materialize for the 
+Army's miniature plants, which failed to compete with the 
+46 see INEL/DOE, Reactives Storage and Treatment Area 
+Resource Conservation and Recovery Act Interim Status Closure 
+Plan {Idaho Falls: INEL/DOE Report DOE/ID-10309, September 1992), 
+p. 1-3; and M.J. Spry and D.L. Lodman, Sampling and Analysis Plan 
+for the Reactives Storage and Treatment Area, Appendix A in that 
+report. 
+
+
+===== PDF PAGE 51 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 50} 
+conventional alternatives for small-scale generation. Any nuclear 
+power plant--no matter how small--had to consist of a nuclear 
+reactor loaded with fuel elements and cooled in a fashion 
+designed to transfer heat. The plants had to be fabricated and 
+engineered nearly perfectly: coolant piping must not leak, 
+control mechanisms must work properly every time, instrumentation 
+must supply the truth of the matter to the operators. Less-than-
+perfect performance would result in radiation hazards and risks 
+to operators and the environment. In addition, operating a 
+miniature required that the operating crew possess the same 
+intelligence, training, practice, and preparation as the crew of 
+a huge commercial plant. All of this was costly. 
+After nearly half a century of effort, some problems have 
+not been solved. The by-products of nuclear power generation--
+from small or large plants--are spent fuel elements and other 
+hazardous and radioactive wastes, both liquid and solid. The 
+complex political, technological, social, and economic 
+arrangements required to cope with these dangerous materials have 
+still, after a half century of development, not stabilized. 
+Therefore, even after the Army produced and proved a 
+reasonably credible product, that product was unable to compete 
+economically with the conventional diesel-powered generator. The 
+diesel generator could be mobilized quickly; it operated with far 
+less training and much less risk upon failure. 
+At the NRTS, the joint Army/AEC program represented a set of 
+experiments with alternative nuclear reactor concepts. As the 
+1960s approached, it appeared that the pressurized water reactor 
+would dominate the commercial power industry. The gas-cooled 
+concept offered a potentially more efficient power plant, but in 
+the face of an overwhelming national trend favoring another 
+concept, interest in developing and perfecting it weakened. 
+Still, the experiments produced knowledge. Analytical 
+procedures, prediction of reactor behavior, testing of alloys in 
+fuel elements and components, evaluation of fuel element 
+performance and lifetime--the operation of the SL-1 and the GCRE 
+enhanced all of these. The final disassembly of the ML-1, 
+however, suggested that the state of materials science was not 
+yet up to the operating heat of the gas-cooled reactor. Its many 
+failures resulted primarily from the failure of metal and of 
+welds to hold up to protracted corrosive exposure to high heat. 
+The idea of the gas-cooled reactor for a small power plant was 
+too advanced for the state of materials science at the time. 
+
+
+===== PDF PAGE 52 =====
+Appendix A: Vicinity Map 
+Meteorological tower F.: 
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data {Page 51) 
+io Arco 
+/ 22 miles from CFA 
+To TAN 
+To Blackfoot 
+:lJ miles from CFA 
+To Central Facilities 
+Area and Arco, Ida.ho 
+INEL 4 4282 
+~ 
+u.s.20 
+
+
+===== PDF PAGE 53 =====
+Earth 
+berm 
+~, 
+( 
+J 
+\_ 
+Seepage 
+pit 
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 52) 
+Appendix B: Plot Plan, ARA-I 
+Earth berm 
+@::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::',::::::::::::::::::::,,::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::~ 
+e 
+Fuel 
+.--, 
+tank _,.rG 
+__ , 
+629 
+~-__,, 
+I 
+I 
+To Fillmore Boulevanl 
+xl 
+729 
+1 
+I --, * 
+L- I 
+x-x-x-x~x__L__x-x 
+;,<-x-x 
+l l 
+c::==:J 
+,-------c'7-------.. 
+I 
+0 Fire hose 
+house 
+I l 
+I 
+r f 1 j 
+house 
+626 
+* 
+I o 
+----i 
+Trailer 
+XL 
+Fire hose 
+726 r~- i>;,-
+x hous~-x-x-;Lt---x-x~=----+-' 
+627 
+~:~. ! 
+L] 
+628 
+Office 
+trailer 
+No. 1 
+Office 
+trailer 
+No, 2 
+~ 
+~ 
+C ... ~ c1 
+737 
+) ~-c 
+po D 
+To Fillmore Boulevanl 
+Auxiliary Reactor Area ·I 
+Plot Plan 
+
+
+===== PDF PAGE 54 =====
+epage pH 
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 53) 
+Appendix B: Plot Plan, ARA-II 
+*-X--»--x~--x------«--X----~'---",__,.....___,.__,..__..,._"j 
+r 
+['"-;J Ga0 
+701 
+~Q 
+602 
+613 
+615 
+738 
+Earth berm 
+Detention tank 
+tJ;;:'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'.'. ~ 
+0605 
+Earth 
+berm 
+:::1 
+Earth 
+berm 
+() Seepage pH 
+Ta ARA~ 
+Ta ARA .. and ~v 
+Filmore Boulevard 
+Auxiliary Reactor Area-II 
+Plot Plan 
+Ta U.S. 20 
+
+
+===== PDF PAGE 55 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 54) 
+Appendix B: Plot Plan, ARA-III 
+Ta ARA~V 
+and PBF/SPERT 
+area 
+Emergency access road 
+Traner 
+D 
+715 
+B 
+Distribution (] 
+Llquified petroleum n 
+box 
+gas tank ~ 
+(100 galan) 
+::::~ '-' Sewer 
+" 7 40 
+manhole 
+621 
+608 
+F1111 hydrant 
+and base house 
+713 
+_____ r--
+607 
+Auxiliary Reactor Area-Ill 
+711 
+D
+Abandaned 
+foundation 
+611 
+Earth berm 
+732 
+D 
+FiUmare Boulevard extension 
+Fillmore Boulevard 
+Plot Plan 
+Ta ARA-I, 
+ARM and 
+U.S. 20 
+
+
+===== PDF PAGE 56 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 55) 
+Appendix B: Plot Plan, ARA-IV 
+------)( --x-x 
+_... 
+---..... 
+-/-/ 
+~ 
++·// 
+~ 
+,/ 
+""-
+~ 
++ 
+IL__ 3 STRAND BARB WIRE FENCE 
+~ 
+! 
+\ 
+j 
+39 
+\ 
+\ 
+N683070 
+E3242380 
+X 
+1.-----+t-r--- --J-P .c, STATION 5 
+I l ,., .. ,,,. 
+MESSENGER 
+II / L 
+24 ' WIDE RG'Jl 
+LINE 
+AUXILIARY CONTROL BLDG, 
+CONTROL CAB 
+03.21 
+BURIED GASOLINE TANK OOOGALS.) 
+BURI.ED NO, 2 FUEL TANK (500 B GALS,) 
+HOSE HOUSE 
+CONTROL AREA 
+TO GCRE 1 
+
+
+===== PDF PAGE 57 =====
+i 
+l 
+.. ... • 
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 56) 
+Appendix C: ML-1 Auxiliary Control Building Enclosure Details 
+Floor Plan and Elevations, INEEL No. 066-0617-00-613-
+102812, (961 AREA/ML-1-617-A-1) 
+' 
+j 
+p·· 
+. I 
+,i-;, 
+r;:-;-
+/ 
+µ..i_/ 
+1 I 
+~~~-.:......: 
+11-..u~ ..... ==~.J.---, 
+·---i 
+I 
+I I 
+I l 
+I 
+I 
+I 
+-----,. 
+-,111.--~--..... ·----l 
+! 
+I 
+.·l"'-". l-
+... 0-.1 
+0 
+-· 
+to 
+.II 
+!! .. 
+!! 
+1, ... ,, 
+E--~~·r 
+..., ........ 
+C1IM,;,ut'I' ""°'.,~ .... , : 
+"' sa,.- ff;) 
+. 
+'. '" 
+~ 
+@-
+i, 
+1.1-@' 
+.. _ . 
+···.,.· 
+f LO Q g.. 
+i I 
+-------f't 
+11 
+1, 
+!J_________________ .--------lJ 
+..... 
+'( 1,, ... ,. .... 
+LLQC;.H Ii? 
+c:n tt• PuN,c-. ....... 1/t.1.1. (11.1. c.1.L• h.u.o) 
+~ 
+CIDMCllt. .. f'a. 
+...... Wta.a,1,. •1uo Pa.W.Tt1'1D .. W 
+Ci:El2ll --·- ~ 
+..... 
+@ 
+--·-•IIMTl•• 
+...... 
+~~::~ 
+ft• .,.c .. 
+III 
+roo .. ... •••ca. llii ......... 
+~ 
+.. , ...... .......... 
+~~=-~~.:r:· ........ 
+:, 
+" 
+I 
+I 
+E;..A'i I 
+t.LC.Y4IIQH 
+41E£·1:,.~.-.uMIWA,:'::;;,=~~=rJ"" 
+llill'llfPMWr~ 
+A.OSflti¥'11fAUN"""""1n 
+•ca1.a --·• I'••• 
+,, 
+• 
+t 
+.11 
+..,._.. , .. 
+Jlfllil'll#~I 
+'111~"'"""""'1'/HtWNr 
+r=:.,~?nu. 
+~,...=~='=a~~, ... 
+:fi"",,f/,t'..:J!f6 •r 
+~ 
+rwn1,r -
+..,........., 
+
+
+===== PDF PAGE 58 =====
+.! 
+,.,,. . 
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 57} 
+Appendix C: ML-1 Auxiliary Control Building Enclosure Details 
+Structural Plan 
+613-102818 (961 
+and Details, INEEL No. 
+AREA/ML-1-617-S-1). 
+066-0617-60-
+~~---~16;'-o' -,-·- _ ·----------+-- "·-~---+----·--
+,e .... o• _____ ----------- _ 
+..:.!lof~----~---""·~~--
+I ~"+----··· I 
+~ ---
+1 
+t-- -
+11 
+I I 
+I 
+-· . 
+.I 
+~ ::.t"":~"91fl'" 
+........... ) 
+-· =e- . ; 
+:r). 
+:_ ••• ~\JI. TMA,W &e-• 
+! - ~r-
+: I 
+.·g1__ 
+Gi-----~-~,J--W.' 
+! 
+l-
+;. 
+, 2£9E: §'1-Ab-y 
+l&ollol 
+1K "· ,. •• ,, 
+M01 E.,, 
+A•D l,,•G,• 11\\e 
+, ...... .,. 1911.U.T 
+t""4•0 UIIOlt IICfMIIP 
+,, ....... ,...._. 
+-'-"-t-r-,-",--..--,--------,----,-,,1-
+:z 
+/ ·' 
+. . ..-i:-- .. 
+·-® 
+®-· 
+\ 
+~PPUlCS ~\1,1)1,.1,.1'!'?, 
+AU'tHt"'tV C0ttt10L., !>Log. 
+ITI1l 
+P.L E.t..L't ,oct>·A' 
+-
+FOllNDAilON EL,1,N 
+r h 
+, 
+.le.I,~ 1, 
+IN 
+PT• 
+'*"• ,, 
+/' 
+'-,:u..-:...._, 
+""'" .... "" 
+-7 
+\r· 
+'s-
+•• 
+i!/ 
+
+
+===== PDF PAGE 59 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 58} 
+Appendix C: ML-1 Auxiliary Control Building Enclosure Details 
+Mechanical Plan, INEEL No. 066-0617-40-613-102817, 
+(961 AREA/ML-1-617-M-1). 
+~-..... 
+1•T'"'k., e6•J. MAG, PIR~. 
+Pl?CTl,"T10tl 
+To 
+~Lkv, e· ,c· -----
+f'l1 ~ C 1-t. 
+C' Q U/P, 
+SI.Alt "-l VEtT 
+S/t,··~' 
+I 
+J 
+Pr..AN 
+, 
+~T~MAr/~ 
+Al¥,IVJ~NZ4'hNtl~ 
+JC··~- C#Lo•11,r 
+H:H..UTIOH T ... HI( 
+1.\.'c.w: 
+Pla·lltl.TaL 
+1-ao•.z,o•.,.1• 
+~::::==t:::=:==/==, 
+,_.._L 
+P.'~!1',1@'1:sl~--1--tt"N ~er P1..n-. 
+i' l•L4,.•.2,.c.·.1z.• 
+E'!.Kl'IUH 
++---1-MA.U~ 116.M~A .... 
+,---+--+-+- IZ.. 111 a.:z. 
+IME•GIHCY GIN61t.laTO• 
+6A-a4-
+
+
+===== PDF PAGE 60 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 59} 
+Appendix C: ML-1 Auxiliary Control Building Enclosure Shelter 
+Floor Plan, Elevations, Sections, INEEL No. 066-0617-
+00-613-102814, (961 AREA/ML-1-617-A-3). 
+(~·l>JJx.= ------~ _ __,L:.::c...:,:i,:c..._.....,.. 
+\ 
+r:::;:;:;;;' ~~=~====9 
+E..At::;T 
+E.LE-VATtOl'J 
+~ 
+,. MOU."" M•TAI. ca,E.4 -...u. ~ 
+TO 'O!Vt1it4LJ A·~ Cl!" ™l..1i!'11Ctfte .. T,e~. 
+OLA~ .. \U~oic. <fl.lAW.. f>C, tA,• Rl'l.l~Mt..C GI.CAle..Vlla.E PL.A'T'G',t)U\V(.t..OU.£.c.M A~ 
+M.UJU!\l,CTIJ~&C bV"l'l<C ...._.,._ 'l>l!dl' cio\. ... t:( c:.,ra,, .. :a ...... pr....,<D l!.<IIJU--
+2. 11.l 1..ICU OF CIIJCM """'""I!.'>. b•Ln ._.,- lbC °"-0 1"<0R. f"''!:TUlL9.S Te IAA.$ffl(1.'(. 
+u'll: .,,....," ~,:r.c.: -·u t. c;.w,,c ~"c"JG.· 
+~- o:Rlit•JG,O.Tf.O -LU'"'-117.~0 -u.ruc:r,•1..1"1> M r4~•~- '-"P .... _ 
+4' UIIJ. 
+··'] 
++--· 
+C.OloJ~l. O,.t, 
+IJ.J. c. 
+~©~ 
+:® IMV•I 
+, 
+.:,·.,;· /, 
++ 
+~-·-t 
+·i 
+C,OtJTR.O!. c:A& 
+f.J.l,C. 
+.. 
+! 
+,~ 
+··-·'" .... \j... 
+:,__ &lt ,._,: COtjC. Ftl,C _) 
+r·_ . _· ___ · 
+_"'_ux_._c:o_lJ_TQ.Ot.. 
+__ 
+~_ix:._._"'_~_'-_I.. ___ -.J 
+,... 
+P~&.LJ"': 
+J...'.·~ll."l'l.o 
+J .. rUK~ QIUC..flllllD 
+-------...,.,...L;;;.....:..:...:=-;;.:.;..::;.;:~.=-:=-=-=-==-=-~.:...;· -::.·;.;!.' ..L.._.;.I 
+-
+. -----------
+~OUT:-: 
+E..~~~ V.AT:Ot-J 
+4C:.a..!...C. 
+"!l>.f!"" • t ·-~o· 
+
+
+===== PDF PAGE 61 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 60) 
+BIBLIOGRAPHY 
+Books, Reports, and Articles 
+"AEC Will Evaluate its Military Reactor Program." Nucleonics 
+(July 1963), p. 21. 
+Aerojet-General. Army Gas-Cooled Reactor Systems Program. Study 
+of Mobile Gas-Cooled Nuclear Power Plants, Volume 1, Plant 
+Description. San Ramon, California: Aerojet-General Report 
+No. ID0-28584, 1962. 
+Aerojet-General. Final Summary Report of the Gas-Cooled Reactor 
+Experiment-I. Idaho Falls: Aerojet-General Report No. ID0-
+28598. 
+Aerojet-General. Full Power and Limited Endurance Test of the ML 
+-1 Nuclear Power Plant. San Ramon, California: Aerojet-
+General Report ID0-28634, September 1964. 
+Aerojet-General. Preliminary Hazards Summary Report for the ML-1 
+Nuclear Power Plant. {San Ramon, California: Aerojet General 
+Report ID0-28537, April 1959. 
+Aerojet-General. The ML-1 Design Report. (San Ramon, California: 
+Aerojet-General Report ID0-28550. 
+"Army Gas-Cooled Program Gathers Momentum." Nucleonics (September 
+1959), p. 10. 
+Army Gas-Cooled Reactor Systems Program, Final Summary Report of 
+the Gas-Cooled Reactor Experiment-I. Idaho Falls: Idaho 
+Operations Office Report No. ID0-28598. 
+"Army Mobile Reactor Project is Shelved." Nucleonics (December 
+1965), p. 21. 
+"Army Reactor Program." Nucleonics {February 1959), p. 53-54 and 
+pullout. 
+"Army Reactor Program Dwindling to Vanishing Point." Nucleonics. 
+(April 1964), p. 24 
+"Auxiliary Reactor Area." Site Characteristics, INEL, Volume 1. 
+Idaho Falls: INEL, 1988. 
+
+
+===== PDF PAGE 62 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 61} 
+Banks, William. "The Future of Gas-Cooled Reactors." Nucleonics 
+(September 1959), p. 96. 
+Bradford, Jeffrey D., et al. Characterization and Decision 
+Analysis for the Auxiliary Reactor Area II. Idaho Falls: 
+EG&G Report No. PT-WM-84-010, 1985. 
+Braun, Julie. Draft Historic Resource Management Plan for 
+Historic Architectural Properties on the INEL. Idaho Falls: 
+US DOE, 1994. 
+Braun, Julie. Draft Preliminary Report, Auxiliary Reactor Areas 
+I, II, and III, The Idaho National Engineering Laboratory. 
+Idaho Falls: US Department of Energy Idaho Field Office 
+Report No. DOE/ID-10407, 1993. 
+Canfield, R.T., et al. SL-1 Annual Operating Report, February 
+1959--February 1960. Idaho Falls: Combustion Engineering 
+ID0-19012, February 1960. 
+Dolenc, M.R., and J.H. Clark. Characterization and Decision 
+Analysis of the Auxiliary Reactor Area-III of the Idaho 
+National Engineering Laboratory. Idaho Falls: EG&G Report 
+No. PG-WM-84-011, February 1985. 
+"Final SL-1 Report is Inconclusive." Nucleonics (November 1962). 
+"Findings of the Board of Investigation." Nuclear News (July 
+1961), p. 13. 
+Hogerton, John F. The Atomic Energy Deskbook. New York: Reinhold 
+Publishing, 1963. 
+Horan, John, and C. Wayne Bills. "What Have We Learned? Health 
+Physics at SL-1." Nucleonics (December 1961), p. 48. 
+Idaho Operations Office, SL-1 Task Force. IDO Report on the 
+Nuclear Incident at the SL-1 Reactor, January 3, 1961, at 
+the National Reactor Test Station. Idaho Falls: US AEC 
+Report ID)-19302. 
+Johnson, William. "The Remote Reactor: Alaska's Experiment with 
+Nuclear Power." Paper delivered at Northwest History 
+Association meeting, Richland, Washington, 1994. 
+Joint Committee on Atomic Energy Staff. "Summary of the SL-1 
+Reactor Incident at the National Reactor Testing Station in 
+
+
+===== PDF PAGE 63 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 62) 
+Idaho on January 3, 1961." January 10, 1961. (Copy in 
+Dworshak Papers.) 
+Lushbauer, C.C., et al. The SL-1 Reactor Accident Autopsy 
+Procedures and Results. Los Alamos: Los Alamos Scientific 
+Laboratory, 1961. 
+T.L. Murphy, Final Disassembly and Examination of the ML-1 
+Reactor Core (Idaho Falls: Phillips Petroleum Report ID0-
+171-90, June 1966), p. 110. 
+Norman Engineering. Master Plan Study for the Army Reactor 
+Experimental Area. Idaho Falls: Norman Engineering Report 
+No. ID0-24033, 1959. 
+"PM-2A Demonstrates Logistics Importance in Greenland." 
+Nucleonics (December 1960), p. 26. 
+Reactives Storage and Treatment Area Resource Conservation and 
+Recovery Act Interim Status Closure Plan. Idaho Falls: 
+Report INEL/DOE-10309, September 1992. 
+"Reactor Safety: Accident Control Study," Nucleonics (April 
+1964), p. 28. 
+"SL-1 Core Confirmed Dry; Pittman Group Meets." Nucleonics (June 
+1961), p. 26. 
+"SL-1 Explosion Kills 3; Cause and Significance Still Unclear," 
+Nucleonics (February 1961), p. 17-23 
+"SL-1 Inquiry Report: AEC Still Doubt on Accident Cause," 
+Nucleonics (July 1961), p. 22. 
+"SL-1 Radiation Down Sharply After Cleanup; Remove Vessel?" 
+Nucleonics {October 1961), p. 22. 
+"SL-1 Vessel Removed; Reactor to be Demolished, Site Cleared." 
+Nucleonics (January 1962), p. 21. 
+Simpson, Erik. "Agencies agree to cap reactor burial grounds." 
+INEL News (February 6, 1996), p. 7. 
+Spry, M.J., and D.L. Lodman. Sampling and Analysis Plan for the 
+Reactives Storage and Treatment Area. Idaho Falls: September 
+1992. 
+
+
+===== PDF PAGE 64 =====
+Idaho National Engineering Laboratory 
+Army Reactors Experimental Area 
+HAER No. ID-33-D 
+Historical and Descriptive Data (Page 63} 
+Stacy, Susan M. Proving the Principle, A History of the Idaho 
+National Engineering and Environmental Laboratory, 1949-
+1999. Idaho Falls: Department of Energy, Idaho Operations 
+Office, 2000. 
+Suid, Lawrence H. The Army's Nuclear Power Program, The Evolution 
+of a Support Agency. New York: Glenwood Press, 1990. 
+"The SL-1 Accident--on Balance." Nucleonics (March 1961), p. 150. 
+Thumbnail Sketches. 1956-1969. 
+U.S. Army Engineer Reactors Group. The Army Nuclear Power 
+Program: Five on the Line, third edition. Fort Belvoir, Va: 
+Reactors Group, 1964. 
+Vivian, G.L. A Summary Report on ML-1 Fuel Element Development 
+In-Pile Test History. Idaho Falls: AEC/ID0-10040, June 1964. 
+Other Sources 
+Idaho Historic Society, Manuscript Collection No. 84, Papers of 
+Senator Henry Dworshak 
+John Horan, Interview 
+INEEL Photo Archive and Log Books, Idaho Falls, Willow Creek 
+INEEL Engineering Drawing Index, Idaho Falls, EROB 
+Videotape, The SL-1 Accident, NRTS Idaho Operations Office 

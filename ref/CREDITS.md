@@ -622,7 +622,51 @@ HAER の記録には INEEL（アイダホ国立工学環境研究所）が撮っ
 - Commons の写真 … `HAER ID-33-D-NN`（`ref/sl1/materials.json` の `acc`）を添える
   ＝「出典：米議会図書館 HAER ID-33-D-76／パブリックドメイン」
 - 報告書 … 「出典：IDO-19302（米原子力委員会アイダホ支所・1962）p.NN」
+- 追加の3冊（下の⑥）… 「出典：IDO-19311（米原子力委員会／GE・1962）I-5」
+  ／「出典：ANL-6692（アルゴンヌ国立研究所・1962）p.36」
+  ／「出典：HAER No. ID-33-D（米議会図書館）」
 
 ⚠️ **必須でないクレジットは書かない**（→ [[feedback-no-optional-credits]]）。
 ⚠️ **概要欄・説明文に素材の方針を書かない。画面に出す運用は続ける**（2026-08-03 の決定）。
+
+### ⑥ 🔴 2026-09-07（④台本）で追加した一次資料4件
+
+**理由：IDO-19302 は前書きで「原因は扱わない」と宣言しており、原因が書けない。**
+（`This IDO SL-1 Report ... does not attempt to determine the cause of the incident,`
+`which is the subject of a separate report by the AEC Board of Investigation.` 印字 p.vii・原寸で確認）
+
+| 資料 | 取り方（すべて HTTP と中身を実測） | 実測 | 権利 |
+|---|---|---|---|
+| **IDO-19311**『FINAL REPORT OF SL-1 RECOVERY OPERATION』GE・1962-07-27 | `curl -L -o ref/sl1/IDO-19311.pdf https://www.osti.gov/servlets/purl/4763434` | 200 / application/pdf / 29,526,451 B / **320ページ** | AEC 契約下の職務著作＝**PD**（17 U.S.C. §105） |
+| **IDO-19313**『ADDITIONAL ANALYSIS OF THE SL-1 EXCURSION』GE・1962-11-21 | `curl -L -o ref/sl1/IDO-19313.pdf https://www.osti.gov/servlets/purl/4164582` | 200 / application/pdf / 33,604,028 B / **191ページ** | 同上 |
+| **ANL-6692**『A RETROSPECTIVE ANALYSIS OF ASPECTS OF THE ALPR (SL-1) DESIGN』ANL・1962-11 | `curl -L -o ref/sl1/ANL-6692.pdf https://www.osti.gov/servlets/purl/4727996` | 200 / application/pdf / 5,819,351 B / **54ページ** | 同上 |
+| **HAER No. ID-33-D**（Army Reactors Experimental Area の記録文書） | `curl -L -o ref/sl1/HAER_ID-33-D.pdf https://tile.loc.gov/storage-services/master/pnp/habshaer/id/id0400/id0410/data/id0410data.pdf` | 200 / application/pdf / 7,681,211 B / **64ページ** | 米議会図書館 HABS/HAER＝**PD** |
+
+🔴 **IDO-19313 は「これらの値は IDO-19311 で報告された」と自ら書いている**（§II-1 冒頭）。
+　 ＝ **数字の発生源は IDO-19311**。出典は 19311 を主、19313 を従にする。
+
+#### ⚠️ 文字層は OCR で崩れている（引き継ぎの「そのまま照合に使える」は誤り）
+文字間に空白が入り（`S t a t i o n`）、字が化ける（`AM:`＝AEC／`SrgO`＝Sr90／`118 inch`＝1/8 inch）。
+**素の grep は「在るのに0件」を返す。**画面に出す語は**必ず原寸の画像で目視**すること。
+台本第1版では、決め所17件のうち**5件が、原寸で見なければ語を決められなかった**。
+
+道具＝**`tools/ido_text.py`**（1本にまとめた。`--selftest` PASS 19項目）:
+- `extract` … PDF の文字層を全文テキストに落とす（`--02` などで1冊だけも可）
+- `find` … 崩れに強い検索（①空白と記号を無視 ②`--fuzzy` で字を畳む ③`--near` で語の同居）
+- `page` / `crop` … ページの素の文字／語で当たりを付けて**一部だけ**を PNG に切る（原寸を丸ごと読まない）
+
+⚠️ **`--selftest` を先に通すこと。**この検算は 2026-09-07 に**3回、書き手の思い込みを捕まえた**：
+① `lower()` を畳む前に掛けていて大文字 `I` が畳まれていなかった
+② 「`Decontamination` は壊れている」→ **壊れているのは目次の1ページだけで本文11ページは無事**
+③ 「原文は `20 inch`（単数）で `20 inches` は0件」→ **単数3件・複数1件。両方ある**（③は調査係の申し送りの誤り）
+
+#### リポに入れたもの／入れなかったもの
+- ✅ 入れた＝**全文テキスト3本**（`ido_all.txt` 376K／`IDO-19311_all.txt` 460K／`IDO-19313_all.txt` 248K）。
+  OSTI が落ちても原文照合ができるように。
+- ❌ 入れない＝**PDF 5本**（合計92MB）と、ページ単位に割ったテキスト（全文から作り直せる）。
+- 🔴 **⑤b で報告書の図を画にするときは、`.gitignore` に1行足すのを忘れない。**
+  足さないと `git add -A` が黙って落とし、**クラウドで初めて FileNotFoundError になる**（r24 の実例）。
+
+#### 印字ページと PDF ページの対応（実測）
+**IDO-19302 は PDF ＝ 印字 ＋ 11**（208ページ中134ページで印字番号を拾い、125ページがこの差で一致）。
 
