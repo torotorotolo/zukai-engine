@@ -124,8 +124,12 @@ def check():
     if not missing and not extra:
         print("✓ 過不足なし")
     # 尺が一致しているかも見る（詰め替えで壊れていないことの確認）
-    bad = 0
-    for cid in cids[:5] + cids[-5:]:
+    # 🔴 2026-09-07: ここは **cids[:5] + cids[-5:] の抜き取り**だった＝212本のうち10本しか見ておらず、
+    #    真ん中の1本が壊れても「✓ 尺は一致」と出た（feedback-yomi-fix-reaches-the-video が
+    #    「既定チェックは抜き取りなので信用しない」と書いていた、まさにその箇所）。
+    #    ffprobe 212回で約30秒。詰め替えは1本につき1回しかやらないので、**全数**見る。
+    bad, seen, unread = 0, 0, []
+    for cid in cids:
         w = AUDIO / f"{cid}.wav"
         if not w.exists():
             continue
@@ -135,12 +139,18 @@ def check():
                             "-of", "csv=p=0", str(OPUS / f"{cid}.opus")],
                            capture_output=True, text=True)
         if r.returncode == 0 and r.stdout.strip():
+            seen += 1
             d = float(r.stdout.strip())
             if abs(d - sec) > 0.06:      # Opus は端に数msの余白が付く
                 print(f"🔴 {cid}: wav {sec:.2f}s vs opus {d:.2f}s")
                 bad += 1
-    print("✓ 抜き取りした尺は一致" if not bad else f"🔴 尺のずれ {bad} 件")
-    return 1 if (missing or extra or bad) else 0
+        else:
+            # 🔴 読めなかったものを 0 で埋めない（feedback-parsers-fail-closed）
+            unread.append(cid)
+    if unread:
+        print(f"🔴 ffprobe が読めなかった opus {len(unread)}本: {unread[:10]}")
+    print(f"✓ 全 {seen} 本の尺が一致" if not bad and not unread else f"🔴 尺のずれ {bad} 件")
+    return 1 if (missing or extra or bad or unread) else 0
 
 
 if __name__ == "__main__":

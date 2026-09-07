@@ -150,8 +150,11 @@ def build(cuts=None, dry=False):
     chars_all = sum(len(l) for _, ls in narration.SCRIPT for l in ls)
     speech = sum(durs.values())
     rate = chars / max(speech, 1e-9)                 # 字/秒（行間込み）＝AivisSpeech の 5.52 と同じ物差し
-    # 本編の見込み尺＝発話＋行間（durations に含む）＋カットごとの LEAD 0.35＋TAIL 0.50＋quote の TAIL_EXTRA 2.0×12
-    est = chars_all / rate + n * 0.85 + 12 * 2.0
+    # 本編の見込み尺＝発話＋行間（durations に含む）＋カットごとの LEAD 0.35＋TAIL 0.50＋quote の TAIL_EXTRA 2.0×決め所
+    # 🔴 2026-09-07: 決め所の数を **12 と直に書いてあった**（サーフサイド固有）。回が替わると黙って外れるので
+    #    el_script.EXPECT[SLUG]["quotes"] から取る（SL-1 は 17）。clean() が ★ を外すので SCRIPT からは数えられない。
+    nq = ES.EXPECT[ES.SLUG]["quotes"]
+    est = chars_all / rate + n * 0.85 + nq * 2.0
     print(f"\n合成 {built} カット／持ち越し {kept} カット／未作成 {len(skipped)}／記録 {len(durs)}／台本 {n}")
     if skipped:
         print(f"⚠️ まだ作っていないカット {len(skipped)}: {','.join(skipped[:8])}{'…' if len(skipped) > 8 else ''}")
@@ -162,7 +165,7 @@ def build(cuts=None, dry=False):
     #       「設計 36分43秒」もサーフサイド固有なので落とした（次の題材では嘘になる）。
     import check_script as CSC
     lo, hi = CSC.DUR_MIN / 60, CSC.DUR_MAX / 60
-    print(f"本編の見込み {est/60:.1f}分（全 {chars_all}字をこの速さで＋LEAD/TAIL 0.85×{n}＋quote 2.0×12。"
+    print(f"本編の見込み {est/60:.1f}分（全 {chars_all}字をこの速さで＋LEAD/TAIL 0.85×{n}＋quote 2.0×{nq}。"
           f"許容 {lo:.0f}〜{hi:.0f}分{'' if CSC.dur_ok(est) else ' ← 🔴 外'}）")
     print(f"最長の1行 = {longest[0]:.2f}秒「{longest[1]}」")
     if not dry:

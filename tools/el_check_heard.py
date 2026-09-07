@@ -37,6 +37,16 @@ HOMOGRAPH = set("話歳方間日人上下目生表家物事角一門側量前後
 KANJI_RE = re.compile(r"[一-鿿々]")
 NUM_KANJI = set("〇一二三四五六七八九十百千万")
 
+# ④ 意味を決める語（2026-09-07・SL-1 で穴が見つかって追加）。
+# 🔴 実例＝c306-2「建屋から25フィート離れて、毎時2.5レントゲン」→ 聞取「毎月二点五レントゲン」。
+#    「時→月」は**1字だけ**なので③（2字以上）に掛からず、どちらも HOMOGRAPH に無いので①も鳴らず、
+#    **el_retake の門番が「合格」を出して採用した**（＝1字で意味が変わる型を、既存の3つは構造的に見ていない）。
+#    字ではなく**語**で見る。単位・頻度・否定＝落ちると意味が反転するものだけに絞る。
+CRITICAL = ["毎時", "毎分", "毎秒", "毎日", "毎年", "以上", "以下", "未満", "以内",
+            "ない", "なかった", "ません", "できない"]
+# 表記のゆれ（台本の漢字↔聞取のかな）を先に均す。均さないと否定がほぼ毎行 誤報になる
+_CRIT_NORM = [("無かった", "なかった"), ("無い", "ない"), ("出来ない", "できない")]
+
 
 def _n(s):
     return unicodedata.normalize("NFKC", s)
@@ -86,7 +96,32 @@ def check_row(text, heard):
     miss_k = sorted({c for c in KANJI_RE.findall(t) if c not in h and c not in NUM_KANJI and c not in HOMOGRAPH})
     if len(miss_k) >= 2:
         flags.append(("字の欠け", "".join(miss_k)))
+    # ④ 意味を決める語：台本にあるのに聞取に**語ごと**無い（1字しか違わなくても当てる）
+    tc, hc = t, h
+    for a, b in _CRIT_NORM:
+        tc, hc = tc.replace(a, b), hc.replace(a, b)
+    miss_c = [w for w in CRITICAL if w in tc and w not in hc]
+    if miss_c:
+        flags.append(("意味の語", "／".join(miss_c)))
     return flags
+
+
+def check_row_soft(text, heard):
+    """⑤ 1字の入れ替え（2026-09-07・SL-1 で追加）。**当たり専用**で check_row には入れない。
+
+    🔴 なぜ別にするか: ③「字の欠け」は**2字以上**でないと鳴らない（同音別字1字＝郡/群 の誤報を避けるため）。
+       ところが SL-1 では、**1字だけの入れ替えで読みまで変わる**行が続けて出た:
+         棺→羊（ひつぎ／ひつじ）・条文→成文（じょうぶん／せいぶん）・節→伏せ（せつ／ふせ）・
+         毎時→毎月（まいじ／まいつき）・濃縮→凝縮（のうしゅく／ぎょうしゅく）
+       ⚠️ そして **el_retake の合格条件は check_row なので、これらは全部「合格」で採用されていた。**
+    ⚠️ ただし 1字の入れ替えの大半は同音の別字（栓/線・公道/坑道・火/日）で、そこは直す必要が無い。
+       だから**門番にはしない**（check_row に入れると取り直しが空回りして課金だけ増える）。
+       出た行は人（Claude）が読みを見て、違うものだけ取り直す。
+    """
+    t, h = _n(text), _n(heard)
+    miss = [c for c in dict.fromkeys(KANJI_RE.findall(t))
+            if c not in h and c not in NUM_KANJI and c not in HOMOGRAPH]
+    return [("1字の入れ替え", miss[0])] if len(miss) == 1 else []
 
 
 def selftest() -> int:
@@ -101,12 +136,31 @@ def selftest() -> int:
         ("船の積荷を調べた。", "船の罪人を調べた。", {"字の欠け"}),
         # 同音別字1字だけなら当てない（郡/群 の型）
         ("群を比べた。", "郡を比べた。", set()),
+        # ④ 意味の語（2026-09-07 SL-1）。🔴陽性対照＝実際に取り直しの門番が通してしまった c306-2 の形
+        ("建屋から25フィート離れて、毎時2.5レントゲン。", "建屋から二十五フィート離れて毎月二点五レントゲン。", {"意味の語"}),
+        ("30分以上かかっている。", "三十分かかっている。", {"意味の語", "同形異音語"}),   # 「上」は①でも鳴る
+        ("水は、まったく見えなかった。", "水は全く見えた。", {"意味の語"}),
+        # 陰性対照＝漢字↔かなの表記のゆれで鳴らしてはいけない
+        ("円筒にも、下の杭にも、目に見える損傷は無い。", "円筒にも下の杭にも目に見える損傷はない。", set()),
+        ("建屋から25フィート離れて、毎時2.5レントゲン。", "建屋から二十五フィート離れて毎時二点五レントゲン。", set()),
     ]
     bad = []
     for text, heard, want in cases:
         got = {k for k, _ in check_row(text, heard)}
         if got != want:
             bad.append(f"「{text}」／「{heard}」→ {got}（期待 {want}）")
+    # ⑤ 1字の入れ替え（当たり専用）。🔴陽性対照＝実際に取り直しの門番が「合格」で通した4件
+    soft = [("棺の中には、札が2枚入れられた。", "羊の中には札が二枚入れられた。", True),
+            ("この時点で、条文にはなっていない。", "この時点で成文にはなっていない。", True),
+            ("ただし同じ節に、この事故の数字がある。", "ただし、同じ伏せにこの事故の数字がある。", True),
+            ("濃縮度は91パーセント。", "凝縮度は九十一%。", True),
+            # 陰性対照＝2字以上（③が見る）と、欠けが無い行では鳴らない
+            ("船の積荷を調べた。", "船の罪人を調べた。", False),
+            ("記録文書は、いまの状態を1行で書く。", "記録文書は今の状態を一行で書く。", False)]
+    for text, heard, want in soft:
+        got = bool(check_row_soft(text, heard))
+        if got != want:
+            bad.append(f"[soft]「{text}」／「{heard}」→ {got}（期待 {want}）")
     if bad:
         print("selftest 失敗:\n  " + "\n  ".join(bad))
         return 1
@@ -128,7 +182,7 @@ def main():
     out, counts = [], {}
     for f in rows:
         lid, text, heard = f[0], f[2], f[3]
-        for kind, what in check_row(text, heard):
+        for kind, what in check_row(text, heard) + check_row_soft(text, heard):
             counts[kind] = counts.get(kind, 0) + 1
             out.append(f"{lid}\t{kind}\t{what}\t{text}\t{heard}")
             print(f"{kind:<6} {lid:<8} {what:<8} 台本: {text}")
