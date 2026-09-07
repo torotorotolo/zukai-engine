@@ -144,7 +144,9 @@ SPEC = {
     "c410": dict(
         t="鍵がかかり、応答は無かった",
         s="外に付いた覆いのある階段と扉　1958年4月23日",
-        photo=ss.HAER_67, bias=0.5, side="left", ann_y=330,
+        # 🔴 2026-09-07（⑤c' L-20）：ネガの縁を窓の外へ（haer_67 は x3500〜が黒い縁）。
+        #    式＝zoom 1.12 で cw 3428.6、xbias 0.08 で左 32.9 → 右端 3461.5 ＜ 3500
+        photo=ss.HAER_67, bias=0.5, zoom=1.12, xbias=0.08, side="left", ann_y=330,
         ann=[dict(t="9時12分", d="消防車が構内へ", dc=J.INK_W, ds=32),
              dict(t="南東の扉", d="蹴り、叩いた。応答なし", dc=J.ALERT,
                   ds=30)],

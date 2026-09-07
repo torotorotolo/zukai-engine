@@ -372,6 +372,30 @@ def scan(spec_map, ocr, photo_of, box_of, skip, jobs=None):
                              f"本体枠の p90 が {p90:.0f}（暗幕があれば "
                              f"{VEIL_P90} 未満のはず）＝**焼けた絵に暗幕が無い**"))
 
+        # ── ⚠️ G-17 ネガの縁（フィルムの黒帯＋縦書きのネガ番号）が窓に入る ──────
+        #    2026-09-07（K-19/L-20）。⚠️ OCR では見つからない（`haer_56` `haer_67` は
+        #    回転＋低コントラストで行が0件）ので、**素材の画素**から測る（`ss.film_edge`）。
+        #    ⚠️ 判定は ・（参考）にしてある。実測で **16カット**が入っており、そのうち
+        #      原寸で粗と判定されたのは 3件（c213 c410 c901）だけ。残りは情報柱の
+        #      裏に隠れるなどして目に立たない。**数だけは必ず表に出す**（下の summary）
+        try:
+            import cuts.ss as _ss
+            _n = photo_of.get(cid)
+            if _n:
+                _sw, _sh = _ss.size_of(_n)
+                _e = _ss.film_edge(_n)
+                _r = crop_rect(_sw, _sh, box_of[cid], 0.0, float(spec.get("bias", 0.5)),
+                               float(spec.get("xbias", 0.5)), float(spec.get("zoom", 1.0)))
+                _right = (_r["left"] + _r["cw"]) / _sw
+                if _right > _e + 1e-9:
+                    softs.append((cid, "G-17 ネガの縁が窓に入る", _n, "focus",
+                                  f"窓の右端 {_right:.4f} ＞ 写真の右端 {_e:.4f}"
+                                  f"（原画 {(_right - _e) * _sw:.0f}px ＝ 画面の "
+                                  f"{(_right - _e) / _right * 100:.1f}%）"))
+        except Exception as _ex:                                 # noqa: BLE001
+            softs.append((cid, "G-17 測れない", str(_ex)[:40], "focus",
+                          "ネガの縁を画素で測れなかった"))
+
         vis_lines = []                       # 画面に少しでも入る行（上から順）
         for ln in g["lines"]:
             scr = {k: to_screen(ln["box"], g["rects"][k]) for k in (0.0, 1.0)}
@@ -945,6 +969,14 @@ def main(show_all=False):
     else:
         print(f"✓ 焼き込みの文字と切り方は通った（参考 {len(softs)}件）")
     lab_summary(softs)
+    film = [r for r in softs if r[1].startswith("G-17")]
+    if film:
+        print(f"⚠️ ネガの縁（黒帯＋縦書きの番号）が切り出し窓に入っているカット "
+              f"{len(film)}件　🔴 には数えない決まりなので、ここで別に出している"
+              f"（--film で全件）")
+        if "--film" in sys.argv:
+            for r in sorted(film, key=lambda r: r[0]):
+                print(f"   {r[0]:<6} {r[2]:<18} {r[4]}")
     return 1 if hits else 0
 
 

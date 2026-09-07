@@ -112,6 +112,7 @@ try:
     import footage as _FO
     _FOOT_USE = _FO.USE
 except Exception:                                        # noqa: BLE001
+    _FO = None
     _FOOT_USE = {}
 
 
@@ -429,7 +430,11 @@ def meta_of(idx):
         # ★動画を当てたカットの切り方（焼き込みを画面外へ追い出すための寄せ・拡大）
         u = _FOOT_USE.get(cid)
         if u:
-            m[cid].update(fxb=u.get("xbias", 0.5), fzm=u.get("zoom", 1.0),
+            # 🔴 2026-09-07（K-12）：寄りは **footage.zoom_of()** から取る。
+            #    素材（NARA MoPix）は 1920 の箱に 1440 の絵で、左右 240px が黒。
+            #    `u["zoom"]` をそのまま使うと帯が画面に残る。1か所で効かせる
+            m[cid].update(fxb=u.get("xbias", 0.5),
+                          fzm=(_FO.zoom_of(cid, u) if _FO else u.get("zoom", 1.0)),
                           fbias=u.get("bias", 0.5))
     return m
 

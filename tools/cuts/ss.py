@@ -129,6 +129,46 @@ def text_band(name):
             max(l["box"][2] for l in o["lines"]) / w + m)
 
 
+# 🔴🔴 2026-09-07（5本目 SL-1 ⑤c'・K-19/L-20）：**ネガの縁（フィルムの黒帯）**。
+#    HAER の写真は台紙ごとスキャンしてあり、写真の右に
+#    **ほぼ真っ黒の帯（中央値 4〜17）に白いネガ番号**が縦に焼き込まれている。
+#    切り出しがそこまで届くと、画面の右端に縦書きの番号が全高で出る（c213 c410 c901）。
+#    ⚠️ **同じ番号は出典行にも書いてある＝二重**。
+#    ⚠️ OCR では見つからない（回転＋低コントラストで `haer_56` `haer_67` は行が0件）。
+#      → **画素で測る**。列の中央値が 40 未満なら「写真ではなくネガの縁」。
+@lru_cache(maxsize=None)
+def film_edge(name):
+    """写真の右端（0〜1）。ここより右は**ネガの縁**なので切り出しに入れない。
+
+    右の 20% に「列の中央値が 40 未満の帯」があれば、その左端を返す。無ければ 1.0。
+    ⚠️ 写真の中の暗い部分を拾わないよう、**40px 以上つながった帯**だけを見る
+       （c213 は x3260 に中央値 29 の列が1本あるが、これは炉の内部の影）。
+    """
+    from PIL import Image
+    import numpy as np
+    Image.MAX_IMAGE_PIXELS = None
+    f = HERE / "ref" / name
+    if not f.exists():
+        return 1.0
+    a = np.asarray(Image.open(f).convert("L")).astype(float)
+    w = a.shape[1]
+    med = np.median(a, axis=0)
+    runs, cur = [], None
+    for x in range(int(w * 0.80), w):
+        if med[x] < 40:
+            cur = x if cur is None else cur
+        else:
+            if cur is not None and x - cur >= 40:
+                runs.append((cur, x))
+            cur = None
+    if cur is not None and w - cur >= 40:
+        runs.append((cur, w))
+    if not runs:
+        return 1.0
+    # 余白 12px ぶん内側に寄せる（帯の縁の滲みを入れない）
+    return max(0.0, (runs[0][0] - 12) / w)
+
+
 # 🔴 ケンバーンズ：`build_jiko.fit()` は z に **(1 + 0.055k)** を掛ける（k＝その時刻/尺）。
 #    ＝**カットの尻（k=1）では 5.5% よけいに寄る**。上限はそのぶん割っておく。
 #    （2026-09-07：これを入れ忘れて G-10 が 177→140 までしか減らなかった）

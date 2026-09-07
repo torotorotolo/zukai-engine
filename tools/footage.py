@@ -102,6 +102,55 @@ for _n, (_f, _nid, _sec, _w, _h, _cr, _note) in _SL1.items():
     CLIPS[_n] = dict(url=_MOPIX.format(f=_f), naid=_nid, sec=_sec, w=_w, h=_h,
                      credit=_cr, note=_note, stream=True)
 
+# 🔴🔴 2026-09-07（5本目 SL-1 ⑤c'・K-12）：**素材そのものが横に黒帯を持っている。**
+#    NARA の MoPix は 4:3 の原版を **1920×1080 の箱に 1440×1080 で入れて**配信している。
+#    ＝左右 240px ずつが黒。`USE` は 35欄すべて zoom を書いていなかったので、
+#    **記録映画のカット全部の左右に黒帯が出たまま焼けていた**（台帳 K-12・J-05）。
+#    ⚠️ 台帳 A-03（c107 c108）は誤報で、こちらが本体（35カット全部の話）。
+#    実測＝切り出したコマ 35本を1枚ずつ測って **全部が x240〜1679（絵の幅 1440）**。
+#    要る寄り ＝ 1920/1440 = **1.3333**。ここに置いて**1か所で効かせる**
+#    （35欄に書くと、欄を足したときに書き忘れる）。
+PILLAR = {"sl1_ph12": 1440 / 1920, "sl1_ph3": 1440 / 1920}
+
+
+def zoom_of(cid, u=None):
+    """そのカットに実際にかける寄り。**素材の黒帯ぶんを必ず含める。**
+
+    ＝ 欄に書いた `zoom`（画作りの寄り） × 1/PILLAR（黒帯を画面の外へ出す寄り）。
+    """
+    u = (USE.get(cid) if u is None else u) or {}
+    pl = PILLAR.get(u.get("clip"), 1.0)
+    return float(u.get("zoom", 1.0)) / max(pl, 1e-6)
+
+
+def measure_pillar(cid):
+    """切り出したコマから、**その素材の絵の幅の割合**を測る（PILLAR の検算）。
+
+    🔴 定数は腐る（[[feedback-gates-go-stale-when-upstream-changes]]）。
+       配信の版が変わって黒帯の幅が変われば、書いてある 1440/1920 は黙って間違う。
+       → 実際に切り出したコマを測って突き合わせる。コマが無ければ None（0 で埋めない）。
+    """
+    fs = sorted((FOOT / cid).glob("*.jpg"))
+    if not fs:
+        return None
+    from PIL import Image
+    import numpy as np
+    a = np.asarray(Image.open(fs[len(fs) // 2]).convert("L")).astype(float)
+    w = a.shape[1]
+    med = np.median(a, axis=0)
+    xs = [x for x in range(w) if med[x] >= 18]      # 18 未満＝黒帯（実測の帯は 0〜3）
+    if not xs:
+        return None
+    return (max(xs) - min(xs) + 1) / w
+
+
+def bars_left(cid, u=None):
+    """その寄りで**残る黒帯の幅**（画面の片側・px）。0 なら消えている。"""
+    u = (USE.get(cid) if u is None else u) or {}
+    pl = PILLAR.get(u.get("clip"), 1.0)
+    return max(0.0, 960.0 - 960.0 * pl * zoom_of(cid, u))
+
+
 # ── 🔴 ショットの境目（`tools/shots.py` で1秒刻みに実測）────────────
 # 4本目は「128〜133.9秒 レプリカの全景」と書いた**範囲の中で絵が別物**だった（3件）。
 # 秒を3秒刻みの見取り図で選んでいたのが原因。→ [[feedback-measure-the-source-before-choosing-the-crop]]
@@ -357,6 +406,15 @@ def check_until():
     if out:
         print(f"🔴 実測のショットをまたいでいるカットが {len(out)} 件"
               f"（秒は ref/sl1/shots.json から採る）")
+    # 🔴 素材の黒帯（K-12）。書いた寄りで**帯が消えるか**を式で見る
+    bars = [(cid, bars_left(cid)) for cid in sorted(USE) if bars_left(cid) > 0.5]
+    for cid, w in bars:
+        print(f"  🔴 {cid}: 素材の黒帯が片側 {w:.0f}px 残る"
+              f"（zoom_of={zoom_of(cid):.4f}／要る寄り "
+              f"{1 / PILLAR.get(USE[cid].get('clip'), 1.0):.4f} 以上）")
+    if bars:
+        print(f"🔴 素材の黒帯が残るカットが {len(bars)} 件"
+              f"（`footage.PILLAR` と `zoom_of()` を見よ）")
     nog = in_nogo()
     for cid, clip, a, b, x0, x1, why in nog:
         print(f"  🔴 {cid}: {a:.1f}〜{b:.2f}秒 が**使ってはいけない秒** "
@@ -364,12 +422,12 @@ def check_until():
     if nog:
         print(f"🔴 使ってはいけない秒に掛かっているカットが {len(nog)} 件"
               f"（`footage.NOGO` を見よ。rate を下げるか、別のショットへ振り替える）")
-    if not miss and not bad and not out and not nog:
+    if not miss and not bad and not out and not nog and not bars:
         n_sh = sum(len(v) for v in SHOTS.values())
         print(f"✓ 全 {len(USE)} 欄に until= があり、尻のはみ出しも "
-              f"ショットまたぎも無く、使ってはいけない秒にも掛かっていない"
-              f"（実測ショット {n_sh} 本と照合）")
-    return bad, miss, out, nog
+              f"ショットまたぎも無く、使ってはいけない秒にも掛かっておらず、"
+              f"素材の黒帯も残らない（実測ショット {n_sh} 本と照合）")
+    return bad, miss, out, nog, bars
 
 
 def selftest():
@@ -391,6 +449,7 @@ def selftest():
     # 作り物のショット表＝10〜20秒／20〜35秒 の2本
     keep_shots, keep_use, keep_clips = dict(SHOTS), dict(USE), dict(CLIPS)
     keep_nogo = dict(NOGO)
+    keep_pillar = dict(PILLAR)
     try:
         globals()["SHOTS"] = {"t_clip": [(10.0, 20.0, 5.0), (20.0, 35.0, 1.0)]}
         CLIPS["t_clip"] = dict(url="http://example.invalid/t.mp4", sec=35.0,
@@ -442,7 +501,20 @@ def selftest():
         chk("禁止の表に無いクリップは対象外",
             bool(in_nogo({"x03": dict(clip="zz_clip", start=12.0, until=20.0)}, secs)), False)
 
-        # ⑤ exit コードが 2（until 無し）→ 3（またぎ）→ 4（禁止の秒）の順で重いこと
+        # ⑤ 🔴 PILLAR：素材の黒帯を寄りで消す（K-12）。**定数は実測と突き合わせる**
+        globals()["PILLAR"] = {"t_clip": 0.75}
+        chk("zoom を書かなければ帯ぶんだけ寄る（1/0.75＝1.3333）",
+            abs(zoom_of("x01", dict(clip="t_clip")) - 4 / 3) < 1e-9, True)
+        chk("欄の zoom は帯の寄りに掛け算される（1.2 → 1.6）",
+            abs(zoom_of("x01", dict(clip="t_clip", zoom=1.2)) - 1.6) < 1e-9, True)
+        chk("その寄りなら帯は残らない",
+            bars_left("x01", dict(clip="t_clip")) < 0.5, True)
+        chk("寄りを 1.0 に固定すると帯が残る（片側 240px）",
+            abs(bars_left("x01", dict(clip="t_clip", zoom=0.75)) - 240.0) < 1.0, True)
+        chk("帯の表に無いクリップは寄らない（1.0 のまま）",
+            abs(zoom_of("x03", dict(clip="zz_clip")) - 1.0) < 1e-9, True)
+
+        # ⑥ exit コードが 2（until 無し）→ 3（またぎ）→ 4（禁止の秒）→ 5（黒帯）の順
         import scene_jiko as S
         keep_cuts = S.CUTS
         try:
@@ -454,11 +526,16 @@ def selftest():
             globals()["USE"] = {"x01": dict(clip="t_clip", start=12.0, until=20.0)}
             rc4 = fetch(check=True)                       # 禁止 17.0〜 に掛かる
             globals()["NOGO"] = {}
+            globals()["USE"] = {"x01": dict(clip="t_clip", start=12.0, until=20.0,
+                                            zoom=0.75)}
+            rc5 = fetch(check=True)                       # 帯が 240px 残る
+            globals()["USE"] = {"x01": dict(clip="t_clip", start=12.0, until=20.0)}
             rc0 = fetch(check=True)
         finally:
             S.CUTS = keep_cuts
         for name, rc, want in (("until 無し", rc2, 2), ("ショットまたぎ", rc3, 3),
-                               ("禁止の秒", rc4, 4), ("正しい欄", rc0, 0)):
+                               ("禁止の秒", rc4, 4), ("素材の黒帯", rc5, 5),
+                               ("正しい欄", rc0, 0)):
             ok.append(rc == want)
             print(f"  {'✓' if rc == want else '🔴'} {name} → `fetch --check` exit {rc}（期待 {want}）")
     finally:
@@ -466,8 +543,21 @@ def selftest():
         globals()["USE"] = keep_use
         globals()["CLIPS"] = keep_clips
         globals()["NOGO"] = keep_nogo
+        globals()["PILLAR"] = keep_pillar
 
     # ⚠️ 本番の状態は「検算の合否」と分けて必ず表に出す（道具の緑と中身の緑を混ぜない）
+    # 🔴 定数の検算＝**切り出したコマを実際に測って** PILLAR と突き合わせる
+    for clip, pl in sorted(PILLAR.items()):
+        cids = [c for c, u in USE.items() if u.get("clip") == clip]
+        got = [measure_pillar(c) for c in cids]
+        got = [g for g in got if g is not None]
+        if not got:
+            print(f"  ⚠️ {clip}: 切り出したコマが無いので PILLAR を検算できない"
+                  f"（書いてある値 {pl:.4f}）")
+            continue
+        ok.append(all(abs(g - pl) < 0.01 for g in got))
+        print(f"  {'✓' if ok[-1] else '🔴'} {clip}: PILLAR {pl:.4f} と"
+              f"切り出した {len(got)} 本の実測（{min(got):.4f}〜{max(got):.4f}）が合う")
     now = missing_until(USE)
     n_sh = sum(len(v) for v in SHOTS.values())
     print(f"  ⚠️ いまの本番：USE {len(USE)}欄（until 無し {len(now)}）／"
@@ -546,7 +636,7 @@ def fetch(check=False):
         flag = "" if end <= float(c["sec"]) + 0.05 else "  🔴 動画の終端を越える"
         print(f"  {cid}  尺{secs[cid]:5.2f}s  ← {u['clip']} {u['start']:.1f}〜{end:.1f}秒"
               f"（{rate:.2f}倍速）{flag}")
-    over, miss, out, nog = check_until()
+    over, miss, out, nog, bars = check_until()
     # 🔴 `until=` は必須（2026-09-07・設計ノート §9-5）。無ければ **exit 2** で落とす。
     #    ⚠️ はみ出し（exit 1）より重い。「測れる状態になっていない」ので切り出しにも進まない
     if miss:
@@ -568,6 +658,12 @@ def fetch(check=False):
         print("🔴 exit 4 ＝ `footage.NOGO` の秒に掛かっている。"
               "rate を下げて読む秒を縮めるか、別のショットへ振り替える")
         return 4
+    # 🔴 exit 5 ＝ 素材の黒帯が画面に残る（2026-09-07・5本目 K-12）
+    if bars:
+        print("🔴 exit 5 ＝ 素材の左右の黒帯が画面に残る。"
+              "`footage.PILLAR` の割合ぶんは `zoom_of()` が自動で寄せるので、"
+              "欄の zoom を 1.0 未満にしないこと")
+        return 5
     if check:
         return 1 if over else 0
     bad = 0
