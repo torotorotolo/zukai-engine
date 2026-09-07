@@ -93,6 +93,30 @@ Chrome/Edge の headless で SVG→PNG する。**追加インストールは一
 > 2026-08-01 に健康解説ch（`character.py` `anatomy.py` ほか）と
 > まちがい探し喫茶（`palette.py` `shading.py`）を撤去した。どちらも git 履歴に残っている。
 
+## ⑤c 検品の道具（2026-09-07 の新設計。5本目から）
+
+**焼く前に `python tools/qa_all.py` が全部 0件。それから検品画像を焼く。**
+工程の正本＝Vault `Projects/動画制作-工程の新設計-20260906.md` §6。
+
+| コマンド | 出るもの | exit |
+|---|---|---|
+| `tools/qa_all.py [--list]` | 門番7本を1本ずつ回し、🔴 の行と最後の要約だけ | いちばん重い門番の値 |
+| `tools/qa_sheet.py <slug> [--src out/jiko/qa_<ver>] [--grid 2x3] [--check]` | `out/jiko/sheet_<ver>/sheet_NN_<先頭>-<末尾>.jpg`（1枚6コマ・1コマ 640×360） | 0／1（640px を割る・40枚超） |
+| `tools/qa_seen.py <slug> init --src …` | `qa_out/<slug>_qa.json` | 0 |
+| `tools/qa_seen.py <slug> check｜mark …｜unmark …` | シート／原寸の2つの帳と「次の4枚」 | 0 |
+| `tools/qa_seen.py <slug> suspect add <cid> "理由"｜done <cid>｜list` | `qa_out/<slug>_suspects.md` | 0／1（原寸の帳に無いまま決着） |
+| `tools/check_blank.py [--hist] [--all] [--check]` | 切り出し窓のインク率・空白帯（白紙率は参考） | 0／1 |
+| `tools/check_slide.py [--all] [--lab] [--check]` | G-09/10/13/14/15 | 0／1 |
+| `tools/check_slide.py --draw <cid> [--boxes]` | `out/jiko/draw/<cid>_k0.png` `_k1.png` | 0 |
+| `tools/fitcrop.py show <cid>` | 原画の寸法／k=0・k=1 の窓／画面に入る行／いまの 🔴・・ | 0／1 |
+| `tools/fitcrop.py solve <cid> --keep "語" [--keepbox x0,y0,x1,y1] [--keepvisible]` | `cid → xbias=… bias=… zoom=… 🔴n件 ・m件` の1行 | 0／1（見つからない） |
+| `tools/footage.py fetch --check` | 割り当てと `until=` | 0／1（尻がはみ出す）／**2（`until=` が無い）** |
+| `tools/check_final.py <mp4>` | 尺・コマ数・解像度・音ズレ・末尾・**章名** | 0／1 |
+
+⚠️ `fitcrop.py solve` は **`--keep` を必ず1つ以上**。残したい物を言わずに探すと
+「何も写らない切り方」が 🔴0件で満点になる。出た答えは `--draw` で描いて見てから直す。
+⚠️ どの道具も `--selftest` か `--check`（陽性対照）を持つ。**緑でも本番の経路で1回回す。**
+
 ## 押さえておくべき技術
 
 ### フォントは base64 で埋め込む
