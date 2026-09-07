@@ -18,8 +18,21 @@ import sys
 from statistics import median
 
 # ── 実測ずみの既定値（[[project-jiko-rules-index]] §5。推定で置き換えない） ──
-CPS = 5.52              # 文字/秒（話速0.95・narration.json で実測）
-PER_CUT = 9.18          # 秒/カット（LEAD0.35+TAIL0.50+TAIL_EXTRA込み・ep1実測）
+# 🔴 2026-09-07（5本目②）：**この定数は上流を替えると黙って古くなる。**
+#    1〜3本目は VOICEVOX（話速0.95）で 5.52 文字/秒だった。4本目から ElevenLabs に移ったが
+#    `voice_settings` を送っていなかったので**声側の既定 speed 1.14** で読まれていた。
+#    4本目 240カット・字幕486行を `audio/narration.json` で実測すると **6.12 文字/秒**＝
+#    **定数 5.52 は 11% 遅く見積もっていた**。それでも門番は鳴らない（尺が長めに出るだけ）。
+#    → [[feedback-gates-go-stale-when-upstream-changes]]
+#    そこで **narration.json があればそこから測り直す**（定数は音がまだ無いときの当てに落とす）。
+#
+# 🔴 カズヤくん指示（2026-09-07）「話速は1.0」＝ ElevenLabs の `speed` を 1.0 にする
+#    （いまの実効 1.14 より **14% ゆっくり**）。⑤a で `el_script.SETTINGS` に書く。
+#    ⚠️ 下の 5.37 は **6.12 × 1.0/1.14 の推定であって実測ではない。**
+#       ElevenLabs の speed が尺に線形に効くかは確かめていない（②では課金APIを叩かない約束）。
+#       **⑤a で narration.json ができた時点で、この数字は自動で実測に置き換わる。**
+CPS_FALLBACK = 5.37     # 文字/秒（話速1.0 の**推定**。実測は narration.json から）
+PER_CUT = 9.40          # 秒/カット（話速1.0 の推定。4本目実測 7.91秒 の発話ぶんを 1.14倍した値）
 LEAD, TAIL = 0.35, 0.50
 TAIL_EXTRA_QUOTE = 2.0
 EP2_CPS = 5.00          # ep2 の設計値
@@ -31,6 +44,53 @@ MAX_CHARS_PER_LINE = 41
 #    ⚠️ 実測では **35〜50分帯が1.47倍**。30〜35分はその帯の外側なので、
 #       そこに寄せるなら題材の側に理由が要る（この門番は「外」とは言わなくなるだけ）。
 DUR_MIN, DUR_MAX = 30 * 60, 38 * 60
+
+
+def measured_cps(cids=None, path="audio/narration.json"):
+    """🔴 実際に合成した音から 文字/秒 を測る。無ければ／別の回のものなら None（定数に落ちる）。
+
+    ⚠️ `narration.json` の `speed` 欄は**帳簿の値**であって送った値ではない
+       （4本目は `speed: 1.0`・`settings: null` と書いてあるのに、声側の既定 1.14 で読まれていた）。
+       だから欄を読まず、**字幕の実測の長さ**から測る。
+    ⚠️⚠️ **`narration.json` は前の回のものが残る。**
+       題材を替えた直後は 4本目（サーフサイド）の音が置いたままなので、
+       そのまま測ると**別の回の速さを 5本目の台本に当てる**。
+       `cids`（いま検査している台本のカットID）を渡して、**重なりが半分未満なら使わない**。
+       → [[feedback-gates-go-stale-when-upstream-changes]]
+    """
+    import json
+    from pathlib import Path
+    p = Path(__file__).resolve().parent.parent / path
+    if not p.exists():
+        return None, "音がまだ無い"
+    try:
+        d = json.loads(p.read_text(encoding="utf-8"))
+        sub = d["subtitles"]
+        if cids is not None:
+            cids = set(cids)
+            hit = len(cids & set(sub))
+            if not cids or hit / len(cids) < 0.5:
+                return None, f"narration.json は別の回のもの（カットの重なり {hit}/{len(cids)}）"
+        c = s = 0
+        for segs in sub.values():
+            for x in segs:
+                if len(x["text"]) >= 8 and x["d"] > 0:
+                    c += len(x["text"])
+                    s += x["d"]
+        return (round(c / s, 2), "narration.json の実測") if s > 0 else (None, "字幕が空")
+    except Exception as e:                               # noqa: BLE001
+        return None, f"narration.json を読めない（{type(e).__name__}）"   # 止めはせず定数に落とす
+
+
+CPS, CPS_SOURCE = CPS_FALLBACK, "定数（話速1.0 の推定）"
+
+
+def use_measured_cps(cids):
+    """検査する台本が決まった時点で CPS を実測に差し替える（合わなければ定数のまま）。"""
+    global CPS, CPS_SOURCE
+    v, why = measured_cps(cids)
+    CPS, CPS_SOURCE = (v, why) if v else (CPS_FALLBACK, f"定数（話速1.0 の推定・{why}）")
+    return CPS
 
 
 def dur_ok(sec):
@@ -94,6 +154,8 @@ def fmt(s):
 
 
 def measure(cuts):
+    # 🔴 実測の 文字/秒 に差し替えられるならする（別の回の音なら定数のまま）
+    use_measured_cps([c for c, _, _ in cuts])
     lines = [clean(l) for _, _, ls in cuts for l in ls]
     chars = sum(len(l) for l in lines)
     n, nq = len(cuts), sum(1 for _, _, ls in cuts if any(STAR_RE.match(l) for l in ls))
@@ -114,6 +176,8 @@ def report(cuts):
              max(len(l) for l in m['lines'])))
     print('① %s  ② %s  ③ %s  → 中央値 %s (+1.5%%で %s)'
           % (fmt(m['d1']), fmt(m['d2']), fmt(m['d3']), fmt(m['med']), fmt(m['med'] * 1.015)))
+    # 🔴 尺の数字が**どの速さで出た値か**を必ず表に出す（定数が古くても黙って通るのを防ぐ）
+    print('   話速 %.2f 文字/秒 ← %s' % (CPS, CPS_SOURCE))
     spread = max(m['d1'], m['d2'], m['d3']) - min(m['d1'], m['d2'], m['d3'])
     print('   3通りの開き %s' % fmt(spread))
     if spread > 120:

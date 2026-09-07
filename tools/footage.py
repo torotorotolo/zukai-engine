@@ -12,23 +12,24 @@
       落とした mp4     … out/jiko/clip/<name>.mp4   （gitignore・落とす方式のときだけ）
       切り出したコマ    … out/jiko/foot/<cid>/00000.jpg …（gitignore）
 
-■ 🔴 4本目（サーフサイド）：**落とさずに、使う区間だけを URL から直接切り出す**
-   NIST の記録映像は Kaltura 配信で、1本 600MB〜2GB（4K）。8本を全部落とすと 10GB を超えて
-   Actions のランナーにも C: にも入らない。Kaltura の実ファイルは HTTP の範囲取得に対応しているので
-   （②素材の実測。1コマ 3.5秒）、`ffmpeg -ss <秒> -i <URL>` で**その区間だけ**を読む。
-   ⚠️ 署名付き URL は期限があるので、毎回 playManifest から取り直す（`kaltura_url`）。
+■ 🔴 **落とさずに、使う区間だけを URL から直接切り出す**
+   4本目（NIST の Kaltura 配信）は1本 600MB〜2GB あり、全部落とすと C: にも Actions にも入らなかった。
+   5本目（NARA の SL-1）も同じやり方で通る＝**`catalog.archives.gov` の mp4 は範囲取得に対応**
+   （②素材の実測：`Range: bytes=0-1023` に **206** を返し、`ffprobe <URL>` がそのまま通る）。
+   `ffmpeg -ss <秒> -i <URL>` で**その区間だけ**を読む。署名も期限も無いので URL は固定でよい。
 
 ■ 🔴 rate（スロー）
-   B-Roll は1ショットが 3〜6 秒しかなく、カットの尺（6〜15秒）より短い。
+   1ショットがカットの尺より短いときに使う。SL-1 の実測は 中央値 7秒（Ph1&2）／5秒（Ph3）で、
+   カットの尺（約9〜10秒）より短いショットが多いので**出番は4本目より多い**。
    `rate=0.5` と書くと 0.5倍速（=2倍の長さ）で切り出す。ffmpeg の setpts でコマを複製するだけ
    （補間しない）。動きの少ないショットに使う。**顔のあるショットには使わない**。
-   タイムラプス（6.8秒）は `rate=0.25` で3カットに割る（台本 §5 注意 7）。
 
 ■ 出典の書き方（★ここを間違えない）
-   NIST（米国立標準技術研究所）の職務著作＝パブリックドメイン。B-Roll は "for the media" で配布。
-   ⚠️ B-Roll #8 は**ミネソタ大学の試験場**で撮られている（撮影は NIST）。撮影者と場所を分けて書く。
+   5本目＝AEC（米原子力委員会）が撮り、NARA が公開した記録映画。合衆国政府の職務著作＝
+   パブリックドメイン（根拠は下の CLIPS の注記に全部書いてある）。
    ⚠️ 1本目の ROV 映像（"courtesy of Pelagic Research Services"）のように**PDでない映像**を
-      PD と書いてはいけない。今回の素材は全部 NIST 撮影なので当たらない。
+      PD と書いてはいけない。⚠️ **映画の中に第三者の映像が混ざる危険**は残るので、
+      ショットを選ぶときに局のロゴ・クレジット・見慣れた報道映像が無いかを見ること。
 
 ■ 使い方
      python tools/footage.py fetch          … 使う区間だけ切り出す（落とさない）
@@ -39,13 +40,16 @@
      0 … 通った
      1 … カットの尻がショットの終わりを越えている（`TOL` 超）
      **2 … `until=` が書いていない欄がある**＝「測れる状態になっていない」。1 より重い
+     **3 … (start, until) が実測のショットをまたいでいる**＝**範囲の中で絵が別物**。いちばん重い
      ⚠️ **静止画（`still=True`）の欄も必須**。`overruns()` は静止画を飛ばすので、
         ここを飛ばすと**構造上見えない穴**になる（2026-09-07 に実測：36欄中4欄が
         until 無しのまま4本目を通っていた＝c106 c223 c434 pr02。どれも `still`）。
 
-■ 🔴 秒数は**見てから決める**（r17 で1度失敗している）
-   4本目は 1秒刻みの見取り図（scratchpad の sheet_*.jpg）を見て**ショットの境目**を書いた。
-   下の USE の注記が、そのショットが何秒から何秒までかの実測。
+■ 🔴 秒数は**目で決めない。`ref/sl1/shots.json` から採る**
+   4本目は 3秒刻みの見取り図で秒を選び、**注記の範囲の中で絵が別物**になった（3件）。
+   5本目は `tools/shots.py` で**1秒刻み**に境目を実測してある（`SHOTS`）。
+   ⚠️ ffmpeg の scene 検出だけでは**ディゾルブ（重ね消し）を見ない**。
+      SL-1 でハード検出だけだと 77本／165本、1秒刻みだと **139本／271本**＝**168本を見落としていた**。
 """
 import json
 import subprocess
@@ -64,189 +68,104 @@ FPS = 30
 UA = ("zukai-engine/1.0 (accident-documentary research; "
       "https://github.com/torotorotolo/zukai-engine; konariri8@gmail.com)")
 
-# ── Kaltura（NIST の配信）──────────────────────────────────
-# 🔴 1〜3本目（Internet Archive の USCG 資料・NARA の記録映画）の CLIPS/USE は
-#    git の `ad6882a` にある。カットIDが題材をまたいでぶつかるので**残さない**。
-KALTURA = ("https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest"
-           "/entryId/{e}/format/download/protocol/https/flavorParamId/0")
-CR_NIST = "出典：NIST（米国立標準技術研究所）"
+# ── 5本目：SL-1 原子炉暴走事故（1961-01-03）の記録映画 ────────
+# 🔴 4本目サーフサイド（NIST の Kaltura 配信）の CLIPS/USE は git の `4e4c1fb` にある。
+#    カットIDが題材をまたいでぶつかるので**残さない**。
+#
+# 🔴 権利（②素材のチャットで確かめた。結論＝**使える**）
+#    NARA のこの2本は `useRestriction = "Restricted - Possibly"／Copyright` が付いているが、
+#    これは**シリーズ一括の定型文**であって、この2本への個別の判断ではない：
+#      ・シリーズ本体 `88680113`（Moving Images Related to Combat Visual Information）が
+#        **同じ注記を持つ**／同シリーズの兄弟レコード **299件が 299/299 で同じ札**
+#      ・NARA の SL-1 の3件目 `66396247`（RG 434 エネルギー省）にも同じ札が付く
+#    作者は連邦機関なので合衆国法典 17編105条により著作権が発生しない：
+#      ・`contributors` の Originator ＝ **Department of Defense / Department of the Army**
+#      ・`scopeAndContentNote` ＝「**U.S. Atomic Energy Commission** reports on phases 1 and 2…」
+#      ・同じ AEC アイダホ支所のブリーフィング映画を **DOE/OSTI 自身が公開**している
+#        （OSTI ID 1122857）。Commons にも PD として上がっている
+#    ⚠️ **残る危険＝映画の中に第三者の映像（ニュース映画・音楽）が混ざっている可能性**。
+#       ⑤b でショットを選ぶときに、局のロゴ・クレジット・見慣れた報道映像が無いかを見ること。
+CR_NARA = "出典：米国国立公文書館（NARA）／米原子力委員会（AEC）撮影"
+_MOPIX = "https://catalog.archives.gov/medialz/mopix/330/DIMOC/{f}.mp4"
 
-# name: (entry_id, 尺(秒), 幅, 高さ, 出典, 中身)
-_SS = {
-    "ss_b1": ("1_ju6nndhb", 250.1, 1920, 1014,
-              f"{CR_NIST} 記録映像 B-Roll #1（崩落現場）／パブリックドメイン",
-              "崩落現場。0:07まで題名カード／3:24以降はインタビュー。顔の寄りが多い"),
-    "ss_b2": ("1_64zdekws", 309.7, 4096, 2160,
-              f"{CR_NIST} 記録映像 B-Roll #2（空撮・現場）／パブリックドメイン",
-              "0:08〜0:11 海岸線の空撮／0:12〜0:14 現場と 87 Park／1:39〜1:53 ドローン／1:54以降インタビュー"),
-    "ss_b3": ("1_h4yeyz2f", 74.2, 1920, 1080,
-              f"{CR_NIST} 記録映像 B-Roll #3（証拠倉庫）／パブリックドメイン",
-              "倉庫で部材と鉄筋を測る"),
-    "ss_b4": ("1_jvdq95ze", 216.3, 1920, 1080,
-              f"{CR_NIST} 記録映像 B-Roll #4（部材の搬送）／パブリックドメイン",
-              "部材の梱包・積み込み・トレーラーでの搬送"),
-    "ss_b5": ("1_ecar0b6h", 333.4, 3840, 2160,
-              f"{CR_NIST} 記録映像 B-Roll #5（コア抜き・倉庫）／パブリックドメイン",
-              "倉庫の床一面の部材／コア抜き／コアの記録"),
-    "ss_b6": ("1_zdyysoml", 263.2, 3840, 2160,
-              f"{CR_NIST} 記録映像 B-Roll #6（コンクリートコアの試験）／パブリックドメイン",
-              "圧縮試験・弾性係数試験"),
-    "ss_b7": ("1_glesd05g", 337.0, 3840, 2160,
-              f"{CR_NIST} 記録映像 B-Roll #7（鉄筋の試験）／パブリックドメイン",
-              "鉄筋の標本・引張試験機"),
-    "ss_b8": ("1_lebmphjw", 207.0, 3840, 2160,
-              f"{CR_NIST} 記録映像 B-Roll #8（実物大試験・ミネソタ大学）／パブリックドメイン",
-              "0:08まで表題カード。実物大レプリカ試験。2:08〜ワシントン大の試験"),
-    "ss_tl": ("1_gvpcaamy", 6.8, 3840, 2160,
-              f"{CR_NIST} 材料試験タイムラプス（スラブ・梁・柱の試験）／パブリックドメイン",
-              "6.8秒。柱まわりのスラブが割れて外れる。⚠️ 右下に NIST の透かし（x0.63〜0.95・y0.84〜0.89）"),
+# name: (ファイル名, naId, 尺(秒), 幅, 高さ, 出典, 中身)
+_SL1 = {
+    "sl1_ph12": ("330-dimoc-redstone1860", 174689848, 1494.71, 1920, 1080,
+                 f"{CR_NARA} 「SL-1 Accident Phase I & II」（NARA naId 174689848）／パブリックドメイン",
+                 "24分55秒。事故の発生と初期対応（第1・2段階）。139ショット"),
+    "sl1_ph3": ("330-dimoc-redstone1861", 174689849, 1847.50, 1920, 1080,
+                f"{CR_NARA} 「SL-1 Accident Phase III」（NARA naId 174689849）／パブリックドメイン",
+                "30分48秒。炉の解体と埋設（第3段階）。271ショット"),
 }
 CLIPS = {}
-for _n, (_e, _sec, _w, _h, _cr, _note) in _SS.items():
-    CLIPS[_n] = dict(entry=_e, sec=_sec, w=_w, h=_h, credit=_cr, note=_note, stream=True)
-# NIST が公開したパンチング・シアの動く図（GIF・1920x1080・167コマ）
-CLIPS["ss_gif"] = dict(
-    url=("https://www.nist.gov/sites/default/files/styles/2800_x_2800_limit/public/"
-         "images/2026/06/22/PunchingShear_001.gif?itok=e2hzBAS5"),
-    sec=17.0, w=1920, h=1080, stream=True,
-    credit=f"{CR_NIST} 押し抜きせん断の動画図（2026年6月22日公表）／パブリックドメイン",
-    note="167コマ。力が柱の周りに集まり、ひびが回り込んで抜ける")
+for _n, (_f, _nid, _sec, _w, _h, _cr, _note) in _SL1.items():
+    CLIPS[_n] = dict(url=_MOPIX.format(f=_f), naid=_nid, sec=_sec, w=_w, h=_h,
+                     credit=_cr, note=_note, stream=True)
+
+# ── 🔴 ショットの境目（`tools/shots.py` で1秒刻みに実測）────────────
+# 4本目は「128〜133.9秒 レプリカの全景」と書いた**範囲の中で絵が別物**だった（3件）。
+# 秒を3秒刻みの見取り図で選んでいたのが原因。→ [[feedback-measure-the-source-before-choosing-the-crop]]
+# ここに実測のショット表を持たせ、`USE` の (start, until) が**1本のショットに収まっているか**を
+# 機械で見る（`outside_shot()`）。⚠️ ffmpeg の scene 検出だけでは**ディゾルブを見ない**ので、
+# 1秒ごとの見た目の署名で採ってある（1本のショットが333秒、という嘘が出ていた）。
+SHOTS = {}
+_SHOT_FILE = HERE / "ref" / "sl1" / "shots.json"
+if _SHOT_FILE.exists():
+    _sd = json.loads(_SHOT_FILE.read_text(encoding="utf-8"))
+    SHOTS = {k: [(s["start"], s["until"], s["motion"]) for s in v["shots"]]
+             for k, v in _sd.items()}
 
 
-def kaltura_url(entry):
-    """playManifest → 実ファイルの署名付き URL（期限あり。毎回取り直す）。"""
-    req = urllib.request.Request(KALTURA.format(e=entry),
-                                 headers={"User-Agent": UA, "Range": "bytes=0-0"})
-    last = None
-    for attempt in range(3):
-        try:
-            with urllib.request.urlopen(req, timeout=60) as r:
-                return r.geturl()
-        except Exception as e:                           # noqa: BLE001
-            last = f"{type(e).__name__}: {e}"
-            time.sleep(3 * (attempt + 1))
-    raise RuntimeError(f"Kaltura の URL が取れない（{entry}）: {last}")
+def shot_of(clip, t):
+    """秒 t を含むショット (start, until, motion) を返す。無ければ None。"""
+    for s in SHOTS.get(clip, []):
+        if s[0] <= t < s[1]:
+            return s
+    return None
+
+
+def outside_shot(use=None):
+    """🔴 (start, until) が1本のショットに収まっていない欄。
+
+    ⚠️ `until=` を必須にしただけでは「数が入っていればよい」で終わる。
+       **その数が実測のショットの終わりと合っているか**まで見ないと、4本目と同じ
+       「範囲の中で絵が別物」が通る。ショット表が無いクリップは見ない（fail open ではなく対象外）。
+    """
+    use = USE if use is None else use
+    out = []
+    for cid, u in use.items():
+        clip = u.get("clip")
+        if clip not in SHOTS or u.get("until") is None:
+            continue
+        a, b = float(u["start"]), float(u["until"])
+        sh = shot_of(clip, a)
+        if sh is None:
+            out.append((cid, clip, a, b, None))
+        elif b > sh[1] + TOL:
+            out.append((cid, clip, a, b, sh))
+    return out
 
 
 # ── どのカットに、どの動画の何秒目から当てるか ────────────────
+# 🔴 5本目（SL-1）はまだ空。**⑤b で台本 §4 の画の欄と1対1になるように書く。**
+#    4本目（サーフサイド）の36欄は git の `4e4c1fb` にある。
+#
 # 🔴 守ること
 #   1. **そのカットで話している対象そのもの**であること（壁紙にしない）
-#   2. 顔の寄り・NIST ロゴ入りヘルメットの寄り・表題カードは使わない（台本 §5 注意 5・6）
-#   3. ショットの長さがカットより短いときは `rate` で遅くする（上の説明）。
-#      注記の「N〜M秒」が見取り図で確かめたショットの範囲。**次のショットに食い込ませない**
-#   4. `zoom` `xbias` `bias` は切り方（`build_jiko.fit` と同じ意味）。4K は zoom 2 まで劣化しない
+#   2. 表題カード・顔の寄り・局のクレジットは使わない
+#   3. `until=` は**全欄に必須**（`still=True` の欄も）。無いと `fetch --check` が exit 2
+#   4. 🔴 (start, until) は `SHOTS` の**1本のショットに収める**。またぐと exit 3
+#      ＝ 4本目で3件踏んだ「範囲の中で絵が別物」を機械で止める
+#   5. 秒は `ref/sl1/shots.json`（1秒刻みの実測）から採る。目分量で書かない
+#
+# 書き方（4本目の例。数は SL-1 のものに置き換える）
+#     "c103": dict(clip="sl1_ph12", start=412.0, until=421.0),
+#     "c118": dict(clip="sl1_ph3", start=88.0, until=94.0, rate=0.6),
+#     "c204": dict(clip="sl1_ph12", start=735.0, still=True, until=741.0),
 USE = {
-    # ── プロローグ ─────────────────────────────────────
-    # 🔴 2026-09-06（⑤c PR-01）：もとは start=8.0・rate=0.5 で **8.00〜15.29秒**を使っており、
-    #    注記が言う3つのショット（8〜10 銘板／11.4〜14 崩れた棟／15〜18 瓦礫と捜索）を
-    #    **2回またいでいた**＝動画のいちばん最初のカットの中で画が2回切り替わる。
-    #    さらに 15.00〜15.29秒は pr03（15.0〜）と重なり、同じコマが2度出ていた。
-    #    尺 14.58秒に対しどのショットも3秒しかなく、rate を下げるとコマ落ちが目立つ
-    #    （⑤b の決定）＝**静止画にする**。⚠️ `fb_pr01.jpg` は 9秒台の**銘板**のコマで、
-    #    pr10・ep16（`ss_b1_sign.jpg`）と同じ絵だった（相関 0.80）ので、
-    #    崩れた棟のショットの 12.5秒に**差し替えた**
-    "pr01": dict(clip="ss_b1", start=12.5, still=True, until=14.0),
-    # 54〜57.5秒 瓦礫の山と、その奥に残った棟（58秒から顔の寄り）
-    # 🔴 still=True … 0.33〜0.38倍のスローはコマ落ちが目立つ（⑤b の決定・2026-09-05）。動画を当てず
-    #    `ref/surfside/fb_<cid>.jpg` の静止画をゆっくり寄って使う。clip/start は出典と「どのショットか」の記録
-    "pr02": dict(clip="ss_b1", start=53.8, still=True),
-    # 15〜18.8秒 せん断された断面の下、瓦礫の上の捜索隊（19秒から別の引き）
-    "pr03": dict(clip="ss_b1", start=15.0, rate=0.5, until=18.8),
-    # ── 第1章 ────────────────────────────────────────
-    # 8〜11.9秒 海岸線の空撮（12秒から現場の寄り）
-    "c106": dict(clip="ss_b2", start=8.0, still=True),
-    # 99〜107秒 ドローン。片づいたデッキの床面と重機
-    "c119": dict(clip="ss_b2", start=99.0, until=108.0),
-    # 115〜118.9秒 瓦礫の上の捜索隊と柱（119秒からクレーンの吊り）
-    "c128": dict(clip="ss_b1", start=115.0, rate=0.53, until=118.5),
-    # ── 第2章 ────────────────────────────────────────
-    # 95.8〜98.8秒 デッキ面の引き（99秒からドローン）
-    "c204": dict(clip="ss_b2", start=95.8, rate=0.4, until=98.8),
-    # 74〜77.8秒 現場の床面。鉄筋の出た版とコーン（78秒から潰れた車）
-    "c217": dict(clip="ss_b1", start=74.0, rate=0.5, until=77.8),
-    # 🔴 2026-09-06（⑤c B-20）：78秒（潰れた車）は c217 の 74秒と同じショットで、6カットおいて使い回しに見えた。
-    #    100〜104秒 瓦礫の山と重機の腕（99秒までと 105秒からは顔の寄り）の1コマを静止画で。0.33倍のスローもやめる
-    "c223": dict(clip="ss_b1", start=102.5, still=True),
-    # ── 第3章 ────────────────────────────────────────
-    # 167コマ≒6.7秒しか無い（ss-r01 で 200/306 コマ＝末尾 3.5秒が止まった）。0.65倍で 10.1秒に伸ばす
-    # ⑤c C-21：全面（zoom 1.0）だと絵が画面の下 1/3 で出典行がスラブに載る。下寄せ 1.4 倍で スラブ y≈715〜841 に
-    "c315": dict(clip="ss_gif", start=0.0, rate=0.65, zoom=1.4, xbias=0.5, bias=1.0, until=6.7),
-    # 10〜16.7秒 試験場の引き。試験機と背を向けた技術者（17秒から顔の寄り）
-    "c321": dict(clip="ss_b8", start=10.0, rate=0.6, until=16.75),
-    # 🔴 2026-09-06（⑤c C-27）：もとは start=128.0 で、**128〜132.9秒が黒い表題カード**
-    #    「Univ. of Washington | Laboratory Testing: Replicas of the CTS Pool-Deck
-    #    Slab-Column Connections」だった（台本 §5 注意6「表題カードは使わない」に反する）。
-    #    133秒からは実験室の壁の "STRUCTURES" の文字で、これも「レプリカの全景」ではない。
-    #    ⚠️ 注記の「128〜133.9秒 レプリカと試験機の全景」が誤り＝**見取り図を1秒刻みで
-    #    見直して見つけた**。実物大の試験機と試験体が引きで写るのは **138.5〜148.25秒**
-    #    （境目は `surfside_vidsheet.py cuts` で実測）
-    "c322": dict(clip="ss_b8", start=139.0, rate=0.90, until=148.25),
-    # 188〜197秒 スラブを真上から。格子と計測器
-    "c324": dict(clip="ss_b8", start=188.0, until=198.0),
-    # 47〜52.5秒 圧縮試験機に入ったコア（53秒から人）
-    "c325": dict(clip="ss_b6", start=47.0, rate=0.6, until=51.75),
-    # 24〜34秒 鉄筋の引張試験機（36秒からカード）
-    "c326": dict(clip="ss_b7", start=24.0, until=34.75, rate=0.98),
-    # 80〜87秒 柱まわり。スラブの裏側のひびと露出した鉄筋
-    "c327": dict(clip="ss_b8", start=80.0, until=88.0, rate=1.0),
-    # 64〜71秒 スラブの面を走るひびと計測カメラ
-    "c328": dict(clip="ss_b8", start=64.0, rate=0.8, until=70.0),
-    # 193.5〜202.5秒 真上から。上の面はまだ平ら（c324 と同じショットの後半・寄り違い）
-    "c329": dict(clip="ss_b8", start=193.5, zoom=1.35, xbias=0.5, bias=0.55, until=202.5, rate=0.98),
-    # 121〜127秒 外れて落ちたスラブの裏側（128秒からカード）
-    "c331": dict(clip="ss_b8", start=121.0, until=127.75, rate=0.92),
-    # ── タイムラプス 6.8秒を 0.25倍で3カットに割る。透かし（右下）を切り方で外す ──
-    "c332": dict(clip="ss_tl", start=0.0, rate=0.25, zoom=1.25, xbias=0.5, bias=0.0, until=6.8),
-    "c333": dict(clip="ss_tl", start=2.2, rate=0.25, zoom=2.0, xbias=0.45, bias=0.2, until=6.8),
-    "c334": dict(clip="ss_tl", start=4.7, rate=0.25, zoom=1.5, xbias=0.4, bias=0.0, until=6.8),
-    # ── 第4章 ────────────────────────────────────────
-    # 40〜45秒 証拠倉庫で部材の鉄筋を測る（人は背中側）
-    "c419": dict(clip="ss_b3", start=40.0, rate=0.6, until=46.0),
-    # 102〜109秒 倉庫の引き。並んだ部材のあいだを歩く
-    "c430": dict(clip="ss_b5", start=102.0, until=109.0, rate=0.55),
-    # 108〜118秒 部材を積んだトレーラーが走る（120秒からカード）
-    "c431": dict(clip="ss_b4", start=108.0, until=118.0, rate=0.95),
-    # 8〜11.9秒 海岸線の空撮（c106 と同じショット・寄せを変える）
-    "c434": dict(clip="ss_b2", start=8.0, still=True),
-    # ── 第5章 ────────────────────────────────────────
-    # 46〜49.8秒 デッキの床面を歩く作業員（50秒から試料袋の寄り）
-    "c505": dict(clip="ss_b2", start=46.0, rate=0.41, until=49.5),
-    # 42〜46秒 錆びた鉄筋の標本（袋と札）（48秒から人）
-    "c513": dict(clip="ss_b7", start=42.0, rate=0.5, until=46.25),
-    # 39〜48秒 コア抜きの刃と水
-    "c519": dict(clip="ss_b5", start=39.0, until=46.5, rate=0.98),
-    # 116〜124秒 圧縮試験機の中のコア（計測器つき）
-    "c520": dict(clip="ss_b6", start=116.0, until=125.0, rate=0.97),
-    # 11〜17秒 倉庫の床一面の部材（18秒からコア抜き機の寄り）
-    "c521": dict(clip="ss_b5", start=11.0, rate=0.58, until=16.3),
-    # ── 第6章 ────────────────────────────────────────
-    # 32〜37.7秒 試験機の全景（38秒から顔）
-    "c607": dict(clip="ss_b8", start=32.0, rate=0.64, until=37.75),
-    # 🔴 2026-09-06（⑤c F-25）：注記「刃物で切ったようにまっすぐな床の断面」が指す絵が
-    #    出ていなかった。1秒刻みの見取り図で見ると **158秒は男性2人の顔の寄り**（158.0〜158.5
-    #    で切り替わる）、159秒から棟の断面、**160秒以降は重機（ALPI）の腕が手前に入り込み**、
-    #    163秒では断面が隠れる。尺 10.18秒に対し断面が見えるのは 159〜160秒の**1秒だけ**＝
-    #    rate を下げるとコマ落ちが目立つ（⑤b の決定）ので**静止画にする**。
-    #    `fb_c628.jpg` は 159.3秒のコマに差し替えた（重機の腕がいちばん浅い）
-    "c628": dict(clip="ss_b1", start=159.3, still=True, until=160.0),
-    # ── 第7章 ────────────────────────────────────────
-    # 198〜204秒 高い所からの現場の引き（海が見える）（204秒からカード）
-    "c703": dict(clip="ss_b1", start=198.0, until=203.5, rate=0.85),
-    # 138〜141.9秒 残った棟＝住民が住んでいた建物の断面（142秒から顔）
-    "c709": dict(clip="ss_b1", start=138.0, rate=0.42, until=143.0),
-    # ❌ c713 は 2026-09-06（H-10）に**動画をやめた**。153〜159秒は「倉庫でコアに計測器を
-    #    あてる手元」で、ナレーション「この土地の地盤の性質」と別物だった。
-    #    B-Roll に地盤の計測は無いので、p185 の分解図の地盤の層に差し替え（cuts/c7.py）
-    # 110〜114.4秒 ドローン。現場の引き（114秒からカード）
-    "c726": dict(clip="ss_b2", start=110.0, rate=0.37, until=113.25),
 }
-# ❌ 見たうえで**当てないと決めた**もの（2026-09-05・記録として残す）
-#   c705（87 Park）… B-Roll #2 の 12〜14秒しか写っていない（3秒）。0.3倍速はコマ落ちが目立つので
-#     **1コマを静止画で抜き**、ゆっくり寄る（`ref/surfside/ss_b2_87park.jpg`）。
-#   pr10・ep16（銘板の寄り）… 8〜10秒の3秒しか無い。同じく静止画（`ss_b1_sign.jpg`）。
-#   B-Roll #1 4:02 前後（NIST ロゴ入りヘルメットの寄り）／各巻の 1:41 2:10 2:25 などの顔の寄り
-#   B-Roll #2 1:30 1:45 2:10（台本第3版の候補）… 1:30 は人物、2:10 はインタビュー。**使わない**
-#     → c119 c505 c204 は上の秒に差し替えた（実見して決めた）
+# ❌ 見たうえで**当てないと決めた**もの（⑤b でここに書き足していく）
+#   4本目の分（87 Park・銘板・NIST ロゴ入りヘルメット・インタビューの顔）は git の 4e4c1fb にある。
 
 
 # ── 🔴 G-11：カットの尻が、そのショットの終わりを越えていないか ─────────
@@ -306,7 +225,7 @@ def missing_until(use=None):
 
 
 def check_until():
-    """(はみ出し, until が無い欄) を返す。呼び手が exit コードを決める。"""
+    """(はみ出し, until が無い欄, ショットをまたいだ欄) を返す。呼び手が exit コードを決める。"""
     miss = missing_until()
     for cid in miss:
         print(f"  🔴 {cid}: until= が無い（そのショットが何秒で終わるか機械が読めない）")
@@ -314,88 +233,118 @@ def check_until():
     for cid, gap, st, end, until in sorted(bad, key=lambda r: -r[1]):
         print(f"  🔴 {cid}: 尻が {gap:+.2f}秒 はみ出す"
               f"（{st:.1f}〜{end:.2f}秒／ショットの終わり {until:.1f}秒）")
+    out = outside_shot()
+    for cid, clip, a, b, sh in out:
+        if sh is None:
+            print(f"  🔴 {cid}: start={a:.1f}秒 が {clip} のどのショットにも入っていない")
+        else:
+            print(f"  🔴 {cid}: {a:.1f}〜{b:.1f}秒 が**ショットをまたぐ**"
+                  f"（{clip} の実測ショットは {sh[0]:.0f}〜{sh[1]:.0f}秒）"
+                  f"＝範囲の中で絵が別物になる")
     if miss:
         print(f"🔴 `until=` が無い欄が {len(miss)} 件（必須。書くまで切り出さない）")
     if bad:
         print(f"🔴 ショットの終わりを {TOL:.2f}秒 より越えているカットが {len(bad)} 件")
-    if not miss and not bad:
-        print(f"✓ 全 {len(USE)} 欄に until= があり、どのカットの尻も "
-              f"{TOL:.2f}秒 より越えていない")
-    return bad, miss
+    if out:
+        print(f"🔴 実測のショットをまたいでいるカットが {len(out)} 件"
+              f"（秒は ref/sl1/shots.json から採る）")
+    if not miss and not bad and not out:
+        n_sh = sum(len(v) for v in SHOTS.values())
+        print(f"✓ 全 {len(USE)} 欄に until= があり、尻のはみ出しも "
+              f"ショットまたぎも無い（実測ショット {n_sh} 本と照合）")
+    return bad, miss, out
 
 
 def selftest():
-    """陽性対照。**本番の `overruns()` そのもの**に、わざと越えを1件入れて鳴らす。"""
-    import scene_jiko as S
-    secs = dict(S.CUTS)
-    ok = True
-    base = {c for c, *_ in overruns(USE, secs)}
-    victim = next((c for c, u in USE.items()
-                   if not u.get("still") and c in secs and c not in base), None)
-    if victim is None:
-        print("🔴 素で通っているカットが無い＝陽性対照を当てられない")
-        return False
-    u = USE[victim]
-    end = float(u["start"]) + secs[victim] * float(u.get("rate", 1.0))
-    for name, patched, should in (
-            ("尻を 0.5秒 はみ出させる", dict(u, until=end - 0.5), True),
-            ("しきい値の内側（0.05秒）", dict(u, until=end - 0.05), False),
-            ("until を消す（fail closed）", {k: v for k, v in u.items() if k != "until"},
-             True)):
-        got = {c for c, *_ in overruns({victim: patched}, secs)}
-        hit = victim in got
-        ok &= hit == should
-        print(f"  {'✓' if hit == should else '🔴'} {victim}：{name} … "
-              f"{'鳴る' if hit else '黙る'}（期待 {'鳴る' if should else '黙る'}）")
-    got = {c for c, *_ in overruns({victim: u}, secs)}
-    ok &= victim not in got
-    print(f"  {'✓' if victim not in got else '🔴'} {victim}：戻す … "
-          f"{'黙る' if victim not in got else '鳴る'}")
+    """陽性対照。**本番の判定関数そのもの**に、わざと壊した欄を入れて鳴らす。
 
-    # 🔴 2026-09-07：`until=` の必須化（設計ノート §9-5）
-    # ⚠️ ここは**道具の検算**なので、本番の中身の良し悪しで緑／赤を決めない
-    #    （本番の合否は `fetch --check` の exit で言う）。状態は必ず表に出す
-    now = missing_until(USE)
-    print(f"  ⚠️ いまの USE は {len(USE)}欄中 {len(now)}欄に until= が無い"
-          f"{'（' + ' '.join(now) + '）' if now else '＝全部ある'}")
-    dropped = {k: v for k, v in u.items() if k != "until"}
-    hit = missing_until({victim: dropped}) == [victim]
-    ok &= hit
-    print(f"  {'✓' if hit else '🔴'} {victim}：until を消すと missing_until が名指しで拾う")
-    # ⚠️ **静止画の欄も見る**（overruns は飛ばすので、ここが抜けると穴になる）
-    still = next((c for c, x in USE.items() if x.get("still")), None)
-    if still:
-        s_hit = missing_until(
-            {still: {k: v for k, v in USE[still].items() if k != "until"}}) == [still]
-        ok &= s_hit
-        print(f"  {'✓' if s_hit else '🔴'} {still}（静止画）：until を消しても拾う"
-              f"（overruns は静止画を飛ばすので、ここが抜けると穴になる）")
-    keep_use = dict(USE)
+    🔴 2026-09-07（5本目）：**作り物の USE で回すように書き直した。**
+       前の版は本番の `USE` から犠牲者を1つ選んでいたので、題材を替えて `USE = {}` に
+       した瞬間に「素で通っているカットが無い」で落ちた＝**題材の切れ目に検算ができない**。
+       陽性対照は本番の中身が空でも通らなければならない。
+       → [[feedback-selftest-must-not-reach-real-side-effects]]
+    """
+    ok = []
+
+    def chk(name, got, want):
+        ok.append(got == want)
+        print(f"  {'✓' if got == want else '🔴'} {name} … "
+              f"{'鳴る' if got else '黙る'}（期待 {'鳴る' if want else '黙る'}）")
+
+    # 作り物のショット表＝10〜20秒／20〜35秒 の2本
+    keep_shots, keep_use, keep_clips = dict(SHOTS), dict(USE), dict(CLIPS)
     try:
-        globals()["USE"] = {victim: dropped}
-        rc = fetch(check=True)
+        globals()["SHOTS"] = {"t_clip": [(10.0, 20.0, 5.0), (20.0, 35.0, 1.0)]}
+        CLIPS["t_clip"] = dict(url="http://example.invalid/t.mp4", sec=35.0,
+                               w=1920, h=1080, credit="（検算用）", note="", stream=True)
+        secs = {"x01": 6.0, "x02": 6.0, "x03": 6.0}
+
+        # ① overruns：尻がショットの終わりを越える
+        base = dict(clip="t_clip", start=12.0, until=20.0)      # 12+6=18 ≦ 20 → 黙る
+        chk("尻が内側（12.0〜18.0／終わり20.0）", bool(overruns({"x01": base}, secs)), False)
+        chk("尻が 0.5秒 はみ出す",
+            bool(overruns({"x01": dict(base, until=17.5)}, secs)), True)
+        chk("しきい値の内側（0.05秒）",
+            bool(overruns({"x01": dict(base, until=17.95)}, secs)), False)
+        chk("until が無い（fail closed）",
+            bool(overruns({"x01": dict(clip="t_clip", start=12.0)}, secs)), True)
+
+        # ② missing_until：静止画の欄も見る（overruns は静止画を飛ばす）
+        chk("until 無しを missing_until が名指しで拾う",
+            missing_until({"x01": dict(clip="t_clip", start=12.0)}) == ["x01"], True)
+        chk("静止画でも until 無しを拾う",
+            missing_until({"x02": dict(clip="t_clip", start=12.0, still=True)}) == ["x02"], True)
+
+        # ③ 🔴 outside_shot：数は入っているが実測のショットをまたぐ（4本目で3件踏んだ穴）
+        chk("1本のショットに収まっている（12.0〜20.0）",
+            bool(outside_shot({"x01": dict(clip="t_clip", start=12.0, until=20.0)})), False)
+        chk("ショットをまたぐ（12.0〜25.0＝境目20.0を越える）",
+            bool(outside_shot({"x01": dict(clip="t_clip", start=12.0, until=25.0)})), True)
+        chk("start がどのショットにも入らない（5.0秒）",
+            bool(outside_shot({"x01": dict(clip="t_clip", start=5.0, until=8.0)})), True)
+        chk("静止画でもまたぎを見る",
+            bool(outside_shot({"x02": dict(clip="t_clip", start=12.0, until=25.0, still=True)})),
+            True)
+        chk("ショット表の無いクリップは対象外（fail open にしない＝黙る）",
+            bool(outside_shot({"x03": dict(clip="sl1_ph12", start=12.0, until=25.0)})), False)
+
+        # ④ exit コードが 2（until 無し）→ 3（またぎ）の順で重いこと
+        import scene_jiko as S
+        keep_cuts = S.CUTS
+        try:
+            S.CUTS = [("x01", 6.0)]
+            globals()["USE"] = {"x01": dict(clip="t_clip", start=12.0)}
+            rc2 = fetch(check=True)
+            globals()["USE"] = {"x01": dict(clip="t_clip", start=12.0, until=25.0)}
+            rc3 = fetch(check=True)
+            globals()["USE"] = {"x01": dict(clip="t_clip", start=12.0, until=20.0)}
+            rc0 = fetch(check=True)
+        finally:
+            S.CUTS = keep_cuts
+        for name, rc, want in (("until 無し", rc2, 2), ("ショットまたぎ", rc3, 3), ("正しい欄", rc0, 0)):
+            ok.append(rc == want)
+            print(f"  {'✓' if rc == want else '🔴'} {name} → `fetch --check` exit {rc}（期待 {want}）")
     finally:
+        globals()["SHOTS"] = keep_shots
         globals()["USE"] = keep_use
-    ok &= rc == 2
-    print(f"  {'✓' if rc == 2 else '🔴'} until が無いと `fetch --check` は exit {rc}（期待 2）")
-    # 静止画の1コマがショットの外に置かれたら鳴る／中なら黙る
-    if still:
-        s0 = USE[still]
-        late = overruns({still: dict(s0, until=float(s0["start"]) - 1.0)}, secs)
-        fine = overruns({still: dict(s0, until=float(s0["start"]) + 1.0)}, secs)
-        good = bool(late) and not fine
-        ok &= good
-        print(f"  {'✓' if good else '🔴'} {still}（静止画）：その1コマがショットの終わりより"
-              f"後なら鳴り、中なら黙る")
-    print("  " + ("✓ 陽性対照 8/8" if ok else "🔴 陽性対照に落ちた"))
-    return ok
+        globals()["CLIPS"] = keep_clips
+
+    # ⚠️ 本番の状態は「検算の合否」と分けて必ず表に出す（道具の緑と中身の緑を混ぜない）
+    now = missing_until(USE)
+    n_sh = sum(len(v) for v in SHOTS.values())
+    print(f"  ⚠️ いまの本番：USE {len(USE)}欄（until 無し {len(now)}）／"
+          f"実測ショット {n_sh}本／クリップ {len(CLIPS)}本")
+    good = all(ok)
+    print("  " + (f"✓ 陽性対照 {len(ok)}/{len(ok)}" if good
+                  else f"🔴 陽性対照 {sum(ok)}/{len(ok)} で落ちた"))
+    return good
 
 
 def urls_of(name):
     c = CLIPS[name]
     if c.get("url"):
         return [c["url"]]
-    return [kaltura_url(c["entry"])]
+    raise RuntimeError(f"{name} に url がない（4本目の Kaltura 経由は git の 4e4c1fb にある）")
 
 
 def have(cid):
@@ -459,13 +408,20 @@ def fetch(check=False):
         flag = "" if end <= float(c["sec"]) + 0.05 else "  🔴 動画の終端を越える"
         print(f"  {cid}  尺{secs[cid]:5.2f}s  ← {u['clip']} {u['start']:.1f}〜{end:.1f}秒"
               f"（{rate:.2f}倍速）{flag}")
-    over, miss = check_until()
+    over, miss, out = check_until()
     # 🔴 `until=` は必須（2026-09-07・設計ノート §9-5）。無ければ **exit 2** で落とす。
     #    ⚠️ はみ出し（exit 1）より重い。「測れる状態になっていない」ので切り出しにも進まない
     if miss:
         print("🔴 exit 2 ＝ `until=`（そのショットが終わる秒）を USE に書いてから通す。"
-              "見取り図は `python tools/surfside_vidsheet.py cuts <clip> <t0> <t1>` で測る")
+              "秒は `ref/sl1/shots.json`（1秒刻みの実測）から採る")
         return 2
+    # 🔴 exit 3 ＝ 数は入っているが、実測のショットをまたいでいる（2026-09-07・5本目で追加）。
+    #    ⚠️ until= を必須にしただけでは「数が入っていればよい」で終わり、4本目で3件踏んだ
+    #       「注記の範囲の中で絵が別物」がそのまま通る。ここが**その穴**を塞ぐ門番
+    if out:
+        print("🔴 exit 3 ＝ (start, until) を1本のショットの中に収める。"
+              "`python tools/shots.py show ref/sl1/shots.json --key <clip>` で境目を見る")
+        return 3
     if check:
         return 1 if over else 0
     bad = 0

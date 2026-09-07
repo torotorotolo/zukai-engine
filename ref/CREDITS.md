@@ -438,3 +438,191 @@ commit するのは写真部分を切り出した 2400px 版のみ。
 
 ⚠️ 使わないと決めたもの：顔の寄り・NIST ロゴ入りヘルメットの寄り・各巻のインタビュー帯（#1 3:24〜、#2 1:54〜）・
 表題カード（各巻の先頭 7〜8秒、#8 の 2:08〜2:12）。
+
+---
+
+## 5本目：SL-1 原子炉暴走事故（1961-01-03・米アイダホ州）　※2026-09-07（②素材）
+
+| | |
+|---|---|
+| 出どころ | **NARA（米国立公文書館）の記録映画2本**／**Wikimedia Commons `Category:SL-1 Reactor` 59点**／**一次資料 IDO-19302**（OSTI） |
+| ライセンス | すべて**合衆国政府の職務著作＝パブリックドメイン**（17 U.S.C. §105）。Commons の内訳は `PD-USGov-NPS` 43・`PD-USGov` 6・`PD-USGov-DOE` 4・`PD-USGov-Military-Army` 1 |
+| 置き場所 | 記録映画＝**リポに入れない**（URL から範囲取得）／`ref/sl1/shots.json`（ショットの実測）・`ref/sl1/materials.json`（写真の実測）はリポに入れる／`ref/sl1/IDO-19302.pdf`（17MB）は gitignore |
+| 実測の道具 | `tools/shots.py`（ショットの境目・1秒刻み）／`tools/src_probe.py`（全画面に出せるか）／`tools/footage.py --selftest` |
+
+### ① 🔴 記録映画2本（NARA・RG 330／DIMOC）＝**権利の結論：使える**
+
+| naId | 題 | 尺 | 解像度 | ショット | URL |
+|---|---|---|---|---:|---|
+| `174689848` | SL-1 Accident Phase I & II | 24分55秒（1,494.71秒） | 1920x1080 / 24fps | **139** | `https://catalog.archives.gov/medialz/mopix/330/DIMOC/330-dimoc-redstone1860.mp4`（447.8MB） |
+| `174689849` | SL-1 Accident Phase III | 30分48秒（1,847.50秒） | 1920x1080 / 24fps | **271** | `https://catalog.archives.gov/medialz/mopix/330/DIMOC/330-dimoc-redstone1861.mp4`（553.4MB） |
+
+**NARA の札：`accessRestriction = Unrestricted` ／ `useRestriction = Restricted - Possibly（Copyright）`。**
+①題材のチャットでは「3本目スレッシャー（`Undetermined`）より重い」と見て②の宿題にしていた。
+**②で当たった結果、この札は個別の判断ではなくシリーズ一括の定型文だった。**
+
+**札が一括である根拠（実測）**
+1. シリーズ本体 `88680113`（Moving Images Related to Combat Visual Information）**そのものが同じ注記**を持つ
+2. 同シリーズの兄弟レコードを標本で数えたら **299件が 299/299 で同じ札**（0件の例外）
+3. NARA の SL-1 の3件目 `66396247`（**RG 434 エネルギー省**・未デジタル化）にも同じ札が付く。
+   DOE の記録が連邦の職務著作でないはずがないので、**札は作者の判断を表していない**
+
+**PD である根拠（実測）**
+1. `contributors` の Originator ＝ **Department of Defense / Department of the Army**（連邦機関）
+2. `scopeAndContentNote` ＝「**The U.S. Atomic Energy Commission** reports on phases 1 and 2 of the … SL-1 accident recovery efforts」＝ AEC（米原子力委員会）の制作
+3. 同じ AEC アイダホ支所のブリーフィング映画を **DOE/OSTI 自身が公開**している（OSTI ID `1122857`）。
+   Internet Archive の Prelinger 版は `creator = U.S. Atomic Energy Commission, Idaho Operations Office`。
+   Commons にも `"Nuclear Power Reactor - The SL-1 Accident Video- Briefing Film Report" (1961).webm` が PD で上がっている
+4. 合衆国法典 **17編105条**により、合衆国政府の職務著作には著作権が発生しない
+
+⚠️ **残る危険＝映画の中に第三者の映像（ニュース映画・音楽）が混ざっている可能性。**
+札が一括であることは「中身に第三者の素材が無い」ことまでは証明しない。
+→ ⑤b でショットを選ぶとき、**局のロゴ・クレジット・見慣れた報道映像**が無いかを見る。
+
+⭐ **落とさずに使える。** `Range: bytes=0-1023` に **206** を返し、`ffprobe <URL>` がそのまま通る
+（4本目の Kaltura と同じやり方。署名も期限も無いので URL は固定でよい）。
+
+#### ショットの境目（`ref/sl1/shots.json`・`tools/shots.py` で1秒刻みに実測）
+
+| | Phase I & II | Phase III |
+|---|---:|---:|
+| ショット数 | **139** | **271** |
+| 長さ 中央値 | 7秒 | 5秒 |
+| 6秒以上 | 85本（21.8分） | 110本（21.4分） |
+| 8秒以上 | 68本（20.0分） | 63本（16.3分） |
+| ほぼ静止（`motion<2.0`）＝`still=True` 向き | 35本 | 35本 |
+
+🔴 **ffmpeg の scene 検出だけでは足りない。**
+`select=gt(scene,0.18)` は**ハードな切り替えしか見ず、ディゾルブ（重ね消し）を見ない**。
+それだけだと 77本／165本しか出ず、**1本のショットが 333秒**という嘘が出た。
+1秒ごとの見た目の署名で採り直して 139本／271本＝**168本を見落としていた**。
+→ 秒は必ず `ref/sl1/shots.json` から採る。`footage.py` の `outside_shot()` がまたぎを exit 3 で止める。
+
+### ② Wikimedia Commons `Category:SL-1 Reactor`（59点・**全部 PD**）
+
+🔴 **①題材のチャットの「全画面8点」は誤り。実測すると 39点。**
+題名（"floor plan" / "Interior view"）では連続階調か線図かは決まらないので、
+`tools/src_probe.py` で**インク率**（明度200未満の画素の割合）を測って分けた。
+図面 0.12〜0.35／写真 0.49〜1.00 で**間に1点も無く**、59点すべてで題名と一致した（しきい値 0.42）。
+
+⚠️ **44点は HAER ID-33**（Historic American Engineering Record・米国の産業遺産の記録）。
+`loc.gov/pictures` は UA と Referer を足しても 403 のままだが、**当たる必要が無かった**＝
+Commons 側が原本の TIFF（`lcweb2.loc.gov/pnp/habshaer/id/id0400/id0410/photos/…`）から
+5300x4300 で上げ直しており、LoC に取りに行っても同じ絵になる。
+
+⚠️ **「HAER ＝ 1968年以降に編纂」だが、中身は当時の写真を含む。**
+HAER の記録には INEEL（アイダホ国立工学環境研究所）が撮った 1957〜1961年の写真が複写されている。
+**当時（〜1961）24点／1968年以降の記録 15点**に分けた（下の表）。
+
+#### 当時の写真（1957〜1961）＝事故の本筋に使える
+| 年 | 寸法 | ink | HAER 番号 | 中身 |
+|---:|---|---:|---|---|
+| 1957 | 5319x4325 | 0.60 | HAER ID-33-D-51 | ARA-II. Camera looking southeast at foundation piers for SL-1 reactor building |
+| 1957 | 5344x4365 | 0.56 | HAER ID-33-D-71 | ARA-II. Construction progress at SL-1 site near end of 1957. Buildings from ri |
+| 1957 | 5289x4320 | 0.51 | HAER ID-33-D-53 | ARA-II. Steel shell for SL-1 reactor building goes up above supports. Septembe |
+| 1957 | 5325x4269 | 0.71 | HAER ID-33-D-54 | ARA-II. Structural steel framing for bottom SL-1 reactor building. October 16, |
+| 1957 | 4283x5314 | 0.54 | HAER ID-33-D-57 | ARA-II. Looking northwest at SL-1 reactor building during hoisting of turbine- |
+| 1957 | 5335x4279 | 0.70 | HAER ID-33-D-52 | ARA-II. Support piers for SL-1 reactor building. September 5, 1957. Ineel phot |
+| 1957 | 5284x4320 | 0.61 | HAER ID-33-D-55 | ARA-II. Looking down into SL-1 reactor building showing placement of four-inch |
+| 1957 | 4258x5345 | 0.68 | HAER ID-33-D-56 | ARA-II. View inside reactor building looking at SL-1 reactor vessel. November  |
+| 1957 | 5314x4283 | 0.77 | HAER ID-33-D-58 | ARA-II. Looking south, SL-1 reactor building operating floor with reactor pres |
+| 1957 | 5289x4294 | 0.63 | HAER ID-33-D-70 | ARA-II. Support facilities building (ARA-602) goes up next to SL-1 reactor bui |
+| 1958 | 4283x5309 | 0.65 | HAER ID-33-D-67 | ARA-II. Exterior view of enclosed stairway leading from SL-1 support building  |
+| 1958 | 5263x4304 | 0.78 | HAER ID-33-D-69 | ARA-II. Aligning the turbo generator on the operating floor of SL-1. June 24,  |
+| 1958 | 5299x4325 | 0.75 | HAER ID-33-D-73 | ARA-II. Aerial view of SL-1 site in May 1958 when construction was nearly comp |
+| 1958 | 5299x4294 | 0.68 | HAER ID-33-D-61 | ARA-II. Interior view of SL-1 reactor building on operating floor. Feedwater p |
+| 1958 | 5360x4284 | 0.75 | HAER ID-33-D-60 | ARA-II. Interior view of SL-1 reactor building, camera looking upward after to |
+| 1958 | 5294x4325 | 0.75 | HAER ID-33-D-59 | ARA-II. Interior view of SL-1 reactor building, camera looking up toward as to |
+| 1958 | 5309x4340 | 0.65 | HAER ID-33-D-63 | ARA-II. Ten-ton crane in SL-1 reactor building transports the reactor head. Fe |
+| 1958 | 4258x5335 | 0.74 | HAER ID-33-D-66 | ARA-II. Looking up covered stairway outside SL-1 reactor building while worker |
+| 1958 | 5324x4289 | 0.79 | HAER ID-33-D-62 | ARA-II. Ventilating fan in SL-1 reactor building, not yet hooked up, but in pl |
+| 1958 | 5345x4314 | 0.74 | HAER ID-33-D-64 | ARA-II. Interior view of SL-1 reactor building with reactor head in place in c |
+| 1958 | 5314x4314 | 0.72 | HAER ID-33-D-65 | ARA-II. Interior view of SL-1 reactor building control piping for water purifi |
+| 1958 | 5314x4288 | 0.77 | HAER ID-33-D-68 | ARA-II. Workmen on SL-1 operating floor look at shielding gravel in cover of w |
+| 1959 | 5350x4269 | 0.59 | HAER ID-33-D-74 | ARA-II. Dr. William Zinn of combustion engineering company and others at contr |
+| 1961 | 5340x4299 | 0.70 | HAER ID-33-D-76 | ARA-II. After SL-1 explosion, operators shielded crane cab try to open door of |
+
+#### 1968年以降の記録写真（解体・跡地・建屋の記録）
+| 寸法 | ink | HAER 番号 | 中身 |
+|---|---:|---|---|
+| 5385x4334 | 0.73 | HAER ID-33-D-78 | ARA-II. Aerial view in 1982 prior to characterization. Facilities were in use  |
+| 5360x4283 | 0.74 | HAER ID-33-D-16 | ARA-II Administration building ARA-613. South (front) and east sides. Camera f |
+| 5339x4253 | 0.92 | HAER ID-33-D-17 | ARA-II Administration building ARA-613. West side of building. Camera faces ea |
+| 5324x4253 | 0.77 | HAER ID-33-D-72 | ARA-II. Interior view in ARA-602 support building showing oil-fired hot air fu |
+| 5279x4288 | 0.92 | HAER ID-33-D-15 | ARA-II Administration building ARA-613, west side (in shade) and south side. C |
+| 5269x4309 | 0.72 | HAER ID-33-D-77 | ARA-II. Room at northeast corner of ARA-606 used for welding training and weld |
+| 5181x4208 | 0.92 | HAER ID-33-D-14 | ARA-II Contextual view from distance, camera facing east. Two story building n |
+| 4063x3158 | 0.81 | — | INEEL 58-1360 HAER ID-33-D-64 195650pu |
+| 3200x2584 | 0.74 | — | HD.6D.111 (10731009074) |
+| 2500x3200 | 0.58 | — | HD.6B.007 (10578937954) |
+| 2487x3200 | 0.51 | — | HD.6B.006 (10579022233) |
+| 1812x1111 | 0.71 | — | SL-1Burial |
+| 1436x1113 | 0.74 | — | Sl-1-ineel61-9 |
+| 1406x1881 | 0.56 | — | Sl-1-ineel81-3966 |
+| 1402x1050 | 0.89 | — | SL-1 - Dismantling of the foundation piers |
+
+#### 額装パネル・暗幕の地にするもの（図面・線図）＝全画面に出さない
+| 寸法 | ink | HAER 番号 | 中身 |
+|---|---:|---|---|
+| 5421x4301 | 0.20 | HAER ID-33-D-129 | ARA-II Administrative and technical support building (ARA-606) sections showin |
+| 5412x4282 | 0.19 | HAER ID-33-D-137 | ARA-II Building ARA-602 floor plan as it appeared in 1980 when electrical modi |
+| 5411x4301 | 0.35 | HAER ID-33-D-138 | ARA-II Building ARA-606 floor plan for remodel as Inel Welding Laboratory. Sho |
+| 5407x4287 | 0.19 | HAER ID-33-D-132 | ARA-II Administration building (ARA-613) elevations of north, south, east, and |
+| 5402x4292 | 0.21 | HAER ID-33-D-126 | ARA-II Plot plan showing location of SL-1 power plant (reactor) building, and  |
+| 5398x4291 | 0.18 | HAER ID-33-D-127 | ARA-II Administrative and technical support building (ARA-606) ground floor pl |
+| 5398x4292 | 0.19 | HAER ID-33-D-131 | ARA-II Administration building (ARA-613) floor plans for first and second floo |
+| 5397x4287 | 0.22 | HAER ID-33-D-128 | ARA-II Administrative and technical support building (ARA-606) elevations for  |
+| 5393x4254 | 0.16 | HAER ID-33-D-134 | ARA-II SL-1 decontamination and lay down building (ARA-614) erected after acci |
+| 5388x4264 | 0.16 | HAER ID-33-D-135 | ARA-II SL-I decontamination and lay down building (ARA-614) north, south, east |
+| 5384x4273 | 0.18 | HAER ID-33-D-130 | ARA-II Administration building (ARA-613) vicinity map and plot plan showing re |
+| 5379x4292 | 0.16 | HAER ID-33-D-133 | ARA-II SL-1 burial ground. Shows gravel path from ARA-II compound to the buria |
+| 1454x1753 | 0.12 | — | SL-1 - Reactor schematic |
+| 729x589 | 0.33 | — | SL-1 - Cutaway of reactor and control building |
+
+#### ❌ 幅が足りず全画面に出せないもの（1280px 未満）
+- 1261x884 `Sl-1-ineel61-667`
+- 720x548 `ALPR`
+- 704x346 `SL1nuclearpowerplant`
+- 640x480 `"Nuclear Power Reactor - The SL-1 Accident Video- Briefing Film Report`
+- 346x253 `US AEC SL-1`
+- 160x110 `SL-1 The Accident Phases I and II Animated`
+
+### ③ 一次資料 IDO-19302（AEC アイダホ支所の事故報告書・1962）
+
+| | |
+|---|---|
+| 題 | *IDO Report on the Nuclear Incident at the SL-1 Reactor, January 3, 1961* |
+| 取り方 | `curl -L -o ref/sl1/IDO-19302.pdf https://www.osti.gov/servlets/purl/4809634`（17.1MB・208ページ） |
+| 権利 | AEC ＝合衆国政府の職務著作＝**パブリックドメイン** |
+| リポ | ❌ 入れない（17MB）。上の1行で取り直せる |
+
+**208ページを 100dpi で測った結果**
+- **189/208 ページに文字層がある**＝原文照合にそのまま使える（OCR は要らない）。
+  ⚠️ ①題材のときの「走査版」という見立ては誤り。文字が取れないのは1ページ目（表紙）だけ
+- **図・写真のページ ＝ 43ページ**（文字400字未満・インク率0.03以上）。
+  うち写真とみられる濃いページ＝**p1・p2・p46・p47・p48・p180〜p184**
+- 図のページの一覧＝`analytics/materials/sl1_ido_pages.json`（頁・文字数・インク率・空白帯・bbox）
+
+⚠️ **報告書の図の英字は焼き込まれている**（ベクタで付いてこない）。
+画素で測って切る＝`tools/fitcrop.py`。→ [[reference-report-figures-have-burned-in-english]]
+
+### ④ ❌ 使わないと決めたもの
+
+| 何 | 理由 |
+|---|---|
+| archive.org の Prelinger 版ブリーフィング映画（640x480・524秒） | **解像度が足りない**（本レンダは1920x1080）。①の記録映画2本が同じ1920x1080で55分43秒あるので保険も要らない |
+| 同 `sl-1-accident-briefing-report-1961…`（480x360） | 同上 |
+| Commons の6点（`SL1nuclearpowerplant` 704px・`ALPR` 720px・`US AEC SL-1` 346px・briefing film webm 640px・`SL-1 The Accident … Animated.gif` 160px ほか） | **幅1280px 未満**＝全画面に耐えない |
+| LoC `loc.gov/pictures` の HAER ID-33 原本 | 403 のままだが、**Commons に同じ絵が 5300px で在る**ので当たる必要が無い |
+
+### ⑤ 画面に出す出典表記
+
+- 記録映画 … `footage.credit_of()` が `CLIPS[...]["credit"]` から作る
+  ＝「出典：米国国立公文書館（NARA）／米原子力委員会（AEC）撮影 「SL-1 Accident Phase I & II」（NARA naId 174689848）／パブリックドメイン」
+- Commons の写真 … `HAER ID-33-D-NN`（`ref/sl1/materials.json` の `acc`）を添える
+  ＝「出典：米議会図書館 HAER ID-33-D-76／パブリックドメイン」
+- 報告書 … 「出典：IDO-19302（米原子力委員会アイダホ支所・1962）p.NN」
+
+⚠️ **必須でないクレジットは書かない**（→ [[feedback-no-optional-credits]]）。
+⚠️ **概要欄・説明文に素材の方針を書かない。画面に出す運用は続ける**（2026-08-03 の決定）。
+

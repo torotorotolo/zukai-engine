@@ -111,3 +111,9 @@ config/
 # 🔴 アナリティクスの取得結果は public リポジトリに置かない（2026-08-07）。
 #    チャンネルの内部数字（再生・維持・CTR・Studio の CSV）が入る。
 analytics/
+
+# 5本目 SL-1（2026-09-07）
+!ref/sl1/
+!ref/sl1/shots.json
+!ref/sl1/materials.json
+ref/sl1/*.pdf
