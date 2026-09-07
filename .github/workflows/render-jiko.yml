@@ -95,6 +95,18 @@ jobs:
       #   🔴 動画はリポジトリに入れていないので、ここで URL から取る。
       #   ⚠️ 失敗しても続行する。コマが無ければ build 側は**静止画に落ちる**ので、
       #     素材が取れない日でも検品は回せる（パイプラインは壊れない）。
+      # 🔴🔴 2026-09-07（5本目 SL-1 ⑤c'）：**切り出す前に、書いた秒を機械で見る。**
+      #    ここだけは continue-on-error にしない。下の Fetch は
+      #    「素材が取れない日でも検品は回せる」ために続行させているが、それは
+      #    **回線の失敗**の話で、**秒の書き間違い**を見逃してよい理由ではない。
+      #    実際 pr01 は until も shots.json も正しく書いてあったのに、
+      #    尺 11.57秒 × rate 1.0 で 1488.7秒まで読み、記録映画の終幕タイトル
+      #    「THE END」を動画の1カット目に出したまま焼き上がっていた（台帳 J-01）。
+      #    exit 2=until 無し／3=ショットまたぎ／4=使ってはいけない秒／5=素材の黒帯
+      - name: Check footage (秒・ショット・禁止の秒・黒帯)
+        if: inputs.scan != 'true'
+        run: python tools/footage.py fetch --check
+
       - name: Fetch footage (実写動画)
         if: inputs.scan != 'true'
         continue-on-error: true
@@ -129,6 +141,14 @@ jobs:
         if: inputs.scan != 'true'
         continue-on-error: true
         run: python tools/check_layout.py
+
+      # 🔴 行が語の途中で割れていないか（2026-09-07・5本目 L-15）。
+      #    机上検査は「文字がぶつかっていないか」しか見ないので、
+      #    「アイダホ支所の報告書（20／8ページ）」＝**数字 208 が割れる**は素通りした。
+      - name: Check wrap (行が語の途中で割れていないか)
+        if: inputs.scan != 'true'
+        continue-on-error: true
+        run: python tools/check_wrap.py
 
       # 図がナレーションの複写になっていないか（映像ルール6）
       - name: Check echo

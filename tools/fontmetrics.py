@@ -50,8 +50,22 @@ _FONTS = {}
 _CACHE = None
 
 
+_FELL_BACK = set()
+
+
 def _load(family):
-    """woff2 を開く。fontTools が無ければ None（キャッシュに落ちる）。"""
+    """woff2 を開く。fontTools が無ければ None（キャッシュに落ちる）。
+
+    🔴🔴 2026-09-07（5本目 SL-1 ⑤c'）：**ここが黙って物差しを取り替えていた。**
+       `check_layout.py` を続けて2回回して、**同じコードで 重なり5件 → 0件** になった。
+       原因は fontTools の読み込みがそのとき失敗し、`fonts/_metrics.json`（2026-07-31 に
+       書き出した粗いキャッシュ）へ落ちていたこと。落ちても何も出ないので、
+       **どちらの答えが本物か分からない**まま「c501 c504 c601 pr01 pr03 の注記が
+       6〜10px 重なる」という**幻の所見**が出ていた。
+       ⚠️ 並列に Chrome を回してレンダしている最中に起きやすい（同じ woff2 を掴む）。
+       → **落ちたことを必ず言う**（黙って別の物差しに替えない）。
+       → [[feedback-verify-your-own-instrument]] [[feedback-parsers-fail-closed]]
+    """
     if family in _FONTS:
         return _FONTS[family]
     try:
@@ -59,9 +73,20 @@ def _load(family):
         ft = TTFont(FONTS / FAMILY_FILE[family], lazy=True)
         upm = ft["head"].unitsPerEm
         _FONTS[family] = (ft, ft.getBestCmap(), ft["hmtx"], upm, ft.getGlyphSet())
-    except Exception:
+    except Exception as e:                                   # noqa: BLE001
+        if family not in _FELL_BACK:
+            _FELL_BACK.add(family)
+            print(f"🔴 フォント {family}（{FAMILY_FILE[family]}）を実測できないので "
+                  f"{CACHE.name} の値に落ちました：{type(e).__name__}: {e}。"
+                  f"**この回の字幅は粗い物差しです。所見をそのまま信じないこと**",
+                  file=sys.stderr, flush=True)
         _FONTS[family] = None
     return _FONTS[family]
+
+
+def measured():
+    """いま**フォントを実測できているか**。門番の要約行に出すため。"""
+    return not _FELL_BACK and all(_load(f) for f in FAMILY_FILE)
 
 
 def _cache():

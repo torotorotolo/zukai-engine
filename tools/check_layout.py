@@ -284,8 +284,17 @@ def main(only=None):
         print("  ✓ 横切っている図形は無い")
 
     n = bad + ov + tofu + cross
+    # 🔴 2026-09-07（5本目 ⑤c'）：**どの物差しで測ったかを必ず出す。**
+    #    fontTools が読めないと fontmetrics が黙って粗いキャッシュに落ち、
+    #    同じコードで「重なり5件」と「0件」が出た（幻の所見）。
+    import fontmetrics as _fm
+    if not _fm.measured():
+        print("🔴 フォントを実測できていない（粗いキャッシュの値）。"
+              "**この結果は当てにならない**。fontTools/brotli を入れ直して回し直すこと")
+        return 1
     print(f"\n{'🔴 直すところあり' if n else '✓ 机上の検算はすべて通った'}"
-          f"（画面外 {bad}件・重なり {ov}件・豆腐 {tofu}件・図形が横切る {cross}件）")
+          f"（画面外 {bad}件・重なり {ov}件・豆腐 {tofu}件・図形が横切る {cross}件"
+          f"／フォントは実測）")
     return 1 if n else 0
 
 
