@@ -466,6 +466,10 @@ PHOTO_FULL = (0, 0, W, H)
 SCRIM_TOP = 300
 CRED_Y = 872
 CRED_BACK_Y = 196       # 写真を地に敷くカットの出典（右上・本体枠の上）
+# 🔴 quote の札（x 92〜562）の右・決め所の左端。ここから出典を書くと
+#    札の中の原文とも、閉じ括弧（x 1682〜1802）とも当たらない（`check_layout` で確認）
+CRED_BACK_X = 632
+CRED_BACK_W = 1682 - CRED_BACK_X        # 閉じ括弧「」」の左端（1682）までの幅
 BAND_CY = 560           # 帯写真の縦中心
 
 
@@ -647,13 +651,31 @@ def fig_base(cid, spec, ground=True):
     if ground:
         g = [J.frame(W, H)]
     else:
-        # 🔴 出典は**右上**（見出しの罫の下・本体枠の上）に置く。
-        #    実写カットと同じ y=872 に置いたら、本体（BAND_T 210〜BAND_B 892）の
-        #    中に入って図の文字と重なった（check_layout が c115a と c628 で検出）。
-        #    ここは章マーカー（y=56〜158）の下、本体の上で、どの型も使わない帯。
-        g = [J.grid_only(W, H),
-             J.outlined(J.RIGHT, CRED_BACK_Y, credit_of(cid, spec),
-                        J.LINE, 24, anchor="end", sw=5)]
+        # 🔴🔴 2026-09-07（5本目 SL-1 ⑤c'・L-30/L-37）：**出典を下（y=872）へ戻した。**
+        #    それまでは右上 y=196 に置いていたが、原寸で見ると
+        #    **見出し帯の中に出て、ほかのカットの y≒862 と揃っていない**（10カットで確認）。
+        #    ⚠️ 旧コメントの「y=872 に置いたら図の文字と重なった（c115a c628）」は
+        #      **2本目の型の話**で、いまここを通るのは `quote` だけ（実測 14/14）。
+        #      quote の札は card_y 240＋card_h 612 ＝ 底 852、決め所は縦中央で
+        #      いちばん下でも y≒726。**y=872 は空いている**（`check_layout` で確認）。
+        #    ⚠️ 型が増えて quote 以外がここを通るようになったら、右上へ戻す必要がある。
+        #      それを人の記憶に頼らないよう、**型を見て分ける**（下の cred_y）。
+        #    ⚠️ 左端（x=72）に置くと**札の下の原文（ctx）と重なる**（c121 319×15px・
+        #      c915 94×19px を `check_layout` が検出）。札は x 92〜562 なので、
+        #      **札の右**（決め所の左端と同じ x=632）から書く。右端に寄せると
+        #      閉じ括弧「」（x 1682〜1802・y 772〜892）に当たる。
+        #    ⚠️ 長い出典（IDO-19311 の行は 24px で 1,120px）はそのままだと括弧に届く。
+        #      **入る大きさに落として書く**（式で決める。目で詰めない）。
+        _fig = (spec.get("fig") or ("", None))[0]
+        if _fig == "quote":
+            _c = credit_of(cid, spec)
+            _sz = fm.fit(_c, CRED_BACK_W, "Noto", cap=24, floor=17)
+            g = [J.grid_only(W, H),
+                 J.outlined(CRED_BACK_X, CRED_Y, _c, J.LINE, _sz, sw=5)]
+        else:
+            g = [J.grid_only(W, H),
+                 J.outlined(J.RIGHT, CRED_BACK_Y, credit_of(cid, spec),
+                            J.LINE, 24, anchor="end", sw=5)]
     g.append(J.title(spec["t"], spec.get("s", "")))
     ch = chapter_of(cid)
     if ch:
