@@ -579,9 +579,52 @@ def surfside():
         bake(f"ss_{nm}", fx_type(hero, r, y, "e_veil", yel_plain=True))
 
 
+SL1_ROD = "sl1/fb_c811.jpg"     # 記録映画 Phase III：防護服の3人が炉の部品を吊り上げる
+SL1_CTRL = "sl1/haer_74.jpg"    # HAER ID-33-D-74：SL-1 の制御盤の前（1958年）
+
+
+def sl1():
+    """5本目のサムネ。型は競合と同一＝**赤1行・黄1行・写真だけ**。
+
+    ■ 決め語（本編が実際に読んでいる数字だけを使う）
+      赤＝被害の規模。**「3名死亡」**（[[feedback-jiko-death-word-policy]]＝
+        「即死」「圧死」はタイトル・サムネに出さない）。
+        事故の核心は「中央の制御棒を**手で 20インチ 引き抜いた**」（c712・c719・c721・c727）。
+      黄＝この動画の差別化。**208ページの報告書が「原因」を書いていない**こと（pr04・ep01）。
+        ⚠️ 実測で効くのは「証言・記録・生存者」＝1.94倍。「隠蔽」「衝撃」「闇」は逆効果
+        （[[feedback-what-drives-views]]）。
+      ⚠️ 黄は**字数が少ないほど 210px で読める**（[[feedback-thumbnail-must-read-at-210px]]）。
+
+    ■ 地の作り
+      `fb_c811` は 1920幅のうち **x240〜1679 だけが絵**（残りは黒帯＝`footage.PILLAR`）。
+      `zoom=4/3` でちょうど黒帯が画面の外へ出る（1440×810 を切り出す）。
+      ⚠️ ここを 1.0 のままにすると**サムネの左右に黒帯が出る**。
+    """
+    RED_A = "3名死亡 制御棒を手で引いた"
+    RED_B = "当直の3名死亡 棒は20インチ"
+    YEL_A = "1961年 SL-1原子炉事故"
+    YEL_B = "原因を書かない208ページ"
+
+    rod = photo(SL1_ROD, cy=0.30, cx=0.50, contrast=1.20, color=1.10,
+                bright=0.88, zoom=4 / 3)
+    rod_lo = photo(SL1_ROD, cy=0.50, cx=0.50, contrast=1.20, color=1.10,
+                   bright=0.88, zoom=4 / 3)
+    ctrl = photo(SL1_CTRL, cy=0.44, cx=0.42, contrast=1.22, color=1.0,
+                 bright=0.86, zoom=1.15)
+
+    for nm, hero, r, y in (("a_rod", rod, RED_A, YEL_A),
+                           ("b_rod_208", rod, RED_A, YEL_B),
+                           ("c_ctrl", ctrl, RED_A, YEL_A),
+                           ("d_rod_inch", rod, RED_B, YEL_A),
+                           ("e_rod_lo", rod_lo, RED_A, YEL_A)):
+        bake(f"sl1_{nm}", fx_type(hero, r, y, "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "surfside" in sys.argv:
+    if "sl1" in sys.argv:
+        sl1()
+    elif "surfside" in sys.argv:
         surfside()
     elif "thresher" in sys.argv:
         thresher()
