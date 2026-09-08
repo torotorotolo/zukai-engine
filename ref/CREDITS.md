@@ -804,3 +804,42 @@ credit も `dvidshub.net` を指している＝**Commons は DVIDS の写し**�
 ⚠️ 逆に**枚数が足りないと分かった時点で掘る**（`tools/dvids_probe.py`。
 CDN の `2000w_q95.jpg` は認証なしで通るが、**小さい原本を引き伸ばす**ので実効幅は原本と配信物の小さいほう）。
 🔴 DoD の映像を使うときは「推奨を意味しない」断り書きの表示義務に注意（FEMA 撮影分には付かない）。
+
+### ⑤b（2026-09-08）に作った素材 ── 報告書の図32枚＋Commons 写真11点
+
+**道具＝`tools/keybridge_assets.py`。表と1対1。**
+
+#### 報告書のページ（`ref/keybridge/kb_p<印字>_fig<図番>.png`・32枚）
+NTSB **MIR-25-40** を 3.0倍で PNG に焼き、グレースケールで保存（このリポは public）。
+権利＝合衆国政府の職務著作（17 U.S.C. §105）。**画面に出すのは印字ページ**（PDF ＝ 印字 ＋ 2）。
+`--selftest` が32枚すべてについて「本文の語」と「`Figure N.`」の**両方**をそのページで照合する（66/66 ✓）。
+
+🔴 **台本 §4 の画の欄の書き間違い3件をここで直した**（出典欄のほうが正しかった）:
+`c712` p112→**p114**（Figure 50 HR1 UVR control circuit）／
+`c715` p113→**p115**（Figure 51 Terminal Block 381）／
+`ca02` p113→**p118**（Figure 53 Wire 1 と Wire 3）。
+
+#### Commons の写真（`ref/keybridge/kb_*.jpg`・11点）
+
+🔴 **②の「事故前の写真は在庫に1点も無い」は誤りだった。**
+②が数えたのは `Category:Francis Scott Key Bridge collapse`（1,017点・全部 崩落後）と
+郡 Flickr の `FSK-Collapse-NNN`（170点・同）だけ。
+**`Category:Francis Scott Key Bridge (Baltimore)` に 252点あり、うち事故前が 99点**
+（幅1280以上・連続階調 92点／PD 19・CC BY 12・残り CC BY-SA）。
+台帳＝`analytics/materials/kb_pre.json`・`kb_const.json`。
+
+⚠️ **CC BY-SA は採らない**（「継承」が動画全体に及ぶ論点を抱えない）。下は PD と CC BY だけ。
+
+| 名前 | 中身 | 権利 |
+|---|---|---|
+| `kb_pre_1976` | 1976-08-11 開通前の橋（The Evening Sun） | PD（US no notice） |
+| `kb_pre_harbor07` | 2007 内港から見た全景 | PD（撮影者が放棄） |
+| `kb_pre_navy12` | 2012 橋の下をくぐる USS San Antonio | PD 米海軍 |
+| `kb_pre_oakhill14` | 2014 橋に近づく USS Oak Hill | PD 米海軍 |
+| `kb_pre_catlett22` | 2022 橋の下を通る工兵隊の測量艇 CATLETT | PD 米陸軍工兵隊 |
+| `kb_pre_deck05` | 2005 橋の路面（車内から・4車線） | CC BY 2.0 Brent Moore |
+| `kb_pre_2019` | 2019 全景 5416×3610 | CC BY 2.0 Rafael Saldaña |
+| `kb_bld_harbor` `kb_bld_piers` `kb_bld_supports` `kb_bld_curtis` | 建設中の橋・橋脚（NARA 546833/546837/546929/546911） | PD |
+
+⚠️ **まだ足りない主題**（⑤b の続きで測る）: 事故前の 17番橋脚まわり・防衝工・トラスの内側・
+夜の港・補修班の車両・州交通局警察の車と艇。**代用しない**（無ければ図に置き換える）。
