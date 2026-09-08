@@ -110,7 +110,11 @@ def main():
     import json
     jp = ROOT / "audio" / "narration.json"
     d = json.loads(jp.read_text(encoding="utf-8")) if jp.exists() else {}
-    Q = {"c112", "c126", "c214", "c225", "c318", "c412", "c426", "c515", "c614", "c717", "c722", "ep11"}
+    # 🔴 2026-09-08: ここは **4本目サーフサイドの決め所IDが直書き**されていた（12件）。
+    #    6本目キー橋の決め所 22件と重なるのは c426 / c722 の2件だけ＝残り20カットで
+    #    「+2.0秒」が誤って入る／抜けるまま、要耳一覧の頭出しの秒が黙ってずれていた。
+    #    台本の md から機械で取る（ES.quote_cuts は数が EXPECT と食い違えば止まる）。
+    Q = ES.quote_cuts()
     t, start = 0.0, {}
     for cid, sec in d.get("durations", {}).items():
         start[cid] = t

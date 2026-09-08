@@ -60,11 +60,36 @@ Line = namedtuple("Line", "lid cid idx text")
 #    門番は壊れず「黙って間違った合格」を出すので、回ごとに数を書き留めて selftest で突き合わせる
 #    （feedback-gates-go-stale-when-upstream-changes）。出所＝check_script.py の集計。
 #    quotes＝決め所（★）の数。clean() が ★ を外すので narration.SCRIPT からは数えられない＝ここに書く。
+#    md＝台本の正本（Vault）。★の付いたカットIDを**そこから機械で取る**ためだけに使う。
 EXPECT = {
-    "surfside": {"cuts": 240, "lines": 486, "chars": 11027, "quotes": 12, "why": "サーフサイド 台本第3版"},
-    "sl1":      {"cuts": 212, "lines": 435, "chars": 10553, "quotes": 17, "why": "SL-1 台本第2版"},
-    "keybridge": {"cuts": 216, "lines": 443, "chars": 11117, "quotes": 22, "why": "キー橋 台本第2版"},
+    "surfside": {"cuts": 240, "lines": 486, "chars": 11027, "quotes": 12, "why": "サーフサイド 台本第3版",
+                 "md": "事故検証-サーフサイド-台本第3版-20260905.md"},
+    "sl1":      {"cuts": 212, "lines": 435, "chars": 10553, "quotes": 17, "why": "SL-1 台本第2版",
+                 "md": "事故検証-SL1-台本第2版-20260907.md"},
+    "keybridge": {"cuts": 216, "lines": 443, "chars": 11117, "quotes": 22, "why": "キー橋 台本第2版",
+                  "md": "事故検証-キー橋-台本第2版-20260908.md"},
 }
+VAULT = Path.home() / "Documents" / "Obsidian Vault" / "Projects"
+
+
+def quote_cuts():
+    """決め所（★）の付いたカットIDの集合を**台本の md から**取る（2026-09-08 新設）。
+
+    🔴 なぜ要るか: el_ledger.py はこれを `Q = {"c112", "c126", …}` と**4本目サーフサイドのIDで直書き**
+       していた。カットIDは題材をまたいでぶつかる／ぶつからないので、回が替わると
+       **黙って間違った秒**（要耳一覧の頭出し）を出す（feedback-gates-go-stale-when-upstream-changes）。
+    fail closed: md が無い・★の数が EXPECT と食い違うときは例外で止める（0 で埋めない）。
+    """
+    import check_script as CSC
+    p = VAULT / EXPECT[SLUG]["md"]
+    if not p.exists():
+        raise SystemExit(f"🔴 台本の md が無い: {p}（el_script.EXPECT[{SLUG!r}]['md']）")
+    cuts = CSC.parse(p.read_text(encoding="utf-8"))
+    q = {cid for cid, _, ls in cuts if any(CSC.STAR_RE.match(l) for l in ls)}
+    want = EXPECT[SLUG]["quotes"]
+    if len(q) != want:
+        raise SystemExit(f"🔴 決め所の数が食い違う: md {len(q)} ／ EXPECT {want}（上流を替えたら定数を取り直す）")
+    return q
 
 
 def lines():
