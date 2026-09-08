@@ -18,6 +18,7 @@ r"""el_build.py — ElevenLabs で全カットを合成し、AivisSpeech 版の 
 """
 import hashlib
 import json
+import subprocess
 import sys
 import wave
 from pathlib import Path
@@ -39,11 +40,41 @@ GAP = 0.40          # 行と行のあいだに置く無音（秒）。ElevenLabs
 SR = el_tts.SR
 AUDIO = ROOT / "audio"
 
+# 🔴🔴 TEMPO＝合成後の話速（2026-09-08・6本目キー橋の⑤a で新設）。
+#    なぜ要るか: カズヤくん指示「話速は6本目から少し速く」（正本 §5）は **API では実現できない**。
+#    `eleven_v3` は `voice_settings.speed` を見ない（`el_speed_probe.py` の実測＝速度比 0.98／
+#    引き直しのばらつき 3.04% に埋もれる）。＝「1.05」は API 側では実現できないまま撤回されていた。
+#    ここで ffmpeg の `atempo`（WSOLA・**音の高さは変えず長さだけ変える**）を合成後に当てて実現する。
+#    ⚠️ 掛ける場所は **行の pcm 1本ずつ・GAP を足す前**。まとめて掛けると GAP まで縮んで
+#       「間」の設計が崩れる。行ごとに掛ければ narration.json の t/d は自動で正しくなる。
+#    ⚠️ TEMPO は指紋（_sig）に入れる。入れないと、値を変えても部分更新が「持ち越し可」と誤判定する
+#       （feedback-gates-go-stale-when-upstream-changes）。合成キャッシュの鍵には**入らない**
+#       ＝TEMPO を変えても API はもう叩かない（`--dry` で 0 クレジットで焼き直せる）。
+#    ⚠️ 1.0 のときは ffmpeg を通さない（素通り）。5本目までの音は 1 バイトも変わらない。
+TEMPO = 1.05
+
+
+def retempo(pcm: bytes, tempo: float = None) -> bytes:
+    """話速だけを変える（音の高さは変えない）。raw s16le mono SR を ffmpeg atempo に通す。"""
+    t = TEMPO if tempo is None else tempo
+    if abs(t - 1.0) < 1e-9:
+        return pcm
+    if not (0.5 <= t <= 2.0):        # atempo の1段の有効範囲。外は黙って歪むので止める
+        raise SystemExit(f"🔴 TEMPO が atempo の範囲外: {t}")
+    cmd = ["ffmpeg", "-hide_banner", "-loglevel", "error",
+           "-f", "s16le", "-ar", str(SR), "-ac", "1", "-i", "pipe:0",
+           "-filter:a", f"atempo={t}", "-f", "s16le", "-ac", "1", "-ar", str(SR), "pipe:1"]
+    r = subprocess.run(cmd, input=pcm, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if r.returncode != 0 or not r.stdout:
+        raise SystemExit(f"🔴 atempo に失敗: {r.stderr.decode('utf-8', 'replace')[:300]}")
+    return r.stdout
+
 
 def _sig(lines):
-    """カットの指紋＝**実際にエンジンへ渡る文字列**と声・モデル・設定・GAP から取る（narration._sig と同じ思想）。"""
+    """カットの指紋＝**実際にエンジンへ渡る文字列**と声・モデル・設定・GAP・TEMPO から取る（narration._sig と同じ思想）。"""
     spoken = "".join(ES.el_text(x) for x in lines)
-    return hashlib.sha1(f"{spoken}|{el_tts.VOICE}|{el_tts.MODEL}|{json.dumps(ES.SETTINGS, sort_keys=True)}|{GAP}"
+    return hashlib.sha1(f"{spoken}|{el_tts.VOICE}|{el_tts.MODEL}|{json.dumps(ES.SETTINGS, sort_keys=True)}"
+                        f"|{GAP}|{TEMPO}"
                         .encode("utf-8")).hexdigest()[:12]
 
 
@@ -62,6 +93,7 @@ def build_cut(cid, lines, synth):
     for i, line in enumerate(lines, 1):
         sent = ES.el_text(line)
         pcm = synth(sent, f"{cid}-{i}")
+        pcm = retempo(pcm)                   # 🔴 話速（GAP を足す前・行ごとに掛ける）
         pcm = ART.edge_fade(pcm, 5)          # デジタル無音へ直結するクリック止め（長さ不変）
         sec = len(pcm) / 2 / SR
         rows.append({"t": round(t, 3), "d": round(sec, 3), "text": line})
@@ -131,7 +163,9 @@ def build(cuts=None, dry=False):
     jp.write_text(json.dumps({
         "engine": "elevenlabs", "voice": el_tts.VOICE, "voice_name": el_tts.VOICE_NAME,
         "model": el_tts.MODEL, "settings": ES.SETTINGS,
-        "speaker": f"elevenlabs:{el_tts.VOICE}", "speed": 1.0, "credit": "",
+        # 🔴 speed＝**実効の話速**。API の speed は eleven_v3 に効かないので、合成後の atempo（TEMPO）が実効値。
+        #    「何で焼いたか」の記録なので、効かない 1.0 を書き残すと後から嘘になる。
+        "speaker": f"elevenlabs:{el_tts.VOICE}", "speed": TEMPO, "tempo": TEMPO, "credit": "",
         "gap": GAP, "durations": durs, "subtitles": subs, "signatures": sigs,
     }, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -189,19 +223,47 @@ def selftest() -> int:
         fake[lid] = n
         return struct.pack(f"<{n}h", *([1000] * n))
 
-    pcm, total, rows = build_cut("t1", ["あいうえお。", "かきくけこさしすせそ。"], synth)
-    ok(len(rows) == 2 and rows[0]["t"] == 0.0, "字幕 rows の形")
-    ok(abs(rows[1]["t"] - (rows[0]["d"] + GAP)) < 1e-6, "2行目の t ＝ 1行目の d ＋ GAP")
-    ok(abs(total - (rows[0]["d"] + GAP + rows[1]["d"])) < 1e-6, "total ＝ 発話＋GAP")
-    ok(len(pcm) == (fake["t1-1"] + int(GAP * SR) + fake["t1-2"]) * 2, "pcm の長さ")
-    ok(struct.unpack("<h", pcm[:2])[0] == 0, "先頭が 5ms フェードで 0")
+    # ── ① TEMPO=1.0（素通り）＝組み立てそのものの検算。ここは 1 サンプルも動いてはいけない ──
+    global TEMPO
+    keep = TEMPO
+    try:
+        TEMPO = 1.0
+        pcm, total, rows = build_cut("t1", ["あいうえお。", "かきくけこさしすせそ。"], synth)
+        ok(len(rows) == 2 and rows[0]["t"] == 0.0, "字幕 rows の形")
+        ok(abs(rows[1]["t"] - (rows[0]["d"] + GAP)) < 1e-6, "2行目の t ＝ 1行目の d ＋ GAP")
+        ok(abs(total - (rows[0]["d"] + GAP + rows[1]["d"])) < 1e-6, "total ＝ 発話＋GAP")
+        ok(len(pcm) == (fake["t1-1"] + int(GAP * SR) + fake["t1-2"]) * 2, "pcm の長さ")
+        ok(struct.unpack("<h", pcm[:2])[0] == 0, "先頭が 5ms フェードで 0")
+        ok(retempo(b"\x00\x00" * 100, 1.0) == b"\x00\x00" * 100, "TEMPO 1.0 は 1バイトも変えない")
+
+        # ── ② TEMPO=1.05 の陽性対照（2026-09-08 新設）──────────────────────
+        # 🔴 見るのは3つ:「発話だけが縮む」「GAP は縮まない」「t/d が縮んだ音と合う」。
+        #    ⚠️ atempo は WSOLA のフレーム単位なので比はぴったり 1.05 にならない（実測 1.048）。
+        #    ここを「== 1.05」で書くと**正しく動いていても落ちる**ので、幅で見る。
+        TEMPO = 1.05
+        fake.clear()
+        pcm2, total2, rows2 = build_cut("t1", ["あいうえお。", "かきくけこさしすせそ。"], synth)
+        speech1 = (fake["t1-1"] + fake["t1-2"]) / SR          # 素の発話（GAP を含まない）
+        speech2 = rows2[0]["d"] + rows2[1]["d"]
+        ok(1.03 <= speech1 / speech2 <= 1.07, f"発話が約5%縮む（実測 {speech1 / speech2:.4f}）")
+        ok(abs(rows2[1]["t"] - (rows2[0]["d"] + GAP)) < 2e-3, "縮めても 2行目の t ＝ 1行目の d ＋ GAP")
+        ok(abs(total2 - (speech2 + GAP)) < 2e-3, "total ＝ 縮んだ発話＋GAP（GAP は縮まない）")
+        ok(abs(len(pcm2) / 2 / SR - total2) < 2e-3, "pcm の長さ ＝ total")
+        ok(total2 < total, "TEMPO を上げると尺が短くなる")
+        # 指紋は TEMPO で変わる（変わらないと、値を変えても部分更新が「持ち越し可」と誤判定する）
+        sig_fast = _sig(["あ", "い"])
+        TEMPO = 1.0
+        ok(_sig(["あ", "い"]) != sig_fast, "指紋は TEMPO で変わる")
+    finally:
+        TEMPO = keep
+
     s1 = _sig(["あ", "い"])
     s2 = _sig(["あ", "う"])
     ok(s1 != s2 and s1 == _sig(["あ", "い"]), "指紋は本文で変わる・同じ本文で同じ")
     if fails:
         print(f"selftest: 落ちた: {fails}")
         return 1
-    print("selftest: 6/6 合格（API は叩いていない）")
+    print("selftest: 13/13 合格（API は叩いていない）")
     return 0
 
 

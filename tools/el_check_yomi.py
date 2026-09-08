@@ -35,6 +35,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import el_tts  # noqa: E402
 import el_script as ES  # noqa: E402  行の列挙・EL_YOMI・キャッシュの場所（事故検証chは config/<slug>.json でなく narration.SCRIPT）
+import el_build as EB  # noqa: E402  TEMPO（出荷する音と同じ話速で検査するため）
 # ⚠️ 2026-08-26: 合成側は EL_YOMI を当てた文で焼くので、キャッシュの鍵も置換後の文で作られます。
 #    ここで生の台本から鍵を作ると、**読みを直した行だけが「キャッシュが無い」ことになって
 #    検査から漏れます**（実際に s018/s019/s061/s137/s142 の5行が漏れました）。
@@ -99,6 +100,15 @@ def load_tsv(path):
 def main():
     # 引数は --ids だけ（題材は el_script.SLUG）。--ids を付けると**その行だけ検査して tsv に差し込む**
     # （他の行の記録は残す＝直した行だけかけ直しても台帳が歯抜けにならない）。
+    # 🔴🔴 門番（2026-09-08 新設・実際に踏んだ事故）: **知らない引数で全行の有料実行に落ちない。**
+    #    `--selftest`（この道具には無い）を付けて呼んだら、警告も出さずに 443行の Scribe が走り出し、
+    #    止めるまでに 433クレジットを捨てた。無い旗を「無視して本番」は fail open。
+    #    → [[feedback-parsers-fail-closed]] / [[feedback-rules-need-gates]]
+    KNOWN = {"--ids", "--worst"}
+    unknown = [a for a in sys.argv[1:] if a.startswith("--") and a not in KNOWN]
+    if unknown:
+        raise SystemExit(f"🔴 知らない引数: {unknown}（使えるのは {sorted(KNOWN)} だけ）。"
+                         "\n   ⚠️ この道具に --selftest はありません。**走らせると課金されます。**")
     ids = None
     if "--ids" in sys.argv:
         ids = set(ES.resolve_ids(arg("--ids", "")))
@@ -119,7 +129,11 @@ def main():
             missing.append(ln.lid)       # fail closed: 合成していない行を「合格」にしない
             continue
         try:
-            pcm = cache.read_bytes()
+            # 🔴 **出荷する音を検査する**（2026-09-08）。キャッシュは atempo を掛ける前の pcm なので、
+            #    そのまま Scribe に送ると「動画に入っていない音」を検査したことになる
+            #    （feedback-checks-read-cached-narration＝検査はキャッシュを読む）。
+            #    el_build.TEMPO が 1.0 なら retempo は素通りなので、5本目までの経路は変わらない。
+            pcm = EB.retempo(cache.read_bytes())
             sec_total += len(pcm) / 2 / el_tts.SR
             heard = stt(pcm)
         except urllib.error.HTTPError as e:
