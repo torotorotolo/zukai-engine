@@ -1,0 +1,108 @@
+
+=== pr01-1 「2024年3月26日、午前1時29分。メリーランド州ボルチモア。」
+  聞取: 2024年3月26日午前1時29分。メリーランド州ボルティモア。
+  （いまのテイクに異音の所見なし）
+
+=== pr02-1 「橋の上には、8人がいた。道路の穴を埋めていた補修班が7人。」
+  聞取: 橋の上には八人がいた。道路の穴を埋めていた補修班が七人。
+  （いまのテイクに異音の所見なし）
+
+=== pr12-1 「これは、その4分9秒と、届かなかった1分16秒の記録である。」
+  聞取: これはその四分九秒と届かなかった一分十六秒の記録である。
+  ⚠️ mid 3.36-3.61s 振幅比2.2 → 重なる語: っ(3.22-3.44) た(3.44-3.58) 一(3.58-3.92)
+
+=== c101-1 「フランシス・スコット・キー橋。ボルチモアの港の出口を跨いでいた。」
+  聞取: フランシス・スコット・キー橋。ボルチモアの港の出口をまたいでいた。
+  （いまのテイクに異音の所見なし）
+
+=== c108-1 「両端の橋台、土手の側で橋を受ける台が2基。橋脚が36基。」
+  聞取: 両端の橋台、土手の側で橋を受ける台が二基、橋脚が三十六基
+  （いまのテイクに異音の所見なし）
+
+=== c113-1 「橋脚には備えがあった。橋が開いた1977年から、」
+  聞取: 橋脚には備えがあった。橋が開いた1977年から
+  ⚠️ mid 1.76-1.99s 振幅比1.2 → 重なる語: っ(1.60-1.90) た(1.90-2.74)
+
+=== c115-1 「ただし、設計に使われたのは1969年の基準だった。」
+  聞取: ただし、設計に使われたのは1969年の基準だった。
+  ⚠️ tail 4.43-4.57s 振幅比1.6 → 重なる語: だ(4.28-4.42) っ(4.42-4.48) た(4.48-4.54) 。(4.54-4.54)
+
+=== c215-1 「積み込みが終わったのは午後11時06分。」
+  聞取: 積み込みが終わったのは午後11時06分。
+  ⚠️ tail 3.76-3.98s 振幅比1.1 → 重なる語: 06(3.26-3.86) 分(3.86-3.92) 。(3.92-3.92)
+
+=== c309-1 「船の電気は二段になっている。高圧の母線から、」
+  聞取: 船の電気は二段になっている。高圧の母線から
+  （いまのテイクに異音の所見なし）
+
+=== c317-1 「1時21分。上級水先人が、訓練中の水先人にこう言っている。」
+  聞取: 一時二十一分。上級推薦人が訓練中の水先人にこう言っている。
+  （いまのテイクに異音の所見なし）
+
+=== c401-2 「報告書は、ここからの残り時間を括弧に入れて書いている。マイナス4分9秒。」
+  聞取: 報告書はここからの残り時間を括弧に入れて書いている。マイナス四分九秒
+  （いまのテイクに異音の所見なし）
+
+=== c405-1 「3秒後の1時25分03秒。航海データ記録装置が、」
+  聞取: 三秒後の一時二十五分零三秒。航海データ記録装置が
+  （いまのテイクに異音の所見なし）
+
+=== c408-1 「1時25分08秒。主機関が止まった。冷却水ポンプが落ちたためである。」
+  聞取: 一時二十五分八秒。手記官が止まった。冷却水ポンプが落ちたためである。
+  （いまのテイクに異音の所見なし）
+
+=== c417-1 「1時26分10秒。停電から70秒。非常用の発電機がつながった。」
+  聞取: 一時二十六分十秒。停電から七十秒。非常用の発電機がつながった。
+  ⚠️ tail 6.16-6.29s 振幅比1.7 → 重なる語: が(6.02-6.14) っ(6.14-6.20) た(6.20-6.24) 。(6.24-6.24)
+Traceback (most recent call last):
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 1344, in do_open
+    h.request(req.get_method(), req.selector, req.data, headers,
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1338, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1384, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1132, in _send_output
+    self.send(chunk)
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\http\client.py", line 1057, in send
+    self.sock.sendall(data)
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 1210, in sendall
+    v = self.send(byte_view[count:])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\ssl.py", line 1179, in send
+    return self._sslobj.write(data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+ssl.SSLEOFError: EOF occurred in violation of protocol (_ssl.c:2427)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\konar\Desktop\zukai-engine\tools\el_artifact_words.py", line 70, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\konar\Desktop\zukai-engine\tools\el_artifact_words.py", line 57, in main
+    text, ws = stt_words(pcm)
+               ^^^^^^^^^^^^^^
+  File "C:\Users\konar\Desktop\zukai-engine\tools\el_probe_words.py", line 67, in stt_words
+    with urllib.request.urlopen(req, timeout=300) as res:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 515, in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 532, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 1392, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 1347, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error EOF occurred in violation of protocol (_ssl.c:2427)>
+EXIT=1
