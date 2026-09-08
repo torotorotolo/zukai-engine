@@ -288,6 +288,58 @@ def cmd_public(args) -> int:
     return 0
 
 
+def cmd_retitle(args) -> int:
+    """🔴 タイトル・説明・タグだけを差し替える（2026-09-08 追加）。
+
+    ⚠️⚠️ **予約（`publishAt`）を落とさないための作り。**
+       `videos.update` は**渡した part を丸ごと置き換える**。予約は `status` 側に
+       入っているので、**`status` を送らなければ予約は無傷**である。
+       ここでは `part=snippet` だけを送る。⚠️ それでも `snippet` の中は全部置き換わるので、
+       **いまの snippet を読んでから、書ける項目をそのまま載せ直す**
+       （`categoryId` を落とすと既定に戻り、`defaultAudioLanguage` は消える）。
+
+    ⚠️ **前後で `status` を読んで表に出す。**「消えていないはず」で済ませない
+       （[[feedback-verify-your-own-instrument]]）。予約が変わっていたら 🔴 で落ちる。
+    """
+    m = load_meta()
+    yt = api()
+    r = yt.videos().list(part="snippet,status", id=args.video_id).execute()
+    if not r.get("items"):
+        raise SystemExit(f"動画が見つからない: {args.video_id}")
+    it = r["items"][0]
+    before = dict(it["status"])
+    sn = it["snippet"]
+    print(f"変更前の題　: {sn['title']}")
+    print(f"変更前の状態: {before.get('privacyStatus')}"
+          f"／予約 {before.get('publishAt', 'なし')}")
+
+    KEEP = ("categoryId", "defaultLanguage", "defaultAudioLanguage")
+    body = {k: sn[k] for k in KEEP if k in sn}
+    body["title"] = m["title"]
+    body["description"] = m["description"]
+    body["tags"] = m.get("tags", [])
+    yt.videos().update(part="snippet",
+                       body={"id": args.video_id, "snippet": body}).execute()
+
+    r2 = yt.videos().list(part="snippet,status", id=args.video_id).execute()
+    it2 = r2["items"][0]
+    after = it2["status"]
+    print(f"変更後の題　: {it2['snippet']['title']}")
+    print(f"変更後の状態: {after.get('privacyStatus')}"
+          f"／予約 {after.get('publishAt', 'なし')}")
+
+    # 🔴 予約と公開設定が1文字でも変わっていたら落とす（fail closed）
+    for k in ("privacyStatus", "publishAt"):
+        if before.get(k) != after.get(k):
+            raise SystemExit(
+                f"🔴 {k} が変わってしまった: {before.get(k)} → {after.get(k)}\n"
+                f"   すぐ直すこと: upload_jiko.py schedule {args.video_id} "
+                f'--at "<元の時刻>"')
+    print("✓ 予約と公開設定は変わっていない")
+    print(f"  確認: https://studio.youtube.com/video/{args.video_id}/edit")
+    return 0
+
+
 def cmd_thumb(args) -> int:
     yt = api()
     set_thumb(yt, args.video_id, load_meta())
@@ -330,6 +382,11 @@ def main() -> int:
     p.add_argument("video_id")
     p.add_argument("--force", action="store_true", help="処理未完でも公開する")
     p.set_defaults(fn=cmd_public)
+
+    p = sub.add_parser("retitle",
+                       help="題・説明・タグをメタから貼り直す（予約は保つ）")
+    p.add_argument("video_id")
+    p.set_defaults(fn=cmd_retitle)
 
     p = sub.add_parser("thumb", help="サムネを貼り直す")
     p.add_argument("video_id")
