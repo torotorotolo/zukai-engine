@@ -80,6 +80,7 @@ def update_yomi_tsv(lid, text, heard, sent):
 
 
 def main():
+    ES.gate_args({"--ids", "--max", "--noprefix"})   # 🔴 知らない旗で有料の本番に落ちない
     ids = ES.resolve_ids(arg("--ids"))
     mx = int(arg("--max", "4"))
     prefix = "" if "--noprefix" in sys.argv else PREFIX
@@ -98,7 +99,9 @@ def main():
         for t in range(1, mx + 1):
             pcm = el_tts.synth(sent, lid, slug=ES.SLUG, settings=ES.SETTINGS, refresh=True,
                                send_text=(prefix + sent) if prefix else None)
-            heard = stt(pcm)
+            # 🔴 2026-09-08: 判定は **出荷する音**（atempo 後）でする。キャッシュ／採用は素の pcm のまま
+            #    （鍵に TEMPO を入れない約束なので、書き戻すのは必ず retempo 前の pcm）。
+            heard = stt(ES.shipped(pcm))
             flags = judge(ln.text, heard)
             takes.append((pcm, heard, flags))
             print(f"  {lid} take{t}: {'✓' if not flags else '／'.join(flags)}  {heard[:44]}", flush=True)

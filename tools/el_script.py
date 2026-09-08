@@ -29,7 +29,12 @@ from collections import namedtuple
 from pathlib import Path
 
 try:
+    # 🔴 **stderr も**（2026-09-08）。Windows の標準エラーは cp932 のままなので、
+    #    門番の「🔴 知らない引数」がそのまま文字化けして読めなかった（el_probe_words / el_artifact_words で実測）。
+    #    ここは全部の el_*.py が import するので、1か所直せば全部に効く
+    #    （reference-elevenlabs-tts の「ログへリダイレクトすると cp932 で落ちる」と同じ穴）。
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 except Exception:
     pass
 
@@ -97,14 +102,48 @@ def qa_path(name):
     return QA_DIR / f"{SLUG}_{name}"
 
 
+def gate_args(known, paid=True):
+    """🔴 知らない `--` 引数で本番に落ちない（fail closed）。**有料の道具には必ず付ける。**
+
+    2026-09-08 に実際に踏んだ事故: `el_check_yomi.py --selftest`（この道具に無い旗）を付けたら、
+    警告も出さずに 443行の Scribe が走り出し、止めるまでに 433クレジット（約$0.07）を捨てた。
+    「無い旗は無視して本番」は fail open（feedback-parsers-fail-closed／feedback-rules-need-gates）。
+    ⚠️ 物差しを2か所に持たないため、各道具は自前で書かずにこれを呼ぶこと。
+    """
+    known = set(known)
+    unknown = [a for a in sys.argv[1:] if a.startswith("--") and a.split("=")[0] not in known]
+    if unknown:
+        raise SystemExit(f"🔴 知らない引数: {unknown}（使えるのは {sorted(known)} だけ）"
+                         + ("\n   ⚠️ この道具は**走らせると課金されます**。旗を確かめてから呼び直してください。"
+                            if paid else ""))
+
+
 _NO = object()
 
 
 def cache_path(sent, settings=_NO):
-    """その送信文の合成キャッシュ（pcm）の場所。鍵は el_tts と同じ関数で作る。"""
+    """その送信文の合成キャッシュ（pcm）の場所。鍵は el_tts と同じ関数で作る。
+
+    🔴 ここに入っているのは **atempo（el_build.TEMPO）を掛ける**前の pcm です。
+       出荷する音は el_build.retempo() を通ったあとの音なので、**検査は必ず retempo を通すこと**
+       （feedback-checks-read-cached-narration＝検査はキャッシュを読む）。
+       ＝ 鍵に TEMPO を入れない代わりに、読み出す側が全員 retempo する約束です。
+    """
     import el_tts
     st = SETTINGS if settings is _NO else settings
     return el_tts._cache_dir(SLUG) / f"{el_tts._cache_key(sent, st)}.pcm"
+
+
+def shipped(pcm: bytes) -> bytes:
+    """**出荷する音**（＝動画に入る音）にそろえる。cache_path の pcm はこれを通してから測る。
+
+    2026-09-08・6本目キー橋で `el_build.TEMPO = 1.05`（合成後の atempo）が入ったため、
+    キャッシュの pcm と出荷音は**別物**になった。el_check_yomi 以外の検査は
+    キャッシュを素で読んでいた＝「動画に入っていない音」を検査していた。
+    ⚠️ TEMPO が 1.0 の回（5本目まで）は素通り＝1バイトも変わらない。
+    """
+    import el_build
+    return el_build.retempo(pcm)
 
 
 # ── 置換の境界（心理ch gen_audio.py から写した。2026-08-26 の事故15件を防ぐ規則） ──────
@@ -238,7 +277,71 @@ def selftest() -> int:
     changed = sum(1 for l in ls if el_text(l.text, hits) != l.text)
     print(f"EL_YOMI: {len(EL_YOMI)}件 → 当たった行 {changed}／{len(ls)}")
     print(f"門番: 境界規則 {len(_T_MUSTNOT)+len(_T_MUST)}件 ✓（import 時に通過ずみ）")
-    return 0 if (ok and ok2 and ok3) else 1
+    ok4 = _gate_shipped()
+    ok5 = _gate_args_selftest()
+    return 0 if (ok and ok2 and ok3 and ok4 and ok5) else 1
+
+
+# ── 🔴 門番: 「検査が出荷する音を見ているか」を**機械で**確かめる（2026-09-08 新設）─────────
+#    なぜ要るか: TEMPO（合成後の atempo）が入った日、el_check_yomi だけが直され、ほかの7本は
+#    キャッシュ（atempo 前）を素で読んだままだった＝**出荷しない音を検査していた**。
+#    規則を書いたら門番も足す（feedback-rules-need-gates）。次に道具を1本足したときにここが鳴る。
+_PCM_EXEMPT = {
+    "el_build.py": "本番の組み立て。retempo() の定義元＝ここが素で読むのが正しい",
+    "el_tts.py": "キャッシュ層。保存するのは素の pcm（鍵に TEMPO を入れない約束）",
+    "el_script.py": "この file 自身（shipped() の定義元）",
+    "el_speed_probe.py": "API の speed が効くかを測る道具。**素の合成**を測るのが目的",
+}
+
+
+def _gate_shipped() -> bool:
+    """合成 pcm を触る el_*.py は、全部 ES.shipped() を通していること（例外は _PCM_EXEMPT）。"""
+    d = Path(__file__).resolve().parent
+    bad = []
+    for f in sorted(d.glob("el_*.py")):
+        src = f.read_text(encoding="utf-8")
+        if "cache_path(" not in src and "el_tts.synth(" not in src:
+            continue
+        if f.name in _PCM_EXEMPT:
+            continue
+        if "shipped(" not in src:
+            bad.append(f.name)
+    # 陽性対照＝shipped が本当に長さを変える（TEMPO 1.0 の回は素通りが正しいので、そのときは飛ばす）
+    import el_build
+    n = 24000 * 2 * 2                      # 2秒ぶんの無音
+    got = len(shipped(b"\x00\x00" * (n // 2)))
+    if abs(el_build.TEMPO - 1.0) > 1e-9:
+        r = n / max(got, 1)
+        if not (el_build.TEMPO * 0.97 <= r <= el_build.TEMPO * 1.03):
+            bad.append(f"陽性対照: shipped() が縮めていない（比 {r:.3f}／TEMPO {el_build.TEMPO}）")
+    elif got != n:
+        bad.append("陽性対照: TEMPO 1.0 なのに shipped() が音を変えた")
+    print("  " + ("✓ 検査は出荷する音（atempo 後）を見ている"
+                  if not bad else f"🔴 出荷しない音を見ている／対照が落ちた: {bad}"))
+    return not bad
+
+
+def _gate_args_selftest() -> bool:
+    """gate_args が知らない旗で止まり、知っている旗では止まらないこと（陰性対照つき）。"""
+    import sys as _s
+    keep = _s.argv
+    bad = []
+    try:
+        _s.argv = ["x", "--ids", "c101", "--worst", "5"]
+        gate_args({"--ids", "--worst"})            # 止まってはいけない
+        for argv in (["x", "--selftest"], ["x", "--ids", "c101", "--dry"]):
+            _s.argv = argv
+            try:
+                gate_args({"--ids", "--worst"})
+                bad.append(f"知らない旗が素通りした: {argv[1:]}")
+            except SystemExit:
+                pass
+    except SystemExit as e:
+        bad.append(f"正しい旗で止まった: {e}")
+    finally:
+        _s.argv = keep
+    print("  " + ("✓ 知らない引数で止まる（有料の道具 6本に設置）" if not bad else f"🔴 {bad}"))
+    return not bad
 
 
 def show_hits() -> int:

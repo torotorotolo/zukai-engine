@@ -44,6 +44,7 @@ def arg(name, default=None):
 
 
 def main():
+    ES.gate_args({"--plan"})                         # 🔴 知らない旗で有料の本番に落ちない
     slug = ES.SLUG
     plan_path = arg("--plan")
     if not plan_path:
@@ -74,9 +75,11 @@ def main():
         if not cache.exists():
             bad.append(f"{sid}: 合成キャッシュがありません")
             continue
-        heard_b = stt(cache.read_bytes())
+        # 🔴 2026-09-08: before/after とも **出荷する速さ**（atempo 後）で比べる。片側だけ素の音だと
+        #    「良化／悪化」が話速の差でぶれる（feedback-checks-read-cached-narration）。
+        heard_b = stt(ES.shipped(cache.read_bytes()))
         pcm_a = el_tts.synth(after_sent, sid, slug=slug, settings=ES.SETTINGS)   # 候補側（キャッシュされる）
-        heard_a = stt(pcm_a)
+        heard_a = stt(ES.shipped(pcm_a))
 
         rb = difflib.SequenceMatcher(None, norm(text), norm(heard_b)).ratio()
         ra = difflib.SequenceMatcher(None, norm(text), norm(heard_a)).ratio()

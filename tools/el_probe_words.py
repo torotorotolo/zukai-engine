@@ -70,6 +70,7 @@ def stt_words(pcm: bytes):
 
 
 def main():
+    ES.gate_args({"--ids", "--focus", "--text"})  # 🔴 知らない旗で有料の本番に落ちない（Scribe を叩く）
     slug = ES.SLUG
     ids = ES.resolve_ids(arg("--ids"))          # 行ID（c112-2）かカットID（c112＝全行）。無いIDは止まる
     focus = arg("--focus")
@@ -98,7 +99,10 @@ def main():
             print(f"[FATAL] 合成キャッシュがありません: {sid}", file=sys.stderr)
             rc = 1
             continue
-        text, ws = stt_words(pcm)
+        # 🔴 2026-09-08: **出荷する音**（atempo 後）で測る。
+        #    ⚠️ TEMPO 1.05 では秒が一律 4.8% 縮む＝docstring の「間=0.120秒」のような**絶対値**はずれる。
+        #       この道具の使い方（同じ行の中の1モーラの助詞と比べる）は比なので影響しない。
+        text, ws = stt_words(ES.shipped(pcm))
         one = [w["end"] - w["start"] for w in ws if w["text"] in ONE_MORA]
         unit = sum(one) / len(one) if one else None
         print(f"\n=== {sid}（{src}） ===")

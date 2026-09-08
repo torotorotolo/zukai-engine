@@ -33,6 +33,9 @@ import el_tts                                   # noqa: E402
 import el_script as ES                          # noqa: E402  ★本番と同じ置換（el_text）とキャッシュの場所
 from el_build import GAP                        # noqa: E402  行と行の間（本番と同じ）
 el_text = ES.el_text
+# 🔴 2026-09-08: 切り出す音も **出荷する音**（atempo 後）にそろえる。ES.shipped を通さないと
+#    「動画に入っていない速さの音」を耳で確かめることになる（feedback-checks-read-cached-narration）。
+#    ⚠️ 掛けるのは行の pcm ごと・GAP を足す前＝本番の el_build.build_cut と同じ順。
 
 
 def arg(name, default=None):
@@ -70,7 +73,7 @@ def main():
                 continue
             if pcm:
                 pcm += b"\x00\x00" * int(el_tts.SR * GAP)   # 本番の行間と同じ
-            pcm += cache.read_bytes()
+            pcm += ES.shipped(cache.read_bytes())      # 🔴 出荷する速さ（atempo 後）で聴く
             texts.append(f"{sc.lid}: {sc.text}")
         if not pcm:
             continue

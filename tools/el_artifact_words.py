@@ -32,6 +32,7 @@ def arg(name, default=None):
 
 
 def main():
+    ES.gate_args({"--ids", "--retakes"})       # 🔴 知らない旗で有料の本番に落ちない（Scribe を叩く）
     if "--retakes" in sys.argv:
         p = ES.qa_path("el_retakes.tsv")
         rows = [l.split("\t") for l in p.read_text(encoding="utf-8").splitlines()[1:]]
@@ -49,7 +50,9 @@ def main():
         if not p.exists():
             print(f"{lid}: キャッシュ無し")
             continue
-        pcm = p.read_bytes()
+        # 🔴 2026-09-08: **出荷する音**（atempo 後）で見る。異音の時刻と語の時刻は同じ音から取らないと
+        #    重ならない（片方だけ 4.8% 縮むと、行の終わりほど 0.2秒ずれる）。
+        pcm = ES.shipped(p.read_bytes())
         items = ART.blips(ART.inspect_struct(pcm))
         text, ws = stt_words(pcm)
         print(f"\n=== {lid} 「{ln.text}」\n  聞取: {text}")

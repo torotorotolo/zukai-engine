@@ -55,7 +55,12 @@ def main():
         if not p.exists():
             miss += 1
             continue
-        pcm = p.read_bytes()
+        # 🔴 2026-09-08: **出荷する音を測る**（atempo 後）。キャッシュを素で読むと、動画に入っていない
+        #    音の異音を数えることになる（feedback-checks-read-cached-narration）。
+        #    ⚠️ 閾値（TAIL_SILENCE 250ms・TAIL_BLIP 400ms・MID_SILENCE 700ms）は素の音で決めた値なので、
+        #       TEMPO 1.05 では無音も塊も 4.8% 短く測られる＝**境目の行がわずかに落ちにくくなる**。
+        #       それでも「出荷しない音を見る」より正しい。閾値そのものは el_artifacts.py が正本。
+        pcm = ES.shipped(p.read_bytes())
         flags = inspect(pcm)
         if flags:
             hit += 1

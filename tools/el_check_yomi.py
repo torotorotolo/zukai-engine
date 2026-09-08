@@ -104,11 +104,9 @@ def main():
     #    `--selftest`（この道具には無い）を付けて呼んだら、警告も出さずに 443行の Scribe が走り出し、
     #    止めるまでに 433クレジットを捨てた。無い旗を「無視して本番」は fail open。
     #    → [[feedback-parsers-fail-closed]] / [[feedback-rules-need-gates]]
-    KNOWN = {"--ids", "--worst"}
-    unknown = [a for a in sys.argv[1:] if a.startswith("--") and a not in KNOWN]
-    if unknown:
-        raise SystemExit(f"🔴 知らない引数: {unknown}（使えるのは {sorted(KNOWN)} だけ）。"
-                         "\n   ⚠️ この道具に --selftest はありません。**走らせると課金されます。**")
+    #    ⚠️ 2026-09-08 に ES.gate_args() へ移した（ほかの有料の道具にも同じ門番が要るため。
+    #       同じ物差しを2か所に持つと黙ってずれる）。この道具に --selftest はありません。
+    ES.gate_args({"--ids", "--worst"})
     ids = None
     if "--ids" in sys.argv:
         ids = set(ES.resolve_ids(arg("--ids", "")))
@@ -133,7 +131,7 @@ def main():
             #    そのまま Scribe に送ると「動画に入っていない音」を検査したことになる
             #    （feedback-checks-read-cached-narration＝検査はキャッシュを読む）。
             #    el_build.TEMPO が 1.0 なら retempo は素通りなので、5本目までの経路は変わらない。
-            pcm = EB.retempo(cache.read_bytes())
+            pcm = ES.shipped(cache.read_bytes())   # ＝ EB.retempo（2026-09-08 に ES へ寄せた）
             sec_total += len(pcm) / 2 / el_tts.SR
             heard = stt(pcm)
         except urllib.error.HTTPError as e:

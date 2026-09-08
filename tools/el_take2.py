@@ -36,6 +36,7 @@ def arg(name, default=None):
 
 
 def main():
+    ES.gate_args({"--ids"})                          # 🔴 知らない旗で有料の本番に落ちない
     ids = ES.resolve_ids(arg("--ids"))
     if not ids:
         print(__doc__)
@@ -52,9 +53,11 @@ def main():
         if not c1.exists():
             print(f"🔴 {lid}: 本番のキャッシュが無い（el_build を先に）")
             return 1
-        heard1 = prev[lid][1] if lid in prev and prev[lid][3] == sent else stt(c1.read_bytes())
+        # 🔴 2026-09-08: 2本とも **出荷する速さ**（atempo 後）で文字起こしする。片方だけ素の音にすると、
+        #    「割れる／そろう」の判定が話速の差でぶれる（feedback-checks-read-cached-narration）。
+        heard1 = prev[lid][1] if lid in prev and prev[lid][3] == sent else stt(ES.shipped(c1.read_bytes()))
         pcm2 = el_tts.synth(sent, lid, slug=ES.SLUG + "_take2", settings=ES.SETTINGS)
-        heard2 = stt(pcm2)
+        heard2 = stt(ES.shipped(pcm2))
         r1 = difflib.SequenceMatcher(None, norm(ln.text), norm(heard1)).ratio()
         r2 = difflib.SequenceMatcher(None, norm(ln.text), norm(heard2)).ratio()
         r12 = difflib.SequenceMatcher(None, norm(heard1), norm(heard2)).ratio()
