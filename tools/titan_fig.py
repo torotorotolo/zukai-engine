@@ -3097,7 +3097,12 @@ def truss(mode="flow", lead="", note="", marks=None, hot_panel=None):
     # 路面は**骨組みの中**（下弦材のすぐ上）を通る
     ry = yb - 26
     g.append(line(x0, ry + dy(x0), x1, ry + dy(x1), J.TICK, 3, dash="14 12"))
-    g.append(txt(x0 + 14, ry - 14, "車が通るのは、骨組みの中", 28, J.TICK))
+    # 🔴 2026-09-08（⑤b-2）：この札を路面の**すぐ上**（ry-14）に置いていたので、
+    #    "flow" の2段目に出る三角形（yb〜yt に張る面）が札を丸ごと貫いていた。
+    #    check_layout は c109 で「図形が文字を横切っている」として出す。
+    #    → 三角形も斜材も入らない**下弦材の下**へ移した。"support" で左が 96px
+    #      落ちても、下弦材は札より下を通る（yb+90 対 札の下端 yb+83）。
+    g.append(txt(x0 + 60, yb + 76, "車が通るのは、骨組みの中", 28, J.TICK))
     # 橋脚（"support" では左が無い）
     for k, x in ((0, x0), (1, x1)):
         if mode == "support" and k == 0:
