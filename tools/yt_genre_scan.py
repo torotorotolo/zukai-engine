@@ -140,6 +140,33 @@ def collect_channels(yt, min_subs, max_channels, ja_only=True):
     print(f"[絞った] ジャンル名の網で {len(dropped_names)} 局を外した"
           f"（例: {', '.join(dropped_names[:6])}）")
     out = out[:max_channels]
+
+    # 🔴 2026-09-08：手で足した局を、再実行で黙って落とさない。
+    #    GENRE_RE は ch 名の網なので「ゆっくり危険の泉」のような名前を必ず取りこぼす。
+    #    5本目（09-07）は手で足して順位が動いた（エストニア 16.7万→49.9万）のに、
+    #    `channels` を回すと台帳が元に戻る＝**同じ穴を毎回踏む**構造だった。
+    #    → 既存の genre_channels.json にある局は、網に落ちても必ず残す（統計だけ取り直す）。
+    have = {c["id"] for c in out}
+    keep = [c for c in json.loads(CH_FILE.read_text(encoding="utf-8"))
+            if c["id"] not in have] if CH_FILE.exists() else []
+    if keep:
+        for part in _chunk([c["id"] for c in keep], 50):
+            d = yt.channels().list(part="snippet,statistics,contentDetails",
+                                   id=",".join(part)).execute()
+            for c in d.get("items", []):
+                st, sn = c["statistics"], c["snippet"]
+                out.append({
+                    "id": c["id"], "title": sn["title"],
+                    "subs": int(st.get("subscriberCount", 0) or 0),
+                    "videos": int(st.get("videoCount", 0) or 0),
+                    "views": int(st.get("viewCount", 0) or 0),
+                    "uploads": c["contentDetails"]["relatedPlaylists"]["uploads"],
+                    "seen": ch_count.get(c["id"], 0), "kept": True,
+                })
+        out.sort(key=lambda c: -c["subs"])
+        print(f"[温存] 台帳に手で足してあった {len(keep)} 局を残した"
+              f"（{', '.join(c['title'] for c in keep)}）")
+
     CH_FILE.parent.mkdir(parents=True, exist_ok=True)
     CH_FILE.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"\n{'登録':>8} {'本数':>5} {'出現':>4}  チャンネル")
@@ -199,6 +226,15 @@ def cmd_scan(a) -> int:
         allrows += rows
     print(f"\n[母集団] {len(chans)} 局 ／ 解説動画 **{len(allrows)} 本**")
 
+    # 🔴 2026-09-08：母集団そのものを保存する。
+    #    これまでは「候補の名前を先に思いつく → 語で数える」しかできず、
+    #    思いつかなかった題材は構造上見えなかった（＝候補の出どころが自分の記憶だった）。
+    #    生の一覧があれば「ジャンルで実際に当たっている題材」を後から掘れる。割り当ては増えない。
+    if a.dump:
+        pd = THEME_DIR / f"{a.dump}.json"
+        pd.write_text(json.dumps(allrows, ensure_ascii=False, indent=1), encoding="utf-8")
+        print(f"[保存] 母集団の生データ: {pd.relative_to(HERE)}")
+
     out = []
     for t in themes:
         words = t["words"]
@@ -247,6 +283,7 @@ def main() -> int:
     p.add_argument("--themes", default=str(THEME_DIR / "ep4_keywords.json"))
     p.add_argument("--cap", type=int, default=600, help="1局あたりの上限本数")
     p.add_argument("--out")
+    p.add_argument("--dump", help="母集団の生データ（全動画）を analytics/themes/<名>.json へ保存")
     p.set_defaults(fn=cmd_scan)
     a = ap.parse_args()
     return a.fn(a)

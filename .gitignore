@@ -131,3 +131,11 @@ ref/sl1/*.pdf
 # ページ単位に割ったものと切り出した PNG は入れない（全文と PDF から作り直せる）
 ref/sl1/*_text/
 ref/sl1/_crops/
+
+# 🔴 題材の帳簿（2026-09-08・カズヤくん指示「毎回1から調査するのはトークンの無駄」）。
+#    毎回の①題材チャットで測り直さないための蓄積。中身は**他局の公開データと素材の実測値だけ**で、
+#    このchの内部数字（再生・維持・CTR）は1件も入らない（それは analytics/ ＝ git 管理外のまま）。
+!ref/themes/
+!ref/themes/README.md
+!ref/themes/ledger.json
+!ref/themes/pool.json
