@@ -28,13 +28,26 @@ from statistics import median
 #
 # 🔴 カズヤくん指示（2026-09-07）「話速は1.0」＝ ElevenLabs の `speed` を 1.0 にする
 #    （いまの実効 1.14 より **14% ゆっくり**）。⑤a で `el_script.SETTINGS` に書く。
-#    ⚠️ 下の 5.37 は **6.12 × 1.0/1.14 の推定であって実測ではない。**
-#       ElevenLabs の speed が尺に線形に効くかは確かめていない（②では課金APIを叩かない約束）。
-#       **⑤a で narration.json ができた時点で、この数字は自動で実測に置き換わる。**
-CPS_FALLBACK = 5.37     # 文字/秒（話速1.0 の**推定**。実測は narration.json から）
-PER_CUT = 9.40          # 秒/カット（話速1.0 の推定。4本目実測 7.91秒 の発話ぶんを 1.14倍した値）
+#
+# 🔴🔴 2026-09-08（6本目③）に取り直した。旧コメントの「5.37 は推定」はそのとおりで、**実測は 5.62**。
+#    ① `eleven_v3` は `voice_settings.speed` を**見ていない**（`tools/el_speed_probe.py` で実測）。
+#       speed 0.7 と 1.2 で同じ8文を合成しても秒の比は中央値 0.98（線形なら 0.583）。
+#       同じ文・同じ設定の引き直しのばらつきが 3.04% なので、**効果は誤差に埋もれている＝効いていない**。
+#       ＝「6本目から話速 1.05」は**このモデルでは実現できない**（1.0 のまま）。
+#    ② 旧の式（chars/CPS + TAIL*n）は完成尺を **7.5〜8.5% 短く**読んでいた。
+#       抜けていたのは**カット内の行間 GAP**（narration.json の gap=0.4秒 ×（行数−カット数））と **LEAD**。
+#       検算（ElevenLabs の2本の完成尺と突き合わせ。陽性対照＝下の SL1_REF / SS_REF）:
+#         4本目 サーフサイド 予測 2128.2 / 実測 2127.3 → **+0.04%**
+#         5本目 SL-1        予測 2181.2 / 実測 2181.3 → **-0.01%**
+#    → [[feedback-gates-go-stale-when-upstream-changes]] / [[feedback-dont-state-inferences-as-findings]]
+CPS_FALLBACK = 5.62     # 文字/秒（話速1.0 の**実測**＝SL-1 の発話秒 1877.9 ÷ 10,553字。音があれば narration.json から）
+PER_CUT = 10.29         # 秒/カット（話速1.0 の**実測**＝SL-1 の完成尺 2181.3秒 ÷ 212カット）
 LEAD, TAIL = 0.35, 0.50
+GAP = 0.40              # カット内の行と行のあいだ（narration.json の gap と同じ値。替えたら両方直す）
 TAIL_EXTRA_QUOTE = 2.0
+# 陽性対照＝この2本を下の measure() の式に当てて 0.5% 以内に入ること（--refcheck）
+SL1_REF = dict(name="5本目 SL-1", n=212, lines=435, chars=10553, nq=17, cps=5.62, real=2181.3)
+SS_REF = dict(name="4本目 サーフサイド", n=240, lines=486, chars=11027, nq=12, cps=6.12, real=2127.3)
 EP2_CPS = 5.00          # ep2 の設計値
 MAX_CHARS_PER_LINE = 41
 # 🔴🔴 2026-09-08 カズヤくん指示「次回から動画尺の下限を27分に変更してください」
@@ -180,9 +193,33 @@ def measure(cuts):
     n, nq = len(cuts), sum(1 for _, _, ls in cuts if any(STAR_RE.match(l) for l in ls))
     d1 = n * PER_CUT
     d2 = chars / EP2_CPS
-    d3 = chars / CPS + TAIL * n + TAIL_EXTRA_QUOTE * nq
+    d3 = est_sec(chars, len(lines), n, nq, CPS)
     return dict(cuts=cuts, lines=lines, chars=chars, n=n, nq=nq,
                 d1=d1, d2=d2, d3=d3, med=sorted([d1, d2, d3])[1])
+
+
+def est_sec(chars, lines, n, nq, cps):
+    """🔴 完成尺の見積り。**行間 GAP とカット頭の LEAD を落とすと 8% 短く出る**（上のコメント②）。
+
+    発話 chars/cps ＋ カット内の行間 GAP×(行数−カット数) ＋ カット頭尻 (LEAD+TAIL)×カット数
+    ＋ 決め所の余白 2.0×決め所数。"""
+    return (chars / cps + GAP * (lines - n)
+            + (LEAD + TAIL) * n + TAIL_EXTRA_QUOTE * nq)
+
+
+def refcheck(tol=0.5):
+    """陽性対照＝完成尺が分かっている2本に est_sec を当てて、ずれが tol% 以内か見る。"""
+    bad = 0
+    for r in (SS_REF, SL1_REF):
+        p = est_sec(r["chars"], r["lines"], r["n"], r["nq"], r["cps"])
+        d = 100 * (p - r["real"]) / r["real"]
+        ok = abs(d) <= tol
+        bad += not ok
+        print("  %s %-18s 予測 %.1f / 実測 %.1f → %+.2f%%"
+              % ("✓" if ok else "E", r["name"], p, r["real"], d))
+    if bad:
+        print("E 尺の式が陽性対照から %.1f%% 以上ずれている。定数か上流が変わった" % tol)
+    return bad
 
 
 def report(cuts):
@@ -400,8 +437,11 @@ def main():
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
     if '--selftest' in sys.argv:
         sys.exit(0 if selftest() else 1)
+    if '--refcheck' in sys.argv:
+        print('尺の式の陽性対照（完成尺が分かっている2本に当てる）')
+        sys.exit(1 if refcheck() else 0)
     if len(sys.argv) < 2:
-        print('usage: check_script.py <台本.md> | --selftest')
+        print('usage: check_script.py <台本.md> | --selftest | --refcheck')
         sys.exit(2)
     text = open(sys.argv[1], encoding='utf-8').read()
     cuts = parse(text)

@@ -139,3 +139,18 @@ ref/sl1/_crops/
 !ref/themes/README.md
 !ref/themes/ledger.json
 !ref/themes/pool.json
+
+# ── 6本目 キー橋（2026-09-08 ②素材）────────────────────────
+# ⚠️ 9行目の `ref/*` が ref/ を丸ごと無視する造り（許可制）。**フォルダから明示的に開ける。**
+!ref/keybridge/
+# NTSB の報告書 PDF は 12.2MB あるのでリポに入れない。取り直しは ref/CREDITS.md §キー橋 の URL 1行。
+ref/keybridge/*.pdf
+# 入れるもの＝抽出した本文（④の原文照合がこれで済む）・素材の台帳・照合ずみの数字
+!ref/keybridge/ntsb_MIR2540.txt
+!ref/keybridge/ntsb_MIR2510.txt
+!ref/keybridge/FACTS.md
+!ref/keybridge/SHOTS_INDEX.md
+!ref/keybridge/clips.json
+!ref/keybridge/shots.json
+# 話速の実測（el_speed_probe）の振り直し記録は作業の跡なので入れない
+audio/el_qa/probe*_el_retakes.tsv

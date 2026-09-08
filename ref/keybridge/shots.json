@@ -1,0 +1,1945 @@
+{
+ "NTSB_B_Roll_Hazardous_Material_Investiga": {
+  "dur": 458.0,
+  "src": "NTSB B-Roll - Hazardous Material Investigators and Engineers Aboard the Cargo Ship Dali.webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 1.0,
+    "motion": 38.48
+   },
+   {
+    "start": 1.0,
+    "until": 4.0,
+    "motion": 8.01
+   },
+   {
+    "start": 4.0,
+    "until": 10.0,
+    "motion": 0.01
+   },
+   {
+    "start": 10.0,
+    "until": 12.0,
+    "motion": 0.0
+   },
+   {
+    "start": 12.0,
+    "until": 22.0,
+    "motion": 0.0
+   },
+   {
+    "start": 22.0,
+    "until": 26.0,
+    "motion": 15.19
+   },
+   {
+    "start": 26.0,
+    "until": 28.0,
+    "motion": 9.35
+   },
+   {
+    "start": 28.0,
+    "until": 57.0,
+    "motion": 37.93
+   },
+   {
+    "start": 57.0,
+    "until": 88.0,
+    "motion": 35.25
+   },
+   {
+    "start": 88.0,
+    "until": 100.0,
+    "motion": 31.41
+   },
+   {
+    "start": 100.0,
+    "until": 107.0,
+    "motion": 28.33
+   },
+   {
+    "start": 107.0,
+    "until": 114.0,
+    "motion": 20.68
+   },
+   {
+    "start": 114.0,
+    "until": 126.0,
+    "motion": 50.33
+   },
+   {
+    "start": 126.0,
+    "until": 136.0,
+    "motion": 25.85
+   },
+   {
+    "start": 136.0,
+    "until": 152.0,
+    "motion": 19.12
+   },
+   {
+    "start": 152.0,
+    "until": 165.0,
+    "motion": 33.25
+   },
+   {
+    "start": 165.0,
+    "until": 172.0,
+    "motion": 30.52
+   },
+   {
+    "start": 172.0,
+    "until": 184.0,
+    "motion": 14.23
+   },
+   {
+    "start": 184.0,
+    "until": 193.0,
+    "motion": 18.9
+   },
+   {
+    "start": 193.0,
+    "until": 200.0,
+    "motion": 24.35
+   },
+   {
+    "start": 200.0,
+    "until": 206.0,
+    "motion": 23.56
+   },
+   {
+    "start": 206.0,
+    "until": 212.0,
+    "motion": 6.24
+   },
+   {
+    "start": 212.0,
+    "until": 219.0,
+    "motion": 7.49
+   },
+   {
+    "start": 219.0,
+    "until": 230.0,
+    "motion": 10.52
+   },
+   {
+    "start": 230.0,
+    "until": 237.0,
+    "motion": 17.01
+   },
+   {
+    "start": 237.0,
+    "until": 239.0,
+    "motion": 13.56
+   },
+   {
+    "start": 239.0,
+    "until": 244.0,
+    "motion": 37.95
+   },
+   {
+    "start": 244.0,
+    "until": 250.0,
+    "motion": 15.44
+   },
+   {
+    "start": 250.0,
+    "until": 253.0,
+    "motion": 13.31
+   },
+   {
+    "start": 253.0,
+    "until": 262.0,
+    "motion": 36.89
+   },
+   {
+    "start": 262.0,
+    "until": 274.0,
+    "motion": 23.23
+   },
+   {
+    "start": 274.0,
+    "until": 292.0,
+    "motion": 17.99
+   },
+   {
+    "start": 292.0,
+    "until": 317.0,
+    "motion": 9.51
+   },
+   {
+    "start": 317.0,
+    "until": 319.0,
+    "motion": 9.75
+   },
+   {
+    "start": 319.0,
+    "until": 324.0,
+    "motion": 11.12
+   },
+   {
+    "start": 324.0,
+    "until": 332.0,
+    "motion": 19.75
+   },
+   {
+    "start": 332.0,
+    "until": 342.0,
+    "motion": 20.81
+   },
+   {
+    "start": 342.0,
+    "until": 348.0,
+    "motion": 21.76
+   },
+   {
+    "start": 348.0,
+    "until": 352.0,
+    "motion": 18.57
+   },
+   {
+    "start": 352.0,
+    "until": 360.0,
+    "motion": 10.8
+   },
+   {
+    "start": 360.0,
+    "until": 365.0,
+    "motion": 18.46
+   },
+   {
+    "start": 365.0,
+    "until": 372.0,
+    "motion": 4.18
+   },
+   {
+    "start": 372.0,
+    "until": 374.0,
+    "motion": 10.59
+   },
+   {
+    "start": 374.0,
+    "until": 383.0,
+    "motion": 8.96
+   },
+   {
+    "start": 383.0,
+    "until": 392.0,
+    "motion": 11.19
+   },
+   {
+    "start": 392.0,
+    "until": 396.0,
+    "motion": 7.76
+   },
+   {
+    "start": 396.0,
+    "until": 399.0,
+    "motion": 9.25
+   },
+   {
+    "start": 399.0,
+    "until": 403.0,
+    "motion": 12.44
+   },
+   {
+    "start": 403.0,
+    "until": 416.0,
+    "motion": 8.32
+   },
+   {
+    "start": 416.0,
+    "until": 421.0,
+    "motion": 18.18
+   },
+   {
+    "start": 421.0,
+    "until": 424.0,
+    "motion": 13.02
+   },
+   {
+    "start": 424.0,
+    "until": 435.0,
+    "motion": 3.89
+   },
+   {
+    "start": 435.0,
+    "until": 443.0,
+    "motion": 5.15
+   },
+   {
+    "start": 443.0,
+    "until": 450.0,
+    "motion": 5.53
+   },
+   {
+    "start": 450.0,
+    "until": 458.0,
+    "motion": 0.0
+   }
+  ]
+ },
+ "NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc": {
+  "dur": 451.0,
+  "src": "NTSB B-Roll - Aerial Imagery of Francis Scott Key Bridge and Cargo Ship Dali.webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 1.0,
+    "motion": 36.89
+   },
+   {
+    "start": 1.0,
+    "until": 4.0,
+    "motion": 8.13
+   },
+   {
+    "start": 4.0,
+    "until": 10.0,
+    "motion": 0.01
+   },
+   {
+    "start": 10.0,
+    "until": 12.0,
+    "motion": 0.0
+   },
+   {
+    "start": 12.0,
+    "until": 22.0,
+    "motion": 0.0
+   },
+   {
+    "start": 22.0,
+    "until": 54.0,
+    "motion": 1.35
+   },
+   {
+    "start": 54.0,
+    "until": 83.0,
+    "motion": 3.33
+   },
+   {
+    "start": 83.0,
+    "until": 87.0,
+    "motion": 2.05
+   },
+   {
+    "start": 87.0,
+    "until": 106.0,
+    "motion": 2.12
+   },
+   {
+    "start": 106.0,
+    "until": 112.0,
+    "motion": 4.78
+   },
+   {
+    "start": 112.0,
+    "until": 123.0,
+    "motion": 10.47
+   },
+   {
+    "start": 123.0,
+    "until": 130.0,
+    "motion": 10.28
+   },
+   {
+    "start": 130.0,
+    "until": 152.0,
+    "motion": 6.63
+   },
+   {
+    "start": 152.0,
+    "until": 159.0,
+    "motion": 11.93
+   },
+   {
+    "start": 159.0,
+    "until": 166.0,
+    "motion": 9.77
+   },
+   {
+    "start": 166.0,
+    "until": 168.0,
+    "motion": 7.62
+   },
+   {
+    "start": 168.0,
+    "until": 182.0,
+    "motion": 13.34
+   },
+   {
+    "start": 182.0,
+    "until": 190.0,
+    "motion": 20.07
+   },
+   {
+    "start": 190.0,
+    "until": 193.0,
+    "motion": 15.64
+   },
+   {
+    "start": 193.0,
+    "until": 200.0,
+    "motion": 14.14
+   },
+   {
+    "start": 200.0,
+    "until": 203.0,
+    "motion": 15.89
+   },
+   {
+    "start": 203.0,
+    "until": 208.0,
+    "motion": 12.75
+   },
+   {
+    "start": 208.0,
+    "until": 212.0,
+    "motion": 18.88
+   },
+   {
+    "start": 212.0,
+    "until": 220.0,
+    "motion": 11.1
+   },
+   {
+    "start": 220.0,
+    "until": 229.0,
+    "motion": 14.79
+   },
+   {
+    "start": 229.0,
+    "until": 244.0,
+    "motion": 11.99
+   },
+   {
+    "start": 244.0,
+    "until": 276.0,
+    "motion": 6.9
+   },
+   {
+    "start": 276.0,
+    "until": 306.0,
+    "motion": 3.67
+   },
+   {
+    "start": 306.0,
+    "until": 338.0,
+    "motion": 4.12
+   },
+   {
+    "start": 338.0,
+    "until": 353.0,
+    "motion": 4.72
+   },
+   {
+    "start": 353.0,
+    "until": 369.0,
+    "motion": 5.01
+   },
+   {
+    "start": 369.0,
+    "until": 386.0,
+    "motion": 6.32
+   },
+   {
+    "start": 386.0,
+    "until": 388.0,
+    "motion": 12.6
+   },
+   {
+    "start": 388.0,
+    "until": 394.0,
+    "motion": 17.0
+   },
+   {
+    "start": 394.0,
+    "until": 404.0,
+    "motion": 12.94
+   },
+   {
+    "start": 404.0,
+    "until": 430.0,
+    "motion": 10.22
+   },
+   {
+    "start": 430.0,
+    "until": 444.0,
+    "motion": 6.95
+   },
+   {
+    "start": 444.0,
+    "until": 451.0,
+    "motion": 0.0
+   }
+  ]
+ },
+ "NTSB_B_Roll_Investigators_Aboard_the_Car": {
+  "dur": 227.0,
+  "src": "NTSB B-Roll - Investigators Aboard the Cargo Ship Dali.webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 1.0,
+    "motion": 38.5
+   },
+   {
+    "start": 1.0,
+    "until": 4.0,
+    "motion": 8.05
+   },
+   {
+    "start": 4.0,
+    "until": 10.0,
+    "motion": 0.01
+   },
+   {
+    "start": 10.0,
+    "until": 12.0,
+    "motion": 0.0
+   },
+   {
+    "start": 12.0,
+    "until": 23.0,
+    "motion": 0.0
+   },
+   {
+    "start": 23.0,
+    "until": 26.0,
+    "motion": 18.93
+   },
+   {
+    "start": 26.0,
+    "until": 30.0,
+    "motion": 11.54
+   },
+   {
+    "start": 30.0,
+    "until": 36.0,
+    "motion": 3.78
+   },
+   {
+    "start": 36.0,
+    "until": 39.0,
+    "motion": 13.75
+   },
+   {
+    "start": 39.0,
+    "until": 44.0,
+    "motion": 13.04
+   },
+   {
+    "start": 44.0,
+    "until": 50.0,
+    "motion": 7.6
+   },
+   {
+    "start": 50.0,
+    "until": 55.0,
+    "motion": 9.76
+   },
+   {
+    "start": 55.0,
+    "until": 59.0,
+    "motion": 11.11
+   },
+   {
+    "start": 59.0,
+    "until": 74.0,
+    "motion": 23.19
+   },
+   {
+    "start": 74.0,
+    "until": 90.0,
+    "motion": 24.82
+   },
+   {
+    "start": 90.0,
+    "until": 96.0,
+    "motion": 16.53
+   },
+   {
+    "start": 96.0,
+    "until": 109.0,
+    "motion": 19.56
+   },
+   {
+    "start": 109.0,
+    "until": 127.0,
+    "motion": 6.6
+   },
+   {
+    "start": 127.0,
+    "until": 130.0,
+    "motion": 7.64
+   },
+   {
+    "start": 130.0,
+    "until": 134.0,
+    "motion": 7.89
+   },
+   {
+    "start": 134.0,
+    "until": 136.0,
+    "motion": 10.2
+   },
+   {
+    "start": 136.0,
+    "until": 141.0,
+    "motion": 10.97
+   },
+   {
+    "start": 141.0,
+    "until": 143.0,
+    "motion": 10.37
+   },
+   {
+    "start": 143.0,
+    "until": 145.0,
+    "motion": 13.76
+   },
+   {
+    "start": 145.0,
+    "until": 148.0,
+    "motion": 16.22
+   },
+   {
+    "start": 148.0,
+    "until": 156.0,
+    "motion": 10.96
+   },
+   {
+    "start": 156.0,
+    "until": 159.0,
+    "motion": 16.04
+   },
+   {
+    "start": 159.0,
+    "until": 168.0,
+    "motion": 9.67
+   },
+   {
+    "start": 168.0,
+    "until": 179.0,
+    "motion": 21.87
+   },
+   {
+    "start": 179.0,
+    "until": 190.0,
+    "motion": 26.51
+   },
+   {
+    "start": 190.0,
+    "until": 200.0,
+    "motion": 21.25
+   },
+   {
+    "start": 200.0,
+    "until": 210.0,
+    "motion": 17.26
+   },
+   {
+    "start": 210.0,
+    "until": 214.0,
+    "motion": 14.99
+   },
+   {
+    "start": 214.0,
+    "until": 218.0,
+    "motion": 10.48
+   },
+   {
+    "start": 218.0,
+    "until": 227.0,
+    "motion": 0.01
+   }
+  ]
+ },
+ "240401-G-TL908-2303": {
+  "dur": 220.0,
+  "src": "Key Bridge Response Photos (240401-G-TL908-2303).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 5.0,
+    "motion": 0.01
+   },
+   {
+    "start": 5.0,
+    "until": 8.0,
+    "motion": 0.0
+   },
+   {
+    "start": 8.0,
+    "until": 14.0,
+    "motion": 9.93
+   },
+   {
+    "start": 14.0,
+    "until": 18.0,
+    "motion": 14.13
+   },
+   {
+    "start": 18.0,
+    "until": 22.0,
+    "motion": 0.01
+   },
+   {
+    "start": 22.0,
+    "until": 28.0,
+    "motion": 14.35
+   },
+   {
+    "start": 28.0,
+    "until": 31.0,
+    "motion": 19.19
+   },
+   {
+    "start": 31.0,
+    "until": 33.0,
+    "motion": 13.84
+   },
+   {
+    "start": 33.0,
+    "until": 36.0,
+    "motion": 8.54
+   },
+   {
+    "start": 36.0,
+    "until": 39.0,
+    "motion": 16.9
+   },
+   {
+    "start": 39.0,
+    "until": 41.0,
+    "motion": 12.39
+   },
+   {
+    "start": 41.0,
+    "until": 45.0,
+    "motion": 0.01
+   },
+   {
+    "start": 45.0,
+    "until": 54.0,
+    "motion": 22.86
+   },
+   {
+    "start": 54.0,
+    "until": 64.0,
+    "motion": 30.78
+   },
+   {
+    "start": 64.0,
+    "until": 76.0,
+    "motion": 46.65
+   },
+   {
+    "start": 76.0,
+    "until": 86.0,
+    "motion": 50.06
+   },
+   {
+    "start": 86.0,
+    "until": 88.0,
+    "motion": 13.37
+   },
+   {
+    "start": 88.0,
+    "until": 93.0,
+    "motion": 21.81
+   },
+   {
+    "start": 93.0,
+    "until": 98.0,
+    "motion": 19.68
+   },
+   {
+    "start": 98.0,
+    "until": 103.0,
+    "motion": 12.56
+   },
+   {
+    "start": 103.0,
+    "until": 132.0,
+    "motion": 7.16
+   },
+   {
+    "start": 132.0,
+    "until": 135.0,
+    "motion": 0.0
+   },
+   {
+    "start": 135.0,
+    "until": 150.0,
+    "motion": 4.45
+   },
+   {
+    "start": 150.0,
+    "until": 153.0,
+    "motion": 0.0
+   },
+   {
+    "start": 153.0,
+    "until": 181.0,
+    "motion": 8.64
+   },
+   {
+    "start": 181.0,
+    "until": 186.0,
+    "motion": 0.01
+   },
+   {
+    "start": 186.0,
+    "until": 189.0,
+    "motion": 12.01
+   },
+   {
+    "start": 189.0,
+    "until": 194.0,
+    "motion": 10.48
+   },
+   {
+    "start": 194.0,
+    "until": 198.0,
+    "motion": 0.0
+   },
+   {
+    "start": 198.0,
+    "until": 202.0,
+    "motion": 11.39
+   },
+   {
+    "start": 202.0,
+    "until": 208.0,
+    "motion": 11.06
+   },
+   {
+    "start": 208.0,
+    "until": 213.0,
+    "motion": 12.67
+   },
+   {
+    "start": 213.0,
+    "until": 220.0,
+    "motion": 10.46
+   }
+  ]
+ },
+ "240327-A-SE916-2426": {
+  "dur": 210.0,
+  "src": "Various agencies assist in operations assessing damage at the Francis Scott Key Bridge (240327-A-SE916-2426).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 33.09
+   },
+   {
+    "start": 10.0,
+    "until": 22.0,
+    "motion": 36.43
+   },
+   {
+    "start": 22.0,
+    "until": 32.0,
+    "motion": 51.15
+   },
+   {
+    "start": 32.0,
+    "until": 41.0,
+    "motion": 29.61
+   },
+   {
+    "start": 41.0,
+    "until": 59.0,
+    "motion": 53.83
+   },
+   {
+    "start": 59.0,
+    "until": 88.0,
+    "motion": 23.22
+   },
+   {
+    "start": 88.0,
+    "until": 101.0,
+    "motion": 29.55
+   },
+   {
+    "start": 101.0,
+    "until": 114.0,
+    "motion": 34.51
+   },
+   {
+    "start": 114.0,
+    "until": 124.0,
+    "motion": 33.67
+   },
+   {
+    "start": 124.0,
+    "until": 135.0,
+    "motion": 27.73
+   },
+   {
+    "start": 135.0,
+    "until": 142.0,
+    "motion": 23.07
+   },
+   {
+    "start": 142.0,
+    "until": 148.0,
+    "motion": 11.9
+   },
+   {
+    "start": 148.0,
+    "until": 152.0,
+    "motion": 7.59
+   },
+   {
+    "start": 152.0,
+    "until": 155.0,
+    "motion": 18.14
+   },
+   {
+    "start": 155.0,
+    "until": 157.0,
+    "motion": 9.79
+   },
+   {
+    "start": 157.0,
+    "until": 160.0,
+    "motion": 10.45
+   },
+   {
+    "start": 160.0,
+    "until": 162.0,
+    "motion": 7.46
+   },
+   {
+    "start": 162.0,
+    "until": 164.0,
+    "motion": 7.5
+   },
+   {
+    "start": 164.0,
+    "until": 168.0,
+    "motion": 20.25
+   },
+   {
+    "start": 168.0,
+    "until": 176.0,
+    "motion": 20.36
+   },
+   {
+    "start": 176.0,
+    "until": 188.0,
+    "motion": 15.13
+   },
+   {
+    "start": 188.0,
+    "until": 199.0,
+    "motion": 25.02
+   },
+   {
+    "start": 199.0,
+    "until": 206.0,
+    "motion": 24.02
+   },
+   {
+    "start": 206.0,
+    "until": 210.0,
+    "motion": 16.78
+   }
+  ]
+ },
+ "240330-G-LB555-1001": {
+  "dur": 183.0,
+  "src": "Salvage Operations commence for the Key Bridge response (240330-G-LB555-1001).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 26.22
+   },
+   {
+    "start": 4.0,
+    "until": 12.0,
+    "motion": 27.07
+   },
+   {
+    "start": 12.0,
+    "until": 21.0,
+    "motion": 26.27
+   },
+   {
+    "start": 21.0,
+    "until": 28.0,
+    "motion": 29.0
+   },
+   {
+    "start": 28.0,
+    "until": 34.0,
+    "motion": 30.11
+   },
+   {
+    "start": 34.0,
+    "until": 46.0,
+    "motion": 23.18
+   },
+   {
+    "start": 46.0,
+    "until": 57.0,
+    "motion": 28.49
+   },
+   {
+    "start": 57.0,
+    "until": 61.0,
+    "motion": 16.6
+   },
+   {
+    "start": 61.0,
+    "until": 78.0,
+    "motion": 22.43
+   },
+   {
+    "start": 78.0,
+    "until": 104.0,
+    "motion": 25.5
+   },
+   {
+    "start": 104.0,
+    "until": 128.0,
+    "motion": 18.95
+   },
+   {
+    "start": 128.0,
+    "until": 134.0,
+    "motion": 31.85
+   },
+   {
+    "start": 134.0,
+    "until": 147.0,
+    "motion": 21.07
+   },
+   {
+    "start": 147.0,
+    "until": 162.0,
+    "motion": 21.84
+   },
+   {
+    "start": 162.0,
+    "until": 169.0,
+    "motion": 20.04
+   },
+   {
+    "start": 169.0,
+    "until": 174.0,
+    "motion": 19.64
+   },
+   {
+    "start": 174.0,
+    "until": 180.0,
+    "motion": 20.56
+   },
+   {
+    "start": 180.0,
+    "until": 183.0,
+    "motion": 52.49
+   }
+  ]
+ },
+ "240327-A-SE916-1046": {
+  "dur": 168.0,
+  "src": "Various agencies assist in operations assessing damage at the Francis Scott Key Bridge (240327-A-SE916-1046).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 15.52
+   },
+   {
+    "start": 10.0,
+    "until": 22.0,
+    "motion": 26.3
+   },
+   {
+    "start": 22.0,
+    "until": 32.0,
+    "motion": 23.23
+   },
+   {
+    "start": 32.0,
+    "until": 39.0,
+    "motion": 20.73
+   },
+   {
+    "start": 39.0,
+    "until": 48.0,
+    "motion": 16.91
+   },
+   {
+    "start": 48.0,
+    "until": 58.0,
+    "motion": 17.25
+   },
+   {
+    "start": 58.0,
+    "until": 63.0,
+    "motion": 13.77
+   },
+   {
+    "start": 63.0,
+    "until": 69.0,
+    "motion": 21.61
+   },
+   {
+    "start": 69.0,
+    "until": 74.0,
+    "motion": 16.29
+   },
+   {
+    "start": 74.0,
+    "until": 79.0,
+    "motion": 8.15
+   },
+   {
+    "start": 79.0,
+    "until": 86.0,
+    "motion": 11.99
+   },
+   {
+    "start": 86.0,
+    "until": 94.0,
+    "motion": 26.06
+   },
+   {
+    "start": 94.0,
+    "until": 102.0,
+    "motion": 46.62
+   },
+   {
+    "start": 102.0,
+    "until": 110.0,
+    "motion": 10.41
+   },
+   {
+    "start": 110.0,
+    "until": 121.0,
+    "motion": 22.78
+   },
+   {
+    "start": 121.0,
+    "until": 140.0,
+    "motion": 27.23
+   },
+   {
+    "start": 140.0,
+    "until": 157.0,
+    "motion": 25.34
+   },
+   {
+    "start": 157.0,
+    "until": 164.0,
+    "motion": 24.63
+   },
+   {
+    "start": 164.0,
+    "until": 168.0,
+    "motion": 12.37
+   }
+  ]
+ },
+ "240326-G-G2014-1004": {
+  "dur": 156.0,
+  "src": "B-Roll- Air Station Atlantic City conducts overflight of Key Bridge Response 2024 incident site (240326-G-G2014-1004).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 5.0,
+    "motion": 17.54
+   },
+   {
+    "start": 5.0,
+    "until": 14.0,
+    "motion": 20.0
+   },
+   {
+    "start": 14.0,
+    "until": 34.0,
+    "motion": 8.53
+   },
+   {
+    "start": 34.0,
+    "until": 36.0,
+    "motion": 11.33
+   },
+   {
+    "start": 36.0,
+    "until": 43.0,
+    "motion": 11.43
+   },
+   {
+    "start": 43.0,
+    "until": 59.0,
+    "motion": 8.71
+   },
+   {
+    "start": 59.0,
+    "until": 102.0,
+    "motion": 5.19
+   },
+   {
+    "start": 102.0,
+    "until": 106.0,
+    "motion": 16.33
+   },
+   {
+    "start": 106.0,
+    "until": 111.0,
+    "motion": 14.36
+   },
+   {
+    "start": 111.0,
+    "until": 116.0,
+    "motion": 6.0
+   },
+   {
+    "start": 116.0,
+    "until": 121.0,
+    "motion": 8.79
+   },
+   {
+    "start": 121.0,
+    "until": 131.0,
+    "motion": 5.94
+   },
+   {
+    "start": 131.0,
+    "until": 144.0,
+    "motion": 11.33
+   },
+   {
+    "start": 144.0,
+    "until": 153.0,
+    "motion": 16.27
+   },
+   {
+    "start": 153.0,
+    "until": 156.0,
+    "motion": 14.41
+   }
+  ]
+ },
+ "241004-G-SF967-1002": {
+  "dur": 114.0,
+  "src": "Crew continue to remove debris and wreckage in wake of Francis Scott Key Bridge collapse (241004-G-SF967-1002).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 1.0,
+    "motion": 14.91
+   },
+   {
+    "start": 1.0,
+    "until": 9.0,
+    "motion": 11.52
+   },
+   {
+    "start": 9.0,
+    "until": 53.0,
+    "motion": 10.14
+   },
+   {
+    "start": 53.0,
+    "until": 72.0,
+    "motion": 13.05
+   },
+   {
+    "start": 72.0,
+    "until": 75.0,
+    "motion": 12.51
+   },
+   {
+    "start": 75.0,
+    "until": 77.0,
+    "motion": 11.42
+   },
+   {
+    "start": 77.0,
+    "until": 84.0,
+    "motion": 19.8
+   },
+   {
+    "start": 84.0,
+    "until": 90.0,
+    "motion": 17.46
+   },
+   {
+    "start": 90.0,
+    "until": 93.0,
+    "motion": 13.71
+   },
+   {
+    "start": 93.0,
+    "until": 95.0,
+    "motion": 12.4
+   },
+   {
+    "start": 95.0,
+    "until": 98.0,
+    "motion": 12.54
+   },
+   {
+    "start": 98.0,
+    "until": 106.0,
+    "motion": 14.79
+   },
+   {
+    "start": 106.0,
+    "until": 114.0,
+    "motion": 14.37
+   }
+  ]
+ },
+ "240407-G-DV874-3002": {
+  "dur": 111.0,
+  "src": "B-roll Container removal from MV Dali (240407-G-DV874-3002).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 12.0,
+    "motion": 0.6
+   },
+   {
+    "start": 12.0,
+    "until": 19.0,
+    "motion": 34.61
+   },
+   {
+    "start": 19.0,
+    "until": 27.0,
+    "motion": 25.23
+   },
+   {
+    "start": 27.0,
+    "until": 40.0,
+    "motion": 1.48
+   },
+   {
+    "start": 40.0,
+    "until": 43.0,
+    "motion": 0.0
+   },
+   {
+    "start": 43.0,
+    "until": 46.0,
+    "motion": 13.65
+   },
+   {
+    "start": 46.0,
+    "until": 50.0,
+    "motion": 15.05
+   },
+   {
+    "start": 50.0,
+    "until": 52.0,
+    "motion": 11.44
+   },
+   {
+    "start": 52.0,
+    "until": 54.0,
+    "motion": 13.14
+   },
+   {
+    "start": 54.0,
+    "until": 56.0,
+    "motion": 0.0
+   },
+   {
+    "start": 56.0,
+    "until": 67.0,
+    "motion": 2.53
+   },
+   {
+    "start": 67.0,
+    "until": 70.0,
+    "motion": 0.0
+   },
+   {
+    "start": 70.0,
+    "until": 84.0,
+    "motion": 3.31
+   },
+   {
+    "start": 84.0,
+    "until": 87.0,
+    "motion": 0.0
+   },
+   {
+    "start": 87.0,
+    "until": 98.0,
+    "motion": 2.22
+   },
+   {
+    "start": 98.0,
+    "until": 106.0,
+    "motion": 18.87
+   },
+   {
+    "start": 106.0,
+    "until": 111.0,
+    "motion": 37.89
+   }
+  ]
+ },
+ "240404-G-KY623-1002": {
+  "dur": 89.0,
+  "src": "Key Bridge Response 2024 Unified Command divers conduct dive operations Motor Vessel Dali (240404-G-KY623-1002).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 5.0,
+    "motion": 0.01
+   },
+   {
+    "start": 5.0,
+    "until": 7.0,
+    "motion": 0.0
+   },
+   {
+    "start": 7.0,
+    "until": 19.0,
+    "motion": 0.83
+   },
+   {
+    "start": 19.0,
+    "until": 26.0,
+    "motion": 31.53
+   },
+   {
+    "start": 26.0,
+    "until": 36.0,
+    "motion": 18.28
+   },
+   {
+    "start": 36.0,
+    "until": 60.0,
+    "motion": 27.45
+   },
+   {
+    "start": 60.0,
+    "until": 77.0,
+    "motion": 40.15
+   },
+   {
+    "start": 77.0,
+    "until": 82.0,
+    "motion": 10.42
+   },
+   {
+    "start": 82.0,
+    "until": 84.0,
+    "motion": 0.0
+   },
+   {
+    "start": 84.0,
+    "until": 89.0,
+    "motion": 0.01
+   }
+  ]
+ },
+ "240401-G-LB555-1002": {
+  "dur": 86.0,
+  "src": "First vessel passes through temporary alternate channel (240401-G-LB555-1002).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 8.01
+   },
+   {
+    "start": 10.0,
+    "until": 32.0,
+    "motion": 6.94
+   },
+   {
+    "start": 32.0,
+    "until": 35.0,
+    "motion": 11.69
+   },
+   {
+    "start": 35.0,
+    "until": 66.0,
+    "motion": 3.18
+   },
+   {
+    "start": 66.0,
+    "until": 86.0,
+    "motion": 7.33
+   }
+  ]
+ },
+ "241004-G-SF967-1001": {
+  "dur": 66.0,
+  "src": "Crew continue to remove debris and wreckage in wake of Francis Scott Key Bridge collpapse (241004-G-SF967-1001).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 8.0,
+    "motion": 9.88
+   },
+   {
+    "start": 8.0,
+    "until": 11.0,
+    "motion": 11.8
+   },
+   {
+    "start": 11.0,
+    "until": 13.0,
+    "motion": 13.92
+   },
+   {
+    "start": 13.0,
+    "until": 24.0,
+    "motion": 11.24
+   },
+   {
+    "start": 24.0,
+    "until": 33.0,
+    "motion": 12.98
+   },
+   {
+    "start": 33.0,
+    "until": 42.0,
+    "motion": 8.75
+   },
+   {
+    "start": 42.0,
+    "until": 54.0,
+    "motion": 24.05
+   },
+   {
+    "start": 54.0,
+    "until": 66.0,
+    "motion": 19.17
+   }
+  ]
+ },
+ "240326-G-KH296-2189": {
+  "dur": 62.0,
+  "src": "Key Bridge Response 2024 (240326-G-KH296-2189).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 33.78
+   },
+   {
+    "start": 4.0,
+    "until": 12.0,
+    "motion": 37.01
+   },
+   {
+    "start": 12.0,
+    "until": 22.0,
+    "motion": 30.24
+   },
+   {
+    "start": 22.0,
+    "until": 32.0,
+    "motion": 37.77
+   },
+   {
+    "start": 32.0,
+    "until": 36.0,
+    "motion": 17.13
+   },
+   {
+    "start": 36.0,
+    "until": 47.0,
+    "motion": 30.46
+   },
+   {
+    "start": 47.0,
+    "until": 58.0,
+    "motion": 29.71
+   },
+   {
+    "start": 58.0,
+    "until": 62.0,
+    "motion": 39.49
+   }
+  ]
+ },
+ "240404-A-PA223-1037": {
+  "dur": 56.0,
+  "src": "Key Bridge debris removal continues (240404-A-PA223-1037).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 0.0
+   },
+   {
+    "start": 10.0,
+    "until": 20.0,
+    "motion": 10.91
+   },
+   {
+    "start": 20.0,
+    "until": 25.0,
+    "motion": 0.0
+   },
+   {
+    "start": 25.0,
+    "until": 38.0,
+    "motion": 3.07
+   },
+   {
+    "start": 38.0,
+    "until": 43.0,
+    "motion": 0.0
+   },
+   {
+    "start": 43.0,
+    "until": 56.0,
+    "motion": 4.95
+   }
+  ]
+ },
+ "240331-G-KY623-1003": {
+  "dur": 51.0,
+  "src": "Unified Command prepares for opening of temporary alternate channel near Key Bridge (240331-G-KY623-1003).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 5.0,
+    "motion": 0.01
+   },
+   {
+    "start": 5.0,
+    "until": 7.0,
+    "motion": 0.0
+   },
+   {
+    "start": 7.0,
+    "until": 14.0,
+    "motion": 9.73
+   },
+   {
+    "start": 14.0,
+    "until": 33.0,
+    "motion": 20.79
+   },
+   {
+    "start": 33.0,
+    "until": 46.0,
+    "motion": 35.19
+   },
+   {
+    "start": 46.0,
+    "until": 51.0,
+    "motion": 0.01
+   }
+  ]
+ },
+ "240402-G-KH296-3001": {
+  "dur": 49.0,
+  "src": "Unified Command opens second temporary alternate channel around Key Bridge wreckage for commercially essential vessels (240402-G-KH296-3001).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 45.73
+   },
+   {
+    "start": 4.0,
+    "until": 14.0,
+    "motion": 23.54
+   },
+   {
+    "start": 14.0,
+    "until": 28.0,
+    "motion": 33.19
+   },
+   {
+    "start": 28.0,
+    "until": 44.0,
+    "motion": 25.9
+   },
+   {
+    "start": 44.0,
+    "until": 49.0,
+    "motion": 42.34
+   }
+  ]
+ },
+ "240330-A-PA223-1001": {
+  "dur": 44.0,
+  "src": "Unified Command continues Key Bridge debris removal (240330-A-PA223-1001).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 5.0,
+    "motion": 0.02
+   },
+   {
+    "start": 5.0,
+    "until": 8.0,
+    "motion": 11.59
+   },
+   {
+    "start": 8.0,
+    "until": 13.0,
+    "motion": 16.4
+   },
+   {
+    "start": 13.0,
+    "until": 19.0,
+    "motion": 12.4
+   },
+   {
+    "start": 19.0,
+    "until": 34.0,
+    "motion": 25.65
+   },
+   {
+    "start": 34.0,
+    "until": 44.0,
+    "motion": 20.07
+   }
+  ]
+ },
+ "240407-A-PA223-1003": {
+  "dur": 39.0,
+  "src": "Crews remove containers on MV Dali (240407-A-PA223-1003).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 5.0,
+    "motion": 0.01
+   },
+   {
+    "start": 5.0,
+    "until": 10.0,
+    "motion": 10.74
+   },
+   {
+    "start": 10.0,
+    "until": 12.0,
+    "motion": 11.32
+   },
+   {
+    "start": 12.0,
+    "until": 15.0,
+    "motion": 11.84
+   },
+   {
+    "start": 15.0,
+    "until": 17.0,
+    "motion": 13.37
+   },
+   {
+    "start": 17.0,
+    "until": 27.0,
+    "motion": 14.37
+   },
+   {
+    "start": 27.0,
+    "until": 36.0,
+    "motion": 17.03
+   },
+   {
+    "start": 36.0,
+    "until": 39.0,
+    "motion": 19.21
+   }
+  ]
+ },
+ "240401-G-LB555-1004": {
+  "dur": 34.0,
+  "src": "Unified Command crews remove debris from the channel (240401-G-LB555-1004).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 35.47
+   },
+   {
+    "start": 4.0,
+    "until": 8.0,
+    "motion": 16.6
+   },
+   {
+    "start": 8.0,
+    "until": 13.0,
+    "motion": 23.11
+   },
+   {
+    "start": 13.0,
+    "until": 18.0,
+    "motion": 23.01
+   },
+   {
+    "start": 18.0,
+    "until": 23.0,
+    "motion": 16.72
+   },
+   {
+    "start": 23.0,
+    "until": 27.0,
+    "motion": 7.98
+   },
+   {
+    "start": 27.0,
+    "until": 31.0,
+    "motion": 18.33
+   },
+   {
+    "start": 31.0,
+    "until": 34.0,
+    "motion": 26.81
+   }
+  ]
+ },
+ "240407-A-PA223-1005": {
+  "dur": 20.0,
+  "src": "Key Bridge debris removal continues (240407-A-PA223-1005).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 5.0,
+    "motion": 0.02
+   },
+   {
+    "start": 5.0,
+    "until": 10.0,
+    "motion": 10.1
+   },
+   {
+    "start": 10.0,
+    "until": 16.0,
+    "motion": 12.84
+   },
+   {
+    "start": 16.0,
+    "until": 20.0,
+    "motion": 15.33
+   }
+  ]
+ },
+ "240404-A-PA223-1036": {
+  "dur": 17.0,
+  "src": "Key Bridge Response 2024 Unified Command divers conduct dive operations near Motor Vessel Dali (240404-A-PA223-1036).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 5.0,
+    "motion": 0.02
+   },
+   {
+    "start": 5.0,
+    "until": 17.0,
+    "motion": 3.88
+   }
+  ]
+ },
+ "240407-A-PA223-1004": {
+  "dur": 17.0,
+  "src": "Crews use hydraulic shear to cut bridge truss (240407-A-PA223-1004).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 14.9
+   },
+   {
+    "start": 10.0,
+    "until": 17.0,
+    "motion": 38.66
+   }
+  ]
+ },
+ "240408-A-PA223-1005": {
+  "dur": 14.0,
+  "src": "Crews remove multiple containers on MV Dali (240408-A-PA223-1005).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 5.0,
+    "motion": 0.01
+   },
+   {
+    "start": 5.0,
+    "until": 14.0,
+    "motion": 4.19
+   }
+  ]
+ },
+ "240404-G-G0105-1001": {
+  "dur": 13.0,
+  "src": "BRoll - Key Bridge Response 2024 Unified Command conducts dive operations (240404-G-G0105-1001).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 9.21
+   },
+   {
+    "start": 10.0,
+    "until": 13.0,
+    "motion": 20.27
+   }
+  ]
+ },
+ "240410-G-KT616-1001": {
+  "dur": 10.0,
+  "src": "Key Bridge response unified command continues efforts to reopen the Fort McHenry channel (240410-G-KT616-1001).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 26.8
+   },
+   {
+    "start": 4.0,
+    "until": 10.0,
+    "motion": 23.42
+   }
+  ]
+ },
+ "240331-A-PA223-1003": {
+  "dur": 9.0,
+  "src": "Precautions deployed around Dali to prevent chemical spread (240331-A-PA223-1003).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 9.0,
+    "motion": 5.37
+   }
+  ]
+ },
+ "240410-G-KT616-1002": {
+  "dur": 8.0,
+  "src": "Key Bridge response unified command continues efforts to reopen the Fort McHenry channel (240410-G-KT616-1002).webm",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 1.0,
+    "motion": 16.64
+   },
+   {
+    "start": 1.0,
+    "until": 5.0,
+    "motion": 15.08
+   },
+   {
+    "start": 5.0,
+    "until": 8.0,
+    "motion": 15.24
+   }
+  ]
+ }
+}

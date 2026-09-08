@@ -45,7 +45,7 @@
         ここを飛ばすと**構造上見えない穴**になる（2026-09-07 に実測：36欄中4欄が
         until 無しのまま4本目を通っていた＝c106 c223 c434 pr02。どれも `still`）。
 
-■ 🔴 秒数は**目で決めない。`ref/sl1/shots.json` から採る**
+■ 🔴 秒数は**目で決めない。`SHOT_FILE`（いまは `ref/keybridge/shots.json`）から採る**
    4本目は 3秒刻みの見取り図で秒を選び、**注記の範囲の中で絵が別物**になった（3件）。
    5本目は `tools/shots.py` で**1秒刻み**に境目を実測してある（`SHOTS`）。
    ⚠️ ffmpeg の scene 検出だけでは**ディゾルブ（重ね消し）を見ない**。
@@ -68,39 +68,28 @@ FPS = 30
 UA = ("zukai-engine/1.0 (accident-documentary research; "
       "https://github.com/torotorotolo/zukai-engine; konariri8@gmail.com)")
 
-# ── 5本目：SL-1 原子炉暴走事故（1961-01-03）の記録映画 ────────
-# 🔴 4本目サーフサイド（NIST の Kaltura 配信）の CLIPS/USE は git の `4e4c1fb` にある。
+# ── 6本目：フランシス・スコット・キー橋 崩落（2024-03-26）の PD 動画 28本 ────────
+# 🔴 5本目 SL-1（NARA MoPix の記録映画2本）の CLIPS/USE/PILLAR/NOGO は git の `58cd823` にある。
 #    カットIDが題材をまたいでぶつかるので**残さない**。
 #
-# 🔴 権利（②素材のチャットで確かめた。結論＝**使える**）
-#    NARA のこの2本は `useRestriction = "Restricted - Possibly"／Copyright` が付いているが、
-#    これは**シリーズ一括の定型文**であって、この2本への個別の判断ではない：
-#      ・シリーズ本体 `88680113`（Moving Images Related to Combat Visual Information）が
-#        **同じ注記を持つ**／同シリーズの兄弟レコード **299件が 299/299 で同じ札**
-#      ・NARA の SL-1 の3件目 `66396247`（RG 434 エネルギー省）にも同じ札が付く
-#    作者は連邦機関なので合衆国法典 17編105条により著作権が発生しない：
-#      ・`contributors` の Originator ＝ **Department of Defense / Department of the Army**
-#      ・`scopeAndContentNote` ＝「**U.S. Atomic Energy Commission** reports on phases 1 and 2…」
-#      ・同じ AEC アイダホ支所のブリーフィング映画を **DOE/OSTI 自身が公開**している
-#        （OSTI ID 1122857）。Commons にも PD として上がっている
-#    ⚠️ **残る危険＝映画の中に第三者の映像（ニュース映画・音楽）が混ざっている可能性**。
-#       ⑤b でショットを選ぶときに、局のロゴ・クレジット・見慣れた報道映像が無いかを見ること。
-CR_NARA = "出典：米国国立公文書館（NARA）／米原子力委員会（AEC）撮影"
-_MOPIX = "https://catalog.archives.gov/medialz/mopix/330/DIMOC/{f}.mp4"
-
-# name: (ファイル名, naId, 尺(秒), 幅, 高さ, 出典, 中身)
-_SL1 = {
-    "sl1_ph12": ("330-dimoc-redstone1860", 174689848, 1494.71, 1920, 1080,
-                 f"{CR_NARA} 「SL-1 Accident Phase I & II」（NARA naId 174689848）／パブリックドメイン",
-                 "24分55秒。事故の発生と初期対応（第1・2段階）。139ショット"),
-    "sl1_ph3": ("330-dimoc-redstone1861", 174689849, 1847.50, 1920, 1080,
-                f"{CR_NARA} 「SL-1 Accident Phase III」（NARA naId 174689849）／パブリックドメイン",
-                "30分48秒。炉の解体と埋設（第3段階）。271ショット"),
-}
-CLIPS = {}
-for _n, (_f, _nid, _sec, _w, _h, _cr, _note) in _SL1.items():
-    CLIPS[_n] = dict(url=_MOPIX.format(f=_f), naid=_nid, sec=_sec, w=_w, h=_h,
-                     credit=_cr, note=_note, stream=True)
+# 🔴 5本目までと造りが違うところ（2026-09-08・6本目②）
+#    ・**素材が1〜2本ではなく28本**（合計49.7分）。名前は DVIDS の識別子（`240407-A-PA223-1003`）。
+#      表をこのファイルに直に書くと60行の literal になるので、**実測から作った JSON を読む**。
+#      正本＝`ref/keybridge/clips.json`（`tools/keybridge_index.py` が作る。git に載せる）。
+#    ・ショットの境目の台帳＝`ref/keybridge/SHOTS_INDEX.md`（**全355ショット・1秒刻み**）。
+#      `USE` の `start=` / `until=` はこの台帳の値をそのまま写す。**推測で書かない。**
+#
+# 🔴 権利（②素材で1点ずつ確かめた。詳細は `ref/CREDITS.md` §キー橋）
+#    28本すべて Commons で Public domain。撮影は米沿岸警備隊・米陸軍工兵隊・NTSB の職務著作
+#    ＝合衆国法典 17編105条。⚠️ **写真のほうは事情が違う**（郡が自分で PD 宣言したものが191点、
+#    州知事室の CC BY が582点ある）。動画と写真を同じ「PD」で数えない。
+#    ⚠️ 残る危険＝B-roll に第三者の映像が混ざる可能性。ショットを選ぶときに局のロゴを見る。
+#    ⚠️ **ホワイトハウスの総集編『A look back at March 2024』（23.9分）は入れていない**
+#       （キー橋以外が大半で、報道由来の映像が混ざる）。
+#
+# ⚠️ `upload.wikimedia.org` は名乗らないと **429**。下の UA を必ず渡す（`shots.UA` と同じ役目）。
+_CLIPS_JSON = HERE / "ref" / "keybridge" / "clips.json"
+CLIPS = json.loads(_CLIPS_JSON.read_text(encoding="utf-8")) if _CLIPS_JSON.exists() else {}
 
 # 🔴🔴 2026-09-07（5本目 SL-1 ⑤c'・K-12）：**素材そのものが横に黒帯を持っている。**
 #    NARA の MoPix は 4:3 の原版を **1920×1080 の箱に 1440×1080 で入れて**配信している。
@@ -110,7 +99,13 @@ for _n, (_f, _nid, _sec, _w, _h, _cr, _note) in _SL1.items():
 #    実測＝切り出したコマ 35本を1枚ずつ測って **全部が x240〜1679（絵の幅 1440）**。
 #    要る寄り ＝ 1920/1440 = **1.3333**。ここに置いて**1か所で効かせる**
 #    （35欄に書くと、欄を足したときに書き忘れる）。
-PILLAR = {"sl1_ph12": 1440 / 1920, "sl1_ph3": 1440 / 1920}
+#
+# 🔴 2026-09-08（6本目②）: **空にした。まだ測っていないので 1.0 でなく「未測」である。**
+#    キー橋の28本は 3840×2160 と 1920×1080 が主で、名目の縦横比は 16:9。
+#    ただし **`720×958` と `480×848` の2本は縦位置**（携帯・機内撮影）で、全画面には使えない。
+#    ⚠️ **名目の寸法は黒帯の有無を教えない**（SL-1 も 1920×1080 と名乗って中身は 1440）。
+#    → ⑤で切り出したコマを `measure_pillar(cid)` で1本ずつ測ってから、必要な欄だけここに書く。
+PILLAR = {}
 
 
 def zoom_of(cid, u=None):
@@ -157,12 +152,29 @@ def bars_left(cid, u=None):
 # ここに実測のショット表を持たせ、`USE` の (start, until) が**1本のショットに収まっているか**を
 # 機械で見る（`outside_shot()`）。⚠️ ffmpeg の scene 検出だけでは**ディゾルブを見ない**ので、
 # 1秒ごとの見た目の署名で採ってある（1本のショットが333秒、という嘘が出ていた）。
+#
+# 🔴🔴 2026-09-08（6本目②）：**ここのパスを題材ごとに差し替えるのを忘れない。**
+#    素材のパスを名指しした門番は、題材を替えると「0件を調べて合格」になる
+#    （5本目で370件が隠れていた）。→ [[feedback-gates-blind-to-the-new-material]]
+#    ＝ `SHOTS` が空のまま `outside_shot()` を回すと、**全欄が「対象外」で素通り**する。
+#    そうならないように `unknown_clip()` を足した（`fetch --check` が呼ぶ）。
 SHOTS = {}
-_SHOT_FILE = HERE / "ref" / "sl1" / "shots.json"
-if _SHOT_FILE.exists():
-    _sd = json.loads(_SHOT_FILE.read_text(encoding="utf-8"))
+SHOT_FILE = HERE / "ref" / "keybridge" / "shots.json"      # 6本目。前は ref/sl1/shots.json
+if SHOT_FILE.exists():
+    _sd = json.loads(SHOT_FILE.read_text(encoding="utf-8"))
     SHOTS = {k: [(s["start"], s["until"], s["motion"]) for s in v["shots"]]
              for k, v in _sd.items()}
+
+
+def unknown_clip(use=None):
+    """🔴 `USE` が使っているのにショット表が無いクリップ。**在れば止める。**
+
+    `outside_shot()` はショット表の無いクリップを「対象外」として飛ばすので、
+    表のパスが古い題材を向いたままだと**全欄が黙って通る**。ここがその穴を塞ぐ。
+    """
+    use = USE if use is None else use
+    return sorted({u.get("clip") for u in use.values()
+                   if u.get("clip") not in SHOTS})
 
 
 def shot_of(clip, t):
@@ -185,9 +197,11 @@ def shot_of(clip, t):
 #      1485.0 まで 0.00%／**1485.1 で 0.04%（浮き始め）**／1485.4 で 2.83%／1486.0 で 14.69%
 #    ＝ 使ってよいのは **1478.0〜1485.0**。
 NOGO = {
-    "sl1_ph12": [(1485.0, 1495.0,
-                  "終幕タイトル（THE END／THE U.S. ATOMIC ENERGY COMMISSION／"
-                  "Contract No. AT(10-1)-1087）がディゾルブで浮く。実測 1485.1 から")],
+    # 🔴 2026-09-08（6本目②）: **空にした。「危険が無い」ではなく「まだ見ていない」。**
+    #    5本目は⑤c' で1カット目に『THE END』が写っていたのを見つけて足した欄。
+    #    キー橋の28本は DVIDS の B-roll なので終幕タイトルは想定しにくいが、
+    #    ⚠️ **局のロゴ・提供クレジット・DVIDS のスレート**が頭尻に入る型は在りうる。
+    #    → ⑤でショットを見たときに、見つけたぶんをここへ書く。
 }
 
 
@@ -246,14 +260,14 @@ def outside_shot(use=None):
 #   3. `until=` は**全欄に必須**（`still=True` の欄も）。無いと `fetch --check` が exit 2
 #   4. 🔴 (start, until) は `SHOTS` の**1本のショットに収める**。またぐと exit 3
 #      ＝ 4本目で3件踏んだ「範囲の中で絵が別物」を機械で止める
-#   5. 秒は `ref/sl1/shots.json`（1秒刻みの実測）から採る。目分量で書かない
+#   5. 秒は `ref/keybridge/SHOTS_INDEX.md`（1秒刻みの実測）から写す。目分量で書かない
 #
 # 書き方（4本目の例。数は SL-1 のものに置き換える）
 #     "c103": dict(clip="sl1_ph12", start=412.0, until=421.0),
 #     "c118": dict(clip="sl1_ph3", start=88.0, until=94.0, rate=0.6),
 #     "c204": dict(clip="sl1_ph12", start=735.0, still=True, until=741.0),
 # 🔴 2026-09-07（⑤b）：**全410ショットを見て決めた35欄。** 台帳＝`ref/sl1/SHOTS_INDEX.md`。
-#    (start, until) は `ref/sl1/shots.json` の実測ショットの境目そのもの。
+#    (start, until) は `ref/sl1/shots.json`（当時）の実測ショットの境目そのもの。
 #    `rate` は「そのショットの残り ÷ カットの尺」を切り捨てた値（機械で計算した。手で書いていない）。
 #    ⚠️ 尺が変わったら取り直す（`el_build --dry` の見込みが動いたら再計算）。
 #
@@ -263,57 +277,21 @@ def outside_shot(use=None):
 #    ⚠️ また、台本が Ph1&2 と書いた主題の多くは**実際には Ph3 に在る**（階段・除染・公道・空撮）。
 #       リールを振り替えてある（同じ主題なので代用ではない）。
 USE = {
-    # ── 冒頭 ─────────────────────────────────────────
-    # 🔴🔴 2026-09-07（⑤c' J-01/L-03）：**動画の1カット目に「THE END」が写っていた。**
-    #    #137（1478〜1491）は SL-1 の敷地を俯瞰する理想的な引きだが、
-    #    **1485.1秒から終幕タイトルがディゾルブで浮く**（`NOGO` を見よ）。
-    #    ⚠️ 台帳の直し案「#135（1420〜1470）へ振り替える」は**不成立**＝#135 は
-    #      屋内のトーキングヘッド（L-04）。#136 は ep06 が使っている（同じ俯瞰の続き）。
-    #    → 絵は変えず、**読む秒を 1478.0〜1484.6 に縮めて rate で埋める**。
-    #      式＝尺 11.57秒 × rate 0.57 ＝ 6.60秒。終わり 1484.60（浮き始めまで 0.50秒）。
-    #      0.57 は本編で既に使っている遅回しの幅の中（c508 が 0.57）。
-    "pr01": dict(clip="sl1_ph12", start=1478.0, until=1485.0, rate=0.57),
-    "pr03": dict(clip="sl1_ph3", start=794.0, until=805.0, rate=0.88),   # #099 屋外の覆いのある階段
-    "pr10": dict(clip="sl1_ph3", start=707.0, until=724.0),      # #087 クレーンのブームと建屋
-    # ── 第2〜3章 ────────────────────────────────────
-    "c202": dict(clip="sl1_ph3", start=1495.0, until=1511.0),    # #231 試験場の建物と道路の俯瞰
-    "c301": dict(clip="sl1_ph3", start=258.0, until=273.0),      # #014 事故後の運転階（遠隔・白黒）
-    "c305": dict(clip="sl1_ph3", start=208.0, until=216.0, rate=0.82),   # #008 敷地の空撮
-    "c318": dict(clip="sl1_ph12", start=178.0, until=220.0),     # #023 炉内の残骸（49秒のショットの中）
-    "c321": dict(clip="sl1_ph12", start=270.0, until=280.0),     # #032 炉内の残骸（色つき）
-    # ── 第4〜6章 ────────────────────────────────────
-    "c407": dict(clip="sl1_ph3", start=404.0, until=410.0, rate=0.67),   # #037 面体・防護具の受け渡し
-    "c501": dict(clip="sl1_ph3", start=827.0, until=837.0, rate=0.88),   # #105 階段を上がる防護服
-    "c504": dict(clip="sl1_ph3", start=690.0, until=696.0, rate=0.51),   # #084 建屋の外壁の開口部
-    "c508": dict(clip="sl1_ph3", start=788.0, until=794.0, rate=0.57),   # #098 階段の2人
-    "c520": dict(clip="sl1_ph3", start=805.0, until=812.0, rate=0.68),   # #100 階段とクレーン
-    "c601": dict(clip="sl1_ph3", start=598.0, until=609.0, rate=0.96),   # #065 防護服の着脱
-    "c603": dict(clip="sl1_ph3", start=1511.0, until=1519.0, rate=0.79),  # #232 床の除染
-    # ── 第7章 ──────────────────────────────────────
-    "c701": dict(clip="sl1_ph12", start=285.0, until=295.0),     # #034 炉内の残骸（色つき）
-    "c708": dict(clip="sl1_ph3", start=724.0, until=739.0),      # #088 運転階の残骸の山
-    "c710": dict(clip="sl1_ph3", start=1185.0, until=1193.0, rate=0.54),  # #170 クレーンと建屋（搬出）
-    "c711": dict(clip="sl1_ph3", start=773.0, until=782.0, rate=0.93),   # #095 残骸の上の制御棒駆動部
-    "c717": dict(clip="sl1_ph3", start=1406.0, until=1413.0, rate=0.62),  # #211 部品の計測
-    # 🔴 c719「模型を作り、人が手で引く速さを測っている」は **Ph3 ではなく Ph1&2** に在る
-    #    （実験室で駆動部を組み直す一連。台本の欄は Ph3 だが、実物はこちら）
-    "c719": dict(clip="sl1_ph12", start=784.0, until=793.0, rate=0.83),  # #103 実験室での引き抜き試験
-    "c726": dict(clip="sl1_ph3", start=1281.0, until=1289.0, rate=0.84),  # #186 工場の中へ入れる
-    # ── 第8章 ──────────────────────────────────────
-    "c801": dict(clip="sl1_ph3", start=424.0, until=440.0),      # #040 建屋の外に防護服の一団
-    "c802": dict(clip="sl1_ph3", start=844.0, until=853.0, rate=0.78),   # #107 屋上のクレーンと作業員
-    "c806": dict(clip="sl1_ph3", start=1220.0, until=1229.0, rate=0.90),  # #179 トレーラーの圧力容器
-    "c807": dict(clip="sl1_ph3", start=1269.0, until=1277.0, rate=0.73),  # #184 工場へ入れる
-    "c811": dict(clip="sl1_ph3", start=978.0, until=984.0, rate=0.65),   # #126 長い管を掲げる3人
-    "c813": dict(clip="sl1_ph3", start=1387.0, until=1393.0),    # #207 鉄骨だけになった建屋
-    "c814": dict(clip="sl1_ph3", start=1393.0, until=1399.0, rate=0.65),  # #208 鉄骨に取りつく作業員
-    "c815": dict(clip="sl1_ph3", start=1368.0, until=1384.0),    # #205 ローダーと建屋
-    "c821": dict(clip="sl1_ph3", start=1239.0, until=1255.0),    # #182 公道と工場
-    "c822": dict(clip="sl1_ph3", start=1255.0, until=1269.0),    # #183 化学処理工場の建物
-    # ── 第9章・締め ─────────────────────────────────
-    "c905": dict(clip="sl1_ph3", start=893.0, until=906.0, rate=0.96),   # #115 試験場の遠景
-    "c912": dict(clip="sl1_ph3", start=1654.0, until=1667.0, rate=0.70),  # #257 顕微鏡での分析
-    "ep06": dict(clip="sl1_ph12", start=1470.0, until=1478.0, rate=0.92),  # #136 敷地の空撮（引き）
+    # 🔴 2026-09-08（6本目②）: **空にした。**④の台本が通ってから書く。
+    #
+    # 書き方（守らないと `fetch --check` が止まる）:
+    #   "c101": dict(clip="240326-G-KH296-2189", start=12.0, until=22.0, rate=0.97),
+    #   ・`clip` は `ref/keybridge/clips.json` の鍵（＝DVIDS の識別子）
+    #   ・🔴 **`until=` は全欄に必ず書く**（無いと exit 2。4本目は静止画4欄が空のまま通っていた）
+    #   ・`start` / `until` は **`ref/keybridge/SHOTS_INDEX.md` のショットの境目をそのまま写す**。
+    #     ⚠️ ショットの範囲の中で絵が別物になることがある（4本目で3件踏んだ）ので、
+    #        **境目をまたがない**。またぐと `footage.outside_shot()` が exit 3 で止める。
+    #   ・`rate` は「そのショットの長さ ÷ カットの尺」を切り捨てた値。台帳の「rate の目安」欄に出してある。
+    #
+    # 素材の下ごしらえ（②で実測ずみ）:
+    #   28本・49.7分・355ショット。**8秒以上が152本（うち動きのあるもの142本）**
+    #   ＝1カット 10.29秒 をそのまま埋められる玉。
+    #   ⚠️ **崩落の瞬間の映像は無い**（当日撮影は3本だけで、どれも崩落後）。
 }
 # ❌ 見たうえで**当てないと決めた**もの
 #   ph12 #000 #001 #138／ph3 #000 #001 #002 #003 #269 #270
@@ -405,7 +383,7 @@ def check_until():
         print(f"🔴 ショットの終わりを {TOL:.2f}秒 より越えているカットが {len(bad)} 件")
     if out:
         print(f"🔴 実測のショットをまたいでいるカットが {len(out)} 件"
-              f"（秒は ref/sl1/shots.json から採る）")
+              f"（秒は {SHOT_FILE} から採る）")
     # 🔴 素材の黒帯（K-12）。書いた寄りで**帯が消えるか**を式で見る
     bars = [(cid, bars_left(cid)) for cid in sorted(USE) if bars_left(cid) > 0.5]
     for cid, w in bars:
@@ -531,11 +509,18 @@ def selftest():
             rc5 = fetch(check=True)                       # 帯が 240px 残る
             globals()["USE"] = {"x01": dict(clip="t_clip", start=12.0, until=20.0)}
             rc0 = fetch(check=True)
+            # 🔴 exit 6 ＝ ショット表に無いクリップ（表のパスが前の題材を向いたままの型）
+            globals()["USE"] = {"x01": dict(clip="mukashi_no_dai", start=1.0, until=5.0)}
+            globals()["CLIPS"] = dict(CLIPS, mukashi_no_dai=dict(
+                url="http://example.invalid/x.mp4", sec=100.0, w=1920, h=1080,
+                credit="（検算用）", note="（検算用）", stream=True))
+            rc6 = fetch(check=True)
         finally:
             S.CUTS = keep_cuts
         for name, rc, want in (("until 無し", rc2, 2), ("ショットまたぎ", rc3, 3),
                                ("禁止の秒", rc4, 4), ("素材の黒帯", rc5, 5),
-                               ("正しい欄", rc0, 0)):
+                               ("正しい欄", rc0, 0),
+                               ("ショット表に無いクリップ", rc6, 6)):
             ok.append(rc == want)
             print(f"  {'✓' if rc == want else '🔴'} {name} → `fetch --check` exit {rc}（期待 {want}）")
     finally:
@@ -637,18 +622,26 @@ def fetch(check=False):
         print(f"  {cid}  尺{secs[cid]:5.2f}s  ← {u['clip']} {u['start']:.1f}〜{end:.1f}秒"
               f"（{rate:.2f}倍速）{flag}")
     over, miss, out, nog, bars = check_until()
+    # 🔴 exit 6 ＝ USE が使っているクリップのショット表が無い（2026-09-08・6本目②で追加）。
+    #    ⚠️ これは「粗が無い」ではなく「**見ていない**」。表のパスが前の題材を向いたままだと
+    #       exit 3 の門番が全欄を「対象外」で飛ばして黙って通る
+    #       → [[feedback-gates-blind-to-the-new-material]]
+    if unknown_clip():
+        print(f"🔴 exit 6 ＝ ショット表に無いクリップを使っている: {unknown_clip()}。"
+              f"`{SHOT_FILE}` を題材のものに差し替える")
+        return 6
     # 🔴 `until=` は必須（2026-09-07・設計ノート §9-5）。無ければ **exit 2** で落とす。
     #    ⚠️ はみ出し（exit 1）より重い。「測れる状態になっていない」ので切り出しにも進まない
     if miss:
         print("🔴 exit 2 ＝ `until=`（そのショットが終わる秒）を USE に書いてから通す。"
-              "秒は `ref/sl1/shots.json`（1秒刻みの実測）から採る")
+              "秒は `ref/keybridge/SHOTS_INDEX.md`（1秒刻みの実測）から写す")
         return 2
     # 🔴 exit 3 ＝ 数は入っているが、実測のショットをまたいでいる（2026-09-07・5本目で追加）。
     #    ⚠️ until= を必須にしただけでは「数が入っていればよい」で終わり、4本目で3件踏んだ
     #       「注記の範囲の中で絵が別物」がそのまま通る。ここが**その穴**を塞ぐ門番
     if out:
         print("🔴 exit 3 ＝ (start, until) を1本のショットの中に収める。"
-              "`python tools/shots.py show ref/sl1/shots.json --key <clip>` で境目を見る")
+              "`python tools/shots.py show ref/keybridge/shots.json --key <clip>` で境目を見る")
         return 3
     # 🔴 exit 4 ＝ 実際に読む秒が「使ってはいけない秒」に掛かる（2026-09-07・5本目 ⑤c'）。
     #    ⚠️ exit 2/3 は**書いた数**を見る門番で、ここだけが**実際に読む範囲**を見る。

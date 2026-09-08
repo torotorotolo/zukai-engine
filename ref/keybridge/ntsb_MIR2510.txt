@@ -1,0 +1,1324 @@
+
+=== p1 ===
+1 
+NOTE: This report was reissued on March 24, 2025, with corrections to the footnotes in Table B-1 on pages 22–25. 
+March 18, 2025 
+MIR-25-10 
+Safeguarding Bridges from Vessel Strikes: 
+Need for Vulnerability Assessment and Risk 
+Reduction Strategies 
+1. Introduction
+The National Transportation Safety Board (NTSB) is providing the following 
+information to urge owners of bridges over navigable waterways frequented by 
+ocean-going vessels, the Federal Highway Administration (FHWA), the US Coast 
+Guard, and the US Army Corps of Engineers to act on the safety recommendations in 
+this report.1 We identified the need to safeguard bridges from vessel strikes as part 
+of our ongoing investigation of the March 26, 2024, containership Dali’s collision with 
+the Francis Scott Key Bridge, and the bridge’s subsequent collapse.2 We completed a 
+vulnerability assessment—a mathematical risk model calculated using data on 
+bridge/span geometry and design, pier protection and lateral capacity, the 
+characteristics of vessel traffic transiting the main navigation channel, waterway 
+characteristics, and other factors—to determine how susceptible the Key Bridge was 
+to collapse from a vessel collision and found that it was above the acceptable level of 
+risk established by the American Association of State Highway and Transportation 
+Officials (AASHTO) for such a collision. 3 We also identified 68 other bridges 
+frequented by ocean-going vessels that were constructed before the AASHTO 
+1 An ocean-going vessel is a large ship that transits international routes and/or the Great Lakes. 
+Examples include containerships, general cargo ships, tankers, dry bulk carriers, passenger ships, 
+cable-laying ships, research ships, support ships, training ships, and US Navy ships.  
+2 (a) Although the maritime definition of collision involves two moving vessels striking one another, 
+the findings and recommendations in this report mainly concern bridge design. Therefore, this report 
+uses the term collision when discussing a vessel striking a bridge. (b) Visit ntsb.gov to find additional 
+information in the public docket for this NTSB investigation (case number DCA24MM031). Use the 
+CAROL Query to search safety recommendations and investigations.  
+3 A vulnerability assessment is used to estimate the annual frequency of bridge collapse based on 
+the bridge pier/span geometry, ultimate resistance of the pier (or span), waterway characteristics, and 
+the characteristics of the vessel fleet transiting the channel. (AASHTO, 2009, Guide Specifications and 
+Commentary for Vessel Collision Design of Highway Bridges, 2nd ed., 180.) 
+
+
+=== p2 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+2 
+guidance was issued in 1991, have not undergone a vulnerability assessment based 
+on recent vessel traffic, and, therefore, have an unknown level of risk of collapse from 
+a vessel collision.  
+In this interim report, we urge the FHWA, Coast Guard, and Corps of Engineers 
+to form a dedicated, interdisciplinary team that provides guidance and assistance to 
+bridge owners on evaluating and reducing the risk of a bridge collapse from a vessel 
+collision. We also urge the owners of the 68 identified bridges to calculate whether 
+the probability of a bridge collapse from a vessel collision is above the acceptable 
+risk threshold established by AASHTO. If so, we urge them to develop and implement 
+a risk reduction plan that includes input from the interdisciplinary team, identifies 
+short- and long-term strategies to reduce risk, and considers the safety of the vessels 
+and structures in the waterways. 
+2. Background and Analysis 
+2.1 Dali Collision with Francis Scott Key Bridge and Subsequent 
+Bridge Collapse  
+On March 26, 2024, about 0129 eastern daylight time, the 984-foot-long 
+Singapore-flagged cargo vessel (containership) Dali was transiting out of Baltimore 
+Harbor in Baltimore, Maryland, when it experienced a loss of electrical power and 
+propulsion and struck Pier 17, the southern pier that supported the central span of 
+the continuous through-truss of the Francis Scott Key Bridge. 4 A portion of the bridge 
+subsequently collapsed into the river, and portions of the pier, deck, and truss spans 
+collapsed onto the vessel’s forward deck (see figure 1).5 A seven-person road 
+maintenance crew and one inspector were on the bridge when the vessel struck it. 
+The inspector escaped unharmed, and one of the construction crewmembers 
+survived the collapse with serious injuries. Six construction workers died as a result of 
+the bridge collapse. One of the 23 persons aboard the Dali sustained a minor injury.  
+ 
+4 (a) A pier is “a substructure unit that supports the spans of a multi-span superstructure at an 
+intermediate location between its abutments.” (FHWA, 2022, Bridge Inspector’s Reference Manual, 
+Report Number FHWA-NHI-21-002, FHWA National Highway Institute.) (b) A span is the horizontal 
+space between two supports of a bridge structure. (b) A truss is a “jointed structure made up of 
+individual members primarily carrying axial loads arranged and connected in triangular panels” (FHWA 
+2022). 
+5 A bridge deck is “the portion of a bridge that provides direct support for vehicular and 
+pedestrian traffic, supported by the superstructure” (FHWA 2002). 
+
+
+=== p3 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+3 
+ 
+Figure 1. The Dali, with portions of the collapsed Key Bridge across its forward deck and in 
+the Patapsco River, on March 28, 2024.  
+2.2 Francis Scott Key Bridge and Fort McHenry Federal Channel 
+2.2.1 Francis Scott Key Bridge 
+The Key Bridge was located in Baltimore, Maryland, and carried Maryland 695 
+over the Patapsco River, from Baltimore to Dundalk, Maryland.6 The bridge was 
+owned and operated by the Maryland Transportation Authority (MDTA) and opened 
+to traffic on March 23, 1977. According to the MDTA, the overall length of the bridge 
+was about 9,086 feet between the north and south abutments.7 The maximum vertical 
+clearance for the Key Bridge above the main navigational channel, the 700-foot-wide 
+Fort McHenry Federal Channel, was 185 feet. 8  
+ 
+6 On April 29, 2024, the FHWA approved a request from the State of Maryland to redesignate a 
+segment of Maryland 695, including the Francis Scott Key Bridge, as part of the interstate highway 
+system. 
+7 An abutment is a structure designed to support the vertical and lateral forces from the ends of an 
+arch or span, such as a bridge. 
+8 Vertical clearance is the vertical distance between the water level at mean high water and the 
+lowest point of the bridge structure span over a navigation channel, indicating how much space a 
+vessel has to pass underneath without hitting the bridge. Also known as “charted height.” 
+
+
+=== p4 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+4 
+The Key Bridge was designed according to the 1969 edition of the AASHTO 
+Standard Specifications for Highway Bridges (1970 and 1971 Interim Specifications).9 
+Although this guidance did not mention the risk of vessel collisions or a need for 
+bridge protections, the Key Bridge was designed and built with physical protection 
+systems to protect portions of the bridge exposed to possible damage by marine 
+traffic. These protection systems (including four 28-foot-diameter dolphin structures, 
+each with rubber fenders, and crushable concrete and timber fendering systems 
+around Pier 17 and Pier 18) were in place when the bridge opened in 1977 
+(see figure 2).10 Dolphins are frequently used to protect bridge piers because they 
+can slow, stop, or redirect an aberrant vessel.11  
+The Key Bridge dolphins were constructed according to project-specific 
+design criteria and, according to the MDTA, have retained these original 
+specifications. The centers of Dolphin 1 and Dolphin 2 were located 489 feet west of 
+the centers of Pier 17 and Pier 18, respectively (see figure 3). All dolphins were about 
+550 feet clear of the centerline of the Fort McHenry Federal Channel. None of the 
+four dolphins were contacted by the Dali during the collision.  
+ 
+9 AASHTO, 1969, Standard Specifications for Highway Bridges, 1970 and 1971 Interim 
+Specifications, 10th ed. Note that in 1969, AASHTO was called the American Association of State 
+Highway Officials. 
+10 (a) A bridge dolphin is “a group of piles driven close together, or a caisson placed to protect 
+portions of a bridge exposed to possible damage by collision with river or marine traffic” 
+(FHWA 2022). (b) A fender (or fendering system) is a protective structure located directly on a bridge 
+or on a protective element independent of the bridge (such as a dolphin), designed to fully or partially 
+absorb the design impact loads, or deflect or redirect an aberrant vessel away from the bridge. (c) 
+Rubber fenders are “usually placed on the outer perimeter of the dolphin to act as an anti-sparking 
+surface to prevent metal-to-metal contact in the event of collision with a steel-hulled vessel carrying 
+flammable products.” Further, “the circular shape of the dolphins can help deflect aberrant vessels 
+away from the pier.” Finally, crushable concrete and timber fendering systems, such as those around 
+Pier 17 and Pier 18, have been frequently used for protecting piers from minor vessel impact forces 
+“because of their relatively low cost.” (AASHTO, Article C7.3.3, “Dolphin Protection,” Guide 
+Specifications and Commentary for Vessel Collision Design of Highway Bridges (2009), 114.) 
+11 (a) For more information, see Article C7.3.3, “Dolphin Protection” in AASHTO’s 2009 Guide 
+Specifications. (b) An aberrant vessel is a vessel that has lost control or has unexpectedly gone off 
+course.  
+
+
+=== p5 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+5 
+ 
+Figure 2. The Key Bridge and the physical protection systems (Dolphin 1 and the pier 
+fendering system) protecting Pier 17 from vessels transiting outbound under the Key Bridge. 
+(Background source: MDTA)  
+ 
+Figure 3. Overhead view of the collapsed Key Bridge and the Dali. Locations of Dolphin 1 
+and Dolphin 2 relative to the vessel, bridge, and Fort McHenry Federal Channel are depicted. 
+(Background sources: MAXAR and Google Earth) 
+
+
+=== p6 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+6 
+In accordance with the National Bridge Inspection Standards, the Key Bridge 
+and its pier protection systems were subject to regular safety inspections by 
+nationally certified bridge inspectors.12 These periodic safety inspections, which 
+included the dolphins for the Key Bridge, are intended to assess and document the 
+physical and functional condition of a bridge and its components, and identify any 
+changes from previously recorded conditions to ensure that any structural 
+deficiencies posing an imminent threat to public safety are corrected.13 These 
+inspections are “necessary to maintain safe bridge operation and prevent structural 
+and functional failures.”14 The Key Bridge’s most recent inspections in March 2021 
+and May 2023 found the condition of the deck, the superstructure, and the 
+substructure as being in satisfactory condition, and the pier protection was rated as in 
+place and functioning properly.15  
+The Key Bridge’s pier protection was struck in 1980 when the 390-foot-long 
+Japan-flagged containership Blue Nagoya, which had a displacement or weight 
+about one-tenth that of the Dali, collided with Pier 17 following a loss of steering 
+about 600 yards from the bridge; see figure 4 for a size comparison of the 
+Blue Nagoya to the Dali. The vessel was stopped by the crushable concrete and 
+timber fendering system at Pier 17, and the bow overhang contacted the pier’s 
+A-frame.16 As a result of the collision, minor surface damage occurred on Pier 17’s 
+columns and the pier’s fender was destroyed. The crushable concrete and timber 
+fendering around the pier was reconstructed according to the original 
+project-specific design criteria, and the minor damage to the columns was repaired. 
+ 
+12 See Title 23 Code of Federal Regulations (CFR) Part 650 Subpart C. 
+13 (a) See 23 CFR 650.313(q)(1)(i). (b) FHWA, “Questions and Answers on the National Bridge 
+Inspection Standards, 23 CFR Part 650, Subpart C.” Updated April 5, 2024.  
+14 FHWA, “National Bridge Inspection Standards.” Updated November 7, 2024. 
+15 (a) A superstructure is a bridge structure that receives loads from the deck, such as traffic or 
+pedestrian loads, and in turn, transfers those loads to the substructure. (b) A substructure is a bridge 
+structure that supports the superstructure and transfers loads from it to the foundation; main 
+components are abutments, piers, footings, and pilings.  
+16 See National Research Council, Ship Collisions with Bridges: The Nature of the Accidents, Their 
+Prevention, and Mitigation (National Academy Press, 1983), 26. See also AASHTO 2009, 102. 
+
+
+=== p7 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+7 
+ 
+Figure 4. The comparative sizes of the Blue Nagoya and the Dali relative to the Key Bridge. 
+
+
+=== p8 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+8 
+2.2.2 Fort McHenry Federal Channel 
+The Fort McHenry Federal Channel, which runs within the Patapsco River along 
+the length of the Port of Baltimore and under the Key Bridge, is a navigation channel 
+maintained by the Corps of Engineers (see figure 5). The channel is 700 feet wide, 50 
+feet deep, and 4 miles long, with a vertical clearance of 185 feet under the Key 
+Bridge. The main navigational channel near the bridge is straight, and there are no 
+bends or turns.  
+Ocean-going vessels passed under the bridge at the centerline of the 
+Fort McHenry Federal Channel and were required to have a Maryland State Pilot 
+aboard.17 In 2023, a total of 3,775 transits between Pier 17 and Pier 18 were recorded 
+(1,902 inbound and 1,873 outbound). 18  
+ 
+Figure 5. Nautical chart used to evaluate the channel layout. (Background source: National 
+Oceanic and Atmospheric Administration electronic navigational chart US5BALBB) 
+ 
+17 A pilot is retained by the ship to provide local knowledge of the waterway, familiarity with tides 
+and currents in the area, understanding of local procedures, and a thorough knowledge of the 
+topography of the waterway. Pilots usually operate by issuing maneuvering instructions (such as 
+heading, rudder angle, and speed orders) to the vessel’s crew under the supervision of the master, the 
+officer in charge of the navigation watch, or both. 
+18 Per National Oceanic and Atmospheric Administration AccessAIS data. Further details can be 
+found in the public docket for this investigation. 
+
+
+=== p9 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+9 
+2.3 Vessel Collision Vulnerability Assessment  
+2.3.1 Background 
+As a result of the NTSB’s investigation of the May 9, 1980, Liberia-flagged bulk 
+carrier Summit Venture’s collision with the Sunshine Skyway Bridge, Tampa Bay, 
+Florida, we issued multiple recommendations to address identified safety concerns. 19 
+Among those recommendations, we asked the FHWA, in cooperation with the Coast 
+Guard, to “develop standards for the design, performance, and location of structural 
+bridge pier protection systems which consider that the impact from an off-course 
+vessel can occur significantly above as well as below the water surface” (Safety 
+Recommendation M-81-20). In response to this recommendation, the FHWA shared 
+an existing research study, “The State of the Art: Bridge Protective Systems and 
+Devices,” and indicated that a follow-up study to perform laboratory tests of bridge 
+protection models had been initiated and was nearly complete. 20 In 1988, a pooled-
+fund research project sponsored by 11 states and the FHWA led to the development 
+of a proposed design code for bridge engineers to use in evaluating structures for 
+vessel collision. This effort resulted in AASHTO’s adoption of its first edition of the 
+Guide Specification and Commentary for Vessel Collision Design of Highway Bridges 
+in 1991.21 The second edition, titled Guide Specifications and Commentary for Vessel 
+Collision Design of Highway Bridges, was released in 2009.22 
+The FHWA requires that new bridges on the National Highway System be 
+designed to minimize the risk of a catastrophic bridge collapse from a vessel collision 
+given the size, speed, and other characteristics of the vessels navigating the channel 
+under the bridge; the requirements were adapted from AASHTO’s Guide 
+ 
+19 Ramming of the Sunshine Skyway Bridge by the Liberian Bulk Carrier Summit Venture, Tampa 
+Bay, Florida, May 9, 1980, MAR-81-03. 
+20 (a) The NTSB classified Safety Recommendation M-81-20 Closed―Acceptable Response in 
+December 1984. (b) “The State of the Art: Bridge Protective Systems and Devices.” Final Report 1979. 
+Report no. CG-N-1-80. Prepared for US Department of Transportation, sponsoring agency US Coast 
+Guard Office of Navigation, performing organization University of Maryland Department of Civil 
+Engineering. Washington, DC.  
+21 AASHTO, Guide Specification and Commentary for Vessel Collision Design of Highway Bridges, 
+Volume I: Final Report, 1991.  
+22 AASHTO 2009. 
+
+
+=== p10 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+10 
+Specifications using a vulnerability assessment calculation. 23 AASHTO’s 1991 Guide 
+Specification introduced the vulnerability assessment calculation, and AASHTO 
+reiterated the value of performing this calculation in its 2009 Guide Specifications. 
+AASHTO also recommended that bridge owners use the vulnerability assessment 
+calculations to evaluate bridges built before 1991 to identify bridges at risk of a 
+catastrophic collapse in the event of a vessel collision and to “be aware of high-risk 
+safety needs requiring immediate or short-term action, as well as information to 
+prioritize and budget for the long-term needs for bridge rehabilitation or 
+replacement.” 24 
+Neither the FHWA nor AASHTO can require a bridge owner to complete a 
+vulnerability assessment for a bridge designed before the release of the 1991 
+guidelines.25 The MDTA had not performed, nor was it required to perform, a 
+vulnerability assessment to evaluate the Key Bridge’s risk of a catastrophic collapse from 
+a vessel collision. However, as previously stated, AASHTO recommended that states, like 
+Maryland, perform such vulnerability assessments to evaluate and address risk. 
+ 
+23 a) This requirement applies to bridges on the National Highway System (23 CFR 625.3(a)(1)). 
+Bridges not on the National Highway System are designed in accordance with State law 
+(23 CFR 625.3(a)(2)). b) Requirements contained within the AASHTO LRFD [Load and Resistance Factor 
+Design] Bridge Design Specifications, which are defined in 23 CFR 625.4, were adapted from the 
+Guide Specifications using the Method II vulnerability assessment. Method II is discussed further in 
+section 2.3.2 of this report. The LRFD Bridge Design Specifications are intended for the design, 
+evaluation, and rehabilitation of both fixed and movable highway bridges. The Method II risk 
+acceptance has been included in the LRFD Bridge Design Specifications since their inception in 1994. 
+c) The NTSB has addressed the AASHTO Guide Specifications’ vulnerability assessments in two prior 
+investigation reports related to vessel/bridge collisions. See U.S. Towboat Robert Y. Love Allision With 
+Interstate 40 Highway Bridge Near Webbers Falls, Oklahoma, May 26, 2002, NTSB/HAR-04/05, and 
+Allision of Hong Kong‐Registered Containership M/V Cosco Busan with the Delta Tower of the San 
+Francisco–Oakland Bay Bridge, San Francisco, California, November 7, 2007, NTSB/MAR-09/01. 
+24AASHTO 2009, 2. 
+25 Per Title 23 United States Code 144(h)(3)(A)(ii), the FHWA’s authority to require bridge 
+assessment extends only to the evaluation of live load carrying capacity (commonly referred to as a 
+bridge load rating). 
+
+
+=== p11 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+11 
+2.3.2 AASHTO Guide Specifications 
+The 2009 AASHTO Guide Specifications provide three methods for conducting 
+bridge vulnerability assessments.26 Unless a bridge over a navigable waterway with 
+commercial vessel traffic was “designed in accordance with the previous 1991 edition 
+of the AASHTO Guide Specification,” the bridge “should be evaluated using a 
+vulnerability assessment in accordance with the Method II risk analysis procedures 
+contained in the current guide specifications.”  
+The AASHTO Method II vulnerability assessment calculation is used to 
+determine the annual frequency of collapse (AF), which is the probability of a bridge 
+collapse due to vessel collision in a year’s time. The total AF is based on the sum of 
+the AFs for each pier that is vulnerable to a vessel collision from both inbound and 
+outbound traffic. This vulnerability assessment calculation allows bridge owners to 
+calculate their bridge’s level of risk and determine whether that risk is below the 
+acceptable threshold established by AASHTO. A bridge design with a risk level below 
+the acceptable threshold would minimize the risk of a collapse but does not 
+guarantee that a collapse from a vessel collision will not occur. Likewise, a risk level 
+above the acceptable threshold does not mean a collapse from a vessel collision is a 
+certainty. The Method II vulnerability assessment calculation, shown in Appendix A, 
+uses data specific to each bridge and waterway, including:  
+• characteristics of the vessel traffic passing under the bridge,  
+• vessel transit speeds,  
+• vessel loading characteristics,  
+• waterway and navigable channel geometry (including intersecting 
+channels),  
+• water depths,  
+• environmental conditions, 
+• bridge geometry, 
+• pier protection systems, and 
+ 
+26 “Method I is a simple to use semi-deterministic procedure; Method II is a detailed risk analysis 
+procedure; and Method III is a cost-effectiveness of risk reduction procedure (based on a classical 
+benefit/cost analysis). The Guide Specifications require the use of Method II risk analysis for all bridges 
+unless special circumstances exist as described in the code for the use of Methods I and III. Special 
+circumstances for using Method I include shallow draft waterways where the marine traffic consists 
+almost exclusively of barges, and for using Method III include very wide waterways with many piers 
+exposed to collision, as well as existing bridges to be retrofitted” (AASHTO 2009, 2). Further, “a 
+prerequisite for using Method III is that the annual frequency of bridge collapse is computed in 
+accordance with Method II and brought to the attention of the [bridge] owner” (AASHTO 2009, 62). 
+
+
+=== p12 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+12 
+• ultimate lateral capacity of the bridge piers. 27 
+The AASHTO Guide Specifications further define how these data are used to 
+calculate each factor in the vulnerability assessment calculation related to: 
+• the vessel frequency distribution transiting under the bridge,  
+• the probability that a vessel will go off course,  
+• the probability that a vessel will hit a bridge pier if it is off course,  
+• the probability of a bridge collapse once a collision has occurred, and  
+• the protection factor due to the presence of structures, such as dolphins or 
+islands, that may protect a pier from collision.  
+The AASHTO Guide Specifications classify bridges over navigable waterways 
+as either critical/essential or typical. Bridges that “serve as important links” in the 
+Strategic Highway Network are classified as critical/essential; the Key Bridge had this 
+classification.28 Bridges not deemed critical/essential are classified as typical. The 2009 
+AASHTO Guide Specifications provide acceptable threshold values for a bridge’s 
+vulnerability assessment calculation. For bridges classified as critical/essential, the 
+threshold is computed as an AF value of 0.0001. For bridges classified as typical, the 
+threshold is computed as an AF value of 0.001.  
+2.3.3 Francis Scott Key Bridge Vulnerability Assessment Acceptable Threshold 
+As noted previously, bridges built before 1991 were not required to undergo a 
+vulnerability assessment; such an assessment had not been performed for the 
+Key Bridge, which was constructed in 1977. Following the Dali collision, the NTSB 
+conducted a vulnerability assessment of the bridge using the AASHTO Method II 
+calculation to understand its level of risk at the time of its collapse. The calculated AF 
+considered the factors listed above to assess whether this value was below AASHTO’s 
+acceptable threshold value for a critical/essential bridge’s probability of collapse. We 
+calculated and summed the AFs for both inbound and outbound vessel traffic for 
+Piers 16, 17, 18, and 19, which are shown in table 1.29 These piers provided support 
+ 
+27 Lateral capacity is the maximum horizontal load a pier can withstand before failing. 
+28 AASHTO 2009, 21. The Strategic Highway Network “is a designation given to roads that provide 
+defense access, continuity, and emergency capabilities for movements of personnel and equipment in 
+both peace and war.” (US Department of Transportation, updated July 27, 2024.) 
+29 Details of the vulnerability assessment calculations to determine the Key Bridge’s AF can be 
+found in the public docket for this investigation. 
+
+
+=== p13 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+13 
+to the portion of the bridge over the Fort McHenry Federal Channel.30 A comparison 
+of the AFs of the piers in table 1 shows that a vessel collision with Pier 17 or Pier 18 
+was the largest contributor to the Key Bridge’s overall AF. 
+Table 1. AF Summary for the Key Bridge. 
+Pier 
+Inbound AF 
+Outbound AF 
+Total AF 
+16 
+0.000024 
+0.000024 
+0.000048 
+17 
+0.000687 
+0.000743 
+0.001430 
+18 
+0.000693 
+0.000749 
+0.001442 
+19 
+0.000001 
+0.000000 
+0.000001 
+Total 
+0.001405 
+0.001516 
+0.002921 
+Since the Key Bridge’s opening in 1977, engineering and shipping advances—
+such as the 2016 Panama Canal expansion—have led to far larger vessels visiting, and 
+increased vessel traffic volume to and from, the Port of Baltimore. Therefore, 
+incorporating current vessel traffic parameters (and other environmental/waterway 
+factors) into the AASHTO Method II vulnerability assessment calculation to evaluate 
+the Key Bridge’s specifications, the NTSB determined that if the MDTA had calculated 
+the AF for the Key Bridge before the collapse, it would have identified that the 
+bridge’s risk level was almost 30 times greater than the AASHTO risk threshold for 
+critical/essential bridges (0.0001). Therefore, the NTSB concludes that had the MDTA 
+conducted a vulnerability assessment of the Francis Scott Key Bridge based on recent 
+vessel traffic, as recommended by the 1991 and 2009 AASHTO Guide Specifications, 
+the MDTA would have been aware that this critical/essential bridge was above the 
+AASHTO threshold of risk for catastrophic collapse from a vessel collision when the 
+Dali collision occurred.  
+The 2009 AASHTO Guide Specifications are a resource for state Departments 
+of Transportation (DOTs) and other bridge owners to better understand the overall 
+safety of bridges within their inventory to “minimize their susceptibility to damage 
+from vessel collisions.”31 For the Key Bridge, factors that contributed to this risk in the 
+calculated vulnerability assessment included the piers adjacent to the main 
+navigation channel and the channel size, which provided off-course vessels with little 
+ 
+30 The calculation focused on ocean-going vessels, including containerships, general cargo ships, 
+tankers, dry bulk carriers, and other vessels (passenger ships, cable laying ships, research ships, 
+support ships, training ships, and US Navy ships).  
+31 AASHTO 2009, ix. 
+
+
+=== p14 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+14 
+time for path correction before colliding with the bridge. Further, the locations and 
+size of the dolphins did not fully protect Pier 17 and Pier 18 from a collision from an 
+off-course vessel, and the speed and size (dimensions and weight) of modern vessels 
+such as the Dali highlighted that the bridge piers were not strong enough to 
+withstand a collision from a large ocean-going vessel.  
+Although some factors are challenging to modify for existing bridges, the 
+process of calculating vulnerability assessments enables owners to make informed 
+decisions to manage their assets, identify their bridges that may be susceptible to 
+damage from a vessel collision, and appraise and prioritize vessel collision protection 
+projects alongside other projects addressing highway asset needs and risks. When a 
+bridge owner performs vulnerability assessments of structures in its inventory in 
+accordance with the Method II calculation outlined by the 2009 AASHTO Guide 
+Specifications, it is better equipped to understand the overall vulnerability of the 
+bridges within its inventory. Therefore, the NTSB concludes that had the MDTA 
+conducted a vulnerability assessment of the Key Bridge using AASHTO’s Method II 
+vulnerability assessment calculation, the MDTA would have had information to 
+proactively identify strategies to reduce the risk of a collapse and loss of lives 
+associated with a vessel collision with the bridge.  
+2.4 Other US Bridges over Navigable Waterways Frequented by 
+Ocean-Going Vessels 
+Like the Key Bridge, other bridges throughout the United States were 
+designed before AASHTO’s 1991 Guide Specification for bridge design was issued. 
+To understand the scope of the risk posed by bridges nationwide with designs 
+predating AASHTO’s Guide Specification, the NTSB requested that the FHWA identify 
+bridges that cross navigable waterways and are used by ocean-going vessels like the 
+Dali, as well as gather information about protection devices in place for those bridges 
+(if any). The FHWA coordinated with state DOTs to identify 176 bridges in 26 states 
+that cross waterways used by ocean-going vessels.32  
+The NTSB subsequently filtered the results according to whether a bridge:  
+• Was built before 1996. We recognized that although the AASHTO 
+Guide Specification was available in 1991, bridges under design or 
+initial construction at that time were likely not built to its specifications. 
+ 
+32 The FHWA sent questionnaires to state DOTs, regarding engineering studies on pier protection 
+and what standards were used during those studies. The FHWA used the responses to produce the 
+report, FHWA Bridges Crossing Waterways Utilized by Ocean-Going Vessels, which can be found in the 
+public docket for this investigation.  
+
+
+=== p15 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+15 
+Therefore, we determined that bridges placed into service before 1996 
+were likely not designed and built to the current specifications. 
+• Had a vertical clearance of at least 80 feet. We used the typical vertical 
+clearance height for ocean-going vessels (80 feet) based upon the 
+typical minimum mast clearance height of a loaded bulk carrier and 
+loaded tanker.33  
+• Had substructures (such as piers) in a waterway. The only bridges 
+considered in this report were those with piers in a waterway, because 
+piers on land have natural protection from a horizontal vessel impact.34 
+Applying these conditions to the 176 bridges reduced the number to 95. The 
+NTSB also queried the FHWA Long-Term Bridge Performance (LTBP) InfoBridge web 
+portal to identify 224 bridges owned by the Corps of Engineers. 35 The same 
+parameters used to filter the 176 bridges in the FHWA report were applied to these 
+224 bridges, resulting in 6 bridges that met the above criteria. Therefore, a total of 
+101 bridges—95 identified in the FHWA report and 6 owned by the Corps of 
+Engineers—met the NTSB criteria.36  
+Next, we evaluated the vessel traffic transiting under the 101 bridges between 
+January 1, 2019, and September 31, 2024, to determine whether a bridge’s average 
+annual transits by ocean-going vessels were sufficient to result in a measurable amount 
+of risk in the vulnerability assessment calculation.37 This evaluation was accomplished 
+using a similar methodology to the one used to determine the vessel traffic for the 
+ 
+33 (a) AASHTO 2009. (b) Mast clearance height is the vertical distance from the top of a vessel’s 
+highest point down to its waterline. Also known as “air draft.” (c) The NTSB used the vessel types listed 
+in the AASHTO 2009 Guide Specifications, which had a minimum mast height of 80 feet (AASHTO 
+2009, 32).  
+34 A total of 14 bridges built before 1996 had piers that were constructed only on land. 
+35 Federal Highway Administration Office of Research, Development and Technology at the 
+Turner-Fairbanks Highway Research Center, ”Long-Term Bridge Performance (LTBP) InfoBridge.” 
+Updated November 10, 2022. 
+36 Additional details about how the data were filtered can be found in the public docket for this 
+investigation. 
+37 Engineering judgement was used to determine a conservative value of 100 annual transits by 
+ocean-going vessels as the minimum number sufficient to provide risk in the vulnerability assessment 
+calculation. For comparison, the Key Bridge had 3,775 ocean-going vessel transits in 2023. 
+
+
+=== p16 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+16 
+Key Bridge.38 As a result, we identified 72 bridges (in 19 states, managed by 
+30 separate bridge owners) over navigable waterways frequented by ocean-going 
+vessels that were likely not designed and built to the AASHTO Guide Specifications. 
+The information that the FHWA collected in coordination with state DOTs regarding 
+protection devices helped us to identify that the owners of 4 of the 72 bridges had 
+performed a recent vulnerability assessment and were either implementing a plan to 
+reduce their bridge’s vulnerability or would be doing so in the near future. Appendix 
+B lists the remaining 68 bridges that have not undergone a vulnerability assessment 
+based on recent vessel traffic and therefore have an unknown level of risk of collapse 
+from a vessel collision. 
+Calculating a bridge’s AF can help owners understand their bridges’ 
+vulnerability of collapse from a vessel collision and the aspects of bridge design or 
+vessel traffic that contribute to this vulnerability, especially for bridges with an AF 
+above the AASHTO threshold. As noted, we identified 68 bridges over navigable 
+waterways frequented by ocean-going vessels that have an unknown level of risk of 
+collapse. Therefore, the NTSB concludes that the 30 owners of 68 bridges over 
+navigable waterways frequented by ocean-going vessels are likely unaware of their 
+bridges’ risk of catastrophic collapse from a vessel collision and the potential need to 
+implement countermeasures to reduce the bridges’ vulnerability. The NTSB 
+recommends that the 30 owners of the bridges identified in appendix B of this report 
+calculate the AASHTO Method II AF for the bridge(s) identified in appendix B of this 
+report for which they are responsible and inform the NTSB whether the probability of 
+collapse is above the AASHTO threshold.  
+Awareness of which aspects of bridge design or vessel traffic affect the 
+probability of a collapse can aid in the development of risk reduction strategies. Each 
+of the strategies must be evaluated as part of a holistic safety evaluation of potential 
+benefits and unintended negative outcomes. The bridge owners are in the best 
+position to assess potential strategies for reducing the risk of a bridge collapse from a 
+vessel collision, but they would also benefit from the guidance of the federal 
+agencies that oversee the overlapping aspects of bridge infrastructure, vessel 
+operations, and waterway management. Per the 2009 AASHTO Guide Specifications, 
+ 
+38 (a) More information can be found in the public docket for this investigation. (b) The differences 
+between our assessment of the Key Bridge traffic and that of the 101 bridges were the use of National 
+Oceanic and Atmospheric Administration’s AccessAIS tool and that duplicate records that were 
+transmitted within 15 minutes of each other for the same vessel were not removed and, therefore, the 
+number of transits may have been overestimated. Generally, vessels transmit automatic identification 
+system [AIS] data at specific intervals. There were instances where the same ship transmitted automatic 
+identification system data because the transmission intervals were short and, as the vessel traveled 
+through the established geofence, it transmitted multiple times (duplicate records).  
+
+
+=== p17 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+17 
+bridge risk reduction evaluations should be developed by an interdisciplinary team 
+that includes representatives from the Coast Guard, the Corps of Engineers, and 
+other federal agencies.39 The FHWA plays a key role in risk reduction based on its 
+expertise and technical guidance in bridge design, construction, inspection, 
+evaluation, management, and preservation. The Coast Guard has a role in the 
+regulation of vessel operations, including controlling or supervising vessel traffic 
+(when necessary). Finally, the Corps of Engineers is responsible for maintaining the 
+navigability of waterways leading to and within ports by planning, constructing, and 
+managing dredging projects to ensure sufficient channel depths for vessels.  
+Because of the need to ensure a holistic safety approach and timely guidance 
+to bridge owners on the risks posed by these interconnected factors, the NTSB 
+recommends that the FHWA, in coordination with the Coast Guard and Corps of 
+Engineers, establish an interdisciplinary team—including representatives from the 
+FHWA, Coast Guard, and Corps of Engineers—and provide guidance and assistance 
+to bridge owners on evaluating and reducing the risk of a bridge collapse from a 
+vessel collision. The NTSB also recommends that the Coast Guard and Corps of 
+Engineers support the FHWA in establishing an interdisciplinary team—including 
+representatives from the FHWA, Coast Guard, and Corps of Engineers—and provide 
+guidance and assistance to bridge owners on evaluating and reducing the risk of a 
+bridge collapse from a vessel collision. 
+Finally, to ensure a comprehensive approach to the safety of the traveling 
+public, bridges and structures, waterways, and vessel traffic, the NTSB recommends 
+that the 30 owners of the bridges identified in appendix B of this report, if the 
+calculations that they performed in response to Safety Recommendation H-25-3 
+indicate that a bridge has an AF greater than the AASHTO threshold, develop and 
+implement a comprehensive risk reduction plan that includes, at a minimum:  
+• guidance and assistance from the FHWA, Coast Guard, and Corps of 
+Engineers interdisciplinary team identified in Safety Recommendations 
+H-25-1 and H-25-2, and 
+• short- and long-term strategies to reduce the probability of a potential 
+bridge collapse from a vessel collision. 
+ 
+39 AASHTO 2009, 1. 
+
+
+=== p18 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+18 
+3. Findings 
+1. Had the Maryland Transportation Authority (MDTA) conducted a 
+vulnerability assessment of the Francis Scott Key Bridge based on 
+recent vessel traffic, as recommended by the 1991 and 2009 
+American Association of State Highway and Transportation Officials 
+(AASHTO) Guide Specifications, the MDTA would have been aware 
+that this critical/essential bridge was above the AASHTO threshold of 
+risk for catastrophic collapse from a vessel collision when the Dali 
+collision occurred. 
+2. Had the Maryland Transportation Authority (MDTA) conducted a 
+vulnerability assessment of the Francis Scott Key Bridge using the 
+American Association of State Highway and Transportation Officials’ 
+Method II vulnerability assessment calculation, the MDTA would have 
+had information to proactively identify strategies to reduce the risk of 
+a collapse and loss of lives associated with a vessel collision with the 
+bridge. 
+3. The 30 owners of 68 bridges over navigable waterways frequented 
+by ocean-going vessels are likely unaware of their bridges’ risk of 
+catastrophic collapse from a vessel collision and the potential need 
+to implement countermeasures to reduce the bridges’ vulnerability. 
+
+
+=== p19 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+19 
+4. Recommendations 
+To the Federal Highway Administration: 
+In coordination with the US Coast Guard and US Army Corps of 
+Engineers, establish an interdisciplinary team—including representatives 
+from the Federal Highway Administration, US Coast Guard, and US 
+Army Corps of Engineers—and provide guidance and assistance to 
+bridge owners on evaluating and reducing the risk of a bridge collapse 
+from a vessel collision. (H-25-1) (Urgent) 
+To the US Coast Guard and the US Army Corps of Engineers: 
+Support the Federal Highway Administration in establishing an 
+interdisciplinary team—including representatives from the Federal 
+Highway Administration, US Coast Guard, and US Army Corps of 
+Engineers—and provide guidance and assistance to bridge owners on 
+evaluating and reducing the risk of a bridge collapse from a vessel 
+collision. (H-25-2) (Urgent) 
+To the Bay Area Toll Authority, the California Department of 
+Transportation, the Golden Gate Bridge Highway and Transportation 
+District, the US Army Corps of Engineers, the Florida Department of 
+Transportation, the Georgia Department of Transportation, Skyway 
+Concession Company LLC, the Louisiana Department of Transportation 
+and Development, the New Orleans Public Belt Railroad, the Maryland 
+Transportation Authority, the Massachusetts Department of 
+Transportation, the Mackinac Bridge Authority, the New Hampshire 
+Department of Transportation, the Delaware River Port Authority, the 
+New Jersey Turnpike Authority, Metropolitan Transportation Authority 
+Bridges and Tunnels, the New York City Department of Transportation, 
+the New York State Bridge Authority, the Ogdensburg Bridge and Port 
+Authority, the Port Authority of New York and New Jersey, the Seaway 
+International Bridge Corporation, the Thousand Islands Bridge Authority, 
+the Ohio Department of Transportation, the Oregon Department of 
+Transportation, the Pennsylvania Turnpike Commission, the Rhode Island 
+Turnpike and Bridge Authority, the Harris County Toll Road Authority, the 
+
+
+=== p20 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+20 
+Texas Department of Transportation, the Washington State Department of 
+Transportation, and the Wisconsin Department of Transportation:  
+Calculate the American Association of State Highway and Transportation 
+Officials (AASHTO) Method II annual frequency of collapse for the 
+bridge(s) identified in appendix B of this report for which you are 
+responsible and inform the National Transportation Safety Board 
+whether the probability of collapse is above the AASHTO threshold. 
+(H-25-3) (Urgent) 
+If the calculations that you performed in response to Safety 
+Recommendation H-25-3 indicate that a bridge has an annual frequency 
+of collapse greater than the American Association of State Highway and 
+Transportation Officials threshold, develop and implement a 
+comprehensive risk reduction plan that includes, at a minimum: 
+• guidance and assistance from the Federal Highway 
+Administration, US Coast Guard, and US Army Corps of 
+Engineers Interdisciplinary Team identified in Safety 
+Recommendations H-25-1 and H-25-2, and 
+• short- and long-term strategies to reduce the probability of a 
+potential bridge collapse from a vessel collision. (H-25-4) 
+(Urgent) 
+BY THE NATIONAL TRANSPORTATION SAFETY BOARD 
+JENNIFER HOMENDY 
+MICHAEL GRAHAM 
+Chairman 
+Member 
+ 
+ 
+ALVIN BROWN 
+Vice Chairman 
+THOMAS CHAPMAN 
+Member 
+ 
+ 
+ 
+J. TODD INMAN 
+ 
+Member 
+ 
+ 
+Report Date: March 18, 2025 
+ 
+
+
+=== p21 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+21 
+Appendixes 
+Appendix A: American Association of State Highway and 
+Transportation Officials Method II Vulnerability Assessment 
+Calculation 
+The Method II calculation determines the annual frequency of collapse (AF), 
+which is the probability of a bridge collapse due to vessel collision in a year’s time. 
+The equation for this calculation is as follows: 
+𝐴𝐴𝐴𝐴= (𝑁𝑁)(𝑃𝑃𝑃𝑃)(𝑃𝑃𝑃𝑃)(𝑃𝑃𝑃𝑃)(𝑃𝑃𝑃𝑃) 
+where: 𝑁𝑁  = annual number of vessels classified by 
+type, size, and loading condition which 
+can strike the bridge element 
+ 
+ 
+𝑃𝑃𝑃𝑃= probability of vessel aberrancy 
+ 
+ 
+𝑃𝑃𝑃𝑃= geometric probability of a collision 
+between an aberrant vessel and bridge 
+pier or span 
+ 
+ 
+𝑃𝑃𝑃𝑃= probability of bridge collapse due to a 
+collision with an aberrant vessel 
+ 
+ 
+𝑃𝑃𝑃𝑃= adjustment factor to account for potential 
+protection of the piers from vessel 
+collision due to upstream or downstream 
+land masses, or other structures, that 
+block the vessel 
+An AF is “computed for each bridge element and vessel classification. The summation of 
+all bridge element AFs equals the annual frequency of collapse for the entire bridge 
+structure.”40  
+ 
+ 
+40 AASHTO 2009, 69. 
+
+
+=== p22 ===
+22 
+CORRECTED COPY 
+Appendix B: US Bridges Over Navigable Waterways Frequented by 
+Ocean-Going Vessels with Unknown Levels of Risk of Collapse from 
+a Vessel Collision 
+Table B-1. US Bridges Over Navigable Waterways Frequented by Ocean-Going Vessels with 
+Unknown Levels of Risk of Collapse from a Vessel Collision.a 
+State 
+Bridge Name 
+Bridge Owner 
+Classification 
+Year 
+Built 
+California 
+Richmond-San Rafael 
+Bridge 
+Bay Area Toll Authority 
+Critical/Essential 
+1956 
+California 
+Carquinez Bridge 
+Bay Area Toll Authority 
+Critical/Essential 
+1958 
+California 
+Benicia-Martinez Bridge 
+Bay Area Toll Authority 
+Critical/Essential 
+1962 
+California 
+Antioch Bridge 
+Bay Area Toll Authority 
+Typical 
+1978 
+California 
+San Mateo-Hayward 
+Bridge 
+Bay Area Toll Authority 
+Typical 
+1967 
+California 
+Coronado Bridge 
+Caltrans 
+Critical/Essential 
+1969 
+California 
+Golden Gate Bridge 
+Golden Gate Bridge 
+Highway and 
+Transportation District 
+Critical/Essential 
+1937 
+Delaware 
+Summit Bridge 
+US Army Corps of 
+Engineers 
+Typical 
+1959 
+Delaware 
+Saint Georges Bridge 
+US Army Corps of 
+Engineers 
+Typical 
+1941 
+Delaware 
+Reedy Point Bridge 
+US Army Corps of 
+Engineers 
+Typical 
+1969 
+Florida 
+Sunshine Skyway Bridge 
+Florida DOT 
+Critical/Essential 
+1986 
+Florida 
+Napoleon Bonaparte 
+Broward Bridge (Dames 
+Point Bridge) 
+Florida DOT 
+Critical/Essential 
+1989 
+Georgia 
+Talmadge Bridge 
+Georgia DOT 
+Typical 
+1991 
+Illinois 
+Chicago Skyway Calumet 
+River Bridge  
+Skyway Concession 
+Company LLC 
+Critical/Essential 
+1958 
+Louisiana 
+Huey P. Long Bridge 
+Louisiana DOT and 
+Development and New 
+Orleans Public Belt 
+Railroad 
+Typical 
+1936 
+Louisiana 
+Greater New Orleans 
+Bridge 
+Louisiana DOT and 
+Development 
+Critical/Essential 
+1957 
+
+
+=== p23 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+23 
+CORRECTED COPY 
+State 
+Bridge Name 
+Bridge Owner 
+Classification 
+Year 
+Built 
+Louisiana 
+Israel LaFleur Bridge 
+Louisiana DOT and 
+Development 
+Critical/Essential 
+1964 
+Louisiana 
+Crescent City Connection 
+Bridge 
+Louisiana DOT and 
+Development 
+Critical/Essential 
+1985 
+Louisiana 
+Hale Boggs (Luling) 
+Bridge 
+Louisiana DOT and 
+Development 
+Critical/Essential 
+1983 
+Louisiana 
+Horace Wilkinson Bridge 
+Louisiana DOT and 
+Development 
+Critical/Essential 
+1968 
+Louisiana 
+Gramercy (Veterans 
+Memorial) Bridge 
+Louisiana DOT and 
+Development 
+Typical 
+1989 
+Louisiana 
+Sunshine Bridge 
+Louisiana DOT and 
+Development 
+Typical 
+1963 
+Maryland 
+William Preston Lane Jr. 
+(Bay) Bridge (eastbound) 
+Maryland Transportation 
+Authority 
+Critical/Essential 
+1951 
+Maryland 
+William Preston Lane Jr. 
+(Bay) Bridge (westbound) 
+Maryland Transportation 
+Authority 
+Critical/Essential 
+1973 
+Maryland 
+Chesapeake City Bridge 
+US Army Corps of 
+Engineers 
+Typical 
+1948 
+Massachusetts 
+Tobin Bridge 
+(southbound upper) 
+Massachusetts DOT 
+Typical 
+1950 
+Massachusetts 
+Tobin Bridge 
+(northbound lower) 
+Massachusetts DOT 
+Typical 
+1950 
+Massachusetts 
+Bourne Bridge 
+US Army Corps of 
+Engineers 
+Critical/Essential 
+1935 
+Massachusetts 
+Sagamore Bridge 
+US Army Corps of 
+Engineers 
+Typical 
+1935 
+Michigan 
+Mackinac Bridge 
+Mackinac Bridge 
+Authority 
+Critical/Essential 
+1957 
+New Hampshireb 
+Memorial Bridge 
+New Hampshire DOT 
+Typical 
+1921 
+New Jerseyc 
+Commodore Barry 
+Bridge 
+Delaware River Port 
+Authority 
+Typical 
+1974 
+New Jersey 
+Vincent R. Casciano 
+(Newark Bay) Bridge 
+New Jersey Turnpike 
+Authority 
+Critical/Essential 
+1955 
+New York 
+Verrazano Narrows 
+Bridge (eastbound) 
+MTA Bridges and Tunnels 
+Critical/Essential 
+1961 
+New York 
+Verrazano Narrows 
+Bridge (westbound) 
+MTA Bridges and Tunnels 
+Critical/Essential 
+1961 
+
+
+=== p24 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+24 
+CORRECTED COPY 
+State 
+Bridge Name 
+Bridge Owner 
+Classification 
+Year 
+Built 
+New York 
+Brooklyn Bridge 
+New York City DOT 
+Typical 
+1883 
+New York 
+Manhattan Bridge 
+New York City DOT 
+Typical 
+1909 
+New York 
+Williamsburg Bridge 
+New York City DOT 
+Typical 
+1903 
+New York 
+Newburgh-Beacon 
+Bridge (eastbound) 
+New York State Bridge 
+Authority 
+Critical/Essential 
+1980 
+New York 
+Newburgh-Beacon 
+Bridge (westbound) 
+New York State Bridge 
+Authority 
+Critical/Essential 
+1963 
+New York 
+Rip Van Winkle Bridge 
+New York State Bridge 
+Authority 
+Typical 
+1935 
+New York 
+Ogdensburg-Prescott 
+International Bridge 
+Ogdensburg Bridge and 
+Port Authority 
+Typical 
+1960 
+New Yorkd 
+ 
+George Washington 
+Bridge 
+Port Authority of New 
+York and New Jersey 
+Critical/Essential 
+1962 
+New Yorkd 
+ 
+Outerbridge Crossing 
+Bridge 
+Port Authority of New 
+York and New Jersey 
+Typical 
+1928 
+New York 
+Seaway International 
+Bridge 
+Seaway International 
+Bridge Corporation 
+Typical 
+1958 
+New York 
+Thousand Islands Bridge 
+Thousand Islands Bridge 
+Authority 
+Critical/Essential 
+1938 
+Ohio 
+CUY-00490-0010 (I-490) 
+Bridge 
+Ohio DOT 
+Critical/Essential 
+1990 
+Ohio 
+CUY-00002-1441 (Main 
+Avenue) Bridge 
+Ohio DOT 
+Typical 
+1939 
+Ohio 
+CUY-00006-1456 (Detroit 
+Avenue) Bridge 
+Ohio DOT 
+Typical 
+1917 
+Ohio 
+CUY-00010-1613 
+(Carnegie Avenue) 
+Bridge 
+Ohio DOT 
+Typical 
+1932 
+Ohio 
+LUC-01W02-0002 (Dr. 
+Martin Luther King Jr. 
+Memorial) Bridge 
+Ohio DOT 
+Typical 
+1914 
+Ohio 
+LUC-00002-1862 
+(Anthony Wayne) Bridge 
+Ohio DOT 
+Typical 
+1931 
+Oregone 
+Astoria-Megler Bridge 
+Oregon DOT 
+Critical/Essential 
+1966 
+Oregon 
+St. Johns Bridge 
+Oregon DOT 
+Typical 
+1931 
+Pennsylvaniad 
+Walt Whitman Bridge 
+Delaware River Port 
+Authority 
+Critical/Essential 
+1957 
+
+
+=== p25 ===
+Marine Investigation Report 
+NTSB/MIR-25-10 
+ 
+25 
+CORRECTED COPY 
+State 
+Bridge Name 
+Bridge Owner 
+Classification 
+Year 
+Built 
+Pennsylvaniad 
+Benjamin Franklin Bridge 
+Delaware River Port 
+Authority 
+Critical/Essential 
+1926 
+Pennsylvaniad 
+Betsy Ross Bridge 
+Delaware River Port 
+Authority 
+Typical 
+1976 
+Pennsylvaniad 
+Delaware River Turnpike 
+Bridge 
+Pennsylvania Turnpike 
+Commission and New 
+Jersey Turnpike Authority 
+Critical/Essential 
+1956 
+Rhode Island 
+Claiborne Pell Newport 
+Bridge 
+Rhode Island Turnpike 
+and Bridge Authority 
+Typical 
+1969 
+Texas 
+Buffalo Bayou Toll Bridge 
+Harris County Toll Road 
+Authority 
+Typical 
+1980 
+Texas 
+Sidney Sherman Bridge 
+Texas DOT 
+Critical/Essential 
+1973 
+Texas 
+Rainbow Bridge 
+Texas DOT 
+Critical/Essential 
+1939 
+Texas 
+Veterans Memorial 
+Bridge 
+Texas DOT 
+Critical/Essential 
+1991 
+Texas 
+Hartman Bridge 
+(eastbound) 
+Texas DOT 
+Typical 
+1995 
+Texas 
+Hartman Bridge 
+(westbound) 
+Texas DOT 
+Typical 
+1995 
+Texas 
+GulfGate Bridge 
+Texas DOT 
+Typical 
+1970 
+Washingtonf 
+Lewis and Clark Bridge 
+Washington State DOT 
+Critical/Essential 
+1929 
+Wisconsin 
+Leo Frigo Bridge 
+Wisconsin DOT 
+Critical/Essential 
+1979 
+a As discussed in the report, the four bridges with active or near-term plans are the west span of the 
+Oakland-San Francisco Bay Bridge (owned by the Bay Area Toll Authority); the east and west spans of 
+the Delaware Memorial Bridge (owned by the Delaware River & Bay Authority); and the Blatnik Bridge 
+(co-owned by the Wisconsin and Minnesota DOTs).   
+b Crosses into Maine. 
+c Crosses into Pennsylvania. 
+d Crosses into New Jersey. 
+e Crosses into Washington. 
+f Crosses into Oregon. 
+ 
+
+
+=== p26 ===
+26 
+The National Transportation Safety Board (NTSB) is an independent federal agency charged by 
+Congress with investigating every civil aviation accident in the United States and significant events in 
+other modes of transportation—railroad, transit, highway, marine, pipeline, and commercial space. We 
+determine the probable cause of the accidents and events we investigate and issue safety 
+recommendations aimed at preventing future occurrences. We also conduct safety research studies and 
+offer information and other assistance to family members and survivors for any accident investigated by 
+the agency. Additionally, we serve as the appellate authority for enforcement actions involving aviation 
+and mariner certificates issued by the Federal Aviation Administration (FAA) and US Coast Guard, and 
+we adjudicate appeals of civil penalty actions taken by the FAA. 
+The NTSB does not assign fault or blame for an accident or incident; rather, as specified by 
+NTSB regulation, “accident/incident investigations are fact-finding proceedings with no formal issues 
+and no adverse parties … and are not conducted for the purpose of determining the rights or liabilities 
+of any person” (Title 49 Code of Federal Regulations section 831.4). Assignment of fault or legal liability 
+is not relevant to the NTSB’s statutory mission to improve transportation safety by investigating 
+accidents and incidents and issuing safety recommendations. In addition, statutory language prohibits 
+the admission into evidence or use of any part of an NTSB report related to an accident in a civil action 
+for damages resulting from a matter mentioned in the report (Title 49 United States Code section 
+1154(b)).  
+For more detailed background information on this report, visit the NTSB investigations website 
+and search for NTSB accident ID DCA24MM031. Recent publications are available in their entirety on 
+the NTSB website. Other information about available publications also may be obtained from the 
+website or by contacting—  
+National Transportation Safety Board  
+Records Management Division, CIO-40  
+490 L’Enfant Plaza, SW  
+Washington, DC 20594  
+(800) 877-6799 or (202) 314-6551  
+Copies of NTSB publications may be downloaded at no cost from the National Technical 
+Information Service, at the National Technical Reports Library search page, using product number 
+PB2025-100104. For additional assistance, contact—  
+National Technical Information Service  
+5301 Shawnee Rd.  
+Alexandria, VA 22312  
+(800) 553-6847 or (703) 605-6000  
+NTIS website 
+ 

@@ -53,9 +53,17 @@ MIN_SHOT = 2.0          # これより短い区間は前のショットに戻す
 MIN_CUTS = 20           # 🔴 20分超の記録映像でこれ未満なら「読めていない」とみなす（fail closed）
 
 
-def signatures(path: Path) -> np.ndarray:
-    """1秒に1コマ、64x36 のグレースケールを縦に積んだ配列を返す。"""
-    cmd = ["ffmpeg", "-nostdin", "-v", "error", "-i", str(path),
+# 🔴 2026-09-08（6本目②）: Commons（upload.wikimedia.org）は名乗らないと **429 Too Many Requests**。
+#    素の ffmpeg は 0コマを返すので「ショットが1本」ではなく**例外**になるが、
+#    URL を渡す道が塞がっていた。footage.py はもともと -user_agent を付けている（同じ値にする）。
+UA = "zukai-engine/1.0 (https://commons.wikimedia.org/; konariri8@gmail.com)"
+
+
+def signatures(path) -> np.ndarray:
+    """1秒に1コマ、64x36 のグレースケールを縦に積んだ配列を返す。path は URL でもよい。"""
+    src = str(path)
+    net = ["-user_agent", UA] if src.startswith(("http://", "https://")) else []
+    cmd = ["ffmpeg", "-nostdin", "-v", "error", *net, "-i", src,
            "-vf", f"fps={FPS},scale={W}:{H},format=gray", "-f", "rawvideo", "-"]
     p = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if p.returncode != 0:
@@ -84,12 +92,13 @@ def boundaries(sig: np.ndarray):
     return cuts, d
 
 
-def shots_of(path: Path):
+def shots_of(path):
+    """path は Path でも URL 文字列でもよい（URL を Path() に通すと Windows で潰れる）。"""
     sig = signatures(path)
     dur = len(sig) / FPS
     cuts, d = boundaries(sig)
     if dur > 1200 and len(cuts) < MIN_CUTS:
-        raise SystemExit(f"🔴 {path.name}: {dur:.0f}秒で境目が {len(cuts)} 本しか出ていない。"
+        raise SystemExit(f"🔴 {str(path).rsplit('/', 1)[-1]}: {dur:.0f}秒で境目が {len(cuts)} 本しか出ていない。"
                          f"読めていない疑い（ffmpeg の版・項目名を確かめる）")
     edges = [0] + cuts + [int(dur)]
     out = []
