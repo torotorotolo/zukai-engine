@@ -12,6 +12,8 @@
 | **MIR-25-10** | NTSB『Safeguarding Bridges from Vessel Strikes』 | `ref/keybridge/ntsb_MIR2510.pdf`（1.4MB） | ✅ 26頁すべてに有り（54,267字） |
 | 抽出テキスト | 上の2本を頁ごとに割った素のテキスト | `ntsb_MIR2540.txt` / `ntsb_MIR2510.txt` | 頁の区切りは `=== p<PDFの頁> ===` |
 
+⭐ **2本とも「ボーンデジタル」**（紙を読み取ったのではなく最初からデータ。`Adobe PDF Library 25.1.201`）。＝文字層は組版そのままで、**古い紙の OCR のように崩れません**。→ 用語集の「文字層」の⚠️（`S t a t i o n` のように崩れる）は走査版の話で、ここには当てはまりません。
+
 ⚠️ **PDFの頁と報告書の頁番号は2ずれています**（前付が i〜xxii）。報告書 p25 ＝ PDF p27。
 - MIR-25-40 の PDF 作成日時 **2025-12-09 12:46 (EST)**。「2025-12-10 公表」は未照合のまま。
 - 公開ドケット `https://data.ntsb.gov/Docket/?NTSBNumber=DCA24MM031`（未取得。写真の点数は未確認）
