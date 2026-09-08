@@ -292,7 +292,116 @@ USE = {
     #   28本・49.7分・355ショット。**8秒以上が152本（うち動きのあるもの142本）**
     #   ＝1カット 10.29秒 をそのまま埋められる玉。
     #   ⚠️ **崩落の瞬間の映像は無い**（当日撮影は3本だけで、どれも崩落後）。
+    #
+    # ==============================================================
+    # 2026-09-08（⑤b-4 実写【見る】）: 35欄。**手で書いていない。**
+    #   正本＝`tools/keybridge_pick.py` の `PICK`（カットID・クリップ・ショット番号だけ）。
+    #   秒と rate はそこで計算して書き出す（`python tools/keybridge_pick.py`）。
+    #   ⚠️ **直すときは `PICK` を直して書き出し直す**（ここを手で書き換えない）。
+    #
+    # `until` は「ショットの終わり −1.0秒」にしてある
+    #   ②の境目は `tools/shots.py` が1秒に1コマの標本から出していて、`boundaries()` は
+    #   境目を**後ろ側の秒**に置く。＝ ショット [a,b) の t=b は**もう次のショット**で、
+    #   本当の切れ目は (b-1, b] のどこか。until=b のままだと、カットの尻に
+    #   次のショットの絵が最大1秒混じる。**outside_shot() は同じ台帳を読むので鳴らない。**
+    #
+    # 台帳に出てこないスレートを、1秒の地図で全部の秒について弾いてある
+    #   `out/jiko/kb1s/map.json`（28本を1秒に1コマ・真っ暗／焼き込み文字／顔）。
+    #   実例＝`240401-G-TL908-2303` の「#14 64〜76秒」の中の 66〜67秒が真っ黒の
+    #   スレート（`MEDIUM / BOW ... DALI`）。台帳には現れない。
+    #   ⚠️ NTSB の3本は頭と尻に**濃紺の題字カード**が入る（真っ暗ではないので
+    #      暗さの網では落ちない）。`keybridge_shotscan.is_card()` で落としてある。
+    # ==============================================================
+    # <<<KB_USE ここから ここまでは `python tools/keybridge_pick.py --apply` が書く。手で触らない
+    # 崩落した中央径間の空撮（2024-03-26）
+    "pr01": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=54.0, until=82.0),
+    # 未明・応急艇の操舵席と落ちた橋
+    "pr02": dict(clip="240326-G-KH296-2189", start=12.0, until=21.0, rate=0.94),
+    # 水面に沈んだトラスと橋脚
+    "pr03": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=130.0, until=151.0),
+    # NTSB 調査員がトラスを撮る（後ろ姿）
+    "pr05": dict(clip="NTSB_B_Roll_Investigators_Aboard_the_Car", start=179.0, until=189.0, rate=0.91),
+    # ダリの船首に載った橋桁（寄り）
+    "pr08": dict(clip="240330-A-PA223-1001", start=34.0, until=43.0, rate=0.89),
+    # ダリの船体と凪いだ水面
+    "c215": dict(clip="NTSB_B_Roll_Investigators_Aboard_the_Car", start=109.0, until=126.0),
+    # ダリの船尾（船名と船籍港が写る）
+    "c301": dict(clip="240331-A-PA223-1003", start=0.0, until=8.0, rate=0.74),
+    # 橋へ向かう主航路（空撮・広い）
+    "c318": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=306.0, until=337.0),
+    # ダリの操舵室（窓の外に落ちた橋）
+    "c306": dict(clip="NTSB_B_Roll_Hazardous_Material_Investiga", start=365.0, until=371.0, rate=0.55),
+    # 航海データ記録装置を吸い出す手元
+    "c405": dict(clip="NTSB_B_Roll_Hazardous_Material_Investiga", start=383.0, until=391.0, rate=0.73),
+    # 操舵室の操作卓（手元と計器）
+    "c411": dict(clip="NTSB_B_Roll_Hazardous_Material_Investiga", start=443.0, until=449.0, rate=0.60),
+    # ダリの船橋（操舵室の中）
+    "c409": dict(clip="NTSB_B_Roll_Hazardous_Material_Investiga", start=403.0, until=415.0),
+    # 橋と主航路（船の長さを見せる広い空撮）
+    "c424": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=276.0, until=305.0),
+    # 崩落直後の橋（空撮・寄り）
+    "c508": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=159.0, until=165.0, rate=0.87),
+    # 崩落した径間と橋脚（空撮）
+    "c512": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=87.0, until=105.0),
+    # 崩落した径間（空撮・引き）
+    "c517": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=244.0, until=275.0),
+    # 水面に散った残骸
+    "c519": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=168.0, until=181.0),
+    # 折れた17番橋脚まわり（空撮）
+    "c601": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=112.0, until=122.0),
+    # 船首の上に載った橋桁
+    "c607": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=229.0, until=243.0),
+    # 崩落現場の全景（引きの空撮）
+    "c616": dict(clip="240401-G-TL908-2303", start=153.0, until=180.0),
+    # 潰れたコンテナと橋桁（真上から）
+    "c617": dict(clip="240407-G-DV874-3002", start=56.0, until=66.0),
+    # 夜明けの現場（応急艇から）
+    "c619": dict(clip="240326-G-KH296-2189", start=47.0, until=57.0, rate=0.82),
+    # 航路に残るダリ（横から）
+    "c701": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=338.0, until=352.0),
+    # 現場の空撮（引き）
+    "c806": dict(clip="240401-G-TL908-2303", start=103.0, until=131.0),
+    # 橋脚と現場の空撮
+    "c818": dict(clip="240401-G-TL908-2303", start=45.0, until=53.0, rate=0.84),
+    # 現場の空撮（クレーン台船）
+    "c819": dict(clip="240401-G-TL908-2303", start=54.0, until=63.0, rate=0.90),
+    # 崩落現場（撤去が始まる前）
+    "c823": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=353.0, until=368.0),
+    # 塞がった航路（引きの空撮）
+    "c901": dict(clip="240401-G-TL908-2303", start=135.0, until=149.0),
+    # 各機関の調査員が船上で支度をする
+    "c903": dict(clip="240327-A-SE916-1046", start=10.0, until=21.0),
+    # 潜水士の支度（潜る）
+    "c904": dict(clip="240404-G-KY623-1002", start=36.0, until=59.0),
+    # トラスを溶断する作業員
+    "c905": dict(clip="240330-G-LB555-1001", start=78.0, until=103.0),
+    # コンテナを載せた台船
+    "c907": dict(clip="240407-A-PA223-1003", start=27.0, until=35.0),
+    # 仮設航路を通る台船
+    "c908": dict(clip="240401-G-LB555-1002", start=10.0, until=31.0),
+    # トラスを運ぶクレーン台船
+    "c909": dict(clip="240407-A-PA223-1005", start=10.0, until=15.0, rate=0.71),
+    # 崩落した中央径間（空撮）
+    "ca01": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=369.0, until=385.0),
+    # 残った桁と崩落部（空撮）
+    "ep01": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=404.0, until=429.0),
+    # 崩落現場（引きの空撮）
+    "ep05": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=430.0, until=443.0),
+    # KB_USE>>> ここまで
 }
+# 🔴 まだ決まっていない 29欄（**代用で埋めていない**）＝ Vault の ⑤b-4 引き継ぎ §3
+#   数え方の正本＝`python tools/check_footage_slots.py`（カットの側から数える）。
+#   ⚠️ `fetch --check` の「✓ 全37欄」は **USE に書いた欄しか数えていない**。
+#
+#   (A) 事故前が主題（動画28本は**全部が崩落後**）17欄
+#       c201 c203 c212 c213 c214 c414 c502 c503 c515 c518 c520 c610 c801 c802 c813 ca09 ep06
+#       → `ss.PRE_*`（事故前の写真7点）を当てるか、図に落とす。⑤b-5 で決める。
+#   (B) 機関室・高圧配電盤・錨まわり（28本の中に**1コマも無い**）10欄
+#       c311 c316 c417 c421 c426 c703 c704 c706 c708 ca03
+#       → 報告書の図版（`ss.page()`）に落とすのが素直。第7章はもともと図の章。
+#   (C) 主題は在るが玉が足りない 2欄
+#       c307（離岸のタグボート＝崩落後のタグしか無い）
+#       c914（ダリの出港＝2024-06-24 の映像が28本の中に無い。撮影は3/26〜4/11 と 10/4）
 # ❌ 見たうえで**当てないと決めた**もの
 #   ph12 #000 #001 #138／ph3 #000 #001 #002 #003 #269 #270
 #     … NARA の収蔵カード・出所カード・表題・制作クレジット・End of Recording／SECOND PART TO FOLLOW

@@ -51,6 +51,10 @@ GATES = [
     ("slide", ["tools/check_slide.py"], "焼き込みの文字×切り方（G-09/10/13/14/15）"),
     ("blank", ["tools/check_blank.py"], "切り出し窓が空っぽでないか"),
     ("wrap", ["tools/check_wrap.py"], "行が語の途中で割れていないか（L-15）"),
+    # 🔴 `footage` より先に置く。**`footage fetch --check` は `USE` に書いた欄しか数えない**
+    #    ＝31欄が空でも「✓ 全35欄」と合格を出す（2026-09-08 ⑤b-4 の実測）。
+    #    カットの側から数える門番を先に通す（[[feedback-gates-blind-to-the-new-material]]）。
+    ("slots", ["tools/check_footage_slots.py"], "実写の欄がカットと1対1で埋まっているか"),
     ("footage", ["tools/footage.py", "fetch", "--check"], "until＝ショットの終わり"),
 ]
 
