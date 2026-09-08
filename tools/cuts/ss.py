@@ -18,10 +18,19 @@
      「題のすぐ上の画像」を採ってある。
 
 ■ 🔴 全画面にするか額装パネルにするかは**縦横比で決める**（`kind()`）
-  画面は 16:9（1.778）。図がそれより縦長だと、全画面は左右を切り落とす
+  画面は 16:9（1.778）。図がそれより**縦長**だと、全画面は上下を切り落とす
   ＝ 図の端の凡例や寸法が消える。**1.55 未満は `panel=True`**。
   → 4本目で「切り出しを勘定に入れていなかった」ために尾部が枠外に出た件と同じ穴。
      `scene_jiko.photo_box` の注記を参照。
+
+  🔴🔴 2026-09-08（⑤b-5）── **横長の側にも同じ穴が開いていた**（規則が片側だけだった）。
+  「Left to right: …」の2枚組の図は縦横比が 2.6〜3.3 になり、全画面にすると
+  **横の32〜45%が切り落とされる**（p62 剛節橋脚と2本柱の橋脚＝32%、p61 南北の橋台＝45%）。
+  p62 は c108／c604 で**すでにそう出ていた**。`kind()` は縦長しか見ておらず、門番も無かった。
+  → [[feedback-kinsoku-needs-both-ends]]（片側だけの規則は、粗を反対側へ移すだけ）
+  → 上限 `WIDE_AR` を足した。値は下限 1.55 の**鏡**（どちらも切り落とし 12.8% で頭打ち）：
+       1.55 / 1.778 = 0.872   →   1.778 / 0.872 = 2.039 ≒ **2.04**
+  → 門番＝`check_cuts.py` の「4. 切り落とし」。`ss.kind()` を通していないカットで鳴る。
 
 ■ 寄せ方（focus）
   `build_jiko.fit()` は「箱を覆う」切り出しで、`xbias`/`bias` は**余ったぶんの寄せ**（0〜1）。
@@ -39,9 +48,17 @@ HERE = Path(__file__).resolve().parents[2]
 REF = HERE / "ref" / "keybridge"
 W, H = 1920, 1080
 
-# 画面の縦横比。これより縦長の図は額装パネルに回す（下限は 1.55＝12%の余裕）
+# 画面の縦横比。これより縦長／横長の図は額装パネルに回す。
+# 🔴 上限と下限は対（どちらも切り落とし 12.8% が上限）。片側だけにすると粗が反対側へ移る。
 SCREEN_AR = W / H
-PANEL_AR = 1.55
+PANEL_AR = 1.55                     # これ未満＝縦長すぎ（上下が切れる）
+WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝2.04。これ超＝横長すぎ（左右が切れる）
+
+
+def crop_loss(name):
+    """全画面にしたとき、絵の**何割が枠の外へ出るか**（0〜1）。額装なら 0。"""
+    a = aspect(name)
+    return 1 - (a / SCREEN_AR if a < SCREEN_AR else SCREEN_AR / a)
 
 _BANDS_FILE = REF / "textbands.json"
 BANDS = (json.loads(_BANDS_FILE.read_text(encoding="utf-8"))
@@ -94,8 +111,13 @@ def aspect(name):
 
 
 def kind(name):
-    """`dict(panel=True)` か `dict()` を返す。**縦横比で決める。目で決めない。**"""
-    return dict(panel=True) if aspect(name) < PANEL_AR else dict()
+    """`dict(panel=True)` か `dict()` を返す。**縦横比で決める。目で決めない。**
+
+    ⚠️ 縦長すぎ（< 1.55）だけでなく**横長すぎ（> 2.04）も額装**に回す。
+       「Left to right: …」の2枚組は横 2.6〜3.3 になり、全画面だと片方が半分切れる。
+    """
+    a = aspect(name)
+    return dict(panel=True) if (a < PANEL_AR or a > WIDE_AR) else dict()
 
 
 def focus(name, fx, fy, zoom=1.0, box=(W, H)):

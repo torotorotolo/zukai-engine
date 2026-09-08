@@ -70,6 +70,14 @@ def boxes(svg, layer):
 
 
 def main(only=None):
+    # 🔴 **フォントを先に読む**（2026-09-08 ⑤b-5）。
+    #    `build_layers()` が216カットぶんを組んだあとだと、4つ目の Black を読むところで
+    #    MemoryError になり（このPCはコミット上限が細い）、黙って粗いキャッシュへ落ちる。
+    #    ＝ `fontmetrics._load` の注記にある「同じコードで 重なり5件 → 0件」と同じ揺れ。
+    #    単体では4種とも読めるので、**読む順を先にするだけ**で物差しが安定する。
+    #    → [[feedback-verify-your-own-instrument]] [[constraint-pc-4gb-ram]]
+    import fontmetrics as _fm
+    _fm.measured()
     jobs, _ = S.build_layers(allow_missing=True)
     if only:
         jobs = {k: v for k, v in jobs.items() if k.startswith(only)}

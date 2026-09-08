@@ -54,18 +54,33 @@ DOC = "ntsb_MIR2540"
 
 # ── 報告書のページ（印字ページ・図番・中身・検算に使う原文の語）────────────
 # 出力名は `kb_p<印字3桁>_fig<図番>.png`。**画面と出典に出るのは印字ページ**。
+#
+# 🔴 2026-09-08（⑤b-5）に数え直したこと ── **この報告書の図版は 71 枚ある**（焼いてあったのは32枚）。
+#    ⑤b-2〜b-4 の「機関室・高圧配電盤・非常用発電機は1コマも無い」は**動画28本についての実測**で、
+#    報告書の図版まで数えたものではなかった。要る側（空いた29欄）から在庫を数え直すと、
+#    Fig12（0126:10 の配電）・Fig23（南北の橋台）・Fig41（ダリ側面図）・Fig42（高圧/低圧の配電盤）・
+#    Fig43（主機関室）・Fig44（PMS の警報画面）・Fig71（赤い警告灯）・Fig2（2004年のキー橋）が
+#    **そのまま主題**だった。→ [[feedback-gates-blind-to-the-new-material]]
+#    数え方の正本＝`python tools/keybridge_assets.py list`（PDF の全図版と、焼いてあるかを出す）。
+# ⚠️ 1ページに図が2つ在るページ（24＝Fig1/2、62＝Fig24/25）は、`bands()` が
+#    「題のすぐ上の画像」を採るので取り違えない。ただし `ss.page(印字)` は**印字ページで引く**ので、
+#    **同じページの2枚を両方焼いてはいけない**（先に見つかったほうが返る）。`list` が見張る。
 PAGES = [
+    (24, 2, "事故前のキー橋（2004年）", "The Francis Scott Key Bridge in 2004"),
     (31, 5, "出港時の配電の系統", "Configuration of Dali plant at time the Dali left the dock"),
     (33, 6, "ボルチモア港の海図", "Navigation chart showing Baltimore Harbor"),
     (36, 8, "0125:00 最初の停電時の配電", "the time of the initial loss of power"),
     (37, 9, "出港から接触までの軌跡", "Trackline of the Dali after it departed"),
     (38, 10, "0125:08 主機関の停止", "after the main engine shut down"),
     (40, 11, "0125:58 低圧の復旧", "when LV power was restored"),
+    (41, 12, "0126:10 非常用配電盤に電気が来た",
+     "when the emergency switchboard was powered by the EDG"),
     (43, 13, "0127:04 二度目の停電", "when the vessel lost power"),
     (46, 15, "0127:36 低圧の復旧", "Configuration of Dali plant at 0127:36"),
     (50, 17, "中央径間の立面図と平面図", "Elevation view and plan view of the main spans"),
     (58, 20, "第18・第19径間と第18〜22橋脚の損傷", "Damage to Spans 18 and 19"),
     (59, 21, "第16〜18径間と17番橋脚の損傷", "Damage to Spans 16"),
+    (61, 23, "南の橋台と北の橋台", "South abutment (looking south), and north abutment"),
     (62, 24, "剛節橋脚と2本柱の橋脚", "Rigid-frame reinforced concrete pier"),
     (63, 26, "キー橋の3種類の径間", "The three types of spans at the Key Bridge"),
     (64, 27, "防衝工とドルフィン1", "physical protection systems"),
@@ -75,6 +90,13 @@ PAGES = [
     (73, 36, "ブルー・ナゴヤとダリの大きさ", "comparative sizes of the Blue Nagoya"),
     (74, 37, "架け替えの完成予想", "Rendering of the cable-stayed replacement"),
     (75, 38, "崩落したスカイウェイ橋の西径間", "collapsed western span of the Sunshine Skyway"),
+    (79, 41, "ダリの側面図（船倉と、船首楼・船尾楼の甲板）",
+     "Profile view of the Dali, showing cargo holds and bays"),
+    (81, 42, "ダリの高圧の配電盤と低圧の配電盤",
+     "The Dali’s HV switchboard (which housed the HV bus)"),
+    (85, 43, "ダリの主機関室と、下層を調べる調査員",
+     "The Dali’s main engine room (looking aft)"),
+    (89, 44, "PMS の画面（警報を出していたもの）", "ACONIS mimic of the vessel’s PMS"),
     (111, 47, "取り外された遮断器 HR1", "HR1 disconnected and removed from HV switchboard"),
     (112, 48, "低圧の配電盤に付けた解析器", "Power analyzers installed on LV switchboard"),
     (114, 50, "HR1 の不足電圧引外し装置の制御回路", "HR1 UVR control circuit"),
@@ -87,6 +109,8 @@ PAGES = [
     (146, 64, "口の面に載っているだけの状態", "How arcing could occur within the gap"),
     (147, 65, "正しい取り付けとの比較", "Correctly installed wire-label banding compared to"),
     (149, 66, "赤外線の熱画像による点検", "Exemplar infrared thermal imaging camera"),
+    (173, 71, "点滅する赤い警告灯（クイーン・イサベラ橋）",
+     "Red flashing motorist warning lights"),
 ]
 
 
@@ -300,6 +324,50 @@ def selftest():
     return good
 
 
+def figlist():
+    """🔴 PDF に**在る図版を全部**出し、焼いてあるかを並べる（要る側から数えるための道具）。
+
+    ⚠️ なぜ要るか ── `PAGES` を読む検査は「自分が書いた分」しか数えない。
+       2026-09-08 に「機関室は1コマも無い」と書いた根拠は**動画28本の実測**で、
+       報告書の図版は数えていなかった（実際は Fig43 が主機関室そのもの）。
+       → [[feedback-gates-blind-to-the-new-material]]
+    ⚠️ 前付（i〜xxii）の「図一覧」は点線とページ番号で終わるので、それで落とす。
+    """
+    import fitz
+    doc = fitz.open(REF / (DOC + ".pdf"))
+    have = {f: p for p, f, _n, _w in PAGES}
+    seen = {}
+    for i in range(doc.page_count):
+        pr = i + 1 - PDF_OFFSET
+        if pr < 1:
+            continue
+        for m in re.finditer(r"^Figure (\d+)\.\s*(.{0,160})", doc[i].get_text(), re.M | re.S):
+            n, cap = int(m.group(1)), re.sub(r"\s+", " ", m.group(2)).strip()
+            if "...." in cap or n in seen:      # 図一覧の行は採らない
+                continue
+            seen[n] = (pr, cap)
+    bad = []
+    for n in sorted(seen):
+        pr, cap = seen[n]
+        if n in have:
+            if have[n] != pr:
+                bad.append(f"Fig{n}: PAGES は印字 p{have[n]} だが本文は p{pr}")
+            print(f"  焼済 Fig{n:>2}  p{pr:>3}  {cap[:110]}")
+        else:
+            print(f"    ・ Fig{n:>2}  p{pr:>3}  {cap[:110]}")
+    # 🔴 同じ印字ページの図を2枚焼くと `ss.page(印字)` がどちらを返すか決まらない
+    bypage = {}
+    for p, f, _n, _w in PAGES:
+        bypage.setdefault(p, []).append(f)
+    for p, fs in sorted(bypage.items()):
+        if len(fs) > 1:
+            bad.append(f"印字 p{p} に図を{len(fs)}枚焼いている（Fig{fs}）＝ ss.page({p}) が決まらない")
+    print(f"■ 図版 {len(seen)} 枚（焼いてある {len(have)} 枚）")
+    for m in bad:
+        print(f"  🔴 {m}")
+    return 1 if bad else 0
+
+
 def where(name, *words):
     """そのページの中で、原文の語がどこにあるかを **0〜1 の位置**で返す（`ss.focus` へ渡す値）。"""
     import fitz
@@ -466,6 +534,8 @@ if __name__ == "__main__":
         desc(*a[1:])
     elif cmd == "photos":
         photos(only=set(a[1:]) or None)
+    elif cmd == "list":
+        sys.exit(figlist())
     elif cmd == "where":
         where(a[1], *a[2:])
     elif cmd == "fb":
