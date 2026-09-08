@@ -3034,3 +3034,113 @@ def punch(stage=1, note="", lead="", zones=None):
         hot = poly([(tl, sy), (tr, sy), (cr_, sb), (cl, sb)], stroke=J.ALERT, close=True, sw=6)
     return Fig("".join(g), stages, hot, (sx0 - 40, sx1 + 40), labk=0.34) \
         if lab == "" else Fig("".join(g) + lab, stages, hot, (sx0 - 40, sx1 + 40), labk=0.34)
+
+# ══════════════════════════════════════════════════════════
+# 23. truss — 連続トラス径間の側面（6本目・キー橋）
+# ══════════════════════════════════════════════════════════
+#  🔴 2026-09-08 新設。既存の型に無い（`layers` は積層、`buckle` は圧縮座屈、
+#  `punch` は床版の押し抜き）。**3カット以上で要る**という決まりを満たしている：
+#     c109「三角形で力を流す」／c609「第1章の定義を再掲」／c613「支点が抜ける」。
+#  形の根拠 ＝ 報告書 p63 図26（キー橋の3種類の径間）と p61 の記述。
+#  ⚠️ **寸法の数字を図に書かない**（諸元は `panel` と注記が持つ）。ここが持つのは
+#     部位の名前と関係だけ。→ `cuts/README.md` §0-1
+#  ⚠️ 「上を通る」のではなく**骨組みの中を車が通る**形（through truss）。ここを間違えると
+#     台本 c109 の「上を通るのではなく」が絵と食い違う。
+TR_PANELS = 8                 # 斜材で作る三角形の数（偶数。左右対称になる）
+
+
+def truss(mode="flow", lead="", note="", marks=None, hot_panel=None):
+    """トラス径間の側面。mode で見せ方が変わる。
+
+    mode … "flow"    三角形で力を流す（c109）。荷重→斜材→橋脚の順に段が出る
+           "member"  1本の部材を名指しする（c609）。下弦材が引張であることを見せる
+           "support" 支点が抜ける（c613）。左の橋脚が消え、径間が落ちる
+    hot_panel … "member" で名指しする下弦材の番号（0〜TR_PANELS-1）。既定は中央。
+    """
+    x0, x1 = BX0 + 80, BX1 - 80
+    yb, yt = BY0 + BH * 0.72, BY0 + BH * 0.28      # 下弦・上弦
+    n = TR_PANELS
+    step = (x1 - x0) / n
+    px = [x0 + i * step for i in range(n + 1)]
+    hot = n // 2 if hot_panel is None else max(0, min(n - 1, hot_panel))
+    fall = 96 if mode == "support" else 0          # 支点が抜けたときの落ち量
+
+    def dy(x):
+        """支点が抜けたあとの下がり量（左端がいちばん下がる）。"""
+        if not fall:
+            return 0.0
+        return fall * (1 - (x - x0) / max(1e-6, x1 - x0))
+
+    g = []
+    if lead:
+        g.append(txtfit(BX0, BY0 + 52, lead, BW, cap=44, col=J.INK_W))
+    if note:
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.TICK))
+
+    dim = mode == "member"
+    chord_c = J.LINE_DIM if dim else J.INK_W
+    web_c = J.LINE_DIM if dim else J.LINE
+
+    # ── 骨格（lab）＝弦材・斜材・垂直材・路面・橋脚 ──────────
+    for i in range(n):
+        a, b = px[i], px[i + 1]
+        g.append(line(a, yb + dy(a), b, yb + dy(b), chord_c, 7))     # 下弦材
+        g.append(line(a, yt + dy(a), b, yt + dy(b), chord_c, 7))     # 上弦材
+    for i, x in enumerate(px):
+        g.append(line(x, yt + dy(x), x, yb + dy(x), web_c, 4))       # 垂直材
+    for i in range(n):                                               # 斜材（交互）
+        a, b = px[i], px[i + 1]
+        if i % 2 == 0:
+            g.append(line(a, yb + dy(a), b, yt + dy(b), web_c, 4))
+        else:
+            g.append(line(a, yt + dy(a), b, yb + dy(b), web_c, 4))
+    # 路面は**骨組みの中**（下弦材のすぐ上）を通る
+    ry = yb - 26
+    g.append(line(x0, ry + dy(x0), x1, ry + dy(x1), J.TICK, 3, dash="14 12"))
+    g.append(txt(x0 + 14, ry - 14, "車が通るのは、骨組みの中", 28, J.TICK))
+    # 橋脚（"support" では左が無い）
+    for k, x in ((0, x0), (1, x1)):
+        if mode == "support" and k == 0:
+            g.append(rect(x - 46, yb + 18, 92, 118, "none", J.ALERT, 4,
+                          dash="16 12"))
+            g.append(txt(x, yb + 176, "支点が無い", 30, J.ALERT, "Noto", "middle"))
+            continue
+        g.append(rect(x - 46, yb + 18 + dy(x), 92, 118, J.INK_W, None, 0))
+    g.append(line(x0 - 120, yb + 136, x1 + 120, yb + 136, J.LINE_DIM, 3))
+
+    stages = []
+    if mode == "flow":
+        # 1段目 上に載る重さ／2段目 三角形／3段目 橋脚へ流れる
+        load = "".join(arrow(px[i] + step / 2, ry - 92, px[i] + step / 2, ry - 18,
+                             J.AMBER, 5) for i in range(n))
+        stages.append(load + txt(BCX, ry - 112, "上に載る重さ", 32, J.AMBER,
+                                 "Noto", "middle"))
+        tri = []
+        for i in range(0, n, 2):
+            a, b, c = px[i], px[i + 1], px[i + 2] if i + 2 <= n else px[n]
+            tri.append(poly([(a, yb), (b, yt), (c, yb)], fill=J.OK, op=0.20,
+                            close=True))
+        stages.append("".join(tri) + txt(BCX, yt - 26,
+                                         "三角形は、形が変わらない", 32, J.OK,
+                                         "Noto", "middle"))
+        stages.append(arrow(px[1], yb + 6, x0 + 6, yb + 14, J.ALERT, 6)
+                      + arrow(px[n - 1], yb + 6, x1 - 6, yb + 14, J.ALERT, 6)
+                      + txt(BCX, yb + 176, "力は、両端の橋脚へ流れる", 32,
+                            J.ALERT, "Noto", "middle"))
+    elif mode == "member":
+        a, b = px[hot], px[hot + 1]
+        stages.append(line(a, yb, b, yb, J.ALERT, 12)
+                      + txt((a + b) / 2, yb + 62, "この1本", 32, J.ALERT,
+                            "Noto", "middle"))
+        stages.append(arrow(a - 70, yb, a + 8, yb, J.ALERT, 5)
+                      + arrow(b + 70, yb, b - 8, yb, J.ALERT, 5)
+                      + txt(BCX, yt - 26, "下弦材は、引っ張られている", 32,
+                            J.ALERT, "Noto", "middle"))
+    else:                                    # support
+        stages.append(txt(BCX, yt - 26, "支点が1つ抜けると、径間は落ちる", 32,
+                          J.ALERT, "Noto", "middle"))
+    for m in (marks or []):
+        stages.append(txtfit(BX0, BY1 - 150 + 56 * len(stages), m, BW, cap=38,
+                             col=J.ALERT))
+    return Fig("".join(g), stages, "", (x0 - 140, x1 + 140))
+

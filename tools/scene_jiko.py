@@ -382,12 +382,19 @@ def keybridge_credit(name):
         return f"{CR_MIR2540} p.{int(m.group(1))}（図{int(m.group(2))}）／パブリックドメイン"
     m = KB_FB.match(name)
     if m:
+        cid = m.group(1)
         try:
             import footage as FO
-            c = FO.credit_of(m.group(1))
+            c = FO.credit_of(cid)
         except Exception:                                # noqa: BLE001
             c = None
-        return (c + "（静止画）") if c else None
+        if c:
+            return c + "（静止画）"
+        # 🔴 **黙って通さない。**ひかえの静止画は動画の出典を借りているので、
+        #    `footage.USE` に欄が無ければ出せる出典が無い＝出所を偽ることになる。
+        raise RuntimeError(
+            f"{cid}: 実写のカットだが `footage.USE` に欄が無い。"
+            f"⑤b で `ref/keybridge/SHOTS_INDEX.md` からショットの境目を写して足すこと")
     if name.startswith("keybridge/"):
         stem = name.split("/", 1)[1].rsplit(".", 1)[0]
         cr = KB_PHOTO.get(stem)

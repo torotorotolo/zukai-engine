@@ -71,13 +71,19 @@ def size_of(name):
 
 @lru_cache(maxsize=None)
 def trimmed_size(name):
-    """`scene_jiko.TRIM_BY_PHOTO` を当てたあとの寸法（画素）。切っていなければ原寸。"""
-    import scene_jiko as S
+    """切り出しを当てたあとの寸法（画素）。切っていなければ原寸。
+
+    ⚠️ **`scene_jiko` を import しない。** `scene_jiko` は起動時に `cuts` を読むので、
+       ここから import すると循環参照になり、章ファイルが**丸ごと黙って読めなくなる**
+       （2026-09-08 に実際に起きた。`check_layout` は空の SPEC を調べて「✓ 全部おさまっている」
+       を出した）。→ [[feedback-gates-blind-to-the-new-material]]
+       切り出しの正本は `textbands.json` のほうなので、こちらを直接読む。
+    """
     sw, sh = size_of(name)
-    t = S.TRIM_BY_PHOTO.get(name)
-    if not t:
+    b = BANDS.get(name.split("/", 1)[-1].rsplit(".", 1)[0])
+    if not b or not b.get("fig_box"):
         return sw, sh
-    x0, y0, x1, y1 = t
+    x0, y0, x1, y1 = b["fig_box"]
     return max(1, int(sw * (x1 - x0))), max(1, int(sh * (y1 - y0)))
 
 
