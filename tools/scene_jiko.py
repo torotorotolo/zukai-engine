@@ -348,6 +348,54 @@ def sl1_credit(name):
     return None
 
 
+# ══ 6本目（フランシス・スコット・キー橋 崩落）の出典 ════════
+# 🔴 素材は3種。台帳＝`ref/CREDITS.md` の「⑤b に作った素材」。取り出しは `tools/keybridge_assets.py`。
+#   kb_p<印字>_fig<図番>.png … NTSB MIR-25-40 のページを PNG に焼いたもの（PD、17 U.S.C. §105）
+#   kb_pre_* / kb_bld_*.jpg  … Commons の写真。**PD と CC BY だけ**（CC BY-SA は採っていない）
+#   fb_<cid>.jpg             … 動画の**ひかえの静止画**。動画のコマが取れたときは動画の出典が勝つ
+# 🔴 **画面に出すのは印字ページ**（PDF ではない）。ファイル名の数字がそのまま印字ページ。
+# ⚠️ CC BY は**表示が条件**なので、撮影者名を落とすと条件を満たさない。ここで名前まで持つ。
+# ⚠️ ここに当たらない名前は None を返し、最後の PHOTO_CREDIT で KeyError にして気づかせる。
+CR_MIR2540 = "出典：NTSB 事故調査報告 MIR-25-40"
+
+KB_PAGE = re.compile(r"^keybridge/kb_p(\d{3})_fig(\d{2})\.png$")
+KB_FB = re.compile(r"^keybridge/fb_([a-z]{1,2}\d{2,3})\.jpg$")
+KB_PHOTO = {
+    "kb_pre_1976": "The Evening Sun（1976年8月11日）／パブリックドメイン",
+    "kb_pre_harbor07": "Frenchcheesemuseum（2007年2月24日）／パブリックドメイン",
+    "kb_pre_navy12": "米海軍 Jeremy Johnson 上等兵曹（2012年6月13日）／パブリックドメイン",
+    "kb_pre_oakhill14": "米海軍（2014年9月10日）／パブリックドメイン",
+    "kb_pre_catlett22": "米陸軍工兵隊 Greg Nash（2022年4月20日）／パブリックドメイン",
+    "kb_pre_deck05": "Brent Moore（2005年6月30日）／CC BY 2.0",
+    "kb_pre_2019": "Rafael Saldaña（2019年9月16日）／CC BY 2.0",
+    "kb_bld_harbor": "米国立公文書館 546833／パブリックドメイン",
+    "kb_bld_piers": "米国立公文書館 546837／パブリックドメイン",
+    "kb_bld_supports": "米国立公文書館 546929／パブリックドメイン",
+    "kb_bld_curtis": "米国立公文書館 546911／パブリックドメイン",
+}
+
+
+def keybridge_credit(name):
+    """`ref/keybridge/` の名前から出典表記を作る。当てはまらなければ None。"""
+    m = KB_PAGE.match(name)
+    if m:
+        return f"{CR_MIR2540} p.{int(m.group(1))}（図{int(m.group(2))}）／パブリックドメイン"
+    m = KB_FB.match(name)
+    if m:
+        try:
+            import footage as FO
+            c = FO.credit_of(m.group(1))
+        except Exception:                                # noqa: BLE001
+            c = None
+        return (c + "（静止画）") if c else None
+    if name.startswith("keybridge/"):
+        stem = name.split("/", 1)[1].rsplit(".", 1)[0]
+        cr = KB_PHOTO.get(stem)
+        if cr:
+            return "出典：" + cr
+    return None
+
+
 def credit_of(cid, spec):
     """そのカットに出す出典。**動画を当てたカットは動画の出典を出す。**
 
@@ -363,7 +411,8 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (sl1_credit(spec["photo"]) or surfside_credit(spec["photo"])
+    cr = (keybridge_credit(spec["photo"]) or sl1_credit(spec["photo"])
+          or surfside_credit(spec["photo"])
           or thresher_credit(spec["photo"]) or kaisetsu_credit(spec["photo"])
           or ja123_credit(spec["photo"]) or PHOTO_CREDIT[spec["photo"]])
     # 🔴 階調を伸ばした写真は、そのことを出典の行に出す（2026-08-09）。
@@ -779,6 +828,20 @@ TRIM_BY_PHOTO = {
     #   上の設計理由どおり、切る場所はファイルに紐づける。
     "ja123/p097.jpg": (0.0, 0.0, 0.81, 1.0),
 }
+# ── 🔴 6本目（キー橋）：報告書のページは**図の矩形で切る**（式で出す。手で書かない）──
+#    紙いちめんを出すと、柱（誌名・MIR-25-40）と本文と図の題まで画面に載る。
+#    出したいのは**図そのもの**なので、`tools/keybridge_assets.py bands` が
+#    PDF の埋め込み画像の矩形（`page.get_image_bbox()`）から測った箱をそのまま使う。
+#    ⚠️ 画素で探していない＝**本文の段落を図と読み違える余地が無い**。
+#    ⚠️ 1ページに図が2つ在る印字 p62 は、**題のすぐ上の画像**を採ってある。
+#    ⚠️ 台帳が無ければ**黙って全面を出さない**。ここが空のまま焼けたら ⑤c で必ず出る。
+_KB_BANDS = HERE / "ref" / "keybridge" / "textbands.json"
+KB_BANDS = (json.loads(_KB_BANDS.read_text(encoding="utf-8"))
+            if _KB_BANDS.exists() else {})
+for _n, _b in KB_BANDS.items():
+    _x0, _y0, _x1, _y1 = _b["fig_box"]
+    TRIM_BY_PHOTO[f"keybridge/{_n}.png"] = (_x0, _y0, _x1, _y1)
+
 PHOTO_TRIM = {cid: s.get("trim") or TRIM_BY_PHOTO.get(s["photo"])
               for cid, s in SPEC.items() if s.get("photo")}
 PHOTO_TRIM = {c: t for c, t in PHOTO_TRIM.items() if t}

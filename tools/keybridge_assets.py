@@ -360,6 +360,89 @@ def fb():
     return n
 
 
+# ─────────────────── 図の位置を式で出す（bands）───────────────────
+
+def bands(out=None):
+    """32枚それぞれについて **図の箱・題の箱・本文の帯**を測って JSON に書く。
+
+    🔴 なぜ要るか
+      `図 pN` のカットで画面に出したいのは**図そのもの**であって、紙いちめんではない。
+      どこを切るかを目分量で置くと、5本目で 177件出た「行頭が語の途中から始まる」と
+      同じことが図でも起きる。→ [[feedback-measure-before-fixing-layout]]
+
+    🔴 図の箱は**画素で探さない**。この報告書はボーンデジタルで、図は埋め込みの画像なので
+      `page.get_image_bbox()` が**正確な矩形**を返す（`ref/keybridge/FACTS.md` §0）。
+      ⚠️ 1ページに図が2つ在ることがある（印字 p62 は Figure 24 と 25）。
+         **題（`Figure N.`）のすぐ上に在る画像**を、その図番の箱として採る。
+
+    出すもの（すべて **0〜1 の割合**。PNG は PDF を等倍で焼いたので同じ座標）
+      `fig_box`  … 図そのものの矩形 (x0,y0,x1,y1)
+      `cap_y0/y1`… 図の題の上端・下端（**題は画面に出さない**＝切り出しに入れない）
+      `head_y1`  … 柱（誌名と MIR-25-40）の下端
+      `text_x0/x1` … 本文の文字が入っている横の帯（本文ページに寄るとき用）
+    """
+    import fitz
+    src = REF / (DOC + ".pdf")
+    doc = fitz.open(src)
+    res, bad = {}, []
+    for pr, fig, note, _w in PAGES:
+        name = page_name(pr, fig)
+        page = doc[pr + PDF_OFFSET - 1]
+        r = page.rect
+
+        def fy(v):
+            return (v - r.y0) / r.height
+
+        def fx(v):
+            return (v - r.x0) / r.width
+
+        # 題の行＝`Figure <fig>.` で始まる行
+        cap = None
+        for blk in page.get_text("dict")["blocks"]:
+            if blk.get("type") != 0:
+                continue
+            for ln in blk["lines"]:
+                txt = "".join(sp["text"] for sp in ln["spans"]).strip()
+                if txt.startswith(f"Figure {fig}."):
+                    cap = ln["bbox"]
+        if cap is None:
+            bad.append(f"{name}: 題『Figure {fig}.』が見つからない")
+            continue
+        # 🔴 その題のすぐ上に在る画像を採る（同じページの別の図を取り違えない）
+        boxes = [page.get_image_bbox(i) for i in page.get_images(full=True)]
+        above = [bb for bb in boxes if bb.y1 <= cap[1] + 2]
+        if not above:
+            bad.append(f"{name}: 題の上に画像が無い（画像 {len(boxes)}個）")
+            continue
+        bb = max(above, key=lambda x: x.y1)
+        # 柱と本文の帯
+        words = page.get_text("words")
+        head = [w for w in words if fy(w[3]) < 0.12]
+        head_y1 = max(fy(w[3]) for w in head) if head else 0.0
+        body = [w for w in words if fy(w[1]) > head_y1 + 0.005 and fy(w[3]) < 0.93]
+        res[name] = dict(
+            printed=pr, figure=fig, note=note,
+            fig_box=[round(fx(bb.x0), 4), round(fy(bb.y0), 4),
+                     round(fx(bb.x1), 4), round(fy(bb.y1), 4)],
+            cap_y0=round(fy(cap[1]), 4), cap_y1=round(fy(cap[3]), 4),
+            head_y1=round(head_y1, 4),
+            text_x0=round(min(fx(w[0]) for w in body), 4) if body else 0.118,
+            text_x1=round(max(fx(w[2]) for w in body), 4) if body else 0.879,
+        )
+        f = res[name]["fig_box"]
+        print(f"  {name:<20} 図 x {f[0]:.3f}-{f[2]:.3f} y {f[1]:.3f}-{f[3]:.3f}"
+              f"  縦横比 {(f[2] - f[0]) * 1836 / max(1e-6, (f[3] - f[1]) * 2376):.2f}"
+              f"／題 {res[name]['cap_y0']:.3f}  {note}")
+    for m in bad:
+        print(f"  🔴 {m}")
+    if bad:
+        raise SystemExit(2)
+    dest = Path(out) if out else (REF / "textbands.json")
+    dest.write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"■ {len(res)} 枚 → {dest}")
+    return res
+
+
 def probe():
     """落とした素材の中身を機械で測る（全画面に耐えるか＝`src_probe.py` と同じ物差し）。"""
     import src_probe as SP
@@ -387,6 +470,8 @@ if __name__ == "__main__":
         where(a[1], *a[2:])
     elif cmd == "fb":
         fb()
+    elif cmd == "bands":
+        bands()
     elif cmd == "probe":
         sys.exit(probe())
     else:
