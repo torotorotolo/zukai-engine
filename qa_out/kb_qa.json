@@ -1,7 +1,7 @@
 {
  "slug": "kb",
- "ver": "keybridge-r01",
- "src": "out/jiko/qa_keybridge-r01",
+ "ver": "keybridge-r02",
+ "src": "out/jiko/qa_keybridge-r02",
  "sheets": "out/jiko/sheet_keybridge-r01",
- "made": "2026-09-09 12:14"
+ "made": "2026-09-09 23:20"
 }
