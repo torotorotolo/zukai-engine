@@ -403,28 +403,59 @@ def where(name, *words):
 
 
 def fb():
-    """`footage.USE` の各欄から**ひかえの静止画** `ref/keybridge/fb_<cid>.jpg` を焼く。"""
+    """`footage.USE` の各欄から**ひかえの静止画** `ref/keybridge/fb_<cid>.jpg` を焼く。
+
+    🔴 2026-09-09（6本目 ⑤c）：**落としたクリップ（`out/jiko/clip/*.mp4`）しか見ていなかった。**
+      ところが `footage.py` は「URL から、そのカットに要る区間だけをコマに切り出す
+      （落とさない）」作り（`_cut_stream`）なので、**clip/ は空のまま**。
+      ＝ この関数は 37欄すべてを「作れなかった」で返し、`fb_*.jpg` が1枚も無いまま
+      ⑤b が終わっていた。Actions の「Check cut table」が
+      「ref に実体が無い写真 37件」で落ちて初めて分かった。
+      → **手元に mp4 が無ければ URL から直接1コマ抜く**（`footage.urls_of`）。
+    ⚠️ 焼けた枚数だけでなく**作れなかった欄を必ず名前で出す**（黙って0枚で通さない）。
+    """
     import subprocess
+    import time
     import footage as FO
     clip_dir = HERE / "out" / "jiko" / "clip"
     n, miss = 0, []
+
+    def made(p):
+        return p.exists() and p.stat().st_size > 0
+
     for cid, u in sorted(FO.USE.items()):
-        src = clip_dir / f"{u['clip']}.mp4"
-        if not src.exists():
-            miss.append(cid)
-            continue
         at = min(float(u["start"]) + 0.4, float(u["until"]) - 0.2)
         dest = REF / f"fb_{cid}.jpg"
-        subprocess.run(
-            ["ffmpeg", "-y", "-nostdin", "-hide_banner", "-loglevel", "error",
-             "-ss", f"{at:.2f}", "-i", str(src), "-frames:v", "1",
-             "-vf", "scale=1920:1080", "-q:v", "2", str(dest)],
-            capture_output=True, timeout=300)
-        if dest.exists():
+        if made(dest):                      # もう在るものは焼き直さない（回し直しが安い）
             n += 1
+            continue
+        src = clip_dir / f"{u['clip']}.mp4"
+        # 手元の mp4 が先（速い）。無ければ URL から流し込む
+        sources = [str(src)] if src.exists() else list(FO.urls_of(u["clip"]))
+        # ⚠️ 2026-09-09 実測：Wikimedia へ続けて投げると **5本目から必ず落ちる**
+        #    （最初の4枚だけ焼けて 33欄が「作れなかった」。1件ずつ手で叩くと通る）。
+        #    ＝ 素材の側の絞り込み。`_cut_stream` と同じく**間を空けて3回まで**試す。
+        for attempt in range(3):
+            for s in sources:
+                subprocess.run(
+                    ["ffmpeg", "-y", "-nostdin", "-hide_banner", "-loglevel", "error",
+                     "-user_agent", FO.UA, "-ss", f"{at:.2f}", "-i", s, "-frames:v", "1",
+                     "-vf", "scale=1920:1080", "-q:v", "2", str(dest)],
+                    capture_output=True, timeout=600)
+                if made(dest):
+                    break
+            if made(dest):
+                break
+            print(f"  ⚠️ {cid}: 焼けなかった（{attempt + 1}回目）", flush=True)
+            time.sleep(6 * (attempt + 1))
+        if made(dest):
+            n += 1
+            print(f"  {cid}: ✓", flush=True)
+            time.sleep(1.5)                 # 続けて投げない（上の絞り込み対策）
         else:
             miss.append(cid)
-    print(f"■ ひかえの静止画 {n} 枚（作れなかった {miss}）")
+    print(f"■ ひかえの静止画 {n} 枚／{len(FO.USE)} 欄"
+          + (f"　🔴 作れなかった {len(miss)}欄: {miss}" if miss else "　✓ 全欄"))
     return n
 
 
