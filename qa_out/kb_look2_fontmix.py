@@ -15,7 +15,7 @@ HERE = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(HERE / "tools"))
 
 import titan_fig as T  # noqa: E402
-from cuts import CUTS  # noqa: E402
+from cuts import SPEC as CUTS  # noqa: E402  ⚠️ cuts が持つ名前は SPEC
 
 
 def main():

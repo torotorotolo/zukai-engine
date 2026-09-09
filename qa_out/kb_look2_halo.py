@@ -66,6 +66,24 @@ def halo(lum, box):
     return median(out), sum(1 for v in out if v >= 200) / len(out)
 
 
+def ground(lum, box):
+    """字の外側の縁（ハロー）ではなく、**字の内側にある地**の明るさを測る。
+    ⚠️ 2026-09-10（⑤c 2周目 2/3）：ハローだけだと、**すぐ上や横にある白い字**を
+       拾って「明るい地の上」と誤って鳴る。`c414`「ダリの船橋」`c506`「州交通局」が
+       これで、地そのものは 46〜49（暗い）だった。地は外接矩形の中の**下位40%**で測る。
+    """
+    x0, y0, x1, y1 = (int(v) for v in box)
+    W, H = lum.size
+    px = lum.load()
+    out = [px[x, y]
+           for x in range(max(0, x0), min(W, x1), 2)
+           for y in range(max(0, y0), min(H, y1), 2)]
+    if not out:
+        return 0
+    out.sort()
+    return out[max(0, int(len(out) * 0.4) - 1)]
+
+
 def main():
     th = TH
     only = None
@@ -97,7 +115,8 @@ def main():
                     continue
                 m, br = halo(lum, (x0, y0, x1, y1))
                 if m >= th or br >= 0.15:
-                    rows.append((m, br, t[:26], ol, int(x0), int(y0)))
+                    g = ground(lum, (x0, y0, x1, y1))
+                    rows.append((g, m, br, t[:26], ol, int(x0), int(y0)))
         if rows:
             hits[cid] = sorted(rows, reverse=True)
             n_hit += len(rows)
@@ -106,9 +125,9 @@ def main():
           f"（中央値 {th} 以上、または 200以上の画素が 15% 以上。ハロー {PAD}px）")
     for cid, rows in hits.items():
         print(f"  {cid}")
-        for m, br, t, ol, x, y in rows[:6]:
-            print(f"     中央値 {m:3}  白{br*100:4.0f}%  {'フチ有' if ol else '🔴フチ無'}"
-                  f"  ({x},{y})  「{t}」")
+        for g, m, br, t, ol, x, y in rows[:6]:
+            print(f"     地 {g:3}  ハロー {m:3}  白{br*100:4.0f}%  "
+                  f"{'フチ有' if ol else '🔴フチ無'}  ({x},{y})  「{t}」")
 
 
 if __name__ == "__main__":
