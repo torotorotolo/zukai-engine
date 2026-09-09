@@ -1126,11 +1126,34 @@ def selfcheck():
     # ── 🔴 2026-09-07 に足した2つの規則の検算（規則を足したら検算も足す）──
     #    しきい値そのものを試す検算が無いと、値を書き換えても誰も気づかない。
     import copy as _copy
-    vict = "c916"
-    base = _copy.deepcopy(spec_map[vict])
-    crime = _copy.deepcopy(base)
-    crime["bias"], crime["zoom"] = 1.0, 2.19        # 帯の中へ大量に押し込む
-    crime.pop("veil", None)
+    # 🔴🔴 2026-09-09（6本目 ⑤c）：ここは **`vict = "c916"` と `zoom=2.19` を
+    #    べた書き**していた。5本目 SL-1 の素材で選んだ犠牲カットで、
+    #    キー橋の `c916`（`kb_p074_fig37.png`）は**焼き込みの行が0行**。
+    #    ＝ 細工しても鳴りようが無く、この検算2本が題材を替えた日に必ず落ちる。
+    #    ＝ 今日この門番で見つけた「題材ごとの定数が前作のまま残る」型そのもの。
+    #    → **名前で選ばず、測って選ぶ。** 焼き込みの行が画面に入る全画面カットを
+    #      渡り歩き、`b13` と同じ式で「その行を字幕帯へ運ぶ」細工を作って、
+    #      **実際に鳴った最初の1枚**を犠牲カットにする。
+    vict = crime = None
+    for _cid, _g, _vis in candidates(full_only=True):
+        _made = b13(_cid, _g, _vis, set())
+        if not _made:
+            continue
+        _one = _copy.deepcopy(_made[0])
+        _one.pop("veil", None)
+        _h, _s = scan({_cid: _one}, ocr, photo_of, box_of, skip,
+                      jobs_for({_cid: _one}))
+        if sum(1 for r in _h if r[1].startswith(("G-13", "G-14"))):
+            vict, crime = _cid, _one
+            break
+    if vict is None:
+        print("  🔴 帯の中へ押し込める試験台が1枚も無い＝この検算を試せていない")
+        ok = False
+        vict = sorted(spec_map)[0]
+        crime = _copy.deepcopy(spec_map[vict])
+    else:
+        print(f"  ✓ しきい値の試験台を測って選んだ（{vict}：zoom "
+              f"{crime.get('zoom', 1.0):.2f}・bias {crime.get('bias', 0.5):.2f}）")
     h0, s0 = scan({vict: crime}, ocr, photo_of, box_of, skip,
                   jobs_for({vict: crime}))
     # 🔴 2026-09-07（K-02）：**暗幕は SPEC でなく絵から測る**ようにしたので、
