@@ -40,6 +40,7 @@ from __future__ import annotations
 import io
 import subprocess
 import sys
+from collections import OrderedDict
 from pathlib import Path
 
 import numpy as np
@@ -61,17 +62,32 @@ WHITE = 240        # 参考に出す「白紙率」の白（🔴 の判定には
 SAMPLE = 4         # 画素の間引き（面の性質なので間引いても値は変わらない）
 
 Image.MAX_IMAGE_PIXELS = None
-_CACHE: dict[str, np.ndarray] = {}
+# 🔴 2026-09-09（⑤b-6）：ここは**上限の無いキャッシュ**だった。素材を1枚読むたびに
+#    原寸の uint8 RGB 配列（4,000×3,000 なら 36MB）が積まれたまま解放されない。
+#    6本目は写真映像が 100カット・報告書の図が 71枚あり、⑤b-5 で図を8枚焼き足した
+#    ところで 12GB を超え、`np.asarray` が **MemoryError** で落ちた。
+#    ⚠️ そのとき出るのは「粗 0件・exit 1」＝**測れていない**のであって合格ではない
+#      （[[feedback-a-gate-that-throws-measures-nothing]]）。qa_all はこれを
+#      「門番そのものが落ちた（0件と数えない）」と正しく出していた。
+#    → 直近 CACHE_MAX 枚だけ持つ。`scan` は cid 順に回り、同じ素材を使うカットは
+#      たいてい隣り合うので読み直しはほとんど起きない（**測る値は1画素も変わらない**）。
+CACHE_MAX = 3
+_CACHE: OrderedDict = OrderedDict()
 
 
 def load_arr(name):
-    if name not in _CACHE:
-        p = REF / name
-        if not p.exists():
-            raise SystemExit(f"🔴 素材が無い: {p}")   # fail closed（0 で埋めない）
-        with Image.open(p) as im:
-            _CACHE[name] = np.asarray(im.convert("RGB"), dtype=np.uint8)
-    return _CACHE[name]
+    if name in _CACHE:
+        _CACHE.move_to_end(name)
+        return _CACHE[name]
+    p = REF / name
+    if not p.exists():
+        raise SystemExit(f"🔴 素材が無い: {p}")   # fail closed（0 で埋めない）
+    with Image.open(p) as im:
+        arr = np.asarray(im.convert("RGB"), dtype=np.uint8)
+    _CACHE[name] = arr
+    while len(_CACHE) > CACHE_MAX:
+        _CACHE.popitem(last=False)
+    return arr
 
 
 def edge_band(v):
@@ -245,19 +261,33 @@ def selfcheck():
 
     # 🔴 名指しの除外そのものの検算（本番の中身に依らない。ここは題材を替えても回る）
     #    ⚠️ 2026-09-07：`ON_PURPOSE` を足したので、**除外が何でも飲み込まないこと**を先に見る。
-    fake = [("x01", "a.png", 0.0, 0.001, 0.9, 0.99, "インク率 0.1%"),
-            ("c705", "b.png", 0.0, 0.008, 0.47, 0.99, "インク率 0.8%")]
+    # 🔴 2026-09-09（⑤b-6）：ここは `c705` が `ON_PURPOSE` に**載っている前提**で書かれていた。
+    #    ⑤b-5 で5本目の除外4件を消して空にしたので、2つ目の項目は
+    #    「載っているカットが ⚠️ で出る」を確かめたつもりのまま**永久に落ちる**ようになり、
+    #    3つ目は c705 が `bad` に落ちるおかげで**別の理由で通って**いた。
+    #    ＝ 「本番の中身に依らない」と書いてあるのに、実際は依っていた。
+    #    → 検算のあいだだけ**自前の名前を1つ差し込む**。`ON_PURPOSE` が空でも回る。
     import io as _io
     import contextlib
-    buf = _io.StringIO()
-    with contextlib.redirect_stdout(buf):
-        rc = report(fake)
-    say(rc is True, "名指しに載っていない薄いカット（x01）は、除外があっても鳴る")
-    say("⚠️ c705" in buf.getvalue(),
-        "名指しに載っているカット（c705）は、数字ごと ⚠️ で表に出る")
-    with contextlib.redirect_stdout(buf):
-        rc2 = report([r for r in fake if r[0] == "c705"])
-    say(rc2 is True, "🔴 除外が陳腐化していない（x01 が消えたら『載っているのに鳴っていない』で落ちる）")
+    ON_PURPOSE["x02"] = "検算用の名前（本番のカットではない）"
+    try:
+        fake = [("x01", "a.png", 0.0, 0.001, 0.9, 0.99, "インク率 0.1%"),
+                ("x02", "b.png", 0.0, 0.008, 0.47, 0.99, "インク率 0.8%")]
+        buf = _io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            rc = report(fake)
+        say(rc is True, "名指しに載っていない薄いカット（x01）は、除外があっても鳴る")
+        say("⚠️ x02" in buf.getvalue(),
+            "名指しに載っているカット（x02）は、数字ごと ⚠️ で表に出る")
+        # 🔴 陳腐化の検査だけを見る＝**鳴っている粗が1件も無い**行だけを渡す。
+        #    （前は `bad` が立つ行を渡していたので、陳腐化を見なくても True になっていた）
+        buf2 = _io.StringIO()
+        with contextlib.redirect_stdout(buf2):
+            rc2 = report([("x01", "a.png", 0.0, 0.50, 0.10, 0.20, "")])
+        say(rc2 is True and "陳腐化" in buf2.getvalue(),
+            "🔴 除外が陳腐化していない（x02 が鳴らなくなったら『載っているのに鳴っていない』で落ちる）")
+    finally:
+        ON_PURPOSE.pop("x02", None)
 
     sm, po, bo, skip = CS.production_inputs()
     victims = sorted(c for c, n in po.items()

@@ -2599,6 +2599,32 @@ def people(nodes, edges=None, note="", lead=""):
             else:
                 hi = mid
     bw = lo
+    # 🔴 2026-09-09（⑤b-6）：**箱の高さは GS から出しているのに、絵は下の
+    #    `gs = min(GS, bh - 48, bw * 0.34)` で頭打ちになる。**
+    #    節が横に詰まって幅が最小の 300 まで落ちたカット（c711・ca07・c902）では、
+    #    GS=190 のまま高さ 291 を取ったのに、描かれる絵は 102 しか無く、
+    #    上下に帯が残った（check_box：空き矩形 36%・文字下空洞 34〜44%）。
+    #    ＝ [[feedback-settings-may-not-reach-the-picture]] と同じ形で、
+    #      **設計に書いた 190 が絵に届いていない**。
+    #    → 幅が決まったところで**実際に描かれる絵の大きさ**を出し直し、
+    #      小さくなっていたら高さ・級数もそれに合わせて取り直して、幅を1回探索し直す。
+    #      （高さが縮むぶん幅は増えることはあっても減らない＝振動しない）
+    gs_eff = min(GS, bh - 48, bw * 0.34)
+    if gs_eff < GS - 1:
+        GS = gs_eff
+        TS_CAP = 56.0 * min(1.5, GS / 118.0)
+        DS_CAP = 34.0 * min(1.5, GS / 118.0)
+        PADY = 36.0 * min(1.4, GS / 118.0)
+        bh = GS + PADY * (1.7 if all(not n.get("d") for n in nodes) else 2.0)
+        lo, hi = 300.0, BW_MAX
+        if fits(lo):
+            for _ in range(26):
+                mid = (lo + hi) / 2
+                if fits(mid):
+                    lo = mid
+                else:
+                    hi = mid
+        bw = lo
     g = []
     if lead:
         g.append(txtfit(BX0, BY0 + 62, lead, BW, cap=44, col=J.INK_W))
