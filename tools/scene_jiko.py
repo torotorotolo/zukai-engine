@@ -437,6 +437,18 @@ def credit_of(cid, spec):
     #    切り抜きに「／切出」と付けているのと同じ扱い。黙って手を入れない。
     if spec.get("levels") or LEVELS_BY_PHOTO.get(spec["photo"]):
         cr += "・濃淡補正"
+    # 🔴 2026-09-09（6本目キー橋 ⑤c'・持ち越し §7）：**CC BY は帰属だけでは足りない。**
+    #    CC BY 2.0 §4(b) は、改変して使うときに**改変した旨を示すこと**も条件にしている。
+    #    この動画は写真を全部デュオトーンにし（`build_jiko.duotone`＝`convert("L")` から
+    #    2色に置き換え）、枠に合わせて切り出している＝**CC BY の6カットは全部が改変物**
+    #    （`c101` `c106` `c112` `c201` `c213` `ep06`。素材は `kb_pre_2019` と
+    #     `kb_pre_deck05` の2点）。それなのに画面には
+    #    「出典：Rafael Saldaña（2019年9月16日）／CC BY 2.0」としか出ていなかった。
+    #    ⚠️ PD の素材には足さない。同じ断りを付けると、**表示の義務が無いものにも
+    #      あるように見える**（PD は 40カット以上ある）。
+    #    ⚠️ 「濃淡補正」と同じ扱い＝**黙って手を入れない**。
+    if "CC BY" in cr and "改変" not in cr:
+        cr += "／改変：色調変更・切出"
     return cr
 
 
@@ -677,18 +689,31 @@ def photo_ann(spec):
         #   ⚠️ ずらしすぎると枠外に出る＝`check_layout` が落とす（門番は既にある）。
         y += a.get("dy", 0)
         s = []
+        ts = 0.0
         if a.get("t"):
-            size = fm.fit(a["t"], maxw, "Noto", cap=a.get("ts", 46), floor=24)
-            s.append(J.outlined(x, y, a["t"], a.get("c", J.INK_W), size, anchor,
-                                sw=max(6, size * 0.17)))
-            y += size + 18
+            ts = fm.fit(a["t"], maxw, "Noto", cap=a.get("ts", 46), floor=24)
+            s.append(J.outlined(x, y, a["t"], a.get("c", J.INK_W), ts, anchor,
+                                sw=max(6, ts * 0.17)))
+            y += ts + 18
         if a.get("v"):
             size = fm.fit(a["v"], maxw, "Dela", cap=a.get("vs", 96), floor=30)
             s.append(J.outlined(x, y + size * 0.20, a["v"], a.get("vc", J.AMBER),
                                 size, anchor, sw=max(7, size * 0.15), family="Dela"))
             y += size + 26
         if a.get("d"):
-            size = fm.fit(a["d"], maxw, "Noto", cap=a.get("ds", 34), floor=22)
+            # 🔴 2026-09-09（6本目キー橋 ⑤c'・型⑩「ラベルより中身が小さい」）：
+            #    **`v` が無い段では `d` が答えそのもの**なのに、ラベル（`ts` 46）より
+            #    小さい（`ds` 26〜34）ので、**問いのほうが大きく明るい**画になっていた。
+            #    実測 61組・47カット（`c101`「渡していたもの」46px 対
+            #    「パタプスコ川とボルチモア港の出口」32px を原寸で確認）。
+            #    ⚠️ `v` がある段の `d` は本当の補足なので触らない（17組はそのまま）。
+            #    ⚠️ 引き継ぎは「型⑩は `titan_fig.panel()` の cap 140/76 で直る」と
+            #      書いていたが、測ると別の場所だった。`panel` 側で値が小さいのは
+            #      `c808` の1件だけ（46 対 44）。
+            dcap = a.get("ds", 34)
+            if not a.get("v") and ts:
+                dcap = max(dcap, ts)
+            size = fm.fit(a["d"], maxw, "Noto", cap=dcap, floor=22)
             s.append(J.outlined(x, y, a["d"], a.get("dc", J.LINE), size, anchor,
                                 sw=max(5, size * 0.17)))
             y += size + 16

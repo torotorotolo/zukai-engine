@@ -247,8 +247,20 @@ SPEC = {
         t="1つ壊れても、支えられる形",
         s="架け替えの橋の骨格",
         fig=("panel", dict(
+            # 🔴 2026-09-09（⑤c'・⑤c の疑い #318）：**「主径間 3,300フィート」対
+            #    「塔と塔のあいだ 1,600フィート」が、日本語では食い違って見えた。**
+            #    主径間＝塔と塔のあいだ、と読むのが普通なので、同じ画の中で
+            #    3,300 と 1,600 のどちらも主径間に見える。
+            #    原文（`ref/keybridge/ntsb_MIR2540.txt` 2473〜2474行）は
+            #    “The total length of the cable-stayed main span will be 3,300 feet
+            #     and will have two main-span pylons, with a horizontal distance of
+            #     1,600 feet between the two pylons.”
+            #    ＝ 3,300 は**斜張の区間ぜんたいの長さ**、1,600 が**塔間**。
+            #    → 項目のほうを原文どおりに直す（数字は変えない）。
+            #    ✅ c916 の「全長 2マイル」（＝10,560フィート）とも矛盾しない。
             blocks=[dict(k="1", t="荷重の道筋が、1本で決まらない", c=J.OK),
-                    dict(k="2", t="主径間", v="3,300フィート", c=J.AMBER),
+                    dict(k="2", t="斜張の区間の全長", v="3,300フィート",
+                         c=J.AMBER),
                     dict(k="3", t="塔と塔のあいだ", v="1,600フィート",
                          c=J.AMBER)],
             note="報告書 p.74")),

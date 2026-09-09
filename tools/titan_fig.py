@@ -969,7 +969,10 @@ def moment(clock, label="", facts=None, day=None, dayspan=None, sub=""):
     facts = facts or []
     # ⚠️ 時計を上に寄せていたので、その下 y520〜800 が丸ごと空いた（10カット全部）。
     #    時計を大きくして枠の縦中央へ置き、下に太い罫を渡して面を作る。
-    cy = BY0 + 300
+    # 🔴 2026-09-09（⑤c'・型③）：それでもまだ上に寄っていた。時計の柱は
+    #    字面 y343〜693（`day` 帯なしのとき）で、**下に 200px 残る**。
+    #    右の事実の柱を下まで割り直すのに合わせ、時計も 30px 下げて中心をそろえる。
+    cy = BY0 + 330
     g = []
     # 🔴 2026-08-04（r05 の拡大目視）：時刻を持たないカット（章の橋渡し・言い換え）は
     #    `clock="—"` と書いていた。これを 232px の Dela で打つと、画面に
@@ -996,9 +999,20 @@ def moment(clock, label="", facts=None, day=None, dayspan=None, sub=""):
     fx = BX0 + BW * 0.58
     # 右の柱も縦を使い切る。件数に応じて開始位置と間隔を決める
     nf = max(1, len(facts))
-    fspan = (BY1 - 120) - (BY0 + 90)
-    fstep = max(120, fspan / nf)
-    fy = BY0 + 96
+    # 🔴 2026-09-09（6本目キー橋 ⑤c'・型③「画面の下が空く」）：
+    #    間隔を **span / 件数** で取っていたので、最後の1件のうしろに
+    #    **1件ぶんの空きがまるごと残った**。`check_space`（基準 `out/jiko/_empty.png`）で
+    #    測ると、**moment 7カット全部**で下の帯（y640〜892）が 92.7〜96.5% 空き。
+    #    いちばん大きい空き矩形も 7枚とも「y=640・高さ240」で同じ形だった。
+    #    → 割り方を **「最後の1件の下端を枠の下に置く」** に変える（span/件数 ではなく
+    #      (span − 1件ぶん) / (件数 − 1)）。開きすぎて柱が2本の点に見えないよう上限つき。
+    #    ⚠️ 空いた場所に**物を足して埋めない**（減らす。遅くしない）。動かすだけ。
+    FBLK = 150.0                                # 事実1件ぶんの高さ（罫34＋見出し40＋値76）
+    ftop, fbot = BY0 + 96, BY1 - 24
+    fspan = fbot - ftop
+    fstep = (fspan - FBLK) / max(1, nf - 1) if nf > 1 else 0.0
+    fstep = max(FBLK + 20, min(fstep, FBLK + 130))
+    fy = ftop + max(0.0, (fspan - FBLK - fstep * (nf - 1)) / 2)
     for i, f in enumerate(facts):
         s = [line(fx, fy - 34, fx, fy + 42, J.ALERT, 5)]
         s.append(txtfit(fx + 26, fy, f.get("t", ""), BX1 - fx - 50, cap=40,
@@ -1750,9 +1764,23 @@ def panel(blocks, lead="", note="", cols=3):
                            cols=max(6, int(avail / bs)), size=bs, col=J.INK_W)
             s.append(body)
             if b.get("v"):
-                s.append(txt(BX1, y + h * 0.54, b["v"],
-                             fm.fit(b["v"], 500, "Dela", cap=min(76, h * 0.50)),
-                             c, "Dela", "end"))
+                # 🔴 2026-09-09（6本目キー橋 ⑤c'・型⑪）：**`t` と `v` をどちらも
+                #    ベースラインで置いていたので、`v` だけ段の中央より下に沈んだ。**
+                #    `t` は cap 140、`v` は cap 76。ベースラインは y+h*0.52 対 y+h*0.54 で
+                #    0.02h（≒3px）しか違わないのに、**級数の差の半分ぶん**（≒32px）
+                #    字面が下がる。実測 **69段・32カット**（最大 c814 43.6px・c608 42.4px）。
+                #    ⚠️ そろえるのは**ベースラインではなく字面（ink）の中心**。
+                #      級数の違う2つを横に見比べるとき、目が拾うのは字面の中心なので。
+                #      比は決め打ちにせず `fm.ink()` で**書体から実測**する
+                #      （0.74/0.22 の決め打ちでサムネを 27px はみ出させた前例がある）。
+                #    ⚠️ `t` が折り返しても行のベースラインの中心は y+h*0.52 のまま
+                #      （`para` の開始を (nl-1)*bs*0.75 だけ上げてあるため）。
+                vs = fm.fit(b["v"], 500, "Dela", cap=min(76, h * 0.50))
+                tu, td = fm.ink(str(b["t"]), bs, "Noto")
+                vu, vd = fm.ink(str(b["v"]), vs, numfam(str(b["v"]), "Dela"))
+                cyt = y + h * 0.52 + (td - tu) / 2          # t の字面の中心
+                s.append(txt(BX1, cyt - (vd - vu) / 2, b["v"], vs, c, "Dela",
+                             "end"))
             stages.append("".join(s))
     else:
         # 🔴 2026-08-01 作り直し（r13「要点の4項目が小さい。要点なので大きく」）。
