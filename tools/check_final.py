@@ -169,9 +169,33 @@ def selftest():
     return ok
 
 
+def chapters_only():
+    """🔴 2026-09-09（6本目 ⑤c 新設）**章名だけを、焼く前に見る。**
+
+    なぜ分けたか：この門番は本編 mp4 を要る作りなので **⑥ でしか回らなかった**。
+    ところが章名の食い違いは**⑤b で直せる粗**で、⑥まで残すと本編を焼き直すことになる。
+    実際 6本目は、⑤c で c110 を焼いて初めて隅が「1/9 北極でも動く炉」＝
+    **5本目 SL-1 の章名のまま**だと分かった（`qa_all` の11本は1本も鳴っていない）。
+    → この関数を `qa_all` の GATES に載せた。mp4 は要らない。
+    ⚠️ 引数無しで呼ぶと `使い方` を出して **exit 0** で戻る道が下にあるので、
+       ここは**必ず件数で返す**（fail closed）。
+    """
+    ng = check_chapters()
+    if ng:
+        for m in ng:
+            print(f"  🔴 {m}")
+        print(f"🔴 章名が台本と合っていない（{len(ng)}件）")
+        return 1
+    print("✓ 画面に出る章名は台本と1対1（章マーカーの n/N も合っている）")
+    return 0
+
+
 def main():
+    if "--chapters" in sys.argv:
+        raise SystemExit(chapters_only())
     if len(sys.argv) < 2:
-        raise SystemExit("使い方: python tools/check_final.py <mp4>　／　--selftest")
+        raise SystemExit("使い方: python tools/check_final.py <mp4>　／　--selftest"
+                         "　／　--chapters（焼く前・章名だけ）")
     p = Path(sys.argv[1])
     if not p.exists():
         raise SystemExit(f"🔴 mp4 が無い: {p}")

@@ -156,7 +156,14 @@ SPEC = {
         #    副題は**画面に出ている図の札**へ、注記は**報告書の定義**へ振り替えた。
         t="決められた呼び名がある",
         s="報告書 p.63　3種類の径間",
-        photo=ss.page(63), **ss.kind(ss.page(63)), side="left", ann_y=326,
+        # ⚠️ ⑤c：`TRIM_BY_PHOTO` で図の下（"Pier 14／15／16" の白い札）を切ったぶん、
+        #    横が 108px 詰まる。既定の xbias=0.5 だと左の "Shorter/shallower" が
+        #    15px 欠ける（G-10）ので、**図の左端に合わせる**（理由は scene_jiko の §TRIM）。
+        # ⚠️ ⑤c：注記は **右**へ。左に置くと3つ目「破断すれば…」が図の焼き込み
+        #    "Shorter/shallower spans" に 328×33px 載る（`check_slide` G-14）。
+        #    ann_y を下げて逃がすと今度は**出典の行に重なる**（焼いて確認した）。
+        #    画面の右側には焼き込みの文字が1つも無いので、そちらへ寄せるのが素直。
+        photo=ss.page(63), **ss.kind(ss.page(63)), side="right", ann_y=326, xbias=0.0,
         ann=[dict(t="鋼製である", d="", dc=J.LINE, ds=32),
              dict(t="引張力を受けている", d="", dc=J.LINE, ds=32),
              dict(t="報告書の定義", d="破断すれば橋の崩落につながる部材",

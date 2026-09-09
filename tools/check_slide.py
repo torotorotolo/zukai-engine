@@ -357,8 +357,58 @@ def named_terms(spec):
     return out
 
 
+# ── 🔴🔴 2026-09-09（6本目 ⑤c）── **切り落とし（trim）を、この門番も通す。**
+#    本番は `build_jiko.load_photo(name, box, S.PHOTO_TRIM.get(cid), ...)` で
+#    **写真を先に切り落としてから** `fit()` に渡す（build_jiko.py の3か所）。
+#    ところがこの門番は `trim` の語を1つも持っておらず、**紙いちめんの原画**を
+#    そのまま `crop_rect` に入れていた。＝ 本番と違う絵を測っていた。
+#
+#    6本目（キー橋）で表に出た。報告書のページには
+#    `TRIM_BY_PHOTO["keybridge/*.png"]`（`textbands.json` の図の矩形）が付いており、
+#    **図の外の本文と図の題（"Figure 26. The three types of spans…"）は画面に出ない**のに、
+#    門番はそれを「字幕帯の中に入る」と 8件鳴らしていた（G-13）。
+#    本番の `load_photo`＋`fit` で焼いて原寸で見たところ、その英文は**1文字も画面に無い**。
+#    逆に、切ったあとに帯へ落ちてくる本物（c110 の "Pier 14/15/16"）は**見えていなかった**。
+#    ＝ 厳しい側にも緩い側にも外れる。「fail closed だから安全」ではない。
+#    → [[feedback-gates-go-stale-when-upstream-changes]]（上流を替えたら定数を取り直す）
+#    ⚠️ `box_of` は `scene_jiko.photo_box()` が作るので**もともと trim 込み**。
+#      直すのは**素材の側**（原画の寸法と OCR 行の座標）だけ。
+def trim_of(spec):
+    """本番が写真を**先に切り落とす**割合 (x0, y0, x1, y1)。無ければ None。
+
+    ⚠️ `scene_jiko.PHOTO_TRIM` と同じ式にする（カットの `trim` が先、無ければ
+       **写真ファイル**に紐づいた `TRIM_BY_PHOTO`）。cid ではなく **spec から**引くので、
+       陽性対照が細工した SPEC でも本番と同じ道を通る。
+    """
+    import scene_jiko as S
+    return spec.get("trim") or S.TRIM_BY_PHOTO.get(spec.get("photo"))
+
+
+def apply_trim(sw, sh, lines, tr):
+    """原画サイズと OCR 行を、**切り落としたあとの座標**へ移す。
+
+    `build_jiko.load_photo` と**同じ丸め**（round(割合×辺)）を使う。
+    窓に半分だけ掛かる行は、掛かっているぶんだけに切り詰める（本番も半分しか出ない）。
+    """
+    x0, y0 = round(tr[0] * sw), round(tr[1] * sh)
+    x1, y1 = round(tr[2] * sw), round(tr[3] * sh)
+    keep = []
+    for ln in lines:
+        b = ln["box"]
+        nb = [max(b[0], x0) - x0, max(b[1], y0) - y0,
+              min(b[2], x1) - x0, min(b[3], y1) - y0]
+        if nb[2] - nb[0] < 1 or nb[3] - nb[1] < 1:
+            continue                       # 切り落とした側に在る＝画面に出ない
+        keep.append(dict(ln, box=nb))
+    return max(1, x1 - x0), max(1, y1 - y0), keep
+
+
 def cut_geom(cid, spec, ocr, photo_of, box_of, skip):
-    """そのカットの (原画サイズ, OCR行, k=0 と k=1 の切り方)。見ないカットは None。"""
+    """そのカットの (原画サイズ, OCR行, k=0 と k=1 の切り方)。見ないカットは None。
+
+    `sw/sh` と `lines` は **切り落としたあと**の座標。`all_text` だけが切る前の全文
+    （G-15 の「素材には在るが窓の中に無い」を、切り落としで甘くしないため）。
+    """
     if cid in skip:
         return None
     name = photo_of.get(cid)
@@ -368,10 +418,16 @@ def cut_geom(cid, spec, ocr, photo_of, box_of, skip):
     if not o:
         return None
     sw, sh = o["size"]
+    lines = o["lines"]
+    all_text = " ".join(l["text"] for l in lines)
+    tr = trim_of(spec)
+    if tr:
+        sw, sh, lines = apply_trim(sw, sh, lines, tr)
     box = box_of[cid]
     kw = dict(bias=spec.get("bias", 0.5), xbias=spec.get("xbias", 0.5),
               zoom=spec.get("zoom", 1.0))
-    return dict(name=Path(name).name, sw=sw, sh=sh, lines=o["lines"],
+    return dict(name=Path(name).name, sw=sw, sh=sh, lines=lines, trim=tr,
+                all_text=all_text,
                 rects={k: crop_rect(sw, sh, box, k, **kw) for k in (0.0, 1.0)})
 
 
@@ -430,10 +486,18 @@ def scan(spec_map, ocr, photo_of, box_of, skip, jobs=None):
             if _n:
                 _sw, _sh = _ss.size_of(_n)
                 _e = _ss.film_edge(_n)
+                # 🔴 2026-09-09：ここも**切り落としたあと**の寸法で測る（上の cut_geom と同じ理由）。
+                #    ネガの縁が切り落とした側に在れば、そもそも画面には出ない。
+                _tr = trim_of(spec)
+                if _tr:
+                    _x0 = round(_tr[0] * _sw)
+                    _e = (_e * _sw - _x0) / max(1, round(_tr[2] * _sw) - _x0)
+                    _sw, _sh = (max(1, round(_tr[2] * _sw) - _x0),
+                                max(1, round(_tr[3] * _sh) - round(_tr[1] * _sh)))
                 _r = crop_rect(_sw, _sh, box_of[cid], 0.0, float(spec.get("bias", 0.5)),
                                float(spec.get("xbias", 0.5)), float(spec.get("zoom", 1.0)))
                 _right = (_r["left"] + _r["cw"]) / _sw
-                if _right > _e + 1e-9:
+                if _e < 1.0 and _right > _e + 1e-9:
                     softs.append((cid, "G-17 ネガの縁が窓に入る", _n, "focus",
                                   f"窓の右端 {_right:.4f} ＞ 写真の右端 {_e:.4f}"
                                   f"（原画 {(_right - _e) * _sw:.0f}px ＝ 画面の "
@@ -557,7 +621,10 @@ def scan(spec_map, ocr, photo_of, box_of, skip, jobs=None):
         # ── G-15 注記が名指した語が、切り出し窓の中に無い ─────────
         # ⚠️ ここだけ「見つからないと鳴る」向き。OCR の見落としと区別するため、
         #    **その素材の OCR のどこかには在る**ときだけ 🔴 にする（無ければ ・）
-        whole = " ".join(l["text"] for l in g["lines"])
+        # ⚠️ ここだけ**切り落とす前**の全文を使う（`g["all_text"]`）。切ったあとの文で
+        #    比べると、切り落とした側に在る語が「素材にも無い」ことになって ・ に落ち、
+        #    **trim を入れた拍子に G-15 が甘くなる**。名指した語が画面に無いことは変わらない。
+        whole = g["all_text"]
         src_txt = norm_en(whole)
         in_win = []
         for v in vis_lines:
@@ -640,6 +707,14 @@ def draw(cid, boxes=False):
     made = []
     with Image.open(src) as im:
         im = im.convert("RGB")
+        # 🔴 2026-09-09：**本番と同じに、先に切り落とす**（`build_jiko.load_photo(trim=)`）。
+        #    ここを忘れると「描いた絵」と「判定した幾何」が食い違い、
+        #    絵を見て直したのに門番が別のことを言う、という一番たちの悪い形になる。
+        if g["trim"]:
+            _w, _h = im.size
+            _t = g["trim"]
+            im = im.crop((round(_t[0] * _w), round(_t[1] * _h),
+                          round(_t[2] * _w), round(_t[3] * _h)))
         for k in (0.0, 1.0):
             r = g["rects"][k]
             box = r["box"]
@@ -717,15 +792,24 @@ def selfcheck():
                 return True
         return False
 
-    def candidates():
-        """全画面で、焼き込みの行が画面に入っているカット（行の多い順）。"""
+    def candidates(full_only=True):
+        """焼き込みの行が画面に入っているカット（行の多い順）。
+
+        `full_only` … 画面いっぱいのカットだけにするか。
+        🔴 2026-09-09（⑤c）：**規則ごとに要る試験台が違う**ので選べるようにした。
+          G-10（行頭が画面の左端で切れる）と G-13（字幕帯の中）は、額に入れた
+          カット（`panel`）では**構造上ぜったいに起こらない**（額は画面の内側にあり、
+          帯にも届かない）ので全画面だけ。G-09／G-14／G-15 は額でも起こる。
+        ⚠️ trim を通したら全画面の試験台が 9カットまで減り、G-15 が
+          「試せるカットが1枚も無い」になった。**判定は変えず、探す範囲を戻す。**
+        """
         out = []
         for c in sorted(spec_map):
             g = cut_geom(c, spec_map[c], ocr, photo_of, box_of, skip)
             if not g:
                 continue
             bx = box_of[c]
-            if bx[0] or bx[1] or bx[2] != W or bx[3] != H:
+            if full_only and (bx[0] or bx[1] or bx[2] != W or bx[3] != H):
                 continue
             vis = [l for l in g["lines"]
                    if (lambda sc: sc[2] > 0 and sc[0] < W and sc[3] > 0 and sc[1] < H)(
@@ -734,39 +818,57 @@ def selfcheck():
                 out.append((len(vis), c, g, vis))
         return [(c, g, v) for _, c, g, v in sorted(out, reverse=True)]
 
-    def probe(kind, build):
-        """`build(cid, g, vis)` が (細工した1カットぶんの SPEC, 狙う行の文字, 説明) を
-        返すまでカットを渡り歩き、**入れると鳴る／戻すと黙る**を確かめる。"""
-        for cid, g, vis in candidates():
-            made = build(cid, g, vis)
-            if not made:
-                continue
-            one, txt, note = made
-            base = {cid: copy.deepcopy(spec_map[cid])}
-            if fired(base, cid, kind, txt):      # 素で鳴る行は試験にならない
-                continue
-            if fired({cid: one}, cid, kind, txt):
-                print(f"  ✓ {kind}（{cid}：{note}）… 入れると鳴り、戻すと黙る")
-                return True
-            print(f"  🔴 {kind}（{cid}：{note}）… 入れても鳴らない")
-            return False
+    def probe(kind, build, full_only=True):
+        """`build(cid, g, vis, used)` が (細工した1カットぶんの SPEC, 狙う行の文字, 説明) を
+        返すまでカットを渡り歩き、**入れると鳴る／戻すと黙る**を確かめる。
+
+        🔴 2026-09-09（⑤c）：素で鳴る行に当たったとき、**カットごと飛ばしていた**。
+          そのカットに別の行が在っても試さないので、本番でたまたま1行鳴っている
+          c110 が丸ごと候補から落ち、G-13 が「試せるカットが1枚も無い」になった。
+          → `used`（もう試した行）を build に渡し、**同じカットの次の行**へ進む。
+        """
+        for cid, g, vis in candidates(full_only):
+            used = set()
+            while True:
+                made = build(cid, g, vis, used)
+                if not made:
+                    break                       # このカットではもう作れない → 次のカットへ
+                one, txt, note = made
+                if txt in used:
+                    break                       # build が同じ行を返し続けている（無限ループ避け）
+                used.add(txt)
+                base = {cid: copy.deepcopy(spec_map[cid])}
+                if fired(base, cid, kind, txt):  # 素で鳴る行は試験にならない → 次の行へ
+                    continue
+                if fired({cid: one}, cid, kind, txt):
+                    print(f"  ✓ {kind}（{cid}：{note}）… 入れると鳴り、戻すと黙る")
+                    return True
+                print(f"  🔴 {kind}（{cid}：{note}）… 入れても鳴らない")
+                return False
         print(f"  🔴 {kind} … 試せるカットが1枚も無い")
         return False
 
-    def b09(cid, g, vis):
-        en = [l for l in vis if len(norm_en(l["text"])) >= MINLEN_EN]
+    def b09(cid, g, vis, used):
+        # ⚠️ 2026-09-09：`scan` は注記を ／ ／ | で割ってから比べるので、
+        #    「Longer/deeper」のように**割ると短くなる行**を渡すと入れても鳴らない
+        #    （trim を通したあと c110 の1行目がこれになって空振りした）。
+        #    → **割ったあとの一片が MINLEN_EN 以上ある行**だけを試験台にする。
+        def usable(t):
+            return max((len(norm_en(p)) for p in re.split(r"[／/｜|]", t)), default=0)
+        en = [l for l in vis if usable(l["text"]) >= MINLEN_EN and l["text"] not in used]
         if not en:
             return None
+        t = max(en, key=lambda l: usable(l["text"]))["text"]
         one = copy.deepcopy(spec_map[cid])
-        one["ann"] = [dict(t="原文", d=en[0]["text"])]
-        return one, en[0]["text"], f"注記に「{en[0]['text'][:24]}」をそのまま書く"
+        one["ann"] = [dict(t="原文", d=t)]
+        return one, t, f"注記に「{t[:24]}」をそのまま書く"
 
-    def b10(cid, g, vis):
+    def b10(cid, g, vis, used):
         box = box_of[cid]
         sw, w = g["sw"], box[2]
         bz = max(box[2] / g["sw"], box[3] / g["sh"])
         longs = [l for l in g["lines"] if len(l["text"]) >= CLIP_CHARS
-                 and l["box"][2] - l["box"][0] > 200]
+                 and l["box"][2] - l["box"][0] > 200 and l["text"] not in used]
         for L in sorted(longs, key=lambda l: l["box"][2] - l["box"][0], reverse=True):
             mid = (L["box"][0] + L["box"][2]) / 2
             if sw - mid < 60:
@@ -788,29 +890,44 @@ def selfcheck():
                                     f"bias {one['bias']:.2f}）")
         return None
 
-    def b13(cid, g, vis):
+    def b13(cid, g, vis, used):
         box = box_of[cid]
-        sh, h = g["sh"], box[3]
-        bz = max(box[2] / g["sw"], box[3] / g["sh"])
-        ch = min(sh, h / bz)
-        # ⚠️ bias は 0〜1 の按分＝top を負にできない。下端へ持って来られる行だけ
-        cand = [l for l in g["lines"] if len(l["text"]) >= CLIP_CHARS
-                and l["box"][1] >= 950 * ch / h and sh - ch > 1]
+        sw, sh, w, h = g["sw"], g["sh"], box[2], box[3]
+        bz = max(w / sw, h / sh)
+        # 🔴 2026-09-09（⑤c）：もとは `zoom=1.0` のまま **bias だけ**で帯へ運んでいた。
+        #    bias は 0〜1 の按分なので、**画像の下のほうに在る行しか運べない**。
+        #    trim を通したら、その条件に合う行が本番で c110 の1行だけになり、
+        #    しかもその行は素で鳴っている＝**試験台が消えた**（0/1）。
+        #    → **寄り（zoom）で切り出しを小さくしてから** bias で運ぶ。
+        #      行の上端 T を画面の y=960 に置きたいなら ch ≦ T·h/960、
+        #      すなわち zoom ≧ 960/(bz·T)。これでどの行でも帯へ運べる。
+        #    ⚠️ 判定側（G-13 の式・しきい値）は1文字も動かしていない。
+        cand = [l for l in g["lines"]
+                if len(l["text"]) >= CLIP_CHARS and l["box"][1] > 0
+                and l["text"] not in used]
         for T in sorted(cand, key=lambda l: l["box"][3] - l["box"][1], reverse=True):
+            ty = T["box"][1]
+            z = max(1.0, 960 / (bz * ty) * 1.02)
+            ch, cw = min(sh, h / (bz * z)), min(sw, w / (bz * z))
+            top = ty - 960 * ch / h
+            if sh - ch <= 1 or top < 0 or top > sh - ch:
+                continue
+            mid = (T["box"][0] + T["box"][2]) / 2
             one = copy.deepcopy(spec_map[cid])
-            one["zoom"] = 1.0
-            one["xbias"] = 0.5
-            one["bias"] = min(1.0, max(0.0, (T["box"][1] - 950 * ch / h) / (sh - ch)))
-            return one, T["text"], f"帯の中へ（bias {one['bias']:.2f}）"
+            one["zoom"] = z
+            one["bias"] = min(1.0, max(0.0, top / (sh - ch)))
+            one["xbias"] = min(1.0, max(0.0, (mid - cw / 2) / max(sw - cw, 1)))
+            return one, T["text"], (f"帯の中へ（zoom {z:.2f}・bias {one['bias']:.2f}）")
         return None
 
-    def b14(cid, g, vis):
+    def b14(cid, g, vis, used):
         r0 = g["rects"][0.0]
         body = []
         for l in vis:
             sc = to_screen(l["box"], r0)
             if (sc[0] > 0 and sc[2] < W and sc[1] > BAND_TOP + 60
-                    and sc[3] < BAND_BOT - 60 and len(l["text"]) >= CLIP_CHARS):
+                    and sc[3] < BAND_BOT - 60 and len(l["text"]) >= CLIP_CHARS
+                    and l["text"] not in used):
                 body.append((l, sc))
         if not body:
             return None
@@ -821,35 +938,87 @@ def selfcheck():
         one["ann_y"] = round((sc[1] + sc[3]) / 2 + 14)
         return one, "かさなり試験の行です", f"注記を y={one['ann_y']} に置く"
 
-    def b15(cid, g, vis):
+    def b15(cid, g, vis, used):
         """🔴 G-15：**素材には在るが窓の外にある行**を注記に名指しさせる。
 
         ⚠️ 「窓の中にある行」を名指しても鳴らない（それが正しい）。**窓の外の行**を探す。
            見つからなければ次のカットへ渡り歩く（[[feedback-verify-your-own-instrument]] 10例目2）。
         """
-        r0 = g["rects"][0.0]
-        r1 = g["rects"][1.0]
-        for ln in g["lines"]:
-            en = re.sub(r"[^A-Za-z ]", " ", ln["text"]).strip()
-            if len(re.sub(r"[^A-Za-z]", "", en)) < NAME_MIN + 2:
-                continue
-            outside = True
-            for r in (r0, r1):
+        def outside(ln, rects):
+            """その行が k=0 と k=1 の**どちらでも**窓に丸ごとは入っていないか。"""
+            for r in rects:
                 s = to_screen(ln["box"], r)
                 if s[0] >= 0 and s[2] <= W and s[1] >= 0 and s[3] <= H:
-                    outside = False
-            if not outside:
+                    return False
+            return True
+
+        base_rects = tuple(g["rects"].values())
+        for ln in g["lines"]:
+            en = re.sub(r"[^A-Za-z ]", " ", ln["text"]).strip()
+            if len(re.sub(r"[^A-Za-z]", "", en)) < NAME_MIN + 2 or en[:40] in used:
                 continue
             one = copy.deepcopy(spec_map[cid])
+            note = f"窓の外の行「{en[:24]}」を注記に名指しさせる"
+            if not outside(ln, base_rects):
+                # 🔴 2026-09-09（⑤c）：trim を通したら**素の切り方で窓の外に出る行**が
+                #    本番から消えた（切り落としたあとの素材は、ほぼ窓に収まる）。
+                #    → **寄って窓を狭めてから**名指す。作る違反は同じ
+                #      「注記が名指した語が、切り出し窓の中に無い」。
+                one["zoom"] = 3.0
+                gg = cut_geom(cid, one, ocr, photo_of, box_of, skip)
+                if not gg or not outside(ln, tuple(gg["rects"].values())):
+                    continue
+                note = f"寄って窓の外へ出した行「{en[:24]}」を名指しさせる（zoom 3.0）"
             one["ann"] = [dict(t=en[:40], d="名指し試験")]
-            return one, en[:40], f"窓の外の行「{en[:24]}」を注記に名指しさせる"
+            return one, en[:40], note
         return None
 
-    ok = probe("G-09", b09)
-    ok &= probe("G-10", b10)
-    ok &= probe("G-13", b13)
-    ok &= probe("G-14", b14)
-    ok &= probe("G-15", b15)
+    # ⚠️ full_only は「その規則が起こりうる置き方」で決める（candidates() の説明を見る）。
+    ok = probe("G-09", b09, full_only=False)
+    ok &= probe("G-10", b10)                       # 画面の左端で切れる＝全画面だけ
+    ok &= probe("G-13", b13)                       # 字幕帯まで届く＝全画面だけ
+    ok &= probe("G-14", b14, full_only=False)
+    ok &= probe("G-15", b15, full_only=False)
+
+    # ── 🔴🔴 2026-09-09（6本目 ⑤c）切り落とし（trim）が判定に届いているか ──────
+    #    この門番は 09-09 まで `trim` を1つも見ておらず、**紙いちめんの原画**を測っていた。
+    #    ⚠️ 「厳しい側に倒れているだけ」ではない。切ったあとに帯へ落ちてくる本物
+    #      （c110 の "Pier 14/15/16"）は**見えていなかった**＝緩い側にも外れる。
+    #    対照は2本立てる：
+    #      (1) **本番の関数と突き合わせる** … `build_jiko.load_photo` が実際に返す絵の
+    #          縦横比と、この門番が使う sw/sh の比が合うか。自作の式どうしを比べても
+    #          両方まちがっていれば通ってしまうので、**本番の関数そのもの**を呼ぶ。
+    #      (2) **切れば黙る／切らなければ残る** … 隅だけ残す trim を入れると行が消え、
+    #          (0,0,1,1) を入れると本番の trim 以上に行が残る。
+    trimmed = [c for c in sorted(spec_map)
+               if trim_of(spec_map[c]) and cut_geom(c, spec_map[c], ocr,
+                                                    photo_of, box_of, skip)]
+    if not trimmed:
+        print("  🔴 trim の付いた写真カットが1枚も無い＝この対照を試せていない")
+        ok = False
+    else:
+        import build_jiko as _B
+        same = []
+        for c in trimmed[:3]:
+            g = cut_geom(c, spec_map[c], ocr, photo_of, box_of, skip)
+            src = _B.load_photo(photo_of[c], box_of[c], trim_of(spec_map[c]), None)
+            same.append(abs(g["sw"] / g["sh"] - src.width / src.height) < 0.01)
+        aspect = all(same)
+        ok &= aspect
+        print(f"  {'✓' if aspect else '🔴'} trim：本番の `load_photo` が返す絵と"
+              f"縦横比が合う（{sum(same)}/{len(same)}カットで照合）")
+
+        c0 = trimmed[0]
+        base = cut_geom(c0, spec_map[c0], ocr, photo_of, box_of, skip)
+        cut = copy.deepcopy(spec_map[c0]); cut["trim"] = (0.0, 0.0, 0.02, 0.02)
+        full = copy.deepcopy(spec_map[c0]); full["trim"] = (0.0, 0.0, 1.0, 1.0)
+        n_cut = len(cut_geom(c0, cut, ocr, photo_of, box_of, skip)["lines"])
+        n_full = len(cut_geom(c0, full, ocr, photo_of, box_of, skip)["lines"])
+        n_base = len(base["lines"])
+        reaches = n_cut < n_base and n_full >= n_base
+        ok &= reaches
+        print(f"  {'✓' if reaches else '🔴'} trim：切れば行が消え、切らなければ残る"
+              f"（{c0}：隅だけ {n_cut}行 ＜ 本番 {n_base}行 ≦ 切らず {n_full}行）")
 
     # ── 🔴🔴 暗幕を「絵」から測っているか（2026-09-07 K-02 の穴の陽性対照）──
     #    ⚠️ SPEC を細工しても絵は変わらないので、**SPEC で黙らせられない**ことを見る。
