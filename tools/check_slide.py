@@ -251,10 +251,48 @@ def run_ocr(files):
     return out
 
 
+# 🔴🔴 2026-09-09（6本目 ⑤b-6）── **OCR は「文字行ではないもの」を文字行として返す。**
+#    `kb_pre_navy12.jpg`（事故前のキー橋・3840×2550）で Windows OCR が
+#    **箱 [48,616-3840,992]＝3792×376px・画像の幅 99%／高さ 15%** に
+#    「越 国 第 物 第 物 ま」という7字を返した。切り出して原寸で見たところ、
+#    そこに在るのは**トラスの斜材の格子**で、焼き込みの文字は1字も無い。
+#    ＝ G-10（行頭が切れる）が c102・c802 で、G-14（重なり）が同2カットで
+#      **無い文字を相手に鳴っていた**。放っておくと⑤cで「幻を追って切り方を動かす」。
+#
+#    → 文字行として有り得ない幾何の「行」を、**理由つきで外して、必ず表に出す**
+#      （`ON_PURPOSE` と同じ作法＝黙って消さない）。
+#    ⚠️ しきい値は当てずっぽうではなく、**本番の OCR 1,327行の実測分布**から採った：
+#         行の高さ ÷ 画像の高さ … 本物の行は 0.024 以下（中央値 0.0156）
+#                                幻は 0.043・0.046・0.053・0.053・0.067・0.067・0.078・0.147
+#         ＝ 0.027 と 0.043 のあいだが空いている。その谷に **0.035** を置く。
+#    ⚠️ これは**粗の判定を緩める変更ではない**（G-13/G-14 の判定式もしきい値も動かしていない）。
+#      入力の側で「そもそも文字行ではないもの」を落としているだけ。陽性対照は `--check` に足した。
+LINE_H_MAX = 0.035      # 行の高さ ÷ 画像の高さ。これを超える「行」は文字行と見なさない
+_DROPPED: list = []     # 外した行（必ず表に出す）
+
+
+def line_is_text(box, size):
+    """その OCR の「行」が、文字行として有り得る幾何か。"""
+    (x0, y0, x1, y1), (_w, h) = box, size
+    return h > 0 and (y1 - y0) / h <= LINE_H_MAX
+
+
 def load_ocr():
     if not OCR_JSON.exists():
         raise SystemExit(f"🔴 {OCR_JSON.name} が無い。先に `python tools/check_slide.py --ocr`")
-    return json.loads(OCR_JSON.read_text(encoding="utf-8"))
+    data = json.loads(OCR_JSON.read_text(encoding="utf-8"))
+    _DROPPED.clear()
+    for name, v in data.items():
+        keep = []
+        for ln in v["lines"]:
+            if line_is_text(ln["box"], v["size"]):
+                keep.append(ln)
+            else:
+                x0, y0, x1, y1 = ln["box"]
+                _DROPPED.append((name, x1 - x0, y1 - y0,
+                                 (y1 - y0) / v["size"][1], ln["text"]))
+        v["lines"] = keep
+    return data
 
 
 # ── 切り方の幾何（build_jiko.fit と同じ式。k を外から渡せるようにしただけ）────
@@ -648,6 +686,23 @@ def selfcheck():
     ocr = load_ocr()
     spec_map, photo_of, box_of, skip = production_inputs()
 
+    # 🔴 2026-09-09（⑤b-6）：文字行の番人の陽性対照・陰性対照。
+    #    ⚠️ ここを緩めると **G-10／G-14 が本物の焼き込みを見なくなる**ので、
+    #      「落とすべきものを落とす」だけでなく「**残すべきものを残す**」も必ず見る。
+    _size = (3840, 2550)                      # kb_pre_navy12.jpg の実寸
+    _ok = True
+    for box, want, why in (
+            ((100, 1000, 900, 1040), True, "本番の行の実測どまんなか"),
+            ((48, 616, 3840, 992), False, "トラスの格子を7字と読んだ幻")):
+        got = line_is_text(box, _size)
+        _ok &= got is want
+        print(f"  {'✓' if got is want else '🔴'} 文字行の番人："
+              f"高さ {box[3] - box[1]}px（画像の {(box[3] - box[1]) / _size[1]:.1%}）＝{why}"
+              f" → {'残る' if got else '落ちる'}"
+              f"（そうあるべき: {'残る' if want else '落ちる'}）")
+    if not _ok:
+        print("  🔴 文字行の番人が壊れている。直してから使う")
+
     def fired(sm, cid, kind, txt):
         """そのカットで、その規則が、**その行／その文字**で鳴ったか。"""
         h, sf = scan(sm, ocr, photo_of, box_of, skip, jobs_for(sm))
@@ -985,6 +1040,12 @@ def main(show_all=False):
         if "--film" in sys.argv:
             for r in sorted(film, key=lambda r: r[0]):
                 print(f"   {r[0]:<6} {r[2]:<18} {r[4]}")
+    # 🔴 文字行として有り得ない幾何で外した「行」は、**必ず数字ごと表に出す**（黙って消さない）
+    if _DROPPED:
+        print(f"⚠️ 文字行と見なさなかった OCR の行 {len(_DROPPED)}件"
+              f"（高さが画像の {LINE_H_MAX:.1%} を超える＝行の形をしていない）")
+        for name, w, h, r, t in sorted(_DROPPED, key=lambda x: -x[3]):
+            print(f"   {name:<28} {w}×{h}px（高さ {r:.1%}）  {t!r}")
     return 1 if hits else 0
 
 
