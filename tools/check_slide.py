@@ -480,9 +480,24 @@ def scan(spec_map, ocr, photo_of, box_of, skip, jobs=None):
         #    ⚠️ 判定は ・（参考）にしてある。実測で **16カット**が入っており、そのうち
         #      原寸で粗と判定されたのは 3件（c213 c410 c901）だけ。残りは情報柱の
         #      裏に隠れるなどして目に立たない。**数だけは必ず表に出す**（下の summary）
+        #    🔴🔴 2026-09-09（6本目 ⑤c）：**`cuts/ss.py` は題材ごとに書き直す**ので、
+        #      キー橋の `ss` には `film_edge` が無い（ネガの素材を1点も使っていない）。
+        #      すると `_ss.film_edge` が AttributeError → 下の except が
+        #      「G-17 測れない」を **63カット全部**に積み、要約はそれを
+        #      **「ネガの縁が窓に入っているカット 63件」と読み替えて出していた**。
+        #      ＝「粗が63件ある」ではなく「**1件も測れていない**」
+        #      （[[feedback-a-gate-that-throws-measures-nothing]]）。
+        #      しかも 63/63＝全件なので、物差しを疑う合図でもあった
+        #      （[[feedback-verify-your-own-instrument]]）。
+        #      → 「当てはまらない」と「測れない」を**別の名前**にして、要約でも分けて出す。
         try:
             import cuts.ss as _ss
             _n = photo_of.get(cid)
+            if _n and not hasattr(_ss, "film_edge"):
+                softs.append((cid, "G-17 この題材には当てはまらない", _n, "focus",
+                              "`cuts.ss` に film_edge が無い＝ネガ（フィルムの黒帯＋"
+                              "縦書きの番号）の素材を使っていない題材"))
+                _n = None
             if _n:
                 _sw, _sh = _ss.size_of(_n)
                 _e = _ss.film_edge(_n)
@@ -1201,7 +1216,11 @@ def main(show_all=False):
     else:
         print(f"✓ 焼き込みの文字と切り方は通った（参考 {len(softs)}件）")
     lab_summary(softs)
-    film = [r for r in softs if r[1].startswith("G-17")]
+    # 🔴 2026-09-09：G-17 は**3つに分けて出す**。以前はどれも `startswith("G-17")` で
+    #    まとめており、「測れていない 63件」を「窓に入っている 63件」と表示していた。
+    film = [r for r in softs if r[1].startswith("G-17 ネガの縁")]
+    na17 = [r for r in softs if r[1].startswith("G-17 この題材")]
+    bad17 = [r for r in softs if r[1].startswith("G-17 測れない")]
     if film:
         print(f"⚠️ ネガの縁（黒帯＋縦書きの番号）が切り出し窓に入っているカット "
               f"{len(film)}件　🔴 には数えない決まりなので、ここで別に出している"
@@ -1209,6 +1228,15 @@ def main(show_all=False):
         if "--film" in sys.argv:
             for r in sorted(film, key=lambda r: r[0]):
                 print(f"   {r[0]:<6} {r[2]:<18} {r[4]}")
+    if na17:
+        print(f"・ G-17（ネガの縁）は**この題材には当てはまらない** {len(na17)}カット"
+              f"（`cuts.ss` に film_edge が無い＝ネガの素材を使っていない）。"
+              f"**粗が {len(na17)}件あるのではない**")
+    if bad17:
+        # ⚠️ ここは「粗が無い」ではなく「測れていない」。数だけは必ず表に出す
+        print(f"🔴 G-17 を**測れなかった**カット {len(bad17)}件"
+              f"（例外で落ちている＝合格ではない）: "
+              + "／".join(sorted({r[4][:60] for r in bad17}))[:200])
     # 🔴 文字行として有り得ない幾何で外した「行」は、**必ず数字ごと表に出す**（黙って消さない）
     if _DROPPED:
         print(f"⚠️ 文字行と見なさなかった OCR の行 {len(_DROPPED)}件"
