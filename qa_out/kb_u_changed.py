@@ -15,8 +15,13 @@ from PIL import Image
 
 sys.stdout.reconfigure(encoding="utf-8")
 HERE = Path(__file__).parent.parent
-A = HERE / "out/jiko/qa_keybridge-r03"
-B = HERE / "out/jiko/qa_keybridge-r04"
+# 🔴 2026-09-10（⑤c' 3巡目）：巡が増えるたびに書き換えていたので引数で受けるようにした。
+#    ⚠️ 既定は**いちばん新しい2つ**ではなく、書いてある2つ（黙って別の巡を比べない）。
+#      `python qa_out/kb_u_changed.py r04 r05 --list`
+_a = [x for x in sys.argv[1:] if not x.startswith("--")]
+A = HERE / f"out/jiko/qa_keybridge-{_a[0] if len(_a) > 0 else 'r03'}"
+B = HERE / f"out/jiko/qa_keybridge-{_a[1] if len(_a) > 1 else 'r04'}"
+print(f"■ 比べる: {A.name} → {B.name}")
 
 
 def diff(pa, pb):
