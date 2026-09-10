@@ -147,6 +147,10 @@ def part_units(pos):
         ts = _texts(sp)
         if pos:
             ts = ts + ["およそ0メートル"]                       # 対照＝全件に換算を足すと 0 件になるか
+        # ⚠️ 2026-09-10（⑤c' 3巡目）：**「20フィート換算」は長さではなく単位の名前**
+        #    （TEU ＝ 20フィートコンテナ何個ぶん）。メートルに直すものが無いので数えない。
+        #    ⚠️ 除外は「多いから」ではなく**中身が違うから**。ここに書いて理由を残す。
+        ts = [t for t in ts if "フィート換算" not in t]
         s = "／".join(ts)
         if "フィート" in s:
             (ok if "メートル" in s else bad).append((cid, [t for t in ts if "フィート" in t]))

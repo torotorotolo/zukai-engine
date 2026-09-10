@@ -150,6 +150,15 @@ jobs:
         continue-on-error: true
         run: python tools/check_wrap.py
 
+      # 🔴 画面の言葉づかい（2026-09-10・6本目 ⑤c' 3巡目で新設）。
+      #    見出しが答えを先に言う／楽屋の言葉／答えの指示語／段ラベルの混在。
+      #    ⚠️ ここに載せないと「単発で回す門番は忘れられる」
+      #      （[[feedback-gates-blind-spot-is-the-scan-direction]]）。`qa_all.py` にも載せてある。
+      - name: Check wording (見出し・答えの言葉づかい)
+        if: inputs.scan != 'true'
+        continue-on-error: true
+        run: python tools/check_wording.py
+
       # 図がナレーションの複写になっていないか（映像ルール6）
       - name: Check echo
         if: inputs.scan != 'true'

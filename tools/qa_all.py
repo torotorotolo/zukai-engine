@@ -53,6 +53,14 @@ GATES = [
     ("chapters", ["tools/check_final.py", "--chapters"],
      "隅の章名が台本と1対1か（前作のまま焼かない）"),
     ("layout", ["tools/check_layout.py"], "文字の位置（枠外・重なり・帯）"),
+    # 🔴 2026-09-10（6本目 ⑤c'【直す】3巡目で新設）**画面の言葉づかい。**
+    #    ⑤c の目視で出した24件のうち5型は設計の文字列だけで機械的に取れる
+    #    （見出しが答えを先に言う／楽屋の言葉／答えの指示語／答えが文／段ラベルの混在）。
+    #    ⚠️ 目視の24件を式にして全216カットへ広げたら **57件**あった
+    #      （[[feedback-scale-one-visual-finding-to-a-full-count]]）。
+    #    ⚠️ 「答えが文」（D型）だけは exit を動かさない。理由は `check_wording.py` の注。
+    ("wording", ["tools/check_wording.py"],
+     "見出しが答えを先に言う・楽屋の言葉・答えの指示語・段ラベルの混在"),
     ("echo", ["tools/check_echo.py"], "図がナレーションの複写になっていないか"),
     ("dup", ["tools/check_dup.py"], "同じ画面で同じ言葉を二度出していないか"),
     ("box", ["tools/check_box.py"], "枠の内側が空いていないか"),
