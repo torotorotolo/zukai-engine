@@ -45,6 +45,10 @@ DPAT = re.compile(r'\sd="([^"]+)"')
 # 地紋（方眼）の色。⚠️ 長さで切ると `mapfig` の縦の地紋（830px）が残るので、色で除く。
 GRID_COLS = {"#22333f"}
 LINE = re.compile(r'<line([^>]*)>')
+# ✅ **原寸の絵を見て「粗ではない」と決めたもの**（⑤c' 4巡目・台帳 §Z-4）。
+#    ⚠️ 黙って外さない。**なぜ通したかを残す**（次の巡が同じ道を通らないため）。
+OK = {("c109", "上に載る重さ"):
+      "原寸で読める。横切るのはトラスの部材そのもの＝図の主題（4周の全数目視でも出ていない）"}
 NUM = re.compile(r"-?\d+(?:\.\d+)?")
 W, H = 1920, 1080
 
@@ -180,14 +184,19 @@ def main(pos=False):
           f"／線 {sum(len(v[1]) for v in bycut.values())}")
     print(f"\n{'カット':6} 貫かれている札（字面の箱）")
     for cid, t, x0, y0, x1, y1 in hits:
-        print(f"  🔴 {cid:6} 「{t[:24]}」 x {x0:.0f}〜{x1:.0f}／y {y0:.0f}〜{y1:.0f}")
-    print(f"\n{'🔴' if hits else '✓'} 線が貫いている札 ＝ {len(hits)} 件")
+        why = OK.get((cid, t))
+        print(f"  {'✅' if why else '🔴'} {cid:6} 「{t[:24]}」"
+              f" x {x0:.0f}〜{x1:.0f}／y {y0:.0f}〜{y1:.0f}"
+              + (f"  ← {why}" if why else ""))
+    left = [h for h in hits if (h[0], h[1]) not in OK]
+    print(f"\n{'🔴' if left else '✓'} 線が貫いている札 ＝ {len(left)} 件"
+          f"（**絵で見て**「粗ではない」と決めた {len(hits) - len(left)} 件を除く）")
     if pos:
         ok = len(hits) >= len(bycut) * 0.9
         print(f"  {'✓' if ok else '🔴'} 陽性対照：カット数（{len(bycut)}）に近い件数が出るはず"
               f"（出た: {len(hits)}）")
         return 0 if ok else 3
-    return 1 if hits else 0
+    return 1 if left else 0
 
 
 if __name__ == "__main__":
