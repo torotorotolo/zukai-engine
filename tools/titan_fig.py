@@ -1698,6 +1698,14 @@ def process(steps, note="", numbered=True, cols=None):
 # ══════════════════════════════════════════════════════════
 # 12. panel — 構造のある文字パネル（引用でない断定）
 # ══════════════════════════════════════════════════════════
+# 🔴 2026-09-10（6本目キー橋 ⑤c' 2巡目・§S-9）：`panel` の**問い→答えの横の空き**。
+#    それまで 540 の決め打ちで、`v` は幅 500 まで伸びるので**空きは 40px しか保証が無かった**。
+#    実測 6組が 50〜63px（`c918` 50・`c917` 54・`c207` 55・`c603` 57・`c521` 59・`c913` 59）。
+#    ＝ 問いがその線まで届いた段が、そのまま答えにぶつかる。
+#    → 500（`v` の最大幅）＋ **100（必ず空ける溝）**。中央値 463px なので大半の段は動かない。
+V_RSV = 600
+
+
 def panel(blocks, lead="", note="", cols=3):
     """箇条を「箱」でなく「柱」で見せる。**第2章・第6章の結論で使う。**
 
@@ -1724,6 +1732,38 @@ def panel(blocks, lead="", note="", cols=3):
         kw = max((fm.width(str(b["k"]), ks, numfam(str(b["k"]), "Dela"))
                   for b in blocks if b.get("k")), default=0.0)
         kcol = 34 + (kw + 40 if kw else 0)
+
+        def _bodysize(b):
+            """その段の本文が単独で取れる級数（折り返しの縮めまで込み）。"""
+            tx0_ = BX0 + (kcol if b.get("k") else 34)
+            av_ = BX1 - tx0_ - (V_RSV if b.get("v") else 0)
+            one_ = fm.fit(str(b["t"]), av_, "Noto",
+                          cap=int(min(140, h * 0.72)), floor=16)
+            bs_ = (one_ if fm.width(str(b["t"]), one_, "Noto") <= av_
+                   else min(52, h * 0.34))
+            nl_ = len(wrap(str(b["t"]), max(6, int(av_ / bs_))))
+            while nl_ > 1 and nl_ * bs_ * 1.5 > h * 0.86 and bs_ > 18:
+                bs_ *= 0.88
+                nl_ = len(wrap(str(b["t"]), max(6, int(av_ / bs_))))
+            return bs_
+
+        # 🔴 2026-09-10（6本目キー橋 ⑤c' 2巡目・§T-4）：**並列のはずの段が、
+        #    長い段ほど小さく出ていた。** `fm.fit` は段ごとに幅で縮めるので、
+        #    同じ役の項目が別の大きさになる（実測 `c103` 74 対 140 ＝ **開き 66px**、
+        #    `c312` 62px、`c807` 49px）。目には「大きいほうが大事」に見える。
+        #    → **段の級数はカットで1つ**。いちばん小さい段に全段をそろえる。
+        #    ⚠️ 「大きいほうに合わせる」は取れない。長い段が枠から出るため。
+        bs_all = min(_bodysize(b) for b in blocks)
+        # 🔴 2026-09-10（同・§S-10）：**答えが問いの 1/4 の高さ**になる段があった
+        #    （`c608` 問い129 対 答え31「その造りのせいではないか」＝そのカットの
+        #    落とし所／`c814` 132 対 35・42）。答えも `fm.fit` が幅 500 で縮めるので、
+        #    **長い答えほど小さくなる**＝問いだけが大きい画になる。
+        #    → 答えを大きくはできない（幅が無い）ので、**問いを 2.5倍までに抑える**。
+        #    ⚠️ 答えが上限 76 に届いている普通の段では 190 > 上限 140 なので**効かない**。
+        _vs = [fm.fit(str(b["v"]), 500, "Dela", cap=min(76, h * 0.50))
+               for b in blocks if b.get("v")]
+        if _vs:
+            bs_all = min(bs_all, min(_vs) * 2.5)
         for i, b in enumerate(blocks):
             y = top + i * h
             c = b.get("c", J.LINE)
@@ -1731,13 +1771,20 @@ def panel(blocks, lead="", note="", cols=3):
             #    「段ごとの細い帯」に割る。⚠️ 飾りの塗りで埋めるのではない
             #    （quote の札で同じことをして効いた＝「札は書類なのだから罫があるほうが
             #    図として正しく、空きも横に割れる」）。
-            s = [rect(BX0, y, 9, h - 22, c),
+            # 🔴 2026-09-10（同・§S-11）：段が1つのカット（`c913`）で、
+            #    **1行の文字の横に、その6倍の長さの色罫**が立っていた（y255〜805＝550px）。
+            #    段が複数あるときの罫は「段の高さ」を表すので正しいが、1段のときは
+            #    段＝枠ぜんたいになるので、罫が中身と無関係な長さになる。
+            #    → 1段のときだけ、罫を**中身の高さ**に合わせて中央へ置く。
+            barh = h - 22 if n > 1 else min(h - 22, max(bs_all, 96) * 2.2)
+            bary = y if n > 1 else y + h * 0.52 - barh * 0.55
+            s = [rect(BX0, bary, 9, barh, c),
                  line(BX0, y + h - 22, BX1, y + h - 22, J.LINE_DIM, 2)]
             if b.get("k"):
                 s.append(txt(BX0 + 34, y + h * 0.52, b["k"], ks, c, "Dela"))
             tx0 = BX0 + (kcol if b.get("k") else 34)
-            # ⚠️ v の場所（右540px）を、v が無いときまで空けていた。
-            rsv = 540 if b.get("v") else 0
+            # ⚠️ v の場所を、v が無いときまで空けていた。
+            rsv = V_RSV if b.get("v") else 0
             avail = BX1 - tx0 - rsv
             # 🔴 器を広げても**中身が短いカットは埋まらない**（c208「圧縮」の2字など）。
             #    1行で収まる短い文は、幅を使い切る級数まで上げる。
@@ -1748,14 +1795,13 @@ def panel(blocks, lead="", note="", cols=3):
             #    のではなく **字が小さすぎて埋まらない**。段の高さは 150〜165px あるのに
             #    上限 96 で頭打ちになっていた。→ 段の高さの 0.72 まで上げる
             #    （0.52→0.72。行の上下に 0.28h の余白が残るので隣の段に触れない）。
-            one = fm.fit(str(b["t"]), avail, "Noto", cap=int(min(140, h * 0.72)),
-                         floor=16)
-            bs = one if fm.width(str(b["t"]), one, "Noto") <= avail else                 min(52, h * 0.34)
             # 🔴 2026-08-04：**折り返したときの高さを見ていなかった。**
             #    本文は「幅に収まる級数」だけで決めていたので、2行に折れると
             #    2行目が段の外（＝いちばん下の段では枠の外）へ落ちた。
             #    → 行数を数えて、段の真ん中で上下に振り分ける。
             #      それでも収まらなければ級数を落とす（幅ではなく**高さ**で決める）。
+            # ⚠️ 級数そのものは上の `bs_all`（カットで1つ）。ここでは行数だけ数える。
+            bs = bs_all
             nl = len(wrap(str(b["t"]), max(6, int(avail / bs))))
             while nl > 1 and nl * bs * 1.5 > h * 0.86 and bs > 18:
                 bs *= 0.88
@@ -1792,6 +1838,19 @@ def panel(blocks, lead="", note="", cols=3):
         rows = max(1, math.ceil(n / cols))
         cw = (BW - 30 * (cols - 1)) / cols
         rh = (BY1 - top - (44 if note else 0)) / rows
+
+        # 🔴 §T-4（上の柱と同じ理由）：格子でも並列項目は**カットで1つの級数**。
+        #    実測 `ca12` 72/72/72/**56**（「作業員へ知らせる手段の欠如」だけ小さい）。
+        def _cellsize(b):
+            kx_ = 0.0
+            if b.get("k"):
+                ks_ = min(84, rh * 0.34)
+                kx_ = fm.width(str(b["k"]), ks_,
+                               numfam(str(b["k"]), "Dela")) + ks_ * 0.5
+            return fm.fit(str(b["t"]), cw - 20 - kx_, "Noto",
+                          cap=int(min(72, rh * 0.26)), floor=18)
+
+        bs_cell = min(_cellsize(b) for b in blocks)
         for i, b in enumerate(blocks):
             x = BX0 + (i % cols) * (cw + 30)
             y = top + (i // cols) * rh
@@ -1806,8 +1865,7 @@ def panel(blocks, lead="", note="", cols=3):
             # 数値は右下に置く。場所は数値があるときだけ空ける
             vs = min(96, rh * 0.34) if b.get("v") else 0
             avail = cw - 20 - kx
-            bs = fm.fit(str(b["t"]), avail, "Noto",
-                        cap=int(min(72, rh * 0.26)), floor=18)
+            bs = bs_cell
             body, _ = para(x + kx, y + (rh * 0.30 if b.get("k") else rh * 0.26),
                            b["t"], cols=max(6, int(avail / bs)), size=bs,
                            col=J.INK_W)
@@ -2706,6 +2764,18 @@ def people(nodes, edges=None, note="", lead=""):
         else:
             s.append(arrow(a2[0], a2[1], b2[0], b2[1], c, 6, 24))
         stages.append("".join(s))
+    # 🔴 2026-09-10（6本目キー橋 ⑤c' 2巡目・§S-7）：**箱の小見出しが、題以上に出ていた**
+    #    ＝ 6組 / 4カット（`c711` 箱1 は 題29 対 小見出し41）。
+    #    `TS_CAP` 56 / `DS_CAP` 34 と題を大きく取る設計なのに、どちらも幅で縮むので
+    #    **題が長い箱だけ題が縮む**。並列の節どうしでも大きさが割れる（§T-4 と同じ型）。
+    #    → ① 題の級数は**カットで1つ**（いちばん小さい節にそろえる）
+    #      ② 小見出しは**題を超えない**（`min`）。
+    def _node_ts(n):
+        gs_ = min(GS, bh - 48, bw * 0.34) if n.get("kind") else 0.0
+        return fm.fit(str(n["t"]), bw - 52 - (gs_ + 26 if gs_ else 0),
+                      "Noto", cap=TS_CAP, floor=20)
+
+    ts_all = min(_node_ts(n) for n in nodes) if nodes else TS_CAP
     for n in nodes:
         x, y = x0 + w * n["x"], y0 + h * (n["y"] + _shift)
         c = n.get("c", J.LINE)
@@ -2717,8 +2787,9 @@ def people(nodes, edges=None, note="", lead=""):
         #    左詰めだと空きが片側にまとまるので「穴」になる。中央に置けば両側に割れる。
         gs = min(GS, bh - 48, bw * 0.34) if n.get("kind") else 0.0
         tw_max = bw - 52 - (gs + 26 if gs else 0)
-        ts = fm.fit(str(n["t"]), tw_max, "Noto", cap=TS_CAP, floor=20)
-        ds = fm.fit(str(n.get("d", "")), tw_max, "Noto", cap=DS_CAP, floor=18) if n.get("d") else 0
+        ts = ts_all
+        ds = min(ts, fm.fit(str(n.get("d", "")), tw_max, "Noto",
+                            cap=DS_CAP, floor=18)) if n.get("d") else 0
         tw = max(fm.width(str(n["t"]), ts, "Noto"),
                  fm.width(str(n.get("d", "")), ds, "Noto") if ds else 0)
         cw_ = (gs + 26 if gs else 0) + tw

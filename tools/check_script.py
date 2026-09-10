@@ -277,6 +277,25 @@ def report(cuts):
         if not 1 <= len(ls) <= 3:
             E.append('E %s の行数が %d（1〜3行）' % (cid, len(ls)))
 
+    # 🔴 2026-09-10（6本目キー橋 ⑤c' 2巡目・§T-9-1）：**句点の様式を規則として書く。**
+    #    ⑤c の目視で「22カットだけ最終行に句点が無い。様式か、揃っていないだけか」と
+    #    保留になった。全443行を数えると、句点の無い52行の内訳は
+    #      ・読点で次の行へ続く … 30行（句点を打たないのが正しい）
+    #      ・**カットの最終行** … 22行（短い言い切り）
+    #      ・**カットの途中の行 … 0行**
+    #    22行が偶然すべて最終行に落ちることはない ＝ **設計**。よって様式として確定した。
+    #    ⚠️ 規則がどこにも書かれていなかったので、ここに門番を足す
+    #    （[[feedback-rules-need-gates]]。検査の無い規則は次の回で崩れる）。
+    #    規則 ＝ **句点で終わらない行は、読点で続く行か、カットの最終行のどちらか**。
+    for cid, _, ls in cuts:
+        for i, l in enumerate(ls):
+            t = clean(l)
+            if not t or t.endswith('。') or t.endswith('、') or t.endswith('，'):
+                continue
+            if i != len(ls) - 1:
+                E.append('E %s の途中の行が句点でも読点でも終わっていない: %s'
+                         % (cid, t))
+
     # 決め所はカットの最後の行に置く（with_last のため）
     for cid, _, ls in cuts:
         idx = [i for i, l in enumerate(ls) if STAR_RE.match(l)]

@@ -690,30 +690,57 @@ def photo_ann(spec):
         y += a.get("dy", 0)
         s = []
         ts = 0.0
+        dsize = 0.0
+        # 🔴 2026-09-09（6本目キー橋 ⑤c'・型⑩「ラベルより中身が小さい」）：
+        #    **`v` が無い段では `d` が答えそのもの**なのに、ラベル（`ts` 46）より
+        #    小さい（`ds` 26〜34）ので、**問いのほうが大きく明るい**画になっていた。
+        #    実測 61組・47カット（`c101`「渡していたもの」46px 対
+        #    「パタプスコ川とボルチモア港の出口」32px を原寸で確認）。
+        #    ⚠️ `v` がある段の `d` は本当の補足なので触らない（17組はそのまま）。
+        #    ⚠️ 引き継ぎは「型⑩は `titan_fig.panel()` の cap 140/76 で直る」と
+        #      書いていたが、測ると別の場所だった。`panel` 側で値が小さいのは
+        #      `c808` の1件だけ（46 対 44）。
+        # 🔴 2026-09-10（⑤c' 2巡目・§S-2）：**上の直しは「同じ大きさ」で止まっていた。**
+        #    `fit` は幅で縮めるので、長い答えはラベル 46 まで上がりきらず
+        #    **6組が今もラベルより小さい**（`c904` 35対46・`pr01` 38・`c101` `c110`
+        #    `c409` `c516` が 43）。答えを上げられないなら**ラベルを下げる**。
+        #    → 答えの級数を先に出し、ラベルの上限にする（`min`）。
+        d_is_answer = bool(a.get("d")) and not a.get("v")
         if a.get("t"):
             ts = fm.fit(a["t"], maxw, "Noto", cap=a.get("ts", 46), floor=24)
+        if d_is_answer:
+            dsize = fm.fit(a["d"], maxw, "Noto",
+                           cap=max(a.get("ds", 34), ts), floor=22)
+            if ts:
+                ts = min(ts, dsize)
+        if a.get("t"):
             s.append(J.outlined(x, y, a["t"], a.get("c", J.INK_W), ts, anchor,
                                 sw=max(6, ts * 0.17)))
             y += ts + 18
+        d_top = None
         if a.get("v"):
             size = fm.fit(a["v"], maxw, "Dela", cap=a.get("vs", 96), floor=30)
-            s.append(J.outlined(x, y + size * 0.20, a["v"], a.get("vc", J.AMBER),
+            vbase = y + size * 0.20
+            s.append(J.outlined(x, vbase, a["v"], a.get("vc", J.AMBER),
                                 size, anchor, sw=max(7, size * 0.15), family="Dela"))
+            if a.get("d"):
+                # 🔴 2026-09-10（⑤c' 2巡目・§R-14）：**補足が、自分の答えより
+                #    「下の見出し」に近い**（実測 11カット。上 59〜86px 対 下 24〜28px）。
+                #    真因は `y += size + 26` が**級数ぶん**送ること。Dela の数字は
+                #    字面が級数よりずっと低いので、級数の大きい段ほど下が空く。
+                #    ⚠️ `fm.ink()` で**字面の下端**を実測して送る（比の決め打ちはしない）。
+                #    ⚠️ ここで送る `y` は「次の**字面の上**」なので、`d` 側で
+                #      字面の上端ぶん足してベースラインへ直す。
+                #    ⚠️ 26 だと「下の見出しまで 24〜26px」と**並んで**しまい、
+                #      どちらの組か決められない（1回それで直したつもりになった）。
+                #      補足は自分の答えのほうへ寄せる ＝ **下より狭い 16**。
+                d_top = vbase + fm.ink(str(a["v"]), size, "Dela")[1] + 16
             y += size + 26
         if a.get("d"):
-            # 🔴 2026-09-09（6本目キー橋 ⑤c'・型⑩「ラベルより中身が小さい」）：
-            #    **`v` が無い段では `d` が答えそのもの**なのに、ラベル（`ts` 46）より
-            #    小さい（`ds` 26〜34）ので、**問いのほうが大きく明るい**画になっていた。
-            #    実測 61組・47カット（`c101`「渡していたもの」46px 対
-            #    「パタプスコ川とボルチモア港の出口」32px を原寸で確認）。
-            #    ⚠️ `v` がある段の `d` は本当の補足なので触らない（17組はそのまま）。
-            #    ⚠️ 引き継ぎは「型⑩は `titan_fig.panel()` の cap 140/76 で直る」と
-            #      書いていたが、測ると別の場所だった。`panel` 側で値が小さいのは
-            #      `c808` の1件だけ（46 対 44）。
-            dcap = a.get("ds", 34)
-            if not a.get("v") and ts:
-                dcap = max(dcap, ts)
-            size = fm.fit(a["d"], maxw, "Noto", cap=dcap, floor=22)
+            size = dsize or fm.fit(a["d"], maxw, "Noto",
+                                   cap=a.get("ds", 34), floor=22)
+            if d_top is not None:
+                y = d_top + fm.ink(str(a["d"]), size, "Noto")[0]
             s.append(J.outlined(x, y, a["d"], a.get("dc", J.LINE), size, anchor,
                                 sw=max(5, size * 0.17)))
             y += size + 16

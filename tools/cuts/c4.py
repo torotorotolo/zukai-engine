@@ -29,7 +29,8 @@ SPEC = {
         fig=("moment", dict(
             clock="0125:00", label="低圧の母線",
             facts=[dict(t="衝突までの残り", v="−4:09", c=J.ALERT),
-                   dict(t="報告書の書き方", v="括弧に残り時間", c=J.DOC)],
+                   # 🔴 §S-15-4：「報告書の書き方」は4か所で別のものを指していた
+                   dict(t="時刻の書き方", v="括弧に残り時間", c=J.DOC)],
             sub="報告書 p.35")),
     ),
 
@@ -331,7 +332,8 @@ SPEC = {
         s="報告書 p.37　ダリの航跡",
         photo=ss.page(37), **ss.kind(ss.page(37)), side="right", ann_y=336,
         ann=[dict(t="時刻", v="0127:02", vc=J.AMBER, vs=104),
-             dict(t="橋まで", v="1,500 ft", vc=J.AMBER, vs=88),
+             # 🔴 §R-11：半角 `ft` を「フィート」へ（`c104` の注を見る）
+             dict(t="橋まで", v="1,500フィート", vc=J.AMBER, vs=88),
              dict(t="狙い", v="船を止める", vc=J.INK_W, vs=80)],
     ),
 
@@ -370,7 +372,8 @@ SPEC = {
         # ⚠️ 3段の真ん中に `d` を足すとかたまりが伸び、3段目が出典の行に重なった
         #    （c307 と同じ症状。⑤b-2 で実測）。
         ann=[dict(t="時刻", v="0127:46", vc=J.AMBER, vs=104),
-             dict(t="橋まで（全長は984フィート）", v="939 ft", vc=J.ALERT,
+             # 🔴 §R-11：半角 `ft` を「フィート」へ（`c104` の注を見る）
+             dict(t="橋まで（全長は984フィート）", v="939フィート", vc=J.ALERT,
                   vs=96),
              dict(t="速力", v="7.5ノット", vc=J.AMBER, vs=72)],
     ),
