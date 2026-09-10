@@ -2768,14 +2768,12 @@ def people(nodes, edges=None, note="", lead=""):
     #    ＝ 6組 / 4カット（`c711` 箱1 は 題29 対 小見出し41）。
     #    `TS_CAP` 56 / `DS_CAP` 34 と題を大きく取る設計なのに、どちらも幅で縮むので
     #    **題が長い箱だけ題が縮む**。並列の節どうしでも大きさが割れる（§T-4 と同じ型）。
-    #    → ① 題の級数は**カットで1つ**（いちばん小さい節にそろえる）
-    #      ② 小見出しは**題を超えない**（`min`）。
-    def _node_ts(n):
-        gs_ = min(GS, bh - 48, bw * 0.34) if n.get("kind") else 0.0
-        return fm.fit(str(n["t"]), bw - 52 - (gs_ + 26 if gs_ else 0),
-                      "Noto", cap=TS_CAP, floor=20)
-
-    ts_all = min(_node_ts(n) for n in nodes) if nodes else TS_CAP
+    #    → **小見出しは題を超えない**（`min`）。
+    # ⚠️ **1度やりすぎた。** 「並列の節なのだから題の級数もカットで1つ（最小にそろえる）」
+    #    にしたら、実測で `ca07` 79/27/35 → **27/27/27**、`c506` 79/49/44 → 44/44/44、
+    #    `pr11` 48 → **20** と、いちばん長い1つに引きずられて**全部が小さくなった**。
+    #    節は `panel` の段と違って**箱ごとに独立した器**（幅は共通でも中身の役は別）なので、
+    #    そろえる理由が無い。§S-7 の粗は「1つの箱の中で小見出しが題より大きい」だけ。
     for n in nodes:
         x, y = x0 + w * n["x"], y0 + h * (n["y"] + _shift)
         c = n.get("c", J.LINE)
@@ -2787,7 +2785,7 @@ def people(nodes, edges=None, note="", lead=""):
         #    左詰めだと空きが片側にまとまるので「穴」になる。中央に置けば両側に割れる。
         gs = min(GS, bh - 48, bw * 0.34) if n.get("kind") else 0.0
         tw_max = bw - 52 - (gs + 26 if gs else 0)
-        ts = ts_all
+        ts = fm.fit(str(n["t"]), tw_max, "Noto", cap=TS_CAP, floor=20)
         ds = min(ts, fm.fit(str(n.get("d", "")), tw_max, "Noto",
                             cap=DS_CAP, floor=18)) if n.get("d") else 0
         tw = max(fm.width(str(n["t"]), ts, "Noto"),
