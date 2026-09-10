@@ -45,7 +45,10 @@ for pa in sorted(A.glob("cut_*.jpg")):
 
 rows.sort(reverse=True)
 changed = [r for r in rows if r[0] > 0.05]
-print(f"突き合わせ {len(rows)} カット（r03 対 r04）")
+# ⚠️ 2026-09-10：ここに「r03 対 r04」と**手で書いた巡の名**が残っていて、
+#    r04 対 r05 を比べているのに r03 対 r04 と印字していた
+#    （[[feedback-gates-go-stale-when-upstream-changes]]）。名前は引数から出す。
+print(f"突き合わせ {len(rows)} カット（{A.name} 対 {B.name}）")
 print(f"  絵が変わった（差>16 の画素が 0.05% 超） … {len(changed)}")
 print(f"  変わっていない                          … {len(rows) - len(changed)}")
 if missing:
