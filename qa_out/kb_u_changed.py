@@ -15,8 +15,8 @@ from PIL import Image
 
 sys.stdout.reconfigure(encoding="utf-8")
 HERE = Path(__file__).parent.parent
-A = HERE / "out/jiko/qa_keybridge-r02"
-B = HERE / "out/jiko/qa_keybridge-r03"
+A = HERE / "out/jiko/qa_keybridge-r03"
+B = HERE / "out/jiko/qa_keybridge-r04"
 
 
 def diff(pa, pb):
@@ -40,7 +40,7 @@ for pa in sorted(A.glob("cut_*.jpg")):
 
 rows.sort(reverse=True)
 changed = [r for r in rows if r[0] > 0.05]
-print(f"突き合わせ {len(rows)} カット（r02 対 r03）")
+print(f"突き合わせ {len(rows)} カット（r03 対 r04）")
 print(f"  絵が変わった（差>16 の画素が 0.05% 超） … {len(changed)}")
 print(f"  変わっていない                          … {len(rows) - len(changed)}")
 if missing:
