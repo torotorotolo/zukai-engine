@@ -10,6 +10,7 @@
     C 見出しと答えが指示語で始まる／指示語しか指さない（台帳 §V-16・5件）
     D 答えが名詞句でない（動詞終止・読点入りの文）    （台帳 §V-17・11件）
     E 段ラベルが1枚の中で通し番号とそれ以外で混ざる   （台帳 §V-25・2件）
+    F 画面にカット番号が出ている                      （台帳 §X-1-1・1件）
 
   ⚠️ **絵を見ないと決まらない粗（§V-18 写っていないものを名乗る／§V-19 絵と時点の食い違い）は
      ここには入らない。** 門番にできないので ⑤c' で人が絵を見て決める。
@@ -65,6 +66,40 @@ NOT_VERB = ("見立て", "手はず", "気配", "しるし")
 
 NUM = re.compile(r"^[0-9,.]+$")
 
+# ── A 数字の答えの境目 ──────────────────────────────────────────
+# 🔴🔴 旧版は `if len(v) < 3 or NUM.match(v): continue` で、
+#    **数字の答えを A の判定から丸ごと外していた**（台帳 §Y-3-1）。
+#    そのせいで「176」「6人」「1人」「南」が1件も出ず、門番は「A ＝ 0件」を出し続けた
+#    ＝ [[feedback-gates-go-stale-when-upstream-changes]]（門番は黙って間違った合格を出す）。
+#
+#    数字を見るようにすると、こんどは「4」が「3万4千台」の中に当たる偽陽性が出る。
+#    → **数字で始まる／終わる答えは、前後が数の字でないときだけ数える**（＝語としての一致）。
+#      本編216カットの全件に当てて線を決めた（[[feedback-gate-threshold-from-ledger-split]]）：
+#        minlen=3（旧）… 2件   ＝ 台帳が挙げた11件のうち9件を落とす
+#        minlen=2      … 11件  ＝ 台帳 §Y-2 の11件と**完全一致**
+#        minlen=1      … 12件  ＝ 上の11件＋`c515`「南」（§X-5 の 🔴）。**偽陽性 0**
+#      → **minlen=1** を採る。1字の答えでも、境目を見るかぎり空振りしなかった。
+NUMCH = set("0123456789,.万千百十億兆")
+
+
+def head_says(v, head):
+    """見出し／副題 `head` が、答え `v` をそのまま先に言っているか。
+
+    ⚠️ ただの `v in head` にしない。数字は前後を見て、**語として**当たったときだけ数える
+       （`4` が `3万4千台` の中に出るのは一致ではない）。
+    """
+    if not v or not head:
+        return False
+    i = head.find(v)
+    while i >= 0:
+        before = head[i - 1] if i else ""
+        after = head[i + len(v)] if i + len(v) < len(head) else ""
+        if not (v[0].isdigit() and before in NUMCH) and \
+                not (v[-1].isdigit() and after in NUMCH):
+            return True
+        i = head.find(v, i + 1)
+    return False
+
 
 def answers(sp):
     """そのカットの「答え」を (どこ, 字面) で返す。
@@ -99,6 +134,36 @@ def questions(sp):
     return out
 
 
+def screen_texts(sp):
+    """そのカットで**画面に出る**文字列を全部返す。
+
+    ⚠️ `repr(sp)` を検索しない。色の定数名や欄の名前まで当たる
+       （[[feedback-verify-your-own-instrument]]：`"ft"` が `left` に当たった前科）。
+       欄の**値**だけを歩く。
+    """
+    out = []
+    for k in ("t", "s"):
+        if sp.get(k):
+            out.append((k, str(sp[k])))
+    for i, a in enumerate(sp.get("ann", []) or []):
+        for k in ("t", "v", "d"):
+            if a.get(k):
+                out.append((f"ann{i + 1}.{k}", str(a[k])))
+    f = sp.get("fig")
+    if f:
+        def walk(o, where):
+            if isinstance(o, dict):
+                for k, v in o.items():
+                    walk(v, f"{where}.{k}")
+            elif isinstance(o, (list, tuple)):
+                for j, v in enumerate(o):
+                    walk(v, f"{where}[{j}]")
+            elif isinstance(o, str) and o.strip():
+                out.append((where, o))
+        walk(f[1], f[0])
+    return out
+
+
 def labels(sp):
     f = sp.get("fig")
     if not f or f[0] != "panel":
@@ -106,19 +171,19 @@ def labels(sp):
     return [str(b["k"]) for b in (f[1].get("blocks", []) or []) if b.get("k")]
 
 
-def scan(spec, minlen=3):
+def scan(spec, minlen=1):
     """(型, カット, 欄, 字面, ひとこと) の並びを返す。"""
     hits = []
     for cid, sp in spec.items():
         t, s = str(sp.get("t", "")), str(sp.get("s", ""))
         ans = answers(sp)
 
-        # A 見出し・副題が答えを先に言う
+        # A 見出し・副題が答えを先に言う（⚠️ 数字の答えも見る。上の NUMCH の注を読む）
         for where, v in ans:
-            if len(v) < minlen or NUM.match(v):
+            if len(v) < minlen:
                 continue
             for name, head in (("見出し", t), ("副題", s)):
-                if v and v in head:
+                if head_says(v, head):
                     hits.append(("A", cid, where, v,
                                  f"{name}「{head}」が答えをそのまま含む"))
 
@@ -148,6 +213,18 @@ def scan(spec, minlen=3):
             if why:
                 hits.append(("D", cid, where, v, why))
 
+        # F 画面にカット番号が出ている（🔴🔴 台帳 §X-1-1）
+        #   ⚠️ B（楽屋の言葉）は**語の一覧**で見るので、カット番号には鳴らなかった。
+        #      `c415` の `ref`「c403 と同じ物差し」を4周目の目視でやっと拾った。
+        #   ⚠️ 正規表現で `c\d{3}` を探すのではなく、**SPEC の鍵そのもの**を探す
+        #      （報告書の図番号や型式に当たる偽陽性を出さないため）。
+        for where, txt in screen_texts(sp):
+            for other in spec:
+                if other in txt:
+                    hits.append(("F", cid, where, txt,
+                                 f"画面にカット番号「{other}」が出ている"))
+                    break
+
         # E 段ラベルの混在
         ks = labels(sp)
         if ks:
@@ -160,7 +237,8 @@ def scan(spec, minlen=3):
 
 
 NAMES = {"A": "見出し・副題が答えを先に言う", "B": "楽屋の言葉",
-         "C": "指示語", "D": "答えが名詞句でない", "E": "段ラベルの混在"}
+         "C": "指示語", "D": "答えが名詞句でない", "E": "段ラベルの混在",
+         "F": "画面にカット番号が出ている"}
 
 # 🔴 exit を動かす型（＝焼く前に 0件でなければならないもの）。
 # ⚠️ **D は入れない。** 全216カットに当てると31件出るが、その多くは
@@ -171,7 +249,7 @@ NAMES = {"A": "見出し・副題が答えを先に言う", "B": "楽屋の言�
 #    → D は**数えて必ず画面に出すが、exit は動かさない**。⑤c の目視で1件ずつ決める。
 #    ⚠️ 「数が多いから黙らせる」ではない。黙らせたら忘れられる
 #      （[[feedback-gates-blind-spot-is-the-scan-direction]]）ので、毎回出す。
-BLOCKING = "ABCE"
+BLOCKING = "ABCEF"
 
 
 def main(show_all=False):
@@ -179,7 +257,7 @@ def main(show_all=False):
     print(f"■ cuts: {Path(sys.modules['cuts'].__file__).resolve()}／SPEC {len(SPEC)} カット")
     hits = scan(SPEC)
     bad = [h for h in hits if h[0] in BLOCKING]
-    for kind in "ABCDE":
+    for kind in "ABCDEF":
         rows = [h for h in hits if h[0] == kind]
         mark = "" if kind in BLOCKING else "（⚠️ 目視で決める。exit は動かさない）"
         print(f"\n── {kind}. {NAMES[kind]} ＝ {len(rows)} 件{mark}")
@@ -224,6 +302,43 @@ def selftest():
         fig=("panel", dict(blocks=[dict(k="1", t="なぜ", v="工事のため"),
                                    dict(k="2", t="いつ", v="休憩中")])))}
     say(not scan(good), f"陰性対照は0件（出た: {scan(good)}）")
+
+    # 🔴🔴 A の数字（台帳 §Y-3-1）── **鳴る側と黙る側を両方**確かめる。
+    #    件数だけの対照は、もともと全件該当の指標では動かない
+    #    （[[feedback-verify-your-own-instrument]]）ので、**どのカットが出たか**で見る。
+    num = {"zz04": dict(t="全国で、176ある", s="",
+                        fig=("panel", dict(blocks=[dict(k="1", t="同じ造りの橋",
+                                                        v="176")]))),
+           "zz05": dict(t="もう1人、見て回っていた", s="",
+                        fig=("panel", dict(blocks=[dict(k="1", t="巡回",
+                                                        v="1人")]))),
+           "zz06": dict(t="向かう先は、南だっただろう", s="",
+                        fig=("panel", dict(blocks=[dict(k="1", t="針路",
+                                                        v="南")])))}
+    got = {c for k, c, *_ in scan(num) if k == "A"}
+    say(got == {"zz04", "zz05", "zz06"},
+        f"陽性対照：数字・1字の答え3件が A で鳴る（出た: {sorted(got)}）")
+
+    # 🔴🔴 F の対照（台帳 §X-1-1）── 画面にカット番号
+    #    ⚠️ 陽性対照は「鳴った」ことを**どのカットが出たか**で見る。
+    f_bad = {"c403": dict(t="あ", s="い"),
+             "c415": dict(t="あ", s="い",
+                          fig=("compare", dict(ref="c403 と同じ物差し")))}
+    got = {c for k, c, *_ in scan(f_bad) if k == "F"}
+    say(got == {"c415"}, f"陽性対照：`ref` のカット番号が F で鳴る（出た: {sorted(got)}）")
+    # 陰性対照：報告書のページ番号・型式番号には鳴らない
+    f_ok = {"c403": dict(t="あ", s="い"),
+            "zz08": dict(t="報告書 p.403", s="MIR-25-40",
+                         ann=[dict(t="端子台", v="381")])}
+    say(not [x for x in scan(f_ok) if x[0] == "F"],
+        f"陰性対照：ページ番号・型式には鳴らない（出た: "
+        f"{[x for x in scan(f_ok) if x[0] == 'F']}）")
+
+    # 陰性対照：数字が長い数の**中**に出るだけなら鳴らない（`4` ⊂ `3万4千台`）
+    ins = {"zz07": dict(t="1日に3万4千台が通った", s="",
+                        ann=[dict(t="車の数", v="4")])}
+    say(not [x for x in scan(ins) if x[0] == "A"],
+        f"陰性対照：`4` が「3万4千台」の中に当たっても鳴らない（出た: {scan(ins)}）")
 
     # ⚠️ 「見立て」のように名詞で終わるのに末尾が動詞に見える語を黙らせているか
     say(not [x for x in scan({"zz03": dict(t="あ", s="い",

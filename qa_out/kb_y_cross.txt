@@ -1,0 +1,11 @@
+■ 画は本番と同じ経路: C:\Users\konar\Desktop\zukai-engine\tools\scene_jiko.py の build_layers()
+■ 字面: C:\Users\konar\Desktop\zukai-engine\tools\fontmetrics.py／モード: 実測
+
+■ 測ったカット 216／札 2390／線 1020
+
+カット    貫かれている札（字面の箱）
+  🔴 c109   「上に載る重さ」 x 864〜1056／y 536〜566
+  🔴 c513   「第16径間」 x 350〜492／y 382〜414
+  🔴 c613   「車が通るのは、骨組みの中」 x 212〜548／y 753〜780
+
+🔴 線が貫いている札 ＝ 3 件

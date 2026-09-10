@@ -566,6 +566,14 @@ BAND_CY = 560           # 帯写真の縦中心
 #    **長い副題と重なる**（123便で7件検出）。出典は額の真下に置くのが正しい。
 PANEL_MAXW, PANEL_MAXH = 1120, J.BAND_B - J.BAND_T - 34   # 1120 × 648
 PANEL_GAP = 56                                       # 写真と注記のあいだ
+# 🔴 注記の段と段のあいだ（字面どうし）。台帳 §Y-5 の `c908` で
+#    **段内 16px 対 段間 22.6px** ＝ 6px しか違わず、3段が1つのかたまりに見えていた。
+#    ⚠️ 狭いところだけ広げる（広い段はそのまま。詰めると下の空きが増える）。
+BLOCK_GAP = 34
+# 🔴 注記の「ラベルの墨の下」と「答えの墨の上」のすき間（台帳 §Y-2 の実測から）。
+#    `vs=88` の段は 10〜15px あって読めていて、`vs=96` の 6px は「縁取りが食い込む」。
+#    ⚠️ ここは**墨どうし**の値。縁取り（BG 色）はこの外へさらに 6〜9px ずつ広がる。
+V_GAP = 12
 PANEL_CRED_Y = J.BAND_B - 4                          # 額の下に出す出典の位置
 
 
@@ -679,6 +687,7 @@ def photo_ann(spec):
             maxw = (px - PANEL_GAP) - J.MG
         y = spec.get("ann_y", J.BAND_T + 34)
     out = []
+    last_bot = None                  # 直前に描いた字面の下端（段と段のあいだを測るため）
     for a in spec.get("ann", []):
         # 🔴 2026-09-06（⑤c' 直す #2）：**段ごとに縦へずらせるようにした**。
         #   なぜ：スライドの箇条を指して「1つめ／2つめ／3つめ」と言うカット
@@ -713,16 +722,44 @@ def photo_ann(spec):
                            cap=max(a.get("ds", 34), ts), floor=22)
             if ts:
                 ts = min(ts, dsize)
+        lab_bot = None
         if a.get("t"):
+            # 🔴 2026-09-10（⑤c' 4巡目・台帳 §Y-5 `c908`）：**段の切れ目が読めなかった。**
+            #    実測（`c908`）＝ **段内 16px 対 段間 22.6px**。6px しか違わないので、
+            #    3つの段が9行の1つのかたまりに見える。
+            #    ⚠️ 段間は本番でも **22.6〜90.5px** とばらばら（`d` の有無と級数で決まる）。
+            #    → **狭いところだけ広げる**。広い段はそのまま（詰めると下の空きが増える）。
+            #    ⚠️ V_GAP と同じで `max` の片側だけ動かす。全部そろえる直しは採らない。
+            if last_bot is not None:
+                want = last_bot + BLOCK_GAP + fm.ink(str(a["t"]), ts, "Noto")[0]
+                y = max(y, want)
             s.append(J.outlined(x, y, a["t"], a.get("c", J.INK_W), ts, anchor,
                                 sw=max(6, ts * 0.17)))
+            lab_bot = last_bot = y + fm.ink(str(a["t"]), ts, "Noto")[1]
             y += ts + 18
         d_top = None
         if a.get("v"):
             size = fm.fit(a["v"], maxw, "Dela", cap=a.get("vs", 96), floor=30)
             vbase = y + size * 0.20
+            # 🔴🔴 2026-09-10（⑤c' 4巡目・台帳 §Y-1-3／§Y-2）：
+            #    **ラベルの墨と答えの墨が重なっていた。** `pr08`（`vs=112`）で実測 **-3px**。
+            #    真因はこの `vbase = y + size * 0.20`。答えの字面の上端は
+            #    `vbase - ink()[0]` ＝ **y より 0.5〜0.6級数ぶん上**に来るので、
+            #    **級数を上げるほど答えが上のラベルへ食い込む**（送り `y` は級数に依らない）。
+            #    実測（墨どうし・色で分けて測った台帳 §Y-2 と一致）：
+            #      120px `pr01` -4.7 ／ 112px `pr08` -4.3 ／ 104px 0〜2 ／ 96px 6 ／ 88px 10〜15
+            #    ＝ **26カット29組**が該当。1枚ずつ触らず、ここで1回で直す。
+            #    → 字面で置く：**ラベルの字面の下から V_GAP 下に、答えの字面の上**が来る。
+            #    ⚠️ 下へずらしたぶんは `y` にも足す（次の段との間隔を変えないため）。
+            #    ⚠️ 上へは動かさない（`max(0, …)`）。空きが広い段はそのまま。
+            if lab_bot is not None:
+                want = lab_bot + V_GAP + fm.ink(str(a["v"]), size, "Dela")[0]
+                drop = max(0.0, want - vbase)
+                vbase += drop
+                y += drop
             s.append(J.outlined(x, vbase, a["v"], a.get("vc", J.AMBER),
                                 size, anchor, sw=max(7, size * 0.15), family="Dela"))
+            last_bot = vbase + fm.ink(str(a["v"]), size, "Dela")[1]
             if a.get("d"):
                 # 🔴 2026-09-10（⑤c' 2巡目・§R-14）：**補足が、自分の答えより
                 #    「下の見出し」に近い**（実測 11カット。上 59〜86px 対 下 24〜28px）。
@@ -743,6 +780,7 @@ def photo_ann(spec):
                 y = d_top + fm.ink(str(a["d"]), size, "Noto")[0]
             s.append(J.outlined(x, y, a["d"], a.get("dc", J.LINE), size, anchor,
                                 sw=max(5, size * 0.17)))
+            last_bot = y + fm.ink(str(a["d"]), size, "Noto")[1]
             y += size + 16
         y += 22
         out.append("".join(s))
