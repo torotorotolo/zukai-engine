@@ -227,9 +227,10 @@ def main():
     in_b5 = lambda i: any(r0 <= i <= r1 for (r0, r1) in b5)
     ac5 = b5[-1] if b5 and "AC-5" in lines[b5[-1][0] - 1] else (0, -1)
     in_ac5 = lambda i: ac5[0] <= i <= ac5[1]
-    # §AD-2（直した）・§AD-3（直さない・理由つき）での言及は決着。§AD-4（絵で決める）は持ち越し。
-    ad23 = sec_range(lines, r"(AD-2|AD-3)\.")
-    ad4 = sec_range(lines, r"AD-4\.")
+    # §AD-2（直した）・§AD-3（直さない・理由つき）での言及は決着。
+    # §AD-4（絵で決める名簿）は 2026-09-11 カズヤくん決定の終わりの決まり（§AD-7）で**見ずに閉じた**＝決着。
+    ad23 = sec_range(lines, r"(AD-2|AD-3|AD-4)\.")
+    ad4 = []
     in_ad23 = lambda i: any(r0 <= i <= r1 for (r0, r1) in ad23)
     in_ad4 = lambda i: any(r0 <= i <= r1 for (r0, r1) in ad4)
     ad_start = next((i for i, s in enumerate(lines, 1) if s.startswith("# §AD.")), len(lines) + 1)
