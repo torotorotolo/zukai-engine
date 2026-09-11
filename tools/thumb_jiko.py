@@ -620,9 +620,45 @@ def sl1():
         bake(f"sl1_{nm}", fx_type(hero, r, y, "e_veil", yel_plain=True))
 
 
+KB_SHIP = "keybridge/fb_ca01.jpg"   # NTSB B-Roll 空撮 369秒：ダリの船首に載った橋桁と、右へ伸びる残りの径間（§105・PD）
+KB_BOW = "keybridge/fb_pr08.jpg"    # 240330-A-PA223-1001（陸軍工兵隊）34秒：船首に載った橋桁の寄り（§105・PD）
+
+
+def keybridge():
+    """6本目のサムネ（2026-09-11・⑥）。型は競合と同一＝**赤1行・黄1行・写真だけ**。
+
+    ■ 決め語（本編が実際に読んでいる事実だけを使う）
+      赤＝被害の規模＋核心。**「6名死亡」**（pr03）。
+        核心は2つ ── 停電の原因が「端子台に奥まで入っていなかった一本の信号線」（pr06・pr07）と、
+        衝突まで1分16秒あったのに「橋の上の8人には、誰も伝えなかった」（pr04・pr11・ep06）。
+        ⚠️ 警官を責める形にしない。報告書は封鎖を「素早い封鎖が、命を救った」と評価している（ep03）。
+      黄＝事故名。日本の報道の呼び名は「ボルチモアの橋崩落」＝検索でも通じる側を採る。
+      ⚠️ 「隠蔽」「衝撃」「闇」「結末」は逆効果（[[feedback-what-drives-views]]）。
+      ⚠️ 黄は字数が少ないほど 210px で読める（[[feedback-thumbnail-must-read-at-210px]]）。
+
+    ■ 地の作り
+      `fb_ca01` は上が明るい空・下が何も無い水面＝**赤と黄の下に絵の主役が来ない**。船と橋桁は画面の中段。
+      🔴 人の顔は写っていない（小さな作業艇だけ）＝「実在の顔と N名死亡を並べない」に当たらない。
+      `fb_pr08` は寄りで線が細かい＝246px で塊に見えないかを見比べるための対照。
+    """
+    RED_A = "6名死亡 信号線1本で停電"
+    RED_B = "6名死亡 知らせは届かず"
+    YEL_A = "2024年 ボルチモア橋崩落"
+
+    ship = photo(KB_SHIP, cy=0.50, cx=0.50, contrast=1.18, color=1.10, bright=0.92)
+    bow = photo(KB_BOW, cy=0.50, cx=0.50, contrast=1.16, color=1.08, bright=0.90)
+
+    for nm, hero, r, y in (("a_ship_wire", ship, RED_A, YEL_A),
+                           ("b_ship_notice", ship, RED_B, YEL_A),
+                           ("c_bow_wire", bow, RED_A, YEL_A)):
+        bake(f"kb_{nm}", fx_type(hero, r, y, "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "sl1" in sys.argv:
+    if "keybridge" in sys.argv:
+        keybridge()
+    elif "sl1" in sys.argv:
         sl1()
     elif "surfside" in sys.argv:
         surfside()

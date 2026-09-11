@@ -11,6 +11,10 @@ on:
         description: "この巡で何を直したか（成果物名に入る）"
         required: false
         default: ""
+      which:
+        description: "どの回を焼くか（thumb_jiko.py の引数：keybridge / sl1 / surfside / thresher。空なら123便）"
+        required: false
+        default: ""
 
 jobs:
   thumb:
@@ -38,7 +42,7 @@ jobs:
           fi
 
       - name: Bake thumbnails
-        run: python tools/thumb_jiko.py
+        run: python tools/thumb_jiko.py ${{ inputs.which }}
 
       # 検品用に「一覧」と「スマホ相当（幅246px）」を並べて出す。
       # サムネは実際には小さく表示されるので、**縮小しても読めるか**が本番の判定基準。
