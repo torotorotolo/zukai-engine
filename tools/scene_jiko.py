@@ -574,6 +574,11 @@ BLOCK_GAP = 34
 #    `vs=88` の段は 10〜15px あって読めていて、`vs=96` の 6px は「縁取りが食い込む」。
 #    ⚠️ ここは**墨どうし**の値。縁取り（BG 色）はこの外へさらに 6〜9px ずつ広がる。
 V_GAP = 12
+# 🔴 注記の列のいちばん下の墨と、**出典の行**の墨のすき間（台帳 §AA-1 `c908`）。
+#    `BLOCK_GAP` で段間を広げたぶん列の下端が固定の出典の行（y≈852）へ押し出され、
+#    `c908` の補足「約65メートル」と出典が 29px → 6px（同じ小さい青灰の字＝1つの2行に読める）。
+#    → **出典の行も1つの段として、段と段のあいだと同じだけ離す**。足りないカットだけ列ごと上へ。
+CRED_GAP = BLOCK_GAP
 PANEL_CRED_Y = J.BAND_B - 4                          # 額の下に出す出典の位置
 
 
@@ -663,10 +668,11 @@ def full_top(cid, spec):
     return "".join(g)
 
 
-def photo_ann(spec):
+def photo_ann(spec, cid=None):
     """実写カットの注記。**4〜6ブロックまで**（全画面では多いと邪魔になる）。
 
     ann … [dict(t="巡航高度", v="7,300 m", c=J.AMBER)] を上から積む。
+    cid … 出典の行とのすき間を測るのに使う（無ければ測らない）。
     """
     side = spec.get("side", "right")
     x = J.RIGHT if side == "right" else J.MG
@@ -686,6 +692,7 @@ def photo_ann(spec):
         else:
             maxw = (px - PANEL_GAP) - J.MG
         y = spec.get("ann_y", J.BAND_T + 34)
+    y0 = y
     out = []
     last_bot = None                  # 直前に描いた字面の下端（段と段のあいだを測るため）
     for a in spec.get("ann", []):
@@ -784,6 +791,19 @@ def photo_ann(spec):
             y += size + 16
         y += 22
         out.append("".join(s))
+    # 🔴 2026-09-11（⑤c' 5巡目・台帳 §AA-1）：**列の下端を、出典の行の上で止める。**
+    #    出典は全画面なら左下（x=MG・y=CRED_Y）、額装なら右下（x=RIGHT・y=PANEL_CRED_Y）。
+    #    注記が同じ側に立つときだけ縦に積み重なる（反対側なら横に重ならない）。
+    #    実測（r08）：`c908` 4.5px・`c424` 10.3px・`c802` 14.4px（ほかは 21.5px 以上）。
+    #    ⚠️ 段の中の間合いは変えず、**列ぜんたいを上へ**動かす（`ann_y` を引いてもう一度組む）。
+    #    ⚠️ 1回だけ（`_cred_up`）。すき間は `qa_out/kb_aa_credit.py` が本番の SVG で測る。
+    if cid and last_bot is not None and not spec.get("band") and not spec.get("_cred_up"):
+        if (side == "right") if spec.get("panel") else (side == "left"):
+            cy = PANEL_CRED_Y if spec.get("panel") else CRED_Y
+            ctop = cy - fm.ink(credit_of(cid, spec), 24, "Noto")[0]
+            over = last_bot + CRED_GAP - ctop
+            if over > 0:
+                return photo_ann(dict(spec, ann_y=y0 - over, _cred_up=True), cid)
     return out
 
 
@@ -1094,7 +1114,7 @@ def build_layers(allow_missing=False):
             # 実写カット（写真だけ。注記は暗幕とフチで写真の上に載せる）
             jobs[f"{cid}_bg"] = full_bg()
             jobs[f"{cid}_lab"] = full_top(cid, spec)
-            for i, a in enumerate(photo_ann(spec)):
+            for i, a in enumerate(photo_ann(spec, cid)):
                 jobs[f"{cid}_a{i + 1}"] = a
             spans[cid] = (0, W)
             continue

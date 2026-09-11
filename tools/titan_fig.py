@@ -157,6 +157,19 @@ def txtfit(x, y, t, maxw, cap=40, col=None, fam="Noto", anchor="start", ol=0, fl
                anchor, ol)
 
 
+def _src(g, src, left_used, y):
+    """図の出典（「報告書 p.47」）。左下が空いていれば `note` と同じ体裁で左下、
+    `note` などが左下を使っていれば右下へ（写真の額装カットの出典と同じ置き場所）。
+    🔴 2026-09-11（6本目キー橋 ⑤c' 5巡目・台帳 #111 #117 #122）：`timeline` `people` `compare` に
+       出典の欄が無く、7カットで画面に出典が出ていなかった（図解カットは出典必須）。"""
+    if not src:
+        return
+    if left_used:
+        g.append(txtfit(BX1, y, src, BW * 0.4, cap=28, col=J.TICK, anchor="end"))
+    else:
+        g.append(txtfit(BX0, y, src, BW, cap=28, col=J.TICK))
+
+
 def _wordch(c):
     """英語の「語の中の字」か。空白で語を区切る言語だけを対象にする。"""
     return bool(c) and c.isascii() and (c.isalnum() or c in "-'’")
@@ -614,7 +627,7 @@ def depth(marks, dmax=4400, unit="m", axis_t="水深", seabed=None, note="", rig
 #  2. compare — 数値をならべて比べる
 # ══════════════════════════════════════════════════════════
 def compare(items, unit="", note="", bar=True, ratio="", vmax=None, ref="",
-            floor=None):
+            floor=None, src=""):
     """2〜4個の数値を、棒の長さで比べる。
 
     items … [dict(v=13200, t="計算が示した爆縮深度", c=J.LINE, disp="13,200")]
@@ -752,6 +765,7 @@ def compare(items, unit="", note="", bar=True, ratio="", vmax=None, ref="",
                         anchor="middle"))
     if note:
         g.append(txtfit(BX0, BY1 - 16, note, BW, cap=28, col=J.TICK))
+    _src(g, src, note, BY1 - 16)
     return Fig("".join(g), stages, "", (BX0, BX1))
 
 
@@ -875,10 +889,11 @@ def quote(phrase, who="", when="", doc="", ctx="", to="", size=104, rows=None,
 # ══════════════════════════════════════════════════════════
 #  4. timeline — 横の時間軸
 # ══════════════════════════════════════════════════════════
-def timeline(events, t0, t1, ticks=None, tfmt=None, title="", band=None):
+def timeline(events, t0, t1, ticks=None, tfmt=None, title="", band=None, src=""):
     """横に伸びる時間軸。events=[dict(t=..., top="10:47", t2="重り2つ", c=...)]
 
     t は t0..t1 と同じ単位（分でも時間でも秒でもよい）。
+    src … 出典（「報告書 p.47」）。左下に `note` と同じ体裁で出す（`title` があれば右下）。
     """
     # ⚠️ 軸を BY0+330 に固定していたので下が空いた（c120 c122 c124 ほか15カット）。
     #    枠の縦中央に置き、旗の高さを伸ばして上下を使い切る。
@@ -918,6 +933,9 @@ def timeline(events, t0, t1, ticks=None, tfmt=None, title="", band=None):
     LAB_T, LAB_B = ax + 46 - 26 * 0.86, ax + 46 + 26 * 0.30   # 字面の上下（実測比）
     if title:
         g.append(txtfit(BX0, BY1 - 8, title, BW, cap=30, col=J.TICK))
+    # 🔴 2026-09-11（6本目キー橋 ⑤c' 5巡目・台帳 #122）：**timeline 型は出典を出す欄が無かった**
+    #    ＝5カットとも画面のどこにも「報告書 p.XX」が無い（図解カットは出典必須）。
+    _src(g, src, title, BY1 - 8)
     stages = []
     up = True
     for e in events:
@@ -2609,7 +2627,7 @@ def _box_edge(cx, cy, bw, bh, tx, ty):
     return (cx + dx * t, cy + dy * t)
 
 
-def people(nodes, edges=None, note="", lead=""):
+def people(nodes, edges=None, note="", lead="", src=""):
     """人・組織のあいだで起きたこと。第3章の解雇の連鎖に使う。
 
     nodes … [dict(x=0.1, y=0.3, t="海洋運用部長", d="", c=..., kind="person")]
@@ -2727,6 +2745,7 @@ def people(nodes, edges=None, note="", lead=""):
         g.append(txtfit(BX0, BY0 + 62, lead, BW, cap=44, col=J.INK_W))
     if note:
         g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.TICK))
+    _src(g, src, note, BY1 - 6)
 
     stages = []
     for e in (edges or []):
