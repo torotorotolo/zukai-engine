@@ -44,7 +44,17 @@ from statistics import median
 #         4本目 サーフサイド 予測 2128.2 / 実測 2127.3 → **+0.04%**
 #         5本目 SL-1        予測 2181.2 / 実測 2181.3 → **-0.01%**
 #    → [[feedback-gates-go-stale-when-upstream-changes]] / [[feedback-dont-state-inferences-as-findings]]
-CPS_FALLBACK = 5.62     # 文字/秒（話速1.0 の**実測**＝SL-1 の発話秒 1877.9 ÷ 10,553字。音があれば narration.json から）
+# 🔴🔴 2026-09-13（7本目）: 声を Koichi-Deep Calm Japanese Narrator に替えたので取り直した。
+#    ⚠️ **基になる値が2つあって 4.6% 食い違う。混ぜない**（[[feedback-verify-your-own-instrument]]）:
+#       5.62 …5本目 SL-1（TEMPO1.0）から／5.642 …6本目キー橋（TEMPO1.05）から。
+#    採ったのは **5.642**。陽性対照＝6本目の実績（11,117字・443行・216カット）を est_sec に
+#    入れると **37分25秒**で、実際の 37:24 と **1秒差**（5.62 だと8秒ずれる）。
+#    Koichi は同じ24文を同じやり方で測って **6.388 対 5.562 ＝ 1.1485倍**
+#    （`analytics/el_speed_probe_koichi.json`／差14.9% > 物差しの誤差5.63% ＝測れている）。
+#    → Koichi の TEMPO=1.0 の実効 ＝ 5.642 ÷ 1.05 × 1.1485 ＝ **6.171**。
+#    ⚠️ **これは「比を当てた暫定値」**で、完成した回から採った実測ではない。
+#       ⑤a で narration.json ができたら `use_measured_cps` が本物に差し替える。
+CPS_FALLBACK = 6.17     # 文字/秒（Koichi・TEMPO=1.0・暫定。音があれば narration.json から実測）
 PER_CUT = 10.29         # 秒/カット（話速1.0 の**実測**＝SL-1 の完成尺 2181.3秒 ÷ 212カット）
 LEAD, TAIL = 0.35, 0.50
 GAP = 0.40              # カット内の行と行のあいだ（narration.json の gap と同じ値。替えたら両方直す）

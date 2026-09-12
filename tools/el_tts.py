@@ -61,11 +61,20 @@ import el_artifacts as ART  # noqa: E402  純粋な関数だけ（el_tts / el_sc
 #    費用: 振り直し1回＝その行の文字数×0.55クレジット。1本で数十行でも上限131,000の1%未満。
 MAX_TAKES = 3
 
-# 🔴 voice_id は 2026-09-05 に /v1/voices で「この名前に完全一致」する1件から取った（43声中1件）。
-#    ⚠️ 同じコレクションに「HIRO - Cool Japanese Male Voice」（Bj4Malc5SZLoXfPtxRxH）が別に在る。掴み違えないよう
-#    check_voice() が id→名前を API で照合する（el_build の頭と --voice で回す）。
-VOICE_NAME = "Hiro - Ultra Deep Japanese Voice"
-VOICE = "qaCSabKToUUT4sTqBZtz"
+# 🔴 voice_id は /v1/voices で「この名前に完全一致」する1件から取る。check_voice() が id→名前を
+#    API で照合する（el_build の頭と --voice で回す）。⚠️ 似た名前が並ぶので**必ず照合してから使う**。
+#
+# 🔴🔴 2026-09-13（7本目 9.11 から）: カズヤくん指示で **Koichi-Deep Calm Japanese Narrator** に変更。
+#    ⚠️ **同じコレクションに「Koichi Takase - Clear and Measured」（aEdqPekRcUrJjvnAh1Eb）が別に在る。**
+#       名前だけでは決まらないので、説明文まで突き合わせて確かめた:
+#         H8ZPDxbrPcks5hEsi2fq = "Japanese male narrator with over 7 years of experience…"（こちら）
+#         aEdqPekRcUrJjvnAh1Eb = "clear, measured delivery"（別の声）
+#    ⚠️ 4〜6本目は "Hiro - Ultra Deep Japanese Voice"（qaCSabKToUUT4sTqBZtz）。
+#       6本目までの narration.json・読み辞書・話速の実測は**全部その声のもの**。
+#    🔴 **声が変わると文字/秒が変わる。**③で確定した 202カット・10,401字は Hiro の 5.642文字/秒 から
+#       出た値なので、**Koichi で測り直すまで台本の字数として使わない**（`el_speed_probe.py`）。
+VOICE_NAME = "Koichi-Deep Calm Japanese Narrator"
+VOICE = "H8ZPDxbrPcks5hEsi2fq"
 MODEL = "eleven_v3"
 # ⚠️ 声に保存された既定の settings（/v1/voices/<id>/settings・2026-09-05 実測）＝
 #    stability 0.85 / similarity_boost 1.0 / style 0.0 / speed 1.14 / speaker_boost True。

@@ -42,7 +42,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import narration  # noqa: E402  台本の正本
 
-SLUG = "keybridge"          # 6本目 キー橋 崩落（2026-09-08）。5本目 "sl1"・4本目 "surfside"
+SLUG = "ep7"                # 7本目 9.11（2026-09-13）。6本目 "keybridge"・5本目 "sl1"・4本目 "surfside"
 # 🔴 話速 1.0 を**明示して送る**（2026-09-07 カズヤくん指示）。渡さないと声に保存された既定
 #    speed 1.14 で読まれる。speed 以外の4つは /v1/voices/<id>/settings の実測をそのまま写した
 #    （2026-09-07 に API で取り直し＝stability 0.85 / similarity_boost 1.0 / style 0.0 /
@@ -50,7 +50,15 @@ SLUG = "keybridge"          # 6本目 キー橋 崩落（2026-09-08）。5本目
 # ⚠️ 4本目の実測では「eleven_v3 は speed を無視する」（0.8/0.9/1.0/なしで 3.28〜3.60秒＝ばらつきの範囲）。
 #    ⑤a の頭で1行 A/B して、効いたかどうかを実測で確かめる（効かなくても害は無い）。
 # ⚠️ SETTINGS はキャッシュの鍵に入る＝途中で変えると全行が別物（＝全編もう一度課金）になる。
-SETTINGS = {"stability": 0.85, "similarity_boost": 1.0, "style": 0.0,
+# 🔴🔴 2026-09-13（7本目）: 声を **Koichi-Deep Calm Japanese Narrator** に替えたので、
+#    speed 以外の4つも **Koichi に保存された既定**へ取り直した（/v1/voices/<id>/settings・API 実測）:
+#        Koichi … stability 0.64 / similarity_boost 0.89 / style 0.0 / speaker_boost True（speed 1.02）
+#        Hiro   … stability 0.85 / similarity_boost 1.00 / style 0.0 / speaker_boost True（speed 1.14）
+#    ⚠️ **Hiro の値をそのまま Koichi に当てない。**声ごとに作者が合わせた値で、別の声に流用すると
+#       その声の持ち味から外れる（規則は「その声の既定を写す」＝2026-09-07 と同じ。値だけが変わる）。
+#    ⚠️ stability が 0.85 → 0.64 に下がる＝**表情は出るが振れも大きくなる**。
+#       ⑤a の頭で1行 A/B して、読み間違い・余計な音が増えていないかを実測で見る。
+SETTINGS = {"stability": 0.64, "similarity_boost": 0.89, "style": 0.0,
             "speed": 1.0, "use_speaker_boost": True}
 QA_DIR = ROOT / "audio" / "el_qa"
 
