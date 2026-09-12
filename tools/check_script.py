@@ -325,6 +325,22 @@ def report(cuts):
                     W.append('W %s に「%s」。盛った語でないなら可（例: %s）: %s'
                              % (cid, w, '／'.join(allow), t))
 
+    # 🔴 2026-09-12 追加。5本目 SL-1 に付いた視聴者コメント
+    #    「物の単位をメートル法などに直していただけるだけでも大変助かります」＋
+    #    カズヤくん「初めて見た人・中学生が理解できるかを基準に」。
+    #    ヤード・ポンド法の数字は、**同じカットの中**にメートル換算が無ければ E。
+    #    ⚠️ 換算は門番を通すためでなく、聞く人が量を掴むために置く（意味の無い換算はしない）。
+    #    ⚠️ 6本目キー橋は 28か所中 24か所が換算なしだった（公開ずみなので直さない）。
+    imp = re.compile(r'[0-9][0-9,.]*\s*(フィート|インチ|ヤード|マイル|ノット|ポンド|ガロン)')
+    met = re.compile(r'(メートル|キロ|センチ|ミリ|トン|時速)')
+    for cid, _, ls in cuts:
+        body = ''.join(clean(l) for l in ls)
+        if met.search(body):
+            continue
+        for m in imp.finditer(body):
+            E.append('E %s の単位が原文のまま（同じカットにメートル換算が無い）: %s'
+                     % (cid, m.group(0)))
+
     # 写真映像の割合（全体と章ごと。⚠️ 全体だけだと章の穴が見えない）
     ch = {}
     for cid, pic, _ in cuts:
@@ -425,6 +441,14 @@ def selftest():
     chk('二重表示を検出', report_quiet(parse(bad3)) > 0, True)
     bad4 = SAMPLE.replace('> あいうえお', '> 即死であった')
     chk('煽り語を検出', report_quiet(parse(bad4)) > 0, True)
+
+    # 🔴 単位（2026-09-12）。⚠️ 陽性対照は「鳴った／鳴らない」でなく**件数の差**で見る
+    #    （[[feedback-verify-your-own-instrument]]＝もともと0件の指標は真偽だけだと動いて見える）
+    base = report_quiet(parse(SAMPLE))
+    imp_bad = SAMPLE.replace('> あいうえお', '> 橋まで939フィート。速力7.5ノット')
+    imp_ok = SAMPLE.replace('> あいうえお', '> 橋まで286メートル（939フィート）')
+    chk('単位の換算なしを検出', report_quiet(parse(imp_bad)) - base, 2)
+    chk('同じカットに換算があれば鳴らない', report_quiet(parse(imp_ok)) - base, 0)
 
     # 🔴 尺の下限・上限（2026-09-07 に下限を 35分→30分 にしたとき新設）。
     #    ⚠️ それまで**しきい値そのものを試す検算が1本も無かった**＝
