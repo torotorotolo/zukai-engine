@@ -154,3 +154,15 @@ ref/keybridge/*.pdf
 !ref/keybridge/shots.json
 # 話速の実測（el_speed_probe）の振り直し記録は作業の跡なので入れない
 audio/el_qa/probe*_el_retakes.tsv
+
+# ── 7本目 9.11（2026-09-13 ②素材＋③尺）──────────────────
+# ⚠️ 9行目の `ref/*` が ref/ を丸ごと無視する造り（許可制）。**フォルダから明示的に開ける。**
+!ref/ep7/
+# 入れるもの＝素材の台帳（ffprobe の実測から機械で書き出したもの）と章立て
+!ref/ep7/clips.json
+!ref/ep7/kousei.md
+# ⑤で `tools/shots.py` が作るショットの境目の表（まだ無い）
+!ref/ep7/shots.json
+!ref/ep7/SHOTS_INDEX.md
+# 一次資料の PDF は入れない（NTSB 4本で 21.3MB）。取り直しは ref/CREDITS.md §9.11 から
+ref/ep7/*.pdf

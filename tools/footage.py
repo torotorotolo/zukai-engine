@@ -88,7 +88,12 @@ UA = ("zukai-engine/1.0 (accident-documentary research; "
 #       （キー橋以外が大半で、報道由来の映像が混ざる）。
 #
 # ⚠️ `upload.wikimedia.org` は名乗らないと **429**。下の UA を必ず渡す（`shots.UA` と同じ役目）。
-_CLIPS_JSON = HERE / "ref" / "keybridge" / "clips.json"
+# 🔴 2026-09-13（7本目②）：**ここを題材ごとに差し替える。**前は ref/keybridge/clips.json。
+#    差し替え忘れは「前の回の28本を調べて合格」という**黙った嘘**になる
+#    → [[feedback-gates-blind-to-the-new-material]]。
+#    7本目＝NARA RG237（FAA）naId 7419198 の32点。`ref/ep7/clips.json` は
+#    `analytics/materials/ep7/s2/make_clips.py` が ffprobe の実測から書き出す（手で書かない）。
+_CLIPS_JSON = HERE / "ref" / "ep7" / "clips.json"
 CLIPS = json.loads(_CLIPS_JSON.read_text(encoding="utf-8")) if _CLIPS_JSON.exists() else {}
 
 # 🔴🔴 2026-09-07（5本目 SL-1 ⑤c'・K-12）：**素材そのものが横に黒帯を持っている。**
@@ -159,7 +164,10 @@ def bars_left(cid, u=None):
 #    ＝ `SHOTS` が空のまま `outside_shot()` を回すと、**全欄が「対象外」で素通り**する。
 #    そうならないように `unknown_clip()` を足した（`fetch --check` が呼ぶ）。
 SHOTS = {}
-SHOT_FILE = HERE / "ref" / "keybridge" / "shots.json"      # 6本目。前は ref/sl1/shots.json
+SHOT_FILE = HERE / "ref" / "ep7" / "shots.json"           # 7本目。前は ref/keybridge/shots.json
+# 🔴 2026-09-13（7本目②）：**この表はまだ無い。**⑤で `tools/shots.py` が作る。
+#    無いあいだ SHOTS は空で、`outside_shot()` は全欄を「対象外」で飛ばす＝**素通りする**。
+#    それを塞ぐのが下の `unknown_clip()`（`fetch --check` が呼ぶ）。USE を書いたら必ず通す。
 if SHOT_FILE.exists():
     _sd = json.loads(SHOT_FILE.read_text(encoding="utf-8"))
     SHOTS = {k: [(s["start"], s["until"], s["motion"]) for s in v["shots"]]
@@ -312,83 +320,28 @@ USE = {
     #   ⚠️ NTSB の3本は頭と尻に**濃紺の題字カード**が入る（真っ暗ではないので
     #      暗さの網では落ちない）。`keybridge_shotscan.is_card()` で落としてある。
     # ==============================================================
-    # <<<KB_USE ここから ここまでは `python tools/keybridge_pick.py --apply` が書く。手で触らない
-    # 崩落した中央径間の空撮（2024-03-26）
-    "pr01": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=54.0, until=82.0),
-    # 未明・応急艇の操舵席と落ちた橋
-    "pr02": dict(clip="240326-G-KH296-2189", start=12.0, until=21.0, rate=0.94),
-    # 水面に沈んだトラスと橋脚
-    "pr03": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=130.0, until=151.0),
-    # NTSB 調査員がトラスを撮る（後ろ姿）
-    "pr05": dict(clip="NTSB_B_Roll_Investigators_Aboard_the_Car", start=179.0, until=189.0, rate=0.91),
-    # ダリの船首に載った橋桁（寄り）
-    "pr08": dict(clip="240330-A-PA223-1001", start=34.0, until=43.0, rate=0.89),
-    # ダリの船体と凪いだ水面
-    "c215": dict(clip="NTSB_B_Roll_Investigators_Aboard_the_Car", start=109.0, until=126.0),
-    # ダリの船尾（船名と船籍港が写る）
-    "c301": dict(clip="240331-A-PA223-1003", start=0.0, until=8.0, rate=0.74),
-    # 橋へ向かう主航路（空撮・広い）
-    "c318": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=306.0, until=337.0),
-    # ダリの操舵室（窓の外に落ちた橋）
-    "c306": dict(clip="NTSB_B_Roll_Hazardous_Material_Investiga", start=365.0, until=371.0, rate=0.55),
-    # 航海データ記録装置を吸い出す手元
-    "c405": dict(clip="NTSB_B_Roll_Hazardous_Material_Investiga", start=383.0, until=391.0, rate=0.73),
-    # 操舵室の操作卓（手元と計器）
-    "c411": dict(clip="NTSB_B_Roll_Hazardous_Material_Investiga", start=443.0, until=449.0, rate=0.60),
-    # ダリの船橋（操舵室の中）
-    "c409": dict(clip="NTSB_B_Roll_Hazardous_Material_Investiga", start=403.0, until=415.0),
-    # 橋と主航路（船の長さを見せる広い空撮）
-    "c424": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=276.0, until=305.0),
-    # 崩落直後の橋（空撮・寄り）
-    "c508": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=159.0, until=165.0, rate=0.87),
-    # 崩落した径間と橋脚（空撮）
-    "c512": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=87.0, until=105.0),
-    # 崩落した径間（空撮・引き）
-    "c517": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=244.0, until=275.0),
-    # 水面に散った残骸
-    "c519": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=168.0, until=181.0),
-    # 折れた17番橋脚まわり（空撮）
-    "c601": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=112.0, until=122.0),
-    # 船首の上に載った橋桁
-    "c607": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=229.0, until=243.0),
-    # 崩落現場の全景（引きの空撮）
-    "c616": dict(clip="240401-G-TL908-2303", start=153.0, until=180.0),
-    # 潰れたコンテナと橋桁（真上から）
-    "c617": dict(clip="240407-G-DV874-3002", start=56.0, until=66.0),
-    # 夜明けの現場（応急艇から）
-    "c619": dict(clip="240326-G-KH296-2189", start=47.0, until=57.0, rate=0.82),
-    # 航路に残るダリ（横から）
-    "c701": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=338.0, until=352.0),
-    # 🔴 2026-09-10（⑤c' 3巡目・§V-19）：c806 の欄は**外した**。
-    #    見出しが「**橋は同じ**、船だけが変わった」なのに、この実写は崩落後のサルベージで
-    #    **主張と絵が正反対**だった。カット側を事故前の写真（`ss.PRE_OAKHILL14`）へ替えたので、
-    #    ここに欄が残っていると `check_footage_slots` が「USE に在るのに実写でない」で鳴る。
-    # 橋脚と現場の空撮
-    "c818": dict(clip="240401-G-TL908-2303", start=45.0, until=53.0, rate=0.84),
-    # 現場の空撮（クレーン台船）
-    "c819": dict(clip="240401-G-TL908-2303", start=54.0, until=63.0, rate=0.90),
-    # 崩落現場（撤去が始まる前）
-    "c823": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=353.0, until=368.0),
-    # 塞がった航路（引きの空撮）
-    "c901": dict(clip="240401-G-TL908-2303", start=135.0, until=149.0),
-    # 各機関の調査員が船上で支度をする
-    "c903": dict(clip="240327-A-SE916-1046", start=10.0, until=21.0),
-    # 潜水士の支度（潜る）
-    "c904": dict(clip="240404-G-KY623-1002", start=36.0, until=59.0),
-    # トラスを溶断する作業員
-    "c905": dict(clip="240330-G-LB555-1001", start=78.0, until=103.0),
-    # コンテナを載せた台船
-    "c907": dict(clip="240407-A-PA223-1003", start=27.0, until=35.0),
-    # 仮設航路を通る台船
-    "c908": dict(clip="240401-G-LB555-1002", start=10.0, until=31.0),
-    # トラスを運ぶクレーン台船
-    "c909": dict(clip="240407-A-PA223-1005", start=10.0, until=15.0, rate=0.71),
-    # 崩落した中央径間（空撮）
-    "ca01": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=369.0, until=385.0),
-    # 残った桁と崩落部（空撮）
-    "ep01": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=404.0, until=429.0),
-    # 崩落現場（引きの空撮）
-    "ep05": dict(clip="NTSB_B_Roll_Aerial_Imagery_of_Francis_Sc", start=430.0, until=443.0),
+    # ══════════════════════════════════════════════════════════
+    # 🔴 2026-09-13（7本目②）：**空にした。**6本目キー橋の35欄は git `eb322ca` にある。
+    #    欄は **④の台本が承認されてから**書く（6本目②と同じ手順）。
+    #
+    # 🔴🔴 7本目の素材で、切り出しの前に必ず効かせること（②で実測した）
+    #   ① **画素が正方形でない。** RG237 の32点のうち **27点が SAR=10:11**（DAR 15:11）。
+    #      そのまま切り出すと **横に10%ふくらむ**（レーダーの円が卵になる）。
+    #      ⚠️ `_cut_stream()` の `scale={want}:-2` は **SAR を見ない**。
+    #         しかも 720 < 1920 なので `want == c["w"]` になり **scale 自体が付かない**。
+    #         → ⑤で `-vf` に `scale=iw*sar:ih`（720x480 → **655x480**）を足す。
+    #         台帳 `ref/ep7/clips.json` の **`dispw`** がその幅。
+    #   ② **`-an` を必ず付ける。** 32点中 **28点に音声トラックがある**。
+    #      この回は①で「音は鳴らさない」と決めている。
+    #   ③ **`yadif` は付けない。** 器の札は `field_order=tt` だが、3つの実測が
+    #      「60p（1コマずつ本物）」と言っている＝
+    #        ・nb_frames ÷ 秒 = 60.00（コマが実在する）
+    #        ・`ffmpeg -vf idet` 200コマで TFF 0／BFF 0
+    #        ・yadif あり/なしで櫛の指標が 0.5% しか動かない
+    #      ⚠️ 札を信じて yadif を入れると **480本の縦解像度を無駄に半分**にする。
+    #   ④ **額装パネル**（1920に届く点が0なので全画面にできない）。
+    #      655x480 を `scene_jiko.PANEL_MAXW/H`（1120x648）に入れると **z=1.35（883x648）**。
+    #      ⑤で原寸目視して、甘ければ `pw=655`（等倍）に落とす。
     # KB_USE>>> ここまで
 }
 # 🔴 まだ決まっていない 29欄（**代用で埋めていない**）＝ Vault の ⑤b-4 引き継ぎ §3
