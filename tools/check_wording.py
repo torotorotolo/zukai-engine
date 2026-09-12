@@ -233,12 +233,54 @@ def scan(spec, minlen=1):
             if num and oth:
                 hits.append(("E", cid, "panel.k", "／".join(ks),
                              "通し番号とそれ以外が1枚で混ざる"))
+
+        # G 画面の単位が原文（ヤード・ポンド法）のまま（🔴🔴 2026-09-12・6本目の振り返り）
+        #   5本目 SL-1 の視聴者コメント「単位をメートル法に直してほしい」。
+        #   台本側は `check_script.py` が見る（同じ日に新設）。ここは**画面の文字**側。
+        #   6本目では qa_out/kb_v2_meter.py の `units` 部が 11カット→0 に直したが、
+        #   qa_all に載っていなかったので次の回では回らない（[[feedback-per-episode-constants-go-stale]]）。
+        #   ⚠️ 「20フィート換算」は長さでなく単位の名前（TEU）なので数えない（6本目 ⑤c' 3巡目の決定）。
+        #   ⚠️ 同じ画面のどこかにメートル系があれば通す（並記の置き場所は段でも note でもよい）。
+        texts = [(w, x) for w, x in screen_texts(sp) if "フィート換算" not in x]
+        joined = "／".join(x for _, x in texts)
+        if not METRIC.search(joined):
+            for where, txt in texts:
+                m = IMPERIAL.search(txt)
+                if m:
+                    hits.append(("G", cid, where, txt,
+                                 f"「{m.group(0)}」にメートル換算が同じ画面に無い"))
+                    break
+
+        # H 時刻の裸の4桁（🔴🔴 2026-09-11 6本目の試写でカズヤくん「裸の4桁が多数」）
+        #   報告書の表記「0125:59」「0129」を写すと、視聴者には時刻に見えない。
+        #   画面は「1:25:59」「1:29」の形にする（[[project-jiko-rules-index]] §5）。
+        #   ⚠️ 色コード `#e0503c` の「0503」に当たるので `#` の後ろは除く。
+        #   ⚠️ 「2306」のような 0 で始まらない4桁は年・台数と区別できないので**ここでは鳴らさない**
+        #      （⑤c の目視で決める。数字の前に「時刻」「ごろ」があれば疑う）。
+        for where, txt in screen_texts(sp):
+            m = BARE_TIME.search(txt)
+            if m:
+                hits.append(("H", cid, where, txt,
+                             f"時刻「{m.group(0)}」が裸の4桁（「1:25:59」の形に）"))
     return hits
+
+
+# ── G 画面の単位 ────────────────────────────────────────────────────
+IMPERIAL = re.compile(r"[0-9][0-9,.]*\s*(フィート|インチ|ヤード|マイル|ノット|ポンド|ガロン"
+                      r"|\bft\b|\bmi\b|\bkt\b|\blb\b)")
+METRIC = re.compile(r"(メートル|キロ|センチ|ミリ|トン|時速|\d\s*m\b|\bkm\b)")
+
+# ── H 時刻の裸の4桁 ─────────────────────────────────────────────────
+#   「0125:59」（4桁＋:秒）と、0 で始まる4桁（「0129」）。色コード・小数・日付の中は除く。
+#   ⚠️ 前後は**半角の英数字**だけを除く（`e0503c` の中・`0.0001` の中）。日本語の字が隣にあるのは時刻でありうる（「0129 封鎖」）。
+BARE_TIME = re.compile(r"(?<![0-9A-Za-z_.,:/#\-])(?:\d{4}:\d{2}|0\d{3})(?![0-9A-Za-z_.,:/\-])")
 
 
 NAMES = {"A": "見出し・副題が答えを先に言う", "B": "楽屋の言葉",
          "C": "指示語", "D": "答えが名詞句でない", "E": "段ラベルの混在",
-         "F": "画面にカット番号が出ている"}
+         "F": "画面にカット番号が出ている",
+         "G": "画面の単位が原文のまま（メートル換算なし）",
+         "H": "時刻が裸の4桁"}
 
 # 🔴 exit を動かす型（＝焼く前に 0件でなければならないもの）。
 # ⚠️ **D は入れない。** 全216カットに当てると31件出るが、その多くは
@@ -249,15 +291,15 @@ NAMES = {"A": "見出し・副題が答えを先に言う", "B": "楽屋の言�
 #    → D は**数えて必ず画面に出すが、exit は動かさない**。⑤c の目視で1件ずつ決める。
 #    ⚠️ 「数が多いから黙らせる」ではない。黙らせたら忘れられる
 #      （[[feedback-gates-blind-spot-is-the-scan-direction]]）ので、毎回出す。
-BLOCKING = "ABCEF"
+BLOCKING = "ABCEFGH"
 
 
 def main(show_all=False):
-    print("■ 画面の言葉づかい（§V-14 A／§V-15 B／§V-16 C／§V-17 D／§V-25 E）")
+    print("■ 画面の言葉づかい（§V-14 A／§V-15 B／§V-16 C／§V-17 D／§V-25 E／§X-1-1 F／単位 G／時刻 H）")
     print(f"■ cuts: {Path(sys.modules['cuts'].__file__).resolve()}／SPEC {len(SPEC)} カット")
     hits = scan(SPEC)
     bad = [h for h in hits if h[0] in BLOCKING]
-    for kind in "ABCDEF":
+    for kind in "ABCDEFGH":
         rows = [h for h in hits if h[0] == kind]
         mark = "" if kind in BLOCKING else "（⚠️ 目視で決める。exit は動かさない）"
         print(f"\n── {kind}. {NAMES[kind]} ＝ {len(rows)} 件{mark}")
@@ -344,6 +386,26 @@ def selftest():
     say(not [x for x in scan({"zz03": dict(t="あ", s="い",
                                            ann=[dict(t="問", v="報告書の見立て")])})
              if x[0] == "D"], "名詞で終わる「見立て」は D で鳴らない")
+
+    # 🔴🔴 G 画面の単位（2026-09-12）── どのカットが出たかで見る
+    g = {"zz10": dict(t="橋まで", s="", ann=[dict(t="距離", v="939フィート")]),          # 鳴る
+         "zz11": dict(t="橋まで", s="", ann=[dict(t="距離", v="286メートル", d="939フィート")]),  # 並記＝黙る
+         "zz12": dict(t="速さ", s="", fig=("panel", dict(blocks=[dict(k="1", t="速力", v="7.5ノット")]))),  # 鳴る
+         "zz13": dict(t="量", s="", ann=[dict(t="積み荷", v="4,679個", d="8,544個（20フィート換算）")]),  # TEU＝黙る
+         "zz14": dict(t="長さ", s="", ann=[dict(t="全長", v="2,769 m", d="9,086 ft")])}   # 半角の並記＝黙る
+    got = {c for k, c, *_ in scan(g) if k == "G"}
+    say(got == {"zz10", "zz12"},
+        f"陽性対照：換算の無いフィート・ノットが G で鳴り、並記・TEU は黙る（出た: {sorted(got)}）")
+
+    # 🔴🔴 H 時刻の裸の4桁（2026-09-11 試写）── 色コード・小数・年には鳴らない
+    hh = {"zz20": dict(t="衝突", s="", ann=[dict(t="時刻", v="0125:59")]),      # 鳴る
+          "zz21": dict(t="停電", s="", ann=[dict(t="時刻", v="0129")]),         # 鳴る
+          "zz22": dict(t="衝突", s="", ann=[dict(t="時刻", v="1:25:59")]),      # 直した形＝黙る
+          "zz23": dict(t="色", s="", fig=("panel", dict(color="#e0503c", blocks=[dict(k="1", t="確率", v="0.0001")]))),
+          "zz24": dict(t="2024年3月26日", s="2005年の写真", ann=[dict(t="通行", v="3万4000台")])}
+    got = {c for k, c, *_ in scan(hh) if k == "H"}
+    say(got == {"zz20", "zz21"},
+        f"陽性対照：「0125:59」「0129」が H で鳴り、「1:25:59」・色コード・小数・年は黙る（出た: {sorted(got)}）")
     print(f"\n{'✓ 物差しは通った' if ok else '🔴 物差しが壊れている'}")
     return 0 if ok else 3
 
