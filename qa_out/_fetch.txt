@@ -1,0 +1,64 @@
+  🔴 manhattan_pre: 台帳に File:World Trade Center towers, New York, LCCN2015645969.jpg が無い
+  ✓ commute_pre  540KB
+  🔴 wtc_far: 台帳に File:World Trade Center, New York. Exterior. Twilight view from harbor - LCCN2021637340.jpg が無い
+  ✓ wtc_twin  2799KB
+  ✓ wtc_base  1151KB
+  🔴 wtc_south: 台帳に File:World Trade Center, New York. Exterior. View from plaza - LCCN2020714989.jpg が無い
+  🔴 wtc_under: 台帳に File:World Trade Center, New York. Exterior. Night view - LCCN2021636612.jpg が無い
+  ✓ lobby_pre  855KB
+  ✓ security_pre  1696KB
+  ✓ gate_pre  643KB
+  ✓ fids_pre  572KB
+  ✓ logan  430KB
+  ✓ logan_apron  663KB
+  ✓ logan_takeoff  556KB
+  ✓ dulles  1144KB
+  ✓ dulles_rwy  813KB
+  ✓ reagan  835KB
+  ✓ newark_757  440KB
+  ✓ b767  689KB
+  ✓ b757  630KB
+  ✓ b767_cruise  124KB
+  ✓ b767_takeoff  204KB
+  ✓ b757_takeoff  215KB
+  ✓ airliner_cruise  1284KB
+  🔴 refuel: 台帳に File:Fueling Boeing 757-200 N58101 at Boston January 2026.jpg が無い
+  ✓ cabin_pre  331KB
+  ✓ cockpit_door_pre  613KB
+  ✓ cabin_phone  662KB
+  ✓ cockpit_pre  491KB
+  ✓ window_cruise  562KB
+  ✓ window_sky  345KB
+  🔴 artcc_screen_pre: 台帳に File:379th EOSS air traffic controllers in action (8599712).jpg が無い
+  ✓ radar_scope_pre  836KB
+  ✓ controller_pre  1716KB
+  🔴 artcc_screen2: 台帳に File:378th EOSS Air Traffic Controller Demonstration (8829390).jpg が無い
+  🔴 artcc_alt: 台帳に File:U.S. Air Force Senior Airman Ben Missel, an air traffic controller with the 97th Operations Support Squadron, watches a radar screen during a routine mission at Altus Air Force Base, Okla., Feb. 8, 2013 130208-F-KB808-002.jpg が無い
+  🔴 artcc_seat: 台帳に File:ATC aids TBM Avenger pilot (6666391).jpeg が無い
+  ✓ pentagon_ext_pre  1160KB
+  ✓ pentagon_aerial_pre  960KB
+  ✓ pentagon_court_pre  287KB
+  🔴 pentagon_west_day: 台帳に File:Crews work into the night after a hijacked jetliner crashed into the Pentagon at approximately 0930 on September 11, 2001 010911-M-CI426-091.jpg が無い
+  ✓ f15_alert  409KB
+  ✓ f15_takeoff  358KB
+  ✓ f16_alert  319KB
+  ✓ f16_takeoff  415KB
+  ✓ base_rwy  860KB
+  ✓ fighter_dc  1122KB
+  🔴 andrews: 台帳に File:76th AS Last C-40 on ramp.jpg が無い
+  ✓ wtc_smoke_day  511KB
+  ✓ fire_trucks_day  401KB
+  ✓ shanksville_day  1242KB
+  🔴 apron_day: 台帳に File:Alaska Boeing 737-9 MAX N926AK at Boston Logan Terminal B December 2024.jpg が無い
+  ✓ apron_lined_day  468KB
+  ✓ stopped_day  340KB
+  ✓ stranded_day  502KB
+  ✓ hearing  1410KB
+  ✓ library_reports  1288KB
+  ✓ recorder  538KB
+  🔴 atc_tape: 台帳に File:Studer B67 reel-to-reel audio tape recorder, ca. 1978 (cropped and edited, larger).jpg が無い
+  ✓ logbook  627KB
+  ✓ security_now  611KB
+  ✓ artcc_now  534KB
+  ✓ lobby_now  631KB
+  🔴 clear_sky: 台帳に File:20250928 View from aircraft in Turkey 01 (79961).jpg が無い

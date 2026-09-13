@@ -1,0 +1,23 @@
+■ apron_day: 候補0 → 権利と幅 0 → 中身 0 → **時点も 0**
+■ stranded_day: 候補0 → 権利と幅 0 → 中身 0 → **時点も 0**
+■ gate_pre: 候補4 → 権利と幅 2 → 中身 2 → **時点も 0**
+   🔴年 3000x2467 PD     1945 President Truman talks with Ambassador W. Averell Harriman at the Gatow airport
+   🔴年 2732x1544 CC BY  2016 Ford Courier Air Canada vehicle (27683605213).jpg
+■ fids_pre: 候補6 → 権利と幅 3 → 中身 3 → **時点も 0**
+   🔴年 2048x1536 CC BY  2007 Allama Iqbal Intl Departure Board.jpg
+   🔴年 1920x1280 CC BY  2009 47 Airport departures board free photo - Melbourne Airport timetable - Creative
+   🔴年 1920x1280 CC BY  2009 48 Aviation industry in Australia - Melbourne Airport departures board.jpg
+■ cockpit_door_pre: 候補22 → 権利と幅 0 → 中身 0 → **時点も 0**
+■ cabin_phone: 候補4 → 権利と幅 0 → 中身 0 → **時点も 0**
+■ artcc_alt: 候補0 → 権利と幅 0 → 中身 0 → **時点も 0**
+■ aoc_pre: 候補40 → 権利と幅 29 → 中身 0 → **時点も 0**
+■ cockpit_door_hard: 候補5 → 権利と幅 4 → 中身 0 → **時点も 0**
+■ lobby_now: 候補163 → 権利と幅 31 → 中身 9 → **時点も 9**
+   ✓ 6000x4000 CC BY  2018 Basket ball hall inside Berlin Tempelhof airport, used by the Americans after o
+   ✓ 4032x3024 PD     2024 Barreirinhas Airport 1.jpg
+   ✓ 4608x2592 PD     2019 20190207 082439 Warsaw Airport, February 2019. Arrivals hall.jpg
+   ✓ 4032x2268 PD     2025 AtambuaAirport3.jpg
+   ✓ 3328x1872 PD     2010 Airport Pulkovo II b.JPG
+■ wtc_under: 候補2 → 権利と幅 0 → 中身 0 → **時点も 0**
+■ reagan: 候補6 → 権利と幅 1 → 中身 0 → **時点も 0**
+■ newark_757: 候補33 → 権利と幅 17 → 中身 0 → **時点も 0**

@@ -1,0 +1,68 @@
+    "manhattan_pre": "File:Empire State Building at night.jpg",                                         # 時点✓ 1980 6186x4775 PD
+    "commute_pre": "File:Downfolders-downfolder34-2011 02 02 00 10 05.jpg",                             # 時点✓ 1993 2935x2062 CC BY
+    "wtc_far": "File:World Trade Center, New York. Exterior. View from plaza - LCCN2020714989.jpg",     # 時点✓ 1976 4536x5758 PD
+    "wtc_twin": "File:World Trade Center Exterior Entrance arches with Sphere at Plaza Fountain sculpture - LCCN2021638448.jpg",# 時点✓ 1976 6209x7923 PD
+    "wtc_base": "File:World Trade Center, New York. Exterior. Entrance Sphere at Plaza Fountain sculpture. Overhead view - LCCN2021637339.jpg",# 時点✓ 1976 5720x4232 PD
+    "wtc_south": "File:World Trade Center photomontage, aerial view from north-east.jpg",               # 時点🔴 2026 5760x3840 CC BY
+    "lobby_pre": "File:Memphis-international-airport-1970s.jpg",                                        # 時点✓ 1973 2770x1847 CC BY
+    "security_pre": "File:Orange County Airport, security officer, Sept. 1970.jpg",                     # 時点✓ 1970 2681x3912 CC BY
+    "gate_pre": "File:Boarding Southwest Airways B737-700 N242WN at Long Island MacArthur Airport, February 20, 2023.jpg",# 時点🔴 2023 4032x3024 PD
+    "fids_pre": "File:Flight Board at Departures Area by Security Check-In at Taiwan Taoyuan International Airport.jpg",# 時点🔴 2023 11001x6189 CC BY
+    "logan": "File:LOGAN AIRPORT-CONTROL TOWER AND RUNWAYS SEEN FROM 16TH FLOOR OBSERVATION DECK - NARA - 548428.jpg",# 時点✓ 1973 3000x2045 PD
+    "logan_apron": "File:Eastern Air Lines terminal at Logan Airport, 1969.jpg",                        # 時点✓ 1969 5796x4612 PD
+    "logan_takeoff": "File:THESE POINT SHIRLEY HOMES ON WINTROP SHORE DRIVE ARE IN LANDING PATTERN FOR LOGAN AIRPORT'S RUNWAY 27 - NARA - 548469.jpg",# 時点✓ 1973 2030x3000 PD
+    "dulles": "File:D3C1219-300947F002 b (51844091678).jpg",                                            # 時点✓ 1984 4033x4616 PD
+    "dulles_rwy": "File:Aerial view of Dulles Airport, June 1985.JPEG",                                 # 時点✓ 1985 2790x1860 PD
+    "reagan": "File:Bike and Scooter parking DCA National Airport 2025-10-22 12-51-09 1.jpg",           # 時点🔴 2025 8160x6144 CC BY
+    "newark_757": "File:United 757-200 at EWR (37116055471).jpg",                                       # 時点🔴 2017 3769x2254 CC BY
+    "b767": "File:Austrian Airlines Boeing 767-300ER OE-LAE returning from test flight at Taoyuan February 2026.jpg",# 時点🔴 2026 8256x5504 CC BY
+    "b757": "File:Delta 757-200 N710TW taxiing at Boston Nov 2024.jpg",                                 # 時点🔴 2024 8256x5504 CC BY
+    "b767_cruise": "File:Delta 767-300ER N192DN on approach to Boston Oct 2024 1.jpg",                  # 時点✓ 2024 8256x5504 CC BY
+    "b767_takeoff": "File:FedEx Express Boeing 767-300F N263FE departing Boston March 2025 1.jpg",      # 時点✓ 2025 7460x4196 CC BY
+    "b757_takeoff": "File:Delta Boeing 757-200 N702TW departing Boston April 2025 1.jpg",               # 時点✓ 2025 8024x4513 CC BY
+    "airliner_cruise": "File:Qantas Airbus A380 (5478680641).jpg",                                      # 時点✓ 2011 4288x2848 CC BY
+    "refuel": "File:B-1B Lancers at Mihail Kogălniceanu Air Base.jpg",                                  # 時点✓ 2023 7679x5119 PD
+    "cabin_pre": "File:Pilatus PC-6A Turbo-Porter cabin.jpg",                                           # 時点✓ 1960 1920x1529 PD
+    "cockpit_door_pre": "File:Puerto Rico — A 320 JetBlue — Open cockpit door during boarding.jpg",     # 時点🔴 2015 3456x4608 CC BY
+    "cockpit_pre": "File:Eerste vlucht JAL Boeing 747 over Noordpool rechtstreeks naar Amsterdam, Japans…, Bestanddeelnr 925-3333.jpg",# 時点✓ 1972 2441x3671 PD
+    "window_cruise": "File:20250928 View from aircraft in Egypt 01 (21624).jpg",                        # 時点✓ 2025 8160x4592 CC BY
+    "window_sky": "File:20250928 View from aircraft in Turkey 01 (31935).jpg",                          # 時点✓ 2025 8160x4592 CC BY
+    "artcc_screen_pre": "File:Bild-LuftkorridoreBerlin1989.jpg",                                        # 時点✓ 1989 2790x1860 PD
+    "radar_scope_pre": "File:A view of a radar scope in the combat information center aboard the amphibious assault ship USS NASSAU (LHA-4) - DPLA - b9526c8946df3571435dca15175cbed1.jpeg",# 時点✓ 1982 2800x1910 PD
+    "controller_pre": "File:President Making a Statement to The Press Regarding The Air Traffic Controllers Strike Patco in Rose Garden - DPLA - e088ac348a2b5dabd923ef04686f2169.jpg",# 時点✓ 1981 4000x2671 PD
+    "artcc_screen2": "File:AirTraffic-8.jpg",                                                           # 時点? None 3008x1960 PD
+    "artcc_alt": "File:Air Traffic Controller’s (8713321).jpg",                                         # 時点✓ 2024 5527x4024 PD
+    "artcc_seat": "File:379th EOSS air traffic controllers in action (8599713).jpg",                    # 時点✓ 2024 8256x5504 PD
+    "pentagon_ext_pre": "File:Defense.gov News Photo 011213-D-9880W-027.jpg",                           # 時点✓ 2001 3831x2558 PD
+    "pentagon_aerial_pre": "File:An aerial view of the Potomac River with a section of National Airport in the foreground and Washington, District of Columbia in the background. The Pentagon is at left center - DPLA - 0988dfc180d95343d08e18c472130d6d.jpeg",# 時点✓ 1991 3000x2291 PD
+    "pentagon_court_pre": "File:200918-D-TT977-0070.NEF (50356745522).jpg",                             # 時点🔴 2020 8101x5395 CC BY
+    "pentagon_west_day": "File:A firefigher places an American flag, found inside the Pentagon unharmed, on a firetruck shortly after a hijacked jetliner crashed into the Pentagon at approximately 0930 on September 11, 2001 010911-M-CI426-092.jpg",# 時点✓ 2001 3600x2362 PD
+    "f15_alert": "File:A 494th EFS F-15E Strike Eagle sits on the flight line prior to a sortie at Prince Sultan Air Base.jpg",# 時点✓ 2020 8256x5504 PD
+    "f15_takeoff": "File:391st FS F-15E prepares for takeoff at MCAS Iwakuni during Northern Edge 23-2.jpg",# 時点✓ 2023 6192x4128 PD
+    "f16_alert": "File:F-16 Fighting Falcon (49594590973).jpg",                                         # 時点✓ 2020 19188x10625 CC BY
+    "f16_takeoff": "File:F-16s launch from U S CENTCOM AOR (8208228).jpg",                              # 時点✓ 2024 8256x5103 PD
+    "base_rwy": "File:909th powers U S Navy, U S Marine Corps during large force exercise (9322819).jpg",# 時点✓ 2025 6048x4024 PD
+    "fighter_dc": "File:US Navy 040609-F-7466S-001 A flight of four F-15E Strike Eagles assigned to the 4th Fighter Wing, Seymour Johnson Air Force Base, N.C., fly over former President Ronald Reagan's funeral.jpg",# 時点✓ 2004 2622x4308 PD
+    "andrews": "File:Admiral Christopher W. Grady, Vice Chairman of the Joint Chiefs of Staff, attends the NATO Allied Warfighter Talks at the Smart Conference Center on Joint Base Andrews, MD. on June 25, 2024 - 15.jpg",# 時点✓ 2024 8469x5646 CC BY
+    "wtc_smoke_day": "File:World Trade Center towers, New York, LCCN2015645969.jpg",                    # 時点✓ 2001 5740x3981 PD
+    "fire_trucks_day": "File:LOC unattributed Ground Zero photos, September 11, 2001 - item 210.jpg",   # 時点✓ 2001 4086x2774 PD
+    "shanksville_day": "File:Flight93 bandana.jpg",                                                     # 時点✓ 2001 3231x2436 PD
+    "apron_day": "File:Charred weapons found in the wreckage of Arrow Air Flight 1285.jpg",             # 時点🔴 1985 2830x1910 PD
+    "apron_lined_day": "File:Mortar shells found at Arrow Air Flight 1285 crash site.jpg",              # 時点🔴 1985 2850x1890 PD
+    "stopped_day": "File:Wreckage from Arrow Air Flight 1285 in storage.jpg",                           # 時点🔴 1985 2199x1900 PD
+    "stranded_day": "File:Airport shuttle bus at Wattay International Airport.jpg",                     # 時点🔴 2020 4096x3072 PD
+    "report_cover": "File:USIP BPC 3777 (44025644954).jpg",                                             # 時点✓ 2018 4200x2804 CC BY
+    "report_page": "File:Draft of Camp Life Reader and Workbook No. 6 - NARA - 37296556 (page 2).jpg",  # 時点✓ 1939 5426x6568 PD
+    "hearing": "File:NLRB Investigating Committee quizzes Edwin S. Smith, Board member. Washington, D.C., Dec. 15. While testifying before the House Committee Investigating the National Labor Relations Board LCCN2016876776.jpg",# 時点✓ 1939 10089x7968 PD
+    "library_reports": "File:Bookcase at Trinity College Dublin.jpg",                                   # 時点✓ 2025 4284x5712 PD
+    "nist_report": "File:FireResearch 006.jpg",                                                         # 時点✓ 2014 6502x5483 PD
+    "recorder": "File:Cockpit voice recorder (CVR) from the crash of the January 31, 2025 Learjet 55 (Jet Rescue Air Ambulance flight MTS056) in Philadelphia, Pennsylvania taken on 2 February 2025.jpg",# 時点✓ 2025 4284x5712 PD
+    "atc_tape": "File:Audio recording services available at TSAE (6629995).jpg",                        # 時点✓ 2021 7714x5143 PD
+    "logbook": "File:PIA24440-Nominal Pilot’s Logbook (cropped).png",                                   # 時点✓ 2021 6000x3600 PD
+    "security_now": "File:DHS Secretary Kristi Noem Announces End of “Shoes-Off” Policy (54645411877).jpg",# 時点✓ 2025 8256x5504 PD
+    "artcc_now": "File:378th EOSS Air Traffic Controller Demonstration (8829389).jpg",                  # 時点✓ 2025 8448x6336 PD
+    "lobby_now": "File:Gillette–Campbell County Airport terminal interior in Campbell County, Wyoming (2).jpg",# 時点✓ 2018 5472x3648 PD
+    "clear_sky": "File:A Black Drongo (Dicrurus macrocercus) perched on a pole against a clear blue sky in Chhindwara, Madhya Pradesh, India.jpg",# 時点✓ 2025 3072x4080 PD
+
+■ 選んだ 65欄 ／ 図へ 7欄 ／ 🔴選べなかった 1: ['cabin_phone']
+■ 時点が合わない欄（副題に撮影年を書く）: wtc_south gate_pre fids_pre reagan newark_757 b767 b757 cockpit_door_pre pentagon_court_pre apron_day apron_lined_day stopped_day stranded_day

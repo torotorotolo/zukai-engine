@@ -1,0 +1,2 @@
+  ✓ artcc_alt  383KB
+  🔴 pentagon_west_day: image file is truncated (13 bytes not processed)

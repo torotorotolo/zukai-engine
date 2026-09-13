@@ -420,6 +420,110 @@ def keybridge_credit(name):
     return None
 
 
+# ══════════════════════════════════════════════════════════
+#  7本目（2001年9月11日 米国同時多発テロ）
+# ══════════════════════════════════════════════════════════
+# 名前の付け方（`tools/cuts/ss.py`）:
+#   ep7/<欄>.jpg      … Commons／NARA の写真。**PD と CC BY だけ**
+#   ep7/fb_<cid>.jpg  … RG237 の動画の**ひかえの静止画**。動画のコマが取れたら動画が勝つ
+#
+# 🔴 この表は `python qa_out/ep7_assets.py credits` が作った行をそのまま貼っている。
+#    手で書き換えない（`PICK` を直して作り直す）。
+# 🔴 CC BY は**撮影者名が条件**なので落とさない。さらにこの動画は写真を全部
+#    デュオトーンにして切り出す＝**改変物**なので、`credit_of()` が「・切出」等を足す。
+# ⚠️ ここに当たらない名前は None を返し、最後の PHOTO_CREDIT で KeyError にして気づかせる。
+EP7_FB = re.compile(r"^ep7/fb_([a-z]{1,2}\d{2,3})\.jpg$")
+
+EP7_PHOTO = {
+    "ep7/manhattan_pre.jpg": "出典：Carol M. Highsmith／パブリックドメイン",
+    "ep7/commute_pre.jpg": "出典：ウィキメディア・コモンズ／撮影 Alex Lozupone／CC BY 4.0",
+    "ep7/wtc_far.jpg": "出典：Balthazar Korab／パブリックドメイン",
+    "ep7/wtc_twin.jpg": "出典：Thomas J. O'Halloran／パブリックドメイン",
+    "ep7/wtc_base.jpg": "出典：Balthazar Korab／パブリックドメイン",
+    "ep7/wtc_south.jpg": "出典：Balthazar Korab／パブリックドメイン",
+    "ep7/wtc_under.jpg": "出典：Balthazar Korab／パブリックドメイン",
+    "ep7/lobby_pre.jpg": "出典：ウィキメディア・コモンズ／撮影 Euthman Ed Uthman／CC BY 3.0",
+    "ep7/security_pre.jpg": "出典：ウィキメディア・コモンズ／撮影 Orange County Archives／CC BY 2.0",
+    "ep7/gate_pre.jpg": "出典：Infrastorian／パブリックドメイン",
+    "ep7/fids_pre.jpg": "出典：ウィキメディア・コモンズ／撮影 Richard Allaway／CC BY 2.0",
+    "ep7/logan.jpg": "出典：Michael Philip Manheim／パブリックドメイン",
+    "ep7/logan_apron.jpg": "出典：Balthazar Korab／パブリックドメイン",
+    "ep7/logan_takeoff.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
+    "ep7/dulles.jpg": "出典：PH1 DAVID C. MACLEAN／パブリックドメイン",
+    "ep7/dulles_rwy.jpg": "出典：ウィキメディア・コモンズ／撮影 Dclemens1971／CC BY 4.0",
+    "ep7/reagan.jpg": "出典：ウィキメディア・コモンズ／撮影 G. Edward Johnson／CC BY 4.0",
+    "ep7/newark_757.jpg": "出典：ウィキメディア・コモンズ／撮影 airbus777 from Washington, DC, USA／CC BY 2.0",
+    "ep7/b767.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
+    "ep7/b757.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
+    "ep7/b767_cruise.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
+    "ep7/b767_takeoff.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
+    "ep7/b757_takeoff.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
+    "ep7/airliner_cruise.jpg": "出典：Downtowngal／パブリックドメイン",
+    "ep7/refuel.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
+    "ep7/cabin_pre.jpg": "出典：Suhyeon Choi choisyeon／パブリックドメイン",
+    "ep7/cockpit_door_pre.jpg": "出典：ウィキメディア・コモンズ／撮影 User:Mattes／CC BY 2.0 de",
+    "ep7/cabin_phone.jpg": "出典：ウィキメディア・コモンズ／撮影 Delta News Hub／CC BY 2.0",
+    "ep7/cockpit_pre.jpg": "出典：ウィキメディア・コモンズ／撮影 Funforme3／CC BY 4.0",
+    "ep7/window_cruise.jpg": "出典：ウィキメディア・コモンズ／撮影 Sergey A. Demidov／CC BY 4.0",
+    "ep7/window_sky.jpg": "出典：ウィキメディア・コモンズ／撮影 Sergey A. Demidov／CC BY 4.0",
+    "ep7/artcc_screen_pre.jpg": "出典：U.S. Air Force AFCENT by Airman 1st Class Derrick Bole／パブリックドメイン",
+    "ep7/radar_scope_pre.jpg": "出典：Tekniska museet／パブリックドメイン",
+    "ep7/controller_pre.jpg": "出典：Department of Defense. American Forces Information Service. ／パブリックドメイン",
+    "ep7/artcc_screen2.jpg": "出典：U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez／パブリックドメイン",
+    "ep7/artcc_alt.jpg": "出典：Master Sgt. Linda Miller／パブリックドメイン",
+    "ep7/artcc_seat.jpg": "出典：U.S. Space Force photo by Tech. Sgt. James Hodgman／パブリックドメイン",
+    "ep7/pentagon_ext_pre.jpg": "出典：DoD photo by Master Sgt. Ken Hammond, U.S. Air Force／パブリックドメイン",
+    "ep7/pentagon_aerial_pre.jpg": "出典：Department of Defense. American Forces Information Service. ／パブリックドメイン",
+    "ep7/pentagon_court_pre.jpg": "出典：Chairman of the Joint Chiefs of Staff from Washington D.C, U／パブリックドメイン",
+    "ep7/pentagon_west_day.jpg": "出典：CPL JASON INGERSOLL, USMC／パブリックドメイン",
+    "ep7/f15_alert.jpg": "出典：U.S. Air Force photo by Airman 1st Class Melany Bermudez／パブリックドメイン",
+    "ep7/f15_takeoff.jpg": "出典：U.S. Air Force photo by Airman 1st Class Alexandria Byrd／パブリックドメイン",
+    "ep7/f16_alert.jpg": "出典：U.S. Air Force photo by Tech. Sgt. Alexander Cook／パブリックドメイン",
+    "ep7/f16_takeoff.jpg": "出典：U.S. Air Force photo by Tech. Sgt. Alexander Cook／パブリックドメイン",
+    "ep7/base_rwy.jpg": "出典：Unknown author／パブリックドメイン",
+    "ep7/fighter_dc.jpg": "出典：U.S. Navy photo／パブリックドメイン",
+    "ep7/andrews.jpg": "出典：U.S. Air Force photo by Tech. Sgt. Timothy Moore／パブリックドメイン",
+    "ep7/wtc_smoke_day.jpg": "出典：Mike Goad／パブリックドメイン",
+    "ep7/fire_trucks_day.jpg": "出典：Anonymous. Courtesy of the Prints and Photographs Division. ／パブリックドメイン",
+    "ep7/shanksville_day.jpg": "出典：Staff Sgt. Larry A. Simmons, U.S. Air Force／パブリックドメイン",
+    "ep7/apron_day.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
+    "ep7/apron_lined_day.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
+    "ep7/stopped_day.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
+    "ep7/stranded_day.jpg": "出典：ウィキメディア・コモンズ／撮影 Nelo Hotsuma／CC BY 2.0",
+    "ep7/hearing.jpg": "出典：Nuclear Regulatory Commission from US／パブリックドメイン",
+    "ep7/library_reports.jpg": "出典：ウィキメディア・コモンズ／撮影 Bjankuloski06／CC BY 4.0",
+    "ep7/recorder.jpg": "出典：National Transportation Safety Board／パブリックドメイン",
+    "ep7/atc_tape.jpg": "出典：ウィキメディア・コモンズ／撮影 Robert Taylor from Stirling, ON, Canada／CC BY 2.0",
+    "ep7/logbook.jpg": "出典：Leksey／パブリックドメイン",
+    "ep7/security_now.jpg": "出典：DHSgov／パブリックドメイン",
+    "ep7/artcc_now.jpg": "出典：U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez／パブリックドメイン",
+    "ep7/lobby_now.jpg": "出典：Mr. Satterly／パブリックドメイン",
+    "ep7/clear_sky.jpg": "出典：ウィキメディア・コモンズ／撮影 Sergey A. Demidov／CC BY 4.0",
+}
+
+
+def ep7_credit(name):
+    """`ref/ep7/` の名前から出典表記を作る。当てはまらなければ None。"""
+    m = EP7_FB.match(name)
+    if m:
+        cid = m.group(1)
+        try:
+            import footage as FO
+            c = FO.credit_of(cid)
+        except Exception:                                # noqa: BLE001
+            c = None
+        if c:
+            return c + "（静止画）"
+        # 🔴 **黙って通さない。**ひかえの静止画は動画の出典を借りているので、
+        #    `footage.USE` に欄が無ければ出せる出典が無い＝出所を偽ることになる。
+        raise RuntimeError(
+            f"{cid}: 実写のカットだが `footage.USE` に欄が無い。"
+            f"⑤b で `ref/ep7/SHOTS_INDEX.md` からショットの境目を写して足すこと")
+    if name.startswith("ep7/"):
+        return EP7_PHOTO.get(name)
+    return None
+
+
 def credit_of(cid, spec):
     """そのカットに出す出典。**動画を当てたカットは動画の出典を出す。**
 
@@ -435,7 +539,8 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (keybridge_credit(spec["photo"]) or sl1_credit(spec["photo"])
+    cr = (ep7_credit(spec["photo"]) or keybridge_credit(spec["photo"])
+          or sl1_credit(spec["photo"])
           or surfside_credit(spec["photo"])
           or thresher_credit(spec["photo"]) or kaisetsu_credit(spec["photo"])
           or ja123_credit(spec["photo"]) or PHOTO_CREDIT[spec["photo"]])

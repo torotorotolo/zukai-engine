@@ -1,0 +1,57 @@
+■ aoc_pre: 6 → 権利と幅 6 → **中身 1**
+   ✓ 2048x1536 PD     2010 JAL Narita Operation Center Building.JPG
+        JAL Narita Operation Center Building - JALways headquarters
+■ cockpit_door_hard: 498 → 権利と幅 85 → **中身 12**
+   ✓ 9181x6300 PD     2021 111-SC-6013 - Key w-t 5-amperes in pilots cockpit - DPLA - 480c9b451a6ef4d2
+   ✓ 5993x3863 CC BY  2021 CS-HMA Bell 222UT Cockpit.jpg
+        East Asia Airlines operated a Hong Kong to Macau service from Hong Kong's downtown heliport unt
+   ✓ 4608x3456 CC BY  2014 Inside the cockpit of the De Havilland Vampire, advanced jet trainer 1950s 
+        Inside the cockpit of the De Havilland Vampire, advanced jet trainer 1950s - 1970s
+   ✓ 4000x3000 CC BY  2024 EasyJet airbus A320 cockpit.jpg
+        easyJet airbus A320 cockpit
+   ✓ 3872x2592 CC BY  2015 OE-FMW 02.jpg
+        OE-FMW cockpit
+■ wtc_under: 269 → 権利と幅 49 → **中身 8**
+   ✓ 3384x4331 PD     1995 World Trade Center Towers, 90 West St. building 12460v.jpg
+        World Trade Center Towers, 90 West St. building, New York, New York
+   ✓ 2178x3414 CC BY  1980 World Trade Center 1980 infra red analog.jpg
+        World Trade Center 1980 infra red analog
+   ✓ 3141x2104 PD     2001 Six WTC SW Corner.jpg
+        Six World Trade Center , (US Customs House) New York City, New York View of southwest corner of
+   ✓ 3000x2012 PD     1973 Staten Island Ferry with Smog-Obscured Skyline of Lower Manhattan in Backgr
+        Original Caption: Staten Island Ferry with Smog-Obscured Skyline of Lower Manhattan in Backgrou
+   ✓ 2578x1741 PD     2001 CBP World Trade Center Photography 19.jpg
+        Original description by CBP: "The NYC Customhouse, building six of the WTC, from directly overh
+■ apron_lined_day: 747 → 権利と幅 362 → **中身 19**
+   🔴年 8256x5504 CC BY  2024 Alaska Boeing 737-9 MAX N926AK at Boston Logan Terminal B December 2024.jpg
+        Alaska Airlines Boeing 737-9 MAX N926AK at gate B35A at Boston Logan International Airport, as 
+   🔴年 8256x5504 CC BY  2026 At gate B24 at Boston Logan International Airport January 2026.jpg
+        Looking north from a United Airlines Boeing 757-200 at gate B24, towards a Boeing 737-900ER par
+   🔴年 8256x5504 CC BY  2025 Delta Airbus A330-300 N829NW at Boston May 2025.jpg
+        Delta Air Lines Airbus A330-300 N829NW at gate E7 at Boston Logan International Airport, with E
+   🔴年 8256x5504 CC BY  2026 Delta Air Lines Airbus A321neo N531DA parked at Boston May 2026.jpg
+        Delta Air Lines Airbus A321neo N531DA, having arrived as flight 412 from Seattle, parked at gat
+   🔴年 8256x5504 CC BY  2026 Delta Air Lines Airbus A220-300 N337DU at gate A18 at Boston May 2026.jpg
+        Delta Air Lines Airbus A220-300 N337DU parked at gate A18 at Boston Logan International Airport
+■ apron_day: 645 → 権利と幅 127 → **中身 9**
+   🔴年 6814x3904 CC BY  2018 Southwest 737 at DCA (39815756282).jpg
+        A Southwest Airlines Boeing 737 parked at the Terminal A satellite at Ronald Reagan Washington 
+   🔴年 5447x2825 CC BY  2017 Southwest 737s parked at Terminal A at DCA (39815401742).jpg
+        Southwest Airlines Boeing 737s parked at the terminal A satellite at Ronald Reagan Washington N
+   🔴年 4620x2978 PD     1930 Womens City Club flyers at Wash. Airport.jpg
+        Two women standing at the entrance of a Ford Trimotor aircraft at Washington National Airport
+   🔴年 4323x3043 PD     1941 Terminal waiting room Washington National Airport 1941 LOC fsa.8a36278.jpg
+        Spectators observing airliners at Washington National Airport from its terminal's main waiting 
+   🔴年 4308x3038 PD     1941 Terminal waiting room Washington National Airport 1941 LOC fsa.8a36226.jpg
+        Spectators observing airliners at Washington National Airport from its terminal's main waiting 
+■ stopped_day: 535 → 権利と幅 188 → **中身 5**
+   🔴年 8256x5504 CC BY  2024 United A321neo taking off from Runway 9 Boston.jpg
+        A United Airlines Airbus A321neo takes off from Runway 9 at Boston Logan International Airport,
+   🔴年 8129x5419 CC BY  2024 American 737-800 N929NN landing at Boston Dec 2024 2.jpg
+        American Airlines Boeing 737-800 N929NN lands on Runway 27 at Boston Logan International Airpor
+   🔴年 7294x4863 CC BY  2026 View from runway 33L takeoff at Boston January 2026.jpg
+        Looking north from a United Boeing 757-200 as it takes off from runway 33L at Boston Logan Inte
+   🔴年 6968x4645 CC BY  2026 View from runway 33L takeoff at Boston January 2026 2.jpg
+        Looking north from a United Boeing 757-200 as it takes off from runway 33L at Boston Logan Inte
+   🔴年 5568x3712 CC BY  2023 United Boeing 737 at Gate B25 at Boston September 2023.jpg
+        A United Boeing 737 at Gate B25 at Boston Logan International Airport. A United Boeing 757-200 

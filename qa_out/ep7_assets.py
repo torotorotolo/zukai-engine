@@ -462,7 +462,100 @@ def era_ok(slot, row):
 # ══════════════════════════════════════════════════════════
 #  選んだ1枚（`report` を見て手で書く）
 # ══════════════════════════════════════════════════════════
-PICK: dict[str, str] = {}
+# 🔴🔴 2026-09-13（⑤b-2）**1枚ずつ題名と説明を読んで手で決めた。**
+#   自動で「中身の網を通った先頭」を採らせたら、65欄のうち十数件が別物だった
+#   （`qa_out/ep7_pick.py` の docstring に実例）。網は**候補を絞る道具**であって、
+#   選ぶ道具ではない。
+#
+# 🔴 副題に「2001年以前」と書けるのは **撮影年が実際にそうだと台帳で確かめられた欄だけ**。
+#   確かめられない欄は、副題から年の主張を落として**撮影年をそのまま書く**
+#   （例「ボーイング767　2025年撮影」）。画面に嘘を出さないための線。
+#   → 該当する欄は `ref/CREDITS.md` §9.11 と各章ファイルの注に書いてある。
+#
+# 🔴 写真が1点も無く**図に振り替えた欄**（`ep7_pick.FIG_SLOTS` と1対1）:
+#   boston_artcc_ext / indy_artcc / cleveland_artcc / atcscc … その建物の写真が無い
+#   aoc_pre … 航空会社の運航管理室の写真が無い（出てくるのは天文台・原子炉の制御室）
+#   cockpit_door_hard … 「強化された扉」と分かる写真が無い（操縦室の写真はあるが別物）
+#   report_cover / report_page / nist_report … 報告書そのものの写真が無い
+PICK: dict[str, str] = {
+    # ── 街と世界貿易センター ───────────────────────────
+    "manhattan_pre": "File:World Trade Center towers, New York, LCCN2015645969.jpg",
+    "commute_pre": "File:Downfolders-downfolder34-2011 02 02 00 10 05.jpg",
+    "wtc_far": "File:World Trade Center, New York. Exterior. Twilight view from harbor - LCCN2021636615.jpg",
+    "wtc_twin": "File:View of the New World Trade Center, 1971.jpg",
+    "wtc_base": "File:World Trade Center Exterior Entrance arches with Sphere at Plaza Fountain sculpture - LCCN2021638448.jpg",
+    "wtc_south": "File:World Trade Center, New York. Exterior. View from plaza - LCCN2020714989.jpg",
+    "wtc_under": "File:World Trade Center, New York. Exterior. Night view - LCCN2021636612.jpg",
+    # ── 空港（2001年以前） ─────────────────────────────
+    "lobby_pre": "File:Memphis-international-airport-1970s.jpg",
+    "security_pre": "File:Orange County Airport, security officer, Sept. 1970.jpg",
+    "gate_pre": "File:Boarding Southwest Airways B737-700 N242WN at Long Island MacArthur Airport, February 20, 2023.jpg",
+    "fids_pre": "File:Geneva Departures Board (5485297336).jpg",
+    "logan": "File:LOGAN AIRPORT-CONTROL TOWER AND RUNWAYS SEEN FROM 16TH FLOOR OBSERVATION DECK - NARA - 548428.jpg",
+    "logan_apron": "File:Eastern Air Lines terminal at Logan Airport, 1969.jpg",
+    "logan_takeoff": "File:United 737-800 N73283 takeoff roll Boston Dec 2024.jpg",
+    "dulles": "File:Aerial view of Dulles Airport, June 1985.JPEG",
+    "dulles_rwy": "File:Aerial view of Dulles Airport 03.jpg",
+    "reagan": "File:E Concourse DCA National Airport 2025-10-22 15-05-36 1.jpg",
+    "newark_757": "File:United 757-200 at EWR (37116055471).jpg",
+    # ── 機体と機内 ─────────────────────────────────────
+    "b767": "File:Delta Boeing 767-300ER N194DN at Boston May 2025.jpg",
+    "b757": "File:Delta 757-200 N710TW taxiing at Boston Nov 2024.jpg",
+    "b767_cruise": "File:Lufthansa A350-900 and United 767-300ER above Boston.jpg",
+    "b767_takeoff": "File:FedEx Express Boeing 767-300F N263FE departing Boston March 2025 1.jpg",
+    "b757_takeoff": "File:Delta Boeing 757-200 N702TW departing Boston April 2025 1.jpg",
+    "airliner_cruise": "File:Aircraft crossing paths.jpg",
+    "refuel": "File:Fueling Boeing 757-200 N58101 at Boston January 2026.jpg",
+    "cabin_pre": "File:Airplane aisle during flight (Unsplash).jpg",
+    "cockpit_door_pre": "File:Puerto Rico — A 320 JetBlue — Open cockpit door during boarding.jpg",
+    "cabin_phone": "File:A220 Main Cabin (43799968340).jpg",
+    "cockpit_pre": "File:Avelo Airlines B737 Cockpit.jpg",
+    "window_cruise": "File:20250928 View from aircraft in Turkey 01 (31935).jpg",
+    "window_sky": "File:20250928 View from aircraft in Egypt 01 (21624).jpg",
+    # ── 管制 ───────────────────────────────────────────
+    "artcc_screen_pre": "File:379th EOSS air traffic controllers in action (8599712).jpg",
+    "radar_scope_pre": "File:SR&T Plan position indicator.jpg",
+    "controller_pre": "File:Air traffic controllers of the 1961st Communications Group man their duty stations in the base tower. The 1961st recently won the Major General Harold M. McClelland Award for commun - DPLA - 6a16bbcae66aff3a8a8616188e1d2e07.jpeg",
+    "artcc_screen2": "File:378th EOSS Air Traffic Controller Demonstration (8829390).jpg",
+    "artcc_alt": "File:Kingpin and Controllers Maintain Aircraft and Airspace DVIDS265967.jpg",
+    "artcc_seat": "File:ATC aids TBM Avenger pilot (6666391).jpeg",
+    # ── ペンタゴン ─────────────────────────────────────
+    "pentagon_ext_pre": "File:The Pentagon US Department of Defense building.jpg",
+    "pentagon_aerial_pre": "File:An aerial view of the Pentagon - DPLA - 2bad8af340141770c277509bf649c466.jpeg",
+    "pentagon_court_pre": "File:200918-D-TT977-0082.NEF (50356577241).jpg",
+    "pentagon_west_day": "File:DM-SD-02-03925.JPEG",
+    # ⚠️ 2026-09-13（⑤b-2）DoD の `010911-M-CI426-*` は **8点とも本体が切れている**
+    #   （Commons 側の不良。1〜13バイト足りず PIL が開けない）。読めたのはこの1点だけ。
+    #   撮影 CPL JASON INGERSOLL, USMC／2001-09-11／「煙が晴れたあとのペンタゴン」
+    # ── 軍 ─────────────────────────────────────────────
+    "f15_alert": "File:Fond Farewell to F-15C A5095 (8605970).jpg",
+    "f15_takeoff": "File:391st FS F-15E prepares for takeoff at MCAS Iwakuni during Northern Edge 23-2.jpg",
+    "f16_alert": "File:F-16s launch from U S CENTCOM AOR (8208226).jpg",
+    "f16_takeoff": "File:F-16s launch from U S CENTCOM AOR (8208228).jpg",
+    "base_rwy": "File:Aerial view of Tan Son Nhut Air Base down main runway.jpg",
+    "fighter_dc": "File:US Navy 040609-F-7466S-001 A flight of four F-15E Strike Eagles assigned to the 4th Fighter Wing, Seymour Johnson Air Force Base, N.C., fly over former President Ronald Reagan's funeral.jpg",
+    "andrews": "File:76th AS Last C-40 on ramp.jpg",
+    # ── 当日 ───────────────────────────────────────────
+    "wtc_smoke_day": "File:Skyline of Manhattan with smoke billowing from the Twin Towers (29385426736).jpg",
+    "fire_trucks_day": "File:LOC unattributed Ground Zero photos, September 11, 2001 - item 210.jpg",
+    "shanksville_day": "File:Defense.gov News Photo 010914-F-4692S-003.jpg",
+    "apron_day": "File:Alaska Boeing 737-9 MAX N926AK at Boston Logan Terminal B December 2024.jpg",
+    "apron_lined_day": "File:At gate B24 at Boston Logan International Airport January 2026.jpg",
+    "stopped_day": "File:United Boeing 737 at Gate B25 at Boston September 2023.jpg",
+    "stranded_day": "File:Philadelphia Airport Lounge (36335419103).jpg",
+    # ── 記録・書類 ─────────────────────────────────────
+    "hearing": "File:Congressional Hearing - Jul. 24, 2012 (7748554726).jpg",
+    "library_reports": "File:Books, Community Languages, Takapuna Library.jpg",
+    "recorder": "File:Miami Air Flight 293 flight recorder (32830135147).jpg",
+    "atc_tape": "File:Studer B67 reel-to-reel audio tape recorder, ca. 1978 (cropped and edited, larger 10 inch tapes).jpg",
+    "logbook": "File:Aircraftlogbooksimple2.jpg",
+    # ── 「今」 ─────────────────────────────────────────
+    "security_now": "File:TSA Security Checkpoint - 54504384636.jpg",
+    "artcc_now": "File:378th EOSS Air Traffic Controller Demonstration (8829389).jpg",
+    "lobby_now": "File:Gillette–Campbell County Airport terminal interior in Campbell County, Wyoming (2).jpg",
+    # ── 空 ─────────────────────────────────────────────
+    "clear_sky": "File:20250928 View from aircraft in Turkey 01 (79961).jpg",
+}
 
 
 # ── Commons を叩く ────────────────────────────────────────
@@ -655,10 +748,32 @@ def cmd_report(only=None, n=6):
     return 0
 
 
-def _fetch_one(url, dest):
-    req = urllib.request.Request(url, headers={"User-Agent": CP.UA})
-    with urllib.request.urlopen(req, timeout=60) as rs:
-        dest.write_bytes(rs.read())
+def _fetch_one(url, dest, tries=4):
+    """🔴 2026-09-13（⑤b-2）**長さを突き合わせてから保存する。**
+
+    もとは `rs.read()` の戻りをそのまま書いていたので、**途中で切れた本体を
+    「落とせた」として保存**していた（PIL が `image file is truncated` で落ちて
+    はじめて分かる。DoD の 3600x2362 の系列で3回とも再現した）。
+    ⚠️ 落ちたから気づけただけで、**画像として開けてしまう切れ方なら黙って通る**
+       → [[feedback-parsers-fail-closed]]。長さで見る。
+    """
+    last = None
+    for k in range(tries):
+        req = urllib.request.Request(url, headers={"User-Agent": CP.UA})
+        try:
+            with urllib.request.urlopen(req, timeout=120) as rs:
+                want = int(rs.headers.get("Content-Length") or 0)
+                buf = rs.read()
+            if want and len(buf) < want:
+                last = f"本体が短い（{len(buf)}/{want} バイト）"
+                time.sleep(2 * (k + 1))
+                continue
+            dest.write_bytes(buf)
+            return
+        except Exception as e:                                  # noqa: BLE001
+            last = f"{type(e).__name__}: {e}"
+            time.sleep(2 * (k + 1))
+    raise RuntimeError(f"{tries}回とも落とせなかった（{last}）")
 
 
 def cmd_fetch(only=None):
@@ -675,10 +790,25 @@ def cmd_fetch(only=None):
         dest = REF / f"{name}.jpg"
         if dest.exists():
             print(f"  ・{name} は在る（{dest.stat().st_size // 1024}KB）"); continue
+        # 🔴 2026-09-13（⑤b-2）**題名は台帳ぜんたいから引く。**
+        #   欄ごとの `rows` だけを見る作りだったので、「別の欄の一覧で見つけた1枚」を
+        #   選ぶと「台帳に無い」で落ちた（14欄／実際には台帳に在る）。
+        #   ⚠️ それでも無いときは **API で引き直す**（黙って別の絵を出さない）。
         row = next((r for r in db.get(name, {}).get("rows", [])
                     if r["title"] == title), None)
         if not row:
-            print(f"  🔴 {name}: 台帳に {title} が無い"); ng += 1; continue
+            row = next((r for d in db.values() for r in d.get("rows", [])
+                        if r["title"] == title), None)
+        if not row:
+            got = _imageinfo2([title])
+            row = got[0] if got and got[0].get("url") else None
+            if row:
+                ok, kind = lic_ok(row)
+                if not ok:
+                    print(f"  🔴 {name}: {title} は使えない権利（{kind}）"); ng += 1; continue
+                row["lic_kind"] = kind
+        if not row:
+            print(f"  🔴 {name}: 台帳にも Commons にも {title} が無い"); ng += 1; continue
         tmp = REF / f"_{name}.bin"
         try:
             _fetch_one(row["url"], tmp)
@@ -696,23 +826,113 @@ def cmd_fetch(only=None):
     return 2 if ng else 0
 
 
+def _who(row):
+    """撮影者の表記を1行にする。
+
+    🔴 2026-09-13（⑤b-2）**HTML と引用符が混ざる。**
+      `Artist` は Commons の wikitext がそのまま入るので
+      `<div class="fn value"><a rel="nofollow" …` や
+      `"DoD photo by Master Sgt. Ken Hammond, U.S. Air Force."` のような値が来る。
+      そのまま Python の文字列に貼ると**行が壊れる**（実際に2件壊れた）。
+      → タグを落とし、前後の引用符と句点を落とし、二重引用符を全角に置き換える。
+    """
+    s = _plain(row.get("author")) or _plain(row.get("credit")) or "撮影者不明"
+    s = re.sub(r"https?://\S+", " ", s)
+    s = re.sub(r"\s+", " ", s).strip().strip('"“”').strip().rstrip("。.")
+    s = s.replace('"', "”").replace("\\", "／")
+    # 「Unknown author Unknown author」のような二重を1つに畳む
+    s = re.sub(r"^(.*?)\s+\1$", r"\1", s)
+    return (s or "撮影者不明")[:60]
+
+
 def cmd_credits():
-    """`scene_jiko.PHOTO_CREDIT` に貼る行と、`ref/CREDITS.md` の表を作る。"""
+    """`scene_jiko.EP7_PHOTO` に貼る行と、`ref/CREDITS.md` の表を作る。"""
     if not OUT.exists():
         print("🔴 台帳が無い。まず search"); return 2
     db = json.loads(OUT.read_text(encoding="utf-8"))
-    print("# scene_jiko.PHOTO_CREDIT に足す行")
+    # 🔴 題名は**台帳ぜんたい**から引く（欄ごとの rows だけだと9欄が「無い」になる）。
+    index = {r["title"]: r for d in db.values() for r in d.get("rows", [])}
+    print("# scene_jiko.EP7_PHOTO に貼る行")
+    ng = 0
     for name, title in PICK.items():
-        row = next((r for r in db.get(name, {}).get("rows", [])
-                    if r["title"] == title), None)
+        row = index.get(title)
         if not row:
-            print(f'    # 🔴 {name}: 台帳に無い'); continue
-        kind = row["lic_kind"]
-        who = (row.get("author") or "撮影者不明")[:60]
-        tail = "／パブリックドメイン" if kind == "PD" else f"／撮影 {who}／{row['license']}"
+            got = _imageinfo2([title])
+            row = got[0] if got else None
+            if row:
+                row["lic_kind"] = lic_ok(row)[1]
+        if not row:
+            print(f'    # 🔴 {name}: 台帳にも Commons にも無い'); ng += 1; continue
+        kind = row.get("lic_kind") or lic_ok(row)[1]
+        who = _who(row)
+        lic = _plain(row.get("license")) or ""
+        tail = "／パブリックドメイン" if kind == "PD" else f"／撮影 {who}／{lic}"
         head = "出典：" + (who if kind == "PD" else "ウィキメディア・コモンズ")
         print(f'    "ep7/{name}.jpg": "{head}{tail}",')
-    return 0
+    print("\n# ref/CREDITS.md §9.11 の表")
+    print("| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 元の題名 |")
+    print("|---|---|---:|---|---|---|")
+    for name, title in PICK.items():
+        row = index.get(title)
+        if not row:
+            continue
+        s = next((x for x in SLOTS if x["name"] == name), {})
+        print(f"| `{name}` | {' '.join(s.get('cuts', []))} | {row.get('year') or '不明'} "
+              f"| {row.get('lic_kind')}（{_plain(row.get('license'))}） | {_who(row)} "
+              f"| {title[5:]} |")
+    return 2 if ng else 0
+
+
+def cmd_fb():
+    """`footage.USE` の各欄から**ひかえの静止画** `ref/ep7/fb_<cid>.jpg` を焼く。
+
+    🔴 `footage._cut_stream()` は「URL から要る区間だけをコマに切り出す（落とさない）」作りで、
+       手元に mp4 は残らない。→ **URL から直接1コマ抜く**（6本目 `keybridge_assets.fb` と同じ）。
+    🔴 **SAR を直す。** RG237 の 32点中27点が SAR=10:11 で、そのまま抜くと横に10%ふくらむ
+       （[[feedback-container-labels-lie-about-the-picture]]）。`scale=iw*sar:ih,setsar=1`。
+    ⚠️ 焼けた枚数だけでなく**作れなかった欄を必ず名前で出す**（黙って0枚で通さない）。
+    ⚠️ 続けて投げると素材の側が絞るので、1枚ごとに間を空けて3回まで試す。
+    """
+    import subprocess
+    import footage as FO
+    REF.mkdir(parents=True, exist_ok=True)
+    n, miss = 0, []
+
+    def made(q):
+        return q.exists() and q.stat().st_size > 0
+
+    for cid, u in sorted(FO.USE.items()):
+        at = min(float(u["start"]) + 0.4, float(u["until"]) - 0.2)
+        dest = REF / f"fb_{cid}.jpg"
+        if made(dest):
+            n += 1
+            continue
+        c = FO.CLIPS[u["clip"]]
+        vf = ["scale=iw*sar:ih", "setsar=1"] if int(c.get("dispw") or c["w"]) != int(c["w"]) else []
+        for attempt in range(3):
+            for src in FO.urls_of(u["clip"]):
+                cmd = ["ffmpeg", "-y", "-nostdin", "-hide_banner", "-loglevel", "error",
+                       "-user_agent", FO.UA, "-ss", f"{at:.2f}", "-i", src,
+                       "-frames:v", "1", "-q:v", "2"]
+                if vf:
+                    cmd += ["-vf", ",".join(vf)]
+                cmd.append(str(dest))
+                subprocess.run(cmd, capture_output=True, timeout=900)
+                if made(dest):
+                    break
+            if made(dest):
+                break
+            print(f"  ⚠️ {cid}: 焼けなかった（{attempt + 1}回目）", flush=True)
+            time.sleep(6 * (attempt + 1))
+        if made(dest):
+            n += 1
+            print(f"  ✓ {cid}  {dest.stat().st_size // 1024}KB", flush=True)
+            time.sleep(1.5)
+        else:
+            miss.append(cid)
+    print(f"■ ひかえの静止画 {n} 枚／{len(FO.USE)} 欄"
+          + (f"　🔴 作れなかった {len(miss)}欄: {miss}" if miss else "　✓ 全欄"))
+    return 2 if miss else 0
 
 
 def selftest():
@@ -749,7 +969,7 @@ def selftest():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", nargs="?", default="count",
-                    choices=["search", "local", "report", "count", "fetch", "credits"])
+                    choices=["search", "local", "report", "count", "fetch", "credits", "fb"])
     ap.add_argument("--only", default="")
     ap.add_argument("--n", type=int, default=6)
     ap.add_argument("--w", type=int, default=0, help="幅の下限（既定 1920）")
@@ -768,6 +988,8 @@ def main():
         return cmd_report(only, a.n)
     if a.cmd == "fetch":
         return cmd_fetch(only)
+    if a.cmd == "fb":
+        return cmd_fb()
     if a.cmd == "credits":
         return cmd_credits()
     return cmd_count()

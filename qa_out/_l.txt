@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "C:\Users\konar\Desktop\zukai-engine\tools\check_layout.py", line 36, in <module>
+    import scene_jiko as S
+  File "C:\Users\konar\Desktop\zukai-engine\tools\scene_jiko.py", line 1025, in <module>
+    PHOTO_CUTS = {cid: (photo_box(s), s["photo"], s.get("bias", 0.5))
+                        ^^^^^^^^^^^^
+  File "C:\Users\konar\Desktop\zukai-engine\tools\scene_jiko.py", line 601, in photo_box
+    with Image.open(HERE / "ref" / spec["photo"]) as im:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\site-packages\PIL\Image.py", line 3635, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\konar\\Desktop\\zukai-engine\\ref\\ep7\\fb_pr03.jpg'

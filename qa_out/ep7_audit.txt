@@ -1,0 +1,77 @@
+欄                            網を通った     中身も合う     うち時点も  中身
+  manhattan_pre                 24        13        13  2001年以前のローワーマンハッタン（朝の街並み）
+  commute_pre                   24         3         3  朝の通勤（2001年以前のマンハッタン）
+  wtc_far                       24         2         1  世界貿易センター（遠景・2001年以前）
+  wtc_twin                      24        11        10  ツインタワー（2001年以前）
+  wtc_base                      24         6         6  世界貿易センターの足元（2001年以前）
+⚠️wtc_south                     22         6         0  ツインタワーの南棟（2001年以前）
+🔴wtc_under                     24         0         0  世界貿易センターの地下（2001年以前）
+  lobby_pre                     24         2         1  2001年以前の空港ロビー
+  security_pre                  24         1         1  2001年以前の保安検査場
+🔴gate_pre                      24         0         0  空港の搭乗口（2001年以前）
+⚠️fids_pre                      12         4         0  空港の出発案内板（2001年以前）
+🔴logan                          1         0         0  ボストン・ローガン空港（2001年以前）
+  logan_apron                    4         3         1  ローガン空港の駐機場
+⚠️logan_takeoff                 24        23         0  ローガン空港を離陸する旅客機
+⚠️dulles                         5         1         0  ワシントン・ダレス空港（2001年以前）
+⚠️dulles_rwy                    15         1         0  ダレス空港の滑走路
+⚠️reagan                        24        19         0  レーガン・ナショナル空港（2001年以前）
+⚠️newark_757                     5         3         0  ニューアーク空港を離陸する757
+🔴b767                           2         0         0  ボーイング767（2001年以前）
+🔴b757                           1         0         0  ボーイング757（2001年以前）
+  b767_cruise                   17        15        15  巡航するボーイング767
+  b767_takeoff                  15        10        10  離陸するボーイング767
+  b757_takeoff                  24        22        22  離陸するボーイング757
+  airliner_cruise               10         3         3  巡航する旅客機
+  refuel                        12         6         6  給油中の旅客機（2001年以前）
+  cabin_pre                     24         2         1  旅客機の客室（2001年以前）
+🔴cockpit_door_pre               1         0         0  旅客機の操縦室の扉（2001年以前）
+🔴cabin_phone                   24         0         0  客室の座席にある電話（2001年以前）
+🔴cockpit_pre                    2         0         0  旅客機の操縦室（2001年以前）
+  window_cruise                 17         1         1  巡航する旅客機の窓
+  window_sky                     1         1         1  飛行機の窓から見た空
+🔴artcc_screen_pre              24         0         0  航空路管制センターの画面（2001年当時）
+⚠️radar_scope_pre               14         2         0  管制卓のレーダー画面（2001年当時）
+🔴controller_pre                 4         0         0  管制卓に着く管制官（2001年当時）
+🔴artcc_screen2                 24         0         0  管制卓の画面（2001年当時）
+🔴artcc_alt                     24         0         0  管制卓の画面（高度の表示）
+  artcc_seat                    24         1         1  航空路管制センターの席
+図boston_artcc_ext               0         0         0  ボストンの航空路管制センター（外観）
+図indy_artcc                     0         0         0  インディアナポリスの管制センター
+図cleveland_artcc                0         0         0  クリーブランドの管制センター
+図atcscc                         0         0         0  連邦航空局コマンドセンター（外観）
+🔴aoc_pre                        1         0         0  航空会社の運航管理室（2001年以前）
+  pentagon_ext_pre              24        10         7  ペンタゴン（外観・2001年以前）
+  pentagon_aerial_pre            1         1         1  ペンタゴンの空撮（2001年以前）
+⚠️pentagon_court_pre            24        22         0  ペンタゴンの中庭（2001年以前）
+⚠️pentagon_west_day             24         2         0  ペンタゴン西側（当日・遠景）
+  f15_alert                      1         1         1  待機中のF-15（オーティス基地）
+  f15_takeoff                    6         2         2  離陸するF-15
+🔴f16_alert                     24         0         0  待機中のF-16（ラングレー基地）
+  f16_takeoff                   24        18        18  離陸するF-16
+  base_rwy                      23        12        12  基地の滑走路（2001年以前）
+  fighter_dc                     3         3         3  首都上空を飛ぶ戦闘機
+  andrews                       24        21        21  アンドルーズ基地（2001年以前）
+  wtc_smoke_day                 24         7         7  北棟から上がる煙（遠景・2001-09-11）
+  fire_trucks_day               24        18        11  現場へ向かう消防車（2001-09-11）
+  shanksville_day               24         1         1  シャンクスビルの野原（当日・遠景）
+🔴apron_day                     24         0         0  駐機場に降りた旅客機（2001-09-11）
+🔴apron_lined_day               24         0         0  駐機場に並んだ旅客機（2001-09-11）
+🔴stopped_day                   24         0         0  空港で止まった旅客機（2001-09-11）
+⚠️stranded_day                  19         2         0  空港で足止めされた人たち（2001-09-11）
+  report_cover                  24         3         3  委員会報告の表紙
+  report_page                   24         6         6  委員会報告のページ
+🔴hearing                       24         0         0  委員会の公聴会（2003〜2004年）
+  library_reports               24         4         4  図書館に並ぶ報告書
+  nist_report                   24        15        15  建物側の報告書（NIST NCSTAR 1）
+  recorder                      11         5         5  記録装置（ブラックボックス）
+  atc_tape                      24         8         8  管制施設の録音装置（2001年当時）
+  logbook                       24         9         9  当直の記録簿（書式の見本）
+  security_now                  16        16        16  今の空港の保安検査場
+🔴cockpit_door_hard              4         0         0  強化された操縦室の扉
+  artcc_now                     24         2         2  今の航空路管制センター
+🔴lobby_now                      2         0         0  今の空港の出発ロビー
+  clear_sky                     13         2         2  よく晴れた空
+
+■ 欄 73 ／ **中身も時点も合う候補が0の欄 31**
+   wtc_south wtc_under gate_pre fids_pre logan logan_takeoff dulles dulles_rwy reagan newark_757 b767 b757 cockpit_door_pre cabin_phone cockpit_pre artcc_screen_pre radar_scope_pre controller_pre artcc_screen2 artcc_alt aoc_pre pentagon_court_pre pentagon_west_day f16_alert apron_day apron_lined_day stopped_day stranded_day hearing cockpit_door_hard lobby_now

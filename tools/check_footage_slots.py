@@ -26,7 +26,15 @@ sys.path.insert(0, str(Path(__file__).parent))
 sys.stdout.reconfigure(encoding="utf-8")
 
 HERE = Path(__file__).parent
-FB = re.compile(r'photo=ss\.fb\("(\w+)"\)')
+# 🔴🔴 2026-09-13（7本目 ⑤b-2）**`ss.rg("…")` を知らなかった。**
+#   7本目の ⑤b-1 で `cuts/ss.py` に `rg(cid, **kw)` という1行で書ける助けを新設し、
+#   章ファイルは `"c222": ss.rg("c222", …)` と書く（中で `photo=fb(cid)` になる）。
+#   ところがこの門番は **`photo=ss.fb("…")` という字面しか探していない**ので、
+#   実写18カットを1件も拾えず「**実写の欄が1つも見つからない**」で exit 2 を出した。
+#   ＝ 門番が在るのに、新しい書き方を見ていない
+#     （[[feedback-gates-blind-to-the-new-material]]／[[feedback-per-episode-constants-go-stale]]）。
+#   ⚠️ 古い書き方も残す（前の回の章ファイルを読むときに要る）。
+FB = re.compile(r'(?:photo=ss\.fb\("(\w+)"\)|ss\.rg\(\s*"(\w+)")')
 
 
 def slots(cutdir=None):
@@ -40,8 +48,8 @@ def slots(cutdir=None):
     for f in sorted(d.glob("*.py")):
         if f.name in ("__init__.py", "ss.py"):
             continue
-        for cid in FB.findall(f.read_text(encoding="utf-8")):
-            out[cid] = f.name
+        for m in FB.finditer(f.read_text(encoding="utf-8")):
+            out[m.group(1) or m.group(2)] = f.name
     return out
 
 
@@ -81,7 +89,7 @@ def selftest():
     if sorted(got) != ["zz01", "zz02"]:
         print(f"🔴 拾い方が違う: {got}"); ok = False
     else:
-        print("  当て木の章ファイル2欄を拾えた")
+        print("  当て木の章ファイル4欄を拾えた（ss.fb 2件＋ss.rg 2件）")
     (tmp / "z.py").unlink()
     tmp.rmdir()
     print("✓ selftest 通過" if ok else "🔴 selftest 失敗")

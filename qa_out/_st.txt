@@ -1,0 +1,20 @@
+■ 対照（1行ごとの可否を値で見る）
+  ✓ b767_cruise        期待 False 実測 False (NG:la fontaine)  Bajki La Fontaine 1876 (109015449).jpg
+  ✓ b767_cruise        期待 True  実測 True  (\b767\b.*(flight|flying|air-?to-?a)  ANA Boeing 767-300 JA602F in flight.jpg
+  ✓ b767               期待 False 実測 False (NG:\b757\b)  American Airlines Boeing 757 at Punta Cana.jpg
+  ✓ b767               期待 True  実測 True  (\b767\b)  Delta Boeing 767-300ER N1604R.jpg
+  ✓ artcc_screen_pre   期待 False 実測 False (NG:uss )  F-4B of VF-21 returns to USS Midway.jpg
+  ✓ artcc_screen_pre   期待 True  実測 True  ((radar|air traffic).*(scope|screen)  Air traffic control radar scope 1998.jpg
+  ✓ apron_day          期待 False 実測 False (NG:x-47)  X-47A rollout.jpg
+  ✓ apron_day          期待 True  実測 True  ((gander|halifax|yellow ribbon|grou)  Grounded airliners at Gander during Operation Yellow Ribbon
+  ✓ wtc_smoke_day      期待 False 実測 False (NG:august 2001)  LOC Lower Manhattan New York City World Trade Center August
+  ✓ wtc_smoke_day      期待 True  実測 True  ((world trade|twin towers|north tow)  North Tower of the World Trade Center burning.jpg
+  ✓ wtc_twin           期待 False 実測 False (NG:bombing)  1993 World Trade Center bombing timeline of perpetrators.pn
+  ✓ wtc_twin           期待 True  実測 True  (world trade cent)  World Trade Center twin towers from the Hudson 1999.jpg
+  ✓ logan              期待 False 実測 False (NG:wildlife)  Wildlife Inspector in Seattle dons protective gear.jpg
+  ✓ logan              期待 True  実測 True  (logan (international )?airport)  Logan International Airport terminal 1998.jpg
+  ✓ lobby_now          期待 False 実測 False (NG:motorvej)  BC82273 (18.05.02, Motorvej 501, Viby J).jpg
+  ✓ lobby_now          期待 True  実測 True  ((lobby|concourse|check-?in|departu)  Departure hall of the airport terminal 2019.jpg
+
+■ 網が無い欄 0: （無し）
+■ 対照 16/16 通過

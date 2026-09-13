@@ -1,0 +1,2 @@
+  🔴 artcc_alt: image file is truncated (10 bytes not processed)
+  🔴 pentagon_west_day: image file is truncated (13 bytes not processed)

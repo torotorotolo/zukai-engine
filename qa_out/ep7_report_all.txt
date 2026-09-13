@@ -1,0 +1,638 @@
+
+■ manhattan_pre  (pre)  2001年以前のローワーマンハッタン（朝の街並み）  → pr01
+   🔴年 4368x2912 CC BY   2010 Chicago (ILL) Willis Tower ( Ex. SEARS Tower ) 1974, N-E side " the loop " + notes (4
+       撮影 (vincent desjardins) from Paris, France
+   🔴年 2912x4368 CC BY   2010 Chicago (ILL) Willis Tower ( Ex. SEARS Tower ) 1974, N-E side " the loop " (480026714
+       撮影 (vincent desjardins) from Paris, France
+   ✓ 5835x4027 PD      2001 LOC Lower Manhattan New York City World Trade Center August 2001.jpg
+       撮影 <bdi><a href="https://en.wikipedia.org/wiki/en:Carol_M._Highsmith" class="extiw"
+   ✓ 5740x3981 PD      2001 World Trade Center towers, New York, New York LCCN2015645969 - restoration1.jpg
+       撮影 <bdi><a href="https://en.wikipedia.org/wiki/en:Carol_M._Highsmith" class="extiw"
+
+■ commute_pre  (pre)  朝の通勤（2001年以前のマンハッタン）  → c218
+   ✓ 2935x2062 CC BY   1993 Downfolders-downfolder34-2011 02 02 00 10 05.jpg
+       撮影 Alex Lozupone
+   ✓ 2923x2061 CC BY   1993 Downfolders-downfolder34-2011 02 02 00 10 56.jpg
+       撮影 Alex Lozupone
+   ✓ 2907x2066 CC BY   1993 Downfolders-downfolder34-2011 02 02 00 08 06.jpg
+       撮影 Alex Lozupone
+   🔴年 6699x5230 CC BY   2016 3 & 4 World Trade Center - 2016.jpg
+       撮影 Jarek Tuszyński
+
+■ wtc_far  (pre)  世界貿易センター（遠景・2001年以前）  → c213
+   ✓ 5092x3388 PD      1971 Aerial pix of lower Manhattan with World Trade Center & other construction.jpg
+       撮影 Thomas J. O'Halloran
+   🔴年 3726x5582 CC BY   2016 8 Spruce Street from World Trade Center.jpg
+       撮影 Fletcher
+   🔴年 5652x3288 CC BY   2023 Brooklyn Bridge and Manhattan, New York City, 20231005 1101 2190.jpg
+       撮影 Jakub Hałun
+   🔴年 4752x3536 CC BY   2020 Brooklyn Battery Tunnel vc.jpg
+       撮影 Metropolitan Transportation Authority of the State of New York from United State
+
+■ wtc_twin  (pre)  ツインタワー（2001年以前）  → c214
+   ✓ 3087x1859 PD      1998 1993 World Trade Center bombing timeline of perpetrators.png
+       撮影 United States. Congress. Senate. Committee on the Judiciary. Subcommittee on Tec
+   🔴年 4096x3698 CC BY   2024 1993 Events montage 16-grid version.jpg
+       撮影 From a variety of images credited above.
+   🔴年 4023x2607 CC BY   2016 WTC 99 (28435146353).jpg
+       撮影 Christian Schmitt from Lohr, Deutschland
+   🔴年 4007x2596 CC BY   2016 WTC 99 (28435126013).jpg
+       撮影 Christian Schmitt from Lohr, Deutschland
+
+■ wtc_base  (pre)  世界貿易センターの足元（2001年以前）  → c215
+   ✓ 8098x7811 PD      2001 Aerial photo of WTC groundzero.jpg
+       撮影 NOAA
+   ✓ 5092x3388 PD      1971 Aerial pix of lower Manhattan with World Trade Center & other construction.jpg
+       撮影 Thomas J. O'Halloran
+   ✓ 2102x1136 CC BY   2001 3WTCflag.jpg
+       撮影 Kafziel
+   ✓ 2073x1104 CC BY   2001 6WTCflag modified.jpg
+       撮影 Kafziel
+
+■ wtc_south  (pre)  ツインタワーの南棟（2001年以前）  → c311
+   ✓ 8098x7811 PD      2001 Aerial photo of WTC groundzero.jpg
+       撮影 NOAA
+   ✓ 5092x3388 PD      1971 Aerial pix of lower Manhattan with World Trade Center & other construction.jpg
+       撮影 Thomas J. O'Halloran
+   🔴年 4284x4284 CC BY   2026 2 WTC August 2026.jpg
+       撮影 Roadrunnermeep
+   🔴年 2912x4368 CC BY   2011 2-WTC-Jan2011.jpg
+       撮影 vincent desjardins
+
+■ wtc_under  (pre)  世界貿易センターの地下（2001年以前）  → c801
+   ✓ 6209x7923 PD      1976 World Trade Center Exterior Entrance arches with Sphere at Plaza Fountain sculpture -
+       撮影 Balthazar Korab
+   ✓ 4536x5758 PD      1976 World Trade Center, New York. Exterior. View from plaza - LCCN2020714989.jpg
+       撮影 Balthazar Korab
+   ✓ 5720x4232 PD      1976 World Trade Center, New York. Exterior. Entrance Sphere at Plaza Fountain sculpture. 
+       撮影 Balthazar Korab
+   ✓ 5720x4125 PD      1976 World Trade Center, New York. Exterior. Entrance Sphere at Plaza Fountain sculpture. 
+       撮影 Balthazar Korab
+
+■ lobby_pre  (pre)  2001年以前の空港ロビー  → pr05
+   ✓ 2770x1847 CC BY   1973 Memphis-international-airport-1970s.jpg
+       撮影 Euthman Ed Uthman
+   🔴年 7295x3471 CC BY   2008 1 - Aéroport de Miami - Août 2008.jpg
+       撮影 Martin St-Amant ( S23678 )
+   🔴年 5712x4090 CC BY   2024 Kansas City International Airport old Terminal B a month before demolition.jpg
+       撮影 Quintin Soloviev
+   🔴年 5472x3648 PD      2018 Gillette–Campbell County Airport terminal interior in Campbell County, Wyoming (2).jp
+       撮影 Mr. Satterly
+
+■ security_pre  (pre)  2001年以前の保安検査場  → c111
+   ✓ 2681x3912 CC BY   1970 Orange County Airport, security officer, Sept. 1970.jpg
+       撮影 Orange County Archives
+   🔴年 8640x5760 PD      2025 A U.S. Customs and Border Protection operations related to international travelers an
+       撮影 CBP Photography
+   🔴年 8640x5760 PD      2025 A U.S. Customs and Border Protection operations related to international travelers an
+       撮影 CBP Photography
+   🔴年 8640x5760 PD      2025 A U.S. Customs and Border Protection operations related to international travelers an
+       撮影 CBP Photography
+
+■ gate_pre  (pre)  空港の搭乗口（2001年以前）  → c114,c204
+   ✓ 3693x2462 PD      1971 Eerste Jumbo-Jet Boeing 747 B , van KLM arriveert op Schiphol KLM-Jumbo Jet, Bestandd
+       撮影 Bert Verhoeff / Anefo
+   ✓ 3680x2438 CC BY   1971 Dammer Ton Sijbrands arriveert uit Moskou op Schiphol, Ton Sijbrands met eerste prijs
+       撮影 Hans Peters for Anefo
+   ✓ 3633x2366 PD      1971 C-pier wordt met een hijskraan bediend, Bestanddeelnr 924-4383.jpg
+       撮影 Anefo
+   ✓ 3616x2377 PD      1971 Eerste Jumbo-Jet Boeing 747 B , van KLM arriveert op Schiphol KLM-Jumbo Jet, Bestandd
+       撮影 Bert Verhoeff / Anefo
+
+■ fids_pre  (pre)  空港の出発案内板（2001年以前）  → c320
+   🔴年 5616x3744 PD      2014 Amisom Burundian 80 contingent of troops depart from Kismayo International Airport fo
+       撮影 AMISOM Public Information
+   🔴年 5616x3744 PD      2014 Amisom Burundian 80 contingent of troops depart from Kismayo International Airport fo
+       撮影 AMISOM Public Information
+   🔴年 4738x3159 CC BY   2014 Amsterdam Airport Flight MH17 Memorial July 20th, 2014.jpg
+       撮影 Roman Boed
+   🔴年 4080x3060 CC BY   2024 Barnaul Airport 2024-06 1717403661.jpg
+       撮影 Artyom Svetlov
+
+■ logan  (pre)  ボストン・ローガン空港（2001年以前）  → c106
+   ✓ 2391x3496 PD      1989 Wildlife Inspector in Seattle dons protective gear before checking live primate shipm
+       撮影 United States Fish and Wildlife Service
+
+■ logan_apron  (pre)  ローガン空港の駐機場  → c116
+   ✓ 5796x4612 PD      1969 Eastern Air Lines terminal at Logan Airport, 1969.jpg
+       撮影 Balthazar Korab
+   ✓ 3000x2038 PD      1973 LOGAN AIRPORT AREA. CHILDREN PLAY IN NEPTUNE COURT, WHICH IS BOUNDED BY THE NOW UNUSE
+       撮影 Michael Philip Manheim
+   🔴年 8256x5504 CC BY   2026 American Eagle Embraer 170 N855RW pushback at Boston January 2026.jpg
+       撮影 4300streetcar
+   🔴年 3810x2366 CC BY   2011 International ramp, Boston, 9 April 2011 - Flickr - PhillipC.jpg
+       撮影 Phillip Capper from Wellington, New Zealand
+
+■ logan_takeoff  (pre)  ローガン空港を離陸する旅客機  → c115
+   ✓ 3000x2024 PD      1973 CONSTITUTION BEACH-WITHIN SIGHT AND SOUND OF LOGAN AIRPORT'S TAKEOFF RUNWAY 22R - NAR
+       撮影 Michael Philip Manheim
+   🔴年 8256x5504 CC BY   2024 United 737-800 N73283 takeoff roll Boston Dec 2024.jpg
+       撮影 4300streetcar
+   🔴年 8234x5490 CC BY   2025 American Airbus A321 N583UW departing Boston August 2025.jpg
+       撮影 4300streetcar
+   🔴年 8256x4644 CC BY   2025 Air France Airbus A350-900 F-HUVE departing Boston June 2025 0.jpg
+       撮影 4300streetcar
+
+■ dulles  (pre)  ワシントン・ダレス空港（2001年以前）  → c107
+   🔴年 4080x3072 CC BY   2025 Capital One Lounge entrance Dulles Airport VA 2025-09-02 19-48-01 1.jpg
+       撮影 G. Edward Johnson
+   🔴年 4080x3072 CC BY   2025 Capital One Lounge drinks Dulles Airport VA 2025-09-02 20-06-11 1.jpg
+       撮影 G. Edward Johnson
+   🔴年 4080x3072 CC BY   2025 Capital One Lounge food Dulles Airport VA 2025-09-02 19-51-27 1.jpg
+       撮影 G. Edward Johnson
+   🔴年 4080x3072 CC BY   2025 Capital One Lounge buffet Dulles Airport VA 2025-09-02 20-10-31 1.jpg
+       撮影 G. Edward Johnson
+
+■ dulles_rwy  (pre)  ダレス空港の滑走路  → c117
+   🔴年 3500x2333 PD      2009 Barack Obama board Marine One on the South Lawn.jpg
+       撮影 White House (Samantha Appleton)
+   🔴年 3500x2333 PD      2009 Barack Obama waves from Air Force One.jpg
+       撮影 White House ( Pete Souza ) / Maison Blanche ( Pete Souza )
+   🔴年 2000x2000 PD      1944 Arado Ar 234 B-2 Blitz (Lightning) - DPLA - 4dde778a0f5cc18cfd38ef95732c6356 (page 4)
+       撮影 Arado
+   🔴年 2000x1636 PD      1944 Arado Ar 234 B-2 Blitz (Lightning) - DPLA - 4dde778a0f5cc18cfd38ef95732c6356 (page 9)
+       撮影 Arado
+
+■ reagan  (pre)  レーガン・ナショナル空港（2001年以前）  → c415
+   🔴年 10098x8069 PD      1938 Cakes for sky riders. Washington, D.C., Oct. 4. Air travelers leaving Washington Airp
+       撮影 Harris &amp; Ewing, photographer
+   🔴年 10038x8053 PD      1938 National Airmail Week essay winners at Washington Airport LCCN2016878155.jpg
+       撮影 Harris &amp; Ewing, photographer
+   🔴年 8019x10072 PD      1939 Washington Airport buildings to allow full vision over 750 acre landing field. Washin
+       撮影 Harris &amp; Ewing, photographer
+   🔴年 8160x6144 CC BY   2025 Baggage Claim 4 DCA National Airport 2025-10-22 13-00-17 1.jpg
+       撮影 G. Edward Johnson
+
+■ newark_757  (pre)  ニューアーク空港を離陸する757  → c602
+   🔴年 7894x4440 CC BY   2026 Delta Air Lines Boeing 757-200 N696DL on final approach to Boston June 2026 3.jpg
+       撮影 4300streetcar
+   🔴年 3769x2254 CC BY   2017 United 757-200 at EWR (37116055471).jpg
+       撮影 airbus777 from Washington, DC, USA
+   🔴年 2816x2112 CC BY   2010 Continental @ EWR (4519440218).jpg
+       撮影 DearEdward from New York, NY, USA
+   🔴年 2304x1536 PD      2006 Continental Airlines 757 departing Belfast.jpg
+       撮影 No machine-readable author provided. Steff assumed (based on copyright claims).
+
+■ b767  (pre)  ボーイング767（2001年以前）  → c108
+   🔴年 3072x2304 PD      2008 American Airlines Boeing 757 at Punta Cana.jpg
+       撮影 CT Cooper
+   🔴年 3072x1191 CC BY   2008 American Airlines Boeing 757 at Punta Cana (edited).jpg
+       撮影 CT Cooper
+
+■ b757  (pre)  ボーイング757（2001年以前）  → c109
+   🔴年 4024x2874 CC BY   2020 757 being scrapped at Roswell Air Center.jpg
+       撮影 Quintin Soloviev
+
+■ b767_cruise  (any)  巡航するボーイング767  → c201
+   ✓ 4868x6119 PD      2021 Bajki La Fontaine 1876 (109015449).jpg
+       撮影 Jean de La Fontaine
+   ✓ 3879x5543 PD      2024 Biblia to iest kxiegi Starego y Nowego Zakonu 1577 (93229553).jpg
+       撮影 Unknown author Unknown author
+   ✓ 5924x3332 CC BY   2026 ANA Cargo Boeing 767-300F JA602F on final approach to Taoyuan February 2026.jpg
+       撮影 4300streetcar
+   ✓ 5176x1816 CC BY   2023 A9C-HMH Boeing 767-4FS(ER) - Bahrain - Royal Flight with A7-HHE - Boeing 747-8K8(BBJ)
+       撮影 kitmasterbloke
+
+■ b767_takeoff  (any)  離陸するボーイング767  → c302
+   ✓ 7460x4196 CC BY   2025 FedEx Express Boeing 767-300F N263FE departing Boston March 2025 1.jpg
+       撮影 4300streetcar
+   ✓ 7148x4021 CC BY   2025 FedEx Boeing 767-300F N191FE departing Boston March 2025.jpg
+       撮影 4300streetcar
+   ✓ 6535x3676 CC BY   2025 FedEx Express Boeing 767-300F N263FE departing Boston March 2025 2.jpg
+       撮影 4300streetcar
+   ✓ 5192x4154 CC BY   2025 Delta Boeing 767-300ER N1604R departing Boston February 2025.jpg
+       撮影 4300streetcar
+
+■ b757_takeoff  (any)  離陸するボーイング757  → c402
+   ✓ 8256x5504 CC BY   2026 Korean Air Boeing 787-10 HL8537 departing San Francisco February 2026.jpg
+       撮影 4300streetcar
+   ✓ 7927x5285 CC BY   2025 Delta Boeing 757-200 N710TW departing Boston August 2025.jpg
+       撮影 4300streetcar
+   ✓ 8024x4513 CC BY   2025 Delta Boeing 757-200 N702TW departing Boston April 2025 1.jpg
+       撮影 4300streetcar
+   ✓ 7565x4728 CC BY   2025 United Airlines Boeing 757-200 N12109 departing Boston August 2025 3.jpg
+       撮影 4300streetcar
+
+■ airliner_cruise  (any)  巡航する旅客機  → c403
+   ✓ 6899x4390 PD      2019 RAF Fairford 75th Anniversary Heritage Day (5741202).jpg
+       撮影 U.S. Air Force photo by Airman 1st Class Jennifer Zima
+   ✓ 5100x4000 PD      1989 Convair 990 in flight EC89-0042-11.jpg
+       撮影 NASA
+   ✓ 5150x3433 PD      2023 ComPair Thermal Vacuum Photos (SVS14372 - ComPair TVac IMG 2231).png
+       撮影 NASA's Scientific Visualization Studio - Scott Wiessinger, Jeanette Kazmierczak,
+   ✓ 4288x2848 CC BY   2011 Qantas Airbus A380 (5478680641).jpg
+       撮影 Jorge Láscar from Australia
+
+■ refuel  (any)  給油中の旅客機（2001年以前）  → c119
+   ✓ 8192x5464 PD      2026 EXERCISE SABER STRIKE 2026 (9691771).jpg
+       撮影 U.S. Army Reserve photo by 1st Sgt. Austin Berner
+   ✓ 7679x5119 PD      2023 B-1B Lancers at Mihail Kogălniceanu Air Base.jpg
+       撮影 Staff Sgt. Allison Payne
+   ✓ 7661x5110 PD      2026 EXERCISE SABER STRIKE 2026 (9691778).jpg
+       撮影 U.S. Army Reserve photo by 1st Sgt. Austin Berner
+   ✓ 6068x4856 PD      1952 Fuel Truck, Burlington Air Force Base, Burlington, Vermont - DPLA - 6296ec75d45793341
+       撮影 Department of Defense. Department of the Army. U.S. Army Corps of Engineers. Nor
+
+■ cabin_pre  (pre)  旅客機の客室（2001年以前）  → c205
+   ✓ 4400x5846 CC BY   1960 Two unidentified men playing cards (10290641205).jpg
+       撮影 City of Boston Archives from West Roxbury, United States
+   ✓ 1920x1529 PD      1960 Pilatus PC-6A Turbo-Porter cabin.jpg
+       撮影 Unknown author Unknown author
+   🔴年 7360x4912 PD      2017 Airplane aisle during flight (Unsplash).jpg
+       撮影 Suhyeon Choi choisyeon
+   🔴年 5616x3744 PD      2016 A United States Immigration and Customs Enforcement (ICE) Enforcement and Removal Ope
+       撮影 U.S. Immigration and Customs Enforcement from Washington, D.C.
+
+■ cockpit_door_pre  (pre)  旅客機の操縦室の扉（2001年以前）  → c202
+   🔴年 2118x3264 CC BY   2013 DC-10 Cockpit Center Pedestal, Iowa Aviation Museum.jpg
+       撮影 Eric Friedebach
+
+■ cabin_phone  (any)  客室の座席にある電話（2001年以前）  → c309,c614
+   ✓ 8410x5658 PD      1918 111-SC-18516 - NARA - 55197086.jpg
+       撮影 Unknown author Unknown author or not provided
+   ✓ 8256x5504 CC BY   2018 A220 First Class (44893026114).jpg
+       撮影 Delta News Hub
+   ✓ 8256x5504 CC BY   2018 A220 Interior (44892897764).jpg
+       撮影 Delta News Hub
+   ✓ 8256x5504 CC BY   2018 A220 First Class (44703991475).jpg
+       撮影 Delta News Hub
+
+■ cockpit_pre  (pre)  旅客機の操縦室（2001年以前）  → c605
+   🔴年 4256x2832 CC BY   2012 20121016 AK W105465 0001.JPG - Flickr - NZ Defence Force (5).jpg
+       撮影 New Zealand Defence Force from Wellington, New Zealand
+   🔴年 3600x2400 CC BY   2011 20110616 AK v1023933 0004 - Flickr - NZ Defence Force.jpg
+       撮影 New Zealand Defence Force from Wellington, New Zealand
+
+■ window_cruise  (any)  巡航する旅客機の窓  → c304
+   ✓ 5568x3712 CC BY   2022 Beechcraft AT-11 (52464963255).jpg
+       撮影 Eric Friedebach
+   ✓ 5568x3712 CC BY   2022 Beechcraft AT-11 (52463997657).jpg
+       撮影 Eric Friedebach
+   ✓ 3712x5568 CC BY   2022 Beechcraft AT-11 (52464497701).jpg
+       撮影 Eric Friedebach
+   ✓ 3712x5568 CC BY   2022 Beechcraft AT-11 (52465046243).jpg
+       撮影 Eric Friedebach
+
+■ window_sky  (any)  飛行機の窓から見た空  → c909
+   ✓ 3602x3211 CC BY   2018 A Slice of Glory.jpg
+       撮影 NASA Goddard Photo and Video
+
+■ artcc_screen_pre  (pre)  航空路管制センターの画面（2001年当時）  → pr09
+   ✓ 5676x4448 PD      1965 F-4B of VF-21 returns to USS Midway (CVA-41) off Vietnam in 1965.jpg
+   ✓ 5677x4438 PD      1963 F-4B of VF-102 approaches USS Enterprise (CVAN-65) c1963.jpg
+       撮影 U.S. Navy
+   ✓ 5797x3897 PD      1969 Kaman UH-2 Seasprite aboard USS Coontz (DLG-9), in July 1969 (USN 1139574).jpg
+   ✓ 5844x3736 PD      1966 Douglas A-4C Skyhawk of VA-153 landing aboard USS Constellation (CVA-64), in October 
+       撮影 Photographer's Mate Second Class Robert K. Drudge, U.S. Navy
+
+■ radar_scope_pre  (pre)  管制卓のレーダー画面（2001年当時）  → c210
+   🔴年 6910x5734 PD      2026 Air Traffic Control Training in World War II - DPLA - ef694eb5dfc14ebda158c3e882973bd
+       撮影 United States -- Army Air Forces
+   🔴年 6391x4565 PD      2022 31st OSS Airmen train on contingency response procedures (7094329).jpg
+       撮影 U.S. Air Force photo by Senior Airman Brooke Keisler
+   🔴年 6048x4024 PD      2025 52nd CES firefighters sharpen skills in live fire training (9326413).jpg
+       撮影 U.S. Air Force photo by Staff Sgt. Maria Umanzor Guzman
+   🔴年 5953x3973 PD      2022 31st OSS Airmen train on contingency response procedures (7094327).jpg
+       撮影 U.S. Air Force photo by Airman 1st Class Thomas Calopedis
+
+■ controller_pre  (pre)  管制卓に着く管制官（2001年当時）  → c306
+   🔴年 7360x4912 PD      2014 AF radar controllers unplug from Kyrgyzstan 140131-F-LU738-046.jpg
+       撮影 Staff Sgt. Travis Edwards
+   🔴年 5734x3823 PD      2026 Combined skies, stronger Forces- Wolf Pack, Marines and ROKAF elevate warfighting cap
+       撮影 U.S. Air Force photo by Senior Airman Tabatha Chapman
+   🔴年 5616x3744 PD      2011 Air traffic controller Marines keep pilots in line DVIDS447875.jpg
+       撮影 Sgt. Zach Griffith
+   🔴年 4448x3177 PD      2014 A Sailor directs air traffic. (13405293353).jpg
+       撮影 Official U.S. Navy Page from United States of America MC2 Edward Guttierrez III/
+
+■ artcc_screen2  (pre)  管制卓の画面（2001年当時）  → c509
+   ✓ 5676x4448 PD      1965 F-4B of VF-21 returns to USS Midway (CVA-41) off Vietnam in 1965.jpg
+   ✓ 5677x4438 PD      1963 F-4B of VF-102 approaches USS Enterprise (CVAN-65) c1963.jpg
+       撮影 U.S. Navy
+   ✓ 5797x3897 PD      1969 Kaman UH-2 Seasprite aboard USS Coontz (DLG-9), in July 1969 (USN 1139574).jpg
+   ✓ 5844x3736 PD      1966 Douglas A-4C Skyhawk of VA-153 landing aboard USS Constellation (CVA-64), in October 
+       撮影 Photographer's Mate Second Class Robert K. Drudge, U.S. Navy
+
+■ artcc_alt  (any)  管制卓の画面（高度の表示）  → c608
+   ✓ 5504x8256 PD      2021 ATC aids TBM Avenger pilot (6666391).jpeg
+       撮影 U.S. Space Force photo by Tech. Sgt. James Hodgman
+   ✓ 8256x5504 PD      2021 ATC aids TBM Avenger pilot (6666383).jpeg
+       撮影 U.S. Space Force photo by Tech. Sgt. James Hodgman
+   ✓ 8256x5504 PD      2022 Air traffic controllers keep skies over RAF Lakenheath safe (7106729).jpg
+       撮影 U.S. Air Force photo by Staff Sgt. Dhruv Gopinath
+   ✓ 7738x5159 PD      2022 Air traffic controllers keep skies over RAF Lakenheath safe (7106730).jpg
+       撮影 U.S. Air Force photo by Staff Sgt. Dhruv Gopinath
+
+■ artcc_seat  (any)  航空路管制センターの席  → ep03
+   ✓ 8448x6336 PD      2025 378th EOSS Air Traffic Controller Demonstration (8829389).jpg
+       撮影 U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez
+   ✓ 8125x6094 PD      2025 378th EOSS Air Traffic Controller Demonstration (8829392).jpg
+       撮影 U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez
+   ✓ 7993x5995 PD      2025 378th EOSS Air Traffic Controller Demonstration (8829390).jpg
+       撮影 U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez
+   ✓ 7897x5923 PD      2025 378th EOSS Air Traffic Controller Demonstration (8829391).jpg
+       撮影 U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez
+
+■ boston_artcc_ext  (any)  ボストンの航空路管制センター（外観）  → c212
+   🔴 候補なし
+
+■ indy_artcc  (any)  インディアナポリスの管制センター  → c406
+   🔴 候補なし
+
+■ cleveland_artcc  (any)  クリーブランドの管制センター  → c606
+   🔴 候補なし
+
+■ atcscc  (any)  連邦航空局コマンドセンター（外観）  → c502
+   🔴 候補なし
+
+■ aoc_pre  (any)  航空会社の運航管理室（2001年以前）  → c310,c408,c603
+   ✓ 2100x1500 PD      2014 140324-N-XY761-024 (13424604104).jpg
+       撮影 U.S. Department of Defense Current Photos
+
+■ pentagon_ext_pre  (pre)  ペンタゴン（外観・2001年以前）  → c409
+   ✓ 3000x2291 PD      1991 An aerial view of the Potomac River with a section of National Airport in the foregro
+       撮影 Department of Defense. American Forces Information Service. Defense Visual Infor
+   ✓ 3000x2030 PD      1973 AERIAL VIEW OF THE PENTAGON AND ONE OF ITS PARKING FIELDS - NARA - 547244.jpg
+       撮影 Neubauer, John, Photographer ( NARA record: 8464460 )
+   ✓ 2960x1930 PD      2000 Defense.gov News Photo 000313-D-2987S-110.jpg
+       撮影 Helene C. Stikkel
+   ✓ 2800x1880 PD      1986 An aerial view of the Pentagon - DPLA - 2bad8af340141770c277509bf649c466.jpeg
+       撮影 Department of Defense. American Forces Information Service. Defense Visual Infor
+
+■ pentagon_aerial_pre  (pre)  ペンタゴンの空撮（2001年以前）  → c410
+   ✓ 2734x1726 PD      1998 The Pentagon US Department of Defense building.jpg
+       撮影 "DoD photo by Master Sgt. Ken Hammond, U.S. Air Force."
+
+■ pentagon_court_pre  (pre)  ペンタゴンの中庭（2001年以前）  → c412
+   🔴年 6183x5084 PD      1945 (Photograph of General Dwight D. Eisenhower Entering the Inner Courtyard of the Penta
+       撮影 Department of Defense. Department of the Army. U.S. Army Materiel Command. U.S. 
+   🔴年 4928x3280 PD      2015 150514-D-NI589-508 (17021472894).jpg
+       撮影 Glenn Fawcett
+   🔴年 4928x3113 PD      2015 150514-D-NI589-073 (17644007355).jpg
+       撮影 Glenn Fawcett
+   🔴年 3600x4253 PD      2008 Defense.gov photo essay 080424-D-8901Q-007.jpg
+       撮影 Samantha L. Quigley
+
+■ pentagon_west_day  (day)  ペンタゴン西側（当日・遠景）  → c421
+   🔴年 7360x4912 PD      2023 3d U.S. Infantry Regiment (The Old Guard) Conduct a Patriots Day TOG Tour on Septembe
+       撮影 3d U.S. Infantry Regiment (The Old Guard)
+   🔴年 7360x4912 PD      2023 3d U.S. Infantry Regiment (The Old Guard) Conduct a Patriots Day TOG Tour on Septembe
+       撮影 3d U.S. Infantry Regiment (The Old Guard)
+   🔴年 7360x4912 PD      2023 3d U.S. Infantry Regiment (The Old Guard) Conduct a Patriots Day TOG Tour on Septembe
+       撮影 3d U.S. Infantry Regiment (The Old Guard)
+   🔴年 7360x4912 PD      2023 3d U.S. Infantry Regiment (The Old Guard) Conduct a Patriots Day TOG Tour on Septembe
+       撮影 3d U.S. Infantry Regiment (The Old Guard)
+
+■ f15_alert  (any)  待機中のF-15（オーティス基地）  → c123,c702
+   ✓ 3008x1960 PD      2004 F-15C Guard, Otis.jpg
+       撮影 U.S. Air Force/Tech Sgt Sandra Niedzwiecki
+
+■ f15_takeoff  (any)  離陸するF-15  → c703
+   ✓ 6048x4024 PD      2023 Colorado and Massachusetts Air National Guard fighter jets depart Lithuania during ex
+       撮影 U.S. Air National Guard photo by Master Sgt. Caila Arahood
+   ✓ 5819x3872 PD      2023 Colorado and Massachusetts Air National Guard fighter jets depart Lithuania during ex
+       撮影 U.S. Air National Guard photo by Master Sgt. Caila Arahood
+   ✓ 5752x3595 CC BY   2025 American Eagle Embraer 175 N227NN departing Boston November 2025.jpg
+       撮影 4300streetcar
+   ✓ 5276x2968 CC BY   2025 American Eagle (Republic) Embraer 175 N125HQ departing Boston April 2025.jpg
+       撮影 4300streetcar
+
+■ f16_alert  (any)  待機中のF-16（ラングレー基地）  → c707
+   ✓ 7392x4920 PD      2013 1st Fighter Wing Change of Command 130715-F-KB808-020.jpg
+       撮影 Senior Airman Kayla Newman
+   ✓ 7392x4920 PD      2013 1st Fighter Wing Change of Command 130715-F-KB808-110.jpg
+       撮影 Senior Airman Kayla Newman
+   ✓ 7360x4912 PD      2016 Red Flag-Alaska 16-2 160608-F-FT438-048.jpg
+       撮影 Staff Sgt. Shawn Nickel
+   ✓ 6278x4190 PD      2018 F-22 in Europe (4810291).jpg
+       撮影 U.S. Air Force 148FW by Senior Airman Malcolm Mayfield
+
+■ f16_takeoff  (any)  離陸するF-16  → c711
+   ✓ 8256x5504 PD      2026 100 ARW fuels the fight (9484374).jpg
+       撮影 U.S. Air Force photo by Airman 1st Class Aidan Martinez Rosiere
+   ✓ 7780x5187 PD      2026 100 ARW fuels the fight (9484375).jpg
+       撮影 U.S. Air Force photo by Airman 1st Class Aidan Martinez Rosiere
+   ✓ 7541x5027 PD      2021 100th ARW participates in flyover in honor of Greece's bicentennial of Independence (
+       撮影 U.S. Air Force photo by Senior Airman Jennifer Zima
+   ✓ 7360x4912 PD      2016 20th FW flies, fights, and wins during WV 16-08 160322-F-IW330-202.jpg
+       撮影 Airman 1st Class Destinee Dougherty
+
+■ base_rwy  (any)  基地の滑走路（2001年以前）  → c708
+   ✓ 8256x5504 PD      2020 APHIS-Integrated Wildlife Damage Management at JBSA Randolph (20200423-APHIS-LSC-0300
+       撮影 USDAgov
+   ✓ 5720x4507 PD      1954 Aerial view of Tourane Airfield 01 (Indochina) c1954.jpg
+       撮影 U.S. Navy, photographed by aircraft from USS Saipan (CVL-48).
+   ✓ 5694x4476 PD      1954 Aerial view of Tourane Airfield 03 (Indochina) c1954.jpg
+       撮影 U.S. Navy, photographed by aircraft from USS Saipan (CVL-48).
+   ✓ 5680x4464 PD      1954 Aerial view of Tourane Airfield 02 (Indochina) c1954.jpg
+       撮影 U.S. Navy, photographed by aircraft from USS Saipan (CVL-48).
+
+■ fighter_dc  (any)  首都上空を飛ぶ戦闘機  → c717
+   ✓ 2000x3000 PD      2019 An F-35 Flies Over the White House (48052679847).jpg
+       撮影 The White House from Washington, DC
+   ✓ 3000x2000 PD      2019 An F-35 Flies Over the White House (48052634258).jpg
+       撮影 The White House from Washington, DC
+   ✓ 3000x2000 PD      2019 An F-35 Flies Over the White House (48052590006).jpg
+       撮影 The White House from Washington, DC
+
+■ andrews  (any)  アンドルーズ基地（2001年以前）  → c719
+   ✓ 8256x5504 PD      2022 221221-F-TM624-0173 (52722585659).jpg
+       撮影 89th Airlift Wing
+   ✓ 8026x5351 PD      2025 Aircraft arrive for the 2025 Joint Base Andrews Air Show (9308805).jpg
+       撮影 U.S. Air Force photo by Senior Airman Gianluca Ciccopiedi
+   ✓ 7117x4745 PD      2025 Aerial view of the 2025 Joint Base Andrews Air Show (9312709).jpg
+       撮影 U.S. Air Force photo by Senior Airman Gianluca Ciccopiedi
+   ✓ 6960x4352 PD      2019 76th AS Last C-40 on ramp.jpg
+       撮影 U.S. Air Force photo by Tech. Sgt. Timothy Moore
+
+■ wtc_smoke_day  (day)  北棟から上がる煙（遠景・2001-09-11）  → c313
+   ✓ 5835x4027 PD      2001 LOC Lower Manhattan New York City World Trade Center August 2001.jpg
+       撮影 <bdi><a href="https://en.wikipedia.org/wiki/en:Carol_M._Highsmith" class="extiw"
+   ✓ 5740x3981 PD      2001 World Trade Center towers, New York, New York LCCN2015645969 - restoration1.jpg
+       撮影 <bdi><a href="https://en.wikipedia.org/wiki/en:Carol_M._Highsmith" class="extiw"
+   ✓ 5740x3981 PD      2001 World Trade Center towers, New York, LCCN2015645969.jpg
+       撮影 <bdi><a href="https://en.wikipedia.org/wiki/en:Carol_M._Highsmith" class="extiw"
+   ✓ 5740x3981 PD      2001 World Trade Center towers, New York, New York LCCN2015645969 - restoration1.png
+       撮影 <bdi><a href="https://en.wikipedia.org/wiki/en:Carol_M._Highsmith" class="extiw"
+
+■ fire_trucks_day  (day)  現場へ向かう消防車（2001-09-11）  → c314
+   ✓ 1960x3008 PD      2001 FEMA - 5415 - Photograph by Andrea Booher taken on 09-29-2001 in New York.jpg
+       撮影 Andrea Booher
+   ✓ 3008x1960 PD      2001 FEMA - 5416 - Photograph by Andrea Booher taken on 09-29-2001 in New York.jpg
+       撮影 Andrea Booher
+   🔴年 4752x3168 CC BY   2011 01 when Tower Two collapsed - Flickr id 6145344913.jpg
+       撮影 Deb
+   🔴年 4752x3168 CC BY   2011 01 when Tower Two collapsed - Flickr id 6145897148.jpg
+       撮影 Deb
+
+■ shanksville_day  (day)  シャンクスビルの野原（当日・遠景）  → c622
+   🔴年 4256x2832 PD      2012 Secretary of Defense Leon E. Panetta looks at photos of crew members and passengers a
+       撮影 MC1 Chad J. McNeeley
+   🔴年 4256x2832 PD      2012 Secretary of Defense Leon E. Panetta, left, listens as Patrick White, the president o
+       撮影 MC1 Chad J. McNeeley
+   🔴年 4256x2832 PD      2012 Secretary of Defense Leon E. Panetta, right, speaks with family members of passengers
+       撮影 MC1 Chad J. McNeeley
+   🔴年 3791x2522 PD      2012 Secretary of Defense Leon E. Panetta, left, listens as Patrick White, the president o
+       撮影 MC1 Chad J. McNeeley
+
+■ apron_day  (day)  駐機場に降りた旅客機（2001-09-11）  → pr10
+   ✓ 2100x1500 PD      2001 X-47A rollout.jpg
+       撮影 DARPA
+   ✓ 2100x1500 PD      2001 X-47A rollout front.jpg
+       撮影 DARPA
+   ✓ 2100x1500 PD      2001 X-47A rollout rear.jpg
+       撮影 DARPA
+   ✓ 1990x1225 PD      2001 X-47A rollout front low.jpg
+       撮影 DARPA
+
+■ apron_lined_day  (day)  駐機場に並んだ旅客機（2001-09-11）  → c516,ep05
+   ✓ 2100x1500 PD      2001 X-47A rollout.jpg
+       撮影 DARPA
+   ✓ 2100x1500 PD      2001 X-47A rollout front.jpg
+       撮影 DARPA
+   ✓ 2100x1500 PD      2001 X-47A rollout rear.jpg
+       撮影 DARPA
+   ✓ 1990x1225 PD      2001 X-47A rollout front low.jpg
+       撮影 DARPA
+
+■ stopped_day  (day)  空港で止まった旅客機（2001-09-11）  → c505
+   ✓ 2100x1500 PD      2001 X-47A rollout.jpg
+       撮影 DARPA
+   ✓ 2100x1500 PD      2001 X-47A rollout front.jpg
+       撮影 DARPA
+   ✓ 2100x1500 PD      2001 X-47A rollout rear.jpg
+       撮影 DARPA
+   ✓ 1990x1225 PD      2001 X-47A rollout front low.jpg
+       撮影 DARPA
+
+■ stranded_day  (day)  空港で足止めされた人たち（2001-09-11）  → c517
+   🔴年 8119x4825 PD      2025 A U.S. Customs and Border Protection operations related to international travelers an
+       撮影 CBP Photography
+   🔴年 4900x6993 CC BY   1970 1970-07 Riva IT - 1 Schiphol Yolanda Lippens met ouders.jpg
+       撮影 Yolandal
+   🔴年 4429x5778 CC BY   1970 1970-07 Riva IT - 1 Schiphol Wilma en Yolanda Lippens met Wim.jpg
+       撮影 Yolandal
+   🔴年 6124x4083 CC BY   2023 2023 - VIP Lounge RCZ 9402 (53328729142).jpg
+       撮影 Web Summit
+
+■ report_cover  (any)  委員会報告の表紙  → pr07
+   ✓ 6647x4436 PD      2017 170210-N-VN584-055 170210-N-VN584-055.jpg
+       撮影 Alexander M Corona
+   ✓ 6575x4388 PD      2017 170210-N-VN584-058 170210-N-VN584-058.jpg
+       撮影 Alexander M Corona
+   ✓ 5352x3620 CC BY   1980 Republican National Convention (41897605390).jpg
+       撮影 David Wipf
+   ✓ 5217x3464 PD      1971 View of construction of the World Trade Center (New York City̠, 1971) - LCCN.jpg
+       撮影 Thomas J. O'Halloran
+
+■ report_page  (any)  委員会報告のページ  → c817
+   ✓ 6996x9840 PD      1992 ICESat - NARA - 17393935 (page 2).jpg
+       撮影 Unknown author Unknown author or not provided
+   ✓ 6422x10028 PD      2018 Colton's geographical cards LCCN2003674727.jpg
+       撮影 Popular Graphic Arts
+   ✓ 6452x8878 PD      1920 Drawing and Plan, 816 Connecticut Avenue - NARA - 7584995 (page 1).jpg
+       撮影 Wood, Waddy B. (Waddy Butler), 1869-1944 ( NARA record: 10568349 )
+   ✓ 6451x7959 PD      1920 Drawing and Plan, 816 Connecticut Avenue - NARA - 7584995 (page 2).jpg
+       撮影 Wood, Waddy B. (Waddy Butler), 1869-1944 ( NARA record: 10568349 )
+
+■ hearing  (any)  委員会の公聴会（2003〜2004年）  → c807
+   ✓ 6647x4436 PD      2017 170210-N-VN584-055 170210-N-VN584-055.jpg
+       撮影 Alexander M Corona
+   ✓ 6575x4388 PD      2017 170210-N-VN584-058 170210-N-VN584-058.jpg
+       撮影 Alexander M Corona
+   ✓ 5616x3744 PD      2011 Defense.gov photo essay 110502-M-KZ372-026.jpg
+       撮影 Sgt. Randall Clinton
+   ✓ 5616x3744 PD      2011 Defense.gov photo essay 110502-M-KZ372-008.jpg
+       撮影 Sgt. Randall Clinton
+
+■ library_reports  (any)  図書館に並ぶ報告書  → c815
+   ✓ 11197x8398 PD      2022 Boekenkast (1923) Eduard Van Steenbergen B000302 1.jpg
+       撮影 Cedric Verhelst
+   ✓ 10324x7743 PD      2022 Boekenkast (1923) Eduard Van Steenbergen B000302 2.jpg
+       撮影 Cedric Verhelst
+   ✓ 5796x4730 PD      1900 Hungary, Budapest XIV. Fortepan 82918.jpg
+       撮影 FOTO:Fortepan — ID 82918 : Adományozó/Donor: Budapest Főváros Levéltára. archive
+   ✓ 5712x4284 PD      2025 Charité Berlin 16 06 43 251000.jpeg
+       撮影 Shisma
+
+■ nist_report  (any)  建物側の報告書（NIST NCSTAR 1）  → c813
+   ✓ 8138x10132 PD      1938 Experts at Bureau of Standards study effect of corrosive soils on specimens of pipe. 
+       撮影 Harris &amp; Ewing, photographer
+   ✓ 10123x8120 PD      1937 And now a beer meter. Washington, D.C., May 1. To aid Uncle Same in collecting the ta
+       撮影 Harris &amp; Ewing, photographer
+   ✓ 8087x10140 PD      1937 Clerk, Bureau of Standards LCCN2016863056.jpg
+       撮影 Harris &amp; Ewing, photographer
+   ✓ 10081x8086 PD      1937 Device for testing testers. Washington, D.C., May 25. Herbert L. Whittemore, Chief Ju
+       撮影 Harris &amp; Ewing, photographer
+
+■ recorder  (any)  記録装置（ブラックボックス）  → c805
+   ✓ 4212x3910 CC BY   2010 Dust Cloud - Composite Map Image.jpg
+       撮影 Dominic Alves
+   ✓ 4928x3264 PD      2014 Aviation Technical Training Center 140318-G-XA025-015.jpg
+       撮影 Petty Officer 1st Class Karlton Rebenstorf
+   ✓ 3648x2432 PD      2019 ANAHUAC, Texas - Cargo Plane Crash Feb 23, 2019 (46343479315).jpg
+       撮影 NTSBgov
+   ✓ 3648x2432 PD      2019 ANAHUAC, Texas - Cargo Plane Crash Feb 23, 2019 (47206174892).jpg
+       撮影 NTSBgov
+
+■ atc_tape  (any)  管制施設の録音装置（2001年当時）  → c803
+   ✓ 12000x8833 CC BY   2015 DiscImage06.jpg
+       撮影 Jerry Persons
+   ✓ 7714x5143 PD      2021 Audio recording services available at TSAE (6629995).jpg
+       撮影 U.S. Army photo by Markus Rauchenberger
+   ✓ 4841x7261 PD      2021 Audio recording services available at TSAE (6629992).jpg
+       撮影 U.S. Army photo by Markus Rauchenberger
+   ✓ 7172x4781 PD      2021 Audio recording services available at TSAE (6629991).jpg
+       撮影 U.S. Army photo by Markus Rauchenberger
+
+■ logbook  (any)  当直の記録簿（書式の見本）  → c809
+   ✓ 6591x4161 CC BY   2014 Bicycling log-book Wellcome L0055253.jpg
+   ✓ 6505x4118 CC BY   2014 Bicycling log-book Wellcome L0055258.jpg
+   ✓ 6507x4112 CC BY   2014 Bicycling log-book Wellcome L0055256.jpg
+   ✓ 6534x4093 CC BY   2014 Bicycling log-book Wellcome L0055254.jpg
+
+■ security_now  (post)  今の空港の保安検査場  → c901
+   ✓ 8256x5504 PD      2025 DHS Secretary Kristi Noem Announces End of “Shoes-Off” Policy (54645411877).jpg
+       撮影 DHSgov
+   ✓ 8256x5504 PD      2025 DHS Secretary Kristi Noem Announces End of “Shoes-Off” Policy (54646485679).jpg
+       撮影 DHSgov
+   ✓ 8256x5504 PD      2025 DHS Secretary Kristi Noem Announces End of “Shoes-Off” Policy (54646576980).jpg
+       撮影 DHSgov
+   ✓ 8256x5504 PD      2025 DHS Secretary Kristi Noem Announces End of “Shoes-Off” Policy (54646576540).jpg
+       撮影 DHSgov
+
+■ cockpit_door_hard  (post)  強化された操縦室の扉  → c903
+   🔴年 2000x1765 PD      1936 Douglas M-2 - DPLA - decd1cca0df4f23d10ad98cd11ce5c2d (page 2).jpg
+       撮影 Douglas Aircraft Company
+   🔴年 1999x1328 PD      1936 Douglas M-2 - DPLA - decd1cca0df4f23d10ad98cd11ce5c2d (page 1).jpg
+       撮影 Douglas Aircraft Company
+   🔴年 1999x1328 PD      1936 Douglas M-2 - DPLA - decd1cca0df4f23d10ad98cd11ce5c2d (page 3).jpg
+       撮影 Douglas Aircraft Company
+   🔴年 1999x1328 PD      1936 Douglas M-2 - DPLA - decd1cca0df4f23d10ad98cd11ce5c2d (page 4).jpg
+       撮影 Douglas Aircraft Company
+
+■ artcc_now  (post)  今の航空路管制センター  → c905
+   ✓ 8448x6336 PD      2025 378th EOSS Air Traffic Controller Demonstration (8829389).jpg
+       撮影 U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez
+   ✓ 8125x6094 PD      2025 378th EOSS Air Traffic Controller Demonstration (8829392).jpg
+       撮影 U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez
+   ✓ 7993x5995 PD      2025 378th EOSS Air Traffic Controller Demonstration (8829390).jpg
+       撮影 U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez
+   ✓ 7897x5923 PD      2025 378th EOSS Air Traffic Controller Demonstration (8829391).jpg
+       撮影 U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez
+
+■ lobby_now  (post)  今の空港の出発ロビー  → c907
+   ✓ 4236x2383 CC BY   2018 BC82273 (18.05.02, Motorvej 501, Viby J)DSC 6487 Balancer (44967423611).jpg
+       撮影 Lav Ulv from Viby J, Denmark
+   ✓ 3159x1777 CC BY   2018 BC82273 (18.05.02, Motorvej 501, Viby J)DSC 6486 Balancer (31094510848).jpg
+       撮影 Lav Ulv from Viby J, Denmark
+
+■ clear_sky  (any)  よく晴れた空  → ep01
+   ✓ 6299x4718 CC BY   2015 ALMA and the deep blue sky (alma 07-cc).jpg
+       撮影 M. Najjar/ESO
+   ✓ 6240x4160 CC BY   2023 A basketball hoop positioned against a clear blue sky, revealing white clouds.jpg
+       撮影 Shixart1985
+   ✓ 6240x4160 CC BY   2023 Abandoned building with peeling paint and overgrown balconies in an urban setting und
+       撮影 Shixart1985
+   ✓ 6042x4028 CC BY   2023 Beautiful landscape view of a serene garden and modern buildings under clear blue ski
+       撮影 Shixart1985

@@ -442,5 +442,16 @@
     "motion": 0.33
    }
   ]
+ },
+ "2-AWA-725-ZOB-ARTCC-287C.mp4": {
+  "src": "2-AWA-725-ZOB-ARTCC-287C.mp4",
+  "dur": 974.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 974.0,
+    "motion": 0.3
+   }
+  ]
  }
 }

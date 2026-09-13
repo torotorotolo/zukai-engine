@@ -1,0 +1,105 @@
+    "manhattan_pre": "File:World Trade Center, New York. Exterior. View from plaza - LCCN2020714989.jpg",
+        # ✓1976 4536x5758 PD :: Title: [World Trade Center, New York, New York. Exterior. View from plaza] Creator(s): Balthaza
+    "wtc_far": "File:World Trade Center, New York. Exterior. Entrance Sphere at Plaza Fountain sculpture. Overhead view - LCCN2021637339.jpg",
+        # ✓1976 5720x4232 PD :: Title: [World Trade Center, New York, New York. Exterior. Entrance Sphere at Plaza Fountain scu
+    "wtc_twin": "File:World Trade Center Exterior Entrance arches with Sphere at Plaza Fountain sculpture - LCCN2021638448.jpg",
+        # ✓1976 6209x7923 PD :: -  Title devised by Library staff.
+<p>-  Materials originally from binder 1, "World Trade Cente
+    "wtc_base": "File:World Trade Center, New York. Exterior. Entrance Sphere at Plaza Fountain sculpture. Overhead view - LCCN2021637339 (cropped).jpg",
+        # ✓1976 5720x4125 PD :: Title: [World Trade Center, New York, New York. Exterior. Entrance Sphere at Plaza Fountain scu
+    "wtc_south": "File:South Tower Pool without Water in 2025.jpg",
+        # 🔴2025 3835x2910 PD :: South Tower Pool without water in 2025
+    "lobby_pre": "File:Gillette–Campbell County Airport terminal interior in Campbell County, Wyoming (2).jpg",
+        # 🔴2018 5472x3648 PD :: Gillette–Campbell County Airport terminal interior in Campbell County, Wyoming
+    "security_pre": "File:Orange County Airport, security officer, Sept. 1970.jpg",
+        # ✓1970 2681x3912 CC BY :: There are no known copyright restrictions on this image. All future uses of this photo should i
+    "gate_pre": "File:Boarding Southwest Airways B737-700 N242WN at Long Island MacArthur Airport, February 20, 2023.jpg",
+        # 🔴2023 4032x3024 PD :: Boarding Southwest Airlines B737-700 (registration N242WN) at Long Island MacArthur Airport Gat
+    "fids_pre": "File:Flight Board at Departures Area by Security Check-In at Taiwan Taoyuan International Airport.jpg",
+        # 🔴2023 11001x6189 CC BY :: ​臺灣桃園國際機場第二航廈三樓出境大廳，出境入口前旅客隊列。
+    "logan": "File:LOGAN AIRPORT-CONTROL TOWER AND RUNWAYS SEEN FROM 16TH FLOOR OBSERVATION DECK - NARA - 548428.jpg",
+        # ✓1973 3000x2045 PD :: 
+    "logan_apron": "File:Eastern Air Lines terminal at Logan Airport, 1969.jpg",
+        # ✓1969 5796x4612 PD :: Ramp leading to the new Eastern Air Lines terminal at Logan Airport in 1969
+    "logan_takeoff": "File:MARY BRUNO HOLDS HER EARS AGAINST NOISE OF JET COMING IN FOR A LANDING ON RUNWAY 15R AT LOGAN AIRPORT. 39 NEPTUNE... - NARA - 548481.jpg",
+        # ✓1973 2024x3000 PD :: 
+    "dulles": "File:Aerial view of Dulles Airport, June 1985.JPEG",
+        # ✓1985 2790x1860 PD :: Aerial view of Washington Dulles International Airport ( IAD )
+    "dulles_rwy": "File:Aerial view of Dulles Airport 02.jpg",
+        # 🔴2025 3024x4032 CC BY :: An aerial view from the south of Washington Dulles International Airport in July 2025
+    "reagan": "File:Bike and Scooter parking DCA National Airport 2025-10-22 12-51-09 1.jpg",
+        # 🔴2025 8160x6144 CC BY :: A Bicycle and scooter storage rack at Terminal 2 between doors 1 and 2. Terminal 2, Washington 
+    "newark_757": "File:United 757-200 at EWR (37116055471).jpg",
+        # 🔴2017 3769x2254 CC BY :: United 757-200 at EWR
+    "b767": "File:Austrian Airlines Boeing 767-300ER OE-LAE returning from test flight at Taoyuan February 2026.jpg",
+        # 🔴2026 8256x5504 CC BY :: Austrian Airlines Boeing 767-300ER OE-LAE returns from a test flight out of Taiwan Taoyuan Inte
+    "b757": "File:Delta 757-200 N710TW taxiing at Boston Nov 2024.jpg",
+        # 🔴2024 8256x5504 CC BY :: Delta Air Line Boeing 757-200 N710TW taxiing at Boston Logan International Airport
+    "b767_cruise": "File:Delta 767-300ER N192DN on approach to Boston Oct 2024 1.jpg",
+        # ✓2024 8256x5504 CC BY :: Delta Air Lines Boeing 767-300ER N192DN on final approach to Runway 04R at Boston Logan Interna
+    "b767_takeoff": "File:FedEx Express Boeing 767-300F N263FE departing Boston March 2025 1.jpg",
+        # ✓2025 7460x4196 CC BY :: FedEx Express Boeing 767-300F N263FE departs Boston after taking off from runway 27.
+    "b757_takeoff": "File:Delta Boeing 757-200 N702TW departing Boston April 2025 1.jpg",
+        # ✓2025 8024x4513 CC BY :: Delta Air Lines Boeing 757-200 N702TW, as flight 321 to Los Angeles, departs Boston after takin
+    "cabin_pre": "File:Airplane aisle during flight (Unsplash).jpg",
+        # 🔴2017 7360x4912 PD :: Suhyeon Choi 2017
+    "cockpit_door_pre": "File:Puerto Rico — A 320 JetBlue — Open cockpit door during boarding.jpg",
+        # 🔴2015 3456x4608 CC BY :: Open cockpit door during boarding, Airbus A320, JetBlue (unlawful during PAX boarding)
+    "cockpit_pre": "File:An artist's concept of the F-16 multimission cockpit head up display, showing a pilot's view of the low altitude navigation and targeting infra-red system for night - DPLA - 5676702a29e5596b832a493766bc7053.jpeg",
+        # ✓1982 2480x1939 PD :: The original finding aid described this photograph as: Country: Unknown Scene Camera Operator: 
+    "window_cruise": "File:20250928 View from aircraft in Egypt 01 (21624).jpg",
+        # ✓2025 8160x4592 CC BY :: Вид с самолёта Боинг-737-800 авиакомпании "Аэрофлот". Рейс Москва-Хургада.
+    "window_sky": "File:20250928 View from aircraft in Turkey 01 (31935).jpg",
+        # ✓2025 8160x4592 CC BY :: Вид с самолёта Боинг-737-800 авиакомпании "Аэрофлот". Рейс Москва-Хургада.
+    "artcc_screen_pre": "File:Tarmo bridge radar display.JPG",
+        # 🔴2011 5184x3456 PD :: Kelvin-Hughes marine radar display unit type 2A on the bridge of icebreaker Tarmo in maritime c
+    "radar_scope_pre": "File:SR&T Plan position indicator.jpg",
+        # 🔴2016 2634x3543 PD :: Plan polar indicator at Arlanda airport in Sweden, manufactured by Standard Radio &amp; Televis
+    "controller_pre": "File:Air traffic controllers of the 1961st Communications Group man their duty stations in the base tower. The 1961st recently won the Major General Harold M. McClelland Award for commun - DPLA - 6a16bbcae66aff3a8a8616188e1d2e07.jpeg",
+        # ✓1987 1948x3000 PD :: The original finding aid described this photograph as: Base: Clark Air Base State: Luzon Countr
+    "artcc_alt": "File:U.S. Army Spc. Nathaniel Harden calibrates a scope to get the line of sight of the Air Traffic Navigation, Integration, and Coordination System (ATNAVICS) radar 130514-A-RI441-893.jpg",
+        # ✓2013 2848x4288 PD :: U.S. Army Spc. Nathaniel Harden calibrates a scope to get the line of sight of the Air Traffic 
+    "artcc_seat": "File:US Navy 100921-N-9950J-091 Air Traffic Controller Airman Chelsea Pitchford monitors an air approach radar console in the amphibious air traffic con.jpg",
+        # ✓2010 3850x2750 PD :: PHILIPPINE SEA (Sept. 21, 2010) Air Traffic Controller Airman Chelsea Pitchford monitors an air
+    "pentagon_ext_pre": "File:AERIAL VIEW OF THE PENTAGON AND ONE OF ITS PARKING FIELDS - NARA - 547244.jpg",
+        # ✓1973 3000x2030 PD :: 
+    "pentagon_aerial_pre": "File:An aerial view of the Potomac River with a section of National Airport in the foreground and Washington, District of Columbia in the background. The Pentagon is at left center - DPLA - 0988dfc180d95343d08e18c472130d6d.jpeg",
+        # ✓1991 3000x2291 PD :: The original finding aid described this photograph as: Country: United States Of America(USA) S
+    "pentagon_west_day": "File:A firefigher places an American flag, found inside the Pentagon unharmed, on a firetruck shortly after a hijacked jetliner crashed into the Pentagon at approximately 0930 on September 11, 2001 010911-M-CI426-092.jpg",
+        # ✓2001 3600x2362 PD :: A firefigher places an American flag, found inside the Pentagon unharmed, on a firetruck shortl
+    "f15_alert": "File:A 494th EFS F-15E Strike Eagle sits on the flight line prior to a sortie at Prince Sultan Air Base.jpg",
+        # ✓2020 8256x5504 PD :: An F-15E Strike Eagle assigned to the 494th Expeditionary Fighter Squadron sits on the flight l
+    "f15_takeoff": "File:391st FS F-15E prepares for takeoff at MCAS Iwakuni during Northern Edge 23-2.jpg",
+        # ✓2023 6192x4128 PD :: U.S. Air Force Airman 1st Class Renee Schuk, 391st Fighter Generation Squadron crew chief, laun
+    "f16_alert": "File:F-16 Fighting Falcon (49594590973).jpg",
+        # ✓2020 19188x10625 CC BY :: This is one of the most complex projects I've created on Adobe Illustrator CS5. It took me a co
+    "f16_takeoff": "File:F-16s launch from U S CENTCOM AOR (8208228).jpg",
+        # ✓2024 8256x5103 PD :: A U.S. Air Force F-16 Fighting Falcon takes off from an undisclosed location within the U.S. Ce
+    "base_rwy": "File:Aerial view of Tan Son Nhut Air Base down main runway.jpg",
+        # ✓1967 3765x2951 PD :: Aerial view of Tan Son Nhut Air Base down main runway NARA 342-B-VN-054E-3-K-28552
+    "andrews": "File:Admiral Christopher W. Grady, Vice Chairman of the Joint Chiefs of Staff, attends the NATO Allied Warfighter Talks at the Smart Conference Center on Joint Base Andrews, MD. on June 25, 2024 - 15.jpg",
+        # ✓2024 8469x5646 CC BY :: Adm. Christopher W. Grady, Vice Chairman of the Joint Chiefs of Staff, attends the NATO Allied 
+    "wtc_smoke_day": "File:Skyline of Manhattan with smoke billowing from the Twin Towers (29385426736).jpg",
+        # ✓2001 2500x1666 PD :: <div class="description">
+<p><i>Skyline of Manhattan with smoke billowing from the Twin Towers 
+    "fire_trucks_day": "File:A firefighter places a American Flag, found inside the Pentagon, shortly after a hijacked jetliner crashed into the Pentagon at approximately 0930 on September 11, 2001 010911-M-CI426-093.jpg",
+        # ✓2001 3600x2362 PD :: A firefighter places a American Flag, found inside the Pentagon, shortly after a hijacked jetli
+    "hearing": "File:NLRB Investigating Committee quizzes Edwin S. Smith, Board member. Washington, D.C., Dec. 15. While testifying before the House Committee Investigating the National Labor Relations Board LCCN2016876776.jpg",
+        # ✓1939 10089x7968 PD :: Title: NLRB Investigating Committee quizzes Edwin S. Smith, Board member. Washington, D.C., Dec
+    "library_reports": "File:Bookshelf (Unsplash).jpg",
+        # ✓2016 6000x4000 PD :: kazuend 2016-03-06
+    "recorder": "File:Cockpit voice recorder (CVR) from the crash of the January 31, 2025 Learjet 55 (Jet Rescue Air Ambulance flight MTS056) in Philadelphia, Pennsylvania taken on 2 February 2025.jpg",
+        # ✓2025 4284x5712 PD :: Cockpit voice recorder (CVR) of the Learjet 55 that crashed on Jan. 31 in Philadelphia.
+    "atc_tape": "File:Recording instantaneous discs at the Sound Department of the Finnish Broadcasting Company, 1930s.jpg",
+        # ✓1930 4822x5038 PD :: Recording room at the Finnish Broadcasting Company's (1935 - 1938) sound department. Technician
+    "logbook": "File:PIA24440-Nominal Pilot’s Logbook (cropped).png",
+        # ✓2021 6000x3600 PD :: This image of the official pilot's logbook for the Ingenuity Mars Helicopter flights — the "Nom
+    "security_now": "File:TSA Security Checkpoint - 54504384636.jpg",
+        # ✓2025 6000x4800 PD :: Department of Homeland Security (DHS) Secretary Kristi Noem stops by the Transportation Securit
+    "lobby_now": "File:Puerto Rico — San Juan — Luis Muñoz Marín International Airport (check-in).JPG",
+        # ✓2015 4608x3456 CC BY :: Cape Air check-in counters
+    "clear_sky": "File:Agra Fort under a crisp blue sky – Mughal stronghold.jpg",
+        # ✓2024 4032x3024 CC BY :: A grand red sandstone fort catches the sunlight in perfect symmetry. Its clean architectural li
+
+■ 選んだ 50 ／ 図へ 8 ／ 🔴選べなかった 15: ['commute_pre', 'airliner_cruise', 'refuel', 'artcc_screen2', 'pentagon_court_pre', 'fighter_dc', 'shanksville_day', 'apron_day', 'apron_lined_day', 'stopped_day', 'stranded_day', 'report_cover', 'report_page', 'nist_report', 'artcc_now']
+■ 時点が合わない: wtc_south lobby_pre gate_pre fids_pre dulles_rwy reagan newark_757 b767 b757 cabin_pre cockpit_door_pre artcc_screen_pre radar_scope_pre

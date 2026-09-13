@@ -419,6 +419,14 @@ USE = {
     "c612": dict(clip="2-AWA-721-ZOB-ARTCC-287-AGC-68p.mp4", start=200.0, until=612.0),
     "c617": dict(clip="2-AWA-720-ZOB-ARTCC-287A.mp4", start=400.0, until=682.0),
     "c620": dict(clip="2-AWA-721-ZOB-ARTCC-287-AGC-68p.mp4", start=480.0, until=612.0),
+    # 🔴 2026-09-13（⑤b-2）**c621 を決めた。**⑤b-1 は「使える ZOB は2本とも
+    #   c612／c617／c620 で使っており、同じ絵になる」で保留していたので、
+    #   未測の8本から `2-AWA-725-ZOB-ARTCC-287C.mp4`（974秒）を**1本測って**当てた
+    #   （`python qa_out/ep7_shots_run.py --only=2-AWA-725-ZOB-ARTCC-287C.mp4`。
+    #    ショット1本・motion 0.30＝管制卓の絵として自然な更新量）。
+    #   ＝ **代用ではなく別の記録**（[[feedback-duplicate-art-needs-pixel-comparison]]）。
+    #   `until` はショットの終わり 974.0 から −1.0。
+    "c621": dict(clip="2-AWA-725-ZOB-ARTCC-287C.mp4", start=600.0, until=973.0),
     "c716": dict(clip="1-AWA-714-Pentagon_more2.mp4", start=31.0, until=41.0),
     "c810": dict(clip="5-AWA-213-new_overview2.mp4", start=20.0, until=86.0),
     # KB_USE>>> ここまで

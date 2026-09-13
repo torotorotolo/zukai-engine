@@ -1,0 +1,145 @@
+
+■ wtc_south  (pre)  ツインタワーの南棟（2001年以前）  → c311
+     🔴年 5760x3840 CC BY   2026 World Trade Center photomontage, aerial view from north-east.jpg
+       説明 View of the WTC from the north east, with renderings of 3 World Trade Center, the Perelman Performing Arts Cen
+     🔴年 3835x2910 PD      2025 South Tower Pool without Water in 2025.jpg
+       説明 South Tower Pool without water in 2025
+     🔴年 3392x2833 PD      2010 23 Rgt armory south tower jeh.jpg
+       説明 Looking northwest across Pacific Street and Bedford Avenue at 23d Regiment tower.
+     🔴年 4032x2268 PD      2026 2 WTC April 2026.jpg
+       説明 2 World Trade Center in April 2026
+     🔴年 2792x2760 PD      2024 (From the left) Park Elm I, Century Plaza South Tower & Constellation Place, from W
+       説明 (From the left) Park Elm I, Century Plaza South Tower &amp; Constellation Place, from Westfield Century City.
+
+■ wtc_under  (pre)  世界貿易センターの地下（2001年以前）  → c801
+     🔴年 4458x2796 CC BY   2016 World Trade Center PATH - platform.jpg
+       説明 Banchina della stazione World Trade Center della PATH
+     🔴年 3648x2736 CC BY   2010 WTC PATH escalators 3 vc.jpg
+       説明 The eight escalators to get in and out of the World Trade Center PATH station.
+     🔴年 4608x2072 CC BY   2024 PATH PA-5 World Trade Center 001.jpg
+       説明 PATH PA-5 at the World Trade Center Station
+     🔴年 4608x2072 CC BY   2024 PATH PA-5 World Trade Center 003.jpg
+       説明 PATH PA-5 at the World Trade Center Station
+     🔴年 4608x2072 CC BY   2024 PATH PA-5 World Trade Center 002.jpg
+       説明 PATH PA-5 at the World Trade Center Station
+
+■ gate_pre  (pre)  空港の搭乗口（2001年以前）  → c114,c204
+     🔴年 4032x3024 PD      2023 Boarding Southwest Airways B737-700 N242WN at Long Island MacArthur Airport, Februa
+       説明 Boarding Southwest Airlines B737-700 (registration N242WN) at Long Island MacArthur Airport Gate A7 on Februar
+     🔴年 4032x3024 CC BY   2026 Boarding at gate G12 San Francisco International Airport.jpg
+       説明 Boarding United Airlines flight 871 at gate G12 San Francisco International Airport
+     🔴年 3264x2448 CC BY   2018 Jet bridge control panel.jpg
+       説明 Control panel for a jet bridge, taken at Chicago Midway Airport
+     🔴年 3200x2400 PD      2014 EZE jetbridge.jpg
+       説明 Jetbridge at Buenos Aires Ezeiza airport with a Boeing 777 of Air France
+     🔴年 2592x1944 PD      2010 Apronsylhetairport1.jpg
+       説明 A jet bridge at Osmani International Airport, Sylhet, Bangladesh.
+
+■ fids_pre  (pre)  空港の出発案内板（2001年以前）  → c320
+     🔴年 11001x6189 CC BY   2023 Flight Board at Departures Area by Security Check-In at Taiwan Taoyuan Internationa
+       説明 ​臺灣桃園國際機場第二航廈三樓出境大廳，出境入口前旅客隊列。
+     🔴年 5126x3410 CC BY   2010 Flights disrupted Charles de Gaulle airport Eyjafjoll volcano 2010.jpg
+       説明 The flight board at Charles de Gaulle airport, Paris, France, on 20 April 2010. Many flights were canceled due
+     🔴年 4752x3168 CC BY   2011 Geneva Departures Board (5485297336).jpg
+       説明 Casablanca here we come ..
+     🔴年 3072x4096 PD      2015 Dubrovnik Airport Flight Information July 2015.jpg
+       説明 Dubrovnik Airport (Croatia), Departures, July 26st 2015
+     🔴年 4080x3060 PD      2026 JP 沖繩 Okinawa from 那霸機場 Naha Airport 離境區 departure n airline check-in counters info
+       説明 JP 沖繩 Okinawa from 那霸機場 Naha Airport 離境區 departure n airline check-in counters information display sign in Feb
+
+■ reagan  (pre)  レーガン・ナショナル空港（2001年以前）  → c415
+     🔴年 8160x6144 CC BY   2025 Bike and Scooter parking DCA National Airport 2025-10-22 12-51-09 1.jpg
+       説明 A Bicycle and scooter storage rack at Terminal 2 between doors 1 and 2. Terminal 2, Washington National Airpor
+     🔴年 8160x6144 CC BY   2026 Concourse C National Airport 2026-02-26 09-32-13 1.jpg
+       説明 Looking down the hallway of Concourse C, where all the "C" gates are. Dos Toros Taqueria is on the far side. C
+     🔴年 8160x6144 CC BY   2025 E Concourse DCA National Airport 2025-10-22 15-05-36 1.jpg
+       説明 The start of the "E" Concourse (closest to the terminal). Capitol File News and P.F. Changs are on the ground 
+     🔴年 6144x8160 CC BY   2025 Terminal 2 sidewalk DCA National Airport 2025-10-22 12-58-42 1.jpg
+       説明 The sidewalk outside of Terminal 2, with departure drop-offs on the left and the terminal on the right. This i
+     🔴年 8064x6048 CC BY   2024 American Flag at DCA Airport (53839628489).jpg
+       説明 Arlington, Virginia
+
+■ newark_757  (pre)  ニューアーク空港を離陸する757  → c602
+     🔴年 3769x2254 CC BY   2017 United 757-200 at EWR (37116055471).jpg
+       説明 United 757-200 at EWR
+     🔴年 2816x2112 CC BY   2010 Continental @ EWR (4519440218).jpg
+       説明 Continental B737, B757 and B767 parked at Newark International Terminal C.
+     🔴年 2048x1536 PD      2007 CONT753.JPG
+       説明 CONTINENTAL AIRLINES 757-300 AT GATE AT NEWARK LIBERTY INTERNATIONAL AIRPORT AFTER ARRIVING FROM LOS ANGELES, 
+
+■ b767  (pre)  ボーイング767（2001年以前）  → c108
+     🔴年 8256x5504 CC BY   2026 Austrian Airlines Boeing 767-300ER OE-LAE returning from test flight at Taoyuan Feb
+       説明 Austrian Airlines Boeing 767-300ER OE-LAE returns from a test flight out of Taiwan Taoyuan International Airpo
+     🔴年 8256x5504 CC BY   2024 Delta 767-300ER N192DN on approach to Boston Oct 2024 1.jpg
+       説明 Delta Air Lines Boeing 767-300ER N192DN on final approach to Runway 04R at Boston Logan International Airport
+     🔴年 8256x5504 CC BY   2024 Delta 767-300ER N192DN on approach to Boston Oct 2024 2.jpg
+       説明 Delta Air Lines Boeing 767-300ER N192DN on final approach to Runway 04R at Boston Logan International Airport
+     🔴年 8256x5504 CC BY   2025 Delta Boeing 767-300ER N194DN at Boston May 2025.jpg
+       説明 Delta Air Lines Boeing 767-300ER N194DN parked at Gate E8 at Boston Logan International Airport. Various aircr
+     🔴年 8256x5504 CC BY   2025 Delta Boeing 767-300ER N197DN at Boston September 2025.jpg
+       説明 Delta Boeing 767-300ER N197DN, as flight 122 to Edinburgh, waits on taxiway N at Boston Logan International Ai
+
+■ b757  (pre)  ボーイング757（2001年以前）  → c109
+     🔴年 8256x5504 CC BY   2024 Delta 757-200 N710TW taxiing at Boston Nov 2024.jpg
+       説明 Delta Air Line Boeing 757-200 N710TW taxiing at Boston Logan International Airport
+     🔴年 8256x5504 CC BY   2024 Delta Boeing 757-200 N707TW landing in Boston December 2024 2.jpg
+       説明 Delta Boeing 757-200 N707TW landing on Runway 27 at Boston Logan International Airport
+     🔴年 8256x5504 CC BY   2025 Delta Boeing 757-200 N721TW at Boston September 2025.jpg
+       説明 Delta Air Lines Boeing 757-200 N721TW, as flight 318 to Los Angeles, waits on taxiway N at Boston Logan Intern
+     🔴年 8256x5504 CC BY   2026 Fueling Boeing 757-200 N58101 at Boston January 2026.jpg
+       説明 United Airlines Boeing 757-200 N58101 is fueled prior to its trip to San Francisco as flight 2272.
+     🔴年 8256x5504 CC BY   2026 United Airlines Boeing 757-200 N58101 at gate F21 at SFO January 2026.jpg
+       説明 United Airlines Boeing 757-200 N58101 parked at gate F21 at San Francisco International Airport
+
+■ cockpit_door_pre  (pre)  旅客機の操縦室の扉（2001年以前）  → c202
+     🔴年 3456x4608 CC BY   2015 Puerto Rico — A 320 JetBlue — Open cockpit door during boarding.jpg
+       説明 Open cockpit door during boarding, Airbus A320, JetBlue (unlawful during PAX boarding)
+
+■ cabin_phone  (any)  客室の座席にある電話（2001年以前）  → c309,c614
+   🔴 通った候補なし
+
+■ artcc_alt  (any)  管制卓の画面（高度の表示）  → c608
+   🔴 通った候補なし
+
+■ aoc_pre  (any)  航空会社の運航管理室（2001年以前）  → c310,c408,c603
+   🔴 通った候補なし
+
+■ pentagon_court_pre  (pre)  ペンタゴンの中庭（2001年以前）  → c412
+     🔴年 8101x5395 CC BY   2020 200918-D-TT977-0070.NEF (50356745522).jpg
+       説明 Chief of Staff of the Air Force, Gen. Charles Q Brown, Jr. and Chief Master Sgt. of the Air Force, JoAnne S. B
+     🔴年 7283x4857 CC BY   2020 200918-D-TT977-0040.NEF (50356591286).jpg
+       説明 Secretary of the Air Force, Barbara M. Barrett and Chief of Staff of the Air Force, Gen. Charles Q Brown, Jr. 
+     🔴年 7106x4740 PD      2020 200918-D-TT977-0082.NEF (50356577241).jpg
+       説明 Vice Chairman of the Joint Chiefs of Staff, Gen. John E. Hyten speaks with the youngest enlisted airman in the
+     🔴年 5915x3936 CC BY   2020 200918-D-TT977-0112.NEF (50355867118).jpg
+       説明 Chief Master Sgt. of the Air Force, JoAnne S. Bass speaks at a celebration of the U.S. Air Forces 73rd birthda
+     🔴年 5532x3682 CC BY   2020 200918-D-TT977-0103.NEF (50356733637).jpg
+       説明 Secretary of the Air Force, Barbara M. Barrett; Chief of Staff of the Air Force, Gen. Charles Q Brown, Jr.; Ch
+
+■ apron_day  (day)  駐機場に降りた旅客機（2001-09-11）  → pr10
+     🔴年 2830x1910 PD      1985 Charred weapons found in the wreckage of Arrow Air Flight 1285.jpg
+       説明 Charred weapons recovered from the wreckage of an Arrow Air DC-8 commercial aircraft are stored in a Gander Ai
+     🔴年 2850x1890 PD      1985 Mortar shells found at Arrow Air Flight 1285 crash site.jpg
+       説明 Mortar shells recovered from the wreckage of an Arrow Air DC-8 commercial aircraft are stored in a Gander Airp
+     🔴年 2199x1900 PD      1985 Wreckage from Arrow Air Flight 1285 in storage.jpg
+       説明 Wreckage from an Arrow Air DC-8 commercial aircraft is stored in a Gander Airport hangar for analysis by membe
+
+■ stopped_day  (day)  空港で止まった旅客機（2001-09-11）  → c505
+     🔴年 2830x1910 PD      1985 Charred weapons found in the wreckage of Arrow Air Flight 1285.jpg
+       説明 Charred weapons recovered from the wreckage of an Arrow Air DC-8 commercial aircraft are stored in a Gander Ai
+     🔴年 2850x1890 PD      1985 Mortar shells found at Arrow Air Flight 1285 crash site.jpg
+       説明 Mortar shells recovered from the wreckage of an Arrow Air DC-8 commercial aircraft are stored in a Gander Airp
+     🔴年 2199x1900 PD      1985 Wreckage from Arrow Air Flight 1285 in storage.jpg
+       説明 Wreckage from an Arrow Air DC-8 commercial aircraft is stored in a Gander Airport hangar for analysis by membe
+
+■ stranded_day  (day)  空港で足止めされた人たち（2001-09-11）  → c517
+     🔴年 4096x3072 PD      2020 Airport shuttle bus at Wattay International Airport.jpg
+       説明 An airport shuttle bus waiting for passengers to board at Wattay International Airport in Vientiane, Laos.
+     🔴年 3543x3448 PD      1960 Airport Luleå (5).jpg
+       説明 Airports Kallax Luleå LLA. Passengers waiting for their baggage, luggage, at the ramp, Kallax Airport, Luleå.
+
+■ cockpit_door_hard  (post)  強化された操縦室の扉  → c903
+   🔴 通った候補なし
+
+■ lobby_now  (post)  今の空港の出発ロビー  → c907
+   🔴 通った候補なし

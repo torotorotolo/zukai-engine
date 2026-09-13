@@ -1,0 +1,943 @@
+
+■ manhattan_pre (pre) 2001年以前のローワーマンハッタン（朝の街並み） → pr01
+  ◎✓ 1976 4536x5758  PD    World Trade Center, New York. Exterior. View from plaza - LCCN2020714989.jpg
+        Title: [World Trade Center, New York, New York. Exterior. View from plaza] Creator(s): B
+  ◎✓ 1976 5720x4232  PD    World Trade Center, New York. Exterior. Entrance Sphere at Plaza Fountain scul
+        Title: [World Trade Center, New York, New York. Exterior. Entrance Sphere at Plaza Fount
+  ◎✓ 1976 5720x4125  PD    World Trade Center, New York. Exterior. Entrance Sphere at Plaza Fountain scul
+        Title: [World Trade Center, New York, New York. Exterior. Entrance Sphere at Plaza Fount
+  ◎✓ 1976 3303x4855  PD    World Trade Center, New York. Exterior. Twilight view from harbor - LCCN202163
+        Title: [World Trade Center, New York, New York. Exterior. Twilight view from harbor] Cre
+  ◎✓ 1976 3233x4896  PD    World Trade Center, New York. Exterior. Night view - LCCN2021636612.jpg
+        Title: [World Trade Center, New York, New York. Exterior. Night view] Creator(s): Korab,
+  ◎✓ 1976 3248x4856  PD    World Trade Center, New York. Exterior. View from below with St. Nicholas Gree
+        Title: [World Trade Center, New York, New York. Exterior. View from below with St. Nicho
+
+■ commute_pre (pre) 朝の通勤（2001年以前のマンハッタン） → c218
+  ・✓ 1993 2935x2062  CC BY Downfolders-downfolder34-2011 02 02 00 10 05.jpg
+        This photograph was taken in the early 1990s late at night in a subway station in New Yo
+  ・✓ 1993 2923x2061  CC BY Downfolders-downfolder34-2011 02 02 00 10 56.jpg
+        This photograph was taken in the early 1990s late at night in a subway station in New Yo
+  ・✓ 1993 2907x2066  CC BY Downfolders-downfolder34-2011 02 02 00 08 06.jpg
+        This photograph was taken in the early 1990s late at night in a subway station in New Yo
+  ・🔴 2016 6699x5230  CC BY 3 & 4 World Trade Center - 2016.jpg
+        3 World Trade Center on the left and 4 World Trade Center on the right viewed from Natio
+  ・🔴 2014 6000x4000  CC BY 10685-EV 230714 CPS (24440876945).jpg
+        Various ambulances in New York. Including a Salvation Army and a Presbyterian one
+  ・🔴 2010 4224x3168  PD    Hydraulic bollards up TWC 60 jeh.jpg
+        Looking southeast from 60th St sidewalk at bollards raised to block entry into loading d
+
+■ wtc_far (pre) 世界貿易センター（遠景・2001年以前） → c213
+  ◎✓ 1976 4536x5758  PD    World Trade Center, New York. Exterior. View from plaza - LCCN2020714989.jpg
+        Title: [World Trade Center, New York, New York. Exterior. View from plaza] Creator(s): B
+  ◎✓ 1976 5720x4232  PD    World Trade Center, New York. Exterior. Entrance Sphere at Plaza Fountain scul
+        Title: [World Trade Center, New York, New York. Exterior. Entrance Sphere at Plaza Fount
+  ◎✓ 1976 5720x4125  PD    World Trade Center, New York. Exterior. Entrance Sphere at Plaza Fountain scul
+        Title: [World Trade Center, New York, New York. Exterior. Entrance Sphere at Plaza Fount
+  ◎✓ 1976 3303x4855  PD    World Trade Center, New York. Exterior. Twilight view from harbor - LCCN202163
+        Title: [World Trade Center, New York, New York. Exterior. Twilight view from harbor] Cre
+  ◎✓ 1976 3233x4896  PD    World Trade Center, New York. Exterior. Night view - LCCN2021636612.jpg
+        Title: [World Trade Center, New York, New York. Exterior. Night view] Creator(s): Korab,
+  ◎✓ 1976 3248x4856  PD    World Trade Center, New York. Exterior. View from below with St. Nicholas Gree
+        Title: [World Trade Center, New York, New York. Exterior. View from below with St. Nicho
+
+■ wtc_twin (pre) ツインタワー（2001年以前） → c214
+  ◎✓ 1976 6209x7923  PD    World Trade Center Exterior Entrance arches with Sphere at Plaza Fountain scul
+        - Title devised by Library staff. - Materials originally from binder 1, "World Trade Cen
+  ◎✓ 1976 5115x6464  PD    World Trade Center, New York. Exterior. Entrance arches with Ideogram sculptur
+        Title: [World Trade Center, New York, New York. Exterior. Entrance arches with Ideogram 
+  ◎✓ 1976 4536x5758  PD    World Trade Center, New York. Exterior. View from plaza - LCCN2020714989.jpg
+        Title: [World Trade Center, New York, New York. Exterior. View from plaza] Creator(s): B
+  ◎✓ 1976 5720x4232  PD    World Trade Center, New York. Exterior. Entrance Sphere at Plaza Fountain scul
+        Title: [World Trade Center, New York, New York. Exterior. Entrance Sphere at Plaza Fount
+  ◎✓ 1976 5720x4125  PD    World Trade Center, New York. Exterior. Entrance Sphere at Plaza Fountain scul
+        Title: [World Trade Center, New York, New York. Exterior. Entrance Sphere at Plaza Fount
+  ◎✓ 1971 3458x5226  PD    View of the New World Trade Center, 1971.jpg
+        View of the New World Trade Center [New York City] / TOH.
+
+■ wtc_base (pre) 世界貿易センターの足元（2001年以前） → c215
+  ◎✓ 1976 6209x7923  PD    World Trade Center Exterior Entrance arches with Sphere at Plaza Fountain scul
+        - Title devised by Library staff. - Materials originally from binder 1, "World Trade Cen
+  ◎✓ 1976 4536x5758  PD    World Trade Center, New York. Exterior. View from plaza - LCCN2020714989.jpg
+        Title: [World Trade Center, New York, New York. Exterior. View from plaza] Creator(s): B
+  ◎✓ 1976 5720x4232  PD    World Trade Center, New York. Exterior. Entrance Sphere at Plaza Fountain scul
+        Title: [World Trade Center, New York, New York. Exterior. Entrance Sphere at Plaza Fount
+  ◎✓ 1976 5720x4125  PD    World Trade Center, New York. Exterior. Entrance Sphere at Plaza Fountain scul
+        Title: [World Trade Center, New York, New York. Exterior. Entrance Sphere at Plaza Fount
+  ◎✓ 1976 3281x4848  PD    World Trade Center, New York. Exterior. Single tower with Cloud Fortress and S
+        Title: [World Trade Center, New York, New York. Exterior. Single tower with Cloud Fortre
+  ◎✓ 1976 3273x4596  PD    World Trade Center, New York. Exterior. Entrance arches with Sphere at Plaza F
+        Title: [World Trade Center, New York, New York]. [Exterior]. [Entrance arches with Spher
+
+■ wtc_south (pre) ツインタワーの南棟（2001年以前） → c311
+  ◎🔴 2025 3835x2910  PD    South Tower Pool without Water in 2025.jpg
+        South Tower Pool without water in 2025
+  ◎🔴 2010 3392x2833  PD    23 Rgt armory south tower jeh.jpg
+        Looking northwest across Pacific Street and Bedford Avenue at 23d Regiment tower.
+  ◎🔴 2024 2792x2760  PD    (From the left) Park Elm I, Century Plaza South Tower & Constellation Place, f
+        (From the left) Park Elm I, Century Plaza South Tower &amp; Constellation Place, from We
+  ◎🔴 2026 2481x3100  CC BY Two World Trade Center photomontage, Church Street view.jpg
+        This work is a derivative of " NYC " by Erik Cooper , used under CC BY-SA 2.0 . 3D rende
+  ・✓ 2001 8098x7811  PD    Aerial photo of WTC groundzero.jpg
+        Image taken by NOAA's Cessna Citation Jet on Sept. 23, 2001 from an altitude of 3,300 fe
+  ・✓ 1971 5092x3388  PD    Aerial pix of lower Manhattan with World Trade Center & other construction.jpg
+        Aerial pix of lower Manhattan with World Trade Center &amp; other construction
+
+■ wtc_under (pre) 世界貿易センターの地下（2001年以前） → c801
+  ◎🔴 2016 4458x2796  CC BY World Trade Center PATH - platform.jpg
+        Banchina della stazione World Trade Center della PATH
+  ・✓ 1976 6209x7923  PD    World Trade Center Exterior Entrance arches with Sphere at Plaza Fountain scul
+        - Title devised by Library staff. - Materials originally from binder 1, "World Trade Cen
+  ・✓ 1976 4536x5758  PD    World Trade Center, New York. Exterior. View from plaza - LCCN2020714989.jpg
+        Title: [World Trade Center, New York, New York. Exterior. View from plaza] Creator(s): B
+  ・✓ 1976 5720x4232  PD    World Trade Center, New York. Exterior. Entrance Sphere at Plaza Fountain scul
+        Title: [World Trade Center, New York, New York. Exterior. Entrance Sphere at Plaza Fount
+  ・✓ 1976 5720x4125  PD    World Trade Center, New York. Exterior. Entrance Sphere at Plaza Fountain scul
+        Title: [World Trade Center, New York, New York. Exterior. Entrance Sphere at Plaza Fount
+  ・✓ 2001 5740x3981  PD    World Trade Center towers, New York, New York LCCN2015645969 - restoration1.jp
+        Manhattan skyline, New York City, the view includes the World Trade Center towers before
+
+■ lobby_pre (pre) 2001年以前の空港ロビー → pr05
+  ◎🔴 2018 5472x3648  PD    Gillette–Campbell County Airport terminal interior in Campbell County, Wyoming
+        Gillette–Campbell County Airport terminal interior in Campbell County, Wyoming
+  ◎🔴 2015 4608x3456  CC BY Puerto Rico — San Juan — Luis Muñoz Marín International Airport (check-in).JPG
+        Cape Air check-in counters
+  ◎🔴 2009 4288x2848  CC BY Air New Zealand self check-in centre, Wellington Airport.jpg
+        Air New Zealand self check-in centre, Wellington Airport
+  ◎🔴 2015 2848x4288  CC BY FDA Self Check-in Machine at Fukuoka Airport.jpg
+        福岡空港に設置されているFDAの自動チェックイン機
+  ◎🔴 2015 4288x2848  CC BY Spring Airlines Japan Self Check-in Machine at Narita Airport Terminal2.jpg
+        成田空港第2ターミナルの春秋航空日本カウンター。2015年3月撮影
+  ◎🔴 2015 4288x2848  CC BY Vanilla Air Self Check-in Machine in Narita Airport Terminal2.jpg
+        ​成田空港第2ターミナルのバニラエア用セルフチェックイン機
+
+■ security_pre (pre) 2001年以前の保安検査場 → c111
+  ◎✓ 1970 2681x3912  CC BY Orange County Airport, security officer, Sept. 1970.jpg
+        There are no known copyright restrictions on this image. All future uses of this photo s
+  ◎🔴 2022 6048x4024  PD    435 SFS supports Mielec Airport security (7060361).jpg
+        U.S. Air Force Col. Jason Work, 435th Contingency Response Group commander, speaks with 
+  ◎🔴 2022 6048x4024  PD    435 SFS supports Mielec Airport security (7060362).jpg
+        U.S. Air Force Tech. Sgt. Lane Munsee, 435th Security Forces Squadron Phoenix First In S
+  ◎🔴 2022 5313x4024  PD    435 SFS supports Mielec Airport security (7060366).jpg
+        U.S. Air Force Col. Jason Work, 435th Contingency Response Group commander, speaks with 
+  ◎🔴 2022 5465x3636  PD    435 SFS supports Mielec Airport security (7060365).jpg
+        U.S. Air Force Tech. Sgt Kyle Lock, right, and Tech. Sgt. Lance Munsee, 435th Security F
+  ◎🔴 2022 6047x2925  PD    435 SFS supports Mielec Airport security (7060367).jpg
+        Members assigned to the 435th Security Forces Squadron view the U.S. Army’s Logistics Su
+
+■ gate_pre (pre) 空港の搭乗口（2001年以前） → c114,c204
+  ◎🔴 2023 4032x3024  PD    Boarding Southwest Airways B737-700 N242WN at Long Island MacArthur Airport, F
+        Boarding Southwest Airlines B737-700 (registration N242WN) at Long Island MacArthur Airp
+  ◎🔴 2026 4032x3024  CC BY Boarding at gate G12 San Francisco International Airport.jpg
+        Boarding United Airlines flight 871 at gate G12 San Francisco International Airport
+  ◎🔴 2018 3264x2448  CC BY Jet bridge control panel.jpg
+        Control panel for a jet bridge, taken at Chicago Midway Airport
+  ◎🔴 2014 3200x2400  PD    EZE jetbridge.jpg
+        Jetbridge at Buenos Aires Ezeiza airport with a Boeing 777 of Air France
+  ◎🔴 1945 3000x2467  PD    President Truman talks with Ambassador W. Averell Harriman at the Gatow airpor
+  ◎🔴 2008 2048x1536  PD    JetbridgeConsoleS7469.JPG
+        Modern joystick control console for a jet bridge -- Sydney, Australia
+
+■ fids_pre (pre) 空港の出発案内板（2001年以前） → c320
+  ◎🔴 2023 11001x6189  CC BY Flight Board at Departures Area by Security Check-In at Taiwan Taoyuan Interna
+        ​臺灣桃園國際機場第二航廈三樓出境大廳，出境入口前旅客隊列。
+  ◎🔴 2011 4752x3168  CC BY Geneva Departures Board (5485297336).jpg
+        Casablanca here we come ..
+  ◎🔴 2015 3072x4096  PD    Dubrovnik Airport Flight Information July 2015.jpg
+        Dubrovnik Airport (Croatia), Departures, July 26st 2015
+  ◎🔴 2026 4080x3060  PD    JP 沖繩 Okinawa from 那霸機場 Naha Airport 離境區 departure n airline check-in counters
+        JP 沖繩 Okinawa from 那霸機場 Naha Airport 離境區 departure n airline check-in counters informati
+  ◎🔴 2026 3060x4080  PD    JP 沖繩 Okinawa from 那霸機場 Naha Airport 離境區 departure n airline check-in counters
+        JP 沖繩 Okinawa from 那霸機場 Naha Airport 離境區 departure n airline check-in counters informati
+  ◎🔴 2026 3060x4080  PD    JP 沖繩 Okinawa from 那霸機場 Naha Airport 離境區 departure n airline check-in counters
+        JP 沖繩 Okinawa from 那霸機場 Naha Airport 離境區 departure n airline check-in counters informati
+
+■ logan (pre) ボストン・ローガン空港（2001年以前） → c106
+  ◎✓ 1973 3000x2045  PD    LOGAN AIRPORT-CONTROL TOWER AND RUNWAYS SEEN FROM 16TH FLOOR OBSERVATION DECK 
+  ◎✓ 1973 2038x3000  PD    NEAR LOGAN AIRPORT-AIRPLANE COMING IN FOR A LANDING OVER NEPTUNE ROAD BACKYARD
+  ◎✓ 1973 2030x3000  PD    THESE POINT SHIRLEY HOMES ON WINTROP SHORE DRIVE ARE IN LANDING PATTERN FOR LO
+  ◎✓ 1973 2027x3000  PD    EMPTY PARKING SPACES AT LOGAN AIRPORT. AREA RESIDENTS COMPLAIN THAT THE AIRPOR
+  ◎✓ 1973 3000x2025  PD    PARKING FIELDS AT LOGAN AIRPORT - NARA - 548433.jpg
+  ◎✓ 1973 2024x3000  PD    MARY BRUNO HOLDS HER EARS AGAINST NOISE OF JET COMING IN FOR A LANDING ON RUNW
+
+■ logan_apron (pre) ローガン空港の駐機場 → c116
+  ◎✓ 1969 5796x4612  PD    Eastern Air Lines terminal at Logan Airport, 1969.jpg
+        Ramp leading to the new Eastern Air Lines terminal at Logan Airport in 1969
+  ◎✓ 1973 3000x2045  PD    LOGAN AIRPORT-CONTROL TOWER AND RUNWAYS SEEN FROM 16TH FLOOR OBSERVATION DECK 
+  ◎✓ 1973 2038x3000  PD    NEAR LOGAN AIRPORT-AIRPLANE COMING IN FOR A LANDING OVER NEPTUNE ROAD BACKYARD
+  ◎✓ 1973 2030x3000  PD    THESE POINT SHIRLEY HOMES ON WINTROP SHORE DRIVE ARE IN LANDING PATTERN FOR LO
+  ◎✓ 1973 2027x3000  PD    EMPTY PARKING SPACES AT LOGAN AIRPORT. AREA RESIDENTS COMPLAIN THAT THE AIRPOR
+  ◎✓ 1973 3000x2025  PD    PARKING FIELDS AT LOGAN AIRPORT - NARA - 548433.jpg
+
+■ logan_takeoff (pre) ローガン空港を離陸する旅客機 → c115
+  ◎✓ 1973 2024x3000  PD    MARY BRUNO HOLDS HER EARS AGAINST NOISE OF JET COMING IN FOR A LANDING ON RUNW
+  ◎🔴 2024 8256x5504  CC BY United 737-800 N73283 takeoff roll Boston Dec 2024.jpg
+        United Boeing 737-800 N73283, headed for Denver as flight 1303, on its takeoff roll on R
+  ◎🔴 2024 8256x5504  CC BY United A321neo taking off from Runway 9 Boston.jpg
+        A United Airlines Airbus A321neo takes off from Runway 9 at Boston Logan International A
+  ◎🔴 2025 8234x5490  CC BY American Airbus A321 N583UW departing Boston August 2025.jpg
+        American Airlines Airbus A321 N583UW, as flight 3043 to Philadelphia, departs Boston fro
+  ◎🔴 2025 7665x5110  CC BY Boston Logan International Airport from plane departing on 22L April 2025.jpg
+        Boston Logan International Airport, as seen from an airplane departing on runway 22L
+  ◎🔴 2025 8256x4644  CC BY Air France Airbus A350-900 F-HUVE departing Boston June 2025 0.jpg
+        Air France Airbus A350-900 F-HUVE departs Boston from runway 33L, bound for Paris.
+
+■ dulles (pre) ワシントン・ダレス空港（2001年以前） → c107
+  ◎✓ 1985 2790x1860  PD    Aerial view of Dulles Airport, June 1985.JPEG
+        Aerial view of Washington Dulles International Airport ( IAD )
+  ◎✓ 1985 2500x1979  PD    Space Shuttle Enterprise at Dulles 1985.jpg
+        Space Shuttle Enterprise lifted off a 747-based Shuttle Carrier Aircraft when at Dulles 
+  ◎🔴 2019 6720x4480  PD    CBP Inspects Cut flowers Dulles International Airport 06.jpg
+        CBP Agriculture Specialist Lalita Polisetty inspects cut flowers recently arriving from 
+  ◎🔴 2019 6720x4480  PD    CBP Inspects Cut flowers Dulles International Airport 05.jpg
+        CBP Agriculture Specialist Lalita Polisetty inspects cut flowers recently arriving from 
+  ◎🔴 2019 6720x4480  PD    CBP Inspects Cut flowers Dulles International Airport 07.jpg
+        CBP Agriculture Specialist Lalita Polisetty inspects cut flowers recently arriving from 
+  ◎🔴 2019 6333x4187  PD    CBP Inspects Cut flowers Dulles International Airport 10.jpg
+        CBP Agriculture Specialist Lalita Polisetty inspects cut flowers recently arriving from 
+
+■ dulles_rwy (pre) ダレス空港の滑走路 → c117
+  ◎✓ 1985 2790x1860  PD    Aerial view of Dulles Airport, June 1985.JPEG
+        Aerial view of Washington Dulles International Airport ( IAD )
+  ◎🔴 2025 3024x4032  CC BY Aerial view of Dulles Airport 02.jpg
+        An aerial view from the south of Washington Dulles International Airport in July 2025
+  ◎🔴 2025 4032x3024  CC BY Aerial view of Dulles Airport 03.jpg
+        An aerial view from the south of Washington Dulles International Airport in July 2025
+  ◎🔴 2025 4032x3024  CC BY Aerial view of Dulles Airport 01.jpg
+        An aerial view from the south of Washington Dulles International Airport in July 2025
+  ◎🔴 2025 3024x4032  CC BY Aerial view of Dulles Airport 04.jpg
+        An aerial view from the south of Washington Dulles International Airport in July 2025
+  ・🔴 2009 3500x2333  PD    Barack Obama waves from Air Force One.jpg
+        President Barack Obama waves as he boards Air Force One at Dulles International Airport 
+
+■ reagan (pre) レーガン・ナショナル空港（2001年以前） → c415
+  ◎🔴 2025 8160x6144  CC BY Bike and Scooter parking DCA National Airport 2025-10-22 12-51-09 1.jpg
+        A Bicycle and scooter storage rack at Terminal 2 between doors 1 and 2. Terminal 2, Wash
+  ◎🔴 2025 8160x6144  CC BY E Concourse DCA National Airport 2025-10-22 15-05-36 1.jpg
+        The start of the "E" Concourse (closest to the terminal). Capitol File News and P.F. Cha
+  ◎🔴 2025 6144x8160  CC BY Terminal 2 sidewalk DCA National Airport 2025-10-22 12-58-42 1.jpg
+        The sidewalk outside of Terminal 2, with departure drop-offs on the left and the termina
+  ◎🔴 2024 8064x6048  CC BY American Flag at DCA Airport (53839628489).jpg
+        Arlington, Virginia
+  ◎🔴 2024 8064x6048  CC BY Reagan DCA Airport Interior (53839571710).jpg
+        Arlington, Virginia
+  ◎🔴 2025 8160x5440  CC BY Main Hall S Security Checkpoint DCA National Airport 2025-10-22 12-55-50.jpg
+        The main hall near the South Security Checkpoint. Terminal 2, Washington National Airpor
+
+■ newark_757 (pre) ニューアーク空港を離陸する757 → c602
+  ◎🔴 2017 3769x2254  CC BY United 757-200 at EWR (37116055471).jpg
+        United 757-200 at EWR
+  ・🔴 2026 7894x4440  CC BY Delta Air Lines Boeing 757-200 N696DL on final approach to Boston June 2026 3.
+        Delta Air Lines Boeing 757-200 N696DL, operating 430 from Las Vegas, makes its final app
+  ・🔴 2010 2816x2112  CC BY Continental @ EWR (4519440218).jpg
+        Continental B737, B757 and B767 parked at Newark International Terminal C.
+  ・🔴 2006 2304x1536  PD    Continental Airlines 757 departing Belfast.jpg
+        Continental Airlines 757 at Belfast International Airport preparing to depart for Newark
+  ・🔴 2007 2048x1536  PD    CONT753.JPG
+        CONTINENTAL AIRLINES 757-300 AT GATE AT NEWARK LIBERTY INTERNATIONAL AIRPORT AFTER ARRIV
+
+■ b767 (pre) ボーイング767（2001年以前） → c108
+  ◎🔴 2026 8256x5504  CC BY Austrian Airlines Boeing 767-300ER OE-LAE returning from test flight at Taoyua
+        Austrian Airlines Boeing 767-300ER OE-LAE returns from a test flight out of Taiwan Taoyu
+  ◎🔴 2024 8256x5504  CC BY Delta 767-300ER N192DN on approach to Boston Oct 2024 1.jpg
+        Delta Air Lines Boeing 767-300ER N192DN on final approach to Runway 04R at Boston Logan 
+  ◎🔴 2024 8256x5504  CC BY Delta 767-300ER N192DN on approach to Boston Oct 2024 2.jpg
+        Delta Air Lines Boeing 767-300ER N192DN on final approach to Runway 04R at Boston Logan 
+  ◎🔴 2025 8256x5504  CC BY Delta Boeing 767-300ER N194DN at Boston May 2025.jpg
+        Delta Air Lines Boeing 767-300ER N194DN parked at Gate E8 at Boston Logan International 
+  ◎🔴 2025 8256x5504  CC BY Delta Boeing 767-300ER N197DN at Boston September 2025.jpg
+        Delta Boeing 767-300ER N197DN, as flight 122 to Edinburgh, waits on taxiway N at Boston 
+  ◎🔴 2026 8256x5504  CC BY FedEx Boeing 767-300F N102FE landing at Taoyuan February 2026.jpg
+        FedEx Boeing 767-300F N102FE, operating flight 6126 from Seoul-Incheon, lands on runway 
+
+■ b757 (pre) ボーイング757（2001年以前） → c109
+  ◎🔴 2024 8256x5504  CC BY Delta 757-200 N710TW taxiing at Boston Nov 2024.jpg
+        Delta Air Line Boeing 757-200 N710TW taxiing at Boston Logan International Airport
+  ◎🔴 2024 8256x5504  CC BY Delta Boeing 757-200 N707TW landing in Boston December 2024 2.jpg
+        Delta Boeing 757-200 N707TW landing on Runway 27 at Boston Logan International Airport
+  ◎🔴 2025 8256x5504  CC BY Delta Boeing 757-200 N721TW at Boston September 2025.jpg
+        Delta Air Lines Boeing 757-200 N721TW, as flight 318 to Los Angeles, waits on taxiway N 
+  ◎🔴 2026 8256x5504  CC BY Fueling Boeing 757-200 N58101 at Boston January 2026.jpg
+        United Airlines Boeing 757-200 N58101 is fueled prior to its trip to San Francisco as fl
+  ◎🔴 2026 8256x5504  CC BY United Airlines Boeing 757-200 N58101 at gate F21 at SFO January 2026.jpg
+        United Airlines Boeing 757-200 N58101 parked at gate F21 at San Francisco International 
+  ◎🔴 2026 8129x5419  CC BY FedEx Boeing 757-200 freighter N995FD at Boston January 2026.jpg
+        FedEx Boeing 757-200 freighter N995FD parked at South Cargo at Boston Logan Internationa
+
+■ b767_cruise (any) 巡航するボーイング767 → c201
+  ◎✓ 2024 8256x5504  CC BY Delta 767-300ER N192DN on approach to Boston Oct 2024 1.jpg
+        Delta Air Lines Boeing 767-300ER N192DN on final approach to Runway 04R at Boston Logan 
+  ◎✓ 2024 8256x5504  CC BY Delta 767-300ER N192DN on approach to Boston Oct 2024 2.jpg
+        Delta Air Lines Boeing 767-300ER N192DN on final approach to Runway 04R at Boston Logan 
+  ◎✓ 2024 8256x5504  CC BY Lufthansa A350-900 and United 767-300ER above Boston.jpg
+        A Lufthansa Airbus A350-900 at cruise (left), and a United Airlines Boeing 767-300ER on 
+  ◎✓ 2025 8047x5364  CC BY Icelandair 767-300ER TF-ISN landing at Boston June 2025.jpg
+        Icelandair Boeing 767-300ER TF-ISN, as flight 631 from Reykjavik, on final approach to r
+  ◎✓ 2026 8256x4644  CC BY Icelandair Boeing 767-300ER TF-ISN on final approach to Boston June 2026 3.jpg
+        Icelandair Boeing 767-300ER TF-ISN, operating flight 631 from Keflavik, makes its final 
+  ◎✓ 2026 8164x4592  CC BY Icelandair Boeing 767-300ER TF-ISN on final approach to Boston June 2026 2.jpg
+        Icelandair Boeing 767-300ER TF-ISN, operating flight 631 from Keflavik, makes its final 
+
+■ b767_takeoff (any) 離陸するボーイング767 → c302
+  ◎✓ 2025 7460x4196  CC BY FedEx Express Boeing 767-300F N263FE departing Boston March 2025 1.jpg
+        FedEx Express Boeing 767-300F N263FE departs Boston after taking off from runway 27.
+  ◎✓ 2025 7148x4021  CC BY FedEx Boeing 767-300F N191FE departing Boston March 2025.jpg
+        FedEx Express Boeing 767-300F N191FE departs Boston from runway 27.
+  ◎✓ 2025 6535x3676  CC BY FedEx Express Boeing 767-300F N263FE departing Boston March 2025 2.jpg
+        FedEx Express Boeing 767-300F N263FE departs Boston after taking off from runway 27.
+  ◎✓ 2025 5192x4154  CC BY Delta Boeing 767-300ER N1604R departing Boston February 2025.jpg
+        Delta Air Lines Boeing 767-300ER N1604R departs Boston from runway 33L.
+  ◎✓ 2024 5568x3712  CC BY N189FE FedEx Express 767-300F departing TPA.jpg
+        N189FE, a Boeing 767-300F operated by FedEx Express, just after taking off from Runway 1
+  ◎✓ 2026 2325x1308  CC BY SF Airlines Boeing 767-300ER(BCF) B-1576 departing Taoyuan February 2026 2.jpg
+        SF Airlines Boeing 767-300ER(BCF) freighter B-1576, operating flight 358 to Shenzhen, de
+
+■ b757_takeoff (any) 離陸するボーイング757 → c402
+  ◎✓ 2025 8024x4513  CC BY Delta Boeing 757-200 N702TW departing Boston April 2025 1.jpg
+        Delta Air Lines Boeing 757-200 N702TW, as flight 321 to Los Angeles, departs Boston afte
+  ◎✓ 2025 7565x4728  CC BY United Airlines Boeing 757-200 N12109 departing Boston August 2025 3.jpg
+        United Airlines Boeing 757-200 N12109 departs Boston from runway 22R.
+  ◎✓ 2025 7539x4712  CC BY Delta Air Lines Boeing 757-200 N709TW departing Boston August 2025 2.jpg
+        Delta Air Lines Boeing 757-200 N709TW departs Boston from runway 22R.
+  ◎✓ 2025 7824x4401  CC BY Delta Boeing 757-200 N702TW departing Boston April 2025 2.jpg
+        Delta Air Lines Boeing 757-200 N702TW, as flight 321 to Los Angeles, departs Boston afte
+  ◎✓ 2025 7080x4720  CC BY United Airlines Boeing 757-200 N12109 departing Boston August 2025 2.jpg
+        United Airlines Boeing 757-200 N12109 departs Boston from runway 22R.
+  ◎✓ 2025 7130x4456  CC BY United Boeing 757-200 N29129 departing Boston March 2025 2.jpg
+        United Airlines Boeing 757-200 N29129 after taking off from Runway 22R at Boston Logan I
+
+■ airliner_cruise (any) 巡航する旅客機 → c403
+  ・✓ 2019 6899x4390  PD    RAF Fairford 75th Anniversary Heritage Day (5741202).jpg
+        Douglas Stewart Newton, retired flight test equipment officer, and Richard “Dick” Hughes
+  ・✓ 1989 5100x4000  PD    Convair 990 in flight EC89-0042-11.jpg
+        Convair CV 990 NASA 710 (N710NA), a Convair 990 transport aircraft formerly used for med
+  ・✓ 2023 5150x3433  PD    ComPair Thermal Vacuum Photos (SVS14372 - ComPair TVac IMG 2231).png
+        ComPair team members prepare the instrument for thermal vacuum testing. Once closed, the
+  ・✓ 2011 4288x2848  CC BY Qantas Airbus A380 (5478680641).jpg
+        The Airbus A380 is a double-deck, wide-body, four-engine airliner manufactured by the Eu
+  ・✓ 2009 3208x1363  CC BY Singapore Airlines Airbus A380.jpg
+        Singapore Airlines Airbus A380 (9V-SKG) Preparing for Take-off from Sydney Airport. View
+  ・✓ 2012 2208x1656  PD    Aircraft crossing paths.jpg
+        An illustration of vertical separation in flight. I was flying from Los Angeles to New Y
+
+■ refuel (any) 給油中の旅客機（2001年以前） → c119
+  ・✓ 2026 8192x5464  PD    EXERCISE SABER STRIKE 2026 (9691771).jpg
+        U.S. Army Sgt. Victoria Oluwasola and Sgt. Justin Decker, assigned to Headquarters and H
+  ・✓ 2023 7679x5119  PD    B-1B Lancers at Mihail Kogălniceanu Air Base.jpg
+        U.S. service members standby to perform a hot-pit refuel on U.S. B-1B Lancers from the 7
+  ・✓ 2026 7661x5110  PD    EXERCISE SABER STRIKE 2026 (9691778).jpg
+        U.S. Army Sgt. Victoria Oluwasola and Sgt. Evenson Alexis, assigned to Headquarters and 
+  ・✓ 1952 6068x4856  PD    Fuel Truck, Burlington Air Force Base, Burlington, Vermont - DPLA - 6296ec75d4
+        Original Caption: Burlington AFB, Vermont
+  ・✓ 2019 6053x4040  PD    Ample Strike 2019- Gas Up (5739030).jpg
+        U.S. Air National Guard Master Sgt. Nicholas Bethune, 155th Air Refueling Wing Aircraft 
+  ・✓ 2025 6048x4024  PD    AirForce; PACAF; 36WG; Andersen; Exercise (9009331).jpg
+        U.S. Air Force Capt. Paul Schone, 436th Airlift Wing Lockheed C-5 Galaxy pilot, helps na
+
+■ cabin_pre (pre) 旅客機の客室（2001年以前） → c205
+  ◎🔴 2017 7360x4912  PD    Airplane aisle during flight (Unsplash).jpg
+        Suhyeon Choi 2017
+  ◎🔴 2018 4427x2952  CC BY Aircraft cabin (47176397382).jpg
+        Norwegian Air Shuttle
+  ◎🔴 2026 3060x4080  PD    JP 沖繩 Okinawa 亞洲航空 AirAsia flying to HKG flight aircraft economy class interio
+        JP 沖繩 Okinawa 亞洲航空 AirAsia flying to HKG flight aircraft interior seats in February 2026
+  ◎🔴 2026 3060x4080  PD    JP 沖繩 Okinawa 亞洲航空 AirAsia flying to HKG flight aircraft economy class interio
+        JP 沖繩 Okinawa 亞洲航空 AirAsia flying to HKG flight aircraft interior seats in February 2026
+  ◎🔴 2007 2112x2816  CC BY Virgin America airplane interior.jpg
+        interior of an airplane of Virgin America
+  ・✓ 1960 4400x5846  CC BY Two unidentified men playing cards (10290641205).jpg
+        Title: Two unidentified men playing cards Creator: City of Boston Date: circa 1960-1968 
+
+■ cockpit_door_pre (pre) 旅客機の操縦室の扉（2001年以前） → c202
+  ◎🔴 2015 3456x4608  CC BY Puerto Rico — A 320 JetBlue — Open cockpit door during boarding.jpg
+        Open cockpit door during boarding, Airbus A320, JetBlue (unlawful during PAX boarding)
+  ・🔴 2013 2118x3264  CC BY DC-10 Cockpit Center Pedestal, Iowa Aviation Museum.jpg
+        From Wikipedia : The McDonnell Douglas DC-10 is an American tri-jet wide-body airliner m
+
+■ cabin_phone (any) 客室の座席にある電話（2001年以前） → c309,c614
+  ・✓ 1918 8410x5658  PD    111-SC-18516 - NARA - 55197086.jpg
+  ・✓ 2018 8256x5504  CC BY A220 First Class (44893026114).jpg
+        Details are shown on Delta Air Lines first A220 in Atlanta, Georgia at Hartsfield Jackso
+  ・✓ 2018 8256x5504  CC BY A220 Interior (44892897764).jpg
+        Details are shown on Delta Air Lines first A220 in Atlanta, Georgia at Hartsfield Jackso
+  ・✓ 2018 8256x5504  CC BY A220 First Class (44703991475).jpg
+        Details are shown on Delta Air Lines first A220 in Atlanta, Georgia at Hartsfield Jackso
+  ・✓ 2018 8256x5504  CC BY A220 Main Cabin (43799968340).jpg
+        Details are shown on Delta Air Lines first A220 in Atlanta, Georgia at Hartsfield Jackso
+  ・✓ 2018 8256x5504  CC BY A220 Interior (45617530511).jpg
+        Details are shown on Delta Air Lines first A220 in Atlanta, Georgia at Hartsfield Jackso
+
+■ cockpit_pre (pre) 旅客機の操縦室（2001年以前） → c605
+  ◎✓ 1982 2480x1939  PD    An artist's concept of the F-16 multimission cockpit head up display, showing 
+        The original finding aid described this photograph as: Country: Unknown Scene Camera Ope
+  ◎🔴 2025 4032x1908  CC BY Avelo Airlines B737 Cockpit.jpg
+        Avelo Airlines B737 Cockpit
+  ・✓ 1972 2441x3671  PD    Eerste vlucht JAL Boeing 747 over Noordpool rechtstreeks naar Amsterdam, Japan
+        Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Beschrijving 
+  ・✓ 1972 2441x3629  PD    Eerste vlucht JAL Boeing 747 over Noordpool rechtstreeks naar Amsterdam, Japan
+        Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Beschrijving 
+  ・🔴 2012 4256x2832  CC BY 20121016 AK W105465 0001.JPG - Flickr - NZ Defence Force (5).jpg
+        Front left: FLTLT Nathan Barrack (Co- Pilot), front right: Mr Stewart Frame (DFC) - ex F
+  ・🔴 2011 3600x2400  CC BY 20110616 AK v1023933 0004 - Flickr - NZ Defence Force.jpg
+        Marshalling shots from inside and outside the cockpit of boeing.
+
+■ window_cruise (any) 巡航する旅客機の窓 → c304
+  ◎✓ 2025 8160x4592  CC BY 20250928 View from aircraft in Egypt 01 (21624).jpg
+        Вид с самолёта Боинг-737-800 авиакомпании "Аэрофлот". Рейс Москва-Хургада.
+  ◎✓ 2025 8160x4592  CC BY 20250928 View from aircraft in Turkey 01 (31935).jpg
+        Вид с самолёта Боинг-737-800 авиакомпании "Аэрофлот". Рейс Москва-Хургада.
+  ◎✓ 2025 8160x4592  CC BY 20250928 View from aircraft in Turkey 01 (79961).jpg
+        Вид с самолёта Боинг-737-800 авиакомпании "Аэрофлот". Рейс Москва-Хургада.
+  ◎✓ 2025 8160x4592  CC BY 20250928 View from aircraft in Turkey 01 (41326).jpg
+        Вид с самолёта Боинг-737-800 авиакомпании "Аэрофлот". Рейс Москва-Хургада.
+  ◎✓ 2025 8160x4592  CC BY 20250928 View from aircraft in Turkey 01 (89062).jpg
+        Вид с самолёта Боинг-737-800 авиакомпании "Аэрофлот". Рейс Москва-Хургада.
+  ◎✓ 2025 8160x4592  CC BY 20250928 View from aircraft in Turkey 02 (95348).jpg
+        Вид с самолёта Боинг-737-800 авиакомпании "Аэрофлот". Рейс Москва-Хургада.
+
+■ window_sky (any) 飛行機の窓から見た空 → c909
+  ◎✓ 2025 8160x4592  CC BY 20250928 View from aircraft in Egypt 01 (21624).jpg
+        Вид с самолёта Боинг-737-800 авиакомпании "Аэрофлот". Рейс Москва-Хургада.
+  ◎✓ 2025 8160x4592  CC BY 20250928 View from aircraft in Turkey 01 (31935).jpg
+        Вид с самолёта Боинг-737-800 авиакомпании "Аэрофлот". Рейс Москва-Хургада.
+  ◎✓ 2025 8160x4592  CC BY 20250928 View from aircraft in Turkey 01 (79961).jpg
+        Вид с самолёта Боинг-737-800 авиакомпании "Аэрофлот". Рейс Москва-Хургада.
+  ◎✓ 2025 8160x4592  CC BY 20250928 View from aircraft in Turkey 01 (41326).jpg
+        Вид с самолёта Боинг-737-800 авиакомпании "Аэрофлот". Рейс Москва-Хургада.
+  ◎✓ 2025 8160x4592  CC BY 20250928 View from aircraft in Turkey 01 (89062).jpg
+        Вид с самолёта Боинг-737-800 авиакомпании "Аэрофлот". Рейс Москва-Хургада.
+  ◎✓ 2025 8160x4592  CC BY 20250928 View from aircraft in Turkey 02 (95348).jpg
+        Вид с самолёта Боинг-737-800 авиакомпании "Аэрофлот". Рейс Москва-Хургада.
+
+■ artcc_screen_pre (pre) 航空路管制センターの画面（2001年当時） → pr09
+  ◎🔴 2011 5184x3456  PD    Tarmo bridge radar display.JPG
+        Kelvin-Hughes marine radar display unit type 2A on the bridge of icebreaker Tarmo in mar
+  ◎🔴 2006 2048x1536  CC BY Radar screen.JPG
+        Display and control unit of a common maritime navigation and search radar.
+  ・✓ 1965 5676x4448  PD    F-4B of VF-21 returns to USS Midway (CVA-41) off Vietnam in 1965.jpg
+        A U.S. Navy McDonnell F-4B Phantom II from Fighter Squadron 21 (VF-21) "Freelancers" ret
+  ・✓ 1963 5677x4438  PD    F-4B of VF-102 approaches USS Enterprise (CVAN-65) c1963.jpg
+        A U.S. Navy McDonnell F-4B Phantom II from Fighter Squadron 102 (VF-102) "Diamondbacks" 
+  ・✓ 1969 5797x3897  PD    Kaman UH-2 Seasprite aboard USS Coontz (DLG-9), in July 1969 (USN 1139574).jpg
+        The Landing Signal Officer aboard the U.S. Navy guided missile destroyer USS Coontz (DLG
+  ・✓ 1966 5844x3736  PD    Douglas A-4C Skyhawk of VA-153 landing aboard USS Constellation (CVA-64), in O
+        A U.S. Navy Douglas A-4C Skyhawk (BuNo 147743) of Attack Squadron 153 (VA-153) "Blue Tai
+
+■ radar_scope_pre (pre) 管制卓のレーダー画面（2001年当時） → c210
+  ◎🔴 2011 5184x3456  PD    Tarmo bridge radar display.JPG
+        Kelvin-Hughes marine radar display unit type 2A on the bridge of icebreaker Tarmo in mar
+  ◎🔴 2016 2634x3543  PD    SR&T Plan position indicator.jpg
+        Plan polar indicator at Arlanda airport in Sweden, manufactured by Standard Radio &amp; 
+  ◎🔴 2006 2048x1536  CC BY Radar screen.JPG
+        Display and control unit of a common maritime navigation and search radar.
+  ・✓ 1982 2800x1910  PD    A view of a radar scope in the combat information center aboard the amphibious
+        The original finding aid described this photograph as: Country: Atlantic Ocean (AOC) Sce
+  ・✓ 1988 2254x1825  PD    USS Vincennes (CG-49) Aegis large screen displays.jpg
+        Crew members monitor radar screens in the combat information center aboard the guided mi
+  ・🔴 2026 6910x5734  PD    Air Traffic Control Training in World War II - DPLA - ef694eb5dfc14ebda158c3e8
+        Air traffic controllers stand around a table grid map at an air base that displays poten
+
+■ controller_pre (pre) 管制卓に着く管制官（2001年当時） → c306
+  ◎✓ 1987 1948x3000  PD    Air traffic controllers of the 1961st Communications Group man their duty stat
+        The original finding aid described this photograph as: Base: Clark Air Base State: Luzon
+  ◎🔴 2025 8448x6336  PD    378th EOSS Air Traffic Controller Demonstration (8829389).jpg
+        A watch supervisor assigned to the 378th Expeditionary Operations Support Squadron demon
+  ◎🔴 2025 8125x6094  PD    378th EOSS Air Traffic Controller Demonstration (8829392).jpg
+        A watch supervisor assigned to the 378th Expeditionary Operations Support Squadron demon
+  ◎🔴 2025 7993x5995  PD    378th EOSS Air Traffic Controller Demonstration (8829390).jpg
+        A watch supervisor assigned to the 378th Expeditionary Operations Support Squadron logs 
+  ◎🔴 2025 7897x5923  PD    378th EOSS Air Traffic Controller Demonstration (8829391).jpg
+        A watch supervisor assigned to the 378th Expeditionary Operations Support Squadron perfo
+  ◎🔴 2024 8256x5504  PD    379th EOSS air traffic controllers in action (8599712).jpg
+        An air traffic controller assigned to the 379th Expeditionary Operations Support Squadro
+
+■ artcc_screen2 (pre) 管制卓の画面（2001年当時） → c509
+  ・✓ 1965 5676x4448  PD    F-4B of VF-21 returns to USS Midway (CVA-41) off Vietnam in 1965.jpg
+        A U.S. Navy McDonnell F-4B Phantom II from Fighter Squadron 21 (VF-21) "Freelancers" ret
+  ・✓ 1963 5677x4438  PD    F-4B of VF-102 approaches USS Enterprise (CVAN-65) c1963.jpg
+        A U.S. Navy McDonnell F-4B Phantom II from Fighter Squadron 102 (VF-102) "Diamondbacks" 
+  ・✓ 1969 5797x3897  PD    Kaman UH-2 Seasprite aboard USS Coontz (DLG-9), in July 1969 (USN 1139574).jpg
+        The Landing Signal Officer aboard the U.S. Navy guided missile destroyer USS Coontz (DLG
+  ・✓ 1966 5844x3736  PD    Douglas A-4C Skyhawk of VA-153 landing aboard USS Constellation (CVA-64), in O
+        A U.S. Navy Douglas A-4C Skyhawk (BuNo 147743) of Attack Squadron 153 (VA-153) "Blue Tai
+  ・✓ 1969 3892x5257  PD    Landing Signal Officer on USS Coontz (DLG-9) in July 1969.jpg
+        The Landing Signal Officer, Lieutenant Junior Grade Ronald E. Braley of Vancouver, Washi
+  ・✓ 1960 3584x5424  PD    Fursty NDB - Approach Chart (1960).jpg
+        Anflugverfahren für Fürstenfeldbruck mit Hilfe eines ungerichteten Funkfeuers (Non-Direc
+
+■ artcc_alt (any) 管制卓の画面（高度の表示） → c608
+  ◎✓ 2013 2848x4288  PD    U.S. Army Spc. Nathaniel Harden calibrates a scope to get the line of sight of
+        U.S. Army Spc. Nathaniel Harden calibrates a scope to get the line of sight of the Air T
+  ◎✓ 2013 3259x1704  PD    U.S. Air Force Senior Airman Ben Missel, an air traffic controller with the 97
+        U.S. Air Force Senior Airman Ben Missel, an air traffic controller with the 97th Operati
+  ・✓ 2025 8448x6336  PD    378th EOSS Air Traffic Controller Demonstration (8829389).jpg
+        A watch supervisor assigned to the 378th Expeditionary Operations Support Squadron demon
+  ・✓ 2024 8256x5504  PD    379th EOSS air traffic controllers in action (8599713).jpg
+        An air traffic controller assigned to the 379th Expeditionary Operations Support Squadro
+  ・✓ 2021 5504x8256  PD    ATC aids TBM Avenger pilot (6666391).jpeg
+        Edward Terhune, 45th Logistics Readiness Squadron air traffic controller, writes down in
+  ・✓ 2021 8256x5504  PD    ATC aids TBM Avenger pilot (6666383).jpeg
+        Donald Beckwith, 45th Logistics Readiness Squadron lead air traffic controller, watches 
+
+■ artcc_seat (any) 航空路管制センターの席 → ep03
+  ◎✓ 2010 3850x2750  PD    US Navy 100921-N-9950J-091 Air Traffic Controller Airman Chelsea Pitchford mon
+        PHILIPPINE SEA (Sept. 21, 2010) Air Traffic Controller Airman Chelsea Pitchford monitors
+  ◎✓ 2007 3872x2592  PD    US Navy 070205-N-9689V-001 Air Traffic Controller 1st Class Otto Delacruz iden
+        Persian Gulf (Feb. 5, 2007) - Air Traffic Controller 1st Class Otto Delacruz identifies 
+  ◎✓ 2008 3872x2592  PD    US Navy 081117-N-9950J-004 Air Traffic Controller 2nd Class Erin McHenry, of W
+        EAST CHINA SEA (Nov. 17, 2008) Air Traffic Controller 2nd Class Erin McHenry, of Wichita
+  ◎✓ 2003 3436x2130  PD    US Navy 030428-N-9802B-001 Air Traffic Controller 2nd Class Joey Holloway and 
+        The Philippine Sea (Apr. 28, 2003) -- Air Traffic Controller 2nd Class Joey Holloway and
+  ◎✓ 2003 3008x2000  PD    US Navy 030513-N-1512S-014 Air Traffic Controller 1st Class Robert Bacon stand
+        At sea aboard USS Kearsarge (LHD 3) May 13, 2003 -- Air Traffic Controller 1st Class Rob
+  ◎✓ 2004 3008x2000  PD    US Navy 041019-N-7945K-002 Air Traffic Controller 3rd Class Jeff Gessler, cent
+        Norfolk, Va. (Oct. 19, 2004) - Air Traffic Controller 3rd Class Jeff Gessler, center, Mi
+
+■ boston_artcc_ext (any) ボストンの航空路管制センター（外観） → c212
+   🔴 候補なし
+
+■ indy_artcc (any) インディアナポリスの管制センター → c406
+   🔴 候補なし
+
+■ cleveland_artcc (any) クリーブランドの管制センター → c606
+   🔴 候補なし
+
+■ atcscc (any) 連邦航空局コマンドセンター（外観） → c502
+   🔴 候補なし
+
+■ aoc_pre (any) 航空会社の運航管理室（2001年以前） → c310,c408,c603
+  ・✓ 2013 15194x7597  CC BY Control room at night - Cb-cr-night-pano4.jpg
+        A 360 degree panorama of the Control Room, inside the control building, at night: when t
+  ・✓ 1946 9432x7538  PD    K-25 Control Room 1946 Oak Ridge (29089884385).jpg
+        K-25 Control Room, Oak Ridge, Tennessee
+  ・✓ 2023 7949x4797  CC BY Control Room of LIGO at Hanford, Washington (LIGO Pic 40-CC).jpg
+        LIGO , the Laser Interferometer Gravitational-Wave Observatory, consists of two widely-s
+  ・✓ 1978 6181x4810  PD    CYCLOTRON CONTROL ROOM - NARA - 17427074.jpg
+        Scope and content: The original finding aid described this as: Capture Date: 6/28/1978 P
+  ・✓ 2023 7544x3709  CC BY Control Room of LIGO at Hanford, Washington (LIGO Pic 38-CC).jpg
+        LIGO , the Laser Interferometer Gravitational-Wave Observatory, consists of two widely-s
+  ・✓ 2025 5985x3642  CC BY Gemini South Control Room Tour (DSC-9632-CC).jpg
+        Tour of the Gemini South Control Room led by astronomers Cinthya Rodríguez and Swayamtru
+
+■ pentagon_ext_pre (pre) ペンタゴン（外観・2001年以前） → c409
+  ◎✓ 1973 3000x2030  PD    AERIAL VIEW OF THE PENTAGON AND ONE OF ITS PARKING FIELDS - NARA - 547244.jpg
+  ◎✓ 1986 2800x1880  PD    An aerial view of the Pentagon - DPLA - 2bad8af340141770c277509bf649c466.jpeg
+        The original finding aid described this photograph as: Base: Arlington State: Virginia (
+  ◎✓ 1979 2780x1870  PD    CH-3E over the Pentagon DC 1979.JPEG
+        A U.S. Air Force Sikorsky CH-3E Jolly Green Giant helicopter (s/n 64-14221) in flight ne
+  ◎✓ 1998 2734x1726  PD    The Pentagon US Department of Defense building.jpg
+        The Pentagon , looking northeast with the Potomac River and Washington Monument in the d
+  ◎? None 2748x2119  PD    Pentagon aerial 8a6cebe87b85fdcc9796dcff6146d6d8.jpg
+  ◎🔴 2025 8481x5589  CC BY 250325-D-LS763-1002 Vice Chairman of the Joint Chiefs of Staff, Adm. Christoph
+        Vice Chairman of the Joint Chiefs of Staff, Adm. Christopher W. Grady, meets with French
+
+■ pentagon_aerial_pre (pre) ペンタゴンの空撮（2001年以前） → c410
+  ◎✓ 1991 3000x2291  PD    An aerial view of the Potomac River with a section of National Airport in the 
+        The original finding aid described this photograph as: Country: United States Of America
+  ◎✓ 1973 3000x2030  PD    AERIAL VIEW OF THE PENTAGON AND ONE OF ITS PARKING FIELDS - NARA - 547244.jpg
+  ◎✓ 1986 2800x1880  PD    An aerial view of the Pentagon - DPLA - 2bad8af340141770c277509bf649c466.jpeg
+        The original finding aid described this photograph as: Base: Arlington State: Virginia (
+  ◎✓ 1979 2780x1870  PD    CH-3E over the Pentagon DC 1979.JPEG
+        A U.S. Air Force Sikorsky CH-3E Jolly Green Giant helicopter (s/n 64-14221) in flight ne
+  ◎✓ 1998 2734x1726  PD    The Pentagon US Department of Defense building.jpg
+        The Pentagon , looking northeast with the Potomac River and Washington Monument in the d
+  ◎? None 2748x2119  PD    Pentagon aerial 8a6cebe87b85fdcc9796dcff6146d6d8.jpg
+
+■ pentagon_court_pre (pre) ペンタゴンの中庭（2001年以前） → c412
+  ・🔴 2020 8101x5395  CC BY 200918-D-TT977-0070.NEF (50356745522).jpg
+        Chief of Staff of the Air Force, Gen. Charles Q Brown, Jr. and Chief Master Sgt. of the 
+  ・🔴 2020 7283x4857  CC BY 200918-D-TT977-0040.NEF (50356591286).jpg
+        Secretary of the Air Force, Barbara M. Barrett and Chief of Staff of the Air Force, Gen.
+  ・🔴 2020 7106x4740  PD    200918-D-TT977-0082.NEF (50356577241).jpg
+        Vice Chairman of the Joint Chiefs of Staff, Gen. John E. Hyten speaks with the youngest 
+  ・🔴 2020 5915x3936  CC BY 200918-D-TT977-0112.NEF (50355867118).jpg
+        Chief Master Sgt. of the Air Force, JoAnne S. Bass speaks at a celebration of the U.S. A
+  ・🔴 2020 5532x3682  CC BY 200918-D-TT977-0103.NEF (50356733637).jpg
+        Secretary of the Air Force, Barbara M. Barrett; Chief of Staff of the Air Force, Gen. Ch
+  ・🔴 2020 3359x5048  CC BY 200918-D-TT977-0122.NEF (50355863568).jpg
+        Chief of Staff of the Air Force, Gen. Charles Q Brown, Jr.; speaks at a celebration of t
+
+■ pentagon_west_day (day) ペンタゴン西側（当日・遠景） → c421
+  ◎✓ 2001 3600x2362  PD    A firefigher places an American flag, found inside the Pentagon unharmed, on a
+        A firefigher places an American flag, found inside the Pentagon unharmed, on a firetruck
+  ◎✓ 2001 3600x2362  PD    A local priest shows up moments after a hijacked jetliner crashed into the Pen
+        A local priest shows up moments after a hijacked jetliner crashed into the Pentagon at a
+  ◎✓ 2001 3600x2362  PD    A firefighter places a American Flag, found inside the Pentagon, shortly after
+        A firefighter places a American Flag, found inside the Pentagon, shortly after a hijacke
+  ◎✓ 2001 3600x2362  PD    Crews work into the night after a hijacked jetliner crashed into the Pentagon 
+        Crews work into the night after a hijacked jetliner crashed into the Pentagon at approxi
+  ◎✓ 2001 3600x2362  PD    Firefighters work into the night to put out the flames after a hijacked jetlin
+        Firefighters work into the night to put out the flames after a hijacked jetliner crashed
+  ◎✓ 2001 3600x2362  PD    Firefighters work to put out the flames after a hijacked jetliner crashed into
+        Firefighters work to put out the flames after a hijacked jetliner crashed into the Penta
+
+■ f15_alert (any) 待機中のF-15（オーティス基地） → c123,c702
+  ◎✓ 2020 8256x5504  PD    A 494th EFS F-15E Strike Eagle sits on the flight line prior to a sortie at Pr
+        An F-15E Strike Eagle assigned to the 494th Expeditionary Fighter Squadron sits on the f
+  ◎✓ 2024 8213x5475  PD    Fond Farewell to F-15C A5095 (8605970).jpg
+        A U.S. Air Force F-15C Eagle, assigned to the 67th Fighter Squadron, runs pre-flight pro
+  ◎✓ 2026 8207x5471  PD    F-15EX and F-15E air power soars at Kadena (9807267).jpg
+        A U.S. Air Force F-15E Strike Eagle assigned to the 85th Test and Evaluation Squadron, E
+  ◎✓ 2019 7360x4912  PD    336th Fighter Squadron F-15E at Powidz Air Base.jpg
+        A U.S. Air Force F-15 Strike Eagle aircraft deployed from the 336th Fighter Squadron, 4t
+  ◎✓ 2015 7360x4912  PD    Incirlik receives F-15s in support of OIR 151112-F-VJ293-002.jpg
+        An U.S. Air Force F-15E Strike Eagle from the 48th Fighter Wing at RAF Lakenheath, lands
+  ◎✓ 1973 4799x6000  PD    AST (Advanced Supersonic Technology) Propulsion Noise Research test on the F-1
+        AST (Advanced Supersonic Technology) Propulsion Noise Research test on the F-15 model wi
+
+■ f15_takeoff (any) 離陸するF-15 → c703
+  ◎✓ 2023 6192x4128  PD    391st FS F-15E prepares for takeoff at MCAS Iwakuni during Northern Edge 23-2.
+        U.S. Air Force Airman 1st Class Renee Schuk, 391st Fighter Generation Squadron crew chie
+  ◎✓ 2009 3000x2400  PD    NASA NF-15B ACTIVE at takeoff.jpg
+        With its afterburners roaring, NASA research pilot Jim Smolka pulls NASA's highly modifi
+  ◎✓ 1993 3000x2032  PD    A maintenance specialist gathers safety pins and wheel chocks as a 53rd Fighte
+        The original finding aid described this photograph as: Subject Operation/Series: DENY FL
+  ◎✓ 2014 3000x1526  PD    A U.S. Air Force F-15E Strike Eagle aircraft waits to be cleared for takeoff b
+        A U.S. Air Force F-15E Strike Eagle aircraft waits to be cleared for takeoff by the air 
+  ◎✓ 2001 2000x1312  PD    Ground crew members repair a United States Air Force F-15C Eagle fighter aircr
+        The original finding aid described this photograph as: Subject Operation/Series: ENDURIN
+  ・✓ 2023 6048x4024  PD    231207-Z-XV261-9186.jpg
+        The 125th Fighter Wing, in collaboration with the Make-A-Wish organization, fulfilled th
+
+■ f16_alert (any) 待機中のF-16（ラングレー基地） → c707
+  ◎✓ 2020 19188x10625 CC BY F-16 Fighting Falcon (49594590973).jpg
+        This is one of the most complex projects I've created on Adobe Illustrator CS5. It took 
+  ◎✓ 2024 23134x5369  PD    Edwards hosts F-16 50th anniversary celebration (8216362).jpg
+        Multiple F-16s Fighting Falcons from units around the nation descended upon Edwards Air 
+  ◎✓ 2022 8256x5504  PD    F-16 flies during Real Thaw 2022 exercise (7310598).jpg
+        A U.S. Air Force F-16 Fighting Falcon aircraft from the 480th Fighter Squadron, from Spa
+  ◎✓ 2024 8000x5333  PD    Edwards hosts F-16 50th anniversary celebration (8214751).jpg
+        The United States Air Force Air Demonstration “Thunderbirds” conduct a winter training s
+  ◎✓ 2024 8000x5333  PD    Edwards hosts F-16 50th anniversary celebration (8214752).jpg
+        Air Combat Command F-16 Viper Demonstration Team pilot Capt. Aimee Fiedler performs duri
+  ◎✓ 2024 8256x5103  PD    F-16s launch from U S CENTCOM AOR (8208228).jpg
+        A U.S. Air Force F-16 Fighting Falcon takes off from an undisclosed location within the 
+
+■ f16_takeoff (any) 離陸するF-16 → c711
+  ◎✓ 2024 8256x5103  PD    F-16s launch from U S CENTCOM AOR (8208228).jpg
+        A U.S. Air Force F-16 Fighting Falcon takes off from an undisclosed location within the 
+  ◎✓ 2024 7676x5483  PD    F-16s launch from U S CENTCOM AOR (8208229).jpg
+        U.S. Air Force Nathalie Olarte, crew chief, launches an F-16 Fighting Falcon from an und
+  ◎✓ 2022 7352x4901  PD    31 FW F-16s takeoff for exercise Point Blank (7036234).jpg
+        An F-16 Fighting Falcon assigned to the 510th Fighter Squadron takes off for exercise Po
+  ◎✓ 2024 7582x4739  PD    F-16s launch from U S CENTCOM AOR (8208225).jpg
+        Two Royal Bahraini F-16 Fighting Falcons take off while a U.S. Air Force F-16 Fighting F
+  ◎✓ 2024 6769x4835  PD    F-16s launch from U S CENTCOM AOR (8208226).jpg
+        U.S. Air Force Tech. Sgt. Jonathan Perez-Piñero, an aircraft armament specialist monitor
+  ◎✓ 2024 7525x4233  PD    F-16s launch from U S CENTCOM AOR (8208227).jpg
+        U.S. Airmen prepare to launch an F-16 Fighting Falcon at an undisclosed location within 
+
+■ base_rwy (any) 基地の滑走路（2001年以前） → c708
+  ◎✓ 1967 3765x2951  PD    Aerial view of Tan Son Nhut Air Base down main runway.jpg
+        Aerial view of Tan Son Nhut Air Base down main runway NARA 342-B-VN-054E-3-K-28552
+  ・✓ 2020 8256x5504  PD    APHIS-Integrated Wildlife Damage Management at JBSA Randolph (20200423-APHIS-L
+        Sunrise brings plenty of bird activity as they swoop in and out of a roadway concrete cu
+  ・✓ 1954 5720x4507  PD    Aerial view of Tourane Airfield 01 (Indochina) c1954.jpg
+        Tourane Airfield, Indochina (Da Nang, Vietnam), showing the newly constructed metal mat 
+  ・✓ 1954 5694x4476  PD    Aerial view of Tourane Airfield 03 (Indochina) c1954.jpg
+        Tourane Airfield, Indochina (Da Nang, Vietnam), showing the hangar, the flightline area,
+  ・✓ 1954 5680x4464  PD    Aerial view of Tourane Airfield 02 (Indochina) c1954.jpg
+        Tourane Airfield, Indochina (Da Nang, Vietnam), showing the newly constructed metal mat 
+  ・✓ 2025 6048x4024  PD    909th powers U S Navy, U S Marine Corps during large force exercise (9322819).
+        A U.S. Marine Corps F-35B Lightning II, assigned to Marine Fighter Attack Squadron 214, 
+
+■ fighter_dc (any) 首都上空を飛ぶ戦闘機 → c717
+  ・✓ 2004 2622x4308  PD    US Navy 040609-F-7466S-001 A flight of four F-15E Strike Eagles assigned to th
+        Washington, D.C. (June 9, 2004) - A flight of four F-15E Strike Eagles assigned to the 4
+  ・✓ 2019 2000x3000  PD    An F-35 Flies Over the White House (48052679847).jpg
+        An F-35 fighter aircraft flies over the White House during the visit of Polish President
+  ・✓ 2019 3000x2000  PD    An F-35 Flies Over the White House (48052634258).jpg
+        An F-35 fighter aircraft flies over the White House during the visit of Polish President
+  ・✓ 2019 3000x2000  PD    An F-35 Flies Over the White House (48052590006).jpg
+        An F-35 fighter aircraft flies over the White House during the visit of Polish President
+
+■ andrews (any) アンドルーズ基地（2001年以前） → c719
+  ◎✓ 2024 8469x5646  CC BY Admiral Christopher W. Grady, Vice Chairman of the Joint Chiefs of Staff, atte
+        Adm. Christopher W. Grady, Vice Chairman of the Joint Chiefs of Staff, attends the NATO 
+  ◎✓ 2024 8319x5546  CC BY Admiral Christopher W. Grady, Vice Chairman of the Joint Chiefs of Staff, atte
+        Adm. Christopher W. Grady, Vice Chairman of the Joint Chiefs of Staff, attends the NATO 
+  ◎✓ 2024 8305x5537  CC BY Admiral Christopher W. Grady, Vice Chairman of the Joint Chiefs of Staff, atte
+        Adm. Christopher W. Grady, Vice Chairman of the Joint Chiefs of Staff, attends the NATO 
+  ◎✓ 2024 8288x5525  CC BY Admiral Christopher W. Grady, Vice Chairman of the Joint Chiefs of Staff, atte
+        Adm. Christopher W. Grady, Vice Chairman of the Joint Chiefs of Staff, attends the NATO 
+  ◎✓ 2024 8256x5504  CC BY Defense Senior Enlisted Leader Council (DSELC) at the General Jacob E. Smart C
+        Retired U.S. Marine Corps 1st Sgt. Stacie Black, spouse of the Senior Enlisted Advisor t
+  ◎✓ 2024 8256x5504  CC BY Defense Senior Enlisted Leader Council (DSELC) at the General Jacob E. Smart C
+        Retired U.S. Marine Corps 1st Sgt. Stacie Black, spouse of the Senior Enlisted Advisor t
+
+■ wtc_smoke_day (day) 北棟から上がる煙（遠景・2001-09-11） → c313
+  ◎✓ 2001 2500x1666  PD    Skyline of Manhattan with smoke billowing from the Twin Towers (29385426736).j
+        Skyline of Manhattan with smoke billowing from the Twin Towers following September 11th 
+  ◎✓ 2001 2000x1312  PD    188th Fighter Wing, Arkansas Air National Guard, Fort Smith, Arkansas, Securit
+        188th Fighter Wing, Arkansas Air National Guard, Fort Smith, Arkansas, Security Police i
+  ・✓ 2001 5835x4027  PD    LOC Lower Manhattan New York City World Trade Center August 2001.jpg
+        Manhattan skyline; New York City skyline remembered [includes view of the World Trade Ce
+  ・✓ 2001 5740x3981  PD    World Trade Center towers, New York, LCCN2015645969.jpg
+        Manhattan skyline, New York City, the view includes the World Trade Center towers before
+  ・✓ 2001 5740x3981  PD    World Trade Center towers, New York, New York LCCN2015645969 - restoration1.jp
+        Manhattan skyline, New York City, the view includes the World Trade Center towers before
+  ・✓ 2001 5740x3981  PD    World Trade Center towers, New York, New York LCCN2015645969 - restoration1.pn
+        Manhattan skyline, New York City, the view includes the World Trade Center towers before
+
+■ fire_trucks_day (day) 現場へ向かう消防車（2001-09-11） → c314
+  ◎✓ 2001 3600x2362  PD    A firefigher places an American flag, found inside the Pentagon unharmed, on a
+        A firefigher places an American flag, found inside the Pentagon unharmed, on a firetruck
+  ◎✓ 2001 3600x2362  PD    A firefighter places a American Flag, found inside the Pentagon, shortly after
+        A firefighter places a American Flag, found inside the Pentagon, shortly after a hijacke
+  ◎✓ 2001 3600x2362  PD    Firefighters work into the night to put out the flames after a hijacked jetlin
+        Firefighters work into the night to put out the flames after a hijacked jetliner crashed
+  ◎✓ 2001 3600x2362  PD    Firefighters work to put out the flames after a hijacked jetliner crashed into
+        Firefighters work to put out the flames after a hijacked jetliner crashed into the Penta
+  ◎✓ 2001 3600x2362  PD    Firefighters work to put out the flames moments after a hijacked jetliner cras
+        Firefighters work to put out the flames moments after a hijacked jetliner crashed into t
+  ◎✓ 2001 3600x2362  PD    Firefighters work to put out the flames after a hijacked jetliner crashed into
+        Firefighters work to put out the flames after a hijacked jetliner crashed into the Penta
+
+■ shanksville_day (day) シャンクスビルの野原（当日・遠景） → c622
+  ・✓ 2001 3645x2554  PD    Defense.gov News Photo 011221-D-9880W-042.jpg
+        Navy Chief Petty Officer Bernard Brown carries the Olympic torch through a cordon of Ame
+  ・✓ 2001 3231x2436  PD    Flight93 bandana.jpg
+        Red bandana found at the crash site of Flight 93. Believed to be worn by the hijackers.
+  ・✓ 2001 3217x2193  PD    Defense.gov News Photo 010912-D-9880W-044.jpg
+        Secretary of Defense Donald H. Rumsfeld thanks one of the many Military District of Wash
+  ・✓ 2001 2245x3000  PD    Defense.gov News Photo 010914-F-4692S-003.jpg
+        A worker at the crash site takes a break as he waits his turn to help recovery efforts a
+  ・✓ 2001 3008x1960  PD    FEMA - 5519 - Photograph by Larry Lerner taken on 10-27-2001 in New York.jpg
+        New York, NY, October 27, 2001 -- The extensive wiring in the disaster field office is n
+  ・✓ 2001 3008x1960  PD    FEMA - 5520 - Photograph by Larry Lerner taken on 10-27-2001 in New York.jpg
+        New York, NY, October 27, 2001 -- The extensive wiring in the disaster field office is n
+
+■ apron_day (day) 駐機場に降りた旅客機（2001-09-11） → pr10
+  ・✓ 2001 2100x1500  PD    X-47A rollout.jpg
+        X-47A rollout, front quarter view
+  ・✓ 2001 2100x1500  PD    X-47A rollout front.jpg
+        X-47A rollout, front view
+  ・✓ 2001 2100x1500  PD    X-47A rollout rear.jpg
+        X-47A rollout, rear view
+  ・✓ 2001 1990x1225  PD    X-47A rollout front low.jpg
+        X-47A rollout, low front view
+  ・🔴 2026 8256x5504  PD    260727-Z-RZ465-1032 - Grizzly Gauntlet.jpg
+        A blended team of Airmen from the 163d, 119th, and 174th Wings compete in the annual Gri
+  ・🔴 2026 8256x5504  CC BY Austrian Airlines Boeing 767-300ER OE-LAE returning from test flight at Taoyua
+        Austrian Airlines Boeing 767-300ER OE-LAE returns from a test flight out of Taiwan Taoyu
+
+■ apron_lined_day (day) 駐機場に並んだ旅客機（2001-09-11） → c516,ep05
+  ・✓ 2001 2100x1500  PD    X-47A rollout.jpg
+        X-47A rollout, front quarter view
+  ・✓ 2001 2100x1500  PD    X-47A rollout front.jpg
+        X-47A rollout, front view
+  ・✓ 2001 2100x1500  PD    X-47A rollout rear.jpg
+        X-47A rollout, rear view
+  ・✓ 2001 1990x1225  PD    X-47A rollout front low.jpg
+        X-47A rollout, low front view
+  ・🔴 2024 8256x5504  CC BY Alaska Boeing 737-9 MAX N926AK at Boston Logan Terminal B December 2024.jpg
+        Alaska Airlines Boeing 737-9 MAX N926AK at gate B35A at Boston Logan International Airpo
+  ・🔴 2026 8256x5504  CC BY At gate B24 at Boston Logan International Airport January 2026.jpg
+        Looking north from a United Airlines Boeing 757-200 at gate B24, towards a Boeing 737-90
+
+■ stopped_day (day) 空港で止まった旅客機（2001-09-11） → c505
+  ・✓ 2001 2100x1500  PD    X-47A rollout.jpg
+        X-47A rollout, front quarter view
+  ・✓ 2001 2100x1500  PD    X-47A rollout front.jpg
+        X-47A rollout, front view
+  ・✓ 2001 2100x1500  PD    X-47A rollout rear.jpg
+        X-47A rollout, rear view
+  ・✓ 2001 1990x1225  PD    X-47A rollout front low.jpg
+        X-47A rollout, low front view
+  ・🔴 2024 8256x5504  CC BY United A321neo taking off from Runway 9 Boston.jpg
+        A United Airlines Airbus A321neo takes off from Runway 9 at Boston Logan International A
+  ・🔴 2026 8256x5504  PD    260727-Z-RZ465-1032 - Grizzly Gauntlet.jpg
+        A blended team of Airmen from the 163d, 119th, and 174th Wings compete in the annual Gri
+
+■ stranded_day (day) 空港で足止めされた人たち（2001-09-11） → c517
+  ・🔴 2025 8119x4825  PD    A U.S. Customs and Border Protection operations related to international trave
+        A U.S. Customs and Border Protection officer instructs travelers to wait as he processes
+  ・🔴 1970 4900x6993  CC BY 1970-07 Riva IT - 1 Schiphol Yolanda Lippens met ouders.jpg
+        1970-07 Riva IT - Schiphol Yolanda Lippens met ouders
+  ・🔴 1970 4429x5778  CC BY 1970-07 Riva IT - 1 Schiphol Wilma en Yolanda Lippens met Wim.jpg
+        1970-07 Riva IT - 1 Schiphol Wilma en Yolanda Lippens met Wim
+  ・🔴 2023 6124x4083  CC BY 2023 - VIP Lounge RCZ 9402 (53328729142).jpg
+        13 November 2023; A general view of the VIP lounge before Web Summit 2023 at the Altice 
+  ・🔴 2023 4034x6192  CC BY 2023 - VIP Lounge RCZ 9421 (53329826413).jpg
+        13 November 2023; A general view of the VIP lounge before Web Summit 2023 at the Altice 
+  ・🔴 2023 6066x4107  CC BY 2023 - VIP Lounge RCZ 2336 (53329838483).jpg
+        13 November 2023; VIP lounge before Web Summit 2023 at the Altice Arena in Lisbon, Portu
+
+■ report_cover (any) 委員会報告の表紙 → pr07
+  ・✓ 2017 6647x4436  PD    170210-N-VN584-055 170210-N-VN584-055.jpg
+        170210-N-VN584-055 PACIFIC OCEAN (Feb. 10, 2017) Side boys salute former Secretary of th
+  ・✓ 2017 6575x4388  PD    170210-N-VN584-058 170210-N-VN584-058.jpg
+        170210-N-VN584-058 PACIFIC OCEAN (Feb. 10, 2017) Capt. Craig Clapperton, commanding offi
+  ・✓ 1980 5352x3620  CC BY Republican National Convention (41897605390).jpg
+        Tom Brokaw &gt;&gt; Republican National Convention in Detroit--Ray was delegate. Ronald 
+  ・✓ 1971 5217x3464  PD    View of construction of the World Trade Center (New York City̠, 1971) - LCCN.j
+        Title: View of construction of the World Trade Center [New York City] / TOH. Creator(s):
+  ・✓ 1988 4752x3168  PD    Governor Thompson at Chicago, Missouri and Western dedication.jpg
+        Chicago, Missouri &amp; Western CMNW 2036 (GP38) GOVERNOR JAMES B. THOMPSON Springfield,
+  ・✓ 2024 3060x4080  PD    Kraljevsko sveučilište u Belfastu srpnja 2024.jpg
+        Belfast, Sjeverna Irska, UK
+
+■ report_page (any) 委員会報告のページ → c817
+  ・✓ 1992 6996x9840  PD    ICESat - NARA - 17393935 (page 2).jpg
+        Scope and content: The original finding aid described this as: The reverse contains info
+  ・✓ 2018 6422x10028 PD    Colton's geographical cards LCCN2003674727.jpg
+        Title: Colton's geographical cards Physical description: 1 print. Notes: This record con
+  ・✓ 1920 6452x8878  PD    Drawing and Plan, 816 Connecticut Avenue - NARA - 7584995 (page 1).jpg
+        Scope and content: This is a drawing of the exterior of the building and a schematic for
+  ・✓ 1920 6451x7959  PD    Drawing and Plan, 816 Connecticut Avenue - NARA - 7584995 (page 2).jpg
+        Scope and content: This is a drawing of the exterior of the building and a schematic for
+  ・✓ 2014 7665x5624  CC BY Bandages Wellcome L0067205.jpg
+        Images showing: Fig 92 - Four-tailed bandage applied to the back of the head Fig 93 - Fo
+  ・✓ 2014 7763x5527  CC BY Clock, Mantua Wellcome F0002884.jpg
+        Archives &amp; Manuscripts
+
+■ hearing (any) 委員会の公聴会（2003〜2004年） → c807
+  ◎✓ 1939 10089x7968  PD    NLRB Investigating Committee quizzes Edwin S. Smith, Board member. Washington,
+        Title: NLRB Investigating Committee quizzes Edwin S. Smith, Board member. Washington, D.
+  ◎✓ 2016 5453x3620  PD    EAC John Wagner on Hearing Panel (27091626825).jpg
+        U.S. Customs and Border Protection Office of Field Operations Executive Assistant Commis
+  ◎✓ 2016 5169x3472  PD    EAC John Wagner on Hearing Panel (27091626945).jpg
+        U.S. Customs and Border Protection Office of Field Operations Executive Assistant Commis
+  ◎✓ 2018 4908x3352  CC BY Amanda Tyler testifies before Congress (43284145790).jpg
+        BJC Executive Director Amanda Tyler testifies before the Senate Judiciary Committee's Su
+  ◎✓ 2012 3240x5064  PD    Congressional Hearing - Jul. 24, 2012 (7748554726).jpg
+        NRC Chairman Allison Macfarlane answers Congressional questions on current NRC operation
+  ◎✓ 2011 4928x3264  PD    Charlene Teters - Senate Hearing on 05 May 2011.jpg
+        Charlene Teters appears before the Senate Committee on Indian Affairs during a May 5, 20
+
+■ library_reports (any) 図書館に並ぶ報告書 → c815
+  ◎✓ 2016 6000x4000  PD    Bookshelf (Unsplash).jpg
+        kazuend 2016-03-06
+  ◎✓ 2025 6000x4000  CC BY Books, Community Languages, Takapuna Library.jpg
+        Books in the Community Languages section of Takapuna Library in Takapuna, Auckland.
+  ◎✓ 2024 4034x5617  CC BY Pannonhalma Archabbey, inside the library, bookshelf-2.jpg
+        Pannonhalma Archabbey, inside the library, bookshelf
+  ◎✓ 1917 5373x3568  PD    American Library Association - O through R - Branch in a "Y" Hut. 1400 books o
+        Scope and content: Photographer: American Library Association
+  ◎✓ 1917 5390x3544  PD    American Library Association - ALA - European - French - Stack Room, HQ, Overs
+        Scope and content: Photographer: American Library Association
+  ◎✓ 1917 5367x3552  PD    American Library Association - ALA - European - French - A.L.A. books in Paris
+        Scope and content: Photographer: American Library Association
+
+■ nist_report (any) 建物側の報告書（NIST NCSTAR 1） → c813
+  ・✓ 1938 8138x10132 PD    Experts at Bureau of Standards study effect of corrosive soils on specimens of
+        Title: Experts at Bureau of Standards study effect of corrosive soils on specimens of pi
+  ・✓ 1937 10123x8120  PD    And now a beer meter. Washington, D.C., May 1. To aid Uncle Same in collecting
+        Title: And now a beer meter. Washington, D.C., May 1. To aid Uncle Same in collecting th
+  ・✓ 1937 8087x10140 PD    Clerk, Bureau of Standards LCCN2016863056.jpg
+        Title: Clerk, Bureau of Standards Abstract/medium: 1 negative : glass ; 4 x 5 in. or sma
+  ・✓ 1937 10081x8086  PD    Device for testing testers. Washington, D.C., May 25. Herbert L. Whittemore, C
+        Title: Device for testing testers. Washington, D.C., May 25. Herbert L. Whittemore, Chie
+  ・✓ 1937 10038x8070  PD    Flame propogation in gas engines photographed. Washington, D.C., Aug. 26. A st
+        Title: Flame propogation in gas engines photographed. Washington, D.C., Aug. 26. A study
+  ・✓ 1937 10038x7960  PD    Checks railroad signal glasses for government. Washington, D.C., Sept. 29. Red
+        Title: Checks railroad signal glasses for government. Washington, D.C., Sept. 29. Red sh
+
+■ recorder (any) 記録装置（ブラックボックス） → c805
+  ◎✓ 2025 4284x5712  PD    Cockpit voice recorder (CVR) from the crash of the January 31, 2025 Learjet 55
+        Cockpit voice recorder (CVR) of the Learjet 55 that crashed on Jan. 31 in Philadelphia.
+  ◎✓ 2019 5472x3648  PD    Miami Air Flight 293 flight recorder (32830135147).jpg
+        JACKSONVILLE, Florida (May 4, 2019) - NTSB investigator Dan Boggs holds the flight data 
+  ◎✓ 2025 5054x3783  PD    Flight data recorder from NTSB recovery of crash related items on the Potomac 
+        NTSB recovery of crash related items on the Potomac River, 2 February 2025
+  ◎✓ 2021 4331x3247  PD    CVR TransAir 04NOV21 (51655833184).jpg
+        WASHINGTON (Nov. 4, 2021) — The photo taken on Nov. 4. 2021, shows investigators Michael
+  ◎✓ 2010 4320x3240  CC BY FLIGHT DATA RECORDER (4869416057).jpg
+        FLIGHT DATA RECORDER
+  ◎✓ 2019 4032x3024  PD    CVR in NTSB Lab (33406167018).jpg
+        WASHINGTON (March 4, 2019) — Memory boards from the cockpit voice recorder of Atlas Air 
+
+■ atc_tape (any) 管制施設の録音装置（2001年当時） → c803
+  ◎✓ 1930 4822x5038  PD    Recording instantaneous discs at the Sound Department of the Finnish Broadcast
+        Recording room at the Finnish Broadcasting Company's (1935 - 1938) sound department. Tec
+  ◎✓ 2015 5760x3840  PD    Recording the Sounds of the Root Glacier (21607814321).jpg
+        NPS / Jacob W. Frank
+  ◎✓ 2013 5472x3648  CC BY Moscow, VDNKh telephone exchange, reel-to-reel recorders (10656669675).jpg
+        VDNKh (All-Russian Exhibition Center); Выставка достижений народного хозяйства (ВДНХ); A
+  ◎✓ 2013 5472x3648  CC BY Moscow, VDNKh telephone exchange, reel-to-reel recorders (10656902503).jpg
+        VDNKh (All-Russian Exhibition Center) - public address station. The tape recorder is a S
+  ◎✓ 2013 5472x3648  CC BY Moscow, VDNKh telephone exchange, reel-to-reel recorders (10656702784).jpg
+        VDNKh (All-Russian Exhibition Center); Выставка достижений народного хозяйства (ВДНХ); A
+  ◎✓ 2013 2530x2560  CC BY Studer B67 reel-to-reel audio tape recorder, ca. 1978 (cropped and edited, lar
+        Studer B67 reel to reel audio tape recorder, built from 1978 to 1981. This is/was a prof
+
+■ logbook (any) 当直の記録簿（書式の見本） → c809
+  ◎✓ 2021 6000x3600  PD    PIA24440-Nominal Pilot’s Logbook (cropped).png
+        This image of the official pilot's logbook for the Ingenuity Mars Helicopter flights — t
+  ◎✓ 2014 5119x3451  PD    Log book, 2nd Company, Reserve Infantry Regiment 73, Germany, 15 April 1915 AD
+        Exhibit in the Braunschweigisches Landesmuseum, Braunschweig, Germany. This work is in t
+  ◎✓ 2023 4032x3024  CC BY Elk Mountain logbook at summit.jpg
+        Elk Mountain logbook at summit, maintained by the Mazamas
+  ◎✓ 2023 4032x3024  CC BY Elk Mountain logbook at the summit.jpg
+        Elk Mountain logbook at summit, maintained by the Mazamas
+  ◎✓ 2017 3264x2448  PD    Aircraftlogbooksimple2.jpg
+  ◎✓ 2017 3264x2448  PD    Gliderlogbook-Lak.jpg
+
+■ security_now (post) 今の空港の保安検査場 → c901
+  ◎✓ 2025 6000x4800  PD    TSA Security Checkpoint - 54504384636.jpg
+        Department of Homeland Security (DHS) Secretary Kristi Noem stops by the Transportation 
+  ◎✓ 2025 6000x4000  PD    20250507 TSA Security Checkpoint.jpg
+        Department of Homeland Security (DHS) Secretary Kristi Noem stops by the Transportation 
+  ・✓ 2025 8256x5504  PD    DHS Secretary Kristi Noem Announces End of “Shoes-Off” Policy (54645411877).jp
+        Department of Homeland Security (DHS) Secretary Kristi Noem announces that passengers ca
+  ・✓ 2025 8256x5504  PD    DHS Secretary Kristi Noem Announces End of “Shoes-Off” Policy (54646485679).jp
+        Department of Homeland Security (DHS) Secretary Kristi Noem announces that passengers ca
+  ・✓ 2025 8256x5504  PD    DHS Secretary Kristi Noem Announces End of “Shoes-Off” Policy (54646576980).jp
+        Department of Homeland Security (DHS) Secretary Kristi Noem announces that passengers ca
+  ・✓ 2025 8256x5504  PD    DHS Secretary Kristi Noem Announces End of “Shoes-Off” Policy (54646576540).jp
+        Department of Homeland Security (DHS) Secretary Kristi Noem announces that passengers ca
+
+■ cockpit_door_hard (post) 強化された操縦室の扉 → c903
+  ・✓ 2021 9181x6300  PD    111-SC-6013 - Key w-t 5-amperes in pilots cockpit - DPLA - 480c9b451a6ef4d2bdd
+  ・✓ 2021 5993x3863  CC BY CS-HMA Bell 222UT Cockpit.jpg
+        East Asia Airlines operated a Hong Kong to Macau service from Hong Kong's downtown helip
+  ・✓ 2014 4608x3456  CC BY Inside the cockpit of the De Havilland Vampire, advanced jet trainer 1950s - 1
+        Inside the cockpit of the De Havilland Vampire, advanced jet trainer 1950s - 1970s
+  ・✓ 2024 4000x3000  CC BY EasyJet airbus A320 cockpit.jpg
+        easyJet airbus A320 cockpit
+  ・✓ 2015 3872x2592  CC BY OE-FMW 02.jpg
+        OE-FMW cockpit
+  ・✓ 2015 3872x2592  CC BY OE-FMW 01.jpg
+        OE-FMW cockpit
+
+■ artcc_now (post) 今の航空路管制センター → c905
+  ・✓ 2025 8448x6336  PD    378th EOSS Air Traffic Controller Demonstration (8829389).jpg
+        A watch supervisor assigned to the 378th Expeditionary Operations Support Squadron demon
+  ・✓ 2025 8125x6094  PD    378th EOSS Air Traffic Controller Demonstration (8829392).jpg
+        A watch supervisor assigned to the 378th Expeditionary Operations Support Squadron demon
+  ・✓ 2025 7993x5995  PD    378th EOSS Air Traffic Controller Demonstration (8829390).jpg
+        A watch supervisor assigned to the 378th Expeditionary Operations Support Squadron logs 
+  ・✓ 2025 7897x5923  PD    378th EOSS Air Traffic Controller Demonstration (8829391).jpg
+        A watch supervisor assigned to the 378th Expeditionary Operations Support Squadron perfo
+  ・✓ 2024 8256x5504  PD    379th EOSS air traffic controllers in action (8599713).jpg
+        An air traffic controller assigned to the 379th Expeditionary Operations Support Squadro
+  ・✓ 2024 8256x5504  PD    379th EOSS air traffic controllers in action (8599712).jpg
+        An air traffic controller assigned to the 379th Expeditionary Operations Support Squadro
+
+■ lobby_now (post) 今の空港の出発ロビー → c907
+  ◎✓ 2018 5472x3648  PD    Gillette–Campbell County Airport terminal interior in Campbell County, Wyoming
+        Gillette–Campbell County Airport terminal interior in Campbell County, Wyoming
+  ◎✓ 2015 4608x3456  CC BY Puerto Rico — San Juan — Luis Muñoz Marín International Airport (check-in).JPG
+        Cape Air check-in counters
+  ◎✓ 2009 4288x2848  CC BY Air New Zealand self check-in centre, Wellington Airport.jpg
+        Air New Zealand self check-in centre, Wellington Airport
+  ◎✓ 2015 2848x4288  CC BY FDA Self Check-in Machine at Fukuoka Airport.jpg
+        福岡空港に設置されているFDAの自動チェックイン機
+  ◎✓ 2015 4288x2848  CC BY Spring Airlines Japan Self Check-in Machine at Narita Airport Terminal2.jpg
+        成田空港第2ターミナルの春秋航空日本カウンター。2015年3月撮影
+  ◎✓ 2015 4288x2848  CC BY Vanilla Air Self Check-in Machine in Narita Airport Terminal2.jpg
+        ​成田空港第2ターミナルのバニラエア用セルフチェックイン機
+
+■ clear_sky (any) よく晴れた空 → ep01
+  ◎✓ 2024 4032x3024  CC BY Agra Fort under a crisp blue sky – Mughal stronghold.jpg
+        A grand red sandstone fort catches the sunlight in perfect symmetry. Its clean architect
+  ・✓ 2015 6299x4718  CC BY ALMA and the deep blue sky (alma 07-cc).jpg
+        Appearing pristine enough to be a vector drawing, one of ALMA's dishes stands against th
+  ・✓ 2023 6240x4160  CC BY A basketball hoop positioned against a clear blue sky, revealing white clouds.
+        A basketball hoop positioned against a clear blue sky, revealing white clouds. The focus
+  ・✓ 2023 6240x4160  CC BY Abandoned building with peeling paint and overgrown balconies in an urban sett
+        An abandoned building stands tall with peeling paint and overgrown plants on its balconi
+  ・✓ 2023 6042x4028  CC BY Beautiful landscape view of a serene garden and modern buildings under clear b
+        Lush green grass surrounds well-maintained plants and modern architecture, creating a pe
+  ・✓ 2015 4912x3264  CC BY Balancing rock, Atsgara Valley, Mount Zagedan, Caucasus Mountains.jpg
+        Balancing (balanced) rock in the Atsgara Valley. The product of weathering. 400 m. cliff

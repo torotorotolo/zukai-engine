@@ -1,0 +1,27 @@
+■ artcc_alt: 分類396 → 権利と幅 275 → **中身 33**
+   ✓ 8448x6336 PD     2025 378th EOSS Air Traffic Controller Demonstration (8829389).jpg
+   ✓ 8256x5504 PD     2024 379th EOSS air traffic controllers in action (8599713).jpg
+   ✓ 6384x4248 PD     2010 Kingpin and Controllers Maintain Aircraft and Airspace DVIDS265967.jpg
+   ✓ 6048x4024 PD     2022 Lajes Field Air Traffic Control.jpg
+■ cabin_phone: 分類570 → 権利と幅 120 → **中身 14**
+   ✓ 7360x4912 PD     2017 Airplane aisle during flight (Unsplash).jpg
+   ✓ 5184x3456 PD     2013 C-17 passengers make use of transit time (10838337914).jpg
+   ✓ 4608x3456 CC BY  2015 It was a very light flight to St. John's (27561285066).jpg
+   ✓ 3168x4752 PD     2013 Soyuz TMA-08M crew aboard a Russian Federal Space Agency aircraft.jpg
+■ aoc_pre: 分類813 → 権利と幅 374 → **中身 51**
+   ✓ 15194x7597 CC BY  2013 Control room at night - Cb-cr-night-pano4.jpg
+   ✓ 9432x7538 PD     1946 K-25 Control Room 1946 Oak Ridge (29089884385).jpg
+   ✓ 7949x4797 CC BY  2023 Control Room of LIGO at Hanford, Washington (LIGO Pic 40-CC).jpg
+   ✓ 6181x4810 PD     1978 CYCLOTRON CONTROL ROOM - NARA - 17427074.jpg
+■ cockpit_door_hard: 分類498 → 権利と幅 85 → **中身 0**
+■ apron_day: 分類42 → 権利と幅 2 → **中身 1**
+   🔴年 2048x1536 CC BY  2025 My bird from Mahe to Praslin was this DHC6 Twin Otter aircraft.jpg
+■ apron_lined_day: 分類0 → 権利と幅 0 → **中身 0**
+■ stopped_day: 分類67 → 権利と幅 19 → **中身 1**
+   🔴年 3600x2395 PD     2010 57th Weapons Squadron - C-17s Nellis 2010.jpg
+■ stranded_day: 分類111 → 権利と幅 20 → **中身 8**
+   🔴年 6000x4000 CC BY  2017 Philadelphia Airport Lounge (36335419103).jpg
+   🔴年 3024x4032 CC BY  2023 THY-SAW Lounge (20230130).jpg
+   🔴年 3264x2448 PD     2009 LanseriaAirport DepartureLounge Jan2009.jpg
+   🔴年 2816x2112 PD     2007 VTBS-Thai First class lounge entrance.JPG
+■ wtc_under: 分類269 → 権利と幅 49 → **中身 0**

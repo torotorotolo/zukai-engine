@@ -1,0 +1,1 @@
+✓ OCR 82 ファイル・299 行 → ref\ep7\ocr_slides.json
