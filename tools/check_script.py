@@ -154,12 +154,33 @@ def measured_cps(cuts=None, path="audio/narration.json"):
 CPS, CPS_SOURCE = CPS_FALLBACK, "定数（話速1.0 の推定）"
 
 
+MEASURED = False        # 🔴 CPS が「この回の音」から来ているか（use_measured_cps が立てる）
+
+
 def use_measured_cps(cuts):
     """検査する台本が決まった時点で CPS を実測に差し替える（合わなければ定数のまま）。"""
-    global CPS, CPS_SOURCE
+    global CPS, CPS_SOURCE, MEASURED
     v, why = measured_cps(cuts)
     CPS, CPS_SOURCE = (v, why) if v else (CPS_FALLBACK, f"定数（話速1.0 の推定・{why}）")
+    MEASURED = bool(v)
     return CPS
+
+
+def judged_sec(d1, d2, d3, measured):
+    """🔴 **尺の合否をどの数字で決めるか**を1か所にまとめる（2026-09-13・7本目 ⑤a で新設）。
+
+    なぜ要るか（[[feedback-gates-go-stale-when-upstream-changes]]）:
+      ①②③ の**中央値**で判定していたが、①（`PER_CUT`＝5本目 SL-1・Hiro の秒/カット）と
+      ②（`EP2_CPS`＝2本目 VOICEVOX の設計値）は**別の声・別のエンジンの定数**である。
+      7本目で声を Koichi に替えたところ、③だけが実測に替わり、**中央値が①（＝Hiro の数字）**に
+      なった。＝ **合否を古い定数で決めていた。**
+    決め方:
+      ⑤a で `narration.json` ができたあと（measured=True）は、**③がもう見積りではなく実測**なので
+      ③1本で決める。音が無いあいだ（④の段）は従来どおり中央値で決める（3本の合議で外れ値を避ける）。
+    ⚠️ これは門番をかわす綴りではない。**古い定数を判定から外して、実測に寄せる**方向の変更で、
+       ①②の開きは下の note として必ず表に出る（黙って消さない）。
+    """
+    return (d3, "③＝この回の音の実測") if measured else (sorted([d1, d2, d3])[1], "①②③の中央値")
 
 
 def dur_ok(sec):
@@ -231,8 +252,10 @@ def measure(cuts):
     d1 = n * PER_CUT
     d2 = chars / EP2_CPS
     d3 = est_sec(chars, len(lines), n, nq, CPS)
+    jud, why = judged_sec(d1, d2, d3, MEASURED)
     return dict(cuts=cuts, lines=lines, chars=chars, n=n, nq=nq,
-                d1=d1, d2=d2, d3=d3, med=sorted([d1, d2, d3])[1])
+                d1=d1, d2=d2, d3=d3, med=sorted([d1, d2, d3])[1],
+                jud=jud, jud_why=why, measured=MEASURED)
 
 
 def est_sec(chars, lines, n, nq, cps):
@@ -267,17 +290,31 @@ def report(cuts):
     print('1カット平均 %.1f字 / %.2f行   1行 中央値%d字 最長%d字'
           % (chars / n, len(m['lines']) / n, median(sorted(len(l) for l in m['lines'])),
              max(len(l) for l in m['lines'])))
-    print('① %s  ② %s  ③ %s  → 中央値 %s (+1.5%%で %s)'
-          % (fmt(m['d1']), fmt(m['d2']), fmt(m['d3']), fmt(m['med']), fmt(m['med'] * 1.015)))
+    print('① %s  ② %s  ③ %s  → 判定 %s（%s・+1.5%%で %s）'
+          % (fmt(m['d1']), fmt(m['d2']), fmt(m['d3']), fmt(m['jud']), m['jud_why'],
+             fmt(m['jud'] * 1.015)))
     # 🔴 尺の数字が**どの速さで出た値か**を必ず表に出す（定数が古くても黙って通るのを防ぐ）
     print('   話速 %.2f 文字/秒 ← %s' % (CPS, CPS_SOURCE))
     spread = max(m['d1'], m['d2'], m['d3']) - min(m['d1'], m['d2'], m['d3'])
     print('   3通りの開き %s' % fmt(spread))
     if spread > 120:
-        W.append('W 尺の3通りの開きが %s ある。①は字数を見ていないので、①だけ見ると気づけない' % fmt(spread))
-    if not dur_ok(m['med']):
+        # 🔴 2026-09-13（7本目 ⑤a）: **この回の音がある間は W にしない。**
+        #    ①（PER_CUT＝5本目 SL-1・Hiro の 秒/カット）と②（EP2_CPS＝2本目 VOICEVOX の設計値）は
+        #    別の声・別のエンジンの定数で、③が実測に替わったあとは「古い定数と実測が食い違っている」
+        #    としか言えない。合否は judged_sec が③1本で決めるので、開きは note として残す。
+        #    ⚠️ 音が無いあいだ（④の段）は今までどおり W。そこでは③も見積りなので3本の合議が要る。
+        msg = ('尺の3通りの開きが %s ある。①は字数を見ていないので、①だけ見ると気づけない' % fmt(spread))
+        if m['measured']:
+            print('   note %s' % msg)
+            print('        ⚠️ ①は %s（SL-1・Hiro の 秒/カット）、②は %s（2本目 VOICEVOX の設計値）から。'
+                  '③はこの回の音の実測なので、開きは「古い定数がこの声に合っていない」ことだけを言っている'
+                  % (PER_CUT, EP2_CPS))
+        else:
+            W.append('W ' + msg)
+    if not dur_ok(m['jud']):
         # ⚠️ しきい値を直したら文言も一緒に動くようにする（定数と文が食い違わないため）
-        E.append('E 尺 %s が %s〜%s の外' % (fmt(m['med']), fmt(DUR_MIN), fmt(DUR_MAX)))
+        E.append('E 尺 %s（%s）が %s〜%s の外'
+                 % (fmt(m['jud']), m['jud_why'], fmt(DUR_MIN), fmt(DUR_MAX)))
 
     # 1行41字 / 1カット1〜3行
     for cid, _, ls in cuts:
@@ -505,6 +542,18 @@ def selftest():
     chk('上限の表示が定数と揃う', fmt(DUR_MAX), '40分00秒')
     chk('尺 39分（旧上限38分の上）が通る', dur_ok(39 * 60), True)
     chk('尺 40分01秒は落ちる', dur_ok(40 * 60 + 1), False)
+
+    # 🔴🔴 2026-09-13（7本目 ⑤a）新設：**合否をどの数字で決めるか**の陽性・陰性対照。
+    #    実際に踏んだ穴＝声を Koichi に替えたら③だけが実測になり、**中央値が①（Hiro の秒/カット）**に
+    #    落ちて、古い定数で合否を決めていた（[[feedback-gates-go-stale-when-upstream-changes]]）。
+    #    ①=2079（34:39・古い） ②=2231（37:11・古い） ③=1974（32:54・この回の音の実測）で試す。
+    _d1, _d2, _d3 = 2079.0, 2231.0, 1974.0
+    chk('音があれば③（実測）で決める', judged_sec(_d1, _d2, _d3, True)[0], _d3)
+    chk('音が無ければ中央値で決める', judged_sec(_d1, _d2, _d3, False)[0], _d1)
+    chk('🔴中央値は①＝古い定数だった', sorted([_d1, _d2, _d3])[1], _d1)
+    #    陰性対照＝③が範囲の外なら、音があっても落ちること（実測に寄せても網は緩めない）
+    chk('実測が40分超なら落ちる', dur_ok(judged_sec(_d1, _d2, 41 * 60.0, True)[0]), False)
+    chk('実測が27分未満なら落ちる', dur_ok(judged_sec(_d1, _d2, 26 * 60.0, True)[0]), False)
 
     # 🔴🔴 2026-09-07 新設：**カットIDが重なっても「文が違えば別の回」**と判定できるか。
     #    ⚠️ ここが無かったせいで、5本目の台本に 4本目（サーフサイド・実効 speed 1.14）の
