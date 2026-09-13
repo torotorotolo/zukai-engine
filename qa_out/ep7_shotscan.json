@@ -1,0 +1,854 @@
+[
+ {
+  "clip": "1-AWA-213-Pentagon_more2.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 12.0,
+  "motion": 28.46,
+  "mid": 6.0,
+  "med": 160.3,
+  "sd": 51.0,
+  "ink": 0.924,
+  "ocr": []
+ },
+ {
+  "clip": "1-AWA-213-Pentagon_more2.mp4",
+  "i": 1,
+  "start": 12.0,
+  "until": 30.0,
+  "motion": 35.08,
+  "mid": 21.0,
+  "med": 181.3,
+  "sd": 8.8,
+  "ink": 0.997,
+  "ocr": []
+ },
+ {
+  "clip": "1-AWA-213-Pentagon_more2.mp4",
+  "i": 2,
+  "start": 30.0,
+  "until": 42.0,
+  "motion": 28.51,
+  "mid": 36.0,
+  "med": 176.7,
+  "sd": 50.0,
+  "ink": 0.734,
+  "ocr": []
+ },
+ {
+  "clip": "1-AWA-714-Pentagon_more2.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 12.0,
+  "motion": 28.44,
+  "mid": 6.0,
+  "med": 160.3,
+  "sd": 51.0,
+  "ink": 0.924,
+  "ocr": [
+   "HQ NO 財 、 0 / SS 「 心 / れ"
+  ]
+ },
+ {
+  "clip": "1-AWA-714-Pentagon_more2.mp4",
+  "i": 1,
+  "start": 12.0,
+  "until": 30.0,
+  "motion": 35.08,
+  "mid": 21.0,
+  "med": 181.3,
+  "sd": 8.8,
+  "ink": 0.997,
+  "ocr": []
+ },
+ {
+  "clip": "1-AWA-714-Pentagon_more2.mp4",
+  "i": 2,
+  "start": 30.0,
+  "until": 42.0,
+  "motion": 28.53,
+  "mid": 36.0,
+  "med": 176.3,
+  "sd": 49.9,
+  "ink": 0.734,
+  "ocr": [
+   "BALT ー",
+   ") RTA"
+  ]
+ },
+ {
+  "clip": "1-AWA-716-Pentagon.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 5.0,
+  "motion": 1.3,
+  "mid": 2.5,
+  "med": 0.0,
+  "sd": 34.1,
+  "ink": 0.982,
+  "ocr": [
+   "1 AWA 716 Pentagon"
+  ]
+ },
+ {
+  "clip": "1-AWA-716-Pentagon.mp4",
+  "i": 1,
+  "start": 5.0,
+  "until": 68.0,
+  "motion": 0.04,
+  "mid": 36.5,
+  "med": 203.0,
+  "sd": 79.8,
+  "ink": 0.238,
+  "ocr": []
+ },
+ {
+  "clip": "1-AWA-716-Pentagon.mp4",
+  "i": 2,
+  "start": 68.0,
+  "until": 73.0,
+  "motion": 1.71,
+  "mid": 70.5,
+  "med": 0.0,
+  "sd": 46.5,
+  "ink": 0.966,
+  "ocr": [
+   "End 0f Reco 了 di れ 9"
+  ]
+ },
+ {
+  "clip": "2-AWA-716-Pittsburgh.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 5.0,
+  "motion": 1.43,
+  "mid": 2.5,
+  "med": 0.0,
+  "sd": 35.7,
+  "ink": 0.981,
+  "ocr": [
+   "2 AWA 716 Pittsburgh"
+  ]
+ },
+ {
+  "clip": "2-AWA-716-Pittsburgh.mp4",
+  "i": 1,
+  "start": 5.0,
+  "until": 73.0,
+  "motion": 0.02,
+  "mid": 39.0,
+  "med": 203.0,
+  "sd": 79.9,
+  "ink": 0.251,
+  "ocr": []
+ },
+ {
+  "clip": "2-AWA-716-Pittsburgh.mp4",
+  "i": 2,
+  "start": 73.0,
+  "until": 78.0,
+  "motion": 0.09,
+  "mid": 75.5,
+  "med": 0.0,
+  "sd": 46.5,
+  "ink": 0.966,
+  "ocr": [
+   "End 0f Reco 了 di れ 9"
+  ]
+ },
+ {
+  "clip": "3-AWA-716-WTC-Combined.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 5.0,
+  "motion": 1.69,
+  "mid": 2.5,
+  "med": 0.0,
+  "sd": 38.8,
+  "ink": 0.977,
+  "ocr": [
+   "3 AWA 716 WTC",
+   "Cornbined"
+  ]
+ },
+ {
+  "clip": "3-AWA-716-WTC-Combined.mp4",
+  "i": 1,
+  "start": 5.0,
+  "until": 66.0,
+  "motion": 0.03,
+  "mid": 35.5,
+  "med": 203.0,
+  "sd": 72.1,
+  "ink": 0.197,
+  "ocr": []
+ },
+ {
+  "clip": "3-AWA-716-WTC-Combined.mp4",
+  "i": 2,
+  "start": 66.0,
+  "until": 71.0,
+  "motion": 0.15,
+  "mid": 68.5,
+  "med": 0.0,
+  "sd": 46.5,
+  "ink": 0.966,
+  "ocr": [
+   "End 0f Reco 了 di れ 9"
+  ]
+ },
+ {
+  "clip": "3-AWA-716-WTC1.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 5.0,
+  "motion": 1.29,
+  "mid": 2.5,
+  "med": 0.0,
+  "sd": 34.5,
+  "ink": 0.982,
+  "ocr": [
+   "3 AWA 716 WTCI"
+  ]
+ },
+ {
+  "clip": "3-AWA-716-WTC1.mp4",
+  "i": 1,
+  "start": 5.0,
+  "until": 71.0,
+  "motion": 0.03,
+  "mid": 38.0,
+  "med": 203.0,
+  "sd": 81.8,
+  "ink": 0.251,
+  "ocr": []
+ },
+ {
+  "clip": "3-AWA-716-WTC1.mp4",
+  "i": 2,
+  "start": 71.0,
+  "until": 75.0,
+  "motion": 0.0,
+  "mid": 73.0,
+  "med": 0.0,
+  "sd": 46.5,
+  "ink": 0.966,
+  "ocr": [
+   "End 0f Reco 了 di れ 9"
+  ]
+ },
+ {
+  "clip": "4-AWA-716-WTC-Combined.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 5.0,
+  "motion": 1.22,
+  "mid": 2.5,
+  "med": 0.0,
+  "sd": 32.8,
+  "ink": 0.984,
+  "ocr": [
+   "4 AWA 716 WTC Combined"
+  ]
+ },
+ {
+  "clip": "4-AWA-716-WTC-Combined.mp4",
+  "i": 1,
+  "start": 5.0,
+  "until": 66.0,
+  "motion": 0.03,
+  "mid": 35.5,
+  "med": 203.0,
+  "sd": 72.1,
+  "ink": 0.197,
+  "ocr": []
+ },
+ {
+  "clip": "4-AWA-716-WTC-Combined.mp4",
+  "i": 2,
+  "start": 66.0,
+  "until": 71.0,
+  "motion": 0.15,
+  "mid": 68.5,
+  "med": 0.0,
+  "sd": 46.5,
+  "ink": 0.966,
+  "ocr": [
+   "End 0f Reco 了 di れ 9"
+  ]
+ },
+ {
+  "clip": "4-AWA-716-WTC2.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 5.0,
+  "motion": 1.28,
+  "mid": 2.5,
+  "med": 0.0,
+  "sd": 34.4,
+  "ink": 0.982,
+  "ocr": [
+   "4 AWA 716 WTC2"
+  ]
+ },
+ {
+  "clip": "4-AWA-716-WTC2.mp4",
+  "i": 1,
+  "start": 5.0,
+  "until": 81.0,
+  "motion": 0.01,
+  "mid": 43.0,
+  "med": 203.0,
+  "sd": 79.7,
+  "ink": 0.234,
+  "ocr": []
+ },
+ {
+  "clip": "4-AWA-716-WTC2.mp4",
+  "i": 2,
+  "start": 81.0,
+  "until": 86.0,
+  "motion": 0.08,
+  "mid": 83.5,
+  "med": 0.0,
+  "sd": 46.5,
+  "ink": 0.966,
+  "ocr": [
+   "End 0f Reco 了 di れ 9"
+  ]
+ },
+ {
+  "clip": "5-AWA-213-new_overview2.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 5.0,
+  "motion": 1.22,
+  "mid": 2.5,
+  "med": 0.0,
+  "sd": 32.9,
+  "ink": 0.984,
+  "ocr": [
+   "5 AWA 213 new overview2"
+  ]
+ },
+ {
+  "clip": "5-AWA-213-new_overview2.mp4",
+  "i": 1,
+  "start": 5.0,
+  "until": 87.0,
+  "motion": 0.33,
+  "mid": 46.0,
+  "med": 50.3,
+  "sd": 20.8,
+  "ink": 0.998,
+  "ocr": [
+   "を A 「 心",
+   "長 で om"
+  ]
+ },
+ {
+  "clip": "5-AWA-213-new_overview2.mp4",
+  "i": 2,
+  "start": 87.0,
+  "until": 92.0,
+  "motion": 1.36,
+  "mid": 89.5,
+  "med": 0.0,
+  "sd": 46.5,
+  "ink": 0.966,
+  "ocr": [
+   "End 0f Reco 了 di れ 9"
+  ]
+ },
+ {
+  "clip": "5-AWA-213-ny_best.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 22.0,
+  "motion": 31.3,
+  "mid": 11.0,
+  "med": 180.0,
+  "sd": 51.8,
+  "ink": 0.707,
+  "ocr": []
+ },
+ {
+  "clip": "5-AWA-213-ny_best.mp4",
+  "i": 1,
+  "start": 22.0,
+  "until": 42.0,
+  "motion": 45.88,
+  "mid": 32.0,
+  "med": 177.3,
+  "sd": 57.4,
+  "ink": 0.791,
+  "ocr": []
+ },
+ {
+  "clip": "5-AWA-213-ny_best.mp4",
+  "i": 2,
+  "start": 42.0,
+  "until": 46.0,
+  "motion": 18.81,
+  "mid": 44.0,
+  "med": 90.0,
+  "sd": 53.7,
+  "ink": 0.967,
+  "ocr": [
+   "5 ェ 0n1",
+   "、 RAD?/USSP"
+  ]
+ },
+ {
+  "clip": "5-AWA-213-ny_best.mpg",
+  "i": 0,
+  "start": 0.0,
+  "until": 22.0,
+  "motion": 31.94,
+  "mid": 11.0,
+  "med": 180.0,
+  "sd": 51.8,
+  "ink": 0.707,
+  "ocr": []
+ },
+ {
+  "clip": "5-AWA-213-ny_best.mpg",
+  "i": 1,
+  "start": 22.0,
+  "until": 42.0,
+  "motion": 46.92,
+  "mid": 32.0,
+  "med": 177.3,
+  "sd": 57.4,
+  "ink": 0.791,
+  "ocr": []
+ },
+ {
+  "clip": "5-AWA-213-ny_best.mpg",
+  "i": 2,
+  "start": 42.0,
+  "until": 46.0,
+  "motion": 19.22,
+  "mid": 44.0,
+  "med": 90.0,
+  "sd": 53.7,
+  "ink": 0.967,
+  "ocr": [
+   "5 ェ 0n1",
+   "、 RAD?/USSP"
+  ]
+ },
+ {
+  "clip": "5-AWA-714-new_overview2.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 5.0,
+  "motion": 1.93,
+  "mid": 2.5,
+  "med": 0.0,
+  "sd": 41.3,
+  "ink": 0.974,
+  "ocr": [
+   "5 AWA 714"
+  ]
+ },
+ {
+  "clip": "5-AWA-714-new_overview2.mp4",
+  "i": 1,
+  "start": 5.0,
+  "until": 87.0,
+  "motion": 0.32,
+  "mid": 46.0,
+  "med": 50.3,
+  "sd": 20.8,
+  "ink": 0.998,
+  "ocr": [
+   "^ “ k で om ー",
+   "ト A 「 广",
+   "HQ NOF.AD/t.ASr?nCE/nN"
+  ]
+ },
+ {
+  "clip": "5-AWA-714-new_overview2.mp4",
+  "i": 2,
+  "start": 87.0,
+  "until": 92.0,
+  "motion": 1.36,
+  "mid": 89.5,
+  "med": 0.0,
+  "sd": 46.5,
+  "ink": 0.966,
+  "ocr": [
+   "End 0f Reco 了 di れ 9"
+  ]
+ },
+ {
+  "clip": "5-AWA-714-ny_best.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 5.0,
+  "motion": 1.32,
+  "mid": 2.5,
+  "med": 0.0,
+  "sd": 34.5,
+  "ink": 0.982,
+  "ocr": [
+   "5 AWA 714 ny best"
+  ]
+ },
+ {
+  "clip": "5-AWA-714-ny_best.mp4",
+  "i": 1,
+  "start": 5.0,
+  "until": 26.0,
+  "motion": 32.02,
+  "mid": 15.5,
+  "med": 180.7,
+  "sd": 41.6,
+  "ink": 0.907,
+  "ocr": []
+ },
+ {
+  "clip": "5-AWA-714-ny_best.mp4",
+  "i": 2,
+  "start": 26.0,
+  "until": 46.0,
+  "motion": 45.47,
+  "mid": 36.0,
+  "med": 177.7,
+  "sd": 53.9,
+  "ink": 0.678,
+  "ocr": []
+ },
+ {
+  "clip": "5-AWA-714-ny_best.mp4",
+  "i": 3,
+  "start": 46.0,
+  "until": 51.0,
+  "motion": 24.68,
+  "mid": 48.5,
+  "med": 98.0,
+  "sd": 49.2,
+  "ink": 0.976,
+  "ocr": []
+ },
+ {
+  "clip": "5-AWA-714-ny_best.mp4",
+  "i": 4,
+  "start": 51.0,
+  "until": 56.0,
+  "motion": 1.54,
+  "mid": 53.5,
+  "med": 0.0,
+  "sd": 46.5,
+  "ink": 0.966,
+  "ocr": [
+   "End 0f Reco 了 di れ 9"
+  ]
+ },
+ {
+  "clip": "5-AWA-716-All-4-AC.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 5.0,
+  "motion": 1.4,
+  "mid": 2.5,
+  "med": 0.0,
+  "sd": 36.0,
+  "ink": 0.98,
+  "ocr": [
+   "5 AWA 716 AII 4 AC"
+  ]
+ },
+ {
+  "clip": "5-AWA-716-All-4-AC.mp4",
+  "i": 1,
+  "start": 5.0,
+  "until": 70.0,
+  "motion": 0.07,
+  "mid": 37.5,
+  "med": 203.0,
+  "sd": 57.0,
+  "ink": 0.178,
+  "ocr": []
+ },
+ {
+  "clip": "5-AWA-716-All-4-AC.mp4",
+  "i": 2,
+  "start": 70.0,
+  "until": 75.0,
+  "motion": 1.61,
+  "mid": 72.5,
+  "med": 0.0,
+  "sd": 46.5,
+  "ink": 0.966,
+  "ocr": [
+   "End 0f Reco 了 di れ 9"
+  ]
+ },
+ {
+  "clip": "5-AWA-716-C130-observer.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 5.0,
+  "motion": 1.21,
+  "mid": 2.5,
+  "med": 0.0,
+  "sd": 32.8,
+  "ink": 0.984,
+  "ocr": [
+   "5 AWA 716 C130 observer"
+  ]
+ },
+ {
+  "clip": "5-AWA-716-C130-observer.mp4",
+  "i": 1,
+  "start": 5.0,
+  "until": 58.0,
+  "motion": 0.11,
+  "mid": 31.5,
+  "med": 210.0,
+  "sd": 40.2,
+  "ink": 0.074,
+  "ocr": []
+ },
+ {
+  "clip": "5-AWA-716-C130-observer.mp4",
+  "i": 2,
+  "start": 58.0,
+  "until": 63.0,
+  "motion": 1.87,
+  "mid": 60.5,
+  "med": 0.0,
+  "sd": 46.5,
+  "ink": 0.966,
+  "ocr": [
+   "End 0f Reco 了 di れ 9"
+  ]
+ },
+ {
+  "clip": "5-AWA-852-landing-spacing.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 37.0,
+  "motion": 0.27,
+  "mid": 18.5,
+  "med": 18.3,
+  "sd": 18.8,
+  "ink": 0.999,
+  "ocr": [
+   "L)CftS"
+  ]
+ },
+ {
+  "clip": "5-AWA-852-terrain-and-airspace.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 12.0,
+  "motion": 20.67,
+  "mid": 6.0,
+  "med": 9.0,
+  "sd": 29.1,
+  "ink": 1.0,
+  "ocr": []
+ },
+ {
+  "clip": "5-AWA-852-terrain-and-airspace.mp4",
+  "i": 1,
+  "start": 12.0,
+  "until": 23.0,
+  "motion": 17.09,
+  "mid": 17.5,
+  "med": 19.3,
+  "sd": 36.1,
+  "ink": 1.0,
+  "ocr": []
+ },
+ {
+  "clip": "5-AWA-852-terrain-and-airspace.mp4",
+  "i": 2,
+  "start": 23.0,
+  "until": 25.0,
+  "motion": 5.33,
+  "mid": 24.0,
+  "med": 5.7,
+  "sd": 25.6,
+  "ink": 1.0,
+  "ocr": []
+ },
+ {
+  "clip": "5-AWA-852-terrain-and-airspace.mp4",
+  "i": 3,
+  "start": 25.0,
+  "until": 32.0,
+  "motion": 12.71,
+  "mid": 28.5,
+  "med": 10.0,
+  "sd": 37.7,
+  "ink": 1.0,
+  "ocr": []
+ },
+ {
+  "clip": "5-AWA-852-terrain-and-airspace.mp4",
+  "i": 4,
+  "start": 32.0,
+  "until": 38.0,
+  "motion": 4.22,
+  "mid": 35.0,
+  "med": 0.0,
+  "sd": 46.5,
+  "ink": 0.966,
+  "ocr": [
+   "End 0f Reco 了 di れ 9"
+  ]
+ },
+ {
+  "clip": "5-AWA-852-turning-the-boat-static.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 52.0,
+  "motion": 0.23,
+  "mid": 26.0,
+  "med": 18.3,
+  "sd": 10.9,
+  "ink": 1.0,
+  "ocr": []
+ },
+ {
+  "clip": "5-AWA-852-turning-the-boat.mp4",
+  "i": 0,
+  "start": 0.0,
+  "until": 62.0,
+  "motion": 0.31,
+  "mid": 31.0,
+  "med": 18.3,
+  "sd": 10.2,
+  "ink": 1.0,
+  "ocr": []
+ },
+ {
+  "clip": "5-ZID-819-USA-System-Shutdown-NS-NF-atlantic-focus-fr20.avi",
+  "i": 0,
+  "start": 0.0,
+  "until": 50.0,
+  "motion": 0.22,
+  "mid": 25.0,
+  "med": 63.0,
+  "sd": 50.9,
+  "ink": 0.98,
+  "ocr": [
+   "r￣r￣ r￣",
+   "File",
+   "Yiew Qverlays 工 ロ 引 s 目 引 p",
+   "十 十 十",
+   "十 十 十 十",
+   "Lookup",
+   "graph",
+   "& Go",
+   "曰 e 引",
+   "Update",
+   "F ⅱ ロ",
+   "SeIect",
+   "sedlngs",
+   "ZOOm",
+   "Quick",
+   "弖 ト",
+   "弖 ト",
+   "弖 ト",
+   "Playback",
+   "View:",
+   "start",
+   "Wind ロ wsLPRSp ロ ロ",
+   "VVeather:",
+   "Planes: 1 293 ′ 1 293",
+   "Curre 「 lt: 1 ロ : 43 : 47a Last update: 1 ロ : 44 : ロ 7a",
+   "12 : 27PM",
+   "C 目 m 旧 s に 儲 黼 、 に - IJI gi 1 「 丨 sion 。 w. 回 6 霆 ! ! 亟 ) ロ duc 巳 r -",
+   "を 0 4 第 の",
+   "・ FDi-FlightExplor-"
+  ]
+ },
+ {
+  "clip": "5-ZID-819-USA-System-Shutdown-fr20-spd-400.avi",
+  "i": 0,
+  "start": 0.0,
+  "until": 55.0,
+  "motion": 0.08,
+  "mid": 27.5,
+  "med": 84.7,
+  "sd": 48.1,
+  "ink": 0.981,
+  "ocr": [
+   "File",
+   "F ⅱ ロ",
+   "Playback",
+   "start",
+   "'FDi-Fli_",
+   "Yiew Qverlays 工 ロ ロ | s",
+   "Lookup",
+   "& Go",
+   "十 十 十",
+   "十 十 十 十",
+   "曰 e 引",
+   "目 引 p",
+   "Quick",
+   "SeIect",
+   "graph",
+   "sedlngs",
+   "View:",
+   "Wind ロ wsl_",
+   "Update",
+   "MyC ロ mpu",
+   "ZOOm",
+   "CamiRia",
+   "VVeather:",
+   "- un 丨 d ・ V on 十 ⅲ c G0mtasia",
+   "Planes: 1 591 ′ 1 591",
+   "r￣r￣ r￣",
+   "を 0 4 第 の",
+   "11 : 5 ロ AM",
+   "Curre 「 lt: 1 ロ : 35 : 35a Last update: 1 ロ : 36 : 1 5a"
+  ]
+ },
+ {
+  "clip": "5-ZID-819-USA-System-Startup-fr20-spd-1600.avi",
+  "i": 0,
+  "start": 0.0,
+  "until": 42.0,
+  "motion": 0.13,
+  "mid": 21.0,
+  "med": 84.7,
+  "sd": 48.3,
+  "ink": 0.981,
+  "ocr": [
+   "r￣r￣ r￣",
+   "File",
+   "Yiew Qverlays 工 ロ ロ | s",
+   "目 引 p",
+   "十 十 十",
+   "十 十 十 十",
+   "Lookup",
+   "graph",
+   "& Go",
+   "曰 e 引",
+   "Update",
+   "F ⅱ ロ",
+   "SeIect",
+   "sedlngs",
+   "ZOOm",
+   "Quick",
+   "Playback",
+   "View:",
+   "start",
+   "Wind ロ wsLPRSp ロ ロ",
+   "VVeather: none",
+   "Curre 「 lt: ロ 1 : 1 7 : 57P Last update: ロ 1 : 1 7 : 57P",
+   "7 : 3gPM",
+   "Planes: 949 ′ 949",
+   "- 垣 6 Ve 丨 sion . 物 Exp 丨 -",
+   "C 目 m 旧 s に C ⅲ 、 i が -",
+   "を 0 4 第 の",
+   "ロ rder -"
+  ]
+ }
+]

@@ -205,6 +205,41 @@ def shot_of(clip, t):
 #      1485.0 まで 0.00%／**1485.1 で 0.04%（浮き始め）**／1485.4 で 2.83%／1486.0 で 14.69%
 #    ＝ 使ってよいのは **1478.0〜1485.0**。
 NOGO = {
+    # ══════════════════════════════════════════════════════════
+    # 2026-09-13（7本目 ⑤b-1）: **8本ぶん。**画素と OCR の実測（`ref/ep7/SHOTS_INDEX.md` §1）。
+    #   `?-AWA-716-*` は「**真っ黒な表題カード → 絵 → 真っ黒な End of Recording**」の3本立て。
+    #   明るさの中位が **0.0**（真っ黒）で、OCR が
+    #   頭＝「3 AWA 716 WTC / Combined」など、尻＝「**End of Recording**」を読んだ。
+    #   ⚠️ 尻の札は**尺がクリップごとに違う**（終わり−5秒）。1本ずつ書く。
+    # ══════════════════════════════════════════════════════════
+    "1-AWA-716-Pentagon.mp4": [(0.0, 5.0, "表題カード（真っ黒）"),
+                               (68.0, 73.2, "End of Recording")],
+    "2-AWA-716-Pittsburgh.mp4": [(0.0, 5.0, "表題カード（真っ黒）"),
+                                 (73.0, 78.5, "End of Recording")],
+    "3-AWA-716-WTC1.mp4": [(0.0, 5.0, "表題カード（真っ黒）"),
+                           (71.0, 75.5, "End of Recording")],
+    "3-AWA-716-WTC-Combined.mp4": [(0.0, 5.0, "表題カード「3 AWA 716 WTC / Combined」"),
+                                   (66.0, 71.6, "End of Recording")],
+    "4-AWA-716-WTC2.mp4": [(0.0, 5.0, "表題カード（真っ黒）"),
+                           (81.0, 86.5, "End of Recording")],
+    "4-AWA-716-WTC-Combined.mp4": [(0.0, 5.0, "表題カード（真っ黒）"),
+                                   (66.0, 71.6, "End of Recording")],
+    "5-AWA-716-All-4-AC.mp4": [(0.0, 5.0, "表題カード（真っ黒）"),
+                               (70.0, 74.9, "End of Recording")],
+    "5-AWA-716-C130-observer.mp4": [(0.0, 5.0, "表題カード（真っ黒）"),
+                                    (58.0, 63.2, "End of Recording")],
+    "5-AWA-213-new_overview2.mp4": [(0.0, 5.0, "表題カード（真っ黒）"),
+                                    (87.0, 92.3, "End of Recording")],
+    "5-AWA-714-new_overview2.mp4": [(0.0, 5.0, "表題カード（真っ黒）"),
+                                    (87.0, 92.3, "End of Recording")],
+    "5-AWA-714-ny_best.mp4": [(0.0, 5.0, "表題カード（真っ黒）"),
+                              (51.0, 56.3, "End of Recording")],
+    # ⚠️ **`5-AWA-213-ny_best.mp4` には頭の表題カードが無い**（s0 の明るさ 180＝もう絵）。
+    #    ＝ 「同じ型だから同じ秒を弾く」と書くと、**使える絵を捨てる**。1本ずつ測った結果。
+    #    尻の s2（42〜46秒・明るさ 90）は札が乗っているので弾く。
+    "5-AWA-213-ny_best.mp4": [(42.0, 46.2, "札（RAD?/USSP）が乗る")],
+    "5-AWA-213-ny_best.mpg": [(42.0, 46.2, "札（RAD?/USSP）が乗る")],
+    #
     # 🔴 2026-09-08（6本目②）: **空にした。「危険が無い」ではなく「まだ見ていない」。**
     #    5本目は⑤c' で1カット目に『THE END』が写っていたのを見つけて足した欄。
     #    キー橋の28本は DVIDS の B-roll なので終幕タイトルは想定しにくいが、
@@ -342,8 +377,63 @@ USE = {
     #   ④ **額装パネル**（1920に届く点が0なので全画面にできない）。
     #      655x480 を `scene_jiko.PANEL_MAXW/H`（1120x648）に入れると **z=1.35（883x648）**。
     #      ⑤で原寸目視して、甘ければ `pw=655`（等倍）に落とす。
+    # ══════════════════════════════════════════════════════════
+    # 2026-09-13（7本目 ⑤b-1）: **17欄。**台帳＝`ref/ep7/SHOTS_INDEX.md`。
+    #   秒は `ref/ep7/shots.json`（1秒刻みの実測・60ショット）から写した。目分量ではない。
+    #   `until` は「ショットの終わり −1.0秒」（`boundaries()` が境目を後ろ側の秒に置くため）。
+    #
+    # 🔴🔴 **RG237 は「動画」ではない**（⑤b-1 の実測。②③の前提がここで変わった）
+    #   `?-AWA-716-*` の8本は**航跡を描き終えた地図を60〜75秒そのまま出している**だけで、
+    #   1秒あたりに変わる画素が **0.02〜0.09%**（320×240 で測り直した値）。
+    #   → **`still=True`**（ひかえの静止画＋ゆっくり寄る）。動画として流すと完全に止まる。
+    #   ⚠️ だから**同じクリップの別の秒は「同じ絵」**。使い回すなら別のクリップにする
+    #      → [[feedback-duplicate-art-needs-pixel-comparison]]
+    #
+    # 🔴 表題カードと「End of Recording」は `NOGO` で弾いてある（下）。
+    #
+    # 🔴🔴 `5-ZID-819-USA-System-*` の3本は**アプリの窓ごと**写っている
+    #   （上 y2〜92 にメニュー、下 y981〜1021 に Windows のタスクバーと Camtasia の帯）。
+    #   `zoom`/`bias` で画面の外へ追い出す。**⑤b-2 で `fit()` を呼んで数字で確かめる**
+    #   → [[feedback-settings-may-not-reach-the-picture]]
+    #
+    # ⚠️ **ZOB-ARTCC の秒は「何時の画面か」が分からない。**8枚を90秒ごとに OCR したが
+    #   時刻が1件も読めなかった（ZID では読めたので道具は生きている＝
+    #   [[feedback-absence-of-a-word-is-not-absence]]）。
+    #   → この4欄の**副題に時刻を書かない**。書けるのは施設と日付だけ。
+    "pr03": dict(clip="5-AWA-716-All-4-AC.mp4", start=20.0, until=69.0, still=True),
+    "c222": dict(clip="2-AWA-720-ZOB-ARTCC-287A.mp4", start=120.0, until=682.0),
+    "c223": dict(clip="3-AWA-716-WTC1.mp4", start=30.0, until=70.0, still=True),
+    "c315": dict(clip="4-AWA-716-WTC2.mp4", start=40.0, until=80.0, still=True),
+    "c316": dict(clip="5-AWA-213-ny_best.mp4", start=2.0, until=21.0),
+    "c416": dict(clip="1-AWA-716-Pentagon.mp4", start=35.0, until=67.0, still=True),
+    "c417": dict(clip="1-AWA-213-Pentagon_more2.mp4", start=14.0, until=29.0),
+    # ZID の3本＝上下のアプリの帯を外へ出す寄り（⑤b-2 で実測して確かめる）
+    "c511": dict(clip="5-ZID-819-USA-System-Shutdown-fr20-spd-400.avi",
+                 start=2.0, until=54.0, zoom=1.20, bias=0.52),
+    "c512": dict(clip="5-ZID-819-USA-System-Startup-fr20-spd-1600.avi",
+                 start=2.0, until=41.0, zoom=1.20, bias=0.52),
+    "c513": dict(clip="5-AWA-714-ny_best.mp4", start=28.0, until=45.0),
+    "c514": dict(clip="5-ZID-819-USA-System-Shutdown-NS-NF-atlantic-focus-fr20.avi",
+                 start=2.0, until=49.0, zoom=1.20, bias=0.52),
+    "c611": dict(clip="2-AWA-716-Pittsburgh.mp4", start=40.0, until=72.0, still=True),
+    "c612": dict(clip="2-AWA-721-ZOB-ARTCC-287-AGC-68p.mp4", start=200.0, until=612.0),
+    "c617": dict(clip="2-AWA-720-ZOB-ARTCC-287A.mp4", start=400.0, until=682.0),
+    "c620": dict(clip="2-AWA-721-ZOB-ARTCC-287-AGC-68p.mp4", start=480.0, until=612.0),
+    "c716": dict(clip="1-AWA-714-Pentagon_more2.mp4", start=31.0, until=41.0),
+    "c810": dict(clip="5-AWA-213-new_overview2.mp4", start=20.0, until=86.0),
     # KB_USE>>> ここまで
 }
+# 🔴 **まだ決まっていない2欄（代用で埋めていない）** → [[feedback-agents-substitute-missing-parts]]
+#   c621「ARTCC 画面（点が消えた直後）」
+#     … 使える ZOB-ARTCC は2本とも c612／c617／c620 で使っており、**同じ絵**になる。
+#        残る8本（974〜1,514秒）はまだショットを測っていない。⑤b-2 で1本測って当てる。
+#   c712「航跡レーダー（戦闘機の航跡）」
+#     … 🔴 **戦闘機の航跡が写っているクリップが無い。** `5-AWA-716-C130-observer` は
+#        AA77 を見分けた **C-130 輸送機**の航跡で、戦闘機ではない
+#        （→ [[feedback-subtitle-must-match-what-is-visible]]／台本 c419 の主題そのもの）。
+#        ⑤b-2 の選択肢＝(a) c712 を図に振り替える（第7章は図の章）
+#                      (b) C-130 のクリップを **c419** へ回し、c712 は図にする
+#        ⚠️ どちらでも**写真の総数98は動かさない**（章ごと45〜50%の網に鳴る）。
 # 🔴 まだ決まっていない 29欄（**代用で埋めていない**）＝ Vault の ⑤b-4 引き継ぎ §3
 #   数え方の正本＝`python tools/check_footage_slots.py`（カットの側から数える）。
 #   ⚠️ `fetch --check` の「✓ 全37欄」は **USE に書いた欄しか数えていない**。
@@ -607,6 +697,52 @@ def selftest():
         ok.append(all(abs(g - pl) < 0.01 for g in got))
         print(f"  {'✓' if ok[-1] else '🔴'} {clip}: PILLAR {pl:.4f} と"
               f"切り出した {len(got)} 本の実測（{min(got):.4f}〜{max(got):.4f}）が合う")
+    # 🔴🔴 2026-09-13（7本目⑤b）**SAR の直しが本当に `-vf` に載っているか**を値で見る。
+    #   ⚠️ 「件数」の対照では動かない（もともと全欄が該当しうる）＝**文字列の値**で見る
+    #      → [[feedback-verify-your-own-instrument]]
+    #   ⚠️ `_cut_stream` は ffmpeg と網に出るので、`subprocess.run` と `time.sleep` を
+    #      差し替えて**コマンドだけ**を受け取る
+    #      → [[feedback-selftest-must-not-reach-real-side-effects]]
+    def _vf_of(w, h, dispw):
+        seen = {}
+
+        class _R:
+            returncode, stdout, stderr = 1, "", "（検算：ffmpeg は呼んでいない）"
+
+        def fake_run(cmd, **kw):
+            seen.setdefault("cmd", cmd)
+            return _R()
+
+        keep_run, keep_sleep = subprocess.run, time.sleep
+        keep_c = dict(CLIPS)
+        try:
+            subprocess.run = fake_run                      # type: ignore[assignment]
+            time.sleep = lambda *_a, **_k: None            # type: ignore[assignment]
+            CLIPS["_st_sar"] = dict(url="http://example.invalid/s.mp4", sec=99.0,
+                                    w=w, h=h, dispw=dispw, credit="（検算用）",
+                                    note="（検算用）", stream=True)
+            _cut_stream("_st_sar_cut", dict(clip="_st_sar", start=1.0), 1.0)
+        finally:
+            subprocess.run = keep_run                      # type: ignore[assignment]
+            time.sleep = keep_sleep                        # type: ignore[assignment]
+            CLIPS.clear(); CLIPS.update(keep_c)
+        cmd = seen.get("cmd") or []
+        return cmd[cmd.index("-vf") + 1] if "-vf" in cmd else "", cmd
+
+    vf_sq, cmd_sq = _vf_of(720, 480, 655)          # 画素が正方形でない（RG237 の27点）
+    vf_11, _cmd11 = _vf_of(1280, 1024, 1280)       # 画素が正方形（残りの5点）
+    chk("陽性対照：SAR 10:11 の素材に scale=iw*sar:ih が載る",
+        "scale=iw*sar:ih" in vf_sq, True)
+    chk("陽性対照：そのとき setsar=1 も載る", "setsar=1" in vf_sq, True)
+    chk("陰性対照：SAR 1:1 の素材には載らない",
+        "iw*sar" in vf_11 or "setsar" in vf_11, False)
+    chk("陰性対照：yadif は付けない（札は tt だが中身は 60p）", "yadif" in vf_sq, False)
+    chk("陽性対照：音声を落とす -an が付く", "-an" in cmd_sq, True)
+    print(f"     -vf（SAR 10:11）＝ {vf_sq}")
+    print(f"     -vf（SAR 1:1 ）＝ {vf_11}")
+    import shutil as _sh
+    _sh.rmtree(FOOT / "_st_sar_cut", ignore_errors=True)
+
     now = missing_until(USE)
     n_sh = sum(len(v) for v in SHOTS.values())
     print(f"  ⚠️ いまの本番：USE {len(USE)}欄（until 無し {len(now)}）／"
@@ -642,18 +778,36 @@ def _cut_stream(cid, u, secs):
     if abs(rate - 1.0) > 1e-6:
         vf.append(f"setpts={1.0 / rate:.4f}*PTS")
     vf.append(f"fps={FPS}")
+    # 🔴🔴 2026-09-13（7本目⑤b）**画素が正方形でない素材を、先に正方形へ直す。**
+    #   RG237 の32点のうち **27点が SAR=10:11／DAR=15:11**（②素材の実測）。
+    #   ここは `scale={want}:-2` しか持っておらず、しかも 720 < 1920 なので
+    #   `want == c["w"]` になって **scale そのものが付かない**＝素通りしていた。
+    #   ＝ **レーダーの円が卵のまま焼ける。門番は1本も鳴らない**
+    #      → [[feedback-container-labels-lie-about-the-picture]]
+    #   台帳 `clips.json` の `dispw`（720→**655**）が正しい表示幅。
+    #   ⚠️ ffmpeg は偶数に丸めるので実測の出力は **654×480**（1px 小さい）。
+    #      `dispw` を「絵の幅」として使う側は 1px の差を粗と読まないこと。
+    #   ⚠️ `setsar=1` まで書く。書かないと後段が SAR を持ち回って同じ歪みが戻る。
+    #   ⚠️ **yadif は付けない。** 札は `field_order=tt` だが中身は 60p
+    #      （コマ数 90,852÷1,514.3＝60.00・`ffmpeg -vf idet` は TFF 0／BFF 0）。
+    #      札を信じると 480本しかない縦を無駄に半分にする。
+    dispw = int(c.get("dispw") or c["w"])
+    if dispw != int(c["w"]):
+        vf += ["scale=iw*sar:ih", "setsar=1"]
     # 4K はそのまま切り出すと 1コマ 1.5MB。寄り（zoom）に要る幅だけ残して縮める
-    want = min(int(c["w"]), int(round(1920 * float(u.get("zoom", 1.0)) * 1.02)))
-    if want < int(c["w"]):
+    want = min(dispw, int(round(1920 * float(u.get("zoom", 1.0)) * 1.02)))
+    if want < dispw:
         vf.append(f"scale={want}:-2")
     d = FOOT / cid
     d.mkdir(parents=True, exist_ok=True)
     last = None
     for url in urls_of(u["clip"]):
         for attempt in range(3):
+            # ⚠️ `-an` … RG237 は **32本のうち28本に音声トラックがある**（②の実測）。
+            #    この回は音を鳴らさない決定なので、指定しないと混ざる。
             cmd = ["ffmpeg", "-y", "-nostdin", "-hide_banner", "-loglevel", "error",
                    "-user_agent", UA, "-ss", f"{float(u['start']):.2f}", "-i", url,
-                   "-t", f"{secs + 0.6:.2f}", "-vf", ",".join(vf),
+                   "-an", "-t", f"{secs + 0.6:.2f}", "-vf", ",".join(vf),
                    "-frames:v", str(n), "-q:v", "3", "-start_number", "0",
                    str(d / "%05d.jpg")]
             r = subprocess.run(cmd, capture_output=True, text=True, timeout=1800)
@@ -697,8 +851,13 @@ def fetch(check=False):
     # 🔴 `until=` は必須（2026-09-07・設計ノート §9-5）。無ければ **exit 2** で落とす。
     #    ⚠️ はみ出し（exit 1）より重い。「測れる状態になっていない」ので切り出しにも進まない
     if miss:
+        # ⚠️ 2026-09-13（7本目⑤b）**この案内が前の題材のパスを名指ししていた**
+        #    （`ref/keybridge/SHOTS_INDEX.md`）。門番の言うことを信じて別の題材の表を
+        #    見に行くと、そこに在る秒を写してしまう → [[feedback-per-episode-constants-go-stale]]
+        #    → `SHOT_FILE` から作る（題材を替えると自動で追いかける）。
         print("🔴 exit 2 ＝ `until=`（そのショットが終わる秒）を USE に書いてから通す。"
-              "秒は `ref/keybridge/SHOTS_INDEX.md`（1秒刻みの実測）から写す")
+              f"秒は `{SHOT_FILE.relative_to(HERE).as_posix()}`（1秒刻みの実測）から写す。"
+              f"無ければ `python tools/shots.py` で作る")
         return 2
     # 🔴 exit 3 ＝ 数は入っているが、実測のショットをまたいでいる（2026-09-07・5本目で追加）。
     #    ⚠️ until= を必須にしただけでは「数が入っていればよい」で終わり、4本目で3件踏んだ

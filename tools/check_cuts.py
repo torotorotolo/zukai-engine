@@ -48,6 +48,12 @@ PHOTO_MIN, PHOTO_MAX = 0.45, 0.50
 # 書いたもの（1 − 1.55/1.778 ＝ 0.128）。2つの数を別々に持たない。
 CROP_MAX = 0.128
 
+# 🔴 物差しの陽性対照に使う**実在の図版**（2026-09-13 追加）。
+#    「この回は図版を使わない」ときでも `crop_loss` が生きているかを毎回1件で確かめる。
+#    ⚠️ **架空の名前にしてはいけない**（開けないので「測れていない」に落ち、
+#       検算そのものが空振りする）。6本目キー橋の図版を据え置きで使う。
+_CONTROL_FIG = "keybridge/kb_p064_fig27.png"
+
 
 def _crop_loss(name):
     """`cuts/ss.py` の物差しをそのまま借りる（門番が独自に測ると2つの真実ができる）。"""
@@ -145,13 +151,79 @@ def check(spec=None, broken=None, want=None):
         out.append(f"✓ 全画面の報告書の図版 {measured}件、切り落としは全部 "
                    f"{CROP_MAX * 100:.1f}% 以内")
     # 🔴 陽性対照が0件でないこと。「測る対象が0件で合格」を出させない
+    #
+    # 🔴🔴 2026-09-13（7本目⑤b）**「0件」には2つの意味がある。**分けないと正しいものを落とす。
+    #   (a) この回は**報告書の図版を1枚も使わない**（`ss.BANDS` が空）。9/11委員会報告は
+    #       文章の報告書で、画面に出すのは印字ページ番号だけ＝**0件が正しい状態**。
+    #   (b) 図版は焼いてある（`ss.BANDS` に在る）のに1件も画面に来ていない＝**これが事故**
+    #       （キー橋で塞いだ穴。門番が空の SPEC を調べて合格を出した型）。
+    #   → 分岐の鍵は**カットの割り当てではなく、その回の図版の在庫**（`ss.BANDS`）。
+    #   ⚠️ (a) でも**物差しそのものは毎回検算する**。在庫が空のときは
+    #      「別の回の実在する図版」で `crop_loss` を1回走らせ、測れなければ落とす。
+    #      ＝ 0件を合格にはするが、**道具が死んでいたら通さない**
+    #      （[[feedback-verify-your-own-instrument]]）。
     if measured == 0 and not over:
-        out.append("🔴 全画面の図版を1件も測っていない＝この検査は何も見ていない")
-        code = max(code, 2)
+        import cuts.ss as ss
+        if ss.BANDS:
+            out.append("🔴 全画面の図版を1件も測っていない＝この検査は何も見ていない"
+                       f"（この回の図版の在庫は {len(ss.BANDS)}枚ある）")
+            code = max(code, 2)
+        else:
+            probe, got = _CONTROL_FIG, None
+            try:
+                if (HERE / "ref" / probe).exists():
+                    got = ss.crop_loss(probe)
+            except Exception as e:                              # noqa: BLE001
+                got = None
+                out.append(f"🔴 陽性対照の図版を測れない（{probe}: {e}）＝物差しが死んでいる")
+                code = max(code, 2)
+            if got is None and (HERE / "ref" / probe).exists():
+                out.append(f"🔴 陽性対照 {probe} の切り落としが出ない＝物差しが死んでいる")
+                code = max(code, 2)
+            elif got is not None:
+                out.append(f"✓ この回は報告書の図版を使わない（在庫0枚）。物差しは生きている"
+                           f"（陽性対照 {probe} の切り落とし {got * 100:.1f}%）")
+            else:
+                out.append(f"⚠️ 陽性対照の図版 {probe} が手元に無いので物差しを検算できない")
     if unmeasured:
         out.append(f"⚠️ 縦横比を測れなかった {len(unmeasured)}件: {unmeasured[:8]}"
                    + ("…" if len(unmeasured) > 8 else ""))
     return out, code
+
+
+def _control_bands():
+    """🔴 検算のあいだだけ `ss.BANDS` に**実在の図版の台帳**を入れる。
+
+    2026-09-13（7本目⑤b）：7本目は報告書の図版を1枚も使わないので `ss.BANDS` が空。
+    すると `_is_report_figure()` が**何に対しても False** を返し、切り落としの検算4本が
+    「対象0件」で黙って落ちた（検算 7/11）。
+    ＝ **検算は「その回の在庫」ではなく「道具」を試すもの**なので、
+      6本目キー橋の台帳（`ref/keybridge/textbands.json`）を借りて当てる。
+    ⚠️ `fig_box` まで入れる。入れないと切り出し前の紙の縦横比で測ってしまい、
+       期待値（57%／32%／45%）が全部ずれる。
+    ⚠️ `trimmed_size` は lru_cache なので、入れ替えの前後で**必ず捨てる**。
+    """
+    import cuts.ss as ss
+    f = HERE / "ref" / "keybridge" / "textbands.json"
+    keep = dict(ss.BANDS)
+
+    class _Ctx:
+        def __enter__(self):
+            if f.exists():
+                ss.BANDS.clear()
+                ss.BANDS.update(json.loads(f.read_text(encoding="utf-8")))
+            ss.trimmed_size.cache_clear()
+            ss.size_of.cache_clear()
+            return len(ss.BANDS)
+
+        def __exit__(self, *_a):
+            ss.BANDS.clear()
+            ss.BANDS.update(keep)
+            ss.trimmed_size.cache_clear()
+            ss.size_of.cache_clear()
+            return False
+
+    return _Ctx()
 
 
 def selftest():
@@ -161,6 +233,12 @@ def selftest():
     def chk(name, got):
         ok.append(bool(got))
         print(f"  {'✓' if ok[-1] else '🔴'} {name}")
+
+    # 🔴 検算のあいだは図版の台帳を借りる（この回は在庫0枚なので、借りないと
+    #    切り落としの検算が「対象0件」で黙って落ちる）。
+    ctx = _control_bands()
+    n_bands = ctx.__enter__()
+    chk(f"検算用の図版の台帳を借りられた（{n_bands}枚）", n_bands > 0)
 
     want = ["a1", "a2", "a3", "a4"]
     # ⚠️ **実在の図版**を使う。架空の名前だと「測れていない」に落ちて、
@@ -212,6 +290,18 @@ def selftest():
                   broken={}, want=want)[1] == 2)
     except Exception as e:                                  # noqa: BLE001
         chk(f"🔴 切り落としの検算ができない（{e}）", False)
+    finally:
+        ctx.__exit__()
+
+    # 🔴🔴 借りた台帳を戻したあとの状態も検算する（本番の分岐）。
+    #    7本目は在庫0枚＝「使わないのが正しい」側に落ちること。
+    import cuts.ss as ss
+    _o, c = check(spec={"a1": dict(fig=("panel", {})), "a2": dict(photo=_CONTROL_FIG),
+                        "a3": dict(fig=("panel", {})), "a4": dict(photo=_CONTROL_FIG)},
+                  broken={}, want=want)
+    chk(f"この回の在庫（BANDS {len(ss.BANDS)}枚）で "
+        f"{'「使わない」側に落ちて通る' if not ss.BANDS else '図版を測る側に落ちる'}",
+        c == 0)
 
     chk("台本のカットIDが読める（本番の narration.json）", len(script_cuts()) > 0)
     good_all = all(ok)
