@@ -854,6 +854,7 @@ def cmd_credits():
     index = {r["title"]: r for d in db.values() for r in d.get("rows", [])}
     print("# scene_jiko.EP7_PHOTO に貼る行")
     ng = 0
+    resolved = {}          # 🔴 下の表でも使い回す（台帳に無くても Commons から引けた行）
     for name, title in PICK.items():
         row = index.get(title)
         if not row:
@@ -863,6 +864,7 @@ def cmd_credits():
                 row["lic_kind"] = lic_ok(row)[1]
         if not row:
             print(f'    # 🔴 {name}: 台帳にも Commons にも無い'); ng += 1; continue
+        resolved[name] = row
         kind = row.get("lic_kind") or lic_ok(row)[1]
         who = _who(row)
         lic = _plain(row.get("license")) or ""
@@ -873,8 +875,16 @@ def cmd_credits():
     print("| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 元の題名 |")
     print("|---|---|---:|---|---|---|")
     for name, title in PICK.items():
-        row = index.get(title)
+        # 🔴🔴 2026-09-13（⑤b-2b）：ここは `index.get` だけを見て `continue` していた。
+        #    ＝**台帳に無い欄を黙って表から落としていた**（`andrews` の1行が消え、
+        #    64欄あるのに表は63行だった。数えるまで誰も気づかない）。
+        #    クレジットの欠落は権利の話で、CC BY は撮影者名が使用条件そのもの。
+        #    → 上の loop が Commons から引いた行を使い回し、それでも無ければ
+        #      **🔴 を出して exit を上げる**（[[feedback-parsers-fail-closed]]）。
+        row = index.get(title) or resolved.get(name)
         if not row:
+            print(f"| `{name}` | 🔴 出どころが引けない（黙って落とさずここで止める） |")
+            ng += 1
             continue
         s = next((x for x in SLOTS if x["name"] == name), {})
         print(f"| `{name}` | {' '.join(s.get('cuts', []))} | {row.get('year') or '不明'} "

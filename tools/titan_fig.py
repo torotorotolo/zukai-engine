@@ -402,6 +402,31 @@ def balance(t, cols):
                 sc += 3.0
             if best is None or sc < best[0]:
                 best = (sc, j)
+        # 🔴🔴 2026-09-13（7本目 ⑤b-2b・`check_wrap` の2件）：
+        #    **点数づけは正しいのに、正しい切れ目が窓の外にあった。**
+        #    「あれはボーイング757だ」（cols=10・ideal=5.385）では、語の切れ目になる
+        #    j=7（「…ボーイング｜757だ」）の幅が 8.0 で、`w > ideal * 1.45`＝7.81 を
+        #    **0.19 だけ**超えて break していた。残る候補はカタカナの途中（+4.0）だけで、
+        #    いちばん軽い罰の「ボーイ｜ング」が best になっていた。
+        #    ＝ [[feedback-gates-blind-spot-is-the-scan-direction]] と同じで、
+        #      **測る向き（窓の広さ）のほうが穴**だった。
+        #    → best が語の途中になったときだけ、窓を**列の幅 `cols` まで**広げて
+        #      前後を探し直し、ideal にいちばん近い**語の切れ目**を採る。
+        #    ⚠️ 広げるのは「行がはみ出さない範囲」だけ（`w <= cols`）。
+        #    ⚠️ 語の切れ目が1つも無ければ元の best のまま＝絵は1画素も変わらない。
+        if best is not None and _midword(t[best[1]], t[best[1] + 1:best[1] + 2]):
+            alt = None
+            for j in range(max(start, best[1] - 6), min(len(t) - 1, best[1] + 6) + 1):
+                w = sum(fm.adv(c, "Noto") for c in t[start:j + 1])
+                if w > cols or w <= 0:
+                    continue
+                if _midword(t[j], t[j + 1:j + 2]):
+                    continue
+                d = abs(w - ideal)
+                if alt is None or d < alt[0]:
+                    alt = (d, j)
+            if alt:
+                best = (best[0], alt[1])
         if best and (acc >= ideal or best[0] < 0):
             j = best[1]
             out.append(t[start:j + 1])
@@ -1077,7 +1102,15 @@ def breakdown(total, parts, unit="人", note="", horizontal=True):
         c = p.get("c", J.LINE)
         s = [rect(x, y + 62, w, bh, c, op=0.32), rect(x, y + 62, w, bh, "none", c, 4)]
         vs = fm.fit(str(p["v"]), w * 0.7, "Dela", cap=64, floor=22)
-        s.append(txt(x + w / 2, y + 62 + bh / 2 + vs * 0.36, p["v"], vs, c, "Dela",
+        # 🔴 2026-09-13（7本目 ⑤b-2b）：**細い区画の数が画面の外へ出ていた。**
+        #    `pr11` の「40」＝ 40/2,973 で区画の幅は 24px。`floor=22` があるので
+        #    字はそれ以上縮まず、区画の中央（x+w/2）に置くと **右が 1856**（上限 1848）。
+        #    （[[feedback-settings-may-not-reach-the-picture]]：`fit` は幅に収めた
+        #      つもりでも floor で止まる）→ **画面の内側へ寄せる**。
+        #    ⚠️ 区画が字より広いカットでは `min`/`max` のどちらも効かない＝絵は変わらない。
+        vw = fm.width(str(p["v"]), vs, "Dela")
+        vx = min(max(x + w / 2, BX0 + vw / 2), BX1 - vw / 2)
+        s.append(txt(vx, y + 62 + bh / 2 + vs * 0.36, p["v"], vs, c, "Dela",
                      "middle"))
         # 内訳の行（棒の下に縦に積む）
         s.append(rect(BX0, ly - 36, 44, 44, c, op=0.32))

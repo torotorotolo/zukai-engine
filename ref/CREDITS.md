@@ -1126,3 +1126,80 @@ OCR 2,431字 対 文字層 2,480字＝**98.0%**（件数でなく**字数**で�
 ✅ TEMPO は**合成キャッシュの鍵に入っていない**＝あとで下げても **0クレジット**で焼き直せる。
 
 🔴 **④の台本は「1文を短く」書く。**字数は9.3%増えるが、**1文あたりの情報は増やさない。**
+
+### 8. 🔴 使った写真 64点のクレジット（⑤b-2b で確定・2026-09-13）
+
+出どころ＝`python qa_out/ep7_assets.py credits` の後半（この表はその出力そのもの）。
+⚠️ **CC BY は撮影者名が使用条件**なので、⑥の概要欄に**この表の「撮影者」をそのまま**載せる。
+⚠️ 欄は 64、表も **64行**（数が合っていることを必ず確かめてから貼る）。
+　2026-09-13 に、この表を作る側が**台帳に無い欄を黙って落としていた**のを直した
+　（`andrews` の1行が消えて 63行になっていた。[[feedback-parsers-fail-closed]]）。
+⚠️ `andrews` は撮影日 2019-06-06・**写っているのはラムシュタイン基地（ドイツ）**。
+　c719 の副題はそれに合わせて直したが、**素材そのものは要差し替え**（⑤b-3 送り）。
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 元の題名 |
+|---|---|---:|---|---|---|
+| `manhattan_pre` | pr01 | 2001 | PD（Public domain） | Carol M. Highsmith | World Trade Center towers, New York, LCCN2015645969.jpg |
+| `commute_pre` | c218 | 1993 | CC BY（CC BY 4.0） | Alex Lozupone | Downfolders-downfolder34-2011 02 02 00 10 05.jpg |
+| `wtc_far` | c213 | 1976 | PD（Public domain） | Balthazar Korab | World Trade Center, New York. Exterior. Twilight view from harbor - LCCN2021636615.jpg |
+| `wtc_twin` | c214 | 1971 | PD（Public domain） | Thomas J. O'Halloran | View of the New World Trade Center, 1971.jpg |
+| `wtc_base` | c215 | 1976 | PD（Public domain） | Balthazar Korab | World Trade Center Exterior Entrance arches with Sphere at Plaza Fountain sculpture - LCCN2021638448.jpg |
+| `wtc_south` | c311 | 1976 | PD（Public domain） | Balthazar Korab | World Trade Center, New York. Exterior. View from plaza - LCCN2020714989.jpg |
+| `wtc_under` | c801 | 1976 | PD（Public domain） | Balthazar Korab | World Trade Center, New York. Exterior. Night view - LCCN2021636612.jpg |
+| `lobby_pre` | pr05 | 1973 | CC BY（CC BY 3.0） | Euthman Ed Uthman | Memphis-international-airport-1970s.jpg |
+| `security_pre` | c111 | 1970 | CC BY（CC BY 2.0） | Orange County Archives | Orange County Airport, security officer, Sept. 1970.jpg |
+| `gate_pre` | c114 c204 | 2023 | PD（CC0） | Infrastorian | Boarding Southwest Airways B737-700 N242WN at Long Island MacArthur Airport, February 20, 2023.jpg |
+| `fids_pre` | c320 | 2011 | CC BY（CC BY 2.0） | Richard Allaway | Geneva Departures Board (5485297336).jpg |
+| `logan` | c106 | 1973 | PD（Public domain） | Michael Philip Manheim | LOGAN AIRPORT-CONTROL TOWER AND RUNWAYS SEEN FROM 16TH FLOOR OBSERVATION DECK - NARA - 548428.jpg |
+| `logan_apron` | c116 | 1969 | PD（Public domain） | Balthazar Korab | Eastern Air Lines terminal at Logan Airport, 1969.jpg |
+| `logan_takeoff` | c115 | 2024 | CC BY（CC BY 4.0） | 4300streetcar | United 737-800 N73283 takeoff roll Boston Dec 2024.jpg |
+| `dulles` | c107 | 1985 | PD（Public domain） | PH1 DAVID C. MACLEAN | Aerial view of Dulles Airport, June 1985.JPEG |
+| `dulles_rwy` | c117 | 2025 | CC BY（CC BY 4.0） | Dclemens1971 | Aerial view of Dulles Airport 03.jpg |
+| `reagan` | c415 | 2025 | CC BY（CC BY 4.0） | G. Edward Johnson | E Concourse DCA National Airport 2025-10-22 15-05-36 1.jpg |
+| `newark_757` | c602 | 2017 | CC BY（CC BY 2.0） | airbus777 from Washington, DC, USA | United 757-200 at EWR (37116055471).jpg |
+| `b767` | c108 | 2025 | CC BY（CC BY 4.0） | 4300streetcar | Delta Boeing 767-300ER N194DN at Boston May 2025.jpg |
+| `b757` | c109 | 2024 | CC BY（CC BY 4.0） | 4300streetcar | Delta 757-200 N710TW taxiing at Boston Nov 2024.jpg |
+| `b767_cruise` | c201 | 2024 | CC BY（CC BY 4.0） | 4300streetcar | Lufthansa A350-900 and United 767-300ER above Boston.jpg |
+| `b767_takeoff` | c302 | 2025 | CC BY（CC BY 4.0） | 4300streetcar | FedEx Express Boeing 767-300F N263FE departing Boston March 2025 1.jpg |
+| `b757_takeoff` | c402 | 2025 | CC BY（CC BY 4.0） | 4300streetcar | Delta Boeing 757-200 N702TW departing Boston April 2025 1.jpg |
+| `airliner_cruise` | c403 | 2012 | PD（CC0） | Downtowngal | Aircraft crossing paths.jpg |
+| `refuel` | c119 | 2026 | CC BY（CC BY 4.0） | 4300streetcar | Fueling Boeing 757-200 N58101 at Boston January 2026.jpg |
+| `cabin_pre` | c205 | 2017 | PD（CC0） | Suhyeon Choi choisyeon | Airplane aisle during flight (Unsplash).jpg |
+| `cockpit_door_pre` | c202 | 2015 | CC BY（CC BY 2.0 de） | User:Mattes | Puerto Rico — A 320 JetBlue — Open cockpit door during boarding.jpg |
+| `cabin_phone` | c309 c614 | 2018 | CC BY（CC BY 2.0） | Delta News Hub | A220 Main Cabin (43799968340).jpg |
+| `cockpit_pre` | c605 | 2025 | CC BY（CC BY 4.0） | Funforme3 | Avelo Airlines B737 Cockpit.jpg |
+| `window_cruise` | c304 | 2025 | CC BY（CC BY 4.0） | Sergey A. Demidov | 20250928 View from aircraft in Turkey 01 (31935).jpg |
+| `window_sky` | c909 | 2025 | CC BY（CC BY 4.0） | Sergey A. Demidov | 20250928 View from aircraft in Egypt 01 (21624).jpg |
+| `artcc_screen_pre` | pr09 | 2024 | PD（Public domain） | U.S. Air Force AFCENT by Airman 1st Class Derrick Bole | 379th EOSS air traffic controllers in action (8599712).jpg |
+| `radar_scope_pre` | c210 | 2016 | PD（Public domain） | Tekniska museet | SR&T Plan position indicator.jpg |
+| `controller_pre` | c306 | 1987 | PD（Public domain） | Department of Defense. American Forces Information Service.  | Air traffic controllers of the 1961st Communications Group man their duty stations in the base tower. The 1961st recently won the Major General Harold M. McClelland Award for commun - DPLA - 6a16bbcae66aff3a8a8616188e1d2e07.jpeg |
+| `artcc_screen2` | c509 | 2025 | PD（Public domain） | U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez | 378th EOSS Air Traffic Controller Demonstration (8829390).jpg |
+| `artcc_alt` | c608 | 2010 | PD（Public domain） | Master Sgt. Linda Miller | Kingpin and Controllers Maintain Aircraft and Airspace DVIDS265967.jpg |
+| `artcc_seat` | ep03 | 2021 | PD（Public domain） | U.S. Space Force photo by Tech. Sgt. James Hodgman | ATC aids TBM Avenger pilot (6666391).jpeg |
+| `pentagon_ext_pre` | c409 | 1998 | PD（Public domain） | DoD photo by Master Sgt. Ken Hammond, U.S. Air Force | The Pentagon US Department of Defense building.jpg |
+| `pentagon_aerial_pre` | c410 | 1986 | PD（Public domain） | Department of Defense. American Forces Information Service.  | An aerial view of the Pentagon - DPLA - 2bad8af340141770c277509bf649c466.jpeg |
+| `pentagon_court_pre` | c412 | 2020 | PD（Public domain） | Chairman of the Joint Chiefs of Staff from Washington D.C, U | 200918-D-TT977-0082.NEF (50356577241).jpg |
+| `pentagon_west_day` | c421 | 2001 | PD（Public domain） | CPL JASON INGERSOLL, USMC | DM-SD-02-03925.JPEG |
+| `f15_alert` | c123 c702 | 2024 | PD（Public domain） | U.S. Air Force photo by Airman 1st Class Melany Bermudez | Fond Farewell to F-15C A5095 (8605970).jpg |
+| `f15_takeoff` | c703 | 2023 | PD（Public domain） | U.S. Air Force photo by Airman 1st Class Alexandria Byrd | 391st FS F-15E prepares for takeoff at MCAS Iwakuni during Northern Edge 23-2.jpg |
+| `f16_alert` | c707 | 2024 | PD（Public domain） | U.S. Air Force photo by Tech. Sgt. Alexander Cook | F-16s launch from U S CENTCOM AOR (8208226).jpg |
+| `f16_takeoff` | c711 | 2024 | PD（Public domain） | U.S. Air Force photo by Tech. Sgt. Alexander Cook | F-16s launch from U S CENTCOM AOR (8208228).jpg |
+| `base_rwy` | c708 | 1967 | PD（Public domain） | Unknown author | Aerial view of Tan Son Nhut Air Base down main runway.jpg |
+| `fighter_dc` | c717 | 2004 | PD（Public domain） | U.S. Navy photo | US Navy 040609-F-7466S-001 A flight of four F-15E Strike Eagles assigned to the 4th Fighter Wing, Seymour Johnson Air Force Base, N.C., fly over former President Ronald Reagan's funeral.jpg |
+| `andrews` | c719 | 不明 | PD（Public domain） | U.S. Air Force photo by Tech. Sgt. Timothy Moore | 76th AS Last C-40 on ramp.jpg |
+| `wtc_smoke_day` | c313 | 2001 | PD（Public domain） | Mike Goad | Skyline of Manhattan with smoke billowing from the Twin Towers (29385426736).jpg |
+| `fire_trucks_day` | c314 | 2001 | PD（Public domain） | Anonymous. Courtesy of the Prints and Photographs Division.  | LOC unattributed Ground Zero photos, September 11, 2001 - item 210.jpg |
+| `shanksville_day` | c622 | 2001 | PD（Public domain） | Staff Sgt. Larry A. Simmons, U.S. Air Force | Defense.gov News Photo 010914-F-4692S-003.jpg |
+| `apron_day` | pr10 | 2024 | CC BY（CC BY 4.0） | 4300streetcar | Alaska Boeing 737-9 MAX N926AK at Boston Logan Terminal B December 2024.jpg |
+| `apron_lined_day` | c516 ep05 | 2026 | CC BY（CC BY 4.0） | 4300streetcar | At gate B24 at Boston Logan International Airport January 2026.jpg |
+| `stopped_day` | c505 | 2023 | CC BY（CC BY 4.0） | 4300streetcar | United Boeing 737 at Gate B25 at Boston September 2023.jpg |
+| `stranded_day` | c517 | 2017 | CC BY（CC BY 2.0） | Nelo Hotsuma | Philadelphia Airport Lounge (36335419103).jpg |
+| `hearing` | c807 | 2012 | PD（Public domain） | Nuclear Regulatory Commission from US | Congressional Hearing - Jul. 24, 2012 (7748554726).jpg |
+| `library_reports` | c815 | 2025 | CC BY（CC BY 4.0） | Bjankuloski06 | Books, Community Languages, Takapuna Library.jpg |
+| `recorder` | c805 | 2019 | PD（Public domain） | National Transportation Safety Board | Miami Air Flight 293 flight recorder (32830135147).jpg |
+| `atc_tape` | c803 | 2013 | CC BY（CC BY 2.0） | Robert Taylor from Stirling, ON, Canada | Studer B67 reel-to-reel audio tape recorder, ca. 1978 (cropped and edited, larger 10 inch tapes).jpg |
+| `logbook` | c809 | 2017 | PD（CC0） | Leksey | Aircraftlogbooksimple2.jpg |
+| `security_now` | c901 | 2025 | PD（Public domain） | DHSgov | TSA Security Checkpoint - 54504384636.jpg |
+| `artcc_now` | c905 | 2025 | PD（Public domain） | U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez | 378th EOSS Air Traffic Controller Demonstration (8829389).jpg |
+| `lobby_now` | c907 | 2018 | PD（CC0） | Mr. Satterly | Gillette–Campbell County Airport terminal interior in Campbell County, Wyoming (2).jpg |
+| `clear_sky` | ep01 | 2025 | CC BY（CC BY 4.0） | Sergey A. Demidov | 20250928 View from aircraft in Turkey 01 (79961).jpg |

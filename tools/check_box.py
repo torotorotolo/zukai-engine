@@ -224,7 +224,15 @@ def parse(svg, layer):
             w, h = _f(a, "width"), _f(a, "height")
             fill, stroke = a.get("fill", "none"), a.get("stroke", "none")
             if fill == "none" and stroke not in ("none", "") and w >= MIN_W and h >= MIN_H:
-                frames_.append((x, y, w, h))
+                # 🔴 2026-09-13（7本目 ⑤b-2b）：**破線の枠は「基準」を示す幽霊の枠**で、
+                #    中が空いているのが**正しい形**（`titan_fig.compare` の `ref=`＝
+                #    満杯の棒を薄い破線で置き、実際の棒がそこからどれだけ小さいかを見せる）。
+                #    `absent` の箱をわざと空と認めているのと同じ理屈（上の is_container の注）。
+                #    ⚠️ これを枠に数えていたので、c110（搭乗率 33.3%）が
+                #      「空き矩形 58%」と鳴っていた。**58% はこの図の主張そのもの**。
+                #    ⚠️ 実線の枠は今までどおり数える（ここで抜けるのは破線だけ）。
+                if "stroke-dasharray" not in a:
+                    frames_.append((x, y, w, h))
             else:
                 # 同じ形の「塗り」は、枠の地色か、図形そのものか、の判断材料になる
                 fills.append((x, y, w, h, _f(a, "opacity", 1.0), fill))
