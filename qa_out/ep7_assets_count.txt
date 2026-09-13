@@ -1,16 +1,8 @@
 欄                          通った     時点も合う  時点  中身
-🔴cabin_phone                0         0  any   客室の座席にある電話（2001年以前）
-🔴artcc_screen_pre           0         0  pre   航空路管制センターの画面（2001年当時）
-🔴artcc_screen2              0         0  pre   管制卓の画面（2001年当時）
 🔴boston_artcc_ext           0         0  any   ボストンの航空路管制センター（外観）
 🔴indy_artcc                 0         0  any   インディアナポリスの管制センター
 🔴cleveland_artcc            0         0  any   クリーブランドの管制センター
 🔴atcscc                     0         0  any   連邦航空局コマンドセンター（外観）
-🔴apron_day                  0         0  day   駐機場に降りた旅客機（2001-09-11）
-🔴stopped_day                0         0  day   空港で止まった旅客機（2001-09-11）
-🔴library_reports            0         0  any   図書館に並ぶ報告書
-🔴atc_tape                   0         0  any   管制施設の録音装置（2001年当時）
-🔴artcc_now                  0         0  post  今の航空路管制センター
 ⚠️b757                       1         0  pre   ボーイング757（2001年以前）
 ⚠️cockpit_door_pre           1         0  pre   旅客機の操縦室の扉（2001年以前）
 ⚠️b767                       2         0  pre   ボーイング767（2001年以前）
@@ -40,7 +32,9 @@
   fighter_dc                 3         3  any   首都上空を飛ぶ戦闘機
   wtc_south                 22         3  pre   ツインタワーの南棟（2001年以前）
   commute_pre               24         3  pre   朝の通勤（2001年以前のマンハッタン）
+  apron_day                 24         4  day   駐機場に降りた旅客機（2001-09-11）
   apron_lined_day           24         4  day   駐機場に並んだ旅客機（2001-09-11）
+  stopped_day               24         4  day   空港で止まった旅客機（2001-09-11）
   f15_takeoff                6         6  any   離陸するF-15
   b767_cruise               17         7  any   巡航するボーイング767
   gate_pre                  24         7  pre   空港の搭乗口（2001年以前）
@@ -60,17 +54,23 @@
   wtc_under                 24        21  pre   世界貿易センターの地下（2001年以前）
   manhattan_pre             24        22  pre   2001年以前のローワーマンハッタン（朝の街並み）
   base_rwy                  23        23  any   基地の滑走路（2001年以前）
+  cabin_phone               24        24  any   客室の座席にある電話（2001年以前）
+  artcc_screen_pre          24        24  pre   航空路管制センターの画面（2001年当時）
+  artcc_screen2             24        24  pre   管制卓の画面（2001年当時）
   artcc_alt                 24        24  any   管制卓の画面（高度の表示）
   artcc_seat                24        24  any   航空路管制センターの席
   wtc_smoke_day             24        24  day   北棟から上がる煙（遠景・2001-09-11）
   report_cover              24        24  any   委員会報告の表紙
   report_page               24        24  any   委員会報告のページ
   hearing                   24        24  any   委員会の公聴会（2003〜2004年）
+  library_reports           24        24  any   図書館に並ぶ報告書
   nist_report               24        24  any   建物側の報告書（NIST NCSTAR 1）
+  atc_tape                  24        24  any   管制施設の録音装置（2001年当時）
   logbook                   24        24  any   当直の記録簿（書式の見本）
+  artcc_now                 24        24  post  今の航空路管制センター
   b757_takeoff              35        24  any   離陸するボーイング757
   f16_alert                 35        24  any   待機中のF-16（ラングレー基地）
   andrews                   50        24  any   アンドルーズ基地（2001年以前）
   f16_takeoff               54        24  any   離陸するF-16
 
-■ 欄 73 ／ 候補0の欄 12
+■ 欄 73 ／ 候補0の欄 4

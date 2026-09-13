@@ -600,9 +600,13 @@ def cmd_search(only=None, limit=60, wmin=None, use_q2=False):
               f"（足した {len(add):2}／時点が合う "
               f"{sum(1 for r in d['rows'] if r.get('era_ok') is True):3}点）"
               f"  落ちた内訳 小{why['small']} 2値{why['bit']} 権利{why['lic']}")
+        # 🔴🔴 **1欄ごとに保存する。** 2026-09-13 に、最後に1回だけ書く作りで
+        #    3周目が途中で止まり、**ログには出ているのに台帳には1件も残らなかった**
+        #    （`count` が 0点のまま＝「探したのに無い」に見えた）。
+        #    ＝ **ログの緑と台帳の中身を混ぜない**。`ep7_shots_run.py` と同じ作りにする。
+        OUT.parent.mkdir(parents=True, exist_ok=True)
+        OUT.write_text(json.dumps(db, ensure_ascii=False, indent=1), encoding="utf-8")
         time.sleep(0.2)
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps(db, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"\n台帳 → {OUT}")
     return 0
 
