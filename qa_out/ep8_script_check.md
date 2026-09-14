@@ -44,7 +44,7 @@ E 0件 / W 3件
 
 ⚠️ **④は「手袋」という語を消しただけで、同じ主張が言い換えで残っていた。**
 語を消しても、**その語が支えていた絵**が残っていれば直っていない。
-→ 新しい記憶 [[feedback-removing-the-word-does-not-remove-the-claim]] に立てる。
+→ 記憶 [[feedback-recheck-what-the-author-said-they-fixed]]（この回で新設）
 
 **直し**＝2行とも差し替える。代わりに置くのは **p38 にある事実**：
 「The Flight Control Team was not working any issues or problems related to the planned
