@@ -172,9 +172,18 @@ SLOTS = [
     dict(name="cockpit_door_pre", cuts=["c202"], era="pre",
          want="旅客機の操縦室の扉（2001年以前）",
          q=["airliner cockpit door", "flight deck door airliner"]),
-    dict(name="cabin_phone", cuts=["c309", "c614"], era="any",
-         want="客室の座席にある電話（2001年以前）",
+    dict(name="cabin_phone", cuts=["c614"], era="any",
+         want="旅客機の客室（c614）",
          q=["airphone seatback telephone", "in-flight telephone seat"]),
+    # 🔴 2026-09-14（⑤c'）**c309 を別の欄に割った。**
+    #   c309 と c614 は `cabin_phone.jpg` を共有していて、⑤c-2 で
+    #   **画素の差 0＝まったく同じ絵**と分かった（`ep7_qa_look2.md` §E-1）。
+    #   ⚠️ 「座席にある電話」の写真は Commons に**1点も無い**
+    #     （唯一の `Flight 93 GTE Airfone` は PD だが **600×390** で使えない）。
+    #   → 副題から電話の主張を落とし、**767 の客室**にする（11便・175便と同じ型）。
+    dict(name="cabin_767", cuts=["c309"], era="any",
+         want="ボーイング767の客室（c614 と別の絵）",
+         q=["Boeing 767 cabin interior seats", "wide-body airliner cabin economy seats"]),
     dict(name="cockpit_pre", cuts=["c605"], era="pre",
          want="旅客機の操縦室（2001年以前）",
          q=["Boeing 757 cockpit", "Boeing 767 flight deck"]),
@@ -239,7 +248,13 @@ SLOTS = [
          want="ペンタゴン西側（当日・遠景）",
          q=["Pentagon September 11 2001 west side", "Pentagon 9/11 damage exterior"]),
     # ── 軍 ─────────────────────────────────────────
-    dict(name="f15_alert", cuts=["c123", "c702"], era="any",
+    # 🔴 2026-09-14（⑤c'）**c702 を別の欄に割った。**
+    #   c123 と c702 は `f15_alert.jpg` を共有していて、⑤c の A-6 で
+    #   **画素の差 0＝まったく同じ絵**と分かった（`ep7_qa_look1.md` §A-6）。
+    dict(name="f15_alert2", cuts=["c702"], era="any",
+         want="駐機中のF-15（c123 と別の絵）",
+         q=["F-15 Eagle flight line parked", "F-15 Strike Eagle sits on the flight line"]),
+    dict(name="f15_alert", cuts=["c123"], era="any",
          want="待機中のF-15（オーティス基地）",
          q=["F-15 Eagle alert hangar 102nd Fighter Wing",
             "F-15 Eagle Otis Air National Guard Base"]),
@@ -319,6 +334,16 @@ SLOTS = [
     dict(name="security_now", cuts=["c901"], era="post",
          want="今の空港の保安検査場",
          q=["TSA airport security checkpoint", "airport security screening passengers TSA"]),
+    # 🔴 2026-09-14（⑤c'）**c902 の地を別の絵にした。**
+    #   c901 と c902 は `security_now.jpg` を共有していて、⑤c-2 で
+    #   **3人が肩を組んでカメラへ笑う広報写真**（中央は公人）と分かった。
+    #   ⚠️ 米国の検査場で PD／CC BY の写真は **171点あるが全部** 長官の視察・会見。
+    #     → 「人が主役でない検査の場面」で探し直し、**列**（c901）と
+    #       **X線の監視**（c902）に割った。副題からは国名の主張を落とす。
+    #   ⚠️ `cuts` は空（c902 は `cuts/__init__.py` の BACKDROP で地に敷く欄）。
+    dict(name="security_screen", cuts=[], era="post",
+         want="X線の画面を見る検査員（c902 の地）",
+         q=["x-ray baggage screening belt airport", "airport security screener monitor"]),
     dict(name="cockpit_door_hard", cuts=["c903"], era="post",
          want="強化された操縦室の扉",
          q=["reinforced cockpit door", "hardened flight deck door airliner"]),
@@ -490,7 +515,8 @@ PICK: dict[str, str] = {
     "lobby_pre": "File:Memphis-international-airport-1970s.jpg",
     "security_pre": "File:Orange County Airport, security officer, Sept. 1970.jpg",
     "gate_pre": "File:Boarding Southwest Airways B737-700 N242WN at Long Island MacArthur Airport, February 20, 2023.jpg",
-    "fids_pre": "File:Geneva Departures Board (5485297336).jpg",
+    # 🔴 ⑤c'：ジュネーブ（欧州）の板 → **シカゴ・オヘア**の板（米国の地名が並ぶ）
+    "fids_pre": "File:Departure Board at ORD.jpg",
     "logan": "File:LOGAN AIRPORT-CONTROL TOWER AND RUNWAYS SEEN FROM 16TH FLOOR OBSERVATION DECK - NARA - 548428.jpg",
     "logan_apron": "File:Eastern Air Lines terminal at Logan Airport, 1969.jpg",
     "logan_takeoff": "File:United 737-800 N73283 takeoff roll Boston Dec 2024.jpg",
@@ -502,18 +528,22 @@ PICK: dict[str, str] = {
     "b767": "File:Delta Boeing 767-300ER N194DN at Boston May 2025.jpg",
     "b757": "File:Delta 757-200 N710TW taxiing at Boston Nov 2024.jpg",
     "b767_cruise": "File:Lufthansa A350-900 and United 767-300ER above Boston.jpg",
-    "b767_takeoff": "File:FedEx Express Boeing 767-300F N263FE departing Boston March 2025 1.jpg",
+    # 🔴 ⑤c'：FedEx の**貨物機**（しかも巡航中）→ アメリカン航空の 767（出発滑走）
+    "b767_takeoff": "File:N352AA (15113637598).jpg",
     "b757_takeoff": "File:Delta Boeing 757-200 N702TW departing Boston April 2025 1.jpg",
     "airliner_cruise": "File:Aircraft crossing paths.jpg",
     "refuel": "File:Fueling Boeing 757-200 N58101 at Boston January 2026.jpg",
     "cabin_pre": "File:Airplane aisle during flight (Unsplash).jpg",
     "cockpit_door_pre": "File:Puerto Rico — A 320 JetBlue — Open cockpit door during boarding.jpg",
     "cabin_phone": "File:A220 Main Cabin (43799968340).jpg",
+    # 🔴 ⑤c'：c309 用。c614（A220）と**別の絵**にする
+    "cabin_767": "File:Delta 767-400ER Economy Cabin.jpg",
     "cockpit_pre": "File:Avelo Airlines B737 Cockpit.jpg",
     "window_cruise": "File:20250928 View from aircraft in Turkey 01 (31935).jpg",
     "window_sky": "File:20250928 View from aircraft in Egypt 01 (21624).jpg",
     # ── 管制 ───────────────────────────────────────────
-    "artcc_screen_pre": "File:379th EOSS air traffic controllers in action (8599712).jpg",
+    # 🔴 ⑤c'：AFCENT の現代の事務室（画面はウェブページ）→ **ワシントン航空路管制センター**
+    "artcc_screen_pre": "File:AirTraffic-8.jpg",
     "radar_scope_pre": "File:SR&T Plan position indicator.jpg",
     "controller_pre": "File:Air traffic controllers of the 1961st Communications Group man their duty stations in the base tower. The 1961st recently won the Major General Harold M. McClelland Award for commun - DPLA - 6a16bbcae66aff3a8a8616188e1d2e07.jpeg",
     "artcc_screen2": "File:378th EOSS Air Traffic Controller Demonstration (8829390).jpg",
@@ -522,24 +552,40 @@ PICK: dict[str, str] = {
     # ── ペンタゴン ─────────────────────────────────────
     "pentagon_ext_pre": "File:The Pentagon US Department of Defense building.jpg",
     "pentagon_aerial_pre": "File:An aerial view of the Pentagon - DPLA - 2bad8af340141770c277509bf649c466.jpeg",
-    "pentagon_court_pre": "File:200918-D-TT977-0082.NEF (50356577241).jpg",
+    # 🔴 ⑤c'：マスクの制服2人と旗（中庭が1画素も無い）→ **中庭そのもの**
+    "pentagon_court_pre": "File:XQ-58A Valkrie displayed at the Pentagon Center Courtyard.jpg",
     "pentagon_west_day": "File:DM-SD-02-03925.JPEG",
     # ⚠️ 2026-09-13（⑤b-2）DoD の `010911-M-CI426-*` は **8点とも本体が切れている**
     #   （Commons 側の不良。1〜13バイト足りず PIL が開けない）。読めたのはこの1点だけ。
     #   撮影 CPL JASON INGERSOLL, USMC／2001-09-11／「煙が晴れたあとのペンタゴン」
     # ── 軍 ─────────────────────────────────────────────
     "f15_alert": "File:Fond Farewell to F-15C A5095 (8605970).jpg",
+    # 🔴 ⑤c'：c702 用。c123 と**別の絵**にする（いまは画素の差 0）
+    "f15_alert2": ("File:A 494th EFS F-15E Strike Eagle sits on the flight line "
+                   "prior to a sortie at Prince Sultan Air Base.jpg"),
     "f15_takeoff": "File:391st FS F-15E prepares for takeoff at MCAS Iwakuni during Northern Edge 23-2.jpg",
-    "f16_alert": "File:F-16s launch from U S CENTCOM AOR (8208226).jpg",
-    "f16_takeoff": "File:F-16s launch from U S CENTCOM AOR (8208228).jpg",
+    # 🔴 ⑤c'：隊員が1人立つだけ（F-16 が無い）→ **駐機した F-16 が主役**
+    "f16_alert": "File:F-16s Arrive at NATO Air Base Geilenkirchen (8403619).jpg",
+    # 🔴 ⑤c'：有刺鉄線が全面（機体はぼけた影）→ **滑走路を離れた瞬間の F-16**
+    "f16_takeoff": ("File:Colorado and Massachusetts Air National Guard fighter jets "
+                    "depart Lithuania during exercise Air Defender 2023 (7867984).jpg"),
     "base_rwy": "File:Aerial view of Tan Son Nhut Air Base down main runway.jpg",
-    "fighter_dc": "File:US Navy 040609-F-7466S-001 A flight of four F-15E Strike Eagles assigned to the 4th Fighter Wing, Seymour Johnson Air Force Base, N.C., fly over former President Ronald Reagan's funeral.jpg",
+    # 🔴 ⑤c'：ほぼ無地の灰色（戦闘機が見えない）→ **2001年10月の飛行中の F-16**
+    "fighter_dc": "File:F-16C NJ ANG in flight Oct 2001.jpg",
     "andrews": "File:76th AS Last C-40 on ramp.jpg",
     # ── 当日 ───────────────────────────────────────────
     "wtc_smoke_day": "File:Skyline of Manhattan with smoke billowing from the Twin Towers (29385426736).jpg",
     "fire_trucks_day": "File:LOC unattributed Ground Zero photos, September 11, 2001 - item 210.jpg",
-    "shanksville_day": "File:Defense.gov News Photo 010914-F-4692S-003.jpg",
-    "apron_day": "File:Alaska Boeing 737-9 MAX N926AK at Boston Logan Terminal B December 2024.jpg",
+    # 🔴🔴 ⑤c'：**この1枚はシャンクスビルですらなかった。**元の説明は
+    #   「A worker at the crash site takes a break ... **at the Pentagon** on Sept. 14, 2001」
+    #   ＝ペンタゴンの復旧作業の写真。⑤c-2 は「防護服の手元」までは見たが、
+    #   **場所が違うこと**は出どころを読むまで分からなかった（画には地名が写らない）。
+    #   → 93便が落ちた野原（いまは追悼施設）。副題の年は 2015 に直す。
+    "shanksville_day": "File:Flight 93 Memorial - panoramio (1).jpg",
+    # 🔴🔴 ⑤c'：Alaska の 737-9 MAX（2024年・胴体の `Alaska` が読める）→
+    #   搭乗橋に並んで駐まった旅客機。⚠️ 9/11 当日に降ろされた機体の写真は
+    #   PD／CC BY に**1点も無い**（Operation Yellow Ribbon も0点）。副題から日付を落とす。
+    "apron_day": "File:Southwest 737s parked at Terminal A at DCA (39815401742).jpg",
     "apron_lined_day": "File:At gate B24 at Boston Logan International Airport January 2026.jpg",
     "stopped_day": "File:United Boeing 737 at Gate B25 at Boston September 2023.jpg",
     "stranded_day": "File:Philadelphia Airport Lounge (36335419103).jpg",
@@ -548,9 +594,15 @@ PICK: dict[str, str] = {
     "library_reports": "File:Books, Community Languages, Takapuna Library.jpg",
     "recorder": "File:Miami Air Flight 293 flight recorder (32830135147).jpg",
     "atc_tape": "File:Studer B67 reel-to-reel audio tape recorder, ca. 1978 (cropped and edited, larger 10 inch tapes).jpg",
-    "logbook": "File:Aircraftlogbooksimple2.jpg",
+    # 🔴 ⑤c'：ロシア語のグライダー耐空記録簿（キリル文字が大きく読める）→
+    #   英語の飛行記録簿（英空軍・1943年の手書き）
+    "logbook": "File:Billy Strachan log book.jpg",
     # ── 「今」 ─────────────────────────────────────────
-    "security_now": "File:TSA Security Checkpoint - 54504384636.jpg",
+    # 🔴🔴 ⑤c'：3人が肩を組む広報写真（中央は公人）→ **検査を待つ列**。
+    #   ⚠️ 米国の検査場の PD／CC BY はすべて長官の視察・会見だった（171点）。
+    #     副題からは国名を落とし「空港の保安検査　2016年撮影」とだけ書く。
+    "security_now": "File:0083 Domodedovo International Airport 16th of August 2016.jpg",
+    "security_screen": "File:2016 04 19 Airport Security-5 (26744283185).jpg",
     "artcc_now": "File:378th EOSS Air Traffic Controller Demonstration (8829389).jpg",
     "lobby_now": "File:Gillette–Campbell County Airport terminal interior in Campbell County, Wyoming (2).jpg",
     # ── 空 ─────────────────────────────────────────────
@@ -862,6 +914,12 @@ def cmd_credits():
             row = got[0] if got else None
             if row:
                 row["lic_kind"] = lic_ok(row)[1]
+                # 🔴🔴 2026-09-14（⑤c'）**ここで `year` を入れ忘れていた。**
+                #    台帳に在る欄は `_keep()` が `year` を付けるが、Commons から引き直した欄は
+                #    付かないまま表に出るので、**撮影年が全部「不明」**になっていた
+                #    （差し替えた13欄のうち8欄）。年は副題の主張と突き合わせる根拠そのもの
+                #    ＝ここが空だと `check_credits.py` が何も測れない（[[feedback-parsers-fail-closed]]）。
+                row["year"] = year_of(row)
         if not row:
             print(f'    # 🔴 {name}: 台帳にも Commons にも無い'); ng += 1; continue
         resolved[name] = row

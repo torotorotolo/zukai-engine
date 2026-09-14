@@ -177,6 +177,10 @@ REFUEL = P("refuel")
 CABIN_PRE = P("cabin_pre")
 COCKPIT_DOOR_PRE = P("cockpit_door_pre")
 CABIN_PHONE = P("cabin_phone")
+# 🔴 2026-09-14（⑤c'）c309 用。c614 と同じ `cabin_phone.jpg` を敷いていて
+#    **画素の差 0＝まったく同じ絵**だった（`qa_out/ep7_qa_look2.md` §E-1）。
+#    ⚠️「座席にある電話」の写真は Commons に1点も無い（唯一の1点は 600×390）
+CABIN_767 = P("cabin_767")
 COCKPIT_PRE = P("cockpit_pre")
 WINDOW_CRUISE = P("window_cruise")
 WINDOW_SKY = P("window_sky")
@@ -199,6 +203,9 @@ PENTAGON_COURT_PRE = P("pentagon_court_pre")
 PENTAGON_WEST_DAY = P("pentagon_west_day")
 # ── 軍
 F15_ALERT = P("f15_alert")
+# 🔴 2026-09-14（⑤c'）c702 用。c123 と同じ `f15_alert.jpg` を敷いていて
+#    **画素の差 0＝まったく同じ絵**だった（`qa_out/ep7_qa_look1.md` §A-6）
+F15_ALERT2 = P("f15_alert2")
 F15_TAKEOFF = P("f15_takeoff")
 F16_ALERT = P("f16_alert")
 F16_TAKEOFF = P("f16_takeoff")

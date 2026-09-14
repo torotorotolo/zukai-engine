@@ -1887,8 +1887,21 @@ def panel(blocks, lead="", note="", cols=3):
         #    → セルの大きさから級数を決め、`v`（数値）も出せるようにする。
         cols = max(1, min(cols, n))          # 件数より多い列を作らない（ep09 が2件で3列だった）
         rows = max(1, math.ceil(n / cols))
+        # 🔴 2026-09-14（7本目 ⑤c'）**段落ちをなくす。**
+        #    4件を cols=3 で並べると 3＋1 になり、**4つ目だけ2段目に落ちて右が2つぶん空く**
+        #    （実測 `c105` `c802` `c812` `ep02` の4カット＝格子に落ちるカットの**全部**）。
+        #    段の数を先に決めてから列を割り直すと 2×2 になる。
+        #    ⚠️ 5件（3＋2）6件（3＋3）は今までどおり。減るのは「最後の段が1件」のときだけ。
+        cols = max(1, math.ceil(n / rows))
         cw = (BW - 30 * (cols - 1)) / cols
-        rh = (BY1 - top - (44 if note else 0)) / rows
+        # 🔴 同（⑤c-2 §D-3）**近さの逆転を直す。**`c812` を実測すると
+        #    群の中（見出し→答え）が 128px なのに**群と群のあいだが 40px** しかなく、
+        #    「どれも嘘ではない」が①でなく④の見出しに属して見えていた。
+        #    セルの中は「見出しが上・答えが下」で必ず 0.56×rh 離れるので、
+        #    **段と段のあいだにその分の空きを入れる**（0.42×rh ＝ 0.14×rh と足して 0.56×rh）。
+        avail = BY1 - top - (44 if note else 0)
+        gap = (0.42 * avail / (rows + 0.42 * (rows - 1))) if rows > 1 else 0.0
+        rh = (avail - gap * (rows - 1)) / rows
 
         # 🔴 §T-4（上の柱と同じ理由）：格子でも並列項目は**カットで1つの級数**。
         #    実測 `ca12` 72/72/72/**56**（「作業員へ知らせる手段の欠如」だけ小さい）。
@@ -1904,7 +1917,7 @@ def panel(blocks, lead="", note="", cols=3):
         bs_cell = min(_cellsize(b) for b in blocks)
         for i, b in enumerate(blocks):
             x = BX0 + (i % cols) * (cw + 30)
-            y = top + (i // cols) * rh
+            y = top + (i // cols) * (rh + gap)
             c = b.get("c", J.LINE)
             s = [line(x, y, x + cw - 20, y, c, 5)]
             kx = 0
@@ -2045,19 +2058,26 @@ def _absent_seat(items, lead, note):
         #    枕の文字に重なった（r20 の目視。機械は文字どうししか見ないので出ない）。
         mr = min(24.0, bh * 0.11)
         s0 = y + mr * 2 + 34
-        step = (y + bh - 22 - s0) / 5
-        slots = [(s0 + step * k, min(step * 0.60, bh * 0.085)) for k in range(5)]
+        # 🔴🔴 2026-09-14（7本目 ⑤c-2 §E-3）**埋め草が「数」に見えていた。**
+        #    ここは `slots` を **`range(5)` でべた書き**していたので、
+        #    有る側は塗りの帯が5本・無い側は空の破線の行が5本ずつ並び、
+        #    視聴者には「5件を探して5件とも無かった」と読めた
+        #    （[[feedback-filler-shapes-read-as-quantities]]）。
+        #    ⚠️ `absent` は件数を受け取らない＝**5 という数に根拠が無い**。
+        #    → 段をやめて、**器の中が「満ちている／空のまま」**だけで見せる。
+        #      数えられる形を画面から消す（面は数えられない）。
+        #    同型5件＝`c407 c510 c704 c903 pr08`（この1か所で全部直る）。
+        iy = s0
+        ih = max(24.0, y + bh - 22 - s0)
         if ok:
             s.append(rect(x, y, bw, bh, J.OK, J.OK, 4, rx=6, op=0.16))
-            for by, hh in slots:
-                s.append(rect(x + bw * 0.12, by, bw * 0.76, hh, J.OK, op=0.55))
+            s.append(rect(x + bw * 0.12, iy, bw * 0.76, ih, J.OK, op=0.55, rx=6))
             s.append(_tick_mark(cx, y + mr + 16, mr * 0.9, c))
         else:
-            # 空の器。**破線の輪郭と、空のままの段だけ**。網掛けも塗りも入れない
+            # 空の器。**破線の輪郭だけ**。網掛けも塗りも段も入れない
             s.append(rect(x, y, bw, bh, "none", J.LINE_DIM, 4, rx=6, dash="20 14"))
-            for by, hh in slots:
-                s.append(rect(x + bw * 0.12, by, bw * 0.76, hh, "none", J.LINE_DIM,
-                              2, dash="12 10"))
+            s.append(rect(x + bw * 0.12, iy, bw * 0.76, ih, "none", J.LINE_DIM,
+                          2, rx=6, dash="12 10"))
             s.append(_cross_mark(cx, y + mr + 16, mr, c))
         s.append(txtfit(cx, shelf + 50, it["t"], slot * 0.96, cap=40,
                         col=it.get("c", c), anchor="middle"))
@@ -2896,7 +2916,13 @@ def people(nodes, edges=None, note="", lead="", src=""):
                             cap=DS_CAP, floor=18)) if n.get("d") else 0
         tw = max(fm.width(str(n["t"]), ts, "Noto"),
                  fm.width(str(n.get("d", "")), ds, "Noto") if ds else 0)
-        cw_ = (gs + 26 if gs else 0) + tw
+        # 🔴 2026-09-14（7本目 ⑤c-2 §D-1）**絵記号が箱の外へ出ていた**（`c813` で 45px）。
+        #    真因＝`fm.fit` は `floor=20` で下げ止まるので、**入りきらない長い名前**
+        #    （「NIST（米国立標準技術研究所）」）では `tw > tw_max` になる。
+        #    すると 絵＋字 の組が箱より広くなり、中央に置いた時点で絵が左へはみ出す。
+        #    → 組の幅を**箱の内寸で頭打ちにする**。⚠️ 字は右へ出るかもしれないが、
+        #      絵（＝箱の持ち物）が外に立つほうが「どの箱の絵か」を壊す。
+        cw_ = min(bw - 52, (gs + 26 if gs else 0) + tw)
         sx = x - cw_ / 2
         if gs:
             s.append(_glyph(n["kind"], sx + gs / 2, y, gs, c))

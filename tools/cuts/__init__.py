@@ -124,14 +124,24 @@ BACKDROP = {
     "c802": dict(photo="ep7/wtc_base.jpg", bias=0.46, xbias=0.50, zoom=1.08),
     # 刃物の線の図の地に、当時の保安検査場
     "c113": dict(photo="ep7/security_pre.jpg", bias=0.44, xbias=0.50, zoom=1.12),
-    # 検査の担い手の図の地に、いまの検査場
-    "c902": dict(photo="ep7/security_now.jpg", bias=0.48, xbias=0.50, zoom=1.06),
+    # 検査の担い手の図の地に、X線の画面を見る検査員
+    # 🔴 2026-09-14（⑤c'）c901 と同じ `security_now.jpg`（3人の広報写真）を敷いていた。
+    #    「やる人が入れ替わった」の地なので、**検査をしている人の手元**にする
+    "c902": dict(photo="ep7/security_screen.jpg", bias=0.46, xbias=0.42, zoom=1.06),
     # 管制の仕事ぶりを評価した図の地に、管制の卓
     "c519": dict(photo="ep7/artcc_screen2.jpg", bias=0.46, xbias=0.50, zoom=1.06),
     # 4機の行き先の図の地に、旅客機そのもの（c403 と同じ写真・別の寄り）
     "pr02": dict(photo="ep7/airliner_cruise.jpg", bias=0.40, xbias=0.62, zoom=1.14),
     # 残っていた記録の図の地に、その録音機そのもの（c803 と同じ写真・別の寄り）
-    "c804": dict(photo="ep7/atc_tape.jpg", bias=0.58, xbias=0.40, zoom=1.16),
+    # 🔴🔴 2026-09-14（⑤c'）**暗幕を 0.76 → 0.88 に上げた。**
+    #    `check_slide` G-16（焼けた絵と SPEC の突き合わせ）がこのカットだけで鳴っていた
+    #    ＝本体枠の p90 が **145**（地に写真を敷く他の6カットは 58〜75）。
+    #    ＝ [[feedback-settings-may-not-reach-the-picture]]：既定の濃さがこの写真には足りない。
+    #    絵の側の粗も同じ原因＝**録音機の「MEMOREX」と数字（0 26 53）が図の答えと重なる**
+    #    （⑤c-2 §D-7 で再開した5件のうちの1件）。
+    #    ⚠️ 門番が「絵を見て」鳴った唯一の欄。焼き直したあと p90 が 100 未満になるか確かめる。
+    "c804": dict(photo="ep7/atc_tape.jpg", bias=0.58, xbias=0.40, zoom=1.16,
+                 veil=0.88),
     # 首都までの距離の図の地に、墜落した野原そのもの（c622 と同じ写真・別の寄り）
     "c623": dict(photo="ep7/shanksville_day.jpg", bias=0.40, xbias=0.60, zoom=1.14),
 }

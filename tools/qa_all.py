@@ -73,6 +73,15 @@ GATES = [
     #    カットの側から数える門番を先に通す（[[feedback-gates-blind-to-the-new-material]]）。
     ("slots", ["tools/check_footage_slots.py"], "実写の欄がカットと1対1で埋まっているか"),
     ("footage", ["tools/footage.py", "fetch", "--check"], "until＝ショットの終わり"),
+    # 🔴🔴 2026-09-14（7本目 ⑤c'・**14本目**）**副題が名乗る年と、素材の出どころを突き合わせる。**
+    #    それまでの門番13本は**カット表と台本しか見ていなかった**ので、
+    #    `grep -l CREDITS tools/check_*.py tools/qa_all.py` が **0件**だった
+    #    ＝「画面に出る主張」と「素材の実物」を比べる向きの走査が**存在しなかった**
+    #    （[[feedback-gates-blind-spot-is-the-scan-direction]]）。
+    #    7本目はそのせいで `pr10`「2001年9月11日」に2024年の 737-9 MAX、
+    #    `c309`「2001年以前」に2018年の A220 が入ったまま、**13本が1本も鳴らずに**
+    #    検品画像まで来た（12欄。⑤c `qa_out/ep7_qa_look1.md` §A-1／§A-7）。
+    ("credits", ["tools/check_credits.py"], "副題が名乗る年と出どころの表（ref/CREDITS.md）"),
 ]
 
 

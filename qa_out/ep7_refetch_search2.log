@@ -1,0 +1,8 @@
+■ 5欄を探し直します（2周目・幅>=1920・bitdepth>=8・PD/CC BY）
+  apron_day            候補    1点 → 通った   0点（時点が合う   0点）  落ちた 小1 2値0 権利0
+  security_now         候補  389点 → 通った 118点（時点が合う 117点）  落ちた 小161 2値0 権利110
+  shanksville_day      候補  410点 → 通った 230点（時点が合う   0点）  落ちた 小61 2値8 権利111
+  pentagon_court_pre   候補    1点 → 通った   1点（時点が合う   0点）  落ちた 小0 2値0 権利0
+  cabin_phone          候補    0点 → 通った   0点（時点が合う   0点）  落ちた 小0 2値0 権利0
+
+帳 → C:\Users\konar\Desktop\zukai-engine\analytics\materials\ep7\refetch_cand.json

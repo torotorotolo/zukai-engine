@@ -445,7 +445,7 @@ EP7_PHOTO = {
     "ep7/lobby_pre.jpg": "出典：ウィキメディア・コモンズ／撮影 Euthman Ed Uthman／CC BY 3.0",
     "ep7/security_pre.jpg": "出典：ウィキメディア・コモンズ／撮影 Orange County Archives／CC BY 2.0",
     "ep7/gate_pre.jpg": "出典：Infrastorian／パブリックドメイン",
-    "ep7/fids_pre.jpg": "出典：ウィキメディア・コモンズ／撮影 Richard Allaway／CC BY 2.0",
+    "ep7/fids_pre.jpg": "出典：Redolta／パブリックドメイン",
     "ep7/logan.jpg": "出典：Michael Philip Manheim／パブリックドメイン",
     "ep7/logan_apron.jpg": "出典：Balthazar Korab／パブリックドメイン",
     "ep7/logan_takeoff.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
@@ -456,17 +456,18 @@ EP7_PHOTO = {
     "ep7/b767.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
     "ep7/b757.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
     "ep7/b767_cruise.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
-    "ep7/b767_takeoff.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
+    "ep7/b767_takeoff.jpg": "出典：ウィキメディア・コモンズ／撮影 Valentin Hintikka from Finland／CC BY 2.0",
     "ep7/b757_takeoff.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
     "ep7/airliner_cruise.jpg": "出典：Downtowngal／パブリックドメイン",
     "ep7/refuel.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
     "ep7/cabin_pre.jpg": "出典：Suhyeon Choi choisyeon／パブリックドメイン",
     "ep7/cockpit_door_pre.jpg": "出典：ウィキメディア・コモンズ／撮影 User:Mattes／CC BY 2.0 de",
     "ep7/cabin_phone.jpg": "出典：ウィキメディア・コモンズ／撮影 Delta News Hub／CC BY 2.0",
+    "ep7/cabin_767.jpg": "出典：ウィキメディア・コモンズ／撮影 Vincent Desjardins／CC BY 2.0",
     "ep7/cockpit_pre.jpg": "出典：ウィキメディア・コモンズ／撮影 Funforme3／CC BY 4.0",
     "ep7/window_cruise.jpg": "出典：ウィキメディア・コモンズ／撮影 Sergey A. Demidov／CC BY 4.0",
     "ep7/window_sky.jpg": "出典：ウィキメディア・コモンズ／撮影 Sergey A. Demidov／CC BY 4.0",
-    "ep7/artcc_screen_pre.jpg": "出典：U.S. Air Force AFCENT by Airman 1st Class Derrick Bole／パブリックドメイン",
+    "ep7/artcc_screen_pre.jpg": "出典：Work of the United States Federal Government under the terms／パブリックドメイン",
     "ep7/radar_scope_pre.jpg": "出典：Tekniska museet／パブリックドメイン",
     "ep7/controller_pre.jpg": "出典：Department of Defense. American Forces Information Service. ／パブリックドメイン",
     "ep7/artcc_screen2.jpg": "出典：U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez／パブリックドメイン",
@@ -474,19 +475,20 @@ EP7_PHOTO = {
     "ep7/artcc_seat.jpg": "出典：U.S. Space Force photo by Tech. Sgt. James Hodgman／パブリックドメイン",
     "ep7/pentagon_ext_pre.jpg": "出典：DoD photo by Master Sgt. Ken Hammond, U.S. Air Force／パブリックドメイン",
     "ep7/pentagon_aerial_pre.jpg": "出典：Department of Defense. American Forces Information Service. ／パブリックドメイン",
-    "ep7/pentagon_court_pre.jpg": "出典：Chairman of the Joint Chiefs of Staff from Washington D.C, U／パブリックドメイン",
+    "ep7/pentagon_court_pre.jpg": "出典：Pfc. Jose Rolando Garcia／パブリックドメイン",
     "ep7/pentagon_west_day.jpg": "出典：CPL JASON INGERSOLL, USMC／パブリックドメイン",
     "ep7/f15_alert.jpg": "出典：U.S. Air Force photo by Airman 1st Class Melany Bermudez／パブリックドメイン",
+    "ep7/f15_alert2.jpg": "出典：First photo is by Tech. Sgt. Michael Charles ; second photo ／パブリックドメイン",
     "ep7/f15_takeoff.jpg": "出典：U.S. Air Force photo by Airman 1st Class Alexandria Byrd／パブリックドメイン",
-    "ep7/f16_alert.jpg": "出典：U.S. Air Force photo by Tech. Sgt. Alexander Cook／パブリックドメイン",
-    "ep7/f16_takeoff.jpg": "出典：U.S. Air Force photo by Tech. Sgt. Alexander Cook／パブリックドメイン",
+    "ep7/f16_alert.jpg": "出典：U.S. Air Force USAFE by Capt. Jose Davis／パブリックドメイン",
+    "ep7/f16_takeoff.jpg": "出典：U.S. Air National Guard photo by Master Sgt. Caila Arahood／パブリックドメイン",
     "ep7/base_rwy.jpg": "出典：Unknown author／パブリックドメイン",
-    "ep7/fighter_dc.jpg": "出典：U.S. Navy photo／パブリックドメイン",
+    "ep7/fighter_dc.jpg": "出典：U.S. Air Force photo by Master Sgt. Don Taggart／パブリックドメイン",
     "ep7/andrews.jpg": "出典：U.S. Air Force photo by Tech. Sgt. Timothy Moore／パブリックドメイン",
     "ep7/wtc_smoke_day.jpg": "出典：Mike Goad／パブリックドメイン",
     "ep7/fire_trucks_day.jpg": "出典：Anonymous. Courtesy of the Prints and Photographs Division. ／パブリックドメイン",
-    "ep7/shanksville_day.jpg": "出典：Staff Sgt. Larry A. Simmons, U.S. Air Force／パブリックドメイン",
-    "ep7/apron_day.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
+    "ep7/shanksville_day.jpg": "出典：ウィキメディア・コモンズ／撮影 Ron Shawley／CC BY 3.0",
+    "ep7/apron_day.jpg": "出典：ウィキメディア・コモンズ／撮影 airbus777 from Washington, DC, USA／CC BY 2.0",
     "ep7/apron_lined_day.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
     "ep7/stopped_day.jpg": "出典：ウィキメディア・コモンズ／撮影 4300streetcar／CC BY 4.0",
     "ep7/stranded_day.jpg": "出典：ウィキメディア・コモンズ／撮影 Nelo Hotsuma／CC BY 2.0",
@@ -494,8 +496,9 @@ EP7_PHOTO = {
     "ep7/library_reports.jpg": "出典：ウィキメディア・コモンズ／撮影 Bjankuloski06／CC BY 4.0",
     "ep7/recorder.jpg": "出典：National Transportation Safety Board／パブリックドメイン",
     "ep7/atc_tape.jpg": "出典：ウィキメディア・コモンズ／撮影 Robert Taylor from Stirling, ON, Canada／CC BY 2.0",
-    "ep7/logbook.jpg": "出典：Leksey／パブリックドメイン",
-    "ep7/security_now.jpg": "出典：DHSgov／パブリックドメイン",
+    "ep7/logbook.jpg": "出典：The History Wizard of Cambridge／パブリックドメイン",
+    "ep7/security_now.jpg": "出典：Rakoon／パブリックドメイン",
+    "ep7/security_screen.jpg": "出典：AMISOM Public Information／パブリックドメイン",
     "ep7/artcc_now.jpg": "出典：U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez／パブリックドメイン",
     "ep7/lobby_now.jpg": "出典：Mr. Satterly／パブリックドメイン",
     "ep7/clear_sky.jpg": "出典：ウィキメディア・コモンズ／撮影 Sergey A. Demidov／CC BY 4.0",
@@ -775,7 +778,20 @@ def full_top(cid, spec):
         g.append(J.outlined(J.RIGHT, PANEL_CRED_Y, credit_of(cid, spec),
                             J.LINE, 24, anchor="end", sw=5))
     else:
-        g.append(J.outlined(J.MG, CRED_Y, credit_of(cid, spec), J.LINE, 24, sw=5))
+        # 🔴 2026-09-14（7本目 ⑤c-2 §E-5）**出典が明るい写真に沈んでいた。**
+        #    `c214` の出典の帯 (72,838)-(900,880) は下地の中央値 **90.7**
+        #    （同じ位置の c114 39.0／c809 46.0 の2倍以上）で、字との差は 114.7
+        #    ＝ c809 の 176.7 より 35% 小さい。実際に白いビルの外壁に重なっていた。
+        #    ⚠️ 寄せ（bias）で逃がすのは採らなかった＝**手元で測った下地（150）と
+        #      焼けた絵の実測（90.7）が合わず**、寄せの当たりが信用できない
+        #      （[[feedback-local-render-path-differs-from-the-baked-one]]）。
+        #      しかも c214 は「110階の高さ」を見せる欄で、下へ寄せると主題が消える。
+        #    → **出典の下に暗い地を敷く**。全画面の写真カット共通なので、
+        #      明るい写真の欄すべてに効く（当てずっぽうの寄せ直しより副作用が小さい）。
+        _cr = credit_of(cid, spec)
+        _cw = fm.width(_cr, 24, "Noto")
+        g.append(J.tone(J.MG - 14, CRED_Y - 30, _cw + 28, 42, J.BG, op=0.55))
+        g.append(J.outlined(J.MG, CRED_Y, _cr, J.LINE, 24, sw=5))
     return "".join(g)
 
 
