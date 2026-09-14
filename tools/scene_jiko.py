@@ -80,16 +80,21 @@ CSS = ""
 #    ⚠️ 文字列は `narration.py` の `# ── 第N章　…` と**1字も違わない**こと。
 #      突き合わせているのは `check_final.py --chapters`（`qa_all` の2本目）で、
 #      見出しは `（` か `─` の手前までを採る＝第3章は「「some planes」」までが章名。
+# 🔴🔴 **題材ごとに書き換える定数。**前作のまま残ると、画面の隅に前の回の章名が出たまま
+#    216カットが焼ける（→ [[feedback-per-episode-constants-go-stale]]）。
+#    門番＝`check_final.py --chapters`（`qa_all` の2本目）が台本の見出しと突き合わせる。
+#    正本＝Vault `事故検証-コロンビア号-台本第2版-20260914.md` §4 の章見出し。
+#    2026-09-14（8本目 ⑤b-1）7本目（9.11）の9件から差し替えた。
 CHAPTERS = {
-    "c1": (1, "その朝、4つの便が飛び立った"),
-    "c2": (2, "1機目が消える"),
-    "c3": (3, "「some planes」"),
-    "c4": (4, "首都へ向かう機影"),
-    "c5": (5, "空を閉じる"),
-    "c6": (6, "最後の1機"),
-    "c7": (7, "届かなかった命令"),
-    "c8": (8, "記録はどう残ったか"),
-    "c9": (9, "空はどう変わったか"),
+    "c1": (1, "いちばん古い船"),
+    "c2": (2, "打ち上げ81.7秒"),
+    "c3": (3, "翌日、フィルムに写っていたもの"),
+    "c4": (4, "軌道の上の16日間"),
+    "c5": (5, "三度の「撮ってください」"),
+    "c6": (6, "助ける道はあったのか"),
+    "c7": (7, "2月1日、8時44分"),
+    "c8": (8, "テキサスに降ってきたもの"),
+    "c9": (9, "委員会が書いたこと"),
 }
 NCH = 9
 
@@ -505,6 +510,123 @@ EP7_PHOTO = {
 }
 
 
+# ══════════════════════════════════════════════════════════
+#  8本目（コロンビア号）── `ref/ep8/`
+# ══════════════════════════════════════════════════════════
+# 名前の付け方（`tools/cuts/ss.py`）:
+#   ep8/<欄>.jpg      … NASA 画像庫と archive.org の NASA 束の写真。**74点とも PD**
+#   ep8/fb_<cid>.jpg  … 動く映像の**ひかえの静止画**。動画のコマが取れたら動画が勝つ
+#
+# 🔴 この表は `python qa_out/ep8_assets.py credits` が作った行をそのまま貼っている。
+#    手で書き換えない（`PICK` を直して作り直す）。
+# 🔴 **撮影日は `date_created` から採っていない。**archive.org 側は年しか持たず、
+#    そのまま書くと「2002年1月1日」「2003年」と**撮影日を偽る**（`crew_portrait` は
+#    実際には 2002年7月25日、`oex_recorder` は **1988年**）。説明文の
+#    「(25 July 2002)」から採り、採れないものは**年だけを名乗る**（日を作らない）。
+#    → [[feedback-fallback-stills-must-match-the-era]]
+# ⚠️ ここに当たらない名前は None を返し、最後の PHOTO_CREDIT で KeyError にして気づかせる。
+EP8_FB = re.compile(r"^ep8/fb_([a-z]{1,2}\d{2,3}(?:-\d)?)\.jpg$")
+
+EP8_PHOTO = {
+    "ep8/pad_rss.jpg": "出典：NASA KSC（2003年1月15日）／パブリックドメイン",
+    "ep8/pad_stack.jpg": "出典：NASA KSC（2003年1月15日）／パブリックドメイン",
+    "ep8/et_orange.jpg": "出典：NASA KSC（2003年1月15日）／パブリックドメイン",
+    "ep8/et_surface.jpg": "出典：NASA KSC（2003年1月15日）／パブリックドメイン",
+    "ep8/et_top.jpg": "出典：NASA KSC（2003年1月15日）／パブリックドメイン",
+    "ep8/launch_wide.jpg": "出典：NASA KSC（2003年1月16日）／パブリックドメイン",
+    "ep8/launch_flames.jpg": "出典：NASA KSC（2003年1月16日）／パブリックドメイン",
+    "ep8/launch_sky.jpg": "出典：NASA MSFC（2003年1月16日）／パブリックドメイン",
+    "ep8/strike_wide.jpg": "出典：NASA KSC（2003年1月16日）／パブリックドメイン",
+    "ep8/strike_near.jpg": "出典：NASA KSC（2003年1月16日）／パブリックドメイン",
+    "ep8/crew_portrait.jpg": "出典：NASA（2002年7月25日）／パブリックドメイン",
+    "ep8/crew_arrival.jpg": "出典：NASA KSC（2003年1月12日）／パブリックドメイン",
+    "ep8/crew_astrovan.jpg": "出典：NASA KSC（2003年1月16日）／パブリックドメイン",
+    "ep8/suit_chawla.jpg": "出典：NASA KSC（2003年1月16日）／パブリックドメイン",
+    "ep8/suit_clark.jpg": "出典：NASA KSC（2003年1月16日）／パブリックドメイン",
+    "ep8/orb_chawla.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_husband.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_husband_seat.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_clark_arms.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_chawla_hab.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_mccool.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_chawla_clark.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_clark_husband.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_clark_window.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_brown.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_mccool_afd.jpg": "出典：NASA JSC（2003年1月18日）／パブリックドメイン",
+    "ep8/orb_ramon.jpg": "出典：NASA JSC（2003年1月18日）／パブリックドメイン",
+    "ep8/orb_anderson.jpg": "出典：NASA JSC（2003年1月18日）／パブリックドメイン",
+    "ep8/orb_crew7.jpg": "出典：NASA（2003年）／パブリックドメイン",
+    "ep8/orb_anderson_read.jpg": "出典：NASA（2003年）／パブリックドメイン",
+    "ep8/orb_earth.jpg": "出典：NASA MSFC（2003年1月22日）／パブリックドメイン",
+    "ep8/columbia_orbit.jpg": "出典：NASA（2003年1月28日）／パブリックドメイン",
+    "ep8/mcc_launch.jpg": "出典：NASA（2003年1月16日）／パブリックドメイン",
+    "ep8/mcc_feb1.jpg": "出典：NASA（2003年2月1日）／パブリックドメイン",
+    "ep8/fd_cain.jpg": "出典：NASA（2003年1月16日）／パブリックドメイン",
+    "ep8/capcom.jpg": "出典：NASA（2003年1月16日）／パブリックドメイン",
+    "ep8/fd_engelauf.jpg": "出典：NASA（2003年1月16日）／パブリックドメイン",
+    "ep8/search_line.jpg": "出典：NASA（2003年4月11日）／パブリックドメイン",
+    "ep8/search_brief.jpg": "出典：NASA（2003年4月）／パブリックドメイン",
+    "ep8/search_forest.jpg": "出典：NASA（2003年4月11日）／パブリックドメイン",
+    "ep8/search_queue.jpg": "出典：NASA（2003年3月）／パブリックドメイン",
+    "ep8/search_map.jpg": "出典：NASA（2003年4月）／パブリックドメイン",
+    "ep8/search_howell.jpg": "出典：NASA（2003年3月）／パブリックドメイン",
+    "ep8/evidence_corsicana.jpg": "出典：NASA（2003年4月）／パブリックドメイン",
+    "ep8/engine_dig.jpg": "出典：NASA（2003年4月3日）／パブリックドメイン",
+    "ep8/engine_found.jpg": "出典：NASA（2003年4月3日）／パブリックドメイン",
+    "ep8/barksdale.jpg": "出典：NASA（2003年2月8日）／パブリックドメイン",
+    "ep8/hangar_floor.jpg": "出典：NASA KSC（2003年4月14日）／パブリックドメイン",
+    "ep8/hangar_grid.jpg": "出典：NASA KSC（2003年3月27日）／パブリックドメイン",
+    "ep8/hangar_caib.jpg": "出典：NASA KSC（2003年2月13日）／パブリックドメイン",
+    "ep8/hangar_exam.jpg": "出典：NASA KSC（2003年2月14日）／パブリックドメイン",
+    "ep8/le_fixture.jpg": "出典：NASA KSC（2003年4月17日）／パブリックドメイン",
+    "ep8/le_fixture2.jpg": "出典：NASA KSC（2003年4月17日）／パブリックドメイン",
+    "ep8/debris_truck.jpg": "出典：NASA KSC（2003年5月6日）／パブリックドメイン",
+    "ep8/test_panel.jpg": "出典：NASA（2003年6月6日）／パブリックドメイン",
+    "ep8/test_panel2.jpg": "出典：NASA（2003年6月6日）／パブリックドメイン",
+    "ep8/test_hole.jpg": "出典：NASA（2003年6月6日）／パブリックドメイン",
+    "ep8/caib_hearing.jpg": "出典：NASA KSC（2003年3月25日）／パブリックドメイン",
+    "ep8/caib_gehman.jpg": "出典：NASA KSC（2003年3月25日）／パブリックドメイン",
+    "ep8/report_copy.jpg": "出典：NASA（2003年8月26日）／パブリックドメイン",
+    "ep8/report_copy2.jpg": "出典：NASA（2003年8月26日）／パブリックドメイン",
+    "ep8/report_gehman.jpg": "出典：NASA（2003年8月26日）／パブリックドメイン",
+    "ep8/report_mail.jpg": "出典：NASA KSC（2003年11月6日）／パブリックドメイン",
+    "ep8/ham_caib.jpg": "出典：NASA（2003年2月7日）／パブリックドメイン",
+    "ep8/dittemore.jpg": "出典：NASA（2003年4月23日）／パブリックドメイン",
+    "ep8/oex_recorder.jpg": "出典：NASA（1988年）／パブリックドメイン",
+    "ep8/slf_landing.jpg": "出典：NASA（2002年3月12日）／パブリックドメイン",
+    "ep8/slf_approach.jpg": "出典：NASA（2002年3月12日）／パブリックドメイン",
+    "ep8/columbia_middeck.jpg": "出典：NASA（2002年3月11日）／パブリックドメイン",
+    "ep8/cargo_tool.jpg": "出典：NASA（2002年3月5日）／パブリックドメイン",
+    "ep8/atlantis_nose.jpg": "出典：NASA KSC（2003年2月12日）／パブリックドメイン",
+    "ep8/atlantis_stack.jpg": "出典：NASA KSC（2003年2月13日）／パブリックドメイン",
+    "ep8/recovery_team.jpg": "出典：NASA KSC（2003年2月5日）／パブリックドメイン",
+    "ep8/news_center.jpg": "出典：NASA KSC（2003年2月1日）／パブリックドメイン",
+}
+
+
+def ep8_credit(name):
+    """`ref/ep8/` の名前から出典表記を作る。当てはまらなければ None。"""
+    m = EP8_FB.match(name)
+    if m:
+        cid = m.group(1)
+        try:
+            import footage as FO
+            c = FO.credit_of(cid)
+        except Exception:                                # noqa: BLE001
+            c = None
+        if c:
+            return c + "（静止画）"
+        # 🔴 **黙って通さない。**ひかえの静止画は動画の出典を借りているので、
+        #    `footage.USE` に欄が無ければ出せる出典が無い＝出所を偽ることになる。
+        raise RuntimeError(
+            f"{cid}: 動く映像のカットだが `footage.USE` に欄が無い。"
+            f"⑤b で `ref/ep8/shots.json` からショットの境目を写して足すこと")
+    if name.startswith("ep8/"):
+        return EP8_PHOTO.get(name)
+    return None
+
+
 def ep7_credit(name):
     """`ref/ep7/` の名前から出典表記を作る。当てはまらなければ None。"""
     m = EP7_FB.match(name)
@@ -542,7 +664,8 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep7_credit(spec["photo"]) or keybridge_credit(spec["photo"])
+    cr = (ep8_credit(spec["photo"]) or ep7_credit(spec["photo"])
+          or keybridge_credit(spec["photo"])
           or sl1_credit(spec["photo"])
           or surfside_credit(spec["photo"])
           or thresher_credit(spec["photo"]) or kaisetsu_credit(spec["photo"])

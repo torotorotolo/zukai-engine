@@ -1,0 +1,158 @@
+# tools/scene_jiko.py の EP8_PHOTO に貼る（手で書き換えない）
+
+EP8_PHOTO = {
+    "ep8/pad_rss.jpg": "出典：NASA KSC（2003年1月15日）／パブリックドメイン",
+    "ep8/pad_stack.jpg": "出典：NASA KSC（2003年1月15日）／パブリックドメイン",
+    "ep8/et_orange.jpg": "出典：NASA KSC（2003年1月15日）／パブリックドメイン",
+    "ep8/et_surface.jpg": "出典：NASA KSC（2003年1月15日）／パブリックドメイン",
+    "ep8/et_top.jpg": "出典：NASA KSC（2003年1月15日）／パブリックドメイン",
+    "ep8/launch_wide.jpg": "出典：NASA KSC（2003年1月16日）／パブリックドメイン",
+    "ep8/launch_flames.jpg": "出典：NASA KSC（2003年1月16日）／パブリックドメイン",
+    "ep8/launch_sky.jpg": "出典：NASA MSFC（2003年1月16日）／パブリックドメイン",
+    "ep8/strike_wide.jpg": "出典：NASA KSC（2003年1月16日）／パブリックドメイン",
+    "ep8/strike_near.jpg": "出典：NASA KSC（2003年1月16日）／パブリックドメイン",
+    "ep8/crew_portrait.jpg": "出典：NASA（2002年7月25日）／パブリックドメイン",
+    "ep8/crew_arrival.jpg": "出典：NASA KSC（2003年1月12日）／パブリックドメイン",
+    "ep8/crew_astrovan.jpg": "出典：NASA KSC（2003年1月16日）／パブリックドメイン",
+    "ep8/suit_chawla.jpg": "出典：NASA KSC（2003年1月16日）／パブリックドメイン",
+    "ep8/suit_clark.jpg": "出典：NASA KSC（2003年1月16日）／パブリックドメイン",
+    "ep8/orb_chawla.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_husband.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_husband_seat.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_clark_arms.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_chawla_hab.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_mccool.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_chawla_clark.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_clark_husband.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_clark_window.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_brown.jpg": "出典：NASA JSC（2003年1月17日）／パブリックドメイン",
+    "ep8/orb_mccool_afd.jpg": "出典：NASA JSC（2003年1月18日）／パブリックドメイン",
+    "ep8/orb_ramon.jpg": "出典：NASA JSC（2003年1月18日）／パブリックドメイン",
+    "ep8/orb_anderson.jpg": "出典：NASA JSC（2003年1月18日）／パブリックドメイン",
+    "ep8/orb_crew7.jpg": "出典：NASA（2003年）／パブリックドメイン",
+    "ep8/orb_anderson_read.jpg": "出典：NASA（2003年）／パブリックドメイン",
+    "ep8/orb_earth.jpg": "出典：NASA MSFC（2003年1月22日）／パブリックドメイン",
+    "ep8/columbia_orbit.jpg": "出典：NASA（2003年1月28日）／パブリックドメイン",
+    "ep8/mcc_launch.jpg": "出典：NASA（2003年1月16日）／パブリックドメイン",
+    "ep8/mcc_feb1.jpg": "出典：NASA（2003年2月1日）／パブリックドメイン",
+    "ep8/fd_cain.jpg": "出典：NASA（2003年1月16日）／パブリックドメイン",
+    "ep8/capcom.jpg": "出典：NASA（2003年1月16日）／パブリックドメイン",
+    "ep8/fd_engelauf.jpg": "出典：NASA（2003年1月16日）／パブリックドメイン",
+    "ep8/search_line.jpg": "出典：NASA（2003年4月11日）／パブリックドメイン",
+    "ep8/search_brief.jpg": "出典：NASA（2003年4月）／パブリックドメイン",
+    "ep8/search_forest.jpg": "出典：NASA（2003年4月11日）／パブリックドメイン",
+    "ep8/search_queue.jpg": "出典：NASA（2003年3月）／パブリックドメイン",
+    "ep8/search_map.jpg": "出典：NASA（2003年4月）／パブリックドメイン",
+    "ep8/search_howell.jpg": "出典：NASA（2003年3月）／パブリックドメイン",
+    "ep8/evidence_corsicana.jpg": "出典：NASA（2003年4月）／パブリックドメイン",
+    "ep8/engine_dig.jpg": "出典：NASA（2003年4月3日）／パブリックドメイン",
+    "ep8/engine_found.jpg": "出典：NASA（2003年4月3日）／パブリックドメイン",
+    "ep8/barksdale.jpg": "出典：NASA（2003年2月8日）／パブリックドメイン",
+    "ep8/hangar_floor.jpg": "出典：NASA KSC（2003年4月14日）／パブリックドメイン",
+    "ep8/hangar_grid.jpg": "出典：NASA KSC（2003年3月27日）／パブリックドメイン",
+    "ep8/hangar_caib.jpg": "出典：NASA KSC（2003年2月13日）／パブリックドメイン",
+    "ep8/hangar_exam.jpg": "出典：NASA KSC（2003年2月14日）／パブリックドメイン",
+    "ep8/le_fixture.jpg": "出典：NASA KSC（2003年4月17日）／パブリックドメイン",
+    "ep8/le_fixture2.jpg": "出典：NASA KSC（2003年4月17日）／パブリックドメイン",
+    "ep8/debris_truck.jpg": "出典：NASA KSC（2003年5月6日）／パブリックドメイン",
+    "ep8/test_panel.jpg": "出典：NASA（2003年6月6日）／パブリックドメイン",
+    "ep8/test_panel2.jpg": "出典：NASA（2003年6月6日）／パブリックドメイン",
+    "ep8/test_hole.jpg": "出典：NASA（2003年6月6日）／パブリックドメイン",
+    "ep8/caib_hearing.jpg": "出典：NASA KSC（2003年3月25日）／パブリックドメイン",
+    "ep8/caib_gehman.jpg": "出典：NASA KSC（2003年3月25日）／パブリックドメイン",
+    "ep8/report_copy.jpg": "出典：NASA（2003年8月26日）／パブリックドメイン",
+    "ep8/report_copy2.jpg": "出典：NASA（2003年8月26日）／パブリックドメイン",
+    "ep8/report_gehman.jpg": "出典：NASA（2003年8月26日）／パブリックドメイン",
+    "ep8/report_mail.jpg": "出典：NASA KSC（2003年11月6日）／パブリックドメイン",
+    "ep8/ham_caib.jpg": "出典：NASA（2003年2月7日）／パブリックドメイン",
+    "ep8/dittemore.jpg": "出典：NASA（2003年4月23日）／パブリックドメイン",
+    "ep8/oex_recorder.jpg": "出典：NASA（1988年）／パブリックドメイン",
+    "ep8/slf_landing.jpg": "出典：NASA（2002年3月12日）／パブリックドメイン",
+    "ep8/slf_approach.jpg": "出典：NASA（2002年3月12日）／パブリックドメイン",
+    "ep8/columbia_middeck.jpg": "出典：NASA（2002年3月11日）／パブリックドメイン",
+    "ep8/cargo_tool.jpg": "出典：NASA（2002年3月5日）／パブリックドメイン",
+    "ep8/atlantis_nose.jpg": "出典：NASA KSC（2003年2月12日）／パブリックドメイン",
+    "ep8/atlantis_stack.jpg": "出典：NASA KSC（2003年2月13日）／パブリックドメイン",
+    "ep8/recovery_team.jpg": "出典：NASA KSC（2003年2月5日）／パブリックドメイン",
+    "ep8/news_center.jpg": "出典：NASA KSC（2003年2月1日）／パブリックドメイン",
+}
+
+
+# ref/CREDITS.md §コロンビア号 の表
+
+| 欄 | nasa_id | 実寸 | 撮影日 | 何が写っているか |
+|---|---|---|---|---|
+| `pad_rss` | KSC-03pd0070 | 1955×3000 | 2003-01-15 | KSC-03pd0070 — KENNEDY SPACE CENTER, FLA. -- As the  Rotating Service Structure is rolled  |
+| `pad_stack` | KSC-03pd0076 | 3000×1955 | 2003-01-15 | KSC-03pd0076 — KENNEDY SPACE CENTER, FLA. --  After rollback of the Rotating Service Struc |
+| `et_orange` | KSC-03pd0071 | 3000×1955 | 2003-01-15 | KSC-03pd0071 — KENNEDY SPACE CENTER, FLA. --  Cast in late afternoon shadows, Space Shuttl |
+| `et_surface` | KSC-03pd0074 | 1955×3000 | 2003-01-15 | KSC-03pd0074 — KENNEDY SPACE CENTER, FLA. --  The late afternoon sun highlights the extern |
+| `et_top` | KSC-03pd0075 | 1955×3000 | 2003-01-15 | KSC-03pd0075 — KENNEDY SPACE CENTER, FLA. -- After rollback of the Rotating Service Struct |
+| `launch_wide` | KSC-03pd0134 | 3008×1960 | 2003-01-16 | KSC-03pd0134 — KENNEDY SPACE CENTER, FLA. -- Space Shuttle Columbia seems to leap from ami |
+| `launch_flames` | KSC-03pd0135 | 1968×3000 | 2003-01-16 | KSC-03pd0135 — KENNEDY SPACE CENTER, FLA. --  Spewing flames and billowing clouds of smoke |
+| `launch_sky` | 0300307 | 3000×2222 | 2003-01-16 | Space Shuttle Projects ｜A clear blue sky hosts the Space Shuttle Orbiter Columbia STS-107  |
+| `strike_wide` | KSC-03pd0242 | 2254×2646 | 2003-01-16 | KSC-03pd0242 — KENNEDY SPACE CENTER, FLA. - At approximately 80-84 seconds after T-0 and l |
+| `strike_near` | KSC-03pd0243 | 3000×2458 | 2003-01-16 | KSC-03pd0243 — KENNEDY SPACE CENTER, FLA. - At approximately 81-82 seconds after T-0 and l |
+| `crew_portrait` | HSF-photo-jsc2002e30459 | 1536×1024 | 2002-01-01 | The STS-107 crewmembers pose for an informal crew portrait near a T-38 trainer jet at Elli |
+| `crew_arrival` | KSC-03pd0058 | 3000×2126 | 2003-01-12 | KSC-03pd0058 — KENNEDY SPACE CENTER, FLA. - The STS-107 crew pose for a photo after their  |
+| `crew_astrovan` | KSC-03pd0110 | 3008×2000 | 2003-01-16 | KSC-03pd0110 — KENNEDY SPACE CENTER, FLA. -- The STS-107 crew heads for the Astrovan and a |
+| `suit_chawla` | KSC-03pp0144 | 3000×2349 | 2003-01-16 | KSC-03pp0144 — KENNEDY SPACE CENTER, FLA. --  STS-107 Mission Specialist Kalpana Chawla ge |
+| `suit_clark` | KSC-03pp0145 | 3000×2151 | 2003-01-16 | KSC-03pp0145 — KENNEDY SPACE CENTER, FLA. - STS-107 Mission Specialist Laurel Clark waves  |
+| `orb_chawla` | S107E05001 | 3032×2064 | 2003-01-17 | Astronaut Kalpana Chawla, STS-107 mission specialist, is pictured on the flight deck of th |
+| `orb_husband` | S107E05002 | 3032×2064 | 2003-01-17 | Astronaut Rick D. Husband, STS-107 mission commander, is pictured on the aft flight deck o |
+| `orb_husband_seat` | S107E05003 | 3032×2064 | 2003-01-17 | Astronaut Rick D. Husband, STS-107 mission commander, occupies the commander&#0146;s stati |
+| `orb_clark_arms` | S107E05006 | 3032×2064 | 2003-01-17 | Astronaut Laurel B. Clark, STS-107 mission specialist, works in the SPACEHAB Research Doub |
+| `orb_chawla_hab` | S107E05010 | 3032×2064 | 2003-01-17 | Astronaut Kalpana Chawla, STS-107 mission specialist, works in the SPACEHAB Research Doubl |
+| `orb_mccool` | S107E05014 | 3032×2064 | 2003-01-17 | Astronaut William C. McCool, STS-107 pilot, works with supportive gear for experiments on  |
+| `orb_chawla_clark` | S107E05018 | 3032×2064 | 2003-01-17 | Astronaut Kalpana Chawla (foreground) and Laurel B. Clark, STS-107 mission specialists, wo |
+| `orb_clark_husband` | S107E05020 | 3032×2064 | 2003-01-17 | Astronauts Laurel B. Clark and Rick D. Husband, STS-107 mission specialist and mission com |
+| `orb_clark_window` | S107E05021 | 3032×2064 | 2003-01-17 | Astronaut Laurel B. Clark, STS-107 mission specialist, uses a camera to photograph the top |
+| `orb_brown` | S107E05025 | 3032×2064 | 2003-01-18 | Astronaut David M. Brown, STS-107 mission specialist, looks over paperwork as he prepares  |
+| `orb_mccool_afd` | S107E05026 | 3032×2064 | 2003-01-18 | Astronaut William C. McCool, STS-107 pilot, is pictured on the aft flight deck of the Eart |
+| `orb_ramon` | S107E05029A | 1849×2064 | 2003-01-18 | Ilan Ramon, STS-107 payload specialist representing the Israeli Space Agency,  joined his  |
+| `orb_anderson` | S107E05033 | 3032×2064 | 2003-01-18 | Astronaut Michael P. Anderson, STS-107 payload commander, is pictured on the aft flight de |
+| `orb_crew7` | HSF-photo-sts107-735-032 | 1536×1536 | 2003-01-01 | The STS-107 crewmembers strike a ?flying? pose for their traditional in-flight crew portra |
+| `orb_anderson_read` | HSF-photo-sts107-301-025 | 1536×1024 | 2003-01-01 | Astronaut Michael P. Anderson, STS-107 payload commander, holds a procedures checklist whi |
+| `orb_earth` | 0301002 | 3000×2042 | 2003-01-22 | Space Shuttle Projects ｜This sunrise was captured from the crew cabin of the Space Shuttle |
+| `columbia_orbit` | HSF-photo-jsc2003e13222 | 1536×1536 | 2003-01-01 | This image of the Space Shuttle Columbia in orbit during mission STS-107 was taken by the  |
+| `mcc_launch` | HSF-photo-jsc2003e02609 | 1536×1024 | 2003-01-01 | An overall view of the shuttle flight control room (WFCR) in Houston?s Mission Control Cen |
+| `mcc_feb1` | HSF-photo-jsc2003e03368 | 1536×1024 | 2003-01-01 | An overall view of the shuttle flight control room (WFCR) in Houston?s Mission Control Cen |
+| `fd_cain` | HSF-photo-jsc2003e02610 | 1536×1024 | 2003-01-01 | Flight Directors LeRoy Cain (left) and Steve Stich are pictured at their consoles in the s |
+| `capcom` | HSF-photo-jsc2003e02600 | 1536×1024 | 2003-01-01 | Astronaut Duane G. Carey, spacecraft communicator (CAPCOM), is pictured at his console in  |
+| `fd_engelauf` | HSF-photo-jsc2003e02611 | 1536×1024 | 2003-01-01 | Flight Director Phil Engelauf (right); Robert E. (Bob) Castle, Deputy Chief for ISS, Fligh |
+| `search_line` | HSF-photo-jsc2003-00151 | 1536×1003 | 2003-01-01 | Volunteer searchers, representing several government and local agencies, systematically sc |
+| `search_brief` | HSF-photo-jsc2003-00119 | 1536×1002 | 2003-01-01 | Volunteers and other personnel gather for a briefing in the main staging area in Corsicana |
+| `search_forest` | HSF-photo-jsc2003-00127 | 1536×1005 | 2003-01-01 | Volunteer searchers from the Forestry Service and other government agencies gather around  |
+| `search_queue` | HSF-photo-jsc2003e29065 | 1536×1017 | 2003-01-01 | Searchers begin a queue outside the mess area during a break from search tasks in the Lufk |
+| `search_map` | HSF-photo-jsc2003e28823 | 1536×1017 | 2003-01-01 | Astronaut Sandra Magnus stops to look at a map set up by the U.S. Forestry Service while o |
+| `search_howell` | HSF-photo-jsc2003e26420 | 1536×1017 | 2003-01-01 | JSC Director General Jefferson D. Howell, Jr., (left) joins volunteer searchers during a m |
+| `evidence_corsicana` | HSF-photo-jsc2003e28846 | 1536×1017 | 2003-01-01 | View of tile debris in the Corsicana Evidence area prior to being packed up for delivery t |
+| `engine_dig` | HSF-photo-jsc2003e28147 | 1536×1024 | 2003-01-01 | A pre-dig documentation still photo of the site where one of the Space Shuttle Main Engine |
+| `engine_found` | HSF-photo-jsc2003e28148 | 1536×1024 | 2003-01-01 | One of the Space Shuttle Main Engine powerheads found on the grounds of Fort Polk, La. The |
+| `barksdale` | HSF-photo-jsc2003e14383 | 1536×1007 | 2003-01-01 | View of debris from the Space Shuttle Columbia in the hangar at Barksdale Air Force Base,  |
+| `hangar_floor` | KSC-03pd1070 | 3000×1955 | 2003-04-14 | KSC-03pd1070 — KENNEDY SPACE CENTER, FLA. - The floor of the KSC RLV Hangar is filled with |
+| `hangar_grid` | KSC-03pd0875 | 3000×1993 | 2003-03-27 | KSC-03pd0875 — KENNEDY SPACE CENTER, FLA. -  A grid on the floor of the RLV Hangar is fill |
+| `hangar_caib` | KSC-03pd0403 | 3008×1960 | 2003-02-13 | Columbia Accident Investigation Board ｜Members of the Columbia Accident Investigation Boar |
+| `hangar_exam` | KSC-03pd0407 | 3008×1960 | 2003-02-14 | Columbia Reconstruction Project Team ｜In the RLV Hangar, a Columbia Reconstruction Project |
+| `le_fixture` | KSC-03pd1157 | 1955×3000 | 2003-04-17 | KSC-03pd1157 — KENNEDY SPACE CENTER, FLA. --  In the RLV Hangar, a fixture is ready for us |
+| `le_fixture2` | KSC-03pd1156 | 3000×1955 | 2003-04-17 | KSC-03pd1156 — KENNEDY SPACE CENTER, FLA. --  In the RLV Hangar, members of the Columbia R |
+| `debris_truck` | KSC-03pd1401 | 3008×1960 | 2003-05-06 | Columbia Debris ｜The truck holding the final shipment of Columbia debris arrives at KSC. T |
+| `test_panel` | HSF-photo-jsc2003e40558 | 1536×1017 | 2003-01-01 | This photograph is of a Space Shuttle thermal protection panel made of Reinforced Carbon C |
+| `test_panel2` | HSF-photo-jsc2003e40593 | 1536×1017 | 2003-01-01 | This photograph is of a Space Shuttle thermal protection panel made of Reinforced Carbon C |
+| `test_hole` | HSF-photo-jsc2003e40715_nr | 1536×1017 | 2003-01-01 | This photograph is of a Space Shuttle thermal protection panel made of Reinforced Carbon C |
+| `caib_hearing` | KSC-03pd0831 | 3000×1993 | 2003-03-25 | KSC-03pd0831 — KENNEDY SPACE CENTER, FLA. -  The Columbia Accident Investigation Board (le |
+| `caib_gehman` | KSC-03pd0836 | 3000×1993 | 2003-03-25 | KSC-03pd0836 — KENNEDY SPACE CENTER, FLA. -  Retired Navy Admiral Harold W. "Hal" Gehman J |
+| `report_copy` | HSF-photo-jsc2003e55050 | 1536×1520 | 2003-01-01 | A copy of the just-released Columbia Accident Investigation Board (CAIB) report rests on a |
+| `report_copy2` | HSF-photo-jsc2003e55049 | 1536×1139 | 2003-01-01 | A copy of the just-released Columbia Accident Investigation Board (CAIB) report rests on a |
+| `report_gehman` | HSF-photo-jsc2003e55047 | 1536×1220 | 2003-01-01 | Chairman of the Columbia Accident Investigation Board (CAIB), retired U.S. Navy Admiral Ha |
+| `report_mail` | KSC-03pd3115 | 3008×2000 | 2003-11-06 | Columbia Accident Investigation Report ｜Bill White, in the Mail Room at KSC, stacks copies |
+| `ham_caib` | HSF-photo-jsc2003e09152 | 1024×1536 | 2003-01-01 | Linda Ham addresses the Columbia Accident Investigation Board following the loss of Columb |
+| `dittemore` | HSF-photo-jsc2003e31694 | 1536×1001 | 2003-01-01 | Ronald D. Dittemore (right), a 26-year NASA veteran, announces his intention to step aside |
+| `oex_recorder` | HSF-photo-s88-44993 | 1536×1536 | 2003-01-01 | This 1988 image is of an Orbiter Experiments (OEX) recorder similar to the recorder that f |
+| `slf_landing` | HSF-photo-sts109-s-013 | 1536×998 | 2002-01-01 | The Space Shuttle Columbia, with its crew of seven astronauts on board, touches down on Ru |
+| `slf_approach` | HSF-photo-sts109-s-016 | 1536×1013 | 2002-01-01 | The Space Shuttle Columbia, with its crew of seven astronauts on board, approaches touchdo |
+| `columbia_middeck` | HSF-photo-s109e6032 | 1536×1017 | 2002-01-01 | On the Space Shuttle Columbia?s mid deck, the crewmembers for the STS-109 mission pose for |
+| `cargo_tool` | HSF-photo-s109e5386 | 1536×1046 | 2002-01-01 | Astronaut Michael J. Massimino, mission specialist, checks a tool in the cargo bay of the  |
+| `atlantis_nose` | KSC-03pd0369 | 3000×1955 | 2003-02-12 | KSC-03pd0369 — KENNEDY SPACE CENTER, FLA. - Members of the Columbia Accident Investigation |
+| `atlantis_stack` | KSC-03pd0372 | 1955×3000 | 2003-02-13 | KSC-03pd0372 — KENNEDY SPACE CENTER, FLA. -- In the Vehicle Assembly Building, the Columbi |
+| `recovery_team` | KSC-03pd0270 | 3000×1955 | 2003-02-05 | KSC-03pd0270 — KENNEDY SPACE CENTER, FLA. --  Members of the Recovery Management Team at K |
+| `news_center` | KSC-03pd0252 | 3000×2072 | 2003-02-01 | KSC-03pd0252 — KENNEDY SPACE CENTER, FLA. - Media broadcast outside of the NASA News Cente |

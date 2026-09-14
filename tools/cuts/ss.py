@@ -1,54 +1,86 @@
 # -*- coding: utf-8 -*-
-"""7本目（2001年9月11日 米国同時多発テロ）の章ファイルが共通で使う小道具。
+"""8本目（2003年2月1日 スペースシャトル・コロンビア号 空中分解事故）の
+章ファイルが共通で使う小道具。
 
-**6本目（キー橋）の中身は git の `121d3be` にある**（`git show 121d3be:tools/cuts/ss.py`）。
+**7本目（9.11）の中身は git の `ae30d49` にある**（`git show ae30d49:tools/cuts/ss.py`）。
 
-■ 素材の名前（`ref/ep7/`。出どころは `ref/CREDITS.md` §9.11・取り出しは `qa_out/ep7_assets.py`）
-  `ep7/<欄の名>.jpg` … Commons／NARA の写真（**PD と CC BY だけ**。CC BY-SA は採らない）
-  `ep7/fb_<cid>.jpg` … RG237 の動画の**ひかえの静止画**（動画のコマが取れたら動画が勝つ）
+■ 素材の名前（`ref/ep8/`。選び方と出どころは `qa_out/ep8_assets.py` の `PICK`）
+  `ep8/<欄の名>.jpg` … NASA 画像庫（`images.nasa.gov`）と
+                       archive.org の NASA 束（`humanspaceflightcollection`）の写真。
+                       **74点とも米連邦政府の職務著作＝パブリックドメイン。**
+  `ep8/fb_<cid>.jpg` … 動く映像の**ひかえの静止画**（動画のコマが取れたら動画が勝つ）
 
-■ 🔴🔴 この回は**報告書から取り出した図が1枚も無い**（`BANDS` が空）
-  9/11委員会報告は**文章の報告書**で、画面に出すのは印字ページ番号だけ。
-  数字の図（高度・搭乗率・時刻）は **`titan_fig` の型で自分で描く**
-  （報告書の図を焼くと英字が焼き込まれて付いてくる＝
-   [[reference-report-figures-have-burned-in-english]]）。
+■ 🔴🔴 この回も**報告書から取り出した図が1枚も無い**（`BANDS` が空）
+  CAIB Vol.I の図版を実測したら **中央値 142px・最大 825px・幅1280以上は0点**
+  （`ref/ep8/materials.md` §4）。焼くと英字が付いてくるうえ、画素が足りない
+  （→ [[reference-report-figures-have-burned-in-english]]）。
+  数字の図は **`titan_fig` の型で自分で描く**。
   ⚠️ だから `page()` は呼べない。呼んだら止まる。
-  ⚠️ `check_cuts.py` の「4. 切り落とし」は**報告書の図版だけ**を見る検査なので、
-     この回は測る対象が 0件になる。**門番の側で「BANDS が空ならそう名乗る」**ように直した
-     （0件を黙って合格にしない。`check_cuts.py` の注記）。
+  ⚠️ `check_cuts.py` の「4. 切り落とし」は報告書の図版だけを見る検査なので、
+     この回も測る対象が 0件になる（門番の側が「BANDS が空」と名乗る）。
 
-■ 🔴 RG237（航跡レーダー・ARTCC 画面）は**額装パネル**
-  表示幅が **655px**（720×480 の SAR 10:11 を正方形に直した幅）しか無く、
-  1920 に伸ばすと3倍で眠くなる。`rg()` が `panel=True` ＋ `pw=PW_RG237` を付ける。
-  ⚠️ **画素が正方形でない**ので、切り出しは `footage._cut_stream` が
-     `scale=iw*sar:ih,setsar=1` で直す（2026-09-13 ⑤b で入れた）。
-     ここを外すとレーダーの円が卵になる＝[[feedback-container-labels-lie-about-the-picture]]
+■ 🔴🔴 額装に回す敷居（`PANEL_AR`）は**この回の素材から取り直した**
+  → [[feedback-per-episode-constants-go-stale]]
+
+  7本目の 1.55 をそのまま当てると、**74点が74点とも額装**になった。
+  NASA の写真は 3:2（1.50）が主で、1.55 の内側に1点も入らないため。
+
+  ⚠️ **最初、私は「切り落とし 17.4% と 31.3% の間にはっきりした切れ目がある」と書いた。
+     これは誤りだった。**上位14点と下位8点しか見ずに言っていて、74点を全部並べると
+     18.6／20.6／21.5／24.1／28.2／29.2／31.3 と**間は埋まっている**。
+     → [[feedback-dont-state-inferences-as-findings]]。台帳の切れ目で決める手
+       （[[feedback-gate-threshold-from-ledger-split]]）は、**切れ目が実在するときだけ**使える。
+
+  74点の切り落とし率の実測（小さい順）:
+      13.4〜15.6% … 39点（3:2 の横位置）
+      17.4%       … 14点（3032×2064 の機内写真）
+      18.6／20.6／21.5／24.1／24.1 … 5点
+      （+4.1 ＝ この帯でいちばん広い間）
+      28.2〜63.3% … 16点（縦位置・正方形・4:3 より縦長）
+
+  → 切れ目が無いので、**意味で決める**：**画の4分の1を超えて切るなら額装**。
+    切り落とし 25% ＝ 縦横比 **4:3（1.333）**。ちょうど上の +4.1 の間に落ちる。
+  ⚠️ 3:2 を全画面にすると上下が 15.6% 切れる。**⑤c の原寸目視で寄せを見ること**
+     （→ [[feedback-measure-the-source-before-choosing-the-crop]]）。
+  ⚠️ **`focus()` の寄せが効かない写真がある。**横が 16:9 より縦長な写真（この回の大半）は
+     横幅を使い切るので `xbias` に遊びが無く、**いくら動かしても絵は同じ**。
+     物差しだけ動いて絵が動かない罠 → [[feedback-video-qa-index]] §4。
 
 ■ 寄せ方（focus）
   `build_jiko.fit()` は「箱を覆う」切り出しで、`xbias`/`bias` は**余ったぶんの寄せ**（0〜1）。
   「画像のこの点を画面の中央に置きたい」と書けるように、点（0〜1）から逆算する。
   🔴 画像の縦横比が要るので**実物を開いて測る**（推定で置かない）。
   ⚠️ **切ったあとの寸法で測る**。切る前の寸法で逆算すると、寄せが全部ずれる。
+  ⚠️ **寄せを変えても絵が変わらないことがある**（遊びが足りないとき）。
+     → [[feedback-video-qa-index]] §4「切り出しの遊びを先に測る」
 """
 import json
 from functools import lru_cache
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parents[2]
-REF = HERE / "ref" / "ep7"
+REF = HERE / "ref" / "ep8"
 W, H = 1920, 1080
 
 # 画面の縦横比。これより縦長／横長の図は額装パネルに回す。
-# 🔴 上限と下限は対（どちらも切り落とし 12.8% が上限）。片側だけにすると粗が反対側へ移る
+# 🔴 上限と下限は対（どちらも切り落とし 21.3% が上限）。片側だけにすると粗が反対側へ移る
 #    （[[feedback-kinsoku-needs-both-ends]]）。
 SCREEN_AR = W / H
-PANEL_AR = 1.55                     # これ未満＝縦長すぎ（上下が切れる）
-WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝2.04。これ超＝横長すぎ
+# 🔴 **画の4分の1を超えて切るなら額装**（＝切り落とし 25%）。4:3 がちょうどその線。
+PANEL_AR = round(4 / 3, 4)          # ＝1.3333。これ未満＝縦長すぎ（上下が切れる）
+WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝2.37。これ超＝横長すぎ
 
-# RG237 を額装で置くときの幅。②の実測＝655×480 を 1120×648 の箱に入れると z=1.35。
-# ⚠️ ffmpeg は偶数に丸めるので切り出したコマは **654×480**。1px の差を粗と読まない。
-# ⑤c の原寸目視で甘ければ 655（等倍）に落とす（②の申し送り）。
-PW_RG237 = 983                      # ＝655 × 1.5
+# ── 額装で置くときの幅（②の実測。`ref/ep8/kousei.md` §3）─────────
+# ⚠️ **器の札ではなく、黒帯を除いた「絵の幅」**。
+#    [[feedback-container-labels-lie-about-the-picture]]
+#    `fdcomm` は器 1280 で絵は 984、`sts1` は 948。ここを 1280 と信じると
+#    1.3倍に伸ばして眠くなる。
+PW_FDCOMM = 984
+PW_STS1 = 948
+PW_MC0201 = 969                     # ＝646 × 1.5
+PW_FD16 = 921                       # ＝614 × 1.5
+PW_GUNCAM = 960                     # ＝640 × 1.5
+PW_CABIN = 945                      # ＝315 × 3.0（いちばん小さい。c411 だけ）
 
 # 🔴 この回は報告書の図版を1枚も使わない。**空であることが正しい状態**。
 BANDS = {}
@@ -57,18 +89,18 @@ BANDS = {}
 def page(pr):
     """🔴 この回は報告書の図版を焼いていないので**呼べない**（黙って別の絵を出さない）。"""
     raise KeyError(
-        f"印字 p{pr}: 7本目は報告書から取り出した図を1枚も使わない（BANDS が空）。"
-        f"数字の図は `titan_fig` の型で描く")
+        f"印字 p{pr}: 8本目は CAIB の図版を1枚も使わない（BANDS が空／"
+        f"実測で中央値142px・幅1280以上0点）。数字の図は `titan_fig` の型で描く")
 
 
 def P(name):
     """欄の名前 → `ref/` から見た写真のパス。"""
-    return f"ep7/{name}.jpg"
+    return f"ep8/{name}.jpg"
 
 
 def fb(cid):
-    """RG237 の動画を当てたカットの**ひかえの静止画**（コマが取れなかったときだけ出る）。"""
-    return f"ep7/fb_{cid}.jpg"
+    """動く映像を当てたカットの**ひかえの静止画**（コマが取れなかったときだけ出る）。"""
+    return f"ep8/fb_{cid}.jpg"
 
 
 @lru_cache(maxsize=None)
@@ -110,7 +142,7 @@ def crop_loss(name):
 def kind(name):
     """`dict(panel=True)` か `dict()` を返す。**縦横比で決める。目で決めない。**
 
-    ⚠️ 縦長すぎ（< 1.55）だけでなく**横長すぎ（> 2.04）も額装**に回す。
+    ⚠️ 縦長すぎ（< 1.40）だけでなく**横長すぎ（> 2.26）も額装**に回す。
     """
     a = aspect(name)
     return dict(panel=True) if (a < PANEL_AR or a > WIDE_AR) else dict()
@@ -132,126 +164,121 @@ def focus(name, fx, fy, zoom=1.0, box=(W, H)):
                 bias=round(min(1.0, max(0.0, yb)), 3), zoom=zoom)
 
 
-def rg(cid, **kw):
-    """RG237 の実写カット（額装パネル＋ひかえの静止画）を1行で書く。
+def vid(cid, pw, **kw):
+    """動く映像のカット（額装パネル＋ひかえの静止画）を1行で書く。
 
     ⚠️ `footage.USE` に欄が無いと `scene_jiko.credit_of` が **RuntimeError で止まる**
        （ひかえの静止画は動画の出典を借りているので、欄が無ければ出せる出典が無い）。
     """
-    return dict(photo=fb(cid), panel=True, pw=PW_RG237, **kw)
+    return dict(photo=fb(cid), panel=True, pw=pw, **kw)
 
 
 # ══════════════════════════════════════════════════════════
-#  欄の名前（`qa_out/ep7_assets.py` の SLOTS と1対1）
+#  欄の名前（`qa_out/ep8_assets.py` の PICK と1対1）
 # ══════════════════════════════════════════════════════════
-# 🔴 ここに書いた名前が `ref/ep7/<名>.jpg` と `scene_jiko.EP7_PHOTO` の鍵になる。
-#    3つが食い違うと出典が出ないか、写真が出ない。検算＝`python qa_out/ep7_assets.py count`。
-# ── 街と世界貿易センター
-MANHATTAN_PRE = P("manhattan_pre")
-COMMUTE_PRE = P("commute_pre")
-WTC_FAR = P("wtc_far")
-WTC_TWIN = P("wtc_twin")
-WTC_BASE = P("wtc_base")
-WTC_SOUTH = P("wtc_south")
-WTC_UNDER = P("wtc_under")
-# ── 空港（2001年以前）
-LOBBY_PRE = P("lobby_pre")
-SECURITY_PRE = P("security_pre")
-GATE_PRE = P("gate_pre")
-FIDS_PRE = P("fids_pre")
-LOGAN = P("logan")
-LOGAN_APRON = P("logan_apron")
-LOGAN_TAKEOFF = P("logan_takeoff")
-DULLES = P("dulles")
-DULLES_RWY = P("dulles_rwy")
-REAGAN = P("reagan")
-NEWARK_757 = P("newark_757")
-# ── 機体と機内
-B767 = P("b767")
-B757 = P("b757")
-B767_CRUISE = P("b767_cruise")
-B767_TAKEOFF = P("b767_takeoff")
-B757_TAKEOFF = P("b757_takeoff")
-AIRLINER_CRUISE = P("airliner_cruise")
-REFUEL = P("refuel")
-CABIN_PRE = P("cabin_pre")
-COCKPIT_DOOR_PRE = P("cockpit_door_pre")
-CABIN_PHONE = P("cabin_phone")
-# 🔴 2026-09-14（⑤c'）c309 用。c614 と同じ `cabin_phone.jpg` を敷いていて
-#    **画素の差 0＝まったく同じ絵**だった（`qa_out/ep7_qa_look2.md` §E-1）。
-#    ⚠️「座席にある電話」の写真は Commons に1点も無い（唯一の1点は 600×390）
-CABIN_767 = P("cabin_767")
-COCKPIT_PRE = P("cockpit_pre")
-WINDOW_CRUISE = P("window_cruise")
-WINDOW_SKY = P("window_sky")
-# ── 管制
-ARTCC_SCREEN_PRE = P("artcc_screen_pre")
-RADAR_SCOPE_PRE = P("radar_scope_pre")
-CONTROLLER_PRE = P("controller_pre")
-ARTCC_SCREEN2 = P("artcc_screen2")
-ARTCC_ALT = P("artcc_alt")
-ARTCC_SEAT = P("artcc_seat")
-BOSTON_ARTCC_EXT = P("boston_artcc_ext")
-INDY_ARTCC = P("indy_artcc")
-CLEVELAND_ARTCC = P("cleveland_artcc")
-ATCSCC = P("atcscc")
-AOC_PRE = P("aoc_pre")
-# ── ペンタゴン
-PENTAGON_EXT_PRE = P("pentagon_ext_pre")
-PENTAGON_AERIAL_PRE = P("pentagon_aerial_pre")
-PENTAGON_COURT_PRE = P("pentagon_court_pre")
-PENTAGON_WEST_DAY = P("pentagon_west_day")
-# ── 軍
-F15_ALERT = P("f15_alert")
-# 🔴 2026-09-14（⑤c'）c702 用。c123 と同じ `f15_alert.jpg` を敷いていて
-#    **画素の差 0＝まったく同じ絵**だった（`qa_out/ep7_qa_look1.md` §A-6）
-F15_ALERT2 = P("f15_alert2")
-F15_TAKEOFF = P("f15_takeoff")
-F16_ALERT = P("f16_alert")
-F16_TAKEOFF = P("f16_takeoff")
-BASE_RWY = P("base_rwy")
-FIGHTER_DC = P("fighter_dc")
-ANDREWS = P("andrews")
-# ── 当日
-WTC_SMOKE_DAY = P("wtc_smoke_day")
-FIRE_TRUCKS_DAY = P("fire_trucks_day")
-SHANKSVILLE_DAY = P("shanksville_day")
-APRON_DAY = P("apron_day")
-APRON_LINED_DAY = P("apron_lined_day")
-STOPPED_DAY = P("stopped_day")
-STRANDED_DAY = P("stranded_day")
-# ── 記録・書類
-REPORT_COVER = P("report_cover")
-REPORT_PAGE = P("report_page")
-HEARING = P("hearing")
-LIBRARY_REPORTS = P("library_reports")
-NIST_REPORT = P("nist_report")
-RECORDER = P("recorder")
-ATC_TAPE = P("atc_tape")
-LOGBOOK = P("logbook")
-# ── 「今」
-SECURITY_NOW = P("security_now")
-COCKPIT_DOOR_HARD = P("cockpit_door_hard")
-ARTCC_NOW = P("artcc_now")
-LOBBY_NOW = P("lobby_now")
-# ── 空
-CLEAR_SKY = P("clear_sky")
+# 🔴 ここに書いた名前が `ref/ep8/<名>.jpg` と `scene_jiko.EP8_PHOTO` の鍵になる。
+#    3つが食い違うと出典が出ないか、写真が出ない。
+#    検算＝`python qa_out/ep8_assets.py check` と `python tools/check_credits.py`。
+#
+# ⚠️ 末尾に年を書いた欄は**別の年・別の飛行の写真**。副題で必ずその年を名乗ること
+#    （→ [[feedback-fallback-stills-must-match-the-era]]。門番は1件も鳴らない）。
 
+# ── 射点と打ち上げ（KSC・2003年1月15〜16日）──────────────
+PAD_RSS = P("pad_rss")                  # 回転式整備構台を開いた射点（縦）
+PAD_STACK = P("pad_stack")              # 3つの部品が見える全景
+ET_ORANGE = P("et_orange")              # オレンジ色の外部タンク
+ET_SURFACE = P("et_surface")            # タンクと固体ロケットの表面（縦）
+ET_TOP = P("et_top")                    # タンクの頂部（縦）
+LAUNCH_WIDE = P("launch_wide")          # 木立の上へ
+LAUNCH_FLAMES = P("launch_flames")      # 炎と煙（縦）
+LAUNCH_SKY = P("launch_sky")            # 快晴の空へ
 
-def report():
-    """在る写真を1枚ずつ出す（縦横比と額装／全画面の判定つき）。
+# ── 衝突のコマ（NASA 公式の追跡カメラ・2003年1月16日）─────
+STRIKE_WIDE = P("strike_wide")          # 「T-0 から約80〜84秒」
+STRIKE_NEAR = P("strike_near")          # 「約81〜82秒・バイポッド付近から」
 
-        python -c "import sys;sys.path.insert(0,'tools');import cuts.ss as ss;ss.report()"
-    """
-    fs = sorted(REF.glob("*.jpg"))
-    if not fs:
-        print("🔴 ref/ep7/ に写真が1枚も無い（`python qa_out/ep7_assets.py fetch`）")
-        return
-    for f in fs:
-        n = f"ep7/{f.name}"
-        w, h = trimmed_size(n)
-        a = aspect(n)
-        print(f"  {f.stem:24} {w:>5}x{h:<5} 縦横比 {a:5.2f}  "
-              f"{'額装' if (a < PANEL_AR or a > WIDE_AR) else '全画面'}  "
-              f"切り落とし {crop_loss(n) * 100:4.1f}%  {f.stat().st_size // 1024}KB")
-    print(f"  ── 計 {len(fs)}枚")
+# ── 乗員（地上）──────────────────────────────────
+CREW_PORTRAIT = P("crew_portrait")      # 7人の記念写真（2002年7月）
+CREW_ARRIVAL = P("crew_arrival")        # KSC 到着後（1月12日）
+CREW_ASTROVAN = P("crew_astrovan")      # 射点へ向かう（1月16日）
+SUIT_CHAWLA = P("suit_chawla")          # ホワイトルームでの着装
+SUIT_CLARK = P("suit_clark")
+
+# ── 軌道上（乗員が撮った電子スチル・3032×2064）────────────
+ORB_CHAWLA = P("orb_chawla")
+ORB_HUSBAND = P("orb_husband")
+ORB_HUSBAND_SEAT = P("orb_husband_seat")
+ORB_CLARK_ARMS = P("orb_clark_arms")
+ORB_CHAWLA_HAB = P("orb_chawla_hab")
+ORB_MCCOOL = P("orb_mccool")
+ORB_CHAWLA_CLARK = P("orb_chawla_clark")
+ORB_CLARK_HUSBAND = P("orb_clark_husband")
+ORB_CLARK_WINDOW = P("orb_clark_window")
+ORB_BROWN = P("orb_brown")
+ORB_MCCOOL_AFD = P("orb_mccool_afd")
+ORB_RAMON = P("orb_ramon")              # 縦
+ORB_ANDERSON = P("orb_anderson")
+ORB_CREW7 = P("orb_crew7")              # 7人が浮く恒例の記念写真（正方形）
+ORB_ANDERSON_READ = P("orb_anderson_read")
+ORB_EARTH = P("orb_earth")              # 機内から撮った日の出（1月22日）
+COLUMBIA_ORBIT = P("columbia_orbit")    # 軌道のコロンビア号（地上望遠・1月28日・正方形）
+
+# ── 管制室 ────────────────────────────────────
+MCC_LAUNCH = P("mcc_launch")            # 打ち上げ当日の管制室（1月16日）
+MCC_FEB1 = P("mcc_feb1")                # 🔴 2月1日の管制室
+FD_CAIN = P("fd_cain")                  # 飛行主任（1月16日）
+CAPCOM = P("capcom")                    # 乗員と話す席（1月16日）
+FD_ENGELAUF = P("fd_engelauf")
+
+# ── 東テキサスの捜索（archive.org にしか無い）────────────
+SEARCH_LINE = P("search_line")          # 列を組んで野を歩く
+SEARCH_BRIEF = P("search_brief")        # 出発前の説明
+SEARCH_FOREST = P("search_forest")      # 森林局の捜索者
+SEARCH_QUEUE = P("search_queue")        # 食事の列
+SEARCH_MAP = P("search_map")            # 地図を見る
+SEARCH_HOWELL = P("search_howell")      # 所長も捜索に加わる
+EVIDENCE_CORSICANA = P("evidence_corsicana")
+ENGINE_DIG = P("engine_dig")            # 掘る前の記録
+ENGINE_FOUND = P("engine_found")        # 掘り出した主エンジン
+BARKSDALE = P("barksdale")              # バークスデール基地の格納庫
+
+# ── 格納庫での再構成（KSC・RLV Hangar）────────────────
+HANGAR_FLOOR = P("hangar_floor")        # 床一面の破片
+HANGAR_GRID = P("hangar_grid")          # 床の格子が埋まっていく
+HANGAR_CAIB = P("hangar_caib")          # 委員が破片を見る
+HANGAR_EXAM = P("hangar_exam")          # 破片を調べる
+LE_FIXTURE = P("le_fixture")            # 前のふちを並べる治具（縦）
+LE_FIXTURE2 = P("le_fixture2")
+DEBRIS_TRUCK = P("debris_truck")        # 最後の輸送
+
+# ── 衝突試験（SwRI・2003年6月6日）──────────────────
+TEST_PANEL = P("test_panel")
+TEST_PANEL2 = P("test_panel2")
+TEST_HOLE = P("test_hole")
+
+# ── 委員会と報告書 ───────────────────────────────
+CAIB_HEARING = P("caib_hearing")        # 第3回公聴会（3月25日）
+CAIB_GEHMAN = P("caib_gehman")
+REPORT_COPY = P("report_copy")          # 出たばかりの報告書（8月26日・正方形）
+REPORT_COPY2 = P("report_copy2")
+REPORT_GEHMAN = P("report_gehman")
+REPORT_MAIL = P("report_mail")          # 配るために積まれた報告書（11月6日）
+HAM_CAIB = P("ham_caib")                # ミッション運営チーム議長（縦）
+DITTEMORE = P("dittemore")              # シャトル計画責任者（4月23日）
+
+# ── 記録装置 ─────────────────────────────────
+OEX_RECORDER = P("oex_recorder")        # ⚠️ **1988年の同型**（正方形）
+
+# ── 別の年のコロンビア号（⚠️ 副題で必ず年を名乗る）─────────
+SLF_LANDING = P("slf_landing")          # 滑走路33に降りる（2002年3月）
+SLF_APPROACH = P("slf_approach")        # 接地直前（2002年3月）
+COLUMBIA_MIDDECK = P("columbia_middeck")  # コロンビア号の中デッキ（2002年3月）
+CARGO_TOOL = P("cargo_tool")            # 貨物室で工具を確かめる（2002年3月）
+
+# ── アトランティス号（救出案の相手）──────────────────
+ATLANTIS_NOSE = P("atlantis_nose")      # 組立棟の機首（2月12日）
+ATLANTIS_STACK = P("atlantis_stack")    # 固体ロケットと外部タンクを結合（2月13日・縦）
+
+# ── そのほか ────────────────────────────────
+RECOVERY_TEAM = P("recovery_team")      # 回収管理チームの作業（2月5日）
+NEWS_CENTER = P("news_center")          # 2月1日、報道各社

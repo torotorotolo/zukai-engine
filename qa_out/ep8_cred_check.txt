@@ -1,0 +1,13 @@
+⚠️ cuts/pr.py を読めませんでした: No module named 'cuts.pr'
+⚠️ cuts/c1.py を読めませんでした: No module named 'cuts.c1'
+⚠️ cuts/c2.py を読めませんでした: No module named 'cuts.c2'
+⚠️ cuts/c3.py を読めませんでした: No module named 'cuts.c3'
+⚠️ cuts/c4.py を読めませんでした: No module named 'cuts.c4'
+⚠️ cuts/c5.py を読めませんでした: No module named 'cuts.c5'
+⚠️ cuts/c6.py を読めませんでした: No module named 'cuts.c6'
+⚠️ cuts/c7.py を読めませんでした: No module named 'cuts.c7'
+⚠️ cuts/c8.py を読めませんでした: No module named 'cuts.c8'
+⚠️ cuts/c9.py を読めませんでした: No module named 'cuts.c9'
+⚠️ cuts/ep.py を読めませんでした: No module named 'cuts.ep'
+■ 写真を出すカット 0 欄を、`ref/CREDITS.md` §8 の表 67 行と突き合わせた
+✓ 年の主張はどの欄も表と合っている（目で決める ⚠️ は 0 件・--full で出る）

@@ -44,6 +44,11 @@ sys.path.insert(0, str(HERE / "tools"))
 sys.stdout.reconfigure(encoding="utf-8")
 
 CREDITS = HERE / "ref" / "CREDITS.md"
+# 🔴 **題材ごとに書き換える定数**（→ [[feedback-per-episode-constants-go-stale]]）。
+#    いまは7本目（9.11）のまま。8本目（コロンビア号）へ移すときは
+#    `EP_PREFIX` と `HEADER` と `CLAIM_DAY` の3つを一緒に替える。
+#    ⚠️ 1つでも替え忘れると「0件を合格」にする。下の `EP_PREFIX` の使い所で止めてある。
+EP_PREFIX = "ep7/"
 HEADER = "| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 元の題名 |"
 ROW = re.compile(r"^\|\s*`([a-z0-9_]+)`\s*\|([^|]*)\|([^|]*)\|([^|]*)\|([^|]*)\|(.*)\|\s*$")
 
@@ -141,7 +146,21 @@ def run(full=False):
     for cid in sorted(cuts.SPEC):
         spec = cuts.SPEC[cid]
         photo = spec.get("photo") or ""
-        if not photo.startswith("ep7/") or "/fb_" in photo:
+        # 🔴🔴 2026-09-14（8本目 ⑤b-1）**この門番は題材を名指しで見ている。**
+        #    `ep7/` しか見ないので、8本目の `ep8/` 74点には**1件も鳴らず、
+        #    しかも「✓ 全部合っている」と出る**（黙って間違った合格）。
+        #    → [[feedback-gates-blind-to-the-new-material]]／
+        #      [[feedback-per-episode-constants-go-stale]]
+        #    ⚠️ 直しきる（`ref/CREDITS.md` に §コロンビア号 の表を足して `EP_PREFIX` と
+        #      `HEADER` と `CLAIM_DAY` を切り替える）のは⑤b-2 だが、
+        #      それまで**黙って通す状態にはしない**ので、ここで止める。
+        if photo and "/fb_" not in photo and not photo.startswith(EP_PREFIX):
+            raise SystemExit(
+                f"🔴 {cid}: 写真 `{photo}` は、この門番が見ている題材"
+                f"（`{EP_PREFIX}`）と違う。**この門番はいま何も測っていない**。\n"
+                f"   直し方＝`ref/CREDITS.md` にその回の表を足し、`HEADER` と\n"
+                f"   `EP_PREFIX` と `CLAIM_DAY` を差し替える（fail closed）")
+        if not photo.startswith(EP_PREFIX) or "/fb_" in photo:
             continue                      # 実写のひかえは動画の出典を借りる＝別の門番
         seen += 1
         slot = Path(photo).stem

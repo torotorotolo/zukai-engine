@@ -1,0 +1,101 @@
+■ 焼く前の門番 14本（🔴 の行と要約だけ。全文は各コマンドを直接）
+
+🔴 cuts     exit 2    0.3秒  章ファイルが読めていて台本と1対1か・写真45〜50%
+     🔴 cuts/pr.py が読めていない: No module named 'cuts.pr'
+     🔴 cuts/c1.py が読めていない: No module named 'cuts.c1'
+     🔴 cuts/c2.py が読めていない: No module named 'cuts.c2'
+     🔴 cuts/c3.py が読めていない: No module named 'cuts.c3'
+     🔴 cuts/c4.py が読めていない: No module named 'cuts.c4'
+     🔴 cuts/c5.py が読めていない: No module named 'cuts.c5'
+     🔴 cuts/c6.py が読めていない: No module named 'cuts.c6'
+     🔴 cuts/c7.py が読めていない: No module named 'cuts.c7'
+     🔴 cuts/c8.py が読めていない: No module named 'cuts.c8'
+     🔴 cuts/c9.py が読めていない: No module named 'cuts.c9'
+     🔴 cuts/ep.py が読めていない: No module named 'cuts.ep'
+     🔴 画が無いカット 216件: ['pr01', 'pr02', 'pr03', 'pr04', 'pr05', 'pr06', 'pr07', 'pr08', 'pr09', 'pr10', 'pr11', 'pr12']…
+   …ほか 🔴 1行（`python tools/check_cuts.py` で全部）
+   | ⚠️ cuts/c9.py を読めませんでした: No module named 'cuts.c9'
+   | ⚠️ cuts/ep.py を読めませんでした: No module named 'cuts.ep'
+
+🔴 chapters exit 1    0.2秒  隅の章名が台本と1対1か（前作のまま焼かない）
+        🔴 第1章  画面「その朝、4つの便が飛び立った」 ≠ 台本「いちばん古い船」
+        🔴 第2章  画面「1機目が消える」 ≠ 台本「打ち上げ81.7秒」
+        🔴 第3章  画面「「some planes」」 ≠ 台本「翌日、フィルムに写っていたもの」
+        🔴 第4章  画面「首都へ向かう機影」 ≠ 台本「軌道の上の16日間」
+        🔴 第5章  画面「空を閉じる」 ≠ 台本「三度の「撮ってください」」
+        🔴 第6章  画面「最後の1機」 ≠ 台本「助ける道はあったのか」
+        🔴 第7章  画面「届かなかった命令」 ≠ 台本「2月1日、8時44分」
+        🔴 第8章  画面「記録はどう残ったか」 ≠ 台本「テキサスに降ってきたもの」
+        🔴 第9章  画面「空はどう変わったか」 ≠ 台本「委員会が書いたこと」
+     🔴 第1章の章名が食い違う（画面「その朝、4つの便が飛び立った」／台本「いちばん古い船」）＝前作のまま残っている恐れ
+     🔴 第2章の章名が食い違う（画面「1機目が消える」／台本「打ち上げ81.7秒」）＝前作のまま残っている恐れ
+     🔴 第3章の章名が食い違う（画面「「some planes」」／台本「翌日、フィルムに写っていたもの」）＝前作のまま残っている恐れ
+   …ほか 🔴 7行（`python tools/check_final.py --chapters` で全部）
+   | ⚠️ cuts/c9.py を読めませんでした: No module named 'cuts.c9'
+   | ⚠️ cuts/ep.py を読めませんでした: No module named 'cuts.ep'
+
+✓ layout   exit 0  101.7秒  文字の位置（枠外・重なり・帯）
+   | ⚠️ cuts/c9.py を読めませんでした: No module named 'cuts.c9'
+   | ⚠️ cuts/ep.py を読めませんでした: No module named 'cuts.ep'
+
+✓ wording  exit 0    0.1秒  見出しが答えを先に言う・楽屋の言葉・答えの指示語・段ラベルの混在
+   | ⚠️ cuts/c9.py を読めませんでした: No module named 'cuts.c9'
+   | ⚠️ cuts/ep.py を読めませんでした: No module named 'cuts.ep'
+
+✓ echo     exit 0    0.2秒  図がナレーションの複写になっていないか
+   | ⚠️ cuts/c9.py を読めませんでした: No module named 'cuts.c9'
+   | ⚠️ cuts/ep.py を読めませんでした: No module named 'cuts.ep'
+
+✓ dup      exit 0    0.2秒  同じ画面で同じ言葉を二度出していないか
+   | ⚠️ cuts/c9.py を読めませんでした: No module named 'cuts.c9'
+   | ⚠️ cuts/ep.py を読めませんでした: No module named 'cuts.ep'
+
+✓ box      exit 0    0.2秒  枠の内側が空いていないか
+   | ⚠️ cuts/c9.py を読めませんでした: No module named 'cuts.c9'
+   | ⚠️ cuts/ep.py を読めませんでした: No module named 'cuts.ep'
+
+✓ color    exit 0    0.1秒  地との比と色どうしの離れ方
+   |   INST    × ALERT    比  1.46  ΔE  79.4
+   |   DOC     × INK_W    比  2.09  ΔE  40.1
+
+✓ slide    exit 0    0.3秒  焼き込みの文字×切り方（G-09/10/13/14/15）
+   | ⚠️ cuts/c9.py を読めませんでした: No module named 'cuts.c9'
+   | ⚠️ cuts/ep.py を読めませんでした: No module named 'cuts.ep'
+
+✓ blank    exit 0    1.4秒  切り出し窓が空っぽでないか
+   | ⚠️ cuts/c9.py を読めませんでした: No module named 'cuts.c9'
+   | ⚠️ cuts/ep.py を読めませんでした: No module named 'cuts.ep'
+
+🔴 wrap     exit 1    0.1秒  行が語の途中で割れていないか（L-15）
+   🔴 折られた行が1件も取れなかった（型が wrap を呼んでいないか、包みが外れた）
+   | ⚠️ cuts/c9.py を読めませんでした: No module named 'cuts.c9'
+   | ⚠️ cuts/ep.py を読めませんでした: No module named 'cuts.ep'
+
+🔴 slots    exit 2    0.2秒  実写の欄がカットと1対1で埋まっているか
+   🔴 実写の欄が1つも見つからない＝**章ファイルを読めていない**（合格にしない）
+   | 🔴 実写の欄が1つも見つからない＝**章ファイルを読めていない**（合格にしない）
+
+✓ footage  exit 0    0.2秒  until＝ショットの終わり
+   | ⚠️ cuts/c9.py を読めませんでした: No module named 'cuts.c9'
+   | ⚠️ cuts/ep.py を読めませんでした: No module named 'cuts.ep'
+
+✓ credits  exit 0    0.1秒  副題が名乗る年と出どころの表（ref/CREDITS.md）
+   | ⚠️ cuts/c9.py を読めませんでした: No module named 'cuts.c9'
+   | ⚠️ cuts/ep.py を読めませんでした: No module named 'cuts.ep'
+
+────────────────────────────────────────────────────────────
+  🔴 cuts     exit 2  🔴 13行
+  🔴 chapters exit 1  🔴 19行
+  ✓ layout   exit 0  🔴 0行
+  ✓ wording  exit 0  🔴 0行
+  ✓ echo     exit 0  🔴 0行
+  ✓ dup      exit 0  🔴 0行
+  ✓ box      exit 0  🔴 0行
+  ✓ color    exit 0  🔴 0行
+  ✓ slide    exit 0  🔴 0行
+  ✓ blank    exit 0  🔴 0行
+  🔴 wrap     exit 1  🔴 1行
+  🔴 slots    exit 2  🔴 1行
+  ✓ footage  exit 0  🔴 0行
+  ✓ credits  exit 0  🔴 0行
+🔴 門番 4／14 本が通っていない。**通るまで検品画像を焼かない**（exit 2）
