@@ -1,0 +1,3 @@
+台帳 489行 → C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep8_ledger.md
+文字起こし 489行／疑い 127／未判定 0
+要耳一覧 11行 → C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep8_youmimi.md
