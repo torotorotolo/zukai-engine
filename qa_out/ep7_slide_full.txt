@@ -1,0 +1,41 @@
+■ スライドが映るカット 83 件を、k=0 と k=1 の両端で見た
+  🔴 c804 G-16 暗幕が絵に届いていない（1件）
+      「veil=0.88」 本体枠の p90 が 145（暗幕があれば 100 未満のはず）＝**焼けた絵に暗幕が無い**  [spec]
+🔴 焼き込みの文字と切り方に粗（G-16 1件（1カット）／参考 120件）
+⚠️ 見出し・副題・出典が焼き込みの文字に載る 3件（1カット）／うち重なり 200px 以上 0件　🔴 には数えない決まりなので、ここで別に出している（--lab で全件）
+・ G-17（ネガの縁）は**この題材には当てはまらない** 83カット（`cuts.ss` に film_edge が無い＝ネガの素材を使っていない）。**粗が 83件あるのではない**
+⚠️ 文字行と見なさなかった OCR の行 34件（高さが画像の 3.5% を超える＝行の形をしていない）
+   fids_pre.jpg                 1168×368px（高さ 20.4%）  'eensboro Nc'
+   library_reports.jpg          29×224px（高さ 14.0%）  'ー - 0'
+   fids_pre.jpg                 667×226px（高さ 12.6%）  '6 : 55am 110 な = ='
+   f16_takeoff.jpg              1072×200px（高さ 12.3%）  '亠 ー 盟 物'
+   fids_pre.jpg                 1433×210px（高さ 11.7%）  '- れ な 兀 る BUtte'
+   library_reports.jpg          20×161px（高さ 10.1%）  'た し く な 【 、 機 峰 、 え 電 田 愛 庭'
+   library_reports.jpg          15×153px（高さ 9.6%）  '居 た 場 所 高 山 羽 根 子'
+   fids_pre.jpg                 540×172px（高さ 9.6%）  '8 : 55am ミ 4567'
+   library_reports.jpg          23×151px（高さ 9.4%）  '彎 ー を 月 ー 一'
+   library_reports.jpg          32×130px（高さ 8.1%）  'S こ 第'
+   fids_pre.jpg                 549×143px（高さ 7.9%）  '6 : 44am 譱 643 /'
+   library_reports.jpg          13×126px（高さ 7.9%）  'ー ー 1 ・ ・ ら い .. ヴ ェ ン'
+   library_reports.jpg          21×121px（高さ 7.6%）  'ャ テ ル ロ ー ヤ ル'
+   library_reports.jpg          22×121px（高さ 7.6%）  '~ え つ め の を ー ■'
+   library_reports.jpg          10×119px（高さ 7.4%）  'を - を 山 - ・ ト ラ へ ジ っ ム'
+   library_reports.jpg          14×114px（高さ 7.1%）  '第 は ン h の キ 新 え る'
+   atc_tape.jpg                 408×168px（高さ 6.9%）  '0 0'
+   wtc_base.jpg                 1037×206px（高さ 6.7%）  'ⅲ … 0 … 000 川 川 0 田 00 ・ 川 川'
+   library_reports.jpg          12×107px（高さ 6.7%）  'あ ・ い 第 物 を ・ ・ ー'
+   fb_c716.jpg                  225×30px（高さ 6.2%）  '、 一 、 鹽 0 財 / リ 三 三 れ な'
+   library_reports.jpg          10×100px（高さ 6.2%）  'に し ン ズ 物 、 「'
+   wtc_base.jpg                 767×189px（高さ 6.2%）  '川 れ 川 川 川 川 Ⅲ 川 川'
+   library_reports.jpg          12×98px（高さ 6.1%）  '” を 第 新 を 第 小 第'
+   wtc_base.jpg                 1038×184px（高さ 6.0%）  '川 0 川 、 ⅱ 川 、 川 ⅱ 川 Ⅲ 第 Ⅲ Ⅲ 川'
+   wtc_base.jpg                 1038×170px（高さ 5.6%）  '川 雅 川 第 Ⅲ 。 川 川 Ⅲ Ⅲ Ⅲ い'
+   library_reports.jpg          11×88px（高さ 5.5%）  '直 京 に オ リ ン ピ ッ ク を'
+   wtc_base.jpg                 1038×158px（高さ 5.2%）  '膚 膚 れ 川 盟 川 Ⅲ 川 川 市 事 川 川'
+   library_reports.jpg          13×80px（高さ 5.0%）  '流 渡 の 月'
+   wtc_base.jpg                 1038×147px（高さ 4.8%）  '川 Ⅲ 川 川 川 日 Ⅲ 川 日 Ⅲ 川 Ⅲ に 1'
+   library_reports.jpg          13×71px（高さ 4.4%）  ', 一 悪 砂 第 ・'
+   library_reports.jpg          11×67px（高さ 4.2%）  '第 鋼 0'
+   library_reports.jpg          10×62px（高さ 3.9%）  '. 小 ま 0'
+   recorder.jpg                 108×62px（高さ 3.9%）  'DEVOL'
+   logbook.jpg                  314×68px（高さ 3.8%）  'Wo/QG 広 ①'

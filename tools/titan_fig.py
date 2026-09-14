@@ -2181,9 +2181,15 @@ def _absent_pair(items, lead, note):
                     s.append(circ(ox + uw * (k % cols) + uw / 2,
                                   oy + uw * (k // cols), uw * 0.30, J.OK))
             else:
-                for k in range(5):
-                    s.append(rect(x + cw * 0.12, top + bh * (0.16 + k * 0.13),
-                                  cw * 0.76, bh * 0.07, J.OK, op=0.55))
+                # 🔴 2026-09-14（7本目 ⑤c'）**`_absent_seat` と同じ埋め草を直した。**
+                #    `n` が無いのに帯を **5本**べた書きしていたので、`c903` では
+                #    「当時の決まりが求めたこと」に**5つの決まりがある**ように読めた
+                #    （[[feedback-filler-shapes-read-as-quantities]]）。
+                #    ⚠️ `_absent_seat` を直したときにこちらを見ていなかった
+                #      ＝**同じ埋め草が別の mode にもある**（目視1件は全数へ広げる）。
+                #    → 1枚の面にする。数えられる形を画面から消す。
+                s.append(rect(x + cw * 0.12, top + bh * 0.16,
+                              cw * 0.76, bh * 0.59, J.OK, op=0.55, rx=6))
         else:
             # 🔴 「無い」側は破線の輪郭と、**有る側と同じ場所の空の枠**だけ。塗らない
             s.append(rect(x, top, cw, bh, "none", J.LINE_DIM, 4, rx=8, dash="20 14"))

@@ -130,7 +130,23 @@ VEIL_SOFT = 0.70        # これ以上の暗幕なら G-13／G-14 を ・ にす
 #    ＝ 77 と 138 の間が 61 空いている。100 はその谷のまん中。
 #    ⚠️ 記録映画のコマ（fb_*.jpg）は地が暗く p90 89〜104 まで落ちるが、
 #       それらは `production_inputs().skip` で見ないので混ざらない。
-VEIL_P90 = 100          # 本体枠の p90 がこれ未満なら「暗幕が効いている」
+# 🔴🔴 2026-09-14（7本目 ⑤c'）**p90 → 中央値に乗り換えた。**
+#    p90 は「本体枠のいちばん明るい1割」なので、暗幕の下の写真ではなく
+#    **暗幕の上に描かれた図の字**を拾う。陽性対照＝`c804` の暗幕を **0.76 → 0.88**
+#    に上げて焼き直した実測：
+#        p90    145 → **141**（4しか動かない）
+#        中央値  56 → **40**（16 動く）
+#    さらに「>140 の画素の 4×4 マスの分布」が r01 と r02 で**小数第1位まで同じ**
+#    （14.0/15.3/0.0/15.8 → 13.9/15.2/0.0/15.6）＝明るい画素は暗幕の**上**にある。
+#    ＝ **p90 は暗幕を測っていなかった**（[[feedback-verify-your-own-instrument]]）。
+#    しきい値は本番の実測の切れ目から採った（[[feedback-gate-threshold-from-ledger-split]]）:
+#        暗幕あり 7カット … 中央値 40 47 47 53 58 59 60
+#        暗幕なし10カット … 中央値 62 77 81 93 98 107 118 123 128 178
+#    → **72**（暗幕ありの最大 60 と、暗幕なしの 77 のあいだ）。
+#    ⚠️ 62（`c309`＝もともと暗い客室）は分けられない。
+#       **暗い写真は暗幕が無くても図が読める**ので、そこは許す。
+VEIL_MED = 72           # 本体枠の**中央値**がこれ未満なら「暗幕が効いている」
+VEIL_P90 = 100          # ⚠️ 判定には使わない（前の物差し。数字は報告にだけ出す）
 VEIL_BOX = (0, 210, W, 892)     # 測る枠（jiko_style.BAND_T 〜 字幕帯の上）
 _PIC_CACHE = {}
 
@@ -151,7 +167,11 @@ def pic_dir():
 
 
 def veil_seen(cid):
-    """そのカットの**焼けた絵**の本体枠の p90。画像が無ければ None。"""
+    """そのカットの**焼けた絵**の本体枠の**中央値**。画像が無ければ None。
+
+    🔴 2026-09-14：p90 から乗り換えた（上の VEIL_MED の注を見よ）。
+       p90 は図の字を拾うので、暗幕を変えても動かなかった。
+    """
     if cid in _PIC_CACHE:
         return _PIC_CACHE[cid]
     d = pic_dir()
@@ -163,7 +183,7 @@ def veil_seen(cid):
             import numpy as np
             a = np.asarray(Image.open(f).convert("L"))
             x0, y0, x1, y1 = VEIL_BOX
-            v = float(np.percentile(a[y0:y1, x0:x1], 90))
+            v = float(np.median(a[y0:y1, x0:x1]))
     _PIC_CACHE[cid] = v
     return v
 
@@ -174,10 +194,10 @@ def veil_of(cid, spec):
     ⚠️ 返すのは濃さの実数ではなく「VEIL_SOFT と比べるための値」。
        絵が測れないときは **0（＝暗幕なし＝厳しい側）** に倒す（fail closed）。
     """
-    p90 = veil_seen(cid)
-    if p90 is None:
+    med = veil_seen(cid)
+    if med is None:
         return 0.0
-    return 1.0 if p90 < VEIL_P90 else 0.0
+    return 1.0 if med < VEIL_MED else 0.0
 
 
 def veil_spec(spec):
@@ -463,16 +483,17 @@ def scan(spec_map, ocr, photo_of, box_of, skip, jobs=None):
         #    2026-09-07（5本目 SL-1 K-01）で 26カット全滅した型をそのまま門番にした。
         #    「設計に書いた値が絵に届いているとは限らない」＝ SPEC と絵を突き合わせる。
         #    → [[feedback-settings-may-not-reach-the-picture]]
-        vs, p90 = veil_spec(spec), veil_seen(cid)
+        #    🔴 2026-09-14（7本目 ⑤c'）**p90 → 中央値**（上の VEIL_MED の注）。
+        vs, med = veil_spec(spec), veil_seen(cid)
         if vs >= VEIL_SOFT:
-            if p90 is None:
+            if med is None:
                 softs.append((cid, "G-16 絵が測れない", f"veil={vs}", "spec",
                               "焼けた絵が無いので暗幕が届いたか分からない"
                               "（暗幕なしとして厳しく見る）"))
-            elif p90 >= VEIL_P90:
+            elif med >= VEIL_MED:
                 hits.append((cid, "G-16 暗幕が絵に届いていない", f"veil={vs}", "spec",
-                             f"本体枠の p90 が {p90:.0f}（暗幕があれば "
-                             f"{VEIL_P90} 未満のはず）＝**焼けた絵に暗幕が無い**"))
+                             f"本体枠の中央値が {med:.0f}（暗幕があれば "
+                             f"{VEIL_MED} 未満のはず）＝**焼けた絵に暗幕が無い**"))
 
         # ── ⚠️ G-17 ネガの縁（フィルムの黒帯＋縦書きのネガ番号）が窓に入る ──────
         #    2026-09-07（K-19/L-20）。⚠️ OCR では見つからない（`haer_56` `haer_67` は
@@ -1038,12 +1059,12 @@ def selfcheck():
     # ── 🔴🔴 暗幕を「絵」から測っているか（2026-09-07 K-02 の穴の陽性対照）──
     #    ⚠️ SPEC を細工しても絵は変わらないので、**SPEC で黙らせられない**ことを見る。
     #    これが崩れると、また「veil= と書いた時点で 128件が消える」状態に戻る。
-    dark = [c for c in spec_map if (veil_seen(c) or 999) < VEIL_P90]
+    dark = [c for c in spec_map if (veil_seen(c) or 999) < VEIL_MED]
     bright = [c for c in spec_map if veil_seen(c) is not None
-              and veil_seen(c) >= VEIL_P90]
+              and veil_seen(c) >= VEIL_MED]
     from_pic = bool(dark) and bool(bright)         and veil_of(dark[0], {}) >= VEIL_SOFT         and veil_of(bright[0], dict(veil=0.84)) < VEIL_SOFT
     ok &= from_pic
-    print(f"  {'✓' if from_pic else '🔴'} 暗幕：**焼けた絵**の p90 で決める"
+    print(f"  {'✓' if from_pic else '🔴'} 暗幕：**焼けた絵**の中央値で決める"
           f"（暗い {len(dark)}カット／明るい {len(bright)}カット。"
           f"SPEC に veil=0.84 と書いても明るい絵は暗幕なし扱い）")
 
@@ -1159,10 +1180,10 @@ def selfcheck():
     # 🔴 2026-09-07（K-02）：**暗幕は SPEC でなく絵から測る**ようにしたので、
     #    ここも「SPEC に veil=0.78 と書く」では試験にならない（書いても絵は明るいまま）。
     #    → **測った p90 を暗い側に差し替えて**、判定が ・ に落ちるかを見る。
-    #    ⚠️ 測る側（画像 → p90）が正しいことは、上の「暗幕：**焼けた絵**の p90 で決める」で
+    #    ⚠️ 測る側（画像 → p90）が正しいことは、上の「暗幕：**焼けた絵**の中央値で決める」で
     #       本番の絵 212枚に当てて別に確かめている。ここで試すのは**しきい値の効き**だけ。
     _keep = _PIC_CACHE.get(vict, "‡")
-    _PIC_CACHE[vict] = VEIL_P90 - 40.0            # 暗幕がかかった絵のつもり（実測 67〜77）
+    _PIC_CACHE[vict] = VEIL_MED - 30.0            # 暗幕がかかった絵のつもり（実測 40〜60）
     try:
         h1, s1 = scan({vict: crime}, ocr, photo_of, box_of, skip,
                       jobs_for({vict: crime}))
@@ -1185,7 +1206,7 @@ def selfcheck():
     soft1 = _n(s1, "G-13") + _n(s1, "G-14")
     say(hard0 > 0, f"暗幕なしなら G-13/G-14 が 🔴 になる（{hard0}件）")
     say(hard1 == 0 and soft1 > 0,
-        f"絵が暗ければ（p90 {VEIL_P90 - 40:.0f}）・ に落ちる（🔴 {hard1}件・・ {soft1}件）＝黙って消えてはいない")
+        f"絵が暗ければ（中央値 {VEIL_MED - 30:.0f}）・ に落ちる（🔴 {hard1}件・・ {soft1}件）＝黙って消えてはいない")
     say(_n(h0, "G-10") == _n(h1, "G-10"),
         f"暗幕は G-10（行頭が切れる）には効かない（明るさの話ではない）")
     # 縦長の「行」＝ OCR が図面の線を拾ったもの。幅 < 高さ なら ・

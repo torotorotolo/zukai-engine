@@ -878,6 +878,15 @@ def cmd_fetch(only=None):
     return 2 if ng else 0
 
 
+# 🔴 `author` が撮影者名になっていない欄だけの例外表（⑤c' で焼いた絵を読んで足した）
+WHO_FIX = {
+    "File:AirTraffic-8.jpg": "アメリカ連邦航空局（FAA）",
+    ("File:A 494th EFS F-15E Strike Eagle sits on the flight line "
+     "prior to a sortie at Prince Sultan Air Base.jpg"):
+        "U.S. Air Force photo by Tech. Sgt. Michael Charles",
+}
+
+
 def _who(row):
     """撮影者の表記を1行にする。
 
@@ -888,6 +897,18 @@ def _who(row):
       そのまま Python の文字列に貼ると**行が壊れる**（実際に2件壊れた）。
       → タグを落とし、前後の引用符と句点を落とし、二重引用符を全角に置き換える。
     """
+    # 🔴🔴 2026-09-14（⑤c'）**焼いた絵で読んで分かった2件を手で直す。**
+    #    `[:60]` で切るので、Commons の `author` が長い文だと**画面に出る出典が
+    #    途中で切れて意味をなさない**。実際に焼けた r02 で読めたのは:
+    #      pr09 … 「出典：Work of the United States Federal Government under the terms」
+    #             ＝**権利の文の断片**（撮影者ではない）
+    #      c702 … 「出典：First photo is by Tech. Sgt. Michael Charles ; second photo 」
+    #             ＝**文の途中で切れている**
+    #    ⚠️ どちらも PD なので撮影者名は使用条件ではないが、**画面に出る文が壊れている**。
+    #    ⚠️ 機械が拾えないので、ここだけは題名を鍵にして手で当てる（例外表は短く保つ）。
+    fix = WHO_FIX.get(row.get("title"))
+    if fix:
+        return fix
     s = _plain(row.get("author")) or _plain(row.get("credit")) or "撮影者不明"
     s = re.sub(r"https?://\S+", " ", s)
     s = re.sub(r"\s+", " ", s).strip().strip('"“”').strip().rstrip("。.")

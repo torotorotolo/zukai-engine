@@ -31,7 +31,7 @@
     "ep7/cockpit_pre.jpg": "出典：ウィキメディア・コモンズ／撮影 Funforme3／CC BY 4.0",
     "ep7/window_cruise.jpg": "出典：ウィキメディア・コモンズ／撮影 Sergey A. Demidov／CC BY 4.0",
     "ep7/window_sky.jpg": "出典：ウィキメディア・コモンズ／撮影 Sergey A. Demidov／CC BY 4.0",
-    "ep7/artcc_screen_pre.jpg": "出典：Work of the United States Federal Government under the terms／パブリックドメイン",
+    "ep7/artcc_screen_pre.jpg": "出典：アメリカ連邦航空局（FAA）／パブリックドメイン",
     "ep7/radar_scope_pre.jpg": "出典：Tekniska museet／パブリックドメイン",
     "ep7/controller_pre.jpg": "出典：Department of Defense. American Forces Information Service. ／パブリックドメイン",
     "ep7/artcc_screen2.jpg": "出典：U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez／パブリックドメイン",
@@ -42,7 +42,7 @@
     "ep7/pentagon_court_pre.jpg": "出典：Pfc. Jose Rolando Garcia／パブリックドメイン",
     "ep7/pentagon_west_day.jpg": "出典：CPL JASON INGERSOLL, USMC／パブリックドメイン",
     "ep7/f15_alert.jpg": "出典：U.S. Air Force photo by Airman 1st Class Melany Bermudez／パブリックドメイン",
-    "ep7/f15_alert2.jpg": "出典：First photo is by Tech. Sgt. Michael Charles ; second photo ／パブリックドメイン",
+    "ep7/f15_alert2.jpg": "出典：U.S. Air Force photo by Tech. Sgt. Michael Charles／パブリックドメイン",
     "ep7/f15_takeoff.jpg": "出典：U.S. Air Force photo by Airman 1st Class Alexandria Byrd／パブリックドメイン",
     "ep7/f16_alert.jpg": "出典：U.S. Air Force USAFE by Capt. Jose Davis／パブリックドメイン",
     "ep7/f16_takeoff.jpg": "出典：U.S. Air National Guard photo by Master Sgt. Caila Arahood／パブリックドメイン",
@@ -102,7 +102,7 @@
 | `cockpit_pre` | c605 | 2025 | CC BY（CC BY 4.0） | Funforme3 | Avelo Airlines B737 Cockpit.jpg |
 | `window_cruise` | c304 | 2025 | CC BY（CC BY 4.0） | Sergey A. Demidov | 20250928 View from aircraft in Turkey 01 (31935).jpg |
 | `window_sky` | c909 | 2025 | CC BY（CC BY 4.0） | Sergey A. Demidov | 20250928 View from aircraft in Egypt 01 (21624).jpg |
-| `artcc_screen_pre` | pr09 | 不明 | PD（Public domain） | Work of the United States Federal Government under the terms | AirTraffic-8.jpg |
+| `artcc_screen_pre` | pr09 | 不明 | PD（Public domain） | アメリカ連邦航空局（FAA） | AirTraffic-8.jpg |
 | `radar_scope_pre` | c210 | 2016 | PD（Public domain） | Tekniska museet | SR&T Plan position indicator.jpg |
 | `controller_pre` | c306 | 1987 | PD（Public domain） | Department of Defense. American Forces Information Service.  | Air traffic controllers of the 1961st Communications Group man their duty stations in the base tower. The 1961st recently won the Major General Harold M. McClelland Award for commun - DPLA - 6a16bbcae66aff3a8a8616188e1d2e07.jpeg |
 | `artcc_screen2` | c509 | 2025 | PD（Public domain） | U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez | 378th EOSS Air Traffic Controller Demonstration (8829390).jpg |
@@ -113,7 +113,7 @@
 | `pentagon_court_pre` | c412 | 2025 | PD（Public domain） | Pfc. Jose Rolando Garcia | XQ-58A Valkrie displayed at the Pentagon Center Courtyard.jpg |
 | `pentagon_west_day` | c421 | 2001 | PD（Public domain） | CPL JASON INGERSOLL, USMC | DM-SD-02-03925.JPEG |
 | `f15_alert` | c123 | 2024 | PD（Public domain） | U.S. Air Force photo by Airman 1st Class Melany Bermudez | Fond Farewell to F-15C A5095 (8605970).jpg |
-| `f15_alert2` | c702 | 2020 | PD（Public domain） | First photo is by Tech. Sgt. Michael Charles ; second photo  | A 494th EFS F-15E Strike Eagle sits on the flight line prior to a sortie at Prince Sultan Air Base.jpg |
+| `f15_alert2` | c702 | 2020 | PD（Public domain） | U.S. Air Force photo by Tech. Sgt. Michael Charles | A 494th EFS F-15E Strike Eagle sits on the flight line prior to a sortie at Prince Sultan Air Base.jpg |
 | `f15_takeoff` | c703 | 2023 | PD（Public domain） | U.S. Air Force photo by Airman 1st Class Alexandria Byrd | 391st FS F-15E prepares for takeoff at MCAS Iwakuni during Northern Edge 23-2.jpg |
 | `f16_alert` | c707 | 2024 | PD（Public domain） | U.S. Air Force USAFE by Capt. Jose Davis | F-16s Arrive at NATO Air Base Geilenkirchen (8403619).jpg |
 | `f16_takeoff` | c711 | 2023 | PD（Public domain） | U.S. Air National Guard photo by Master Sgt. Caila Arahood | Colorado and Massachusetts Air National Guard fighter jets depart Lithuania during exercise Air Defender 2023 (7867984).jpg |
