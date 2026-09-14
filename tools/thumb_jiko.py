@@ -667,7 +667,7 @@ def ep7():
         規模は **2,973人**（pr11。乗っ取った側の19人を含まない委員会報告の数）。
         ⚠️ 「隠蔽」「衝撃」「闇」は逆効果（[[feedback-what-drives-views]]）。
         ⚠️ 「即死」などはタイトル・サムネに出さない（[[feedback-jiko-death-word-policy]]）。
-      黄＝年＋事件名。日本で通っている呼び名は「同時多発テロ」＝検索でも通じる側を採る。
+      黄＝**「9.11」＋事件名**（2026-09-14 カズヤくん「9.11 という文字のほうが引きがある」）。
       ⚠️ 黄は字数が少ないほど 210px で読める（[[feedback-thumbnail-must-read-at-210px]]）。
 
     ■ 地の作り
@@ -678,16 +678,19 @@ def ep7():
       `wtc_smoke_day` は煙と稜線が画面の中段＝**赤（上端150px）と黄（下端180px）の下に主役が来ない**。
       `manhattan_pre` は「その朝より前」の側。塔が中段の右寄りなので `cx=0.45` で中央へ寄せる。
     """
-    RED_A = "軍が知ったのは衝突9分前"
-    RED_B = "2,973人死亡 猶予は9分"
-    YEL_A = "2001年 同時多発テロ"
+    # 🔴 2026-09-14（t2）カズヤくん決定：赤は **B案に確定**／**黄に「9.11」を入れる**
+    #    （「9.11 という文字を使ったほうが引きがある」＝タイトルも同じ語に揃えた）。
+    #    残る選択は**黄の字数**だけ＝下の3案。⚠️ 黄は字数が少ないほど 210px で読める。
+    RED = "2,973人死亡 猶予は9分"
+    YEL_A = "9.11 同時多発テロ"          # 11字（型の既定 10〜14字の下寄り）
+    YEL_B = "2001年 9.11の真相"          # 13字（競合の「〜の真相」に寄せた形）
+    YEL_C = "9.11 アメリカ同時多発テロ"   # 15字（⚠️ 型の上限を1字超える。読めるかを見るための対照）
 
     smoke = photo(EP7_SMOKE, cy=0.50, cx=0.50, contrast=1.18, color=1.10, bright=0.92)
-    pre = photo(EP7_PRE, cy=0.50, cx=0.45, contrast=1.18, color=1.10, bright=0.92)
 
-    for nm, hero, r, y in (("a_smoke_9min", smoke, RED_A, YEL_A),
-                           ("b_smoke_toll", smoke, RED_B, YEL_A),
-                           ("c_pre_9min", pre, RED_A, YEL_A)):
+    for nm, hero, r, y in (("a_toll_911", smoke, RED, YEL_A),
+                           ("b_toll_shinso", smoke, RED, YEL_B),
+                           ("c_toll_america", smoke, RED, YEL_C)):
         bake(f"ep7_{nm}", fx_type(hero, r, y, "e_veil", yel_plain=True))
 
 
