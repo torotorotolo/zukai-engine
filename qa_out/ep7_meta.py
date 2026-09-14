@@ -134,7 +134,8 @@ def main() -> int:
         "tags": ["9.11", "アメリカ同時多発テロ", "2001年", "航空管制", "ハイジャック",
                  "事故検証", "図解", "委員会報告", "ユナイテッド93便", "アメリカン11便",
                  "NORAD", "FAA", "一次資料", "解説", "ドキュメンタリー"],
-        "thumbnail": "out/thumb/ep7-t1/ep7_a_smoke_9min.png",
+        # 🔴 赤＝カズヤくん決定（B案）。黄は t2 の3案から **a**（11字＝いちばん大きく出る）
+        "thumbnail": "out/thumb/ep7-t2/ep7_a_toll_911.png",
         "genre": "jiko",
         "playlist": "",
     }
