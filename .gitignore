@@ -166,3 +166,20 @@ audio/el_qa/probe*_el_retakes.tsv
 !ref/ep7/SHOTS_INDEX.md
 # 一次資料の PDF は入れない（NTSB 4本で 21.3MB）。取り直しは ref/CREDITS.md §9.11 から
 ref/ep7/*.pdf
+
+# ── 8本目 コロンビア号（2026-09-14 ②素材＋③尺）────────────────
+# ⚠️ 9行目の `ref/*` が ref/ を丸ごと無視する造り（許可制）。**フォルダから明示的に開ける。**
+!ref/ep8/
+# 入れるもの＝章立て・素材の台帳・素材の網（どれも機械の実測から書いたテキスト）
+!ref/ep8/kousei.md
+!ref/ep8/materials.md
+!ref/ep8/slots_nasa.json
+# 動く映像の出どころと権利（Commons の extmetadata をそのまま保存したもの）
+!ref/ep8/vid/
+!ref/ep8/vid/sources.json
+# 入れないもの＝落とした実体
+#   CAIB Vol.I（10.3MB・入口は ref/ep8/materials.md §4 にある）
+ref/ep8/*.pdf
+#   動く映像9本（918MB）。取り直しは vid/sources.json の url から
+ref/ep8/vid/*.webm
+ref/ep8/vid/*.mp4

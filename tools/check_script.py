@@ -54,14 +54,27 @@ from statistics import median
 #    → Koichi の TEMPO=1.0 の実効 ＝ 5.642 ÷ 1.05 × 1.1485 ＝ **6.171**。
 #    ⚠️ **これは「比を当てた暫定値」**で、完成した回から採った実測ではない。
 #       ⑤a で narration.json ができたら `use_measured_cps` が本物に差し替える。
-CPS_FALLBACK = 6.17     # 文字/秒（Koichi・TEMPO=1.0・暫定。音があれば narration.json から実測）
+# 🔴🔴 2026-09-14（8本目③）: 7本目（9.11）が焼き上がったので **暫定の 6.17 を実測に差し替えた。**
+#    6.17 は上の「比を当てた」推定値で、7本目の完成尺に当てると
+#    **2106.8秒（実測 1966.833秒・+7.11%）** と外れていた → [[feedback-per-episode-constants-go-stale]]
+#    採った 6.688 は **2通りの別の道から同じ値**が出ている（開き 0.00%）:
+#      ① 完成尺 1966.833 −（GAP×(454−202) ＋ (LEAD+TAIL)×202 ＋ 2.0×決め所13）= 声 1668.3秒
+#         → 11,157字 ÷ 1668.3 = 6.688
+#      ② `audio/narration.json` の字幕の長さ（`d`）の総和 1668.3秒 → 同じ 6.688
+#    ⚠️ **Koichi・TEMPO=1.0 の値。**声か TEMPO を替えたらこの定数は無効（回ごとに取り直す）。
+#    ⚠️ 決め所の数は**台本の ★ ではなく `cuts.SPEC` の図の型 `quote`** を数える（7本目＝13）。
+#       narration.py の SCRIPT には ★ が行頭に無く、STAR_RE では 0 と出る。
+CPS_FALLBACK = 6.688    # 文字/秒（Koichi・TEMPO=1.0・7本目の完成尺から実測。音があれば narration.json）
 PER_CUT = 10.29         # 秒/カット（話速1.0 の**実測**＝SL-1 の完成尺 2181.3秒 ÷ 212カット）
 LEAD, TAIL = 0.35, 0.50
 GAP = 0.40              # カット内の行と行のあいだ（narration.json の gap と同じ値。替えたら両方直す）
 TAIL_EXTRA_QUOTE = 2.0
-# 陽性対照＝この2本を下の measure() の式に当てて 0.5% 以内に入ること（--refcheck）
+# 陽性対照＝この3本を下の measure() の式に当てて 0.5% 以内に入ること（--refcheck）
+# ⚠️ EP7_REF の cps は**この回の完成尺から逆に解いた値**なので、独立した検証ではない（作り直しの見張り）。
+#    独立した検証は別の声・別の回である SS_REF / SL1_REF の2本が担う。
 SL1_REF = dict(name="5本目 SL-1", n=212, lines=435, chars=10553, nq=17, cps=5.62, real=2181.3)
 SS_REF = dict(name="4本目 サーフサイド", n=240, lines=486, chars=11027, nq=12, cps=6.12, real=2127.3)
+EP7_REF = dict(name="7本目 9.11", n=202, lines=454, chars=11157, nq=13, cps=6.688, real=1966.833)
 EP2_CPS = 5.00          # ep2 の設計値
 MAX_CHARS_PER_LINE = 41
 # 🔴🔴 2026-09-08 カズヤくん指示「次回から動画尺の下限を27分に変更してください」
@@ -268,9 +281,9 @@ def est_sec(chars, lines, n, nq, cps):
 
 
 def refcheck(tol=0.5):
-    """陽性対照＝完成尺が分かっている2本に est_sec を当てて、ずれが tol% 以内か見る。"""
+    """陽性対照＝完成尺が分かっている3本に est_sec を当てて、ずれが tol% 以内か見る。"""
     bad = 0
-    for r in (SS_REF, SL1_REF):
+    for r in (SS_REF, SL1_REF, EP7_REF):
         p = est_sec(r["chars"], r["lines"], r["n"], r["nq"], r["cps"])
         d = 100 * (p - r["real"]) / r["real"]
         ok = abs(d) <= tol
@@ -600,7 +613,7 @@ def main():
     if '--selftest' in sys.argv:
         sys.exit(0 if selftest() else 1)
     if '--refcheck' in sys.argv:
-        print('尺の式の陽性対照（完成尺が分かっている2本に当てる）')
+        print('尺の式の陽性対照（完成尺が分かっている3本に当てる）')
         sys.exit(1 if refcheck() else 0)
     if len(sys.argv) < 2:
         print('usage: check_script.py <台本.md> | --selftest | --refcheck')

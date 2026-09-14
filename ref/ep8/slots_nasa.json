@@ -1,0 +1,72 @@
+{
+  "_note": "8本目（コロンビア号）の素材の欄。MUST/NG はキャプションに語境界で当てる。⚠️ ここで出る数は候補であって在庫ではない（最後は list で1行ずつ読む）。2026-09-14 に1回読んで締め直した版＝下の _v1_の失敗 を参照",
+  "_v1_の失敗": "初版の test は『fixture』『test article』『test panel』を MUST に入れたせいで、Return to Flight のタイル取り付け作業（2003-04・OPF・USA/Boeing の作業員）を29件ぜんぶ拾っていた。CAIB の衝突試験は NASA 画像庫には1点も無い（archive.org の humanspaceflightcollection にだけ在る）。初版の foam も同じ理由で 55件中 49件が Return to Flight のタイル作業だった",
+  "_year": 2003,
+  "_global_ng": [
+    "memorial", "tribute", "remembrance", "wreath", "commemorat", "eulogy",
+    "expedition", "soyuz", "progress m", "isro", "genesis", "mars",
+    "grand prix", "concert", "scholarship"
+  ],
+
+  "strike": {
+    "_what": "🔴 打ち上げ81.7秒の衝突そのもの（追跡カメラのコマ）",
+    "must": ["seconds after t-0", "debris is observed", "debris originating", "bipod"],
+    "ng": []
+  },
+  "launch": {
+    "_what": "2003-01-16 の打ち上げ・射点・カウントダウン",
+    "must": ["launch", "liftoff", "lift-off", "pad 39-a", "launch pad", "rollout", "crawler",
+             "countdown", "launch complex"],
+    "ng": ["debris", "hangar", "reconstruction", "sts-114", "sts-112", "return to flight",
+           "orbiter processing facility"]
+  },
+  "crew": {
+    "_what": "乗員7名",
+    "must": ["husband", "mccool", "chawla", "anderson", "clark", "brown", "ramon",
+             "crew portrait", "sts-107 crew", "crew members pose"],
+    "ng": ["debris", "hangar", "reconstruction"]
+  },
+  "orbit": {
+    "_what": "軌道上の16日間（SPACEHAB・実験）",
+    "must": ["spacehab", "on orbit", "on-orbit", "in orbit", "microgravity",
+             "research double module", "freestar", "payload bay"],
+    "ng": ["debris", "hangar", "reconstruction", "sts-114"]
+  },
+  "tps": {
+    "_what": "耐熱システムの説明用（タイル・RCC）。⚠️ 大半は事故後の Return to Flight の作業＝『2003年の事故の絵』ではない。使うなら図解の地",
+    "must": ["thermal protection", "rcc", "reinforced carbon", "tile", "leading edge"],
+    "ng": []
+  },
+  "reentry": {
+    "_what": "再突入・着陸予定・空中分解",
+    "must": ["re-entry", "reentry", "entry interface", "runway", "de-orbit", "deorbit",
+             "streak", "contrail", "breakup", "break-up", "disintegrat",
+             "shuttle landing facility"],
+    "ng": ["landing gear", "return to flight"]
+  },
+  "debris_field": {
+    "_what": "東テキサスの捜索・回収（野外）",
+    "must": ["search", "recovery", "searchers", "forest", "woods", "helicopter",
+             "barksdale", "nacogdoches", "lufkin", "hemphill", "east texas", "louisiana",
+             "sabine", "toledo bend", "volunteer", "ground search", "field"],
+    "ng": ["hangar", "reconstruction grid"]
+  },
+  "hangar": {
+    "_what": "KSC の RLV 格納庫での再構成（格子に並べる）",
+    "must": ["rlv hangar", "debris hangar", "reconstruction", "grid",
+             "reconstruction project team", "vehicle assembly building", "storage"],
+    "ng": []
+  },
+  "caib": {
+    "_what": "事故調査委員会・記者会見・公聴会",
+    "must": ["accident investigation board", "gehman", "caib", "board member",
+             "press conference", "news conference", "briefing", "hearing", "testimony"],
+    "ng": []
+  },
+  "test": {
+    "_what": "🔴 CAIB の断熱材衝突試験（SwRI）。⚠️ NASA 画像庫には**1点も無い**。archive.org の humanspaceflightcollection にだけ在る（ep8ia の同名の欄で拾う）",
+    "must": ["impact test", "southwest research", "swri", "nitrogen gun", "impact testing",
+             "foam projectile", "impacted by foam", "foam similar to that used"],
+    "ng": []
+  }
+}
