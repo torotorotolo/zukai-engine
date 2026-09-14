@@ -39,30 +39,47 @@ SAME_READING = {
 }
 
 
-def front_broken(script_text, heard_text):
-    """台本の先頭2字が、聞取の先頭 FRONT_LOOK 字のどこにも無い＝文頭が落ちている。"""
-    return script_text[:2] not in heard_text[:FRONT_LOOK]
+# 🔴🔴 **字ではなく「読み」で見る**（2026-09-14・実測で決めた）。
+#    字で見ると Scribe の書き戻しが全部①に化ける:
+#      「2日あまり回り」→「二日余り回り」（漢数字＋かな→漢字）／「いちばん」→「一番」
+#    ＝ 122件のうち 42件が①に入り、そのほとんどが表記のゆれだった。
+#    `el_reading_diff.tsv` は **janome で読みに直した列**（台本の読み／聞取の読み）を持っているので、
+#    そちらの先頭を見る。表記のゆれはここで消える（読みは同じ）。
+#    → [[feedback-verify-your-own-instrument]]（全部NGなら物差しを疑う）
+FRONT_MORA = 3          # 読みの先頭3モーラ（カタカナ3字）
+FRONT_LOOK = 8          # 聞取の読みの先頭8字のどこかにあれば「頭は残っている」
+
+
+def front_broken(script_yomi, heard_yomi):
+    """台本の読みの先頭 FRONT_MORA 字が、聞取の読みの先頭 FRONT_LOOK 字のどこにも無い。"""
+    t, h = (script_yomi or "").strip(), (heard_yomi or "").strip()
+    if len(t) < FRONT_MORA:
+        return False          # 短すぎて①では判定できない → ②へ回す
+    return t[:FRONT_MORA] not in h[:FRONT_LOOK]
 
 
 def selftest():
     fails = []
     ok = lambda c, n: (None if c else fails.append(n))
-    # 陽性対照＝頭が丸ごと落ちた形（7本目 c110-1 で実測した型）
-    ok(front_broken("点は、ペンタゴンの", "はペンタゴンの西へ"), "頭が落ちていれば①")
-    # 陰性対照＝先頭2字が聞取の6字以内にある
-    ok(front_broken("着陸の予定は", "着陸の予定は現地時間の") is False, "そのままなら①ではない")
-    ok(front_broken("2003年2月1日、朝。", "2010年2月1日、朝。") is False,
-       "先頭2字が残っていれば①ではない（数の誤読は②で拾う）")
-    # 境界: 先頭2字が7字目にある＝①と見る（FRONT_LOOK の窓の外）
-    ok(front_broken("桁の裏の", "あああああ桁の裏の"), "先頭2字が7字目なら①（窓の外）")
-    # 🔴 **既知の偽陽性**＝頭の表記が漢字→かなに替わっただけでも①に落ちる。
-    #    読みは合っているので retake しても直らない。**①は目で1件ずつ見る**（下の run() の出力に実文を出す）。
-    ok(front_broken("軍の指揮系統は", "ぐんの指揮系統は"),
-       "🔴 既知の偽陽性: 頭が かな書きでも①に落ちる（読みは同じ）")
+    # 陽性対照＝頭が丸ごと落ちた形（7本目 c110-1「点は、ペンタゴンの」→「はペンタゴンの」）
+    ok(front_broken("テンワペンタゴンノ", "ワペンタゴンノニシエ"), "頭が落ちていれば①")
+    ok(front_broken("ツバサオササエルケタノ", "アアアアアアアアツバサオササエルケタノ"),
+       "頭が9字目まで押し出されたら①（窓の外）")
+    # 陰性対照＝先頭が残っている
+    ok(front_broken("チャクリクノヨテエワ", "チャクリクノヨテエワゲンチジカンノ") is False, "そのままなら①ではない")
+    # 🔴 字なら①に化けた型が、読みなら消えること（2026-09-14 で実際に化けた3つ）
+    ok(front_broken("ニチアマリマワリ", "ニチアマリマワリ") is False,
+       "『2日あまり』→『二日余り』は読みが同じ＝①ではない")
+    ok(front_broken("トオリノケエロノウチ", "トオリノケエロノウチ") is False,
+       "『15通り』→『十も通り』は数の壊れ＝①ではない（numbers_heard が拾う）")
+    ok(front_broken("グンノシキケエトオワ", "グンノシキケエトオワ") is False,
+       "『軍の』→『ぐんの』は読みが同じ＝①ではない")
+    # 短すぎる行は①では決めない
+    ok(front_broken("ア", "ゼンゼンチガウ") is False, "3モーラ未満は①にしない（②へ回す）")
     if fails:
         print(f"selftest: 落ちた: {fails}")
         return 1
-    print(f"selftest: 5/5 合格（FRONT_LOOK={FRONT_LOOK}・ファイルを読んでいない）")
+    print(f"selftest: 7/7 合格（FRONT_MORA={FRONT_MORA}／FRONT_LOOK={FRONT_LOOK}・ファイルを読んでいない）")
     return 0
 
 
@@ -72,7 +89,13 @@ def run():
     for p in (dpath, hpath):
         if not p.exists():
             raise SystemExit(f"🔴 まだ無い: {p}（先に el_check_yomi → el_reading_diff）")
-    diff = list(csv.DictReader(dpath.read_text(encoding="utf-8").splitlines(), delimiter="\t"))
+    rows = list(csv.DictReader(dpath.read_text(encoding="utf-8").splitlines(), delimiter="\t"))
+    # 🔴 **「読みが違う」だけを取る。**全行を渡すと 489件が仕分けに入り、①が意味を失う
+    #    （2026-09-14 実測：フィルタを忘れて 489＝①102＋②387 と出た）。fail closed で列名も確かめる。
+    if not rows or "判定" not in rows[0]:
+        raise SystemExit(f"🔴 {dpath.name} に『判定』の列が無い（上流が替わった）")
+    diff = [r for r in rows if r["判定"] == "読みが違う"]
+    print(f"{dpath.name}: 全{len(rows)}行 → 『読みが違う』{len(diff)}行だけを仕分ける")
     heard = {r["場面"]: r["聞こえた文"] for r in
              csv.DictReader(hpath.read_text(encoding="utf-8").splitlines(), delimiter="\t")}
     lines = {l.lid: l.text for l in ES.lines()}
@@ -82,16 +105,16 @@ def run():
         lid = r.get("場面") or r.get("行")
         if lid in SAME_READING:
             same.append((lid, SAME_READING[lid]))
-        elif lid in lines and front_broken(lines[lid], heard.get(lid, "")):
-            front.append(lid)
+        elif front_broken(r["台本の読み"], r["聞取の読み"]):
+            front.append((lid, r["食い違い"]))
         else:
-            mid.append(lid)
+            mid.append((lid, r["食い違い"]))
 
     for name, ids in (("front", front), ("mid", mid)):
         p = Q / f"{SLUG}_triage_{name}.txt"
         body = []
-        for lid in ids:
-            body.append(f"{lid}\n  台本: {lines.get(lid,'?')}\n  聞取: {heard.get(lid,'?')}")
+        for lid, gap in ids:
+            body.append(f"{lid}  [{gap}]\n  台本: {lines.get(lid,'?')}\n  聞取: {heard.get(lid,'?')}")
         p.write_text("\n".join(body) + "\n", encoding="utf-8")
         print(f"{name}: {len(ids)}件 → {p.name}")
     print(f"same（直さない）: {len(same)}件")
