@@ -654,9 +654,48 @@ def keybridge():
         bake(f"kb_{nm}", fx_type(hero, r, y, "e_veil", yel_plain=True))
 
 
+EP7_SMOKE = "ep7/wtc_smoke_day.jpg"    # Mike Goad（2001年9月11日）：煙の上がるマンハッタンの遠景（PD）
+EP7_PRE = "ep7/manhattan_pre.jpg"      # Carol M. Highsmith：事故の前のツインタワー（PD・LCCN2015645969）
+
+
+def ep7():
+    """7本目（9.11）のサムネ（2026-09-14・⑥）。型は競合と同一＝**赤1行・黄1行・写真だけ**。
+
+    ■ 決め語（本編が実際に読んでいる事実だけを使う）
+      赤＝この回の差＝**「軍が1機目の乗っ取りを知らされたのは、ぶつかる9分前」**（pr04・ep03）。
+        残りの3機は墜ちるまで知らされていない＝**猶予は9分、そのあとは0分**。
+        規模は **2,973人**（pr11。乗っ取った側の19人を含まない委員会報告の数）。
+        ⚠️ 「隠蔽」「衝撃」「闇」は逆効果（[[feedback-what-drives-views]]）。
+        ⚠️ 「即死」などはタイトル・サムネに出さない（[[feedback-jiko-death-word-policy]]）。
+      黄＝年＋事件名。日本で通っている呼び名は「同時多発テロ」＝検索でも通じる側を採る。
+      ⚠️ 黄は字数が少ないほど 210px で読める（[[feedback-thumbnail-must-read-at-210px]]）。
+
+    ■ 地の作り
+      🔴 **人の顔が1つも写っていない写真だけを地にする**
+        （「実在の顔と N名死亡を並べない」＝[[project-jiko-rules-index]] §5）。
+        この条件で `artcc_screen_pre`（管制室）は**手前に大きな顔**があるので採らない。
+        `pentagon_west_day` は壁の寄りで、246px では瓦礫の塊にしか見えないので採らない。
+      `wtc_smoke_day` は煙と稜線が画面の中段＝**赤（上端150px）と黄（下端180px）の下に主役が来ない**。
+      `manhattan_pre` は「その朝より前」の側。塔が中段の右寄りなので `cx=0.45` で中央へ寄せる。
+    """
+    RED_A = "軍が知ったのは衝突9分前"
+    RED_B = "2,973人死亡 猶予は9分"
+    YEL_A = "2001年 同時多発テロ"
+
+    smoke = photo(EP7_SMOKE, cy=0.50, cx=0.50, contrast=1.18, color=1.10, bright=0.92)
+    pre = photo(EP7_PRE, cy=0.50, cx=0.45, contrast=1.18, color=1.10, bright=0.92)
+
+    for nm, hero, r, y in (("a_smoke_9min", smoke, RED_A, YEL_A),
+                           ("b_smoke_toll", smoke, RED_B, YEL_A),
+                           ("c_pre_9min", pre, RED_A, YEL_A)):
+        bake(f"ep7_{nm}", fx_type(hero, r, y, "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "keybridge" in sys.argv:
+    if "ep7" in sys.argv:
+        ep7()
+    elif "keybridge" in sys.argv:
         keybridge()
     elif "sl1" in sys.argv:
         sl1()

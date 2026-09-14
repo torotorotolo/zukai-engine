@@ -12,7 +12,7 @@ on:
         required: false
         default: ""
       which:
-        description: "どの回を焼くか（thumb_jiko.py の引数：keybridge / sl1 / surfside / thresher。空なら123便）"
+        description: "どの回を焼くか（thumb_jiko.py の引数：ep7 / keybridge / sl1 / surfside / thresher。空なら123便）"
         required: false
         default: ""
 
