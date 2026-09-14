@@ -16,7 +16,7 @@
 |---|---|
 | 2003年・幅1280以上の写真（3つの出どころ・重複を潰した） | **1,006点** |
 | うち NASA 画像庫（`images.nasa.gov`）＝中央値 **3000px** | 847点 |
-| うち archive.org の NASA 束（`humanspaceflightcollection`）＝一律 **1536px** | 177点 |
+| うち archive.org の NASA 束（`humanspaceflightcollection`）＝一律 **1536px** | 159点 |
 | 動く映像 | **9本**（うち**実効で幅1280以上は2本**）＋ archive.org の NASA 動画 **60本以上**（256〜400px） |
 | 一次資料 | CAIB Vol.I 248頁・**1,111,856字**（`ref/ep8/CAIB_vol1.pdf`・10.3MB） |
 
@@ -82,13 +82,18 @@ archive.org の NASA 束には在った。**「NASA の画像庫を当たった�
 
 ---
 
-## 2. archive.org の NASA 束（`humanspaceflightcollection`）── 1536px で298点
+## 2. archive.org の NASA 束（`humanspaceflightcollection`）── 1536px で267点
 
 台帳＝`analytics/materials/ep8_nasa.json`（key `ep8ia`）と `ep8_ia2.json`（key `ep8ia2`）。
 **NASA の旧 spaceflight.nasa.gov を保存した束。`images.nasa.gov` には入っていない写真がある。**
 
-- 671点＋54点を拾い、うち**2003年は298点**。実寸は **一律 1536px**（長辺）。
-  **幅1280以上は 177点**（動画55本は静止画の実寸が取れないので別勘定）。
+- 671点＋54点を拾い、**`nasa_id` で潰して 2003年は 267点**（うち動画55本・静止画212点）。
+  実寸は **一律 1536px**（長辺）。**幅1280以上は 159点。**
+  ⚠️🔴 **2つの検索式の結果は重なる。**2003年で **31件**、幅1280以上で **18件**。
+  足し算だと 298点／177点と出て**水増しになる**（一度この数を書いて、`nasa_id` で
+  潰し直して気づいた）。**点数は必ず識別子で潰してから数える。**
+  → [[feedback-duplicate-art-needs-pixel-comparison]]（同じものを二度数える型）
+  ✅ 847 ＋ 159 ＝ **1,006** は3つの束を潰して数えた値なので合っている。
 
 ### 🔴 ここにしか無いもの
 
