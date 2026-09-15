@@ -694,9 +694,51 @@ def ep7():
         bake(f"ep7_{nm}", fx_type(hero, r, y, "e_veil", yel_plain=True))
 
 
+EP8_LAUNCH = "ep8/launch_sky.jpg"      # NASA（2003年1月16日）：39-A射点を離れるコロンビア号（PD）
+EP8_PAD = "ep8/pad_stack.jpg"          # NASA KSC-03pd0076（2003年）：射点に立つ機体（PD・対照用）
+
+
+def ep8():
+    """8本目（コロンビア号）のサムネ（2026-09-15・⑥）。型は7本目と同一＝**赤1行・黄1行・写真だけ**。
+
+    ■ 決め語（本編が実際に読んでいる事実だけを使う）
+      赤＝**7人死亡＋この回だけの核心**（7本目で採用された形＝[[project-jiko-rules-index]] §5）。
+        この回だけの核心は3つあり、どれを採るかを t1 の3案で見る：
+          a **助ける道はあった** … 第6章の決め所（CAIB p174「challenging but feasible」）
+          b **求めは三度退けられた** … 冒頭の引き `pr04`（CAIB p172「Three independent requests」）
+          c **原因は16日前** … 時間の順序そのもの（`pr05`・`pr06`）
+        ⚠️ 「隠蔽」「衝撃」「闇」「結末」は逆効果（[[feedback-what-drives-views]]）。
+        ⚠️ 「即死」などはタイトル・サムネに出さない（[[feedback-jiko-death-word-policy]]）。
+      黄＝**通り名「コロンビア号」＋出来事**（11字）。タイトルにも同じ語を入れてある
+        （2026-09-14 カズヤくん「世間で通っている短い呼び名は両方で使う」）。
+        ⚠️ 黄は字数が少ないほど 210px で読める（[[feedback-thumbnail-must-read-at-210px]]）。
+
+    ■ 地の作り
+      🔴 **人の顔が1つも写っていない写真だけを地にする**
+        （「実在の顔と N名死亡を並べない」＝[[project-jiko-rules-index]] §5）。
+        この条件で `hangar_floor`（残骸を並べた床）と `hangar_grid` は**人が写っている**ので採らない。
+        `orb_earth`（窓から見た地球）は暗すぎて 246px では黒い板になるので採らない。
+      `launch_sky` は機体が**画面の中段・右寄り**＝赤（上端230px の暗幕）と黄（下端260px）の
+      どちらの下にも主役が来ない。`cx=0.56` で機体を中央へ寄せる。
+    """
+    RED_A = "7人死亡 助ける道はあった"       # 13字
+    RED_B = "7人死亡 求めは三度退けられた"    # 15字
+    RED_C = "7人死亡 原因は16日前にあった"    # 15字
+    YEL = "コロンビア号 空中分解"            # 11字（7本目の採用と同じ字数）
+
+    sky = photo(EP8_LAUNCH, cy=0.46, cx=0.56, contrast=1.16, color=1.08, bright=0.94)
+
+    for nm, hero, r, y in (("a_saved", sky, RED_A, YEL),
+                           ("b_thrice", sky, RED_B, YEL),
+                           ("c_16days", sky, RED_C, YEL)):
+        bake(f"ep8_{nm}", fx_type(hero, r, y, "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep7" in sys.argv:
+    if "ep8" in sys.argv:
+        ep8()
+    elif "ep7" in sys.argv:
         ep7()
     elif "keybridge" in sys.argv:
         keybridge()
