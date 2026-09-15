@@ -1,0 +1,26 @@
+■ スライドが映るカット 82 件を、k=0 と k=1 の両端で見た
+  🔴 c913 G-14 焼き込みの上に載る（1件）
+      「3方向以上から撮る／RCCは全部調べる／軌道の上でも調べて直す備え」 画面の「物 Us 4 物 0」と 186×38px 重なる（k=0）  [c913_a3]
+🔴 焼き込みの文字と切り方に粗（G-14 1件（1カット）／参考 129件）
+・ G-17（ネガの縁）は**この題材には当てはまらない** 82カット（`cuts.ss` に film_edge が無い＝ネガの素材を使っていない）。**粗が 82件あるのではない**
+⚠️ 文字行と見なさなかった OCR の行 20件（高さが画像の 3.5% を超える＝行の形をしていない）
+   le_fixture2.jpg              184×1112px（高さ 56.9%）  '煢 】 阜 1'
+   le_fixture.jpg               70×1283px（高さ 42.8%）  '・ 4 感 ゞ ー ー キ ー 一 ー を さ'
+   report_copy2.jpg             23×233px（高さ 20.5%）  '′ メ 第 コ ノ 0 ア を を 00 ツ を'
+   orb_chawla.jpg               63×368px（高さ 17.8%）  '、 イ ぼ メ 卩 い 一 一'
+   report_copy2.jpg             22×185px（高さ 16.2%）  '200 ′ ・ つ 0 つ イ'
+   le_fixture2.jpg              45×282px（高さ 14.4%）  '副 第 目 ー'
+   pad_rss.jpg                  864×344px（高さ 11.5%）  '、 を 勢'
+   pad_stack.jpg                48×196px（高さ 10.0%）  'ー ー 0 第 1'
+   orb_chawla.jpg               82×196px（高さ 9.5%）  '亠 0 い'
+   fb_c711.jpg                  106×80px（高さ 7.4%）  '0 /'
+   caib_gehman.jpg              1265×144px（高さ 7.2%）  '。 ー 4 Chairman HaIGehman'
+   report_copy2.jpg             15×79px（高さ 6.9%）  'ド 9 の ド の'
+   orb_husband_seat.jpg         753×125px（高さ 6.1%）  'ー 第 30 卩 0'
+   mcc_launch.jpg               253×55px（高さ 5.4%）  'BOOSTER'
+   pad_rss.jpg                  34×156px（高さ 5.2%）  'ー 量'
+   strike_wide.jpg              250×120px（高さ 4.5%）  '0 0'
+   orb_chawla_clark.jpg         19×92px（高さ 4.5%）  'の ・ 論 第 置 第'
+   fb_c717.jpg                  417×43px（高さ 4.0%）  '13 : 57 : 28 (LOS -2 : 04 ) ゞ'
+   hangar_floor.jpg             154×70px（高さ 3.6%）  'イ 感 1 、'
+   caib_hearing.jpg             430×70px（高さ 3.5%）  'INVESTIGATI ロ N 日 ロ ARD'
