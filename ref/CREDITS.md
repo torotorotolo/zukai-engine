@@ -1288,7 +1288,7 @@ OCR 2,431字 対 文字層 2,480字＝**98.0%**（件数でなく**字数**で�
 | `report_copy2` | c620 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e55049 |
 | `report_gehman` | c915 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e55047 |
 | `report_mail` | c916 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Columbia Accident Investigation Report |
-| `ham_caib` | c527 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e09152 |
+| `ham_caib` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e09152 |
 | `dittemore` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e31694 |
 | `oex_recorder` | c707 c817 | 1988 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-s88-44993 |
 | `slf_landing` | pr01 | 2002 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-sts109-s-013 |

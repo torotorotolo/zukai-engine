@@ -2312,6 +2312,54 @@ def icons(n, on=None, kind="dot", cols=None, lead="", note="", oncol=None,
     top = BY0 + lead_h + ch * 0.42
     oc = oncol or J.ALERT
     fc = offcol or J.LINE_DIM
+    # ── 札の級数 ────────────────────────────────────────────
+    # 🔴🔴 2026-09-15（8本目 ⑤c''）：**札を1枡に1行で押し込んでいたので、
+    #    長い札だけが小さくなっていた。**c407 は 26〜60px（**2.31倍**）・
+    #    c905 は 26〜58px（2.23倍）。同じ列に並ぶ札の級数が倍以上違うと、
+    #    視聴者には「短い語が強調されている」ように見える（実際は字数の差）。
+    #    しかも幅の上限が `cw * 0.98` ＝ 294px で、**隣の札とのあいだが 6px** しか無い。
+    # → ①**2行まで折ってよい**ことにする ②**全部の札を同じ級数にそろえる**
+    #   （入る中でいちばん大きい級数を探す。推定で置かない＝`txtfit` と同じ考え）
+    #   ③幅の上限を `cw * 0.86` にして、隣とのあいだを 14%（cols=5 なら 42px）空ける。
+    # 🔴🔴 **折ってよいのは「語の途中・禁則で割れない」ときだけ。**判定は `_midword()`
+    #   ＝門番 `check_wrap` と**同じ1か所**を通す（2か所に書くと片方だけ直して食い違う）。
+    #   最初に書いた版はここを見ておらず、c114 のカタカナが
+    #   「アトラ／ンティス号」「チャレ／ンジャー号」「ディス／カバリー号」と割れて
+    #   **`check_wrap` が3件で落ちた**。＝[[feedback-rules-need-gates]] が効いた場面。
+    # 🔴🔴 **そろえた級数が、いまのいちばん小さい札より小さくなるなら、そろえない。**
+    #   そろえる目的は「字数の差が強調に見える」のを消すことなので、
+    #   **全部を最小より小さくしたら読みにくさが増えるだけで目的を果たさない。**
+    #   （c114 はカタカナの固有名詞5つで、きれいに折れる所が無い。1行に詰めると
+    #    32px そろいになり、いまの 36〜49px より悪くなる＝**触らないのが正しい**。
+    #    ⑤c' も c114 は「1.36倍で最も穏やか＝粗でない」と決めている）
+    # 実測（この題材の `icons` 9カット全部に当てた）：
+    #   c407 26〜60 → **43 でそろう**（10〜11字は2行）／c905 26〜58 → **43**／
+    #   c114 36〜49 → **そのまま**（折れる所が無い）／
+    #   c208 c218 c312 c416 は札が短いので**1行・級数そのまま**（44px／32px）
+    #   ＝**効くべき所にだけ効いた** → [[feedback-verify-your-own-instrument]] の対照。
+    lab_size, lab_lines = 0, {}
+    _texts = [str(t) for t in (labels or [])[:n] if str(t)]
+    if _texts:
+        _lw = cw * 0.86
+        _cap = max(24, int(cw * 0.20))
+        # いまの（1枡ごとに合わせた）いちばん小さい級数。ここより下げない
+        _floor = min(fm.fit(t, cw * 0.98, "Noto", cap=_cap, floor=16) for t in _texts)
+        for _s in range(_cap, _floor - 1, -1):
+            _try = {}
+            for t in _texts:
+                if fm.width(t, _s, "Noto") <= _lw:
+                    _try[t] = [t]                       # 1行で入る
+                    continue
+                ls = wrap(t, max(1, int(_lw // _s)))
+                if (len(ls) != 2
+                        or max(fm.width(x, _s, "Noto") for x in ls) > _lw
+                        or _midword(ls[0][-1], ls[1][0])):
+                    _try = None                         # 2行に収まらない／語の途中で割れる
+                    break
+                _try[t] = ls
+            if _try:
+                lab_size, lab_lines = _s, _try
+                break
     g = []
     if lead:
         g.append(txtfit(BX0, BY0 + 62, lead, BW, cap=52, col=J.INK_W))
@@ -2362,9 +2410,16 @@ def icons(n, on=None, kind="dot", cols=None, lead="", note="", oncol=None,
             cur.append(circ(x - r * 0.62, y, hh * 0.34, J.BG))
         else:
             cur.append(circ(x, y, r * 0.62, c))
-        if labels and i < len(labels):
-            cur.append(txtfit(x, y + r * 2.3, labels[i], cw * 0.98,
-                              cap=max(24, int(cw * 0.20)), col=c, anchor="middle"))
+        if labels and i < len(labels) and str(labels[i]):
+            if not lab_size:
+                # そろえられなかった（折れる所が無い）＝**1枡ごとに合わせる従来の動き**
+                cur.append(txtfit(x, y + r * 2.3, labels[i], cw * 0.98,
+                                  cap=max(24, int(cw * 0.20)), col=c,
+                                  anchor="middle"))
+            else:
+                for _k, _ln in enumerate(lab_lines[str(labels[i])][:2]):
+                    cur.append(txt(x, y + r * 2.3 + _k * lab_size * 1.18, _ln,
+                                   lab_size, c, "Noto", "middle"))
     stages.append("".join(cur))
     if note:
         g.append(txtfit(BX0, BY1 - 6, note, BW, cap=28, col=J.TICK))

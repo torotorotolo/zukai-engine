@@ -124,6 +124,22 @@ for _cid, _ov in PHOTO_OVERRIDE.items():
 #      別の絵にしてある。⑤c の原寸目視で「同じ絵に見えないか」を必ず見ること
 #      → [[feedback-duplicate-art-needs-pixel-comparison]]
 # ══════════════════════════════════════════════════════════
+# 🔴🔴 2026-09-15（⑤c''）**`strike_wide` を地に敷く4カットの切り落とし。**
+#   ⑤c' が原寸で確定：`Debris forward of LH wing (leading edge)` という
+#   **NASA が解析用に焼き込んだ英字**が、c205／c212／c302／c306 の画面に
+#   **796×67 〜 904×76px** で出ていた（⑤c の見立て 266×128px より大きい）。
+#   ⚠️ `check_slide` の G-13／G-14 は**暗幕を敷いたカットを参考（・）に落とす**ので
+#      1件も鳴らない。目で見つけた粗 → [[feedback-gates-dont-see-text-burned-into-the-picture]]
+#
+#   素材 `strike_wide.jpg`（2254×2646）の実測：
+#     ・英字の行は **x 0.637〜0.994・y 0.254〜0.309** の2本だけ
+#     ・機体（明るい柱）は **x 0.25〜0.33・y 0.25〜0.50**、噴煙は y 0.53 から下
+#   → **右の 40% を落とすだけ**で英字は消え、機体も噴煙も残る（余白 84px）。
+#     4カットの `bias`／`zoom` はそのままなので、**4つの寄りの違いは保たれる**
+#     （切ったあとの窓＝0.281〜0.542／0.370〜0.658／0.231〜0.461／0.357〜0.563）。
+#   ⚠️ 額装の c305／pr07 は**カット側に別の `trim` を書いてある**ので、ここは効かない。
+SW_TRIM = (0.0, 0.0, 0.60, 1.0)
+
 BACKDROP = {
     # ── 第1章 ────────────────────────────────────────────
     "c109": dict(photo=ss.ET_SURFACE, veil=0.84, bias=0.30, zoom=1.10),
@@ -131,15 +147,19 @@ BACKDROP = {
     "c117": dict(photo=ss.PAD_STACK, veil=0.84, bias=0.46, zoom=1.15),
     # ── 第2章（打ち上げと81.7秒）───────────────────────────
     "c201": dict(photo=ss.PAD_RSS, veil=0.84, bias=0.55, zoom=1.20),
-    "c205": dict(photo=ss.STRIKE_WIDE, veil=0.86, bias=0.38, zoom=1.10),
+    "c205": dict(photo=ss.STRIKE_WIDE, veil=0.86, bias=0.38, zoom=1.10,
+                 trim=SW_TRIM),
     "c207": dict(photo=ss.STRIKE_NEAR, veil=0.86, bias=0.42, zoom=1.15),
     "c208": dict(photo=ss.STRIKE_NEAR, veil=0.86, bias=0.30, zoom=1.35),
-    "c212": dict(photo=ss.STRIKE_WIDE, veil=0.86, bias=0.52, zoom=1.00),
+    "c212": dict(photo=ss.STRIKE_WIDE, veil=0.86, bias=0.52, zoom=1.00,
+                 trim=SW_TRIM),
     "c219": dict(photo=ss.ET_TOP, veil=0.84, bias=0.35, zoom=1.10),
     # ── 第3章（フィルムの解析）─────────────────────────────
-    "c302": dict(photo=ss.STRIKE_WIDE, veil=0.86, bias=0.30, zoom=1.25),
+    "c302": dict(photo=ss.STRIKE_WIDE, veil=0.86, bias=0.30, zoom=1.25,
+                 trim=SW_TRIM),
     "c303": dict(photo=ss.STRIKE_NEAR, veil=0.86, bias=0.55, zoom=1.05),
-    "c306": dict(photo=ss.STRIKE_WIDE, veil=0.86, bias=0.45, zoom=1.40),
+    "c306": dict(photo=ss.STRIKE_WIDE, veil=0.86, bias=0.45, zoom=1.40,
+                 trim=SW_TRIM),
     "c311": dict(photo=ss.STRIKE_NEAR, veil=0.86, bias=0.36, zoom=1.50),
     "c312": dict(photo=ss.STRIKE_NEAR, veil=0.86, bias=0.48, zoom=1.25),
     # ── 第4章（軌道の16日間）───────────────────────────────
@@ -149,6 +169,19 @@ BACKDROP = {
     "c416": dict(photo=ss.ORB_CHAWLA, veil=0.86, bias=0.40, zoom=1.10),
     # ── 第5章（三度の要求）─────────────────────────────────
     "c515": dict(photo=ss.STRIKE_NEAR, veil=0.86, bias=0.40, zoom=1.20),
+    # 🔴🔴 2026-09-15（⑤c''）**c527 は地を外さず、副題で時代を切り離した。**
+    #   ⑤c' の確定：地の `ham_caib` は **2003年2月7日**（事故の6日後）に委員会で話す
+    #   議長の写真。c527 が語るのは **1月24日の会議の議事録**（事故の8日前）で、
+    #   副題が「**説明会と同じ日の**、会議の記録」だったため、
+    #   視聴者は「これが1月24日の会議の絵だ」と受け取る
+    #   → [[feedback-fallback-stills-must-match-the-era]]（門番は1件も鳴らない）。
+    #   ▼ いちど地を外してみたが、**`check_cuts` が落ちた**：写真映像 98 → 97／216 ＝
+    #     **44.9%**（規則 45〜50%）。＝ 地を外す直しは**門番を壊す**。
+    #   → 外さずに済む道を採った。**画面には `scene_jiko.py:594` の出典として
+    #     すでに「出典：NASA（2003年2月7日）」が出ている**ので、日付の情報は足りている。
+    #     食い違いを作っていたのは**副題の「説明会と同じ日の」だけ**だったから、そこを外し、
+    #     絵に写っているもの（署名した議長）を名乗る副題にした（c5.py 側で直した）。
+    #     ＝ 写真は「話している対象そのもの（議長）」なので、敷いてよい条件は満たす。
     "c527": dict(photo=ss.HAM_CAIB, veil=0.86, bias=0.35, zoom=1.10),
     # ── 第6章（助ける道）───────────────────────────────────
     "c603": dict(photo=ss.ATLANTIS_NOSE, veil=0.86, bias=0.45, zoom=1.10),
@@ -166,7 +199,21 @@ BACKDROP = {
     "c820": dict(photo=ss.DEBRIS_TRUCK, veil=0.84, bias=0.50, zoom=1.05),
     # ── 第9章（委員会）────────────────────────────────────
     "c902": dict(photo=ss.TEST_HOLE, veil=0.86, bias=0.45, zoom=1.10),
-    "c913": dict(photo=ss.REPORT_COPY, veil=0.86, bias=0.45, zoom=1.20),
+    # 🔴🔴 2026-09-15（⑤c''）**`report_copy` の焼き込みを `trim` で外へ出した。**
+    #   `check_slide` の G-14 が唯一鳴っていた1件（本文
+    #   「3方向以上から撮る／RCCは全部調べる／軌道の上でも調べて直す備え」が
+    #   画面の焼き込み（乗員名 HUSBAND）と **186×38px** 重なる）。
+    #   ⑤c' は原寸でも 196×59px／179×40px／78×28px／66×27px の4本を数えている。
+    #   素材 `report_copy.jpg`（1536×1520）の実測：
+    #     ・題字 "COLUMBIA / ACCIDENT INVESTIGATION BOARD" … y 0.126〜0.179
+    #     ・記章のまわりの乗員名（HUSBAND ほか） … x 0.531〜0.788・y 0.539〜0.593
+    #     ・下端の "REPORT VOLUME I / AUGUST 2003" … y 0.78 あたり（OCR は拾っていない）
+    #   → **題字と乗員名のあいだの帯だけ**を使う（y 0.20〜0.51・上下に 32／44px の余白）。
+    #     `zoom` は 1.20 → 1.00 に落とす（切ったぶん倍率が 2.29 まで上がるので、
+    #     これ以上寄せるとぼやける）。暗幕 0.86 の地なので地紋として十分。
+    #   ⚠️ `bias` は効かない（切ったあと縦が窓ぴったりになる）ので 0.5 に戻した。
+    "c913": dict(photo=ss.REPORT_COPY, veil=0.86, bias=0.50, zoom=1.00,
+                 trim=(0.0, 0.20, 1.0, 0.51)),
 }
 
 for _cid, _ov in BACKDROP.items():
