@@ -34,6 +34,8 @@ import sys
 
 import jiko_style as J
 
+import cuts.ss as ss          # BACKDROP が写真の名前を使う（`ss` は `scene_jiko` を読まない）
+
 # 章ごとに1ファイル。**1章が壊れていても他章は読めるようにする**
 # （章を並行して書いているあいだ、片方の書きかけで全部の検査が止まらないように）。
 # 🔴 5本目（SL-1）は 冒頭＋**9章**＋締め（台本第2版 §3）。4本目は7章なので c8・c9 を足した。
@@ -109,7 +111,62 @@ for _cid, _ov in PHOTO_OVERRIDE.items():
 # 🔴🔴 2026-09-14（8本目 コロンビア号 ⑤b）**7本目の割り当て10件を全部捨てた。**
 #    中身は git の `ae30d49`（`git show ae30d49:tools/cuts/__init__.py`）。
 #    ⚠️ カットIDは 216中190件が7本目とぶつかる。**残したまま始めると 9.11 の写真が黙って出る。**
+#
+# ══════════════════════════════════════════════════════════
+# 🔴🔴 2026-09-15（8本目 ⑤b-2）**31カットに敷いた。**
+#   ⚠️ 割合を作るために敷いたのではない。**敷いてよい条件**
+#      （その写真が、そのカットで話している対象そのもの）を満たす欄だけを選び、
+#      満たさない欄（時刻の札・人の道すじ・まとめ・決め所）には1枚も敷いていない。
+#   🔴 この回は②の在庫が薄く、台本が「実写」と決めた103欄のうち **16欄に当たりが0件**
+#      （⑤b-1 §3-3）。直の実写は 67欄しか作れないので、ここで戻している。
+#   ⚠️ **同じ写真を何度も敷いた欄がある**（`strike_wide` 5・`strike_near` 5）。
+#      第2章と第3章は「その1枚のコマ」の話そのものなので、寄り（bias/zoom）を変えて
+#      別の絵にしてある。⑤c の原寸目視で「同じ絵に見えないか」を必ず見ること
+#      → [[feedback-duplicate-art-needs-pixel-comparison]]
+# ══════════════════════════════════════════════════════════
 BACKDROP = {
+    # ── 第1章 ────────────────────────────────────────────
+    "c109": dict(photo=ss.ET_SURFACE, veil=0.84, bias=0.30, zoom=1.10),
+    "c115": dict(photo=ss.COLUMBIA_MIDDECK, veil=0.86, bias=0.50, zoom=1.05),
+    "c117": dict(photo=ss.PAD_STACK, veil=0.84, bias=0.46, zoom=1.15),
+    # ── 第2章（打ち上げと81.7秒）───────────────────────────
+    "c201": dict(photo=ss.PAD_RSS, veil=0.84, bias=0.55, zoom=1.20),
+    "c205": dict(photo=ss.STRIKE_WIDE, veil=0.86, bias=0.38, zoom=1.10),
+    "c207": dict(photo=ss.STRIKE_NEAR, veil=0.86, bias=0.42, zoom=1.15),
+    "c208": dict(photo=ss.STRIKE_NEAR, veil=0.86, bias=0.30, zoom=1.35),
+    "c212": dict(photo=ss.STRIKE_WIDE, veil=0.86, bias=0.52, zoom=1.00),
+    "c219": dict(photo=ss.ET_TOP, veil=0.84, bias=0.35, zoom=1.10),
+    # ── 第3章（フィルムの解析）─────────────────────────────
+    "c302": dict(photo=ss.STRIKE_WIDE, veil=0.86, bias=0.30, zoom=1.25),
+    "c303": dict(photo=ss.STRIKE_NEAR, veil=0.86, bias=0.55, zoom=1.05),
+    "c306": dict(photo=ss.STRIKE_WIDE, veil=0.86, bias=0.45, zoom=1.40),
+    "c311": dict(photo=ss.STRIKE_NEAR, veil=0.86, bias=0.36, zoom=1.50),
+    "c312": dict(photo=ss.STRIKE_NEAR, veil=0.86, bias=0.48, zoom=1.25),
+    # ── 第4章（軌道の16日間）───────────────────────────────
+    # ⚠️ `columbia_orbit` は**三度の要求で撮られた1枚ではない**ので `c5` には置かない。
+    #    ここ（軌道にいた16日間）でなら、地上の望遠鏡が撮った1枚として素直に読める。
+    "c409": dict(photo=ss.COLUMBIA_ORBIT, veil=0.84, bias=0.45, zoom=1.20),
+    "c416": dict(photo=ss.ORB_CHAWLA, veil=0.86, bias=0.40, zoom=1.10),
+    # ── 第5章（三度の要求）─────────────────────────────────
+    "c515": dict(photo=ss.STRIKE_NEAR, veil=0.86, bias=0.40, zoom=1.20),
+    "c527": dict(photo=ss.HAM_CAIB, veil=0.86, bias=0.35, zoom=1.10),
+    # ── 第6章（助ける道）───────────────────────────────────
+    "c603": dict(photo=ss.ATLANTIS_NOSE, veil=0.86, bias=0.45, zoom=1.10),
+    "c607": dict(photo=ss.ATLANTIS_STACK, veil=0.84, bias=0.30, zoom=1.15),
+    "c609": dict(photo=ss.ATLANTIS_NOSE, veil=0.84, bias=0.55, zoom=1.30),
+    "c619": dict(photo=ss.CARGO_TOOL, veil=0.86, bias=0.25, zoom=1.10),
+    # ── 第7章（2月1日）────────────────────────────────────
+    "c703": dict(photo=ss.ORB_EARTH, veil=0.84, bias=0.50, zoom=1.05),
+    "c730": dict(photo=ss.SLF_APPROACH, veil=0.84, bias=0.46, zoom=1.10),
+    # ── 第8章（テキサス）───────────────────────────────────
+    "c804": dict(photo=ss.ENGINE_FOUND, veil=0.86, bias=0.35, zoom=1.10),
+    "c807": dict(photo=ss.SEARCH_QUEUE, veil=0.84, bias=0.50, zoom=1.10),
+    "c814": dict(photo=ss.HANGAR_FLOOR, veil=0.86, bias=0.50, zoom=1.10),
+    "c816": dict(photo=ss.HANGAR_CAIB, veil=0.86, bias=0.46, zoom=1.15),
+    "c820": dict(photo=ss.DEBRIS_TRUCK, veil=0.84, bias=0.50, zoom=1.05),
+    # ── 第9章（委員会）────────────────────────────────────
+    "c902": dict(photo=ss.TEST_HOLE, veil=0.86, bias=0.45, zoom=1.10),
+    "c913": dict(photo=ss.REPORT_COPY, veil=0.86, bias=0.45, zoom=1.20),
 }
 
 for _cid, _ov in BACKDROP.items():

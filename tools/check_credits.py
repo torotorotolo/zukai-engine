@@ -48,15 +48,24 @@ CREDITS = HERE / "ref" / "CREDITS.md"
 #    いまは7本目（9.11）のまま。8本目（コロンビア号）へ移すときは
 #    `EP_PREFIX` と `HEADER` と `CLAIM_DAY` の3つを一緒に替える。
 #    ⚠️ 1つでも替え忘れると「0件を合格」にする。下の `EP_PREFIX` の使い所で止めてある。
-EP_PREFIX = "ep7/"
-HEADER = "| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 元の題名 |"
+#    🔴🔴 2026-09-15（8本目 ⑤b-2）：**8本目へ切り替えた。**7本目の値は
+#       `EP_PREFIX="ep7/"` ／ 見出しの最後の列が「元の題名」／
+#       `CLAIM_DAY=re.compile(r"2001年9月(\d{1,2})日")`。
+#    ⚠️ **見出しを7本目と同じ文字列にしてはいけない。**`load_table()` は
+#       `lines.index(HEADER)` で**最初に当たった行**から読むので、同じ文字列だと
+#       8本目の表を足しても **`ref/CREDITS.md` の中の7本目の表を読み続ける**
+#       （＝黙って前の回を測る）。8本目は最後の列を「NASA の識別子」にして分けた。
+EP_PREFIX = "ep8/"
+HEADER = "| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | NASA の識別子 |"
 ROW = re.compile(r"^\|\s*`([a-z0-9_]+)`\s*\|([^|]*)\|([^|]*)\|([^|]*)\|([^|]*)\|(.*)\|\s*$")
 
 # 副題が名乗る「年」。⚠️ ここに足すときは必ず陽性対照も足す
 CLAIM_YEAR = re.compile(r"(1[89]\d\d|20\d\d)年撮影")
 CLAIM_PRE = "2001年以前"
 CLAIM_SOFT = re.compile(r"(1[89]\d\d|20\d\d)年ごろ")
-CLAIM_DAY = re.compile(r"2001年9月(\d{1,2})日")
+# 🔴 8本目は事故が **2003年2月1日**。⚠️ この回の副題は「2003年1月16日」「2002年3月12日」
+#    のように**月から書く**ので、日の主張は「NNNN年N月N日」で拾う。
+CLAIM_DAY = re.compile(r"(1[89]\d\d|20\d\d)年\d{1,2}月\d{1,2}日")
 
 # ④ 目で決めるために並べる語。原題の側にこれが出たら副題と並べて出す
 PLACE = re.compile(
@@ -120,9 +129,12 @@ def judge(sub, row):
             hard.append(f"副題「2001年以前」に対し、表の撮影年は **{y}**")
     d = CLAIM_DAY.search(sub)
     if d:
+        # 🔴 2026-09-15（8本目）：ここは **2001 と直に比べていた**（7本目専用）。
+        #    8本目は 2002年・2003年・1988年の写真が混じるので、
+        #    **副題が名乗った年そのもの**と突き合わせる。
         if y is None:
             hard.append(f"副題が「{d.group(0)}」と名乗るのに、表の撮影年が**不明**")
-        elif y != 2001:
+        elif y != int(d.group(1)):
             hard.append(f"副題「{d.group(0)}」に対し、表の撮影年は **{y}**")
     s = CLAIM_SOFT.search(sub)
     if s and y is not None and abs(int(s.group(1)) - y) > 3:

@@ -1210,3 +1210,113 @@ OCR 2,431字 対 文字層 2,480字＝**98.0%**（件数でなく**字数**で�
 | `artcc_now` | c905 | 2025 | PD（Public domain） | U.S. Air Force AFCENT by Staff Sgt. Shaei Rodriguez | 378th EOSS Air Traffic Controller Demonstration (8829389).jpg |
 | `lobby_now` | c907 | 2018 | PD（CC0） | Mr. Satterly | Gillette–Campbell County Airport terminal interior in Campbell County, Wyoming (2).jpg |
 | `clear_sky` | ep01 | 2025 | CC BY（CC BY 4.0） | Sergey A. Demidov | 20250928 View from aircraft in Turkey 01 (79961).jpg |
+
+
+## スペースシャトル・コロンビア号 空中分解事故（2003-02-01・8本目）
+
+**2026-09-14（②素材の取り直し）に実測した。**写真74点は`qa_out/ep8_assets.py` の `PICK` が正本で、この表は`qa_out/ep8_credtable.py` が**機械で書き出している**（手で書かない）。
+
+### 1. 写真74点 ── すべて NASA の職務著作（PD）
+
+根拠＝**合衆国法典17編105条**。撮影機関（KSC／JSC／MSFC）は`tools/scene_jiko.py` の `EP8_PHOTO` が出典行に出す。
+⚠️ **末尾に年を書いた欄は別の年・別の飛行**（`slf_landing` `slf_approach` `columbia_middeck` `cargo_tool`＝2002年／`oex_recorder`＝**1988年**）。副題で必ずその年を名乗ること。**門番は年の食い違いだけを見ていて、被写体の食い違いは見ない。**
+
+⚠️ 使っていない欄が **15件** ある（`capcom` `crew_arrival` `crew_astrovan` `dittemore` `fd_cain` `fd_engelauf` `news_center` `orb_clark_husband` `orb_mccool` `recovery_team` `search_forest` `search_howell` `search_map` `suit_chawla` `test_panel2`）。②で落としたが置き場が無かったもの。**捨てていない。**
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | NASA の識別子 |
+|---|---|---:|---|---|---|
+| `pad_rss` | c104 c201 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0070 |
+| `pad_stack` | c117 c203 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0076 |
+| `et_orange` | c106 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0071 |
+| `et_surface` | c108 c109 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0074 |
+| `et_top` | c103 c219 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0075 |
+| `launch_wide` | pr05 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0134 |
+| `launch_flames` | c204 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0135 |
+| `launch_sky` | c210 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Space Shuttle Projects |
+| `strike_wide` | c205 c212 c302 c305 c306 pr07 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0242 |
+| `strike_near` | c207 c208 c303 c309 c311 c312 c315 c515 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0243 |
+| `crew_portrait` | pr03 | 2002 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2002e30459 |
+| `crew_arrival` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0058 |
+| `crew_astrovan` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0110 |
+| `suit_chawla` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pp0144 |
+| `suit_clark` | c202 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pp0145 |
+| `orb_chawla` | c416 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Chawla smiles from the AFD of Columbia during STS-107 |
+| `orb_husband` | c402 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Husband smiles for the camera beside Columbia's AFD control panel during STS-107 |
+| `orb_husband_seat` | c215 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Husband seated in the CDR's seat on Columbia's FD during STS-107 |
+| `orb_clark_arms` | c415 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Clark in the Spacehab RDM during activation of ARMS experiment equipment during STS-107 |
+| `orb_chawla_hab` | c406 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Chawla in the Spacehab RDM during activation procedures during STS-107 |
+| `orb_mccool` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | McCool works with Leukin activator cartridges on Columbia's MDK during STS-107 |
+| `orb_chawla_clark` | c404 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Chawla and Clark in the Spacehab RDM during activation procedures on STS-107 |
+| `orb_clark_husband` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Clark and Husband in the Spacehab RDM during activation procedures on STS-107 |
+| `orb_clark_window` | c411 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Clark videotapes through an AFD window on Columbia during STS-107 |
+| `orb_brown` | c408 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Brown in Columbia's FD/MDK access way during STS-107 |
+| `orb_mccool_afd` | c501 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | McCool smiles for the camera from Columbia's AFD during STS-107 |
+| `orb_ramon` | c405 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Ramon on Columbia's MDK during STS-107 |
+| `orb_anderson` | c403 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Anderson smiles for the camera on Columbia's AFD during STS-107 |
+| `orb_crew7` | c401 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-sts107-735-032 |
+| `orb_anderson_read` | pr09 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-sts107-301-025 |
+| `orb_earth` | c420 c703 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Space Shuttle Projects |
+| `columbia_orbit` | c409 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e13222 |
+| `mcc_launch` | c211 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e02609 |
+| `mcc_feb1` | c721 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e03368 |
+| `fd_cain` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e02610 |
+| `capcom` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e02600 |
+| `fd_engelauf` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e02611 |
+| `search_line` | c806 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003-00151 |
+| `search_brief` | c805 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003-00119 |
+| `search_forest` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003-00127 |
+| `search_queue` | c807 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e29065 |
+| `search_map` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e28823 |
+| `search_howell` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e26420 |
+| `evidence_corsicana` | c803 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e28846 |
+| `engine_dig` | c808 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e28147 |
+| `engine_found` | c804 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e28148 |
+| `barksdale` | c811 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e14383 |
+| `hangar_floor` | c814 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd1070 |
+| `hangar_grid` | c813 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0875 |
+| `hangar_caib` | c816 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Columbia Accident Investigation Board |
+| `hangar_exam` | c903 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Columbia Reconstruction Project Team |
+| `le_fixture` | c815 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd1157 |
+| `le_fixture2` | c709 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd1156 |
+| `debris_truck` | c820 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Columbia Debris |
+| `test_panel` | c907 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e40558 |
+| `test_panel2` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e40593 |
+| `test_hole` | c902 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e40715_nr |
+| `caib_hearing` | c621 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0831 |
+| `caib_gehman` | c901 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0836 |
+| `report_copy` | c913 pr11 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e55050 |
+| `report_copy2` | c620 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e55049 |
+| `report_gehman` | c915 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e55047 |
+| `report_mail` | c916 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | Columbia Accident Investigation Report |
+| `ham_caib` | c527 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e09152 |
+| `dittemore` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-jsc2003e31694 |
+| `oex_recorder` | c707 c817 | 1988 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-s88-44993 |
+| `slf_landing` | pr01 | 2002 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-sts109-s-013 |
+| `slf_approach` | c730 | 2002 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-sts109-s-016 |
+| `columbia_middeck` | c115 | 2002 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-s109e6032 |
+| `cargo_tool` | c615 c619 | 2002 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | photo-s109e5386 |
+| `atlantis_nose` | c603 c606 c609 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0369 |
+| `atlantis_stack` | c607 c608 | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0372 |
+| `recovery_team` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0270 |
+| `news_center` |  | 2003 | PD（米連邦職員の職務著作・17 U.S.C. §105） |  | KSC-03pd0252 |
+
+### 2. 動く映像9本
+
+正本＝`ref/ep8/clips.json`（`tools/footage.py` の `CLIPS` が読む）。ショットの境目＝`ref/ep8/shots.json`（502ショット・1秒刻みの実測）。
+
+| key | 出どころ | 権利の根拠 | 使うカット |
+|---|---|---|---|
+| `sts1` | NASA『STS-1 File Footage for 40th Anniversary』 | 米連邦職員の職務著作 | c101 c102 |
+| `fd16` | NASA『STS-107 Entry Status Briefing Flight Day 16』 | 米連邦職員の職務著作 | c418 |
+| `mc0201` | NASA『STS-107 Mission Control 02/01/2003』 | 米連邦職員の職務著作 | c622 c713 c727 |
+| `fdcomm` | NASA『Flight Director Communications Loop』 | 米連邦職員の職務著作 | c701 c720 c724 |
+| `mct` | NASA『STS-107 Mission Control & Telemetry 03/14/2003 Rev.5』 | 米連邦職員の職務著作 | c705 c711 c715 c717 |
+| `guncam` | Commons『Shuttle Columbia Disaster gun camera footage』 | 🔴 **要確認**（下記） | c725 |
+| `tank` | NASA『Columbia Tank Found on Lakebed』 | 米連邦職員の職務著作 | ep01 ep02 |
+| `cabin` | Commons『STS-107, final moments in cabin』 | 米連邦職員の職務著作 | **使わない**（⑤b-2 で外した） |
+| `fdbrief` | NASA『2003-02-14 Entry Flight Director Briefing』 | 米連邦職員の職務著作 | 使わない（台本に置き場が無い） |
+
+🔴🔴 **`guncam` だけ権利の根拠が弱い。**Commons の札は PD だが、説明文は「**訓練中のオランダ人搭乗員**が、テキサス州フォートフッドの米陸軍 AH-64D の照準カメラで撮った」。**米連邦職員の職務著作ではそのまま説明できない。**この回の要の映像（c725＝分解そのもの）なので、**⑥までに根拠を確かめること**。
+⚠️ `mct` は第三者の編集物だが、説明文に「Copyrighted portions … have been removed to maintain NASA Public-Domain status」とある。
+
+🔴 **`cabin` は⑤b-2 で外した。**640px のシートで中身を見たら、7人とも**再突入用の与圧服とヘルメット**を着けていた（10・45・270・375秒）。＝ 飛行11日目の絵ではなく **2月1日の再突入支度の絵**。台本 §1-2 が引いた線（再突入中の機内映像は画にも言葉にも出さない）の外側にある。

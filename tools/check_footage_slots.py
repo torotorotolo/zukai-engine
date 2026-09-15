@@ -34,7 +34,13 @@ HERE = Path(__file__).parent
 #   ＝ 門番が在るのに、新しい書き方を見ていない
 #     （[[feedback-gates-blind-to-the-new-material]]／[[feedback-per-episode-constants-go-stale]]）。
 #   ⚠️ 古い書き方も残す（前の回の章ファイルを読むときに要る）。
-FB = re.compile(r'(?:photo=ss\.fb\("(\w+)"\)|ss\.rg\(\s*"(\w+)")')
+#
+# 🔴🔴 2026-09-15（8本目 ⑤b-2）**同じ穴をもう一度踏んだ。**
+#   8本目は `cuts/ss.py` の **`vid(cid, pw, clip=None, **kw)`** で書く
+#   （`ss.rg` は 7本目の RG237 専用の名前だった）。字面が違うので、
+#   この門番はまた「実写の欄が1つも見つからない」で exit 2 を出した。
+#   → **新しい書き方を足すたびに、ここも足す。**逆に、ここに無い書き方で書かない。
+FB = re.compile(r'(?:photo=ss\.fb\("(\w+)"\)|ss\.rg\(\s*"(\w+)"|ss\.vid\(\s*"(\w+)")')
 
 
 def slots(cutdir=None):
@@ -49,7 +55,7 @@ def slots(cutdir=None):
         if f.name in ("__init__.py", "ss.py"):
             continue
         for m in FB.finditer(f.read_text(encoding="utf-8")):
-            out[m.group(1) or m.group(2)] = f.name
+            out[m.group(1) or m.group(2) or m.group(3)] = f.name
     return out
 
 

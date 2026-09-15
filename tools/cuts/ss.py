@@ -164,13 +164,42 @@ def focus(name, fx, fy, zoom=1.0, box=(W, H)):
                 bias=round(min(1.0, max(0.0, yb)), 3), zoom=zoom)
 
 
-def vid(cid, pw, **kw):
+@lru_cache(maxsize=None)
+def _clips():
+    return json.loads((REF / "clips.json").read_text(encoding="utf-8"))
+
+
+def bars_trim(clip, tol=2):
+    """器の左右の黒帯を、額の箱の**縦横比そのもの**から追い出す `trim`。無ければ None。
+
+    🔴 **`zoom`（＝`PILLAR`）で追い出してはいけない。**`fit()` の zoom は縦横を
+       同じ率で切るので、額装で 1/PILLAR を掛けると**上下も同じ率だけ落ちる**
+       （`fdcomm` なら 720 → 553 ＝ 縦の23%が黙って消える）。
+       全画面カットなら縦が切れても絵は生きるが、額装は箱ごと縮むので直しにならない。
+    ⚠️ 幅は器の札ではなく **`clips.json` の `dispw`（②で測った絵の幅）**を使う
+       → [[feedback-container-labels-lie-about-the-picture]]
+    """
+    c = _clips()[clip]
+    w, dw = int(c["w"]), int(c.get("dispw") or c["w"])
+    if dw >= w - tol:
+        return None
+    m = (w - dw) / 2 / w
+    return (round(m, 4), 0.0, round(1 - m, 4), 1.0)
+
+
+def vid(cid, pw, clip=None, **kw):
     """動く映像のカット（額装パネル＋ひかえの静止画）を1行で書く。
 
+    `clip` を渡すと、その素材の**左右の黒帯**を `trim` で箱の外へ出す
+    （`trim` を明に渡したときは、そちらが勝つ）。
     ⚠️ `footage.USE` に欄が無いと `scene_jiko.credit_of` が **RuntimeError で止まる**
        （ひかえの静止画は動画の出典を借りているので、欄が無ければ出せる出典が無い）。
     """
-    return dict(photo=fb(cid), panel=True, pw=pw, **kw)
+    t = kw.pop("trim", None) or (bars_trim(clip) if clip else None)
+    d = dict(photo=fb(cid), panel=True, pw=pw, **kw)
+    if t:
+        d["trim"] = t
+    return d
 
 
 # ══════════════════════════════════════════════════════════
