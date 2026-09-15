@@ -1,0 +1,81 @@
+========================================================================================
+■ 本番と同じ幾何（trim 込み）で数え直した「画面に出る焼き込みの英字」
+========================================================================================
+  カット             大きさ             位置     残り  素材
+  c709     124x751  px  (  479,  730)    97%  le_fixture2.jpg              '煢 】 阜 1'
+  c901     854x97   px  (  728,  961)   100%  caib_gehman.jpg              '。 ー 4 Chairman HaIGehman' 🔴字幕帯
+  c302     904x76   px  ( 1758,  226)    68%  strike_wide.jpg              'Dcbris 「 w 町 d し 日 wing'
+  c205     796x67   px  ( 1662,  115)    82%  strike_wide.jpg              'Dcbris 「 w 町 d し 日 wing' 🔴見出し帯
+  c306     315x151  px  ( 1116,  835)   100%  strike_wide.jpg              '0 0'
+  c215     503x84   px  ( 1709,  268)    92%  orb_husband_seat.jpg         'ー 第 30 卩 0'
+  c302     266x128  px  ( 1092, 1042)    80%  strike_wide.jpg              '0 0' 🔴字幕帯
+  c306     411x80   px  ( 1593,    2)    52%  strike_wide.jpg              'さ d ⅲ 9 0d90' 🔴見出し帯
+  c205     247x119  px  ( 1083,  868)   100%  strike_wide.jpg              '0 0'
+  c302     388x75   px  ( 1556,  314)   100%  strike_wide.jpg              'さ d ⅲ 9 0d90'
+  c212     225x108  px  ( 1071,  644)   100%  strike_wide.jpg              '0 0'
+  c211     334x73   px  ( 1369, 1073)    59%  mcc_launch.jpg               'BOOSTER' 🔴字幕帯
+  c205     341x66   px  ( 1484,  192)   100%  strike_wide.jpg              'さ d ⅲ 9 0d90' 🔴見出し帯
+  c212     310x60   px  ( 1437,   30)   100%  strike_wide.jpg              'さ d ⅲ 9 0d90' 🔴見出し帯
+  c208     360x44   px  ( 1173,   47)   100%  strike_near.jpg              't 満 0 p 第 物 d ・ ツ' 🔴見出し帯
+  c104     197x78   px  (  168,  756)    99%  pad_rss.jpg                  '、 を 勢'
+  c621     290x47   px  (  495,  149)   100%  caib_hearing.jpg             'INVESTIGATI ロ N 日 ロ ARD' 🔴見出し帯
+  c913     196x59   px  ( 1134,  729)   100%  report_copy.jpg              '物 Us 4 物 0'
+  c515     303x37   px  ( 1139,    9)    76%  strike_near.jpg              't 満 0 p 第 物 d ・ ツ' 🔴見出し帯
+  c207     291x35   px  ( 1132,   12)    85%  strike_near.jpg              't 満 0 p 第 物 d ・ ツ' 🔴見出し帯
+  c416      60x144  px  ( 1159,    8)    56%  orb_chawla.jpg               '亠 0 い' 🔴見出し帯
+  c201      40x184  px  ( 1675, 1070)    55%  pad_rss.jpg                  'ー 量' 🔴字幕帯
+  c913     179x40   px  ( 1572,  749)   100%  report_copy.jpg              'MG000 し'
+  c721     328x21   px  (  346,  729)   100%  mcc_feb1.jpg                 ', 、 に RAOAR &'
+  c814     114x52   px  (  780,  279)   100%  hangar_floor.jpg             'イ 感 1 、'
+  c621     177x33   px  (  498,  219)   100%  caib_hearing.jpg             'WWW.CA 旧 . I_JS'
+  c721     264x20   px  (  512,  301)   100%  mcc_feb1.jpg                 'PASS 書 ー に ま ー を 日 FS'
+  c807     154x32   px  (  226,  522)   100%  search_queue.jpg             '陬 日 日'
+  c709     124x37   px  ( 1275,  113)   100%  le_fixture2.jpg              'YO リ , columbia!' 🔴見出し帯
+  c807     171x25   px  (  911,  560)   100%  search_queue.jpg             'SYSCO 、'
+  c805     135x29   px  (  365,  610)   100%  search_brief.jpg             'CO ー Sica れ 3'
+  c813     131x30   px  ( 1504,  260)   100%  hangar_grid.jpg              'ッ ミ を 一'
+  c903     143x26   px  ( 1192,  778)   100%  hangar_exam.jpg              '一 心 ご 第 : を 第 : 、 一 す 、'
+  pr11     208x18   px  (  442,  288)   100%  report_copy.jpg              'ロ ロ 凵 M 日 IA'
+  pr11     264x14   px  (  437,  308)   100%  report_copy.jpg              'ACCIDENT ー VES ロ 6 804R0'
+  c807     119x30   px  ( 1880,  520)    84%  search_queue.jpg             'SYSCO'
+  c211      98x36   px  ( 1120,   58)   100%  mcc_launch.jpg               '打 Ce' 🔴見出し帯
+  c211     202x17   px  (  138,  604)   100%  mcc_launch.jpg               'FL に 引イT D 旧 EC 丁 こ 旧'
+  c807     110x26   px  (  462,  519)   100%  search_queue.jpg             'CATERING'
+  c106      98x29   px  ( 1843,  824)   100%  et_orange.jpg                "' ・ ゞ を バ"
+  c814      94x30   px  ( 1906,  609)    65%  hangar_floor.jpg             'NEW 「'
+  c721     161x16   px  (  527,  512)   100%  mcc_feb1.jpg                 '-PASS -BFS'
+  c913      78x28   px  ( 1279,  810)   100%  report_copy.jpg              'STS'
+  c820      95x21   px  ( 1623,  936)   100%  debris_truck.jpg             '、 、 P FU い' 🔴字幕帯
+  c820      69x27   px  ( 1670,  991)   100%  debris_truck.jpg             '。 。 ll. 04' 🔴字幕帯
+  c913      66x27   px  ( 1398,  818)   100%  report_copy.jpg              '107'
+  c709      68x23   px  ( 1155,  135)   100%  le_fixture2.jpg              '” 6 歩 3' 🔴見出し帯
+  c415      50x29   px  (  332,  238)   100%  orb_clark_arms.jpg           '/ 第'
+  c807      59x23   px  (  463,  491)   100%  search_queue.jpg             '200'
+  c309      86x16   px  (  583,  253)    82%  strike_near.jpg       [trim] 't 満 0 p 第 物 d ・ ツ'
+  c721      70x16   px  (  300,  297)   100%  mcc_feb1.jpg                 'iPHASE'
+  c805      49x22   px  (  473,  644)   100%  search_brief.jpg             '123E'
+  c820      44x23   px  ( 1497,  611)   100%  debris_truck.jpg             '9073'
+  c204      49x21   px  (  180,  591)   100%  launch_flames.jpg            '習 ↓ の 町'
+  c814      49x19   px  ( 1296,  476)   100%  hangar_floor.jpg             'N EW'
+  pr11      56x17   px  (  448,  569)   100%  report_copy.jpg              '物 Us 4 物 0'
+  c709      48x16   px  ( 1187,  541)   100%  le_fixture2.jpg              'を い 物'
+  c820      46x16   px  ( 1094,  700)   100%  debris_truck.jpg             'USDOT32C'
+  c721      47x15   px  (  484,  410)   100%  mcc_feb1.jpg                 '220S'
+
+  ⇒ **28 カット / 59 行**
+
+  ▼ ⑤c が名指しした欄が、trim 込みでも残るか（陽性/陰性の対照）
+    c901   trim なし   ✅ 残る
+    c211   trim なし   ✅ 残る
+    c621   trim なし   ✅ 残る
+    c705   trim あり  🔴🔴 **消える＝⑤c の見立ては誤り**
+    c711   trim あり  🔴🔴 **消える＝⑤c の見立ては誤り**
+    c715   trim あり  🔴🔴 **消える＝⑤c の見立ては誤り**
+    c717   trim あり  🔴🔴 **消える＝⑤c の見立ては誤り**
+    c725   trim あり  🔴🔴 **消える＝⑤c の見立ては誤り**
+    c205   trim なし   ✅ 残る
+    c212   trim なし   ✅ 残る
+    c302   trim なし   ✅ 残る
+    c306   trim なし   ✅ 残る
+    c201   trim なし   ✅ 残る
+    c820   trim なし   ✅ 残る
