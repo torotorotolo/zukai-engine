@@ -65,9 +65,9 @@ SPEC = {
         t="左の翼を、外から撮ってほしい",
         s="三度の要求に共通する中身",
         fig=("process", dict(
-            steps=[dict(t="軌道の機体を外から撮る", d="", c=J.INK_W),
-                   dict(t="望遠鏡でも、衛星でもいい", d="", c=J.LINE),
-                   dict(t="傷の大きさを知る", d="", c=J.AMBER)],
+            steps=[dict(t="求めた中身", d="軌道にいる機体の左の翼", c=J.INK_W),
+                   dict(t="使う道具", d="望遠鏡でも衛星でもいい", c=J.LINE),
+                   dict(t="知りたいこと", d="傷の大きさ", c=J.AMBER)],
             note="事故調査委員会報告 p140・p166")),
     ),
 

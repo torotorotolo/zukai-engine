@@ -225,8 +225,24 @@ def judge_body(n, sents):
     return None
 
 
-def judge_head(n, sents):
-    """見出し・副題 n（正規化ずみ）が字幕の1文と同文か。(近さ, 規則, 元の文) か None。"""
+def judge_head(n, sents, rows=()):
+    """見出し・副題 n（正規化ずみ）が字幕の1文と同文か。(近さ, 規則, 元の文) か None。
+
+    🔴 2026-09-15（8本目⑤b-3 で見つけた穴）── **測る線の向きが片側だけだった。**
+      これまで見ていたのは「字幕の1文の**頭か尻**をそのまま切り取った」形だけで、
+      次の2つを通していた。`--all` の参考欄には 100% と出ていたのに exit は 0 だった。
+        ・**真ん中から切り取る**  c101「初めて飛んだのは、1981年」
+            ←「コロンビア号が初めて飛んだのは、1981年4月12日」の真ん中
+            （`sn.startswith/endswith` はどちらも偽。近さは 0.71 で HEAD_NEAR に届かない）
+        ・**字幕の1行を丸ごと写す**  c419「翌朝は2月1日。帰る日である」
+            ←1文ずつに割ると 7字・6字で HEAD_EDGE 未満になり、どの規則にも当たらない
+            → **1文だけでなく、字幕の1行そのもの**とも比べる（`rows`）
+      🔴 物差しは新しく作らない。**`--all` がすでに出していた「見出しの近さ」**
+         （字幕の1行に対する `lcsub` の割合・しきい値 `HEAD_RATIO`）をそのまま硬くする。
+         あの参考表示は「見出し・副題の同文は規則③が言う」と書いていたが、
+         規則③が上の2つを見ていなかったので**誰も言わないまま**になっていた。
+      ⚠️ `HEAD_RATIO` は据え置き。`selfcheck` の「直さない」3件は 0.54／0.44／DATAISH で下に落ちる。
+    """
     if len(n) < HEAD_EDGE or DATAISH.match(n):
         return None
     for sn, raw in sents:
@@ -237,6 +253,13 @@ def judge_head(n, sents):
             return r, "ほぼ同文（時制・助詞・1語だけ違う）", raw
         if sn.startswith(n) or sn.endswith(n):
             return len(n) / len(sn), "字幕の1文の頭か尻を、そのまま切り取っている", raw
+    for raw in rows:
+        rn = norm(raw)
+        if not rn:
+            continue
+        r = 1.0 if n in rn else lcsub(n, rn) / len(n)
+        if r >= HEAD_RATIO:
+            return r, "字幕の1行から、そのまま切り取っている", raw
     return None
 
 
@@ -267,12 +290,12 @@ def main(only=None, show_all=False):
         spec = S.SPEC.get(cid, {})
         said = set()
 
-        # ── 規則③ 見出し・副題 対 字幕の1文 ──
+        # ── 規則③ 見出し・副題 対 字幕の1文／1行 ──
         for key, name in (("t", "見出し"), ("s", "副題")):
             n = norm(spec.get(key, ""))
             if not n:
                 continue
-            j = judge_head(n, sents)
+            j = judge_head(n, sents, rows)
             if j:
                 heads += 1
                 said.add(n)
@@ -371,12 +394,19 @@ def selfcheck():
         ("③助詞だけ違う（c232 の形）", "その映像は、ここでは出さない",
          ["ただし、その映像を、ここでは出さない。"], True),
         ("③文の尻をそのまま（c210 の形）", "水は、話に出ていた", subs, True),
+        # 🔴 2026-09-15 追加。頭でも尻でもない切り取りを、規則③は見ていなかった
+        ("③1文の**真ん中**をそのまま（c101 の形）", "初めて飛んだのは、1981年",
+         ["コロンビア号が初めて飛んだのは、1981年4月12日。"], True),
+        ("③1語だけ活用が違う真ん中（c302 の形）", "前日の映像を、見直していた",
+         ["前日の映像を見直していて、破片が当たるのに気づいた。"], True),
+        ("③字幕の1行を丸ごと＝1文ずつだと短くて当たらない（c419 の形）",
+         "翌朝は2月1日。帰る日である", ["翌朝は2月1日。帰る日である。"], True),
         ("主張として言い換えている（c215＝**直さない**）", "手のひらを縦に差し込める幅", subs, False),
         ("日付・時刻だけの見出し（pr01＝**直さない**）", "2021年6月24日、午前1時22分", subs, False),
         ("字幕の一部の語を使うだけ（**直さない**）", "支えに触れているのは、柱の太さだけ", subs, False),
     ]
     for name, t, rows, should in head:
-        hit = judge_head(norm(t), sentences(rows)) is not None
+        hit = judge_head(norm(t), sentences(rows), rows) is not None
         mark = "✓" if hit == should else "✗"
         ok &= hit == should
         print(f"  {mark} {name}\n      「{t}」→ {'言う' if hit else '黙る'}"
