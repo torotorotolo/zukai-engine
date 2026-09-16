@@ -1,0 +1,24 @@
+panam_747_same_type_01   | Public domain | perm:  | tpl: ['PD-Layout', 'PD-generic/layout', 'PD-heirs', 'PD-heirs/en']
+panam_747_same_type_02   | Public domain | perm:  | tpl: ['PD-Layout', 'PD-generic/layout', 'PD-heirs', 'PD-heirs/en']
+panam_747_same_type_03   | Public domain | perm:  | tpl: ['Fallback', 'NARA-cooperation', 'NARA-cooperation/en', 'NARA-cooperation/lang', 'NARA-cooperation/layout', 'NARA-image']
+jumbo_era_01             | Public domain | perm:  | tpl: ['PD-Layout', 'PD-USGov-POTUS', 'PD-USGov-POTUS/en', 'PD-USGov-POTUS/lang', 'PD-USGov-POTUS/layout']
+jumbo_era_05             | Public domain | perm: PD as White House photo | tpl: ['Fallback', 'NARA-image', 'NARA-image/en', 'NARA-image/lang', 'NARA-image/layout', 'NARA-image link']
+losrodeos_now_07         | Public domain | perm:  | tpl: ['Fallback', 'PD-Layout', 'PD-self']
+losrodeos_now_08         | Public domain | perm:  | tpl: ['PD-Layout', 'PD-USGov-NASA', 'PD-USGov-NASA/en', 'PD-USGov-NASA/layout']
+memorial_03              | Public domain | perm:  | tpl: ['Fallback', 'PD-Layout', 'PD-self']
+cockpit_747_06           | Public domain | perm:  | tpl: ['Fallback', 'NARA-Author', 'NARA-Author/maintenance', 'NARA-cooperation', 'NARA-cooperation/en', 'NARA-cooperation/lang']
+cockpit_747_09           | Public domain | perm: Public domain  Public domain  false  false 
+    
+ 
+  
+      
+ 
+ I, the copyright | tpl: ['PD-Layout', 'PD-self']
+cockpit_747_10           | Public domain | perm:  | tpl: ['PD-Layout', 'PD-self']
+cockpit_747_14           | Public domain | perm: Public Domain | tpl: ['PD-Layout', 'PD-USGov-Military-Air Force', 'PD-USGov-Military-Air Force/en', 'PD-USGov-Military-Air Force/lang', 'PD-USGov-Military-Air Force/layout']
+cockpit_747_15           | Public domain | perm:  | tpl: ['Fallback', 'PD-Layout', 'PD-USGov-NASA', 'PD-USGov-NASA/en', 'PD-USGov-NASA/layout']
+engine_747_05            | Public domain | perm: public domain | tpl: ['PD-Layout', 'PD-self']
+engine_747_06            | Public domain | perm:  | tpl: ['PD-Layout', 'PD-Sweden-photo', 'PD-Sweden-photo/en', 'PD-Sweden-photo/layout', 'PD-old-warning-text']
+engine_747_07            | Public domain | perm:  | tpl: ['PD-Layout', 'PD-Sweden-photo', 'PD-Sweden-photo/en', 'PD-Sweden-photo/layout', 'PD-old-warning-text']
+panam_747_same_type_06   | Public domain | perm:  | tpl: ['Fallback', 'NARA-Author', 'NARA-Author/maintenance', 'NARA-Place', 'NARA-cooperation', 'NARA-cooperation/en']
+canary_iss_01            | Public domain | perm:  | tpl: ['Fallback', 'PD-Layout', 'PD-USGov-NASA', 'PD-USGov-NASA/en', 'PD-USGov-NASA/layout']

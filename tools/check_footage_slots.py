@@ -64,6 +64,24 @@ def main(only=None):
     need = slots()
     use = set(F.USE)
     if not need:
+        # 🔴🔴 2026-09-16（9本目 テネリフェ ⑤b-1）**動く映像が0本の回では、この門番は永久に落ちた。**
+        #    「字面が1つも無い＝章ファイルを読めていない」と決めつけていたので、215カットを
+        #    書き終えても exit 2 のまま（9本目は Commons を8通りの語で当たって映像0本）。
+        #    ⚠️ ただし「0件を合格にしない」は崩さない。**字面ではなく `cuts` の読み込みで**見分ける：
+        #      ・`footage.CLIPS` も `USE` も空（＝この回は映像を持たない）
+        #      ・`cuts.BROKEN` が空で、章ファイルが `CHAPTER_FILES` の枚数そろっていて、SPEC が空でない
+        #    このときだけ「動画の欄は0で正しい」と言う。どれか欠ければ従来どおり exit 2。
+        if not F.CLIPS and not use:
+            import cuts                                          # noqa: PLC0415
+            files = [f for f in HERE.joinpath("cuts").glob("*.py")
+                     if f.name not in ("__init__.py", "ss.py")]
+            if cuts.BROKEN or not cuts.SPEC or len(files) < len(cuts.CHAPTER_FILES):
+                print(f"🔴 章ファイルを読めていない（読めない章 {sorted(cuts.BROKEN)}／"
+                      f"章ファイル {len(files)}枚／SPEC {len(cuts.SPEC)}カット）。合格にしない")
+                return 2
+            print(f"✓ この回は動く映像0本（footage.CLIPS 0・USE 0）。章ファイル {len(files)}枚・"
+                  f"{len(cuts.SPEC)}カットを読めていて、動画の欄は0で正しい")
+            return 0
         print("🔴 実写の欄が1つも見つからない＝**章ファイルを読めていない**（合格にしない）")
         return 2
     missing = sorted(set(need) - use)

@@ -1,0 +1,111 @@
+# Commons カテゴリ一覧  分類52件 / ファイル242点
+# 継承なし（使える枠）: 63点 / 継承あり（CC BY-SA・使えない）: 179点
+# ライセンス内訳: {"CC BY-SA 2.0": 45, "CC0": 37, "CC BY 2.0": 10, "CC BY-SA 3.0": 38, "GFDL 1.2": 14, "Public domain": 9, "CC BY-SA 4.0": 78, "CC BY 2.5": 2, "CC BY 3.0": 3, "CC BY-SA 3.0 de": 4, "Attribution": 2}
+# 種類内訳: {"image/jpeg": 222, "image/svg+xml": 8, "image/png": 10, "video/webm": 1, "image/gif": 1}
+
+## 継承なし（幅の大きい順）
+     5612x3772  2011  CC BY 2.0        | Primer vuelo Península - Canarias (1930).jpg | El 20 de mayo de 1930 llegaba al aeropuerto de Los Rodeos (Tenerife Norte) el pr
+     5052x4360  1977  CC0              | Vliegtuigmotor van één van de verongelukte jumbojets, Bestanddeelnr 929-1008.j | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     5000x4366  1977  CC0              | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1005.jpg | Collection / Archive : Photo collection Anefo Report / Series : Tenerife flight 
+     4288x2848  2012  CC BY 3.0        | Santa Cruz de Tenerife airport runway, Canary Islands, Spain - panoramio.jpg | Santa Cruz de Tenerife airport runway, Canary Islands, Spain
+     4010x2256  2013  CC BY 2.0        | EC-JBJ (8663466023).jpg | Boeing 737-800 de Air Europa rodando en Tenerife Norte UX9052 (TFN-MAD)
+     3957x2226  2013  CC BY 2.0        | EC-LKH (8667167560).jpg | Airbus A320 de Iberia Express IBS3939 (TFN-MAD)
+     3952x2223  2013  CC BY 2.0        | EC-IDA (8663483661).jpg | Detalle del tren delantero y de una de las turbinas de un Boeing 737-800 de Air 
+     3910x1728  2012  CC BY 3.0        | Santa Cruz de Tenerife airport runway, Canary Islands, Spain - panoramio (1).j | Santa Cruz de Tenerife airport runway, Canary Islands, Spain
+     3884x2912  2013  CC BY 2.0        | EC-LKH (8666109731).jpg | Airbus A320 de Iberia Express IBS3939 (TFN-MAD)
+     3700x2457  1977  CC0              | Crisiscentrum te Amstelveen, Bestanddeelnr 929-0963.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp op Tener
+     3700x2457  1977  CC0              | Crisiscentrum te Amstelveen, Bestanddeelnr 929-0964.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp op Tener
+     3700x2457  1977  CC0              | Overzicht crisiscentrum te Amstelveen, Bestanddeelnr 929-0965.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     3700x2457  1977  CC0              | Tweede Kamer neemt voor het debat een minuut stilte in acht voor de slachtoffe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Tweede Kamer bijee
+     3700x2457  1977  CC0              | Vlaggen halfstok voor het KLM-hoofdkantoor te Amstelveen, Bestanddeelnr 929-09 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp op Tener
+     3682x2448  1977  CC0              | 1 minuut stilte aan het begin van de herdenking, Bestanddeelnr 929-1118.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | 1 minuut stilte aan het begin van de herdenking, Bestanddeelnr 929-1119.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | Aanwezigen verlaten de hal aan het einde van de dienst, Bestanddeelnr 929-1125 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | Aanwezigen verlaten de hal aan het einde van de dienst, Bestanddeelnr 929-1124 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | Burgemeester Ivo Samkalden van Amsterdam na de kranslegging, Bestanddeelnr 929 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Begrafenisplechtig
+     3682x2448  1977  CC0              | Burgemeester Ivo Samkalden van Amsterdam loopt langs de kisten, Bestanddeelnr  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Begrafenisplechtig
+     3682x2448  1977  CC0              | Burgemeester Ivo Samkalden van Amsterdam legt een herdenkingskrans, Bestanddee | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Begrafenisplechtig
+     3682x2448  1977  CC0              | Geëmotioneerde familieleden tijdens de dienst, Bestanddeelnr 929-1122.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | De kisten van de slachtoffers van de ramp, Bestanddeelnr 929-1123.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | Minister-president Den Uyl en minister Westerterp (Verkeer en Waterstaat) lang | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | Stoet trekt langs de kisten, Bestanddeelnr 929-1131.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Begrafenisplechtig
+     3682x2448  1977  CC0              | Stoet trekt langs de kisten, Bestanddeelnr 929-1130.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Begrafenisplechtig
+     3682x2448  1977  CC0              | Toespraak door de president-directeur van KLM, Sergio Orlandini, Bestanddeelnr | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | Slachtoffers, herdenkingen, vliegtuigongevallen, rampen, Bestanddeelnr 929-112 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | Stoet trekt langs de kisten, Bestanddeelnr 929-1133.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Begrafenisplechtig
+     3658x1956  2012  CC BY 3.0        | Santa Cruz de Tenerife airport runway landing system, Canary Islands, Spain -  | Santa Cruz de Tenerife airport runway landing system, Canary Islands, Spain
+     3367x2749  1977  CC0              | Eén de twee verongelukte toestellen, Bestanddeelnr 929-1006.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     3367x2529  1977  CC0              | Vliegtuigmotor van één van de verongelukte jumbojets, Bestanddeelnr 929-1008 ( | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     3241x2739  1977  CC0              | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1003.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     3206x2744  1977  CC0              | Beeld van één van de twee verongelukte toestellen, Bestanddeelnr 929-1007.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     3008x2000  2007  CC0              | A340-tenerifenorth.JPG | Iberia airbus A340 at Tenerife North Airport
+     2816x2112  2009  CC BY 2.0        | Tenerife North Airport.jpg | Tenerife Norte Airport is located 11 km from Santa Cruz, in the town of San Cris
+     2816x2112  2009  CC BY 2.0        | Tenerife North Airport (2).jpg | Tenerife North Airport (IATA: TFN, ICAO: GCXO), formerly Los Rodeos Airport, is 
+     2778x3007  1977  CC0              | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1004.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     2642x3522  2011  CC BY 2.0        | Tenerife North Airport radar.jpg | Radar installation at Tenerife North Airport (GCXO).
+     2560x1440  2011  CC BY 2.0        | Airbus 340-600 EC-IZX de Iberia landing in Los Rodeos airport.jpg | Airbus 340-600 EC-IZX de Iberia aterrizando en Los Rodeos (GCXO)
+     2560x1920  2011  CC BY 2.0        | Bell 412SP aterrizando en el aeropuerto de Los Rodeos (Tenerife Norte).jpg | Bell 412SP aterrizando en el aeropuerto de Los Rodeos (Tenerife Norte)
+     2457x3700  1977  CC0              | President-directeur van KLM Orlandini staat de pers te woord, Bestanddeelnr 92 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp op Tener
+     2257x1437  2011  CC0              | VvZ Westgaarde.jpg | Надгробный камень с именем ван Зантена
+     2075x1558  1977  CC0              | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1003 (cropped).jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     2075x1383  1977  CC0              | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1003 (cropped) (croppe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     2073x1558  1977  CC0              | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1005 - cropped.jpg | Wreckage on the runway of Los Rodeos after the Tenerife airport disaster of Marc
+     2060x1541  2009  Public domain    | TenerifeMemorial.JPG | Tenerife Memorial
+     2056x1515  1977  CC0              | Eén de twee verongelukte toestellen, Bestanddeelnr 929-1006 (cropped).jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     1632x1009  2003  CC BY 2.5        | Plataforma tfn.jpg | Aeropuerto de Tenerife Norte
+     1632x1232  2003  Public domain    | Terminal tfn.jpg | Nuevo Edificio Terminal
+     1573x1070  2015  CC0              | Memorial plaque at International Tenerife Memorial March 27, 1977.jpg | Memorial plaque at International Tenerife Memorial March 27, 1977 erected in mem
+     1560x2071  1977  CC0              | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1004 (cropped).jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     1534x1192  2009  Public domain    | Tenerife lennujaam.jpg | Tenerife lennujaam satelliidipildil.
+小    993x602   1930  Public domain    | Ernesto Navarro Márquez Los Rodeos 23-12-1929 2.png | Llegada de Ernesto Navarro Márquez al aeropuerto de Los Rodeos, Tenerife, el 23-
+小    965x680   1979  Attribution      | Suárez & Galván.jpg | Llegada del presidente del gobierno de España Adolfo Suárez al aeropuerto de Los
+小    958x680   1979  Attribution      | Suárez & Quintana.jpg | El presidente del gobierno de España Adolfo Suárez a su llegada al aeropuerto de
+小    927x743   2015  CC0              | International Tenerife Memorial March 27, 1977.jpg | Monument by the Dutch artist Rudi van de Wint. Erected in memory of the 583 vict
+小    850x284   2006  CC BY 2.5        | Tenerife 747 Crash.png | Map of the Tenerife Airfield shortly before the crash of two Boeing 747 on 3.27.
+小    786x310   1930  Public domain    | Ernesto Navarro Márquez Los Rodeos 23-12-1929 1.png | Llegada de Ernesto Navarro Márquez al aeropuerto de Los Rodeos, Tenerife, el 23-
+小    733x182   2008  Public domain    | Tenerife Disaster EST.jpg | Tenerife Plane Crash
+小    727x300   2020  Public domain    | Aena Tenerife N.svg | Aena's official logo for Tenerife North-Ciudad de La Laguna Airport.
+小    487x329   2008  Public domain    | Westgaarde.jpg | Westgaarde monument (Amsterdam)
+小    350x85    2019  Public domain    | Aena Tenerife N logo.svg | Aena's official logo for Tenerife North Airport.
+
+## 継承あり＝CC BY-SA（使わない。参考）
+    6960x4640  2020  CC BY-SA 4.0     | At Tenerife 2020 805.jpg
+    6960x4640  2020  CC BY-SA 4.0     | At Tenerife 2020 806.jpg
+    6960x4640  2020  CC BY-SA 4.0     | At Tenerife 2020 808.jpg
+    6960x4640  2023  CC BY-SA 4.0     | At Tenerife 2023 1380.jpg
+    6960x4640  2023  CC BY-SA 4.0     | At Tenerife 2023 1382.jpg
+    6960x4640  2023  CC BY-SA 4.0     | At Tenerife 2023 1385.jpg
+    6960x4640  2023  CC BY-SA 4.0     | At Tenerife 2023 1393.jpg
+    6960x4640  2023  CC BY-SA 4.0     | At Tenerife 2023 1396.jpg
+    6960x4640  2023  CC BY-SA 4.0     | At Tenerife 2023 1398.jpg
+    6960x4640  2023  CC BY-SA 4.0     | At Tenerife 2023 1399.jpg
+    6960x4640  2023  CC BY-SA 4.0     | At Tenerife 2023 883.jpg
+    6960x4640  2023  CC BY-SA 4.0     | At Tenerife 2023 884.jpg
+    6960x4640  2020  CC BY-SA 4.0     | Mujer Rural 2020 08.jpg
+    6960x4640  2020  CC BY-SA 4.0     | Mujer Rural 2020 09.jpg
+    6960x4640  2020  CC BY-SA 4.0     | Mujer Rural 2020 10.jpg
+    6000x4000  2019  CC BY-SA 4.0     | Aterrizaje Aeropuerto de Tenerife Norte.jpg
+    6000x4000  2019  CC BY-SA 4.0     | Aterrizaje Aeropuerto de Tenerife Norte 2.jpg
+    5577x3718  2016  CC BY-SA 2.0     | Airbus A320-214 ‘EC-MCB’ Iberia Express (24504494674).jpg
+    5385x3590  2016  CC BY-SA 2.0     | Airbus A320-214 ‘EC-MCB’ Iberia Express (25108874426).jpg
+    5176x3451  2016  CC BY-SA 2.0     | ATR72-212A ‘EC-JEH’ Binter Canarias (24512924044).jpg
+    5146x3431  2016  CC BY-SA 2.0     | Vickers Viscount 806 ‘EC-DXU’ (25095317865).jpg
+    5142x3428  2016  CC BY-SA 2.0     | ATR72-212A ‘EC-MHI’ Binter Canarias (25117269996).jpg
+    4893x3262  2016  CC BY-SA 2.0     | ATR72-212A ‘EC-KGI’ Binter Canarias (24762369409).jpg
+    4848x3232  2016  CC BY-SA 2.0     | Vickers Viscount 806 ‘EC-DXU’ (24464647474).jpg
+    4646x3097  2016  CC BY-SA 2.0     | Boeing 737-85P(w) ‘EC-LXV’ Air Europa (24776912199).jpg
+    4640x6960  2020  CC BY-SA 4.0     | At Tenerife 2020 810.jpg
+    4640x6960  2023  CC BY-SA 4.0     | At Tenerife 2023 1381.jpg
+    4640x6960  2023  CC BY-SA 4.0     | At Tenerife 2023 1383.jpg
+    4640x6960  2023  CC BY-SA 4.0     | At Tenerife 2023 1384.jpg
+    4640x6960  2023  CC BY-SA 4.0     | At Tenerife 2023 1387.jpg
+    4640x6960  2023  CC BY-SA 4.0     | At Tenerife 2023 1389.jpg
+    4640x6960  2023  CC BY-SA 4.0     | At Tenerife 2023 1390.jpg
+    4640x6960  2023  CC BY-SA 4.0     | At Tenerife 2023 1391.jpg
+    4629x3086  2022  CC BY-SA 2.0     | EC-NUD @ TFN, 2022-12-14.jpg
+    4624x2267  2017  CC BY-SA 2.0     | EC-III - Air Europa - Boeing 737-800 (37140953391).jpg
+    4620x2283  2017  CC BY-SA 2.0     | EC-MLF - Canary Fly - ATR 72-500 (36885859560).jpg
+    4607x6910  2023  CC BY-SA 4.0     | At Tenerife 2023 1388.jpg
+    4572x3048  2016  CC BY-SA 2.0     | ATR72-212A ‘EC-KGI’ Binter Canarias (24489427763).jpg
+    4512x3008  2016  CC BY-SA 2.0     | Airbus A320-214 ‘EC-MCB’ Iberia Express (25016958252).jpg
+    4493x2995  2016  CC BY-SA 2.0     | Boeing 737-85P(w) ‘EC-LXV’ Air Europa (24513926684).jpg

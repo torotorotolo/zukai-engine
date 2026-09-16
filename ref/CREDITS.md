@@ -1330,3 +1330,143 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 
 ✅ **`cabin` を外したままにすることは 2026-09-15（⑥）にカズヤくんが決めた。**（以下は⑤b-2 の経緯）
 🔴 **`cabin` は⑤b-2 で外した。**640px のシートで中身を見たら、7人とも**再突入用の与圧服とヘルメット**を着けていた（10・45・270・375秒）。＝ 飛行11日目の絵ではなく **2月1日の再突入支度の絵**。台本 §1-2 が引いた線（再突入中の機内映像は画にも言葉にも出さない）の外側にある。
+
+## テネリフェ空港衝突事故（1977-03-27・9本目）
+
+**2026-09-16（⑤b-1）に実測した。**写真は `qa_out/ep9_assets.py` の `PICK` が正本で、この節は `python qa_out/ep9_assets.py credits --write` が**機械で書き出している**（手で書かない）。
+
+### 1. 写真 126点 ── ウィキメディア・コモンズ（継承なし：CC0／PD／CC BY）
+
+⚠️ **CC BY は撮影者名が使用条件**。⑥の概要欄には、この表の「撮影者」をそのまま載せる。
+⚠️ **CC BY-SA・GFDL は1点も入れていない**（継承が動画全体に伝染する）。取得した権利表示で2回検査した。
+⚠️ `losrodeos_now_*` `laspalmas_now_*` は**現在の空港**、`fog_laguna_*` は**2025年のラ・ラグーナの山地**、`cockpit_747_*` `engine_747_*` の多くは**博物館の保存機**。副題で必ず名乗る（[[feedback-fallback-stills-must-match-the-era]]）。**門番は年の食い違いだけを見ていて、被写体の食い違いは見ない。**
+⚠️ いま画面に出しているのは **0点**（`使うカット` が空の欄は候補として落としただけ。捨てていない）。
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | Commons の題名 |
+|---|---|---:|---|---|---|
+| `wreck_klm_01` |  | 1977 | CC0 |  | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1003.jpg |
+| `wreck_klm_02` |  | 1977 | CC0 |  | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1004.jpg |
+| `wreck_klm_03` |  | 1977 | CC0 |  | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1005.jpg |
+| `wreck_both_01` |  | 1977 | CC0 |  | Eén de twee verongelukte toestellen, Bestanddeelnr 929-1006.jpg |
+| `wreck_both_02` |  | 1977 | CC0 |  | Beeld van één van de twee verongelukte toestellen, Bestanddeelnr 929-1007.jpg |
+| `wreck_engine_01` |  | 1977 | CC0 | Anefo | Vliegtuigmotor van één van de verongelukte jumbojets, Bestanddeelnr 929-1008.jpg |
+| `panam_n736pa_01` |  | 2006 | CC BY（CC BY 2.0） | Rob Russell | Pan Am Boeing 747-121 N736PA at Sydney.jpg |
+| `klm_747_same_type_01` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | De Boeing 747 aan de pier op het platform, Bestanddeelnr 923-6386.jpg |
+| `klm_747_same_type_02` |  | 1970 | CC0 | Anefo | De Boeing 747 zet de landing in, Bestanddeelnr 923-6390.jpg |
+| `klm_747_same_type_03` |  | 1970 | CC0 | Anefo | De Boeing 747 taxiet naar aankomstplaats op Schiphol, Bestanddeelnr 923-6398.jpg |
+| `panam_747_same_type_01` |  | 1970 | PD（Public domain） | Karl Gritschke | Pan Am (Boeing 747).jpg |
+| `panam_747_same_type_02` |  | 2009 | PD（Public domain） | Karl Gritschke | Pan Am Clipper B747-121.jpg |
+| `panam_747_same_type_03` |  | 1975 | PD（Public domain） | 米国国立公文書館 | Photograph of President Gerald R. Ford Carrying a Vietnamese Baby from Clipper 1742, One of the Operation Babylift Planes that Transported Approximately 325 South Vietnamese Orphans from Saigon to the United State(...) - NARA - 7839930.jpg |
+| `jumbo_era_01` |  | 1970 | PD（Public domain） | White House Photo Office | Pat Nixon christens Boeing 747 2749-18.jpg |
+| `jumbo_era_02` |  | 1969 | CC0 | Anefo | Een model van een Boeing jumbo jet, Bestanddeelnr 922-6599.jpg |
+| `jumbo_era_03` |  | 1969 | CC0 | Anefo | Een model van het interieur van een Boeing jumbo jet, Bestanddeelnr 922-6598.jpg |
+| `jumbo_era_04` |  | 1969 | CC0 | Anefo | Een model van het interieur van een Boeing jumbo jet, Bestanddeelnr 922-6600.jpg |
+| `jumbo_era_05` |  | 1970 | PD（Public domain） | White House photo office | Pat Nixon in first 747.png |
+| `losrodeos_1930_01` |  | 2011 | CC BY（CC BY 2.0） | Iberia Airlines | Primer vuelo Península - Canarias (1930).jpg |
+| `losrodeos_now_01` |  | 2012 | CC BY（CC BY 3.0） | David Broad | Santa Cruz de Tenerife airport runway, Canary Islands, Spain - panoramio.jpg |
+| `losrodeos_now_02` |  | 2012 | CC BY（CC BY 3.0） | David Broad | Santa Cruz de Tenerife airport runway, Canary Islands, Spain - panoramio (1).jpg |
+| `losrodeos_now_03` |  | 2012 | CC BY（CC BY 3.0） | David Broad | Santa Cruz de Tenerife airport runway landing system, Canary Islands, Spain - panoramio.jpg |
+| `losrodeos_now_04` |  | 2011 | CC BY（CC BY 2.0） | Santiago Atienza | Tenerife North Airport radar.jpg |
+| `losrodeos_now_05` |  | 2011 | CC BY（CC BY 2.0） | Santiago Atienza | Bell 412SP aterrizando en el aeropuerto de Los Rodeos (Tenerife Norte).jpg |
+| `losrodeos_now_06` |  | 2003 | CC BY（CC BY 2.5） | Guanxito2006 | Plataforma tfn.jpg |
+| `losrodeos_now_07` |  | 2003 | PD（Public domain） | Guanxito2006 | Terminal tfn.jpg |
+| `losrodeos_now_08` |  | 2009 | PD（Public domain） | Epp | Tenerife lennujaam.jpg |
+| `laspalmas_now_01` |  | 2010 | CC BY（CC BY 2.0） | Håkan Dahlström | Aeropuerto de Gran Canaria interior (5195390363).jpg |
+| `laspalmas_now_02` |  | 2010 | CC BY（CC BY 2.0） | Håkan Dahlström | Aeropuerto de Gran Canaria interior (5195391885).jpg |
+| `laspalmas_now_03` |  | 2010 | CC BY（CC BY 2.0） | Håkan Dahlström | Check-In Aeropuerto de Gran Canaria (5195973172).jpg |
+| `laspalmas_now_04` |  | 2010 | CC BY（CC BY 2.0） | Håkan Dahlström | Gates (5195996258).jpg |
+| `laspalmas_now_05` |  | 2010 | CC BY（CC BY 2.0） | Håkan Dahlström | Boarding (5196003292).jpg |
+| `laspalmas_now_06` |  | 2010 | CC BY（CC BY 2.0） | Håkan Dahlström | Busy traveller (5195388141).jpg |
+| `laspalmas_now_07` |  | 2010 | CC BY（CC BY 2.0） | Håkan Dahlström | Aeropuerto de Gran Canaria Tower (5195405623).jpg |
+| `laspalmas_now_08` |  | 2012 | CC BY（CC BY 3.0） | hh oldman | Tower - panoramio (34).jpg |
+| `laspalmas_now_09` |  | 2012 | CC BY（CC BY 3.0） | hh oldman | Airporttower(Cran Canaria) - panoramio.jpg |
+| `laspalmas_now_10` |  | 2008 | CC BY（CC BY 3.0） | Kriki | Aeropuerto LPA Gran Canaria.jpg |
+| `laspalmas_now_11` |  | 2010 | CC BY（CC BY 3.0） | Marc Ryckaert | Gran Canaria International Airport R01.jpg |
+| `laspalmas_now_12` |  | 2013 | CC BY（CC BY 2.0） | oatsy40 | Planes (10136783155).jpg |
+| `laspalmas_now_13` |  | 2012 | CC BY（CC BY 3.0） | hh oldman | In Reih und Glied - panoramio.jpg |
+| `laspalmas_now_14` |  | 2012 | CC BY（CC BY 3.0） | hh oldman | Airport(Eingang) - panoramio.jpg |
+| `laspalmas_now_15` |  | 2010 | CC BY（CC BY 2.0） | Håkan Dahlström | Boarding aircraft (5195400705).jpg |
+| `laspalmas_now_16` |  | 2010 | CC BY（CC BY 2.0） | Håkan Dahlström | Boarding rear door (5195398367).jpg |
+| `cockpit_747_01` |  | 2008 | CC BY（CC BY 2.0） | travelswiss | KLM Boeing 747 Cockpit.jpg |
+| `engine_747_01` |  | 2010 | CC BY（CC BY 2.0） | Håkan Dahlström | Jet engine (5195403907).jpg |
+| `nl_crisis_01` |  | 1977 | CC0 | Bert Verhoeff for Anefo | Crisiscentrum te Amstelveen, Bestanddeelnr 929-0963.jpg |
+| `nl_crisis_02` |  | 1977 | CC0 | Bert Verhoeff for Anefo | Crisiscentrum te Amstelveen, Bestanddeelnr 929-0964.jpg |
+| `nl_crisis_03` |  | 1977 | CC0 | Bert Verhoeff for Anefo | Overzicht crisiscentrum te Amstelveen, Bestanddeelnr 929-0965.jpg |
+| `nl_crisis_04` |  | 1977 | CC0 | Bert Verhoeff / Anefo | Vlaggen halfstok voor het KLM-hoofdkantoor te Amstelveen, Bestanddeelnr 929-0961.jpg |
+| `nl_crisis_05` |  | 1977 | CC0 | Bert Verhoeff for Anefo | President-directeur van KLM Orlandini staat de pers te woord, Bestanddeelnr 929-0962.jpg |
+| `nl_mourning_01` |  | 1977 | CC0 | Rob Croes / Anefo | 1 minuut stilte aan het begin van de herdenking, Bestanddeelnr 929-1118.jpg |
+| `nl_mourning_02` |  | 1977 | CC0 | Rob Croes / Anefo | 1 minuut stilte aan het begin van de herdenking, Bestanddeelnr 929-1119.jpg |
+| `nl_mourning_03` |  | 1977 | CC0 | Rob Croes for Anefo | Toespraak door de president-directeur van KLM, Sergio Orlandini, Bestanddeelnr 929-1120.jpg |
+| `nl_mourning_04` |  | 1977 | CC0 | Fotograaf Onbekend / Anefo | Minister-president Den Uyl en minister Westerterp (Verkeer en Waterstaat) langs , Bestanddeelnr 929-1121.jpg |
+| `nl_mourning_05` |  | 1977 | CC0 | Rob Croes for Anefo | Geëmotioneerde familieleden tijdens de dienst, Bestanddeelnr 929-1122.jpg |
+| `nl_mourning_06` |  | 1977 | CC0 | Rob Croes for Anefo | De kisten van de slachtoffers van de ramp, Bestanddeelnr 929-1123.jpg |
+| `nl_mourning_07` |  | 1977 | CC0 | Rob Croes / Anefo | Aanwezigen verlaten de hal aan het einde van de dienst, Bestanddeelnr 929-1124.jpg |
+| `nl_mourning_08` |  | 1977 | CC0 | Rob Croes for Anefo | Aanwezigen verlaten de hal aan het einde van de dienst, Bestanddeelnr 929-1125.jpg |
+| `nl_mourning_09` |  | 1977 | CC0 | Rob Croes for Anefo | Slachtoffers, herdenkingen, vliegtuigongevallen, rampen, Bestanddeelnr 929-1126.jpg |
+| `nl_mourning_10` |  | 1977 | CC0 | Fotograaf Onbekend / Anefo | Tweede Kamer neemt voor het debat een minuut stilte in acht voor de slachtoffers, Bestanddeelnr 929-0988.jpg |
+| `nl_funeral_01` |  | 1977 | CC0 | Fotograaf Onbekend / Anefo | Stoet trekt langs de kisten, Bestanddeelnr 929-1130.jpg |
+| `nl_funeral_02` |  | 1977 | CC0 | Fotograaf Onbekend / Anefo | Stoet trekt langs de kisten, Bestanddeelnr 929-1131.jpg |
+| `nl_funeral_03` |  | 1977 | CC0 | Fotograaf Onbekend / Anefo | Burgemeester Ivo Samkalden van Amsterdam legt een herdenkingskrans, Bestanddeelnr 929-1132.jpg |
+| `nl_funeral_04` |  | 1977 | CC0 | Bert Verhoeff / Anefo | Stoet trekt langs de kisten, Bestanddeelnr 929-1133.jpg |
+| `nl_funeral_05` |  | 1977 | CC0 | Fotograaf Onbekend / Anefo | Burgemeester Ivo Samkalden van Amsterdam loopt langs de kisten, Bestanddeelnr 929-1134.jpg |
+| `nl_funeral_06` |  | 1977 | CC0 | Fotograaf Onbekend / Anefo | Burgemeester Ivo Samkalden van Amsterdam na de kranslegging, Bestanddeelnr 929-1135.jpg |
+| `schiphol_1977_01` |  | 1977 | CC0 | Nederlandse Spoorwegen | HUA-170857-Gezicht op de vertrekhal Noord van de luchthaven Schiphol, vanaf de hal van het in aanbouw zijnde N.S.-station Schiphol.jpg |
+| `schiphol_1977_02` |  | 1977 | CC0 | Bert Verhoeff / Anefo | Proef met gescheiden paspoortcontrole op Schiphol bord in aankomsthal wijst r, Bestanddeelnr 929-2655.jpg |
+| `schiphol_1977_03` |  | 1978 | CC0 | Fernando Pereira / Anefo | Vliegtuigkijkers bij Schiphol, Bestanddeelnr 929-9386.jpg |
+| `memorial_01` |  | 2015 | CC0 | Jesús Manuel Pérez Triana | International Tenerife Memorial March 27, 1977.jpg |
+| `memorial_02` |  | 2015 | CC0 | Jesús Manuel Pérez Triana | Memorial plaque at International Tenerife Memorial March 27, 1977.jpg |
+| `memorial_03` |  | 2009 | PD（Public domain） | Gotmarcus | TenerifeMemorial.JPG |
+| `memorial_04` |  | 2011 | CC0 | NaturalHeaven1979 | VvZ Westgaarde.jpg |
+| `losrodeos_now_09` |  | 2007 | CC0 | Arrebar | A340-tenerifenorth.JPG |
+| `losrodeos_now_10` |  | 2009 | CC BY（CC BY 2.0） | George from Spain | Tenerife North Airport.jpg |
+| `losrodeos_now_11` |  | 2009 | CC BY（CC BY 2.0） | George from Spain | Tenerife North Airport (2).jpg |
+| `losrodeos_now_12` |  | 2011 | CC BY（CC BY 2.0） | Santiago Atienza | Airbus 340-600 EC-IZX de Iberia landing in Los Rodeos airport.jpg |
+| `losrodeos_now_13` |  | 2013 | CC BY（CC BY 2.0） | Santiago Atienza | EC-JBJ (8663466023).jpg |
+| `losrodeos_now_14` |  | 2013 | CC BY（CC BY 2.0） | Santiago Atienza | EC-LKH (8667167560).jpg |
+| `losrodeos_now_15` |  | 2013 | CC BY（CC BY 2.0） | Santiago Atienza | EC-LKH (8666109731).jpg |
+| `losrodeos_now_16` |  | 2013 | CC BY（CC BY 2.0） | Santiago Atienza | EC-IDA (8663483661).jpg |
+| `losrodeos_now_17` |  | 2013 | CC BY（CC BY 2.0） | Santiago Atienza | EI-EBW (8667219504).jpg |
+| `losrodeos_now_18` |  | 2011 | CC BY（CC BY 2.0） | Santiago Atienza | Luke SkyVueling.jpg |
+| `fog_laguna_01` |  | 2025 | CC BY（CC BY 4.0） | Flocci Nivis | 20250702 Mirador de Jardina 01.jpg |
+| `fog_laguna_02` |  | 2025 | CC BY（CC BY 4.0） | Flocci Nivis | 20250702 Mirador de Jardina 02.jpg |
+| `fog_laguna_03` |  | 2025 | CC BY（CC BY 4.0） | Flocci Nivis | 20250702 Mirador de Jardina 03.jpg |
+| `fog_laguna_04` |  | 2025 | CC BY（CC BY 4.0） | Flocci Nivis | 20250702 Mirador de Jardina 04.jpg |
+| `fog_laguna_05` |  | 2025 | CC BY（CC BY 4.0） | Flocci Nivis | 20250702 Mirador de Jardina 05.jpg |
+| `fog_laguna_06` |  | 2024 | CC0 | Clemenspool | Mountains Tenerife north.jpg |
+| `cockpit_747_02` |  | 1971 | CC0 | W. Punt for Anefo | Vlucht met Boeing 747 naar Rome van Schiphol cockpit, Bestanddeelnr 924-3165.jpg |
+| `cockpit_747_03` |  | 1971 | CC0 | W. Punt for Anefo | Vlucht met Boeing 747 naar Rome van Schiphol cockpit, Bestanddeelnr 924-3166.jpg |
+| `cockpit_747_04` |  | 1971 | CC0 | W. Punt for Anefo | Vlucht met Boeing 747 naar Rome van Schiphol, Bestanddeelnr 924-3167.jpg |
+| `cockpit_747_05` |  | 1970 | CC0 | Joost Evers / Anefo | Vliegtrainingsgebouw KLM op Schiphol-Oost geopend interieur van cockpit Boeing , Bestanddeelnr 923-9767.jpg |
+| `cockpit_747_06` |  | 1970 | PD（Public domain） | Robert LeRoy Knudsen | Mrs. Nixon visits the cockpit of the first commercial Boeing 747 jet in conjunction with the christening ceremony for... - NARA - 194665.tif |
+| `cockpit_747_07` |  | 2013 | CC BY（CC BY 2.0） | Roel Hemkes | Boeing 747-206SUD flightdeck (9649946519).jpg |
+| `cockpit_747_08` |  | 2013 | CC BY（CC BY 2.0） | kitmasterbloke | F-BPVJ cockpit, Air France Boeing 747-128.jpg |
+| `cockpit_747_09` |  | 2007 | PD（Public domain） | Snowdog | B747-cockpit.jpg |
+| `cockpit_747_10` |  | 2008 | PD（Public domain） | Leftright | B747-200SF FE Panel.JPG |
+| `cockpit_747_11` |  | 2015 | CC0 | Daderot | Cockpit of Boeing 747-136, serial 20269, registration number G-AWNG, first flight in March 1971, last flight December 1998 - Hiller Aviation Museum - San Carlos, California - DSC03315.jpg |
+| `cockpit_747_12` |  | 2015 | CC0 | Daderot | Cockpit of Boeing 747-136, serial 20269, registration number G-AWNG, first flight in March 1971, last flight December 1998 - Hiller Aviation Museum - San Carlos, California - DSC03318.jpg |
+| `cockpit_747_13` |  | 2015 | CC0 | Daderot | Cockpit of Boeing 747-136, serial 20269, registration number G-AWNG, first flight in March 1971, last flight December 1998 - Hiller Aviation Museum - San Carlos, California - DSC03319.jpg |
+| `cockpit_747_14` |  | 2010 | PD（Public domain） | Lance Cheung | E-4B cockpit.jpg |
+| `cockpit_747_15` |  | 2012 | PD（Public domain） | NASA/Tim Jacobs | Cockpit of Shuttle Carrier Aircraft 905 (KSC-2012-2185).jpg |
+| `cockpit_747_16` |  | 1973 | CC BY（CC BY 4.0） | Willy Pragher | Frankfurt- Flughafen; Jumbo-Jet; Cockpit - LABW - Staatsarchiv Freiburg W 134 Nr. 098695.jpeg |
+| `cockpit_747_17` |  | 1989 | CC BY（CC BY 4.0） | Peter Nath | 1989 05 11 B747 121 LX FCV LO AF flt deck mid atlantic.jpg |
+| `engine_747_02` |  | 2017 | CC0 | Daderot | Pratt & Whitney JT9D-7 turbofan engine, 1970 - Evergreen Aviation & Space Museum - McMinnville, Oregon - DSC00895.jpg |
+| `engine_747_03` |  | 2014 | CC0 | Alf van Beem | Pratt & Whitney JT9D (1969) used in Boeing 747 at Flugausstellung Hermeskeil, pic1.JPG |
+| `engine_747_04` |  | 2014 | CC0 | Alf van Beem | Pratt & Whitney JT9D (1969) used in Boeing 747 at Flugausstellung Hermeskeil, pic2.JPG |
+| `engine_747_05` |  | 2010 | PD（Public domain） | Stickpen | Cityofeverett-engine.jpg |
+| `klm_747_same_type_04` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | De Boeing 747 wordt door een batsman naar een juiste positie op het platform van, Bestanddeelnr 923-6393.jpg |
+| `klm_747_same_type_05` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | Onder een Hollandse wolkenlucht is de Boeing 747 Jumbo-jet op het platform Schip, Bestanddeelnr 923-6389.jpg |
+| `klm_747_same_type_06` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | Op het platform van Schiphol kan de Boeing 747 tijdens het uitladen op grote bel, Bestanddeelnr 923-6388.jpg |
+| `klm_747_same_type_07` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | De Boeing 747 aan de pier op het platform, Bestanddeelnr 923-6395.jpg |
+| `klm_747_same_type_08` |  | 1970 | CC0 | Anefo | De Boeing 747 aan de pier op het platform, Bestanddeelnr 923-6396.jpg |
+| `klm_747_same_type_09` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | De Boeing 747 net voor de landing op Schiphol, Bestanddeelnr 923-6399.jpg |
+| `klm_747_same_type_10` |  | 1970 | CC0 | Anefo | De Boeing 747 landt op Schiphol, Bestanddeelnr 923-6392.jpg |
+| `klm_747_same_type_11` |  | 1971 | CC0 | Bert Verhoeff / Anefo | Eerste Jumbo-Jet Boeing 747 B , van KLM arriveert op Schiphol KLM-Jumbo Jet, Bestanddeelnr 924-2251.jpg |
+| `klm_747_same_type_12` |  | 1971 | CC0 | Bert Verhoeff / Anefo | Eerste Jumbo-Jet Boeing 747 B , van KLM arriveert op Schiphol KLM-Jumbo Jet, Bestanddeelnr 924-2252.jpg |
+| `klm_747_same_type_13` |  | 1972 | CC0 | Bert Verhoeff / Anefo | KLM bouwt geluidsmuur rond platform waar wordt proef gedraaid de geluidsmuur , Bestanddeelnr 925-3335.jpg |
+| `klm_747_same_type_14` |  | 1973 | CC0 | Anefo | De gekaapte Jumbo is terugekeerd op Schiphol, Bestanddeelnr 926-8612.jpg |
+| `panam_747_same_type_04` |  | 1970 | CC0 | Rob Mieremet / Anefo | Amerikaanse Luchtvaartmij Pan Am gaat 27 op Amsterdam vliegen met een 747 voo, Bestanddeelnr 923-5862.jpg |
+| `panam_747_same_type_05` |  | 1974 | CC BY（CC BY 3.0） | Piergiuliano Chesi | Pan American World Airways Boeing 747 N750PA 01.jpg |
+| `panam_747_same_type_06` |  | 1973 | PD（Public domain） | Arthur Tress | AT THE JOHN F. KENNEDY AIRPORT - NARA - 547951.jpg |
+| `panam_747_same_type_07` |  | 1984 | CC BY（CC BY 2.0） | Kambui | Pan American World Airways - Pan Am Boeing 747-121 N732PA "Clipper Ocean Telegraph" (29935660081).jpg |
+| `panam_747_same_type_08` |  | 1983 | CC BY（CC BY 2.0） | Kambui | Pan American World Airways - Pan Am Boeing 747-121 N754PA "Clipper Ocean Rover" (24059638596).jpg |
+| `canary_iss_01` |  | 2009 | PD（Public domain） | NASA ジョンソン宇宙センター | ISS020-E-21144 - View of the Canary Islands.jpg |

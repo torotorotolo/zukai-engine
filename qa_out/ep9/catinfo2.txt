@@ -1,0 +1,40 @@
+OK      1976 at Amsterdam Airport Schiphol {'size': 65, 'pages': 0, 'files': 59, 'subcats': 6, 'hidden': False}
+OK      1977 at Amsterdam Airport Schiphol {'size': 33, 'pages': 0, 'files': 28, 'subcats': 5, 'hidden': False}
+OK      1978 at Amsterdam Airport Schiphol {'size': 23, 'pages': 0, 'files': 17, 'subcats': 6, 'hidden': False}
+OK      Boeing 747 aircraft cabins {'size': 103, 'pages': 0, 'files': 96, 'subcats': 7, 'hidden': False}
+MISSING Boeing 747 interiors 
+OK      Aircraft cabins in the 1970s {'size': 1, 'pages': 0, 'files': 1, 'subcats': 0, 'hidden': False}
+OK      Fog in the Canary Islands {'size': 16, 'pages': 0, 'files': 14, 'subcats': 2, 'hidden': False}
+MISSING Fog in Tenerife 
+OK      Clouds in Tenerife {'size': 14, 'pages': 0, 'files': 12, 'subcats': 2, 'hidden': False}
+OK      Sea of clouds in Tenerife {'size': 23, 'pages': 0, 'files': 23, 'subcats': 0, 'hidden': False}
+OK      Mar de nubes {'size': 0, 'pages': 0, 'files': 0, 'subcats': 0, 'hidden': False}
+OK      San Cristóbal de La Laguna {'size': 249, 'pages': 1, 'files': 219, 'subcats': 29, 'hidden': False}
+MISSING Aguere valley 
+MISSING Vega de La Laguna 
+MISSING Fog on runways 
+MISSING Runways in fog 
+MISSING Aircraft in fog 
+MISSING Airports in the fog 
+MISSING Control towers in the Canary Islands 
+OK      Air traffic controllers {'size': 79, 'pages': 0, 'files': 70, 'subcats': 9, 'hidden': False}
+OK      Air traffic control towers {'size': 114, 'pages': 0, 'files': 106, 'subcats': 8, 'hidden': False}
+OK      Boeing 747-121 {'size': 46, 'pages': 0, 'files': 6, 'subcats': 40, 'hidden': False}
+MISSING Boeing 747-206B 
+MISSING KLM Boeing 747-206B 
+MISSING Boeing 747-100 of Pan Am 
+MISSING Pan Am Boeing 747-100 
+OK      Boeing 747 of Pan American World Airways {'size': 15, 'pages': 0, 'files': 11, 'subcats': 4, 'hidden': False}
+MISSING Clipper Victor 
+MISSING Aircraft refueling 
+MISSING Aircraft refuelling 
+OK      Jet fuel {'size': 70, 'pages': 0, 'files': 66, 'subcats': 4, 'hidden': False}
+MISSING Refuelers 
+OK      Gran Canaria Airport {'size': 59, 'pages': 0, 'files': 55, 'subcats': 4, 'hidden': False}
+MISSING Las Palmas Airport 
+OK      Instrument landing systems {'size': 31, 'pages': 0, 'files': 27, 'subcats': 4, 'hidden': False}
+OK      Taxiways {'size': 55, 'pages': 0, 'files': 43, 'subcats': 12, 'hidden': False}
+OK      Airport aprons {'size': 110, 'pages': 0, 'files': 106, 'subcats': 4, 'hidden': False}
+MISSING Aprons (aviation) 
+OK      Runway markings {'size': 136, 'pages': 0, 'files': 136, 'subcats': 0, 'hidden': False}
+MISSING Runway centreline lights 

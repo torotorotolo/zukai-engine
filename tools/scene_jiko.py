@@ -514,6 +514,33 @@ EP7_PHOTO = {
 
 
 # ══════════════════════════════════════════════════════════
+#  9本目（テネリフェ）── `ref/ep9/`
+# ══════════════════════════════════════════════════════════
+# 名前の付け方（`tools/cuts/ss.py`）:
+#   ep9/<欄>_<NN>.jpg … ウィキメディア・コモンズの写真。**継承なし（CC0／PD／CC BY）だけ**
+#   ⚠️ 動く映像は0本＝`ep9/fb_*.jpg`（ひかえの静止画）は無い。出てきたら止める。
+#
+# 🔴 2026-09-16（⑤b-1）**出典の表を、ここへ貼らずにファイルから読む。**
+#    7本目・8本目は `…_assets.py credits` の出力をこの .py に**手で貼っていた**（67行・74行）。
+#    9本目は128点あり、貼り間違いは権利の話（CC BY は撮影者名が使用条件）になるので、
+#    `python qa_out/ep9_assets.py credits --write` が書く `ref/ep9/credits.json` をそのまま読む。
+#    ⚠️ ファイルが無い・名前が当たらないときは None を返し、最後の `PHOTO_CREDIT[...]` で
+#       KeyError にして気づかせる（fail closed。黙って別の出典を出さない）。
+_EP9_CREDITS = HERE / "ref" / "ep9" / "credits.json"
+EP9_PHOTO = (json.loads(_EP9_CREDITS.read_text(encoding="utf-8"))
+             if _EP9_CREDITS.exists() else {})
+
+
+def ep9_credit(name):
+    """`ref/ep9/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if name.startswith("ep9/fb_"):
+        raise RuntimeError(f"{name}: 9本目は動く映像0本。ひかえの静止画を当てたカットがある")
+    if name.startswith("ep9/"):
+        return EP9_PHOTO.get(name)
+    return None
+
+
+# ══════════════════════════════════════════════════════════
 #  8本目（コロンビア号）── `ref/ep8/`
 # ══════════════════════════════════════════════════════════
 # 名前の付け方（`tools/cuts/ss.py`）:
@@ -667,7 +694,7 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep8_credit(spec["photo"]) or ep7_credit(spec["photo"])
+    cr = (ep9_credit(spec["photo"]) or ep8_credit(spec["photo"]) or ep7_credit(spec["photo"])
           or keybridge_credit(spec["photo"])
           or sl1_credit(spec["photo"])
           or surfside_credit(spec["photo"])

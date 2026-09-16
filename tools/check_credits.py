@@ -199,6 +199,13 @@ def run(full=False):
             softs.append((cid, slot, f"原題にあって副題に無い語：{' '.join(w)}"
                                      f"／副題「{sub}」"))
     print(f"■ 写真を出すカット {seen} 欄を、`ref/CREDITS.md` §8 の表 {len(rows)} 行と突き合わせた")
+    # 🔴 2026-09-16（9本目 ⑤b-1）**0欄でも「✓ 年の主張はどの欄も合っている」を出していた。**
+    #    章ファイルがまだ無い（あるいは読めていない）ときに、この門番だけが緑だった
+    #    （[[feedback-parsers-fail-closed]]＝0件を合格にしない）。
+    if seen == 0:
+        print("🔴 写真を出すカットが0欄＝**章ファイルを読めていない**か、この回の写真を1枚も当てていない"
+              "（合格にしない・exit 2）")
+        return 2
     for cid, slot, why in hits:
         print(f"  🔴 {cid}（{slot}）{why}")
     if full or not hits:

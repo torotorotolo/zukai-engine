@@ -1,0 +1,80 @@
+# Commons カテゴリ一覧  分類6件 / ファイル72点
+# 継承なし（使える枠）: 40点 / 継承あり（CC BY-SA・使えない）: 32点
+# ライセンス内訳: {"CC BY-SA 3.0": 4, "CC BY-SA 3.0 de": 1, "CC BY-SA 4.0": 27, "CC BY 2.0": 28, "CC0": 2, "CC BY 4.0": 9, "CC BY 3.0": 1}
+# 種類内訳: {"image/jpeg": 72}
+
+## 継承なし（幅の大きい順）
+    10078x3768  2016  CC BY 2.0        | Playa Del Duque - Tenerife.jpg | Playa Del Duque
+     8190x5462  2024  CC0              | Scenic view from the Roque de los Muchachos down to the Caldera de Taburiente  | Scenic view from the Roque de los Muchachos down to the Caldera de Taburiente
+     6016x4016  2025  CC BY 4.0        | 20250702 Mirador de Jardina 02.jpg | View from the Mirador de Jardina down on the settlement Jardina with fog.
+     6016x4016  2025  CC BY 4.0        | 20250702 Mirador de Jardina 03.jpg | The TF-12 at the Mirador de Jardina with fog.
+     6016x4016  2025  CC BY 4.0        | 20250702 Mirador de Jardina 04.jpg | A Canary Juniper ( Juniperus canariensis ) on a rock at the Mirador de Jardina w
+     6016x4016  2025  CC BY 4.0        | 20250702 Mirador de Jardina 01.jpg | View from the Mirador de Jardina down on a group of trees with fog.
+     6016x4016  2025  CC BY 4.0        | 20250702 Mirador de Jardina 05.jpg | View from the Mirador de Jardina down on a settlement with fog.
+     6000x3760  2016  CC BY 2.0        | Costa Adeje - Tenerife.jpg | Tenerife, Canary Islands, Spain
+     6000x4000  2016  CC BY 2.0        | Sunset from Mount Teide.jpg | Tenerife, Canary Islands, Spain
+     6000x3811  2016  CC BY 2.0        | Sunset from Mount Teide - 32936599672.jpg | Tenerife, Canary Islands, Spain
+     6000x4000  2016  CC BY 2.0        | The Island of La Gomera from Mount Tiede - 32929283411.jpg | Tenerife, Canary Islands, Spain
+     6000x4000  2016  CC BY 2.0        | Sunset on Mount Teide - Tenerife - 32996783981.jpg | Tenerife, Canary Islands, Spain
+     5969x3301  2016  CC BY 2.0        | Sunset on Mount Teide - Tenerife.jpg | Tenerife, Canary Islands, Spain
+     5967x3742  2016  CC BY 2.0        | Sunset from Mount Teide - Tenerife - 33065465226.jpg | Tenerife, Canary Islands, Spain
+     5965x3755  2016  CC BY 2.0        | Sunset from Mount Teide - 32277555243.jpg | Tenerife, Canary Islands, Spain
+     5919x3470  2016  CC BY 2.0        | The Island of La Gomera from Mount Tiede.jpg | Tenerife, Canary Islands, Spain
+     5902x3418  2016  CC BY 2.0        | Sunset from Mount Teide - 32247058744.jpg | Tenerife, Canary Islands, Spain
+     5897x3301  2016  CC BY 2.0        | Mount Teide Caldera - Tenerife.jpg | Tenerife, Canary Islands, Spain
+     5892x3546  2016  CC BY 2.0        | Sunset on Mount Teide - Tenerife - 32967142722.jpg | Tenerife, Canary Islands, Spain
+     5891x3383  2016  CC BY 2.0        | Sunset from Mount Teide - Tenerife.jpg | Tenerife, Canary Islands, Spain
+     5876x3677  2016  CC BY 2.0        | Sunset from Mount Teide - Tenerife - 32950995732.jpg | Tenerife, Canary Islands, Spain
+     5664x1898  2010  CC BY 3.0        | Tenerife Playa El Duque R03.jpg | NOTE: This image is a panorama consisting of multiple frames that were merged or
+     5620x3390  2016  CC BY 2.0        | Sunset from Mount Teide - 33092579595.jpg | Tenerife, Canary Islands, Spain
+     5525x3018  2016  CC BY 2.0        | Sunset from Mount Teide - Tenerife - 33107449125.jpg | Tenerife, Canary Islands, Spain
+     5184x3888  2025  CC BY 2.0        | Sunset on Tenerife with Teide seen from Gomera (54377041756).jpg | Sunset on Tenerife with Teide seen from Gomera
+     5119x3169  2016  CC BY 2.0        | Sunset on Mount Teide - Tenerife - 32307866213.jpg | Tenerife, Canary Islands, Spain
+     4896x3672  2014  CC BY 2.0        | Sunset - Ritz Carlton Abama5.jpg | Ritz Carlton Abama. Tenerife, Canary Islands, December 2014
+     4080x3060  2025  CC0              | Sea of Clouds, Teide National Park, Tenerife, December 2025.jpg | Sea of ​​clouds in Teide National Park, Tenerife, Canary Islands, Spain, Decembe
+     4032x3024  2023  CC BY 4.0        | ESP Tenerife, La Orotava, Parque Nacional del Teide 0003.jpg | Im Parque Nacional del Teide, Provinz Santa Cruz de Tenerife, Teneriffa, Kanaris
+     3963x2972  2023  CC BY 4.0        | ESP Tenerife, Santiago del Teide, TF-82, Mirador por Teide 0003.jpg | In Sanriago del Teide, Teneriffa, Provinz Santa Cruz de Tenerife, Kanarische Ins
+     3897x2922  2023  CC BY 4.0        | ESP Tenerife, La Orotava, Parque Nacional del Teide 0005.jpg | Im Parque Nacional del Teide, Provinz Santa Cruz de Tenerife, Teneriffa, Kanaris
+     3456x5184  2016  CC BY 2.0        | Sunset in Playa de las Américas1.jpg | Sunset in Playa de las Américas
+     3456x5184  2016  CC BY 2.0        | Sunset in Playa de las Américas - 31417067085.jpg | Sunset in Playa de las Américas
+     3456x5184  2016  CC BY 2.0        | Sunset in Playa de las Américas - 31047827060.jpg | Sunset in Playa de las Américas
+     3365x5047  2016  CC BY 2.0        | Sunset in Playa de las Américas - 31417082445.jpg | Sunset in Playa de las Américas
+     3264x2448  2014  CC BY 2.0        | Sunset - Ritz Carlton Abama.jpg | Ritz Carlton Abama. Tenerife, Canary Islands
+     3264x2448  2014  CC BY 2.0        | Sunset - Ritz Carlton Abama1.jpg | Ritz Carlton Abama. Tenerife, Canary Islands
+     3264x2448  2014  CC BY 2.0        | Sunset - Ritz Carlton Abama 1.jpg | Ritz Carlton Abama. Tenerife, Canary Islands
+     3050x2162  2023  CC BY 4.0        | ESP Tenerife, Adeje, Armeñime 0001.jpg | In Adeje, Provinz Santa Cruz de Tenerife, Teneriffa, Kanarische Inseln, Spanien.
+     2448x3264  2014  CC BY 2.0        | Sunset - Ritz Carlton Abama3.jpg | Sunset - Ritz Carlton Abama
+
+## 継承あり＝CC BY-SA（使わない。参考）
+    8256x4644  2025  CC BY-SA 4.0     | El Teide, Tenerife, Spain.jpg
+    8256x4644  2025  CC BY-SA 4.0     | View from the Roque de Marrubio towards Buenavista del Norte, Tenerife, Spain.
+    8256x4644  2025  CC BY-SA 4.0     | View from the Roque de Marrubio towards El Teide, Tenerife, Spain.jpg
+    8256x4644  2025  CC BY-SA 4.0     | View from Risco Verde, Tenerife, Spain.jpg
+    8256x4644  2025  CC BY-SA 4.0     | View on the hike from Santiago del Teide to Masca towards El Palmar, Tenerife,
+    8256x4644  2025  CC BY-SA 4.0     | View on the hike from Santiago del Teide to Masca, Tenerife, Spain1.jpg
+    8228x4628  2025  CC BY-SA 4.0     | View from El Teide Summit, Tenerife, Spain1.jpg
+    8225x4627  2025  CC BY-SA 4.0     | Sunrise on the Slope of El Teide, Tenerife, Spain.jpg
+    8221x4624  2025  CC BY-SA 4.0     | Taganana Valley, Tenerife, Spain.jpg
+    8205x4615  2025  CC BY-SA 4.0     | Sunrise on the Slope of El Teide, Tenerife, Spain1.jpg
+    8190x4607  2025  CC BY-SA 4.0     | View from El Teide Summit, Tenerife, Spain.jpg
+    8189x4606  2025  CC BY-SA 4.0     | Sunrise on the Slope of El Teide, Tenerife, Spain2.jpg
+    8025x4514  2025  CC BY-SA 4.0     | View from Risco Verde towards El Teide, Tenerife, Spain.jpg
+    8016x4509  2025  CC BY-SA 4.0     | Orange sunrise on the Slope of El Teide, Tenerife, Spain.jpg
+    7515x4227  2025  CC BY-SA 4.0     | Roque Cinchado and El Teide, Tenerife, Spain.jpg
+    7077x4723  2013  CC BY-SA 3.0     | Sunset Tenerife Teide.jpg
+    5456x3064  2019  CC BY-SA 4.0     | Foggy trails near Caldera de Los Marteles at Gran Canaria.jpg
+    4032x3024  2019  CC BY-SA 4.0     | Road at Caldera de Los Marteles.jpg
+    4000x3000  2016  CC BY-SA 4.0     | Pico de las Nieves - Ausblick 1.jpg
+    4000x3000  2016  CC BY-SA 4.0     | Pico de las Nieves - Ausblick 2c Alsandara.jpg
+    4000x3000  2016  CC BY-SA 4.0     | Pico de las Nieves - Ausblick 2a Alsandara.jpg
+    4000x3000  2016  CC BY-SA 4.0     | Pico de las Nieves - Ausblick 3b Roque Nublo Bentayga.jpg
+    3888x2592  2011  CC BY-SA 3.0     | Teguise - LZ-10 01 ies.jpg
+    3888x2592  2011  CC BY-SA 3.0     | Teguise - LZ-10 04 ies.jpg
+    3024x4032  2019  CC BY-SA 4.0     | Foggy Road at Caldera de Los Marteles.jpg
+    3008x2000  2008  CC BY-SA 3.0     | La Palma vulcano area Fuencaliente - panoramio.jpg
+    2816x2112  2009  CC BY-SA 4.0     | 10 Filagarses de boira.jpg
+    1046x682   1977  CC BY-SA 4.0     | La Palma 1977 01.jpg
+    1024x768   2014  CC BY-SA 3.0 de  | La Palma LP-3 Ostseite.jpg
+     965x619   1977  CC BY-SA 4.0     | El Hierro 1977 10.jpg
+     700x1056  1977  CC BY-SA 4.0     | Tenerife 1977 19.jpg
+     670x995   1977  CC BY-SA 4.0     | Tenerife 1977 21.jpg

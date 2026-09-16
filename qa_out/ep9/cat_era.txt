@@ -1,0 +1,823 @@
+# Commons カテゴリ一覧  分類33件 / ファイル967点
+# 継承なし（使える枠）: 775点 / 継承あり（CC BY-SA・使えない）: 192点
+# ライセンス内訳: {"Public domain": 66, "CC BY-SA 3.0 nl": 18, "CC BY-SA 4.0": 42, "CC BY-SA 2.0": 33, "CC BY 2.0": 124, "CC0": 534, "CC BY-SA 2.5": 3, "CC BY 4.0": 35, "CC BY 3.0": 12, "CC BY-SA 3.0": 54, "GFDL 1.2": 35, "Attribution": 1, "CC BY 3.0 de": 3, "GFDL": 7}
+# 種類内訳: {"image/jpeg": 961, "image/png": 4, "image/tiff": 1, "image/svg+xml": 1}
+
+## 継承なし（幅の大きい順）
+     6048x4032  2013  Public domain    | Cooling Off SOFIA’S Telescope (ED13-0220-108).jpg | Technicians introduce liquid nitrogen to an instrument linked to SOFIA’s telesco
+     6048x4032  2013  Public domain    | SOFIA Observations Explained (ED13-0181-46).jpg | Dana Backamn explains SOFIA’s observations during a flight with Airborne Astrono
+     6048x4032  2013  Public domain    | Studying on SOFIA (ED13-0202-76).jpg | James De Buizer, Senior Scientist at SOFIA Science Center, conducting observatio
+     5796x3870  2017  CC BY 2.0        | Dubai Air Wing Boeing 747 A6-GGP (35958855004).jpg | Dubai Air Wing Boeing 747 A6-GGP
+     5616x3744  2008  CC BY 2.0        | SQ First Class 747 cabin.jpg | SQ 747
+     5616x3744  2008  CC BY 2.0        | SQ First Class 747 seat.jpg | Seat 2A. Miles trip, using BMI's amazing miles and cash option. Just 50k miles f
+     5184x3456  2012  CC BY 2.0        | G-CIVJ (12122102036).jpg | British Airways Boeing 747-436 Delivered: 11/02/1997 Our plane from LHR to MIA
+     5184x3456  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (43153689302).jpg | NASA SOFIA, June 22, 2018
+     5184x3456  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (43153689842).jpg | NASA SOFIA, June 22, 2018
+     5184x3456  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (28333856607).jpg | NASA SOFIA, June 22, 2018
+     5184x3456  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (43153688252).jpg | NASA SOFIA, June 22, 2018
+     5184x3456  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (43153687672).jpg | NASA SOFIA, June 22, 2018
+     5184x3456  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (43153687092).jpg | NASA SOFIA, June 22, 2018
+     5184x3456  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (43153686752).jpg | NASA SOFIA, June 22, 2018
+     5184x3456  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (43153686162).jpg | NASA SOFIA, June 22, 2018
+     5184x3456  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (41392868480).jpg | NASA SOFIA, June 22, 2018
+     5184x3456  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (41392863300).jpg | NASA SOFIA, June 22, 2018
+     5184x3456  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (43153685252).jpg | NASA SOFIA, June 22, 2018
+     5184x3456  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (41392867960).jpg | NASA SOFIA, June 22, 2018
+     5184x3456  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (43153682892).jpg | NASA SOFIA, June 22, 2018
+     5184x3456  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (41392865760).jpg | NASA SOFIA, June 22, 2018
+     5184x3456  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (41392865350).jpg | NASA SOFIA, June 22, 2018
+     4988x3325  2012  CC BY 2.0        | G-CIVJ (12121712663).jpg | British Airways Boeing 747-436 Delivered: 11/02/1997 Our plane from LHR to MIA
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4928x3280  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     4514x3009  2013  Public domain    | Astronomers Smile at SOFIA’s Data (ED13-0181-37).jpg | Astronomers smile while looking at data from SOFIA’s telescope.
+     4475x3105  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (43153687352).jpg | NASA SOFIA, June 22, 2018
+     4416x2910  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (43203195391).jpg | NASA SOFIA, June 22, 2018
+     4288x2848  2009  CC BY 2.0        | Virgin Atlantic Airways Boeing 747-400 Upper class nose cabin.jpg | Boarding for Gatwick
+     4256x2832  2010  Public domain    | E-4B cockpit.jpg | Master Sgt. Dan Bloomquist, a flight engineer with the 1st Airborne Command and 
+     4256x2832  2016  CC BY 2.0        | Ship 6301's Final Arrival (29146708476).jpg | Ship 6301 enjoyed a smooth final arrival on Saturday Aug. 20, at its permanent l
+     4219x2874  2018  CC BY 2.0        | NASA SOFIA, June 22, 2018 (28333857147).jpg | NASA SOFIA, June 22, 2018
+     4208x2724  2010  CC BY 2.0        | Lunch on British Airways.jpg | Here is the lunchtime meal from our British Airways flight from LAX to LHR on bo
+     4128x2322  2015  CC BY 3.0        | Tukwila, WA, USA - panoramio.jpg | Tukwila, WA, USA
+     4128x2322  2015  CC BY 3.0        | Tukwila, WA, USA - panoramio (1).jpg | Tukwila, WA, USA
+     4128x2322  2015  CC BY 3.0        | Tukwila, WA, USA - panoramio (2).jpg | Tukwila, WA, USA
+     4128x2322  2015  CC BY 3.0        | Tukwila, WA, USA - panoramio (53).jpg | Tukwila, WA, USA
+     4128x2322  2015  CC BY 3.0        | Tukwila, WA, USA - panoramio (56).jpg | Tukwila, WA, USA
+     4128x2322  2015  CC BY 3.0        | Tukwila, WA, USA - panoramio (57).jpg | Tukwila, WA, USA
+     4128x2322  2015  CC BY 3.0        | Tukwila, WA, USA - panoramio (58).jpg | Tukwila, WA, USA
+     4128x2322  2015  CC BY 3.0        | Tukwila, WA, USA - panoramio (59).jpg | Tukwila, WA, USA
+     4128x2322  2015  CC BY 3.0        | Tukwila, WA, USA - panoramio (60).jpg | Tukwila, WA, USA
+     4096x3072  2024  CC BY 4.0        | 12-FEB-2024 - LH401 FRA-JFK (D-ABTK - B747-400) (03).jpg | Simply Aviation flight 12-FEB-2024: LH401 FRA-JFK (D-ABTK - B747-400) - in-fligh
+     4096x3072  2024  CC BY 4.0        | 12-FEB-2024 - LH401 FRA-JFK (D-ABTK - B747-400) (02).jpg | Simply Aviation flight 12-FEB-2024: LH401 FRA-JFK (D-ABTK - B747-400) - first cl
+     4096x3073  2024  CC BY 4.0        | 12-FEB-2024 - LH401 FRA-JFK (D-ABTK - B747-400) (04).jpg | Simply Aviation flight 12-FEB-2024: LH401 FRA-JFK (D-ABTK - B747-400) - first cl
+     4032x2761  1975  Public domain    | Photograph of President Gerald R. Ford Carrying a Vietnamese Baby from Clipper | 
+     4031x3235  1977  CC0              | HUA-170857-Gezicht op de vertrekhal Noord van de luchthaven Schiphol, vanaf de | Gezicht op de vertrekhal Noord van de luchthaven Schiphol, vanaf de hal van het 
+     4000x3000  2013  CC BY 2.0        | N673USBizelitecabin.jpg | New Business Elite Cabin on N673US ( Boeing 747-400 ) - Delta Air Lines Flight 1
+     3968x2832  2009  Public domain    | E-4B cabin.jpg | Staff Sgt. Krystal Lerohl, a flight attendant with the 1st Airborne Command and 
+     3946x2646  2017  CC BY 2.0        | 170214-D-GO396-0075 (32775800771).jpg | Secretary of Defense Jim Mattis briefs media aboard an E-4B National Airborne Op
+     3776x2520  2009  CC BY 2.0        | 747 wing (4125681006).jpg | &lt;a href=" http://www.dahlstroms.com " rel="nofollow"&gt;www.dahlstroms.com&lt
+     3749x2439  2008  CC BY 2.0        | Air New Zealand Business Premier 747 cabin.jpg | En route London to Hong Kong
+     3745x2478  1976  CC0              | Aankomst Ger Dassen op Schiphol Ger Dassen met vrouw en moeder, Bestanddeelnr  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3745x2478  1976  CC0              | Aankomst Ger Dassen op Schiphol Ger Dassen omhelsd door ouders, Bestanddeelnr  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3745x2478  1976  CC0              | Aankomst Ger Dassen op Schiphol vlag Palestina Comite wordt verwijderd, Bestan | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3745x2478  1976  CC0              | Aankomst Ger Dassen op Schiphol Ger Dassen , kop, Bestanddeelnr 928-8356.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3745x2478  1976  CC0              | Aankomst Ger Dassen op Schiphol Ger Dassen met vrouw en moeder, Bestanddeelnr  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3745x2478  1976  CC0              | Aankomst Ger Dassen op Schiphol tijdens persconferentie, Bestanddeelnr 928-835 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3745x2478  1976  CC0              | Aankomst Noorse premier Nordli op Schiphol Den Uyl met Nordli - NA - 928-8220. | Aankomst Noorse premier Nordli op Schiphol; Den Uyl met Nordli
+     3745x2478  1976  CC0              | Aankomst Noorse premier Nordli op Schiphol Nordli en Den Uyl wuivend, Bestandd | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3745x2478  1976  CC0              | Aankomst Noorse premier Nordli op Schiphol Den Uyl begroet Nordli, Bestanddeel | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3745x2478  1976  CC0              | Aankomst vrijgelaten honorair consul in Columbia de heer Leupin samen met vrou | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3725x2467  1978  CC0              | Aankomst NAVO-secretaris Luns op Schiphol Luns leest krant, Bestanddeelnr 929- | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3725x2467  1978  CC0              | Aankomst NAVO-secretaris Luns op Schiphol Luns bij zijn Rolls Royce buiten, Be | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3725x2467  1978  CC0              | Aankomst premier Pedro Verona Rodriques Pires van de Kaapverdische Republiek a | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3725x2467  1978  CC0              | Aankomst premier Pedro Verona Rodriques Pires van de Kaapverdische Republiek a | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3725x2467  1978  CC0              | Aankomst premier Pedro Verona Rodriques Pires van de Kaapverdische Republiek a | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3725x2467  1978  CC0              | Afscheid van ambassadeur Mc Closkey (midden) van de VS echtgenote op Schiphol, | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3725x2467  1978  CC0              | Nationale hockeyploeg (heren) naar WK Argentinie de hele selectie op Schiphol, | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3725x2467  1978  CC0              | Premier Van Agt en echtgenote terug van vakantie op Schiphol, Bestanddeelnr 92 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3725x2467  1978  CC0              | Vertrek groep Harmony van Schiphol, Bestanddeelnr 929-6768.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3725x2467  1978  CC0              | Vertrek groep Harmony van Schiphol, Bestanddeelnr 929-6769.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3710x2452  1976  CC0              | Andre Amalrik en echtgenote Gjoezel tijdens persconferentie op Schiphol. v.l.n | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3707x2458  1978  CC0              | Aankomst op Schiphol van nieuwe Europees kampioen super zwaar gewicht judo Pet | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3707x2458  1978  CC0              | Aankomst op Schiphol van nieuwe Europees kampioen super zwaar gewicht judo Pet | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3707x2449  1976  CC0              | Andre Amalrik en echtgenote Gjoezel tijdens persconferentie op Schiphol, Besta | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3703x2424  1978  CC0              | Aankomst Glasgow Rangers op Schiphol, tegenstander PSV nr. 3 v.l.n.r. de spele | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3703x2424  1978  CC0              | Aankomst op Schiphol elftal DDR in verband met interland tegen Nederland train | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3703x2424  1978  CC0              | Aankomst op Schiphol van nieuwe Indonesische ambassadeur ons land de heer Sump | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3703x2424  1978  CC0              | Min Tuijnman en staatssecr Smit Kroes halen min van PTT van Saoedi Arabie van  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3703x2424  1978  CC0              | Min Tuijnman en staatssecr Smit Kroes halen min van PTT van Saoedi Arabie van  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3703x2424  1978  CC0              | Parlementaire delegatie terug uit Suriname op Schiphol nr. 4 Pierre Jansen haa | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3703x2424  1978  CC0              | Parlementaire delegatie terug uit Suriname op Schiphol persconferentie Kamerle | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3702x2421  1978  CC0              | Eerste rit Schiphollijn en Kamerleden station Schiphol, Bestanddeelnr 934-6639 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1977  CC0              | Aankomst van het koninklijk gezelschap, Bestanddeelnr 929-0968.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Koninklijk bezoek 
+     3700x2457  1976  CC0              | Amerikaanse militairen ( 101th U. S. Airborne divisie) op Schiphol i.v.m. oefe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Amerikaanse militairen ( 101th U S Airborne divisie) op Schiphol ivm oefeni, B | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Amerikaanse militairen ( 101th U S Airborne divisie) op Schiphol ivm oefeni, B | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Amerikaanse Minister van Buitenlandse Zaken , dr. Henry Kissinger brengt bezoe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Amerikaanse Minister van Buitenlandse Zaken , dr. Henry Kissinger brengt bezoe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Amerikaanse Minister van Buitenlandse Zaken , dr. Henry Kissinger brengt bezoe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Amerikaanse Minister van Buitenlandse Zaken , dr. Henry Kissinger brengt bezoe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Amerikaanse Minister van Buitenlandse Zaken , dr. Henry Kissinger brengt bezoe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2460  1978  CC0              | Chinese delegatie en minister Yeh Fei op Schiphol afgehaald door minister Tuij | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | De Amerikaanse minister van Buitenlandse Zaken, dr. Henry Kissinger brengt bez | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Evert Kroon, Enith Brigitha, Herman Ponsteen 1976.jpg | Left-right: Evert Kroon (keeper waterpo), Enith Brigitha (swimmer) and Herman Po
+     3700x2457  1976  CC0              | FC Barcelona op Schiphol, van links naar rechts Neesken Michels en Cruijff op  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | FC Barcelona op Schiphol, van links naar rechts Neesken Michels en Cruijff op  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1977  CC0              | Jordaans meisje in klederdracht heeft bloemen aangeboden, Bestanddeelnr 929-09 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Koninklijk bezoek 
+     3700x2457  1977  CC0              | Jordaans meisje in klederdracht biedt bloemen aan aan kroonprins Hassan en pri | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Koninklijk bezoek 
+     3700x2457  1977  CC0              | Ministers, aankomsten, luchthavens, Gaay Fortman, Gaius de, Woltjer, M.T.h., B | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Minister van Binne
+     3700x2457  1976  CC0              | Nederlandse ploeg voor Olympische Spelen voor Gehandicapten naar Montreal, Bes | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1977  CC0              | Portugese premier Soares wordt op de luchthaven Schiphol uitgeleide gedaan doo | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Parlementaire commissie vertrekt naar Moskou Roel van Duijn (links) was toeval | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Passagiers en bemanning van gekraakte DC 9 op Schiphol aangekomen, passagiers  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Passagiers en bemanning van gekraakte DC 9 op Schiphol aangekomen, met bloemen | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Passagiers en bemanning van gekraakte DC 9 op Schiphol aangekomen, exCdK Krane | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Passagiers en bemanning van gekraakte DC 9 op Schiphol aangekomen, Koninklijke | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Passagiers en bemanning van gekraakte DC 9 op Schiphol aangekomen, bemanning v | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Passagiers en bemanning gekraakte DC 9 op Schiphol aangekomen, gezagvoerder Ja | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Passagiers en bemanning van gekraakte DC 9 op Schiphol aangekomen, aankomst pa | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Passagiers en bemanning van gekraakte DC 9 op Schiphol aangekomen, aankomst pa | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Passagiers en bemanning van gekraakte DC 9 op Schiphol aangekomen, aankomst pa | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Passagiers en bemanning van gekraakte DC 9 op Schiphol aangekomen, gezagvoerde | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Passagiers en bemanning van gekraakte DC 9 op Schiphol aangekomen, gehele bema | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Passagiers en bemanning van gekraakte DC 9 op Schiphol aangekomen, Minister We | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Passagiers en bemanning van gekraakte DC 9 op Schiphol aangekomen, gezagvoerde | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Passagiers en bemanning van gekraakte DC 9 op Schiphol aangekomen, gezagvoerde | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3700x2457  1976  CC0              | Slachtoffers busramp in Noorwegen, terug op Schiphol, ontvangst door familie n | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3698x2458  1977  CC0              | Aankomst leidster Ierse vrouwenbeweging Betty Williams op Schiphol samen met,  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3698x2432  1978  CC0              | Aankomst stoffelijk overschot Molukse leider Tamaela op Schiphol Zuid Molukker | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3698x2442  1976  CC0              | Andre Amalrik en echtgenote Gjoezel tijdens persconferentie op Schiphol, Besta | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3696x2464  1977  CC0              | Aankomst AZ67 op Schiphol, Kristen Nijgaard (l) en Hovenkamp, Bestanddeelnr 92 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3696x2464  1977  CC0              | Aankomst AZ67 op Schiphol, Kristen Nijgaard (l) en Hovenkamp ea, Bestanddeelnr | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3696x2464  1977  CC0              | Aankomst op Schiphol van bergbeklimmers die Annapurna in Himalaya beklommen, B | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3696x2464  1977  CC0              | Aankomst op Schiphol van bergbeklimmers die Annapurna in Himalaya beklommen, B | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3696x2464  1977  CC0              | Jurering Zilveren Camera77 op Schiphol begonnen vlnr Ria Bremer, Huub van Es,  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3696x2464  1977  CC0              | Jurering Zilveren Camera77 op Schiphol begonnen, Bestanddeelnr 929-4039.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3696x2464  1977  CC0              | Nederlandse ambassadeur in Zuid Afrika op Schiphol aangekomen mr Froger op Sch | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3696x2464  1977  CC0              | Nederlandse ambassadeur in Zuid Afrika op Schiphol aangekomen mr Froger op Sch | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3696x2464  1977  CC0              | Wiegel en vrouw terug uit Israel op Schiphol Wiegel en vrouw, midden A Kidron  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3696x2464  1977  CC0              | Wiegel en vrouw terug uit Israel op Schiphol Wiegel met ambassadeur, Bestandde | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3696x2464  1977  CC0              | Werkbezoek Prins Claus aan Schiphol, Bestanddeelnr 929-4123.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Aankomst Nederlands elftal op Schiphol tijdens persconferentie v.l.n.r. Zwartk | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Aankomst Nederlands elftal op Schiphol Jongbloed met vrouw en dochter, Bestand | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Aankomst Nederlands elftal op Schiphol Ernie Brandts m vrouw, nr. 16 Krol met  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Aankomst Nederlands elftal op Schiphol Rep met vrouw en dochter, nr. 23 Rene v | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Aankomst Nederlands elftal op Schiphol nr. 18 Rensenbrin met dochter, nr. 19 Z | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Aankomst Nederlands elftal op Schiphol Neeskens met Prins Bernhard en premier  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Aankomst Nederlands elftal op Schiphol voetbalfans op pier, Bestanddeelnr 929- | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Aankomst Nederlands elftal op Schiphol Piet Schrijvers, Bestanddeelnr 929-7936 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Aankomst Nederlands elftal op Schiphol nr. 31, 32, 33 Zwartkruis (l) en Happel | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Aankomst Nederlands elftal op Schiphol Zwartkruis, Bernhard en Van Agt, Bestan | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Aankomst Nederlands elftal op Schiphol nr. 30 Jongbloed, nr. 31 Haan, Bestandd | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Aankomst Nederlands elftal op Schiphol supporters met spandoeken, Bestanddeeln | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Aankomst Nederlands elftal op Schiphol voetbalfans op pier, Bestanddeelnr 929- | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Extra vlucht supporters naar WK finale in Argentinie vanaf Schiphol midden moe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Extra vlucht supporters naar WK finale in Argentinie vanaf Schiphol met sticke | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Extra vlucht supporters naar WK finale in Argentinie vanaf Schiphol supporters | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3695x2434  1978  CC0              | Goedkoop vliegen naar VS mensen in slaapzakken wachten op een plaatsje in een  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2439  1978  CC0              | Aankomst Chinese minister van Metallurgische Industrie , Tang Ke minister Tang | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2457  1978  CC0              | Aankomst min Buitenlandse ZakenChina, Huang Hua Schiphol afgehaald door min Vd | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2457  1978  CC0              | Aankomst min Buitenlandse Zaken China, Huang Hua Schiphol afgehaald door min V | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2457  1978  CC0              | Aankomst min Buitenlandse Zaken China, Huang Hua Schiphol afgehaald door min V | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2457  1978  CC0              | Chinese minister van Buitenlandse Zaken , Huang Hua neemt afscheid van Van der | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2457  1978  CC0              | Chinese minister van Buitenlandse Zaken , Huang Hua neemt afscheid van Van der | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2385  1970  CC0              | De Boeing 747 aan de pier op het platform, Bestanddeelnr 923-6386.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Eerste Jumbo Jet B
+     3694x2457  1978  CC0              | Premier Van Agt terug uit VS op Schiphol met echtgenote, Bestanddeelnr 929-752 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2457  1978  CC0              | Premier Van Agt terug uit VS op Schiphol met echtgenote, Bestanddeelnr 929-752 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2454  1977  CC0              | Vertrek Nederlandse schaatsploeg van Schiphol voor interl tegen Noorwegen nr 4 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2457  1978  CC0              | Vertrek Nederlands elftal van Schipol overzicht demonstratie met midden Bram e | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2457  1978  CC0              | Vertrek Nederlands elftal van Schipol Dick Schoenaker met Happel, Bestanddeeln | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2457  1978  CC0              | Vertrek Nederlands elftal van Schipol Ernst Happel (kop), Bestanddeelnr 929-74 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2457  1978  CC0              | Vertrek Nederlands elftal van Schipol overzicht demonstratie, Bestanddeelnr 92 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2457  1978  CC0              | Vertrek Nederlands elftal van Schipol overzicht demonstratie, Bestanddeelnr 92 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2457  1978  CC0              | Vertrek Nederlands elftal van Schipol overzicht demonstratie, Bestanddeelnr 92 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2457  1978  CC0              | Vertrek Nederlands elftal van Schipol overzicht demonstratie met Bram en Freek | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2457  1978  CC0              | Vertrek Nederlands elftal van Schipol GPD journalisten, opdracht GPD, Bestandd | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2457  1978  CC0              | Vertrek Nederlands elftal van Schipol Happel, spelers Nederlands elftal, Besta | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3694x2457  1978  CC0              | Vertrek Nederlands elftal van Schipol spelers Nederlands elftal, Bestanddeelnr | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3691x2457  1976  CC0              | Expeditie terug uit Himalaya, vlnr op Schiphol Mannes Mesken , Jan Hendrik, Be | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3691x2463  1977  CC0              | Nederlands elftal vanaf Schiphol naar Engeland vertrokken v.l.n.r. Suurbier, N | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3691x2463  1977  CC0              | Nederlands elftal vanaf Schiphol naar Engeland vertrokken Cruijff, Bestanddeel | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3689x2452  1976  CC0              | Andre Amalrik en echtgenote Gjoezel op Schiphol Amalrik (echts) tijdens persco | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3689x2443  1976  CC0              | Russische wereldkampioen schaken Karpov op Schiphol Euwe (links) begroet Karpo | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Aankomst Amerikaanse militairen op Schiphol in verband met NATO oefening Refol | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Aankomst Amerikaanse militairen op Schiphol in verband met NATO oefening Refol | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Aankomst Amerikaanse militairen op Schiphol in verband met NATO oefening Refol | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Aankomst Hongeraarse Minister van BZ , Frigyes Puja op Schiphol Frigyes Puja ( | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Aankomst Hongeraarse Minister van BZ , Frigyes Puja op Schiphol Frigyes Puja ( | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Aankomst Ipswich Town op Schiphol Ipswichtrainer Bobby Robson, Bestanddeelnr 9 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Aankomst Ipswich Town op Schiphol team van Ipswich, Bestanddeelnr 929-8930.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2437  1976  CC0              | Aankomst minister Van Agt op Schiphol ivm zaak Mente minister Van Agt tijdens, | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Aankomst stoffelijk overschot Molukse leider Tamaela op Schiphol Zuid Molukker | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Aankomst stoffelijk overschot Molukse leider Tamaela op Schiphol Zuid Molukker | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Aankomst zangeres Olivia Newton John op Schiphol Olivia Newton John met bloeme | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Aankomst op Schiphol van overlevenden gasontploffing op de Spaanse camping Los | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Aankomst op Schiphol van overlevenden gasontploffing op de Spaanse camping Los | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2457  1976  CC0              | Amerikaanse Minister van Buitenlandse Zaken , dr. Henry Kissinger brengt bezoe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Barbara de Jong, na Griekse gevangenschap in verband met verkeersongeval terug | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Barbara de Jong, na Griekse gevangenschap in verband met verkeersongeval terug | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Barbara de Jong, na Griekse gevangenschap in verband met verkeersongeval terug | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | CSA Galaxy brengt eerste F16 op Schiphol de F16 wordt uitgeladen, Bestanddeeln | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | CSA Galaxy brengt eerste F16 op Schiphol de F16 wordt uitgeladen, Bestanddeeln | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | CSA Galaxy brengt eerste F16 op Schiphol de Galaxy (s wereld grootste vrachtvl | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | CSA Galaxy brengt eerste F16 op Schiphol landing, Bestanddeelnr 929-8988.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | CSA Galaxy brengt eerste F16 op Schiphol landing, Bestanddeelnr 929-8989.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Chinese delegatie en minister Yeh Fei op Schiphol afgehaald door minister Tuij | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Demonstratie blussen vliegtuigbrand op nieuwe brandweeroefenplaats Schiphol, B | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Drukte op Schiphol in verband met staking Franse luchtverkeersleiders, Bestand | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Eerste vrouwelijke verkeersvlieger bij KLM, mejuffrouw Verkaik in de cockpit,  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2436  1978  CC0              | Eerste lijnvlucht National Airlines vanuit New Orleans op Schiphol leden Pete  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2436  1978  CC0              | Drukte op Schiphol voor goedkope vlucht naar VS, Bestanddeelnr 929-8050.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2457  1976  CC0              | Expeditie terug uit Himalaya, vlnr op Schiphol Mannes Mesken , Jan Hendrik, Be | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Eerste vrouwelijke verkeersvlieger bij KLM, mejuffrouw Verkaik voor DC8, Besta | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Eerste vrouwelijke verkeersvlieger bij KLM, mejuffrouw Verkaik, opdrachten Pri | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Eerste vrouwelijke verkeersvlieger bij KLM, mejuffrouw Verkaik, opdrachten Pri | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Eerste vrouwelijke verkeersvlieger bij KLM, mejuffrouw Verkaik, opdrachten Pri | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Eerste vrouwelijke verkeersvlieger bij KLM, mejuffrouw Verkaik, opdrachten Pri | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Eerste vrouwelijke verkeersvlieger bij KLM, mejuffrouw Verkaik, opdrachten Pri | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Eerste vrouwelijke verkeersvlieger bij KLM, mejuffrouw Verkaik, opdrachten Pri | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2430  1978  CC0              | In Australië wonende Nederlanders op Schiphol voor carnaval in Nederland, Best | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Helderziende Kim Tracey (Engeland) op Schiphol, Bestanddeelnr 929-8520.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Helderziende Kim Tracey (Engeland) op Schiphol, Bestanddeelnr 929-8521.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Fractieleiders vanaf Schiphol naar Engeland v.l.n.r. Van Thijn (PvdA), Terlouw | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Fractieleiders vanaf Schiphol naar Engeland CDA-fractieleider Aantjes wordt ge | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | In verband met staking Franse luchtverkeersleiders extra drukte op Schiphol sl | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | In verband met staking Franse luchtverkeersleiders extra drukte op Schiphol ka | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Indonesische minister BZ Kusuma Admatjan Mochtar op Schiphol, Bestanddeelnr 93 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Indonesische minister BZ Kusuma Admatjan Mochtar op Schiphol, Bestanddeelnr 93 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Kamervoorzitter Vondeling terug uit Indonesie op Schiphol persconferentie, Bes | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Kamervoorzitter Vondeling terug uit Indonesie op Schiphol Vondeling krijgt cad | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Kamervoorzitter Vondeling terug uit Indonesie op Schiphol Vondeling tijdens pe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Persconferentie Sylva Zalmanson , echtgenote van Russische schrijver Edward Ku | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Persconferentie Sylva Zalmanson , echtgenote van Russische schrijver Edward Ku | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Schiphollijn, stationsgebouw op Schiphol, Bestanddeelnr 929-5737.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Schiphollijn, station Nieuw Zuid, Bestanddeelnr 929-5738.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Schiphollijn, stationsgebouw Schiphol, Bestanddeelnr 929-5739.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Schiphollijn, stationsgebouw Schiphol, Bestanddeelnr 929-5740.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Schiphollijn, station Nieuw Zuid, Bestanddeelnr 929-5741.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Schiphollijn in gebruik gesteld door minister Tuijnman minister Tuijnman in be | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2421  1978  CC0              | Schiphollijn in gebruik gesteld door minister Tuijnman het hele gezelschap bij | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Schiphollijn in gebruik gesteld door minister Tuijnman minister Tuijnman opent | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2451  1976  CC0              | Sammy Davis junior op Schiphol, zoent fan, Bestanddeelnr 928-7744.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Speelhoek op Schiphol in verband met vertragingen op Schiphol, Bestanddeelnr 9 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Vakantie-uittocht drukte op Schiphol, Bestanddeelnr 929-8183.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Vakantie-uittocht drukte op Schiphol, Bestanddeelnr 929-8184.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Vakantie-uittocht drukte op Schiphol, Bestanddeelnr 929-8185.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Vertrek van Schiphol van delegatie van vijf Zuid Molukkers voor orientatiereis | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Vertrek van Schiphol van delegatie van vijf Zuid Molukkers voor orientatiereis | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Vietnamese bootvluchtelingen op Schiphol aangekomen, Bestanddeelnr 930-0335.jp | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Vietnamese bootvluchtelingen op Schiphol aangekomen Vietnamezen in dekens geh, | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Vietnamese bootvluchtelingen op Schiphol aangekomen Vietnamezen in dekens geh, | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Vietnamese bootvluchtelingen op Schiphol aangekomen Vietnamezen in dekens geh, | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Voorbezichting Schiphollijn het station Schiphol, Bestanddeelnr 930-0453.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Voorbezichting Schiphollijn het station Schiphol, Bestanddeelnr 930-0454.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2437  1976  CC0              | Zangeres Linda Ronstadt op Schiphol, Bestanddeelnr 928-8976.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Vertrek van Schiphol van delegatie van vijf Zuid Molukkers voor orientatiereis | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Vertrek van Schiphol van delegatie van vijf Zuid Molukkers voor orientatiereis | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Vertrek van Schiphol van delegatie van vijf Zuid Molukkers voor orientatiereis | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Vertrek van Schiphol van delegatie van vijf Zuid Molukkers voor orientatiereis | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Vertrek van Schiphol van delegatie van vijf Zuid Molukkers voor orientatiereis | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Vertrek van Schiphol van delegatie van vijf Zuid Molukkers voor orientatiereis | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Vertrek van Schiphol van delegatie van vijf Zuid Molukkers voor orientatiereis | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Werkbezoek Somalische president Siard Barre Barre en minister Van der Klaauw o | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2437  1976  CC0              | Zweedse popgroep Abba in Nederland v.l.n.r. Benny, Frida, Anna en Björn op Sch | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2437  1976  CC0              | Zweedse popgroep ABBA in Nederland v.l.n.r. Benny, Anni-Frid, Agnetha en Bjorn | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3688x2445  1978  CC0              | Zuidafrikaan Donald Woods op Schiphol in verband met Nederlandse vertaling van | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3685x2436  1970  CC0              | De Boeing 747 zet de landing in, Bestanddeelnr 923-6390.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Eerste Jumbo Jet B
+     3682x2448  1976  CC0              | Aankomst Chinese handelsdelegatie op Schiphol, Bestanddeelnr 928-7975.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Aankomst Danny Kaye op Schiphol Sinterklaas en aantal kleine Zwarte Pieten ver | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Aankomst Danny Kaye op Schiphol tijdens persconferentie met Sinterklaas en Zwa | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Aankomst Danny Kaye op Schiphol tijdens persconferentie met Sinterklaas en Zwa | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Aankomst Danny Kaye op Schiphol Danny Kaye met Sinterklaas, Bestanddeelnr 928- | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2448  1977  CC0              | 1 minuut stilte aan het begin van de herdenking, Bestanddeelnr 929-1118.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | 1 minuut stilte aan het begin van de herdenking, Bestanddeelnr 929-1119.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2442  1977  CC0              | Aankomst Arubaanse delegatie op Schiphol groep Arubanen wachten delegatie op,  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2442  1977  CC0              | Aankomst Arubaanse delegatie op Schiphol tijdens aankomst rechts met zonnebril | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2442  1977  CC0              | Aankomst Arubaanse delegatie op Schiphol tijdens persconferentie Betico Croes  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1978  CC0              | Aankomst Atletico Bilbao op Schiphol vlnr Dani, trainer Aguirre en doelman , B | Arrivée de l'Athletic Bilbao à l'aéroport d'Amsterdam-Schiphol. De gauche à droi
+     3682x2445  1978  CC0              | Aankomst Bette Midler op Schiphol, Bestanddeelnr 929-9466.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1978  CC0              | Aankomst Ajax tegenstander in Europa Cup II toernooi Lausanne Sports uit Zwits | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Aankomst Hans van der Aar op Schiphol uit Turkse gevangenis waarin 8 jaar geze | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Aankomst Hans van der Aar op Schiphol uit Turkse gevangenis waarin 8 jaar geze | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Aankomst Hans van der Aar op Schiphol uit Turkse gevangenis waarin 8 jaar geze | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1978  CC0              | Aankomst J. A. M. Molkenboer (directeur-generaal indust minister EZ ) uit Japa | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2448  1976  CC0              | Aankomst Vietnamese vluchtelingen op Schiphol Vietnamezen waaronder veel kinde | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2448  1976  CC0              | Aankomst Vietnamese vluchtelingen op Schiphol familie, Bestanddeelnr 928-7956. | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2448  1976  CC0              | Aankomst Vietnamese vluchtelingen op Schiphol familie, Bestanddeelnr 928-7957. | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2448  1977  CC0              | Aanwezigen verlaten de hal aan het einde van de dienst, Bestanddeelnr 929-1124 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2445  1976  CC0              | Arbeiders in de warmte bij bouw Schiphollijn, Bestanddeelnr 928-6691.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Amerikaans astronaut Evans opent tentoonstelling in Aviodome, Bestanddeelnr 92 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Amerikaans astronaut Evans opent tentoonstelling in Aviodome koppen, Bestandde | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1977  CC0              | Bejaarden die vorige week niet op vakantie konden door problemen met reisburea | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1977  CC0              | Bejaarden die vorige week niet op vakantie konden door problemen met reisburea | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Bouw Schiphollijn aanleg 5 km lang tunneltrace onder de luchthaven en het stat | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Bouw Schiphollijn aanleg 5 km lang tunneltrace onder de luchthaven en het stat | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1978  CC0              | Dameshockeyteam met wereldcup op Schiphol, Bestanddeelnr 929-9169.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1978  CC0              | Dameshockeyteam met wereldcup op Schiphol, Bestanddeelnr 929-9170.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1978  CC0              | Dameshockeyteam met wereldcup op Schiphol, Bestanddeelnr 929-9171.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Eerste groep hartpatienten naar Verenigde Staten voor operatie, de hartpatient | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1978  CC0              | Eerste rit Schiphollijn en Kamerleden groep Kamerleden op station Schiphol, Be | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1978  CC0              | Eerste rit Schiphollijn en Kamerleden station Schiphol, Bestanddeelnr 929-9239 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | FC Den Haag vanaf Schiphol naar Londen i.v.m. wedstrijd tegen West Ham United  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | FC Den Haag vanaf Schiphol naar Londen i.v.m. wedstrijd West Ham United links  | Le FC Den Haag à l'aéroport d'Amsterdam-Schiphol avant de s'envoler pour Londres
+     3682x2448  1976  CC0              | Groep parlementariers vanaf Schiphol nr Madrid voor IPU v.l.n.r. Van Elsen , M | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Himalaya-expeditie vanaf Schiphol vertrokken, Bestanddeelnr 928-6732.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | In Houston geopereerde hartpatienten terug op Schiphol, een gelukkige heer Bro | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | In Houston geopereerde hartpatienten terug op Schiphol, vlnr Demmers, Van d, B | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | In Houston geopereerde hartpatienten terug op Schiphol, vlnrs Demmers, Van , B | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | In Houston geopereerde hartpatienten terug op Schiphol, aankomst en begroeting | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2427  1978  CC0              | In Australië wonende Nederlanders op Schiphol voor carnaval in Nederland, Best | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Jaarverslag luchthaven Schiphol, directeur Riemers kop, Bestanddeelnr 928-6600 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | KLM-luchtvaartdelegatie terug uit Moskou na overleg Troost (RLD), Zwanenberg ( | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | KLM-luchtvaartdelegatie terug uit Moskou na overleg Troost (RLD), Zwanenberg ( | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1977  CC0              | Justitieteam vertrekt vanaf Schiphol naar Rusland ivm Menten-onderzoek vlnr, B | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1977  CC0              | Justitieteam vertrekt vanaf Schiphol naar Rusland ivm Menten-onderzoek Haberme | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1977  CC0              | Justitieteam vertrekt vanaf Schiphol naar Rusland ivm Menten-onderzoek Haberme | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Kuiers op Schiphol verdwenen, passagiers met karretjes voor bagage, Bestanddee | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Kuiers op Schiphol verdwenen, door Schiphol beschikbaar gestelde bagagekarretj | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Kuiers op Schiphol verdwenen, passagiers slepen met bagage, Bestanddeelnr 928- | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Minister Pronk met vrouw vertrekt van Schiphol voor deelnemen Wereldbankconfer | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Minister Pronk met vrouw vertrekt van Schiphol voor deelnemen Wereldbankconfer | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Meisjesturnploeg vertrekt van Schiphol naar Oslo vlnr Gerrie van Soeren , Ma,  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Minister van Cultuur van Israel, Hillal op Schiphol afgehaald door Van Doorn,  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Minister van Cultuur van Israel, Hillal op Schiphol afgehaald door Van Doorn , | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Olympische wielerploeg op weg van Schiphol naar Montreal Van Houwelingen, Van  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Olympische wielerploeg op weg van Schiphol naar Montreal Van Houwelingen, Van  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Oude RAF-vliegtuigen op Schiphol Lancaster bommenwerper op Schiphol, Bestandde | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Oude RAF-vliegtuigen op Schiphol Lancaster op Schiphol, Bestanddeelnr 928-5600 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Oude RAF-vliegtuigen op Schiphol Hawker Hurricane van de Battle of Britain Mem | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Oude RAF-vliegtuigen op Schiphol Spitfire van de Battle of Britain Memorial Fl | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2442  1977  CC0              | North Sea Jazz festival in Den Haag Count Basie (l) en Oscar Peterson (r) kome | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2442  1977  CC0              | North Sea Jazz festival in Den Haag John Lewis (Modern Jazz Quartet) en Dabe B | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2433  1976  CC0              | Oude RAF-vliegtuigen op Schiphol vlnr. Hawker Hurricane, Lancaster-bommenwerpe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1978  CC0              | Persconferentie Rijksluchtvaartdienst naar aanleiding van resultaat onderzoek  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1978  CC0              | Persconferentie Rijksluchtvaartdienst naar aanleiding van resultaat onderzoek  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische dissident Amalrik en echtgenoot op Schiphol, Almarik alleen kop, Bes | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische dissident Amalrik en echtgenoot op Schiphol, Almarik en schilderijen | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische dissident Amalrik en echtgenoot op Schiphol, Almarik en schilderijen | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische dissident Amalrik en echtgenoot op Schiphol, Andrej Amalrik koppen,  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2442  1977  CC0              | Prinses Margriet aanwezig bij vertrek van 90 dove kinder op Schiphol die op va | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2442  1977  CC0              | Prinses Margriet aanwezig bij vertrek van 90 dove kinder op Schiphol Prinses M | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2424  1977  CC0              | Prinses Margriet aanwezig bij vertrek van 90 dove kinderen op Schiphol Prinses | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2424  1977  CC0              | Prinses Margriet aanwezig bij vertrek van 90 dove kinder op Schiphol Prinses M | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2412  1977  CC0              | Prinses Margriet wordt op Schiphol begroet om aanwezig te zijn bij het vertrek | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2442  1977  CC0              | President Ferrier van Suriname in ons land voor officieel bezoek president Fer | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2442  1977  CC0              | President Ferrier van Suriname in ons land voor officieel bezoek president Fer | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2442  1977  CC0              | President Ferrier van Suriname in ons land voor officieel bezoek president Fer | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische cosmonaut Andrei Nikolajev op Schiphol verwelkomd door Russische amb | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische cosmonaut Andrei Nikolajev op Schiphol verwelkomd door Russische amb | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische dissident Amalrik en echtgenoot op Schiphol, Andrej Amalrik en kat,  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische dissident Amalrik en echtgenoot op Schiphol, Andrej Amalrik aankomst | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische dissident Amalrik en echtgenoot op Schiphol, Andrej Amalrik kust zij | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische dissident Amalrik en echtgenoot op Schiphol, Andrej Amalrik en schil | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2442  1977  CC0              | Proef met gescheiden paspoortcontrole op Schiphol bord in aankomsthal wijst r, | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2442  1977  CC0              | Proef met gescheiden paspoortcontrole op Schiphol bord in aankomsthal wijst r, | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische dissident Andrej Amalrik en echtgenote op Schiphol, Amalrik(rechts)  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische dissident Amalrik en echtgenoot op Schiphol, enorme drukte bij aanko | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische dissident Amalrik en echtgenoot op Schiphol, Andrej en Gjoezel, Amal | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische dissident Amalrik en echtgenoot op Schiphol, Andrej en Gjoezel, Amal | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2442  1977  CC0              | Schiphol, bord Alleen EEG-onderdanen, Bestanddeelnr 929-3676.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische veearts Roussini van Schiphol vertrokken na politiek asiel, Bestandd | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische dissident Amalrik en echtgenoot op Schiphol, vlnr Karel van het Reve | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische dissident Amalrik en echtgenoot op Schiphol, Andrej Amalrik, Bestand | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Russische dissident Amalrik en echtgenoot op Schiphol, Andrej Amalrik, Bestand | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2448  1976  CC0              | Secretaris-Generaal van Spaanse Socialistische Partij (PSOE) op Schiphol Felip | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2448  1976  CC0              | Secretaris-Generaal van Spaanse Socialistische Partij (PSOE) op Schiphol Felip | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Spaanse minister Buitenlandse Zaken J M de Areilza Schiphol met ambassadeur In | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Spaanse minister Buitenlandse Zaken J M de Areilza Schiphol met ambassadeur In | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2427  1977  CC0              | Twee Nederlandse gijzelaars Helma van Dreumel en verloofde Gerrie Wetenkamp bi | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Uit Zambia uitgewezen Nederlander George Siemerma op Schiphol, Bestanddeelnr 9 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Uit Zambia uitgewezen Nederlander George Siemerma op Schiphol persconferentie, | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Vertrek Feijenoord van Schiphol naar Barcelona voor wedstrijd tegen Espanol dr | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Vakantie-uittocht begonnen, grote drukte op Schiphol, Bestanddeelnr 928-6744.j | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Vakantie-uittocht begonnen, grote drukte op Schiphol, Bestanddeelnr 928-6746.j | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Vertrek Feijenoord van Schiphol naar Barcelona voor wedstrijd tegen Espanol Fe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Vertrek Feijenoord van Schiphol naar Barcelona voor wedstrijd tegen Espanol Fe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2442  1977  CC0              | Vertrek Nederlands elftal van Schiphol naar Noord Ierland Cruijff (l) met trai | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2442  1977  CC0              | Vertrek Nederlands elftal van Schiphol naar Noord Ierland Cruijff met zoontje  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2442  1977  CC0              | Vertrek Nederlands elftal van Schiphol naar Noord Ierland Cruijff met zoontje  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2442  1977  CC0              | Vertrek Nederlands elftal van Schiphol naar Noord Ierland Happel (l) met Zwart | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1978  CC0              | Vliegtuigkijkers bij Schiphol, Bestanddeelnr 929-9386.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Weer groep hartpatienten naar Verenigde Staten vanaf Schiphol, Bestanddeelnr 9 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Weer groep hartpatienten naar Verenigde Staten vanaf Schiphol, zes-jarig patie | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1978  CC0              | Vertrek van Schiphol van kardinalen Willebrands en Alfrink naar Rome om samen  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3682x2445  1976  CC0              | Zweedse minister van Justitie Geygel op Schiphol, afgehaald door Van Agt, Best | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3681x2455  1976  CC0              | Kardinaal Willebrands nieuwe bisschop van Utrecht op Schiphol aangekomen Wille | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3680x2441  1976  CC0              | Arubaanse delegatie o.l.v. ex-minister Croes op Schiphol Croes omringd door aa | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3680x2441  1976  CC0              | Arubaanse delegatie o.l.v. ex-minister Croes op Schiphol Croes tijdens perscon | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3680x2441  1976  CC0              | Arubaanse delegatie o.l.v. ex-minister Croes op Schiphol aanhangers met spando | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3680x2441  1976  CC0              | Door Polisario gegijzelde Nico Arends weer vrij, op Schiphol Nico Arends tijde | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3680x2441  1976  CC0              | Ex-gijzelaars uit Beilen op vakantie naar Spanje, vanaf Schiphol conducteur Br | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3680x2441  1976  CC0              | Ex-gijzelaars uit Beilen op vakantie naar Spanje, vanaf Schiphol de groep voor | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3680x2441  1976  CC0              | Kardinaal Willebrands nieuwe bisschop van Utrecht op Schiphol aangekomen Wille | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3680x2441  1976  CC0              | Minister Pronk (ontwikkelingssamenwerking) terug uit India op Schiphol, Bestan | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3680x2441  1976  CC0              | Minister Pronk (ontwikkelingssamenwerking) terug uit India op Schiphol, Bestan | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3680x2441  1976  CC0              | Little Angels of Korea op Schiphol, Bestanddeelnr 928-3825.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3680x2441  1976  CC0              | Little Angels of Korea op Schiphol, Bestanddeelnr 928-3826.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3679x2440  1977  CC0              | Michael Stom en zijn vrouw, Bestanddeelnr 929-1358.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : De aankomst van dr
+     3679x2440  1977  CC0              | Michael Stom en zijn vrouw, Bestanddeelnr 929-1359.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : De aankomst van dr
+     3679x2440  1977  CC0              | Michael Stom wordt verwelkomd door rabbijn Awraham Soetendorp, Bestanddeelnr 9 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : De aankomst van dr
+     3678x2413  1976  CC0              | Kardinaal Willebrands nieuwe bisschop van Utrecht op Schiphol aangekomen Wille | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2451  1977  CC0              | Aankomst HSV Hamburg op Schiphol ivm finale Europa Cup II tegen Anderlecht in, | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2451  1977  CC0              | Aankomst HSV Hamburg op Schiphol ivm finale Europa Cup II tegen Anderlecht in, | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2427  1977  CC0              | Aankomst Russische dissident Boekovsky op Schiphol tijdens persconferentie, Be | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2427  1977  CC0              | Aankomst Russische dissident Boekovsky op Schiphol begroet een bekende, midden | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2448  1977  CC0              | Aankomst Russische dissident Boekovsky op Schiphol, Bestanddeelnr 928-9794.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2448  1977  CC0              | Aankomst Russische dissident Boekovsky op Schiphol, Bestanddeelnr 928-9795.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2448  1977  CC0              | Aankomst zanger James Brown op Schiphol, Bestanddeelnr 928-9757.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2430  1977  CC0              | Aankomst premier Arron van Suriname (met vrouw) op Schiphol, Bestanddeelnr 929 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2451  1977  CC0              | Aankomst premier Arron van Suriname (met vrouw) op Schiphol, Bestanddeelnr 929 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2442  1977  CC0              | Aankomst premier Arron van Suriname (met vrouw) op Schiphol, met ambassadeur v | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2457  1976  CC0              | Am. Min. v Buza Zaken , dr. Henry Kissinger brengt bezoek aan Nederland aankom | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2448  1977  CC0              | Den Uyl terug uit Israel (op Schiphol) Den Uyl en schaatsploeg, v.l.n.r. train | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2448  1977  CC0              | Den Uyl terug uit Israel (op Schiphol) PvdA-voorzitter Ien van de Heuvel , pre | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2448  1976  CC0              | De Vaste Kamercommissie Justitie bezoekt Schiphol en bekijkt veiligheidsmaatre | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2448  1976  CC0              | De Vaste Kamercommissie Justitie bezoekt Schiphol en bekijkt veiligheidsmaatre | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2430  1977  CC0              | Den Uyl terug uit Israel (op Schiphol), Bestanddeelnr 929-0429.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2448  1977  CC0              | Minister Boersma begroet Joegoslavische minister van Arbeid Pepovski op Schiph | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2448  1977  CC0              | Minister Boersma begroet Joegoslavische minister van Arbeid Pepovski op Schiph | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2451  1977  CC0              | Minister Felli (Buitenlandse Zaken Ghana) op Schiphol verwelkomd door Van der  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2448  1977  CC0              | Op het platform met op de achtergrond het regeringsvliegtuig de Fokker F28 Fel | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Terugkomst van min
+     3676x2448  1977  CC0              | Onderzoekscommissie in zaak Menten terug uit Polen aankomst, Bestanddeelnr 929 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2448  1977  CC0              | Onderzoekscommissie in zaak Menten terug uit Polen v.l.n.r. G. S. J. Peters ,  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2448  1976  CC0              | Paul Merrony en Jane Maxwell (uit The Hammonds ) op Schiphol Collin Baker ( Pa | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2451  1977  CC0              | President Ferrier van Suriname op Schiphol aangekomen (mei 1977), Bestanddeeln | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2451  1977  CC0              | President Ferrier van Suriname op Schiphol aangekomen president Ferrier verwel | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2451  1977  CC0              | Stemmen op Schiphol, Bestanddeelnr 929-1950.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3676x2451  1977  CC0              | Stemmen op Schiphol, Berkhouwer stemt, Bestanddeelnr 929-1951.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3674x2441  1976  CC0              | Arubaanse delegatie o.l.v. ex-minister Croes op Schiphol Croes temidden van aa | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3674x2464  1976  CC0              | Andre Amalrik en echtgenote Gjoezel tijdens persconferentie op Schiphol, Besta | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3673x2445  1978  CC0              | Aankomst op Schiphol van overlevenden gasontploffing op de Spaanse camping Los | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3671x2441  1972  CC0              | Spaanse Minister van Buitenlandse Zaken , Lopez Bravo Schiphol, rechts Baron G | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3671x2441  1972  CC0              | Spaanse Minister van Buitenlandse Zaken, Lopez Bravo, Schiphol, links minister | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3671x2441  1972  CC0              | Spaanse Minister van Buitenlandse Zaken, Lopez Bravo, Schiphol, Bestanddeelnr  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3670x2445  1978  CC0              | Aankomst Chinese minister van Metallurgische Industrie , Tang Ke minister Tang | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3667x2436  1978  CC0              | Eerste lijnvlucht National Airlines vanuit New Orleans op Schiphol leden Pete  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3667x2418  1977  CC0              | Minister Van Agt op Schiphol voor vertrek naar Bangkok, Bestanddeelnr 928-9631 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3667x2445  1976  CC0              | Nieuwe Amerikaanse ambassadeur Mc Closky komt aan op Schiphol, Bestanddeelnr 9 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3665x2479  1976  CC0              | Andre Amalrik en echtgenote Gjoezel tijdens persconferentie op Schiphol. v.l.n | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3665x2429  1976  CC0              | BayCityRollers1976RobBogaerts.jpg | British musical group Bay City Rollers wearing wooden shoes, at Schiphol Airport
+     3665x2429  1976  CC0              | Roemeense minister Buitenlandse Zaken Macovescu op Schiphol verwelkomd door Va | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3665x2429  1976  CC0              | Roemeense minister Buitenlandse Zaken Macovescu op Schiphol verwelkomd door Va | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3665x2429  1976  CC0              | Roemeense minister Buitenlandse Zaken Macovescu op Schiphol verwelkomd door Va | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3665x2429  1976  CC0              | Russische wereldkampioen schaken Karpov op Schiphol v.l.n.r. Russische ambassa | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3662x2441  1976  CC0              | Door Polisario gegijzelde Nico Arends weer vrij, op Schiphol Nico Arends met p | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3659x2441  1976  CC0              | Damesschaatsploeg vanaf Schiphol naar Alma Ata Sophie Westenbroek (rechts) en  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3658x2448  1978  CC0              | Vakantiedrukte op Schiphol, Bestanddeelnr 929-8025.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3656x2452  1976  CC0              | Andre Amalrik en echtgenote Gjoezel tijdens persconferentie op Schiphol, Besta | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3656x2441  1976  CC0              | Door Polisario gegijzelde Nico Arends weer vrij, op Schiphol Nico Arends wordt | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3653x2441  1976  CC0              | Arubaanse delegatie o.l.v. ex-minister Croes op Schiphol Croes tijdens perscon | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3648x2736  2009  CC BY 2.0        | British Airways BA First Class Seat Boeing 747.jpg | British Airways BA First Class Seat Beoing 747
+     3645x2413  1976  CC0              | Kardinaal Willebrands nieuwe bisschop van Utrecht op Schiphol aangekomen Wille | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3616x2445  1976  CC0              | Damesschaatsploeg vanaf Schiphol naar Alma Ata Sophie Westenbroek (rechts) en  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3600x2400  2016  Public domain    | SCANG TSP 747 Cargo Load 160708-Z-VD276-023.jpg | Chris Kerlee, a loadmaster at Atlas Air, waits to load cargo onto a Boeing 747 t
+     3543x2560  1968  Public domain    | Boeing 747 rollout (5).jpg | Boeing 747 rollout
+     3517x2445  1977  CC0              | Van Agt op Schiphol, geheel links J Sankey (Britse ambassadeursraad), midden m | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3504x2336  2008  CC BY 2.0        | BA First 747 seat.jpg | BA First
+     3504x2336  2007  CC BY 2.0        | CX First Class Suites 747.jpg | Cathay Pacific First Class
+     3504x2336  2011  CC BY 2.0        | SOFIA telescope (5531358814) (2).jpg | SOFIA telescope.
+     3504x2336  2008  CC BY 2.0        | Thai Airways First Class Cabin.jpg | Thai operates a long-haul 747-400 on the Bangkok — Hong Kong route, meaning you 
+     3500x2333  2009  Public domain    | P033109PS-0047 (3484851342).jpg | Staff meets in the Conference Room aboard Air Force One during the flight to Lon
+     3500x2333  2009  Public domain    | P040709PS-0809 (3484044733).jpg | Staff and U.S. Secret Service (USSS) discuss security measures aboard Air Force 
+     3457x2376  1970  CC0              | De Boeing 747 taxiet naar aankomstplaats op Schiphol, Bestanddeelnr 923-6398.j | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Eerste Jumbo Jet B
+     3456x5184  2011  CC BY 2.0        | Vasters 0233 (6661402401) (3).jpg | IMG_0233
+     3416x2040  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3383x1904  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3368x2040  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3368x2040  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3368x2040  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3360x2040  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3359x1976  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3352x2040  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3352x2015  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3352x2040  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3352x2040  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3352x2040  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3352x2015  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3352x2015  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3352x2015  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3352x2015  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3352x2015  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3352x2040  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3344x1976  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3343x2015  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3343x2040  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3336x2015  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3335x2015  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3335x2040  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3328x2015  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3296x2040  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3280x4928  2016  CC BY 2.0        | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 20 | Dr Dava Newman, NASA Deputy Administrator visit to New Zealand, July 11-18, 2016
+     3272x2040  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3271x2015  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3264x2448  2011  CC BY 2.0        | First SOFIA transatlantic flight (6155935914).jpg | Credit: DLR (CC-BY 3.0).
+     3264x2448  2011  CC BY 2.0        | First SOFIA transatlantic flight (6155387333).jpg | Credit: DLR (CC-BY 3.0).
+     3264x2448  2011  CC BY 2.0        | First SOFIA transatlantic flight (6155389275).jpg | Credit: DLR (CC-BY 3.0).
+     3264x2448  2011  CC BY 2.0        | First SOFIA transatlantic flight (6155376423).jpg | Credit: DLR (CC-BY 3.0).
+     3264x2448  2011  CC BY 2.0        | First SOFIA transatlantic flight (6155907110).jpg | Credit: DLR (CC-BY 3.0).
+     3264x2448  2011  CC BY 2.0        | First SOFIA transatlantic flight (6155918708).jpg | Credit: DLR (CC-BY 3.0).
+     3264x2448  2008  Public domain    | NWA Business Class.JPG | World Business Class seat, Boeing 747-400
+     3264x2448  2011  CC BY 2.0        | SOFIA Media Event, June 8, 2011 (5813666783).jpg | Inside SOFIA.
+     3264x2448  2010  CC BY 2.0        | United Airlines B747-400 Economy cabin.jpg | United Airlines B747-400 Economy cabin
+     3264x2180  2011  CC BY 2.0        | United Airlines B747-422 Economy cabin.jpg | United Airlines B747-400 Economy cabin
+     3256x2443  1976  CC0              | Euwe meets Karpov in 1976.jpg | Max Euwe meets Anatoly Karpov
+     3240x2040  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3185x2203  1970  Public domain    | Pan Am (Boeing 747).jpg | Boeing 747 auf dem Flughafen München-Riem
+     3127x2015  1983  CC BY 4.0        | The new passenger aircraft of the Swiss company, the Boeing 747 Jumbo Jet, lan | The new passenger aircraft of the Swiss company, the Boeing 747 "Jumbo Jet", lan
+     3072x2048  2009  Public domain    | The President’s aides gathered in the conference room of Air Force One, 2009.j | April 7, 2009 “Aboard Air Force One, the President’s aides gathered in the confe
+     3072x2304  2009  CC BY 2.0        | YUL-CDG (4131962577).jpg | Boeing 747-400 Air France
+     3071x2032  1976  CC0              | FC Barcelona op Schiphol, van links naar rechts Neesken Michels en Cruijff op  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     3008x2000  2007  CC BY 2.0        | British Airways 747-400 World Traveller cabin.jpg | On board Flight QF2 from London Heathrow LHR to Bangkok Suvarnabhumi BKK
+     3000x2148  2007  Public domain    | A technician examines the instrument mounting structure and bulkhead of the Ge | A technician examines the instrument mounting structure and bulkhead of the Germ
+     3000x1993  2008  Public domain    | As SOFIA's large telescope assembly slowly rotates, scientists and telescope o | The SOFIA telescope team collected baseline operational measurements during seve
+     3000x1996  2014  Public domain    | Operation United Assistance 141102-Z-VT419-184.jpg | Aerial porters from the Kentucky Air National Guard’s 123rd Contingency Response
+     3000x2036  2008  Public domain    | Scientists carefully examine data being received during nighttime line operati | Scientists carefully examine data being received during nighttime line operation
+     3000x1993  2007  Public domain    | Technicians check out the mounting structure of the infrared telescope install | Technicians check out the mounting structure of the 20-metric-ton infrared teles
+     2880x2160  2010  CC BY 2.0        | DSC00655 (4600606596).jpg | DSC00655
+     2854x1878  1986  Public domain    | Employees from Pan Am World Airways remove seats and carpet from a Pan Am 747  | The original finding aid described this photograph as: Base: New York State: New
+     2816x2112  2009  Attribution      | Elal 747-400 wing.jpg | EL-AL 747-400 wing
+     2770x1880  1991  Public domain    | Elements of the 82nd Airborne Division in parade formation march toward the re | The original finding aid described this photograph as: Subject Operation/Series:
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292990864).jpg | Sorry about the atrocious picture quality. Phone camera + too dark.
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292992868).jpg | WP_001411
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292991974).jpg | WP_001402
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292991642) (2).jpg | WP_001398
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292991808) (2).jpg | WP_001400
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292991732) (2).jpg | WP_001399
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292989592).jpg | WP_001384
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292989832).jpg | WP_001386
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292990446).jpg | Sorry about the atrocious picture quality. Phone camera + too dark.
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292990734).jpg | WP_001391
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292991200).jpg | WP_001394
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292990972).jpg | Sorry about the atrocious picture quality. Phone camera + too dark.
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292991406).jpg | WP_001396
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292991354).jpg | WP_001395
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292986336).jpg | Sorry about the atrocious picture quality. Phone camera + too dark.
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292990222).jpg | WP_001388
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292990570).jpg | WP_001390
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292992188).jpg | WP_001404
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292992088).jpg | WP_001403
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292992262).jpg | WP_001405
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292992350).jpg | WP_001406
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292992796).jpg | WP_001410
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292992640).jpg | WP_001408
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292993112).jpg | WP_001416
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292992716) (2).jpg | WP_001409
+     2592x1944  2011  CC BY 2.0        | B747 prototype (7292993006) (2).jpg | WP_001415
+     2592x1944  2011  CC BY 2.0        | Interior of Boeing 747 (N7470).jpg | Interior of Boeing 747 (N7470)
+     2555x2547  1977  CC0              | Aankomst Schiphol Russisch elftal sterspeler Blochin (l) met trainer Simoniaye | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2547x2573  1977  CC0              | Aankomst Levski Spartak op Schiphol, trainer Voutcov (l) en doelman Staiker, B | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2546x2511  1977  CC0              | Aankomst schakers Smyslov en Karpov op Schiphol Smyslov en Karpov (r), Bestand | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2543x2525  1977  CC0              | Opdracht Continental Public Relations , winnaar opstelwedstrijd Holland salad  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2543x2525  1977  CC0              | Opdracht Continental Public Relations , winnaar opstelwedstrijd Holland salad  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2543x2525  1977  CC0              | Opdracht Continental Public Relations , winnaar opstelwedstrijd Holland salad  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2537x2565  1977  CC0              | Aankomst schakers Smyslov en Karpov op Schiphol, Bestanddeelnr 929-3590.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2537x2547  1977  CC0              | Aankomst schakers Smyslov en Karpov op Schiphol, Bestanddeelnr 929-3592.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2534x2561  1977  CC0              | Vakantiedrukte op Schiphol, Bestanddeelnr 929-2513.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2529x2525  1977  CC0              | Opdracht Continental Public Relations , winnaar opstelwedstrijd Holland salad  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2528x2567  1977  CC0              | Opdracht Continental Public Relations , winnaar opstelwedstrijd Holland salad  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2525x2559  1977  CC0              | Aankomst Schiphol leiders Zuid Afrikaanse bevrijdingsle ANC Alfred Nono en Tho | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2525x2593  1977  CC0              | Opdracht Continental Public Relations , winnaar opstelwedstrijd Holland salad  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2525x2575  1978  CC0              | Russische parlementaire delegatie op Schiphol vlnr Russische ambassadeur Ro, B | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2524x2542  1977  CC0              | Aankomst Levski Spartak op Schiphol, trainer Voutcov (l) en spelers, Bestandde | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2506x2553  1977  CC0              | Opdracht Continental Public Relations , winnaar opstelwedstrijd Holland salad  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2501x2479  1977  CC0              | Vakantiedrukte op Schiphol, Bestanddeelnr 929-2512.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2499x1995  1976  CC0              | BayCityRollers1976RobBogaerts Cropped.jpg | Bay City Rollers. Schiphol, 14 Febr. 1976
+     2480x3896  2010  Public domain    | E-4B stairwell.jpg | Lt. Col. James D'Amour arrives at the flight deck as Lt. Col. Tim Carter makes h
+     2478x3745  1976  CC0              | Aankomst Ger Dassen op Schiphol tijdens persconferentie, Bestanddeelnr 928-835 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2478x3745  1976  CC0              | Aankomst vrijgelaten honorair consul in Columbia de heer Leupin samen met vrou | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2478x3745  1976  CC0              | Producer Een brug te ver Joseph E Levine geeft persconferentie op Schiphol L,  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2478x3745  1976  CC0              | Producer Een brug te ver Joseph E Levine geeft persconferentie op Schiphol t,  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2478x3745  1976  CC0              | Producer Een brug te ver Joseph E Levine geeft persconferentie op Schiphol m,  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2475x2561  1977  CC0              | Aankomst schakers Smyslov en Karpov op Schiphol, Bestanddeelnr 929-3591.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2468x2024  1977  CC0              | John Lewis and Dave Brubeck 1977.jpg | North Sea Jazz festival in Den Haag ; John Lewis (Modern Jazz Quartet) en Dave B
+     2467x3725  1978  CC0              | Nationale hockeyploeg (heren) naar WK Argentinie Maarten Sikking (l) en Paul L | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2467x3725  1978  CC0              | Nationale hockeyploeg (heren) naar WK Argentinie diverse hockeyers, Bestanddee | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2467x3725  1978  CC0              | Premier Van Agt en echtgenote terug van vakantie op Schiphol, Bestanddeelnr 92 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2467x3725  1978  CC0              | Premier Van Agt en minister Van de Klaauw vanaf Schiphol naar Europese top, Be | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2464x3696  1977  CC0              | Fraktieleider Andriessen naar Madrid vanaf Schiphol, Bestanddeelnr 929-0054.jp | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2464x3696  1977  CC0              | Hekken voor Lufthansa in Leidsestraat in verband met eventuele aanslagen, Best | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2463x3691  1977  CC0              | Aankomst leidster Ierse vrouwenbeweging Betty Williams op Schiphol, Bestanddee | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2463x3691  1977  CC0              | Aankomst leidster Ierse vrouwenbeweging Betty Williams op Schiphol tijdens per | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2457x3694  1978  CC0              | Aankomst min Buitenlandse Zaken China, Huang Hua Schiphol afgehaald door min V | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2457x3694  1978  CC0              | Aankomst min Buitenlandse Zaken China, Huang Hua Schiphol afgehaald door min V | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2457x3700  1976  CC0              | Nederlandse ploeg voor Olympische Spelen voor Gehandicapten naar Montreal, Bes | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2457x3688  1976  CC0              | Sammy Davis junior op Schiphol met bloemen, Bestanddeelnr 928-7743.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2454x3673  1978  CC0              | Aankomst op Schiphol van overlevenden gasontploffing op de Spaanse camping Los | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2451x3676  1977  CC0              | Minister Boersma met Joegoslavische ambassadeur op Schiphol, Bestanddeelnr 929 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2448x3682  1976  CC0              | Aankomst Vietnamese vluchtelingen op Schiphol moeder met twee kinderen, Bestan | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2448x3682  1976  CC0              | Aankomst Vietnamese vluchtelingen op Schiphol familie, Bestanddeelnr 928-7954. | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2448x3682  1976  CC0              | Aankomst Vietnamese vluchtelingen op Schiphol familie, Bestanddeelnr 928-7955. | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2448x3676  1977  CC0              | Heer J J G Boot voorzitter comite voor Zuid-Afrika geeft persconferentie op S, | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2448x3676  1977  CC0              | Heer J J G Boot voorzitter comite voor Zuid-Afrika geeft persconferentie op S, | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2448x3676  1976  CC0              | Luchthaven Schiphol krijgt een tapijt van het Tunesisch Verkeersbureau, Bestan | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2448x3676  1977  CC0              | Minister Van Agt op Schiphol voor vertrek naar Bangkok, Bestanddeelnr 928-9632 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2448x3682  1976  CC0              | Secretaris-Generaal van Spaanse Socialistische Partij (PSOE) op Schiphol Felip | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3682  1978  CC0              | Aankomst Bette Midler op Schiphol, Bestanddeelnr 929-9467.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3682  1978  CC0              | Aankomst Ajax tegenstander in Europa Cup II toernooi Lausanne Sports uit Zwits | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3682  1976  CC0              | Aankomst Danny Kaye op Schiphol tijdens persconferentie, Bestanddeelnr 928-918 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3688  1978  CC0              | Aankomst zangeres Olivia Newton John op Schiphol Olivia Newton John in de pers | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3688  1978  CC0              | Eerste vrouwelijke verkeersvlieger bij KLM, mejuffrouw Verkaik voor DC8, Besta | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3682  1976  CC0              | Himalaya-expeditie vanaf Schiphol vertrokken, Bestanddeelnr 928-6731.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3688  1978  CC0              | Hans van Helden terug uit Oslo op Schiphol, Bestanddeelnr 929-5495.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3688  1978  CC0              | Hans van Helden terug uit Oslo op Schiphol, Bestanddeelnr 929-5496.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3688  1978  CC0              | Helderziende Kim Tracey (Engeland) op Schiphol, Bestanddeelnr 929-8519.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3682  1978  CC0              | Ir A de Zeeuw , directeur-generaal voor landbouw- en voedselvoorziening op Sch | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3688  1978  CC0              | Minister Wiegel haalt premier Nederlandse Antillen Rozendal van Schiphol, Best | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3688  1978  CC0              | Minister Wiegel haalt premier Nederlandse Antillen Rozendal van Schiphol, Best | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3667  1976  CC0              | Minister Van der Stoel terug uit Turkije op Schiphol Van der Stoel tijdens per | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3682  1976  CC0              | Minister Van der Stoel terug uit Turkije op Schiphol Van der Stoel tijdens per | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3682  1976  CC0              | Oud adviseur van Nixon heer Colson op Schiphol, Colson tijdens persconferentie | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3682  1976  CC0              | Oud adviseur van Nixon heer Colson op Schiphol, Colson tijdens persconferentie | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3688  1978  CC0              | Schiphollijn in gebruik gesteld door minister Tuijnman toespraken ed, Bestandd | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3682  1976  CC0              | Russische dissident Amalrik en echtgenoot op Schiphol, schilderijen, Bestandde | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3682  1976  CC0              | TerMaat1976.jpg | Aankomst delegatie Pax Christi op Schiphol uit Leningrad o.l.v. kardinaal Alfrin
+     2445x3700  1976  CC0              | Spaanse minister Buitenlandse Zaken J M de Areilza Schiphol met ambassadeur In | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3682  1976  CC0              | Weer groep hartpatienten naar Verenigde Staten vanaf Schiphol, zes-jarig patie | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3682  1976  CC0              | Weer groep hartpatienten naar Verenigde Staten vanaf Schiphol, de hele groep v | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3688  1978  CC0              | Vertrek van Schiphol van delegatie van vijf Zuid Molukkers voor orientatiereis | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2445x3682  1978  CC0              | Vertrek van Schiphol van kardinalen Willebrands en Alfrink naar Rome om samen  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2442x3682  1977  CC0              | Aankomst Arubaanse delegatie op Schiphol Betico Croes (kop), Bestanddeelnr 929 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2442x3682  1977  CC0              | Schiphol, bord Alleen EEG-onderdanen, Bestanddeelnr 929-3677.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2441x3668  1976  CC0              | Door Polisario gegijzelde Nico Arends weer vrij, op Schiphol Nico Arends tijde | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2440x3679  1977  CC0              | Michael Stom tijdens de persconferentie, Bestanddeelnr 929-1357.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : De aankomst van dr
+     2440x3679  1977  CC0              | Michael Stom en zijn vrouw, Bestanddeelnr 929-1360.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : De aankomst van dr
+     2440x3659  1978  CC0              | Zuidafrikaan Donald Woods op Schiphol in verband met Nederlandse vertaling van | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2439x3670  1976  CC0              | Aankomst sportvlieger Rob Kok op Schiphol, Bestanddeelnr 928-9194.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2437x3688  1976  CC0              | Aankomst minister Van Agt op Schiphol ivm zaak Menten minister Van Agt en sec, | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2437x3688  1976  CC0              | Aankomst minister Van Agt op Schiphol ivm zaak Mente minister Van Agt en secr, | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2437x3688  1976  CC0              | Aankomst minister Van Agt op Schiphol ivm zaak Mente heer Mulder, secretaris-, | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2437x2525  1977  CC0              | Opdracht Continental Public Relations , winnaar opstelwedstrijd Holland salad  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2437x3688  1976  CC0              | Zangeres Linda Ronstadt op Schiphol, Bestanddeelnr 928-8975.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2434x3695  1978  CC0              | Aankomst Nederlands elftal op Schiphol spelers banen zich weg door menigte, vo | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2434x3695  1978  CC0              | Aankomst Nederlands elftal op Schiphol spelers banen zich weg door menigte, vo | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2434x3695  1978  CC0              | Goedkoop vliegen naar VS mensen in slaapzakken wachten op een plaatsje in een  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2433x3682  1976  CC0              | Aankomst delegatie Pax Christi op Schiphol uit Leningra o.l.v. kardinaal Alfri | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2429x3665  1976  CC0              | Russische wereldkampioen schaken Karpov op Schiphol begroet door Max Euwe , ko | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2427x3682  1976  CC0              | Aankomst delegatie Pax Christi op Schiphol uit Leningra o.l.v. kardinaal Alfri | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2427x3682  1976  CC0              | Aankomst delegatie Pax Christi op Schiphol uit Leningrad o.l.v. kardinaal Alfr | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2424x3676  1977  CC0              | Aankomst Russische dissident Boekovsky op Schiphol, Bestanddeelnr 928-9791.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2424x3673  1978  CC0              | Aankomst op Schiphol van overlevenden gasontploffing op de Spaanse camping Los | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2424x3676  1978  CC0              | Aankomst op Schiphol van overlevenden gasontploffing op de Spaanse camping Los | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2424x3685  1978  CC0              | Aankomst op Schiphol van overlevenden gasontploffing op de Spaanse camping Los | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2424x3703  1978  CC0              | Vertrek Chinese delegatie Academie van Wetenschappen vanaf Schiphol persconfer | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2424x3703  1978  CC0              | Vliegtuigkijkers bij Schiphol door politie weggestuurd, Bestanddeelnr 929-9911 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2423x2525  1977  CC0              | Opdracht Continental Public Relations , winnaar opstelwedstrijd Holland salad  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2407x2525  1977  CC0              | Aankomst schakers Smyslov en Karpov op Schiphol Karpov in gesprek met Max Euwe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2399x3662  1971  CC0              | Vlucht met Boeing 747 naar Rome van Schiphol interieur stewardess schenkt koff | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2398x2547  1977  CC0              | Aankomst schakers Smyslov en Karpov op Schiphol, Bestanddeelnr 929-3593.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2372x2525  1977  CC0              | Opdracht Continental Public Relations , winnaar opstelwedstrijd Holland salad  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     2300x2556  1977  CC0              | Aankomst Schiphol leiders Zuid Afrikaanse bevrijdingsleger ANC Alfred Nono en  | ANC at Schiphol Airport, 1977. Left to right: Olive Tambo, Thomas Knobi, Alfred 
+     2272x1704  2003  CC BY 2.0        | Of so little interest to so many (398239037).jpg | Qantas 747-400ER with the 777-type interior (Boeing Signature Interior). Taken m
+     2223x1522  1978  CC0              | Aankomst van de Chinese minister van Communicatie Yeh Fei (midden) en een luch | Collectie / Archief: Fotocollectie Spaarnestad Onderwerpen Reportage / Serie: Po
+     2207x3000  2008  Public domain    | Scientists and telescope operators focus on data readouts set up inside NASA's | The SOFIA telescope team collected baseline operational measurements during seve
+     2160x2880  2010  CC BY 2.0        | DSC00666 (4600606812).jpg | DSC00666
+     2048x1152  2014  CC BY 3.0        | Addison, TX, USA - panoramio (57).jpg | Addison, TX, USA
+     2048x1536        Public domain    | B747-structure.jpg | Structure of a 747-230 from the Technik Museum Speyer (Germany)
+     2048x1536  2008  CC BY 2.0        | BA First 747 cabin.jpg | everyone is talking about the BA First as one of the best. While verynice and wi
+     2048x1345  2017  Public domain    | Donald Trump and staff on Air Force One.jpg | Donald Trump and staff on Air Force One .
+     2048x1536  2020  Public domain    | President Trump Delivers Remarks on Water Accessibility - 04.jpg | Next stop —&gt; Bakersfield!
+     2026x3000  1973  Public domain    | AMONG THE SHORELINE DEBRIS AT THE JOHN F. KENNEDY AIRPORT IS THIS ABANDONED AU | 
+     2000x3000  2025  Public domain    | President Donald Trump speaks with members of the media on board Air Force One | President Donald Trump speaks with members of the media on board Air Force One e
+     2000x1500  2012  CC BY 2.0        | UpperdeckcabinDLB744.jpg | View of the reconfigured Business Elite upper deck cabin on Delta's 747-400. Ver
+     2000x1500  2012  CC BY 2.0        | UpperdeckcabinDLB744-0.jpg | Delta's New 747 Business Elite lie flat seats in the upper deck. These seats wou
+     1996x3000  2014  Public domain    | Operation United Assistance 141102-Z-VT419-409.jpg | U.S. Air Force Master Sgt. Adam Keller, a ramp coordinator for the Kentucky Air 
+     1996x3000  2014  Public domain    | Operation United Assistance 141102-Z-VT419-121.jpg | U.S. Air Force Senior Master Sgt. John Hodge, a ramp coordinator for the Kentuck
+     1944x2592  2011  CC BY 2.0        | B747 prototype (7292991474).jpg | WP_001397
+     1944x2592  2008  CC BY 2.0        | Malaysia Airlines 747 wingtip (5714955887).jpg | Early morning shot out the window somewhere over Australia
+     1902x2048  2020  Public domain    | Kevin McCarthy on Air Force One - 2.19.20.jpg | Headed home, and I’m bringing a friend. See you soon, Bakersfield!
+     1881x1881  1972  CC BY 4.0        | TWA flight attendant on the 747.jpg | In 1972, TWA flight attendant uniform included hot pants and go-go boots. Here w
+     1800x1200  2011  CC BY 2.0        | SOFIAs Cologne visist (6171649679).jpg | Credit: DLR/Thilo Kranz (CC-BY 3.0)
+     1800x1200  2011  CC BY 2.0        | SOFIAs Cologne visist (6171649421).jpg | Credit: DLR/Thilo Kranz (CC-BY 3.0)
+     1800x1200  2011  CC BY 2.0        | SOFIAs Cologne visist (6172179606).jpg | Credit: DLR/Thilo Kranz (CC-BY 3.0)
+     1744x1140  1973  CC BY 4.0        | Frankfurt- Flughafen; Jumbo-Jets; hinterer Teil des Fluggastraumes - LABW - St | Frankfurt: Flughafen; Jumbo-Jets; hinterer Teil des Fluggastraumes
+     1600x1201  2006  Public domain    | B747-146B(SUD) JA8170 inside 20061031.jpg | Inside cabin B747-146B/SUD
+     1600x2000  1978  CC0              | Zuidafrikaan Donald Woods op Schiphol in verband met Nederlandse vertaling van | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+     1580x1053  2012  CC BY 2.0        | G-CIVJ (14343136716).jpg | British Airways Boeing 747-436 Delivered: 11/02/1997 Our plane from LHR to MIA
+     1569x989   2009  Public domain    | Pan Am Clipper B747-121.jpg | Boeing 747 auf dem Flughafen München-Riem
+     1504x1928  1977  CC0              | Johan Cruijff with family 1977b.jpg | Vertrek Nederlands elftal van Schiphol naar Noord Ierland Cruyff met zoontje Jor
+     1484x1396  2009  Public domain    | President Barack Obama talks with Sen. Evan Bayh (D-Ind.) aboard Air Force One | President Barack Obama talks with Sen. Evan Bayh (D-Ind.) aboard Air Force One d
+     1328x1936  1976  CC0              | Jan Ruiter 1976.jpg | Nederlands Elftal vanaf Schiphol naar Island; Willy van de Kerkhof.
+     1300x867   2013  CC BY 3.0 de     | Frequenztests für GREAT - Calibrating GREAT (9297853041).jpeg | Bevor die SOFIA-Kampagne in Neuseeland beginnen kann, führen Wissenschaftler des
+     1300x867   2013  CC BY 3.0 de     | Vorbereitungen für die Wissenschaftsflüge - Preparations for the science fligh | ‎SOFIA wird in Kürze den Himmel über Neuseeland beobachten. Damit das Instrument
+     1300x867   2013  CC BY 3.0 de     | Warten auf Ergebnisse (9339284819).jpeg | Auch der zweite Wissenschaftsflug verlief ohne Probleme. Die SOFIA-Crew konnte e
+小   1269x1514  1978  CC0              | Aankomst Glasgow Rangers op Schiphol, tegenstander PSV nr. 3 v.l.n.r. de spele | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+小   1254x1773  1976  CC0              | Ton Thie.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+小   1217x1540  1978  CC0              | Aankomst zangeres Olivia Newton John op Schiphol Olivia Newton John in de pers | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+小   1217x1540  1978  CC0              | Aankomst zangeres Olivia Newton John op Schiphol Olivia Newton John in de pers | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+小   1217x1102  1978  CC0              | Aankomst zangeres Olivia Newton John op Schiphol Olivia Newton John in de pers | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+小   1200x738   1970  Public domain    | Pan Am Boeing 747SP Takeoff.jpg | Catalog #: 01_00090335 Manufacturer: Boeing Designation: 747 Notes: USA Title: B
+小   1180x1560  1976  CC0              | Evert Kroon 1976.jpg | Evert Kroon
+小   1178x1360  1978  CC0              | Aankomst Glasgow Rangers op Schiphol, tegenstander PSV nr. 3 v.l.n.r. de spele | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+小   1138x1474  1978  CC0              | Aankomst Glasgow Rangers op Schiphol, tegenstander PSV nr. 3 v.l.n.r. de spele | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+小   1128x1601  1978  CC0              | Olivia Newton John op Schiphol, Bestanddeelnr 930-0131 (cropped).jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+小   1128x1263  1978  CC0              | Olivia Newton John op Schiphol, Bestanddeelnr 930-0131 (cropped 2).jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+小   1047x738   1976  CC0              | Andrei Amalrik with wife 1976.jpg | Russische dissident Amalrik en echtgenoot op Schiphol, Andrej en Gjoezel, Amalri
+小   1045x667   1977  CC BY 3.0        | Douglas DC-10-30 PK-GIA Garuda AMS 11.09.77 edited-3.jpg | Douglas DC-10-30 PK-GIA of Garuda Indonesia at Amsterdam Schiphol airport in 197
+小   1024x768   2005  Public domain    | B747-146B(SUD) JA8170 inside UpperDeck.jpg | Inside cabin B747-146B/SUD Upper Deck
+小   1024x768   2006  Public domain    | Cumulus over China Sea from BA 747-400.JPG | Statocumulus over China Sea, seen from a British Airways Boeing 747-400
+小   1024x683   2007  CC BY 2.0        | CX First Class Suites 747 nose.jpg | Cathay Pacific First Class
+小   1024x848   1978  CC0              | Lajos Tichy 1978.jpg | Photographie de l'entraîneur du Budapest Honvéd fr:Lajos Tichy par Koen Suyk / A
+小   1024x657   1977  CC BY 3.0        | Tupolev Tu-134 DM-SCZ Interflug AMS 11.09.77 edited-2.jpg | Tupolev Tu-134 DM-SCZ of Interflug at Amsterdam Airport in 1977
+小   1024x706   2019  Public domain    | Trump, Senators Scott and Rubio talking about Venezuela.jpg | President Donald J. Trump returning to Washington, D.C. after the MAGA rally in 
+小    988x732   2005  Public domain    | Bush Air Force One.jpg | George W. Bush and U.S. Senator Johnny Isakson aboard Air Force One
+小    960x1280  2004  Public domain    | B747-Cabin.jpg | Aircraft cabin of a Thai Airways International Boeing 747 -400, economy class wh
+小    950x648   2019  Public domain    | Bilstein 00645 Boeing 747 N753PA Pan American.jpg | Image from the Roger Belstein Collection--Please tag these photos so information
+小    919x1334  1977  CC0              | Premier Arron van Suriname op Schiphol 1977 (cropped).jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+小    906x729   1976  CC0              | Andrei Amalrik with wife 1976b.jpg | Russische dissident Amalrik en echtgenoot op Schiphol, Andrej en Gjoezel, Amalri
+小    886x849   1976  CC0              | Andrei Amalrik 1976.jpg | Russische dissident Amalrik en echtgenoot op Schiphol, Almarik alleen kop
+小    800x450   1997  Public domain    | Bill Clinton and officials on Air Force One.jpg | President Bill Clinton aboard Air Force One en route to Bosnia, December 22, 199
+小    800x1300  1976  CC0              | Frida Lyngstad Schiphol 1976.jpg | Anni-Frid Lyngstad in Netherlands (Amsterdam Airport Schiphol), 1976
+小    778x1100  2015  Public domain    | PanAm 747 Image (18855448184).jpg | Poster from the Don Thomas Collection. Mr. Thomas was a collector of aircraft me
+小    767x923   1976  CC0              | Odvar Nordli 1976 (2).jpg | Aankomst Noorse premier Nordli op Schiphol; Den Uyl met Nordli
+小    758x1010  1976  CC0              | Kate O'Mara 1976.jpg | Kate O'Mara op Schiphol (speelt Jane Maxwell uit The Hammonds)
+小    750x563   2017  Public domain    | Alexia Hilbertidou and Scott Brown.jpg | In July 2017, Alexia Hilbertidou was invited by NASA to be part of the SOFIA Pro
+小    750x750   2017  Public domain    | Alexia Hilbertidou and Nasa crew.jpg | In July 2017, Alexia Hilbertidou was invited by NASA to be part of the SOFIA Pro
+小    749x766   1978  CC0              | Huang Hua (1978).jpg | Aankomst min Buitenlandse Zaken China, Huang Hua Schiphol afgehaald door min Vd 
+小    640x480   2005  CC BY 2.0        | Lufthansa Business.jpg | Business class seat in a Lufthansa Boeing 747-400
+小    618x927   1978  CC0              | Siad Barre 929-8865.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+小    607x833   1976  CC0              | Nancy Kissinger 1976.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+小    600x401   1990  Public domain    | Corridor on Air Force One.jpg | The corridor streching the port (left) side of the aircraft's second story. The 
+小    600x400   1990  Public domain    | President's office aboard Air Force One.jpg | The President's office aboard Air Force One
+小    600x401   1990  Public domain    | President's private cabin aboard Air Force One.jpg | The President and First Lady's private cabin aboard Air Force One . The couches 
+小    600x399   1990  Public domain    | President's Conference Room aboard Air Force One.jpg | President's Conference Room aboard Air Force One.
+小    593x711   1976  CC0              | Andriyan Nikolayev 1976.jpg | Andriyan Nikolayev
+小    584x908   1976  CC0              | Alan Longmuir1976.jpg | British musical group Bay City Rollers wearing wooden shoes, at Schiphol Airport
+小    570x798   1976  CC0              | Odvar Nordli 1976.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+小    558x736   1977  CC0              | Aankomst Schiphol leiders Zuid Afrikaanse bevrijdingsle ANC Alfred Nono en Tho | Thomas Nkobi .
+小    542x625   1976  CC0              | Derek Longmuir1976.jpg | British musical group Bay City Rollers wearing wooden shoes, at Schiphol Airport
+小    524x684   1976  CC0              | Frida Lyngstad 1976b (cropped).jpg | Frida Lyngstad en Benny Andersson in Nederland
+小    520x625   1976  CC0              | Eric Faulkner1976.jpg | British musical group Bay City Rollers wearing wooden shoes, at Schiphol Airport
+小    517x657   1978  CC0              | Miroslav Blažević 1978.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+小    515x343   2007  Public domain    | 20071226-Bush signs 2008 budget.jpg | President George W. Bush signs into law H.R. 2764, the Consolidated Appropriatio
+小    515x309   2008  Public domain    | Air Force One President Office.jpg | George W. Bush in his Air Force One office with Bill McGurn, Stephen Hadley and 
+小    515x354   2005  Public domain    | BUSHJACKET.jpg | President George W. Bush looks out over the devastation in New Orleans from Hurr
+小    515x343   2006  Public domain    | Bush and Koizumi in Air Force One.jpg | President George W Bush and Prime minister Junichiro Koizumi on Air Force One in
+小    515x339   2006  Public domain    | Bush in Air Force One cockpit.jpg | President George W. Bush in the cockpit of Air Force One on the final approach b
+小    515x357   2005  Public domain    | Bush and Rasmussen in Air Force One.jpg | President George W. Bush welcomes Danish Prime Minister Anders Fogh Rasmussen ab
+小    515x343   2002  Public domain    | Conference room on Air Force One.jpg | President George W. Bush, Karen Hughes and Karl Rove in the conference room aboa
+小    512x4111  2007  Public domain    | B747 seats.svg | Drawing of the interior of a Boeing 747
+小    511x495   2009  Public domain    | President Barack Obama talks with Sen. Evan Bayh (D-Ind.) aboard Air Force One | President Barack Obama talks with Sen. Evan Bayh (D-Ind.) aboard Air Force One d
+小    503x731   1976  CC0              | BayCityRollers1976RobBogaerts (cropped).jpg | British musical group Bay City Rollers wearing wooden shoes, at Schiphol Airport
+小    486x486   2017  Public domain    | Alexia Hilbertidou (cropped).jpg | In July 2017, Alexia Hilbertidou was invited by NASA to be part of the SOFIA Pro
+小    398x265         Public domain    | 400-cheney-05.jpg | U.S. Fed Chair Alan Greenspan and U.S. Vice President Dick Cheney confer aboard 
+小    384x288   2007  Public domain    | JAL Executive class seats.jpg | Japan Airlines business class seat
+小    376x516   2009  Public domain    | Willie Mays in Air Force One 2009-07-14 (cropped).jpg | President Barack Obama talks with baseball great Willie Mays aboard Air Force On
+小    374x465   2017  Public domain    | Hope Hicks thumbs up on 8 November 2017 detail, from- Donald Trump and staff o | Donald Trump and staff on Air Force One .
+小    374x761   1977  CC0              | Trix Betlem (1977).jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : [ onbekend ] Besch
+小    275x613   2017  Public domain    | Stephen Miller thumbs up on 8 November 2017 detail, from- Donald Trump and sta | Donald Trump and staff on Air Force One .
+小    240x180   2006  CC BY 2.0        | NEGOCIOS EN EL AIRE.JPG | Taken on Singapore Airlines Flight 866 bound for Hong Kong . Pictured is the now
+小    219x330   2017  Public domain    | Stephen Miller thumbs up on 8 November 2017 detail, from- Donald Trump and sta | Donald Trump and staff on Air Force One .
+小    177x176   2012  Public domain    | Samantha Vinograd on Air Force One in 2012.jpg | [Caption from original] President Barack Obama talks with staff aboard Air Force
+
+## 継承あり＝CC BY-SA（使わない。参考）
+    9573x6379  1978  CC BY-SA 2.0     | El Al Cargo Boeing 747-200F; 4X-AXG@AMS, June 1978- DTI (5163684673).jpg
+    5893x3892  2019  CC BY-SA 4.0     | Jumbo Stay, 2019 (07).jpg
+    5874x3792  2019  CC BY-SA 4.0     | Jumbo Stay, 2019 (08).jpg
+    4708x3076  2017  CC BY-SA 4.0     | Cloud cover over France.jpg
+    4608x3456  2015  CC BY-SA 2.0     | B-18202 (16068318344).jpg
+    4583x3437  2012  CC BY-SA 2.0     | B-HUG - Cathay Pacific (7418375896).jpg
+    4316x2941  2017  CC BY-SA 4.0     | Cloud cover over South Africa.jpg
+    4096x3072  2023  CC BY-SA 2.5     | 01-NOV-2023 - OZ113 KIX-ICN (HL7428 - B747-400) (04).jpg
+    4032x3024  2018  CC BY-SA 3.0     | China airlines.jpg
+    4032x2688  2019  CC BY-SA 4.0     | Economy class cabin of B-2447 (20190717150152).jpg
+    4032x2688  2019  CC BY-SA 4.0     | Economy class cabin of B-2447 (20190717123138).jpg
+    4032x2688  2019  CC BY-SA 4.0     | Economy class cabin of B-2447 (20190717150455).jpg
+    4032x2688  2019  CC BY-SA 4.0     | Economy class cabin of B-2447 (20190717151811).jpg
+    4032x2688  2019  CC BY-SA 4.0     | Economy class cabin of B-2447 (20190717161941).jpg
+    4032x2688  2019  CC BY-SA 4.0     | First class cabin of B-2447 (20190717162057).jpg
+    4032x3024  2019  CC BY-SA 4.0     | First class cabin of B-2447 (20190717162113).jpg
+    4032x3024  2019  CC BY-SA 4.0     | First class cabin of B-2447 (20190717162108).jpg
+    4032x3024  2019  CC BY-SA 4.0     | First class cabin of B-2447 (20190717162121).jpg
+    4032x3024  2019  CC BY-SA 4.0     | Galley on B-2447 (20190717123155).jpg
+    4032x3024  2016  CC BY-SA 2.0     | NASA 905 Shuttle Carrier Aircraft Independence Plaza Johnson Space Center JSC 
+    3997x2665  2019  CC BY-SA 4.0     | Business class cabin of B-2447 (20190717162133).jpg
+    3980x2653  2019  CC BY-SA 4.0     | Economy class cabin of B-2447 (20190717150210).jpg
+    3912x2608  2019  CC BY-SA 4.0     | Economy class cabin of B-2447 (20190717123709).jpg
+    3888x2592  2014  CC BY-SA 2.0     | QF52 SIN-BNE, somewhere in Indonesian airspace, April 16-17 2014. (14237424064
+    3860x2550  2012  CC BY-SA 2.0     | LH 747 (7491755130).jpg
+    3827x2551  2019  CC BY-SA 4.0     | Nameplate of B-2447 (20190717162140).jpg
+    3776x2520  2014  CC BY-SA 4.0     | Lufthansa Boeing 747-230 D-ABYM Speyer, 2014 (04).JPG
+    3776x2520  2014  CC BY-SA 4.0     | Lufthansa Boeing 747-230 D-ABYM Speyer, 2014 (06).jpg
+    3776x2520  2014  CC BY-SA 4.0     | Lufthansa Boeing 747-230 D-ABYM Speyer, 2014 (05).JPG
+    3648x2736  2023  CC BY-SA 2.5     | 01-NOV-2023 - OZ113 KIX-ICN (HL7428 - B747-400) (03).jpg
+    3648x2432  2011  CC BY-SA 3.0     | Aircraft cabin insulation in a B747-8.jpg
+    3648x2736  2011  CC BY-SA 3.0     | Cabin nose section of 747-8I prototype.jpg
+    3648x2736  2010  CC BY-SA 3.0     | JAL Jumbo Upstair.JPG
+    3648x2736  2011  GFDL             | NWA B747-400 flight map.jpg
+    3481x3543  1971  CC BY-SA 2.0     | SAS Boeing 747-B Huge Viking Interior of cabin.jpg
+    3481x1741  1971  CC BY-SA 2.0     | SAS Boeing 747-B Huge Viking Interior of cabin (cropped).jpg
+    3471x2311  2006  CC BY-SA 3.0     | Boeing 747 Le Bourget FRA 002.jpg
+    3456x4608  2016  CC BY-SA 2.0     | Business class cabin of Boeing 747-400 of Cathay Pacific (25933259372).jpg
+    3417x2563  2023  CC BY-SA 2.5     | 01-NOV-2023 - OZ113 KIX-ICN (HL7428 - B747-400) (02).jpg
+    3384x2261  1976  CC BY-SA 2.0     | ZS-SAO Boeing 747-200 of South African Airways AMS 1976 (6154294200).jpg
