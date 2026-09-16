@@ -30,7 +30,7 @@ SPEC = {
     # 図＋地（BACKDROP＝laspalmas_now_11）
     "c201": dict(
         t="テネリフェから、隣の島の空港まで",
-        s="ラスパルマス空港の場所",
+        s="二つの島と、飛行機での距離",
         fig=("mapfig", dict(
             points=[dict(x=0.26, y=0.32, t="テネリフェ島", d="ロス・ロデオス空港", c=J.INK_W),
                     dict(x=0.70, y=0.66, t="グランカナリア島", d="ラスパルマス空港",
@@ -40,7 +40,7 @@ SPEC = {
     ),
 
     "c202": dict(
-        t="旅客ターミナルで、爆弾が爆発",
+        t="行き先の空港で、爆発",
         s="現在のグランカナリア空港の出発ホール　2010年撮影",
         photo=P("laspalmas_now_01"), bias=0.50, side="right", ann_y=356,
         **ss.kind(P("laspalmas_now_01")),
@@ -56,7 +56,7 @@ SPEC = {
     ),
 
     "c204": dict(
-        t="爆発したのは、一つだけ",
+        t="問題は、爆発のあとに来た",
         s="この時点で分かっていたこと",
         fig=("absent", dict(
             mode="pair",
@@ -67,7 +67,7 @@ SPEC = {
 
     "c205": dict(
         t="空港に届いた、別の知らせ",
-        s="ラスパルマス空港",
+        s="知らせの中身と、空港の対応",
         fig=("quote", dict(
             phrase="二つ目の爆弾の予告があった",
             rows=[("場所", "グランカナリア島のラスパルマス空港", J.INK_W),
@@ -78,7 +78,7 @@ SPEC = {
 
     "c206": dict(
         t="行き先を失った便",
-        s="ラスパルマスへ向かっていた便",
+        s="空港が閉められたあとの流れ",
         fig=("process", dict(
             steps=[dict(t="空港を閉める", d="ラスパルマス空港", c=J.ALERT),
                    dict(t="行き場を失う", d="空を飛んでいた便", c=J.LINE),
@@ -117,17 +117,17 @@ SPEC = {
 
     # 図＋地（BACKDROP＝losrodeos_now_07）
     "c210": dict(
-        t="一人ずつ、カードを渡された",
+        t="KLMの乗客には、目印のカード",
         s="バスを降りたKLMの乗客",
         fig=("process", dict(
             steps=[dict(t="バスを降りる", d="ターミナルの前", c=J.LINE),
-                   dict(t="カードを受け取る", d="4805便の乗り継ぎの客", c=J.AMBER)],
+                   dict(t="4805便のカード", d="乗り継ぎの客のしるし", c=J.AMBER)],
             note="事故報告書 p3")),
     ),
 
     "c211": dict(
-        t="パンナムの乗客は、降りなかった",
-        s="二機の乗客が待った場所",
+        t="乗客の待ち方が、二機で違った",
+        s="着陸したあと、乗客がいた場所",
         fig=("beforeafter", dict(
             a=dict(k="KLM機", t="ターミナル", lines=["バスで運ばれた", "カードを渡された"],
                    c=J.AMBER),
@@ -138,7 +138,7 @@ SPEC = {
     ),
 
     "c212": dict(
-        t="駐機場は、回された機体でいっぱい",
+        t="駐機場に、置き場が無くなった",
         s="現在のテネリフェ北空港の駐機場　2003年撮影",
         photo=P("losrodeos_now_06"), bias=0.50, side="right", ann_y=356,
         **ss.kind(P("losrodeos_now_06")),
@@ -154,7 +154,7 @@ SPEC = {
     ),
 
     "c214": dict(
-        t="うしろに、3機が並んだ",
+        t="KLM機のうしろに、別の会社の3機",
         s="誘導路に停められた機体の順",
         fig=("runway", dict(
             steps=[dict(planes=five(2)),
@@ -165,11 +165,11 @@ SPEC = {
     ),
 
     "c215": dict(
-        t="いちばんうしろに、パンナム機",
+        t="パンナム機は、列の最後",
         s="パンナムの747　1970年撮影（スキポール空港）",
         photo=P("panam_ams1970_01"), bias=0.50, side="right", ann_y=356,
         **ss.kind(P("panam_ams1970_01")),
-        ann=[dict(t="並び", d="パンナム機の前にKLM機", dc=J.INK_W, ds=36)],
+        ann=[dict(t="パンナム機の前", d="KLM機", dc=J.INK_W, ds=36)],
     ),
 
     "c216": dict(
@@ -183,7 +183,7 @@ SPEC = {
 
     # ⚠️ 看板「Aeropuerto de Gran Canaria」が左上（主題そのもの）。見出しの帯とぶつかるなら ⑤c で寄せる。
     "c217": dict(
-        t="ラスパルマス空港が、また開いた",
+        t="行き先が開き、出発の準備へ",
         s="現在のグランカナリア空港　2012年撮影",
         photo=P("laspalmas_now_14"), bias=0.90, side="right", ann_y=356,
         **ss.kind(P("laspalmas_now_14")),

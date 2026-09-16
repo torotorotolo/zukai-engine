@@ -54,7 +54,7 @@ SPEC = {
         t="滑走路は1本、向きで2つの名前",
         s="ロス・ロデオス空港の滑走路",
         fig=("runway", dict(
-            steps=[dict(dim=[dict(a=0.0, b=1.0, t="長さ 3,400メートル　幅 45メートル")]),
+            steps=[dict(dim=[dict(a=0.0, b=1.0, t="3,400 × 45メートル")]),
                    dict(path=[dict(on="rwy", a=0.06, b=0.94, c=J.AMBER)],
                         mark=[dict(at=0.5, y="above", t="12＝およそ120度へ進む", c=J.AMBER)]),
                    dict(mark=[dict(at=0.5, y="below", t="逆から入れば30＝およそ300度",
@@ -65,7 +65,7 @@ SPEC = {
     # 🔴 この回でいちばん効く図の1枚目。
     "c304": dict(
         t="誘導路と、つなぐ道が4本",
-        s="滑走路・平行誘導路・C-1〜C-4",
+        s="滑走路のわきの道を、上から見る",
         fig=("runway", dict(
             steps=[dict(mark=[dict(at=0.80, y="above", t="平行誘導路", c=J.INK_W)]),
                    dict(mark=[dict(at=0.80, y="below", t="滑走路", c=J.INK_W)]),
@@ -84,7 +84,7 @@ SPEC = {
     ),
 
     "c306": dict(
-        t="5機のうち、2機がジャンボ機",
+        t="ジャンボ機の2機は、列の両端",
         s="誘導路に並んだ機体（左が滑走路の入り口の側）",
         fig=("runway", dict(
             steps=[dict(planes=five(dim=True)),
@@ -96,7 +96,7 @@ SPEC = {
     # 図＋地（BACKDROP＝losrodeos_now_14 の別の寄り）
     "c307": dict(
         t="通り道が、駐車場になる",
-        s="平行誘導路のふだんと、この日",
+        s="平行誘導路の、二つの使われ方",
         fig=("beforeafter", dict(
             a=dict(k="ふだん", t="通り道", lines=["機体が走って出ていく"], c=J.LINE),
             b=dict(k="この日", t="駐車場", lines=["機体が停まったまま"], c=J.ALERT),
@@ -113,22 +113,22 @@ SPEC = {
     ),
 
     "c309": dict(
-        t="ただし、注意が付いていた",
+        t="許可は出ても、動けるとは限らない",
         s="現在のテネリフェ北空港のレーダー　2011年撮影",
         photo=P("losrodeos_now_04"), side="right", ann_y=356,
         **ss.kind(P("losrodeos_now_04")),
-        ann=[dict(t="管制塔の注意", d="地上走行で問題が起きうる", dc=J.ALERT, ds=34),
+        ann=[dict(t="管制塔の注意", d="地上走行での問題", dc=J.ALERT, ds=34),
              dict(t="理由", d="前にKLM機がいる", dc=J.INK_W, ds=34)],
     ),
 
     # 図＋地（BACKDROP＝losrodeos_now_06 の別の寄り）
     "c310": dict(
         t="残ったのは、747の2機だけ",
-        s="誘導路に並んでいた機体",
+        s="誘導路の5機が、どう減ったか",
         fig=("process", dict(
             steps=[dict(t="並んでいた", v="5機", c=J.LINE),
                    dict(t="先に出ていった", v="3機", c=J.LINE),
-                   dict(t="残った", v="2機", d="道をふさぐKLMと、うしろのパンナム",
+                   dict(t="残った", v="2機", d="前にKLM、うしろにパンナム",
                         c=J.ALERT)],
             note="事故報告書 p3・p28")),
     ),
@@ -144,7 +144,7 @@ SPEC = {
     ),
 
     "c312": dict(
-        t="見た目で決めなかった",
+        t="通れるかは、地面で確かめた",
         s="二機のあいだのすき間",
         fig=("quote", dict(
             phrase="降りて、すき間を測った",
@@ -159,8 +159,8 @@ SPEC = {
         s="測ったすき間",
         fig=("absent", dict(
             mode="single",
-            items=[dict(t="747が通り抜けるすき間", d="足りなかった", ok=False, c=J.ALERT)],
-            lead="パンナムは、KLM機が動くのを待つしかない", note="事故報告書 p3")),
+            items=[dict(t="747が通れる幅", d="足りなかった", ok=False, c=J.ALERT)],
+            lead="KLM機が動くまで、出られない", note="事故報告書 p3")),
     ),
 
     "c314": dict(
@@ -174,7 +174,7 @@ SPEC = {
 
     # pr09 と同じ写真＝寄って滑走路の面を見せる。
     "c315": dict(
-        t="滑走路は、平らではない",
+        t="滑走路にも、高い所と低い所",
         s="現在のテネリフェ北空港の滑走路　2012年撮影",
         photo=P("losrodeos_now_02"), bias=0.62, xbias=0.30, zoom=1.50,
         side="right", ann_y=356,
@@ -185,7 +185,7 @@ SPEC = {
     # 🔴 いちばん高い所の数値は報告書に無い＝目盛りに出さない。高さは強めて描いた略図。
     "c316": dict(
         t="真ん中が、ふくらんでいる",
-        s="滑走路の高さ（12側の端から30側の端まで）",
+        s="滑走路の高さを、横から見る",
         fig=("graph", dict(
             # ⚠️ 頂は空港の標高（632m）を超えない高さに置く（数値は出さない）。
             series=[dict(pts=[(0, 629), (800, 631), (1700, 632), (2500, 625),
@@ -215,7 +215,7 @@ SPEC = {
 
     "c318": dict(
         t="誘導路の代わりに、滑走路を走る",
-        s="誘導路が使えないとき",
+        s="誘導路がふさがったときの通り道",
         fig=("runway", dict(
             steps=[dict(mark=[dict(at=0.66, y="top", t="誘導路が使えない", c=J.ALERT)]),
                    dict(path=[dict(on="rwy", a=0.08, b=0.95, c=J.AMBER)],
@@ -242,7 +242,7 @@ SPEC = {
     ),
 
     "c321": dict(
-        t="行き先は、すぐ隣の島",
+        t="すぐ隣へ行くのに、ここで給油",
         s="博物館に保存された747の試作機のエンジン　2010年撮影",
         photo=P("engine_747_05"), bias=0.50, side="right", ann_y=356,
         **ss.kind(P("engine_747_05")),

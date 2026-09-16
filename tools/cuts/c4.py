@@ -34,16 +34,17 @@ SPEC = {
 
     # 右端に展示パネルの英字（x≥0.85）＝左へ寄って外へ出す。
     "c403": dict(
-        t="入れた燃料は、55,500リットル",
+        t="量だけでは、多いか分からない",
         s="747に使われたエンジン（博物館）　2017年撮影",
         photo=P("engine_747_02"), bias=0.55, xbias=0.20, zoom=1.25,
-        side="right", ann_y=356,
+        side="right", ann_y=330,
         **ss.kind(P("engine_747_02")),
-        ann=[dict(t="多いか少ないか", d="行き先までの距離で決まる", dc=J.INK_W, ds=32)],
+        ann=[dict(t="入れた燃料", v="55,500リットル", vc=J.AMBER, vs=64),
+             dict(t="多いかどうかは", d="行き先までの距離", dc=J.INK_W, ds=32)],
     ),
 
     "c404": dict(
-        t="給油のあいだ、乗客は機内",
+        t="乗客を乗せたまま、給油した",
         s="ターミナルへ戻ったKLMの乗客",
         fig=("beforeafter", dict(
             a=dict(k="給油の前", t="ターミナル", lines=["いったん降りていた"], c=J.LINE),
@@ -62,7 +63,7 @@ SPEC = {
 
     "c406": dict(
         t="報告書が考えた理由",
-        s="給油をした理由についての報告書の見方",
+        s="テネリフェでの給油について",
         fig=("people", dict(
             nodes=[dict(x=0.18, y=0.40, t="KLMの機長", d="", c=J.INK_W, kind="person"),
                    dict(x=0.78, y=0.40, t="ラスパルマスでの給油", d="避けたかった",
@@ -113,7 +114,7 @@ SPEC = {
     ),
 
     "c411": dict(
-        t="前は、機長の判断で延ばせた",
+        t="以前は、上限に融通がきいた",
         s="オランダの乗務時間の決まり",
         fig=("beforeafter", dict(
             a=dict(k="変わる前", t="延ばせた", lines=["機長の判断で", "目的地まで飛びきる"],
@@ -152,7 +153,7 @@ SPEC = {
         s="1976年12月からの計算",
         fig=("absent", dict(
             mode="single",
-            items=[dict(t="操縦室で出す上限", d="実際のところ決められない", ok=False,
+            items=[dict(t="操縦室で出す上限", d="事実上、決められない", ok=False,
                         c=J.ALERT)],
             lead="とても複雑になった計算", note="事故報告書 p26")),
     ),
@@ -184,14 +185,14 @@ SPEC = {
         s="会社から返ってきた答え",
         fig=("absent", dict(
             mode="ledger",
-            items=[dict(t="答え", d="ある時刻より前の離陸なら、問題は無さそう", ok=True,
+            items=[dict(t="答え", d="時刻しだいで、たぶん大丈夫", ok=True,
                         c=J.INK_W),
-                   dict(t="その時刻", d="報告書に残っていない", ok=False, c=J.TICK)],
+                   dict(t="境目の時刻", d="報告書に残っていない", ok=False, c=J.TICK)],
             note="事故報告書 p26")),
     ),
 
     "c418": dict(
-        t="上限を知らないまま、滑走路へ",
+        t="危ないと分かるのは、着いたあと",
         s="危なかった場合の知らせ方",
         fig=("process", dict(
             steps=[dict(t="危なければ", d="電報を送る", c=J.ALERT),
@@ -201,7 +202,7 @@ SPEC = {
     ),
 
     "c419": dict(
-        t="心理の面で、大きな要素",
+        t="上限の不確かさは、心理に響いた",
         s="スキポールからローマへ飛ぶ747の操縦室　1971年撮影",
         photo=P("cockpit_747_04"), side="right", ann_y=356,
         **ss.kind(P("cockpit_747_04")),
@@ -210,7 +211,7 @@ SPEC = {
 
     # 図＋地（BACKDROP＝klm_747_1971_01 の寄り。c102 と別の絵にする）
     "c420": dict(
-        t="給油に使った、30分",
+        t="あとで数え直される、30分",
         s="出発の準備がそろったとき",
         fig=("moment", dict(
             clock="30分", label="給油に使った時間",

@@ -48,7 +48,7 @@ SPEC = {
     ),
 
     "c702": dict(
-        t="条件が、三つとも悪い旋回",
+        t="幅も、見通しも、機体も不利",
         s="報告書が「難しい」と書いた旋回",
         fig=("panel", dict(
             blocks=[dict(k="滑走路の幅", t="狭い", v="45メートル", c=J.AMBER),
@@ -59,11 +59,11 @@ SPEC = {
 
     "c703": dict(
         t="その少し前、ワイパーを切った",
-        s="操縦室の録音から分かること",
+        s="録音に残った、小さな動作",
         fig=("process", dict(
             steps=[dict(t="乗員", d="ワイパーを切る", c=J.INK_W),
                    dict(t="記録", d="操縦室の録音", c=J.DOC),
-                   dict(t="分かること", d="雨がやみ、視界が一瞬よくなった", c=J.OK)],
+                   dict(t="分かること", d="雨がやみ、一時よく見えた", c=J.OK)],
             note="事故報告書 p27・p29")),
     ),
 
@@ -72,7 +72,7 @@ SPEC = {
         s="747の操縦室（NASAの機体）　2012年撮影",
         photo=P("cockpit_747_15"), side="right", ann_y=356,
         **ss.kind(P("cockpit_747_15")),
-        ann=[dict(t="報告書の見方", d="難しい旋回と重なったはず", dc=J.DOC, ds=34)],
+        ann=[dict(t="報告書の見方", d="二つは同じころ", dc=J.DOC, ds=34)],
     ),
 
     "c705": dict(
@@ -80,14 +80,14 @@ SPEC = {
         s="報告書が書いた乗員の心理",
         fig=("panel", dict(
             blocks=[dict(k="旋回のあと", t="ほっとしたにちがいない", v="", c=J.DOC),
-                    dict(k="強まった気持ち", t="地上の問題を終わらせたい", v="", c=J.AMBER),
+                    dict(k="強まった気持ち", t="地上の問題を終える", v="", c=J.AMBER),
                     dict(k="書き添え", t="やめる道も機長は考えた", v="", c=J.INK_W)],
             note="事故報告書 p27", cols=3)),
     ),
 
     "c706": dict(
         t="17:05:41、出力を進める動き",
-        s="KLM機の記録装置と操縦室",
+        s="KLM機で残った記録と会話",
         fig=("radio", dict(
             lanes=["記録装置", "副操縦士", "機長"],
             events=[dict(lane=0, a=341.0, t="出力を進める動き", c=J.AMBER),
@@ -103,20 +103,20 @@ SPEC = {
         fig=("radio", dict(
             lanes=["KLM", "管制塔"],
             events=[dict(lane=0, a=344.6, b=350.77, t="離陸の用意ができた",
-                         d="ATCの許可を待っている", c=J.AMBER)],
+                         d="ATCの許可待ち", c=J.AMBER)],
             t0=342.0, t1=358.0, ticks=[(345, "17:05:45"), (350, "17:05:50"),
                                        (355, "17:05:55")],
             src=RPT)),
     ),
 
     "c708": dict(
-        t="ATCの許可とは",
-        s="この事故でいちばん大事なところ",
+        t="ATCの許可は、飛んだあとの道順",
+        s="一回の飛行を、三つに分けて見る",
         fig=("process", dict(
             steps=[dict(t="離陸の前", d="滑走路の端", c=J.LINE),
                    dict(t="離陸", d="滑走路を走って浮く", c=J.LINE),
                    dict(t="離陸したあと", d="どこをどう飛ぶか", c=J.INST)],
-            note="ATCの許可＝離陸したあとの飛び方の許可　事故報告書 p40・p41")),
+            note="事故報告書 p40・p41")),
     ),
 
     "c709": dict(
@@ -139,7 +139,7 @@ SPEC = {
     ),
 
     "c711": dict(
-        t="ATCの許可の中身",
+        t="中身は、離陸後の高さと向き",
         s="管制官が読み上げたこと",
         fig=("panel", dict(
             blocks=[dict(k="高さ", t="フライトレベル90", v="約2,750メートル", c=J.AMBER),
@@ -170,11 +170,11 @@ SPEC = {
             t0=350.0, t1=380.0,
             ticks=[(355, "17:05:55"), (360, "17:06:00"), (365, "17:06:05"),
                    (370, "17:06:10"), (375, "17:06:15")],
-            note="復唱＝聞いた内容を読み返して取り違えを防ぐ手順", src=RPT)),
+            note="復唱＝聞いた指示の読み返し", src=RPT)),
     ),
 
     "c714": dict(
-        t="復唱の最後に、付け足した",
+        t="復唱のあとに続いた、ひと言",
         s="KLMの副操縦士の復唱",
         fig=("moment", dict(
             clock="17:06:17", label="復唱の終わり",
@@ -184,7 +184,7 @@ SPEC = {
     ),
 
     "c715": dict(
-        t="復唱の最中に、機長は出力を入れた",
+        t="話す副操縦士と、動かす機長",
         s="KLM機の操縦室",
         fig=("beforeafter", dict(
             a=dict(k="副操縦士", t="復唱の最中", lines=["管制塔への無線"], c=J.LINE),
@@ -193,8 +193,8 @@ SPEC = {
     ),
 
     "c716": dict(
-        t="復唱が終わる前に、ブレーキを放した",
-        s="KLM機の記録装置と操縦室",
+        t="復唱を待たずに、ブレーキを放した",
+        s="KLM機で残った記録と会話",
         fig=("radio", dict(
             lanes=["副操縦士", "機長", "記録装置"],
             events=[dict(lane=0, a=369.61, b=377.79, t="復唱", c=J.AMBER, pre=True),
@@ -208,7 +208,7 @@ SPEC = {
     ),
 
     "c717": dict(
-        t="管制官の側から見ると",
+        t="許可を求める言葉は、無かった",
         s="「離陸中」という送信の受け取られ方",
         fig=("quote", dict(
             phrase="誰も「離陸中」とは受け取らなかった",
@@ -233,11 +233,11 @@ SPEC = {
 
     # 図＋地（BACKDROP＝losrodeos_now_11 の寄り）。⚠️ 管制塔の写真は無い＝代用しない。
     "c719": dict(
-        t="分かった人は、ほとんどいない",
+        t="「離陸中」は、ほぼ伝わらなかった",
         s="報告書の注",
         fig=("absent", dict(
             mode="single",
-            items=[dict(t="その送信で離陸していると分かった人", d="誰も、あるいはほとんどいない",
+            items=[dict(t="「離陸中」と気づいた人", d="0人か、ごくわずか",
                         ok=False, c=J.ALERT)],
             note="事故報告書 p32（注）")),
     ),
@@ -266,7 +266,7 @@ SPEC = {
     ),
 
     "c722": dict(
-        t="同じとき、パンナムも無線を押した",
+        t="パンナムは、自分の位置を伝えた",
         s="パンナムから管制塔へ",
         fig=("radio", dict(
             lanes=T3,
@@ -277,8 +277,8 @@ SPEC = {
     ),
 
     "c723": dict(
-        t="二つの送信が、重なった",
-        s="無線は一度に一つしか通らない",
+        t="二つの声が、一つの音に",
+        s="同じ時刻の、二つの送信",
         fig=("quote", dict(
             phrase="操縦室では、甲高い音になった",
             rows=[("重なった送信", "管制塔とパンナム", J.INK_W),
@@ -304,21 +304,21 @@ SPEC = {
         s="博物館に保存された747-136の操縦室　2015年撮影",
         photo=P("cockpit_747_11"), side="right", ann_y=356,
         **ss.kind(P("cockpit_747_11")),
-        ann=[dict(t="KLMの出力が離陸の値で落ち着いた", v="17:06:19", vc=J.ALERT, vs=88)],
+        ann=[dict(t="出力が落ち着いた時刻", v="17:06:19", vc=J.ALERT, vs=88)],
     ),
 
     "c726": dict(
-        t="聞き取れないほどでは、なかった",
+        t="報告書は、音だけのせいにしていない",
         s="報告書の書き方",
         fig=("beforeafter", dict(
             a=dict(k="甲高い音で", t="聞き取りにくくなった", lines=[], c=J.AMBER),
-            b=dict(k="ただし", t="聞き取れないほどではない", lines=[], c=J.INK_W),
-            arrow=False, lead="では、なぜ届かなかったのか",
-            note="事故報告書 p32・p27")),
+            b=dict(k="ただし", t="聞き取れる程度", lines=[], c=J.INK_W),
+            arrow=False, lead="答えは、報告書の別の頁（p27）",
+            note="事故報告書 p32")),
     ),
 
     "c727": dict(
-        t="見ることに気を取られると",
+        t="目に気を取られ、耳がおろそかに",
         s="報告書が別の場所で書いた答え",
         fig=("process", dict(
             steps=[dict(t="見ることに気を取られる", d="霧の中の滑走路", c=J.AMBER),
@@ -334,7 +334,7 @@ SPEC = {
             lanes=T3,
             events=[KLM_ROLL, TOWER_WAIT, PAA_STILL,
                     dict(lane=1, a=385.47, b=388.89, t="滑走路を出たら知らせて",
-                         d="まだ出ていない、という意味", c=J.AMBER)],
+                         d="＝まだ滑走路の上", c=J.AMBER)],
             t0=366.0, t1=398.0, ticks=TK, src=RPT)),
     ),
 
@@ -346,13 +346,13 @@ SPEC = {
             events=[KLM_ROLL, TOWER_WAIT, PAA_STILL,
                     dict(lane=1, a=385.47, b=388.89, t="出たら知らせて", c=J.LINE, pre=True),
                     dict(lane=2, a=389.59, b=390.69, t="了解、出たら知らせる", c=J.INK_W)],
-            bands=[dict(a=389.59, b=390.69, t="KLMの操縦室にも届いた", c=J.OK, st="heard")],
+            bands=[dict(a=389.59, b=390.69, t="KLMにも届いた", c=J.OK, st="heard")],
             t0=366.0, t1=398.0, ticks=TK, src=RPT)),
     ),
 
     "c730": dict(
         t="動いたのは、航空機関士",
-        s="走り出したKLMの操縦室",
+        s="走っているKLM機の、三人",
         fig=("people", dict(
             nodes=[dict(x=0.16, y=0.46, t="機長", d="反応しない", c=J.LINE, kind="person"),
                    dict(x=0.50, y=0.46, t="副操縦士", d="反応しない", c=J.LINE,
@@ -369,12 +369,12 @@ SPEC = {
         photo=P("cockpit_747_10"), side="right", ann_y=356,
         **ss.kind(P("cockpit_747_10")),
         ann=[dict(t="聞いた人", d="航空機関士", dc=J.OK, ds=40),
-             dict(t="問いの中身", d="パンナムは、まだ出ていないのでは", dc=J.INK_W, ds=32)],
+             dict(t="問いの中身", d="パンナムが滑走路を出たか", dc=J.INK_W, ds=32)],
     ),
 
     "c732": dict(
         t="17:06:35、強い肯定",
-        s="航空機関士の問いへの機長の答え",
+        s="三人目の問いと、機長の答え",
         fig=("quote", dict(
             phrase="いや、出た。機長はそう答えた",
             rows=[("問うた人", "航空機関士", J.INK_W),

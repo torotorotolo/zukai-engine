@@ -25,10 +25,10 @@ SPEC = {
     ),
 
     "c802": dict(
-        t="これほどの人が、これほどの誤りを",
+        t="経験と誤りが、結びつかない",
         s="報告書が書いた機長の立場",
         fig=("panel", dict(
-            blocks=[dict(k="機長", t="会社でもっとも信望のある操縦士の一人", v="", c=J.INK_W),
+            blocks=[dict(k="機長", t="会社で指折りの信望", v="", c=J.INK_W),
                     dict(k="だから", t="誤りは考えにくかった", v="", c=J.AMBER)],
             note="事故報告書 p33", cols=2)),
     ),
@@ -54,7 +54,7 @@ SPEC = {
 
     "c805": dict(
         t="許可を待たないのが、日常だった",
-        s="10年以上続けた訓練",
+        s="教官として、続けてきた訓練",
         fig=("quote", dict(
             phrase="訓練では、許可を出すのは自分だった",
             rows=[("誰の", "KLMの機長", J.INK_W),
@@ -75,7 +75,7 @@ SPEC = {
     ),
 
     "c807": dict(
-        t="ぶつかる9秒ほど前",
+        t="見えてから、ぶつかるまで9秒ほど",
         s="パンナムの機長が灯りを見たとき",
         fig=("runway", dict(
             steps=[dict(planes=[dict(at=0.575, on="rwy", head=0, t="パンナム", c=J.INK_W,
@@ -88,7 +88,7 @@ SPEC = {
     ),
 
     "c808": dict(
-        t="パンナムは、左へ逃げようとした",
+        t="パンナムも、とっさに動いた",
         s="パンナムの747　1970年撮影（スキポール空港）",
         photo=P("panam_ams1970_10"), bias=0.50, side="right", ann_y=356,
         **ss.kind(P("panam_ams1970_10")),
@@ -111,7 +111,7 @@ SPEC = {
     ),
 
     "c810": dict(
-        t="尾が、滑走路をこすった",
+        t="滑走路に、急いで浮こうとした跡",
         s="現在のテネリフェ北空港に着陸する機体　2011年撮影",
         photo=P("losrodeos_now_18"), bias=0.60, side="right", ann_y=356,
         **ss.kind(P("losrodeos_now_18")),
@@ -134,7 +134,7 @@ SPEC = {
         photo=P("wreck_klm_03"), side="right", ann_y=356,
         **ss.kind(P("wreck_klm_03")),
         ann=[dict(t="KLM機", d="すでに完全に浮いていた", dc=J.INK_W, ds=34),
-             dict(t="第1エンジン", d="パンナムの右の翼の先をかすめた", dc=J.ALERT, ds=32)],
+             dict(t="第1エンジンがかすめた所", d="パンナムの右の翼の先", dc=J.ALERT, ds=32)],
     ),
 
     "c813": dict(
@@ -142,7 +142,7 @@ SPEC = {
         s="二機のうちの一方の残骸　" + WRECK,
         photo=P("wreck_both_01"), side="right", ann_y=330,
         **ss.kind(P("wreck_both_01")),
-        ann=[dict(t="KLM機の主脚", d="パンナムの右の内側のエンジンのあたり", dc=J.ALERT,
+        ann=[dict(t="KLM機の主脚", d="右の内側エンジン付近", dc=J.ALERT,
                   ds=30),
              dict(t="地面に当たった", v="150メートル先", vc=J.AMBER, vs=64)],
     ),
@@ -168,11 +168,11 @@ SPEC = {
 
     # ⚠️ 合算（326）を出さない。
     "c816": dict(
-        t="外から見ていた人は、いない",
+        t="このとき、まだ誰も知らない",
         s="二機のうちの一方の残骸　" + WRECK,
         photo=P("wreck_both_02"), side="right", ann_y=356,
         **ss.kind(P("wreck_both_02")),
-        ann=[dict(t="パンナム機でその場で亡くなった人", d="乗員9人・乗客317人", dc=J.ALERT,
+        ann=[dict(t="その場で亡くなった人", d="パンナム機　乗員9人・乗客317人", dc=J.ALERT,
                   ds=36)],
     ),
 }

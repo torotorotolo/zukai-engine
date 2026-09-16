@@ -72,7 +72,7 @@ SPEC = {
 
     "c505": dict(
         t="0メートルから、1キロへ",
-        s="見える距離の振れ方",
+        s="数分ごとに変わる視界",
         fig=("graph", dict(
             series=[dict(pts=[(0, 0), (4, 1000), (8, 40)], t="", c=J.ALERT, sw=6,
                          dot=True, dotr=10)],
@@ -95,7 +95,7 @@ SPEC = {
     # 図＋地（BACKDROP＝losrodeos_now_09）
     "c507": dict(
         t="16:36、見える距離は3キロ",
-        s="滑走路の上で見える距離",
+        s="視界の数字の移り変わり",
         fig=("moment", dict(
             clock="16:36", label="空港の気象の値",
             facts=[dict(t="滑走路の上", v="3キロ", c=J.INK_W),
@@ -105,7 +105,7 @@ SPEC = {
 
     "c508": dict(
         t="16:50、2キロから3キロ",
-        s="滑走路の上で見える距離",
+        s="視界の数字の移り変わり",
         fig=("graph", dict(
             series=vis(1), xr=(3, 35), yr=(0, 5.6), xticks=XT, yticks=YT,
             legend=False,
@@ -115,7 +115,7 @@ SPEC = {
 
     "c509": dict(
         t="16:55、1キロ",
-        s="滑走路の上で見える距離",
+        s="視界の数字の移り変わり",
         fig=("graph", dict(
             series=vis(2), xr=(3, 35), yr=(0, 5.6), xticks=XT, yticks=YT,
             legend=False,
@@ -125,15 +125,15 @@ SPEC = {
 
     "c510": dict(
         t="17:02、300メートル",
-        s="滑走路の上と、進入の側",
+        s="同じ時刻の、二つの場所の視界",
         fig=("graph", dict(
             series=vis(3) + [dict(pts=[(32, 0.5), (32, 5.0)], t="", c=J.LINE,
                                   dots_only=True, dotr=10)],
             xr=(3, 35), yr=(0, 5.6), xticks=XT, yticks=YT,
             legend=False,
-            marks=[dict(x=32, y=0.3, t="滑走路の上 300メートル", c=J.ALERT, anchor="end",
+            marks=[dict(x=32, y=0.3, t="滑走路 300メートル", c=J.ALERT, anchor="end",
                         dx=-26, dy=-10),
-                   dict(x=32, y=5.0, t="進入の側 500メートル、ときどき5キロ", c=J.LINE,
+                   dict(x=32, y=5.0, t="進入の側 500メートル（ときに5キロ）", c=J.LINE,
                         anchor="end", dx=-26, dy=10)],
             note=QAMG)),
     ),
@@ -141,7 +141,7 @@ SPEC = {
     # 図＋地（BACKDROP＝losrodeos_now_10）。⚠️ 割った数（10分の1）を出さない。
     "c511": dict(
         t="26分で、3キロが300メートルに",
-        s="滑走路の上で見える距離",
+        s="視界の数字の移り変わり",
         fig=("compare", dict(
             items=[dict(v=3000, t="16:36", disp="3,000", unit="メートル", c=J.INK_W),
                    dict(v=300, t="17:02", disp="300", unit="メートル", c=J.ALERT)],
@@ -152,13 +152,13 @@ SPEC = {
         t="地面についた雲が増えた",
         s="高さ0メートルの雲の量（空を8つに分けて数える）",
         fig=("beforeafter", dict(
-            a=dict(k="はじめ", t="8分の1", lines=["高さ0メートルの雲"], c=J.LINE),
+            a=dict(k="はじめ", t="8分の1", lines=["空のわずか"], c=J.LINE),
             b=dict(k="増えたあと", t="8分の7", lines=["空のほとんど"], c=J.ALERT),
             note=QAM)),
     ),
 
     "c513": dict(
-        t="気温14度、露点13度",
+        t="気温と露点が、ほとんど同じ",
         s="空港の気温と露点",
         fig=("compare", dict(
             items=[dict(v=14, t="気温", disp="14", unit="度", c=J.AMBER),
@@ -168,10 +168,10 @@ SPEC = {
     ),
 
     "c514": dict(
-        t="あと1度冷えれば、雲ができる",
+        t="雲になる、一歩手前",
         s="気温と露点の差",
         fig=("moment", dict(
-            clock="1度", label="気温と露点の差",
+            clock="1度", label="この日の差",
             facts=[dict(t="差が小さいほど", v="雲に変わりやすい", c=J.AMBER)],
             sub="事故報告書 p12")),
     ),
@@ -188,7 +188,7 @@ SPEC = {
 
     "c516": dict(
         t="機械で見通しを測る仕組み",
-        s="滑走路視距離とは",
+        s="視界を測る方法の一つ",
         fig=("panel", dict(
             blocks=[dict(k="名前", t="滑走路視距離", v="RVR", c=J.INST),
                     dict(k="測るもの", t="滑走路の脇に置いた機械", v="", c=J.LINE),
@@ -197,20 +197,20 @@ SPEC = {
     ),
 
     "c517": dict(
-        t="この空港では、出されない",
+        t="ロス・ロデオス空港に、RVRは無い",
         s="空港の設備の一覧",
         fig=("absent", dict(
             mode="single",
             # ⚠️ d は大きな Dela で出る＝長いと小さくなって漢字がつぶれる（check_layout）。短くする。
-            items=[dict(t="RVR（滑走路視距離）", d="この空港では出されない",
+            items=[dict(t="RVR（滑走路視距離）", d="出されない",
                         ok=False, c=J.TICK)],
-            note="事故報告書 p12　ロス・ロデオス空港の設備の一覧")),
+            note="事故報告書 p12")),
     ),
 
     # 図＋地（BACKDROP＝losrodeos_now_11）。⚠️ 管制塔の写真は無い＝代用しない。
     "c518": dict(
         t="決めていたのは、管制官の目",
-        s="滑走路の端が見えているとき",
+        s="見通しのよいときの決め方",
         fig=("people", dict(
             nodes=[dict(x=0.18, y=0.42, t="管制官", d="管制塔", c=J.INK_W, kind="person"),
                    dict(x=0.80, y=0.42, t="滑走路の端", d="見えている", c=J.LINE,
@@ -221,7 +221,7 @@ SPEC = {
 
     # 図＋地（BACKDROP＝losrodeos_now_02）
     "c519": dict(
-        t="数字は、人の目から出ていた",
+        t="どちらの場合も、決めたのは人",
         s="見える距離を決めていた人",
         fig=("beforeafter", dict(
             a=dict(k="端が見えるとき", t="管制官", lines=["自分の目で見る"], c=J.INK_W),
@@ -231,7 +231,7 @@ SPEC = {
 
     "c520": dict(
         t="中心線灯は、消えていた",
-        s="滑走路の真ん中に並ぶ灯り",
+        s="霧の中の目印になる灯り",
         fig=("runway", dict(
             steps=[dict(lights=dict(on=True),
                         mark=[dict(at=0.5, y="above", t="中心線灯　進む向きを示す", c=J.AMBER)]),
@@ -243,18 +243,18 @@ SPEC = {
 
     # 図＋地（BACKDROP＝losrodeos_now_13）。⚠️ 写真は誘導路の線＝中心線灯と名乗らない。
     "c521": dict(
-        t="パンナムの機長の答え",
+        t="パンナムの機長は、条件を付けた",
         s="中心線灯が消えていると知らされて",
         fig=("moment", dict(
             clock="17:04:58", label="管制塔が両機に伝えた",
             facts=[dict(t="中心線の灯り", v="使えない", c=J.ALERT),
-                   dict(t="パンナムの機長が要ると言った距離", v="800メートル", c=J.AMBER)],
+                   dict(t="機長が要ると言った距離", v="800メートル", c=J.AMBER)],
             sub="操縦室の録音の書き起こし／事故報告書 p17・p37")),
     ),
 
     # pr01 と同じ写真＝上の雲へ寄る（別の絵にする）。
     "c522": dict(
-        t="その滑走路へ、二機は出ていく",
+        t="見えにくい滑走路へ、二機が向かう",
         s="現在のテネリフェ北空港（低い雲の日）　2007年撮影",
         photo=P("losrodeos_now_09"), bias=0.15, xbias=0.40, zoom=1.40,
         side="right", ann_y=356,

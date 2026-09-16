@@ -40,7 +40,7 @@ SPEC = {
     ),
 
     "ep04": dict(
-        t="なぜ、基本の誤りを犯せたのか",
+        t="報告書は、誤りの背景を問うた",
         s="KLMの危機対策センター　1977年撮影",
         photo=P("nl_crisis_01"), bias=0.50, side="right", ann_y=356,
         **ss.kind(P("nl_crisis_01")),
@@ -48,7 +48,7 @@ SPEC = {
     ),
 
     "ep05": dict(
-        t="根本の原因ではなく、寄与した要因",
+        t="三つの答えは、寄与した要因",
         s="スキポール空港での追悼式　1977年撮影",
         photo=P("nl_mourning_01"), bias=0.50, side="right", ann_y=356,
         **ss.kind(P("nl_mourning_01")),
@@ -64,10 +64,10 @@ SPEC = {
     ),
 
     "ep07": dict(
-        t="片方だけを、裁いてはいない",
+        t="報告書は、KLMの外も見ている",
         s="テネリフェの国際追悼碑　2015年撮影",
         photo=P("memorial_01"), panel=True, side="right", ann_y=330,
-        ann=[dict(t="パンナム", d="二度、滑走路にいると伝えた", dc=J.INK_W, ds=32),
+        ann=[dict(t="パンナム", d="位置の報告は2回", dc=J.INK_W, ds=32),
              dict(t="管制官の「オーケー」", d="適切ではなかった", dc=J.AMBER, ds=32)],
     ),
 
@@ -81,18 +81,18 @@ SPEC = {
     ),
 
     "ep09": dict(
-        t="この事故が、いちばん残したもの",
+        t="残したのは、許可の出し方の決まり",
         s="勧告の三つ目",
         fig=("quote", dict(
             phrase="許可に「離陸」という語を使わない",
-            rows=[("勧告の三つ目", "ATCの許可と離陸の許可を、時間で十分に離す", J.INK_W),
+            rows=[("中身", "ATCの許可と離陸の許可を、時間で十分に離す", J.INK_W),
                   ("出どころ", "事故報告書 p41", J.DOC)],
             paper=True)),
     ),
 
     # ⚠️ 名前を刻んだ碑＝寄らない（額装で小さく）。原寸で名前が読めるかは ⑤c で見る。
     "ep10": dict(
-        t="気づいた人は、いた",
+        t="声は、機体を止められなかった",
         s="名前を刻んだ追悼の碑　2009年撮影",
         photo=P("memorial_03"), panel=True, side="right", ann_y=330,
         ann=[dict(t="1977年3月27日", v="17:06:50", vc=J.ALERT, vs=88),

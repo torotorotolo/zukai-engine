@@ -31,7 +31,7 @@ SPEC = {
     # 図＋地（BACKDROP＝klm_747_1973_01 の寄り）
     "c601": dict(
         t="16:56、最後の10分が始まる",
-        s="KLMが管制塔を呼んだ",
+        s="KLMから管制塔への無線",
         fig=("moment", dict(
             clock="16:56", label="KLMが管制塔を呼んだ",
             facts=[dict(t="求めたもの", v="地上を走る許可", c=J.INK_W),
@@ -46,7 +46,7 @@ SPEC = {
             lanes=["KLM", "管制塔"],
             events=[dict(lane=0, a=1.0, t="地上を走りたい", c=J.LINE, pre=True),
                     dict(lane=1, a=2.0, t="許可", c=J.OK, pre=True),
-                    dict(lane=0, a=3.0, b=4.6, t="滑走路12をバックタクシー",
+                    dict(lane=0, a=3.0, b=4.6, t="12をバックタクシー",
                          d="離陸は滑走路30から", c=J.AMBER)],
             t0=0.4, t1=5.6, ticks=[(1.0, "16:56"), (3.0, "16:58")],
             note="順番だけ（間隔は正確ではない）", src="事故報告書 p3")),
@@ -54,7 +54,7 @@ SPEC = {
 
     "c603": dict(
         t="バックタクシーとは",
-        s="滑走路を、離陸する向きと逆に走る",
+        s="KLM機が走る道すじ",
         fig=("runway", dict(
             steps=[dict(planes=[plane(KLM, 0.06)]),
                    dict(path=[dict(on="rwy", a=0.10, b=0.95, c=J.AMBER)],
@@ -86,12 +86,12 @@ SPEC = {
 
     # 図＋地（BACKDROP＝losrodeos_now_08＝島の北東部の衛星画像）
     "c606": dict(
-        t="二機を、滑走路の上で走らせる",
+        t="二機とも、滑走路の上へ",
         s="管制官が選んだやり方",
         fig=("runway", dict(
             steps=[dict(planes=[plane(KLM, 0.14), plane(PAA, 0.04, lab=False)]),
                    dict(path=[dict(on="rwy", a=0.19, b=0.95, c=J.AMBER)],
-                        mark=[dict(at=0.60, y="below", t="着陸機が使う道を、通り道にする",
+                        mark=[dict(at=0.60, y="below", t="ふだんは着陸機の道",
                                    c=J.AMBER)])],
             exits=False, note=RW, src="事故報告書 p32・p40")),
     ),
@@ -118,7 +118,7 @@ SPEC = {
 
     "c609": dict(
         t="最初の指示は「三番目」",
-        s="管制官がKLMに出した最初の指示",
+        s="KLMが走るように言われた道",
         fig=("runway", dict(
             steps=[dict(planes=[plane(KLM, 0.06)]),
                    dict(path=[dict(a=0.10, b=0.92, via="C-3", c=J.AMBER)],
@@ -130,7 +130,7 @@ SPEC = {
     ),
 
     "c610": dict(
-        t="指示は三番目、答えは一番目",
+        t="最初の食い違いは、ここ",
         s="管制官の指示と、KLMの答え",
         fig=("runway", dict(
             steps=[dict(hot=[("C-3", J.AMBER)],
@@ -152,7 +152,7 @@ SPEC = {
     ),
 
     "c612": dict(
-        t="KLMは、もう一度たずねた",
+        t="KLMの理解は、まだC-1",
         s="KLMの二度目の問い",
         fig=("runway", dict(
             steps=[dict(hot=[("C-1", J.ALERT)],
@@ -182,7 +182,7 @@ SPEC = {
         s="パンナムの747　1970年撮影（スキポール空港）",
         photo=P("panam_ams1970_03"), bias=0.50, side="right", ann_y=356,
         **ss.kind(P("panam_ams1970_03")),
-        ann=[dict(t="確かめたこと", d="滑走路を走るので合っているか", dc=J.INK_W, ds=32)],
+        ann=[dict(t="確かめたこと", d="滑走路を走る、という指示", dc=J.INK_W, ds=32)],
     ),
 
     "c615": dict(
@@ -202,14 +202,14 @@ SPEC = {
         s="パンナムの復唱と、そのあと",
         fig=("process", dict(
             steps=[dict(t="管制官", d="三番目を左へ", c=J.LINE),
-                   dict(t="パンナムの復唱", d="三番目を左へ", c=J.AMBER),
+                   dict(t="パンナム", d="三番目を左へ", c=J.AMBER),
                    dict(t="そのすぐあと", d="機内で食い違い", c=J.ALERT)],
             note=CVR)),
     ),
 
     "c617": dict(
-        t="同じ無線を、違うふうに聞いた",
-        s="パンナム機の操縦室",
+        t="パンナム機の中でも、聞き方が割れた",
+        s="無線を聞いた二人の言葉",
         fig=("people", dict(
             nodes=[dict(x=0.50, y=0.18, t="管制塔の無線", d="", c=J.DOC, kind="doc"),
                    dict(x=0.18, y=0.66, t="航空機関士", d="三番目と言った", c=J.OK,
@@ -222,7 +222,7 @@ SPEC = {
 
     "c618": dict(
         t="分からないことを、残さなかった",
-        s="パンナムの副操縦士",
+        s="あいまいさの、片づけ方",
         fig=("beforeafter", dict(
             a=dict(k="機内", t="三番目か、一番目か", lines=["食い違い"], c=J.ALERT),
             b=dict(k="副操縦士", t="もう一度聞く", lines=["管制塔に確かめる"], c=J.OK),
@@ -234,13 +234,13 @@ SPEC = {
         t="17:03:29、パンナムが確かめた",
         s="パンナムから管制塔へ",
         fig=("moment", dict(
-            clock="17:03:29", label="パンナムが管制塔に確かめた",
+            clock="17:03:29", label="パンナムの問い",
             facts=[dict(t="確かめたこと", v="三番目の交差点で左", c=J.AMBER)],
             sub=CVR)),
     ),
 
     "c620": dict(
-        t="管制官は、数えて答えた",
+        t="数え方まで、はっきり伝えた",
         s="パンナムの問いへの答え",
         fig=("quote", dict(
             phrase="一、二、三、三番目です",
@@ -251,7 +251,7 @@ SPEC = {
     ),
 
     "c621": dict(
-        t="残ったのは、どれが三番目か",
+        t="言葉は伝わり、数え方が残った",
         s="報告書が書いた、このときの状態",
         fig=("beforeafter", dict(
             a=dict(k="晴れた疑い", t="三番目という言葉", lines=["正しく伝わった"], c=J.OK),
@@ -264,7 +264,7 @@ SPEC = {
         s="フランクフルトの747の操縦室　1973年撮影",
         photo=P("cockpit_747_16"), side="right", ann_y=356,
         **ss.kind(P("cockpit_747_16")),
-        ann=[dict(t="パンナムの乗員", d="視界が悪く、出口が見つけにくい", dc=J.INK_W, ds=32)],
+        ann=[dict(t="パンナムの乗員", d="見つけにくい出口", dc=J.INK_W, ds=32)],
     ),
 
     "c623": dict(
@@ -287,7 +287,7 @@ SPEC = {
 
     # 図＋地（BACKDROP＝losrodeos_now_02 の寄り）
     "c624": dict(
-        t="なぜ、三番目を通り過ぎたのか",
+        t="三番目を過ぎ、二機は向き合う",
         s="報告書が挙げた二つの見方と、二機の位置",
         fig=("runway", dict(
             steps=[dict(hot=[("C-3", J.ALERT)],

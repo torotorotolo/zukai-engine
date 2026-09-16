@@ -24,7 +24,7 @@ F20 = "事故報告書 p20"
 SPEC = {
 
     "c901": dict(
-        t="管制塔からは、何も見えなかった",
+        t="管制塔に届いたのは、音だけ",
         s="霧をかぶる、空港の北東の山地　2025年撮影",
         photo=P("fog_laguna_01"), bias=0.50, side="right", ann_y=356,
         **ss.kind(P("fog_laguna_01")),
@@ -32,7 +32,7 @@ SPEC = {
     ),
 
     "c902": dict(
-        t="確かめる手立てが無かった",
+        t="見えないので、確かめようがない",
         s="管制塔に分からなかったこと",
         fig=("absent", dict(
             mode="ledger",
@@ -52,7 +52,7 @@ SPEC = {
     ),
 
     "c904": dict(
-        t="消防へ、警報",
+        t="場所の分からない、火の警報",
         s="管制塔が出した警報",
         fig=("process", dict(
             steps=[dict(t="管制塔", d="消防へ警報", c=J.ALERT),
@@ -63,7 +63,7 @@ SPEC = {
 
     "c905": dict(
         t="最初の手がかり",
-        s="消防の詰所に届いた知らせ",
+        s="人づてに届いた、火の場所",
         fig=("people", dict(
             nodes=[dict(x=0.18, y=0.42, t="空港で働く会社の人", d="", c=J.INK_W,
                         kind="person"),
@@ -83,7 +83,7 @@ SPEC = {
     ),
 
     "c907": dict(
-        t="見えないなかを、そろそろと",
+        t="急ぎたくても、急げない",
         s="消防車が進んだ駐機場",
         fig=("beforeafter", dict(
             a=dict(k="見えないなか", t="ぶつかりうるもの", lines=["人・車・駐まっている機体"],
@@ -103,7 +103,7 @@ SPEC = {
     ),
 
     "c909": dict(
-        t="見えていたのは、尾の翼だけ",
+        t="炎の上に、尾翼だけが立つ",
         s="立ったまま残ったKLM機の尾翼　" + WRECK,
         photo=P("wreck_klm_02"), side="right", ann_y=356,
         **ss.kind(P("wreck_klm_02")),
@@ -129,7 +129,7 @@ SPEC = {
     ),
 
     "c912": dict(
-        t="部品では、なかった",
+        t="光の正体は、飛行機だった",
         s="二機のうちの一方の残骸　" + WRECK,
         photo=P("wreck_both_02"), trim=(0.2008, 0.1996, 0.62, 0.7563), panel=True,
         side="right", ann_y=356,
@@ -149,7 +149,7 @@ SPEC = {
 
     # 手前の男性2人（x 0.226〜0.445）を窓の外へ出す。
     "c914": dict(
-        t="二つ目の機体に、力を移した",
+        t="消防は、力の向け先を変えた",
         s="二機のうちの一方の残骸　" + WRECK,
         photo=P("wreck_both_01"), trim=(0.47, 0.1865, 0.7788, 0.7469), panel=True,
         side="right", ann_y=356,
