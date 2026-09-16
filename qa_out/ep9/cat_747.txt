@@ -1,0 +1,78 @@
+# Commons カテゴリ一覧  分類10件 / ファイル82点
+# 継承なし（使える枠）: 30点 / 継承あり（CC BY-SA・使えない）: 52点
+# ライセンス内訳: {"CC BY-SA 2.0": 27, "Public domain": 13, "GFDL 1.2": 7, "CC BY 2.0": 9, "CC BY 3.0": 1, "CC0": 6, "CC BY-SA 4.0": 10, "CC BY-SA 3.0": 7, "GPL": 1, "GFDL": 1}
+# 種類内訳: {"image/jpeg": 77, "image/png": 4, "image/svg+xml": 1}
+
+## 継承なし（幅の大きい順）
+     5472x3648  2015  CC BY 2.0        | 747 Taking Off (16310420482).jpg | 747 Taking Off
+     4032x2761  1975  Public domain    | Photograph of President Gerald R. Ford Carrying a Vietnamese Baby from Clipper | 
+     3958x2226  2017  CC BY 2.0        | KLM 747 leaving Schiphol behind (38109510332).jpg | Schiphol, the Netherlands
+     3852x2167  2015  CC BY 2.0        | KLM 747-400 on short final for runway 06 (32995485295).jpg | Schiphol, the Netherlands
+     3694x2385  1970  CC0              | De Boeing 747 aan de pier op het platform, Bestanddeelnr 923-6386.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Eerste Jumbo Jet B
+     3685x2436  1970  CC0              | De Boeing 747 zet de landing in, Bestanddeelnr 923-6390.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Eerste Jumbo Jet B
+     3673x2434  1969  CC0              | Een model van het interieur van een Boeing jumbo jet, Bestanddeelnr 922-6598.j | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Tentoonstelling 50
+     3667x2434  1969  CC0              | Een model van een Boeing jumbo jet, Bestanddeelnr 922-6599.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Tentoonstelling 50
+     3667x2434  1969  CC0              | Een model van het interieur van een Boeing jumbo jet, Bestanddeelnr 922-6600.j | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Tentoonstelling 50
+     3547x1995  2017  CC BY 2.0        | KLM 747-400 rocketing out of Amsterdam for Mexico City (32551458500).jpg | Schiphol, the Netherlands
+     3457x2376  1970  CC0              | De Boeing 747 taxiet naar aankomstplaats op Schiphol, Bestanddeelnr 923-6398.j | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Eerste Jumbo Jet B
+     3248x2000  2008  CC BY 2.0        | KLM Boeing 747 Cockpit.jpg | Boeing 747-400 cockpit
+     3216x2136  2011  Public domain    | USAF Aircraft Flightline FOL Curacao - 2011-01-21.jpg | United States Air Force flight-line at Forward Operating Location (FOL) Curaçao,
+     3204x828   2009  Public domain    | KLM Boeing 747.png | KLM Boeing 747-400 created in inkscape
+     3185x2203  1970  Public domain    | Pan Am (Boeing 747).jpg | Boeing 747 auf dem Flughafen München-Riem
+     3072x2304  2008  CC BY 2.0        | KLM B747-400 landing at Montréal-Pierre Elliott Trudeau International Airport  | aéroport Montréal-Trudeau (YUL)
+     2854x1878  1986  Public domain    | Employees from Pan Am World Airways remove seats and carpet from a Pan Am 747  | The original finding aid described this photograph as: Base: New York State: New
+     2770x1880  1991  Public domain    | Elements of the 82nd Airborne Division in parade formation march toward the re | The original finding aid described this photograph as: Subject Operation/Series:
+     2048x1152  2014  CC BY 3.0        | Addison, TX, USA - panoramio (57).jpg | Addison, TX, USA
+     2026x3000  1973  Public domain    | AMONG THE SHORELINE DEBRIS AT THE JOHN F. KENNEDY AIRPORT IS THIS ABANDONED AU | 
+     1580x1369  2014  CC BY 2.0        | KLM 747 (14049089209).jpg | KLM Royal Dutch Airlines Boeing 747
+     1569x989   2009  Public domain    | Pan Am Clipper B747-121.jpg | Boeing 747 auf dem Flughafen München-Riem
+     1558x1580  2014  CC BY 2.0        | KLM 747 (14212595036).jpg | KLM Royal Dutch Airlines Boeing 747
+     1440x900   2009  GPL              | My screenie of 747 in fgfs.png | A Boeing 747 in FlightGear .
+小   1200x738   1970  Public domain    | Pan Am Boeing 747SP Takeoff.jpg | Catalog #: 01_00090335 Manufacturer: Boeing Designation: 747 Notes: USA Title: B
+小   1184x888   2006  Public domain    | Klm672.jpg | KLM flight 672 departing runway 24L on aug 26 I took this pic
+小    950x648   2019  Public domain    | Bilstein 00645 Boeing 747 N753PA Pan American.jpg | Image from the Roger Belstein Collection--Please tag these photos so information
+小    836x560   2012  CC BY 2.0        | KLM 747 (7336769484).jpg | 
+小    778x1100  2015  Public domain    | PanAm 747 Image (18855448184).jpg | Poster from the Don Thomas Collection. Mr. Thomas was a collector of aircraft me
+小    550x421   2007  Public domain    | IAH 8.jpg | Daniel2986
+
+## 継承あり＝CC BY-SA（使わない。参考）
+    5312x2988  2018  CC BY-SA 4.0     | Disembarking, Johan Pengel Airport.jpg
+    4896x3672  2017  CC BY-SA 4.0     | Schiphol Niederlande02.jpg
+    4583x3437  2012  CC BY-SA 2.0     | PH-B** - 747-406 - KLM - Hong Kong (7863133242).jpg
+    3872x2592  2013  CC BY-SA 2.0     | Aircraft DSC 0250 (8455412340).jpg
+    3872x2592  2013  CC BY-SA 2.0     | Aircraft KLM B744 closely following Emirates A380 (8454318425).jpg
+    2832x2128  2008  CC BY-SA 3.0     | KlM winter situation.jpg
+    2800x2440  1976  CC BY-SA 4.0     | Boeing 747 Pan Am 1976.jpg
+    2520x1680  1982  CC BY-SA 2.0     | Pan Am 747F at LHR (16796381831).jpg
+    2304x3456  2012  CC BY-SA 3.0     | KLM Asia Boeing 747 Tail (8574877045).jpg
+    2304x1536  2012  CC BY-SA 3.0     | N94104 Boeing 747 in basic KLM C-s (7353849280).jpg
+    2048x1324  2024  CC BY-SA 4.0     | B747 Pan Am 841 đang dừng tại Manila.jpg
+    1920x1080  2001  GFDL             | KLM Boeing 747-400 Sapporo snow Yagi.jpg
+    1900x1267  2012  CC BY-SA 2.0     | B747 KLM backlight (6658193481).jpg
+    1900x1267  2013  CC BY-SA 2.0     | KLM B747 cloud bunching (8557113821).jpg
+    1900x1267  2013  CC BY-SA 2.0     | KLM B747 (8558223140).jpg
+    1900x1267  2012  CC BY-SA 2.0     | KLM B747-400 take off (8251250807).jpg
+    1900x1267  2012  CC BY-SA 2.0     | KLM B747-400 take off (8252271880).jpg
+    1900x1267  2012  CC BY-SA 2.0     | KLM B747 Take off 18L snow blasting (8251202935).jpg
+    1798x1168  2013  CC BY-SA 2.0     | Boeing 747-100 (Pan Am) (8664189574).jpg
+    1600x1067  1977  CC BY-SA 4.0     | N736PA Clipper Victor Pan Am Boeing 747-121, London Heathrow.jpg
+    1595x898   2020  CC BY-SA 4.0     | KLM-747.jpg
+    1544x1024  2006  CC BY-SA 2.0     | KLM B744 (234407119).jpg
+    1517x957         CC BY-SA 2.0     | PAN AM Boeing 747 in Schiphol.jpg
+    1406x340   2024  CC BY-SA 4.0     | An Pan Am Boeing 747-100.png
+    1333x342   2024  CC BY-SA 4.0     | An Pan Am Boeing 747.png
+    1280x960   2004  CC BY-SA 2.0     | Boeing 747-300 ex KLM stored at Mojave (4332167236).jpg
+    1280x853   2009  CC BY-SA 2.0     | A collection of KLM wheels (3163810710).jpg
+    1280x960   2010  CC BY-SA 3.0     | KLM Boeing747 20101210.jpg
+    1184x888   2007  CC BY-SA 3.0     | Mtlklm.jpg
+    1100x689   1973  GFDL 1.2         | N736PA Pan Am Clipper Victor Boeing 747-121 landing at New York JFK, 1973.jpg
+    1060x1480  2008  CC BY-SA 3.0     | Klm747.svg
+    1051x804   2008  CC BY-SA 2.0     | KLM Boeing 747-400 flight deck.jpg
+    1024x683   2011  CC BY-SA 2.0     | KLM 747 airborne (5342877071).jpg
+    1024x683   2011  CC BY-SA 2.0     | Black bird on aproach lights (5343573512) (2).jpg
+    1024x714   2005  GFDL 1.2         | Boeing 747-406, KLM Royal Dutch Airlines JP5650886.jpg
+    1024x742   2004  GFDL 1.2         | Boeing 747-206B(SUD), KLM Royal Dutch Airlines JP335287.jpg
+    1024x683   2006  GFDL 1.2         | Cirrus SR20 Private, AMS Amsterdam (Schiphol), Netherlands PP1151411024.jpg
+    1024x683   2011  CC BY-SA 2.0     | KLM B747 (5520083880).jpg
+    1024x683   2011  CC BY-SA 2.0     | KLM B747 (5429276794).jpg
+    1024x683   2011  CC BY-SA 2.0     | KLM 747 just airborne (5346892129).jpg

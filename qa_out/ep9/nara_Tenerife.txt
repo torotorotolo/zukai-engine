@@ -1,0 +1,23 @@
+
+===== Tenerife（NARA）=====
+  該当 **5832** 件中 300 件を実測
+  デジタル化ずみのレコード 300 件／デジタル物 100点（500KB超 98点・中央値 2.57MB）
+  🔴 うち**写真・記録映像だけ**で **99点**（残りは報告書のページ画像。混ぜて数えない）
+  種類ごとのデジタル物: {'Photographs and other Graphic Materials': 99, 'Maps and Charts': 1}
+  資料の種類（レコード数）: {'Photographs and other Graphic Materials': 297, 'Maps and Charts': 3}
+  デジタル物の種類: {'Image (JPG)': 100}
+  🔴 利用制限: {'Unrestricted': 300}
+     閲覧制限: {'Unrestricted': 300}
+       MB        naId  種類 / 題
+      3.1     6178993  Image (JPG)    Secretary Mel Martinez in Tenerife, Canary Islands, Spain
+      3.1     6178929  Image (JPG)    Secretary Mel Martinez in Tenerife, Canary Islands, Spain
+      3.1     6178927  Image (JPG)    Secretary Mel Martinez in Tenerife, Canary Islands, Spain
+      3.0     6178928  Image (JPG)    Secretary Mel Martinez in Tenerife, Canary Islands, Spain
+      2.9     6179053  Image (JPG)    Secretary Mel Martinez in Tenerife, Canary Islands, Spain
+      2.9     6178897  Image (JPG)    Secretary Mel Martinez in Tenerife, Canary Islands, Spain
+      2.9     6179004  Image (JPG)    Secretary Mel Martinez in Tenerife, Canary Islands, Spain
+      2.9     6178997  Image (JPG)    Secretary Mel Martinez in Tenerife, Canary Islands, Spain
+      2.9     6178914  Image (JPG)    Secretary Mel Martinez in Tenerife, Canary Islands, Spain
+      2.9     6178899  Image (JPG)    Secretary Mel Martinez in Tenerife, Canary Islands, Spain
+
+保存: analytics\materials\nara_Tenerife.json

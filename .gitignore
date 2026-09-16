@@ -185,3 +185,14 @@ ref/ep8/*.pdf
 #   動く映像9本（918MB）。取り直しは vid/sources.json の url から
 ref/ep8/vid/*.webm
 ref/ep8/vid/*.mp4
+
+# ── 9本目 テネリフェ空港衝突（2026-09-16 ②素材＋③尺）──────────────
+# ⚠️ 上の `ref/*` が ref/ を丸ごと無視する造り（許可制）。**フォルダから明示的に開ける。**
+!ref/ep9/
+# 入れるもの＝章立て・素材の台帳・素材の網（どれも機械の実測から書いたテキスト）
+!ref/ep9/kousei.md
+!ref/ep9/materials.md
+!ref/ep9/slots_commons.json
+# 入れないもの＝一次資料の実体（PDF 11本・14.6MB）。
+#   取り直す入口は ref/ep9/materials.md §4 に全部 URL で書いてある
+ref/ep9/*.pdf

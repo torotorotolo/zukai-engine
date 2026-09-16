@@ -1,0 +1,141 @@
+# Commons カテゴリ一覧  分類14件 / ファイル197点
+# 継承なし（使える枠）: 93点 / 継承あり（CC BY-SA・使えない）: 104点
+# ライセンス内訳: {"CC BY 2.0": 24, "CC BY-SA 3.0": 26, "CC BY 3.0": 10, "CC0": 36, "CC BY-SA 2.0": 8, "Public domain": 18, "CC BY-SA 4.0": 63, "CC BY 2.5": 2, "GFDL 1.2": 3, "CC BY 4.0": 1, "CC BY-SA 3.0 de": 4, "Attribution": 2}
+# 種類内訳: {"image/jpeg": 175, "image/png": 10, "image/svg+xml": 10, "video/webm": 1, "image/gif": 1}
+
+## 継承なし（幅の大きい順）
+     5612x3772  2011  CC BY 2.0        | Primer vuelo Península - Canarias (1930).jpg | El 20 de mayo de 1930 llegaba al aeropuerto de Los Rodeos (Tenerife Norte) el pr
+     5311x3440  1970  Public domain    | Pat Nixon christens Boeing 747 2749-18.jpg | First Lady Pat Nixon christens the first Boeing 747, Clipper Young America, Reg#
+     5052x4360  1977  CC0              | Vliegtuigmotor van één van de verongelukte jumbojets, Bestanddeelnr 929-1008.j | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     5000x4366  1977  CC0              | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1005.jpg | Collection / Archive : Photo collection Anefo Report / Series : Tenerife flight 
+     4999x3333  2019  Public domain    | OCEAN SKY 19 (5854009).jpg | A Spanish air force Eurofighter Typhoon launches for a sortie in support of exer
+     4608x2592  2013  CC BY 2.0        | Planes (10136783155).jpg | Planes at Las Palmas Airport
+     4320x3240  2012  CC BY 3.0        | In Reih und Glied - panoramio.jpg | Flugzeuge in Reih und Glied
+     4288x2848  2012  CC BY 3.0        | Santa Cruz de Tenerife airport runway, Canary Islands, Spain - panoramio.jpg | Santa Cruz de Tenerife airport runway, Canary Islands, Spain
+     4265x2732  2012  CC BY 3.0        | Airport(Eingang) - panoramio.jpg | Airport Gran Canaria (Eingang)
+     3910x1728  2012  CC BY 3.0        | Santa Cruz de Tenerife airport runway, Canary Islands, Spain - panoramio (1).j | Santa Cruz de Tenerife airport runway, Canary Islands, Spain
+     3776x2520  2010  CC BY 2.0        | Aeropuerto de Gran Canaria interior (5195390363).jpg | &lt;a href=" http://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Phot
+     3776x2520  2010  CC BY 2.0        | Boarding (5196003292).jpg | &lt;a href=" https://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Pho
+     3776x2520  2010  CC BY 2.0        | Big Travel (5195977078).jpg | &lt;a href=" http://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Phot
+     3776x2520  2010  CC BY 2.0        | Gates (5195996258).jpg | &lt;a href=" http://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Phot
+     3776x2520  2010  CC BY 2.0        | Busy traveller (5195388141).jpg | &lt;a href=" http://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Phot
+     3776x2520  2010  CC BY 2.0        | Canaria (5195985954).jpg | &lt;a href=" http://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Phot
+     3776x2520  2010  CC BY 2.0        | Interior art (5195967726).jpg | &lt;a href=" http://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Phot
+     3770x1616  2010  CC BY 2.0        | Aeropuerto de Gran Canaria Tower (5195405623).jpg | &lt;a href=" http://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Phot
+     3763x2880  2012  CC BY 3.0        | Tower - panoramio (34).jpg | Tower Gran Canaria Airport
+     3700x2469  2010  CC BY 2.0        | Aeropuerto de Gran Canaria interior (5195391885).jpg | &lt;a href=" http://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Phot
+     3700x2457  1977  CC0              | Crisiscentrum te Amstelveen, Bestanddeelnr 929-0963.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp op Tener
+     3700x2457  1977  CC0              | Crisiscentrum te Amstelveen, Bestanddeelnr 929-0964.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp op Tener
+     3700x2457  1977  CC0              | Overzicht crisiscentrum te Amstelveen, Bestanddeelnr 929-0965.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     3700x2457  1977  CC0              | Tweede Kamer neemt voor het debat een minuut stilte in acht voor de slachtoffe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Tweede Kamer bijee
+     3700x2457  1977  CC0              | Vlaggen halfstok voor het KLM-hoofdkantoor te Amstelveen, Bestanddeelnr 929-09 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp op Tener
+     3690x2463  2010  CC BY 2.0        | Check-In Aeropuerto de Gran Canaria (5195973172).jpg | &lt;a href=" http://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Phot
+     3682x2448  1977  CC0              | 1 minuut stilte aan het begin van de herdenking, Bestanddeelnr 929-1118.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | 1 minuut stilte aan het begin van de herdenking, Bestanddeelnr 929-1119.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | Aanwezigen verlaten de hal aan het einde van de dienst, Bestanddeelnr 929-1125 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | Aanwezigen verlaten de hal aan het einde van de dienst, Bestanddeelnr 929-1124 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | Burgemeester Ivo Samkalden van Amsterdam na de kranslegging, Bestanddeelnr 929 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Begrafenisplechtig
+     3682x2448  1977  CC0              | Burgemeester Ivo Samkalden van Amsterdam loopt langs de kisten, Bestanddeelnr  | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Begrafenisplechtig
+     3682x2448  1977  CC0              | Burgemeester Ivo Samkalden van Amsterdam legt een herdenkingskrans, Bestanddee | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Begrafenisplechtig
+     3682x2448  1977  CC0              | Geëmotioneerde familieleden tijdens de dienst, Bestanddeelnr 929-1122.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | De kisten van de slachtoffers van de ramp, Bestanddeelnr 929-1123.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | Minister-president Den Uyl en minister Westerterp (Verkeer en Waterstaat) lang | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | Stoet trekt langs de kisten, Bestanddeelnr 929-1131.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Begrafenisplechtig
+     3682x2448  1977  CC0              | Stoet trekt langs de kisten, Bestanddeelnr 929-1130.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Begrafenisplechtig
+     3682x2448  1977  CC0              | Toespraak door de president-directeur van KLM, Sergio Orlandini, Bestanddeelnr | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | Slachtoffers, herdenkingen, vliegtuigongevallen, rampen, Bestanddeelnr 929-112 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Rouwdienst op Schi
+     3682x2448  1977  CC0              | Stoet trekt langs de kisten, Bestanddeelnr 929-1133.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Begrafenisplechtig
+     3667x2444  2019  Public domain    | Ocean Sky 2019 (5861692).jpg | Spanish air force F/A-18 Hornets launch for a sortie in support of the Spanish-l
+     3658x1956  2012  CC BY 3.0        | Santa Cruz de Tenerife airport runway landing system, Canary Islands, Spain -  | Santa Cruz de Tenerife airport runway landing system, Canary Islands, Spain
+     3627x2421  2010  CC BY 2.0        | Boarding rear door (5195398367).jpg | &lt;a href=" https://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Pho
+     3535x2359  2010  CC BY 2.0        | Boarding aircraft (5195400705).jpg | &lt;a href=" http://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Phot
+     3519x2348  2010  CC BY 2.0        | Aeropuerto de Gran Canaria (5195963060).jpg | &lt;a href=" http://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Phot
+     3445x2299  2010  CC BY 2.0        | Boeing 757-28A, Mint Airways, EC-LHL (5196006968).jpg | &lt;a href=" http://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Phot
+     3441x2296  2010  CC BY 2.0        | Burger King Meal (5195993614).jpg | &lt;a href=" https://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Pho
+     3413x2171  2008  CC BY 3.0        | Aeropuerto LPA Gran Canaria.jpg | Gran Canaria Airport (LPA). Terminal Building.
+     3367x2749  1977  CC0              | Eén de twee verongelukte toestellen, Bestanddeelnr 929-1006.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     3367x2529  1977  CC0              | Vliegtuigmotor van één van de verongelukte jumbojets, Bestanddeelnr 929-1008 ( | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     3288x2184  2010  CC BY 3.0        | Gran Canaria International Airport R01.jpg | Gran Canaria: international airport
+     3264x2448  2014  CC0              | LPA airport.jpg | Gran Canaria airport
+     3241x2739  1977  CC0              | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1003.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     3206x2744  1977  CC0              | Beeld van één van de twee verongelukte toestellen, Bestanddeelnr 929-1007.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     3048x3044  2012  CC BY 3.0        | Airporttower(Cran Canaria) - panoramio.jpg | Airport tower (Gran Canaria)
+     2778x3007  1977  CC0              | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1004.jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     2775x1852  2010  CC BY 2.0        | Mint Airways (5195401471).jpg | &lt;a href=" https://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Pho
+     2642x3522  2011  CC BY 2.0        | Tenerife North Airport radar.jpg | Radar installation at Tenerife North Airport (GCXO).
+     2560x1920  2011  CC BY 2.0        | Bell 412SP aterrizando en el aeropuerto de Los Rodeos (Tenerife Norte).jpg | Bell 412SP aterrizando en el aeropuerto de Los Rodeos (Tenerife Norte)
+     2457x3700  1977  CC0              | President-directeur van KLM Orlandini staat de pers te woord, Bestanddeelnr 92 | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp op Tener
+     2422x2422  2010  CC BY 2.0        | Jet engine (5195403907).jpg | &lt;a href=" http://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Phot
+     2330x3492  2010  CC BY 2.0        | Boarding aircraft (5195999576).jpg | &lt;a href=" http://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Phot
+     2274x993   2006  Public domain    | Gran canaria airport.JPG | Gran Canaria international airport
+     2257x1437  2011  CC0              | VvZ Westgaarde.jpg | Надгробный камень с именем ван Зантена
+     2075x1558  1977  CC0              | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1003 (cropped).jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     2075x1383  1977  CC0              | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1003 (cropped) (croppe | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     2073x1558  1977  CC0              | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1005 - cropped.jpg | Wreckage on the runway of Los Rodeos after the Tenerife airport disaster of Marc
+     2060x1541  2009  Public domain    | TenerifeMemorial.JPG | Tenerife Memorial
+     2056x1515  1977  CC0              | Eén de twee verongelukte toestellen, Bestanddeelnr 929-1006 (cropped).jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     1632x1009  2003  CC BY 2.5        | Plataforma tfn.jpg | Aeropuerto de Tenerife Norte
+     1632x1232  2003  Public domain    | Terminal tfn.jpg | Nuevo Edificio Terminal
+     1600x1200  2011  CC0              | AerodromoGranCanaria.png | Aerodrome in south of Gran Canaria
+     1600x1200  2006  Public domain    | PA030007.JPG | Vista de la terminal de vuelos insulares del Aeropuerto de Gran Canaria
+     1560x2071  1977  CC0              | Het verongelukte KLM-toestel De Rijn, Bestanddeelnr 929-1004 (cropped).jpg | Collectie / Archief : Fotocollectie Anefo Reportage / Serie : Vliegramp Tenerife
+     1534x1192  2009  Public domain    | Tenerife lennujaam.jpg | Tenerife lennujaam satelliidipildil.
+     1280x960         CC BY 2.0        | Aeropuerto gran canaria terminal galeria comercial navidad.jpg | 
+     1280x853   2006  CC BY 2.0        | Pan Am Boeing 747-121 N736PA at Sydney.jpg | A Pan Am Boeing 747-121 (N736PA) named Clipper victor. This Boeing 747 operated 
+小   1200x803   2007  Public domain    | GCLP.jpg | Aterrizaje nocturno en la pista 03L de Gando.
+小   1200x834   2009  CC BY 3.0        | Planes on the runway at Gran Canaria airport (19 December 2009).jpg | A Boeing 747 and other aircraft at Gran Canaria airport.
+小   1126x845   2007  Public domain    | Gran Canaria Airport.jpg | Gran Canaria Airport, Terminal A
+小   1024x768   2007  Public domain    | Fachada Aeropuerto de Gran Canaria.JPG | Aeropuerto de Gran Canaria (Gando)
+小    990x660   2017  CC BY 4.0        | Wind rose 2016 for GCLP Gran Canaria, Spain.jpg | en:Wind rose showing distribution of wind speed and direction for en:Gran Canari
+小    965x680   1979  Attribution      | Suárez & Galván.jpg | Llegada del presidente del gobierno de España Adolfo Suárez al aeropuerto de Los
+小    958x680   1979  Attribution      | Suárez & Quintana.jpg | El presidente del gobierno de España Adolfo Suárez a su llegada al aeropuerto de
+小    850x284   2006  CC BY 2.5        | Tenerife 747 Crash.png | Map of the Tenerife Airfield shortly before the crash of two Boeing 747 on 3.27.
+小    847x200   2014  Public domain    | Aena Gran Canaria.svg | Aena's official logo for Gran Canaria Airport.
+小    733x182   2008  Public domain    | Tenerife Disaster EST.jpg | Tenerife Plane Crash
+小    727x300   2020  Public domain    | Aena Tenerife N.svg | Aena's official logo for Tenerife North-Ciudad de La Laguna Airport.
+小    586x392   1970  Public domain    | Pat Nixon in first 747.png | First Lady Pat Nixon visits the cockpit of the first commercial Boeing 747 jet i
+小    487x329   2008  Public domain    | Westgaarde.jpg | Westgaarde monument (Amsterdam)
+小    350x85    2019  Public domain    | Aena Tenerife N logo.svg | Aena's official logo for Tenerife North Airport.
+小    325x80    2019  Public domain    | Aena Gran Canaria logo.svg | Aena's official logo for Gran Canaria Airport
+
+## 継承あり＝CC BY-SA（使わない。参考）
+    8897x5804  1975  CC BY-SA 2.0     | KLM Boeing 747-200; PH-BUF@LHR, August 1975.jpg
+    6960x4640  2020  CC BY-SA 4.0     | At Tenerife 2020 805.jpg
+    6960x4640  2020  CC BY-SA 4.0     | At Tenerife 2020 806.jpg
+    6960x4640  2020  CC BY-SA 4.0     | At Tenerife 2020 808.jpg
+    6960x4640  2023  CC BY-SA 4.0     | At Tenerife 2023 1393.jpg
+    6960x4640  2023  CC BY-SA 4.0     | At Tenerife 2023 1396.jpg
+    6960x4640  2023  CC BY-SA 4.0     | At Tenerife 2023 883.jpg
+    6960x4640  2023  CC BY-SA 4.0     | At Tenerife 2023 884.jpg
+    6960x4640  2020  CC BY-SA 4.0     | Mujer Rural 2020 08.jpg
+    6960x4640  2020  CC BY-SA 4.0     | Mujer Rural 2020 09.jpg
+    6960x4640  2020  CC BY-SA 4.0     | Mujer Rural 2020 10.jpg
+    6000x4000  2019  CC BY-SA 4.0     | Aterrizaje Aeropuerto de Tenerife Norte.jpg
+    6000x4000  2019  CC BY-SA 4.0     | Aterrizaje Aeropuerto de Tenerife Norte 2.jpg
+    5472x3648  2017  CC BY-SA 2.0     | Ejercicio Dissimilar Air Combat Training - DACT 2017 - Base Aérea de Gando (32
+    4928x3264  2015  CC BY-SA 4.0     | Binter Canarias Hangar GCLP.JPG
+    4928x3264  2015  CC BY-SA 4.0     | Pushback GCLP.JPG
+    4928x3264  2015  CC BY-SA 4.0     | Military Base at GCLP.JPG
+    4640x6960  2020  CC BY-SA 4.0     | At Tenerife 2020 810.jpg
+    4302x2860  2017  CC BY-SA 4.0     | Conjunto de esculturas 'Aves' en el Aeropuerto de Gran Canaria.jpg
+    4302x2860  2017  CC BY-SA 4.0     | Esculturas 'Aves' en el Aeropuerto de Gran Canaria 02.jpg
+    4302x2860  2017  CC BY-SA 4.0     | Esculturas 'Aves' en el Aeropuerto de Gran Canaria 01.jpg
+    4032x3024  2020  CC BY-SA 4.0     | At Tenerife 2020 684.jpg
+    4032x3024  2020  CC BY-SA 4.0     | At Tenerife 2020 685.jpg
+    4032x3024  2022  CC BY-SA 4.0     | At Tenerife 2022 425.jpg
+    4032x3024  2022  CC BY-SA 4.0     | At Tenerife 2022 426.jpg
+    4032x3024  2022  CC BY-SA 4.0     | At Tenerife 2022 428.jpg
+    4032x3024  2022  CC BY-SA 4.0     | At Tenerife 2022 429.jpg
+    4032x3024  2023  CC BY-SA 4.0     | At Tenerife 2023 1716.jpg
+    4032x3024  2023  CC BY-SA 4.0     | At Tenerife 2023 1717.jpg
+    4032x3024  2023  CC BY-SA 4.0     | At Tenerife 2023 1718.jpg
+    4032x3024  2023  CC BY-SA 4.0     | At Tenerife 2023 675.jpg
+    4032x3024  2023  CC BY-SA 4.0     | At Tenerife 2023 676.jpg
+    4032x3024  2023  CC BY-SA 4.0     | At Tenerife 2023 677.jpg
+    4032x3024  2023  CC BY-SA 4.0     | At Tenerife 2023 678.jpg
+    4032x3024  2023  CC BY-SA 4.0     | At Tenerife 2023 679.jpg
+    4032x3024  2023  CC BY-SA 4.0     | At Tenerife 2023 680.jpg
+    4032x3024  2023  CC BY-SA 4.0     | At Tenerife 2023 681.jpg
+    4032x3024  2023  CC BY-SA 4.0     | At Tenerife 2023 682.jpg
+    4032x3024  2023  CC BY-SA 4.0     | At Tenerife 2023 1750.jpg
+    4032x3024  2023  CC BY-SA 4.0     | At Tenerife 2023 1751.jpg

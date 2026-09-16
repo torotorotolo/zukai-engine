@@ -1,0 +1,23 @@
+
+===== Los Rodeos（NARA）=====
+  該当 **1014** 件中 300 件を実測
+  デジタル化ずみのレコード 300 件／デジタル物 6862点（500KB超 3802点・中央値 0.56MB）
+  🔴 うち**写真・記録映像だけ**で **0点**（残りは報告書のページ画像。混ぜて数えない）
+  種類ごとのデジタル物: {'Textual Records': 6862}
+  資料の種類（レコード数）: {'Textual Records': 300}
+  デジタル物の種類: {'Image (JPG)': 6524, 'Image (TIFF)': 244, 'Portable Document File (PDF)': 94}
+  🔴 利用制限: {'Unrestricted': 200, 'Restricted - Possibly': 97, 'Undetermined': 3}
+     閲覧制限: {'Unrestricted': 126, 'Restricted - Possibly': 125, 'Restricted - Partly': 46, 'Undetermined': 3}
+       MB        naId  種類 / 題
+    202.3   323154456  Portable Docum Idaho [OA 6902] [1]
+    195.7   323152626  Portable Docum Centennial of State of Montana 9/18/89 [OA 6268] [4]
+    192.6    25745133  Portable Docum Chautaqua NWR, 1963
+    176.8   123857936  Portable Docum California NHL Los Cerritos Ranch House
+    118.1   583498639  Portable Docum Hall, C. Ray Exhibit No. 1-4
+     96.1   323154457  Portable Docum Idaho [OA 6902] [2]
+     94.4   159104563  Portable Docum American Federation of Musicians of the United States and Canada, Byla
+     90.5   159104577  Portable Docum American Federation of Musicians of the United States and Canada, Byla
+     90.3   323152993  Portable Docum Frontier Days Cheyenne, WY 7/20/90 [OA 8314] [3]
+     84.4   492059327  Portable Docum Media, Spouse and Delegation Handbooks
+
+保存: analytics\materials\nara_Los_Rodeos.json
