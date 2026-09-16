@@ -287,9 +287,9 @@
    "reason": "近所比0.54×。⚠️ 語の網では230,447に見えるが、それは別の火災（1977 ビバリーヒルズ）"
   },
   {
-   "name": "テネリフェ空港衝突",
+   "name": "⭐テネリフェ空港衝突(9本目)",
    "pattern": "テネリフェ",
-   "verdict": "保留",
+   "verdict": "採用",
    "neighbor": 1.86,
    "shelf_n": 3,
    "shelf_ch": 3,
@@ -304,7 +304,8 @@
     "fullscreen": 33,
     "pd": 33
    },
-   "note": "🔴 9本目の**推奨**としてカズヤくんに提案（2026-09-16）。②で確かめること＝(1) Nationaal Archief 本体に1977年の束があと何点あるか（Commons は一部だけ）(2) 動く映像（Open Images／Beeld en Geluid／Polygoon 週刊ニュース映画）(3) 報告書の英訳 ICAO Circular 153-AN/56 の入手経路"
+   "note": "✅ **2026-09-16 カズヤくん承認＝9本目に決定**。①の正本＝Vault Projects/引き継ぎ-事故検証-9本目-①題材-20260916-テネリフェ決定.md。🔴 ②で確かめること＝(1) Nationaal Archief 本体に1977年の束があと何点あるか（Commons は一部だけ）(2) 動く映像（Open Images／Beeld en Geluid／Polygoon 週刊ニュース映画。⚠️Polygoon は CC BY-SA の恐れ）(3) 報告書の英訳 ICAO Circular 153-AN/56 の入手経路 (4) PanAm 側（米国）の資料＝NTSB は当事国でないが米国人335名が犠牲",
+   "episode": 9
   },
   {
    "name": "ラジウムガールズ",
