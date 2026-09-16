@@ -55,8 +55,12 @@ CREDITS = HERE / "ref" / "CREDITS.md"
 #       `lines.index(HEADER)` で**最初に当たった行**から読むので、同じ文字列だと
 #       8本目の表を足しても **`ref/CREDITS.md` の中の7本目の表を読み続ける**
 #       （＝黙って前の回を測る）。8本目は最後の列を「NASA の識別子」にして分けた。
-EP_PREFIX = "ep8/"
-HEADER = "| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | NASA の識別子 |"
+#    🔴🔴 2026-09-16（9本目 テネリフェ ⑤b-1）：**9本目へ切り替えた。**8本目の値は
+#       `EP_PREFIX="ep8/"` ／ 見出しの最後の列が「NASA の識別子」。
+#       9本目は最後の列を「**Commons の題名**」にして、7本目（元の題名）とも分けた。
+#       ⚠️ `ref/CREDITS.md` に §テネリフェ の表を足すまで `load_table()` は**止まる**（正しい）。
+EP_PREFIX = "ep9/"
+HEADER = "| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | Commons の題名 |"
 ROW = re.compile(r"^\|\s*`([a-z0-9_]+)`\s*\|([^|]*)\|([^|]*)\|([^|]*)\|([^|]*)\|(.*)\|\s*$")
 
 # 副題が名乗る「年」。⚠️ ここに足すときは必ず陽性対照も足す
@@ -72,7 +76,11 @@ PLACE = re.compile(
     r"\b(Kadena|Ramstein|Geilenkirchen|Lithuania|Siauliai|Kunsan|Incirlik|Lakenheath|"
     r"Geneva|Melbourne|Lahore|Domodedovo|Mogadishu|Taoyuan|Helsinki|Manchester|"
     r"Boston|Logan|Dulles|Newark|Atlanta|Chicago|ORD|DCA|Prince Sultan|Shanksville|"
-    r"Pentagon|New York|Washington|Houston)\b", re.I)
+    r"Pentagon|New York|Washington|Houston|"
+    # 🔴 2026-09-16（9本目）：テネリフェの回の素材に出る地名。
+    #    ⚠️ 「いまの空港」を1977年の空港と名乗らせないために、原題の地名を副題と並べる
+    r"Tenerife|Los Rodeos|Gran Canaria|Las Palmas|Schiphol|Amsterdam|Sydney|"
+    r"San Francisco|Los Angeles|JFK|Kennedy|Frankfurt|Seattle|Everett|Honolulu)\b", re.I)
 MODEL = re.compile(
     r"\b(7[0-9]{2}-?[0-9]{0,3}(?:ER|F|MAX)?|A2?[0-9]{2,3}(?:-[0-9]{3})?|"
     r"F-1[56][A-Z]*|C-40|CS100|E190|MD-?[0-9]{2})\b")
