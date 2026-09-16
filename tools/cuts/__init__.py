@@ -102,7 +102,36 @@ for _cid, _ov in PHOTO_OVERRIDE.items():
 #    中身は git の `4c71bf0`（`git show 4c71bf0:tools/cuts/__init__.py`）。
 #    ⚠️ カットIDは 215中203件が8本目とぶつかる。**残したまま始めると
 #       コロンビア号の写真が黙って地に敷かれる。**
+#
+# 🔴 2026-09-16（9本目 ⑤b-2）：**台本の画の欄が「実写」で、当てる写真が無い／話が図のもの**を
+#    図にし、**その話の対象を写した写真**を地に敷いた（写真映像の数は台本のまま）。
+#    ⚠️ 管制塔の写真は0点（c518・c719）＝ターミナルから駐機場を見た写真を沈めるだけで、
+#       管制塔と名乗らない（副題は図の副題のまま）。
+#    ⚠️ 同じ写真を実写で使うカットがあるもの（_02・_06・_09・_11 ほか）は**寄りを変えて**敷く。
+#    ⚠️ `wreck_both_*` はファイル単位の `TRIM` が効く（台紙と「PATERSON」を外したまま敷かれる）。
 BACKDROP = {
+    "c105": dict(photo=ss.P("schiphol_1977_01"), zoom=1.20, xbias=0.60),
+    "c201": dict(photo=ss.P("laspalmas_now_11"), zoom=1.30, xbias=0.30),
+    # c208「上空で待てないか」＝飛んでいるパンナムの747（1970年・遠い）を沈める
+    "c208": dict(photo=ss.P("panam_ams1970_02")),
+    "c210": dict(photo=ss.P("losrodeos_now_07"), zoom=1.30, xbias=0.70, bias=0.40),
+    "c307": dict(photo=ss.P("losrodeos_now_14"), zoom=1.30, xbias=0.20),
+    "c310": dict(photo=ss.P("losrodeos_now_06"), zoom=1.20, xbias=0.30),
+    "c416": dict(photo=ss.P("klm_747_1973_01"), zoom=1.30, xbias=0.80, veil=0.86),
+    "c420": dict(photo=ss.P("klm_747_1971_01"), zoom=1.30, xbias=0.50),
+    "c507": dict(photo=ss.P("losrodeos_now_09"), bias=0.60),
+    "c511": dict(photo=ss.P("losrodeos_now_10"), bias=0.80),
+    "c518": dict(photo=ss.P("losrodeos_now_11"), bias=0.60),
+    "c519": dict(photo=ss.P("losrodeos_now_02"), zoom=1.30, xbias=0.80, bias=0.62),
+    "c521": dict(photo=ss.P("losrodeos_now_13"), bias=0.50),
+    "c601": dict(photo=ss.P("klm_747_1973_01"), zoom=1.30, xbias=0.30),
+    "c606": dict(photo=ss.P("losrodeos_now_08")),
+    "c619": dict(photo=ss.P("losrodeos_now_08"), zoom=1.40, xbias=0.40, bias=0.40),
+    "c624": dict(photo=ss.P("losrodeos_now_02"), zoom=1.20, xbias=0.10, bias=0.62),
+    "c701": dict(photo=ss.P("losrodeos_now_12"), zoom=1.30, xbias=0.40),
+    "c719": dict(photo=ss.P("losrodeos_now_11"), zoom=1.30, xbias=0.30, bias=0.70),
+    "c916": dict(photo=ss.P("wreck_both_02")),
+    "c917": dict(photo=ss.P("wreck_both_01")),
 }
 
 for _cid, _ov in BACKDROP.items():

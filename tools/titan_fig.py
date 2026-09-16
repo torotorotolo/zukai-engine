@@ -3474,3 +3474,316 @@ def truss(mode="flow", lead="", note="", marks=None, hot_panel=None):
                              col=J.ALERT))
     return Fig("".join(g), stages, "", (x0 - 140, x1 + 140))
 
+
+# ══════════════════════════════════════════════════════════
+# 24. runway — 滑走路と平行誘導路の模式平面（9本目・テネリフェ）
+# ══════════════════════════════════════════════════════════
+# 🔴 2026-09-16（9本目 ⑤b-2）新設。第2・3・6・7・8章で同じ平面が要る（3カット以上）。
+#    ⚠️ **下敷きにできる空港全体の平面図が報告書に無い。**
+#       p59（付属書6）は事故現場付近の 1:2000 の詳細図で、C-3・C-4 と残骸しか描かれていない。
+#       p58（付属書4）は衝突の瞬間の2機の位置関係。**C-1・C-2 の位置はどこにも無い。**
+#    → **道の位置と角度は模式**。カット側の note で必ず断る。
+#    向き（型が持つ・カットで変えない）：
+#       左＝滑走路12側の端（北西・駐機場の側）／右＝30側の端（南東）／誘導路は北東側＝上。
+#       根拠＝報告書 p3「5機は滑走路12の端に近い誘導路に停められ、KLM機はパンナム機と
+#       滑走路の入り口のあいだにいた」／p4「三番目の道で**左へ**」（パンナムは12側から30側へ走る
+#       ＝左は北東）。
+#    道の置き場所（割合・左端0＝12側の端）：
+#       C-3＝0.50 … p59 で C-3 は滑走路の中点（「両端から1700m」の基準点）のすぐ脇。
+#       C-4＝0.60 … p59 でパンナム機の残骸（30側の端から約1,385m＝0.593）が C-4 の口にある。
+#       C-1＝0.10・C-2＝0.30 … **位置の資料なし**。駐機場の側にあることだけが分かっている。
+#    🔴🔴 C-3 を「148度」に描かない（報告書にあるのは CVR の「一つ目は90度」だけ）。
+#       ＝ 道は全部、滑走路に**直角の短い帯**で描く（路線図と同じ約束で、角度を主張しない）。
+RW_EXITS = (("C-1", 0.10), ("C-2", 0.30), ("C-3", 0.50), ("C-4", 0.60))
+RW_L0, RW_L1 = BX0 + 150, BX1 - 150          # 滑走路の両端 x（222 / 1698）
+RW_Y = BY0 + BH * 0.64                         # 滑走路の中心 y（約646）
+TW_Y = BY0 + BH * 0.30                         # 誘導路の中心 y（約415）
+RW_H, TW_H = 56, 26
+
+
+def _plane(x, y, head=0.0, s=1.0, col=None, op=None):
+    """上から見た旅客機の略図。head＝機首の向き（度・0＝右＝30側の端へ）。
+
+    s=1 で胴の長さ 104・翼幅 92（747）。小さい機体は s=0.62 を渡す。
+    """
+    pts = [(52, 0), (45, -5), (10, -6), (-12, -46), (-22, -46), (-12, -6), (-38, -5),
+           (-48, -20), (-54, -20), (-50, -4), (-52, 0), (-50, 4), (-54, 20), (-48, 20),
+           (-38, 5), (-12, 6), (-22, 46), (-12, 46), (10, 6), (45, 5)]
+    a = math.radians(head)
+    ca, sa = math.cos(a), math.sin(a)
+    P = [(x + s * (px * ca - py * sa), y + s * (px * sa + py * ca)) for px, py in pts]
+    return poly(P, fill=col or J.INK_W, close=True, op=op)
+
+
+def runway(steps=None, note="", exits=True, apron=True, tower=False, ends=True,
+           src="", taxiway=True):
+    """滑走路（下）と平行誘導路（上）、つなぐ道 C-1〜C-4 の模式平面。
+
+    steps … 段ごとの中身（ナレーションの行に合わせて出る）。1段＝dict で、使える鍵：
+      planes=[dict(at=0.10, on="twy"|"rwy", head=180, t="KLM", c=, s=1.0)]
+             ⚠️ 札は滑走路なら下、誘導路なら上に出る。`lab=False` で札なし
+      path=[dict(on="rwy"|"twy", a=0.10, b=0.95, c=, via="C-3")]
+             `via` を渡すと 滑走路→その道→誘導路 の折れ線（a は滑走路、b は誘導路の上の位置）
+      turn=dict(at=0.975, c=, t="180度")      滑走路の端で向きを変える弧（札は上の隙間）
+      hot=[("C-3", 色)]                       道を色で名指しする（帯＋札の枠）
+      block=["C-1", "C-2"]                    道に✗
+      mark=[dict(at=0.5, y="gap"|"above"|"below"|"low"|"top", t="", c=, anchor="middle")]
+      dim=[dict(a=0.59, b=0.80, t="約700メートル", c=)]   滑走路の下に寸法線（字は Noto）
+      cloud=dict(a=0.3, b=1.0, t="")          雲の帯（その段より後の段は上に描かれる）
+      clash=dict(at=0.59, c=)                 ぶつかった所の印
+    exits … True なら道の札（C-1〜C-4）を出す。False なら帯だけ。
+    taxiway … False なら誘導路・つなぐ道・駐機場を描かない（滑走路そのものの話のカット）。
+    """
+    if not taxiway:
+        exits, apron = False, False
+    LWD = RW_L1 - RW_L0
+
+    def X(f):
+        return RW_L0 + LWD * f
+
+    ex = dict(RW_EXITS)
+    top_r, bot_r = RW_Y - RW_H / 2, RW_Y + RW_H / 2
+    top_t, bot_t = TW_Y - TW_H / 2, TW_Y + TW_H / 2
+    GAP_Y = (bot_t + top_r) / 2 + 12               # 道の札の字の基線
+    LEV = {"top": BY0 + 44, "above": TW_Y - 62, "gap": GAP_Y,
+           "below": RW_Y + 80, "low": RW_Y + 150}
+    g = []
+    if apron:
+        ax0, ax1 = X(-0.06), X(0.40)
+        ay0, ay1 = BY0 + 40, top_t - 40
+        g.append(rect(ax0, ay0, ax1 - ax0, ay1 - ay0, J.BG2, J.LINE_DIM, 3, rx=10))
+        g.append(txt(ax0 + 20, ay0 + 40, "駐機場", 30, J.TICK))
+    if tower:
+        tx_, ty_ = X(0.46), top_t - 84
+        g.append(rect(tx_ - 13, ty_ - 13, 26, 26, J.INK_W))
+        g.append(txt(tx_ + 26, ty_ + 11, "管制塔", 30, J.INK_W))
+    # 誘導路
+    if taxiway:
+        g.append(rect(X(0.0), top_t, X(0.985) - X(0.0), TW_H, J.LINE_DIM, op=0.55))
+        g.append(line(X(0.0), top_t, X(0.985), top_t, J.LINE, 2))
+        g.append(line(X(0.0), bot_t, X(0.985), bot_t, J.LINE, 2))
+    # つなぐ道
+    for name, f in (RW_EXITS if taxiway else ()):
+        g.append(rect(X(f) - 11, bot_t, 22, top_r - bot_t, J.LINE_DIM, op=0.55))
+        g.append(line(X(f) - 11, bot_t, X(f) - 11, top_r, J.LINE, 2))
+        g.append(line(X(f) + 11, bot_t, X(f) + 11, top_r, J.LINE, 2))
+        if exits:
+            g.append(txt(X(f) + 22, GAP_Y, name, 30, J.LINE, "Dela"))
+    # 滑走路
+    g.append(rect(RW_L0, top_r, LWD, RW_H, J.LINE_DIM, op=0.55))
+    g.append(line(RW_L0, top_r, RW_L1, top_r, J.INK_W, 3))
+    g.append(line(RW_L0, bot_r, RW_L1, bot_r, J.INK_W, 3))
+    g.append(line(RW_L0 + 30, RW_Y, RW_L1 - 30, RW_Y, J.LINE, 3, dash="26 20", op=0.7))
+    if ends:
+        g.append(txt(RW_L0 - 18, RW_Y + 14, "12", 40, J.INK_W, "Dela", "end"))
+        g.append(txt(RW_L1 + 18, RW_Y + 14, "30", 40, J.INK_W, "Dela", "start"))
+        g.append(txt(RW_L0 - 18, RW_Y + 54, "北西", 26, J.TICK, "Noto", "end"))
+        g.append(txt(RW_L1 + 18, RW_Y + 54, "南東", 26, J.TICK, "Noto", "start"))
+    if note:
+        g.append(txtfit(BX0, BY1 - 6, note, BW * (0.58 if src else 1.0), cap=28,
+                        col=J.TICK))
+    _src(g, src, bool(note), BY1 - 6)
+
+    def label_at(x, y, t, c, anchor="middle", cap=34, w=520):
+        if anchor == "middle":
+            if x - w / 2 < BX0:
+                anchor, x = "start", max(BX0, x - 40)
+            elif x + w / 2 > BX1:
+                anchor, x = "end", min(BX1, x + 40)
+        return txtfit(x, y, t, w, cap=cap, col=c, anchor=anchor, ol=6)
+
+    stages = []
+    for st in (steps or []):
+        s = []
+        cl = st.get("cloud")
+        if cl:
+            s.append(rect(X(cl.get("a", 0.0)), BY0 + 26, X(cl.get("b", 1.0)) - X(cl.get("a", 0.0)),
+                          BY1 - 70 - (BY0 + 26), J.LINE, op=cl.get("op", 0.18)))
+            if cl.get("t"):
+                s.append(label_at((X(cl.get("a", 0.0)) + X(cl.get("b", 1.0))) / 2, BY0 + 64,
+                                  cl["t"], J.INK_W, cap=32))
+        lt = st.get("lights")
+        if lt:
+            # 中心線灯（滑走路の真ん中に並ぶ灯り）。on=False は「消えている」＝中空の輪。
+            for k in range(1, 25):
+                x = X(k / 25)
+                if lt.get("on", True):
+                    s.append(circ(x, RW_Y, 7, J.AMBER))
+                else:
+                    s.append(circ(x, RW_Y, 7, "none", J.TICK, 3))
+        for p in st.get("path", []):
+            c = p.get("c", J.AMBER)
+            if p.get("via"):
+                fx = X(ex[p["via"]])
+                pts = [(X(p["a"]), RW_Y), (fx, RW_Y), (fx, TW_Y), (X(p["b"]), TW_Y)]
+            else:
+                y = RW_Y if p.get("on", "rwy") == "rwy" else TW_Y
+                pts = [(X(p["a"]), y), (X(p["b"]), y)]
+            s.append(poly(pts[:-1] + [pts[-1]], stroke=c, sw=6, dash="20 12"))
+            s.append(arrow(pts[-2][0], pts[-2][1], pts[-1][0], pts[-1][1], c, 6, 26))
+        tn = st.get("turn")
+        if tn:
+            c = tn.get("c", J.AMBER)
+            cx, r = X(tn.get("at", 0.975)), 18
+            arc = [(cx + r * math.sin(math.pi * k / 16), RW_Y - r * math.cos(math.pi * k / 16))
+                   for k in range(17)]
+            s.append(poly(arc, stroke=c, sw=6))
+            s.append(arrow(arc[-2][0], arc[-2][1], arc[-1][0] - 10, arc[-1][1], c, 6, 20))
+            if tn.get("t"):
+                s.append(label_at(cx, GAP_Y, tn["t"], c, anchor="end", cap=34, w=360))
+        for name, c in st.get("hot", []):
+            f = X(ex[name])
+            s.append(rect(f - 11, bot_t, 22, top_r - bot_t, c, op=0.9))
+            if exits:
+                w_ = fm.width(name, 30, "Dela")
+                s.append(rect(f + 12, GAP_Y - 38, w_ + 22, 52, "none", c, 4, rx=8))
+        for name in st.get("block", []):
+            f = X(ex[name])
+            yb = bot_t + 30
+            s.append(line(f - 20, yb - 20, f + 20, yb + 20, J.ALERT, 7))
+            s.append(line(f + 20, yb - 20, f - 20, yb + 20, J.ALERT, 7))
+        for p in st.get("planes", []):
+            on = p.get("on", "rwy")
+            if on == "apron":
+                # 駐機場の段（札は出さない＝駐機場の中に文字を増やさない）
+                s.append(_plane(X(p["at"]), (BY0 + 40 + top_t - 40) / 2 + 14,
+                                p.get("head", 0), p.get("s", 0.5), p.get("c", J.LINE)))
+                continue
+            x, y = X(p["at"]), (RW_Y if on == "rwy" else TW_Y)
+            c = p.get("c", J.INK_W)
+            s.append(_plane(x, y, p.get("head", 0), p.get("s", 1.0), c))
+            if p.get("t") and p.get("lab", True):
+                ly = LEV["below"] if on == "rwy" else LEV["above"]
+                s.append(label_at(x, ly, p["t"], c, cap=p.get("cap", 32), w=p.get("w", 300)))
+        for m in st.get("mark", []):
+            s.append(label_at(X(m["at"]), LEV[m.get("y", "gap")], m["t"],
+                              m.get("c", J.AMBER), m.get("anchor", "middle"),
+                              cap=m.get("cap", 34), w=m.get("w", 520)))
+        for d in st.get("dim", []):
+            c = d.get("c", J.AMBER)
+            xa, xb, y = X(d["a"]), X(d["b"]), LEV["low"]
+            s.append(line(xa, y, xb, y, c, 4))
+            s.append(line(xa, y - 14, xa, y + 14, c, 4))
+            s.append(line(xb, y - 14, xb, y + 14, c, 4))
+            s.append(txtfit((xa + xb) / 2, y + 48, d["t"], max(260, xb - xa + 120), cap=34,
+                            col=c, anchor="middle", ol=6))
+        cs = st.get("clash")
+        if cs:
+            c = cs.get("c", J.ALERT)
+            x = X(cs["at"])
+            for k in range(8):
+                a = math.pi * k / 4
+                s.append(line(x + 26 * math.cos(a), RW_Y + 26 * math.sin(a),
+                              x + 58 * math.cos(a), RW_Y + 58 * math.sin(a), c, 6))
+        stages.append("".join(s))
+    return Fig("".join(g), stages, "", (BX0, BX1))
+
+
+# ══════════════════════════════════════════════════════════
+# 25. radio — 話し手ごとの段に、送信の帯を時間の順に置く（9本目・テネリフェ）
+# ══════════════════════════════════════════════════════════
+# 🔴 2026-09-16（9本目 ⑤b-2）新設。`timeline` は軸1本に旗を上下に立てる型で、
+#    **「誰の送信が、いつ、どこで重なったか」を話し手ごとに分けて見せる手段が無い**。
+#    第7章（重なった30秒）は、その重なりそのものが主役（`ref/ep9/kousei.md` §2）。
+#    ⚠️ 時刻は報告書 p4・p5 の KLM 機の CVR の秒（例：復唱 17:06:09.61〜17:06:17.79）。
+#       **画面に小数の秒を出さない**（目盛りは「17:06:10」の形。`check_wording` H）。
+#    ⚠️ 秒の資料が無いやりとり（例：16時58分台の往復）は、`t` に順番（1, 2, 3…）を入れ、
+#       `ticks` を渡さず、note で「順番だけ（間隔は正確ではない）」と断る。
+def radio(lanes, events, t0, t1, ticks=None, bands=None, note="", src=""):
+    """lanes … ["KLMの操縦室", "管制塔", "パンナム"]（2〜3段）
+    events … [dict(lane=0, a=369.6, b=377.8, t="復唱", d="", c=, pre=False, st=None)]
+       `b` を省くと点（丸）で打つ。`pre=True` は骨格に入れて最初から見せる（前のカットの続き）。
+       `st` が同じものは同じ段に出る（省略時は1件1段）。
+    bands … [dict(a=379.4, b=382.1, t="甲高い音", c=J.ALERT, st=None)] 全段にまたがる帯
+    ticks … [(360, "17:06:00"), …]
+    """
+    n = max(1, len(lanes))
+    AX0, AX1 = BX0 + 300, BX1 - 30
+    top, bot = BY0 + 76, BY1 - 150
+    lh = (bot - top) / n
+    sp = max(1e-6, t1 - t0)
+
+    def X(t):
+        return AX0 + (AX1 - AX0) * (t - t0) / sp
+
+    def YC(i):
+        return top + lh * (i + 0.5)
+
+    g = []
+    for i, name in enumerate(lanes):
+        g.append(txtfit(AX0 - 36, YC(i) + 12, name, 250, cap=32, col=J.INK_W, anchor="end"))
+        if i:
+            g.append(line(BX0, top + lh * i, AX1, top + lh * i, J.GRID, 2, dash="10 10"))
+    ay = BY1 - 118
+    g.append(line(AX0, ay, AX1, ay, J.LINE, 4))
+    for t, lb in (ticks or []):
+        g.append(line(X(t), ay - 10, X(t), ay + 10, J.LINE_DIM, 3))
+        g.append(txt(X(t), ay + 42, lb, 26, J.TICK, "Noto", "middle", ol=6))
+    if note:
+        g.append(txtfit(BX0, BY1 - 6, note, BW * (0.58 if src else 1.0), cap=28,
+                        col=J.TICK))
+    _src(g, src, bool(note), BY1 - 6)
+
+    def band_svg(b):
+        # 🔴 2026-09-16（⑤b-2 の check_layout）：帯を段の上から下まで1枚で塗ると、
+        #    前から見せている送信の札（帯の上下に出る字）を覆った（c613 で2件）。
+        #    → **送信の帯と同じ高さ（中心±26）だけ**を段ごとに塗る。縦に並ぶので列として読める。
+        c = b.get("c", J.ALERT)
+        o = [rect(X(b["a"]), YC(i) - 26, max(6, X(b["b"]) - X(b["a"])), 52, c,
+                  op=b.get("op", 0.24)) for i in range(n)]
+        if b.get("t"):
+            cx = (X(b["a"]) + X(b["b"])) / 2
+            o.append(txtfit(min(max(cx, AX0 + 200), AX1 - 200), top - 22, b["t"], 400,
+                            cap=32, col=c, anchor="middle", ol=6))
+        return "".join(o)
+
+    def ev_svg(e):
+        c = e.get("c", J.AMBER)
+        yc = YC(e.get("lane", 0))
+        xa = X(e["a"])
+        o = []
+        if e.get("b") is None:
+            o.append(circ(xa, yc, 14, c))
+            xb = xa
+        else:
+            xb = X(e["b"])
+            o.append(rect(xa, yc - 22, max(12, xb - xa), 44, c, rx=10, op=e.get("op", 0.92)))
+        w = min(760, AX1 - AX0)
+        if xa + 300 > AX1:
+            anch, lx = "end", xb
+        else:
+            anch, lx = "start", xa
+        if e.get("t"):
+            o.append(txtfit(lx, yc - 38, e["t"], min(w, (lx - AX0 + 20) if anch == "end"
+                                                   else (AX1 - lx)),
+                            cap=e.get("cap", 32), col=c, anchor=anch, ol=6))
+        if e.get("d"):
+            o.append(txtfit(lx, yc + 62, e["d"], min(w, (lx - AX0 + 20) if anch == "end"
+                                                   else (AX1 - lx)),
+                            cap=26, col=J.TICK, anchor=anch, ol=6))
+        return "".join(o)
+
+    groups, order = {}, []
+    for b in (bands or []):
+        if b.get("st") is None:
+            g.append(band_svg(b))
+    for i, e in enumerate(events):
+        if e.get("pre"):
+            g.append(ev_svg(e))
+            continue
+        k = e.get("st", f"_{i}")
+        if k not in groups:
+            groups[k] = []
+            order.append(k)
+        groups[k].append(ev_svg(e))
+    for b in (bands or []):
+        k = b.get("st")
+        if k is None:
+            continue
+        if k not in groups:
+            groups[k] = []
+            order.append(k)
+        groups[k].insert(0, band_svg(b))
+    stages = ["".join(groups[k]) for k in order]
+    return Fig("".join(g), stages, "", (BX0, BX1))
+

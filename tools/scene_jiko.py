@@ -1268,6 +1268,14 @@ for _n, _b in KB_BANDS.items():
 #      15px 欠ける（G-10）ので、c110 側で `xbias=0.0`（図の左端に合わせる）にしてある。
 TRIM_BY_PHOTO["keybridge/kb_p063_fig26.png"] = (0.1176, 0.3154, 0.8823, 0.62205)
 
+# ── 🔴 9本目（テネリフェ）：**その回の `cuts/ss.py` が持つ窓**をファイル単位で足す ──
+#    事故現場6点は焼き付けを器具に挟んだ複写（黒い台紙・留め具・縦書きの「PATERSON」）。
+#    窓は ⑤b-2 で行・列の明るさから測った値で、正本は `cuts/ss.py` の `TRIM`（測り方もそこ）。
+#    ⚠️ 章ファイルに `trim=` を書かない＝同じ写真を別のカットが使っても効く（上の §TRIM の作法）。
+#    ⚠️ `TRIM` を持たない回（`ss.py` を差し替えた次の回）は何も足さない。
+import cuts.ss as _cuts_ss                                          # noqa: E402
+TRIM_BY_PHOTO.update(getattr(_cuts_ss, "TRIM", {}))
+
 PHOTO_TRIM = {cid: s.get("trim") or TRIM_BY_PHOTO.get(s["photo"])
               for cid, s in SPEC.items() if s.get("photo")}
 PHOTO_TRIM = {c: t for c, t in PHOTO_TRIM.items() if t}

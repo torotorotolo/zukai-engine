@@ -138,6 +138,8 @@ python tools/build_jiko.py veil --cuts=c115a     # 濃さ違いを1回で焼き�
 | `beforeafter` | 前と後の2枚 | `a=dict(k="変更前",t="",lines=[],v="",c=)`, `b=...`, `lead`, `note`, `arrow=True`。🔴 **対比**（A vs B）に使うときは `arrow=False`＝中央の「前→後」の矢印を消す（矢印は「A が B になる」と読める。c216・c313。2026-09-06） |
 | `buckle` | 圧縮での壊れ方 | `kind="crush"\|"global"\|"local"\|"peel"\|"s"`, `lead`, `note` |
 | `window` | のぞき窓の断面（中央が厚く縁が薄い） | `marks=["…"]`, `lead`, `note` |
+| `runway` | **滑走路と平行誘導路の模式平面**（9本目・2026-09-16 新設）。左＝12側の端（北西）・右＝30側・誘導路は上（北東）。道 C-1〜C-4 は**直角の短い帯**（角度を主張しない）。`steps=[dict(planes=,path=,turn=,hot=,block=,mark=,dim=,cloud=,lights=,clash=)]` を段ごとに書く | `steps`, `exits`, `apron`, `tower`, `taxiway`, `note`, `src`。🔴 **報告書に空港全体の平面図が無い**＝note で「模式図（道の位置と角度は正確ではない）」と必ず断る。⚠️ 札の段は `LEV`（top/above/gap/below/low）で決まる＝同じ段で横に並べると重なる |
+| `radio` | **話し手ごとの段に送信の帯**（9本目・2026-09-16 新設）。重なった送信を見せる | `lanes=["KLM","管制塔","パンナム"]`, `events=[dict(lane=,a=,b=,t=,d=,c=,pre=,st=)]`, `bands=[dict(a=,b=,t=,c=,st=)]`, `t0`, `t1`, `ticks=[(秒,"17:06:20")]`。⚠️ 秒の資料が無いやりとりは `a` に順番を入れ、`ticks` を渡さず note で「順番だけ」と断る |
 | `punch` | **押し抜きせん断の断面**（4本目・2026-09-05 新設）。スラブ・柱・すり鉢状の破壊面・鉄筋2段。`stage=k` で k 段目までの状態 | `stage=1..8`, `lead`, `note`, `zones=(上の札, 下の札)`（断面の上下が何かを言うときだけ。c105）。🔴 図の中に NIST の数値を書かない（自作の図）。⚠️ 札（スラブ・鉄筋）はスラブの**下・左**に置く＝上に置くと段2の載荷の矢印9本が貫く（⑤c C-06・2026-09-06） |
 
 ### 4本目で足した引数（2026-09-05）
