@@ -1,0 +1,11 @@
+ElevenLabs: 声=Koichi-Deep Calm Japanese Narrator（H8ZPDxbrPcks5hEsi2fq） モデル=eleven_v3 settings={'stability': 0.64, 'similarity_boost': 0.89, 'style': 0.0, 'speed': 1.0, 'use_speaker_boost': True} ／クレジット 89,499 / 131,000／GAP 0.4s
+pr01:  10.40s  (2行)
+（記録に無いカットの wav を 215 本削除）
+
+合成 1 カット／持ち越し 0 カット／未作成 214／記録 1／台本 215
+⚠️ まだ作っていないカット 214: pr02,pr03,pr04,pr05,pr06,pr07,pr08,pr09…
+作ったぶん: 1カット 55字 → 発話＋行間 10.4秒（5.29字/秒・行間込み。AivisSpeech は 5.52）
+本編の見込み 43.0分（全 12515字をこの速さで＋LEAD/TAIL 0.85×215＋quote 2.0×14。許容 27〜40分 ← 🔴 外）
+最長の1行 = 6.32秒「1977年3月27日の夕方5時すぎ、スペインのカナリア諸島。」
+API 2行（55字）／キャッシュ 0行／振り直し 0回／本物と判定 0／要耳 0（記録＝audio/el_qa/ep9_el_retakes.tsv）
+クレジット 89,499 → 89,499（消費 0）⚠️ 反映が遅れることがある

@@ -55,6 +55,12 @@ def main():
     by_id = ES.by_id()
 
     out, bad = [], []
+    # 🔴 2026-09-16（9本目）: **1件ごとに書き足す。**以前は最後にまとめて書いていたので、
+    #    97件中26件目の通信エラーで落ちたとき、終わっていた25件ぶんの表が1行も残らなかった
+    #    （聞取の再試行は el_check_yomi.stt に足した。ここは「落ちても残す」側の手当て）。
+    p = ES.qa_path("yomi_ab.tsv")
+    if not p.exists():
+        p.write_text("行\tkey\tval\t前\t後\t前の聞取\t後の聞取\n", encoding="utf-8")
     for item in plan:
         sid, key, val = item["id"], item["key"], item["val"]
         ln = by_id.get(sid)
@@ -90,13 +96,10 @@ def main():
         print(f"  前の聞取: {heard_b}")
         print(f"  後の聞取: {heard_a}")
         out.append((sid, key, val, rb, ra, heard_b, heard_a))
+        with p.open("a", encoding="utf-8") as f:
+            f.write(f"{sid}\t{key}\t{val}\t{rb:.3f}\t{ra:.3f}\t{heard_b}\t{heard_a}\n")
 
-    p = ES.qa_path("yomi_ab.tsv")
-    old = p.read_text(encoding="utf-8").splitlines()[1:] if p.exists() else []
-    p.write_text("行\tkey\tval\t前\t後\t前の聞取\t後の聞取\n" +
-                 "\n".join(old + [f"{a}\t{b}\t{c}\t{d:.3f}\t{e:.3f}\t{f}\t{g}" for a, b, c, d, e, f, g in out]) + "\n",
-                 encoding="utf-8")
-    print(f"\n{len(out)}件 -> {p.name}")
+    print(f"\n{len(out)}件 -> {p.name}（1件ごとに書き足し）")
     if bad:
         print("🔴 試せなかったもの:", file=sys.stderr)
         for b in bad:

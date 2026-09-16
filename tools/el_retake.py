@@ -50,8 +50,22 @@ def arg(name, default=None):
 PREFIX = "　、"
 
 
-def judge(text, heard):
-    flags = [f"{k}:{w}" for k, w in check_row(text, heard)]
+def judge(text, heard, must=None, ignore=frozenset()):
+    """所見の一覧（空＝合格）。
+
+    🔴 2026-09-16（9本目）に旗を2つ足した:
+      must   … 聞取（空白・約物を外した形）にこの語が**無ければ不合格**。check_row は助詞「は→が」・語尾「である→であり」・
+                カタカナの名前「ブラッグ→ブラック」を見ていない＝それらを直したい行は、この旗が無いと1テイク目で素通りする
+      ignore … 所見の対象の字が**全部この集合の中**なら数えない（「無い→ない」「観測塔→観測党」のような表記だけの所見）。
+                ⚠️ これが無いと、どのテイクも合格せず上限まで空回りして課金される。字を混ぜた所見（「測無」）は数える
+    """
+    flags = [f"{k}:{w}" for k, w in check_row(text, heard)
+             if not (ignore and k in ("字の欠け", "同形異音語", "1字の入れ替え") and set(w) <= set(ignore))]
+    if must:
+        import re as _re
+        flat = _re.sub(r"[\s、。「」『』・,.!?！？]", "", heard)
+        if must not in flat:
+            flags.append(f"必須の語なし:{must}")
     miss = numbers_missing(text, heard)
     if miss:
         flags.append("数:" + ",".join(miss))
@@ -60,8 +74,10 @@ def judge(text, heard):
     import re
     from check_numbers_heard import heard_numbers
     if re.search(r"\d", text):
-        have = set(re.findall(r"\d+(?:\.\d+)?", text.replace("¾", "4分の3")))
-        extra = sorted(n for n in heard_numbers(heard) if n not in have and n not in {"1", "2", "3"}
+        # ⚠️ 桁区切りのカンマは外して数える（el_ledger.numbers_missing と同じ。2026-09-16）
+        have = set(re.findall(r"\d+(?:\.\d+)?", re.sub(r"(?<=\d)[,，](?=\d{3})", "", text.replace("¾", "4分の3"))))
+        extra = sorted(n for n in heard_numbers(re.sub(r"(?<=\d)[,，](?=\d{3})", "", heard))
+                       if n not in have and n not in {"1", "2", "3"}
                        and not any(n == m.rstrip("0").rstrip(".") for m in have))
         if extra:
             flags.append("数の余り:" + ",".join(extra))
@@ -80,9 +96,13 @@ def update_yomi_tsv(lid, text, heard, sent):
 
 
 def main():
-    ES.gate_args({"--ids", "--max", "--noprefix"})   # 🔴 知らない旗で有料の本番に落ちない
+    ES.gate_args({"--ids", "--max", "--noprefix", "--must", "--ignore"})   # 🔴 知らない旗で有料の本番に落ちない
     ids = ES.resolve_ids(arg("--ids"))
     mx = int(arg("--max", "4"))
+    must = arg("--must")
+    ignore = frozenset(arg("--ignore", "") or "")
+    if must and len(ids) != 1:
+        raise SystemExit("🔴 --must は1行ずつ（行ごとに確かめたい語が違うため）")
     prefix = "" if "--noprefix" in sys.argv else PREFIX
     if not ids:
         print(__doc__)
@@ -102,7 +122,7 @@ def main():
             # 🔴 2026-09-08: 判定は **出荷する音**（atempo 後）でする。キャッシュ／採用は素の pcm のまま
             #    （鍵に TEMPO を入れない約束なので、書き戻すのは必ず retempo 前の pcm）。
             heard = stt(ES.shipped(pcm))
-            flags = judge(ln.text, heard)
+            flags = judge(ln.text, heard, must=must, ignore=ignore)
             takes.append((pcm, heard, flags))
             print(f"  {lid} take{t}: {'✓' if not flags else '／'.join(flags)}  {heard[:44]}", flush=True)
             if not flags:

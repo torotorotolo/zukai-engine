@@ -81,8 +81,36 @@ def stt(pcm: bytes) -> str:
                                  data=body, method="POST",
                                  headers={"xi-api-key": el_tts.key(),
                                           "Content-Type": "multipart/form-data; boundary=" + bd})
-    with urllib.request.urlopen(req, timeout=300) as res:
-        return json.load(res).get("text", "")
+    return open_json_retry(req).get("text", "")
+
+
+def open_json_retry(req):
+    """Scribe（speech-to-text）を呼んで JSON を返す。**通信の失敗と 429／5xx だけ**再試行する。
+
+    🔴 2026-09-16（9本目 A/B 1周目）: **通信の揺れ1回で道具ごと落ちた**（URLError: EOF occurred in violation of protocol）。
+       合成側（el_tts._post）は5回まで再試行していたのに、聞取側は1回きりだった。97件中26件目で落ち、
+       el_ab_yomi は tsv を最後にまとめて書くので**25件ぶんの表が消えた**。
+       同じ日に el_artifact_words（el_probe_words.stt_words 経由）も **429 Too Many Requests** で落ちた
+       ＝ 聞取を呼ぶ口は**この関数1か所**にまとめ、両方から呼ぶ（物差しを2か所に持たない）。
+    401（quota_exceeded）などの 4xx は直ちに上げる（fail closed）。
+    """
+    import time
+    for attempt in range(4):
+        try:
+            with urllib.request.urlopen(req, timeout=300) as res:
+                return json.load(res)
+        except urllib.error.HTTPError as e:
+            if e.code != 429 and e.code < 500:
+                raise
+            err = e
+        except (urllib.error.URLError, ConnectionError, TimeoutError) as e:
+            err = e
+        wait = (5, 15, 30, 0)[attempt]
+        print(f"   ⚠️ 聞取の通信に失敗（{type(err).__name__}: {str(err)[:80]}）→ {wait}秒後に再試行 {attempt + 1}/3",
+              file=sys.stderr)
+        if attempt == 3:
+            raise err
+        time.sleep(wait)
 
 
 def load_tsv(path):

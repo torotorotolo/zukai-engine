@@ -36,7 +36,11 @@ def _tsv(path, key=0):
 
 def numbers_missing(text, heard):
     text = text.replace("¾", "4分の3")
-    got = heard_numbers(heard)
+    # 🔴 2026-09-16（9本目）: **桁区切りのカンマを外してから比べる。**外さないと「3,400」を 3 と 400 に割り、
+    #    『三千四百』と正しく読んだテイクまで不合格にしていた（el_retake が c303-1 の数の合ったテイクを落とした）。
+    #    台本側・聞取側の両方で外す（聞取が『3,400』と数字で書くこともある）
+    text = re.sub(r"(?<=\d)[,，](?=\d{3})", "", text)
+    got = heard_numbers(re.sub(r"(?<=\d)[,，](?=\d{3})", "", heard))
     miss = []
     for m in re.findall(r"\d+(?:\.\d+)?", text):
         cand = {m, m.rstrip("0").rstrip(".") if "." in m else m}
@@ -52,6 +56,13 @@ def main():
     take2 = _tsv(ES.qa_path("take2.tsv"))
     ab = _tsv(ES.qa_path("yomi_ab.tsv"))
     retakes = _tsv(ES.qa_path("el_retakes.tsv"))
+    # 🔴 2026-09-16（9本目）: el_reading_diff の「読みが違う」も疑いに入れる。
+    #    8本目 c212-2「離陸から」→『陸から』は **2周とも崩れていたのに一致率 91.9%** で、
+    #    「90%未満か所見あり」の網の外にいた（頭の1字が落ちても残りが全部合うと率は高い）。
+    #    8本目はこの足し算を qa_out/ep8_verdicts.py（その回専用）にだけ入れたので、次の回に効いていなかった
+    #    （feedback-gates-blind-spot-is-the-scan-direction）。
+    #    ⚠️ reading_diff.tsv が無い回は足せない＝**黙って0で埋めず、台帳の頭に「無い」と書く**
+    rdiff = _tsv(ES.qa_path("reading_diff.tsv"))
     verdicts = {r[0]: r for r in sum(_tsv(ES.qa_path("verdicts.tsv")).values(), [])}
     dup_hits = set()
     try:
@@ -89,6 +100,9 @@ def main():
         for r in retakes.get(ln.lid, []):
             if r[1] != "clean":
                 obs.append(f"振り直し:{r[1]}")
+        for r in rdiff.get(ln.lid, [])[-1:]:
+            if len(r) > 1 and r[1] == "読みが違う":
+                obs.append("読み:" + (r[2][:24] if len(r) > 2 and r[2] else "違う"))
         v = verdicts.get(ln.lid)
         sus = bool(obs) or (y and float(y[1]) < 0.9)
         if sus:
@@ -98,7 +112,8 @@ def main():
         verdict = (v[1] + (f"（{v[2]}）" if len(v) > 2 and v[2] else "")) if v else ("**未判定**" if sus else "")
         sent_cell = sent if sent != ln.text else "＝"
         out.append(f"| {ln.lid} | {ln.text} | {sent_cell} | {heard} | {ratio} | {'🔴' if miss else ''} | {'／'.join(obs)} | {verdict} |")
-    out.insert(3, f"疑いの行 {n_sus}（一致率90%未満か所見あり）／うち扱い未判定 **{n_unj}**")
+    out.insert(3, f"疑いの行 {n_sus}（一致率90%未満か所見あり・所見には el_reading_diff の「読みが違う」を含む）／うち扱い未判定 **{n_unj}**"
+               + ("" if rdiff else "　🔴 reading_diff.tsv が無い＝読みの照合は疑いに入っていない"))
     p = ES.qa_path("ledger.md")
     p.write_text("\n".join(out) + "\n", encoding="utf-8")
     print(f"台帳 {len(lines)}行 → {p}")

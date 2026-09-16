@@ -1,0 +1,40 @@
+
+=== c211-2 「バスも、カードも、この機体には来なかった。」
+  聞取: バスもカードもこの機体には来なかった。
+  ⚠️ tail 2.43-2.64s 振幅比1.0 → 重なる語: な(2.18-2.32) か(2.32-2.34) っ(2.34-2.52) た(2.52-2.58) 。(2.58-2.58)
+
+=== c509-1 「16時55分。滑走路の上で見える距離は、1キロになった。」
+  聞取: 十六時五十五分、滑走路の上で見える距離は一キロになった。
+  ⚠️ tail 4.59-4.72s 振幅比0.9 → 重なる語: な(4.44-4.58) っ(4.58-4.64) た(4.64-4.68) 。(4.68-4.68)
+
+=== c617-2 「機長が言った。一番目と聞こえた、と。」
+  聞取: 機長が言った。一番目と聞こえたと。
+  ⚠️ tail 3.03-3.20s 振幅比2.2 → 重なる語: た(2.70-3.08) と(3.08-3.16) 。(3.16-3.16)
+Traceback (most recent call last):
+  File "C:\Users\konar\Desktop\zukai-engine\tools\el_artifact_words.py", line 70, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\konar\Desktop\zukai-engine\tools\el_artifact_words.py", line 57, in main
+    text, ws = stt_words(pcm)
+               ^^^^^^^^^^^^^^
+  File "C:\Users\konar\Desktop\zukai-engine\tools\el_probe_words.py", line 67, in stt_words
+    with urllib.request.urlopen(req, timeout=300) as res:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 429: Too Many Requests

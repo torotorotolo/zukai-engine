@@ -64,8 +64,8 @@ def stt_words(pcm: bytes):
                                  data=body, method="POST",
                                  headers={"xi-api-key": el_tts.key(),
                                           "Content-Type": "multipart/form-data; boundary=" + bd})
-    with urllib.request.urlopen(req, timeout=300) as res:
-        r = json.load(res)
+    from el_check_yomi import open_json_retry      # 🔴 2026-09-16: 429 で落ちた＝再試行は聞取の口1か所にまとめた
+    r = open_json_retry(req)
     return r.get("text", ""), [w for w in r.get("words", []) if w.get("type") == "word"]
 
 

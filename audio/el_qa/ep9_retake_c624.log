@@ -1,0 +1,6 @@
+  c624-2 take1: 必須の語なし:たかと書く  報告書は取り違えたか、四番目の方が出やすいと考えたかとか。
+  c624-2 take2: ✓  報告書は取り違えたか、番目の方が出やすいと考えたかと書く。
+c624-2: 2テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep9_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
