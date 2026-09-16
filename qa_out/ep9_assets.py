@@ -132,6 +132,36 @@ ADD = {
 }
 
 
+# ══════════════════════════════════════════════════════════
+#  🔴🔴 2026-09-16（⑤b-1）640px のシートで見て分かった直し
+# ══════════════════════════════════════════════════════════
+# ① **②の `klm_747_same_type` は KLM ではなかった。**Anefo の1970年の連作「スキポールに初めて来た
+#    ジャンボ機」（923-63xx）は、胴に **PAN AM**・尾翼にパンナムの地球の印が写っている
+#    （KLM が747を受け取ったのは1971年）。名前のまま副題を書くと**写っていない航空会社を名乗る**。
+#    → 名前ごと付け直す（`ref/ep9/photos.md` §1）。本物の KLM の747 は 924-2251/2252（1971）と 926-8612（1973）だけ。
+RENAME = {
+    'klm_747_same_type_01': 'panam_ams1970_01', 'klm_747_same_type_02': 'panam_ams1970_02',
+    'klm_747_same_type_03': 'panam_ams1970_03', 'klm_747_same_type_04': 'panam_ams1970_04',
+    'klm_747_same_type_05': 'panam_ams1970_05', 'klm_747_same_type_06': 'panam_ams1970_06',
+    'klm_747_same_type_07': 'panam_ams1970_07', 'klm_747_same_type_08': 'panam_ams1970_08',
+    'klm_747_same_type_09': 'panam_ams1970_09', 'klm_747_same_type_10': 'panam_ams1970_10',
+    'klm_747_same_type_11': 'klm_747_1971_01', 'klm_747_same_type_12': 'klm_747_1971_02',
+    'klm_747_same_type_13': 'wing_747_1972_01', 'klm_747_same_type_14': 'klm_747_1973_01',
+}
+# ② 撮影年の直し。`DateTimeOriginal` が**写真の年ではなく取り込みの年**を持っていたもの。
+#    ⚠️ 年は `check_credits.py` が副題の主張と突き合わせる根拠そのもの（黙って間違えると誤報か見逃し）。
+YEAR_FIX = {
+    'losrodeos_1930_01': 1930,      # 題「Primer vuelo Península - Canarias (1930)」。台帳は 2011（取り込み）
+    'panam_n736pa_01': None,        # 台帳は 2006（取り込み）。出どころの番号「76_837」は1976年の見込みだが**未確認**
+    'panam_747_same_type_02': 1970,  # `_01`（1970）を切り抜いた派生物。台帳は 2009（派生の年）
+}
+# ③ 事故現場の6点は**写真の焼き付けを器具に挟んで撮った複写**（黒い台紙・留め具・角の番号札・
+#    左に縦書きの「PATERSON」＝器具の商標）。絵は中央の6割ほどなので、切り出す前提で**原寸で持つ**
+#    （幅3000に縮めると、切り出したあとの絵が約1950pxしか残らない）。
+FULLRES = {'wreck_klm_01', 'wreck_klm_02', 'wreck_klm_03',
+           'wreck_both_01', 'wreck_both_02', 'wreck_engine_01'}
+
+
 def q(params):
     params = dict(params, format='json', formatversion='2')
     data = urllib.parse.urlencode(params).encode()
@@ -171,6 +201,9 @@ def pick():
         if name in out:
             raise SystemExit(f'🔴 名前 {name} が②の73点と重なる')
         out[name] = v
+    out = {RENAME.get(k, k): v for k, v in out.items()}
+    if len(out) != len(base_pick()) + len(ADD):
+        raise SystemExit('🔴 付け直した名前が既存の名前とぶつかった')
     return out
 
 
@@ -220,7 +253,8 @@ def cmd_info():
             rows[n] = dict(title=titles[n], w=ii['width'], h=ii['height'], mime=ii['mime'],
                            url=ii['url'], thumb=ii.get('thumburl'), page=ii.get('descriptionurl'),
                            lic=lic, artist=g('Artist'), credit=g('Credit'), date=date,
-                           year=_year(date, desc, titles[n]), desc=desc[:400])
+                           year=(YEAR_FIX[n] if n in YEAR_FIX else _year(date, desc, titles[n])),
+                           desc=desc[:400])
         time.sleep(0.5)
     DB.write_text(json.dumps(rows, ensure_ascii=False, indent=1), encoding='utf-8')
     print(f'PICK {len(pk)} ／ 引けた {len(rows)} ／ 止めた {len(bad)}')
@@ -261,14 +295,15 @@ def cmd_fetch(only=None):
         if out.exists() and out.stat().st_size > 10000:
             skip += 1
             continue
-        url = r['thumb'] if (r['w'] > MAXW and r.get('thumb')) else r['url']
+        full = n in FULLRES
+        url = r['thumb'] if (r['w'] > MAXW and r.get('thumb') and not full) else r['url']
         try:
             data = _get(url)
             im = Image.open(io.BytesIO(data))
             im.load()
             if im.mode != 'RGB':
                 im = im.convert('RGB')
-            if im.width > MAXW:
+            if im.width > MAXW and not full:
                 im = im.resize((MAXW, round(im.height * MAXW / im.width)), Image.LANCZOS)
             im.save(out, quality=92)
             print(f'✓ {n:<24} {im.width}x{im.height}  {out.stat().st_size / 1024:7.0f} KB')

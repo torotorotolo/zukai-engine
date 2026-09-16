@@ -112,3 +112,13 @@ for _cid, _ov in BACKDROP.items():
     if "fig" not in SPEC[_cid]:
         raise RuntimeError(f"{_cid} は図を持っていないので地に敷けません（実写カット）")
     SPEC[_cid] = dict(SPEC[_cid], **_ov)
+
+
+# 🔴🔴 2026-09-16（9本目 ⑤b-1）**シートで見て落とした写真を使っていたら、ここで止める。**
+#    理由の一覧は `cuts/ss.py` の `NG_PHOTOS`（中身の記録は `ref/ep9/photos.md`）。
+#    ⚠️ 門番を1本足すのではなく、読み込みで止める＝`qa_all` の全部の門番が落ちる（黙って焼けない）。
+_ng = {c: ss.NG_PHOTOS[s["photo"]] for c, s in SPEC.items()
+       if s.get("photo") in getattr(ss, "NG_PHOTOS", {})}
+if _ng:
+    raise RuntimeError("使わないと決めた写真を当てたカットがある（cuts/ss.py の NG_PHOTOS）: "
+                       + "／".join(f"{c}＝{why}" for c, why in sorted(_ng.items())))

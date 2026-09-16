@@ -1,0 +1,8 @@
+✓ wreck_klm_01             3241x2739     2220 KB
+✓ wreck_klm_02             2778x3007     2181 KB
+✓ wreck_klm_03             5000x4366     3157 KB
+✓ wreck_both_01            3367x2749     2255 KB
+✓ wreck_both_02            3206x2744     2204 KB
+✓ wreck_engine_01          5052x4360     4522 KB
+
+落とした 6 ／ すでに在る 0 ／ 失敗 0

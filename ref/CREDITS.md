@@ -1350,19 +1350,19 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `wreck_both_01` |  | 1977 | CC0 |  | Eén de twee verongelukte toestellen, Bestanddeelnr 929-1006.jpg |
 | `wreck_both_02` |  | 1977 | CC0 |  | Beeld van één van de twee verongelukte toestellen, Bestanddeelnr 929-1007.jpg |
 | `wreck_engine_01` |  | 1977 | CC0 | Anefo | Vliegtuigmotor van één van de verongelukte jumbojets, Bestanddeelnr 929-1008.jpg |
-| `panam_n736pa_01` |  | 2006 | CC BY（CC BY 2.0） | Rob Russell | Pan Am Boeing 747-121 N736PA at Sydney.jpg |
-| `klm_747_same_type_01` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | De Boeing 747 aan de pier op het platform, Bestanddeelnr 923-6386.jpg |
-| `klm_747_same_type_02` |  | 1970 | CC0 | Anefo | De Boeing 747 zet de landing in, Bestanddeelnr 923-6390.jpg |
-| `klm_747_same_type_03` |  | 1970 | CC0 | Anefo | De Boeing 747 taxiet naar aankomstplaats op Schiphol, Bestanddeelnr 923-6398.jpg |
+| `panam_n736pa_01` |  | 不明 | CC BY（CC BY 2.0） | Rob Russell | Pan Am Boeing 747-121 N736PA at Sydney.jpg |
+| `panam_ams1970_01` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | De Boeing 747 aan de pier op het platform, Bestanddeelnr 923-6386.jpg |
+| `panam_ams1970_02` |  | 1970 | CC0 | Anefo | De Boeing 747 zet de landing in, Bestanddeelnr 923-6390.jpg |
+| `panam_ams1970_03` |  | 1970 | CC0 | Anefo | De Boeing 747 taxiet naar aankomstplaats op Schiphol, Bestanddeelnr 923-6398.jpg |
 | `panam_747_same_type_01` |  | 1970 | PD（Public domain） | Karl Gritschke | Pan Am (Boeing 747).jpg |
-| `panam_747_same_type_02` |  | 2009 | PD（Public domain） | Karl Gritschke | Pan Am Clipper B747-121.jpg |
+| `panam_747_same_type_02` |  | 1970 | PD（Public domain） | Karl Gritschke | Pan Am Clipper B747-121.jpg |
 | `panam_747_same_type_03` |  | 1975 | PD（Public domain） | 米国国立公文書館 | Photograph of President Gerald R. Ford Carrying a Vietnamese Baby from Clipper 1742, One of the Operation Babylift Planes that Transported Approximately 325 South Vietnamese Orphans from Saigon to the United State(...) - NARA - 7839930.jpg |
 | `jumbo_era_01` |  | 1970 | PD（Public domain） | White House Photo Office | Pat Nixon christens Boeing 747 2749-18.jpg |
 | `jumbo_era_02` |  | 1969 | CC0 | Anefo | Een model van een Boeing jumbo jet, Bestanddeelnr 922-6599.jpg |
 | `jumbo_era_03` |  | 1969 | CC0 | Anefo | Een model van het interieur van een Boeing jumbo jet, Bestanddeelnr 922-6598.jpg |
 | `jumbo_era_04` |  | 1969 | CC0 | Anefo | Een model van het interieur van een Boeing jumbo jet, Bestanddeelnr 922-6600.jpg |
 | `jumbo_era_05` |  | 1970 | PD（Public domain） | White House photo office | Pat Nixon in first 747.png |
-| `losrodeos_1930_01` |  | 2011 | CC BY（CC BY 2.0） | Iberia Airlines | Primer vuelo Península - Canarias (1930).jpg |
+| `losrodeos_1930_01` |  | 1930 | CC BY（CC BY 2.0） | Iberia Airlines | Primer vuelo Península - Canarias (1930).jpg |
 | `losrodeos_now_01` |  | 2012 | CC BY（CC BY 3.0） | David Broad | Santa Cruz de Tenerife airport runway, Canary Islands, Spain - panoramio.jpg |
 | `losrodeos_now_02` |  | 2012 | CC BY（CC BY 3.0） | David Broad | Santa Cruz de Tenerife airport runway, Canary Islands, Spain - panoramio (1).jpg |
 | `losrodeos_now_03` |  | 2012 | CC BY（CC BY 3.0） | David Broad | Santa Cruz de Tenerife airport runway landing system, Canary Islands, Spain - panoramio.jpg |
@@ -1453,17 +1453,17 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `engine_747_03` |  | 2014 | CC0 | Alf van Beem | Pratt & Whitney JT9D (1969) used in Boeing 747 at Flugausstellung Hermeskeil, pic1.JPG |
 | `engine_747_04` |  | 2014 | CC0 | Alf van Beem | Pratt & Whitney JT9D (1969) used in Boeing 747 at Flugausstellung Hermeskeil, pic2.JPG |
 | `engine_747_05` |  | 2010 | PD（Public domain） | Stickpen | Cityofeverett-engine.jpg |
-| `klm_747_same_type_04` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | De Boeing 747 wordt door een batsman naar een juiste positie op het platform van, Bestanddeelnr 923-6393.jpg |
-| `klm_747_same_type_05` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | Onder een Hollandse wolkenlucht is de Boeing 747 Jumbo-jet op het platform Schip, Bestanddeelnr 923-6389.jpg |
-| `klm_747_same_type_06` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | Op het platform van Schiphol kan de Boeing 747 tijdens het uitladen op grote bel, Bestanddeelnr 923-6388.jpg |
-| `klm_747_same_type_07` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | De Boeing 747 aan de pier op het platform, Bestanddeelnr 923-6395.jpg |
-| `klm_747_same_type_08` |  | 1970 | CC0 | Anefo | De Boeing 747 aan de pier op het platform, Bestanddeelnr 923-6396.jpg |
-| `klm_747_same_type_09` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | De Boeing 747 net voor de landing op Schiphol, Bestanddeelnr 923-6399.jpg |
-| `klm_747_same_type_10` |  | 1970 | CC0 | Anefo | De Boeing 747 landt op Schiphol, Bestanddeelnr 923-6392.jpg |
-| `klm_747_same_type_11` |  | 1971 | CC0 | Bert Verhoeff / Anefo | Eerste Jumbo-Jet Boeing 747 B , van KLM arriveert op Schiphol KLM-Jumbo Jet, Bestanddeelnr 924-2251.jpg |
-| `klm_747_same_type_12` |  | 1971 | CC0 | Bert Verhoeff / Anefo | Eerste Jumbo-Jet Boeing 747 B , van KLM arriveert op Schiphol KLM-Jumbo Jet, Bestanddeelnr 924-2252.jpg |
-| `klm_747_same_type_13` |  | 1972 | CC0 | Bert Verhoeff / Anefo | KLM bouwt geluidsmuur rond platform waar wordt proef gedraaid de geluidsmuur , Bestanddeelnr 925-3335.jpg |
-| `klm_747_same_type_14` |  | 1973 | CC0 | Anefo | De gekaapte Jumbo is terugekeerd op Schiphol, Bestanddeelnr 926-8612.jpg |
+| `panam_ams1970_04` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | De Boeing 747 wordt door een batsman naar een juiste positie op het platform van, Bestanddeelnr 923-6393.jpg |
+| `panam_ams1970_05` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | Onder een Hollandse wolkenlucht is de Boeing 747 Jumbo-jet op het platform Schip, Bestanddeelnr 923-6389.jpg |
+| `panam_ams1970_06` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | Op het platform van Schiphol kan de Boeing 747 tijdens het uitladen op grote bel, Bestanddeelnr 923-6388.jpg |
+| `panam_ams1970_07` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | De Boeing 747 aan de pier op het platform, Bestanddeelnr 923-6395.jpg |
+| `panam_ams1970_08` |  | 1970 | CC0 | Anefo | De Boeing 747 aan de pier op het platform, Bestanddeelnr 923-6396.jpg |
+| `panam_ams1970_09` |  | 1970 | CC0 | Fotograaf Onbekend / Anefo, [onbekend] | De Boeing 747 net voor de landing op Schiphol, Bestanddeelnr 923-6399.jpg |
+| `panam_ams1970_10` |  | 1970 | CC0 | Anefo | De Boeing 747 landt op Schiphol, Bestanddeelnr 923-6392.jpg |
+| `klm_747_1971_01` |  | 1971 | CC0 | Bert Verhoeff / Anefo | Eerste Jumbo-Jet Boeing 747 B , van KLM arriveert op Schiphol KLM-Jumbo Jet, Bestanddeelnr 924-2251.jpg |
+| `klm_747_1971_02` |  | 1971 | CC0 | Bert Verhoeff / Anefo | Eerste Jumbo-Jet Boeing 747 B , van KLM arriveert op Schiphol KLM-Jumbo Jet, Bestanddeelnr 924-2252.jpg |
+| `wing_747_1972_01` |  | 1972 | CC0 | Bert Verhoeff / Anefo | KLM bouwt geluidsmuur rond platform waar wordt proef gedraaid de geluidsmuur , Bestanddeelnr 925-3335.jpg |
+| `klm_747_1973_01` |  | 1973 | CC0 | Anefo | De gekaapte Jumbo is terugekeerd op Schiphol, Bestanddeelnr 926-8612.jpg |
 | `panam_747_same_type_04` |  | 1970 | CC0 | Rob Mieremet / Anefo | Amerikaanse Luchtvaartmij Pan Am gaat 27 op Amsterdam vliegen met een 747 voo, Bestanddeelnr 923-5862.jpg |
 | `panam_747_same_type_05` |  | 1974 | CC BY（CC BY 3.0） | Piergiuliano Chesi | Pan American World Airways Boeing 747 N750PA 01.jpg |
 | `panam_747_same_type_06` |  | 1973 | PD（Public domain） | Arthur Tress | AT THE JOHN F. KENNEDY AIRPORT - NARA - 547951.jpg |
