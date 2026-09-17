@@ -1,0 +1,32 @@
+
+===== base: CEILING 0.97 ／ 先読みなし
+BGM＝なし（--bgm=none を明示。心拍・衝撃音も入れない＝声だけ）
+  1周目：利得 +0.0dB → 実測 -12.2 LUFS ／ ピーク 0.970
+  2周目：利得 -2.8dB → 実測 -14.6 LUFS ／ ピーク 0.970
+  3周目：利得 -3.2dB → 実測 -14.9 LUFS ／ ピーク 0.970
+wrote C:\Users\konar\Desktop\zukai-engine\out\jiko\tp_base.wav  2193.8秒  ピーク 0.970
+★ base: 天井に張り付いた標本 0 ／ 0.1秒枠 21,859 のうち 0dBFS 超 7・−1dBFS 超 1853 ／ 枠の最大 +1.2 dBFS ／ 全体 -15.0 LUFS ／ True peak 1.2 dBFS
+
+===== la97: CEILING 0.97 ／ 先読み 5ms
+BGM＝なし（--bgm=none を明示。心拍・衝撃音も入れない＝声だけ）
+  1周目：利得 +0.0dB → 実測 -12.5 LUFS ／ ピーク 0.970
+  2周目：利得 -2.5dB → 実測 -14.4 LUFS ／ ピーク 0.970
+  3周目：利得 -3.1dB → 実測 -14.9 LUFS ／ ピーク 0.970
+wrote C:\Users\konar\Desktop\zukai-engine\out\jiko\tp_la97.wav  2193.8秒  ピーク 0.970
+★ la97: 天井に張り付いた標本 0 ／ 0.1秒枠 21,116 のうち 0dBFS 超 4・−1dBFS 超 1973 ／ 枠の最大 +0.3 dBFS ／ 全体 -14.9 LUFS ／ True peak 0.3 dBFS
+
+===== la89: CEILING 0.89 ／ 先読み 5ms
+BGM＝なし（--bgm=none を明示。心拍・衝撃音も入れない＝声だけ）
+  1周目：利得 +0.0dB → 実測 -12.8 LUFS ／ ピーク 0.890
+  2周目：利得 -2.2dB → 実測 -14.2 LUFS ／ ピーク 0.890
+  3周目：利得 -3.0dB → 実測 -14.9 LUFS ／ ピーク 0.890
+wrote C:\Users\konar\Desktop\zukai-engine\out\jiko\tp_la89.wav  2193.8秒  ピーク 0.890
+★ la89: 天井に張り付いた標本 0 ／ 0.1秒枠 21,889 のうち 0dBFS 超 2・−1dBFS 超 431 ／ 枠の最大 +0.4 dBFS ／ 全体 -14.9 LUFS ／ True peak 0.4 dBFS
+
+===== la84: CEILING 0.84 ／ 先読み 5ms
+BGM＝なし（--bgm=none を明示。心拍・衝撃音も入れない＝声だけ）
+  1周目：利得 +0.0dB → 実測 -13.1 LUFS ／ ピーク 0.840
+  2周目：利得 -1.9dB → 実測 -14.1 LUFS ／ ピーク 0.840
+  3周目：利得 -2.8dB → 実測 -14.8 LUFS ／ ピーク 0.840
+wrote C:\Users\konar\Desktop\zukai-engine\out\jiko\tp_la84.wav  2193.8秒  ピーク 0.840
+★ la84: 天井に張り付いた標本 7,870 ／ 0.1秒枠 20,832 のうち 0dBFS 超 2・−1dBFS 超 4 ／ 枠の最大 +0.6 dBFS ／ 全体 -14.8 LUFS ／ True peak 0.6 dBFS

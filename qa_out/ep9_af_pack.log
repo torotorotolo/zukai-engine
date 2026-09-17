@@ -1,0 +1,2 @@
+215 カット  wav 95 MB → opus 27.6 MB （29%）
+→ コミットするのは audio/opus/ のほう。audio/*.wav は gitignore 済み。

@@ -1,0 +1,16 @@
+
+===== la97a1: CEILING 0.97 ／ 先読み 5ms
+BGM＝なし（--bgm=none を明示。心拍・衝撃音も入れない＝声だけ）
+  1周目：利得 +0.0dB → 実測 -12.5 LUFS ／ ピーク 0.970
+  2周目：利得 -2.5dB → 実測 -14.4 LUFS ／ ピーク 0.970
+  3周目：利得 -3.1dB → 実測 -14.9 LUFS ／ ピーク 0.970
+wrote C:\Users\konar\Desktop\zukai-engine\out\jiko\tp_la97a1.wav  2193.8秒  ピーク 0.970
+★ la97a1: 天井に張り付いた標本 1,334 ／ 0.1秒枠 21,015 のうち 0dBFS 超 4・−1dBFS 超 1972 ／ 枠の最大 +0.3 dBFS ／ 全体 -14.9 LUFS ／ True peak 0.3 dBFS
+
+===== la89a1: CEILING 0.89 ／ 先読み 5ms
+BGM＝なし（--bgm=none を明示。心拍・衝撃音も入れない＝声だけ）
+  1周目：利得 +0.0dB → 実測 -12.9 LUFS ／ ピーク 0.890
+  2周目：利得 -2.1dB → 実測 -14.2 LUFS ／ ピーク 0.890
+  3周目：利得 -2.9dB → 実測 -14.8 LUFS ／ ピーク 0.890
+wrote C:\Users\konar\Desktop\zukai-engine\out\jiko\tp_la89a1.wav  2193.8秒  ピーク 0.890
+★ la89a1: 天井に張り付いた標本 2,854 ／ 0.1秒枠 21,894 のうち 0dBFS 超 2・−1dBFS 超 340 ／ 枠の最大 +0.5 dBFS ／ 全体 -14.8 LUFS ／ True peak 0.5 dBFS

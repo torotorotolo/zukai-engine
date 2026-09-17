@@ -394,6 +394,16 @@ def peak_abs(x, chunk=4_000_000):
     return m
 
 
+# 🔴 2026-09-17（9本目⑥）**先読み**を足した。r03 は True peak が 0dBFS を超えた 0.1秒枠 24個・最大 +1.0。
+#    立ち上がり 2ms で山を追いかけ、**追いつけなかった分を最後の np.clip で切り落とす**作りだったため
+#    （切った波形は AAC にすると標本の間で山が立つ）。全長を手元で混ぜて AAC 192k で測った（`qa_out/ep9_af_tp.py`）:
+#      先読みなし 0.97 → True peak **+1.2**／**先読み 5ms 0.97 → +0.3**（採用）／先読み 0.89 → +0.4／0.84 → +0.6
+#    ⚠️ **天井を下げるほど悪くなる**（ラウドネスの目標は変えないので、下げたぶん切り落としが増える＝0.84 で 7,870 標本）。
+#    ⚠️ 残る +0.3 は切り落としでなく AAC の上振れ（立ち上がり 1ms にしても +0.3 のまま）。消すなら真のピークで動く
+#       リミッター（4倍の補間で山を見る）が要る＝次の回の宿題
+LOOKAHEAD_MS = 5
+
+
 def limit(x, ceiling=CEILING, atk=0.002, rel=0.05):
     """天井を超える尖りだけを潰す。**全体は下げない。x をその場で書き換えて返す。**
 
@@ -417,6 +427,9 @@ def limit(x, ceiling=CEILING, atk=0.002, rel=0.05):
     for i in range(0, k, step):                     # ブロックごとの最大（複製を作らない）
         lv[i:i + step] = np.abs(view[i:i + step]).max(axis=1)
     need = np.minimum(1.0, ceiling / np.maximum(lv, 1e-12))
+    if LOOKAHEAD_MS > 0:                            # 先読み：山の LOOKAHEAD_MS 前から下げ始める（複製はビュー）
+        pad = np.concatenate([need, np.ones(LOOKAHEAD_MS)])
+        need = np.lib.stride_tricks.sliding_window_view(pad, LOOKAHEAD_MS + 1).min(axis=1)
     ka = 1 - np.exp(-blk / SR / max(atk, 1e-6))
     kr = 1 - np.exp(-blk / SR / max(rel, 1e-6))
     g = np.empty(k)
