@@ -1,0 +1,464 @@
+✓ Initialized. View run at 
+https://modal.com/apps/torotorotolo/main/ap-wXew3Gvai2rtjVsffeo7J2
+✓ Created objects.
+├── 🔨 Created mount C:\Users\konar\Desktop\zukai-engine\modal_app.py
+├── 🔨 Created function full.
+├── 🔨 Created function qa.
+├── 🔨 Created function check.
+└── 🔨 Created function layer_hash.
+BGM … なし（--bgm none）。保管庫の bgm.mp3 は読まない
+
+$ git clone --depth 1 https://github.com/torotorotolo/zukai-engine.git /work/zukai-engine
+Cloning into '/work/zukai-engine'...
+Updating files:  57% (1033/1795)
+[1AUpdating files:  58% (1042/1795)
+[1AUpdating files:  59% (1060/1795)
+[1AUpdating files:  60% (1077/1795)
+[1AUpdating files:  61% (1095/1795)
+[1AUpdating files:  62% (1113/1795)
+[1AUpdating files:  63% (1131/1795)
+[1AUpdating files:  64% (1149/1795)
+[1AUpdating files:  65% (1167/1795)
+[1AUpdating files:  66% (1185/1795)
+[1AUpdating files:  67% (1203/1795)
+[1AUpdating files:  68% (1221/1795)
+[1AUpdating files:  69% (1239/1795)
+[1AUpdating files:  70% (1257/1795)
+[1AUpdating files:  71% (1275/1795)
+[1AUpdating files:  72% (1293/1795)
+[1AUpdating files:  73% (1311/1795)
+[1AUpdating files:  74% (1329/1795)
+[1AUpdating files:  75% (1347/1795)
+[1AUpdating files:  76% (1365/1795)
+[1AUpdating files:  77% (1383/1795)
+[1AUpdating files:  78% (1401/1795)
+[1AUpdating files:  79% (1419/1795)
+[1AUpdating files:  80% (1436/1795)
+[1AUpdating files:  81% (1454/1795)
+[1AUpdating files:  81% (1470/1795)
+[1AUpdating files:  82% (1472/1795)
+[1AUpdating files:  83% (1490/1795)
+[1AUpdating files:  84% (1508/1795)
+[1AUpdating files:  85% (1526/1795)
+[1AUpdating files:  86% (1544/1795)
+[1AUpdating files:  87% (1562/1795)
+[1AUpdating files:  88% (1580/1795)
+[1AUpdating files:  89% (1598/1795)
+[1AUpdating files:  90% (1616/1795)
+[1AUpdating files:  91% (1634/1795)
+[1AUpdating files:  92% (1652/1795)
+[1AUpdating files:  93% (1670/1795)
+[1AUpdating files:  94% (1688/1795)
+[1AUpdating files:  95% (1706/1795)
+[1AUpdating files:  96% (1724/1795)
+[1AUpdating files:  97% (1742/1795)
+[1AUpdating files:  98% (1760/1795)
+[1AUpdating files:  99% (1778/1795)
+[1AUpdating files: 100% (1795/1795)
+[1AUpdating files: 100% (1795/1795), done.
+  (31秒 / 終了コード 0)
+
+$ git log --oneline -1
+988ed21 9本目⑥: BGMを入れない道を明示（audio_mix --bgm=none・modal full --bgm は既定値なし）
+  (0秒 / 終了コード 0)
+
+$ python3 tools/scene_jiko.py --report
+カット 215 ／ 完成尺 2194.6秒 = 36分34.6秒
+字幕 495 枚
+実写 76 ／ ★写真を地に敷いた図解 21
+図の種類:
+   photo         76
+   runway        18
+   radio         15
+   quote         14
+   panel         14
+   beforeafter   13
+   process       10
+   absent         9
+   people         6
+   compare        5
+   graph          5
+   moment         5
+   moment+写真      5
+   mapfig         3
+   beforeafter+写真   3
+   process+写真     3
+   runway+写真      3
+   compare+写真     2
+   mapfig+写真      2
+   timeline       1
+   people+写真      1
+   absent+写真      1
+   panel+写真       1
+
+⚠️ cuts/__init__.py が**中身ごと上書き**しているカット（0件）:
+   
+   章ファイルの fig / ann を直すときは、ここに載っていないか必ず見ること。
+
+🔴 章の名前（題材を替えたら必ず書き換える／9章）:
+   1/9  その日、二つのジャンボ機
+   2/9  ラスパルマスの爆弾
+   3/9  小さな空港に、5機が並んだ
+   4/9  燃料を足すという判断
+   5/9  雲が滑走路へ降りてきた
+   6/9  滑走路を、逆向きに走る
+   7/9  重なった30秒
+   8/9  17時06分50秒
+   9/9  逃げた61人
+   ↑ これは**いま作っている動画の章名**か？ 前作のままなら止めて直す。
+  (0秒 / 終了コード 0)
+
+$ python3 tools/check_layout.py
+── 画面から出ている文字（847レイヤー） ──
+  ✓ 全部おさまっている
+
+── フォントに無い字（豆腐になる） ──
+  ✓ 無い字は無い
+
+── 小さい Dela に漢字の句が入っている ──
+  ✓ つぶれる大きさの Dela に漢字の句は無い
+
+── 同じカットで重なっている文字 ──
+  ✓ 重なりなし
+
+── 図形が文字を横切っている ──
+  ✓ 横切っている図形は無い
+
+✓ 机上の検算はすべて通った（画面外 0件・重なり 0件・豆腐 0件・図形が横切る 0件／フォントは実測）
+  (32秒 / 終了コード 0)
+
+$ python3 tools/check_echo.py
+
+✓ 複写は無い（複写 0件・見出し/副題の同文 0件・見出しの近さ 3件）
+   （見出しの近さは --all で出る。0.80 未満は「話題を出す場所」として黙る）
+  (11秒 / 終了コード 0)
+
+$ python3 tools/audio_pack.py check
+台本 215 カット ／ audio/opus 215 本
+✓ 過不足なし
+✓ 全 0 本の尺が一致
+  (0秒 / 終了コード 0)
+
+$ python3 tools/audio_pack.py unpack
+✓ 215 カットを wav に戻した（既存 0 本はそのまま）
+  (59秒 / 終了コード 0)
+
+③ 語尾の検査は飛ばす（--bgm none＝声を埋もれさせる音が無い）
+
+$ python3 tools/footage.py
+■ 動画を当てるカット 0 件（＋静止画で受ける 0 件: ）
+✓ 全 0 欄に until= があり、尻のはみ出しも ショットまたぎも無く、使ってはいけない秒にも掛かっておらず、素材の黒帯も残らない（実測ショット 0 本と照合）
+✓ 切り出し完了 0/0 カット: なし
+  (0秒 / 終了コード 0)
+
+$ ZUKAI_WORKERS=8 python3 tools/scene_jiko.py --force
+書き出すレイヤー 1064 枚（並列 4）
+  50/1064
+  100/1064
+  150/1064
+  200/1064
+  250/1064
+  300/1064
+  350/1064
+  400/1064
+  450/1064
+  500/1064
+  550/1064
+  600/1064
+  650/1064
+  700/1064
+  750/1064
+  800/1064
+  850/1064
+  900/1064
+  950/1064
+  1000/1064
+Container terminated due to preemption. Your Function will be restarted with the same input. For more details, see https://modal.com/docs/guide/preemption
+BGM … なし（--bgm none）。保管庫の bgm.mp3 は読まない
+
+$ git clone --depth 1 https://github.com/torotorotolo/zukai-engine.git /work/zukai-engine
+Cloning into '/work/zukai-engine'...
+Updating files:  55% (997/1798)
+[1AUpdating files:  56% (1007/1798)
+[1AUpdating files:  57% (1025/1798)
+[1AUpdating files:  58% (1043/1798)
+[1AUpdating files:  59% (1061/1798)
+[1AUpdating files:  60% (1079/1798)
+[1AUpdating files:  61% (1097/1798)
+[1AUpdating files:  62% (1115/1798)
+[1AUpdating files:  63% (1133/1798)
+[1AUpdating files:  64% (1151/1798)
+[1AUpdating files:  65% (1169/1798)
+[1AUpdating files:  66% (1187/1798)
+[1AUpdating files:  67% (1205/1798)
+[1AUpdating files:  68% (1223/1798)
+[1AUpdating files:  69% (1241/1798)
+[1AUpdating files:  70% (1259/1798)
+[1AUpdating files:  71% (1277/1798)
+[1AUpdating files:  72% (1295/1798)
+[1AUpdating files:  73% (1313/1798)
+[1AUpdating files:  73% (1329/1798)
+[1AUpdating files:  74% (1331/1798)
+[1AUpdating files:  75% (1349/1798)
+[1AUpdating files:  76% (1367/1798)
+[1AUpdating files:  77% (1385/1798)
+[1AUpdating files:  78% (1403/1798)
+[1AUpdating files:  79% (1421/1798)
+[1AUpdating files:  80% (1439/1798)
+[1AUpdating files:  81% (1457/1798)
+[1AUpdating files:  82% (1475/1798)
+[1AUpdating files:  83% (1493/1798)
+[1AUpdating files:  84% (1511/1798)
+[1AUpdating files:  85% (1529/1798)
+[1AUpdating files:  86% (1547/1798)
+[1AUpdating files:  87% (1565/1798)
+[1AUpdating files:  88% (1583/1798)
+[1AUpdating files:  89% (1601/1798)
+[1AUpdating files:  90% (1619/1798)
+[1AUpdating files:  91% (1637/1798)
+[1AUpdating files:  92% (1655/1798)
+[1AUpdating files:  93% (1673/1798)
+[1AUpdating files:  94% (1691/1798)
+[1AUpdating files:  95% (1709/1798)
+[1AUpdating files:  96% (1727/1798)
+[1AUpdating files:  97% (1745/1798)
+[1AUpdating files:  98% (1763/1798)
+[1AUpdating files:  99% (1781/1798)
+[1AUpdating files: 100% (1798/1798)
+[1AUpdating files: 100% (1798/1798), done.
+  (34秒 / 終了コード 0)
+
+$ git log --oneline -1
+341c9c9 9本目⑥: ep03 の決着を台帳 §G に記録（06 を全画面のまま）／r02→r03 の差分は ep03 だけ／試写の秒の一覧
+  (0秒 / 終了コード 0)
+
+$ python3 tools/scene_jiko.py --report
+カット 215 ／ 完成尺 2194.6秒 = 36分34.6秒
+字幕 495 枚
+実写 76 ／ ★写真を地に敷いた図解 21
+図の種類:
+   photo         76
+   runway        18
+   radio         15
+   quote         14
+   panel         14
+   beforeafter   13
+   process       10
+   absent         9
+   people         6
+   compare        5
+   graph          5
+   moment         5
+   moment+写真      5
+   mapfig         3
+   beforeafter+写真   3
+   process+写真     3
+   runway+写真      3
+   compare+写真     2
+   mapfig+写真      2
+   timeline       1
+   people+写真      1
+   absent+写真      1
+   panel+写真       1
+
+⚠️ cuts/__init__.py が**中身ごと上書き**しているカット（0件）:
+   
+   章ファイルの fig / ann を直すときは、ここに載っていないか必ず見ること。
+
+🔴 章の名前（題材を替えたら必ず書き換える／9章）:
+   1/9  その日、二つのジャンボ機
+   2/9  ラスパルマスの爆弾
+   3/9  小さな空港に、5機が並んだ
+   4/9  燃料を足すという判断
+   5/9  雲が滑走路へ降りてきた
+   6/9  滑走路を、逆向きに走る
+   7/9  重なった30秒
+   8/9  17時06分50秒
+   9/9  逃げた61人
+   ↑ これは**いま作っている動画の章名**か？ 前作のままなら止めて直す。
+  (0秒 / 終了コード 0)
+
+$ python3 tools/check_layout.py
+── 画面から出ている文字（847レイヤー） ──
+  ✓ 全部おさまっている
+
+── フォントに無い字（豆腐になる） ──
+  ✓ 無い字は無い
+
+── 小さい Dela に漢字の句が入っている ──
+  ✓ つぶれる大きさの Dela に漢字の句は無い
+
+── 同じカットで重なっている文字 ──
+  ✓ 重なりなし
+
+── 図形が文字を横切っている ──
+  ✓ 横切っている図形は無い
+
+✓ 机上の検算はすべて通った（画面外 0件・重なり 0件・豆腐 0件・図形が横切る 0件／フォントは実測）
+  (33秒 / 終了コード 0)
+
+$ python3 tools/check_echo.py
+
+✓ 複写は無い（複写 0件・見出し/副題の同文 0件・見出しの近さ 3件）
+   （見出しの近さは --all で出る。0.80 未満は「話題を出す場所」として黙る）
+  (12秒 / 終了コード 0)
+
+$ python3 tools/audio_pack.py check
+台本 215 カット ／ audio/opus 215 本
+✓ 過不足なし
+✓ 全 0 本の尺が一致
+  (0秒 / 終了コード 0)
+
+$ python3 tools/audio_pack.py unpack
+✓ 215 カットを wav に戻した（既存 0 本はそのまま）
+  (62秒 / 終了コード 0)
+
+③ 語尾の検査は飛ばす（--bgm none＝声を埋もれさせる音が無い）
+
+$ python3 tools/footage.py
+■ 動画を当てるカット 0 件（＋静止画で受ける 0 件: ）
+✓ 全 0 欄に until= があり、尻のはみ出しも ショットまたぎも無く、使ってはいけない秒にも掛かっておらず、素材の黒帯も残らない（実測ショット 0 本と照合）
+✓ 切り出し完了 0/0 カット: なし
+  (0秒 / 終了コード 0)
+
+$ ZUKAI_WORKERS=8 python3 tools/scene_jiko.py --force
+書き出すレイヤー 1064 枚（並列 4）
+  50/1064
+  100/1064
+  150/1064
+  200/1064
+  250/1064
+  300/1064
+  350/1064
+  400/1064
+  450/1064
+  500/1064
+  550/1064
+  600/1064
+  650/1064
+  700/1064
+  750/1064
+  800/1064
+  850/1064
+  900/1064
+  950/1064
+  1000/1064
+  1050/1064
+done 1064
+  (631秒 / 終了コード 0)
+
+$ python3 tools/layer_hash.py
+レイヤー 1064 枚 ／ 合計 82.2 MB
+★全体の指紋  c506e37da60489a15a6e406beda46ec544d80faa78e265490b55350e5edca382
+
+代表（ずれたときに場所を絞るため）
+  _empty           d0634a2abbcd31f0882b9e94ad72430c
+  c101_a1          e52dc37a127563d0bc73f6a7d91cde4b
+  c101_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c111_a1          c2e497f7db821186a2a54d961d6fb71c
+  c111_a2          67f28e0ac20702a02beef29a8f96d56a
+  c201_a1          96f3c33d304ff977da409ccfeb1ca13c
+  c201_a2          7f18c5742b4e04733139bce3e01b078a
+  c211_a1          0f3dae004ce122068f229a5ddc2a09ab
+  c211_a2          a6e51414a601f8be5df9b201c05dd1c0
+  c301_a1          c67cc78170b717be929d2497639a4063
+  c301_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c312_a1          228e1ea67f0d1e9fbdb5810bbb1b9854
+  c312_base        ca6288cfbaa2e8b4402091f40c67fbe5
+  c401_a1          f57f882ab18b31645fe77e19d093d6fa
+  c401_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c411_a1          e1fdfd22b4fc231586c3f5322ba1b006
+  c411_a2          452ec8782cfb58a0e7de2ac229c79620
+  c501_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c501_lab         71566615eed1f0e4254a48aff6e1ca37
+  c512_a1          f85d25a10aa089115770f2b2f1195f7f
+  c512_a2          777268274e7c3a89a04fc52bcc26cacc
+  c601_a1          72159745e89c2391d48029f4e97a5041
+  c601_a2          908eeb37967544089730b93bebaf5aa7
+  c613_a1          5c9c60d5b9389cd212b39fd91982d6dc
+  c613_a2          3127d357a87ec50b267272e66cc6aa1c
+  ep01_a1          437415616341da39435a4b53d70342a4
+  ep01_bg          d0634a2abbcd31f0882b9e94ad72430c
+  ep06_a1          d575d15de4f0925568a2cd3d04dbed71
+  ep06_bg          d0634a2abbcd31f0882b9e94ad72430c
+  pr01_a1          51662ac9bddf9b4eed626a3032ae818c
+  pr01_a2          929cfccddcf66c4747d302cd441e5406
+  pr06_a1          73c9fa9c069fc5564e6625d37976daca
+  pr06_a2          954e58701d728327747604f2fda34312
+  sub_c101         28e7953ab8a649b5fe085c45a00ceed4
+  sub_c102         03fec77379a34e23a2784e8918af8872
+  sub_c103         8082c4d77f0b191e3b73c16a4b5b71a1
+
+⚠️ Actions と Modal で**★全体の指紋が一致すれば**、9巡の検品はそのまま生きている。
+  (56秒 / 終了コード 0)
+
+$ ZUKAI_WORKERS=8 python3 tools/build_jiko.py full
+図が動かない最長区間 = 4.35秒
+✓ 図が 5.0秒以上止まるカットは無い
+（参考）最長の字幕 = 7.28秒「副操縦士はブラッグ。10,800時間のうち、747が」 ／ 字幕の枚数 495
+検品画像 215 カット
+mp4 を 8 並列で焼く（215カット）
+  20/215  6445コマ
+  40/215  12571コマ
+  60/215  18576コマ
+  80/215  23695コマ
+  100/215  29245コマ
+  120/215  35252コマ
+  140/215  41284コマ
+  160/215  47684コマ
+  180/215  54111コマ
+  200/215  60064コマ
+  215/215  65839コマ
+wrote /work/zukai-engine/out/jiko/titan.mp4 2194.6 sec
+  (801秒 / 終了コード 0)
+
+$ ls -la /assets/ || true
+total 6232
+drwxr-xr-x 1 root root       7 Jan  1  1970 .
+drwxr-xr-x 4 root root      72 Sep 17 03:44 ..
+-rw-r--r-- 1 root root 6380248 Aug  1 03:55 bgm.mp3
+  (0秒 / 終了コード 0)
+
+$ python3 tools/audio_mix.py --bgm=none
+BGM＝なし（--bgm=none を明示。心拍・衝撃音も入れない＝声だけ）
+  1周目：利得 +0.0dB → 実測 -12.0 LUFS ／ ピーク 0.970
+  2周目：利得 -3.0dB → 実測 -14.6 LUFS ／ ピーク 0.970
+  3周目：利得 -3.4dB → 実測 -14.9 LUFS ／ ピーク 0.970
+wrote /work/zukai-engine/out/jiko/mix.wav  2194.6秒  ピーク 0.970
+  (31秒 / 終了コード 0)
+
+$ ffmpeg -y -hide_banner -loglevel error -i out/jiko/titan.mp4 -i out/jiko/mix.wav -c:v copy -c:a aac -b:a 192k -shortest out/jiko/titan_audio.mp4
+  (68秒 / 終了コード 0)
+
+$ cp out/jiko/titan_audio.mp4 /vol/titan_audio-ep9-r03.mp4
+  (1秒 / 終了コード 0)
+
+$ ffprobe -v error -show_entries format=duration -of default=nw=1 /vol/titan_audio-ep9-r03.mp4
+duration=2194.633333
+  (0秒 / 終了コード 0)
+
+$ ls -la /vol/
+total 3550856
+drwxr-xr-x 1 root root       310 Sep 17 04:13 .
+drwxr-xr-x 4 root root        72 Sep 17 03:44 ..
+-rw-r--r-- 1 root root 276059930 Sep 14 02:22 titan_audio-ep7-r03.mp4
+-rw-r--r-- 1 root root 275765238 Sep 14 11:24 titan_audio-ep7-r04.mp4
+-rw-r--r-- 1 root root 226651875 Sep 15 14:20 titan_audio-ep8-r01.mp4
+-rw-r--r-- 1 root root 226802671 Sep 16 02:51 titan_audio-ep8-r02.mp4
+-rw-r--r-- 1 root root 305455259 Sep 17 04:13 titan_audio-ep9-r03.mp4
+-rw-r--r-- 1 root root 455907358 Sep 11 04:48 titan_audio-kb-r09.mp4
+-rw-r--r-- 1 root root 123761860 Aug  1 04:21 titan_audio-r11.mp4
+-rw-r--r-- 1 root root 123147684 Aug  1 11:39 titan_audio-r13.mp4
+-rw-r--r-- 1 root root 172258222 Aug  6 00:05 titan_audio-r14.mp4
+-rw-r--r-- 1 root root 172202839 Aug  6 13:11 titan_audio-r15.mp4
+-rw-r--r-- 1 root root 204664596 Aug 10 02:12 titan_audio-r28.mp4
+-rw-r--r-- 1 root root 155390866 Aug  2 09:33 titan_audio-r29.mp4
+-rw-r--r-- 1 root root 204252885 Aug 16 06:24 titan_audio-r30.mp4
+-rw-r--r-- 1 root root 413714501 Sep  7 23:04 titan_audio-sl1r03.mp4
+-rw-r--r-- 1 root root 300035704 Sep  6 08:31 titan_audio-ss.mp4
+  (0秒 / 終了コード 0)
+
+✓ 焼けた → modal volume get jiko-out titan_audio-ep9-r03.mp4 out/jiko/
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/torotorotolo/main/ap-wXew3Gvai2rtjVsffeo7J2
