@@ -1405,11 +1405,11 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `nl_mourning_09` |  | 1977 | CC0 | Rob Croes for Anefo | Slachtoffers, herdenkingen, vliegtuigongevallen, rampen, Bestanddeelnr 929-1126.jpg |
 | `nl_mourning_10` | ep02 | 1977 | CC0 | Fotograaf Onbekend / Anefo | Tweede Kamer neemt voor het debat een minuut stilte in acht voor de slachtoffers, Bestanddeelnr 929-0988.jpg |
 | `nl_funeral_01` |  | 1977 | CC0 | Fotograaf Onbekend / Anefo | Stoet trekt langs de kisten, Bestanddeelnr 929-1130.jpg |
-| `nl_funeral_02` | ep03 | 1977 | CC0 | Fotograaf Onbekend / Anefo | Stoet trekt langs de kisten, Bestanddeelnr 929-1131.jpg |
+| `nl_funeral_02` |  | 1977 | CC0 | Fotograaf Onbekend / Anefo | Stoet trekt langs de kisten, Bestanddeelnr 929-1131.jpg |
 | `nl_funeral_03` |  | 1977 | CC0 | Fotograaf Onbekend / Anefo | Burgemeester Ivo Samkalden van Amsterdam legt een herdenkingskrans, Bestanddeelnr 929-1132.jpg |
 | `nl_funeral_04` |  | 1977 | CC0 | Bert Verhoeff / Anefo | Stoet trekt langs de kisten, Bestanddeelnr 929-1133.jpg |
 | `nl_funeral_05` |  | 1977 | CC0 | Fotograaf Onbekend / Anefo | Burgemeester Ivo Samkalden van Amsterdam loopt langs de kisten, Bestanddeelnr 929-1134.jpg |
-| `nl_funeral_06` |  | 1977 | CC0 | Fotograaf Onbekend / Anefo | Burgemeester Ivo Samkalden van Amsterdam na de kranslegging, Bestanddeelnr 929-1135.jpg |
+| `nl_funeral_06` | ep03 | 1977 | CC0 | Fotograaf Onbekend / Anefo | Burgemeester Ivo Samkalden van Amsterdam na de kranslegging, Bestanddeelnr 929-1135.jpg |
 | `schiphol_1977_01` | c105 pr05 | 1977 | CC0 | Nederlandse Spoorwegen | HUA-170857-Gezicht op de vertrekhal Noord van de luchthaven Schiphol, vanaf de hal van het in aanbouw zijnde N.S.-station Schiphol.jpg |
 | `schiphol_1977_02` |  | 1977 | CC0 | Bert Verhoeff / Anefo | Proef met gescheiden paspoortcontrole op Schiphol bord in aankomsthal wijst r, Bestanddeelnr 929-2655.jpg |
 | `schiphol_1977_03` |  | 1978 | CC0 | Fernando Pereira / Anefo | Vliegtuigkijkers bij Schiphol, Bestanddeelnr 929-9386.jpg |
