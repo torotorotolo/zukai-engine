@@ -1,0 +1,5 @@
+① md5 5a019551d5f15d5d79151885e1c224d5 ／ 305,247,998 バイト
+② 映像 h264 1920×1080 30/1 2193.800秒 65,814コマ（カットの和 2193.790秒＝65,814コマ）
+   音声 aac 44100Hz 1ch 2193.798秒 ／ 音ズレ 0.002秒
+③ 全体 -15.0 LUFS ／ LRA 2.6 LU ／ True peak 0.9 dBFS
+④ 通しの6コマ → C:\Users\konar\AppData\Local\Temp\claude\C--Users-konar-Documents-Obsidian-Vault\ac5c1171-48b7-46d8-af1a-f9a2428cb257\scratchpad\r04_sheet.jpg
