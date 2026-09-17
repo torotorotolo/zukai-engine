@@ -1,0 +1,10 @@
+■ out\jiko\qa_ep9-r01 → out\jiko\sheet_ep9-r01
+   カット 215 ／ 1枚 6コマ（2列×3行） ／ シート 36枚
+   先頭 c101 ／ 末尾 pr11
+   シートの寸法 1280x1164（総画素 1,489,920）
+   ✓ 読み手に届く寸法もそのまま＝1コマは**本当に 640px**
+     sheet_01_c101-c106.jpg  c101 c102 c103 c104 c105 c106
+     sheet_02_c107-c112.jpg  c107 c108 c109 c110 c111 c112
+     sheet_36_pr07-pr11.jpg  pr07 pr08 pr09 pr10 pr11
+     …（ほか 33枚）
+✓ シート 36枚（1コマ 640px）。見た枚の記録は `python tools/qa_seen.py ep9 mark ...`

@@ -1,0 +1,9 @@
+ep9_notes_b1.txt 100 行
+ep9_notes_b2.txt 100 行
+ep9_notes_b3.txt 99 行
+ep9_notes_b4.txt 99 行
+ep9_notes_b5.txt 99 行
+ep9_notes_b6.txt 100 行
+ep9_notes_b7.txt 100 行
+ep9_notes_b8.txt 100 行
+ep9_notes_b9.txt 94 行

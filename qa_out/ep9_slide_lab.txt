@@ -1,0 +1,36 @@
+■ スライドが映るカット 99 件を、k=0 と k=1 の両端で見た
+✓ 焼き込みの文字と切り方は通った（参考 140件）
+⚠️ 見出し・副題・出典が焼き込みの文字に載る 2件（2カット）／うち重なり 200px 以上 1件　🔴 には数えない決まりなので、ここで別に出している（--lab で全件）
+   c901     212px 「出典：ウィキメディア・コモンズ／撮影 Flocci 」 画面の「物 物 第 も 0 、 ん 一 蕋 ぎ 第 = を 、 纛」と 212×19px 重なる（k=1）
+   c704      49px 「出典：NASA/Tim Jacobs／パブリックドメ」 画面の「747」と 49×18px 重なる（k=0）
+・ G-17（ネガの縁）は**この題材には当てはまらない** 99カット（`cuts.ss` に film_edge が無い＝ネガの素材を使っていない）。**粗が 99件あるのではない**
+⚠️ 文字行と見なさなかった OCR の行 29件（高さが画像の 3.5% を超える＝行の形をしていない）
+   laspalmas_now_01.jpg         2409×575px（高さ 28.7%）  '第 。 第 を , 、 い'
+   cockpit_747_15.jpg           55×458px（高さ 22.8%）  '2 を 第 品 ー 響'
+   laspalmas_now_09.jpg         137×509px（高さ 17.0%）  'ロ ロ ~'
+   laspalmas_now_14.jpg         1248×288px（高さ 15.0%）  'ド ー 瑕'
+   nl_mourning_01.jpg           34×261px（高さ 13.1%）  ', す え 71'
+   jumbo_era_03.jpg             1234×195px（高さ 9.8%）  'KUM ロ OE ー 20 ア 4 ア 日'
+   cockpit_747_10.jpg           632×195px（高さ 9.1%）  'ュ を エ ー'
+   nl_funeral_02.jpg            640×165px（高さ 8.3%）  'を い 第 譬 塾'
+   nl_crisis_04.jpg             653×163px（高さ 8.2%）  '→ を 。 ↓'
+   losrodeos_now_04.jpg         43×243px（高さ 6.9%）  '画 ド 一'
+   losrodeos_now_12.jpg         1078×99px（高さ 6.9%）  '0 を 0 0 0 を を 下 、 を 0 ー を を を ー 0 フ'
+   nl_mourning_06.jpg           46×133px（高さ 6.7%）  'な を'
+   engine_747_02.jpg            17×128px（高さ 6.4%）  '?-I 弌 一 上 凵 ー'
+   laspalmas_now_01.jpg         332×111px（高さ 5.5%）  'christmat'
+   cockpit_747_04.jpg           309×109px（高さ 5.5%）  '円 は 1 イ 、 ,'
+   schiphol_1977_01.jpg         217×126px（高さ 5.2%）  'Ⅲ \\I 前'
+   schiphol_1977_01.jpg         1737×116px（高さ 4.8%）  'を Ⅷ ⅲ ⅶ i ⅲ 耐 、 ⅲ ⅳ 」 皿 血 ⅲ Ⅲ ll ⅲ'
+   cockpit_747_10.jpg           924×96px（高さ 4.5%）  "- 0 三 1 朝 : は 0 : 0 = ・ 当 0 : 0 。 ' 、 0 : 0"
+   memorial_02.jpg              1362×47px（高さ 4.4%）  'MO れ 調 mc 取 t opgcricht ter 取 age 0 ten 取 de 583 slachtoffers'
+   schiphol_1977_01.jpg         362×104px（高さ 4.3%）  'Schiph01'
+   memorial_02.jpg              769×45px（高さ 4.2%）  '0 れ me れ tO COnmemOratiVO'
+   engine_747_02.jpg            10×80px（高さ 4.0%）  '05 7 35 ー'
+   cockpit_747_04.jpg           513×78px（高さ 4.0%）  '、 ー 1 遥 を'
+   memorial_02.jpg              1269×42px（高さ 3.9%）  'a 取 het 1 c tvaa ー tO 取 g 0 1 0 t aven van L05 RO e05'
+   memorial_02.jpg              1018×42px（高さ 3.9%）  'on 鬮 ー 0 tO crigido en ー 刄 01 0 ズ 0 533 1 。'
+   klm_747_1971_01.jpg          26×74px（高さ 3.8%）  'ず ン 第'
+   memorial_02.jpg              1060×39px（高さ 3.6%）  'ハ 価 0 取 1 れ 取 0 れ 定 e ず ecte in memory Of the 583 victims'
+   wreck_klm_03.jpg             783×158px（高さ 3.6%）  '→ し 一'
+   memorial_02.jpg              803×38px（高さ 3.6%）  'of t 物 0 我 crash at L05 RO e05 airport'

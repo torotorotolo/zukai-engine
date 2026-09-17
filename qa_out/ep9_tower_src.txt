@@ -1,0 +1,42 @@
+== laspalmas_now_07
+   title : Aeropuerto de Gran Canaria Tower (5195405623).jpg
+   w : 3770
+   h : 1616
+   mime : image/jpeg
+   url : https://upload.wikimedia.org/wikipedia/commons/3/3d/Aeropuerto_de_Gran_Canaria_Tower_%285195405623%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
+   thumb : https://upload.wikimedia.org/wikipedia/commons/3/3d/Aeropuerto_de_Gran_Canaria_Tower_%285195405623%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+   page : https://commons.wikimedia.org/wiki/File:Aeropuerto_de_Gran_Canaria_Tower_(5195405623).jpg
+   lic : CC BY 2.0
+   artist : Håkan Dahlström from Malmö, Sweden
+   credit : Aeropuerto de Gran Canaria Tower
+   date : 2010-11-17 15:08
+   year : 2010
+   desc : &lt;a href=" http://www.dahlstroms.com/ " rel="nofollow"&gt;Håkan Dahlström Photography&lt;/a&gt;
+== laspalmas_now_08
+   title : Tower - panoramio (34).jpg
+   w : 3763
+   h : 2880
+   mime : image/jpeg
+   url : https://upload.wikimedia.org/wikipedia/commons/2/28/Tower_-_panoramio_%2834%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
+   thumb : https://upload.wikimedia.org/wikipedia/commons/2/28/Tower_-_panoramio_%2834%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+   page : https://commons.wikimedia.org/wiki/File:Tower_-_panoramio_(34).jpg
+   lic : CC BY 3.0
+   artist : hh oldman
+   credit : https://web.archive.org/web/20161025101338/http://www.panoramio.com/photo/77627433
+   date : Taken on 19 August 2012
+   year : 2012
+   desc : Tower Gran Canaria Airport
+== laspalmas_now_09
+   title : Airporttower(Cran Canaria) - panoramio.jpg
+   w : 3048
+   h : 3044
+   mime : image/jpeg
+   url : https://upload.wikimedia.org/wikipedia/commons/d/db/Airporttower%28Cran_Canaria%29_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
+   thumb : https://upload.wikimedia.org/wikipedia/commons/d/db/Airporttower%28Cran_Canaria%29_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+   page : https://commons.wikimedia.org/wiki/File:Airporttower(Cran_Canaria)_-_panoramio.jpg
+   lic : CC BY 3.0
+   artist : hh oldman
+   credit : https://web.archive.org/web/20161024163813/http://www.panoramio.com/photo/77626908
+   date : Taken on 19 August 2012
+   year : 2012
+   desc : Airport tower (Gran Canaria)
