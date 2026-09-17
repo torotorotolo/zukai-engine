@@ -1,0 +1,11 @@
+メタ: meta_ep9.json
+接続先: そのとき、何が起きたか（@nanigaokitaka／動画8本）
+動画: titan_audio-ep9-r04.mp4（305.2 MB）
+題　: 二機とも、来るはずのない空港にいた。「離陸は待て」という管制官の声は別の無線と重なって消え、583人が亡くなったテネリフェ空港衝突事故の真相【事故検証】
+非公開で上げる（予約はあとで `schedule`）
+  2%  5%  8%  10%  13%  16%  19%  21%  24%  27%  30%  32%  35%  38%  41%  43%  46%  49%  52%  54%  57%  60%  63%  65%  68%  71%  74%  76%  79%  82%  85%  87%  90%  93%  96%  98%
+上がった: https://youtu.be/xirUjTRTUbw
+管理　　: https://studio.youtube.com/video/xirUjTRTUbw/edit
+サムネを貼った: ep9_a_matte.png
+
+次: python tools/upload_jiko.py status xirUjTRTUbw
