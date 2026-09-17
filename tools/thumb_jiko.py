@@ -164,14 +164,19 @@ def line_fx(t, base, cap, fill, inner, sw_in, outer=None, sw_out=0, shadow=None)
     return "".join(g)
 
 
-def photo(src, cy=0.5, contrast=1.18, color=1.12, bright=0.96, w=W, h=H, zoom=1.0, cx=0.5):
+def photo(src, cy=0.5, contrast=1.18, color=1.12, bright=0.96, w=W, h=H, zoom=1.0, cx=0.5, trim=None):
     """写真を箱いっぱいに切り出して data URI にする。
 
     zoom … 1.0 より大きいと**寄る**（2026-08-06 追加）。123便の飛行中の写真は
            機影が画面の35%しかなく、縮めると何の絵か分からなかった。
     cx   … 横方向の寄せ。既定は中央。
+    trim … (左, 上, 右, 下) の割合で先に切る（2026-09-17 追加）。9本目の事故現場の写真は
+           **焼き付けを器具ごと複写したもの**＝黒い台紙・留め具・縦書きの字が写っている。本編と同じ値を渡す
     """
     im = Image.open(HERE / "ref" / src).convert("RGB")
+    if trim:
+        im = im.crop((round(im.width * trim[0]), round(im.height * trim[1]),
+                      round(im.width * trim[2]), round(im.height * trim[3])))
     z = max(w / im.width, h / im.height) * zoom
     cw, ch = min(im.width, w / z), min(im.height, h / z)
     l, t = (im.width - cw) * cx, (im.height - ch) * cy
@@ -734,9 +739,42 @@ def ep8():
         bake(f"ep8_{nm}", fx_type(hero, r, y, "e_veil", yel_plain=True))
 
 
+EP9_WRECK = "ep9/wreck_klm_01.jpg"    # Anefo 929-1003（1977年・CC0）：KLM機の尾翼と、焼けて骨組みだけになった胴体
+EP9_WRECK_TRIM = (0.198, 0.1986, 0.8286, 0.7652)   # `cuts/ss.py` の本編と同じ値（台紙ごとの複写＝切らないと黒い台紙が出る）
+
+
+def ep9():
+    """9本目（テネリフェ）のサムネ（2026-09-17・⑥）。型は7本目・8本目と同一＝**赤1行・黄1行・写真だけ**。
+
+    ■ 決め語（④' で承認されたタイトル・決め所の語だけを使う。推量を足さない）
+      赤＝**583人死亡＋この回の核心**。3案を 210px で比べる：
+          a **待ての声は届かず** … タイトルの二つ目の事実（「離陸は待て」の声が別の無線と重なった＝p40）
+          b **来るはずのない空港** … 決め所#1＝タイトルのつかみ（16字＝型の上限を1字超える対照）
+          c **同じ滑走路に2機** … 冒頭の引き（pr02「その滑走路に、ボーイング747が2機いた」）
+        ⚠️ 「583」は報告書の表のマスの足し算（印字されていない）＝タイトルと同じ扱い（④'で承認）
+        ⚠️ 「隠蔽」「衝撃」「闇」「結末」は逆効果／「即死」は出さない
+      黄＝**通り名「テネリフェ」＋出来事**（12字）。タイトル末尾の事故名と同じ語
+    ■ 地の作り
+      🔴 **人の顔が1つも写っていない写真だけを地にする**。事故現場6点のうち
+        `wreck_both_01`（手前に2人の顔）・`wreck_both_02`（エンジンの中に人）は採らない。
+      `wreck_klm_01` は尾翼と胴体の骨組みが**画面の上下の中ほど**＝赤（上）と黄（下）の下に主役が来ない。
+    """
+    RED_A = "583人死亡 待ての声は届かず"      # 15字
+    RED_B = "583人死亡 来るはずのない空港"    # 16字（型の上限を1字超える対照）
+    RED_C = "583人死亡 同じ滑走路に2機"      # 15字
+    YEL = "テネリフェ 空港衝突事故"          # 12字
+
+    wreck = photo(EP9_WRECK, cy=0.40, cx=0.50, contrast=1.16, color=1.0, bright=0.96, trim=EP9_WRECK_TRIM)
+
+    for nm, r in (("a_matte", RED_A), ("b_kuru", RED_B), ("c_niki", RED_C)):
+        bake(f"ep9_{nm}", fx_type(wreck, r, YEL, "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep8" in sys.argv:
+    if "ep9" in sys.argv:
+        ep9()
+    elif "ep8" in sys.argv:
         ep8()
     elif "ep7" in sys.argv:
         ep7()
