@@ -185,26 +185,40 @@ def clone(ref):
 @app.function(image=image, cpu=CPU, memory=MEM, timeout=HOURS * 3600,
               volumes={VOL: vol, ASSETS: assets})
 def full(note: str = "", ref: str = "main", workers: int = 8,
-         allow_drone: bool = False):
+         allow_drone: bool = False, bgm: str = ""):
     """226カット・61,320コマを mp4 にして、音を乗せて保管庫に置く。
 
     手順は `.github/workflows/render-jiko.yml` の mode=full と**まったく同じ**。
     実行環境だけが Actions から Modal に変わっている。
     """
-    # 🔴 焼く前に BGM の実体を確かめる（2026-08-01 追加）。
-    #    `audio_mix.find_bgm()` は既製BGMが見つからないと**黙って自作ドローンに戻る**。
-    #    パイプラインは壊れないので、ここで止めないと
-    #    **30分かけて「BGMが違う34分」が焼き上がるまで気づけない。**
-    #      直し方: modal volume put jiko-assets "...\\assets\\bgm.mp3" bgm.mp3
-    #    ドローンで焼きたいときだけ `--allow-drone` を付ける。
-    bgm = os.path.join(ASSETS, "bgm.mp3")
-    size = os.path.getsize(bgm) if os.path.exists(bgm) else 0
-    print(f"BGM … {bgm} / {size / 1e6:.2f} MB", flush=True)
-    if size < 1_000_000 and not allow_drone:
+    # 🔴 2026-09-17（9本目テネリフェ）BGM の有無が**回ごとに決まる**ようになった
+    #    （カズヤくん指示「今回の動画ではBGMを付けないでください」）。
+    #    既定値を置くと前の回の決めごとが黙って残るので、**焼くたびに明示させる。**
+    #      --bgm music … 既製BGM（保管庫の bgm.mp3。無ければ止まる）
+    #      --bgm none  … BGMも効果音（心拍・衝撃音）も入れない＝声だけ
+    if bgm not in ("music", "none"):
         raise SystemExit(
-            "🔴 保管庫に BGM が無い（か壊れている）ので焼かずに止めた。\n"
-            '   modal volume put jiko-assets "<手元の assets\\bgm.mp3>" bgm.mp3\n'
-            "   ドローンのまま焼いてよいときだけ --allow-drone を付ける。")
+            "🔴 --bgm を明示してから焼く（既定値は置いていない）。\n"
+            "   --bgm music … 既製BGM ／ --bgm none … BGMなし（声だけ）")
+    if bgm == "music":
+        # 🔴 焼く前に BGM の実体を確かめる（2026-08-01 追加）。
+        #    `audio_mix.find_bgm()` は既製BGMが見つからないと**黙って自作ドローンに戻る**。
+        #    パイプラインは壊れないので、ここで止めないと
+        #    **30分かけて「BGMが違う34分」が焼き上がるまで気づけない。**
+        #      直し方: modal volume put jiko-assets "...\\assets\\bgm.mp3" bgm.mp3
+        #    ドローンで焼きたいときだけ `--allow-drone` を付ける。
+        path = os.path.join(ASSETS, "bgm.mp3")
+        size = os.path.getsize(path) if os.path.exists(path) else 0
+        print(f"BGM … {path} / {size / 1e6:.2f} MB", flush=True)
+        if size < 1_000_000 and not allow_drone:
+            raise SystemExit(
+                "🔴 保管庫に BGM が無い（か壊れている）ので焼かずに止めた。\n"
+                '   modal volume put jiko-assets "<手元の assets\\bgm.mp3>" bgm.mp3\n'
+                "   ドローンのまま焼いてよいときだけ --allow-drone を付ける。")
+    else:
+        print("BGM … なし（--bgm none）。保管庫の bgm.mp3 は読まない", flush=True)
+    # audio_mix へ渡す形。music で --allow-drone のときだけ前の「無ければドローン」の動き
+    mix_mode = "auto" if (bgm == "music" and allow_drone) else bgm
 
     clone(ref)
     env = f"ZUKAI_WORKERS={workers} "
@@ -219,7 +233,11 @@ def full(note: str = "", ref: str = "main", workers: int = 8,
     sh("python3 tools/audio_pack.py unpack")
 
     # ③ 語尾が BGM に埋もれていないか（2026-07-31 の指摘①で追加した検査）
-    sh("python3 tools/check_mask.py", check=False)
+    #    BGMなしの回は埋もれさせる音が無い。⚠️ 回すと保管庫の bgm.mp3 を相手に測って嘘の値を出す
+    if bgm == "none":
+        print("\n③ 語尾の検査は飛ばす（--bgm none＝声を埋もれさせる音が無い）", flush=True)
+    else:
+        sh("python3 tools/check_mask.py", check=False)
 
     # ③b ★実写「動画」を落として、必要なコマだけ切り出す（2026-08-01 追加）。
     #     🔴 動画はリポジトリに入れていないので、ここで URL から取る。
@@ -242,7 +260,7 @@ def full(note: str = "", ref: str = "main", workers: int = 8,
     # ⑥ ナレーション＋BGM＋効果音 → 映像に乗せる
     # ⚠️ BGM は保管庫（/assets/bgm.mp3）から読む。無ければ自作ドローンに戻る。
     sh(f"ls -la {ASSETS}/ || true", check=False)
-    sh("python3 tools/audio_mix.py")
+    sh(f"python3 tools/audio_mix.py --bgm={mix_mode}")
     sh("ffmpeg -y -hide_banner -loglevel error "
        "-i out/jiko/titan.mp4 -i out/jiko/mix.wav "
        "-c:v copy -c:a aac -b:a 192k -shortest out/jiko/titan_audio.mp4")
@@ -298,7 +316,7 @@ def check(ref: str = "main"):
     sh("python3 tools/audio_pack.py check")
     # レイヤーを1枚だけ焼いて、Chrome が実際に絵を出せることまで確かめる
     sh("python3 tools/scene_jiko.py --force --only=pr01 && ls -la out/jiko/")
-    print("\n✓ 環境はそろっている。本編は `modal run modal_app.py::full` で焼ける。",
+    print("\n✓ 環境はそろっている。本編は `modal run modal_app.py::full --bgm music|none` で焼ける。",
           flush=True)
 
 
@@ -318,6 +336,6 @@ def layer_hash(ref: str = "main"):
 
 
 @app.local_entrypoint()
-def main(note: str = "", ref: str = "main"):
-    """`modal run modal_app.py` で本編を焼く（引数なしの既定）。"""
-    print(full.remote(note=note, ref=ref))
+def main(note: str = "", ref: str = "main", bgm: str = ""):
+    """`modal run modal_app.py --bgm music|none` で本編を焼く。"""
+    print(full.remote(note=note, ref=ref, bgm=bgm))

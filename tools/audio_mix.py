@@ -80,7 +80,7 @@ HERE = S.HERE
 #      modal volume put jiko-assets "ダウンロードしたファイル.mp3" bgm.mp3
 BGM_PATHS = [os.environ.get("ZUKAI_BGM", ""), "/assets/bgm.mp3",
              str(S.HERE / "assets" / "bgm.mp3")]
-BGM_CREDIT = "BGM：陰鬱な灰色の気配／蒲鉾さちこ（DOVA-SYNDROME）"
+BGM_CREDIT = "BGM：陰鬱な灰色の気配／蒲鉾さちこ（DOVA-SYNDROME）"   # ⚠️ --bgm=none の回は概要欄に入れない
 # 既製曲は音の詰まり方が自作ドローンと違うので、**音量は割合でなく実測で決める**。
 #
 # 🔴 実測（2026-08-01）。**この曲は 90〜420Hz にエネルギーの 52.3% がある**
@@ -516,12 +516,26 @@ def duck_gain(narr, n, blk=None):
     return g, blk
 
 
-def main(head=None, out_name="mix.wav", duck=True):
+BGM_MODES = ("auto", "music", "drone", "none")
+
+
+def main(head=None, out_name="mix.wav", duck=True, bgm="auto"):
     """head に秒を渡すと**先頭その秒だけ**を混ぜる。
 
     🔴 34分ぶんを混ぜると float64 の配列だけで数GBになり、**4GBのPCでは開けない**。
        聴き比べのために頭だけ焼きたいときは `--head=14` を使う。
+
+    bgm … 寝床（BGM）の出し方。`--bgm=` で渡す。
+      "music" … 既製BGM。**読めなければ止まる**（ドローンへ黙って戻らない）
+      "none"  … 🔴 BGMを入れない（2026-09-17 9本目テネリフェ・カズヤくん指示
+                 「今回の動画ではBGMを付けないでください」）。冒頭「音の設計」の5つ
+                 （ドローン・下支え・空気・心拍・低い衝撃音）は**この表のBGMそのもの**なので、
+                 **心拍と衝撃音も入れない＝声だけ**。⚠️ 概要欄に `BGM_CREDIT` も入れない
+      "drone" … 自作ドローン
+      "auto"  … 既製BGMがあればそれ、無ければドローン（前からの動き。⚠️ 黙って戻る）
     """
+    if bgm not in BGM_MODES:
+        raise SystemExit(f"🔴 --bgm は {' / '.join(BGM_MODES)} のどれか（渡された値: {bgm!r}）")
     cuts = S.CUTS
     if head:
         keep, t = [], 0.0
@@ -533,12 +547,22 @@ def main(head=None, out_name="mix.wav", duck=True):
         cuts = keep
     total = sum(s for _, s in cuts)
     n = int(total * SR) + SR
-    # ★既製BGMがあればそれを、無ければ自作ドローンを敷く
-    src = find_bgm()
-    bed = music(n, src) if src else None
-    if bed is None:
+    # ★寝床（BGM）を敷く。**どれを敷いたかを必ず1行出す**（ログで確かめられるように）
+    if bgm == "none":
+        bed = np.zeros(n)
+        print("BGM＝なし（--bgm=none を明示。心拍・衝撃音も入れない＝声だけ）", flush=True)
+    elif bgm == "drone":
         bed = drone(n) * V_BGM
-        print("BGM＝自作のドローン（既製BGMが見つからない）", flush=True)
+        print("BGM＝自作のドローン（--bgm=drone を明示）", flush=True)
+    else:
+        src = find_bgm()
+        bed = music(n, src) if src else None
+        if bed is None:
+            if bgm == "music":
+                raise SystemExit("🔴 --bgm=music なのに既製BGMが読めない"
+                                 "（ドローンへ黙って戻さずに止めた）")
+            bed = drone(n) * V_BGM
+            print("BGM＝自作のドローン（既製BGMが見つからない）", flush=True)
     mix = np.zeros(n)
 
     starts, t = {}, 0.0
@@ -561,35 +585,39 @@ def main(head=None, out_name="mix.wav", duck=True):
 
     # 🔴 サイドチェイン。**ナレーションだけ**を鍵にして寝床を下げる
     #    （心拍と衝撃音は鍵に入れない。鳴った瞬間に BGM が沈んで不自然になる）。
-    if duck:
+    if duck and bgm != "none":          # 寝床が無ければ下げる相手も無い
         dg, blk = duck_gain(mix, n)
         for i, v in enumerate(dg):
             bed[i * blk:(i + 1) * blk] *= v
         print(f"サイドチェイン：話している時間 {100 * (dg < 0.9).mean():.0f}% ／ "
               f"最大 {-20 * np.log10(dg.min()):.1f}dB 下げた")
 
-    # 心拍（該当カットだけ。頭で 0.8 秒かけて立ち上げ、尻で落とす）
-    hb = heartbeat(n) * V_HEART
-    gate = np.zeros(n)
-    for cid, sec in cuts:
-        if cid not in HEART_CUTS:
-            continue
-        i, j = int(starts[cid] * SR), int((starts[cid] + sec) * SR)
-        ramp = int(0.8 * SR)
-        g = np.ones(j - i)
-        g[:ramp] = np.linspace(0, 1, ramp)
-        g[-ramp:] = np.linspace(1, 0, ramp)
-        gate[i:j] = np.maximum(gate[i:j], g)
-    mix += hb * gate
+    # 🔴 心拍と衝撃音は「音の設計」の一部＝BGMなしの回では入れない（main の docstring）。
+    #    ⚠️ HEART_CUTS / IMPACT_AT は1本目（タイタン号）のカットIDのまま残っている。
+    #       9本目でも c614〜c617 と pr01 に当たる＝**回が変わっても黙って鳴る定数**。
+    if bgm != "none":
+        # 心拍（該当カットだけ。頭で 0.8 秒かけて立ち上げ、尻で落とす）
+        hb = heartbeat(n) * V_HEART
+        gate = np.zeros(n)
+        for cid, sec in cuts:
+            if cid not in HEART_CUTS:
+                continue
+            i, j = int(starts[cid] * SR), int((starts[cid] + sec) * SR)
+            ramp = int(0.8 * SR)
+            g = np.ones(j - i)
+            g[:ramp] = np.linspace(0, 1, ramp)
+            g[-ramp:] = np.linspace(1, 0, ramp)
+            gate[i:j] = np.maximum(gate[i:j], g)
+        mix += hb * gate
 
-    # 低い衝撃音
-    imp = impact()
-    for cid, off in IMPACT_AT.items():
-        if cid not in starts:
-            continue
-        i = int((starts[cid] + off) * SR)
-        e = min(n, i + len(imp))
-        mix[i:e] += imp[:e - i] * V_IMPACT
+        # 低い衝撃音
+        imp = impact()
+        for cid, off in IMPACT_AT.items():
+            if cid not in starts:
+                continue
+            i = int((starts[cid] + off) * SR)
+            e = min(n, i + len(imp))
+            mix[i:e] += imp[:e - i] * V_IMPACT
 
     # ⚠️ 2026-08-01：ここで「BGMを足す前にナレーションを正規化する」順序に変えたが、
     #    **撤回した。** 設定値と実音が食い違う件（下記）は本当だが、順序を変えると
@@ -668,4 +696,5 @@ if __name__ == "__main__":
     import sys as _s
     hd = next((float(a.split("=")[1]) for a in _s.argv[1:] if a.startswith("--head=")), None)
     nm = next((a.split("=")[1] for a in _s.argv[1:] if a.startswith("--out=")), "mix.wav")
-    main(head=hd, out_name=nm, duck="--noduck" not in _s.argv[1:])
+    bg = next((a.split("=")[1] for a in _s.argv[1:] if a.startswith("--bgm=")), "auto")
+    main(head=hd, out_name=nm, duck="--noduck" not in _s.argv[1:], bgm=bg)
