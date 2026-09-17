@@ -1,0 +1,19 @@
+■ 札と線のすき間が 4px 未満（負＝線が字の外接矩形に入る）：17 件 ／ 7 カット
+  pr06 mapfig 「ニューヨーク」 すき間   -2.5px  線 #e8b33c
+  pr06 mapfig 「乗員が代わった」 すき間   -2.5px  線 #e8b33c
+  pr06 mapfig 「ラスパルマス」 すき間   -1.3px  線 #e8b33c
+  pr08 mapfig 「ロス・ロデオス空港」 すき間   -2.5px  線 #e8b33c
+  pr08 mapfig 「ラスパルマス空港」 すき間   -2.3px  線 #e8b33c
+  c201 mapfig 「テネリフェ島」 すき間   -2.5px  線 #e8b33c
+  c201 mapfig 「グランカナリア島」 すき間   -2.3px  線 #e8b33c
+  c201 mapfig 「ロス・ロデオス空港」 すき間   -0.1px  線 #e8b33c
+  c316 graph  「610メートル」 すき間   -3.0px  線 #eaf2f6
+  c316 graph  「629メートル」 すき間    1.7px  線 #eaf2f6
+  c408 mapfig 「アムステルダム」 すき間   -2.5px  線 #e8b33c
+  c408 mapfig 「そのまま戻れた」 すき間   -2.5px  線 #e8b33c
+  c408 mapfig 「ラスパルマス」 すき間    1.0px  線 #e8b33c
+  c416 mapfig 「アムステルダム」 すき間   -2.5px  線 #e8b33c
+  c416 mapfig 「KLMの運航の部署」 すき間   -2.5px  線 #e8b33c
+  c416 mapfig 「テネリフェ」 すき間   -2.2px  線 #e8b33c
+  c510 graph  「滑走路 300メートル」 すき間   -3.0px  線 #eaf2f6
+（mapfig・graph のカットは全 10）
