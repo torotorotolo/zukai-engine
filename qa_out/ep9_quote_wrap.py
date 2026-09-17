@@ -44,7 +44,11 @@ def main():
         if not fig or fig[0] != "quote":
             continue
         phrase = fig[1].get("phrase", "")
-        lines = TF.balance(phrase, 10) if isinstance(phrase, str) else list(phrase)
+        # 2026-09-17（⑤c''）：本番の `quote()` は `quote_lines()` で折る（幾何を本番とそろえる）
+        lines = TF.quote_lines(phrase, 10) if isinstance(phrase, str) else list(phrase)
+        old = TF.balance(phrase, 10) if isinstance(phrase, str) else list(phrase)
+        if old != lines:
+            print(f"  （旧 balance）{cid:5} {' ／ '.join(old)}")
         marks = []
         for a, b in zip(lines, lines[1:]):
             if b and b[0] in HEAD_BAD:

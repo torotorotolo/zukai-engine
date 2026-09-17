@@ -212,6 +212,10 @@ def _midword(x, y):
         return True                       # 「21／時01分」＝数と単位が離れる
     if y in _NG_HEAD or x in _NG_TAIL:
         return True
+    # 🔴 2026-09-17（9本目 ⑤c B-48）：カタカナの名前の中黒で割らない
+    #    （pr04「テネリフェ島のロス・／ロデオス空港」＝固有名詞が2つに見えた。全123文でこの1件）
+    if (x == "・" and _kata(y)) or (_kata(x) and y == "・"):
+        return True
     if x in _TAIL_OK:
         return False
     # 漢字の直後に活用のかな＝語の途中（「手を触／れるため」）。助詞は _TAIL_OK 側で除く
@@ -434,6 +438,54 @@ def balance(t, cols):
     if start < len(t):
         out.append(t[start:])
     return out
+
+
+# 決め所の行頭に来ると、前の語から切り離されて読める字（「の／は」「と／は」「は／ず」）
+_QUOTE_HEAD_NG = "はがをにでとのもへやず"
+
+
+def quote_lines(t, cols=10):
+    """`quote` の決め所（大きな一言）だけの折り方。2行に収まる文は**全部の切れ目を比べる**。
+
+    🔴 2026-09-17（9本目 ⑤c'' ・台帳 §C）：`balance()` のままだと 14件中 🔴6・⚠️3 が
+       意味の途中で割れていた（「その資格を出したの／は、」「降りて、すき／間を測った」
+       「誰も「離陸中」と／は」「来るは／ずのない」）。真因は2つ：
+         ① BONUS_AFTER が「の・と・は」の**うしろ**を一律に加点する＝「の／は」「と／は」
+            「は／ず」も語の切れ目として採る
+         ② 前から1字ずつ窓を動かし、`acc < ideal` のあいだは切らない＝読点のうしろの
+            良い切れ目を見つけても、そこで採らずに先へ進む（c312）
+       ⚠️ `balance()` は札の `wrap()` の投げ直しにも使うので、そちらは変えない
+         （変えると 215カットの札の折り返しが動く）。決め所だけをここで折る。
+    決め方：読点・句点のうしろを最優先。行頭に助詞・「いう」を置かない。
+    1行が `cols` の 1.3倍を超える切り方は採らない。3行以上になる文は `balance()` のまま。
+    """
+    t = str(t)
+    adv = [fm.adv(c, "Noto") for c in t]
+    n = sum(adv)
+    if math.ceil(n / cols) != 2:
+        return balance(t, cols)
+    best, wa = None, 0.0
+    for j in range(1, len(t)):
+        wa += adv[j - 1]
+        wb = n - wa
+        if max(wa, wb) > cols * 1.3:
+            continue
+        p, q = t[j - 1], t[j]
+        sc = abs(wa - wb) * 0.3
+        if p in "、。":
+            sc -= 4.0
+        elif _midword(p, q):
+            sc += 6.0
+        if q in _QUOTE_HEAD_NG or t[j:j + 2] == "いう":
+            sc += 5.0
+        # 助詞のうしろで、次が漢字・カタカナ・かぎ括弧＝次の語がはっきり始まる（「許可を／出す」）
+        if p in "はがをにでともへや" and (_kanji(q) or _kata(q) or q == "「"):
+            sc -= 1.0
+        if best is None or sc < best[0]:
+            best = (sc, j)
+    if best is None:
+        return balance(t, cols)
+    return [t[:best[1]], t[best[1]:]]
 
 
 def para(x, y, t, cols=28, size=34, col=None, lh=1.5, anchor="start", ol=0, fam="Noto"):
@@ -895,9 +947,13 @@ def quote(phrase, who="", when="", doc="", ctx="", to="", size=104, rows=None,
     pw = BX1 - px0
     g.append(txt(px0, BY0 + 150, "「", 120, J.ALERT_DIM, "Noto"))
     g.append(txt(BX1 - 46, BY1 - 40, "」", 120, J.ALERT_DIM, "Noto", "end"))
-    lines = balance(phrase, 10) if isinstance(phrase, str) else list(phrase)
+    lines = quote_lines(phrase, 10) if isinstance(phrase, str) else list(phrase)
     # 決め所は**枠の縦を使い切る大きさ**にする。1行なら大きく、行数が増えたら詰める
     size = min(size, int((BH - 150) / max(1, len(lines)) / 1.34))
+    # 🔴 2026-09-17（⑤c''）：読点で切ると片方の行が 11〜12字になる。`txtfit` は**行ごと**に
+    #    縮めるので、そのままだと2行の字の大きさがそろわない＝**いちばん長い行に合わせる**。
+    size = min([size] + [fm.fit(str(ln), pw - 130, "Noto", cap=size, floor=16)
+                         for ln in lines])
     lh = size * 1.34
     top = BY0 + (BH - len(lines) * lh) / 2 + size * 0.72
     # ⚠️ 行に分けても**1つの段にまとめる**（分けると時間差表示に戻る）
@@ -1308,7 +1364,9 @@ def graph(series, xlab="", ylab="", xticks=None, yticks=None, xr=(0, 1), yr=(0, 
         # dx/dy/anchor … 近い2点に印を打つカット（c525）は、そのままだと札が重なる
         mx, my = px(m["x"]), py(m["y"])
         a = m.get("anchor", "start")
-        stages.append(circ(mx, my, 14, "none", m.get("c", J.ALERT), 5)
+        # ring=False … 印の輪を描かない（点どうしが近いと、輪が隣の点を隠す＝c510 E-08）
+        stages.append((circ(mx, my, 14, "none", m.get("c", J.ALERT), 5)
+                       if m.get("ring", True) else "")
                       + txtfit(mx + m.get("dx", 26), my + m.get("dy", -18),
                                m.get("t", ""), 460, cap=32,
                                col=m.get("c", J.ALERT), anchor=a))
@@ -2617,10 +2675,25 @@ def mapfig(points, note="", link=None, scale=None, lead="", coast=None, turn=Non
         return (x0 + w * p["x"], y0 + h * p["y"])
 
     stages = []
+    # 🔴🔴 2026-09-17（9本目 ⑤c' 台帳 E-15〜E-19 → ⑤c''）：**5カット中5カットで札を線が通った。**
+    #    札は点の左右 34px に置き、線は点の中心まで引いていた＝線が来る側に札があれば
+    #    必ず字を通る。キー橋 §W-7-2 で既知の型だったのに `side=` を足しただけで、
+    #    置き場所を選ぶ作りになっていなかった。
+    #    → ① 線は点の円の縁（中心から RING）で止める
+    #      ② 札は下の `place()` が「線・ほかの点・置いた札・枠」から離れる場所を探す
+    #      ③ `link` に組のリストを渡せる（pr06：見出し「別の国から」なのに KLM の道が
+    #         無かった）。⚠️ 道は**1つの段**にまとめる（段が増えると最後の段がカット尻に
+    #         押し込まれる＝c718 の型）
+    RING = 30
+    links = []
     if link and len(points) >= 2:
-        a, b = P(points[link[0]]), P(points[link[1]])
-        s = [poly([a, ((a[0] + b[0]) / 2, (a[1] + b[1]) / 2 - 60), b],
-                  stroke=J.AMBER, sw=5, dash="18 12")]
+        pairs = [tuple(link)] if isinstance(link[0], int) else [tuple(k) for k in link]
+        for i0, i1 in pairs:
+            pa, pb = P(points[i0]), P(points[i1])
+            pm = ((pa[0] + pb[0]) / 2, (pa[1] + pb[1]) / 2 - 60)
+            links.append([_toward(pa, pm, RING), pm, _toward(pb, pm, RING)])
+        a, b = P(points[pairs[0][0]]), P(points[pairs[0][1]])
+        s = [poly(pts, stroke=J.AMBER, sw=5, dash="18 12") for pts in links]
         if scale:
             # 🔴 2026-08-04（r03 の拡大目視）：札を経路の頂点の 16px 上に置いていたが、
             #    経路は a →（中点の60px上）→ b の**折れ線**なので、
@@ -2635,6 +2708,11 @@ def mapfig(points, note="", link=None, scale=None, lead="", coast=None, turn=Non
             top_y = min(a[1], b[1], (a[1] + b[1]) / 2 - 60)
             s.append(txtfit((a[0] + b[0]) / 2, max(y0 + 46, top_y - 46), scale, 620,
                             cap=34, col=J.AMBER, anchor="middle", ol=7))
+            fs_ = fm.fit(str(scale), 620, "Noto", cap=34, floor=16)
+            tw_ = fm.width(str(scale), fs_, "Noto")
+            sy_ = max(y0 + 46, top_y - 46)
+            scale_box = ((a[0] + b[0]) / 2 - tw_ / 2, sy_ - 0.80 * fs_,
+                         (a[0] + b[0]) / 2 + tw_ / 2, sy_ + 0.10 * fs_)
         stages.append("".join(s))
     if turn and 0 <= turn.get("at", 0) < len(points):
         cx, cy = P(points[turn.get("at", 0)])
@@ -2653,7 +2731,67 @@ def mapfig(points, note="", link=None, scale=None, lead="", coast=None, turn=Non
             s.append(txtfit(cx, min(ty, y0 + h - 12), turn["t"], 620, cap=32,
                             col=J.AMBER, anchor="middle", ol=7))
         stages.append("".join(s))
-    for p in points:
+    segs = [(pts[k], pts[k + 1]) for pts in links for k in range(len(pts) - 1)]
+    placed = [scale_box] if (links and scale) else []
+    fx0, fx1, fy0, fy1 = x0 + 6, x0 + w - 6, y0 + 6, y0 + h - 6
+
+    def boxes(p, x, y, anch, dy):
+        """その置き方で、札（t）と添え書き（d）が占める矩形。枠に入らなければ None。"""
+        lx = x + (34 if anch == "start" else -34)
+        room = (fx1 - lx) if anch == "start" else (lx - fx0)
+        out = []
+        for key, cap, base in (("t", 34, 12), ("d", 26, 50)):
+            if not p.get(key):
+                continue
+            mw = min(560, room)
+            fs = fm.fit(str(p[key]), mw, "Noto", cap=cap, floor=16) if mw > 0 else 0
+            if fs < cap * 0.85:
+                return None                       # 縮めないと入らない側は採らない
+            tw = fm.width(str(p[key]), fs, "Noto")
+            bx0 = lx if anch == "start" else lx - tw
+            yy = y + base + dy
+            r = (bx0, yy - 0.80 * fs, bx0 + tw, yy + 0.10 * fs)
+            if r[1] < fy0 or r[3] > fy1 or r[0] < fx0 - 1 or r[2] > fx1 + 1:
+                return None
+            out.append((r, mw))
+        return out
+
+    def place(k, p):
+        """札の置き場所を決める。戻り値（anchor, dy, [maxw…]）。
+
+        順番：既定の側 → 反対の側 → 上下へ 12px ずつずらす（両側を交互に）。
+        採る条件＝線から 8px 以上・ほかの点の円と置いた札から 6px 以上。
+        ⚠️ `side=` を渡した点は側を変えない（上下だけずらす）。
+        ⚠️ どれも条件を満たさなければ、いちばん離れる置き方（枠に入るもの）を採る。
+        """
+        x, y = P(p)
+        dflt = {"left": "end", "right": "start"}.get(
+            p.get("side"), "start" if p.get("x", 0.5) < 0.7 else "end")
+        sides = [dflt] if p.get("side") else [dflt, "end" if dflt == "start" else "start"]
+        others = [(P(q)[0] - 28, P(q)[1] - 28, P(q)[0] + 28, P(q)[1] + 28)
+                  for i, q in enumerate(points) if i != k]
+        best = None
+        for dy in (0, 12, -12, 24, -24, 36, -36, 48, -48, 60, -60):
+            for anch in sides:
+                bx = boxes(p, x, y, anch, dy)
+                if bx is None:
+                    continue
+                g_line = min([_seg_box_gap(sa, sb, r) - 2.5 for r, _ in bx
+                              for sa, sb in segs] or [1e9])
+                g_obj = min([_box_gap(r, q) for r, _ in bx for q in others + placed]
+                            or [1e9])
+                if g_line >= 8 and g_obj >= 6:
+                    placed.extend(r for r, _ in bx)
+                    return anch, dy, [mw for _, mw in bx]
+                sc = min(g_line - 8, g_obj - 6)
+                if best is None or sc > best[0]:
+                    best = (sc, anch, dy, bx)
+        if best is None:
+            return dflt, 0, [560, 560]
+        placed.extend(r for r, _ in best[3])
+        return best[1], best[2], [mw for _, mw in best[3]]
+
+    for k, p in enumerate(points):
         x, y = P(p)
         c = p.get("c", J.AMBER)
         s = []
@@ -2672,16 +2810,40 @@ def mapfig(points, note="", link=None, scale=None, lead="", coast=None, turn=Non
         #      「読めるから良い」として飛ばす**。線が札を貫いていても鳴らない。
         #    ⚠️ 同じことを §W-7-2（`c915`）では**点の位置を動かして**逃げたが、
         #      それだと地図の向き（南北・東西）に制約が乗る。札の側を選べるようにする。
-        #    → `side="left"／"right"` を渡せる。**渡さなければ今までどおり**。
-        anch = {"left": "end", "right": "start"}.get(
-            p.get("side"), "start" if p.get("x", 0.5) < 0.7 else "end")
-        s.append(txtfit(x + (34 if anch == "start" else -34), y + 12, p["t"], 560,
-                        cap=34, col=c, anchor=anch))
+        #    → `side="left"／"right"` を渡せる。
+        #    🔴 2026-09-17：渡さなければ `place()` が線から離れる側を選ぶ（上の注記）。
+        anch, dy, mws = place(k, p)
+        lx = x + (34 if anch == "start" else -34)
+        s.append(txtfit(lx, y + 12 + dy, p["t"], mws[0], cap=34, col=c, anchor=anch))
         if p.get("d"):
-            s.append(txtfit(x + (34 if anch == "start" else -34), y + 50, p["d"], 560,
-                            cap=26, col=J.TICK, anchor=anch))
+            s.append(txtfit(lx, y + 50 + dy, p["d"], mws[-1], cap=26, col=J.TICK,
+                            anchor=anch))
         stages.append("".join(s))
     return Fig("".join(g), stages, "", (x0, x0 + w))
+
+
+def _toward(p, q, d):
+    """点 p から q へ向かって d だけ進んだ点（線を点の円の縁で止める）。"""
+    L = math.hypot(q[0] - p[0], q[1] - p[1])
+    if L <= d:
+        return p
+    return (p[0] + (q[0] - p[0]) * d / L, p[1] + (q[1] - p[1]) * d / L)
+
+
+def _seg_box_gap(a, b, r):
+    """線分 a-b と矩形 r=(x0, y0, x1, y1) の最短距離（交われば 0）。2px 刻みで測る。"""
+    n = max(2, int(math.hypot(b[0] - a[0], b[1] - a[1]) / 2))
+    best = 1e9
+    for i in range(n + 1):
+        t = i / n
+        x, y = a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t
+        best = min(best, math.hypot(max(r[0] - x, 0, x - r[2]), max(r[1] - y, 0, y - r[3])))
+    return best
+
+
+def _box_gap(r, q):
+    """矩形どうしの最短距離（重なれば 0）。"""
+    return math.hypot(max(q[0] - r[2], r[0] - q[2], 0), max(q[1] - r[3], r[1] - q[3], 0))
 
 
 # ══════════════════════════════════════════════════════════
@@ -2741,7 +2903,7 @@ def _box_edge(cx, cy, bw, bh, tx, ty):
     return (cx + dx * t, cy + dy * t)
 
 
-def people(nodes, edges=None, note="", lead="", src=""):
+def people(nodes, edges=None, note="", lead="", src="", pair=False):
     """人・組織のあいだで起きたこと。第3章の解雇の連鎖に使う。
 
     nodes … [dict(x=0.1, y=0.3, t="海洋運用部長", d="", c=..., kind="person")]
@@ -2992,6 +3154,16 @@ def people(nodes, edges=None, note="", lead="", src=""):
         if ds:
             s.append(txt(cx, y + 46, n["d"], ds, J.TICK))
         stages.append("".join(s))
+    # 🔴 2026-09-17（9本目 ⑤c' E-03 c718）：段は「矢印を全部 → 節を全部」の順なので、
+    #    節4つ・矢印3本だと段が7つになり、**最後の節（オランダ）が尺の最後 0.40秒だけ**
+    #    出て、約4秒間は右の矢印が空白から出ていた。
+    #    → `pair=True` で**節と、その節から出る矢印を1つの段**にする（段 7 → 4）。
+    #    ⚠️ 既定は変えない（ほかの people カットの時間割を動かさない）。
+    if pair and edges:
+        es_, ns_ = stages[:len(edges)], stages[len(edges):]
+        stages = [ns_[i] + "".join(es_[k] for k, e in enumerate(edges) if e["a"] == i)
+                  for i in range(len(nodes))]
+        stages += [es_[k] for k, e in enumerate(edges) if not 0 <= e["a"] < len(nodes)]
     return Fig("".join(g), stages, "", (x0, x0 + w))
 
 
@@ -3545,7 +3717,10 @@ def runway(steps=None, note="", exits=True, apron=True, tower=False, ends=True,
     top_r, bot_r = RW_Y - RW_H / 2, RW_Y + RW_H / 2
     top_t, bot_t = TW_Y - TW_H / 2, TW_Y + TW_H / 2
     GAP_Y = (bot_t + top_r) / 2 + 12               # 道の札の字の基線
-    LEV = {"top": BY0 + 44, "above": TW_Y - 62, "gap": GAP_Y,
+    # 🔴 2026-09-17（9本目 ⑤c B-06 c303・B-24 c520）：誘導路を描かない図でも above を
+    #    誘導路の段の高さに置いていたので、札が滑走路から約300px 上に浮いた。
+    #    → 誘導路が無いときは**滑走路の上端のすぐ上**に置く。
+    LEV = {"top": BY0 + 44, "above": TW_Y - 62 if taxiway else top_r - 40, "gap": GAP_Y,
            "below": RW_Y + 80, "low": RW_Y + 150}
     g = []
     if apron:
@@ -3728,9 +3903,18 @@ def radio(lanes, events, t0, t1, ticks=None, bands=None, note="", src=""):
         # 🔴 2026-09-16（⑤b-2 の check_layout）：帯を段の上から下まで1枚で塗ると、
         #    前から見せている送信の札（帯の上下に出る字）を覆った（c613 で2件）。
         #    → **送信の帯と同じ高さ（中心±26）だけ**を段ごとに塗る。縦に並ぶので列として読める。
+        # 🔴 2026-09-17（⑤c' E-10 c713・E-11 c729）：全段に塗ると、**その時間に送信の無い段**
+        #    に暗い四角だけが残り、その段の送信に読めた（どちらも管制塔の段）。
+        #    → 既定は**帯の時間に送信が重なる段だけ**を塗る。`lanes=[0, 2]` で明示もできる。
+        #    ⚠️ c724（甲高い音）は3段とも送信があるので、塗る段は変わらない。
         c = b.get("c", J.ALERT)
+        on = b.get("lanes")
+        if on is None:
+            on = [i for i in range(n) if any(
+                e.get("lane", 0) == i and e["a"] <= b["b"]
+                and (e["a"] if e.get("b") is None else e["b"]) >= b["a"] for e in events)]
         o = [rect(X(b["a"]), YC(i) - 26, max(6, X(b["b"]) - X(b["a"])), 52, c,
-                  op=b.get("op", 0.24)) for i in range(n)]
+                  op=b.get("op", 0.24)) for i in on]
         if b.get("t"):
             cx = (X(b["a"]) + X(b["b"])) / 2
             o.append(txtfit(min(max(cx, AX0 + 200), AX1 - 200), top - 22, b["t"], 400,

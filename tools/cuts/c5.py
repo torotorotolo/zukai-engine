@@ -22,14 +22,15 @@ YT = [(0, "0"), (1, "1キロ"), (3, "3キロ"), (5, "5キロ")]
 
 
 def vis(upto):
-    """滑走路の上の見える距離。upto＝何点目まで描くか（1〜3）。16:50 は帯。"""
+    """滑走路の上の見える距離。upto＝何点目まで描くか（1〜3）。16:50 は帯。
+
+    🔴 2026-09-17（⑤c' E-05・E-06・E-07）：点を折れ線で結ぶと、16:36（3キロ）→16:55（1キロ）の
+       線が 16:50 で 1.54キロを通り、帯（2〜3キロ）の下を通った＝図の中で 16:50 の値が2つに割れた。
+       しかも c510 では線が札「滑走路 300メートル」を貫いた。→ **線で結ばない**（測った点と帯だけ）。
+    """
     pts = [(6, 3.0), (25, 1.0), (32, 0.3)][:upto]
-    out = [dict(pts=[(20, 2.0), (20, 3.0)], t="", c=J.INK_W, sw=14)]
-    if len(pts) == 1:
-        out.insert(0, dict(pts=pts, t="", c=J.INK_W, dots_only=True, dotr=12))
-    else:
-        out.insert(0, dict(pts=pts, t="", c=J.INK_W, sw=6, dot=True, dotr=10))
-    return out
+    return [dict(pts=pts, t="", c=J.INK_W, dots_only=True, dotr=12 if upto == 1 else 10),
+            dict(pts=[(20, 2.0), (20, 3.0)], t="", c=J.INK_W, sw=14)]
 
 
 SPEC = {
@@ -128,13 +129,20 @@ SPEC = {
         s="同じ時刻の、二つの場所の視界",
         fig=("graph", dict(
             series=vis(3) + [dict(pts=[(32, 0.5), (32, 5.0)], t="", c=J.LINE,
-                                  dots_only=True, dotr=10)],
+                                  dots_only=True, dotr=8)],
             xr=(3, 35), yr=(0, 5.6), xticks=XT, yticks=YT,
             legend=False,
+            # ⚠️ 2026-09-17（⑤c' E-08）：500メートルの点（中心が 300メートルの点の 19px 上）が、
+            #    300メートルの印の輪に半分隠れ、札「進入の側 500メートル（ときに5キロ）」は
+            #    5キロの点の横＝500メートルが5キロの高さに読めた。
+            #    → 輪を描かない・500メートルの点を小さく・札を点ごとに2つに割る。
+            #    ⚠️ 「進入の側」の札は左へ出すと 16:55 の点（x1312 y700）に載る＝点の上に置く（dx=10）
             marks=[dict(x=32, y=0.3, t="滑走路 300メートル", c=J.ALERT, anchor="end",
-                        dx=-26, dy=-10),
-                   dict(x=32, y=5.0, t="進入の側 500メートル（ときに5キロ）", c=J.LINE,
-                        anchor="end", dx=-26, dy=10)],
+                        dx=-26, dy=12, ring=False),
+                   dict(x=32, y=0.5, t="進入の側 500メートル", c=J.LINE, anchor="end",
+                        dx=10, dy=-24, ring=False),
+                   dict(x=32, y=5.0, t="ときに5キロ", c=J.LINE, anchor="end", dx=-26, dy=10,
+                        ring=False)],
             note=QAMG)),
     ),
 
@@ -233,10 +241,11 @@ SPEC = {
         t="中心線灯は、消えていた",
         s="霧の中の目印になる灯り",
         fig=("runway", dict(
-            steps=[dict(lights=dict(on=True),
+            # ⚠️ 2026-09-17（⑤c B-23）：1段目で点いた灯り（黄の点）を描き、2段目の「消えた輪」を
+            #    その上に重ねていた＝黄の点が残って点いて見えた。見出しは「消えていた」＝最初から消えた輪で描く
+            steps=[dict(lights=dict(on=False),
                         mark=[dict(at=0.5, y="above", t="中心線灯　進む向きを示す", c=J.AMBER)]),
-                   dict(lights=dict(on=False),
-                        mark=[dict(at=0.5, y="below", t="3月15日から使えない", c=J.ALERT)])],
+                   dict(mark=[dict(at=0.5, y="below", t="3月15日から使えない", c=J.ALERT)])],
             taxiway=False, note="模式図（灯りの数と間隔は正確ではない）",
             src="事故報告書 p17")),
     ),

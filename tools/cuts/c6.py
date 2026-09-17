@@ -89,7 +89,8 @@ SPEC = {
         t="二機とも、滑走路の上へ",
         s="管制官が選んだやり方",
         fig=("runway", dict(
-            steps=[dict(planes=[plane(KLM, 0.14), plane(PAA, 0.04, lab=False)]),
+            # ⚠️ 2026-09-17（⑤c' E-09）：見出し「二機とも」なのに札が KLM だけだった（lab=False）
+            steps=[dict(planes=[plane(KLM, 0.14), plane(PAA, 0.04)]),
                    dict(path=[dict(on="rwy", a=0.19, b=0.95, c=J.AMBER)],
                         mark=[dict(at=0.60, y="below", t="ふだんは着陸機の道",
                                    c=J.AMBER)])],

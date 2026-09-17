@@ -36,7 +36,7 @@ def collect():
     import titan_fig as T
     import scene_jiko as S
     got = []
-    orig_w, orig_b = T.wrap, T.balance
+    orig_w, orig_b, orig_q = T.wrap, T.balance, T.quote_lines
 
     def wrap(t, cols):
         out = orig_w(t, cols)
@@ -48,16 +48,24 @@ def collect():
         got.append(("balance", str(t), list(out)))
         return out
 
-    T.wrap, T.balance = wrap, balance
+    # 🔴 2026-09-17（9本目 ⑤c''）：`quote()` の決め所は `quote_lines()` で折るようにした。
+    #    包まないと決め所が**この門番から消える**（[[feedback-gates-blind-to-the-new-material]]）。
+    def quote_lines(t, cols=10):
+        out = orig_q(t, cols)
+        got.append(("quote", str(t), list(out)))
+        return out
+
+    T.wrap, T.balance, T.quote_lines = wrap, balance, quote_lines
     try:
         S.build_layers(allow_missing=True)
     finally:
-        T.wrap, T.balance = orig_w, orig_b
+        T.wrap, T.balance, T.quote_lines = orig_w, orig_b, orig_q
     # ⚠️ balance は wrap の中からも呼ばれる（投げ直し）。**採られた側だけ**を見たいので、
     #    同じ文で wrap と balance の両方が出たら wrap の返り値（＝実際に描かれた行）を採る。
+    #    quote_lines も中で balance を呼ぶことがある＝quote の返り値を採る。
     best = {}
     for who, t, lines in got:
-        if who == "wrap" or t not in best:
+        if who in ("wrap", "quote") or t not in best:
             best[t] = (who, lines)
     return best
 
@@ -72,6 +80,11 @@ def bad_rows(best):
                 continue
             if T._midword(a[-1], b[0]):
                 out.append((t, lines, a[-1], b[0], who))
+            # 🔴 2026-09-17（9本目 ⑤c'' 台帳 §C）：決め所の行頭に助詞・「いう」＝前の語から
+            #    切り離される（「の／は、」「と／は」「は／ず」「と／いう」が 🔴6件、この門番を通っていた。
+            #    `_midword` は助詞のうしろを語の切れ目として通すので、決め所だけ別に見る）
+            elif who == "quote" and (b[0] in T._QUOTE_HEAD_NG or b.startswith("いう")):
+                out.append((t, lines, a[-1], b[0], "quote・行頭の助詞"))
     return out
 
 
@@ -122,6 +135,13 @@ def selfcheck():
     chk("読点のうしろでは鳴らない（、|次）", T._midword("、", "次"), False)
     chk("漢字＋活用のかなで鳴る（見|た＝「見た」は1語）", T._midword("見", "た"))
     chk("漢字＋助詞では鳴らない（棒|の）", T._midword("棒", "の"), False)
+    # 🔴 2026-09-17（9本目 ⑤c B-48）
+    chk("カタカナの名前を中黒で割ったら鳴る（ス・|ロ）", T._midword("・", "ロ"))
+    chk("カタカナの名前の中黒を行頭に出したら鳴る（ス|・ロ）", T._midword("ス", "・"))
+    lines = T.wrap("テネリフェ島のロス・ロデオス空港", int((470 - 60) / 32))
+    chk(f"本番の文が名前の中黒で割れない「{'／'.join(lines)}」",
+        not any(T._midword(lines[i].rstrip()[-1], lines[i + 1].lstrip()[0])
+                for i in range(len(lines) - 1)))
     # 🔴 実際に本番で割れていた文で、**折り直しが効いている**ことを見る
     cols = int((470 - 60) / 32)
     cases = [("アイダホ支所の報告書（208ページ）", cols),
@@ -141,9 +161,22 @@ def selfcheck():
         bad = [1 for i in range(len(lines) - 1)
                if T._midword(lines[i][-1], lines[i + 1][0])]
         chk(f"決め所が語の途中で割れない「{'／'.join(lines)}」", not bad)
+    # 🔴 2026-09-17（9本目 ⑤c''）：決め所の行頭の助詞。**判定を鳴らす対照**と**折り方の対照**の両方
+    chk("決め所の判定が鳴る（旧 balance の「燃えていたの／は、二機だった」）",
+        bad_rows({"x": ("quote", ["燃えていたの", "は、二機だった"])}))
+    chk("決め所の判定が鳴る（「許可に「離陸」と／いう語を使わない」）",
+        bad_rows({"x": ("quote", ["許可に「離陸」と", "いう語を使わない"])}))
+    for t in ("その資格を出したのは、この機長だった", "誰も「離陸中」とは受け取らなかった",
+              "二機とも、来るはずのない空港にいた", "許可に「離陸」という語を使わない",
+              "降りて、すき間を測った", "超えたら、法律で裁かれる"):
+        lines = T.quote_lines(t, 10)
+        chk(f"決め所が意味の途中で割れない「{'／'.join(lines)}」",
+            len(lines) == 2 and not bad_rows({t: ("quote", lines)}))
     # 🔴 本番の経路（包み）が本当に行を拾えているか
     best = collect()
     chk(f"本番の経路で行を拾える（{len(best)}件）", len(best) > 50)
+    chk(f"本番の経路で決め所を拾える（{sum(1 for v in best.values() if v[0] == 'quote')}件）",
+        sum(1 for v in best.values() if v[0] == "quote") >= 10)
     good = all(ok)
     print("  " + (f"✓ 陽性対照 {len(ok)}/{len(ok)}" if good
                   else f"🔴 陽性対照 {sum(ok)}/{len(ok)} で落ちた"))
