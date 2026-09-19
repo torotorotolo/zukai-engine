@@ -3,12 +3,13 @@
  "episode": 10,
  "theme": "三豊百貨店崩壊事故",
  "note": "CC BY-SA 4.0 は額装（無加工・丸ごと・色を変えない・何も重ねない）でだけ使う（2026-09-20 カズヤくん決定）。mode=frame の点を切る・寄せる・暗くする・上に札を置く型に渡したら⑤bの門番で止める。",
- "total": 35,
+ "total": 51,
  "slots": {
   "sampoong_before": [
    {
     "no": "52399",
     "mode": "free",
+    "note": "",
     "share_alike": false,
     "title": "삼풍백화점(붕괴전) 1995/6 · 01O01101Db8000",
     "w": 1600,
@@ -24,6 +25,7 @@
    {
     "no": "52400",
     "mode": "free",
+    "note": "",
     "share_alike": false,
     "title": "삼풍백화점(붕괴전) 1995/6 · 01O01102Db1000",
     "w": 1600,
@@ -41,6 +43,7 @@
    {
     "no": 211,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept25.jpg",
     "w": 1798,
@@ -55,6 +58,7 @@
    {
     "no": 227,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept43.jpg",
     "w": 1453,
@@ -71,6 +75,7 @@
    {
     "no": 182,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "1995년 6월 29일 삼풍백화점 붕괴 사고 7.jpg",
     "w": 4166,
@@ -85,6 +90,7 @@
    {
     "no": 212,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept26.jpg",
     "w": 1181,
@@ -99,6 +105,7 @@
    {
     "no": 215,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept29.jpg",
     "w": 1453,
@@ -113,6 +120,7 @@
    {
     "no": 228,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept45.jpg",
     "w": 1455,
@@ -127,6 +135,7 @@
    {
     "no": 236,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept53.jpg",
     "w": 2031,
@@ -141,6 +150,7 @@
    {
     "no": 193,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept07.jpg",
     "w": 1001,
@@ -155,6 +165,7 @@
    {
     "no": 230,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept47.jpg",
     "w": 1003,
@@ -169,6 +180,7 @@
    {
     "no": 239,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept56.jpg",
     "w": 1479,
@@ -185,6 +197,7 @@
    {
     "no": 189,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept03.jpg",
     "w": 1453,
@@ -199,6 +212,7 @@
    {
     "no": 221,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept36.jpg",
     "w": 1451,
@@ -213,6 +227,7 @@
    {
     "no": 224,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept40.jpg",
     "w": 1449,
@@ -227,6 +242,7 @@
    {
     "no": "2301030109",
     "mode": "free",
+    "note": "",
     "share_alike": false,
     "title": "처참한 모습을 드러낸 삼풍백화점 붕괴현장(1995.6.30)",
     "w": 534,
@@ -244,6 +260,7 @@
    {
     "no": 207,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept21.jpg",
     "w": 1447,
@@ -258,6 +275,7 @@
    {
     "no": 219,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept34.jpg",
     "w": 1435,
@@ -272,8 +290,54 @@
   ],
   "rescue_work": [
    {
+    "no": 187,
+    "mode": "frame",
+    "note": "",
+    "share_alike": true,
+    "title": "Sampungdept01.jpg",
+    "w": 2048,
+    "h": 1457,
+    "lic": "CC BY-SA 4.0",
+    "lic_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "artist": "최광모",
+    "date": "",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Sampungdept01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Sampungdept01.jpg"
+   },
+   {
+    "no": 188,
+    "mode": "frame",
+    "note": "",
+    "share_alike": true,
+    "title": "Sampungdept02.jpg",
+    "w": 1431,
+    "h": 1017,
+    "lic": "CC BY-SA 4.0",
+    "lic_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "artist": "최광모",
+    "date": "",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/35/Sampungdept02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Sampungdept02.jpg"
+   },
+   {
+    "no": 192,
+    "mode": "frame",
+    "note": "",
+    "share_alike": true,
+    "title": "Sampungdept06.jpg",
+    "w": 1459,
+    "h": 1005,
+    "lic": "CC BY-SA 4.0",
+    "lic_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "artist": "최광모",
+    "date": "",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Sampungdept06.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Sampungdept06.jpg"
+   },
+   {
     "no": 194,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept08.jpg",
     "w": 1457,
@@ -288,6 +352,7 @@
    {
     "no": 195,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept09.jpg",
     "w": 1451,
@@ -302,6 +367,7 @@
    {
     "no": 196,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept10.jpg",
     "w": 1451,
@@ -316,6 +382,7 @@
    {
     "no": 198,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept12.jpg",
     "w": 1453,
@@ -330,6 +397,7 @@
    {
     "no": 208,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept22.jpg",
     "w": 1451,
@@ -342,8 +410,24 @@
     "page": "https://commons.wikimedia.org/wiki/File:Sampungdept22.jpg"
    },
    {
+    "no": 213,
+    "mode": "frame",
+    "note": "",
+    "share_alike": true,
+    "title": "Sampungdept27.jpg",
+    "w": 1799,
+    "h": 1199,
+    "lic": "CC BY-SA 4.0",
+    "lic_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "artist": "최광모",
+    "date": "",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Sampungdept27.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Sampungdept27.jpg"
+   },
+   {
     "no": 216,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept31.jpg",
     "w": 1451,
@@ -356,8 +440,24 @@
     "page": "https://commons.wikimedia.org/wiki/File:Sampungdept31.jpg"
    },
    {
+    "no": 218,
+    "mode": "frame",
+    "note": "",
+    "share_alike": true,
+    "title": "Sampungdept33.jpg",
+    "w": 1445,
+    "h": 1007,
+    "lic": "CC BY-SA 4.0",
+    "lic_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "artist": "최광모",
+    "date": "",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Sampungdept33.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Sampungdept33.jpg"
+   },
+   {
     "no": 220,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept35.jpg",
     "w": 1451,
@@ -370,8 +470,24 @@
     "page": "https://commons.wikimedia.org/wiki/File:Sampungdept35.jpg"
    },
    {
+    "no": 225,
+    "mode": "frame",
+    "note": "",
+    "share_alike": true,
+    "title": "Sampungdept41.jpg",
+    "w": 1435,
+    "h": 1005,
+    "lic": "CC BY-SA 4.0",
+    "lic_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "artist": "최광모",
+    "date": "",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Sampungdept41.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Sampungdept41.jpg"
+   },
+   {
     "no": 229,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept46.jpg",
     "w": 1447,
@@ -386,6 +502,7 @@
    {
     "no": 231,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept48.jpg",
     "w": 1455,
@@ -400,6 +517,7 @@
    {
     "no": 233,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept50.jpg",
     "w": 1449,
@@ -414,6 +532,7 @@
    {
     "no": 234,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept51.jpg",
     "w": 1445,
@@ -424,12 +543,44 @@
     "date": "",
     "url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Sampungdept51.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
     "page": "https://commons.wikimedia.org/wiki/File:Sampungdept51.jpg"
+   },
+   {
+    "no": 235,
+    "mode": "frame",
+    "note": "",
+    "share_alike": true,
+    "title": "Sampungdept52.jpg",
+    "w": 1447,
+    "h": 1003,
+    "lic": "CC BY-SA 4.0",
+    "lic_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "artist": "최광모",
+    "date": "",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Sampungdept52.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Sampungdept52.jpg"
+   },
+   {
+    "no": "2301030106",
+    "mode": "free",
+    "note": "",
+    "share_alike": false,
+    "title": "삼풍백화점 붕괴현장의 구조활동(1995.6)",
+    "w": 809,
+    "h": 534,
+    "lic": "KOGL Type 1",
+    "lic_url": "https://www.kogl.or.kr/info/licenseType1.do",
+    "artist": "서울역사편찬원",
+    "date": "1995",
+    "url": "ref/ep10/src/kogl/hs_2301030106_0.jpg",
+    "page": "https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030106&key=2211220005",
+    "credit": "서울역사편찬원"
    }
   ],
-  "rescue_night": [
+  "ambulance_line": [
    {
     "no": 203,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept17.jpg",
     "w": 1455,
@@ -444,6 +595,7 @@
    {
     "no": 214,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept28.jpg",
     "w": 1449,
@@ -454,12 +606,58 @@
     "date": "",
     "url": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Sampungdept28.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
     "page": "https://commons.wikimedia.org/wiki/File:Sampungdept28.jpg"
+   },
+   {
+    "no": 201,
+    "mode": "frame",
+    "note": "",
+    "share_alike": true,
+    "title": "Sampungdept15.jpg",
+    "w": 1455,
+    "h": 1003,
+    "lic": "CC BY-SA 4.0",
+    "lic_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "artist": "최광모",
+    "date": "",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/31/Sampungdept15.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Sampungdept15.jpg"
+   },
+   {
+    "no": 209,
+    "mode": "frame",
+    "note": "",
+    "share_alike": true,
+    "title": "Sampungdept23.jpg",
+    "w": 1453,
+    "h": 1003,
+    "lic": "CC BY-SA 4.0",
+    "lic_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "artist": "최광모",
+    "date": "",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/39/Sampungdept23.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Sampungdept23.jpg"
+   },
+   {
+    "no": 199,
+    "mode": "frame",
+    "note": "",
+    "share_alike": true,
+    "title": "Sampungdept13.jpg",
+    "w": 1457,
+    "h": 1003,
+    "lic": "CC BY-SA 4.0",
+    "lic_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "artist": "최광모",
+    "date": "",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Sampungdept13.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Sampungdept13.jpg"
    }
   ],
   "street_cordon": [
    {
     "no": 210,
     "mode": "frame",
+    "note": "",
     "share_alike": true,
     "title": "Sampungdept24.jpg",
     "w": 1455,
@@ -472,10 +670,28 @@
     "page": "https://commons.wikimedia.org/wiki/File:Sampungdept24.jpg"
    }
   ],
+  "volunteers": [
+   {
+    "no": 217,
+    "mode": "frame",
+    "note": "",
+    "share_alike": true,
+    "title": "Sampungdept32.jpg",
+    "w": 1449,
+    "h": 1009,
+    "lic": "CC BY-SA 4.0",
+    "lic_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "artist": "최광모",
+    "date": "",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Sampungdept32.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Sampungdept32.jpg"
+   }
+  ],
   "inside_store": [
    {
     "no": "2301030108",
     "mode": "free",
+    "note": "",
     "share_alike": false,
     "title": "건물 붕괴 충격으로 아수라장이 된 삼풍백화점 본관 1층 현관 가판대(1995.6)",
     "w": 809,
@@ -493,6 +709,7 @@
    {
     "no": "2301030107",
     "mode": "free",
+    "note": "",
     "share_alike": false,
     "title": "삼풍백화점 붕괴현장 정리와 구조활동(1995.6)",
     "w": 809,
@@ -504,12 +721,28 @@
     "url": "ref/ep10/src/kogl/hs_2301030107_0.jpg",
     "page": "https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030107&key=2211220005",
     "credit": "서울역사편찬원"
+   },
+   {
+    "no": 222,
+    "mode": "frame",
+    "note": "⚠️ 大袋の中身は原本に書かれていない。副題で中身を断定しない",
+    "share_alike": true,
+    "title": "Sampungdept37.jpg",
+    "w": 1445,
+    "h": 1005,
+    "lic": "CC BY-SA 4.0",
+    "lic_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "artist": "최광모",
+    "date": "",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/28/Sampungdept37.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "page": "https://commons.wikimedia.org/wiki/File:Sampungdept37.jpg"
    }
   ],
   "mourning": [
    {
     "no": "2301030102",
     "mode": "free",
+    "note": "",
     "share_alike": false,
     "title": "서초구민회관에 마련된 삼풍참사 사망자 합동분향소(1995.7)",
     "w": 809,
@@ -520,6 +753,58 @@
     "date": "1995",
     "url": "ref/ep10/src/kogl/hs_2301030102_0.jpg",
     "page": "https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030102&key=2211220005",
+    "credit": "서울역사편찬원"
+   }
+  ],
+  "missing_board": [
+   {
+    "no": "2301030104",
+    "mode": "free",
+    "note": "🔴 顔写真と名前を**ぼかしてから**使う（私人。公共ヌリ第1類型は手直し可）",
+    "share_alike": false,
+    "title": "삼풍백화점 사고 피해자를 찾는 벽보(1995.6)",
+    "w": 809,
+    "h": 534,
+    "lic": "KOGL Type 1",
+    "lic_url": "https://www.kogl.or.kr/info/licenseType1.do",
+    "artist": "서울역사편찬원",
+    "date": "1995",
+    "url": "ref/ep10/src/kogl/hs_2301030104_0.jpg",
+    "page": "https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030104&key=2211220005",
+    "credit": "서울역사편찬원"
+   }
+  ],
+  "officials_visit": [
+   {
+    "no": "2301030508",
+    "mode": "free",
+    "note": "",
+    "share_alike": false,
+    "title": "시장 업무 인수 직후 삼풍백화점 현장을 찾은 조순 시장(1995.7.1)",
+    "w": 809,
+    "h": 534,
+    "lic": "KOGL Type 1",
+    "lic_url": "https://www.kogl.or.kr/info/licenseType1.do",
+    "artist": "서울역사편찬원",
+    "date": "1995",
+    "url": "ref/ep10/src/kogl/hs_2301030508_0.jpg",
+    "page": "https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030508&key=2211220005",
+    "credit": "서울역사편찬원"
+   },
+   {
+    "no": "2301030481",
+    "mode": "free",
+    "note": "",
+    "share_alike": false,
+    "title": "4대 시의회 의장단 삼풍백화점 구조현장 방문(1995.7.12)",
+    "w": 1000,
+    "h": 657,
+    "lic": "KOGL Type 1",
+    "lic_url": "https://www.kogl.or.kr/info/licenseType1.do",
+    "artist": "서울역사편찬원",
+    "date": "1995",
+    "url": "ref/ep10/src/kogl/hs_2301030481_0.jpg",
+    "page": "https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030481&key=2211220005",
     "credit": "서울역사편찬원"
    }
   ]

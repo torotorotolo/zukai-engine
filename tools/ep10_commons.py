@@ -233,9 +233,17 @@ KOGL_SRC = {
               file='ref/ep10/src/kogl/sire_%s.jpg'),
 }
 
-# 欄 → [(出どころ, 番号/ID, 見せ方)]。②で目で見て選んだ結果（→ ref/ep10/src/seen.tsv）。
+# 欄 → [(出どころ, 番号/ID, 見せ方[, 注記])]。②で目で見て選んだ結果（→ ref/ep10/src/seen.tsv）。
 #   'C'＝Commons（全部 CC BY-SA 4.0）→ 見せ方は **frame（額装）だけ**
-#   'K'＝公共ヌリ第1類型（継承なし）→ 'free'（切り出しもできる）。⚠️ ただし 809px なので実際は額装向き
+#   'K'＝公共ヌリ第1類型（継承なし）→ 'free'（切り出しも**ぼかし**もできる）。⚠️ ただし 809px＝実際は額装向き
+#
+# 🔴🔴 判定の線（2026-09-20 カズヤくん決定。①の「見分けられる人物は使わない」を引き直した）:
+#   ① 血・傷が見える負傷者／損傷のある遺体 → **使わない**（YouTube の広告ガイドラインで「広告収入が制限される」に明記）
+#   ② 覆われた遺体・担架の搬送 → **遠景だけ**（YouTube 上は収益化できるが、遺族感情と ch の品位で絞る）
+#   ③ 救助隊・軍・警察など**公的な任務の人の顔は使ってよい**（YouTube の規約には無い。ch の実名の線引きと同じ考え）
+#   ④ 私人（遺族の顔）→ 使わない。行方不明者の掲示板は**ぼかして**使う（公共ヌリ第1類型＝手直しが許される）
+#   ⚠️ 消防本部の但し書き「구별 가능한 특정 인물…승인」が説明欄にあるのは **239点中4点**（#178/#179/#181/#182）。
+#      この4点だけは、人が識別できるかを1点ずつ見て決める（#182 は人物が極小なので可）
 SLOTS = {
     # ── 崩壊前の建物（この2点しか無い）────────────────────────────
     'sampoong_before': [('K', '52399', 'free'), ('K', '52400', 'free')],
@@ -250,21 +258,33 @@ SLOTS = {
                      ('K', '2301030109', 'free')],
     # ── 折れた柱・むき出しの鉄筋（c5「柱は図面より細かった」の実物）──────
     'column_broken': [('C', 207, 'frame'), ('C', 219, 'frame')],
-    # ── 瓦礫の上の捜索・作業（顔が見分けられないもの）──────────────
-    'rescue_work': [('C', 194, 'frame'), ('C', 195, 'frame'), ('C', 196, 'frame'),
-                    ('C', 198, 'frame'), ('C', 208, 'frame'), ('C', 216, 'frame'),
-                    ('C', 220, 'frame'), ('C', 229, 'frame'), ('C', 231, 'frame'),
-                    ('C', 233, 'frame'), ('C', 234, 'frame')],
-    # ── 夜の現場・救急車の列 ────────────────────────────────
-    'rescue_night': [('C', 203, 'frame'), ('C', 214, 'frame')],
+    # ── 瓦礫の上の捜索・作業（救助隊・軍・警察＝公的な任務の人）─────────
+    'rescue_work': [('C', 187, 'frame'), ('C', 188, 'frame'), ('C', 192, 'frame'),
+                    ('C', 194, 'frame'), ('C', 195, 'frame'), ('C', 196, 'frame'),
+                    ('C', 198, 'frame'), ('C', 208, 'frame'), ('C', 213, 'frame'),
+                    ('C', 216, 'frame'), ('C', 218, 'frame'), ('C', 220, 'frame'),
+                    ('C', 225, 'frame'), ('C', 229, 'frame'), ('C', 231, 'frame'),
+                    ('C', 233, 'frame'), ('C', 234, 'frame'), ('C', 235, 'frame'),
+                    ('K', '2301030106', 'free')],
+    # ── 救急車が列になって待っている（夜・昼）─────────────────────
+    'ambulance_line': [('C', 203, 'frame'), ('C', 214, 'frame'), ('C', 201, 'frame'),
+                       ('C', 209, 'frame'), ('C', 199, 'frame')],
     # ── 封鎖された道路と、遠くから見ている人たち ──────────────────
     'street_cordon': [('C', 210, 'frame')],
+    # ── 炊き出し・物資を運ぶボランティア ───────────────────────
+    'volunteers': [('C', 217, 'frame')],
     # ── 崩壊の衝撃で散乱した、1階の売り場 ───────────────────────
     'inside_store': [('K', '2301030108', 'free')],
-    # ── 重機が並ぶ現場整理の俯瞰 ─────────────────────────────
-    'site_cleanup': [('K', '2301030107', 'free')],
+    # ── 重機が並ぶ現場整理・回収した物の袋 ──────────────────────
+    'site_cleanup': [('K', '2301030107', 'free'),
+                     ('C', 222, 'frame', '⚠️ 大袋の中身は原本に書かれていない。副題で中身を断定しない')],
     # ── 合同焼香所（白菊と位牌の列）──────────────────────────
     'mourning': [('K', '2301030102', 'free')],
+    # ── 行方不明者を探す掲示板（壁一面の張り紙）───────────────────
+    'missing_board': [('K', '2301030104', 'free',
+                       '🔴 顔写真と名前を**ぼかしてから**使う（私人。公共ヌリ第1類型は手直し可）')],
+    # ── 現場に入った市長・市議会（行政の対応）────────────────────
+    'officials_visit': [('K', '2301030508', 'free'), ('K', '2301030481', 'free')],
 }
 
 
@@ -274,19 +294,21 @@ def cmd_slots():
     rows = {r['no']: r for r in _load()}
     # ⚠️ API は名前空間つきの題でないと imageinfo を返さない（付け忘れると w=0・sha1 空で
     #    「画素が差し替わっている」と全点で鳴る＝2026-09-20 に踏んだ）
-    titles = sorted({'File:' + rows[n]['title'] for v in SLOTS.values() for s, n, _ in v if s == 'C'})
+    titles = sorted({'File:' + rows[i[1]]['title'] for v in SLOTS.values() for i in v if i[0] == 'C'})
     fresh = {r['title']: r for r in meta_full(titles)}
     out, bad = {}, []
     for slot, items in SLOTS.items():
         out[slot] = []
-        for src, n, mode in items:
+        for item in items:
+            src, n, mode = item[:3]
+            note = item[3] if len(item) > 3 else ''
             if src == 'K':
                 t, w, h = KOGL[n]
                 meta = KOGL_SRC['2' if len(n) < 8 else '5']
                 f = meta['file'] % n
                 if not os.path.exists(os.path.join(ROOT, f)):
                     bad.append(f'{slot} {n} の実体が無い（{f}）')
-                out[slot].append(dict(no=n, mode=mode, share_alike=False, title=t, w=w, h=h,
+                out[slot].append(dict(no=n, mode=mode, note=note, share_alike=False, title=t, w=w, h=h,
                                       lic=meta['lic'], lic_url='https://www.kogl.or.kr/info/licenseType1.do',
                                       artist=meta['artist'], date='1995', url=f,
                                       page=meta['page'] % n, credit=meta['credit']))
@@ -297,7 +319,7 @@ def cmd_slots():
             sa = bool(SA.search(r['lic']))
             if sa and mode != 'frame':
                 bad.append(f'{slot} #{n} BY-SA なのに見せ方が {mode}（額装だけ）')
-            out[slot].append(dict(no=n, mode=mode, share_alike=sa, **{k: r[k] for k in (
+            out[slot].append(dict(no=n, mode=mode, note=note, share_alike=sa, **{k: r[k] for k in (
                 'title', 'w', 'h', 'lic', 'lic_url', 'artist', 'date', 'url', 'page')}))
     n_all = sum(len(v) for v in out.values())
     json.dump({'measured': time.strftime('%Y-%m-%d'), 'episode': 10, 'theme': '三豊百貨店崩壊事故',
