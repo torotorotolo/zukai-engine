@@ -209,20 +209,88 @@ def cmd_sheet():
         print('  ', os.path.basename(o))
 
 
-# 欄 → [(番号, 見せ方)]。②で目で選んだ結果を入れる（'frame'＝額装だけ）。空のうちは slots を呼ばない
-SLOTS = {}
+# 公共ヌリ第1類型の11点（②で取得ずみ。実体は ref/ep10/src/kogl/）。継承は無いが**実寸が小さい**
+KOGL = {
+    '2301030102': ('서초구민회관에 마련된 삼풍참사 사망자 합동분향소(1995.7)', 809, 534),
+    '2301030104': ('삼풍백화점 사고 피해자를 찾는 벽보(1995.6)', 809, 534),
+    '2301030105': ('붕괴현장에서 오열하는 유가족들(1995.6.29)', 809, 534),
+    '2301030106': ('삼풍백화점 붕괴현장의 구조활동(1995.6)', 809, 534),
+    '2301030107': ('삼풍백화점 붕괴현장 정리와 구조활동(1995.6)', 809, 534),
+    '2301030108': ('건물 붕괴 충격으로 아수라장이 된 삼풍백화점 본관 1층 현관 가판대(1995.6)', 809, 534),
+    '2301030109': ('처참한 모습을 드러낸 삼풍백화점 붕괴현장(1995.6.30)', 534, 809),
+    '2301030481': ('4대 시의회 의장단 삼풍백화점 구조현장 방문(1995.7.12)', 1000, 657),
+    '2301030508': ('시장 업무 인수 직후 삼풍백화점 현장을 찾은 조순 시장(1995.7.1)', 809, 534),
+    '52399': ('삼풍백화점(붕괴전) 1995/6 · 01O01101Db8000', 1600, 1070),
+    '52400': ('삼풍백화점(붕괴전) 1995/6 · 01O01102Db1000', 1600, 1070),
+}
+KOGL_SRC = {
+    '5': dict(lic='KOGL Type 1', artist='서울역사편찬원',
+              page='https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=%s&key=2211220005',
+              credit='서울역사편찬원', file='ref/ep10/src/kogl/hs_%s_0.jpg'),
+    '2': dict(lic='KOGL Type 1 + CC BY 4.0', artist='서울특별시／서울연구원',
+              page='https://data.si.re.kr/node/%s',
+              credit='서울 1995 도시형태와 경관, 서울특별시／서울연구데이터서비스(http://data.si.re.kr), 서울연구원',
+              file='ref/ep10/src/kogl/sire_%s.jpg'),
+}
+
+# 欄 → [(出どころ, 番号/ID, 見せ方)]。②で目で見て選んだ結果（→ ref/ep10/src/seen.tsv）。
+#   'C'＝Commons（全部 CC BY-SA 4.0）→ 見せ方は **frame（額装）だけ**
+#   'K'＝公共ヌリ第1類型（継承なし）→ 'free'（切り出しもできる）。⚠️ ただし 809px なので実際は額装向き
+SLOTS = {
+    # ── 崩壊前の建物（この2点しか無い）────────────────────────────
+    'sampoong_before': [('K', '52399', 'free'), ('K', '52400', 'free')],
+    # ── 「三豊百貨店」の看板が読める、残った建物 ───────────────────
+    'sign_sampoong': [('C', 211, 'frame'), ('C', 227, 'frame')],
+    # ── 俯瞰＝崩れた穴と残ったピンクの壁（崩壊の規模が分かる）─────────
+    'wreck_aerial': [('C', 182, 'frame'), ('C', 212, 'frame'), ('C', 215, 'frame'),
+                     ('C', 228, 'frame'), ('C', 236, 'frame'), ('C', 193, 'frame'),
+                     ('C', 230, 'frame'), ('C', 239, 'frame')],
+    # ── 地上から見た瓦礫と、崩れた建物の断面 ─────────────────────
+    'wreck_ground': [('C', 189, 'frame'), ('C', 221, 'frame'), ('C', 224, 'frame'),
+                     ('K', '2301030109', 'free')],
+    # ── 折れた柱・むき出しの鉄筋（c5「柱は図面より細かった」の実物）──────
+    'column_broken': [('C', 207, 'frame'), ('C', 219, 'frame')],
+    # ── 瓦礫の上の捜索・作業（顔が見分けられないもの）──────────────
+    'rescue_work': [('C', 194, 'frame'), ('C', 195, 'frame'), ('C', 196, 'frame'),
+                    ('C', 198, 'frame'), ('C', 208, 'frame'), ('C', 216, 'frame'),
+                    ('C', 220, 'frame'), ('C', 229, 'frame'), ('C', 231, 'frame'),
+                    ('C', 233, 'frame'), ('C', 234, 'frame')],
+    # ── 夜の現場・救急車の列 ────────────────────────────────
+    'rescue_night': [('C', 203, 'frame'), ('C', 214, 'frame')],
+    # ── 封鎖された道路と、遠くから見ている人たち ──────────────────
+    'street_cordon': [('C', 210, 'frame')],
+    # ── 崩壊の衝撃で散乱した、1階の売り場 ───────────────────────
+    'inside_store': [('K', '2301030108', 'free')],
+    # ── 重機が並ぶ現場整理の俯瞰 ─────────────────────────────
+    'site_cleanup': [('K', '2301030107', 'free')],
+    # ── 合同焼香所（白菊と位牌の列）──────────────────────────
+    'mourning': [('K', '2301030102', 'free')],
+}
 
 
 def cmd_slots():
     if not SLOTS:
         sys.exit('SLOTS が空')
     rows = {r['no']: r for r in _load()}
-    titles = sorted({rows[n]['title'] for v in SLOTS.values() for n, _ in v})
+    # ⚠️ API は名前空間つきの題でないと imageinfo を返さない（付け忘れると w=0・sha1 空で
+    #    「画素が差し替わっている」と全点で鳴る＝2026-09-20 に踏んだ）
+    titles = sorted({'File:' + rows[n]['title'] for v in SLOTS.values() for s, n, _ in v if s == 'C'})
     fresh = {r['title']: r for r in meta_full(titles)}
     out, bad = {}, []
     for slot, items in SLOTS.items():
         out[slot] = []
-        for n, mode in items:
+        for src, n, mode in items:
+            if src == 'K':
+                t, w, h = KOGL[n]
+                meta = KOGL_SRC['2' if len(n) < 8 else '5']
+                f = meta['file'] % n
+                if not os.path.exists(os.path.join(ROOT, f)):
+                    bad.append(f'{slot} {n} の実体が無い（{f}）')
+                out[slot].append(dict(no=n, mode=mode, share_alike=False, title=t, w=w, h=h,
+                                      lic=meta['lic'], lic_url='https://www.kogl.or.kr/info/licenseType1.do',
+                                      artist=meta['artist'], date='1995', url=f,
+                                      page=meta['page'] % n, credit=meta['credit']))
+                continue
             r = fresh[rows[n]['title']]
             if r['sha1'] != rows[n]['sha1']:
                 bad.append(f'{slot} #{n} 画素が差し替わっている（sha1 が一覧と違う）')
