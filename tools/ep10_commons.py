@@ -171,42 +171,105 @@ def cmd_dup():
         print('  ', x)
 
 
+def _parse_nums(spec):
+    want = []
+    for part in spec.split(','):
+        a, _, b = part.partition('-')
+        want += list(range(int(a), int(b) + 1)) if b else [int(a)]
+    return want
+
+
+# シートの枠（2026-09-20 ②b で測り直した）。
+# ⚠️ 読む側は**長辺 1568px を超えた画像を勝手に縮める**ので、シート全体を 1568 以内に収める。
+#    超えると「640px の枠」と書いてあっても絵は 527px で届く＝[[feedback-container-labels-lie-about-the-picture]]。
+# ⚠️ 縦長と横長を同じ枠に入れない。旧版（枠 640x480・2列3行）では縦長32点が
+#    **325〜332px** まで縮んでいた（札の 640 は嘘だった）。実測 2026-09-20。
+# ⚠️ ここの `commons_640/` は名前に反して **960px 前後**（原寸の約96%）で入っている。
+GEO = {  # 向き: (列, 行, 枠幅, 枠高)
+    'L': (2, 3, 710, 490),   # 横長 → シート 1444x1562。絵は 710px 幅（旧 640 より広い）
+    'P': (3, 2, 510, 740),   # 縦長 → シート 1562x1544。絵は 510px 幅（旧 331 の 1.54倍）
+}
+LH = 28
+
+
 def cmd_sheet():
-    """引数＝番号の並び（例 1-6,9,12）。省略＝事故の年の全点。6点ずつ1枚。"""
+    """引数＝番号の並び（例 1-6,9,12）。省略＝事故の年の全点。
+    向き（縦長/横長）で分けて焼く。ファイル名は <tag>_L01.jpg / <tag>_P01.jpg。
+    ⚠️ 縦長の枠 510px は事故検証chの例外「640px以上のシート」より狭い。
+       縦長を○にするときは `zoom` で原寸に近い大きさをもう一度見てから決めること。"""
     from PIL import Image, ImageDraw, ImageFont
     rows = {r['no']: r for r in _load()}
-    if len(sys.argv) > 2:
-        want = []
-        for part in sys.argv[2].split(','):
-            a, _, b = part.partition('-')
-            want += list(range(int(a), int(b) + 1)) if b else [int(a)]
-    else:
-        want = sorted(rows)
+    want = _parse_nums(sys.argv[2]) if len(sys.argv) > 2 else sorted(rows)
     tag = sys.argv[3] if len(sys.argv) > 3 else 'all'
     os.makedirs(SHEETS, exist_ok=True)
-    CW, CH, LH = 640, 480, 34
-    font = ImageFont.truetype('C:/Windows/Fonts/malgun.ttf', 20)
+    font = ImageFont.truetype('C:/Windows/Fonts/malgun.ttf', 19)
     outs = []
-    for s in range(0, len(want), 6):
-        chunk = want[s:s + 6]
-        sheet = Image.new('RGB', (CW * 2 + 12, (CH + LH) * 3 + 8), (40, 40, 40))
-        dr = ImageDraw.Draw(sheet)
-        for k, n in enumerate(chunk):
-            r = rows[n]
-            im = Image.open(os.path.join(THUMBS, f'{n:03d}.jpg')).convert('RGB')
-            sc = min(CW / im.width, CH / im.height)  # 640 版を縮めない（640 の枠に収まる向きだけ縮む）
-            im = im.resize((max(1, round(im.width * sc)), max(1, round(im.height * sc))), Image.LANCZOS)
-            x0 = (k % 2) * (CW + 12)
-            y0 = (k // 2) * (CH + LH) + 4
-            sheet.paste(im, (x0 + (CW - im.width) // 2, y0 + (CH - im.height) // 2))
-            lab = f"#{n:03d}  {r['w']}x{r['h']}  {r['title'][:40]}"
-            dr.text((x0 + 6, y0 + CH + 4), lab, fill=(255, 255, 0), font=font)
-        fn = os.path.join(SHEETS, f'{tag}_{s // 6 + 1:02d}.jpg')
-        sheet.save(fn, quality=92)
-        outs.append(fn)
+    for kind in ('L', 'P'):
+        sel = [n for n in want if (rows[n]['h'] > rows[n]['w']) == (kind == 'P')]
+        cols, rws, CW, CH = GEO[kind]
+        per = cols * rws
+        for s in range(0, len(sel), per):
+            chunk = sel[s:s + per]
+            sheet = Image.new('RGB', (CW * cols + 8 * (cols + 1), (CH + LH) * rws + 8), (40, 40, 40))
+            dr = ImageDraw.Draw(sheet)
+            shown = []
+            for k, n in enumerate(chunk):
+                r = rows[n]
+                im = Image.open(os.path.join(THUMBS, f'{n:03d}.jpg')).convert('RGB')
+                sc = min(CW / im.width, CH / im.height)
+                im = im.resize((max(1, round(im.width * sc)), max(1, round(im.height * sc))), Image.LANCZOS)
+                shown.append(im.width)
+                x0 = 8 + (k % cols) * (CW + 8)
+                y0 = (k // cols) * (CH + LH) + 4
+                sheet.paste(im, (x0 + (CW - im.width) // 2, y0 + (CH - im.height) // 2))
+                dr.text((x0 + 4, y0 + CH + 3), f"#{n:03d}  {r['w']}x{r['h']}", fill=(255, 255, 0), font=font)
+            fn = os.path.join(SHEETS, f'{tag}_{kind}{s // per + 1:02d}.jpg')
+            sheet.save(fn, quality=93)
+            outs.append((fn, chunk, min(shown), sheet.size))
     print(f'シート {len(outs)}枚 → {SHEETS}')
-    for o in outs:
-        print('  ', os.path.basename(o))
+    for fn, chunk, w, size in outs:
+        assert max(size) <= 1568, f'{fn} が 1568px を超えた（読む側で縮む）'
+        print(f"  {os.path.basename(fn):16s} 絵の最小幅 {w}px  長辺 {max(size)}px  "
+              f"#{','.join(f'{n:03d}' for n in chunk)}")
+
+
+def cmd_zoom():
+    """疑わしい点を原寸に近い大きさで見る。
+    `zoom 178,179`             ＝1枚に最大2点・各 772px 幅まで
+    `zoom 178 0.3,0.2,0.8,0.7` ＝その点を相対座標(x0,y0,x1,y1)で切り出して原寸で見る"""
+    from PIL import Image, ImageDraw, ImageFont
+    rows = {r['no']: r for r in _load()}
+    want = _parse_nums(sys.argv[2])
+    box = [float(x) for x in sys.argv[3].split(',')] if len(sys.argv) > 3 else None
+    os.makedirs(SHEETS, exist_ok=True)
+    font = ImageFont.truetype('C:/Windows/Fonts/malgun.ttf', 19)
+    ims = []
+    for n in want:
+        im = Image.open(os.path.join(THUMBS, f'{n:03d}.jpg')).convert('RGB')
+        if box:
+            im = im.crop((round(box[0] * im.width), round(box[1] * im.height),
+                          round(box[2] * im.width), round(box[3] * im.height)))
+        ims.append((n, im))
+    cap = (1552 - 8 * (len(ims) - 1)) // len(ims)
+    out = []
+    for n, im in ims:
+        sc = min(1.0, cap / im.width, 1530 / im.height)
+        out.append((n, im.resize((round(im.width * sc), round(im.height * sc)), Image.LANCZOS), sc))
+    W = sum(i.width for _, i, _ in out) + 8 * (len(out) + 1)
+    H = max(i.height for _, i, _ in out) + LH + 8
+    sheet = Image.new('RGB', (W, H), (40, 40, 40))
+    dr, x = ImageDraw.Draw(sheet), 8
+    for n, im, sc in out:
+        sheet.paste(im, (x, 4))
+        dr.text((x + 4, H - LH + 2), f"#{n:03d} {im.width}x{im.height} 原寸の{sc * 100:.0f}%",
+                fill=(255, 255, 0), font=font)
+        x += im.width + 8
+    fn = os.path.join(SHEETS, 'zoom_%s%s.jpg' % ('-'.join(str(n) for n in want), '_c' if box else ''))
+    sheet.save(fn, quality=95)
+    assert max(sheet.size) <= 1568, 'zoom が 1568px を超えた'
+    print(f'{fn}  長辺 {max(sheet.size)}px')
+    for n, im, sc in out:
+        print(f'  #{n:03d} {im.width}x{im.height}  ' + rows[n]['title'][:40])
 
 
 # 公共ヌリ第1類型の11点（②で取得ずみ。実体は ref/ep10/src/kogl/）。継承は無いが**実寸が小さい**
@@ -248,16 +311,29 @@ SLOTS = {
     # ── 崩壊前の建物（この2点しか無い）────────────────────────────
     'sampoong_before': [('K', '52399', 'free'), ('K', '52400', 'free')],
     # ── 「三豊百貨店」の看板が読める、残った建物 ───────────────────
-    'sign_sampoong': [('C', 211, 'frame'), ('C', 227, 'frame')],
+    'sign_sampoong': [('C', 211, 'frame'), ('C', 227, 'frame'),
+                      # ②b 追加。#129 は**崩れていない側の棟が丸ごと**＝崩壊前の姿に最も近い
+                      ('C', 12, 'frame'), ('C', 138, 'frame'), ('C', 160, 'frame'),
+                      ('C', 175, 'frame'), ('C', 129, 'frame')],
     # ── 俯瞰＝崩れた穴と残ったピンクの壁（崩壊の規模が分かる）─────────
     'wreck_aerial': [('C', 182, 'frame'), ('C', 212, 'frame'), ('C', 215, 'frame'),
                      ('C', 228, 'frame'), ('C', 236, 'frame'), ('C', 193, 'frame'),
-                     ('C', 230, 'frame'), ('C', 239, 'frame')],
+                     ('C', 230, 'frame'), ('C', 239, 'frame'),
+                     # ②b 追加＝無事な棟の看板と崩れた棟が1枚に入る俯瞰
+                     ('C', 4, 'frame'), ('C', 176, 'frame'),
+                     ('C', 179, 'frame', '⚠️ 消防本部の但し書きが付く4点のひとつ。人物は豆粒で識別できないので可（②b 原寸で確認）')],
     # ── 地上から見た瓦礫と、崩れた建物の断面 ─────────────────────
     'wreck_ground': [('C', 189, 'frame'), ('C', 221, 'frame'), ('C', 224, 'frame'),
-                     ('K', '2301030109', 'free')],
+                     ('K', '2301030109', 'free'),
+                     # ②b 追加。#070/#044 は「ピンクの梁でつながった2棟と、間が抜けた空洞」
+                     ('C', 41, 'frame'), ('C', 44, 'frame'), ('C', 48, 'frame'),
+                     ('C', 68, 'frame'), ('C', 70, 'frame'), ('C', 97, 'frame'),
+                     ('C', 142, 'frame'), ('C', 162, 'frame'), ('C', 170, 'frame')],
     # ── 折れた柱・むき出しの鉄筋（c5「柱は図面より細かった」の実物）──────
-    'column_broken': [('C', 207, 'frame'), ('C', 219, 'frame')],
+    'column_broken': [('C', 207, 'frame'), ('C', 219, 'frame'),
+                      # ②b 追加＝c5 でいちばん足りなかった欄。#083 は折れ口と鉄筋が最も分かる
+                      ('C', 71, 'frame'), ('C', 76, 'frame'), ('C', 81, 'frame'),
+                      ('C', 83, 'frame'), ('C', 84, 'frame')],
     # ── 瓦礫の上の捜索・作業（救助隊・軍・警察＝公的な任務の人）─────────
     'rescue_work': [('C', 187, 'frame'), ('C', 188, 'frame'), ('C', 192, 'frame'),
                     ('C', 194, 'frame'), ('C', 195, 'frame'), ('C', 196, 'frame'),
@@ -265,19 +341,40 @@ SLOTS = {
                     ('C', 216, 'frame'), ('C', 218, 'frame'), ('C', 220, 'frame'),
                     ('C', 225, 'frame'), ('C', 229, 'frame'), ('C', 231, 'frame'),
                     ('C', 233, 'frame'), ('C', 234, 'frame'), ('C', 235, 'frame'),
-                    ('K', '2301030106', 'free')],
+                    ('K', '2301030106', 'free'),
+                    # ②b 追加＝軍の動員・道具・手作業・17日間の疲れ
+                    ('C', 119, 'frame'), ('C', 122, 'frame'), ('C', 125, 'frame'),
+                    ('C', 143, 'frame')],
     # ── 救急車が列になって待っている（夜・昼）─────────────────────
     'ambulance_line': [('C', 203, 'frame'), ('C', 214, 'frame'), ('C', 201, 'frame'),
-                       ('C', 209, 'frame'), ('C', 199, 'frame')],
+                       ('C', 209, 'frame'), ('C', 199, 'frame'),
+                       ('C', 148, 'frame')],  # ②b 追加＝道路一面に数十台。この欄の最良
     # ── 封鎖された道路と、遠くから見ている人たち ──────────────────
-    'street_cordon': [('C', 210, 'frame')],
+    'street_cordon': [('C', 210, 'frame'),
+                      # ②b 追加＝軍が立つ封鎖と、並んだ消防車・救助車両
+                      ('C', 64, 'frame'), ('C', 147, 'frame'), ('C', 149, 'frame'),
+                      ('C', 157, 'frame')],
     # ── 炊き出し・物資を運ぶボランティア ───────────────────────
-    'volunteers': [('C', 217, 'frame')],
+    'volunteers': [('C', 217, 'frame'),
+                   ('C', 61, 'frame', '⚠️ 三豊ガソリンスタンドの前庭（給油機の番号札1〜8・무연휘발유）。'
+                                      '何の配給かは原本に無い＝副題で断定しない')],
     # ── 崩壊の衝撃で散乱した、1階の売り場 ───────────────────────
     'inside_store': [('K', '2301030108', 'free')],
     # ── 重機が並ぶ現場整理・回収した物の袋 ──────────────────────
     'site_cleanup': [('K', '2301030107', 'free'),
-                     ('C', 222, 'frame', '⚠️ 大袋の中身は原本に書かれていない。副題で中身を断定しない')],
+                     ('C', 222, 'frame', '⚠️ 大袋の中身は原本に書かれていない。副題で中身を断定しない'),
+                     ('C', 32, 'frame', '⚠️ 吊り上げている袋の中身は原本に無い＝断定しない'),
+                     ('C', 137, 'frame'), ('C', 167, 'frame'),
+                     ('C', 163, 'frame', '⚠️ 大袋の中身は原本に無い＝断定しない')],
+    # ── 🔴 営業中の広告（日常と崩壊のコントラスト。②b で見つけた）──────
+    #    #159 の「로젠탈 특별전 5F 특설매장」は c2「各階に何があったか」に直接効く
+    'banner_daily': [('C', 57, 'frame'), ('C', 159, 'frame')],
+    # ── 🔴🔴 壁に走ったひび（②b で見つけた。c1/c6 の前兆に効く）──────
+    'crack_wall': [('C', 150, 'frame',
+                    '🔴 原本に説明が無い。副題は「壁に走ったひび」までで、'
+                    '「崩壊当日のひび」「5階のひび」と場所や日を断定しない')],
+    # ── 夜も止まらなかった捜索（17日間の長さを出す）─────────────────
+    'night_work': [('C', 102, 'frame'), ('C', 184, 'frame')],
     # ── 合同焼香所（白菊と位牌の列）──────────────────────────
     'mourning': [('K', '2301030102', 'free')],
     # ── 行方不明者を探す掲示板（壁一面の張り紙）───────────────────
@@ -336,5 +433,6 @@ def cmd_slots():
 
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else ''
-    {'list': cmd_list, 'fetch': cmd_fetch, 'dup': cmd_dup, 'sheet': cmd_sheet, 'slots': cmd_slots}.get(
+    {'list': cmd_list, 'fetch': cmd_fetch, 'dup': cmd_dup, 'sheet': cmd_sheet, 'zoom': cmd_zoom,
+     'slots': cmd_slots}.get(
         cmd, lambda: sys.exit(__doc__))()
