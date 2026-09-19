@@ -203,5 +203,9 @@ ref/ep9/*.pdf
 !ref/ep10/materials.md
 !ref/ep10/primary_sources.md
 !ref/ep10/ko_public_sources.md
-# 入れないもの＝一次資料の実体（国会会議録・判決など 約18MB）。取り直す入口は materials.md §4
+# ②③（2026-09-20）で足したもの＝章立てと尺・欄ごとの素材（機械が出した正本）
+!ref/ep10/kousei.md
+!ref/ep10/slots_commons.json
+# 入れないもの＝一次資料と素材の実体（国会会議録・判決・白書の頁画像・Commons の640px版・公共ヌリの原本）
+#   取り直す入口＝materials.md §4（一次資料）／§8-2（白書）／tools/ep10_commons.py（Commons）
 ref/ep10/src/
