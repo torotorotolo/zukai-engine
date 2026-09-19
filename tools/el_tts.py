@@ -7,6 +7,7 @@ r"""el_tts.py — ElevenLabs で1行ずつ合成する。tools/el_build.py か�
 
 2026-09-05 カズヤくん決定（事故検証ch 4本目サーフサイドから。心理ch ep005 の道具を移植）:
     声   = Hiro - Ultra Deep Japanese Voice（マイコレクション）。⚠️ 心理chの Koichi／「HIRO - Cool」とは別の声
+    🔴 いまの声は下の VOICE_NAME（4〜6本目 Hiro → 7〜9本目 Koichi → **10本目から Sho - Japanese Male**）
     モデル = eleven_v3（画面の「PVC の一貫性には Multilingual v2 を」は読んだうえで v3 に決定）
     ⚠️ この声の verified_languages に eleven_v3 は入っていない（2026-09-05 API で実測）＝長尺で崩れないかは自分で確かめる。
     voice_settings は el_script.SETTINGS で一元管理（キャッシュの鍵に入る。途中で変えると全行が別物になる）。
@@ -73,12 +74,27 @@ MAX_TAKES = 3
 #       6本目までの narration.json・読み辞書・話速の実測は**全部その声のもの**。
 #    🔴 **声が変わると文字/秒が変わる。**③で確定した 202カット・10,401字は Hiro の 5.642文字/秒 から
 #       出た値なので、**Koichi で測り直すまで台本の字数として使わない**（`el_speed_probe.py`）。
-VOICE_NAME = "Koichi-Deep Calm Japanese Narrator"
-VOICE = "H8ZPDxbrPcks5hEsi2fq"
+#
+# 🔴🔴 2026-09-19（10本目 三豊百貨店から）: カズヤくん決定で **Sho - Japanese Male** に変更
+#    （ElevenLabs の「事故検証ch」コレクション内・v3・画面のつまみ「安定」・エフェクト「距離：近く」）。
+#    /v1/voices（46声）で名前の完全一致は1件＝wiBTiCATMiTaXSfv8hdN（professional＝PVC）。説明文
+#    "A warm, slightly deep Japanese male voice in his 40s, originally from Nagoya and now based in Tokyo…"
+#    ⚠️ 似た名前の「shohei Japan voice」（8FuuqoKHuM48hIEwni5e）は別の声。
+#    ⚠️ PVC は公式の v3 ガイドで「v3 にはまだ完全には最適化されていない」＝画面の注意と同じ。決定は v3。
+#    ⚠️ 画面の「オーディオエフェクト・距離：近く」は **TTS の API に項目が無い**（公式 openapi.json の
+#       Body_text_to_speech_full ほか2本に audio_effects が無い。会話エージェントの設定にだけある）。
+#       画面の生成履歴（/v1/history）にもエフェクトの記録は無い。扱いはカズヤくんの判断待ち（2026-09-19）。
+#    🔴 声が変わると文字/秒が変わる。同じ24行で Sho 6.248 対 Koichi 6.757（9本目の本番の音）＝
+#       **Sho が約6〜8% ゆっくり**（analytics/ep10_sho_speed_probe.json・引き直しの誤差 中央値11%）。
+#       check_script の CPS_FALLBACK / PER_CUT はこの比から出した**暫定値**。⑤a の完成音で取り直す。
+VOICE_NAME = "Sho - Japanese Male"
+VOICE = "wiBTiCATMiTaXSfv8hdN"
 MODEL = "eleven_v3"
-# ⚠️ 声に保存された既定の settings（/v1/voices/<id>/settings・2026-09-05 実測）＝
-#    stability 0.85 / similarity_boost 1.0 / style 0.0 / speed 1.14 / speaker_boost True。
-#    voice_settings を渡さないと**この speed 1.14 で読む**。渡すかどうかは el_script.SETTINGS（1行合成で決める）。
+# ⚠️ 声に保存された既定の settings（/v1/voices/<id>/settings・API 実測）＝
+#    Sho    … stability 0.8 / similarity_boost 0.7 / style 0.0 / speed 1.06 / speaker_boost True（2026-09-19）
+#    Koichi … stability 0.64 / similarity_boost 0.89 / style 0.0 / speed 1.02 / speaker_boost True
+#    Hiro   … stability 0.85 / similarity_boost 1.0 / style 0.0 / speed 1.14 / speaker_boost True（2026-09-05）
+#    voice_settings を渡さないと**声に保存されたこの値で読む**。渡す値は el_script.SETTINGS。
 FORMAT = "pcm_24000"
 SR = 24000
 

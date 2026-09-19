@@ -58,7 +58,14 @@ SLUG = "ep9"                # 9本目 テネリフェ（2026-09-16）。8本目 
 #       その声の持ち味から外れる（規則は「その声の既定を写す」＝2026-09-07 と同じ。値だけが変わる）。
 #    ⚠️ stability が 0.85 → 0.64 に下がる＝**表情は出るが振れも大きくなる**。
 #       ⑤a の頭で1行 A/B して、読み間違い・余計な音が増えていないかを実測で見る。
-SETTINGS = {"stability": 0.64, "similarity_boost": 0.89, "style": 0.0,
+# 🔴🔴 2026-09-19（10本目）: 声を **Sho - Japanese Male** に替えた（el_tts.VOICE_NAME）。
+#    値は「声の既定」ではなく **カズヤくんが画面で試聴した音の実際の値**を写した:
+#    /v1/history（Sho・2026-09-19 22:14〜22:16 の18件）＝ model eleven_v3 / **stability 1.0**（つまみ右端「安定」）/
+#    **similarity 0.75**。⚠️ 声に保存された既定は similarity_boost **0.7**（stability 0.8）で、試聴の音とは違う。
+#    画面の v3 には style・speaker_boost の項目が無いので、この2つは声の既定（0.0・True）を写した。
+#    speed は v3 が見ない（3回再現）が、従来どおり 1.0 を明示する。
+#    ⚠️ 画面の「距離：近く」は API に項目が無い＝ここには入れていない（el_tts.py の注記・判断待ち）。
+SETTINGS = {"stability": 1.0, "similarity_boost": 0.75, "style": 0.0,
             "speed": 1.0, "use_speaker_boost": True}
 QA_DIR = ROOT / "audio" / "el_qa"
 

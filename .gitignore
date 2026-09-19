@@ -196,3 +196,12 @@ ref/ep8/vid/*.mp4
 # 入れないもの＝一次資料の実体（PDF 11本・14.6MB）。
 #   取り直す入口は ref/ep9/materials.md §4 に全部 URL で書いてある
 ref/ep9/*.pdf
+
+# ── 10本目 三豊百貨店崩壊（2026-09-19 ①題材の実測）──────────────
+!ref/ep10/
+# 入れるもの＝素材の道・一次資料の調査メモ（どれもテキスト）
+!ref/ep10/materials.md
+!ref/ep10/primary_sources.md
+!ref/ep10/ko_public_sources.md
+# 入れないもの＝一次資料の実体（国会会議録・判決など 約18MB）。取り直す入口は materials.md §4
+ref/ep10/src/
