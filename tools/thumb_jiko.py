@@ -241,7 +241,7 @@ FX = {
 }
 
 
-def fx_type(hero, red, yellow, fx, yel_plain=False, ground=True):
+def fx_type(hero, red, yellow, fx, yel_plain=False, ground=True, split=None):
     """`rival_type` と同じ型のまま、**文字の質感だけ**を足す。
 
     yel_plain … 黄の行だけ**最初のデザイン**（単色ベタ＋黒フチ1本）に戻す
@@ -249,10 +249,17 @@ def fx_type(hero, red, yellow, fx, yel_plain=False, ground=True):
                 ⚠️ 黄は下端に密着していて、下の暗幕と黒フチで十分に立つ。
                   二重フチ（外に白）を足すと**縁が主役になって字が読みにくくなる**側だった。
     ground    … 地の演出（上の暗幕・ビネット）を出すか。False で最初の地に戻る
+    split     … (右側の data URI, 継ぎ目の x)。`rival_type` と同じ左右2枚並べ
+                （2026-09-21 追加）。⚠️ **右側は その枠の寸法(W-x × H)で作ったもの**を渡す。
+                1280幅で作った画像を640幅の枠に slice で入れると倍に寄る（1本目 t4 の失敗）
     """
     k = FX[fx]
     g = [f'<image href="{hero}" x="0" y="0" width="{W}" height="{H}" '
          f'preserveAspectRatio="xMidYMid slice"/>']
+    if split:
+        uri, sx = split
+        g.append(f'<image href="{uri}" x="{sx}" y="0" width="{W - sx}" height="{H}" '
+                 f'preserveAspectRatio="xMidYMid slice"/>')
     defs = [f'<linearGradient id="sb" x1="0" y1="1" x2="0" y2="0">'
             f'<stop offset="0" stop-color="#000" stop-opacity="0.46"/>'
             f'<stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>']
@@ -809,9 +816,54 @@ def ep10():
     bake("ep10_c_yuka", fx_type(before, RED_C, YEL, "e_veil", yel_plain=True))
 
 
+def ep10_t2():
+    """10本目・2巡目（2026-09-21）。🔴 **赤の行から「死亡」を外す**（カズヤくん指示）。
+
+    ■ 根拠：記憶 `feedback-jiko-death-word-policy` の表は
+      「**タイトル・サムネの赤字は言い換え**（…犠牲者5名／生還者なし／全員が帰らなかった）」。
+      ⚠️ ところが**4本目〜9本目は素の「死亡」で焼いていた**（98名死亡／3名死亡／6名死亡／
+      2,973人死亡／7人死亡／583人死亡）。1本目「乗員5名 生還者なし」・2本目
+      「生存者4人 全員が最後尾」だけが言い換え。**今回の指示は書いてある決まりのほうへ戻す。**
+
+    ■ 赤の案（どれも14〜15字＝7〜9本目と同じ長さ。数字は必ず残す）
+      d 犠牲502人 危険はないと診断 … タイトルの二つ目の事実
+      e 犠牲502人 床は朝から動いた … 第1章の名前
+      f 生還3人 帰らなかった502人  … **数字2つ**。`c815`（助け出された3人）＋白書の502人
+      h 犠牲502人 店は開いたまま   … `ep14`「それでも、店は開いたままだった」
+      i 跡地の写真に d と同じ赤
+      g 🆕 **左右2枚並べ**（左＝崩れる前／右＝跡地）。`rival_type` の split を `fx_type` にも通した
+
+    ■ 地に使える写真（⚠️ 1巡目の私の説明は絞りすぎだった）
+      YouTube のサムネの規格は**推奨 3840×2160・最小幅 640px**（support.google.com/youtube/answer/72431）。
+      公共ヌリ第1類型の10点は **809×534 でも規格内**＝`site_cleanup_01` も使える（1.58倍に伸びる）。
+      使えないのは CC BY-SA の82点だけ（切る・文字を重ねる＝翻案）。
+    """
+    RED_D = "犠牲502人 危険はないと診断"   # 15字
+    RED_E = "犠牲502人 床は朝から動いた"   # 15字
+    RED_F = "生還3人 帰らなかった502人"    # 15字
+    RED_H = "犠牲502人 店は開いたまま"     # 14字
+    YEL = "三豊百貨店 崩壊事故"           # 10字
+
+    before = photo(EP10_BEFORE, cy=0.35, cx=0.50, contrast=1.14, color=1.08, bright=0.97)
+    site = photo(EP10_SITE, cy=0.50, cx=0.50, contrast=1.16, color=1.06, bright=0.97)
+    # 右半分は**その枠の寸法で**作る（640×720）。1280幅のものを入れると倍に寄る
+    site_r = photo(EP10_SITE, cy=0.50, cx=0.55, contrast=1.16, color=1.06, bright=0.97,
+                   w=640, h=H)
+
+    bake("ep10_d_gisei", fx_type(before, RED_D, YEL, "e_veil", yel_plain=True))
+    bake("ep10_e_yuka", fx_type(before, RED_E, YEL, "e_veil", yel_plain=True))
+    bake("ep10_f_seikan", fx_type(before, RED_F, YEL, "e_veil", yel_plain=True))
+    bake("ep10_g_split", fx_type(before, RED_D, YEL, "e_veil", yel_plain=True,
+                                 split=(site_r, 640)))
+    bake("ep10_h_mise", fx_type(before, RED_H, YEL, "e_veil", yel_plain=True))
+    bake("ep10_i_ato", fx_type(site, RED_D, YEL, "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep10" in sys.argv:
+    if "ep10-t2" in sys.argv:
+        ep10_t2()
+    elif "ep10" in sys.argv:
         ep10()
     elif "ep9" in sys.argv:
         ep9()
