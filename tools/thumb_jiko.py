@@ -770,9 +770,50 @@ def ep9():
         bake(f"ep9_{nm}", fx_type(wreck, r, YEL, "e_veil", yel_plain=True))
 
 
+EP10_BEFORE = "ep10/sampoong_before_01.jpg"   # 서울연구원（1995年6月・公共ヌリ第1類型＋CC BY 4.0）：崩れる前の三豊百貨店
+EP10_SITE = "ep10/site_cleanup_01.jpg"        # 서울역사편찬원（1995年・公共ヌリ第1類型）：崩れた跡地と重機
+
+
+def ep10():
+    """10本目（三豊百貨店）のサムネ（2026-09-20・⑥）。型は7〜9本目と同一＝**赤1行・黄1行・写真だけ**。
+
+    ■ 🔴🔴 地に使える写真が**2点しかない**（この回だけの制約）
+      この回の写真92点のうち **82点が CC BY-SA 4.0**。BY-SA は
+      **切る・色を変える・上に文字を重ねると翻案**になり、継承が掛かる
+      （→ 記憶 reference-cc-by-sa-unmodified-in-video・`ref/ep10/materials.md` §1）。
+      サムネは**必ず切って文字を重ねる**ので、BY-SA の82点は地にできない。
+      手直しが許されているのは公共ヌリ第1類型の10点だけで、そのうち
+      **1280×720 に足りる大きさ**なのは `sampoong_before_01/02`（1600×1070）だけ。
+      `site_cleanup_01`（809×534）は 1.58倍に伸びるが、人は10〜20pxで顔が立たない。
+      ⚠️ `rescue_work_19` は顔が立つので採らない。
+
+    ■ 決め語（④' で承認されたタイトルと、章の名前からだけ取る。推量を足さない）
+      赤＝**502人死亡＋この回の核心**（どれも15字＝7〜9本目と同じ長さ）
+          a/b **危険はないと診断** … タイトルの二つ目の事実（15時10分の診断）
+          c    **床は朝から動いた** … 第1章の名前「その日の朝、床が動きだした」
+      黄＝**通り名「三豊百貨店」＋出来事**（10字）。タイトル末尾の事故名と同じ語
+      ⚠️ 「隠蔽」「衝撃」「闇」「結末」は逆効果（記憶 project-jiko-rules-index §3）
+      ⚠️ 502 は白書の最終値（`c906`）＝タイトルと同じ扱い
+    """
+    RED_A = "502人死亡 危険はないと診断"    # 15字
+    RED_C = "502人死亡 床は朝から動いた"    # 15字
+    YEL = "三豊百貨店 崩壊事故"            # 10字
+
+    # 崩れる前：看板「三豊百貨店」と OPEN の垂れ幕が帯の内側に来るよう上に寄せる
+    before = photo(EP10_BEFORE, cy=0.35, cx=0.50, contrast=1.14, color=1.08, bright=0.97)
+    # 崩れた跡地：重機と掘り下げられた穴が中央に来る
+    site = photo(EP10_SITE, cy=0.50, cx=0.50, contrast=1.16, color=1.06, bright=0.97)
+
+    bake("ep10_a_shindan", fx_type(before, RED_A, YEL, "e_veil", yel_plain=True))
+    bake("ep10_b_ato", fx_type(site, RED_A, YEL, "e_veil", yel_plain=True))
+    bake("ep10_c_yuka", fx_type(before, RED_C, YEL, "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep9" in sys.argv:
+    if "ep10" in sys.argv:
+        ep10()
+    elif "ep9" in sys.argv:
         ep9()
     elif "ep8" in sys.argv:
         ep8()

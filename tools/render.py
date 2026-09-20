@@ -12,10 +12,17 @@ import sys
 import tempfile
 from pathlib import Path
 
+# 🔴🔴 2026-09-20（10本目⑥）：**Chrome を Edge より先にした。**
+#    この日、手元の Edge は `--headless=new/old/（既定）` のどれでも
+#    **終了コード 0・stderr 空のまま PNG を1枚も書かなくなっていた**（Chrome は同じ引数で通る）。
+#    `png()` は最後に `out_path.exists()` を見て落ちるので黙って合格はしないが、
+#    Edge が先だと**毎回1回空振りしてから気づく**ことになる。
+#    ⚠️ Edge を使いたいときは `MK_BROWSER` で明示する（環境変数が最優先のまま）。
 CANDIDATES = [
+    r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+    r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
     r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
     r"C:\Program Files\Microsoft\Edge\Application\msedge.exe",
-    r"C:\Program Files\Google\Chrome\Application\chrome.exe",
 ]
 
 
