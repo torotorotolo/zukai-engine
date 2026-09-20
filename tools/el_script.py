@@ -100,7 +100,11 @@ EXPECT = {
     #    「カット 195 / 字幕行 460 / 本文 11537字 / 決め所 14」＝E 0件 / W 4件
     #    ⚠️ 11,537字は ⑤a で `ep05` の月数を「6月／10月」→「6か月／10か月」に直したあとの数（④' は 11,533字）。
     #       TTS が「6月」を **ろくがつ** と読むため。字幕にも出る語なので辞書ではなく台本側で直した。
-    "ep10":     {"cuts": 195, "lines": 460, "chars": 11537, "quotes": 14, "why": "三豊百貨店 台本第2版",
+    #    ⚠️ 11,541字は ⑤b-1 で `ep12` を「手抜きの工事で」→「**わざと**手を抜いた工事で」に直したあと（+4字）。
+    #       無期／3年以上が掛かるのは**故意**の罪（建築法 제77조의2）で、三豊の被告は**業務上過失**。
+    #       「わざと」が無いと、直前まで三豊の話を聞いてきた人が**自分たちの刑だと受け取る**（§1-8）。
+    #       同じ回で `c802` の「延べ」→「のべ」も直した（`c807` とそろえた。字数は変わらない）。
+    "ep10":     {"cuts": 195, "lines": 460, "chars": 11541, "quotes": 14, "why": "三豊百貨店 台本第2版",
                  "md": "事故検証-三豊百貨店-台本第2版-20260920.md"},
 }
 VAULT = Path.home() / "Documents" / "Obsidian Vault" / "Projects"
@@ -132,6 +136,37 @@ def lines():
         for i, t in enumerate(ls, 1):
             out.append(Line(f"{cid}-{i}", cid, i, t.strip()))
     return out
+
+
+def md_vs_script():
+    """🔴🔴 **台本の md と `narration.SCRIPT` の文を、1行ずつ突き合わせる**（2026-09-20 ⑤b-1 新設）。
+
+    なぜ要るか: 音を焼くのは `narration.SCRIPT` だが、**人が直すのは Vault の md のほう**。
+    それまでの `--selftest` は `narration.SCRIPT` を**直書きの定数**（cuts/lines/chars/quotes）と
+    比べていただけなので、**md だけを直すと「✓ 台本と一致」と出たまま、音は古い文のまま**になる。
+    実際 ⑤b-1 で md の2行（`ep12` `c802`）を直したら、selftest は**そのまま ✓ を出した**。
+    → [[feedback-gates-go-stale-when-upstream-changes]]（黙って間違った合格）
+
+    ⚠️ md は決め所を `★**…**` で囲む。`narration.SCRIPT` は素の文を持つので、**そこだけ外して**比べる。
+    fail closed: md が無ければ例外（0件を合格にしない）。
+    """
+    import check_script as CSC
+    p = VAULT / EXPECT[SLUG]["md"]
+    if not p.exists():
+        raise SystemExit(f"🔴 台本の md が無い: {p}")
+    md = [(cid, t.strip()) for cid, _, ls in CSC.parse(p.read_text(encoding="utf-8")) for t in ls]
+    py = [(l.cid, l.text) for l in lines()]
+    strip = re.compile(r"^★\*\*(.*)\*\*$")
+    bad = []
+    if len(md) != len(py):
+        bad.append(f"行数が違う: md {len(md)}行 ／ narration.SCRIPT {len(py)}行")
+    for (mc, mt), (pc, pt) in zip(md, py):
+        m = strip.match(mt)
+        if m:
+            mt = m.group(1)
+        if mc != pc or mt != pt:
+            bad.append(f"{mc}: md「{mt}」／ .py「{pt}」")
+    return bad
 
 
 def by_id():
@@ -407,7 +442,17 @@ def selftest() -> int:
     print(f"台本: {n_cuts}カット／{len(ls)}行／{n_chars}字（{why} の実測は "
           f"{e['cuts']}／{e['lines']}／{e['chars']:,}・決め所 {e['quotes']}）")
     ok = (n_cuts, len(ls), n_chars) == (e["cuts"], e["lines"], e["chars"])
-    print("  " + (f"✓ {why}と一致" if ok else f"🔴 {why}と食い違う"))
+    print("  " + (f"✓ {why}と一致（直書きの定数と）" if ok else f"🔴 {why}と食い違う"))
+    # 🔴🔴 2026-09-20（⑤b-1）**定数と合っていても、md と .py がずれていれば意味が無い。**
+    #    音を焼くのは narration.SCRIPT、人が直すのは Vault の md。ここで1行ずつ突き合わせる。
+    drift = md_vs_script()
+    ok_md = not drift
+    print("  " + (f"✓ Vault の md と narration.SCRIPT の文が1行ずつ一致（{len(ls)}行）"
+                  if ok_md else f"🔴 md と narration.SCRIPT が {len(drift)}行 食い違う"
+                                f"＝**焼く文と、人が読む台本が別物**"))
+    for d in drift[:12]:
+        print(f"     {d}")
+    ok &= ok_md
     # 🔴 pr01 の行数は回によって違う（サーフサイド3行・SL-1 2行）ので、台本から作った答えと突き合わせる
     r = resolve_ids("pr01,c101-2")
     want2 = [l.lid for l in ls if l.cid == "pr01"] + ["c101-2"]

@@ -1,0 +1,10 @@
+ElevenLabs: 声=Sho - Japanese Male（wiBTiCATMiTaXSfv8hdN） モデル=eleven_v3 settings={'stability': 1.0, 'similarity_boost': 0.75, 'style': 0.0, 'speed': 1.0, 'use_speaker_boost': True} ／クレジット 113,649 / 131,000／GAP 0.4s
+c802:  10.56s  (2行)
+ep12:  12.80s  (2行)
+
+合成 2 カット／持ち越し 193 カット／未作成 0／記録 195／台本 195
+作ったぶん: 195カット 11541字 → 発話＋行間 2054.6秒（5.62字/秒・行間込み。AivisSpeech は 5.52）
+本編の見込み 37.5分（全 11541字をこの速さで＋LEAD/TAIL 0.85×195＋quote 2.0×14。許容 27〜40分）
+最長の1行 = 6.56秒「その日のうちに入った救急車は14台。最後までにのべ1,176台が入る。」
+API 2行（72字）／キャッシュ 2行／振り直し 0回／本物と判定 0／要耳 0（記録＝audio/el_qa/ep10_el_retakes.tsv）
+クレジット 113,649 → 113,649（消費 0）⚠️ 反映が遅れることがある
