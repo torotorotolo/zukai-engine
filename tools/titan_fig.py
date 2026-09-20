@@ -1422,7 +1422,7 @@ def dives(items, dmax=4200, note="", ylab="深さ", show_axis=True):
 #  9. layers — 積層（剥離・空隙・接着面）
 # ══════════════════════════════════════════════════════════
 def layers(n=5, bonds=None, delam=None, voids=None, note="", labels=True,
-           split=None, dims=None, bondlab="", fiber=True):
+           split=None, dims=None, bondlab="", fiber=True, frac=None):
     """重なった板の断面。
 
     bonds … 面の番号(1..n-1)に注記 [dict(i=1, t="1-2", c=..., big=True)]
@@ -1431,6 +1431,17 @@ def layers(n=5, bonds=None, delam=None, voids=None, note="", labels=True,
     labels … True なら「1層」「2層」…／**文字列のリストを渡すとその名前**になる
     bondlab … 面そのものの凡例（右下）。**渡さなければ出さない**
     fiber … 層の中に繊維の向きの細線を引くか
+    frac … 層の厚みの比 [0.14, 0.86] のように n 個。**渡さなければ今までどおり等分**
+            （既定を変えないので、過去の回の絵は1画素も動かない）
+
+    🔴 2026-09-20（10本目 ⑤c'・`c513`）：**等分しかできないことが、図に嘘を言わせていた。**
+       c513 は「鉄筋は床の表面に近いところにあるほどよく効く／決められた位置は
+       表面から2〜3センチ」と語るカットなのに、`n=2` の等分だと面が真ん中に来るので
+       **鉄筋の帯が深さ 50.0%** に描かれていた（⑤c-2 の実測＝上の層 255px／全体 532px）。
+       次の `c514` が「そこより深く沈むほど弱くなる（6〜8センチ）」と続くため、
+       **深い側を描く余地も無い**＝層の型のままでは直せなかった。
+       → 厚みの比をカット側から渡せるようにした。
+       ⚠️ 比は縮尺の主張ではない（c513 の副題は「床の断面（**模式図**）」）。
 
     🔴 2026-08-04（r01 の拡大目視）：`labels=True` に
        **「接着剤の面」という凡例が焼き込まれていた。**
@@ -1448,8 +1459,19 @@ def layers(n=5, bonds=None, delam=None, voids=None, note="", labels=True,
     # ⚠️ 62+16 だと5層で374pxしかなく、枠(682)の下半分が空いた（c415 空き40.7%）。
     #    層は「厚み」を見せる図なので、**枠の縦を使い切る厚さ**にする。
     bt = 22                                # 接着面の厚み
-    lh = (BH - 150 - bt * (n - 1)) / n     # 1層の厚み（枠から逆算）
-    tot = n * lh + (n - 1) * bt
+    body = BH - 150 - bt * (n - 1)         # 層に使える縦（枠から逆算）
+    if frac:
+        if len(frac) != n:
+            raise ValueError(f"layers: frac の数が層の数と合っていません "
+                             f"（frac={len(frac)} / n={n}）")
+        if any(f <= 0 for f in frac):
+            raise ValueError(f"layers: frac は正の数だけ（frac={frac}）")
+        _fs = float(sum(frac))
+        lhs = [body * f / _fs for f in frac]
+    else:
+        lhs = [body / n] * n               # 既定＝等分（今までと同じ）
+    lh = body / n                          # 等分1層ぶん（既定の基準として残す）
+    tot = sum(lhs) + (n - 1) * bt
     top = BY0 + 62
     g = []
     y = top
@@ -1459,22 +1481,23 @@ def layers(n=5, bonds=None, delam=None, voids=None, note="", labels=True,
         raise ValueError(f"layers: labels の数が層の数と合っていません "
                          f"（labels={len(names)} / n={n}）")
     for i in range(n):
-        g.append(rect(x0, y, x1 - x0, lh, J.LINE, op=0.20))
-        g.append(rect(x0, y, x1 - x0, lh, "none", J.LINE, 4))
+        lhi = lhs[i]
+        g.append(rect(x0, y, x1 - x0, lhi, J.LINE, op=0.20))
+        g.append(rect(x0, y, x1 - x0, lhi, "none", J.LINE, 4))
         # 繊維の向きが分かるよう細い線を入れる（層であることが一目で分かる）
         if fiber:
             for k in range(1, 6):
-                g.append(line(x0 + 6, y + lh * k / 6, x1 - 6, y + lh * k / 6,
+                g.append(line(x0 + 6, y + lhi * k / 6, x1 - 6, y + lhi * k / 6,
                               J.LINE_DIM, 1.6))
         if names is not None:
             # 名前は「1層」より長いので、左の余白（190px）に収まるまで詰める
-            g.append(txtfit(x0 - 22, y + lh / 2 + 12, names[i], x0 - BX0 - 30,
+            g.append(txtfit(x0 - 22, y + lhi / 2 + 12, names[i], x0 - BX0 - 30,
                             cap=34, col=J.LINE, anchor="end"))
         elif labels:
-            g.append(txt(x0 - 22, y + lh / 2 + 13, f"{i + 1}層", 34, J.LINE,
+            g.append(txt(x0 - 22, y + lhi / 2 + 13, f"{i + 1}層", 34, J.LINE,
                          "Noto", "end"))
         ys.append(y)
-        y += lh
+        y += lhi
         if i < n - 1:
             g.append(rect(x0, y, x1 - x0, bt, J.OK, op=0.55))
             y += bt
@@ -1500,7 +1523,9 @@ def layers(n=5, bonds=None, delam=None, voids=None, note="", labels=True,
         if not 1 <= i <= n - 1:
             raise ValueError(
                 f"layers: 接着面の番号は 1〜{n - 1}（1 が1層と2層のあいだ）。i={i}")
-        return top + (i - 1) * (lh + bt) + lh
+        # ⚠️ 層ごとの厚みを足して出す（`frac` で等分でなくなるため）。
+        #    等分のときは top + (i-1)*(lh+bt) + lh と同じ値になる。
+        return top + sum(lhs[:i]) + bt * (i - 1)
 
     stages = []
     for b in (bonds or []):
@@ -2613,10 +2638,23 @@ def gauge(hits=None, yellow=30, red=50, vmax=60, lead="", note="", marks=None):
 # ══════════════════════════════════════════════════════════
 # 17. mapfig — 位置関係（Google Maps は使えないので自作）
 # ══════════════════════════════════════════════════════════
-def mapfig(points, note="", link=None, scale=None, lead="", coast=None, turn=None):
+def mapfig(points, note="", link=None, scale=None, lead="", coast=None, turn=None,
+           site=None):
     """位置関係の略図。points=[dict(x=0.2,y=0.3,t="大島",c=...,kind=)]
 
     x,y は本体枠に対する 0〜1。**地図の正確さではなく位置関係だけを持たせる。**
+
+    ■ 点を「棟」として描く（2026-09-20・10本目 ⑤c'）
+      点に **`w` と `h`（枠に対する 0〜1）** を持たせると、丸ではなく**矩形**で描く。
+      `site=dict(x0=,y0=,x1=,y1=,t="敷地")` を渡すと、敷地の輪郭を1枚置く。
+      link の両端がどちらも矩形なら、破線の経路ではなく**実線の通路**でつなぐ。
+      ⚠️ どれも**渡さなければ今までどおり**（丸＋破線）。過去の回の絵は動かない。
+
+    🔴 なぜ足したか（`pr06`）：ナレーションは「**同じ大きさの棟が2つ**、真ん中の通路で
+       つながっていた」なのに、絵は **r=13 の点が2つ**と破線1本だけだった。
+       **点に「大きさ」は無い**ので、図がナレーションを支えていない。
+       ⑤c-2 の実測＝枠 1696×572 のインク **2.41%**（右 648px は 1.39%）。
+       副題も「瑞草区にあった敷地の配置」なのに、**敷地が描かれていなかった**。
 
     🔴 2026-08-04（r05 の拡大目視）：**「位置関係だけ」は方角まで免れる断りではない。**
        note に「縮尺は正確ではない」と書いてあるので角度の狂いは断ってあるつもりでいたが、
@@ -2674,6 +2712,39 @@ def mapfig(points, note="", link=None, scale=None, lead="", coast=None, turn=Non
     def P(p):
         return (x0 + w * p["x"], y0 + h * p["y"])
 
+    def BOX(p):
+        """矩形で描く点なら (cx, cy, bw, bh)。丸で描く点なら None。"""
+        if not (p.get("w") and p.get("h")):
+            return None
+        cx, cy = P(p)
+        return cx, cy, w * p["w"], h * p["h"]
+
+    def HALF(p, axis="x"):
+        """札を置くときに点から逃がす距離（丸は 34／矩形は半分＋20）。
+
+        ⚠️ `site` があるときは**敷地の外まで**逃がす。中に置くと、札が敷地の
+           破線の枠を横切る（この型は `check_layout` が層をまたぐと見ない）。
+           左右どちらを選んでも外に出るよう、**遠いほうの辺**で決める。
+        """
+        b = BOX(p)
+        if not b:
+            return 34.0
+        off = (b[2] if axis == "x" else b[3]) / 2 + 20.0
+        if site and axis == "x":
+            off = max(off, max(abs(x0 + w * site["x1"] - b[0]),
+                               abs(b[0] - (x0 + w * site["x0"]))) + 20.0)
+        return off
+
+    if site:
+        sx0, sy0 = x0 + w * site["x0"], y0 + h * site["y0"]
+        sx1, sy1 = x0 + w * site["x1"], y0 + h * site["y1"]
+        g.append(rect(sx0, sy0, sx1 - sx0, sy1 - sy0, J.LINE_DIM, op=0.16))
+        g.append(rect(sx0, sy0, sx1 - sx0, sy1 - sy0, "none", J.LINE_DIM, 4,
+                      dash="14 10"))
+        if site.get("t"):
+            g.append(txtfit(sx0 + 14, sy1 - 16, site["t"], (sx1 - sx0) - 28,
+                            cap=28, col=J.TICK))
+
     stages = []
     # 🔴🔴 2026-09-17（9本目 ⑤c' 台帳 E-15〜E-19 → ⑤c''）：**5カット中5カットで札を線が通った。**
     #    札は点の左右 34px に置き、線は点の中心まで引いていた＝線が来る側に札があれば
@@ -2686,14 +2757,35 @@ def mapfig(points, note="", link=None, scale=None, lead="", coast=None, turn=Non
     #         押し込まれる＝c718 の型）
     RING = 30
     links = []
+    halls = []              # 実線の通路（両端とも矩形の link だけ）
     if link and len(points) >= 2:
         pairs = [tuple(link)] if isinstance(link[0], int) else [tuple(k) for k in link]
         for i0, i1 in pairs:
+            ba, bb = BOX(points[i0]), BOX(points[i1])
+            if ba and bb:
+                # 🔴 棟どうしは「経路」ではなく**建物の一部（通路）**なので、
+                #    破線で迂回させず、向かい合う辺のあいだを実線の帯でつなぐ。
+                ax, ay, aw, ah = ba
+                bx, by, bw_, bh_ = bb
+                if abs(by - ay) >= abs(bx - ax):          # 上下に並ぶ＝縦の通路
+                    cw_ = min(aw, bw_) * 0.34
+                    ya, yb = (ay + ah / 2, by - bh_ / 2) if ay < by else \
+                             (by + bh_ / 2, ay - ah / 2)
+                    halls.append(((ax + bx) / 2 - cw_ / 2, ya, cw_, yb - ya))
+                else:                                     # 左右に並ぶ＝横の通路
+                    ch_ = min(ah, bh_) * 0.34
+                    xa, xb = (ax + aw / 2, bx - bw_ / 2) if ax < bx else \
+                             (bx + bw_ / 2, ax - aw / 2)
+                    halls.append((xa, (ay + by) / 2 - ch_ / 2, xb - xa, ch_))
+                continue
             pa, pb = P(points[i0]), P(points[i1])
             pm = ((pa[0] + pb[0]) / 2, (pa[1] + pb[1]) / 2 - 60)
             links.append([_toward(pa, pm, RING), pm, _toward(pb, pm, RING)])
         a, b = P(points[pairs[0][0]]), P(points[pairs[0][1]])
         s = [poly(pts, stroke=J.AMBER, sw=5, dash="18 12") for pts in links]
+        for hx, hy, hw, hh in halls:
+            s.append(rect(hx, hy, hw, hh, J.AMBER, op=0.30))
+            s.append(rect(hx, hy, hw, hh, "none", J.AMBER, 4))
         if scale:
             # 🔴 2026-08-04（r03 の拡大目視）：札を経路の頂点の 16px 上に置いていたが、
             #    経路は a →（中点の60px上）→ b の**折れ線**なので、
@@ -2732,12 +2824,18 @@ def mapfig(points, note="", link=None, scale=None, lead="", coast=None, turn=Non
                             col=J.AMBER, anchor="middle", ol=7))
         stages.append("".join(s))
     segs = [(pts[k], pts[k + 1]) for pts in links for k in range(len(pts) - 1)]
+    # 実線の通路も「線」として札に避けさせる（4辺を線分として渡す）
+    for hx, hy, hw, hh in halls:
+        segs += [((hx, hy), (hx + hw, hy)), ((hx, hy + hh), (hx + hw, hy + hh)),
+                 ((hx, hy), (hx, hy + hh)), ((hx + hw, hy), (hx + hw, hy + hh))]
     placed = [scale_box] if (links and scale) else []
     fx0, fx1, fy0, fy1 = x0 + 6, x0 + w - 6, y0 + 6, y0 + h - 6
 
     def boxes(p, x, y, anch, dy):
         """その置き方で、札（t）と添え書き（d）が占める矩形。枠に入らなければ None。"""
-        lx = x + (34 if anch == "start" else -34)
+        # ⚠️ 矩形で描く点は、34px だと**札が棟の中に載る**。半分ぶん逃がす。
+        off = HALF(p, "x")
+        lx = x + (off if anch == "start" else -off)
         room = (fx1 - lx) if anch == "start" else (lx - fx0)
         out = []
         for key, cap, base in (("t", 34, 12), ("d", 26, 50)):
@@ -2768,8 +2866,17 @@ def mapfig(points, note="", link=None, scale=None, lead="", coast=None, turn=Non
         dflt = {"left": "end", "right": "start"}.get(
             p.get("side"), "start" if p.get("x", 0.5) < 0.7 else "end")
         sides = [dflt] if p.get("side") else [dflt, "end" if dflt == "start" else "start"]
-        others = [(P(q)[0] - 28, P(q)[1] - 28, P(q)[0] + 28, P(q)[1] + 28)
-                  for i, q in enumerate(points) if i != k]
+        # ⚠️ ほかの点が矩形なら、円の 28px ではなく**矩形の広がり**で避ける
+        others = []
+        for i, q in enumerate(points):
+            if i == k:
+                continue
+            bq = BOX(q)
+            if bq:
+                qx, qy, qw, qh = bq
+                others.append((qx - qw / 2, qy - qh / 2, qx + qw / 2, qy + qh / 2))
+            else:
+                others.append((P(q)[0] - 28, P(q)[1] - 28, P(q)[0] + 28, P(q)[1] + 28))
         best = None
         for dy in (0, 12, -12, 24, -24, 36, -36, 48, -48, 60, -60):
             for anch in sides:
@@ -2795,7 +2902,13 @@ def mapfig(points, note="", link=None, scale=None, lead="", coast=None, turn=Non
         x, y = P(p)
         c = p.get("c", J.AMBER)
         s = []
-        if p.get("kind") == "wreck":
+        bp = BOX(p)
+        if bp:
+            # 棟（矩形）。**点に大きさは無い**ので、大きさを語るカットはこちらで描く。
+            bx_, by_, bw_, bh_ = bp
+            s.append(rect(bx_ - bw_ / 2, by_ - bh_ / 2, bw_, bh_, c, op=0.22))
+            s.append(rect(bx_ - bw_ / 2, by_ - bh_ / 2, bw_, bh_, "none", c, 5))
+        elif p.get("kind") == "wreck":
             s.append(line(x - 22, y - 22, x + 22, y + 22, c, 6))
             s.append(line(x + 22, y - 22, x - 22, y + 22, c, 6))
         else:
@@ -2813,7 +2926,8 @@ def mapfig(points, note="", link=None, scale=None, lead="", coast=None, turn=Non
         #    → `side="left"／"right"` を渡せる。
         #    🔴 2026-09-17：渡さなければ `place()` が線から離れる側を選ぶ（上の注記）。
         anch, dy, mws = place(k, p)
-        lx = x + (34 if anch == "start" else -34)
+        _off = HALF(p, "x")
+        lx = x + (_off if anch == "start" else -_off)
         s.append(txtfit(lx, y + 12 + dy, p["t"], mws[0], cap=34, col=c, anchor=anch))
         if p.get("d"):
             s.append(txtfit(lx, y + 50 + dy, p["d"], mws[-1], cap=26, col=J.TICK,
@@ -3159,11 +3273,27 @@ def people(nodes, edges=None, note="", lead="", src="", pair=False):
     #    出て、約4秒間は右の矢印が空白から出ていた。
     #    → `pair=True` で**節と、その節から出る矢印を1つの段**にする（段 7 → 4）。
     #    ⚠️ 既定は変えない（ほかの people カットの時間割を動かさない）。
+    # 🔴🔴 2026-09-20（10本目 ⑤c'）：**「出る側にぶら下げる」では足りなかった。**
+    #    `c604` は矢印が1つの節から**出ていく**形（社長→会長／社長→役員）なので、
+    #    出る側にぶら下げると**2本とも社長の段**に入り、受け手がまだ描かれていない。
+    #    ＝ 直したはずの「行き先の無い矢印」が、向きを変えて残る。
+    #    → 矢印は**あとに出るほうの端**にぶら下げる。こうすれば、矢印が描かれる時点で
+    #      両端の節が必ず出ている（向きが集まる形でも、散る形でも同じ）。
+    #    ⚠️ 集まる形（`ep07` `c312`）では `max(a, b)` が出る側と一致するので、
+    #      そちらの並びは変わらない。
     if pair and edges:
         es_, ns_ = stages[:len(edges)], stages[len(edges):]
-        stages = [ns_[i] + "".join(es_[k] for k, e in enumerate(edges) if e["a"] == i)
+
+        def owner(e):
+            a, b = e.get("a"), e.get("b")
+            if not (0 <= a < len(nodes) and 0 <= b < len(nodes)):
+                return None
+            return max(a, b)
+
+        stages = [ns_[i] + "".join(es_[k] for k, e in enumerate(edges)
+                                   if owner(e) == i)
                   for i in range(len(nodes))]
-        stages += [es_[k] for k, e in enumerate(edges) if not 0 <= e["a"] < len(nodes)]
+        stages += [es_[k] for k, e in enumerate(edges) if owner(e) is None]
     return Fig("".join(g), stages, "", (x0, x0 + w))
 
 
