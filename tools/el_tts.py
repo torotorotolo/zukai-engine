@@ -87,8 +87,14 @@ MAX_TAKES = 3
 #    🔴 声が変わると文字/秒が変わる。同じ24行で Sho 6.248 対 Koichi 6.757（9本目の本番の音）＝
 #       **Sho が約6〜8% ゆっくり**（analytics/ep10_sho_speed_probe.json・引き直しの誤差 中央値11%）。
 #       check_script の CPS_FALLBACK / PER_CUT はこの比から出した**暫定値**。⑤a の完成音で取り直す。
-VOICE_NAME = "Sho - Japanese Male"
-VOICE = "wiBTiCATMiTaXSfv8hdN"
+# 🔴🔴 2026-09-21（10本目⑥・カズヤくん指示「Otani に変更してください」）：**Sho → Otani**。
+#    ⚠️ `/v1/history` に Otani の生成記録は **0件**＝画面の試聴はボイスライブラリの見本の再生で、
+#       合成の履歴を残さない。Sho のときのように「試聴した実際の値」を写すことができないので、
+#       **声に保存された既定**を写す＝2026-09-07 の規則「その声の既定を写す」に戻る。
+#    ⚠️ Sho は stability 1.0 で焼いていたので **1.0 → 0.5 に下がる**＝表情は出るが振れも大きい。
+#       全編を焼く前に、難しい行だけで A/B して実測で決める（`qa_out/ep10_ab_stability.py`）。
+VOICE_NAME = "Otani"
+VOICE = "3JDquces8E8bkmvbh6Bc"
 MODEL = "eleven_v3"
 # ⚠️ 声に保存された既定の settings（/v1/voices/<id>/settings・API 実測）＝
 #    Sho    … stability 0.8 / similarity_boost 0.7 / style 0.0 / speed 1.06 / speaker_boost True（2026-09-19）

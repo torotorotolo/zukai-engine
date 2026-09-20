@@ -236,7 +236,8 @@ def main() -> int:
     print(f"説明     {len(desc)} 字（上限 5,000）")
     if len(TITLE) > 100 or len(desc) > 5000:
         raise SystemExit("🔴 上限を超えた。書かずに止めた。")
-    thumb = "out/thumb/ep10-t1/ep10_a_matte.png"
+    # ✅ 2026-09-21 カズヤくん採用＝**g（左右2枚並べ・崩れる前／跡地）**。赤は「死亡」を使わない言い換え
+    thumb = "out/thumb/ep10-t2/ep10_g_split.png"
     meta = {
         "slug": "ep10",
         "title": TITLE,
