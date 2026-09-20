@@ -110,6 +110,7 @@ Starter プランに **毎月 $30 の無料枠**がある（2026-08-01 時点の
         速さのためにコア数を上げる必要はない。詰まるのは時間ではなく**費用**だった。
 """
 import os
+import re
 import subprocess
 import sys
 import time
@@ -171,7 +172,23 @@ def sh(cmd, cwd=WORK, check=True):
     return r.returncode
 
 
+def check_ref(ref):
+    """🔴 `--ref` は**40桁の完全な SHA**でないと通らない。
+
+    `git fetch origin <sha>` は通信の仕様上、短縮した SHA を受け付けない
+    （`couldn't find remote ref` で落ちる）。2026-09-20（10本目⑥）に
+    `--ref 6aad2cb` を渡して、**容器を立ち上げて clone したあと**に落ちた。
+    ⚠️ ここで止めないと、毎回30秒ぶんの立ち上げを捨てることになる。
+    手元では `git rev-parse HEAD` の出力をそのまま貼る。
+    """
+    if ref and ref != "main" and not re.fullmatch(r"[0-9a-f]{40}", ref):
+        raise SystemExit(
+            f"🔴 --ref は40桁の完全な SHA で渡す（受け取った: {ref!r}／{len(ref)}桁）。\n"
+            "   手元で `git rev-parse HEAD` の出力をそのまま貼ること。")
+
+
 def clone(ref):
+    check_ref(ref)
     os.makedirs("/work", exist_ok=True)
     sh(f"git clone --depth 1 {REPO} {WORK}", cwd="/work")
     if ref and ref != "main":
@@ -338,4 +355,5 @@ def layer_hash(ref: str = "main"):
 @app.local_entrypoint()
 def main(note: str = "", ref: str = "main", bgm: str = ""):
     """`modal run modal_app.py --bgm music|none` で本編を焼く。"""
+    check_ref(ref)          # 🔴 容器を立ち上げる前に、手元で止める
     print(full.remote(note=note, ref=ref, bgm=bgm))
