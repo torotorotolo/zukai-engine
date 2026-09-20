@@ -164,6 +164,23 @@ def check_restricted(spec):
     return bad
 
 
+# ══════════════════════════════════════════════════════════
+#  🔴🔴 焼く前に**元画像そのものを直す**点（2026-09-20 ⑤b-2 で新設）
+# ══════════════════════════════════════════════════════════
+#   ⚠️ **`blur=` は cut の書き方として実装されていない。**`_BREAKS_FRAME` に "blur" が
+#      並んでいるので書けるように見えるが、`scene_jiko` も `build_jiko` も読まない
+#      （`grep -rn blur tools/*.py` で確かめた）。
+#      ＝ 章ファイルに `blur=` と書いても、**エラーも出さずに素のまま焼ける**。
+#   → だから「元画像を直したか」を見る門番を別に立てる＝`tools/check_mask.py`。
+#      直したら `ref/ep10/masked.json` に**直したあとのファイルの md5** を記録する。
+#      記録が無い／md5 が合わない＝**まだ直っていない**として 🔴（fail closed）。
+#   → [[feedback-rules-need-gates]]／[[feedback-jiko-photo-people-policy]]
+#   値＝何を隠すか。隠す範囲は⑤cで原寸を見てから決める。
+NEEDS_MASK = {
+    P("missing_board_01"): "私人の顔写真と名前（公共ヌリ第1類型＝手直しが許されている）",
+}
+
+
 @lru_cache(maxsize=None)
 def size_of(name):
     from PIL import Image

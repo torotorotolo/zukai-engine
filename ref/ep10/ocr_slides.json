@@ -1,0 +1,899 @@
+{
+ "ambulance_line_02.jpg": {
+  "size": [
+   1449,
+   1005
+  ],
+  "lines": []
+ },
+ "ambulance_line_04.jpg": {
+  "size": [
+   1453,
+   1003
+  ],
+  "lines": []
+ },
+ "ambulance_line_06.jpg": {
+  "size": [
+   1000,
+   685
+  ],
+  "lines": [
+   {
+    "box": [
+     350,
+     485,
+     439,
+     498
+    ],
+    "text": "spnRrSmAX"
+   }
+  ]
+ },
+ "banner_daily_01.jpg": {
+  "size": [
+   695,
+   1000
+  ],
+  "lines": []
+ },
+ "banner_daily_02.jpg": {
+  "size": [
+   682,
+   1000
+  ],
+  "lines": []
+ },
+ "column_broken_01.jpg": {
+  "size": [
+   1447,
+   1011
+  ],
+  "lines": [
+   {
+    "box": [
+     904,
+     0,
+     1136,
+     656
+    ],
+    "text": "一 ョ 朝"
+   },
+   {
+    "box": [
+     328,
+     606,
+     352,
+     668
+    ],
+    "text": "基 2 一"
+   }
+  ]
+ },
+ "column_broken_02.jpg": {
+  "size": [
+   1435,
+   1007
+  ],
+  "lines": [
+   {
+    "box": [
+     273,
+     210,
+     427,
+     238
+    ],
+    "text": "引 団 田 全"
+   }
+  ]
+ },
+ "column_broken_03.jpg": {
+  "size": [
+   1000,
+   691
+  ],
+  "lines": []
+ },
+ "column_broken_04.jpg": {
+  "size": [
+   1000,
+   694
+  ],
+  "lines": []
+ },
+ "column_broken_05.jpg": {
+  "size": [
+   1000,
+   688
+  ],
+  "lines": []
+ },
+ "column_broken_06.jpg": {
+  "size": [
+   1000,
+   693
+  ],
+  "lines": []
+ },
+ "column_broken_07.jpg": {
+  "size": [
+   1000,
+   689
+  ],
+  "lines": []
+ },
+ "crack_wall_01.jpg": {
+  "size": [
+   1000,
+   689
+  ],
+  "lines": []
+ },
+ "inside_store_01.jpg": {
+  "size": [
+   809,
+   534
+  ],
+  "lines": [
+   {
+    "box": [
+     300,
+     106,
+     614,
+     139
+    ],
+    "text": "昌 ま 〔 H 入 ・ フ 国 吾"
+   },
+   {
+    "box": [
+     359,
+     139,
+     544,
+     151
+    ],
+    "text": "を 0 告 ′ 暑 / 一 三 刈 当"
+   }
+  ]
+ },
+ "missing_board_01.jpg": {
+  "size": [
+   809,
+   534
+  ],
+  "lines": [
+   {
+    "box": [
+     501,
+     233,
+     581,
+     246
+    ],
+    "text": "盟 卩 当 を 餮"
+   }
+  ]
+ },
+ "mourning_01.jpg": {
+  "size": [
+   809,
+   534
+  ],
+  "lines": [
+   {
+    "box": [
+     472,
+     160,
+     538,
+     276
+    ],
+    "text": "言 窄"
+   }
+  ]
+ },
+ "night_work_01.jpg": {
+  "size": [
+   691,
+   1000
+  ],
+  "lines": [
+   {
+    "box": [
+     172,
+     877,
+     266,
+     896
+    ],
+    "text": "代 7 -3800"
+   }
+  ]
+ },
+ "officials_visit_01.jpg": {
+  "size": [
+   809,
+   534
+  ],
+  "lines": []
+ },
+ "officials_visit_02.jpg": {
+  "size": [
+   1000,
+   657
+  ],
+  "lines": []
+ },
+ "rescue_work_01.jpg": {
+  "size": [
+   2048,
+   1457
+  ],
+  "lines": []
+ },
+ "rescue_work_02.jpg": {
+  "size": [
+   1431,
+   1017
+  ],
+  "lines": []
+ },
+ "rescue_work_03.jpg": {
+  "size": [
+   1459,
+   1005
+  ],
+  "lines": [
+   {
+    "box": [
+     728,
+     535,
+     774,
+     625
+    ],
+    "text": "、 ト"
+   }
+  ]
+ },
+ "rescue_work_04.jpg": {
+  "size": [
+   1457,
+   1001
+  ],
+  "lines": []
+ },
+ "rescue_work_05.jpg": {
+  "size": [
+   1451,
+   999
+  ],
+  "lines": []
+ },
+ "rescue_work_06.jpg": {
+  "size": [
+   1451,
+   1001
+  ],
+  "lines": [
+   {
+    "box": [
+     1064,
+     872,
+     1263,
+     915
+    ],
+    "text": "5 = 7 3"
+   }
+  ]
+ },
+ "rescue_work_07.jpg": {
+  "size": [
+   1453,
+   999
+  ],
+  "lines": []
+ },
+ "rescue_work_08.jpg": {
+  "size": [
+   1451,
+   999
+  ],
+  "lines": []
+ },
+ "rescue_work_09.jpg": {
+  "size": [
+   1799,
+   1199
+  ],
+  "lines": []
+ },
+ "rescue_work_10.jpg": {
+  "size": [
+   1451,
+   1007
+  ],
+  "lines": []
+ },
+ "rescue_work_11.jpg": {
+  "size": [
+   1445,
+   1007
+  ],
+  "lines": []
+ },
+ "rescue_work_12.jpg": {
+  "size": [
+   1451,
+   1007
+  ],
+  "lines": []
+ },
+ "rescue_work_13.jpg": {
+  "size": [
+   1435,
+   1005
+  ],
+  "lines": []
+ },
+ "rescue_work_14.jpg": {
+  "size": [
+   1447,
+   1005
+  ],
+  "lines": []
+ },
+ "rescue_work_15.jpg": {
+  "size": [
+   1455,
+   1007
+  ],
+  "lines": []
+ },
+ "rescue_work_16.jpg": {
+  "size": [
+   1449,
+   1003
+  ],
+  "lines": []
+ },
+ "rescue_work_17.jpg": {
+  "size": [
+   1445,
+   1003
+  ],
+  "lines": []
+ },
+ "rescue_work_18.jpg": {
+  "size": [
+   1447,
+   1003
+  ],
+  "lines": []
+ },
+ "rescue_work_19.jpg": {
+  "size": [
+   809,
+   534
+  ],
+  "lines": []
+ },
+ "rescue_work_20.jpg": {
+  "size": [
+   1000,
+   685
+  ],
+  "lines": []
+ },
+ "rescue_work_21.jpg": {
+  "size": [
+   1000,
+   693
+  ],
+  "lines": []
+ },
+ "rescue_work_22.jpg": {
+  "size": [
+   1000,
+   684
+  ],
+  "lines": []
+ },
+ "sampoong_before_01.jpg": {
+  "size": [
+   1600,
+   1070
+  ],
+  "lines": [
+   {
+    "box": [
+     1038,
+     373,
+     1073,
+     586
+    ],
+    "text": "レ 川 0 も ョ"
+   },
+   {
+    "box": [
+     657,
+     463,
+     703,
+     533
+    ],
+    "text": "V\\"
+   }
+  ]
+ },
+ "sampoong_before_02.jpg": {
+  "size": [
+   1600,
+   1070
+  ],
+  "lines": [
+   {
+    "box": [
+     571,
+     541,
+     675,
+     560
+    ],
+    "text": "Sign ! 区 此"
+   },
+   {
+    "box": [
+     585,
+     458,
+     703,
+     485
+    ],
+    "text": "三 第 百 貨 唐"
+   },
+   {
+    "box": [
+     982,
+     564,
+     999,
+     651
+    ],
+    "text": "・ ・ 心 川 0 ョ aO ョ"
+   },
+   {
+    "box": [
+     956,
+     564,
+     973,
+     652
+    ],
+    "text": "! 一 生 印 日"
+   }
+  ]
+ },
+ "sign_sampoong_01.jpg": {
+  "size": [
+   1798,
+   1199
+  ],
+  "lines": [
+   {
+    "box": [
+     615,
+     286,
+     655,
+     355
+    ],
+    "text": "店 一"
+   }
+  ]
+ },
+ "sign_sampoong_02.jpg": {
+  "size": [
+   1453,
+   1009
+  ],
+  "lines": []
+ },
+ "sign_sampoong_03.jpg": {
+  "size": [
+   1000,
+   687
+  ],
+  "lines": [
+   {
+    "box": [
+     874,
+     483,
+     880,
+     495
+    ],
+    "text": "1"
+   }
+  ]
+ },
+ "sign_sampoong_04.jpg": {
+  "size": [
+   1000,
+   678
+  ],
+  "lines": [
+   {
+    "box": [
+     821,
+     588,
+     906,
+     607
+    ],
+    "text": "ー ニ 第 -"
+   }
+  ]
+ },
+ "sign_sampoong_05.jpg": {
+  "size": [
+   1000,
+   682
+  ],
+  "lines": []
+ },
+ "sign_sampoong_06.jpg": {
+  "size": [
+   689,
+   1000
+  ],
+  "lines": [
+   {
+    "box": [
+     287,
+     548,
+     484,
+     588
+    ],
+    "text": "・ 95S い 仆 4"
+   }
+  ]
+ },
+ "sign_sampoong_07.jpg": {
+  "size": [
+   1000,
+   688
+  ],
+  "lines": []
+ },
+ "site_cleanup_01.jpg": {
+  "size": [
+   809,
+   534
+  ],
+  "lines": [
+   {
+    "box": [
+     339,
+     79,
+     353,
+     163
+    ],
+    "text": "を 訂 新 宿 ・ 第 「"
+   }
+  ]
+ },
+ "site_cleanup_03.jpg": {
+  "size": [
+   1000,
+   690
+  ],
+  "lines": []
+ },
+ "site_cleanup_04.jpg": {
+  "size": [
+   1000,
+   681
+  ],
+  "lines": []
+ },
+ "site_cleanup_05.jpg": {
+  "size": [
+   1000,
+   683
+  ],
+  "lines": []
+ },
+ "street_cordon_01.jpg": {
+  "size": [
+   1455,
+   1007
+  ],
+  "lines": []
+ },
+ "street_cordon_02.jpg": {
+  "size": [
+   1000,
+   688
+  ],
+  "lines": []
+ },
+ "street_cordon_03.jpg": {
+  "size": [
+   1000,
+   684
+  ],
+  "lines": []
+ },
+ "street_cordon_04.jpg": {
+  "size": [
+   1000,
+   689
+  ],
+  "lines": []
+ },
+ "street_cordon_05.jpg": {
+  "size": [
+   1000,
+   684
+  ],
+  "lines": []
+ },
+ "volunteers_01.jpg": {
+  "size": [
+   1449,
+   1009
+  ],
+  "lines": [
+   {
+    "box": [
+     644,
+     142,
+     691,
+     213
+    ],
+    "text": "コ 一"
+   }
+  ]
+ },
+ "volunteers_02.jpg": {
+  "size": [
+   1000,
+   691
+  ],
+  "lines": []
+ },
+ "wreck_aerial_01.jpg": {
+  "size": [
+   3000,
+   4072
+  ],
+  "lines": []
+ },
+ "wreck_aerial_02.jpg": {
+  "size": [
+   1181,
+   803
+  ],
+  "lines": []
+ },
+ "wreck_aerial_03.jpg": {
+  "size": [
+   1453,
+   1009
+  ],
+  "lines": [
+   {
+    "box": [
+     832,
+     330,
+     916,
+     574
+    ],
+    "text": "に = 一 き"
+   }
+  ]
+ },
+ "wreck_aerial_04.jpg": {
+  "size": [
+   1455,
+   1009
+  ],
+  "lines": []
+ },
+ "wreck_aerial_05.jpg": {
+  "size": [
+   2031,
+   1429
+  ],
+  "lines": [
+   {
+    "box": [
+     1578,
+     750,
+     1600,
+     787
+    ],
+    "text": "上 ."
+   }
+  ]
+ },
+ "wreck_aerial_06.jpg": {
+  "size": [
+   1001,
+   1457
+  ],
+  "lines": []
+ },
+ "wreck_aerial_07.jpg": {
+  "size": [
+   1003,
+   1451
+  ],
+  "lines": []
+ },
+ "wreck_aerial_08.jpg": {
+  "size": [
+   1479,
+   2048
+  ],
+  "lines": [
+   {
+    "box": [
+     921,
+     1083,
+     1460,
+     1176
+    ],
+    "text": "を ー ツ ヤ"
+   }
+  ]
+ },
+ "wreck_aerial_09.jpg": {
+  "size": [
+   691,
+   1000
+  ],
+  "lines": []
+ },
+ "wreck_aerial_10.jpg": {
+  "size": [
+   1000,
+   688
+  ],
+  "lines": []
+ },
+ "wreck_aerial_11.jpg": {
+  "size": [
+   1000,
+   687
+  ],
+  "lines": []
+ },
+ "wreck_ground_01.jpg": {
+  "size": [
+   1453,
+   1001
+  ],
+  "lines": []
+ },
+ "wreck_ground_02.jpg": {
+  "size": [
+   1451,
+   1005
+  ],
+  "lines": [
+   {
+    "box": [
+     485,
+     148,
+     541,
+     318
+    ],
+    "text": "ま ー"
+   },
+   {
+    "box": [
+     120,
+     55,
+     183,
+     331
+    ],
+    "text": "ー え 3 第"
+   }
+  ]
+ },
+ "wreck_ground_03.jpg": {
+  "size": [
+   1449,
+   1005
+  ],
+  "lines": [
+   {
+    "box": [
+     1350,
+     0,
+     1429,
+     173
+    ],
+    "text": "襲 レ 製"
+   }
+  ]
+ },
+ "wreck_ground_04.jpg": {
+  "size": [
+   534,
+   809
+  ],
+  "lines": []
+ },
+ "wreck_ground_05.jpg": {
+  "size": [
+   1000,
+   697
+  ],
+  "lines": []
+ },
+ "wreck_ground_06.jpg": {
+  "size": [
+   1000,
+   697
+  ],
+  "lines": []
+ },
+ "wreck_ground_07.jpg": {
+  "size": [
+   695,
+   1000
+  ],
+  "lines": []
+ },
+ "wreck_ground_08.jpg": {
+  "size": [
+   704,
+   1000
+  ],
+  "lines": []
+ },
+ "wreck_ground_09.jpg": {
+  "size": [
+   1000,
+   682
+  ],
+  "lines": []
+ },
+ "wreck_ground_10.jpg": {
+  "size": [
+   1000,
+   682
+  ],
+  "lines": []
+ },
+ "wreck_ground_11.jpg": {
+  "size": [
+   1000,
+   690
+  ],
+  "lines": []
+ },
+ "wreck_ground_12.jpg": {
+  "size": [
+   1000,
+   677
+  ],
+  "lines": []
+ },
+ "wreck_ground_13.jpg": {
+  "size": [
+   1000,
+   690
+  ],
+  "lines": [
+   {
+    "box": [
+     169,
+     511,
+     240,
+     527
+    ],
+    "text": "0 ー を 一 第"
+   },
+   {
+    "box": [
+     117,
+     533,
+     270,
+     555
+    ],
+    "text": "SAMSU NG"
+   }
+  ]
+ }
+}

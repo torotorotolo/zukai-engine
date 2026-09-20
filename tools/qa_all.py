@@ -82,6 +82,15 @@ GATES = [
     #    `c309`「2001年以前」に2018年の A220 が入ったまま、**13本が1本も鳴らずに**
     #    検品画像まで来た（12欄。⑤c `qa_out/ep7_qa_look1.md` §A-1／§A-7）。
     ("credits", ["tools/check_credits.py"], "副題が名乗る年と出どころの表（ref/CREDITS.md）"),
+    # 🔴🔴 2026-09-20（10本目 ⑤b-2 で新設）**焼く前に元画像そのものを直す点**を見る。
+    #    10本目の `missing_board_01` には**私人の顔写真と名前**が写っている。
+    #    ②b・⑤b-1 は「ぼかして使う」と決めていたが、**`blur=` は cut の書き方として
+    #    実装されていない**（`scene_jiko` も `build_jiko` も読まない）。
+    #    ＝ 章ファイルに `blur=` と書いても**エラーも出さずに素のまま焼ける**し、
+    #      ここまでの門番14本は1本もこれを見ていなかった。
+    #    → [[feedback-rules-need-gates]]／[[feedback-jiko-photo-people-policy]]
+    #    ⚠️ 名前の似ている `tools/check_mask.py` は**音**（語尾が BGM に埋もれていないか）。別物。
+    ("photomask", ["tools/check_photo_mask.py"], "私人の顔・名前を隠してから焼いているか"),
 ]
 
 

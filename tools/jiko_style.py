@@ -154,11 +154,21 @@ def chapter(n, total, name):
        右上に固定位置で出すので、視線の邪魔にもならない。
     """
     x = RIGHT - 446
+    # 🔴🔴 2026-09-20（10本目 ⑤b-2）：**章名を 30px 固定で置いていたので、長い章名が
+    #    画面の外へ出ていた。**10本目の第6章「15時10分、「すぐに崩れる危険はない」」は
+    #    **550.8px（使える幅 446px）＝右端が 1953**（上限 1848）で、`check_layout` が
+    #    **その章の20カット全部**で鳴った。第3章も 450px で 4px はみ出していた。
+    #    ⚠️ 章名は④で決める**中身**で、`check_final --chapters` が「台本 §4 の章見出しと
+    #       1字も違わないこと」を見ている＝**章名を縮めて逃がすことはできない。**
+    #       直すのは置き方のほう。**収まるまで級数を落とす**（446px に収まる章名は 30px の
+    #       ままなので、9本目までの回の見え方は1画素も変わらない）。
+    from fontmetrics import fit as _fit
+    size = _fit(name, 446, "Noto", cap=30, floor=20)
     return (f'<path d="M{x - 24} 56 V158" stroke="{ALERT}" stroke-width="5"/>'
             f'<text x="{x}" y="98" font-family="Dela" font-size="40" fill="{AMBER}" '
             f'stroke="{BG}" stroke-width="8" stroke-linejoin="round" '
             f'paint-order="stroke fill">{n} / {total}</text>'
-            f'<text x="{x}" y="146" font-family="Noto" font-size="30" fill="{LINE}" '
+            f'<text x="{x}" y="146" font-family="Noto" font-size="{size}" fill="{LINE}" '
             f'stroke="{BG}" stroke-width="6" stroke-linejoin="round" '
             f'paint-order="stroke fill">{name}</text>')
 
