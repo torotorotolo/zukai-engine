@@ -1470,3 +1470,113 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `panam_747_same_type_07` | c116 | 1984 | CC BY（CC BY 2.0） | Kambui | Pan American World Airways - Pan Am Boeing 747-121 N732PA "Clipper Ocean Telegraph" (29935660081).jpg |
 | `panam_747_same_type_08` |  | 1983 | CC BY（CC BY 2.0） | Kambui | Pan American World Airways - Pan Am Boeing 747-121 N754PA "Clipper Ocean Rover" (24059638596).jpg |
 | `canary_iss_01` |  | 2009 | PD（Public domain） | NASA ジョンソン宇宙センター | ISS020-E-21144 - View of the Canary Islands.jpg |
+
+## 三豊百貨店崩壊事故（1995-06-29・10本目）
+
+**2026-09-20（⑤b-1）に実測した。**写真は `qa_out/ep10_assets.py` が正本で、この節は `python qa_out/ep10_assets.py credits --write` が**機械で書き出している**（手で書かない）。
+
+### 1. 写真 92点（CC BY-SA 4.0 82点 ／ 公共ヌリ第1類型 10点）
+
+🔴🔴 **CC BY-SA の点は額装でだけ使っている**（無加工・丸ごと・色を変えない・何も重ねない）。
+　　継承は翻案物を共有するときだけ掛かるので、**動画を BY-SA にする必要はない**
+　　（許諾 3(b)・1(a)・2(a)(4)／CC 公式 ShareAlike_interpretation。`ref/ep10/materials.md` §1 に原文）。
+　　⚠️ 切る・色を変える・上に重ねると翻案になる。**止める仕掛け＝`cuts/ss.py` の `FRAME_ONLY`**。
+⚠️ **BY-SA の表示に要るのは4つ**＝撮影者・許諾名と URL・素材の URL・**改変していないこと**。
+　　画面の隅には「出典：撮影者／CC BY-SA 4.0（無改変）」だけを出し、URL はこの表と⑥の概要欄で出す。
+⚠️ 撮影者名の原語はハングル。画面は片仮名にしている（`WHO_JA`）。個人名の読みは機械的な転写で、当人の名乗りではない。
+⚠️ いま画面に出しているのは **0点**（`使うカット` が空の欄は候補として落としただけ。捨てていない）。
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 素材の題名 |
+|---|---|---:|---|---|---|
+| `sampoong_before_01` |  | 1995 | KOGL Type 1 + CC BY 4.0（手直し可） | ソウル特別市／ソウル研究院 | 삼풍백화점(붕괴전) 1995/6 · 01O01101Db8000 |
+| `sampoong_before_02` |  | 1995 | KOGL Type 1 + CC BY 4.0（手直し可） | ソウル特別市／ソウル研究院 | 삼풍백화점(붕괴전) 1995/6 · 01O01102Db1000 |
+| `sign_sampoong_01` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept25.jpg |
+| `sign_sampoong_02` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept43.jpg |
+| `sign_sampoong_03` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고110.jpg |
+| `sign_sampoong_04` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고60.jpg |
+| `sign_sampoong_05` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고82.jpg |
+| `sign_sampoong_06` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고96.jpg |
+| `sign_sampoong_07` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고51.jpg |
+| `wreck_aerial_01` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 1995년 6월 29일 삼풍백화점 붕괴 사고 7.jpg |
+| `wreck_aerial_02` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept26.jpg |
+| `wreck_aerial_03` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept29.jpg |
+| `wreck_aerial_04` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept45.jpg |
+| `wreck_aerial_05` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept53.jpg |
+| `wreck_aerial_06` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept07.jpg |
+| `wreck_aerial_07` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept47.jpg |
+| `wreck_aerial_08` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept56.jpg |
+| `wreck_aerial_09` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고102.jpg |
+| `wreck_aerial_10` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고97.jpg |
+| `wreck_aerial_11` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 1995년 6월 29일 삼풍백화점 붕괴 사고 3.jpg |
+| `wreck_ground_01` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept03.jpg |
+| `wreck_ground_02` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept36.jpg |
+| `wreck_ground_03` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept40.jpg |
+| `wreck_ground_04` |  | 1995 | KOGL Type 1（手直し可） | ソウル歴史編纂院 | 처참한 모습을 드러낸 삼풍백화점 붕괴현장(1995.6.30) |
+| `wreck_ground_05` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고138.jpg |
+| `wreck_ground_06` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고140.jpg |
+| `wreck_ground_07` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고144.jpg |
+| `wreck_ground_08` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고162.jpg |
+| `wreck_ground_09` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고165.jpg |
+| `wreck_ground_10` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고21.jpg |
+| `wreck_ground_11` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고64.jpg |
+| `wreck_ground_12` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고84.jpg |
+| `wreck_ground_13` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고91.jpg |
+| `column_broken_01` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept21.jpg |
+| `column_broken_02` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept34.jpg |
+| `column_broken_03` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고166.jpg |
+| `column_broken_04` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고170.jpg |
+| `column_broken_05` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고175.jpg |
+| `column_broken_06` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고177.jpg |
+| `column_broken_07` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고178.jpg |
+| `rescue_work_01` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept01.jpg |
+| `rescue_work_02` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept02.jpg |
+| `rescue_work_03` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept06.jpg |
+| `rescue_work_04` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept08.jpg |
+| `rescue_work_05` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept09.jpg |
+| `rescue_work_06` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept10.jpg |
+| `rescue_work_07` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept12.jpg |
+| `rescue_work_08` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept22.jpg |
+| `rescue_work_09` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept27.jpg |
+| `rescue_work_10` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept31.jpg |
+| `rescue_work_11` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept33.jpg |
+| `rescue_work_12` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept35.jpg |
+| `rescue_work_13` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept41.jpg |
+| `rescue_work_14` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept46.jpg |
+| `rescue_work_15` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept48.jpg |
+| `rescue_work_16` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept50.jpg |
+| `rescue_work_17` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept51.jpg |
+| `rescue_work_18` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept52.jpg |
+| `rescue_work_19` |  | 1995 | KOGL Type 1（手直し可） | ソウル歴史編纂院 | 삼풍백화점 붕괴현장의 구조활동(1995.6) |
+| `rescue_work_20` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고41.jpg |
+| `rescue_work_21` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고44.jpg |
+| `rescue_work_22` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고47.jpg |
+| `rescue_work_23` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고65.jpg |
+| `ambulance_line_01` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept17.jpg |
+| `ambulance_line_02` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept28.jpg |
+| `ambulance_line_03` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept15.jpg |
+| `ambulance_line_04` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept23.jpg |
+| `ambulance_line_05` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept13.jpg |
+| `ambulance_line_06` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고70.jpg |
+| `street_cordon_01` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept24.jpg |
+| `street_cordon_02` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고159.jpg |
+| `street_cordon_03` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고69.jpg |
+| `street_cordon_04` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고71.jpg |
+| `street_cordon_05` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고79.jpg |
+| `volunteers_01` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept32.jpg |
+| `volunteers_02` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고156.jpg |
+| `inside_store_01` |  | 1995 | KOGL Type 1（手直し可） | ソウル歴史編纂院 | 건물 붕괴 충격으로 아수라장이 된 삼풍백화점 본관 1층 현관 가판대(1995.6) |
+| `site_cleanup_01` |  | 1995 | KOGL Type 1（手直し可） | ソウル歴史編纂院 | 삼풍백화점 붕괴현장 정리와 구조활동(1995.6) |
+| `site_cleanup_02` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | チェ・グァンモ | Sampungdept37.jpg |
+| `site_cleanup_03` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고13.jpg |
+| `site_cleanup_04` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고6.jpg |
+| `site_cleanup_05` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고89.jpg |
+| `site_cleanup_06` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고85.jpg |
+| `banner_daily_01` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고152.jpg |
+| `banner_daily_02` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고81.jpg |
+| `crack_wall_01` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고72.jpg |
+| `night_work_01` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 19950629삼풍백화점 붕괴 사고26.jpg |
+| `night_work_02` |  | 1995 | CC BY-SA 4.0（額装のみ・無改変） | ソウル特別市 消防災難本部 | 1995년 6월 삼풍백화점 붕괴 사고 6 서울특별시 소방공무원 현철호 민원석 등.jpg |
+| `mourning_01` |  | 1995 | KOGL Type 1（手直し可） | ソウル歴史編纂院 | 서초구민회관에 마련된 삼풍참사 사망자 합동분향소(1995.7) |
+| `missing_board_01` |  | 1995 | KOGL Type 1（手直し可） | ソウル歴史編纂院 | 삼풍백화점 사고 피해자를 찾는 벽보(1995.6) |
+| `officials_visit_01` |  | 1995 | KOGL Type 1（手直し可） | ソウル歴史編纂院 | 시장 업무 인수 직후 삼풍백화점 현장을 찾은 조순 시장(1995.7.1) |
+| `officials_visit_02` |  | 1995 | KOGL Type 1（手直し可） | ソウル歴史編纂院 | 4대 시의회 의장단 삼풍백화점 구조현장 방문(1995.7.12) |
