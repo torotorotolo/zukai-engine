@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""215カットの「画」の割り当て。章ごとにファイルを分けてある。
+"""195カットの「画」の割り当て。章ごとにファイルを分けてある。
 
 ■ 直すところ
   図を変えたいときは、その章のファイルの1カットぶんの dict だけを直す。
@@ -22,12 +22,13 @@
   3 段（figの stages）の数は**ナレーションの行数に近づける**。
     行より多い段は行の間に挟まれる。少ない場合は最後の段が長く描かれる。
 
-■ 🔴🔴 2026-09-16：**9本目（テネリフェ空港衝突事故）へ差し替え。**
-  カットIDは題材をまたいでぶつかる（**215中203件**が8本目 コロンビア号と同じID）。
-  8本目の章ファイル・ss.py・BACKDROP は git の `4c71bf0` にある
-  （`git show 4c71bf0:tools/cuts/c1.py`）。7本目は `ae30d49`。
-  検算：`python -c "import cuts; print(len(cuts.SPEC))"` が**台本のカット数（215）**であること。
+■ 🔴🔴 2026-09-20（⑤b-1）：**10本目（三豊百貨店崩壊事故）へ差し替え。**
+  カットIDは題材をまたいでぶつかる（**9本目の215件のうち185件**が10本目と同じID）。
+  9本目の章ファイル・ss.py・BACKDROP は git の `e18b8f1` にある
+  （`git show e18b8f1:tools/cuts/c1.py`）。8本目は `4c71bf0`、7本目は `ae30d49`。
+  検算：`python -c "import cuts; print(len(cuts.SPEC))"` が**台本のカット数（195）**であること。
   ⚠️ 始める前に **0** になっていること（→ [[project-jiko-rules-index]] §0b）。
+  ⚠️ いまは **0**（⑤b-1 で空にした）。画は⑤b-2 で書く。
 """
 import importlib
 import sys
@@ -110,28 +111,8 @@ for _cid, _ov in PHOTO_OVERRIDE.items():
 #    ⚠️ 同じ写真を実写で使うカットがあるもの（_02・_06・_09・_11 ほか）は**寄りを変えて**敷く。
 #    ⚠️ `wreck_both_*` はファイル単位の `TRIM` が効く（台紙と「PATERSON」を外したまま敷かれる）。
 BACKDROP = {
-    "c105": dict(photo=ss.P("schiphol_1977_01"), zoom=1.20, xbias=0.60),
-    "c201": dict(photo=ss.P("laspalmas_now_11"), zoom=1.30, xbias=0.30),
-    # c208「上空で待てないか」＝飛んでいるパンナムの747（1970年・遠い）を沈める
-    "c208": dict(photo=ss.P("panam_ams1970_02")),
-    "c210": dict(photo=ss.P("losrodeos_now_07"), zoom=1.30, xbias=0.70, bias=0.40),
-    "c307": dict(photo=ss.P("losrodeos_now_14"), zoom=1.30, xbias=0.20),
-    "c310": dict(photo=ss.P("losrodeos_now_06"), zoom=1.20, xbias=0.30),
-    "c416": dict(photo=ss.P("klm_747_1973_01"), zoom=1.30, xbias=0.80, veil=0.86),
-    "c420": dict(photo=ss.P("klm_747_1971_01"), zoom=1.30, xbias=0.50),
-    "c507": dict(photo=ss.P("losrodeos_now_09"), bias=0.60),
-    "c511": dict(photo=ss.P("losrodeos_now_10"), bias=0.80),
-    "c518": dict(photo=ss.P("losrodeos_now_11"), bias=0.60),
-    "c519": dict(photo=ss.P("losrodeos_now_02"), zoom=1.30, xbias=0.80, bias=0.62),
-    "c521": dict(photo=ss.P("losrodeos_now_13"), bias=0.50),
-    "c601": dict(photo=ss.P("klm_747_1973_01"), zoom=1.30, xbias=0.30),
-    "c606": dict(photo=ss.P("losrodeos_now_08")),
-    "c619": dict(photo=ss.P("losrodeos_now_08"), zoom=1.40, xbias=0.40, bias=0.40),
-    "c624": dict(photo=ss.P("losrodeos_now_02"), zoom=1.20, xbias=0.10, bias=0.62),
-    "c701": dict(photo=ss.P("losrodeos_now_12"), zoom=1.30, xbias=0.40),
-    "c719": dict(photo=ss.P("losrodeos_now_11"), zoom=1.30, xbias=0.30, bias=0.70),
-    "c916": dict(photo=ss.P("wreck_both_02")),
-    "c917": dict(photo=ss.P("wreck_both_01")),
+    # 🔴 **まだ空です。**⑤b-2 で、図のカットの地に敷く写真をここに書きます。
+    #    9本目（テネリフェ）の21件は git `e18b8f1` にあります。
 }
 
 for _cid, _ov in BACKDROP.items():
@@ -151,3 +132,14 @@ _ng = {c: ss.NG_PHOTOS[s["photo"]] for c, s in SPEC.items()
 if _ng:
     raise RuntimeError("使わないと決めた写真を当てたカットがある（cuts/ss.py の NG_PHOTOS）: "
                        + "／".join(f"{c}＝{why}" for c, why in sorted(_ng.items())))
+
+
+# 🔴🔴 2026-09-20（10本目 ⑤b-1）**CC BY-SA の82点を切る・重ねる書き方を止める。**
+#    切れば翻案＝継承が動画全体に掛かる（→ [[reference-cc-by-sa-unmodified-in-video]]）。
+#    ⚠️ 権利の話なので、門番を1本足すのではなく**読み込みで止める**
+#       ＝ `qa_all` の全部の門番が落ちる（黙って焼けない）。BACKDROP を当てたあとに見る。
+_frame = ss.check_frame_only(SPEC)
+if _frame:
+    raise RuntimeError(
+        "CC BY-SA の写真は額装（無加工・丸ごと・色を変えない・何も重ねない）でだけ使えます。"
+        "切る／寄る／重ねる書き方になっているカット: " + "／".join(_frame))

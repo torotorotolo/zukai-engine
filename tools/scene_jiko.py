@@ -88,17 +88,18 @@ CSS = ""
 #    2026-09-14（8本目 ⑤b-1）7本目（9.11）の9件から差し替えた。
 #    🔴 2026-09-16（9本目 ⑤b-1）8本目（コロンビア号）の9件から差し替えた。
 #       8本目の章名は git の `4c71bf0` にある。
+# 🔴 2026-09-20（10本目 ⑤b-1）：三豊百貨店へ差し替え。**台本第2版 §4 の章見出しと1字も違わないこと**
+#    （前の回の章名が画面の隅に残るのが §0b の6か所目。門番＝`check_final --chapters`）。
 CHAPTERS = {
-    "c1": (1, "その日、二つのジャンボ機"),
-    "c2": (2, "ラスパルマスの爆弾"),
-    # 2026-09-17（⑤c''・カズヤくん決定）：「ジャンボ機が5機」は本文（747は2機）と食い違う
-    "c3": (3, "小さな空港に、5機が並んだ"),
-    "c4": (4, "燃料を足すという判断"),
-    "c5": (5, "雲が滑走路へ降りてきた"),
-    "c6": (6, "滑走路を、逆向きに走る"),
-    "c7": (7, "重なった30秒"),
-    "c8": (8, "17時06分50秒"),
-    "c9": (9, "逃げた61人"),
+    "c1": (1, "その日の朝、床が動きだした"),
+    "c2": (2, "開店5年の、新しい百貨店"),
+    "c3": (3, "商店街のはずが、百貨店になった"),
+    "c4": (4, "屋上に載った冷却塔"),
+    "c5": (5, "柱は、図面より細かった"),
+    "c6": (6, "15時10分、「すぐに崩れる危険はない」"),
+    "c7": (7, "北東の側から、地下まで"),
+    "c8": (8, "十七日間"),
+    "c9": (9, "502人"),
 }
 NCH = 9
 
@@ -515,6 +516,32 @@ EP7_PHOTO = {
 
 
 # ══════════════════════════════════════════════════════════
+#  10本目（三豊百貨店）── `ref/ep10/`
+# ══════════════════════════════════════════════════════════
+# 名前の付け方（`tools/cuts/ss.py`）:
+#   ep10/<欄>_<NN>.jpg … 92点。**82点が CC BY-SA 4.0・10点が公共ヌリ第1類型**
+#   ⚠️ 動く映像は0本＝`ep10/fb_*.jpg`（ひかえの静止画）は無い。出てきたら止める。
+#
+# 🔴🔴 **CC BY-SA は「撮影者・許諾名とURL・素材のURL・改変していないこと」の4つが表示の条件。**
+#    9本目までの CC BY（撮影者だけ）とは要るものが違う。表は
+#    `python qa_out/ep10_assets.py credits --write` が `ref/ep10/credits.json` に書く（手で貼らない）。
+#    ⚠️ ファイルが無い・名前が当たらないときは None を返し、最後の `PHOTO_CREDIT[...]` で
+#       KeyError にして気づかせる（fail closed。黙って別の出典を出さない）。
+_EP10_CREDITS = HERE / "ref" / "ep10" / "credits.json"
+EP10_PHOTO = (json.loads(_EP10_CREDITS.read_text(encoding="utf-8"))
+              if _EP10_CREDITS.exists() else {})
+
+
+def ep10_credit(name):
+    """`ref/ep10/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if name.startswith("ep10/fb_"):
+        raise RuntimeError(f"{name}: 10本目は動く映像0本。ひかえの静止画を当てたカットがある")
+    if name.startswith("ep10/"):
+        return EP10_PHOTO.get(name)
+    return None
+
+
+# ══════════════════════════════════════════════════════════
 #  9本目（テネリフェ）── `ref/ep9/`
 # ══════════════════════════════════════════════════════════
 # 名前の付け方（`tools/cuts/ss.py`）:
@@ -695,7 +722,8 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep9_credit(spec["photo"]) or ep8_credit(spec["photo"]) or ep7_credit(spec["photo"])
+    cr = (ep10_credit(spec["photo"])
+          or ep9_credit(spec["photo"]) or ep8_credit(spec["photo"]) or ep7_credit(spec["photo"])
           or keybridge_credit(spec["photo"])
           or sl1_credit(spec["photo"])
           or surfside_credit(spec["photo"])

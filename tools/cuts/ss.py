@@ -1,26 +1,36 @@
 # -*- coding: utf-8 -*-
-"""9本目（1977年3月27日 テネリフェ空港衝突事故）の
+"""10本目（1995年6月29日 三豊百貨店崩壊事故）の
 章ファイルが共通で使う小道具。
 
-**8本目（コロンビア号）の中身は git の `4c71bf0` にある**（`git show 4c71bf0:tools/cuts/ss.py`）。
-7本目（9.11）は `ae30d49`。
+**9本目（テネリフェ）の中身は git の `e18b8f1` にある**（`git show e18b8f1:tools/cuts/ss.py`）。
+8本目（コロンビア号）は `4c71bf0`、7本目（9.11）は `ae30d49`。
 
-■ 素材の名前（`ref/ep9/`。選び方と出どころは `qa_out/ep9_assets.py` の `PICK`）
-  `ep9/<欄の名>.jpg` … ウィキメディア・コモンズの写真。
-                       **継承なし（CC0／PD／CC BY）だけ**。CC BY-SA は1点も入れない
-                       （継承が動画全体に伝染する＝`ref/ep9/materials.md` §2）。
-  ⚠️ 動く映像は **0本**（`ref/ep9/materials.md` §3）。`fb()`・`vid()` は呼ばない。
+■ 素材の名前（`ref/ep10/`。選び方と出どころは `qa_out/ep10_assets.py` の `PICK`）
+  `ep10/<欄の名>.jpg` … 92点。**この回は前の回と権利の形がまるで違う**：
+    - **82点＝ウィキメディア・コモンズの CC BY-SA 4.0**（ソウル特別市消防災難本部ほか）
+    - **10点＝公共ヌリ（KOGL）第1類型**（ソウル歴史編纂院・ソウル研究院）
+  ⚠️ 動く映像は **0本**。`fb()`・`vid()` は呼ばない。
+
+■ 🔴🔴 **CC BY-SA の82点は「額装だけ」。切る・寄る・色を変える・上に重ねるが禁止。**
+  継承（ShareAlike）が動画全体に掛かるかは「翻案物を作ったか」で決まる。
+  **無加工・丸ごと・独立した要素なら掛からない**（許諾 3(b)・1(a)・2(a)(4)、CC 公式の
+  ShareAlike_interpretation。原文は `ref/ep10/materials.md` §1）。
+  → 切った時点で翻案＝**動画全体を BY-SA にしなければならなくなる**。
+  → [[reference-cc-by-sa-unmodified-in-video]]（2026-09-20 カズヤくん決定＝額装で進める）
+  🔴 **これは書き方の約束ではなく、下の `FRAME_ONLY` と `check_frame_only()` が機械で止める。**
+     `cuts/__init__.py` が SPEC を組んだあとに照合する＝当たれば全部の門番が落ちる。
+     → [[feedback-rules-need-gates]]
 
 ■ 🔴🔴 この回も**報告書から取り出した図を画面に出さない**（`BANDS` が空）
-  報告書 p58（両機の位置関係・951x1567）と p59（空港平面図・795x1760）は
-  **スペイン語と英語が焼き込まれている**（→ [[reference-report-figures-have-burned-in-english]]）。
+  白書（ソウル特別市『삼풍백화점 붕괴사고 백서』）の図版は**韓国語が焼き込まれている**
+  （→ [[reference-report-figures-have-burned-in-english]]）。
   下敷きは寸法と位置を取るためだけに使い、**`titan_fig` の型で描き直して日本語にする**
-  （`ref/ep9/kousei.md` §2）。⚠️ だから `page()` は呼べない。呼んだら止まる。
+  （`ref/ep10/kousei.md` §2）。⚠️ だから `page()` は呼べない。呼んだら止まる。
 
 ■ 🔴🔴 額装に回す敷居（`PANEL_AR`）は**この回の素材から取り直す**
   → [[feedback-per-episode-constants-go-stale]]
-  8本目は 4:3（＝画の4分の1を超えて切るなら額装）。**切れ目が実在しなければ意味で決める**
-  （8本目の⑤b-1 で「切れ目がある」と書いて外した → [[feedback-dont-state-inferences-as-findings]]）。
+  ⚠️ **この回は敷居の意味が薄い**（82点は縦横比にかかわらず額装）。
+     効くのは公共ヌリの10点だけ。それでも**取り直した値を置く**（前の回の値を残さない）。
 
 ■ 寄せ方（focus）
   `build_jiko.fit()` は「箱を覆う」切り出しで、`xbias`/`bias` は**余ったぶんの寄せ**（0〜1）。
@@ -35,7 +45,7 @@ from functools import lru_cache
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parents[2]
-REF = HERE / "ref" / "ep9"
+REF = HERE / "ref" / "ep10"
 W, H = 1920, 1080
 
 # 画面の縦横比。これより縦長／横長の図は額装パネルに回す。
@@ -57,44 +67,72 @@ WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝2.37。これ超＝�
 # 🔴 この回は報告書の図版を1枚も画面に出さない。**空であることが正しい状態**。
 BANDS = {}
 
-# 🔴🔴 2026-09-16（⑤b-2）**事故現場6点の切り出し窓**（x0, y0, x1, y1・元画像に対する割合）。
-#    6点とも「焼き付けを器具に挟んで撮った複写」で、黒い台紙・金属の留め具・角の番号札・
-#    左端に縦書きの「PATERSON」（器具の商標）が写っている（`ref/ep9/photos.md` §3-6）。
-#    測り方（見当で置かない）：
-#      ① 焼き付けの中央帯（見当の内側 30〜70%）の**列平均・行平均の輝度**を 15px でならす
-#      ② 見当 ±4% の中で「p[i+d]−p[i−d]」がいちばん大きい所＝台紙→焼き付けの段差
-#         （d＝短辺の0.4%。段差の大きさ＝輝度 57〜181。どの辺もはっきり取れた）
-#      ③ 段差から**内側へ 1.5%** 入れる（台紙の縁・留め具の影を残さない）
-#    検算：切り出した6枚を 640px のシート1枚で見た＝台紙・留め具・「PATERSON」は6枚とも窓の外。
-#      切り出した絵の縦横比は 1.316〜1.344（klm_02 は縦 0.759）＝4:3 の焼き付けそのものの比。
-#      ⚠️ 焼き付け自体に小さなほこりが数点（klm_01・klm_03・both_02 の右上の空）＝⑤c で原寸を見る。
-#    ⚠️ 道具（使い捨て）：⑤b-2 のスクラッチ `wreck_trim.py`。値はここが正本。
+# 🔴🔴 切り出し窓（x0, y0, x1, y1・元画像に対する割合）。**この回はほぼ使えない。**
+#    82点は CC BY-SA ＝切った時点で翻案になる（下の `FRAME_ONLY`）。
+#    切ってよいのは**公共ヌリ第1類型の10点だけ**（第1類型は変形・二次的著作物の作成を許す）。
+#    ⚠️ ただし公共ヌリの10点は 809×534 ほどしかないので、**切ると 1920 に伸ばす余裕が無い**。
 #    ⚠️ `scene_jiko.TRIM_BY_PHOTO` がこの表を読む＝**写真ファイル単位**で効く（同じ写真の全カット）。
 TRIM = {
-    "ep9/wreck_klm_01.jpg": (0.198, 0.1986, 0.8286, 0.7652),      # 3241×2739 → 2043×1552
-    "ep9/wreck_klm_02.jpg": (0.2412, 0.1319, 0.7999, 0.8119),     # 2778×3007 → 1552×2044（縦）
-    "ep9/wreck_klm_03.jpg": (0.197, 0.2102, 0.8468, 0.7687),      # 5000×4366 → 3248×2438
-    "ep9/wreck_both_01.jpg": (0.1716, 0.1865, 0.7788, 0.7469),    # 3367×2749 → 2044×1540
-    "ep9/wreck_both_02.jpg": (0.2008, 0.1996, 0.8413, 0.7563),    # 3206×2744 → 2053×1527
-    "ep9/wreck_engine_01.jpg": (0.2052, 0.1766, 0.8528, 0.7424),  # 5052×4360 → 3271×2466
+    # 🔴 まだ空です。⑤b-2 で、公共ヌリの点に窓が要るときだけ足す。
 }
-
 
 def page(pr):
     """🔴 この回は報告書の図版を焼かないので**呼べない**（黙って別の絵を出さない）。"""
     raise KeyError(
-        f"印字 p{pr}: 9本目は報告書の図版を画面に出さない（BANDS が空／"
-        f"p58・p59 はスペイン語と英語が焼き込み）。図は `titan_fig` の型で描き直す")
+        f"印字 p{pr}: 10本目は白書の図版を画面に出さない（BANDS が空／"
+        f"白書の図は韓国語が焼き込み）。図は `titan_fig` の型で描き直す")
 
 
 def P(name):
     """欄の名前 → `ref/` から見た写真のパス。"""
-    return f"ep9/{name}.jpg"
+    return f"ep10/{name}.jpg"
 
 
 def fb(cid):
-    """動く映像を当てたカットの**ひかえの静止画**。⚠️ 9本目は動く映像0本＝呼ばない。"""
-    return f"ep9/fb_{cid}.jpg"
+    """動く映像を当てたカットの**ひかえの静止画**。⚠️ 10本目は動く映像0本＝呼ばない。"""
+    return f"ep10/fb_{cid}.jpg"
+
+
+# ══════════════════════════════════════════════════════════
+#  🔴🔴 CC BY-SA の点＝**額装だけ**（切る・寄る・色を変える・上に重ねるを機械で止める）
+# ══════════════════════════════════════════════════════════
+#   正本＝`ref/ep10/slots_commons.json` の `mode`（"frame"＝額装だけ／"free"＝手直し可）。
+#   ここでは**その json から起動時に読む**（表を手で写さない＝写し間違いが起きない）。
+#   ⚠️ json が読めなければ**止める**（0点にして素通りさせない）→ [[feedback-parsers-fail-closed]]
+def _frame_only():
+    j = json.loads((REF / "slots_commons.json").read_text(encoding="utf-8"))
+    out = {}
+    for slot, items in j["slots"].items():
+        for i, it in enumerate(items, 1):
+            if it.get("mode") == "frame" or it.get("share_alike"):
+                out[P(f"{slot}_{i:02d}")] = it.get("lic", "?")
+    if not out:
+        raise RuntimeError("slots_commons.json から額装専用の点が1つも読めない（fail closed）")
+    return out
+
+
+FRAME_ONLY = _frame_only()
+
+# 額装の約束を破る書き方。`cuts/__init__.py` がカットの dict をこの目で照合する。
+# 🔴 `zoom` は 1.0 ちょうどなら可（`fit()` が切らない）。`panel=True` は必須。
+_BREAKS_FRAME = ("trim", "veil", "vignette", "focus", "xbias", "bias", "ann", "mark", "blur")
+
+
+def check_frame_only(spec):
+    """額装専用の点を、切る・重ねる型に渡しているカットを挙げる（空なら合格）。"""
+    bad = []
+    for cid, s in sorted(spec.items()):
+        lic = FRAME_ONLY.get(s.get("photo"))
+        if lic is None:
+            continue
+        why = [k for k in _BREAKS_FRAME if s.get(k) is not None]
+        if not s.get("panel"):
+            why.append("panel=True が無い（全画面＝上下左右が切れる）")
+        if float(s.get("zoom") or 1.0) != 1.0:
+            why.append(f"zoom={s.get('zoom')}（1.0 以外は切る）")
+        if why:
+            bad.append(f"{cid}＝{s['photo']}（{lic}）: " + "・".join(why))
+    return bad
 
 
 @lru_cache(maxsize=None)
@@ -167,7 +205,7 @@ def focus(name, fx, fy, zoom=1.0, box=(W, H)):
 
 @lru_cache(maxsize=None)
 def _clips():
-    """⚠️ 9本目は `ref/ep9/clips.json` が無い（動く映像0本）。呼ばれたら止まる。"""
+    """⚠️ 10本目は `ref/ep10/clips.json` が無い（動く映像0本）。呼ばれたら止まる。"""
     return json.loads((REF / "clips.json").read_text(encoding="utf-8"))
 
 
@@ -188,7 +226,7 @@ def bars_trim(clip, tol=2):
 
 
 def vid(cid, pw, clip=None, **kw):
-    """動く映像のカット（額装パネル＋ひかえの静止画）を1行で書く。⚠️ 9本目は使わない。"""
+    """動く映像のカット（額装パネル＋ひかえの静止画）を1行で書く。⚠️ 10本目は使わない。"""
     t = kw.pop("trim", None) or (bars_trim(clip) if clip else None)
     d = dict(photo=fb(cid), panel=True, pw=pw, **kw)
     if t:
@@ -197,18 +235,20 @@ def vid(cid, pw, clip=None, **kw):
 
 
 # ══════════════════════════════════════════════════════════
-#  欄の名前（`qa_out/ep9_assets.py` の PICK と1対1）
+#  欄の名前（`qa_out/ep10_assets.py` の PICK と1対1）
 # ══════════════════════════════════════════════════════════
-# 🔴 ここに書いた名前が `ref/ep9/<名>.jpg` と `scene_jiko.EP9_PHOTO` の鍵になる。
+# 🔴 ここに書いた名前が `ref/ep10/<名>.jpg` と `ref/ep10/credits.json` の鍵になる。
 #    3つが食い違うと出典が出ないか、写真が出ない。
-#    検算＝`python qa_out/ep9_assets.py check` と `python tools/check_credits.py`。
+#    検算＝`python qa_out/ep10_assets.py check` と `python tools/check_credits.py`。
+#    名前は `<欄>_<NN>`（`slots_commons.json` の並びのまま。手で付け直さない）。
 #
-# ⚠️ `losrodeos_now_*` と `laspalmas_now_*` は**全部いまの空港**。副題に必ず「現在の…」と書く
-#    （→ [[feedback-fallback-stills-must-match-the-era]]／[[feedback-subtitle-must-match-what-is-visible]]。
-#    門番は被写体の年の食い違いを見ない）。
-# 🔴 2026-09-16（⑤b-1）：126点を落とし、**640px のシート24枚で全点を見た**。
-#    1点ずつの中身・主題の位置・焼き込み文字・向く場面の正本＝`ref/ep9/photos.md`。
-#    ⚠️ 章ファイルは `ss.P("losrodeos_now_09")` のように**名前で直に**書く（定数を増やさない）。
+# ⚠️ **この回の写真は1点残らず「崩れたあと」か「崩れる前」のどちらか**で、
+#    見分けが画の意味そのものになる。副題は**写っているもの**に合わせる
+#    （→ [[feedback-subtitle-must-match-what-is-visible]]／[[feedback-fallback-stills-must-match-the-era]]）。
+#    🔴 崩壊前は `sampoong_before_01` `_02` の**2点だけ**。`sign_sampoong_*` は
+#       看板が読めるが**どれも崩壊後**＝「開店当時の店」などと書かない。
+# 🔴 2026-09-20（⑤b-1）：92点の中身・焼き込み文字・向く場面の正本＝`ref/ep10/photos.md`。
+#    ⚠️ 章ファイルは `ss.P("wreck_aerial_10")` のように**名前で直に**書く（定数を増やさない）。
 
 # ══════════════════════════════════════════════════════════
 #  🔴🔴 使わない写真（シートで見て落とした。**使うと `cuts` の読み込みで止まる**）
@@ -217,18 +257,8 @@ def vid(cid, pw, clip=None, **kw):
 #   ＝ 門番を1本足す代わりに、**全部の門番が落ちる**形で止める（黙って焼けない）。
 #   ⚠️ ここから外すときは、理由の欄の粗が本当に消える切り方を `photos.md` に書いてから。
 NG_PHOTOS = {
-    P("cockpit_747_01"): "747-400 のガラス画面の操縦室（1977年の型ではない）。操縦桿に「DANGER」の札が焼き込み",
-    P("engine_747_01"): "737 のエンジン（747 ではない）",
-    P("cockpit_747_14"): "米空軍 E-4B。顔の分かる軍人が主役",
-    P("panam_747_same_type_02"): "`panam_747_same_type_01` を切り抜いた同じ写真（画素が重複）",
-    P("panam_747_same_type_03"): "1975年のフォード大統領とベトナム孤児の空輸。主題が別で、子どもの顔が写る",
-    P("panam_747_same_type_04"): "1970年のパンナムの人物の肖像。機体は手に持った写真だけ",
-    P("jumbo_era_05"): "`cockpit_747_06` の縮小複製（586×392）",
-    P("klm_747_1971_02"): "見物客（私人）の顔が画面の下半分を占める",
-    P("laspalmas_now_03"): "私人の顔が大写しの群衆",
-    P("laspalmas_now_04"): "私人の顔が大写し。搭乗口の番号札（A30ほか）も焼き込み",
-    P("laspalmas_now_06"): "私人（喫煙する男性）の顔が主役",
-    P("laspalmas_now_10"): "ガラス面に描かれた人物のイラスト（空港の絵にならない）",
-    P("nl_mourning_05"): "遺族（私人）の顔が大写しの悲嘆の場面",
-    P("memorial_04"): "犠牲者（私人）の名前が読める銘板（チャンネルの線引き：私人は名前を出さない）",
+    # 🔴 まだ空です。⑤b-1 のシートで落とした点をここに足します。
+    #    ⚠️ ②b は 222点を見て 47点を × にしており、`slots_commons.json` の92点は
+    #       その網を**通ったもの**（`ref/ep10/src/seen.tsv` が記録）。
+    #       ここに入るのは「②b では通ったが、⑤b で当てようとして初めて落とした点」だけ。
 }
