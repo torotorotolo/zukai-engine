@@ -30,7 +30,24 @@ import jiko_style as J  # noqa: E402
 import scene_jiko as S  # noqa: E402
 
 sys.stdout.reconfigure(encoding="utf-8")
-SHOT = HERE / "out" / "jiko" / "qa_ep10-r01"
+
+# 🔴🔴 2026-09-20（⑤c'）：ここは `qa_ep10-r01` の**決め打ち**で、引数も見ていなかった。
+#    そのせいで `python ep10_photo_light.py out/jiko/qa_ep10-r02` と渡しても
+#    **黙って r01 を測り**、r01 と r02 で数字が1つも変わらないという結果が出た。
+#    さらに悪いことに、**カットと写真の対応は「いまの SPEC」から取る**ので、
+#    ⑤c' で写真を入れ替えた `pr07` は「street_cordon_03」と名乗りながら
+#    **r01 の banner_daily_01 の画素**を測っていた＝**札と中身が食い違う嘘の行**が出た。
+#    → 巡を引数で受ける。既定は最新の巡（`qa_ep10-r*` のいちばん大きいもの）。
+#    ⚠️ 測った巡を必ず見出しに印字する（[[feedback-check-version-before-inspecting]]）。
+def _latest():
+    ds = sorted((HERE / "out" / "jiko").glob("qa_ep10-r*"))
+    return ds[-1] if ds else HERE / "out" / "jiko" / "qa_ep10-r01"
+
+
+_args = [a for a in sys.argv[1:] if not a.startswith("-")]
+SHOT = Path(_args[0]) if _args else _latest()
+if not SHOT.is_dir():
+    raise SystemExit(f"🔴 検品画像のフォルダがありません: {SHOT}")
 
 
 def clean_box(spec):
@@ -81,6 +98,7 @@ def main():
     med = np.array([r["med"] for r in rows])
     con = np.array([r["con"] for r in rows])
     print(f"■ 写真カット {len(rows)} 欄を、本番の幾何（photo_box）で切って測った")
+    print(f"   測った巡＝{SHOT.name}（{SHOT}）")
     print(f"  中央値の分布 … 下から 5%={np.percentile(med, 5):.1f} "
           f"25%={np.percentile(med, 25):.1f} 中央={np.median(med):.1f} "
           f"75%={np.percentile(med, 75):.1f} 95%={np.percentile(med, 95):.1f}")
