@@ -134,19 +134,15 @@ if _ng:
                        + "／".join(f"{c}＝{why}" for c, why in sorted(_ng.items())))
 
 
-# 🔴🔴 2026-09-20（10本目 ⑤b-1）**CC BY-SA の82点を切る・重ねる書き方を止める。**
-#    切れば翻案＝継承が動画全体に掛かる（→ [[reference-cc-by-sa-unmodified-in-video]]）。
+# 🔴🔴 2026-09-21（11本目 ⑤c-2）**継承（ShareAlike）つきの写真を1点も入れない。**
+#    10本目は82点が CC BY-SA で「額装だけ」という縛りが要ったが、11本目は**0点**。
+#    取り込み側（`qa_out/ep11_assets.py` の `NG_LIC`）で止めてあるが、
+#    **あとから手で1点足したときに素通りする**ので、焼く側でももう一度当てる。
 #    ⚠️ 権利の話なので、門番を1本足すのではなく**読み込みで止める**
 #       ＝ `qa_all` の全部の門番が落ちる（黙って焼けない）。BACKDROP を当てたあとに見る。
-_frame = ss.check_frame_only(SPEC)
-if _frame:
+#    ⚠️ `ref/ep11/assets.json` が読めなければ `ss._assets()` が止める（0点で素通りさせない）。
+_sa = ss.check_share_alike(SPEC)
+if _sa:
     raise RuntimeError(
-        "CC BY-SA の写真は額装（無加工・丸ごと・色を変えない・何も重ねない）でだけ使えます。"
-        "切る／寄る／重ねる書き方になっているカット: " + "／".join(_frame))
-
-# 🔴🔴 2026-09-20（⑤b-1）**大きな袋が写る3点を、事務・補償・裁判のカットに置かせない。**
-#    「1人あたり3億8千万ウォン」の下にこの絵が来ると、お金と遺体が画面で並ぶ。
-_rest = ss.check_restricted(SPEC)
-if _rest:
-    raise RuntimeError("置き場所を縛った写真を、許していないカットに当てています: "
-                       + "／".join(_rest))
+        "この回は継承（CC BY-SA）つきの写真を入れません（10本目とは判断が違います）。"
+        "当てているカット: " + "／".join(_sa))

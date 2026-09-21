@@ -478,22 +478,47 @@ def cmd_panel():
     return 0
 
 
-def credit_line(r):
-    who = r.get('author') or 'NASA'
-    y = r.get('year')
+def credit_line(name, r):
+    """画面の右上に出す1行。🔴 **この回は実名を出す回なので、出典も画面に出す**
+    （記憶 `project-jiko-rules-index` §5）。
+
+    ⚠️ **動く映像から抜いた止め絵は、写真の出典を名乗らない。**映像の出典を出す
+    （出所を偽ることになる → `scene_jiko.credit_of` の 2026-08-01 の注）。
+    """
     if r['src'] == 'clip':
-        return '出典：NASA／米国立公文書館（記録映像より）'
+        c = json.loads(CLIPS_JSON.read_text(encoding='utf-8'))[r['clip']]
+        return c['credit'] + '（記録映像より）'
+    who = re.sub(r'\s*\(.*?\)\s*', '', _plain(r.get('author') or 'NASA')).strip() or 'NASA'
+    # Commons の Artist 欄は人名でなく機関名のことが多い。NASA の各センターは NASA と名乗る
+    # （JSC＝ジョンソン宇宙センター、KSC＝ケネディ宇宙センターはどちらも NASA の施設）。
+    if re.search(r'NASA|National Aeronautics|Johnson Space|Kennedy Space|\bJSC\b|\bKSC\b',
+                 who, re.I):
+        who = 'NASA'
+    # ⚠️ 「撮影者不明」を NASA と名乗らない（出所を作らない）
+    #    → [[feedback-fallback-stills-must-match-the-era]] と同じ筋で、**分かっていないことは書く**
+    elif re.search(r'unknown|not provided', who, re.I):
+        who = ORIGIN.get(name) or '撮影者不明'
+    elif re.search(r'White House', who, re.I):
+        who = 'ホワイトハウス写真室'
+    y = r.get('year')
     return f"出典：{who}{f'（{y}年）' if y else ''}"
+
+
+# 🔴 Commons の Artist 欄が「不明」の点は、**その点の本当の出どころ**を手で当てる。
+#    ⚠️ NASA と名乗らせない（§105 を名乗るなら根拠が要る）。値は `assets.json` の `page` を見て決めた。
+ORIGIN = {
+    'ascent_1': 'NASA（70mm 追尾カメラ）',
+    'ice_team': '米国立公文書館（NARA 593693）',
+}
 
 
 def cmd_credits(write=False):
     db = _db()
-    out = {n: dict(credit=credit_line(r), year=r.get('year'), lic=r.get('lic', ''),
-                   page=r.get('page', '')) for n, r in db.items()}
+    out = {f'ep11/{n}.jpg': credit_line(n, r) for n, r in db.items()}
     p = DEST / 'credits.json'
     if write:
         p.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding='utf-8')
-        print(f'✓ {p}')
+        print(f'✓ {p} に {len(out)} 行')
     print(f'| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころ |')
     print('|---|---|---|---|---|---|')
     for n, r in sorted(db.items()):

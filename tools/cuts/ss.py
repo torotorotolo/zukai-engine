@@ -1,184 +1,145 @@
 # -*- coding: utf-8 -*-
-"""10本目（1995年6月29日 三豊百貨店崩壊事故）の
+"""11本目（1986年1月28日 チャレンジャー号 STS-51-L）の
 章ファイルが共通で使う小道具。
 
-**9本目（テネリフェ）の中身は git の `e18b8f1` にある**（`git show e18b8f1:tools/cuts/ss.py`）。
-8本目（コロンビア号）は `4c71bf0`、7本目（9.11）は `ae30d49`。
+**10本目（三豊百貨店）の中身は git の `46f11b3` にある**（`git show 46f11b3:tools/cuts/ss.py`）。
+9本目（テネリフェ）は `e18b8f1`、8本目（コロンビア号）は `4c71bf0`、7本目（9.11）は `ae30d49`。
 
-■ 素材の名前（`ref/ep10/`。選び方と出どころは `qa_out/ep10_assets.py` の `PICK`）
-  `ep10/<欄の名>.jpg` … 92点。**この回は前の回と権利の形がまるで違う**：
-    - **82点＝ウィキメディア・コモンズの CC BY-SA 4.0**（ソウル特別市消防災難本部ほか）
-    - **10点＝公共ヌリ（KOGL）第1類型**（ソウル歴史編纂院・ソウル研究院）
-  ⚠️ 動く映像は **0本**。`fb()`・`vid()` は呼ばない。
+■ 素材の名前（`ref/ep11/`。選び方と出どころは `qa_out/ep11_assets.py` の `PICK`）
+  `ep11/<欄の名>.jpg` … **76点**。台本 §4 が書いている欄の名前そのままが鍵。
+  内わけ＝**写真 56点**（Commons の PD ＋ NASA画像庫 §105）
+        ＋ **動く映像からの止め絵 20点**（うち8点は `fb_<カットID>` ＝動画のひかえ）
+  🔴 台本の欄は90件。**14件はまだ当てが無い**（`ref/ep11/photo_picks.md` §3）。
 
-■ 🔴🔴 **CC BY-SA の82点は「額装だけ」。切る・寄る・色を変える・上に重ねるが禁止。**
-  継承（ShareAlike）が動画全体に掛かるかは「翻案物を作ったか」で決まる。
-  **無加工・丸ごと・独立した要素なら掛からない**（許諾 3(b)・1(a)・2(a)(4)、CC 公式の
-  ShareAlike_interpretation。原文は `ref/ep10/materials.md` §1）。
-  → 切った時点で翻案＝**動画全体を BY-SA にしなければならなくなる**。
-  → [[reference-cc-by-sa-unmodified-in-video]]（2026-09-20 カズヤくん決定＝額装で進める）
-  🔴 **これは書き方の約束ではなく、下の `FRAME_ONLY` と `check_frame_only()` が機械で止める。**
-     `cuts/__init__.py` が SPEC を組んだあとに照合する＝当たれば全部の門番が落ちる。
-     → [[feedback-rules-need-gates]]
+■ ✅ この回は継承（ShareAlike）が**1点も無い**
+  10本目は82点が CC BY-SA で「額装だけ」という縛りが要ったが、**11本目は0点**。
+  🔴 **それは約束ではなく、`qa_out/ep11_assets.py` の `NG_LIC` が取り込みで止めている。**
+  下の `check_share_alike()` が**焼く側でももう一度**照合する（二重の網）。
+  → [[feedback-rules-need-gates]]／[[reference-cc-by-sa-unmodified-in-video]]
 
 ■ 🔴🔴 この回も**報告書から取り出した図を画面に出さない**（`BANDS` が空）
-  白書（ソウル特別市『삼풍백화점 붕괴사고 백서』）の図版は**韓国語が焼き込まれている**
+  ロジャース委員会報告書の図版は**英字がビットマップに焼き込まれている**
   （→ [[reference-report-figures-have-burned-in-english]]）。
-  下敷きは寸法と位置を取るためだけに使い、**`titan_fig` の型で描き直して日本語にする**
-  （`ref/ep10/kousei.md` §2）。⚠️ だから `page()` は呼べない。呼んだら止まる。
+  下敷きは寸法と位置を取るためだけに使い、**`titan_fig` の型で描き直して日本語にする**。
+  ⚠️ だから `page()` は呼べない。呼んだら止まる。
 
-■ 🔴🔴 額装に回す敷居（`PANEL_AR`）は**この回の素材から取り直す**
-  → [[feedback-per-episode-constants-go-stale]]
-  ⚠️ **この回は敷居の意味が薄い**（82点は縦横比にかかわらず額装）。
-     効くのは公共ヌリの10点だけ。それでも**取り直した値を置く**（前の回の値を残さない）。
+■ 🔴🔴 動く映像は**額装パネルで置く。全画面にしない**
+  配布されているのは 720x480（SAR 8:9 ＝正方画素 640x480）で、1920 幅に伸ばすと 3倍になる。
+  `vid()` は必ず `panel=True` を付ける。
+  🔴 さらに**額入り（ピラーボックス）のコマがある**＝器は 720x480 のままなのに
+     実効の絵が 470x479（幅65%）しかない。**器を見る門番は1本も鳴らない。**
+     → `box_trim()` が `ref/ep11/boxes.json`（1秒おきに全数測った地図）から切り出しを出す。
+     ⚠️ **帯ごとではなくコマごとに変わる**（同じ帯で58%と97.9%が隣り合う）。
+     → [[feedback-container-labels-lie-about-the-picture]]
+
+■ 🔴 人が写る点の扱い（この回）
+  乗員7人・委員・NASAの管理職は**公的な任務の人**＝顔を出してよい。
+  私人（遺族・見物人）は写っていない＝`NEEDS_MASK` は空。
+  ⚠️ **遺体・負傷は1点も採っていない。**→ [[feedback-jiko-photo-people-policy]]
 
 ■ 寄せ方（focus）
   `build_jiko.fit()` は「箱を覆う」切り出しで、`xbias`/`bias` は**余ったぶんの寄せ**（0〜1）。
-  「画像のこの点を画面の中央に置きたい」と書けるように、点（0〜1）から逆算する。
   🔴 画像の縦横比が要るので**実物を開いて測る**（推定で置かない）。
   ⚠️ **切ったあとの寸法で測る**。切る前の寸法で逆算すると、寄せが全部ずれる。
-  ⚠️ **寄せを変えても絵が変わらないことがある**（遊びが足りないとき）。
-     → [[feedback-video-qa-index]] §4「切り出しの遊びを先に測る」
 """
 import json
 from functools import lru_cache
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parents[2]
-REF = HERE / "ref" / "ep10"
+REF = HERE / "ref" / "ep11"
 W, H = 1920, 1080
 
 # 画面の縦横比。これより縦長／横長の図は額装パネルに回す。
 # 🔴 上限と下限は対。片側だけにすると粗が反対側へ移る（[[feedback-kinsoku-needs-both-ends]]）。
 SCREEN_AR = W / H
-# 🔴 2026-09-20（10本目 ⑤b-1）：**この回の素材で取り直した。結果は 4:3 のまま。**
-#    ⚠️ この回は **`PANEL_AR` が効くのが「手直し可の10点」だけ**（残り82点は BY-SA ＝
-#       縦横比にかかわらず無条件で額装）。だから測るのもその10点：
-#         AR 0.660（62.9% 切れる）… `wreck_ground_04` 1点だけ（縦位置）
-#         AR 1.495〜1.522（14.4〜15.9% 切れる）… 9点
-#    → **0.660 と 1.495 の間に、はっきりした切れ目がある**（9本目は間が埋まっていて
-#      切れ目が無く、意味で決めるしかなかった）。4:3 はその間に入る＝この回の実測でも正しい。
-#    参考：82点を仮に全画面にすると 15.6〜61.6%（中央値 18.6%）切れる。
-#         **額装にしないこと自体が権利の事故**なので、ここは縦横比の話ではない。
-PANEL_AR = round(4 / 3, 4)          # ＝1.3333。これ未満＝縦長すぎ（上下が切れる）
-WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝2.37。これ超＝横長すぎ
+# 🔴 2026-09-21（11本目 ⑤c-2）：**この回の76点で取り直した**
+#    （→ [[feedback-per-episode-constants-go-stale]]。10本目の 4/3 を写さない）。
+#    `python qa_out/ep11_assets.py panel` の実測に**はっきりした切れ目**があった：
+#      … AR 1.250 crew_portrait（29.7%切れる）／AR 1.238 past_launch／AR 1.235 accident_breakup（30.6%）
+#      ── ここで 12.5ポイント飛ぶ ──
+#      AR 1.011 oring_erosion（43.1%切れる）／AR 1.006 ssme_salvage／frustum_compare …
+#    ＝ 2つの族の境目（4:3〜5:4 の普通の写真 と、GPN-2004 の**ほぼ正方形**の残骸写真）。
+#    その中点を採る。⚠️ 10本目の 1.3333 をここに置くと、**普通の4:3写真まで額装に回る**。
+PANEL_AR = 1.12                      # これ未満＝縦長すぎ（上下が切れる）
+WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝2.82。これ超＝横長すぎ
 
-# 🔴 この回は報告書の図版を1枚も画面に出さない。**空であることが正しい状態**。
-BANDS = {}
+# 🔴 報告書の図版は使わない（上の■）。空のまま。`page()` を呼ぶと止まる。
+BANDS: dict[str, dict] = {}
 
-# 🔴🔴 切り出し窓（x0, y0, x1, y1・元画像に対する割合）。**この回はほぼ使えない。**
-#    82点は CC BY-SA ＝切った時点で翻案になる（下の `FRAME_ONLY`）。
-#    切ってよいのは**公共ヌリ第1類型の10点だけ**（第1類型は変形・二次的著作物の作成を許す）。
-#    ⚠️ ただし公共ヌリの10点は 809×534 ほどしかないので、**切ると 1920 に伸ばす余裕が無い**。
-#    ⚠️ `scene_jiko.TRIM_BY_PHOTO` がこの表を読む＝**写真ファイル単位**で効く（同じ写真の全カット）。
-TRIM = {
-    # 🔴 まだ空です。⑤b-2 で、公共ヌリの点に窓が要るときだけ足す。
-}
+# 画素で測った切り出し。⚠️ **⑤cで原寸を見てから足す**（推定で置かない）。
+TRIM: dict[str, tuple] = {}
+
 
 def page(pr):
-    """🔴 この回は報告書の図版を焼かないので**呼べない**（黙って別の絵を出さない）。"""
-    raise KeyError(
-        f"印字 p{pr}: 10本目は白書の図版を画面に出さない（BANDS が空／"
-        f"白書の図は韓国語が焼き込み）。図は `titan_fig` の型で描き直す")
+    """報告書の頁から図を切り出す（この回は使わない）。"""
+    raise RuntimeError(
+        "11本目は報告書の図版を画面に出さない（英字が焼き込まれている）。"
+        "titan_fig の型で描き直すこと → reference-report-figures-have-burned-in-english")
 
 
 def P(name):
     """欄の名前 → `ref/` から見た写真のパス。"""
-    return f"ep10/{name}.jpg"
+    return f"ep11/{name}.jpg"
 
 
 def fb(cid):
-    """動く映像を当てたカットの**ひかえの静止画**。⚠️ 10本目は動く映像0本＝呼ばない。"""
-    return f"ep10/fb_{cid}.jpg"
+    """動く映像を当てたカットの**ひかえの静止画**（`footage.USE` が取れなかったとき）。
+
+    ⚠️ 取れなかったことは**黙って静止画に落ちる**＝⑥で `✓ 切り出し完了 N/N` を数える
+    → [[feedback-fetch-failure-falls-back-to-a-still]]
+    """
+    return f"ep11/fb_{cid}.jpg"
 
 
 # ══════════════════════════════════════════════════════════
-#  🔴🔴 CC BY-SA の点＝**額装だけ**（切る・寄る・色を変える・上に重ねるを機械で止める）
+#  ✅ 継承（ShareAlike）は1点も入れない ── 焼く側でももう一度照合する
 # ══════════════════════════════════════════════════════════
-#   正本＝`ref/ep10/slots_commons.json` の `mode`（"frame"＝額装だけ／"free"＝手直し可）。
-#   ここでは**その json から起動時に読む**（表を手で写さない＝写し間違いが起きない）。
-#   ⚠️ json が読めなければ**止める**（0点にして素通りさせない）→ [[feedback-parsers-fail-closed]]
-def _frame_only():
-    j = json.loads((REF / "slots_commons.json").read_text(encoding="utf-8"))
-    out = {}
-    for slot, items in j["slots"].items():
-        for i, it in enumerate(items, 1):
-            if it.get("mode") == "frame" or it.get("share_alike"):
-                out[P(f"{slot}_{i:02d}")] = it.get("lic", "?")
-    if not out:
-        raise RuntimeError("slots_commons.json から額装専用の点が1つも読めない（fail closed）")
-    return out
+#   取り込み側（`qa_out/ep11_assets.py` の `NG_LIC`）で止めてあるが、
+#   **あとから手で1点足したときに素通りする**ので、ここでも当てる（二重の網）。
+#   ⚠️ `assets.json` が読めなければ**止める**（0点にして素通りさせない）
+#   → [[feedback-parsers-fail-closed]]
+@lru_cache(maxsize=None)
+def _assets():
+    p = REF / "assets.json"
+    if not p.exists():
+        raise RuntimeError(
+            "ref/ep11/assets.json が無い（`python qa_out/ep11_assets.py info`）。"
+            "権利を確かめずに焼かない → feedback-parsers-fail-closed")
+    return json.loads(p.read_text(encoding="utf-8"))
 
 
-FRAME_ONLY = _frame_only()
-
-# 額装の約束を破る書き方。`cuts/__init__.py` がカットの dict をこの目で照合する。
-# 🔴 `zoom` は 1.0 ちょうどなら可（`fit()` が切らない）。`panel=True` は必須。
-_BREAKS_FRAME = ("trim", "veil", "vignette", "focus", "xbias", "bias", "ann", "mark", "blur")
-
-
-def check_frame_only(spec):
-    """額装専用の点を、切る・重ねる型に渡しているカットを挙げる（空なら合格）。"""
+def check_share_alike(spec):
+    """継承つきの点を当てているカットを挙げる（空なら合格）。"""
+    db = _assets()
     bad = []
     for cid, s in sorted(spec.items()):
-        lic = FRAME_ONLY.get(s.get("photo"))
-        if lic is None:
+        ph = s.get("photo")
+        if not ph or not ph.startswith("ep11/"):
             continue
-        why = [k for k in _BREAKS_FRAME if s.get(k) is not None]
-        if not s.get("panel"):
-            why.append("panel=True が無い（全画面＝上下左右が切れる）")
-        if float(s.get("zoom") or 1.0) != 1.0:
-            why.append(f"zoom={s.get('zoom')}（1.0 以外は切る）")
-        if why:
-            bad.append(f"{cid}＝{s['photo']}（{lic}）: " + "・".join(why))
+        r = db.get(Path(ph).stem)
+        lic = str((r or {}).get("lic", "")).upper().replace("-", " ")
+        if "SA" in lic.split():
+            bad.append(f"{cid}＝{ph}（{r['lic']}）: この回は継承つきを入れない")
     return bad
 
 
 # ══════════════════════════════════════════════════════════
-#  🔴🔴 置き場所を縛る点（⑤b-1 で 640px のシートを見て決めた）
+#  🔴🔴 使わない写真（シートで見て落とした。**使うと `cuts` の読み込みで止まる**）
 # ══════════════════════════════════════════════════════════
-#   **大きな袋が写っている3点**。原本は中身を書いていないので副題では断定できないが、
-#   **置き場所によっては見ている人がそう受け取る**。
-#   事務・補償・裁判のカットに当てると、**お金と遺体を並べた画面**になる。
-#   ⚠️ これは規約の話ではない（YouTube が止めるのは生々しい損傷のある遺体）。番組としての置き方。
-#   → `qa_out/ep10_sheet_notes.md`／[[feedback-subtitle-must-match-what-is-visible]]
-#   値＝**当ててよいカットID**。ここに無いカットに当てたら読み込みで止まる。
-RESTRICTED = {
-    P("site_cleanup_02"): ("c803", "c805", "c807", "c809", "c812", "c813", "c815",
-                           "c816", "c817", "c821", "c903"),
-    P("site_cleanup_06"): ("c803", "c805", "c807", "c809", "c812", "c813", "c815",
-                           "c816", "c817", "c821", "c903"),
-    P("rescue_work_19"): ("c803", "c805", "c807", "c809", "c812", "c813", "c815",
-                          "c816", "c817", "c821", "c903"),
+#   `cuts/__init__.py` が SPEC を組んだあとに照合し、当たれば RuntimeError にする
+#   ＝ 門番を1本足す代わりに、**全部の門番が落ちる**形で止める（黙って焼けない）。
+NG_PHOTOS: dict[str, str] = {
+    # 🔴 まだ空です。⑤c-3 のシートで落とした点をここに足します。
+    #    ⚠️ 「まだ見ていない」だけで、「危険が無い」ではありません。
 }
 
-
-def check_restricted(spec):
-    """置き場所を縛った点を、許していないカットに当てていれば挙げる（空なら合格）。"""
-    bad = []
-    for cid, s in sorted(spec.items()):
-        allow = RESTRICTED.get(s.get("photo"))
-        if allow is not None and cid not in allow:
-            bad.append(f"{cid}＝{s['photo']}: 救助・行方不明を語るカットだけに当てる"
-                        f"（許しているのは {'・'.join(allow)}）")
-    return bad
-
-
-# ══════════════════════════════════════════════════════════
-#  🔴🔴 焼く前に**元画像そのものを直す**点（2026-09-20 ⑤b-2 で新設）
-# ══════════════════════════════════════════════════════════
-#   ⚠️ **`blur=` は cut の書き方として実装されていない。**`_BREAKS_FRAME` に "blur" が
-#      並んでいるので書けるように見えるが、`scene_jiko` も `build_jiko` も読まない
-#      （`grep -rn blur tools/*.py` で確かめた）。
-#      ＝ 章ファイルに `blur=` と書いても、**エラーも出さずに素のまま焼ける**。
-#   → だから「元画像を直したか」を見る門番を別に立てる＝`tools/check_mask.py`。
-#      直したら `ref/ep10/masked.json` に**直したあとのファイルの md5** を記録する。
-#      記録が無い／md5 が合わない＝**まだ直っていない**として 🔴（fail closed）。
-#   → [[feedback-rules-need-gates]]／[[feedback-jiko-photo-people-policy]]
-#   値＝何を隠すか。隠す範囲は⑤cで原寸を見てから決める。
-NEEDS_MASK = {
-    P("missing_board_01"): "私人の顔写真と名前（公共ヌリ第1類型＝手直しが許されている）",
-}
+# 🔴 元画像そのものを直してから焼く点。この回は**空**。
+#    乗員・委員・管理職は公的な任務の人＝顔を出してよい。私人は1点も写っていない。
+#    ⚠️ **`blur=` は書けるように見えて誰も読まない**（10本目で私人の顔が素のまま焼けた）。
+#       隠すなら元画像を直し、`ref/ep11/masked.json` に md5 を記録する。
+#    → [[feedback-settings-may-not-reach-the-picture]]／[[feedback-jiko-photo-people-policy]]
+NEEDS_MASK: dict[str, str] = {}
 
 
 @lru_cache(maxsize=None)
@@ -191,9 +152,6 @@ def size_of(name):
 @lru_cache(maxsize=None)
 def trimmed_size(name):
     """切り出しを当てたあとの寸法（画素）。切っていなければ原寸。
-
-    🔴 2026-09-16（⑤b-2）：`TRIM`（事故現場6点の窓）も勘定に入れる。
-       入れないと `kind()` と `focus()` が**台紙ごとの縦横比**で額装と寄せを決める。
 
     ⚠️ **`scene_jiko` を import しない。** `scene_jiko` は起動時に `cuts` を読むので、
        ここから import すると循環参照になり、章ファイルが**丸ごと黙って読めなくなる**
@@ -249,62 +207,75 @@ def focus(name, fx, fy, zoom=1.0, box=(W, H)):
                 bias=round(min(1.0, max(0.0, yb)), 3), zoom=zoom)
 
 
+# ══════════════════════════════════════════════════════════
+#  動く映像
+# ══════════════════════════════════════════════════════════
 @lru_cache(maxsize=None)
 def _clips():
-    """⚠️ 10本目は `ref/ep10/clips.json` が無い（動く映像0本）。呼ばれたら止まる。"""
-    return json.loads((REF / "clips.json").read_text(encoding="utf-8"))
+    p = REF / "clips.json"
+    if not p.exists():
+        raise RuntimeError("ref/ep11/clips.json が無い（`python ref/ep11/make_clips.py`）")
+    return json.loads(p.read_text(encoding="utf-8"))
 
 
-def bars_trim(clip, tol=2):
-    """器の左右の黒帯を、額の箱の**縦横比そのもの**から追い出す `trim`。無ければ None。
+@lru_cache(maxsize=None)
+def _boxes():
+    p = REF / "boxes.json"
+    if not p.exists():
+        raise RuntimeError("ref/ep11/boxes.json が無い（`python ref/ep11/sweep_box.py`）")
+    return json.loads(p.read_text(encoding="utf-8"))
 
-    🔴 **`zoom`（＝`PILLAR`）で追い出してはいけない。**`fit()` の zoom は縦横を
-       同じ率で切るので、額装で 1/PILLAR を掛けると**上下も同じ率だけ落ちる**。
-    ⚠️ 幅は器の札ではなく **`clips.json` の `dispw`（②で測った絵の幅）**を使う
-       → [[feedback-container-labels-lie-about-the-picture]]
+
+def box_trim(clip, t, tol=2):
+    """🔴🔴 **そのコマの**額（ピラーボックス）を追い出す `trim`。無ければ None。
+
+    器は 720x480 のままでも、実効の絵は 470x479 しかないコマがある。
+    **帯ごとではなくコマごとに変わる**（同じ帯で58%と97.9%が隣り合う実測）。
+    だから `bars_trim(clip)` のような**帯に1つの値**では足りない。
+    → `ref/ep11/boxes.json`（1秒おきに全数測った地図）からそのコマの値を引く。
+
+    🔴 **`zoom` で追い出してはいけない。**`fit()` の zoom は縦横を同じ率で切るので、
+       額装で 1/PILLAR を掛けると**上下も同じ率だけ落ちる**。
     """
-    c = _clips()[clip]
-    w, dw = int(c["w"]), int(c.get("dispw") or c["w"])
-    if dw >= w - tol:
+    e = _boxes().get(clip)
+    if not e:
+        raise RuntimeError(f"boxes.json に帯 {clip!r} が無い（fail closed）")
+    step = e.get("step") or 1.0
+    row = min(e["frames"], key=lambda r: abs(r["t"] - t))
+    if abs(row["t"] - t) > step:
+        raise RuntimeError(f"{clip} の {t}秒を測った行が無い（fail closed）")
+    W0 = _clips()[clip]["w"]
+    H0 = _clips()[clip]["h"]
+    if row["w"] >= W0 - tol and row["h"] >= H0 - tol:
         return None
-    m = (w - dw) / 2 / w
-    return (round(m, 4), 0.0, round(1 - m, 4), 1.0)
+    x0, y0 = row["x"] / W0, row["y"] / H0
+    return (round(x0, 4), round(y0, 4),
+            round((row["x"] + row["w"]) / W0, 4), round((row["y"] + row["h"]) / H0, 4))
 
 
-def vid(cid, pw, clip=None, **kw):
-    """動く映像のカット（額装パネル＋ひかえの静止画）を1行で書く。⚠️ 10本目は使わない。"""
-    t = kw.pop("trim", None) or (bars_trim(clip) if clip else None)
+def vid(cid, pw, clip=None, t=None, **kw):
+    """動く映像のカット（額装パネル＋ひかえの静止画）を1行で書く。
+
+    🔴 **必ず額装パネル**（`panel=True`）。640x480 を 1920 幅に伸ばすと3倍になる。
+    🔴 `clip` と `t` を渡すと、**そのコマの額**を `boxes.json` から引いて `trim` にする。
+    """
+    t_ = kw.pop("trim", None)
+    if t_ is None and clip is not None and t is not None:
+        t_ = box_trim(clip, t)
     d = dict(photo=fb(cid), panel=True, pw=pw, **kw)
-    if t:
-        d["trim"] = t
+    if t_:
+        d["trim"] = t_
     return d
 
 
-# ══════════════════════════════════════════════════════════
-#  欄の名前（`qa_out/ep10_assets.py` の PICK と1対1）
-# ══════════════════════════════════════════════════════════
-# 🔴 ここに書いた名前が `ref/ep10/<名>.jpg` と `ref/ep10/credits.json` の鍵になる。
-#    3つが食い違うと出典が出ないか、写真が出ない。
-#    検算＝`python qa_out/ep10_assets.py check` と `python tools/check_credits.py`。
-#    名前は `<欄>_<NN>`（`slots_commons.json` の並びのまま。手で付け直さない）。
-#
-# ⚠️ **この回の写真は1点残らず「崩れたあと」か「崩れる前」のどちらか**で、
-#    見分けが画の意味そのものになる。副題は**写っているもの**に合わせる
-#    （→ [[feedback-subtitle-must-match-what-is-visible]]／[[feedback-fallback-stills-must-match-the-era]]）。
-#    🔴 崩壊前は `sampoong_before_01` `_02` の**2点だけ**。`sign_sampoong_*` は
-#       看板が読めるが**どれも崩壊後**＝「開店当時の店」などと書かない。
-# 🔴 2026-09-20（⑤b-1）：92点の中身・焼き込み文字・向く場面の正本＝`ref/ep10/photos.md`。
-#    ⚠️ 章ファイルは `ss.P("wreck_aerial_10")` のように**名前で直に**書く（定数を増やさない）。
+def still(name, clip, t, **kw):
+    """動く映像から抜いた**止め絵**（`footage.USE` に入れないカット）。
 
-# ══════════════════════════════════════════════════════════
-#  🔴🔴 使わない写真（シートで見て落とした。**使うと `cuts` の読み込みで止まる**）
-# ══════════════════════════════════════════════════════════
-#   `cuts/__init__.py` が SPEC を組んだあとに照合し、当たれば RuntimeError にする
-#   ＝ 門番を1本足す代わりに、**全部の門番が落ちる**形で止める（黙って焼けない）。
-#   ⚠️ ここから外すときは、理由の欄の粗が本当に消える切り方を `photos.md` に書いてから。
-NG_PHOTOS = {
-    # 🔴 まだ空です。⑤b-1 のシートで落とした点をここに足します。
-    #    ⚠️ ②b は 222点を見て 47点を × にしており、`slots_commons.json` の92点は
-    #       その網を**通ったもの**（`ref/ep10/src/seen.tsv` が記録）。
-    #       ここに入るのは「②b では通ったが、⑤b で当てようとして初めて落とした点」だけ。
-}
+    動画にすると 0.25〜0.45倍速＝ほぼ静止になる欄を、素直に止め絵で置く。
+    **実写の数は変わらない。**→ `ref/ep11/photo_picks.md` §2-2
+    """
+    t_ = kw.pop("trim", None) or box_trim(clip, t)
+    d = dict(photo=P(name), panel=True, **kw)
+    if t_:
+        d["trim"] = t_
+    return d

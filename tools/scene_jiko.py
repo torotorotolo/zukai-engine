@@ -545,6 +545,31 @@ def ep10_credit(name):
 
 
 # ══════════════════════════════════════════════════════════
+#  11本目（チャレンジャー号）── `ref/ep11/`
+# ══════════════════════════════════════════════════════════
+# 名前の付け方（`tools/cuts/ss.py`）:
+#   ep11/<欄の名>.jpg     … 写真56点（Commons の PD ＋ NASA画像庫 §105）。**継承つきは0点**
+#   ep11/fb_<カットID>.jpg … 動く映像を当てたカットの**ひかえの静止画**（8点）
+#   ⚠️ **動く映像から抜いた止め絵20点も `ep11/` に在る。**出典は写真ではなく**映像**を名乗る
+#      （出所を偽らないため。上の 2026-08-01 の注と同じ筋）。`credits.json` がそう書いている。
+#
+# 🔴 表はここへ貼らずにファイルから読む（9本目から）。
+#    `python qa_out/ep11_assets.py credits --write` が `ref/ep11/credits.json` に書く。
+#    ⚠️ ファイルが無い・名前が当たらないときは None を返し、最後の `PHOTO_CREDIT[...]` で
+#       KeyError にして気づかせる（fail closed。黙って別の出典を出さない）。
+_EP11_CREDITS = HERE / "ref" / "ep11" / "credits.json"
+EP11_PHOTO = (json.loads(_EP11_CREDITS.read_text(encoding="utf-8"))
+              if _EP11_CREDITS.exists() else {})
+
+
+def ep11_credit(name):
+    """`ref/ep11/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if name.startswith("ep11/"):
+        return EP11_PHOTO.get(name)
+    return None
+
+
+# ══════════════════════════════════════════════════════════
 #  9本目（テネリフェ）── `ref/ep9/`
 # ══════════════════════════════════════════════════════════
 # 名前の付け方（`tools/cuts/ss.py`）:
@@ -725,7 +750,7 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep10_credit(spec["photo"])
+    cr = (ep11_credit(spec["photo"]) or ep10_credit(spec["photo"])
           or ep9_credit(spec["photo"]) or ep8_credit(spec["photo"]) or ep7_credit(spec["photo"])
           or keybridge_credit(spec["photo"])
           or sl1_credit(spec["photo"])
