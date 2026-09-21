@@ -224,12 +224,21 @@ ref/ep10/src/*
 # 一次資料＝ロジャース委員会報告書 第I巻の本文テキスト（約700KB）。④と④' が原文照合に使う
 !ref/ep11/src/
 !ref/ep11/src/*.txt
+# ③尺の正本（章立て・尺の根拠・動く映像の判定）と、③④で使った測りの道具3本
+!ref/ep11/kousei.md
+!ref/ep11/slot_check.py
+!ref/ep11/dur_probe.py
+!ref/ep11/dur_test.py
 # 入れないもの＝落とした実体と、探索の途中結果
 #   生の HTML（約1MB）・archive.org の探索結果・NASA 画像庫の動画側の探索結果。
 #   取り直す入口は ref/ep11/materials.md §1・§3・§5 に URL とコマンドで書いてある
 ref/ep11/src/*.htm
+ref/ep11/src/*.html
 ref/ep11/ia_ep11.json
 ref/ep11/nasa_ep11_video.json
+# 🔴 動く映像の実体（合計 約440MB）。③で中身を確かめた結果は ref/ep11/kousei.md §4 にある。
+#   取り直しは kousei.md §4-2 の archive.org の項目名から。⚠️ ⑤bで使うのは 640×480 の .mpg
+ref/ep11/vid/
 
 # ⑤c-2（2026-09-20）原寸の切り出し。**焼けた絵から何度でも作り直せる**ので git に載せない
 # （23枚で 6.3MB。公開リポジトリなので派生画像は置かない）。作り直す＝qa_out/ep10_crop.py
