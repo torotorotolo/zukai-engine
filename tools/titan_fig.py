@@ -4107,8 +4107,13 @@ def radio(lanes, events, t0, t1, ticks=None, bands=None, note="", src=""):
 # 🔴 構想はカズヤくん決定（記憶 project-jiko-common-ending・2026-09-19）:
 #    暗転なし／**アイコン・グッド・登録を同じ1枚に**／グッドは押されて色が付く／
 #    登録は押されて「登録済み」に変わる／文字は極力使わない。
-# ⚠️ YouTube の**終了画面**（最後の5〜20秒に出る）と重ならないよう、**3つとも左半分**に置き、
-#    右側（x>1180）は空けておく。
+# 🔴 2026-09-21 カズヤくん決定：**終了画面は使わない**（＝右側を空けずに画面の中央へ寄せる）。
+#    経緯＝当初は「YouTube の終了画面（最後の5〜20秒に出せる、押せる部品）と重ならないよう
+#    3つとも左半分に置き、右を空ける」という**私の当て推量**で組んでいた。
+#    公式ヘルプで確かめた事実：終了画面は **YouTube Studio で1本ずつ手で設定するもので、自動では付かない**。
+#    しかも **YouTube Data API の `videos` リソースには終了画面もカードも項目が無い**＝投稿の道具では付けられない。
+#    → 使わないなら右半分はただの余白になるので、**3つを中央に置き、間隔も等しく**した。
+#    ⚠️ 終了画面を使う回が出たら、ここを左寄せに戻す（`GX0` を下げるだけ）。
 # ⚠️ YouTube のロゴ・実物のボタン画像は**使わない**（商標）。全部この場で図形として描く。
 # ⚠️ チャンネルのアイコンも**画像を置かずに描き起こす**（`out/brand/icon.png` は git 管理外で、
 #    公開リポジトリに置いてよいかの判断が要るため。形は同じ＝暗い円＋水平の帯＋赤い十字と中心の穴）。
@@ -4119,8 +4124,14 @@ def ending(name="", like_c=None, sub_c=None):
     cy = (BY0 + BY1) / 2 + 10
     g = []
 
+    # 3つの幅＝アイコン264・親指204・ボタン280（合計748）。間隔 GAP3 を2つ挟んで画面中央に置く。
+    GAP3 = 150
+    W3 = 264 + 204 + 280 + GAP3 * 2          # 1048
+    GX0 = BCX - W3 / 2                       # 436（左端）。終了画面を使う回はここを下げる
+
     # ① チャンネルのアイコン（描き起こし）
-    ix, r = 300, 132
+    r = 132
+    ix = GX0 + r                             # 568
     g.append(circ(ix, cy, r, fill=J.BG2))
     g.append(circ(ix, cy, r, stroke=J.GRID, sw=3))
     g.append(rect(ix - 104, cy - 11, 208, 22, fill=J.LINE, rx=11))          # 水平の帯
@@ -4129,14 +4140,17 @@ def ending(name="", like_c=None, sub_c=None):
     g.append(circ(ix, cy, 17, fill=J.BG))                                   # 中心の穴
 
     # ② グッド（親指）。段1は輪郭だけ／段2で塗る
+    tx = GX0 + 264 + GAP3                    # 親指の左端（850）。元の型は 618 を左端に描いてある
+    dx = tx - 618
+
     def thumb(col, fill):
         s = []
-        s.append(rect(618, cy - 6, 44, 104, fill=fill if fill else "none",
+        s.append(rect(618 + dx, cy - 6, 44, 104, fill=fill if fill else "none",
                       stroke=col, sw=6, rx=12))                              # 袖
-        s.append(poly([(678, cy + 98), (678, cy + 4), (726, cy - 62),
-                       (742, cy - 78), (758, cy - 70), (760, cy - 50),
-                       (748, cy - 6), (806, cy - 6), (822, cy + 8),
-                       (806, cy + 98)],
+        s.append(poly([(678 + dx, cy + 98), (678 + dx, cy + 4), (726 + dx, cy - 62),
+                       (742 + dx, cy - 78), (758 + dx, cy - 70), (760 + dx, cy - 50),
+                       (748 + dx, cy - 6), (806 + dx, cy - 6), (822 + dx, cy + 8),
+                       (806 + dx, cy + 98)],
                       fill=fill if fill else "none", stroke=col, sw=6, close=True))
         return "".join(s)
     g.append(thumb(J.LINE_DIM, None))
@@ -4146,7 +4160,9 @@ def ending(name="", like_c=None, sub_c=None):
     #    `check_layout` が「2つの文字が 100×44px 重なる」で落ちる
     #    （あとの段の塗りで隠れることは門番に見えない＝門番は絵でなく SPEC を読む）。
     #    → 押す前は**文字を使わず＋の印**にした。「文字は極力使わない」（カズヤくん決定）にも合う。
-    bx0, bx1, bh = 900, 1180, 104
+    bh = 104
+    bx0 = tx + 204 + GAP3                    # 1204
+    bx1 = bx0 + 280                          # 1484（＝GX0 + W3。右端）
     g.append(rect(bx0, cy - bh / 2, bx1 - bx0, bh, fill="none",
                   stroke=J.LINE_DIM, sw=6, rx=bh / 2))
     pcx = (bx0 + bx1) / 2
@@ -4157,4 +4173,4 @@ def ending(name="", like_c=None, sub_c=None):
     st3 = (rect(bx0, cy - bh / 2, bx1 - bx0, bh, fill=sub_c, rx=bh / 2)
            + txt((bx0 + bx1) / 2, cy + 17, "登録済み", 46, J.BG, anchor="middle"))
     # ⚠️ 段は**あとから上に描かれる**ので、塗りつぶしで下の輪郭と字を隠せる（消す手段は無い）。
-    return Fig("".join(g), ["", st2, st3], "", (140, bx1 + 60))
+    return Fig("".join(g), ["", st2, st3], "", (GX0 - 60, bx1 + 60))
