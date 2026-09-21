@@ -136,7 +136,13 @@ PICK: dict[str, dict] = {
 
     # ── 打ち上げ・上昇（4点）───────────────────────────────────────
     'launch_pad_morning': C('STS-51-L.jpg'),
-    'past_launch':        N('51l-s-155'),
+    # 🔴 2026-09-21 ⑤c-2 で直した。はじめ `51l-s-155`（＝51-L 自身の打ち上げ）を当てていたが、
+    #    `c313` は「**それまでの**打ち上げの映像も調べ直された」と言うカット。
+    #    51-L の絵を出すと**言っていることと違う絵**になる（門番は1本も鳴らない）
+    #    → [[feedback-subtitle-must-match-what-is-visible]]
+    #    ⚠️ 1984年の点は「別の飛行」なので②の網では捨てる決まりだが、
+    #       **ここは「別の飛行」であることが要る**カット。機体は同じチャレンジャー号。
+    'past_launch':        N('41c-3029', note='1984年4月 41-C の打ち上げ（チャレンジャー号の別の飛行）'),
     'ascent_1':           C('70mm frame of Challenger during ascent.png'),
     'ascent_2':           C('Challenger - GPN-2000-001347.jpg'),
 
@@ -272,7 +278,10 @@ def nasa_info(nasa_id):
             break
     if hit is None:
         return None
-    a = _json(NASA_ASSET + urllib.parse.quote(nasa_id))
+    # 🔴 資産の窓口は**大文字小文字を見る**。②の欄は小文字で持っているものがあるので、
+    #    検索が返した本物の `nasa_id` を使う（`41c-3029` で引くと 404）。
+    real = str(hit.get('nasa_id') or nasa_id)
+    a = _json(NASA_ASSET + urllib.parse.quote(real))
     hrefs = [x['href'] for x in a['collection']['items']]
     orig = ([h for h in hrefs if h.lower().endswith(('~orig.jpg', '~orig.png', '~orig.tif'))]
             or [h for h in hrefs if h.lower().endswith(('~large.jpg', '.jpg'))])
@@ -308,7 +317,13 @@ def cmd_info():
             db[name] = dict(src='commons', title=p['title'], year=_year(r['date']),
                             note=p.get('note', ''), **r)
         else:
-            r = nasa_info(p['id'])
+            # 🔴 1点の失敗で全部の引き直しを落とさない（落とすと**直した点まで消える**）。
+            #    落ちた点は下で一覧にして 🔴 を返す＝黙って合格にはしない。
+            try:
+                r = nasa_info(p['id'])
+            except Exception as e:                          # noqa: BLE001
+                bad.append(f'{name}: NASA画像庫で落ちた（{type(e).__name__}: {e}）')
+                continue
             if not r:
                 bad.append(f'{name}: NASA画像庫に「{p["id"]}」の原寸が無い')
                 continue

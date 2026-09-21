@@ -182,13 +182,25 @@ def crop_loss(name):
     return 1 - (a / SCREEN_AR if a < SCREEN_AR else SCREEN_AR / a)
 
 
+# 🔴 2026-09-21（⑤c-2）：**画素が足りない点も額装に回す。**
+#    `PANEL_AR` は縦横比しか見ないので、`smoke_puffs`（751×523・AR 1.436）のような
+#    **横長だが小さい**点が全画面に回り、1920 幅へ 2.6倍に伸びていた。
+#    制作ルールの「1ビットのスキャンは額装パネル（横1200px上限）」と同じ筋＝
+#    **伸ばせないものを伸ばさない。**
+#    ⚠️ 上限と下限は対（[[feedback-kinsoku-needs-both-ends]]）＝縦横比と画素の両方で見る。
+MIN_FULL_W = 1280        # 全画面にしてよい最小の幅（②の網の敷居と同じ値）
+
+
 def kind(name):
-    """`dict(panel=True)` か `dict()` を返す。**縦横比で決める。目で決めない。**
+    """`dict(panel=True)` か `dict()` を返す。**縦横比と画素で決める。目で決めない。**
 
     ⚠️ 縦長すぎ（< PANEL_AR）だけでなく**横長すぎ（> WIDE_AR）も額装**に回す。
+    ⚠️ さらに**幅が足りない点も額装**（上の MIN_FULL_W）。
     """
     a = aspect(name)
-    return dict(panel=True) if (a < PANEL_AR or a > WIDE_AR) else dict()
+    w, _ = trimmed_size(name)
+    return (dict(panel=True)
+            if (a < PANEL_AR or a > WIDE_AR or w < MIN_FULL_W) else dict())
 
 
 def focus(name, fx, fy, zoom=1.0, box=(W, H)):
