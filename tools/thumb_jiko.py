@@ -858,10 +858,43 @@ def ep10_t2():
     bake("ep10_h_mise", fx_type(before, RED_H, YEL, "e_veil", yel_plain=True))
     bake("ep10_i_ato", fx_type(site, RED_D, YEL, "e_veil", yel_plain=True))
 
+EP8_WIDE = "ep8/launch_wide.jpg"       # NASA KSC-03pd0134（2003年）：湿地ごしの打ち上げ（PD）
+
+
+def ep8_t2():
+    """8本目（コロンビア号）のサムネ差し替え（2026-09-21・公開ずみ動画の張り替え）。
+
+    🔴 カズヤくん指示「**『死亡』という単語を含まない版**」＋「変更するのは8本目だけ」。
+       赤は **A案＝いまの文言のまま「死亡」だけ言い換え**（記憶 feedback-jiko-death-word-policy の
+       表がもともと「タイトル・サムネの赤字は言い換え」と書いている。4〜9本目がそこから外れていた）。
+       ⚠️ 黄「コロンビア号 空中分解」と型は**変えない**。すでに数字が付いている動画なので直す所は最小に。
+
+    ■ 地の候補（90点から「**顔が1つも写っていない**・1280px以上・横長」で絞った3点。全部 NASA の PD）
+       a `launch_sky`  … いま公開中の地
+       b `pad_stack`   … 夕方の射点に立つ機体。**機体に "Columbia" の文字が読める**
+                          ⚠️ 左下に 30px ほどの人影が1つ（顔は判別できない）
+       c 同上を**寄せて人影を画面外に落とした**もの（zoom 1.25・cx 0.62・cy 0.30）
+       d `launch_wide` … 湿地ごしの打ち上げ。水面に炎が映る。⚠️ 機体が小さい
+       ❌ et_orange（下部に人が3人）／le_fixture2（顔が2つ）／atlantis_nose（別の機体）
+    """
+    RED = "犠牲7人 求めは三度退けられた"     # 15字（公開中は「7人死亡 求めは三度退けられた」＝同じ15字）
+    YEL = "コロンビア号 空中分解"            # 11字（変えない）
+
+    sky = photo(EP8_LAUNCH, cy=0.46, cx=0.56, contrast=1.16, color=1.08, bright=0.94)
+    pad = photo(EP8_PAD, cy=0.42, cx=0.56, contrast=1.14, color=1.06, bright=0.97)
+    padz = photo(EP8_PAD, cy=0.30, cx=0.62, zoom=1.25,
+                 contrast=1.14, color=1.06, bright=0.97)
+    wide = photo(EP8_WIDE, cy=0.44, cx=0.50, contrast=1.16, color=1.08, bright=0.96)
+
+    for nm, hero in (("a_sky", sky), ("b_pad", pad), ("c_padzoom", padz), ("d_wide", wide)):
+        bake(f"ep8t2_{nm}", fx_type(hero, RED, YEL, "e_veil", yel_plain=True))
+
 
 if __name__ == "__main__":
     import sys
-    if "ep10-t2" in sys.argv:
+    if "ep8-t2" in sys.argv:
+        ep8_t2()
+    elif "ep10-t2" in sys.argv:
         ep10_t2()
     elif "ep10" in sys.argv:
         ep10()
