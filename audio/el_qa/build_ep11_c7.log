@@ -1,26 +1,29 @@
-ElevenLabs: 声=Otani（3JDquces8E8bkmvbh6Bc） モデル=eleven_v3 settings={'stability': 1.0, 'similarity_boost': 0.75, 'style': 0.0, 'speed': 1.0, 'use_speaker_boost': True} ／クレジット 134,403 / 158,500／GAP 0.4s
-c701:   9.25s  (2行)
-c702:   7.01s  (2行)
-c703:  10.45s  (2行)
-c704:   6.99s  (2行)
-c705:  12.85s  (3行)
-c706:   5.84s  (2行)
-c707:  12.26s  (3行)
-c708:  10.02s  (2行)
-c709:   9.07s  (2行)
-c710:  12.36s  (3行)
-c711:   8.49s  (2行)
-c712:   7.43s  (2行)
-c713:  10.53s  (3行)
-c714:  10.41s  (3行)
-c715:   8.28s  (2行)
-c716:  11.60s  (3行)
-
-合成 16 カット／持ち越し 173 カット／未作成 2／記録 189／台本 191
-⚠️ まだ作っていないカット 2: c811,c812
-作ったぶん: 189カット 11450字 → 発話＋行間 1895.3秒（6.04字/秒・行間込み。AivisSpeech は 5.52）
-本編の見込み 35.2分（全 11550字をこの速さで＋LEAD/TAIL 0.85×191＋quote 2.0×18。許容 27〜40分）
-最長の1行 = 6.04秒「まず、会社の上級副社長が、経営としての判断が必要だ、と切り出した。」
-API 0行（0字）／キャッシュ 38行／振り直し 0回／本物と判定 0／要耳 0（記録＝audio/el_qa/ep11_el_retakes.tsv）
-クレジット 134,403 → 134,403（消費 0）⚠️ 反映が遅れることがある
+Traceback (most recent call last):
+  File "C:\Users\konar\Desktop\zukai-engine\tools\el_build.py", line 390, in <module>
+    sys.exit(build(cuts, dry="--dry" in sys.argv))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\Desktop\zukai-engine\tools\el_build.py", line 242, in build
+    c0, lim = el_tts.credits_used()
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\Desktop\zukai-engine\tools\el_tts.py", line 156, in credits_used
+    with urllib.request.urlopen(r, timeout=60) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 429: Too Many Requests
 exit=1

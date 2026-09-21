@@ -1,4 +1,4 @@
-ElevenLabs: 声=Otani（3JDquces8E8bkmvbh6Bc） モデル=eleven_v3 settings={'stability': 1.0, 'similarity_boost': 0.75, 'style': 0.0, 'speed': 1.0, 'use_speaker_boost': True} ／クレジット 134,341 / 158,500／GAP 0.4s
+ElevenLabs: 声=Otani（3JDquces8E8bkmvbh6Bc） モデル=eleven_v3 settings={'stability': 1.0, 'similarity_boost': 0.75, 'style': 0.0, 'speed': 1.0, 'use_speaker_boost': True} ／クレジット 134,403 / 158,500／GAP 0.4s
 c601:   9.64s  (2行)
 c602:   9.50s  (3行)
 c603:  11.92s  (3行)
@@ -24,9 +24,9 @@ c622:   9.59s  (3行)
 
 合成 22 カット／持ち越し 167 カット／未作成 2／記録 189／台本 191
 ⚠️ まだ作っていないカット 2: c811,c812
-作ったぶん: 189カット 11450字 → 発話＋行間 1895.1秒（6.04字/秒・行間込み。AivisSpeech は 5.52）
+作ったぶん: 189カット 11450字 → 発話＋行間 1895.3秒（6.04字/秒・行間込み。AivisSpeech は 5.52）
 本編の見込み 35.2分（全 11550字をこの速さで＋LEAD/TAIL 0.85×191＋quote 2.0×18。許容 27〜40分）
 最長の1行 = 6.13秒「同じ年10月の、暖かい日の飛行にも跡はあったが、範囲は狭い。」
 API 0行（0字）／キャッシュ 58行／振り直し 0回／本物と判定 0／要耳 0（記録＝audio/el_qa/ep11_el_retakes.tsv）
-クレジット 134,341 → 134,403（消費 62）⚠️ 反映が遅れることがある
+クレジット 134,403 → 134,403（消費 0）⚠️ 反映が遅れることがある
 exit=1

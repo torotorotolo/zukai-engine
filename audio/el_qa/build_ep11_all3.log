@@ -1,0 +1,24 @@
+── 章 pr（11カット）→ audio/el_qa/build_ep11_pr.log
+   合成 11 カット／持ち越し 178 カット／未作成 2／記録 189／台本 191
+── 章 c1（18カット）→ audio/el_qa/build_ep11_c1.log
+   合成 18 カット／持ち越し 171 カット／未作成 2／記録 189／台本 191
+── 章 c2（16カット）→ audio/el_qa/build_ep11_c2.log
+   合成 16 カット／持ち越し 173 カット／未作成 2／記録 189／台本 191
+── 章 c3（22カット）→ audio/el_qa/build_ep11_c3.log
+   合成 22 カット／持ち越し 167 カット／未作成 2／記録 189／台本 191
+── 章 c4（14カット）→ audio/el_qa/build_ep11_c4.log
+   合成 14 カット／持ち越し 175 カット／未作成 2／記録 189／台本 191
+── 章 c5（22カット）→ audio/el_qa/build_ep11_c5.log
+   合成 22 カット／持ち越し 167 カット／未作成 2／記録 189／台本 191
+── 章 c6（22カット）→ audio/el_qa/build_ep11_c6.log
+   合成 22 カット／持ち越し 167 カット／未作成 2／記録 189／台本 191
+── 章 c7（16カット）→ audio/el_qa/build_ep11_c7.log
+   🔴 章 c7 は途中で落ちた（集計行が無い・exit 1）:
+                  ^^^^^^^^^^^
+       File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 639, in http_error_default
+         raise HTTPError(req.full_url, code, msg, hdrs, fp)
+     urllib.error.HTTPError: HTTP Error 429: Too Many Requests
+     exit=1
+==================
+🔴 途中で落ちた（上を見る）
+exit=1
