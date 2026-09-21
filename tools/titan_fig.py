@@ -4101,3 +4101,60 @@ def radio(lanes, events, t0, t1, ticks=None, bands=None, note="", src=""):
     stages = ["".join(groups[k]) for k in order]
     return Fig("".join(g), stages, "", (BX0, BX1))
 
+
+
+# ── エンディング（全回共通・2026-09-21 新設）──────────────────────────────
+# 🔴 構想はカズヤくん決定（記憶 project-jiko-common-ending・2026-09-19）:
+#    暗転なし／**アイコン・グッド・登録を同じ1枚に**／グッドは押されて色が付く／
+#    登録は押されて「登録済み」に変わる／文字は極力使わない。
+# ⚠️ YouTube の**終了画面**（最後の5〜20秒に出る）と重ならないよう、**3つとも左半分**に置き、
+#    右側（x>1180）は空けておく。
+# ⚠️ YouTube のロゴ・実物のボタン画像は**使わない**（商標）。全部この場で図形として描く。
+# ⚠️ チャンネルのアイコンも**画像を置かずに描き起こす**（`out/brand/icon.png` は git 管理外で、
+#    公開リポジトリに置いてよいかの判断が要るため。形は同じ＝暗い円＋水平の帯＋赤い十字と中心の穴）。
+def ending(name="", like_c=None, sub_c=None):
+    """3段。段1＝3つとも灰色で出る／段2＝グッドに色が付く／段3＝登録が「登録済み」に変わる。"""
+    like_c = like_c or J.AMBER
+    sub_c = sub_c or J.ALERT
+    cy = (BY0 + BY1) / 2 + 10
+    g = []
+
+    # ① チャンネルのアイコン（描き起こし）
+    ix, r = 300, 132
+    g.append(circ(ix, cy, r, fill=J.BG2))
+    g.append(circ(ix, cy, r, stroke=J.GRID, sw=3))
+    g.append(rect(ix - 104, cy - 11, 208, 22, fill=J.LINE, rx=11))          # 水平の帯
+    g.append(rect(ix - 17, cy - 96, 34, 192, fill=J.ALERT, rx=17))          # 縦の棒
+    g.append(circ(ix, cy, 44, fill=J.ALERT))
+    g.append(circ(ix, cy, 17, fill=J.BG))                                   # 中心の穴
+
+    # ② グッド（親指）。段1は輪郭だけ／段2で塗る
+    def thumb(col, fill):
+        s = []
+        s.append(rect(618, cy - 6, 44, 104, fill=fill if fill else "none",
+                      stroke=col, sw=6, rx=12))                              # 袖
+        s.append(poly([(678, cy + 98), (678, cy + 4), (726, cy - 62),
+                       (742, cy - 78), (758, cy - 70), (760, cy - 50),
+                       (748, cy - 6), (806, cy - 6), (822, cy + 8),
+                       (806, cy + 98)],
+                      fill=fill if fill else "none", stroke=col, sw=6, close=True))
+        return "".join(s)
+    g.append(thumb(J.LINE_DIM, None))
+
+    # ③ 登録のボタン。段1は輪郭＋**＋の印（図形）**／段3で塗って「登録済み」
+    # 🔴 押す前を「登録」の**文字**にすると、押したあとの「登録済み」と同じ場所で字が重なり、
+    #    `check_layout` が「2つの文字が 100×44px 重なる」で落ちる
+    #    （あとの段の塗りで隠れることは門番に見えない＝門番は絵でなく SPEC を読む）。
+    #    → 押す前は**文字を使わず＋の印**にした。「文字は極力使わない」（カズヤくん決定）にも合う。
+    bx0, bx1, bh = 900, 1180, 104
+    g.append(rect(bx0, cy - bh / 2, bx1 - bx0, bh, fill="none",
+                  stroke=J.LINE_DIM, sw=6, rx=bh / 2))
+    pcx = (bx0 + bx1) / 2
+    g.append(line(pcx - 27, cy, pcx + 27, cy, J.LINE_DIM, 9))
+    g.append(line(pcx, cy - 27, pcx, cy + 27, J.LINE_DIM, 9))
+
+    st2 = thumb(like_c, like_c)
+    st3 = (rect(bx0, cy - bh / 2, bx1 - bx0, bh, fill=sub_c, rx=bh / 2)
+           + txt((bx0 + bx1) / 2, cy + 17, "登録済み", 46, J.BG, anchor="middle"))
+    # ⚠️ 段は**あとから上に描かれる**ので、塗りつぶしで下の輪郭と字を隠せる（消す手段は無い）。
+    return Fig("".join(g), ["", st2, st3], "", (140, bx1 + 60))
