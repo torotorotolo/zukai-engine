@@ -1,0 +1,10 @@
+ElevenLabs: 声=Otani（3JDquces8E8bkmvbh6Bc） モデル=eleven_v3 settings={'stability': 1.0, 'similarity_boost': 0.75, 'style': 0.0, 'speed': 1.0, 'use_speaker_boost': True} ／クレジット 132,608 / 158,500／GAP 0.4s
+ed01:   7.40s  (3行)
+
+合成 1 カット／持ち越し 190 カット／未作成 0／記録 191／台本 191
+作ったぶん: 191カット 11546字 → 発話＋行間 1911.4秒（6.04字/秒・行間込み。AivisSpeech は 5.52）
+本編の見込み 35.2分（全 11546字をこの速さで＋LEAD/TAIL 0.85×191＋quote 2.0×18。許容 27〜40分）
+最長の1行 = 2.80秒「この動画が少しでも気に入れば、高評価と」
+API 3行（49字）／キャッシュ 0行／振り直し 0回／本物と判定 0／要耳 0（記録＝audio/el_qa/ep11_el_retakes.tsv）
+クレジット 132,608 → 132,608（消費 0）⚠️ 反映が遅れることがある
+exit=0

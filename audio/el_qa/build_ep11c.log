@@ -1,0 +1,26 @@
+ElevenLabs: 声=Otani（3JDquces8E8bkmvbh6Bc） モデル=eleven_v3 settings={'stability': 1.0, 'similarity_boost': 0.75, 'style': 0.0, 'speed': 1.0, 'use_speaker_boost': True} ／クレジット 131,782 / 158,500／GAP 0.4s
+pr01:  12.07s  (2行)
+pr02:   8.06s  (2行)
+pr03:   8.14s  (2行)
+pr04:   9.44s  (3行)
+pr05:  11.57s  (3行)
+pr06:   6.97s  (2行)
+pr07:  13.89s  (3行)
+pr08:  14.40s  (3行)
+pr09:   7.64s  (2行)
+pr10:  14.55s  (3行)
+pr11:  12.40s  (3行)
+c101:   8.23s  (2行)
+c102:   9.73s  (3行)
+    ⚠️ ffmpeg を起動できない（OSError: [WinError 1455] ページング ファイルが小さすぎるため、この操作を完了できません。）→ 0秒待って振り直す
+c103:  13.33s  (3行)
+Exception in thread Thread-77 (_readerthread):
+Traceback (most recent call last):
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1599, in _readerthread
+    buffer.append(fh.read())
+                  ^^^^^^^^^
+MemoryError

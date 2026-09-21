@@ -20,6 +20,7 @@ import hashlib
 import json
 import subprocess
 import sys
+import time
 import wave
 from pathlib import Path
 
@@ -125,13 +126,60 @@ def retempo(pcm: bytes, tempo: float = None) -> bytes:
         return pcm
     if not (0.5 <= t <= 2.0):        # atempo の1段の有効範囲。外は黙って歪むので止める
         raise SystemExit(f"🔴 TEMPO が atempo の範囲外: {t}")
+    # 🔴🔴 2026-09-21（11本目⑤a）: **atempo の結果を置いておく。**
+    #    この関数は**行ごとに ffmpeg を1本起動する**（473行＝473回）。TEMPO は合成キャッシュの鍵に
+    #    わざと入れていない（あとで変えても 0クレジットで焼き直せるようにするため）ので、
+    #    **焼き直すたびに 473回の起動をやり直していた**。コミット上限が近いこの環境では、
+    #    そのどこか1回が `WinError 1455` で落ちて全部やり直しになる（実際に 369行目と 419行目で落ちた）。
+    #    ⭐ ここに置いておけば、**2回目からは ffmpeg をほとんど起動しない**＝落ちる隙が無くなる。
+    #    ⚠️ これは**合成キャッシュとは別の棚**（`_tempo/`）。鍵は「元の pcm の中身 ＋ tempo」なので、
+    #       TEMPO を変えれば別の鍵になり、**「TEMPO は鍵に入っていない」という約束は壊れない**
+    #       （合成＝el_tts のキャッシュは今までどおり TEMPO を見ない＝0クレジットで焼き直せる）。
+    #    ⚠️ 容量＝合成キャッシュとほぼ同じ（11本目で約240MB）。C: が細いときは `_tempo/` を消してよい
+    #       （消えても ffmpeg を回し直すだけで、クレジットは1も要らない）。
+    tdir = ES.cache_path("x").parent.parent / f"{ES.SLUG}_tempo"
+    key = hashlib.sha1(pcm).hexdigest() + f"_{t:.4f}"
+    tp = tdir / f"{key}.pcm"
+    if tp.exists():
+        return tp.read_bytes()
     cmd = ["ffmpeg", "-hide_banner", "-loglevel", "error",
            "-f", "s16le", "-ar", str(SR), "-ac", "1", "-i", "pipe:0",
            "-filter:a", f"atempo={t}", "-f", "s16le", "-ac", "1", "-ar", str(SR), "pipe:1"]
-    r = subprocess.run(cmd, input=pcm, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    if r.returncode != 0 or not r.stdout:
-        raise SystemExit(f"🔴 atempo に失敗: {r.stderr.decode('utf-8', 'replace')[:300]}")
-    return r.stdout
+    # 🔴🔴 2026-09-21（11本目⑤a）: **ffmpeg を起動できずに全編が落ちた。**
+    #    `OSError: [WinError 1455] ページング ファイルが小さすぎるため…`＝Windows の**コミット上限**。
+    #    実測＝上限 19.9GB（物理 11.9＋ページング 8）に対し**空き 0.2GB**・claude が **27プロセスで 12.7GB**。
+    #    この関数は**行ごとに ffmpeg を1本起動する**（473行＝473回）ので、
+    #    一瞬でも空きが無い瞬間に当たると、そこまでの合成を道連れにして止まる（369/473行で停止）。
+    #    ⚠️ **クレジットは失わない**（合成キャッシュは内容で引くので、焼き直しは当たった行を叩かない）が、
+    #       時間と、落ちるまでの往復は失う。＝**待って振り直せば直る型**なので、ここで数回粘る。
+    #    ⚠️ 直らないときはメモリを空ける（claude の窓を閉じる）。**ページングファイルの設定は触らない**
+    #       ＝システム設定なのでカズヤくんの仕事（[[reference-tts-fails-on-commit-limit]] と同じ環境）。
+    last = None
+    for wait in (0, 2, 5, 10, 20):
+        if wait:
+            time.sleep(wait)
+        try:
+            r = subprocess.run(cmd, input=pcm, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        # ⚠️ **MemoryError も捕まえる**（2026-09-21・3回目の落ち方）。
+        #    `OSError` は「**ffmpeg を起動できない**」（WinError 1455）。
+        #    `MemoryError` は起動はできたが「**出力を読む python 側がメモリを取れない**」
+        #    （`subprocess` の `_readerthread` の `fh.read()` で出た）。
+        #    どちらも**待てば直る同じ原因**（コミット上限）なので、同じ棚で振り直す。
+        #    最初 OSError だけを捕まえたら、3回目は MemoryError ですり抜けて止まった。
+        except (OSError, MemoryError) as e:
+            last = e
+            print(f"    ⚠️ ffmpeg に失敗（{e.__class__.__name__}: {e}）→ {wait or 0}秒待って振り直す", flush=True)
+            continue
+        if r.returncode != 0 or not r.stdout:
+            raise SystemExit(f"🔴 atempo に失敗: {r.stderr.decode('utf-8', 'replace')[:300]}")
+        tdir.mkdir(parents=True, exist_ok=True)
+        tmp = tp.with_suffix(".tmp")        # 途中で落ちた半端なファイルを本物の名前で残さない
+        tmp.write_bytes(r.stdout)
+        tmp.replace(tp)
+        return r.stdout
+    raise SystemExit(f"🔴 ffmpeg が5回とも失敗（{last.__class__.__name__}: {last}）。"
+                     f"メモリの空きを確認する: Get-CimInstance Win32_OperatingSystem の FreeVirtualMemory"
+                     f"（見るのは FreeVirtualMemory＝コミットの空き。FreePhysicalMemory では分からない）")
 
 
 def _sig(lines):
