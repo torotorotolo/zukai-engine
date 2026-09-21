@@ -1,0 +1,773 @@
+
+
+v1ch7
+
+Report of the PRESIDENTIAL COMMISSION
+on the Space Shuttle Challenger Accident
+
+Chapter VII: The Silent Safety
+Program.
+
+[ 152 ] The Commission was
+surprised to realize after many hours of' testimony that NASA's
+safety staff was never mentioned. No witness related the approval or
+disapproval of the reliability engineers, and none expressed the
+satisfaction or dissatisfaction of the quality assurance staff. No
+one thought to invite a safety representative or a reliability and
+quality assurance engineer to the January 27, 1986, teleconference
+between Marshall and Thiokol. Similarly, there was no representative
+of safety on the Mission Manage-ment Team that made key decisions
+during the countdown on January 28, 1986. The Commission is concerned
+about the symptoms that it sees.
+
+The unrelenting pressure to meet the demands
+of an accelerating flight schedule might have been adequately handled
+by NASA if it had insisted upon the exactingly thorough procedures
+that were its hallmark during the Apollo program. An extensive and
+redundant safety program comprising interdependent safety,
+reliability and quality assurance functions existed during and after
+the lunar program to discover any potential safety problems. Between
+that period and 1986, however, the program became ineffective. This
+loss of effectiveness seriously degraded the checks and balances
+essential for maintaining flight safety.
+
+On April 3, 1986, Arnold Aldrich, the Space
+Shuttle program manager, appeared before the Commission at a public
+hearing in Washington, D.C. He described five different communication
+or organization failures that affected the launch decision on January
+28, 1986. 1 Four of those failures relate directly to faults
+within the safety program. These faults include a lack of problem
+reporting requirements, inadequate trend analysis, misrepresentation
+of criticality and lack of involvement in critical discussions.
+2 A properly staffed, supported, and robust safety
+organization might well have avoided these faults and thus eliminated
+the communication failures.
+
+NASA has a safety program to ensure that the
+communication failures to which Mr. Aldrich referred do not occur. In
+the case of mission 51-L, that program fell short.
+
+NASA's Safety Program
+
+The NASA Safety, Reliability and Quality
+Assurance Program should play an important role in agency activities,
+for the three concerns indicated in the program title are its
+functions. In general terms, the program monitors the status of
+equipment, validation of design, problem analysis and system
+acceptability. Each of these has flight safety implications.
+
+More specifically, safety includes the
+preparation and execution of plans for accident prevention, flight
+system safety and industrial safety requirements. Within the Shuttle
+program, safety analyses focus on potential hazards and the
+assessment of acceptable risks.
+
+Reliability refers to processes for
+determining that particular components and systems can be relied on
+to work as planned. One product of such processes is a Critical Items
+List that identifies how serious the failure of a particular item or
+system would be.
+
+Quality assurance is closely related to both
+safety and reliability. All NASA elements prepare [ 153 ] plans and institute
+procedures to insure that high standards of quality are maintained.
+To accomplish that goal, elements charged with responsibility for
+quality assurance establish procedural controls, assess inspection
+programs, and participate in a problem identification and reporting
+system .
+
+The Chief Engineer at NASA Headquarters, has
+overall responsibility for safety, reliability and quality assurance.
+The ability of the Chief Engineer to manage NASA's safety program is
+limited by the structure of safety, reliability and quality assurance
+organizations within the agency. His limited staff of 20
+persons 3 includes only one who spends 25 percent of his time on
+Shuttle maintainability, reliability and quality assurance and
+another who spends 10 percent of his time on these vital aspects of
+flight safety. 4
+
+At Johnson, a large number of government and
+contractor engineers support the safety, reliability and quality
+assurance program, but needed expertise concerning Marshall hardware
+is absent. Thus the effectiveness of the oversight responsibilities
+at Level II was limited. 5
+
+Kennedy has a myriad of safety, reliability
+and quality assurance organizations. In most cases, these
+organizations report to supervisors who are responsible for
+processing. The clear implication of such a management structure is
+that it fails to provide the kind of independent role necessary for
+flight safety.
+
+At Marshall, the director of Reliability and
+Quality Assurance reports to the director of Science and Engineering
+who oversees the development of Shuttle hardware. Again, this results
+in a lack of independence from the producer of hardware and is
+compounded by reductions in manpower, 6 the net bringing about a decrease in effectiveness
+which has direct implications for flight safety.
+
+Monitoring Safety Critical Items
+
+As part of the safety, reliability and quality
+assurance effort, components of the Shuttle system are assigned to
+criticality categories as follows:
+
+Criticality 1
+
+Loss of life or vehicle if the
+component fails.
+
+Criticality 2
+
+Loss of mission if the component
+fails.
+
+Criticality 3
+
+All others.
+
+Criticality 1R
+
+Redundant components, the failure of
+both could cause loss of life or vehicle.
+
+Criticality 2R
+
+Redundant components, the failure of
+both could cause loss of mission.
+
+The assignment of criticality follows a highly
+detailed analysis of each Space Shuttle component to determine the
+effect of various ways the component could fail. This analysis always
+assumes the most adverse conditions with the most conservative
+assumptions. Any component that does not meet the fail-safe design
+requirement is designated a Criticality 1 item and must receive a
+waiver for use. A Critical Items List is produced that contains
+information about all Criticality 1 components. The Solid Rocket
+Booster Critical Items List entry for the field joint, dated December
+17, 1982 is an example of this process.
+
+Component criticality is related to test
+requirements in the Operational Maintenance Requirements and
+Specifications Document published and maintained by Level II at
+Johnson. For the Orbiter, the references from the Critical Items List
+to the requirements and specifications document are complete and
+traceable in both directions. The Solid Rocket Booster Critical Items
+List, however, does not include references to the requirements and
+specifications document. 7 Such references would make the Critical Items List a
+more efficient management tool for tracking activities concerned with
+items critical for flight safety.
+
+The next step in procedures documentation is
+the Operations and Maintenance Instruction, which develops the
+directives into step-by-step procedures used at Kennedy by
+technicians, inspectors and test personnel to accomplish each step of
+the hardware preparations for flight. The current Operations and
+Maintenance Instruction does not indicate the criticality level of
+components.
+
+If the Operations and Maintenance Instruction
+clearly indicated when the work to be performed related to a
+Criticality 1 component, all concerned would be alerted that a higher
+than normal level of care should be used. The same point applies to
+production activities at Thiokol where criticality should be directly
+incorporated into manufacturing quality planning.
+
+[ 154 ] Problem Reporting
+
+Prior to 1983, Level III was required to
+report all problems, trends, and problem closeout actions to Level II
+unless the problem was associated with hardware that was not flight
+critical. 8 Unfortunately, this requirement was substantially
+reduced to include only those problems which dealt with common
+hardware items or physical interface elements. The revision
+eliminated reporting on flight safety problems, flight schedule
+problems, and problem trends.
+
+The change to the reporting requirements was
+signed by James B. Jackson, Jr., for Glynn Lunney, who was at that
+time manager of the National Space Transportation System (Level II
+manager). The change was submitted by Martin Raines, director of
+Safety, Reliability and Quality Assurance at
+Johnson. 9 With this action, Level II lost all insight into
+safety, operational and flight schedule issues resulting from Level
+III problems.
+
+On May 19, 1986, Mr. Raines wrote a memo in
+which he explained that the documentation change was made in an
+attempt to streamline the system since the old requirements were not
+productive for the operational phase of the Shuttle
+program. 10 In retrospect, it is still difficult to understand why
+the director of Safety, Reliability and Quality Assurance at Johnson
+initiated this action, and it is even more difficult to understand
+why Level II approved it.
+
+A review of all Level III monthly problem
+reports (Open Problem List) issued by Marshall during 1984 and 1985
+indicates that none was distributed to Level II management. From a
+lengthy list of recipients, only a single copy was sent to Johnson,
+and that one was sent to an engineer in the flight control division.
+Mr. Aldrich's office and the entire Johnson safety, reliability and
+quality assurance directorate were not on the distribution list for
+the problem reports. A Rockwell International safety, reliability and
+quality assurance contractor at Johnson received a statistical
+summary of problem status, but not the actual problems
+descriptions.
+
+Reporting of In-flight Anomalies
+
+A second method of notifying Level II of
+problems would have been through the in-flight anomaly reporting
+channels. The identification and resolution of anomalies that occur
+during flight are addressed in Space Shuttle Program Directive 34E.
+For the Solid Rocket Booster, the Huntsville Operations Support
+Center is charged with these activities as well as other evaluations
+and documentation of' mission results.
+
+"The Space Shuttle Project
+Managers at Kennedy, Johnson, and Marshall, and the Manager for
+Systems Integration are responsible for the implementation of' this
+directive in their respective areas." 11
+
+A letter dated October 20, 1981, from the
+manager of' the National Space Transportation System (Level II)
+addressed flight anomaly resolution:
+
+"Beginning with the STS-2
+evaluations, the enclosed new form and instructions, outlined in
+enclosure 1, will be utilized for all official flight anomaly
+closeouts. Flight anomalies will be presented for review and closeout
+at the Noon Special PRCB [Program Requirements Change Board]. The
+briefing charts will be prepared by the Project elements, and should
+include a schematic/graph/sketch of the problem area. This material,
+along with the closeout form and appropriate signatures, will become
+a part of the permanent closeout record. Enclosure 2 provides a
+sample of' closeout material from STS- 1 that would be
+acceptable.
+
+"Your cooperation in this activity will be
+appreciated." 12
+
+Since O-ring erosion and blow-by were
+considered by Marshall to be highs anomalies, 13 the letter above would appear to require reporting by
+the Solid Rocket Booster Project Office to Level II. However, the
+sample closeout material attached to the 1981 letter was identified
+as pertaining to "Flight Test" (the first four flights). The 1983
+change might well have been interpreted as superseding the 1981
+Lunney letter, particularly since the program officially
+became"operational" in late 1982.
+
+The reporting of anomalies (unexpected events
+or unexplained departures from past experience) that occur during
+mission performance is a key ingredient in any reliability and
+quality assurance program. Through accurate reporting, careful
+analysis and thorough testing, problems or recurrence of problems can
+be prevented. In an effective program, reporting, analysis, testing
+and [ 155 ] implementation of corrective measures must be fully
+documented .
+
+The level of management that should be
+informed is a function of the seriousness of the problem. For
+Criticality 1 equipment anomalies, the communications must reach all
+levels of management. Highly detailed and specific procedures for
+reporting anomalies and problems are essential to the entire process.
+The procedures must be understood and followed by all.
+
+Unfortunately, NASA does not have a concise
+set of problem reporting requirements. Those in effect are found in
+numerous individual documents, and there is little agreement about
+which document applies to a given level of management under a given
+set of circumstances for a given anomaly.
+
+Safety Program Failures
+
+The safety, reliability and quality assurance
+program at Marshall serves a dual role. It is responsible for
+assuring that the hardware delivered for use on the Space Shuttle
+meets design specifications. In addition, it acts as a "watch dog" on
+the system to assure that sound engineering judgment is exercised in
+the use of hardware and in appraising hardware problems. Limited
+human resources and an organization that placed reliability and
+quality assurance functions under the director of Science and
+Engineering reduced the capability of the "watch dog" role.
+
+Much of what follows concerns engineering
+judgments and decisions by engineers and managers at Marshall and
+Morton Thiokol. It is the validity of these judgments that the
+Commission has examined closely. In its "watch dog" role, an
+effectively functioning safety, reliability and quality assurance
+organization could have taken action to prevent the 51-L
+accident.
+
+In the discussion that follows, various
+aspects of the Solid Rocket Booster joint design issue discussed
+earlier will be reviewed in the context of safety, reliability and
+quality assurance. The critical issue, discussed in detail elsewhere,
+involves the O-rings installed to seal the booster joints.
+
+Trend Data
+
+Development of trend data and the possible
+relationships between problems is a standard and expected function of
+any reliability and quality assurance program. As previously noted,
+the history of problems with the Solid Rocket Booster O-ring took an
+abrupt turn in January, 1984, when an ominous trend began. Until that
+date, only one field joint O-ring anomaly had been found during the
+first nine flights of the Shuttle. Beginning with the tenth mission,
+however, and concluding with the twenty-fifth, the Challenger flight,
+more than half of the missions experienced field joint O-ring blow-by
+or erosion of some kind .
+
+In retrospect, this trend is easily
+recognizable. According to Wiley Bunn, director of Reliability and
+Quality Assurance at Marshall:
+
+"I agree with you from my purview
+in quality, but we had that data. It was a matter of assembling that
+data and looking at it in the proper fashion. Had we done that, the
+data just jumps off the page at you." 14
+
+This striking change in performance should
+have been observed and perhaps traced to a root cause. No such trend
+analysis was conducted. While flight anomalies involving the O-rings
+received considerable attention at Morton Thiokol and at Marshall,
+the significance of the developing trend went unnoticed. The safety,
+reliability and quality assurance program, of course, exists to
+ensure that such trends are recognized when they occur.
+
+A series of changes to Solid Rocket Booster
+processing procedures at Kennedy may be significant: on-site O-ring
+inspections were discontinued; O-ring leak check stabilization
+pressure on the field joint was increased to 200 pound per square
+inch from 100, sometimes blowing holes through the protective putty;
+the patterns for positioning the putty were changed; the putty type
+was changed; re-use of motor segment casings increased; and a new
+government contractor began management of Solid Rocket Booster
+assembly. One of these developments or a combination of them was
+probably the cause of the higher anomaly rate. The safety,
+reliability and quality assurance program should have tracked and
+discovered the reason for the increasing erosion and blow-by.
+
+The history of problems in the nozzle joint is
+similar to that of the Solid Rocket Booster field joint. While
+several of the changes mentioned above also could have influenced the
+frequency.....
+
+[ 156 ]
+
+Pressure tests at 200 pounds per
+square inch of the Solid Rocket Booster joints produced bubbles in
+putty used to line the joints.
+
+..... of
+nozzle O-ring problems, the frequency correlates with leak check
+pressure to a remarkable degree.
+
+Again, development of trend data is a standard
+and expected function of any reliability and quality assurance
+program. Even the most cursory examination of failure rate should
+have indicated that a serious and potentially disastrous situation
+was developing on all Solid Rocket Booster joints. Not recognizing
+and reporting this trend can only be described, in NASA terms, as a
+"quality escape," a failure of the program to preclude an avoidable
+problem. If the program had functioned properly, the Challenger
+accident might have been avoided. The trend should have been
+identified and analyzed to discover the physical processes damaging
+the O-ring and thus jeopardizing the integrity of the joint.
+
+A likely cause of the O-ring erosion appears
+to have been the increased leak check pressure that caused hazardous
+blow holes in the putty. Such holes at booster ignition provide a
+ready path for combustion gases directly to the O-ring. The blow
+holes were known to be created by the higher pressure used in the
+leak check. The phenomenon was observed and even photographed prior
+to a test firing in Utah on May 9, 1985. In that particular case, the
+grease from the O-ring was actually blown through the putty and was
+visible on the inside core of the Solid Rocket Booster.
+
+The trends of flight anomalies in relation to
+leak check stabilization pressure are illustrated for the field joint
+and the nozzle joint in Figure 3, on page
+133 . While the data point concerning
+the 100 pound per square inch field joint leak check is not
+conclusive since it is based on only two flights, the trend is
+apparent.
+
+Management Awareness
+
+During its investigation, the Commission
+repeatedly heard witnesses refer to redundancy in the Solid Rocket
+Motor joint and argue over the criticality of the joint. While the
+field joint has been categorized as a Criticality 1 item since 1982
+(page 157), most of the problem reporting paperwork generated by
+Thiokol and Marshall listed it as Criticality 1 R, perhaps leading
+some managers to believe-wrongly-that redundancy existed. The Problem
+Assessment System operated by Rockwell contractors at Marshall, which
+routinely updates the problem status still listed the field joint as
+Criticality 1R on March 7,1986, more than five weeks after the
+accident. Such misrepresentation of criticality must also be
+categorized as a failure of the safety, reliability and quality
+assurance program. As a result, informed decision making by key
+managers was impossible.
+
+[ 157 ]
+
+[ 158 ]
+
+["SRB Critical Items List; Dated:
+December 17, 1982. Failure mode & causes: Leakage at case
+assembly joints due to redundant O-ring seal failures or primary seal
+and leak check port O-ring failure." text added for clarity, Chris
+Gamble, html editor]
+
+[ 159 ] Mr. Bunn, the
+director of Reliability and Quality Assurance at Marshall, stated on
+April 7, 1986:
+
+"But the other thing you will
+notice on those problem reports is that for some reason on the
+individual problem reports we kept sticking [Criticality] 1-R on them
+and that is just a sheer quality escape." 15
+
+The Impact of Misinformation
+
+The manner in which misinformation influences
+top management has been illustrated by former Associate Administrator
+for Space Flight Jesse Moore.
+
+"And then we had a Flight
+Readiness Review, I guess, in July, getting ready for a mid-July or a
+late July flight, and the action had come back from the project
+office. I guess the Level III had reported to the Level II Flight
+Readiness Review, and then they reported up to me that-they reported
+the two erosions on the primary (O-ring) and some 10 or 12 percent
+erosion on the secondary (O-ring) on that flight in April, and the
+corrective actions, I guess, that had been put in place was to
+increase the test pressure, I think, from 50 psi [pounds per square
+inch] to 200 psi or 100 psi-I guess it was 200 psi is the number-and
+they felt that they had run a bunch of laboratory tests and analyses
+that showed that by increasing the pressure up to 200 psi, this would
+minimize or eliminate the erosion, and that there would be a fairly
+good degree of safety factor margin on the erosion as a result of
+increasing this pressure and ensuring that the secondary seal had
+been seated. And so we left that FRR [Flight Readiness Review] with
+that particular action closed by the project ," 16
+
+Not only was Mr. Moore misinformed about the
+effectiveness and potential hazards associated with the long-used
+"new" procedure, he also was misinformed about the issue of joint
+redundancy. Apparently, no one told (or reminded) Mr. Moore that
+while the Solid Rocket Booster nozzle joint was Criticality 1R, the
+field joint was Criticality 1. No one told him about blow holes in
+the putty, probably resulting from the increased stabilization
+pressure, and no one told him that this "new" procedure had been in
+use since the exact time that field joint anomalies had become
+dangerously frequent. At the time of this briefing, the increased
+pressure already had been used on four Solid Rocket Motor nozzle
+joints, and all four had erosion. Erosion was the enemy, and
+increased pressure was its ally.
+
+While Mr. Moore was not being intentionally
+deceived, he was obviously misled. The reporting system simply was
+not making trends, status and problems visible with sufficient
+accuracy and emphasis.
+
+Reporting Launch Constraints
+
+The Commission was surprised to learn that a
+launch constraint had been imposed on the Solid Rocket Booster. It
+was further surprised to learn that those outside of Marshall were
+not notified. Because of the seriousness of the mission 51 -B nozzle
+O-ring erosion incident, launch constraints were placed against the
+next six Shuttle flights. A launch constraint arises from a flight
+safety issue of sufficient seriousness to justify a decision not to
+launch. The initial problem description stated that, "based on the
+amount of charring, the erosion paths on the primary O-ring and what
+is understood about the erosion phenomenon, it is believed that the
+primary O-ring of SRM 16A [the Solid Rocket Motor on flight 51-B]
+never seated." 17 The maximum erosion depth was 0.171 inches on the
+primary O-ring and 0.032 inches on the secondary. On February 12, at
+a Level III Flight Readiness Review, maximum expected erosion on
+nozzle joint O-rings had been projected as 0.070 inches for the
+primary and 0.004 inches for the secondary. Thus, the results far
+exceeded the maximum expected. If this same ratio of actual to
+projected erosion were to occur on a field joint, the erosion would
+be 0.225 inches. With secondary seal inadequacy, as indicated by
+Criticality 1 status, that degree of erosion could result in joint
+failure and loss of vehicle and crew.
+
+The Problem Reporting and Corrective Action
+document (JSC 08126A, paragraph 3.2d) requires project offices to
+inform Level II of launch constraints. That requirement was not met.
+Neither Level II nor Level I was informed.
+
+Implications of an Operational
+Program
+
+Following successful completion of the orbital
+flight test phase of the Shuttle program, the system was declared to
+be operational. [ 160 ] Subsequently, several safety, reliability and quality
+assurance organizations found themselves with reduced and/or
+reorganized functional capability. Included, notably, were the
+Marshall offices where there was net attrition 18 and NASA Headquarters where there were several
+reorganizations and transfers.
+
+The apparent reason for such actions was a
+perception that less safety, reliability and quality assurance
+activity would be required during "routine" Shuttle operations. This
+reasoning was faulty. The machinery is highly complex, and the
+requirements are exacting. The Space Shuttle remains a totally new
+system with little or no history. As the system matures and the
+experience changes, careful tracking will be required to prevent
+premature failures. As the flight rate increased, more hardware
+operations were involved, and more total in-flight anomalies
+occurred. 19 Tracking requirements became more rather than less
+critical because of implications for the next flight in an
+accelerating program.
+
+Two problems on mission 61 -C were not
+evaluated as part of the review process for the next flight, 51 -L. A
+serious failure of the Orbiter wheel brake was not known to the crew
+as mission 51 -L lifted off with a plan to make the first Kennedy
+landing since a similar problem halted such operations in April,
+1985. 20 Secondly, an O-ring erosion problem had occurred on
+mission 61-C, and while it had been discovered, it had not been
+incorporated into the Problem Assessment System when mission 51 -L
+was launched. 21 If the program cannot come to grips with such critical
+safety aspects before subsequent flights are scheduled to occur, it
+obviously is moving too fast, or its safety, reliability and quality
+assurance programs must be strengthened to provide more rapid
+response.
+
+The inherent risk of the Space Shuttle program
+is defined by the combination of a highly dynamic environment,
+enormous energies, mechanical complexities, time consuming
+preparations and extremely time-critical decision making. Complacency
+and failures in supervision and reporting seriously aggravate these
+risks.
+
+Rather than weaken safety, reliability and
+quality assurance programs through attrition and reorganization, NASA
+must elevate and strengthen these vital functions. In addition,
+NASA's traditional safety, reliability and quality assurance efforts
+need to be augmented by an alert and vigorous organization that
+oversees the flight safety program.
+
+Aerospace Safety Advisory Panel
+
+The Aerospace Safety Advisory Panel (the
+"panel" in what follows) was established in the aftermath of the
+Apollo spacecraft fire January 27, 1967. Shortly thereafter the
+United States Congress enacted legislation (Section 6 of the NASA
+Authorization Act, 1968; 42 U.S.C. 2477) to establish the panel as a
+senior advisory committee to NASA. The statutory duties of the panel
+are:
+
+"The panel shall review safety
+studies and operations plans referred to it and shall make reports
+thereon, shall advise the Administrator with respect to the hazards
+of proposed operations and with respect to the adequacy of proposed
+or existing safety standards, and shall perform such other duties as
+the Administrator may request."
+
+The panel membership is set by statute at no
+more than nine members, of whom up to four may come from NASA. The
+NASA Chief Engineer is an ex-officio member. The staff consists of
+full-time NASA employees, and the staff director serves as both
+executive secretary and technical assistant to the panel.
+
+The role of the panel has been defined and
+redefined by the members themselves, NASA senior management and
+members of the House and Senate of the U.S. Congress. The panel began
+to review the Space Shuttle program in 1971, and in its 1974 annual
+report, it documented a shift in focus:
+
+"The panel feels that [a] broader examination
+of the programs and their management gives them more confidence than
+in limiting their inquiry to safety alone." 22
+
+Over ensuing years, the panel continued to
+examine the Space Shuttle program including safety, reliability and
+quality assurance; systems redundancy; flight controls; and ground
+processing and handling, though management issues continued to
+dominate their concerns. Following the first flight of the Shuttle,
+the panel investigated a wide variety of specific subjects, to
+include the lightweight External Tank, the [ 161 ] Centaur and
+Inertial Upper Stage programs, Shuttle logistics and spare parts,
+landing gear, tires, brakes, Solid Rocket Motor nozzles and the Solid
+Rocket Motor using the filament-wound case. There is no indication,
+however, that the details of Solid Rocket Booster joint design or
+in-flight problems were ever the subject of a panel activity. The
+efforts of this panel were not sufficiently specific and immediate to
+prevent the 51 -L accident.
+
+Space Shuttle Program Crew Safety
+Panel
+
+The Space Shuttle Crew Safety Panel,
+established by Space Shuttle Program Directive 4A dated April 17,
+1974, served an important function in NASA flight safety activities,
+until it went out of existence in 1981. If it were still in
+existence, it might have identified the kinds of problems now
+associated with the 51-L mission. The purpose of the panel was
+twofold: (1) to identify possible hazards to Shuttle crews and (2) to
+provide guidance and advice to Shuttle program management concerning
+the resolution of such conditions.
+
+The membership of the panel comprised 10
+representatives from Johnson and a single representative each from
+Dryden (the NASA facility at Edwards Air Force Base, California),
+Kennedy, Marshall and the Air Force.
+
+The panel was to support the Level II Program
+Requirements Control Board chaired by the project manager, and
+recommendations were subject to Control Board approval.
+
+From 1974 through 1978, the panel met on a
+regular basis (24 times) and considered vital issues ranging from
+mission abort contingencies to equipment acceptability. The
+membership of the panel from engineering, project management and
+astronaut offices ensured a minimum level of safety communications
+among those organizations. This ceased to exist when the panel
+effectively ceased to exist in 1980. 23 NASA had expected the panel to be functional only
+"during the design, development and flight test phases" and to
+"concern itself with all vehicle systems and operating modes."
+24 When the original chairman, Scott H. Simpkinson,
+retired in 1981, the panel was merged with a safety subpanel that
+assumed neither the membership nor the functions of the safety panel.
+After that time, the NASA Shuttle program had no focal point for
+flight safety.
+
+The Need for a New Safety
+Organization
+
+The Aerospace Safety Advisory Panel
+unquestionably has provided NASA a valuable service, which has
+contributed to the safety of NASA's operations. Because of its
+breadth of activities, however, it cannot be expected to uncover all
+of the potential problems nor can it be charged with failure when
+accidents occur that in hindsight were clearly probable. The ability
+of any panel to function effectively depends on a focused scope of
+responsibilities. An acceptable level of operational safety coverage
+requires the total combination of NASA and contractor organizations,
+working more effectively on a coordinated basis at all levels. The
+Commission believes, therefore, that a top-to-bottom emphasis on
+safety can best be achieved by a combination of a strong central
+authority and a working level panel devoted to the operational
+aspects of Shuttle flight safety.
+
+Findings
+
+1. Reductions in the safety,
+reliability and quality assurance work force at Marshall and NASA
+Headquarters have seriously limited capability in those vital
+functions.
+
+2. Organizational structures at Kennedy and
+Marshall have placed safety, reliability and quality assurance
+offices under the supervision of the very organizations and
+activities whose efforts they are to check.
+
+3. Problem reporting requirements are not
+concise and fail to get critical information to the proper levels of
+management.
+
+4. Little or no trend analysis was performed
+on O-ring erosion and blow-by problems.
+
+5. As the flight rate increased, the Marshall
+safety, reliability and quality assurance work force was decreasing,
+which adversely affected mission safety.
+
+6. Five weeks after the 51-L accident, the
+criticality of the Solid Rocket Motor field joint was still not
+properly documented in the problem reporting system at Marshall.
+
+[ 162 ] References
+
+1. Commission Interview
+Transcript, April 3, 1986, page 2538.
+
+2. Commission Interview
+Transcript, Bunn, W., April 17, 1986, Washington, D.C., pages
+42-43
+
+3. Commission Interview
+Transcript, Silveira, M., April 16, 1986, Washington, D.C., page
+4.
+
+4. Commission Interview
+Transcript, Quong, H., April 11. 1986, Washington, D.C, , pages
+29-30.
+
+5. Commission Work
+Session, March 25, 1986, JSC, page 84.
+
+6. Commission Interview
+Transcript, Bunn, W., April 17, 1986, Washington, D.C., page
+89.
+
+7. SRB Critical Items
+List, Change 2, November 30, 1983, page A6 -A
+
+8. Space Shuttle
+Program Requirements Control Board Directive-Level II, PRCBD
+Number 501152A, JSC, April 4, 1975, pages 2-4
+
+9. Space Shuttle
+Program Requirements Control Board Directive-Level II, PRCBD
+Number 521701R2, JSC, March 7, 1983, pages 1 -6.
+
+10. Letter from Martin
+L. Raines, JSC, ND5/86-M 121, May 19, 1986.
+
+11. Space Shuttle
+Program Manager Directive 34E, September 3, 1982, page 2.
+
+12. Letter from Glynn
+Lunney, JSC, WA-81-LO38, October 20, 1981.
+
+13. Commission
+Interview Transcript, Bunn, W., April 17, 1986, Washington, D.C.,
+page 4
+
+14. Commission
+Interview Transcript, Bunn, W, April 17, 1986, Washington, D.C.,
+page 41.
+
+15. Commission
+Interview Transcript, Bunn, W., April 17, 1986, Washington, D.C.,
+page 13.
+
+16. Commission
+Interview Transcript, Moore, J., April 8, 1986, NASA Headquarters,
+page 19.
+
+17. Marshall Space
+Flight Center Record Number AO9288, February 26, 1986, page
+2.
+
+18. Commission
+Interview Transcript, Bunn, W., April 17, 1986, Washington, D.C.,
+pages 85-86.
+
+19. Commission
+Interview Transcript, Bunn, W., April 17, 1986, Washington, D.C.,
+pages 78-79.
+
+20. Commission Hearing
+Transcript, April 3, 1986, page 2552.
+
+21. Marshall Space
+Flight Center Record Number A07934, March 7, 1986, page 6.
+
+22. Annual Report,
+Aerospace Safety Advisory Panel, 1974, page 4.
+
+23. Report, "Space
+Shuttle Crew- Safety Panel History," JSC, April 16, 1986, pages
+4-6.
+
+24. Space Shuttle
+Program Directive 4A. JSC. April 17, 1974, page 1.
+

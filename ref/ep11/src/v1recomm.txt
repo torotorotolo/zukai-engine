@@ -1,0 +1,272 @@
+
+
+v1recomm
+
+Report of the PRESIDENTIAL COMMISSION
+on the Space Shuttle Challenger Accident
+
+Recommendations
+
+[ 198 ] The Commission has
+conducted an extensive investigation of the Challenger accident to
+determine the probable cause and necessary corrective actions. Based
+on the findings and determinations of its investigation, the
+Commission has unanimously adopted recommendations to help assure the
+return to safe flight.
+
+The Commission urges that the Administrator of
+NASA submit, one year from now, a report to the President on the
+progress that NASA has made in effecting the Commission's
+recommendations set forth below:
+
+- I -
+
+Design . The
+faulty Solid Rocket Motor joint and seal must be changed. This could
+be a new design eliminating the joint or a redesign of the current
+joint and seal. No design options should be prematurely precluded
+because of schedule, cost or reliance on existing hardware. All Solid
+Rocket Motor joints should satisfy the following requirements:
+
+The joints should be fully understood,
+tested and verified.
+
+The integrity of the structure and of the
+seals of all joints should be not less than that of the case walls
+throughout the design envelope.
+
+The integrity of the joints should be
+insensitive to:
+
+Dimensional tolerances.
+
+Transportation and handling.
+
+Assembly procedures.
+
+Inspection and test procedures.
+
+Environmental effects.
+
+Internal case operating
+pressure.
+
+Recovery and reuse effects.
+
+Flight and water impact loads.
+
+The certification of the new design should
+include:
+
+Tests which duplicate the actual launch
+configuration as closely as possible.
+
+Tests over the full range of operating
+conditions, including temperature.
+
+Full consideration should be given to
+conducting static firings of the exact flight configuration in a
+vertical attitude.
+
+Independent Oversight . The Administrator of NASA should request the National
+Research Council to form an independent Solid Rocket Motor design
+oversight committee to implement the Commission's design
+recommendations and oversee the design effort. This committee
+should:
+
+Review and evaluate certification
+requirements.
+
+Provide technical oversight of the design,
+test program and certification.
+
+Report to the Administrator of NASA on the
+adequacy of the design and make appropriate
+recommendations.
+
+- II -
+
+[ 199 ] Shuttle Management Structure . The Shuttle Program Structure should be reviewed. The
+project managers for the various elements of the Shuttle program felt
+more accountable to their center management than to the Shuttle
+program organization. Shuttle element funding, work package
+definition, and vital program information frequently bypass the
+National STS (Shuttle) Program Manager.
+
+A redefinition of the Program Manager's
+responsibility is essential. This redefinition should give the
+Program Manager the requisite authority for all ongoing STS
+operations. Program funding and all Shuttle Program work at the
+centers should be placed clearly under the Program Manager's
+authority.
+
+Astronauts in Management . The Commission observes that there appears to be a
+departure from the philosophy of the 1960s and 1970s relating to the
+use of astronauts in management positions. These individuals brought
+to their positions flight experience and a keen appreciation of
+operations and flight safety.
+
+NASA should encourage the transition of
+qualified astronauts into agency management positions.
+
+The function of the Flight Crew Operations
+director should be elevated in the NASA organization
+structure.
+
+Shuttle Safety Panel . NASA should establish an STS Safety Advisory Panel
+reporting to the STS Program Manager. The Charter of this panel
+should include Shuttle operational issues, launch commit criteria,
+flight rules, flight readiness and risk management. The panel should
+include representation from the safety organization, mission
+operations, and the astronaut office.
+
+- III -
+
+Criticality Review and Hazard
+Analysis . NASA and the primary Shuttle
+contractors should review all Criticality 1, 1R, 2, and 2R items and
+hazard analyses. This review should identify those items that must be
+improved prior to flight to ensure mission safety. An Audit Panel,
+appointed by the National Research Council, should verify the
+adequacy of the effort and report directly to the Administrator of
+NASA.
+
+- IV -
+
+Safety Organization . NASA should establish an Office of Safety,
+Reliability and Quality Assurance to be headed by an Associate
+administrator, reporting directly to the NASA Administrator. It would
+have direct authority for safety, reliability, and quality assurance
+throughout the agency. The office should be assigned the work force
+to ensure adequate oversight of its functions and should be
+independent of other NASA functional and program
+responsibilities.
+
+The responsibilities of this office should
+include:
+
+The safety, reliability and quality
+assurance functions as they relate to all NASA activities and
+programs.
+
+Direction of reporting and documentation
+of problems, problem resolution and trends associated with flight
+safety.
+
+- V -
+
+[ 200 ] Improved Communications . The Commission found that Marshall Space Flight
+Center project managers, because of a tendency at Marshall to
+management isolation, failed to provide full and timely information
+bearing on the safety of flight 51-L to other vital elements of
+Shuttle program management.
+
+NASA should take energetic steps to
+eliminate this tendency at Marshall Space Flight Center, whether
+by changes of personnel, organization, indoctrination or all
+three.
+
+A policy should be developed which governs
+the imposition and removal of Shuttle launch constraints.
+
+Flight Readiness Reviews and Mission
+Management Team meetings should be recorded.
+
+The flight crew commander, or a designated
+representative, should attend the Flight Readiness Review,
+participate in acceptance of the vehicle for flight, and certify
+that the crew is properly prepared for flight.
+
+- VI -
+
+Landing Safety . NASA must take actions to improve landing
+safety.
+
+The tire, brake and nosewheel steering
+systems must be improved. These systems do not have sufficient
+safety margin, particularly at abort landing sites.
+
+The specific conditions under which
+planned landings at Kennedy would be acceptable should be
+determined. Criteria must be established for tires, brakes and
+nosewheel steering. Until the systems meet those criteria in high
+fidelity testing that is verified at Edwards, landing at Kennedy
+should not be planned.
+
+Committing to a specific landing site
+requires that landing area weather be forecast more than an hour
+in advance. During unpredictable weather periods at Kennedy,
+program officials should plan on Edwards landings. Increased
+landings at Edwards may necessitate a dual ferry
+capability.
+
+- VII -
+
+Launch Abort and Crew
+Escape . The Shuttle program management
+considered first-stage abort options and crew escape options several
+times during the history of the program, but because of limited
+utility, technical infeasibility, or program cost and schedule, no
+systems were implemented. The Commission recommends that NASA:
+
+Make all efforts to provide a crew escape
+system for use during controlled gliding flight.
+
+Make every effort to increase the range of
+flight conditions under which an emergency runway landing can be
+successfully conducted in the event that two or three main engines
+fail early in ascent.
+
+- VIII -
+
+[ 201 ] Flight Rate . The
+nation's reliance on the Shuttle as its principal space launch
+capability created a relentless pressure on NASA to increase the
+flight rate. Such reliance on a single launch capability should be
+avoided in the future.
+
+NASA must establish a flight rate that is
+consistent with its resources. A firm payload assignment policy
+should be established. The policy should include rigorous controls on
+cargo manifest changes to limit the pressures such changes exert on
+schedules and crew training.
+
+- IX -
+
+Maintenance Safeguards . Installation, test, and maintenance procedures must
+be especially rigorous for Space Shuttle items designated Criticality
+1. NASA should establish a system of analyzing and reporting
+performance trends of such items.
+
+Maintenance procedures for such items should
+be specified in the Critical Items List, especially for those such as
+the liquid-fueled main engines, which require unstinting maintenance
+and overhaul.
+
+With regard to the Orbiters, NASA
+should:
+
+Develop and execute a comprehensive
+maintenance inspection plan.
+
+Perform periodic structural inspections
+when scheduled and not permit them to be waived.
+
+Restore and support the maintenance and
+spare parts programs, and stop the practice of removing parts from
+one Orbiter to supply another.
+
+Concluding Thought
+
+The Commission urges that NASA continue to
+receive the support of the Administration and the nation. The agency
+constitutes a national resource that plays a critical role in space
+exploration and development. It also provides a symbol of national
+pride and technological leadership.
+
+The Commission applauds NASA's spectacular
+achievements of the past and anticipates impressive achievements to
+come. The findings and recommendations presented in this report are
+intended to contribute to the future NASA successes that the nation
+both expects and requires as the 21st century approaches.
+

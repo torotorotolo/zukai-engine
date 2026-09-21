@@ -1,0 +1,3800 @@
+
+
+v1ch6
+
+Report of the PRESIDENTIAL COMMISSION
+on the Space Shuttle Challenger Accident
+
+Chapter VI: An Accident Rooted in
+History.
+
+Early Design
+
+[ 120 ] The Space Shuttle's
+Solid Rocket Booster problem began with the faulty design of its
+joint and increased as both NASA and contractor management first
+failed to recognize it as a problem, then failed to fix it and
+finally treated it as an acceptable flight risk.
+
+Morton Thiokol, Inc., the contractor, did not
+accept the implication of tests early in the program that the design
+had a serious and unanticipated flaw. 1 NASA did not accept the judgment of its engineers that
+the design was unacceptable, and as the joint problems grew in number
+and severity NASA minimized them in management briefings and reports.
+2 Thiokol's stated position was that "the condition is
+not desirable but is acceptable."
+3
+
+Neither Thiokol nor NASA expected the rubber
+O-rings sealing the joints to be touched by hot gases of motor
+ignition, much less to be partially burned. However, as tests and
+then flights confirmed damage to the sealing rings, the reaction by
+both NASA and Thiokol was to increase the amount of damage considered
+"acceptable." At no time did management either recommend a redesign
+of the joint or call for the Shuttle's grounding until the problem
+was solved.
+
+Thiokol was selected to receive the NASA
+contract to design and build the Solid Rocket Boosters on November
+20, 1973. 4
+The booster was the largest Solid
+Rocket Motor ever produced in the United States; it was also the
+first solid motor program managed by NASA's Marshall Space Flight
+Center in Huntsville, Alabama.
+
+Costs were the primary concern of NASA's
+selection board, particularly those incurred early in the
+program.
+
+Thiokol's three competitors were Aerojet Solid
+Propulsion Co., Lockheed Propulsion Co. and United Technologies. The
+Source Evaluation Board on the proposals rated Thiokol fourth under
+the design, development and verification factor, second under the
+manufacturing, refurbishment and product support factor and first
+under the management factor. 5
+
+Thiokol received the second highest overall
+Mission Suitability score, tied with United
+Technologies. 6
+
+In a December 12, 1973, report, NASA selection
+officials said Thiokol's "cost advantages were substantial and
+consistent throughout all areas evaluated." 7 They also singled out Thiokol's joint design for
+special mention.
+
+"The Thiokol motor case joints utilized dual
+O-rings and test ports between seals, enabling a simple leak check
+without pressurizing the entire motor," the officials' report said.
+"This innovative design feature increased reliability and decreased
+operations at the launch site, indicating good attention to low cost
+(design, development, testing and engineering) and production."
+8
+
+"We noted that the [NASA Source Selection]
+board's analysis of cost factors indicated that Thiokol could do a
+more economical job than any of the other proposers in both the
+development and the production phases of the program; and that,
+accordingly, the cost per flight to be expected from a Thiokol-built
+motor would be the lowest," the officials said. "We, therefore,
+concluded that any selection other than Thiokol would give rise to an
+additional cost of appreciable size." 9
+
+The Selection officials said they "found no
+other [ 121 ] factors bearing upon the selection that ranked in
+weight with the foregoing."
+
+Cost consideration overrode any other-
+objections, they decided. We concluded that the main criticisms of
+the Thiokol proposal in the Mission Suitability evaluation were
+technical in nature, were readily correctable, and the costs to
+correct did not negate the sizable Thiokol cost advantage," the
+selection officials concluded.
+
+The cost-plus-award-fee contract, estimated to
+be worth $800 million, was awarded to Thiokol.
+
+The design of the Shuttle Solid Rocket Booster
+was primarily based on the Air Force's Titan III solid rocket, one of
+the most reliable ever produced. Thiokol hoped to reduce new design
+problems, speed up the development program and cut costs by borrowing
+from the Titan design. In Thiokol's Solid Rocket Motor proposal, the
+rocket fuel is contained in four- forged steel cases which are
+stacked one on top of the other. The casings were connected by a
+circumferential tang and clevis, as were the
+Titans. 10
+
+Despite their many similarities, the Thiokol
+Solid Rocket Booster and the Titan motors had some significant design
+differences. For example, the joints of the Titan were designed so
+that the insulation of one case fits tightly against the insulation
+of the adjacent case to form a more gastight fit than the Thiokol
+design. One O-ring bore seal was used in each Titan joint to stop any
+hot gas pressure that might pass by the insulation overlap,
+11 but in the Titan design the O-ring was able but not
+intended to take the brunt of the combustion pressure. In contrast,
+the Thiokol O-rings were designed to take the brunt of the combustion
+pressure, with no other gas barriers present except an insulating
+putty. Also, the Solid Rocket Motor joint had two O-rings, the second
+to provide a backup in case the primary seal failed.
+
+Asbestos-filled putty was used in the Solid
+Rocket Motor to pack the space between the two case segments to
+prevent O-ring damage from the heat of combustion gases.
+12 Thiokol believed the putty was plastic, so when acted
+on by the combustion pressure at the motor's ignition the putty flow
+towards the O-ring would compress the air in the gap between the
+putty and the primary O-ring. 13 The compressed air, in turn, would.....
+
+Figure 1. Comparison of Original Design to Design Used.
+
+[ 122 ] ...cause the
+primary O-ring to extrude into the gap between the clevis and the
+tang, behind the primary O-ring groove, thereby sealing the opening.
+If the primary O-ring did not seal, the intent was that the secondary
+would pressurize and seal the joint by extruding into the gap behind
+its groove. 14
+
+Another difference in the Solid Rocket Motor
+and the Titan was that the tang portion of the Thiokol joint was
+longer in order to accommodate two O-rings instead of one. It was
+more susceptible to bending under combustion pressure than the Titan
+joint, as post-design tests and later flight experience
+demonstrated. 15
+
+The initial Thiokol design proposal was
+changed before the production motors were manufactured. Originally,
+the joint seal design incorporated both a face seal and a bore
+seal. 16 ( Figure
+1 .) However, the motor that was
+eventually used had double bore O-rings. The original bore seal/face
+seal design was chosen because it was anticipated that it "provides
+[better] redundance over a double bore ring seal since each is
+controlled by different manufacturing tolerances, and each responds
+differently during joint assembly. " 17 Because the early design incorporated tolerances
+similar to the Titan and it also incorporated a face seal, Thiokol
+believed it possessed "complete, redundant seal capability."
+18
+
+Nevertheless, as the Solid Rocket Motor
+program progressed, Thiokol-with NASA's concurrence-dropped the
+face/bore seal design for one using a double bore seal ( Figure 1 ). NASA engineers at Marshall said the original design
+would have required tapered pins to maintain necessary tolerances and
+assure enough"squeeze" on the face-sealing
+O-ring. 19 However, design analysis determined that motor
+ignition would create tension loads on the joint sufficient to cause
+the tapered pins to pop out. Solving that would have meant designing
+some type of pin-retainers. Moreover, the rocket assembly was much
+easier with the dual bore seals. Because inspections and tests had to
+be conducted on the Solid Rocket Motor stack, horizontal assembly was
+required. Thiokol engineer, Howard McIntosh, described this in a
+Commission interview on April 2, 1986:
+
+"We were concerned very much about
+the horizontal assembly that we had to do to do the static tests. The
+Titan had always been assembled vertically, and so there had never
+been a larger rocket motor to our knowledge that was assembled
+(horizontally)". 20
+
+Because of the extremely tight tolerances in
+the joints caused by horizontal assembly, McIntosh noted, "We . . .
+put the bore seals in there, and we opened the tolerance in the gaps
+slightly to accommodate that." 21 To tighten the joint's fit and to increase the squeeze
+in the O-rings to compensate for the larger tolerances, Thiokol
+subsequently put thin metal shims between the outer walls of the tang
+and clevis.
+
+Another significant feature of the Thiokol
+design was a vent, or port, on the side of the motor case used after
+assembly to check the sealing of the O-rings. As will be noted later,
+this leak check eventually became a significant aspect of the O-ring
+erosion phenomenon. 22
+
+The manufacture of the O-rings themselves
+constituted another difference between the Titan and the Thiokol
+Solid Rocket Motor. While both O-rings were Viton rubber, the Titan
+O-rings were molded in one piece. The Solid Rocket Motor O-rings were
+made from sections of rubber O-ring material glued together. The
+specifications allowed five such joints, a number chosen arbitrarily,
+and the vendor routinely made repairs of voids and inclusions after
+getting the material supplies. Only surface inspections were
+performed by Thiokol and by the manufacturer.
+
+Finally, unlike the Titan, the Thiokol Solid
+Rocket Motor was designed for multiple firings. To reduce program
+costs, each Thiokol motor case for the Shuttle was to be recovered
+after flight and reused up to 20 times. 23
+
+Early Tests
+
+Thiokol began testing the Solid Rocket Motor
+in the mid-1970's. One of the early important tests was a 1977
+"hydroburst test." 24
+
+Its purpose was to test the strength of the
+steel cases by simulating a motor firing. The case was pressurized
+with water to about one and one-half times the pressure of an ignited
+motor (about 1,500 pounds per square inch) to make certain the case
+had adequate structural margin. 25 Also, to measure the pressure between the O-rings,
+engineers attached instruments to the leak test port at a segment
+joint. Although the test was successful in that it demonstrated the
+case met strength requirements, test measurements showed that,
+contrary to design expectations, the joint [ 123 ] tang and inside
+clevis bent away from each other instead of toward each other and by
+doing so reduced-instead of increased-pressure on the 0-ring in the
+milliseconds after ignition. 26 This phenomenon was called "joint rotation."
+Testifying before the Commission, Arnold Thompson, Thiokol's
+supervisor of structures, said,
+
+"We discovered that the joint was
+opening rather than closing as our original analysis had indicated,
+and in fact it was quite a bit. I think it was up to 52
+onethousandths of an inch at that time, to the primary
+O-ring." 27
+
+Thiokol reported these initial test findings
+to the NASA program office at Marshall. Thiokol engineers did not
+believe the test results really proved that "joint rotation" would
+cause significant problems, 28 and scheduled
+no additional tests for the specific purpose of confirming or
+disproving the joint gap behavior.
+
+Design Objections
+
+Reaction from Marshall to the early Solid
+Rocket Motor test results was rapid and totally opposite of
+Thiokol's. In a September 2, 1977 memorandum, Glenn Eudy, Marshall's
+Chief Engineer of the Solid Rocket Motor Division, informed Alex
+McCool, Director of the Structures and Propulsion Laboratory, that
+the assembly of a developmental motor provided early indications that
+the Thiokol design:
+
+"Allowed O-ring clearance.... Some
+people believe this design deficiency must be corrected by some
+method such as shimming and perhaps design modification to the case
+joint for hardware which has not been final machined.... I personally
+believe that our first choice should be to correct the design in a
+way that eliminates the possibility of O-ring clearance.... Since
+this is a very critical SRM issue, it is requested that the
+assignment results be compiled in such a manner as to permit review
+at the S&E Director's level as well as project manager."
+
+After seeing the data from the September 1977
+hydroburst test, Marshall engineer Leon Ray submitted a report
+entitled "Solid Rocket Motor Joint Leakage Study" dated October 21,
+1977. It characterizes "no change" in the Thiokol design as
+"unacceptable"-"tang can move outboard and cause excessive joint
+clearance resulting in seal leakage. Eccentric tang/clevis interface
+can cause O-ring extrusion when case is pressurized." Ray recommended
+a "redesign of the tang and reduce tolerance on the clevis" as the
+"best option for a long-term fix." 29
+
+After Ray's 1977 report, John Q. Miller, chief
+of the Solid Rocket Motor branch at Marshall, signed and sent a
+memorandum on January 9, 1978 to his superior, Glenn Eudy, describing
+the problems evident in the Solid Rocket Motor joint seal. "We see no
+valid reason for not designing to accepted standards," the memo said,
+and it emphasized that proper sealing of the joint by use of shims to
+create necessary O-ring pressure was "mandatory to prevent hot gas
+leaks and resulting catastrophic failure." 30
+
+One year later, not having received a response
+to his 1978 memo, Miller signed and forwarded a second memo
+strenuously objecting to Thiokol's Solid Rocket Motor joint seal
+design. This memo, dated January 19, 1979, opened with: "We find the
+Thiokol position regarding design adequacy of the clevis joint to be
+completely unacceptable...." 31 The memorandum made three principal objections to
+Thiokol's joint design. The first was the "large sealing surface gap
+created by extensive tang/clevis relative movement." The memo said
+this movement, the so-called"joint rotation," caused the primary
+O-ring to extrude into the gap, "forcing the seal to function in a
+way which violates industry and government O-ring application
+practices." 32 Moreover, joint rotation allowed the secondary O-ring
+to "become completely disengaged from its sealing surface on the
+tang." Finally, the memorandum noted that although Thiokol's contract
+required all high pressure case seals to be verifiable, "the clevis
+joint secondary O-ring seal has been verified by tests to be
+unsatisfactory." 33 A copy of the second memorandum was sent to George
+Hardy, then Solid Rocket Booster project manager at Marshall. Thiokol
+apparently did not receive copies of either Miller memorandum, and no
+reply from Eudy to Miller has been found.
+
+The Commission has learned that Leon Ray
+actually authored the Miller memos to Eudy, although Miller signed
+them and concurred in the objections raised. 34 During February, 1979, Ray also reported on a visit he
+made to two O-ring manufacturers-the Precision Rubber Products
+Corporation at Lebanon Tennessee, and the Parker Seal Co. at
+Lexington, Kentucky. 35 Eudy [ 124 ] accompanied Ray on
+the Precision visit. The purpose of the trips was to give the
+manufacturers the data on the O-ring experiences at Thiokol and to
+"seek opinions regarding potential risks involved," Ray wrote in a
+February 9, 1979, memo describing the visit. Officials at Precision
+did "voice concern for the design, stating that the Solid Rocket
+Motor O-ring extrusion gap was larger than that covered by their
+experience," Ray reported. "Their first thought was that the O-ring
+was being asked to perform beyond its intended design and that a
+different type of seal should be considered," Ray
+added. 36
+
+During the Commission hearing on May 2, 1986,
+Ray was asked why the 1978 and 1979 memoranda were written:
+
+Mr. Ray : The
+reason they were written was as a result of test data that we had,
+and I have to go back to, I guess, a little bit further back in time
+than these memos. When the joint was first designed, the analysis
+produced by Thiokol says the joint would close, the extrusion gap
+would actually close.
+
+We had quite a debate about that until we did
+a test on the first couple of segments that we received from the
+manufacturer, which in fact showed that the joint did open. Later on
+we did some tests with the structural test article, and this is
+mentioned in the memo as STA-1 [Structural Test Article].
+
+At that time, we really nailed it down. We got
+some very accurate numbers on joint rotation, and we know for a fact
+that during these tests that, just what the memo says, the joint
+rotated. The primary O-ring was extruded up into the joint. The
+secondary O-ring did in fact detach from the
+seat. 37
+
+No records show Thiokol was informed of the
+visits, and the O-ring design was not changed.
+
+Thiokol's phase 1 certification review on
+March 23, 1979, mentioned leak check failures, and forces during case
+joint assembly that resulted in clevis O-ring grooves not conforming
+with tang sealing surfaces. However, this was not listed as a problem
+or a failure. 38
+
+Verification and Certification
+Committee
+
+While Ray was warning of problems with joint
+rotation, static motor tests in July 1978 and April 1980 again were
+demonstrating that inner tang/clevis relative movement was greater
+than originally predicted. 39 Thiokol continued to question the validity of these
+joint rotation measurements and their effect on the availability of
+the secondary O-ring.
+
+In 1980, NASA empanelled a Space Shuttle
+Verification/Certification Committee to study the flight worthiness
+of the entire Shuttle system. A subdivision of that group, the
+Propulsion Committee, met with NASA Solid Rocket Motor program
+personnel and raised several concerns about the joint
+design. 40 The Committee pointed out that the booster's leak test
+pressurized the primary O-ring in the wrong direction so that the
+motor ignition would have to move the ring across its groove before
+it sealed. The Committee added that the effect of the insulation
+putty was not certain. Redundancy of the O-rings was also listed as a
+verification concern. The same report, however, said "the Committee
+understands from a telecon that the primary purpose of the second
+O-ring is to test the primary and that redundancy is not a
+requirement." George Hardy testified that the Committee's statement
+conflicted with his understanding:
+
+"The discussion there or the
+reference there to a telecon-and I don't know who that was with-that
+implies there was no intent for the joint to be redundant is totally
+foreign to me. I don't know where they would have gotten that
+information because that was the design requirement for the joint."
+41
+
+In May 1980, the Verification/Certification
+Committee recommended that NASA conduct full-scale tests to verify
+the field joint integrity, including firing motors at a mean bulk
+propellant temperature range of 40-90 degrees Fahrenheit. The panel
+also asked NASA to:
+
+"Perform case burst test with one
+O-ring removed. During the burst test for final verification of the
+motor case safety factor, one of the two O-rings failed by extrusion
+and leaked. The analysis used for additional verification did not
+include further gap openings caused by joint deflection at
+pressurization or any deflections caused by bending loads. The panel
+considers the above to be inadequate to provide operational program
+reliability, and marginal to provide adequate [ 125 ] safety factor
+confidence on [Shuttle flight] one." 42
+
+The NASA program response to these issues was
+included in the final Committee report in September 1980. It said
+that the original hydroburst tests and the lightweight case tests,
+being conducted at the time, satisfied the intent of the Committee's
+recommendations. Moreover, the response stated: "NASA specialists
+have reviewed the field joint design, updated with larger O-rings and
+thicker shims and found the safety factors to be adequate for the
+current design. Re-analysis of the joint with larger O-rings and
+thicker shims is being accomplished as part of the lightweight case
+program.... The joint has been sufficiently verified with the testing
+accomplished to date (joint lab tests, structural test article, and
+seven static firings and the two case configuration burst tests) and
+currently scheduled for lightweight case
+program." 43
+
+Criticality Classification and
+Changes
+
+The Solid Rocket Motor certification was
+deemed satisfactory by the Propulsion Committee of the
+Verification/Certification Group on September 15, 1980. Shortly
+thereafter, on November 24, 1980, the Solid Rocket Booster joint was
+classified on the Solid Rocket Booster Critical Items List as
+criticality category 1 R. NASA defines "Criticality 1R" as any
+subsystem of the Shuttle that contains "redundant hardware, total
+element failure of which could cause loss of life or
+vehicle." 44 The use of "R", representing redundancy, meant that
+NASA believed the secondary O-ring would pressurize and seal if the
+primary O-ring did not. Nonetheless, the 1980 Critical Items List
+(CIL) states:
+
+"Redundancy of the secondary field
+joint seal cannot be verified after motor case pressure reaches
+approximately 40 percent of maximum expected operating pressure. It
+is known that joint rotation occurring at this pressure level with a
+resulting enlarged extrusion gap causes the secondary O-ring to lose
+compression as a seal. It is not known if the secondary O-ring would
+successfully reseal if the primary O-ring should fail after motor
+case pressure reaches or exceeds 40 percent of maximum expected
+operating pressure."
+
+When asked about the text of the 1980
+Criticality 1R classification, Arnold Aldrich, NASA Manager of the
+National Space Transportation System, said,
+
+"The way that . . . language
+[reads], I would call it [criticality] 1." 45
+
+Notwithstanding this apparent contradiction in
+the classification 1R and the questionable status of the secondary
+described in the text of the CIL, the joint carried a 1 R
+classification from November 1980 through the flight of STS-5
+(November 1982).
+
+The Space Shuttle first flew on April 12-14,
+1981. After the second flight, STS-2, in November 1981, inspection
+revealed the first in-flight erosion of the primary
+O-ring. 46 It occurred in the right Solid Rocket Booster's aft
+field joint and was caused by hot motor gases. 47 The damage to the ring proved to be the worst ever
+found on a primary O-ring in a field joint on any recovered Solid
+Rocket Booster. 48 Post-flight examination found an erosion depth of .053
+inches on the primary O-ring; nonetheless, the anomaly was not
+reported in the Level I Flight Readiness Review for STS-3 held on
+March 9, 1982. Furthermore, in 1982 the STS-2 O-ring erosion was not
+reported on the Marshall problem assessment system and given a
+tracking number as were other flight anomalies. 49
+
+In mid- 1982, two significant developments
+took place. Because Thiokol believed blow holes in the insulating
+putty were a cause of the erosion on STS-2, 50 they began tests of the method of putty layup and the
+effect of the assembly of the rocket stages on the integrity of the
+putty. The manufacturer of the original putty, Fuller-O'Brien,
+discontinued the product and a new putty, from the Randolph Products
+Company, was tested and selected in May 1982. 51 The new Randolph putty was eventually substituted for
+the old putty in the summer of 1983, for the STS-8 Solid Rocket Motor
+flow. 52
+
+A second major event regarding the joint seal
+occurred in the summer of 1982. As noted before, in 1977-78, Leon Ray
+had concluded that joint rotation caused the loss of the secondary
+O-ring as a backup seal. Because of May 1982 high pressure O-ring
+tests and tests of the new lightweight motor case, Marshall
+management [ 126 ] finally accepted the conclusion that the secondary
+O-ring was no longer functional after the joints rotated when the
+Solid Rocket Motor reached 40 percent of its maximum expected
+operating pressure. It obviously followed that the dual O-rings were
+not a completely redundant system, so the Criticality 1R had to be
+changed to Criticality 1. 53 This was done at Marshall on December 17, 1982. The
+revised Critical Items List read (See pages 157 and 158):
+
+"Criticality Category 1.
+
+"Failure Mode and Causes: Leakage at case
+assembly joints due to redundant O-ring seal failures or primary seal
+and leak check port O-ring failure.
+
+"Note. Leakage of the primary O-ring seal
+is classified as a single-failure point due to possibility of loss of
+sealing at the secondary O-ring because of joint rotation after motor
+pressurization.
+
+"Failure Effect Summary: Actual Loss-
+Loss of mission, vehicle and crew due
+to metal erosion, burn through, and probable case burst resulting in
+fire and deflagration. .
+
+"Rationale for Retention:
+
+"The Solid Rocket Motor case joint design is
+common in the lightweight and regular weight cases having identical
+dimensions. The joint concept is basically the same as the single
+O-ring joint successfully employed on the Titan III Solid Rocket
+Motor.... On the Shuttle Solid Rocket Motor, the secondary O-ring was
+designed to provide redundancy and to permit a leak check, ensuring
+proper installation of the O-rings. Full redundancy exists at the
+moment of initial pressurization. However, test data shows that a
+phenomenon called joint rotation occurs as the pressure rises,
+opening up the O-ring extrusion gap and permitting the energized ring
+to protrude into the gap. This condition has been shown by test to be
+well within that required for safe primary O-ring sealing. This gap
+may, however, in some cases, increase sufficiently to cause the
+unenergized secondary O-ring to lose compression, raising question as
+to its ability to energize and seal if called upon to do so by
+primary seal failure. Since, under this latter condition only the
+single O-ring is sealing, a rationale for retention is provided for
+the simplex mode where only one O-ring is acting" [emphasis added] .
+54
+
+The retention rationale for the "simplex" or
+single O-ring seal was written on December 1, 1982, by Howard
+McIntosh, a Thiokol engineer. 55 This document gave the justification for flight with
+the single functional O-ring. It reported that tests showed the
+Thiokol design should be retained, citing the Titan history, the leak
+and hydroburst tests, and static motor firings as justification.
+However, it also contained the following rationale which appeared to
+conflict with the Criticality 1 classification that the secondary
+O-ring was not redundant:
+
+"Initial information generated in
+a lightweight cylinder-to-cylinder proof test shows a total movement
+of only .030 inch at pounds per square inch, gauge pressure in the
+center joint. This . . . indicates that the tang-to-clevis movement
+will not unseat the secondary O-ring at operating
+pressures." 56
+
+Testimony in hearings and statements given in
+Commission interviews support the view that NASA management and
+Thiokol still considered the joint to be a redundant seal even after
+the change from Criticality 1R to 1. For example, McIntosh's
+interview states:
+
+Question :
+[After the Criticality I classification], what did you think it would
+take to make [the joint seal] 1R?
+
+Mr. McIntosh : I thought it was already 1R. I thought that after
+those tests that would have been enough to do it.
+
+Question :
+Well, you knew it was 1 but you were hoping for 1R?
+
+Mr McIntosh :
+Yeah, I was hoping for 1R, and I thought this test data would do it,
+but it didn't. 57
+
+At the time (in 1982-83), the redundancy of
+the secondary O-ring was analyzed in terms of joint or hardware
+geometry, with no consideration being given to the resiliency of the
+ring as affected by temperatures. 58 Moreover, Marshall engineers like Ray and Miller
+disagreed with Thiokol's calculations on the measurement of joint
+opening. 59 That engineering debate eventually went to a "referee"
+for testing which was not concluded until after the 51-L
+accident.
+
+[ 127 ] Notwithstanding the
+view of some of Marshall engineers that the secondary ring was not
+redundant, even at the time of the Criticality revision, Marshall
+Solid Rocket Motor program management appeared to believe the seal
+was redundant in all but exceptional cases. Dr. Judson Lovingood told
+the Commission:
+
+" . . . [T]here are two conditions
+you have to have before you don't have redundancy. One of them is
+what I call a spatial condition which says that the dimensional
+tolerances have to be such that you get a bad stackup, you don't have
+proper squeeze, etc. On the O-ring so that when you get joint
+rotation, you will lift the metal surfaces off the O-ring. All right,
+that's the one condition, and that is a worst case condition
+involving dimensional tolerances.
+
+"The other condition is a temporal condition
+which says that you have to be past a point of joint rotation, and of
+course, that relates back to what I just said.
+
+"So first of all, if you don't have this bad
+stackup, then you have full redundancy. Now, secondly, if you do have
+the bad stackup, you had redundancy during the ignition transient up
+to the 170 millisecond point, whatever it is, but that is the way I
+understand the [Critical Items List]." 60
+
+George Hardy and Lawrence Mulloy shared
+Lovingood's view that the secondary seal was redundant in all but
+situations of worst case tolerances. 61 However, there is no mention of this caveat in the
+Critical Items List itself, nor does it appear in the subsequent
+"waiver" of the Criticality 1 status granted by NASA Levels I and II
+in March, 1983. 62 This waiver was approved to avoid the obligations
+imposed on the Shuttle Program by Paragraph 2.8 of the Space Shuttle
+Program Requirements Document, Level I, dated June 30, 1977. That
+paragraph states:
+
+"The redundancy requirements for
+all flight vehicle subsystems (except primary structure, thermal
+protection system, and pressure vessels) shall be established on an
+individual subsystems basis, but shall not be less than fail-safe.
+'Fail-safe' is defined as the ability to sustain a failure and retain
+the capability to successfully terminate the mission. Redundant
+systems shall be designed so that their operational status can be
+verified during ground turnaround and to the maximum extent possible
+while in flight." 63
+
+Glynn Lunney, the former manager of the STS
+Program (Level II at JSC) described the Criticality 1 change and
+resulting waiver to the Commission on May 2:
+
+Mr. Lunney : Well, the approval of the waiver in March of 83, at
+the time I was involved in that. I was operating on the assumption
+that there really would be redundancy most of the time except when
+the secondary O-ring had a set of dimensional tolerances add up, and
+in that extreme case there would not be a secondary seal.
+
+So I was dealing with what I thought was a
+case where there were two seals unless the dimensional tolerances
+were such that there might only be one seal in certain cases.
+
+Chairman Rogers : Now, to me, if you will excuse the expression, that
+sounds almost contradictory, what you just said. What you first said
+was you came to the conclusion that you could only rely on the
+primary seal and therefore you removed the R.
+
+Mr. Lunney :
+Yes, sir.
+
+Chairman Rogers : And now you're saying, if I understand it, that
+experience showed that there was redundancy after all.
+
+Mr. Lunney :
+No, I don't know of any experience showing that. What I'm saying is
+that the removal of the R is an indicator that under all
+circumstances we did not have redundancy. There were a certain number
+of cases under which we would not have redundancy of the secondary
+O-ring.
+
+Recognizing that, even though there were a lot
+of cases where we expected we would have redundancy we changed the
+criticality designation.
+
+Chairman Rogers : It was saying to everybody else you can't necessarily
+rely on the primary seal, and if the primary seal fails, as you've
+said here, there may be loss of vehicle, mission and crew.
+
+Mr. Lunney :
+I would adjust that to only say you cannot rely on the secondary
+O-ring [ 128 ] but we would expect the primary O-ring to always be
+there. 64
+
+The criticality waiver was processed outside
+the formal NASA Program Requirements Control Board, however,
+representatives of that group "signed off" on the
+document. 65 It was forwarded to Level I and approved by Associate
+Administrator for Space Flight (Technical), L. Michael Weeks on March
+28, 1983. Weeks told the Commission he signed the waiver because of
+the Certification/Verification Review of the Propulsion Committee in
+1980. Weeks explained, "We felt at the time-all of the people in the
+program I think felt that this Solid Rocket Motor in particular or
+the Solid Rocket Booster was probably one of the least worrisome
+things we had in the program." 66 The waiver was signed less than one week prior to the
+launch of STS-6 on April 4. According to interviews of Arnold Aldrich
+and of Richard Kohrs, the latter having been involved with the waiver
+review at Johnson Level II, the waiver was approved so that STS-6
+could fly. 67 However, Weeks denied any connection between the Level
+I waiver approval and the flight of STS-6. 68
+
+Although some Thiokol engineers and officials
+claimed that they had no notice of the Criticality change and waiver
+in December, 1982 and in March, 1983, from the approval signatures
+(including Thiokol's Operations Manager at Marshall, Maurice Parker)
+and the distribution of the Criticality and Waiver documents,
+apparently Thiokol officials were sent copies and were involved in
+the criticality reclassification. 69 Nonetheless, the Commission has also determined that
+several documents tracking the O-ring erosion at Thiokol and Marshall
+refer to the Solid Rocket Motor field joint seal as Criticality 1-R,
+long after the status was changed to Criticality 1.
+70
+
+STS 41-B O-Ring Erosion
+
+As Figure 2
+shows, 71 prior to STS 41-B, the O-ring erosion/blow-by problem
+was infrequent, occurring on a field joint of STS-2 (November, 1981),
+nozzles of STS-6 (April, 1983) and a nozzle of QM-4 (March, 1983), a
+qualification test motor fired by Thiokol. 72 However, when STS 41-B flew on February 3, 1984, the
+left Solid Rocket Booster forward field joint and the right nozzle
+joint primary O-rings both suffered erosion damage. Thiokol engineers
+reacted to this discovery by filing a problem report on the O-ring
+erosion found on STS 41 -B. Thiokol presented a series of charts to
+the Marshall Solid Rocket Booster Engineering Office about the 41-B
+O-ring erosion. Thiokol told Marshall that recent joint rotation
+measurements in tests indicated the secondary O-ring will not unseat,
+providing confidence that the secondary was an adequate backup. Keith
+Coates described his view about Thiokol's data in a February 29, 1984
+memorandum to George Hardy:
+
+"We have two problems with their
+rationale. The effect of 0.065 inch erosion on O-ring sealing
+capability is not addressed. We have asked Thiokol to provide their
+data to justify their confidence in the degraded O-ring. The second
+concern is the amount of joint rotation. L. Ray does not agree with
+Thiokol numbers, and he has action to discuss his concern with R.
+Boisjoly (Thiokol) and reach agreement.
+
+"Thiokol definition of their plans on
+resolution of the problem is very weak."
+
+The erosion problem was identified and tracked
+by the Marshall Problem Assessment System as Marshall Record A07934
+and by Thiokol as Thiokol Contractor Record DR4-5/30, "Slight char
+condition on primary O-ring seal in forward field joint on SRM A57 of
+STS-11 flight, Mission 41B." 73 The Marshall Problem Assessment System Report
+states:
+
+"Remedial action-none required;
+problem occurred during flight. The primary O-ring seal in the
+forward field joint exhibited a charred area approximately 1 inch
+long .03-.050 inches deep and .100 inches wide. This was discovered
+during post-flight segment disassembly at KSC."
+
+A March 8, 1984 entry on the same report
+continues:
+
+"Possibility exists for some
+O-ring erosion on future flights. Analysis indicates max erosion
+possible is .090 inches according to Flight Readiness Review findings
+for STS-13. Laboratory test shows sealing integrity at 3,000 psi
+using an O-ring with simulated erosion depth of .095 inches
+Therefore, this is not a constraint to future launches."
+74
+
+[ 129-131 ] Figure 2.
+O-Ring Anomalies Compared with Joint
+Temperature and Leak Check Pressure .
+
+Flight or
+Motor
+
+Date
+
+(Solid Rocket
+Booster)
+
+Joint/O-Ring
+
+Pressure
+(psi)
+
+Erosion
+
+Blow-by
+
+Joint Temp
+°F
+
+Field
+
+Nozzle
+
+.
+
+DM-1
+
+07/18/77
+
+-
+
+-
+
+NA
+
+NA
+
+-
+
+-
+
+84
+
+DM-2
+
+01/18/78
+
+-
+
+-
+
+NA
+
+NA
+
+-
+
+-
+
+49
+
+DM-3
+
+10/19/78
+
+-
+
+-
+
+NA
+
+NA
+
+-
+
+-
+
+61
+
+DM-4
+
+02/17/79
+
+-
+
+-
+
+NA
+
+NA
+
+-
+
+-
+
+40
+
+QM-1
+
+07/13/79
+
+-
+
+-
+
+NA
+
+NA
+
+-
+
+-
+
+83
+
+QM-2
+
+09/27/79
+
+-
+
+-
+
+NA
+
+NA
+
+-
+
+-
+
+67
+
+QM-3
+
+02/13/80
+
+-
+
+-
+
+NA
+
+NA
+
+-
+
+-
+
+45
+
+STS-1
+
+04/12/81
+
+-
+
+-
+
+50
+
+50
+
+-
+
+-
+
+66
+
+STS-2
+
+11/12/81
+
+(Right)
+
+Aft Field/Primary
+
+50
+
+50
+
+X
+
+-
+
+70
+
+STS-3
+
+03/22/81
+
+-
+
+-
+
+50
+
+50
+
+NA
+
+NA
+
+80
+
+STS-4
+
+06/27/82
+
+Unknown: hardware lost at
+sea
+
+50
+
+50
+
+NA
+
+NA
+
+80
+
+DM-5
+
+10/21/82
+
+-
+
+-
+
+NA
+
+NA
+
+-
+
+-
+
+58
+
+STS-5
+
+11/11/82
+
+-
+
+-
+
+50
+
+50
+
+-
+
+-
+
+68
+
+QM-4
+
+03/21/83
+
+-
+
+Nozzle/Primary
+
+NA
+
+NA
+
+X
+
+-
+
+60
+
+STS-6
+
+04/04/83
+
+(Right)
+
+Nozzle/Primary
+
+50
+
+50
+
+( 1 )
+
+-
+
+67
+
+(Left)
+
+Nozzle/Primary
+
+50
+
+50
+
+( 1 )
+
+-
+
+67
+
+STS-7
+
+06/18/83
+
+-
+
+-
+
+50
+
+50
+
+-
+
+-
+
+72
+
+STS-8
+
+08/30/83
+
+-
+
+-
+
+100
+
+50
+
+-
+
+-
+
+73
+
+STS-9
+
+12/28/83
+
+-
+
+-
+
+100 2
+
+100
+
+-
+
+-
+
+70
+
+STS 41-B
+
+02/03/84
+
+(Right)
+
+Nozzle/Primary
+
+200
+
+100
+
+X
+
+-
+
+57
+
+(Left)
+
+Forward
+Field/Primary
+
+200
+
+100
+
+X
+
+-
+
+57
+
+STS 41-C
+
+04/06/84
+
+(Right)
+
+Nozle/Primary
+
+200
+
+100
+
+X
+
+-
+
+63
+
+(Left)
+
+Aft Field/Primary
+
+200
+
+100
+
+( 3 )
+
+-
+
+63
+
+(Right)
+
+Igniter/Primary
+
+NA
+
+NA
+
+-
+
+X
+
+63
+
+STS 41-D
+
+08/30/84
+
+(Right)
+
+Forward
+Field/Primary
+
+200
+
+100
+
+X
+
+-
+
+70
+
+(Left)
+
+Nozzle/Primary
+
+200
+
+100
+
+X
+
+X
+
+70
+
+(Right)
+
+Igniter/Primary
+
+NA
+
+NA
+
+-
+
+X
+
+70
+
+STS 41-G
+
+10/05/84
+
+-
+
+-
+
+200
+
+100
+
+-
+
+-
+
+67
+
+DM-6
+
+10/25/84
+
+-
+
+Inner Gasket/Primary
+
+NA
+
+NA
+
+X
+
+X
+
+52
+
+STS 51-A
+
+11/08/84
+
+-
+
+-
+
+200
+
+100
+
+-
+
+-
+
+67
+
+STS 51-C
+
+01/24/85
+
+(Right)
+
+Center Field/Primary
+
+200
+
+100
+
+X
+
+X
+
+53
+
+(Right)
+
+Center
+Field/Secondary
+
+200
+
+100
+
+( 4 )
+
+-
+
+53
+
+(Right)
+
+Nozzle/Primary
+
+200
+
+100
+
+-
+
+X
+
+53
+
+(Left)
+
+Forward
+Field/Primary
+
+200
+
+100
+
+X
+
+X
+
+53
+
+(Left)
+
+Nozzle/Primary
+
+200
+
+100
+
+-
+
+X
+
+53
+
+STS 51-D
+
+04/12/85
+
+(Right)
+
+Nozzle/Primary
+
+200
+
+200
+
+X
+
+-
+
+67
+
+(Right)
+
+Igniter/Primary
+
+NA
+
+NA
+
+-
+
+X
+
+67
+
+(Left)
+
+Nozzle/Primary
+
+200
+
+200
+
+X
+
+-
+
+67
+
+(Left)
+
+Igniter/Primary
+
+NA
+
+NA
+
+-
+
+X
+
+67
+
+STS 51-B
+
+04/29/85
+
+(Right)
+
+Nozzle/Primary
+
+200
+
+100
+
+X
+
+-
+
+75
+
+(Left)
+
+Nozzle/Primary
+
+200
+
+100
+
+X
+
+X
+
+75
+
+(Left)
+
+Nozzle/Primary
+
+200
+
+100
+
+X
+
+-
+
+75
+
+DM-7
+
+05/09/85
+
+.
+
+Nozzle/Primary
+
+NA
+
+NA
+
+X
+
+-
+
+61
+
+STS 51-G
+
+06/17/85
+
+(Right)
+
+Nozzle/Primary
+
+200
+
+200
+
+X 5
+
+X
+
+70
+
+(Left)
+
+Nozzle/Primary
+
+200
+
+200
+
+X
+
+X
+
+70
+
+(Left)
+
+Igniter/Primary
+
+NA
+
+NA
+
+-
+
+X
+
+70
+
+STS 51-F
+
+07/29/85
+
+(Right)
+
+Nozzle/Primary
+
+200
+
+200
+
+( 6 )
+
+-
+
+81
+
+STS 51-I
+
+08/27/85
+
+(Left)
+
+Nozzle/Primary
+
+200
+
+200
+
+X 7
+
+-
+
+76
+
+STS 51-J
+
+10/03/85
+
+-
+
+200
+
+200
+
+-
+
+-
+
+79
+
+STS 61-A
+
+10/30/85
+
+(Right)
+
+Nozzle/Primary
+
+200
+
+200
+
+X
+
+-
+
+75
+
+(Left)
+
+Aft Field/Primary
+
+200
+
+200
+
+-
+
+X
+
+75
+
+(Left)
+
+Center Field/Primary
+
+200
+
+200
+
+-
+
+X
+
+75
+
+STS 61-B
+
+11/26/85
+
+(Right)
+
+Nozzle/Primary
+
+200
+
+200
+
+X
+
+-
+
+76
+
+(Left)
+
+Nozzle/Primary
+
+200
+
+200
+
+X
+
+X
+
+76
+
+STS 61-C
+
+01/12/86
+
+(Right)
+
+Nozzle/Primary
+
+200
+
+200
+
+X
+
+-
+
+58
+
+(Left)
+
+Aft Field/Primary
+
+200
+
+200
+
+X
+
+-
+
+58
+
+(Left)
+
+Nozzle/Primary
+
+200
+
+200
+
+-
+
+X
+
+58
+
+STS 51-L
+
+01/28/86
+
+.
+
+.
+
+200
+
+200
+
+.
+
+.
+
+31
+
+Dash (-) denotes no
+anomaly.
+
+NA denotes not
+applicable.
+
+NOTE: A list of the sequence of
+launches (1-25), identified by STS mission designation, is provided
+on pages 4 thru 6.
+
+1 On STS-6, both nozzles had a hot gas path
+detected in the putty with an indication of heat on the primary
+O-ring.
+
+2 On STS-9, one of the right Solid Rocket
+Booster field joints was pressurized at 200 psi after a
+destack.
+
+3 On STS 41-C, left aft field had a hot gas
+path detected in the putty with an indication of heat on the
+primary O-ring.
+
+4 On a center field joint of STS 51-C, soot
+was blown by the primary and there was a heat effect on the
+secondary.
+
+5 On STS 51-G, right nozzle has erosion in
+two places on the primary O-ring.
+
+6 On STS 51-F, right nozzle had hot gas
+path detected in putty with an indication of heat on the primary
+O-ring.
+
+7 On STS 51-I, left nozzle had erosion in
+two places on the primary O-ring.
+
+[ 132 ] This last entry is
+also a summary of the briefing given by Thiokol to Lawrence Mulloy
+about the 41-B erosion at the Level III Flight Readiness Review for
+STS 41-C held at Marshall on March 8, 1984. At that same briefing,
+the Chief Engineer for United Space Boosters, George Morefield,
+raised prior Titan experience with O-ring problems. He explained in a
+memorandum to Mulloy the following day:
+
+"I alluded to the Titan III SRM
+history which is quite similar to the current STS Solid Rocket Motor
+experience. Post-fire inspection of Titan Solid Rocket Motor static
+test motors showed that pressurization of the single O-rings in the
+pressure vessel routinely occurred via a single break-down path
+across the joint putty. There was also evidence that some O-rings
+never see pressure in the Titan motor. The segment -to-segment case
+insulation design results in a compression butt joint which
+apparently is often sufficient to withstand Pc, ....
+
+"Your review showed that there was sufficient
+margin of O-ring remaining to do the job. I'm sure you have
+considered that if it does burn through, the secondary O-ring will
+then be similarly pressurized through a single port. So, some concern
+remains.
+
+"I recommend that you set up a panel to study
+the use of putty and consider some alternatives:
+
+"1) Is putty needed at all?
+
+"2) If the tradition can't be broken, can the
+putty be applied with multiple (6 or 8) pressurization paths built
+in?
+
+"I think that the primary seal should be
+allowed to work in its classical design mode. Both the Titan and STS
+Solid Rocket Motors have been designed for this not to happen. Titan
+has flown over a thousand pressure joints with no failure. My opinion
+is that the potential for failure of the joint is higher for the STS
+Solid Rocket Motor, especially when occasionally the secondary seal
+may not be totally effective." 75
+
+When the 41-B erosion was taken to the Level I
+Flight Readiness Review for 41-C on March 30, 1984, it was briefed as
+a"technical issue". A recommendation to fly 41-C was approved by
+Level I "accepting the possibility of some O-ring erosion due to the
+hot gas impingement." 76 The rationale for acceptance was the same as that
+given at the Level III Flight Readiness Review and entered into the
+Marshall problem assessment report. An outgrowth of this review was
+an April 5, 1984, directive from NASA Deputy Administrator Dr. Hans
+Mark to Lawrence Mulloy at Marshall. This "Programmatic Action Item"
+was signed by Weeks and asked Mulloy to conduct a "formal review of'
+the Solid Rocket Motor case-to-case and case-to-nozzle joint sealing
+procedures to ensure satisfactory consistent closeouts."
+77 This action item had been preceded by a letter written
+from NASA Associate Administrator for Space Flight General Abrahamson
+to Marshall Center Director Lucas. 78 That letter, sent January 18, 1984, requested that
+Marshall develop a plan of action to make improvement in NASA's
+ability to design, manufacture and fly Solid Rocket Motors.
+Abrahamson pointed out that NASA was flying motors where basic design
+and test results were not well understood. The letter addressed the
+overall general Solid Rocket Motor design but did not specifically
+mention O-ring erosion.
+
+After Mulloy received the April 5, 1984 STS
+41-C action item on the O-rings, he had Lawrence Wear for-ward a
+letter- to Thiokol which asked for a formal review of' the booster
+field joint and nozzle joint sealing procedures. Thiokol was to
+identify the cause of the erosion, determine whether it was
+acceptable. define necessary changes, and reevaluate the putty then
+in use. The Wear letter also requested small motor tests reflecting
+joint dynamics as well as analysis of the booster assembly
+process. 79
+
+Thiokol replied to the Marshall STS 41-C
+action item on May 4, 1984, with a program plan entitled "Protection
+of' SRM Primary Motor Seals." The plan was prepared by Brian Russell,
+then Thiokol's Manager of Systems Engineering. It outlined a
+systematic program to isolate the 0-ring erosion and charring problem
+and to eliminate damage to the joint seals. 80 Proposed areas of inquiry included the leak check
+pressures, assembly loads, case eccentricity and putty layup. The
+Thiokol response in May 1984 was merely a proposal. The actual final
+response to the directive from Marshall was not completed until the
+August 19, 1985 briefing on the Solid Rocket Motor seal held at NASA
+headquarters some 15 months later. 81
+
+[ 133 ]
+
+Figure 3. Graphs depict flight anomaly
+frequency for both field and nozzle joint of solid motors for a
+variety of leak check pressures.
+
+Leak Check and Putty
+
+In addition to the action item from NASA
+Headquarters, another result of the 41-B erosion was a warning
+written by John Q. Miller, Marshall chief of the solid motor branch,
+to George Hardy, through Keith Coates. 82 Miller was worried about the two charred rings on 41-B
+and the "missing putty" found when the Solid Rocket Boosters were
+recovered and disassembled. He specifically identified the putty's
+sensitivity to humidity and temperature as potential sources of
+problems. "The thermal design of the [Solid Rocket Motor] joints
+depends on thermal protection of the O-ring by the [putty]," Miller
+said. Failure of the putty to "provide a thermal barrier can lead to
+burning both O-rings and subsequent catastrophic failure." The
+memorandum also said that "the O-ring leak check procedure and its
+potential effect on the (putty) installation and possible
+displacement is also an urgent concern which requires expedition of
+previously identified full scale tests."
+
+From the beginning, Thiokol had suspected the
+putty was a contributing factor in O-ring erosion, even after
+STS-2. 83 In April 1983, Thiokol reported on tests conducted to
+study the behavior of the joint putty. One conclusion of the report
+was that the STS-2 erosion was probably caused by blow holes in the
+putty, which allowed a jet of hot gas to focus on a point on the
+primary O-ring. Thiokol discovered the focused jet ate away or
+"impinged" on portions of the O-ring. Thiokol calculated that the
+maximum possible impingement erosion was .090 inch, and that lab test
+proved that an O-ring would seal at 3,000 psi when erosion of .095
+inches was simulated. This "safety margin" was the basis for
+approving Shuttle flights while accepting the possibility of O-ring
+erosion. 84
+
+Shortly after Miller's routing slip to Hardy
+about the "urgent concern" of the missing putty on 41-B, at Thiokol,
+Brian Russell authored a letter to Robert Ebeling which analyzed the
+erosion history and the test data. Russell's April 9, 1984 conclusion
+was that the putty itself and its layup were not at fault but that
+the higher stabilization pressure adopted in leak check procedures,
+first implemented in one field joint on STS-9, may increase the
+chances of O-ring erosion. The conclusion by Miller and Russell was
+that the air pressure forced through the joint during the O-ring leak
+check was creating more putty blow holes, allowing more focused jets
+on the primary O-ring, thereby increasing the frequency of
+erosion. 85
+
+This hypothesis that O-ring erosion is related
+to putty blow holes is substantiated by the leak check history
+( Figure 3 ). Prior to January, 1984, and STS 41-B, when the leak
+check pressure was [ 134 ] 50 or 100 psi, only one field joint O-ring anomaly
+had been found during the first nine flights. However, when the leak
+check stabilization pressure was officially boosted to 200 psi for
+STS 41-B, over half the Shuttle missions experienced field joint
+O-ring blow-by or erosion of some kind. 86
+
+Moreover, the nozzle O-ring history of
+problems is similar. The nozzle joint leak check was changed from 50
+psi to 100 psi before STS-9 launched in November 1983. After this
+change, the incidence of O-ring anomalies in the nozzle joint
+increased from 12 percent to 56 percent of all Shuttle flights. The
+nozzle pressure was increased to 200 psi for mission 51-D in April,
+1985, and 51-G in June, 1985, and all subsequent missions. Following
+the implementation of the 200 psi check on the nozzle, 88 percent of
+all flights experienced erosion or blow-by. 87
+
+Both Thiokol and NASA witnesses agreed that
+they were aware that the increase in blow holes in the putty could
+contribute to O-ring erosion. The Commission testimony of May 2,
+1986, reads:
+
+Dr. Walker : The analysis that some of our staff has done suggests
+that after you increase the test pressure to 200 pounds, the
+incidence of blow-by and erosion actually increased.
+
+Mr. Russell :
+We realized that.
+
+Lawrence Mulloy was also questioned above the
+blow holes in the putty:
+
+Dr. Walker : Do you agree that the primary cause of the erosion is
+the blow holes in the putty?
+
+Mr. Mulloy :
+I believe it is. Yes.
+
+Dr. Walker :
+And so your leak check procedure created blow holes in the
+putty?
+
+Mr. Mulloy :
+That is one cause of blow holes in the putty.
+
+Dr. Walker :
+But in other words, your leak check procedure could indeed cause what
+was your primary problem. Didn't that concern you?
+
+Mr. Mulloy :
+Yes, sir. 88
+
+Notwithstanding the knowledge that putty blow
+holes caused erosion and that higher pressure in the leak check
+caused more blow holes, Thiokol recommended and NASA accepted the
+increased pressure to ensure that the joint actually passed the
+integrity tests. 89
+
+The documentary evidence produced by NASA and
+Thiokol demonstrates that Marshall was very concerned about the putty
+erosion/blow hole problem after STS 41-B. In addition to John
+Miller's routing slip about putty on STS 41-B discussed above, there
+is a report of a June 7, 1984, telephone conference between Messrs.
+Thompson, Coates and Ray (Marshall) and Messrs. Sayer, Boisjoly,
+Russell and Parker (Thiokol), among others. 90 Marshall told Thiokol that NASA was very concerned
+about the O-ring erosion problem and that design changes were
+necessary, including possible putty changes. The Thiokol engineers
+discussed Marshall's suggestions after the telephone conference, but
+decided they could not agree a change was mandatory. A follow-up
+telephone conference was held between Ben Powers of Marshall and
+Lawrence Sayer of Thiokol on July 2. Powers told Saver that NASA
+would not accept the removal of the putty from the joint and that
+everyone expected the tests to show that gas jets would damage an
+O-ring. However, Powers expressly stated that Marshall would not
+accept Thiokol's opinion that no further tests were necessary.
+
+In mid-1984, the early tests after NASA's
+action item for 41-C led Thiokol to the conclusion that O-ring
+erosion was a function of the putty blow hole size and the amount of
+free volume between the putty orifice and the O-ring. The damage to
+the O-ring was judged to be worse when the blow hole was smaller and
+the free volume was larger. 91
+
+While Thiokol did establish plans for putty
+tests to determine how it was affected by the leak check in response
+to the 41-C action item, their progress in completing the tests was
+slow. The action item was supposed to be completed by May 30, 1984,
+but as late as March 6, 1985, there are Marshall internal memos that
+complain that Thiokol had not taken any action on Marshall's December
+1983 directive to provide data on putty behavior as affected by the
+joint leak check stabilization pressure. 92
+
+STS 51-C and Cold Temperature
+
+On January 24, 1985, STS 51-C was launched.
+The temperature of the O-rings at launch was 53....
+
+[ 135 ] Figure 4.
+
+NASA Official
+
+Position
+
+Description of Awareness of O-Ring
+Problems
+
+.
+
+John Young
+
+Chief, Astronaut Office
+
+"The secret seal, which no one that
+we know knew about." 93
+
+Milton Silveira
+
+Chief Engineer
+
+". . .If I had known . . . I'm sure
+in the '82 time period when we first came to that conclusion
+[that the seal was not redundant], I would have insisted
+that we get busy right now on a design change and also look
+for any temporary fix we could do to improve the operation
+of the seal. " 94
+
+.
+
+James Beggs
+
+(Former) NASA Administrator
+
+"I had no specific concerns with the
+joint, the O-rings or the putty...." 95
+
+.
+
+Arnold Aldrich
+
+Manager, National Space
+Transportation System
+
+None were aware of Thiokol's concern
+about negative effect of cold temperature on O-ring
+performance, nor were they informed of the same concern
+raised after STS 51-C. 96
+
+Jesse Moore
+
+(Former) Associate Administrator for
+Space Flight
+
+Richard Smith
+
+Director, Kennedy Space Center
+
+James A. Thomas
+
+Deputy Director, Kennedy Launch and
+Landing Operations
+
+....degrees, the coldest to that date. O-ring
+erosion occurred in both solid boosters. The right and left nozzle
+joint showed evidence of blow-by between the primary and secondary
+O-rings. The primary O-ring in the left booster's forward field joint
+was eroded and had blow-by, or soot behind the
+ring. 97 The right booster's damage was in the center field
+joint-the first time that field joint seal was damaged. Both its
+primary and secondary O-rings were affected by heat, and the primary
+ring also had evidence of blow-by of soot behind it. This was also
+the first flight where a secondary O-ring showed the effect of
+heat.
+
+STS 51-C was the second example of O-ring
+damage in flight where there was evidence of blow-by erosion as well
+as impingement erosion. As noted previously, impingement erosion
+occurs where the O-ring has already sealed and a focused jet of hot
+gas strikes the surface of the ring and removes a portion of it.
+Blow-by erosion happens when the O-ring has not yet sealed the joint
+gap and the edge of the ring erodes as the hot gas flows around
+it.
+
+Roger Boisjoly described the blow-by erosion
+seen in 51-C:
+
+"SRM 15 [STS 51-C] actually
+increased [our] concern because that was the first time we had
+actually penetrated a primary,, O-ring on a field joint with hot gas,
+and we had a witness of that event because the grease between the
+O-rings was blackened just like coal . . . and that was so much more
+significant than had ever been seen before on any blow-by on any
+joint . . . the fact was that now you introduced another phenomenon.
+You have impingement erosion and bypass erosion, and the O-ring
+material gets removed from the cross section of the O-ring much, much
+faster when you have bypass erosion or blow-by." 98
+
+[ 136 ] Boisjoly also said
+blow-by erosion was where the primary O-ring "at the beginning of the
+transient cycle . . . is still being attacked by hot gas, and it is
+eroding at the same time it is trying to seal, and it is a race
+between, will it erode more than the time allowed to have it seal."
+He described the blow-by on 51-C as "over 100 degrees of arc, and the
+blow-by was absolutely jet black. It was totally intermixed in a
+homogeneous mixture in the grease." When the blow-by material was
+chemically analyzed, Boisjoly said, "we found the products of putty
+in it, we found the products of O-ring in it." 99
+
+On the Marshall problem assessment report that
+was started to track field joint erosion after STS 41-B, the STS 51
+-C O-ring anomaly was described as "O-ring burns were as bad or worse
+than previously experienced . . . Design changes are pending test
+results." 100 The changes being considered included modifying the
+O-rings and adding grease around the O-rings to fill the void left by
+putty blow holes.
+
+On January 31, 1985, Marshall Solid Rocket
+Booster Project Manager Mulloy sent an urgent message to Lawrence
+Wear with the stated subject: "51-C O-Ring Erosion Re: 51-E FRR." The
+message ordered that the Flight Readiness Review for the upcoming
+flight:
+
+"Should recap all incidents of
+O-ring erosion, whether nozzle or case joint, and all incidents where
+there is evidence of flow past the primary O-ring. Also, the
+rationale used for accepting the condition on the nozzle O-ring.
+Also, the most probable scenario and limiting mechanism for flow past
+the primary on the 51 -C case joints. If [Thiokol] does not have all
+this for today I would like to see the logic on a chart with blanks
+[to be filled in ] . " 101
+
+On February 8, 1985, Thiokol presented its
+most detailed analysis to date of the erosion problems to the Solid
+Rocket Motor project office at Marshall for what was then called
+Shuttle mission 51-E, but later changed to 51-D. Thiokol included a
+report on damage incurred by the O-rings during flight 51-C at the
+left forward and right center field joints. The right center joint
+had hot gas past the primary O-ring. Thiokol said that caused a
+concern that the gas seal could be lost, but its resolution was
+"accept risk." 102
+
+Thiokol presented test results showing
+"maximum expected erosion" and "maximum erosion experienced" for both
+primary and secondary O-rings for- the field and nozzle joints.
+Accepting damage to the primary O-ring was being justified, in part,
+based on an assumption of the secondary O-ring working even with
+erosion. However, the Criticality classification indicated the
+primary seal was a "single point failure." During this flight
+readiness assessment at Marshall, for the first time Thiokol
+mentioned temperature as a factor in O-ring erosion and blow-by.
+Thiokol said in its conclusions that "low temperature enhanced
+probability of blow-by-[flight] 51 -C experienced worst case
+temperature change in Florida history." Thiokol concluded that while
+the next Shuttle flight "could exhibit same behavior," nonetheless
+"the condition is not desirable but is acceptable."
+103
+
+At the Level I Flight Readiness Review
+conducted on February 21, there was no detailed analysis of O-ring
+problems presented or any reference made to low temperature effects.
+Instead, a single reference indicated the O-ring erosion and blow-by
+experienced was "acceptable" because of 'limited exposure time and
+redundancy."
+
+STS 51-B and the Launch
+Constraint
+
+Joint seal problems occurred in each of the
+next four Shuttle flights. Flight 51-D, launched April 12, 1985 had
+nozzle O-ring erosion and blow-by on an igniter joint. STS 51-B,
+launched 17 days later, experienced both nozzle O-ring erosion and
+blow-by as did 51-G, which flew on the following June 17. STS 51-F,
+launched duly 29, 1985 had nozzle O-ring blow-by. 104
+
+In response to the apparent negative effect of
+cold leading to the extensive O-ring problems on flight 51 -C in
+January, Thiokol conducted some O-ring resiliency tests in early
+1985. 105 The tests were conducted to quantify the seal timing
+function of the secondary O-ring and the effect of joint rotation on
+its ability to back up the primary ring. The key variable was
+temperature. The June 3 test report, which was described in an August
+9, 1985 letter from Brian Russell at Thiokol to Jim Thomas at
+Marshall, showed:
+
+"Bench test data indicates that
+the O-ring resiliency (its capability to follow the metal) is a
+function of temperature and rate of case expansion. [Thiokol]
+measured the force of the O-ring against Instron platens, which
+[ 137 ]
+simulated the nominal squeeze on the O-ring and approximated the case
+expansion distance and rate.
+
+"At 100°F, the O-ring maintained contact.
+At 75°F the O-ring lost contact for 2.4 seconds. At 50°F,
+the O-ring did not reestablish contact in ten minutes at which time
+the test was terminated." 106
+
+On June 25, 1985, the left nozzle joint of STS
+51-B (launched April 29) was disassembled and inspected after it had
+been shipped back to Thiokol. What Thiokol found was alarming. The
+primary O-ring seal had been compromised because it eroded .171
+inches and it did not seal. The secondary O-ring did seal, but it had
+eroded .032 inches. Lawrence Mulloy described the 51-B problem as
+follows:
+
+"This erosion of a secondary
+O-ring was a new and significant event . . . that we certainly did
+not understand. Everything up to that point had been the primary
+O-ring, even though it had experienced some erosion does seal. What
+we had evidence of was that here was a case where the primary O-ring
+was violated and the secondary O-ring was eroded, and that was
+considered to be a more serious observation than previously observed
+. . . 107
+
+"What we saw [in 51-B], it was evident that
+the primary ring never sealed at all, and we saw erosion all the way
+around that O-ring, and that is where the .171 came from, and that
+was not in the model that predicated a maximum of .090, the maximum
+of .090 is the maximum erosion that can occur if the primary O-ring
+seals.
+
+"But in this case, the primary O-ring did not
+seal; therefore, you had another volume to fill, and the flow was
+longer and it was blow-by and you got more erosion."
+108
+
+Upon receiving the report of the 51-B primary
+ring failure, Solid Rocket Booster Project Manager Mulloy and the
+Marshall Problem Assessment Committee placed a "launch constraint" on
+the Shuttle system. 109 A 1980 Marshall letter which references "Assigning
+Launch Constraints on Open Problems Submitted to MSFC PAS" defines
+launch constraint as:
+
+"All open problems coded
+Criticality 1, 1R, 2, or 2R will be considered launch constraints
+until resolved (recurrence control established and its implementation
+effectivity determined) or sufficient rationale, i.e., different
+configuration, etc., exists to conclude that this problem will not
+occur- on the flight vehicle during pre-launch, launch, or flight."
+110
+
+Lawrence Mulloy told the Commission that the
+launch constraint was "put on after we saw the secondary O-ring
+erosion on the [51-B] nozzle." "Based on the amount of charring," the
+problem report listing the constraint said, "the erosion paths on the
+primary O-ring and what is understood about the erosion phenomenon,
+it is believed that the primary O-ring [of the joint] never sealed."
+111 The constraint applied to STS 51-F and all flights
+subsequent, including STS 51-L. Although one Marshall document says
+that the constraint applied to all O-ring anomalies,
+112 no similar launch constraint was noted on the Marshall
+Problem Assessment Report that started tracking the field joint
+erosion after STS 41-B. Thiokol officials who testified before the
+Commission all claimed they were not aware of the July 1985 launch
+constraint; 113 however, Thiokol letters referenced Marshall Record
+number A09288, the report that expressly identified the constraint.
+114
+
+After the launch constraint was imposed,
+Project Manager Mulloy waived it for each Shuttle flight after July
+10, 1985. Mr. Mulloy and Mr. Lawrence Wear outlined the procedure in
+the following manner:
+
+Chairman Rogers : To you, what does a constraint mean, then?
+
+Mr. Mulloy :
+A launch constraint means that we have to address the observations,
+sec if we have seen anything on the previous flight that changes our
+previous rationale and address that at the Flight Readiness
+Review.
+
+Chairman Rogers : When you say»address it," I always get confused
+by the word. Do you mean think about it? Is that what you
+mean?
+
+Mr. Mulloy :
+No, sir. I mean present the data as to whether or not what we have
+seen in our most recent observation, which may not be the last
+flight, it may be the flight before that, is within our experience
+base and whether or not the previous analysis and [ 138 ] tests that
+previously concluded that was an acceptable situation is still valid,
+based upon later observations....
+
+The constraint was put on after we saw the
+secondary O-ring erosion on the nozzle, I believe.
+
+Chairman Rogers : Who decided that?
+
+Mr. Mulloy :
+I decided that, that that would be addressed, until that problem was
+resolved, it would be considered a launch constraint, and addressed
+at Flight Readiness Reviews to assure that we were staying within our
+test experience base....
+
+Chairman Rogers : Do you have ultimate responsibility for waiving the
+launch constraints?
+
+Mr. Mulloy :
+Yes, sir, I have ultimate responsibility for the launch readiness of
+the Solid Rocket Boosters.
+
+Chairman Rogers: So there was a launch constraint, and you waived
+it.
+
+Mr. Mulloy :
+Yes, sir-, all flights subsequent to.
+
+Dr. Ride :
+I'm trying to understand how you deal with the launch constraint. How
+important do you think a launch constraint is and how unusual is it
+in your system?
+
+Mr. Wear : I
+think a launch constraint is a significant event in our system, and
+it is one that has to be addressed within the Flight Readiness cycle
+because I don't have the authority to not do that. .
+
+Dr. Ride :
+Why didn't you put a launch constraint on the field joint at the same
+time?
+
+Mr. Mulloy :
+I think at that point, and I will react to that question in real
+time, because I haven't really thought about it, but I think the
+logic was that we had been observing the field joint, the field and
+nozzle joint primary O-ring erosion. This erosion of a secondary
+O-ring was a new and significant event, very new and significant even
+that we certainly did not understand. Everything up to that point had
+been that the primary O-ring, even though it had experienced some
+erosion, does seal. What we had evidence of was that here was a case
+where the primary O-ring was violated and the secondary O-ring was
+eroded, and that was considered to be a more serious observation than
+previously observed.
+
+Dr. Ride :
+Correct me if I am wrong, but weren't you basing most of your
+decisions on the field joint on analysis of what was the maximum,
+what you believed to be the maximum possible erosion, and you had
+that analysis for the field joint and for the nozzle joint. When you
+saw the complete erosion of the primary O-ring on the nozzle joint,
+that showed you that your analysis on the nozzle joint wasn't any
+good, I would think. That would indicate to you that your analysis on
+the field joint wasn't very good, either, or at least should be
+suspect.
+
+Mr. Mulloy :
+The conclusion, rightly or wrongly, for the cause of the secondary
+O-ring erosion on the nozzle joint, it was concluded from test data
+we had that 100 psi pressurization leak check, that the putty could
+mask a primary O-ring that was not sealing. The conclusion was-and
+that one was done at 100 psi. The conclusion was that in order to get
+that type of erosion that we saw on the primary O-ring, that that
+O-ring never sealed, and therefore the conclusion was that it never
+was capable of sealing. The leak check on subsequent nozzles, all
+subsequent nozzles was run at 200 psi, which the test data indicated
+would always blow through the putty, and in always blowing through
+the putty we were guaranteed that we had a primary O-ring seal that
+was capable of sealing, and then we further did, and we already had
+that on the field joints at that time. 115
+
+While Mulloy and Wear both testified that the
+constraint was still in effect and waived for Challenger's flight,
+they told the Commission that there had been two erroneous entries on
+the O-ring erosion nozzle problem assessment report stating the
+O-ring erosion problem had been resolved or closed.
+116 Thiokol had suggested this closure on December 10,
+1985 (at Marshall's request according to Brian Russell) but Wear and
+Mulloy told the Commission they rejected that recommendation and the
+problem was still being addressed in Flight Readiness
+Reviews. 117 NASA Levels I and II apparently did not realize
+Marshall had assigned a launch constraint within the Problem
+Assessment System. 118 This......
+
+[ 139 ] Figure 5. August 19,1985 Headquarters
+Briefing.
+
+General Conclusions
+
+Recommendations
+
+.
+
+All O-ring erosion has occurred
+where gas paths in the vacuum putty are formed
+
+Gas paths in the vacuum putty can
+occur during assembly, leak check, or during motor
+pressurization
+
+Improved filler materials or
+layup configurations which still allow a valid leak check
+of the primary O-rings may reduce frequency of O-ring
+erosion but will probably not eliminate it or reduce the
+severity of erosion
+
+Elimination of vacuum putty in a
+tighter joint area will eliminate O-ring erosion if
+circumferential flow is not present-if it is present,
+some baffle arrangement may be required
+
+Erosion in the nozzle joint is
+more severe due to eccentricity; however, the secondary
+seal in the nozzle will seal and will not erode
+through
+
+The primary O-ring in the field
+joint should not erode through but if it leaks due to
+erosion or lack of sealing the secondary seal may not
+seal the motor
+
+The igniter Gask-O-Seal design is
+adequate providing proper quality inspections are made to
+eliminate overfill conditions
+
+The lack of a good secondary seal
+in the field joint is most critical and ways to reduce
+joint rotation should be incorporated as soon as possible
+to reduce criticality
+
+The flow conditions in the joint
+areas during ignition and motor operation need to be
+established through cold flow modeling to eliminate
+O-ring erosion
+
+QM-5 static test should be used
+to qualify a second source of the only flight certified
+joint filler material (asbestos-filled vacuum putty) to
+protect the flight program schedule
+
+VLS-1 should use the only flight
+certified joint filler material (Randolph asbestos-filled
+vacuum putty) in all joints
+
+Additional hot and cold subscale
+tests need to be conducted to improve analytical modeling
+of O-ring erosion problem and for establishing margins of
+safety for eroded O-rings
+
+Analysis of existing data
+indicates that it is safe to continue flying existing
+design as long as all joints are leak checked with a 200
+psig stabilization pressure, are free of contamination in
+the seal areas and meet O-ring squeeze
+requirements
+
+Efforts need to continue at an
+accelerated pace to eliminate SRM seal erosion
+
+......communication failure was contrary to
+the requirement, contained in the NASA Problem Reporting and
+Corrective Action Requirements System, that launch constraints were
+to be taken to Level II.
+
+Escalating Concerns
+
+When the burn through of the primary nozzle
+O-ring on the left Solid Rocket Booster of STS 51-B was discovered in
+Utah on dune 25, 1985, an engineer from the NASA headquarters Shuttle
+Propulsion Group was on the scene. Three days after the 51-B
+inspection, a memorandum was written to Michael Weeks, also at
+Headquarters, reporting on the primary O-ring burn
+through. 119 The memo blamed the problem on the faulty 100 psi leak
+check and reminded Weeks that Thiokol had not yet responded to the
+O-ring erosion action item sent out after STS 41-B one year
+earlier.
+
+Engineers at Thiokol also were increasingly
+concerned about the problem. On July 22, 1985, Roger Boisjoly of the
+structures section wrote a memorandum predicting NASA might give the
+motor contract to a competitor or there might be a flight failure if
+Thiokol did not come up with a timely solution. 120
+
+Nine days later (July 31) Boisjoly wrote
+another memorandum titled "O-ring Erosion/Potential Failure
+Criticality" to R. K. Lund, Thiokol's Vice President of
+Engineering:
+
+"The mistakenly accepted position
+on the joint problem was to fly without fear of failure and to run a
+series of design evaluations which would ultimately lead to a
+solution or at least a significant reduction of the erosion problem.
+This position is now changed as a result of the [51-B] nozzle joint
+erosion which eroded a secondary O-ring with the primary O-ring never
+sealing. If the same scenario should occur in a field joint (and it
+could), then it is a jump ball whether as to the success or failure
+of the joint because the secondary O-ring cannot respond to the
+clevis opening rate and may not be capable of pressurization. The
+result would be a catastrophe of the highest order-loss of human
+life."
+
+Boisjoly recommended setting up a team to
+solve the O-ring problem, and concluded by stating:
+
+"It is my honest and very real
+fear that if we do not take immediate action to dedicate a team to
+solve the problem, with the field joint having the number one
+priority, then we stand in jeopardy of losing a flight along with all
+the launch pad facilities." 121
+
+[ 140 ] In reply to
+specific questions from Marshall on August 9, Thiokol's Brian Russell
+reported the test data on the dune 3 resiliency tests. As noted
+previously, he indicated O-ring resiliency was a function of the
+temperature and case expansion. Also, he wrote, Thiokol had no reason
+to suspect that the primary O-ring would fail after motor ignition
+transient. He said the secondary O-ring would seal within the period
+after ignition from 0 to 170 milliseconds. 122 From 170 to 330 milliseconds, the probability of the
+sealing of the secondary O-ring was reduced. From 330 to 600
+milliseconds, there was only a slight chance the secondary seal would
+hold.
+
+On August l9, 1985, Thiokol and Marshall
+program managers briefed NASA Headquarters on erosion of the motor
+pressure seals. 123 The briefing paper concluded that the O-ring seal was
+a critical matter, but it was safe to fly. The briefing was detailed,
+identifying all prior instances of field joint, nozzle joint and
+igniter O-ring erosion. It recommended an "accelerated pace" to
+eliminate seal erosion but concluded with the recommendation that "it
+is safe to continue flying existing design as long as all joints are
+leak checked with a 200 psig stabilization pressure, are free of
+contamination in the seal areas and meet O-ring squeeze
+requirements." The briefing conclusions and recommendations appear in
+Figure 5 . 124
+
+Thiokol's Robert Lund, Vice
+President-Engineering, noting that "the result of a leak at any of
+the joints would be catastrophic," announced the establishment of a
+Thiokol O-ring task force on August 20, 1985, to "investigate the
+Solid Rocket Motor case and nozzle joints, both materials and
+configurations, and recommend both short-term and long-term
+solutions." 125
+
+Two days later, A. R. Thompson, Thiokol's
+supervisor of structures design, said in a memorandum to S. R. Stein,
+project engineer, that the "O-ring seal problem has lately become
+acute." Thompson recommended near-term solutions of increasing the
+thickness of shims used at the tang and clevis mating, and increasing
+the diameter of the O-ring. "Several long-term solutions look good;
+but, several years are required to incorporate some of them,"
+Thompson wrote. "The simple short-term measures should be taken to
+reduce flight risks." 126 During a Commission hearing, Thompson was asked about
+the larger diameter O-ring solution:
+
+Dr. Walker : Why didn't you go to the larger O-ring, then?
+
+Mr. Thompson : One problem in going to larger O-rings is in field
+joints-plant joints, excuse me. In the plant joints, if you put in
+the 295 and you take the worst on worst, when the joint is raised to
+a temperature of 325 degrees during the curing of the insulation, it
+is an overfill condition because of the alpha problems with the case,
+and the rubber.
+
+Dr. Walker :
+There is no reason why a field joint and a plant joint had to have
+the same O-ring, is there?
+
+Mr. Thompson : There were some that were afraid of the QC people,
+that were afraid of the confusion that might be developed between two
+nearly the same sized O-ring. 127
+
+Thiokol's revised O-ring protection plan,
+dated August 30, 1985, indicated that NASA and Thiokol were still not
+in agreement on the magnitude of the joint rotation phenomenon. It
+said that "presently there are conflicting data from Solid Rocket
+Motor case hydrotest and [static tests] concerning the magnitude of
+case field joint rotation under motor pressure. A referee test will
+be devised, which is mutually acceptable to NASA and Thiokol, to
+determine joint opening characteristics." 128
+
+Design Questions Resurface
+
+Also in late August, Thiokol submitted
+"Preliminary Solid Rocket Motor Nozzle/Field Joint Seal Concepts" to
+NASA, which were "formulated to solve the [Solid Rocket Motor]
+sealing problems." The document contained 43 possible design concepts
+for field joints and 20 for nozzle joints. The report said Thiokol
+"feels the case field joint poses the greatest potential risk in that
+its secondary seal may not maintain metal contact throughout motor
+operation. The nozzle joint is also of major concern because the
+frequency and severity of seal damage experienced has been greater
+than any other joint."
+
+In September 1985, Thiokol's plans called for
+test-firing a static motor with various O-ring configurations. In a
+September 10 presentation to Marshall, Thiokol discussed erosion
+predictions, and evaluated primary engineering concerns including
+joint deflection and secondary O-ring resiliency. Temperature was not
+mentioned. 129
+
+[ 141 ] Prior to that
+Thiokol presentation, Marshall Science and Engineering Director
+Kingsbury had informed Solid Rocket Booster Program Manager
+Mulloy:
+
+"I am most anxious to be briefed
+on plans for improving the Solid Rocket Motor O-ring seals.
+Specifically, I want to review plans which lead to flight
+qualifications and the attendant schedules. I have been apprised of
+general ongoing activities but these do not appear to carry the
+priority which I attach to this situation. I consider the O-ring seal
+problem on the Solid Rocket Motor to require priority attention of
+both Morton Thiokol/Wasatch and MSFC." 130
+
+Early in October, internal warnings about the
+lack of results from the O-ring task force came when Thiokol's
+management got two separate memoranda complaining about
+administrative delays and lack of cooperation. One memorandum was
+written by Roger Boisjoly on October 4, 1985, and it warned Thiokol
+management about lack of management support of the O-ring team's
+efforts. 131 He said that "even NASA perceives that the team is
+being blocked in its engineering efforts to accomplish its task. NASA
+is sending an engineering representative to stay with us starting
+October 14th. We feel that this is the direct result of their feeling
+that we [Thiokol] are not responding quickly enough on the seal
+problem."
+
+R. V. Ebeling, manager of Thiokol's Solid
+Rocket Motor ignition system, began his October 1, 1985, report to
+McDonald with the alarming word "HELP!" Ebeling said the seal task
+force was "constantly being delayed by every possible means."
+"Marshall Space Flight Center," he said, "is correct in stating that
+we do not know how to run a development program." Ebeling
+continued:
+
+"The allegiance to the O-ring
+investigation task force is very limited to a group of engineers
+numbering 8-10. Our assigned people in manufacturing and quality have
+the desire, but are encumbered with other significant work. Others in
+manufacturing, quality, procurement who are not involved directly,
+but whose help we need, are generating plenty of resistance. We are
+creating more instructional paper than engineering data. We wish we
+could get action by verbal request, but such is not the case. This is
+a red flag." 132
+
+Shuttle flight 61-A was launched October 30,
+1985. It experienced nozzle O-ring erosion and field joint O-ring
+blow-by. 133 These anomalies were not mentioned at the Level I
+Flight Readiness Review for flight 61-B. That flight was launched on
+November 26, 1985, and sustained nozzle O-ring erosion and blow-by.
+134
+
+The following month (December) Thiokol's
+problem status report which tracked the field joint erosion anomaly
+stated that the O-ring task force had made one hot gas test and
+preliminary results indicated the test chamber needed to be
+redesigned. 135 Mr. Ebeling of Thiokol became so concerned about the
+gravity of the O-ring problem that he told fellow members of the seal
+task force that he believed Thiokol should not ship any more motors
+until the problem was fixed.
+
+In testimony before the Commission, Ebeling
+said:
+
+Mr. Ebeling : Well, I am a hydraulics engineer by profession, and
+O-rings and seals and hydraulics are very sacred, but for the most
+part, a hydraulics or pneumatics engineer controls the structure, the
+structural design, the structural deformation to make sure that this
+neat little part that is so critical is given every thing it needs to
+operate. In Solid Rocket Motors I have been there now pushing 25
+years. They had a different attitude on O-rings when I came there,
+and it is not just Thiokol, it is universal.
+
+Dr. Covert :
+By universal, you mean the solid rocket industry?
+
+Mr. Ebeling :
+The entire solid rocket industry. It gets around from one, the
+competitors' information eventually gets to me by one track or
+another, and mine to them, but my experience on O-rings was and is to
+this date that the O-ring is not a mechanism and never should be a
+mechanism that sees the heat of the magnitude of our motors, and I
+think before I do retire, I'm going to make sure that we discontinue
+to fly with round seals which I am against round seals anyway. I
+think seals with memories, not pressure-activated, but energized
+through mechanical means, and in all cases, keep the heat of our
+rocket [ 142 ] motors away from those seals. Whatever it is, you do
+not need chamber pressure to energize a seal.
+
+Dr. Covert :
+In this regard, then, did you have an increasing concern as you saw
+the tendency first to accept thermal distress and then to say, well,
+we can model this reasonably and we can accept a little bit of
+erosion, and then etc., etc. ? Did this cause you a feeling of if not
+distress, then betrayal in terms of your feeling about
+O-rings?
+
+Mr. Ebeling :
+I'm sure sorry you asked that question.
+
+Mr. Covert :
+I'm sorry I had to.
+
+Mr. Ebeling :
+To answer your question, yes. In fact, I have been an advocate, I
+used to sit in on the O-ring task force and was involved in the seals
+since Brian Russell worked directly for me, and I had a certain
+allegiance to this type of thing anyway, that I felt that we
+shouldn't ship any more rocket motors until we got it fixed.
+
+Dr. Covert :
+Did you voice this concern?
+
+Mr. Ebeling :
+Unfortunately, not to the right people. 136
+
+The Closure Issue
+
+On December 6, 1985, Thiokol's Brian Russell
+wrote Al McDonald, Thiokol Solid Rocket Motor Project Director,
+requesting "closure of the Solid Rocket Motor O-ring erosion critical
+problems." 137 He gave 17 reasons for the closure, including test
+results, future test plans and the work to date of Thiokol's task
+force. Four days later (December 10) McDonald wrote a memorandum to
+NASA's Wear asking for closure of the O-ring problem. All O-ring
+erosion problems, including the problem containing the July 1985
+launch constraint, were among the referenced matters that Thiokol
+suggested should be closed. McDonald noted that the O-ring problem
+would not be fully resolved for some time, and he enclosed a copy of
+Thiokol's August 30 plan for improving the motor
+seals. 138
+
+Brian Russell described the problem tracking
+process and gave the reason for the closure recommendation during the
+following exchange:
+
+Mr. Russell : We have our reliability engineering department, who
+is responsible to complete the monthly problem report, and in
+addition to that we have our monthly problem review board telephone
+conference with NASA and the contractors, of which we are a part, and
+the monthly problem review or the monthly problem report that
+reliability prepares, they get the information from engineering or
+from the office as necessary to complete their status of what has
+happened during that month, whether the problem originated that month
+or what has been done to close the problem out, and that is submitted
+every month, and I for one do review that before it is submitted to
+the Marshall Space Flight Center, and so much of the information that
+I would read in these reports would be the same information that we
+had given in that monthly problem report or over the telephone on the
+teleconference.
+
+Chairman Rogers : Mr. Russell, when you say close the problem out, what
+do you mean by that? How do you close it out normally?
+
+Mr. Russell :
+Normally, whether it takes engineering analysis or tests or some
+corrective action, a closeout to the problem would occur after an
+adequate corrective action had been taken to satisfy those on the
+problem review board that the problem had indeed been closed out.
+That is the way that that happens; for example, we had found a loose
+bolt on the recovery one time, and we had to take corrective action
+in our procedures and in the engineering to make sure that that
+wouldn't happen again, and then to verify that corrective action, and
+at that point that problem would be ready to be closed out. It
+generally involves a report or at least a mention by the review board
+stating what had been done to adequately close it out, and then it is
+agreed upon by the parties involved. .
+
+Question :
+What do you understand a launch constraint to mean?
+
+Mr. Russell :
+My understanding of a launch constraint is that the launch cannot
+proceed without adequately-without everyone's agreement that the
+problem is under control.
+
+[ 143 ] Chairman Rogers : Under
+control meaning what? You just said a moment ago that you would
+expect some corrective action to be taken.
+
+Mr. Russell :
+That is correct, and in this particular case on this 51-B nozzle
+O-ring erosion problem there had been some corrective action taken,
+and that was included in the presentation made as a special addendum
+to the next Flight Readiness Review, and at the time we did agree to
+continue to launch, which apparently had lifted the launch
+constraint, would be my understanding.
+
+Chairman Rogers : But really my question is: Did you gentlemen realize
+that it was a launch constraint?
+
+Mr. Russell :
+I would like to answer for myself. I didn't realize that there was a
+formal launch constraint on this one, any different than some of the
+other erosion and blow-by that we had seen in the past.
+
+Mr. Ebeling :
+I agree. .
+
+Question : .
+. . Mr. Russell, you wrote a letter, did you not, or a memorandum
+indicating that the problem should be closed.
+
+Could you explain to the Commission what you
+meant by that?
+
+Mr. Russell :
+Yes. In our December telephone call on the Problem Review Board-and I
+can't remember the date-it was around the 9th or so-there was a
+request to close the problems out and particularly the ones that had
+been open for a long time, of which this was one, and a long time
+meaning six months or more.
+
+There was a request from the Director of
+Engineering, as I recall it, that we close these problems out.
+.
+
+Dr. Walker :
+That was the Director of Engineering at Marshall?
+
+Mr. Russell :
+Yes, at Marshall Space Flight Center. Now, he wasn't in that call. My
+understanding is what they told us and my recollection was that Mr.
+Kingsbury would like to see these problems closed out.
+
+Now, the normal method of closing them out is
+to implement the corrective action, verify the corrective action, and
+then the problem is closed, it comes off the board and is no longer
+under active review. .
+
+Chairman Rogers : What was being done to fix it?
+
+Mr. Russell :
+Well, we had a task force created of full-time people at Thiokol, of
+which I was a member of that task team, and we had done some
+engineering tests. We were trying to develop concepts. We had
+developed some concepts to block the flow of hot gas against the
+O-ring to the point where the O-ring would no longer be damaged in a
+new configuration.
+
+And we had run some cold gas tests and some
+hot gas motor firing tests and were working toward a solution of the
+problem and we had some meetings scheduled with the Marshall Space
+Flight Center. We had weekly telephone calls where we statused our
+progress and there was a team at Marshall also of engineering people
+who were monitoring the things that we were doing to fix the problem
+with the goal of implementing a fix in our qualification motor No. 5,
+which was scheduled at that time in January, this timeframe being
+about the December timeframe of last year.
+
+Chairman Rogers : Can I interrupt? So you're trying to figure out how
+to fix it, right? And you're doing some things to try to help you
+figure out how to fix it.
+
+Now, why at that point would you close it out?
+.
+
+Mr. Russell :
+Because I was asked to do it.
+
+Chairman Rogers : I see. Well, that explains it.
+
+Mr. Rummel :
+It explains it, but really doesn't make any sense. On one hand you
+close out items that you've been reviewing flight by flight, that
+have obviously critical implications, on the basis that after you
+close it out, you're going to continue to try to fix it.
+
+So I think what you're really saying is,
+you're closing it out because you don't want to be bothered. Somebody
+doesn't want to be bothered with flight-by-flight reviews, but you're
+going to continue to work on it after it's closed out.
+139
+
+[ 144 ] Marshall received
+the Thiokol letter asking for the closure and an entry was placed on
+all Marshall Problem Reports referenced in McDonald's December 10
+letter indicating"contractor closure received" on December 18, 1985.
+140 On January 23, 1986, another entry was placed on the
+same reports indicating the "problem is considered closed."
+141 Lawrence Mulloy and Lawrence Wear testified those
+entries were "in error." They said:
+
+Mr. Mulloy : The problem assessment system was put in place to
+provide visibility throughout the Shuttle system for the types of
+problems that do occur, not just in flight, but also in qualification
+tests, and in failure of hardware that is back for refurbishment at a
+vendor or whatever. And it is a closed loop tracking system that
+lists the anomaly .
+
+Now, the entry that is shown in there that the
+problem was closed prior to 51-L is in error. What happened there
+was, one of your documents here which we did not discuss is the
+letter from Mr. McDonald to Mr. Wear which proposed that this problem
+be dropped from the problem assessment system and no longer be
+tracked for the reasons stated in Mr. McDonald's letter.
+
+That letter was in the review cycle. The
+letter, I believe, was dated 10 December 1985. It came into the
+center, it was in the review cycle. After Mr. Wear brought this
+letter to my attention, my reaction was, we are not going to drop
+this from the problem assessment system because the problem is not
+resolved and it has to be dealt with on a flight-by-flight
+basis.
+
+Since that was going through the review cycle,
+the people who run this problem assessment system erroneously entered
+a closure for the problem on the basis of this submittal from
+Thiokol. Having done that then for the 51-L review, this did not come
+up in the Flight Readiness Review as an open launch constraint, so
+you won't find a project signature because the PAS system showed the
+problem was closed, and that was an error.
+
+Chairman Rogers : Who made the error? Do you know?
+
+Mr. Mulloy :
+The people who do the problem assessment system.
+
+Mr. Wear :
+Mr. Fletcher, and he reports within our quality organization at the
+Flight Readiness Reviews, . . . as I think have been described to you
+before. There is one from Thiokol to me, and there is one from my
+group to Larry, and then Larry, of course, does one with the Shuttle
+project office, and so forth, on up the line. At my review and at
+Larry's review, here is a heads up given to the quality
+representative at that board for what problems the system has open,
+and they cross-check to make sure that we address that problem in the
+readiness review.
+
+On this particular occasion, there was no
+heads up given because their Problem Assessment System considered
+that action closed. That is unfortunate. 142
+
+Project Manager Mulloy was asked during
+Commission hearings about the original response to O-ring
+erosion:
+
+Mr. Hotz : Mr. Mulloy, I would like to try to understand this in
+somewhat simpler terms than you people are used to using.
+
+Is it correct to state that when you
+originally designed this joint and looked at it, that you did not
+anticipate erosion of any of the O-ring during flights?
+
+Mr. Mulloy :
+That is my understanding. I entered this program in November of 1982
+and I wasn't there on the original design of the joint, but when I
+took over the program there was no O-ring erosion anticipated.
+
+Mr. Hotz : So
+that when you did run into signs of O-ring erosion, this was a bad
+sign.
+
+Mr. Mulloy :
+Yes, sir. .
+
+Mr. Hotz : So
+then you decided to introduce a standard based on the measurement or
+the possibility of the limits of O-ring erosion. And as those limits,
+as the experience went up, your criteria for, say, flight went up
+too.
+
+In other words, when you experienced more than
+maximum anticipated O-ring erosion, you waived the flight and said
+"Well, it's possible to tolerate that. We still have a margin
+left."
+
+Mr. Mulloy :
+Are you speaking of the case where we did not have a primary
+seal.
+
+Mr. Hotz :
+Yes.
+
+[ 145 ] Mr. Mulloy : Yes, sir.
+That is correct. .
+
+Mr. Hotz :
+Then you finally, you're talking about these margins of safety, and I
+wonder if you could express in either percentages or actual
+measurement terms-you have used the term "wide margin." I wonder if
+you could give us a quantitative measurement as to what you consider
+a wide margin?
+
+Mr. Mulloy :
+Yes, sir. Well, as I said we had demonstrated that we could stand 125
+thousandths of erosion and still seat. The maximum erosion that we
+had seen in the case joint was on STS-2, which was 53 thousandths, so
+that is a factor of two and a half .
+
+Dr. Keel : .
+. . I think, Larry, if you go back and look at your Flight Readiness
+Reviews, that you were relying on less margins than that.
+
+You were arguing in the Flight Readiness
+Reviews where you briefed the problems of primary O-ring erosion that
+for the worst case for the field joint also that it would be 90
+thousandths.
+
+Mr. Mulloy :
+That is correct.
+
+Dr. Keel : At
+that point you were pointing out that's okay, because you can seal at
+95, not at 125 but at 95. It wasn't until later on during the process
+that you determined you could seal at 125.
+
+Mr. Mulloy :
+That is when we got the hot gas test data.
+
+Dr. Keel : So
+that's a five percent margin, roughly, five and a half.
+
+Mr. Mulloy :
+On the 90 to 95 on a max predictable, yes. 143
+
+Temperature Effects
+
+The record of the fateful series of NASA and
+Thiokol meetings, telephone conferences, notes, and facsimile
+transmissions on January 27th, the night before the launch of flight
+51 -L, shows that only limited consideration was given to the past
+history of O-ring damage in terms of temperature. The managers
+compared as a function of temperature the flights for which thermal
+distress of O-rings had been observed-not the frequency of occurrence
+based on all flights ( Figure 6 ). In such a comparison, there is nothing irregular in
+the distribution of O-ring "distress" over the spectrum of joint
+temperatures at launch between 53 degrees Fahrenheit and 75 degrees
+Fahrenheit. When the entire history of flight experience is
+considered, including"normal" flights with no erosion or blow-by, the
+comparison is substantially different ( Figure 7 ).
+
+This comparison of flight history indicates
+that only three incidents of O-ring thermal distress occurred out of
+twenty flights with O-ring temperatures at 66 degrees Fahrenheit or
+above, whereas, all four flights with O-ring temperatures at 63
+degrees Fahrenheit or below experienced O-ring thermal
+distress.
+
+Consideration of the entire launch temperature
+history indicates that the probability of O-ring distress is
+increased to almost a certainty if the temperature of the joint is
+less than 65.
+
+Flight Readiness Reviews
+
+It is clear that contractor and NASA program
+personnel all believed that the O-ring erosion/blow-by anomaly, and
+even the launch constraint, were problems that should be addressed in
+NASA's Flight Readiness Review process. The Flight Readiness Review
+is a multi-tiered review that is designed to create an information
+flow from the contractor up through Level III at Marshall, then to
+Level II officials from Johnson and Level I at Headquarters. With
+regard to the Solid Rocket Booster, the process begins at the element
+level and culminates in a coordinated Marshall position at the
+subsequent Levels II and I Flight Readiness Review.
+144
+
+NASA policy manuals list four objectives of
+the Shuttle Projects Flight Readiness Review, an intermediate review
+between Level III and Level I, when contractors and Level III program
+personnel consider the upcoming launch. The stated objectives
+are:
+
+"1.To provide the review team with
+sufficient information necessary for them to make an independent
+judgment regarding flight readiness.
+
+"2. Review solved problems and previous flight
+anomalies and establish confidence in solution rationale.
+
+[ 146 ]
+
+[top] Figure 6. Plot of flights with
+incidents of O-ring thermal distress as function of
+temperature.
+
+[bottom] Figure 7. Plot of flights
+with and without incidents of O-ring thermal distress. NOTE: Thermal
+distress defined as O-ring erosion, blow-by, of excessive
+heating.
+
+[ 147 ] "3. Address all
+problems, technical issues, open items and constraints requiring
+resolution before flight.
+
+"4. Establish the flight baseline
+configuration particularly as it differs from previous missions."
+145
+
+The Commission has reviewed the various
+documentary presentations made by Thiokol and NASA program people for
+Flight Readiness Reviews on all Shuttle flights. The O-ring
+presentations in those Flight Readiness Reviews have been summarized
+in an Appendix to this report.
+
+The erosion on STS-2 was not considered on any
+level of the Flight Readiness Review for STS-3. 146 Similarly the heat effect on STS-6's primary O-ring in
+the nozzle was not mentioned on the STS-7 Flight Readiness Review in
+1983. However, the rationale for acceptance of the "secondary seal
+condition" for the lightweight case first flown on STS-6 contained
+the observation that an O-ring sealed during a Thiokol test under
+3,000 psi where .125 inches had been cut out of the
+O-ring. 147
+
+The inattention to erosion and blow-by anomaly
+changed when Thiokol filed a problem report on the field joint
+erosion after STS 41-B. The O-ring problems (field and nozzle) on
+41-B were briefed as a "technical issue" in the 41-C Flight Readiness
+Review. "Probable causes" were defined as:
+
+"Putty blow-through at ignition
+causes cavity between putty and primary O-ring to fill during
+pressurization. Inability of putty to withstand motor pressure. Air
+entrapment in putty during mating. Blow holes in putty during joint
+leak test."
+
+Thiokol presented the question at its 41-C
+preboard to Marshall, "If primary O-ring allowed a hot gas jet to
+pass through, would the secondary O-ring survive impingement?"
+148 At the 41 -C Level I Flight Readiness Review, on March
+30, 1984, Marshall said the erosion phenomenon was "acceptable" and
+that blow holes in the putty were the"most probable cause." The
+rationale for the acceptance of the possibility of erosion on STS
+41-C was:
+
+"Conservative analysis indicates
+max erosion possible:
+
+".090 in. (field joint)
+
+".090 in. (nozzle joint)
+
+"Laboratory test of full scale O-ring/joint
+cross section shows capability to sustain joint sealing integrity at
+3,000 psi pressure using an O-ring with a simulated .095 in. erosion
+depth.
+
+"Recommendation:
+
+"Fly STS 41-C accepting possibility of some
+O-ring gas impingement." 149
+
+The next significant treatment of the problem
+occurred after the coldest flight, 51-C at 53 degrees in January
+1985. In part, Thiokol's extensive analysis for the 51-E Flight
+Readiness Review was due to the fact that four joints on 51-C had
+problems. 150 Additionally, Mr. Mulloy's specific request for a
+recap of the O-ring history undoubtedly prompted a full treatment.
+Temperature was highlighted as a concern when Mulloy took Thiokol's
+analysis up to the Shuttle Projects Office Flight Readiness Review.
+That 18-page briefing concluded with the statement that: "STS 51-C
+consistent with erosion data based. Low temperature enhanced
+probability of blow-by. STS 51-C experienced worst case temperature
+change in Florida history. STS 51-E could exhibit the same behavior.
+Condition is acceptable." 151
+
+At the Level I Flight Readiness Review for
+51-E on February 21, 1985, the previous 18-page analysis had been
+reduced to a one page chart with the resolution: "acceptable risk
+because of limited exposure and redundancy (Ref. STS 41-C FRR)".
+152 No mention of temperature was found in the Level I
+report.
+
+The last major discussion of erosion was at
+the Level I Flight Readiness Review for STS 51-F (July 2,
+1985). 153 An analysis of the failure of the nozzle primary
+O-ring to seal due to erosion on flight STS 51-B (April 29, 1985) was
+presented. This serious erosion was attributed to leak check
+procedures. An increase in the nozzle leak check to 200 psi was
+proposed to be a cure. There was no mention of the fact that .171
+inches of erosion on the primary O-ring far exceeded a more recent
+analysis model prediction of .070 inches maximum possible erosion.
+This was a revision of the former prediction of .090 inches. The
+launch constraint activated after STS 51-B was not specifically
+listed in the Level I Flight Readiness Review for 51-F. The
+Commission has also not found any mention of the duly 1985
+constraint, or its waiver for subsequent Shuttle flights, in any
+Flight Readiness Review briefing documents.
+
+[ 148 ] The Commission's
+review of the Marshall and Thiokol documentary presentations at the
+various Flight Readiness Reviews revealed several significant trends.
+First, O-ring erosion was not considered early in the program when it
+first occurred. Second, when the problem grew worse after STS 41-B,
+the initial analysis of the problem did not produce much research;
+instead, there was an early acceptance of the phenomenon. Third,
+because of a belief that in-flight O-ring erosion was "within the
+data base" of prior experience, later Flight Readiness Reviews gave a
+cursory review and often dismissed the recurring erosion as within
+"acceptable" or "allowable" limits. Fourth, both Thiokol and Marshall
+continued to rely on the redundancy of the secondary O-ring long
+after NASA had officially declared that the seal was a non-redundant
+single point failure. Finally, in 1985 when temperature became a
+major concern after STS 51-C and when the launch constraint was
+applied after 51-B, NASA Levels l and II were not informed of these
+developments in the Flight Readiness Review process.
+
+Findings
+
+The genesis of the Challenger accident-the
+failure of the joint of the right Solid Rocket Motor-began with
+decisions made in the design of the joint and in the failure by both
+Thiokol and NASA's Solid Rocket Booster project office to understand
+and respond to facts obtained during testing.
+
+The Commission has concluded that neither
+Thiokol nor NASA responded adequately to internal warnings about the
+faulty seal design. Furthermore, Thiokol and NASA did not make a
+timely attempt to develop and verify a new seal after the initial
+design was shown to be deficient. . Neither organization developed a
+solution to the unexpected occurrences of O-ring erosion and blow-by
+even though this problem was experienced frequently during the
+Shuttle flight history. Instead, Thiokol and NASA management came to
+accept erosion and blow-by as unavoidable and an acceptable flight
+risk. Specifically, the Commission has found that:
+
+1.The joint test and certification program was
+inadequate. There was no requirement to configure the qualifications
+test motor as it would be in flight, and the motors were static
+tested in a horizontal position, not in the vertical flight
+position.
+
+2. Prior to the accident, neither NASA nor
+Thiokol fully understood the mechanism by which the joint sealing
+action took place.
+
+3. NASA and Thiokol accepted escalating risk
+apparently because they "got away with it last time." As Commissioner
+Feynman observed, the decision making was:
+
+"a kind of Russian roulette.
+.
+
+[The Shuttle] flies [with O-ring erosion] and
+nothing happens. Then it is suggested, therefore, that the risk is no
+longer so high for the next flights. We can lower our standards a
+little bit because we got away with it last time.... You got away
+with it but it shouldn't be done over and over again like that . "
+154
+
+4. NASA's system for tracking anomalies for
+Flight Readiness Reviews failed in that, despite a history of
+persistent O-ring erosion and blow-by, flight was still permitted. It
+failed again in the strange sequence of six consecutive launch
+constraint waivers prior to 51-L, permitting it to fly without any
+record of a waiver, or even of an explicit constraint. Tracking and
+continuing only anomalies that are "outside the data base" of prior
+flight allowed major problems to be removed from, and lost by, the
+reporting system.
+
+5. The O-ring erosion history presented to
+Level I at NASA Headquarters in August 1985 was sufficiently detailed
+to require corrective action prior to the next flight.
+
+6. A careful analysis of the flight history of
+O-ring performance would have revealed the correlation of O-ring
+damage and low temperature. Neither NASA nor Thiokol carried out such
+an analysis; consequently, they were unprepared to properly evaluate
+the risks of launching the 51-L mission in conditions more extreme
+than they had encountered before.
+
+[ 149 ] References
+
+1. Letter, Dorsey to
+Hardy, November 7, 1978.
+
+2. Report, "STS-3
+through STS-25 Flight Readiness Reviews to Level III Center
+Board," NASA.
+
+3. Ibid.
+
+4. Report, "Selection
+of Contractor for Space Shuttle Program SRM," NASA. December 12,
+1973; GAO Report B-17367, page 339.
+
+5. Ibid., page
+6.
+
+6. Ibid., pages 21 and
+22.
+
+7. Ibid., page
+18.
+
+8. Ibid., page 7
+
+9. Ibid., page
+20
+
+10. Chart, "SRM and
+Titan III Clevis Joint Comparison," from Pelham presentation to
+Commission Development and Production Subcommittees, March 17,
+1986, page 3, PC 73978.
+
+11. Chart,
+"Segment/Segment Interface," from Pelham presentation to
+Commission Development and Production Subcommittee, March 17,
+1986, page 2, PC 73977
+
+12. Report, Thiokol
+Space Shuttle Joint Review`" Thiokol, February 25, 1986, PC
+021453.
+
+13. Ibid.
+
+14. Ibid.
+
+15. Report,
+"Presidential Commission Development and Production Panel,
+Response to Panel Question/Special Actions- SRM and Titan III
+Clevis Joint Comparison," Thiokol, April 3, 1986, PC
+073979.
+
+16. Report, 'Original
+Design of Joint Assembly SRB Motor Thiokol," Thiokol, July 13,
+1973, PC 009350, and Commission Work Session, Panel on Development
+and Production, April 17, 1986, page 18.
+
+17. Report, "1974
+Proposal Write Up On Case Design." Thiokol, 1974, page 4. 3-3, PC
+010957.
+
+18. Ibid page 4. 3-19,
+PC 010973.
+
+19. Commission Work
+Session, Development and Production Panel, April 7, 1986, page
+118.
+
+20. Commission
+Interview Transcript, McIntosh, H., April 2, 1986, page 5.
+
+21. bid.
+
+22. Letter, Brian
+Russell to Bob Ebeling, Thiokol, April 9, 1986, PC 091702 and
+Commission Hearing Transcript, May 2, 1986, pages
+2653-2658.
+
+23. Commission Hearing
+Transcript, February 6, 1986, page 30.
+
+24. Report, "Space
+Shuttle Case Burst Test Report." Thiokol, December 21, 1977, PC
+049551-049648, TWR-11664.
+
+25. Ibid.
+
+26. Report,
+"Analytical Evaluation of the Space Shuttle Solid Rocket Motor
+Tang/Clevis Joint Behavior," Thiokol, October 6, 1978, TWR-12019;
+and Report, "SRM Clevis Joint Leakage Study," NASA, October 21.
+1977.
+
+27. Commission Hearing
+Transcript, February 25, 1986, page 1435.
+
+28. Commission Hearing
+Transcript, May 2, 1986, page 2784.
+
+29. Report, "SRM
+Clevis Joint Leakage Study," NASA, October 21, 1977, PC
+102337.
+
+30. Letter, Miller to
+Eudy, January 9, 1978, PC 009923.
+
+31. Letter, Miller to
+Eudy, January 19, 1979, PC 009921.
+
+32. Ibid.
+
+33. Ibid., footnote
+31.
+
+34. Commission Hearing
+Transcript, May 2, 1986, page 2782.
+
+35. Report, "Visit to
+Precision Rubber Products Corporation and Parker Seal Company,"
+NASA, February 6, 1979.
+
+36. Ibid.
+
+37. Commission Hearing
+Transcript, May 2, 1986, page 2782.
+
+38. Report, "Phase I
+Design Certification Review," Thiokol, March 23, 1979,
+TWR-12230.
+
+39. Report,
+"Analytical Evaluation of the Space Shuttle SRM Tang/Clevis Joint
+Behavior," Thiokol. October 17, 1978. PC 102302.
+
+40. Report, "Space
+Shuttle Verification/Certification Review Propulsion Committee
+Cognizant Engineers 5th Meeting,'' NASA, July 10, 1980, pages
+C-7-22.
+
+41. Commission Hearing
+Transcript, May 2, 1986. page 2307
+
+42. Report,
+Verification/Certification Space Shuttle Program Response to
+Assessment, " NASA, September 1980, page 59, PC 094010.
+
+43. Report, "SRM
+Program Response." NASA, August 15, 1980. PC 102359.
+
+44. NASA Handbook,
+NASA. 52300.4(1D-2). Appendix A, page a-1.
+
+45. Commission
+Interview Transcript, A. Aldrich, April 8, 1986, page 13.
+
+46. Memorandum,
+Abrahamson to Beggs, December 8, 1981.
+
+47. Ibid.
+
+48. Report. ''Erosion
+of SRM Pressure Seals," Thiokol. August 19, 1985, Rev. A (February
+10, 1986), page A- 4a.
+
+49. Commission
+Interview Transcript, Thomas J.W., April 10, 1986, pages 64-66:
+and Reports, Marshall Space Flight Center Problem Assessment
+Reports, NASA.
+
+50 Report,
+"Post-flight Evaluation of STS-2 SRM Components," Thiokol,
+January. 1983, part 1, page 2, TWR 13286.
+
+51. Report, "NASA
+Response to Commission Request DP-006." NASA, March 17, 1986, PC
+074021.
+
+52. Report, "STS-8,
+SRB Pre-Board Flight Readiness Review", Thiokol, July 29,
+1983.
+
+53. Report, "Retention
+Rationale, SRM Simplex Seal," Thiokol, December 1, 1982, page 4.
+and Report, 'Critical Items List." NASA, December 17, 1982.
+
+54. Report. "SRB
+Critical Items List," NASA, December 17, 1982.
+
+55. Report, "Retention
+Rationale, SRM Simplex Seal," Thiokol. December 1, 1982, page
+5.
+
+56. Ibid., page
+4.
+
+57. Commission
+Interview Transcript, McIntosh. H., April 2, 1986, page 66.
+
+58. Commission Hearing
+Transcript, May 2, 1986, page 2729-30.
+
+59. Ibid., footnote
+31, page 1.
+
+60. Commission Hearing
+Transcript, February 26, 1986, pages 1700- 1701.
+
+61. Commission Hearing
+Transcript, February 26, 1986, pages 1514-1516.
+
+62. Report, "Space
+Transportation System Level I Change Request-Report, SRB Critical
+Items List Requirements," NASA, March 2, 1983, page 1; and Report,
+"Space Shuttle Program Requirements Control Board Directive -Level
+II- SRB Critical Item List Requirements for SRM Case Joint
+Assemblies." NASA, March 2, 1983, page 1.
+
+63 Report, "Space
+Shuttle Program Requirements Document Level I," NASA, June 30,
+1977, page A-8.
+
+64. Commission Hearing
+Transcript, May 2, 1986. pages 2842 -2844.
+
+65. Commission Hearing
+Transcript, May 2. 1986, page 2845: and Report, "Space Shuttle
+Program Requirements Control Board Directive-Level II, SRB
+Critical Item List Requirements for SRM Case Joint Assemblies."
+NASA, March 2, 1983, page 1.
+
+66. Commission Hearing
+Transcript, May 2, 1986, page 2852
+
+67. Commission
+Interview Transcript, A. Aldrich. and R. Kohrs, April 8, 1986,
+pages 19-20.
+
+68. Commission
+Interview Transcript, L. Weeks, April 7, 1986. page 16.
+
+69. Ibid., footnote
+54.
+
+[ 150 ]
+70. Report, "MSFC Problem Assessment Report-
+O-Ring Erosion in the Case to Nozzle Joint," February 26, 1986,
+page 1 of 3; and Commission Interview Transcript, W. Hankins,
+April 2, 1986, page 11.
+
+71. Report, "Erosion
+of SRM Pressure Seals," Thiokol, February 10, 1986, TWR-15150
+Revision A; and Chart, "History of O-Ring Damage in Field Joints"
+from Thiokol's presentation on February 25, 1986 to Commission, PC
+072076 and PC072077.
+
+72. Report, "Case and
+Nozzle Joint Configuration Review," Thiokol, July 2, 1980, pages 2
+and 5; and Report, "Erosion of SRM Pressure Seals," Thiolol,
+August 19, 1986, pages A-4 and A-6, TWR-15150.
+
+73. Report, "Char
+Condition on O-Ring Seal in Forward Field Joint of SRM A57 of
+STS-11 Flight Mission 41-B," Thiokol entry of March 12, 1984, page
+5, TWR-14283; and Report, "MSFC Problem Assessment System-Segment
+Joint Primary O-Ring Charred," NASA, February 17, 1984.
+
+74. Report, "MSFC
+Problem Assessment System-Segment Joint Primary O-Ring Charred,"
+NASA, entry of March 12, 1984, page 5, TWR-14283.
+
+75. Letter, Morefield
+to Mulloy, March 9, 1984.
+
+76. Report, "Flight
+Readiness Review- 41C Level I," NASA, March 30, 1984.
+
+77. Hans Mark 41-C
+Programmatic Action Item, NASA, March 30, 1984.
+
+78. Letter, Abrahamson
+to Lucas, January 18, 1984, PC 008191.
+
+79. Letter, Wear to
+Kilminster, April 13, 1984, pages 1 and 2.
+
+80. Report,
+"Protection of Space Shuttle SRM Primary Motor Seals," Thiokol,
+May 4, 1984, PC 014053.
+
+81. Report, "Erosion
+of SRM Pressure Seals Presentation to NASA HQ," Thiokol, August
+19, 1985, page 1, and "STS 41-C Action Item Closeout," L. Mulloy,
+S. Reinartz, NASA, February 20, 1986.
+
+82. Routing slip,
+Miller to Hardy, NASA, February 28, 1984, PC 0266494.
+
+83. Report, "SRM FIeld
+Joint Zinc Chromate Vacuum Putty Test Report," Thiokol, April 21,
+1983, page 13.
+
+84. Report, "SRM Joint
+Putty, O-Ring, and Leak History," Thiokol, April 9, 1984, page 1,
+TWR-13484.
+
+85. Ibid.; and Report,
+"Erosion of SRM Pressure Seals," Thiokol, TWR-15150, page D-16, PC
+002963.
+
+86. Ibid.; and Report,
+"SRB SRS 9 Flight Readiness Review," NASA, November 4, 1983, page
+35.
+
+87. Report, "Erosion
+of Solid Rocket Motor Pressure Seals," Thiokol, August 19, 1985,
+TWR-15150, PC 021767.
+
+88. Commission Hearing
+Transcript, May 2, 1986, page 2687.
+
+89. Commission Hearing
+Transcript, May 2, 1986, page 2621.
+
+90. Memorandum,
+B.Russell, Thiokol, June 13, 1984, "Minutes of Telecon with NASA
+MSFC on June 7, 1984," page 1, PC 102463.
+
+91. Memorandum,
+R.Russell, Thiokol, June 1, 1984, "Vacuum Putty/O-Ring Test
+Results," page 1, PC 102460.
+
+92. Memorandum,
+J.Miller, March 6, 1985, NASA.
+
+93. Memorandum, Young
+to Director, Flight Crew Operations, March 3, 1986.
+
+94. Commission
+Interview Transcript, M. Silveira, April 16, 1986, page 30.
+
+95. Commission
+Interview Transcript, J.Beggs, May 1, 1986, pages 5-6.
+
+96. Commission Hearing
+Transcript, February 27, 1986, page 1899.
+
+97. Report, "Flight
+Readiness Review STS 51-E SRM-16," Thiokol, February 12, 1985,
+pages 3-1 through 3-17.
+
+98. Commission Hearing
+Transcript, February 25, 1986, page 1392.
+
+99. Commission Hearing
+Transcript, Febrtuary 14, 1986, page 1202.
+
+100. Report, "Problem
+Assessment System Record #A07934," NASA, page 3, PC 037598.
+
+101. Memorandum,
+"51-C O-Ring Erosion Re: 51-E FRR," Mulloy to Wear, 03/31/85, PC
+102482.
+
+102. Report, "STS
+51-E Flight Readiness Review," Thiokol, February 8, 1984,
+TWR-14740 Rev. B Section 1, page 4.
+
+103. Ibid., Section
+6, page 4.
+
+104. Report, "SRM
+Seal Erosion Problems," NASA, March 19, 1986, PC 10235.
+
+105. Report, "O-Ring
+Resiliency Testing," Thiokol, June 3, 1985, PC 102509; and
+Memorandum, "Actions Pertaining to Field Joint Secondary Seal,"
+B.Russel, Thiokol, August 9, 1985, PC 102543.
+
+106. Ibid.
+
+107. Commission
+Hearing Transcript, May 2, 1986, page 2591.
+
+108. Commission
+Hearing Transcript, May 2, 1986, pages 2606-2607.
+
+109. Commission
+Hearing Transcript, May 2, 1986, page 2591.
+
+110. Memorandum,
+Lindstrom to Distribution, NASA, September 15, 1980, page
+1.
+
+111. Report, "MSFC
+Problem Assessment System," February 26, 1986, PC 037710.
+
+112. Report, "SRM
+Seal Erosion Problem, Revised," March 19, 1986, PC 037593.
+
+113. Commission
+Hearing Transcript, May 2, 1986, page 2735.
+
+114. Letter, McDonald
+to Wear, Thiokol, December 10, 1985, PC 49701.
+
+115. Commission
+Hearing Transcript, May 2, 1986, excerpt beginning pages 2590
+through 2646.
+
+116. Commission
+Hearing Transcript, May 2, 1986, page 2589.
+
+117. Commission
+Hearing Transcript, May 2, 1986, page 2635.
+
+118. Commission
+Hearing Transcript, May 2, 1986, page 2867.
+
+119. Memorandum,
+Winterhaler to Weeks, June 28, 1985.
+
+120. Memorandum, R.
+Boisjoly, July 22, 1985.
+
+121. Memorandum, R.
+Boisjoly, July 31, 1985.
+
+122. Letter, "Actions
+Pertaining to SRM Field Joint Secondary Seal," Russell to Thomas,
+August 9, 1985.
+
+123. Report, "Erosion
+of Solid Rocket Motor Pressure Seal Updated from August 19, 1985-
+Revised February 10, 1986," Thiokol, TWR-15150, PC 000769.
+
+124. Ibid.
+
+125. Memorandum, Lund
+to Sayer, August 20, 1985.
+
+126. Memorandum, "SRM
+Flight Seal Recommendation," Thompson to Stein, August 22,
+1985.
+
+127. Commission
+Hearing Transcript, February 14, 1986, page 1220.
+
+128. Report, "Program
+Plan Improvement of Space Shuttle SRM Motor Seal," Thiokol, August
+30, 1985, page 6.
+
+129. Report, "Erosion
+of SRM Pressure Seals," Thiokol, September 10, 1985, pages A-1 to
+C-5.
+
+130. Letter,
+Kingsbury to Mulloy, September 5, 1985.
+
+131. Report,
+"Activity Report- Solid Rocket Motor Seal Problem Task Team
+Status," Thiokol, October 4, 1985.
+
+132. Memorandum,
+Ebeling to McDonald, October 1, 1985, page 1.
+
+133. Ibid., page 2;
+and Report, "Erosion of SRM Pressure Seals, Update," February 10,
+1986, pages A-4a, A-6a, TWR-1510, PC000760.
+
+134. Report, "Level I
+STS 61-C Flight Readiness Review," NASA, December 11, 1985.
+
+135. Ibid., footnote
+133; and Report, "Solid Motor Branch Significant Events," NASA,
+December 12, 1985.
+
+136. Commission
+Hearing Transcript, May 2, 1986, pages 2746-2747.
+
+137. Memorandum,
+"Closure of SRM O-Ring Erosion Critical Problems," Russell to
+McDonald, December 6, 1985.
+
+138. Letter, McDonald
+to Wear, December 10, 1985.
+
+[ 151 ]
+139. Commission Hearing Transcript, May 2,
+1986, pages 2682-2695
+
+140. Report, "Problem
+Assessment System," NASA, entry dated December 18, 1985.
+
+141. Ibid., entry
+January 23, 1986.
+
+142. Commission
+Hearing Transcript, May 2, 1986. pages 2589-2590.
+
+143. Ibid., pages
+2619-2623.
+
+144. Commission
+Hearing Transcript, February 11, 1986, pages 65O-653.
+
+145. Report, "Shuttle
+Project Flight Readiness Review (Prelaunch Activities Team
+Report)," NASA, December 29, 1983, page 75.
+
+146. Reports, "STS-3
+Flight Readiness Review for Levels I, II, III and
+Contractor."
+
+147. Commission
+Hearing Transcript, February 26. 1986, page 1639.
+
+148. Report, "STS-13
+Solid (41-C) Rocket Motor Flight Readiness Review," Thiokol, March
+2, 1984, page 2, TWR-14231.
+
+149. Report STS 41-C
+Flight Readiness Review Solid Rocket Booster," NASA, March 30,
+1984, page 39.
+
+150. Report, "O-Ring
+Erosion on SRM-15," Thiokol, February 12, 1985, pages 1 through
+17.
+
+151. Report, "STS
+51-E Flight Readiness Review," Thiokol, February 12, 1985,
+TWR-14740 Rev. D., Section 3, page 17.
+
+152. Report, "STS 51-E
+Flight Readiness Review, Level 1," NASA, February 21, 1985, page
+4.
+
+153. Report, "STS 51-F
+Flight Readiness Review, Level 1,'' NASA, July 2, 1985, page
+5.
+
+154. Commission
+Hearing Transcript, April 3, 1986, page 2469.
+

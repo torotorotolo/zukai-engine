@@ -1,0 +1,582 @@
+
+
+v1ch2
+
+Report of the PRESIDENTIAL COMMISSION
+on the Space Shuttle Challenger Accident
+
+Chapter II: Events Leading Up to
+the Challenger Mission
+
+[ 10 ] Preparations for the
+launch of mission 51-L were not unusual, though they were complicated
+by changes in the launch schedule. The sequence of complex,
+interrelated steps involved in producing the detailed schedule and
+supporting logistics necessary for a successful mission always
+requires intense effort and close coordination.
+
+Flight 51-L of the Challenger was originally
+scheduled for July, 1985, but by the time the crew was assigned in
+January, 1985, launch had been postponed to late November to
+accommodate changes in payloads. The launch was subsequently delayed
+further and finally rescheduled for late January, 1986.
+
+After the series of payload changes, the
+Challenger cargo included two satellites in the cargo bay and
+equipment in the crew compartment for experiments that would be
+carried out during the mission. The payloads flown on mission 51-L
+are listed in this table:
+
+Mission 51-L Payloads
+
+Tracking and Data Relay Satellite-B
+
+Spartan-Halley Satellite
+
+Comet Halley Active Monitoring
+Program
+
+Fluid Dynamics Experiment
+
+Phase Partitioning Experiment
+
+Teacher in Space Project
+
+Shuttle Student Involvement Program
+
+Radiation Monitoring Experiment
+
+The primary payloads were the Tracking and
+Data Relay Satellite (a NASA communications satellite) and the
+Spartan satellite that would be deployed into orbit carrying special
+instruments for the observation of Halley's Comet.
+
+The NASA communications satellite was to have
+been placed in a geosynchronous orbit with the aid of a booster
+called the Inertial Upper Stage. The satellite would have supported
+communications with the Space Shuttle and up to 23 other
+spacecraft.
+
+The Spartan satellite was to have been
+deployed into low Earth orbit using the remote manipulator system.
+The Spartan instruments would have watched Halley's Comet when it was
+too close to the Sun for other observatories to do so. Subsequently,
+the satellite would have been retrieved and returned to Earth in the
+Shuttle payload bay.
+
+Crew Assignments
+
+On January 27, 1985, one year before launch,
+NASA announced the names of the astronauts assigned to mission
+51-L:
+
+Commander
+
+Francis R. Scobee
+
+Pilot
+
+Michael J. Smith
+
+Mission Specialist One
+
+Ellison S. Onizuka
+
+Mission Specialist Two
+
+Judith A. Resnik
+
+Mission Specialist Three
+
+Ronald E. McNair
+
+The mission commander, Francis R. (Dick)
+Scobee, first flew on the Space Shuttle as the pilot of mission 41-C
+in April, 1984. Mr. Scobee, a native of Auburn, Washington, received
+his bachelor's degree in aerospace engineering from the University of
+Arizona. A former Air Force....
+
+[ 11 ]
+
+Space Shuttle 51-L on Pad 39-B of
+Kennedy Space Center's launch complex.
+
+[ 12 ] ...test pilot with
+7,000 hours in 45 aircraft types, he became an astronaut in
+1978.
+
+The mission pilot, Captain Michael J. Smith,
+USN, was on his first Shuttle flight after being selected as an
+astronaut in 1980. A native of Beaufort, North Carolina, Captain
+Smith, a 1967 graduate of the United States Naval Academy, received a
+master's degree from the Naval Postgraduate School. He was a Navy
+test pilot with extensive experience in a variety of aircraft.
+
+Mission specialist Lieutenant Colonel Ellison
+S. Onizuka, USAF, from Kealakekua, Kona, Hawaii, received his
+master's degree in aerospace engineering at the University of
+Colorado. A flight test engineer in the Air Force, he became an
+astronaut in 1978 and flew on the first military mission (51-C) in
+January, 1985, aboard the Space Shuttle Discovery
+
+Mission specialist Judith A. Resnik, Ph.D.,
+flew on the first flight of the Orbiter Discovery on mission 41-D in
+August, 1984. Born in Akron, Ohio, Dr. Resnik received her doctorate
+in electrical engineering from the University of Maryland in 1976.
+After working for several industrial firms, she became an astronaut
+in 1978.
+
+Mission specialist Ronald E. McNair, Ph.D., a
+native of Lake City, South Carolina, received his doctorate in
+physics from the Massachusetts Institute of Technology in 1976. After
+working as a research physicist in civilian industry, he...
+
+Diagram shows the scheduling of
+various preparatory milestones in the months that preceded the
+launching of the Mission 51-L Shuttle.
+
+[ 13 ] ....became an
+astronaut in 1978 and first flew on mission 41-B in February, 1984,
+aboard the Space Shuttle Challenger.
+
+Payload specialists are members of a Space
+Shuttle crew who are not career astronauts. Two such specialists,
+Christa McAuliffe and Gregory B. Jarvis, were added to the crew of
+mission 51 -L.
+
+Ms. McAuliffe was born in Boston and raised in
+Framingham, Massachusetts, where she graduated from Framingham State
+College. After teaching a variety of junior high and high school
+subjects in Maryland and New Hamphire, she was selected as the
+Teacher in Space. She was assigned to the 51-L crew in July,
+1985.
+
+Mr. Jarvis was a former Air Force engineer who
+specialized in satellite design. He was born in Detroit, Michigan,
+and received his master's degree in electrical engineering from
+Northeastern University in Boston. He was assigned to the 51-L crew
+in October, 1985, as a representative of the Hughes Aircraft
+Company.
+
+The payload specialists each had
+responsibilities for mission 51-L. Ms. McAuliffe was to conduct a
+series of classroom lessons from orbit and conduct several basic
+classroom experiments. Mr. Jarvis was to perform a series of fluid
+dynamics experiments that would support satellite redesign.
+
+Preparations for Flight
+
+Planning for mission 51-L began in 1984, but
+10 major change documents adding or deleting payload items caused
+some disruption in the preparation process. Because the 12- to
+18-month process is a series of repetitive cycles that define a
+flight design in progressively more specific detail, significant
+changes can require extensive time and effort to incorporate. The
+closer to the planned launch date the changes occur, the more
+difficult and disruptive it becomes to repeat the cycles necessary to
+complete a mission plan. (See the Mission 51-L Milestone Summary
+chart.) Although there were several significant changes to the cargo
+manifest, most occurred early enough in the planning cycle to
+minimize their impact on the flight preparation.
+
+The cargo integration review is one of the
+crucial coordination meetings in the flight preparation process. At
+that meeting, requirements for all payloads are examined to ensure
+that, collectively, they are within the capabilities of the vehicle
+and crew.
+
+For mission 51-L, the cargo integration review
+was rescheduled six times, primarily because of payload changes. All
+major payload changes were made, however, before the review
+eventually took place on June 18, 1985, seven months before the
+launch. Until the cargo integration review for a mission is
+completed, the development of the final flight design products cannot
+really get underway. Because the mission 51-L payload changes were
+made before the cargo integration review, however, changes to the
+manifest did not seriously disrupt the preparation cycle.
+
+Once the principal payload items were
+determined and the cargo integration review was completed, the flight
+design process became relatively straightforward. The flight design
+process is the central element in flight preparation. The process
+transforms the broad objectives of the flight into a detailed
+sequence of events from launch to landing. For mission 51 -L, the
+objectives consisted of placing one satellite in orbit, deploying and
+retrieving Spartan, and conducting the six experiments. From that
+base, the flight design process produced a detailed schedule of
+events, trajectory data, requirements for consumable items,
+communications requirements and the necessary computer programing for
+the Orbiter, the Mission Control Center, and the Shuttle simulator
+used to train the crew for this particular mission.
+
+The launch minus five months Flight Planning
+and Stowage Review was conducted on August 20, 1985, to address any
+unresolved issues and any changes to the plan that had developed to
+that point. Ideally, the mission events are firmly determined before
+the review takes place. For mission 51-L, however, Mr. Jarvis was not
+added to the crew until October 25, 1985, and his activities could
+not be incorporated into mission planning until that time. The crew
+activity plan, the formal flight requirements and the flight design
+status were reviewed as well as the current status of the engineering
+integration, the photo and TV requirements, and crew compartment
+stowage. The Flight Planning and Stowage Review did identify the need
+for further consideration of the launch window and of the then
+undefined requirements for the Teacher-in-Space program.
+
+There were changes to middeck payloads,
+resulting from the addition of Mr. Jarvis, that occurred less than
+three months before launch. The most negative result of the changes
+was a [ 14 ] delay in publishing the crew activity plan. The crew
+activity plan specifies the in-flight schedule for all crew members,
+which in turn affects other aspects of flight preparation. Because
+the NASA communications satellite training requirements were quite
+similar to those for a previous flight, the crew training began using
+that existing crew activity plan and associated checklists.
+Considerable time was saved as a result. The requirements unique to
+Spartan did not involve major departures from the standard satellite
+deployment and rendezvous techniques that had been developed on
+mission 51-G, the experiment packages did not require any new Orbiter
+procedures, and the ascent and entry techniques were standard. Thus,
+mission 51-L did not involve radical departures from previous flight
+patterns.
+
+The crew began training 3 7 weeks before
+launch. Preparation in the Shuttle Mission Simulator, a fully
+instrumented mock-up of the Shuttle interior, began at launch minus
+36 weeks. Integrated training in the simulator, which allows the crew
+to train with the flight controllers who will be controlling the
+flight in both the Mission Control Center and remote centers, began
+at launch minus nine weeks. For the crew, Shuttle simulator training
+included preparation for the use of the robot arm, a rendezvous in
+space, Inertial Upper Stage deployment, ascent and entry procedures,
+and a variety of other activities.....
+
+Graph compares training workloads of
+crews for six Shuttle missions in the nine weeks that preceded the
+launching of the space flights.
+
+[ 15 ] ....that must be
+practiced repeatedly if a Shuttle mission is to be carried out
+successfully.
+
+All NASA crew members exceeded the number of
+training hours required and were certified proficient in all mission
+tasks. The two payload specialists also fulfilled their training
+requirements. All mission 51 -L astronauts and flight controllers
+were certified ready for flight.
+
+From a flight design process point of view,
+mission 51-L was a fairly typical mission. The most noticeable effect
+of the delays in the production process was a delay in the start of
+Shuttle Mission Simulator training specific to the flight. That
+training began at launch minus nine weeks for the crew of 51-L, two
+weeks later than the original schedule required.
+
+Compressed training time was becoming a
+concern in late 1985. The crew of mission 51-L trained for an average
+of 48.7 hours per week during those nine weeks before launch, with
+peaks reaching 65 to 70 hours per week. Much more compression in
+their training schedule would not have been possible. (See the Crew
+Workload Comparisons graph.)
+
+Launch date delays for mission 61-C also
+became a scheduling factor for the integrated simulations for mission
+51-L. Originally scheduled for the third week in December, the 61-C
+launch was delayed until January 12, 1986. During the last six weeks
+before the Challenger launch, the 51-L schedule was changed several
+times as a result of launch delays of 61-C. The final impact on the
+Challenger crew training was reduced spacing between the ascent and
+entry simulations during the last two weeks before launch, but no
+training time was lost.
+
+Flight Readiness Review
+
+The Level I Flight Readiness Review for
+mission 51-L took place on January 15, 1986. The Flight Readiness
+Review should address all aspects of flight preparation about which
+any questions have arisen. In addition, attendees confirm that all
+equipment and operational plans have been certified ready by the
+responsible manager within NASA. Solid Rocket Booster joints were not
+discussed during the review on January 15.
+
+The period during the day when a particular
+flight can be launched is determined by the requirements of the
+Orbiter and the payloads. The launch period for mission 51-L was
+limited in order to provide the best lighting conditions for
+Spartan's observations of Halley's Comet. The resulting «launch
+window" was a topic of some discussion at the Flight Readiness
+Review. The Challenger launch originally had been scheduled for a
+morning lift off. When Spartan was added to the mission, the launch
+window was changed to the afternoon. This change would have required
+a landing at night if a transatlantic abort landing had become
+necessary. Because the alternate transatlantic site, Casablanca, was
+not equipped for a night landing, the afternoon launch eliminated
+that back-up site. As January drew to a close, however, the
+conditions for optimum telescopic viewing of the comet could not be
+met. The launch window was shifted back to the morning hours so that
+the transatlantic abort site would be in daylight and a back-up site
+(Casablanca) would be available.
+
+The results of the flight design process were
+summarized at the Flight Readiness Review. The predicted ascent
+performance, including expected trajectory, main engine throttling
+profile, expected dynamic pressure and the amount of propellant
+reserve expected at main engine cutoff, were presented and discussed.
+The expected landing parameters, weight and center of gravity figures
+were also presented for a variety of contingencies. It should be
+noted that a waiver was required because the weight of the Orbiter
+exceeded the allowable limits for an abort landing. The flight design
+data presented at the Flight Readiness Review are available in the
+Appendix in the NASA Mission Planning and Operations Team Report. No
+outstanding concerns were identified in the discussion of flight
+design.
+
+The detailed flight plan and schedule of crew
+activities also were presented at the Flight Readiness Review. The
+Challenger was to circle the Earth for six days at an orbital
+altitude of approximately 153 nautical miles, landing early on the
+seventh day at Kennedy in Florida.
+
+The major activities were to include
+deployment of the tracking and data relay satellite 10 hours after
+launch, deployment of the Spartan satellite on the third day of the
+flight and subsequent retrieval of the Spartan two days later. A
+summary of the planned activities is provided in the table that
+follows.
+
+[ 16 ] Mission 51-L Orbital Activity Schedule
+
+Day One
+
+After arriving in orbit, the crew had
+two periods of scheduled high activity. First, they were to
+check the readiness of the NASA satellite prior to planned
+deployment. After a lunch break, they were to deploy the
+satellite and Inertial Upper Stage and to perform a series
+of separation maneuvers. The first sleep period was
+scheduled to be eight hours long starting about 18 hours
+after crew wake-up on launch morning.
+
+Day Two
+
+The Comet Halley Active Monitoring
+Program experiment was scheduled to begin on the second day.
+Also scheduled were the initial teacher-in-space video
+taping and a firing of the orbital maneuvering engines to
+place the Orbiter at the 1 52-mile orbital altitude from
+which the Spartan would be deployed.
+
+Day Three
+
+The third day was to start with the
+crew programing the Spartan satellite with data sent from
+Johnson. The satellite was to be deployed using the remote
+manipulator system (the robot arm), and then the Orbiter
+would be maneuvered to produce, by day four, a 90-mile
+separation from Spartan.
+
+Day Four
+
+The Orbiter was to begin closing on
+Spartan while Jarvis continued the fluid dynamics
+experiments started on day two and day three. In addition,
+two lessons telecast live were to be conducted by Ms.
+McAuliffe.
+
+Day Five
+
+After rendezvous with Spartan, the
+crew was to use the robot arm to capture the satellite and
+re-stow it in the payload bay.
+
+Day Six
+
+Entry preparations were to dominate
+the last full day in space: flight control system checks,
+test firing of maneuvering jets needed for entry, and cabin
+stowage. A crew news conference also was scheduled following
+the lunch period, if requested by the NASA Public Affairs
+Office.
+
+Day Seven
+
+The seventh day would have been spent
+preparing the Space Shuttle for deorbit and entry into the
+atmosphere. The Challenger was scheduled to land at Kennedy
+144 hours and 34 minutes after launch.
+
+[ 17 ] Launch Delays
+
+The launch of mission 51-L was postponed three
+times and scrubbed once from the planned date of January 22, 1986.
+The first postponement was announced on December 23, 1985. That
+change established the launch date as January 23, 1986, in order to
+accommodate the final integrated simulation schedule that resulted
+from the slip in the launch date of mission 61-C.
+
+On January 22, 1986, the Program Requirements
+Change Board first slipped the launch from January 23 to January 25.
+That date subsequently was changed to January 26, 1986, primarily
+because of Kennedy work requirements produced by the late launch of
+mission 61-C.
+
+The third postponement of the launch date
+occurred during an evening management conference on January 25, 1986,
+to review the weather forecast for the Kennedy area. Because the
+forecast was for unacceptable weather throughout the launch window on
+January 26, early countdown activities that had already started were
+terminated.
+
+The launch attempt of January 27 began the day
+before as the complex sequence of events leading to lift off
+commenced. Fueling of the External Tank began at 12:30 a.m. Eastern
+Standard Time. The crew was awakened at 05:07 a.m., and events
+proceeded normally with the crew strapped into the Shuttle at 07:56
+a.m. At 09: 10, however, the countdown was halted when the ground
+crew reported a problem with an exterior hatch handle. By the time
+the hatch handle problem was solved at 10:30 a.m., winds at the
+Kennedy runway designated for a return-to-launchsite abort had
+increased and exceeded the allowable velocity for crosswinds. The
+launch attempt for January 27 was canceled at 12:35 p.m. Eastern
+Standard Time; the Challenger countdown was rescheduled for January
+28.
+
+The weather was forecast to be clear and very
+cold, with temperatures dropping into the low twenties overnight. The
+management team directed engineers to assess the possible effects of
+temperature on the launch. No critical issues were identified to
+management officials, and while evaluation continued, it was decided
+to proceed with the countdown and the fueling of the External
+Tank.
+
+Ice had accumulated in the launch pad area
+during the night and it caused considerable concern for the launch
+team. In reaction, the ice inspection team was sent to the launch pad
+at 01:35 a.m., January 28, and returned to the Launch Control Center
+at 03:00 a.m. After a meeting to consider the team's report, the
+Space Shuttle program manager decided to continue the countdown.
+Another ice inspection was scheduled at launch minus three
+hours.
+
+Also, during the night, prior to fueling, a
+problem developed with a fire detector in the ground liquid hydrogen
+storage tank. Though it was ultimately tracked to a hardware fault
+and repaired, fueling was delayed by two and one-half hours. By
+continuing past a planned hold at launch minus three hours, however,
+the launch delay was reduced to one hour. Crew wake-up was
+rescheduled for 06:18 a.m., January 28, but by that time the crew was
+already up.
+
+Because of forecast rain and low ceilings at
+Casablanca, the alternate abort site, that site was declared a"no-go"
+at 07:30 a.m. The change had no mission impact, however, because the
+weather at the primary transatlantic abort landing site at Dakar,
+Senegal, was acceptable. The abort-once-around site was Edwards Air
+Force Base, California.
+
+With an extra hour, the crew had more than
+sufficient time to eat breakfast, get a weather briefing and put on
+flight gear. At the weather briefing, the temperature and ice on the
+pad were discussed, but neither then nor in earlier weather
+discussions was the crew told of any concern about the effects of low
+temperature on the Shuttle System. The seven crew members left the
+crew quarters and rode the astronaut van to launch pad B, arriving at
+08:03. They were in their seats in the Challenger at 08:36
+a.m.
+
+At 08:44 a.m. the ice team completed its
+second inspection. After hearing the team's report, the program
+manager decided to allow additional time for ice to melt on the pad.
+He also decided to send the ice team to perform one final ice
+assessment at launch minus 20 minutes. When the count was resumed,
+launch had been delayed a second hour beyond the original lift off
+time of 09:38 a.m., Eastern Standard Time.
+
+At 11: 15 the ice inspection was completed,
+and during the hold at launch minus nine minutes, the mission 51-L
+crew and all members of the launch team gave their "go" for launch.
+The final flight of the Challenger began at 11:38:00.010 a.m.,
+Eastern Standard Time, January 28, 1986.
+
+[ 18 ]
+The Flight of the
+Challenger
+
+The events that followed lift
+off were brief:
+
+Launch Time
+
+Event
+
+.
+
+- 6.6 sec.
+
+Space Shuttle engines ignition
+
+O sec.
+
+Solid Rocket Booster ignition
+
++ 7 sec.
+
+"Roll program." (Challenger)
+
+"Roger, roll, Challenger."
+(Houston)
+
++ 24 sec.
+
+Main engines throttled down to
+94%
+
++ 42 sec.
+
+Main engines throttled down to
+65%
+
++ 59 sec.
+
+Main engines throttled up to
+104%
+
++ 65 sec.
+
+"Challenger, go at throttle
+up."
+
+(Houston) "Roger. Go at throttle up."
+(Challenger)
+
++ 73 sec.
+
+Loss of signal from Challenger
+
+From lift off until the signal from the
+Shuttle was lost, no flight controller observed any indication of a
+problem. The Shuttle's main engines throttled down to limit the
+maximum dynamic pressure, then throttled up to full thrust as
+expected. Voice communications with the crew were normal. The crew
+called to indicate the Shuttle had begun its roll to head due east
+and to establish communication after launch. Fifty-seven seconds
+later, Mission Control informed the crew that the engines had
+successfully throttled up and all other systems were satisfactory.
+The commander's acknowledgment of this call was the last voice
+communication from the Challenger.
+
+There were no alarms sounded in the cockpit.
+The crew apparently had no indication of a problem before the rapid
+break-up of the Space Shuttle system. The first evidence of an
+accident came from live video coverage. Radar then began to track
+multiple objects. The flight dynamics officer in Houston confirmed to
+the flight director that "RSO [range safety officer] reports vehicle
+exploded," and 30 seconds later he added that the range safety
+officer had sent the destruct signal to the Solid Rocket
+Boosters.
+
+During the period of the flight when the Solid
+Rocket Boosters are thrusting, there are no survivable abort options.
+There was nothing that either the crew or the ground controllers
+could have done to avert the catastrophe. .
+

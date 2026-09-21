@@ -1,0 +1,194 @@
+{
+ "_note": "11本目（チャレンジャー号 STS-51-L）の素材の欄。MUST/NG はキャプションに語境界で当てる。⚠️ ここで出る数は候補であって在庫ではない（最後は list で1行ずつ読む）＝[[feedback-inventory-is-not-usable-material]]",
+ "_year": null,
+ "_year_note": "🔴 単年に絞れない。事故＝1986年、乗員の訓練とマコーリフ＝1985年で、どちらも要る。代わりに _global_ng で『別の飛行』を落とす。⚠️ 1984年の107件は 41-B/41-C/41-G＝同じチャレンジャー号の別の飛行で、年の網は通ってしまう",
+ "_1984_は捨てる": "🔴 実測（2026-09-21）：NG を通ったうえで欄に入った1984年の13件のうち **12件が別の飛行**（41-C・41-G・41-B/STS-11・51-A・51-C）だった。題名に飛行の名が入っていないので語の網では落ちない（例＝『Astronaut Francis R. (Dick) Scobee boards T-38 for trip to KSC』＝41C-3002）。**使うのは 1985年と1986年だけ。**1984年から拾うのは S85-37164（IDは85だが年の欄が1984。マコーリフの記者会見）の1件だけ",
+ "_global_ng": [
+  "51-b",
+  "51-f",
+  "51-g",
+  "51-j",
+  "51-d",
+  "51-e",
+  "41-b",
+  "41-c",
+  "41-d",
+  "41-g",
+  "61-a",
+  "61-b",
+  "61-c",
+  "spacelab",
+  "sts-26",
+  "sts-28",
+  "sts-29",
+  "sts-30",
+  "sts-51g",
+  "earth observations",
+  "payload bay",
+  "aurora",
+  "atlantis",
+  "discovery"
+ ],
+ "launch": {
+  "_what": "1986-01-28 11:38 の打ち上げ（リフトオフ・上昇・排気の筋）",
+  "must": [
+   "liftoff",
+   "lift-off",
+   "launch of the shuttle challenger",
+   "exhaust trail"
+  ],
+  "ng": []
+ },
+ "ice": {
+  "_what": "🔴 この回の決め手。発射台の氷・つらら（当日朝の気温 2.2℃）",
+  "must": [
+   "ice",
+   "icicle",
+   "icicles",
+   "frost"
+  ],
+  "ng": []
+ },
+ "smoke": {
+  "_what": "🔴 リフトオフ時に継ぎ目から出た黒い煙（Oリングが密封できなかった証拠）",
+  "must": [
+   "black smoke",
+   "smoke"
+  ],
+  "ng": []
+ },
+ "accident": {
+  "_what": "73秒後の機体の破壊そのもの",
+  "must": [
+   "accident after launch",
+   "disaster",
+   "explosion"
+  ],
+  "ng": []
+ },
+ "pad": {
+  "_what": "射点39B・組み上がった機体",
+  "must": [
+   "pad 39-b",
+   "pad 39b",
+   "launch complex",
+   "launch pad"
+  ],
+  "ng": []
+ },
+ "crew": {
+  "_what": "乗員7名（公式肖像・記章・ホワイトルーム・打ち上げ前の朝食）",
+  "must": [
+   "official portrait",
+   "crew insignia",
+   "crewmembers",
+   "white room",
+   "pre-launch breakfast",
+   "crew pose for portrait",
+   "crew of space shuttle",
+   "crew in white room"
+  ],
+  "ng": []
+ },
+ "mcauliffe": {
+  "_what": "🔴 差し分けの核。クリスタ・マコーリフ（民間の教師）とバーバラ・モーガン（控え）",
+  "must": [
+   "mcauliffe",
+   "mcaulliffe",
+   "teacher in space",
+   "teacher-in-space",
+   "teach-in-space",
+   "morgan"
+  ],
+  "ng": []
+ },
+ "training": {
+  "_what": "51-L の乗員訓練（無重力・T-38・脱出訓練・模型）",
+  "must": [
+   "crew training",
+   "egress training",
+   "zero-g",
+   "zero gravity",
+   "t-38",
+   "mockup",
+   "training session",
+   "training flight",
+   "training ride",
+   "middeck mockup"
+  ],
+  "ng": []
+ },
+ "mcc": {
+  "_what": "打ち上げ時の管制室",
+  "must": [
+   "mission control"
+  ],
+  "ng": []
+ },
+ "recovery": {
+  "_what": "海からの回収（SRB・残骸の引き揚げ・艦船）",
+  "must": [
+   "retrieval",
+   "recovery",
+   "salvage",
+   "unloaded at ksc",
+   "cutter dallas",
+   "debris aboard"
+  ],
+  "ng": []
+ },
+ "debris": {
+  "_what": "回収した残骸の検証（Oリングの焼けた跡・継ぎ目・記録装置の解析）",
+  "must": [
+   "debris",
+   "o-ring",
+   "burn marks",
+   "mads recorder",
+   "recorder tape",
+   "right wing"
+  ],
+  "ng": []
+ },
+ "commission": {
+  "_what": "ロジャース委員会（大統領委員会）",
+  "must": [
+   "presidential commission",
+   "rogers commission",
+   "commission on challenger",
+   "commission investigating"
+  ],
+  "ng": []
+ },
+ "memorial": {
+  "_what": "追悼式・半旗・副大統領の到着",
+  "must": [
+   "memorial",
+   "half-staff",
+   "half staff",
+   "vice president"
+  ],
+  "ng": []
+ },
+ "reagan": {
+  "_what": "🔴 2026-09-21 に Commons の一覧を読んで見つけて足した欄。レーガン大統領（執務室で中継の再生を見る・国民への演説・遺族・手書きの手紙の草稿）。⚠️ 当初の欄には無かった＝欄は一覧を読んでから足す",
+  "must": [
+   "reagan",
+   "oval office",
+   "speech to the nation",
+   "white house"
+  ],
+  "ng": []
+ },
+ "srb": {
+  "_what": "固体ロケットブースターの継ぎ目・Oリングのハードウェア（図の地に敷く）",
+  "must": [
+   "solid rocket booster",
+   "srb",
+   "solid rocket motor",
+   "tang",
+   "clevis",
+   "field joint"
+  ],
+  "ng": []
+ }
+}

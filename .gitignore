@@ -213,6 +213,24 @@ ref/ep10/src/*
 !ref/ep10/src/seen.tsv
 !ref/ep10/src/order.json
 
+# ── 11本目 チャレンジャー号 STS-51-L（2026-09-21 ①題材＋②素材）──────────
+# ⚠️ 上の `ref/*` が ref/ を丸ごと無視する造り（許可制）。**フォルダから明示的に開ける。**
+!ref/ep11/
+# 入れるもの＝素材の台帳・欄の定義・実測の束（どれも機械の実測から書いたテキスト）
+!ref/ep11/materials.md
+!ref/ep11/slots_nasa.json
+# NASA 画像庫 298点の実測（原本の画素を1点ずつ Range で測った値が入っている＝測り直しが高い）
+!ref/ep11/nasa_ep11.json
+# 一次資料＝ロジャース委員会報告書 第I巻の本文テキスト（約700KB）。④と④' が原文照合に使う
+!ref/ep11/src/
+!ref/ep11/src/*.txt
+# 入れないもの＝落とした実体と、探索の途中結果
+#   生の HTML（約1MB）・archive.org の探索結果・NASA 画像庫の動画側の探索結果。
+#   取り直す入口は ref/ep11/materials.md §1・§3・§5 に URL とコマンドで書いてある
+ref/ep11/src/*.htm
+ref/ep11/ia_ep11.json
+ref/ep11/nasa_ep11_video.json
+
 # ⑤c-2（2026-09-20）原寸の切り出し。**焼けた絵から何度でも作り直せる**ので git に載せない
 # （23枚で 6.3MB。公開リポジトリなので派生画像は置かない）。作り直す＝qa_out/ep10_crop.py
 qa_out/crop/

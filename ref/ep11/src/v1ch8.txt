@@ -1,0 +1,1100 @@
+
+
+v1ch8
+
+Report of the PRESIDENTIAL COMMISSION
+on the Space Shuttle Challenger Accident
+
+Chapter VIII: Pressures on the
+System.
+
+[ 164 ] With the 1982
+completion of the orbital flight test series, NASA began a planned
+acceleration of the Space Shuttle launch schedule. One early plan
+contemplated an eventual rate of a mission a week, but realism forced
+several downward revisions. In 1985, NASA published a projection
+calling for an annual rate of 24 flights by 1990. Long before the
+Challenger accident, however, it was becoming obvious that even the
+modified goal of two flights a month was overambitious.
+
+In establishing the schedule, NASA had not
+provided adequate resources for its attainment. As a result, the
+capabilities of the system were strained by the modest nine-mission
+rate of 1985, and the evidence suggests that NASA would not have been
+able to accomplish the 15 flights scheduled for 1986. These are the
+major conclusions of a Commission examination of the pressures and
+problems attendant upon the accelerated launch schedule.
+
+On the same day that the initial orbital tests
+concluded-July 4, 1982-President Reagan announced a national policy
+to set the direction of the U. S. space program during the following
+decade. As part of that policy, the President stated that:
+
+"The United States Space
+Transportation System (STS) is the primary space launch system for
+both national security and civil government missions."
+
+Additionally, he said:
+
+"The first priority of the STS
+program is to make the system fully operational and cost-effective in
+providing routine access to space."
+
+From the inception of the Shuttle, NASA had
+been advertising a vehicle that would make space operations "routine
+and economical." The greater the annual number of flights, the
+greater the degree of routinization and economy, so heavy emphasis
+was placed on the schedule. However, the attempt to build up to 24
+missions a year brought a number of difficulties, among them the
+compression of training schedules, the lack of spare parts, and the
+focusing of resources on nearterm problems.
+
+One effect of NASA's accelerated flight rate
+and the agency's determination to meet it was the dilution of the
+human and material resources that could be applied to any particular
+flight.
+
+The part of the system responsible for turning
+the mission requirements and objectives into flight software, flight
+trajectory information and crew training materials was struggling to
+keep up with the flight rate in late 1985, and forecasts showed it
+would be unable to meet its milestones for 1986. It was falling
+behind because its resources were strained to the limit, strained by
+the flight rate itself and by the constant changes it was forced to
+respond to within that accelerating schedule. Compounding the problem
+was the fact that NASA had difficulty evolving from its singleflight
+focus to a system that could efficiently support the projected flight
+rate. It was slow in developing a hardware maintenance plan for its
+reusable fleet and slow in developing the capabilities that would
+allow it to handle the higher volume of work and training associated
+with the increased flight frequency.
+
+[ 165 ] Pressures developed
+because of the need to meet customer commitments, which translated
+into a requirement to launch a certain number of flights per year and
+to launch them on time. Such considerations may occasionally have
+obscured engineering concerns. Managers may have forgotten-partly
+because of past success, partly because of their own well-nurtured
+image of the program-that the Shuttle was still in a research and
+development phase. In his testimony before a U.S. Senate
+Appropriations subcommittee on May 5, 1982, following the third
+flight of the Space Shuttle, James Beggs, then the NASA
+Administrator, expressed NASA's commitment:
+
+"The highest priority we have set
+for NASA is to complete development of the Shuttle and turn it into
+an operational system. Safety and reliability of flight and the
+control of operational costs are primary objectives as we move
+forward with the Shuttle program." 1
+
+Sixteen months later, arguing in support of
+the Space Station, Mr. Beggs said, "We can start anytime.... There's
+no compelling reason [why] it has to be 1985 rather than '86 or '87.
+The point that we have made is that the Shuttle is now operational."
+2 The prevalent attitude in the program appeared to be
+that the Shuttle should be ready to emerge from the developmental
+stage, and managers were determined to prove it "operational."
+
+Various aspects of the mission design and
+development process were directly affected by that determination. The
+sections that follow will discuss the pressures exerted on the system
+by the flight rate, the reluctance to relax the optimistic schedule,
+and the attempt to assume an operational status.
+
+Planning of a Mission
+
+The planning and preparation for a Space
+Shuttle flight require close coordination among those making the
+flight manifest, those designing the flight and the customers
+contracting NASA's services. The goals are to establish the manifest;
+define the objectives, constraints and capabilities of the mission;
+and translate those into hardware, software and flight
+procedures.
+
+There are major program decision points in the
+development of every Shuttle flight. At each of these points,
+sometimes called freeze points, decisions are made that form the
+basis for further engineering and product development. The
+disciplines affected by these freeze points include integration
+hardware, engineering, crew timeline, flight design and crew
+training.
+
+The first major freeze point is at launch
+minus 15 months. At that time the flight is officially defined: the
+launch date, Orbiter and major payloads are all specified, and
+initial design and engineering are begun based on this
+information.
+
+The second major freeze point is at launch
+minus 7.7 months, the cargo integration review. During this review,
+the integration hardware design, Orbiter vehicle configuration,
+flight design and software requirements are agreed to and specified.
+Further design and engineering can then proceed.
+
+Another major freeze point is the flight
+planning and stowage review at launch minus five months. At that
+time, the crew activity timeline and the crew compartment
+configuration, which includes middeck payloads and payload specialist
+assignments, are established. Final design, engineering and training
+are based on these products.
+
+Development of Flight Products
+
+The "production process" begins by collecting
+all mission objectives, requirements and constraints specified by the
+payload and Space Shuttle communities at the milestones described
+above. That information is interpreted and assimilated as various
+groups generate products required for a Space Shuttle flight:
+trajectory data, consumables requirements, Orbiter flight software,
+Mission Control Center software and the crew activity plan, to name
+just a few.
+
+Some of these activities can be done in
+parallel, but many are serial. Once a particular process has started,
+if a substantial change is made to the flight, not only does that
+process have to be started again, but the process that preceded it
+and supplied its data may also need to be repeated. If one group
+fails to meet its due date, the group that is next in the chain will
+start late. The delay then cascades through the system.
+
+Were the elements of the system meeting their
+schedules? Although each group believed it had an adequate amount of
+time allotted to perform its function, the system as a whole was
+falling....
+
+[ 166 ]
+
+Graph depicts beginning of simulator
+training for Shuttle crews in days before launch for missions 41-B
+through 61-E.
+
+....behind. An assessment of the system's
+overall performance is best made by studying the process at the end
+of the production chain: crew training. Analysis of training
+schedules for previous flights and projected training schedules for
+flights in the spring and summer of 1986 reveals a clear trend: less
+and less time was going to be available for crew members to
+accomplish their required training. (See the Shuttle mission
+simulator training chart.)
+
+The production system was disrupted by several
+factors including increased flight rate, lack of efficient production
+processing and manifest changes.
+
+Changes in the Manifest
+
+Each process in the production cycle is based
+on information agreed upon at one of the freeze points. If that
+information is later changed, the process may have to be repeated.
+The change could be a change in manifest or a change to the Orbiter
+hardware or software. The hardware and software changes in 1985
+usually were mandatory changes; perhaps some of the manifest changes
+were not.
+
+The changes in the manifest were caused by
+factors that fall into four general categories: hardware problems,
+customer requests, operational [ 167 ] constraints and
+external factors. The significant changes made in 1985 are shown in
+the accompanying table. The following examples illustrate that a
+single proposed change can have extensive impact, not because the
+change itself is particularly difficult to accommodate (though it may
+be), but because each change necessitates four or five other changes.
+The cumulative effect can be substantial. (See the Impact of Manifest
+Changes chart.)
+
+When a change occurs, the program must choose
+a response and accept the consequences of that response. The options
+are usually either to maximize the benefit to the customer or to
+minimize the adverse impact on Space Shuttle operations. If the first
+option is selected, the consequences will include short-term and/or
+longterm effects.
+
+Hardware problems can cause extensive changes
+in the payload manifest. The 51-E mission was on the launch pad, only
+days from launch, with a Tracking and Data Relay Satellite and
+Telesat satellite in the cargo bay, when a hardware problem in the
+tracking satellite was discovered. That flight was canceled and the
+payload reassigned. The cancellation resulted in major changes to
+several succeeding flights. Mission 51 -D, scheduled to fly two
+months later, was changed to add the Telesat and delete the retrieval
+of the Long Duration Exposure Facility. The retrieval mission was
+then added to mission 61-I, replacing another satellite. A new
+mission (61-M) was scheduled for July, 1986, to accommodate the
+Tracking and Data Relay Satellite and the displaced satellite, and
+all flights scheduled later in 1986 slipped to make room for
+61-M.
+
+Customers occasionally have notified NASA
+Headquarters of a desire to change their scheduled launch date
+because of development problems, financial difficulties or changing
+market conditions. NASA generally accedes to these requests and has
+never imposed the penalties available. An example is the request made
+to delay the flight of the Westar satellite from mission 61-C
+(December, 1985) to a flight in March, 1986. Westar was added to
+flight 61-E, and the Getaway Special bridge assembly was removed to
+make room for it; the HS-376 satellite slot was deleted from 51-L and
+added to 61-C; the Spartan-Halley satellite was deleted from 61-D and
+added to 51 -L. Thus, four flights experienced major payload changes
+as a result of one customer's request.
+
+1985 Changes in the Manifest
+
+Hardware Problems
+
+Tracking and Data Relay Satellite (canceled 51
+-E, added 61 -M).
+
+Synchronous Communication Satellite (added to
+61-C).
+
+Synchronous Communication Satellite (removed
+from 61-C).
+
+OV- 102 late delivery from Palmdale (changed
+to 51 -G, 51 -I, and 61 -A).
+
+Customer Requests
+
+HS-376 (removed from 51-I). G-Star (removed
+from 61-C). Satellite Television Corporation-Direct Broadcast
+Satellite (removed from 61-E).
+
+Westar (removed from 61-C).
+
+Satellite Television Corporation-Direct
+Broadcast Satellite (removed from 61-H).
+
+Electrophoresis Operations in Space (removed
+from 61-B).
+
+Electrophoresis Operations in Space (removed
+from 61-H).
+
+Hubble Space Telescope (swap with Earth
+Observation Mission).
+
+Operational Constraints
+
+No launch window for Skynet/Indian Satellite
+Combination (61-H).
+
+Unacceptable structural loads for Tracking and
+Data Relay Satellite/Indian Satellite (61-H).
+
+Landing weight above allowable limits for each
+of the following missions: 61-A, 61-E, 71-A, 61 -K.
+
+External Factors
+
+Late addition of SenatorJake Garn (A-Utah) (51
+-D)
+
+Late addition of Representative Bill Nelson
+(D-Florida) (61-C).
+
+Late addition of Physical Vapor Transport
+Organic Solid experiment (51-I).
+
+[ 168 ]
+
+Graph shows that changes to the
+payload manifest for Shuttle missions can boost Johnson Space Center
+workload as much as 130 percent.
+
+Operational constraints (for example, a
+constraint on the total cargo weight) are imposed to insure that the
+combination of payloads does not exceed the Orbiter's capabilities.
+An example involving the Earth Observation Mission Spacelab flight is
+presented in the NASA Mission Planning and Operations Team Report in
+Appendix J. That case illustrates that changes resulting from a
+single instance of a weight constraint violation can cascade through
+the entire schedule.
+
+External factors have been the cause of a
+number of changes in the manifest as well. The changes discussed
+above involve major payloads, but changes to other payloads or to
+payload specialists can create problems as well. One small change
+does not come alone; it generates several others. A payload
+specialist was added to mission 61-C only two months before its
+scheduled lift off. Because there were already seven crew members
+assigned to the flight, one had to be removed. The Hughes payload
+specialist was moved from 61-C to 51-L just three months before 51-L
+was scheduled to launch. His experiments were also added to 51-L. Two
+middeck experiments were deleted from 51-L as a result, and the
+deleted experiments would have reappeared on later flights.
+
+[ 169 ]
+
+Graph depicts beginning of simulator
+training for Shuttle crews in days before launch for missions 51-L
+through 61-K. Launch minus 77 days is normal training date
+start.
+
+Again, a "single" late change affected at
+least two flights very late in the planning and preparation
+cycles.
+
+The effects of such changes in terms of
+budget, cost and manpower can be significant. In some cases, the
+allocation of additional resources allows the change to be
+accommodated with little or no impact to the overall schedule. In
+those cases, steps that need to be re-done can still be accomplished
+before their deadlines. The amount of additional resources required
+depends, of course, on the magnitude of the change and when the
+change occurs: early changes, those before the cargo integration
+review, have only a minimal impact; changes at launch minus five
+months (two months after the cargo integration review) can carry a
+major impact, increasing the required resources by approximately 30
+percent. In the missions from 41-C to 51-L, only 60 percent of the
+major changes occurred before the cargo integration review. More than
+20 percent occurred after launch minus five months and caused
+disruptive budget and manpower impacts. 3
+
+Engineering flight products are generated
+under a contract that allows for increased expenditures to meet
+occasional high workloads.
+
+[ 170 ] Even with this
+built-in flexibility, however, the requested changes occasionally
+saturate facilities and personnel capabilities. The strain on
+resources can be tremendous. For short periods of two to three months
+in mid-1985 and early 1986, facilities and personnel were being
+required to perform at roughly twice the budgeted flight rate.
+
+If a change occurs late enough, it will have
+an impact on the serial processes. In these cases, additional
+resources will not alleviate the problem, and the effect of the
+change is absorbed by all downstream processes, and ultimately by the
+last element in the chain. In the case of the flight design and
+software reconfiguration process, that last element is crew training.
+In January, 1986, the forecasts indicated that crews on flights after
+51-I. would have significantly less time than desired to train for
+their flights. 4 (See the Simulation Training chart.)
+
+According to Astronaut Henry
+Hartsfield:
+
+"Had we not had the accident, we
+were going to be up against a wall; STS 61-H . . . would have had to
+average 31 hours in the simulator to accomplish their required
+training, and STS 61-K would have to average 33 hours. That is
+ridiculous. For the first time, somebody was going to have to stand
+up and say we have got to slip the launch because we are not going to
+have the crew trained." 5
+
+"Operational" Capabilities
+
+For a long time during Shuttle development,
+the program focused on a single flight, the first Space Shuttle
+mission. When the program became "operational," flights came more
+frequently, and the same resources that had been applied to one
+flight had to be applied to several flights concurrently.
+Accomplishing the more pressing immediate requirements diverted
+attention from what was happening to the system as a whole. That
+appears to be one of the many telling differences between a "research
+and development" program and an "operational program." Some of the
+differences are philosophical, some are attitudinal and some are
+practical.
+
+Elements within the Shuttle program tried to
+adapt their philosophy, their attitude and their requirements to the
+"operational era." But that era came suddenly, and in some cases,
+there had not been enough preparation for what "operational" might
+entail. For example, routine and regular post-flight maintenance and
+inspections are critical in an operational program; spare parts arc
+critical to flight readiness in an operational fleet; and the
+software tools and training facilities developed during a test
+program may not be suitable for the high volume of work required in
+an operational environment. In many respects, the system was not
+prepared to meet an "operational" schedule.
+
+As the Space Shuttle system matured, with
+numerous changes and compromises, a comprehensive set of requirements
+was developed to ensure the success of a mission. What evolved was a
+system in which the preflight processing, flight planning, flight
+control and flight training were accomplished with extreme care
+applied to every detail. This process checked and rechecked
+everything, and though it was both labor- and time-intensive, it was
+appropriate and necessary for a system still in the developmental
+phase. This process, however, was not capable of meeting the flight
+rate goals.
+
+After the first series of flights, the system
+developed plans to accomplish what was required to support the flight
+rate. The challenge was to streamline the processes through
+automation, standardization, and centralized management, and to
+convert from the developmental phase to the mature system without a
+compromise in quality. It required that experts carefully analyze
+their areas to determine what could be standardized and automated,
+then take the time to do it.
+
+But the increasing flight rate had priority-
+quality products had to be ready on time. Further, schedules and
+budgets for developing the needed facility improvements were not
+adequate. Only the time and resources left after supporting the
+flight schedule could be directed toward efforts to streamline and
+standardize. In 1985, NASA was attempting to develop the capabilities
+of a production system. But it was forced to do that while
+responding-with the same personnel-to a higher flight rate.
+
+At the same time the flight rate was
+increasing, a variety of factors reduced the number of skilled
+personnel available to deal with it. These included retirements,
+hiring freezes, transfers to other programs like the Space Station
+and transitioning to a single contractor for operations
+support.
+
+[ 171 ] The flight rate did
+not appear to be based on assessment of available resources and
+capabilities and was not reduced to accommodate the capacity of the
+work force. For example, on January 1, 1986, a new contract took
+effect at Johnson that consolidated the entire contractor work force
+under a single company. This transition was another disturbance at a
+time when the work force needed to be performing at full capacity to
+meet the 1986 flight rate. In some important areas, a significant
+fraction of workers elected not to change contractors. This reduced
+the work force and its capabilities, and necessitated intensive
+training programs to qualify the new personnel. According to
+projections, the work force would not have been back to full capacity
+until the summer of 1986. This drain on a critical part of the system
+came just as NASA was beginning the most challenging phase of its
+flight schedule. 6
+
+Similarly, at Kennedy the capabilities of the
+Shuttle processing and facilities support work force became
+increasingly strained as the Orbiter turnaround time decreased to
+accommodate the accelerated launch schedule. This factor has resulted
+in overtime percentages of almost 28 percent in some directorates.
+Numerous contract employees have worked 72 hours per week or longer
+and frequent 12-hour shifts. The potential implications of such
+overtime for safety were made apparent during the attempted launch of
+mission 61-C on January 6, 1986, when fatigue and shiftwork were
+cited as major contributing factors to a serious incident involving a
+liquid oxygen depletion that occurred less than five minutes before
+scheduled lift off. The issue of workload at Kennedy is discussed in
+more detail in Appendix G.
+
+Another example of a system designed during
+the developmental phase and struggling to keep up with operational
+requirements is the Shuttle Mission Simulator. There are currently
+two simulators. They support the bulk of a crew's training for
+ascent, orbit and entry phases of a Shuttle mission. Studies indicate
+two simulators can support no more than 12- 15 flights per year. The
+flight rate at the time of the accident was about to saturate the
+system's capability to provide trained astronauts for those flights.
+Furthermore, the two existing simulator s are out-of-date and require
+constant attention to keep them operating at capacity to meet even
+the rate of 12-15 flights per year. Although there are plans to
+improve capability, funds for those improvements are minimal and
+spread out over a 10-year period. This is another clear demonstration
+that the system was trying to develop its capabilities to meet an
+operational schedule but was not given the time, opportunity or
+resources to do it. 7
+
+Responding to Challenges and
+Changes
+
+Another obstacle in the path toward
+accommodation of a higher flight rate is NASA's legendary "can-do"
+attitude. The attitude that enabled the agency to put men on the moon
+and to build the Space Shuttle will not allow it to pass up an
+exciting challenge-even though accepting the challenge may drain
+resources from the more mundane (but necessary) aspects of the
+program.
+
+A recent example is NASA's decision to perform
+a spectacular retrieval of two communications satellites whose upper
+stage motors had failed to raise them to the proper geosynchronous
+orbit. NASA itself then proposed to the insurance companies who owned
+the failed satellites that the agency design a mission to rendezvous
+with them in turn and that an astronaut in a jet backpack fly over to
+escort the satellites into the Shuttle's payload bay for a return to
+Earth.
+
+The mission generated considerable excitement
+within NASA and required a substantial effort to develop the
+necessary techniques, hardware and procedures. The mission was
+conceived, created, designed and accomplished within 10 months. The
+result, mission 51-A (November, 1984), was a resounding success, as
+both failed satellites were successfully returned to Earth. The
+retrieval mission vividly demonstrated the service that astronauts
+and the Space Shuttle can perform .
+
+Ten months after the first retrieval mission,
+NASA launched a mission to repair another communications satellite
+that had failed in low-Earth orbit. Again, the mission was developed
+and executed on relatively short notice and was resoundingly
+successful for both NASA and the satellite insurance industry.
+
+The satellite retrieval missions were not
+isolated occurrences. Extraordinary efforts on NASA's part in
+developing and accomplishing missions will, and should, continue, but
+such efforts will be a substantial additional drain on resources.
+NASA cannot both accept the relatively spur-of [ 172 ] the-moment missions
+that its "can-do" attitude tends to generate and also maintain the
+planning and scheduling discipline required to operate as a "space
+truck" on a routine and cost-effective basis. As the flight rate
+increases, the cost in resources and the accompanying impact on
+future operations must be considered when infrequent but
+extraordinary efforts are undertaken. The system is still not
+sufficiently developed as a "production line" process in terms of
+planning or implementation procedures. It cannot routinely or even
+periodically accept major disruptions without considerable cost.
+NASA's attitude historically has reflected the position that "We can
+do anything," and while that may essentially be true, NASA's optimism
+must be tempered by the realization that it cannot do
+everything.
+
+NASA has always taken a positive approach to
+problem solving and has not evolved to the point where its officials
+are willing to say they no longer have the resources to respond to
+proposed changes. Harold Draughon, manager of the Mission Integration
+Office at Johnson, reinforced this point by describing what would
+have to happen in 1986 to achieve the flight rate:
+
+"The next time the guy came in and
+said 'I want to get off this flight and want to move down two' [the
+system would have had to say,] We can't do that,' and that would have
+been the decision." 8
+
+Even in the event of a hardware problem, after
+the problem is fixed there is still a choice about how to respond.
+Flight 41-D had a main engine shutdown on the launch pad. It had a
+commercial payload on it, and the NASA Customer Services division
+wanted to put that commercial payload on the next flight (replacing
+some NASA payloads) to satisfy more customers. Draughon described the
+effect of that decision to the Commission: "We did that. We did not
+have to. And the system went out and put that in work, but it paid a
+price. The next three or four flights all slipped as a result."
+9
+
+NASA was being too bold in shuffling
+manifests. The total resources available to the Shuttle program for-
+allocation were fixed. As time went on, the agency had to focus those
+resources more and more on the near term-worrying about today's
+problem and not focusing on tomorrow's.
+
+NASA also did not have a way to forecast the
+effect of a change of a manifest. As already indicated, a change to
+one flight ripples through the manifest and typically necessitates
+changes to many other flights, each requiring resources (budget,
+manpower, facilities) to implement. Some changes are more expensive
+than others, but all have an impact, and those impacts must be
+understood.
+
+In fact, Leonard Nicholson, manager of Space
+Transportation System Integration and Operations at Johnson, in
+arguing for the development of a forecasting tool, illustrated the
+fact that the resources were spread thin: "The press of business
+would have hindered us getting that kind of tool in place, just the
+fact that all of us were busy . . . . " 10
+
+The effect of shuffling major payloads can be
+significant. In addition, as stated earlier, even apparently "easy"
+changes put demands on the resources of the system Any middeck or
+secondary payload has, by itself, a minimal impact compared with
+major payloads. But when several changes are made, and made late,
+they put significant stress on the flight preparation process by
+diverting resources from higher priority problems.
+
+Volume III of JSC 07700, Revision B, specifies
+that all middeck experiments must be scheduled, and payload
+specialists assigned, 11 weeks before launch. 11 That rule has not been
+enforced-in fact, it is more honored in the breach than in the
+observance. A review of missions 41-G through 61-C revealed that of
+the 16 payload specialists added to those flights, seven were added
+after launch minus five months.
+
+Even "secondary" payloads take a lot of time
+and attention when they are added to a flight late. Harold
+Draughon:
+
+"I spend more than half of my time
+working on things that are not very important because they get put in
+so late. Rather than working on PAM's [Payload Assist Modules] and
+IUS's [Inertial Upper Stages], I am working on chicken eggs."
+12
+
+Those directing the changes in the manifest
+were not yet sensitive to the problem. Each change nibbles away at
+the operational resources, and the changes were occurring frequently,
+even routinely. Much of the capacity of the system was being used up
+responding to late changes in lower priority experiments. That
+flexibility toward secondary experiments tied up the resources that
+would have been better spent building capability to meet the
+projected flight rate.
+
+[ 173 ] Tommy Holloway,
+chief of the Johnson Flight Director Office, emphasized that, given
+finite resources, one must decide: "It's flight rate versus
+[manifest] flexibility.'' l3
+
+The portion of the system forced to respond to
+the late changes in the manifest tried to bring its concerns to
+Headquarters. As Mr. Nicholson explained,
+
+"We have done enough complaining
+about it that I cannot believe there is not a growing awareness, but
+the political aspects of the decision are so overwhelming that our
+concerns do not carry much weight.... The general argument we gave
+about distracting the attention of the team late in the process of
+implementing the flight is a qualitative argument .... And in the
+face of that, political advantages of implementing those late changes
+outweighed our general objections. " 14
+
+It is important to determine how many flights
+can be accommodated, and accommodated safely. NASA must establish a
+realistic level of expectation, then approach it carefully. Mission
+schedules should be based on a realistic assessment of what NASA can
+do safely and well, not on what is possible with maximum effort. The
+ground rules must be established firmly, and then enforced.
+
+The attitude is important, and the word
+operational can mislead. "Operational" should not imply any less
+commitment to quality or safety, nor a dilution of resources. The
+attitude should be, "We are going to fly high risk flights this year;
+every one is going to be a challenge, and every one is going to
+involve some risk, so we had better be careful in our approach to
+each." 15
+
+Effect of Flight Rate on Spare
+Parts
+
+As the flight rate increases, the demand on
+resources and the demand for spare parts increases. Since 1981, NASA
+has had logistics plans for Shuttle flight rates of 12 and 24 flights
+a year. It was originally forecast (in mid-1983) that the supply of
+spares required to support 12 flights annually could be accomplished
+in the spring of 1986. Actual inventory of spare parts had run close
+to plan until the second quarter of fiscal year 1985. At that time,
+inventory requirements for spares began to increase faster than
+deliveries. A year later, when inventory stockage should have been
+complete, only 32,000 of the required 50,000 items (65 percent) had
+been delivered. 16
+
+The spare parts plan to support 24 flights per
+year had called for completing inventory stockage by June, 1987. By
+mid-1985, that schedule was in jeopardy.
+
+The logistics plan could not be fully
+implemented because of budget reductions. In October, 1985, the
+logistics funding requirement for the Orbiter program, as determined
+by Level III management at Johnson, was $285.3 million. That funding
+was reduced by $83.3 million-a cut that necessitated major deferrals
+of spare parts purchases. Purchasing deferrals come at great cost.
+For example, a reduction due to deferral of $11.2 million in fiscal
+year 1986 would cost $11.2 million in fiscal year 1987, plus an
+additional $21.6 million in fiscal year 1988. This three-to-one ratio
+of future cost to current savings is not uncommon. Indeed, the ratio
+in many instances is as high as seven to one. This practice cannot
+make sense by any standard of good financial management.
+
+According to Johnson officials, reductions in
+spares expenditures provided savings required to meet the revised
+budgets. As Program Manager Arnold Aldrich reported to the
+Commission:
+
+"There had been fund contentions
+in the program for a number of years, at least starting in the
+mid-seventies and running through into the early to mid-eighties . .
+. intentional decisions were made to defer the heavy build-up of
+spare parts procurements in the program so that the funds could be
+devoted to other more pressing activities. . . . It was a regular
+occurrence for several annual budget cycles. And once the flight rate
+really began to rise and it was really clear that spare parts were
+going to be a problem, significant attention was placed on that
+problem by all levels of NASA and efforts had been made to catch up.
+But . . . our parts availability is well behind the flight need . .
+." 17
+
+Those actions resulted in a critical shortage
+of serviceable spare components. To provide parts required to support
+the flight rate, NASA had to resort to cannibalization. Extensive
+cannibalization of spares, i.e., the removal of components
+[ 174 ]
+from one Orbiter for installation in another, became an essential
+modus operandi in order to maintain flight schedules. Forty-five out
+of approximately 300 required parts were cannibalized for Challenger
+before mission 51-L. These parts spanned the spectrum from common
+bolts to a thrust control actuator for the orbital maneuvering system
+to a fuel cell. This practice is costly and disruptive, and it
+introduces opportunities for component damage.
+
+This concern was summarized in testimony
+before the Commission by Paul Weitz, deputy chief of the Astronaut
+Office at Johnson:
+
+"It increases the exposure of both
+Orbiters to intrusion by people. Every time you get people inside and
+around the Orbiter you stand a chance of' inadvertent damage of
+whatever type, whether you leave a tool behind or whether you,
+without knowing it, step on a wire bundle or a tube or something
+along those lines." 18
+
+Cannibalization is a potential threat to
+flight safety, as parts are removed from one Orbiter, installed in
+another Orbiter, and eventually replaced. Each handling introduces
+another opportunity for imperfections in installation and for damage
+to the parts and spacecraft.
+
+Cannibalization also drains resources, as one
+Kennedy official explained to the Commission on March 5, 1986:
+
+"It creates a large expenditure in
+manpower at KSC. A job that you would have normally used what we will
+call one unit of' effort to do the job now requires two units of
+effort because you've got two ships [Orbiters] to do the task with."
+19
+
+Prior to the Challenger accident, the shortage
+of' spare parts had no serious impact on flight schedules, but
+cannibalization is possible only so long as Orbiters from which to
+borrow are available. In the spring of 1986, there would have been no
+Orbiters to use as "spare parts bins." Columbia was to fly in March,
+Discovery was to be sent to Vandenberg, and Atlantis and Challenger
+were to fly in May. In a Commission interview, Kennedy director of
+Shuttle Engineering Horace Lamberth predicted the program would have
+been unable to continue:
+
+"I think we would have been
+brought to our knees this spring [1986] by this problem [spare parts]
+if we had kept trying to fly " 20
+
+NASA's processes for spares provisioning
+(determining the appropriate spares inventory levels), procurement
+and inventory control are complicated and could be streamlined and
+simplified.
+
+As of spring 1986, the Space Shuttle logistics
+program was approximately one year behind. Further, the replenishment
+of all spares (even parts that are not currently available in the
+system) has been stopped. Unless logistics support is improved, the
+ability to maintain even a three-Orbiter fleet is in jeopardy.
+
+Spare parts provisioning is yet another
+illustration that the Shuttle program was not prepared for an
+operational schedule. The policy was shortsighted and led to
+cannibalization in order to meet the increasing flight rate.
+
+The Importance of Flight
+Experience
+
+In a developmental program it is important to
+make use of flight experience, both to understand the system's actual
+performance and to uncover problems that might not have been
+discovered in testing. Because Shuttle flights were coming in fairly
+rapid succession, it was becoming difficult to analyze all the data
+from one flight before the next was scheduled to launch. In fact, the
+Flight Readiness Review for 51-L was held while mission 61-C was
+still in orbit. Obviously, it was impossible to even present, much
+less analyze and understand, anomalies from that flight.
+
+The point can be emphasized by citing two
+problems that occurred during mission 61-C but were discovered too
+late to be considered at the 51-L Flight Readiness Review:
+
+1. The Space Shuttle brakes and
+tires have long been a source of concern. In particular, after the
+51-D Orbiter blew a tire at Kennedy in April, 1985, there was
+considerable effort (within budgetary constraints) to understand and
+resolve the problems, and Kennedy landings were suspended until
+certain improvements were made. (See section "Landing: Another
+Critical Phase!" page 186.) Mission 51 -L was to be the first flight
+to land [ 175 ] in Florida since 51 -D had experienced brake
+problems. STS 61-C landed at Edwards Air Force Base in California on
+January 19, 1986, four days after the 51-L Flight Readiness Review.
+The 61-C brakes were removed following landing and shipped to the
+vendor for further inspection and analysis. That inspection revealed
+major brake damage. The subsystem manager at Johnson in charge of the
+brakes did not receive the information until January 27, 1986, one
+day before 51-L was launched, and did not learn the extent of the
+problem until January 30, 1986.
+
+2. The inspection of the 61 -C Solid Rocket
+Booster segments was completed on January 19, 1986, four days after
+the 51-L Level I Flight Readiness Review. The post-recovery
+inspection of the 61 -C Solid Rocket Booster segments revealed that
+there was O-ring erosion in one of the left booster field joints and
+additional O-ring anomalies on both booster nozzles. Although the
+information was available for Marshall's 51 -L Level III review at
+launch minus one day, it was clearly not available in time for
+consideration in the formal launch preparation
+process. 21 These examples underscore the need to establish a list
+of mandatory post-flight inspections that must precede any subsequent
+launch.
+
+Effect on Payload Safety
+
+The payload safety process exists to ensure
+that each Space Shuttle payload is safe to fly and that on a given
+mission the total integrated cargo does not create a hazard. NASA
+policy is to minimize its involvement in the payload design process.
+The payload developer is responsible for producing a safe design, and
+the developer must verify compliance with NASA safety requirements.
+The Payload Safety Panel at Johnson conducts a phased series of
+safety reviews for each payload. At those reviews, the payload
+developer presents material to enable the panel to assess the
+payload's compliance with safety requirements.
+
+Problems may be identified late, however,
+often as a result of late changes in the payload design and late
+inputs from the payload developer. Obviously, the later a hazard is
+identified, the more difficult it will be to correct, but the payload
+safety process has worked well in identifying and resolving safety
+hazards.
+
+Unfortunately, pressures to maintain the
+flight schedule may influence decisions on payload safety provisions
+and hazard acceptance. This influence was evident in circumstances
+surrounding the development of two high priority scientific payloads
+and their associated booster, the Centaur.
+
+Centaur is a Space Shuttle-compatible booster
+that can be used to carry heavy satellites from the Orbiter's cargo
+bay to deep space. It was scheduled to fly on two Shuttle missions in
+May, 1986, sending the NASA Galileo spacecraft to Jupiter and the
+European Space Agency Ulysses spacecraft first to Jupiter and then
+out of the planets' orbital plane over the poles of the Sun. The
+pressure to meet the schedule was substantial because missing launch
+in May or early June meant a year's wait before planetary alignment
+would again be satisfactory.
+
+Unfortunately, a. number of safety and
+schedule issues clouded Centaur's use. In particular, Centaur's
+highly volatile cryogenic propellants created several problems. If a
+return-to-launch-site abort ever becomes necessary, the propellants
+will definitely have to be dumped overboard. Continuing safety
+concerns about the means and feasibility of dumping added pressure to
+the launch preparation schedule as the program struggled to meet the
+launch dates.
+
+Of four required payload safety reviews,
+Centaur had completed three at the time of the Challenger accident,
+but unresolved issues remained from the last two. In November, 1985,
+the Payload Safety Panel raised several important safety concerns.
+The final safety review, though scheduled for late January, 1986,
+appeared to be slipping to February, only three months before the
+scheduled launches.
+
+Several safety waivers had been granted, and
+several others were pending. Late design changes to accommodate
+possible system failure would probably have required reconsideration
+of some of the approved waivers. The military version of the Centaur
+booster, which was not scheduled to fly for some time, was to be
+modified to provide added safety, but because of the rush to get the
+1986 missions launched, these improvements were not approved for the
+first two Centaur boosters. After the 51-L accident, NASA allotted
+more than $75 million to incorporate the [ 176 ] operational and
+safety improvements to these two vehicles. 22 We will never know whether the payload safety program
+would have allowed the Centaur missions to fly in 1986. Had they
+flown, however, they would have done so without the level of
+protection deemed essential after the accident.
+
+Outside Pressure to Launch
+
+After the accident, rumors appeared in the
+press to the effect that persons who made the decision to launch
+mission 51-L might have been subjected to outside pressure to launch.
+Such rumors concerning unnamed persons, emanating from anonymous
+sources about events that may never have happened, are difficult to
+disprove and dispel. Nonetheless, during the Commission's hearings
+all persons who played key roles in that decision were questioned.
+Each one attested, under oath, that there had been no outside
+intervention or pressure of any kind leading up to the launch.
+
+There was a large number of other persons who
+were involved to a lesser extent in that decision, and they were
+questioned. All of those persons provided the Commission with sworn
+statements that they knew of no outside pressure or intervention.
+23
+
+The Commission and its staff also questioned a
+large number of other witnesses during the course of the
+investigation. No evidence was reported to the Commission which
+indicated that any attempt was ever made by anyone to apply pressure
+on those making the decision to launch the Challenger.
+
+Although there was total lack of evidence that
+any outside pressure was ever exerted on those who made the decision
+to launch 51-L, a few speculative reports persisted.
+
+One rumor was that plans had been made to have
+a live communication hookup with the 51-L crew during the State of
+the Union Message. Commission investigators interviewed all of the
+persons who would have been involved in a hookup if one had been
+planned, and all stated unequivocally that there was no such plan.
+Furthermore, to give the crew time to become oriented, NASA does not
+schedule a communication for at least 48 hours after the launch and
+no such communication was scheduled in the case of flight
+51-L.
+
+The flight activity officer who was
+responsible for developing the crew activity plan testified that
+three live telecasts were planned for the Challenger, but they
+related in no way to the State of the Union Message:
+24
+
+During the teacher activities on flight
+day 4.
+
+During the phase partitioning experiment
+on flight day 5.
+
+During the crew conference on flight day
+6.
+
+The Commission concluded that the decision to
+launch the Challenger was made solely by the appropriate NASA
+officials without any outside intervention or pressure.
+
+Findings
+
+1. The capabilities of the system were
+stretched to the limit to support the flight rate in winter
+1985/1986. Projections into the spring and summer of 1986 showed a
+clear trend; the system, as it existed, would have been unable to
+deliver crew training software for scheduled flights by the
+designated dates. The result would have been an unacceptable
+compression of the time available for the crews to accomplish their
+required training.
+
+2. Spare parts are in critically short supply.
+The Shuttle program made a conscious decision to postpone spare parts
+procurements in favor of budget items of perceived higher priority.
+Lack of spare parts would likely have limited flight operations in
+1986.
+
+3. Stated manifesting policies are not
+enforced. Numerous late manifest changes (after the cargo integration
+review) have been made to both major payloads and minor payloads
+throughout the Shuttle program.
+
+Late changes to major payloads or program
+requirements can require extensive resources (money, manpower,
+facilities) to implement.
+
+If many late changes to "minor" payloads
+occur, resources are quickly absorbed.
+
+Payload specialists frequently were added
+to a flight well after announced deadlines.
+
+Late changes to a mission adversely affect
+the training and development of procedures for subsequent
+missions.
+
+[ 177 ] 4. The scheduled
+flight rate did not accurately reflect the capabilities and
+resources.
+
+The flight rate was not reduced to
+accommodate periods of adjustment in the capacity of the work
+force. There was no margin in the system to accommodate unforeseen
+hardware problems.
+
+Resources were primarily directed toward
+supporting the flights and thus not enough were available to
+improve and expand facilities needed to support a higher flight
+rate.
+
+5. Training simulators may be the limiting
+factor on the flight rate: the two current simulators cannot train
+crews for more than 12-15 flights per year.
+
+6. When flights come in rapid succession,
+current requirements do not ensure that critical anomalies occurring
+during one flight are identified and addressed appropriately before
+the next flight.
+
+References
+
+1. Hearings of the U.S.
+Senate, Subcommittee of the Committee on Appropriations, May 5,
+1982, page 1029.
+
+2. Interview with NASA
+Administrator James Beggs," Space Business News, September 12,
+1983.
+
+3. See Appendix, NASA
+Mission Planning and Operations Team Report (Preliminary), April,
+1986, page 86.
+
+4. Commission Work
+Session, Mission Planning and Operations Panel, April 1, 1986,
+JSC. page 198.
+
+5. Commission Work
+Session, Mission Planning and Operations Panel, April 1, 1980,
+JSC, page 198.
+
+6. NASA Memo,
+DA-RRR-86-06.
+
+7. See Appendix J, NASA
+Mission Planning and Operations Team Report (Preliminary), April,
+1986, pages 58-59.
+
+8. Commission Work
+Session, Mission Planning and Operations Panel, March 24, 1986,
+JSC, page 130.
+
+9. Commission Work
+Session. Mission Planning and Operations Panel, March 24, 1986,
+JSC, page 126.
+
+10. Commission Work
+Session, Mission Planning and Operations Panel, April 8, 1986,
+JSC, page 240.
+
+11. Page 12.
+
+12. Commission Work
+Session, Mission Planning and Operations Panel, April 1, 1986,
+JSC, page 205.
+
+13. Commission Work
+Session, Mission Planning and Operations Panel, April 8, 1986,
+JSC, pages 216-218.
+
+14. Commission Work
+Session, Mission Planning and Operations Panel, April 8, 1986,
+JSC, pages 216-218.
+
+15. Commission Work
+Session, Mission Planning and Operations Panel, April 8, 1986,
+JSC, pages 262-263.
+
+16. NASA Memo from
+Goetz, R.. "Logistics Responsibility Transfer from NASA JSC to
+NASA KSC," February 6, 1986
+
+17. Commission Hearing
+Transcript, April 3, 1986, page 2544.
+
+18. Commission Hearing
+Transcript, April 3, 1986, page 2445.
+
+19. Commission Work
+Session, Mission Planning and Operations Panel, March 5, 1986,
+KSC, page 306.
+
+20. Commission Work
+Session, Mission Planning and Operations Panel, March 4, 1986,
+KSC, page 304.
+
+21. Report, "SRM
+Post-flight Hardware Inspection Report for STS 61-C," Part 1 of 2,
+January 24, 1986, pages 51-52.
+
+22. Cost figures were
+provided by the Centaur program manager, telephone call, May 16,
+1986.
+
+23. Twenty-eight
+Affidavits submitted to the Commission.
+
+24. Commission
+Interview Transcript, Ehlers. K., April 16, 1986, JSC, pages
+1-10.
+

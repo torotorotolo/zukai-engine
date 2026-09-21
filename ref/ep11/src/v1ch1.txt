@@ -1,0 +1,654 @@
+
+
+v1ch1
+
+Report of the PRESIDENTIAL COMMISSION
+on the Space Shuttle Challenger Accident
+
+Chapter I: Introduction
+
+[ 2 ] The Space Shuttle
+concept had its genesis in the 1960s, when the Apollo lunar landing
+spacecraft was in full development but had not yet flown. From the
+earliest days of the space program, it seemed logical that the goal
+of frequent, economical access to space might best be served by a
+reusable launch system. In February, 1967, the President's Science
+Advisory Committee lent weight to the idea of a reusable spacecraft
+by recommending that studies be made "of more economical ferrying
+systems, presumably involving partial or total recovery and
+use."
+
+In September, 1969, two months after the
+initial lunar landing, a Space Task Group chaired by the Vice
+President offered a choice of three long-range plans:
+
+A $8-$10 billion per year program
+involving a manned Mars expedition, a space station in lunar orbit
+and a 50-person Earth-orbiting station serviced by a reusable
+ferry, or Space Shuttle.
+
+An intermediate program, costing less than
+$8 billion annually, that would include the Mars mission.
+
+A relatively modest $4-$5.7 billion a year
+program that would embrace an Earth-orbiting space station and the
+Space Shuttle as its link to Earth. 1
+
+In March, 197O, President Nixon made it clear
+that, while he favored a continuing active space program, funding on
+the order of Apollo was not in the cards. He opted for the
+shuttle-tended space base as a long-range goal but deferred going
+ahead with the space station pending development of the shuttle
+vehicle. Thus the reusable Space Shuttle, earlier considered only the
+transport element of a broad, multi-objective space plan, became the
+focus of NASA's near-term future.
+
+The Space Shuttle Design
+
+The embryo Shuttle program faced a number of
+evolutionary design changes before it would become a system in being.
+The first design was based on a "fly back" concept in which two
+stages, each manned, would fly back to a horizontal, airplane-like
+landing. The first stage was a huge, winged, rocket-powered vehicle
+that would carry the smaller second stage piggyback; the carrier
+would provide the thrust for liftoff and flight through the
+atmosphere, then release its passenger-the orbiting vehicle-and
+return to Earth. The Orbiter, containing the crew and payload, would
+continue into space under its own rocket power, complete its mission
+and then fly back to Earth.
+
+The second-stage craft, conceived prior to
+1970 as a space station ferry, was a vehicle considerably larger than
+the later Space Shuttle Orbiter. It carried its rocket propellants
+internally, had a flight deck sufficiently large to seat 12 space
+station-bound passengers and a cargo bay big enough to accommodate
+space station modules. The Orbiter's size put enormous weight-lifting
+and thrust-generating demands on the first-stage design.
+
+This two-stage, fully reusable design
+represented the optimum Space Shuttle in terms of «routine,
+economical access to space," the catchphrase that was becoming the
+primary guideline for development of Earth-to-orbit systems. It was,
+[ 3 ]
+however, less than optimum in terms of the development investment
+required: an estimated $10-13 billion, a figure that met with
+disfavor in both Congress and the Office of Management and
+Budget.
+
+In 1971, NASA went back to the drawing board,
+aware that development cost rather than system capability would
+probably be the determining factor in getting a green light for
+Shuttle development. Government and industry studies sought
+developmental economies in the configuration. One proposal found
+acceptance: eliminate the Orbiter's internal tanks and carry the
+propellant in a single, disposable External Tank. It provided a
+smaller r, cheaper Orbiter r without substantial performance
+loss.
+
+For the launch system, NASA examined a number
+of possibilities. One was a winged but unmanned recoverable
+liquid-fuel vehicle based on the eminently successful Saturn 5 rocket
+from the Apollo Program. Other plans envisioned simpler but also
+recoverable liquid-fuel systems, expendable solid rockets and the
+reusable Solid Rocket Booster. NASA had been using solid-fuel
+vehicles for launching some small unmanned spacecraft, but solids as
+boosters for manned flight was a technology new to the agency.
+Mercury, Gemini and Apollo astronauts had all been rocketed into
+space by liquid-fuel systems. Nonetheless, the recoverable Solid
+Rocket Booster won the nod, even though the liquid rocket offered
+potentially lower operating costs.
+
+Artist's drawing depicts Space Shuttle
+stacked for launch in view from dorsal side of Orbiter (left) and
+from the left side of the stack.
+
+[ 4 ] The overriding reason
+was that pricing estimates indicated a lower cost of development for
+the solid booster.
+
+Emerging from this round of design decision
+making was the Space Shuttle: a three-element system composed of the
+Orbiter, an expendable external fuel tank carrying liquid propellants
+for the Orbiter's engines, and two recoverable Solid Rocket Boosters.
+It would cost, NASA estimated early in 1972, $6.2 billion to develop
+and test a five-Orbiter Space Shuttle system, about half what the
+two-stage "fly back" design would have cost. To achieve that
+reduction, NASA had to accept somewhat higher system operating costs
+and sacrifice full reusability. The compromise design retained
+recoverability and reuse of two of the three elements and still
+promised to trim substantially the cost of delivering payloads to
+orbit.
+
+The final configuration was selected in March,
+1972.
+
+The Space Shuttle Development
+
+In August, 1972, NASA awarded a contract to
+Rockwell International Corporation's Space Transportation Systems
+Division for design and development of the Space Shuttle Orbiter.
+Martin Marietta Denver Aerospace was assigned development and
+fabrication of the External Tank, Morton Thiokol Corporation was
+awarded the contract for the Solid Rocket Boosters, and Rocketdyne, a
+division of Rockwell, was selected to develop the Orbiter main
+engines.
+
+NASA divided managerial responsibility for the
+program among three of its field centers. Johnson Space Center,
+Houston, Texas, was assigned management of the Orbiter. Marshall
+Space Flight Center, Huntsville, Alabama, was made responsible for
+the Orbiter's main engines, the External Tank and the Solid Rocket
+Boosters. Kennedy Space Center, Merritt Island, Florida, was given
+the job of assembling the Space Shuttle components, checking them out
+and conducting launches. Because these three centers will be
+mentioned repeatedly in this report, they will hereafter be
+identified simply as Johnson, Marshall and Kennedy.
+
+It was in an increasingly austere fiscal
+environment that NASA struggled through the Shuttle development years
+of the 1970s. The planned five-Orbiter fleet was reduced to four.
+Budgetary difficulties were compounded by engineering problems and,
+inevitably in a major new system whose development pushes the
+frontiers of technology, there was cost growth. This combination of
+factors induced schedule slippage. The initial orbital test flights
+were delayed by more than two years.
+
+The first Shuttle test flights were conducted
+at Dryden Flight Research Facility, California, in 1977. The test
+craft was the Orbiter Enterprise, a full-size vehicle that lacked
+engines and other systems needed for orbital flight. The purpose of
+these tests was to check out the aerodynamic and flight control
+characteristics of the Orbiter in atmospheric flight. Mounted
+piggyback atop a modified Boeing 747, the Enterprise was carried to
+altitude and released for a gliding approach and landing at the
+Mojave Desert test center. Five such flights were made. They served
+to validate the Orbiter's computers and other systems. They also
+demonstrated the craft's subsonic handling qualities, in particular
+its performance in the precise unpowered landings that would be
+required on all Shuttle flights.
+
+The Enterprise test flights were followed-in
+1977-80-by extensive ground tests of Shuttle systems, including
+vibration tests of the entire assembly-Orbiter, External Tank and
+Solid Rocket Boosters-at Marshall. Main engine test firings were
+conducted at National Space Technology Laboratories at Bay St. Louis,
+Mississippi, and on the launch pad at Kennedy.
+
+By early 1981, the Space Shuttle was ready for
+an orbital flight test program. This was carefully crafted to include
+more than 1,000 tests and data collection procedures. All flights
+were to be launched from Kennedy and terminate at Edwards Air Force
+Base, where the Dryden Flight Research Facility is located (actually
+the third flight landed at White Sands Test Facility, New Mexico,
+because the normally dry lakebed at Edwards was flooded). Originally
+intended as a six-mission program, the orbital test series was
+reduced to four flights:
+
+STS-1 (Space Transportation System-1),
+April 12-14, 1981, Orbiter Columbia, was a two-day demonstration
+of the Orbiter's ability to go into orbit and return safely. Its
+[ 5 ]
+main payload was a flight instrumentation pallet containing
+equipment for recording temperatures, pressures and acceleration
+levels at various points around the Orbiter. In addition, there
+were checkouts of the cargo bay doors, attitude control system and
+orbital maneuvering system.
+
+STS-2, November 12-14, 1981, Orbiter
+Columbia, marked the first test of the Remote Manipulator System
+and carried a payload of Earth survey instruments. This was the
+first time any spacecraft had flown twice. Failure of a fuel cell
+shortened the flight by about three days.
+
+STS-3, March 22-3O, 1982, Orbiter
+Columbia, was the longest of the initial test series, staying
+aloft eight days. Activities included a special test of the
+manipulator in which the robot arm removed a package of
+instruments from the payload bay but did not release it into
+space. The flight included experiments in materials
+processing.
+
+STS-4, June 27-July 4, 1982, Orbiter
+Columbia, featured another test of the robot arm, which extended a
+scientific payload over the side of the payload bay, then
+reberthed it. Materials processing experiments were conducted, as
+were a number of scientific investigations. This flight carried
+the first Department of Defense payload.
+
+With the landing of STS-4, the orbital flight
+test program came to an end with 95 percent of its objectives
+accomplished. The interval between flights had been trimmed from
+seven months to four, then three. NASA declared the Space Shuttle
+"operational," a term that has encountered some criticism because it
+erroneously suggests that the Shuttle had attained an airline-like
+degree of routine operation. In any event, NASA regarded all flights
+after STS-4 operational in the sense that payload requirements would
+take precedence over spacecraft testing, requiring larger
+crews.
+
+After completing the orbital test in mid-
+1982, NASA began the "operational phase" of the Space Shuttle
+program, beginning with STS-5. The STS -for Space Transportation
+System- sequential numbering was still in effect at that time; after
+STS-9 NASA changed the method of numbering missions. Thereafter each
+flight was designated by two numbers and a letter, such as 41-B. The
+first digit indicates the fiscal year of the scheduled launch (4 for
+1984). The second digit identifies the launch site (1 is Kennedy, 2
+Vandenberg Air Force Base, California). The letter corresponds to the
+alphabetical sequence for the fiscal year, B being the second mission
+scheduled. Here is a brief summary of the 21 missions launched from
+late 1982 to January, 1986:
+
+STS-5, November 11-16, 1982, Orbiter
+Columbia, launched two communications satellites, which later were
+boosted to geosynchronous orbit by attached propulsion
+systems.
+
+STS-6, April 4-9, 1983, Orbiter
+Challenger, was highlighted by the first Shuttle-based spacewalk,
+or extravehicular activity. The crew successfully deployed the
+5,000-pound Tracking and Data Relay Satellite, first of three
+planned NASA communications satellites.
+
+STS-7, June 18-24, 1983, Orbiter
+Challenger, delivered a second pair of commercial communications
+satellites. The mission also included additional payload release
+and recapture tests using the Remote Manipulator System. This
+flight marked the first retrieval of an object from orbit.
+
+STS-8, August 30-September 6, 1983,
+Orbiter Challenger, included more robot arm tests plus deployment
+of a commercial/public service communications satellite. STS-9,
+November 28-December 8, 1983, Orbiter Columbia, carried the first
+Spacelab in the payload bay. The mission marked Columbia's return
+to service after a year's hiatus, during which it had been
+extensively modified.
+
+Flight 10 (41-B), February 3-11, 1984,
+Orbiter Challenger, was highlighted by the introduction of the
+Manned Maneuvering Unit, a backpack propulsion unit that allows
+astronauts to maneuver in space independent of the Orbiter. The
+mission also launched two communications satellites, but their
+boosters failed to put them into geosynchronous orbit. For the
+first time, the Shuttle landed on the concrete runway at Kennedy
+Space Center.
+
+Flight 11 (41-C), April 6-13, 1984,
+Orbiter Challenger, featured an important demonstration of Shuttle
+ability: the retrieval, repair and redeployment of the
+malfunctioning Solar Maximum Mission spacecraft with the help of a
+Manned [ 6 ] Maneuvering Unit. Other activity included
+deployment of the Long Duration Exposure Facility, a large
+cylinder containing materials samples to be retrieved and examined
+after long exposure to the space environment.
+
+Flight 12 (41-D), August 30-September 5,
+1984, Orbiter Discovery, was devoted primarily to launch of three
+communications satellites. The mission demonstrated repeated
+deployment and retraction of a large, foldable solar array to
+investigate the practicability of using such solar wings as power
+sources for extended Shuttle missions, space platforms or the
+space station.
+
+Flight 13 (41 -G), October 5- 13, 1984,
+Orbiter Challenger, launched the NASA Earth Radiation Budget
+Explorer. A cargo bay pallet carried instruments for Earth
+observations, including an advanced imaging radar.
+
+Flight 14 (51-A), November 8-16, 1984,
+Orbiter Discovery, launched two communications satellites and
+retrieved two others that had been sent into unusable orbits after
+deployment on Flight 10.
+
+Flight 15 (51-C),January 24-27, 1985,
+Orbiter Discovery, carried a Department of Defense payload.
+
+Flight 16 (51-D), April 12-19, 1985,
+Orbiter Discovery, deployed two commercial satellites; one,
+Leasat-3, remained in low orbit when the upper stage booster
+failed to activate.
+
+Flight 17 (51-B), April 29-May 6, 1985,
+Orbiter Challenger, carried a second Spacelab mission and
+materials processing experiments.
+
+Flight 18 (51 -G), June 17 -24, 1985,
+Orbiter Discovery, delivered three communications satellites,
+deployed a low-cost Spartan scientific satellite and retrieved it
+after a period of free flight.
+
+Flight 19 (51-F), July 29-August 6, 1985,
+Orbiter Challenger, carried the third Spacelab mission, which
+covered a broad range of experiments in plasma physics,
+astrophysics, solar astronomy and materials processing.
+
+Flight 20 (51-I), August 27-September 3,
+1985, Orbiter Discovery, deployed three communications satellites.
+The Leasat-3 satellite which failed to activate after deployment
+on Flight 16 was retrieved, repaired and successfully
+redeployed.
+
+Flight 21 (51-J), October 3-1O, 1985,
+Orbiter Atlantis was devoted to another Department of Defense
+mission.
+
+Flight 22 (61-A), October 30-November 6,
+1985, Orbiter Challenger, carried the fourth Spacelab mission,
+devoted to materials processing experimentation.
+
+Flight 23 (61-B), November 26-December 3,
+1985, Orbiter Atlantis, was highlighted by an experiment in
+astronaut assembly of structures in orbit and attendant study of
+extravehicular dynamics and human factors. The mission also
+deployed three communications satellites.
+
+Flight 24 (61-C), January 12-18, 1986,
+Orbiter Columbia, launched a commercial communications satellite,
+deployed a Hitchhiker secondary payload, conducted experiments in
+infrared imaging, acquired photos and spectral images of Comet
+Halley.
+
+Flight 25 (51-L), January 28, 1986,
+Orbiter Challenger. The accident.
+
+Including the initial orbital tests, the Space
+Shuttle flew 24 successful missions over a 57-month period. Columbia
+made seven trips into space, Discovery six and Atlantis two.
+Challenger flew most frequently-nine times prior to its fateful last
+flight.
+
+In those 24 flights, the Shuttle demonstrated
+its ability to deliver a wide variety of payloads; its ability to
+serve as an orbital laboratory; its utility as a platform for
+erection of large structures; and its use for retrieval and repair of
+orbiting satellites.
+
+Elements of the Space Shuttle
+
+The Space Shuttle is the principal component
+of a national Space Transportation System designed to accommodate not
+only NASA's predictable needs but also those of the Department of
+Defense and commercial payload sponsors. Technically speaking,
+transportation system hardware embraces not only the Shuttle but its
+Spacelab laboratory component, the upper stage propulsion units,
+contemplated heavy lift vehicles [ 7 ] and space tugs for
+moving payloads from one orbit to another. To provide for the
+broadest possible spectrum of civil/military missions, the Space
+Shuttle was designed to deliver 65,000 pounds of payload to an
+easterly low Earth orbit or 32,000 pounds to polar orbit. The
+following sections describe the main elements of the Shuttle
+system.
+
+The Orbiter
+
+The Orbiter is as large as a mid-size airline
+transport and has a structure like that of an aircraft: an aluminum
+alloy skin stiffened with stringers to form a shell over frames and
+bulkheads of aluminum or aluminum alloy. The major structural
+sections of the Orbiter are the forward fuselage, which encompasses
+the pressurized crew compartment; the mid fuselage, which contains
+the payload bay; the payload bay doors; the aft fuselage, from which
+the main engine nozzles project; and the vertical tail, which splits
+open along the trailing edge to provide a speed brake used during
+entry and landing.
+
+The crew compartment is divided into two
+levels-the flight deck on top and the middeck below. Besides working
+space, the crew compartment contains the systems needed to provide a
+habitable environment (atmosphere, temperature, food, water, the crew
+sleep facilities and waste management). It also houses the
+electronic, guidance and navigation systems.
+
+The Orbiter crew may include as many as eight
+people, although generally the limit is seven. The crew consists of
+the commander, the captain of the ship; the pilot, second in command;
+and two or more mission specialists. One or more payload specialists
+can also be accommodated. A mission specialist coordinates activities
+of the Orbiter and crew in support of a given payload objective. A
+payload specialist may manage specific experiments. The commander,
+pilot and mission specialists are career astronauts assigned to the
+mission by NASA. Payload specialists do not come from the Astronaut
+Office. They are assigned, by payload sponsors in coordination with
+NASA.
+
+Cargoes up to 24 tons have been carried in the
+payload bay. Clamshell doors on the top of the Orbiter meet along the
+craft's spine to enclose the bay, which is 15 feet wide and 60 feet
+long.
+
+The payload bay is designed to hold securely a
+wide range of objects. They may include one or more communications
+satellites to be launched from orbit, an autonomous Spacelab for
+experiments in space, or cargo disposed on special pallets. To handle
+cargo in orbital flight, the payload bay has the 50-foot mechanical
+arm that is controlled from within the crew compartment. A television
+camera and lights mounted near the end of the arm enable the operator
+to see what the "hand" is doing.
+
+Just as important as delivering cargo to orbit
+is recovering a satellite and bringing it back to Earth-retrieving a
+satellite in need of refurbishment, for example. The Orbiter can
+carry 16 tons of cargo back from space.
+
+The feasibility of a reusable Space Shuttle
+hinges on a particularly vital requirement: protecting the Orbiter
+from the searing heat generated by friction with the atmosphere when
+the craft returns to Earth. Temperatures during entry may rise as
+high as 2,750 degrees Fahrenheit on the leading edge of the wing and
+600 degrees on the upper fuselage, the "coolest" area. The thermal
+protection system devised for the Orbiter must prevent the
+temperature of the aluminum skin from rising above 350 degrees during
+either ascent or entry.
+
+The Orbiter has four kinds of external
+insulation that are applied to various parts of the structure
+according to the temperature each is likely to experience. The
+craft's nose cap and the leading edges of the wings are protected
+with an all-carbon composite consisting of layers of graphite cloth
+in a carbon matrix. The outer layers are converted chemically to
+silicon carbide, the same material that has long been used as an
+abrasive in grindstones. Areas subjected to the next greatest heat
+are shielded with high-temperature ceramic tiles about six inches
+square and varying in thickness from one to five inches, depending on
+the protection needed. So-called "low temperature" tiles are of the
+same material- nearly pure glass, of which 90 percent of the volume
+is "air"-for use on areas requiring less protection. (Low-temperature
+is relative; tiles so designated can withstand a temperature of 1,200
+degrees Fahrenheit.) About 3O,000 tiles, each different, are
+installed on each Orbiter.
+
+Space Shuttle Main Engines
+
+The three high-performance rocket engines in
+the aft section of the Orbiter fire for about the first 8 1/2 minutes
+of flight after liftoff. At sea level, each engine generates 375,000
+pounds of thrust at 100 percent throttle.
+
+The propellants for the engines are the fuel
+[ 8 ]
+(liquid hydrogen) and the oxidizer (liquid oxygen) carried in the
+External Tank. Combustion takes place in two stages. First, the
+propellants are mixed and partly burned in pre-burners. Hot gases
+from the pre-burners drive the high-pressure turbopumps which deliver
+propellants to the main injector. Combustion, once initiated by
+electrical igniters, is self-sustaining. Before firing, the very cold
+liquid propellant is allowed to flow into the system as far as the
+pre-burners and combustion chamber to cool the pumps and ducts so
+that the hydrogen and oxygen in the system will remain liquid when
+the engine is started.
+
+The main engines have been throttled over a
+range of 65 to 104 percent of the thrust at sea level. At liftoff,
+they are thrusting at 100 percent. Computers command engine thrust to
+104 percent as soon as the Shuttle clears the tower. They throttle to
+65 percent to reduce the maximum aerodynamic loads that occur at an
+altitude of about 34,000 feet. Thereafter, the thrust is again
+increased to provide an acceleration of three times that of gravity
+in the last minute or so of powered flight.
+
+External Tank
+
+The External Tank carries the propellants for
+the Orbiter's main engines-143,000 gallons of liquid oxygen and
+383,000 gallons of liquid hydrogen, which is much lighter than a
+comparable volume of oxygen. Together, the propellants weigh a little
+more than 790 tons. Martin Marietta Denver Aerospace, Michoud,
+Louisiana, builds the tank, a welded aluminum alloy cylinder with an
+ogive nose and a hemispherical tail. It is 154 feet long and 27 1/2
+feet in diameter.
+
+Because the Orbiter and the two Solid Rocket
+Boosters are attached to it at liftoff, the External Tank absorbs the
+thrust of the combined propulsion system. It withstands complex load
+effects and pressures from the propellants.
+
+The liquid oxygen tank forms the nose of the
+External Tank. It contains oxidizer kept liquid at a temperature of -
+297 degrees Fahrenheit. A removable conical nose cap acts as an
+aerodynamic fairing. Inside the tank, baffles reduce sloshing and the
+associated control problems. The liquid hydrogen tank does not need
+baffles because the fuel is so light that sloshing does not induce
+significant forces. The liquid hydrogen tank accounts for the greater
+part of the External Tank. Its contents are even colder than the LOX:
+- 423 degrees Fahrenheit.
+
+The intertank structure or "intertank"
+connects the two propellant tanks. It is a cylindrical structural
+section that houses instruments and receives and distributes most of
+the thrust load from the Solid Rocket Boosters. The front end of each
+booster is connected to the External Tank at the intertank
+midsection.
+
+A multi-layered thermal coating covers the
+outside of the External Tank to protect it from extreme temperature
+variations during pre-launch, launch, and the first 8 1/2 minutes of
+flight. That insulation reduces the boil-off rate of the propellants,
+which must be kept at very low temperatures to remain liquid. It also
+is meant to minimize ice that might form from condensation on the
+outside of the propellant tanks.
+
+In addition to the Solid Rocket Booster
+forward attachment points on either side of the intertank, three
+other attachment points link each booster to the aft major ring frame
+of the External Tank. The boosters are thus connected to the tank at
+four points, one forward and three aft.
+
+Three structural elements link the Orbiter to
+the External Tank. A "wishbone" attachment beneath the crew
+compartment connects the forward end of the Orbiter to the tank. The
+two aft connections are tripods at the base of the External
+Tank.
+
+A command from the Orbiter computer jettisons
+the External Tank 18 seconds after main engine cutoff, about 8 /2
+minutes after liftoff. To ensure that it will travel a predictable
+path, a tumble system rotates the tank end-over-end at a minimum rate
+of two revolutions per minute. The tank breaks up upon atmospheric
+entry, falling into the planned area of the Indian or Pacific Ocean
+about an hour after liftoff. The External Tank is the only main
+component of the Space Shuttle that is not recovered and
+reused.
+
+Solid Rocket Boosters
+
+The two solid-propellant rocket boosters are
+almost as long as the External Tank and attached to each side of it.
+They contribute about 80 percent of the total thrust at liftoff; the
+rest comes from the Orbiter's three main engines. Roughly two minutes
+after liftoff and 24 miles down range, the solid rockets have
+exhausted their fuel. Explosives separate the boosters from the
+External Tank. Small rocket motors move them away from the External
+Tank and the Orbiter, which continue toward orbit under thrust of the
+Shuttle's main engines.
+
+[ 9 ] The Solid Rocket
+Booster is made up of several subassemblies: the nose cone, Solid
+Rocket Motor and the nozzle assembly. Marshall is responsible for the
+Solid Rocket Booster; Morton Thiokol, Inc., Wasatch Division, Brigham
+City, Utah, is the contractor for the Solid Rocket Motors. Each Solid
+Rocket Motor case is made of 11 individual cylindrical weld free
+steel sections about 12 feet in diameter. When assembled, they form a
+tube almost 116 feet long. The 11 sections are the forward dome
+section, six cylindrical sections, the aft External Tank-attach ring
+section, two stiffener sections, and the aft dome section.
+
+The 11 sections of the motor case are joined
+by tang-and-clevis joints held together by 177 steel pins around the
+circumference of each joint.
+
+After the sections have been machined to fine
+tolerances and fitted, they are partly assembled at the factory into
+four casting segments. Those four cylindrical segments are the parts
+of the motor case into which the propellant is poured (or cast). They
+are shipped by rail in separate pieces to Kennedy.
+
+Joints assembled before the booster is shipped
+are known as factory joints. Joints between the four casting segments
+are called field joints; they are connected at Kennedy when the
+booster segments are stacked for final assembly.
+
+Orbital Maneuvering System
+
+The two engine pods on the aft fuselage of the
+Orbiter contain maneuvering engines and their propellant-monomethyl
+hydrazine (the fuel) and nitrogen tetroxide (the oxidizer). Helium
+pressurizes the propellant tanks, and the fuel and the oxidizer
+ignite on contact.
+
+Forty-four small rocket motors in the
+Orbiter's nose and aft section maneuvering system pods allow
+adjustments of the vehicle's attitude in pitch, yaw, and roll axes.
+They also may be used to make small changes of velocity along one of
+the Orbiter's three axes.
+
+Flight of a Shuttle
+
+Except for ascent and entry, all of the
+Shuttle's typical seven-day mission is in orbit. That is where the
+goals of a given mission are accomplished: scientific experiments
+carried out; satellites deployed into orbit, retrieved or repaired;
+observations made of the Earth and the solar system. The Shuttle
+makes one revolution of the Earth approximately every 90 minutes
+during the satellite mission.
+
+When it comes out of orbit, the Shuttle is
+moving at about 17, 500 miles an hour. Reaction engines position the
+Orbiter nose forward again for entry into the atmosphere. Those
+thrusters continue to control the Orbiter's attitude until the
+atmosphere becomes dense enough for the aerodynamic surfaces to take
+effect.
+
+The Shuttle enters the ever-thickening blanket
+of atmosphere at 400,000 feet of altitude and a speed of more than
+17,000 miles an hour (about Mach 25). The Orbiter's nose is
+positioned 40 degrees above its flight path. That attitude increases
+aerodynamic drag, thus helping to dissipate the tremendous amount of
+energy that the spacecraft has when it enters the atmosphere.
+Friction heats the surface of the Orbiter, which is protected by
+thermal tiles, and ionizes the surrounding air, preventing radio
+communication with Earth for the next 13 minutes.
+
+The flight control system's computer program
+allows use of the reaction thrusters and aerodynamic surfaces in
+combination to control the spacecraft. At Mach 4.2, the rudder is
+activated, and the last reaction thrusters are deactivated at Mach 1.
+Thereafter, the craft is entirely maneuvered like an airplane by
+movement of the aerodynamic control surfaces: elevons, rudder, speed
+brake, and body flap.
+
+In the landing approach, the Orbiter has no
+propulsion. It has only its velocity and altitude. Its energy must be
+carefully managed to maneuver the Shuttle aerodynamically to a safe
+landing. Beginning this terminal phase, the glide slope is steep-19
+degrees-as the Orbiter descends toward the runway. Half a minute
+before touchdown and two miles from the runway, the craft flares to a
+shallow, almost flat 1.5 degree glide slope. Touchdown occurs at 225
+miles per hour. On the runway, the Orbiter rolls to a stop, and the
+mission is complete. .
+
+References
+
+1. Space Task Group Report
+to the President, "The Post-Apollo Space Program: Directions for the
+Future," September, 1969, pages 20 and 21.
+

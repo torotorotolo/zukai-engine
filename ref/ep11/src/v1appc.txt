@@ -1,0 +1,622 @@
+
+
+v1appc
+
+Report of the PRESIDENTIAL COMMISSION
+on the Space Shuttle Challenger Accident
+
+Appendix C: Observations Concerning
+the Processing and Assembly of Flight 51-L.
+
+[ 219 ] The following
+examples of Operational Maintenance Requirements and Specifications
+Document violations were noted during the Commission's
+inquiry: 1
+
+1. The Operational Maintenance
+Requirements and Specifications Document indicated that the External
+Tank liquid hydrogen and liquid oxygen ullage pressure control and
+redundancy verification using simulated transducers was a requirement
+for this processing. However, the entire sequence was marked "not
+performed" in the documentation, indicating that it had not been
+completed. Missing any of these steps has implications for safety of
+flight.
+
+2. The three requirements that verify the main
+engine pneumatic isolation valve actuation were not met as
+specifically called for in the Operational Maintenance Requirements
+and Specifications Document. The intent of the requirement was
+met.
+
+3. One requirement (main engine pneumatic
+isolation check valve individual follow-through test) was not met in
+the Operations & Maintenance Instructions. The main engine flight
+readiness tests gave assurance that at least one of two check valves
+per system was working.
+
+4. A main engine pneumatic regulator
+functional test, which checks the redundancy of individual
+regulators, was not verified under flow conditions.
+
+5. The results of helium pneumatic low
+pressure system decay check (with closing solenoids energized)
+exceeded the allowable limit. The decay rate was recorded as 0.98
+pounds per square inch per minute; however, a recalculation of the
+data revealed that the decay rate was actually 1.4 pounds per square
+inch per minute. The calculated allowable decay rate was 1.35 pounds
+per square inch per minute maximum.
+
+6. The leak check steps for test port Number
+4, after installation of the plug, were inadvertently omitted from
+the Operations & Maintenance Instructions.
+
+7. Main engine protective covers were not
+installed at times required. A revision to the requirement is
+needed.
+
+8. Several requirements cannot be satisfied
+during a 24-hour launch scrub turnaround due to lack of access. A
+revision to the requirement is needed.
+
+9. The humidity indicator inspection
+requirement was not met because the engines were not in the
+controlled environment with a trickle purge on. The requirement needs
+to be updated.
+
+Representative samples were taken from the
+Orbiter processing paper. Of 121 Operations & Maintenance
+Instructions reviewed, 47 percent had paper errors. Incomplete,
+incorrect or missing data recording points were found in about 13
+percent of the cases and 32 percent had Quality Control buy-off
+stamps missing.
+
+Also reviewed were 479 Work Authorization
+Documents in the Interim Problem Report, Problem Report and Test
+Preparation Sheet categories. Of those documents, 70 percent had
+[ 220 ]
+anomalies, including inaccurate/inadequate level of detail (36
+percent), missing stamps (24 percent), correct signatures not
+obtained (29 percent), and inaccurately detailed summary for closure
+or deferral (20 percent).
+
+In addition to normal processing, there were
+22 Modification Change Requests applicable to flight 51-L. Those
+requests generated 51 Work Authorization Documents, all of which were
+reviewed as part of the post-accident study of flight 51-L
+processing. Although not accident related, 96 percent of the Work
+Authorization Documents were found to have errors of an
+administrative or format nature. Those examples led to the conclusion
+that there was a pervasive lack of discipline and lack of proper
+training with respect to how Work Authorization Documents are written
+and implemented. 2
+
+The same lack of completeness and accuracy was
+discovered in review of nearly all types of paperwork in the
+processing system. The amount of flawed paper work-approximately 50
+percent-is unacceptable. There are several contributing factors,
+among them signature requirements that are lengthy and require people
+to travel long distances to accomplish, excessively long times
+required to close out paper, as compared with doing the actual work;
+lack of understanding of the paper system; a complicated tiered
+control and status trail for Quality Assurance personnel; and the
+fact that no single organization has the responsibility for final
+review for closure. Basically, the system is not simplified for the
+originator, performer, or verifier. Therefore, it is not a useful
+tool, which would be the only reason for its existence. Rather, it is
+an impediment to good work and good records. 3
+
+The work control documentation system is
+cumbersome and difficult to use. Consequently, the work force does
+not try very hard to use it. The result is that the real-time
+execution of tasks and their subsequent traceability suffer. The
+system needs to be simplified so that it becomes "user friendly."
+Once it is, the work force should be trained to use it and management
+should place proper emphasis on rigorous observance of the
+documentation requirements.
+
+Flight 51-L Booster Processing
+
+With Shuttle mission STS-6 in April 1983, NASA
+introduced the "lightweight" version of the Solid Rocket Booster,
+about 4,000 pounds lighter than its 185,000-pound (empty weight)
+predecessors. The weight reduction was achieved by shaving the
+thickness of each steel casing by two to four hundredths of an inch.
+On flight 51-L, all but the forward segments of the two boosters had
+lightweight casings.
+
+There are 11 separate case components in each
+Solid Rocket Booster. Only two of the 22 components in the 51-L stack
+were new. The remaining 20 components had been used a combined total
+of 29 times previously, in ground tests and in flight.
+
+The new components were the right forward
+center tang and the left forward dome. The right forward segment
+(Number 085) had been part of the flight 51-C (January 24-27, 1985)
+left forward field joint that had experienced O-ring erosion and
+deposited soot behind the primary O-ring. None of the other 51-L case
+segments had experienced O-ring problems on previous use.
+
+Segment L-60, the right aft center tang
+component, had been flown on 41-D (August 30-September 5, 1984) as
+the left forward center tang component. Segment L-06, the right aft
+clevis component, had been flown on 51-C as the left aft clevis
+member. Segment L-06 had undergone another burn in addition to 51-C;
+it had been used as part of the left aft segment in a static test
+firing. 4
+
+The first of the eight motor segments for
+flight 51-L arrived by rail at Kennedy Space Center on October 11,
+1985. The last reached Kennedy on November 4. The segments for 51-L
+were designated booster integration set BI026.
+
+Grain inspection and offloading began on
+October 24. Stacking preliminaries for the left booster got under way
+on October 28 with the mating of the aft segment to the skirt that
+surrounds the nozzle. The stacking of the right booster began on
+December 4. During the stacking operation, which involves assembling
+the components of the Solid Rocket Booster one atop the other on the
+Mobile Launch Platform (MLP), a number of minor deviations and a few
+unusual situations were experienced. They were carefully reviewed by
+the NASA report team and by the Commission. With one possible
+exception, explained below, these incidents did not have significant
+impact on the performance of the Solid Rocket Boosters.
+
+Before stacking of the right hand booster,
+measurements of the right aft center tang and the right aft clevis
+diameters indicated a potential for....
+
+[ 221 ]
+
+Drawing depicts steps in the stacking
+of the aft and aft center segments of the Solid Rocket Booster in the
+Vehicle Assembly Building (VAB).
+
+....stacking interference. Taken across the
+0-180 degree axis, the tang diameter measurement exceeded the
+corresponding clevis dimension by +.512 inch. The maximum allowable
+tang to clevis difference is +.250 inch.
+
+Normal Operations and Maintenance Instructions
+procedures were followed for bringing the out-of-round segment into
+allowable tolerances. While the right aft center segment was hanging
+from four points on a lifting beam, the first step was to adjust the
+lifting beam to create a two-point lift across the 90-270 degree
+axis. The weight of the segment itself would decrease the tang
+diameter across the 0-180 degree axis. This process reduced the
+excess measurement to + .334 inch, but it was still outside the
+allowable tolerance.
+
+The next step in the procedure was to install
+the circumferential alignment tool. It was installed across the
+16-196 degree axis and maximum allowable pressure of 1,200 pounds per
+square inch gauge was applied to the tool. This produced a further
+improvement, but again fell short of the measurement requirements.
+Additional deflection was obtained by turning the hex nut on the
+alignment tool. This caused the hydraulic pressure on the tool to
+increase to 1,300-1,500 pounds per square inch gauge, which exceeded
+the limit on the tool. The procedure produced a force of 3,254-3,766
+pounds on the....
+
+[ 222 ] Table 1
+Right Aft Center Segment Tang to Aft Segment Clevis Diameter
+Measurement Differentials Taken on December 7, 1985
+(Positive is Tang Larger)
+
+.
+
+Circumferential
+Location
+
+4-Point Lift
+
+0145 hrs
+
+Initial 2-point
+Lift
+
+0305 hrs
+
+Intermediate 2-Point Lift
+
+0354 hrs
+
+Final 2-Point Lift
+
+0415 hrs
+
+Alignment Tool Installed
+16°/196°
+
+0925 hrs
+
+Alignment Tool
+Removed
+
+0945 hrs
+
+.
+
+0°
+
++ .512
+
++ .393
+
++ .334
+
++ .334
+
++ .138
+
++ .216
+
+30°
+
++ .158
+
++ .295
+
++ .315
+
++ .315
+
+N/A
+
++ .158
+
+60°
+
+- .334
+
+- .236
+
+- .157
+
+- .157
+
+- .079
+
+- .118
+
+90°
+
+- .728
+
+- .571
+
+- .531
+
+- .531
+
+- .295
+
+- .334
+
+120°
+
+- .669
+
+- .571
+
+- .531
+
+- .531
+
+- .374
+
+- .393
+
+150°
+
++ .059
+
+0
+
++ .020
+
++ .020
+
+- .39
+
+- .059
+
+.
+
+NOTE: Measurements to nearest .001
+inch are approximate
+
+....segment case, which was within
+manufacturer specifications. Although this procedure was at that time
+authorized by the Operations and Maintenance Instruction, it has
+since been deleted because the application of increased pressure on
+the alignment tool risks damage to the tool.
+
+Following all of these procedures, measurement
+of the tang showed the differential between the tang and clevis along
+the 0-180 degree axis to be + .138 inch, which was considered
+suitable for mate. The right aft center segment was hoisted from the
+transfer aisle and lowered into position above the aft segment in the
+Vehicle Assembly Building high bay. The alignment tool was removed
+and final tang measurements showed a differential of + .216 inch,
+indicating mating was possible. Installation of both O-rings and
+successful stacking of the segments then took place without incident.
+No further problems were identified during engagement of the two
+segments. Table 1 shows the measurements taken at various stages of
+the entire procedure. 5
+
+The several sets of tang/clevis diametric
+measurements referred to in the foregoing discussion, and presented
+in Table 1, were reported by the stacking crews at Kennedy.
+
+Two conspicuous aspects of the 51-L right aft
+field joint warrant comparison with joint history of earlier flights.
+Those aspects are the use of the circumferential alignment tool and
+the large tang-to-clevis negative diameter difference of - .393 inch
+along the 120-300-degree axis. However, the NASA Operations and
+Maintenance Instructions do not specify a limit to negative
+differences between tang and clevis.
+
+The alignment tool had been used five times
+previously; its usage is shown in Table 2. 6
+
+Table 2. Alignment Tool Use
+History
+
+.
+
+Mission
+
+Field Joint
+
+O-Ring Damage
+
+.
+
+51-B
+
+Left Aft
+
+None
+
+51-F
+
+Left Fwd
+
+None
+
+61-B
+
+Left Aft
+
+None
+
+61-C (2 joints)
+
+Left Aft
+
+Erosion
+
+Right Aft
+
+None
+
+Of the five field joints on which the
+alignment tool was used, one experienced erosion.
+
+There were 13 Solid Rocket Booster joints on
+missions 51-C (January 1985) through 61-C (January 1986) that had
+negative differences greater than -.320 inch. Three of those joints
+had negative differences greater than the 51-L right aft field joint.
+None of those 13 earlier joints experienced O-ring damage. Table 3
+indicates the joints and missions with negative differences greater
+than -.320 inch. 7
+
+[ 223 ] Table 3.
+Negative Diameter Differences Greater Than .320 Inches for
+Field Joints: STS 51-C Through 61-C
+
+.
+
+Mission
+
+Difference (Inches)
+
+Location (Degrees)
+
+.
+
+51-C
+
+Right Fwd
+
+- .360
+
+120
+
+51 - B
+
+Right Aft
+
+- .360
+
+90
+
+- .372
+
+120
+
+51 - D
+
+Right Fwd
+
+- .336
+
+0
+
+Left Aft
+
+- .324
+
+120
+
+Left Fwd
+
+- .372
+
+120
+
+51 - G
+
+Right Aft
+
+- .354
+
+120
+
+51 - F
+
+Right Center
+
+- .385
+
+0
+
+- .433*
+
+150
+
+51 - I
+
+Left Center
+
+- .335
+
+0
+
+Right Aft
+
+- .327
+
+30
+
+61 - B
+
+Left Center
+
+- .334
+
+150
+
+Right Center
+
+- .473*
+
+120
+
+61-C
+
+Left Center
+
+- .355
+
+150
+
+- .354
+
+0
+
+Right Center
+
+- .394*
+
+120
+
+.
+
+* Negative diameter differences
+greater than 51-L
+
+It was found that the negative dimension
+differences on 51-L were not the most troublesome ever experienced
+and that a significant number of joints on other flights had initial
+negative differences in excess of the worst-case design clearance
+between the tang and the clevis. One significant uncertainty is the
+degree to which segments may tend to circularity after being
+mated.
+
+The procedures used in mating the right side
+aft and aft center segments were carefully examined and appear
+normal, properly followed and executed by well-experienced personnel
+according to specifications.
+
+The 51 -L joint negative diameter difference
+has been examined for the light it may shed on whether this
+discrepancy may have contributed to the fatal booster joint
+failure.
+
+The large negative diameter difference
+indicates a potential for an interference between the tang and inner
+clevis leg that can lead to a flat on flat condition when the tang
+section is lowered into the clevis section on assembly.
+
+Subscale test on sections of the full scale
+joint cross section were performed which purposely produced a flat on
+flat condition as these sector sections were forced together. Test
+results showed that metal slivers were sheared from the flats, and
+that these slivers could be pulled into the O-ring region during
+assembly.
+
+However, a flat on flat condition probably did
+not exist on the STS 51-L lower joint. Past assembly practice has
+shown that if the difference of all diametrical readings of the
+mating halves is less than + .250 inches a flat on flat condition
+will not occur. Furthermore during the mating process the halves are
+brought slowly together with stacking personnel positioned around the
+joint. A potential for flat on flat is looked for during this
+critical period. It has been shown through experience that a flat on
+flat condition is readily apparent when viewing the mating section
+while the upper tang section is suspended just above the inner leg of
+the clevis. Thus both the physical measurements and assembly
+procedures make a flat on flat condition unlikely during
+assembly.
+
+While the tang of the 51-L right aft center
+segment was burned through near the 300 degree arc point where the
+largest negative dimension occurred, this dimension was an assembly
+condition only and it is not certain that it persisted until launch.
+Examination of the STS 61 -E destacked segments subsequent to the
+51-L accident indicated that their ovality had changed after assembly
+while awaiting launch.
+
+If the very tight tang-to-clevis assembly gap
+did persist to time of launch, it could have resulted in near maximum
+compression of the O-rings. Such compression, in conjunction with
+cold temperatures, joint dynamics, and the variable performance of
+the insulating putty has been shown to have detrimental influences on
+the joint's ability to seal. Several joints on STS 51-L, however, may
+have had areas where the O-ring was at near maximum
+compression.
+
+References
+
+1. NASA Pre-Launch
+Activities Team Report, Appendix D, pages 214 and 215.
+
+2. Ibid, pages
+179-181.
+
+3. NASA Pre-Launch
+Activities Team Report, Appendix I, page.
+
+4. Morton Thiokol Inc,
+SRM Steel Case Segment Use Record, April I, 1986.
+
+5. NASA Pre-Launch
+Activities Team Report, Appendix B, pages 5-90 through
+5-117.
+
+6. Ibid, page 6-9.
+
+7. Ibid, pages 6-1
+through 6-3.
+

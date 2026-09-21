@@ -1,0 +1,1657 @@
+
+
+v1ch9
+
+Report of the PRESIDENTIAL COMMISSION
+on the Space Shuttle Challenger Accident
+
+Chapter IX: Other Safety
+Considerations.
+
+[ 178 ] In the course of
+its investigation, the Commission became aware of a number of matters
+that played no part in the mission 51-L accident but nonetheless hold
+a potential for safety problems in the future.
+
+Some of these matters, those involving
+operational concerns, were brought directly to the Commission's
+attention by the NASA astronaut office. They were the subject of a
+special hearing.
+
+Other areas of concern came to light as the
+Commission pursued various lines of investigation in its attempt to
+isolate the cause of the accident. These inquiries examined such
+aspects as the development and operation of each of the elements of
+the Space Shuttle-the Orbiter, its main engines and the External
+Tank; the procedures employed in the processing and assembly of 51-L,
+and launch damage.
+
+This chapter examines potential risks in two
+general areas. The first embraces critical aspects of a Shuttle
+flight; for example, considerations related to a possible premature
+mission termination during the ascent phase and the risk factors
+connected with the demanding approach and landing phase. The other
+focuses on testing, processing and assembling the various elements of
+the Shuttle.
+
+Ascent: A Critical Phase
+
+The events of flight 51-L dramatically
+illustrated the dangers of the first stage of a Space Shuttle ascent.
+The accident also focused attention on the issues of Orbiter abort
+capabilities and crew escape. Of particular concern to the Commission
+are the current abort capabilities, options to improve those
+capabilities, options for crew escape and the performance of the
+range safety system .
+
+It is not the Commission's intent to
+second-guess the Space Shuttle design or try to depict escape
+provisions that might have saved the 51-L crew. In fact, the events
+that led to destruction of the Challenger progressed very rapidly and
+without warning. Under those circumstances, the Commission believes
+it is highly unlikely that any of the systems discussed below, or any
+combination of those systems, would have saved the flight 51-L
+crew.
+
+Abort Capabilities
+
+Various unexpected conditions during ascent
+can require premature termination of a Shuttle mission. The method of
+termination, or abort, depends upon the nature of the unexpected
+condition and when it occurs.
+
+The Space Shuttle is lifted to orbit by thrust
+from its two solid rockets and three main engines. The design
+criteria for the Shuttle specify that, if a single main engine is
+lost at any time between lift off and normal main engine cut off, the
+Shuttle must be able to continue to orbit or to execute an intact
+abort, that is, make a survivable landing on a runway. That design
+requirement has been met. If a single main engine is lost early in
+ascent, the Shuttle can return to make an emergency landing at
+Kennedy (a return-to-launch-site abort). If the failure occurs later,
+the Shuttle can make an emergency landing in Africa or Europe (a
+transatlantic abort landing). If the failure occurs during the last
+part of the ascent, the Shuttle can proceed around the Earth to a
+[ 179 ]
+landing in the continental United States (abort once around), or can
+continue to a lower-than-planned orbit (abort to orbit). Indeed, if
+the failure occurs late enough, the Shuttle will achieve the intended
+orbital conditions.
+
+Return-to-Launch-Site Abort . If the termination is necessary because of loss of a
+main engine during the first four minutes of flight, the Shuttle has
+the capability to fly back to the launch site. It continues downrange
+to burn excess propellant, and at the proper point it turns back
+toward Florida. The computers shutdown the remaining two engines and
+separate the Orbiter from the External Tank, which falls into the
+Atlantic Ocean. The Orbiter then glides to a landing on the runway at
+the Shuttle Landing Facility at Kennedy.
+
+Transatlantic Abort . During ascent there comes a time when the Shuttle is
+too far downrange to fly back to Kennedy. If it suffers an engine
+failure after that point, but has not yet achieved enough energy to
+continue toward orbit, it will have to land on the other side of the
+Atlantic. It will continue on a special flight path until it achieves
+the energy necessary to glide to the landing site. At that point the
+Shuttle computers will cut off the two remaining engines and separate
+the Orbiter from the External Tank. The...
+
+Schematic shows options available to
+Space Shuttle crews for aborts in the event of power loss at various
+stages in the ascent to space.
+
+[ 180 ] ....Shuttle will
+then re-enter the lower atmosphere much like a normal entry. The
+landing, however, will be at a pre-selected site in Africa or
+Europe.
+
+Design . The
+Shuttle design specifications do not require that the Orbiter be able
+to manage an intact abort (i.e., make it to a runway) if a second
+main engine should fail. If two (or all three) main engines fail
+within the first five to six minutes of the flight, the Space Shuttle
+will land in water. This maneuver is called a "contingency abort" and
+is not believed to be survivable because of damage incurred at water
+impact.
+
+The Shuttle design requirements did not
+specify that the Shuttle should be able to survive a Solid Rocket
+Booster failure. The system has no way to identify when a booster is
+about to fail, and no way to get the Orbiter or the crew away from a
+failing Solid Rocket Booster.
+
+Crew survival during ascent rests on the
+following assumptions:
+
+1. The Solid Rocket Boosters will
+work from ignition to planned separation.
+
+2. If more than one main engine fails, the
+crew must be able to survive a water landing.
+
+Shuttle Abort Enhancements
+
+Between 1973 and 1983, first stage abort
+provisions were assessed many times by all levels of NASA management.
+Many methods of saving the Orbiter and/or crew from emergencies
+during first stage were considered.
+
+Ejection seats (which afforded only limited
+protection during first stage) were provided for the two-man crews of
+the Orbital Flight Test program (the first four Shuttle flights).
+Other options for "operational" flights carrying crews of five or
+more astronauts were considered, but were not implemented because of
+limited utility, technical complexity and excessive cost in dollars,
+weight or schedule delays.
+
+Because of these factors, NASA adopted the
+philosophy that the reliability of first stage ascent must be
+assured, and that design and testing must preclude time critical
+failures that would require emergency action before normal Solid
+Rocket Booster burnout. That philosophy has been reviewed many times
+during the Space Shuttle program and is appropriately being
+reevaluated, as are all first stage abort options, in light of the
+51-L accident.
+
+Early Orbiter Separation
+
+If a problem arose that required the Orbiter
+to get away from failing Solid Rocket Boosters, the separation would
+have to be performed extremely quickly. Time would be of the essence
+for two reasons. First, as 51-L demonstrated, if a problem develops
+in a Solid Rocket Booster, it can escalate very rapidly. Second, the
+ascent trajectory is carefully designed to control the aerodynamic
+loads on the vehicle; very small deviation from the normal path will
+produce excessive loads, so if the vehicle begins to diverge from its
+path there is very little time (seconds) before structural breakup
+will occur.
+
+The normal separation sequence to free the
+Shuttle from the rest of the system takes 18 seconds, far too long to
+be of use during a firststage contingency. "Fast-separation" was
+formally established by Review Item Discrepancy 03.00.151, which
+stated the requirement to separate the Orbiter from the External Tank
+at any time. The sequence was referred to as fast-separation because
+delays required during normal separation were bypassed or drastically
+shortened in order to achieve separation in approximately three
+seconds. Some risk was accepted to obtain this contingency
+capability. Fast-separation was incorporated into the flight
+software, so that technically this capability does exist.
+Unfortunately, analysis has shown that, if it is attempted while the
+Solid Rocket Boosters are still thrusting, the Orbiter will "hang up"
+on its aft attach points and pitch violently, with probable loss of
+the Orbiter and crew.
+
+In summary, as long as the Solid Rocket
+Boosters are still thrusting, fast-separation does not provide a way
+to escape. It would be useful during first stage only if Solid Rocket
+Booster thrust could first be terminated.
+
+The current concept of fast-separation does,
+however, have some use. Contingency aborts resulting from loss of two
+or three main engines early in ascent are time-critical, and every
+fraction of a second that can be trimmed from the separation sequence
+helps. These abort procedures are executed after the Solid Rocket
+Boosters are expended, and fast-separation is used to reduce the time
+required for separation as the Shuttle must attain entry attitude
+very quickly. Unfortunately, all contingency aborts culminate in
+water impact.
+
+[ 181 ] Thrust Termination
+
+Thrust termination (or thrust neutralization)
+as originally proposed for the Space Shuttle was a concept conceived
+for the Titan 3-M booster intended for use in the Manned Orbiting
+Laboratory Program. The objective of thrust termination is to either
+extinguish or reduce the thrust of the Solid Rocket Booster in an
+emergency situation. With this thrust terminated, emergency options
+such as crew ejection or fast-separation might become feasible during
+the first two minutes of flight.
+
+The principal drawback is that thrust
+termination itself introduces high dynamic loads that could cause
+Shuttle structural components to fail. Early design reviews suggested
+that to strengthen the Orbiter to withstand the stresses caused by
+rapid thrust termination would require an additional, prohibitive
+19,600 pounds. Thrust termination was deleted from design
+consideration on April 27, 1973, by Space Shuttle Directive SS00040.
+Key factors in the decision were that (l) proper design would be
+stressed to prevent Solid Rocket Booster failure and (2) other
+firststage ascent systems provided enough redundancy to allow
+delaying an abort until after the Solid Rocket Boosters burned
+out.
+
+The subject arose again in 1979 when Space
+Shuttle Directive S13141 required the system contractor to determine
+the time over which thrust reduction must be spread so that the
+deceleration loads would not destroy the Orbiter. Marshall analyzed
+the thrust decay curves submitted by the contractor and concluded
+that achieving the required thrust decay rates was
+impractical.
+
+On July 12, 1982, the Associate Administrator
+for Space Transportation Systems requested reconsideration of thrust
+termination. Gerald Griffin, director of Johnson, responded to the
+request in a letter dated September 9, 1982, as follows:
+
+"In our opinion, further study of
+a thrust termination system for the SRB [Solid Rocket Booster] would
+not be productive. The potential failure modes which could result in
+a set of conditions requiring SRB thrust termination are either very
+remote or a result of primary structural failure. The structural
+failure risk would normally be accepted as a part of the factor of
+safety verification by analysis or test. In addition, any thrust
+termination system is going to be extremely heavy, very costly and,
+at best, present some risk to the Orbiter and ET [External Tank].
+Venting of' trot gases and the shock load or pressure spike, have the
+potential for being as great a hazard as the problem to be corrected.
+It does not appear that a practical approach exists for achieving the
+desired pressure decay rate without a major redesign of the
+motor." 1
+
+In retrospect, the possibility of Solid Rocket
+Booster failures was neither very remote nor limited to primary
+structural failure.
+
+Although it would not have helped on mission
+51-L, thrust termination is the key to any successful first-stage
+abort, and new ideas and technologies should be examined. If a thrust
+termination system is eventually deemed feasible (that is, the
+Orbiter/External Tank will still be intact after the rapid
+deceleration), it cannot have failure modes that would cause an
+uncommanded neutralization of the thrust of one or both of the Solid
+Rocket Boosters. If thrust termination were to be implemented,
+reliable detection mechanisms and reliable decision criteria would be
+mandatory.
+
+Ditching
+
+As previously discussed, most contingency
+aborts (those resulting from failure of two or three main engines
+during the first five to six minutes of flight) result in a water
+landing, or ditching. In addition, if the Space Shuttle did have a
+thrust termination capability to use with fast-separation to allow it
+to separate from failing solid rockets, the Orbiter would have to
+ditch in the water unless the failure occurred during a small window
+50-70 seconds after launch. Accordingly, whether the crew can survive
+a water impact is a critical question.
+
+In 1974 and 1975, ditching studies were
+conducted at Langley Research Center. Although test limitations
+precluded definitive conclusions, the studies suggested that the
+loads at water impact would be high. The deceleration would most
+probably cause structural failure of the crew cabin support ties to
+the fuselage, which would impede crew egress and possibly flood the
+cabin. Furthermore, payloads in the cargo bay are not designed to
+withstand decelerations as high as those expected,
+2 and would very possibly break free and travel forward
+to the crew cabin. The Langley report does state that the Orbiter
+shape and mass [ 182 ] properties are good for ditching, but given the
+structural problems and deceleration loads, that is little
+consolation.
+
+Orbiter ditching was discussed by the Crew
+Safety Panel and at Orbiter flight techniques meetings before the
+first Shuttle flight. The consensus of these groups was that (1)
+ditching is more hazardous than suggested by the early Langley tests,
+and (2) ditching is probably not survivable.
+
+This view was reiterated in the September 9,
+1982, letter from Griffin to Abrahamson:
+
+"We also suggest no further effort
+be expended to study bailout or ditching. There is considerable doubt
+that either case is technically feasible with the present Orbiter
+design. Even if a technical solution can be found, the impact of
+providing either capability is so severe in terms of cost and
+schedule as to make them impractical."
+
+There is no evidence that a Shuttle crew would
+survive a water impact. Since all contingency aborts and all first
+stage abort capabilities that are being studied culminate in a water
+impact, an additional provision for crew escape before impact should
+also be considered.
+
+Astronaut Paul Weitz expressed this before the
+Commission on April 3, 1986:
+
+"My feeling is so strong that the
+Orbiter will not survive a ditching, and that includes land, water or
+any unprepared surface....
+
+"I think if we put the crew in a position
+where they're going to be asked to do a contingency abort, then they
+need some means to get out of the vehicle before it contacts earth,
+the surface of the earth." 3
+
+Crew Escape Options
+
+In a study conducted before the Orbiter
+contract was awarded, Rockwell International evaluated a range of
+ejection systems (Rockwell International, Incorporated, Phase B
+Study, 1971). The table shows the results comparing three systems:
+ejection seats, encapsulated ejection seats and a separable crew
+compartment. The development costs are in 1971 dollars, and the costs
+and weights cited were those required to incorporate these systems
+into the developing Orbiter design, not to modify an existing
+Orbiter.
+
+The only system that could provide protection
+for more than the two-man experimental flight crew was the separable
+crew compartment, which would add substantial weight and development
+cost. All of these systems had limitations in their ability to
+provide successful escape, and all would require advance warning of
+an impending hazard from reliable data sources.
+
+The Request for Proposal, written in April,
+1971 (reference paragraph 1.3.6.2.1), states: "Provisions shall be
+made for rapid emergency egress of the crew during development test
+flights." Ejection seats were selected as the emergency escape
+system. The objective was to offer the crew some protection, though
+limited, from risks of the test flights. The philosophy was that
+after the test flights, all unknowns would be resolved, and the
+vehicle would be certified for "operational" flights.
+
+Conventional ejection seats similar to those
+installed in the Lockheed F-12/SR-71 were selected shortly after the
+Orbiter contract was awarded. They were subsequently incorporated
+into Columbia and were available for the first four flights. The
+ejection could be initiated by either crew member and would be used
+in the event of.....
+
+1971 Rockwell Data on Ejection
+Systems
+
+.
+
+Type
+
+Altitude (feet)
+
+Velocity (feet/sec)
+
+Weight (pounds)
+
+Development Cost
+
+.
+
+Open Ejection Seat
+
+< 60,000
+
+< 2,000
+
+1,760
+
+$10,000,000
+
+B-70 Encapsulated Seat
+
+< 100,000
+
+< 3,000
+
+5,200
+
+$7,000,000
+
+Separable Crew Compartment
+
+< 100,000
+
+8,000 or more
+
+14,000
+
+$292,000,000
+
+[ 183 ] .....uncontrolled
+flight, on-board fire or pending landings on unprepared surfaces. The
+escape sequence required approximately 15 seconds for the crew to
+recognize pending disaster, initiate the sequence and get a safe
+distance away from the vehicle.
+
+Although the seats were originally intended
+for use during first-stage ascent or during gliding flight below
+100,000 feet, analysis showed that the crew would be exposed to the
+Solid Rocket Booster and main engine exhaust plumes if they ejected
+during ascent. During descent, the seats provided good protection
+from about 100,000 feet to landing.
+
+After the Space Shuttle completed the four
+test flights it was certified for"operational" flights. But missions
+for the "operational" flights required more crew members, and there
+were no known ejection systems, other than an entire cabin escape
+module, that could remove the entire crew within the necessary time.
+The Orbiter configuration allowed room for only two ejection seats on
+the flight deck. With alternative ejection concepts and redesign of
+the flight deck, this number might have been increased slightly, but
+not to the full crew size. Thus, because of' limited utility during
+first- stage ascent and inability to accommodate a full crew, the
+ejection seats were eliminated for operational flights.
+
+The present Shuttle has no means for crew
+escape, either during first-stage ascent or during gliding flight.
+Conventional ejection seats do not appear to be viable Space Shuttle
+options because they severely limit the crew size and, therefore,
+prevent the Space Shuttle from accomplishing its mission objectives.
+The remaining options fall into three categories:
+
+1. Escape Module. The entire crew
+compartment would be separated from the Orbiter and descend by
+parachute.
+
+2. Rocket-assisted Extraction. Many military
+aircraft employ a system using a variety of small rocket-assisted
+devices to boost occupants from the plane. Such a system could be
+used in the Orbiter.
+
+3. Bail-Out System. The crew can exit
+unassisted through a hatch during controlled, gliding flight.
+
+Only one of these, the escape module, offers
+the possibility of escape during first-stage ascent.
+
+Its use would probably be practical only after
+thrust termination. It should be noted that in all cases of crew
+escape, the Orbiter would be lost, but in cases of Solid Rocket
+Booster failure or Orbiter ditching the vehicle would be lost anyway.
+The utility and feasibility of each method are described
+below.
+
+An escape module can offer an opportunity for
+crew escape at all altitudes during a first-stage time-critical
+emergency if the escape system itself is not damaged to the point
+that it cannot function. The module must be sufficiently far from the
+vehicle at the time of catastrophe that neither it nor its descent
+system is destroyed. Incorporation of an escape module would require
+significant redesign of the Orbiter: some structural reinforcement,
+pyrotechnic devices to sever the escape module from the rest of the
+Orbiter, modifications to sever connections that supply power and
+fluids, separation rockets and a parachute system. An additional
+weight penalty would result from the requirement to add mass in the
+rear of the Orbiter to compensate for the forward shift in the c
+enter of gravity. Recent estimates indicate this could add as much as
+30,000 pounds to the weight of' the Orbiter. 4 This increase in weight would reduce payload capacity
+considerably, perhaps unacceptably. There is no current estimate of
+the attendant cost.
+
+An escape module does theoretically offer the
+widest range of' crew escape options. The other two options, rocket
+extraction and bail-out, arc only practical during gliding flight.
+Both methods would be useful when the Orbiter could not reach a
+prepared runway, for they would allow the crew to escape before a
+very hazardous landing or a water ditching. Aerodynamic model tests
+showed that a crew member bailing out through either the side or
+overhead hatch would subsequently contact the wing, tail or orbital
+maneuvering system pod unless he or she could exit with sufficient
+velocity (> 5 to 10 feet per second) to avoid these obstacles.
+Slides and pendant rocket systems were evaluated as means of'
+providing this velocity, but all concepts of bail-out and rocket
+extraction that were studied require many minutes to get the entire
+crew out and would be practical only during controlled gliding
+flight. The results of these studies were presented at the Program
+Requirements Change Board session held on May 12, 1983, and
+subsequently to the NASA administrator, but none of the alternatives
+was [ 184 ] implemented because of limited capability and
+resulting program impacts.
+
+There is much discussion and disagreement over
+which escape systems are feasible, or whether any provide protection
+against a significant number of failure modes.
+
+The astronauts testifying before the
+Commission on April 3, 1986, agreed that it does not appear practical
+to modify the Orbiter to incorporate an escape module. The astronauts
+disagreed, however, about which of the other two systems would be
+preferable. As Astronaut Weitz testified:
+
+"John [Astronaut John Young] likes
+the rocket extraction system because it does cover a wider flight
+regime and allows you to get out perhaps with the vehicle only under
+partial control as opposed to complete control; however, any system
+that adds more parts like rockets gets more complex.... The only kind
+of a system that I think is even somehow feasible would be maybe some
+kind of a bail-out system that could be used
+subsonic." 5
+
+In its 1982 Annual Report, the Aerospace
+Safety Advisory Panel listed "crew escape . . . at launch and prior
+to potential ditching" 6 as a priority item that warranted further study. The
+Commission fully supports such studies. In particular, the Commission
+believes that the crew should have a means of escaping the Orbiter in
+controlled, gliding flight. The Commission thinks it crucial that the
+vehicle that will carry astronauts into orbit through this decade and
+the next incorporate systems that provide some chance for crew
+survival in emergencies. It nonetheless accepts the following point
+made by Astronaut Robert Crippen:
+
+"I don't know of an escape system
+that would have saved the crew from the particular incident that we
+just went through [the Challenger accident] . " 7
+
+Range Safety
+
+Television coverage of the Challenger accident
+vividly showed the Solid Rocket Boosters emerging from the ball of
+fire and smoke. The erratic and uncontrolled powered flight of such
+large components could have posed a potential danger to populated
+areas. The responsible official accordingly destroyed the Solid
+Rocket Boosters.
+
+To understand how the booster rockets were
+destroyed, one must understand the purpose of a range safety system,
+its functions, and the special considerations that apply to Shuttle
+launches.
+
+The Eastern Space and Missile Center operates
+a range safety system for all Department of Defense and NASA launch
+activities in the Cape Canaveral area. The primary responsibility of
+the range safety system, run by the U.S. Air Force, is to protect
+people and property from abnormal vehicle flights during first stage
+ascent.
+
+To fulfill its range safety responsibilities,
+the Eastern Space and Missile Center staff supervises on-site launch
+preparations and tracks rockets and vehicles until they are far
+enough away from populated areas to remove any danger. When such a
+danger arises during the ascent stage of a launch, the vehicle may
+have to be destroyed to minimize harm to persons and property on the
+ground. Every major vehicle flown from the Cape Canaveral area has
+carried an explosive destruct system that could be armed and fired by
+the range safety officer.
+
+Range safety procedures in launch activities
+from Kennedy are governed by Department of Defense and NASA
+documents. The primary regulatory publication is DOD Document
+3200.11, Use, Management, and Operation of DOD Major Ranges and Test
+Facilities.
+
+Space Shuttle Range Safety
+System
+
+Both Space Shuttle Solid Rocket Boosters and
+the External Tank are fitted with explosive charges. These can be
+detonated on the command of the range safety officer if the vehicle
+crosses the limits established by flight analysis before launch and
+the vehicle is no longer in controlled flight. The determination of
+controllability is made by the flight director in Mission Control,
+Houston, who is in communication with the range safety officer.
+Following an encoded"arm" command, the existing package on the
+Shuttle System is detonated by a subsequent encoded "fire"
+command.
+
+The range safety officer who sends the
+commands is the key decision maker who is finally responsible for
+preventing loss of life and property that could result if the vehicle
+or components should fall in populated areas. The destruct criteria
+are agreed to by NASA and the Eastern Space and Missile
+Center.
+
+[ 185 ] A range safety
+system for the Shuttle launches was approved in concept in 1974.
+Under that concept, the capability to destroy the system in
+flight....
+
+Drawing shows position of linear
+shaped charges and range safety command antennas on Solid Rocket
+Boosters and External Tank.
+
+....from the ground was to be installed in the
+form of radio detonated explosive charges triggered by encoded
+signals. Such a range safety package appeared necessary for a variety
+of reasons based upon the initial Shuttle design that included
+ejection seats. If the crew were to eject, the unmanned vehicle would
+be uncontrollable and thus a much greater danger than a manned
+system.
+
+After the first four test flights, however,
+the ejection seats were deactivated. Retaining the range safety
+package when the crew could no longer escape was an emotional and
+controversial decision. In retrospect, however, the Challenger
+accident has demonstrated the need for some type of range safety
+measure. Since the current range safety system does not allow for
+selective destruction of components, the Commission believes that
+NASA and the Air Force should critically re-examine whether the
+destruct package on the External Tank might be removed.
+
+Range Safety Activities, January 28,
+1986
+
+The range safety officer for the Challenger
+flight on January 28 was Maj. Gerald F. Bieringer, U.S. Air Force. He
+reported that the mission was normal until about 76 seconds after
+launch. The following description is from Maj. Bieringer's written
+statement prepared approximately two hours after the accident:
+
+"Watching the IP [impact point]
+displays and optics I observed the primary and alternate sources
+diverge significantly at about T + 76 [76 seconds into the flight].
+At about the same time I heard . . [through monitored communications]
+the vehicle had exploded. Concurrently, I saw the explosion on the
+video monitor on my right. A white cloud seemed to envelop the
+vehicle, small pieces exploded out of it. The IP displays PRI and ALT
+indications were jumping around wildly I was about to recommend we do
+nothing as it appeared the entire vehicle had exploded when I
+observed what appeared to be an SRB [Solid Rocket Booster] stabilized
+and flying toward the upper left corner of the display. As it
+appeared stabilized I felt it might endanger land or shipping and as
+the ET [External Tank] had apparently exploded I recommended to the
+SRSO [senior range safety officer] we send functions. I sent ARM,
+waited about 10 seconds, and sent FIRE.... FIRE was sent at about 110
+[seconds].'' 8
+
+During the flight and prior to the accident,
+tracking and control functions performed normally. There were no
+communications problems throughout the range or with the NASA flight
+dynamics officer in Mission Control Houston.
+
+Range safety data displays did not provide
+useful information immediately after the accident. The range safety
+officer depended upon the video displays for evidence concerning the
+performance of the Solid Rocket Boosters. Without that information,
+the range safety officer would not have sent the destruct signals.
+Detailed studies from Marshall had indicated that Solid Rocket
+Boosters would tumble if prematurely separated. That assumption made
+possible the prediction of impact points. When the Challenger Solid
+Rocket Boosters separated after the explosion, however, they
+continued powered, stabilized flight and did not tumble, contrary to
+the expectations upon which range safety rules had been based Without
+the live television pictures, the range safety officer would not have
+known about the unexpected performance of' the boosters
+
+The Eastern Space and Missile Center and NASA
+have appropriately initiated a comprehensive [ 186 ] review of the
+Shuttle range safety requirements and their implementation. The
+events of' the Challenger accident demonstrate the need for a range
+safety package of some type on the Solid Rocket Boosters. However,
+the review should examine whether technology exists that would allow
+combining the range safety function for the Solid Rocket Boosters
+with a thrust termination system, and whether, if technically
+feasible, it would be desirable.
+
+Postflight Analysis
+
+The Mission Control Center in Houston had no
+more warning of' the impending disaster than the range safety officer
+had. All information that might be useful in recognizing problems
+that the crew or the mission control flight team could do something
+about is available to flight controllers during the launch, but that
+information constitutes only a fraction of the electronic data being
+telemetered from the Shuttle. To ensure that nothing was overlooked
+during the launch, Johnson flight controllers conducted a thorough
+analysis of the telemetry data on January 29 and 30, 1986.
+
+Their review of the recorded events revealed
+that the chamber pressure inside the right Solid Rocket Booster began
+to differ from that of the left booster approximately 60 seconds
+after lift off. A sampling of that information is available to a
+flight controller during ascent, but the internal pressures of the
+boosters are normally not monitored during the first stage. The
+readings are used only to indicate whether the crew can expect an
+on-time or slightly delayed separation of the boosters from the
+Orbiter and External Tank. The difference in pressure during the
+brief ascent of Challenger was small, and pressures were within
+acceptable limits.
+
+The replay of the data also indicated that the
+vehicle flight control system was responding properly to external
+forces and continued to control the Shuttle until the accident. No
+unusual motion responses occurred, and inside the cockpit there were
+no alarms. There are no indications that the crew had any warning of
+a problem before the fire and the disintegration of the Space
+Shuttle.
+
+Findings
+
+1. The Space Shuttle System was not designed
+to survive a failure of the Solid Rocket Boosters. There are no
+corrective actions that can be taken if the boosters do not operate
+properly after ignition, i.e., there is no ability to separate an
+Orbiter safely from thrusting boosters and no ability for the crew to
+escape the vehicle during first-stage ascent.
+
+Neither the Mission Control Team nor the
+51-L crew had any warning of impending disaster.
+
+Even if there had been warning, there were
+no actions available to the crew or the Mission Control Team to
+avert the disaster.
+
+Landing: Another Critical Phase
+
+The consequences of faulty performance in any
+dynamic and demanding flight environment can be catastrophic. The
+Commission was concerned that an insufficient safety margin may have
+existed in areas other than Shuttle ascent. Entry and landing of the
+Shuttle are dynamic and demanding with all the risks and
+complications inherent in flying a heavyweight glider with a very
+steep glide path. Since the Shuttle crew cannot divert to any
+alternate landing site after entry, the landing decision must be both
+timely and accurate. In addition, the landing gear, which includes
+wheels, tires and brakes, must function properly. These
+considerations will be discussed for both normal and abort
+landings.
+
+Abort Site Weather
+
+The acceptability of the weather at abort
+landing sites, both inside and outside the continental United States,
+is a critical factor in the launch decision process. The local
+weather minima for the actual launch are necessarily restrictive. The
+minima for acceptably safe abort landings are even more restrictive.
+Of course, the wider the range of acceptable weather conditions, the
+greater the possibility of launch on any given day. As a result of
+past efforts to increase the likelihood of launch, abort landing
+weather criteria are currently less restrictive than the criteria for
+planned landings.
+
+The program also allows consideration of
+launching with a light rain shower over the Kennedy runway. Although
+engineering assessments [ 187 ] indicate that the
+tile damage that would result would not affect Shuttle
+controllability, it would be a serious setback to the program in
+terms of budget and schedule. This rule is designed to allow the
+program to weigh the probability of a return-to-launch-site abort and
+decide whether it is worthwhile to launch and accept the risk of a
+setback because of tile damage should a return-to-launch-site abort
+be required. This risk appears to be unnecessary.
+
+The programmatic decision to accept worse
+weather for an abort landing, in a situation where other conditions
+are also less than optimal, is not consistent with a conservative
+approach to flight safety. The desire to launch is understandable,
+and abort landings are indeed improbable. However, if an abort is
+required, it is irrelevant that it was unlikely. An emergency, the
+loss of a Space Shuttle Main Engine, has already occurred to produce
+the necessity. Abort situations will require landing under emergency
+conditions on limited runways with Orbiter weights higher than
+normal. The difficulties should not be compounded by high crosswinds
+or reduced visibility. The Commission recommended that this subject
+be reviewed, and those reviews are currently underway.
+
+Orbiter Tires and Brakes
+
+The Aerospace Safety Advisory Panel has shared
+NASA's concern over the Orbiter wheels, tires and brakes since the
+beginning of the Shuttle program. This is summarized in its 1982
+Annual Report.
+
+"The landing gear including wheels, tires, and
+brakes is vital for safe completion of any mission. With the future
+flights going to higher weights and lower margins, possibly even
+negative margins, it is imperative that existing capabilities be
+fully explored, documented and improved where necessary."
+9
+
+Orbiter Tires
+
+Orbiter tires are manufactured by B. F.
+Goodrich and are designed to support a Space Shuttle landing up to
+240,000 pounds at 225 knots with 20 knots of crosswind. The tires
+have a 34-ply rating using 16 cords. Though they have successfully
+passed testing programs, they have shown excessive wear during
+landings at Kennedy, especially when crosswinds were involved.
+
+The tires are rated as Criticality 1 because
+loss of a single tire could cause loss of control and subsequent loss
+of vehicle and crew.
+
+Based upon approach and landing test
+experience, crosswind testing was added to the Space Shuttle tire
+certification testing. To date, Orbiters have landed with a maximum
+of 8 knots of crosswind at the Kennedy runway resulting in heavy tire
+wear: both spinup wear that occurs initially at touchdown and
+crosswind wear induced by side forces and differential braking. While
+dynamometer tests indicated that these tires should withstand
+conditions well above the design specification, the tests have not
+been able to simulate runway surface effects accurately. A Langley
+Research Center test track has been used to give a partial simulation
+of the strains caused by a landing at Kennedy. This test apparatus
+will be upgraded for further testing in the summer of 1986 in an
+attempt to include all the representative flight loads and
+conditions.
+
+The tires have undergone extensive testing to
+examine effects of vacuum exposure, temperature extremes, and cuts.
+They also have undergone leakage, side force, load, storage, and
+durability tests. The tires have qualified in all these areas.
+
+To date, tests using the simulated Kennedy
+runway at Langley indicate that spinup wear by itself will not lead
+to tire failure. Tests using the Kennedy test surface do indicate
+that spinup wear is worse if the tire is subjected to crosswind. For
+this reason, the crosswind allowable for normal landings is limited
+to 10 knots. This restriction also permits a safe stop if the
+nosewheel steering system fails. The limitation is being reviewed to
+see if it is too high for abort landings involving nosewheel steering
+failure. Testing has not been conducted to ensure that excessive
+crosswind wear will not be a hazard when landing on the various hard
+surface runways with maximum crosswinds and failed nosewheel
+steering.
+
+Main tire loads are increased substantially
+after nosewheel touchdown because of the large downward wing force at
+its negative angle of attack. The total force on each side can be
+nearly 200,000 pounds, which exceeds the capability of a single tire.
+In fact, the touchdown loads alone can exceed the load bearing
+ability of a single tire. The obvious result is that if a single tire
+fails before nosegear touchdown, the vehicle will have serious if not
+catastrophic directional control problems following the expected
+failure of the [ 188 ] adjacent tire. This failure case has led to a
+Criticality 1 rating on the tires. Before nosegear touchdown, control
+is maintained through the rudder. However, it loses effectiveness as
+the speedbrake is opened and the vehicle decelerates. After nosegear
+touchdown, simulations have shown that directional control is
+possible using the nosewheel steering system for most subsequent
+failures, but not for some cases in which crosswinds exceed the
+current flight rule limits. Because of the consequences of this
+failure, crew members strongly recommend that the nosewheel steering
+system be modified to achieve full redundancy.
+
+Tire side loads have been difficult to measure
+and subsequently model because of test facility limitations. Two
+mathematical models were developed from early dynamometer tests and
+extrapolation from nosewheel tire tests. New dynamic tests of main
+gear tires show a more flexible side response, which has been
+incorporated into the latest mathematical model. A reasonably
+accurate model is required both for nosewheel steering engineering
+studies and for crew training simulators.
+
+The Orbiter tire in use meets specifications
+and has been certified through testing. However, testing has not
+reproduced results observed on Kennedy runways. To date, the only
+blown tire has been caused by a brake lockup and the resulting skid
+wear.
+
+Several improvements have been considered to
+increase protection against the high-speed blowntire case. One would
+add a skid at the bottom of the main gear strut to take the peak load
+during nosegear touchdown; another would add a roll-on-rim capability
+to the main gear wheel. None of the possible improvements has been
+funded, however, nor has any been seriously studied.
+
+In summary, two blown tires before nosegear
+touchdown would likely be catastrophic, and the potential for that
+occurrence should be minimized. NASA has directed testing in the fall
+of 1986 to examine actual tire, wheel, and strut failures to better
+understand this failure case.
+
+Orbiter Brakes
+
+The Orbiter brake design chosen in 1973 was
+based on the Orbiter's design weight. It used beryllium rotors and
+stators with carbon lining. However, as the actual Orbiter weight
+grew, the response from the Shuttle program management was not a
+redesign of the brakes, but an extension of required runway length
+from 10,000 to 12,500 feet. Thus, the brakes for many years have been
+known to have little or no margin, even if they performed as
+originally designed.
+
+There are four brake assemblies, one for each
+main landing gear wheel. Each assembly uses four rotors and three
+stators, the stators being attached to a torque tube. Carbon pads are
+attached to provide the friction surface. The Orbiter brakes were
+designed to absorb 36.5 million foot-pounds of energy for normal
+stops and 55.5 million footpounds of energy for one emergency stop.
+The brakes were tested and qualified using standard dynamometer
+tests.
+
+Actual flight experience has shown brake
+damage on most flights. The damage is classified by cause as either
+dynamic or thermal. The dynamic damage is usually characterized by
+damage to rotors and carbon lining chipping, plus beryllium and pad
+retainer cracks. On the other hand, the thermal damage has been due
+to heating of the stator caused by energy absorption during braking.
+The beryllium becomes ductile and has a much reduced yield strength
+at temperatures possible during braking. Both types of damage are
+typical of early brake development problems experienced in the
+aviation industry.
+
+Brake damage has required that special crew
+procedures be developed to assure successful braking. To minimize
+dynamic damage and to keep any loose parts together, the crews are
+told to hold the brakes on constantly from the time of first
+application until their speed slows to about 40 knots. For a normal
+landing, braking is initiated at about 130 knots. For abort landings,
+braking would be initiated at about 150 knots. Braking speeds are
+established to avoid exceeding the temperature limits of the stator.
+The earlier the brakes are applied, the higher the heat rate. The
+longer the brakes are applied, the higher the temperature will be, no
+matter what the heat rate. To minimize problems, the commander must
+get the brake energy into the brakes at just the right rate and just
+the right time-before the beryllium yields and causes a low-speed
+wheel lockup.
+
+At a Commission hearing on April 3, 1986,
+Astronaut John Young described the problem the Shuttle commander has
+with the system:
+
+"It is very difficult to use
+precisely right now. In fact, we're finding out we don't really
+[ 189 ]
+have a good technique for applying the brakes.... We don't believe
+that astronauts or pilots should be able to break the brakes."
+10
+
+Missions 5, 51-D and 61-C had forms of thermal
+stator damage. The mission 51 -D case resulted in a low-speed wheel
+lockup and a subsequent blown tire at Kennedy. The mission 61-C case
+did not progress to a lockup but came very close. The amount of brake
+energy that can be obtained using normal braking procedures is about
+40 million foot-pounds before the first stator fails. The mission
+61-C damage occurred at 34 million foot-pounds but had not progressed
+to the lockup condition. Inspection of failed stators clearly shows
+the ductile failure response of the beryllium, and, hence, it appears
+that this failure mechanism cannot contribute to a high-speed lockup
+and subsequent tire failure. It should be noted that the brake
+specification called for a maximum energy of 55 million foot-pounds.
+Qualification testing of the abort braking profile showed that 55
+million foot-pounds was the point of first stator failure. During
+qualification tests, the brakes continued to operate until all
+stators failed, providing about another 5 million footpounds of
+energy. Based upon the thermal response of beryllium under load, it
+appears that the early heavy braking required for transatlantic abort
+landings produces more than the 40 million foot-pounds that have
+resulted in thermal failure of the brakes during the normal braking
+profile. No numbers are certain, however, and clearly the
+qualification testing did not point out the current thermal
+problems.
+
+The assumed normal and abort brake energy
+limits for the current design should be reinvestigated. The 61-C
+damage resulted from only 34 million foot-pounds of energy. If this
+same brake design is to continue to fly, the mission 61-C damage
+should be fully understood, and destructive testing should be
+accomplished to establish the short runway (transatlantic abort
+landing) brake limit and appropriate abort landing planning
+factors.
+
+NASA is considering stator improvements,
+including steel or thicker beryllium stators, and has undertaken a
+carbon brake program that would provide a major margin improvement
+and less dynamic damage because of fewer parts. Additional testing is
+currently underway, and more is planned, to evaluate these brake
+modifications and to perform destructive testing. The testing results
+are expected to conform more closely to flight conditions because
+landing gear dynamics have been included. Early tests have confirmed
+the energy levels for the abort braking profile with a modified
+brake, and future tests may provide confidence in the normal braking
+profile.
+
+The Aerospace Safety Advisory Panel recognized
+NASA's efforts in its 1985 Annual Report:
+
+"A carbon brake review was
+conducted by NASA in early December, 1985, and re-sulted in agreement
+to procure a carbon brake system for the Orbiter.... There is concern
+by the STS [Space Transportation System] management about the
+availability of resources to support the development of the carbon
+brakes given the many com-peting requirements and the projected
+con-strained budget during the 1986 period. The program management
+considers the development of the carbon brake system to be of the
+highest priority . . . and the Panel sup-ports this position as it
+has in the past." 11
+
+Because of the brake problems encountered in
+the program, two reviews have been conducted by NASA. The third
+review will take place during the summer of 1986. The review board
+members have studied all of the Orbiter brake data and have compared
+Orbiter problems to industry problems. Improvements suggested have
+been implemented. It is the consensus of NASA and industry experts
+that high priority should be placed on correcting Orbiter brake
+problems, and that brake redesign should proceed with emphasis on
+developing higher energy and torque capacity.
+
+Concern within the program about the entire
+deceleration system (landing gear, wheels, tires, brakes and
+nosewheel steering) has been the subject of numerous reviews,
+meetings and design efforts. These concerns continued to be expressed
+by the Aerospace Safety Advisory Panel in 1982:
+
+"Studies of Shuttle landings to
+date show that tire, wheel and brake stresses are approaching
+limits." 12
+
+"Short runways, with inadequate overruns, are
+cause for concern, for instance, a transatlantic abort to Dakar."
+13
+
+The issues are difficult, and the required
+technology is challenging, but most agree that it is appropriate and
+important that NASA resolve [ 190 ] each of these
+problems. A conservative approach to the landing phase of flight
+demands reliable performance by all critical systems.
+
+Kennedy Space Center Landings
+
+The original Space Shuttle plan called for
+routine landings at Kennedy to minimize turnaround time and cost per
+flight and to provide an efficient operation for both the Shuttle
+system and the cargo elements. While those considerations remain
+important, other concerns, such as the performance of the Orbiter
+tires and brakes, and the difficulty of accurate weather prediction
+in Florida, have called the plan into question.
+
+When the Shuttle lands at Edwards Air Force
+Base, California, approximately six days are added to the turnaround
+time compared with a landing at Kennedy. That is the time required to
+load the Orbiter atop the Shuttle carrier aircraft, a specially
+modified Boeing 747, and to ferry it back to Florida for
+processing.
+
+Returning the Orbiter to Kennedy from Edwards
+costs not only time but also money: nearly $1,000,000, not including
+the cost of additional ground support equipment, extra security and
+other support requirements. Further, the people necessary to
+accomplish the turnaround tasks must be drawn from the staffs at
+Kennedy and Vandenberg Air Force Base, California. They are the same
+people needed for the preparation for subsequent flights.
+
+Returning the Orbiter also imposes an
+additional handling risk to the vehicle in both the loading operation
+and the ferry flight itself. Encountering light precipitation during
+the ferry flight has caused substantial damage to the Orbiter thermal
+protection system. These costs and risks, however, are minimal when
+compared with those of a Space Shuttle mission.
+
+The Kennedy runway was built to Space Shuttle
+design requirements that exceeded all Federal Aviation Administration
+requirements and was coordinated extensively with the Air Force,
+Dryden Flight Research Center, NASA Headquarters, Johnson, Kennedy,
+Marshall and the Army Corps of Engineers. The result is a single
+concrete runway, 15,000 feet long and 300 feet wide. The grooved and
+coarse brushed surface and the high coefficient of friction provide
+an all-weather landing facility.
+
+The Kennedy runway easily meets the intent of
+most of the Air Force, Federal Aviation Administration and
+International Civil Aviation Organization specification requirements.
+According to NASA, it was the best runway that the world knew how to
+build when the final design was determined in 1973.
+
+In the past several years, questions about
+weather predictability and Shuttle systems performance have
+influenced the Kennedy landing issue. Experience gained in the 24
+Shuttle landings has raised concerns about the adequacy of the
+Shuttle landing and rollout systems: tires, brakes and nosewheel
+steering. Tires and brakes have been discussed earlier. The tires
+have shown excessive wear after Kennedy landings, where the rough
+runway is particularly hard on tires. Tire wear became a serious
+concern after the landing of mission 51-D at Kennedy. Spinup wear was
+three cords deep, crosswind wear (in only an 8-knot crosswind) was
+significant and one tire eventually failed as a result of brake
+lock-up and skid.
+
+This excessive wear, coupled with brake
+failure, led NASA to schedule subsequent landings at Edwards while
+attempting to solve these problems. At the Commission hearing on
+April 3, 1986, Clifford Charlesworth, director of Space Operations at
+Johnson, stated his reaction to the blown-tire incident:
+
+"Let me say that following 51-D .
+. . one of the first things I did was go talk to then program
+manager, Mr. Lunney, and say we don't want to try that again until we
+understand that, which he completely agreed with, and we launched
+into this nosewheel steering development." 14
+
+There followed minor improvements to the
+braking system. The nosewheel steering system was also improved, so
+that it, rather than differential braking, could be used for
+directional control to reduce tire wear.
+
+These improvements were made before mission
+61-C, and it was deemed safe for that mission and subsequent missions
+to land at Kennedy. Bad weather in Florida required that 61-C land at
+Edwards. There were again problems with the brakes, indicating that
+the Shuttle braking system was still suspect. Mr. Charlesworth
+provided this assessment to the Commission:
+
+"Given the problem that has come
+up now with the brakes, I think that whole question still needs some
+more work before I would [ 191 ] be satisfied that
+yes, we should go back and try to land at the Cape."
+15
+
+The nosewheel steering, regarded as fail-safe,
+might better be described as fail-passive: at worst, a single failure
+will cause the nosewheel to castor. Thus, a single failure in
+nosewheel steering, coupled with failure conditions that require its
+use, could result in departure from the runway. There is a long-range
+program to improve the nosewheel steering so that a single failure
+will leave the system operational.
+
+Eight flights have been launched with plans to
+land in Florida. Of those, three have been diverted to California
+because of bad weather. Moreover, it is indicative of the dynamic
+weather environment in Florida that twice in the program's history
+flights have been waved off for one orbit to allow for weather
+conditions to improve enough to be acceptable for landing. Thus, even
+if NASA eventually were to resume routine operations at Kennedy,
+experience indicates the Orbiter will divert into Edwards more than
+30 percent of the time. NASA must therefore plan to use Edwards
+routinely. This requires reserving six days in the post-landing
+processing schedule for the Orbiter's ferry trip back to Florida. It
+also requires redundancy in the ferry aircraft. The single Shuttle
+carrier aircraft, with some one-of-a-kind support items, is presently
+the only way to get the Orbiter from California back to its launch
+site in Florida.
+
+Landing Site Changes
+
+.
+
+Mission
+
+Wave-offs
+
+Reason
+
+Scheduled Landing
+
+Actual Landing
+
+.
+
+STS-3
+
+1
+
+Flooding
+
+Edwards
+
+Northrup Strip, (New
+Mexico)
+
+STS-7
+
+2
+
+Rain/ceiling
+
+Kennedy
+
+Edwards
+
+STS 41-C
+
+1
+
+Rain/ceiling
+
+Kennedy
+
+Edwards
+
+STS 61-C
+
+5
+
+Rain/ceiling
+
+Kennedy
+
+Edwards
+
+The most serious concern is not that the
+weather in Florida is bad, but that the atmospheric conditions are
+frequently unpredictable. Captain Robert Crippen testified before the
+Commission on April 3, 1986:
+
+"I don't think the astronaut
+office would disagree with the premise that you are much safer
+landing at Edwards. There are some things you could do, as was
+indicated, to make Kennedy better, but you're never going to overcome
+the weather unpredictability." 16
+
+Once the Shuttle performs the deorbit burn, it
+is going to land approximately 60 minutes later; there is no way to
+return to orbit, and there is no option to select another landing
+site. This means that the weather forecaster must analyze the landing
+site weather nearly one and one-half hours in advance of landing, and
+that the forecast must be accurate. Unfortunately, the Florida
+weather is particularly difficult to forecast at certain times of the
+year. In the spring and summer, thunderstorms build and dissipate
+quickly and unpredictably. Early morning fog also is very difficult
+to predict if the forecast must be made in the hour before
+sunrise.
+
+In contrast, the stable weather patterns at
+Edwards make the forecaster's job much easier.
+
+Although NASA has a conservative philosophy,
+and applies conservative flight rules in evaluating end-of-mission
+weather, the decision always comes down to evaluating a weather
+forecast. There is a risk associated with that. If the program
+requirements put forecasters in the position of predicting weather
+when weather is unpredictable, it is only a matter of time before the
+crew is allowed to leave orbit and arrive in Florida to find
+thunderstorms or rapidly forming ground fog. Either could be
+disastrous.
+
+The weather at Edwards, of course, is not
+always acceptable for landing either. In fact, only days prior to the
+launch of STS-3, NASA was forced to shift the normal landing site
+from Edwards to Northrup Strip, New Mexico, because of flooding of
+the Edwards lakebed. This points out the need to support fully both
+Kennedy and Edwards as potential end-of-mission landing sites.
+
+In summary, although there are valid
+programmatic reasons to land routinely at Kennedy, there are concerns
+that suggest that this is not wise under the present circumstances.
+While planned landings at Edwards carry a cost in dollars and days,
+the realities of weather cannot be ignored. Shuttle program officials
+must recognize that Edwards is a permanent, essential part of the
+program. The cost associated with regular, scheduled landing and
+turnaround operations at Edwards is thus a necessary program
+cost.
+
+Decisions governing Space Shuttle operations
+must be consistent with the philosophy that unnecessary risks have to
+be eliminated. Such [ 192 ] decisions cannot be
+made without a clear understanding of margins of safety in each part
+of the system.
+
+Unfortunately, margins of safety cannot be
+assured if' performance characteristics are not thoroughly
+understood, nor can they be deduced from a previous flight's
+"success."
+
+The Shuttle Program cannot afford to operate
+outside its experience in the areas of tires, brakes, and weather,
+with the capabilities of the system today. Pending a clear
+understanding of all landing and deceleration systems, and a
+resolution of the problems encountered to date in Shuttle landings,
+the most conservative course must be followed in order to minimize
+risk during this dynamic phase of flight.
+
+Shuttle Elements
+
+The Space Shuttle Main Engine teams at
+Marshall and Rocketdyne have developed engines that have achieved
+their performance goals and have performed extremely well.
+Nevertheless the main engines continue to be highly complex and
+critical components of the Shuttle that involve an element of risk
+principally because important components of the engines degrade more
+rapidly with flight use than anticipated. Both NASA and Rocketdyne
+have taken steps to contain that risk. An important aspect of the
+main engine program has been the extensive "hot fire" ground tests.
+Unfortunately, the vitality of the test program has been reduced
+because of budgetary constraints.
+
+The ability of the engine to achieve its
+programed design life is verified by two test engines. These "fleet
+leader" engines are test fired with sufficient frequency that they
+have twice as much operational experience as any flight engine. Fleet
+leader tests have demonstrated that most engine components have an
+equivalent 40-flight service life. As part of the engine test
+program, mayor components are inspected periodic ally and replaced if
+wear or damage warrants. Fleet leader tests have established that the
+low-pressure fuel turbopump and the low-pressure oxidizer pump have
+lives limited to the equivalent of 28 and 22 flights, respectively.
+The high-pressure fuel turbopump is limited to six flights before
+overhaul; the high-pressure oxidizer pump is limited to less than six
+flights. 17 An active program of flight engine inspection and
+component replacement has been effectively implemented by Rocketdyne,
+based on the results of' the fleet leader engine test program.
+
+The life-limiting items on the high-pressure
+pumps are the turbine blades, impellers, seals and bearings.
+Rocketdyne has identified cracked turbine blades in the high -
+pressure pumps as a primary concern. The contractor has been working
+to improve the pumps' reliability by increasing bearing and turbine
+blade life and improving dynamic stability. While considerable
+progress has been made, the desired level of turbine blade life has
+not yet been achieved. A number of' improvements achieved as a result
+of the fleet leader program are now ready for incorporation in the
+Space Shuttle Main Engines used in future flights, but have not been
+implemented due to fiscal constraints. 18 Immediate implementation of these improvements would
+allow incorporation before the next Shuttle flight.
+
+The number of engine test firings per month
+has decreased over the past two years. Yet this test program has not
+yet demonstrated the limits of engine operation parameters or
+included tests over the full operating envelope to show full engine
+capability. In addition, tests have not yet been deliberately
+conducted to the point of failure to determine actual engine
+operating margins.
+
+The Orbiter has also performed well. There is,
+however, one serious potential failure mode related to the disconnect
+valves between the Orbiter and the External Tank. The present design
+includes two 17-inch diameter valves, one controlling the oxygen
+flow, and the other the hydrogen flow from the tank to the Orbiter's
+three engines. Each of the disconnect valves has two flappers that
+close off the flow of the liquid hydrogen and oxygen when the
+External Tank separates from the Orbiter. An inadvertent closure by
+any of the four flappers during normal engine operation would cause a
+catastrophe due to rupture of the supply line and/or tank. New
+designs are under study, incorporating modifications to prevent
+inadvertent valve closures. Redesigned valves could be qualified,
+certified and available for use on the Shuttle's next flight.
+
+While the External Tank has performed
+flawlessly during all Shuttle flights, one area of concern pertains
+to the indicators for the two valves which vent the liquid hydrogen
+and liquid oxygen. These valves can indicate they are closed when
+they might be partially open. This condition [ 193 ] is potentially
+hazardous, since leaks of either gaseous oxygen or hydrogen prior to
+launch, or in flight, could lead to fires. This could, in turn, lead
+to catastrophic failure of the External Tank. NASA is currently
+studying design modifications to the valve position indicators. This
+effort could be expedited and the redesigned indicators installed
+before the next flight of the Shuttle.
+
+Processing and Assembly
+
+During the processing and assembly of the
+elements of flight 51-L, various problems were seen in the
+Commission's review which could bear on the safety of future
+flights.
+
+Structural Inspections
+
+During the 51-L processing, waivers were
+granted on 60 of 146 required Orbiter structural inspections. Seven
+of these waivers were second-time waivers of inspections.
+
+A formal structural inspection plan for the
+Shuttle fleet had not been fully developed, and not all of the 146
+inspections had been scheduled for the 51-L processing. In order to
+minimize the flight delay until the implementation plan could be
+fully developed, the waivers were documented, requested and granted
+by Level II at Johnson.
+
+The structural inspection requirements are
+relatively new and not completely mature. A working group was formed
+in December 1985, to expedite a structural inspection plan. A plan
+now exists for future structural inspections. The Commission believes
+that these inspections should not be waived. The fleet of Orbiters
+has no counterpart anywhere in the world. There is no data base
+relative to reusable spacecraft. The Orbiter's operating environment
+is totally different from that of airliners, and the program must
+closely track the effects of the Orbiters' age and
+use. 19
+
+Records
+
+Throughout the Commission's review of the
+accident, a large number of errors were noted in the paperwork for
+the Space Shuttle Main Engine/Main Propulsion System and for the
+Orbiter. The review showed, however, that in the vast majority of
+cases the problem lay in the documentation itself and not in the work
+that was actually accomplished. The review led the Commission to
+conclude that the Operations and Maintenance Instructions are in need
+of an overall review and update, and the performance of Operations
+and Maintenance Instructions needs to be improved.
+
+Missed Requirements
+
+At the time of launch, all items called for by
+the Operational Maintenance Requirements and Specifications Document
+were to have been met, waived or excepted. The 51-L audit review has
+revealed additional areas where such requirements were not met and
+were not formally waived or excepted:
+
+1. A formal post-flight inspection
+of the forward External Tank attach plate was not documented.
+
+2. A forward avionics bay closeout panel was
+not verified as installed during Orbiter rollover/stacking operations
+(the area was properly configured prior to flight with installation
+of a locker).
+
+3. Flight 51-L was launched with only one of
+two crew hatch microswitches showing the proper indication. This
+condition was documented by a Problem Report and was deferred; no
+waiver was obtained, however.
+
+4. Post-flight hydraulic reservoir sampling
+was not performed prior to connection of ground hydraulic support
+equipment at Dryden Flight Research Facility, but was performed in
+the Orbiter Processing Facility.
+
+5. During Auxiliary Power Unit hypergolic
+loading operations, the Number 2 tank evacuation prior to loading was
+not maintained above 20 inches of mercury for five minutes as
+required (19.8 inches maintained for 2 hours). This incident was
+documented as an acceptable condition by Kennedy, Johnson and Launch
+Support Service, but no waiver was submitted.
+
+6. Landing gear voids were not replenished and
+crew module meters were not verified during final vehicle closeouts.
+The additional requirement to replenish the landing gear voids during
+launch countdown was performed. 20
+
+Inspection by Proxy
+
+Another aspect of the processing activities
+that warrants particular attention is the Shuttle Processing
+Contractor's policy of using "designated [ 194 ] verifiers" to
+supplement the quality assurance force. A designated verifier is a
+senior technician who is authorized to inspect and approve his own
+and his fellow technicians' work in specific nonflight areas, instead
+of NASA quality assurance personnel inspecting the work. The aviation
+industry follows this practice in performing verifications for the
+Federal Aviation Administration. The Shuttle Processing Contractor
+has about 770 designated verifiers (nearly 15 % of the work
+force). 21 The NASA quality assurance inspection program no
+longer covers 100 percent of the inspection areas. Due to reduced
+manpower NASA personnel now inspect only areas that are considered
+more critical. Thus the system of independent checks that NASA
+maintained through several programs is declining in effectiveness.
+The effect of this change requires careful evaluation by NASA.
+
+Accidental Damage Reporting
+
+While not specifically related to the
+Challenger accident, a serious problem was identified during
+interviews of technicians who work on the Orbiter. It had been their
+understanding at one time that employees would not be disciplined for
+accidental damage done to the Orbiter, provided the damage was fully
+reported when it occurred. It was their opinion that this forgiveness
+policy was no longer being followed by the Shuttle Processing
+Contractor. They cited examples of employees being punished after
+acknowledging they had accidentally caused damage. The technicians
+said that accidental damage is not consistently reported, when it
+occurs, because of lack of confidence in management's forgiveness
+policy and technicians' consequent fear of losing their jobs. This
+situation has obvious severe implications if left uncorrected.
+
+Launch Pad 39B
+
+All launch damage and launch measurement data
+from Pad B ground systems anomalies were considered to be normal or
+minor with three exceptions: the loss of the springs and plungers on
+the booster hold-down posts; the failure of the gaseous hydrogen vent
+arm to latch; and the loss of bricks from the flame trench. These
+three items are treated in Appendix I, the NASA Pre-Launch Activities
+Team Report (May, 1986). None contributed to the accident.
+
+Loss of bricks from the flame trench was also
+experienced during the launch of STS-1 (April, 1981) and STS-2
+(November, 1981) from Pad A, though at locations closer to the
+centerline of the vehicle. Since the brick was blown out of the flame
+trench and away from the vehicle, there is no evidence to indicate
+that the loose brick might have endangered the 51-L vehicle, but it
+may be possible for damage to occur if the condition remains
+uncorrected. The Pad B fire brick is to be replaced by refractory
+concrete, as was done on Pad A.
+
+Involvement of Development Contractors
+
+The Space Shuttle program, like its
+predecessors Mercury, Gemini, Apollo, Skylab and Apollo-Soyuz, is
+clearly a developmental program and must be treated as such by NASA.
+Indeed, the chief differences between the Shuttle and previous
+developmental programs are that the Shuttle is principally a
+transportation system and employs reusable hardware. Reusability
+implies a new set of functions such as logistics support,
+maintenance, refurbishment, lifetime concerns and structural
+inspections that must be addressed by the program.
+
+In order to enhance post-flight "turnaround"
+schedule and efficiency, NASA is striving to implement processing
+procedures accepted by the transportation industry. While this effort
+is useful, there is not an exact industry analogy to the Orbiter
+vehicles' flight operations, because each successive Shuttle mission
+expands system and performance requirements. Consequently, the
+Shuttle configuration is evolving as design changes and improvements
+are incorporated. The demands of individual payloads can cause
+significant additional developmental changes.
+
+These developmental aspects make significant
+demands, which can be met only by the following strategies:
+
+1. Maintain a significant
+engineering design and development capability among the Shuttle
+contractors and an ongoing engineering capability within NASA.
+
+2. Maintain an active analytical capability so
+that the evolving capabilities of the [ 195 ] Shuttle can be
+matched to the demands on the Shuttle.
+
+The Shuttle's developmental status demands
+that both NASA and all its contractors maintain a high level of
+in-house experience and technical ability.
+
+All Shuttle contractors and their
+corresponding NASA project organizations expressed concern about the
+organization of contractor services. When Shuttle operations were
+begun, the prime development contractors had total responsibility for
+all Shuttle activities. The concept of a single Shuttle Processing
+Prime Contractor was adopted as NASA policy in 1981, and implemented
+in 1983 when a team led by Lockheed Space Operations was selected.
+The Lockheed team includes Lockheed Missiles & Space Company,
+responsible for processing the Orbiter; Grumman Aerospace
+Corporation, responsible for operation and maintenance of the launch
+processing system; Pan American World Airways, charged with
+introducing and maintaining airline methods and techniques in the
+processing system; Morton Thiokol, Inc., responsible for processing
+the Solid Rocket Boosters and External Tank; and Rocketdyne,
+responsible for processing the Shuttle main engines.
+
+Lockheed's performance as Shuttle Processing
+Contractor is judged on the basis of a NASA grading system using
+agreed criteria. In September, 1984, the company was marked down for
+failure to form a coordinated contractor team. As a result of that
+grading, Lockheed earned for that period an award fee of about
+one-quarter of one percent of cost, on a maximum fee scale at that
+time of one percent of cost. Lockheed reviewed the findings of NASA's
+grading and did not quarrel with its major thrust.
+
+The award fee presently is a composite of
+incentives to be earned on mission success and cost control. It can
+vary along a scale of one to 14 percent of cost. The Shuttle
+Processing Contractor was earning, at the time of the Challenger
+accident, about six percent of cost, or nearly midpoint on the
+scale.
+
+Although the performance of' the Shuttle
+Processing Contractor's team has improved considerably, serious
+processing problems have occurred, especially with respect to the
+Orbiter. An example is provided by the handling of the critical
+17-inch disconnect valves during the 51-L flight preparations.
+
+During External Tank propellant loading in
+preparation for launch, the liquid hydrogen 17-inch disconnect valve
+was opened prior to reducing the pressure in the Orbiter liquid
+hydrogen manifold, through a procedural error by the console
+operator. The valve was opened with a six pounds per square inch
+differential. This was contrary to the critical requirement that the
+differential be no greater than one pound per square inch. This
+pressure held the valve closed for approximately 18 seconds before-
+it finally slammed open abruptly. These valves are extremely critical
+and have very stringent tolerances to preclude inadvertent closure of
+the valve during mainstage thrusting. Accidental closing of' a
+disconnect valve would mean catastrophic loss of' Orbiter and crew.
+The slamming of this valve (which could have damaged it) was not
+reported by the operator and was not discovered until the
+post-accident data review. Although this incident did not contribute
+to the 51-L incident, this type of error cannot be tolerated in
+future operations, and a policy of rigorous reporting of anomalies in
+processing must be strictly enforced.
+
+During the pre-launch processing and
+postflight refurbishment of the Orbiter, Rockwell- the development
+contractor-acts largely as an adviser to the Shuttle Processing
+Contractor. Martin Marietta has a similar role regarding the
+pre-launch processing of the External Tank. In contrast, NASA
+directed the Shuttle Processing Contractor to subcontract with
+Rocketdyne and Thiokol for the processing and refurbishment of the
+main engines and the Solid Rocket Motors, respectively. If Rockwell
+and Martin Marietta, as the development contractor, had a similar
+direct involvement with their elements of the Shuttle system, the
+likelihood of difficulties caused by improper processing would
+probably be decreased. Furthermore, all Shuttle elements would
+benefit from the advantages of beginning-to-end responsibility vested
+in individual contractors, each responsible for the design,
+development, manufacturing, operation, and refurbishment of' their
+respective Shuttle elements.
+
+[ 196 ] References
+
+1. Letter from Gerald
+D. Griffin, LO-82-90, September 9, 1982.
+
+2. NASA Memo, April 14,
+1986, PC 076109-076113.
+
+3. Commission Hearing
+Transcript, April 3, 1986, pages 2439-2440.
+
+4. Commission Work
+Session, Mission Planning and Operations Panel, April 14, 1986,
+JSC, page 138.
+
+5. Commission Hearing
+Transcript, April 3, 1986, pages 2436-2437.
+
+6. page 28.
+
+7. Commission Hearing
+Transcript, April 3, 1986, page 2429.
+
+8. Visual Aid, Range
+Safety Officer Statement, Commission Work Session, March 24, 1986,
+JSC, PC 02267-02268.
+
+9. Page 15.
+
+10. Commission Hearing
+Transcript, April 3, 1986, page 2474.
+
+11. Page 41.
+
+12. Pages 7-8.
+
+13. Page 8.
+
+14. Commission Hearing
+Transcript, April 3, 1986, page 2254.
+
+15. Commission Hearing
+Transcript, April 3, 1986, page 2255.
+
+16. Commission Hearing
+Transcript, April 13, 1986, page 2485.
+
+17. Rocketdyne Report,
+BC 86-38, President Comments on the Space Shuttle Challenger
+Accident Development and Production Panel, April 2, 1986, pages
+170, 171, 260-268.
+
+18. Rocketdyne Report,
+BC 86-38, pages 315-324.
+
+19. NASA Pre-Launch
+Activities Team Report, Appendix D, page 188.
+
+20. NASA Pre-Launch
+Activities Team Report, Appendix D, page 186.
+
+21. Commission Work
+Session, Pre-Launch, March 4, 1986, page 206.
+
