@@ -140,6 +140,26 @@ def main():
         verdict = "採用（文字起こしが台本と合う）" if not flags else "要耳（全テイク落ち・所見最少を採用）"
         if flags:
             unsure += 1
+            # 🔴🔴 2026-09-21（10本目⑥）：**所見最少の採用が、少数派の誤読を選ぶことがある。**
+            #    c901-1（`瑞草区` → EL_YOMI で `ソチョく` を送る行）で実際に起きた:
+            #      take1/3/4/5 …「ソチョクの区民会館」＝**狙いどおり**。ただし台本の漢字と比べるので
+            #                     「頭欠け:瑞→ソ」「字の欠け:瑞草」の**2件**が付く
+            #      take2       …「蘇直の区民会館」＝**誤読**。なのに所見は「字の欠け:瑞草」の**1件**
+            #    → 所見の数で選ぶと **誤読の take2 が勝ち**、本番のキャッシュに入った。
+            #    ⚠️ 根っこは「EL_YOMI でかなを送る行を、台本の漢字と突き合わせている」こと。
+            #       逃がし口は `--ignore`（所見の字が全部その集合なら数えない）＝**かなで送る行では必ず渡す**。
+            #    ここでは選び方は変えない（別の型を壊しうる）。**採用が少数派なら鳴らす**だけにする。
+            hs = [h for _, h, _ in takes]
+            same = hs.count(heard)
+            if len(hs) >= 3 and same * 2 <= len(hs):
+                top = max(set(hs), key=hs.count)
+                if hs.count(top) > same:
+                    print(f"  🔴 {lid}: 採用したテイクの聞取は {same}/{len(hs)} の**少数派**。"
+                          f"{hs.count(top)}/{len(hs)} は別の聞取だった。\n"
+                          f"     採用 : {heard}\n"
+                          f"     多数 : {top}\n"
+                          f"     → 所見の数で選ぶと誤読が勝つ型。`--ignore` を渡して数え直すか、耳で決めること。",
+                          flush=True)
         update_yomi_tsv(lid, ln.text, heard, sent)
         old[lid] = f"{lid}\t{len(takes)}\t{verdict}\t" + " || ".join(f"take{i+1}: {h}" for i, (_, h, _) in enumerate(takes)) + f"\t{ln.text}"
         print(f"{lid}: {len(takes)}テイク → {verdict}")
