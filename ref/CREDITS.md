@@ -1609,7 +1609,6 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `commission_hearing_2` | c710 | 1986 | Public domain (17 U.S.C. §105) | 米国立公文書館 | 記録映像 commission +19秒 |
 | `commission_members` | c912 | 1986 | Public domain (17 U.S.C. §105) | 米国立公文書館 | 記録映像 commission +14秒 |
 | `commission_oversight` | ep05 | 1986 | Public domain (17 U.S.C. §105) | NASA | PRESIDENTIAL COMMISSION - STS-33/51L - KSC |
-| `commission_report` | ep01 | 1986 | Public domain | NASA | Rogers-report-front-page.png |
 | `commission_room` | c819 | 1986 | Public domain (17 U.S.C. §105) | 米国立公文書館 | 記録映像 commission +12秒 |
 | `commission_testimony` | c709 | 1986 | Public domain (17 U.S.C. §105) | 米国立公文書館 | 記録映像 commission +6秒 |
 | `crew_breakfast` | c215 | 1986 | Public domain | NASA | STS-51-L preflight breakfast.jpg |

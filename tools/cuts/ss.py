@@ -130,8 +130,16 @@ def check_share_alike(spec):
 #   `cuts/__init__.py` が SPEC を組んだあとに照合し、当たれば RuntimeError にする
 #   ＝ 門番を1本足す代わりに、**全部の門番が落ちる**形で止める（黙って焼けない）。
 NG_PHOTOS: dict[str, str] = {
-    # 🔴 まだ空です。⑤c-3 のシートで落とした点をここに足します。
-    #    ⚠️ 「まだ見ていない」だけで、「危険が無い」ではありません。
+    # 🔴🔴 2026-09-21（⑤c-2）Commons の `Rogers-report-front-page.png`。
+    #    題も説明も「Cover of final report for the Rogers Commission」だが、
+    #    **絵は米上院の公聴会記録の表紙**（SPACE SHUTTLE ACCIDENT / HEARINGS BEFORE THE
+    #    SUBCOMMITTEE ON SCIENCE, TECHNOLOGY, AND SPACE / FEBRUARY 18, JUNE 10 AND 17, 1986）。
+    #    ＝ `ep01`「委員会の報告書が出たのは1986年6月6日」に当てると**画面が嘘をつく**。
+    #    ⚠️ 見つけたきっかけは `check_blank`（インク率2.0%＝白紙98%）→ 原寸で見て発覚。
+    #       **題名と説明だけでは落とせなかった**（どちらも「ロジャース委員会の報告書」と言う）。
+    P("commission_report"):
+        "絵が別物（米上院の公聴会記録の表紙）。ロジャース委員会報告書の表紙ではない",
+    # ⚠️ ここに無い点は「まだ見ていない」だけで、「危険が無い」ではありません。
 }
 
 # 🔴 元画像そのものを直してから焼く点。この回は**空**。

@@ -1,0 +1,992 @@
+{
+ "accident_breakup.jpg": {
+  "size": [
+   3000,
+   2430
+  ],
+  "lines": []
+ },
+ "ascent_1.jpg": {
+  "size": [
+   3000,
+   3000
+  ],
+  "lines": []
+ },
+ "ascent_2.jpg": {
+  "size": [
+   2308,
+   3458
+  ],
+  "lines": [
+   {
+    "box": [
+     832,
+     2090,
+     918,
+     2869
+    ],
+    "text": "刪 s ① 帑 あ て 一 u コ"
+   },
+   {
+    "box": [
+     640,
+     2678,
+     696,
+     2878
+    ],
+    "text": "く 当 4"
+   }
+  ]
+ },
+ "astronaut_manager.jpg": {
+  "size": [
+   3000,
+   2389
+  ],
+  "lines": [
+   {
+    "box": [
+     1764,
+     1861,
+     2900,
+     2190
+    ],
+    "text": "~ 洋 1 朝 ロ こ"
+   }
+  ]
+ },
+ "breakup_moment.jpg": {
+  "size": [
+   1552,
+   2113
+  ],
+  "lines": []
+ },
+ "breakup_sections.jpg": {
+  "size": [
+   2377,
+   1746
+  ],
+  "lines": []
+ },
+ "commission_hearing.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "commission_hearing_2.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "commission_members.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "commission_oversight.jpg": {
+  "size": [
+   3000,
+   2018
+  ],
+  "lines": []
+ },
+ "commission_report.jpg": {
+  "size": [
+   2576,
+   3320
+  ],
+  "lines": [
+   {
+    "box": [
+     1643,
+     443,
+     1872,
+     472
+    ],
+    "text": "S. HRG. 99 ー 967"
+   },
+   {
+    "box": [
+     689,
+     495,
+     1750,
+     558
+    ],
+    "text": "SPACE SHUTTLE ACCIDENT"
+   },
+   {
+    "box": [
+     991,
+     1011,
+     1455,
+     1056
+    ],
+    "text": "SUBCOMMITTEE ON"
+   },
+   {
+    "box": [
+     1125,
+     958,
+     1301,
+     980
+    ],
+    "text": "BEFORE 實 H"
+   },
+   {
+    "box": [
+     1013,
+     860,
+     1430,
+     921
+    ],
+    "text": "HEARINGS"
+   },
+   {
+    "box": [
+     791,
+     2030,
+     1665,
+     2062
+    ],
+    "text": "Committee on Commerce, Science, and Transportation"
+   },
+   {
+    "box": [
+     1020,
+     1988,
+     1440,
+     2015
+    ],
+    "text": "Printed for the use of the"
+   },
+   {
+    "box": [
+     899,
+     1862,
+     1556,
+     1893
+    ],
+    "text": "FEBRUARY 18 , JUNE 10 AND 17 , 1986"
+   },
+   {
+    "box": [
+     604,
+     1734,
+     1851,
+     1763
+    ],
+    "text": "SPACE SHUH'LE ACCIDENT AND THE ROGERS COMMISSION REPORT"
+   },
+   {
+    "box": [
+     1205,
+     1665,
+     1250,
+     1686
+    ],
+    "text": "ON"
+   },
+   {
+    "box": [
+     1074,
+     1588,
+     1380,
+     1616
+    ],
+    "text": "SECOND SESSION"
+   },
+   {
+    "box": [
+     933,
+     1505,
+     1518,
+     1540
+    ],
+    "text": "NINETY-NINTH CONGRESS"
+   },
+   {
+    "box": [
+     833,
+     1400,
+     1611,
+     1457
+    ],
+    "text": "UNITED STATE S SENATE"
+   },
+   {
+    "box": [
+     706,
+     1306,
+     1745,
+     1375
+    ],
+    "text": "SCffNCE, Ⅷ TRANSPORTATION"
+   },
+   {
+    "box": [
+     788,
+     1214,
+     1658,
+     1279
+    ],
+    "text": "CO 、 皿 TT 刊 ON C の 眦 丑 C 珥"
+   },
+   {
+    "box": [
+     1168,
+     1156,
+     1281,
+     1177
+    ],
+    "text": "OF THE"
+   },
+   {
+    "box": [
+     779,
+     1077,
+     1665,
+     1132
+    ],
+    "text": "SCDNCE, T C 皿 0 も OGY , 、 Ⅷ SPACE"
+   },
+   {
+    "box": [
+     637,
+     2759,
+     742,
+     2779
+    ],
+    "text": "62-885 0"
+   },
+   {
+    "box": [
+     965,
+     2707,
+     1506,
+     2728
+    ],
+    "text": "U.S. GOVERNMENT PRINTING OFFICE"
+   },
+   {
+    "box": [
+     1088,
+     2756,
+     1385,
+     2778
+    ],
+    "text": "WASHINGTON : 1986"
+   },
+   {
+    "box": [
+     906,
+     2843,
+     1566,
+     2870
+    ],
+    "text": "U. S. Government Printing Office, Washington, 以 : 20402"
+   },
+   {
+    "box": [
+     808,
+     2809,
+     1663,
+     2837
+    ],
+    "text": "For 厄 by the Superintendent Of Documents, Congressional Sales Office"
+   }
+  ]
+ },
+ "commission_room.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "commission_testimony.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "crew_breakfast.jpg": {
+  "size": [
+   3000,
+   1963
+  ],
+  "lines": []
+ },
+ "crew_jarvis.jpg": {
+  "size": [
+   3000,
+   3749
+  ],
+  "lines": [
+   {
+    "box": [
+     2300,
+     2185,
+     2416,
+     2228
+    ],
+    "text": "GREG"
+   },
+   {
+    "box": [
+     1190,
+     2925,
+     1282,
+     2974
+    ],
+    "text": "JSA"
+   }
+  ]
+ },
+ "crew_mcnair.jpg": {
+  "size": [
+   2983,
+   3729
+  ],
+  "lines": [
+   {
+    "box": [
+     1906,
+     1979,
+     2244,
+     2266
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     1998,
+     1788,
+     2173,
+     1809
+    ],
+    "text": "RON MCNAIR"
+   },
+   {
+    "box": [
+     1981,
+     1810,
+     2187,
+     1833
+    ],
+    "text": "JSC ・ HOUSTON"
+   },
+   {
+    "box": [
+     909,
+     2939,
+     1024,
+     2998
+    ],
+    "text": "JSA"
+   }
+  ]
+ },
+ "crew_onizuka.jpg": {
+  "size": [
+   3000,
+   3778
+  ],
+  "lines": [
+   {
+    "box": [
+     1943,
+     1710,
+     2215,
+     1752
+    ],
+    "text": "阯 ONIZUKA"
+   },
+   {
+    "box": [
+     470,
+     2770,
+     560,
+     2823
+    ],
+    "text": "!SA"
+   }
+  ]
+ },
+ "crew_portrait.jpg": {
+  "size": [
+   3000,
+   2400
+  ],
+  "lines": [
+   {
+    "box": [
+     2529,
+     915,
+     2602,
+     928
+    ],
+    "text": "・ R?.SNIK"
+   }
+  ]
+ },
+ "crew_portrait_2.jpg": {
+  "size": [
+   3000,
+   2400
+  ],
+  "lines": [
+   {
+    "box": [
+     2529,
+     915,
+     2602,
+     928
+    ],
+    "text": "・ R?.SNIK"
+   }
+  ]
+ },
+ "crew_portrait_3.jpg": {
+  "size": [
+   3000,
+   2046
+  ],
+  "lines": []
+ },
+ "crew_resnik.jpg": {
+  "size": [
+   2846,
+   3558
+  ],
+  "lines": []
+ },
+ "crew_scobee.jpg": {
+  "size": [
+   3000,
+   3849
+  ],
+  "lines": []
+ },
+ "crew_smith.jpg": {
+  "size": [
+   2781,
+   3476
+  ],
+  "lines": []
+ },
+ "crew_whiteroom.jpg": {
+  "size": [
+   3000,
+   2046
+  ],
+  "lines": []
+ },
+ "debris_et.jpg": {
+  "size": [
+   2291,
+   2288
+  ],
+  "lines": []
+ },
+ "debris_hangar.jpg": {
+  "size": [
+   2018,
+   1543
+  ],
+  "lines": []
+ },
+ "et_breach.jpg": {
+  "size": [
+   3000,
+   2314
+  ],
+  "lines": []
+ },
+ "fb_c101.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "fb_c307.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": [
+   {
+    "box": [
+     150,
+     141,
+     184,
+     344
+    ],
+    "text": "2 一 S 0 当 u コ"
+   }
+  ]
+ },
+ "fb_c413.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "fb_c503.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "fb_c603.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "fb_pr02.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "fb_pr07.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "fireball.jpg": {
+  "size": [
+   3000,
+   2000
+  ],
+  "lines": []
+ },
+ "fireball_wide.jpg": {
+  "size": [
+   3000,
+   2320
+  ],
+  "lines": [
+   {
+    "box": [
+     340,
+     1896,
+     619,
+     1940
+    ],
+    "text": "ー 物 を"
+   }
+  ]
+ },
+ "flag_half_mast.jpg": {
+  "size": [
+   2602,
+   3943
+  ],
+  "lines": []
+ },
+ "flame_plume.jpg": {
+  "size": [
+   2321,
+   3000
+  ],
+  "lines": []
+ },
+ "flame_plume_2.jpg": {
+  "size": [
+   477,
+   621
+  ],
+  "lines": []
+ },
+ "frustum_compare.jpg": {
+  "size": [
+   2290,
+   2276
+  ],
+  "lines": []
+ },
+ "hydrogen_burn.jpg": {
+  "size": [
+   3000,
+   2000
+  ],
+  "lines": []
+ },
+ "ice_box.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "ice_egress.jpg": {
+  "size": [
+   3000,
+   3685
+  ],
+  "lines": [
+   {
+    "box": [
+     39,
+     2113,
+     336,
+     2206
+    ],
+    "text": "い 川 ド 町"
+   },
+   {
+    "box": [
+     1512,
+     2448,
+     1745,
+     2500
+    ],
+    "text": "れ ロ 卩"
+   }
+  ]
+ },
+ "ice_icicle.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "ice_icicle_2.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "ice_pad.jpg": {
+  "size": [
+   2244,
+   2830
+  ],
+  "lines": [
+   {
+    "box": [
+     749,
+     822,
+     791,
+     912
+    ],
+    "text": "キ 第"
+   }
+  ]
+ },
+ "ice_team.jpg": {
+  "size": [
+   481,
+   600
+  ],
+  "lines": []
+ },
+ "ice_trough.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "launch_pad_morning.jpg": {
+  "size": [
+   3000,
+   2400
+  ],
+  "lines": []
+ },
+ "mcauliffe_class.jpg": {
+  "size": [
+   3000,
+   3765
+  ],
+  "lines": [
+   {
+    "box": [
+     1756,
+     2360,
+     2012,
+     2421
+    ],
+    "text": "CHRISTA"
+   }
+  ]
+ },
+ "mcauliffe_morgan.jpg": {
+  "size": [
+   2240,
+   2680
+  ],
+  "lines": []
+ },
+ "mcauliffe_training.jpg": {
+  "size": [
+   3000,
+   1963
+  ],
+  "lines": []
+ },
+ "memorial_service.jpg": {
+  "size": [
+   3000,
+   1244
+  ],
+  "lines": [
+   {
+    "box": [
+     2429,
+     718,
+     2535,
+     736
+    ],
+    "text": "P 、 q0X13.58 旧"
+   }
+  ]
+ },
+ "memorial_wreath.jpg": {
+  "size": [
+   3000,
+   3016
+  ],
+  "lines": []
+ },
+ "mmt_meeting.jpg": {
+  "size": [
+   3000,
+   2168
+  ],
+  "lines": []
+ },
+ "mulloy_testimony.jpg": {
+  "size": [
+   3000,
+   1960
+  ],
+  "lines": []
+ },
+ "oring_channel.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "oring_erosion.jpg": {
+  "size": [
+   2307,
+   2281
+  ],
+  "lines": []
+ },
+ "oring_erosion_photo.jpg": {
+  "size": [
+   2252,
+   2258
+  ],
+  "lines": []
+ },
+ "oring_physical.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "past_launch.jpg": {
+  "size": [
+   3000,
+   3000
+  ],
+  "lines": []
+ },
+ "reagan_address.jpg": {
+  "size": [
+   2713,
+   4000
+  ],
+  "lines": []
+ },
+ "recovery_ship.jpg": {
+  "size": [
+   2845,
+   3580
+  ],
+  "lines": [
+   {
+    "box": [
+     2170,
+     2275,
+     2214,
+     2321
+    ],
+    "text": "ロ"
+   }
+  ]
+ },
+ "rockwell_orbiter.jpg": {
+  "size": [
+   1525,
+   1188
+  ],
+  "lines": []
+ },
+ "rudder_burn.jpg": {
+  "size": [
+   2311,
+   2297
+  ],
+  "lines": []
+ },
+ "safety_panel.jpg": {
+  "size": [
+   2840,
+   2231
+  ],
+  "lines": []
+ },
+ "smoke_puffs.jpg": {
+  "size": [
+   751,
+   523
+  ],
+  "lines": []
+ },
+ "srb_burn_hole.jpg": {
+  "size": [
+   2880,
+   2303
+  ],
+  "lines": [
+   {
+    "box": [
+     1882,
+     2056,
+     2226,
+     2102
+    ],
+    "text": "Photograph 15 ."
+   },
+   {
+    "box": [
+     2058,
+     2110,
+     2250,
+     2151
+    ],
+    "text": "Segment,"
+   },
+   {
+    "box": [
+     2284,
+     2059,
+     2729,
+     2101
+    ],
+    "text": "Contact 11 , SRB LH"
+   },
+   {
+    "box": [
+     2283,
+     2110,
+     2580,
+     2151
+    ],
+    "text": "Sea Recovery"
+   },
+   {
+    "box": [
+     2284,
+     2259,
+     2378,
+     2293
+    ],
+    "text": "- 59 -"
+   }
+  ]
+ },
+ "srb_burn_hole_2.jpg": {
+  "size": [
+   3000,
+   2374
+  ],
+  "lines": []
+ },
+ "srb_inside.jpg": {
+  "size": [
+   2252,
+   2258
+  ],
+  "lines": []
+ },
+ "srb_stack.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "srb_trails.jpg": {
+  "size": [
+   2339,
+   3000
+  ],
+  "lines": []
+ },
+ "ssme_ignition.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "ssme_salvage.jpg": {
+  "size": [
+   2244,
+   2230
+  ],
+  "lines": [
+   {
+    "box": [
+     2207,
+     1851,
+     2238,
+     2105
+    ],
+    "text": "リ C 1 2 2 い 5 い"
+   }
+  ]
+ },
+ "telecon_room.jpg": {
+  "size": [
+   630,
+   450
+  ],
+  "lines": []
+ },
+ "training_zero_g.jpg": {
+  "size": [
+   3000,
+   2083
+  ],
+  "lines": []
+ }
+}

@@ -27,11 +27,11 @@ REC = "報告書 第I巻 勧告"
 
 SPEC = {
 
-    "ep01": dict(
-        t="最後に、九つ置かれた",
-        s="ロジャース委員会報告書　1986年6月6日",
-        photo=P("commission_report"), **ss.kind(P("commission_report")),
-    ),
+    # 🔴🔴 ep01 は**写真を落とした**（commission_report）。
+    #    Commons の `Rogers-report-front-page.png` は題も説明も「ロジャース委員会の
+    #    報告書の表紙」と言うが、**絵は米上院の公聴会記録の表紙**だった。
+    #    当てると「委員会の報告書が出たのは1986年6月6日」の画面が嘘をつく。
+    #    → `cuts/ss.py` の `NG_PHOTOS`／`ref/ep11/photo_picks.md` §3
 
     # 🔴 ep02 は写真の当てが無い（joint_redesign）
     # 🔴 ep03 は写真の当てが無い（joint_test_new）

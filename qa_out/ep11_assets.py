@@ -179,9 +179,12 @@ PICK: dict[str, dict] = {
     'oring_erosion_photo': C('STS-51-L Recovered Debris (O-Ring Tracks on Right SRB Joint) - GPN-2004-00010.jpg'),
 
     # ── 委員会・組織（7点）─────────────────────────────────────────
-    # ⚠️ Commons に撮影日が無い。年は**報告書そのものが出た日**（1986-06-06・勧告 L8）。
-    #    表紙の画像なので、被写体の年＝報告書の年で正しい。
-    'commission_report':     C('Rogers-report-front-page.png', year=1986),
+    # 🔴🔴 `commission_report` は**落とした**（下の MISSING）。
+    #    Commons の `Rogers-report-front-page.png` は題も説明も
+    #    「Cover of final report for the Rogers Commission」だが、**絵は別物**だった＝
+    #    米上院の公聴会記録の表紙（SPACE SHUTTLE ACCIDENT / HEARINGS BEFORE THE
+    #    SUBCOMMITTEE ON SCIENCE, TECHNOLOGY, AND SPACE / FEBRUARY 18, JUNE 10 AND 17, 1986）。
+    #    → [[feedback-inventory-is-not-usable-material]]（題名だけで採ると別物が来る）
     'commission_oversight':  N('S86-28889', note='PRESIDENTIAL COMMISSION - STS-33/51L - KSC'),
     'mulloy_testimony':      N('S86-28750'),
     'astronaut_manager':     N('51L-10166', note='委員がKSCに着く'),
@@ -210,7 +213,11 @@ VIDEO_SLOTS = ('smoke_liftoff', 'srb_destruct', 'launch_liftoff', 'thiokol_plant
 MISSING = ('joint_test', 'oring_resilience_test', 'srb_sun_shade', 'joint_qual_test',
            'srm_horizontal', 'srm_nozzle_51b', 'joint_redesign', 'joint_test_new',
            'srm_vertical_test', 'oring_soot', 'oring_data_chart',
-           'thiokol_telefax', 'marshall_center', 'launch_51c')
+           'thiokol_telefax', 'marshall_center', 'launch_51c',
+           # 🔴 2026-09-21 ⑤c-2 で落とした。Commons の題と説明が嘘で、絵は上院の公聴会記録
+           #    の表紙だった（上の注）。**本物のロジャース委員会報告書の表紙は Commons に無い**
+           #    （3通りの語で探して0件）。⑤c-3 で別の置き場を当たること。
+           'commission_report')
 
 
 def _plain(s):
