@@ -68,7 +68,54 @@ AUDIO = ROOT / "audio"
 #       1文あたりの情報は増やさない）。
 #    ✅ TEMPO は**合成キャッシュの鍵に入っていない**＝あとで変えても **0クレジット**で焼き直せる。
 #       ⑤a で密度が気になれば、ここだけ下げれば尺と密度が同時に直る。
-TEMPO = 1.0
+# 🔴 2026-09-21（10本目⑥・試写）カズヤくん「**ナレーションをもう少し早く**」。
+#    ⚠️ Otani は Sho より **8.3% ゆっくり**（37分28秒 → 40分36秒）。1.06 で Sho の速さにほぼ戻る。
+#       見込み＝発話 2242.7秒 ÷ 1.06 ＝ 2115.7秒 ＋ 余白 193.75秒 ＝ **約 38分29秒**（40分の内側にも戻る）。
+#    ⚠️ 1.0 でなくなるので **atempo を1段通る**（高さは変わらない）。
+#       尺の規定を外してもらった理由（無加工）は失われるが、**耳の指摘のほうが上位**。
+#    ✅ キャッシュの鍵に入っていないので **0クレジット**で焼き直せる（合わなければ何度でも変えてよい）。
+TEMPO = 1.06
+
+
+# 🔴 2026-09-21（10本目⑥・試写）カズヤくん「**句点の後の間にバラつきがある**…決め所のあとの間や、
+#    章の区切りの間は長めにとって良いが、その他はなるべく間を統一。間が長すぎる箇所がある」。
+#    実測（`qa_out/ep10_pauses.txt`・0.25秒以上の無音 617か所）:
+#      0.25〜0.50秒 **485か所（79%）**＝行間 GAP そのもの。ここはもう揃っている
+#      0.80秒超 **78か所**／1.20秒超 41か所／2.00秒超 11か所・**最大 2.87秒**
+#    ＝ばらついているのは **1行の中**で ElevenLabs が句点に作る間。**そこだけ上限を掛ける。**
+#    ⚠️ 触らないもの＝①行と行の GAP（0.40秒・構造で一定）②決め所のうしろ（TAIL_EXTRA 2.0秒）
+#       ③カットとカットの境（章の区切り）。この関数は**1行の pcm の内側**しか見ない。
+#    ⚠️ 声を切らないよう、無音の判定は振幅 `PAUSE_TH` 以下が `PAUSE_MAX` を**超えた分だけ**を、
+#       区間の**真ん中から**取り除く（両端は残すのでフェードもクリックも起きない）。
+PAUSE_MAX = 0.60         # 行の中に許す無音の上限（秒）。中央値 0.40 の少し上＝自然な息継ぎは残る
+PAUSE_TH = 300           # これ以下の振幅を無音とみなす（16bit。`qa_out/ep10_pauses.txt` と同じ値）
+
+
+def cap_pauses(pcm: bytes, max_sec: float = None, th: int = PAUSE_TH) -> bytes:
+    """行の中の無音が `max_sec` を超えたら、超えたぶんを真ん中から取り除く。"""
+    import numpy as _np
+    lim = PAUSE_MAX if max_sec is None else max_sec
+    if lim <= 0:
+        return pcm
+    a = _np.frombuffer(pcm, dtype=_np.int16)
+    q = _np.abs(a) <= th
+    keep = _np.ones(len(a), dtype=bool)
+    n = int(lim * SR)
+    i, N = 0, len(a)
+    while i < N:
+        if q[i]:
+            j = i
+            while j < N and q[j]:
+                j += 1
+            # ⚠️ 行の頭と尻の無音は触らない（_trim と edge_fade の領分）
+            if i > 0 and j < N and (j - i) > n:
+                cut = (j - i) - n
+                mid = (i + j) // 2
+                keep[mid - cut // 2: mid - cut // 2 + cut] = False
+            i = j
+        else:
+            i += 1
+    return a[keep].tobytes()
 
 
 def retempo(pcm: bytes, tempo: float = None) -> bytes:
@@ -91,7 +138,8 @@ def _sig(lines):
     """カットの指紋＝**実際にエンジンへ渡る文字列**と声・モデル・設定・GAP・TEMPO から取る（narration._sig と同じ思想）。"""
     spoken = "".join(ES.el_text(x) for x in lines)
     return hashlib.sha1(f"{spoken}|{el_tts.VOICE}|{el_tts.MODEL}|{json.dumps(ES.SETTINGS, sort_keys=True)}"
-                        f"|{GAP}|{TEMPO}"
+                        f"|{GAP}|{TEMPO}|{PAUSE_MAX}"   # 🔴 合成のあとに音を変える定数は全部ここに入れる
+                        #    （入れ忘れると「値を変えたのに wav が作り直されない」＝黙って前の音のまま）
                         .encode("utf-8")).hexdigest()[:12]
 
 
@@ -111,6 +159,7 @@ def build_cut(cid, lines, synth):
         sent = ES.el_text(line)
         pcm = synth(sent, f"{cid}-{i}")
         pcm = retempo(pcm)                   # 🔴 話速（GAP を足す前・行ごとに掛ける）
+        pcm = cap_pauses(pcm)                # 🔴 行の中の長すぎる間だけ詰める（GAP は触らない）
         pcm = ART.edge_fade(pcm, 5)          # デジタル無音へ直結するクリック止め（長さ不変）
         sec = len(pcm) / 2 / SR
         rows.append({"t": round(t, 3), "d": round(sec, 3), "text": line})
