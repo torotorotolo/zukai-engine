@@ -44,6 +44,28 @@ NUM_KANJI = set("〇一二三四五六七八九十百千万")
 #    字ではなく**語**で見る。単位・頻度・否定＝落ちると意味が反転するものだけに絞る。
 CRITICAL = ["毎時", "毎分", "毎秒", "毎日", "毎年", "以上", "以下", "未満", "以内",
             "ない", "なかった", "ません", "できない"]
+
+# 🔴🔴 2026-09-21（11本目⑤a）**回ごとの「落ちると意味が変わる語」**を足せるようにした。
+#    実例＝`c814-2`「**札**のことは知らなかった、と全員が述べた」→ 聞取
+#    「**自殺**のことは知らなかった」。**el_retake の門番は「✓ 台本と合う」で採用した。**
+#    すり抜けた理由（4つの検査すべてに構造的に掛からない）:
+#      ① `札` は HOMOGRAPH に無い
+#      ② 頭欠けは **漢字→漢字を当てない**規則（同音別字 群/郡 の誤報を避けるため）＝札→自 は素通り
+#      ③ 字の欠けは **2字以上**でないと鳴らない。欠けたのは `札` の1字だけ
+#      ④ CRITICAL は単位・否定だけの汎用リストで、この回の鍵語が入っていない
+#    ⚠️ 事故の動画で「自殺のことは知らなかった」が本番に入るところだった。
+#    ＝ `check_row_soft` の注記が**すでにこの型を書いていた**（「1字の入れ替えで読みまで変わる」）のに、
+#      門番にしていなかった。**回ごとの鍵語だけに絞れば誤報は出ない**ので、そこだけ門番にする。
+#    🔴 **中身は `el_script.CRITICAL_EP`**（題材ごとに空にする場所。前作のまま残ると危ないので、
+#      あちらに「台本の実文に当たらない語は止める」門番を付けてある
+#      ＝[[feedback-per-episode-constants-go-stale]]）。
+#    ⚠️ ここで import すると el_script ↔ el_check_heard が循環するので、**呼ばれたときに引く**。
+def _critical_ep():
+    try:
+        import el_script as ES
+        return list(getattr(ES, "CRITICAL_EP", ()))
+    except Exception:                       # 単体で使うとき（el_script を通さない道）は汎用だけ
+        return []
 # 表記のゆれ（台本の漢字↔聞取のかな）を先に均す。均さないと否定がほぼ毎行 誤報になる
 _CRIT_NORM = [("無かった", "なかった"), ("無い", "ない"), ("出来ない", "できない")]
 
@@ -100,7 +122,7 @@ def check_row(text, heard):
     tc, hc = t, h
     for a, b in _CRIT_NORM:
         tc, hc = tc.replace(a, b), hc.replace(a, b)
-    miss_c = [w for w in CRITICAL if w in tc and w not in hc]
+    miss_c = [w for w in CRITICAL + _critical_ep() if w in tc and w not in hc]
     if miss_c:
         flags.append(("意味の語", "／".join(miss_c)))
     return flags

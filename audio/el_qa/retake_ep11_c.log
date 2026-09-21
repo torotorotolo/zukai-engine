@@ -1,0 +1,8 @@
+    ⚠️ 異音 c814-2 take1: 途中に浮いた音: 250ms（1.99秒地点・振幅19843＝本文の2.1倍／前460ms・後200ms の無音）
+    ⚠️ 異音 c814-2 take2: 途中に浮いた音: 190ms（1.38秒地点・振幅10009＝本文の1.1倍／前80ms・後460ms の無音）
+  c814-2 take1: ✓  札のことは知らなかったと全員が述べた。
+c814-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep11_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+exit=0

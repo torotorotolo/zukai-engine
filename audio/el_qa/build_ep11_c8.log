@@ -1,30 +1,29 @@
-ElevenLabs: 声=Otani（3JDquces8E8bkmvbh6Bc） モデル=eleven_v3 settings={'stability': 1.0, 'similarity_boost': 0.75, 'style': 0.0, 'speed': 1.0, 'use_speaker_boost': True} ／クレジット 131,782 / 158,500／GAP 0.4s
-c801:   7.54s  (2行)
-c802:   8.28s  (2行)
-c803:   8.95s  (2行)
-c804:  10.27s  (3行)
-c805:   8.08s  (2行)
-c806:  13.58s  (3行)
-c807:   7.73s  (2行)
-c808:  10.17s  (3行)
-c809:   9.13s  (2行)
-c810:  15.57s  (3行)
-c811:   7.73s  (2行)
-c812:   7.45s  (2行)
-c813:  14.02s  (3行)
-c814:  12.15s  (3行)
-c815:  19.39s  (3行)
-c816:   8.31s  (3行)
-c817:  10.40s  (3行)
-c818:   5.72s  (1行)
-c819:   7.13s  (2行)
-c820:  10.39s  (3行)
-
-合成 20 カット／持ち越し 142 カット／未作成 29／記録 162／台本 191
-⚠️ まだ作っていないカット 29: c901,c902,c903,c904,c905,c906,c907,c908…
-作ったぶん: 162カット 10094字 → 発話＋行間 1678.6秒（6.01字/秒・行間込み。AivisSpeech は 5.52）
-本編の見込み 35.3分（全 11546字をこの速さで＋LEAD/TAIL 0.85×191＋quote 2.0×18。許容 27〜40分）
-最長の1行 = 6.63秒「話は三年さかのぼる。1982年、NASAは継ぎ目の区分を変えた。」
-API 3行（69字）／キャッシュ 46行／振り直し 0回／本物と判定 0／要耳 0（記録＝audio/el_qa/ep11_el_retakes.tsv）
-クレジット 131,782 → 131,782（消費 0）⚠️ 反映が遅れることがある
+Traceback (most recent call last):
+  File "C:\Users\konar\Desktop\zukai-engine\tools\el_build.py", line 390, in <module>
+    sys.exit(build(cuts, dry="--dry" in sys.argv))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\Desktop\zukai-engine\tools\el_build.py", line 242, in build
+    c0, lim = el_tts.credits_used()
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\Desktop\zukai-engine\tools\el_tts.py", line 156, in credits_used
+    with urllib.request.urlopen(r, timeout=60) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 429: Too Many Requests
 exit=1
