@@ -85,8 +85,28 @@ from statistics import median
 #         ＝ **11.47**。⚠️ 構造のほうは Koichi の回の完成尺から採ったまま。
 #         🔴 **⑥で ep10 の mp4 が焼けたら、完成尺 ÷ 195 で取り直すこと**（①を③から独立させておくため。
 #            いま ③ と同じ材料で埋めると、3通りの開きが「合っている」ように見えて意味を失う）。
-CPS_FALLBACK = 5.93     # 文字/秒（**Sho・実測**。10本目 11,537字 ÷ 発話 1,945.5秒。音があれば narration.json）
-PER_CUT = 11.47         # 秒/カット（Sho の発話 9.977 ＋ 8本目の構造 1.493。🔴 ⑥で ep10 の完成尺から取り直す）
+# 🔴🔴 2026-09-21（11本目⑤a）: **上の 5.93 / 11.47 はもう「いまの声」ではない。**
+#    経緯＝10本目の⑥で声を **Sho → Otani** に替え、試写の指摘で **TEMPO を 1.0 → 1.06** にした。
+#    ＝ 5.93 は ⑤a 時点の Sho の音から採った値で、**公開された音は Otani＋1.06**。
+#    出所＝`audio/narration.json`（**公開ずみ ep10 の最終の音**。voice_name=Otani・tempo=1.06・
+#    196カット／463行／11,580字／発話 `d` の総和 1,967.700秒）と
+#    `out/jiko/titan_audio-ep10-r06.mp4`（**完成尺 2,269.033秒＝37分49.0秒**・公開した版）。
+#      CPS_FALLBACK … 11,580 ÷ 1,967.700 ＝ **5.885**（5.93 は **+0.8%** 外れていた）
+#         ⚠️ **`measured_cps()` とまったく同じ式**（全カット・8字以上・`d`>0）で採った
+#            ＝定数と実測が同じ量になる。陽性対照＝ep10 に当てると `話速 5.89` と表示される。
+#         ℹ️ Otani＋1.06 は Sho（5.93）より **0.8% 遅いだけ**。⑥の「Otani は 8.3% ゆっくり」は
+#            TEMPO=1.0 のときの話で、1.06 を掛けたあとは Sho にほぼ戻っている（`el_build.TEMPO` の注記）。
+#      PER_CUT … **2,269.033 ÷ 195 ＝ 11.636**（上の 🔴 の指示どおり「完成尺 ÷ 195」）
+#         ⚠️ **割る数は 195**＝`check_script` がこの台本から数えるカット数。narration.json は
+#            **196**（⑥で足した共通エンディング `ed01` が入る）。`d1 = n * PER_CUT` の `n` は
+#            前者なので、**196 で割ると消費側と幾何が食い違う**（11.577 になる＝−0.5%）。
+#            [[feedback-gates-must-share-the-production-geometry]]
+#         ℹ️ `ed01`（7.22秒）は 195 に薄めて畳み込んである（0.037秒/カット）。
+#            ep10 以降はどの回にも共通エンディングが付くので、これで正しい。
+#      🔴 **11本目が公開されたら、また ep11 の narration.json と完成尺から取り直すこと**
+#         （[[feedback-per-episode-constants-go-stale]]）。
+CPS_FALLBACK = 5.885    # 文字/秒（**Otani＋TEMPO1.06・実測**。ep10 11,580字 ÷ 発話 1,967.700秒。音があれば narration.json）
+PER_CUT = 11.636        # 秒/カット（**ep10 の完成尺 2,269.033秒 ÷ 195カット**。🔴 ep11 公開後に取り直す）
 LEAD, TAIL = 0.35, 0.50
 GAP = 0.40              # カット内の行と行のあいだ（narration.json の gap と同じ値。替えたら両方直す）
 TAIL_EXTRA_QUOTE = 2.0
@@ -466,6 +486,45 @@ def report(cuts):
             E.append('E %s の単位が原文のまま（前後%d字にメートル換算が無い）: %s'
                      % (cid, WIN, m.group(0)))
 
+    # 🔴🔴 2026-09-21 新設（11本目④'が見つけた穴を ⑤a で塞いだ）。**裸の「N度」を拾う網が無かった。**
+    #    なぜ IMP に入れられないか: 上の (a) のとおり `IMP` に「度」を足すと
+    #    **「華氏1,000度」の「度」が自分に当たって免除される**。だから「度」はわざと外してある。
+    #    ＝ その結果、**物差しの付いていない「11.7度より下では飛ばせない」が1件も鳴らない**。
+    #      11.7℃ と 11.7°F は別の温度なので、聞く人には**数が意味を持たない**
+    #      （[[feedback-jiko-plain-language]]＝初めて見た人・中学生が分かるか）。
+    #    ⚠️ **`IMP` には入れない。別の網として持つ**（上の免除の穴を開け直さないため）。
+    #    ⚠️ 「度」は温度だけの語ではない。**角度**と**回数**を先に外さないと鳴りすぎて本物が埋もれる
+    #       （[[feedback-gates-blind-spot-is-the-scan-direction]]＝10本目⑤a は16行が鳴りっぱなしで
+    #       本物が埋もれ、塞いだ直後に本物が2件出た）。11本目の実測＝素の網で4件、
+    #       角度を外して**3件**（c606「円周の110度ぶん」だけが偽陽性だった）。
+    #    判定の重さを2段に分けた理由:
+    #      **決め所（★）の中は E** … ★は画面に**それだけ**出るので、前のカットで立てた「摂氏」が届かない
+    #        （[[feedback-quote-must-stand-alone]]＝20字に詰めると主語・単位・基準が落ちる）。
+    #      **それ以外は W** … 同じカットの中に物差しがあれば耳では通る。門番は前後のカットを見ないので、
+    #        「直前のカットで摂氏と言った」型は人が見て落とす。
+    DEG_SCALE = r'摂氏|華氏|℃|°C|°F'
+    DEG_ANGLE = r'円周|角度|方位|回転|傾|時計回り|反時計|緯度|経度'
+    deg = re.compile(r'[0-9][0-9,.]*\s*度(?!目)')     # 「2度目」は回数なので拾わない
+    for cid, _, ls in cuts:
+        parts, off = [], []
+        for l in ls:
+            off.append(sum(len(p) for p in parts))
+            parts.append(clean(l))
+        body = ''.join(parts)
+        for i, l in enumerate(ls):
+            for m in deg.finditer(parts[i]):
+                s = off[i] + m.start()
+                near = body[max(0, s - WIN):s + len(m.group(0)) + WIN]
+                if re.search(DEG_SCALE, near) or re.search(DEG_ANGLE, near):
+                    continue
+                if STAR_RE.match(l):
+                    E.append('E %s の決め所に物差しの無い「%s」。★は画面にそれだけ出る'
+                             '＝摂氏か華氏かを入れる: %s' % (cid, m.group(0), parts[i]))
+                else:
+                    W.append('W %s に物差しの無い「%s」。温度なら摂氏を足す'
+                             '（角度・回数・直前のカットで立てた物差しなら可）: %s'
+                             % (cid, m.group(0), parts[i]))
+
     # 写真映像の割合（全体と章ごと。⚠️ 全体だけだと章の穴が見えない）
     ch = {}
     for cid, pic, _ in cuts:
@@ -575,6 +634,27 @@ def selftest():
     chk('単位の換算なしを検出', report_quiet(parse(imp_bad)) - base, 2)
     chk('同じカットに換算があれば鳴らない', report_quiet(parse(imp_ok)) - base, 0)
 
+    # 🔴🔴 裸の「N度」（2026-09-21 新設・11本目⑤a）。
+    #    ⚠️ この門番は **★ の中だけ E・それ以外は W**。`report_quiet()` は E しか返さないので、
+    #       W の側は差が**いつも0**＝動いていなくても動いて見える。→ `report_counts()` で (E, W) を見る。
+    be, bw = report_counts(parse(SAMPLE))
+
+    def deg(rep):
+        """SAMPLE の1行を差し替えたときの (E の増分, W の増分)。"""
+        e, w = report_counts(parse(SAMPLE.replace('> かきくけこ', '> ' + rep)))
+        return e - be, w - bw
+
+    chk('裸のN度をWで拾う', deg('気温は2.2度だった'), (0, 1))
+    chk('摂氏があれば鳴らない', deg('気温は摂氏2.2度だった'), (0, 0))
+    chk('角度は鳴らない', deg('跡は円周の110度ぶんあった'), (0, 0))
+    chk('回数は鳴らない', deg('これで2度目だった'), (0, 0))
+    # 🔴 いちばん大事な回帰: **「度」の網を足しても「華氏1,000度」が IMP から免除されない**こと
+    #    （もし IMP に「度」を入れていたら、この行は E 0件で素通りする＝穴を開け直したことになる）。
+    chk('華氏1,000度はIMPが拾う', deg('炉内は華氏1,000度だった'), (1, 0))
+    # ★ の中は E（画面にそれだけ出るので、前のカットの「摂氏」は届かない）
+    e, w = report_counts(parse(SAMPLE.replace('★**たちつてと**', '★**11.7度より下では飛ばせない**')))
+    chk('決め所の裸のN度はE', (e - be, w - bw), (1, 0))
+
     # 🔴 尺の下限・上限（2026-09-07 に下限を 35分→30分 にしたとき新設）。
     #    ⚠️ それまで**しきい値そのものを試す検算が1本も無かった**＝
     #       値を書き換えても誰も気づかない状態だった（[[feedback-rules-need-gates]]）。
@@ -644,6 +724,29 @@ def report_quiet(cuts):
         return report(cuts)
     finally:
         sys.stdout = old
+
+
+def report_counts(cuts):
+    """E と W の**両方**の件数を返す（陽性対照用）。
+
+    🔴🔴 なぜ要るか（2026-09-21・11本目⑤a）: `report()` は **`len(E)` しか返さない**。
+    ＝ **W だけを出す門番**（裸の「N度」の非★・写真映像の章ごとなど）は
+    `report_quiet()` の差が**いつも 0** になる。＝ わざと粗を入れた陽性対照が
+    **「鳴らなかった」のか「そもそも測れていない」のか区別できない**
+    （[[feedback-verify-your-own-instrument]]＝指標は「設定を変えたら動くか」で選ぶ／
+    [[feedback-a-gate-that-throws-measures-nothing]]）。
+    ⚠️ 読むのは `report()` が最後に出す集計行そのもの＝**人が画面で見ている数と同じ**。
+    """
+    buf, old = io.StringIO(), sys.stdout
+    sys.stdout = buf
+    try:
+        report(cuts)
+    finally:
+        sys.stdout = old
+    m = re.search(r'E (\d+)件 / W (\d+)件', buf.getvalue())
+    if not m:                       # 集計行が出ない＝形が変わった。0で埋めない
+        raise RuntimeError('report() の集計行を読めない＝陽性対照が測れていない')
+    return int(m.group(1)), int(m.group(2))
 
 
 def main():
