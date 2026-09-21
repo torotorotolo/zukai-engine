@@ -56,7 +56,7 @@ SPEC = {
         s="報告書が使った言い方",
         fig=("beforeafter", dict(
             a=dict(k="爆弾なら", t="一瞬で破裂する",
-                   lines=[], v="", c=J.LINE),
+                   lines=["ごく短い時間で終わる"], v="", c=J.LINE),
             b=dict(k="報告書の言い方", t="爆発的な燃焼",
                    lines=["ほとんど爆発に近い、とも書いている"], v="", c=J.ALERT),
             arrow=False,

@@ -1580,3 +1580,98 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `missing_board_01` |  | 1995 | KOGL Type 1（手直し可） | ソウル歴史編纂院 | 삼풍백화점 사고 피해자를 찾는 벽보(1995.6) |
 | `officials_visit_01` |  | 1995 | KOGL Type 1（手直し可） | ソウル歴史編纂院 | 시장 업무 인수 직후 삼풍백화점 현장을 찾은 조순 시장(1995.7.1) |
 | `officials_visit_02` |  | 1995 | KOGL Type 1（手直し可） | ソウル歴史編纂院 | 4대 시의회 의장단 삼풍백화점 구조현장 방문(1995.7.12) |
+
+---
+
+## スペースシャトル・チャレンジャー号 空中分解事故（1986-01-28・11本目）　※2026-09-21（⑤c-2）
+
+**この回は継承（ShareAlike）つきの素材を1点も使っていません**（10本目とは判断が違います）。
+内わけ＝**写真 56点**（Commons の PD ＋ NASA 画像庫 §105）＋**動く映像からの止め絵 20点**。
+
+🔴 **動く映像から抜いた止め絵は、写真ではなく映像の出典を名乗ります**（出所を偽らないため）。
+   もとは2本＝NASA 記録映画「Space Shuttle Challenger Accident Investigation」（44分44秒）と、
+   米国立公文書館／USIA「REPORT ON THE SPACE SHUTTLE CHALLENGER ACCIDENT - KEEL, 1986」
+   （Local ID **306-WNET-239**・米連邦 §105）。
+
+⚠️ **この表は手で書いていません。**`python qa_out/ep11_assets.py credits` が
+   `ref/ep11/assets.json`（置き場に引き直した実測）と `cuts.SPEC` から書き出したものです。
+⚠️ 撮影者が「不明」と返ってくる2点（`ascent_1`・`ice_team`）は、**NASA と名乗らせていません**。
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころ |
+|---|---|---:|---|---|---|
+| `accident_breakup` | pr03 | 1986 | Public domain | NASA | Challenger explosion.jpg |
+| `ascent_1` | c315 | 1986 | Public domain | NASA | 70mm frame of Challenger during ascent.png |
+| `ascent_2` | c316 | 1986 | Public domain | NASA | Challenger - GPN-2000-001347.jpg |
+| `astronaut_manager` | ep08 | 1986 | Public domain (17 U.S.C. §105) | NASA | Members of the Presidential commission on Challenger accident arrive at KSC |
+| `breakup_moment` | c322 | 1986 | Public domain | NASA | Challenger breakup.jpg |
+| `breakup_sections` | c410 | 1986 | Public domain | NASA | Shuttle Destruction - GPN-2000-001423.jpg |
+| `commission_hearing` | c911 | 1986 | Public domain (17 U.S.C. §105) | 米国立公文書館 | 記録映像 commission +2秒 |
+| `commission_hearing_2` | c710 | 1986 | Public domain (17 U.S.C. §105) | 米国立公文書館 | 記録映像 commission +19秒 |
+| `commission_members` | c912 | 1986 | Public domain (17 U.S.C. §105) | 米国立公文書館 | 記録映像 commission +14秒 |
+| `commission_oversight` | ep05 | 1986 | Public domain (17 U.S.C. §105) | NASA | PRESIDENTIAL COMMISSION - STS-33/51L - KSC |
+| `commission_report` | ep01 | 1986 | Public domain | NASA | Rogers-report-front-page.png |
+| `commission_room` | c819 | 1986 | Public domain (17 U.S.C. §105) | 米国立公文書館 | 記録映像 commission +12秒 |
+| `commission_testimony` | c709 | 1986 | Public domain (17 U.S.C. §105) | 米国立公文書館 | 記録映像 commission +6秒 |
+| `crew_breakfast` | c215 | 1986 | Public domain | NASA | STS-51-L preflight breakfast.jpg |
+| `crew_jarvis` | c207 | 1985 | Public domain (17 U.S.C. §105) | NASA | Official portrait Gregory Jarvis STS 51-L payload specialist |
+| `crew_mcnair` | c206 | 1985 | Public domain (17 U.S.C. §105) | NASA | Portrait - Astronaut McNair, Ronald E. |
+| `crew_onizuka` | c204 | 1986 | Public domain (17 U.S.C. §105) | NASA | Portrait - Astronaut Onizuka, Ellison S. |
+| `crew_portrait` | pr05 | 1985 | Public domain | NASA | Challenger flight 51-l crew.jpg |
+| `crew_portrait_2` | c201 | 1985 | Public domain (17 U.S.C. §105) | NASA | Official Portrait - STS-51L Crewmembers |
+| `crew_portrait_3` | ep11 | 1986 | Public domain | NASA | 722342main challenger full full.jpg |
+| `crew_resnik` | c205 | 1978 | Public domain | NASA | Judith A. Resnik, official portrait.jpg |
+| `crew_scobee` | c202 | 1978 | Public domain | NASA | Francis Richard Scobee.jpg |
+| `crew_smith` | c203 | 1981 | Public domain | NASA | Michael Smith (NASA).jpg |
+| `crew_whiteroom` | c216 | 1986 | Public domain | NASA | 51-L Challenger Crew in White Room - GPN-2000-001867.jpg |
+| `debris_et` | c909 | 1986 | Public domain | NASA | STS-51-L Recovered Debris (ET and SRBs) - GPN-2004-00003.jpg |
+| `debris_hangar` | c902 | 1986 | Public domain | NASA | ChallengerRemains.jpg |
+| `et_breach` | c320 | 1986 | Public domain | NASA | LOX Tank Rupture - GPN-2000-001426.jpg |
+| `fb_c101` | c101 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 pad +44秒 |
+| `fb_c307` | c307 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 smoke +11秒 |
+| `fb_c413` | c413 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 accident +49秒 |
+| `fb_c503` | c503 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 joint +42秒 |
+| `fb_c603` | c603 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 srb +36秒 |
+| `fb_pr02` | pr02 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 launch +19秒 |
+| `fb_pr07` | pr07 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 joint +30秒 |
+| `fireball` | c406 | 1986 | Public domain | NASA | Challenger explosion (cropped).jpg |
+| `fireball_wide` | c401 | 1986 | Public domain | NASA | SPACE SHUTTLE CHALLENGER DISASTER 1986 UNCORRECTED COLOR 20211117142954!Challenger explosion.jpg |
+| `flag_half_mast` | c915 | 1986 | Public domain (17 U.S.C. §105) | NASA | Flags at half-staff in memorial of STS 51-L crewmembers |
+| `flame_plume` | c317 | 1986 | Public domain | NASA | Booster Rocket Breach - GPN-2000-001425.jpg |
+| `flame_plume_2` | c318 | 1986 | Public domain | NASA | Challenger 58 sec.jpg |
+| `frustum_compare` | c907 | 1986 | Public domain | NASA | STS-51-L Recovered Debris (Forward Skirt) - GPN-2004-00006.jpg |
+| `hydrogen_burn` | c403 | 1986 | Public domain | NASA | Challenger explosion (cropped).jpg |
+| `ice_box` | c109 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 t_ice +18秒 |
+| `ice_egress` | c108 | 1986 | Public domain (17 U.S.C. §105) | NASA | View of ice on the launch complex |
+| `ice_icicle` | pr01 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 t_ice +14秒 |
+| `ice_icicle_2` | c107 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 t_ice +23秒 |
+| `ice_pad` | pr09 | 1986 | Public domain | NASA | Ice on the Pad on the Day of STS-51-L's Launch - GPN-2004-00011.jpg |
+| `ice_team` | c110 | 1986 | Public domain | 米国立公文書館 | Photograph of Space Shuttle Ice and Frost Inspection - NARA - 593693.gif |
+| `ice_trough` | c105 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 t_ice +9秒 |
+| `launch_pad_morning` | c301 | 1986 | Public domain | NASA | STS-51-L.jpg |
+| `mcauliffe_class` | c208 | 1985 | Public domain (17 U.S.C. §105) | NASA | Official portrait Sharon Christa McAuliffe, STS 51-L Teacher in Space |
+| `mcauliffe_morgan` | c211 | 1985 | Public domain | NASA | Christa McAuliffe and Barbara Morgan - GPN-2002-000004.jpg |
+| `mcauliffe_training` | c209 | 1986 | Public domain | NASA | Christa McAuliffe in Training (28698549073).jpg |
+| `memorial_service` | c913 | 1986 | Public domain (17 U.S.C. §105) | NASA | View of the STS 51-L Memorial service on JSC's main mall |
+| `memorial_wreath` | ep10 | 1986 | Public domain (17 U.S.C. §105) | NASA | Barbara Morgan, 51-L backup payload specialist, at Memorial service |
+| `mmt_meeting` | c116 | 1986 | Public domain | NASA | STS-51L riadiace stredisko.jpg |
+| `mulloy_testimony` | c812 | 1986 | Public domain (17 U.S.C. §105) | NASA | Presidential commission investigating Challenger accident at JSC |
+| `oring_channel` | c522 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 joint +8秒 |
+| `oring_erosion` | c805 | 1986 | Public domain | NASA | STS-51-L Recovered Debris (Burn Marks on the SRM) - GPN-2004-00004.jpg |
+| `oring_erosion_photo` | c705 | 1986 | Public domain | NASA | STS-51-L Recovered Debris (O-Ring Tracks on Right SRB Joint) - GPN-2004-00010.jpg |
+| `oring_physical` | c506 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 joint +2秒 |
+| `past_launch` | c313 | 1984 | Public domain (17 U.S.C. §105) | NASA | Launch of space shuttle Challenger on the 41-C mission |
+| `reagan_address` | c914 | 1986 | Public domain | ホワイトハウス写真室 | Presidents Speech to The Nation on The Space Shuttle Challenger in Oval Office - DPLA - 24415e25cef1697901176efda1f71503.jpg |
+| `recovery_ship` | c901 | 1986 | Public domain | NASA | STS-51-L Debris Aboard the USGS Cutter Dallas - GPN-2004-00013.jpg |
+| `rockwell_orbiter` | c113 | 1979 | Public domain | NASA | Space Shuttle Columbia receives her thermal tiles at KSC (KSC-79P-119).jpg |
+| `rudder_burn` | c906 | 1986 | Public domain | NASA | STS-51-L Recovered Debris (Lower Right Vertical Stabilizer) - GPN-2004-00005.jpg |
+| `safety_panel` | ep09 | 1986 | Public domain | NASA | Rogers Commission members arrive at Kennedy Space Center.jpg |
+| `smoke_puffs` | c310 | 1986 | Public domain | NASA | STS51L-10144 black smoke.jpg |
+| `srb_burn_hole` | c903 | 1986 | Public domain | NASA | STS-51-L Recovered Debris (Left Solid Rocket Booster) - GPN-2004-00009.jpg |
+| `srb_burn_hole_2` | c904 | 1986 | Public domain (17 U.S.C. §105) | NASA | View of left SRB first piece retrieval |
+| `srb_inside` | c905 | 1986 | Public domain | NASA | STS-51-L Recovered Debris (O-Ring Tracks on Right SRB Joint) - GPN-2004-00010.jpg |
+| `srb_stack` | c501 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 srb +48秒 |
+| `srb_trails` | c412 | 1986 | Public domain | NASA | Challenger Rocket Booster - GPN-2000-001422.jpg |
+| `ssme_ignition` | c303 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 launch +9秒 |
+| `ssme_salvage` | c910 | 1986 | Public domain | NASA | STS-51-L Recovered Debris (SSME Close Up) - GPN-2004-00008.jpg |
+| `telecon_room` | c715 | 1986 | Public domain | NASA | STS-51-L mcc 01.jpg |
+| `training_zero_g` | c212 | 1985 | Public domain | NASA | Zero-G training for crew of 1985 and 1986 space shuttle missions.jpg |

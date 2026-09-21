@@ -67,9 +67,13 @@ SPEC = {
         t="三つが重なった",
         s="塔に氷がついた道すじ",
         fig=("people", dict(
-            nodes=[dict(x=0.14, y=0.20, t="細く流した水", kind="part", c=J.LINE),
-                   dict(x=0.14, y=0.50, t="氷点下の気温", kind="part", c=J.LINE),
-                   dict(x=0.14, y=0.80, t="強い風", kind="part", c=J.LINE),
+            # ⚠️ 札が1行だけだと枠の内側が空く（`check_box` が 33% で鳴った）。d を足す
+            nodes=[dict(x=0.14, y=0.20, t="細く流した水", d="配管を守るため",
+                        kind="part", c=J.LINE),
+                   dict(x=0.14, y=0.50, t="氷点下の気温", d="夜のあいだ",
+                        kind="part", c=J.LINE),
+                   dict(x=0.14, y=0.80, t="強い風", d="吹きつづけた",
+                        kind="part", c=J.LINE),
                    dict(x=0.72, y=0.50, t="塔についた氷", d="大量", kind="part",
                         c=J.ALERT)],
             edges=[dict(a=0, b=3, c=J.LINE), dict(a=1, b=3, c=J.LINE),
@@ -173,8 +177,8 @@ SPEC = {
         fig=("beforeafter", dict(
             a=dict(k="はじめ", t="百パーセントは", lines=["という逃げ道があった"],
                    v="", c=J.LINE),
-            b=dict(k="言いなおし", t="その七文字が消えた", lines=[],
-                   v="", c=J.ALERT),
+            b=dict(k="言いなおし", t="その七文字が消えた",
+                   lines=["言い切る形になった"], v="", c=J.ALERT),
             arrow=True,
             note=SRC5)),
     ),

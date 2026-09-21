@@ -392,6 +392,36 @@ USE = {
     #   5. **ショットの中で絵が変わる**ことがある（8本目 `sts1` #01 は1ショットに3つの絵）。
     #      640px のシートで見てから書く（→ [[feedback-measure-the-source-before-choosing-the-crop]]）
     # KB_USE>>> ここまで
+    #
+    # ══════════════════════════════════════════════════════════
+    # 🔴 2026-09-21（11本目 チャレンジャー号 ⑤c-2）：**8欄**。
+    #   帯＝`ref/ep11/clips.json`（12本・720x480・SAR 8:9）／ショット＝`ref/ep11/shots.json`（132本）。
+    #   秒の正本＝`ref/ep11/photo_picks.md` §2-1。`start`/`until` は shots.json の境目そのまま、
+    #   `until` は**ショットの終わり −1.0秒**。
+    #
+    #   🔴 **`rate` が 0.6 を下回る欄は動画にしていない。**4秒を12秒に引き伸ばすと
+    #      ほぼ止まって見えるので、そういう欄は**止め絵で抜いて `ss.still()` で置いた**
+    #      （12欄。実写の数は変わらない）→ `photo_picks.md` §2-2。
+    #
+    #   ⚠️ **`c709` は動画にしていない。**使える帯が 元59〜64 の5秒しかなく
+    #      （64〜66秒に未特定の `ROBERT R…` の名札）、尺 9.92秒だと 0.50倍速になるため。
+    #      止め絵で置いた（`cuts/c7.py`）。
+    #
+    #   ⚠️ **額（ピラーボックス）は帯ごとではなくコマごとに変わる。**器は 720x480 のままなので
+    #      この門番は鳴らない。切り出しは `cuts/ss.py` の `box_trim()` が
+    #      `ref/ep11/boxes.json`（1秒おきに全数測った地図）から引く
+    #      → [[feedback-container-labels-lie-about-the-picture]]
+    # ══════════════════════════════════════════════════════════
+    #   🔴 `rate` は「使える秒 ÷ **音の尺**」。音の尺は `narration.json` の実測で、
+    #      間（gap）を含むので台本の字数から出した見込みより長い。**切り上げると尻が出る**
+    #      （実測：0.74 だと pr02 が +0.59秒 はみ出した）。
+    "pr02": dict(clip="launch",     start=16.0, until=22.0, rate=0.67),
+    "pr07": dict(clip="joint",      start=24.0, until=35.0, rate=0.73),
+    "c101": dict(clip="pad",        start=30.0, until=57.0, rate=1.0),
+    "c307": dict(clip="smoke",      start=6.0,  until=16.0, rate=1.0),
+    "c413": dict(clip="accident",   start=41.0, until=57.0, rate=1.0),
+    "c503": dict(clip="joint",      start=36.0, until=47.0, rate=1.0),
+    "c603": dict(clip="srb",        start=30.0, until=43.0, rate=1.0),
 }
 # 🔴 **まだ決まっていない2欄（代用で埋めていない）** → [[feedback-agents-substitute-missing-parts]]
 #   c621「ARTCC 画面（点が消えた直後）」

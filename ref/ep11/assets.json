@@ -3,121 +3,181 @@
   "src": "clip",
   "clip": "t_ice",
   "t": 14,
-  "note": "氷に覆われた配管（元1119）"
+  "note": "氷に覆われた配管（元1119）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
  },
  "ice_trough": {
   "src": "clip",
   "clip": "t_ice",
   "t": 9,
-  "note": "🔴 水受けの厚い氷（元1114）。額入り 470x479"
+  "note": "🔴 水受けの厚い氷（元1114）。額入り 470x479",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
  },
  "ice_icicle_2": {
   "src": "clip",
   "clip": "t_ice",
   "t": 23,
-  "note": "霜の付いた梁（元1128）"
+  "note": "霜の付いた梁（元1128）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
  },
  "ice_box": {
   "src": "clip",
   "clip": "t_ice",
   "t": 18,
-  "note": "🔴 氷でふさがった通信箱（元1123）"
+  "note": "🔴 氷でふさがった通信箱（元1123）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
  },
  "ssme_ignition": {
   "src": "clip",
   "clip": "launch",
   "t": 9,
-  "note": "主エンジンの点火（元607）"
+  "note": "主エンジンの点火（元607）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
  },
  "srb_stack": {
   "src": "clip",
   "clip": "srb",
   "t": 48,
-  "note": "積み上げ（元1041）"
+  "note": "積み上げ（元1041）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
  },
  "oring_physical": {
   "src": "clip",
   "clip": "joint",
   "t": 2,
-  "note": "ゴムの輪の現物（元1540）"
+  "note": "ゴムの輪の現物（元1540）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
  },
  "oring_channel": {
   "src": "clip",
   "clip": "joint",
   "t": 8,
-  "note": "溝（元1546）"
+  "note": "溝（元1546）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
  },
  "commission_hearing": {
   "src": "clip",
   "clip": "commission",
   "t": 2,
-  "note": "机の上のシャトル模型（元57）"
+  "note": "机の上のシャトル模型（元57）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：米国立公文書館（USIA 306-WNET-239）"
  },
  "commission_room": {
   "src": "clip",
   "clip": "commission",
   "t": 12,
-  "note": "青い幕の公聴会場（元67）"
+  "note": "青い幕の公聴会場（元67）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：米国立公文書館（USIA 306-WNET-239）"
  },
  "commission_members": {
   "src": "clip",
   "clip": "commission",
   "t": 14,
-  "note": "🔴 壇上に並ぶ委員（元69）"
+  "note": "🔴 壇上に並ぶ委員（元69）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：米国立公文書館（USIA 306-WNET-239）"
  },
  "commission_hearing_2": {
   "src": "clip",
   "clip": "commission",
   "t": 19,
-  "note": "公聴会の席（元74）"
+  "note": "公聴会の席（元74）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：米国立公文書館（USIA 306-WNET-239）"
+ },
+ "commission_testimony": {
+  "src": "clip",
+  "clip": "commission",
+  "t": 6,
+  "note": "木の壁の委員会室（元61）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：米国立公文書館（USIA 306-WNET-239）"
  },
  "fb_c307": {
   "src": "clip",
   "clip": "smoke",
   "t": 11,
-  "note": "🔴 黒い煙（元1459）"
+  "note": "🔴 黒い煙（元1459）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
  },
  "fb_c413": {
   "src": "clip",
   "clip": "accident",
   "t": 49,
-  "note": "破壊されたあとの筋（元711）"
+  "note": "破壊されたあとの筋（元711）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
  },
  "fb_pr02": {
   "src": "clip",
   "clip": "launch",
   "t": 19,
-  "note": "打ち上げ（元617）"
+  "note": "打ち上げ（元617）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
  },
  "fb_c603": {
   "src": "clip",
   "clip": "srb",
   "t": 36,
-  "note": "積み上げ工程（元1029）"
+  "note": "積み上げ工程（元1029）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
  },
  "fb_pr07": {
   "src": "clip",
   "clip": "joint",
   "t": 30,
-  "note": "継ぎ目とゴムの輪（元1568）"
+  "note": "継ぎ目とゴムの輪（元1568）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
  },
  "fb_c503": {
   "src": "clip",
   "clip": "joint",
   "t": 42,
-  "note": "現地で組んだ継ぎ目（元1580）"
+  "note": "現地で組んだ継ぎ目（元1580）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
  },
  "fb_c101": {
   "src": "clip",
   "clip": "pad",
   "t": 44,
-  "note": "射点39Bの機体（元1188）"
- },
- "fb_c709": {
-  "src": "clip",
-  "clip": "commission",
-  "t": 6,
-  "note": "木の壁の委員会室（元61）"
+  "note": "射点39Bの機体（元1188）",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
  },
  "crew_portrait": {
   "src": "commons",
@@ -699,7 +759,7 @@
  "commission_report": {
   "src": "commons",
   "title": "Rogers-report-front-page.png",
-  "year": null,
+  "year": 1986,
   "note": "",
   "w": 2576,
   "h": 3320,

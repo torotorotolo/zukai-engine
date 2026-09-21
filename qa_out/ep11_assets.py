@@ -95,6 +95,10 @@ PICK: dict[str, dict] = {
     'commission_room':      V('commission', 12, note='青い幕の公聴会場（元67）'),
     'commission_members':   V('commission', 14, note='🔴 壇上に並ぶ委員（元69）'),
     'commission_hearing_2': V('commission', 19, note='公聴会の席（元74）'),
+    # 🔴 2026-09-21 ⑤c-2 で動画から止め絵に変えた。使えるのは 元59〜64 の5秒だけで
+    #    （64〜66秒に `ROBERT R…` の名札）、c709 の尺 9.92秒だと **0.50倍速**＝
+    #    自分で決めた「0.6 を下回るものは動画にしない」に当たる。
+    'commission_testimony': V('commission', 6, note='木の壁の委員会室（元61）'),
 
     # ── 動画にする8点の「ひかえの静止画」（`ss.fb(cid)` が指す名前）─────────────────
     'fb_c307': V('smoke', 11,      note='🔴 黒い煙（元1459）'),
@@ -104,7 +108,6 @@ PICK: dict[str, dict] = {
     'fb_pr07': V('joint', 30,      note='継ぎ目とゴムの輪（元1568）'),
     'fb_c503': V('joint', 42,      note='現地で組んだ継ぎ目（元1580）'),
     'fb_c101': V('pad', 44,        note='射点39Bの機体（元1188）'),
-    'fb_c709': V('commission', 6,  note='木の壁の委員会室（元61）'),
 
     # ── 乗員（11点）────────────────────────────────────────────────
     'crew_portrait':   C('Challenger flight 51-l crew.jpg'),
@@ -176,7 +179,9 @@ PICK: dict[str, dict] = {
     'oring_erosion_photo': C('STS-51-L Recovered Debris (O-Ring Tracks on Right SRB Joint) - GPN-2004-00010.jpg'),
 
     # ── 委員会・組織（7点）─────────────────────────────────────────
-    'commission_report':     C('Rogers-report-front-page.png'),
+    # ⚠️ Commons に撮影日が無い。年は**報告書そのものが出た日**（1986-06-06・勧告 L8）。
+    #    表紙の画像なので、被写体の年＝報告書の年で正しい。
+    'commission_report':     C('Rogers-report-front-page.png', year=1986),
     'commission_oversight':  N('S86-28889', note='PRESIDENTIAL COMMISSION - STS-33/51L - KSC'),
     'mulloy_testimony':      N('S86-28750'),
     'astronaut_manager':     N('51L-10166', note='委員がKSCに着く'),
@@ -196,7 +201,7 @@ PICK: dict[str, dict] = {
 #    ＝ `cuts/README.md` §0-8「動画は写真より優先」。`ss.vid(cid, ...)` が `fb_<cid>.jpg` を指す。
 #    その `fb_*` は上の PICK に在り、**動画が取れなかったときのひかえ**になる。
 VIDEO_SLOTS = ('smoke_liftoff', 'srb_destruct', 'launch_liftoff', 'thiokol_plant',
-               'srb_oring', 'srb_field_joint', 'pad_39b', 'commission_testimony')
+               'srb_oring', 'srb_field_joint', 'pad_39b')
 
 # 🔴🔴 **まだ当てが無い14件**（`photo_picks.md` §3）。
 #    ほとんどが**報告書の図でしか見たことのない主題**（`slot_fill.md` §7＝報告書の図版は使えない）。
@@ -302,9 +307,16 @@ def cmd_info():
     print(f'Commons を引く: {len(set(ctitles))} 題名')
     ci = commons_info(sorted(set(ctitles)))
 
+    clips = json.loads(CLIPS_JSON.read_text(encoding='utf-8'))
     for name, p in PICK.items():
         if p['src'] == 'clip':
-            db[name] = dict(src='clip', clip=p['clip'], t=p['t'], note=p.get('note', ''))
+            # 🔴 止め絵にも**撮影年**を持たせる。無いと副題が「1986年1月28日」と名乗るのに
+            #    表が「不明」になり、`check_credits` が食い違いとして止める（実測5件）。
+            #    年は `clips.json` の `date`（記録映画＝当日／USIA＝1986年）から引く。
+            db[name] = dict(src='clip', clip=p['clip'], t=p['t'], note=p.get('note', ''),
+                            year=_year(clips[p['clip']]['date']),
+                            lic='Public domain (17 U.S.C. §105)',
+                            author=clips[p['clip']]['credit'])
             continue
         if p['src'] == 'commons':
             r = ci.get(p['title'])
@@ -314,7 +326,11 @@ def cmd_info():
             if any(x in _plain(r['lic']).upper().replace('-', ' ').split() for x in NG_LIC):
                 bad.append(f'🔴 {name}: 継承つき（{r["lic"]}）。この回は入れない')
                 continue
-            db[name] = dict(src='commons', title=p['title'], year=_year(r['date']),
+            # 🔴 `year=` を書いた欄は、置き場の日付欄より**そちらを採る**。
+            #    置き場が撮影日を持っていない点で、**別の根拠で年が分かっている**ときだけ使う。
+            #    ⚠️ 年を作らないこと＝根拠を `note` に書く → [[feedback-fallback-stills-must-match-the-era]]
+            db[name] = dict(src='commons', title=p['title'],
+                            year=p.get('year') or _year(r['date']),
                             note=p.get('note', ''), **r)
         else:
             # 🔴 1点の失敗で全部の引き直しを落とさない（落とすと**直した点まで消える**）。
@@ -534,11 +550,23 @@ def cmd_credits(write=False):
     if write:
         p.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding='utf-8')
         print(f'✓ {p} に {len(out)} 行')
-    print(f'| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころ |')
-    print('|---|---|---|---|---|---|')
+    # 🔴 「使うカット」は `cuts.SPEC` から機械で引く（手で書かない＝写し間違いが起きない）
+    sys.path.insert(0, str(HERE / 'tools'))
+    import cuts                                            # noqa: PLC0415
+    used: dict[str, list[str]] = {}
+    for cid, sp in cuts.SPEC.items():
+        ph = sp.get('photo')
+        if ph and ph.startswith('ep11/'):
+            used.setdefault(Path(ph).stem, []).append(cid)
+
+    print('| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころ |')
+    print('|---|---|---:|---|---|---|')
     for n, r in sorted(db.items()):
-        print(f"| `{n}` |  | {r.get('year') or '不明'} | {r.get('lic', '')} | "
-              f"{r.get('author', '')} | {r.get('title') or r.get('id') or r.get('clip', '')} |")
+        src = (r.get('title') or r.get('id')
+               or (f"記録映像 {r.get('clip')} +{r.get('t')}秒" if r['src'] == 'clip' else ''))
+        who = re.sub(r'^出典：', '', credit_line(n, r)).split('（')[0]
+        print(f"| `{n}` | {' '.join(sorted(used.get(n, []))) or '🔴未使用'} | "
+              f"{r.get('year') or '不明'} | {r.get('lic', '')} | {who} | {src} |")
     return 0
 
 

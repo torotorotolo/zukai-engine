@@ -91,7 +91,7 @@ SPEC = {
         s="十一・七度がどこから来た数字か",
         fig=("beforeafter", dict(
             a=dict(k="これまでの内側", t="経験のある範囲",
-                   lines=[], v="", c=J.OK),
+                   lines=["実際に飛んだことがある"], v="", c=J.OK),
             b=dict(k="その外側", t="分かっていない",
                    lines=["華氏でいえば53度"], v="", c=J.ALERT),
             arrow=False,
@@ -140,7 +140,7 @@ SPEC = {
             a=dict(k="本来なら", t="ここで延期になる",
                    lines=["作った側が勧めていない"], v="", c=J.OK),
             b=dict(k="この夜", t="押し返された",
-                   lines=[], v="", c=J.ALERT),
+                   lines=["話が先へ進んだ"], v="", c=J.ALERT),
             arrow=True,
             note=SRC5)),
     ),
