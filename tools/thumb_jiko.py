@@ -894,10 +894,40 @@ def ep8_t2():
         bake(f"ep8t2_{nm}", fx_type(hero, RED, YEL, "e_veil", yel_plain=True))
 
 
+def ep10_ai():
+    """10本目・A/Bテスト用（2026-09-21）。**地だけ OpenAI 画像APIで作った版**。
+
+    ■ 文字は1字も変えない＝赤「犠牲502人 危険はないと診断」／黄「三豊百貨店 崩壊事故」。
+      `ep10_g_split`（現行・採用ずみ）が対照群で、こちらが挑戦側。
+    ■ 地の生成＝`tools/gen_thumb_ai.py`（`gpt-image-2.5-flare` high 1792x1008）。
+      a＝断面（なぜ落ちたか）／b＝建物1枚（強い1枚）
+    ⚠️ **写真用の補正をそのまま当てない。** `photo()` の既定（contrast 1.18・color 1.12）は
+      粒状のスキャン写真を締めるための値で、もともと滑らかなクレイ調に当てると
+      桃色が飽和して**赤に寄る**（＝上に載る赤 #c30a08 と喧嘩する）。ここは素に近づける。
+    """
+    RED_D = "犠牲502人 危険はないと診断"   # 15字（現行と同じ）
+    YEL = "三豊百貨店 崩壊事故"           # 10字（現行と同じ）
+
+    # a・b＝クレイ調（2026-09-21 に不採用。記録として残す）
+    # c・d＝実写（カズヤくん指示「写真に近い質感で悲劇が伝わる」「背景も実写」）
+    #   ⚠️ 実写の地は写真なので、`photo()` の既定の補正（contrast 1.18・color 1.12）を当てる。
+    #     クレイ調で使った素通し（1.03 / 1.00）は、粒状の写真だと眠い絵になる。
+    for nm in ("a", "b"):
+        hero = photo(f"ep10/ai/ep10_{nm}.jpg", cy=0.50, cx=0.50,
+                     contrast=1.03, color=1.00, bright=1.00)
+        bake(f"ep10ai_{nm}", fx_type(hero, RED_D, YEL, "e_veil", yel_plain=True))
+    for nm in ("c", "d"):
+        hero = photo(f"ep10/ai/ep10_{nm}.jpg", cy=0.50, cx=0.50,
+                     contrast=1.14, color=1.08, bright=0.97)
+        bake(f"ep10ai_{nm}", fx_type(hero, RED_D, YEL, "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
     if "ep8-t2" in sys.argv:
         ep8_t2()
+    elif "ep10-ai" in sys.argv:
+        ep10_ai()
     elif "ep10-t2" in sys.argv:
         ep10_t2()
     elif "ep10" in sys.argv:
