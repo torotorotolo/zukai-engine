@@ -9,7 +9,7 @@ import re
 import sys
 
 PATH = ("C:/Users/konar/Documents/Obsidian Vault/Projects/"
-        "事故検証-チャレンジャー号-台本第1版-20260921.md")
+        "事故検証-チャレンジャー号-台本第2版-20260921.md")
 
 # ②の実測（ref/ep11/materials.md §2）。欄名 → 候補点数
 STOCK = {
@@ -44,6 +44,7 @@ MAP = {
     "srm_nozzle_51b": "debris", "srb_burn_hole": "debris", "srb_burn_hole_2": "debris",
     "srb_inside": "debris", "rudder_burn": "debris", "frustum_compare": "debris",
     "debris_hangar": "debris", "debris_et": "debris", "mads_tape": "debris",
+    "ssme_salvage": "debris",
     "recovery_ship": "recovery",
     "commission_hearing": "commission", "commission_members": "commission",
     "commission_testimony": "commission", "commission_hearing_2": "commission",
@@ -64,6 +65,8 @@ def main():
     used = collections.Counter()
     where = collections.defaultdict(list)
     unknown = []
+    # 🔴 どの版を読んだかを必ず出す＝記憶 feedback-check-version-before-inspecting
+    print("読んだ台本: %s" % PATH.rsplit("/", 1)[1])
     for raw in open(PATH, encoding="utf-8"):
         line = raw.rstrip()
         if line.startswith("## 4. 台本"):
@@ -99,11 +102,15 @@ def main():
     print("\n  合計 要求 %d / 候補 %d / 🔴 不足の合計 %d"
           % (sum(used.values()), sum(STOCK[c] for c in used), short))
     if unknown:
-        print("\n== ⚠️ ②の欄に無いスロット（⑤bで当て直しが要る）")
+        # 🔴 数えられないスロットは「不足0」に見える＝黙った合格。ここで止める。
+        #    記憶 feedback-gates-blind-spot-is-the-scan-direction／feedback-parsers-fail-closed
+        print("\n== 🔴 E ②の欄に無いスロット（MAP に足すまで枚数を数えられていない）")
         for cid, s in unknown:
             print("  %s %s" % (cid, s))
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
-    main()
+    sys.exit(main())
