@@ -95,7 +95,10 @@ UA = ("zukai-engine/1.0 (accident-documentary research; "
 #    `analytics/materials/ep7/s2/make_clips.py` が ffprobe の実測から書き出す（手で書かない）。
 #    🔴 2026-09-20（10本目 ⑤b-1）：**10本目も動く映像0本**（素材は写真92点だけ）。
 #       `ref/ep10/clips.json` は作らない＝`CLIPS` は空。9本目は `ref/ep9/`、8本目は `ref/ep8/`。
-_CLIPS_JSON = HERE / "ref" / "ep10" / "clips.json"
+#       🔴🔴 2026-09-21（11本目 ⑤c-2）：**11本目は動く映像が3本ある**
+#          （NASA 記録映画 44分44秒・NARA 氷 `naId 39672` 8分04秒・USIA 公聴会）。
+#          抜いた帯は `ref/ep11/vid/clips/`（git 管理外）、正本は `ref/ep11/footage_map.md` §1。
+_CLIPS_JSON = HERE / "ref" / "ep11" / "clips.json"
 CLIPS = json.loads(_CLIPS_JSON.read_text(encoding="utf-8")) if _CLIPS_JSON.exists() else {}
 
 # 🔴🔴 2026-09-07（5本目 SL-1 ⑤c'・K-12）：**素材そのものが横に黒帯を持っている。**
@@ -166,7 +169,7 @@ def bars_left(cid, u=None):
 #    ＝ `SHOTS` が空のまま `outside_shot()` を回すと、**全欄が「対象外」で素通り**する。
 #    そうならないように `unknown_clip()` を足した（`fetch --check` が呼ぶ）。
 SHOTS = {}
-SHOT_FILE = HERE / "ref" / "ep10" / "shots.json"          # 10本目（動く映像0本＝無い）。9本目は ref/ep9/shots.json
+SHOT_FILE = HERE / "ref" / "ep11" / "shots.json"          # 11本目（動く映像3本）。10本目は ref/ep10/（0本＝無い）
 # 🔴 2026-09-13（7本目②）：**この表はまだ無い。**⑤で `tools/shots.py` が作る。
 #    無いあいだ SHOTS は空で、`outside_shot()` は全欄を「対象外」で飛ばす＝**素通りする**。
 #    それを塞ぐのが下の `unknown_clip()`（`fetch --check` が呼ぶ）。USE を書いたら必ず通す。

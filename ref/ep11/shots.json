@@ -1,0 +1,734 @@
+{
+ "accident": {
+  "src": "accident.mpg",
+  "dur": 106.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 1.0,
+    "motion": 14.32
+   },
+   {
+    "start": 1.0,
+    "until": 23.0,
+    "motion": 7.67
+   },
+   {
+    "start": 23.0,
+    "until": 29.0,
+    "motion": 46.57
+   },
+   {
+    "start": 29.0,
+    "until": 32.0,
+    "motion": 6.69
+   },
+   {
+    "start": 32.0,
+    "until": 36.0,
+    "motion": 11.91
+   },
+   {
+    "start": 36.0,
+    "until": 41.0,
+    "motion": 12.53
+   },
+   {
+    "start": 41.0,
+    "until": 58.0,
+    "motion": 2.32
+   },
+   {
+    "start": 58.0,
+    "until": 64.0,
+    "motion": 11.96
+   },
+   {
+    "start": 64.0,
+    "until": 75.0,
+    "motion": 5.28
+   },
+   {
+    "start": 75.0,
+    "until": 85.0,
+    "motion": 1.93
+   },
+   {
+    "start": 85.0,
+    "until": 94.0,
+    "motion": 1.15
+   },
+   {
+    "start": 94.0,
+    "until": 106.0,
+    "motion": 1.16
+   }
+  ]
+ },
+ "burn": {
+  "src": "burn.mpg",
+  "dur": 132.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 6.0,
+    "motion": 29.89
+   },
+   {
+    "start": 6.0,
+    "until": 18.0,
+    "motion": 10.92
+   },
+   {
+    "start": 18.0,
+    "until": 21.0,
+    "motion": 9.17
+   },
+   {
+    "start": 21.0,
+    "until": 27.0,
+    "motion": 0.74
+   },
+   {
+    "start": 27.0,
+    "until": 32.0,
+    "motion": 6.74
+   },
+   {
+    "start": 32.0,
+    "until": 35.0,
+    "motion": 15.4
+   },
+   {
+    "start": 35.0,
+    "until": 46.0,
+    "motion": 0.93
+   },
+   {
+    "start": 46.0,
+    "until": 58.0,
+    "motion": 0.65
+   },
+   {
+    "start": 58.0,
+    "until": 64.0,
+    "motion": 36.48
+   },
+   {
+    "start": 64.0,
+    "until": 76.0,
+    "motion": 0.71
+   },
+   {
+    "start": 76.0,
+    "until": 81.0,
+    "motion": 0.63
+   },
+   {
+    "start": 81.0,
+    "until": 86.0,
+    "motion": 0.7
+   },
+   {
+    "start": 86.0,
+    "until": 96.0,
+    "motion": 0.61
+   },
+   {
+    "start": 96.0,
+    "until": 102.0,
+    "motion": 0.66
+   },
+   {
+    "start": 102.0,
+    "until": 114.0,
+    "motion": 0.67
+   },
+   {
+    "start": 114.0,
+    "until": 128.0,
+    "motion": 0.64
+   },
+   {
+    "start": 128.0,
+    "until": 132.0,
+    "motion": 0.55
+   }
+  ]
+ },
+ "commission": {
+  "src": "commission.mpeg",
+  "dur": 22.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 21.86
+   },
+   {
+    "start": 4.0,
+    "until": 11.0,
+    "motion": 26.33
+   },
+   {
+    "start": 11.0,
+    "until": 13.0,
+    "motion": 10.61
+   },
+   {
+    "start": 13.0,
+    "until": 16.0,
+    "motion": 1.17
+   },
+   {
+    "start": 16.0,
+    "until": 18.0,
+    "motion": 5.43
+   },
+   {
+    "start": 18.0,
+    "until": 22.0,
+    "motion": 0.89
+   }
+  ]
+ },
+ "crew": {
+  "src": "crew.mpg",
+  "dur": 86.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 5.0,
+    "motion": 33.29
+   },
+   {
+    "start": 5.0,
+    "until": 12.0,
+    "motion": 17.99
+   },
+   {
+    "start": 12.0,
+    "until": 20.0,
+    "motion": 17.27
+   },
+   {
+    "start": 20.0,
+    "until": 38.0,
+    "motion": 35.01
+   },
+   {
+    "start": 38.0,
+    "until": 56.0,
+    "motion": 21.9
+   },
+   {
+    "start": 56.0,
+    "until": 61.0,
+    "motion": 19.54
+   },
+   {
+    "start": 61.0,
+    "until": 66.0,
+    "motion": 15.19
+   },
+   {
+    "start": 66.0,
+    "until": 84.0,
+    "motion": 0.66
+   },
+   {
+    "start": 84.0,
+    "until": 86.0,
+    "motion": 11.44
+   }
+  ]
+ },
+ "joint": {
+  "src": "joint.mpg",
+  "dur": 88.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 6.0,
+    "motion": 6.95
+   },
+   {
+    "start": 6.0,
+    "until": 12.0,
+    "motion": 5.4
+   },
+   {
+    "start": 12.0,
+    "until": 15.0,
+    "motion": 22.25
+   },
+   {
+    "start": 15.0,
+    "until": 20.0,
+    "motion": 0.62
+   },
+   {
+    "start": 20.0,
+    "until": 24.0,
+    "motion": 0.71
+   },
+   {
+    "start": 24.0,
+    "until": 36.0,
+    "motion": 0.7
+   },
+   {
+    "start": 36.0,
+    "until": 48.0,
+    "motion": 11.69
+   },
+   {
+    "start": 48.0,
+    "until": 51.0,
+    "motion": 9.74
+   },
+   {
+    "start": 51.0,
+    "until": 54.0,
+    "motion": 0.93
+   },
+   {
+    "start": 54.0,
+    "until": 58.0,
+    "motion": 1.69
+   },
+   {
+    "start": 58.0,
+    "until": 61.0,
+    "motion": 39.55
+   },
+   {
+    "start": 61.0,
+    "until": 66.0,
+    "motion": 0.67
+   },
+   {
+    "start": 66.0,
+    "until": 69.0,
+    "motion": 0.8
+   },
+   {
+    "start": 69.0,
+    "until": 74.0,
+    "motion": 12.51
+   },
+   {
+    "start": 74.0,
+    "until": 79.0,
+    "motion": 11.28
+   },
+   {
+    "start": 79.0,
+    "until": 82.0,
+    "motion": 6.99
+   },
+   {
+    "start": 82.0,
+    "until": 88.0,
+    "motion": 4.55
+   }
+  ]
+ },
+ "launch": {
+  "src": "launch.mpg",
+  "dur": 64.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 3.0,
+    "motion": 3.52
+   },
+   {
+    "start": 3.0,
+    "until": 8.0,
+    "motion": 2.53
+   },
+   {
+    "start": 8.0,
+    "until": 12.0,
+    "motion": 13.2
+   },
+   {
+    "start": 12.0,
+    "until": 16.0,
+    "motion": 21.24
+   },
+   {
+    "start": 16.0,
+    "until": 23.0,
+    "motion": 12.3
+   },
+   {
+    "start": 23.0,
+    "until": 28.0,
+    "motion": 9.83
+   },
+   {
+    "start": 28.0,
+    "until": 30.0,
+    "motion": 6.39
+   },
+   {
+    "start": 30.0,
+    "until": 33.0,
+    "motion": 13.28
+   },
+   {
+    "start": 33.0,
+    "until": 38.0,
+    "motion": 12.03
+   },
+   {
+    "start": 38.0,
+    "until": 52.0,
+    "motion": 7.47
+   },
+   {
+    "start": 52.0,
+    "until": 57.0,
+    "motion": 10.4
+   },
+   {
+    "start": 57.0,
+    "until": 59.0,
+    "motion": 11.25
+   },
+   {
+    "start": 59.0,
+    "until": 62.0,
+    "motion": 18.26
+   },
+   {
+    "start": 62.0,
+    "until": 64.0,
+    "motion": 10.07
+   }
+  ]
+ },
+ "pad": {
+  "src": "pad.mpg",
+  "dur": 58.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 1.0,
+    "motion": 16.55
+   },
+   {
+    "start": 1.0,
+    "until": 3.0,
+    "motion": 12.78
+   },
+   {
+    "start": 3.0,
+    "until": 12.0,
+    "motion": 0.78
+   },
+   {
+    "start": 12.0,
+    "until": 16.0,
+    "motion": 13.54
+   },
+   {
+    "start": 16.0,
+    "until": 19.0,
+    "motion": 15.41
+   },
+   {
+    "start": 19.0,
+    "until": 30.0,
+    "motion": 10.72
+   },
+   {
+    "start": 30.0,
+    "until": 58.0,
+    "motion": 1.19
+   }
+  ]
+ },
+ "rollout": {
+  "src": "rollout.mpg",
+  "dur": 47.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 42.48
+   },
+   {
+    "start": 4.0,
+    "until": 13.0,
+    "motion": 27.68
+   },
+   {
+    "start": 13.0,
+    "until": 22.0,
+    "motion": 16.27
+   },
+   {
+    "start": 22.0,
+    "until": 38.0,
+    "motion": 0.63
+   },
+   {
+    "start": 38.0,
+    "until": 47.0,
+    "motion": 0.68
+   }
+  ]
+ },
+ "smoke": {
+  "src": "smoke.mpg",
+  "dur": 25.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 3.0,
+    "motion": 0.47
+   },
+   {
+    "start": 3.0,
+    "until": 6.0,
+    "motion": 45.56
+   },
+   {
+    "start": 6.0,
+    "until": 17.0,
+    "motion": 0.84
+   },
+   {
+    "start": 17.0,
+    "until": 25.0,
+    "motion": 0.46
+   }
+  ]
+ },
+ "srb": {
+  "src": "srb.mpg",
+  "dur": 68.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 4.61
+   },
+   {
+    "start": 4.0,
+    "until": 9.0,
+    "motion": 20.76
+   },
+   {
+    "start": 9.0,
+    "until": 14.0,
+    "motion": 7.25
+   },
+   {
+    "start": 14.0,
+    "until": 30.0,
+    "motion": 24.54
+   },
+   {
+    "start": 30.0,
+    "until": 44.0,
+    "motion": 36.79
+   },
+   {
+    "start": 44.0,
+    "until": 46.0,
+    "motion": 3.84
+   },
+   {
+    "start": 46.0,
+    "until": 51.0,
+    "motion": 5.8
+   },
+   {
+    "start": 51.0,
+    "until": 54.0,
+    "motion": 2.2
+   },
+   {
+    "start": 54.0,
+    "until": 57.0,
+    "motion": 49.77
+   },
+   {
+    "start": 57.0,
+    "until": 59.0,
+    "motion": 13.49
+   },
+   {
+    "start": 59.0,
+    "until": 61.0,
+    "motion": 12.04
+   },
+   {
+    "start": 61.0,
+    "until": 64.0,
+    "motion": 57.44
+   },
+   {
+    "start": 64.0,
+    "until": 66.0,
+    "motion": 9.45
+   },
+   {
+    "start": 66.0,
+    "until": 68.0,
+    "motion": 41.64
+   }
+  ]
+ },
+ "t_ice": {
+  "src": "t_ice.mpg",
+  "dur": 58.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 1.0,
+    "motion": 89.46
+   },
+   {
+    "start": 1.0,
+    "until": 6.0,
+    "motion": 1.55
+   },
+   {
+    "start": 6.0,
+    "until": 12.0,
+    "motion": 0.64
+   },
+   {
+    "start": 12.0,
+    "until": 16.0,
+    "motion": 0.86
+   },
+   {
+    "start": 16.0,
+    "until": 22.0,
+    "motion": 0.76
+   },
+   {
+    "start": 22.0,
+    "until": 26.0,
+    "motion": 0.64
+   },
+   {
+    "start": 26.0,
+    "until": 31.0,
+    "motion": 0.71
+   },
+   {
+    "start": 31.0,
+    "until": 34.0,
+    "motion": 17.24
+   },
+   {
+    "start": 34.0,
+    "until": 38.0,
+    "motion": 16.3
+   },
+   {
+    "start": 38.0,
+    "until": 42.0,
+    "motion": 16.49
+   },
+   {
+    "start": 42.0,
+    "until": 51.0,
+    "motion": 0.76
+   },
+   {
+    "start": 51.0,
+    "until": 55.0,
+    "motion": 14.0
+   },
+   {
+    "start": 55.0,
+    "until": 58.0,
+    "motion": 15.4
+   }
+  ]
+ },
+ "white": {
+  "src": "white.mpg",
+  "dur": 92.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 6.0,
+    "motion": 35.67
+   },
+   {
+    "start": 6.0,
+    "until": 16.0,
+    "motion": 24.9
+   },
+   {
+    "start": 16.0,
+    "until": 23.0,
+    "motion": 18.52
+   },
+   {
+    "start": 23.0,
+    "until": 34.0,
+    "motion": 12.51
+   },
+   {
+    "start": 34.0,
+    "until": 38.0,
+    "motion": 14.32
+   },
+   {
+    "start": 38.0,
+    "until": 41.0,
+    "motion": 13.61
+   },
+   {
+    "start": 41.0,
+    "until": 44.0,
+    "motion": 16.45
+   },
+   {
+    "start": 44.0,
+    "until": 50.0,
+    "motion": 10.58
+   },
+   {
+    "start": 50.0,
+    "until": 54.0,
+    "motion": 20.6
+   },
+   {
+    "start": 54.0,
+    "until": 62.0,
+    "motion": 12.11
+   },
+   {
+    "start": 62.0,
+    "until": 70.0,
+    "motion": 12.59
+   },
+   {
+    "start": 70.0,
+    "until": 77.0,
+    "motion": 16.39
+   },
+   {
+    "start": 77.0,
+    "until": 90.0,
+    "motion": 14.12
+   },
+   {
+    "start": 90.0,
+    "until": 92.0,
+    "motion": 18.39
+   }
+  ]
+ }
+}
