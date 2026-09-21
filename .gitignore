@@ -243,3 +243,5 @@ ref/ep11/vid/
 # ⑤c-2（2026-09-20）原寸の切り出し。**焼けた絵から何度でも作り直せる**ので git に載せない
 # （23枚で 6.3MB。公開リポジトリなので派生画像は置かない）。作り直す＝qa_out/ep10_crop.py
 qa_out/crop/
+ref/ep11/vid/clips/
+ref/ep11/sheets/
