@@ -1,0 +1,213 @@
+✓ Initialized. View run at 
+https://modal.com/apps/torotorotolo/main/ap-pItSS7MEljzsCDlZNbHNHD
+✓ Created objects.
+├── 🔨 Created mount C:\Users\konar\Desktop\zukai-engine\modal_app.py
+├── 🔨 Created function full.
+├── 🔨 Created function qa.
+├── 🔨 Created function check.
+└── 🔨 Created function layer_hash.
+BGM … /assets/bgm.mp3 / 3.20 MB
+
+$ git clone --depth 1 https://github.com/torotorotolo/zukai-engine.git /work/zukai-engine
+Cloning into '/work/zukai-engine'...
+Updating files:  60% (1341/2226)
+[1AUpdating files:  61% (1358/2226)
+[1AUpdating files:  62% (1381/2226)
+[1AUpdating files:  63% (1403/2226)
+[1AUpdating files:  64% (1425/2226)
+[1AUpdating files:  65% (1447/2226)
+[1AUpdating files:  66% (1470/2226)
+[1AUpdating files:  67% (1492/2226)
+[1AUpdating files:  68% (1514/2226)
+[1AUpdating files:  69% (1536/2226)
+[1AUpdating files:  70% (1559/2226)
+[1AUpdating files:  71% (1581/2226)
+[1AUpdating files:  72% (1603/2226)
+[1AUpdating files:  73% (1625/2226)
+[1AUpdating files:  73% (1647/2226)
+[1AUpdating files:  74% (1648/2226)
+[1AUpdating files:  75% (1670/2226)
+[1AUpdating files:  76% (1692/2226)
+[1AUpdating files:  77% (1715/2226)
+[1AUpdating files:  78% (1737/2226)
+[1AUpdating files:  79% (1759/2226)
+[1AUpdating files:  80% (1781/2226)
+[1AUpdating files:  81% (1804/2226)
+[1AUpdating files:  82% (1826/2226)
+[1AUpdating files:  83% (1848/2226)
+[1AUpdating files:  84% (1870/2226)
+[1AUpdating files:  85% (1893/2226)
+[1AUpdating files:  86% (1915/2226)
+[1AUpdating files:  87% (1937/2226)
+[1AUpdating files:  88% (1959/2226)
+[1AUpdating files:  89% (1982/2226)
+[1AUpdating files:  90% (2004/2226)
+[1AUpdating files:  91% (2026/2226)
+[1AUpdating files:  92% (2048/2226)
+[1AUpdating files:  93% (2071/2226)
+[1AUpdating files:  94% (2093/2226)
+[1AUpdating files:  95% (2115/2226)
+[1AUpdating files:  96% (2137/2226)
+[1AUpdating files:  97% (2160/2226)
+[1AUpdating files:  98% (2182/2226)
+[1AUpdating files:  99% (2204/2226)
+[1AUpdating files: 100% (2226/2226)Updating files: 100% (2226/2226), done.
+  (43秒 / 終了コード 0)
+
+$ git fetch --depth 50 origin b778efe70a500e860b23b5519c98ff51b19fd252
+From https://github.com/torotorotolo/zukai-engine
+ * branch            b778efe70a500e860b23b5519c98ff51b19fd252 -> FETCH_HEAD
+  (13秒 / 終了コード 0)
+
+$ git checkout b778efe70a500e860b23b5519c98ff51b19fd252
+Note: switching to 'b778efe70a500e860b23b5519c98ff51b19fd252'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at b778efe 11本目⑥: 試写40件を直した（辞書31・取り直し10）。数字の門番を qa_all に載せた
+  (1秒 / 終了コード 0)
+
+$ git log --oneline -1
+b778efe 11本目⑥: 試写40件を直した（辞書31・取り直し10）。数字の門番を qa_all に載せた
+  (0秒 / 終了コード 0)
+
+$ python3 tools/scene_jiko.py --report
+カット 191 ／ 完成尺 2121.5秒 = 35分21.5秒
+字幕 473 枚
+実写 84 ／ ★写真を地に敷いた図解 3
+図の種類:
+   photo         84
+   beforeafter   21
+   panel         19
+   quote         18
+   process       12
+   people         9
+   timeline       7
+   compare        6
+   absent         4
+   icons          3
+   moment         2
+   compare+写真     1
+   graph+写真       1
+   mapfig         1
+   beforeafter+写真   1
+   radio          1
+   ending         1
+
+⚠️ cuts/__init__.py が**中身ごと上書き**しているカット（0件）:
+   
+   章ファイルの fig / ann を直すときは、ここに載っていないか必ず見ること。
+
+🔴 章の名前（題材を替えたら必ず書き換える／9章）:
+   1/9  発射台は、凍っていた
+   2/9  七人
+   3/9  七十三秒
+   4/9  それは「爆発」ではなかった
+   5/9  継ぎ目の、ゴムの輪
+   6/9  前の夜、あの部屋で
+   7/9  帽子を、かけかえる
+   8/9  二十四回、うまくいっていた
+   9/9  海から上がったもの
+   ↑ これは**いま作っている動画の章名**か？ 前作のままなら止めて直す。
+   （上流が無いので push の検査は飛ばす）
+  (0秒 / 終了コード 0)
+
+$ python3 tools/check_layout.py
+── 画面から出ている文字（639レイヤー） ──
+  ✓ 全部おさまっている
+
+── フォントに無い字（豆腐になる） ──
+  ✓ 無い字は無い
+
+── 小さい Dela に漢字の句が入っている ──
+  ✓ つぶれる大きさの Dela に漢字の句は無い
+
+── 同じカットで重なっている文字 ──
+  ✓ 重なりなし
+
+── 図形が文字を横切っている ──
+  ✓ 横切っている図形は無い
+
+✓ 机上の検算はすべて通った（画面外 0件・重なり 0件・豆腐 0件・図形が横切る 0件／フォントは実測）
+  (32秒 / 終了コード 0)
+
+$ python3 tools/check_echo.py
+
+✓ 複写は無い（複写 0件・見出し/副題の同文 0件・見出しの近さ 4件）
+   （見出しの近さは --all で出る。0.80 未満は「話題を出す場所」として黙る）
+  (11秒 / 終了コード 0)
+
+$ python3 tools/audio_pack.py check
+台本 191 カット ／ audio/opus 191 本
+✓ 過不足なし
+✓ 全 0 本の尺が一致
+  (0秒 / 終了コード 0)
+
+$ python3 tools/audio_pack.py unpack
+✓ 191 カットを wav に戻した（既存 0 本はそのまま）
+  (49秒 / 終了コード 0)
+
+$ python3 tools/check_mask.py
+BGM「bgm.mp3」133秒を 1 回つないだ（継ぎ目 3秒の重ね）
+ドローンの寝床（80〜400Hz・いちばん膨らむ瞬間）= -47.5 dB
+行 473 ／ 🔴消える(<6.0dB) 0 ／ ⚠️弱い(6.0〜10.0dB) 0 ／ ✓聞こえる 473
+中央値 29.9 dB
+
+   余裕dB  カット     語尾（発話の最後 0.18 秒）
+   15.0   c107    …地上29メートルから65メートルのあたりだった。
+   20.2   c618    …回目の前の晩になって、基準を作りかえるのか、と。
+   21.7   c211    …教師には、控えの人も選ばれていた。
+   21.8   c713    …絶対に壊れるとまでは、言えなかったからである。
+   22.0   c906    …本体のかけらにも、左右の差が出ていた。
+   22.7   c209    …年、乗員の一人として決められた訓練を受けている。
+   22.8   ep12    …て硬くなり、つぶれきって押す空気も入らなかった。
+   22.9   c615    …この発言を、別の出席者も覚えていた。
+   23.1   c708    …ここから先、結論は経営側だけで組み立てられた。
+   23.2   c408    …本体は、火に焼かれて砕けたのではなかった。
+   23.3   c210    …マコーリフには、この飛行での仕事があった。
+   23.3   c908    …によるものかどうかも、非公開の会合で調べている。
+   23.4   c803    …員会が挙げた問題の一つ目は、試験のやり方だった。
+   23.6   ep06    …ちばん重いのは、設計の話ではないのかもしれない。
+   23.6   c709    …聞かれもしなかった、とその技術者は証言している。
+   23.6   c810    …を止める札」が、このノズルの継ぎ目に掛けられた。
+   23.8   c915    …乗員7名は全員が死亡した。
+   23.8   c310    …煙は一度きりではなかった。
+   24.2   c314    …報告書は、二つの見方を並べたままにしている。
+   24.2   c507    …えるガスに近いほうを一次、遠いほうを二次と呼ぶ。
+   24.2   c405    …。底が抜けたタンクは、その火の中で崩れていった。
+   24.3   c504    …二本の指で板をはさむ形だと思えばよい。
+   24.3   c604    …技術者たちが資料を順に説明した。
+   24.4   c712    …ところがその夜は、いつもと様子が違った。
+   24.5   pr09    …、夜のあいだに発射台そのものにも張りついていた。
+   24.5   c306    …打ち上げから0.678秒。すでに煙が出ていた
+   24.5   c311    …揺れるたびに、継ぎ目がわずかに開いていた。
+   24.5   c715    …午後11時ごろ、会議が再開された。
+   24.6   pr03    …その73秒後、機体は空の上でばらばらに壊れた。
+   24.8   c714    …づくべきだったのに気づかなかった、と述べている。
+（悪い順に 30 行だけ表示。全部見るなら --all）
+  (7秒 / 終了コード 0)
+
+$ python3 tools/footage.py
+■ 動画を当てるカット 7 件（＋静止画で受ける 0 件: ）
+  pr02  尺 8.91s  ← launch 16.0〜22.0秒（0.67倍速）
+  pr07  尺14.97s  ← joint 24.0〜34.9秒（0.73倍速）
+  c101  尺 9.08s  ← pad 30.0〜39.1秒（1.00倍速）
+  c307  尺 8.11s  ← smoke 6.0〜14.1秒（1.00倍速）
+  c413  尺13.92s  ← accident 41.0〜54.9秒（1.00倍速）
+  c503  尺 8.97s  ← joint 36.0〜45.0秒（1.00倍速）
+  c603  尺12.77s  ← srb 30.0〜40.0秒（0.78倍速）
+✓ 全 7 欄に until= があり、尻のはみ出しも ショットまたぎも無く、使ってはいけない秒にも掛かっておらず、素材の黒帯も残らない（実測ショット 132 本と照合）
+  pr02: launch の 16.0秒目から切り出す

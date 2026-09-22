@@ -205,7 +205,10 @@ def main() -> int:
     if not (67 <= len(TITLE) <= 94):
         raise SystemExit("🔴 タイトルが型の幅（67〜94字）から外れた。書かずに止めた。")
 
-    thumb = "out/thumb/ep11-t1/ep11_pick.png"     # ⑥でカズヤくんが選んだ1枚に差し替える
+    # ✅ 2026-09-22 カズヤくん決定＝**P（写真は M のマコーリフ・赤は c210 の決め所）**。
+    #    4巡して決めた。t1 の d は絵と文字が食い違い、t2 の g は赤が目を隠し、
+    #    t3 の m で顔が出て、t4 で赤の行だけを4案くらべた。
+    thumb = "out/thumb/ep11-t4/ep11_p_jugyou.png"
     meta = {
         "slug": "ep11",
         "title": TITLE,
