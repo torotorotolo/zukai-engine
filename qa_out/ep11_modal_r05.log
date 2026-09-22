@@ -211,3 +211,162 @@ $ python3 tools/footage.py
   c603  尺12.77s  ← srb 30.0〜40.0秒（0.78倍速）
 ✓ 全 7 欄に until= があり、尻のはみ出しも ショットまたぎも無く、使ってはいけない秒にも掛かっておらず、素材の黒帯も残らない（実測ショット 132 本と照合）
   pr02: launch の 16.0秒目から切り出す
+     → 269コマ（要 269）
+  pr07: joint の 24.0秒目から切り出す
+     → 451コマ（要 451）
+  c101: pad の 30.0秒目から切り出す
+     → 274コマ（要 274）
+  c307: smoke の 6.0秒目から切り出す
+     → 245コマ（要 245）
+  c413: accident の 41.0秒目から切り出す
+     → 420コマ（要 420）
+  c503: joint の 36.0秒目から切り出す
+     → 271コマ（要 271）
+  c603: srb の 30.0秒目から切り出す
+     → 385コマ（要 385）
+✓ 切り出し完了 7/7 カット: pr02、pr07、c101、c307、c413、c503、c603
+  (153秒 / 終了コード 0)
+
+$ ZUKAI_WORKERS=8 python3 tools/scene_jiko.py --force
+書き出すレイヤー 832 枚（並列 4）
+  50/832
+  100/832
+  150/832
+  200/832
+  250/832
+  300/832
+  350/832
+  400/832
+  450/832
+  500/832
+  550/832
+  600/832
+  650/832
+  700/832
+  750/832
+  800/832
+done 832
+  (498秒 / 終了コード 0)
+
+$ python3 tools/layer_hash.py
+レイヤー 832 枚 ／ 合計 55.7 MB
+★全体の指紋  b2e6f66e241e18b92f29c901cb60416864462173b0e5b908eb929c00b89afa0a
+
+代表（ずれたときに場所を絞るため）
+  _empty           d0634a2abbcd31f0882b9e94ad72430c
+  c101_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c101_lab         cf988325ea90bd612a523fa25d72578d
+  c111_a1          a2fcea2ffbb6f689c6aa225baad5dc19
+  c111_base        c878fc9b68542c77da7b6b9146c955fc
+  c201_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c201_lab         069a3146bab0171741e0c7293e77607f
+  c209_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c209_lab         b9046913b8328634f0626dc78980aff5
+  c301_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c301_lab         81fa33936b0eaa6f9274763bfdf06ca9
+  c312_a1          517fe860f30cd4ca51c4d51ed2dcb0e9
+  c312_a2          1e1b2d8ec5c03248a6dc9f2789273594
+  c401_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c401_lab         b49bd8268e7d6a80d3b0e30f4472d3d0
+  c408_a1          ef987bee418d9245e3ed7ff0e1f15c8b
+  c408_base        f577f1c374b83f55d0e7e069f7a6e38c
+  c501_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c501_lab         711a104b8772a0fcc7b6615c31a6c5e5
+  c512_a1          e523a5b62d23908f98a5b9c52089299b
+  c512_a2          8410a8c020d1fb42c66a24319cd5a439
+  c601_a1          28f07d8597be530d481476d1db770556
+  c601_a2          921945a6edced5f7738ebece2490b8a7
+  c612_a1          4a6af5b242cc42389b7038b4ad88b8c6
+  c612_a2          f67a1815fdd3cbf4ad0900a780dffc96
+  ep01_a1          a6e8e62940a32f76f0cacdda3bda58e1
+  ep01_bg          d0634a2abbcd31f0882b9e94ad72430c
+  ep07_a1          e4b2fc67357855ec3c5cfb6188317785
+  ep07_a2          f4d12da567acc990364c770cbb907a2f
+  pr01_bg          d0634a2abbcd31f0882b9e94ad72430c
+  pr01_lab         b1e45fbbd0fc223a2607d403ea29c3ec
+  pr06_a1          fe76610e0d2ef2273210c1793b5c695a
+  pr06_a2          dd513d050d55aa396b0ecb3bebc13a91
+  sub_c101         64128be8f9c9727864dfbb0ee3f5d4f6
+  sub_c102         e4e056a8f81b4b757d57a85ed293e0de
+  sub_c103         e0bff78d955c0093ce0397d2130d5e25
+
+⚠️ Actions と Modal で**★全体の指紋が一致すれば**、9巡の検品はそのまま生きている。
+  (43秒 / 終了コード 0)
+
+$ ZUKAI_WORKERS=8 python3 tools/build_jiko.py full
+図が動かない最長区間 = 4.71秒
+✓ 図が 5.0秒以上止まるカットは無い
+（参考）最長の字幕 = 8.51秒「構造が壊れたのは、そのおよそ100分の1秒後、73.」 ／ 字幕の枚数 473
+検品画像 191 カット
+mp4 を 8 並列で焼く（191カット）
+  20/191  7064コマ
+  40/191  14158コマ
+  60/191  20998コマ
+  80/191  27876コマ
+  100/191  34627コマ
+  120/191  42115コマ
+  140/191  48445コマ
+  160/191  55198コマ
+  180/191  60598コマ
+  191/191  63644コマ
+wrote /work/zukai-engine/out/jiko/titan.mp4 2121.5 sec
+  (451秒 / 終了コード 0)
+
+$ ls -la /assets/ || true
+total 3131
+drwxr-xr-x 1 root root       7 Jan  1  1970 .
+drwxr-xr-x 4 root root      84 Sep 22 10:53 ..
+-rw-r--r-- 1 root root 3204163 Sep 20 23:26 bgm.mp3
+  (0秒 / 終了コード 0)
+
+$ python3 tools/audio_mix.py --bgm=music
+BGM「bgm.mp3」133秒を 17 回つないだ（継ぎ目 3秒の重ね）
+サイドチェイン：話している時間 97% ／ 最大 7.0dB 下げた
+  1周目：利得 +0.0dB → 実測 -12.1 LUFS ／ ピーク 0.970
+  2周目：利得 -2.9dB → 実測 -14.4 LUFS ／ ピーク 0.970
+  3周目：利得 -3.5dB → 実測 -14.9 LUFS ／ ピーク 0.970
+wrote /work/zukai-engine/out/jiko/mix.wav  2121.5秒  ピーク 0.970
+  (26秒 / 終了コード 0)
+
+$ ffmpeg -y -hide_banner -loglevel error -i out/jiko/titan.mp4 -i out/jiko/mix.wav -c:v copy -c:a aac -b:a 192k -shortest out/jiko/titan_audio.mp4
+  (51秒 / 終了コード 0)
+
+$ cp out/jiko/titan_audio.mp4 /vol/titan_audio-ep11-r05.mp4
+  (1秒 / 終了コード 0)
+
+$ ffprobe -v error -show_entries format=duration -of default=nw=1 /vol/titan_audio-ep11-r05.mp4
+duration=2121.466667
+  (0秒 / 終了コード 0)
+
+$ ls -la /vol/
+total 4816156
+drwxr-xr-x 1 root root       477 Sep 22 11:16 .
+drwxr-xr-x 4 root root        84 Sep 22 10:53 ..
+-rw-r--r-- 1 root root 148820698 Sep 20 22:47 titan_audio-ep10-r03.mp4
+-rw-r--r-- 1 root root 158714884 Sep 21 00:45 titan_audio-ep10-r04.mp4
+-rw-r--r-- 1 root root 151307126 Sep 21 02:53 titan_audio-ep10-r05.mp4
+-rw-r--r-- 1 root root 151362224 Sep 21 03:54 titan_audio-ep10-r06.mp4
+-rw-r--r-- 1 root root 189964855 Sep 22 07:58 titan_audio-ep11-r04.mp4
+-rw-r--r-- 1 root root 190246914 Sep 22 11:16 titan_audio-ep11-r05.mp4
+-rw-r--r-- 1 root root 276059930 Sep 14 02:22 titan_audio-ep7-r03.mp4
+-rw-r--r-- 1 root root 275765238 Sep 14 11:24 titan_audio-ep7-r04.mp4
+-rw-r--r-- 1 root root 226651875 Sep 15 14:20 titan_audio-ep8-r01.mp4
+-rw-r--r-- 1 root root 226802671 Sep 16 02:51 titan_audio-ep8-r02.mp4
+-rw-r--r-- 1 root root 305455259 Sep 17 04:13 titan_audio-ep9-r03.mp4
+-rw-r--r-- 1 root root 305247998 Sep 17 14:30 titan_audio-ep9-r04.mp4
+-rw-r--r-- 1 root root 455907358 Sep 11 04:48 titan_audio-kb-r09.mp4
+-rw-r--r-- 1 root root 123761860 Aug  1 04:21 titan_audio-r11.mp4
+-rw-r--r-- 1 root root 123147684 Aug  1 11:39 titan_audio-r13.mp4
+-rw-r--r-- 1 root root 172258222 Aug  6 00:05 titan_audio-r14.mp4
+-rw-r--r-- 1 root root 172202839 Aug  6 13:11 titan_audio-r15.mp4
+-rw-r--r-- 1 root root 204664596 Aug 10 02:12 titan_audio-r28.mp4
+-rw-r--r-- 1 root root 155390866 Aug  2 09:33 titan_audio-r29.mp4
+-rw-r--r-- 1 root root 204252885 Aug 16 06:24 titan_audio-r30.mp4
+-rw-r--r-- 1 root root 413714501 Sep  7 23:04 titan_audio-sl1r03.mp4
+-rw-r--r-- 1 root root 300035704 Sep  6 08:31 titan_audio-ss.mp4
+  (0秒 / 終了コード 0)
+
+✓ 焼けた → modal volume get jiko-out titan_audio-ep11-r05.mp4 out/jiko/
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/torotorotolo/main/ap-pItSS7MEljzsCDlZNbHNHD
