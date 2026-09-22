@@ -97,8 +97,8 @@ SPEC = {
             items=[dict(v=2.2, t="この日", disp="2.2", unit="℃", c=J.ALERT),
                    dict(v=10.5, t="それまででいちばん低かった日",
                         disp="10.5", unit="℃", c=J.LINE)],
-            vmax=14, ref="摂氏。華氏では 36 と 51",
-            note=f"{SRC3}・{SRC4}")),
+            vmax=14,
+            note=f"摂氏。華氏では 36 と 51　{SRC3}・{SRC4}")),
     ),
 
     "pr09": dict(

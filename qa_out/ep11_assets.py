@@ -106,13 +106,18 @@ PICK: dict[str, dict] = {
     'ice_icicle_2':         V('t_ice', 23, note='霜の付いた梁（元1128）'),
     'ice_box':              V('t_ice', 18, note='🔴 氷でふさがった通信箱（元1123）'),
     'ssme_ignition':        V('launch', 9, note='主エンジンの点火（元607）'),
-    'srb_stack':            V('srb', 48,   note='積み上げ（元1041）'),
-    'oring_physical':       V('joint', 2,  note='ゴムの輪の現物（元1540）'),
+    # 🔴🔴 2026-09-22 ⑤c'（10-5）で秒を取り直した3点。**元の秒は絵が副題と食い違っていた。**
+    #    章ファイルの `ss.still(...)` の秒と**必ずそろえる**（片方だけ直すと額だけ別のコマになる）。
+    'srb_stack':            V('srb', 18,   note='🔴 継ぎ目の帯が見える白い筒を降ろす（元1011）。'
+                                                '旧48は外部タンクが船で着く場面だった'),
+    'oring_physical':       V('joint', 17, note='🔴 筒の縁の溝に収まった黒いゴムの輪（元1555）。'
+                                                '旧2は帯の頭で前のショット（発射台の炎）が残っていた'),
     'oring_channel':        V('joint', 8,  note='溝（元1546）'),
     'commission_hearing':   V('commission', 2, note='机の上のシャトル模型（元57）'),
     'commission_room':      V('commission', 12, note='青い幕の公聴会場（元67）'),
     'commission_members':   V('commission', 14, note='🔴 壇上に並ぶ委員（元69）'),
-    'commission_hearing_2': V('commission', 19, note='公聴会の席（元74）'),
+    'commission_hearing_2': V('commission', 10, note='🔴 公聴会の席で話す出席者の寄り（元65）。'
+                                                     '旧19は使える帯 57〜71 の外＝WORLDNET のスタジオ座談'),
     # 🔴 2026-09-21 ⑤c-2 で動画から止め絵に変えた。使えるのは 元59〜64 の5秒だけで
     #    （64〜66秒に `ROBERT R…` の名札）、c709 の尺 9.92秒だと **0.50倍速**＝
     #    自分で決めた「0.6 を下回るものは動画にしない」に当たる。
@@ -446,7 +451,14 @@ def cmd_info():
             db[name] = dict(src='ia', ident=p['ident'], page=p['page'],
                             year=p['year'], note=p.get('note', ''), url=u,
                             lic='Public domain (17 U.S.C. §105)',
-                            author='出典：ロジャース委員会報告書（1986年）',
+                            # 🔴🔴 2026-09-22 ⑤c'（10-9 の8）：ここに**出来上がりの1行**を
+                            #    入れていたので、`credit_line()` がもう一度
+                            #    「出典：」と「（年）」を付け、画面には
+                            #    **出典：出典：ロジャース委員会報告書（1986年）（1986年）**
+                            #    と出ていた（ep01）。`author` は**名前だけ**を持つ欄。
+                            #    ⚠️ `credit_line` の重複除去は半角 `()` しか見ないので、
+                            #      全角の（1986年）はそのまま残った。
+                            author='ロジャース委員会報告書',
                             date=str(p['year']),
                             title=f'Internet Archive: {p["ident"]} / {p["page"]}')
         else:

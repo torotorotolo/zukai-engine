@@ -1609,7 +1609,7 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `commission_hearing_2` | c710 | 1986 | Public domain (17 U.S.C. §105) | 米国立公文書館 | 記録映像 commission +19秒 |
 | `commission_members` | c912 | 1986 | Public domain (17 U.S.C. §105) | 米国立公文書館 | 記録映像 commission +14秒 |
 | `commission_oversight` | ep05 | 1986 | Public domain (17 U.S.C. §105) | NASA | PRESIDENTIAL COMMISSION - STS-33/51L - KSC |
-| `commission_report` | ep01 | 1986 | Public domain (17 U.S.C. §105) | 出典：ロジャース委員会報告書 | Internet Archive: reporttopreside00unit / cover |
+| `commission_report` | ep01 | 1986 | Public domain (17 U.S.C. §105) | ロジャース委員会報告書 | Internet Archive: reporttopreside00unit / cover |
 | `commission_room` | c819 | 1986 | Public domain (17 U.S.C. §105) | 米国立公文書館 | 記録映像 commission +12秒 |
 | `commission_testimony` | c709 | 1986 | Public domain (17 U.S.C. §105) | 米国立公文書館 | 記録映像 commission +6秒 |
 | `crew_breakfast` | c215 | 1986 | Public domain | NASA | STS-51-L preflight breakfast.jpg |
@@ -1647,7 +1647,7 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `ice_pad` | pr09 | 1986 | Public domain | NASA | Ice on the Pad on the Day of STS-51-L's Launch - GPN-2004-00011.jpg |
 | `ice_team` | c110 | 1986 | Public domain | 米国立公文書館 | Photograph of Space Shuttle Ice and Frost Inspection - NARA - 593693.gif |
 | `ice_trough` | c105 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 t_ice +9秒 |
-| `joint_qual_test` | c803 | 1987 | Public domain (17 U.S.C. §105) | MSFC | Space Shuttle Projects |
+| `joint_qual_test` | c804 | 1987 | Public domain (17 U.S.C. §105) | MSFC | Space Shuttle Projects |
 | `joint_redesign` | ep02 | 1988 | Public domain (17 U.S.C. §105) | MSFC | Space Shuttle Project |
 | `joint_test` | c513 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 joint +22秒 |
 | `joint_test_new` | ep03 | 1988 | Public domain (17 U.S.C. §105) | MSFC | Space Shuttle Projects |
@@ -1680,7 +1680,7 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `srb_stack` | c501 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 srb +48秒 |
 | `srb_sun_shade` | c519 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 pad +12秒 |
 | `srb_trails` | c412 | 1986 | Public domain | NASA | Challenger Rocket Booster - GPN-2000-001422.jpg |
-| `srm_horizontal` | c804 | 1979 | Public domain (17 U.S.C. §105) | MSFC | Space Shuttle Projects |
+| `srm_horizontal` | c803 | 1979 | Public domain (17 U.S.C. §105) | MSFC | Space Shuttle Projects |
 | `srm_vertical_test` | ep04 | 1987 | Public domain (17 U.S.C. §105) | MSFC | Space Shuttle Projects |
 | `ssme_ignition` | c303 | 1986 | Public domain (17 U.S.C. §105) | NASA「Space Shuttle Challenger Accident Investigation」 | 記録映像 launch +9秒 |
 | `ssme_salvage` | c910 | 1986 | Public domain | NASA | STS-51-L Recovered Debris (SSME Close Up) - GPN-2004-00008.jpg |
