@@ -1,0 +1,11 @@
+メタ: meta_ep11.json
+接続先: そのとき、何が起きたか（@nanigaokitaka／動画10本）
+動画: titan_audio-ep11-r05.mp4（190.2 MB）
+題　: 打ち上げの前夜、技術者はひとりも賛成しなかった。発射台にはつららが下がっていた。7人が亡くなったチャレンジャー号空中分解事故の真相【事故検証】【映像あり】
+非公開で上げる（予約はあとで `schedule`）
+  4%  8%  13%  17%  22%  26%  30%  35%  39%  44%  48%  52%  57%  61%  66%  70%  74%  79%  83%  88%  92%  97%
+上がった: https://youtu.be/6VbCx5Q6IYo
+管理　　: https://studio.youtube.com/video/6VbCx5Q6IYo/edit
+サムネを貼った: ep11_p_jugyou.png
+
+次: python tools/upload_jiko.py status 6VbCx5Q6IYo
