@@ -1014,9 +1014,42 @@ def ep11_t2():
     bake("ep11_j_tsurara3", fx_type(ice_z, RED_A, YEL, "e_veil", yel_plain=True))
 
 
+def ep11_t3():
+    """11本目・3巡目（2026-09-22・⑥）。**教師の案だけ**を直す。
+
+    🔴🔴 2巡目の `g_kyoshi2` は**悪化した**。`cy` を 0.38→0.44 に上げたのは
+       「顔に余白を足す」つもりだったが、`photo()` の `cy` は**切り出す窓の上端の位置**で、
+       上げると窓が下へ動く＝**被写体は画面の上へ寄る**。結果、赤い帯が**目を完全に隠した**。
+       → **下げる**のが正しい（→ [[feedback-verify-your-own-instrument]]＝物差しの向きをまず疑う）。
+    ⚠️ 2巡目で通ったもの（`f_launch_kion`・`h_tsurara2`）は**触らない**。
+
+    ■ この巡で作るもの
+      k … 教師 `cy=0.30`（目が帯の下に出るはず）
+      m … 教師 `cy=0.22`（さらに下げた控え）
+      n … 左＝つらら（2巡目で読めるようになった切り）／右＝教師＝この回の差し分けを1枚で
+    """
+    RED_A = "発射台につららが下がっていた"
+    RED_C = "乗員7人のうち1人は現役教師"
+    YEL = "チャレンジャー号 空中分解"
+
+    k = photo(EP11_TEACHER, cy=0.30, cx=0.50, contrast=1.12, color=1.06, bright=0.99)
+    m = photo(EP11_TEACHER, cy=0.22, cx=0.50, contrast=1.12, color=1.06, bright=0.99)
+    egress = photo(EP11_EGRESS, cy=0.62, cx=0.50, contrast=1.16, color=1.08, bright=0.99)
+    # 右半分は**その枠の寸法で**作る（640×720）
+    teacher_r = photo(EP11_TEACHER, cy=0.30, cx=0.50, contrast=1.12, color=1.06,
+                      bright=0.99, w=640, h=H)
+
+    bake("ep11_k_kyoshi3", fx_type(k, RED_C, YEL, "e_veil", yel_plain=True))
+    bake("ep11_m_kyoshi4", fx_type(m, RED_C, YEL, "e_veil", yel_plain=True))
+    bake("ep11_n_split2", fx_type(egress, RED_A, YEL, "e_veil", yel_plain=True,
+                                  split=(teacher_r, 640)))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep11-t2" in sys.argv:
+    if "ep11-t3" in sys.argv:
+        ep11_t3()
+    elif "ep11-t2" in sys.argv:
         ep11_t2()
     elif "ep11" in sys.argv:
         ep11()
