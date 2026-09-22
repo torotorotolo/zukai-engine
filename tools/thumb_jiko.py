@@ -922,9 +922,62 @@ def ep10_ai():
         bake(f"ep10ai_{nm}", fx_type(hero, RED_D, YEL, "e_veil", yel_plain=True))
 
 
+EP11_ICE_PAD = "ep11/ice_pad.jpg"        # NASA GPN-2004-00011（1986-01-28）：発射台に張った氷（PD）
+EP11_EGRESS = "ep11/ice_egress.jpg"      # NASA（1986年）：乗員が逃げる通路まで凍った発射塔（PD）
+EP11_TEACHER = "ep11/mcauliffe_class.jpg"  # NASA（1985年）：教師として選ばれたマコーリフの公式肖像（PD）
+EP11_PAD_AM = "ep11/launch_pad_morning.jpg"  # NASA STS-51-L.jpg（1986年）：その朝の発射台（PD）
+
+
+def ep11():
+    """11本目・チャレンジャー号（2026-09-22・⑥）。
+
+    🔴🔴 **「爆発」はタイトルにもサムネにも使わない**（①で確定）。
+       8本目コロンビア号と**同じ「空中分解」の回**なので、
+       差し分けは **「氷」と「教師」**（→ 記憶 `project-jiko-ep11-challenger`）。
+    🔴 **「犠牲7人」をサムネの核にしない**（8本目の赤が「7人死亡…」で真正面から重なる）。
+       数字は **2.2度** と **「7人のうち1人」** で出す。
+    ⚠️ 赤の行は**言い換え**（→ 記憶 `feedback-jiko-death-word-policy`）。
+       この4案はどれも「死亡」を書いていない。
+    ⚠️ 🔴 **`d` の文言を「全員が反対」にしてはいけない。**原文（ch5 L654）は
+       ボイジョリー個人の証言で、④' が「賛成する発言は一度も出なかった」→
+       **「技術者は、ひとりも賛成しなかった」**に絞り直している。
+       「反対した」は報告書が書いていない一歩先（→ [[feedback-dont-state-inferences-as-findings]]）。
+    ⚠️ 地に使えるのは **2,000px 以上の写真だけ**。記録映像から抜いた止め絵（640×480）は
+       1280幅に伸ばすと粗が出るので使わない（`ice_icicle` 系は不可）。
+    """
+    RED_A = "発射台につららが下がっていた"   # 14字・氷
+    RED_B = "打ち上げの朝 気温は2.2度"       # 14字・氷＋数字（pr08＝摂氏2.2度）
+    RED_C = "乗員7人のうち1人は現役教師"     # 14字・教師＋数字（pr05）
+    RED_D = "前の夜 技術者は賛成しなかった"   # 14字・決め所 pr04 のまま
+    YEL = "チャレンジャー号 空中分解"        # 13字・世間で通っている短い呼び名を使う
+
+    for red in (RED_A, RED_B, RED_C, RED_D):
+        for bad in ("死亡", "爆発", "ﾀﾋ"):
+            if bad in red:
+                raise SystemExit(f"🔴 赤の行に使ってはいけない語「{bad}」がある: {red}")
+
+    ice = photo(EP11_ICE_PAD, cy=0.50, cx=0.50, contrast=1.14, color=1.08, bright=0.97)
+    egress = photo(EP11_EGRESS, cy=0.45, cx=0.50, contrast=1.14, color=1.08, bright=0.97)
+    teacher = photo(EP11_TEACHER, cy=0.38, cx=0.50, contrast=1.12, color=1.06, bright=0.99)
+    pad_am = photo(EP11_PAD_AM, cy=0.50, cx=0.50, contrast=1.14, color=1.08, bright=0.97)
+    # 右半分は**その枠の寸法で**作る（640×720）。1280幅のものを入れると倍に寄る
+    teacher_r = photo(EP11_TEACHER, cy=0.36, cx=0.50, contrast=1.12, color=1.06,
+                      bright=0.99, w=640, h=H)
+
+    bake("ep11_a_tsurara", fx_type(ice, RED_A, YEL, "e_veil", yel_plain=True))
+    bake("ep11_b_kion", fx_type(egress, RED_B, YEL, "e_veil", yel_plain=True))
+    bake("ep11_c_kyoshi", fx_type(teacher, RED_C, YEL, "e_veil", yel_plain=True))
+    bake("ep11_d_zenya", fx_type(pad_am, RED_D, YEL, "e_veil", yel_plain=True))
+    # e＝10本目で採用された左右2枚並べ。左＝氷／右＝教師＝この回の差し分けを1枚で見せる
+    bake("ep11_e_split", fx_type(ice, RED_A, YEL, "e_veil", yel_plain=True,
+                                 split=(teacher_r, 640)))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep8-t2" in sys.argv:
+    if "ep11" in sys.argv:
+        ep11()
+    elif "ep8-t2" in sys.argv:
         ep8_t2()
     elif "ep10-ai" in sys.argv:
         ep10_ai()
