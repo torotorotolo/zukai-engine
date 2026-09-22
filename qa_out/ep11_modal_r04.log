@@ -1,0 +1,377 @@
+✓ Initialized. View run at 
+https://modal.com/apps/torotorotolo/main/ap-olp36sdyWWmMi2JXXsfxR0
+✓ Created objects.
+├── 🔨 Created mount C:\Users\konar\Desktop\zukai-engine\modal_app.py
+├── 🔨 Created function full.
+├── 🔨 Created function qa.
+├── 🔨 Created function check.
+└── 🔨 Created function layer_hash.
+BGM … /assets/bgm.mp3 / 3.20 MB
+
+$ git clone --depth 1 https://github.com/torotorotolo/zukai-engine.git /work/zukai-engine
+Cloning into '/work/zukai-engine'...
+Updating files:  56% (1250/2217)
+[1AUpdating files:  57% (1264/2217)
+[1AUpdating files:  58% (1286/2217)
+[1AUpdating files:  59% (1309/2217)
+[1AUpdating files:  60% (1331/2217)
+[1AUpdating files:  61% (1353/2217)
+[1AUpdating files:  62% (1375/2217)
+[1AUpdating files:  63% (1397/2217)
+[1AUpdating files:  64% (1419/2217)
+[1AUpdating files:  65% (1442/2217)
+[1AUpdating files:  66% (1464/2217)
+[1AUpdating files:  67% (1486/2217)
+[1AUpdating files:  68% (1508/2217)
+[1AUpdating files:  68% (1518/2217)
+[1AUpdating files:  69% (1530/2217)
+[1AUpdating files:  70% (1552/2217)
+[1AUpdating files:  71% (1575/2217)
+[1AUpdating files:  72% (1597/2217)
+[1AUpdating files:  73% (1619/2217)
+[1AUpdating files:  74% (1641/2217)
+[1AUpdating files:  75% (1663/2217)
+[1AUpdating files:  76% (1685/2217)
+[1AUpdating files:  77% (1708/2217)
+[1AUpdating files:  78% (1730/2217)
+[1AUpdating files:  79% (1752/2217)
+[1AUpdating files:  80% (1774/2217)
+[1AUpdating files:  81% (1796/2217)
+[1AUpdating files:  82% (1818/2217)
+[1AUpdating files:  83% (1841/2217)
+[1AUpdating files:  84% (1863/2217)
+[1AUpdating files:  85% (1885/2217)
+[1AUpdating files:  86% (1907/2217)
+[1AUpdating files:  87% (1929/2217)
+[1AUpdating files:  88% (1951/2217)
+[1AUpdating files:  89% (1974/2217)
+[1AUpdating files:  90% (1996/2217)
+[1AUpdating files:  91% (2018/2217)
+[1AUpdating files:  91% (2035/2217)
+[1AUpdating files:  92% (2040/2217)
+[1AUpdating files:  93% (2062/2217)
+[1AUpdating files:  94% (2084/2217)
+[1AUpdating files:  95% (2107/2217)
+[1AUpdating files:  96% (2129/2217)
+[1AUpdating files:  97% (2151/2217)
+[1AUpdating files:  98% (2173/2217)
+[1AUpdating files:  99% (2195/2217)
+[1AUpdating files: 100% (2217/2217)
+[1AUpdating files: 100% (2217/2217), done.
+  (34秒 / 終了コード 0)
+
+$ git fetch --depth 50 origin 338efc068105130a6b6194cdba3f1274a6738382
+From https://github.com/torotorotolo/zukai-engine
+ * branch            338efc068105130a6b6194cdba3f1274a6738382 -> FETCH_HEAD
+  (11秒 / 終了コード 0)
+
+$ git checkout 338efc068105130a6b6194cdba3f1274a6738382
+Note: switching to '338efc068105130a6b6194cdba3f1274a6738382'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 338efc0 11本目⑤c'': 台帳 §12（焼き直して原寸で31カット見た／r03 の確かめ）
+  (1秒 / 終了コード 0)
+
+$ git log --oneline -1
+338efc0 11本目⑤c'': 台帳 §12（焼き直して原寸で31カット見た／r03 の確かめ）
+  (0秒 / 終了コード 0)
+
+$ python3 tools/scene_jiko.py --report
+カット 191 ／ 完成尺 2109.7秒 = 35分09.7秒
+字幕 473 枚
+実写 84 ／ ★写真を地に敷いた図解 3
+図の種類:
+   photo         84
+   beforeafter   21
+   panel         19
+   quote         18
+   process       12
+   people         9
+   timeline       7
+   compare        6
+   absent         4
+   icons          3
+   moment         2
+   compare+写真     1
+   graph+写真       1
+   mapfig         1
+   beforeafter+写真   1
+   radio          1
+   ending         1
+
+⚠️ cuts/__init__.py が**中身ごと上書き**しているカット（0件）:
+   
+   章ファイルの fig / ann を直すときは、ここに載っていないか必ず見ること。
+
+🔴 章の名前（題材を替えたら必ず書き換える／9章）:
+   1/9  発射台は、凍っていた
+   2/9  七人
+   3/9  七十三秒
+   4/9  それは「爆発」ではなかった
+   5/9  継ぎ目の、ゴムの輪
+   6/9  前の夜、あの部屋で
+   7/9  帽子を、かけかえる
+   8/9  二十四回、うまくいっていた
+   9/9  海から上がったもの
+   ↑ これは**いま作っている動画の章名**か？ 前作のままなら止めて直す。
+   （上流が無いので push の検査は飛ばす）
+  (0秒 / 終了コード 0)
+
+$ python3 tools/check_layout.py
+── 画面から出ている文字（639レイヤー） ──
+  ✓ 全部おさまっている
+
+── フォントに無い字（豆腐になる） ──
+  ✓ 無い字は無い
+
+── 小さい Dela に漢字の句が入っている ──
+  ✓ つぶれる大きさの Dela に漢字の句は無い
+
+── 同じカットで重なっている文字 ──
+  ✓ 重なりなし
+
+── 図形が文字を横切っている ──
+  ✓ 横切っている図形は無い
+
+✓ 机上の検算はすべて通った（画面外 0件・重なり 0件・豆腐 0件・図形が横切る 0件／フォントは実測）
+  (33秒 / 終了コード 0)
+
+$ python3 tools/check_echo.py
+
+✓ 複写は無い（複写 0件・見出し/副題の同文 0件・見出しの近さ 4件）
+   （見出しの近さは --all で出る。0.80 未満は「話題を出す場所」として黙る）
+  (12秒 / 終了コード 0)
+
+$ python3 tools/audio_pack.py check
+台本 191 カット ／ audio/opus 191 本
+✓ 過不足なし
+✓ 全 0 本の尺が一致
+  (0秒 / 終了コード 0)
+
+$ python3 tools/audio_pack.py unpack
+✓ 191 カットを wav に戻した（既存 0 本はそのまま）
+  (52秒 / 終了コード 0)
+
+$ python3 tools/check_mask.py
+BGM「bgm.mp3」133秒を 1 回つないだ（継ぎ目 3秒の重ね）
+ドローンの寝床（80〜400Hz・いちばん膨らむ瞬間）= -47.5 dB
+行 473 ／ 🔴消える(<6.0dB) 0 ／ ⚠️弱い(6.0〜10.0dB) 0 ／ ✓聞こえる 473
+中央値 29.5 dB
+
+   余裕dB  カット     語尾（発話の最後 0.18 秒）
+   15.0   c107    …地上29メートルから65メートルのあたりだった。
+   20.2   c618    …回目の前の晩になって、基準を作りかえるのか、と。
+   21.8   c713    …絶対に壊れるとまでは、言えなかったからである。
+   22.7   c209    …年、乗員の一人として決められた訓練を受けている。
+   22.8   ep12    …て硬くなり、つぶれきって押す空気も入らなかった。
+   22.9   c615    …この発言を、別の出席者も覚えていた。
+   23.1   c408    …本体は、火に焼かれて砕けたのではなかった。
+   23.1   c708    …ここから先、結論は経営側だけで組み立てられた。
+   23.3   c210    …マコーリフには、この飛行での仕事があった。
+   23.4   c908    …によるものかどうかも、非公開の会合で調べている。
+   23.4   c803    …員会が挙げた問題の一つ目は、試験のやり方だった。
+   23.4   c810    …を止める札」が、このノズルの継ぎ目に掛けられた。
+   23.6   c813    …、火を噴いた継ぎ目には、最後まで掛からなかった。
+   23.6   ep06    …ちばん重いのは、設計の話ではないのかもしれない。
+   23.6   c709    …聞かれもしなかった、とその技術者は証言している。
+   23.8   c915    …乗員7名は全員が死亡した。
+   23.8   c310    …煙は一度きりではなかった。
+   24.2   c314    …報告書は、二つの見方を並べたままにしている。
+   24.2   c507    …えるガスに近いほうを一次、遠いほうを二次と呼ぶ。
+   24.2   c405    …。底が抜けたタンクは、その火の中で崩れていった。
+   24.2   c306    …打ち上げから0.678秒。すでに煙が出ていた
+   24.3   c504    …二本の指で板をはさむ形だと思えばよい。
+   24.3   c604    …技術者たちが資料を順に説明した。
+   24.4   c712    …ところがその夜は、いつもと様子が違った。
+   24.5   pr09    …、夜のあいだに発射台そのものにも張りついていた。
+   24.5   c311    …揺れるたびに、継ぎ目がわずかに開いていた。
+   24.5   c715    …午後11時ごろ、会議が再開された。
+   24.6   pr03    …その73秒後、機体は空の上でばらばらに壊れた。
+   24.8   c714    …づくべきだったのに気づかなかった、と述べている。
+   24.8   c509    …このパテには、もう一つの役目があった。
+（悪い順に 30 行だけ表示。全部見るなら --all）
+  (9秒 / 終了コード 0)
+
+$ python3 tools/footage.py
+■ 動画を当てるカット 7 件（＋静止画で受ける 0 件: ）
+  pr02  尺 8.91s  ← launch 16.0〜22.0秒（0.67倍速）
+  pr07  尺14.97s  ← joint 24.0〜34.9秒（0.73倍速）
+  c101  尺 9.08s  ← pad 30.0〜39.1秒（1.00倍速）
+  c307  尺 8.11s  ← smoke 6.0〜14.1秒（1.00倍速）
+  c413  尺13.92s  ← accident 41.0〜54.9秒（1.00倍速）
+  c503  尺 8.22s  ← joint 36.0〜44.2秒（1.00倍速）
+  c603  尺12.77s  ← srb 30.0〜40.0秒（0.78倍速）
+✓ 全 7 欄に until= があり、尻のはみ出しも ショットまたぎも無く、使ってはいけない秒にも掛かっておらず、素材の黒帯も残らない（実測ショット 132 本と照合）
+  pr02: launch の 16.0秒目から切り出す
+     → 269コマ（要 269）
+  pr07: joint の 24.0秒目から切り出す
+     → 451コマ（要 451）
+  c101: pad の 30.0秒目から切り出す
+     → 274コマ（要 274）
+  c307: smoke の 6.0秒目から切り出す
+     → 245コマ（要 245）
+  c413: accident の 41.0秒目から切り出す
+     → 420コマ（要 420）
+  c503: joint の 36.0秒目から切り出す
+     → 249コマ（要 249）
+  c603: srb の 30.0秒目から切り出す
+     → 385コマ（要 385）
+✓ 切り出し完了 7/7 カット: pr02、pr07、c101、c307、c413、c503、c603
+  (142秒 / 終了コード 0)
+
+$ ZUKAI_WORKERS=8 python3 tools/scene_jiko.py --force
+書き出すレイヤー 832 枚（並列 4）
+  50/832
+  100/832
+  150/832
+  200/832
+  250/832
+  300/832
+  350/832
+  400/832
+  450/832
+  500/832
+  550/832
+  600/832
+  650/832
+  700/832
+  750/832
+  800/832
+done 832
+  (571秒 / 終了コード 0)
+
+$ python3 tools/layer_hash.py
+レイヤー 832 枚 ／ 合計 55.7 MB
+★全体の指紋  b2e6f66e241e18b92f29c901cb60416864462173b0e5b908eb929c00b89afa0a
+
+代表（ずれたときに場所を絞るため）
+  _empty           d0634a2abbcd31f0882b9e94ad72430c
+  c101_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c101_lab         cf988325ea90bd612a523fa25d72578d
+  c111_a1          a2fcea2ffbb6f689c6aa225baad5dc19
+  c111_base        c878fc9b68542c77da7b6b9146c955fc
+  c201_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c201_lab         069a3146bab0171741e0c7293e77607f
+  c209_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c209_lab         b9046913b8328634f0626dc78980aff5
+  c301_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c301_lab         81fa33936b0eaa6f9274763bfdf06ca9
+  c312_a1          517fe860f30cd4ca51c4d51ed2dcb0e9
+  c312_a2          1e1b2d8ec5c03248a6dc9f2789273594
+  c401_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c401_lab         b49bd8268e7d6a80d3b0e30f4472d3d0
+  c408_a1          ef987bee418d9245e3ed7ff0e1f15c8b
+  c408_base        f577f1c374b83f55d0e7e069f7a6e38c
+  c501_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c501_lab         711a104b8772a0fcc7b6615c31a6c5e5
+  c512_a1          e523a5b62d23908f98a5b9c52089299b
+  c512_a2          8410a8c020d1fb42c66a24319cd5a439
+  c601_a1          28f07d8597be530d481476d1db770556
+  c601_a2          921945a6edced5f7738ebece2490b8a7
+  c612_a1          4a6af5b242cc42389b7038b4ad88b8c6
+  c612_a2          f67a1815fdd3cbf4ad0900a780dffc96
+  ep01_a1          a6e8e62940a32f76f0cacdda3bda58e1
+  ep01_bg          d0634a2abbcd31f0882b9e94ad72430c
+  ep07_a1          e4b2fc67357855ec3c5cfb6188317785
+  ep07_a2          f4d12da567acc990364c770cbb907a2f
+  pr01_bg          d0634a2abbcd31f0882b9e94ad72430c
+  pr01_lab         b1e45fbbd0fc223a2607d403ea29c3ec
+  pr06_a1          fe76610e0d2ef2273210c1793b5c695a
+  pr06_a2          dd513d050d55aa396b0ecb3bebc13a91
+  sub_c101         64128be8f9c9727864dfbb0ee3f5d4f6
+  sub_c102         e4e056a8f81b4b757d57a85ed293e0de
+  sub_c103         e0bff78d955c0093ce0397d2130d5e25
+
+⚠️ Actions と Modal で**★全体の指紋が一致すれば**、9巡の検品はそのまま生きている。
+  (45秒 / 終了コード 0)
+
+$ ZUKAI_WORKERS=8 python3 tools/build_jiko.py full
+図が動かない最長区間 = 4.70秒
+✓ 図が 5.0秒以上止まるカットは無い
+（参考）最長の字幕 = 7.94秒「そして58.788秒。右の補助ロケットの、あの継ぎ目」 ／ 字幕の枚数 473
+検品画像 191 カット
+mp4 を 8 並列で焼く（191カット）
+  20/191  7060コマ
+  40/191  14070コマ
+  60/191  20873コマ
+  80/191  27675コマ
+  100/191  34353コマ
+  120/191  41841コマ
+  140/191  48143コマ
+  160/191  54866コマ
+  180/191  60244コマ
+  191/191  63290コマ
+wrote /work/zukai-engine/out/jiko/titan.mp4 2109.7 sec
+  (593秒 / 終了コード 0)
+
+$ ls -la /assets/ || true
+total 3131
+drwxr-xr-x 1 root root       7 Jan  1  1970 .
+drwxr-xr-x 4 root root      72 Sep 22 07:31 ..
+-rw-r--r-- 1 root root 3204163 Sep 20 23:26 bgm.mp3
+  (0秒 / 終了コード 0)
+
+$ python3 tools/audio_mix.py --bgm=music
+BGM「bgm.mp3」133秒を 17 回つないだ（継ぎ目 3秒の重ね）
+サイドチェイン：話している時間 97% ／ 最大 7.0dB 下げた
+  1周目：利得 +0.0dB → 実測 -12.1 LUFS ／ ピーク 0.970
+  2周目：利得 -2.9dB → 実測 -14.3 LUFS ／ ピーク 0.970
+  3周目：利得 -3.6dB → 実測 -15.0 LUFS ／ ピーク 0.970
+wrote /work/zukai-engine/out/jiko/mix.wav  2109.7秒  ピーク 0.970
+  (31秒 / 終了コード 0)
+
+$ ffmpeg -y -hide_banner -loglevel error -i out/jiko/titan.mp4 -i out/jiko/mix.wav -c:v copy -c:a aac -b:a 192k -shortest out/jiko/titan_audio.mp4
+  (54秒 / 終了コード 0)
+
+$ cp out/jiko/titan_audio.mp4 /vol/titan_audio-ep11-r04.mp4
+  (1秒 / 終了コード 0)
+
+$ ffprobe -v error -show_entries format=duration -of default=nw=1 /vol/titan_audio-ep11-r04.mp4
+duration=2109.666667
+  (0秒 / 終了コード 0)
+
+$ ls -la /vol/
+total 4630367
+drwxr-xr-x 1 root root       453 Sep 22 07:58 .
+drwxr-xr-x 4 root root        72 Sep 22 07:31 ..
+-rw-r--r-- 1 root root 148820698 Sep 20 22:47 titan_audio-ep10-r03.mp4
+-rw-r--r-- 1 root root 158714884 Sep 21 00:45 titan_audio-ep10-r04.mp4
+-rw-r--r-- 1 root root 151307126 Sep 21 02:53 titan_audio-ep10-r05.mp4
+-rw-r--r-- 1 root root 151362224 Sep 21 03:54 titan_audio-ep10-r06.mp4
+-rw-r--r-- 1 root root 189964855 Sep 22 07:58 titan_audio-ep11-r04.mp4
+-rw-r--r-- 1 root root 276059930 Sep 14 02:22 titan_audio-ep7-r03.mp4
+-rw-r--r-- 1 root root 275765238 Sep 14 11:24 titan_audio-ep7-r04.mp4
+-rw-r--r-- 1 root root 226651875 Sep 15 14:20 titan_audio-ep8-r01.mp4
+-rw-r--r-- 1 root root 226802671 Sep 16 02:51 titan_audio-ep8-r02.mp4
+-rw-r--r-- 1 root root 305455259 Sep 17 04:13 titan_audio-ep9-r03.mp4
+-rw-r--r-- 1 root root 305247998 Sep 17 14:30 titan_audio-ep9-r04.mp4
+-rw-r--r-- 1 root root 455907358 Sep 11 04:48 titan_audio-kb-r09.mp4
+-rw-r--r-- 1 root root 123761860 Aug  1 04:21 titan_audio-r11.mp4
+-rw-r--r-- 1 root root 123147684 Aug  1 11:39 titan_audio-r13.mp4
+-rw-r--r-- 1 root root 172258222 Aug  6 00:05 titan_audio-r14.mp4
+-rw-r--r-- 1 root root 172202839 Aug  6 13:11 titan_audio-r15.mp4
+-rw-r--r-- 1 root root 204664596 Aug 10 02:12 titan_audio-r28.mp4
+-rw-r--r-- 1 root root 155390866 Aug  2 09:33 titan_audio-r29.mp4
+-rw-r--r-- 1 root root 204252885 Aug 16 06:24 titan_audio-r30.mp4
+-rw-r--r-- 1 root root 413714501 Sep  7 23:04 titan_audio-sl1r03.mp4
+-rw-r--r-- 1 root root 300035704 Sep  6 08:31 titan_audio-ss.mp4
+  (0秒 / 終了コード 0)
+
+✓ 焼けた → modal volume get jiko-out titan_audio-ep11-r04.mp4 out/jiko/
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/torotorotolo/main/ap-olp36sdyWWmMi2JXXsfxR0

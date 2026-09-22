@@ -1045,9 +1045,45 @@ def ep11_t3():
                                   split=(teacher_r, 640)))
 
 
+def ep11_t4():
+    """11本目・4巡目（2026-09-22・⑥）。**写真と切りは `m_kyoshi4` のまま固定**して、
+    赤の行だけを差し替える（2026-09-22 カズヤくん指示「Mの写真で他の赤字案を」）。
+
+    ⚠️ 文言はすべて台本第2版で**裏を取った行**からしか作っていない。
+      p … `c210` の**決め所**そのもの（報告書がマコーリフの仕事をこう書いている）
+      q … `pr01`／`pr09`（発射台の氷）＋ `c208`（教師）を1行に。この回の差し分け2つが同時に出る
+      r … `c208`「中学と高校で、いろいろな教科を教えていた」＝採用中の案をより具体にした形
+      s … `c209`「乗員に加わったのは1985年の7月。それから半年」
+    🔴 どれも「死亡」「爆発」を使わず、「犠牲7人」を核にしていない（8本目と重ねないため）。
+    ⚠️ 「高校教師」とだけ書かない＝**中学と高校の両方**を教えていた（`c208`）。
+    """
+    TEACHER_CY = 0.22          # ✅ m_kyoshi4 で採用された切り（帯と顔が離れる）
+    RED = {
+        "p_jugyou": "宇宙から授業をするはずだった",   # 14字・c210 の決め所
+        "q_kori":   "教師が乗る朝 発射台は凍った",   # 14字・氷＋教師
+        "r_chuko":  "7人の1人は中学と高校の教師",    # 14字・c208
+        "s_hantoshi": "半年前に選ばれた 現役の教師",  # 14字・c209
+    }
+    YEL = "チャレンジャー号 空中分解"
+
+    for nm, red in RED.items():
+        for bad in ("死亡", "爆発", "ﾀﾋ"):
+            if bad in red:
+                raise SystemExit(f"🔴 {nm} の赤に使ってはいけない語「{bad}」がある: {red}")
+        if not (10 <= len(red) <= 15):
+            raise SystemExit(f"🔴 {nm} の赤が {len(red)}字（型は10〜15字）: {red}")
+
+    hero = photo(EP11_TEACHER, cy=TEACHER_CY, cx=0.50,
+                 contrast=1.12, color=1.06, bright=0.99)
+    for nm, red in RED.items():
+        bake(f"ep11_{nm}", fx_type(hero, red, YEL, "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep11-t3" in sys.argv:
+    if "ep11-t4" in sys.argv:
+        ep11_t4()
+    elif "ep11-t3" in sys.argv:
         ep11_t3()
     elif "ep11-t2" in sys.argv:
         ep11_t2()
