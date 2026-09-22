@@ -973,9 +973,52 @@ def ep11():
                                  split=(teacher_r, 640)))
 
 
+def ep11_t2():
+    """11本目・2巡目（2026-09-22・⑥）。1巡目を**原寸と幅246pxの両方で見て**直した。
+
+    ■ 1巡目で出た粗（`out/thumb/ep11-t1`）
+      | 案 | 粗 | 直し |
+      |---|---|---|
+      | `d_zenya` | 🔴 **絵と文字が食い違う**（文字は「前の夜」／絵は**昼の打ち上げ**） | 絵に合う文字（気温）へ |
+      | `b_kion`  | 🔴 つららの列が**下端で切れ**、上半分が正体不明の暗い形 | `cy` 0.45→**0.62**（列を中央へ） |
+      | `a_tsurara` | ⚠️ 原寸では氷が見えるが、**小さくすると灰色の塊** | **1.6倍に寄せる** |
+      | `e_split` | ⚠️ 左が灰色の塊・右の顔も小さい＝`c` より弱い | 2巡目では作らない |
+      | `c_kyoshi` | ⭕ いちばん強い（顔が大きい・色がある・246pxで読める） | 顔の余白だけ少し足す |
+
+    ⚠️ 直したのは**切り位置と文字の当て先だけ**。赤・黄の型と、
+       「爆発／死亡を使わない」「犠牲7人を核にしない」は1巡目と同じ。
+    """
+    RED_A = "発射台につららが下がっていた"   # 14字・氷
+    RED_B = "打ち上げの朝 気温は2.2度"       # 14字・氷＋数字（pr08＝摂氏2.2度）
+    RED_C = "乗員7人のうち1人は現役教師"     # 14字・教師＋数字（pr05）
+    YEL = "チャレンジャー号 空中分解"        # 13字
+
+    for red in (RED_A, RED_B, RED_C):
+        for bad in ("死亡", "爆発", "ﾀﾋ"):
+            if bad in red:
+                raise SystemExit(f"🔴 赤の行に使ってはいけない語「{bad}」がある: {red}")
+
+    # f＝1巡目でいちばん目を引いた絵（打ち上げ）に、**絵と合う文字**を当てた
+    launch = photo(EP11_PAD_AM, cy=0.50, cx=0.50, contrast=1.14, color=1.08, bright=0.97)
+    # g＝1巡目の c。顔の上に赤がかぶらないよう cy を下げて余白を足す
+    teacher = photo(EP11_TEACHER, cy=0.44, cx=0.50, contrast=1.12, color=1.06, bright=0.99)
+    # h＝つららの列を中央に置き直した（1巡目は下端で切れていた）
+    egress = photo(EP11_EGRESS, cy=0.62, cx=0.50, contrast=1.16, color=1.08, bright=0.99)
+    # j＝1巡目の a を 1.6倍に寄せた（小さくしたとき何が写っているか分かるように）
+    ice_z = photo(EP11_ICE_PAD, cy=0.45, cx=0.50, zoom=1.6,
+                  contrast=1.18, color=1.08, bright=1.00)
+
+    bake("ep11_f_launch_kion", fx_type(launch, RED_B, YEL, "e_veil", yel_plain=True))
+    bake("ep11_g_kyoshi2", fx_type(teacher, RED_C, YEL, "e_veil", yel_plain=True))
+    bake("ep11_h_tsurara2", fx_type(egress, RED_A, YEL, "e_veil", yel_plain=True))
+    bake("ep11_j_tsurara3", fx_type(ice_z, RED_A, YEL, "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep11" in sys.argv:
+    if "ep11-t2" in sys.argv:
+        ep11_t2()
+    elif "ep11" in sys.argv:
         ep11()
     elif "ep8-t2" in sys.argv:
         ep8_t2()
