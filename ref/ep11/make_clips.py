@@ -36,8 +36,23 @@ HERE = Path(__file__).resolve().parents[2]
 CLIPS = HERE / "ref" / "ep11" / "vid" / "clips"
 OUT = HERE / "ref" / "ep11" / "clips.json"
 
+# 🔴 `url` は**人が見る引用の頁**。ffmpeg には渡せない（HTML が返る）。
 DOC_URL = "https://archive.org/details/ChallengerAccidentandInvestigation"
 USIA_URL = "https://archive.org/details/gov.archives.arc.59811"
+
+# 🔴🔴 2026-09-22（11本目 ⑤c-4）：**`media` ＝ ffmpeg に渡す媒体そのもの。**
+#    `grab_clips.py` の DOC／USIA と同じ直リンク（そちらは実際に帯を抜けている）。
+#    これが無いあいだ `footage.py` は `url`（＝`/details/` の頁）を ffmpeg に渡していて、
+#    Actions の焼きで **7欄すべてが「Invalid data found」で黙って静止画に落ちた**
+#    （`✓ 切り出し完了 0/7`）。`modal_app.py` も同じ `footage.py` を呼ぶので、
+#    直さなければ**本編にも静止画のまま載る**。
+#    ⚠️ `media` の秒は「もとの1本の中の秒」なので、`at` を足して読む（`footage.media_of`）。
+#    ⚠️ **`stream` という名前は使えない。**他の回（ep7・ep8・keybridge）の clips.json では
+#       `stream` は「URL から流して読む」という**真偽値**で、URL を入れると壊れる。
+DOC_MEDIA = ("https://archive.org/download/ChallengerAccidentandInvestigation"
+             "/Challenger_Disaster_and_Investigation.mpg")
+USIA_MEDIA = ("https://archive.org/download/gov.archives.arc.59811"
+              "/gov.archives.arc.59811.mpeg")
 
 DOC_CREDIT = "出典：NASA「Space Shuttle Challenger Accident Investigation」"
 USIA_CREDIT = "出典：米国立公文書館（USIA 306-WNET-239）"
@@ -99,10 +114,19 @@ def main():
         # 正方画素に直した見かけの幅（絵の比を測るときはこちら）
         sw, sh = (int(x) for x in m["sar"].split(":"))
         m["square_w"] = round(m["w"] * sw / sh)
+        # 🔴🔴 2026-09-22（11本目 ⑤c-4）：**`dispw` も書く。**
+        #    `footage._cut_stream()` が SAR の直しを当てる条件は `dispw != w` で、
+        #    読む鍵は **`dispw`**。ここは `square_w` にしか書いていなかったので、
+        #    上の「切り出し側が scale=iw*sar:ih を当てられるようにする」が**効いていなかった**
+        #    （実測＝本番の経路で抜いたコマが **720×480 の正方画素**＝横に12.5%太い）。
+        #    ⚠️ 鍵の名前が1文字違うだけで門番は1本も鳴らない
+        #       → [[feedback-container-labels-lie-about-the-picture]]
+        m["dispw"] = m["square_w"]
         src = b["src"]
         out[name] = dict(
             file=f"ep11/vid/clips/{p.name}",
             url=DOC_URL if src == "doc" else USIA_URL,
+            media=DOC_MEDIA if src == "doc" else USIA_MEDIA,
             credit=DOC_CREDIT if src == "doc" else USIA_CREDIT,
             src=src,
             at=b["at"],              # もとの1本の中での開始秒

@@ -52,6 +52,7 @@
       SL-1 でハード検出だけだと 77本／165本、1秒刻みだと **139本／271本**＝**168本を見落としていた**。
 """
 import json
+import re
 import subprocess
 import sys
 import time
@@ -649,8 +650,12 @@ def selftest():
         # ⑥ exit コードが 2（until 無し）→ 3（またぎ）→ 4（禁止の秒）→ 5（黒帯）の順
         import scene_jiko as S
         keep_cuts = S.CUTS
+        keep_probe = probe_media
         try:
             S.CUTS = [("x01", 6.0)]
+            # ⚠️ 検算のあいだは**外に出ない**。既定のままだと exit 2〜6 の対照が
+            #    example.invalid を引きに行き、7 に化けて「順番」が測れなくなる。
+            globals()["probe_media"] = lambda _u, timeout=45: (None, 2_000_000)
             globals()["USE"] = {"x01": dict(clip="t_clip", start=12.0)}
             rc2 = fetch(check=True)
             globals()["USE"] = {"x01": dict(clip="t_clip", start=12.0, until=25.0)}
@@ -669,12 +674,48 @@ def selftest():
                 url="http://example.invalid/x.mp4", sec=100.0, w=1920, h=1080,
                 credit="（検算用）", note="（検算用）", stream=True))
             rc6 = fetch(check=True)
+            # 🔴🔴 exit 7 ＝ 媒体 URL が動画として引けない（2026-09-22・11本目 ⑤c-4）。
+            #    ⚠️ `probe_media` は**外に出る唯一の口**なので差し替える
+            #       （[[feedback-selftest-must-not-reach-real-side-effects]]）。
+            #       差し替えないと、上の「正しい欄 → exit 0」が
+            #       example.invalid を引きに行って落ちる＝物差しが本番を測れない。
+            globals()["USE"] = {"x01": dict(clip="t_clip", start=12.0, until=20.0)}
+            keep_clips_fx = dict(CLIPS)                        # 仕込みずみの CLIPS を控える
+            rc7_ok = fetch(check=True)                        # 媒体は合格を返す
+            globals()["probe_media"] = lambda _u, timeout=45: ("（検算：引けない）", 0)
+            rc7 = fetch(check=True)                           # 引けない → 7
+            globals()["probe_media"] = lambda _u, timeout=45: (None, 2_000_000)
+            # 引用の頁（/details/）を渡したら media_of が止める。
+            # ⚠️ 媒体は「引ける」ままにしてある＝**止めているのは URL の形**だと示すため
+            fx = dict(CLIPS)
+            fx["t_clip"] = dict(fx["t_clip"], media=None,
+                                url="https://archive.org/details/xxxx")
+            globals()["CLIPS"] = fx
+            rc7d = fetch(check=True)
+            # 🔴🔴 exit 8 ＝ 画素が正方形でないのに `dispw` が無い（横に太る型）
+            fx8 = dict(CLIPS)
+            fx8["t_clip"] = dict(keep_clips_fx["t_clip"], sar="8:9", w=720, h=480)
+            fx8["t_clip"].pop("dispw", None)
+            globals()["CLIPS"] = fx8
+            rc8 = fetch(check=True)
+            # 陰性対照＝`dispw` を足せば黙る（同じ SAR のまま）
+            fx8b = dict(fx8)
+            fx8b["t_clip"] = dict(fx8["t_clip"], dispw=640)
+            globals()["CLIPS"] = fx8b
+            rc8b = fetch(check=True)
+            globals()["CLIPS"] = keep_clips_fx
         finally:
             S.CUTS = keep_cuts
+            globals()["probe_media"] = keep_probe
         for name, rc, want in (("until 無し", rc2, 2), ("ショットまたぎ", rc3, 3),
                                ("禁止の秒", rc4, 4), ("素材の黒帯", rc5, 5),
                                ("正しい欄", rc0, 0),
-                               ("ショット表に無いクリップ", rc6, 6)):
+                               ("ショット表に無いクリップ", rc6, 6),
+                               ("媒体が引ける欄", rc7_ok, 0),
+                               ("媒体が引けない", rc7, 7),
+                               ("url が /details/ の頁", rc7d, 7),
+                               ("SAR 8:9 なのに dispw が無い", rc8, 8),
+                               ("陰性対照：dispw を足せば黙る", rc8b, 0)):
             ok.append(rc == want)
             print(f"  {'✓' if rc == want else '🔴'} {name} → `fetch --check` exit {rc}（期待 {want}）")
     finally:
@@ -753,11 +794,77 @@ def selftest():
     return good
 
 
-def urls_of(name):
+# 🔴🔴 archive.org の「引用の頁」。ffmpeg に渡すと HTML が返り
+#    「Invalid data found when processing input」で落ちる。
+_DETAILS = re.compile(r"archive\.org/details/", re.I)
+
+
+def media_of(name):
+    """ffmpeg に渡してよい**媒体そのもの**の URL と、足す秒を返す。
+
+    🔴🔴 2026-09-22（11本目 ⑤c-4）で見つけた穴。
+       `ref/ep11/clips.json` の `url` は **人が見る引用の頁**（`/details/`）で、
+       ffmpeg は読めない。⑤c は帯を `ref/ep11/grab_clips.py` で**手元に抜いてから**
+       進めたので気づけず、Actions の焼きで **7欄すべてが黙って静止画に落ちた**
+       （ログは `✓ 切り出し完了 0/7`。`continue-on-error: true` なので**段は緑**）。
+       ⚠️ `modal_app.py` も `python3 tools/footage.py` を呼ぶので、
+          直さなければ**本編mp4にも静止画のまま載っていた**。
+       → [[feedback-fetch-failure-falls-back-to-a-still]]／[[feedback-pipes-mask-exit-codes]]
+
+    ⚠️ **秒の基準が2通りある。**
+       `media` は「もとの1本」なので、帯の中の秒に `at`（帯の頭がもとの何秒か）を足す。
+       `url` を直に使う回（7本目 DVIDS など）は1本＝1クリップなので足さない。
+    ⚠️ **鍵の名前を `stream` にしてはいけない。**ep7・ep8・keybridge の clips.json では
+       `stream` は「URL から流して読む」という**真偽値**（`True`）で、
+       URL を入れると `True` を URL として ffmpeg に渡すことになる。
+    """
     c = CLIPS[name]
-    if c.get("url"):
-        return [c["url"]]
-    raise RuntimeError(f"{name} に url がない（4本目の Kaltura 経由は git の 4e4c1fb にある）")
+    if c.get("media"):
+        return c["media"], float(c.get("at") or 0.0)
+    u = c.get("url")
+    if not u:
+        raise RuntimeError(f"{name} に url がない（4本目の Kaltura 経由は git の 4e4c1fb にある）")
+    if _DETAILS.search(u):
+        raise RuntimeError(
+            f"{name} の url は archive.org の引用頁（/details/）で、ffmpeg は読めない。"
+            f"clips.json に `media`（/download/… の直リンク）を書くこと")
+    return u, 0.0
+
+
+def urls_of(name):
+    return [media_of(name)[0]]
+
+
+def probe_media(url, timeout=45):
+    """その URL が本当に**動画（媒体）として**引けるかを HEAD で見る。
+
+    返すのは `(why, length)`。`why` が None なら合格。
+    ⚠️ **外に出る唯一の口**なので、`--selftest` はここを差し替える
+       （[[feedback-selftest-must-not-reach-real-side-effects]]）。
+    """
+    why, ln = None, 0
+    for attempt in range(2):
+        try:
+            rq = urllib.request.Request(url, method="HEAD",
+                                        headers={"User-Agent": UA})
+            with urllib.request.urlopen(rq, timeout=timeout) as r:
+                ct = (r.headers.get("Content-Type") or "").split(";")[0].lower().strip()
+                ln = int(r.headers.get("Content-Length") or 0)
+                ar = (r.headers.get("Accept-Ranges") or "").lower()
+            if not ct.startswith(("video/", "audio/", "application/octet-stream")):
+                why = f"Content-Type が `{ct or '空'}`＝動画でない（頁を渡している）"
+            elif ln < 1_000_000:
+                why = f"Content-Length {ln} が小さすぎる＝媒体でない"
+            elif "bytes" not in ar:
+                why = f"Accept-Ranges が `{ar or '空'}`＝区間だけ読めない"
+            else:
+                why = None
+            return why, ln
+        except Exception as e:                                # noqa: BLE001
+            why = f"{type(e).__name__}: {e}"
+            if attempt == 0:
+                time.sleep(5)
+    return why, ln
 
 
 def have(cid):
@@ -801,12 +908,15 @@ def _cut_stream(cid, u, secs):
     d = FOOT / cid
     d.mkdir(parents=True, exist_ok=True)
     last = None
-    for url in urls_of(u["clip"]):
+    # 🔴 `media` を使う回は帯の秒に `at` を足す（[[feedback-fetch-failure-falls-back-to-a-still]]）
+    url, off = media_of(u["clip"])
+    ss = off + float(u["start"])
+    for _ in (url,):
         for attempt in range(3):
             # ⚠️ `-an` … RG237 は **32本のうち28本に音声トラックがある**（②の実測）。
             #    この回は音を鳴らさない決定なので、指定しないと混ざる。
             cmd = ["ffmpeg", "-y", "-nostdin", "-hide_banner", "-loglevel", "error",
-                   "-user_agent", UA, "-ss", f"{float(u['start']):.2f}", "-i", url,
+                   "-user_agent", UA, "-ss", f"{ss:.2f}", "-i", url,
                    "-an", "-t", f"{secs + 0.6:.2f}", "-vf", ",".join(vf),
                    "-frames:v", str(n), "-q:v", "3", "-start_number", "0",
                    str(d / "%05d.jpg")]
@@ -880,7 +990,60 @@ def fetch(check=False):
               "`footage.PILLAR` の割合ぶんは `zoom_of()` が自動で寄せるので、"
               "欄の zoom を 1.0 未満にしないこと")
         return 5
+    # 🔴🔴 exit 7 ＝ 帯の媒体 URL が「動画として」引けない（2026-09-22・11本目 ⑤c-4 で新設）。
+    #    ここまでの門番は**書いた秒**しか見ておらず、URL は1度も引かれていなかった。
+    #    そのため `clips.json` の `url` が引用の頁（`/details/`）のままでも ✓ が出て、
+    #    Actions の焼きで **7欄すべてが黙って静止画に落ちた**（`切り出し完了 0/7`）。
+    #    ⚠️ **fail closed**（[[feedback-parsers-fail-closed]]）＝引けなければ 0 で埋めずに止める。
+    #       この段は workflow で `continue-on-error` を付けていないので、ここで run が止まる。
     if check:
+        bad_url = []
+        for clip in sorted({u["clip"] for u in USE.values() if not u.get("still")}):
+            try:
+                mu, off = media_of(clip)
+            except Exception as e:                            # noqa: BLE001
+                bad_url.append((clip, f"{type(e).__name__}: {e}"))
+                continue
+            why, ln = probe_media(mu)
+            if why:
+                bad_url.append((clip, why))
+            else:
+                print(f"  ✓ {clip}: 媒体が引ける（{ln / 1e6:.0f}MB・もとの{off:.0f}秒〜）")
+        if bad_url:
+            for clip, why in bad_url:
+                print(f"  🔴 {clip}: {why}")
+            print("🔴 exit 7 ＝ 帯の媒体 URL が動画として引けない。"
+                  "`clips.json` の `media`（/download/… の直リンク）を直すこと。"
+                  "⚠️ ここを通さずに焼くと、その欄は**黙って静止画に落ちる**")
+            return 7
+        # 🔴🔴 exit 8 ＝ 画素が正方形でないのに、直す幅（`dispw`）が台帳に無い
+        #    （2026-09-22・11本目 ⑤c-4 で新設）。`_cut_stream` が SAR の直しを当てる条件は
+        #    `dispw != w` なので、**鍵が無いと素通りして横に太ったまま焼ける**。
+        #    11本目は `make_clips.py` が `square_w` にしか書いておらず、実測で
+        #    **720×480 の正方画素**（正しくは 640×480）が出た。**門番は1本も鳴らなかった。**
+        #    → [[feedback-container-labels-lie-about-the-picture]]
+        flat = []
+        for clip in sorted({u["clip"] for u in USE.values() if not u.get("still")}):
+            c = CLIPS[clip]
+            sar = str(c.get("sar") or "1:1").replace("/", ":")
+            try:
+                sw, sh = (int(x) for x in sar.split(":"))
+            except ValueError:
+                flat.append((clip, f"sar が読めない（`{sar}`）")); continue
+            if sw == sh:
+                continue
+            want = round(int(c["w"]) * sw / sh)
+            if int(c.get("dispw") or c["w"]) == int(c["w"]):
+                flat.append((clip, f"SAR {sar} なのに `dispw` が無い＝"
+                                   f"横に {int(c['w']) / want * 100 - 100:.1f}% 太ったまま焼ける"
+                                   f"（正しい幅 {want}）"))
+        if flat:
+            for clip, why in flat:
+                print(f"  🔴 {clip}: {why}")
+            print("🔴 exit 8 ＝ 画素が正方形でない帯に `dispw`（正方画素に直した幅）が無い。"
+                  "台帳を作る道具（`ref/<題材>/make_clips.py`）で書き出すこと。"
+                  "⚠️ `square_w` という名前では `_cut_stream` は読まない")
+            return 8
         return 1 if over else 0
     bad = 0
     for cid, u in USE.items():

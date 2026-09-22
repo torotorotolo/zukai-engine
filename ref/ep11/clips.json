@@ -2,6 +2,7 @@
  "accident": {
   "file": "ep11/vid/clips/accident.mpg",
   "url": "https://archive.org/details/ChallengerAccidentandInvestigation",
+  "media": "https://archive.org/download/ChallengerAccidentandInvestigation/Challenger_Disaster_and_Investigation.mpg",
   "credit": "出典：NASA「Space Shuttle Challenger Accident Investigation」",
   "src": "doc",
   "at": 662,
@@ -13,11 +14,13 @@
   "sar": "8:9",
   "dar": "4:3",
   "sec": 106.511,
-  "square_w": 640
+  "square_w": 640,
+  "dispw": 640
  },
  "burn": {
   "file": "ep11/vid/clips/burn.mpg",
   "url": "https://archive.org/details/ChallengerAccidentandInvestigation",
+  "media": "https://archive.org/download/ChallengerAccidentandInvestigation/Challenger_Disaster_and_Investigation.mpg",
   "credit": "出典：NASA「Space Shuttle Challenger Accident Investigation」",
   "src": "doc",
   "at": 2494,
@@ -29,11 +32,13 @@
   "sar": "8:9",
   "dar": "4:3",
   "sec": 132.32,
-  "square_w": 640
+  "square_w": 640,
+  "dispw": 640
  },
  "commission": {
   "file": "ep11/vid/clips/commission.mpeg",
   "url": "https://archive.org/details/gov.archives.arc.59811",
+  "media": "https://archive.org/download/gov.archives.arc.59811/gov.archives.arc.59811.mpeg",
   "credit": "出典：米国立公文書館（USIA 306-WNET-239）",
   "src": "usia",
   "at": 55,
@@ -45,11 +50,13 @@
   "sar": "8:9",
   "dar": "4:3",
   "sec": 22.389,
-  "square_w": 640
+  "square_w": 640,
+  "dispw": 640
  },
  "crew": {
   "file": "ep11/vid/clips/crew.mpg",
   "url": "https://archive.org/details/ChallengerAccidentandInvestigation",
+  "media": "https://archive.org/download/ChallengerAccidentandInvestigation/Challenger_Disaster_and_Investigation.mpg",
   "credit": "出典：NASA「Space Shuttle Challenger Accident Investigation」",
   "src": "doc",
   "at": 18,
@@ -61,11 +68,13 @@
   "sar": "8:9",
   "dar": "4:3",
   "sec": 86.336,
-  "square_w": 640
+  "square_w": 640,
+  "dispw": 640
  },
  "joint": {
   "file": "ep11/vid/clips/joint.mpg",
   "url": "https://archive.org/details/ChallengerAccidentandInvestigation",
+  "media": "https://archive.org/download/ChallengerAccidentandInvestigation/Challenger_Disaster_and_Investigation.mpg",
   "credit": "出典：NASA「Space Shuttle Challenger Accident Investigation」",
   "src": "doc",
   "at": 1538,
@@ -77,11 +86,13 @@
   "sar": "8:9",
   "dar": "4:3",
   "sec": 88.448,
-  "square_w": 640
+  "square_w": 640,
+  "dispw": 640
  },
  "launch": {
   "file": "ep11/vid/clips/launch.mpg",
   "url": "https://archive.org/details/ChallengerAccidentandInvestigation",
+  "media": "https://archive.org/download/ChallengerAccidentandInvestigation/Challenger_Disaster_and_Investigation.mpg",
   "credit": "出典：NASA「Space Shuttle Challenger Accident Investigation」",
   "src": "doc",
   "at": 598,
@@ -93,11 +104,13 @@
   "sar": "8:9",
   "dar": "4:3",
   "sec": 64.601,
-  "square_w": 640
+  "square_w": 640,
+  "dispw": 640
  },
  "pad": {
   "file": "ep11/vid/clips/pad.mpg",
   "url": "https://archive.org/details/ChallengerAccidentandInvestigation",
+  "media": "https://archive.org/download/ChallengerAccidentandInvestigation/Challenger_Disaster_and_Investigation.mpg",
   "credit": "出典：NASA「Space Shuttle Challenger Accident Investigation」",
   "src": "doc",
   "at": 1144,
@@ -109,11 +122,13 @@
   "sar": "8:9",
   "dar": "4:3",
   "sec": 58.432,
-  "square_w": 640
+  "square_w": 640,
+  "dispw": 640
  },
  "rollout": {
   "file": "ep11/vid/clips/rollout.mpg",
   "url": "https://archive.org/details/ChallengerAccidentandInvestigation",
+  "media": "https://archive.org/download/ChallengerAccidentandInvestigation/Challenger_Disaster_and_Investigation.mpg",
   "credit": "出典：NASA「Space Shuttle Challenger Accident Investigation」",
   "src": "doc",
   "at": 1061,
@@ -125,11 +140,13 @@
   "sar": "8:9",
   "dar": "4:3",
   "sec": 46.733,
-  "square_w": 640
+  "square_w": 640,
+  "dispw": 640
  },
  "smoke": {
   "file": "ep11/vid/clips/smoke.mpg",
   "url": "https://archive.org/details/ChallengerAccidentandInvestigation",
+  "media": "https://archive.org/download/ChallengerAccidentandInvestigation/Challenger_Disaster_and_Investigation.mpg",
   "credit": "出典：NASA「Space Shuttle Challenger Accident Investigation」",
   "src": "doc",
   "at": 1448,
@@ -141,11 +158,13 @@
   "sar": "8:9",
   "dar": "4:3",
   "sec": 24.692,
-  "square_w": 640
+  "square_w": 640,
+  "dispw": 640
  },
  "srb": {
   "file": "ep11/vid/clips/srb.mpg",
   "url": "https://archive.org/details/ChallengerAccidentandInvestigation",
+  "media": "https://archive.org/download/ChallengerAccidentandInvestigation/Challenger_Disaster_and_Investigation.mpg",
   "credit": "出典：NASA「Space Shuttle Challenger Accident Investigation」",
   "src": "doc",
   "at": 993,
@@ -157,11 +176,13 @@
   "sar": "8:9",
   "dar": "4:3",
   "sec": 68.544,
-  "square_w": 640
+  "square_w": 640,
+  "dispw": 640
  },
  "t_ice": {
   "file": "ep11/vid/clips/t_ice.mpg",
   "url": "https://archive.org/details/ChallengerAccidentandInvestigation",
+  "media": "https://archive.org/download/ChallengerAccidentandInvestigation/Challenger_Disaster_and_Investigation.mpg",
   "credit": "出典：NASA「Space Shuttle Challenger Accident Investigation」",
   "src": "doc",
   "at": 1105,
@@ -173,11 +194,13 @@
   "sar": "8:9",
   "dar": "4:3",
   "sec": 58.402,
-  "square_w": 640
+  "square_w": 640,
+  "dispw": 640
  },
  "white": {
   "file": "ep11/vid/clips/white.mpg",
   "url": "https://archive.org/details/ChallengerAccidentandInvestigation",
+  "media": "https://archive.org/download/ChallengerAccidentandInvestigation/Challenger_Disaster_and_Investigation.mpg",
   "credit": "出典：NASA「Space Shuttle Challenger Accident Investigation」",
   "src": "doc",
   "at": 380,
@@ -189,6 +212,7 @@
   "sar": "8:9",
   "dar": "4:3",
   "sec": 92.404,
-  "square_w": 640
+  "square_w": 640,
+  "dispw": 640
  }
 }
