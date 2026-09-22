@@ -173,6 +173,26 @@ SPEC = {
         photo=P("telecon_room"), **ss.kind(P("telecon_room")),
     ),
 
-    # 🔴 c716 は写真の当てが無い（thiokol_telefax）
+    # ✅ 2026-09-22 ⑤c-3 で書いた。**図で描く**（写真は当てない）。
+    # 🔴🔴 送られた書面そのもの（報告書 第I巻 97頁）は**全文が英字の写し**なので画面に出さない
+    #    ＝ `cuts/ss.py` の決まり。代わりに**どこからどこへ渡ったか**を図にする。
+    #    原文で照合ずみ：「Hardy requested that it be sent in writing by telefax
+    #    both to Kennedy and to Marshall, **and it was**」／
+    #    「The conference was then terminated at **approximately 11:15**」（第V章）
+    # ⚠️ **人の名前は出さない**（会議の出席者は役で呼ぶ・この回の決まり）。
+    "c716": dict(
+        t="口頭では、終わらせなかった",
+        s="その夜、残った紙",
+        fig=("people", dict(
+            nodes=[dict(x=0.17, y=0.34, t="作った会社", d="打ち上げを勧める、と読み上げた",
+                        kind="org", c=J.INST),
+                   dict(x=0.50, y=0.64, t="ファクスの書面", d="午後11時15分ごろ、会議は終わった",
+                        kind="doc", c=J.DOC),
+                   dict(x=0.83, y=0.34, t="NASAの二か所", d="ケネディとマーシャルへ",
+                        kind="org", c=J.LINE)],
+            edges=[dict(a=0, b=1, t="書面にするよう求められた", c=J.ALERT),
+                   dict(a=1, b=2, t="送られた", c=J.ALERT)],
+            note=SRC5)),
+    ),
 
 }

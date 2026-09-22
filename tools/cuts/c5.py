@@ -153,7 +153,22 @@ SPEC = {
             note=f"{FIND} 8")),
     ),
 
-    # 🔴 c513 は写真の当てが無い（joint_test）
+    # ✅ 2026-09-22 ⑤c-3 で書いた。数字は**原文で照合ずみ**：
+    #    FIND 8「the gap between the tang and the clevis will open as much as .017 and .029
+    #    inches at the secondary and primary O-rings」＝ 0.43ミリ / 0.74ミリ（後部の現地継ぎ目）。
+    #    FIND 8-a「begins upon ignition … essentially complete at 600 milliseconds」＝ 0.6秒。
+    # ⚠️ c520 も 0.74 を出すが、あちらは「組んだときの 0.1」との比べ。ここは**一次と二次**の比べ。
+    "c513": dict(
+        t="開く量は、輪ごとに違った",
+        s="後部の、現地で組んだ継ぎ目",
+        fig=("compare", dict(
+            items=[dict(v=0.74, t="一次の輪のところ", disp="0.74", unit="mm",
+                        c=J.ALERT),
+                   dict(v=0.43, t="二次の輪のところ", disp="0.43", unit="mm",
+                        c=J.LINE)],
+            vmax=0.9, ref="点火から0.6秒で開ききる",
+            note=f"{FIND} 8・8-a")),
+    ),
 
     "c514": dict(
         t="まばたき一回ぶんの勝負",
@@ -193,7 +208,33 @@ SPEC = {
             doc=f"{FIND} 9-b")),
     ),
 
-    # 🔴 c517 は写真の当てが無い（oring_resilience_test）
+    # ✅ 2026-09-22 ⑤c-3 で書いた。この章の山＝**開く速さと戻る速さの競争**。
+    # ⚠️🔴 **縦軸に数字を置かない。**報告書の図23（O-Ring Recovery vs. Time）は
+    #    英字が焼き込まれていて使えず、値も引き写していない。**形だけの模式**なので
+    #    目盛りを付けると「測った量」に見える → [[feedback-filler-shapes-read-as-quantities]]
+    # ⚠️ 横軸の 0.6秒 だけは原文にある（FIND 8-a）。ここは c513 と同じ根拠。
+    "c517": dict(
+        t="開く速さと、戻る速さ",
+        s="すきまが開ききるまでに、輪が追いつけるか",
+        fig=("graph", dict(
+            series=[dict(pts=[(0, 0), (0.1, 0.14), (0.2, 0.42), (0.3, 0.72),
+                              (0.4, 0.90), (0.5, 0.97), (0.6, 1.0), (0.7, 1.0)],
+                         t="すきまが開く", c=J.ALERT, sw=7),
+                    dict(pts=[(0, 0), (0.1, 0.13), (0.2, 0.39), (0.3, 0.66),
+                              (0.4, 0.86), (0.5, 0.96), (0.6, 1.0), (0.7, 1.0)],
+                         t="温かい輪が戻る", c=J.OK, dash="10 8"),
+                    dict(pts=[(0, 0), (0.1, 0.04), (0.2, 0.12), (0.3, 0.24),
+                              (0.4, 0.36), (0.5, 0.47), (0.6, 0.56), (0.7, 0.63)],
+                         t="冷えた輪が戻る", c=J.LINE, dash="10 8")],
+            xr=(0, 0.72), yr=(0, 1.08),
+            xticks=[(0, "点火"), (0.2, "0.2"), (0.4, "0.4"), (0.6, "0.6秒")],
+            gap=(0, 2),
+            marks=[dict(x=0.66, y=0.80, t="ここが、ふさげない差",
+                        c=J.ALERT, anchor="end")],
+            xlab="点火からの時間",
+            ylab="戻る量",
+            note=f"{FIND} 9（形だけの模式。戻る量は測っていない）")),
+    ),
 
     "c518": dict(
         t="気温より、さらに冷えていた",
@@ -206,7 +247,24 @@ SPEC = {
             note=f"{FIND} 6-a")),
     ),
 
-    # 🔴 c519 は写真の当てが無い（srb_sun_shade）
+    # ✅ 2026-09-22 ⑤c-3 で書いた。**実写カット**（記録映画 元1156＝射点に立つ機体）。
+    #    FIND 6-b「Temperature on the opposite side of the right Solid Rocket Booster
+    #    facing the sun was estimated to be about 50 degrees Fahrenheit」＝摂氏10.0度。
+    # ⚠️ −2℃ は c518 が出した同じ実測（FIND 6-a）。ここでは**反対側との差**として置く。
+    # ⚠️ 🔴 **`86pc0081` は落とした**＝説明は「STS-51-L: Challenger」だけで、絵は
+    #    打ち上げの瞬間だった（→ `qa_out/ep11_assets.py` の注）。
+    "c519": dict(
+        t="日なたと日かげで、差があった",
+        s="射点39Bに立つ機体　記録映像より",
+        **ss.still("srb_sun_shade", "pad", 12),
+        side="left", ann_y=300,
+        # ⚠️ 注記の数値は **Dela**（数字のための書体）で描かれる。`℃` はこの書体に
+        #    入っていないので豆腐になる（`check_layout` が実測で止めた）。
+        #    比べの図（c518）は `unit=` が別の書体なので `℃` が使えるが、ここでは使えない。
+        ann=[dict(t="日の当たる側", v="10度", vc=J.LINE, d="摂氏"),
+             dict(t="日かげの側", v="−2度", vc=J.ALERT,
+                  d="壊れたのは、こちら")],
+    ),
 
     "c520": dict(
         t="もとが狭く、そこから開く",

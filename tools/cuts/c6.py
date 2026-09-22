@@ -71,8 +71,43 @@ SPEC = {
             src=SRC5)),
     ),
 
-    # 🔴 c605 は写真の当てが無い（launch_51c）
-    # 🔴 c606 は写真の当てが無い（oring_soot）
+    # ✅ 2026-09-22 ⑤c-3 で書いた。**実写カット**。
+    # 🔴🔴 **51-L の絵を当ててはいけないカット**（→ `ref/ep11/photo_picks.md` §3）。
+    #    Commons `STS-51C launch.jpg`（1985-01-24）。**原寸で機体の「Discovery」を読んで
+    #    確かめた**＝51-C はディスカバリー号。題名だけでは採っていない。
+    # ⚠️ 11.7℃ は第IV章の一覧（51-C FWD LH ... 53°F）。51-L の 28°F を除くと、
+    #    表に出ている継ぎ目の温度のうちいちばん低い。
+    "c605": dict(
+        t="根拠は、一年前の飛行だった",
+        s="ディスカバリー号　1985年1月24日",
+        photo=P("launch_51c"), **ss.kind(P("launch_51c")),
+        side="left", ann_y=330,
+        # ⚠️ `℃` は注記の書体（Dela）に入っていない＝豆腐になる（`check_layout` が止めた）。
+        ann=[dict(t="継ぎ目のゴムの温度", v="11.7度", vc=J.ALERT,
+                  d="摂氏。それまでの最低")],
+    ),
+
+    # ✅ 2026-09-22 ⑤c-3 で書いた。**図＋地に敷いた継ぎ目の写真**（`BACKDROP`）。
+    #    原文（第V章・作った会社の技術者の証言）で照合ずみ：
+    #      「SRM-15B [Right SRM, Flight 51-C] had a **110 degree arc of black grease**
+    #        between the O-rings」
+    #      「SRM-15 … had a 110 degree arc of black grease while **SRM-22 [Flight 61-A,
+    #        October, 1985] had a relatively different amount, which was less**」
+    # 🔴 **10月の飛行の角度は原文に無い。**だから棒で比べない（長さが「測った量」に見える）
+    #    → [[feedback-filler-shapes-read-as-quantities]]
+    # ⚠️ 地の写真は**継ぎ目の現物**（記録映画 元1554）で、51-C の現物ではない。
+    #    跡そのものは出てこないので、**副題は写真が何かを名乗るだけ**にする。
+    "c606": dict(
+        t="跡の広さが、まるで違った",
+        s="継ぎ目のゴムのあいだに残った跡",
+        fig=("beforeafter", dict(
+            a=dict(k="1985年1月の飛行", t="円周の110度ぶん",
+                   lines=["石炭のように黒い、と述べられた"], v="110度", c=J.ALERT),
+            b=dict(k="同じ年10月の飛行", t="範囲はもっと狭い",
+                   lines=["角度は記録に無い"], v="", c=J.LINE),
+            arrow=False,
+            note=SRC5)),
+    ),
 
     # 🔴 決め所⑩。この章の柱
     "c607": dict(
@@ -145,7 +180,24 @@ SPEC = {
             note=SRC5)),
     ),
 
-    # 🔴 c613 は写真の当てが無い（marshall_center）
+    # ✅ 2026-09-22 ⑤c-3 で書いた。**実写カット**（場所を置くだけのカット）。
+    # ⚠️🔴 **2013年の撮影**。第4200棟は1963年に建ち2022年に解体されたので、
+    #    1986年に在った建物そのものだが**当時の撮影ではない**。だから副題で年を名乗る
+    #    → [[feedback-fallback-stills-must-match-the-era]]／
+    #      [[feedback-subtitle-must-match-what-is-visible]]（`rockwell_orbiter` と同じ扱い）
+    # ⚠️ ⑤c-2 が候補にしていた HAER の航空写真は**撮影年が取れない**ので採らなかった
+    #    （LoC が403。「問題なし」ではなく「未確定」→ [[feedback-parsers-fail-closed]]）。
+    # ⚠️ **人の名前は出さない**（会議の出席者は役で呼ぶ・この回の決まり）。
+    "c613": dict(
+        t="押し返したのは、NASAの側",
+        s="マーシャル宇宙飛行センター　2013年撮影",
+        photo=P("marshall_center"), **ss.kind(P("marshall_center")),
+        side="right", ann_y=300,
+        # ⚠️ 注記の数値は Dela（数字のための書体）。**48px 未満に漢字4字以上**を入れると
+        #    線が埋まって読めない（`check_layout` が実測で止めた）。長い句は `d`（本文の書体）へ。
+        ann=[dict(t="ここにいた", v="部長", vs=64, vc=J.ALERT,
+                  d="補助ロケットを見ていた。作った会社の勧告を聞いた相手")],
+    ),
 
     # 🔴 決め所⑪
     "c614": dict(

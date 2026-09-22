@@ -4124,24 +4124,30 @@ def ending(name="", like_c=None, sub_c=None):
     cy = (BY0 + BY1) / 2 + 10
     g = []
 
-    # 3つの幅＝アイコン264・親指204・ボタン280（合計748）。間隔 GAP3 を2つ挟んで画面中央に置く。
+    # 🔴🔴 **2026-09-22（11本目 ⑤c-3）で並べ替えた**（2026-09-19 カズヤくん決定）。
+    #    10本目＝アイコン・高評価・登録の順（アイコンが左）。
+    #    11本目から＝**高評価（左）／アイコン（中央・少し大きく）／登録（右）**。
+    #    ⚠️ 10本目は公開ずみなので直さない（[[feedback-published-videos-are-not-revised]]）。
+    # 3つの幅＝親指204・アイコン304・ボタン280（合計788）。間隔 GAP3 を2つ挟んで画面中央に置く。
     GAP3 = 150
-    W3 = 264 + 204 + 280 + GAP3 * 2          # 1048
-    GX0 = BCX - W3 / 2                       # 436（左端）。終了画面を使う回はここを下げる
+    W3 = 204 + 304 + 280 + GAP3 * 2          # 1088
+    GX0 = BCX - W3 / 2                       # 416（左端）。終了画面を使う回はここを下げる
 
-    # ① チャンネルのアイコン（描き起こし）
-    r = 132
-    ix = GX0 + r                             # 568
+    # ① グッド（親指）＝**いちばん左**。段1は輪郭だけ／段2で塗る
+    tx = GX0                                 # 親指の左端（416）。元の型は 618 を左端に描いてある
+    dx = tx - 618
+
+    # ② チャンネルのアイコン（描き起こし）＝**中央・少し大きく**
+    #    半径 132 → 152（1.1515倍）。中の帯・棒・穴も同じ率で伸ばす
+    #    （率を揃えないと十字の太さだけ相対的に細くなる）。
+    r = 152
+    ix = GX0 + 204 + GAP3 + r                # 922（＝画面中央 960 のすこし左。下の右端と対）
     g.append(circ(ix, cy, r, fill=J.BG2))
     g.append(circ(ix, cy, r, stroke=J.GRID, sw=3))
-    g.append(rect(ix - 104, cy - 11, 208, 22, fill=J.LINE, rx=11))          # 水平の帯
-    g.append(rect(ix - 17, cy - 96, 34, 192, fill=J.ALERT, rx=17))          # 縦の棒
-    g.append(circ(ix, cy, 44, fill=J.ALERT))
-    g.append(circ(ix, cy, 17, fill=J.BG))                                   # 中心の穴
-
-    # ② グッド（親指）。段1は輪郭だけ／段2で塗る
-    tx = GX0 + 264 + GAP3                    # 親指の左端（850）。元の型は 618 を左端に描いてある
-    dx = tx - 618
+    g.append(rect(ix - 120, cy - 13, 240, 26, fill=J.LINE, rx=13))          # 水平の帯
+    g.append(rect(ix - 20, cy - 111, 39, 221, fill=J.ALERT, rx=20))         # 縦の棒
+    g.append(circ(ix, cy, 51, fill=J.ALERT))
+    g.append(circ(ix, cy, 20, fill=J.BG))                                   # 中心の穴
 
     def thumb(col, fill):
         s = []
@@ -4161,8 +4167,8 @@ def ending(name="", like_c=None, sub_c=None):
     #    （あとの段の塗りで隠れることは門番に見えない＝門番は絵でなく SPEC を読む）。
     #    → 押す前は**文字を使わず＋の印**にした。「文字は極力使わない」（カズヤくん決定）にも合う。
     bh = 104
-    bx0 = tx + 204 + GAP3                    # 1204
-    bx1 = bx0 + 280                          # 1484（＝GX0 + W3。右端）
+    bx0 = ix + r + GAP3                      # 1224
+    bx1 = bx0 + 280                          # 1504（＝GX0 + W3。右端）
     g.append(rect(bx0, cy - bh / 2, bx1 - bx0, bh, fill="none",
                   stroke=J.LINE_DIM, sw=6, rx=bh / 2))
     pcx = (bx0 + bx1) / 2

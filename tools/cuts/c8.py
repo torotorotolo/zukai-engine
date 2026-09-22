@@ -51,8 +51,38 @@ SPEC = {
             cols=2, note=SRC6)),
     ),
 
-    # 🔴 c803 は写真の当てが無い（joint_qual_test）
-    # 🔴 c804 は写真の当てが無い（srm_horizontal）
+    # ✅ 2026-09-22 ⑤c-3 で書いた。**実写カット**（NASA画像庫・MSFC）。
+    # ⚠️ **1987年＝事故の後の撮影**。試験そのものの絵は当時と同じだが、年は副題で名乗る
+    #    → [[feedback-subtitle-must-match-what-is-visible]]
+    "c803": dict(
+        t="問われたのは、試験のやり方",
+        s="固体ロケットの燃焼試験　1987年・ユタ州",
+        photo=P("joint_qual_test"), **ss.kind(P("joint_qual_test")),
+        side="left", ann_y=300,
+        # ⚠️ 長い句を注記の数値欄に入れない（Dela・48px 未満に漢字4字以上＝つぶれる）。
+        # ⚠️ **ナレーションの文を写さない**（`check_echo` が85%一致で止めた）。
+        #    代わりに、台本が言っていない**具体**を置く＝第V章の証言で照合ずみ：
+        #    「It is a full-scale O-ring, full-scale groove, **in a scaled test device**」
+        ann=[dict(t="試験に使ったもの", v="縮めた装置", vs=56, vc=J.ALERT,
+                  d="実物大だったのは、ゴムの輪と溝だけ")],
+    ),
+
+    # ✅ 2026-09-22 ⑤c-3 で書いた。**実写カット**。この章でいちばん絵が効くカット。
+    # 🔴🔴 **題名で採ると逆になった。**NASA画像庫 `7997301` は題も説明も
+    #    「Qualification Motor-1」＝認証試験だが、**絵は砂漠の試験台に横たわる全尺モーター**で、
+    #    まさに c804 が言う「横に寝かせて燃やしていた」そのものだった。
+    #    → [[feedback-inventory-is-not-usable-material]]（絵が正本。題名で決めない）
+    # ⚠️ 1979年＝**事故の前**の撮影。c804 が言う当時の試験のやり方と年が合う。
+    "c804": dict(
+        t="飛ぶ向きと、試す向きが違った",
+        s="試験台に横たわる補助ロケット　1979年・ユタ州",
+        photo=P("srm_horizontal"), **ss.kind(P("srm_horizontal")),
+        side="right", ann_y=300,
+        # ⚠️ **ナレーションの文を写さない**（`check_echo` が100%一致で止めた）。
+        #    「同じ条件で確かめたことにはならない」はナレーションが言うので、図は向きだけ持つ。
+        ann=[dict(t="飛ぶとき", v="立てて燃やす", vc=J.LINE),
+             dict(t="試験のとき", v="横に寝かせて燃やす", vc=J.ALERT)],
+    ),
 
     "c805": dict(
         t="毎回ではない。だが、たびたび",
@@ -109,7 +139,27 @@ SPEC = {
             note=f"{SRC6F} 3")),
     ),
 
-    # 🔴 c810 は写真の当てが無い（srm_nozzle_51b）
+    # ✅ 2026-09-22 ⑤c-3 で書いた。**図で描く**（写真は当てない）。
+    # 🔴🔴 **51-B のノズル継ぎ目の写真は、どの置き場にも無い**（NASA画像庫・Commons とも0件）。
+    #    記録映画 元1592 に「ベル形の噴射口が2つ」写るコマがあるが、
+    #    **前後のコマを見ても何の機体のどこかを確定できなかった**ので採らなかった
+    #    → [[feedback-dont-state-inferences-as-findings]]（推測で副題を書かない）
+    # 原文で照合ずみ（第VI章）：「the launch constraint was "put on after we saw the
+    #    **secondary O-ring erosion on the [51-B] nozzle**"」
+    # ⚠️ 継ぎ目は2種類ある＝**現地で組む継ぎ目**（c503・c505）と**噴射口の継ぎ目**（ここ）。
+    #    第5章までずっと前者の話だったので、ここで**別の場所だと分かる図**にする。
+    "c810": dict(
+        t="焼けたのは、別の継ぎ目",
+        s="噴射口の側にある継ぎ目　1985年",
+        fig=("process", dict(
+            steps=[dict(t="一次のゴムの輪", d="ふさげなかった", v="",
+                        c=J.ALERT),
+                   dict(t="二次のゴムの輪", d="控えのはずが、焼けた", v="",
+                        c=J.ALERT),
+                   dict(t="打ち上げを止める札", d="この継ぎ目に掛けられた", v="",
+                        c=J.INST)],
+            note=SRC6)),
+    ),
 
     "c811": dict(
         t="掛かっているあいだの決まり",

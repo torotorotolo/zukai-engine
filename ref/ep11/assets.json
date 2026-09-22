@@ -879,5 +879,139 @@
   "author": "President (1981-1989 : Reagan). White House Photographic Office. 1981-1989",
   "date": "28 January 1986",
   "page": "https://commons.wikimedia.org/wiki/File:Presidents%20Speech%20to%20The%20Nation%20on%20The%20Space%20Shuttle%20Challenger%20in%20Oval%20Office%20-%20DPLA%20-%2024415e25cef1697901176efda1f71503.jpg"
+ },
+ "srm_horizontal": {
+  "src": "nasa",
+  "id": "7997301",
+  "year": 1979,
+  "note": "🔴 砂漠の試験台に**横たわる**全尺モーター QM-1（1979・ワサッチ）。⚠️ 事故の前＝c804 が言う当時の試験と年が合う",
+  "url": "https://images-assets.nasa.gov/image/7997301/7997301~orig.jpg",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "MSFC",
+  "date": "1979-07-13",
+  "title": "Space Shuttle Projects",
+  "page": "https://images.nasa.gov/details/7997301"
+ },
+ "joint_qual_test": {
+  "src": "nasa",
+  "id": "8776671",
+  "year": 1987,
+  "note": "全尺の固体モーターの燃焼試験（1987・ワサッチ）。⚠️ 事故の後。副題で年を名乗る",
+  "url": "https://images-assets.nasa.gov/image/8776671/8776671~orig.jpg",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "MSFC",
+  "date": "1987-05-27",
+  "title": "Space Shuttle Projects",
+  "page": "https://images.nasa.gov/details/8776671"
+ },
+ "joint_redesign": {
+  "src": "nasa",
+  "id": "8448351",
+  "year": 1988,
+  "note": "作り直したモーターの構造試験体 STA-3 を据える（1988・MSFC）。⚠️ 894x1110＝額装に回る",
+  "url": "https://images-assets.nasa.gov/image/8448351/8448351~orig.jpg",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "MSFC",
+  "date": "1988-01-01",
+  "title": "Space Shuttle Project",
+  "page": "https://images.nasa.gov/details/8448351"
+ },
+ "srm_vertical_test": {
+  "src": "nasa",
+  "id": "8777958",
+  "year": 1987,
+  "note": "🔴 TPTA 試験台へ前部区画を**吊って縦に**降ろす（1987・MSFC東試験場。試験台は高さ33フィート）",
+  "url": "https://images-assets.nasa.gov/image/8777958/8777958~orig.jpg",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "MSFC",
+  "date": "1987-07-01",
+  "title": "Space Shuttle Projects",
+  "page": "https://images.nasa.gov/details/8777958"
+ },
+ "joint_test_new": {
+  "src": "nasa",
+  "id": "8886217",
+  "year": 1988,
+  "note": "TPTA の燃焼試験（1988・MSFC東試験場）。⚠️ この試験台は**温度・圧力・外力**を掛ける＝ep03 の「温度の幅」に合う",
+  "url": "https://images-assets.nasa.gov/image/8886217/8886217~orig.jpg",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "MSFC",
+  "date": "1988-03-21",
+  "title": "Space Shuttle Projects",
+  "page": "https://images.nasa.gov/details/8886217"
+ },
+ "launch_51c": {
+  "src": "commons",
+  "title": "STS-51C launch.jpg",
+  "year": 1985,
+  "note": "🔴 51-C の打ち上げ（1985-01-24）。**51-L の絵を当てない**",
+  "w": 2842,
+  "h": 4302,
+  "url": "https://upload.wikimedia.org/wikipedia/commons/b/be/STS-51C_launch.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "lic": "Public domain",
+  "author": "NASA",
+  "date": "1985-01-24",
+  "page": "https://commons.wikimedia.org/wiki/File:STS-51C%20launch.jpg"
+ },
+ "marshall_center": {
+  "src": "commons",
+  "title": "Marshall Space Flight Center Bldg. 4200.jpg",
+  "year": 2013,
+  "note": "⚠️ 2013年撮影。第4200棟（1963〜2022）＝1986年に在った建物",
+  "w": 3000,
+  "h": 2002,
+  "url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Marshall_Space_Flight_Center_Bldg._4200.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "lic": "Public domain",
+  "author": "NASA/Fred Deaton",
+  "date": "Taken on 28 May 2013, 15:39",
+  "page": "https://commons.wikimedia.org/wiki/File:Marshall%20Space%20Flight%20Center%20Bldg.%204200.jpg"
+ },
+ "srb_sun_shade": {
+  "src": "clip",
+  "clip": "pad",
+  "t": 12,
+  "note": "射点39Bに立つ機体（元1156）。日の当たる側とかげになる側が見える。⚠️ c101 が使う帯（元1174〜1201）とは別のショット",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
+ },
+ "joint_test": {
+  "src": "clip",
+  "clip": "joint",
+  "t": 22,
+  "note": "継ぎ目の縁の寄り（元1560）。焼き込み無し",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
+ },
+ "oring_soot": {
+  "src": "clip",
+  "clip": "joint",
+  "t": 16,
+  "note": "継ぎ目の上端と黄色い治具（元1554）。焼き込み無し",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
+ },
+ "oring_resilience_test": {
+  "src": "clip",
+  "clip": "joint",
+  "t": 58,
+  "note": "継ぎ目の寄り・留め金の帯（元1596）。⚠️ 元1594 は白い丸印が乗るので採らない",
+  "year": 1986,
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
+ },
+ "commission_report": {
+  "src": "ia",
+  "ident": "reporttopreside00unit",
+  "page": "cover",
+  "year": 1986,
+  "note": "🔴 ロジャース委員会報告書の表紙（1986-06-06）。⚠️ 左上に図書館のバーコードが写るので切り落とす",
+  "url": "https://archive.org/download/reporttopreside00unit/page/cover_w1800.jpg",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "出典：ロジャース委員会報告書（1986年）",
+  "date": "1986",
+  "title": "Internet Archive: reporttopreside00unit / cover"
  }
 }

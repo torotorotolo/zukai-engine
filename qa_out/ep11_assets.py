@@ -56,6 +56,7 @@ DB = DEST / 'assets.json'
 CLIPS_JSON = DEST / 'clips.json'
 SHEET = HERE / 'out' / 'ep11_sheet'
 MAXW = 3000
+IA_W = 1800          # Internet Archive の頁画像の幅（`/page/<頁>_w<幅>.jpg`）
 
 # 🔴 継承（ShareAlike）はこの回は1点も入れない。当たったら止める。
 NG_LIC = ('SA',)
@@ -72,6 +73,23 @@ def N(nasa_id, **kw):
 def V(clip, t, **kw):
     """動く映像から抜く止め絵。`t` は**帯の中での秒**（`clips.json` の `at` からの相対）。"""
     return dict(src='clip', clip=clip, t=t, **kw)
+
+
+def IA(ident, page='cover', **kw):
+    """Internet Archive の蔵書スキャンの1頁（2026-09-22 ⑤c-3 新設）。
+
+    🔴 **なぜ要るか**＝ロジャース委員会報告書の**表紙**が Commons にも NASA画像庫にも無い。
+       ⑤c-2 が当てた Commons の `Rogers-report-front-page.png` は
+       **題も説明も嘘で、絵は米上院の公聴会記録の表紙**だった（`MISSING` の注）。
+
+    🔴 **権利**＝ここで採るのは**米連邦職員の職務著作**（17 U.S.C. §105）の頁だけ。
+       スキャンは平面の PD 資料の忠実な複製なので、新しい権利は生まれない。
+       ⚠️ **だから `ident` は1件ずつ人が確かめる。**貸出制限のある蔵書は採らない
+       （`reporttopreside00unit` は頁画像が誰でも取れることを確かめた）。
+    ⚠️ 置き場が撮影年を持たないので `year=` を**必ず書く**（年を作らない）
+       → [[feedback-fallback-stills-must-match-the-era]]
+    """
+    return dict(src='ia', ident=ident, page=page, **kw)
 
 
 # ══════════════════════════════════════════════════════════
@@ -198,6 +216,70 @@ PICK: dict[str, dict] = {
     'flag_half_mast':   N('S86-26436', note='Flags at half-staff in memorial of STS 51-L crewmembers'),
     'reagan_address':   C('Presidents Speech to The Nation on The Space Shuttle Challenger in '
                           'Oval Office - DPLA - 24415e25cef1697901176efda1f71503.jpg'),
+
+    # ══ 2026-09-22 ⑤c-3 で当てた10点 ════════════════════════════════
+    # ⚠️ **どれも sheet で絵を見てから採った**（題名と説明だけでは採らない）。
+    #    根拠は `ref/ep11/photo_picks.md` §3。
+
+    # ── 試験のやり方（c803・c804・ep02・ep03・ep04）──────────────────
+    # 🔴 NASA画像庫の MSFC「Space Shuttle Projects」は**題名が全部同じ**で、
+    #    中身は `description` にしかない（→ `tools/nasa_probe.py` の §1）。ID で採ること。
+    # 🔴🔴 **2組を入れ替えた**（2026-09-22 ⑤c-3。シートで絵を見た結果）。
+    #    題名・説明どおりに当てると、**言っていることと絵が逆になる**：
+    #      `7997301` は題も説明も「Qualification Motor-1」＝認証試験だが、
+    #      **絵は砂漠の試験台に横たわる全尺モーター**＝ c804「横に寝かせて燃やしていた」そのもの。
+    #      `8777958` は題が「TPTA field joint」だが、**絵はクレーンで吊って縦に降ろす**＝
+    #      ep04「立てた状態で燃やす試験」そのもの。
+    #    → [[feedback-inventory-is-not-usable-material]]（絵が正本。題名で決めない）
+    'srm_horizontal':    N('7997301', note='🔴 砂漠の試験台に**横たわる**全尺モーター QM-1（1979・ワサッチ）。'
+                                          '⚠️ 事故の前＝c804 が言う当時の試験と年が合う'),
+    'joint_qual_test':   N('8776671', note='全尺の固体モーターの燃焼試験（1987・ワサッチ）。'
+                                          '⚠️ 事故の後。副題で年を名乗る'),
+    'joint_redesign':    N('8448351', note='作り直したモーターの構造試験体 STA-3 を据える（1988・MSFC）。'
+                                          '⚠️ 894x1110＝額装に回る'),
+    'srm_vertical_test': N('8777958', note='🔴 TPTA 試験台へ前部区画を**吊って縦に**降ろす'
+                                          '（1987・MSFC東試験場。試験台は高さ33フィート）'),
+    'joint_test_new':    N('8886217', note='TPTA の燃焼試験（1988・MSFC東試験場）。'
+                                          '⚠️ この試験台は**温度・圧力・外力**を掛ける＝ep03 の「温度の幅」に合う'),
+
+    # ── 1985年1月の飛行（c605）────────────────────────────────────
+    'launch_51c':        C('STS-51C launch.jpg',
+                           note='🔴 51-C の打ち上げ（1985-01-24）。**51-L の絵を当てない**'),
+
+    # ── マーシャル宇宙飛行センター（c613）──────────────────────────
+    # ⚠️ **2013年の撮影**。第4200棟は1963年に建ち2022年に解体されたので、
+    #    1986年に在った建物そのものだが**当時の撮影ではない**。副題で年を名乗ること。
+    #    → [[feedback-fallback-stills-must-match-the-era]]／[[feedback-subtitle-must-match-what-is-visible]]
+    'marshall_center':   C('Marshall Space Flight Center Bldg. 4200.jpg',
+                           note='⚠️ 2013年撮影。第4200棟（1963〜2022）＝1986年に在った建物'),
+
+    # ── 射点の機体（c519）──────────────────────────────────────────
+    # 🔴🔴 **`86pc0081` は落とした**（2026-09-22 ⑤c-3）。NASA画像庫の説明は
+    #    「KENNEDY SPACE CENTER, FLA. -- STS-51-L: Challenger」だけで、
+    #    **絵は打ち上げの瞬間**だった。c519 が要るのは射点に立っている機体。
+    #    → [[feedback-inventory-is-not-usable-material]]（説明が短いほど危ない）
+    'srb_sun_shade':     V('pad', 12, note='射点39Bに立つ機体（元1156）。日の当たる側と'
+                                          'かげになる側が見える。⚠️ c101 が使う帯（元1174〜1201）とは別のショット'),
+
+    # ── 継ぎ目の現物（c513・c517・c606 の地に敷く）──────────────────
+    # 🔴 `joint.mpg` の**まだ誰も見ていなかった帯**（元1554〜1596）から抜いた。
+    #    ⚠️ 元1548 と 元1551 は**焼き込みの英字・タイムコード**が入るので採らない。
+    #    ⚠️ 元1594 は**画面に描いた白い丸印**が乗る。印の無い 元1596 を採る。
+    'joint_test':             V('joint', 22, note='継ぎ目の縁の寄り（元1560）。焼き込み無し'),
+    'oring_soot':             V('joint', 16, note='継ぎ目の上端と黄色い治具（元1554）。焼き込み無し'),
+    'oring_resilience_test':  V('joint', 58, note='継ぎ目の寄り・留め金の帯（元1596）。'
+                                                 '⚠️ 元1594 は白い丸印が乗るので採らない'),
+
+    # ── 報告書の表紙（ep01）────────────────────────────────────────
+    # 🔴🔴 Commons の `Rogers-report-front-page.png` は**別物**だった（⑤c-2）。
+    #    本物は Internet Archive の蔵書スキャン `reporttopreside00unit` の表紙。
+    #    ✅ **絵を見て確かめた**＝大統領章＋青い表紙＋
+    #       「Report of the PRESIDENTIAL COMMISSION on the Space Shuttle Challenger Accident」。
+    #    権利＝**中身は米連邦職員の職務著作で PD**（17 U.S.C. §105）。
+    #    スキャンは平面の PD 資料の忠実な複製で、新しい権利は生まれない。
+    'commission_report': IA('reporttopreside00unit', page='cover', year=1986,
+                            note='🔴 ロジャース委員会報告書の表紙（1986-06-06）。'
+                                 '⚠️ 左上に図書館のバーコードが写るので切り落とす'),
 }
 
 # 🔴 動画にする8カットの欄（`footage.USE` に入る）。**欄の名前では写真を採らない**
@@ -206,18 +288,24 @@ PICK: dict[str, dict] = {
 VIDEO_SLOTS = ('smoke_liftoff', 'srb_destruct', 'launch_liftoff', 'thiokol_plant',
                'srb_oring', 'srb_field_joint', 'pad_39b')
 
-# 🔴🔴 **まだ当てが無い14件**（`photo_picks.md` §3）。
-#    ほとんどが**報告書の図でしか見たことのない主題**（`slot_fill.md` §7＝報告書の図版は使えない）。
-#    🔴 `burn.mpg`（元2494〜2626。**全画面が83秒つづく**）から止め絵で抜けるものを先に当てること。
-#    ⚠️ ここに名前が在るだけでは合格にしない。`check` が「PICK にも MISSING にも無い」を止める。
-MISSING = ('joint_test', 'oring_resilience_test', 'srb_sun_shade', 'joint_qual_test',
-           'srm_horizontal', 'srm_nozzle_51b', 'joint_redesign', 'joint_test_new',
-           'srm_vertical_test', 'oring_soot', 'oring_data_chart',
-           'thiokol_telefax', 'marshall_center', 'launch_51c',
-           # 🔴 2026-09-21 ⑤c-2 で落とした。Commons の題と説明が嘘で、絵は上院の公聴会記録
-           #    の表紙だった（上の注）。**本物のロジャース委員会報告書の表紙は Commons に無い**
-           #    （3通りの語で探して0件）。⑤c-3 で別の置き場を当たること。
-           'commission_report')
+# 🔴 **写真を当てず、`titan_fig` の型で描く欄**（2026-09-22 ⑤c-3 で決めた）。
+#    どれも**報告書の図でしか見たことのない主題**で、`cuts/ss.py` の決まり
+#    「報告書から取り出した図は画面に出さない（英字が焼き込まれている）」に当たる。
+#    ＝ **下敷きは寸法と位置を取るためだけに使い、日本語で描き直す。**
+#    ⚠️ ここに在る欄は「当てが無い」のではなく「**当てない**」。区別すること。
+AS_FIG = (
+    'oring_data_chart',        # ep07 ← 報告書 第I巻 第VI章 図6・図7（温度と異常の分布）
+    'thiokol_telefax',         # c716 ← 報告書 第I巻 v1p97（送られたファクスの写し。全文が英字）
+    # 🔴 c810。NASA画像庫にも Commons にも **51-B のノズル継ぎ目の写真は無い**。
+    #    記録映画 元1592 に「ベル形の噴射口が2つ」写るコマがあるが、
+    #    **前後のコマを見ても何の機体のどこかを確定できなかった**ので採らなかった。
+    #    → [[feedback-dont-state-inferences-as-findings]]（推測を実測の口調で書かない）
+    'srm_nozzle_51b',          # c810
+)
+
+# 🔴🔴 **当てが無い欄**。⑤c-3 の時点で **0件**。
+#    ⚠️ ここに名前が在るだけでは合格にしない。`check` が「どこにも無い」を止める。
+MISSING: tuple[str, ...] = ()
 
 
 def _plain(s):
@@ -339,6 +427,28 @@ def cmd_info():
             db[name] = dict(src='commons', title=p['title'],
                             year=p.get('year') or _year(r['date']),
                             note=p.get('note', ''), **r)
+        elif p['src'] == 'ia':
+            # 🔴 Internet Archive の蔵書スキャン。**頁画像が本当に取れるかをここで確かめる**
+            #    （取れなければ fail closed。0 で埋めない → [[feedback-parsers-fail-closed]]）。
+            u = (f'https://archive.org/download/{p["ident"]}'
+                 f'/page/{p["page"]}_w{IA_W}.jpg')
+            if not p.get('year'):
+                bad.append(f'{name}: `year=` が無い（置き場は撮影年を持たない。年を作らない）')
+                continue
+            try:
+                b = _get(u, tries=2, timeout=180)
+            except Exception as e:                          # noqa: BLE001
+                bad.append(f'{name}: Internet Archive から頁が取れない（{type(e).__name__}: {e}）')
+                continue
+            if not b.startswith(b'\xff\xd8'):
+                bad.append(f'{name}: Internet Archive の頁が JPEG ではない（{len(b)} バイト）')
+                continue
+            db[name] = dict(src='ia', ident=p['ident'], page=p['page'],
+                            year=p['year'], note=p.get('note', ''), url=u,
+                            lic='Public domain (17 U.S.C. §105)',
+                            author='出典：ロジャース委員会報告書（1986年）',
+                            date=str(p['year']),
+                            title=f'Internet Archive: {p["ident"]} / {p["page"]}')
         else:
             # 🔴 1点の失敗で全部の引き直しを落とさない（落とすと**直した点まで消える**）。
             #    落ちた点は下で一覧にして 🔴 を返す＝黙って合格にはしない。
@@ -438,7 +548,7 @@ def cmd_check():
     sys.path.insert(0, str(HERE / 'ref' / 'ep11'))
     import parse_script as ps                               # noqa: PLC0415
     want = {c['slot'] for c in ps.parse() if c['slot']}
-    have = set(PICK) | set(MISSING) | set(VIDEO_SLOTS)
+    have = set(PICK) | set(AS_FIG) | set(MISSING) | set(VIDEO_SLOTS)
     lack = sorted(want - have)
     extra = sorted(n for n in PICK if not n.startswith('fb_') and n not in want)
 
@@ -459,12 +569,14 @@ def cmd_check():
             print(f'⚠️ {n}: {w}x{h}（長い辺も1280未満＝額装でも小さい）')
             small += 1
     if lack:
-        print(f'\n🔴 台本が要求しているのに PICK にも MISSING にも無い欄 {len(lack)}: {lack}')
+        print(f'\n🔴 台本が要求しているのに PICK・AS_FIG・MISSING のどこにも無い欄 '
+              f'{len(lack)}: {lack}')
     if extra:
         print(f'⚠️ 台本に無い名前 {len(extra)}: {extra}')
     nslot = len([n for n in PICK if not n.startswith('fb_')])
     print(f'\n台本の欄 {len(want)} ＝ 写真 {nslot} ＋ 動画 {len(VIDEO_SLOTS)} '
-          f'＋ まだ当てが無い {len(MISSING)}（計 {nslot + len(VIDEO_SLOTS) + len(MISSING)}）')
+          f'＋ 図で描く {len(AS_FIG)} ＋ まだ当てが無い {len(MISSING)}'
+          f'（計 {nslot + len(VIDEO_SLOTS) + len(AS_FIG) + len(MISSING)}）')
     print(f'PICK {len(PICK)}（うち ひかえ fb_* {len(PICK) - nslot}）／ 台帳 {len(db)} '
           f'／ 欠け {bad} ／ 小さい {small}')
     return 1 if (bad or lack) else 0
@@ -550,7 +662,7 @@ ORIGIN = {
 }
 
 
-def cmd_credits(write=False):
+def cmd_credits(write=False, md=False):
     db = _db()
     out = {f'ep11/{n}.jpg': credit_line(n, r) for n, r in db.items()}
     p = DEST / 'credits.json'
@@ -566,14 +678,31 @@ def cmd_credits(write=False):
         if ph and ph.startswith('ep11/'):
             used.setdefault(Path(ph).stem, []).append(cid)
 
-    print('| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころ |')
-    print('|---|---|---:|---|---|---|')
+    rows = ['| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころ |',
+            '|---|---|---:|---|---|---|']
     for n, r in sorted(db.items()):
         src = (r.get('title') or r.get('id')
                or (f"記録映像 {r.get('clip')} +{r.get('t')}秒" if r['src'] == 'clip' else ''))
         who = re.sub(r'^出典：', '', credit_line(n, r)).split('（')[0]
-        print(f"| `{n}` | {' '.join(sorted(used.get(n, []))) or '🔴未使用'} | "
-              f"{r.get('year') or '不明'} | {r.get('lic', '')} | {who} | {src} |")
+        rows.append(f"| `{n}` | {' '.join(sorted(used.get(n, []))) or '🔴未使用'} | "
+                    f"{r.get('year') or '不明'} | {r.get('lic', '')} | {who} | {src} |")
+    print('\n'.join(rows))
+
+    # 🔴 2026-09-22（⑤c-3 新設）`ref/CREDITS.md` の11本目の表を**入れ替える**。
+    #    今までは画面に出すだけで、`CREDITS.md` への反映が手作業だった。
+    #    その結果 ⑤c-3 で写真を11点足したとき、表が75行のまま残り
+    #    `check_credits` が「表に無い」で12件止めた。**書き出しと表を1本につなぐ。**
+    #    ⚠️ 入れ替えるのは**表だけ**（見出しと前書きは触らない）。表は節の最後にある。
+    if md:
+        f = HERE / 'ref' / 'CREDITS.md'
+        t = f.read_text(encoding='utf-8')
+        head = '| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころ |'
+        i = t.rfind(head)
+        if i < 0:
+            print(f'🔴 {f} に11本目の表の見出し行が無い（fail closed）')
+            return 1
+        f.write_text(t[:i] + '\n'.join(rows) + '\n', encoding='utf-8')
+        print(f'✓ {f} の11本目の表を {len(rows) - 2} 行に入れ替えた')
     return 0
 
 
@@ -593,7 +722,7 @@ def main():
     if cmd == 'panel':
         return cmd_panel()
     if cmd == 'credits':
-        return cmd_credits('--write' in rest)
+        return cmd_credits('--write' in rest, '--md' in rest)
     raise SystemExit(f'🔴 知らない命令: {cmd}')
 
 
