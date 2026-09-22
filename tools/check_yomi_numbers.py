@@ -162,9 +162,15 @@ def main() -> int:
     if "--selftest" in sys.argv:
         return selftest()
     eps = [a for a in sys.argv[1:] if not a.startswith("--")]
-    if not eps:
-        raise SystemExit("🔴 回を渡す（例: python tools/check_yomi_numbers.py ep11）")
-    ep = eps[0]
+    # 🔴 回の名前は**引数が無ければ台本から取る**（`el_script.SLUG`）。
+    #    `qa_all.py` に "ep11" と直書きすると、次の回で**前作の名前のまま回り続ける**
+    #    （→ [[feedback-per-episode-constants-go-stale]]）。
+    if eps:
+        ep = eps[0]
+    else:
+        import el_script as ES
+        ep = ES.SLUG
+        print(f"（回は el_script.SLUG から取った: {ep}）")
     ng, unknown, ok, covered = scan(ep)
     show_all = "--list" in sys.argv
 
