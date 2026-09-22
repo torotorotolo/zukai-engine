@@ -100,207 +100,72 @@
  },
  "commission_report.jpg": {
   "size": [
-   2576,
-   3320
+   2866,
+   3725
   ],
   "lines": [
    {
     "box": [
-     1643,
-     443,
-     1872,
-     472
+     305,
+     15,
+     554,
+     36
     ],
-    "text": "S. HRG. 99 ー 967"
+    "text": "LfNCOLN ( ド 、 R 5"
    },
    {
     "box": [
-     689,
-     495,
-     1750,
-     558
+     774,
+     98,
+     1120,
+     165
     ],
-    "text": "SPACE SHUTTLE ACCIDENT"
+    "text": "eport 0f the"
    },
    {
     "box": [
-     991,
-     1011,
-     1455,
-     1056
-    ],
-    "text": "SUBCOMMITTEE ON"
-   },
-   {
-    "box": [
-     1125,
-     958,
-     1301,
-     980
-    ],
-    "text": "BEFORE 實 H"
-   },
-   {
-    "box": [
-     1013,
-     860,
-     1430,
-     921
-    ],
-    "text": "HEARINGS"
-   },
-   {
-    "box": [
-     791,
-     2030,
-     1665,
-     2062
-    ],
-    "text": "Committee on Commerce, Science, and Transportation"
-   },
-   {
-    "box": [
-     1020,
-     1988,
-     1440,
-     2015
-    ],
-    "text": "Printed for the use of the"
-   },
-   {
-    "box": [
-     899,
-     1862,
-     1556,
-     1893
-    ],
-    "text": "FEBRUARY 18 , JUNE 10 AND 17 , 1986"
-   },
-   {
-    "box": [
+     83,
+     150,
      604,
-     1734,
-     1851,
-     1763
+     213
     ],
-    "text": "SPACE SHUH'LE ACCIDENT AND THE ROGERS COMMISSION REPORT"
+    "text": ", :.. 三 : コ = -3045 0007 一 0"
    },
    {
     "box": [
-     1205,
-     1665,
-     1250,
-     1686
+     848,
+     167,
+     2750,
+     389
     ],
-    "text": "ON"
+    "text": "RESIDENTIAL"
    },
    {
     "box": [
-     1074,
-     1588,
-     1380,
-     1616
+     605,
+     415,
+     2462,
+     627
     ],
-    "text": "SECOND SESSION"
+    "text": "・ COMMISSION"
    },
    {
     "box": [
-     933,
-     1505,
-     1518,
-     1540
+     1132,
+     667,
+     1609,
+     754
     ],
-    "text": "NINETY-NINTH CONGRESS"
+    "text": "0 化 S ん ル"
    },
    {
     "box": [
-     833,
-     1400,
-     1611,
-     1457
+     527,
+     383,
+     572,
+     590
     ],
-    "text": "UNITED STATE S SENATE"
-   },
-   {
-    "box": [
-     706,
-     1306,
-     1745,
-     1375
-    ],
-    "text": "SCffNCE, Ⅷ TRANSPORTATION"
-   },
-   {
-    "box": [
-     788,
-     1214,
-     1658,
-     1279
-    ],
-    "text": "CO 、 皿 TT 刊 ON C の 眦 丑 C 珥"
-   },
-   {
-    "box": [
-     1168,
-     1156,
-     1281,
-     1177
-    ],
-    "text": "OF THE"
-   },
-   {
-    "box": [
-     779,
-     1077,
-     1665,
-     1132
-    ],
-    "text": "SCDNCE, T C 皿 0 も OGY , 、 Ⅷ SPACE"
-   },
-   {
-    "box": [
-     637,
-     2759,
-     742,
-     2779
-    ],
-    "text": "62-885 0"
-   },
-   {
-    "box": [
-     965,
-     2707,
-     1506,
-     2728
-    ],
-    "text": "U.S. GOVERNMENT PRINTING OFFICE"
-   },
-   {
-    "box": [
-     1088,
-     2756,
-     1385,
-     2778
-    ],
-    "text": "WASHINGTON : 1986"
-   },
-   {
-    "box": [
-     906,
-     2843,
-     1566,
-     2870
-    ],
-    "text": "U. S. Government Printing Office, Washington, 以 : 20402"
-   },
-   {
-    "box": [
-     808,
-     2809,
-     1663,
-     2837
-    ],
-    "text": "For 厄 by the Superintendent Of Documents, Congressional Sales Office"
+    "text": "☆ ☆ ☆ 第 第 基 早"
    }
   ]
  },
@@ -707,12 +572,101 @@
   ],
   "lines": []
  },
+ "joint_qual_test.jpg": {
+  "size": [
+   3000,
+   2390
+  ],
+  "lines": [
+   {
+    "box": [
+     6,
+     985,
+     164,
+     1260
+    ],
+    "text": "三 三 ラ ラ"
+   }
+  ]
+ },
+ "joint_redesign.jpg": {
+  "size": [
+   894,
+   1110
+  ],
+  "lines": []
+ },
+ "joint_test.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "joint_test_new.jpg": {
+  "size": [
+   3000,
+   2348
+  ],
+  "lines": []
+ },
+ "launch_51c.jpg": {
+  "size": [
+   2842,
+   4302
+  ],
+  "lines": []
+ },
  "launch_pad_morning.jpg": {
   "size": [
    3000,
    2400
   ],
   "lines": []
+ },
+ "marshall_center.jpg": {
+  "size": [
+   3000,
+   2002
+  ],
+  "lines": [
+   {
+    "box": [
+     2717,
+     407,
+     2755,
+     421
+    ],
+    "text": "-3 第"
+   },
+   {
+    "box": [
+     2600,
+     518,
+     2775,
+     551
+    ],
+    "text": "、 ら を . ~ 第"
+   },
+   {
+    "box": [
+     2630,
+     658,
+     2764,
+     678
+    ],
+    "text": "・ 1 を い ー こ 写 、 -"
+   },
+   {
+    "box": [
+     1939,
+     692,
+     1996,
+     710
+    ],
+    "text": "す 写 お い"
+   }
+  ]
  },
  "mcauliffe_class.jpg": {
   "size": [
@@ -805,6 +759,20 @@
   "lines": []
  },
  "oring_physical.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "oring_resilience_test.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
+ "oring_soot.jpg": {
   "size": [
    640,
    480
@@ -944,12 +912,43 @@
   ],
   "lines": []
  },
+ "srb_sun_shade.jpg": {
+  "size": [
+   640,
+   480
+  ],
+  "lines": []
+ },
  "srb_trails.jpg": {
   "size": [
    2339,
    3000
   ],
   "lines": []
+ },
+ "srm_horizontal.jpg": {
+  "size": [
+   3000,
+   2430
+  ],
+  "lines": []
+ },
+ "srm_vertical_test.jpg": {
+  "size": [
+   3000,
+   2203
+  ],
+  "lines": [
+   {
+    "box": [
+     401,
+     649,
+     490,
+     683
+    ],
+    "text": "夢 、 、 マ"
+   }
+  ]
  },
  "ssme_ignition.jpg": {
   "size": [
