@@ -245,3 +245,50 @@ ref/ep11/vid/
 qa_out/crop/
 ref/ep11/vid/clips/
 ref/ep11/sheets/
+
+# ── 12本目 キャッスル・ブラボー水爆実験（2026-09-22 ②素材＋③尺）──────────
+# ⚠️ 上の `ref/*` が ref/ を丸ごと無視する造り（許可制）。**フォルダから明示的に開ける。**
+!ref/ep12/
+# 入れるもの＝台帳2枚（②の素材・③の尺と章立て）
+!ref/ep12/materials.md
+!ref/ep12/kousei.md
+# 実測の束（取り直しが高い／目で見た記録は取り直せない）
+#  commons_ep12.json … Commons 629点の生データ。⚠️ Commons は 429 で止めるので取り直しに20分かかる
+!ref/ep12/commons_ep12.json
+!ref/ep12/commons_hidden.json
+!ref/ep12/commons_ep12.txt
+!ref/ep12/commons24.json
+#  NARA RG678 の Project 22（51点）。原本の画素は 1点ずつ Range で測った値
+!ref/ep12/nara_castle_detonation.json
+!ref/ep12/nara_castle_testact.json
+!ref/ep12/nara_sizes.json
+#  動く映像の「実効の枠」の実測（器の札が嘘をつくので、測り直すまで正本はこれ）
+!ref/ep12/box_cr.json
+!ref/ep12/box_doe.json
+# 一次資料の本文テキスト（DNA 6035F 538頁／WT-923 Project 4.1 96頁／DASA 1251 Vol.II 351頁）
+!ref/ep12/src/
+!ref/ep12/src/*.txt
+# ②③で書いた道具（次の回でも使う）
+!ref/ep12/probe_commons.py
+!ref/ep12/probe_nara.py
+!ref/ep12/probe_nara_series.py
+!ref/ep12/measure_nara_sizes.py
+!ref/ep12/net4.py
+!ref/ep12/fetch_and_dedup.py
+!ref/ep12/extract_pdf.py
+!ref/ep12/measure_effective_res.py
+!ref/ep12/measure_watermark_box.py
+!ref/ep12/scan_burned_text.py
+!ref/ep12/dur_ep12.py
+# 🔴 失敗した物差しも残す（同じ間違いを繰り返さないため）
+#   find_watermark.py … コマ間の分散で透かしを探す版。**動く海の上の透かしを見落とした**
+!ref/ep12/find_watermark.py
+#   measure_bravo4k.py … 縮小→拡大の差で実効解像度を測る版。**陽性対照が0に張り付かず使えなかった**
+!ref/ep12/measure_bravo4k.py
+# 入れないもの＝落とした実体と探索の途中結果
+#   PDF 3本（合計 約37MB）。取り直す入口は materials.md §5 に URL で書いてある
+ref/ep12/src/*.pdf
+#   Commons の24点の実体とシート（合計 約57MB）。fetch_and_dedup.py で作り直せる
+ref/ep12/img/
+#   NARA の全文検索の生データ（640KB）。probe_nara.py で取り直せる
+ref/ep12/nara_ep12.json

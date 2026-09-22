@@ -1,0 +1,132 @@
+# Commons カテゴリ一覧  分類17件 / ファイル124点
+# 継承なし（使える枠）: 116点 / 継承あり（CC BY-SA・使えない）: 8点
+# ライセンス内訳: {"Public domain": 102, "CC BY-SA 3.0": 6, "CC BY 3.0": 10, "CC BY-SA 4.0": 2, "CC0": 4}
+# 種類内訳: {"image/jpeg": 83, "image/png": 23, "application/ogg": 3, "video/webm": 5, "image/svg+xml": 5, "image/gif": 5}
+
+## 継承なし（幅の大きい順）
+     4608x3456  2019  CC0              | Myth of Tomorrow.jpg | mural
+     4504x3537  1954  Public domain    | Aikichi Kuboyama on deathbed - 1954 - Asahi Graph.png | 危篤状態の久保山愛吉
+     4298x3238  1946  Public domain    | Project 22 - Operation Castle (Bikini-Enewetak) Test Activities - DPLA - cfa16 | Parry Island Dock with Two Device Barges.
+     4080x3072  2023  CC0              | Myth of Tomorrow 2.jpg | Myth of Tomorrow (日本の東京都渋谷区にある、岡本太郎の壁画作品) Taken in such a way that the copyright
+     4080x3072  2024  CC0              | 明日の神話 preservation.jpg | 明日の神話 preservation
+  🎞  3840x2160  1954  Public domain    | Castle Bravo 15 megaton detonation, 1954.webm | Facebook : https://www.facebook.com/TheCentralnuclear Canal Arequipa - Perú. © T
+     3741x3060  2014  Public domain    | Rongelap Atoll - 2014-12-06 - Landsat 8 - 15m.png | Composite "true color" multispectral satellite image of Rongelap Atoll. NASA Lan
+     3653x2955  1946  Public domain    | Project 22 - Operation Castle (Bikini-Enewetak) Test Activities - DPLA - b3faa | Scrubbing to Remove Radioactivity Before Protective Suit Removal.
+     3414x2774  1946  Public domain    | Project 22 - Operation Castle (Bikini-Enewetak) Test Activities - DPLA - ac821 | Deposition of filter Paper in Shielded Cave.
+     3414x2638  1946  Public domain    | Project 22 - Operation Castle (Bikini-Enewetak) Test Activities - DPLA - de09c | B-36 Decontamination Washdown.
+     3330x2690  1954  Public domain    | Vought F4U-4 Corsair of VMA-333 is decontaminated at Parry Island, Enewetak At | A U.S. Marine Corps Vought F4U-4 Corsair (BuNo 81624) of Marine Attack Squadron 
+     3139x2448  1954  Public domain    | Operation Castle AW 4.png | An unknown device tested in Operation Castle. The device may be Runt (Castle Rom
+     3135x2412  1954  Public domain    | Operation Castle AW 3.jpg | An unknown device tested in Operation Castle. The device may be Runt (Castle Rom
+     3096x1952  2012  Public domain    | Bikini Atoll 2001-01-14, Landsat 7 ETM+ bands 7-5-1-8.png | Arrow and radiation trefoil indicate the Castle Bravo nuclear test crater. Compo
+     3063x1944  2012  Public domain    | Bikini Atoll 2001-01-14, Landsat 7 ETM+, bands 3-2-1-8, rev2.png | Composite "true color" multispectral satellite image of Bikini Atoll, Marshall I
+     3063x1944  2012  Public domain    | Bikini Atoll 2001-01-14, Landsat 7 ETM+, bands 3-2-1-8.png | Composite "true color" multispectral satellite image of Bikini Atoll, Marshall I
+     3032x2064  2002  Public domain    | ISS006-E-5961 - View of the Marshall Islands.jpg | View of the Marshall Islands taken during ISS Expedition 6.
+     3032x2064  2002  Public domain    | ISS006-E-5963 - View of the Marshall Islands.jpg | View of the Marshall Islands taken during ISS Expedition 6.
+     3032x2008  2002  Public domain    | Rongelap.jpg | Rongelap Atoll, Marshall Islands
+     3001x2400  1954  Public domain    | Castle Bravo Shrimp Device 002.jpg | Castle Bravo nuclear test. The Shrimp device in its shot cab. DTRIAC photo ID: I
+     3001x2400  1954  Public domain    | Castle Bravo Shrimp Device 002 - restoration1.jpg | Castle Bravo nuclear test. The Shrimp device in its shot cab. DTRIAC photo ID: I
+     3000x2443  1954  Public domain    | HD.10.290 (10540757794).jpg | Castle Bravo nuclear test.
+     3000x2392  1954  Public domain    | Operation Castle AW 2.png | A device tested in Operation Castle being moved by truck.
+     2212x1766  1954  Public domain    | Technical experts checking contamination by nuclear fallout of Tunas after Dai | 魚市場に入荷したマグロの放射能検査をする技術者たち
+     2209x1571  1954  Public domain    | Masuda Sanjirō, one of the victims of the H-bomb experiment carried out in Bik | 病室の増田三次郎
+     2070x1600  1954  Public domain    | Operation Castle AW 5.jpg | An unknown device tested in Operation Castle. The device may be Morgenstern (Cas
+     2040x1600  1954  Public domain    | Operation Castle AW 6.jpg | An unknown device tested in Operation Castle. The device may be Alarm Clock (Cas
+     1944x2592  2007  Public domain    | Daigo Fukuryū Maru 01.JPG | The bow of Daigo_Fukuryū_Maru（第五福竜丸の船首及び船名）
+     1920x1080  1954  Public domain    | BravoSHRIMPShotCab.jpg | Castle Bravo SHRIMP device shot-cab installation, with humans for scale.
+     1824x1459  1954  Public domain    | Operation Castle AW 1.jpg | Shrimp device tested in Castle Bravo being unloaded from a truck.
+     1643x1030  1954  Public domain    | A signboard appealing shoppers that our fish shop does not sell tunas contamin | 第5福竜丸事件の後、当店では「原爆マグロ」を売っていないと買い物客にアピールする魚屋店頭の看板
+     1630x1080  1954  Public domain    | BravoShotCab.jpg | Operation Castle Bravo SHRIMP shot-cab
+     1600x1200  2007  CC BY 3.0        | 20070922 100 1954 1600 - panoramio.jpg | 20070922_100_1954_1600
+     1600x1200  2007  Public domain    | Nukecloud.png | Nuclear cloud height/yield graph Cosmetically enhanced to illustrate size of Fat
+     1591x1196  1954  Public domain    | Castle Bravo Blast.jpg | Nuclear weapon test Bravo (yield 15 Mt) on Bikini Atoll . The test was part of t
+     1510x2200  1954  Public domain    | AEC Authorization for Operation Castle.png | The United States Department of Defense, Defense Nuclear Agency (1982). Castle S
+     1508x1171  1957  Public domain    | Rongelap, View of Returning Native with Pet Pigeon - NARA - 24739666.jpg | 
+     1484x779   1954  Public domain    | Castle Bravo nuclear test.jpg | The Castle Bravo nuclear test, the detonation of the most powerful thermonuclear
+     1468x1174  1954  Public domain    | Castle Bravo (black and white).jpg | Nuclear weapon test Bravo (yield 15 Mt) on Bikini Atoll . The test was part of t
+     1401x1108  1954  Public domain    | Eisenhower and Strauss.jpg | President Eisenhower receives a report from Lewis L. Strauss, Chairman of the At
+     1280x724   1954  Public domain    | Castle Bravo 005.jpg | Castle Bravo nuclear test.
+     1280x720   2017  Public domain    | Castle Bravo Detonation USDE.ogv | Castle Bravo Detonation.
+     1280x676   1954  Public domain    | Castle Romeo 001.jpg | Castle Romeo nuclear test.
+小   1207x951   1944  Public domain    | 80-G-216035.jpg | Wrecked Japanese installation on an island of Rongelap Atoll, photographed from 
+小   1200x1600  2007  CC BY 3.0        | 20070922 100 1955 1600 - panoramio.jpg | 20070922_100_1955_1600
+小   1200x1600  2007  CC BY 3.0        | 20070922 100 1956 1600 - panoramio.jpg | 20070922_100_1956_1600
+小   1200x1600  2007  CC BY 3.0        | 20070922 P9220774 1600 - panoramio.jpg | 20070922_P9220774_1600
+小   1200x1600  2007  CC BY 3.0        | 20070922 P9220779 1600 - panoramio.jpg | 20070922_P9220779_1600
+小   1200x1600  2007  CC BY 3.0        | 20070922 P9220782 1600 - panoramio.jpg | 20070922_P9220782_1600
+小   1174x1474  1954  Public domain    | Castle Romeo.jpg | Castle Romeo nuclear test (yield 11 Mt) on Bikini Atoll . It was the first nucle
+小   1169x779   1954  Public domain    | Castle Bravo nuclear test (cropped 3-2).jpg | The Castle Bravo nuclear test, the detonation of the most powerful thermonuclear
+小   1162x818   1954  Public domain    | The Castle Bravo test.jpg | The Castle Bravo nuclear test,the mushroom cloud from the 15-megaton, showing mu
+小   1152x648   1954  Public domain    | Kuboyama Aikichi.JPG | 第五福竜丸 無線長、久保山愛吉（死の直前）
+小   1120x826   1999  Public domain    | Castle Bravo Declassified Film 46th second.png | Operation Castle, Bravo event. The Shrimp device during its transfer by barge to
+小   1119x820   1999  Public domain    | Castle Bravo Declassified Film 49th second.png | Operation Castle, Bravo event. The parabolic projection of the Shrimp device.
+小   1114x840   1999  Public domain    | Castle Bravo Declassified Film 47th second.png | Operation Castle, Bravo event. The cylindrical end of the Shrimp device.
+小   1045x1218  1954  Public domain    | Project 4.1 figures.png | Page 36 from the Project 4.1 final report, showing four photographs of exposed M
+小   1024x626   1954  Public domain    | Castle Bravo Shrimp composite.png | The Shrimp device, exploded on March 1, 1954, at Bikini, as the Bravo Shot of th
+小   1024x768   2008  CC BY 3.0        | 第五福竜丸展示館-１ - panoramio.jpg | 第五福竜丸展示館-１
+小   1024x768   2008  CC BY 3.0        | 第五福竜丸展示館-2 - panoramio.jpg | 第五福竜丸展示館-2
+小   1011x125   2011  Public domain    | Wikinews Desastres.png | Another Wikinews banner
+小    977x1034  1954  Public domain    | The head of the crew of Daigo Fukuryu-maru.JPG | 第五福竜丸 乗組員の頭部。上皮組織が剥離している。
+小    971x741   1954  Public domain    | Castle Union.jpg | Nuclear weapon test Union (yield 6.9 Mt) on Bikini Atoll . The test was part of 
+小    940x616   2023  Public domain    | OperationCastleB36.jpg | OperationCastleB36
+小    928x422   1954  Public domain    | Bravo fallout2.png | Path of nuclear fallout plume after U.S. nuclear weapons test Bravo (yield 15 Mt
+小    913x630   2023  Public domain    | Operation Castle Barge Transport.jpg | Operation Castle Barge Transport
+小    885x586   1954  Public domain    | Bereaved family of Kuboyama.JPG | 久保山の訃報に泣き崩れる妻と母
+小    833x607   1954  Public domain    | The crew of Daigo Fukuryu-maru.JPG | 治療を受ける 第五福竜丸 乗組員
+小    831x623   1954  Public domain    | Castle Bravo nuclear test (cropped).jpg | The Castle Bravo nuclear test, the detonation of the most powerful thermonuclear
+小    830x626   1954  Public domain    | Castle Bravo Shrimp device.jpg | The Shrimp device, exploded on March 1, 1954, at Bikini, as the Bravo Shot of th
+小    813x639   1954  Public domain    | Bravo Fallout.jpg | Path of nuclear fallout plume after U.S. nuclear weapons test Bravo (yield 15 Mt
+小    781x804   2006  Public domain    | Comparative nuclear fireball sizes.svg | A simple graphic showing comparative nuclear fireball radii for a number of diff
+小    781x804   2006  Public domain    | Comparative nuclear fireball sizes-fr.svg | A simple graphic showing comparative nuclear fireball radii for a number of diff
+小    780x738   2009  CC BY 3.0        | Marshall Islands location map.svg | Location map of the Marshall Islands
+小    780x738   2011  CC BY 3.0        | Rongelap Atoll in Marshall Islands.svg | Location of municipality xy (see filename) in the Marshall Islands .
+小    774x573   1954  Public domain    | Atmic tunas in Osaka Central Market.JPG | 大阪中央市場に並ぶ「原爆マグロ」
+小    773x502   1954  Public domain    | Inspection of Atomic tunas.JPG | 焼津で「原爆マグロ」を検査する、大阪市立大学生物学部助教授の西脇安ら
+小    759x456   1954  Public domain    | Castle romeo2.jpg | Nuclear weapon test Romeo (yield 11 Mt) on Bikini atoll . The test was part of t
+小    750x600   1982  Public domain    | Bikini atoll test sites.jpg | Sixty-seven nuclear tests were conducted at Bikini Atoll. The islands of Bokonij
+小    740x661   1954  Public domain    | Operation Castle - Yankee.jpg | Castle Yankee nuclear test.
+小    732x600   1900  Public domain    | FMIB 33842 Sailing Canoe, Rongelab.jpeg | Sailing Canoe, Rongelab Subject: Canoes and canoeing, Sailboats Geographic Subje
+小🎞   720x480         Public domain    | Operation Castle (1954) - Nuclear Vault (480p, h264, youtube, kfbHwj71k48).web | 
+小    716x1056  1954  Public domain    | Project 4.1 final report cover.png | The cover page of the Project 4.1 final report.
+小    700x560   1954  Public domain    | Castle Bravo 007.jpg | Castle Bravo nuclear test.
+小    700x493         Public domain    | Castle Bravo 006.jpg | Castle Bravo nuclear test. Site 20, the artificial island holding the shot cab.
+小    680x510         Public domain    | Castle Bravo Shrimp Device 001.jpg | Castle Bravo nuclear test. The Shrimp device in its shot cab.
+小    640x474         Public domain    | Castle Romeo Runt Device 001.jpg | The Runt I nuclear explosive device used in the Castle Romeo nuclear test.
+小🎞   640x480   1954  CC0              | Nuclear Test Film - Operation Castle.webm | Department of Energy TF 0800013 doe.gov Nuclear Test Film - Operation Castle 195
+小🎞   640x449   1954  Public domain    | Operation Castle Commanders Report.webm | Operation Castle Commanders Report
+小    622x526   1997  Public domain    | Map of Rongelap Atoll.png | Map of Rongelap Atoll
+小    607x916   1954  Public domain    | Bravo secondary fireball.jpg | vacuum pipe lines (long pipe lines from which the air had been removed) 4 kilome
+小    600x450   1954  Public domain    | Map showing the expansion of A-test danger zone notified by U.S. on 19 March 1 | Map showing the expansion of A-test danger zone notified by U.S. on 19 March 195
+小    576x431   1982  Public domain    | Bikini Atoll Post BRAVO.png | This is a map of the Bikini Atoll after the many nuclear tests done there.
+小    551x682   1954  Public domain    | Kumatori Toshiyuki and Miyosi Kazuo.JPG | 久保山の主治医である熊取敏之（左）と三好和夫（右）。久保山の死の直後。
+小    544x304   1954  Public domain    | Operation Castle - Nectar - Detonation.ogv | Castle Nectar nuclear test. Detonation.
+小    532x800   2008  Public domain    | Daigo Fukuryū Maru engine.jpg | 第五福竜丸エンジン
+小    532x800   2008  Public domain    | 第五福竜丸 船尾l.jpg | 第五福竜丸船尾
+小    530x313   1959  Public domain    | Jukichi Uno 5.jpg | Jukichi Uno (right end) in 1959 Japanese movie Daigo Fukuryū Maru ( Lucky Drago 
+小    528x546   1954  Public domain    | The notice about Atomic tunas in Yaizu.JPG | 焼津の魚屋
+小    520x260   2005  Public domain    | Nuclear weapon size chart.jpg | Graphic showing relative sizes of various types of nuclear weapons . Clockwise f
+小    520x260   2008  Public domain    | Nuclear weapon size chart-fr.jpg | Graphic showing relative sizes of various types of nuclear weapons . Clockwise f
+小    515x400   1954  Public domain    | Castle Bravo 001.jpg | Castle Bravo nuclear test.
+小    504x576   1954  Public domain    | Operation Castle - Romeo 001.jpg | Castle Romeo nuclear test (yield 11 Mt) on Bikini Atoll . It was the first nucle
+小    500x373   1954  Public domain    | Castle Bravo 004.jpg | Castle Bravo nuclear test.
+小🎞   480x360   2024  Public domain    | Military Effects Studies on Operation Castle (1954).webm | Military Effects Studies on Operation Castle (1954)
+小    440x545   1954  Public domain    | Castle Romeo Atmospheric Testing Cropped.jpg | Castle Romeo nuclear test (yield 11 Mt) on Bikini Atoll . It was the first nucle
+小    432x345   1954  Public domain    | President Eisenhower and AEC Chairman Strauss face questioners at a press conf | March 31, 1954 – President Dwight D. Eisenhower and AEC Chairman Lewis L. Straus
+小    414x232   2023  Public domain    | Castle Union.gif | Castle Union
+小    379x216   2023  Public domain    | Castle Yankee.gif | Castle Yankee
+小    376x250   2008  Public domain    | 久保山愛吉入院中.jpg | 久保山愛吉（右）
+小    357x296   1954  Public domain    | Daigo Fukuryu Maru.jpg | Daigo Fukuryū Maru in early 1950s, shortly before the incident
+小    352x240   1954  Public domain    | Operation Castle test.ogv | Operation Castle was a six-detonation test series held at the Atomic Energy Comm
+小    339x191   2023  Public domain    | Castle Romeo.gif | Castle Romeo
+小    324x182   1954  Public domain    | CastleBravo1.gif | Operation Castle Bravo detonation time-lapse footage
+小    316x178   1954  Public domain    | CastleBravo2.gif | Operation Castle Nectar
+小    230x300   2018  Public domain    | 久保山愛吉.jpg | 久保山愛吉
+
+## 継承あり＝CC BY-SA（使わない。参考）
+    5152x3864  2023  CC BY-SA 4.0     | Gravestone of Aikichi Kuboyama.jpg
+    4773x1725  2016  CC BY-SA 4.0     | Shibuya - Asu no Shinwa - 2016-05-06.jpg
+    2592x1936  2011  CC BY-SA 3.0     | Asu no Shinwa2.JPG
+    1944x2592  2007  CC BY-SA 3.0     | Daigo Fukuryū Maru 02.JPG
+    1500x1125  2014  CC BY-SA 3.0     | Daigo-Fukuryuu-Maru-Tenjikan.jpg
+     800x653   2008  CC BY-SA 3.0     | Map-Marshall-Rongelap.PNG
+     735x1146  2012  CC BY-SA 3.0     | Castlebravodiagram.svg
+     640x480   2007  CC BY-SA 3.0     | Daigo Fukuryu Maru Monument.jpg
