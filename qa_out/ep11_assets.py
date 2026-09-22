@@ -112,7 +112,8 @@ PICK: dict[str, dict] = {
                                                 '旧48は外部タンクが船で着く場面だった'),
     'oring_physical':       V('joint', 17, note='🔴 筒の縁の溝に収まった黒いゴムの輪（元1555）。'
                                                 '旧2は帯の頭で前のショット（発射台の炎）が残っていた'),
-    'oring_channel':        V('joint', 8,  note='溝（元1546）'),
+    'oring_channel':        V('joint', 22, note='🔴 c522。溝に収まった黒いゴムの輪の接写（元1560）。'
+                                                 '旧8は額の下端に白い文字列が走っていた'),
     'commission_hearing':   V('commission', 2, note='机の上のシャトル模型（元57）'),
     'commission_room':      V('commission', 12, note='青い幕の公聴会場（元67）'),
     'commission_members':   V('commission', 14, note='🔴 壇上に並ぶ委員（元69）'),
@@ -132,9 +133,21 @@ PICK: dict[str, dict] = {
     'fb_c503': V('joint', 42,      note='現地で組んだ継ぎ目（元1580）'),
     'fb_c101': V('pad', 44,        note='射点39Bの機体（元1188）'),
 
-    # ── 乗員（11点）────────────────────────────────────────────────
+    # ── 乗員（13点）────────────────────────────────────────────────
+    # 🔴🔴 2026-09-22 ⑤c'（10-7）**同じ絵が2組あった。**画素で確かめた実測：
+    #    `crew_portrait` と `crew_portrait_2` は **md5 が同一**（0c4951fa5ee7）＝pr05 と c201
+    #    `crew_portrait_3` と `crew_whiteroom` は **最大差 1**（別の題名の同じ写真）＝ep11 と c216
+    #    → c201 と ep11 に**別の絵**を入れる。下の2点を足した（どちらも 1986-01-08・JSC）。
+    #    ⚠️ `crew_portrait_2` と `crew_portrait_3` は**どのカットからも外した**ので
+    #      CREDITS の表では 🔴未使用 になる。消していないのは、権利の記録を残すため。
+    # ⚠️ NASA画像庫に**事故の瞬間の別の絵は無い**ことも確かめた（`S86-38989` は
+    #    `fireball_wide` と最大差 1・`51l-s-029` は `crew_breakfast` と最大差 1）。
+    'crew_training':   N('S86-25186', note='🔴 c201。訓練の合間に控え室で打ち合わせる乗員'
+                                           '（1986-01-08）。`crew_portrait` と平均差 81.6'),
+    'crew_flightline': N('S86-25199', note='🔴 ep11。飛行訓練を終えて駐機場を歩く乗員'
+                                           '（1986-01-08）。`crew_portrait` と平均差 97.5'),
     'crew_portrait':   C('Challenger flight 51-l crew.jpg'),
-    'crew_portrait_2': N('S85-44253', note='Official Portrait - STS-51L Crewmembers'),
+    'crew_portrait_2': N('S85-44253', note='⚠️ `crew_portrait` と md5 同一。**使わない**'),
     'crew_portrait_3': C('722342main challenger full full.jpg'),
     'crew_scobee':     C('Francis Richard Scobee.jpg'),
     'crew_smith':      C('Michael Smith (NASA).jpg'),
@@ -236,10 +249,14 @@ PICK: dict[str, dict] = {
     #      `8777958` は題が「TPTA field joint」だが、**絵はクレーンで吊って縦に降ろす**＝
     #      ep04「立てた状態で燃やす試験」そのもの。
     #    → [[feedback-inventory-is-not-usable-material]]（絵が正本。題名で決めない）
-    'srm_horizontal':    N('7997301', note='🔴 砂漠の試験台に**横たわる**全尺モーター QM-1（1979・ワサッチ）。'
-                                          '⚠️ 事故の前＝c804 が言う当時の試験と年が合う'),
-    'joint_qual_test':   N('8776671', note='全尺の固体モーターの燃焼試験（1987・ワサッチ）。'
-                                          '⚠️ 事故の後。副題で年を名乗る'),
+    # 🔴🔴 2026-09-22 ⑤c'（10-5）で**元画像を見て訂正した。2点は逆だった。**
+    'srm_horizontal':    N('7997301', note='🔴 絵は**地面を横に走る炎と巨大な噴煙**＝燃焼試験の瞬間で、'
+                                          '機体そのものは写らない（旧注の「横たわる全尺モーター」は誤り）。'
+                                          '1979・ワサッチ。⚠️ 事故の前＝c803 で使う。'
+                                          '⚠️ 覆いの既定 bias=0.5 だと炎が字幕帯の下に沈むので c803 側で bias=0.95'),
+    'joint_qual_test':   N('8776671', note='🔴 絵は**砂漠の試験台に水平に置かれた全尺モーター**（燃えていない）'
+                                          '＝c804 で使う（旧注の「燃焼試験」は誤り）。1987・ワサッチ。'
+                                          '⚠️ 事故の後。副題で年を名乗る。⚠️ 胴に Thiokol の英字（約18px）'),
     'joint_redesign':    N('8448351', note='作り直したモーターの構造試験体 STA-3 を据える（1988・MSFC）。'
                                           '⚠️ 894x1110＝額装に回る'),
     'srm_vertical_test': N('8777958', note='🔴 TPTA 試験台へ前部区画を**吊って縦に**降ろす'

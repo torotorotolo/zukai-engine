@@ -47,8 +47,8 @@
  "srb_stack": {
   "src": "clip",
   "clip": "srb",
-  "t": 48,
-  "note": "積み上げ（元1041）",
+  "t": 18,
+  "note": "🔴 継ぎ目の帯が見える白い筒を降ろす（元1011）。旧48は外部タンクが船で着く場面だった",
   "year": 1986,
   "lic": "Public domain (17 U.S.C. §105)",
   "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
@@ -56,8 +56,8 @@
  "oring_physical": {
   "src": "clip",
   "clip": "joint",
-  "t": 2,
-  "note": "ゴムの輪の現物（元1540）",
+  "t": 17,
+  "note": "🔴 筒の縁の溝に収まった黒いゴムの輪（元1555）。旧2は帯の頭で前のショット（発射台の炎）が残っていた",
   "year": 1986,
   "lic": "Public domain (17 U.S.C. §105)",
   "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
@@ -65,8 +65,8 @@
  "oring_channel": {
   "src": "clip",
   "clip": "joint",
-  "t": 8,
-  "note": "溝（元1546）",
+  "t": 22,
+  "note": "🔴 c522。溝に収まった黒いゴムの輪の接写（元1560）。旧8は額の下端に白い文字列が走っていた",
   "year": 1986,
   "lic": "Public domain (17 U.S.C. §105)",
   "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
@@ -101,8 +101,8 @@
  "commission_hearing_2": {
   "src": "clip",
   "clip": "commission",
-  "t": 19,
-  "note": "公聴会の席（元74）",
+  "t": 10,
+  "note": "🔴 公聴会の席で話す出席者の寄り（元65）。旧19は使える帯 57〜71 の外＝WORLDNET のスタジオ座談",
   "year": 1986,
   "lic": "Public domain (17 U.S.C. §105)",
   "author": "出典：米国立公文書館（USIA 306-WNET-239）"
@@ -179,6 +179,30 @@
   "lic": "Public domain (17 U.S.C. §105)",
   "author": "出典：NASA「Space Shuttle Challenger Accident Investigation」"
  },
+ "crew_training": {
+  "src": "nasa",
+  "id": "S86-25186",
+  "year": 1986,
+  "note": "🔴 c201。訓練の合間に控え室で打ち合わせる乗員（1986-01-08）。`crew_portrait` と平均差 81.6",
+  "url": "https://images-assets.nasa.gov/image/S86-25186/S86-25186~orig.jpg",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "JSC",
+  "date": "1986-01-08",
+  "title": "STS 51-L crewmembers briefed during training session",
+  "page": "https://images.nasa.gov/details/S86-25186"
+ },
+ "crew_flightline": {
+  "src": "nasa",
+  "id": "S86-25199",
+  "year": 1986,
+  "note": "🔴 ep11。飛行訓練を終えて駐機場を歩く乗員（1986-01-08）。`crew_portrait` と平均差 97.5",
+  "url": "https://images-assets.nasa.gov/image/S86-25199/S86-25199~orig.jpg",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "JSC",
+  "date": "1986-01-08",
+  "title": "STS 51-L crewmembers at Ellington AFB for training flight in T-38",
+  "page": "https://images.nasa.gov/details/S86-25199"
+ },
  "crew_portrait": {
   "src": "commons",
   "title": "Challenger flight 51-l crew.jpg",
@@ -196,7 +220,7 @@
   "src": "nasa",
   "id": "S85-44253",
   "year": 1985,
-  "note": "Official Portrait - STS-51L Crewmembers",
+  "note": "⚠️ `crew_portrait` と md5 同一。**使わない**",
   "url": "https://images-assets.nasa.gov/image/S85-44253/S85-44253~orig.jpg",
   "lic": "Public domain (17 U.S.C. §105)",
   "author": "JSC",
@@ -884,7 +908,7 @@
   "src": "nasa",
   "id": "7997301",
   "year": 1979,
-  "note": "🔴🔴 2026-09-22 ⑤c' で元画像を見て訂正。絵は**地面を横に走る炎と巨大な噴煙**＝燃焼試験の瞬間で、機体そのものは写らない（旧注の「横たわる全尺モーター」は誤り。名も題も当てにならない）。⚠️ 事故の前・c803 で使う。⚠️ 覆いの既定 bias=0.5 だと炎が字幕帯の下に沈むので c803 側で bias=0.95",
+  "note": "🔴 絵は**地面を横に走る炎と巨大な噴煙**＝燃焼試験の瞬間で、機体そのものは写らない（旧注の「横たわる全尺モーター」は誤り）。1979・ワサッチ。⚠️ 事故の前＝c803 で使う。⚠️ 覆いの既定 bias=0.5 だと炎が字幕帯の下に沈むので c803 側で bias=0.95",
   "url": "https://images-assets.nasa.gov/image/7997301/7997301~orig.jpg",
   "lic": "Public domain (17 U.S.C. §105)",
   "author": "MSFC",
@@ -896,7 +920,7 @@
   "src": "nasa",
   "id": "8776671",
   "year": 1987,
-  "note": "🔴🔴 2026-09-22 ⑤c' で元画像を見て訂正。絵は**砂漠の試験台に水平に置かれた全尺モーター**（燃えていない）＝c804 で使う。旧注の「燃焼試験」は誤り。⚠️ 事故の後。副題で年を名乗る。⚠️ 胴に Thiokol の英字（約18px）",
+  "note": "🔴 絵は**砂漠の試験台に水平に置かれた全尺モーター**（燃えていない）＝c804 で使う（旧注の「燃焼試験」は誤り）。1987・ワサッチ。⚠️ 事故の後。副題で年を名乗る。⚠️ 胴に Thiokol の英字（約18px）",
   "url": "https://images-assets.nasa.gov/image/8776671/8776671~orig.jpg",
   "lic": "Public domain (17 U.S.C. §105)",
   "author": "MSFC",

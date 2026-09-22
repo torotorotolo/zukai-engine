@@ -419,7 +419,16 @@ USE = {
     "pr02": dict(clip="launch",     start=16.0, until=22.0, rate=0.67),
     "pr07": dict(clip="joint",      start=24.0, until=35.0, rate=0.73),
     "c101": dict(clip="pad",        start=30.0, until=57.0, rate=1.0),
-    "c307": dict(clip="smoke",      start=6.0,  until=16.0, rate=1.0),
+    # 🔴 2026-09-22 ⑤c'（10-6）：⑤c-5 は2つ挙げた＝①外部タンクの **`United States`** が
+    #    縦に 45px 級で読める ②**煙が薄くて見えない**。寄りで両方が直る。
+    #    英字は コマの x 0.24〜0.30。額は 847x648 なので、xbias=1.0 のとき
+    #    zoom=1.5 で残るのは x 0.347〜1.0 ＝**英字は画面の外**（手元で覆いを再現して実測）。
+    #    暗い画素の重心は x 0.594・右1/3 が 20%＝**煙は右側**なので、寄っても落ちない。
+    # ⚠️ 額（`ss.vid` の trim）は触っていない。ここを変えると**額の形ごと変わる**。
+    #    ⚠️ ひかえの静止画 `fb_c307.jpg` は素のままなので、**動画のコマが取れていれば**英字は出ない。
+    #      ⑥ で `footage.py fetch` のコマ数を必ず確かめる（[[feedback-fetch-failure-falls-back-to-a-still]]）。
+    "c307": dict(clip="smoke",      start=6.0,  until=16.0, rate=1.0,
+                 zoom=1.5, xbias=1.0),
     "c413": dict(clip="accident",   start=41.0, until=57.0, rate=1.0),
     "c503": dict(clip="joint",      start=36.0, until=47.0, rate=1.0),
     # 🔴🔴 2026-09-22 ⑤c'（10-5）：`until=43` は**中身の切れ目をまたいでいた**。

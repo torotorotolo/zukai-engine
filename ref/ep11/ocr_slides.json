@@ -190,6 +190,13 @@
   ],
   "lines": []
  },
+ "crew_flightline.jpg": {
+  "size": [
+   3000,
+   1964
+  ],
+  "lines": []
+ },
  "crew_jarvis.jpg": {
   "size": [
    3000,
@@ -303,30 +310,6 @@
    }
   ]
  },
- "crew_portrait_2.jpg": {
-  "size": [
-   3000,
-   2400
-  ],
-  "lines": [
-   {
-    "box": [
-     2529,
-     915,
-     2602,
-     928
-    ],
-    "text": "・ R?.SNIK"
-   }
-  ]
- },
- "crew_portrait_3.jpg": {
-  "size": [
-   3000,
-   2046
-  ],
-  "lines": []
- },
  "crew_resnik.jpg": {
   "size": [
    2846,
@@ -345,6 +328,13 @@
   "size": [
    2781,
    3476
+  ],
+  "lines": []
+ },
+ "crew_training.jpg": {
+  "size": [
+   3000,
+   1952
   ],
   "lines": []
  },
