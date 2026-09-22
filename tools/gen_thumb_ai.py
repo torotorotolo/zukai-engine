@@ -58,7 +58,10 @@ FRAME = (
     "covered by two lines of very large text, and the corners will be darkened. So the "
     "subject and every important detail must sit in the MIDDLE HORIZONTAL BAND, across "
     "the full width. Put plain, quiet, low-detail areas in the top quarter and the "
-    "bottom quarter — an empty overcast sky above, deep shadow and dust below — so that "
+    # ⚠️ 2026-09-22：ここは "an empty overcast sky" と天気まで決め打ちだった。
+    #    `build()` は FRAME を**場面より後ろ**に置くので、場面が「夏の晴れた強い光」を
+    #    指定しても**曇りが勝つ**（＝場面ごとの指定が黙って無効になる）。天気は場面に任せる。
+    "bottom quarter — an empty plain sky above, deep shadow and dust below — so that "
     "large lettering will read cleanly over them. Keep the bottom-right corner dark. "
 )
 
@@ -78,7 +81,64 @@ PINK = (
     "or terracotta. "
 )
 
+# ── 質感：崩れている「最中」を撮ってしまった1枚（2026-09-22 カズヤくん指示）────────
+#    「とにかく派手で目を引くように。しかし現実感のある、実際の事件を再現するような程度で」
+#    ⚠️ 上の LOOK（曇り・静けさ・崩れたあと）とは**両立しない**ので、丸ごと差し替える。
+#    ⚠️ 「派手」を色や演出で作らない。**粉じんの量と、落ちている途中という事実**で作る。
+LOOK_MOMENT = (
+    "A real PHOTOGRAPH, indistinguishable from a press photographer's grab shot. "
+    "Caught hand-held at the very instant it happened, on a full-frame 35mm camera "
+    "loaded with 1995 colour negative film. Bright hazy late-afternoon summer "
+    "sunlight from the side, strong directional light, deep shadows, high contrast, "
+    "fine natural film grain, slight hand-shake, imperfect focus at the edges. "
+    "Physically accurate materials: fractured concrete, powdered grey dust, bent "
+    "steel, painted render. The image is violent and overwhelming, but it is a "
+    "photograph of a real event, not a spectacle. "
+)
+TAIL_MOMENT = (
+    "The result must look like a genuine news photograph taken at the exact second "
+    "a building came down — chaotic, dusty and real. It must NOT look like a render, "
+    "a video game, a disaster movie poster, a 3D visualisation or an illustration. "
+    "No lens flare, no colour grading, no cinematic teal-and-orange, no debris "
+    "frozen in an unnatural fan shape. Gravity must read correctly: everything is "
+    "falling straight DOWN."
+)
+
 SCENES = {
+    # ── ★2026-09-22 カズヤくん指示＝「今まさに崩壊している」実写風 ────────────
+    "e": {
+        "name": "崩落の瞬間（真下に落ちていく北側と、噴き上がる粉じん）",
+        "hypothesis": "「崩れたあと」は8本目までに出し尽くした。**落ちている途中**は"
+                      "この事故の写真が1枚も存在しない絵なので、一覧の中で必ず止まる",
+        "look": LOOK_MOMENT,
+        "tail": TAIL_MOMENT,
+        "scene": (
+            "June 1995, Seoul. A large five-storey 1990s department store is collapsing "
+            "RIGHT NOW, photographed from across a wide open car park. "
+            "THE BUILDING IS FALLING STRAIGHT DOWN INTO ITSELF — it is not toppling "
+            "sideways. The LEFT portion has already dropped: its floor slabs have "
+            "pancaked one onto the next and disappeared below the ground line. The "
+            "floors immediately to the right of that are caught mid-fall, still roughly "
+            "flat but sagging and tilting inward, their edges snapping, the painted "
+            "facade splitting into a long jagged vertical tear. The RIGHT portion is "
+            "still standing, upright and ordinary and completely intact — that contrast "
+            "is the point. "
+            "An enormous billowing cloud of pale grey concrete DUST is erupting from the "
+            "base and rolling outward low across the car park and upward behind the "
+            "building, already swallowing the lower floors. Slabs of the pink painted "
+            "wall and broken concrete are falling through the dust, all of them moving "
+            "straight down. "
+            "Architecture: a long horizontal five-storey block, a dark navy-blue band "
+            "running along the very top of the parapet with small evenly spaced white "
+            "squares set into it, tall narrow vertical banner panels in dark navy on "
+            "the facade, a tall arched glass atrium at the centre, stepped setbacks at "
+            "the corner, cooling towers on the roof. " + PINK +
+            "Foreground: a broad empty asphalt car park with painted lines, a low "
+            "concrete retaining wall, clipped hedges and a few conical evergreen shrubs, "
+            "utility poles and slack overhead wires. Behind, ordinary 1990s Seoul "
+            "mid-rise concrete apartment blocks under a bright hazy summer sky. "
+        ),
+    },
     "c": {
         "name": "崩落の断面（立っている壁と、消えた半分）",
         "hypothesis": "無傷の壁と、その隣の空白の対比が、いちばん惨さを伝える",
@@ -126,12 +186,21 @@ SCENES = {
 }
 
 
+TAIL = ("The result must look like a genuine, sombre, respectful news photograph "
+        "of the aftermath of a building collapse — not a render, not an "
+        "illustration, not a movie still, no motion blur, no dramatic lighting.")
+
+
 def build(v):
+    """🔴 質感（look）と締め（tail）は**場面ごとに差し替えられる**（2026-09-22 追加）。
+
+    それまではここが「崩れた**あと**」「動きのブレなし」で決め打ちだった。
+    「崩れている**最中**」を作るには、静けさを求める `LOOK` と
+    「no motion blur / no dramatic lighting」で終わる締めが**真正面からぶつかる**。
+    ⚠️ `FRAME`（文字の帯）・`BAN`（人・炎・文字）・`PINK` は**どの場面でも外さない**。
+    """
     s = SCENES[v]
-    return (f"{LOOK}{s['scene']}{FRAME}{BAN}"
-            "The result must look like a genuine, sombre, respectful news photograph "
-            "of the aftermath of a building collapse — not a render, not an "
-            "illustration, not a movie still, no motion blur, no dramatic lighting.")
+    return f"{s.get('look', LOOK)}{s['scene']}{FRAME}{BAN}{s.get('tail', TAIL)}"
 
 
 def key():

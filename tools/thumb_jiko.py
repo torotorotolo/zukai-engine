@@ -922,6 +922,26 @@ def ep10_ai():
         bake(f"ep10ai_{nm}", fx_type(hero, RED_D, YEL, "e_veil", yel_plain=True))
 
 
+def ep10_ai2():
+    """10本目・**崩落の瞬間**の地（2026-09-22 カズヤくん指示）。
+
+    「百貨店が今まさに崩壊しているような実写画像」「とにかく派手で目を引くように。
+      しかし現実感のある、実際の事件を再現するような程度で」
+    地＝`tools/gen_thumb_ai.py e`（`ref/ep10/ai/ep10_e.jpg`）。
+
+    ⚠️ **文字は1字も変えない**＝赤「犠牲502人 危険はないと診断」／黄「三豊百貨店 崩壊事故」。
+       公開中の `ep10_g_split` と**絵だけが違う**形にして、比べられるようにする。
+    ⚠️ 補正は c・d と同じ実写側の値（クレイ調の素通しだと眠い絵になる）。
+    🔴 この地は**サムネだけ**に使う。本編の画には1カットも入れない
+       （AI で作った絵を、一次資料で検証する本編に混ぜない）。
+    """
+    RED_D = "犠牲502人 危険はないと診断"   # 15字（公開中と同じ）
+    YEL = "三豊百貨店 崩壊事故"           # 10字（公開中と同じ）
+    hero = photo("ep10/ai/ep10_e.jpg", cy=0.50, cx=0.50,
+                 contrast=1.14, color=1.08, bright=0.97)
+    bake("ep10ai_e_kuzure", fx_type(hero, RED_D, YEL, "e_veil", yel_plain=True))
+
+
 EP11_ICE_PAD = "ep11/ice_pad.jpg"        # NASA GPN-2004-00011（1986-01-28）：発射台に張った氷（PD）
 EP11_EGRESS = "ep11/ice_egress.jpg"      # NASA（1986年）：乗員が逃げる通路まで凍った発射塔（PD）
 EP11_TEACHER = "ep11/mcauliffe_class.jpg"  # NASA（1985年）：教師として選ばれたマコーリフの公式肖像（PD）
@@ -1081,7 +1101,9 @@ def ep11_t4():
 
 if __name__ == "__main__":
     import sys
-    if "ep11-t4" in sys.argv:
+    if "ep10-ai2" in sys.argv:
+        ep10_ai2()
+    elif "ep11-t4" in sys.argv:
         ep11_t4()
     elif "ep11-t3" in sys.argv:
         ep11_t3()
