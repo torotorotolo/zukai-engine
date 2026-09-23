@@ -100,13 +100,38 @@ def find_src(slug, src):
     return cands[-1]
 
 
-def cuts_of(src):
+def cuts_of(src, extra=()):
     """検品画像のカット名。**並べ方は `qa_seen.py`（旧 ss_seen.py）とまったく同じ**
     ＝ファイル名の昇順（c101…→ep…→pr…）。⚠️ ここを変えると「見た枚」の記録とずれる。"""
-    names = sorted(f.name[4:-4] for f in src.glob("cut_*.jpg"))
+    names = sorted({f.name[4:-4] for f in src.glob("cut_*.jpg")} | set(extra))
     if not names:
         raise SystemExit(f"🔴 {src} に cut_*.jpg が無い")
     return names
+
+
+def card_cut_name(fname):
+    """章の扉 `card_c201.png` → `cut_c200card.jpg`（名前順で章の頭 c201 の前に来る）。扉でなければ None。"""
+    m = re.fullmatch(r"card_c(\d+)01\.png", fname)
+    return f"cut_c{m.group(1)}00card.jpg" if m else None
+
+
+def cards_as_cuts(src, dry=False):
+    """🔴 2026-09-23（12本目 ⑤c' 直しE）：章の扉（12本目から新設の `card_*.png`）を `cut_cN00card.jpg` に写す。
+
+    ⑤c シートでは `cut_*.jpg` しか並ばず、扉8枚が抜けた＝前のチャットが手で写した（台帳 `qa_out/ep12_qa_look1.md` §3-4）。
+    `qa_seen.py` も `cut_*.jpg` を数えるので、**同じ名前のファイルを置けば2つの道具の並びがそろう**。
+    すでに在る扉は写し直さない。`dry`（--check）は写さず、写す予定の名前だけ返す。
+    """
+    made = []
+    for card in sorted(src.glob("card_*.png")):
+        name = card_cut_name(card.name)
+        if not name or (src / name).exists():
+            continue
+        made.append(name)
+        if not dry:
+            with Image.open(card) as im:
+                im.convert("RGB").save(src / name, quality=92)
+    return made
 
 
 def bake(src, dst, cuts, cols, rows, font, dry=False):
@@ -160,7 +185,8 @@ def main():
     dst = Path(a.out) if a.out else (OUT / f"sheet_{ver}")
     if not dst.is_absolute():
         dst = HERE / dst
-    cuts = cuts_of(src)
+    cards = cards_as_cuts(src, dry=a.check)
+    cuts = cuts_of(src, extra=[n[4:-4] for n in cards])
     font, jp = load_font()
 
     made, full, seen_wh, seen_tile = bake(src, dst, cuts, cols, rows, font, dry=a.check)
@@ -170,6 +196,9 @@ def main():
     print(f"   カット {len(cuts)} ／ 1枚 {cols * rows}コマ（{cols}列×{rows}行）"
           f" ／ シート {len(made)}枚")
     print(f"   先頭 {cuts[0]} ／ 末尾 {cuts[-1]}")
+    if cards:
+        print(f"   章の扉 {len(cards)}枚を `cut_cN00card.jpg` に{'写す予定' if a.check else '写した'}"
+              f"（qa_seen と同じ並びにするため）: {' '.join(cards)}")
     print(f"   シートの寸法 {full[0]}x{full[1]}"
           f"（総画素 {full[0] * full[1]:,}）")
     ng = []
@@ -233,6 +262,13 @@ def selftest():
     order = sorted(["cut_pr10.jpg", "cut_c101.jpg", "cut_ep16.jpg", "cut_c701.jpg"])
     say([f[4:-4] for f in order] == ["c101", "c701", "ep16", "pr10"],
         "並べ方はファイル名の昇順（c→ep→pr）")
+
+    # 6b) 🔴 章の扉は cut_cN00card.jpg になり、章の頭のカットの前・前の章の尻のあとに並ぶ
+    card = card_cut_name("card_c201.png")
+    order = sorted(["cut_c120.jpg", "cut_c201.jpg", card])
+    say(card == "cut_c200card.jpg" and order == ["cut_c120.jpg", "cut_c200card.jpg", "cut_c201.jpg"]
+        and card_cut_name("card_x.png") is None and card_cut_name("cut_c201.jpg") is None,
+        "章の扉 card_c201.png → cut_c200card.jpg（c120 と c201 のあいだに並ぶ・扉でない名前は拾わない）")
 
     # 7) 🔴 --grid の書き間違いは黙って既定に落ちず、止まる
     for bad in ("3", "3*2", "0x6", ""):

@@ -168,6 +168,13 @@ PICK = {
 # 画面の出典の「誰が」を名乗り直す点（`credit_line` の既定＝撮影者の欄から推すのでは足りないもの）
 WHO = {'doc_bikini_chart': '米海軍水路部'}
 
+# 🔴 2026-09-23（12本目 ⑤c' 直しB）：**走査が傾いた頁は、焼くときに水平へ回す**（度・反時計回り＝右を持ち上げる）。
+#    pg238（DNA 表22）は行が右下がりに 1.106° 傾いていて、表の幅のあいだに行がちょうど1段ずれる
+#    ＝行と行のすき間が横に通らず、**どの高さで切っても升目の字が欠けた**（c719・台帳 §7-4／§8）。
+#    角度は OCR の升目の中心を「行の番号 cy − s·cx」に直し、3px の箱の尖りが最大になる s から測った
+#    （s=0.0193・水平のままの尖り 230 → 984）。⚠️ 回したら OCR の読み置き（ocr_slides.json）の同じ頁も取り直す。
+DESKEW = {238: 1.106}
+
 # 報告書の頁（台本 §4 の画の欄に出てくる頁＋報告書をなぞる型の頁）。名前は `pg<頁>`
 PAGES_PICK = (1, 30, 114, 118, 211, 212, 213, 214, 215, 216, 218, 219, 221, 223, 226, 229,
               230, 232, 238, 240, 241, 243, 1015, 1082, 2069, 2074,
@@ -327,10 +334,14 @@ def cmd_build(only=None):
     return 0
 
 
-def cmd_pages():
+def cmd_pages(only=None):
+    """`pages` は全頁。`pages 238` のように頁を書けばその頁だけ焼き直す（ほかの頁の md5 を動かさない）。"""
     import fitz
+    from PIL import Image
     pj = json.loads(PAGES_JSON.read_text(encoding='utf-8')) if PAGES_JSON.exists() else {}
     for pr in PAGES_PICK:
+        if only and pr not in only:
+            continue
         base, fn, doc = next(d for d in DOCS if pr >= d[0])
         pno = pr - base + 1 if base > 1 else pr          # DNA は +0・WT は +1000・DASA は +2000
         with fitz.open(PDF / fn) as d:
@@ -338,9 +349,14 @@ def cmd_pages():
             pix = pg.get_pixmap(dpi=DPI, colorspace=fitz.csGRAY)
             out = DEST / f'pg{pr}.png'
             pix.save(out)
+        if pr in DESKEW:        # 寸法は変えない（expand しない）＝角の白い三角は trim の外
+            with Image.open(out) as im:
+                im.rotate(DESKEW[pr], resample=Image.BICUBIC, fillcolor=255).save(out)
         old = pj.get(f'pg{pr}', {})
-        pj[f'pg{pr}'] = dict(old, doc=doc, pdf=fn, pdf_page=pno, w=pix.width, h=pix.height, md5=_md5(out))
-        print(f'✓ pg{pr}  {doc} の PDF {pno}頁  {pix.width}x{pix.height}')
+        pj[f'pg{pr}'] = dict(old, doc=doc, pdf=fn, pdf_page=pno, w=pix.width, h=pix.height, md5=_md5(out),
+                             deskew=DESKEW.get(pr, 0))
+        print(f'✓ pg{pr}  {doc} の PDF {pno}頁  {pix.width}x{pix.height}'
+              f'{f"  傾きを {DESKEW[pr]}° 直した" if pr in DESKEW else ""}')
     PAGES_JSON.write_text(json.dumps(pj, ensure_ascii=False, indent=1), encoding='utf-8')
     return 0
 
@@ -502,7 +518,7 @@ def main():
     if cmd == 'build':
         return cmd_build(set(a[1:]) or None)
     if cmd == 'pages':
-        return cmd_pages()
+        return cmd_pages({int(x) for x in a[1:]} or None)
     if cmd == 'check':
         return cmd_check()
     if cmd == 'sheet':

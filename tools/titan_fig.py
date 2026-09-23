@@ -970,6 +970,33 @@ def quote(phrase, who="", when="", doc="", ctx="", to="", size=104, rows=None,
 # ══════════════════════════════════════════════════════════
 #  4. timeline — 横の時間軸
 # ══════════════════════════════════════════════════════════
+def _t2_shift(top, top_cap, t2, w, up, gap=6):
+    """旗の小さい日付（t2）を、大きい札（top）から**墨の箱で gap px 以上**離すための追加のずらし（px）。
+
+    🔴 2026-09-23（12本目 ⑤c' 直しC）：t2 は top のベースラインから**決め打ちの 44px** 上（下向きの旗は下）に
+       置いていたので、big（Dela 52px）の札では字面どうしが重なっていた（`qa_out/ep10_label_all.py` の (B)
+       ＝c201 -4.0・c624 -3.1・c714 -3.1・c320 -3.0px）。読めるが窮屈。
+       → 級数を `txtfit` と同じ式で出し、`fm.ink` の字面ですき間を測って、**足りないぶんだけ**逃がす。
+       ⚠️ 字面は**描く書体**で測る（`txt` は `numfam` で数字の無い札を Dela→Noto に落とす）。
+          最初に Dela のまま測ったら label_all（描いた SVG の書体で測る）と約4pxずれ、2pxしか空かなかった。
+       ⚠️ すき間が足りている旗は 0 を返す＝絵は動かない。
+       ⚠️ ずらしは**整数 px に切り上げる**＝SVG の座標は整数に丸める（`txt` の :.0f）ので、端数のずらしは
+          丸めで 0.5px 失う（端数のまま組んだら label_all で c624・c714 が 5.9px だった）。
+       確かめ方：直す前後で図を組んで比べ、動いたのは timeline の5カット（c201 c320 c624 c714 c909）だけ。
+          ほかの timeline 9カットは同じ（drift は同じコードでも組むたびに変わるので比べられない）。
+    """
+    if not top or not t2:
+        return 0.0
+    ts = fm.fit(str(top), w, "Dela", cap=top_cap, floor=16)     # 級数は txtfit と同じく Dela の字幅で
+    s2 = fm.fit(str(t2), w, "Noto", cap=32, floor=16)
+    ft, f2 = numfam(str(top), "Dela"), numfam(str(t2), "Noto")
+    if up:      # t2 が上：t2 の字面の下端 ↔ top の字面の上端
+        now = 44 - fm.ink(str(top), ts, ft)[0] - fm.ink(str(t2), s2, f2)[1]
+    else:       # t2 が下：top の字面の下端 ↔ t2 の字面の上端
+        now = 44 - fm.ink(str(top), ts, ft)[1] - fm.ink(str(t2), s2, f2)[0]
+    return float(math.ceil(gap - now)) if now < gap else 0.0
+
+
 def timeline(events, t0, t1, ticks=None, tfmt=None, title="", band=None, src=""):
     """横に伸びる時間軸。events=[dict(t=..., top="10:47", t2="重り2つ", c=...)]
 
@@ -1051,7 +1078,8 @@ def timeline(events, t0, t1, ticks=None, tfmt=None, title="", band=None, src="")
         s.append(txtfit(tx0, ty + (0 if dy < 0 else 34), e.get("top", ""), w,
                         cap=52 if big else 40, col=c, anchor=anch, fam="Dela"))
         if e.get("t2"):
-            s.append(txtfit(tx0, ty + (dy < 0 and -44 or 78), e["t2"], w,
+            dd = _t2_shift(e.get("top", ""), 52 if big else 40, e["t2"], w, dy < 0)
+            s.append(txtfit(tx0, ty + (-44 - dd if dy < 0 else 78 + dd), e["t2"], w,
                             cap=32, col=J.LINE, anchor=anch))
         stages.append("".join(s))
     return Fig("".join(g), stages, "", (x0 - 40, x1 + 40))
