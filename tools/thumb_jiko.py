@@ -1099,9 +1099,52 @@ def ep11_t4():
         bake(f"ep11_{nm}", fx_type(hero, red, YEL, "e_veil", yel_plain=True))
 
 
+EP12_CLOSE = "ep12/fb_close_b.jpg"    # ENERGY.GOV HD.10.290（1954-03-01）：ブラボーの火球の寄り（PD・米国の職務著作）
+EP12_AERIAL = "ep12/fb_aerial_a.jpg"  # NARA 146763394（RG 678・1954）：空から見たブラボーのキノコ雲（PD・§105）
+
+
+def ep12():
+    """12本目・キャッスル・ブラボー水爆実験（2026-09-24・⑥）1巡目。
+
+    🔴 地は**ブラボーそのものの写真だけ**。ロメオ・ユニオン・ヤンキー（同じ作戦の別の実験）の雲は
+       似て見えても使わない（絵が題と食い違う）。
+    🔴 赤の行は**決め所（★＝原文に当てた行）**から取る。
+       「2.5倍」（計算した数）・「知りながら撃った」（本文で伝説として扱う言葉）・「死亡」は使わない。
+    ⚠️ 乗組員は私人＝顔の写る写真を地にしない（築地のマグロ検査 `jp_tuna_check` も外した）。
+    ⚠️ 地は 2,000px 以上の写真だけ（映像から抜いた `fb_cNNN` は使わない）。
+      a … `c409`★「予報：人の住む島々に、大きな降灰なし」（DNA p208）＋火球の寄り（暗い地で文字が立つ）
+      b … a と同じ赤＋空から見たキノコ雲（形がいちばんはっきり・退色で赤紫）
+      c … `c618`★「船は、部隊の誰にも気づかれなかった」（DNA p219）＋キノコ雲
+      d … `c103`★「爆発の威力は、予想よりはるかに大きかった」（DNA p212）＋火球の寄り
+    ⚠️ 赤の「島に」「部隊に」は★の範囲を落とさないための語（外すと言い過ぎになる）。
+    """
+    RED = {
+        "a_yohou_close": "予報は 島に大きな降灰なし",     # 13字・c409
+        "b_yohou_aerial": "予報は 島に大きな降灰なし",    # 13字・c409
+        "c_gyosen_aerial": "漁船は 部隊に気づかれなかった",  # 15字（型の上限）・c618
+        "d_iryoku_close": "威力は 予想をはるかに超えた",   # 14字・c103
+    }
+    YEL = "ビキニ水爆実験 第五福竜丸"    # 13字・日本で通っている呼び名（台本第2版 §1-1）＋船の名
+
+    for nm, red in RED.items():
+        for bad in ("死亡", "ﾀﾋ", "2.5倍", "知りながら"):
+            if bad in red:
+                raise SystemExit(f"🔴 {nm} の赤に使ってはいけない語「{bad}」がある: {red}")
+        if not (10 <= len(red) <= 15):
+            raise SystemExit(f"🔴 {nm} の赤が {len(red)}字（型は10〜15字）: {red}")
+
+    close = photo(EP12_CLOSE, cy=0.55, cx=0.50, contrast=1.12, color=1.06, bright=1.00)
+    aerial = photo(EP12_AERIAL, cy=0.40, cx=0.50, contrast=1.12, color=1.00, bright=0.98)
+    hero = {"close": close, "aerial": aerial}
+    for nm, red in RED.items():
+        bake(f"ep12_{nm}", fx_type(hero[nm.rsplit('_', 1)[1]], red, YEL, "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep10-ai2" in sys.argv:
+    if "ep12" in sys.argv:
+        ep12()
+    elif "ep10-ai2" in sys.argv:
         ep10_ai2()
     elif "ep11-t4" in sys.argv:
         ep11_t4()
