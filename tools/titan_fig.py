@@ -4180,3 +4180,264 @@ def ending(name="", like_c=None, sub_c=None):
            + txt((bx0 + bx1) / 2, cy + 17, "登録済み", 46, J.BG, anchor="middle"))
     # ⚠️ 段は**あとから上に描かれる**ので、塗りつぶしで下の輪郭と字を隠せる（消す手段は無い）。
     return Fig("".join(g), ["", st2, st3], "", (GX0 - 60, bx1 + 60))
+
+
+# ══════════════════════════════════════════════════════════
+#  drift ── 動く模式図（12本目 ⑤b-2 新設・2026-09-23）
+# ══════════════════════════════════════════════════════════
+# 🔴 なぜ足したか：葦の分析（Vault `Resources/考えすぎる葦-最新5本の分析-20260923.md` §8-4 案B）を受けた
+#    カズヤくんの決定（記憶 project-jiko-visual-variety-from-ep12）。**文の出来事を、読まれているあいだに
+#    画面の上で起こす**。1枚の地図の上で、点の列・船・視線の線・降る白い点が、報告書の位置・向き・距離・
+#    順番どおりに動く。runway 型（試写で名指しの評価）の延長。
+# 🔴 守ること（決定の「守ること」そのもの）
+#    - 人は描かない（船の輪郭と視線の線だけ）
+#    - **灰の広がりの形は描かない**（向きと距離だけ）＝降灰図の描き起こしは不採用のまま
+#    - 時刻の食い違い（日本側「約3時間後」・DNA「1時間半後」）は描かない（札は「数時間後」）
+#    - 模式であることを note で断る（§5b-10）。**note に「模式」を書かないと止まる**
+#    - 位置と距離は**緯度経度の表（GEO）**と**報告書の値**だけから置く。`rel=` に報告書の値を宣言し、
+#      門番 `tools/check_drift.py` が**この関数が描いた画素の座標**から逆算した距離・方角と突き合わせる
+# 🔴 動く部品は SVG に焼かない（Chrome は1コマ約1.8秒）。`Fig.moves` に**画素の座標**で渡し、
+#    `build_jiko.draw_moves()` が1コマずつ PIL で描く（段の出る時刻＝ナレーションの行頭から動き出す）。
+
+# 緯度・経度（度）。出どころ＝Wikidata P625（環礁の中心）／Wikipedia「Castle Bravo」（爆心）。2026-09-23 取得。
+# ⚠️ 環礁は**中心の1点**（大きさ・形は描かない）。距離は爆心から測る（報告書の距離は爆心から）。
+GEO = {
+    "gz": (11.69722, 165.27194, "爆心"),
+    "bikini": (11.58363, 165.37617, "ビキニ環礁"),
+    "rongelap": (11.31667, 166.78333, "ロンゲラップ環礁"),
+    "ailinginae": (11.13333, 166.41667, "アイリングナエ環礁"),
+    "rongerik": (11.33333, 167.45000, "ロンゲリック環礁"),
+    "utirik": (11.26731, 169.78426, "ウトリック環礁"),
+    "enewetak": (11.50000, 162.33333, "エニウェトク環礁"),
+    "kwajalein": (8.71667, 167.73333, "クェゼリン環礁"),
+}
+DIR16 = ("北", "北北東", "北東", "東北東", "東", "東南東", "南東", "南南東",
+         "南", "南南西", "南西", "西南西", "西", "西北西", "北西", "北北西")
+_R_EARTH = 6371.0
+
+
+def dir_deg(name):
+    """16方位の名前 → 方位角（度・北＝0・時計回り）。"""
+    return DIR16.index(name) * 22.5
+
+
+def dir_name(deg):
+    return DIR16[int(((deg % 360) + 11.25) // 22.5) % 16]
+
+
+def geo_move(lat, lon, km, deg):
+    """(lat, lon) から方位角 deg へ km 進んだ点（球面）。"""
+    d, b = km / _R_EARTH, math.radians(deg)
+    p1, l1 = math.radians(lat), math.radians(lon)
+    p2 = math.asin(math.sin(p1) * math.cos(d) + math.cos(p1) * math.sin(d) * math.cos(b))
+    l2 = l1 + math.atan2(math.sin(b) * math.sin(d) * math.cos(p1),
+                         math.cos(d) - math.sin(p1) * math.sin(p2))
+    return math.degrees(p2), math.degrees(l2)
+
+
+def geo_between(a, b):
+    """2点 (lat, lon) の距離（km）と、a から見た b の方位角（度）。"""
+    p1, p2 = math.radians(a[0]), math.radians(b[0])
+    dl = math.radians(b[1] - a[1])
+    hv = math.sin((p2 - p1) / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
+    km = 2 * _R_EARTH * math.asin(math.sqrt(hv))
+    y = math.sin(dl) * math.cos(p2)
+    x = math.cos(p1) * math.sin(p2) - math.sin(p1) * math.cos(p2) * math.cos(dl)
+    return km, (math.degrees(math.atan2(y, x)) + 360) % 360
+
+
+class GeoView:
+    """緯度経度 → 画面の画素。**東西と南北の縮尺をそろえる**（中心の緯度の正距円筒）。
+    ⚠️ 11〜12度の帯なので東西の縮尺の狂いは 0.5% 未満（門番の許し 5% の内側）。"""
+
+    def __init__(self, lon, lat, box):
+        self.latc, self.lonc = (lat[0] + lat[1]) / 2, (lon[0] + lon[1]) / 2
+        self.kx = 111.32 * math.cos(math.radians(self.latc))      # 経度1度の km
+        self.ky = 110.57                                            # 緯度1度の km
+        x0, y0, w, h = box
+        self.s = min(w / ((lon[1] - lon[0]) * self.kx), h / ((lat[1] - lat[0]) * self.ky))  # 画素／km
+        self.cx, self.cy = x0 + w / 2, y0 + h / 2
+
+    def px(self, lat, lon):
+        return (self.cx + (lon - self.lonc) * self.kx * self.s,
+                self.cy - (lat - self.latc) * self.ky * self.s)
+
+    def geo(self, x, y):
+        return (self.latc - (y - self.cy) / (self.ky * self.s),
+                self.lonc + (x - self.cx) / (self.kx * self.s))
+
+
+def _ship_svg(x, y, deg=0.0, col=None, s=1.0):
+    """船の輪郭（上から見た船体）。**人は描かない。**deg＝船首の向き（北＝0）。"""
+    c = col or J.INK_W
+    pts = [(0, -30), (10, -12), (10, 22), (-10, 22), (-10, -12)]
+    r = math.radians(deg)
+    q = [(x + s * (a * math.cos(r) - b * math.sin(r)), y + s * (a * math.sin(r) + b * math.cos(r)))
+         for a, b in pts]
+    return poly(q, fill=J.BG2, stroke=c, sw=4, close=True)
+
+
+def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km=100):
+    """動く模式図。
+
+    view   … dict(lon=(西, 東), lat=(南, 北))。枠に**縮尺をそろえて**収める
+    places … 輪で描く環礁（GEO の鍵）
+    pts    … 報告書の方角と距離から置く点 {名: dict(of="gz", km=157, dir="東北東")}
+    steps  … ナレーションの行ごとの段。1段に置けるもの：
+        dim=dict(a=, b=, t="157キロ", d="東北東")   寸法線（2点のあいだ）
+        ship=dict(at=, deg=, t="第五福竜丸")         船の輪郭と札
+        tag=dict(at=, t="数時間後", side="above")    札だけ
+        move=[…]                                      動く部品（下）
+      move の種類（`build_jiko.draw_moves()` が描く）：
+        dict(kind="stream", a="gz", dir="東", km=150)  a から方角へ点の列が流れつづける（灰の**向き**だけ）
+        dict(kind="sight", a="ship", b="gz")           a から b へ視線の線が伸び、b が光る
+        dict(kind="fall", at="ship")                    白い点が点の上へ降りはじめ、積もる
+        dict(kind="path", via=["a", "b", …], sec=)     点がその順に進む（船の航路など）
+    rel    … 報告書の値の宣言（門番 `check_drift` が照合する）
+             [dict(a="gz", b="ship", km=157, dir="東北東", src="DNA p212")]
+    """
+    if "模式" not in note:
+        raise ValueError("drift：note に「模式」を書くこと（§5b-10 模式であることを札で断る）")
+    x0, y0 = BX0 + 40, BY0 + 24
+    w, h = BW - 80, BH - 100
+    V = GeoView(view["lon"], view["lat"], (x0, y0, w, h))
+    geo = {k: v[:2] for k, v in GEO.items()}
+    for k, p in (pts or {}).items():
+        geo[k] = geo_move(*geo[p["of"]], p["km"], dir_deg(p["dir"]))
+    P = {k: V.px(*v) for k, v in geo.items()}
+
+    g = [rect(x0, y0, w, h, J.BG2, op=0.55), rect(x0, y0, w, h, "none", J.LINE_DIM, 3)]
+    for la in range(math.ceil(view["lat"][0]), math.floor(view["lat"][1]) + 1):
+        yy = V.px(la, V.lonc)[1]
+        if y0 < yy < y0 + h:
+            g.append(line(x0, yy, x0 + w, yy, J.GRID, 2))
+    for lo in range(math.ceil(view["lon"][0]), math.floor(view["lon"][1]) + 1):
+        xx = V.px(V.latc, lo)[0]
+        if x0 < xx < x0 + w:
+            g.append(line(xx, y0, xx, y0 + h, J.GRID, 2))
+    for pl in places:
+        # 名前の札は既定で輪の下。近い島どうしで札が重なるときは dict(k=, side="above") で上へ
+        k, side = (pl, "below") if isinstance(pl, str) else (pl["k"], pl.get("side", "below"))
+        x, y = P[k]
+        g.append(circ(x, y, 17, "none", J.LINE, 4))
+        g.append(circ(x, y, 5, J.LINE))
+        g.append(txtfit(x, y + 50 if side == "below" else y - 32, GEO[k][2], 330, cap=28,
+                        col=J.TICK, anchor="middle"))
+    # 北と縮尺（左下）
+    nx, ny = x0 + 46, y0 + h - 40
+    g.append(arrow(nx, ny, nx, ny - 70, J.TICK, 4, head=16))
+    g.append(txtfit(nx, ny + 34, "北", 60, cap=26, col=J.TICK, anchor="middle"))
+    sl = scale_km * V.s
+    sx = x0 + 110
+    g.append(line(sx, ny, sx + sl, ny, J.TICK, 4))
+    g.append(line(sx, ny - 10, sx, ny + 10, J.TICK, 4))
+    g.append(line(sx + sl, ny - 10, sx + sl, ny + 10, J.TICK, 4))
+    g.append(txtfit(sx + sl / 2, ny - 18, f"{scale_km}キロ", 220, cap=26, col=J.TICK, anchor="middle"))
+    g.append(txtfit(BX0, BY1 - 6, note + (f"　出典：{src}" if src else ""), BW, cap=26, col=J.TICK))
+
+    stages, moves = [], []
+    for i, st in enumerate(steps):
+        s = []
+        if st.get("dim"):
+            d = st["dim"]
+            (ax, ay), (bx, by) = P[d["a"]], P[d["b"]]
+            s.append(line(ax, ay, bx, by, J.AMBER, 4, dash="14 10"))
+            mx, my = (ax + bx) / 2, (ay + by) / 2
+            # 🔴 札は**線の法線の向きへ**逃がす（真上に置くと斜めの線が札を貫いた＝⑤b-2 の試し焼き c105）
+            L_ = math.hypot(bx - ax, by - ay) or 1.0
+            nx_, ny_ = (by - ay) / L_, -(bx - ax) / L_          # 線の左手の法線
+            if ny_ > 0:
+                nx_, ny_ = -nx_, -ny_                            # 上側を正に
+            a1 = "end" if nx_ < -0.2 else "start" if nx_ > 0.2 else "middle"
+            a2 = "start" if a1 == "end" else "end" if a1 == "start" else "middle"
+            s.append(txtfit(mx + nx_ * 34, my + ny_ * 34 - 4, d["t"], 360, cap=40, col=J.AMBER,
+                            fam="Dela", anchor=a1))
+            if d.get("d"):
+                s.append(txtfit(mx - nx_ * 34, my - ny_ * 34 + 30, d["d"], 300, cap=30, col=J.AMBER,
+                                anchor=a2))
+        if st.get("ship"):
+            sh = st["ship"]
+            x, y = P[sh["at"]]
+            s.append(_ship_svg(x, y, sh.get("deg", 0.0)))
+            if sh.get("t"):
+                s.append(txtfit(x + 34, y - 30, sh["t"], 360, cap=38, col=J.INK_W))
+        if st.get("tag"):
+            tg = st["tag"]
+            x, y = P[tg["at"]]
+            side = tg.get("side", "above")
+            if side == "left":        # 降る点（fall）と重ねないときは左へ
+                s.append(txtfit(x - 40, y + 12, tg["t"], 360, cap=34, col=J.AMBER, anchor="end"))
+            else:
+                dy = -76 if side == "above" else 84
+                s.append(txtfit(x, y + dy, tg["t"], 360, cap=34, col=J.AMBER, anchor="middle"))
+        stages.append("".join(s) or " ")
+        for mv in st.get("move", []):
+            m = dict(kind=mv["kind"], stage=i)
+            if mv["kind"] == "stream":
+                a = geo[mv["a"]]
+                b = geo_move(*a, mv["km"], dir_deg(mv["dir"]))
+                m.update(a=P[mv["a"]], b=V.px(*b), n=mv.get("n", 16))
+            elif mv["kind"] == "sight":
+                m.update(a=P[mv["a"]], b=P[mv["b"]])
+            elif mv["kind"] == "fall":
+                # top＝地図の枠の上端（点は枠の中から降らせる。見出しの帯へはみ出さない）
+                m.update(at=P[mv["at"]], n=mv.get("n", 26), top=y0 + 10)
+            elif mv["kind"] == "path":
+                m.update(pts=[P[k] for k in mv["via"]], sec=mv.get("sec", 3.0))
+            else:
+                raise ValueError(f"drift：知らない動き {mv['kind']!r}")
+            moves.append({k: (list(v) if isinstance(v, tuple) else v) for k, v in m.items()})
+    f = Fig("".join(g), stages, "", (x0, x0 + w))
+    f.moves = moves
+    # 門番が照合する（本番の関数が描いた画素そのもの）
+    f.geo_px = {k: list(v) for k, v in P.items()}
+    f.view = V
+    f.rel = list(rel)
+    return f
+
+
+# ══════════════════════════════════════════════════════════
+#  trace ── 報告書の実物をなぞる型（12本目 ⑤b-2 新設・2026-09-23）
+# ══════════════════════════════════════════════════════════
+# 🔴 09-23 カズヤくん決定（⑤b-1 の相談「増やす型」③）：英語の文に**蛍光ペン**→**和訳**。
+#    決め所の扱いは `quote` と同じ（和訳は最後の行と同時に出す＝with_last・その行の字幕は消える）。
+#    頁は**実物の画像**（`qa_out/ep12_assets.py pages` が焼いた頁）を切り抜いて SVG に埋め込む
+#    （data URI。Modal でも同じ絵になる）。英字は主題そのもの（§5b-5）。
+#    蛍光ペンは**動く部品**（`build_jiko.draw_moves()` の hl）＝**文の順に**行ごとに塗る
+#    （段のワイプは左→右なので、2行にまたがる文だと**2行目が先に塗られる**）。
+def trace(page, lines, phrase, doc="", crop=None, note=""):
+    """page＝`ref/` から見た頁の画像／lines＝文が載る行の矩形（頁の 0〜1・**読む順**）
+    phrase＝和訳の決め所（20字以内）／crop＝頁のどこを見せるか (x0, y0, x1, y1)（0〜1）"""
+    import base64
+    import io
+    from pathlib import Path
+    from PIL import Image
+    im = Image.open(Path(__file__).resolve().parents[1] / "ref" / page).convert("L")
+    cx0, cy0, cx1, cy1 = crop or (0.12, min(r[1] for r in lines) - 0.05,
+                                  0.92, max(r[3] for r in lines) + 0.05)
+    cr = im.crop((int(im.width * cx0), int(im.height * cy0), int(im.width * cx1), int(im.height * cy1)))
+    bw = BW - 80
+    sc = bw / cr.width
+    bh = cr.height * sc
+    bx, by = BX0 + 40, BY0 + 24
+    buf = io.BytesIO()
+    cr.save(buf, "PNG", optimize=True)
+    uri = "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode("ascii")
+    g = [f'<image x="{bx:.0f}" y="{by:.0f}" width="{bw:.0f}" height="{bh:.0f}" href="{uri}"/>',
+         rect(bx, by, bw, bh, "none", J.LINE_DIM, 3)]
+    if doc:
+        g.append(txtfit(bx, by + bh + 44, doc, bw, cap=30, col=J.DOC))
+    if note:
+        g.append(txtfit(BX0, BY1 - 6, note, BW, cap=26, col=J.TICK))
+
+    def S(r):
+        return [bx + (r[0] - cx0) * im.width * sc, by + (r[1] - cy0) * im.height * sc,
+                bx + (r[2] - cx0) * im.width * sc, by + (r[3] - cy0) * im.height * sc]
+    size = min(84, fm.fit(phrase, BW - 120, "Noto", cap=84, floor=16))
+    py = by + bh + 44 + 60 + size
+    block = txtfit(BX0 + 40, min(py, BY1 - 70), phrase, BW - 120, cap=size, col=J.INK_W)
+    # 🔴 labk は小さく（頁を 0.7秒ほどで出し切る）。大きいと**まだ出ていない頁の上へ蛍光ペンが先に浮く**
+    #    （⑤b-2 の試し焼きで c103 の t=2.4 に実測。labk 0.40＝3.3秒かけて頁を描いていた）
+    f = Fig("".join(g), [" ", block], "", (BX0, BX1), holds=[None, "with_last"], labk=0.08)
+    f.moves = [dict(kind="hl", stage=0, rects=[S(r) for r in lines], delay=1.0)]
+    return f

@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 sys.stdout.reconfigure(encoding="utf-8")
 
-from PIL import Image, ImageChops
+from PIL import Image, ImageChops, ImageDraw
 
 import scene_jiko as S
 import jiko_style as J
@@ -490,6 +490,175 @@ def scene(cut, t, dur, lay, photos, meta):
     if f"{cut}_hot" in lay:
         pulse = 0.42 + 0.58 * (0.5 + 0.5 * math.sin(t * math.tau / 1.6))
         over(fr, lay[f"{cut}_hot"], pulse)
+    if meta[cut].get("moves"):
+        fr = draw_moves(fr, cut, t, meta)
+    return fr
+
+
+# ══════════════════════════════════════════════════════════
+#  12本目から：動く部品（drift・trace）と冒頭の写真（intro）── ⑤b-2 新設（2026-09-23）
+# ══════════════════════════════════════════════════════════
+# 型が `Fig.moves` に**画素の座標**で渡したものを、1コマずつ PIL で描く（Chrome を毎コマ呼ばない）。
+# 動き出す時刻＝その段の行頭（`times`）。冒頭の写真があるカットは、写真が図へ入れ替わってから。
+# 小さな点のギザギザを消すため、動く部品の**外接の矩形だけ**を2倍で描いて縮める。
+INTRO_X = 0.6          # 冒頭の写真から図へ入れ替える秒
+_SS = 2
+
+
+def _rgb(hx):
+    return tuple(int(hx[i:i + 2], 16) for i in (1, 3, 5))
+
+
+def _move_box(mv):
+    """その動きが描く範囲（画面の画素）。"""
+    if mv["kind"] == "hl":
+        xs = [v for r in mv["rects"] for v in (r[0], r[2])]
+        ys = [v for r in mv["rects"] for v in (r[1], r[3])]
+        return min(xs) - 8, min(ys) - 8, max(xs) + 8, max(ys) + 8
+    if mv["kind"] == "fall":
+        x, y = mv["at"]
+        return x - 110, y - 260, x + 110, y + 30
+    pts = mv.get("pts") or [mv[k] for k in ("a", "b") if k in mv]
+    xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+    return min(xs) - 60, min(ys) - 60, max(xs) + 60, max(ys) + 60
+
+
+def _t0(mv, times, meta_c):
+    a = times[mv["stage"]][0] if mv["stage"] < len(times) else 0.0
+    it = meta_c.get("intro")
+    return max(a, float(it["sec"]) + INTRO_X * 0.5) if it else a
+
+
+def draw_moves(fr, cut, t, meta):
+    import random
+    mc = meta[cut]
+    moves, times = mc["moves"], mc["times"]
+    pal = J.palette(mc.get("pal"))
+    ink, amber = _rgb(pal["INK_W"]), _rgb(J.AMBER)
+    boxes = [_move_box(m) for m in moves]
+    X0 = max(0, int(min(b[0] for b in boxes)))
+    Y0 = max(0, int(min(b[1] for b in boxes)))
+    X1 = min(S.W, int(max(b[2] for b in boxes)))
+    Y1 = min(S.H, int(max(b[3] for b in boxes)))
+    if X1 <= X0 or Y1 <= Y0:
+        return fr
+    ov = Image.new("RGBA", ((X1 - X0) * _SS, (Y1 - Y0) * _SS), (0, 0, 0, 0))
+    d = ImageDraw.Draw(ov)
+
+    def P(x, y):
+        return (x - X0) * _SS, (y - Y0) * _SS
+
+    def dot(x, y, r, col, a):
+        cx, cy = P(x, y)
+        d.ellipse((cx - r * _SS, cy - r * _SS, cx + r * _SS, cy + r * _SS),
+                  fill=col + (max(0, min(255, int(255 * a))),))
+    drew = False
+    for mv in moves:
+        t0 = _t0(mv, times, mc)
+        if t < t0:
+            continue
+        dt = t - t0
+        drew = True
+        if mv["kind"] == "stream":
+            # 灰の**向き**だけ（広がりの形は描かない）。頭が 2.4秒で伸びきり、点が流れつづける
+            (ax, ay), (bx, by) = mv["a"], mv["b"]
+            head = min(1.0, dt / 2.4)
+            n = int(mv.get("n", 16))
+            d.line((*P(ax, ay), *P(ax + (bx - ax) * head, ay + (by - ay) * head)),
+                   fill=ink + (60,), width=3 * _SS)
+            for j in range(n):
+                u = (dt / 3.2 + j / n) % 1.0
+                if u > head:
+                    continue
+                a = min(1.0, u / 0.08) * min(1.0, (1.0 - u) / 0.12) * 0.9
+                dot(ax + (bx - ax) * u, ay + (by - ay) * u, 6, ink, a)
+        elif mv["kind"] == "sight":
+            # 視線の線（1.0秒で伸びる）→ その先が光る（人は描かない）
+            (ax, ay), (bx, by) = mv["a"], mv["b"]
+            k = min(1.0, dt / 1.0)
+            L = math.hypot(bx - ax, by - ay)
+            seg, gap = 18.0, 12.0
+            s0 = 0.0
+            while s0 < L * k:
+                s1 = min(s0 + seg, L * k)
+                d.line((*P(ax + (bx - ax) * s0 / L, ay + (by - ay) * s0 / L),
+                        *P(ax + (bx - ax) * s1 / L, ay + (by - ay) * s1 / L)),
+                       fill=ink + (200,), width=3 * _SS)
+                s0 = s1 + gap
+            if k >= 1.0:
+                g = 0.5 + 0.5 * math.sin((dt - 1.0) * math.tau / 1.2)
+                for r, a in ((46 + 10 * g, 0.18), (30 + 6 * g, 0.35), (16, 0.9)):
+                    dot(bx, by, r, amber, a)
+        elif mv["kind"] == "fall":
+            # 白い点が降りはじめ、船の上に積もる（決まった乱数＝何度焼いても同じ絵）
+            x, y = mv["at"]
+            rnd = random.Random(f"{cut}-fall")
+            for j in range(int(mv.get("n", 26))):
+                t_j = j * 0.32 + rnd.random() * 0.2
+                if dt < t_j:
+                    continue
+                # 船の輪郭（幅20・長さ52px）の上とそのすぐ周り。広く散らすと「船の上」に見えない
+                dx, land = rnd.uniform(-18, 18), rnd.uniform(-24, 18)
+                sway = rnd.uniform(0, math.tau)
+                yy = max(float(mv.get("top", y - 230)), y - 230) + (dt - t_j) * 95
+                xx = x + dx + 6 * math.sin((dt - t_j) * 2.2 + sway)
+                if yy >= y + land:
+                    yy, xx = y + land, x + dx
+                dot(xx, yy, 4, (255, 255, 255), 0.95)
+        elif mv["kind"] == "path":
+            # 点がその順に進み、通ったあとに線を残す（船の航路など）
+            pts = mv["pts"]
+            segs = [math.hypot(q[0] - p[0], q[1] - p[1]) for p, q in zip(pts, pts[1:])]
+            tot = sum(segs) or 1.0
+            gone = ease(min(1.0, dt / float(mv.get("sec", 3.0)))) * tot
+            px_, py_ = pts[0]
+            for (p, q), sl in zip(zip(pts, pts[1:]), segs):
+                f = min(1.0, gone / sl) if sl else 1.0
+                ex, ey = p[0] + (q[0] - p[0]) * f, p[1] + (q[1] - p[1]) * f
+                d.line((*P(*p), *P(ex, ey)), fill=ink + (190,), width=4 * _SS)
+                px_, py_ = ex, ey
+                gone -= sl
+                if gone <= 0:
+                    break
+            dot(px_, py_, 9, ink, 1.0)
+        elif mv["kind"] == "hl":
+            # 蛍光ペン：**読む順に**行ごとに左→右へ塗る（1行 0.7秒）。頁が出そろってから（delay）
+            rest = dt - float(mv.get("delay", 0.4))
+            for r in mv["rects"]:
+                if rest <= 0:
+                    break
+                k = min(1.0, rest / 0.7)
+                x0, y0, x1, y1 = r
+                d.rectangle((*P(x0 - 4, y0 - 2), *P(x0 - 4 + (x1 - x0 + 8) * k, y1 + 2)),
+                            fill=amber + (105,))
+                rest -= 0.7
+    if not drew:
+        return fr
+    ov = ov.resize((X1 - X0, Y1 - Y0), Image.LANCZOS)
+    fr = fr.convert("RGBA") if fr.mode != "RGBA" else fr
+    fr.alpha_composite(ov, (X0, Y0))
+    return fr
+
+
+_INTRO_SRC = {}
+
+
+def intro_frame(cut, t, lay, meta):
+    """冒頭の写真のコマ（全画面・ゆっくり寄る）。見出しと出典は `{cut}_ilab`。"""
+    it = meta[cut]["intro"]
+    if it["photo"] not in _INTRO_SRC:
+        _INTRO_SRC[it["photo"]] = load_photo(it["photo"], (0, 0, S.W, S.H))
+    k = t / max(float(it["sec"]) + INTRO_X, 0.001)
+    ph = fit(_INTRO_SRC[it["photo"]], (0, 0, S.W, S.H), k * 0.6,
+             it.get("bias", 0.5), it.get("xbias", 0.5), it.get("zoom", 1.0))
+    keep = float(it.get("color", 0.0))
+    pal = J.palette(meta[cut].get("pal"))
+    fr = duotone(ph, pal["BG2"], pal["DUO_L"])
+    if keep > 0.001:
+        fr = Image.blend(fr, ph.convert("RGBA"), min(1.0, keep))
+    fr = fr.convert("RGBA")
+    if f"{cut}_ilab" in lay:
+        over(fr, lay[f"{cut}_ilab"], min(1.0, max(0.0, (t - 0.15) / 0.5)))
     return fr
 
 
@@ -510,6 +679,12 @@ def compose(cut, t, dur, lay, photos, meta, subs=None, band=None):
         return fr
     t2, dur2 = t - off, dur - off
     fr = scene(cut, t2, dur2, lay, photos, meta)
+    it = m.get("intro")
+    if it and t2 < float(it["sec"]) + INTRO_X:
+        # 🔴 12本目から：冒頭の写真（c104＝空撮を約3秒→地図）。写真のあいだ図は見せず、重ねて入れ替える
+        pf = intro_frame(cut, t2, lay, meta)
+        u = (t2 - float(it["sec"])) / INTRO_X
+        fr = pf if u <= 0 else Image.blend(pf, fr, ease(u))
     if m.get("flash") is not None:
         a = flash_alpha(t2 - float(m["flash"]))
         if a > 0.004:
@@ -576,7 +751,9 @@ def meta_of(idx):
                   "card": S.card_of(cid),                   # 頭の扉の秒（0＝無し）
                   "tail_black": S.chapter_tail(cid),        # 尻で暗転（次が扉）
                   "flash": (S.SPEC.get(cid) or {}).get("flash"),   # 閃光の秒（爆発の瞬間だけ）
-                  "cam": (S.SPEC.get(cid) or {}).get("cam")}       # カメラの型
+                  "cam": (S.SPEC.get(cid) or {}).get("cam"),       # カメラの型
+                  "moves": v.get("moves") or [],            # 動く部品（drift・trace）
+                  "intro": v.get("intro")}                  # 冒頭の写真（c104）
         # ディゾルブ：**同じ章の、写真だけのカットどうし**（図解・扉つきのカットには掛けない）
         i = S.ORDER.index(cid)
         prev = S.ORDER[i - 1] if i > 0 else None

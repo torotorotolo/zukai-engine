@@ -292,3 +292,6 @@ ref/ep12/src/*.pdf
 ref/ep12/img/
 #   NARA の全文検索の生データ（640KB）。probe_nara.py で取り直せる
 ref/ep12/nara_ep12.json
+
+# 12本目（キャッスル・ブラボー）の動く映像2本（92MB）。取り直しは ref/ep12/clips.json の media から
+ref/ep12/vid/

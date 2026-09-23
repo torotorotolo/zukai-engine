@@ -1,0 +1,38 @@
+{
+ "doe": {
+  "file": "ep12/vid/doe.ogv",
+  "url": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv",
+  "media": "https://upload.wikimedia.org/wikipedia/commons/8/82/Castle_Bravo_Detonation_USDE.ogv",
+  "credit": "出典：米エネルギー省（1954年）（記録映像より）",
+  "src": "doe",
+  "at": 0.0,
+  "date": "1954-03-01",
+  "what": "射点の小屋・火球・ヤシの影・きのこ雲（0〜56秒。57秒からは英字の題字＝NOGO）",
+  "w": 1280,
+  "h": 720,
+  "fps": 60.0,
+  "sar": "1:1",
+  "sec": 59.733,
+  "dar": "16:9",
+  "square_w": 1280,
+  "dispw": 1280
+ },
+ "bravo4k": {
+  "file": "ep12/vid/bravo4k.webm",
+  "url": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_15_megaton_detonation,_1954.webm",
+  "media": "https://upload.wikimedia.org/wikipedia/commons/4/40/Castle_Bravo_15_megaton_detonation%2C_1954.webm",
+  "credit": "出典：Wikimedia Commons「Castle Bravo 15 megaton detonation, 1954」（記録映像より）",
+  "src": "commons",
+  "at": 0.0,
+  "date": "1954-03-01",
+  "what": "艦から見た水平線の火球（1ショット・左下に透かし＝下を切る。実効はおよそ1280px相当）",
+  "w": 3840,
+  "h": 2160,
+  "fps": 25.0,
+  "sar": "1:1",
+  "sec": 56.88,
+  "dar": "16:9",
+  "square_w": 3840,
+  "dispw": 3840
+ }
+}

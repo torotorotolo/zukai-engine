@@ -142,6 +142,10 @@ def main(only=None):
     bycut = defaultdict(list)
     for k, svg in jobs.items():
         cid = k.rsplit("_", 1)[0]
+        # 🔴 12本目から：冒頭の写真の板（`_ilab`）は**図と同時には出ない**（写真→図へ入れ替え）。
+        #    別の画面として束ねる（板の中どうしは今までどおり比べる）
+        if k.endswith("_ilab"):
+            cid += "〔冒頭の写真〕"
         bycut[cid] += boxes(svg, k)
     for cid in sorted(bycut):
         bs = bycut[cid]

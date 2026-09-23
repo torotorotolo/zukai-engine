@@ -137,6 +137,9 @@ def collect(only=None):
         cid = k.rsplit("_", 1)[0]
         if only and not cid.startswith(only):
             continue
+        # 🔴 12本目から：冒頭の写真の板（`_ilab`）は**図と同時には出ない**＝別の画面として束ねる
+        if k.endswith("_ilab"):
+            cid += "〔冒頭の写真〕"
         # 見出しと章マーカーのレイヤーは「図の中」ではない。
         # ⚠️ 実写カットは見出しが _lab に入るので、レイヤー名では切れない。
         #    文字列の中身で突き合わせるので、ここでは全部集めてよい。

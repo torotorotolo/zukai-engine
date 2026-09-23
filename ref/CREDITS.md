@@ -1688,3 +1688,114 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `ssme_salvage` | c910 | 1986 | Public domain | NASA | STS-51-L Recovered Debris (SSME Close Up) - GPN-2004-00008.jpg |
 | `telecon_room` | c715 | 1986 | Public domain | NASA | STS-51-L mcc 01.jpg |
 | `training_zero_g` | c212 | 1985 | Public domain | NASA | Zero-G training for crew of 1985 and 1986 space shuttle missions.jpg |
+
+## キャッスル・ブラボー水爆実験（1954-03-01・12本目）　※2026-09-23（⑤b-2）
+
+### 1. 写真（NARA RG 678 ＝ 米連邦 §105 ／ Commons ＝ 米国の職務著作 PD・日本の1954年の報道写真 PD）
+`qa_out/ep12_assets.py credits --write` が書く（手で直さない）。
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 所蔵と識別子 |
+|---|---|---|---|---|---|
+| `fb_aerial_a` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763394（RG 678） |
+| `fb_aerial_b` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763404（RG 678） |
+| `fb_estes_a` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763408（RG 678） |
+| `fb_estes_b` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763406（RG 678） |
+| `fb_color_a` | （章ファイル） | 1954 | Public domain（米国の職務著作） | United States Department of Energy | Wikimedia Commons「Castle Bravo Blast.jpg」 |
+| `fb_color_b` | （章ファイル） | 1954 | Public domain（米国の職務著作） | United States Department of Energy | Wikimedia Commons「Castle Bravo nuclear test.jpg」 |
+| `fb_bw` | （章ファイル） | 1954 | Public domain（米国の職務著作） | Federal Government of the United States | Wikimedia Commons「Castle Bravo (black and white).jpg」 |
+| `fb_close_a` | （章ファイル） | 1954 | Public domain（米国の職務著作） | Federal government of the United States | Wikimedia Commons「Castle Bravo 005.jpg」 |
+| `fb_close_b` | （章ファイル） | 1954 | Public domain（米国の職務著作） | ENERGY.GOV | Wikimedia Commons「HD.10.290 (10540757794).jpg」 |
+| `romeo_cloud` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763402（RG 678） |
+| `union_cloud` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763398（RG 678） |
+| `nectar_cloud` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763396（RG 678） |
+| `yankee_fb_1` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763410（RG 678） |
+| `yankee_fb_2` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763412（RG 678） |
+| `yankee_fb_3` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763414（RG 678） |
+| `yankee_cloud` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763400（RG 678） |
+| `mine_recovery` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763464（RG 678） |
+| `dev_shrimp` | （章ファイル） | 1954 | Public domain（米国の職務著作） | Federal government of the United States | Wikimedia Commons「Castle Bravo Shrimp Device 002.jpg」 |
+| `dev_shrimp_men` | （章ファイル） | 1954 | Public domain（米国の職務著作） | USDE | Wikimedia Commons「BravoSHRIMPShotCab.jpg」 |
+| `dev_shotcab` | （章ファイル） | 1954 | Public domain（米国の職務著作） | USDE | Wikimedia Commons「BravoShotCab.jpg」 |
+| `dev_truck` | （章ファイル） | 1954 | Public domain（米国の職務著作） | United States Atomic Energy Agency | Wikimedia Commons「Operation Castle AW 1.jpg」 |
+| `base_parry_aerial` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763422（RG 678） |
+| `base_airfield` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763494（RG 678） |
+| `base_metal` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763454（RG 678） |
+| `base_tents` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763452（RG 678） |
+| `base_dock` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763420（RG 678） |
+| `base_eneman` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763428（RG 678） |
+| `rongelap_landing` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763432（RG 678） |
+| `rongelap_booties` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763434（RG 678） |
+| `rongerik_station` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763424（RG 678） |
+| `dmg_eneman` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763468（RG 678） |
+| `dmg_mine` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763466（RG 678） |
+| `suits_three` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763470（RG 678） |
+| `suits_scrub` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763472（RG 678） |
+| `suits_adrikan` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763450（RG 678） |
+| `dc_f84g` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763492（RG 678） |
+| `dc_curtis` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763430（RG 678） |
+| `dc_yag40_deck` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763438（RG 678） |
+| `dc_b36_tail` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763486（RG 678） |
+| `dc_ship_scrub` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763474（RG 678） |
+| `dc_parry_equip` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763440（RG 678） |
+| `dc_b36_under` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763490（RG 678） |
+| `dc_b36_wing` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763488（RG 678） |
+| `dc_tent` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763446（RG 678） |
+| `dc_yag40_spray` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763436（RG 678） |
+| `dc_molala` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763456（RG 678） |
+| `dc_f4u_test` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763444（RG 678） |
+| `dc_f4u_wash` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763442（RG 678） |
+| `fo_roll_prep` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763478（RG 678） |
+| `fo_cave` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763460（RG 678） |
+| `fo_f84g` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763476（RG 678） |
+| `fo_tank` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763416（RG 678） |
+| `fo_pig_lift` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763484（RG 678） |
+| `fo_pig_place` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763482（RG 678） |
+| `fo_wire` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763458（RG 678） |
+| `fo_rolled` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763480（RG 678） |
+| `fo_tray` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763448（RG 678） |
+| `fo_buoy` | （章ファイル） | 1954 | Public domain (17 U.S.C. §105) | 米国立公文書館 | NARA 146763418（RG 678） |
+| `jp_tuna_check` | （章ファイル） | 1954 | Public domain（日本・1957年より前に公表の写真） | Yomiuri Shimbun | Wikimedia Commons「Technical experts checking contamination by nuclear fallout of Tunas after Dai5 Fukuryū maru Incident - 1954 - The Yomiuri Shimbun.png」 |
+| `jp_fish_sign` | （章ファイル） | 1954 | Public domain（日本・1957年より前に公表の写真） | Asahigraph | Wikimedia Commons「A signboard appealing shoppers that our fish shop does not sell tunas contaminated by nuclear fallout - 1954 - Asahi Graph.png」 |
+| `eisenhower_strauss` | （章ファイル） | 1954 | Public domain（米国の職務著作） | NARA photograph | Wikimedia Commons「Eisenhower and Strauss.jpg」 |
+| `doc_aec_letter` | （章ファイル） | 1954 | Public domain（米国の職務著作） | United States Department of Energy | Wikimedia Commons「AEC Authorization for Operation Castle.png」 |
+| `doc_bikini_chart` | （章ファイル） | 1954 | Public domain（米国の職務著作） | Unknown authorUnknown author or not provided | Wikimedia Commons「Bikini Atoll - NARA - 140696551.jpg」 |
+| `fb_c101` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 米エネルギー省 | https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv |
+| `fb_c501` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 米エネルギー省 | https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv |
+| `fb_c607` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 米エネルギー省 | https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv |
+| `fb_c506` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 米エネルギー省 | https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv |
+| `fb_c608` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 米エネルギー省 | https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv |
+| `fb_c324` | （章ファイル） | 1954 | Public domain（US not renewed） | Wikimedia Commons | https://commons.wikimedia.org/wiki/File:Castle_Bravo_15_megaton_detonation,_1954.webm |
+| `fb_c502` | （章ファイル） | 1954 | Public domain（US not renewed） | Wikimedia Commons | https://commons.wikimedia.org/wiki/File:Castle_Bravo_15_megaton_detonation,_1954.webm |
+| `fb_c606` | （章ファイル） | 1954 | Public domain（US not renewed） | Wikimedia Commons | https://commons.wikimedia.org/wiki/File:Castle_Bravo_15_megaton_detonation,_1954.webm |
+| `fb_c110` | （章ファイル） | 1954 | Public domain（US not renewed） | Wikimedia Commons | https://commons.wikimedia.org/wiki/File:Castle_Bravo_15_megaton_detonation,_1954.webm |
+| `fb_c102` | （章ファイル） | 1954 | Public domain（US not renewed） | Wikimedia Commons | https://commons.wikimedia.org/wiki/File:Castle_Bravo_15_megaton_detonation,_1954.webm |
+| `fb_c522` | （章ファイル） | 1954 | Public domain（US not renewed） | Wikimedia Commons | https://commons.wikimedia.org/wiki/File:Castle_Bravo_15_megaton_detonation,_1954.webm |
+| `doe_shotcab_near` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 米エネルギー省 | https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv |
+| `doe_shotcab_far` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 米エネルギー省 | https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv |
+| `doe_cloud_cap` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 米エネルギー省 | https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv |
+| `pg1` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 1頁 |
+| `pg30` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 30頁 |
+| `pg114` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 114頁 |
+| `pg118` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 118頁 |
+| `pg211` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 211頁 |
+| `pg212` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 212頁 |
+| `pg213` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 213頁 |
+| `pg214` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 214頁 |
+| `pg215` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 215頁 |
+| `pg216` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 216頁 |
+| `pg218` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 218頁 |
+| `pg219` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 219頁 |
+| `pg221` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 221頁 |
+| `pg223` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 223頁 |
+| `pg226` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 226頁 |
+| `pg229` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 229頁 |
+| `pg230` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 230頁 |
+| `pg232` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 232頁 |
+| `pg238` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 238頁 |
+| `pg240` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 240頁 |
+| `pg241` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 241頁 |
+| `pg243` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 243頁 |
+| `pg1015` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 医師団（Project 4.1） | WT-923 PDF 15頁 |
+| `pg1082` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 医師団（Project 4.1） | WT-923 PDF 82頁 |
+| `pg2069` | （章ファイル） | 1979 | Public domain（米国の職務著作） | 国防原子力局（GE-TEMPO の抜粋版） | DASA 1251 PDF 69頁 |
+| `pg2074` | （章ファイル） | 1979 | Public domain（米国の職務著作） | 国防原子力局（GE-TEMPO の抜粋版） | DASA 1251 PDF 74頁 |

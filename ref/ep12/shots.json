@@ -1,0 +1,59 @@
+{
+ "doe": {
+  "src": "doe.ogv",
+  "dur": 60.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 58.19
+   },
+   {
+    "start": 4.0,
+    "until": 14.0,
+    "motion": 27.04
+   },
+   {
+    "start": 14.0,
+    "until": 26.0,
+    "motion": 18.67
+   },
+   {
+    "start": 26.0,
+    "until": 40.0,
+    "motion": 24.69
+   },
+   {
+    "start": 40.0,
+    "until": 56.0,
+    "motion": 47.39
+   },
+   {
+    "start": 56.0,
+    "until": 60.0,
+    "motion": 30.08
+   }
+  ]
+ },
+ "bravo4k": {
+  "src": "bravo4k.webm",
+  "dur": 57.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 1.0,
+    "motion": 26.69
+   },
+   {
+    "start": 1.0,
+    "until": 8.0,
+    "motion": 8.84
+   },
+   {
+    "start": 8.0,
+    "until": 57.0,
+    "motion": 3.21
+   }
+  ]
+ }
+}

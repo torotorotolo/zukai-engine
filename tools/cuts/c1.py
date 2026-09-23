@@ -1,218 +1,185 @@
 # -*- coding: utf-8 -*-
-"""第1章 発射台は、凍っていた c101–c119（18カット・c104 は無い）。11本目（チャレンジャー号）。
+"""第1章 予想をはるかに超えた爆発 c101–c114（14カット）。12本目（キャッスル・ブラボー）。
 
-■ 実写は 8/18（44.4%）。`check_script` が W を出す章だが、**これは台本の配分**（E ではない）。
-  `c101` は動画（`footage.USE`）、`c105`・`c107`・`c109` は動く映像からの止め絵。
-
-■ 🔴 この章で気をつけたこと
-  1. **`c105` は額入り**（実効 470×479）。`ss.still()` が `boxes.json` から `trim` を引く。
-  2. **`c113` はコロンビア号・1979年**（チャレンジャーではない）。副題で機体名と年を名乗る
-     → [[feedback-subtitle-must-match-what-is-visible]]／[[feedback-fallback-stills-must-match-the-era]]
-  3. **`c116` は管制室であって、可否を決めた会議室ではない。**「運用管理チーム」と名乗らない。
-  4. `c102` の気温は**曲線を描かない**（報告書にあるのは「底が摂氏マイナス6度・11時間」だけ）。
-     勝手な折れ線を引くと、実測でない形が画面で数字のように見える
-     → [[feedback-charts-lie-with-their-defaults]]
+■ 実写 9/14（64%・台本 §3 の配分どおり）。c101・c102・c110 は動く映像（`footage.USE`）。
+■ 🔴 冒頭は葦の分析を受けた決定（案B）の**最初の適用**（記憶 project-jiko-visual-variety-from-ep12）
+  c103＝報告書の実物をなぞる型（`trace`）：DNA p212 の英文に蛍光ペン→和訳（決め所の扱いは quote と同じ）
+  c104＝NARA の空撮を約3秒（`intro`）→ 地図。爆心から東へ点の列が流れ、「第五福竜丸」で船の輪郭と札
+  c105＝同じ地図。ビキニから東北東へ157キロの寸法線 → 船から西へ視線の線とその先の光 → 「数時間後」
+       の札 → 船の上に白い点が降りはじめる（**人は描かない・灰の広がりの形は描かない**）
+  位置と距離は DNA p212「a Japanese fishing boat 85 nmi (157 km) east-northeast of Bikini」／
+  「Rongerik, 135 nmi (250 km) east of the burst」。門番＝`tools/check_drift.py`
+■ 🔴 爆発の実写は原色（`color=1.0`）＝c101・c102・c104 の空撮・c114（09-23 決定 §5b-33b）
+■ ⚠️ 閃光は爆発の瞬間だけ（c101・c501）。c101 は DOE の 4.85秒（射点の小屋→火球の切り替わり）
+  ＝`rate` 0.63 で中身の頭から 1.43秒（`footage.USE` の注）
 """
 import jiko_style as J
 import cuts.ss as ss
 
 P = ss.P
 
-SRC5 = "報告書 第I巻 第V章"
+SRC_DNA = "DNA 6035F（国防原子力局 1982年）"
+# 地図（c104・c105 で同じ1枚。第4〜7章でも戻る＝葦の「冒頭の物が戻る」を事実の地図で）
+# ⚠️ 表示の範囲は主役（ビキニ→船）が大きく見えるように詰めた（最初の 164.3〜168.9 だと画面の3割＝試し焼きで実測）
+VIEW = dict(lon=(164.9, 167.95), lat=(10.98, 12.30))
+# ⚠️ ロンゲラップとロンゲリックは 180px しか離れていない＝札を上下に分ける（check_layout で実測 42×22px 重なった）
+PLACES = ["bikini", dict(k="rongelap", side="above"), "ailinginae", "rongerik"]
+SHIP = dict(ship=dict(of="bikini", km=157, dir="東北東"))
+REL = [dict(a="bikini", b="ship", km=157, dir="東北東", src="DNA p212"),
+       dict(a="gz", b="rongerik", km=250, dir="東", src="DNA p212")]
+NOTE_MAP = "模式図：島は環礁の中心・船はビキニから東北東へ157キロ（報告書の値）。灰の広がりの形は描いていない"
 
 SPEC = {
 
-    # 射点39Bの機体。動画（footage.USE）
+    # 夜明け前の射点 → 閃光。動く映像（DOE 4.0〜13.0秒・0.63倍）
     "c101": dict(
-        # ⚠️ 見出しを「前の日の、夕方から」にしない＝字幕の切り取り100%で `check_echo` が鳴る
-        t="機体は、もう立っていた",
-        s="射点39B　1986年1月27日",
-        **ss.vid("c101", 1440, clip="pad", t=44),
+        t="夜明け前の、実験場",
+        s="射点の小屋から、火球へ　1954年3月1日",
+        **ss.vid("c101"),
+        color=1.0,
+        flash=1.43,
     ),
 
-    # ⚠️ 折れ線を描かない。分かっているのは「底」と「長さ」だけ
+    # 艦から見た火球（4K 37〜48秒）。数字は注記が持つ
     "c102": dict(
-        t="フロリダには、めずらしい冷えこみ",
-        s="前の日の夜に出ていた予報",
-        fig=("timeline", dict(
-            events=[dict(t=1.5, top="冷えこみはじめ", t2="", c=J.LINE),
-                    dict(t=12.5, top="打ち上げの朝", t2="", c=J.ALERT, big=True)],
-            band=[dict(a=1.5, b=12.5, t="氷点下が11時間　底は摂氏マイナス6度",
-                       c=J.INST)],
-            t0=0, t1=14,
-            ticks=[(0, "27日 夕方"), (7, "深夜"), (14, "28日 朝")],
-            src=SRC5)),
+        t="見込みを、大きく超えた",
+        s="艦から見た火球　1954年3月1日",
+        **ss.vid("c102"),
+        color=1.0,
+        side="right", ann_y=330,
+        ann=[dict(t="TNT火薬に直すと", v="1500万トン", vc=J.AMBER),
+             dict(t="いちばんありそうな値", v="600万トン", vc=J.TICK)],
     ),
 
+    # 🔴 決め所①。報告書の実物をなぞる型（DNA p212 の原文「This yield was much greater than expected.」）
+    #    ⚠️ 文は2行にまたがる（1行目の右端→2行目の左端）＝蛍光ペンは**読む順に**行ごとに塗る
     "c103": dict(
-        t="いつもの手が、使えなかった",
-        s="発射台の水の配管　寒い日のあつかい",
-        fig=("beforeafter", dict(
-            a=dict(k="ふだんの寒い日", t="水を全部抜く",
-                   lines=["配管が凍らない"], v="", c=J.OK),
-            b=dict(k="この夜", t="抜けなかった",
-                   lines=["翌朝が打ち上げだった"], v="", c=J.ALERT),
-            arrow=False,
-            note=SRC5)),
+        t="原文は、こう書いていた",
+        # ⚠️ 副題に「国防原子力局」「212頁」を書かない＝図の出どころの行と同じ語（check_dup）
+        s="爆発の威力について",
+        fig=("trace", dict(
+            page=ss.page(212),
+            lines=[(0.7010, 0.5510, 0.8866, 0.5697), (0.1599, 0.5744, 0.3726, 0.5931)],
+            phrase="爆発の威力は、予想よりはるかに大きかった",
+            doc=f"{SRC_DNA} 212頁の原文",
+            crop=(0.12, 0.50, 0.92, 0.645))),
     ),
 
-    # 🔴 額入り（実効 470×479）。ss.still が boxes.json から trim を引く
+    # 空撮を約3秒 → 地図。爆心から東へ点の列（灰の**向き**だけ）→ 船の輪郭と札
+    "c104": dict(
+        t="その先の海に、一隻の漁船",
+        # ⚠️ 副題に「ビキニ環礁」を書かない＝地図の札と同じ語（check_dup）
+        s="爆発のあと、東の海では",
+        intro=dict(photo=P("fb_aerial_a"), sec=3.0, color=1.0),
+        fig=("drift", dict(
+            view=VIEW, places=PLACES, pts=SHIP, rel=REL,
+            steps=[dict(move=[dict(kind="stream", a="gz", dir="東", km=190)]),
+                   dict(ship=dict(at="ship", t="第五福竜丸"))],
+            note=NOTE_MAP, src="DNA p212")),
+    ),
+
+    # 同じ地図。寸法線 → 視線の線とその先の光 → 「数時間後」→ 白い点が降りはじめる
     "c105": dict(
-        t="薬を入れても、凍った",
-        s="発射台の下の水受け　1986年1月28日朝",
-        **ss.still("ice_trough", "t_ice", 9),
+        t="見ていた光、降ってきた灰",
+        s="3月1日の夜明け前から",
+        fig=("drift", dict(
+            view=VIEW, places=PLACES, pts=SHIP, rel=REL,
+            steps=[dict(ship=dict(at="ship", t="第五福竜丸"),
+                        dim=dict(a="bikini", b="ship", t="157キロ", d="東北東")),
+                   dict(move=[dict(kind="sight", a="ship", b="gz")]),
+                   # ⚠️ 札は船の下＝左は寸法線と視線の線が入ってくる（試し焼きで重なった）
+                   dict(tag=dict(at="ship", t="数時間後", side="below"),
+                        move=[dict(kind="fall", at="ship")])],
+            note=NOTE_MAP, src="DNA p212")),
     ),
 
+    # 海に降る灰を集める浮き（Project 2.5a）。⚠️ 副題は写っているものだけ
     "c106": dict(
-        t="三つが重なった",
-        s="塔に氷がついた道すじ",
-        fig=("people", dict(
-            # ⚠️ 札が1行だけだと枠の内側が空く（`check_box` が 33% で鳴った）。d を足す
-            nodes=[dict(x=0.14, y=0.20, t="細く流した水", d="配管を守るため",
-                        kind="part", c=J.LINE),
-                   dict(x=0.14, y=0.50, t="氷点下の気温", d="夜のあいだ",
-                        kind="part", c=J.LINE),
-                   dict(x=0.14, y=0.80, t="強い風", d="吹きつづけた",
-                        kind="part", c=J.LINE),
-                   dict(x=0.72, y=0.50, t="塔についた氷", d="大量", kind="part",
-                        c=J.ALERT)],
-            edges=[dict(a=0, b=3, c=J.LINE), dict(a=1, b=3, c=J.LINE),
-                   dict(a=2, b=3, c=J.LINE)],
-            # 🔴🔴 2026-09-22 ⑤c'（10-4）：節4つ・矢印3本だと段は「矢印を全部 →
-            #    節を全部」の7つになり、**矢印3本が x≈1175 で切れて受け手が居ない**
-            #    絵が長く出る（4つ目の節は最後の段）。9本目 `c718`（E-03）と同じ形。
-            #    `pair=True` で矢印を**あとに出るほうの端**にぶら下げる＝段は4つ。
-            pair=True,
-            note=SRC5)),
+        t="乗組員の体に、何が起きたか",
+        s="灰を集める浮きを海へ下ろす　キャッスル作戦",
+        photo=P("fo_buoy"), **ss.kind(P("fo_buoy")),
+        side="right", ann_y=356,
+        ann=[dict(t="乗っていた人", v="23人", vc=J.AMBER),
+             dict(t="痛みが出るまで", v="1週間ほど", vc=J.ALERT)],
     ),
 
+    # ⚠️ 実名は久保山愛吉さんだけ（台本 §1-2）
     "c107": dict(
-        t="地上二十九メートルから上",
-        s="固定塔についた氷　1986年1月28日朝",
-        **ss.still("ice_icicle_2", "t_ice", 23),
+        t="半年後の、秋に",
+        s="第五福竜丸の無線長",
+        fig=("panel", dict(
+            blocks=[dict(k="無線長", t="久保山愛吉さん", v="", c=J.INK_W),
+                    dict(k="亡くなった日", t="1954年9月23日", v="", c=J.ALERT)],
+            cols=2, note="出典：焼津市・広島平和記念資料館ほかの公開資料")),
     ),
 
+    # ロンゲラップに上がる調査の一行（米海軍の乗組員と測定係＝原寸で私人なしを確認）
     "c108": dict(
-        t="逃げ道の床が、凍っていた",
-        s="発射台の氷　1986年1月28日",
-        photo=P("ice_egress"), **ss.kind(P("ice_egress")),
-        bias=0.5,
+        t="灰は、島々にも降った",
+        s="ロンゲラップに上がる調査の一行　1954年",
+        photo=P("rongelap_landing"), **ss.kind(P("rongelap_landing")),
+        side="right", ann_y=356,
+        ann=[dict(t="島の住民", v="239人", vc=J.AMBER),
+             dict(t="アメリカ兵", v="28人", vc=J.AMBER)],
     ),
 
     "c109": dict(
-        t="使えなくなった箱があった",
-        s="地上の通信箱　1986年1月28日朝",
-        **ss.still("ice_box", "t_ice", 18),
+        t="確かめたいのは、二つ",
+        s="このあと確かめること",
+        fig=("panel", dict(
+            blocks=[dict(k="問い1", t="威力の外れ", v="島まで灰が届いた理由か", c=J.AMBER),
+                    dict(k="問い2", t="灰の運び手", v="人の住む島へ向かわせたもの", c=J.ALERT)],
+            cols=2)),
     ),
 
-    # ⚠️ 481×600＝小さい。縦長なので ss.kind が額装に回す
+    # 艦から見た雲（4K 25〜37秒・寄り 1.6）
     "c110": dict(
-        t="見つけたのは、見まわる班",
-        s="氷と霜の点検　ケネディ宇宙センター",
-        photo=P("ice_team"), **ss.kind(P("ice_team")),
+        t="広く語られてきた説",
+        s="艦から見た雲　1954年3月1日",
+        **ss.vid("c110"),
+        color=1.0,
+        side="right", ann_y=330,
+        ann=[dict(t="よく語られる答え", v="高さ6キロの風", vc=J.TICK),
+             dict(t="2013年の報告書", v="違う答え", vc=J.ALERT)],
     ),
 
-    # 🔴 決め所②
+    # 報告書の表紙（頁の実物・額装）
     "c111": dict(
-        t="理屈は通っていた。ただ",
-        s="配管を守るために水を流したこと",
-        fig=("quote", dict(
-            phrase="このやり方は、前例がなかった",
-            who="大統領委員会",
-            to="",
-            when="1986年6月6日",
-            doc=SRC5)),
+        t="英語の原文で、確かめた",
+        s="国防原子力局の報告書の表紙　1982年",
+        photo=ss.page(1), panel=True,
+        side="right", ann_y=300,
+        ann=[dict(t="国防総省の機関", v="1982年・2013年", vc=J.DOC, vs=64),
+             dict(t="医師団の報告書", v="1954年", vc=J.DOC, vs=64),
+             dict(t="日本側", v="政府と国会", vc=J.DOC, vs=64)],
     ),
 
     "c112": dict(
-        t="朝いちばんの会議にかかった",
-        # ⚠️ 副題を「打ち上げの可否を決める会議」にしない＝字幕の切り取り100%
-        s="氷が議題になった朝",
-        fig=("moment", dict(
-            clock="09:00",
-            label="1986年1月28日",
-            facts=[dict(t="かけられたこと", v="発射台の氷", c=J.ALERT),
-                   dict(t="決める場", v="運用管理チーム", c=J.INST)],
-            sub=SRC5)),
+        t="日付は、現地のもの",
+        s="日付変更線をはさんで",
+        fig=("panel", dict(
+            blocks=[dict(k="この動画", t="ビキニの現地", v="3月1日", c=J.AMBER),
+                    dict(k="アメリカ本土", t="日付変更線の東", v="2月28日", c=J.TICK),
+                    dict(k="公式の一覧", t="世界の標準時", v="2月28日", c=J.TICK)],
+            cols=3)),
     ),
 
-    # ⚠️ コロンビア号・1979年。チャレンジャーではない
+    # 射点の小屋の装置と作業の人たち（米国側の作業員＝公的な任務）
     "c113": dict(
-        t="心配したのは、作った会社",
-        s="オービタの断熱タイル　コロンビア号・1979年",
-        photo=P("rockwell_orbiter"), **ss.kind(P("rockwell_orbiter")),
-        bias=0.5,
-        # 🔴 2026-09-22 ⑤c'（10-6）：翼の上面の **`United` が文字高 約120px** で画面右上を
-        #    占めていた。主役は副題どおり**断熱タイルを並べる作業**（下半分）なので、
-        #    英字と星条旗の帯（元画像の y 0.15〜0.36）を**上から切り落とす**。
-        # ⚠️ 切ったあと 1525x748（横長 2.04）で、覆いは横を 6.4% 落とすだけ＝作業の手元は残る。
-        #    拡大は 1.44倍（`crop_probe` で実測）。
-        trim=(0.0, 0.37, 1.0, 1.0),
+        t="爆発した装置の名",
+        s="射点の小屋の中の装置と作業の人たち　1954年",
+        photo=P("dev_shrimp_men"), **ss.kind(P("dev_shrimp_men")),
+        side="left", ann_y=356,
+        ann=[dict(t="呼び名", v="シュリンプ", vc=J.AMBER, vs=72),
+             dict(t="めざした形", d="飛行機で運べる大きさ", dc=J.TICK)],
     ),
 
+    # ブラボーの火球（色のまま）。章の終わり＝尻で暗転（自動）
     "c114": dict(
-        t="当たり方は、三通り考えられた",
-        s="氷が本体に当たる道すじ",
-        fig=("panel", dict(
-            blocks=[dict(k="一つ", t="風で飛ぶ", v="発射台の上の氷", c=J.LINE),
-                    dict(k="二つ", t="点火で跳ねる", v="主エンジン", c=J.AMBER),
-                    dict(k="三つ", t="吸いこまれる", v="補助ロケット", c=J.ALERT)],
-            cols=3, note=SRC5)),
-    ),
-
-    "c115": dict(
-        t="作った側が、会議に伝えた",
-        # ⚠️ 副題に図の札と同じ語を入れない（`check_dup`）。ここは「どこからどこへ」だけ
-        s="申し入れは、どこからどこへ",
-        fig=("people", dict(
-            nodes=[dict(x=0.17, y=0.36, t="ロックウェル", d="宇宙輸送部門の社長",
-                        kind="org", c=J.INST),
-                   dict(x=0.74, y=0.36, t="NASA", d="可否を決める側",
-                        kind="org", c=J.LINE)],
-            edges=[dict(a=0, b=1, t="この条件での打ち上げは初めてだ", c=J.ALERT)],
-            note=SRC5)),
-    ),
-
-    # ⚠️ 管制室の写真。可否を決めた会議室ではない（副題で名乗らない）
-    "c116": dict(
-        t="立場は、副社長から伝わった",
-        s="打ち上げの日の管制室　1986年1月28日",
-        photo=P("mmt_meeting"), **ss.kind(P("mmt_meeting")),
-        bias=0.46,
-    ),
-
-    "c117": dict(
-        # ⚠️ 見出しが図の札の写しにならないようにする（実測で92%覆っていた）
-        t="弱めるのを、自分でやめた",
-        s="副社長が会議に伝えた言い方",
-        fig=("beforeafter", dict(
-            a=dict(k="はじめ", t="百パーセントは", lines=["という逃げ道があった"],
-                   v="", c=J.LINE),
-            b=dict(k="言いなおし", t="その七文字が消えた",
-                   lines=["言い切る形になった"], v="", c=J.ALERT),
-            arrow=True,
-            note=SRC5)),
-    ),
-
-    "c118": dict(
-        t="止めるとまでは、言わなかった",
-        s="副社長の言い方について",
-        fig=("panel", dict(
-            blocks=[dict(k="言った", t="安全だとは請け合えない", v="", c=J.ALERT),
-                    dict(k="言わなかった", t="打ち上げをやめろ", v="", c=J.LINE)],
-            cols=2, note=f"{SRC5}（委員会は「あいまいだった」と書いている）")),
-    ),
-
-    "c119": dict(
-        t="証明する向きが、逆だった",
-        s="委員会が書いた、この朝のやり方",
-        fig=("beforeafter", dict(
-            a=dict(k="本来", t="安全だと示させる", lines=["示せなければ飛ばさない"],
-                   v="", c=J.OK),
-            b=dict(k="この朝", t="危険だと示させる", lines=["示せなければ飛ぶ"],
-                   v="", c=J.ALERT),
-            arrow=False,
-            note=f"{SRC5}（氷そのものは原因ではない、とも書いている）")),
+        t="問いは、ここから",
+        s="ブラボーの火球　1954年3月1日",
+        photo=P("fb_color_a"), **ss.kind(P("fb_color_a")),
+        color=1.0,
     ),
 
 }

@@ -159,6 +159,11 @@ def exempt_strings(spec):
     """そのカットで「ナレーションに寄ってよい」文字列（見出し・副題・引用の札）。"""
     out = {norm(spec.get("t", "")), norm(spec.get("s", ""))}
     fig = spec.get("fig")
+    if fig and fig[0] == "trace":
+        # 🔴 12本目から：報告書の実物をなぞる型。和訳（phrase）は**決め所**＝quote の phrase と同じ役目
+        #    （声と同時に出し、その行の字幕は消える＝SUB_MUTE）。出どころ（doc）も同じく免除
+        for k in ("phrase", "doc"):
+            out.add(norm(fig[1].get(k, "")))
     if fig and fig[0] == "quote":
         # 🔴 2026-08-01 追加：**出どころの札（誰が・誰に・いつ・どこに）も免除する。**
         #    `tools/cuts/README.md` の規則2は「引用カットは言葉でなく出どころを図にする。

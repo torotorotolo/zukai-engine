@@ -67,6 +67,8 @@ GATES = [
     ("color", ["tools/check_color.py"], "地との比と色どうしの離れ方"),
     # 🔴 12本目から：章ごとの色。check_color は紺の地しか測らない（しかも --check 無しでは落ちない）ので別に立てた
     ("palette", ["tools/check_palette.py"], "章の色：章名の当たり・文字の比4.5・隣の章との色の差"),
+    # 🔴 12本目から（⑤b-2・葦の分析を受けた決定）：動く模式図の位置・向き・距離を報告書の値と照合
+    ("drift", ["tools/check_drift.py"], "動く模式図の位置・向き・距離＝報告書の値（本番の関数の画素から逆算）"),
     ("slide", ["tools/check_slide.py"], "焼き込みの文字×切り方（G-09/10/13/14/15）"),
     ("blank", ["tools/check_blank.py"], "切り出し窓が空っぽでないか"),
     ("wrap", ["tools/check_wrap.py"], "行が語の途中で割れていないか（L-15）"),

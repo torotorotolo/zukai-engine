@@ -1,0 +1,1556 @@
+{
+ "fb_aerial_a": {
+  "src": "nara",
+  "id": "146763394",
+  "slot": "fireball",
+  "note": "空撮・輪の雲を重ねたきのこ雲（#07）",
+  "box": [
+   0.0572,
+   0.0467,
+   0.9577,
+   0.968
+  ],
+  "w": 3000,
+  "h": 2361,
+  "md5": "49bf8525926e3d7e613a307dcb96266b",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Bravo Fireball, Aerial View",
+  "hold": "NARA 146763394（RG 678）"
+ },
+ "fb_aerial_b": {
+  "src": "nara",
+  "id": "146763404",
+  "slot": "fireball",
+  "note": "空撮・雲の上の火球（#01）",
+  "box": [
+   0.0522,
+   0.0549,
+   0.984,
+   0.9375
+  ],
+  "w": 3000,
+  "h": 2330,
+  "md5": "d500867ac5ed91991feddb87ff3f42ce",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Bravo Fireball, Aerial View",
+  "hold": "NARA 146763404（RG 678）"
+ },
+ "fb_estes_a": {
+  "src": "nara",
+  "id": "146763408",
+  "slot": "fireball",
+  "note": "エステスから・海の上のきのこ雲（#04・明るい）",
+  "box": [
+   0.0585,
+   0.1076,
+   0.9565,
+   0.9134
+  ],
+  "w": 3000,
+  "h": 2088,
+  "md5": "c09ca6e28ae1684e8d4e992065f4fbda",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Bravo Fireball from USS Estes.",
+  "hold": "NARA 146763408（RG 678）"
+ },
+ "fb_estes_b": {
+  "src": "nara",
+  "id": "146763406",
+  "slot": "fireball",
+  "note": "エステスから・雲の塊と水平線（#03・暗い）",
+  "box": [
+   0.0385,
+   0.0336,
+   0.959,
+   0.9627
+  ],
+  "w": 3000,
+  "h": 2062,
+  "md5": "d92715cd24d826bf0d8da0a3995c1ec5",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Bravo Fireball from USS Estes.",
+  "hold": "NARA 146763406（RG 678）"
+ },
+ "fb_color_a": {
+  "src": "commons",
+  "id": "Castle Bravo Blast",
+  "slot": "fireball",
+  "note": "",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "w": 1591,
+  "h": 1196,
+  "md5": "be2eaf70567654cab343e12d5035d558",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "United States Department of Energy",
+  "year": 1954,
+  "title": "Castle Bravo Blast.jpg",
+  "hold": "Wikimedia Commons「Castle Bravo Blast.jpg」"
+ },
+ "fb_color_b": {
+  "src": "commons",
+  "id": "Castle Bravo nuclear test",
+  "slot": "fireball",
+  "note": "",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "w": 1484,
+  "h": 779,
+  "md5": "06bd68299f0722b431d22174ffd4a8b1",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "United States Department of Energy",
+  "year": 1954,
+  "title": "Castle Bravo nuclear test.jpg",
+  "hold": "Wikimedia Commons「Castle Bravo nuclear test.jpg」"
+ },
+ "fb_bw": {
+  "src": "commons",
+  "id": "Castle Bravo (black and white)",
+  "slot": "fireball",
+  "note": "",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "w": 1468,
+  "h": 1174,
+  "md5": "7287103799115cbf10142f160c55e749",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "Federal Government of the United States",
+  "year": 1954,
+  "title": "Castle Bravo (black and white).jpg",
+  "hold": "Wikimedia Commons「Castle Bravo (black and white).jpg」"
+ },
+ "fb_close_a": {
+  "src": "commons",
+  "id": "Castle Bravo 005",
+  "slot": "fireball",
+  "note": "",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "w": 1280,
+  "h": 724,
+  "md5": "e00d8859c21197c743702a6f495a6df8",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "Federal government of the United States",
+  "year": 1954,
+  "title": "Castle Bravo 005.jpg",
+  "hold": "Wikimedia Commons「Castle Bravo 005.jpg」"
+ },
+ "fb_close_b": {
+  "src": "commons",
+  "id": "HD.10.290",
+  "slot": "fireball",
+  "note": "",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "w": 3000,
+  "h": 2443,
+  "md5": "bfbf8d9acc79a25c1e93dc0549e9b867",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "ENERGY.GOV",
+  "year": 1954,
+  "title": "HD.10.290 (10540757794).jpg",
+  "hold": "Wikimedia Commons「HD.10.290 (10540757794).jpg」"
+ },
+ "romeo_cloud": {
+  "src": "nara",
+  "id": "146763402",
+  "slot": "other_shots",
+  "note": "ロメオ（#05）",
+  "box": [
+   0.0776,
+   0.051,
+   0.9513,
+   0.9677
+  ],
+  "w": 2962,
+  "h": 3790,
+  "md5": "0a25d2ba50f98404ba7e4e4cffb53b49",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Romeo Cloud, Aerial View.",
+  "hold": "NARA 146763402（RG 678）"
+ },
+ "union_cloud": {
+  "src": "nara",
+  "id": "146763398",
+  "slot": "other_shots",
+  "note": "ユニオン（#09）",
+  "box": [
+   0.0585,
+   0.0954,
+   0.944,
+   0.8979
+  ],
+  "w": 3000,
+  "h": 2017,
+  "md5": "9fe73c89e9028f9a2ac1b457406df937",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Union Cloud, Aerial View.",
+  "hold": "NARA 146763398（RG 678）"
+ },
+ "nectar_cloud": {
+  "src": "nara",
+  "id": "146763396",
+  "slot": "other_shots",
+  "note": "ネクター（#11）",
+  "box": [
+   0.1285,
+   0.0718,
+   0.9477,
+   0.8642
+  ],
+  "w": 3000,
+  "h": 2151,
+  "md5": "c17e0ff4732e2b590e5e7ef09271cffa",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Nectar Cloud, Aerial View.",
+  "hold": "NARA 146763396（RG 678）"
+ },
+ "yankee_fb_1": {
+  "src": "nara",
+  "id": "146763410",
+  "slot": "other_shots",
+  "note": "ヤンキー 1/3（#02）",
+  "box": [
+   0.0698,
+   0.067,
+   0.9553,
+   0.8556
+  ],
+  "w": 3000,
+  "h": 2029,
+  "md5": "56045870241d0ed98c930cea9e5bc461",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Yankee Fireball, Aerial View. (1 of 3)",
+  "hold": "NARA 146763410（RG 678）"
+ },
+ "yankee_fb_2": {
+  "src": "nara",
+  "id": "146763412",
+  "slot": "other_shots",
+  "note": "ヤンキー 2/3（#06）",
+  "box": [
+   0.0435,
+   0.1238,
+   0.919,
+   0.8794
+  ],
+  "w": 3000,
+  "h": 2033,
+  "md5": "a03bc980bc698eebb05e8f8e4cd03287",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Yankee Fireball, Aerial View. (2 of 3)",
+  "hold": "NARA 146763412（RG 678）"
+ },
+ "yankee_fb_3": {
+  "src": "nara",
+  "id": "146763414",
+  "slot": "other_shots",
+  "note": "ヤンキー 3/3（#08）",
+  "box": [
+   0.1208,
+   0.066,
+   0.9269,
+   0.914
+  ],
+  "w": 2454,
+  "h": 3649,
+  "md5": "6fb9c8b6cb8c7657a9c6336bb5e81203",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Yankee Fireball, Aerial View. (3 of 3)",
+  "hold": "NARA 146763414（RG 678）"
+ },
+ "yankee_cloud": {
+  "src": "nara",
+  "id": "146763400",
+  "slot": "other_shots",
+  "note": "ヤンキーの雲（#10）",
+  "box": [
+   0.1236,
+   0.0973,
+   0.9621,
+   0.9415
+  ],
+  "w": 2903,
+  "h": 3390,
+  "md5": "ef0a40d43add364702103568833051c6",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Yankee Cloud, Aerial View.",
+  "hold": "NARA 146763400（RG 678）"
+ },
+ "mine_recovery": {
+  "src": "nara",
+  "id": "146763464",
+  "slot": "other_shots",
+  "note": "ユニオンのあとの機雷の回収（#20）",
+  "box": [
+   0.0631,
+   0.0485,
+   0.957,
+   0.8232
+  ],
+  "w": 2956,
+  "h": 3444,
+  "md5": "f8854965e040d49269a1ff72d1cc897c",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Project 3.4 Recovery of Sea Mines by USS Reclaimer, Post-Union.",
+  "hold": "NARA 146763464（RG 678）"
+ },
+ "dev_shrimp": {
+  "src": "commons",
+  "id": "Castle Bravo Shrimp Device 002.jpg",
+  "slot": "device",
+  "note": "射点の小屋の中の装置（白黒）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "w": 3000,
+  "h": 2399,
+  "md5": "3409e6905439fec5509f87d372ee29dd",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "Federal government of the United States",
+  "year": 1954,
+  "title": "Castle Bravo Shrimp Device 002.jpg",
+  "hold": "Wikimedia Commons「Castle Bravo Shrimp Device 002.jpg」"
+ },
+ "dev_shrimp_men": {
+  "src": "commons",
+  "id": "BravoSHRIMPShotCab",
+  "slot": "device",
+  "note": "装置と作業の人たち（色）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "w": 1920,
+  "h": 1080,
+  "md5": "0bd665c5e4c26ba31dc19889c8382439",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "USDE",
+  "year": 1954,
+  "title": "BravoSHRIMPShotCab.jpg",
+  "hold": "Wikimedia Commons「BravoSHRIMPShotCab.jpg」"
+ },
+ "dev_shotcab": {
+  "src": "commons",
+  "id": "BravoShotCab",
+  "slot": "device",
+  "note": "射点の小屋の外観",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "w": 1630,
+  "h": 1080,
+  "md5": "2c8610e9fe1e8b8b1e5110e55233676c",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "USDE",
+  "year": 1954,
+  "title": "BravoShotCab.jpg",
+  "hold": "Wikimedia Commons「BravoShotCab.jpg」"
+ },
+ "dev_truck": {
+  "src": "commons",
+  "id": "Operation Castle AW 1",
+  "slot": "device",
+  "note": "トラックに積まれた装置（元の説明）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "w": 1824,
+  "h": 1459,
+  "md5": "2a2752ff0aa1fe2a851399e5f6fbe931",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "United States Atomic Energy Agency",
+  "year": 1954,
+  "title": "Operation Castle AW 1.jpg",
+  "hold": "Wikimedia Commons「Operation Castle AW 1.jpg」"
+ },
+ "base_parry_aerial": {
+  "src": "nara",
+  "id": "146763422",
+  "slot": "base",
+  "note": "パリー島の施設の空撮（#18）",
+  "box": [
+   0.0372,
+   0.0154,
+   0.9815,
+   0.9065
+  ],
+  "w": 3000,
+  "h": 2267,
+  "md5": "0c0a3e5830e73c9dde78c2e25ed40a15",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Aerial View of Parry Island Compound.",
+  "hold": "NARA 146763422（RG 678）"
+ },
+ "base_airfield": {
+  "src": "nara",
+  "id": "146763494",
+  "slot": "base",
+  "note": "エニウェトクの飛行場（#15）",
+  "box": [
+   0.016,
+   0.0205,
+   0.994,
+   0.9259
+  ],
+  "w": 3000,
+  "h": 2159,
+  "md5": "ad8723c5e2a99584564a120fe0539e5c",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Enewetak Airfield Looking West.",
+  "hold": "NARA 146763494（RG 678）"
+ },
+ "base_metal": {
+  "src": "nara",
+  "id": "146763454",
+  "slot": "base",
+  "note": "エニウェトクの金属の建物（#22）",
+  "box": [
+   0.071,
+   0.0581,
+   0.9577,
+   0.8851
+  ],
+  "w": 3000,
+  "h": 2281,
+  "md5": "180580321b7005b186cb2828d0dc614a",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Typical Metal Buildings on Enewetak.",
+  "hold": "NARA 146763454（RG 678）"
+ },
+ "base_tents": {
+  "src": "nara",
+  "id": "146763452",
+  "slot": "base",
+  "note": "パリー島の天幕（#13）",
+  "box": [
+   0.0723,
+   0.0673,
+   0.949,
+   0.9251
+  ],
+  "w": 3000,
+  "h": 2398,
+  "md5": "dade798c2832751a855922a795818978",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Tents Used on Parry Island.",
+  "hold": "NARA 146763452（RG 678）"
+ },
+ "base_dock": {
+  "src": "nara",
+  "id": "146763420",
+  "slot": "base",
+  "note": "パリー島の桟橋（#50）",
+  "box": [
+   0.0648,
+   0.0392,
+   0.9277,
+   0.9052
+  ],
+  "w": 3000,
+  "h": 2269,
+  "md5": "ba33d31a97ed4ba27e16243ef6ced813",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Parry Island Dock with Two Device Barges.",
+  "hold": "NARA 146763420（RG 678）"
+ },
+ "base_eneman": {
+  "src": "nara",
+  "id": "146763428",
+  "slot": "base",
+  "note": "エネマン島のキャンプ（#39）",
+  "box": [
+   0.0673,
+   0.0626,
+   0.959,
+   0.9435
+  ],
+  "w": 3000,
+  "h": 2424,
+  "md5": "880ea2403832b04075a71ceb0366311a",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Eneman Camp, Bikini Atoll.",
+  "hold": "NARA 146763428（RG 678）"
+ },
+ "rongelap_landing": {
+  "src": "nara",
+  "id": "146763432",
+  "slot": "rongelap",
+  "note": "調査の一行が浜に上がる（#49・原寸で私人なし）",
+  "box": [
+   0.0673,
+   0.1003,
+   0.9065,
+   0.9531
+  ],
+  "w": 3000,
+  "h": 2424,
+  "md5": "d5c140c28eb9e7e90a998b154a23f61d",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Post-Castle Survey on Rongelap.",
+  "hold": "NARA 146763432（RG 678）"
+ },
+ "rongelap_booties": {
+  "src": "nara",
+  "id": "146763434",
+  "slot": "rongelap",
+  "note": "靴の覆い（#29＝第67図と同じ写真）",
+  "box": [
+   0.0378,
+   0.0823,
+   0.9046,
+   0.9752
+  ],
+  "w": 2856,
+  "h": 3564,
+  "md5": "20eb8558707bc55f8eba5103ecff33a3",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Post-Castle Survey on Rongelap, Man Wearing Special Booties.",
+  "hold": "NARA 146763434（RG 678）"
+ },
+ "rongerik_station": {
+  "src": "nara",
+  "id": "146763424",
+  "slot": "rongelap",
+  "note": "ロンゲリックの気象観測所（#40）",
+  "box": [
+   0.0748,
+   0.0513,
+   0.9702,
+   0.9109
+  ],
+  "w": 3000,
+  "h": 2385,
+  "md5": "80a3fd550f7c0329042f17f4543b34d0",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Rongerik Air Force Weather Station.",
+  "hold": "NARA 146763424（RG 678）"
+ },
+ "dmg_eneman": {
+  "src": "nara",
+  "id": "146763468",
+  "slot": "damage",
+  "note": "エネマン島の建物の被害（#43）",
+  "box": [
+   0.106,
+   0.069,
+   0.9453,
+   0.9215
+  ],
+  "w": 3000,
+  "h": 2469,
+  "md5": "57aca30edb5dd095a11f62c5961b3f02",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Bravo Blast Damage to Eneman Island Building.",
+  "hold": "NARA 146763468（RG 678）"
+ },
+ "dmg_mine": {
+  "src": "nara",
+  "id": "146763466",
+  "slot": "damage",
+  "note": "Project 3.4 機雷の被害（#16）",
+  "box": [
+   0.0617,
+   0.0323,
+   0.9825,
+   0.8488
+  ],
+  "w": 2956,
+  "h": 3435,
+  "md5": "339ac871fcc3a4a7e9bc35ba0e86c307",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Project 3.4 Damage to Russian R-1A #3.",
+  "hold": "NARA 146763466（RG 678）"
+ },
+ "suits_three": {
+  "src": "nara",
+  "id": "146763470",
+  "slot": "suits",
+  "note": "防護服3種（#27）",
+  "box": [
+   0.1198,
+   0.0308,
+   0.954,
+   0.9112
+  ],
+  "w": 3000,
+  "h": 2394,
+  "md5": "825b7c996a04c71142a9b0e90c685849",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Three Types of Protective Radiation Suits.",
+  "hold": "NARA 146763470（RG 678）"
+ },
+ "suits_scrub": {
+  "src": "nara",
+  "id": "146763472",
+  "slot": "suits",
+  "note": "脱ぐ前にこすって洗う（#42）",
+  "box": [
+   0.056,
+   0.0369,
+   0.9702,
+   0.8825
+  ],
+  "w": 3000,
+  "h": 2244,
+  "md5": "be10240879a71479b16429210fd3c9f6",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Scrubbing to Remove Radioactivity Before Protective Suit Removal.",
+  "hold": "NARA 146763472（RG 678）"
+ },
+ "suits_adrikan": {
+  "src": "nara",
+  "id": "146763450",
+  "slot": "suits",
+  "note": "アドリカン島で器材を回収（#45）",
+  "box": [
+   0.2252,
+   0.0628,
+   0.735,
+   0.72
+  ],
+  "w": 2027,
+  "h": 1932,
+  "md5": "ff7a3281a188bb9a4b95c20cbe3158ac",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Men in Protective Suits During Instrument Recovery on Adrikan Island.",
+  "hold": "NARA 146763450（RG 678）"
+ },
+ "dc_f84g": {
+  "src": "nara",
+  "id": "146763492",
+  "slot": "decon",
+  "note": "F-84G（#12）",
+  "box": [
+   0.056,
+   0.0761,
+   0.884,
+   0.8646
+  ],
+  "w": 3000,
+  "h": 2244,
+  "md5": "6fb32d6786d197f5c291b3d807a297ef",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "F-84G Decontamination.",
+  "hold": "NARA 146763492（RG 678）"
+ },
+ "dc_curtis": {
+  "src": "nara",
+  "id": "146763430",
+  "slot": "decon",
+  "note": "USS Curtis 服を脱いだあとの測定（#14）",
+  "box": [
+   0.1038,
+   0.05,
+   0.9006,
+   0.97
+  ],
+  "w": 2645,
+  "h": 3562,
+  "md5": "d4a3bb4000e29c39631c6dcb5c59d1dd",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Personnel Monitoring After Removal of Contaminated Clothing, USS Curtis.",
+  "hold": "NARA 146763430（RG 678）"
+ },
+ "dc_yag40_deck": {
+  "src": "nara",
+  "id": "146763438",
+  "slot": "decon",
+  "note": "YAG-40 の甲板を洗う（#23）",
+  "box": [
+   0.0597,
+   0.087,
+   0.8528,
+   0.9378
+  ],
+  "w": 3000,
+  "h": 2434,
+  "md5": "a849939a2085bb36fe3774094d2c30e2",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Deck Crew Washing Down YAG-40.",
+  "hold": "NARA 146763438（RG 678）"
+ },
+ "dc_b36_tail": {
+  "src": "nara",
+  "id": "146763486",
+  "slot": "decon",
+  "note": "B-36 の尾翼を洗う（#24）",
+  "box": [
+   0.0148,
+   0.006,
+   0.989,
+   0.9083
+  ],
+  "w": 3000,
+  "h": 2148,
+  "md5": "f7d8b8d8b62984932f687aa566a7b124",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "B-36 Decontamination Washdown.",
+  "hold": "NARA 146763486（RG 678）"
+ },
+ "dc_ship_scrub": {
+  "src": "nara",
+  "id": "146763474",
+  "slot": "decon",
+  "note": "艦の除染 高圧の海水とブラシ（#26）",
+  "box": [
+   0.101,
+   0.083,
+   0.9315,
+   0.8747
+  ],
+  "w": 3000,
+  "h": 2276,
+  "md5": "c3694ad7362ba1e13ebb0b1e6129923c",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Shipboard Decontamination Using High Pressure Seawater and Scrub Brushes.",
+  "hold": "NARA 146763474（RG 678）"
+ },
+ "dc_parry_equip": {
+  "src": "nara",
+  "id": "146763440",
+  "slot": "decon",
+  "note": "パリー島の除染器材（#28）",
+  "box": [
+   0.0886,
+   0.061,
+   0.852,
+   0.869
+  ],
+  "w": 2707,
+  "h": 3322,
+  "md5": "1f2dc6556f7d849cacd75987ff9ed0e9",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Decontamination Equipment on Parry Island.",
+  "hold": "NARA 146763440（RG 678）"
+ },
+ "dc_b36_under": {
+  "src": "nara",
+  "id": "146763490",
+  "slot": "decon",
+  "note": "B-36 の下で洗う（#32）",
+  "box": [
+   0.0503,
+   0.0435,
+   0.8763,
+   0.8216
+  ],
+  "w": 2820,
+  "h": 3245,
+  "md5": "2925d38e0cfba23bf3a60018b5e2a9a9",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "B-36 Decontamination Washdown.",
+  "hold": "NARA 146763490（RG 678）"
+ },
+ "dc_b36_wing": {
+  "src": "nara",
+  "id": "146763488",
+  "slot": "decon",
+  "note": "B-36 の主翼を洗う（#33）",
+  "box": [
+   0.046,
+   0.0376,
+   0.9765,
+   0.9354
+  ],
+  "w": 3000,
+  "h": 2410,
+  "md5": "c4de29ff8c573f4bf9c6f64cd21cfb28",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "B-36 Decontamination Washdown.",
+  "hold": "NARA 146763488（RG 678）"
+ },
+ "dc_tent": {
+  "src": "nara",
+  "id": "146763446",
+  "slot": "decon",
+  "note": "汚れた服を着替える天幕（#37）",
+  "box": [
+   0.1273,
+   0.1386,
+   0.9465,
+   0.9483
+  ],
+  "w": 3000,
+  "h": 2434,
+  "md5": "d4a4939b09cec506e1c3f10a9ec1ad14",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Tent for Changing Contaminated Clothing, Parry Island, F-4U in Background.",
+  "hold": "NARA 146763446（RG 678）"
+ },
+ "dc_yag40_spray": {
+  "src": "nara",
+  "id": "146763436",
+  "slot": "decon",
+  "note": "YAG-40 の放水（#38）",
+  "box": [
+   0.051,
+   0.0469,
+   0.9365,
+   0.942
+  ],
+  "w": 3000,
+  "h": 2407,
+  "md5": "bcd4717246da0e7411c4842772867af8",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Decontamination Washdown of YAG-40.",
+  "hold": "NARA 146763436（RG 678）"
+ },
+ "dc_molala": {
+  "src": "nara",
+  "id": "146763456",
+  "slot": "decon",
+  "note": "USS Molala が YAG-40 を洗う（#44）",
+  "box": [
+   0.0973,
+   0.0556,
+   0.9477,
+   0.962
+  ],
+  "w": 3000,
+  "h": 2500,
+  "md5": "ef7ee8e41d7f9f9ce82febd7de0c1b10",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Decontamination Washdown of YAG-40 by USS Molala.",
+  "hold": "NARA 146763456（RG 678）"
+ },
+ "dc_f4u_test": {
+  "src": "nara",
+  "id": "146763444",
+  "slot": "decon",
+  "note": "F4U を測る（#47）",
+  "box": [
+   0.0535,
+   0.1115,
+   0.9377,
+   0.9223
+  ],
+  "w": 3000,
+  "h": 2448,
+  "md5": "db726a79f42df0b114d7637ee43727f3",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Radsafe Men Test Project 6.4 Aircraft (F-4U).",
+  "hold": "NARA 146763444（RG 678）"
+ },
+ "dc_f4u_wash": {
+  "src": "nara",
+  "id": "146763442",
+  "slot": "decon",
+  "note": "F4U を洗う（#48）",
+  "box": [
+   0.1335,
+   0.114,
+   0.9615,
+   0.9112
+  ],
+  "w": 3000,
+  "h": 2444,
+  "md5": "d4608c2a71874305872373318a158dab",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Wash Down of Project 6.4 Aircraft (F-4U).",
+  "hold": "NARA 146763442（RG 678）"
+ },
+ "fo_roll_prep": {
+  "src": "nara",
+  "id": "146763478",
+  "slot": "fallout",
+  "note": "濾紙を巻く準備（#19）",
+  "box": [
+   0.006,
+   0.006,
+   0.994,
+   0.9219
+  ],
+  "w": 3000,
+  "h": 2186,
+  "md5": "193f8c1de6e797b953f07c03a6543cc2",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Preparing to roll Filter Paper.",
+  "hold": "NARA 146763478（RG 678）"
+ },
+ "fo_cave": {
+  "src": "nara",
+  "id": "146763460",
+  "slot": "fallout",
+  "note": "濾紙を遮へいの箱へ（#21）",
+  "box": [
+   0.0148,
+   0.0198,
+   0.9915,
+   0.9229
+  ],
+  "w": 3000,
+  "h": 2255,
+  "md5": "c647b269100af6c8a3cb4beb794d1c1b",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Deposition of filter Paper in Shielded Cave.",
+  "hold": "NARA 146763460（RG 678）"
+ },
+ "fo_f84g": {
+  "src": "nara",
+  "id": "146763476",
+  "slot": "fallout",
+  "note": "F-84G 採取機の駐機・真上から（#25）",
+  "box": [
+   0.1023,
+   0.0999,
+   0.9153,
+   0.8321
+  ],
+  "w": 3000,
+  "h": 2123,
+  "md5": "9e7db81946d82daaac3cd2902d9a5094",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "F-84G Sampler Aircraft Parked at Enewetak.",
+  "hold": "NARA 146763476（RG 678）"
+ },
+ "fo_tank": {
+  "src": "nara",
+  "id": "146763416",
+  "slot": "fallout",
+  "note": "翼端の筒から濾紙を出す（#31）",
+  "box": [
+   0.0323,
+   0.0247,
+   0.974,
+   0.9691
+  ],
+  "w": 3000,
+  "h": 2417,
+  "md5": "f8b0f7eceb4ae7eef74bb0320646ce3a",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Removal of Filter Papers from Aircraft Tank. (Identified as Fig. 28 From Defense Nuclear Agency Publication, Navy Test Personnel Review, DNA 6035).",
+  "hold": "NARA 146763416（RG 678）"
+ },
+ "fo_pig_lift": {
+  "src": "nara",
+  "id": "146763484",
+  "slot": "fallout",
+  "note": "ピッグを持ち上げる（#34）",
+  "box": [
+   0.011,
+   0.1944,
+   0.9878,
+   0.938
+  ],
+  "w": 3000,
+  "h": 1776,
+  "md5": "32fdbdef9cf0759ba4468a4eaafe1fe3",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Lifting \"Pig\" Containing  Filter Paper.",
+  "hold": "NARA 146763484（RG 678）"
+ },
+ "fo_pig_place": {
+  "src": "nara",
+  "id": "146763482",
+  "slot": "fallout",
+  "note": "濾紙をピッグへ（#35）",
+  "box": [
+   0.006,
+   0.0435,
+   0.994,
+   0.9275
+  ],
+  "w": 2628,
+  "h": 3047,
+  "md5": "e346105cb3b553d8307f599bf91956a1",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Filter Paper Being Placed in a \"Pig,\"  A Shielded Container for Sample Transport.",
+  "hold": "NARA 146763482（RG 678）"
+ },
+ "fo_wire": {
+  "src": "nara",
+  "id": "146763458",
+  "slot": "fallout",
+  "note": "採取器の針金を切る（#36）",
+  "box": [
+   0.006,
+   0.006,
+   0.994,
+   0.9248
+  ],
+  "w": 3000,
+  "h": 2246,
+  "md5": "4ba923b602257208198316b5d7990a01",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Cutting Filter Paper Retaining Wire in Sampler.",
+  "hold": "NARA 146763458（RG 678）"
+ },
+ "fo_rolled": {
+  "src": "nara",
+  "id": "146763480",
+  "slot": "fallout",
+  "note": "濾紙を巻く（#41）",
+  "box": [
+   0.0138,
+   0.091,
+   0.9893,
+   0.9308
+  ],
+  "w": 2636,
+  "h": 2823,
+  "md5": "78a2c78af0281c58f79c0bdbc55f6301",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Sampler Filter Paper Being Rolled.",
+  "hold": "NARA 146763480（RG 678）"
+ },
+ "fo_tray": {
+  "src": "nara",
+  "id": "146763448",
+  "slot": "fallout",
+  "note": "灰を受けるトレイ（#46）",
+  "box": [
+   0.0973,
+   0.0699,
+   0.994,
+   0.9456
+  ],
+  "w": 3000,
+  "h": 2123,
+  "md5": "136d4800615d68264516fe47e4c56a81",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Men Prepare Fallout Collector Tray.",
+  "hold": "NARA 146763448（RG 678）"
+ },
+ "fo_buoy": {
+  "src": "nara",
+  "id": "146763418",
+  "slot": "fallout",
+  "note": "浮かべる採集ブイ（#51）",
+  "box": [
+   0.0892,
+   0.0898,
+   0.9588,
+   0.8858
+  ],
+  "w": 2700,
+  "h": 3157,
+  "md5": "4df8b920c242df52189a7b8138e9b21b",
+  "lic": "Public domain (17 U.S.C. §105)",
+  "author": "米国立公文書館",
+  "year": 1954,
+  "title": "Project 2.5a - Placement of Free-Floating Fallout Collector Buoy.",
+  "hold": "NARA 146763418（RG 678）"
+ },
+ "jp_tuna_check": {
+  "src": "commons",
+  "id": "Technical experts checking contamination",
+  "slot": "japan",
+  "note": "魚市場でマグロを調べる技術者（公的な任務）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "w": 2212,
+  "h": 1766,
+  "md5": "0895e64f63d12af5862f3bcfdc9f5b57",
+  "lic": "Public domain（日本・1957年より前に公表の写真）",
+  "author": "Yomiuri Shimbun",
+  "year": 1954,
+  "title": "Technical experts checking contamination by nuclear fallout of Tunas after Dai5 Fukuryū maru Incident - 1954 - The Yomiuri Shimbun.png",
+  "hold": "Wikimedia Commons「Technical experts checking contamination by nuclear fallout of Tunas after Dai5 Fukuryū maru Incident - 1954 - The Yomiuri Shimbun.png」"
+ },
+ "jp_fish_sign": {
+  "src": "commons",
+  "id": "A signboard appealing shoppers",
+  "slot": "japan",
+  "note": "魚屋の看板（女性の顔は切り落とす）",
+  "box": [
+   0.0,
+   0.0,
+   0.6,
+   1.0
+  ],
+  "w": 985,
+  "h": 1030,
+  "md5": "60e644ae0a56dd6ec027346acfaa7b1c",
+  "lic": "Public domain（日本・1957年より前に公表の写真）",
+  "author": "Asahigraph",
+  "year": 1954,
+  "title": "A signboard appealing shoppers that our fish shop does not sell tunas contaminated by nuclear fallout - 1954 - Asahi Graph.png",
+  "hold": "Wikimedia Commons「A signboard appealing shoppers that our fish shop does not sell tunas contaminated by nuclear fallout - 1954 - Asahi Graph.png」"
+ },
+ "eisenhower_strauss": {
+  "src": "commons",
+  "id": "Eisenhower and Strauss",
+  "slot": "official",
+  "note": "",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "w": 1401,
+  "h": 1108,
+  "md5": "b7356b9f0b7de7a9fb899f25461774bf",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "NARA photograph",
+  "year": 1954,
+  "title": "Eisenhower and Strauss.jpg",
+  "hold": "Wikimedia Commons「Eisenhower and Strauss.jpg」"
+ },
+ "doc_aec_letter": {
+  "src": "commons",
+  "id": "AEC Authorization for Operation Castle",
+  "slot": "doc",
+  "note": "",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "w": 1510,
+  "h": 2200,
+  "md5": "6d99c4a9d8701de9d4e0899f84b635dc",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "United States Department of Energy",
+  "year": 1954,
+  "title": "AEC Authorization for Operation Castle.png",
+  "hold": "Wikimedia Commons「AEC Authorization for Operation Castle.png」"
+ },
+ "doc_bikini_chart": {
+  "src": "commons",
+  "id": "Bikini Atoll - NARA",
+  "slot": "doc",
+  "note": "",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "w": 3000,
+  "h": 2144,
+  "md5": "ec69ed1f32067a185cf56827e45e56b5",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "Unknown authorUnknown author or not provided",
+  "year": 1954,
+  "title": "Bikini Atoll - NARA - 140696551.jpg",
+  "hold": "Wikimedia Commons「Bikini Atoll - NARA - 140696551.jpg」"
+ },
+ "fb_c101": {
+  "src": "clip",
+  "clip": "doe",
+  "t": 9.0,
+  "slot": "video",
+  "note": "c101 のひかえ",
+  "box": [
+   0,
+   0,
+   1,
+   1
+  ],
+  "w": 1280,
+  "h": 720,
+  "md5": "e8bd210b69083dd82f23975986c6f6e9",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "米エネルギー省",
+  "year": 1954,
+  "title": "Castle_Bravo_Detonation_USDE.ogv",
+  "hold": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv"
+ },
+ "fb_c501": {
+  "src": "clip",
+  "clip": "doe",
+  "t": 15.0,
+  "slot": "video",
+  "note": "c501 のひかえ",
+  "box": [
+   0,
+   0,
+   1,
+   1
+  ],
+  "w": 1280,
+  "h": 720,
+  "md5": "00dc6621dcd7ca0c2d712ec779f5c852",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "米エネルギー省",
+  "year": 1954,
+  "title": "Castle_Bravo_Detonation_USDE.ogv",
+  "hold": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv"
+ },
+ "fb_c607": {
+  "src": "clip",
+  "clip": "doe",
+  "t": 31.0,
+  "slot": "video",
+  "note": "c607 のひかえ",
+  "box": [
+   0,
+   0,
+   1,
+   1
+  ],
+  "w": 1280,
+  "h": 720,
+  "md5": "70062ee03185dc1f97fe08cef00b477b",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "米エネルギー省",
+  "year": 1954,
+  "title": "Castle_Bravo_Detonation_USDE.ogv",
+  "hold": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv"
+ },
+ "fb_c506": {
+  "src": "clip",
+  "clip": "doe",
+  "t": 44.0,
+  "slot": "video",
+  "note": "c506 のひかえ",
+  "box": [
+   0,
+   0,
+   1,
+   1
+  ],
+  "w": 1280,
+  "h": 720,
+  "md5": "1320a1646a9cbc3f2f39c4193ef63d64",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "米エネルギー省",
+  "year": 1954,
+  "title": "Castle_Bravo_Detonation_USDE.ogv",
+  "hold": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv"
+ },
+ "fb_c608": {
+  "src": "clip",
+  "clip": "doe",
+  "t": 50.0,
+  "slot": "video",
+  "note": "c608 のひかえ",
+  "box": [
+   0,
+   0,
+   1,
+   1
+  ],
+  "w": 1280,
+  "h": 720,
+  "md5": "5203a2c7ef5e54e6d00143a72bc387c4",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "米エネルギー省",
+  "year": 1954,
+  "title": "Castle_Bravo_Detonation_USDE.ogv",
+  "hold": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv"
+ },
+ "fb_c324": {
+  "src": "clip",
+  "clip": "bravo4k",
+  "t": 4.0,
+  "slot": "video",
+  "note": "c324 のひかえ",
+  "box": [
+   0,
+   0,
+   1,
+   1
+  ],
+  "w": 3840,
+  "h": 1684,
+  "md5": "7fbe25b67981b14ad42a43d11b413813",
+  "lic": "Public domain（US not renewed）",
+  "author": "Wikimedia Commons",
+  "year": 1954,
+  "title": "Castle_Bravo_15_megaton_detonation,_1954.webm",
+  "hold": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_15_megaton_detonation,_1954.webm"
+ },
+ "fb_c502": {
+  "src": "clip",
+  "clip": "bravo4k",
+  "t": 12.0,
+  "slot": "video",
+  "note": "c502 のひかえ",
+  "box": [
+   0,
+   0,
+   1,
+   1
+  ],
+  "w": 3840,
+  "h": 1684,
+  "md5": "f8d5420e2102e2d1e3e4c3a13dd132ba",
+  "lic": "Public domain（US not renewed）",
+  "author": "Wikimedia Commons",
+  "year": 1954,
+  "title": "Castle_Bravo_15_megaton_detonation,_1954.webm",
+  "hold": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_15_megaton_detonation,_1954.webm"
+ },
+ "fb_c606": {
+  "src": "clip",
+  "clip": "bravo4k",
+  "t": 20.0,
+  "slot": "video",
+  "note": "c606 のひかえ",
+  "box": [
+   0,
+   0,
+   1,
+   1
+  ],
+  "w": 3840,
+  "h": 1684,
+  "md5": "332a2f2210aab9cc2ee12b52015eeec0",
+  "lic": "Public domain（US not renewed）",
+  "author": "Wikimedia Commons",
+  "year": 1954,
+  "title": "Castle_Bravo_15_megaton_detonation,_1954.webm",
+  "hold": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_15_megaton_detonation,_1954.webm"
+ },
+ "fb_c110": {
+  "src": "clip",
+  "clip": "bravo4k",
+  "t": 30.0,
+  "slot": "video",
+  "note": "c110 のひかえ",
+  "box": [
+   0,
+   0,
+   1,
+   1
+  ],
+  "w": 3840,
+  "h": 1684,
+  "md5": "6443e695eea5ab961fe5d5feaf3eb944",
+  "lic": "Public domain（US not renewed）",
+  "author": "Wikimedia Commons",
+  "year": 1954,
+  "title": "Castle_Bravo_15_megaton_detonation,_1954.webm",
+  "hold": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_15_megaton_detonation,_1954.webm"
+ },
+ "fb_c102": {
+  "src": "clip",
+  "clip": "bravo4k",
+  "t": 42.0,
+  "slot": "video",
+  "note": "c102 のひかえ",
+  "box": [
+   0,
+   0,
+   1,
+   1
+  ],
+  "w": 3840,
+  "h": 1684,
+  "md5": "b857b311a2c0c2b3a33b6bf64cf903c3",
+  "lic": "Public domain（US not renewed）",
+  "author": "Wikimedia Commons",
+  "year": 1954,
+  "title": "Castle_Bravo_15_megaton_detonation,_1954.webm",
+  "hold": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_15_megaton_detonation,_1954.webm"
+ },
+ "fb_c522": {
+  "src": "clip",
+  "clip": "bravo4k",
+  "t": 52.0,
+  "slot": "video",
+  "note": "c522 のひかえ",
+  "box": [
+   0,
+   0,
+   1,
+   1
+  ],
+  "w": 3840,
+  "h": 1684,
+  "md5": "c1a2db38d81aab62c89c9e63b866e139",
+  "lic": "Public domain（US not renewed）",
+  "author": "Wikimedia Commons",
+  "year": 1954,
+  "title": "Castle_Bravo_15_megaton_detonation,_1954.webm",
+  "hold": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_15_megaton_detonation,_1954.webm"
+ },
+ "doe_shotcab_near": {
+  "src": "clip",
+  "clip": "doe",
+  "t": 1.0,
+  "slot": "video",
+  "note": "射点の小屋（近い・色）",
+  "box": [
+   0,
+   0,
+   1,
+   1
+  ],
+  "w": 1280,
+  "h": 720,
+  "md5": "e21750d21de55bc6623f87d4584189b2",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "米エネルギー省",
+  "year": 1954,
+  "title": "Castle_Bravo_Detonation_USDE.ogv",
+  "hold": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv"
+ },
+ "doe_shotcab_far": {
+  "src": "clip",
+  "clip": "doe",
+  "t": 3.6,
+  "slot": "video",
+  "note": "射点の小屋と土手道（遠い・色）",
+  "box": [
+   0,
+   0,
+   1,
+   1
+  ],
+  "w": 1280,
+  "h": 720,
+  "md5": "4662142b8ce8e76d168cbf24883ce592",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "米エネルギー省",
+  "year": 1954,
+  "title": "Castle_Bravo_Detonation_USDE.ogv",
+  "hold": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv"
+ },
+ "doe_cloud_cap": {
+  "src": "clip",
+  "clip": "doe",
+  "t": 54.0,
+  "slot": "video",
+  "note": "きのこ雲の頂",
+  "box": [
+   0,
+   0,
+   1,
+   1
+  ],
+  "w": 1280,
+  "h": 720,
+  "md5": "82e709a37a5356b8736c7eaac4cf19e3",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "米エネルギー省",
+  "year": 1954,
+  "title": "Castle_Bravo_Detonation_USDE.ogv",
+  "hold": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv"
+ }
+}

@@ -99,7 +99,10 @@ UA = ("zukai-engine/1.0 (accident-documentary research; "
 #       🔴🔴 2026-09-21（11本目 ⑤c-2）：**11本目は動く映像が3本ある**
 #          （NASA 記録映画 44分44秒・NARA 氷 `naId 39672` 8分04秒・USIA 公聴会）。
 #          抜いた帯は `ref/ep11/vid/clips/`（git 管理外）、正本は `ref/ep11/footage_map.md` §1。
-_CLIPS_JSON = HERE / "ref" / "ep11" / "clips.json"
+#       🔴 2026-09-23（12本目 ⑤b-2）：**12本目へ切り替えた。**動く映像は2本
+#          （DOE の記録映像 0〜56秒・艦から撮った火球の4K 56.9秒）。
+#          `ref/ep12/clips.json` は⑤b-2 で作る＝**無いあいだ CLIPS は空**（`unknown_clip()` が止める）。
+_CLIPS_JSON = HERE / "ref" / "ep12" / "clips.json"
 CLIPS = json.loads(_CLIPS_JSON.read_text(encoding="utf-8")) if _CLIPS_JSON.exists() else {}
 
 # 🔴🔴 2026-09-07（5本目 SL-1 ⑤c'・K-12）：**素材そのものが横に黒帯を持っている。**
@@ -170,7 +173,7 @@ def bars_left(cid, u=None):
 #    ＝ `SHOTS` が空のまま `outside_shot()` を回すと、**全欄が「対象外」で素通り**する。
 #    そうならないように `unknown_clip()` を足した（`fetch --check` が呼ぶ）。
 SHOTS = {}
-SHOT_FILE = HERE / "ref" / "ep11" / "shots.json"          # 11本目（動く映像3本）。10本目は ref/ep10/（0本＝無い）
+SHOT_FILE = HERE / "ref" / "ep12" / "shots.json"          # 12本目（動く映像2本）。11本目は ref/ep11/（3本）
 # 🔴 2026-09-13（7本目②）：**この表はまだ無い。**⑤で `tools/shots.py` が作る。
 #    無いあいだ SHOTS は空で、`outside_shot()` は全欄を「対象外」で飛ばす＝**素通りする**。
 #    それを塞ぐのが下の `unknown_clip()`（`fetch --check` が呼ぶ）。USE を書いたら必ず通す。
@@ -229,6 +232,11 @@ NOGO = {
     #    キー橋の28本は DVIDS の B-roll なので終幕タイトルは想定しにくいが、
     #    ⚠️ **局のロゴ・提供クレジット・DVIDS のスレート**が頭尻に入る型は在りうる。
     #    → ⑤でショットを見たときに、見つけたぶんをここへ書く。
+    #
+    # 🔴 2026-09-23（12本目 ⑤b-2）：DOE の終わりに英字の題字（②の `scan_burned_text.py` で 57.0 から浮く・
+    #    ⑤b-2 の1秒刻みのシートで 57.5 と 58.5 に `CASTLE BRAVO / FEBRUARY 28, 1954 …` を確認）。
+    #    ⚠️ 題字は**2月28日**（米本国の日付）＝現地3月1日と語る画面に出すと台本と食い違う。
+    "doe": [(56.5, 60.0, "英字の題字（CASTLE BRAVO / FEBRUARY 28, 1954）")],
 }
 
 
@@ -396,50 +404,43 @@ USE = {
     # KB_USE>>> ここまで
     #
     # ══════════════════════════════════════════════════════════
-    # 🔴 2026-09-21（11本目 チャレンジャー号 ⑤c-2）：**8欄**。
-    #   帯＝`ref/ep11/clips.json`（12本・720x480・SAR 8:9）／ショット＝`ref/ep11/shots.json`（132本）。
-    #   秒の正本＝`ref/ep11/photo_picks.md` §2-1。`start`/`until` は shots.json の境目そのまま、
-    #   `until` は**ショットの終わり −1.0秒**。
-    #
-    #   🔴 **`rate` が 0.6 を下回る欄は動画にしていない。**4秒を12秒に引き伸ばすと
-    #      ほぼ止まって見えるので、そういう欄は**止め絵で抜いて `ss.still()` で置いた**
-    #      （12欄。実写の数は変わらない）→ `photo_picks.md` §2-2。
-    #
-    #   ⚠️ **`c709` は動画にしていない。**使える帯が 元59〜64 の5秒しかなく
-    #      （64〜66秒に未特定の `ROBERT R…` の名札）、尺 9.92秒だと 0.50倍速になるため。
-    #      止め絵で置いた（`cuts/c7.py`）。
-    #
-    #   ⚠️ **額（ピラーボックス）は帯ごとではなくコマごとに変わる。**器は 720x480 のままなので
-    #      この門番は鳴らない。切り出しは `cuts/ss.py` の `box_trim()` が
-    #      `ref/ep11/boxes.json`（1秒おきに全数測った地図）から引く
-    #      → [[feedback-container-labels-lie-about-the-picture]]
+    # 🔴🔴 2026-09-23（12本目 キャッスル・ブラボー ⑤b-2）**11本目の8欄を空にした。**
+    #   中身は git の `61039d2`（`git show 61039d2:tools/footage.py`）。
+    #   ⚠️ 11本目の欄のうち pr02・pr07・c101・c307・c413・c503・c603 は**12本目にも同じIDがある**
+    #      （c101・c307・c413・c503・c603）＝残すとチャレンジャー号の映像が黙って流れる。
+    #   次の回にも効く教訓だけ残す：
+    #     ・`rate` は「使える秒 ÷ **音の尺**」。**切り上げると尻が出る**（11本目 pr02 +0.59秒）
+    #     ・`rate` が 0.6 を下回る欄は動画にせず、止め絵で `ss.still()` に置く（実写の数は同じ）
+    #     ・ショットの中でも絵が変わる（11本目 c603＝元1034）＝`until` は切れ目の1.0秒手前
+    #     ・額（ピラーボックス）はコマごとに変わる → [[feedback-container-labels-lie-about-the-picture]]
     # ══════════════════════════════════════════════════════════
-    #   🔴 `rate` は「使える秒 ÷ **音の尺**」。音の尺は `narration.json` の実測で、
-    #      間（gap）を含むので台本の字数から出した見込みより長い。**切り上げると尻が出る**
-    #      （実測：0.74 だと pr02 が +0.59秒 はみ出した）。
-    "pr02": dict(clip="launch",     start=16.0, until=22.0, rate=0.67),
-    "pr07": dict(clip="joint",      start=24.0, until=35.0, rate=0.73),
-    "c101": dict(clip="pad",        start=30.0, until=57.0, rate=1.0),
-    # 🔴 2026-09-22 ⑤c'（10-6）：⑤c-5 は2つ挙げた＝①外部タンクの **`United States`** が
-    #    縦に 45px 級で読める ②**煙が薄くて見えない**。寄りで両方が直る。
-    #    英字は コマの x 0.24〜0.30。額は 847x648 なので、xbias=1.0 のとき
-    #    zoom=1.5 で残るのは x 0.347〜1.0 ＝**英字は画面の外**（手元で覆いを再現して実測）。
-    #    暗い画素の重心は x 0.594・右1/3 が 20%＝**煙は右側**なので、寄っても落ちない。
-    # ⚠️ 額（`ss.vid` の trim）は触っていない。ここを変えると**額の形ごと変わる**。
-    #    ⚠️ ひかえの静止画 `fb_c307.jpg` は素のままなので、**動画のコマが取れていれば**英字は出ない。
-    #      ⑥ で `footage.py fetch` のコマ数を必ず確かめる（[[feedback-fetch-failure-falls-back-to-a-still]]）。
-    "c307": dict(clip="smoke",      start=6.0,  until=16.0, rate=1.0,
-                 zoom=1.5, xbias=1.0),
-    "c413": dict(clip="accident",   start=41.0, until=57.0, rate=1.0),
-    "c503": dict(clip="joint",      start=36.0, until=47.0, rate=1.0),
-    # 🔴🔴 2026-09-22 ⑤c'（10-5）：`until=43` は**中身の切れ目をまたいでいた**。
-    #    `shots.json` は 30〜44 を1ショットにまとめているが、**元1034 で絵が変わる**
-    #    （平均輝度 108.8 → 188.2・白飛び 14.8% → 32.5%＝屋内の組み立てから、
-    #     外部タンクが艀で着く屋外へ）。⑤c-5 が見た「水上の艀と白い覆い」はここ。
-    #    → 切れ目（t=41）の 1.0秒 手前で止める。
-    # ⚠️ rate は**ナレーションの尺（11.92）ではなく `footage.py --check` が出す尺（12.77）**で割る。
-    #    0.83 にしたら「尻が +0.60秒 はみ出す」で門番が鳴った。10.0 ÷ 12.77 ＝ 0.783 → 0.78。
-    "c603": dict(clip="srb",        start=30.0, until=40.0, rate=0.78),
+    #
+    # 🔴 2026-09-23（12本目 ⑤b-2）：**11欄**（DOE 5・4K 6）。残る DOE の3欄（c214・c420・c920）は
+    #    `rate` が 0.4 を下回るので**止め絵**（`cuts/ss.py` の `still()`・実写の数は変わらない）。
+    #    帯＝`ref/ep12/clips.json`／ショット＝`ref/ep12/shots.json`（1秒刻み）。
+    #    中身の正本＝1秒刻みのシート（⑤b-2 で全コマを見た）＋明るさの0.1秒刻みの実測：
+    #      DOE  0〜4.85 射点の小屋（色）／4.85 火球へ切り替わり 5.2〜5.9 明るくなり 6.0〜7.9 真っ白
+    #           ／〜14 火球／16.6 に1コマの光→18.0〜19.0 真っ白→19〜24.5 ヤシの影
+    #           ／**24.6 で黒へ切り替わる**（shots.json は 26 と出す＝1秒の粒度のずれ）→27.0〜29.9 真っ白
+    #           ／30〜34 火球／35〜39 ヤシ・海・爆風に揺れるヤシ／40.5 暗転／41〜56 きのこ雲
+    #           ／**57〜 英字の題字**（`NOGO`）
+    #      4K   0〜1 暗い／1〜8 暗めの火球／8〜56 水平線の火球と雲がゆっくり育つ1ショット
+    #           ／🔴 全コマの左下に透かし（y 0.78〜0.82）＝`zoom=1.33, bias=0` で画面の外へ
+    #    ⚠️ **c101 は 4.85 の切り替わりを意図してまたぐ**（射点の小屋→閃光）。ショット表は
+    #       4.0 を境にしているので門番は鳴らない＝**わざと**であることをここに書いておく。
+    #    🔴 `rate` は `footage.py --check` の出す尺（余韻込み）で割って切り捨てた値（音の尺で割ると尻が
+    #       0.3〜0.7秒はみ出した＝11本目と同じ罠）。0.40 以上なので動画のまま（§5b-17b）
+    "c101": dict(clip="doe", start=4.0, until=13.0, rate=0.63),
+    "c501": dict(clip="doe", start=14.0, until=24.4, rate=0.68),     # 24.6 の切り替わりの手前で止める
+    "c607": dict(clip="doe", start=26.0, until=34.0, rate=0.81),     # 真っ白→火球＝乗組員が見た「光」
+    "c506": dict(clip="doe", start=41.0, until=47.0, rate=0.68),     # 立ちのぼる柱＝吸い上げられるサンゴ
+    "c608": dict(clip="doe", start=47.0, until=53.0, rate=0.46),     # 輪の雲が広がる
+    "c324": dict(clip="bravo4k", start=1.0, until=7.0, rate=0.57, zoom=1.33, bias=0.0),
+    "c502": dict(clip="bravo4k", start=8.0, until=16.0, rate=0.76, zoom=1.33, bias=0.0),
+    "c606": dict(clip="bravo4k", start=16.0, until=25.0, rate=0.75, zoom=1.33, bias=0.0),
+    "c110": dict(clip="bravo4k", start=25.0, until=37.0, rate=0.62, zoom=1.6, bias=0.0),
+    "c102": dict(clip="bravo4k", start=37.0, until=48.0, rate=0.70, zoom=1.33, bias=0.0),
+    "c522": dict(clip="bravo4k", start=48.0, until=56.0, rate=0.92, zoom=1.33, bias=0.0),
 }
 # 🔴 **まだ決まっていない2欄（代用で埋めていない）** → [[feedback-agents-substitute-missing-parts]]
 #   c621「ARTCC 画面（点が消えた直後）」
@@ -869,7 +870,9 @@ def probe_media(url, timeout=45):
                 ct = (r.headers.get("Content-Type") or "").split(";")[0].lower().strip()
                 ln = int(r.headers.get("Content-Length") or 0)
                 ar = (r.headers.get("Accept-Ranges") or "").lower()
-            if not ct.startswith(("video/", "audio/", "application/octet-stream")):
+            # 🔴 2026-09-23（12本目 ⑤b-2）：Commons の `.ogv`（Ogg Theora）は `application/ogg` で返る
+            #    （RFC 5334 の Ogg の容れ物の型）。頁（text/html）ではないので通す。大きさと区間読みは下で見る
+            if not ct.startswith(("video/", "audio/", "application/octet-stream", "application/ogg")):
                 why = f"Content-Type が `{ct or '空'}`＝動画でない（頁を渡している）"
             elif ln < 1_000_000:
                 why = f"Content-Length {ln} が小さすぎる＝媒体でない"

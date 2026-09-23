@@ -570,6 +570,42 @@ def ep10_credit(name):
 
 
 # ══════════════════════════════════════════════════════════
+#  12本目（キャッスル・ブラボー）── `ref/ep12/`
+# ══════════════════════════════════════════════════════════
+# 名前の付け方（`tools/cuts/ss.py`）:
+#   ep12/<欄の名>.jpg     … 写真63点（NARA RG 678 ＝ §105 ／ Commons ＝ 米国の職務著作 PD・日本の1954年の報道写真 PD）
+#   ep12/pg<頁>.png       … 報告書の頁（出典は頁の側＝`page_credit()`）
+#   ep12/fb_<カットID>.jpg … 動く映像を当てたカットの**ひかえの静止画**（出典は映像を名乗る）
+# 🔴 表はここへ貼らずにファイルから読む。`python qa_out/ep12_assets.py credits --write` が書く。
+#    ⚠️ ファイルが無い・名前が当たらないときは None を返し、最後の `PHOTO_CREDIT[...]` で
+#       KeyError にして気づかせる（fail closed。黙って別の出典を出さない）。
+_EP12_CREDITS = HERE / "ref" / "ep12" / "credits.json"
+EP12_PHOTO = (json.loads(_EP12_CREDITS.read_text(encoding="utf-8"))
+              if _EP12_CREDITS.exists() else {})
+_EP12_PAGES = HERE / "ref" / "ep12" / "pages.json"
+EP12_PAGES = (json.loads(_EP12_PAGES.read_text(encoding="utf-8"))
+              if _EP12_PAGES.exists() else {})
+# ⚠️ 機関名と年は**文書の表紙・DTIC の記録で確かめた値だけ**（2026-09-23 ⑤b-2）：
+#    DNA 6035F＝Defense Nuclear Agency, 1982（台本 §10）／WT-923＝DTIC の記録に「Oct 1954」
+#    （台本 c111 は「医師団の報告書」と呼ぶ）／DASA 1251 第2巻＝表紙「DNA 1251-2-EX … Extracted from
+#    DASA 1251 … May 1979 … Prepared for Defense Nuclear Agency」＝**1979年の抜粋版**
+EP12_DOC = {"DNA 6035F": "国防原子力局「CASTLE SERIES, 1954」（1982年）",
+            "WT-923": "医師団の報告書 WT-923（1954年）",
+            "DASA 1251": "DASA 1251 第2巻（国防原子力局の抜粋版・1979年）"}
+
+
+def ep12_credit(name):
+    """`ref/ep12/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if not name.startswith("ep12/"):
+        return None
+    stem = name[5:].rsplit(".", 1)[0]
+    if stem.startswith("pg") and stem in EP12_PAGES:
+        p = EP12_PAGES[stem]
+        return f"出典：{EP12_DOC[p['doc']]} PDF {p['pdf_page']}頁"
+    return EP12_PHOTO.get(name)
+
+
+# ══════════════════════════════════════════════════════════
 #  11本目（チャレンジャー号）── `ref/ep11/`
 # ══════════════════════════════════════════════════════════
 # 名前の付け方（`tools/cuts/ss.py`）:
@@ -775,7 +811,7 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep11_credit(spec["photo"]) or ep10_credit(spec["photo"])
+    cr = (ep12_credit(spec["photo"]) or ep11_credit(spec["photo"]) or ep10_credit(spec["photo"])
           or ep9_credit(spec["photo"]) or ep8_credit(spec["photo"]) or ep7_credit(spec["photo"])
           or keybridge_credit(spec["photo"])
           or sl1_credit(spec["photo"])
@@ -1515,6 +1551,7 @@ def build_layers(allow_missing=False):
     allow_missing … 章を1つずつ作っている途中は True で回す（未定義カットを飛ばす）。
     """
     jobs, spans, holds, labks = {}, {}, {}, {}
+    moves_of = {}
     for cid in ORDER:
         spec = SPEC.get(cid)
         if spec is None:
@@ -1538,6 +1575,14 @@ def build_layers(allow_missing=False):
         jobs[f"{cid}_base"] = fig_base(cid, spec, ground=not back)
         lab, stages = fig.lab, list(fig.stages)
         holds[cid], labks[cid] = list(fig.holds), fig.labk
+        # 🔴 12本目から：動く部品（drift・trace）。**画素の座標のまま** meta で運ぶ（build_jiko が PIL で描く）
+        moves_of[cid] = list(getattr(fig, "moves", []) or [])
+        # 🔴 12本目から：冒頭の写真（intro）。`intro=dict(photo=, sec=)` の秒だけ写真を全画面で出し、
+        #    重ねて図へ入れ替える（c104＝空撮を約3秒→地図）。写真の見出しと出典は実写カットと同じ板
+        if spec.get("intro"):
+            if back:
+                raise SystemExit(f"{cid}: intro と photo（地に敷く）は同時に使えない")
+            jobs[f"{cid}_ilab"] = full_top(cid, dict(spec, photo=spec["intro"]["photo"]))
         if not stages:
             # 段が無いと「描いている途中」が作れず、カットが丸ごと静止する。
             # 骨格を段に格上げして、カット全体をかけて描かせる。
@@ -1558,7 +1603,8 @@ def build_layers(allow_missing=False):
     #    呼び出しが4か所（check_layout / check_box / peek / layer_index）あるので、
     #    段の時間割はここに置いて layer_index が直後に読む。
     STAGE_META.clear()
-    STAGE_META.update({c: {"holds": holds.get(c) or [], "labk": labks.get(c)}
+    STAGE_META.update({c: {"holds": holds.get(c) or [], "labk": labks.get(c),
+                           "moves": moves_of.get(c) or []}
                        for c in spans})
     # 🔴 決め所と同じ行の字幕を消す（"with_last" のときだけ）。
     SUB_MUTE.clear()
@@ -1586,7 +1632,9 @@ def layer_index(allow_missing=False):
                     # 🔴 実写カット（fig の無いカット）にかける暗幕。**書いたカットだけ**
                     "pveil": (float(s["veil"]) if s.get("veil") and not s.get("fig") else None),
                     "stages": ns, "layers": sorted(names),
-                    "holds": m.get("holds") or [], "labk": m.get("labk")}
+                    "holds": m.get("holds") or [], "labk": m.get("labk"),
+                    # 🔴 12本目から：動く部品と冒頭の写真（build_jiko.meta_of がそのまま運ぶ）
+                    "moves": m.get("moves") or [], "intro": s.get("intro")}
     return idx, jobs
 
 
@@ -1632,14 +1680,31 @@ def render_all(force=False, only=None, jobs_workers=4):
     # 章の扉の文字（build_layers には入れない＝門番がカットの図と重なりとして数えないように）
     for cid in sorted(CARD_HEADS):
         jobs[f"card_{cid}"] = card_svg(cid)
+    # 🔴🔴 2026-09-23（12本目 ⑤b-2）：**中身（SVG）が変わった層も焼き直す。**
+    #    それまでは PNG が在れば飛ばした＝SVG を直しても**古い絵のまま合成された**（force を付け忘れると黙る）。
+    #    drift は動く部品を meta（毎回新しい）から描くので、**古い地図の上に新しい座標の光が出た**
+    #    （試し焼きで実測）。同じカットIDの前の回の PNG（11本目）が残っていても同じことが起きる。
+    #    → 層ごとに「色を置き換えたあとの SVG」の md5 を `_svghash.json` に控え、**無い・違う**なら焼き直す。
+    import hashlib
+    hp = OUT / "_svghash.json"
+    try:
+        seen = json.loads(hp.read_text(encoding="utf-8")) if hp.exists() else {}
+    except ValueError:
+        seen = {}
+    fresh = {}
+
+    def fp(k, svg):
+        return hashlib.md5(J.remap(svg, pal_of_layer(k)).encode("utf-8")).hexdigest()
     todo = []
     for k, svg in jobs.items():
         if only and not k.startswith(only):
             continue
         p = OUT / f"{k}.png"
-        if p.exists() and not force:
+        f_ = fp(k, svg)
+        if p.exists() and not force and seen.get(k) == f_:
             continue
         todo.append((k, svg, p, W, H))
+        fresh[k] = f_
     # ★字幕の黒帯。全カット共通の1枚。**常時貼るので必ず焼く**
     if not (only and not "_subband".startswith(only)):
         p = OUT / "_subband.png"
@@ -1649,10 +1714,13 @@ def render_all(force=False, only=None, jobs_workers=4):
         if only and not cid.startswith(only):
             continue
         p = OUT / f"sub_{cid}.png"
-        if p.exists() and not force:
+        svg_ = sub_strip([r["text"] for r in rows])
+        f_ = fp(f"sub_{cid}", svg_)
+        if p.exists() and not force and seen.get(f"sub_{cid}") == f_:
             continue
         h = SUB_H * len(rows)
-        todo.append((f"sub_{cid}", sub_strip([r["text"] for r in rows]), p, W, h))
+        todo.append((f"sub_{cid}", svg_, p, W, h))
+        fresh[f"sub_{cid}"] = f_
     print(f"書き出すレイヤー {len(todo)} 枚（並列 {jobs_workers}）", flush=True)
     done = [0]
 
@@ -1666,6 +1734,9 @@ def render_all(force=False, only=None, jobs_workers=4):
 
     with ThreadPoolExecutor(max_workers=jobs_workers) as ex:
         list(ex.map(one, todo))
+    # 焼けた層だけ指紋を控える（PNG が出来ていない層は控えない＝次も焼き直す）
+    seen.update({k: v for k, v in fresh.items() if (OUT / f"{k}.png").exists()})
+    hp.write_text(json.dumps(seen, ensure_ascii=False, indent=0), encoding="utf-8")
     print(f"done {len(todo)}", flush=True)
 
 
