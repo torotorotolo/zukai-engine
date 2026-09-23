@@ -54,6 +54,57 @@ DOC_DIM = "#6e5c42"       # その沈めた版（比 2.09）
 #   OK     接着・正常・「有る」        INST   制度・第三者機関
 #   DOC    書類・記録・データ          TICK   目盛り・注記（LINE の暗い版）
 #   LINE_DIM / GRID / *_DIM は「沈める」用。**文字には使わない**
+
+# ── 章ごとの色（12本目から・2026-09-23 カズヤくん決定） ─────────────────
+# カズヤくんの見立て＝「色味が統一されていて演出の型が少ないことが、視聴者が飽きる要因」。
+# → **地・線・写真のデュオトーンを章で替える。意味の色（赤＝破壊・黄＝数字・緑・紫・茶）は替えない。**
+#   決定と見本＝記憶 project-jiko-visual-variety-from-ep12 ／ `ref/ep12/mock_palettes.py`。
+#   戻し先（11本目までの様式）＝記憶 reference-jiko-visual-baseline-ep11（"navy" がそのまま）。
+# ⚠️ 置き換えるのは**焼く直前だけ**（`scene_jiko.render_all` の one() と `build_jiko.tone()`）。
+#    門番（check_box の GROUND_FILLS・titan_fig.DIM_INK ほか）は**元の色の SVG** を読むので触らない。
+# ⚠️ どの章にどの色か＝`scene_jiko.CHAPTER_PALETTE`（**題材依存**＝§0b）。
+#    文字の比 4.5 以上・隣の章との色の差は `tools/check_palette.py` が測る。
+# 実測（2026-09-23・見本）：描画コードの色は**全部この定数経由**（直書きは build_jiko の #e6eef2 だけ
+#   ＝下の DUO_L に移した）。だから SVG の文字列を1回置き換えるだけで章の色が替わる。
+PAL_TOKENS = ("BG", "BG2", "GRID", "LINE", "LINE_DIM", "TICK", "INK_W")
+PALETTES = {
+    # 11本目までの様式そのもの（紺の設計図）。DUO_L＝写真の明るい側
+    "navy":   dict(BG=BG, BG2=BG2, GRID=GRID, LINE=LINE, LINE_DIM=LINE_DIM, TICK=TICK,
+                   INK_W=INK_W, DUO_L="#e6eef2"),
+    # 白黒（歴史の章）。🔴 まったくの無彩色だと紺との差が ΔE 5.8 しか無く（紺は青みの弱い灰色）、
+    #   見本で「近すぎる」と判じた組（5.6）と同じだった → **暖かい白黒**（昔の印画紙の色み・b*≈+8）にした
+    "mono":   dict(BG="#12110f", BG2="#1d1a14", GRID="#2d2a24", LINE="#c4beb2",
+                   LINE_DIM="#5f5a50", TICK="#aca69a", INK_W="#f4f1ea", DUO_L="#f8eed6"),
+    # 夜の藍（夜の章）。見本では紺に近すぎたので紫へ寄せた
+    "night":  dict(BG="#0e0b22", BG2="#17133a", GRID="#262050", LINE="#b3aaf0",
+                   LINE_DIM="#4d4590", TICK="#9d95dc", INK_W="#f1effd", DUO_L="#e9e4fd"),
+    # 赤銅（爆発の章）。見本ではセピアに近すぎた（しかも隣の章）ので赤へ寄せた
+    "copper": dict(BG="#200a08", BG2="#3a100b", GRID="#4d1d16", LINE="#f2ab95",
+                   LINE_DIM="#874033", TICK="#de9885", INK_W="#fdebe6", DUO_L="#ffcfbf"),
+    # セピア（当時の日本の記録）。赤銅と隣り合う（5章→6章）ので黄へ寄せた
+    "sepia":  dict(BG="#17120b", BG2="#241d0e", GRID="#372c19", LINE="#dcc497",
+                   LINE_DIM="#6f5c3c", TICK="#c0a77a", INK_W="#f7efdc", DUO_L="#f6e9c4"),
+    # 青緑（島と海）
+    "teal":   dict(BG="#0a1a1a", BG2="#112626", GRID="#1c3837", LINE="#8ccbbf",
+                   LINE_DIM="#3b6b64", TICK="#7cb3aa", INK_W="#e6f6f2", DUO_L="#def3ee"),
+}
+
+
+def palette(name=None):
+    """章の色の組。名前が無い・知らない名前は "navy"（11本目までの様式）。"""
+    return PALETTES.get(name or "navy", PALETTES["navy"])
+
+
+def remap(svg, name=None):
+    """SVG の中の地・線の色を、章の色に**1回で**置き換える（連鎖置換を起こさない）。"""
+    if not name or name == "navy":
+        return svg
+    import re
+    pal = palette(name)
+    m = {PALETTES["navy"][k].lower(): pal[k] for k in PAL_TOKENS}
+    return re.sub(r"#[0-9a-fA-F]{6}\b", lambda x: m.get(x.group(0).lower(), x.group(0)), svg)
+
+
 LW = 5.0                  # 技術線の基本太さ（1920px幅）
 
 # ── 画面の割り付け（2026-07-30：**余白を詰める**ために全カット共通の枠に統一） ──

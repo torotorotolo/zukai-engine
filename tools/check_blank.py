@@ -136,9 +136,8 @@ def scan(spec_map, photo_of, box_of, skip):
         arr = load_arr(name)
         sh, sw = arr.shape[0], arr.shape[1]
         worst = None
-        for k in (0.0, 1.0):
-            r = CS.crop_rect(sw, sh, box_of[cid], k, spec.get("bias", 0.5),
-                             spec.get("xbias", 0.5), spec.get("zoom", 1.0))
+        # 🔴 12本目から：`cam=` のカットはカメラの経路の3点で測る（check_slide.cam_rects）
+        for k, r in CS.cam_rects(sw, sh, box_of[cid], spec).items():
             got = measure(arr, r)
             if got is None:
                 continue

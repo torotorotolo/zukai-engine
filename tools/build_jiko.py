@@ -9,7 +9,13 @@
   （手書きは図を動かすたびに直し忘れる。実際 c3 のワイプ範囲で1度やっている）。
 
   🔴 **動きには必ず情報を運ばせる。装飾の動きは入れない。**
-     スライドイン・回転・フラッシュはバラエティの文法なので使わない。
+     スライドイン・回転・弾む出方・意味のない拡大はバラエティの文法なので使わない。
+  🔴 2026-09-23（12本目から・カズヤくん決定＝ルール統合版 §5b-17）：次の3つだけ解禁した。
+     ① 転換＝章の変わり目の暗転（scene_jiko.chapter_tail）→ 章の扉（scene_jiko.CARD_SEC）
+        ／同じ章の写真どうしのディゾルブ（DISSOLVE）＝「場面が変わった」を運ぶ
+     ② カメラの型＝パン・引き・2点移動（SPEC の cam=）＋緩急（ease()）＝「どこを見るか」を運ぶ
+     ③ 閃光＝**爆発の瞬間だけ**（SPEC の flash=）＝乗組員が見た「空が光る」そのもの
+     どれも SPEC に書いたカットにしか効かない（書かなければ11本目までと同じ絵）。
 
 ■ 2つのモード（34分＝61,300コマあるので分ける）
   qa   … カットごとの検品用の静止画と拡大図だけを作る。**5巡以上の精査はこちらで回す**
@@ -104,7 +110,9 @@ def tone(ph, cut, meta):
        ⚠️ 全カットに色を残さない。実写と、色が意味を持たないスライドは今までどおり沈める。
     """
     keep = float((meta.get(cut) or {}).get("color", 0.0) or 0.0)
-    duo = duotone(ph, J.BG2, "#e6eef2", boost=cut in BOOST)
+    # 🔴 12本目から：デュオトーンの2色は**その章の色**（jiko_style.PALETTES。navy＝今までと同じ2色）
+    pal = J.palette((meta.get(cut) or {}).get("pal"))
+    duo = duotone(ph, pal["BG2"], pal["DUO_L"], boost=cut in BOOST)
     if keep <= 0.001:
         return duo
     raw = ph.convert("RGBA")
@@ -290,7 +298,7 @@ def subtitle(fr, cut, t, subs, band=None, mute=()):
 _VEIL = {}
 
 
-def veil_layer(a):
+def veil_layer(a, bg=None):
     """図を読ませるために写真の上に敷く暗幕。**全面 J.BG の一様な板。**
 
     🔴 2026-07-31（試写の指摘④）。図解は細い線と小さい文字なので、
@@ -299,11 +307,107 @@ def veil_layer(a):
        ⚠️ グラデーションにしない。薄いところに図が来ると読めなくなるので、
           **どこに図が来ても同じ濃さ**であることのほうが大事。
     """
-    k = round(a, 3)
+    # 🔴 12本目から：板の色は**その章の地の色**（bg。省略は J.BG＝今までどおり）
+    bg = bg or J.BG
+    k = (round(a, 3), bg)
     if k not in _VEIL:
-        c = tuple(int(J.BG[i:i + 2], 16) for i in (1, 3, 5))
-        _VEIL[k] = Image.new("RGBA", (S.W, S.H), c + (int(255 * k),))
+        c = tuple(int(bg[i:i + 2], 16) for i in (1, 3, 5))
+        _VEIL[k] = Image.new("RGBA", (S.W, S.H), c + (int(255 * k[0]),))
     return _VEIL[k]
+
+
+def _bg_of(meta, cut):
+    return J.palette((meta.get(cut) or {}).get("pal"))["BG"]
+
+
+# ── 12本目からの転換・カメラ・閃光（§5b-17）────────────────────────
+FADE_BLACK = 0.40     # 章の終わりの暗転／扉の出だしの暗転明け（秒）
+CARD_X = 0.40         # 扉 → 中身へ重ねて入れ替える秒
+DISSOLVE = 0.50       # 同じ章の写真どうしのディゾルブ（秒）
+CARD_PHOTO = 0.36     # 扉の地に写真を混ぜる割合（方眼を残す）
+
+
+def ease(u):
+    """緩急（イージング）。0→1 を、動き始めと終わりをなめらかにして返す（余弦の半周）。"""
+    u = min(1.0, max(0.0, u))
+    return 0.5 - 0.5 * math.cos(math.pi * u)
+
+
+# カメラの型。SPEC の cam= に書く。**写真だけのカット（動く映像でない）**にだけ効く。
+# 書かなければ今までどおりのゆっくり寄る動き（k）。
+#   "pan_r" / "pan_l"   … 左→右／右→左に横へなぞる（CAM_Z 倍に寄って動く余地を作る）
+#   "tilt_d" / "tilt_u" … 上→下／下→上になぞる
+#   "pull"              … 1.5倍に寄った所から引いて、全体を明かす
+#   {"from": (xbias, bias, zoom), "to": (xbias, bias, zoom)} … 2点移動（cuts/ss.focus() の値を書ける）
+# ⚠️ 切り方が動くので、check_slide（焼き込み文字）・check_blank（空の窓）は cam_samples() の
+#    3点（頭・中・尻）で測る。
+CAM_Z = 1.22
+
+
+def cam_ends(cam, bias=0.5, xb=0.5, zm=1.0):
+    """カメラの経路の両端 ((xbias, bias, zoom), (xbias, bias, zoom))。"""
+    if isinstance(cam, str):
+        z = max(zm, 1.0) * CAM_Z
+        return {"pan_r": ((0.0, bias, z), (1.0, bias, z)),
+                "pan_l": ((1.0, bias, z), (0.0, bias, z)),
+                "tilt_d": ((xb, 0.0, z), (xb, 1.0, z)),
+                "tilt_u": ((xb, 1.0, z), (xb, 0.0, z)),
+                "pull": ((xb, bias, zm * 1.5), (xb, bias, zm))}[cam]
+    return tuple(cam["from"]), tuple(cam["to"])
+
+
+def cam_state(cam, u, bias=0.5, xb=0.5, zm=1.0):
+    """時刻 u（0→1）のカメラ＝(xbias, bias, zoom)。緩急を掛け、寄せは 0〜1 に収める。"""
+    a, b = cam_ends(cam, bias, xb, zm)
+    e = ease(u)
+    x, y, z = (p + (q - p) * e for p, q in zip(a, b))
+    return min(1.0, max(0.0, x)), min(1.0, max(0.0, y)), z
+
+
+def cam_samples(cam, bias=0.5, xb=0.5, zm=1.0):
+    """門番が測る3点（頭・中・尻）。"""
+    return [cam_state(cam, u, bias, xb, zm) for u in (0.0, 0.5, 1.0)]
+
+
+# 閃光＝**爆発の瞬間だけ**。SPEC の flash=（中身の頭からの秒）が光のいちばん強い時刻。
+# 2コマで立ち上がり、τ=0.28秒で消える（1回きり。点滅はさせない）。
+FLASH_PEAK, FLASH_TAU = 0.85, 0.28
+
+
+def flash_alpha(dt):
+    rise = 2 / FPS
+    if dt < -rise:
+        return 0.0
+    if dt < 0:
+        return FLASH_PEAK * (1 + dt / rise)
+    return FLASH_PEAK * math.exp(-dt / FLASH_TAU)
+
+
+_SOLID = {}
+
+
+def _solid(rgb):
+    if rgb not in _SOLID:
+        _SOLID[rgb] = Image.new("RGBA", (S.W, S.H), rgb + (255,))
+    return _SOLID[rgb]
+
+
+def _empty_name(pal):
+    return "_empty" if (pal or "navy") == "navy" else f"_empty_{pal}"
+
+
+def card_frame(cut, t, off, lay, photos, meta):
+    """章の扉。その章の色の方眼に、頭のカットの写真を薄く混ぜ、章番号と章名を載せる。"""
+    m = meta.get(cut) or {}
+    fr = lay[_empty_name(m.get("pal"))].copy()
+    if cut in photos:
+        ph = fit(photos[cut], (0, 0, S.W, S.H), 0.3 * t / max(off, 0.001),
+                 S.PHOTO_CUTS[cut][2], *S.PHOTO_CROP[cut])
+        fr = Image.blend(fr, tone(ph, cut, meta), CARD_PHOTO)
+    over(fr, lay[f"card_{cut}"], min(1.0, max(0.0, (t - 0.20) / 0.45)))
+    if t < FADE_BLACK:
+        fr = Image.blend(_solid((0, 0, 0)), fr, ease(t / FADE_BLACK))
+    return fr
 
 
 def scene(cut, t, dur, lay, photos, meta):
@@ -326,7 +430,7 @@ def scene(cut, t, dur, lay, photos, meta):
         else:
             ph = fit(photos[cut], S.PHOTO_FULL, k, S.PHOTO_CUTS[cut][2], xb, zm)
         fr = tone(ph, cut, meta)
-        fr.alpha_composite(veil_layer(meta[cut]["veil"]))
+        fr.alpha_composite(veil_layer(meta[cut]["veil"], _bg_of(meta, cut)))
         fr.alpha_composite(lay[f"{cut}_base"])
     elif meta[cut]["photo"]:
         box, _, bias = S.PHOTO_CUTS[cut]
@@ -343,8 +447,14 @@ def scene(cut, t, dur, lay, photos, meta):
             ph = fit(src, box, 0.0, meta[cut].get("fbias", bias), xb, zm)
         else:
             src = photos[cut]
-            # 実写カットでも `xbias` / `zoom` を書けば焼き込みを外せる（既定は今までと同じ）
-            ph = fit(src, box, k * (0.35 if box[3] < S.H else 1.0), bias, xb, zm)
+            cam = meta[cut].get("cam")
+            if cam:
+                # 🔴 12本目から：カメラの型（パン・引き・2点移動）。寄り（k）は重ねない
+                cxb, cb, czm = cam_state(cam, k, bias, xb, zm)
+                ph = fit(src, box, 0.0, cb, cxb, czm)
+            else:
+                # 実写カットでも `xbias` / `zoom` を書けば焼き込みを外せる（既定は今までと同じ）
+                ph = fit(src, box, k * (0.35 if box[3] < S.H else 1.0), bias, xb, zm)
         fr.paste(tone(ph, cut, meta), (box[0], box[1]))
         # 🔴 2026-09-07（5本目 SL-1）：**実写カットにも暗幕をかけられるようにした。**
         #    それまで暗幕は「写真を地にして図を重ねるカット」だけだった。
@@ -354,7 +464,7 @@ def scene(cut, t, dur, lay, photos, meta):
         #    こちらの文字だけが残る。⚠️ **spec に `veil=` を書いたカットだけ**（既定は今までどおり無し）。
         vp = meta[cut].get("pveil")
         if vp:
-            fr.alpha_composite(veil_layer(vp))
+            fr.alpha_composite(veil_layer(vp, _bg_of(meta, cut)))
         over(fr, lay[f"{cut}_lab"], min(1.0, max(0.0, (t - 0.15) / 0.5)))
         # 実写の注記は**フェード**で出す。写真の上を横切るワイプは汚れに見える
         for i, (a, b) in enumerate(times):
@@ -384,13 +494,39 @@ def scene(cut, t, dur, lay, photos, meta):
 
 
 def compose(cut, t, dur, lay, photos, meta, subs=None, band=None):
-    fr = scene(cut, t, dur, lay, photos, meta)
+    """1コマ。t と dur は**扉込み**のカットの時刻と尺（CUTS のまま渡す）。
+
+    🔴 12本目から：扉（meta の card 秒）があるカットは、頭の card 秒が章の扉。
+       中身（scene・字幕）には**扉を引いた時刻**を渡す（scene_jiko.stage_times も同じ尺で組む）。
+    """
+    m = meta.get(cut) or {}
+    off = float(m.get("card") or 0.0)
+    if off and t < off:
+        fr = card_frame(cut, t, off, lay, photos, meta)
+        if t > off - CARD_X:
+            # 扉の終わりは、中身の最初のコマへ重ねて入れ替える
+            first = scene(cut, 0.0, dur - off, lay, photos, meta)
+            fr = Image.blend(fr, first, ease((t - (off - CARD_X)) / CARD_X))
+        return fr
+    t2, dur2 = t - off, dur - off
+    fr = scene(cut, t2, dur2, lay, photos, meta)
+    if m.get("flash") is not None:
+        a = flash_alpha(t2 - float(m["flash"]))
+        if a > 0.004:
+            fr = Image.blend(fr, _solid((255, 255, 255)), a)
+    prev = m.get("_prev_img")
+    if prev is not None and t2 < DISSOLVE:
+        # 同じ章の写真どうし：前のカットの最後のコマから重ねて入れ替える
+        fr = Image.blend(prev, fr, ease(t2 / DISSOLVE))
     # 🔴 決め所（quote）と同じ行は字幕に出さない。図が同じ言葉を大きく出しているので、
     #    そのまま出すと二重表示になる（2026-08-03。"with_last" で声と同時に出すようにした）。
     #    ★どの行を消すかは **meta から取る**。`S.SUB_MUTE` を直接見てはいけない
     #      （理由は meta_of() の "mute" を見よ）。
-    return subtitle(fr, cut, t, subs or {}, band,
-                    (meta.get(cut) or {}).get("mute") or ())
+    fr = subtitle(fr, cut, t2, subs or {}, band, m.get("mute") or ())
+    if m.get("tail_black") and t > dur - FADE_BLACK:
+        # 章の終わり：声が止んだあとの尻（TAIL 0.50秒）で暗転し、次の章の扉へ
+        fr = Image.blend(fr, _solid((0, 0, 0)), ease((t - (dur - FADE_BLACK)) / FADE_BLACK))
+    return fr
 
 
 def load_band():
@@ -434,7 +570,20 @@ def meta_of(idx):
                   "mute": sorted(S.SUB_MUTE.get(cid) or []),
                   # ★色を残す割合（0＝デュオトーン／1＝原色）。`tone()` を見よ
                   "color": float((S.SPEC.get(cid) or {}).get("color", 0.0)),
-                  "times": S.stage_times(cid, v["stages"], v.get("holds"))}
+                  "times": S.stage_times(cid, v["stages"], v.get("holds")),
+                  # 🔴 12本目から（§5b-17・§5b-33b）。子プロセスは親の変数を見ないので必ず meta で運ぶ
+                  "pal": S.palette_of(cid),                 # 章の色
+                  "card": S.card_of(cid),                   # 頭の扉の秒（0＝無し）
+                  "tail_black": S.chapter_tail(cid),        # 尻で暗転（次が扉）
+                  "flash": (S.SPEC.get(cid) or {}).get("flash"),   # 閃光の秒（爆発の瞬間だけ）
+                  "cam": (S.SPEC.get(cid) or {}).get("cam")}       # カメラの型
+        # ディゾルブ：**同じ章の、写真だけのカットどうし**（図解・扉つきのカットには掛けない）
+        i = S.ORDER.index(cid)
+        prev = S.ORDER[i - 1] if i > 0 else None
+        solo = v["photo"] and not v["back"]
+        if (prev and solo and prev in idx and idx[prev]["photo"] and not idx[prev]["back"]
+                and prev[:2] == cid[:2] and not S.card_of(cid)):
+            m[cid]["dissolve"] = prev
         # ★動画を当てたカットの切り方（焼き込みを画面外へ追い出すための寄せ・拡大）
         u = _FOOT_USE.get(cid)
         if u:
@@ -463,6 +612,7 @@ def check_motion(meta, limit=5.0):
     for cid, sec in S.CUTS:
         if cid not in meta:
             continue
+        sec = sec - S.card_of(cid)      # 扉の秒は中身に含めない（扉は扉で動いている）
         # 写真だけのカットはケンバーンズで常に動いている。
         # ⚠️ **写真を地に敷いた図解カットは対象に残す**（図が止まったら止まって見える）。
         if meta[cid]["photo"] and not meta[cid]["back"]:
@@ -510,6 +660,13 @@ def _load_layers(cids, idx):
     lay = {}
     for cid in cids:
         for n in idx[cid]["layers"]:
+            lay[n] = L(n)
+        if S.card_of(cid) and (OUT / f"card_{cid}.png").exists():
+            lay[f"card_{cid}"] = L(f"card_{cid}")
+    # 章の色ごとの地（章の扉の地・check_space の基準）
+    for pal in set(S.CHAPTER_PALETTE.values()) | {"navy"}:
+        n = _empty_name(pal)
+        if (OUT / f"{n}.png").exists():
             lay[n] = L(n)
     return lay
 
@@ -570,9 +727,15 @@ def qa_shots(cids, idx, meta, at=0.92):
     out = []
     for cid in cids:
         sec = secs[cid]
-        im = compose(cid, shot_at(cid, sec), sec, lay, photos, meta, subs,
+        # 🔴 12本目から：撮る時刻は**中身の時刻**で選び、扉の秒を足して compose へ渡す
+        off = S.card_of(cid)
+        im = compose(cid, off + shot_at(cid, sec - off), sec, lay, photos, meta, subs,
                      band).convert("RGB")
         im.save(QA / f"cut_{cid}.png")
+        if off and f"card_{cid}" in lay:
+            # 章の扉も1枚（文字が出そろい、中身へ重なり始める前）
+            compose(cid, off * 0.6, sec, lay, photos, meta, subs, band).convert("RGB").save(
+                QA / f"card_{cid}.png")
         out.append((cid, im))
     return out
 
@@ -585,9 +748,13 @@ def _seg_worker(args):
        音と数秒ずれる（226カット × 最大0.5コマ）。音声側は正確な秒で置いているので、
        映像の側を通し時刻に合わせる。
     """
-    cid, sec, nframes, idxv, metav = args
+    cid, sec, nframes, idxv, metav, prevpack = args
     import scene_jiko as S2
     lay = {n: Image.open(OUT / f"{n}.png").convert("RGBA") for n in idxv["layers"]}
+    if metav.get("card"):
+        # 章の扉の文字と、その章の色の地
+        for n in (f"card_{cid}", _empty_name(metav.get("pal"))):
+            lay[n] = Image.open(OUT / f"{n}.png").convert("RGBA")
     subs = {}
     if (OUT / f"sub_{cid}.png").exists():
         subs[cid] = Image.open(OUT / f"sub_{cid}.png").convert("RGBA")
@@ -596,7 +763,18 @@ def _seg_worker(args):
         photos[cid] = load_photo(S2.PHOTO_CUTS[cid][1], S2.PHOTO_CUTS[cid][0],
                                  S2.PHOTO_TRIM.get(cid), S2.PHOTO_LEVELS.get(cid))
     band = load_band()
-    meta = {cid: metav}
+    meta = {cid: dict(metav)}
+    if prevpack:
+        # ディゾルブの元＝前のカットの**最後のコマ**（各コマは「カットと時刻」だけで決まる作りなので、
+        #   前のカットの素材を読めばこのプロセスの中で同じ絵を作れる）
+        pcid, psec, pidxv, pmetav = prevpack
+        play = {n: Image.open(OUT / f"{n}.png").convert("RGBA") for n in pidxv["layers"]}
+        pph = {}
+        if pidxv["photo"]:
+            pph[pcid] = load_photo(S2.PHOTO_CUTS[pcid][1], S2.PHOTO_CUTS[pcid][0],
+                                   S2.PHOTO_TRIM.get(pcid), S2.PHOTO_LEVELS.get(pcid))
+        meta[cid]["_prev_img"] = scene(pcid, max(0.0, psec - 1.0 / FPS), psec, play, pph,
+                                       {pcid: pmetav})
     n = nframes
     dst = SEG / f"{cid}.mp4"
     p = subprocess.Popen(
@@ -631,7 +809,10 @@ def build_full(idx, meta, workers=None):
         a = int(round(cum * FPS))
         cum += secs[cid]
         b = int(round(cum * FPS))
-        args.append((cid, secs[cid], b - a, idx[cid], meta[cid]))
+        pc = meta[cid].get("dissolve")
+        prevpack = ((pc, S.content_sec(pc), idx[pc], meta[pc])
+                    if pc and pc in idx and pc in meta else None)
+        args.append((cid, secs[cid], b - a, idx[cid], meta[cid], prevpack))
     total = 0
     print(f"mp4 を {workers} 並列で焼く（{len(args)}カット）", flush=True)
     with ProcessPoolExecutor(max_workers=workers) as ex:
@@ -657,7 +838,9 @@ def default_zooms(order=None):
     """
     order = order or S.ORDER
     want = set()
-    for pre in ("pr", "c1", "c2", "c3", "c4", "c5", "c6", "ep"):
+    # 🔴 2026-09-23：接頭辞を並びから取る。以前は ("pr","c1"〜"c6","ep") の決め打ちで、
+    #    **第7〜9章と ed01 が拡大図にも一覧にも出なかった**（11本目・12本目は9章）
+    for pre in dict.fromkeys(c[:2] for c in order):
         ids = [c for c in order if c.startswith(pre)]
         if not ids:
             continue
@@ -673,8 +856,11 @@ def build_qa(idx, meta, zoom_cuts=None):
     QA.mkdir(parents=True, exist_ok=True)
     order = [c for c in S.ORDER if c in idx]     # 章を作っている途中でも回せるように
     shots = qa_shots(order, idx, meta)
-    if (OUT / "_empty.png").exists():
-        L("_empty").convert("RGB").save(QA / "_empty.png")
+    # 余白の基準（check_space）。12本目から章の色ごとに1枚
+    for pal in set(S.CHAPTER_PALETTE.values()) | {"navy"}:
+        n = _empty_name(pal)
+        if (OUT / f"{n}.png").exists():
+            L(n).convert("RGB").save(QA / f"{n}.png")
     zoom_cuts = zoom_cuts if zoom_cuts is not None else default_zooms(order)
     for cid, im in shots:
         if cid not in zoom_cuts:
@@ -686,8 +872,9 @@ def build_qa(idx, meta, zoom_cuts=None):
                 c = c.resize((round(c.width * z), round(c.height * z)), Image.LANCZOS)
             c.save(QA / f"zoom_{cid}_{name}.jpg", quality=92)
     # 一覧（章ごとに1枚）。34分を通しで俯瞰できるようにする
-    for pre, label in (("pr", "プロローグ"), ("c1", "1章"), ("c2", "2章"), ("c3", "3章"),
-                       ("c4", "4章"), ("c5", "5章"), ("c6", "6章"), ("ep", "エピローグ")):
+    names = {"pr": "プロローグ", "ep": "エピローグ", "ed": "エンディング"}
+    for pre, label in ((p, names.get(p) or (f"{S.CHAPTERS[p][0]}章" if p in S.CHAPTERS else p))
+                       for p in dict.fromkeys(c[:2] for c in order)):
         sel = [im for cid, im in shots if cid.startswith(pre)]
         if not sel:
             continue

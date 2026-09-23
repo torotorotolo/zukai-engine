@@ -240,7 +240,8 @@ def in_nogo(use=None, secs=None):
     """
     if secs is None:
         import scene_jiko as S
-        secs = dict(S.CUTS)
+        # 🔴 12本目から：映像が使うのは**扉を除いた中身の秒**（扉の2秒は映像を映さない）
+        secs = {c: s - S.card_of(c) for c, s in S.CUTS}
     use = USE if use is None else use
     out = []
     for cid, u in use.items():
@@ -493,7 +494,8 @@ def overruns(use=None, secs=None):
     """(cid, 越えた秒, start, end, until) の一覧。**判定はここ1本**（本番も検算も通る）。"""
     if secs is None:
         import scene_jiko as S
-        secs = dict(S.CUTS)
+        # 🔴 12本目から：扉の秒は映像の until に数えない（中身の秒だけ）
+        secs = {c: s - S.card_of(c) for c, s in S.CUTS}
     use = USE if use is None else use
     out = []
     for cid, u in use.items():
@@ -948,7 +950,8 @@ def _cut_stream(cid, u, secs):
 
 def fetch(check=False):
     import scene_jiko as S
-    secs = dict(S.CUTS)
+    # 🔴 12本目から：切り出す長さも中身の秒（扉の2秒ぶん余計に切らない）
+    secs = {c: s - S.card_of(c) for c, s in S.CUTS}
     missing = [c for c in USE if c not in secs]
     if missing:
         print(f"🔴 台本に無いカットに動画を割り当てている: {missing}")

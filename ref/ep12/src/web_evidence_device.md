@@ -632,6 +632,21 @@ URL＝https://archive.org/download/DTIC_ADA572278/DTIC_ADA572278_djvu.txt　／�
 
 ---
 
+## A7. DTRA は DNA の後身か（c111・c320「国防総省の機関」／④'の申し送り）
+
+**一次資料**＝DTRA 公式の沿革 https://www.dtra.mil/About/DTRA-History/ （2026-09-23 ⑤b で読んだ。WebFetch・curl は UA を付けても 403 → アプリ内ブラウザで本文を取得）
+
+- 「With the rapid military build-up and strategic modernization, the Defense Nuclear Agency (DNA) was established as the successor of DASA in 1971 …」
+- 「June 1996 - DNA was renamed Defense Special Weapons Agency (DSWA) as the mission scope expanded to include non-nuclear development activities.」
+- 「OCTOBER 1998 - The Defense Threat Reduction Agency (DTRA) was established, joining DSWA, OSIA, CTR and the Chemical Biological Defense Program.」
+- 同じ頁：AFSWP は「re-designated as the Defense Atomic Support Agency (DASA) in 1959」
+
+**結論**：AFSWP → DASA（1959）→ DNA（1971）→ DSWA（1996・改名）→ DTRA（1998・DSWA ほかを合わせて発足）。
+**「DTRA は DNA の後身」は正しい。** 12本目の3冊（DASA 1251・DNA 6035F・DTRA 2013）は**同じ系譜の機関**が出したもの。
+台本 c111「国防総省の機関が1982年と2013年にまとめた2冊」・c320「2013年に国防総省の機関がまとめた報告書」は、このままでよい（「別の機関」と言わないのが正しい）。
+
+---
+
 ## 付記
 
 ### A. 見つけられなかった・確認できなかったもの

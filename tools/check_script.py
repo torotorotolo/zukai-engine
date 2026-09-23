@@ -122,6 +122,7 @@ from statistics import median
 CPS_FALLBACK = 5.885    # 文字/秒（**Otani＋TEMPO1.06・実測**。ep10 11,580字 ÷ 発話 1,967.700秒。音があれば narration.json）
 PER_CUT = 11.636        # 秒/カット（**ep10 の完成尺 2,269.033秒 ÷ 195カット**。🔴 ep11 公開後に取り直す）
 LEAD, TAIL = 0.35, 0.50
+CARD_SEC = 2.0          # 🔴 12本目から：章の扉（scene_jiko.CARD_SEC と同じ値。替えたら両方直す）
 GAP = 0.40              # カット内の行と行のあいだ（narration.json の gap と同じ値。替えたら両方直す）
 TAIL_EXTRA_QUOTE = 2.0
 # 陽性対照＝この3本を下の measure() の式に当てて 0.5% 以内に入ること（--refcheck）
@@ -337,20 +338,22 @@ def measure(cuts):
     n, nq = len(cuts), sum(1 for _, _, ls in cuts if any(STAR_RE.match(l) for l in ls))
     d1 = n * PER_CUT
     d2 = chars / EP2_CPS
-    d3 = est_sec(chars, len(lines), n, nq, CPS)
+    # 🔴 12本目から：第2章以降の頭に章の扉（CARD_SEC 秒）が入る＝章の数−1 枚
+    ncard = max(0, len({c[:2] for c, _, _ in cuts if re.match(r"c\d", c)}) - 1)
+    d3 = est_sec(chars, len(lines), n, nq, CPS, ncard)
     jud, why = judged_sec(d1, d2, d3, MEASURED)
     return dict(cuts=cuts, lines=lines, chars=chars, n=n, nq=nq,
                 d1=d1, d2=d2, d3=d3, med=sorted([d1, d2, d3])[1],
                 jud=jud, jud_why=why, measured=MEASURED)
 
 
-def est_sec(chars, lines, n, nq, cps):
+def est_sec(chars, lines, n, nq, cps, ncard=0):
     """🔴 完成尺の見積り。**行間 GAP とカット頭の LEAD を落とすと 8% 短く出る**（上のコメント②）。
 
     発話 chars/cps ＋ カット内の行間 GAP×(行数−カット数) ＋ カット頭尻 (LEAD+TAIL)×カット数
-    ＋ 決め所の余白 2.0×決め所数。"""
+    ＋ 決め所の余白 2.0×決め所数 ＋ 章の扉 CARD_SEC×枚数（12本目から。過去の回の比較は 0 枚）。"""
     return (chars / cps + GAP * (lines - n)
-            + (LEAD + TAIL) * n + TAIL_EXTRA_QUOTE * nq)
+            + (LEAD + TAIL) * n + TAIL_EXTRA_QUOTE * nq + CARD_SEC * ncard)
 
 
 def refcheck(tol=0.5):

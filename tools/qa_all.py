@@ -65,6 +65,8 @@ GATES = [
     ("dup", ["tools/check_dup.py"], "同じ画面で同じ言葉を二度出していないか"),
     ("box", ["tools/check_box.py"], "枠の内側が空いていないか"),
     ("color", ["tools/check_color.py"], "地との比と色どうしの離れ方"),
+    # 🔴 12本目から：章ごとの色。check_color は紺の地しか測らない（しかも --check 無しでは落ちない）ので別に立てた
+    ("palette", ["tools/check_palette.py"], "章の色：章名の当たり・文字の比4.5・隣の章との色の差"),
     ("slide", ["tools/check_slide.py"], "焼き込みの文字×切り方（G-09/10/13/14/15）"),
     ("blank", ["tools/check_blank.py"], "切り出し窓が空っぽでないか"),
     ("wrap", ["tools/check_wrap.py"], "行が語の途中で割れていないか（L-15）"),

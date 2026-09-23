@@ -57,7 +57,9 @@ def expected():
     import scene_jiko as S
     dur = json.load(open(Path(__file__).parent.parent / "audio" / "narration.json",
                          encoding="utf-8"))["durations"]
-    return sum(round(dur[c] + S.LEAD + S.TAIL + S._tail_extra(c), 2) for c in dur), len(dur)
+    # 🔴 12本目から：章の扉（S.card_of）も総尺に入る（scene_jiko._narration と同じ積み方）
+    return sum(round(dur[c] + S.LEAD + S.TAIL + S._tail_extra(c) + S.card_of(c), 2)
+               for c in dur), len(dur)
 
 
 CH_RE = re.compile(r"^\s*#\s*─+\s*第(\d+)章[　\s]+(.+?)(?:（|\(|\s*─|$)")

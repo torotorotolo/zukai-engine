@@ -618,7 +618,8 @@ def main(head=None, out_name="mix.wav", duck=True, bgm="auto"):
         # ★カットごとに圧縮する。34分をまとめて掛けると、静かなカットの
         #   ノイズまで持ち上がる（カット間の無音はここには入っていない）。
         a = compress(read_wav(p)) * V_NARR
-        i = int((starts[cid] + S.LEAD) * SR)
+        # 🔴 12本目から：章の頭のカットは扉（S.card_of）のぶん声を後ろへ（映像の中身と同じずらし）
+        i = int((starts[cid] + S.LEAD + S.card_of(cid)) * SR)
         mix[i:i + len(a)] += a[:max(0, n - i)]
 
     # 🔴 サイドチェイン。**ナレーションだけ**を鍵にして寝床を下げる

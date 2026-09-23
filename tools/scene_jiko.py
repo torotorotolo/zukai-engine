@@ -93,16 +93,18 @@ CSS = ""
 # 🔴 2026-09-21（11本目 ⑤c-2）：チャレンジャー号へ差し替え。10本目の章名は git の `46f11b3`。
 #    正本＝Vault `事故検証-チャレンジャー号-台本第2版-20260921.md` §4 の `### 第N章　…`
 #    （`（` の手前まで）。機械で突き合わせた＝`ref/ep11/parse_script.py`。
+# 🔴 2026-09-23（12本目 ⑤b-1）：キャッスル・ブラボーへ差し替え。11本目の章名は git の `fd55126`。
+#    正本＝Vault `事故検証-キャッスルブラボー-台本第2版-20260923.md` §4 の `### 第N章　…`（`（` の手前まで）。
 CHAPTERS = {
-    "c1": (1, "発射台は、凍っていた"),
-    "c2": (2, "七人"),
-    "c3": (3, "七十三秒"),
-    "c4": (4, "それは「爆発」ではなかった"),
-    "c5": (5, "継ぎ目の、ゴムの輪"),
-    "c6": (6, "前の夜、あの部屋で"),
-    "c7": (7, "帽子を、かけかえる"),
-    "c8": (8, "二十四回、うまくいっていた"),
-    "c9": (9, "海から上がったもの"),
+    "c1": (1, "予想をはるかに超えた爆発"),
+    "c2": (2, "水素爆弾と、キャッスル作戦"),
+    "c3": (3, "見込みは、なぜ外れたのか"),
+    "c4": (4, "撃つ前の夜の風"),
+    "c5": (5, "1500万トン"),
+    "c6": (6, "第五福竜丸"),
+    "c7": (7, "島に降った灰"),
+    "c8": (8, "日本に帰ってきた灰"),
+    "c9": (9, "その後"),
 }
 NCH = 9
 
@@ -110,6 +112,29 @@ NCH = 9
 def chapter_of(cid):
     """プロローグ（pr*）とエピローグ（ep*）は章マーカー無し。"""
     return CHAPTERS.get(cid[:2])
+
+
+# ── 章ごとの色（12本目から・2026-09-23 カズヤくん決定）＝ jiko_style.PALETTES の名前 ──
+# 🔴 **題材依存**（§0b）。**章番号でなく章名で引く**：次の回で CHAPTERS を差し替えたのに
+#    ここを直し忘れると章名が1つも当たらない＝ `check_palette` が止める
+#    （番号で引くと、前の回の色が新しい回の同じ番号の章に黙って出る）。
+#    ここに無い章・章の無いカット（ed01 ほか）は "navy"＝11本目までの様式。空にすれば全部 navy に戻る。
+CHAPTER_PALETTE = {
+    "予想をはるかに超えた爆発": "navy",      # チャンネルの顔。火球だけ原色（cuts の color=1.0）
+    "水素爆弾と、キャッスル作戦": "mono",    # 歴史
+    "見込みは、なぜ外れたのか": "navy",      # 設計図＝物理の解説
+    "撃つ前の夜の風": "night",               # 夜
+    "1500万トン": "copper",                 # 爆発（火球は原色）
+    "第五福竜丸": "sepia",                   # 日本・1954年の記録
+    "島に降った灰": "teal",                  # 島と海
+    "日本に帰ってきた灰": "sepia",           # 日本
+    "その後": "navy",                        # 分析に戻る
+}
+
+
+def palette_of(cid):
+    ch = chapter_of(cid)
+    return CHAPTER_PALETTE.get(ch[1], "navy") if ch else "navy"
 
 
 # ── 出典表記（ref/CREDITS.md の台帳と1対1） ───────────────
@@ -1224,16 +1249,58 @@ def _tail_extra(cid):
     return TAIL_EXTRA.get(fig[0], 0.0) if fig else 0.0
 
 
+# ── 章の扉（12本目から・2026-09-23 カズヤくん決定）──────────────────
+# 第2章以降の**頭のカット**の前に CARD_SEC 秒の扉（章番号と章名）を置く。
+# 🔴 扉は「そのカットの頭に足す時間」として **CUTS に入れる**。音（audio_mix）・総尺（check_final）・
+#    コマ数（build_full）が同じ表を読むので、ずれない。
+#    **中身（写真・映像・段・字幕）の時刻は扉のぶんだけ後ろへずらす**：build_jiko.compose が t から
+#    card_of() を引いて scene に渡し、stage_times も扉を除いた尺（content_sec）で組む。
+#    動く映像の秒（footage の until・NOGO）も content_sec で測る。
+# 0 にすれば扉は消え、11本目までと同じ尺・同じ絵に戻る（全体で 2.0 × 8 ＝ +16 秒）。
+CARD_SEC = 2.0
+
+
+def _card_heads(keys):
+    """第2章以降の章の、最初のカット（narration.json の並び順で決める）。"""
+    heads, seen = set(), set()
+    for c in keys:
+        ch = CHAPTERS.get(c[:2])
+        if not ch:
+            continue
+        if c[:2] not in seen and ch[0] >= 2:
+            heads.add(c)
+        seen.add(c[:2])
+    return heads
+
+
 def _narration():
     p = HERE / "audio" / "narration.json"
     d = json.loads(p.read_text(encoding="utf-8"))
     dur = d["durations"]
-    cuts = [(c, round(dur[c] + LEAD + TAIL + _tail_extra(c), 2)) for c in dur]
-    return cuts, d.get("subtitles", {})
+    heads = _card_heads(list(dur)) if CARD_SEC > 0 else set()
+    cuts = [(c, round(dur[c] + LEAD + TAIL + _tail_extra(c) + (CARD_SEC if c in heads else 0.0), 2))
+            for c in dur]
+    return cuts, d.get("subtitles", {}), heads
 
 
-CUTS, SUBS = _narration()
+CUTS, SUBS, CARD_HEADS = _narration()
 ORDER = [c for c, _ in CUTS]
+
+
+def card_of(cid):
+    """そのカットの頭に置く扉の秒（扉の無いカットは 0）。"""
+    return CARD_SEC if cid in CARD_HEADS else 0.0
+
+
+def content_sec(cid):
+    """扉を除いた中身の尺。写真・映像・段・字幕が使える秒はこちら。"""
+    return dict(CUTS)[cid] - card_of(cid)
+
+
+def chapter_tail(cid):
+    """次のカットが扉つき（＝章の変わり目）なら True。そのカットの終わりを暗転させる。"""
+    i = ORDER.index(cid) if cid in ORDER else -1
+    return 0 <= i < len(ORDER) - 1 and ORDER[i + 1] in CARD_HEADS
 
 INSETS = {}
 
@@ -1392,7 +1459,8 @@ def stage_times(cid, nstage, holds=None):
             「読み終えてから出す」と、視聴者はもう答えを聞いてしまっているので
             **画面に出ても何の意外性もない**。新規に使わないこと。
     """
-    sec = dict(CUTS)[cid]
+    # 扉（card_of）のぶんは中身の時刻に含めない＝段は扉が明けてからの時刻で組む
+    sec = content_sec(cid)
     rows = SUBS.get(cid, [])
     starts = [r["t"] + LEAD for r in rows]
     if not starts:
@@ -1522,6 +1590,32 @@ def layer_index(allow_missing=False):
     return idx, jobs
 
 
+def pal_of_layer(k):
+    """レイヤー名 → 章の色。共通の板（_empty・_subband）は navy、_empty_<色> はその色。"""
+    if k.startswith("_empty_"):
+        return k[len("_empty_"):]
+    if k.startswith("_"):
+        return "navy"
+    for pre in ("sub_", "card_"):
+        if k.startswith(pre):
+            return palette_of(k[len(pre):])
+    return palette_of(k.split("_")[0])
+
+
+def card_svg(cid):
+    """章の扉（12本目から）。章番号と章名だけ。地（その章の色の方眼）と写真は build_jiko が敷く。"""
+    n, name = chapter_of(cid)
+    from fontmetrics import fit as _fit
+    size = _fit(name, 1600, "Noto", cap=124, floor=60)
+    return (f'<text x="960" y="452" font-family="Dela" font-size="64" fill="{J.AMBER}" '
+            f'text-anchor="middle" stroke="{J.BG}" stroke-width="10" stroke-linejoin="round" '
+            f'paint-order="stroke fill">第{n}章</text>'
+            f'<text x="960" y="{520 + size}" font-family="Noto" font-size="{size}" '
+            f'fill="{J.INK_W}" text-anchor="middle" stroke="{J.BG}" stroke-width="12" '
+            f'stroke-linejoin="round" paint-order="stroke fill">{name}</text>'
+            f'<path d="M700 {566 + size} H1220" stroke="{J.ALERT}" stroke-width="6"/>')
+
+
 def render_all(force=False, only=None, jobs_workers=4):
     """SVG → PNG。**Chrome を1レイヤーにつき1回起動する**ので並列で回す。
 
@@ -1532,6 +1626,12 @@ def render_all(force=False, only=None, jobs_workers=4):
     ensure_css()
     jobs, _ = build_layers(allow_missing=True)
     jobs["_empty"] = J.frame(W, H)        # 余白測定の基準（check_space.py が使う）
+    # 🔴 12本目から：章の色ごとの地（check_space の基準・章の扉の地）。one() が _empty_<色> を塗り替える
+    for pal in sorted(set(CHAPTER_PALETTE.values()) - {"navy"}):
+        jobs[f"_empty_{pal}"] = J.frame(W, H)
+    # 章の扉の文字（build_layers には入れない＝門番がカットの図と重なりとして数えないように）
+    for cid in sorted(CARD_HEADS):
+        jobs[f"card_{cid}"] = card_svg(cid)
     todo = []
     for k, svg in jobs.items():
         if only and not k.startswith(only):
@@ -1558,7 +1658,8 @@ def render_all(force=False, only=None, jobs_workers=4):
 
     def one(t):
         k, svg, p, w, h = t
-        render.png(page(svg, w, h), p, w, h)
+        # 🔴 章の色は**ここで1回だけ**置き換える（門番は元の色の SVG を読むので build_layers は触らない）
+        render.png(page(J.remap(svg, pal_of_layer(k)), w, h), p, w, h)
         done[0] += 1
         if done[0] % 50 == 0:
             print(f"  {done[0]}/{len(todo)}", flush=True)

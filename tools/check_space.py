@@ -105,15 +105,27 @@ def report(d):
     if not rp.exists():
         print(f"🔴 地の基準画像が無い: {rp}（scene_jiko が焼く `_empty.png` を検品に入れる）")
         return 1
-    ref = Image.open(rp).convert("RGB")
+    refs = {"navy": Image.open(rp).convert("RGB")}
+    # 🔴 12本目から：地の色は章ごと（scene_jiko.CHAPTER_PALETTE）。**その章の地**と比べる。
+    #    紺の地と比べると、色の違う章は全画素に差が出て「占有率100%＝レイヤーが壊れている」と誤って鳴る
+    import scene_jiko as S
+
+    def ref_of(cut):
+        pal = S.palette_of(cut)
+        if pal not in refs:
+            q = d / f"_empty_{pal}.png"
+            if not q.exists():
+                raise SystemExit(f"🔴 章の色 {pal} の地の基準画像が無い: {q}")
+            refs[pal] = Image.open(q).convert("RGB")
+        return refs[pal]
     bad, fills, holes, nphoto = [], [], [], 0
     print(f"{'カット':<6}{'占有率':>8}{'最大の空き':>11}  場所（px）")
     for p in files:
-        grid, cx, cy = cells(p, ref)
+        cut = p.stem[4:]
+        grid, cx, cy = cells(p, ref_of(cut))
         fill = sum(sum(r) for r in grid) / (cx * cy)
         area, hx, hy, hw, hh = biggest_hole(grid, cx, cy)
         hole = area / (cx * cy)
-        cut = p.stem[4:]
         if cut in skip:
             nphoto += 1
             print(f"{cut:<6}{fill * 100:>7.1f}%{hole * 100:>10.1f}%  "

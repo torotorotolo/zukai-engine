@@ -444,11 +444,21 @@ def cut_geom(cid, spec, ocr, photo_of, box_of, skip):
     if tr:
         sw, sh, lines = apply_trim(sw, sh, lines, tr)
     box = box_of[cid]
-    kw = dict(bias=spec.get("bias", 0.5), xbias=spec.get("xbias", 0.5),
-              zoom=spec.get("zoom", 1.0))
     return dict(name=Path(name).name, sw=sw, sh=sh, lines=lines, trim=tr,
-                all_text=all_text,
-                rects={k: crop_rect(sw, sh, box, k, **kw) for k in (0.0, 1.0)})
+                all_text=all_text, rects=cam_rects(sw, sh, box, spec))
+
+
+def cam_rects(sw, sh, box, spec):
+    """測る切り方。寄り（k=0/1）の両端。🔴 12本目から：`cam=` のカットは**カメラの経路の3点**
+    （頭・中・尻＝build_jiko.cam_samples）。経路の途中で焼き込みの文字が窓に入ることがあるので。"""
+    b, xb, zm = (float(spec.get("bias", 0.5)), float(spec.get("xbias", 0.5)),
+                 float(spec.get("zoom", 1.0)))
+    cam = spec.get("cam")
+    if cam:
+        import build_jiko as B
+        return {u: crop_rect(sw, sh, box, 0.0, y, x, z)
+                for u, (x, y, z) in zip((0.0, 0.5, 1.0), B.cam_samples(cam, b, xb, zm))}
+    return {k: crop_rect(sw, sh, box, k, b, xb, zm) for k in (0.0, 1.0)}
 
 
 def my_boxes(cid, jobs):
@@ -530,9 +540,10 @@ def scan(spec_map, ocr, photo_of, box_of, skip, jobs=None):
                     _e = (_e * _sw - _x0) / max(1, round(_tr[2] * _sw) - _x0)
                     _sw, _sh = (max(1, round(_tr[2] * _sw) - _x0),
                                 max(1, round(_tr[3] * _sh) - round(_tr[1] * _sh)))
-                _r = crop_rect(_sw, _sh, box_of[cid], 0.0, float(spec.get("bias", 0.5)),
-                               float(spec.get("xbias", 0.5)), float(spec.get("zoom", 1.0)))
-                _right = (_r["left"] + _r["cw"]) / _sw
+                # 🔴 12本目から：cam= のカットは経路の3点のうち、窓の右端がいちばん右に出る点で測る
+                #    （cam の無いカットは k=0＝いちばん広い窓で、今までと同じ値）
+                _right = max((_r["left"] + _r["cw"]) / _sw
+                             for _r in cam_rects(_sw, _sh, box_of[cid], spec).values())
                 if _e < 1.0 and _right > _e + 1e-9:
                     softs.append((cid, "G-17 ネガの縁が窓に入る", _n, "focus",
                                   f"窓の右端 {_right:.4f} ＞ 写真の右端 {_e:.4f}"
@@ -544,7 +555,8 @@ def scan(spec_map, ocr, photo_of, box_of, skip, jobs=None):
 
         vis_lines = []                       # 画面に少しでも入る行（上から順）
         for ln in g["lines"]:
-            scr = {k: to_screen(ln["box"], g["rects"][k]) for k in (0.0, 1.0)}
+            # 🔴 12本目から：測る点は g["rects"] のキー全部（cam= のカットは頭・中・尻の3点）
+            scr = {k: to_screen(ln["box"], g["rects"][k]) for k in g["rects"]}
             if not any(s[2] > 0 and s[0] < W and s[3] > 0 and s[1] < H
                        for s in scr.values()):
                 continue
@@ -601,7 +613,7 @@ def scan(spec_map, ocr, photo_of, box_of, skip, jobs=None):
                     softs.append((cid, "G-10 行尻が切れる", txt, f"k={k:.0f}",
                                   f"右端で {x1 - W:.0f}px 欠ける（{g['name']}）"))
                     break
-            for k in (0.0, 1.0):
+            for k in v["vis"]:
                 if not v["vis"][k]:
                     continue
                 x0, y0, x1, y1 = v["scr"][k]
@@ -638,7 +650,7 @@ def scan(spec_map, ocr, photo_of, box_of, skip, jobs=None):
                 for v in vis_lines:
                     if len(v["txt"]) < 3:
                         continue
-                    for k in (0.0, 1.0):
+                    for k in v["vis"]:
                         if not v["vis"][k]:
                             continue
                         ow, oh = overlap(mb, v["scr"][k])
@@ -664,7 +676,7 @@ def scan(spec_map, ocr, photo_of, box_of, skip, jobs=None):
         src_txt = norm_en(whole)
         in_win = []
         for v in vis_lines:
-            for k in (0.0, 1.0):
+            for k in v["scr"]:
                 x0, y0, x1, y1 = v["scr"][k]
                 if x0 >= 0 and x1 <= W and y0 >= 0 and y1 <= H:   # 丸ごと入っている
                     in_win.append(norm_en(v["txt"]))
@@ -751,7 +763,7 @@ def draw(cid, boxes=False):
             _t = g["trim"]
             im = im.crop((round(_t[0] * _w), round(_t[1] * _h),
                           round(_t[2] * _w), round(_t[3] * _h)))
-        for k in (0.0, 1.0):
+        for k in g["rects"]:
             r = g["rects"][k]
             box = r["box"]
             win = im.crop((int(r["left"]), int(r["top"]),
