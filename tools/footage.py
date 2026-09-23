@@ -51,11 +51,13 @@
    ⚠️ ffmpeg の scene 検出だけでは**ディゾルブ（重ね消し）を見ない**。
       SL-1 でハード検出だけだと 77本／165本、1秒刻みだと **139本／271本**＝**168本を見落としていた**。
 """
+import hashlib
 import json
 import re
 import subprocess
 import sys
 import time
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -763,7 +765,10 @@ def selftest():
     #   ⚠️ `_cut_stream` は ffmpeg と網に出るので、`subprocess.run` と `time.sleep` を
     #      差し替えて**コマンドだけ**を受け取る
     #      → [[feedback-selftest-must-not-reach-real-side-effects]]
-    def _vf_of(w, h, dispw):
+    def _dl_fail(_u, _d):
+        raise IOError("（検算：網には出ない）")
+
+    def _vf_of(w, h, dispw, dl=_dl_fail):
         seen = {}
 
         class _R:
@@ -773,11 +778,14 @@ def selftest():
             seen.setdefault("cmd", cmd)
             return _R()
 
-        keep_run, keep_sleep = subprocess.run, time.sleep
+        # ⚠️ `download_media` も外に出る口（12本目 ⑤c で足した）。差し替えないと網に出る
+        keep_run, keep_sleep, keep_dl = subprocess.run, time.sleep, download_media
         keep_c = dict(CLIPS)
         try:
             subprocess.run = fake_run                      # type: ignore[assignment]
             time.sleep = lambda *_a, **_k: None            # type: ignore[assignment]
+            globals()["download_media"] = dl
+            _MEDIA.clear()
             CLIPS["_st_sar"] = dict(url="http://example.invalid/s.mp4", sec=99.0,
                                     w=w, h=h, dispw=dispw, credit="（検算用）",
                                     note="（検算用）", stream=True)
@@ -785,9 +793,21 @@ def selftest():
         finally:
             subprocess.run = keep_run                      # type: ignore[assignment]
             time.sleep = keep_sleep                        # type: ignore[assignment]
+            globals()["download_media"] = keep_dl
+            _MEDIA.clear()
             CLIPS.clear(); CLIPS.update(keep_c)
         cmd = seen.get("cmd") or []
         return cmd[cmd.index("-vf") + 1] if "-vf" in cmd else "", cmd
+
+    def _src_of(cmd):
+        return cmd[cmd.index("-i") + 1] if "-i" in cmd else ""
+
+    # 🔴 2026-09-23（12本目 ⑤c r01）：Ogg を網越しに -ss で開くと 429 で0コマ（local_media の注）
+    _v, cmd_dl = _vf_of(1280, 720, 1280, dl=lambda _u, _d: 39_539_411)
+    chk("陽性対照：http の媒体は丸ごと落とし、手元のファイルを ffmpeg に渡す",
+        (not _src_of(cmd_dl).startswith("http")) and _src_of(cmd_dl).endswith(".mp4"), True)
+    chk("陽性対照：手元のファイルには -user_agent を付けない（http の口の設定）",
+        "-user_agent" in cmd_dl, False)
 
     vf_sq, cmd_sq = _vf_of(720, 480, 655)          # 画素が正方形でない（RG237 の27点）
     vf_11, _cmd11 = _vf_of(1280, 1024, 1280)       # 画素が正方形（残りの5点）
@@ -798,6 +818,8 @@ def selftest():
         "iw*sar" in vf_11 or "setsar" in vf_11, False)
     chk("陰性対照：yadif は付けない（札は tt だが中身は 60p）", "yadif" in vf_sq, False)
     chk("陽性対照：音声を落とす -an が付く", "-an" in cmd_sq, True)
+    chk("陰性対照：媒体を落とせなければ今までどおり URL を渡す（名乗りも付ける）",
+        _src_of(cmd_sq).startswith("http") and "-user_agent" in cmd_sq, True)
     print(f"     -vf（SAR 10:11）＝ {vf_sq}")
     print(f"     -vf（SAR 1:1 ）＝ {vf_11}")
     import shutil as _sh
@@ -888,6 +910,72 @@ def probe_media(url, timeout=45):
     return why, ln
 
 
+_MEDIA = {}                     # URL → ffmpeg に渡す入力（1回の実行で同じ媒体を二度落とさない）
+
+
+def download_media(url, dst, timeout=60):
+    """媒体を **1回の GET で丸ごと** `dst` へ落とし、大きさ（バイト）を返す。
+
+    大きさが Content-Length と合わなければ止める（途中で切れた媒体を黙って使わない）。
+    ⚠️ **外に出る口**なので、`--selftest` はここを差し替える
+       （[[feedback-selftest-must-not-reach-real-side-effects]]）。
+    """
+    rq = urllib.request.Request(url, headers={"User-Agent": UA})
+    part = dst.with_name(dst.name + ".part")
+    with urllib.request.urlopen(rq, timeout=timeout) as r, open(part, "wb") as f:
+        want = int(r.headers.get("Content-Length") or 0)
+        while True:
+            b = r.read(1 << 20)
+            if not b:
+                break
+            f.write(b)
+    got = part.stat().st_size
+    if want and got != want:
+        part.unlink(missing_ok=True)
+        raise IOError(f"落とした大きさ {got} が Content-Length {want} と合わない")
+    part.replace(dst)
+    return got
+
+
+def local_media(url):
+    """ffmpeg に渡す入力を返す。http(s) の媒体は**先に丸ごと落として手元のファイル**を渡す。
+
+    🔴🔴 2026-09-23（12本目 ⑤c r01）**Ogg（.ogv）を網越しに `-ss` で開くと 429 で0コマになる。**
+       Ogg には索引が無いので、ffmpeg は秒へ飛ぶのに**区間読みを何度も繰り返して二分探索**する。
+       その連打が `upload.wikimedia.org` の回数制限（`HTTP error 429 Your bot is making too many
+       requests`）に当たり `could not seek to position 26.000` ＝ **doe の5欄（c101 c501 c506 c607
+       c608）が全部、黙って静止画に落ちた**（`✓ 切り出し完了 6/11`・段は緑）。
+       WebM は索引（Cues）を持つので数回で飛べる＝ bravo4k の6欄は通っていた。
+       ⚠️ `fetch --check` は HEAD を1回引くだけなので ✓ を出す＝**門番の経路と本番の経路が別**。
+       ⚠️ 手元の回線でも同じく 429（Actions の回線に固有ではない）。`modal_app.py` も同じ関数を呼ぶ。
+       → [[feedback-fetch-failure-falls-back-to-a-still]]
+    ⚠️ 落とせなければ**今までどおり URL を渡す**（静止画に落ちるより先に網を試す）。
+    """
+    if not str(url).startswith(("http://", "https://")):
+        return url
+    if url in _MEDIA:
+        return _MEDIA[url]
+    d = FOOT / "_media"
+    d.mkdir(parents=True, exist_ok=True)
+    ext = Path(urllib.parse.urlparse(url).path).suffix or ".bin"
+    dst = d / (hashlib.md5(url.encode("utf-8")).hexdigest()[:12] + ext)
+    if dst.exists():                          # .part から名前を替えるのは大きさが合ったときだけ
+        _MEDIA[url] = str(dst)
+        return str(dst)
+    for attempt in range(3):
+        try:
+            n = download_media(url, dst)
+            print(f"     ✓ 媒体を手元に落とした（{n / 1e6:.1f}MB・{dst.name}）", flush=True)
+            _MEDIA[url] = str(dst)
+            return str(dst)
+        except Exception as e:                                # noqa: BLE001
+            print(f"     ⚠️ 媒体を落とせない：{type(e).__name__}: {e}（{attempt + 1}回目）", flush=True)
+            time.sleep(10 * (attempt + 1))
+    print("     ⚠️ 網から直に読む（Ogg は区間読みの連打で 429 になりやすい）", flush=True)
+    _MEDIA[url] = url
+    return url
+
+
 def have(cid):
     """そのカットのコマが切り出してあるか。無ければ静止画に落ちる（壊れない）。"""
     return (FOOT / cid / "00000.jpg").exists()
@@ -932,12 +1020,15 @@ def _cut_stream(cid, u, secs):
     # 🔴 `media` を使う回は帯の秒に `at` を足す（[[feedback-fetch-failure-falls-back-to-a-still]]）
     url, off = media_of(u["clip"])
     ss = off + float(u["start"])
-    for _ in (url,):
+    src = local_media(url)          # 🔴 http(s) は丸ごと落としてから切る（Ogg の 429＝local_media の注）
+    for _ in (src,):
         for attempt in range(3):
             # ⚠️ `-an` … RG237 は **32本のうち28本に音声トラックがある**（②の実測）。
             #    この回は音を鳴らさない決定なので、指定しないと混ざる。
+            # ⚠️ `-user_agent` は http の口の設定。手元のファイルに付けると止まる版がある
+            net = ["-user_agent", UA] if str(src).startswith(("http://", "https://")) else []
             cmd = ["ffmpeg", "-y", "-nostdin", "-hide_banner", "-loglevel", "error",
-                   "-user_agent", UA, "-ss", f"{ss:.2f}", "-i", url,
+                   *net, "-ss", f"{ss:.2f}", "-i", src,
                    "-an", "-t", f"{secs + 0.6:.2f}", "-vf", ",".join(vf),
                    "-frames:v", str(n), "-q:v", "3", "-start_number", "0",
                    str(d / "%05d.jpg")]
