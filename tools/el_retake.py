@@ -35,7 +35,7 @@ import el_tts                                            # noqa: E402
 import el_script as ES                                   # noqa: E402
 from el_check_yomi import stt, norm, load_tsv            # noqa: E402
 from el_check_heard import check_row                     # noqa: E402
-from el_ledger import numbers_missing                    # noqa: E402
+from check_numbers_heard import numbers_missing, numbers_extra, _selftest as _numbers_selftest  # noqa: E402
 
 
 def arg(name, default=None):
@@ -71,16 +71,11 @@ def judge(text, heard, must=None, ignore=frozenset()):
         flags.append("数:" + ",".join(miss))
     # 台本に無い数が聞取に**増えている**（2026-09-05 c228-2「分の単位」→「十分の単位」＝声が「じゅっぷん」と読んだ型）。
     # 数字を含む行だけ見る。1〜3 は「ひとつ／ふたつ／みっつ」を Scribe が 一つ／二つ／三つ と書くので除く。
-    import re
-    from check_numbers_heard import heard_numbers
-    if re.search(r"\d", text):
-        # ⚠️ 桁区切りのカンマは外して数える（el_ledger.numbers_missing と同じ。2026-09-16）
-        have = set(re.findall(r"\d+(?:\.\d+)?", re.sub(r"(?<=\d)[,，](?=\d{3})", "", text.replace("¾", "4分の3"))))
-        extra = sorted(n for n in heard_numbers(re.sub(r"(?<=\d)[,，](?=\d{3})", "", heard))
-                       if n not in have and n not in {"1", "2", "3"}
-                       and not any(n == m.rstrip("0").rstrip(".") for m in have))
-        if extra:
-            flags.append("数の余り:" + ",".join(extra))
+    # 🔴 2026-09-23（12本目⑤a）: 台本の「1000万トン」を 1000 としか見ておらず、正しい『一千万トン』のテイクに
+    #    「数の余り:10000000」を付けていた（c210-1）。台本側の値は check_numbers_heard.numbers_extra で数える
+    extra = numbers_extra(text, heard)
+    if extra:
+        flags.append("数の余り:" + ",".join(extra))
     return flags
 
 
@@ -97,6 +92,7 @@ def update_yomi_tsv(lid, text, heard, sent):
 
 def main():
     ES.gate_args({"--ids", "--max", "--noprefix", "--must", "--ignore"})   # 🔴 知らない旗で有料の本番に落ちない
+    _numbers_selftest()          # 🔴 数の物差しが壊れていたら、合否が狂う＝有料の合成に入る前に止める
     ids = ES.resolve_ids(arg("--ids"))
     mx = int(arg("--max", "4"))
     must = arg("--must")

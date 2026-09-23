@@ -8,8 +8,6 @@ r"""el_ledger.py — ⑤a の**行ごとの検査台帳**を audio/el_qa/ の記
 ⚠️ 台帳は「全部OK」を言うための表ではない。未判定が0で、疑いの行に扱いが付いていることを確かめる表。
 """
 import csv
-import re
-import unicodedata
 import sys
 from pathlib import Path
 
@@ -21,7 +19,11 @@ except Exception:
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import el_script as ES                                  # noqa: E402
-from check_numbers_heard import heard_numbers, kan2int           # noqa: E402
+# 🔴 2026-09-23（12本目⑤a）: 数の照合（カンマ・万億の合成・漢数字の小数）は check_numbers_heard に1本化した。
+#    ここに独自の版（_expand_kanji_units）を持っていたため、10本目に塞いだ「7万1,136」「228億」の穴が
+#    check_numbers_heard 側に効かず、12本目で「1500万トン」の15行が鳴りっぱなしになった。
+#    numbers_missing は el_retake・qa_out/ep10_* が `from el_ledger import numbers_missing` で使うので名前は残す。
+from check_numbers_heard import numbers_missing, _selftest as _numbers_selftest  # noqa: E402
 
 
 def _tsv(path, key=0):
@@ -35,48 +37,8 @@ def _tsv(path, key=0):
     return out
 
 
-def _expand_kanji_units(t):
-    """台本の「7万1,136」「228億」を、聞取側（heard_numbers）が返すのと**同じ数**に直す。
-
-    🔴 2026-09-20（10本目）に見つけた穴: これが無いと台本側は「7万1,136」を **7 と 1136** に割り、
-       聞取側の **71136** と当たらない。10本目は「N万M,MMM」が10行・「N億ウォン」が6行あり、
-       **その全部が「数が無い」で鳴りっぱなし**になっていた＝本物が騒音に埋もれる。
-       実害: `c306-1` は **71,136 を 71,336 と読んでいた本物**だったのに、同じ形の9行と同じ見え方をしていた
-       （拾えたのは聞取が『一千三百三十六』と書いたからで、この門番の手柄ではない）。
-       → [[feedback-gates-blind-spot-is-the-scan-direction]]（門番は見つけていて止めなかった、の型）
-    """
-    # 順番が大事: 大きい単位から畳む。「1億7千万」は ①千万 を 10^7 に ②億 を足す の順でないと合わない
-    t = re.sub(r"(\d+)千万", lambda m: str(int(m[1]) * 10**7), t)
-    t = re.sub(r"(\d+)億(\d+)", lambda m: str(int(m[1]) * 10**8 + int(m[2])), t)
-    t = re.sub(r"(\d+)億(?!\d)", lambda m: str(int(m[1]) * 10**8), t)
-    t = re.sub(r"(\d+)万(\d+)", lambda m: str(int(m[1]) * 10**4 + int(m[2])), t)
-    t = re.sub(r"(\d+)万(?!\d)", lambda m: str(int(m[1]) * 10**4), t)
-    t = re.sub(r"(\d+)千(?!\d)", lambda m: str(int(m[1]) * 10**3), t)
-    return t
-
-
-def numbers_missing(text, heard):
-    text = text.replace("¾", "4分の3")
-    # 🔴 2026-09-16（9本目）: **桁区切りのカンマを外してから比べる。**外さないと「3,400」を 3 と 400 に割り、
-    #    『三千四百』と正しく読んだテイクまで不合格にしていた（el_retake が c303-1 の数の合ったテイクを落とした）。
-    #    台本側・聞取側の両方で外す（聞取が『3,400』と数字で書くこともある）
-    text = _expand_kanji_units(re.sub(r"(?<=\d)[,，](?=\d{3})", "", text))
-    heard_nc = re.sub(r"(?<=\d)[,，](?=\d{3})", "", unicodedata.normalize("NFKC", heard))
-    # 🔴 2026-09-20（10本目）: 聞取が小数を **漢数字＋全角の点**で書くことがある（`pr06-1`「二七．六メートル」）。
-    #    heard_numbers はこれを 27 と 6 に割るので、台本の「27.6」と当たらず**鳴りっぱなし**になる。
-    #    NFKC で点を半角にしたうえで、点をはさむ漢数字の並びを先に算用数字へ直す。
-    heard_nc = re.sub(r"([〇一二三四五六七八九十百千万億]+)\.([〇一二三四五六七八九十]+)",
-                      lambda m: f"{kan2int(m[1])}.{kan2int(m[2])}", heard_nc)
-    got = heard_numbers(heard_nc) | set(re.findall(r"\d+", _expand_kanji_units(heard_nc)))
-    miss = []
-    for m in re.findall(r"\d+(?:\.\d+)?", text):
-        cand = {m, m.rstrip("0").rstrip(".") if "." in m else m}
-        if not (cand & got):
-            miss.append(m)
-    return miss
-
-
 def main():
+    _numbers_selftest()          # 🔴 数の物差しが壊れていたら、台帳の「数」の列を信用できないので止める
     yomi = _tsv(ES.qa_path("el_yomi.tsv"))
     flags = _tsv(ES.qa_path("heard_flags.tsv"))
     arts = _tsv(ES.qa_path("el_artifacts.tsv"))

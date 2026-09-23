@@ -57,11 +57,13 @@ def extra_signals(text: str, key: str, before: str, after: str):
     sig = []
     if key in after and key not in before:
         sig.append("字が直った")
-    import re
-    want = set(re.findall(r"\d+(?:\.\d+)?", text.replace("¾", "4分の3")))
+    from check_numbers_heard import script_numbers
+    # 🔴 2026-09-23（12本目）: 台本の「1500万」は全体の値 15000000 で比べる。素の 1500 で比べると、
+    #    万の落ちた前の聞取『千五百トン』を「数は合っている」と見て、「数が直った」を出せない
+    want = [need for _, need, _ in script_numbers(text)]
     if want:
         nb, na = _nums(before), _nums(after)
-        ok = lambda got: all({m, m.rstrip("0").rstrip(".") if "." in m else m} & got for m in want)
+        ok = lambda got: all(need & got for need in want)
         if ok(na) and not ok(nb):
             sig.append("数が直った")
     return sig
@@ -114,6 +116,9 @@ _CASES = [
      "35人が亡くなった。", "35人"),
     ("ろくせんろっぴゃくボルト", "六百ボルトの高圧の母線", "六千六百ボルトの高圧の母線", ADOPT,
      "6600ボルトの高圧の母線、", "6600ボルト"),
+    # ②' 万の付いた数（2026-09-23 追加）。素の 1500 で比べると、前の『千五百トン』も「合っている」に見えて落ちる
+    ("せんごひゃくまんトン", "TNT火薬に直して千五百トン分", "TNT火薬に直して千五百万トン分", ADOPT,
+     "TNT火薬に直して1500万トンぶん。", "1500万トン"),
 ]
 
 
