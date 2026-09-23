@@ -46,6 +46,14 @@ def judge(kw):
 
     for r in f.rel:
         n += 1
+        if "lat" in r:
+            # 🔴 緯度経度で書かれた値（日本政府の文書など）＝描いた点がその位置から ±2キロ
+            off, _ = F.geo_between(V.geo(*P[r["a"]]), (float(r["lat"]), float(r["lon"])))
+            tk = float(r.get("tol_km", 2.0))
+            if off > tk:
+                bad.append(f"{r['a']}: 図の点は宣言の緯度経度から {off:.1f}キロずれている（＞{tk:g}キロ）"
+                           f"［{r.get('src', '')}］")
+            continue
         km, deg = measured(r["a"], r["b"])
         tol = float(r.get("tol", 0.05))
         if abs(km - r["km"]) / r["km"] > tol:
@@ -54,18 +62,20 @@ def judge(kw):
         if r.get("dir") and _adiff(deg, F.dir_deg(r["dir"])) > 11.25 + SLACK_DEG:
             bad.append(f"{r['a']}→{r['b']}: 図の方位 {deg:.0f}度（{F.dir_name(deg)}）／報告書「{r['dir']}」"
                        f"［{r.get('src', '')}］")
+        # 🔴 方位角（度）で書かれた値（DNA p209「230° bearing」）は16方位の扇より細かく ±2度
+        if r.get("deg") is not None and _adiff(deg, float(r["deg"])) > float(r.get("tol_deg", 2.0)):
+            bad.append(f"{r['a']}→{r['b']}: 図の方位 {deg:.1f}度／報告書 {float(r['deg']):g}度"
+                       f"［{r.get('src', '')}］")
     for st in kw.get("steps", []):
-        d = st.get("dim")
-        if not d:
-            continue
-        m = re.search(r"(\d[\d,]*)キロ", d.get("t", ""))
-        if not m:
-            continue
-        n += 1
-        km, _ = measured(d["a"], d["b"])
-        say = float(m.group(1).replace(",", ""))
-        if abs(km - say) / say > 0.05:
-            bad.append(f"寸法線 {d['a']}→{d['b']}「{d['t']}」: 図は {km:.0f}キロ（差 {abs(km - say) / say:.1%}）")
+        for d in F._many(st.get("dim")):
+            m = re.search(r"(\d[\d,]*)キロ", d.get("t", ""))
+            if not m:
+                continue
+            n += 1
+            km, _ = measured(d["a"], d["b"])
+            say = float(m.group(1).replace(",", ""))
+            if abs(km - say) / say > 0.05:
+                bad.append(f"寸法線 {d['a']}→{d['b']}「{d['t']}」: 図は {km:.0f}キロ（差 {abs(km - say) / say:.1%}）")
     if not f.rel:
         bad.append("rel（報告書の値の宣言）が1件も無い＝照合できない模式図")
     return bad, n
@@ -86,6 +96,23 @@ def selftest():
          dict(base, steps=[dict(dim=dict(a="gz", b="ship", t="200キロ"))],
               rel=[dict(a="gz", b="ship", km=157, dir="東北東")]), False),
         ("🔴 陽性対照：宣言が無い", dict(base), False),
+        # ⑤b-3（2026-09-23）で足した口：方位角（度）と緯度経度
+        ("正しい宣言（駆逐艦＝ビキニから230度・167キロ・DNA p209）",
+         dict(base, pts=dict(base["pts"], dd=dict(of="bikini", km=167, deg=230)),
+              rel=[dict(a="bikini", b="dd", km=167, deg=230)]), True),
+        ("🔴 陽性対照：方位角を270度と宣言（図は230度）",
+         dict(base, pts=dict(base["pts"], dd=dict(of="bikini", km=167, deg=230)),
+              rel=[dict(a="bikini", b="dd", km=167, deg=270)]), False),
+        ("正しい宣言（日本政府の文書の位置 北緯11度52分半・東経166度35分）",
+         dict(base, pts=dict(base["pts"], jp=dict(lat=11.875, lon=166.58333)),
+              rel=[dict(a="jp", lat=11.875, lon=166.58333)]), True),
+        ("🔴 陽性対照：緯度経度を 0.1度ずらして宣言",
+         dict(base, pts=dict(base["pts"], jp=dict(lat=11.875, lon=166.58333)),
+              rel=[dict(a="jp", lat=11.975, lon=166.58333)]), False),
+        ("🔴 陽性対照：寸法線が2本の段で、2本目の札が違う",
+         dict(base, steps=[dict(dim=[dict(a="gz", b="ship", t="157キロ"),
+                                     dict(a="gz", b="rongerik", t="300キロ")])],
+              rel=[dict(a="gz", b="ship", km=157, dir="東北東")]), False),
     ]
     for name, kw, want in cases:
         bad, _ = judge(kw)

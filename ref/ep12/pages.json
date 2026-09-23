@@ -206,5 +206,29 @@
   "w": 1835,
   "h": 2289,
   "md5": "502709cfc7738e9dd39f10844d3614dc"
+ },
+ "pg31": {
+  "doc": "DNA 6035F",
+  "pdf": "dna6035f.pdf",
+  "pdf_page": 31,
+  "w": 1696,
+  "h": 2200,
+  "md5": "9b1d648c2484cc32df00c3008bc3296f"
+ },
+ "pg209": {
+  "doc": "DNA 6035F",
+  "pdf": "dna6035f.pdf",
+  "pdf_page": 209,
+  "w": 1696,
+  "h": 2200,
+  "md5": "8f5629d614aa07aed25c7ae89cdb0a7b"
+ },
+ "pg217": {
+  "doc": "DNA 6035F",
+  "pdf": "dna6035f.pdf",
+  "pdf_page": 217,
+  "w": 1696,
+  "h": 2200,
+  "md5": "cee9b09c7c573d2dc45669f959b95453"
  }
 }

@@ -18,16 +18,9 @@ import cuts.ss as ss
 
 P = ss.P
 
-SRC_DNA = "DNA 6035F（国防原子力局 1982年）"
+SRC_DNA = ss.SRC_DNA
 # 地図（c104・c105 で同じ1枚。第4〜7章でも戻る＝葦の「冒頭の物が戻る」を事実の地図で）
-# ⚠️ 表示の範囲は主役（ビキニ→船）が大きく見えるように詰めた（最初の 164.3〜168.9 だと画面の3割＝試し焼きで実測）
-VIEW = dict(lon=(164.9, 167.95), lat=(10.98, 12.30))
-# ⚠️ ロンゲラップとロンゲリックは 180px しか離れていない＝札を上下に分ける（check_layout で実測 42×22px 重なった）
-PLACES = ["bikini", dict(k="rongelap", side="above"), "ailinginae", "rongerik"]
-SHIP = dict(ship=dict(of="bikini", km=157, dir="東北東"))
-REL = [dict(a="bikini", b="ship", km=157, dir="東北東", src="DNA p212"),
-       dict(a="gz", b="rongerik", km=250, dir="東", src="DNA p212")]
-NOTE_MAP = "模式図：島は環礁の中心・船はビキニから東北東へ157キロ（報告書の値）。灰の広がりの形は描いていない"
+# ⑤b-3（2026-09-23）で定数を `cuts/ss.py` の `MAP_*` へ移した（ここは `ss.drift_map()` を呼ぶだけ）
 
 SPEC = {
 
@@ -71,26 +64,22 @@ SPEC = {
         # ⚠️ 副題に「ビキニ環礁」を書かない＝地図の札と同じ語（check_dup）
         s="爆発のあと、東の海では",
         intro=dict(photo=P("fb_aerial_a"), sec=3.0, color=1.0),
-        fig=("drift", dict(
-            view=VIEW, places=PLACES, pts=SHIP, rel=REL,
+        fig=("drift", ss.drift_map(
             steps=[dict(move=[dict(kind="stream", a="gz", dir="東", km=190)]),
-                   dict(ship=dict(at="ship", t="第五福竜丸"))],
-            note=NOTE_MAP, src="DNA p212")),
+                   dict(ship=dict(at="ship", t="第五福竜丸"))])),
     ),
 
     # 同じ地図。寸法線 → 視線の線とその先の光 → 「数時間後」→ 白い点が降りはじめる
     "c105": dict(
         t="見ていた光、降ってきた灰",
         s="3月1日の夜明け前から",
-        fig=("drift", dict(
-            view=VIEW, places=PLACES, pts=SHIP, rel=REL,
+        fig=("drift", ss.drift_map(
             steps=[dict(ship=dict(at="ship", t="第五福竜丸"),
                         dim=dict(a="bikini", b="ship", t="157キロ", d="東北東")),
                    dict(move=[dict(kind="sight", a="ship", b="gz")]),
                    # ⚠️ 札は船の下＝左は寸法線と視線の線が入ってくる（試し焼きで重なった）
                    dict(tag=dict(at="ship", t="数時間後", side="below"),
-                        move=[dict(kind="fall", at="ship")])],
-            note=NOTE_MAP, src="DNA p212")),
+                        move=[dict(kind="fall", at="ship")])])),
     ),
 
     # 海に降る灰を集める浮き（Project 2.5a）。⚠️ 副題は写っているものだけ

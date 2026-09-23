@@ -106,7 +106,9 @@ PICK = {
     'base_eneman': N(146763428, 'base', note='エネマン島のキャンプ（#39）'),
     # ── rongelap（ロンゲラップ・ロンゲリック）────────────────────
     'rongelap_landing': N(146763432, 'rongelap', note='調査の一行が浜に上がる（#49・原寸で私人なし）'),
-    'rongelap_booties': N(146763434, 'rongelap', note='靴の覆い（#29＝第67図と同じ写真）'),
+    # ⚠️ ⑤b-3 で頁を見て直した：#29 は第67図と**別の写真**（小屋のそばで靴に覆いを付けた1人）。
+    #    第67図（p240）は **#49＝c108 と同じ場面の別のコマ**（ボート DDE449・3月9日）＝c903 に第67図を出さない
+    'rongelap_booties': N(146763434, 'rongelap', note='靴の覆い（#29・第67図とは別の写真）'),
     'rongerik_station': N(146763424, 'rongelap', note='ロンゲリックの気象観測所（#40）'),
     # ── damage ─────────────────────────────────────────
     'dmg_eneman': N(146763468, 'damage', note='エネマン島の建物の被害（#43）',
@@ -153,13 +155,24 @@ PICK = {
     'jp_fish_sign': C('A signboard appealing shoppers', 'japan', note='魚屋の看板（女性の顔は切り落とす）',
                       trim=(0.0, 0.0, 0.60, 1.0)),
     'eisenhower_strauss': C('Eisenhower and Strauss', 'official'),
+    # ── mike（1952年のマイク＝第2章 c205・c206）⑤b-3 でカズヤくん許可のうえ追加 ─────
+    #    🔴 **年は1952**（この束の既定の1954ではない）＝`year=` を持たせ、出典の行と表もそれを読む
+    'mike_cloud': C('IvyMike2 HR', 'mike', year=1952, note='マイクのきのこ雲（1952年11月1日・NARA 由来）'),
+    'mike_device': C('Ivy Mike Sausage device', 'mike', year=1952, note='マイクの装置（ソーセージ）と人'),
     'doc_aec_letter': C('AEC Authorization for Operation Castle', 'doc', frame=False),
-    'doc_bikini_chart': C('Bikini Atoll - NARA', 'doc', frame=False),
+    # 🔴 海図は米海軍水路部 H.O. 6032「3rd Ed., Dec. 1954 ; Revised 6/30/58」＋1958年7月の訂正印＝**この写しは1958年**
+    #    （⑤b-3 で余白を原寸で読んだ）。既定の1954と書くと、画面の出典が嘘の年を名乗る
+    'doc_bikini_chart': C('Bikini Atoll - NARA', 'doc', frame=False, year=1958,
+                          note='ビキニ環礁の海図（米海軍水路部 H.O. 6032・1954年第3版の1958年改訂）'),
 }
+# 画面の出典の「誰が」を名乗り直す点（`credit_line` の既定＝撮影者の欄から推すのでは足りないもの）
+WHO = {'doc_bikini_chart': '米海軍水路部'}
 
 # 報告書の頁（台本 §4 の画の欄に出てくる頁＋報告書をなぞる型の頁）。名前は `pg<頁>`
 PAGES_PICK = (1, 30, 114, 118, 211, 212, 213, 214, 215, 216, 218, 219, 221, 223, 226, 229,
-              230, 232, 238, 240, 241, 243, 1015, 1082, 2069, 2074)
+              230, 232, 238, 240, 241, 243, 1015, 1082, 2069, 2074,
+              # ⑤b-3：報告書の実物をなぞる型（trace）の頁＝c207 p31・c414 p209・c515 p217
+              31, 209, 217)
 DOCS = ((2001, 'dasa1251_v2.pdf', 'DASA 1251'), (1001, 'project41_wt923.pdf', 'WT-923'),
         (1, 'dna6035f.pdf', 'DNA 6035F'))
 
@@ -250,11 +263,15 @@ def _commons_meta():
 
     def strip(s):
         return re.sub(r'<[^>]+>', '', s or '').strip()
+    # ⑤b-3（2026-09-23）：②の検索の外から足した点（マイクの2点）は `commons_extra.json`。
+    #    隠しカテゴリ（PD の根拠）も同じ行に持つ（②の束は `commons_hidden.json`）
+    X = DEST / 'commons_extra.json'
+    E = json.loads(X.read_text(encoding='utf-8')) if X.exists() else []
     out = {}
-    for x in L:
+    for x in L + E:
         t = x['title'][5:]
         out[t] = dict(lic=x.get('license_short') or '', author=strip(x.get('artist')),
-                      date=strip(x.get('date_original')), cats=H.get(x['title'], []),
+                      date=strip(x.get('date_original')), cats=H.get(x['title'], x.get('hidden', [])),
                       title=t)
     return out
 
@@ -297,7 +314,7 @@ def cmd_build(only=None):
             jp = any('Japan' in c for c in m['cats'])
             meta = dict(lic=('Public domain（日本・1957年より前に公表の写真）' if jp
                              else 'Public domain（米国の職務著作）'),
-                        author=m['author'], year=1954, title=m['title'],
+                        author=m['author'], year=r.get('year', 1954), title=m['title'],
                         hold=f"Wikimedia Commons「{m['title']}」")
         db[name] = dict(src=r['src'], id=r['id'], slot=r['slot'], note=r.get('note', ''),
                         box=[round(x0, 4), round(y0, 4), round(x1, 4), round(y1, 4)],
@@ -424,6 +441,8 @@ def credit_line(name, r):
     if r['src'] == 'nara':
         return f"出典：米国立公文書館（NARA {r['id']}）（1954年）"
     a = r['author']
+    if name in WHO:
+        return f"出典：{WHO[name]}（{r.get('year', 1954)}年）"
     if 'Asahi' in a:
         who = '朝日グラフ'
     elif 'Yomiuri' in a:
@@ -434,15 +453,17 @@ def credit_line(name, r):
         who = '米国立公文書館'
     elif 'Atomic Energy' in a:
         who = '米原子力委員会'
+    elif 'Defense' in a:
+        who = '米国防総省'
     else:
         who = '米国政府'
-    return f'出典：{who}（1954年）'
+    return f"出典：{who}（{r.get('year', 1954)}年）"
 
 
 def cmd_credits(write=False):
     db = json.loads(DB.read_text(encoding='utf-8'))
     cj = {f'ep12/{n}.jpg': credit_line(n, r) for n, r in db.items()}
-    rows = [f"| `{n}` | （章ファイル） | 1954 | {r['lic']} | {r['author']} | {r['hold']} |"
+    rows = [f"| `{n}` | （章ファイル） | {r.get('year', 1954)} | {r['lic']} | {r['author']} | {r['hold']} |"
             for n, r in db.items()]
     # 🔴 報告書の頁も表に載せる（`check_credits` は ep12/ の絵を全部この表で引く＝載せないと fail closed）。
     #    年は**頁の文書の年**（表紙・DTIC の記録で確かめた値＝scene_jiko.EP12_DOC と同じ）

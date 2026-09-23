@@ -4277,24 +4277,43 @@ def _ship_svg(x, y, deg=0.0, col=None, s=1.0):
     return poly(q, fill=J.BG2, stroke=c, sw=4, close=True)
 
 
+def _pt_geo(p, geo):
+    """`pts` の1点 → (緯度, 経度)。**報告書の書き方どおりに**置く（12本目 ⑤b-3 で口を2つ足した）。
+        dict(of="bikini", km=157, dir="東北東")   16方位で書かれた値（DNA p212「east-northeast of Bikini」）
+        dict(of="bikini", km=167, deg=270)          方位角（度）で書かれた値（DNA p209「270° bearing」）
+        dict(lat=11.875, lon=166.5833)              緯度経度で書かれた値（日本政府の文書・DNA p477）
+    ⚠️ `of` は GEO の鍵か、**先に書いた** pts の名前（辞書の順に解く）。"""
+    if "lat" in p:
+        return float(p["lat"]), float(p["lon"])
+    deg = float(p["deg"]) if "deg" in p else dir_deg(p["dir"])
+    return geo_move(*geo[p["of"]], p["km"], deg)
+
+
+def _many(x):
+    """段の部品は1つでも複数（list）でも書ける（艦隊が2か所・札が2枚の段がある）。"""
+    return [] if not x else (x if isinstance(x, list) else [x])
+
+
 def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km=100):
     """動く模式図。
 
     view   … dict(lon=(西, 東), lat=(南, 北))。枠に**縮尺をそろえて**収める
     places … 輪で描く環礁（GEO の鍵）
-    pts    … 報告書の方角と距離から置く点 {名: dict(of="gz", km=157, dir="東北東")}
-    steps  … ナレーションの行ごとの段。1段に置けるもの：
+    pts    … 報告書の値から置く点 {名: …}（書き方は `_pt_geo` の3通り）
+    steps  … ナレーションの行ごとの段。1段に置けるもの（dim・ship・tag は list で複数も可）：
         dim=dict(a=, b=, t="157キロ", d="東北東")   寸法線（2点のあいだ）
         ship=dict(at=, deg=, t="第五福竜丸")         船の輪郭と札
         tag=dict(at=, t="数時間後", side="above")    札だけ
         move=[…]                                      動く部品（下）
       move の種類（`build_jiko.draw_moves()` が描く）：
-        dict(kind="stream", a="gz", dir="東", km=150)  a から方角へ点の列が流れつづける（灰の**向き**だけ）
+        dict(kind="stream", a="gz", dir="東", km=150)  a から方角へ点の列が流れつづける（灰の**向き**だけ・`deg=` も可）
         dict(kind="sight", a="ship", b="gz")           a から b へ視線の線が伸び、b が光る
         dict(kind="fall", at="ship")                    白い点が点の上へ降りはじめ、積もる
         dict(kind="path", via=["a", "b", …], sec=)     点がその順に進む（船の航路など）
     rel    … 報告書の値の宣言（門番 `check_drift` が照合する）
              [dict(a="gz", b="ship", km=157, dir="東北東", src="DNA p212")]
+             方位角で書かれた値は `deg=270`（±2度）、緯度経度で書かれた値は
+             `dict(a="ship_jp", lat=11.875, lon=166.5833, src=)`（±2キロ）
     """
     if "模式" not in note:
         raise ValueError("drift：note に「模式」を書くこと（§5b-10 模式であることを札で断る）")
@@ -4303,7 +4322,7 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
     V = GeoView(view["lon"], view["lat"], (x0, y0, w, h))
     geo = {k: v[:2] for k, v in GEO.items()}
     for k, p in (pts or {}).items():
-        geo[k] = geo_move(*geo[p["of"]], p["km"], dir_deg(p["dir"]))
+        geo[k] = _pt_geo(p, geo)
     P = {k: V.px(*v) for k, v in geo.items()}
 
     g = [rect(x0, y0, w, h, J.BG2, op=0.55), rect(x0, y0, w, h, "none", J.LINE_DIM, 3)]
@@ -4317,11 +4336,13 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
             g.append(line(xx, y0, xx, y0 + h, J.GRID, 2))
     for pl in places:
         # 名前の札は既定で輪の下。近い島どうしで札が重なるときは dict(k=, side="above") で上へ
+        # ⑤b-3：`dx=` で札だけ横へずらせる（広い地図でエニウェトクとビキニの札が並ぶ）。既定 0＝今までの絵のまま
         k, side = (pl, "below") if isinstance(pl, str) else (pl["k"], pl.get("side", "below"))
+        dx = 0 if isinstance(pl, str) else pl.get("dx", 0)
         x, y = P[k]
         g.append(circ(x, y, 17, "none", J.LINE, 4))
         g.append(circ(x, y, 5, J.LINE))
-        g.append(txtfit(x, y + 50 if side == "below" else y - 32, GEO[k][2], 330, cap=28,
+        g.append(txtfit(x + dx, y + 50 if side == "below" else y - 32, GEO[k][2], 330, cap=28,
                         col=J.TICK, anchor="middle"))
     # 北と縮尺（左下）
     nx, ny = x0 + 46, y0 + h - 40
@@ -4338,8 +4359,7 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
     stages, moves = [], []
     for i, st in enumerate(steps):
         s = []
-        if st.get("dim"):
-            d = st["dim"]
+        for d in _many(st.get("dim")):
             (ax, ay), (bx, by) = P[d["a"]], P[d["b"]]
             s.append(line(ax, ay, bx, by, J.AMBER, 4, dash="14 10"))
             mx, my = (ax + bx) / 2, (ay + by) / 2
@@ -4355,14 +4375,12 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
             if d.get("d"):
                 s.append(txtfit(mx - nx_ * 34, my - ny_ * 34 + 30, d["d"], 300, cap=30, col=J.AMBER,
                                 anchor=a2))
-        if st.get("ship"):
-            sh = st["ship"]
+        for sh in _many(st.get("ship")):
             x, y = P[sh["at"]]
             s.append(_ship_svg(x, y, sh.get("deg", 0.0)))
             if sh.get("t"):
                 s.append(txtfit(x + 34, y - 30, sh["t"], 360, cap=38, col=J.INK_W))
-        if st.get("tag"):
-            tg = st["tag"]
+        for tg in _many(st.get("tag")):
             x, y = P[tg["at"]]
             side = tg.get("side", "above")
             if side == "left":        # 降る点（fall）と重ねないときは左へ
@@ -4375,7 +4393,7 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
             m = dict(kind=mv["kind"], stage=i)
             if mv["kind"] == "stream":
                 a = geo[mv["a"]]
-                b = geo_move(*a, mv["km"], dir_deg(mv["dir"]))
+                b = geo_move(*a, mv["km"], float(mv["deg"]) if "deg" in mv else dir_deg(mv["dir"]))
                 m.update(a=P[mv["a"]], b=V.px(*b), n=mv.get("n", 16))
             elif mv["kind"] == "sight":
                 m.update(a=P[mv["a"]], b=P[mv["b"]])

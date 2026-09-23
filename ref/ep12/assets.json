@@ -563,7 +563,7 @@
   "src": "nara",
   "id": "146763434",
   "slot": "rongelap",
-  "note": "靴の覆い（#29＝第67図と同じ写真）",
+  "note": "靴の覆い（#29・第67図とは別の写真）",
   "box": [
    0.0378,
    0.0823,
@@ -1243,7 +1243,7 @@
   "src": "commons",
   "id": "Bikini Atoll - NARA",
   "slot": "doc",
-  "note": "",
+  "note": "ビキニ環礁の海図（米海軍水路部 H.O. 6032・1954年第3版の1958年改訂）",
   "box": [
    0.0,
    0.0,
@@ -1255,7 +1255,7 @@
   "md5": "ec69ed1f32067a185cf56827e45e56b5",
   "lic": "Public domain（米国の職務著作）",
   "author": "Unknown authorUnknown author or not provided",
-  "year": 1954,
+  "year": 1958,
   "title": "Bikini Atoll - NARA - 140696551.jpg",
   "hold": "Wikimedia Commons「Bikini Atoll - NARA - 140696551.jpg」"
  },
@@ -1552,5 +1552,45 @@
   "year": 1954,
   "title": "Castle_Bravo_Detonation_USDE.ogv",
   "hold": "https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv"
+ },
+ "mike_cloud": {
+  "src": "commons",
+  "id": "IvyMike2 HR",
+  "slot": "mike",
+  "note": "マイクのきのこ雲（1952年11月1日・NARA 由来）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "w": 3000,
+  "h": 2378,
+  "md5": "9cebfbd9561b65646c0a6073e8533f9b",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "Department of Defense. Defense Atomic Support Agency. 5/6/1959-3/29/1971",
+  "year": 1952,
+  "title": "IvyMike2 HR.jpg",
+  "hold": "Wikimedia Commons「IvyMike2 HR.jpg」"
+ },
+ "mike_device": {
+  "src": "commons",
+  "id": "Ivy Mike Sausage device",
+  "slot": "mike",
+  "note": "マイクの装置（ソーセージ）と人",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "w": 1600,
+  "h": 1166,
+  "md5": "698e9ef955afcb8b02081dec04b71e21",
+  "lic": "Public domain（米国の職務著作）",
+  "author": "United States Department of Energy",
+  "year": 1952,
+  "title": "Ivy Mike Sausage device.jpg",
+  "hold": "Wikimedia Commons「Ivy Mike Sausage device.jpg」"
  }
 }

@@ -215,3 +215,72 @@ def _clips():
 def vid(cid, **kw):
     """動く映像のカット（ひかえの静止画つき）を1行で書く。秒は `footage.USE` が持つ。"""
     return dict(photo=fb(cid), **kw)
+
+
+# ══════════════════════════════════════════════════════════
+#  🔴 動く模式図（drift）の地図 ── 冒頭（c104・c105）の1枚を、第4〜7章の要所で**戻す**
+# ══════════════════════════════════════════════════════════
+#   葦の分析を受けた決定（案B）：冒頭の物が締めで戻る骨組みを、事実の地図でやる
+#   （記憶 project-jiko-visual-variety-from-ep12）。⑤b-3（2026-09-23）で c1.py から移した。
+#   ⚠️ 位置と距離は `titan_fig.GEO`（緯度経度の表）と**報告書の値**だけ。`MAP_REL` を門番 `check_drift` が照合する。
+SRC_DNA = "DNA 6035F（国防原子力局 1982年）"
+# ⚠️ 表示の範囲は主役（ビキニ→船）が大きく見えるように詰めた（最初の 164.3〜168.9 だと画面の3割＝⑤b-2 の試し焼きで実測）
+MAP_VIEW = dict(lon=(164.9, 167.95), lat=(10.98, 12.30))
+# ⚠️ ロンゲラップとロンゲリックは 180px しか離れていない＝札を上下に分ける（check_layout で実測 42×22px 重なった）
+MAP_PLACES = ["bikini", dict(k="rongelap", side="above"), "ailinginae", "rongerik"]
+# 🔴🔴 船の位置は**どの章でも1つ**＝DNA p212「85 nmi (157 km) east-northeast of Bikini」（⑤b-3 で決めた）。
+#    日本政府の文書（DNA p477 の附録）は「北緯11度52分半・東経166度35分（03:42）」＝ビキニから約135キロ。
+#    ナレーションは c104・c509・c606 とも「157キロ」と読む＝地図に2つ目の船を出すと**音と絵が食い違う**。
+#    → 船は157キロの1隻だけ。日本側の位置は `ship_jp`（描かない点）として置き、c605 の注で「約135キロ」と断る。
+#      注の数は `MAP_REL_JP` を門番が照合する（書いた数と、緯度経度から測った距離が ±5%）。
+MAP_PTS = dict(ship=dict(of="bikini", km=157, dir="東北東"))
+MAP_REL = [dict(a="bikini", b="ship", km=157, dir="東北東", src="DNA p212"),
+           dict(a="gz", b="rongerik", km=250, dir="東", src="DNA p212")]
+MAP_PTS_JP = dict(ship_jp=dict(lat=11 + 52.5 / 60, lon=166 + 35 / 60))
+MAP_REL_JP = [dict(a="ship_jp", lat=11 + 52.5 / 60, lon=166 + 35 / 60, src="DNA p477（日本政府の文書）"),
+              dict(a="bikini", b="ship_jp", km=135, dir="東北東", src="DNA p477（緯度経度から測った距離）")]
+MAP_NOTE = "模式図：島は環礁の中心・船はビキニから東北東へ157キロ（報告書の値）。灰の広がりの形は描いていない"
+
+# ── 地図の範囲（⑤b-3 で足した。**同じ範囲を章をまたいで使い回す**＝同じ地図が戻る）──────
+#   NEAR  … 冒頭の1枚（MAP_VIEW）。c104・c105・c509・c510（第6・7章でも戻す）
+#   EAST  … NEAR を東のウトリックまで広げた1枚。c402（人の住む島々）＝第7章の島の灰でも戻せる
+#   FLEET … ビキニの西の駆逐艦と南東の艦隊が入る1枚。c412・c419（第5章の艦隊の灰でも戻せる）
+#   WIDE  … 1,000キロを超える船の捜索が入る1枚。c408（前の2日間・北西）・c416（当日・東北東）
+#   ⚠️ 範囲の外の点も計算はされる（門番の照合は緯度経度で測る）。**描く点は範囲の中に置く**
+MAP_VIEW_EAST = dict(lon=(164.9, 170.3), lat=(10.40, 12.30))
+MAP_PLACES_EAST = MAP_PLACES + ["utirik"]
+MAP_VIEW_FLEET = dict(lon=(163.5, 166.8), lat=(10.35, 12.25))
+MAP_VIEW_WIDE = dict(lon=(152.5, 176.0), lat=(8.0, 21.5))
+# ⚠️ WIDE ではビキニとエニウェトクが 126px しか離れない。上に置くと北西へ伸びる捜索の線が札を横切った
+#    （⑤b-3 の試し焼き c408・c416）＝両方下に置き、エニウェトクの札だけ左へずらす
+MAP_PLACES_WIDE = ["bikini", dict(k="enewetak", dx=-90)]
+# ⚠️ 爆心→ロンゲリックへ線を引く地図（c509・c510）は、ロンゲラップの札を上に置くと線が札を貫く
+#    （⑤b-3 の試し焼き）＝札を全部下に置く。冒頭の c104・c105 は線が無いので MAP_PLACES のまま
+MAP_PLACES_LINE = ["bikini", "rongelap", "ailinginae", "rongerik"]
+# 船の捜索（DNA p208・p209）。**方位角（度）と距離は報告書の値そのもの**
+SEARCH_PTS = dict(srch2=dict(of="gz", km=1480, deg=300),      # 2日前：300°・800海里（1,480キロ）
+                  srch1=dict(of="gz", km=1110, deg=330),      # 前の日：330°・600海里（1,110キロ）
+                  srch0=dict(of="gz", km=1110, deg=65))       # 当日（追加）：65°・600海里（1,110キロ）
+SEARCH_REL = [dict(a="gz", b="srch2", km=1480, deg=300, src="DNA p208"),
+              dict(a="gz", b="srch1", km=1110, deg=330, src="DNA p208"),
+              dict(a="gz", b="srch0", km=1110, deg=65, src="DNA p209")]
+SEARCH_NOTE = "模式図：捜索の向きと長さ（報告書の値）。捜索した幅は描いていない"
+# 駆逐艦レンショー（DNA p209）と艦隊の待つ所（同 p209「southeast of Bikini … 30 to 50 nmi (56 to 93 km)」）
+FLEET_PTS = dict(dd_old=dict(of="bikini", km=167, deg=270), dd_new=dict(of="bikini", km=167, deg=230),
+                 fl56=dict(of="bikini", km=56, dir="南東"), fl93=dict(of="bikini", km=93, dir="南東"))
+FLEET_REL = [dict(a="bikini", b="dd_old", km=167, deg=270, src="DNA p209"),
+             dict(a="bikini", b="dd_new", km=167, deg=230, src="DNA p209"),
+             dict(a="bikini", b="fl56", km=56, dir="南東", src="DNA p209"),
+             dict(a="bikini", b="fl93", km=93, dir="南東", src="DNA p209")]
+FLEET_NOTE = "模式図：船の位置はビキニからの方角と距離（報告書の値）。艦の数と形は描いていない"
+
+
+def drift_map(steps, pts=None, rel=None, note=None, src="DNA p212", **kw):
+    """冒頭の地図（`MAP_*`）に段を載せた `drift` の引数。
+
+    足す点（`pts`）と宣言（`rel`）は既定に**足す**（置き換えない＝船と島の照合は必ず残る）。
+    表示の範囲・環礁を替えるときは `view=`・`places=` を渡す（例：1,000キロを超える捜索の地図）。
+    """
+    return dict(view=kw.pop("view", MAP_VIEW), places=kw.pop("places", MAP_PLACES),
+                pts={**MAP_PTS, **(pts or {})}, rel=MAP_REL + list(rel or []),
+                steps=steps, note=note or MAP_NOTE, src=src, **kw)

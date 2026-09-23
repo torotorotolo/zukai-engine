@@ -1758,7 +1758,7 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `jp_fish_sign` | （章ファイル） | 1954 | Public domain（日本・1957年より前に公表の写真） | Asahigraph | Wikimedia Commons「A signboard appealing shoppers that our fish shop does not sell tunas contaminated by nuclear fallout - 1954 - Asahi Graph.png」 |
 | `eisenhower_strauss` | （章ファイル） | 1954 | Public domain（米国の職務著作） | NARA photograph | Wikimedia Commons「Eisenhower and Strauss.jpg」 |
 | `doc_aec_letter` | （章ファイル） | 1954 | Public domain（米国の職務著作） | United States Department of Energy | Wikimedia Commons「AEC Authorization for Operation Castle.png」 |
-| `doc_bikini_chart` | （章ファイル） | 1954 | Public domain（米国の職務著作） | Unknown authorUnknown author or not provided | Wikimedia Commons「Bikini Atoll - NARA - 140696551.jpg」 |
+| `doc_bikini_chart` | （章ファイル） | 1958 | Public domain（米国の職務著作） | Unknown authorUnknown author or not provided | Wikimedia Commons「Bikini Atoll - NARA - 140696551.jpg」 |
 | `fb_c101` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 米エネルギー省 | https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv |
 | `fb_c501` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 米エネルギー省 | https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv |
 | `fb_c607` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 米エネルギー省 | https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv |
@@ -1773,6 +1773,8 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `doe_shotcab_near` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 米エネルギー省 | https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv |
 | `doe_shotcab_far` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 米エネルギー省 | https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv |
 | `doe_cloud_cap` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 米エネルギー省 | https://commons.wikimedia.org/wiki/File:Castle_Bravo_Detonation_USDE.ogv |
+| `mike_cloud` | （章ファイル） | 1952 | Public domain（米国の職務著作） | Department of Defense. Defense Atomic Support Agency. 5/6/1959-3/29/1971 | Wikimedia Commons「IvyMike2 HR.jpg」 |
+| `mike_device` | （章ファイル） | 1952 | Public domain（米国の職務著作） | United States Department of Energy | Wikimedia Commons「Ivy Mike Sausage device.jpg」 |
 | `pg1` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 1頁 |
 | `pg30` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 30頁 |
 | `pg114` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 114頁 |
@@ -1799,3 +1801,6 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `pg1082` | （章ファイル） | 1954 | Public domain（米国の職務著作） | 医師団（Project 4.1） | WT-923 PDF 82頁 |
 | `pg2069` | （章ファイル） | 1979 | Public domain（米国の職務著作） | 国防原子力局（GE-TEMPO の抜粋版） | DASA 1251 PDF 69頁 |
 | `pg2074` | （章ファイル） | 1979 | Public domain（米国の職務著作） | 国防原子力局（GE-TEMPO の抜粋版） | DASA 1251 PDF 74頁 |
+| `pg31` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 31頁 |
+| `pg209` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 209頁 |
+| `pg217` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 217頁 |
