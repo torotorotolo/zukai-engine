@@ -1,0 +1,430 @@
+
+===== c112-2 must=ビキニは max=3 ｜ 行頭 ビキニは→土肥沖には
+  c112-2 take1: ✓  ビキニは日付変更線の西にあるので、アメリカ本土ではまだ二月二十八日だった。
+c112-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c209-1 must=作戦 max=3 ｜ 行頭 作戦→北朝鮮
+  c209-1 take1: ✓  作戦では三月から五月までに六回の爆発が行われた。
+c209-1: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c212-1 must=実験場 max=3 ｜ 行頭 実験場→実験所
+  c212-1 take1: ✓  実験場は太平洋のマーシャル諸島にある
+c212-1: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c215-2 must=国防総省 max=3 ｜ 行頭 国防総省→北凡総省
+  c215-2 take1: 必須の語なし:国防総省  国本総省の実験だけで二十九の計画が動いていた。
+  c215-2 take2: 必須の語なし:国防総省  国本総省の実験だけで二十九の計画が動いていた。
+  c215-2 take3: 必須の語なし:国防総省  国本総省の実験だけで二十九の計画が動いていた。
+c215-2: 3テイク → 要耳（全テイク落ち・所見最少を採用）
+
+1行 → 要耳 1 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c218-1 must=- max=3 ｜ 行頭 さんがつついたち→西さんが五月一日（数の余り5で落ちる）
+  c218-1 take1: ✓  三月一日に試される装置はロスアラモス科学研究所が作った。
+c218-1: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c308-1 must=報告書 max=3 ｜ 行頭 報告書→申告書
+  c308-1 take1: ✓  報告書はこの装置を兵器そのものではないとした上でこう書いています。
+c308-1: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c313-2 must=実験 max=3 ｜ 行頭 実験→事件（促音が落ちた）
+  c313-2 take1: ✓  実験の四ヶ月余り後、研究所の担当者は国の委員会でこう説明した。
+c313-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c317-2 must=リチウム max=3 ｜ ★ 行頭 リチウム→ビチウム
+  c317-2 take1: ✓  リチウム七の見込み違い説は誤りである。
+c317-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c318-2 must=当時 max=3 ｜ 行頭 当時→教授
+  c318-2 take1: ✓  当時からの説明と二千二十四年の論文とが食い違ったままである。
+c318-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c402-1 must=区域 max=3 ｜ 行頭 区域→陸域
+  c402-1 take1: 必須の語なし:区域  陸域の東の外側には人の住む島々があった。
+  c402-1 take2: ✓  区域の東の外側には人の住む島々があった。
+c402-1: 2テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c404-2 must=班は max=3 ｜ 行頭 班は→ファンは
+  c404-2 take1: 頭欠け:班→ヴ／必須の語なし:班は  ヴァンは高さごとの風を重ね合わせて、灰の落ちる先を予想した。
+  c404-2 take2: 頭欠け:班→ヴ／必須の語なし:班は  ヴァンは高さごとの風を重ね合わせて灰の落ちる先を予想した。
+  c404-2 take3: 頭欠け:班→ハ／必須の語なし:班は  ハンは高さごとの風を重ね合わせて、灰の落ちる先を予想した。
+c404-2: 3テイク → 要耳（全テイク落ち・所見最少を採用）
+
+1行 → 要耳 1 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c405-2 must=灰の広がり max=3 ｜ 行頭 灰の→火の
+  c405-2 take1: 意味の語:灰／必須の語なし:灰の広がり  肺の広がりを見積もる方法は、主にネバダの威力の小さい実験の記録をもとにしていた。
+  c405-2 take2: ✓  灰の広がりを見積もる方法は、主にネバダの威力の小さい実験の記録をもとにしていた。
+c405-2: 2テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c412-3 must=雲の行方 max=3 ｜ 行頭 雲の→山野の
+    ⚠️ 異音 c412-3 take1: 末尾に余計な音: 130ms の無音 → 140ms の音（5.46秒地点・振幅9495＝本文の1.3倍）
+  c412-3 take1: ✓  雲の行方を見張る飛行機は爆発の二時間後に飛ぶ手はずになった。
+c412-3: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c420-2 must=装置 max=3 ｜ 行頭 装置→操縦士
+  c420-2 take1: 字の欠け:置装／必須の語なし:装置  火葬地のそばに残ったのは起爆の準備をする班とその警備だけである。
+  c420-2 take2: ✓  装置のそばに残ったのは起爆の準備をする班とその警備だけである。
+c420-2: 2テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c421-2 must=起爆 max=3 ｜ 行頭 起爆→被爆
+  c421-2 take1: 字の欠け:環礁  起爆の班のほかは誰も艦長に残らない手順である。
+  c421-2 take2: 字の欠け:班環礁起／必須の語なし:起爆  木爆の藩の他は誰も官庁に残らない手順である。
+  c421-2 take3: 字の欠け:環礁  起爆の班の他は誰も艦長に残らない手順である。
+c421-2: 3テイク → 要耳（全テイク落ち・所見最少を採用）
+
+1行 → 要耳 1 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c519-1 must=流れていた max=3 ｜ 行頭 灰を→愛を（灰は CRITICAL_EP で見る）＋行末 流れていた→流れていった
+  c519-1 take1: 意味の語:灰  愛を運ぶ雲は東へ流れていた。
+  c519-1 take2: ✓  灰を運ぶ雲は東へ流れていた。
+c519-1: 2テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c602-1 must=第五福竜丸 max=3 ｜ 行頭 第五福竜丸→第五幅。龍丸
+  c602-1 take1: 数の余り:5  第五福竜丸。長さ三十メートルほどの木で作られた漁船である。
+  c602-1 take2: 数の余り:5  第五、福竜丸。長さ三十メートルほどの木で作られた漁船である。
+  c602-1 take3: 数の余り:5  第五福竜丸。長さ三十メートルほどの木で作られた漁船である。
+c602-1: 3テイク → 要耳（全テイク落ち・所見最少を採用）
+
+1行 → 要耳 1 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c607-1 must=西南西 max=3 ｜ 行頭 西南西→西南、獅子
+  c607-1 take1: 同形異音語:南西／頭欠け:西→シ／必須の語なし:西南西  シナンシーの空に赤く明るい光が見えた。
+  c607-1 take2: 同形異音語:西／必須の語なし:西南西  指南市の空に赤く明るい光が見えた。
+  c607-1 take3: 同形異音語:西／必須の語なし:西南西  最南市の空に赤く明るい光が見えた。
+c607-1: 3テイク → 要耳（全テイク落ち・所見最少を採用）
+
+1行 → 要耳 1 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c622-1 must=灰を max=3 ｜ 行頭 灰を→愛を
+  c622-1 take1: ✓  灰を浴びてから二、三日のうちに全員が軽い頭痛を感じ
+c622-1: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c624-2 must=出港 max=3 ｜ 行頭 出港→事故
+  c624-2 take1: ✓  出港から五十一日後のことである。
+c624-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c713-2 must=針は max=3 ｜ 行頭 針は→パリは
+  c713-2 take1: 頭欠け:針→パ／字の欠け:振針／必須の語なし:針は  パリは午後二時五十分から降り切れたままだという。
+  c713-2 take2: 頭欠け:針→パ／字の欠け:振針／必須の語なし:針は  パリは午後二時五十分から降り切れたままだという。
+  c713-2 take3: 頭欠け:針→ア／必須の語なし:針は  アリは午後二時五十分から振り切れたままだという。
+  🔴 c713-2: 採用したテイクの聞取は 1/3 の**少数派**。2/3 は別の聞取だった。
+     採用 : アリは午後二時五十分から振り切れたままだという。
+     多数 : パリは午後二時五十分から降り切れたままだという。
+     → 所見の数で選ぶと誤読が勝つ型。`--ignore` を渡して数え直すか、耳で決めること。
+c713-2: 3テイク → 要耳（全テイク落ち・所見最少を採用）
+
+1行 → 要耳 1 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c722-1 must=倍 max=3 ｜ 行頭 浴びた→マビタ（頭欠けで見る）＋行末 じゅうにばい→十二パー
+  c722-1 take1: 頭欠け:浴→ア  アビタ放射線はロンゲラップの人々が一番多く、ウトリックのおよそ12倍。
+  c722-1 take2: ✓  浴びた放射線はロンゲラップの人々が一番多く、ウトリックのおよそ十二倍。
+c722-1: 2テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c805-2 must=第五福竜丸 max=3 ｜ 行頭 第五福竜丸→バイ五福。竜丸
+  c805-2 take1: ✓  第五、福竜丸が持ち帰ったマグロからも放射能が見つかっていた。
+c805-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c806-2 must=船と魚 max=3 ｜ 行頭 船と→骨と（⚠️ 十二月→十二、二月 の重複は判定に掛からない＝結果を目で見る）
+  c806-2 take1: ✓  船と魚を調べるためである。検査はその年の十二月の終わりまで続いた。
+c806-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c815-2 must=実験場 max=3 ｜ 行頭 実験場→県庁
+  c815-2 take1: ✓  実験場の辺りを中心にした半径八百三十三キロの扇形である。
+c815-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c816-2 must=久保山 max=3 ｜ 行頭 久保山→坪山（実名）
+  c816-2 take1: ✓  久保山さんは東京の病院で治療を受け続けた。
+c816-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c903-2 must=ロンゲラップ max=3 ｜ 行頭 ロンゲラップ→ノンゲラップ
+  c903-2 take1: ✓  ロンゲラップに上がる人たちは靴に覆いを巻いていた。
+c903-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c907-1 must=ロンゲラップ max=3 ｜ 行頭 ロンゲラップ→ドンゲラップ
+  c907-1 take1: ✓  ロンゲラップの人々のおよそ三人に二人が一日か二日のうちに吐き気を訴えた
+c907-1: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c909-3 must=その後 max=3 ｜ 行頭 その後は→そのガとは
+  c909-3 take1: ✓  その後は増え始めたが、七十六日目でも普通の値には届かなかった。
+c909-3: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c913-2 must=ロンゲラップ max=3 ｜ ★ 行頭 ロンゲラップ→ドンゲラップ
+    ⚠️ 異音 c913-2 take1: 末尾に余計な音: 110ms の無音 → 130ms の音（4.83秒地点・振幅7585＝本文の1.1倍）; 途中に浮いた音: 250ms（4.47秒地点・振幅8480＝本文の1.2倍／前170ms・後110ms の無音）
+  c913-2 take1: ✓  ロンゲラップの住民は 1957年に戻った。
+c913-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c916-2 must=実験 max=3 ｜ 行頭 実験→復権
+  c916-2 take1: ✓  実験を支えたアメリカ兵の一部に、外国の漁師に、そしてマーシャル諸島の人々に。
+c916-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c917-1 must=福竜丸 max=3 ｜ 行頭 第五福竜丸→第五、福留丸
+  c917-1 take1: 必須の語なし:福竜丸  第五。古竜丸はその後、名前を変えて水産大学の船になった。
+  c917-1 take2: ✓  第五。福竜丸はその後名前を変えて水産大学の船になった。
+c917-1: 2テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c304-2 must=わずかだ max=3 ｜ 行末 わずかだ→わずか
+  c304-2 take1: ✓  天然のリチウムはほとんどがリチウム7で、リチウム6はわずかだ。
+c304-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c323-2 must=からだ max=3 ｜ 行末 からだ→からです
+  c323-2 take1: ✓  雲の高さと形は威力にあまり左右されないからだ。
+c323-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c408-2 must=ためである max=3 ｜ 行末 ためである→ためです
+  c408-2 take1: ✓  通りがかりの船がいないかを確かめるためである。
+c408-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c414-1 must=書いている max=3 ｜ 行末 書いている→書いていた
+  c414-1 take1: 必須の語なし:書いている  中でも気になる風の向きを報告書はこう書いていた。
+  c414-1 take2: ✓  中でも気になる風の向きを報告書はこう書いている。
+c414-1: 2テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c505-2 must=深さである max=3 ｜ 行末 深さである→深さです
+  c505-2 take1: ✓  二十階建てのビルがほぼ沈んでしまう深さである。
+c505-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c514-1 must=めた max=3 ｜ 行末 降りはじめた→降り始める
+  c514-1 take1: ✓  午前八時、南東の海で待っていた艦隊に灰が降り始めた。
+c514-1: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c617-2 must=ようだと max=3 ｜ 行末 ようだ、と→ようだ
+  c617-2 take1: ✓  この船は捜索から漏れていたようだと。
+c617-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c707-2 must=着 max=3 ｜ 行末 着がえた→換えた
+  c707-2 take1: 字の欠け:着者／必須の語なし:着  ほとんどのものが半袖半ズボンを長袖長ズボンに変えた
+  c707-2 take2: 字の欠け:着者／必須の語なし:着  ほとんどのものが半袖半ズボンを長袖長ズボンに考えた。
+  c707-2 take3: 字の欠け:着者／必須の語なし:着  ほとんどのものが半袖半ズボンを長袖長ズボンに変えた。
+c707-2: 3テイク → 要耳（全テイク落ち・所見最少を採用）
+
+1行 → 要耳 1 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c906-1 must=書かれている max=3 ｜ 行末 書かれている→書かれていた
+  c906-1 take1: ✓  島の人々を見た医師団の報告書にはこう書かれている。
+c906-1: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c915-3 must=灰だ max=3 ｜ 行末 雲の灰だ→雲の配置
+  c915-3 take1: 数の余り:10  二〇一三年の報告書が挙げるのは、予報が十分に見込まなかった高く登った雲の灰だ。
+  c915-3 take2: 字の欠け:昇灰／意味の語:灰／必須の語なし:灰だ／数の余り:10  二千十三年の報告書が挙げるのは、予報が十分に見込まなかった高く登った雲の配置。
+  c915-3 take3: 数の余り:10  二千十三年の報告書が挙げるのは、予報が十分に見込まなかった高く登った雲の灰だ。
+c915-3: 3テイク → 要耳（全テイク落ち・所見最少を採用）
+
+1行 → 要耳 1 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c210-1 must=TNT max=3 ｜ TNT→PNT
+    ⚠️ 異音 c210-1 take1: 末尾に余計な音: 730ms の無音 → 40ms の音（6.92秒地点・振幅9434＝本文の1.5倍）
+  c210-1 take1: 数の余り:10000000  六回のうち三回はTNT火薬に直して一千万トンを超えた。
+  c210-1 take2: 数の余り:10000000  六回のうち三回はTNT火薬に直して一千万トンを超えた。
+  c210-1 take3: 数の余り:10000000  六回のうち三回はTNT火薬に直して一千万トンを超えた。
+c210-1: 3テイク → 要耳（全テイク落ち・所見最少を採用）
+
+1行 → 要耳 1 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c210-2 must=一回 max=3 ｜ 最初の1回→最初の回（1が落ちた疑い）
+  c210-2 take1: 必須の語なし:一回  その最初の回が三月一日のブラボーである。
+  c210-2 take2: 必須の語なし:一回  その最初の1回が3月1日のブラボーである。
+  c210-2 take3: 必須の語なし:一回  その最初の1回が3月1日のブラボーである。
+  🔴 c210-2: 採用したテイクの聞取は 1/3 の**少数派**。2/3 は別の聞取だった。
+     採用 : その最初の回が三月一日のブラボーである。
+     多数 : その最初の1回が3月1日のブラボーである。
+     → 所見の数で選ぶと誤読が勝つ型。`--ignore` を渡して数え直すか、耳で決めること。
+c210-2: 3テイク → 要耳（全テイク落ち・所見最少を採用）
+
+1行 → 要耳 1 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c312-1 must=値と max=3 ｜ 値と→ネットと
+  c312-1 take1: 頭欠け:None→1  一番ありそうな値と比べると二点五倍にあたる
+  c312-1 take2: 頭欠け:None→1  一番ありそうな値と比べると二点五倍に当たる。
+  c312-1 take3: 頭欠け:None→1  一番ありそうな値と比べると二点五倍にあたる。
+c312-1: 3テイク → 要耳（全テイク落ち・所見最少を採用）
+
+1行 → 要耳 1 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c421-3 must=環礁 max=3 ｜ 環礁→干潮
+  c421-3 take1: 字の欠け:指環礁／必須の語なし:環礁  司令所は爆心から干潮の内側の海を挟んだ向こう岸にあった。
+  c421-3 take2: 字の欠け:指環礁／必須の語なし:環礁  司令所は爆心から干潮の内側の海を挟んだ向こう岸にあった。
+  c421-3 take3: 字の欠け:心所爆環礁／必須の語なし:環礁  指令書は縛神から干潮の内側の海を挟んだ向こう岸にあった。
+c421-3: 3テイク → 要耳（全テイク落ち・所見最少を採用）
+
+1行 → 要耳 1 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c720-3 must=環礁 max=3 ｜ 環礁→干潮
+  c720-3 take1: 字の欠け:環礁／必須の語なし:環礁  近くの艦長で漁をしていた十八人も後から駆逐艦に乗せられた。
+  c720-3 take2: 字の欠け:環礁／必須の語なし:環礁  近くの艦長で漁をしていた十八人も後から駆逐艦に乗せられた。
+  c720-3 take3: 字の欠け:環礁／必須の語なし:環礁  近くの艦長で漁をしていた十八人も後から駆逐艦に乗せられた。
+c720-3: 3テイク → 要耳（全テイク落ち・所見最少を採用）
+
+1行 → 要耳 1 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c513-1 must=起爆 max=3 ｜ 起爆→被爆（き→ひ）
+  c513-1 take1: ✓  爆心から海を挟んだ起爆の指令所の周りでも、1時間で放射線が強まった。
+c513-1: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c815-1 must=危険区域 max=3 ｜ 危険区域→被験区域（き→ひ）
+  c815-1 take1: ✓  ブラボーの後、危険区域は大きく広げられた。
+c815-1: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c816-1 must=無線長 max=3 ｜ 無線長→無線嬢
+  c816-1 take1: ✓  船でただ一人無線の資格を持っていたのが無線長の久保山愛吉さんである。
+c816-1: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c810-2 must=爆心に max=3 ｜ 爆心に→爆心地
+  c810-2 take1: ✓  音が届くまでの時間が短いほど爆心に近かったことになる。
+c810-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c713-1 must=ロンゲリック max=3 ｜ ロンゲリック→ドンゲリック
+  c713-1 take1: 必須の語なし:ロンゲリック  夜八時頃、ドンゲリックから二通目の知らせが届いた。
+  c713-1 take2: ✓  夜八時頃、ロンゲリックから二通目の知らせが届いた。
+c713-1: 2テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c716-1 must=ロンゲリック max=3 ｜ ロンゲリック→ドンゲリック
+  c716-1 take1: ✓  翌二日の昼前、放射線の係を乗せた水上飛行機がロンゲリックの上を低く飛んだ。
+c716-1: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c308-1 must=書いている max=3 ｜ 行頭 報告書→申告書（1回目は 報告書 で合格したが行末が『書いています』に崩れた＝2回目は行末を必須にし、行頭は目で見る）
+  c308-1 take1: ✓  報告書はこの装置を兵器そのものではないとした上で、こう書いている。
+c308-1: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+
+===== c210-2 must=1回 max=3 ｜ 最初の1回→最初の回（1が落ちた疑い）。🔴 1回目は必須の語を「一回」にして失敗＝正しい take2・3 は聞取が算用数字『1回』で落ち、所見が同数の take1（1が落ちた）が採られた
+  c210-2 take1: ✓  その最初の1回が3月1日のブラボーである。
+c210-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine\audio\el_qa\ep12_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること

@@ -1,0 +1,25 @@
+── 章 c1（14カット）→ audio/el_qa/build_ep12_c1.log
+   合成 14 カット／持ち越し 155 カット／未作成 22／記録 169／台本 191
+── 章 c2（20カット）→ audio/el_qa/build_ep12_c2.log
+   合成 20 カット／持ち越し 150 カット／未作成 21／記録 170／台本 191
+── 章 c3（24カット）→ audio/el_qa/build_ep12_c3.log
+   合成 24 カット／持ち越し 146 カット／未作成 21／記録 170／台本 191
+── 章 c4（22カット）→ audio/el_qa/build_ep12_c4.log
+   合成 22 カット／持ち越し 155 カット／未作成 14／記録 177／台本 191
+── 章 c5（22カット）→ audio/el_qa/build_ep12_c5.log
+   合成 22 カット／持ち越し 155 カット／未作成 14／記録 177／台本 191
+── 章 c6（26カット）→ audio/el_qa/build_ep12_c6.log
+   合成 26 カット／持ち越し 154 カット／未作成 11／記録 180／台本 191
+── 章 c7（22カット）→ audio/el_qa/build_ep12_c7.log
+   合成 22 カット／持ち越し 165 カット／未作成 4／記録 187／台本 191
+── 章 c8（20カット）→ audio/el_qa/build_ep12_c8.log
+   合成 20 カット／持ち越し 170 カット／未作成 1／記録 190／台本 191
+── 章 c9（20カット）→ audio/el_qa/build_ep12_c9.log
+   🔴 章 c9 は途中で落ちた（集計行が無い・exit 1）:
+                  ^^^^^^^^^^^
+       File "C:\Users\konar\AppData\Local\Programs\Python\Python312\Lib\urllib\request.py", line 639, in http_error_default
+         raise HTTPError(req.full_url, code, msg, hdrs, fp)
+     urllib.error.HTTPError: HTTP Error 429: Too Many Requests
+     exit=1
+==================
+🔴 途中で落ちた（上を見る）

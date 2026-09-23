@@ -33,6 +33,14 @@ r"""check_yomi_numbers.py — **読みが固定されていない「危ない語
     A 西暦4桁      1984年 / 1985年          … 「しよねん」「ごごねん」に崩れた実績
     B 小数         58.788秒 / 0.678秒       … 桁の読みが崩れた実績（5件）
     C 数＋助数詞   37秒 / 7人 / 三つ        … 別の数に化けた実績（37→ごじゅうなな）
+    D 型に入らない数 1500万トン / 40歳 / 第7 / リチウム6 … 🔴 2026-09-23（12本目⑤a）に足した。下の注
+
+  🔴 D を足した理由（12本目⑤a）: A〜C は「崩れた実績のある助数詞」だけを見るので、**回ごとに新しい助数詞が
+     出ると網の外になる**。12本目は「万トン・歳・隻・冊・割・週間・か月・階建て・ドル・円・第N・リチウムN」で
+     **数の半分近くが A〜C のどれにも当たらなかった**（✓ のまま焼くところだった）。数は聞取で検証できない
+     （5a-6）ので、型に入らなくても送信文字列に数字が残れば落とす。A〜C と重なる所は二重に数えない。
+     ⚠️ これまでの陰性対照「裸の数は出ない（番号は1だ）」は外した＝裸の数も読みは固定されていない。
+        陰性対照は「かな化ずみは出ない」が引き継ぐ。
 
   ⚠️ **全部を機械で白黒付けることはできない。**だから
   **「耳で通した」と記録した行は落とさない**＝台帳 `qa_out/<ep>_yomi_heard.tsv`。
@@ -68,17 +76,28 @@ RE_DEC = re.compile(r"[0-9]+\.[0-9]+")
 RE_CTR = re.compile(rf"[0-9]+(?:\.[0-9]+)?(?:{_CTR})")
 # 和語の数詞（一つ〜十、三つ など）。「三つ、大きな」が「三つ大きな」に流れた実績
 RE_WAGO = re.compile(r"[一二三四五六七八九十]つ")
+# D 型に入らない数（2026-09-23 新設・冒頭の注）。全角の数字も拾う
+RE_ANY = re.compile(r"[0-9０-９]+(?:[.．][0-9０-９]+)?")
 
 
 def risky(sent: str):
-    """送信文字列に**生で残っている**危ない数の並びを返す（重複なし・出た順）。"""
-    out, seen = [], set()
+    """送信文字列に**生で残っている**危ない数の並びを返す（重複なし・出た順）。
+    A〜C の型を先に拾い、どの型にも入らない数字だけを D として足す（同じ数を二重に出さない）。"""
+    out, seen, spans = [], set(), []
     for pat in (RE_YEAR, RE_DEC, RE_CTR, RE_WAGO):
         for m in pat.finditer(sent):
+            spans.append(m.span())
             w = m.group(0)
             if w not in seen:
                 seen.add(w)
                 out.append(w)
+    for m in RE_ANY.finditer(sent):
+        if any(a <= m.start() and m.end() <= b for a, b in spans):
+            continue
+        w = m.group(0)
+        if w not in seen:
+            seen.add(w)
+            out.append(w)
     return out
 
 
@@ -122,12 +141,26 @@ def critical_left(ep: str):
 
     🔴 11本目の「札」＝辞書が2句しか当たらず、3行が生のまま残っていた型。
     ⚠️ ここは落とさない（⚠️）。読みが一意に決まる語もあるため。
+    🔴 2026-09-23（12本目⑤a）: **辞書で一部の行をかなにしている語だけ**を見るよう絞った。
+       この型（札）は「ある行はかな・別の行は漢字」の取りこぼしで、12本目の「灰」「風」のように
+       かなにしない鍵語（el_check_heard ④ 用）まで並べると、約90行が毎回 ⚠️ に出て本物を埋もれさせる。
+       ⚠️ 鍵の中で**熟語の一部**になっている出現は数えない（「降灰」の鍵は「灰」を含むが別の語。
+          最初は `w in k` で判定して、灰の62行が ⚠️ に並んだ＝自分で作った雑音）。
     """
     import el_script as ES
+    kanji = lambda c: bool(c) and ("一" <= c <= "鿿" or c == "々")  # noqa: E731
+
+    def standalone(w, k):
+        for m in re.finditer(re.escape(w), k):
+            a, b = m.start(), m.end()
+            if not (kanji(k[a - 1] if a else "") or kanji(k[b] if b < len(k) else "")):
+                return True
+        return False
+    fixed = [w for w in getattr(ES, "CRITICAL_EP", ()) if any(standalone(w, k) for k in ES.EL_YOMI)]
     rows = []
     for ln in ES.lines():
         sent = ES.el_text(ln.text)
-        for w in getattr(ES, "CRITICAL_EP", ()):
+        for w in fixed:
             if w in sent:
                 rows.append((ln.lid, w, ln.text))
     return rows
@@ -153,8 +186,12 @@ def selftest() -> int:
     # ⚠️ 陰性対照は**助数詞の付かない裸の数**にする。
     #    最初は `第1巻` を陰性対照にしていたが、`巻` は「いちまき」と読まれうる
     #    ＝**本当に危ない型**で、誤っていたのは門番ではなくテストのほうだった。
-    chk("裸の数は出ない", risky("番号は1だ"), [])
+    # 🔴 2026-09-23: 「裸の数は出ない」→「出る」に反転（D 型。冒頭の注）
+    chk("裸の数も出る（D）", risky("番号は1だ"), ["1"])
     chk("助数詞が付けば出る", risky("第1巻の全文"), ["1巻"])
+    chk("型に入らない助数詞も出る（D）", risky("1500万トンと40歳と第7と２冊"), ["1500", "40", "7", "２"])
+    # ⚠️ 「月」は C の助数詞＝「3月」は C で出るのが正しい（最初は "3" が D で出ると書いて落ちた＝誤りはテスト側）
+    chk("A〜C と重なる数は二重に出ない", risky("1954年3月1日と2.5倍"), ["1954年", "2.5", "3月", "1日", "2.5倍"])
     return 0 if ok else 1
 
 
