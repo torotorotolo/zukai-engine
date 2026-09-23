@@ -32,11 +32,15 @@ WIN = 0.4
 
 
 def timeline():
+    # 🔴 2026-09-24（12本目⑥）：章の頭のカットは**扉（S.card_of）のぶん声が後ろにある**
+    #    （audio_mix が starts＋LEAD＋card_of に置く）。足さずに測ると声の2秒を「声なし」に数え、
+    #    声なし 0.5〜1.0秒が −18.0 LUFS（10・11本目は −38 前後）と出た＝物差しの穴だった。
+    card = getattr(S, "card_of", lambda _c: 0.0)
     starts, spans, t = {}, [], 0.0
     for cid, sec in S.CUTS:
         starts[cid] = t
         for r in S.SUBS.get(cid, []):
-            a = t + S.LEAD + r["t"]
+            a = t + S.LEAD + card(cid) + r["t"]
             spans.append((a, a + r["d"], cid))
         t += sec
     return starts, spans, t
