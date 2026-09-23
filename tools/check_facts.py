@@ -40,7 +40,10 @@ if hasattr(sys.stdout, 'buffer'):
 
 PAGE_RE = re.compile(r'=== p(\d+) ===')
 # 台本の §2 の表の行： | 5 | **c404** | **決め所**（10字） | `原文` ／ `原文` | p38〜39 |
-ROW_RE = re.compile(r'^\|\s*\d+\s*\|\s*\*\*([a-z]{1,2}\d{2,3})\*\*\s*\|(.*)$')
+# ⚠️ 2026-09-23（12本目④'）：④' は直した行に 🔧 を付ける。🔧 を許していなかったため、
+#    🔧 付きの12行を黙って読み飛ばし「4件中0件が当たらない」で合格を出した → 🔧 を許し、
+#    さらに main で「本文の★のカットが表に全部あるか」を数える（fail closed）。
+ROW_RE = re.compile(r'^\|\s*\d+\s*\|\s*\*\*([a-z]{1,2}\d{2,3})\*\*\s*(?:🔧\s*)?\|(.*)$')
 QUOTE_RE = re.compile(r'`([^`]+)`')
 # 頁の欄： p177 / p38〜39 / p38-39 / p26 注115
 PAGE_COL_RE = re.compile(r'p\.?\s*(\d+)(?:\s*[〜~\-–]\s*(\d+))?')
@@ -125,6 +128,28 @@ def parse_subs(text):
     return lines
 
 
+def parse_star_cuts(text):
+    """§4 で★（決め所）の行を持つカットの集合。§2 の表と突き合わせて、読み落としを止める。"""
+    out, on, cur = set(), False, None
+    for raw in text.split('\n'):
+        line = raw.rstrip()
+        if line.startswith('## 4. 台本'):
+            on = True
+            continue
+        if on and re.match(r'^## \d', line):
+            break
+        if not on:
+            continue
+        m = CUT_RE.match(line)
+        if m:
+            cur = m.group(1)
+            continue
+        s = SUB_RE.match(line)
+        if s and cur and s.group(1).lstrip().startswith('★'):
+            out.add(cur)
+    return out
+
+
 def forms(n):
     """3桁区切りの有無どちらでも当たるように、探す形を増やす。"""
     v = n.replace(',', '')
@@ -191,13 +216,16 @@ SAMPLE_MD = '''## 2. 決め所
 |---|---|---|---|---|
 | 1 | **c101** | **とんだ**（4字） | `The quick brown fox jumps` | p10 |
 | 2 | **c102** | **動かせない**（5字） | `rudder could not be moved` | p11 |
-| 3 | **c103** | **まちがい**（5字） | `the rudder could not be moved` | p10 |
+| 3 | **c103** 🔧 | **まちがい**（5字） | `the rudder could not be moved` | p10 |
 
 ## 4. 台本
 
 **c101** ／ 図 p10（きつね）／ src p10
 > 9086フィートあった。
 > 換算すると2769メートルになる。
+
+**c104** 🔧 ／ quote ／ src p10
+> ★**表に無い決め所**
 
 ## 5. つぎ
 > これは数えない9999。
@@ -224,7 +252,8 @@ def selftest():
     chk('原文の欄を取る', rows[0][1], ['The quick brown fox jumps'])
     chk('頁の欄を取る', rows[1][2], [11])
     subs = parse_subs(SAMPLE_MD)
-    chk('§4の字幕だけ拾う', len(subs), 2)
+    chk('§4の字幕だけ拾う', len(subs), 3)
+    chk('表に無い★を拾う', sorted(parse_star_cuts(SAMPLE_MD) - {c for c, _, _ in rows}), ['c104'])
     chk('§5を読まない', any('9999' in s for s in subs), False)
     print('  ── 陽性対照（わざと外した1件だけが落ちること）')
     ng = check_quotes(rows, pages, 0)
@@ -255,8 +284,14 @@ def main(argv):
     print('決め所 %d件\n' % len(rows))
     ng = check_quotes(rows, pages, offset)
     check_numbers(parse_subs(text), ' '.join(pages.values()))
-    print('\n決め所 %d件中 %d件が当たらない' % (sum(len(q) for _, q, _ in rows), ng))
-    return 1 if ng else 0
+    stars = parse_star_cuts(text)
+    lost = sorted(stars - {c for c, _, _ in rows})
+    if lost:
+        print('\n🔴 本文に★があるのに §2 の表で読めない決め所 %d件: %s（表の書き方を見る＝読み落としで合格にしない）'
+              % (len(lost), ' '.join(lost)))
+    print('\n決め所 %d件中 %d件が当たらない（本文の★ %dカット／表で読めた %dカット）'
+          % (sum(len(q) for _, q, _ in rows), ng, len(stars), len(rows)))
+    return 1 if (ng or lost) else 0
 
 
 if __name__ == '__main__':

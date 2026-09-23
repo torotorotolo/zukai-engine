@@ -160,6 +160,27 @@
 
 - 食い違い：nuclearweaponarchive（二次）は「推定最大値（8 Mt）のほぼ2倍」とする（A1-8）。DTRA 報告は「最大値は15 Mt 規模まで見積もられていた」とする。**「最大値」の定義が違う可能性**（GAC の 4〜8 は「予測の幅」、JF-2130 の上限は「安全対策のために見込む最大値」）。**JF-2130 そのものは web で見つけられなかった**
 
+### A1-5b　DTRA 報告（2013）§3.1〜§3.4 —「知りながら撃った」「風が変わった」も**伝説**とする（④'で追加・2026-09-23）
+
+🔴 **④の写し（p3001）に入っていなかった節。**台本 第1版の筋「島に灰を運んだのは威力ではなく風」は、同じ報告書のこの節が退けている。
+取り方＝archive.org の全文テキストを curl で取り、④'のメインが grep で原文を引き直した（頁の画像は見ていない。印刷の頁は全文テキストの頁番号の並びから）。
+URL＝https://archive.org/download/DTIC_ADA572278/DTIC_ADA572278_djvu.txt　／　写し＝`web_quotes.txt` の p3003
+
+- **§3.2 冒頭（印刷 p.69）**：An often-told story in the BRAVO lore is that the task force was aware that the winds were blowing toward Rongelap, and that the commander ordered the test to proceed, knowing that these winds would blow fallout to the inhabited atolls. … The clear implication in this piece of BRAVO lore is that the fallout on the inhabited atoll was due to windblown radioactive material from the lower, tropospheric stem of the mushroom cloud. **This is not what happened.**
+  - 同じ段落で、この話の出どころとして Weisgall（1994年2月24日の議会公聴会）・Hamilton（1994）・Firth（1987）を名指ししている＝**反対の立場があることを DTRA 自身が書いている**
+- **§3.1 末（印刷 p.68）**：**The error in forecasting the BRAVO fallout was that the contribution from the stratosphere was not adequately considered.** Contrary to Lt. Col. Lulejian's widely circulated beliefs on the matter, there was, in fact, significant fallout from the stratosphere.
+- **§3.2（印刷 p.70 前後）**：Although material from the lower portion of the cloud stem was initially blown in the direction of Rongelap, before moving far in that direction the fallout particles fell out into the trade winds, which carried them back to Bikini … **The fallout at Rongelap and Rongerik came from the high-altitude bulk of the cloud** that was blown to the north of these atolls.
+- **§3.2（印刷 p.73）**：the winds between 5000 and 15,000 ft were essentially calm, and a 10 kn speed to the east was assigned as the most pessimistic situation for shot time. … Debris initially at 20,000 ft altitude would thus move at the most only 20 mi east before it would drop into the trade winds and be carried back to the west, away from the populated atolls.
+  - 同じ頁に真夜中の打ち合わせの記録（Clarkson and Graves 1954）：it was considered that the distance to Rongelap and Rongerik compared to the resultant wind speeds were such that no fall-out should reach those atolls. … the time of travel to Rongelap would have been about 12 to 15 hours.
+- **§3.2 末（印刷 p.74）**：It was radioactive material from the high-altitude portion of the BRAVO cloud that fell on Rongelap and Rongerik. As is documented by the photography, **the lower altitude winds played no direct role in the contamination of these atolls.**
+- **§3.3（印刷 p.76）**：ストローズ委員長の「風が予報からずれた」（1954-03-31）も perhaps the single most enduring staple in the BRAVO lore。Clarkson–Graves 覚書 "Forecast for shot time winds at shot time was essentially correct."
+- **§3.4（印刷 p.78）**：Had the design yield occurred, the inhabited atolls still would have been contaminated. **This is because the height and shape of the resulting mushroom cloud do not depend strongly on the yield of a nuclear device.**（p3001 は理由の文を落としていた）
+  - 同じ段落（台本 c323 の根拠）：Had the BRAVO yield been closer to design, a very large stratospheric cloud still would have formed. This point is illustrated by the behavior of the 7 Mt CASTLE UNION event (refer to Figure 3-19). The cloud from UNION rose to a height of 94,000 ft, and spread in 10 minutes to form a still rapidly growing stratospheric cloud 45 mi in diameter (WT-933); these values are not greatly different from those of BRAVO.
+- **DTRA 2013 の全文に lithium は0件**（web 原典の係の grep）＝リチウム7の話の根拠には使えない（台本も使っていない）
+
+**台本での言い方**：DTRA は国防総省の機関で、当の部隊を擁護する立場にもなりうる。反対の証言（1994年の公聴会）もある。
+→ 「**2013年の報告書は〜とする**」と帰属を付けて言い、**どちらかに寄せて断定しない**（記憶 feedback-famous-cause-may-be-legend）。
+
 ### A1-6　DNA（国防核兵器局）の説明資料「Operation CASTLE」— 「予想威力を大きく上回った」
 
 - 出典：Fact Sheet, Defense Nuclear Agency, Public Affairs Office, Washington, D.C. 20305, "Operation CASTLE"（日付の記載なし）

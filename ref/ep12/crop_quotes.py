@@ -103,6 +103,10 @@ def main():
             print("🔴 %s 頁の欄が読めない: %s" % (tag, what[:50]))
             miss += 1
             continue
+        if gp >= 3000:  # p3001〜 は web の写し＝頁の画像が無い（④'で --from-script がここで落ちた）
+            print("⚠️  p%d %s は web の写し＝画像なし（元の URL で読む）: %s" % (gp, tag, what[:50]))
+            miss += 1
+            continue
         miss += crop(outdir, gp, what, tag, n) is None
     print("切り出し %d件 / 見つからない %d件" % (len(jobs) - miss, miss))
     return 0
