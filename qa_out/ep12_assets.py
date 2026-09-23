@@ -172,7 +172,9 @@ WHO = {'doc_bikini_chart': '米海軍水路部'}
 PAGES_PICK = (1, 30, 114, 118, 211, 212, 213, 214, 215, 216, 218, 219, 221, 223, 226, 229,
               230, 232, 238, 240, 241, 243, 1015, 1082, 2069, 2074,
               # ⑤b-3：報告書の実物をなぞる型（trace）の頁＝c207 p31・c414 p209・c515 p217
-              31, 209, 217)
+              31, 209, 217,
+              # ⑤b-4：c711 のなぞる型（DNA p227「…Hq JTF 7 did not know where the cloud was, nor where it had been.」）
+              227)
 DOCS = ((2001, 'dasa1251_v2.pdf', 'DASA 1251'), (1001, 'project41_wt923.pdf', 'WT-923'),
         (1, 'dna6035f.pdf', 'DNA 6035F'))
 

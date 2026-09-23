@@ -56,7 +56,18 @@ PAGES: dict[str, dict] = (json.loads(_PAGES_FILE.read_text(encoding="utf-8"))
 BANDS = {k: v for k, v in PAGES.items() if v.get("fig_box")}
 
 # 画素で測った切り出し。⚠️ **原寸を見てから足す**（推定で置かない）。
-TRIM: dict[str, tuple] = {}
+#   ⑤b-4（2026-09-23）で 2×2 の並べ画像（1枚 950px）と原寸の切り出しで見て足した：
+TRIM: dict[str, tuple] = {
+    # 右 0.887 から先がフィルムの黒い縁と手書きの印（NARA #46）
+    "ep12/fo_tray.jpg": (0.0, 0.0, 0.88, 1.0),
+    # 焼き付けの白い余白＋右上「65%」・右「CROP」・右下「Fig 28」の書き込み（NARA #31）
+    "ep12/fo_tank.jpg": (0.03, 0.035, 0.97, 0.965),
+    # 焼き付けの白い縁（NARA #29）
+    "ep12/rongelap_booties.jpg": (0.05, 0.04, 0.945, 0.955),
+    # 🔴 看板の上の暗い戸口に**私人の顔が2つ**（原寸 y 120〜220 ＝ 0.12〜0.21）＝看板の上端 0.25 より上を落とす。
+    #    右の店の女性2人は束の道具（`ep12_assets.py` の PICK の trim）で落としてある → [[feedback-jiko-photo-people-policy]]
+    "ep12/jp_fish_sign.jpg": (0.0, 0.25, 1.0, 1.0),
+}
 
 
 def page(pr):
@@ -273,6 +284,34 @@ FLEET_REL = [dict(a="bikini", b="dd_old", km=167, deg=270, src="DNA p209"),
              dict(a="bikini", b="fl56", km=56, dir="南東", src="DNA p209"),
              dict(a="bikini", b="fl93", km=93, dir="南東", src="DNA p209")]
 FLEET_NOTE = "模式図：船の位置はビキニからの方角と距離（報告書の値）。艦の数と形は描いていない"
+
+# ── ⑤b-4（2026-09-23）で足した範囲3つ ─────────────────────────────
+#   ISLES … ロンゲラップとロンゲリックに寄った1枚（c626 島に降る灰・c702 ロンゲリックに灰）
+#           🔴 降る灰（fall）は点の真上に幅約48pxの柱で落ちる（`build_jiko.draw_moves`）＝その点の札は**左**に置くしかない。
+#              NEAR ではロンゲリックの左 180px にロンゲラップの輪があり、左の札が輪を貫く（計算で確かめた）＝寄った範囲を作った
+#           ⚠️ 縮尺 100キロだと棒がアイリングナエの名札にかかる＝`scale_km=50`
+#   WEST  … 西のエニウェトクまで（c705 ロンゲリック→エニウェトクの知らせ）
+#           ⚠️ その線はロンゲラップの輪の 9px 横を通る＝ロンゲラップは置かない。線はビキニの輪の 29px 下＝ビキニの札は上
+#   SOUTH … ロンゲリックから南のクェゼリンまで（c718 避難）。線はほぼ真南
+#           ⚠️ ロンゲリックの札は上（線が下へ伸びる）・ロンゲラップの札は左へ 60px（線から 21px 離す）・アイリングナエは置かない
+MAP_VIEW_ISLES = dict(lon=(166.0, 168.2), lat=(10.95, 11.85))
+# ⚠️ アイリングナエの名札が縮尺の「50キロ」に 11×13px 重なった（check_layout・c626）＝札だけ右へ 90px
+MAP_PLACES_ISLES = ["rongelap", dict(k="ailinginae", dx=90), "rongerik"]
+MAP_VIEW_WEST = dict(lon=(161.9, 168.1), lat=(10.75, 12.45))
+MAP_PLACES_WEST = ["enewetak", dict(k="bikini", side="above"), "rongerik"]
+MAP_VIEW_SOUTH = dict(lon=(160.4, 174.6), lat=(8.0, 12.0))
+MAP_PLACES_SOUTH = [dict(k="rongelap", dx=-60), dict(k="rongerik", side="above"), "kwajalein"]
+ISLES_NOTE = "模式図：島は環礁の中心（緯度経度の表）。人数と時刻は報告書の値。灰の広がりの形は描いていない"
+# 捜索の飛行機が引き返した所（DNA p220「reached a position approximately 65 nmi due east of [the burst point]
+#   by 0950M only to abort」＝**爆心から真東へ 120キロ**。報告書は「記録のひとつ」と断る＝台本 c616 も同じ）
+ABORT_PTS = dict(abort=dict(of="gz", km=120, dir="東"))
+ABORT_REL = [dict(a="gz", b="abort", km=120, dir="東", src="DNA p220")]
+
+
+def isles_map(steps, src="WT 1004頁・DNA p223", note=ISLES_NOTE):
+    """ロンゲラップとロンゲリックに寄った地図（c626・c702 で同じ地図が戻る）。札は降る灰の柱を避けて左か上。"""
+    return ("drift", drift_map(steps, view=MAP_VIEW_ISLES, places=MAP_PLACES_ISLES,
+                               note=note, src=src, scale_km=50))
 
 
 def drift_map(steps, pts=None, rel=None, note=None, src="DNA p212", **kw):
