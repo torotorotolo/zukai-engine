@@ -64,8 +64,11 @@ def judge(text, heard, must=None, ignore=frozenset()):
     if must:
         import re as _re
         flat = _re.sub(r"[\s、。「」『』・,.!?！？]", "", heard)
-        if must not in flat:
-            flags.append(f"必須の語なし:{must}")
+        # 🔴 2026-09-24（12本目⑥）：`|` で区切って複数（**行頭と行末を同時に**）見る。
+        #    c111-2 は頭を条件にすると尻が「である→です」に、尻を条件にすると頭が「国防→国本」に割れた＝1語では片方しか守れない
+        for w in must.split("|"):
+            if w and w not in flat:
+                flags.append(f"必須の語なし:{w}")
     miss = numbers_missing(text, heard)
     if miss:
         flags.append("数:" + ",".join(miss))

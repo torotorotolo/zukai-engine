@@ -132,7 +132,7 @@ EXPECT = {
     # 🔴 12本目 キャッスル・ブラボー（2026-09-23 ④' 完了・カズヤくん承認ずみ＝⑤aのチャットの頭で回答）。
     #    出所＝check_script.py を⑤aで自分で回した出力
     #    「カット 190 / 字幕行 435 / 本文 11486字 / 決め所 16」＝E 0件 / W 4件（W は全部 章ごとの写真映像）
-    "ep12":     {"cuts": 190, "lines": 435, "chars": 11486, "quotes": 16, "why": "キャッスル・ブラボー 台本第2版",
+    "ep12":     {"cuts": 191, "lines": 439, "chars": 11562, "quotes": 16, "why": "キャッスル・ブラボー 台本第2版",
                  "md": "事故検証-キャッスルブラボー-台本第2版-20260923.md"},
     # 🔴 13本目 トルコ航空981便（2026-09-24 ④' 承認ずみ＝⑤aのチャットの頭で5点とも推奨どおり）。
     #    出所＝check_script.py を⑤aで自分で回した出力
@@ -560,6 +560,17 @@ EL_YOMI = {
     "製造番号は46704": "製造番号は よんろくななまるよん",              # c606-1 製造番号は1字ずつ（§6-1）
     "中に46704": "中に よんろくななまるよん",                          # c612-2
 }
+
+# ── ⑥ 試写で出た読みの直し（13本目の枠）─────────────────────────────
+# 🔴 12本目⑥（`cf9a6cd`）の節＝12本目の行専用の鍵の削除・語の追加・EL_YOMI_SKIP 9文は、13本目では**空にした**
+#    （2026-09-24・13本目⑤a で本線の道具を作業ツリーへ取り込んだとき。12本目の文は13本目の台本に1行も無い）。
+#    12本目の中身は `git show cf9a6cd:tools/el_script.py`。教訓は Vault「事故検証-読みの再発防止策-20260924」:
+#    ① 読みを直す語は**語で引いて全行に当てる**（1行だけに効く長い鍵を作らない＝再発防止策3）
+#    ② 長いひらがな・空白が抑揚と区切りを崩した行は、EL_YOMI_SKIP で**数字のまま**送る（その行に当たる数の鍵は全部並べる）
+#    13本目の直しは、音声だけの試聴（再発防止策7・カズヤくん）で出た行だけをここに足す。
+# 🔴 行ごとに「当てない鍵」（本文の文字列で引く＝同じ文には同じ直しが当たる）。門番⑤が書き損じを止める。
+EL_YOMI_SKIP = {
+}
 # 🔴 「三豊」は**必ず直後に漢字が来る**（三豊百貨店／三豊建設／三豊建設産業）。
 #    既定の境界規則は「漢字で終わるキーは直後が漢字なら当てない」なので、開けないと1行も当たらない
 #    （門番が「台本のどの行にも当たらない」で止めてくれた＝黙って素通りしない）。
@@ -570,8 +581,11 @@ EL_YOMI_ORDER, EL_YOMI_RE = _compile_yomi(EL_YOMI, EL_YOMI_OPEN_RIGHT, EL_YOMI_O
 
 
 def el_text(text: str, hits=None) -> str:
-    """ElevenLabs へ実際に送る文字列（本番と検査で同じ関数）。読点・句点は足さない。"""
-    return apply_yomi(text, EL_YOMI_ORDER, EL_YOMI_RE, EL_YOMI, hits)
+    """ElevenLabs へ実際に送る文字列（本番と検査で同じ関数）。読点・句点は足さない。
+    🔴 2026-09-24: EL_YOMI_SKIP に載った文は、載った鍵だけ当てない（数字のまま送る）。"""
+    skip = EL_YOMI_SKIP.get(text)
+    order = [k for k in EL_YOMI_ORDER if k not in skip] if skip else EL_YOMI_ORDER
+    return apply_yomi(text, order, EL_YOMI_RE, EL_YOMI, hits)
 
 
 # ── 門番（import しただけで必ず走る・fail closed）────────────────────────
@@ -610,6 +624,14 @@ def _gate():
     for k, v in EL_YOMI.items():
         if v.count("、") > k.count("、"):
             bad.append(f"EL_YOMI「{k}」の値に読点を足している（台本に無い間が入る）")
+    # ⑤ EL_YOMI_SKIP の本文は台本の実文、外す鍵はその文に当たる鍵（2026-09-24・書き損じで黙って素通りしない）
+    texts = {l.text for l in ls}
+    for t, ks in EL_YOMI_SKIP.items():
+        if t not in texts:
+            bad.append(f"EL_YOMI_SKIP の本文「{t[:20]}…」は台本のどの行とも一致しない")
+        for k in ks:
+            if k not in EL_YOMI or not EL_YOMI_RE[k].search(t):
+                bad.append(f"EL_YOMI_SKIP「{t[:12]}…」の鍵「{k}」はその文に当たらない（外す意味が無い）")
     # ④ 行IDの一意性
     lids = [l.lid for l in ls]
     if len(lids) != len(set(lids)):

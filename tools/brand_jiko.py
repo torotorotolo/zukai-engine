@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""チャンネル「そのとき、何が起きたか」のアイコンとバナー。
+"""チャンネル「仕事帰りの事故調査ノート」のアイコンとバナー（2026-09-24 に「そのとき、何が起きたか」から改名）。
 
 ■ なぜ AI 生成画像を使わないか（2026-08-01）
   カズヤくんから「OpenAI API を使ってもよい」と言われたが、使わない判断をした。
@@ -52,8 +52,10 @@ HERE = Path(__file__).parent.parent
 FONTS = HERE / "fonts"
 OUT = HERE / "out" / "brand"
 
-NAME = "そのとき、何が起きたか"
-TAGLINE = "一次資料と図解で、実際に起きたことを追う"
+# 🔴 2026-09-24 改名（カズヤくん決定）：旧 NAME「そのとき、何が起きたか」／旧 TAGLINE「一次資料と図解で、実際に起きたことを追う」
+#    旧名は副題に残す（今の視聴者に同じチャンネルだと分かるように・説明文の1行目とそろえる）
+NAME = "仕事帰りの事故調査ノート"
+TAGLINE = "調査報告書と記録で「そのとき、何が起きたか」をたどる"
 
 # ── アイコン ──────────────────────────────────────────────
 IC = 800                      # YouTube の推奨は 800×800
@@ -182,13 +184,21 @@ def icon_question():
 # ══════════════════════════════════════════════════════════
 #  バナー
 # ══════════════════════════════════════════════════════════
-def banner():
+def banner(note=False):
     """🔴 文字は**必ず安全領域（中央 1235×338）の中**に収める。
 
     ⚠️ 最初の版は見出しを 104px と**当て推量**で置いたので、
        12文字 ＝ 1,248px になり、**安全領域を右に47px はみ出した**
        （さらに右端の赤い印とも重なった）。
        級数は推定で置かない ── フォントから実測して収める。
+
+    🔴 2026-09-24（改名「仕事帰りの事故調査ノート」）：`note=True` は安全領域に
+       **ルーズリーフの1枚**を置く（うすい罫線・赤い余白線・とじ穴3つ）。名前の「ノート」と、
+       人が書き留めている気配をさりげなく出す。題字と副題は罫線の上に乗せ、
+       題字を横切る罫は題字の幅だけ切る（読みやすさを先に取る）。
+       右の「その一点」の印は紙の外の時間軸へ出す（紙の中では軸が隠れるため）。
+       `note=False` は 08-01 の作りのまま、名前と副題だけ差し替えたもの。
+       ★2026-09-24 カズヤくんは **`note=False`（B案）を採用**。ノート（A案）は比較用に残す。
     """
     import fontmetrics as fm
 
@@ -204,31 +214,80 @@ def banner():
 
     # ── 安全領域の中だけを使う ──────────────────────────
     pad = 40
-    mark_w = 150                      # 右に置く印のぶんを先に取っておく
-    tx = SAFE_X + pad
-    maxw = SAFE_W - pad * 2 - mark_w
+    name_y, sub_y = SAFE_Y + 150, SAFE_Y + 250
+    if note:
+        # 紙の高さは安全領域と同じ（1回目は +64px にして、パソコン 2048×423 の上下の端に
+        # 紙の縁が約10px まで迫った＝窮屈に見えた）
+        px0, py0 = SAFE_X - 24, SAFE_Y
+        pw, ph = SAFE_W + 48, SAFE_H
+        margin = px0 + 64                            # 赤い余白線
+        tx = margin + 36
+        maxw = SAFE_X + SAFE_W - pad - tx
+        mx = px0 + pw + 60                           # 印は紙の外
+    else:
+        tx = SAFE_X + pad
+        maxw = SAFE_W - pad * 2 - 150                # 右に置く印のぶんを先に取っておく
+        mx = SAFE_X + SAFE_W - pad - 34
     size = fm.fit(NAME, maxw, "Dela", cap=104, floor=48)
     tw = fm.width(NAME, size, "Dela")
     sub = fm.fit(TAGLINE, maxw, "NotoM", cap=42, floor=24)
-    g.append(f'<path d="M{tx - 24:.0f} {SAFE_Y + 74:.0f} V{SAFE_Y + 262:.0f}" '
-             f'stroke="{J.ALERT}" stroke-width="10"/>')
-    g.append(f'<text x="{tx}" y="{SAFE_Y + 150}" font-family="Dela" '
+
+    if note:
+        l1 = name_y + round(size * 0.22)             # 題字が乗る罫（字の下端から少し離す）
+        l2 = sub_y + round(sub * 0.22)               # 副題が乗る罫
+        pitch = l2 - l1
+        g.append(f'<rect x="{px0}" y="{py0}" width="{pw}" height="{ph}" rx="8" '
+                 f'fill="{J.BG2}" fill-opacity="0.94" stroke="{J.LINE_DIM}" stroke-width="2"/>')
+        # 罫：題字の下・副題の下から下へ等間隔。**題字を横切る罫は引かない**
+        #   （1回目は題字の幅だけ切ったら、左右に短い切れ端が残ってゴミに見えた）
+        rules = []
+        ry = l1
+        while ry < py0 + ph - 12:
+            rules.append(ry)
+            ry += pitch
+        ry = l1 - pitch
+        while ry > py0 + 60:
+            if not (name_y - size < ry < name_y + 4):
+                rules.append(ry)
+            ry -= pitch
+        for ry in rules:
+            g.append(f'<path d="M{px0 + 2} {ry} H{px0 + pw - 2}" stroke="{J.LINE_DIM}" '
+                     f'stroke-width="2" opacity="0.45"/>')
+        # ノートの見出し行（市販のノートの「No.　Date」の欄）。罫が減るぶんノートらしさを足す
+        hy = py0 + 44
+        g.append(f'<path d="M{px0 + 2} {hy} H{px0 + pw - 2}" stroke="{J.LINE_DIM}" '
+                 f'stroke-width="2" opacity="0.7"/>')
+        g.append(f'<text x="{px0 + pw - 28}" y="{hy - 12}" font-family="NotoM" font-size="22" '
+                 f'fill="{J.LINE_DIM}" text-anchor="end" xml:space="preserve">'
+                 f'No.　　　　　Date　　　.　　　.</text>')
+        g.append(f'<path d="M{margin} {py0 + 2} V{py0 + ph - 2}" stroke="{J.ALERT}" '
+                 f'stroke-width="3" opacity="0.85"/>')
+        for k in (0.2, 0.5, 0.8):
+            g.append(f'<circle cx="{px0 + 32}" cy="{py0 + ph * k:.0f}" r="10" '
+                     f'fill="{J.BG}" stroke="{J.LINE_DIM}" stroke-width="2"/>')
+        g.append(f'<path d="M{tx} {l1} h{tw:.0f}" stroke="{J.ALERT}" stroke-width="6"/>')
+    else:
+        g.append(f'<path d="M{tx - 24:.0f} {SAFE_Y + 74:.0f} V{SAFE_Y + 262:.0f}" '
+                 f'stroke="{J.ALERT}" stroke-width="10"/>')
+        g.append(f'<path d="M{tx} {SAFE_Y + 186} h{tw:.0f}" stroke="{J.ALERT}" '
+                 f'stroke-width="6"/>')
+    g.append(f'<text x="{tx}" y="{name_y}" font-family="Dela" '
              f'font-size="{size:.0f}" fill="{J.INK_W}">{NAME}</text>')
-    g.append(f'<path d="M{tx} {SAFE_Y + 186} h{tw:.0f}" stroke="{J.ALERT}" '
-             f'stroke-width="6"/>')
-    g.append(f'<text x="{tx}" y="{SAFE_Y + 250}" font-family="NotoM" '
+    g.append(f'<text x="{tx}" y="{sub_y}" font-family="NotoM" '
              f'font-size="{sub:.0f}" fill="{J.LINE}">{TAGLINE}</text>')
 
-    # 右端に「その一点」の印（アイコンと同じ語彙）。**文字の右端より右**に置く
-    mx = SAFE_X + SAFE_W - pad - 34
+    # 「その一点」の印（アイコンと同じ語彙）。**文字の右端より右**に置く
     g.append(f'<path d="M{mx} {ay - 96:.0f} V{ay + 60:.0f}" stroke="{J.ALERT}" '
              f'stroke-width="16" stroke-linecap="round"/>')
     g.append(f'<circle cx="{mx}" cy="{ay:.0f}" r="30" fill="{J.ALERT}"/>')
     g.append(f'<circle cx="{mx}" cy="{ay:.0f}" r="11" fill="{J.BG}"/>')
-    print(f"    見出し {size:.0f}px＝{tw:.0f}px（使える幅 {maxw}px）"
-          f" ／ 右端 {tx + tw:.0f} < 印 {mx}", flush=True)
-    if tx + tw > mx - 20:
-        print("    🔴 見出しが印に届いている", flush=True)
+    right = SAFE_X + SAFE_W - pad if note else mx - 20
+    print(f"    {'ノート' if note else '従来'}：見出し {size:.0f}px＝{tw:.0f}px（使える幅 {maxw}px）"
+          f"／副題 {sub:.0f}px ／ 右端 {tx + tw:.0f} ≤ {right} ／ 印 {mx}", flush=True)
+    if tx + tw > right:
+        print("    🔴 見出しが安全領域か印に届いている", flush=True)
+    if mx + 30 > (BN_W + 1546) // 2:
+        print("    🔴 印がスマホの切り取りの外に出る", flush=True)
     return "".join(g)
 
 
@@ -263,7 +322,7 @@ def check_sheet(paths):
           f"（{'／'.join(str(s) + 'px' for s in sizes)}・円で切り抜き）", flush=True)
 
 
-def banner_crops(p):
+def banner_crops(p, name="banner_crops"):
     """バナーが**端末ごとにどう切られるか**を並べて出す。
 
     🔴 ここを見ずに出すと、パソコンで見出しが切れていることに気づけない。
@@ -291,23 +350,30 @@ def banner_crops(p):
         y += 26
         sheet.paste(s, (0, y))
         y += s.height + 8
-    sheet.save(OUT / "banner_crops.png")
-    print(f"  banner_crops.png（端末ごとの切り取り）", flush=True)
+    sheet.save(OUT / f"{name}.png")
+    print(f"  {name}.png（端末ごとの切り取り）", flush=True)
 
 
 def main():
     print("チャンネル素材を焼く", flush=True)
-    # ★2026-08-01 カズヤくん採用＝A案・目盛りなし。**これが本番**
-    #   24px（登録リスト・コメント欄）で残るのが「赤い縦棒＋点」だけになり、
-    #   目盛りありは同じ大きさで潰れて汚れに見えたため。
-    paths = [bake("icon", icon_moment(ticks=False), IC, IC),          # ★本番
-             bake("icon_alt_A_ticks", icon_moment(), IC, IC),         # 以下は比較用
-             bake("icon_alt_B_section", icon_section(), IC, IC),
-             bake("icon_alt_C_mark", icon_question(), IC, IC)]
-    bn = bake("banner", banner(), BN_W, BN_H)
+    # 🔴 2026-09-24：`--banner-only` はアイコンを焼かない（改名でバナーだけ作り直した）
+    paths = []
+    if "--banner-only" not in sys.argv:
+        # ★2026-08-01 カズヤくん採用＝A案・目盛りなし。**これが本番**
+        #   24px（登録リスト・コメント欄）で残るのが「赤い縦棒＋点」だけになり、
+        #   目盛りありは同じ大きさで潰れて汚れに見えたため。
+        paths = [bake("icon", icon_moment(ticks=False), IC, IC),          # ★本番
+                 bake("icon_alt_A_ticks", icon_moment(), IC, IC),         # 以下は比較用
+                 bake("icon_alt_B_section", icon_section(), IC, IC),
+                 bake("icon_alt_C_mark", icon_question(), IC, IC)]
+    # ★2026-09-24 カズヤくん採用＝B案（08-01 の作りのまま、名前と副題だけ差し替え）。**これが本番**
+    bn = bake("banner", banner(note=False), BN_W, BN_H)
+    bn_note = bake("banner_alt_note", banner(note=True), BN_W, BN_H)    # 比較用：A案ノート（不採用）
     if "--check" in sys.argv:
-        check_sheet(paths)
+        if paths:
+            check_sheet(paths)
         banner_crops(bn)
+        banner_crops(bn_note, "banner_crops_alt_note")
     print("→ out/brand/", flush=True)
 
 
