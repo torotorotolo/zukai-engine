@@ -4471,9 +4471,12 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
 #    （data URI。Modal でも同じ絵になる）。英字は主題そのもの（§5b-5）。
 #    蛍光ペンは**動く部品**（`build_jiko.draw_moves()` の hl）＝**文の順に**行ごとに塗る
 #    （段のワイプは左→右なので、2行にまたがる文だと**2行目が先に塗られる**）。
-def trace(page, lines, phrase, doc="", crop=None, note=""):
+def trace(page, lines, phrase, doc="", crop=None, note="", pre=0):
     """page＝`ref/` から見た頁の画像／lines＝文が載る行の矩形（頁の 0〜1・**読む順**）
-    phrase＝和訳の決め所（20字以内）／crop＝頁のどこを見せるか (x0, y0, x1, y1)（0〜1）"""
+    phrase＝和訳の決め所（20字以内）／crop＝頁のどこを見せるか (x0, y0, x1, y1)（0〜1）
+    pre＝蛍光ペンの前に置く行の数（13本目 ⑤b-2 で足した。既定0＝12本目までと同じ）。
+        ナレーションが3行（前振り2行＋決め所）なのに段が2つだと、2行目のあいだ何も動かない
+        （c103 で 5.86秒の静止＝check_motion）。pre=1 なら蛍光ペンは2行目の頭から塗る"""
     import base64
     import io
     from pathlib import Path
@@ -4504,8 +4507,9 @@ def trace(page, lines, phrase, doc="", crop=None, note=""):
     block = txtfit(BX0 + 40, min(py, BY1 - 70), phrase, BW - 120, cap=size, col=J.INK_W)
     # 🔴 labk は小さく（頁を 0.7秒ほどで出し切る）。大きいと**まだ出ていない頁の上へ蛍光ペンが先に浮く**
     #    （⑤b-2 の試し焼きで c103 の t=2.4 に実測。labk 0.40＝3.3秒かけて頁を描いていた）
-    f = Fig("".join(g), [" ", block], "", (BX0, BX1), holds=[None, "with_last"], labk=0.08)
-    f.moves = [dict(kind="hl", stage=0, rects=[S(r) for r in lines], delay=1.0)]
+    f = Fig("".join(g), [" "] * (1 + pre) + [block], "", (BX0, BX1), holds=[None] * (1 + pre) + ["with_last"],
+            labk=0.08)
+    f.moves = [dict(kind="hl", stage=pre, rects=[S(r) for r in lines], delay=1.0 if pre == 0 else 0.4)]
     return f
 
 
@@ -4583,8 +4587,9 @@ def _mech_keys(start, states, fn, first_delay=1.0):
     return keys
 
 
-def _mech_tags(steps, presets, default):
-    """段ごとの札（SVG）。札は list でも書ける。at＝置き場の名（presets）か (x, y)。"""
+def _mech_tags(steps, presets, default, cap=34):
+    """段ごとの札（SVG）。札は list でも書ける。at＝置き場の名（presets）か (x, y[, 揃え, 幅])。
+    d＝札の下に小さく添える1行（13本目 ⑤b-2：断面の右の列が空いた＝札を大きくして中身を1行足す）。"""
     stages, texts = [], []
     for st in steps:
         s = []
@@ -4592,8 +4597,12 @@ def _mech_tags(steps, presets, default):
             at = tg.get("at", default)
             x, y, anchor, mw = (presets[at] if isinstance(at, str)
                                 else tuple(at) if len(at) == 4 else (at[0], at[1], "start", 360))
-            s.append(txtfit(x, y, tg["t"], mw, cap=tg.get("cap", 34), col=tg.get("col", J.AMBER), anchor=anchor))
+            s.append(txtfit(x, y, tg["t"], mw, cap=tg.get("cap", cap), col=tg.get("col", J.AMBER), anchor=anchor))
             texts.append(tg["t"])
+            if tg.get("d"):
+                s.append(txtfit(x, y + round(cap * 0.95), tg["d"], mw, cap=round(cap * 0.62), col=J.TICK,
+                                anchor=anchor))
+                texts.append(tg["d"])
         stages.append("".join(s) or " ")
     return stages, texts
 
@@ -4661,8 +4670,12 @@ def _latch_shapes(start, states):
         return dict(dx=latch_pin_dx(st["pin"]))
 
     def tube(st):
+        # たわみは**なめらかな弓なり**（3点だと V 字に折れて見えた＝⑤b-2 の試し焼き r01）。縦の棒の付け根（tmx）が底
         b = LT["bend"] if st["tube"] == "bent" else 0
-        return dict(pts=[[tx0, ty], [tmx, ty + b], [tx1, ty]], stroke="ALERT" if b else "LINE")
+        half = max(tmx - tx0, tx1 - tmx)
+        xs = [tx0 + (tx1 - tx0) * i / 10 for i in range(11)]
+        return dict(pts=[[x, ty + b * max(0.0, 1 - ((x - tmx) / half) ** 2)] for x in xs],
+                    stroke="ALERT" if b else "LINE")
 
     def link(st):
         b = LT["bend"] if st["tube"] == "bent" else 0
@@ -4702,9 +4715,11 @@ def _latch_shapes(start, states):
 
 
 LATCH_TAG_AT = {  # 札の置き場（x, y, 揃え, 幅）。動く部品が通る範囲を避けてある（試し焼きで確かめる）
-    "handle": (160, 300, "start", 180), "tube": (560, 532, "start", 175), "pin": (760, 654, "start", 165),
-    "hook": (1092, 792, "start", 190), "vent": (1060, 398, "start", 180), "lamp": (1530, 640, "middle", 420),
-    "motor": (1192, 510, "start", 100), "hook2": (1096, 752, "start", 190),
+    # ⑤b-2 r01 の試し焼き：幅が狭いと字が縮んで読めない（「ピンは縁で止まったまま」≒17px）・
+    #   通気扉の札の上を通気扉の棒が通った ＝ 広い所へ移した（pin は棒の左下・vent は扉の左に右揃え）
+    "handle": (160, 300, "start", 300), "tube": (300, 540, "start", 380), "pin": (500, 654, "start", 420),
+    "hook": (1092, 792, "start", 420), "vent": (1045, 398, "end", 300), "lamp": (1530, 640, "middle", 420),
+    "motor": (1192, 510, "start", 100), "hook2": (1096, 752, "start", 200),
 }
 
 
@@ -4867,10 +4882,11 @@ def section(steps, start=None, rel=(), note="", src=""):
          txtfit(380, SC["cable_y"] + 20, "操縦のケーブル", 260, cap=28, col=J.TICK, anchor="end"),
          txtfit(BX0, BY1 - 6, note + (f"　出典：{src}" if src else ""), BW, cap=26, col=J.TICK)]
     shapes = _section_shapes(start, states)
-    at = {f"row{i}": (1010, 380 + 90 * i, "start", 760) for i in range(8)}
+    # 札は右の列に段ごとに1行（大きく・下に `d=` の1行）。⑤b-2 r01：cap 34 だと右半分が空いた（check_space 36.5%）
+    at = {f"row{i}": (1010, 360 + 125 * i, "start", 780) for i in range(5)}
     steps2 = [dict(st, tag=[dict(tg, at=tg.get("at", f"row{i}")) for tg in _many(st.get("tag"))])
               for i, st in enumerate(steps)]
-    stages, texts = _mech_tags(steps2, at, "row0")
+    stages, texts = _mech_tags(steps2, at, "row0", cap=52)
     f = Fig("".join(g), stages, "", (BX0, BX1))
     f.moves = [dict(kind="anim", stage=0, shapes=shapes, box=_mech_box(shapes), delay=MECH_DELAY, dur=MECH_DUR)]
     f.mech = dict(kind="section", start=start, states=states, rel=list(rel), tags=texts, shapes=shapes,

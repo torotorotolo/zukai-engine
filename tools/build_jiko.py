@@ -454,7 +454,11 @@ def scene(cut, t, dur, lay, photos, meta):
                 ph = fit(src, box, 0.0, cb, cxb, czm)
             else:
                 # 実写カットでも `xbias` / `zoom` を書けば焼き込みを外せる（既定は今までと同じ）
-                ph = fit(src, box, k * (0.35 if box[3] < S.H else 1.0), bias, xb, zm)
+                # 🔴 13本目 ⑤b-2：継承つき（BY-SA）の額装の写真は**寄らない**（寄り＝写真の端を切る＝翻案の灰色。
+                #    額装でも 0.35 の寄りで尺の終わりに約1.9% 切っていた）。⚠️ 代わりに写真は止まる
+                #    （check_motion は写真だけのカットを見ない）＝枠ごと寄せる作りは ⑤b-3 の宿題
+                kb = 0.0 if meta[cut].get("frame_only") else k * (0.35 if box[3] < S.H else 1.0)
+                ph = fit(src, box, kb, bias, xb, zm)
         fr.paste(tone(ph, cut, meta), (box[0], box[1]))
         # 🔴 2026-09-07（5本目 SL-1）：**実写カットにも暗幕をかけられるようにした。**
         #    それまで暗幕は「写真を地にして図を重ねるカット」だけだった。
@@ -868,8 +872,13 @@ def meta_of(idx):
         i = S.ORDER.index(cid)
         prev = S.ORDER[i - 1] if i > 0 else None
         solo = v["photo"] and not v["back"]
+        # 🔴 13本目 ⑤b-2：継承つき（BY-SA）の額装の写真＝寄らない・ディゾルブを掛けない
+        #    （前の絵を半透明で重ねる＝「上に重ねない」の灰色）。点の一覧は `cuts/ss.frame_only()`（assets.json の権利）
+        fo = S._cuts_ss.frame_only() if hasattr(S._cuts_ss, "frame_only") else {}
+        m[cid]["frame_only"] = (S.SPEC.get(cid) or {}).get("photo") in fo
         if (prev and solo and prev in idx and idx[prev]["photo"] and not idx[prev]["back"]
-                and prev[:2] == cid[:2] and not S.card_of(cid)):
+                and prev[:2] == cid[:2] and not S.card_of(cid)
+                and not m[cid]["frame_only"] and (S.SPEC.get(prev) or {}).get("photo") not in fo):
             m[cid]["dissolve"] = prev
         # ★動画を当てたカットの切り方（焼き込みを画面外へ追い出すための寄せ・拡大）
         u = _FOOT_USE.get(cid)

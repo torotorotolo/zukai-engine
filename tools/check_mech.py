@@ -134,7 +134,7 @@ def judge_latch(f):
         if (st["vent"] == "closed") != (abs(_angle(vq[0], vq[1])) <= 0.5):
             bad.append(f"{tag}: 通気扉 {st['vent']} なのに、扉の角度 {_angle(vq[0], vq[1]):.1f}度")
         tk = _at(tube, i)
-        sag = tk["pts"][1][1] - tk["pts"][0][1]
+        sag = max(p[1] for p in tk["pts"]) - tk["pts"][0][1]          # 弓なりのいちばん下と端の差
         n += 1
         if (st["tube"] == "bent") != (sag >= 20 and tk.get("stroke") == "ALERT"):
             bad.append(f"{tag}: 軸 {st['tube']} なのに、真ん中の下がり {sag:.0f}画素・色 {tk.get('stroke')}")

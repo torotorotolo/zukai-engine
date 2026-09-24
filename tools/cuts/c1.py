@@ -38,7 +38,9 @@ SPEC = {
 
     # 🔴 決め所①（台本 §2 #1）。仏 p105「L'ensemble de ces risques avait déjà été mis en évidence,
     #    dix neuf mois auparavant lors de l'accident de WINDSOR, …」。行の矩形は PDF の文字の層（fitz の語）から
-    #    ⚠️ 切り口は行のすきま（上＝段落のあいだ 0.457／下＝2行目と3行目のあいだ 0.5107）
+    #    ⚠️ 切り口は行のすきま。r01 は2行だけ（横÷縦 7.8＝細すぎ・下が空いた）→ **文の終わりまでの4行**
+    #       （上＝段落のあいだ 0.457／下＝4行目「correctives efficaces.」0.5518 の下の空白 0.566）
+    #    ⚠️ ナレーションは3行（前振り2行＋決め所）＝pre=1 で蛍光ペンは2行目の頭から（r01 は 5.86秒止まった）
     "c103": dict(
         t="結論の、最後の一文",
         s="フランスの最終報告書（1976年）",
@@ -47,7 +49,7 @@ SPEC = {
             lines=[(0.2913, 0.4698, 0.8624, 0.4878), (0.5436, 0.4910, 0.8418, 0.5090)],
             phrase="危険は、前の事故ですでに明らかだった",
             doc="原文（PDF 105頁）",
-            crop=(0.27, 0.457, 0.88, 0.5107))),
+            crop=(0.27, 0.457, 0.88, 0.566), pre=1)),
     ),
 
     # 事故機 TC-JAV の離陸（CC BY-SA 2.0＝額装・原色・1点1カット）
@@ -74,7 +76,7 @@ SPEC = {
         t="もとは、日本向けの1機",
         s="発注の記録（国会の証言）",
         fig=("icons", dict(
-            n=6, on=[0], kind="plane", cols=6, oncol=J.AMBER,
+            n=6, on=[0], kind="plane", cols=3, oncol=J.AMBER,     # r01 は1列6機で下半分が空いた（33.5%）
             note="出典：国会会議録（1976年6月・衆議院の委員会の証言）")),
     ),
 
@@ -104,8 +106,8 @@ SPEC = {
         t="地上と空の上の違い",
         s="胴体を輪切りにした図",
         fig=("section", dict(
-            steps=[dict(tag=dict(t="地上")),
-                   dict(state=dict(press="push"), tag=dict(t="空の上"))],
+            steps=[dict(tag=dict(t="地上", d="機内の気圧は外と同じ")),
+                   dict(state=dict(press="push"), tag=dict(t="空の上", d="機内の気圧を外より高く保つ"))],
             note="模式図：機体を後ろから見た断面。形と大きさは実物どおりではない",
             src="米上院の報告 p2014")),
     ),
