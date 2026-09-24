@@ -511,6 +511,8 @@ def _rgb(hx):
 
 def _move_box(mv):
     """その動きが描く範囲（画面の画素）。"""
+    if mv.get("box"):                       # 13本目 anim：型が全部の段を覆う矩形を先に計算して渡す
+        return tuple(mv["box"])
     if mv["kind"] == "hl":
         xs = [v for r in mv["rects"] for v in (r[0], r[2])]
         ys = [v for r in mv["rects"] for v in (r[1], r[3])]
@@ -527,6 +529,112 @@ def _t0(mv, times, meta_c):
     a = times[mv["stage"]][0] if mv["stage"] < len(times) else 0.0
     it = meta_c.get("intro")
     return max(a, float(it["sec"]) + INTRO_X * 0.5) if it else a
+
+
+# ── 13本目 ⑤b-2（2026-09-24）：仕組みの動く模式図（latch・section）の部品 ─────────────
+# 型（`titan_fig.latch`／`section`）が部品ごとに**段の鍵**（keys）を持たせて渡す。
+# 鍵の段の行頭＋delay から dur 秒かけて、前の鍵の状態から次の鍵の状態へ余弦の半周（ease）で移る。
+# 鍵に書けるもの：rot（度・pivot まわり・画面で時計回りが正）・dx・dy・pts（頂点をそのまま）・
+#                 alpha・glow（灯りの輪）・fill・stroke（色の名＝章の色の名か J の定数か #rrggbb）
+# ⚠️ 部品の状態は**段の鍵が決める**（段ごとに新しい部品を足すと、前の段の部品が描かれ続けて二重になる）。
+def _col(name, pal):
+    if not name:
+        return None
+    if name.startswith("#"):
+        return _rgb(name)
+    return _rgb(pal[name] if name in pal else getattr(J, name))
+
+
+def _anim_state(sh, t, tks, dur):
+    """部品 sh の、時刻 t の状態（鍵を補間した dict）。"""
+    keys = sh["keys"]
+    j = 0
+    for i, tk in enumerate(tks):
+        if t >= tk:
+            j = i
+    cur = dict(keys[j])
+    if j == 0:
+        return cur, keys[0]
+    u = ease(min(1.0, max(0.0, (t - tks[j]) / dur)))
+    prev = keys[j - 1]
+    out = {}
+    for k in set(prev) | set(cur):
+        a, b = prev.get(k), cur.get(k)
+        if k in ("rot", "dx", "dy", "alpha", "glow"):
+            a = 0.0 if a is None else a
+            b = a if b is None else b
+            out[k] = a + (b - a) * u
+        elif k == "pts" and a and b:
+            out[k] = [[p[0] + (q[0] - p[0]) * u, p[1] + (q[1] - p[1]) * u] for p, q in zip(a, b)]
+        else:
+            out[k] = b if b is not None else a
+    out["_u"], out["_prev"] = u, prev
+    return out, keys[0]
+
+
+def _anim_pts(sh, st):
+    """部品の頂点に、鍵の状態（pts・rot・dx・dy）を当てた画素の座標。
+    🔴 門番 `check_mech` と**同じ関数**（`titan_fig.mech_pts`）で計算する＝描く絵と測る絵がずれない。"""
+    return S.F.mech_pts(sh, st)
+
+
+def _draw_anim(d, P, mv, t, times, mc, pal):
+    delay, dur = float(mv.get("delay", 0.25)), float(mv.get("dur", 1.1))
+    for sh in mv["shapes"]:
+        # 鍵ごとの動き出し＝その段の行頭＋鍵の delay（書いていなければ動きの delay）
+        tks = [_t0(dict(stage=k["stage"]), times, mc) + float(k.get("delay", delay)) for k in sh["keys"]]
+        st, k0 = _anim_state(sh, t, tks, dur)
+        a = float(st.get("alpha", 1.0) if st.get("alpha") is not None else 1.0)
+        if a <= 0.01:
+            continue
+        fill = _col(st.get("fill", sh.get("fill")), pal)
+        stroke = _col(st.get("stroke", sh.get("stroke")), pal)
+        # 色は鍵の切り替わりで**混ぜる**（前の鍵の色 → 次の鍵の色）
+        pv = st.get("_prev")
+        if pv is not None:
+            u = st["_u"]
+            for nm in ("fill", "stroke"):
+                c0 = _col(pv.get(nm, sh.get(nm)), pal)
+                c1 = fill if nm == "fill" else stroke
+                if c0 and c1 and c0 != c1:
+                    mix = tuple(int(c0[i] + (c1[i] - c0[i]) * u) for i in range(3))
+                    if nm == "fill":
+                        fill = mix
+                    else:
+                        stroke = mix
+        A = max(0, min(255, int(255 * a)))
+        w = max(1, int(round(float(sh.get("w", 4)) * _SS)))
+        if sh["type"] == "circle":
+            cx, cy = sh["c"][0] + float(st.get("dx", 0) or 0), sh["c"][1] + float(st.get("dy", 0) or 0)
+            r0 = float(sh["r"])
+            g = float(st.get("glow", 0.0) or 0.0)
+            if g > 0.01 and fill:
+                for rr, aa in ((r0 * 2.6, 0.16), (r0 * 1.8, 0.30)):
+                    X, Y = P(cx, cy)
+                    d.ellipse((X - rr * _SS, Y - rr * _SS, X + rr * _SS, Y + rr * _SS),
+                              fill=fill + (int(255 * aa * g * a),))
+            X, Y = P(cx, cy)
+            d.ellipse((X - r0 * _SS, Y - r0 * _SS, X + r0 * _SS, Y + r0 * _SS),
+                      fill=(fill + (A,)) if fill else None, outline=(stroke + (A,)) if stroke else None,
+                      width=w)
+            continue
+        q = [P(x, y) for x, y in _anim_pts(sh, st)]
+        if len(q) < 2:
+            continue
+        if sh["type"] == "poly":
+            d.polygon(q, fill=(fill + (A,)) if fill else None)
+            if stroke:
+                d.line(q + [q[0]], fill=stroke + (A,), width=w, joint="curve")
+        elif sh["type"] == "line":
+            d.line(q, fill=(stroke or fill) + (A,), width=w, joint="curve")
+            if sh.get("head"):            # 矢印の頭（最後の2点の向き）
+                (x1, y1), (x2, y2) = q[-2], q[-1]
+                L_ = math.hypot(x2 - x1, y2 - y1) or 1.0
+                ux, uy = (x2 - x1) / L_, (y2 - y1) / L_
+                hs = float(sh["head"]) * _SS
+                d.polygon([(x2, y2), (x2 - ux * hs - uy * hs * 0.55, y2 - uy * hs + ux * hs * 0.55),
+                           (x2 - ux * hs + uy * hs * 0.55, y2 - uy * hs - ux * hs * 0.55)],
+                          fill=(stroke or fill) + (A,))
 
 
 def draw_moves(fr, cut, t, meta):
@@ -621,6 +729,8 @@ def draw_moves(fr, cut, t, meta):
                 if gone <= 0:
                     break
             dot(px_, py_, 9, ink, 1.0)
+        elif mv["kind"] == "anim":
+            _draw_anim(d, P, mv, t, times, mc, pal)
         elif mv["kind"] == "hl":
             # 蛍光ペン：**読む順に**行ごとに左→右へ塗る（1行 0.7秒）。頁が出そろってから（delay）
             rest = dt - float(mv.get("delay", 0.4))
@@ -1067,6 +1177,37 @@ def build_qa(idx, meta, zoom_cuts=None):
     print(f"検品画像 {len(shots)} カット", flush=True)
 
 
+def at_shots(idx, meta, at):
+    """★指定のカットを**指定の時刻**でも焼く（13本目 ⑤b-2・2026-09-24 新設）。
+
+    `qa` はカットごとに段が出そろった1枚（尺の約0.92）しか撮らない＝**動く部品の途中**
+    （フックが回りかけ・ピンが縁で止まる・線が伸びる途中）は写らない。12本目は手元の Chrome で
+    試し焼きしていた（`qa_out/ep12_prev.py`）が、レンダはローカルでやらない決まり（6-1）＝Actions で撮る。
+    at … {cid: [0〜1 の割合, …]}（扉のぶんを除いた本体の尺に対する割合）→ `at_<cid>_<百分率>.jpg`
+    """
+    cids = [c for c in at if c in idx]
+    miss = sorted(set(at) - set(cids))
+    if miss:
+        print(f"⚠️ --at のカットが索引に無い: {miss}", flush=True)
+    if not cids:
+        return
+    lay = _load_layers(cids, idx)
+    subs = {c: L(f"sub_{c}") for c in cids if (OUT / f"sub_{c}.png").exists()}
+    band = load_band()
+    photos = {c: load_photo(S.PHOTO_CUTS[c][1], S.PHOTO_CUTS[c][0],
+                            S.PHOTO_TRIM.get(c), S.PHOTO_LEVELS.get(c))
+              for c in cids if idx[c]["photo"]}
+    secs = dict(S.CUTS)
+    for c in cids:
+        sec = secs[c]
+        off = S.card_of(c)
+        for fr in at[c]:
+            t = off + (sec - off) * fr
+            im = compose(c, t, sec, lay, photos, meta, subs, band).convert("RGB")
+            im.save(QA / f"at_{c}_{int(round(fr * 100)):03d}.jpg", quality=92)
+            print(f"  at_{c}_{int(round(fr * 100)):03d}.jpg  {t:.2f}秒／{sec:.2f}秒", flush=True)
+
+
 def veil_ladder(idx, meta, cids=None, alphas=(0.76, 0.80, 0.84, 0.88, 0.92)):
     """★同じカットを暗幕の濃さ違いで焼き並べる（2026-07-31 試写の指摘④）。
 
@@ -1129,6 +1270,7 @@ if __name__ == "__main__":
     mode = "qa"
     zooms = None
     ladder = None
+    at = None
     for a in sys.argv[1:]:
         if a in ("qa", "full", "shrink", "veil"):
             mode = a
@@ -1136,6 +1278,12 @@ if __name__ == "__main__":
             zooms = set(a.split("=", 1)[1].split(","))
         elif a.startswith("--cuts="):
             ladder = a.split("=", 1)[1].split(",")
+        elif a.startswith("--at=") and a.split("=", 1)[1].strip():
+            # 例 --at=c109:0.25/0.6/0.95,c305:0.5 ＝カットごとに「本体の尺の割合」を / で並べる
+            at = {}
+            for item in a.split("=", 1)[1].split(","):
+                cid, fr = item.split(":", 1)
+                at[cid.strip()] = [float(x) for x in fr.split("/") if x.strip()]
     if mode == "shrink":
         shrink_stills()
         sys.exit(0)
@@ -1146,5 +1294,7 @@ if __name__ == "__main__":
         sys.exit(0)
     check_motion(meta)
     build_qa(idx, meta, zooms)
+    if at:
+        at_shots(idx, meta, at)
     if mode == "full":
         build_full(idx, meta)

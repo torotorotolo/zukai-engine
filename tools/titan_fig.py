@@ -4238,6 +4238,17 @@ GEO = {
     "utirik": (11.26731, 169.78426, "ウトリック環礁"),
     "enewetak": (11.50000, 162.33333, "エニウェトク環礁"),
     "kwajalein": (8.71667, 167.73333, "クェゼリン環礁"),
+    # 13本目（トルコ航空981便・2026-09-24 ⑤b-2）：Wikidata P625（Paris Q90・Orly Airport Q223416・
+    #   Saint-Pathus Q900116・Turkish Airlines Flight 981 Q462716・Detroit Metropolitan Airport Q652505・
+    #   Windsor, Ontario Q182625・Detroit Q12439）。報告書の値は `rel=` で照合する（`cuts/ss.py` の `*_REL`）。
+    #   ⚠️ 墜落地点の Wikidata の値は仏 p5 の座標（49°08'30"N・02°38'00"E）と同じ＝照合は p12 の距離でも取る
+    "paris": (48.85667, 2.35222, "パリ"),
+    "orly": (48.72333, 2.37944, "オルリー空港"),
+    "stpathus": (49.07056, 2.79972, "サン・パテュス"),
+    "crash": (49.14167, 2.63333, "エルムノンヴィルの森"),
+    "dtw": (42.21250, -83.35333, "デトロイトの空港"),
+    "windsor": (42.31729, -83.03526, "ウィンザー"),
+    "detroit": (42.33167, -83.04750, "デトロイト"),
 }
 DIR16 = ("北", "北北東", "北東", "東北東", "東", "東南東", "南東", "南南東",
          "南", "南南西", "南西", "西南西", "西", "西北西", "北西", "北北西")
@@ -4322,10 +4333,17 @@ def _many(x):
     return [] if not x else (x if isinstance(x, list) else [x])
 
 
-def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km=100):
+def _ticks(a, b, g):
+    """a〜b のあいだの g 度ごとの目盛り（g=1.0 なら ceil(a)〜floor(b)＝12本目までと同じ値）。"""
+    return [k * g for k in range(math.ceil(a / g - 1e-9), math.floor(b / g + 1e-9) + 1)]
+
+
+def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km=100, grid=1.0):
     """動く模式図。
 
     view   … dict(lon=(西, 東), lat=(南, 北))。枠に**縮尺をそろえて**収める
+    grid   … 経緯線の間隔（度）。既定 1.0＝12本目までの絵のまま。13本目のパリ周辺（南北50キロ）は 0.2
+             （1度ごとだと線が1本しか出ない＝⑤b-2）
     places … 輪で描く環礁（GEO の鍵）
     pts    … 報告書の値から置く点 {名: …}（書き方は `_pt_geo` の3通り）
     steps  … ナレーションの行ごとの段。1段に置けるもの（dim・ship・tag は list で複数も可）：
@@ -4354,11 +4372,11 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
     P = {k: V.px(*v) for k, v in geo.items()}
 
     g = [rect(x0, y0, w, h, J.BG2, op=0.55), rect(x0, y0, w, h, "none", J.LINE_DIM, 3)]
-    for la in range(math.ceil(view["lat"][0]), math.floor(view["lat"][1]) + 1):
+    for la in _ticks(view["lat"][0], view["lat"][1], grid):
         yy = V.px(la, V.lonc)[1]
         if y0 < yy < y0 + h:
             g.append(line(x0, yy, x0 + w, yy, J.GRID, 2))
-    for lo in range(math.ceil(view["lon"][0]), math.floor(view["lon"][1]) + 1):
+    for lo in _ticks(view["lon"][0], view["lon"][1], grid):
         xx = V.px(V.latc, lo)[0]
         if x0 < xx < x0 + w:
             g.append(line(xx, y0, xx, y0 + h, J.GRID, 2))
@@ -4413,6 +4431,8 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
             side = tg.get("side", "above")
             if side == "left":        # 降る点（fall）と重ねないときは左へ
                 s.append(txtfit(x - 40, y + 12, tg["t"], 360, cap=34, col=J.AMBER, anchor="end"))
+            elif side == "right":     # 13本目 ⑤b-2：パリ周辺の地図は左右が空く（南北に長い）＝右へ
+                s.append(txtfit(x + 40, y + 12, tg["t"], 360, cap=34, col=J.AMBER, anchor="start"))
             else:
                 dy = -76 if side == "above" else 84
                 s.append(txtfit(x, y + dy, tg["t"], 360, cap=34, col=J.AMBER, anchor="middle"))
@@ -4486,4 +4506,373 @@ def trace(page, lines, phrase, doc="", crop=None, note=""):
     #    （⑤b-2 の試し焼きで c103 の t=2.4 に実測。labk 0.40＝3.3秒かけて頁を描いていた）
     f = Fig("".join(g), [" ", block], "", (BX0, BX1), holds=[None, "with_last"], labk=0.08)
     f.moves = [dict(kind="hl", stage=0, rects=[S(r) for r in lines], delay=1.0)]
+    return f
+
+
+# ══════════════════════════════════════════════════════════
+#  latch・section ── 仕組みの動く模式図（13本目 ⑤b-2 新設・2026-09-24）
+# ══════════════════════════════════════════════════════════
+# 🔴 09-24 カズヤくん決定（⑤b-1 の相談「新しい型」）：①ドアの錠（latch）②胴体の断面（section）。
+#    drift と同じ「基図1枚（SVG）＋動く部品（`build_jiko` が PIL で描く `anim`）」。
+#    ・描く**筋**は報告書だけ（仏 p88 図7「FERMETURE FORCÉE」・p90〜p95／上院が再録した NTSB 報告／
+#      AD 75-15-05）。**形と大きさは模式**（note に「模式」が無いと止まる）。人は描かない。
+#    ・段ごとに**状態**（`state=`）を宣言する。部品の位置と色は状態から型が決める
+#      ＝門番 `tools/check_mech.py` が、①状態の並びが報告書の仕組みの筋に合うか
+#       ②**この関数が置いた部品の画素**がその状態か ③札の数が宣言（`rel=`）と合うか、を照合する。
+#    ・⚠️ 部品は「段の鍵（keys）」で状態を持つ（段ごとに新しい部品を足さない＝前の段の部品が残って二重になる）。
+#    ・⚠️ 段の中身（札）が空だと、その段は何も描かれず止まって見える＝各段に札を1つ置く（5秒ルール）。
+MECH_DELAY, MECH_DUR = 0.25, 1.1      # 段の行頭から動き出すまで・動ききるまで（秒）
+
+
+def mech_pts(sh, st):
+    """部品 sh の頂点に状態 st（pts・rot・dx・dy）を当てた画素の座標。
+    🔴 `build_jiko._anim_pts` もこれを呼ぶ（描く側と門番が同じ幾何＝[[feedback-gates-must-share-the-production-geometry]]）。"""
+    pts = st.get("pts") or sh.get("pts") or []
+    r = math.radians(float(st.get("rot", 0.0) or 0.0))
+    if r and sh.get("pivot"):
+        cx, cy = sh["pivot"]
+        c, s = math.cos(r), math.sin(r)
+        pts = [[cx + (x - cx) * c - (y - cy) * s, cy + (x - cx) * s + (y - cy) * c] for x, y in pts]
+    dx, dy = float(st.get("dx", 0.0) or 0.0), float(st.get("dy", 0.0) or 0.0)
+    return [[x + dx, y + dy] for x, y in pts]
+
+
+def _arc(cx, cy, r, a0, a1, n=24):
+    """円弧の点（度・画面の座標＝y は下向き＝角度が増えると時計回り）。"""
+    return [[cx + r * math.cos(math.radians(a0 + (a1 - a0) * i / n)),
+             cy + r * math.sin(math.radians(a0 + (a1 - a0) * i / n))] for i in range(n + 1)]
+
+
+def _mech_box(shapes, pad=30):
+    xs, ys = [], []
+    for sh in shapes:
+        for k in sh["keys"]:
+            if sh["type"] == "circle":
+                r = float(sh["r"]) * 2.7
+                cx, cy = sh["c"][0] + float(k.get("dx", 0)), sh["c"][1] + float(k.get("dy", 0))
+                xs += [cx - r, cx + r]
+                ys += [cy - r, cy + r]
+            else:
+                for x, y in mech_pts(sh, k):
+                    xs.append(x)
+                    ys.append(y)
+    return [max(0, min(xs) - pad), max(0, min(ys) - pad), min(1920, max(xs) + pad), min(1080, max(ys) + pad)]
+
+
+def _mech_states(start, steps, fields, values):
+    """段の状態を**前の段から引き継いで**組む（書いた欄だけ変わる）。start＝カットの頭の状態。"""
+    cur = dict(start)
+    out = []
+    for st in [dict(state={})] + list(steps):
+        cur = dict(cur, **(st.get("state") or {}))
+        for f_, v in cur.items():
+            if f_ not in fields:
+                raise ValueError(f"知らない部品 {f_!r}（使えるのは {fields}）")
+            if v not in values[f_]:
+                raise ValueError(f"{f_}={v!r} は知らない状態（{values[f_]}）")
+        out.append(dict(cur))
+    return out[0], out[1:]
+
+
+def _mech_keys(start, states, fn, first_delay=1.0):
+    """状態の並び → 部品の鍵。鍵0＝カットの頭（start）、鍵1〜＝各段の状態（全部の値を毎回書く）。
+    ⚠️ 1段目の状態は、頭の状態から **first_delay 秒あとに**動き出す（頭の状態を見せてから動かす）。"""
+    keys = [dict(stage=0, delay=0.0, **fn(start))]
+    for i, st in enumerate(states):
+        keys.append(dict(stage=i, delay=(first_delay if i == 0 else MECH_DELAY), **fn(st)))
+    return keys
+
+
+def _mech_tags(steps, presets, default):
+    """段ごとの札（SVG）。札は list でも書ける。at＝置き場の名（presets）か (x, y)。"""
+    stages, texts = [], []
+    for st in steps:
+        s = []
+        for tg in _many(st.get("tag")):
+            at = tg.get("at", default)
+            x, y, anchor, mw = (presets[at] if isinstance(at, str)
+                                else tuple(at) if len(at) == 4 else (at[0], at[1], "start", 360))
+            s.append(txtfit(x, y, tg["t"], mw, cap=tg.get("cap", 34), col=tg.get("col", J.AMBER), anchor=anchor))
+            texts.append(tg["t"])
+        stages.append("".join(s) or " ")
+    return stages, texts
+
+
+# ── ① latch：ドアの錠 ─────────────────────────────────────
+# 部品の置き場（画素・**模式**）。⚠️ 動かしたら `check_mech --selftest` と試し焼きをやり直す
+#   順番は仏 p88 図7のまま：ハンドル →「上の軸」（トルク・チューブ）→ 縦の棒 → ピン → フックの縁（フラスク）。
+#   ピンは**フックの円板の切り欠き**に入る＝フックが回りきっていれば切り欠きが揃ってピンが入り、
+#   回りきっていなければ切り欠きがずれて「ピンは縁に当たって止まる」（図7 BROCHE EN BUTÉE SUR LE FLASQUE）。
+LT = dict(hv=(360, 410), tube=((300, 450), (740, 450), (1180, 450)), bend=38,
+          hub=(990, 575), R=60, notch_w=24, notch_d=36, spool=(1040, 712), spool_r=22,
+          jaw_r=(27, 47), jaw_open=(100, 160), rod_x=700, pin=(760, 830), pin_y=575, pin_h=22,
+          vent=(1060, 310), vent_len=100, inset=(1300, 290, 1760, 690), lamp=(1530, 480), lamp_r=40)
+LATCH_FIELDS = ("hook", "pin", "handle", "vent", "lamp", "tube", "air", "motor")
+LATCH_VALUES = dict(hook=("open", "short", "closed"), pin=("out", "butt", "in"),
+                    handle=("up", "part", "down"), vent=("open", "closed"), lamp=("on", "off"),
+                    tube=("straight", "bent"), air=("none", "leak"), motor=("idle", "run"))
+LATCH_ROT = dict(hook=dict(open=-55.0, short=-14.0, closed=0.0),
+                 handle=dict(up=-48.0, part=-22.0, down=0.0),
+                 vent=dict(open=-42.0, closed=0.0))
+LATCH_START = dict(hook="open", pin="out", handle="up", vent="open", lamp="on", tube="straight",
+                   air="none", motor="idle")
+
+
+def latch_edge():
+    """ピンの行く手にある円板の縁の x（切り欠きが揃っていないとき、ピンの先はここで止まる）。"""
+    return LT["hub"][0] - LT["R"]
+
+
+def latch_pin_dx(pin):
+    """ピンの状態 → 横の移動量（画素）。in＝切り欠きの奥から6画素手前／butt＝縁の1画素手前。"""
+    e = latch_edge()
+    return {"out": 0.0, "in": float(e + LT["notch_d"] - 6 - LT["pin"][1]),
+            "butt": float(e - 1 - LT["pin"][1])}[pin]
+
+
+def _latch_shapes(start, states):
+    hx, hy = LT["hub"]
+    R, nw, nd = LT["R"], LT["notch_w"] / 2, LT["notch_d"]
+    (tx0, ty), (tmx, _), (tx1, _) = LT["tube"]
+    px0, ptip = LT["pin"]
+    py, ph = LT["pin_y"], LT["pin_h"] / 2
+    sx, sy = LT["spool"]
+    r0, r1 = LT["jaw_r"]
+    o0, o1 = LT["jaw_open"]
+    rx = LT["rod_x"]
+    vx, vy = LT["vent"]
+    # 切り欠きのある円板（閉じた状態＝切り欠きは真左＝ピンの行く手）
+    a_top = 180 + math.degrees(math.asin(nw / R))
+    a_bot = 180 - math.degrees(math.asin(nw / R))
+    disc = _arc(hx, hy, R, a_top, a_bot + 360, 48) + [[hx - R + nd, hy + nw], [hx - R + nd, hy - nw]]
+    # フックの顎（受けを包む C 字・開き口は左下＝開くとき受けが抜ける向き）と首
+    jaw = _arc(sx, sy, r1, o1, o0 + 360, 30) + _arc(sx, sy, r0, o0 + 360, o1, 30)
+    neck = [_arc(hx, hy, R - 4, 40, 40, 1)[0], _arc(hx, hy, R - 4, 100, 100, 1)[0],
+            _arc(sx, sy, r1 - 2, 215, 215, 1)[0], _arc(sx, sy, r1 - 2, 260, 260, 1)[0]]
+    lever = [[LT["hv"][0], LT["hv"][1] - 12], [LT["hv"][0] + 200, LT["hv"][1] - 12],
+             [LT["hv"][0] + 232, LT["hv"][1]], [LT["hv"][0] + 200, LT["hv"][1] + 12],
+             [LT["hv"][0], LT["hv"][1] + 12]]
+    rot = LATCH_ROT
+
+    def hook(st):
+        return dict(rot=rot["hook"][st["hook"]])
+
+    def pin(st):
+        return dict(dx=latch_pin_dx(st["pin"]))
+
+    def tube(st):
+        b = LT["bend"] if st["tube"] == "bent" else 0
+        return dict(pts=[[tx0, ty], [tmx, ty + b], [tx1, ty]], stroke="ALERT" if b else "LINE")
+
+    def link(st):
+        b = LT["bend"] if st["tube"] == "bent" else 0
+        return dict(pts=[[tmx, ty + b], [rx + latch_pin_dx(st["pin"]), py]])
+
+    shapes = [
+        dict(id="tube", type="line", w=10, stroke="LINE", keys=_mech_keys(start, states, tube)),
+        dict(id="link", type="line", w=7, stroke="LINE", keys=_mech_keys(start, states, link)),
+        dict(id="rod", type="poly", pts=[[rx, py - 5], [px0, py - 5], [px0, py + 5], [rx, py + 5]],
+             fill="LINE", keys=_mech_keys(start, states, pin)),
+        dict(id="pin", type="poly", pts=[[px0, py - ph], [ptip - 12, py - ph], [ptip, py], [ptip - 12, py + ph],
+                                         [px0, py + ph]], fill="AMBER", stroke="INK_W", w=2,
+             keys=_mech_keys(start, states, pin)),
+        dict(id="neck", type="poly", pts=neck, pivot=[hx, hy], fill="LINE", stroke="INK_W", w=3,
+             keys=_mech_keys(start, states, hook)),
+        dict(id="jaw", type="poly", pts=jaw, pivot=[hx, hy], fill="LINE", stroke="INK_W", w=3,
+             keys=_mech_keys(start, states, hook)),
+        dict(id="disc", type="poly", pts=disc, pivot=[hx, hy], fill="BG2", stroke="INK_W", w=5,
+             keys=_mech_keys(start, states, hook)),
+        dict(id="motor", type="line", pts=_arc(hx, hy, 88, -80, -28, 16), w=5, stroke="TICK", head=16,
+             keys=_mech_keys(start, states, lambda st: dict(alpha=1.0 if st["motor"] == "run" else 0.0))),
+        dict(id="handle", type="poly", pts=lever, pivot=list(LT["hv"]), fill="LINE", stroke="INK_W", w=3,
+             keys=_mech_keys(start, states, lambda st: dict(rot=rot["handle"][st["handle"]]))),
+        dict(id="vent", type="poly", pts=[[vx, vy - 8], [vx + LT["vent_len"], vy - 8],
+                                          [vx + LT["vent_len"], vy + 8], [vx, vy + 8]],
+             pivot=[vx, vy], fill="INK_W", keys=_mech_keys(start, states, lambda st: dict(rot=rot["vent"][st["vent"]]))),
+        dict(id="lamp", type="circle", c=list(LT["lamp"]), r=LT["lamp_r"], stroke="LINE_DIM", w=4,
+             keys=_mech_keys(start, states, lambda st: dict(fill="ALERT", glow=1.0) if st["lamp"] == "on"
+                             else dict(fill="BG2", glow=0.0))),
+    ]
+    for j, (a, b) in enumerate((((1118, 300), (1170, 262)), ((1140, 300), (1196, 266)),
+                                ((1160, 304), (1220, 276)))):
+        shapes.append(dict(id=f"air{j}", type="line", pts=[list(a), list(b)], w=4, stroke="LINE", head=14,
+                           keys=_mech_keys(start, states,
+                                           lambda st: dict(alpha=1.0 if st["air"] == "leak" else 0.0))))
+    return shapes
+
+
+LATCH_TAG_AT = {  # 札の置き場（x, y, 揃え, 幅）。動く部品が通る範囲を避けてある（試し焼きで確かめる）
+    "handle": (160, 300, "start", 180), "tube": (560, 532, "start", 175), "pin": (760, 654, "start", 165),
+    "hook": (1092, 792, "start", 190), "vent": (1060, 398, "start", 180), "lamp": (1530, 640, "middle", 420),
+    "motor": (1192, 510, "start", 100), "hook2": (1096, 752, "start", 190),
+}
+
+
+def latch(steps, start=None, rel=(), note="", src=""):
+    """ドアの錠の動く模式図。
+
+    start … カットの頭の状態（既定＝開いたドア：hook open・pin out・handle up・vent open・lamp on）
+    steps … ナレーションの行ごとの段。dict(state=dict(hook="closed", …), tag=dict(t="…", at="hook"))
+            状態は前の段から引き継ぐ（書いた部品だけ変わる）。部品と状態：
+              hook   open／short（回りきらない）／closed      pin    out／butt（縁に当たって止まる）／in
+              handle up／part（途中で止まる）／down           vent   open／closed
+              lamp   on／off                                  tube   straight／bent（無理に閉めてたわむ）
+              air    none／leak（通気扉から空気が逃げる）      motor  idle／run（フックを回す向きの矢印）
+    rel   … 札の数の宣言 [dict(t="約22キロ", src="仏 p80")]（門番が札の数と照合する）
+    """
+    if "模式" not in note:
+        raise ValueError("latch：note に「模式」を書くこと（§5b-10 模式であることを札で断る）")
+    start, states = _mech_states(dict(LATCH_START, **(start or {})), steps, LATCH_FIELDS, LATCH_VALUES)
+    x0, y0, x1, y1 = LT["inset"]
+    hx, hy = LT["hub"]
+    (tx0, ty), _, (tx1, _) = LT["tube"]
+    vx, vy = LT["vent"]
+    g = [rect(150, 250, 1100, 430, J.BG2, J.LINE_DIM, 3, rx=14, op=0.55),
+         rect(150, 680, 1100, 65, J.GRID, J.LINE_DIM, 2),
+         circ(LT["spool"][0], LT["spool"][1], LT["spool_r"], J.BG, J.LINE, 4),
+         rect(tx0 - 12, ty - 12, 24, 24, J.LINE_DIM), rect(tx1 - 12, ty - 12, 24, 24, J.LINE_DIM),
+         line(LT["hv"][0], LT["hv"][1], LT["hv"][0], ty, J.LINE, 6),
+         line(tx1, ty, vx + LT["vent_len"], vy + 8, J.LINE_DIM, 4),
+         rect(vx, vy - 8, LT["vent_len"], 16, "none", J.LINE_DIM, 3, dash="6 5"),
+         rect(1080, 478, 100, 44, J.BG, J.LINE, 3, rx=6),
+         txtfit(1130, 508, "モーター", 92, cap=24, col=J.TICK, anchor="middle"),
+         line(1080, 512, hx + 44, hy - 40, J.LINE_DIM, 4),
+         rect(x0, y0, x1 - x0, y1 - y0, J.BG, J.LINE_DIM, 3, rx=16),
+         txtfit(x0 + 20, y0 + 42, "操縦室（航空機関士の席の上）", x1 - x0 - 40, cap=26, col=J.TICK),
+         txtfit(LT["lamp"][0], LT["lamp"][1] + 95, "ドアの警告灯", 400, cap=30, col=J.INK_W, anchor="middle"),
+         txtfit(LT["hv"][0] - 15, LT["hv"][1] - 15, "ハンドル", 190, cap=30, col=J.INK_W, anchor="end"),
+         txtfit(tx0, ty + 42, "上の軸", 200, cap=28, col=J.TICK),
+         txtfit(LT["pin"][0] + 10, LT["pin_y"] + 39, "ピン", 120, cap=28, col=J.AMBER),
+         txtfit(hx - 85, hy - 55, "フック", 150, cap=30, col=J.INK_W, anchor="end"),
+         txtfit(LT["spool"][0] - 55, LT["spool"][1] + 18, "受け", 90, cap=26, col=J.TICK, anchor="end"),
+         txtfit(vx, vy + 42, "通気扉", 150, cap=28, col=J.TICK),
+         txtfit(170, 665, "貨物ドア（内側）", 330, cap=26, col=J.TICK),
+         txtfit(170, 725, "胴体の側", 330, cap=26, col=J.TICK),
+         txtfit(BX0, BY1 - 6, note + (f"　出典：{src}" if src else ""), BW, cap=26, col=J.TICK)]
+    shapes = _latch_shapes(start, states)
+    stages, texts = _mech_tags(steps, LATCH_TAG_AT, "hook")
+    f = Fig("".join(g), stages, "", (BX0, BX1))
+    f.moves = [dict(kind="anim", stage=0, shapes=shapes, box=_mech_box(shapes), delay=MECH_DELAY, dur=MECH_DUR)]
+    f.mech = dict(kind="latch", start=start, states=states, rel=list(rel), tags=texts, shapes=shapes,
+                  steps=[dict(st) for st in steps])
+    return f
+
+
+# ── ② section：胴体の断面（後ろから見た輪切り）─────────────────────
+#   客室・床・貨物室・左下の貨物ドア・床下の操縦のケーブル。ドアが外れる→貨物室の空気が抜ける
+#   →床の上と下で圧力の差→床が落ちる→床下のケーブルが傷む（仏 p104〜p105・上院 p2017〜p2019）。
+#   AD 75-15-05＝床に空気の逃げ道（床に穴が開いても崩れない）＝vent。第1章 c109→第3・4章→第7章→第9章で戻る。
+# ⚠️ 画面の座標は y が下向き＝角度が正なら時計回り。床の左端を**下へ**落とすのは反時計回り（負）
+SC = dict(c=(700, 540), R=260, floor_y=580, floor_h=14, door=(125, 168), cables=(520, 555, 590, 625), cable_y=601,
+          drop=-28.0)
+SECTION_FIELDS = ("door", "press", "air", "floor", "cable", "vent")
+SECTION_VALUES = dict(door=("on", "gone"), press=("none", "push"), air=("none", "out"),
+                      floor=("ok", "push", "down"), cable=("ok", "hurt"), vent=("none", "open"))
+SECTION_START = dict(door="on", press="none", air="none", floor="ok", cable="ok", vent="none")
+
+
+def section_wall_x(y):
+    """断面の円の左の壁の x（高さ y で）。"""
+    cx, cy = SC["c"]
+    return cx - math.sqrt(max(0.0, SC["R"] ** 2 - (y - cy) ** 2))
+
+
+def _section_shapes(start, states):
+    cx, cy = SC["c"]
+    R, fy, fh = SC["R"], SC["floor_y"], SC["floor_h"] / 2
+    d0, d1 = SC["door"]
+    xl = section_wall_x(fy)
+    door = _arc(cx, cy, R + 8, d0, d1, 16) + _arc(cx, cy, R - 12, d1, d0, 16)
+    dcx = sum(p[0] for p in door) / len(door)
+    dcy = sum(p[1] for p in door) / len(door)
+    floor_l = [[xl + 2, fy - fh], [cx, fy - fh], [cx, fy + fh], [xl + 2, fy + fh]]
+
+    def rot_about(x, y, deg, px, py):
+        r = math.radians(deg)
+        return (px + (x - px) * math.cos(r) - (y - py) * math.sin(r),
+                py + (x - px) * math.sin(r) + (y - py) * math.cos(r))
+
+    def door_k(st):
+        return (dict(dx=0.0, dy=0.0, rot=0.0, alpha=1.0) if st["door"] == "on"
+                else dict(dx=-170.0, dy=40.0, rot=-25.0, alpha=0.0))
+
+    def floor_k(st):
+        return dict(rot=SC["drop"] if st["floor"] == "down" else 0.0)
+
+    shapes = [dict(id="door", type="poly", pts=door, pivot=[dcx, dcy], fill="LINE", stroke="INK_W", w=3,
+                   keys=_mech_keys(start, states, door_k)),
+              dict(id="floorL", type="poly", pts=floor_l, pivot=[cx, fy], fill="INK_W",
+                   keys=_mech_keys(start, states, floor_k))]
+    for j, x in enumerate(SC["cables"]):
+        y = SC["cable_y"]
+
+        def cab_k(st, x=x, y=y):
+            if st["cable"] == "hurt" or st["floor"] == "down":
+                nx, ny = rot_about(x, y, SC["drop"], cx, fy)
+                return dict(dx=nx - x, dy=ny - y + (6 if st["cable"] == "hurt" else 0),
+                            fill="ALERT" if st["cable"] == "hurt" else "LINE")
+            return dict(dx=0.0, dy=0.0, fill="LINE")
+        shapes.append(dict(id=f"cable{j}", type="circle", c=[x, y], r=8, stroke="INK_W", w=2,
+                           keys=_mech_keys(start, states, cab_k)))
+
+    def arrows(ident, segs, col, on, head=16, w=5):
+        for j, (a, b) in enumerate(segs):
+            shapes.append(dict(id=f"{ident}{j}", type="line", pts=[list(a), list(b)], w=w, stroke=col, head=head,
+                               keys=_mech_keys(start, states, lambda st: dict(alpha=1.0 if on(st) else 0.0))))
+
+    def radial(deg, r_a, r_b):
+        return ((cx + r_a * math.cos(math.radians(deg)), cy + r_a * math.sin(math.radians(deg))),
+                (cx + r_b * math.cos(math.radians(deg)), cy + r_b * math.sin(math.radians(deg))))
+    arrows("press", [radial(a, 150, 215) for a in (-150, -90, -30, 20)], "LINE", lambda st: st["press"] == "push")
+    arrows("pdoor", [radial(146, 175, 238)], "AMBER", lambda st: st["press"] == "push", head=22, w=7)
+    arrows("air", [((600, 660), (410, 700)), ((620, 705), (430, 775)), ((585, 620), (395, 628))], "LINE",
+           lambda st: st["air"] == "out")
+    arrows("pfloor", [((x, fy - 80), (x, fy - 18)) for x in (520, 600, 680)], "AMBER",
+           lambda st: st["floor"] == "push")
+    arrows("vent", [((x, fy - 40), (x, fy + 40)) for x in (800, 880)], "LINE", lambda st: st["vent"] == "open",
+           head=14, w=4)
+    for j, x in enumerate((800, 880)):
+        shapes.insert(2, dict(id=f"hole{j}", type="poly", pts=[[x - 9, fy - fh], [x + 9, fy - fh],
+                                                               [x + 9, fy + fh], [x - 9, fy + fh]], fill="BG",
+                              keys=_mech_keys(start, states, lambda st: dict(alpha=1.0 if st["vent"] == "open"
+                                                                               else 0.0))))
+    return shapes
+
+
+def section(steps, start=None, rel=(), note="", src=""):
+    """胴体の断面の動く模式図（機体を後ろから見た輪切り）。
+
+    steps … ナレーションの行ごとの段。dict(state=dict(door="gone", …), tag=dict(t="…"))
+            札は右の列に上から順に並ぶ（段ごとに1行）。部品と状態：
+              door  on／gone（外れて飛ぶ）         press none／push（機内の空気がドアを外へ押す）
+              air   none／out（貨物室の空気が抜ける）  floor ok／push（上から押される）／down（落ちる）
+              cable ok／hurt（床下のケーブルが傷む）  vent  none／open（床の空気の逃げ道＝AD 75-15-05）
+    rel   … 札の数の宣言 [dict(t="約1.86㎡", src="AD 75-15-05")]
+    """
+    if "模式" not in note:
+        raise ValueError("section：note に「模式」を書くこと（§5b-10 模式であることを札で断る）")
+    start, states = _mech_states(dict(SECTION_START, **(start or {})), steps, SECTION_FIELDS, SECTION_VALUES)
+    cx, cy = SC["c"]
+    R, fy, fh = SC["R"], SC["floor_y"], SC["floor_h"] / 2
+    d0, d1 = SC["door"]
+    body = _arc(cx, cy, R, d1, d0 + 360, 72)
+    g = [circ(cx, cy, R, J.BG2, None, op=0.55),
+         poly(body, "none", J.INK_W, 8),
+         rect(cx, fy - fh, cx - section_wall_x(fy) - 2, 2 * fh, J.INK_W),     # 床の右半分（動かない）
+         txtfit(cx, cy - 100, "客室", 200, cap=36, col=J.INK_W, anchor="middle"),
+         txtfit(cx + 100, fy + 110, "貨物室", 200, cap=34, col=J.INK_W, anchor="middle"),
+         txtfit(cx + 205, fy - 18, "床", 60, cap=30, col=J.TICK),
+         txtfit(section_wall_x(fy) + 55, 835, "貨物ドア", 200, cap=30, col=J.TICK, anchor="middle"),
+         line(SC["cables"][0] - 12, SC["cable_y"], 390, SC["cable_y"] + 10, J.LINE_DIM, 3),
+         txtfit(380, SC["cable_y"] + 20, "操縦のケーブル", 260, cap=28, col=J.TICK, anchor="end"),
+         txtfit(BX0, BY1 - 6, note + (f"　出典：{src}" if src else ""), BW, cap=26, col=J.TICK)]
+    shapes = _section_shapes(start, states)
+    at = {f"row{i}": (1010, 380 + 90 * i, "start", 760) for i in range(8)}
+    steps2 = [dict(st, tag=[dict(tg, at=tg.get("at", f"row{i}")) for tg in _many(st.get("tag"))])
+              for i, st in enumerate(steps)]
+    stages, texts = _mech_tags(steps2, at, "row0")
+    f = Fig("".join(g), stages, "", (BX0, BX1))
+    f.moves = [dict(kind="anim", stage=0, shapes=shapes, box=_mech_box(shapes), delay=MECH_DELAY, dur=MECH_DUR)]
+    f.mech = dict(kind="section", start=start, states=states, rel=list(rel), tags=texts, shapes=shapes,
+                  steps=[dict(st) for st in steps])
     return f

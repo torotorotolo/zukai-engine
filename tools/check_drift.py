@@ -8,6 +8,11 @@
 ■ 測るもの（**本番の関数 `titan_fig.drift()` が描いた画素**から逆算する＝SPEC の数字を読み比べない）
     1. 🔴 `rel=`（報告書の値の宣言）ごとに、描いた2点の画素 → 緯度経度 → 距離と方位
        距離は宣言の ±5%（`tol` で変えられる）／方位は宣言の16方位の扇（±11.25度）＋1度
+       🔴 13本目（09-24）：報告書が**8方位の言い方**で書いた値は `sector=8`（扇 ±22.5度＋1度）。
+          仏 p12「à 37 km dans le nord-est de Paris」＝緯度経度から測ると 32.8度（16方位なら北北東の端）。
+          16方位の扇で照合すると差 12.2度が許し 12.25度に**0.05度差で通る**だけ＝物差しとして意味が無い。
+          NTSB §1.10「17 statute miles southwest of Detroit」も測ると 242度（16方位なら西南西）。
+          ⚠️ 報告書が16方位（east-northeast など）で書いた値に `sector=8` を付けない（許しを広げる口にしない）
     2. 🔴 寸法線の札（`dim` の「157キロ」）が、描いた2点の距離と ±5% で合うか
     3. ⚠️ 宣言（`rel`）が1件も無い drift は E（**照合できない模式図を出さない**）
     → [[feedback-gates-must-share-the-production-geometry]]（対照は本番の関数そのものを呼ぶ）
@@ -59,9 +64,12 @@ def judge(kw):
         if abs(km - r["km"]) / r["km"] > tol:
             bad.append(f"{r['a']}→{r['b']}: 図は {km:.0f}キロ／報告書 {r['km']}キロ"
                        f"（差 {abs(km - r['km']) / r['km']:.1%}＞{tol:.0%}）［{r.get('src', '')}］")
-        if r.get("dir") and _adiff(deg, F.dir_deg(r["dir"])) > 11.25 + SLACK_DEG:
+        half = {16: 11.25, 8: 22.5}[int(r.get("sector", 16))]
+        if r.get("dir") and int(r.get("sector", 16)) == 8 and F.dir_deg(r["dir"]) % 45:
+            bad.append(f"{r['a']}→{r['b']}: sector=8 なのに「{r['dir']}」は8方位の名ではない［{r.get('src', '')}］")
+        elif r.get("dir") and _adiff(deg, F.dir_deg(r["dir"])) > half + SLACK_DEG:
             bad.append(f"{r['a']}→{r['b']}: 図の方位 {deg:.0f}度（{F.dir_name(deg)}）／報告書「{r['dir']}」"
-                       f"［{r.get('src', '')}］")
+                       f"（{int(r.get('sector', 16))}方位の扇）［{r.get('src', '')}］")
         # 🔴 方位角（度）で書かれた値（DNA p209「230° bearing」）は16方位の扇より細かく ±2度
         if r.get("deg") is not None and _adiff(deg, float(r["deg"])) > float(r.get("tol_deg", 2.0)):
             bad.append(f"{r['a']}→{r['b']}: 図の方位 {deg:.1f}度／報告書 {float(r['deg']):g}度"
@@ -113,6 +121,19 @@ def selftest():
          dict(base, steps=[dict(dim=[dict(a="gz", b="ship", t="157キロ"),
                                      dict(a="gz", b="rongerik", t="300キロ")])],
               rel=[dict(a="gz", b="ship", km=157, dir="東北東")]), False),
+        # 13本目 ⑤b-2（2026-09-24）で足した口：8方位の言い方（sector=8）
+        ("正しい宣言（8方位：32.8度の点を「北東」・仏 p12 と同じ形）",
+         dict(base, pts=dict(base["pts"], n8=dict(of="gz", km=38, deg=32.8)),
+              rel=[dict(a="gz", b="n8", km=38, dir="北東", sector=8)]), True),
+        ("🔴 陽性対照：8方位で「東」と宣言（図は32.8度＝差57度）",
+         dict(base, pts=dict(base["pts"], n8=dict(of="gz", km=38, deg=32.8)),
+              rel=[dict(a="gz", b="n8", km=38, dir="東", sector=8)]), False),
+        ("🔴 陽性対照：8方位なのに16方位の名「北北東」を書く",
+         dict(base, pts=dict(base["pts"], n8=dict(of="gz", km=38, deg=32.8)),
+              rel=[dict(a="gz", b="n8", km=38, dir="北北東", sector=8)]), False),
+        ("🔴 陽性対照：16方位（既定）で25度ずれた点を「北東」",
+         dict(base, pts=dict(base["pts"], n8=dict(of="gz", km=38, deg=20.0)),
+              rel=[dict(a="gz", b="n8", km=38, dir="北東")]), False),
     ]
     for name, kw, want in cases:
         bad, _ = judge(kw)

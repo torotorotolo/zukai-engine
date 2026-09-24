@@ -40,6 +40,12 @@ on:
         description: "拡大図を出すカット（例 c114,c529）。空なら章ごとの代表だけ"
         required: false
         default: ""
+      # 13本目 ⑤b-2（2026-09-24）：動く部品の**途中**を撮る（qa は段が出そろった1枚だけ）。
+      #   例 c109:0.25/0.6/0.95,c305:0.5 ＝カットごとに本体の尺の割合を / で並べる → at_<cid>_<百分率>.jpg
+      at:
+        description: "指定の時刻でも焼くカット（例 c109:0.25/0.6/0.95,c305:0.5）。空なら焼かない"
+        required: false
+        default: ""
       partial:
         description: "画を作っている途中（未定義カットを飛ばして焼く）"
         required: false
@@ -193,6 +199,7 @@ jobs:
           ARGS="qa"
           [ "${{ inputs.partial }}" = "true" ] && ARGS="$ARGS --partial"
           [ -n "${{ inputs.zoom }}" ] && ARGS="$ARGS --zoom=${{ inputs.zoom }}"
+          [ -n "${{ inputs.at }}" ] && ARGS="$ARGS --at=${{ inputs.at }}"
           python tools/build_jiko.py $ARGS
 
       # 画面の余白を機械で測る。基準は _empty.png（地だけを焼いたもの）との画素差。
