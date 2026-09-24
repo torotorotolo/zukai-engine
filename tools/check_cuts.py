@@ -8,13 +8,14 @@
   `check_layout.py` は**空の SPEC を調べて「✓ 全部おさまっている」**を出した。
   ＝ [[feedback-gates-blind-to-the-new-material]] の「0件を調べて合格」そのもの。
 
-■ 見るもの（どれか1つでも欠けたら exit 2）
+■ 見るもの（1・2・4 のどれか1つでも欠けたら exit 2。3 は警告だけ）
   1. 🔴 `cuts.BROKEN` が空（章ファイルが1つも落ちていない）
   2. 🔴 カットIDが `audio/narration.json` と**過不足なく一致**する
      ＝ 台本にあって画が無い／画があって台本に無い、を両方向で見る
      ⚠️ カットIDは題材をまたいでぶつかるので、**前の題材の図が黙って出る**のを
         ここで止める（[[project-jiko-rules-index]] §0b）
-  3. 🔴 写真映像の割合が **45〜50%**（事故検証chの規則。[[feedback-jiko-photo-ratio]]）
+  3. 写真映像の割合が **20%以上**（事故検証chの規則・上限なし・下回っても⚠️だけで止めない。
+     2026-09-23〜。旧＝45〜50%・範囲外で exit 2。[[feedback-jiko-photo-ratio]]）
      写真映像＝`photo=` を持つカット（実写・報告書の図・地に敷いた図解のすべて）
   4. 🔴 全画面の写真で**切り落としが 12.8% を超えていない**（2026-09-08 ⑤b-5 に新設）
      `cuts/ss.py` の `kind()` は縦長しか額装に回しておらず、**横長の側に規則が無かった**。
@@ -41,8 +42,16 @@ sys.stderr.reconfigure(encoding="utf-8")
 HERE = Path(__file__).resolve().parent.parent
 NARRATION = HERE / "audio" / "narration.json"
 
-# 事故検証ch の規則（2026-08-03 カズヤくん）。⚠️ ここを緩めるときは記憶のほうも直す
-PHOTO_MIN, PHOTO_MAX = 0.45, 0.50
+# 事故検証ch の写真映像の下限。🔴 数は **check_script.PHOTO_LO の1か所だけ**に持つ（2026-09-24・13本目⑤b-1）。
+#   2026-09-23 カズヤくん（全回に恒久）＝20%以上・上限なし・門番は警告だけ（旧 08-03〜09-22＝45〜50%・範囲外で exit 2）。
+#   旧定数はここと check_script.py に別々に書かれていて、方針を変えた日に両方とも取り残された
+#   （[[feedback-jiko-photo-ratio]]）。下の _crop_max() と同じく「上流から毎回引く」。⚠️ 変えるときは記憶も直す
+def _photo_min():
+    import check_script
+    return check_script.PHOTO_LO
+
+
+PHOTO_MIN = _photo_min()
 
 # 全画面にしたときに許す切り落とし。`cuts/ss.py` の `PANEL_AR` と**同じ値**を別の言い方で
 # 書いたもの（1 − PANEL_AR ÷ 画面の縦横比）。2つの数を別々に持たない。
@@ -124,16 +133,13 @@ def check(spec=None, broken=None, want=None):
     if not miss and not extra:
         out.append(f"✓ 台本と1対1（{len(want)}カット）")
 
-    # 3. 写真映像の割合
-    #    ⚠️ 台本と1対1でないうちは割合を出しても意味が無いので、そのときは測るだけ
+    # 3. 写真映像の割合（2026-09-23〜：下限だけ・上限なし・下回っても⚠️で止めない＝code を上げない）
+    #    ⚠️ 台本と1対1でないうちは割合を出しても意味が無いが、測って出すだけなので同じ扱い
     photo = [c for c, s in spec.items() if s.get("photo")]
     r = len(photo) / max(1, len(spec))
-    ok = PHOTO_MIN <= r <= PHOTO_MAX
-    mark = "✓" if ok else ("⚠️" if miss or extra else "🔴")
+    mark = "✓" if r >= PHOTO_MIN else "⚠️"
     out.append(f"{mark} 写真映像 {len(photo)}/{len(spec)} ＝ {r * 100:.1f}%"
-               f"（規則 {PHOTO_MIN * 100:.0f}〜{PHOTO_MAX * 100:.0f}%）")
-    if not ok and not (miss or extra) and not broken:
-        code = max(code, 2)
+               f"（規則 {PHOTO_MIN * 100:.0f}%以上・上限なし・下回っても警告だけ）")
 
     # 4. 全画面の写真の切り落とし
     #    ⚠️ 実物を開いて測る（縦横比を推定しない）。ファイルが無い欄は「測れていない」と言う。
@@ -257,7 +263,7 @@ def selftest():
     good = {c: dict(photo="keybridge/kb_p064_fig27.png") for c in want[:2]}
     good.update({c: dict(fig=("panel", {})) for c in want[2:]})
     _o, c = check(spec=good, broken={}, want=want)
-    chk("陽性対照：50%ちょうどは通る", c == 0)
+    chk("陰性対照：写真50%は通る", c == 0)
 
     _o, c = check(spec=good, broken={"c1": ValueError("boom")}, want=want)
     chk("陽性対照：章ファイルが落ちていたら止まる", c == 2)
@@ -266,10 +272,24 @@ def selftest():
     _o, c = check(spec=short, broken={}, want=want)
     chk("陽性対照：台本より画が少なければ止まる", c == 2)
 
-    lean = {c: dict(fig=("panel", {})) for c in want}
-    lean["a1"] = dict(photo="keybridge/kb_p064_fig27.png")
-    _o, c = check(spec=lean, broken={}, want=want)
-    chk("陽性対照：写真25%は止まる", c == 2)
+    # 🔴 写真映像の下限（2026-09-23〜：20%以上・上限なし・下回っても⚠️だけ）。
+    #    旧の検算「写真25%は止まる」は、新方針では**通るのが正しい**（2026-09-24 に作り直した）。
+    #    境目のちょうど上・下と上限なしを、印（✓／⚠️）と exit の両方で見る。
+    FIG = "keybridge/kb_p064_fig27.png"
+
+    def photo_mark(n_photo, n_all):
+        ids = [f"a{i}" for i in range(1, n_all + 1)]
+        spec_ = {c_: (dict(photo=FIG) if i < n_photo else dict(fig=("panel", {})))
+                 for i, c_ in enumerate(ids)}
+        rows, code_ = check(spec=spec_, broken={}, want=ids)
+        marks = [r_.split(" ", 1)[0] for r_ in rows if "写真映像" in r_]
+        return (marks[0] if marks else None), code_
+
+    chk("写真の下限は20%（check_script.PHOTO_LO を読む）", abs(PHOTO_MIN - 0.20) < 1e-9)
+    chk("写真25%は ✓ で通る", photo_mark(1, 4) == ("✓", 0))
+    chk("写真20%ちょうどは ✓ で通る", photo_mark(1, 5) == ("✓", 0))
+    chk("写真17%は ⚠️ を出すが止めない", photo_mark(1, 6) == ("⚠️", 0))
+    chk("写真100%でも止めない（上限なし）", photo_mark(4, 4) == ("✓", 0))
 
     # 4. 切り落としの検算。⚠️ **実在の絵**で測る（架空の名前だと「測れていない」に落ちて
     #    黙って通ってしまう＝0件を調べて合格）。→ [[feedback-gates-blind-to-the-new-material]]

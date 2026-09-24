@@ -95,7 +95,7 @@ for _cid, _ov in PHOTO_OVERRIDE.items():
 #    出典表記は地に敷いた場合も必ず出す（`fig_base(ground=False)` が出す）。
 #
 # ⚠️ 付図・線図（自作の模式図）は、白地の細い線が暗幕で沈む。敷くなら暗幕を焼いて確かめる。
-# ⚠️ 総数の規則（写真映像 45〜50%）だけ見ると章ごとの偏りが残る
+# ⚠️ 総数の規則（写真映像 20%以上・2026-09-23〜。旧 45〜50%）だけ見ると章ごとの偏りが残る
 #    ＝[[feedback-verify-design-against-the-spec]]。**章ごとにも見る。**
 # ⚠️ 既定の暗幕 0.84 が足りない写真がある（7本目 c804 は 0.88 に上げた）
 #    ＝[[feedback-settings-may-not-reach-the-picture]]。焼いたあと `check_slide` G-16 を見る。

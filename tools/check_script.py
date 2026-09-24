@@ -273,7 +273,11 @@ def judged_sec(d1, d2, d3, measured):
 def dur_ok(sec):
     """🔴 尺の合否はここ1本（本番も検算も通る。判定を2か所に書かない）。"""
     return DUR_MIN <= sec <= DUR_MAX
-PHOTO_LO, PHOTO_HI = 0.45, 0.50
+# 🔴 写真映像の下限＝**この1か所が正本**（check_cuts.py もここを読む。2026-09-24・13本目⑤b-1）。
+#    2026-09-23 カズヤくん（全回に恒久）：**20%以上・上限なし・門番は警告だけ**
+#    （旧 08-03〜09-22＝45〜50%・下回ると E）。旧定数はここと check_cuts.py に別々にあり、
+#    方針を変えた日に両方とも取り残された（[[feedback-jiko-photo-ratio]]）。⚠️ 変えるときは記憶も直す
+PHOTO_LO = 0.20
 HOOK_DEADLINE = 46.0    # 冒頭のこの秒までに引きを置き切る（3本の実測）
 
 # ⚠️ カットIDは pr01/ep16 の「2文字+2桁」と c101 の「1文字+3桁」の両方がある。
@@ -553,11 +557,9 @@ def report(cuts):
     B = sum(v[1] for v in ch.values())
     ratio = (A + B) / n
     print('写真映像 %d（実写%d＋報告書の図%d）/ %d = %.1f%%' % (A + B, A, B, n, 100 * ratio))
+    # 下回っても W だけ（2026-09-23〜・止めない）。上限は無い＝多すぎる側は鳴らさない
     if ratio < PHOTO_LO:
-        E.append('E 写真映像が %.1f%%（下限%.0f%%）' % (100 * ratio, 100 * PHOTO_LO))
-    elif ratio > PHOTO_HI:
-        W.append('W 写真映像が %.1f%%（目安の上は%.0f%%。趣旨は「半分近く」なので可）'
-                 % (100 * ratio, 100 * PHOTO_HI))
+        W.append('W 写真映像が %.1f%%（下限%.0f%%。警告だけ）' % (100 * ratio, 100 * PHOTO_LO))
     print('  章ごと: ' + ' '.join('%s=%.0f%%' % (k, 100 * (v[0] + v[1]) / v[2]) for k, v in ch.items()))
     for k, (a, b, tot) in ch.items():
         if (a + b) / tot < PHOTO_LO:
@@ -703,6 +705,27 @@ def selftest():
     #    陰性対照＝③が範囲の外なら、音があっても落ちること（実測に寄せても網は緩めない）
     chk('実測が40分超なら落ちる', dur_ok(judged_sec(_d1, _d2, 41 * 60.0, True)[0]), False)
     chk('実測が27分未満なら落ちる', dur_ok(judged_sec(_d1, _d2, 26 * 60.0, True)[0]), False)
+
+    # 🔴 写真映像の下限（2026-09-24・13本目⑤b-1 新設）。⚠️ それまで**写真の割合を試す検算が1本も無く**、
+    #    方針を 45%→20% に変えた日（09-23）も門番は旧定数のまま E を出し続けた（13本目④の 29.7%）。
+    #    境目のちょうど上・下と上限なしを、**本番の report() そのもの**に入れて (E, W) の増分で見る
+    #    （全体の W と章ごとの W の2本が同時に動く＝下回ると W +2）。
+    chk('写真の下限は20%', PHOTO_LO, 0.20)
+
+    def pic_counts(n_photo, n_all):
+        rows = [('c1%02d' % (i + 1), '実写 B-Roll #1 `0:07`' if i < n_photo else 'panel（結論）',
+                 ['あいうえお']) for i in range(n_all)]
+        return report_counts(rows)
+
+    def pic_delta(n_photo, n_all):
+        e, w = pic_counts(n_photo, n_all)
+        e0, w0 = pic_counts(n_all, n_all)        # 全部写真＝写真の網は鳴らない側
+        return e - e0, w - w0
+
+    chk('写真20%ちょうどは鳴らない', pic_delta(1, 5), (0, 0))
+    chk('写真17%はWだけ（全体と章）', pic_delta(1, 6), (0, 2))
+    chk('写真0%でもEにしない', pic_delta(0, 5), (0, 2))
+    chk('写真100%でも鳴らない（上限なし）', pic_counts(4, 4), pic_counts(2, 4))
 
     # 🔴🔴 2026-09-07 新設：**カットIDが重なっても「文が違えば別の回」**と判定できるか。
     #    ⚠️ ここが無かったせいで、5本目の台本に 4本目（サーフサイド・実効 speed 1.14）の
