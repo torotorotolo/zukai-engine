@@ -48,7 +48,7 @@
   "id": "TC-JAV, Turkish DC-10 (6060110163)",
   "slot": "tcjav",
   "cut": "c606",
-  "note": "尾部のエンジンと登録記号 TC-JAV（A3・縦長）。⚠️ Commons の日付は「1974年3月3日より前」",
+  "note": "尾部のエンジンと登録記号 TC-JAV（A3・縦長）。⚠️ Commons の日付は「1974年3月3日より前」だけ",
   "box": [
    0.0,
    0.0,
@@ -60,7 +60,7 @@
   "md5": "ec721ddf43d47f68576c634c175775e3",
   "lic": "CC BY-SA 2.0",
   "author": "clipperarctic",
-  "year": 1973,
+  "year": null,
   "title": "TC-JAV, Turkish DC-10 (6060110163).jpg",
   "hold": "Wikimedia Commons「TC-JAV, Turkish DC-10 (6060110163).jpg」",
   "url": "https://commons.wikimedia.org/wiki/File:TC-JAV,_Turkish_DC-10_(6060110163).jpg"
@@ -412,7 +412,7 @@
   "md5": "4ead7e4835ed19a55d32852db05df3b4",
   "lic": "Public domain",
   "author": "Photo n. CJ405267 released by McDonnell Douglas",
-  "year": 1973,
+  "year": null,
   "title": "McDonnell Douglas DC-10 interior (CJ406257).jpg",
   "hold": "Wikimedia Commons「McDonnell Douglas DC-10 interior (CJ406257).jpg」",
   "url": "https://commons.wikimedia.org/wiki/File:McDonnell_Douglas_DC-10_interior_(CJ406257).jpg"
@@ -444,7 +444,7 @@
   "id": "Finnairin DC-10 lentokone lentokentällä 1970 (HK7137-875)",
   "slot": "dc10",
   "cut": "c206",
-  "note": "フィンエアーの DC-10 と乗客（D6）。⚠️ 題の「1970」は年代（DC-10 の就航は1971年）＝年は副題に書かない",
+  "note": "フィンエアーの DC-10 と乗客（D6）。⚠️ Commons の日付欄は空・題の「1970」は年代の可能性＝年は副題に書かない",
   "box": [
    0.0,
    0.0,
@@ -456,7 +456,7 @@
   "md5": "7890537eb3c7f0c8a869993b044de24a",
   "lic": "CC BY 4.0",
   "author": "Volker von Bonin",
-  "year": 1975,
+  "year": null,
   "title": "Finnairin DC-10 lentokone lentokentällä 1970 (HK7137-875).tif",
   "hold": "Wikimedia Commons「Finnairin DC-10 lentokone lentokentällä 1970 (HK7137-875).tif」",
   "url": "https://commons.wikimedia.org/wiki/File:Finnairin_DC-10_lentokone_lentokentällä_1970_(HK7137-875).tif"

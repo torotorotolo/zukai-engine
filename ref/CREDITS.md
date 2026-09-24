@@ -1814,7 +1814,7 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 |---|---|---|---|---|---|
 | `tcjav_taxi` | c202 | 1973 | CC BY-SA 2.0 | clipperarctic | Wikimedia Commons「TC-JAV (5920254289) (2).jpg」　https://commons.wikimedia.org/wiki/File:TC-JAV_(5920254289)_(2).jpg |
 | `tcjav_takeoff` | c104 | 1973 | CC BY-SA 2.0 | clipperarctic | Wikimedia Commons「TC-JAV (6004629408).jpg」　https://commons.wikimedia.org/wiki/File:TC-JAV_(6004629408).jpg |
-| `tcjav_tail` | c606 | 1973 | CC BY-SA 2.0 | clipperarctic | Wikimedia Commons「TC-JAV, Turkish DC-10 (6060110163).jpg」　https://commons.wikimedia.org/wiki/File:TC-JAV,_Turkish_DC-10_(6060110163).jpg |
+| `tcjav_tail` | c606 | 不明 | CC BY-SA 2.0 | clipperarctic | Wikimedia Commons「TC-JAV, Turkish DC-10 (6060110163).jpg」　https://commons.wikimedia.org/wiki/File:TC-JAV,_Turkish_DC-10_(6060110163).jpg |
 | `tcjav_landing` | c701 | 1973 | CC BY-SA 4.0 | M D West | Wikimedia Commons「THY Türk Hava Yolları - Turkish Airlines McDonnell Douglas DC-10-10 London - Heathrow 1973.jpg」　https://commons.wikimedia.org/wiki/File:THY_Türk_Hava_Yolları_-_Turkish_Airlines_McDonnell_Douglas_DC-10-10_London_-_Heathrow_1973.jpg |
 | `n103aa_1977` | c408 | 1977 | CC BY 2.0 | GeorgeM757 | Wikimedia Commons「N103AA American DC-10-10 at KSFO.jpg」　https://commons.wikimedia.org/wiki/File:N103AA_American_DC-10-10_at_KSFO.jpg |
 | `aa96_door` | c421 | 1972 | Public domain | 米連邦航空局（FAA） | Wikimedia Commons「Photo of American Airlines Flight 96 cargo door.jpg」　https://commons.wikimedia.org/wiki/File:Photo_of_American_Airlines_Flight_96_cargo_door.jpg |
@@ -1830,9 +1830,9 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `kal_longbeach_1974` | c605 | 1974 | CC BY 3.0 | Piergiuliano Chesi | Wikimedia Commons「Korean Air Lines McDonnell Douglas DC-10 N198 01.jpg」　https://commons.wikimedia.org/wiki/File:Korean_Air_Lines_McDonnell_Douglas_DC-10_N198_01.jpg |
 | `ua_longbeach_1974` | c617 | 1974 | CC BY 3.0 | Piergiuliano Chesi | Wikimedia Commons「United Airlines DC-10 N1826U.jpg」　https://commons.wikimedia.org/wiki/File:United_Airlines_DC-10_N1826U.jpg |
 | `dc10_flight_1971` | c713 | 1971 | Public domain | マクドネル・ダグラス社の広報写真 | Wikimedia Commons「McDonnell Douglas DC-10 N1803U (C15-10).jpg」　https://commons.wikimedia.org/wiki/File:McDonnell_Douglas_DC-10_N1803U_(C15-10).jpg |
-| `dc10_cabin` | c802 | 1973 | Public domain | マクドネル・ダグラス社の広報写真 | Wikimedia Commons「McDonnell Douglas DC-10 interior (CJ406257).jpg」　https://commons.wikimedia.org/wiki/File:McDonnell_Douglas_DC-10_interior_(CJ406257).jpg |
+| `dc10_cabin` | c802 | 不明 | Public domain | マクドネル・ダグラス社の広報写真 | Wikimedia Commons「McDonnell Douglas DC-10 interior (CJ406257).jpg」　https://commons.wikimedia.org/wiki/File:McDonnell_Douglas_DC-10_interior_(CJ406257).jpg |
 | `tcjau_fra_1974` | c203 | 1974 | CC BY 3.0 | RuthAS | Wikimedia Commons「Douglas DC-10-10 TC-JAU THY FRA 28.07.74 edited-2.jpg」　https://commons.wikimedia.org/wiki/File:Douglas_DC-10-10_TC-JAU_THY_FRA_28.07.74_edited-2.jpg |
-| `finnair_dc10` | c206 | 1975 | CC BY 4.0 | Volker von Bonin／フィンランド文化遺産庁 | Wikimedia Commons「Finnairin DC-10 lentokone lentokentällä 1970 (HK7137-875).tif」　https://commons.wikimedia.org/wiki/File:Finnairin_DC-10_lentokone_lentokentällä_1970_(HK7137-875).tif |
+| `finnair_dc10` | c206 | 不明 | CC BY 4.0 | Volker von Bonin／フィンランド文化遺産庁 | Wikimedia Commons「Finnairin DC-10 lentokone lentokentällä 1970 (HK7137-875).tif」　https://commons.wikimedia.org/wiki/File:Finnairin_DC-10_lentokone_lentokentällä_1970_(HK7137-875).tif |
 | `orly_hall_1970` | c209 | 1970 | CC BY-SA 4.0 | スイス航空／ETH 図書館 | Wikimedia Commons「Departure hall at Paris-Orly airport (LBS SR04-038169).tif」　https://commons.wikimedia.org/wiki/File:Departure_hall_at_Paris-Orly_airport_(LBS_SR04-038169).tif |
 | `pg11` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 11頁 |
 | `pg15` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 15頁 |

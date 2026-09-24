@@ -55,8 +55,9 @@ PICK = {
                     note='1973年夏・ヒースロー。地上走行・胴に THY の文字（A1）'),
     'tcjav_takeoff': C('TC-JAV (6004629408)', 'tcjav', 1973, cut='c104',
                        note='1973年夏・ヒースロー。離陸の瞬間（A2）'),
-    'tcjav_tail': C('TC-JAV, Turkish DC-10 (6060110163)', 'tcjav', 1973, cut='c606',
-                    note='尾部のエンジンと登録記号 TC-JAV（A3・縦長）。⚠️ Commons の日付は「1974年3月3日より前」'),
+    # ⚠️ 撮影年が決まらない点は None（表では「不明」）。⑤b-2 で一度「推測の年」を入れて直した（D6 に 1975）
+    'tcjav_tail': C('TC-JAV, Turkish DC-10 (6060110163)', 'tcjav', None, cut='c606',
+                    note='尾部のエンジンと登録記号 TC-JAV（A3・縦長）。⚠️ Commons の日付は「1974年3月3日より前」だけ'),
     'tcjav_landing': C('THY Türk Hava Yolları - Turkish Airlines McDonnell Douglas DC-10-10 London - Heathrow 1973',
                        'tcjav', 1973, cut='c701', note='1973年・ヒースロー。着陸（白黒・A4）'),
     # ── 予兆の機体 ─────────────────────────────────────────
@@ -91,12 +92,12 @@ PICK = {
                            note='1974年8月・ロングビーチ空港のユナイテッド機（D1）'),
     'dc10_flight_1971': C('McDonnell Douglas DC-10 N1803U (C15-10)', 'dc10', 1971, cut='c713',
                           note='飛行中の DC-10（白黒・ダグラスの広報写真・D2）'),
-    'dc10_cabin': C('McDonnell Douglas DC-10 interior (CJ406257)', 'dc10', 1973, cut='c802',
+    'dc10_cabin': C('McDonnell Douglas DC-10 interior (CJ406257)', 'dc10', None, cut='c802',
                     note='客室と客室乗務員（広報写真・D3）。⚠️ Commons の日付は「1974年より前」＝年は副題に書かない'),
     'tcjau_fra_1974': C('Douglas DC-10-10 TC-JAU THY FRA 28.07.74 edited-2', 'dc10', 1974, cut='c203',
                         note='姉妹機 TC-JAU・1974年7月28日・フランクフルト（カラー・1054px＝額装パネル・D5）'),
-    'finnair_dc10': C('Finnairin DC-10 lentokone lentokentällä 1970 (HK7137-875)', 'dc10', 1975, cut='c206',
-                      note='フィンエアーの DC-10 と乗客（D6）。⚠️ 題の「1970」は年代（DC-10 の就航は1971年）＝年は副題に書かない'),
+    'finnair_dc10': C('Finnairin DC-10 lentokone lentokentällä 1970 (HK7137-875)', 'dc10', None, cut='c206',
+                      note='フィンエアーの DC-10 と乗客（D6）。⚠️ Commons の日付欄は空・題の「1970」は年代の可能性＝年は副題に書かない'),
     # ── 1970年代のオルリー（BY-SA＝額装）─────────────────────────
     'orly_hall_1970': C('Departure hall at Paris-Orly airport (LBS SR04-038169)', 'orly', 1970, cut='c209',
                         note='1970年ごろのオルリーの出発ロビー（スイス航空の写真・ETH 図書館・O1）'),
@@ -277,7 +278,7 @@ PAGE_DOC = {
 def cmd_credits(write=False):
     db = json.loads(DB.read_text(encoding='utf-8'))
     cj = {f'ep13/{n}.jpg': credit_line(n, r) for n, r in db.items()}
-    rows = [f"| `{n}` | {r.get('cut') or '（章ファイル）'} | {r['year']} | {r['lic']} | "
+    rows = [f"| `{n}` | {r.get('cut') or '（章ファイル）'} | {r['year'] or '不明'} | {r['lic']} | "
             f"{WHO.get(n) or r['author']} | {r['hold']}　{r.get('url', '')} |" for n, r in db.items()]
     pages = json.loads(PAGES_JSON.read_text(encoding='utf-8')) if PAGES_JSON.exists() else {}
     rows += [f"| `{k}` | （章ファイル） | {PAGE_DOC[p['doc']][0]} | {PAGE_DOC[p['doc']][2]} | "
