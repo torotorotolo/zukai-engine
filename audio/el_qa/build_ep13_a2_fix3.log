@@ -1,0 +1,23 @@
+  c906-2 take1: ✓  畳一枚より少し大きい
+c906-2: 1テイク → 採用（文字起こしが台本と合う）
+
+1行 → 要耳 0 -> C:\Users\konar\Desktop\zukai-engine-ep13a5\audio\el_qa\ep13_retake_gate.tsv
+⚠️ 差し替えた行のカットは `python tools/el_build.py --dry --cuts <cid>` で wav と json に反映すること
+rt906=0
+c906:   8.22s  (2行)
+
+合成 1 カット／持ち越し 192 カット／未作成 0／記録 193／台本 193
+作ったぶん: 193カット 11780字 → 発話＋行間 1774.2秒（6.64字/秒・行間込み。AivisSpeech は 5.52）
+本編の見込み 32.8分（全 11780字をこの速さで＋LEAD/TAIL 0.85×193＋quote 2.0×16。許容 27〜40分）
+最長の1行 = 5.72秒「考える穴の大きさは、少なくとも約1.86平方メートル（20平方フィート）。」
+dry=0
+✓ ep13raw: 1行・発話 0.0分 → C:\Users\konar\Desktop\zukai-engine-ep13a5\out\phon
+prep=0
+✓ ep13: 389行・発話 28.3分 → C:\Users\konar\Desktop\zukai-engine-ep13a5\out\phon
+prep13=0
+modal=0
+✓ c906-2  
+    畳1枚より、少し大きい。
+
+確かめた 1行／所見のある行 0
+残り 909

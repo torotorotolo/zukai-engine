@@ -50,6 +50,8 @@ r"""check_yomi_numbers.py — **読みが固定されていない「危ない語
     行ID<TAB>語<TAB>判定<TAB>いつ・だれが
     c205-2	1984年	ng	2026-09-22 試写（しよねん）
     c202-2	7000時間	ok	2026-09-22 試写
+    c101-1	1974年	phon	2026-09-24 音素の網（qa_out/phon_verify.py）＝耳ではない。耳の ok と分けて数える
+   🔴 判定は ok（耳で通した）／phon（音素の網で読みを確かめた・13本目⑤a' から）／ng（直す）。
 
 ⚠️ この門番は「**読みが決まっているか**」しか見ない。**正しく読めるかは見ていない。**
    決着は耳（→ [[feedback-ear-beats-the-meter]]）。
@@ -120,7 +122,7 @@ def load_heard(ep: str) -> dict:
 def scan(ep: str):
     import el_script as ES
     heard = load_heard(ep)
-    ng, unknown, ok, covered = [], [], 0, 0
+    ng, unknown, ok, covered, phon = [], [], 0, 0, 0
     for ln in ES.lines():
         sent = ES.el_text(ln.text)
         if sent != ln.text:
@@ -129,11 +131,13 @@ def scan(ep: str):
             v = heard.get((ln.lid, w))
             if v == "ok":
                 ok += 1
+            elif v == "phon":      # 🔴 2026-09-24 音素の網（qa_out/phon_*.py）で読みを確かめた＝**耳ではない**。耳の ok と分けて数える
+                phon += 1
             elif v == "ng":
                 ng.append((ln.lid, w, ln.text))
             else:
                 unknown.append((ln.lid, w, ln.text))
-    return ng, unknown, ok, covered
+    return ng, unknown, ok, covered, phon
 
 
 def critical_left(ep: str):
@@ -208,11 +212,11 @@ def main() -> int:
         import el_script as ES
         ep = ES.SLUG
         print(f"（回は el_script.SLUG から取った: {ep}）")
-    ng, unknown, ok, covered = scan(ep)
+    ng, unknown, ok, covered, phon = scan(ep)
     show_all = "--list" in sys.argv
 
     print(f"■ {ep} ／ 読み辞書が当たった行 {covered}")
-    print(f"   耳で通した {ok} ／ 🔴 直す {len(ng)} ／ ⚠️ 未確認 {len(unknown)}")
+    print(f"   耳で通した {ok} ／ 音素の網で通した {phon} ／ 🔴 直す {len(ng)} ／ ⚠️ 未確認 {len(unknown)}")
     if ng:
         print("\n🔴 台帳が ng と書いている（読みを固定していない）")
         for i, w, t in ng:
@@ -234,7 +238,7 @@ def main() -> int:
         print("\n🔴 読みが決まっていない数がある。"
               "**耳で聞いて台帳へ書くか、EL_YOMI でかなに固定する**まで焼かない。")
         return 1
-    print("\n✓ 危ない型の数は、すべて固定されているか耳で通っている")
+    print("\n✓ 危ない型の数は、すべて固定されているか、耳か音素の網で通っている")
     return 0
 
 
