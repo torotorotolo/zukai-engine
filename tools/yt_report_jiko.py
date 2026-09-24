@@ -70,7 +70,10 @@ SCOPES = ["https://www.googleapis.com/auth/youtube.readonly",
 QUOTA_PROJECT = "drift-diary"
 CSV_DIR = HERE / "analytics" / "studio_csv"
 SNAP_DIR = HERE / "analytics" / "snapshots"
-CHANNEL = "そのとき、何が起きたか"
+# 🔴 2026-09-24 改名（旧「そのとき、何が起きたか」）。Studio の CSV はファイル名にその時点の名前が入る
+#    ＝旧名の CSV も読めるように、選り分けは新旧の両方で行う（CHANNEL_NAMES）
+CHANNEL = "仕事帰りの事故調査ノート"
+CHANNEL_NAMES = (CHANNEL, "そのとき、何が起きたか")
 
 # 🔴 これ未満はカーブを読まない（十数〜数十再生ではノイズしか出ない）
 MIN_VIEWS_CURVE = 200
@@ -230,7 +233,7 @@ def auto_ingest_downloads(max_age_days: int = 60) -> int:
     return got
 
 
-def load_studio_csv(only_channel: str | None = None) -> dict:
+def load_studio_csv(only_channel: str | tuple | None = None) -> dict:
     """🔴 `only_channel` を渡すと、**そのチャンネルの CSV だけ**読む。
 
     `analytics/studio_csv/` には**深読みフクロウの CSV も入っている**。
@@ -251,8 +254,9 @@ def load_studio_csv(only_channel: str | None = None) -> dict:
             return ("", "", p.stat().st_mtime)
         return (m.group(2), m.group(1) and _span(m.group(1), m.group(2)), p.stat().st_mtime)
 
+    names = (only_channel,) if isinstance(only_channel, str) else (only_channel or ())
     for path in sorted(CSV_DIR.glob("*.csv"), key=_rank):
-        if only_channel and only_channel not in path.name:
+        if names and not any(n in path.name for n in names):
             continue
         try:
             with path.open(encoding="utf-8-sig", newline="") as f:
@@ -375,9 +379,9 @@ def cmd_report(a) -> int:
                   f"  視聴 {int(r[2]):>5}分")
 
     # 動画別
-    ctr_map = load_studio_csv(only_channel=CHANNEL)   # ★他chの CSV を混ぜない
+    ctr_map = load_studio_csv(only_channel=CHANNEL_NAMES)   # ★他chの CSV を混ぜない（新旧の名前）
     print(f"\n[Studio CSV] {len(ctr_map)} 行ぶんの CTR/インプレッションを読み込み"
-          f"（今回取り込んだ ZIP: {ingested}／`{CHANNEL}` のCSVだけ）")
+          f"（今回取り込んだ ZIP: {ingested}／`{'`・`'.join(CHANNEL_NAMES)}` のCSVだけ）")
     if not ctr_map:
         print("  🔴 **0本。取り込めていない。** Studio の列名が変わった可能性がある。"
               "`analytics/studio_csv/` の1行目を見て _IMP/_CTR/_ID を直すこと")
