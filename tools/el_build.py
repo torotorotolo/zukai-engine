@@ -75,7 +75,10 @@ AUDIO = ROOT / "audio"
 #    ⚠️ 1.0 でなくなるので **atempo を1段通る**（高さは変わらない）。
 #       尺の規定を外してもらった理由（無加工）は失われるが、**耳の指摘のほうが上位**。
 #    ✅ キャッシュの鍵に入っていないので **0クレジット**で焼き直せる（合わなければ何度でも変えてよい）。
-TEMPO = 1.06
+# 🔴🔴 2026-09-24（12本目⑥・試写）カズヤくん「**ナレーションの話速を1.3に**。今の速さに対して1.3倍ではなく、
+#    TEMPO 1 に対しての 1.3」。見込み（12本目）＝行の合計 2,060.2秒 × 1.06/1.30 → 完成尺 **約32分57秒**（1.06 は 39分17秒）。
+#    ⚠️ 35〜40分の勝ち帯（記憶 feedback-duration-band-only-35-40-wins）の外に出る＝指摘したうえで指示を採った（新しい指示が優先）。
+TEMPO = 1.30
 
 
 # 🔴 2026-09-21（10本目⑥・試写）カズヤくん「**句点の後の間にバラつきがある**…決め所のあとの間や、
@@ -117,6 +120,65 @@ def cap_pauses(pcm: bytes, max_sec: float = None, th: int = PAUSE_TH) -> bytes:
         else:
             i += 1
     return a[keep].tobytes()
+
+
+# 🔴 2026-09-24（12本目⑥・試写）カズヤくん「**文と文の間が統一されていない**（決め語のあとの長めの間はOK）」。
+#    実測（12本目・句点が行の中にある15行）：行の中の句点の間は 0.19〜0.60秒（中央 0.60＝上の上限に張り付き）で、
+#    行と行の間 GAP 0.40 とそろっていない。→ **行の中の句点の数 k だけ、長い無音から k 個を GAP ちょうどにする。**
+#    ⚠️ 読点の間は触らない（句点より短いのが自然）。行の頭と尻の無音も触らない（cap_pauses と同じ）。
+#    ⚠️ 無音が k 個見つからない行（句点で間を置かなかった）は動かさない＝場所が分からないのに足さない。
+#    ⚠️ カットとカットの間（LEAD 0.35＋TAIL 0.50＝0.85秒）はここの外＝絵の切り替えと尺に効くので、
+#       再発防止策の別チャットで数字を見て決める（12本目⑥の引き継ぎ）。
+STOP_MIN = 0.12          # これより短い無音は句点の間と見なさない（秒・TEMPO 後）
+
+
+def n_stops(line: str) -> int:
+    """行の**中**にある文の切れ目（。？！）の数。行末の句点は GAP が受け持つので数えない。"""
+    body = line.rstrip("。？！ 　")
+    return sum(body.count(c) for c in "。？！")
+
+
+def even_stops(pcm: bytes, k: int, target: float = None, th: int = PAUSE_TH) -> bytes:
+    """行の中の長い無音から k 個を target 秒（既定 GAP）ちょうどにそろえる。k=0・見つからなければ素通り。"""
+    import numpy as _np
+    if k <= 0:
+        return pcm
+    tgt = int(round((GAP if target is None else target) * SR))
+    a = _np.frombuffer(pcm, dtype=_np.int16)
+    q = _np.abs(a) <= th
+    runs, i, N, m = [], 0, len(a), int(STOP_MIN * SR)
+    while i < N:
+        if q[i]:
+            j = i
+            while j < N and q[j]:
+                j += 1
+            if i > 0 and j < N and (j - i) >= m:
+                runs.append((i, j))
+            i = j
+        else:
+            i += 1
+    if len(runs) < k:
+        return pcm
+    pick = sorted(sorted(runs, key=lambda r: r[1] - r[0], reverse=True)[:k])
+    segs, prev = [], 0
+    for i, j in pick:
+        L = j - i
+        segs.append(a[prev:i])
+        if L >= tgt:                          # 長い＝真ん中を抜く（両端の無音は残す）
+            h = tgt // 2
+            segs.append(a[i:i + h])
+            segs.append(a[j - (tgt - h):j])
+        else:                                 # 短い＝真ん中にデジタル無音を足す（行と行の GAP と同じ無音）
+            mid = (i + j) // 2
+            left, right = a[i:mid].astype(_np.float32), a[mid:j].astype(_np.float32)
+            f = min(48, len(left), len(right))          # 2ms の小さなフェード（無音の中の段差でクリックを出さない）
+            if f:
+                left[-f:] *= _np.linspace(1.0, 0.0, f)
+                right[:f] *= _np.linspace(0.0, 1.0, f)
+            segs += [left.astype(_np.int16), _np.zeros(tgt - L, dtype=_np.int16), right.astype(_np.int16)]
+        prev = j
+    segs.append(a[prev:])
+    return _np.concatenate(segs).astype(_np.int16).tobytes()
 
 
 def retempo(pcm: bytes, tempo: float = None) -> bytes:
@@ -186,7 +248,7 @@ def _sig(lines):
     """カットの指紋＝**実際にエンジンへ渡る文字列**と声・モデル・設定・GAP・TEMPO から取る（narration._sig と同じ思想）。"""
     spoken = "".join(ES.el_text(x) for x in lines)
     return hashlib.sha1(f"{spoken}|{el_tts.VOICE}|{el_tts.MODEL}|{json.dumps(ES.SETTINGS, sort_keys=True)}"
-                        f"|{GAP}|{TEMPO}|{PAUSE_MAX}"   # 🔴 合成のあとに音を変える定数は全部ここに入れる
+                        f"|{GAP}|{TEMPO}|{PAUSE_MAX}|stops{STOP_MIN}"   # 🔴 合成のあとに音を変える定数は全部ここに入れる
                         #    （入れ忘れると「値を変えたのに wav が作り直されない」＝黙って前の音のまま）
                         .encode("utf-8")).hexdigest()[:12]
 
@@ -208,6 +270,7 @@ def build_cut(cid, lines, synth):
         pcm = synth(sent, f"{cid}-{i}")
         pcm = retempo(pcm)                   # 🔴 話速（GAP を足す前・行ごとに掛ける）
         pcm = cap_pauses(pcm)                # 🔴 行の中の長すぎる間だけ詰める（GAP は触らない）
+        pcm = even_stops(pcm, n_stops(line))  # 🔴 行の中の句点の間を GAP にそろえる（2026-09-24）
         pcm = ART.edge_fade(pcm, 5)          # デジタル無音へ直結するクリック止め（長さ不変）
         sec = len(pcm) / 2 / SR
         rows.append({"t": round(t, 3), "d": round(sec, 3), "text": line})
@@ -374,10 +437,24 @@ def selftest() -> int:
     s1 = _sig(["あ", "い"])
     s2 = _sig(["あ", "う"])
     ok(s1 != s2 and s1 == _sig(["あ", "い"]), "指紋は本文で変わる・同じ本文で同じ")
+
+    # ── ③ 句点の間をそろえる（2026-09-24 新設）──────────────────────────────
+    #    陽性対照：短い間（0.20秒）は伸び、長い間（0.80秒）は縮んで、どちらも GAP ちょうど。
+    #    陰性対照：句点の無い行（k=0）と、間が見つからない行は 1バイトも変えない。
+    tone = struct.pack(f"<{SR // 2}h", *([2000] * (SR // 2)))       # 0.5秒の「声」
+    want = (2 * (SR // 2) + int(round(GAP * SR))) * 2                 # 声＋GAP＋声（バイト）
+    for sec in (0.20, 0.80):
+        out = even_stops(tone + b"\x00\x00" * int(sec * SR) + tone, 1)
+        ok(abs(len(out) - want) <= 4, f"間 {sec:.2f}秒 → GAP（実測 {(len(out) - 2 * len(tone)) / 2 / SR:.3f}秒）")
+    short = tone + b"\x00\x00" * int(0.20 * SR) + tone
+    ok(even_stops(short, 0) == short, "句点の無い行（k=0）は1バイトも変えない")
+    ok(even_stops(tone + tone, 1) == tone + tone, "間が見つからない行は動かさない")
+    ok(n_stops("1954年3月1日、午前6時45分。太平洋のまん中の、ビキニ環礁。") == 1 and n_stops("あいう。") == 0,
+       "文の切れ目は行の中だけ数える（行末の句点は数えない）")
     if fails:
         print(f"selftest: 落ちた: {fails}")
         return 1
-    print("selftest: 13/13 合格（API は叩いていない）")
+    print("selftest: 18/18 合格（API は叩いていない）")
     return 0
 
 
