@@ -612,6 +612,44 @@ def ep12_credit(name):
 
 
 # ══════════════════════════════════════════════════════════
+#  13本目（トルコ航空981便）── `ref/ep13/`
+# ══════════════════════════════════════════════════════════
+# 名前の付け方（`tools/cuts/ss.py`）:
+#   ep13/<欄の名>.jpg … 写真22点（Commons。🔴 CC BY-SA は**額装・無改変・1点1カット**＝`ss.check_frame_only`）
+#   ep13/pg<頁>.png   … 報告書の頁（出典は頁の側）。仏の報告書と SB は**引用**（改変しない）
+# 🔴 表はファイルから読む。`python qa_out/ep13_assets.py credits --write` が書く。
+#    ⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）
+_EP13_CREDITS = HERE / "ref" / "ep13" / "credits.json"
+EP13_PHOTO = (json.loads(_EP13_CREDITS.read_text(encoding="utf-8"))
+              if _EP13_CREDITS.exists() else {})
+_EP13_PAGES = HERE / "ref" / "ep13" / "pages.json"
+EP13_PAGES = (json.loads(_EP13_PAGES.read_text(encoding="utf-8"))
+              if _EP13_PAGES.exists() else {})
+# ⚠️ 機関名と年は台本 §10 の出典一覧（表紙で確かめた値）。キーは `qa_out/ep13_assets.py` の DOCS の名
+EP13_DOC = {"仏 最終報告": "フランス事故調査委員会の最終報告書（1976年）",
+            "AIB 8/76": "英国事故調査局の英訳 AIB 8/76（1976年）",
+            "米上院 報告": "米上院 航空小委員会の報告（1974年）",
+            "NTSB AAR-73-02": "NTSB 事故報告 AAR-73-02（1973年）",
+            "AD 74-08-04": "FAA 耐空性改善命令 AD 74-08-04（1974年）",
+            "AD 74-12-07": "FAA 耐空性改善命令 AD 74-12-07（1974年）",
+            "AD 75-15-05": "FAA 耐空性改善命令 AD 75-15-05（1975年）",
+            "官報 1974-04-02": "米官報（1974年4月2日）",
+            "SB 52-37": "ダグラス社の改修通報 SB 52-37（1972年）",
+            "SB 52-38": "ダグラス社の改修通報 SB 52-38（1972年）"}
+
+
+def ep13_credit(name):
+    """`ref/ep13/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if not name.startswith("ep13/"):
+        return None
+    stem = name[5:].rsplit(".", 1)[0]
+    if stem.startswith("pg") and stem in EP13_PAGES:
+        p = EP13_PAGES[stem]
+        return f"出典：{EP13_DOC[p['doc']]} PDF {p['pdf_page']}頁"
+    return EP13_PHOTO.get(name)
+
+
+# ══════════════════════════════════════════════════════════
 #  11本目（チャレンジャー号）── `ref/ep11/`
 # ══════════════════════════════════════════════════════════
 # 名前の付け方（`tools/cuts/ss.py`）:
@@ -817,7 +855,8 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep12_credit(spec["photo"]) or ep11_credit(spec["photo"]) or ep10_credit(spec["photo"])
+    cr = (ep13_credit(spec["photo"]) or ep12_credit(spec["photo"]) or ep11_credit(spec["photo"])
+          or ep10_credit(spec["photo"])
           or ep9_credit(spec["photo"]) or ep8_credit(spec["photo"]) or ep7_credit(spec["photo"])
           or keybridge_credit(spec["photo"])
           or sl1_credit(spec["photo"])

@@ -154,8 +154,12 @@ if _ng:
 #    ⚠️ 権利の話なので、門番を1本足すのではなく**読み込みで止める**
 #       ＝ `qa_all` の全部の門番が落ちる（黙って焼けない）。BACKDROP を当てたあとに見る。
 #    ⚠️ `ref/ep11/assets.json` が読めなければ `ss._assets()` が止める（0点で素通りさせない）。
-_sa = ss.check_share_alike(SPEC)
-if _sa:
+#    🔴 2026-09-24（13本目 ⑤b-2）：13本目は事故機 TC-JAV の4点が全部 CC BY-SA＝**額装だけで使う**
+#       （台帳 `ref/ep13/materials.md` §10-2・10本目と同じ決め）。「1点も入れない」網から
+#       **額装の網**（`ss.check_frame_only`＝切る・色を変える・重ねる・2回使うを止める）へ戻した。
+#       ⚠️ 写真を1点も当てていない章だけのときは照合する点が無い（`assets.json` は読む＝fail closed）。
+_frame = ss.check_frame_only(SPEC)
+if _frame:
     raise RuntimeError(
-        "この回は継承（CC BY-SA）つきの写真を入れません（10本目とは判断が違います）。"
-        "当てているカット: " + "／".join(_sa))
+        "CC BY-SA の写真は額装（無加工・丸ごと・色を変えない・何も重ねない・1点1カット）でだけ使えます。"
+        "守れていないカット: " + "／".join(_frame))

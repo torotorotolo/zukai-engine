@@ -37,11 +37,12 @@ W, H = 1920, 1080
 # 画面の縦横比。これより縦長／横長の図は額装パネルに回す。
 # 🔴 上限と下限は対。片側だけにすると粗が反対側へ移る（[[feedback-kinsoku-needs-both-ends]]）。
 SCREEN_AR = W / H
-# 🔴🔴 **12本目の値のまま＝13本目では未測**（2026-09-24 ⑤b-1）。⑤b-2 で13本目の束を作ったら
-#    `python qa_out/ep13_assets.py panel` の並びの切れ目から**取り直す**（→ [[feedback-per-episode-constants-go-stale]]）。
-#    12本目の根拠＝AR 1.049 と 1.200 のあいだで 15ポイント飛ぶ切れ目の中点（11本目も測って同じ 1.12）。
-#    ⚠️ いまは写真を1点も当てていないので効いていない。**写真を当てる前に**取り直すこと。
-PANEL_AR = 1.12                      # これ未満＝縦長すぎ（上下が切れる）
+# ✅ 2026-09-24（13本目 ⑤b-2）に**13本目の束で取り直した**（→ [[feedback-per-episode-constants-go-stale]]）。
+#    `python qa_out/ep13_assets.py panel` の22点の並びで、いちばん大きな切れ目は AR 0.992（finnair_dc10）→
+#    1.263（dc10_cabin・dc10_flight_1971）の 27ポイント＝その中点 1.1275 を丸めて 1.13。
+#    （12本目は 1.049→1.200 の中点 1.12。値が近いのは偶然）
+#    ⚠️ BY-SA の点は縦横比にかかわらず額装だけ（下の `FRAME_ONLY`）。
+PANEL_AR = 1.13                      # これ未満＝縦長すぎ（上下が切れる）
 WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝2.82。これ超＝横長すぎ
 
 # 報告書の頁から切る図の矩形（⑤b-2 で作る `ref/ep13/pages.json`）。
@@ -52,7 +53,13 @@ BANDS = {k: v for k, v in PAGES.items() if v.get("fig_box")}
 
 # 画素で測った切り出し。⚠️ **原寸を見てから足す**（推定で置かない）。
 #   12本目の4点（fo_tray・fo_tank・rongelap_booties・jp_fish_sign）は git の `3832147`。
-TRIM: dict[str, tuple] = {}
+TRIM: dict[str, tuple] = {
+    # 仏 p15（c110）：航空写真＋機体が入ってきた向きの矢印だけ（頁の見出し・頁番号「14」・説明文を落とす）。
+    #   ⑤b-2（09-24）に画素で測った：写真＝暗い画素が50%を超える行 y962〜1904・列 x280〜1434（1726x2352）／
+    #   矢印の上端 y368／説明文は y1948 から。＝ x 270〜1444・y 350〜1920 で切る。
+    #   ⚠️ 引用（仏の公文書）＝**切るのは写真の部分を取り出すまで**。色は変えない（c110 は color=1.0）
+    "ep13/pg15.png": (0.1564, 0.1488, 0.8366, 0.8163),
+}
 
 
 def page(pr):
@@ -82,13 +89,17 @@ def fb(cid):
 
 
 # ══════════════════════════════════════════════════════════
-#  継承（ShareAlike）は入れない ── 焼く側でももう一度照合する
+#  🔴🔴 継承（ShareAlike）つきの点＝**額装だけ**（13本目・10本目の決めと同じ）
 # ══════════════════════════════════════════════════════════
-#   12本目は②の網で継承つきを外した（Commons 629→488）。**あとから手で1点足したときに素通りする**ので、
-#   ここでも当てる（二重の網）。⚠️ `assets.json` が読めなければ**止める**
-#   （0点にして素通りさせない）→ [[feedback-parsers-fail-closed]]
-#   ⚠️ 13本目の②の網が継承つきを外したかは ⑤b-2 で確かめる（外していなければ、この網の扱いを決め直す
-#      ＝BY-SA は額装なら可 → [[reference-cc-by-sa-unmodified-in-video]]）。
+#   13本目の②は継承つきを外していない（事故機 TC-JAV の4点は全部 CC BY-SA）＝台帳 §10-2「額装で進める」。
+#   ⚠️ 11・12本目の「継承つきは1点も入れない」網のままだと、TC-JAV を当てた時点で読み込みが止まる
+#      ＝⑤b-2（09-24）で**額装の網へ戻した**（10本目 `edaf66c` の `FRAME_ONLY`／`check_frame_only`）。
+#   🔴 10本目との違い：**色を変えない（`color=1.0` 必須）とカメラ（`cam=`）も止める**。
+#      10本目は額装でもデュオトーンをかけていた（`build_jiko.tone()`＝色の置き換え＝改変）。
+#      記憶 [[reference-cc-by-sa-unmodified-in-video]]「無加工・丸ごと・色を変えない・上に重ねない」に合わせた。
+#   🔴 **1点1カット**（切れない＝寄りを変えて同じ点を2回使う逃げ道が無い）。
+#   額装専用かは `assets.json` の権利から**起動時に読む**（表を手で写さない）。
+#   ⚠️ `assets.json` が読めなければ**止める**（0点にして素通りさせない）→ [[feedback-parsers-fail-closed]]
 @lru_cache(maxsize=None)
 def _assets():
     p = REF / "assets.json"
@@ -99,19 +110,50 @@ def _assets():
     return json.loads(p.read_text(encoding="utf-8"))
 
 
-def check_share_alike(spec):
-    """継承つきの点を当てているカットを挙げる（空なら合格）。"""
-    used = [(cid, s.get("photo")) for cid, s in sorted(spec.items())
-            if (s.get("photo") or "").startswith(EP)]
-    if not used:
-        return []
-    db = _assets()
-    bad = []
-    for cid, ph in used:
-        r = db.get(Path(ph).stem)
-        lic = str((r or {}).get("lic", "")).upper().replace("-", " ")
-        if "SA" in lic.split():
-            bad.append(f"{cid}＝{ph}（{r['lic']}）: この回は継承つきを入れない")
+def _is_sa(lic):
+    return "SA" in str(lic or "").upper().replace("-", " ").split()
+
+
+def frame_only():
+    """継承つき（BY-SA）の点 {`ep13/<名>.jpg`: 権利}。1点も読めなければ止める（13本目は TC-JAV 4点ほかがある）。"""
+    out = {P(n): r["lic"] for n, r in _assets().items() if _is_sa(r.get("lic"))}
+    if not out:
+        raise RuntimeError("assets.json から継承つきの点が1つも読めない（13本目は TC-JAV の4点がある＝fail closed）")
+    return out
+
+
+# 額装の約束を破る書き方（10本目の一覧＋`cam`）。🔴 `zoom` は 1.0 ちょうどなら可・`panel=True` と `color=1.0` は必須
+_BREAKS_FRAME = ("trim", "veil", "vignette", "focus", "xbias", "bias", "ann", "mark", "blur", "cam", "intro")
+
+
+def check_frame_only(spec):
+    """継承つきの点を、切る・色を変える・重ねる型に渡しているカット／2回使っているカットを挙げる（空なら合格）。
+
+    ⚠️ `intro=dict(photo=…)`（冒頭の秒だけ写真を全画面）も**全画面＝切る**ので、継承つきの点を渡したら止める。
+    """
+    fo = frame_only()
+    bad, seen = [], {}
+    for cid, s in sorted(spec.items()):
+        ph = s.get("photo")
+        intro_ph = (s.get("intro") or {}).get("photo")
+        if intro_ph in fo:
+            bad.append(f"{cid}＝intro の {intro_ph}（{fo[intro_ph]}）: 冒頭の全画面は切る＝継承つきは使えない")
+        lic = fo.get(ph)
+        if lic is None:
+            continue
+        seen.setdefault(ph, []).append(cid)
+        why = [k for k in _BREAKS_FRAME if s.get(k) is not None]
+        if not s.get("panel"):
+            why.append("panel=True が無い（全画面＝上下左右が切れる）")
+        if float(s.get("zoom") or 1.0) != 1.0:
+            why.append(f"zoom={s.get('zoom')}（1.0 以外は切る）")
+        if float(s.get("color") or 0.0) < 1.0:
+            why.append(f"color={s.get('color')}（1.0 未満はデュオトーンで色を置き換える＝改変）")
+        if why:
+            bad.append(f"{cid}＝{ph}（{lic}）: " + "・".join(why))
+    for ph, cids in sorted(seen.items()):
+        if len(cids) > 1:
+            bad.append(f"{ph}（{fo[ph]}）を {len(cids)}カットで使っている（{'・'.join(cids)}）＝1点1カット")
     return bad
 
 
@@ -220,5 +262,54 @@ def vid(cid, **kw):
 # ══════════════════════════════════════════════════════════
 #   🔴 12本目のもの（ビキニ・船・捜索・艦隊・島の表示範囲と照合の宣言 `*_REL`、`drift_map()`・`isles_map()`）は
 #      ⑤b-1（2026-09-24）で外した＝git の `3832147`。
-#   13本目で使うなら、色味と演出の相談のあとで**13本目の緯度経度と報告書の値だけ**で足す
-#   （地点＝`titan_fig.GEO`・宣言＝`*_REL`・門番 `check_drift` が照合する＝ルール §5b-35・38・45）。
+#   13本目（⑤b-2・2026-09-24）＝**地図2枚**（⑤b-1 の相談で決めた3か所）：
+#     PARIS … 冒頭 c101（パリ→北東37キロの森）→ 第7章で**同じ地図が戻り**、オルリー→サン・パテュス→森の経路
+#     AA96  … 第4章（デトロイトの空港→ウィンザーの近く→デトロイトへ戻る）
+#   地点＝`titan_fig.GEO`（Wikidata）・宣言＝`*_REL`（報告書の値）・門番 `check_drift` が照合する（§5b-35・38・45）。
+#   ⚠️ 枠は 1696×582px（横長）。パリ周辺は南北に長い（オルリー〜森 46キロ）ので縮尺は南北で決まり、
+#      左右は空く。`view` の経度の幅は**枠の縦横比に合わせた**（経緯線が枠いっぱいに出る）。
+#   ⚠️ 報告書の方角は**8方位の言い方**（仏 p12「nord-est」＝測ると32.8度／NTSB「southwest」＝測ると242度）
+#      ＝`sector=8` で照合（`check_drift` の注）。
+MAP_PARIS_VIEW = dict(lon=(1.21, 3.94), lat=(48.62, 49.24))
+MAP_PARIS_PLACES = ["paris", dict(k="crash", side="above")]
+# 第7章の経路の地図は同じ範囲に2地点を足す（サン・パテュスの札は輪の下＝経路の線は左上から来て右上へ抜ける）
+MAP_ROUTE_PLACES = ["paris", "orly", dict(k="crash", side="above"), "stpathus"]
+MAP_PARIS_REL = [
+    dict(a="crash", lat=49 + 8.5 / 60, lon=2 + 38 / 60, src="仏 p5（墜落地点の座標 49°08'30\"N・02°38'00\"E）"),
+    dict(a="paris", b="crash", km=37, dir="北東", sector=8, src="仏 p12「à 37 km dans le nord-est de Paris」"),
+]
+MAP_ROUTE_REL = MAP_PARIS_REL + [
+    dict(a="stpathus", b="crash", km=15, src="仏 p12「environ 15 kilomètres du village de Saint-Pathus」"),
+    dict(a="orly", lat=48 + 43 / 60, lon=2 + 23 / 60, src="仏 p37（オルリーの敷地の VOR 48°43'N・02°23'E）"),
+]
+MAP_PARIS_NOTE = "模式図：地点は緯度経度から（墜落地点は報告書の座標）。距離は報告書の値"
+MAP_ROUTE_NOTE = "模式図：経路は報告書の地点を直線で結んだもの（実際の飛び方の線ではない）"
+
+MAP_AA96_VIEW = dict(lon=(-83.84, -82.55), lat=(42.10, 42.43))
+MAP_AA96_PLACES = ["dtw", "windsor"]
+MAP_AA96_REL = [
+    dict(a="dtw", lat=42 + 13.1 / 60, lon=-(83 + 20.9 / 60), src="NTSB p3009 §1.10（空港の位置）"),
+    dict(a="detroit", b="dtw", km=27.4, dir="南西", sector=8,
+         src="NTSB p3009「approximately 17 statute miles southwest of Detroit」"),
+]
+MAP_AA96_NOTE = "模式図：地点は緯度経度から。ドアが外れた正確な位置は報告書に無い（「ウィンザーの近く」）"
+
+
+def paris_map(steps, places=None, rel=None, note=None, src="仏の報告書 5・12頁"):
+    """パリ周辺の地図（c101 → 第7章で戻る）。宣言は既定に**足す**（墜落地点とパリの照合は必ず残る）。"""
+    return ("drift", dict(view=MAP_PARIS_VIEW, places=places or MAP_PARIS_PLACES, pts={},
+                          rel=MAP_PARIS_REL + list(rel or []), steps=steps, note=note or MAP_PARIS_NOTE,
+                          src=src, scale_km=20, grid=0.2))
+
+
+def route_map(steps, note=None, src="仏の報告書 5・12・37頁"):
+    """第7章：同じ地図にオルリーとサン・パテュスを足した経路の地図。"""
+    return ("drift", dict(view=MAP_PARIS_VIEW, places=MAP_ROUTE_PLACES, pts={}, rel=list(MAP_ROUTE_REL),
+                          steps=steps, note=note or MAP_ROUTE_NOTE, src=src, scale_km=20, grid=0.2))
+
+
+def aa96_map(steps, rel=None, note=None, src="NTSB AAR-73-02 9頁"):
+    """第4章：デトロイトの空港とウィンザー。デトロイトの市街は輪を描かない（ウィンザーと1.9キロ＝輪が重なる）。"""
+    return ("drift", dict(view=MAP_AA96_VIEW, places=MAP_AA96_PLACES, pts={},
+                          rel=MAP_AA96_REL + list(rel or []), steps=steps, note=note or MAP_AA96_NOTE,
+                          src=src, scale_km=10, grid=0.1))

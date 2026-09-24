@@ -1804,3 +1804,71 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `pg31` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 31頁 |
 | `pg209` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 209頁 |
 | `pg217` | （章ファイル） | 1982 | Public domain（米国の職務著作） | 国防原子力局 | DNA 6035F PDF 217頁 |
+
+## トルコ航空981便（1974-03-03・13本目）　※2026-09-24（⑤b-2）
+
+### 1. 写真（Wikimedia Commons ＝ CC BY-SA は**額装・無改変・1点1カット**／CC BY／CC0／PD）と報告書の頁
+`qa_out/ep13_assets.py credits --write` が書く（手で直さない）。BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許諾の URL は概要欄で）。
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `tcjav_taxi` | c202 | 1973 | CC BY-SA 2.0 | clipperarctic | Wikimedia Commons「TC-JAV (5920254289) (2).jpg」　https://commons.wikimedia.org/wiki/File:TC-JAV_(5920254289)_(2).jpg |
+| `tcjav_takeoff` | c104 | 1973 | CC BY-SA 2.0 | clipperarctic | Wikimedia Commons「TC-JAV (6004629408).jpg」　https://commons.wikimedia.org/wiki/File:TC-JAV_(6004629408).jpg |
+| `tcjav_tail` | c606 | 1973 | CC BY-SA 2.0 | clipperarctic | Wikimedia Commons「TC-JAV, Turkish DC-10 (6060110163).jpg」　https://commons.wikimedia.org/wiki/File:TC-JAV,_Turkish_DC-10_(6060110163).jpg |
+| `tcjav_landing` | c701 | 1973 | CC BY-SA 4.0 | M D West | Wikimedia Commons「THY Türk Hava Yolları - Turkish Airlines McDonnell Douglas DC-10-10 London - Heathrow 1973.jpg」　https://commons.wikimedia.org/wiki/File:THY_Türk_Hava_Yolları_-_Turkish_Airlines_McDonnell_Douglas_DC-10-10_London_-_Heathrow_1973.jpg |
+| `n103aa_1977` | c408 | 1977 | CC BY 2.0 | GeorgeM757 | Wikimedia Commons「N103AA American DC-10-10 at KSFO.jpg」　https://commons.wikimedia.org/wiki/File:N103AA_American_DC-10-10_at_KSFO.jpg |
+| `aa96_door` | c421 | 1972 | Public domain | 米連邦航空局（FAA） | Wikimedia Commons「Photo of American Airlines Flight 96 cargo door.jpg」　https://commons.wikimedia.org/wiki/File:Photo_of_American_Airlines_Flight_96_cargo_door.jpg |
+| `wreck_1997` | c102 | 1997 | CC BY 4.0 | Ian Abbott | Wikimedia Commons「Paris DC-10 Crash- March 3, 1974.jpg」　https://commons.wikimedia.org/wiki/File:Paris_DC-10_Crash-_March_3,_1974.jpg |
+| `names_wall` | c814 | 1997 | CC BY 4.0 | Ian Abbott | Wikimedia Commons「Paris DC-10 Crash, Names.jpg」　https://commons.wikimedia.org/wiki/File:Paris_DC-10_Crash,_Names.jpg |
+| `stele_2010` | c801 | 2010 | CC BY-SA 2.0 fr | P.poschadel | Wikimedia Commons「Stèle du crash aérien de 1974 (parcelle 144).jpg」　https://commons.wikimedia.org/wiki/File:Stèle_du_crash_aérien_de_1974_(parcelle_144).jpg |
+| `monument_2010` | c915 | 2010 | CC BY 3.0 | Mel22 | Wikimedia Commons「Monument DC10 Ermenonville-1.jpg」　https://commons.wikimedia.org/wiki/File:Monument_DC10_Ermenonville-1.jpg |
+| `klm_landing_1972` | c506 | 1972 | CC0 | オランダ国立公文書館（Anefo） | Wikimedia Commons「Eerste DC 10 voor KLM landt op Schiphol, Bestanddeelnr 926-1070.jpg」　https://commons.wikimedia.org/wiki/File:Eerste_DC_10_voor_KLM_landt_op_Schiphol,_Bestanddeelnr_926-1070.jpg |
+| `klm_apron_1972` | c207 | 1972 | CC0 | オランダ国立公文書館（Anefo） | Wikimedia Commons「Eerste DC 10 voor KLM landt op Schiphol, DC 10 op platform, Bestanddeelnr 926-1071.jpg」　https://commons.wikimedia.org/wiki/File:Eerste_DC_10_voor_KLM_landt_op_Schiphol,_DC_10_op_platform,_Bestanddeelnr_926-1071.jpg |
+| `klm_cockpit_1972` | c704 | 1972 | CC0 | オランダ国立公文書館（Anefo） | Wikimedia Commons「Eerste DC 10 voor KLM landt op Schiphol, cockpit en interieur, Bestanddeelnr 926-1073.jpg」　https://commons.wikimedia.org/wiki/File:Eerste_DC_10_voor_KLM_landt_op_Schiphol,_cockpit_en_interieur,_Bestanddeelnr_926-1073.jpg |
+| `klm_nice_1973` | c804 | 1973 | CC0 | オランダ国立公文書館（Anefo） | Wikimedia Commons「Vlucht met DC-10 naar Nice, cockpit DC-10 met piloten, Bestanddeelnr 926-2653.jpg」　https://commons.wikimedia.org/wiki/File:Vlucht_met_DC-10_naar_Nice,_cockpit_DC-10_met_piloten,_Bestanddeelnr_926-2653.jpg |
+| `aa_dc10_1974` | c424 | 1974 | CC BY 3.0 | Piergiuliano Chesi | Wikimedia Commons「American Airlines McDonnell Douglas DC-10 01.jpg」　https://commons.wikimedia.org/wiki/File:American_Airlines_McDonnell_Douglas_DC-10_01.jpg |
+| `kal_longbeach_1974` | c605 | 1974 | CC BY 3.0 | Piergiuliano Chesi | Wikimedia Commons「Korean Air Lines McDonnell Douglas DC-10 N198 01.jpg」　https://commons.wikimedia.org/wiki/File:Korean_Air_Lines_McDonnell_Douglas_DC-10_N198_01.jpg |
+| `ua_longbeach_1974` | c617 | 1974 | CC BY 3.0 | Piergiuliano Chesi | Wikimedia Commons「United Airlines DC-10 N1826U.jpg」　https://commons.wikimedia.org/wiki/File:United_Airlines_DC-10_N1826U.jpg |
+| `dc10_flight_1971` | c713 | 1971 | Public domain | マクドネル・ダグラス社の広報写真 | Wikimedia Commons「McDonnell Douglas DC-10 N1803U (C15-10).jpg」　https://commons.wikimedia.org/wiki/File:McDonnell_Douglas_DC-10_N1803U_(C15-10).jpg |
+| `dc10_cabin` | c802 | 1973 | Public domain | マクドネル・ダグラス社の広報写真 | Wikimedia Commons「McDonnell Douglas DC-10 interior (CJ406257).jpg」　https://commons.wikimedia.org/wiki/File:McDonnell_Douglas_DC-10_interior_(CJ406257).jpg |
+| `tcjau_fra_1974` | c203 | 1974 | CC BY 3.0 | RuthAS | Wikimedia Commons「Douglas DC-10-10 TC-JAU THY FRA 28.07.74 edited-2.jpg」　https://commons.wikimedia.org/wiki/File:Douglas_DC-10-10_TC-JAU_THY_FRA_28.07.74_edited-2.jpg |
+| `finnair_dc10` | c206 | 1975 | CC BY 4.0 | Volker von Bonin／フィンランド文化遺産庁 | Wikimedia Commons「Finnairin DC-10 lentokone lentokentällä 1970 (HK7137-875).tif」　https://commons.wikimedia.org/wiki/File:Finnairin_DC-10_lentokone_lentokentällä_1970_(HK7137-875).tif |
+| `orly_hall_1970` | c209 | 1970 | CC BY-SA 4.0 | スイス航空／ETH 図書館 | Wikimedia Commons「Departure hall at Paris-Orly airport (LBS SR04-038169).tif」　https://commons.wikimedia.org/wiki/File:Departure_hall_at_Paris-Orly_airport_(LBS_SR04-038169).tif |
+| `pg11` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 11頁 |
+| `pg15` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 15頁 |
+| `pg16` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 16頁 |
+| `pg17` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 17頁 |
+| `pg53` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 53頁 |
+| `pg63` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 63頁 |
+| `pg80` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 80頁 |
+| `pg88` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 88頁 |
+| `pg90` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 90頁 |
+| `pg91` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 91頁 |
+| `pg92` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 92頁 |
+| `pg94` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 94頁 |
+| `pg95` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 95頁 |
+| `pg104` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 104頁 |
+| `pg105` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 105頁 |
+| `pg107` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 107頁 |
+| `pg109` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 109頁 |
+| `pg141` | （章ファイル） | 1976 | 仏国の公文書＝引用（改変しない） | フランス事故調査委員会 | 仏 最終報告 PDF 141頁 |
+| `pg1001` | （章ファイル） | 1976 | 英国の公文書＝引用（改変しない） | 英国事故調査局（仏報告の英訳） | AIB 8/76 PDF 1頁 |
+| `pg1010` | （章ファイル） | 1976 | 英国の公文書＝引用（改変しない） | 英国事故調査局（仏報告の英訳） | AIB 8/76 PDF 10頁 |
+| `pg1052` | （章ファイル） | 1976 | 英国の公文書＝引用（改変しない） | 英国事故調査局（仏報告の英訳） | AIB 8/76 PDF 52頁 |
+| `pg1053` | （章ファイル） | 1976 | 英国の公文書＝引用（改変しない） | 英国事故調査局（仏報告の英訳） | AIB 8/76 PDF 53頁 |
+| `pg2005` | （章ファイル） | 1974 | Public domain（米国の職務著作） | 米上院 商業委員会 航空小委員会 | 米上院 報告 PDF 5頁 |
+| `pg2014` | （章ファイル） | 1974 | Public domain（米国の職務著作） | 米上院 商業委員会 航空小委員会 | 米上院 報告 PDF 14頁 |
+| `pg2017` | （章ファイル） | 1974 | Public domain（米国の職務著作） | 米上院 商業委員会 航空小委員会 | 米上院 報告 PDF 17頁 |
+| `pg2030` | （章ファイル） | 1974 | Public domain（米国の職務著作） | 米上院 商業委員会 航空小委員会 | 米上院 報告 PDF 30頁 |
+| `pg2032` | （章ファイル） | 1974 | Public domain（米国の職務著作） | 米上院 商業委員会 航空小委員会 | 米上院 報告 PDF 32頁 |
+| `pg2033` | （章ファイル） | 1974 | Public domain（米国の職務著作） | 米上院 商業委員会 航空小委員会 | 米上院 報告 PDF 33頁 |
+| `pg2034` | （章ファイル） | 1974 | Public domain（米国の職務著作） | 米上院 商業委員会 航空小委員会 | 米上院 報告 PDF 34頁 |
+| `pg2046` | （章ファイル） | 1974 | Public domain（米国の職務著作） | 米上院 商業委員会 航空小委員会 | 米上院 報告 PDF 46頁 |
+| `pg2051` | （章ファイル） | 1974 | Public domain（米国の職務著作） | 米上院 商業委員会 航空小委員会 | 米上院 報告 PDF 51頁 |
+| `pg2055` | （章ファイル） | 1974 | Public domain（米国の職務著作） | 米上院 商業委員会 航空小委員会 | 米上院 報告 PDF 55頁 |
+| `pg4001` | （章ファイル） | 1974 | Public domain（米国の職務著作） | 米連邦航空局（FAA） | AD 74-08-04 PDF 1頁 |
+| `pg4101` | （章ファイル） | 1974 | Public domain（米国の職務著作） | 米連邦航空局（FAA） | AD 74-12-07 PDF 1頁 |
+| `pg4201` | （章ファイル） | 1975 | Public domain（米国の職務著作） | 米連邦航空局（FAA） | AD 75-15-05 PDF 1頁 |
+| `pg4301` | （章ファイル） | 1974 | Public domain（米国の職務著作） | 米官報（Federal Register） | 官報 1974-04-02 PDF 1頁 |
+| `pg5002` | （章ファイル） | 1972 | 企業の技術文書＝引用（改変しない） | マクドネル・ダグラス社 | SB 52-37 PDF 2頁 |
+| `pg5003` | （章ファイル） | 1972 | 企業の技術文書＝引用（改変しない） | マクドネル・ダグラス社 | SB 52-37 PDF 3頁 |
