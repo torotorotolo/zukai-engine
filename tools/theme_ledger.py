@@ -33,6 +33,12 @@
     ⚠️ **本数が少ないと暴れる**（小さい局の1本が7〜99倍を出す）。順位付けに使わず、
        **「1.0× を割っているか」の足切り**に使うこと。
     ⚠️ 公開30日未満は熟成前なので、分子にも分母にも入れない。
+
+■ 🔴 題名は NFKC に揃えてから照合する（2026-09-24・14/15本目の①で発見）
+    pool.json の題名 1,815本のうち **311本（17%）は濁点・半濁点を別の文字で持つ形（NFD）**
+    （『ゆっくり災難資料館【裏】』だけで241本）。揃えずに照合すると、**濁点を含む語
+    （チェルノブイリ・コンコルド など）では、その311本が構造的に見えない**。
+    陽性対照＝`neighbor --words チェルノブイリ` が LOt7Kvjpr14（終わらないチェルノブイリ）に当たること。
 """
 from __future__ import annotations
 
@@ -41,6 +47,7 @@ import json
 import re
 import statistics
 import sys
+import unicodedata
 from datetime import date, datetime
 from pathlib import Path
 
@@ -58,6 +65,11 @@ def _d(s: str) -> date:
     return datetime.strptime(s[:10], "%Y-%m-%d").date()
 
 
+def _n(s: str) -> str:
+    """文字を揃える（NFD の濁点・全角の数字・半角カナ）。題名と語の網の両方に掛ける"""
+    return unicodedata.normalize("NFKC", s)
+
+
 def load_pool():
     if not POOL.exists():
         raise SystemExit(f"[中止] {POOL} が無い。`yt_genre_scan.py scan --dump` の結果を merge すること")
@@ -70,13 +82,16 @@ def load_ledger():
     return json.loads(LEDGER.read_text(encoding="utf-8"))
 
 
-def neighbor(rows, pattern, today=None):
-    """pattern に当たる動画それぞれの近所比を返す。[(倍率, row), …]"""
+def neighbor(rows, pattern, today=None, exclude=None):
+    """pattern に当たり exclude に当たらない動画それぞれの近所比を返す。[(倍率, row), …]
+    exclude＝題名に名前が出るだけの別の事故（例：セウォル号の回の『東方之星』『西海フェリー』）"""
     today = today or date.today()
     mature = [r for r in rows if (today - _d(r["published"])).days >= MATURE_DAYS]
-    pat = re.compile(pattern)
+    pat = re.compile(_n(pattern))
+    ex = re.compile(_n(exclude)) if exclude else None
     out = []
-    for h in [r for r in mature if pat.search(r["title"])]:
+    for h in [r for r in mature
+              if pat.search(_n(r["title"])) and not (ex and ex.search(_n(r["title"])))]:
         h0 = _d(h["published"])
         peers = [r["views"] for r in mature
                  if r["channel"] == h["channel"] and r["id"] != h["id"]
@@ -91,20 +106,20 @@ def neighbor(rows, pattern, today=None):
 def cmd_neighbor(a) -> int:
     rows = load_pool()
     if a.ledger:
-        targets = [(t["name"], t.get("pattern") or "|".join(t.get("words", [])))
+        targets = [(t["name"], t.get("pattern") or "|".join(t.get("words", [])), t.get("exclude"))
                    for t in load_ledger()["themes"]]
     elif a.words:
-        targets = [(a.words[0], "|".join(a.words))]
+        targets = [(a.words[0], "|".join(a.words), a.exclude)]
     else:
         raise SystemExit("[中止] --words か --ledger のどちらかが要る")
 
     print(f"母集団 {len(rows)} 本 ／ 熟成の線 {MATURE_DAYS}日 ／ 近所の幅 ±{NEAR_DAYS}日")
     print(f"{'題材':<24}{'本':>3}{'局':>3}{'近所比':>8}{'最大':>7}   内訳")
     res = []
-    for name, pat in targets:
+    for name, pat, ex in targets:
         if not pat:
             continue
-        rec = neighbor(rows, pat)
+        rec = neighbor(rows, pat, exclude=ex)
         if not rec:
             print(f"{name[:23]:<24}  —  近所比を出せる本が無い（同時期の比較対象が3本未満）")
             continue
@@ -169,6 +184,7 @@ def main() -> int:
     p = sub.add_parser("neighbor", help="母集団から近所比を測る")
     p.add_argument("--words", action="append", help="題名に含まれる語（複数可＝or）")
     p.add_argument("--ledger", action="store_true", help="帳簿の全題材を測り直す")
+    p.add_argument("--exclude", help="当たっても除く語（題名に名前が出るだけの別の事故）。--ledger では帳簿の exclude を使う")
     p.set_defaults(fn=cmd_neighbor)
     p = sub.add_parser("merge", help="新しく走査した母集団を足す")
     p.add_argument("--pool", required=True)
