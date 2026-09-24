@@ -34,12 +34,15 @@ def marks(sent, m):
 
 
 def main():
-    bad, changed = [], []
+    bad, changed, skipped = [], [], []
     for l in E.lines():
         sent = E.el_text(l.text)
         if sent != l.text:
             changed.append((l.lid, l.text, sent))
         ms = list(DIGIT.finditer(sent))
+        if ms and l.text in E.EL_YOMI_SKIP:
+            skipped.append(l.lid)      # 🔴 2026-09-24 ⑤a'：わざと数字のまま送る行（読みは台帳 ep13_yomi_heard.tsv の phon）＝落とさない
+            continue
         if ms:
             tags = []
             for m in ms:
@@ -54,7 +57,8 @@ def main():
     for lid, sent, tags in bad:
         print(f"{lid}  {' '.join(tags)}\n    {sent}")
     n = sum(len(t) for _, _, t in bad)
-    print(f"\n送信文に生の数字が残る行 {len(bad)}（数 {n}）／読み替わった行 {len(changed)}")
+    print(f"\n送信文に生の数字が残る行 {len(bad)}（数 {n}）／EL_YOMI_SKIP で数字のまま送る行 {len(skipped)}"
+          f"／読み替わった行 {len(changed)}")
     return 1 if bad else 0
 
 
