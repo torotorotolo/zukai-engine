@@ -47,7 +47,15 @@ sys.path.insert(0, str(HERE / "tools"))
 sys.stdout.reconfigure(encoding="utf-8")
 sys.stderr.reconfigure(encoding="utf-8")
 
-RECORD = HERE / "ref" / "ep10" / "masked.json"
+# 🔴 2026-09-24（13本目 ⑤b-1）：ここは `ref/ep10/masked.json` の**直書き**だった（10本目から3回ぶん据え置き。
+#    11・12本目は隠す点が0＝鳴らなかった）。記録の置き場は回ごとに替わる＝`cuts/ss.py` の REF から毎回引く
+#    （§0b の一覧に無かった14か所目。ss.py の注「隠すなら ref/epN/masked.json に md5 を記録する」と揃える）。
+def _record():
+    import cuts.ss as ss
+    return ss.REF / "masked.json"
+
+
+RECORD = _record()
 
 
 def md5_of(path):
