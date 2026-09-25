@@ -1140,9 +1140,52 @@ def ep12():
         bake(f"ep12_{nm}", fx_type(hero[nm.rsplit('_', 1)[1]], red, YEL, "e_veil", yel_plain=True))
 
 
+EP13_THY = "ep13/tcjau_fra_1974.jpg"   # RuthAS／CC BY 3.0：姉妹機 TC-JAU（トルコ航空の DC-10・1974-07-28 フランクフルト）
+EP13_WRECK = "ep13/wreck_1997.jpg"     # Ian Abbott／CC BY 4.0：現場の森に残っていた 981便の破片（1997年）
+
+
+def ep13():
+    """13本目・トルコ航空981便（2026-09-25・⑥）1巡目。
+
+    🔴 事故機 TC-JAV の写真は4点とも CC BY-SA＝文字を重ねると改変（継承の義務が付く）＝**地に使わない**
+       （本編も額装・無改変だけ＝`ss.FRAME_ONLY`）。地は CC BY の2点から：
+       thy   … 姉妹機 TC-JAU（同じ航空会社・同じ型・同じ年の色）。⚠️ 事故機そのものではない
+       wreck … 現場の森に残っていた破片（981便そのもの・1997年）。⚠️ 210px で何の絵か分かるかを見る
+    🔴 赤は §B5-5「犠牲N人＋この回だけの核心」と、★（原文に当てた決め所）そのままの1本。
+       「死亡」・通説（ストライキ・ヒースロー・335人）は使わない。
+      a … 犠牲346人＋「電話1本の約束」（第5章の章名・タイトルの2文目）＋ thy
+      b … 犠牲346人＋「旅客機の半ドア」（c108〜c109 の言い方）＋ thy
+      c … a と同じ赤 ＋ wreck
+      d … `c103`★「危険は、前の事故ですでに明らかだった」を「危険は すでに明らかだった」に（仏 p105）＋ wreck
+    ⚠️ 顔の写る写真は地にしない（§B5-4）。2点とも人は写っていない。
+    """
+    RED = {
+        "a_yakusoku_thy": "犠牲346人 電話1本の約束",      # 14字
+        "b_handoa_thy": "犠牲346人 旅客機の半ドア",       # 14字
+        "c_yakusoku_wreck": "犠牲346人 電話1本の約束",    # 14字
+        "d_kiken_wreck": "危険は すでに明らかだった",      # 13字・c103★
+    }
+    YEL = "トルコ航空981便の真相"    # 12字・日本で通っている呼び名＋「の真相」（§B5-1）
+
+    for nm, red in RED.items():
+        for bad in ("死亡", "ﾀﾋ", "ストライキ", "ヒースロー", "335"):
+            if bad in red:
+                raise SystemExit(f"🔴 {nm} の赤に使ってはいけない語「{bad}」がある: {red}")
+        if not (10 <= len(red) <= 15):
+            raise SystemExit(f"🔴 {nm} の赤が {len(red)}字（型は10〜15字）: {red}")
+
+    thy = photo(EP13_THY, cy=0.50, cx=0.50, contrast=1.10, color=1.05, bright=1.00)
+    wreck = photo(EP13_WRECK, cy=0.50, cx=0.50, contrast=1.12, color=1.05, bright=1.00)
+    hero = {"thy": thy, "wreck": wreck}
+    for nm, red in RED.items():
+        bake(f"ep13_{nm}", fx_type(hero[nm.rsplit('_', 1)[1]], red, YEL, "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep12" in sys.argv:
+    if "ep13" in sys.argv:
+        ep13()
+    elif "ep12" in sys.argv:
         ep12()
     elif "ep10-ai2" in sys.argv:
         ep10_ai2()
