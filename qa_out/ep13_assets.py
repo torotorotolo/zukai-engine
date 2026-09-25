@@ -61,7 +61,7 @@ PICK = {
     'tcjav_landing': C('THY Türk Hava Yolları - Turkish Airlines McDonnell Douglas DC-10-10 London - Heathrow 1973',
                        'tcjav', 1973, cut='c701', note='1973年・ヒースロー。着陸（白黒・A4）'),
     # ── 予兆の機体 ─────────────────────────────────────────
-    'n103aa_1977': C('N103AA American DC-10-10 at KSFO', 'n103aa', 1977, cut='c408',
+    'n103aa_1977': C('N103AA American DC-10-10 at KSFO', 'n103aa', 1977, cut='c401',
                      note='1977年3月・サンフランシスコの N103AA（ドアが外れた機体そのもの・修理後・A5）'),
     'aa96_door': C('Photo of American Airlines Flight 96 cargo door', 'n103aa', 1972, cut='c421',
                    note='AA96便のドアの外れた跡を後ろから見る人（顔は見えない・A6）'),
@@ -246,6 +246,11 @@ def cmd_panel():
     return 0
 
 
+# 元画像そのものに手を入れた点（`cuts/ss.py` の NEEDS_MASK・`ref/ep13/masked.json`）。CC BY は改変の旨を出典に書く
+#   ⚠️ `build` で取り直すとモザイクが消える＝`check_photo_mask` が md5 で止める（⑤b-4・09-25）
+MASKED = {'names_wall': '名前にモザイク'}
+
+
 def credit_line(name, r):
     """画面の出典。BY-SA は「（無改変）」まで書く（10本目と同じ形。`scene_jiko.credit_of` は
     「改変」の字があれば「改変：色調変更・切出」を足さない）。PD・CC0 は義務は無いが出どころは名乗る。"""
@@ -253,6 +258,8 @@ def credit_line(name, r):
     who = WHO.get(name) or r['author']
     if 'SA' in lic.upper().replace('-', ' ').split():
         return f"出典：{who}／{lic}（無改変）"
+    if lic.upper().startswith('CC BY') and name in MASKED:
+        return f"出典：{who}／{lic}（改変：{MASKED[name]}・色調変更・切出）"
     if lic.upper().startswith('CC BY'):
         return f"出典：{who}／{lic}"
     if lic.upper() == 'CC0':
