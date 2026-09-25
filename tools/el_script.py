@@ -41,8 +41,12 @@ except Exception:
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import narration  # noqa: E402  台本の正本
+import speaker    # noqa: E402  聞き役の印 `Q: `（14本目から）
 
-SLUG = "ep13"               # 13本目 トルコ航空981便（2026-09-24）。12本目 "ep12"・11本目 "ep11"・10本目 "ep10"・9本目 "ep9"・8本目 "ep8"・7本目 "ep7"・6本目 "keybridge"・5本目 "sl1"・4本目 "surfside"
+# 🔴 声のエンジン（2026-09-25・14本目⑤a 新設）。"aquestalk"＝ゆっくり（読みは tools/aq_kana.py・合成は aq_build）。
+#    13本目までは ElevenLabs（この名前が無い回は elevenlabs とみなす＝check_yomi_numbers が振り分ける）
+VOICE_ENGINE = "aquestalk"
+SLUG = "ep14"               # 14本目 セウォル号（2026-09-25・声はゆっくり＝AquesTalk）。13本目 "ep13"・12本目 "ep12"・11本目 "ep11"・10本目 "ep10"・9本目 "ep9"・8本目 "ep8"・7本目 "ep7"・6本目 "keybridge"・5本目 "sl1"・4本目 "surfside"
 # 🔴 話速 1.0 を**明示して送る**（2026-09-07 カズヤくん指示）。渡さないと声に保存された既定
 #    speed 1.14 で読まれる。speed 以外の4つは /v1/voices/<id>/settings の実測をそのまま写した
 #    （2026-09-07 に API で取り直し＝stability 0.85 / similarity_boost 1.0 / style 0.0 /
@@ -141,6 +145,12 @@ EXPECT = {
     #       `VAULT / 絶対パス` は絶対パスのほうを返すので、md に絶対パスを書けば quote_cuts・md_vs_script はそのまま動く。
     "ep13":     {"cuts": 192, "lines": 386, "chars": 11731, "quotes": 16, "why": "トルコ航空981便 台本第2版",
                  "md": str(ROOT / "ref" / "ep13" / "daihon_v2.md")},
+    # 🔴 14本目 セウォル号（2026-09-25 ④' 承認ずみ＝⑤aのチャットの頭で「承認・実名はこのまま」）。
+    #    出所＝check_script.py を⑤aで自分で回した出力（聞き役の印を知る版）
+    #    「カット 195 / 字幕行 439 / 本文 11166字 / 決め所 16」＝E 0件 / W 5件（衝撃2・角度3）
+    #    ⚠️ 字は**聞き役の印 `Q: ` を除いた数**（行は聞き役56行を含む）。selftest も印を除いて数える
+    "ep14":     {"cuts": 195, "lines": 439, "chars": 11166, "quotes": 16, "why": "セウォル号 台本第2版",
+                 "md": str(ROOT / "ref" / "ep14" / "daihon_v2.md")},
 }
 # 🔴🔴 **全回で共通の末尾**（2026-09-21・⑤a 新設）。`narration.SCRIPT` には入るが、
 #    **Vault の台本 md には無い**（④ が書くものではなく、⑥ で足した全回共通の資産だから）。
@@ -167,7 +177,9 @@ COMMON_TAIL = ("ed01",)
 #      命令と約束が入れ替わる・落ちると、話の筋が逆になる（15行・6行・4行）。
 #    錠・板＝事故の仕組みそのもの（★c404-2「錠が不完全で」・★c423「錠はかかっていなかった」・★c617-2「肝心の板は付いていなかった」）。
 #    ⚠️ 入れなかった語＝「閉ま」20行・「ピン」19行（聞取が しまって／ピン と書く所で鳴りすぎる＝本物が埋もれる）。
-CRITICAL_EP = ("命令", "約束", "紳士協定", "錠", "板")
+# 🔴 2026-09-25（14本目⑤a）: 空にした。14本目は AquesTalk（ゆっくり）＝聞取で合否を決める網（el_check_heard）を使わない。
+#    13本目の5語は台本に当たらず import 門番（_gate ②b）で止まる。読みは合成の**前**に音声記号列で確かめる（check_aq_yomi）
+CRITICAL_EP = ()
 VAULT = Path.home() / "Documents" / "Obsidian Vault" / "Projects"
 
 
@@ -219,14 +231,20 @@ def md_vs_script():
     #    以前はここだけ独自の正規表現 `^★\*\*(.*)\*\*$` で★を外していた＝**★の行を太字で囲む書き方しか知らない**。
     #    13本目の台本（リポの md）は `★断言する、…` と太字なしで書くので、★の16行が全部「食い違い」と出た
     #    （文は1文字も違わない＝物差しの側の穴）。clean() は ★ と ** を両方外すので、12本目までの書き方も同じ結果になる。
-    md = [(cid, CSC.clean(t)) for cid, _, ls in CSC.parse(p.read_text(encoding="utf-8")) for t in ls]
-    py = [(l.cid, l.text) for l in lines() if l.cid not in COMMON_TAIL]   # 🔴 共通の末尾は md に無い
+    # 🔴 2026-09-25（14本目⑤a）: **話者も突き合わせる**（聞き役の印 `Q: `＝tools/speaker.py）。
+    #    clean() は印も外すので、文だけ比べると「md は聞き役・.py は語り」の食い違いが黙って通る。
+    #    印の無い回は話者がどちらも None＝結果は1文字も変わらない
+    md = [(cid, speaker.is_q(t), CSC.clean(t)) for cid, _, ls in CSC.parse(p.read_text(encoding="utf-8")) for t in ls]
+    py = [(l.cid, speaker.is_q(l.text), speaker.bare(l.text))
+          for l in lines() if l.cid not in COMMON_TAIL]   # 🔴 共通の末尾は md に無い
     bad = []
     if len(md) != len(py):
         bad.append(f"行数が違う: md {len(md)}行 ／ narration.SCRIPT {len(py)}行")
-    for (mc, mt), (pc, pt) in zip(md, py):
+    for (mc, mq, mt), (pc, pq, pt) in zip(md, py):
         if mc != pc or mt != pt:
             bad.append(f"{mc}: md「{mt}」／ .py「{pt}」")
+        elif mq != pq:
+            bad.append(f"{mc}: 話者が違う（md {'聞き役' if mq else '語り'} ／ .py {'聞き役' if pq else '語り'}）「{mt}」")
     return bad
 
 
@@ -642,6 +660,12 @@ EL_YOMI_SKIP = {
 #    既定の境界規則は「漢字で終わるキーは直後が漢字なら当てない」なので、開けないと1行も当たらない
 #    （門番が「台本のどの行にも当たらない」で止めてくれた＝黙って素通りしない）。
 #    ⚠️ 右を開けても巻き添えは起きない。台本に「三豊」で始まる別の語は無い（実測 8件すべて 百貨店／建設）。
+# 🔴 2026-09-25（14本目⑤a）: **14本目は ElevenLabs を使わない**（声はゆっくり＝AquesTalk・読みは tools/aq_kana.py）。
+#    上の13本目の辞書（168件）と EL_YOMI_SKIP は台本に当たらず import 門番（_gate ②⑤）で止まるので、ここで空にする
+#    （§0b・5a-12b「EL_YOMI は空から始める」）。上の中身は13本目の履歴として残す（git にもある）。
+#    ⚠️ 本線へ移すとき（13本目の公開後）は、この2行ごと14本目側を採る
+EL_YOMI = {}
+EL_YOMI_SKIP = {}
 EL_YOMI_OPEN_RIGHT = frozenset()   # 🔴 10本目の "三豊" を外した（2026-09-21・⑤a）。EL_YOMI と同時に空にする
 EL_YOMI_OPEN_LEFT = frozenset()
 EL_YOMI_ORDER, EL_YOMI_RE = _compile_yomi(EL_YOMI, EL_YOMI_OPEN_RIGHT, EL_YOMI_OPEN_LEFT)
@@ -715,7 +739,7 @@ def selftest() -> int:
     # 🔴 EXPECT は**台本（md）の数**＝共通の末尾 `ed01` を外して突き合わせる（COMMON_TAIL の注記）
     body = [l for l in ls if l.cid not in COMMON_TAIL]
     n_cuts = sum(1 for cid, _ in narration.SCRIPT if cid not in COMMON_TAIL)
-    n_chars = sum(len(l.text) for l in body)
+    n_chars = sum(len(speaker.bare(l.text)) for l in body)     # 🔴 14本目から：聞き役の印は数えない
     e = EXPECT[SLUG]
     why = e["why"]
     print(f"台本: {n_cuts}カット／{len(body)}行／{n_chars}字（{why} の実測は "

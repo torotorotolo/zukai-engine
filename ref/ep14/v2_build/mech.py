@@ -14,7 +14,7 @@
 import re, sys, json, collections
 from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
-ROOT = Path("C:/Users/konar/Desktop/zukai-engine")
+ROOT = Path(__file__).resolve().parents[3]  # ⑤a：本線の直書きをやめた（別の作業ツリーから回すため）
 sys.path.insert(0, str(ROOT / "tools"))
 import check_script as CS
 

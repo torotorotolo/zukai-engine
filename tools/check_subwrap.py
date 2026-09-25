@@ -64,7 +64,10 @@ def run():
         print(f"🔴 {p} が無い（先に el_build）")
         return 1
     subs = json.loads(p.read_text(encoding="utf-8"))["subtitles"]
-    want = [(cid, [t.strip() for t in ls]) for cid, ls in narration.SCRIPT]
+    # 🔴 2026-09-25（14本目⑤a）: 聞き役の印 `Q: ` は字幕に出さない＝台本の側で外して比べ、話者（who）も突き合わせる。
+    #    字幕に `Q:` が漏れれば文が食い違って E4 で止まる。印の無い回は話者がどちらも None＝結果は変わらない
+    import speaker
+    want = [(cid, [speaker.split(t) for t in ls]) for cid, ls in narration.SCRIPT]
     errs, n, folded = [], 0, 0
     got_ids = list(subs.keys())
     if [c for c, _ in want] != got_ids:
@@ -72,9 +75,13 @@ def run():
         extra = [c for c in got_ids if c not in dict(want)]
         errs.append(f"E4 カットの並びが台本と違う（無い {miss[:5]}／余分 {extra[:5]}）")
     for cid, ls in want:
-        rows = [s["text"] for s in subs.get(cid, [])]
-        if rows != ls:
-            errs.append(f"E4 {cid}: 字幕 {rows} ≠ 台本 {ls}")
+        segs = subs.get(cid, [])
+        rows = [s["text"] for s in segs]
+        texts = [t for _, t in ls]
+        if rows != texts:
+            errs.append(f"E4 {cid}: 字幕 {rows} ≠ 台本 {texts}")
+        elif [s.get("who") for s in segs] != [w for w, _ in ls]:
+            errs.append(f"E4 {cid}: 話者 {[s.get('who') for s in segs]} ≠ 台本 {[w for w, _ in ls]}")
         for i, t in enumerate(rows, 1):
             n += 1
             folded_rows, bad = judge(t)
