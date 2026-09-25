@@ -1,0 +1,6 @@
+pages exit=0
+refcheck exit=0
+cs exit=1
+csq exit=0
+cf exit=0
+mech exit=0
