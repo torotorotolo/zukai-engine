@@ -3292,9 +3292,14 @@ def people(nodes, edges=None, note="", lead="", src="", pair=False):
         if gs:
             s.append(_glyph(n["kind"], sx + gs / 2, y, gs, c))
         cx = sx + (gs + 26 if gs else 0)
-        s.append(txt(cx, y + (16 if not n.get("d") else -8), n["t"], ts, J.INK_W))
+        # ⑤b-3（13本目・2026-09-25）：節が1段だけのカットは絵と字を大きくする（上の GS・TS_CAP 最大1.5倍）のに、
+        #   名前と d の間は -8／+46 の固定だった＝字が1.5倍になると d が名前に触れた（13本目 c512・c501。
+        #   12本目 c417 も同じ形＝公開ずみ・焼き直さない）。→ **字を大きくしたぶんだけ**間も広げる。
+        #   ⚠️ 段が2つ以上・字を縮めた節は k_sp=1＝今までと1画素も変わらない
+        k_sp = max(1.0, TS_CAP / 56.0)
+        s.append(txt(cx, y + (16 if not n.get("d") else -8 * k_sp), n["t"], ts, J.INK_W))
         if ds:
-            s.append(txt(cx, y + 46, n["d"], ds, J.TICK))
+            s.append(txt(cx, y + 46 * k_sp, n["d"], ds, J.TICK))
         stages.append("".join(s))
     # 🔴 2026-09-17（9本目 ⑤c' E-03 c718）：段は「矢印を全部 → 節を全部」の順なので、
     #    節4つ・矢印3本だと段が7つになり、**最後の節（オランダ）が尺の最後 0.40秒だけ**
