@@ -87,6 +87,11 @@ CLAIM_SOFT = re.compile(r"(1[89]\d\d|20\d\d)年ごろ")
 # 🔴 8本目は事故が **2003年2月1日**。⚠️ この回の副題は「2003年1月16日」「2002年3月12日」
 #    のように**月から書く**ので、日の主張は「NNNN年N月N日」で拾う。
 CLAIM_DAY = re.compile(r"(1[89]\d\d|20\d\d)年\d{1,2}月\d{1,2}日")
+# 🔴🔴 2026-09-25（13本目 ⑤c'）：13本目の副題は「1973年・ロンドン」「1974年8月」＝**年だけ・年と月だけ**。
+#    上の網はどれも当たらず、qa_all の「✓ 年の主張はどの欄も表と合っている」は**空の合格**だった
+#    （c606「1973年・ロンドン」×表の撮影年「不明」を通していた）。→ 年だけ・年と月も「その年の写真」として比べる。
+#    ⚠️ 日まである形・「撮影」「ごろ」「以前」が続く形は上の網の受け持ち（二重に数えない＝後ろに数字も続かない）
+CLAIM_BARE = re.compile(r"(1[89]\d\d|20\d\d)年(?:\d{1,2}月)?(?!\d|撮影|ごろ|以前)")
 
 # ④ 目で決めるために並べる語。原題の側にこれが出たら副題と並べて出す
 PLACE = re.compile(
@@ -142,9 +147,15 @@ def load_table():
 
 
 def judge(sub, row):
-    """その副題が表と食い違っているか。(🔴の理由, ⚠️の理由) を返す。"""
+    """その副題が表と食い違っているか。(🔴の理由, ⚠️の理由, 比べた年の主張の数) を返す。"""
     hard, soft = [], []
     y = row["year"]
+    n = sum(len(p.findall(sub)) for p in (CLAIM_YEAR, CLAIM_SOFT, CLAIM_DAY, CLAIM_BARE)) + sub.count(CLAIM_PRE)
+    for b in CLAIM_BARE.finditer(sub):
+        if y is None:
+            hard.append(f"副題が「{b.group(0)}」と名乗るのに、表の撮影年が**不明**")
+        elif int(b.group(1)) != y:
+            hard.append(f"副題「{b.group(0)}」に対し、表の撮影年は **{y}**")
     m = CLAIM_YEAR.search(sub)
     if m:
         if y is None:
@@ -171,7 +182,7 @@ def judge(sub, row):
                     f"（⚠️ 機種や場面の年を言っていることがある。目で決める）")
     if row["lic"].startswith("CC BY") and not row["who"]:
         hard.append("CC BY なのに撮影者が空（撮影者名は使用条件そのもの）")
-    return hard, soft
+    return hard, soft, n
 
 
 def words(title, sub):
@@ -183,7 +194,7 @@ def words(title, sub):
 def run(full=False):
     import cuts                                                 # noqa: PLC0415
     rows = load_table()
-    hits, softs, seen = [], [], 0
+    hits, softs, seen, claims = [], [], 0, 0
     for cid in sorted(cuts.SPEC):
         spec = cuts.SPEC[cid]
         photo = spec.get("photo") or ""
@@ -210,7 +221,8 @@ def run(full=False):
             hits.append((cid, slot, f"`{slot}` が §8 の表に無い（fail closed）"))
             continue
         sub = str(spec.get("s") or "")
-        hard, soft = judge(sub, row)
+        hard, soft, nc = judge(sub, row)
+        claims += nc
         for h in hard:
             hits.append((cid, slot, h))
         for s in soft:
@@ -226,6 +238,11 @@ def run(full=False):
     if seen == 0:
         print("🔴 写真を出すカットが0欄＝**章ファイルを読めていない**か、この回の写真を1枚も当てていない"
               "（合格にしない・exit 2）")
+        return 2
+    # 🔴 2026-09-25（13本目 ⑤c'）：網が副題の書き方に1つも当たらなければ、それは「合っている」ではなく「測っていない」
+    print(f"■ 副題の年の主張 {claims} 件を、表の撮影年と比べた")
+    if claims == 0:
+        print("🔴 年の主張を1件も比べていない＝網（CLAIM_*）がこの回の副題の書き方に合っていない（空の合格にしない・exit 2）")
         return 2
     for cid, slot, why in hits:
         print(f"  🔴 {cid}（{slot}）{why}")
@@ -276,6 +293,19 @@ def selftest():
         "Kadena" in words("F-15C Eagle ... at Kadena Air Base, Japan", "待機中のF-15　2024年撮影"))
     chk("陽性対照⑪：副題に出ている地名は拾わない",
         words("Departure Board at ORD", "空港の出発案内板 ORD　2017年撮影") == [])
+    # ── 2026-09-25（13本目 ⑤c'）：年だけ・年と月だけの形（c606 の型）
+    r73 = dict(r24, year=1973)
+    chk("陽性対照⑫：『1973年・ロンドン』×表が不明 → 鳴る（c606 の型）",
+        len(judge("事故機の尾部　1973年・ロンドン", dict(r24, year=None))[0]) == 1)
+    chk("陽性対照⑬：『1973年・ロンドン』×表1973 → 鳴らない",
+        judge("事故機の尾部　1973年・ロンドン", r73)[0] == [])
+    chk("陽性対照⑭：『1974年8月』×表1973 → 鳴る",
+        len(judge("アメリカン航空の機体　1974年8月", r73)[0]) == 1)
+    chk("陽性対照⑮：『1974年4月2日』は日の網だけが見る（二重に鳴らない）",
+        len(judge("官報の命令（1974年4月2日の号）", r73)[0]) == 1
+        and judge("官報の命令（1974年4月2日の号）", r73)[2] == 1)
+    chk("陽性対照⑯：『1970年ごろ』は年だけの網に入らない（⚠️ の受け持ち）",
+        judge("1970年ごろの空港", r73)[0] == [] and judge("1970年ごろの空港", r73)[2] == 1)
     print(f"\n{'✓ 物差しは通った' if ok else '🔴 物差しが壊れている'}")
     return 0 if ok else 2
 

@@ -69,7 +69,8 @@ SPEC = {
     "c604": dict(
         t="トルコへ渡る機体は対象外",
         s="SB 52-37の対象の一覧",
-        photo=ss.page(5002), panel=True, color=1.0,
+        # ⑤c'（09-25）：寄りの掃き 54px を上の余白 19px・下の余白 48px に分ける（bias 0.23＝上 12・下 42）
+        photo=ss.page(5002), panel=True, color=1.0, bias=0.23,
         side="right", ann_y=330,
         ann=[dict(t="胴体の番号の欄", d="29番は載っていない", dc=J.ALERT),
              dict(t="載らない機体", d="引き渡しの前に改修", dc=J.TICK)],
@@ -88,7 +89,9 @@ SPEC = {
     # 事故機 TC-JAV の尾部（A3・CC BY-SA 2.0＝額装・原色・1点1カット・札を重ねない）。番号は仏 p27・p65
     "c606": dict(
         t="29号機、製造番号46704",
-        s="事故機 TC-JAV の尾部と登録記号　1973年・ロンドン",
+        # ⑤c'（09-25）：年と場所を消した。Commons の日付は「1974年3月3日より前」だけ＝出典表の撮影年は不明（⑤c-1 の R1）。
+        #   登録記号 TC-JAV は枠に写る（⑤c-2 の原寸）＝「登録記号」は残す
+        s="事故機 TC-JAV の尾部と登録記号",
         photo=P("tcjav_tail"), panel=True, color=1.0,
     ),
 
@@ -121,7 +124,8 @@ SPEC = {
         s="証人の説明",
         fig=("absent", dict(
             mode="pair",
-            items=[dict(t="全日空の側", d="知っていて、好ましく見ていた", ok=True, c=J.LINE, n=1),
+            # ⑤c'（09-25）：左の n=1 は数える物が無いのに「1」が出ていた（⑤c-1 の W4）＝n を外して面1枚に
+            items=[dict(t="全日空の側", d="知っていて、好ましく見ていた", ok=True, c=J.LINE),
                    dict(t="全日空の発注", d="一度も無い", ok=False, c=J.ALERT, n=0)],
             note=NOTE_KK)),
     ),
@@ -218,7 +222,10 @@ SPEC = {
     #   when in fact it had not」
     "c617": dict(
         t="説明できない食い違い",
-        s="ダグラスの工場の同じ型の機体（ユナイテッド航空）",
+        # ⑤c'（09-25）：Commons の説明は「N1826U・製造番号 46625/169・初飛行 1974年8月7日・引き渡し 1975年2月27日」、
+        #   撮影 1974年8月・ロングビーチ空港＝**工場とは書いていない**（c605 は「DC-10 plant in Long Beach」と明記）。
+        #   出典に書いてある「引き渡し前」に直した（機首の 169 は製造の通し番号）
+        s="引き渡し前の同じ型の機体（ユナイテッド航空）　1974年",
         photo=P("ua_longbeach_1974"), **ss.kind(P("ua_longbeach_1974")),
         side="right", ann_y=330,
         ann=[dict(t="社長の答え", d="調べている途中", dc=J.TICK),
@@ -284,7 +291,7 @@ SPEC = {
         fig=("panel", dict(
             blocks=[dict(k="正しい調整なら", t="板が無くても倒れない", c=J.LINE),
                     dict(k="外から分かる手", t="のぞき窓だけ", c=J.AMBER),
-                    dict(k="鍵", t="その日の空", v="第7章", c=J.ALERT)],
+                    dict(k="次は", t="その日の空", v="第7章", c=J.ALERT)],
             cols=3)),
     ),
 

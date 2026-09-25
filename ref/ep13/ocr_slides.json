@@ -1,4 +1,468 @@
 {
+ "aa96_door.jpg": {
+  "size": [
+   1072,
+   1129
+  ],
+  "lines": []
+ },
+ "aa_dc10_1974.jpg": {
+  "size": [
+   3000,
+   2005
+  ],
+  "lines": [
+   {
+    "box": [
+     696,
+     1130,
+     804,
+     1200
+    ],
+    "text": "'AA"
+   }
+  ]
+ },
+ "dc10_cabin.jpg": {
+  "size": [
+   3000,
+   2376
+  ],
+  "lines": [
+   {
+    "box": [
+     2466,
+     1138,
+     2564,
+     1228
+    ],
+    "text": "0"
+   }
+  ]
+ },
+ "dc10_flight_1971.jpg": {
+  "size": [
+   3000,
+   2375
+  ],
+  "lines": [
+   {
+    "box": [
+     398,
+     957,
+     534,
+     984
+    ],
+    "text": "ロ ロ ー ー ロ"
+   },
+   {
+    "box": [
+     1119,
+     1062,
+     2085,
+     1097
+    ],
+    "text": ".4 イ ロ ロ / / ど ム ム ロ ロ レ ム 、 ロ 一 / ロ"
+   }
+  ]
+ },
+ "finnair_dc10.jpg": {
+  "size": [
+   1920,
+   1936
+  ],
+  "lines": []
+ },
+ "kal_longbeach_1974.jpg": {
+  "size": [
+   3000,
+   1817
+  ],
+  "lines": [
+   {
+    "box": [
+     2468,
+     784,
+     2552,
+     800
+    ],
+    "text": "DC 0 ー"
+   },
+   {
+    "box": [
+     390,
+     927,
+     976,
+     957
+    ],
+    "text": ": ・ : KOREAN . AIR"
+   },
+   {
+    "box": [
+     1012,
+     929,
+     1210,
+     957
+    ],
+    "text": "廴 ー N E S"
+   },
+   {
+    "box": [
+     1274,
+     929,
+     1558,
+     959
+    ],
+    "text": "大 室"
+   },
+   {
+    "box": [
+     67,
+     978,
+     215,
+     1035
+    ],
+    "text": "ロ ー"
+   },
+   {
+    "box": [
+     611,
+     1122,
+     650,
+     1144
+    ],
+    "text": "旧 0"
+   }
+  ]
+ },
+ "klm_apron_1972.jpg": {
+  "size": [
+   3000,
+   1989
+  ],
+  "lines": []
+ },
+ "klm_cockpit_1972.jpg": {
+  "size": [
+   3000,
+   1989
+  ],
+  "lines": [
+   {
+    "box": [
+     1043,
+     949,
+     1062,
+     1027
+    ],
+    "text": "第 を 一 日"
+   },
+   {
+    "box": [
+     1326,
+     847,
+     1440,
+     866
+    ],
+    "text": "ロ ロ ・ ■"
+   }
+  ]
+ },
+ "klm_landing_1972.jpg": {
+  "size": [
+   3000,
+   1989
+  ],
+  "lines": []
+ },
+ "klm_nice_1973.jpg": {
+  "size": [
+   3000,
+   1986
+  ],
+  "lines": [
+   {
+    "box": [
+     414,
+     727,
+     713,
+     787
+    ],
+    "text": "LudWig 00 B00 ・ ho 00"
+   },
+   {
+    "box": [
+     1129,
+     828,
+     1380,
+     901
+    ],
+    "text": "ROYa ゆ utch A 新 00"
+   },
+   {
+    "box": [
+     1637,
+     884,
+     1662,
+     945
+    ],
+    "text": "「 ミ 「 ミ"
+   },
+   {
+    "box": [
+     2289,
+     1350,
+     2316,
+     1405
+    ],
+    "text": "山 要"
+   }
+  ]
+ },
+ "monument_2010.jpg": {
+  "size": [
+   729,
+   499
+  ],
+  "lines": [
+   {
+    "box": [
+     246,
+     234,
+     395,
+     257
+    ],
+    "text": "に = 第 第 、 第 多 当"
+   }
+  ]
+ },
+ "n103aa_1977.jpg": {
+  "size": [
+   1520,
+   1013
+  ],
+  "lines": []
+ },
+ "names_wall.jpg": {
+  "size": [
+   1920,
+   1280
+  ],
+  "lines": [
+   {
+    "box": [
+     1537,
+     2,
+     1568,
+     12
+    ],
+    "text": "言 ア を ,"
+   }
+  ]
+ },
+ "orly_hall_1970.jpg": {
+  "size": [
+   1920,
+   1273
+  ],
+  "lines": []
+ },
+ "pg1001.png": {
+  "size": [
+   1706,
+   2159
+  ],
+  "lines": [
+   {
+    "box": [
+     492,
+     292,
+     779,
+     320
+    ],
+    "text": "亶 蹙 tm 印 颱 0f Trade"
+   },
+   {
+    "box": [
+     491,
+     356,
+     1071,
+     380
+    ],
+    "text": "ACCIDENTS INVEST[GATION BRANCH"
+   },
+   {
+    "box": [
+     489,
+     477,
+     1334,
+     543
+    ],
+    "text": "Turkish Airlines D010 TC-JAV"
+   },
+   {
+    "box": [
+     491,
+     553,
+     1283,
+     615
+    ],
+    "text": "R eport on the accident in the"
+   },
+   {
+    "box": [
+     488,
+     630,
+     1213,
+     685
+    ],
+    "text": "Ermenonville Forest, France"
+   },
+   {
+    "box": [
+     490,
+     693,
+     933,
+     743
+    ],
+    "text": "on 3 March 1974"
+   },
+   {
+    "box": [
+     489,
+     883,
+     987,
+     909
+    ],
+    "text": "ー 組 0 取 the 00 b 厖 e 観 tbe"
+   },
+   {
+    "box": [
+     489,
+     913,
+     979,
+     940
+    ],
+    "text": "Fre は e ね ー を S 加 for Tmnsport."
+   },
+   {
+    "box": [
+     488,
+     953,
+     855,
+     974
+    ],
+    "text": "NO A e 取 徴 were b ed 。"
+   },
+   {
+    "box": [
+     481,
+     1978,
+     597,
+     1999
+    ],
+    "text": "LONDON"
+   },
+   {
+    "box": [
+     501,
+     2008,
+     983,
+     2031
+    ],
+    "text": "E MAJESTY'S STATAONERY OFF 更"
+   }
+  ]
+ },
+ "pg109.png": {
+  "size": [
+   1641,
+   2338
+  ],
+  "lines": [
+   {
+    "box": [
+     10,
+     10,
+     294,
+     17
+    ],
+    "text": "BEA 日 ト F : ⅳ 、 ′ 40 ー ロ . LWAT: ー C. JAV. ー 物 ⅱ 、 19 42 ー 5"
+   },
+   {
+    "box": [
+     103,
+     430,
+     114,
+     488
+    ],
+    "text": "冪 ~ : ュ を 第"
+   },
+   {
+    "box": [
+     713,
+     798,
+     852,
+     823
+    ],
+    "text": "ANNEXES"
+   },
+   {
+    "box": [
+     432,
+     945,
+     1214,
+     980
+    ],
+    "text": "AU RAPPORT FINAL SUR I.,'ACC 工 お リ マ を U"
+   },
+   {
+    "box": [
+     452,
+     993,
+     1152,
+     1029
+    ],
+    "text": "盥 3 MARS 1974 0 で D ー E 国 N01 工 も"
+   },
+   {
+    "box": [
+     370,
+     1044,
+     912,
+     1078
+    ],
+    "text": "AtJ DC. 10 TC ー 耳 ▽ DES 工 GN お s"
+   },
+   {
+    "box": [
+     1441,
+     1802,
+     1451,
+     1851
+    ],
+    "text": "お ら ゴ"
+   },
+   {
+    "box": [
+     1146,
+     1805,
+     1366,
+     1841
+    ],
+    "text": "耳 き v 土 で 10 プ"
+   },
+   {
+    "box": [
+     1405,
+     1944,
+     1412,
+     1981
+    ],
+    "text": ", い 第 ー"
+   }
+  ]
+ },
  "pg15.png": {
   "size": [
    1726,
@@ -52,6 +516,7171 @@
    }
   ]
  },
+ "pg16.png": {
+  "size": [
+   1750,
+   2369
+  ],
+  "lines": [
+   {
+    "box": [
+     1476,
+     183,
+     1506,
+     204
+    ],
+    "text": "7 5"
+   },
+   {
+    "box": [
+     562,
+     727,
+     745,
+     752
+    ],
+    "text": "彝 ま を 讀"
+   },
+   {
+    "box": [
+     531,
+     1219,
+     683,
+     1236
+    ],
+    "text": "- : を 第 物 や 第 さ"
+   },
+   {
+    "box": [
+     845,
+     1039,
+     955,
+     1060
+    ],
+    "text": "、 一 を 物 第 す 第"
+   },
+   {
+    "box": [
+     514,
+     1893,
+     1412,
+     1922
+    ],
+    "text": "↓ e 1 。 02P1 。 0 の e de Za 20 れ e d イ 〃 馥 ご カ . 召 ん 0 カ 092 。 ap ん イ e P202 ・ se"
+   },
+   {
+    "box": [
+     511,
+     1925,
+     1413,
+     1953
+    ],
+    "text": "face 皙 s カ . 乙 fZeche ″ 観 カ こ 上 イ at se 乙 工 e d リ e du"
+   },
+   {
+    "box": [
+     512,
+     1960,
+     604,
+     1981
+    ],
+    "text": "DC ー 70."
+   }
+  ]
+ },
+ "pg2005.png": {
+  "size": [
+   1556,
+   2456
+  ],
+  "lines": [
+   {
+    "box": [
+     218,
+     223,
+     272,
+     245
+    ],
+    "text": "93d"
+   },
+   {
+    "box": [
+     237,
+     252,
+     273,
+     274
+    ],
+    "text": "2d"
+   },
+   {
+    "box": [
+     292,
+     223,
+     424,
+     250
+    ],
+    "text": "Congress"
+   },
+   {
+    "box": [
+     292,
+     253,
+     399,
+     274
+    ],
+    "text": "Session"
+   },
+   {
+    "box": [
+     33,
+     307,
+     111,
+     367
+    ],
+    "text": "/ 4 こ"
+   },
+   {
+    "box": [
+     600,
+     239,
+     939,
+     264
+    ],
+    "text": "CO ITT PRINT"
+   },
+   {
+    "box": [
+     526,
+     405,
+     865,
+     442
+    ],
+    "text": "A11 己 ロ 4 己 4 ロ ロ 1 月"
+   },
+   {
+    "box": [
+     1052,
+     224,
+     1512,
+     297
+    ],
+    "text": "Det}M NTS"
+   },
+   {
+    "box": [
+     1162,
+     321,
+     1429,
+     383
+    ],
+    "text": "測 L9. 974"
+   },
+   {
+    "box": [
+     1053,
+     454,
+     1310,
+     490
+    ],
+    "text": "KANSAS STATE"
+   },
+   {
+    "box": [
+     241,
+     574,
+     1276,
+     617
+    ],
+    "text": "REPORT 0 、 TTIE ()VERSIGHT TIEARINGS"
+   },
+   {
+    "box": [
+     378,
+     641,
+     1135,
+     682
+    ],
+    "text": "AND INVESTIGATION ()F THE"
+   },
+   {
+    "box": [
+     549,
+     710,
+     964,
+     747
+    ],
+    "text": "DC?IO AIRCRAFT"
+   },
+   {
+    "box": [
+     526,
+     954,
+     989,
+     980
+    ],
+    "text": "PREPARED AT TIIE DIRECTION OF"
+   },
+   {
+    "box": [
+     280,
+     1016,
+     1009,
+     1065
+    ],
+    "text": "HONORABLE 、 、 一 ARR 、 G ・ . MAGNUS()N,"
+   },
+   {
+    "box": [
+     233,
+     2088,
+     330,
+     2108
+    ],
+    "text": "34379 0"
+   },
+   {
+    "box": [
+     609,
+     1099,
+     909,
+     1120
+    ],
+    "text": "FO THE USE OF TIIE"
+   },
+   {
+    "box": [
+     406,
+     1166,
+     1103,
+     1207
+    ],
+    "text": "COMMITTEE 0 、 C()MMERCE"
+   },
+   {
+    "box": [
+     488,
+     1240,
+     1024,
+     1274
+    ],
+    "text": "UNITED STATES SENATE"
+   },
+   {
+    "box": [
+     668,
+     1858,
+     833,
+     1884
+    ],
+    "text": "JUNE 1974"
+   },
+   {
+    "box": [
+     487,
+     2051,
+     1022,
+     2076
+    ],
+    "text": "U. S. GOVERNMENT PRINTING OFFICE"
+   },
+   {
+    "box": [
+     612,
+     2097,
+     896,
+     2119
+    ],
+    "text": "WASHINGTON : 1974"
+   }
+  ]
+ },
+ "pg2017.png": {
+  "size": [
+   1556,
+   2465
+  ],
+  "lines": [
+   {
+    "box": [
+     180,
+     425,
+     286,
+     455
+    ],
+    "text": "Adopted :"
+   },
+   {
+    "box": [
+     761,
+     143,
+     780,
+     172
+    ],
+    "text": "5"
+   },
+   {
+    "box": [
+     472,
+     259,
+     1096,
+     284
+    ],
+    "text": "NATIONAL TRANSPORTATION SAFETY BOARD"
+   },
+   {
+    "box": [
+     612,
+     292,
+     951,
+     316
+    ],
+    "text": "WASHINGTON, D. C. 20591"
+   },
+   {
+    "box": [
+     569,
+     323,
+     970,
+     346
+    ],
+    "text": "AIRCRAFT ACCIDENT REPORT"
+   },
+   {
+    "box": [
+     310,
+     424,
+     528,
+     453
+    ],
+    "text": "February 28 , 1973"
+   },
+   {
+    "box": [
+     600,
+     487,
+     948,
+     511
+    ],
+    "text": "AMERICAN AI RLINES,INC."
+   },
+   {
+    "box": [
+     505,
+     518,
+     1047,
+     542
+    ],
+    "text": "McDONNELL DOUGLAS ー 光 -10-10 , N103AA"
+   },
+   {
+    "box": [
+     436,
+     548,
+     1119,
+     576
+    ],
+    "text": "NEAR WINDSOR, ONTARIO, CANADA, JUNE 12 , 1972"
+   },
+   {
+    "box": [
+     395,
+     661,
+     521,
+     681
+    ],
+    "text": "SYNOPSIS"
+   },
+   {
+    "box": [
+     189,
+     1672,
+     630,
+     1694
+    ],
+    "text": "to the Fed び 引 Aviation Administrator."
+   },
+   {
+    "box": [
+     189,
+     1640,
+     745,
+     1670
+    ],
+    "text": "the Safety Board m 記 0 two recommendations"
+   },
+   {
+    "box": [
+     218,
+     1608,
+     744,
+     1639
+    ],
+    "text": "Asaresult 0f the investtgationofthis accident,"
+   },
+   {
+    "box": [
+     189,
+     1578,
+     389,
+     1608
+    ],
+    "text": "we 「 0 not in place."
+   },
+   {
+    "box": [
+     188,
+     1543,
+     744,
+     1574
+    ],
+    "text": "were not ツ en d and the latch lockpins"
+   },
+   {
+    "box": [
+     187,
+     1511,
+     744,
+     1543
+    ],
+    "text": "apparently closed, when, ⅲ fact, the latches"
+   },
+   {
+    "box": [
+     187,
+     1480,
+     704,
+     1511
+    ],
+    "text": "latching mechanism permitted the d00 「 to"
+   },
+   {
+    "box": [
+     188,
+     1448,
+     743,
+     1479
+    ],
+    "text": "flight. The design characteristics of the d00 「"
+   },
+   {
+    "box": [
+     186,
+     1415,
+     743,
+     1447
+    ],
+    "text": "d00 「 during the preparation of the airplane f0 「"
+   },
+   {
+    "box": [
+     186,
+     1385,
+     742,
+     1414
+    ],
+    "text": "mechanism fo 「 the aft bulk cargo compartment"
+   },
+   {
+    "box": [
+     186,
+     1352,
+     743,
+     1383
+    ],
+    "text": "was 【 he im p 「 0 「 engagement of the latching"
+   },
+   {
+    "box": [
+     187,
+     1320,
+     742,
+     1351
+    ],
+    "text": "termines that the probable cause ofthis accident"
+   },
+   {
+    "box": [
+     213,
+     1288,
+     741,
+     1319
+    ],
+    "text": "The National Transportation safety Board de-"
+   },
+   {
+    "box": [
+     186,
+     1258,
+     574,
+     1288
+    ],
+    "text": "passengers received minortn. 」 uries ・"
+   },
+   {
+    "box": [
+     185,
+     1225,
+     740,
+     1249
+    ],
+    "text": "aboard the “ . Two stewardesses and nine"
+   },
+   {
+    "box": [
+     212,
+     1192,
+     739,
+     1224
+    ],
+    "text": "There we 「 0 56 passengers and a crew 0 「 11"
+   },
+   {
+    "box": [
+     185,
+     1163,
+     652,
+     1186
+    ],
+    "text": "surface of the に 丘 h 。 「 。 n s い ト i 既"
+   },
+   {
+    "box": [
+     185,
+     1131,
+     740,
+     1161
+    ],
+    "text": "stantial damage t0 the leading 0 e and upper"
+   },
+   {
+    "box": [
+     185,
+     1099,
+     740,
+     1129
+    ],
+    "text": "the 応 ー e a ト 0 the d00 「 opening and sub-"
+   },
+   {
+    "box": [
+     212,
+     1068,
+     740,
+     1099
+    ],
+    "text": "The ・ separated d00 「 caused m ⅲ 0 「 damage t0"
+   },
+   {
+    "box": [
+     183,
+     1037,
+     738,
+     1069
+    ],
+    "text": "engine and tO the empennage control systems ・"
+   },
+   {
+    "box": [
+     184,
+     1006,
+     717,
+     1036
+    ],
+    "text": "were routed through 【 he n00 【 beams tO the 「 e"
+   },
+   {
+    "box": [
+     184,
+     974,
+     738,
+     1005
+    ],
+    "text": "partment, disrupting various con な cables which"
+   },
+   {
+    "box": [
+     182,
+     944,
+     738,
+     974
+    ],
+    "text": "The floor partially collapsed into the cargo com-"
+   },
+   {
+    "box": [
+     184,
+     912,
+     737,
+     942
+    ],
+    "text": "the cabin 矼 00 「 0 ロ he bulk cargo compartment ・"
+   },
+   {
+    "box": [
+     183,
+     879,
+     741,
+     911
+    ],
+    "text": "decompression, which, in turn, caused failure 0 「"
+   },
+   {
+    "box": [
+     183,
+     848,
+     738,
+     878
+    ],
+    "text": "俺 et mean sea level. The separation caused rapid"
+   },
+   {
+    "box": [
+     182,
+     817,
+     737,
+     847
+    ],
+    "text": "the aircraft ⅲ flight at approximately 11 , 750"
+   },
+   {
+    "box": [
+     182,
+     785,
+     715,
+     816
+    ],
+    "text": "aft ト u 慊 cargo compartment do separated 0"
+   },
+   {
+    "box": [
+     181,
+     754,
+     736,
+     784
+    ],
+    "text": "I -1d10 , was damaged substantially when 【 he"
+   },
+   {
+    "box": [
+     208,
+     721,
+     737,
+     750
+    ],
+    "text": "An American Airlines,lnc. , McDonnell Douglas"
+   },
+   {
+    "box": [
+     951,
+     655,
+     1197,
+     676
+    ],
+    "text": "1. INVESTIGATION"
+   },
+   {
+    "box": [
+     796,
+     717,
+     1090,
+     747
+    ],
+    "text": "1.1 History 0 「 0 Flight"
+   },
+   {
+    "box": [
+     825,
+     779,
+     1353,
+     809
+    ],
+    "text": "AmericanAirlines, lnc. , Flight 96 , a [ 刈 -1d10 ,"
+   },
+   {
+    "box": [
+     797,
+     810,
+     1353,
+     842
+    ],
+    "text": "N103AA, was a scheduled passenger flight 伝 om"
+   },
+   {
+    "box": [
+     797,
+     843,
+     1353,
+     875
+    ],
+    "text": "LOS Angeles, California, t0 LaGuardia A 四 ,"
+   },
+   {
+    "box": [
+     797,
+     876,
+     1354,
+     904
+    ],
+    "text": "New York, with intermediate StOPS at Detroit'"
+   },
+   {
+    "box": [
+     797,
+     906,
+     1354,
+     938
+    ],
+    "text": "Michigan and Buffa10, New YO 「 k. Flight 96 de-"
+   },
+   {
+    "box": [
+     799,
+     938,
+     1354,
+     971
+    ],
+    "text": "parted Los Angeles lnternational A PO at"
+   },
+   {
+    "box": [
+     798,
+     973,
+     1353,
+     1006
+    ],
+    "text": "1436 e. s. し , 1 on June 12 , 1972 , 46 minutes after"
+   },
+   {
+    "box": [
+     798,
+     1006,
+     1354,
+     1039
+    ],
+    "text": "its scheduled departure. The delay was a result"
+   },
+   {
+    "box": [
+     798,
+     1037,
+     1353,
+     1072
+    ],
+    "text": "of passe nger handling and 証 traffic control?"
+   },
+   {
+    "box": [
+     799,
+     1070,
+     1355,
+     1104
+    ],
+    "text": "Flight 96 arrived at Detroit at 1836. This seg-"
+   },
+   {
+    "box": [
+     799,
+     1102,
+     1254,
+     1134
+    ],
+    "text": "ment 0 「 the flight was without incident."
+   },
+   {
+    "box": [
+     828,
+     1132,
+     1357,
+     1164
+    ],
+    "text": "Fuel, c , and passe ngers were 10 記 記 aboard"
+   },
+   {
+    "box": [
+     799,
+     1164,
+     1357,
+     1197
+    ],
+    "text": "the airplane at Detroit and its い keo 任 0 weight"
+   },
+   {
+    "box": [
+     799,
+     1195,
+     1358,
+     1228
+    ],
+    "text": "was computed t0 be 300 , 888 poundS' well under"
+   },
+   {
+    "box": [
+     800,
+     1228,
+     1357,
+     1256
+    ],
+    "text": "the maximum allowable? The last com partment"
+   },
+   {
+    "box": [
+     800,
+     1258,
+     1359,
+     1291
+    ],
+    "text": "to secured p 「 io 「 to dispatch 0 he flight was"
+   },
+   {
+    "box": [
+     801,
+     1293,
+     1171,
+     1322
+    ],
+    "text": "the aft bulk ( go compartment ・"
+   },
+   {
+    "box": [
+     829,
+     1320,
+     1358,
+     1354
+    ],
+    "text": "The ramp service agent who serviced the aft"
+   },
+   {
+    "box": [
+     801,
+     1353,
+     1359,
+     1387
+    ],
+    "text": "cargo compartment had difficulty closing the"
+   },
+   {
+    "box": [
+     801,
+     1385,
+     1360,
+     1412
+    ],
+    "text": "d00 「 . He stated that he closed the d00 【 elec-"
+   },
+   {
+    "box": [
+     802,
+     1419,
+     1360,
+     1450
+    ],
+    "text": "な ic 引 ツ . He listened f0 「 the moto 「 t0 stop 「 u ル"
+   },
+   {
+    "box": [
+     803,
+     1449,
+     1360,
+     1483
+    ],
+    "text": "ningand then attempted to clo 記 thedoo 【 handle."
+   },
+   {
+    "box": [
+     801,
+     1481,
+     1361,
+     1513
+    ],
+    "text": "This handle is designed t0 clo the small vent"
+   },
+   {
+    "box": [
+     803,
+     1513,
+     1362,
+     1543
+    ],
+    "text": "d00 【 which located on the ( go d00 「 , to"
+   },
+   {
+    "box": [
+     804,
+     1544,
+     1362,
+     1579
+    ],
+    "text": "position a lockpin behind a cam on each 0 「 the"
+   },
+   {
+    "box": [
+     805,
+     1648,
+     1344,
+     1670
+    ],
+    "text": "1 AII times ugd herein 載 に ! n を tan 「 d , ト 鉾 d on 山 0 2 hO"
+   }
+  ]
+ },
+ "pg2030.png": {
+  "size": [
+   1558,
+   2466
+  ],
+  "lines": [
+   {
+    "box": [
+     783,
+     150,
+     820,
+     181
+    ],
+    "text": "18"
+   },
+   {
+    "box": [
+     253,
+     221,
+     1385,
+     270
+    ],
+    "text": "ln conducting its inquiry, the Committee was particularly interested"
+   },
+   {
+    "box": [
+     215,
+     257,
+     1385,
+     307
+    ],
+    "text": "in what actions were taken on the I)C?I() cargo door problem immedi_"
+   },
+   {
+    "box": [
+     215,
+     296,
+     1385,
+     342
+    ],
+    "text": "ately f0110W ⅲ g the incident of . July 12 , 1972. ln order to ascertain"
+   },
+   {
+    "box": [
+     215,
+     334,
+     1384,
+     375
+    ],
+    "text": "those events, present and former officials of the Federal Aviation Ad_"
+   },
+   {
+    "box": [
+     215,
+     371,
+     1385,
+     420
+    ],
+    "text": "ministration and of the l)ouglas Aircraft Company were called to"
+   },
+   {
+    "box": [
+     215,
+     410,
+     1386,
+     452
+    ],
+    "text": "testify ⅲ public hearings before the Subcommittee on March 26 and"
+   },
+   {
+    "box": [
+     214,
+     448,
+     446,
+     485
+    ],
+    "text": "March 27 , 197"
+   },
+   {
+    "box": [
+     251,
+     486,
+     1385,
+     531
+    ],
+    "text": "Apparently, three days after the. June 12 , incident, the then-Federal"
+   },
+   {
+    "box": [
+     210,
+     522,
+     1384,
+     569
+    ],
+    "text": "Aviatmon Administrator, . h Ⅱ Ⅱ . Shaffer telephoned Jackson"
+   },
+   {
+    "box": [
+     212,
+     560,
+     1384,
+     608
+    ],
+    "text": "McGowen, then-President of the l)ouglas Aircraft Company to inquire"
+   },
+   {
+    "box": [
+     216,
+     599,
+     1385,
+     644
+    ],
+    "text": "as tO what facts the company had uncovered relating to the incident"
+   },
+   {
+    "box": [
+     215,
+     637,
+     1385,
+     684
+    ],
+    "text": "田 1 は tO ascertain what ste s the company was considering taking in"
+   },
+   {
+    "box": [
+     215,
+     674,
+     1386,
+     720
+    ],
+    "text": "れ 11 effort t0 preclude suc an occurrance in the future. McGowen,"
+   },
+   {
+    "box": [
+     216,
+     712,
+     1387,
+     756
+    ],
+    "text": "according to testimony of Arvin Basnio?ht, Western Regional l)irector"
+   },
+   {
+    "box": [
+     215,
+     749,
+     1386,
+     796
+    ],
+    "text": "of FAA, explained to Shaffer what needed to be done ⅲ the way of a"
+   },
+   {
+    "box": [
+     215,
+     786,
+     1387,
+     833
+    ],
+    "text": "、 x ” and that DougIas, working with FAA, had developed the proper"
+   },
+   {
+    "box": [
+     216,
+     825,
+     1297,
+     866
+    ],
+    "text": "procedures. Ag 心 11 according to Basni(Tht, the Administrator"
+   },
+   {
+    "box": [
+     216,
+     863,
+     1384,
+     901
+    ],
+    "text": "pressed pleasure in fill(ling reasonable corrective actions and had tOld"
+   },
+   {
+    "box": [
+     216,
+     899,
+     1386,
+     938
+    ],
+    "text": "Mr. McGowen that the corrective measures could be undertaken as a"
+   },
+   {
+    "box": [
+     216,
+     937,
+     1386,
+     981
+    ],
+    "text": "product Of れ crentlemen's agreement thereby not requiring the issuance"
+   },
+   {
+    "box": [
+     211,
+     974,
+     1384,
+     1018
+    ],
+    "text": "of 盟 1 FAA airworthiness directive. ()D ・ ) ” An AD relating to the"
+   },
+   {
+    "box": [
+     216,
+     1014,
+     1387,
+     1057
+    ],
+    "text": "rear carcro door on the DC?IO was 110t issued until a few days after"
+   },
+   {
+    "box": [
+     215,
+     1049,
+     1030,
+     1091
+    ],
+    "text": "the f れ ⅲ 1 Turkish Airlines crash of March 3 , 1974."
+   },
+   {
+    "box": [
+     251,
+     1088,
+     1387,
+     1129
+    ],
+    "text": "A11 airwoffhiness directive as defined by FAA is \"the medium used"
+   },
+   {
+    "box": [
+     214,
+     1124,
+     1386,
+     1168
+    ],
+    "text": "b 、 , the Administrator to rovide notice to aircraft operators to require"
+   },
+   {
+    "box": [
+     215,
+     1162,
+     1385,
+     1206
+    ],
+    "text": "correction of unsafe co れ itions disclosed in れ product aftery type cer-"
+   },
+   {
+    "box": [
+     214,
+     1198,
+     1386,
+     1237
+    ],
+    "text": "tification and to prescribe the conditions and limitations under which"
+   },
+   {
+    "box": [
+     214,
+     1235,
+     966,
+     1276
+    ],
+    "text": "the product mav continued to be operated ” ."
+   },
+   {
+    "box": [
+     248,
+     1273,
+     1385,
+     1317
+    ],
+    "text": "lssuance of AirWOI 、 thiness directive or \"AD's ” as they are known,"
+   },
+   {
+    "box": [
+     215,
+     1309,
+     1386,
+     1354
+    ],
+    "text": "iS relatively common and frequent and indicates the on-going monitor-"
+   },
+   {
+    "box": [
+     214,
+     1347,
+     1387,
+     1392
+    ],
+    "text": "mg, insp( 、 ction 田 id quality control evaluation performed by the Agency"
+   },
+   {
+    "box": [
+     213,
+     1384,
+     1386,
+     1425
+    ],
+    "text": "on civil aircraft. TIowever, test ・ imony before the Subcommittee indi-"
+   },
+   {
+    "box": [
+     216,
+     1421,
+     1388,
+     1461
+    ],
+    "text": "cates that in recent years the FAA has relied less on (I)'s to correct"
+   },
+   {
+    "box": [
+     216,
+     1458,
+     1387,
+     1500
+    ],
+    "text": "unsafe situations than it has i11 the past. ()I)S( 、 rvers have noted れ de-"
+   },
+   {
+    "box": [
+     216,
+     1495,
+     1387,
+     1539
+    ],
+    "text": "veloping tendency to solve safety problems which develop ⅲ aircraft"
+   },
+   {
+    "box": [
+     361,
+     1534,
+     1385,
+     1569
+    ],
+    "text": "issuance 0f れ manufacturer's service bulletin?a notice from"
+   },
+   {
+    "box": [
+     217,
+     1570,
+     1388,
+     1615
+    ],
+    "text": "the manufacturer to the aircraft operator of potential problems and"
+   },
+   {
+    "box": [
+     212,
+     1609,
+     1387,
+     1649
+    ],
+    "text": "suggested modifications to address those problems. A manufacturer's"
+   },
+   {
+    "box": [
+     216,
+     1647,
+     1387,
+     1686
+    ],
+    "text": "serviee iS advisory in nature and there is nothin in 1 れ 、 or"
+   },
+   {
+    "box": [
+     217,
+     1684,
+     1386,
+     1728
+    ],
+    "text": "recrulation which requires the service bulletin be heeded or imple-"
+   },
+   {
+    "box": [
+     216,
+     1722,
+     1388,
+     1763
+    ],
+    "text": "mented by the operator. It 曲 0 ⅲ d be noted t00 , that service bulletins"
+   },
+   {
+    "box": [
+     216,
+     1759,
+     1389,
+     1803
+    ],
+    "text": "are issued relating to 心 1 types of aircraft modifications including light"
+   },
+   {
+    "box": [
+     216,
+     1797,
+     1387,
+     1840
+    ],
+    "text": "bulbs, lavatory facilities, etc. ln many cases they are not safety related"
+   },
+   {
+    "box": [
+     217,
+     1833,
+     1388,
+     1876
+    ],
+    "text": "items at れ Ⅱ but are directed at passenger comfort and eonvemence, mr-"
+   },
+   {
+    "box": [
+     213,
+     1872,
+     1052,
+     1908
+    ],
+    "text": "line econonues or airline servlce patterns."
+   },
+   {
+    "box": [
+     250,
+     1910,
+     1387,
+     1951
+    ],
+    "text": "Prior to Mr. Shaffer's c 1 to Mr. McGowen on . Tune 15 , 1972 , the"
+   },
+   {
+    "box": [
+     216,
+     1948,
+     1389,
+     1990
+    ],
+    "text": "FAA's Western Region ⅲ Los An≪eIes was preparing independently,"
+   },
+   {
+    "box": [
+     218,
+     1986,
+     1388,
+     2024
+    ],
+    "text": "an airworthiness direetive which was to be addressed to mandatory"
+   },
+   {
+    "box": [
+     218,
+     2023,
+     1389,
+     2064
+    ],
+    "text": "modifications to the DC?10's cargo door. lt should be noted that, during"
+   },
+   {
+    "box": [
+     217,
+     2060,
+     1387,
+     2099
+    ],
+    "text": "this per 、 iod and continuincr throuch todav, the issuance of AD's and"
+   }
+  ]
+ },
+ "pg2033.png": {
+  "size": [
+   1560,
+   2463
+  ],
+  "lines": [
+   {
+    "box": [
+     732,
+     143,
+     770,
+     173
+    ],
+    "text": "21"
+   },
+   {
+    "box": [
+     609,
+     220,
+     892,
+     245
+    ],
+    "text": "[TeIegraphic message]"
+   },
+   {
+    "box": [
+     577,
+     274,
+     922,
+     303
+    ],
+    "text": "[For Offcia1 Use 0 Ⅱ IY ]"
+   },
+   {
+    "box": [
+     774,
+     334,
+     1179,
+     359
+    ],
+    "text": "FLIGHT STANDARDS SERVICE,"
+   },
+   {
+    "box": [
+     719,
+     365,
+     1242,
+     389
+    ],
+    "text": "FEDERAL AVIATION ム よ D MI 、 ISTRATION'"
+   },
+   {
+    "box": [
+     817,
+     392,
+     1305,
+     422
+    ],
+    "text": "W 佖 8 ん i れ 〃 tO れ , の . C. , れ プ 6 , 1972."
+   },
+   {
+    "box": [
+     166,
+     445,
+     411,
+     470
+    ],
+    "text": "M r. G. A. Warde,"
+   },
+   {
+    "box": [
+     164,
+     473,
+     659,
+     502
+    ],
+    "text": "President, 襯 催 ica れ イ , 1 0 ”"
+   },
+   {
+    "box": [
+     165,
+     504,
+     560,
+     533
+    ],
+    "text": "633 3 は 1 ℃ . , e ル Y の ・ ん , . Y."
+   },
+   {
+    "box": [
+     167,
+     550,
+     425,
+     576
+    ],
+    "text": "Mr. Robert . Six,"
+   },
+   {
+    "box": [
+     165,
+     578,
+     694,
+     608
+    ],
+    "text": "Pre8ident, CO れ れ れ e れ 地 ー イ , 1 0. ,"
+   },
+   {
+    "box": [
+     166,
+     607,
+     934,
+     638
+    ],
+    "text": "石 08 ユ れ ″ わ 夜 ・ れ 耐 れ 観 Airp 0 , 03 A れ 0 可 e8 , 0 観 ."
+   },
+   {
+    "box": [
+     168,
+     655,
+     511,
+     681
+    ],
+    "text": "Mr. Edward . CarIson,"
+   },
+   {
+    "box": [
+     242,
+     685,
+     622,
+     713
+    ],
+    "text": "雇 e れ t , U れ れ c A 耘 ⅱ れ e8 , ー れ c. ,"
+   },
+   {
+    "box": [
+     168,
+     716,
+     338,
+     743
+    ],
+    "text": "C 厩 c 佖 〃 0 , 1 ″ ."
+   },
+   {
+    "box": [
+     167,
+     761,
+     472,
+     787
+    ],
+    "text": "Mr. L. 3. Maytag, r. ,"
+   },
+   {
+    "box": [
+     167,
+     790,
+     650,
+     817
+    ],
+    "text": "~ ? ℃ 夜 は , 0 れ 01 ー ユ わ れ C8 , ー れ c. ,"
+   },
+   {
+    "box": [
+     167,
+     822,
+     335,
+     849
+    ],
+    "text": "Miami, ー 佐"
+   },
+   {
+    "box": [
+     169,
+     867,
+     418,
+     893
+    ],
+    "text": "Mr. G. Ⅱ . Woody,"
+   },
+   {
+    "box": [
+     168,
+     894,
+     800,
+     922
+    ],
+    "text": "刃 田 ec ⅱ e ViCC prcsidcnt, 佖 0 れ ー わ ・ 石 れ e8 ,"
+   },
+   {
+    "box": [
+     166,
+     924,
+     861,
+     954
+    ],
+    "text": "~. 0. お 0 の 2055 , A イ 印 0 0 れ お 佖 碗 t 襯 i , お ."
+   },
+   {
+    "box": [
+     168,
+     972,
+     479,
+     998
+    ],
+    "text": "M r. Marvin WhitIock,"
+   },
+   {
+    "box": [
+     168,
+     997,
+     1322,
+     1028
+    ],
+    "text": "Se れ 加 お Vicc ~ re 就 雇 れ な 0 れ 佖 れ ce & 刃 れ ⅵ れ ee れ 〃 , 0 加 花 れ 0 れ ce お 08C , れ e"
+   },
+   {
+    "box": [
+     227,
+     1027,
+     1342,
+     1060
+    ],
+    "text": "4 耘 石 i れ , 1 れ c. , Sa れ お r れ ci8CO 1 れ t 催 れ 0 ⅱ 0 れ 佖 ー 耘 0 ち Sa ル ra れ ci8CO , C 観 ヴ ."
+   },
+   {
+    "box": [
+     170,
+     1078,
+     491,
+     1103
+    ],
+    "text": "Mr. Clifton Von Kann,"
+   },
+   {
+    "box": [
+     168,
+     1103,
+     1343,
+     1135
+    ],
+    "text": "senior Vicc President, 0 催 0 0 れ 8 & 耘 0 お な , 4 T 佖 れ 8 ort A 0 佖 0 れ , プ 000"
+   },
+   {
+    "box": [
+     232,
+     1137,
+     833,
+     1165
+    ],
+    "text": "00 れ れ ec れ c t 4 e. , W. , W08 れ 加 び れ , の . C. :"
+   },
+   {
+    "box": [
+     202,
+     1180,
+     1340,
+     1209
+    ],
+    "text": "ln accordance with 011r telephone decisions this date I understand that your"
+   },
+   {
+    "box": [
+     170,
+     1211,
+     1340,
+     1241
+    ],
+    "text": "company will accomplish the following on れ Ⅱ 0f your DC￣IO aircraft. This pro-"
+   },
+   {
+    "box": [
+     170,
+     1242,
+     1340,
+     1272
+    ],
+    "text": "gram is effective immediately upon receipt Of this telegram because Of the POS-"
+   },
+   {
+    "box": [
+     169,
+     1271,
+     1341,
+     1302
+    ],
+    "text": "sibility Of incomplete latching Of lower cargo compartment doors' which could"
+   },
+   {
+    "box": [
+     168,
+     1301,
+     1344,
+     1332
+    ],
+    "text": "cause inadvertent door opening under pressurization. This telegram specifies"
+   },
+   {
+    "box": [
+     170,
+     1333,
+     1341,
+     1362
+    ],
+    "text": "certain inspections and modifications Of the door latching and safety interlock"
+   },
+   {
+    "box": [
+     170,
+     1363,
+     1342,
+     1392
+    ],
+    "text": "mechanism tO assure satisfactory latching will be achieved. Accomplish the"
+   },
+   {
+    "box": [
+     170,
+     1394,
+     1342,
+     1423
+    ],
+    "text": "following items 0 Ⅱ 心 1 lower cargo compartment external doors n は door systems"
+   },
+   {
+    "box": [
+     170,
+     1427,
+     355,
+     1450
+    ],
+    "text": "as indicated :"
+   },
+   {
+    "box": [
+     204,
+     1454,
+     1342,
+     1482
+    ],
+    "text": "1. 、 Vithin the next 25 hours' time in service from receipt Of this telegram, and"
+   },
+   {
+    "box": [
+     173,
+     1485,
+     1343,
+     1511
+    ],
+    "text": "thereafter at intervals れ Ot t0 exceed 1 ( 用 hours' time in service, conduct the f01-"
+   },
+   {
+    "box": [
+     172,
+     1516,
+     1343,
+     1545
+    ],
+    "text": "lowing functional check Of door systems れ n は door operation on れ Ⅱ 3 lower cargo"
+   },
+   {
+    "box": [
+     172,
+     1550,
+     461,
+     1576
+    ],
+    "text": "compartment doors :"
+   },
+   {
+    "box": [
+     200,
+     1576,
+     1347,
+     1605
+    ],
+    "text": "A. Perform steps 1 through 6 of McDonne11 Douglas TWX CI?SVC?DC-IO?"
+   },
+   {
+    "box": [
+     174,
+     1609,
+     575,
+     1632
+    ],
+    "text": "COMー 77 d 減 13 June 1972."
+   },
+   {
+    "box": [
+     204,
+     1637,
+     1344,
+     1666
+    ],
+    "text": "B. While performing the steps in (A) above, specifically check door fit れ は"
+   },
+   {
+    "box": [
+     174,
+     1667,
+     1344,
+     1696
+    ],
+    "text": "rigging, door and locking mechanism operation and freedom from binding. Check"
+   },
+   {
+    "box": [
+     174,
+     1699,
+     1344,
+     1723
+    ],
+    "text": "for visual evidence Of structural deformation and failure ⅱ 1 the door and door"
+   },
+   {
+    "box": [
+     173,
+     1731,
+     465,
+     1757
+    ],
+    "text": "latching mechanism."
+   },
+   {
+    "box": [
+     204,
+     1759,
+     1344,
+     1787
+    ],
+    "text": "C. Door checks are tO be accomplished by qualified maintenance personnel"
+   },
+   {
+    "box": [
+     173,
+     1792,
+     792,
+     1814
+    ],
+    "text": "10C れ te は both inside n ( 1 outside the aircraft."
+   },
+   {
+    "box": [
+     205,
+     1820,
+     1344,
+     1849
+    ],
+    "text": "わ . Discrepancies found during door inspections must be corrected before fur-"
+   },
+   {
+    "box": [
+     175,
+     1852,
+     1344,
+     1880
+    ],
+    "text": "ther flight in accordance with れ Ⅱ applicable McDonnell Douglas service instruc-"
+   },
+   {
+    "box": [
+     174,
+     1884,
+     249,
+     1906
+    ],
+    "text": "tions."
+   },
+   {
+    "box": [
+     207,
+     1912,
+     1343,
+     1939
+    ],
+    "text": "2. Within the next 3 ( 用 hours' time in service from receipt Of this telegram,"
+   },
+   {
+    "box": [
+     175,
+     1943,
+     1344,
+     1971
+    ],
+    "text": "accomplish McDonneII Douglas T)C ー 1 -10 service bulletin 52 ー 27 , dated 30 May"
+   },
+   {
+    "box": [
+     175,
+     1976,
+     242,
+     1998
+    ],
+    "text": "1972."
+   },
+   {
+    "box": [
+     206,
+     2004,
+     1344,
+     2031
+    ],
+    "text": "3. Prior tO eaeh flight following opening Of the aft bulk cargo compartment"
+   },
+   {
+    "box": [
+     176,
+     2035,
+     1344,
+     2063
+    ],
+    "text": "d00 ら ascertain and record in the aircraft maintenance 10g that the cargo re-"
+   }
+  ]
+ },
+ "pg2046.png": {
+  "size": [
+   1559,
+   2460
+  ],
+  "lines": [
+   {
+    "box": [
+     802,
+     150,
+     842,
+     180
+    ],
+    "text": "34"
+   },
+   {
+    "box": [
+     235,
+     226,
+     1410,
+     261
+    ],
+    "text": "NATIONAL TRANSPORTATION SAFETY BOARI) RECOMMENDATIONS TO THE"
+   },
+   {
+    "box": [
+     778,
+     266,
+     866,
+     295
+    ],
+    "text": "FAA"
+   },
+   {
+    "box": [
+     272,
+     331,
+     1411,
+     374
+    ],
+    "text": "FoIIowing the June 12 , 1972 incidentand dur ・ ing the Safety Board's"
+   },
+   {
+    "box": [
+     235,
+     368,
+     1411,
+     409
+    ],
+    "text": "investigation of it, the Board on . July 6 , 1972 forwarded to the FAA"
+   },
+   {
+    "box": [
+     236,
+     408,
+     1374,
+     445
+    ],
+    "text": "two recommendations relating to the DC?IO c r げ 0 d001 ・ situation."
+   },
+   {
+    "box": [
+     350,
+     446,
+     955,
+     484
+    ],
+    "text": "recommendations are printed belo 、 :"
+   },
+   {
+    "box": [
+     936,
+     521,
+     1226,
+     559
+    ],
+    "text": "丁 . S. 0 お AMERICA,"
+   },
+   {
+    "box": [
+     564,
+     559,
+     1301,
+     597
+    ],
+    "text": "ー、 ・ ATIONAI. TRANSPORTATION 、 ETY BOARD,"
+   },
+   {
+    "box": [
+     855,
+     598,
+     1375,
+     637
+    ],
+    "text": "ル ん 〆 0 れ , 〃 .0. , み を 7072."
+   },
+   {
+    "box": [
+     238,
+     669,
+     1414,
+     704
+    ],
+    "text": "、人 . I)OIYI'ED BY TIIE N ・ ATIONAL TRANSPORTATION SAFETY BOARD AT ITS"
+   },
+   {
+    "box": [
+     312,
+     708,
+     1340,
+     741
+    ],
+    "text": "OFFICE IN WASHINGTON, 1 ). C. 0 、 THE 23D I)AY OF JUNE 1972"
+   },
+   {
+    "box": [
+     238,
+     774,
+     659,
+     812
+    ],
+    "text": "TIon. . JO Ⅱ 、 TI. SIIAFFER,"
+   },
+   {
+    "box": [
+     241,
+     850,
+     540,
+     888
+    ],
+    "text": "1 「 ( 麕 履 れ 〆 0 れ , .0."
+   },
+   {
+    "box": [
+     462,
+     936,
+     1188,
+     958
+    ],
+    "text": "SAFETY RECOMMENDATIOXS A?7 2 ー 9 7 AND 9 8"
+   },
+   {
+    "box": [
+     277,
+     993,
+     1417,
+     1034
+    ],
+    "text": "The National Transportation Safety Board is investigating an accl-"
+   },
+   {
+    "box": [
+     240,
+     1030,
+     1420,
+     1070
+    ],
+    "text": "dent involving an American Airlines McI)onnell-DougIas I)C ー 10 ー 10 、"
+   },
+   {
+    "box": [
+     240,
+     1068,
+     1417,
+     1108
+    ],
+    "text": "N103AA 、 which occurred shortly after ⅲ 長 0 代 from l)etroit Metro-"
+   },
+   {
+    "box": [
+     240,
+     1106,
+     1103,
+     1145
+    ],
+    "text": "politan-Wayne County Airport ・ on . June 12 , 1972."
+   },
+   {
+    "box": [
+     279,
+     1144,
+     1418,
+     1185
+    ],
+    "text": "The aft left-hand cargo door opened while the aircraft was ap-"
+   },
+   {
+    "box": [
+     241,
+     1181,
+     1419,
+     1222
+    ],
+    "text": "proximately 12 , 000 feet. The cabin floor over this eargo compartment"
+   },
+   {
+    "box": [
+     239,
+     1219,
+     1419,
+     1259
+    ],
+    "text": "then failed as れ result of depressurization 10 れ d ⅲ び , and the floor"
+   },
+   {
+    "box": [
+     243,
+     1257,
+     1421,
+     1298
+    ],
+    "text": "dropped partially into the cargo compartment. This displacement of"
+   },
+   {
+    "box": [
+     241,
+     1295,
+     1421,
+     1335
+    ],
+    "text": "the floor caused serious disruption of the control cables which are"
+   },
+   {
+    "box": [
+     244,
+     1333,
+     1419,
+     1373
+    ],
+    "text": "routed through the floor beams to the empennage control systems and"
+   },
+   {
+    "box": [
+     243,
+     1370,
+     1419,
+     1412
+    ],
+    "text": "the engine controls. With the exception of the right rudder pedal"
+   },
+   {
+    "box": [
+     243,
+     1408,
+     1422,
+     1448
+    ],
+    "text": "cable, { Ⅲ of the cables 0 Ⅱ the left side of the fuselage broke. The cable"
+   },
+   {
+    "box": [
+     244,
+     1447,
+     1420,
+     1479
+    ],
+    "text": "rt. ms on the 1 、 i ≪ht side werc 、 心 so dama≪ed?the cable ≪uides tore from"
+   },
+   {
+    "box": [
+     244,
+     1484,
+     1421,
+     1522
+    ],
+    "text": "their attachments to the floor beams, and the cables were deflected"
+   },
+   {
+    "box": [
+     246,
+     1521,
+     790,
+     1560
+    ],
+    "text": "downward by the floor structure."
+   },
+   {
+    "box": [
+     283,
+     1559,
+     1422,
+     1598
+    ],
+    "text": "Preliminarv mvestigation has revealed that the door latches were"
+   },
+   {
+    "box": [
+     245,
+     1597,
+     1423,
+     1637
+    ],
+    "text": "not driven fully closed, and the lock-pins which should have pre-"
+   },
+   {
+    "box": [
+     246,
+     1635,
+     1423,
+     1675
+    ],
+    "text": "vented the latches from opening were れ ot in place. The reason these"
+   },
+   {
+    "box": [
+     247,
+     1672,
+     1423,
+     1713
+    ],
+    "text": "door latches were not driven over center to the fully closed position"
+   },
+   {
+    "box": [
+     246,
+     1710,
+     1423,
+     1752
+    ],
+    "text": "has not vet been determined. TIowever, although the Safety Board be-"
+   },
+   {
+    "box": [
+     247,
+     1748,
+     1423,
+     1786
+    ],
+    "text": "lieves thiS was relevant and れ contributino? factor, we are more C011-"
+   },
+   {
+    "box": [
+     247,
+     1787,
+     1423,
+     1827
+    ],
+    "text": "cerned over the failure of the door safety features to preclude dis-"
+   },
+   {
+    "box": [
+     246,
+     1824,
+     1425,
+     1862
+    ],
+    "text": "patch with anunlock( 、 d door. The desiun of the door should have pre-"
+   },
+   {
+    "box": [
+     247,
+     1862,
+     1425,
+     1902
+    ],
+    "text": "cluded the dispatch of the rc れ with this door improperly closed."
+   },
+   {
+    "box": [
+     248,
+     1899,
+     1427,
+     1939
+    ],
+    "text": "With the lock-pins not en≪aged, れ small 、 rent door 0 れ the cargo door"
+   },
+   {
+    "box": [
+     247,
+     1937,
+     1427,
+     1977
+    ],
+    "text": "ShOt11d have remained open, preventino? 1101 、 m 1 pressurization 0f the"
+   },
+   {
+    "box": [
+     250,
+     1973,
+     1255,
+     2010
+    ],
+    "text": "aircraft. AIso, the vent door handle should not have stowed."
+   },
+   {
+    "box": [
+     285,
+     2013,
+     1428,
+     2052
+    ],
+    "text": "l-lowever, tests conducted at Douglas Ai1 ℃ raft Companv have"
+   },
+   {
+    "box": [
+     245,
+     2050,
+     1426,
+     2087
+    ],
+    "text": "demonstrated 物 れ t the vent door can be closed, 盟 ld the handle stowed,"
+   },
+   {
+    "box": [
+     248,
+     2088,
+     1428,
+     2128
+    ],
+    "text": "without the lock-pins enga≪ed. Apparently, some combination of de-"
+   },
+   {
+    "box": [
+     249,
+     2126,
+     1428,
+     2167
+    ],
+    "text": "flection of the operatincr mechanisms 田 ld tolerances permitted such"
+   }
+  ]
+ },
+ "pg2055.png": {
+  "size": [
+   1551,
+   2456
+  ],
+  "lines": [
+   {
+    "box": [
+     702,
+     141,
+     741,
+     171
+    ],
+    "text": "43"
+   },
+   {
+    "box": [
+     136,
+     216,
+     1304,
+     255
+    ],
+    "text": "craft being completely modified ⅲ conformance with Service Bulletin"
+   },
+   {
+    "box": [
+     136,
+     254,
+     1062,
+     285
+    ],
+    "text": "52 ー 37 then the Pa1 、 is crash mi≪ht well have been avoided."
+   },
+   {
+    "box": [
+     178,
+     292,
+     1304,
+     331
+    ],
+    "text": "lt should be noted that following the Paris disaster, firm forceful"
+   },
+   {
+    "box": [
+     136,
+     329,
+     1304,
+     370
+    ],
+    "text": "and effective regulatory action was immediately initiated by the FAA"
+   },
+   {
+    "box": [
+     139,
+     366,
+     1304,
+     407
+    ],
+    "text": "ln seeking tO preclude such an occurrance from happening again. Air-"
+   },
+   {
+    "box": [
+     135,
+     404,
+     1305,
+     443
+    ],
+    "text": "・ worthiness directives were lssued, con ・ was required, and 重 、 、 生 - 、 a."
+   },
+   {
+    "box": [
+     137,
+     441,
+     1306,
+     482
+    ],
+    "text": "field inspectors ⅲ the various states were lmmediately sent out to"
+   },
+   {
+    "box": [
+     138,
+     479,
+     1304,
+     520
+    ],
+    "text": "check each DC?IO in United States registry to ascertain whether the"
+   },
+   {
+    "box": [
+     138,
+     517,
+     1305,
+     558
+    ],
+    "text": "proper modifications 、 、 ・ ere mtl(le. Similarly, foreign governments were"
+   },
+   {
+    "box": [
+     137,
+     554,
+     1304,
+     594
+    ],
+    "text": "lmmediately notified of the FAA's action, 盟 ld the British govern-"
+   },
+   {
+    "box": [
+     138,
+     593,
+     1305,
+     632
+    ],
+    "text": "ment, as れ result, took immediate action pertainincr to Lakers Airways"
+   },
+   {
+    "box": [
+     138,
+     630,
+     1304,
+     671
+    ],
+    "text": "operation of れ I)C?IO which we later learned had 110t been completely"
+   },
+   {
+    "box": [
+     137,
+     667,
+     1012,
+     699
+    ],
+    "text": "modified ⅲ conformance with Service BulIetin 52 ー 37."
+   },
+   {
+    "box": [
+     175,
+     704,
+     1306,
+     746
+    ],
+    "text": "These events, of course, occurred after the crash. They represent the"
+   },
+   {
+    "box": [
+     134,
+     741,
+     1304,
+     783
+    ],
+    "text": "kind of FAA れ ction and initiative which we and the public should"
+   },
+   {
+    "box": [
+     139,
+     782,
+     1167,
+     820
+    ],
+    "text": "expect once unsafe conditions or equipment come t0 the 、"
+   },
+   {
+    "box": [
+     139,
+     818,
+     296,
+     847
+    ],
+    "text": "attention."
+   },
+   {
+    "box": [
+     312,
+     893,
+     1131,
+     929
+    ],
+    "text": "FINDINGS, CONCLUSIONS AND RECQMMENDATI()NS"
+   },
+   {
+    "box": [
+     174,
+     959,
+     1305,
+     1000
+    ],
+    "text": "The Committee finds that the FAA, ⅲ dealing with the problem of"
+   },
+   {
+    "box": [
+     137,
+     997,
+     1304,
+     1037
+    ],
+    "text": "the aft cargo door 011 the DC?IO following the . June 12 , 1972 incident,"
+   },
+   {
+    "box": [
+     138,
+     1034,
+     1305,
+     1076
+    ],
+    "text": "failed to take the proper 1 、 ecrulatory れ ction ⅲ seeking to ensure that"
+   },
+   {
+    "box": [
+     138,
+     1072,
+     1133,
+     1111
+    ],
+    "text": "れ repeat 0f the 11e れ r catastrophic door failure did not occur."
+   },
+   {
+    "box": [
+     174,
+     1109,
+     1304,
+     1149
+    ],
+    "text": "WhiIe the FAA's Western Region, the Flight Standards Service"
+   },
+   {
+    "box": [
+     137,
+     1147,
+     1305,
+     1189
+    ],
+    "text": "and the Deputy Adrninistrator of the Agency had all agreed that the"
+   },
+   {
+    "box": [
+     136,
+     1184,
+     1303,
+     1223
+    ],
+    "text": "seriousness Of the door pr()l)lel)l 、 、 \"arranted issuance of an airworthi-"
+   },
+   {
+    "box": [
+     136,
+     1222,
+     1303,
+     1264
+    ],
+    "text": "ness directive on the DC?IO, the Administrator, pursuant to an oral"
+   },
+   {
+    "box": [
+     138,
+     1260,
+     1303,
+     1300
+    ],
+    "text": "agreement with the presid( 、 nt of Douglas Aircraft, decided to address"
+   },
+   {
+    "box": [
+     135,
+     1297,
+     1302,
+     1340
+    ],
+    "text": "the problem with れ company service bulletin, followed 11P by a tele-"
+   },
+   {
+    "box": [
+     135,
+     1334,
+     1303,
+     1377
+    ],
+    "text": "graphic communication from the FAA to the airlines operating the"
+   },
+   {
+    "box": [
+     137,
+     1372,
+     1303,
+     1408
+    ],
+    "text": "DC ー 10. Testimony from the committee's hearin≪s indicates that there"
+   },
+   {
+    "box": [
+     137,
+     1410,
+     1302,
+     1450
+    ],
+    "text": "was less than total eompliance with 心 1 1)ouglas service bulletins deal-"
+   },
+   {
+    "box": [
+     137,
+     1447,
+     1302,
+     1486
+    ],
+    "text": "ing with the 1 ℃ れ r cargo door and that in at least one instance れ U. S."
+   },
+   {
+    "box": [
+     137,
+     1485,
+     1305,
+     1527
+    ],
+    "text": "registered aircraft was not modified pursuant to Service BuIIetin 52 一"
+   },
+   {
+    "box": [
+     137,
+     1523,
+     666,
+     1555
+    ],
+    "text": "37 until after the Paris accident."
+   },
+   {
+    "box": [
+     173,
+     1560,
+     1305,
+     1603
+    ],
+    "text": "The Committee however believes that the Administrator was acting"
+   },
+   {
+    "box": [
+     137,
+     1598,
+     1303,
+     1641
+    ],
+    "text": "honestly and ⅲ good faith ⅲ dealing with the DC?IO problem and"
+   },
+   {
+    "box": [
+     137,
+     1636,
+     1304,
+     1679
+    ],
+    "text": "truly believed that the serious danger posed by the problem could be"
+   },
+   {
+    "box": [
+     136,
+     1674,
+     896,
+     1715
+    ],
+    "text": "alleviated throu?rh the service bulletin process."
+   },
+   {
+    "box": [
+     175,
+     1712,
+     1302,
+     1754
+    ],
+    "text": "Noneth( 、 less, we believe that when れ serious or potentially c れ -"
+   },
+   {
+    "box": [
+     135,
+     1749,
+     1304,
+     1791
+    ],
+    "text": "strophic problem develops ⅲ れ transport eategory aircraft, the public"
+   },
+   {
+    "box": [
+     135,
+     1786,
+     1306,
+     1830
+    ],
+    "text": "interest and safety requires strong reo?ulatory action on the part of"
+   },
+   {
+    "box": [
+     135,
+     1825,
+     1304,
+     1859
+    ],
+    "text": "the Federal Aviation Administration. Tssuance of airworthiness direc-"
+   },
+   {
+    "box": [
+     132,
+     1862,
+     1302,
+     1903
+    ],
+    "text": "tives is the only proper way to proceed for several reasons. First, the"
+   },
+   {
+    "box": [
+     136,
+     1901,
+     1303,
+     1941
+    ],
+    "text": "(I) has the force and eff( 、 ct of law and 1 ・ equires modifications or fixes"
+   },
+   {
+    "box": [
+     135,
+     1938,
+     1305,
+     1977
+    ],
+    "text": "be made by certain time deadlines if the operator wishes to continue"
+   },
+   {
+    "box": [
+     134,
+     1978,
+     1305,
+     2017
+    ],
+    "text": "tO operate the aircraft. On the other hand, compliance with service"
+   },
+   {
+    "box": [
+     135,
+     2014,
+     1306,
+     2054
+    ],
+    "text": "bulletins is voluntary on the pal ・ t of the operator and may be ignored if"
+   },
+   {
+    "box": [
+     133,
+     2052,
+     1303,
+     2089
+    ],
+    "text": "the operator chooses. Second, the (I) is. transmittecl to 1 forei(rn"
+   },
+   {
+    "box": [
+     135,
+     2090,
+     1305,
+     2129
+    ],
+    "text": "governments by the United States notifying those 住0V円 ・ nments whose"
+   },
+   {
+    "box": [
+     133,
+     2128,
+     1304,
+     2165
+    ],
+    "text": "airlines operat( 、 IT. S. manufactured aircraft that Ⅲ 1 unsafe condition"
+   }
+  ]
+ },
+ "pg4001.png": {
+  "size": [
+   1700,
+   2200
+  ],
+  "lines": [
+   {
+    "box": [
+     662,
+     207,
+     1079,
+     236
+    ],
+    "text": "Airworthiness Directive"
+   },
+   {
+    "box": [
+     386,
+     292,
+     804,
+     322
+    ],
+    "text": "Federal Register lnformation"
+   },
+   {
+    "box": [
+     386,
+     371,
+     673,
+     395
+    ],
+    "text": "Header lnformation"
+   },
+   {
+    "box": [
+     352,
+     409,
+     933,
+     433
+    ],
+    "text": "DEPARTMENT OF TRANSPORTATION"
+   },
+   {
+    "box": [
+     352,
+     486,
+     787,
+     510
+    ],
+    "text": "Federal Av1ation Administration"
+   },
+   {
+    "box": [
+     356,
+     562,
+     559,
+     586
+    ],
+    "text": "14 CFR Part 39"
+   },
+   {
+    "box": [
+     352,
+     639,
+     832,
+     667
+    ],
+    "text": "Amendment 39-2443 ; AD 74-08-04"
+   },
+   {
+    "box": [
+     352,
+     792,
+     1268,
+     820
+    ],
+    "text": "A1rworthmess Direct1ves ; MCDONNELL DOUGLAS DC- 10 Ser1es"
+   },
+   {
+    "box": [
+     352,
+     831,
+     480,
+     861
+    ],
+    "text": "A1rplanes"
+   },
+   {
+    "box": [
+     352,
+     867,
+     649,
+     893
+    ],
+    "text": "PDF Copy ()f AvaiIabIe) :"
+   },
+   {
+    "box": [
+     386,
+     1019,
+     705,
+     1043
+    ],
+    "text": "Preamble lnformation"
+   },
+   {
+    "box": [
+     352,
+     1057,
+     1029,
+     1085
+    ],
+    "text": "AGENCY : Federal Aviat10n Admmstrauon, DOT"
+   },
+   {
+    "box": [
+     352,
+     1287,
+     859,
+     1315
+    ],
+    "text": "DATES: Effective December 1 , 1975."
+   },
+   {
+    "box": [
+     386,
+     1596,
+     727,
+     1626
+    ],
+    "text": "Regulatory lnformation"
+   },
+   {
+    "box": [
+     352,
+     1672,
+     1384,
+     1703
+    ],
+    "text": "74-08-04 MCDONNELL DOUGLAS : Amendment 39 ー 18 Ⅱ as amended by"
+   },
+   {
+    "box": [
+     352,
+     1711,
+     1248,
+     1742
+    ],
+    "text": "Amendment 39-2013 , 39-2112 , and 3 屮 2399 is further amended by"
+   },
+   {
+    "box": [
+     352,
+     1749,
+     1297,
+     1780
+    ],
+    "text": "Amendment 39-2443. Applies tO all McDonnelI-DougIas DC-IO senes"
+   },
+   {
+    "box": [
+     353,
+     1787,
+     479,
+     1818
+    ],
+    "text": "mrplanes."
+   },
+   {
+    "box": [
+     353,
+     1864,
+     806,
+     1895
+    ],
+    "text": "Compliance required as indicated:"
+   },
+   {
+    "box": [
+     352,
+     1941,
+     1387,
+     1972
+    ],
+    "text": "TO prevent possible in-flight depres sunzation Of the airplane that might result"
+   }
+  ]
+ },
+ "pg4101.png": {
+  "size": [
+   1700,
+   2200
+  ],
+  "lines": [
+   {
+    "box": [
+     641,
+     207,
+     1058,
+     236
+    ],
+    "text": "Airworthiness Directive"
+   },
+   {
+    "box": [
+     284,
+     292,
+     702,
+     322
+    ],
+    "text": "Federal Register lnformation"
+   },
+   {
+    "box": [
+     284,
+     371,
+     572,
+     395
+    ],
+    "text": "Header lnformation"
+   },
+   {
+    "box": [
+     250,
+     409,
+     831,
+     433
+    ],
+    "text": "DEPARTMENT OF TRANSPORTATION"
+   },
+   {
+    "box": [
+     250,
+     486,
+     685,
+     510
+    ],
+    "text": "Federal Av1ation Admin1strat10n"
+   },
+   {
+    "box": [
+     254,
+     562,
+     457,
+     586
+    ],
+    "text": "14 CFR Part 39"
+   },
+   {
+    "box": [
+     250,
+     639,
+     730,
+     667
+    ],
+    "text": "Amendment 39 ー 1923 ; AD 74-12-07"
+   },
+   {
+    "box": [
+     250,
+     792,
+     1410,
+     820
+    ],
+    "text": "A1rworthmess Directives; MCDONNELL DOUGLAS DC -10-10 , DC -10 ー 10F , DC-IO-"
+   },
+   {
+    "box": [
+     251,
+     831,
+     799,
+     862
+    ],
+    "text": "30 , DC ー 10-30F , and DC -10 ー 40 Airplanes"
+   },
+   {
+    "box": [
+     250,
+     868,
+     547,
+     893
+    ],
+    "text": "PDF Copy ()f AvailabIe) :"
+   },
+   {
+    "box": [
+     284,
+     1019,
+     603,
+     1043
+    ],
+    "text": "Preamble lnformation"
+   },
+   {
+    "box": [
+     250,
+     1057,
+     927,
+     1085
+    ],
+    "text": "AGENCY: Federal Aviat10n Administrauon, DOT"
+   },
+   {
+    "box": [
+     250,
+     1287,
+     733,
+     1318
+    ],
+    "text": "DATES: Effective August 22 , 1974."
+   },
+   {
+    "box": [
+     284,
+     1596,
+     625,
+     1626
+    ],
+    "text": "Regulatory lnformation"
+   },
+   {
+    "box": [
+     250,
+     1672,
+     1282,
+     1703
+    ],
+    "text": "74-12-07 MCDONNELL DOUGLAS: Amendment 39-1861 as amended by"
+   },
+   {
+    "box": [
+     250,
+     1711,
+     1427,
+     1742
+    ],
+    "text": "Amendment 39 ー 1923. Applies t0 M0del DC -10 ー 10 , DC- 10-10F , DC -10 ー 30 , DC -10-30F ,"
+   },
+   {
+    "box": [
+     251,
+     1749,
+     954,
+     1780
+    ],
+    "text": "and DC- 10-40 airplanes certificated in all categones."
+   },
+   {
+    "box": [
+     251,
+     1826,
+     962,
+     1857
+    ],
+    "text": "Compliance required on or before December 1 , 1974."
+   },
+   {
+    "box": [
+     250,
+     1902,
+     1377,
+     1933
+    ],
+    "text": "TO assure that in-flight depressurlzatlon WIII not occur as a result Of the openmg Of a"
+   },
+   {
+    "box": [
+     250,
+     1941,
+     1320,
+     1972
+    ],
+    "text": "lower cargo door, accomplish the following McDonnell Douglas DC-IO Service"
+   }
+  ]
+ },
+ "pg4201.png": {
+  "size": [
+   1700,
+   2200
+  ],
+  "lines": [
+   {
+    "box": [
+     641,
+     207,
+     1058,
+     236
+    ],
+    "text": "Airworthiness Directive"
+   },
+   {
+    "box": [
+     284,
+     292,
+     702,
+     322
+    ],
+    "text": "Federal Register lnformation"
+   },
+   {
+    "box": [
+     284,
+     371,
+     572,
+     395
+    ],
+    "text": "Header lnformation"
+   },
+   {
+    "box": [
+     250,
+     409,
+     831,
+     433
+    ],
+    "text": "DEPARTMENT OF TRANSPORTATION"
+   },
+   {
+    "box": [
+     250,
+     486,
+     685,
+     510
+    ],
+    "text": "Federal Av1ation Admin1strat10n"
+   },
+   {
+    "box": [
+     254,
+     562,
+     457,
+     586
+    ],
+    "text": "14 CFR Part 39"
+   },
+   {
+    "box": [
+     250,
+     639,
+     730,
+     667
+    ],
+    "text": "Amendment 39 ー 2739 ; AD 75-15-05"
+   },
+   {
+    "box": [
+     250,
+     792,
+     1369,
+     820
+    ],
+    "text": "MCDONNELL DOUGLAS , LOCKHEED , B OEING, AND AIRB US INDUSTRIE"
+   },
+   {
+    "box": [
+     250,
+     831,
+     1358,
+     862
+    ],
+    "text": "McDonnell DougIas MOdeI DC-IO Ser1es, Lockheed MOdeI L -1011 Senes, Boeing"
+   },
+   {
+    "box": [
+     250,
+     869,
+     1224,
+     900
+    ],
+    "text": "MOdel B ー 747 Series, and Airbus lndustne MOdel A -300 Series A1rplanes"
+   },
+   {
+    "box": [
+     250,
+     907,
+     547,
+     932
+    ],
+    "text": "PDF Copy ()f AvailabIe) :"
+   },
+   {
+    "box": [
+     284,
+     1057,
+     603,
+     1081
+    ],
+    "text": "Preamble lnformation"
+   },
+   {
+    "box": [
+     250,
+     1095,
+     927,
+     1123
+    ],
+    "text": "AGENCY: Federal Aviat10n Administrauon, DOT"
+   },
+   {
+    "box": [
+     250,
+     1325,
+     761,
+     1353
+    ],
+    "text": "DATES: Effective November 3 , 1976."
+   },
+   {
+    "box": [
+     284,
+     1635,
+     625,
+     1665
+    ],
+    "text": "Regulatory lnformation"
+   },
+   {
+    "box": [
+     250,
+     1711,
+     1355,
+     1740
+    ],
+    "text": "75-15-05 MCDONNELL DOUGLAS, LOCKHEED, BOEING, AND AIRBUS"
+   },
+   {
+    "box": [
+     250,
+     1749,
+     1392,
+     1780
+    ],
+    "text": "INDUSTRIE: Amendment 39-2262 as amended by Amendment 39-2739. Applies to"
+   },
+   {
+    "box": [
+     250,
+     1787,
+     1358,
+     1818
+    ],
+    "text": "McDonnell DougIas MOdeI DC-IO Ser1es, Lockheed MOdeI L -1011 Series, Boeing"
+   },
+   {
+    "box": [
+     250,
+     1826,
+     1408,
+     1857
+    ],
+    "text": "MOdel B ー 747 Series, and Airbus lndustrie MOdel A -300 Senes mrplanes certlficated ⅲ"
+   },
+   {
+    "box": [
+     251,
+     1864,
+     433,
+     1895
+    ],
+    "text": "all categones."
+   },
+   {
+    "box": [
+     250,
+     1941,
+     1445,
+     1972
+    ],
+    "text": "Unless alr ℃ ady accomplished, compliance is required on or before December 31 1977 , or"
+   }
+  ]
+ },
+ "pg4301.png": {
+  "size": [
+   1575,
+   2168
+  ],
+  "lines": [
+   {
+    "box": [
+     98,
+     106,
+     165,
+     128
+    ],
+    "text": "11992"
+   },
+   {
+    "box": [
+     96,
+     157,
+     552,
+     180
+    ],
+    "text": "m ⅱ い . Since the FAA had determined"
+   },
+   {
+    "box": [
+     96,
+     182,
+     553,
+     203
+    ],
+    "text": "that an improperly secured cargo door"
+   },
+   {
+    "box": [
+     96,
+     205,
+     531,
+     225
+    ],
+    "text": "would manifest itself during the ー い"
+   },
+   {
+    "box": [
+     96,
+     228,
+     552,
+     251
+    ],
+    "text": "phases Of pressurization following take?"
+   },
+   {
+    "box": [
+     96,
+     251,
+     552,
+     273
+    ],
+    "text": "0 を this need not be required by the AD."
+   },
+   {
+    "box": [
+     96,
+     274,
+     553,
+     296
+    ],
+    "text": "AccordingIy. the AD 地 revised の clearly"
+   },
+   {
+    "box": [
+     96,
+     297,
+     553,
+     318
+    ],
+    "text": "state that the AD requires depressuriza?"
+   },
+   {
+    "box": [
+     97,
+     321,
+     553,
+     342
+    ],
+    "text": "い on Of the airplane only Ⅱ an abnor-"
+   },
+   {
+    "box": [
+     96,
+     343,
+     553,
+     365
+    ],
+    "text": "mality ⅲ pressurization is observed dur-"
+   },
+   {
+    "box": [
+     97,
+     366,
+     553,
+     389
+    ],
+    "text": "ing the i ⅲ い 心 phases Of pressurization."
+   },
+   {
+    "box": [
+     96,
+     389,
+     554,
+     412
+    ],
+    "text": "Furthermore, the FAA has determined"
+   },
+   {
+    "box": [
+     96,
+     413,
+     553,
+     434
+    ],
+    "text": "that the requirements contained ⅲ para-"
+   },
+   {
+    "box": [
+     97,
+     436,
+     554,
+     458
+    ],
+    "text": "graph 2. Of the March 7 , 1974 telegram"
+   },
+   {
+    "box": [
+     97,
+     459,
+     554,
+     481
+    ],
+    "text": "that pertain checking Of the cargo"
+   },
+   {
+    "box": [
+     97,
+     482,
+     554,
+     503
+    ],
+    "text": "doors for security before each flight are"
+   },
+   {
+    "box": [
+     96,
+     505,
+     555,
+     527
+    ],
+    "text": "unnecessarily restrictive. Compliance"
+   },
+   {
+    "box": [
+     97,
+     528,
+     555,
+     551
+    ],
+    "text": "with paragraph 2. requires the opening"
+   },
+   {
+    "box": [
+     97,
+     551,
+     554,
+     573
+    ],
+    "text": "Of cargo d00 that need not otherwise"
+   },
+   {
+    "box": [
+     97,
+     574,
+     555,
+     597
+    ],
+    "text": "be opened a れ は that have previously been"
+   },
+   {
+    "box": [
+     97,
+     597,
+     555,
+     619
+    ],
+    "text": "checked for security ⅲ compliance with"
+   },
+   {
+    "box": [
+     98,
+     620,
+     555,
+     642
+    ],
+    "text": "the AD. AccordingIy? paragraph 2. 矼 the"
+   },
+   {
+    "box": [
+     97,
+     644,
+     555,
+     664
+    ],
+    "text": "AD amended い require that doors"
+   },
+   {
+    "box": [
+     98,
+     667,
+     555,
+     687
+    ],
+    "text": "known れ ot have been opened since"
+   },
+   {
+    "box": [
+     97,
+     690,
+     555,
+     711
+    ],
+    "text": "】 t checked need 0 Ⅱ IY be checked 行 om"
+   },
+   {
+    "box": [
+     99,
+     713,
+     555,
+     734
+    ],
+    "text": "the 0u3 馗 e before subsequent flights."
+   },
+   {
+    "box": [
+     99,
+     736,
+     555,
+     759
+    ],
+    "text": "Fina11Y, a number Of non-substantive"
+   },
+   {
+    "box": [
+     98,
+     760,
+     555,
+     781
+    ],
+    "text": "editorial changes have been made. Since"
+   },
+   {
+    "box": [
+     98,
+     783,
+     556,
+     803
+    ],
+    "text": "these amendments clarify requirements"
+   },
+   {
+    "box": [
+     98,
+     806,
+     555,
+     826
+    ],
+    "text": "0 「 relax unintended restrictions, notice"
+   },
+   {
+    "box": [
+     99,
+     830,
+     555,
+     852
+    ],
+    "text": "and public procedure thereon are un-"
+   },
+   {
+    "box": [
+     98,
+     852,
+     556,
+     874
+    ],
+    "text": "necessary and good cause exists for"
+   },
+   {
+    "box": [
+     99,
+     875,
+     556,
+     898
+    ],
+    "text": "makfng them effecUve ⅲ less 山 a れ 30"
+   },
+   {
+    "box": [
+     99,
+     901,
+     155,
+     920
+    ],
+    "text": "days."
+   },
+   {
+    "box": [
+     125,
+     922,
+     555,
+     941
+    ],
+    "text": "Since 比 was found that immediate cor-"
+   },
+   {
+    "box": [
+     100,
+     945,
+     557,
+     966
+    ],
+    "text": "rective action was required. notice and"
+   },
+   {
+    "box": [
+     99,
+     969,
+     556,
+     991
+    ],
+    "text": "public procedure thereon was imprac-"
+   },
+   {
+    "box": [
+     101,
+     992,
+     557,
+     1013
+    ],
+    "text": "ticable and contrary the public inter-"
+   },
+   {
+    "box": [
+     101,
+     1016,
+     557,
+     1037
+    ],
+    "text": "est and good cause 0 対 sted for making"
+   },
+   {
+    "box": [
+     101,
+     1039,
+     558,
+     1059
+    ],
+    "text": "the AD and the amendment Of the AD"
+   },
+   {
+    "box": [
+     101,
+     1063,
+     557,
+     1083
+    ],
+    "text": "effective ⅱ れ med け い 21 known"
+   },
+   {
+    "box": [
+     101,
+     1086,
+     558,
+     1108
+    ],
+    "text": "U. S. operators Of McDonne11-DougIas"
+   },
+   {
+    "box": [
+     136,
+     1110,
+     557,
+     1131
+    ],
+    "text": "ー 10 series airplanes by individual le -"
+   },
+   {
+    "box": [
+     101,
+     1133,
+     558,
+     1155
+    ],
+    "text": "grams dated March 7. 1974. and March"
+   },
+   {
+    "box": [
+     102,
+     1157,
+     558,
+     1178
+    ],
+    "text": "22.- 1974. These conditions still exist 2 れ d"
+   },
+   {
+    "box": [
+     102,
+     1180,
+     558,
+     1201
+    ],
+    "text": "the AD. amended, 地 hereby published"
+   },
+   {
+    "box": [
+     102,
+     1204,
+     558,
+     1223
+    ],
+    "text": "ⅲ the FEDERAL REGISTER as an amend-"
+   },
+   {
+    "box": [
+     102,
+     1227,
+     558,
+     1248
+    ],
+    "text": "ment 一 39.13 Of the Federal Aviation"
+   },
+   {
+    "box": [
+     103,
+     1251,
+     522,
+     1273
+    ],
+    "text": "ReguIations tO make れ effective tO"
+   },
+   {
+    "box": [
+     103,
+     1280,
+     192,
+     1296
+    ],
+    "text": "pe 一 0 れ S."
+   },
+   {
+    "box": [
+     105,
+     1307,
+     541,
+     1326
+    ],
+    "text": "(Sec. 313 ( a ) . 601. and 603 Of the を 0d0 ー"
+   },
+   {
+    "box": [
+     103,
+     1328,
+     558,
+     1346
+    ],
+    "text": "AViation Act 0 【 1958 ( 49 tJ. S ℃ . 54 ( ) . 1421."
+   },
+   {
+    "box": [
+     115,
+     1349,
+     559,
+     1367
+    ],
+    "text": "n ー 423 ) : 80. 6(c) Of the I 地 P れ me れ t 研"
+   },
+   {
+    "box": [
+     102,
+     1369,
+     514,
+     1389
+    ],
+    "text": "Transportation Act ( 49 0 お . C. 1655 ( 0 ) ) )"
+   },
+   {
+    "box": [
+     102,
+     1400,
+     559,
+     1419
+    ],
+    "text": "MCDONN を LL - DO ℃ ・ 43. App11es 】 McDon-"
+   },
+   {
+    "box": [
+     146,
+     1421,
+     519,
+     1440
+    ],
+    "text": "れ ell -8 glas DC?IO 8 ・ S Airplanes"
+   },
+   {
+    "box": [
+     125,
+     1442,
+     474,
+     1461
+    ],
+    "text": "Compliance req Ⅱ 0 は as indlcated:"
+   },
+   {
+    "box": [
+     124,
+     1463,
+     559,
+     1483
+    ],
+    "text": "TO prevent in-sight depressuriza?"
+   },
+   {
+    "box": [
+     104,
+     1484,
+     559,
+     1503
+    ],
+    "text": "い on Of the atrplane that might 【 08 リ from"
+   },
+   {
+    "box": [
+     103,
+     1505,
+     560,
+     1524
+    ],
+    "text": "t わ 0 opening Of an fmproperly 800u 「 ed cargo"
+   },
+   {
+    "box": [
+     103,
+     1525,
+     424,
+     1544
+    ],
+    "text": "は 00 a000mP1 h t れ 0 fonowing ・"
+   },
+   {
+    "box": [
+     126,
+     1556,
+     560,
+     1574
+    ],
+    "text": "1. Prior fu れ れ sight, 川 e already"
+   },
+   {
+    "box": [
+     104,
+     1577,
+     559,
+     1596
+    ],
+    "text": "occomplished. pe 0 「 れ 1 the m ( い 0n8 and"
+   },
+   {
+    "box": [
+     103,
+     1597,
+     479,
+     1615
+    ],
+    "text": "れ 一 nc い on c ヒ 6 「 en ( 0 は め 0"
+   },
+   {
+    "box": [
+     104,
+     1621,
+     182,
+     1636
+    ],
+    "text": "ー 0u0 響 & :"
+   },
+   {
+    "box": [
+     128,
+     1639,
+     560,
+     1659
+    ],
+    "text": "( A ) 加 stal 】 朝 spect れ P ( 新 and PI 0 rds"
+   },
+   {
+    "box": [
+     104,
+     1660,
+     559,
+     1679
+    ],
+    "text": "加 cargo and pe 0 ロ れ funcuonal"
+   },
+   {
+    "box": [
+     104,
+     1681,
+     560,
+     1699
+    ],
+    "text": "0 れ 00k Of d00 「 syst?ems and 0 0 「 a 材 on in ac?"
+   },
+   {
+    "box": [
+     104,
+     1701,
+     561,
+     1719
+    ],
+    "text": "cordance with McDonnell-Douglas A10 れ"
+   },
+   {
+    "box": [
+     104,
+     1722,
+     561,
+     1739
+    ],
+    "text": "80 れ ce Bu11etin A52 ー 35 dated 3 載 ne 19 , 1972."
+   },
+   {
+    "box": [
+     105,
+     1743,
+     434,
+     1762
+    ],
+    "text": "0 「 later FAA-approved rev ー 0 れ 8."
+   },
+   {
+    "box": [
+     129,
+     1767,
+     561,
+     1787
+    ],
+    "text": "(B) Modify ⅱ cargo door iatch 0 れ lat?o 「"
+   },
+   {
+    "box": [
+     105,
+     1788,
+     560,
+     1808
+    ],
+    "text": "wiring ⅲ れ 000rd nce W1th McDonneIl -Doug-"
+   },
+   {
+    "box": [
+     123,
+     1809,
+     560,
+     1827
+    ],
+    "text": "を service Bulletln 52 ー 27 date は ー y 30 , 1972 ,"
+   },
+   {
+    "box": [
+     105,
+     1830,
+     426,
+     1849
+    ],
+    "text": "0 「 late 「 FAA?approved V ー ons."
+   },
+   {
+    "box": [
+     129,
+     1854,
+     561,
+     1873
+    ],
+    "text": "(C) Except fOr those 0 cra れ w れ れ わ ve"
+   },
+   {
+    "box": [
+     105,
+     1876,
+     560,
+     1892
+    ],
+    "text": "been modifled a000 ー 0 良 W れ れ McDonne11-"
+   },
+   {
+    "box": [
+     106,
+     1896,
+     561,
+     1913
+    ],
+    "text": "DO 、 Servlce Bulletin 52-49 dated October"
+   },
+   {
+    "box": [
+     106,
+     1917,
+     561,
+     1935
+    ],
+    "text": "25. ー 973. 0 「 later FAA-approved 「 e ⅵ on 町 2-"
+   },
+   {
+    "box": [
+     106,
+     1938,
+     562,
+     1958
+    ],
+    "text": "p ー 良 00 t ぬ 0 3 な 0 plate and adJust the sw ℃ ぬ 03"
+   },
+   {
+    "box": [
+     645,
+     103,
+     976,
+     123
+    ],
+    "text": "RULES AND REG リ [ A 引 0N5"
+   },
+   {
+    "box": [
+     579,
+     157,
+     1016,
+     175
+    ],
+    "text": "on Ⅱ fO 「 w れ r 山 ce れ a れ 0 aft 0 go 0 侊 ー"
+   },
+   {
+    "box": [
+     579,
+     177,
+     1035,
+     196
+    ],
+    "text": "and ー n3t21 support 秘 第 は plate on t れ 0 aft"
+   },
+   {
+    "box": [
+     579,
+     198,
+     1035,
+     217
+    ],
+    "text": "ca 「 go は 00 「 ⅲ accordance 響 れ h McDonne11-"
+   },
+   {
+    "box": [
+     580,
+     219,
+     1035,
+     237
+    ],
+    "text": "DO Ⅱ 鰰 明 servtce Bunetin 52 ー 37 dated 3 社 ー y 3 ,"
+   },
+   {
+    "box": [
+     581,
+     240,
+     962,
+     258
+    ],
+    "text": "1972 , 0 ー later FAA-approved ー ・ V ー 0 Ⅱ 8."
+   },
+   {
+    "box": [
+     589,
+     1933,
+     1044,
+     1953
+    ],
+    "text": "1974 and March 22 , 1974 , and the ro -"
+   },
+   {
+    "box": [
+     587,
+     1905,
+     1042,
+     1927
+    ],
+    "text": "fective by the telegrams dated March 7 を"
+   },
+   {
+    "box": [
+     587,
+     1882,
+     1044,
+     1903
+    ],
+    "text": "amendment were made immediately ef-"
+   },
+   {
+    "box": [
+     586,
+     1859,
+     1043,
+     1879
+    ],
+    "text": "sor tO whom certain provisions Of thfs"
+   },
+   {
+    "box": [
+     588,
+     1836,
+     1042,
+     1856
+    ],
+    "text": "1974 , 1 persons except those per-"
+   },
+   {
+    "box": [
+     610,
+     1812,
+     1042,
+     1833
+    ],
+    "text": "This amendment effective Apri1 2 ,"
+   },
+   {
+    "box": [
+     586,
+     1780,
+     1021,
+     1800
+    ],
+    "text": "加 spec い 0 れ 0 「 協 n は 一 0 は ted 20h 我 n ー 印 n ・"
+   },
+   {
+    "box": [
+     586,
+     1760,
+     1043,
+     1779
+    ],
+    "text": "gagement 光 k ・ pins through ・ xte 0 ー"
+   },
+   {
+    "box": [
+     607,
+     1739,
+     1042,
+     1755
+    ],
+    "text": "B. Method 0 ー visual check tO en 0 en ・"
+   },
+   {
+    "box": [
+     586,
+     1718,
+     889,
+     1735
+    ],
+    "text": "れ 100ha れ 熔 m from the ー れ te or."
+   },
+   {
+    "box": [
+     607,
+     1697,
+     1043,
+     1716
+    ],
+    "text": "A. Obser マ on Of 0 一 了 ル い 0 れ Of iocking"
+   },
+   {
+    "box": [
+     585,
+     1677,
+     988,
+     1696
+    ],
+    "text": "ation locking ぐ rgo d00 including:"
+   },
+   {
+    "box": [
+     586,
+     1657,
+     1042,
+     1675
+    ],
+    "text": "f ー れ il 「 with. n は ⅲ は ( t れ at d ー れ . t れ 0 0P0 「 -"
+   },
+   {
+    "box": [
+     585,
+     1636,
+     1043,
+     1655
+    ],
+    "text": "quired flight c 「 ewmemb 田 を are thO 【 0 設 g ぬ ー Y"
+   },
+   {
+    "box": [
+     586,
+     1616,
+     1042,
+     1634
+    ],
+    "text": "0 r 0 「 training programs tO assure that ′ 0-"
+   },
+   {
+    "box": [
+     585,
+     1594,
+     1001,
+     1613
+    ],
+    "text": "ー ぬ れ 一 ac い 0 れ tO a ー れ 0 れ d t わ 0 approved"
+   },
+   {
+    "box": [
+     585,
+     1574,
+     1042,
+     1594
+    ],
+    "text": "specto as 引 gn を は U?S. DC?IO ( ゃ 0 「 庇 tO will"
+   },
+   {
+    "box": [
+     584,
+     1554,
+     1042,
+     1573
+    ],
+    "text": "the AD. principal air carrter opera 0n6 ト"
+   },
+   {
+    "box": [
+     606,
+     1532,
+     1043,
+     1549
+    ],
+    "text": "NOT 第 . ー - m Ⅱ ー neo 設 & Wltb the issuance Of"
+   },
+   {
+    "box": [
+     585,
+     1513,
+     890,
+     1530
+    ],
+    "text": "D 恒 ト ー on. FAA Western Region."
+   },
+   {
+    "box": [
+     585,
+     1492,
+     1042,
+     1512
+    ],
+    "text": "proved by the C れ に f. Atrcrart Engtneering"
+   },
+   {
+    "box": [
+     584,
+     1472,
+     1041,
+     1490
+    ],
+    "text": "er tO may comply with 「 eq uirements ap-"
+   },
+   {
+    "box": [
+     585,
+     1452,
+     1041,
+     1469
+    ],
+    "text": "8 ns 0 ー Of t れ 0 above 「 eq eme 第 3. 0 -"
+   },
+   {
+    "box": [
+     605,
+     1430,
+     1041,
+     1449
+    ],
+    "text": "9. ln lteu compliance 物 ー 1 the p 「 0 ⅵ -"
+   },
+   {
+    "box": [
+     597,
+     1411,
+     775,
+     1429
+    ],
+    "text": "pp 「 0 マ 0 は rev お ー on 圧"
+   },
+   {
+    "box": [
+     594,
+     1389,
+     1041,
+     1408
+    ],
+    "text": "ev い Ⅱ 1. は t00 April ー 4. 1913 , or later FAA?"
+   },
+   {
+    "box": [
+     584,
+     1369,
+     1041,
+     1388
+    ],
+    "text": "入 ー cDon れ 0 ⅱ 4 ) g 3 Se 「 V 0 Bulletin 52 ー 54"
+   },
+   {
+    "box": [
+     585,
+     1349,
+     1040,
+     1364
+    ],
+    "text": "d00 で limit sw れ c れ 00V0 「 s 新 accordance W れ れ"
+   },
+   {
+    "box": [
+     606,
+     1328,
+     1042,
+     1346
+    ],
+    "text": "8. 0 れ 0 ~ before July 1. 1974 , inst?an 0 一 go"
+   },
+   {
+    "box": [
+     584,
+     1308,
+     828,
+     1326
+    ],
+    "text": "FAA-approved V い 一 ong."
+   },
+   {
+    "box": [
+     584,
+     1287,
+     1041,
+     1304
+    ],
+    "text": "Rev い れ 1. d れ は March 15. ー 974. or later"
+   },
+   {
+    "box": [
+     584,
+     1267,
+     1041,
+     1285
+    ],
+    "text": "MeDon れ 0 Ⅱ - DO g ⅲ & Se 新 00 Bulletin 52 ー 49 を"
+   },
+   {
+    "box": [
+     584,
+     1246,
+     982,
+     1265
+    ],
+    "text": "warning system rework 8CCO 「 は a れ ( 0"
+   },
+   {
+    "box": [
+     587,
+     1226,
+     1040,
+     1245
+    ],
+    "text": "い cargo は 00 【 latChin g mechanism れ は"
+   },
+   {
+    "box": [
+     605,
+     1205,
+     1040,
+     1223
+    ],
+    "text": "7. On 0 ー わ 0f0 「 0 July 1 , 1974. accompllsh"
+   },
+   {
+    "box": [
+     583,
+     1186,
+     826,
+     1204
+    ],
+    "text": "FAA-approved 「 evis 扣 れ s."
+   },
+   {
+    "box": [
+     584,
+     1164,
+     987,
+     1183
+    ],
+    "text": "44. Rev 協 Ⅱ 1. ate は August 14. 1973. or"
+   },
+   {
+    "box": [
+     583,
+     1144,
+     1041,
+     1160
+    ],
+    "text": "月 田 い れ s 52 ー 43 dated ( 0 一 地 ー 5. 1972. and 52 ー"
+   },
+   {
+    "box": [
+     584,
+     1124,
+     1040,
+     1139
+    ],
+    "text": "00 「 dance W れ れ 、 一 08 れ n01 ト DO 設 a Service"
+   },
+   {
+    "box": [
+     596,
+     1103,
+     1039,
+     1121
+    ],
+    "text": "00 ー warnlng 3Y5 m wiring 0 わ 第 g ・ s OC-"
+   },
+   {
+    "box": [
+     583,
+     1082,
+     1040,
+     1100
+    ],
+    "text": "朝 マ 0 date 0 ー this AD 000ma h the cargo"
+   },
+   {
+    "box": [
+     605,
+     1061,
+     1039,
+     1080
+    ],
+    "text": "6. ′ れ h ー れ the next 30 days れ れ e ー the 0 価 ec -"
+   },
+   {
+    "box": [
+     596,
+     1041,
+     691,
+     1056
+    ],
+    "text": "0 ormed."
+   },
+   {
+    "box": [
+     583,
+     1020,
+     1003,
+     1036
+    ],
+    "text": "tO a base w わ 0 「 0 t れ 0 modincations can"
+   },
+   {
+    "box": [
+     584,
+     1000,
+     1039,
+     1018
+    ],
+    "text": "ー 21.197 Of the を 0 は e 「 AViation Reg Ⅱ 】 a い on 日"
+   },
+   {
+    "box": [
+     584,
+     979,
+     1038,
+     999
+    ],
+    "text": "plane may be flown ー ユ accordance With"
+   },
+   {
+    "box": [
+     582,
+     959,
+     988,
+     977
+    ],
+    "text": "forth ー Ⅱ paragraph 1. 0 ( t れ AD the"
+   },
+   {
+    "box": [
+     604,
+     938,
+     1040,
+     956
+    ],
+    "text": "5. Notwithstanding t れ 0 ー equ 胼 0n10 れ 物 8e0"
+   },
+   {
+    "box": [
+     582,
+     918,
+     917,
+     935
+    ],
+    "text": "t れ 0 Federal Av ー 1 0 れ Re 印 ⅱ t ns."
+   },
+   {
+    "box": [
+     582,
+     897,
+     1039,
+     916
+    ],
+    "text": "notwfthstandtng れ お y Other 「 equ 孵 en ) 0 Ⅱ 0 ー"
+   },
+   {
+    "box": [
+     582,
+     877,
+     1039,
+     895
+    ],
+    "text": "be れ 000m0 s わ e は by mght 0 「 ewmembe 「"
+   },
+   {
+    "box": [
+     604,
+     856,
+     1007,
+     875
+    ],
+    "text": "4. ・ ロ checks requ 0 は by this AD are"
+   },
+   {
+    "box": [
+     582,
+     836,
+     860,
+     854
+    ],
+    "text": "the れ ea 「 est su れ b 3 ー ロ 刈 れ ."
+   },
+   {
+    "box": [
+     582,
+     815,
+     1009,
+     834
+    ],
+    "text": "depressur レ 飆い0n Of the airplane and land"
+   },
+   {
+    "box": [
+     582,
+     795,
+     1038,
+     814
+    ],
+    "text": "phaees 0 ー p 「 es 当 u 月 za い on. れ は d0300 Ⅱ t and"
+   },
+   {
+    "box": [
+     581,
+     774,
+     1038,
+     793
+    ],
+    "text": "the airplane observed during the ー n 地 ー"
+   },
+   {
+    "box": [
+     603,
+     753,
+     1038,
+     772
+    ],
+    "text": "3. If any abnormality ー れ pr ⅳ a on Of"
+   },
+   {
+    "box": [
+     581,
+     734,
+     828,
+     752
+    ],
+    "text": "れ 「 0 ex い n u わ 0 p ⅵ 0 「 tO"
+   },
+   {
+    "box": [
+     606,
+     712,
+     1037,
+     731
+    ],
+    "text": "(C) En 駅 0 0 rgo d00 「 w 良 「 Ⅱ 加 g lights"
+   },
+   {
+    "box": [
+     581,
+     672,
+     1002,
+     691
+    ],
+    "text": "by visual 0 れ 00k through ー れ s ec 材 0 Ⅱ po"
+   },
+   {
+    "box": [
+     605,
+     651,
+     1037,
+     670
+    ],
+    "text": "( 2 ) 居 ns proper lOCking pin placement"
+   },
+   {
+    "box": [
+     581,
+     632,
+     774,
+     649
+    ],
+    "text": "in proper po 訂 u0118."
+   },
+   {
+    "box": [
+     604,
+     611,
+     1037,
+     629
+    ],
+    "text": "( 1 ) を ns 社 「 0 that locking m00 ぬ an れ 13 ユ ー 0"
+   },
+   {
+    "box": [
+     581,
+     590,
+     841,
+     608
+    ],
+    "text": "proper security ー 0 Ⅱ OW & :"
+   },
+   {
+    "box": [
+     581,
+     569,
+     1039,
+     588
+    ],
+    "text": "pnance wtth paragraph 2. ( A ) Of t れ AD, for"
+   },
+   {
+    "box": [
+     580,
+     549,
+     1037,
+     567
+    ],
+    "text": "わ ve わ een opened n00 last 0h00 ト ed ⅲ 00m -"
+   },
+   {
+    "box": [
+     605,
+     528,
+     1037,
+     546
+    ],
+    "text": "( B ) Check 0 ユ ch ca 「 go door known れ Ot tO"
+   },
+   {
+    "box": [
+     580,
+     508,
+     1013,
+     527
+    ],
+    "text": "by visual check through 新 spec い 0 れ 一 刈 ロ :"
+   },
+   {
+    "box": [
+     604,
+     487,
+     1037,
+     506
+    ],
+    "text": "( 4 ) を ns 載 p 「 op 100k 加 g ⅲ placement"
+   },
+   {
+    "box": [
+     581,
+     467,
+     773,
+     485
+    ],
+    "text": "in proper po 衄 い ons."
+   },
+   {
+    "box": [
+     604,
+     446,
+     1037,
+     465
+    ],
+    "text": "( 3 ) Ensure that locking mecuanisms 0"
+   },
+   {
+    "box": [
+     580,
+     426,
+     920,
+     444
+    ],
+    "text": "expose は d00 「 】 00k ing れ 100h n ."
+   },
+   {
+    "box": [
+     604,
+     405,
+     1035,
+     423
+    ],
+    "text": "( 2 ) Ensure that no ( 0 「 の g れ matter 地 ⅲ t れ 0"
+   },
+   {
+    "box": [
+     580,
+     385,
+     832,
+     403
+    ],
+    "text": "tain proper pc い 0 れ ."
+   },
+   {
+    "box": [
+     605,
+     364,
+     1035,
+     382
+    ],
+    "text": "い ) Ensure that 物 0 cargo f08 い 衄 れ t cu ト"
+   },
+   {
+    "box": [
+     580,
+     344,
+     685,
+     358
+    ],
+    "text": "as ー 0u0 響 s :"
+   },
+   {
+    "box": [
+     580,
+     323,
+     1035,
+     341
+    ],
+    "text": "opened smce 1 tc わ 00k ・ 山 for p 「 0P0 「 30 Ⅱ ty"
+   },
+   {
+    "box": [
+     604,
+     302,
+     1035,
+     320
+    ],
+    "text": "(A) Check 0 0 れ 0 れ rgo は ( 「 that わ s been"
+   },
+   {
+    "box": [
+     579,
+     281,
+     651,
+     296
+    ],
+    "text": "8halt?"
+   },
+   {
+    "box": [
+     602,
+     260,
+     1035,
+     279
+    ],
+    "text": "2. P 月 0 【 each れ ht. れ 第 h 宅 crewmember"
+   },
+   {
+    "box": [
+     1061,
+     156,
+     1512,
+     179
+    ],
+    "text": "v Of this amendment れ Ot included"
+   },
+   {
+    "box": [
+     1060,
+     179,
+     1439,
+     199
+    ],
+    "text": "ー Ⅱ 1 e telegrams are effective"
+   },
+   {
+    "box": [
+     1061,
+     203,
+     1361,
+     223
+    ],
+    "text": "せ 】 ose persons April 2. 1974."
+   },
+   {
+    "box": [
+     1085,
+     237,
+     1510,
+     258
+    ],
+    "text": "lssued ⅲ Washington, D. C ” 0 れ March"
+   },
+   {
+    "box": [
+     1062,
+     260,
+     1153,
+     281
+    ],
+    "text": "28 , 1974."
+   },
+   {
+    "box": [
+     1244,
+     330,
+     1489,
+     351
+    ],
+    "text": "0 ん t S れ ar s S 0 巳"
+   },
+   {
+    "box": [
+     1370,
+     308,
+     1467,
+     329
+    ],
+    "text": "の ectO ら"
+   },
+   {
+    "box": [
+     1240,
+     284,
+     1443,
+     305
+    ],
+    "text": "JAMES F. RUDOLPH,"
+   },
+   {
+    "box": [
+     1069,
+     1924,
+     1515,
+     1951
+    ],
+    "text": "bracket れ Ot 第 u 切 ect 00 【 0 【 ma 0 Ⅱ . T れ ・"
+   },
+   {
+    "box": [
+     1069,
+     1904,
+     1514,
+     1930
+    ],
+    "text": "bracket P/N ABA8048 ー 4 レ ー 42 w れ れ a new 83P"
+   },
+   {
+    "box": [
+     1069,
+     1884,
+     1515,
+     1910
+    ],
+    "text": "社 、 already accompli 曲 ed. rep 00 63P"
+   },
+   {
+    "box": [
+     1068,
+     1863,
+     1514,
+     1888
+    ],
+    "text": "80f ⅵ 00 Lfter t れ 0 effective date 0 ー t れ AD'"
+   },
+   {
+    "box": [
+     1093,
+     1842,
+     1514,
+     1870
+    ],
+    "text": "( 0 ) 、 Vithfn ー 500 わ ou 新 ・ dd 代 ー 0 れ 哲 me ⅲ"
+   },
+   {
+    "box": [
+     1069,
+     1826,
+     1299,
+     1846
+    ],
+    "text": "senger dOOr air bOt ."
+   },
+   {
+    "box": [
+     1068,
+     1801,
+     1513,
+     1825
+    ],
+    "text": "any resetung n は ch れ g 可 ー d pas ・"
+   },
+   {
+    "box": [
+     1067,
+     1779,
+     1514,
+     1803
+    ],
+    "text": "・ bOttie a em わ Ⅱ per (a) above. ー 0 Ⅱ 0 ー ng"
+   },
+   {
+    "box": [
+     1093,
+     1760,
+     1481,
+     1783
+    ],
+    "text": "(b) Re い 1 町 ct forword passenger d00 「"
+   },
+   {
+    "box": [
+     1068,
+     1745,
+     1211,
+     1763
+    ],
+    "text": "ー Ⅱ れ h fltght."
+   },
+   {
+    "box": [
+     1094,
+     1719,
+     1497,
+     1742
+    ],
+    "text": "000 「 pn 社 a 社 0 f 社 れ c い 0n2 check b 0"
+   },
+   {
+    "box": [
+     1068,
+     1696,
+     1514,
+     1720
+    ],
+    "text": "with a serviceable stop b 「 ac 0 and conduct"
+   },
+   {
+    "box": [
+     1069,
+     1678,
+     1497,
+     1700
+    ],
+    "text": "normal 90 de ee right angle PO 引 0 れ , p 淞"
+   },
+   {
+    "box": [
+     1096,
+     1656,
+     1498,
+     1680
+    ],
+    "text": "bent open n10 「 0 than 5 deg 【 00S om ー"
+   },
+   {
+    "box": [
+     1069,
+     1635,
+     1514,
+     1657
+    ],
+    "text": "山 刈 r bOt い 0 aggemblies. If the stOP bracket"
+   },
+   {
+    "box": [
+     1068,
+     1619,
+     1497,
+     1639
+    ],
+    "text": "accomplished. ー れ 刈 ct forward p 新 0 れ g"
+   },
+   {
+    "box": [
+     1068,
+     1595,
+     1514,
+     1616
+    ],
+    "text": "t れ 0 0 00 0 date Of thiq AD. unless alreadY"
+   },
+   {
+    "box": [
+     1092,
+     1575,
+     1513,
+     1598
+    ],
+    "text": "(a) Within 100 hou ・ time 80r ⅵ ce に ー"
+   },
+   {
+    "box": [
+     1068,
+     1559,
+     1333,
+     1578
+    ],
+    "text": "accomplish the following :"
+   },
+   {
+    "box": [
+     1068,
+     1533,
+     1513,
+     1556
+    ],
+    "text": "0 ・ 一 0 「 med 8 p bracket P/N ABA8048 ー 41 ト 42 ,"
+   },
+   {
+    "box": [
+     1089,
+     1513,
+     1513,
+     1536
+    ],
+    "text": "TO a リ re proper alignment 0 気 e?nd det を は"
+   },
+   {
+    "box": [
+     1089,
+     1495,
+     1451,
+     1516
+    ],
+    "text": "Comが は 00 ー eq 設 0 ー れ 山 53d."
+   },
+   {
+    "box": [
+     1112,
+     1477,
+     1227,
+     1495
+    ],
+    "text": "t れ ア 0 な 0 ん 92."
+   },
+   {
+    "box": [
+     1111,
+     1452,
+     1512,
+     1474
+    ],
+    "text": "series 作 れ es. を 荏 06 社 川 0 3 」"
+   },
+   {
+    "box": [
+     1067,
+     1431,
+     1513,
+     1451
+    ],
+    "text": "McDON を し し DOUG も & s. tO DC ・ 40"
+   },
+   {
+    "box": [
+     1068,
+     1401,
+     1491,
+     1424
+    ],
+    "text": "following new airworthiness directive:"
+   },
+   {
+    "box": [
+     1067,
+     1372,
+     1514,
+     1396
+    ],
+    "text": "Regu1ations 地 amended by adding the"
+   },
+   {
+    "box": [
+     1070,
+     1346,
+     1514,
+     1368
+    ],
+    "text": "義 39.13 part 39 of le Federal Aviation"
+   },
+   {
+    "box": [
+     1068,
+     1318,
+     1514,
+     1341
+    ],
+    "text": "by the A 山 れ ⅱ 1 trator ( 31 FR 13697 ) ,"
+   },
+   {
+    "box": [
+     1067,
+     1293,
+     1514,
+     1314
+    ],
+    "text": "pursuant tO the authority delegated tO me"
+   },
+   {
+    "box": [
+     1092,
+     1264,
+     1514,
+     1285
+    ],
+    "text": "In consideration Of the foregoing. and"
+   },
+   {
+    "box": [
+     1068,
+     1239,
+     1387,
+     1259
+    ],
+    "text": "effective ⅲ less than 30 days."
+   },
+   {
+    "box": [
+     1068,
+     1210,
+     1514,
+     1231
+    ],
+    "text": "cause exists fO 「 making 山 amendment"
+   },
+   {
+    "box": [
+     1067,
+     1181,
+     1514,
+     1204
+    ],
+    "text": "dure れ eo れ 0 impractical and good"
+   },
+   {
+    "box": [
+     1067,
+     1156,
+     1513,
+     1177
+    ],
+    "text": "れ 地 found that not 地 and public proce ・"
+   },
+   {
+    "box": [
+     1066,
+     1129,
+     1514,
+     1150
+    ],
+    "text": "immediate a 臧 OP い on Of this regulation."
+   },
+   {
+    "box": [
+     1091,
+     1101,
+     1514,
+     1121
+    ],
+    "text": "Since a situation ex お 山 q ⅲ Ⅳ 5"
+   },
+   {
+    "box": [
+     1067,
+     1074,
+     1387,
+     1095
+    ],
+    "text": "placement 矼 defective parts."
+   },
+   {
+    "box": [
+     1084,
+     1047,
+     1514,
+     1067
+    ],
+    "text": "0 第 s and/or rework, s and/or -"
+   },
+   {
+    "box": [
+     1067,
+     1019,
+     1512,
+     1040
+    ],
+    "text": "地 being issued require certain inspec-"
+   },
+   {
+    "box": [
+     1065,
+     992,
+     1514,
+     1012
+    ],
+    "text": "type design. an airworthiness directive"
+   },
+   {
+    "box": [
+     1066,
+     964,
+     1514,
+     985
+    ],
+    "text": "or develop 垣 Other airplanes Of the same"
+   },
+   {
+    "box": [
+     1089,
+     937,
+     1514,
+     958
+    ],
+    "text": "Since the con 山 目 on 地 likely tO exist"
+   },
+   {
+    "box": [
+     1066,
+     915,
+     1178,
+     935
+    ],
+    "text": "operation."
+   },
+   {
+    "box": [
+     1067,
+     891,
+     1514,
+     911
+    ],
+    "text": "い on. allowing a malfunction 加 d00 ー"
+   },
+   {
+    "box": [
+     1065,
+     868,
+     1513,
+     888
+    ],
+    "text": "crank tO m?ve past ー normal stOP 川 ) s ト"
+   },
+   {
+    "box": [
+     1065,
+     844,
+     1513,
+     864
+    ],
+    "text": "dition allowed the air bottle actuating"
+   },
+   {
+    "box": [
+     1065,
+     821,
+     1513,
+     839
+    ],
+    "text": "caused the faiiure 可 the door. 加 s con-"
+   },
+   {
+    "box": [
+     1064,
+     798,
+     1514,
+     818
+    ],
+    "text": "bottle actua ting crank stop bracket"
+   },
+   {
+    "box": [
+     1064,
+     775,
+     1514,
+     795
+    ],
+    "text": "forward pnssenger door emergency air"
+   },
+   {
+    "box": [
+     1065,
+     751,
+     1513,
+     771
+    ],
+    "text": "emergency mode. Deformation the"
+   },
+   {
+    "box": [
+     1064,
+     728,
+     1513,
+     748
+    ],
+    "text": "preventing operation Of the d00 「 the"
+   },
+   {
+    "box": [
+     1063,
+     705,
+     1513,
+     725
+    ],
+    "text": "be moved intO the emergency po い on ,"
+   },
+   {
+    "box": [
+     1064,
+     681,
+     1514,
+     701
+    ],
+    "text": "senger door, the d00 「 handle could not"
+   },
+   {
+    "box": [
+     1064,
+     658,
+     1512,
+     679
+    ],
+    "text": "function check 0 ー the L 温 . forward pas-"
+   },
+   {
+    "box": [
+     1063,
+     635,
+     1513,
+     656
+    ],
+    "text": "Other case, during a routine pneumatic"
+   },
+   {
+    "box": [
+     1064,
+     612,
+     1512,
+     632
+    ],
+    "text": "passenger d00 「 failed operate. an-"
+   },
+   {
+    "box": [
+     1064,
+     589,
+     1512,
+     608
+    ],
+    "text": "DC?IO landing rccident, forward R. 日 ."
+   },
+   {
+    "box": [
+     1064,
+     565,
+     1513,
+     585
+    ],
+    "text": "during an emergency evacuation after a"
+   },
+   {
+    "box": [
+     1088,
+     542,
+     1513,
+     563
+    ],
+    "text": "111e agency わ received a report. that"
+   },
+   {
+    "box": [
+     1084,
+     508,
+     1475,
+     530
+    ],
+    "text": "McDonneII Douglas Model ー 10S 町 i"
+   },
+   {
+    "box": [
+     1064,
+     476,
+     1512,
+     497
+    ],
+    "text": "PART 39?AIRWORTHINESS DIRECTIVES"
+   },
+   {
+    "box": [
+     1213,
+     445,
+     1368,
+     464
+    ],
+    "text": "Amdt. 39 ー 1804 ー"
+   },
+   {
+    "box": [
+     1077,
+     424,
+     1500,
+     443
+    ],
+    "text": "ー A 響 0 れ ぬ ⅱ Docket NO. 74 ー ′ E -8 ー ・ AD :"
+   },
+   {
+    "box": [
+     1097,
+     362,
+     1479,
+     384
+    ],
+    "text": "ー PRDoc. 74 ー 7594 日 0 4-1 ー 74 : 8 : 45am ー"
+   },
+   {
+    "box": [
+     502,
+     2033,
+     1134,
+     2052
+    ],
+    "text": "確 0 A ー 震 E 引 STE VO し 39. NO. 64 一 れ に SDAY. A 2. 1974"
+   }
+  ]
+ },
+ "pg5002.png": {
+  "size": [
+   1699,
+   2219
+  ],
+  "lines": [
+   {
+    "box": [
+     457,
+     1112,
+     583,
+     1144
+    ],
+    "text": "Operator"
+   },
+   {
+    "box": [
+     504,
+     1239,
+     535,
+     1263
+    ],
+    "text": "AA"
+   },
+   {
+    "box": [
+     505,
+     1367,
+     534,
+     1390
+    ],
+    "text": "CO"
+   },
+   {
+    "box": [
+     503,
+     1463,
+     535,
+     1486
+    ],
+    "text": "NA"
+   },
+   {
+    "box": [
+     502,
+     1557,
+     534,
+     1581
+    ],
+    "text": "UA"
+   },
+   {
+    "box": [
+     502,
+     1747,
+     533,
+     1771
+    ],
+    "text": "AA"
+   },
+   {
+    "box": [
+     247,
+     2035,
+     613,
+     2064
+    ],
+    "text": "Revision 2 August 25 / 72"
+   },
+   {
+    "box": [
+     244,
+     1963,
+     387,
+     1995
+    ],
+    "text": "Ju1y 3 〃 2"
+   },
+   {
+    "box": [
+     248,
+     192,
+     864,
+     368
+    ],
+    "text": "ロ 0 に"
+   },
+   {
+    "box": [
+     252,
+     122,
+     781,
+     140
+    ],
+    "text": "000G 、 A ・ A ー 0 A ′ す CO ANV"
+   },
+   {
+    "box": [
+     697,
+     154,
+     1084,
+     171
+    ],
+    "text": "解 G0022 を 00 尠 0 A ・"
+   },
+   {
+    "box": [
+     251,
+     384,
+     1190,
+     462
+    ],
+    "text": "SERVICE BULLETIN"
+   },
+   {
+    "box": [
+     252,
+     511,
+     1172,
+     542
+    ],
+    "text": "DOORS - Cargo - Modify And Adjust Door Mechanism se ly."
+   },
+   {
+    "box": [
+     969,
+     269,
+     1194,
+     285
+    ],
+    "text": "3855 [ 計 を 0 80 リ 層 ′ d"
+   },
+   {
+    "box": [
+     943,
+     293,
+     1193,
+     311
+    ],
+    "text": "[ 00g Beach. Ca 胼 0 ′ ん a 90801"
+   },
+   {
+    "box": [
+     840,
+     1682,
+     1119,
+     1717
+    ],
+    "text": "()O Kits Required)"
+   },
+   {
+    "box": [
+     570,
+     731,
+     995,
+     757
+    ],
+    "text": "detai led modification data."
+   },
+   {
+    "box": [
+     570,
+     700,
+     1239,
+     725
+    ],
+    "text": "are furnished in lieu of illustrations and"
+   },
+   {
+    "box": [
+     905,
+     669,
+     1221,
+     699
+    ],
+    "text": "Engineering drawings"
+   },
+   {
+    "box": [
+     572,
+     669,
+     868,
+     699
+    ],
+    "text": "record type change."
+   },
+   {
+    "box": [
+     569,
+     638,
+     1142,
+     663
+    ],
+    "text": "This Service Bu11etin is issued as a"
+   },
+   {
+    "box": [
+     873,
+     576,
+     935,
+     599
+    ],
+    "text": "NOTE"
+   },
+   {
+    "box": [
+     381,
+     951,
+     739,
+     983
+    ],
+    "text": "( 1 ) Aircraft Affected:"
+   },
+   {
+    "box": [
+     313,
+     890,
+     564,
+     922
+    ],
+    "text": "A. Effectivity:"
+   },
+   {
+    "box": [
+     314,
+     825,
+     643,
+     858
+    ],
+    "text": "P1anninq lnfomation:"
+   },
+   {
+    "box": [
+     728,
+     1018,
+     1077,
+     1046
+    ],
+    "text": "Mode1 DC-IO, Series 10"
+   },
+   {
+    "box": [
+     650,
+     1113,
+     930,
+     1145
+    ],
+    "text": "Factory Seria1 NO."
+   },
+   {
+    "box": [
+     999,
+     1112,
+     1298,
+     1145
+    ],
+    "text": "*MfrIs Fuse1aqe No."
+   },
+   {
+    "box": [
+     839,
+     1177,
+     917,
+     1208
+    ],
+    "text": "Group"
+   },
+   {
+    "box": [
+     648,
+     1239,
+     726,
+     1263
+    ],
+    "text": "46502"
+   },
+   {
+    "box": [
+     648,
+     1367,
+     725,
+     1391
+    ],
+    "text": "46900"
+   },
+   {
+    "box": [
+     648,
+     1464,
+     725,
+     1487
+    ],
+    "text": "46 700"
+   },
+   {
+    "box": [
+     647,
+     1495,
+     724,
+     1519
+    ],
+    "text": "46706"
+   },
+   {
+    "box": [
+     647,
+     1558,
+     724,
+     1582
+    ],
+    "text": "46600"
+   },
+   {
+    "box": [
+     760,
+     1240,
+     822,
+     1263
+    ],
+    "text": "thru"
+   },
+   {
+    "box": [
+     760,
+     1368,
+     821,
+     1392
+    ],
+    "text": "thru"
+   },
+   {
+    "box": [
+     759,
+     1464,
+     821,
+     1488
+    ],
+    "text": "thru"
+   },
+   {
+    "box": [
+     759,
+     1559,
+     820,
+     1582
+    ],
+    "text": "thru"
+   },
+   {
+    "box": [
+     695,
+     1685,
+     818,
+     1717
+    ],
+    "text": "Group II"
+   },
+   {
+    "box": [
+     646,
+     1748,
+     723,
+     1772
+    ],
+    "text": "46500"
+   },
+   {
+    "box": [
+     647,
+     1780,
+     819,
+     1804
+    ],
+    "text": "46516 th ru"
+   },
+   {
+    "box": [
+     646,
+     1843,
+     723,
+     1867
+    ],
+    "text": "46905"
+   },
+   {
+    "box": [
+     856,
+     1240,
+     933,
+     1264
+    ],
+    "text": "46515"
+   },
+   {
+    "box": [
+     854,
+     1781,
+     933,
+     1804
+    ],
+    "text": "46518"
+   },
+   {
+    "box": [
+     855,
+     1368,
+     934,
+     1392
+    ],
+    "text": "46904"
+   },
+   {
+    "box": [
+     854,
+     1464,
+     933,
+     1488
+    ],
+    "text": "46703"
+   },
+   {
+    "box": [
+     853,
+     1558,
+     932,
+     1582
+    ],
+    "text": "46614"
+   },
+   {
+    "box": [
+     1016,
+     1240,
+     1315,
+     1269
+    ],
+    "text": "3 , 5 , 7 , 9 , 12 , 13 ,"
+   },
+   {
+    "box": [
+     1015,
+     1272,
+     1316,
+     1302
+    ],
+    "text": "20 thru 24 , 30 , 31 物"
+   },
+   {
+    "box": [
+     1013,
+     1303,
+     1109,
+     1327
+    ],
+    "text": "and 37"
+   },
+   {
+    "box": [
+     1016,
+     1368,
+     1317,
+     1398
+    ],
+    "text": "34. 40 , 41 , 43 , and"
+   },
+   {
+    "box": [
+     1014,
+     1400,
+     1045,
+     1424
+    ],
+    "text": "44"
+   },
+   {
+    "box": [
+     1016,
+     1464,
+     1299,
+     1493
+    ],
+    "text": "14 , 16 , 18 , and 19"
+   },
+   {
+    "box": [
+     1015,
+     1496,
+     1045,
+     1519
+    ],
+    "text": "38"
+   },
+   {
+    "box": [
+     1014,
+     1559,
+     1330,
+     1587
+    ],
+    "text": "4 , 6 , 8 , 10 , 11 , 15 ,"
+   },
+   {
+    "box": [
+     1015,
+     1590,
+     1313,
+     1620
+    ],
+    "text": "17 , 25 thru 27 , 32 ,"
+   },
+   {
+    "box": [
+     1015,
+     1622,
+     1299,
+     1650
+    ],
+    "text": "35 , 39 , 42 , and 45"
+   },
+   {
+    "box": [
+     1014,
+     1749,
+     1026,
+     1773
+    ],
+    "text": "1"
+   },
+   {
+    "box": [
+     1012,
+     1780,
+     1234,
+     1809
+    ],
+    "text": "48 , 49 , and 51"
+   },
+   {
+    "box": [
+     1012,
+     1844,
+     1043,
+     1867
+    ],
+    "text": "47"
+   },
+   {
+    "box": [
+     1337,
+     354,
+     1561,
+     378
+    ],
+    "text": "BULLETIN 52-37"
+   },
+   {
+    "box": [
+     1370,
+     386,
+     1559,
+     410
+    ],
+    "text": "DC-IO SC 812"
+   },
+   {
+    "box": [
+     1367,
+     1083,
+     1539,
+     1112
+    ],
+    "text": "Qty Of Kits"
+   },
+   {
+    "box": [
+     1368,
+     1114,
+     1540,
+     1139
+    ],
+    "text": "CZZ0812-501"
+   },
+   {
+    "box": [
+     1447,
+     1370,
+     1460,
+     1393
+    ],
+    "text": "5"
+   },
+   {
+    "box": [
+     1446,
+     1466,
+     1459,
+     1490
+    ],
+    "text": "5"
+   },
+   {
+    "box": [
+     1381,
+     2033,
+     1554,
+     2063
+    ],
+    "text": "Page 1 Of 6"
+   },
+   {
+    "box": [
+     1332,
+     1965,
+     1555,
+     1993
+    ],
+    "text": "Bu11etin 52-37"
+   }
+  ]
+ },
+ "pg5003.png": {
+  "size": [
+   1699,
+   2244
+  ],
+  "lines": [
+   {
+    "box": [
+     396,
+     162,
+     752,
+     177
+    ],
+    "text": "解 G002 ′ 00 ′ 0 、 ^ ・"
+   },
+   {
+    "box": [
+     887,
+     165,
+     1183,
+     191
+    ],
+    "text": "SE に E 8 リ E れ N"
+   },
+   {
+    "box": [
+     345,
+     242,
+     1367,
+     270
+    ],
+    "text": "Affected ai rcraft other than those listed above will be modified"
+   },
+   {
+    "box": [
+     347,
+     276,
+     1333,
+     306
+    ],
+    "text": "prior tO delivery or included in a subsequent revision tO this"
+   },
+   {
+    "box": [
+     346,
+     308,
+     614,
+     332
+    ],
+    "text": "Service Bu11etin ."
+   },
+   {
+    "box": [
+     331,
+     370,
+     1416,
+     400
+    ],
+    "text": "*Manufacturerls fuselage numbers are applicable tO affected aircraft"
+   },
+   {
+    "box": [
+     348,
+     403,
+     1316,
+     433
+    ],
+    "text": "at titTE Of Service Bu11etin issue and are for reference only."
+   },
+   {
+    "box": [
+     270,
+     464,
+     597,
+     498
+    ],
+    "text": "( 2 ) Spares Affected:"
+   },
+   {
+    "box": [
+     347,
+     531,
+     566,
+     563
+    ],
+    "text": "Spare Part NO."
+   },
+   {
+    "box": [
+     347,
+     595,
+     489,
+     619
+    ],
+    "text": "ADA3659-1"
+   },
+   {
+    "box": [
+     347,
+     627,
+     488,
+     651
+    ],
+    "text": "ADA3668-1"
+   },
+   {
+    "box": [
+     347,
+     658,
+     521,
+     683
+    ],
+    "text": "ADA3668-501"
+   },
+   {
+    "box": [
+     269,
+     724,
+     374,
+     747
+    ],
+    "text": "Reason:"
+   },
+   {
+    "box": [
+     907,
+     530,
+     1032,
+     557
+    ],
+    "text": "Ke.y Word"
+   },
+   {
+    "box": [
+     905,
+     594,
+     1080,
+     624
+    ],
+    "text": "C011ar Assy"
+   },
+   {
+    "box": [
+     905,
+     627,
+     969,
+     650
+    ],
+    "text": "Shim"
+   },
+   {
+    "box": [
+     905,
+     658,
+     969,
+     682
+    ],
+    "text": "Sh i m"
+   },
+   {
+    "box": [
+     206,
+     1104,
+     232,
+     1127
+    ],
+    "text": "C."
+   },
+   {
+    "box": [
+     208,
+     1609,
+     234,
+     1632
+    ],
+    "text": "D."
+   },
+   {
+    "box": [
+     208,
+     1736,
+     235,
+     1759
+    ],
+    "text": "E ."
+   },
+   {
+    "box": [
+     267,
+     784,
+     1237,
+     815
+    ],
+    "text": "The load required to close the vent door without the lockpins"
+   },
+   {
+    "box": [
+     268,
+     816,
+     1238,
+     848
+    ],
+    "text": "engaged is within the capability Of the cargo handlers. When"
+   },
+   {
+    "box": [
+     269,
+     847,
+     1286,
+     878
+    ],
+    "text": "the vent door handle is closed and the lockpins are not engaged,"
+   },
+   {
+    "box": [
+     270,
+     879,
+     1207,
+     911
+    ],
+    "text": "the lockpin tube will deflect and contact the lockpin limit"
+   },
+   {
+    "box": [
+     268,
+     910,
+     1271,
+     942
+    ],
+    "text": "switch striker, giving a false door closed, latched, and locked"
+   },
+   {
+    "box": [
+     269,
+     942,
+     1304,
+     973
+    ],
+    "text": "indication. Readjusting the lockpin tube assembly tO prevent the"
+   },
+   {
+    "box": [
+     269,
+     974,
+     1320,
+     1005
+    ],
+    "text": "vent door handle from being forced tO the closed position when the"
+   },
+   {
+    "box": [
+     270,
+     1006,
+     1320,
+     1038
+    ],
+    "text": "lockpins are not engaged properly will provide a more positive and"
+   },
+   {
+    "box": [
+     270,
+     1037,
+     1139,
+     1069
+    ],
+    "text": "reliable cargo door closed, latched' and locked system."
+   },
+   {
+    "box": [
+     270,
+     1102,
+     455,
+     1133
+    ],
+    "text": "Description:"
+   },
+   {
+    "box": [
+     268,
+     1162,
+     981,
+     1193
+    ],
+    "text": "This modification accomplishes the following:"
+   },
+   {
+    "box": [
+     732,
+     1226,
+     839,
+     1258
+    ],
+    "text": "Group I"
+   },
+   {
+    "box": [
+     272,
+     1288,
+     1415,
+     1320
+    ],
+    "text": "( 1 ) Rep1aces strike plate and adjusts pins and switches on the fongard'"
+   },
+   {
+    "box": [
+     350,
+     1321,
+     791,
+     1351
+    ],
+    "text": "center, and aft cargo doors ."
+   },
+   {
+    "box": [
+     352,
+     1384,
+     1062,
+     1415
+    ],
+    "text": "lnstalls support and plate on aft cargo door."
+   },
+   {
+    "box": [
+     733,
+     1448,
+     856,
+     1479
+    ],
+    "text": "Group II"
+   },
+   {
+    "box": [
+     270,
+     1510,
+     1163,
+     1542
+    ],
+    "text": "Adjusts pins and swi tches and vent door nechanism on the"
+   },
+   {
+    "box": [
+     273,
+     1385,
+     313,
+     1415
+    ],
+    "text": "( 2 )"
+   },
+   {
+    "box": [
+     272,
+     1794,
+     873,
+     1824
+    ],
+    "text": "This Service Bu11etin is FAA approved."
+   },
+   {
+    "box": [
+     271,
+     1734,
+     409,
+     1766
+    ],
+    "text": "Approva1 :"
+   },
+   {
+    "box": [
+     272,
+     1671,
+     457,
+     1695
+    ],
+    "text": "Recomended ."
+   },
+   {
+    "box": [
+     272,
+     1607,
+     440,
+     1639
+    ],
+    "text": "Comp1 iance:"
+   },
+   {
+    "box": [
+     271,
+     1543,
+     584,
+     1573
+    ],
+    "text": "and aft cargo doors."
+   },
+   {
+    "box": [
+     1325,
+     1510,
+     1433,
+     1536
+    ],
+    "text": "center ,"
+   },
+   {
+    "box": [
+     145,
+     1971,
+     366,
+     1996
+    ],
+    "text": "Bu1 letin 52-37"
+   },
+   {
+    "box": [
+     144,
+     2035,
+     238,
+     2065
+    ],
+    "text": "Page 2"
+   },
+   {
+    "box": [
+     1295,
+     1964,
+     1438,
+     1994
+    ],
+    "text": "Ju1y 3 / 72"
+   },
+   {
+    "box": [
+     1072,
+     2040,
+     1439,
+     2070
+    ],
+    "text": "Revision 2 August 25 / 72"
+   }
+  ]
+ },
+ "pg63.png": {
+  "size": [
+   1646,
+   2341
+  ],
+  "lines": [
+   {
+    "box": [
+     1149,
+     344,
+     1201,
+     356
+    ],
+    "text": "れ 4 み"
+   },
+   {
+    "box": [
+     1501,
+     143,
+     1533,
+     166
+    ],
+    "text": "62"
+   },
+   {
+    "box": [
+     1461,
+     588,
+     1544,
+     610
+    ],
+    "text": "第 ・ ア 第"
+   },
+   {
+    "box": [
+     554,
+     1017,
+     652,
+     1042
+    ],
+    "text": "き ← ご"
+   },
+   {
+    "box": [
+     895,
+     1446,
+     1111,
+     1480
+    ],
+    "text": "4 ・ ′ ・ 当 い ん"
+   },
+   {
+    "box": [
+     533,
+     1808,
+     1070,
+     1842
+    ],
+    "text": "り spe で 8 を 0 れ deg d ど わ 8 de pa リ e"
+   }
+  ]
+ },
+ "pg88.png": {
+  "size": [
+   1641,
+   2338
+  ],
+  "lines": [
+   {
+    "box": [
+     10,
+     10,
+     294,
+     17
+    ],
+    "text": "BEA 日 ト F : ⅳ 、 ′ 40 ー ロ ー C. JAV. ー 物 ⅱ 、 協 : 19 42 ー 5"
+   },
+   {
+    "box": [
+     768,
+     194,
+     930,
+     233
+    ],
+    "text": "FORCEE"
+   },
+   {
+    "box": [
+     415,
+     196,
+     669,
+     236
+    ],
+    "text": "FERMETURE"
+   },
+   {
+    "box": [
+     777,
+     555,
+     800,
+     579
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     622,
+     675,
+     646,
+     699
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     983,
+     824,
+     1003,
+     847
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     612,
+     999,
+     819,
+     1032
+    ],
+    "text": "FLEXION DU"
+   },
+   {
+    "box": [
+     555,
+     1044,
+     804,
+     1077
+    ],
+    "text": "TORQUE TUBE"
+   },
+   {
+    "box": [
+     948,
+     1389,
+     972,
+     1536
+    ],
+    "text": "ィ ー レ )"
+   },
+   {
+    "box": [
+     1180,
+     1472,
+     1374,
+     1505
+    ],
+    "text": "LOCK TUBE"
+   },
+   {
+    "box": [
+     845,
+     1677,
+     1177,
+     1710
+    ],
+    "text": "BROCHE EN BUTEE"
+   },
+   {
+    "box": [
+     846,
+     1724,
+     1198,
+     1756
+    ],
+    "text": "SUR LE FLASQUE"
+   },
+   {
+    "box": [
+     637,
+     1763,
+     652,
+     1780
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     722,
+     2218,
+     846,
+     2255
+    ],
+    "text": "日 G. 7"
+   }
+  ]
+ },
+ "pg90.png": {
+  "size": [
+   1722,
+   2349
+  ],
+  "lines": [
+   {
+    "box": [
+     1597,
+     43,
+     1632,
+     68
+    ],
+    "text": "89"
+   },
+   {
+    "box": [
+     305,
+     971,
+     494,
+     989
+    ],
+    "text": "こ 竃 洋 を 鵞 第 を ” 当 ~"
+   },
+   {
+    "box": [
+     473,
+     1606,
+     1270,
+     1646
+    ],
+    "text": "乙 ace e カ de Za po カ e ご 0 90 0 e e ga ご ん e , s レ レ"
+   },
+   {
+    "box": [
+     436,
+     1641,
+     812,
+     1672
+    ],
+    "text": "ご り 0 れ れ et り 0 ン 9 乙 as り 0 ー 70."
+   }
+  ]
+ },
+ "pg91.png": {
+  "size": [
+   1722,
+   2349
+  ],
+  "lines": [
+   {
+    "box": [
+     1584,
+     47,
+     1615,
+     70
+    ],
+    "text": "90"
+   },
+   {
+    "box": [
+     712,
+     969,
+     725,
+     1014
+    ],
+    "text": "よ ー も"
+   },
+   {
+    "box": [
+     410,
+     1978,
+     1246,
+     2007
+    ],
+    "text": "Vue れ カ e レ e d ′ れ e po カ e ca で 90 で e で e 90 レ 0 ん e du"
+   },
+   {
+    "box": [
+     425,
+     2012,
+     803,
+     2041
+    ],
+    "text": "ご DO れ れ e 乙 DO 9 乙 as DC ー 70."
+   },
+   {
+    "box": [
+     493,
+     2061,
+     672,
+     2085
+    ],
+    "text": "C 00 ん e カ s 丿"
+   },
+   {
+    "box": [
+     693,
+     2076,
+     1077,
+     2105
+    ],
+    "text": "d ど s の s pa des カ 0 カ s"
+   },
+   {
+    "box": [
+     491,
+     2095,
+     676,
+     2119
+    ],
+    "text": "刄 ご カ レ 住 亡 0 ("
+   }
+  ]
+ },
+ "pg92.png": {
+  "size": [
+   1722,
+   2349
+  ],
+  "lines": [
+   {
+    "box": [
+     591,
+     1620,
+     1109,
+     1647
+    ],
+    "text": "PO で カ e ご 02 。 90 e れ 力 の e で e 川 e れ カ 02 買 ) 。 カ e"
+   },
+   {
+    "box": [
+     591,
+     1669,
+     1091,
+     1697
+    ],
+    "text": "P02 。 カ e passager ・ s 住 で 1 。 7. 。 e 9 レ 0 ん e"
+   }
+  ]
+ },
+ "pg94.png": {
+  "size": [
+   1750,
+   2369
+  ],
+  "lines": [
+   {
+    "box": [
+     1598,
+     80,
+     1630,
+     103
+    ],
+    "text": "9 3"
+   },
+   {
+    "box": [
+     1360,
+     552,
+     1371,
+     580
+    ],
+    "text": "攣 第 い"
+   },
+   {
+    "box": [
+     589,
+     1737,
+     1174,
+     1772
+    ],
+    "text": "月 e90 d ″ pa ” 乙 e 印 イ e 乙 peut s ' e fe ご 加 ィ の 。"
+   },
+   {
+    "box": [
+     590,
+     1771,
+     1255,
+     1805
+    ],
+    "text": "リ こ 亡 % ご 0 わ 0 れ de 乙 ' e 909em 夜 2 カ des み 1 , 0 ご ん es"
+   }
+  ]
+ },
+ "pg95.png": {
+  "size": [
+   1932,
+   2524
+  ],
+  "lines": [
+   {
+    "box": [
+     1672,
+     154,
+     1706,
+     178
+    ],
+    "text": "94"
+   },
+   {
+    "box": [
+     1270,
+     719,
+     1392,
+     734
+    ],
+    "text": "を 参 当 面 二 「 を を 第 第 を"
+   },
+   {
+    "box": [
+     1212,
+     1036,
+     1305,
+     1052
+    ],
+    "text": "を 担 ト を ら 第"
+   },
+   {
+    "box": [
+     630,
+     1734,
+     1367,
+     1766
+    ],
+    "text": "/ 0 夜 れ t de ご っ 刃 力 ア oZe de 乙 0 po 亡 e ca で 90 0 ア イ 2 で e"
+   },
+   {
+    "box": [
+     627,
+     1768,
+     1403,
+     1799
+    ],
+    "text": "g 霞 ご ん e , s レ ア Ze pa れ れ 夜 ル 宅 の % の 呼 ( ル Z. ′ of 食 ィ 三 の ,"
+   },
+   {
+    "box": [
+     644,
+     1801,
+     805,
+     1825
+    ],
+    "text": "ど ご れ t ご の れ ."
+   }
+  ]
+ },
+ "stele_2010.jpg": {
+  "size": [
+   3000,
+   2250
+  ],
+  "lines": [
+   {
+    "box": [
+     2655,
+     18,
+     2703,
+     165
+    ],
+    "text": "ル を 誕 ツ を"
+   },
+   {
+    "box": [
+     2340,
+     985,
+     2375,
+     1139
+    ],
+    "text": "レ 第 第 ト 々 7 を"
+   },
+   {
+    "box": [
+     1487,
+     147,
+     1512,
+     199
+    ],
+    "text": "第 評"
+   },
+   {
+    "box": [
+     1022,
+     785,
+     1046,
+     862
+    ],
+    "text": "タ ゞ ・ 一"
+   },
+   {
+    "box": [
+     1520,
+     694,
+     1807,
+     717
+    ],
+    "text": "LAMEMO 旧 E DES VICTIMES"
+   },
+   {
+    "box": [
+     1569,
+     717,
+     1789,
+     740
+    ],
+    "text": "DELA CRANDE?f ・ - 々"
+   },
+   {
+    "box": [
+     1507,
+     742,
+     1800,
+     763
+    ],
+    "text": "CATASTROPHE AERIENNE"
+   },
+   {
+    "box": [
+     1531,
+     766,
+     1773,
+     786
+    ],
+    "text": "SIJRVENUE EN CE LIEU"
+   },
+   {
+    "box": [
+     1570,
+     791,
+     1746,
+     810
+    ],
+    "text": "LE 3 MARS, 旧 74 、 】"
+   },
+   {
+    "box": [
+     578,
+     621,
+     623,
+     634
+    ],
+    "text": "ー イ れ 声"
+   },
+   {
+    "box": [
+     2646,
+     1062,
+     2671,
+     1088
+    ],
+    "text": "一 戸"
+   }
+  ]
+ },
+ "tcjau_fra_1974.jpg": {
+  "size": [
+   1054,
+   735
+  ],
+  "lines": []
+ },
+ "tcjav_landing.jpg": {
+  "size": [
+   1400,
+   786
+  ],
+  "lines": []
+ },
+ "tcjav_tail.jpg": {
+  "size": [
+   2281,
+   3456
+  ],
+  "lines": [
+   {
+    "box": [
+     1024,
+     1698,
+     1255,
+     1767
+    ],
+    "text": "DC 0"
+   },
+   {
+    "box": [
+     1080,
+     1776,
+     1348,
+     1812
+    ],
+    "text": "物 COO ル ル を . 00 廴 4 を"
+   }
+  ]
+ },
  "tcjav_takeoff.jpg": {
   "size": [
    3000,
@@ -84,6 +7713,103 @@
      1056
     ],
     "text": "下 URK ー 3 い A ー R 、 物 ES 下"
+   }
+  ]
+ },
+ "tcjav_taxi.jpg": {
+  "size": [
+   3000,
+   1990
+  ],
+  "lines": [
+   {
+    "box": [
+     538,
+     1066,
+     1359,
+     1105
+    ],
+    "text": "の THY TURK 村 風 VA YO ム ム ん 一"
+   },
+   {
+    "box": [
+     1443,
+     1077,
+     2016,
+     1107
+    ],
+    "text": "TURKISH AIRLINES"
+   },
+   {
+    "box": [
+     2101,
+     1093,
+     2169,
+     1111
+    ],
+    "text": "年 マ 4 レ"
+   }
+  ]
+ },
+ "ua_longbeach_1974.jpg": {
+  "size": [
+   2116,
+   1091
+  ],
+  "lines": [
+   {
+    "box": [
+     1957,
+     236,
+     2056,
+     286
+    ],
+    "text": "Unitedk"
+   },
+   {
+    "box": [
+     1940,
+     345,
+     2074,
+     401
+    ],
+    "text": "☆ ☆ 新"
+   },
+   {
+    "box": [
+     414,
+     449,
+     964,
+     521
+    ],
+    "text": "「 ☆ ま ま United"
+   },
+   {
+    "box": [
+     1145,
+     475,
+     1202,
+     500
+    ],
+    "text": "嶽 e Ⅱ"
+   },
+   {
+    "box": [
+     597,
+     529,
+     983,
+     564
+    ],
+    "text": "0000000000000 、 ・"
+   },
+   {
+    "box": [
+     780,
+     637,
+     813,
+     659
+    ],
+    "text": "旧 9"
    }
   ]
  },
