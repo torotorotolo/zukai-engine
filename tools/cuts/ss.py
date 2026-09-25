@@ -89,7 +89,8 @@ TRIM: dict[str, tuple] = {
     "ep13/pg1001.png": (0.24, 0.12, 0.82, 0.47),      # c816：字の帯 y0.1357〜0.4535・x0.287〜0.778（画像だけの PDF＝画素で測った）
     "ep13/pg109.png": (0.20, 0.32, 0.80, 0.53),       # c817：「ANNEXES」〜題の3行と下の罫（画像だけ・走査の点々が頁じゅう＝⑤b-4 に900pxで見て決めた）
     #   AD と官報（c902・c904・c905・c914）：白い行（インク0）の真ん中で切る
-    "ep13/pg4301.png": (0.36, 0.040, 0.675, 0.2430),  # c902：2段目の上＝見出し「RULES AND REGULATIONS」〜「(4) … inspection ports;」
+    "ep13/pg4301.png": (0.36, 0.040, 0.675, 0.2434),  # c902：2段目の上＝見出し「RULES AND REGULATIONS」〜「(4) … inspection ports;」
+    #   ⚠️ r05：下を 0.2430 で切ると最後の行が枠に触れて見えた＝白い行（0.2426〜0.2435）の下寄りへ
     "ep13/pg4101.png": (0.12, 0.2777, 0.86, 0.3927),  # c904：「Amendment 39-1923; AD 74-12-07」〜対象の機種
     "ep13/pg4201.png": (0.12, 0.2777, 0.86, 0.4102),  # c905：「Amendment 39-2739; AD 75-15-05」〜対象の4機種
     "ep13/pg4001.png": (0.18, 0.7459, 0.86, 0.8350),  # c914：「74-08-04 … Amendment 39-1811 as amended by … 39-2443」の4行
@@ -310,8 +311,10 @@ def vid(cid, **kw):
 #      ＝`sector=8` で照合（`check_drift` の注）。
 MAP_PARIS_VIEW = dict(lon=(1.21, 3.94), lat=(48.62, 49.24))
 MAP_PARIS_PLACES = ["paris", dict(k="crash", side="above")]
-# 第7章の経路の地図は同じ範囲に2地点を足す（サン・パテュスの札は輪の下＝経路の線は左上から来て右上へ抜ける）
-MAP_ROUTE_PLACES = ["paris", "orly", dict(k="crash", side="above"), "stpathus"]
+# 第7章の経路の地図は同じ範囲に2地点を足す。
+#   ⚠️ ⑤b-4 r05：サン・パテュスの札を輪の真下に置くと、c707 のオルリーからの線（**左下から**来る）が「サン・パテュス」を
+#      貫いた（§5b-39）。上に置くと c717 の森への線（左上へ出る）が貫く＝**輪の下のまま右へ 130px**（どちらの線にも当たらない）
+MAP_ROUTE_PLACES = ["paris", "orly", dict(k="crash", side="above"), dict(k="stpathus", dx=130)]
 MAP_PARIS_REL = [
     dict(a="crash", lat=49 + 8.5 / 60, lon=2 + 38 / 60, src="仏 p5（墜落地点の座標 49°08'30\"N・02°38'00\"E）"),
     dict(a="paris", b="crash", km=37, dir="北東", sector=8, src="仏 p12「à 37 km dans le nord-est de Paris」"),
