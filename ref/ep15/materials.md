@@ -166,3 +166,12 @@
 3. 未見＝tataquax の 9/14・9/15 の260点（ボックス席・観客席の近景があるならここ）・Bill Larkins の残り3点・reno1969_75 の16点・Don Ramey Logan 2014 の3点・NTSB の図の写し2点
 4. #40 の図は PD＝**英字の札を日本語に置き換えてよい**（切り出しは図ごと）。報告書の紙面（`ss.page`）は頁ごとの引用＝札はそのまま
 5. courtesy の写真＝**紙面の引用で使う**（頁ごと・額装・無加工。**紙面から写真だけを切り出すのは承認の範囲外**）／記録映像＝**使わない**（09-25 カズヤくん）。ドケット #42 の同じ撮影者の写真（35点・最大1431px）も紙面の引用なら同じ扱いで使える見込み（#42 は NTSB の研究報告＝公的機関の報告の紙面）
+
+## 11. ④'（2026-09-25）の訂正
+上の行は書き換えず、ここに訂正だけを置く（④'の直す係 G2・G5 が原文で見つけ、④'【直す】Z が `ref/ep15/v2_build/kwic.py` で引き直した。頁は `ref/ep15/src/ep15_pages.txt` の通し番号＝#40 は p1000＋N・#17 は p7000＋N）。
+| 元の行 | 誤り | 正しくは（原文と頁） | 台本への効き |
+|---|---|---|---|
+| §3-3 の ✔ C3（l.88）「1970年の損傷・中身は報告書に無い」 | ドケットには中身がある | #17 p3（p7003）「Engine troubles during the 1970 race required a forced wheels-up landing in the desert that caused extensive damage」＝1970年のレース中のエンジン不調で砂漠に胴体着陸・大きな損傷（約2年の修理のあと1972年にリノへ戻る）。報告書（AAB）の本文には無い | `c407` は #17 p3 で語る（G2-01）。⚠️ 写真の損傷が胴体着陸のものかは、題名（after damage）と年が合うところまで＝副題で名乗るかは⑤bで |
+| §5 #40 の p38（l.130）「図13〜15 疲労の筋の電子顕微鏡」 | 3つとも疲労の筋ではない | 図13＝図11 の赤い枠の拡大＝延性のくぼみ（最後に一気に切れた所・#40 p8〈p1008〉「ductile dimples consistent with an overload」）／図14＝疲労の筋（間隔 約1ミクロン・#40 p8）／図15＝左の板の内側の一片の上の面（#40 p38〈p1038〉の題） | `c714` は図14 だけ使う（図13・図15 は使わない・G5） |
+| §5 #40（l.130）「⚠️ 図73のまわりの黄色が同じ塗装かは本文に無い＝名乗らない」 | 本文にある | #40 p32（p1032）「The purple arrow in the left image in Figure 73 indicates yellow paint below the grey paint … Research revealed that the aircraft had been painted yellow when it flew at the 1985 National Champion Air Races」＝図73 の左の画像の紫の矢印は灰色の下の黄色の塗装・1985年の大会で黄色だった | `c710` の図7 が⑤bで読めなければ、図73（p59・紫の矢印）に替えられる（G5-06） |
+| §0 の 3（l.14）と §5 #40（l.130）の図7「ナットの灰色の上塗りの下の黄色の塗装」 | 図7 の主題が違う | 図7 の題は「Protrusion of the center trim tab screw」（#40 p36〈p1036〉）＝真ん中のねじがナットから出ている所の図。黄色の塗装は黒い矢印1か所（#40 p6〈p1006〉「The black arrow indicates yellow paint below the grey layer」） | `c710` の画の欄は「図7＝ねじの出っ張り・黄色の塗装に黒い矢印1つ」（G5-06）。🔴 図7 は未見のまま＝⑤bで原寸 |

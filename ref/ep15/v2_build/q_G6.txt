@@ -1,0 +1,31 @@
+# G6（第8章・第9章）で引き直した語句（頁<TAB>語句<TAB>前<TAB>後）
+10	fourth hospital	500	300
+10	reported to have sustained	300	200
+20	First responder vehicles	100	300
+20	triaged	300	200
+21	tabletop	300	400
+21	State Route 395	300	300
+46	could easily have been different	300	100
+46	more substantial barriers	500	200
+17	two documents	100	900
+17	advisory circular	200	300
+19	874 feet	200	200
+6003	within the specifications	700	200
+6003	differ by a factor	300	300
+6004	Another discrepancy	100	400
+46	inaccurate and incomplete	500	200
+5008	8900.1	300	300
+5008	5.25	500	300
+5008	mandatory	300	300
+5008	OPEN	200	200
+5008	CLOSED	300	200
+5008	cancel	300	300
+5012	ineffective	500	200
+5017	ineffective	500	200
+5009-5017	CLOSED	200	100
+43	custom-built	300	200
+50	December 21, 2011	50	400
+5013	2012 NCAR	400	200
+41	opportunities to identify	500	100
+43	had engineering evaluations	100	300
+37	reportedly addressed	400	100

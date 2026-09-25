@@ -1,0 +1,29 @@
+@@@OLD
+| 15 | **c815** | 燃料車も、たやすく別の結果になり得た | `although the fuel truck parked on the ramp was not hit by any debris from the accident airplane, the outcome could easily have been different` | p46 |
+@@@NEW
+| 15 | **c815** | 燃料車は、たやすく別の結果になり得た | `although the fuel truck parked on the ramp was not hit by any debris from the accident airplane, the outcome could easily have been different` | p46 |
+@@@END
+
+@@@OLD
+- #15 §2.6.4「駐機場に止めた燃料車に事故機の破片は当たらなかったが、**結果は簡単に違っていたかもしれない**」。「たやすく」＝easily
+@@@NEW
+- #15 §2.6.4「駐機場に止めた燃料車に事故機の破片は当たらなかったが、**結果は簡単に違っていたかもしれない**」。「たやすく」＝easily・「なり得た」＝could（起きたことではない）。第1版の「燃料車も」の「も」は原文に無く、何と並ぶのか分からない＝「燃料車は」にした（G6-08）。「当たらなかった」は前のカット `c814` の語りで言う
+@@@END
+
+@@@OLD
+- 6-15＝「燃料車：結果は簡単に違っていた」→ `c815`「燃料車も、たやすく別の結果になり得た」（原文 could easily have been different＝「違っていた」だと起きたことに読める）
+@@@NEW
+- 6-15＝「燃料車：結果は簡単に違っていた」→ `c815`「燃料車は、たやすく別の結果になり得た」（原文 could easily have been different＝「違っていた」だと起きたことに読める。第2版で「も」→「は」＝G6-08）
+@@@END
+
+@@@OLD
+| `c8` | 観客席の62分 | 22 | 46 | 1,222 | 5 | 2 | 7 |
+@@@NEW
+| `c8` | 観客席の62分 | 22 | 47 | 1,259 | 5 | 2 | 7 |
+@@@END
+
+@@@OLD
+| `c9` | その後 | 20 | 43 | 1,196 | 5 | 1 | 6 |
+@@@NEW
+| `c9` | その後 | 20 | 45 | 1,238 | 5 | 1 | 6 |
+@@@END

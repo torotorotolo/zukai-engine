@@ -1,0 +1,21 @@
+# G4（第6章）で引き直した語句（頁<TAB>語句<TAB>前<TAB>後）
+50	It is possible	100	500
+51	should not have been eligible	500	200
+50	likely would have required	400	100
+36	Telemetry data showed	300	900
+49	correct in contacting	500	100
+51	at least 1,000 more hours	50	900
+12	2,700	300	700
+12	2009 and 2010 entry forms	200	400
+36	data were recorded for only two	300	400
+36	notified the Reno	300	400
+36	less than 325	400	100
+49	Arizona	300	100
+36	demonstrated their ability	700	50
+50	1 hour 40 minutes	700	200
+38	last place	200	250
+37	major changes	300	400
+35	throughout all	300	200
+50	unique load factor	300	100
+15	manevers	300	200
+35	100-mile	200	100

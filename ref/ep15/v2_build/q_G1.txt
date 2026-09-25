@@ -1,7 +1,20 @@
-44-52	showline	300	300
-44-52	500 feet	300	300
-2015-2016	500 feet|waiver	200	400
-2015-2016	874|748	300	300
-10-11	Stead|8.4	100	100
-35	upset point|pylon 8	200	200
-2001-2020	left bank|70	100	100
+28	begins to roll	150	250
+28	pitch-up	150	200
+29	noticeable reduction	300	200
+29	manifold pressure	200	200
+29	458 knots	300	200
+52	reduced stiffness	50	400
+31	reuse	200	100
+41	at least 26 years	300	200
+16	removed and reinstalled	300	100
+12	1983 through 1989	150	150
+16	clear	150	200
+17	south edge	200	200
+17	500 feet horizontally	250	100
+16	waiver	150	250
+19	expected to fly	250	100
+2009	telephone pole	150	100
+10	trailing	100	300
+38	gold	300	200
+10	10 minutes	250	100
+19	ramp	200	200
