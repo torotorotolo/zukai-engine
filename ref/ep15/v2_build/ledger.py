@@ -60,8 +60,11 @@ if "--review" in sys.argv:
     n = collections.Counter()
     for h in rv:
         for x in h["issues"]:
-            w = re.sub(r"\s+", " ", x["what"]).replace("|", "／")
-            how = next((v for (c, k), v in NOT.items() if c == x["cut"] and k in w[:6]), "直した（`patch_review.py`）")
+            w0 = re.sub(r"\s+", " ", x["what"])
+            w = w0.replace("|", "／")
+            # patch_review.py と同じ見分け方（指摘の頭60字に鍵が入っているか）。案の無い指摘は④'が review_not.json で扱いを書く
+            dflt = "直した（`patch_review.py`）" if (x.get("patch") or {}).get("old") else "🔴 扱いが未記入（review_not.json へ）"
+            how = next((v for (c, k), v in NOT.items() if c == x["cut"] and k in w0[:60]), dflt)
             n[how.split("（")[0].split("：")[0]] += 1
             print(f"| {h['half'][:2]} | {x['cut']} | {x['severity']} | {w[:110]} | {how} |")
     print(f"\n照合し直し {sum(n.values())}件：" + "・".join(f"{k} {v}" for k, v in n.items()))

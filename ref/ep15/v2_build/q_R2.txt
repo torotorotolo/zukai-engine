@@ -1,0 +1,94 @@
+# R2（第6〜9章の当て直し）で引いた語句（頁<TAB>語句<TAB>前<TAB>後）
+# 1回目＝第6〜9章の直した行（c601〜c920）
+35	based and maintained	300	300
+49	Arizona	400	300
+36	boil-off	300	500
+49	correct in contacting	500	200
+36	3 hours	300	300
+36	September 21	300	300
+36	Telemetry data	300	900
+49	five flights	400	300
+50	1 hour 40 minutes	500	200
+49	no evidence	300	200
+15	controllable	400	300
+50	load factor	500	300
+35	91.319	300	500
+50	Had the FAA been notified	700	300
+36	provision	300	300
+36	maximum official race speed	300	300
+36	average ground speed	200	100
+38	lowest heat	300	300
+37	since the airplane last raced	500	400
+50	It is possible	300	500
+51	should not have been eligible	600	200
+12	2,700	400	300
+15	1,453	200	200
+12	accurately listed	400	100
+51	200 flight hours	400	400
+51	inaccurate	400	300
+37	technical inspection	400	500
+41	4 days before	300	300
+37	protruding	300	400
+37	airworthiness	300	300
+37	cross-threading	300	300
+31	intact	300	400
+31	reuse	400	300
+31	relative motion	500	200
+40	mating surfaces	300	200
+31	yellow paint	300	400
+31	flush	300	200
+32	reverse bending	400	300
+39	prolonged	400	200
+40	stiffness	300	300
+40	buzz	500	300
+40	static loads	500	300
+32	compress	300	300
+41	three flights	500	200
+31	loose	300	200
+16	free-play	300	300
+41	noticeable	400	300
+41	several times	300	300
+52	probable cause	100	900
+19	debris	300	300
+10	fourth hospital	500	300
+6001	preliminary	300	200
+20	First responder vehicles	100	400
+20	immediate proximity	400	200
+21	June 2	300	400
+21	put into practice	400	100
+21	May 25	300	200
+2014	fuel truck	300	300
+46	could easily	400	100
+46	more substantial barriers	600	200
+17	two documents	100	900
+6003	within the specifications	700	200
+46	A-12-08	300	400
+5008	OPEN	200	200
+5008	CLOSED	300	200
+43	custom-built	300	300
+50	December 21, 2011	50	400
+5008	reconcile	300	300
+5008	February 27, 2020	300	300
+5008	mandatory	300	300
+5013	2012 NCAR	400	200
+41	at least 26 years	300	200
+41	opportunities to identify	500	100
+43	could have been identified	500	200
+1032	Figure 73	400	300
+1059	Figure 73	100	200
+1060	Figure 74	200	200
+32	Figure 14	300	300
+2	Adopted	50	80
+32	left elevator trim tab link	200	400
+# 2回目＝節の差し替え（v2_sect_Z の §1-8 の足した行）
+14	fixed	300	300
+28	0.56	300	300
+7003	1970	300	300
+7004	July 1983	300	200
+43	inertia	300	300
+15	Stiletto	200	400
+42	wrinkle	300	300
+41	aileron	300	300
+2009	50 feet	200	200
+16	waiver	200	300
+10	10 minutes	300	200
