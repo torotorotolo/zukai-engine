@@ -1,0 +1,52 @@
+{
+  "group": "G0",
+  "findings": [
+    {
+      "id": "G0-01",
+      "g": "G0",
+      "cut": "c316",
+      "line": 546,
+      "face": "B",
+      "kind": "報道の文言（tried を落とす）",
+      "script_text": "観客の中には、「最後に観客席を避けたように見えた」と話した人もいたと報じられた。",
+      "source_page": "NPR 2011-09-19（Mark Memmott・The Two-Way）が LA Times を引用",
+      "source_quote": "\"Fans at the race said it appeared that Leeward tried to steer the plane away from the stands where spectators were sitting,\" the Los Angeles Times reports.",
+      "source_ja": "レースのファンたちは、リーワードが観客の座っていたスタンドから機体をそらそうとしたように見えた、と話した（LA Times）",
+      "problem": "原文は tried to steer … away（そらそうとした）。「避けたように見えた」は、避けられた（結果）まで見えたように聞こえる。④'（G0）が記事の本文を開いて確かめた（4'-9）",
+      "fix": "「最後に観客席を避けようとしたように見えた」（+2字）",
+      "severity": "⚠️"
+    },
+    {
+      "id": "G0-02",
+      "g": "G0",
+      "cut": "c917",
+      "line": 1165,
+      "face": "B",
+      "kind": "その後が古い（伝聞のまま）",
+      "script_text": "2025年からは、ニューメキシコ州のロズウェルで開くという。",
+      "source_page": "RARA（airrace.org）2024-05-23・2025-09-18・2026-09-24",
+      "source_quote": "\"Roswell has been chosen to host the return of the air races in 2025\"（2024-05-23）／\"Thank You To All Who Attended … What a special first week of Air Racing in Roswell!\"（2025-09-18）／\"National Championship Air Races Celebrate a Successful Second Year in Roswell\"（2026-09-24）",
+      "source_ja": "2025年からロズウェルで開く（2024年の発表）。2025年・2026年はロズウェルで開かれた（主催の団体の告知）",
+      "problem": "発表の日付（2024-05-23）は主催の団体の頁で一致。ただし公開の時点（2026年秋）では、ロズウェルでの大会はもう2回開かれている＝「開くという」は古い伝聞の形",
+      "fix": "「2025年からは、ニューメキシコ州のロズウェルで開かれている。」（+1字）・出典欄「RARA 2024-05-23・2026-09-24」",
+      "severity": "⚠️"
+    }
+  ],
+  "items": [
+    {
+      "cut": "c103",
+      "item": "通説「尾翼の小さな板が外れて、機首が上がったのでは」と報じられた（4'-9＝記事の本文へ）",
+      "verdict": "OK：CSM 2011-09-18（Brad Knickerbocker）「Photos indicate a missing part from the control surface that maneuvers the nose … That's the \"trim tab\"」「Witnesses said they saw a part fall … seconds before it pitched up then straight down」「Without the trim tab, the aircraft may have been uncontrollable（Mike Danko のブログ）」＝板が外れた→機首が上がった、の順で報じている。「〜のでは」の形も記事の one likely cause／If that was the cause に合う"
+    },
+    {
+      "cut": "c316",
+      "item": "通説「観客席を避けたように見えた」と話した人も（4'-9）",
+      "verdict": "ずれ：NPR 2011-09-19 は LA Times「it appeared that Leeward tried to steer the plane away from the stands」・RGJ の観客（自家用操縦士）「believes … Leeward tried to avoid hitting the grandstands」を引く＝tried（避けようとした）＝G0-01。同じ記事に ABC の解説者「likely unconscious」もある"
+    },
+    {
+      "cut": "c917",
+      "item": "RARA 2024-05-23 の発表",
+      "verdict": "OK（日付）：airrace.org「National Championship Air Races take off for Roswell, NM in 2025」May 23, 2024。言い方は G0-02"
+    }
+  ]
+}
