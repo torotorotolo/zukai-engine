@@ -15,6 +15,8 @@ import cuts.ss as ss
 
 P = ss.P
 NOTE_FR = "出典：フランスの最終報告書"
+# 🔴 ⑤b-3（09-25）：画面の頁は**PDF の頁**（自動の出典の札「PDF 91頁」と同じ書き方）。台本の通し番号は出さない
+NOTE_FRP = NOTE_FR + " PDF"
 
 SPEC = {
 
@@ -25,7 +27,7 @@ SPEC = {
         fig=ss.europe_map([
             dict(move=[dict(kind="path", via=["istanbul", "orly"], sec=3.0)],
                  tag=dict(at="istanbul", t="出発", side="above")),
-            dict(move=[dict(kind="path", via=["orly", "london"], sec=1.5)],
+            dict(move=[dict(kind="path", via=["orly", "london"], sec=1.2)],   # r03：1.5秒だと92%の1枚でまだ着いていない
                  tag=dict(at="london", t="行き先", side="right"))]),
     ),
 
@@ -54,7 +56,7 @@ SPEC = {
             clock="11:02", label="981便　パリに着く",
             facts=[dict(t="止めた場所", v="南ターミナルの西　A2", c=J.AMBER),
                    dict(t="パリで降りた人", v="50人", c=J.TICK)],
-            sub=f"{NOTE_FR} 9頁")),
+            sub=f"{NOTE_FRP}9頁")),
     ),
 
     # 2行＝柱2本。「200人あまり」＝仏 p9（217）と p46（216）が割れる（台本 §1-4）
@@ -64,7 +66,7 @@ SPEC = {
         fig=("panel", dict(
             blocks=[dict(k="乗った人", t="200人あまり", c=J.AMBER),
                     dict(k="回ってきた客", t="英国航空・エールフランスの便から", c=J.LINE)],
-            note=f"{NOTE_FR} 9頁・46頁", cols=2)),
+            note=f"{NOTE_FRP}9頁・46頁", cols=2)),
     ),
 
     # 同型機と乗客（フィンエアー・CC BY 4.0・縦長＝額装パネル）。⚠️ 撮影年は不明＝副題に年を書かない
@@ -150,7 +152,7 @@ SPEC = {
         fig=("panel", dict(
             blocks=[dict(k="場所", t="ドアの下", c=J.LINE),
                     dict(k="見えるもの", t="中のピン", c=J.AMBER)],
-            note=f"{NOTE_FR} 94頁・アメリカ上院の報告 2035頁", cols=2)),
+            note=f"{NOTE_FRP}94頁・米上院の報告 PDF 35頁", cols=2)),
     ),
 
     # 🔴 決め所③（台本 §2 #3・仏 p149「Je ne savais pas à quoi cet oeil servait」）。日付は文字の層に無い＝「いつ」を置かない
@@ -182,7 +184,7 @@ SPEC = {
             blocks=[dict(k="確かめる人", t="トルコ航空の主任整備士", v="オルリーに駐在", c=J.INST),
                     dict(k="本人の話", t="毎便確かめていた", c=J.LINE),
                     dict(k="窓の中のピン", t="白く光り、よく見える", c=J.AMBER)],
-            note=f"{NOTE_FR} 46頁・付属書")),
+            note=f"{NOTE_FRP}46頁・付属書")),
     ),
 
     # 仏 p23・p46・p151
@@ -192,7 +194,7 @@ SPEC = {
         fig=("panel", dict(
             blocks=[dict(k="荷物の会社の職長", t="確かめはときどき", c=J.TICK),
                     dict(k="3月3日", t="主任整備士は不在", v="研修でイスタンブール", c=J.ALERT)],
-            note=f"{NOTE_FR} 23頁・46頁・付属書", cols=2)),
+            note=f"{NOTE_FRP}23頁・46頁・付属書", cols=2)),
     ),
 
     # 仏 p23・p46（「整備士も、ほかの乗員も、確かめるのを見た人はいない」＝確かめなかったとは書いていない）
@@ -202,7 +204,7 @@ SPEC = {
         fig=("panel", dict(
             blocks=[dict(k="代わり", t="同乗の整備士", v="同じ機体で来ていた", c=J.LINE),
                     dict(k="閉めたあと", t="窓の確かめ", v="見た人はいない", c=J.ALERT)],
-            note=f"{NOTE_FR} 23頁・46頁", cols=2)),
+            note=f"{NOTE_FRP}23頁・46頁", cols=2)),
     ),
 
     # 仏 p46・p18。「はず」の留保は答えに残す（§5b-27b）
@@ -212,7 +214,7 @@ SPEC = {
         fig=("panel", dict(
             blocks=[dict(k="報告書", t="作業のあとで窓をのぞく", v="足場が要ったはず", c=J.AMBER),
                     dict(k="同乗の整備士", t="981便の乗員", v="乗員12人の1人", c=J.LINE)],
-            note=f"{NOTE_FR} 18頁・46頁", cols=2)),
+            note=f"{NOTE_FRP}18頁・46頁", cols=2)),
     ),
 
     # 時刻の流れ（仏 p9・p10）。軸は11:00からの分
@@ -226,7 +228,7 @@ SPEC = {
             t0=-4, t1=100,
             ticks=[(0, "11:00"), (30, "11:30"), (60, "12:00"), (90, "12:30")],
             band=[dict(a=35, b=90.5, t="およそ55分", c=J.AMBER)],
-            src=f"{NOTE_FR} 9頁・10頁")),
+            src=f"{NOTE_FRP}9頁・10頁")),
     ),
 
     # 仏 p46（本文が記す係員の言葉）
@@ -237,7 +239,7 @@ SPEC = {
             blocks=[dict(k="閉め方", t="いつもどおり", c=J.LINE),
                     dict(k="困ったこと", t="特に無し", c=J.LINE),
                     dict(k="おかしな所", t="気づかなかった", c=J.AMBER)],
-            note=f"{NOTE_FR} 46頁")),
+            note=f"{NOTE_FRP}46頁")),
     ),
 
     # 章の橋（副題は10本目からの型「ここまでと、この先」）

@@ -44,7 +44,7 @@ SPEC = {
                     dict(t=1974.17, top="1974年3月", t2="パリ", c=J.ALERT, big=True)],
             t0=1969.8, t1=1974.6,
             ticks=[(1970, "1970"), (1971, "1971"), (1972, "1972"), (1973, "1973"), (1974, "1974")],
-            src=f"{NOTE_SEN} 2014〜2015頁・2017頁")),
+            src=f"{NOTE_SEN} PDF 14〜15頁・17頁")),
     ),
 
     # 🔴 断面：1970年の地上の試験（組み立て中の胴体1号機・前の貨物ドアが開く）。与圧 push ⇒ ドア on
@@ -54,7 +54,7 @@ SPEC = {
         fig=("section", dict(
             steps=[dict(state=dict(press="push"), tag=dict(t="空気を詰める", d="組み立て中の胴体1号機")),
                    dict(state=dict(press="none", door="gone", air="out"), tag=dict(t="前の貨物ドアが開く"))],
-            note=SEC_NOTE_POS, src="米上院の報告 p2014")),
+            note=SEC_NOTE_POS, src="米上院の報告 PDF 14頁")),
     ),
 
     # 🔴 決め所⑤（台本 §2 #5・上院 p2014）。切り口は画素の白い行（1970年の段＋設計の変更の段＋1行）
@@ -65,7 +65,7 @@ SPEC = {
             page=ss.page(2014),
             lines=[(0.5729, 0.4702, 0.8920, 0.4848), (0.1398, 0.4826, 0.8496, 0.4972)],
             phrase="錠が不完全で、ドアは機内の圧力で開いた",
-            doc="米上院の報告 2014頁の原文",
+            doc="米上院の報告 PDF 14頁の原文",
             crop=(0.12, 0.4555, 0.91, 0.5825))),
     ),
 
@@ -77,7 +77,7 @@ SPEC = {
             start=dict(door="gone", air="out"),
             steps=[dict(state=dict(floor="push"), tag=dict(t="床が傷む", d="ドアの近くで")),
                    dict(tag=dict(t="通気扉を付ける", d="すべての貨物ドアに"))],
-            note=SEC_NOTE_POS, src="米上院の報告 p2014")),
+            note=SEC_NOTE_POS, src="米上院の報告 PDF 14頁")),
     ),
 
     # 立ち会いは無い（上院 p2014・西部地域局長の証言）
@@ -88,7 +88,7 @@ SPEC = {
             mode="single",
             items=[dict(t="FAAの立ち会い", d="無し", ok=False, c=J.ALERT)],
             lead="1970年5月の地上の試験",
-            note=f"{NOTE_SEN} 2014頁")),
+            note=f"{NOTE_SEN} PDF 14頁")),
     ),
 
     # 2つ目（1972年3月3日・上院 p2015）
@@ -98,7 +98,7 @@ SPEC = {
         fig=("moment", dict(
             clock="3月3日", label="1972年",
             facts=[dict(t="後ろの貨物ドア", v="電気で閉まらない", c=J.ALERT)],
-            sub=f"{NOTE_SEN} 2015頁")),
+            sub=f"{NOTE_SEN} PDF 15頁")),
     ),
 
     # その場の手当てと、日付の重なり（1972年3月3日＝パリの事故のちょうど2年前）
@@ -108,7 +108,7 @@ SPEC = {
         fig=("panel", dict(
             blocks=[dict(k="直し方", t="手で閉め、スイッチを調整", c=J.LINE),
                     dict(k="日付", t="1972年3月3日", v="パリの2年前の同じ日", c=J.AMBER)],
-            note=f"{NOTE_SEN} 2015頁", cols=2)),
+            note=f"{NOTE_SEN} PDF 15頁", cols=2)),
     ),
 
     # 配線を太くする SB（1972年5月30日・上院 p2015）
@@ -118,7 +118,7 @@ SPEC = {
         fig=("panel", dict(
             blocks=[dict(k="報告", t="電気で閉まりにくい", v="ほかの航空会社からも", c=J.TICK),
                     dict(k="1972年5月30日", t="配線を太くする改修", v="メーカーのSB", c=J.AMBER)],
-            note=f"{NOTE_SEN} 2015頁", cols=2)),
+            note=f"{NOTE_SEN} PDF 15頁", cols=2)),
     ),
 
     # SB＝すすめるもの（上院 p2015・SB p5003「Compliance: Recommended.」・p2055「voluntary」）
@@ -129,7 +129,7 @@ SPEC = {
             # ⚠️ v は飾り書体（Dela）＝漢字の長い句はつぶれる（check_layout・§5b-13）→ 句は t へ
             blocks=[dict(k="SB", t="サービス・ブレティン", v="すすめる", c=J.LINE),
                     dict(k="従うか", t="航空会社しだい", c=J.ALERT)],
-            note=f"{NOTE_SEN} 2015頁・2055頁・ダグラス社のSB 52-37", cols=2)),
+            note=f"{NOTE_SEN} PDF 15頁・55頁・ダグラス社のSB 52-37", cols=2)),
     ),
 
     # 96便の経路（上院 p2017「New York, with intermediate stops at Detroit, Michigan and Buffalo」）
@@ -141,7 +141,7 @@ SPEC = {
                    dict(t="デトロイト", d="寄る", c=J.AMBER),
                    dict(t="バッファロー", d="寄る", c=J.LINE),
                    dict(t="ニューヨーク", d="行き先", c=J.LINE)],
-            note=f"{NOTE_SEN} 2017頁")),
+            note=f"{NOTE_SEN} PDF 17頁")),
     ),
 
     # 🔴 AA96 の地図（Googleアースの代わり）。67人＝乗客56＋乗員11（台本 §9）
@@ -162,7 +162,7 @@ SPEC = {
         fig=("panel", dict(
             blocks=[dict(k="出発の前", t="ハンドルが倒れない", v="ふつうの力では", c=J.ALERT),
                     dict(k="ふつうに倒れる力", t="約14キロ（30ポンド）", v="メーカーによる", c=J.AMBER)],
-            note=f"{NOTE_SEN} 2017〜2018頁・2037頁", cols=2)),
+            note=f"{NOTE_SEN} PDF 17〜18頁・37頁", cols=2)),
     ),
 
     # ひざで押しこむ（上院 p2018・p2024）。54キロ＝120ポンド（台本 §9）
@@ -173,7 +173,7 @@ SPEC = {
             blocks=[dict(k="ひざで", t="押しこまれたハンドル", v="通気扉は少し斜め", c=J.ALERT),
                     dict(k="整備士の判断", t="そのまま出発", c=J.TICK),
                     dict(k="ピンなしで収める力", t="約54キロ（120ポンド）", v="調べの値", c=J.AMBER)],
-            note=f"{NOTE_SEN} 2018頁・2024頁")),
+            note=f"{NOTE_SEN} PDF 18頁・24頁")),
     ),
 
     # 時刻の型（上院 p2018）。高さ＝1万1750フィート×0.3048（台本 §9）
@@ -185,7 +185,7 @@ SPEC = {
             facts=[dict(t="高さ", v="約3580メートル", c=J.AMBER),
                    dict(t="乗員が聞いた音", v="「ドン」", c=J.ALERT),
                    dict(t="顔に舞い上がったもの", v="ちり・ほこり", c=J.TICK)],
-            sub=f"{NOTE_SEN} 2018頁")),
+            sub=f"{NOTE_SEN} PDF 18頁")),
     ),
 
     # 🔴 断面：ウィンザーの近くで外れる → 床の一部が落ちる（上院 p2017）
@@ -196,7 +196,7 @@ SPEC = {
             start=dict(press="push"),
             steps=[dict(state=dict(press="none", door="gone", air="out"), tag=dict(t="空中で外れる", d="後ろの貨物ドア")),
                    dict(state=dict(floor="down"), tag=dict(t="床の一部が落ちこむ", d="下の貨物室へ"))],
-            note=SEC_NOTE, src="米上院の報告 p2017")),
+            note=SEC_NOTE, src="米上院の報告 PDF 17頁")),
     ),
 
     # 🔴 断面：ケーブル（上院 p2018〜p2019）。2段目は札を2つ（row1・row2）
@@ -208,7 +208,7 @@ SPEC = {
             steps=[dict(state=dict(cable="hurt"), tag=dict(t="ケーブルが切れる", d="動きにくくなったものも")),
                    dict(tag=[dict(t="かじのペダル", d="左いっぱいで止まる"),
                              dict(t="真ん中のエンジン", d="レバーが動かない", at="row2")])],
-            note=SEC_NOTE, src="米上院の報告 p2018〜p2019")),
+            note=SEC_NOTE, src="米上院の報告 PDF 18〜19頁")),
     ),
 
     # 🔴 AA96 の地図が戻る：ウィンザーの近く → デトロイトの空港へ（上院 p2018〜p2019）
@@ -228,7 +228,7 @@ SPEC = {
         fig=("panel", dict(
             blocks=[dict(k="着陸", t="右へそれて止まる", c=J.AMBER),
                     dict(k="全員", t="滑り台で外へ", c=J.OK)],
-            note=f"{NOTE_SEN} 2019頁", cols=2)),
+            note=f"{NOTE_SEN} PDF 19頁", cols=2)),
     ),
 
     # 67人のうち軽いけが11人（客室乗務員2＋乗客9・上院 p2017）。数を合わせる（§5b-6）
@@ -238,7 +238,7 @@ SPEC = {
         fig=("icons", dict(
             n=67, on=11, kind="person", cols=17, oncol=J.AMBER,
             lead="亡くなった人は無し　色の人＝軽いけが",
-            note=f"{NOTE_SEN} 2017頁・2019頁")),
+            note=f"{NOTE_SEN} PDF 17頁・19頁")),
     ),
 
     # AA96 のドアの跡（PD・縦長＝額装パネル）。人は後ろ姿（顔は見えない＝②の見本の記録）
@@ -272,7 +272,7 @@ SPEC = {
             lines=[(0.2793, 0.6009, 0.4769, 0.6126), (0.1208, 0.6141, 0.4780, 0.6255),
                    (0.1213, 0.6269, 0.2987, 0.6386)],
             phrase="閉まって見えたが、錠はかかっていなかった",
-            doc="NTSB の報告（米上院の報告 2017頁）の原文",
+            doc="NTSB の報告（米上院の報告 PDF 17頁）の原文",
             crop=(0.11, 0.5738, 0.89, 0.6777), pre=1)),
     ),
 
@@ -292,7 +292,7 @@ SPEC = {
         fig=("panel", dict(
             blocks=[dict(k="7月6日", t="2つの改修の義務づけ", c=J.INST),
                     dict(k="1つ目", t="ピンなしでは閉まらない作り", c=J.AMBER)],
-            note=f"{NOTE_SEN} 2046〜2047頁", cols=2)),
+            note=f"{NOTE_SEN} PDF 46〜47頁", cols=2)),
     ),
 
     # 🔴 断面：2つ目の勧告＝床の空気の逃げ道（上院 p2047・のちの AD 75-15-05）。逃げ道があれば床は落ちない（筋）
@@ -303,7 +303,7 @@ SPEC = {
             start=dict(door="gone", air="out"),
             steps=[dict(state=dict(vent="open"), tag=dict(t="2つ目：空気の逃げ道", d="床にかかる力を小さく")),
                    dict(tag=dict(t="勧告より前に", d="直し方は決まっていた"))],
-            note=SEC_NOTE, src="米上院の報告 p2047・p2048")),
+            note=SEC_NOTE, src="米上院の報告 PDF 47頁・48頁")),
     ),
 
 }

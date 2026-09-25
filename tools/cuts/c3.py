@@ -16,9 +16,11 @@ import jiko_style as J
 import cuts.ss as ss
 
 NOTE = "模式図：4つのフックのうち1つ。形と大きさは実物どおりではない（報告書の図7の順番）"
-SRC = "仏の報告書 図7（p88）・米上院の報告 p2017〜p2018"
+# 🔴 ⑤b-3（09-25）：画面の頁は**PDF の頁**（自動の出典の札「PDF 91頁」と同じ）。台本の通し番号（p2017 など）は出さない
+#    ＝上院の報告に「2017頁」は無い（PDF 17頁＝印字5頁）。⑤b-2 の r01・r02 は「p2017〜p2018」のまま焼いていた
+SRC = "仏の報告書 図7（PDF 88頁）・米上院の報告 PDF 17〜18頁"
 SEC_NOTE = "模式図：機体を後ろから見た断面。形と大きさは実物どおりではない"
-SEC_SRC = "仏の報告書 p96〜p105"
+SEC_SRC = "仏の報告書 PDF 96〜105頁"
 NOTE_FR = "出典：フランスの最終報告書"
 
 SPEC = {
@@ -48,7 +50,7 @@ SPEC = {
         fig=("section", dict(
             steps=[dict(state=dict(press="push"), tag=dict(t="与圧", d="高い空での機内の圧力")),
                    dict(tag=dict(t="外へ向かう力", d="ドアを押す"))],
-            note=SEC_NOTE, src="米上院の報告 p2014")),
+            note=SEC_NOTE, src="米上院の報告 PDF 14頁")),
     ),
 
     # 仏 p91（写真：ドアの内側・フックと動かす仕組み）。数は仏 p64
@@ -57,7 +59,8 @@ SPEC = {
         s="報告書の写真　貨物ドアの内側",
         photo=ss.page(91), panel=True, color=1.0,
         side="right", ann_y=330,
-        ann=[dict(t="ドアの下の縁", v="4つ", vc=J.AMBER, d="フック"),
+        # ⚠️ r03：頁の上で写真が横倒し（ドアの下の縁＝フックが写真の**左**に並ぶ）＝札で断る（回すかは ⑤c）
+        ann=[dict(t="フック", v="4つ", vc=J.AMBER, d="写真の左の縁に並ぶ"),
              dict(t="引っかける先", d="胴体の側", dc=J.TICK)],
     ),
 
@@ -91,7 +94,8 @@ SPEC = {
         fig=("latch", dict(
             start=dict(hook="closed"),
             steps=[dict(state=dict(handle="down", pin="in", vent="closed", lamp="off"),
-                        tag=dict(t="① ロックピン", d="フックを動かなくする", at="pin"))],
+                        # r03：2行目つきの札は pin の置き場（y654）だと2行目が「胴体の側」の帯の縁に乗る＝28px 上へ
+                        tag=dict(t="① ロックピン", d="フックを動かなくする", at=(500, 626, "start", 420)))],
             note=NOTE, src=SRC)),
     ),
 
@@ -115,7 +119,7 @@ SPEC = {
             start=dict(hook="short"),
             steps=[dict(state=dict(handle="part", pin="butt"), tag=dict(t="ピンが入らない", at="pin")),
                    dict(state=dict(air="leak"), tag=dict(t="開いたまま＝空気が逃げる", at="vent"))],
-            note=NOTE, src="米上院の報告 p2014・p2017〜p2018")),
+            note=NOTE, src="米上院の報告 PDF 14頁・17〜18頁")),
     ),
 
     # 仏 p94（写真：のぞき窓からピンを確かめる人＝職務中の実演）。窓を全機に付けたのは上院 p2035
@@ -152,16 +156,18 @@ SPEC = {
     ),
 
     # フックが回りきらないとき（上院 p2015・p2025・仏 p97〜p98）。3行＝3段
-    #   ⚠️ 札の置き場：hook2（上）と hook（下）を上下に重ねる。motor の置き場は幅100px＝長い札は縮む
+    #   ⚠️ 札の置き場：motor の置き場は幅100px＝長い札は縮む。
+    #      r03：hook2（y752）・hook（y792）に重ねると「胴体の側」の帯の右下にかぶった＝帯の下の空き（y802・846）へ。
+    #      ピンの2行目つきの札も帯の縁に乗った＝28px 上へ（c307 と同じ）
     "c313": dict(
         t="回りきらないフック",
         s="閉める手順の弱点",
         fig=("latch", dict(
-            steps=[dict(state=dict(hook="short", motor="run"), tag=dict(t="回りきらない", at="hook2")),
-                   dict(tag=dict(t="電気が弱い（何度か報告）", at="hook")),
+            steps=[dict(state=dict(hook="short", motor="run"), tag=dict(t="回りきらない", at=(1100, 802, "start", 420))),
+                   dict(tag=dict(t="電気が弱い（何度か報告）", at=(1100, 846, "start", 440))),
                    dict(state=dict(handle="part", pin="butt"),
-                        tag=dict(t="ピンは入れない", d="本来はハンドルも倒れない", at="pin"))],
-            note=NOTE, src="米上院の報告 p2015・p2025・仏の報告書 p97〜p98")),
+                        tag=dict(t="ピンは入れない", d="本来はハンドルも倒れない", at=(500, 626, "start", 420)))],
+            note=NOTE, src="米上院の報告 PDF 15頁・25頁・仏の報告書 PDF 97〜98頁")),
     ),
 
     # 仏 p88 図7「FERMETURE FORCÉE」（引用＝額装・原色）
@@ -209,18 +215,19 @@ SPEC = {
             steps=[dict(state=dict(lamp="off"), tag=dict(t="たわんだ仕組みが押す", at="lamp")),
                    dict(tag=dict(t="3ミリ未満で入るスイッチ", at=(1530, 740, "middle", 440)))],
             rel=[dict(t="3ミリ", src="米上院の報告 p2024（8分の1インチ未満＝3.2ミリ未満）")],
-            note=NOTE, src="米上院の報告 p2024・p2028")),
+            note=NOTE, src="米上院の報告 PDF 24頁・28頁")),
     ),
 
     # 仏 p104（本文）：見かけと実際（「ありえた」の留保を残す §5b-27b）
     "c318": dict(
         t="報告書も書いた弱点",
-        s="フランスの報告書 104頁",
+        s="報告書の本文の一節",
         fig=("beforeafter", dict(
+            # r03：「・ことがありえた」を箇条の3つ目に置くと文が割れて読めた＝留保は札の名前へ（§5b-27b）
             a=dict(k="見かけ", t="閉まっている", lines=["通気扉は閉まる", "錠もかかって見える"], v="", c=J.LINE),
-            b=dict(k="実際には", t="錠はかかっていない", lines=["フックは閉まりきらない", "ピンも入らない", "ことがありえた"],
+            b=dict(k="ありえたこと", t="錠はかかっていない", lines=["フックは閉まりきらない", "ピンも入らない"],
                    v="", c=J.ALERT),
-            arrow=False, note=f"{NOTE_FR} 104頁")),
+            arrow=False, note=f"{NOTE_FR} PDF 104頁")),
     ),
 
     # 🔴 断面：上るにつれて差が大きくなる → ドアが外へ飛ぶ（与圧 push ⇒ ドア on＝2段目で与圧の矢印は消す）
@@ -241,7 +248,7 @@ SPEC = {
             start=dict(door="gone"),
             steps=[dict(state=dict(air="out"), tag=dict(t="減圧", d="貨物室の気圧が外と同じに")),
                    dict(state=dict(floor="push"), tag=dict(t="床に上から圧力", d="客室の側が高いまま"))],
-            note=SEC_NOTE, src="仏の報告書 p99・p104")),
+            note=SEC_NOTE, src="仏の報告書 PDF 99頁・104頁")),
     ),
 
     # 🔴 断面：床が落ちる → 床下のケーブル（札に「操縦のケーブル」と書かない＝絵の名札と同じ語）
@@ -252,7 +259,7 @@ SPEC = {
             start=dict(door="gone", air="out", floor="push"),
             steps=[dict(state=dict(floor="down"), tag=dict(t="床が落ちる", d="下の貨物室へ")),
                    dict(state=dict(cable="hurt"), tag=dict(t="ケーブルが傷む", d="床の下にまとめて通っていた"))],
-            note=SEC_NOTE, src="仏の報告書 p104〜p105")),
+            note=SEC_NOTE, src="仏の報告書 PDF 104〜105頁")),
     ),
 
     # 章の橋（副題は10本目からの型「ここまでと、この先」）

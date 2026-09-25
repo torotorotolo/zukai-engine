@@ -326,26 +326,26 @@ MAP_EUROPE_REL = [MAP_ROUTE_REL[-1]]
 MAP_EUROPE_NOTE = "模式図：都市は緯度経度から（都市の中心）。経路は地点を直線で結んだもの"
 
 
-def europe_map(steps, src="仏の報告書 9・37頁"):
+def europe_map(steps, src="仏の報告書 PDF 9・37頁"):
     """c201：981便の経路（ヨーロッパの広い範囲）。"""
     return ("drift", dict(view=MAP_EUROPE_VIEW, places=MAP_EUROPE_PLACES, pts={}, rel=list(MAP_EUROPE_REL),
                           steps=steps, note=MAP_EUROPE_NOTE, src=src, scale_km=500, grid=5.0))
 
 
-def paris_map(steps, places=None, rel=None, note=None, src="仏の報告書 5・12頁"):
+def paris_map(steps, places=None, rel=None, note=None, src="仏の報告書 PDF 5・12頁"):
     """パリ周辺の地図（c101 → 第7章で戻る）。宣言は既定に**足す**（墜落地点とパリの照合は必ず残る）。"""
     return ("drift", dict(view=MAP_PARIS_VIEW, places=places or MAP_PARIS_PLACES, pts={},
                           rel=MAP_PARIS_REL + list(rel or []), steps=steps, note=note or MAP_PARIS_NOTE,
                           src=src, scale_km=20, grid=0.2))
 
 
-def route_map(steps, note=None, src="仏の報告書 5・12・37頁"):
+def route_map(steps, note=None, src="仏の報告書 PDF 5・12・37頁"):
     """第7章：同じ地図にオルリーとサン・パテュスを足した経路の地図。"""
     return ("drift", dict(view=MAP_PARIS_VIEW, places=MAP_ROUTE_PLACES, pts={}, rel=list(MAP_ROUTE_REL),
                           steps=steps, note=note or MAP_ROUTE_NOTE, src=src, scale_km=20, grid=0.2))
 
 
-def aa96_map(steps, rel=None, note=None, src="NTSB AAR-73-02 9頁"):
+def aa96_map(steps, rel=None, note=None, src="NTSB AAR-73-02 PDF 9頁"):
     """第4章：デトロイトの空港とウィンザー。デトロイトの市街は輪を描かない（ウィンザーと1.9キロ＝輪が重なる）。"""
     return ("drift", dict(view=MAP_AA96_VIEW, places=MAP_AA96_PLACES, pts={},
                           rel=MAP_AA96_REL + list(rel or []), steps=steps, note=note or MAP_AA96_NOTE,
