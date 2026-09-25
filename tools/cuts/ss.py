@@ -314,7 +314,9 @@ MAP_PARIS_PLACES = ["paris", dict(k="crash", side="above")]
 # 第7章の経路の地図は同じ範囲に2地点を足す。
 #   ⚠️ ⑤b-4 r05：サン・パテュスの札を輪の真下に置くと、c707 のオルリーからの線（**左下から**来る）が「サン・パテュス」を
 #      貫いた（§5b-39）。上に置くと c717 の森への線（左上へ出る）が貫く＝**輪の下のまま右へ 130px**（どちらの線にも当たらない）
-MAP_ROUTE_PLACES = ["paris", "orly", dict(k="crash", side="above"), dict(k="stpathus", dx=130)]
+#   ⚠️ r06：c717 の寸法線の札「約15キロ」（線の上側に出る＝型の作り）が森の札「エルムノンヴィルの森」の下の端に接し、
+#      1つの札に読めた（§5b-39）＝森の札を左へ 120px（c101 は MAP_PARIS_PLACES＝動かない）
+MAP_ROUTE_PLACES = ["paris", "orly", dict(k="crash", side="above", dx=-120), dict(k="stpathus", dx=130)]
 MAP_PARIS_REL = [
     dict(a="crash", lat=49 + 8.5 / 60, lon=2 + 38 / 60, src="仏 p5（墜落地点の座標 49°08'30\"N・02°38'00\"E）"),
     dict(a="paris", b="crash", km=37, dir="北東", sector=8, src="仏 p12「à 37 km dans le nord-est de Paris」"),
