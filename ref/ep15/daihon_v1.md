@@ -597,7 +597,7 @@ python tools/check_facts.py ref/ep15/daihon_v1.md ref/ep15/src/ep15_pages.txt
 > ★事故機の納入は、1944年12月23日
 
 **c404** ／ panel 事故の日で66歳 ／ AAB p12
-> Q: 事故の日には、何歳？
+> Q: 事故の日には、機体は何歳？
 > 66歳。戦争が終わり、1946年7月には、余った機体として売られた。
 
 **c405** ／ 実写 C1 1969年の「ミス・キャンディス」（白黒・Bill Larkins・CC BY-SA 2.0・額装） ／ AAB p12
