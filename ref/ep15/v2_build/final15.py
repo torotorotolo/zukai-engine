@@ -3,9 +3,9 @@
 14本目 ref/ep14/v2_build/final.sh を Python に写した（Git Bash の PATH が壊れていることがあるため）。
     python ref/ep15/v2_build/final15.py
 道具（tools/）は1文字も変えない。回すもの：
-  cs   tools/check_script.py（そのまま＝聞き役の「？」で E が出る。本線の道具はまだ聞き役を知らない）
-  csq  聞き役を知る差し替え実行（読み込んだ中で①`Q: ` を字数から外す ②「？」「！」で終わる聞き役の行を文の終わりと見る）
-  csn  14本目⑤a の作業ツリーの check_script.py（91e8f76＝聞き役の印を知る次の版。冒頭の秒は行間と決め所の余白まで数える）＝読むだけ
+  cs   tools/check_script.py（09-26 本線 633f178 から聞き役を知る版＝14本目⑤a の 91e8f76。冒頭の秒は行間と決め所の余白まで数える）
+       ⚠️ ④'のころの csq（差し替え実行）・csn（作業ツリー ep14a5 の次の版）は 15本目⑤a-1 で外した＝cs が同じ版になったため。
+          csq の「？」→「？、」の差し替えは、次の版の「話者が替わる前の行は。？！で閉じる」に当たって偽の E を出す
   cf   tools/check_facts.py（原文＝ref/ep15/src/ep15_pages.txt）
   df   tools/check_script_diff.py daihon_v1.md daihon_v2.md
   mech ref/ep15/v2_build/mech15.py（roles.tsv＝v2_build のもの）
@@ -15,22 +15,13 @@
 import os, re, subprocess, sys, filecmp
 from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
-ROOT = Path("C:/Users/konar/Desktop/zukai-engine")
+# この作業ツリーの根（15本目⑤a-1：本線のフォルダの直書きを外した＝別の作業ツリーから回しても本線を読み書きしない。ルール 5a-23）
+ROOT = Path(__file__).resolve().parents[3]
 B = ROOT / "ref/ep15/v2_build"
 O = B / "out"
 O.mkdir(exist_ok=True)
-NEXT_CS = Path("C:/Users/konar/Desktop/zukai-engine-ep14a5/tools/check_script.py")
 V1, V2 = "ref/ep15/daihon_v1.md", "ref/ep15/daihon_v2.md"
 env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUTF8="1")
-QAWARE = r'''
-import sys, re
-sys.path.insert(0, 'tools'); import check_script as cs
-_c = cs.clean
-cs.clean = lambda l: re.sub(r'^Q:\s', '', _c(l))
-src = open(sys.argv[1], encoding='utf-8').read()
-src = re.sub(r'^(> Q: .*[？！])$', r'\1、', src, flags=re.M)
-sys.exit(1 if cs.report(cs.parse(src)) else 0)
-'''
 
 # 役割表＝係ごとの roles_G*.tsv をつなぐ
 head = "# 15本目④' 第2版：聞き役（行頭 `> Q: `）の役割。cid<TAB>役割<TAB>聞き役の文（印を除く）。mech15.py が台本と1行ずつ突き合わせる\n"
@@ -55,9 +46,7 @@ def build(tag):
 
 def gates(pre):
     R = [
-        ("check_script（そのまま）", "cs", [sys.executable, "tools/check_script.py", V2]),
-        ("check_script（聞き役を知る差し替え実行）", "csq", [sys.executable, "-c", QAWARE, V2]),
-        ("check_script（14本目⑤aの次の版 91e8f76・読むだけ）", "csn", [sys.executable, str(NEXT_CS), V2]),
+        ("check_script（聞き役を知る版＝本線 633f178）", "cs", [sys.executable, "tools/check_script.py", V2]),
         ("check_facts", "cf", [sys.executable, "tools/check_facts.py", V2, "ref/ep15/src/ep15_pages.txt"]),
         ("check_script_diff", "df", [sys.executable, "tools/check_script_diff.py", V1, V2]),
         ("mech15", "mech", [sys.executable, str(B / "mech15.py"), V2, "ref/ep14/v2_build/titles.json"]),
@@ -74,22 +63,15 @@ def gates(pre):
 
 def compose():
     r = lambda n: (O / n).read_text(encoding="utf-8").strip("\n") if (O / n).exists() else ""
-    cs = r("g1_cs.txt").split("\n")
-    qpat = "途中の行が句点でも読点でも終わっていない: Q:"
-    n_q = sum(1 for l in cs if qpat in l)
-    rest = [l for l in cs if qpat not in l]
     mech = r("g1_mech.txt")
     sec = lambda k: mech.split(f"## {k} ", 1)[1].split("\n## ", 1)[0] if f"## {k} " in mech else ""
     out = [
-        "### 0-1. 門番（④'が自分で回した。`tools/` は1文字も変えていない）",
+        "### 0-1. 門番（④'が自分で回した。`tools/` は1文字も変えていない。15本目⑤a-1 で回し直した＝下の注）",
         "`python ref/ep15/v2_build/final15.py`（組む → 門番 → §0 に差す → 組み直す → もう一度回して同じか確かめる）の終了コード：",
         "```", r("g1_rc.txt"), "```", "",
-        f"**check_script.py ref/ep15/daihon_v2.md（そのまま）**＝下の枠のほかに、聞き役の行の「途中の行が句点でも読点でも終わっていない: Q: …？」が **{n_q}件**（全部「？」で終わる聞き役の質問＝本線の門番が聞き役をまだ知らないため。14本目⑤a の次の版 `91e8f76` で直る）",
-        "```"] + rest + ["```", "",
-        "**聞き役を知る差し替え実行**（読み込んだ中で①`Q: ` を字数から外す ②「？」「！」で終わる聞き役の行を文の終わりと見る、の2点だけ差し替え＝14本目④'と同じ）",
-        "```", r("g1_csq.txt"), "```", "",
-        "**14本目⑤a の次の版の check_script.py**（作業ツリー `zukai-engine-ep14a5`・`91e8f76`＝聞き役の印を知る・`冒頭:` は行間と決め所の余白まで数える＝mech15 §8 と同じ式）",
-        "```", r("g1_csn.txt"), "```", "",
+        "**check_script.py ref/ep15/daihon_v2.md**（聞き役を知る版＝14本目⑤a の `91e8f76` が 09-26 に本線 `633f178` へ入った。印 `Q: ` を字数に数えない・聞き役の「？」「！」で文を閉じてよい・`冒頭:` は行間と決め所の余白まで数える＝mech15 §8 と同じ式）。"
+        "⚠️ ④'のころは本線の道具が聞き役を知らず、「そのまま」（聞き役の「？」で E）・差し替え実行・作業ツリー `ep14a5` の次の版の3通りを並べていた＝15本目⑤a-1 で1本にした（本文は1文字も変えていない）",
+        "```", r("g1_cs.txt"), "```", "",
         "**check_facts.py**（抜粋）", "```"] + [l for l in r("g1_cf.txt").split("\n") if l.startswith(("原文", "決め所", "数字", "   "))] + ["```", "",
         "**check_script_diff.py daihon_v1.md daihon_v2.md**（変わった中身の列は省いた）", "```"] + [l for l in r("g1_df.txt").split("\n") if not l.startswith("  変わった中身")] + ["```", "",
         "### 0-2. 聞き役（最小限の聞き役・ルール §4-15）",
@@ -116,7 +98,7 @@ compose()
 b2 = build("b2")
 gates("g2")
 same = True
-for k in ["cs", "csq", "csn", "cf", "df", "mech", "ledger", "rc"]:
+for k in ["cs", "cf", "df", "mech", "ledger", "rc"]:
     a, b = O / f"g1_{k}.txt", O / f"g2_{k}.txt"
     if not a.exists() and not b.exists():
         continue

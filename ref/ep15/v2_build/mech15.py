@@ -16,7 +16,7 @@
 import re, sys, json, collections
 from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
-ROOT = Path("C:/Users/konar/Desktop/zukai-engine")
+ROOT = Path(__file__).resolve().parents[3]  # この作業ツリーの根（15本目⑤a-1：本線の直書きを外した）
 sys.path.insert(0, str(ROOT / "tools"))
 import check_script as CS
 
@@ -27,9 +27,15 @@ cuts = CS.parse(T)                    # [(cid, 画, [行…])]
 CPS = CS.CPS_FALLBACK
 
 
+def clean(l):
+    # 15本目⑤a-1：本線の CS.clean は 09-26（633f178）から印 `Q: ` も外す＝ここが印で聞き役を見分けられず「聞き役の行 0」と出た。
+    # 印を残す④'のころの clean を手元に置く（印を外すのは下の bare だけ）
+    return CS.STAR_RE.sub('', l).replace('**', '').strip()
+
+
 def bare(l):
     """音と字幕になる文（★と ** と聞き役の印を外す）"""
-    return Q_RE.sub("", CS.clean(l))
+    return Q_RE.sub("", clean(l))
 
 
 # ── 1 タイトル ───────────────────────────────
@@ -75,7 +81,7 @@ print("\n## 3 ★の位置と字数")
 for cid, pic, ls in cuts:
     st = [i for i, l in enumerate(ls) if l.startswith("★")]
     if "quote" in pic or st:
-        s = CS.clean(ls[st[0]]) if st else ""
+        s = clean(ls[st[0]]) if st else ""
         flag = ([] if st else ["★なし"]) + (["★が最後の行でない"] if st and st[0] != len(ls) - 1 else []) \
             + ([f"{len(s)}字>20"] if len(s) > 20 else [])
         print(f"  {cid} {len(s)}字 {s} {' '.join(flag)}")
@@ -86,7 +92,7 @@ sents = []                          # (cid, 行番号, 話者, 文)＝行番号�
 for cid, pic, ls in cuts:
     buf, who0 = "", None
     for i, l in enumerate(ls, 1):
-        who = "Q" if Q_RE.match(CS.clean(l)) else "N"
+        who = "Q" if Q_RE.match(clean(l)) else "N"
         if buf and who != who0:
             sents.append((cid, i - 1, who0, buf)); buf = ""
         who0 = who
@@ -158,7 +164,7 @@ for cid, pic, ls in cuts:
         b = bare(l); allchars += len(b); total_lines += 1
         if i:
             t += CS.GAP
-        if Q_RE.match(CS.clean(l)):
+        if Q_RE.match(clean(l)):
             qtimes.append(t); qlines.append((cid, b)); qchars += len(b)
         t += len(b) / CPS
     t += CS.TAIL + (CS.TAIL_EXTRA_QUOTE if any(CS.STAR_RE.match(l) for l in ls) else 0)
@@ -191,7 +197,7 @@ if qtimes:
     if miss:
         print(f"  ⚠️ roles.tsv にあって台本に無い {miss}")
     # まとめの次の語りは「そう。」で受ける（ルール 4-15）
-    flat = [(cid, CS.clean(l)) for cid, _, ls in cuts for l in ls]
+    flat = [(cid, clean(l)) for cid, _, ls in cuts for l in ls]
     for k2, (cid, l) in enumerate(flat):
         if Q_RE.match(l) and role.get((cid, Q_RE.sub("", l)), "") == "まとめ":
             nxt = flat[k2 + 1][1] if k2 + 1 < len(flat) else ""
@@ -215,7 +221,7 @@ for cid, pic, ls in cuts:
     a[0] += 1; a[1] += len(ls); a[2] += sum(len(bare(l)) for l in ls)
     a[3] += CS.pic_kind(pic) in ("A", "B")
     a[4] += any(CS.STAR_RE.match(l) for l in ls)
-    a[5] += sum(1 for l in ls if Q_RE.match(CS.clean(l)))
+    a[5] += sum(1 for l in ls if Q_RE.match(clean(l)))
 tot = [sum(v[i] for v in agg.values()) for i in range(6)]
 for k, v in agg.items():
     print(f"  {k} {v[0]:3d} {v[1]:3d} {v[2]:5d} {v[3]:3d}（{100 * v[3] / v[0]:.0f}%） {v[4]} {v[5]}")
@@ -223,5 +229,5 @@ print(f"  計 {tot[0]} {tot[1]} {tot[2]} {tot[3]}（{100 * tot[3] / tot[0]:.1f}%
 
 # ── 10 行の長さ ──────────────────────────────
 print("\n## 10 行の長さ（生の字数＝check_script と同じく印も数える）")
-raw = [(cid, CS.clean(l)) for cid, _, ls in cuts for l in ls]
+raw = [(cid, clean(l)) for cid, _, ls in cuts for l in ls]
 print(f"  最長 {max(len(l) for _, l in raw)}字 ・ 39字以上 {[(c, len(l)) for c, l in raw if len(l) >= 39]}")

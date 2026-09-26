@@ -10,8 +10,10 @@
   1件につき最大6か所まで出す。0件なら「0件」と出す（無いことの証明ではない＝言い換え・頁の境目で当て直す）。
 """
 import re, sys
+from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
-T = open("C:/Users/konar/Desktop/zukai-engine/ref/ep15/src/ep15_pages.txt", encoding="utf-8").read()
+# この作業ツリーの原文（15本目⑤a-1：本線の直書きを外した）
+T = open(Path(__file__).resolve().parents[1] / "src/ep15_pages.txt", encoding="utf-8").read()
 parts = re.split(r"=== p ?(\d+) ===", T)
 P = {int(parts[i]): parts[i + 1] for i in range(1, len(parts), 2)}
 
