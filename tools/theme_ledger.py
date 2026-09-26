@@ -39,6 +39,20 @@
     （『ゆっくり災難資料館【裏】』だけで241本）。揃えずに照合すると、**濁点を含む語
     （チェルノブイリ・コンコルド など）では、その311本が構造的に見えない**。
     陽性対照＝`neighbor --words チェルノブイリ` が LOt7Kvjpr14（終わらないチェルノブイリ）に当たること。
+
+■ 🔴 熟成の線は「今日」でなく「母集団を測った日」から引く（2026-09-26・16/17本目の①で発見）
+    pool.json の再生数は**測った日の値**（2026-09-08 時点）。線を今日から引くと、測った時点で
+    公開30日未満だった回が「熟成済み」として分子にも分母にも入り、日が経つほど増える。
+    → 既定の基準日＝母集団のいちばん新しい公開日の翌日（`--asof` で上書きできる）。
+    陽性対照＝`neighbor --words ソユーズ1号` が「近所比を出せる本が無い」になること
+    （j0h9m9ho8TU は 08-22 公開＝09-08 には公開17日。今日から引いていた頃は 0.95× と出ていた）。
+
+■ 🔴 再審の漏れを拾う門番 `audit`（2026-09-26）
+    09-24 は「reason が『素材』で始まり recheck が無い却下」を拾ったが、書き出しの違う素材だけの却下
+    （『全画面74点は…』『🔴母集団の…』）を取りこぼした＝ヴァイオント・ダム（6本6局・1.97×）が
+    09-23・09-24 の再審から漏れていた。→ **書き出しでなく中身で拾う**＝却下のうち、近所比の数字（×）が
+    reason にも recheck にも無く、neighbor も空のものを全部出す（人が読んで決める）。
+    陽性対照＝`audit --file <09-24 版の帳簿>` に「バイオントダム」が出ること。
 """
 from __future__ import annotations
 
@@ -48,7 +62,7 @@ import re
 import statistics
 import sys
 import unicodedata
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
@@ -82,10 +96,16 @@ def load_ledger():
     return json.loads(LEDGER.read_text(encoding="utf-8"))
 
 
+def pool_asof(rows) -> date:
+    """母集団の再生数を測った日の目安＝いちばん新しい公開日の翌日（熟成の線はここから引く）"""
+    return max(_d(r["published"]) for r in rows) + timedelta(days=1)
+
+
 def neighbor(rows, pattern, today=None, exclude=None):
     """pattern に当たり exclude に当たらない動画それぞれの近所比を返す。[(倍率, row), …]
-    exclude＝題名に名前が出るだけの別の事故（例：セウォル号の回の『東方之星』『西海フェリー』）"""
-    today = today or date.today()
+    exclude＝題名に名前が出るだけの別の事故（例：セウォル号の回の『東方之星』『西海フェリー』）
+    today＝熟成の線の基準日。省略すると母集団を測った日（pool_asof）＝今日ではない"""
+    today = today or pool_asof(rows)
     mature = [r for r in rows if (today - _d(r["published"])).days >= MATURE_DAYS]
     pat = re.compile(_n(pattern))
     ex = re.compile(_n(exclude)) if exclude else None
@@ -113,13 +133,15 @@ def cmd_neighbor(a) -> int:
     else:
         raise SystemExit("[中止] --words か --ledger のどちらかが要る")
 
-    print(f"母集団 {len(rows)} 本 ／ 熟成の線 {MATURE_DAYS}日 ／ 近所の幅 ±{NEAR_DAYS}日")
+    asof = _d(a.asof) if a.asof else pool_asof(rows)
+    how = "--asof で指定" if a.asof else "母集団を測った日"
+    print(f"母集団 {len(rows)} 本 ／ 熟成の線 {MATURE_DAYS}日（基準日 {asof}＝{how}）／ 近所の幅 ±{NEAR_DAYS}日")
     print(f"{'題材':<24}{'本':>3}{'局':>3}{'近所比':>8}{'最大':>7}   内訳")
     res = []
     for name, pat, ex in targets:
         if not pat:
             continue
-        rec = neighbor(rows, pat, exclude=ex)
+        rec = neighbor(rows, pat, today=asof, exclude=ex)
         if not rec:
             print(f"{name[:23]:<24}  —  近所比を出せる本が無い（同時期の比較対象が3本未満）")
             continue
@@ -131,6 +153,27 @@ def cmd_neighbor(a) -> int:
         ch = len({h["channel"] for _, h in rec})
         print(f"{name[:23]:<24}{len(rec):>3}{ch:>3}{med:>8.2f}{max(r for r, _ in rec):>7.2f}   {detail}")
     print("\n⚠️ 本数が少ないと暴れる。順位でなく **1.0× を割っているか** で足切りに使う")
+    return 0
+
+
+DEMAND_NUM = re.compile(r"\d\s*×")   # 近所比の数字（例 1.72×）
+
+
+def cmd_audit(a) -> int:
+    """再審の漏れの候補＝近所比の数字がどこにも無い却下（書き出しでなく中身で拾う）"""
+    led = json.loads(Path(a.file).read_text(encoding="utf-8")) if a.file else load_ledger()
+    hits = []
+    for t in led["themes"]:
+        if t.get("verdict") != "却下":
+            continue
+        texts = [t.get("reason") or ""] + [v for k, v in t.items() if k.startswith("recheck_") and isinstance(v, str)]
+        if t.get("neighbor") is not None or any(DEMAND_NUM.search(x) for x in texts):
+            continue
+        rc = sorted(k[len("recheck_"):] for k in t if k.startswith("recheck_"))
+        hits.append((t["name"], rc, (t.get("reason") or "")[:80]))
+    print(f"# 近所比の数字が1つも無い却下＝{len(hits)}件（再審の漏れの候補。人が読んで、需要・型の却下か素材だけの却下かを決める）")
+    for name, rc, rs in hits:
+        print(f"- {name}｜再審 {','.join(rc) or 'なし'}｜{rs}")
     return 0
 
 
@@ -185,7 +228,11 @@ def main() -> int:
     p.add_argument("--words", action="append", help="題名に含まれる語（複数可＝or）")
     p.add_argument("--ledger", action="store_true", help="帳簿の全題材を測り直す")
     p.add_argument("--exclude", help="当たっても除く語（題名に名前が出るだけの別の事故）。--ledger では帳簿の exclude を使う")
+    p.add_argument("--asof", help="熟成の線の基準日 YYYY-MM-DD（省略＝母集団を測った日＝いちばん新しい公開日の翌日）")
     p.set_defaults(fn=cmd_neighbor)
+    p = sub.add_parser("audit", help="再審の漏れの候補（近所比の数字が無い却下）を出す")
+    p.add_argument("--file", help="調べる帳簿（省略＝ref/themes/ledger.json。陽性対照は過去の版を渡す）")
+    p.set_defaults(fn=cmd_audit)
     p = sub.add_parser("merge", help="新しく走査した母集団を足す")
     p.add_argument("--pool", required=True)
     p.set_defaults(fn=cmd_merge)
