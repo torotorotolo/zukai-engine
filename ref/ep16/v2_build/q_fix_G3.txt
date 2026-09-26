@@ -1,0 +1,12 @@
+75-76	Padova	200	200
+93	ritornato a quota 700	500	80
+94	715	300	150
+163	Consiglio superiore	300	300
+179	modello	300	300
+2012	30 marzo	900	10
+89	22 esperimenti	500	80
+2010	sabbia	60	300
+226	647	300	150
+2014	2 settembre	100	300
+92	4 maggio	300	200
+2018	assolti tutti	300	60

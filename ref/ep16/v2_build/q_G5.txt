@@ -1,0 +1,6 @@
+S1	campanil	150	100
+S1	ponte provvisori|ponti	100	100
+S1	tende|tendopol	100	100
+S9	campanil|tende	100	100
+S1	soccors	120	120
+178-179	Autorità giudiziaria	200	100

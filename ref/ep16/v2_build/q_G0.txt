@@ -1,0 +1,21 @@
+# G0（④'）が🔴と芯の⚠️を自分で引き直す（2026-09-26）
+# G1-16 c208 完成の年
+72	giugno 1960	300	300
+2005	settembre 1959	250	250
+2005	ultimat|complet|termin	150	150
+1041	1957	150	200
+# G2-01 c322 ミュラーは「止められない」／速さを「調整」
+77	regol	250	250
+217	artificial	300	300
+# G3-06 c509 2つの塊の理由
+97	stadi successivi	300	350
+2010	blocchi|due	200	250
+224	M.ller	200	300
+89	due (masse|blocchi|parti)	250	250
+# G3-12 c520 多数派の疑問の向き
+166	700	300	300
+# G4-38 c822 ピアーヴェ川の谷の文の主
+148	Piave	400	200
+146	ENEL|Commissione	150	150
+# G5-01 ca07
+179	consti	200	200

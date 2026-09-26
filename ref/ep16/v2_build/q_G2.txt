@@ -1,0 +1,8 @@
+2004	^|1957|1958	0	60
+2004	6 agosto	900	500
+2006	Sesto rapporto	500	300
+S8	October 1960|end of October	300	300
+S8	continuous crack	100	400
+89	perimetral	300	200
+S1	Penta.{0,40}membro|membro.{0,60}Penta	150	150
+S1	1\.5 centimetri|centimetri al giorno	200	150

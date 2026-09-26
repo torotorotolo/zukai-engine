@@ -1,0 +1,28 @@
+179	non consti	300	150
+166	perplessit	500	250
+2018	previsione dell	300	150
+2018	prevedibilit	400	80
+2018	3 ottobre	60	400
+2018	Tonini	400	200
+178	pertinenza	700	80
+178	nessuno	300	400
+2018	Montedison	400	350
+26	19 voti	700	400
+207	prevedibile e probabile	300	100
+228	Si deve distinguere	50	400
+241	piuttosto affermata	300	150
+3019	rimessione	500	300
+2017	Penta e Greco	700	200
+3020	su 11	300	150
+98	non esistevano	400	50
+98-99	famiglie	300	250
+99	seppellirono	300	300
+99	prevedibile	300	700
+1041	70 m	300	100
+2017	Villanova	300	200
+2017	feriti	200	100
+3020	prima volta	200	300
+2017	1968	80	300
+2018	prescrizione	300	100
+99	novembre	300	200
+98	5.000	200	200

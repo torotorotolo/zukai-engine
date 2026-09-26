@@ -1,0 +1,12 @@
+163	25 metri	600	300
+175	regolare	500	400
+175	Mueller	300	300
+179	conosciut	600	300
+179	consti	300	200
+72	650	400	300
+72	velocit	200	200
+225	Ghetti	50	50
+S1	dinamic	300	200
+S1	incubo	200	200
+S1	200 milioni	300	300
+S1	700 metri	200	200

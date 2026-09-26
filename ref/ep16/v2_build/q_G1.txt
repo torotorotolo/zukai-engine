@@ -1,0 +1,7 @@
+2017	700	200	150
+1046	700 m	200	100
+S8	still stand|still standing|today	100	100
+S8	completed|construction	150	150
+S9	Venezia	80	80
+2017	resiste	300	100
+S1	Toc	60	60
