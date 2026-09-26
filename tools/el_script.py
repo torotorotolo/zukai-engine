@@ -46,7 +46,7 @@ import speaker    # noqa: E402  聞き役の印 `Q: `（14本目から）
 # 🔴 声のエンジン（2026-09-25・14本目⑤a 新設）。"aquestalk"＝ゆっくり（読みは tools/aq_kana.py・合成は aq_build）。
 #    13本目までは ElevenLabs（この名前が無い回は elevenlabs とみなす＝check_yomi_numbers が振り分ける）
 VOICE_ENGINE = "aquestalk"
-SLUG = "ep14"               # 14本目 セウォル号（2026-09-25・声はゆっくり＝AquesTalk）。13本目 "ep13"・12本目 "ep12"・11本目 "ep11"・10本目 "ep10"・9本目 "ep9"・8本目 "ep8"・7本目 "ep7"・6本目 "keybridge"・5本目 "sl1"・4本目 "surfside"
+SLUG = "ep15"               # 15本目 リノ・エアレース2011（2026-09-26・⑤a-1＝作業ツリー zukai-engine-ep15a5・声はゆっくり）。14本目 "ep14"（セウォル号）・13本目 "ep13"・12本目 "ep12"・11本目 "ep11"・10本目 "ep10"・9本目 "ep9"・8本目 "ep8"・7本目 "ep7"・6本目 "keybridge"・5本目 "sl1"・4本目 "surfside"
 # 🔴 話速 1.0 を**明示して送る**（2026-09-07 カズヤくん指示）。渡さないと声に保存された既定
 #    speed 1.14 で読まれる。speed 以外の4つは /v1/voices/<id>/settings の実測をそのまま写した
 #    （2026-09-07 に API で取り直し＝stability 0.85 / similarity_boost 1.0 / style 0.0 /
@@ -151,6 +151,11 @@ EXPECT = {
     #    ⚠️ 字は**聞き役の印 `Q: ` を除いた数**（行は聞き役56行を含む）。selftest も印を除いて数える
     "ep14":     {"cuts": 195, "lines": 439, "chars": 11166, "quotes": 16, "why": "セウォル号 台本第2版",
                  "md": str(ROOT / "ref" / "ep14" / "daihon_v2.md")},
+    # 🔴 15本目 リノ・エアレース2011（2026-09-26 ④' 承認ずみ）。
+    #    出所＝⑤a-1 の頭で `ref/ep15/v2_build/final15.py` と check_script.py（聞き役を知る版）を自分で回した出力
+    #    「カット 192 / 字幕行 425 / 本文 11286字 / 決め所 16」＝E 0件 / W 0件（字は印 `Q: ` を除く・行は聞き役56行を含む）
+    "ep15":     {"cuts": 192, "lines": 425, "chars": 11286, "quotes": 16, "why": "リノ・エアレース2011 台本第2版",
+                 "md": str(ROOT / "ref" / "ep15" / "daihon_v2.md")},
 }
 # 🔴🔴 **全回で共通の末尾**（2026-09-21・⑤a 新設）。`narration.SCRIPT` には入るが、
 #    **Vault の台本 md には無い**（④ が書くものではなく、⑥ で足した全回共通の資産だから）。
