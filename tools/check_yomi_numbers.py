@@ -202,6 +202,15 @@ def selftest() -> int:
 def main() -> int:
     if "--selftest" in sys.argv:
         return selftest()
+    # 🔴 2026-09-25（14本目⑤a）：**声のエンジンで振り分ける**（el_script.VOICE_ENGINE・13本目までは無い＝ElevenLabs）。
+    #    ゆっくり（AquesTalk）の回は読みを音声記号列で渡す＝「かなに固定されていない数」という問いが無い。
+    #    代わりに数の台帳と音声記号列を突き合わせる check_aq_yomi を**ここから**回す（qa_all の欄は1つのまま・
+    #    黙って飛ばさない＝台帳が無ければ check_aq_yomi が止まる）
+    import el_script as _ES
+    if getattr(_ES, "VOICE_ENGINE", "elevenlabs") == "aquestalk":
+        import check_aq_yomi
+        print("声＝ゆっくり（AquesTalk）→ check_aq_yomi（数の台帳×音声記号列）を回す")
+        return check_aq_yomi.run()
     eps = [a for a in sys.argv[1:] if not a.startswith("--")]
     # 🔴 回の名前は**引数が無ければ台本から取る**（`el_script.SLUG`）。
     #    `qa_all.py` に "ep11" と直書きすると、次の回で**前作の名前のまま回り続ける**

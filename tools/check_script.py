@@ -15,7 +15,11 @@
 import io
 import re
 import sys
+from pathlib import Path
 from statistics import median
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import speaker                      # noqa: E402  聞き役の印 `Q: `（14本目から・ルール §4-15）
 
 # ── 実測ずみの既定値（[[project-jiko-rules-index]] §5。推定で置き換えない） ──
 # 🔴 2026-09-07（5本目②）：**この定数は上流を替えると黙って古くなる。**
@@ -294,7 +298,9 @@ HYPE_ALLOW = {'衝撃': ['衝撃荷重']}
 
 
 def clean(line):
-    return STAR_RE.sub('', line).replace('**', '').strip()
+    # 🔴 2026-09-25（14本目⑤a）：聞き役の印 `Q: ` も外す（音にも字幕にも出さない＝字数に数えない）。
+    #    ④'は印の3字×56行を本文に数えていた（尺が約30秒長く出た）。印の無い回は1字も変わらない
+    return speaker.bare(STAR_RE.sub('', line).replace('**', '').strip())
 
 
 def parse(text):
@@ -343,12 +349,24 @@ def measure(cuts):
     d1 = n * PER_CUT
     d2 = chars / EP2_CPS
     # 🔴 12本目から：第2章以降の頭に章の扉（CARD_SEC 秒）が入る＝章の数−1 枚
-    ncard = max(0, len({c[:2] for c, _, _ in cuts if re.match(r"c\d", c)}) - 1)
+    ncard = n_cards(cuts)
     d3 = est_sec(chars, len(lines), n, nq, CPS, ncard)
     jud, why = judged_sec(d1, d2, d3, MEASURED)
     return dict(cuts=cuts, lines=lines, chars=chars, n=n, nq=nq,
                 d1=d1, d2=d2, d3=d3, med=sorted([d1, d2, d3])[1],
                 jud=jud, jud_why=why, measured=MEASURED)
+
+
+CHAPTER_CUT_RE = re.compile(r"c[0-9a-f]\d\d$")
+
+
+def n_cards(cuts):
+    """章の扉の枚数＝章の数−1（第1章の頭には扉が無い）。
+
+    🔴 2026-09-25（14本目⑤a）：章の鍵は `c1`〜`c9` だけでなく **`ca`〜`cf`（第10〜15章）** も。
+       旧 `re.match(r"c\\d")` は 14本目の `ca01`〜`cd08`（4章）を数えず、③が8秒短く出た。
+       `pr01`・`ed01` は章でないので数えない（9章までの回は1枚も変わらない）。"""
+    return max(0, len({c[:2] for c, _, _ in cuts if CHAPTER_CUT_RE.match(c)}) - 1)
 
 
 def est_sec(chars, lines, n, nq, cps, ncard=0):
@@ -430,11 +448,26 @@ def report(cuts):
     for cid, _, ls in cuts:
         for i, l in enumerate(ls):
             t = clean(l)
+            # 🔴 2026-09-25（14本目⑤a）：聞き役の問い・驚きは「？」「！」で文を閉じる（④'で E 44件＝全部これ）。
+            #    許すのは聞き役の行だけ。語りの行の途中の「？」は今までどおり E（語りの問いかけは聞き役へ移す＝§4-15）
+            if speaker.is_q(l) and t.endswith(('？', '！')):
+                continue
             if not t or t.endswith('。') or t.endswith('、') or t.endswith('，'):
                 continue
             if i != len(ls) - 1:
                 E.append('E %s の途中の行が句点でも読点でも終わっていない: %s'
                          % (cid, t))
+
+    # 🔴 2026-09-25（14本目⑤a 新設）：**話者が替わる前の行は文を閉じる**（。？！）。
+    #    「、」のまま話者が替わると、言いかけの文に割り込む形になる（音も字幕も続きが来ない）。
+    #    聞き役の無い回は1件も鳴らない（話者が替わらない）
+    for cid, _, ls in cuts:
+        for i in range(len(ls) - 1):
+            if speaker.is_q(ls[i]) != speaker.is_q(ls[i + 1]):
+                t = clean(ls[i])
+                if not t.endswith(('。', '？', '！')):
+                    E.append('E %s の話者が替わる前の行が文を閉じていない（。？！で終える）: %s'
+                             % (cid, t))
 
     # 決め所はカットの最後の行に置く（with_last のため）
     for cid, _, ls in cuts:
@@ -567,11 +600,20 @@ def report(cuts):
                      % (k, 100 * (a + b) / tot, a + b, tot))
 
     # 冒頭の実尺（引きが46秒より前に置き切れているか）
-    t = 0.0
+    # 🔴 2026-09-25（14本目⑤a）：③（est_sec）と**同じ数え方**にした＝カット内の行間 GAP・決め所の余白・章の扉も足す。
+    #    旧式は「発話＋カットの頭尻」だけ＝約5秒早く出ていた（14本目 c105：旧 45.4秒・④'の手計算 約51秒）。
+    #    ⚠️ ここは見積り。音ができたら narration.json の実測で当て直す（ルール 4-7）
+    t, prev = 0.0, None
     print('冒頭:', end=' ')
     for cid, _, ls in cuts[:8]:
         c = sum(len(clean(l)) for l in ls)
-        t += c / CPS + LEAD + TAIL
+        key = cid[:2] if CHAPTER_CUT_RE.match(cid) else None
+        if key is not None:
+            if prev is not None and key != prev:
+                t += CARD_SEC
+            prev = key
+        t += (c / CPS + GAP * (len(ls) - 1) + LEAD + TAIL
+              + (TAIL_EXTRA_QUOTE if any(STAR_RE.match(l) for l in ls) else 0.0))
         print('%s=%.1fs' % (cid, t), end=' ')
         if t > HOOK_DEADLINE:
             break
@@ -752,6 +794,30 @@ def selftest():
     finally:
         if _os.path.exists(_tmp):
             _os.remove(_tmp)
+
+    # 🔴 2026-09-25（14本目⑤a 新設）：聞き役の印 `Q: `（ルール §4-15）と章の扉 ca〜cf。
+    #    ⚠️ 陽性対照は (E, W) の**増分**で見る（もともと0件の指標は真偽だけだと動いて見える）
+    ok = speaker.selftest() and ok
+    two = '> あいうえお\n> かきくけこ'
+    # ⚠️ 基準は SAMPLE そのままにしない＝1行目「あいうえお」が句点なしで「途中の行」の E を1件出している
+    #    （最初に SAMPLE を基準にしたら、差が -1 と 0 にずれて5本とも NG＝物差しの側の誤りだった）
+    q_base = SAMPLE.replace(two, '> あいうえお。\n> かきくけこ')
+    be2, bw2 = report_counts(parse(q_base))
+
+    def q_delta(new):
+        e, w = report_counts(parse(SAMPLE.replace(two, new)))
+        return e - be2, w - bw2
+
+    qv = SAMPLE.replace(two, '> あいうえお。\n> Q: かきくけこ？')
+    chk('聞き役の印は字数に数えない', measure(parse(qv))['chars'], 22)        # 6＋6＋5＋5（印を数えると25）
+    chk('聞き役の？（途中の行）は鳴らない', q_delta('> Q: あいうえお？\n> かきくけこ'), (0, 0))
+    chk('🔴語りの？（途中の行）は今までどおりE', q_delta('> あいうえお？\n> かきくけこ'), (1, 0))
+    chk('🔴話者が替わる前の「、」はE', q_delta('> あいうえお、\n> Q: かきくけこ？'), (1, 0))
+    chk('話者が替わる前が「。」なら鳴らない', q_delta('> あいうえお。\n> Q: かきくけこ？'), (0, 0))
+    chk('聞き役→語りも「、」はE', q_delta('> Q: あいうえお、\n> かきくけこ'), (1, 0))
+    _ids = [(c, '', ['あ']) for c in ('pr01', 'c101', 'c201', 'ca01', 'cd08', 'ed01')]
+    chk('🔴章の扉は ca〜cf も数える', n_cards(_ids), 3)                      # c1 c2 ca cd → 4章−1
+    chk('9章までの回は旧式と同じ枚数', n_cards(_ids[:3]), 1)
 
     print('selftest:', 'PASS' if ok else '🔴FAIL')
     return ok

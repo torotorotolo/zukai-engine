@@ -6,8 +6,10 @@
   1件につき最大5か所まで出す。0件なら「0件」と出す（無いことの証明ではない＝言い換えで当て直す）。
 """
 import re, sys
+from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
-T = open("C:/Users/konar/Desktop/zukai-engine/ref/ep14/src/sewol_pages.txt", encoding="utf-8").read()
+# ⑤a：本線の直書きをやめた（別の作業ツリーから回すため）
+T = open(Path(__file__).resolve().parents[1] / "src" / "sewol_pages.txt", encoding="utf-8").read()
 parts = re.split(r"=== p ?(\d+) ===", T)
 P = {int(parts[i]): parts[i + 1] for i in range(1, len(parts), 2)}
 

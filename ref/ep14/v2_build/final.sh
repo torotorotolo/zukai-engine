@@ -2,10 +2,11 @@
 # 14本目④'：第2版を組む → 門番（check_script そのまま／聞き役を知る差し替え実行・check_facts・check_script_diff）
 #            → 機械の数え（mech.py）・台帳（ledger.py）→ gates.md に書いて §0 に差す → 組み直す → もう一度回して同じか確かめる
 # 道具（tools/）は1文字も変えない。聞き役を知る実行は、読み込んだ中で2点だけ差し替える（① `Q: ` を字数から外す ②「？」「！」で終わる聞き役の行を文の終わりと見る）
-B="C:/Users/konar/Desktop/zukai-engine/ref/ep14/v2_build"
+# ⑤a（2026-09-25）：置き場所から数える（本線の直書きだと、別の作業ツリーから回しても本線を読み書きしていた）
+B="$(cd "$(dirname "$0")" && (pwd -W 2>/dev/null || pwd))"
 O="$B/out"
 export PYTHONIOENCODING=utf-8 PYTHONUTF8=1
-cd C:/Users/konar/Desktop/zukai-engine || exit 9
+cd "$B/../../.." || exit 9
 mkdir -p "$O"
 cat "$B"/roles_G[0-6].tsv | sed '/^\s*$/d' > "$B/roles.tsv"
 run_gates() {  # $1 = 出力の接頭辞
