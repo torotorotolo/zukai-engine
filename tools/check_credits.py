@@ -76,7 +76,12 @@ CREDITS = HERE / "ref" / "CREDITS.md"
 #       （108行）を読み、qa_all は「表 108 行と突き合わせた」と出していた＝**黙って前の回を測っていた**。
 #       → 最後の列を「**出どころと許諾**」にして12本目（所蔵と識別子）と分けた（BY-SA は許諾と URL が表示の条件）。
 #       さらに `load_table()` で**同じ見出しが2つあれば止める**（次の回で同じ穴を踏まない）。
-EP_PREFIX = "ep13/"
+#    🔴🔴 2026-09-28（14本目 セウォル号 ⑤b-1）：`ep14/` へ（§0b の7か所目）。**表はこの回の節（SECTION）の中だけで探す**
+#       ＝「見出しの最後の列を回ごとに変えて前の回の表と分ける」約束をやめた（替え忘れると 13本目 ⑤b-1 と同じく
+#       前の回の表を黙って読む）。節が無ければ止める（fail closed）。見出し（HEADER）は13本目の形のまま使える。
+#       ⚠️ ⑤b-2 で `ref/CREDITS.md` に**この SECTION と1字も違わない行**で始まる節を足す（足すまで止まる＝正しい）
+EP_PREFIX = "ep14/"
+SECTION = "## セウォル号沈没事故（2014-04-16・14本目）"
 HEADER = "| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |"
 ROW = re.compile(r"^\|\s*`([a-z0-9_]+)`\s*\|([^|]*)\|([^|]*)\|([^|]*)\|([^|]*)\|(.*)\|\s*$")
 
@@ -117,14 +122,21 @@ def load_table():
     #    2026-09-14 に、これを付けずに全文へ正規表現を当てたら、
     #    5本目の「24分55秒（1,494.71秒）」を撮影年として `int()` に渡して落ちた。
     lines = CREDITS.read_text(encoding="utf-8").split("\n")
-    # 🔴 2026-09-24（13本目 ⑤b-2）：同じ見出しが2つある＝どちらの回の表かを決められない＝止める
-    if lines.count(HEADER) > 1:
-        raise SystemExit(f"🔴 §8 の表の見出しが {lines.count(HEADER)} 回ある（前の回の表を読むおそれ・fail closed）："
-                         f"{HEADER}")
+    # 🔴 2026-09-28（14本目 ⑤b-1）：**この回の節（SECTION）から次の「## 」の手前まで**だけを読む（前の回の表を読まない）
+    starts = [i for i, ln in enumerate(lines) if ln.startswith(SECTION)]
+    if len(starts) != 1:
+        raise SystemExit(f"🔴 ref/CREDITS.md にこの回の節が {len(starts)} 個（1個でないと、どの表か決められない・"
+                         f"fail closed）：{SECTION}")
+    s = starts[0]
+    e = next((i for i in range(s + 1, len(lines)) if lines[i].startswith("## ")), len(lines))
+    part = lines[s:e]
+    # 🔴 2026-09-24（13本目 ⑤b-2）：同じ見出しが2つある＝どちらの表かを決められない＝止める（14本目から節の中で数える）
+    if part.count(HEADER) > 1:
+        raise SystemExit(f"🔴 この回の節に §8 の表の見出しが {part.count(HEADER)} 回ある（fail closed）：{HEADER}")
     try:
-        h = lines.index(HEADER)
+        h = s + part.index(HEADER)
     except ValueError:
-        raise SystemExit(f"🔴 §8 の表の見出しが無い（fail closed）：{HEADER}")
+        raise SystemExit(f"🔴 この回の節に §8 の表の見出しが無い（fail closed）：{SECTION}／{HEADER}")
     body = []
     for ln in lines[h + 1:]:
         if not ln.startswith("|"):

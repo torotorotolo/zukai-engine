@@ -97,18 +97,26 @@ CSS = ""
 #    正本＝Vault `事故検証-キャッスルブラボー-台本第2版-20260923.md` §4 の `### 第N章　…`（`（` の手前まで）。
 # 🔴 2026-09-24（13本目 ⑤b-1）：トルコ航空981便へ差し替え。12本目の章名は git の `3832147`。
 #    正本＝repo `ref/ep13/daihon_v2.md` §4 の `### 第N章　…`（`（` の手前まで）＝`narration.py` の `# ── 第N章　…`。
+# 🔴 2026-09-28（14本目 ⑤b-1）：セウォル号へ差し替え。13本目の章名は git の `b54ee4f`。
+#    正本＝repo `ref/ep14/daihon_v2.md` §4 の `### 第N章　…`（`（` の手前まで）＝`narration.py` の `# ── 第N章　…`。
+#    🔴 **14本目は13章**＝第10〜13章の鍵は `ca`〜`cd`（カットID の2字目が16進＝`ca01`〜`cd08`）。
+#       `chapter_of()`・`_card_heads()` は `cid[:2]` で引くので 16進の鍵のまま動く（章の扉は12枚＝第2〜13章の頭）。
 CHAPTERS = {
-    "c1": (1, "2年近く前にも外れていたドア"),
-    "c2": (2, "その日のオルリー"),
-    "c3": (3, "閉まったように見えるドア"),
-    "c4": (4, "予兆"),
-    "c5": (5, "電話1本の約束"),
-    "c6": (6, "29号機に付いていなかった板"),
-    "c7": (7, "77秒"),
-    "c8": (8, "日本の48人と、報告書の結論"),
-    "c9": (9, "その後"),
+    "c1": (1, "9時50分の放送"),
+    "c2": (2, "霧の夜の出港"),
+    "c3": (3, "日本で生まれた船"),
+    "c4": (4, "船の上に客室を足した"),
+    "c5": (5, "積める貨物は987トンまで"),
+    "c6": (6, "8時49分"),
+    "c7": (7, "「その場で待機」"),
+    "c8": (8, "31分の交信"),
+    "c9": (9, "9時35分、123艇"),
+    "ca": (10, "304人"),
+    "cb": (11, "裁判が決めたこと"),
+    "cc": (12, "舵は、まだ決まっていない"),
+    "cd": (13, "その後"),
 }
-NCH = 9
+NCH = 13
 
 
 def chapter_of(cid):
@@ -125,16 +133,27 @@ def chapter_of(cid):
 #    ⚠️ 12本目の「その後」は13本目の第9章と同じ名前＝空にせず残すと12本目の色が黙って当たっていた。
 #    隣の章の差（check_palette.de）＝20.9／20.9／14.5／27.1／22.9／28.7／17.6／20.9（最小14.5・門番13以上）。
 #    ⚠️ 近すぎる組＝紺と青緑 7.1・白黒とセピア 6.5・白黒と青緑 12.9＝この3組は隣に置かない。
+# 🔴 2026-09-28（14本目 ⑤b-1）：13本目の9件（git の `b54ee4f`）から差し替えた＝13章。Claude の推奨（カズヤくんに見せて変えてよい）。
+#    並べ方＝`check_palette.de` の総当たり（6色・15組）で、隣の章の差が DE_MIN 13 以上になる並びから内容で選んだ。
+#    ⚠️ 隣に置けない組（13本目と同じ）＝紺と青緑 7.1・白黒とセピア 6.5・白黒と青緑 12.9。同じ色が隣り合うのは可（第9→10章）。
+#    隣の章の差＝15.9／33.3／20.9／14.5／17.6／26.5／20.9／18.3／0（同じ色）／18.3／20.9／14.5（最小 14.5）。
+#    ⚠️ 第13章（白黒）の追悼の写真は、黄色いリボン・救命胴衣のオレンジを残すなら `color=1.0`（原色）を章ファイルで。
+#       CC BY-SA の点は額装＝もともと色を変えない（`ss.check_frame_only` が止める）。
+#    ⚠️ 案C の再現イラストの層と字幕の層は章の色に置き換えない（下の KEEP_COLOR）。
 CHAPTER_PALETTE = {
-    "2年近く前にも外れていたドア": "navy",        # 冒頭の引き＝チャンネルの顔
-    "その日のオルリー": "sepia",                 # 1974年のその日の記録
-    "閉まったように見えるドア": "navy",           # ドアの仕組み＝設計図の解説
-    "予兆": "mono",                             # 1970年・1972年の過去の記録
-    "電話1本の約束": "night",                    # 表に出なかった取り決め
-    "29号機に付いていなかった板": "teal",         # 工場と整備の記録
-    "77秒": "copper",                           # 墜落までの77秒（赤＝破壊）
-    "日本の48人と、報告書の結論": "sepia",        # 日本・1974年の記録
-    "その後": "navy",                           # 分析に戻る
+    "9時50分の放送": "navy",               # 冒頭の引き＝チャンネルの顔
+    "霧の夜の出港": "night",               # 4月15日の夜の出港
+    "日本で生まれた船": "sepia",           # 日本の18年（1994〜2012）＝当時の記録（12・13本目も日本はセピア）
+    "船の上に客室を足した": "navy",        # 改造＝断面・設計図の解説
+    "積める貨物は987トンまで": "mono",     # 書類の上の上限と、実際の積み荷の記録
+    "8時49分": "copper",                   # 事故の瞬間（赤＝破壊）
+    "「その場で待機」": "navy",            # 放送の記録を時刻で追う（案C B の絵は色を変えない）
+    "31分の交信": "sepia",                 # その日の交信の記録
+    "9時35分、123艇": "teal",              # 海の上の救助（案C D の絵は色を変えない）
+    "304人": "teal",                       # 海での捜索（第9章と同じ色＝区切りは章の扉）
+    "裁判が決めたこと": "sepia",           # 判決の紙面
+    "舵は、まだ決まっていない": "navy",    # 原因の調べ＝分析に戻る
+    "その後": "mono",                      # 追悼と教訓
 }
 
 
@@ -908,8 +927,19 @@ def _episode_sub_size(default=38):
     return int(getattr(el_script, "SUB_SIZE", default))
 
 
+def _episode_sub_q_color():
+    """聞き役の字幕の色（回ごと＝el_script.SUB_Q_COLOR）。無い回は語りと同じ白。"""
+    import el_script
+    return getattr(el_script, "SUB_Q_COLOR", None) or J.INK_W
+
+
 SUB_SIZE = _episode_sub_size()
 SUB_STROKE = round(7 * SUB_SIZE / 38)
+# 🔴 2026-09-28（14本目⑤b-1）：聞き役（`who:"q"`）の行だけこの色。語りは J.INK_W（白 #eaf2f6）。
+#    ⚠️ 水色 #8fb6c9 は J.LINE（図の技術線）と**同じ値**＝章の色の置き換え（J.remap）を通すと
+#       赤銅の章で #f2ab95（桃色）・セピアで #dcc497 に化ける → 字幕の層は置き換えない（pal_of_layer の KEEP_COLOR）。
+#       門番＝check_subwrap の E5（焼く直前の SVG の色を全行で測る）
+SUB_Q_COLOR = _episode_sub_q_color()
 SUB_MAXW = 1560          # 字幕1行に許す最大の幅（px）。**実測で折る**
 SUB_ORPHAN = 3           # これ以下の字数の行を折って作らない（check_subwrap の E3 と同じ値）
 XML = {"&": "&amp;", "<": "&lt;", ">": "&gt;"}
@@ -985,26 +1015,53 @@ def sub_band(w=W, h=SUB_H):
             f'<rect x="0" y="0" width="{w}" height="{h}" fill="url(#subbg)"/>')
 
 
-def sub_row(text, w=W, h=SUB_H):
-    """字幕1枚ぶんの**文字だけ**。1行なら下寄せ、2行なら上下に振り分ける。
+def sub_ys(n, h=SUB_H):
+    """字幕の行の基線の高さ（帯の上端から）。n＝折ったあとの行数（1 か 2）。
 
+    🔴 2026-09-28（14本目⑤b-1）：**見本 mock_c103 の置き方**（56px・カズヤくん 09-26「非常に良い」）
+       ＝1行 y1000・2行 y968／1044（帯の上端 900 から 100・68／144＝行の間 76px＝字の 1.36倍）。
+       旧式（1行 0.64・2行 0.42／0.78）は 38px 用で、56px では行の間 64.8px＝上の行の字の下端と
+       下の行の字の上端のすきま約9px にフチ（10px＝片側5px）が2つ入り、**フチどうしが触れた**。
+       門番＝check_subwrap の E6（行の間が字の 1.25倍以上・帯からはみ出さない）。
+    ⚠️ 38px の回（13本目まで）は旧式のまま（2行に折れた字幕は6版 2,652枚で0枚＝1行の位置も動かさない）。
+    ⚠️ 置き方は呼ぶたびに SUB_SIZE から決める（selftest が SUB_SIZE を差し替えて試すため・import 時に固定しない）
+    """
+    if SUB_SIZE <= 38:
+        return [h * 0.64] if n == 1 else [h * 0.42, h * 0.78]
+    return [100.0 * h / 180] if n == 1 else [68.0 * h / 180, 144.0 * h / 180]
+
+
+def sub_row(text, who=None, w=W, h=SUB_H):
+    """字幕1枚ぶんの**文字だけ**。1行なら帯の中ほど、2行なら上下に振り分ける（`sub_ys`）。
+
+    who … narration.json の字幕の話し手。`"q"`＝聞き役（`SUB_Q_COLOR`）・それ以外＝語り（白）。
     ⚠️ 帯はここに含めない（`sub_band()` が別に持つ）。太いフチは残す
        ── 帯があっても、明るい写真の上では文字がフチで持っている。
     """
     lines = wrap2(text)
-    ys = [h * 0.64] if len(lines) == 1 else [h * 0.42, h * 0.78]
+    ys = sub_ys(len(lines), h)
+    fill = SUB_Q_COLOR if who == "q" else J.INK_W
     g = []
     for t, y in zip(lines, ys):
         g.append(f'<text x="{w / 2:.0f}" y="{y:.0f}" font-family="Noto" '
-                 f'font-size="{SUB_SIZE}" fill="{J.INK_W}" text-anchor="middle" '
+                 f'font-size="{SUB_SIZE}" fill="{fill}" text-anchor="middle" '
                  f'stroke="#000" stroke-width="{SUB_STROKE}" stroke-linejoin="round" '
                  f'paint-order="stroke fill">{esc(t)}</text>')
     return "".join(g)
 
 
-def sub_strip(lines):
-    return "".join(f'<g transform="translate(0,{i * SUB_H})">{sub_row(t)}</g>'
-                   for i, t in enumerate(lines))
+def sub_strip(rows):
+    """1カットの字幕を縦に積んだ1枚（1行＝SUB_H）。rows＝narration.json の字幕（dict の text・who）。
+
+    🔴 2026-09-28（14本目⑤b-1）：**話し手（who）ごと渡す**。それまで render_all は文字だけを渡していた
+       ＝聞き役の印は narration.json まで来ていたのに、ここで落ちて全部白になっていた。
+       文字列も受ける（話し手なし＝語り）。
+    """
+    out = []
+    for i, r in enumerate(rows):
+        text, who = (r["text"], r.get("who")) if isinstance(r, dict) else (r, None)
+        out.append(f'<g transform="translate(0,{i * SUB_H})">{sub_row(text, who)}</g>')
+    return "".join(out)
 
 
 # ── 実写カットの型：全画面 ────────────────────────────────
@@ -1720,8 +1777,20 @@ def layer_index(allow_missing=False):
     return idx, jobs
 
 
+# 🔴 2026-09-28（14本目⑤b-1）：**章の色に置き換えない層**（pal_of_layer が "navy"＝J.remap を通さない）。
+#    ① 字幕 `sub_<cid>`＝語りの白 #eaf2f6・聞き役の水色 #8fb6c9 は全章で同じ（ルール §5a-15b）。
+#       12・13本目は字幕も章の色で置き換えていた（白が章ごとにわずかに色づく）。水色は J.LINE と同じ値なので、
+#       そのままだと赤銅の章で桃色 #f2ab95 に化ける＝ここで外した。門番＝check_subwrap の E5
+#    ② 案C の再現イラストの層（名前が `_il<番号>` で終わる）＝絵の色は全章で固定（ルール §5b-73）。
+#       ⚠️ ⑤b-2 で `illu` の型を作るとき、絵の層をこの名前で出す（見出し・札・出典の層は章の色のままでよい）
+KEEP_COLOR = re.compile(r"^sub_|_il\d+$")
+
+
 def pal_of_layer(k):
-    """レイヤー名 → 章の色。共通の板（_empty・_subband）は navy、_empty_<色> はその色。"""
+    """レイヤー名 → 章の色。共通の板（_empty・_subband）は navy、_empty_<色> はその色。
+    字幕と再現イラストの層（KEEP_COLOR）は navy＝置き換えない。"""
+    if KEEP_COLOR.search(k):
+        return "navy"
     if k.startswith("_empty_"):
         return k[len("_empty_"):]
     if k.startswith("_"):
@@ -1796,7 +1865,7 @@ def render_all(force=False, only=None, jobs_workers=4):
         if only and not cid.startswith(only):
             continue
         p = OUT / f"sub_{cid}.png"
-        svg_ = sub_strip([r["text"] for r in rows])
+        svg_ = sub_strip(rows)          # 🔴 話し手（who）ごと渡す＝聞き役の色（14本目⑤b-1）
         f_ = fp(f"sub_{cid}", svg_)
         if p.exists() and not force and seen.get(f"sub_{cid}") == f_:
             continue

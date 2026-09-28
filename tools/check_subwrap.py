@@ -25,6 +25,14 @@ r"""check_subwrap.py — **字幕**の折り返しの門番（9本目テネリ�
   E2 折り目が語の途中（_midword）＝数の途中・カタカナ語の途中・漢字の熟語の途中・行頭の「、。」」・行末の「「（」
   E3 折った片方が3字以下（尻切れ）
   E4 narration.json の字幕と narration.SCRIPT の行が食い違う（数・順・文字）
+  🆕 2026-09-28（14本目⑤b-1）：
+  E5 字幕の文字の色が話し手どおりでない＝聞き役（who:"q"）は el_script.SUB_Q_COLOR（水色）・語りは白（J.INK_W）。
+     🔴 **焼く直前の SVG**（render_all と同じ `J.remap(sub_strip(行), pal_of_layer("sub_<cid>"))`）で全行を測る
+     （記憶 feedback-settings-may-not-reach-the-picture＝設定ではなく絵に届いたものを測る）。
+     落ちる形2つ＝①話し手が途中で落ちる（render_all が文字だけ渡していた）②章の色の置き換えが水色を塗り替える
+     （水色は J.LINE と同じ値＝赤銅の章で #f2ab95 に化ける）。聞き役の行があるのに色が白のまま（設定が無い）も E5
+  E6 2行の字幕の置き方＝行の間が字の 1.25倍未満／字（フチこみ）が帯からはみ出す（`scene_jiko.sub_ys` の値で測る）。
+     字の上下＝Noto Sans JP の漢字の枠（基線の上 0.88・下 0.12）。旧式（0.42／0.78）は 56px で行の間 64.8px＝鳴る
 """
 import json
 import sys
@@ -66,6 +74,51 @@ def judge_rows(rows):
     return bad
 
 
+def judge_colors(cid, segs, strip=None):
+    """E5：1カットの字幕を**焼く直前の SVG**にして、各行の文字の色が話し手どおりかを見る。
+    strip … 字幕の束を作る関数（既定＝本番の scene_jiko.sub_strip。selftest が落ちる形を差し込む）"""
+    import re
+    import jiko_style as J
+    import scene_jiko as S
+    svg = J.remap((strip or S.sub_strip)(segs), S.pal_of_layer(f"sub_{cid}"))
+    parts = svg.split('<g transform="translate(0,')[1:]
+    if len(parts) != len(segs):
+        return [f"E5 {cid}: 字幕 {len(segs)}行 ≠ 焼く SVG {len(parts)}行"]
+    bad = []
+    for i, (seg, part) in enumerate(zip(segs, parts), 1):
+        q = seg.get("who") == "q"
+        want = (S.SUB_Q_COLOR if q else J.INK_W).lower()
+        got = sorted({m.lower() for m in re.findall(r'fill="(#[0-9a-fA-F]{6})"', part)})
+        if got != [want]:
+            bad.append(f"E5 {cid}-{i} 色 {got} ≠ {want}（{'聞き役' if q else '語り'}）")
+    return bad
+
+
+def judge_q_setting(subs):
+    """E5（回の設定）：聞き役の行があるのに、聞き役の色が語りの白と同じ（el_script.SUB_Q_COLOR が無い）"""
+    import jiko_style as J
+    import scene_jiko as S
+    nq = sum(1 for segs in subs.values() for s in segs if s.get("who") == "q")
+    if nq and S.SUB_Q_COLOR.lower() == J.INK_W.lower():
+        return [f"E5 聞き役の行が {nq}行あるのに、色が語りと同じ白（el_script.SUB_Q_COLOR を回ごとに書く）"]
+    return []
+
+
+def judge_geometry():
+    """E6：1行・2行の字幕の置き方（`scene_jiko.sub_ys`）＝2行の行の間が字の 1.25倍以上・字（フチこみ）が帯の中。
+    字の上下＝Noto Sans JP の漢字の枠（基線の上 0.88em・下 0.12em）＋フチの半分。下は帯の下端から 8px 空ける"""
+    import scene_jiko as S
+    size, half, bad = S.SUB_SIZE, S.SUB_STROKE / 2, []
+    for n in (1, 2):
+        ys = S.sub_ys(n)
+        top, bot = ys[0] - 0.88 * size - half, ys[-1] + 0.12 * size + half
+        if top < 0 or bot > S.SUB_H - 8:
+            bad.append(f"E6 {n}行の字が帯（0〜{S.SUB_H}px・下 8px 空け）からはみ出す（上 {top:.0f}・下 {bot:.0f}）")
+        if n == 2 and ys[1] - ys[0] < 1.25 * size:
+            bad.append(f"E6 2行の行の間 {ys[1] - ys[0]:.1f}px < 字の 1.25倍（{1.25 * size:.0f}px）＝フチどうしが触れる")
+    return bad
+
+
 def run():
     import narration
     p = ROOT / "audio" / "narration.json"
@@ -96,11 +149,14 @@ def run():
             folded_rows, bad = judge(t)
             folded += len(folded_rows) >= 2
             errs += [f"{cid}-{i} {b}" for b in bad]
-    print(f"字幕 {n}枚（{len(subs)}カット）／2行に折れる {folded}枚")
+        errs += judge_colors(cid, segs)
+    errs += judge_q_setting(subs) + judge_geometry()
+    nq = sum(1 for segs in subs.values() for s in segs if s.get("who") == "q")
+    print(f"字幕 {n}枚（{len(subs)}カット）／2行に折れる {folded}枚／聞き役 {nq}枚")
     if errs:
         print(f"🔴 違反 {len(errs)}件:\n  " + "\n  ".join(errs[:40]))
         return 1
-    print("✓ 違反 0件（E1 幅・E2 語の途中・E3 尻切れ・E4 台本との食い違い）")
+    print("✓ 違反 0件（E1 幅・E2 語の途中・E3 尻切れ・E4 台本との食い違い・E5 話し手の色・E6 2行の置き方）")
     return 0
 
 
@@ -166,10 +222,42 @@ def selftest():
         ok(len(rows) == 2 and not bad, f"陰性対照: {bad or '折れていない'}")
     finally:
         S.SUB_SIZE = keep
+    # ③ 🆕 E5 話し手の色（2026-09-28・14本目⑤b-1）。見本＝c103 の形（聞き役1行＋語り2行）
+    import jiko_style as J
+    segs = [{"t": 0.0, "d": 0.7, "text": "船長たちは？", "who": "q"},
+            {"t": 1.1, "d": 3.0, "text": "その数分前、助けに来た海洋警察の船に乗り移っていた。"}]
+    keep_q, keep_pal = S.SUB_Q_COLOR, S.pal_of_layer
+    try:
+        S.SUB_Q_COLOR = "#8fb6c9"
+        ok(not judge_colors("c103", segs), f"E5 陰性対照（本番の経路）が鳴った: {judge_colors('c103', segs)}")
+        # 陽性①＝話し手を落とす（09-28 まで render_all は文字だけ渡していた）
+        drop = lambda ss: S.sub_strip([s["text"] for s in ss])
+        ok(judge_colors("c103", segs, strip=drop), "E5 陽性対照①（話し手が落ちる）が鳴らない")
+        # 陽性②＝字幕の層を章の色で置き換える（赤銅の章で水色 = J.LINE が #f2ab95 に化ける）
+        S.pal_of_layer = lambda k: "copper"
+        ok(judge_colors("c103", segs), "E5 陽性対照②（章の色で水色が化ける）が鳴らない")
+        S.pal_of_layer = keep_pal
+        # 陽性③＝聞き役の行があるのに色の設定が無い（白のまま）
+        S.SUB_Q_COLOR = J.INK_W
+        ok(judge_q_setting({"c103": segs}), "E5 陽性対照③（聞き役の色が白のまま）が鳴らない")
+        ok(not judge_q_setting({"c101": [{"text": "語りだけ"}]}), "E5 陰性対照（聞き役の無い回）が鳴った")
+    finally:
+        S.SUB_Q_COLOR, S.pal_of_layer = keep_q, keep_pal
+    # ④ 🆕 E6 2行の置き方：本番（56px）と 38px は静か・旧式の置き方を 56px で使うと鳴る
+    keep_ys = S.sub_ys
+    try:
+        for size in (38, 56):
+            S.SUB_SIZE, S.SUB_STROKE = size, round(7 * size / 38)
+            ok(not judge_geometry(), f"E6 陰性対照（{size}px の本番の置き方）が鳴った: {judge_geometry()}")
+        S.sub_ys = lambda n, h=S.SUB_H: [h * 0.64] if n == 1 else [h * 0.42, h * 0.78]
+        ok(judge_geometry(), "E6 陽性対照（旧式の 0.42／0.78 を 56px で）が鳴らない")
+    finally:
+        S.sub_ys, S.SUB_SIZE, S.SUB_STROKE = keep_ys, keep, round(7 * keep / 38)
     if fails:
         print("🔴 selftest:\n  " + "\n  ".join(fails))
         return 1
-    print(f"selftest: 検出器 {len(det)}/{len(det)} 鳴った・陰性 静か／折り方 38px と {keep}px で違反なし・c813-1 の実例 ✓")
+    print(f"selftest: 検出器 {len(det)}/{len(det)} 鳴った・陰性 静か／折り方 38px と {keep}px で違反なし・c813-1 の実例 ✓"
+          f"／E5 色 陽性3・陰性2 ✓／E6 置き方 陽性1・陰性2 ✓")
     return 0
 
 

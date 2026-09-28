@@ -39,6 +39,13 @@
   12本目の章ファイル・ss.py は git の `3832147` にある（BACKDROP は12本目から空のまま）。
   13本目も **pr と ep のカットが無い**（第1章 c101〜第9章 c920 の192カット）＋共通の末尾 `ed01`。
   検算：空にした直後は `len(SPEC)` が **1**（ed01 だけ）。書き終えたら **193**。
+
+■ 🔴🔴 2026-09-28（14本目 セウォル号 ⑤b-1）：**14本目へ差し替え。**
+  13本目の章ファイル・ss.py は git の `b54ee4f` にある。14本目は **13章**（第10〜13章＝`ca`〜`cd`・カットIDの2字目が16進）
+  ＝`CHAPTER_FILES` に ca〜cd を足した。pr と ep のカットは無い（第1章 c101〜第13章 cd08 の195カット）＋共通の末尾 `ed01`。
+  🆕 **各章ファイルに `PLAN`**（全カットの画面の種類 kind・画の予定 plan・出典 src＝`ref/ep14/make_plan.py` が台本・承認ずみの
+  絵コンテ・追補から機械で組んだ）。SPEC を書くと kind は PLAN から写る（食い違えば止める）＝⑤b-7 の門番 check_text_screens が数える。
+  検算：⑤b-1 の終わりは `len(PLAN)` が **195**・`len(SPEC)` が **3**（字幕の試しに書いた cb03・cd08＋ed01）。書き終えたら **196**。
 """
 import importlib
 import sys
@@ -50,9 +57,16 @@ import cuts.ss as ss          # BACKDROP が写真の名前を使う（`ss` は 
 # 章ごとに1ファイル。**1章が壊れていても他章は読めるようにする**
 # （章を並行して書いているあいだ、片方の書きかけで全部の検査が止まらないように）。
 # 🔴 9本目も 冒頭＋**9章**＋締め（台本第2版 §3・`ref/ep9/kousei.md` §1）。
-CHAPTER_FILES = ("pr", "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "ep")
+# 🔴 2026-09-28（14本目 ⑤b-1）：**13章**＝第10〜13章は `ca`〜`cd`（ファイルも ca.py〜cd.py）。
+#    ⚠️ 無いファイルは BROKEN に入る＝check_cuts が止める（9章の回に戻すときはここから ca〜cd を外す）
+CHAPTER_FILES = ("pr", "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "ca", "cb", "cc", "cd", "ep")
+
+# 画面の種類（ルール §5b-79・14本目 追補）。「文字だけ」＝パネル・決め所・文字の頁（2割まで・3カット以上続けない）
+KINDS = ("写真", "図・写真の頁", "再現イラスト", "図解", "混ざり", "文字の頁", "パネル", "決め所")
+TEXT_KINDS = ("パネル", "決め所", "文字の頁")
 
 SPEC = {}
+PLAN = {}
 BROKEN = {}
 for _name in CHAPTER_FILES:
     try:
@@ -60,10 +74,28 @@ for _name in CHAPTER_FILES:
         _dup = set(SPEC) & set(_m.SPEC)
         if _dup:
             raise RuntimeError(f"カットIDが重複しています: {sorted(_dup)}")
+        _plan = getattr(_m, "PLAN", {})
+        _bad = {c: p.get("kind") for c, p in _plan.items() if p.get("kind") not in KINDS}
+        if _bad:
+            raise RuntimeError(f"PLAN の画面の種類が一覧に無い: {_bad}")
+        _stray = sorted(set(_m.SPEC) - set(_plan) - {"ed01"}) if _plan else []
+        if _stray:
+            raise RuntimeError(f"SPEC にあって PLAN に無いカット: {_stray}")
         SPEC.update(_m.SPEC)
+        PLAN.update(_plan)
     except Exception as e:                      # noqa: BLE001
         BROKEN[_name] = e
         print(f"⚠️ cuts/{_name}.py を読めませんでした: {e}", file=sys.stderr)
+
+# 🔴 2026-09-28（14本目 ⑤b-1）：**画面の種類は PLAN が正本**＝SPEC に写す（SPEC に書いてあれば PLAN と同じであること）。
+#    種類を変えるなら PLAN の kind を直す（SPEC だけ直すと数え方が2つに割れる）。PLAN の無い回（13本目まで）は写さない
+for _cid, _s in SPEC.items():
+    if _cid not in PLAN:
+        continue
+    _k = PLAN[_cid]["kind"]
+    if _s.get("kind") not in (None, _k):
+        raise RuntimeError(f"{_cid} の画面の種類が SPEC（{_s.get('kind')}）と PLAN（{_k}）で違う＝PLAN を直す")
+    _s["kind"] = _k
 
 
 # ══════════════════════════════════════════════════════════
@@ -158,7 +190,11 @@ if _ng:
 #       （台帳 `ref/ep13/materials.md` §10-2・10本目と同じ決め）。「1点も入れない」網から
 #       **額装の網**（`ss.check_frame_only`＝切る・色を変える・重ねる・2回使うを止める）へ戻した。
 #       ⚠️ 写真を1点も当てていない章だけのときは照合する点が無い（`assets.json` は読む＝fail closed）。
-_frame = ss.check_frame_only(SPEC)
+#    🔴 2026-09-28（14本目 ⑤b-1）：**写真を1点も当てていないうちは網を呼ばない**（照合する点が無い）。
+#       回を切り替えた直後は `assets.json`（⑤b-2 で作る）が無く、読むと `import cuts` が落ちて**全部の門番が起動時に落ちる**
+#       （字幕・章名・色の門番まで測れない）。1点でも `photo=`／`intro=` を当てたら今までどおり読む＝無ければ止まる（fail closed）
+_uses_photo = any(s.get("photo") or (s.get("intro") or {}).get("photo") for s in SPEC.values())
+_frame = ss.check_frame_only(SPEC) if _uses_photo else []
 if _frame:
     raise RuntimeError(
         "CC BY-SA の写真は額装（無加工・丸ごと・色を変えない・何も重ねない・1点1カット）でだけ使えます。"

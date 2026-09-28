@@ -1,275 +1,58 @@
 # -*- coding: utf-8 -*-
-"""第3章 閉まったように見えるドア c301–c322（22カット）。13本目（トルコ航空981便）。
+"""第3章　日本で生まれた船 c301–c312（12カット）。14本目（セウォル号）。
 
-⚠️ 12本目の中身は `git show 3832147:tools/cuts/c3.py`（⑤b-1 で空にした）。
-🔴 ⑤b-2（2026-09-24）：錠の動く模式図（latch）の型見本3カット（c305・c306・c316）を先に書いた。
-🔴 ⑤b-3（2026-09-25）：残りの19カットを書いた。
-   **錠（latch）**＝c305→c306→c307→c308→c309→c312→c313→c316→c317（同じ錠の絵が状態を変えて戻る）
-   **胴体の断面（section）**＝c303（与圧）・c319〜c321（外れる→減圧→床が落ちる）。c109 と同じ絵
-   報告書の写真と図＝p90（c301）・p92（c302）・p91（c304）・p94（c310）・p95（c311）・p88 図7（c314）
-     ＝引用＝額装・原色。切り出しは `ss.TRIM`（画素で測った）
-   筋＝仏 p88 図7（FERMETURE FORCÉE）・上院 p2017〜p2018・p2024。門番＝`tools/check_mech.py`
-■ 決め所④ c315 は引用札（quote）：図7の矢印の言葉「BROCHE EN BUTÉE SUR LE FLASQUE」は文字の層で崩れていて
-  （「FLASCUE」）なぞる型の行を取れない。図そのものは c314 で見せる
+■ 🔴 2026-09-28（⑤b-1）：13本目（トルコ航空981便）の中身を空にした＝git の `b54ee4f`（`git show b54ee4f:tools/cuts/c3.py`）。
+  ⚠️ 第10〜13章（ca〜cd）は14本目で初めてのファイル（13本目までは9章）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep14/make_plan.py` で
+  台本 §4・承認ずみの絵コンテ（映像方針 §2-2・§4）・追補 §4・§7 から機械で組んだ（手で写していない）。
+  🔴 SPEC（図の中身）は ⑤b-2〜⑤b-7 で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
+     （`cuts/__init__.py` が SPEC に kind を写す＝⑤b-7 の門番 check_text_screens が「文字だけ2割まで・3カット以上続けない」を数える）。
+  種類＝写真／図・写真の頁／再現イラスト／図解／混ざり／文字の頁／パネル／決め所（ルール §5b-79）
+  記号＝【案C】再現イラスト（置き場 A〜E）・【F】断面F・【地図】drift・【年表】【帯】【棒】【マス】【人の形】【書類】【流れ】【並べ】（追補 §3）
 """
-import jiko_style as J
-import cuts.ss as ss
+import jiko_style as J  # noqa: F401
+import cuts.ss as ss  # noqa: F401
 
-NOTE = "模式図：4つのフックのうち1つ。形と大きさは実物どおりではない（報告書の図7の順番）"
-# 🔴 ⑤b-3（09-25）：画面の頁は**PDF の頁**（自動の出典の札「PDF 91頁」と同じ）。台本の通し番号（p2017 など）は出さない
-#    ＝上院の報告に「2017頁」は無い（PDF 17頁＝印字5頁）。⑤b-2 の r01・r02 は「p2017〜p2018」のまま焼いていた
-SRC = "仏の報告書 図7（PDF 88頁）・米上院の報告 PDF 17〜18頁"
-SEC_NOTE = "模式図：機体を後ろから見た断面。形と大きさは実物どおりではない"
-SEC_SRC = "仏の報告書 PDF 96〜105頁"
-NOTE_FR = "出典：フランスの最終報告書"
+P = ss.P
+
+PLAN = {
+    "c301": dict(kind='写真',
+               plan='台本の画：実写 J1 鹿児島港の「フェリーなみのうえ」（2010年2月14日・写真の説明による・CC BY-SA 2.0・額装）',
+               src='海審 p1016'),
+    "c302": dict(kind='図解',
+               plan='【年表】1994 の点（追補 §4）',
+               src='海審 p1013'),
+    "c303": dict(kind='図解',
+               plan='【年表】1994〜2012 の区間（追補 §4）',
+               src='海審 p1016'),
+    "c304": dict(kind='図解',
+               plan='台本の画：図 年表（1994 進水 → 2012 韓国へ → 2013 客を乗せ始める → 2014 事故）',
+               src='海審 p1013・p1016・p1026'),
+    "c305": dict(kind='図解',
+               plan='【地図】インチョン港に印（追補 §4）',
+               src='海審 p1016'),
+    "c306": dict(kind='写真',
+               plan='台本の画：実写 K1（額装・船首の「SEWOL 세월」の文字に枠・2014年3月27日・PD）',
+               src='海審 p1026'),
+    "c307": dict(kind='図解',
+               plan='【地図】航路を往復する船の点（追補 §4）',
+               src='海審 p1026'),
+    "c308": dict(kind='文字の頁',
+               plan='台本の画：図 p1016（海審の9頁・「나미노우에호」の記述）',
+               src='海審 p1013・p1016・p1026'),
+    "c309": dict(kind='図解',
+               plan='台本の画：図 船の横から見た形（5階＝船橋の甲板・4階＝A甲板・3階＝B甲板・その下＝C〜E甲板）',
+               src='海審 p1018・p1019・裁決 p2008'),
+    "c310": dict(kind='図解',
+               plan='台本の画：図 5階＝船橋の甲板（操舵室・1等客室・ロビー・展示室）',
+               src='海審 p1018・裁決 p2008'),
+    "c311": dict(kind='図解',
+               plan='台本の画：図 救命いかだ44個・シューター4つ',
+               src='海審 p1018'),
+    "c312": dict(kind='図解',
+               plan='【年表】2012-10-08→10-12→2013-02-12（追補 §4）',
+               src='海審 p1016'),
+}
 
 SPEC = {
-
-    # 仏 p90（写真：後部左の貨物ドアの位置）。写真の中の線が扉を指す
-    "c301": dict(
-        t="主役のドアの場所",
-        s="報告書の写真　DC-10の後ろの左側",
-        photo=ss.page(90), panel=True, color=1.0,
-        side="right", ann_y=330,
-        ann=[dict(t="線の先", d="後ろの左の貨物ドア", dc=J.AMBER)],
-    ),
-
-    # 仏 p92（写真：開いた貨物ドア）
-    "c302": dict(
-        t="外へ大きく開く",
-        s="報告書の写真　開いた貨物ドア",
-        photo=ss.page(92), panel=True, color=1.0,
-        side="right", ann_y=330,
-        ann=[dict(t="ここから", d="荷物の出し入れ", dc=J.TICK)],
-    ),
-
-    # 🔴 断面：与圧（c109 と同じ絵。c109 は「地上と空の上」・ここは言葉「与圧」と力の向き）
-    "c303": dict(
-        t="ドアを押し出す力",
-        s="胴体を輪切りにした図",
-        fig=("section", dict(
-            steps=[dict(state=dict(press="push"), tag=dict(t="与圧", d="高い空での機内の圧力")),
-                   dict(tag=dict(t="外へ向かう力", d="ドアを押す"))],
-            note=SEC_NOTE, src="米上院の報告 PDF 14頁")),
-    ),
-
-    # 仏 p91（写真：ドアの内側・フックと動かす仕組み）。数は仏 p64
-    "c304": dict(
-        t="力を受けとめるフック",
-        s="報告書の写真　貨物ドアの内側",
-        photo=ss.page(91), panel=True, color=1.0,
-        side="right", ann_y=330,
-        # ⚠️ r03：頁の上で写真が横倒し（ドアの下の縁＝フックが写真の**左**に並ぶ）＝札で断る（回すかは ⑤c）
-        ann=[dict(t="フック", v="4つ", vc=J.AMBER, d="写真の左の縁に並ぶ"),
-             dict(t="引っかける先", d="胴体の側", dc=J.TICK)],
-    ),
-
-    # 閉める手順①：スイッチ → モーターがフックを回して受けに掛ける
-    "c305": dict(
-        t="まず、フックが掛かる",
-        s="閉める手順の1つ目",
-        fig=("latch", dict(
-            steps=[dict(tag=dict(t="スイッチ", at="motor")),
-                   dict(state=dict(hook="closed", motor="run"), tag=dict(t="フックが受けに掛かる", at="hook"))],
-            note=NOTE, src=SRC)),
-    ),
-
-    # 閉める手順②：ハンドルを倒す＝ピン・通気扉・灯りをひと動きで
-    "c306": dict(
-        t="ハンドル1本で、3つ",
-        s="閉める手順の2つ目",
-        fig=("latch", dict(
-            start=dict(hook="closed"),
-            steps=[dict(state=dict(handle="down", pin="in", vent="closed", lamp="off"),
-                        tag=dict(t="ハンドルを倒す", at="handle")),
-                   dict(tag=[dict(t="① ピン", at="pin"), dict(t="② 通気扉", at="vent"),
-                             dict(t="③ 灯り", at="lamp")])],
-            note=NOTE, src=SRC)),
-    ),
-
-    # ①ロックピン（1行）。ひと動きなので、ピンだけでなく全部が動く＝札はピンだけ
-    "c307": dict(
-        t="フックを止めるピン",
-        s="ハンドルの役目の1つ目",
-        fig=("latch", dict(
-            start=dict(hook="closed"),
-            steps=[dict(state=dict(handle="down", pin="in", vent="closed", lamp="off"),
-                        # r03：2行目つきの札は pin の置き場（y654）だと2行目が「胴体の側」の帯の縁に乗る＝28px 上へ
-                        tag=dict(t="① ロックピン", d="フックを動かなくする", at=(500, 626, "start", 420)))],
-            note=NOTE, src=SRC)),
-    ),
-
-    # ②通気扉 → ③警告灯（2行＝2段。灯りは2段目で消す）
-    "c308": dict(
-        t="小さな扉と、灯り",
-        s="ハンドルの役目の2つ目と3つ目",
-        fig=("latch", dict(
-            start=dict(hook="closed"),
-            steps=[dict(state=dict(handle="down", pin="in", vent="closed"),
-                        tag=dict(t="② 通気扉が閉まる", at="vent")),
-                   dict(state=dict(lamp="off"), tag=dict(t="③ 警告灯が消える", at="lamp"))],
-            note=NOTE, src=SRC)),
-    ),
-
-    # 設計のねらい（上院 p2014）：錠がかからなければハンドルは途中で止まり、通気扉は開いたまま＝空気が逃げる
-    "c309": dict(
-        t="飛ばせないための扉",
-        s="通気扉のねらい",
-        fig=("latch", dict(
-            start=dict(hook="short"),
-            steps=[dict(state=dict(handle="part", pin="butt"), tag=dict(t="ピンが入らない", at="pin")),
-                   dict(state=dict(air="leak"), tag=dict(t="開いたまま＝空気が逃げる", at="vent"))],
-            note=NOTE, src="米上院の報告 PDF 14頁・17〜18頁")),
-    ),
-
-    # 仏 p94（写真：のぞき窓からピンを確かめる人＝職務中の実演）。窓を全機に付けたのは上院 p2035
-    "c310": dict(
-        t="全機に付いた窓",
-        s="報告書の写真　貨物ドアの下の窓",
-        photo=ss.page(94), panel=True, color=1.0,
-        side="right", ann_y=330,
-        ann=[dict(t="取り付け", v="1972年の夏", vc=J.AMBER),
-             dict(t="付けた機体", d="当時のDC-10すべて", dc=J.TICK)],
-    ),
-
-    # 仏 p95（写真：航空機関士の上のパネルの警告灯）
-    "c311": dict(
-        t="操縦室の警告灯",
-        s="報告書の写真　操縦室の上のパネル",
-        photo=ss.page(95), panel=True, color=1.0,
-        side="right", ann_y=330,
-        ann=[dict(t="航空機関士", d="エンジンや電気の係", dc=J.TICK),
-             dict(t="灯りが点く", d="閉まりきっていない合図", dc=J.ALERT)],
-    ),
-
-    # 3つがそろえば「閉まった」（ふつうに閉めた場合）
-    "c312": dict(
-        t="3つがそろえば",
-        s="外から分かる「閉」の印",
-        fig=("latch", dict(
-            start=dict(hook="closed"),
-            steps=[dict(state=dict(handle="down", pin="in", vent="closed", lamp="off"),
-                        tag=[dict(t="倒れた", at="handle"), dict(t="閉まった", at="vent"),
-                             dict(t="消えた", at="lamp")]),
-                   dict(tag=dict(t="＝閉まっているように見える", at="tube"))],
-            note=NOTE, src=SRC)),
-    ),
-
-    # フックが回りきらないとき（上院 p2015・p2025・仏 p97〜p98）。3行＝3段
-    #   ⚠️ 札の置き場：motor の置き場は幅100px＝長い札は縮む。
-    #      r03：hook2（y752）・hook（y792）に重ねると「胴体の側」の帯の右下にかぶった＝帯の下の空き（y802・846）へ。
-    #      ピンの2行目つきの札も帯の縁に乗った＝28px 上へ（c307 と同じ）
-    "c313": dict(
-        t="回りきらないフック",
-        s="閉める手順の弱点",
-        fig=("latch", dict(
-            steps=[dict(state=dict(hook="short", motor="run"), tag=dict(t="回りきらない", at=(1100, 802, "start", 420))),
-                   dict(tag=dict(t="電気が弱い（何度か報告）", at=(1100, 846, "start", 440))),
-                   dict(state=dict(handle="part", pin="butt"),
-                        tag=dict(t="ピンは入れない", d="本来はハンドルも倒れない", at=(500, 626, "start", 420)))],
-            note=NOTE, src="米上院の報告 PDF 15頁・25頁・仏の報告書 PDF 97〜98頁")),
-    ),
-
-    # 仏 p88 図7「FERMETURE FORCÉE」（引用＝額装・原色）
-    "c314": dict(
-        t="図7が描く、無理な閉め方",
-        s="フランスの報告書の図7",
-        photo=ss.page(88), panel=True, color=1.0,
-        side="right", ann_y=330,
-        ann=[dict(t="図の題", v="無理に閉めた", vc=J.ALERT),
-             dict(t="たわむもの", d="ピンを動かす軸", dc=J.AMBER)],
-    ),
-
-    # 🔴 決め所④（台本 §2 #4・仏 p88「BROCHE EN BUTÉE SUR LE FLASQUE」・p80）
-    "c315": dict(
-        t="ハンドルだけが倒れる",
-        s="図7の矢印の言葉",
-        fig=("quote", dict(
-            phrase="無理に閉めると、ピンは縁に当たって止まる",
-            who="フランスの事故調査委員会",
-            when="1976年",
-            doc="最終報告書の図7")),
-    ),
-
-    # 見かけは「閉」：フックが回りきらず、ピンは縁で止まる。ハンドルは軸がたわんで収まり、通気扉も閉まる
-    #   ⚠️ 灯りはまだ点いたまま（灯りが消えるのは次の c317「たわんだ仕組みに押されて」）
-    "c316": dict(
-        t="見かけは「閉」",
-        s="フックが回りきらないまま閉めると",
-        fig=("latch", dict(
-            start=dict(hook="short"),
-            steps=[dict(state=dict(handle="down", pin="butt", tube="bent", vent="closed"),
-                        tag=dict(t="ハンドルは収まる", at="handle")),
-                   dict(tag=dict(t="通気扉も閉まる", at="vent")),
-                   dict(tag=dict(t="ピンは縁で止まったまま", at="pin"))],
-            note=NOTE, src=SRC)),
-    ),
-
-    # 灯りも消える（上院 p2024・p2028）。3ミリ＝8分の1インチ未満（台本 §9）
-    #   2段目の札は操縦室の枠の下（lamp の置き場は1段目が使う）
-    "c317": dict(
-        t="灯りまで、消える",
-        s="操縦室の灯りの仕組み",
-        fig=("latch", dict(
-            start=dict(hook="short", handle="down", pin="butt", tube="bent", vent="closed"),
-            steps=[dict(state=dict(lamp="off"), tag=dict(t="たわんだ仕組みが押す", at="lamp")),
-                   dict(tag=dict(t="3ミリ未満で入るスイッチ", at=(1530, 740, "middle", 440)))],
-            rel=[dict(t="3ミリ", src="米上院の報告 p2024（8分の1インチ未満＝3.2ミリ未満）")],
-            note=NOTE, src="米上院の報告 PDF 24頁・28頁")),
-    ),
-
-    # 仏 p104（本文）：見かけと実際（「ありえた」の留保を残す §5b-27b）
-    "c318": dict(
-        t="報告書も書いた弱点",
-        s="報告書の本文の一節",
-        fig=("beforeafter", dict(
-            # r03：「・ことがありえた」を箇条の3つ目に置くと文が割れて読めた＝留保は札の名前へ（§5b-27b）
-            a=dict(k="見かけ", t="閉まっている", lines=["通気扉は閉まる", "錠もかかって見える"], v="", c=J.LINE),
-            b=dict(k="ありえたこと", t="錠はかかっていない", lines=["フックは閉まりきらない", "ピンも入らない"],
-                   v="", c=J.ALERT),
-            arrow=False, note=f"{NOTE_FR} PDF 104頁")),
-    ),
-
-    # 🔴 断面：上るにつれて差が大きくなる → ドアが外へ飛ぶ（与圧 push ⇒ ドア on＝2段目で与圧の矢印は消す）
-    "c319": dict(
-        t="空の上で、押し開けられる",
-        s="胴体を輪切りにした図",
-        fig=("section", dict(
-            steps=[dict(state=dict(press="push"), tag=dict(t="上るほど", d="機内と外の差が大きくなる")),
-                   dict(state=dict(press="none", door="gone"), tag=dict(t="ドアが外へ飛ぶ", d="フックが押し開けられる"))],
-            note=SEC_NOTE, src=SEC_SRC)),
-    ),
-
-    # 🔴 断面：減圧 → 床に上から圧力
-    "c320": dict(
-        t="空気が抜ける",
-        s="胴体を輪切りにした図",
-        fig=("section", dict(
-            start=dict(door="gone"),
-            steps=[dict(state=dict(air="out"), tag=dict(t="減圧", d="貨物室の気圧が外と同じに")),
-                   dict(state=dict(floor="push"), tag=dict(t="床に上から圧力", d="客室の側が高いまま"))],
-            note=SEC_NOTE, src="仏の報告書 PDF 99頁・104頁")),
-    ),
-
-    # 🔴 断面：床が落ちる → 床下のケーブル（札に「操縦のケーブル」と書かない＝絵の名札と同じ語）
-    "c321": dict(
-        t="床とともに落ちるもの",
-        s="胴体を輪切りにした図",
-        fig=("section", dict(
-            start=dict(door="gone", air="out", floor="push"),
-            steps=[dict(state=dict(floor="down"), tag=dict(t="床が落ちる", d="下の貨物室へ")),
-                   dict(state=dict(cable="hurt"), tag=dict(t="ケーブルが傷む", d="床の下にまとめて通っていた"))],
-            note=SEC_NOTE, src="仏の報告書 PDF 104〜105頁")),
-    ),
-
-    # 章の橋（副題は10本目からの型「ここまでと、この先」）
-    "c322": dict(
-        t="パリより前へ",
-        s="ここまでと、この先",
-        fig=("panel", dict(
-            blocks=[dict(k="弱点", t="閉まって見えても、錠はかからない", c=J.ALERT),
-                    dict(k="次は", t="前にも起きていたこと", v="第4章", c=J.AMBER)],
-            cols=2)),
-    ),
-
 }

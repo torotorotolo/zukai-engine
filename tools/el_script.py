@@ -49,7 +49,11 @@ VOICE_ENGINE = "aquestalk"
 # 🔴 字幕の大きさ（回ごと・2026-09-28 14本目⑤a-2 新設）。14本目から 56px（ルール §5a-15b・カズヤくん 09-26）。
 #    scene_jiko（描く）と check_subwrap（折りを測る）がここを読む＝描く大きさと測る大きさが1か所から出る。13本目までは 38
 SUB_SIZE = 56
-SLUG = "ep14"               # 14本目 セウォル号（2026-09-25・声はゆっくり＝AquesTalk）。13本目 "ep13"・12本目 "ep12"・11本目 "ep11"・10本目 "ep10"・9本目 "ep9"・8本目 "ep8"・7本目 "ep7"・6本目 "keybridge"・5本目 "sl1"・4本目 "surfside"
+# 🔴 聞き役（`Q: ` の行＝narration.json の `who:"q"`）の字幕の色（回ごと・2026-09-28 14本目⑤b-1 新設）。
+#    水色 #8fb6c9（ルール §5a-15b・カズヤくん 09-26「非常に良い」）。語りは白（jiko_style.INK_W）のまま。
+#    scene_jiko（描く）と check_subwrap（焼く直前の SVG で色を測る E5）がここを読む。無い回（13本目まで）は語りと同じ白
+SUB_Q_COLOR = "#8fb6c9"
+SLUG = "ep14"              # 14本目 セウォル号（2026-09-25・声はゆっくり＝AquesTalk）。13本目 "ep13"・12本目 "ep12"・11本目 "ep11"・10本目 "ep10"・9本目 "ep9"・8本目 "ep8"・7本目 "ep7"・6本目 "keybridge"・5本目 "sl1"・4本目 "surfside"
 # 🔴 話速 1.0 を**明示して送る**（2026-09-07 カズヤくん指示）。渡さないと声に保存された既定
 #    speed 1.14 で読まれる。speed 以外の4つは /v1/voices/<id>/settings の実測をそのまま写した
 #    （2026-09-07 に API で取り直し＝stability 0.85 / similarity_boost 1.0 / style 0.0 /
