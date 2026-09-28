@@ -95,7 +95,7 @@ audio/_full.mp3
 audio/el_cache/
 # ゆっくり（AquesTalkPlayer）の合成キャッシュ＝アプリの出力そのまま（14本目 ⑤a-2 から・tools/aq_tts.py）
 audio/aq_cache/
-# 試聴の mp3（aq_build --listen が書く・1本約20MB・作り直せる）。横の .tsv（行ごとの時刻）は小さいので入れる
+# 聞き比べの mp3（aq_build --listen が書く・作り直せる）。横の .tsv（行ごとの時刻）は小さいので入れる
 qa_out/**/*.mp3
 # USCG報告書は335ページ26MB。ヘッダー付きでいつでも落とせるので入れない
 #   → 落とし方は Vault の引き継ぎノートに書いてある
