@@ -73,4 +73,52 @@ PLAN = {
 }
 
 SPEC = {
+
+    # ── 🔴 ⑤b-2（2026-09-28）：置き場 B（船内の放送）の使い＝`tools/illu.py` の place="B" ──
+    #   守りの線：乗務員は描かない（指示に従った人＝責める形にしない・方針 §4-2）・乗客は顔の無い群れだけ・場面の時刻は
+    #   9時47分より前（`at`＝画面には出さない）。傾きは場面ごとに1つ（左上の小さな位置の図に同じ傾きの船）
+    #   ⚠️ 事故の直後の傾き＝約30度（判決 p12）。9時23分＝45度以上（判決 p14）。途中の値は記録に無い＝描かない
+
+    # 1行目＝3階の案内デスクのマイク（人なし）から音の輪（最初の放送＝海審 p1053「승무원 강모씨는 … 자신의 판단으로 ‘현재
+    #   위치에서 대기하라’는 취지의 최초 선내방송」）→ 2行目＝客室で待つ群れ（判決 p18「선내에 대기」）とスピーカーの輪
+    "c704": dict(
+        fig=("illu", dict(
+            place="B", at="8:56", start=dict(view="desk", heel=30.0), rec="判決 p12（事故の直後に約30度）",
+            steps=[dict(rings=2, ring_delay=2.3, rec="海審 p1053（8時56分の最初の放送）", state=dict(cam=1.03), dur=4.0),
+                   dict(state=dict(view="cabin", crowd="on", cam=1.0), rings=2, ring_delay=0.9, dur=0.8,
+                        rec="判決 p18（乗客は船内で待っていた）・海審 p1053（今いる所で待て）")])),
+    ),
+
+    # 案内デスクの乗務員（描かない）が、船長の指示どおりに放送（判決 p13「3층 안내데스크에 있던 사무부승무원들은 자세한
+    #   사고경위도 모른 채 … ‘현 위치에서 절대 움직이지 말고 그 자리에 대기하라’는 취지」）→ 2行目＝待つ群れ
+    "c709": dict(
+        fig=("illu", dict(
+            place="B", at="8:58", start=dict(view="desk", heel=30.0), rec="判決 p12（事故の直後に約30度）",
+            steps=[dict(rings=2, ring_delay=2.0, rec="判決 p13（案内デスクの乗務員が放送した）", state=dict(cam=1.03), dur=3.6),
+                   dict(state=dict(view="cabin", crowd="on", cam=1.0), rings=2, ring_delay=0.7, dur=0.8,
+                        rec="判決 p13（動かずに待て）・p18（乗客は船内で待っていた）")])),
+    ),
+
+    # c709 の続き（追補 §4）：群れは待ち、音の輪がくり返す → 3行目＝デスクから同じ放送をくり返す（海審 p1054＝9時10分と
+    #   9時30分にも「救命胴衣を着て今いる所で待て」の放送）
+    "c710": dict(
+        fig=("illu", dict(
+            place="B", at="8:58", start=dict(view="cabin", heel=30.0, crowd="on"),
+            rec="判決 p12（約30度）・p13（説明のない放送）・p18（乗客は船内で待っていた）",
+            steps=[dict(rings=1, ring_delay=0.2, rec="判決 p13（説明のないまま同じ趣旨の放送）"),
+                   dict(rings=2, ring_delay=0.6, state=dict(cam=1.03), dur=3.0, rec="判決 p13・海審 p1054"),
+                   dict(state=dict(view="desk", cam=1.0), rings=3, ring_delay=0.9, dur=0.8,
+                        rec="海審 p1054（9時10分・9時30分にも同じ趣旨の放送）")])),
+    ),
+
+    # 9時23分ごろ＝45度以上（判決 p14「세월호가 45도 이상 기운 09:23경」）。群れはまだ待ち、放送はくり返されていた
+    #   （海審 p1054）。9時47分より前＝群れを描いてよい
+    "c715": dict(
+        fig=("illu", dict(
+            place="B", at="9:23", start=dict(view="cabin", heel=45.0, crowd="on"),
+            rec="判決 p14（9時23分ごろ 45度以上）・p18（乗客は船内で待っていた）",
+            steps=[dict(state=dict(cam=1.02), dur=1.2),
+                   dict(rings=3, ring_delay=0.2, rec="海審 p1054（くり返された放送）", state=dict(cam=1.05), dur=2.0)])),
+    ),
+
 }
