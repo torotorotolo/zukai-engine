@@ -248,7 +248,7 @@ SPEC = {
         s="ここまでと、この先",
         fig=("panel", dict(
             blocks=[dict(k="係員", t="いつもの閉め方", c=J.LINE),
-                    dict(k="鍵", t="錠の仕組み", v="第3章", c=J.AMBER)],
+                    dict(k="次は", t="錠の仕組み", v="第3章", c=J.AMBER)],
             cols=2)),
     ),
 

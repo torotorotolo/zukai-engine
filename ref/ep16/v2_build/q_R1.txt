@@ -1,0 +1,8 @@
+85	5 ottobre 1961	100	400
+174	sondaggi	300	400
+72	nicchia	500	200
+2012	30 marzo	300	300
+1046	October 1961	200	200
+2010	10 maggio	200	200
+26	19 voti	200	100
+90	istituito	100	300

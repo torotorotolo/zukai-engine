@@ -1816,7 +1816,7 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `tcjav_takeoff` | c104 | 1973 | CC BY-SA 2.0 | clipperarctic | Wikimedia Commons「TC-JAV (6004629408).jpg」　https://commons.wikimedia.org/wiki/File:TC-JAV_(6004629408).jpg |
 | `tcjav_tail` | c606 | 不明 | CC BY-SA 2.0 | clipperarctic | Wikimedia Commons「TC-JAV, Turkish DC-10 (6060110163).jpg」　https://commons.wikimedia.org/wiki/File:TC-JAV,_Turkish_DC-10_(6060110163).jpg |
 | `tcjav_landing` | c701 | 1973 | CC BY-SA 4.0 | M D West | Wikimedia Commons「THY Türk Hava Yolları - Turkish Airlines McDonnell Douglas DC-10-10 London - Heathrow 1973.jpg」　https://commons.wikimedia.org/wiki/File:THY_Türk_Hava_Yolları_-_Turkish_Airlines_McDonnell_Douglas_DC-10-10_London_-_Heathrow_1973.jpg |
-| `n103aa_1977` | c408 | 1977 | CC BY 2.0 | GeorgeM757 | Wikimedia Commons「N103AA American DC-10-10 at KSFO.jpg」　https://commons.wikimedia.org/wiki/File:N103AA_American_DC-10-10_at_KSFO.jpg |
+| `n103aa_1977` | c401 | 1977 | CC BY 2.0 | GeorgeM757 | Wikimedia Commons「N103AA American DC-10-10 at KSFO.jpg」　https://commons.wikimedia.org/wiki/File:N103AA_American_DC-10-10_at_KSFO.jpg |
 | `aa96_door` | c421 | 1972 | Public domain | 米連邦航空局（FAA） | Wikimedia Commons「Photo of American Airlines Flight 96 cargo door.jpg」　https://commons.wikimedia.org/wiki/File:Photo_of_American_Airlines_Flight_96_cargo_door.jpg |
 | `wreck_1997` | c102 | 1997 | CC BY 4.0 | Ian Abbott | Wikimedia Commons「Paris DC-10 Crash- March 3, 1974.jpg」　https://commons.wikimedia.org/wiki/File:Paris_DC-10_Crash-_March_3,_1974.jpg |
 | `names_wall` | c814 | 1997 | CC BY 4.0 | Ian Abbott | Wikimedia Commons「Paris DC-10 Crash, Names.jpg」　https://commons.wikimedia.org/wiki/File:Paris_DC-10_Crash,_Names.jpg |

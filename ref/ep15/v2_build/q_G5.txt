@@ -1,0 +1,23 @@
+37	elev trim tab screws	300	400
+37	cross.thread	300	300
+37	airworth	300	200
+16	free.play	300	300
+16	removed and reinstalled	300	200
+31	intact	200	400
+31	missing paint	200	300
+31	yellow paint	200	300
+31	significantly shorter	200	300
+32	reverse bending	300	300
+32	prolonged	300	200
+39	prolonged	300	300
+40	flutter is	200	500
+40	Calculations showed	300	500
+40	In-flight movement	200	300
+40	stiffness	200	300
+41	4 days before	300	500
+41	three flights	300	300
+41	needed to be tightened	300	400
+41	at least 26 years	400	200
+41	ground crew	200	300
+52	probable cause	100	900
+20	62 minutes	300	200

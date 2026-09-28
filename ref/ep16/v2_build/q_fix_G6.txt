@@ -1,0 +1,6 @@
+147	scienziati|esperti|Commissione	150	150
+3011	sequestr	150	200
+3020	Sensidoni	300	200
+3020	Biadene	150	200
+146	rimasto isolato	300	200
+1041	collapsed	200	100

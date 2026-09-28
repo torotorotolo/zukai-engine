@@ -1,0 +1,2 @@
+2015	fessure larghe	300	200
+1042	damage	300	200

@@ -1,0 +1,7 @@
+# G0（④'）引き直し その2
+32-33	wrinkl	250	250
+5009-5017	CLOSED.{0,3}ACCEPTABLE	250	60
+5008	mandatory language	400	200
+1-52	advisory circular	150	200
+1-52	8900\.1	150	200
+49	23 minutes	200	150

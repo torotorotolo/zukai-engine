@@ -1,0 +1,3 @@
+98	numeros	150	250
+99	soldat|reparti	200	300
+99	stranier|estero|nazioni	200	150

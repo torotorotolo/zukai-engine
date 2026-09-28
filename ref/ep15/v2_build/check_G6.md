@@ -1,0 +1,157 @@
+# check_G6 — 15本目④'【見る】第8章 c801〜c822・第9章 c901〜c920
+
+- 担当＝`ref/ep15/daihon_v1.md` 999〜1181行（第8章 22カット・第9章 20カット）。第1版は読むだけ（1文字も変えていない）
+- 見た行＝**134行**（章の見出し・章の注 3行＋カットの見出し行 42行＋字幕行 89行〈うち聞き役 13行・★ 3行〉）。本文の字＝2,418字（聞き役を含む）
+- 文の長さ＝全行 41字以下・全文 40字以下（機械で測った。最長の文 39字＝c813・c909・c910・c913）。同じ語尾（3字）の3連続＝無し
+- 原文＝`ref/ep15/src/ep15_pages.txt`（kwic.py と頁の全文で当てた）。報道・RARA の発表・写真の中身は当てていない（「未照合・親へ」「⑤bで原寸」）
+- 判定の書式＝`cid-行番号｜判定｜原文の頁と短い引用`
+
+## 第8章　観客席の62分
+
+- 章-999｜OK｜章名「観客席の62分」＝AAB p20「Within 62 minutes of the incident declaration」
+- 章-1001｜OK｜注（c801〜c808 は聞き役を質問だけ）＝役割表 roles.tsv と一致（c802・c805 の2行とも質問）
+- c801-1003｜・ G6-01｜E70＝materials §3-2「9/16 13:19・満員の観客席（遠景）」。ただし §3-0 の時刻は「推定であって記録ではない」＝副題に分まで書かない。写っているかは⑤bで原寸
+- c801-1004｜・ G6-01｜「昼過ぎ」「人で埋まっていた」は写真（E70）から。AAB p19 には観客の数の記述なし。事故は p10「about 1625」＝聞き手が事故の時刻と取り違えないか
+- c801-1005｜OK｜AAB p19「collided with the airport ramp in the spectator box seating area and scattered wreckage debris in the box seating area, ramp, and grandstands」
+- c802-1007｜OK｜出典 AAB p10 注4＝本文（10人・64人・16人）と注4（precise number could not be determined）の両方が p10
+- c802-1008｜OK｜聞き役＝質問。次の行が答える
+- c802-1009｜OK｜AAB p10「The pilot and 10 people on the ground sustained fatal injuries, and at least 64 people on the ground were injured」
+- c802-1010｜・ G6-02｜AAB p10「at least 16 of whom were reported to have sustained serious injuries」＝reported が落ちた。後半は注4「The precise number of injured persons could not be determined」＝OK
+- c803-1012｜OK｜AAB p10 注4・勧告書 A-12-08 p1（p6001）に該当あり。「報道」は未照合・親へ
+- c803-1013｜⚠️ G6-03｜注4「a fourth hospital provided only limited information. Also, limited information was available about patients who were either treated only at the scene or sought medical treatment at other facilities」＝理由は2つ。「ためだ」で1つに絞った
+- c803-1014｜OK（・ G6-03）｜p6001「based on preliminary information, 66 people sustained serious injuries」（A-12-09〜12 p6101・A-12-13〜17 p6201 も同じ文）。「暫定」は中学生に硬い
+- c803-1015｜未照合・親へ｜報道の数（sources.md §3-13 の 56・69・70超）＝web。原文なし
+- c804-1017｜OK｜AAB p20「declared a mass-casualty incident at 1626」
+- c804-1018｜OK｜AAB p20「The Regional Emergency Medical Services Authority (REMSA) declared a mass-casualty incident at 1626」
+- c804-1019｜OK｜一般の説明（原文の定義ではない）。脚注26 の SMART Triage と食い違わない
+- c805-1021｜・ G6-04｜#33 p19（p2019）「Figure 14: Emergency Equipment/Responder Locations」あり。ただし p2018「Emergency response units are positioned throughout the airport as depicted in Figure 14」＝大会の事前の配置。当日の動きではない
+- c805-1022｜OK｜聞き役＝質問。次の行が答える
+- c805-1023｜・ G6-05｜AAB p20「First responder vehicles immediately arrived on scene and remained on the outer perimeter of the wreckage debris」＝「救急の車」は狭い・「待った」は remained より意味が足される
+- c805-1024｜OK（・ G6-06）｜AAB p20「Within 62 minutes of the incident declaration, all critical patients had been triaged and were en route to hospitals」。critical を c802 の serious と同じ「重いけが」にした
+- c806-1026｜OK｜AAB p20 に該当あり
+- c806-1027｜OK｜AAB p20「The NCAR announcing team, despite being in the immediate proximity of the accident site, remained calm and provided clear evacuation procedures guidance to the crowd」
+- c806-1028｜OK｜AAB p20「assisted first responders, and requested additional help from medical staff on scene」
+- c807-1030｜OK｜AAB p21 本文＋注26（p20 の末尾から続く文。毛布の文は p21 の頭）
+- c807-1031｜OK｜AAB p21「Trauma blankets were distributed from the Reno Tahoe Airport Authority (RTAA) vehicle」／注26「The trauma blankets were yellow」
+- c807-1032｜OK｜AAB p21「spectators removed curtains from the box seating area and used them to assist the injured」／注26「the curtains used by spectators were blue and red」。「手当てに使った」≒assist＝許容
+- c808-1034｜OK｜AAB p20
+- c808-1035｜OK｜AAB p20「cellular telephone communications were intermittent … with some loss of service for about 15 to 20 minutes」
+- c808-1036｜OK｜AAB p20「According to the … incident commander, the loss of cellular service had no impact on emergency operations because … all communication to field units was handled via the radio system」＝「という」で伝聞を残した
+- c809-1038｜OK｜AAB p21
+- c809-1039｜OK｜聞き役＝質問。次の行「あった。」が答える
+- c809-1040｜OK｜AAB p21「a mass-casualty response tabletop exercise had been conducted on June 2, 2011」。6/2→9/16＝3か月14日＝約3か月半（§9 と一致）
+- c809-1041｜OK｜AAB p21「by representatives of the RARA, FAA, Washoe County fire agencies, … law enforcement agencies, … hospitals」
+- c810-1043｜OK｜AAB p21
+- c810-1044｜OK｜机上訓練＝tabletop exercise の一般の説明
+- c810-1045｜OK｜AAB p21「The scenario for the exercise had been for 23 fatalities with an additional 46 injured」。★20字・最後の行・fatalities→「亡くなる人」（§B2-4）
+- c811-1047｜OK｜AAB p21
+- c811-1048｜OK｜AAB p21「As a result of the tabletop exercise and at the request of the incident commander, the Nevada Highway Patrol had decided that, in the event of a mass-casualty accident during the NCAR, State Highway 395 would be shut down」
+- c811-1049｜OK｜AAB p21「to allow better travel time for multiple ambulances」
+- c812-1051｜OK｜AAB p21
+- c812-1052｜OK｜聞き役＝質問（c801〜c808 の外）
+- c812-1053｜OK｜AAB p21「this decision was put into practice for the accident response」
+- c813-1055｜OK｜AAB p21
+- c813-1056｜OK｜AAB p21「many of the same local agencies that participated in the tabletop exercise had attended and participated in the Reno/Tahoe International Airport triennial full-scale emergency exercise on May 25, 2011」
+- c814-1058｜⚠️ G6-07｜#33 p15（p2015）の図の題は「Figure 13: NCAR Ramp Area Layout」＝「斜めの空撮・燃料車」は題に無い（⑤bで原寸）。同じ図を `c108` でも使う。燃料車の文は #33 p14（p2014）
+- c814-1059｜OK｜聞き役＝質問。燃料車は c212 で既出＝唐突でない
+- c814-1060｜OK｜AAB p19「a fuel truck was parked on the ramp near the pits」・p46「the fuel truck parked on the ramp was not hit by any debris」・#33 p14「which was not damaged by debris」
+- c815-1062｜OK｜AAB p46
+- c815-1063｜OK｜AAB p46「the NTSB noted that」
+- c815-1064｜⚠️ G6-08｜AAB p46「the outcome could easily have been different」＝could は「得た」で残った。ただ「燃料車も」の「も」は原文に無く、「燃料車が…結果になる」と主語と述語がかみ合わない
+- c816-1066｜OK｜AAB p20・p46・#33 p14
+- c816-1067｜OK｜AAB p20「Low-level metal fencing was installed at the edge of the pit area … Metal piping fitted with curtains was installed at the edge of the box seating area」／#33 p14「only metal piping fitted with curtains is erected in front of the box seating area」
+- c816-1068｜⚠️ G6-09｜AAB p46「although … the type of barriers … was not a factor in the injuries that occurred, the NTSB concluded that more substantial barriers would help mitigate risk to spectators and personnel in the event of a less serious accident」＝逆接の後半（結論）を落とした
+- c817-1070｜OK｜AAB p17・p19。Googleアース②の別の角度＝materials §7 の場面②（⑤bで撮る）
+- c817-1071｜OK｜聞き役＝質問。次の行が答える
+- c817-1072｜⚠️ G6-10｜AAB p17「FAA guidance for air races and course design was provided in two documents」＝2つの資料（命令／通達）の初出の説明が c817〜c818 に無い
+- c818-1074｜OK｜AAB p17 に「A comparison of the two FAA guidance documents revealed …」の段落あり（紙面の図として使える）
+- c818-1075｜⚠️ G6-10｜AAB p17「FAA Order 8900.1 stated that all racing classes “require a distance of 500 feet between the primary spectator area and the showline,”」＝「観客席との間」の相手（ショーライン）が落ちた。152.4m 換算 OK
+- c818-1076｜OK｜AAB p17「AC 91-45C stated that the unlimited racing class (or other classes with “speeds in excess of 250 miles per hour”) “requires a spacing of 1,000 feet between the spectator area and the showline.”」。304.8m 換算 OK
+- c819-1078｜OK｜AAB p17・p19
+- c819-1079｜OK｜AAB p17「AC 91-45C (which had not been revised since 1990)」
+- c819-1080｜・ G6-11｜AAB p19「The edge of the box seating area was 874 feet south of the showline, the edge of the pit area … was 748 feet south of the showline」＝換算 OK。「ショーラインから」が落ちた（c211 で言ったが、ここは152/305 と並べる行）
+- c820-1082｜🔴 G6-12｜出典欄 AAB p17・p19 に「どちらも満たす／届かない」の比べは無い。比べは勧告書 A-12-08 p3（p6003）にある
+- c820-1083｜🔴 G6-12｜p6003「As shown in figure 1, the showline/spectator distances for the NCAR unlimited course are within the specifications outlined in Order 8900.1 but not those provided in AC 91-45C.」＝中身は原文どおり。④の申告「報告書が書いていない、こちらの比べ」は誤り＝NTSB 自身の比べ。出典と言い方（誰の比べか）を直す
+- c820-1084｜OK｜聞き役＝まとめ。前の行の言い換え（語りがもう言った）・次の c821 が「そう。」で受ける。「話が変わる」はややぼんやり
+- c821-1086｜OK｜AAB p46
+- c821-1087｜⚠️ G6-13｜AAB p46「the NTSB issued Safety Recommendation A-12-08, which asked the FAA to … correct inaccurate and incomplete information and reconcile all differences and inconsistencies」＝求めたのは2012-04-10 の NTSB の勧告書（報告書ではない）
+- c822-1089｜OK｜橋（出典なし）
+- c822-1090｜⚠️ G6-14｜「閉じる」の初出（勧告の用語）。噛み砕きが無い（c903 にも無い）
+- c822-1091｜OK｜橋。答えは c916
+
+## 第9章　その後
+
+- 章-1095｜OK｜章名
+- c901-1097｜OK｜AAB p43「As a result of this investigation and the NTSB’s January 10, 2012, investigative hearing on air race and air show safety, on April 10, 2012, the NTSB issued 10 safety recommendations」（p38 にも同じ文）。紙面 p43 に 2.6 の見出しあり
+- c901-1098｜OK｜AAB p38・p43「January 10, 2012, investigative hearing」
+- c901-1099｜OK｜AAB p38・p43「on air race and air show safety」
+- c902-1101｜⚠️ G6-15｜勧告書 A-12-08 p1（p6001）あり。ただし紙面に「Its airspeed was about 460 knots (530 mph)」「66 people sustained serious injuries」＝報告書の 445ノットと違う暫定の数が画面に出る（§5 で 530 mph を使わないと決めた）
+- c902-1102｜OK｜聞き役＝質問。次の行が答える
+- c902-1103｜OK｜AAB p43「on April 10, 2012, the NTSB issued 10 safety recommendations」
+- c902-1104｜OK｜AAB p43「to the RARA, the NAG Unlimited Division, and the FAA」（A-12-08＝FAA・A-12-09〜12＝NAG・A-12-13〜17＝RARA で 1＋4＋5＝10）
+- c903-1106｜OK｜出典なし（一般の説明）
+- c903-1107｜OK｜一般の説明
+- c903-1108｜OK（⚠️ G6-14 の直し先）｜CAROL の記録の説明。「閉じる」の噛み砕きをここに置ける
+- c904-1110｜OK｜AAB p46 の紙面に A-12-14・15 の返事あり・CAROL p5014・p5015
+- c904-1111｜OK｜AAB p46「moved the racers and the race course further north … to create and maintain a greater distance from the racers to the primary spectator viewing area」
+- c904-1112｜OK｜AAB p46「the larger fuel tanker truck will be relocated … about 1.5 miles from the primary spectator area」。2.41km 換算 OK
+- c904-1113｜OK｜AAB p46「additional and more substantial barriers will be located along the entire primary spectator viewing area」＝「とした」で予定を残した
+- c905-1115｜OK｜CAROL A-12-10（p5010）
+- c905-1116｜OK｜聞き役＝質問。次の行が答える
+- c905-1117｜OK｜p5010「revised its prerace inspection form to include a written acknowledgement of discrepancies noted and corrective actions taken」
+- c905-1118｜OK｜p5010「Aircraft with noted discrepancies will not be allowed to enter the race course for any reason until this written acknowledgement … has been received and the aircraft has been reinspected」
+- c906-1120｜OK｜D5＝materials §3-5「Don Ramey Logan 2016（Pylon Racing Seminar のランプ）・CC BY 4.0・副題に年」。中身は⑤bで原寸
+- c906-1121｜OK｜CAROL p5016「pilots will be required to fly four to six laps on the course to improve g tolerance and awareness before attempting any qualification flights」・p5011 同旨
+- c907-1123｜OK｜CAROL p5012・p5017
+- c907-1124｜OK｜p5011・p5012「the UDNAG will not recommend a rules change to require the use of g-suits」／p5017「RARA will leave g-suit usage to the pilot’s discretion」
+- c907-1125｜OK（・ G6-16）｜p5012「the g loads sustained on the course are normally between 3 and 4 g」／p5017「a g suit would be ineffective in an environment in which there is a virtually instantaneous buildup of g loads」。「判断された」の主語（主催の側）が落ちた
+- c908-1127｜OK｜CAROL p5009・p5013
+- c908-1128｜OK｜聞き役＝質問。次の行が答える
+- c908-1129｜OK｜p5013「Require aircraft owners, as a condition of eligibility …, to provide an engineering evaluation … for aircraft with any major modification」→「RARA will incorporate these procedures into the NCAR Official Rules of Competition for the 2013 and subsequent NCAR events」
+- c908-1130｜OK｜p5009「The UDNAG Rules Committee completely rewrote Appendix C, “Aircraft Specifications”」
+- c909-1132｜OK｜AAB p43
+- c909-1133｜OK（・ G6-17）｜AAB p43「it was not subject to the more rigorous flight test and analysis that was required to be performed on custom-built airplanes to substantiate the structural loads, flutter characteristics, weight and balance limits, and flight envelope」。「震え」＝flutter。第7章の用語「フラッター」とつながらない
+- c909-1134｜OK｜AAB p43「because the accident airplane was a modified version of a previously designed and built fighter airplane」
+- c910-1136｜OK｜AAB p50
+- c910-1137｜・ G6-18｜AAB p50「On December 21, 2011, the FAA issued a deviation to FAA Order 8130.2G … requiring the owner/operator to submit an annual program letter to the geographically responsible FSDO where the aircraft is based」＝中身 OK。日付が無く、勧告（2012-04）への返事に聞こえる
+- c911-1139｜OK｜CAROL p5009〜p5017
+- c911-1140｜OK｜A-12-10・11・12・14・15・16・17＝2012-08-27、A-12-09＝2013-03-28、A-12-13＝2013-05-09、9件とも「CLOSED—ACCEPTABLE ACTION」
+- c911-1141｜🔴 G6-19｜聞き役が「数年」＝数の語。しかも原文では9件とも勧告から約13か月以内（7件は4か月半）＝「数年」は長すぎる。mech15 §7 の「数字を言う聞き役0」は「数年」を拾えていない
+- c912-1143｜OK｜CAROL p5008・AAB p46
+- c912-1144｜⚠️ G6-20｜A-12-08＝「correct inaccurate and incomplete information and reconcile all differences and inconsistencies between the documents」。勧告書 p3〜p4（p6003〜p6004）は距離のほかに旋回半径の式・ジェット機の部門・無関係の図も挙げる＝「距離の食い違い」は狭すぎる（型④の逆＝下位語に狭めた）
+- c912-1145｜OK｜p5008 の勧告の本文と一致
+- c913-1147｜OK｜CAROL p5008
+- c913-1148｜⚠️ G6-14｜p5008＝2012-07-25「classified OPEN—ACCEPTABLE RESPONSE」・2016-11-30「remains classified OPEN—ACCEPTABLE RESPONSE」・2020-07-22「remains classified OPEN--ACCEPTABLE RESPONSE」＝3回とも OK。ただ「『受け入れられる返事』のまま開いていた」は中学生に通じにくい（「開いて」の読みも2通り＝G6-26）
+- c913-1149｜OK｜p5008「On February 27, 2020, the Federal Aviation Administration (FAA) published a revision to FAA Order 8900.1, … Paragraph 3-151, Air Races」／「which contains updated standards for designing air racecourses」
+- c914-1151｜OK｜CAROL p5008
+- c914-1152｜OK｜p5008「Although you did not revise AC 91-45C as recommended」
+- c914-1153｜OK（・ G6-21）｜p5008「on November 3, 2020, you cancelled AC 91-45C because it contained mandatory language」。★20字・最後の行。FAA 側の手紙は「unable to make the necessary revisions」＝「直せず」とも読める
+- c915-1155｜OK｜自作の図（CAROL の日付 2012-07-25／2016-11-30／2020-07-22／2021-07-13 で描ける）
+- c915-1156｜・ G6-21｜p5008「because it contained mandatory language, which the FAA is prohibited from using in ACs」／FAA 2021-01-19「Title 49, CFR Part 5, Section 5.25 … prohibits the use of mandatory language in an AC. Due to this new regulation」＝「新しい決まりで」が落ち、昔から禁じられていたように聞こえる
+- c916-1158｜OK｜CAROL p5008
+- c916-1159｜OK｜p5008 の最後の日付 2021-07-13
+- c916-1160｜OK（⚠️ G6-14）｜p5008「classified CLOSED-- ACCEPTABLE ALTERNATE ACTION」。2011-09-16→2021-07-13＝9年10か月＝約10年（§9 と一致）
+- c916-1161｜OK｜聞き役＝反応（数の語なし）
+- c917-1163｜OK｜Googleアース⑤＝materials §7 の場面⑤（⑤bで撮る）
+- c917-1164｜未照合・親へ｜RARA 2024-05-23 の発表（web）。原文なし
+- c917-1165｜未照合・親へ｜同上（2025年からロズウェル）。2025年に本当に開かれたかも web
+- c918-1167｜OK｜AAB p15（記録簿）・p37（技術検査）・p41（ナット）に該当あり
+- c918-1168｜⚠️ G6-22｜AAB p41「the locknuts had likely been installed for at least 26 years」＝likely が落ちた（c711 の★は「可能性が高い」）。「4日前」＝p37「signed off and dated September 12, 2011」・p41「4 days before the accident flight」OK。「終えた」＝p15「The prescribed flight test hours have been completed」OK
+- c918-1169｜OK｜こちらのまとめ。AAB p41「should have been noticeable to the ground crew」と矛盾しない
+- c919-1171｜OK｜AAB p41・p43
+- c919-1172｜⚠️ G6-24｜聞き役のまとめ「止める機会」＝語りは「手がかり」までしか言っていない。原文 p41 は「opportunities to identify and replace the deteriorated hardware」＝事故を止める、までは言っていない
+- c919-1173｜🔴 G6-23｜前半 OK＝p41「providing the ground crew with an indication of a recurrent problem and opportunities to identify and replace the deteriorated hardware」。後半＝p43「It is likely that, had engineering evaluations and diligent flight testing for the airplane’s modifications been performed, many of the airplane’s undesirable structural and control characteristics could have been identified and corrected」＝条件節・likely・many of を落とし、could を「はずだ」に強めた（型①）
+- c920-1175｜OK｜§B3-7 のコメントの問い（出典なし）
+- c920-1176｜OK｜§B3-7 の決まり文句どおり
+- c920-1177｜⚠️ G6-25｜私人（整備の仲間）の扱いを問う形＝責める相手を作りやすい。しかも p37「the trim tab discrepancy was due to one or more screws on the right elevator trim tab」「reportedly addressed」＝指摘は右の板で、直してある。壊れたのは左の板。「〜の立場だったら」の形でもない
+- c920-1178｜OK｜§B3-7 の決まり文句どおり
+
+## 読み（E・§6 に無いもの）＝ G6-26
+- 日付の「日」＝1月10日・4月10日（とおか）／6月2日（ふつか）／11月3日（みっか）／7月13日・5月25日（c901・c902・c809・c914・c916・c813）
+- Gスーツ（ジースーツ）・「Gに」（c906・c907）
+- 節（せつ。「ふし」の恐れ）・開いていた（ひらいていた。「あいていた」の恐れ）（c913）
+- 約2.4キロ（1.5マイル）（c904）・1,000フィート（せんフィート）（c818）・15分から20分・62分（c808・c805）・10件のうち9件（c911）・4つの病院（よっつ）（c803）・3か月半前（c809）
+
+## 集計
+- 見た行 134／OK 105（うち所見の注つき 7行）／所見の行 26（🔴 4行・⚠️ 14行・・ 8行）／未照合・親へ 3行
+- 所見 26件＝🔴 3（G6-12・G6-19・G6-23）／⚠️ 13（G6-03・07・08・09・10・13・14・15・20・22・24・25・26）／・ 10（G6-01・02・04・05・06・11・16・17・18・21）

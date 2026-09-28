@@ -1,0 +1,54 @@
+# R1 当て直し（第1〜5章）
+10	9 seconds|about 9	300	200
+28	rounds pylon 8	200	1800
+31	age and reuse	300	200
+41	26 years	300	200
+52	reduced stiffness	300	600
+19	fuel truck	300	200
+16	clear sky|wind was	200	200
+17	no closer than	500	300
+17	showline	200	300
+19	north side	300	300
+10	trailing	300	300
+29	similar	300	300
+29	About 8 seconds	100	300
+22	consistent with	300	200
+24	right elevator trim tab link	300	300
+25	right elevator trim tab	200	300
+14	steel rod	300	300
+18	home pylon	300	200
+39	by that time	500	300
+24	broken link	300	300
+39	exceeded human	500	300
+41	sudden and large	800	700
+41	right-wing-down	300	400
+43	rigged	300	300
+41	Regardless	300	300
+41	relatively consistent	600	300
+12	surplus	300	300
+7003	wheels-up	400	300
+35	experimental	300	400
+12	storage	300	300
+12	Arizona	300	300
+12	Spectre	400	300
+7004	Spectre|July 1983	300	300
+15	1,453	300	300
+42	wreckage examination	300	300
+13	37 feet	300	300
+13	aileron was shortened	200	300
+13	horizontal stabilizer span	200	200
+14	counterweight	400	400
+43	each made	300	400
+6103	bob weight	300	300
+14	filler	300	300
+40	filler	300	400
+14	electric	300	300
+42	would explain	500	200
+15	Stiletto	300	700
+42	undocumented	100	300
+42	rigidity	600	400
+33	not evident	600	200
+33	qualifying	300	300
+43	strong clue	600	300
+43	400 knots	300	300
+43	had engineering	300	300

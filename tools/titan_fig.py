@@ -2482,6 +2482,12 @@ def icons(n, on=None, kind="dot", cols=None, lead="", note="", oncol=None,
         c = oc if i in on else fc
         r = min(cw, ch) * 0.40
         kind_i = kind if i in on else (offkind or kind)
+        # 🔴 2026-09-25（13本目 ⑤c'・W9）：人の形は頭から足まで縦に 2.42r ある。r が段の高さ ch で決まると
+        #    段の間が 0.03ch しか残らず（c805 3.4px・c105 2.4px・c919 3.9px）、**上下の人がつながって柱に見えた**。
+        #    c420 だけは r が列の幅で決まり段の間 31px。→ 段が2つ以上の人の形は r を ch×0.33 までにして段の間を 0.2ch 残す
+        #    （c805 21px・c105/c919 11px。c420 と1段の c619 は変わらない）
+        if kind_i == "person" and rows >= 2:
+            r = min(r, ch * 0.33)
         if kind_i == "plane":
             # 上から見た機体。胴＋後退翼＋尾翼（船と**輪郭で**見分けが付く形）
             cur.append(poly([(x, y - r * 0.95), (x + r * 0.16, y - r * 0.30),

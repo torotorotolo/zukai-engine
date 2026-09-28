@@ -1,0 +1,7 @@
+S1	lago residuo|residu.{0,20}lago|bacino rimasto	200	200
+S8	lake	150	150
+S9	lago	150	150
+1-204	(avvis|avvert|preavvis).{0,120}(Longarone|popolazion|valle)	250	250
+1-204	sgombero.{0,80}(Longarone|valle del Piave|a valle)	250	250
+S1	San Martino	200	150
+S10	9 ottobre	150	200

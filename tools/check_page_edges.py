@@ -44,6 +44,23 @@ import check_slide as CS  # noqa: E402
 import scene_jiko as S  # noqa: E402
 
 LO, HI = 0.08, 0.92
+# 🔴🔴 2026-09-25（13本目 ⑤c'）：**寄りの両端（k=0/1）だけ測っていたので、途中で辺が行を横切るのを見なかった。**
+#    c520 の最下行「SAFETY RECOMMENDATIONS…」は k=0 で 97% 見え・k=1 で 6%（ほぼ外）＝両端ではどちらも
+#    「切れていない」なのに、**尺の途中はずっと半分に切れて見える**（⑤c-2 の原寸で🔴＝検品画像は途中の瞬間）。
+#    → `cam=` の無いカットは寄りの間を K_STEPS 点に刻んで測る（辺は1コマに高さの 0.26% しか動かない＝
+#       高さ 10px 以上の行を刻みの間で飛ばさない）。`cam=` のカットは今までどおり経路の3点。
+K_STEPS = 21
+# 画面での高さがこれ未満の「行」は字として読めない＝測らない（参考に出す）。OCR が模様を字と読んだ幻を含む
+#   （13本目 c102 の森の破片「ゞ ツ レ」＝画面 8px）。本物の頁の行は画面 19〜39px（⑤c' の実測）
+MIN_H_PX = 10
+
+
+def rects_of(sw, sh, box, spec):
+    """測る窓 {k: 窓}。`cam=` のカットは経路の3点（check_slide.cam_rects）、それ以外は寄りを K_STEPS 点に刻む。"""
+    if spec.get("cam"):
+        return CS.cam_rects(sw, sh, box, spec)
+    b, xb, zm = (float(spec.get("bias", 0.5)), float(spec.get("xbias", 0.5)), float(spec.get("zoom", 1.0)))
+    return {i / (K_STEPS - 1): CS.crop_rect(sw, sh, box, i / (K_STEPS - 1), b, xb, zm) for i in range(K_STEPS)}
 
 
 def frac_in(a0, a1, e, inside_is_high):
@@ -52,8 +69,12 @@ def frac_in(a0, a1, e, inside_is_high):
     return f if inside_is_high else 1 - f
 
 
-def cut_rows(cid, spec, ocr, photo_of, box_of, sides=False):
-    """1カットぶん (cid, 辺, 見えている割合, 行の字, 画面での高さpx, 切る前の箱)。🔴 本番も対照もここを通る。"""
+def cut_rows(cid, spec, ocr, photo_of, box_of, sides=False, rects=None):
+    """1カットぶん (cid, 辺, 見えている割合, 行の字, 画面での高さpx, 切る前の箱)。🔴 本番も対照もここを通る。
+
+    同じ行・同じ辺は、刻みのうち**いちばん欠けた1点**だけ返す（刻みの数だけ行が水増しされないように）。
+    `rects` … 窓の出し方（既定＝`rects_of`）。対照で「両端だけ」の旧い測り方と比べるときに渡す。
+    """
     o = ocr.get(Path(photo_of[cid]).name)
     if not o:
         return []
@@ -66,22 +87,23 @@ def cut_rows(cid, spec, ocr, photo_of, box_of, sides=False):
     moved = [(ln, [ln["box"][0] - X0, ln["box"][1] - Y0, ln["box"][2] - X0, ln["box"][3] - Y0])
              for ln in o["lines"]
              if not (ln["box"][2] <= X0 or ln["box"][0] >= X1 or ln["box"][3] <= Y0 or ln["box"][1] >= Y1)]
-    rows = []
-    for k, r in CS.cam_rects(X1 - X0, Y1 - Y0, box_of[cid], spec).items():
+    worst = {}
+    for k, r in (rects or rects_of)(X1 - X0, Y1 - Y0, box_of[cid], spec).items():
         L, T, R, B = r["left"], r["top"], r["left"] + r["cw"], r["top"] + r["ch"]
         sy = r["h"] / r["ch"]
-        for ln, b in moved:
+        for li, (ln, b) in enumerate(moved):
             if b[2] <= L or b[0] >= R or b[3] <= T or b[1] >= B:
                 continue
-            edges = [(f"窓上 k{k:g}", frac_in(b[1], b[3], T, True)),
-                     (f"窓下 k{k:g}", frac_in(b[1], b[3], B, False))]
+            edges = [("窓上", frac_in(b[1], b[3], T, True)),
+                     ("窓下", frac_in(b[1], b[3], B, False))]
             if sides:
-                edges += [(f"窓左 k{k:g}", frac_in(b[0], b[2], L, True)),
-                          (f"窓右 k{k:g}", frac_in(b[0], b[2], R, False))]
-            for edge, f in edges:
-                if LO < f < HI:
-                    rows.append((cid, edge, f, ln["text"], round((b[3] - b[1]) * sy), ln["box"]))
-    return rows
+                edges += [("窓左", frac_in(b[0], b[2], L, True)),
+                          ("窓右", frac_in(b[0], b[2], R, False))]
+            for side, f in edges:
+                if LO < f < HI and ((li, side) not in worst or f < worst[(li, side)][2]):
+                    worst[(li, side)] = (cid, f"{side} k{k:.2f}", f, ln["text"], round((b[3] - b[1]) * sy),
+                                         ln["box"])
+    return list(worst.values())
 
 
 def scan(spec_map, ocr, photo_of, box_of, skip, sides=False):
@@ -134,7 +156,26 @@ def selftest(spec_map, ocr, photo_of, box_of, skip):
         seen = f"{hit[0][2]:.0%} で出た" if hit else "出ない"
         print(f"  {'✓' if good else '🔴'} {name} → {seen}（{'出るはず' if want else '出ないはず'}）")
         ok &= good
-    return ok
+    return ok and sweep_control()
+
+
+def sweep_control():
+    """陽性③（合成・2026-09-25）：寄りの**途中だけ**で下の辺が行を横切る（c520 の型）。
+    両端（k=0/1）だけの旧い測り方では出ず、刻み（`rects_of`）で出ること。"""
+    size, box = [1120, 641], (72, 213, 1120, 641)       # 額装＝窓が絵の縦横比と同じ
+    spec = dict(bias=0.0)                               # 上の辺を留める＝下の辺だけが上がる
+    e0, e1 = (CS.crop_rect(size[0], size[1], box, k, 0.0, 0.5, 1.0) for k in (0.0, 1.0))
+    b0, b1 = e0["top"] + e0["ch"], e1["top"] + e1["ch"]
+    h, mid = (b0 - b1) / 3, (b0 + b1) / 2               # k=0 では全部内・k=1 では全部外の行
+    ocr = {"synth.png": dict(size=size, lines=[dict(box=[100, mid - h / 2, 1000, mid + h / 2], text="SYNTH")])}
+    args = ("cS", spec, ocr, {"cS": "x/synth.png"}, {"cS": box})
+    old = cut_rows(*args, rects=lambda sw, sh, bx, sp: {k: CS.crop_rect(sw, sh, bx, k, 0.0, 0.5, 1.0)
+                                                        for k in (0.0, 1.0)})
+    new = cut_rows(*args)
+    good = not old and bool(new)
+    print(f"  {'✓' if good else '🔴'} 陽性③ 寄りの途中だけで下の辺が行を横切る → 両端だけ {'出る' if old else '出ない'}"
+          f"／刻み {f'{new[0][2]:.0%}（{new[0][1]}）で出た' if new else '出ない'}（両端では出ず、刻みで出るはず）")
+    return good
 
 
 def main():
@@ -148,7 +189,21 @@ def main():
     if "--selftest" in sys.argv:
         print("✓ 物差しは正しい")
         return 0
+    # 🔴🔴 2026-09-25（13本目 ⑤c'）：**読み置きの無いカットを黙って飛ばしていた**（`cut_rows` が [] を返す）。
+    #    13本目の `ocr_slides.json` は ⑤b-1 の3点だけ＝写真・頁45カットのうち **42カットを測らずに ✓** だった
+    #    （c520 の頁 pg2046 も c311 の pg95 も）。→ 読み置きが無ければ止める（[[feedback-parsers-fail-closed]]）
+    missing = [cid for cid in S.ORDER if cid in photo_of and cid not in skip
+               and not ocr.get(Path(photo_of[cid]).name)]
+    if missing:
+        print(f"🔴 OCR の読み置きが無い写真・頁のカット {len(missing)} 件＝**測っていない**："
+              f"{' '.join(missing[:15])}{' …' if len(missing) > 15 else ''}\n"
+              f"   → `python tools/check_slide.py --ocr` で読み置きを作り直す（0件を合格にしない）")
+        return 1
     rows = scan(spec_map, ocr, photo_of, box_of, skip, sides)
+    small = [r for r in rows if r[4] < MIN_H_PX]
+    for r in small:
+        print(f"  ・ 参考（画面 {r[4]}px＜{MIN_H_PX}px＝字として読めない・測らない）{r[0]}「{r[3][:30]}」{r[1]}")
+    rows = [r for r in rows if r[4] >= MIN_H_PX]
     hard = [r for r in rows if r[1][:2] in ("窓上", "窓下")]
     cuts = sorted({r[0] for r in rows}, key=S.ORDER.index)
     print(f"■ 画面に出る辺が字の行を切っている（見えている {LO:.0%}〜{HI:.0%}）… {len(rows)} 行 ／ {len(cuts)} カット"

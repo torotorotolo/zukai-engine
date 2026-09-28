@@ -40,7 +40,8 @@ SPEC = {
     "c902": dict(
         t="初めての命令",
         s="官報に載った命令の本文（1974年4月2日の号）",
-        photo=ss.page(4301), panel=True, color=1.0,
+        # ⑤c'（09-25）：下の辺は行間ぎりぎり＝下を留める（bias 1）。上は見出しの上の白（`ss.TRIM` で広げた）で掃きを吸う
+        photo=ss.page(4301), panel=True, color=1.0, bias=1.0,
         side="right", ann_y=330,
         ann=[dict(t="SB 52-37", d="支えと板も命令に", dc=J.AMBER),
              dict(t="毎回の飛行の前", d="乗員がのぞき窓で確かめる", dc=J.ALERT),
@@ -65,7 +66,8 @@ SPEC = {
     "c904": dict(
         t="通気扉とのぞき窓も",
         s="1974年7月の命令（のちの改正の版）",
-        photo=ss.page(4101), panel=True, color=1.0,
+        # ⑤c'（09-25）：下の余白 4px・上の余白 28px＝下を留める（bias 1）
+        photo=ss.page(4101), panel=True, color=1.0, bias=1.0,
         side="right", ann_y=330,
         ann=[dict(t="命令の番号", v="AD 74-12-07", vc=J.AMBER),
              dict(t="義務になったSB", v="さらに5つ", vc=J.ALERT)],
@@ -75,7 +77,8 @@ SPEC = {
     "c905": dict(
         t="床にも命令",
         s="床を強くする命令（1975年）",
-        photo=ss.page(4201), panel=True, color=1.0,
+        # ⑤c'（09-25）：下の余白 4px・上の余白 28px＝下を留める（bias 1）
+        photo=ss.page(4201), panel=True, color=1.0, bias=1.0,
         side="right", ann_y=330,
         ann=[dict(t="求めたこと", d="床が崩れない", dc=J.AMBER),
              dict(t="期限", d="1977年の終わり（改正のあと）", dc=J.ALERT)],
@@ -188,7 +191,9 @@ SPEC = {
     # 森の中の石碑（B4・CC BY 3.0・729px＝額装パネル）
     "c915": dict(
         t="森に立つ石碑",
-        s="森の中の慰霊碑　2010年",
+        # ⑤c'（09-25）：c801 と**同じ碑**（⑤c-2 の原寸＝碑文5行・右の荒い縁・石の囲いが一致）なのに「慰霊碑」と
+        #   呼んでいた（c801 は「石碑」・ナレーションも「石碑」）＝呼び方をそろえ、違いは実見（草地ごし）だけ書く
+        s="同じ石碑を草地ごしに　2010年",
         photo=P("monument_2010"), **ss.kind(P("monument_2010")),
     ),
 

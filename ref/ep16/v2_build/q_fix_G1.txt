@@ -1,0 +1,7 @@
+2006	caposald|maggio 1960	200	200
+72	mezz'ora	50	400
+98	Venezia	120	60
+3020	Venezia	120	60
+2006	261	150	150
+171	Erto	150	150
+1043	canyon	200	150

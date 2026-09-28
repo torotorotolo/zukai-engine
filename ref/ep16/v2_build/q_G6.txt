@@ -1,0 +1,5 @@
+S8	still|never|today|nowadays|abandon	150	150
+S9	svuota|lago residuo|galleria di scarico	150	150
+41	lago residuo	400	200
+S9	oggi|tuttora|ancora oggi	150	100
+3006	diga capolavoro	250	150

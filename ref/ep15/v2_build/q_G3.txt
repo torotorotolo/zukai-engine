@@ -1,0 +1,25 @@
+14	filler	250	350
+40	filler	300	400
+14	counterweight	300	400
+43	each made	300	500
+1-52	inertia weight	200	300
+all	bob weight	200	300
+42	rigidity	500	400
+32-34	wrinkl	300	300
+33	not evident	400	200
+34	gap	300	300
+43	strong clue	300	200
+42	undocumented	100	300
+42	would explain	400	200
+28	17.3	100	100
+15	Stiletto	300	600
+43	400 knots	300	300
+30	400 knots	300	300
+43	rigged	200	300
+43	had engineering	100	300
+13	37 feet	300	300
+13	aileron	200	300
+14	twice|26 pounds|13.75	300	300
+43	twice	200	200
+36	boil-off	200	200
+8,40	each elevator|two moveable	200	200

@@ -35,7 +35,9 @@ SPEC = {
         t="国が出す命令",
         s="ADとは",
         fig=("panel", dict(
-            blocks=[dict(k="FAAの手段", t="直さなければ飛ばせない", c=J.INST),
+            # ⑤c'（09-25）：1段目と3段目が「直さなければ飛ばせない」「直さない機体は飛べない」でほぼ同じ文だった
+            #   ＝1段目は命令そのもの（ナレーション①「…と命じる手段」）・3段目はその結果（③）に分ける
+            blocks=[dict(k="FAAの手段", t="直せと命じる", c=J.INST),
                     dict(k="呼び名", t="耐空性改善命令", v="英語の頭文字でAD", c=J.ALERT),
                     dict(k="期限まで", t="直さない機体は飛べない", c=J.AMBER)],
             note=f"{NOTE_SEN} PDF 31頁")),
@@ -55,7 +57,8 @@ SPEC = {
     "c504": dict(
         t="命令の準備",
         s="上院の報告がまとめた経緯",
-        photo=ss.page(2030), panel=True, color=1.0,
+        # ⑤c'（09-25）：上の辺が行に接している（行間は0）＝上を留める（bias 0）。下の余白 18px で寄りの掃き 11px を吸う
+        photo=ss.page(2030), panel=True, color=1.0, bias=0.0,
         side="right", ann_y=330,
         ann=[dict(t="西部地域局", d="改修を義務にする命令", dc=J.AMBER),
              dict(t="きっかけ", d="ウィンザーの事故", dc=J.TICK)],
@@ -181,7 +184,8 @@ SPEC = {
     "c515": dict(
         t="役所からの電報",
         s="FAAの電報の頭",
-        photo=ss.page(2033), panel=True, color=1.0,
+        # ⑤c'（09-25）：寄りの掃き 52px を上の余白 44px と下の余白 16px に分ける（bias 0.77＝上 40・下 12）
+        photo=ss.page(2033), panel=True, color=1.0, bias=0.77,
         side="right", ann_y=330,
         ann=[dict(t="1972年6月16日", d="FAAが打った", dc=J.TICK),
              dict(t="宛先", d="航空会社4社の社長", dc=J.AMBER),
@@ -257,7 +261,10 @@ SPEC = {
     "c522": dict(
         t="委員会の結論",
         s="上院の報告の結論の節（1974年）",
+        # ⑤c'（09-25）：100dpi の頁で行間が 4〜6px しか無く、寄りの掃き 18px はどちらの辺でも行を欠く
+        #   （上下とも段落の切れ目が近くに無い）＝カメラを止める（from と to が同じ＝寄り 0）
         photo=ss.page(2055), panel=True, color=1.0,
+        cam={"from": (0.5, 0.5, 1.0), "to": (0.5, 0.5, 1.0)},
         side="right", ann_y=330,
         ann=[dict(t="長官", d="正直に、善意で動いた", dc=J.TICK),
              dict(t="重大な危険には", d="ADを出すことだけが正しい", dc=J.ALERT)],
@@ -278,7 +285,7 @@ SPEC = {
         s="ここまでと、この先",
         fig=("panel", dict(
             blocks=[dict(k="改修", t="メーカーのSBまかせ", c=J.LINE),
-                    dict(k="鍵", t="パリの機体に入っていたか", v="第6章", c=J.AMBER)],
+                    dict(k="次は", t="パリの機体に入っていたか", v="第6章", c=J.AMBER)],
             cols=2)),
     ),
 
