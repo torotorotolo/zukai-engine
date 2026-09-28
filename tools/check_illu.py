@@ -11,6 +11,7 @@
   ② 人の影の役割＝船員・海洋警察・管制（型紙）／乗客は**群れの型だけ**（`crowd_layout`＝隣と2割以上重なる・枠の外まで続く
      ＝`illu.crowd_uncountable`）。群れを出す場面は時刻 `at` を宣言し、`cuts.ss.ILLU_CROWD_UNTIL` より前
   ③ 描いた人の数（型紙を置く inst の数）＝宣言（`people=`）＝記録（宣言の rec）。型紙の影どうしは重ならない（1人ずつ数えられる）
+     ＝⑤b-3 から**部品をまたいで全部の組**を・型紙の背（`fig_h`）で測る（傾けた型紙は `fig_deg` の向きに戻して）
   ④ 「再現イラスト」の札と出典（`illu.overlay_svg`＝全面・冒頭の絵／`illu_pair` は段の層の札と骨格の出典）
   ⑤ 画面に出す文字（札）に、資料で割れる時刻（`cuts.ss.ILLU_SPLIT_TIMES`）が無い
   ⑦ 写真・頁・決め所・文字の頁のカットに絵が無い（混ざりは冒頭の絵か小さく戻す絵だけ）。「再現イラスト」の PLAN の
@@ -25,6 +26,7 @@
 """
 from __future__ import annotations
 
+import math
 import re
 import sys
 from functools import lru_cache
@@ -132,15 +134,25 @@ def judge_scene(sc, where, docs=None, pages=None, split=None, until=None):
         else:
             bad.append(f"②{where}：知らない役割「{role}」")
     # ③ 描いた人の数＝宣言＝記録
-    drawn = {}
+    #   ⑤b-3：重なりは**部品をまたいで**全部の組で・型紙の背の高さ（fig_h＝置き場ごとに違う）で測る
+    #   （ゴムボートの海洋警察と乗り移る船員は別の部品＝部品の中だけ見ると重なりを見逃す）
+    #   船内で傾けた型紙（fig_deg）は、影の立つ向き＝床に沿う向きに戻して測る（画面の縦横で測ると 45度の並びが全部「重なる」）
+    drawn, ends = {}, []
     for p in sc["parts"]:
         if p.get("kind") == "sprite":
             drawn[p.get("role")] = drawn.get(p.get("role"), 0) + len(p.get("inst") or [])
-            ends = sorted(tuple(i["path"][-1]) for i in p.get("inst") or [])
-            for a, b in zip(ends, ends[1:]):
-                if abs(a[0] - b[0]) < IL.FIG_H * 0.55 and abs(a[1] - b[1]) < IL.FIG_H * 0.5:
-                    bad.append(f"③{where}：型紙の影の立つ所 {a}・{b} が重なる（1人ずつ数えられない＝数の照合が目で出来ない）")
-                    break
+            ends += [(tuple(i["path"][-1]), float(p.get("fig_h") or IL.FIG_H), float(p.get("fig_deg") or 0.0))
+                     for i in p.get("inst") or []]
+
+    def _near(a, fa, da, b, fb):
+        r = math.radians(-da)
+        dx, dy = b[0] - a[0], b[1] - a[1]
+        u, v = dx * math.cos(r) - dy * math.sin(r), dx * math.sin(r) + dy * math.cos(r)
+        return abs(u) < max(fa, fb) * 0.55 and abs(v) < max(fa, fb) * 0.5
+    hit = next(((a, b) for j, (a, fa, da) in enumerate(ends) for (b, fb, _db) in ends[j + 1:] if _near(a, fa, da, b, fb)),
+               None)
+    if hit:
+        bad.append(f"③{where}：型紙の影の立つ所 {hit[0]}・{hit[1]} が重なる（1人ずつ数えられない＝数の照合が目で出来ない）")
     decl = sc.get("people") or {}
     for role in set(drawn) | set(decl):
         n += 1
@@ -248,6 +260,16 @@ def selftest():
                          dict(state=dict(heel=61.2), rec="海審 p1057", touch="船橋甲板の左舷")])
     good_B = dict(place="B", at="8:56", start=dict(view="cabin", heel=30.0, crowd="on"), rec="判決 p12",
                   steps=[dict(rings=2, rec="海審 p1053")])
+    good_C = dict(place="C", at="9:25", start=dict(view="room", heel=45.0, crew=8), rec="判決 p14",
+                  people=dict(crew=(8, "判決 p11")),
+                  steps=[dict(asks=3, rec="判決 p14"), dict(walkie=3, rec="判決 p14"), dict()])
+    good_E = dict(place="E", at="9:06", steps=[dict(state=dict(sel="on"), rings=2, rec="海審 p1059"),
+                                               dict(rings=1, rec="海審 p1059")])
+    good_far = dict(place="D", at="9:30", start=dict(view="far", heel=47.5), rec="艇長の判決 p5002",
+                    steps=[dict(), dict(state=dict(binoc="on"), rec="艇長の判決 p5002")])
+    good_rail = dict(place="D", at="9:39", start=dict(view="rail", rboat="on", cg="on"), rec="艇長の判決 p5002",
+                     people=dict(coast_guard=(1, "艇長の判決 p5002"), crew=(7, "判決 p17")),
+                     steps=[dict(board=7, rec="判決 p17"), dict()])
     cases = [
         ("正しい D（8人・群れ 9:46）", good_D, True),
         ("正しい A（52.2度で3階・61.2度で船橋甲板が水面）", good_A, True),
@@ -261,6 +283,18 @@ def selftest():
          dict(good_A, steps=[dict(touch="3階（B甲板）の左舷", tag=dict(t="9時46分", at="b_port"))]), False),
         ("🔴 陽性対照⑧：上から見た絵が細かすぎる（1.0 メートル／画素）", dict(good_B, view="上から見た図", scale=1.0), False),
         ("🔴 陽性対照 touch：45度で「3階の左舷が水面に」", dict(good_A, start=dict(heel=45.0, wake="off")), False),
+        # ── ⑤b-3（2026-09-29）：置き場 C（操舵室）・E（管制センター）・D の見え方 far／rail ──
+        ("正しい C（操舵室に8人・問いかけの印・3階からの無線機）", good_C, True),
+        ("正しい E（管制の画面の点に印・交信の輪）", good_E, True),
+        ("正しい D far（双眼鏡で甲板→海）", good_far, True),
+        ("正しい D rail（立った海洋警察1人・機関部7人がボートへ）", good_rail, True),
+        ("🔴 陽性対照①：問いかけの印（asks）の段に rec が無い",
+         dict(good_C, steps=[dict(asks=3), dict(walkie=3, rec="判決 p14"), dict()]), False),
+        ("🔴 陽性対照①：双眼鏡を上げた段に rec が無い", dict(good_far, steps=[dict(), dict(state=dict(binoc="on"))]), False),
+        ("🔴 陽性対照③：操舵室の影 8 ≠ 宣言 9", dict(good_C, people=dict(crew=(9, "判決 p11"))), False),
+        ("🔴 陽性対照③：ゴムボートの海洋警察（1人）を宣言しない", dict(good_rail, people=dict(crew=(7, "判決 p17"))), False),
+        ("🔴 陽性対照②：乗客の群れを far（遠くの船）に置く",
+         dict(good_far, start=dict(view="far", heel=47.5, crowd="on")), False),
     ]
     ok = True
     for name, spec, want in cases:
@@ -282,6 +316,25 @@ def selftest():
     ok &= good
     print(f"  {'OK' if good else '🔴 NG'} 🔴 陽性対照②（描く側）：群れの間隔 1.15＝重ならない影の列: "
           f"{'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    # 🔴 陽性対照③（⑤b-3・部品をまたぐ重なり）：乗り移る船員の7人目の立つ所を、ボートで立った海洋警察（別の部品）に重ねる
+    keep = IL.RAIL_SPOTS
+    IL.RAIL_SPOTS = keep[:6] + ((IL.RAIL_CG[0] + 8.0, IL.RAIL_FLOOR),)
+    bad, _ = judge_scene(IL.scene(**good_rail), "selftest", **kw)
+    IL.RAIL_SPOTS = keep
+    good = any(b.startswith("③") and "重なる" in b for b in bad)
+    ok &= good
+    print(f"  {'OK' if good else '🔴 NG'} 🔴 陽性対照③（部品をまたぐ重なり）：船員の影を海洋警察の影に重ねる: "
+          f"{'不合格' if good else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    # 🔴 陽性対照③（⑤b-3・45度の床）：45度の操舵室で影を床に沿って 60画素ずつに詰めたら「重なる」で落ちるか
+    #   （C の影は立てたまま＝fig_deg 0。fig_deg を持つ型紙〈傾けた影〉は、その向きに戻して測る）
+    keep = IL.ROOM_FIG
+    IL.ROOM_FIG = tuple((700.0 + 60.0 * j, 600.0) for j in range(8))
+    bad, _ = judge_scene(IL.scene(**good_C), "selftest", **kw)
+    IL.ROOM_FIG = keep
+    good = any(b.startswith("③") and "重なる" in b for b in bad)
+    ok &= good
+    print(f"  {'OK' if good else '🔴 NG'} 🔴 陽性対照③（45度の床）：影を床に沿って 60画素ずつに詰める: "
+          f"{'不合格' if good else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
     # 🔴 陽性対照②（型紙の役割）：乗客を型紙（1人の影）で置いたら落ちるか
     sc = IL.scene(**good_D)
     for p in sc["parts"]:

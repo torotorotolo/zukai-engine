@@ -18,10 +18,19 @@
      行より段が多いと、行のあいだに段が挟まる（`scene_jiko.stage_times`）。段ごとの出来事（`rings=`・`board=`）は引き継がない。
 
 ■ 置き場（使い回す絵）＝place
-  A … 船を外から（船首の側から見た形）。傾き heel・船首の波 wake・船首の甲板のコンテナ boxes・カメラ cam
-  D … A の船＋123艇・人の影（船員）・客室の窓の印 mark・窓の奥の群れ crowd（⑤b-3 で C・E と一緒に増やす）
+  A … 船を外から（船首の側から見た形）。傾き heel・船首の波 wake・船首の甲板のコンテナ boxes・操舵室の印 bridge・カメラ cam
+  D … 123艇のまわり。view で見え方を選ぶ（⑤b-3 で広げた）：
+      ship＝A の船＋123艇・人の影（船員）・客室の窓の印 mark・窓の奥の群れ crowd（c103・c911）／
+      sea＝海を進む123艇（横から・bx＝艇首の位置・run＝進む波・far＝遠くのセウォル号・spk＝放送の設備）／
+      far＝123艇から見た遠くの船（mark・binoc＝双眼鏡の丸い視野が甲板→海をなぞる）／
+      heli＝船の上のヘリ1機と吊り下げの線／rail＝3階の左舷の手すりとゴムボート（rboat・cg＝立った乗組員・board＝乗り移る人）
   B … 船内（3階）。view＝corridor（閉じた客室の扉が並ぶ廊下とスピーカー）／cabin（客室で待つ群れとスピーカー）／
       desk（3階の案内デスクのマイク）。傾きは場面ごとに1つ（SVG で回して焼く＝段のあいだに変えない）
+  C … 操舵室（5階）の中（⑤b-3）。view＝helm（舵の前の当直）／console（無線機と船内放送の機器の寄り＝人は枠の外）／
+      room（操舵室の中の人の影）。傾きは B と同じく場面ごとに1つ。出来事＝rings（無線機から外へ）・rings_in（外から
+      無線機へ）・glow（放送の機器の電源の灯）・asks（問いかけの印）・walkie（3階からの無線機）
+  E … 管制センターの中（⑤b-3）。管制の画面（レーダー）と船の点・交信の装備。人は描かない（管制官の人数が記録に無い）。
+      sel＝画面の船の点に印・出来事 rings（交信の装備から外へ）
 
 ■ 守りの線（ルール §5b-74）と門番 `check_illu`（§5b-75）
   ① 描く物・人・動作・数・時刻は1つずつ出典（資料と頁＝`rec=`）。部品は置き場が既定の rec を持つ。記録の欄（傾き・波・
@@ -65,6 +74,7 @@ C = dict(
     ceil="#c9d0d4", wall_l="#b7bfc4", wall_r="#a9b2b8", floor="#59636a", endw="#8e9aa2",
     door="#6c7c88", door_edge="#46535c", lamp="#f1f5f7", spk="#2f3a42", ring="#f2c14e",
     room="#b9c0c4", room_floor="#737d83", room_ceil="#c9cfd2", desk="#8a7a66", desk_top="#a4927b", mic="#2c343a",
+    lamp_on="#9fe07e",                        # ⑤b-3：操舵室の船内放送の機器の電源の灯（色は記録に無い＝点いていることだけ）
 )
 CHIP_FG, CHIP_BG = "#f0d9a0", "#0d1115"
 
@@ -105,7 +115,11 @@ SHIP_S = 20.0                                 # 1メートル＝20画素（人�
 WATER = 640.0                                 # 水面＝回転の中心の高さ
 HORIZON = 604.0
 PIVOT = dict(A=(820.0, WATER), D=(640.0, WATER))
-BOAT = dict(x0=1116.0, x1=1600.0, deck=612.0)  # 123艇（横から・艇首が左）。形は記録に無い＝仮（123艇の映像はなぞらない）
+# 123艇（横から・艇首が左）。🔴 ⑤b-3：全長は記録にある＝**32.2 メートル**（艇長の判決 p5002「100톤급 경비정으로 총톤수
+#   121톤, 전장 32.2m, 폭 6m」）＝⑤b-2 の仮の 24.2 メートルを直した（艇首の側＝乗り移る所・札の指し先は変えていない）。
+#   高さ・上部の形は記録に無い＝仮（123艇の映像はなぞらない）
+BOAT_L = 32.2
+BOAT = dict(x0=1116.0, x1=1116.0 + BOAT_L * SHIP_S, deck=612.0)
 FIG_FOOT = (60.0, 120.0)                      # 人の影の型紙の足もと（層の中の位置）
 FIG_H = 1.7 * SHIP_S
 
@@ -266,37 +280,68 @@ def wake_svg(piv):
     return "".join(g)
 
 
-def front_sea_svg():
-    """手前の海（沈んだ部分を覆う）。"""
+def front_sea_svg(y=WATER, x0=0.0, x1=float(W)):
+    """手前の海（沈んだ部分を覆う）。y＝水面（既定は A・D の WATER）。"""
     return ('<defs><linearGradient id="seaf" x1="0" y1="0" x2="0" y2="1">'
             f'<stop offset="0" stop-color="{C["seaf0"]}" stop-opacity="0.80"/>'
             f'<stop offset="1" stop-color="{C["seaf1"]}" stop-opacity="0.97"/></linearGradient></defs>'
-            f'<rect x="0" y="{WATER + 1:.0f}" width="{W}" height="{H - WATER - 1:.0f}" fill="url(#seaf)"/>'
-            f'<path d="M 0 {WATER + 1:.0f} H {W}" stroke="#dbe7ee" stroke-opacity="0.35" stroke-width="2"/>')
+            f'<rect x="{x0:.0f}" y="{y + 1:.0f}" width="{x1 - x0:.0f}" height="{H - y - 1:.0f}" fill="url(#seaf)"/>'
+            f'<path d="M {x0:.0f} {y + 1:.0f} H {x1:.0f}" stroke="#dbe7ee" stroke-opacity="0.35" stroke-width="2"/>')
 
 
-def boat_svg():
-    """123艇（横から見た形・艇首が左＝セウォル号の側）。100トン級の小型の警備艇（艇長の判決 p5002）。形は仮。"""
-    x0, x1, dk = BOAT["x0"], BOAT["x1"], BOAT["deck"]
-    hull = [(x0, dk - 2), (x1, dk - 2), (x1 - 8, WATER + 16), (x0 + 70, WATER + 16), (x0 + 24, WATER)]
-    g = [f'<path d="{_d(hull)}" fill="{C["boat"]}" stroke="{C["boat_edge"]}" stroke-width="2"/>',
-         _rect(x0 + 40, dk + 14, x1 - x0 - 48, 8, C["boat_navy"]),
-         f'<path d="{_d([(x0 + 150, dk - 2), (x0 + 164, dk - 46), (x0 + 360, dk - 46), (x0 + 370, dk - 2)])}" '
-         f'fill="#f2f4f5" stroke="{C["boat_edge"]}" stroke-width="2"/>']
-    for k in range(5):
-        g.append(_rect(x0 + 180 + 34 * k, dk - 38, 24, 15, C["win"]))
-    g += [_rect(x0 + 262, dk - 100, 5, 54, "#aeb8bf"), _rect(x0 + 242, dk - 86, 45, 4, "#aeb8bf")]
+# 123艇の横の形（艇首＝0・艇尾＝全長。メートル・水面から上が＋）。⑤b-2 の画素の形をメートルに直した（20画素＝1メートル）。
+#   記録は全長・幅・100トン級だけ（艇長の判決 p5002）＝高さ・上部の形・放送の設備の位置は仮
+BOAT_M = dict(deck=1.5, keel=-0.8, cab=((7.5, 1.5), (8.2, 3.7), (18.0, 3.7), (18.5, 1.5)), mast=13.1, mast_top=6.4,
+              spk=(8.6, 3.7))
+
+
+def boat123_svg(x0, water, s, spk=False):
+    """123艇（横から見た形・艇首が左）。x0＝艇首の画面の x・water＝水面の y・s＝1メートルの画素。"""
+    L, M = BOAT_L, BOAT_M
+    P = lambda x, y: (x0 + x * s, water - y * s)  # noqa: E731
+    k = s / SHIP_S
+    hull = [P(0, M["deck"]), P(L, M["deck"]), P(L - 0.4, M["keel"]), P(3.5, M["keel"]), P(1.2, 0.0)]
+    (sx0, sy0), (sx1, sy1) = P(2.0, 0.7), P(L - 0.4, 0.3)
+    g = [f'<path d="{_d(hull)}" fill="{C["boat"]}" stroke="{C["boat_edge"]}" stroke-width="{2 * k:.1f}"/>',
+         _rect(sx0, sy0, sx1 - sx0, sy1 - sy0, C["boat_navy"]),
+         f'<path d="{_d([P(*q) for q in M["cab"]])}" fill="#f2f4f5" stroke="{C["boat_edge"]}" stroke-width="{2 * k:.1f}"/>']
+    for j in range(5):
+        (wx, wy) = P(9.0 + 1.7 * j, 3.3)
+        g.append(_rect(wx, wy, 1.2 * s, 0.75 * s, C["win"]))
+    (mx, my), (bx, by) = P(M["mast"], M["mast_top"]), P(12.1, 5.7)
+    g += [_rect(mx, my, 0.25 * s, 2.7 * s, "#aeb8bf"), _rect(bx, by, 2.25 * s, 0.2 * s, "#aeb8bf")]
+    if spk:
+        # 外へ呼びかける放送の設備（艇長の判決 p5002「I방송장비」）。位置と形は記録に無い＝屋根の上の小さなラッパの形
+        (hx, hy) = P(*M["spk"])
+        u = s * 1.5                                    # 下見：0.9 では小さくて見えなかった
+        g.append(f'<path d="M {hx + 0.3 * u:.1f} {hy:.1f} V {hy - 0.35 * u:.1f}" stroke="#7f8d97" stroke-width="{0.12 * u:.1f}"/>'
+                 f'<path d="M {hx + 0.55 * u:.1f} {hy - 0.62 * u:.1f} L {hx + 0.10 * u:.1f} {hy - 0.52 * u:.1f} '
+                 f'L {hx - 0.45 * u:.1f} {hy - 0.80 * u:.1f} L {hx - 0.45 * u:.1f} {hy - 0.18 * u:.1f} '
+                 f'L {hx + 0.10 * u:.1f} {hy - 0.40 * u:.1f} L {hx + 0.55 * u:.1f} {hy - 0.30 * u:.1f} Z" '
+                 f'fill="#dfe5e9" stroke="{C["ol"]}" stroke-width="{0.08 * u:.1f}" stroke-linejoin="round"/>')
     return "".join(g)
 
 
-def fig_svg():
-    """人の影の型紙（顔も服の細部も無い・足もとが FIG_FOOT）。"""
-    x, y = FIG_FOOT
-    h = FIG_H
+def boat_svg():
+    """123艇（c103 の置き場 D・ship）。操舵室の前＝艇首が左＝セウォル号の側。"""
+    return boat123_svg(BOAT["x0"], WATER, SHIP_S)
+
+
+def fig_svg(h=None, deg=0.0, foot=None, col=None):
+    """人の影の型紙（顔も服の細部も無い・足もとが foot）。h＝背の高さの画素・deg＝足もとのまわりに傾ける（船内の傾き）。"""
+    h = float(h or FIG_H)
+    x, y = foot or FIG_FOOT
     r = h * 0.17
-    return (f'<circle cx="{x:.1f}" cy="{y - h + r:.1f}" r="{r:.1f}" fill="{C["fig"]}"/>'
-            f'<path d="M {x - h * 0.22:.1f} {y - h * 0.64:.1f} Q {x:.1f} {y - h * 0.73:.1f} {x + h * 0.22:.1f} '
-            f'{y - h * 0.64:.1f} L {x + h * 0.27:.1f} {y:.1f} L {x - h * 0.27:.1f} {y:.1f} Z" fill="{C["fig"]}"/>')
+    col = col or C["fig"]
+    g = (f'<circle cx="{x:.1f}" cy="{y - h + r:.1f}" r="{r:.1f}" fill="{col}"/>'
+         f'<path d="M {x - h * 0.22:.1f} {y - h * 0.64:.1f} Q {x:.1f} {y - h * 0.73:.1f} {x + h * 0.22:.1f} '
+         f'{y - h * 0.64:.1f} L {x + h * 0.27:.1f} {y:.1f} L {x - h * 0.27:.1f} {y:.1f} Z" fill="{col}"/>')
+    return f'<g transform="rotate({deg:.2f} {x:.1f} {y:.1f})">{g}</g>' if deg else g
+
+
+def big_foot(h):
+    """大きな型紙の足もと（層の中）。62.6度まで傾けても層の外に出ない位置。"""
+    return (h * 1.05, h * 1.35)
 
 
 def board_spots(n):
@@ -439,7 +484,8 @@ def corridor_svg(deg):
 INSET = dict(x=72.0, y=600.0, w=250.0, h=176.0, s=3.6)
 
 
-def inset_svg(deg):
+def inset_svg(deg, part="cabin"):
+    """位置の図。part＝cabin（客室の階＝3・4階に色）／bridge（操舵室＝5階の船橋に色・⑤b-3 の置き場 C）。"""
     x, y, w, h, s = INSET["x"], INSET["y"], INSET["w"], INSET["h"], INSET["s"]
     px, py = x + w * 0.42, y + h * 0.66
 
@@ -452,15 +498,16 @@ def inset_svg(deg):
     hw = SHIP_HALF
     hull = [(-hw, HULL_TOP), (hw, HULL_TOP), (hw - 0.3, 6.5), (hw - 2.2, 1.8), (4.6, -1.0), (1.8, KEEL),
             (-1.8, KEEL), (-4.6, -1.0), (-hw + 2.2, 1.8), (-hw + 0.3, 6.5)]
+    cab, brg = (C["mark"], C["deck"]) if part == "cabin" else (C["deck"], C["mark"])
     ship = (f'<path d="{_d([P(*q) for q in hull])}" fill="{C["hull"]}" stroke="{C["edge"]}" stroke-width="1.2"/>'
-            + mr(-hw, HULL_TOP, hw, B_DECK, C["deck"], C["edge"]) + mr(-hw, B_DECK, hw, BR_DECK, C["mark"], C["edge"])
-            + mr(-7.2, BR_DECK, 7.2, ROOF, C["deck"], C["edge"]) + mr(-0.2, ROOF, 0.2, MAST_TOP, C["mast"]))
+            + mr(-hw, HULL_TOP, hw, B_DECK, C["deck"], C["edge"]) + mr(-hw, B_DECK, hw, BR_DECK, cab, C["edge"])
+            + mr(-7.2, BR_DECK, 7.2, ROOF, brg, C["edge"]) + mr(-0.2, ROOF, 0.2, MAST_TOP, C["mast"]))
     return (f'<defs><clipPath id="inset"><rect x="{x}" y="{y}" width="{w}" height="{h}" rx="6"/></clipPath></defs>'
             f'<g clip-path="url(#inset)">{_rect(x, y, w, py - y, "#d4dfe5")}'
             f'<g transform="rotate({deg:.2f} {px:.1f} {py:.1f})">{ship}</g>'
             f'{_rect(x, py, w, y + h - py, C["seaf0"], op=0.88)}</g>'
             f'{_rect(x, y, w, h, "none", "#e3eaee", 2, rx=6)}'
-            + tag_svg(x + 10, y + h + 34, "客室の階（色）", cap=22, col=C["mark"]))
+            + tag_svg(x + 10, y + h + 34, "客室の階（色）" if part == "cabin" else "操舵室（色）", cap=22, col=C["mark"]))
 
 
 def room_svg(deg, desk=False):
@@ -500,6 +547,380 @@ def ring_svg(c, dir_deg, r=64):
     d = "M" + " L".join(f"{x:.1f} {y:.1f}" for x, y in pts)
     return (f'<path d="{d}" fill="none" stroke="{C["ol"]}" stroke-opacity="0.55" stroke-width="12" stroke-linecap="round"/>'
             f'<path d="{d}" fill="none" stroke="{C["ring"]}" stroke-width="6" stroke-linecap="round"/>')
+
+
+def ask_svg(c):
+    """問いかけの印（吹き出しの「？」）。c＝吹き出しの真ん中。字は立てたまま（読めるように）。"""
+    x, y = c
+    return (f'<path d="M {x - 40:.0f} {y - 34:.0f} H {x + 40:.0f} Q {x + 52:.0f} {y - 34:.0f} {x + 52:.0f} {y - 22:.0f} '
+            f'V {y + 16:.0f} Q {x + 52:.0f} {y + 28:.0f} {x + 40:.0f} {y + 28:.0f} H {x - 6:.0f} L {x - 30:.0f} {y + 50:.0f} '
+            f'L {x - 24:.0f} {y + 28:.0f} H {x - 40:.0f} Q {x - 52:.0f} {y + 28:.0f} {x - 52:.0f} {y + 16:.0f} V {y - 22:.0f} '
+            f'Q {x - 52:.0f} {y - 34:.0f} {x - 40:.0f} {y - 34:.0f} Z" fill="{C["tag"]}" stroke="{C["ol"]}" stroke-width="4"/>'
+            f'<text x="{x:.0f}" y="{y + 15:.0f}" font-family="Noto" font-size="44" fill="{C["ol"]}" '
+            f'text-anchor="middle">？</text>')
+
+
+def glow_svg(c, r=24):
+    """電源の灯のまわりの光の輪（広げて薄める）。"""
+    return (f'<circle cx="{c[0]:.1f}" cy="{c[1]:.1f}" r="{r}" fill="none" stroke="{C["lamp_on"]}" stroke-width="7"/>'
+            f'<circle cx="{c[0]:.1f}" cy="{c[1]:.1f}" r="{r + 7}" fill="none" stroke="{C["ol"]}" stroke-opacity="0.4" stroke-width="3"/>')
+
+
+def seascape_svg(horizon, x0=0.0, x1=float(W), lines=True):
+    """窓・双眼鏡の奥の空と海（水平のまま）。晴れて波が穏やか（判決 p16）。"""
+    g = ['<defs><linearGradient id="csky" x1="0" y1="0" x2="0" y2="1">'
+         f'<stop offset="0" stop-color="{C["sky0"]}"/><stop offset="1" stop-color="{C["sky1"]}"/></linearGradient>'
+         '<linearGradient id="csea" x1="0" y1="0" x2="0" y2="1">'
+         f'<stop offset="0" stop-color="{C["sea0"]}"/><stop offset="1" stop-color="{C["sea1"]}"/></linearGradient></defs>',
+         f'<rect x="{x0:.0f}" y="-1400" width="{x1 - x0:.0f}" height="{horizon + 1402:.0f}" fill="url(#csky)"/>',
+         f'<rect x="{x0:.0f}" y="{horizon:.0f}" width="{x1 - x0:.0f}" height="{H + 1400 - horizon:.0f}" fill="url(#csea)"/>']
+    if lines:
+        g.append(f'<g stroke="{C["wave"]}" stroke-opacity="0.3" stroke-width="2">')
+        for j, dy in enumerate((22, 48, 80, 118, 164)):
+            for xa in range(int(x0) + (j * 97) % 240, int(x1), 380):
+                g.append(f'<path d="M {xa} {horizon + dy:.0f} h {110 + (j * 37) % 90}"/>')
+        g.append("</g>")
+    return "".join(g)
+
+
+def wave_band_svg(ys, seed="illu-cwaves", op=0.35):
+    """波の筋（横に流す drift・画面の幅で巻き戻す）。ys＝筋の y の並び。"""
+    import random
+    rnd = random.Random(seed)
+    g = [f'<g stroke="{C["wave"]}" stroke-opacity="{op}" stroke-width="2" fill="none">']
+    for y in ys:
+        x, segs = rnd.uniform(0, 200), []
+        while x < W:
+            ln = rnd.uniform(70, 200)
+            segs.append(f"M {x:.0f} {y:.0f} h {min(ln, W - x):.0f}")
+            x += ln + rnd.uniform(80, 200)
+        g.append(f'<path d="{" ".join(segs)}"/>')
+    g.append("</g>")
+    return "".join(g)
+
+
+# ══════════════════════════════════════════════════════════
+#  C　操舵室（5階・船橋）の中 ── 14本目 ⑤b-3（2026-09-29）
+# ══════════════════════════════════════════════════════════
+# 🔴 記録にあるもの：操舵室の放送の機器・非常ベル・船内電話・無線機（判決 p16・p17・p49「조타실 내의 비상벨의 이용,
+#    방송장비 또는 선내전화기를 통한 안내방송, 무전기를 통한 사무부에의 지시 등 조타실에서 손쉽게 할 수 있었다」）／
+#    VHF の交信（判決 p11・海審 p1058）／操舵手が舵を回す（海審 p1047）／非常電源が来ていた（海審 p1060 注30）。
+#    形・並び・色・計器は記録に無い＝抽象（平らな塗り・細部なし）。
+# 絵は B と同じく**場面ごとに傾き1つ**を SVG で回して焼く（画面の右が下＝左舷）。**窓の外の海は回さない**（水平＝傾いたのは船）。
+# 人の影は1人ずつ数えられる型紙（sprite）＝門番 ③。🔴 **影は立てたまま（重力の向き）**・足もとだけ傾いた床に置く
+#   （⑤b-3 の下見：部屋と一緒に 45度傾けると、8人が斜めに寝そべった帯に見えて数えにくく、重力まで傾いた絵になった）。
+# 🔴 人数（⑤b-3 で原文に当てた）：8時30分〜8時50分は当直2人＋機関長の3人（海審 p1047・p1048）／8時52分〜9時00分ごろは
+#    判決 p11 の8人＋機関長の9人（機関長は9時00〜05分に出た＝海審 p1055・船員の2審 p5007）／9時25分ごろは8人（判決 p14）。
+#    ＝helm は**舵の前だけの寄り**（当直の2人）・部屋の全体に人を置くのは 9時05分より後の room だけ
+CCEN = dict(helm=(960.0, 540.0), console=(960.0, 450.0), room=(960.0, 480.0))    # 回す中心
+HELM = dict(k=176.0, feet=830.0, wall=760.0, horizon=452.0)   # k＝1メートルの画素（背 1.7メートル＝300画素）
+CONS = dict(wtop=110.0, wbot=520.0, top=560.0, face=600.0, horizon=380.0)
+# room：背 1.7メートル＝160画素・床に沿って 116画素ずつ＝45度の床で画面の縦に 82画素ずつずれる（背の半分 80 より大きい＝
+#   門番 ③ の「重ならない」）。8人の並びが 45度でも画面の上下に収まる長さ（812画素）
+ROOMC = dict(k=94.0, feet=600.0, wall=560.0, horizon=380.0)
+HELM_FIG = ((1075.0, 830.0), (1345.0, 830.0))       # 操舵手（舵の右）・3等航海士の足もと（回す前）
+ROOM_FIG = tuple((494.0 + 116.0 * j, 600.0) for j in range(8))
+ROOM_ASKER, ROOM_CAPTAIN = 2, 5                     # 問いかける2等航海士・船長（並びの中のどの影かは記録に無い＝仮）
+HELM_WHEEL = (945.0, 612.0)
+CONS_RADIO = (700.0, 400.0)                         # VHF の表示窓（輪の中心）
+CONS_PA = (1300.0, 478.0)                           # 船内放送の機器
+CONS_LAMP = (1460.0, 420.0)                         # 船内放送の機器の電源の灯
+ROOM_WALKIE = (1400.0, 440.0)                       # 3階と話す無線機（手に持つ形・机の上）
+
+
+def _c_frame(view):
+    """見え方ごとの 天井・窓の上・窓の下・机の上・机の前（回す前の y）と窓の枠の間隔・幅。"""
+    if view == "helm":
+        k, wall = HELM["k"], HELM["wall"]
+        return dict(wt=wall - 2.4 * k, wb=wall - 1.12 * k, top=wall - 1.0 * k, face=wall - 0.94 * k, floor=wall,
+                    pitch=300.0, mw=22.0)
+    if view == "room":
+        k, wall = ROOMC["k"], ROOMC["wall"]
+        return dict(wt=wall - 2.3 * k, wb=wall - 1.1 * k, top=wall - 0.95 * k, face=wall - 0.88 * k, floor=wall,
+                    pitch=230.0, mw=16.0)
+    return dict(wt=CONS["wtop"], wb=CONS["wbot"], top=CONS["top"], face=CONS["face"], floor=None, pitch=460.0, mw=28.0)
+
+
+def c_room_svg(view):
+    """操舵室の壁・窓の枠・天井・机・床（回す前の画面の座標）。窓は抜いてある＝下の層の海が見える。"""
+    X0, X1, Y0, Y1 = -1100.0, 3020.0, -1100.0, 2000.0
+    f = _c_frame(view)
+    g = [_rect(X0, Y0, X1 - X0, f["wt"] - Y0, C["ceil"]),
+         _rect(X0, f["wt"] - 26, X1 - X0, 26, C["wall_r"]),
+         _rect(X0, f["wb"], X1 - X0, f["top"] - f["wb"], C["wall_l"])]
+    x = X0
+    while x < X1:                                        # 窓の枠（縦）
+        g.append(_rect(x, f["wt"], f["mw"], f["wb"] - f["wt"], C["door_edge"]))
+        x += f["pitch"]
+    g += [f'<path d="M {X0:.0f} {f["wt"]:.1f} H {X1:.0f} M {X0:.0f} {f["wb"]:.1f} H {X1:.0f}" stroke="{C["door_edge"]}" '
+          f'stroke-width="8"/>',
+          _rect(X0, f["top"], X1 - X0, f["face"] - f["top"], C["desk_top"]),                    # 机の上
+          _rect(X0, f["face"], X1 - X0, (f["floor"] or Y1) - f["face"], C["desk"])]             # 机の前
+    if f["floor"] is not None:
+        g.append(_rect(X0, f["floor"], X1 - X0, Y1 - f["floor"], C["floor"]))
+        g.append(f'<path d="M {X0:.0f} {f["floor"]:.1f} H {X1:.0f}" stroke="{C["door_edge"]}" stroke-width="4"/>')
+    if view == "helm":
+        # 舵（操舵台）＝台と小さな輪（形は記録に無い＝抽象）。当直の操舵手が回す（海審 p1047）
+        wx, wy = HELM_WHEEL
+        g += [_rect(wx - 42, wy + 24, 84, HELM["feet"] - wy - 24, "#56626b", C["ol"], 3, rx=8),
+              f'<circle cx="{wx:.0f}" cy="{wy:.0f}" r="58" fill="none" stroke="{C["mic"]}" stroke-width="12"/>',
+              f'<circle cx="{wx:.0f}" cy="{wy:.0f}" r="12" fill="{C["mic"]}"/>']
+        for a in (0, 60, 120):
+            r = math.radians(a)
+            g.append(f'<path d="M {wx - 56 * math.cos(r):.1f} {wy - 56 * math.sin(r):.1f} L {wx + 56 * math.cos(r):.1f} '
+                     f'{wy + 56 * math.sin(r):.1f}" stroke="{C["mic"]}" stroke-width="7"/>')
+    elif view == "console":
+        # VHF の無線機（左）：箱・表示窓・スピーカーの格子・つまみ。形は抽象（機種は記録に無い）
+        rx, ry = CONS_RADIO
+        g += [_rect(rx - 150, ry - 70, 440, 240, "#3a464f", C["ol"], 4, rx=10),
+              _rect(rx - 120, ry - 38, 230, 76, "#15242d", "#0c1418", 3, rx=6),
+              f'<path d="M {rx - 104:.0f} {ry:.0f} H {rx + 90:.0f}" stroke="#6fa38a" stroke-width="5" opacity="0.8"/>']
+        for j in range(6):
+            g.append(f'<path d="M {rx + 140:.0f} {ry - 40 + 16 * j:.0f} H {rx + 262:.0f}" stroke="#1f2a31" stroke-width="7"/>')
+        g += [f'<circle cx="{rx - 70:.0f}" cy="{ry + 110:.0f}" r="18" fill="#1f2a31"/>',
+              f'<circle cx="{rx + 20:.0f}" cy="{ry + 110:.0f}" r="18" fill="#1f2a31"/>']
+        # 船内放送の機器（右）：箱・スイッチの列・電源の灯（灯は点いている＝非常電源が来ていた＝海審 p1060 注30）
+        px, py = CONS_PA
+        lx, ly = CONS_LAMP
+        g.append(_rect(px - 230, py - 100, 460, 200, "#3f4a52", C["ol"], 4, rx=10))
+        for j in range(6):
+            g.append(_rect(px - 196 + 62 * j, py - 6, 36, 60, "#1f2a31", "#0c1418", 2, rx=5))
+        g += [f'<circle cx="{lx:.0f}" cy="{ly:.0f}" r="21" fill="#1a2328"/>',
+              f'<circle cx="{lx:.0f}" cy="{ly:.0f}" r="15" fill="{C["lamp_on"]}"/>',
+              f'<circle cx="{lx - 5:.0f}" cy="{ly - 5:.0f}" r="5" fill="#f4fff0" opacity="0.9"/>']
+        # 放送のマイク（首の長いもの）
+        g += [f'<ellipse cx="{px + 330:.0f}" cy="{CONS["top"] + 8:.0f}" rx="46" ry="12" fill="{C["mic"]}"/>',
+              f'<path d="M {px + 330:.0f} {CONS["top"] + 4:.0f} Q {px + 330:.0f} {py - 90:.0f} {px + 280:.0f} {py - 140:.0f}" '
+              f'stroke="{C["mic"]}" stroke-width="9" fill="none" stroke-linecap="round"/>',
+              f'<rect x="{px + 252:.0f}" y="{py - 170:.0f}" width="46" height="34" rx="12" fill="{C["mic"]}" '
+              f'transform="rotate(-35 {px + 275:.0f} {py - 153:.0f})"/>']
+    elif view == "room":
+        # 3階の案内デスクと話す無線機（判決 p14「조타실에 있는 무전기」）＝机の上の手に持つ形（形は抽象）
+        wx, wy = ROOM_WALKIE
+        g += [_rect(wx - 16, wy - 30, 32, 62, "#2c353b", C["ol"], 3, rx=6),
+              _rect(wx + 4, wy - 64, 6, 36, "#2c353b"),
+              _rect(wx - 9, wy - 20, 18, 14, "#3d5563")]
+    return "".join(g)
+
+
+def _rot_at(inner, deg, cen):
+    return f'<g transform="rotate({deg:.2f} {cen[0]:.0f} {cen[1]:.0f})">{inner}</g>' if deg else inner
+
+
+# ══════════════════════════════════════════════════════════
+#  E　管制センター（チンド）の中 ── 14本目 ⑤b-3
+# ══════════════════════════════════════════════════════════
+# 記録：管制センター＝**レーダーと交信の装備で、行き交う船の動きを見守り、情報を知らせる所**（特調委 p3096）／
+#   管制の画面（特調委小 p4180「관제화면」）・진도VTS のレーダーの航跡（海審 p1010）／9時6分に VHF 67番でセウォル号を呼んだ
+#   （海審 p1059）・9時6分〜9時36分の交信（特調委小 p4180）。🔴 人は描かない（管制官の人数が記録に無い）・椅子も置かない
+#   （空の椅子＝人がいなかったように見える）。画面には**セウォル号の点だけ**（ほかの船の数と位置は記録に無い＝点を足さない）
+ESCR = (170.0, 110.0, 1350.0, 700.0)
+ERAD = (760.0, 405.0)                  # 画面の同心円の中心
+EDOT = (905.0, 350.0)                  # セウォル号の点
+EMIC = (1330.0, 640.0)                 # 交信のマイクの頭
+EDIR = math.degrees(math.atan2(EDOT[1] - EMIC[1], EDOT[0] - EMIC[0]))
+
+
+def e_room_svg():
+    x0, y0, x1, y1 = ESCR
+    cx, cy = ERAD
+    g = ['<defs><linearGradient id="ewall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d3942"/>'
+         '<stop offset="1" stop-color="#1e262d"/></linearGradient>'
+         f'<clipPath id="escr"><rect x="{x0}" y="{y0}" width="{x1 - x0}" height="{y1 - y0}"/></clipPath></defs>',
+         f'<rect x="0" y="0" width="{W}" height="{H}" fill="url(#ewall)"/>',
+         _rect(x0 - 22, y0 - 22, x1 - x0 + 44, y1 - y0 + 44, "#0b1014", "#3b4852", 3, rx=10),
+         _rect(x0, y0, x1 - x0, y1 - y0, "#0e2433"),
+         '<g clip-path="url(#escr)">']
+    x = x0
+    while x < x1:
+        g.append(f'<path d="M {x:.0f} {y0:.0f} V {y1:.0f}" stroke="#173a4c" stroke-width="1.5"/>')
+        x += 90
+    y = y0
+    while y < y1:
+        g.append(f'<path d="M {x0:.0f} {y:.0f} H {x1:.0f}" stroke="#173a4c" stroke-width="1.5"/>')
+        y += 90
+    for r in (95, 190, 285, 380, 475):
+        g.append(f'<circle cx="{cx:.0f}" cy="{cy:.0f}" r="{r}" fill="none" stroke="#1f5066" stroke-width="2.5"/>')
+    g.append(f'<path d="M {cx:.0f} {cy:.0f} L {cx + 460 * math.cos(math.radians(-38)):.0f} '
+             f'{cy + 460 * math.sin(math.radians(-38)):.0f}" stroke="#2b6f86" stroke-width="3"/></g>')
+    # 机と交信の装備（形は抽象）
+    g += [_rect(0, 760, W, 34, "#3a4650"), _rect(0, 794, W, H - 794, "#252e35"),
+          _rect(1470, 590, 340, 172, "#303b44", "#141b20", 3, rx=8),
+          _rect(1500, 622, 150, 56, "#10202a", "#0b1014", 2, rx=4),
+          f'<path d="M 1512 650 H 1636" stroke="#6fa38a" stroke-width="4" opacity="0.8"/>']
+    for j in range(6):
+        g.append(f'<path d="M 1672 {620 + 20 * j} H 1790" stroke="#1a2328" stroke-width="8"/>')
+    mx, my = EMIC
+    g += [f'<ellipse cx="{mx + 90:.0f}" cy="768" rx="50" ry="12" fill="{C["mic"]}"/>',
+          f'<path d="M {mx + 90:.0f} 764 Q {mx + 96:.0f} {my + 40:.0f} {mx + 18:.0f} {my + 8:.0f}" stroke="{C["mic"]}" '
+          f'stroke-width="9" fill="none" stroke-linecap="round"/>',
+          f'<rect x="{mx - 24:.0f}" y="{my - 16:.0f}" width="48" height="32" rx="12" fill="{C["mic"]}" '
+          f'transform="rotate(30 {mx:.0f} {my:.0f})"/>']
+    return "".join(g)
+
+
+def e_dot_svg():
+    x, y = EDOT
+    return (f'<circle cx="{x}" cy="{y}" r="17" fill="{C["mark"]}" opacity="0.25"/>'
+            f'<circle cx="{x}" cy="{y}" r="10" fill="{C["mark"]}" stroke="#0b1014" stroke-width="2"/>')
+
+
+def e_sel_svg():
+    x, y = EDOT
+    return (f'<circle cx="{x}" cy="{y}" r="36" fill="none" stroke="{C["mark"]}" stroke-width="4"/>'
+            f'<path d="M {x - 52} {y} H {x - 40} M {x + 40} {y} H {x + 52} M {x} {y - 52} V {y - 40} M {x} {y + 40} V {y + 52}" '
+            f'stroke="{C["mark"]}" stroke-width="4"/>')
+
+
+# ══════════════════════════════════════════════════════════
+#  D の見え方（⑤b-3）：sea（海を進む123艇）・far（123艇から見た遠くの船・双眼鏡）・heli（ヘリ）・rail（3階の左舷とゴムボート）
+# ══════════════════════════════════════════════════════════
+SEA = dict(x0=540.0, water=700.0, s=26.0)          # 海を進む123艇：艇首の x の既定・水面・1メートルの画素
+FAR = dict(piv=(1210.0, 612.0), s=0.42)            # 123艇から見た遠くのセウォル号（水面の中心・縮尺）
+FAR_SEA = dict(piv=(330.0, 609.0), s=0.30)         # sea の奥の遠くのセウォル号（c919）
+NEAR = (960.0, 640.0)                              # 双眼鏡の中の船（水面の中心・20画素＝1メートル）
+BINOC = ((745.0, 470.0), (1175.0, 470.0), 330.0)   # 双眼鏡の2つの丸（中心・半径）
+HELI = (850.0, 168.0)                              # ヘリの胴の真ん中（形は記録に無い＝影の形）。下見：上端に寄りすぎた＝下げた
+HELI_LINE = (835.0, 202.0, 318.0)                  # 吊り下げの線（x・上・下）＝傾いた船の上の側（右舷）の近くまで
+RAIL = dict(water=730.0, k=60.0)                   # 3階の左舷（横から）。1メートル＝60画素（背 1.7メートル＝102画素）
+RAIL_TOP = RAIL["water"] - 2.1 * RAIL["k"]         # 手すりの上＝ボートで立った人の頭（ボートの床 0.4＋背 1.7 メートル）
+RAIL_EDGE = RAIL_TOP + 1.0 * RAIL["k"]             # 甲板のふち（手すりの下）
+RAIL_FLOOR = RAIL["water"] - 0.4 * RAIL["k"]       # ゴムボートの床
+# 下見：出入り口がボートから遠いと、乗り移る影が手すりの高さを横切って「手すりの上を歩く」絵になった
+#   ＝出入り口をボートの右端の上へ・立った乗組員はボートの左端へ（位置は記録に無い＝仮）
+RAIL_CG = (525.0, RAIL_FLOOR)                      # 立った乗組員の足もと
+RAIL_DOOR = (1010.0, 470.0)                        # 3階の通路につながる左舷の出入り口の下（判決 p17）
+RAIL_SPOTS = tuple((600.0 + 58.0 * j, RAIL_FLOOR) for j in range(7))
+
+
+def marks_far_svg(piv, sw):
+    g = []
+    for row in win_rects():
+        x0, y0 = row[0][0] - 0.25, row[0][1] - 0.25
+        x1, y1 = row[-1][0] + row[-1][2] + 0.25, row[0][1] + row[0][3] + 0.25
+        g.append(_mrect(x0, y0, x1, y1, piv, "none", C["mark"], sw, rx=4))
+    return "".join(g)
+
+
+def far_ship_svg(piv, deg, s, marks=False):
+    """遠くの船（傾き deg を焼き込む・縮尺 s・水面から下は切る）。marks＝客室の窓の列の印だけ。"""
+    px, py = piv
+    inner = marks_far_svg(piv, 3.5 / s) if marks else ship_svg(piv)
+    return (f'<defs><clipPath id="farc"><rect x="-10" y="-10" width="{W + 20}" height="{py + 10:.1f}"/></clipPath></defs>'
+            f'<g clip-path="url(#farc)"><g transform="rotate({deg:.2f} {px:.1f} {py:.1f})">'
+            f'<g transform="translate({px:.1f} {py:.1f}) scale({s:.3f}) translate({-px:.1f} {-py:.1f})">{inner}</g></g></g>')
+
+
+def far_center(piv, deg, s):
+    """遠くの船の真ん中あたり（札とカメラの指し先）。"""
+    p = ship_pt(0.0, A_DECK, deg, piv)
+    return (piv[0] + (p[0] - piv[0]) * s, piv[1] + (p[1] - piv[1]) * s)
+
+
+def wake123_svg(x0, water, s):
+    """進む123艇の艇首の波と艇尾の白い筋（run の間だけ）。"""
+    sx = x0 + BOAT_L * s
+    g = [f'<path d="M {x0 - 34:.0f} {water + 2:.0f} Q {x0 + 40:.0f} {water - 12:.0f} {x0 + 150:.0f} {water + 4:.0f} '
+         f'Q {x0 + 40:.0f} {water + 16:.0f} {x0 - 34:.0f} {water + 2:.0f} Z" fill="{C["foam"]}" opacity="0.9"/>',
+         f'<path d="M {sx - 20:.0f} {water + 4:.0f} H {sx + 460:.0f}" stroke="{C["foam"]}" stroke-width="12" opacity="0.45" '
+         f'stroke-linecap="round"/>']
+    for k in range(5):
+        xa = sx + 30 + 92 * k
+        g.append(f'<path d="M {xa:.0f} {water + 8 + 6 * k:.0f} q 60 -4 124 3" stroke="{C["foam"]}" stroke-width="4" '
+                 f'fill="none" opacity="{0.8 - 0.14 * k:.2f}"/>')
+    return "".join(g)
+
+
+def binoc_svg():
+    """双眼鏡の丸い視野（2つの丸の外を暗く）。"""
+    (c1, c2, r) = BINOC
+    return (f'<defs><mask id="bm"><rect x="0" y="0" width="{W}" height="{H}" fill="#fff"/>'
+            f'<circle cx="{c1[0]:.0f}" cy="{c1[1]:.0f}" r="{r:.0f}" fill="#000"/>'
+            f'<circle cx="{c2[0]:.0f}" cy="{c2[1]:.0f}" r="{r:.0f}" fill="#000"/></mask></defs>'
+            f'<rect x="0" y="0" width="{W}" height="{H}" fill="#06090b" mask="url(#bm)"/>')
+
+
+def near_ship_svg(deg, base=(0.0, 0.0)):
+    """双眼鏡の中の船（傾きを焼き込む）と、その奥の空と海・手前の海。base＝先に置く位置（ずらしの真ん中）。"""
+    return (f'<g transform="translate({base[0]:.1f} {base[1]:.1f})">'
+            + seascape_svg(HORIZON, -2600.0, 4500.0)
+            + f'<g transform="rotate({deg:.2f} {NEAR[0]:.0f} {NEAR[1]:.0f})">{ship_svg(NEAR)}</g>'
+            + front_sea_svg(WATER, -2600.0, 4500.0) + "</g>")
+
+
+def heli_svg():
+    """海洋警察のヘリ1機（影の形・形と色は記録に無い）と吊り下げの線（人は描かない＝救助された人を描かない）。"""
+    x, y = HELI
+    lx, ly0, ly1 = HELI_LINE
+    return (f'<path d="M {lx:.0f} {ly0:.0f} V {ly1:.0f}" stroke="{C["ol"]}" stroke-width="5"/>'
+            f'<path d="M {lx:.0f} {ly0:.0f} V {ly1:.0f}" stroke="#e3eaee" stroke-width="2"/>'
+            f'<path d="M {x + 40:.0f} {y + 2:.0f} L {x + 170:.0f} {y - 8:.0f} L {x + 172:.0f} {y + 6:.0f} L {x + 40:.0f} {y + 22:.0f} Z" '
+            f'fill="#e3e8eb" stroke="{C["ol"]}" stroke-width="3"/>'
+            f'<path d="M {x + 158:.0f} {y - 8:.0f} L {x + 176:.0f} {y - 40:.0f} L {x + 186:.0f} {y - 38:.0f} L {x + 180:.0f} {y + 4:.0f} Z" '
+            f'fill="#e3e8eb" stroke="{C["ol"]}" stroke-width="3"/>'
+            f'<path d="M {x - 78:.0f} {y + 6:.0f} Q {x - 80:.0f} {y - 30:.0f} {x - 30:.0f} {y - 34:.0f} L {x + 44:.0f} {y - 30:.0f} '
+            f'Q {x + 64:.0f} {y - 10:.0f} {x + 56:.0f} {y + 24:.0f} Q {x - 10:.0f} {y + 40:.0f} {x - 60:.0f} {y + 30:.0f} Z" '
+            f'fill="#eef1f3" stroke="{C["ol"]}" stroke-width="3"/>'
+            f'<path d="M {x - 70:.0f} {y + 8:.0f} Q {x - 66:.0f} {y - 22:.0f} {x - 34:.0f} {y - 24:.0f} L {x - 30:.0f} {y + 6:.0f} Z" '
+            f'fill="{C["win"]}"/>'
+            f'<path d="M {x - 66:.0f} {y + 16:.0f} H {x + 54:.0f}" stroke="{C["boat_navy"]}" stroke-width="6"/>'
+            f'<path d="M {x - 44:.0f} {y + 40:.0f} V {y + 52:.0f} M {x + 30:.0f} {y + 38:.0f} V {y + 52:.0f} '
+            f'M {x - 66:.0f} {y + 52:.0f} H {x + 50:.0f}" stroke="{C["ol"]}" stroke-width="4" stroke-linecap="round"/>'
+            f'<path d="M {x - 6:.0f} {y - 34:.0f} V {y - 46:.0f}" stroke="{C["ol"]}" stroke-width="6"/>'
+            f'<path d="M {x - 150:.0f} {y - 48:.0f} H {x + 140:.0f}" stroke="{C["ol"]}" stroke-width="6" stroke-linecap="round"/>')
+
+
+def rail_ship_svg():
+    """3階の左舷を横から（海の上のゴムボートの高さから）。客室の壁・窓（中は描かない）・左舷の出入り口・甲板・手すり・海。
+    傾きの角度は描かない（9時38分の角度は記録に無い＝海審 p1057 は 9時34分 52.2度・9時46分 61.2度）"""
+    wy = RAIL["water"]
+    top, edge = RAIL_TOP, RAIL_EDGE
+    dx, dy = RAIL_DOOR
+    g = ['<defs><linearGradient id="rsky" x1="0" y1="0" x2="0" y2="1">'
+         f'<stop offset="0" stop-color="{C["sky0"]}"/><stop offset="1" stop-color="{C["sky1"]}"/></linearGradient>'
+         '<linearGradient id="rsea" x1="0" y1="0" x2="0" y2="1">'
+         f'<stop offset="0" stop-color="{C["sea0"]}"/><stop offset="1" stop-color="{C["sea1"]}"/></linearGradient></defs>',
+         f'<rect x="0" y="0" width="{W}" height="180" fill="url(#rsky)"/>',
+         _rect(0, 150, W, 330, C["hull"]),
+         f'<path d="M 0 150 H {W}" stroke="{C["edge"]}" stroke-width="4"/>']
+    for x in range(40, W, 150):
+        if not (dx - 150 < x < dx + 80):
+            g.append(_rect(x, 250, 88, 80, C["win"], rx=4))
+    g += [_rect(dx - 66, dy - 180, 132, 180, C["edge"], rx=4), _rect(dx - 56, dy - 170, 112, 170, "#2f3a42"),
+          _rect(0, 470, W, edge - 470, C["deck"]),
+          f'<path d="M 0 470 H {W}" stroke="{C["edge"]}" stroke-width="3"/>',
+          _rect(0, edge, W, wy - edge + 40, "#dfe5e9"),
+          _rect(0, wy - 18, W, 12, C["navy"])]
+    for x in range(0, W + 70, 70):
+        g.append(_rect(x, top, 7, edge - top, "#8d9aa3"))
+    g += [_rect(0, top - 5, W, 10, "#8d9aa3", C["ol"], 1.5),
+          _rect(0, top + 0.5 * RAIL["k"] - 3, W, 6, "#8d9aa3"),
+          f'<rect x="0" y="{wy:.0f}" width="{W}" height="{H - wy:.0f}" fill="url(#rsea)"/>',
+          f'<path d="M 0 {wy + 1:.0f} H {W}" stroke="#dbe7ee" stroke-opacity="0.4" stroke-width="2"/>']
+    return "".join(g)
+
+
+def rboat_svg(part):
+    """123艇のゴムボート（1隻だけ＝特調委小 p4194）。形・色・大きさは記録に無い＝仮。back＝奥の浮き・床／front＝手前の浮き。"""
+    fy = RAIL_FLOOR
+    if part == "back":
+        return (_rect(470, fy - 20, 560, 24, "#4c575e", C["ol"], 2, rx=12) + _rect(480, fy - 2, 540, 16, "#2c3439"))
+    return (f'<path d="M 440 {fy - 14:.0f} Q 440 {fy + 40:.0f} 500 {fy + 42:.0f} H 1010 Q 1052 {fy + 40:.0f} 1052 {fy + 14:.0f} '
+            f'Q 1052 {fy - 14:.0f} 1010 {fy - 16:.0f} H 500 Q 450 {fy - 18:.0f} 440 {fy - 14:.0f} Z" fill="#5f6b73" '
+            f'stroke="{C["ol"]}" stroke-width="3"/>'
+            f'<path d="M 470 {fy + 12:.0f} H 1030" stroke="#76838b" stroke-width="5" opacity="0.8"/>')
+
+
+def rail_guide_svg():
+    """頭の高さ＝手すりの上（艇長の判決 p5002）を見せる点線。"""
+    x0, x1 = RAIL_CG[0] - 34, RAIL_CG[0] + 340
+    return (f'<path d="M {x0:.0f} {RAIL_TOP:.0f} H {x1:.0f}" stroke="{C["ol"]}" stroke-width="7" stroke-dasharray="16 10"/>'
+            f'<path d="M {x0:.0f} {RAIL_TOP:.0f} H {x1:.0f}" stroke="{C["mark"]}" stroke-width="3.5" stroke-dasharray="16 10"/>')
+
+
+def rail_board_path(j):
+    """j 人目の道：3階の通路の出入り口 → すぐ下の手すりを越える → ゴムボート（判決 p17）。"""
+    return [RAIL_DOOR, (RAIL_DOOR[0] - 25.0, RAIL_TOP + 2.0), RAIL_SPOTS[j]]
 
 
 # ══════════════════════════════════════════════════════════
@@ -591,24 +1012,39 @@ def rec_line(recs, docs=None):
 #  場面（scene）＝部品と鍵
 # ══════════════════════════════════════════════════════════
 FIELDS = {
-    "A": dict(heel=0.0, wake="on", boxes="off", cam=1.0),
-    "D": dict(heel=61.2, mark="off", crowd="off", cam=1.0),
+    "A": dict(heel=0.0, wake="on", boxes="off", bridge="off", cam=1.0),
+    "D": dict(view="ship", heel=61.2, mark="off", crowd="off", cam=1.0, bx=SEA["x0"], run="off", far="off", spk="off",
+              binoc="off", rboat="off", cg="off"),
     "B": dict(view="corridor", heel=0.0, crowd="off", cam=1.0),
+    "C": dict(view="console", heel=0.0, crew=0, cam=1.0),
+    "E": dict(sel="off", cam=1.0),
 }
-CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=("off", "on"), crowd=("off", "on"),
-               view=("corridor", "cabin", "desk"))
-REC_FIELDS = ("heel", "wake", "boxes", "crowd")          # 変える段には rec が要る（記録の事実を描く欄）
-EVENTS = ("rings", "board")                              # 段ごとの出来事（引き継がない）
-VIEW = dict(A="船首の側から見た図", D="船首の側から見た図", B="船の中")
+ONOFF = ("off", "on")
+CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONOFF, crowd=ONOFF, bridge=ONOFF, run=ONOFF,
+               far=ONOFF, spk=ONOFF, binoc=ONOFF, rboat=ONOFF, cg=ONOFF, sel=ONOFF)
+VIEWS = dict(B=("corridor", "cabin", "desk"), C=("helm", "console", "room"), D=("ship", "sea", "far", "heli", "rail"))
+# 変える段には rec が要る（記録の事実を描く欄）。⑤b-3 で置き場 C・D・E の欄を足した（位置 bx とカメラ cam は要らない）
+REC_FIELDS = ("heel", "wake", "boxes", "crowd", "mark", "bridge", "run", "far", "binoc", "rboat", "cg", "crew", "sel")
+# 段ごとの出来事（引き継がない・数で書く＝画面の文字の門番が文字として読まない）
+EVENTS = ("rings", "board", "rings_in", "asks", "walkie", "glow")
+VIEW = dict(A="船首の側から見た図", D="船首の側から見た図", B="船の中", C="操舵室の中", E="管制センターの中")
+D_VIEW = dict(ship="船首の側から見た図", heli="船首の側から見た図", sea="123艇を横から見た図", far="123艇から見た図",
+              rail="3階の左舷を横から見た図")
 ROLES = ("crew", "coast_guard", "control")                # 型紙（数えられる影）で置ける役割
-CAM_C = dict(A=(820.0, 420.0), D=(990.0, 560.0), B=CB)
+CAM_C = dict(A=(820.0, 420.0), D=(990.0, 560.0), B=CB, E=(905.0, 420.0))
+# 音の輪の種類：out＝広がって外へ／inn＝外から集まる（大→小）／ask＝問いかけの印が出る／glow＝灯のまわりの光
+RING_KIND = dict(out=dict(s0=0.5, s1=2.2, gap=0.8, dur=1.4), inn=dict(s0=2.4, s1=0.55, gap=0.8, dur=1.3),
+                 ask=dict(s0=0.72, s1=1.12, gap=1.15, dur=1.05), glow=dict(s0=0.8, s1=2.0, gap=0.75, dur=1.2))
 
 
 def _check_state(place, st):
     for k, v in st.items():
         if k not in FIELDS[place]:
             raise ValueError(f"illu {place}：知らない欄 {k!r}（使えるのは {tuple(FIELDS[place])}）")
-        if k in CHOICES and v not in CHOICES[k]:
+        if k == "view":
+            if v not in VIEWS.get(place, ()):
+                raise ValueError(f"illu {place}：view={v!r} は知らない見え方（{VIEWS.get(place)}）")
+        elif k in CHOICES and v not in CHOICES[k]:
             raise ValueError(f"illu {place}：{k}={v!r} は知らない状態（{CHOICES[k]}）")
         if k == "cam" and float(v) < 1.0:
             raise ValueError("illu：cam（寄り）は 1.0 以上（引きすぎると画面の端が空く）")
@@ -639,6 +1075,18 @@ def _part(pid, svg, rec, pivot=(0.0, 0.0), keys=None, **kw):
 
 def _vis(on):
     return dict(a=1.0 if on else 0.0)
+
+
+def _pulse_part(pid, svg, rec, c, states, steps, key, kind):
+    """段ごとの出来事 key（数＝何回）を、音の輪の型（RING_KIND）の部品に。起きない場面は部品を作らない。"""
+    pulse = [dict(stage=i, delay=float(sp.get("ring_delay", 0.3)), n=int(sp[key]), **RING_KIND[kind])
+             for i, (st, sp) in enumerate(zip(states, steps)) if sp.get(key)]
+    return [dict(_part(pid, svg, rec, c), kind="ring", pulse=pulse)] if pulse else []
+
+
+def bridge_mark_svg(piv):
+    """操舵室（5階・船橋の真ん中）の印（A・c702）。窓の中の人は描かない（外から見えない）。"""
+    return _mrect(-7.7, BR_DECK - 0.35, 7.7, ROOF + 0.55, piv, "none", C["mark"], 5, rx=6)
 
 
 def _ship_parts(place, start, states, steps, piv):
@@ -677,6 +1125,11 @@ def _scene_A(start, states, steps):
                                dx=ks[-1]["dx"], dy=ks[-1]["dy"],
                                a=0.0 if (fallen or st["boxes"] != "on") else 1.0))
         parts.append(_part("boxes_fall", boxes_svg(piv, "fall"), "海審 p1009（船首の甲板のコンテナが傾きで海へ）", piv, ks))
+    if any(st["bridge"] == "on" for st in [start] + states):
+        # ⑤b-3（c702）：操舵室に集まった＝場所だけを外から示す（中の人数は 8時52〜55分に9人＝判決 p11 の8人＋機関長
+        #   〈海審 p1053・p1055〉。外からは中が見えない＝人を描かない）
+        parts.append(_part("bridge", bridge_mark_svg(piv), "判決 p11（8時52分ごろ 船長と甲板部が操舵室に集まった）", piv,
+                           _keys(start, states, steps, lambda st: dict(rot=float(st["heel"]), **_vis(st["bridge"] == "on")))))
     parts += [_part("front_sea", front_sea_svg(), "判決 p16"),
               _part("wake", wake_svg(piv), "判決 p11（8時52分に止まる）", piv,
                     _keys(start, states, steps, lambda st: _vis(st["wake"] == "on")))]
@@ -684,6 +1137,217 @@ def _scene_A(start, states, steps):
 
 
 def _scene_D(start, states, steps):
+    """置き場 D は見え方 view で分ける（⑤b-3）。見え方は場面の頭で1つ。乗客の群れは ship だけ（窓の奥＝門番 ②）。"""
+    view = start["view"]
+    if any(st["view"] != view for st in states):
+        raise ValueError("illu D：見え方 view は場面の頭（start）で1つだけ")
+    if view != "ship" and any(st["crowd"] == "on" for st in [start] + states):
+        raise ValueError(f"illu D：乗客の群れ（crowd）は view=ship の窓の奥だけ（{view} には描かない）")
+    return {"ship": _scene_D_ship, "sea": _scene_D_sea, "far": _scene_D_far, "heli": _scene_D_heli,
+            "rail": _scene_D_rail}[view](start, states, steps)
+
+
+def _fixed_heel(start, states, what):
+    deg = float(start["heel"])
+    if any(float(st["heel"]) != deg for st in states):
+        raise ValueError(f"illu {what}：傾きは場面の頭（start）で1つだけ（SVG で焼き込む）")
+    return deg
+
+
+def _scene_D_sea(start, states, steps):
+    """海を進む123艇（c901・c902）・遠くのセウォル号と123艇の放送の設備（c919）。横から見た図。"""
+    x0, wy, s = SEA["x0"], SEA["water"], SEA["s"]
+    allst = [start] + states
+    run = any(st["run"] == "on" for st in allst)
+    parts = [_part("sky", sky_svg(), "判決 p16（晴れ・波が穏やか）・海審 p1065（ピョンプンドの北東）"),
+             dict(_part("waves", waves_svg(), "判決 p16（波が穏やか）"), drift=150.0 if run else -9.0)]
+    if any(st["far"] == "on" for st in allst):
+        deg = _fixed_heel(start, states, "D sea（遠くの船）")
+        parts.append(_part("far", far_ship_svg(FAR_SEA["piv"], deg, FAR_SEA["s"]), "海審 p1013（要目）・p1015（〔그림1〕の写真）",
+                           FAR_SEA["piv"], _keys(start, states, steps, lambda st: _vis(st["far"] == "on"))))
+    mv = lambda st: dict(dx=float(st["bx"]) - x0)  # noqa: E731
+    parts.append(_part("boat", boat123_svg(x0, wy, s, spk=any(st["spk"] == "on" for st in allst)),
+                       "艇長の判決 p5002（100トン級・全長32.2・幅6メートル・放送の設備）", (x0, wy),
+                       _keys(start, states, steps, mv)))
+    parts.append(_part("front_sea", front_sea_svg(wy), "判決 p16"))
+    if run:
+        parts.append(_part("wake", wake123_svg(x0, wy, s), "特調委 p3099（8時57分に指示を受けて現場へ向かった）", (x0, wy),
+                           _keys(start, states, steps, lambda st: dict(mv(st), **_vis(st["run"] == "on")))))
+    # 外からの無線（c902：9時18分 TRS で約450人と知らされた＝艇長の判決 p5002）＝マストの先へ集まる輪
+    at = next((st for st, sp in zip(states, steps) if sp.get("rings_in")), None)
+    if at is not None:
+        m = (float(at["bx"]) + (BOAT_M["mast"] + 0.1) * s, wy - BOAT_M["mast_top"] * s)
+        parts += _pulse_part("ring_in", ring_svg(m, -135.0, r=74), "艇長の判決 p5002（無線で知らされた）", m, states, steps,
+                             "rings_in", "inn")
+    return parts
+
+
+def _scene_D_far(start, states, steps):
+    """123艇から見た遠くのセウォル号（c903・c904）。双眼鏡の丸い視野は甲板→海をなぞる（艇長の判決 p5002「쌍안경으로 …
+    J갑판뿐만 아니라 바다 위 등 어디에도 보이지 않아」）＝誰もいない甲板と海（人は描かない）"""
+    deg = _fixed_heel(start, states, "D far")
+    piv, s = FAR["piv"], FAR["s"]
+    parts = [_part("sky", sky_svg(), "判決 p16（晴れ・波が穏やか）・海審 p1065（ピョンプンドの北東）"),
+             dict(_part("waves", waves_svg(), "判決 p16（波が穏やか）"), drift=-9.0),
+             _part("far", far_ship_svg(piv, deg, s), "海審 p1013（要目）・p1015（〔그림1〕の写真）")]
+    if any(st["mark"] == "on" for st in [start] + states):      # 使わない場面に部品（と出典）を載せない
+        parts.append(_part("mark", far_ship_svg(piv, deg, s, marks=True), "判決 p18（乗客は船内で待っていた）", piv,
+                           _keys(start, states, steps, lambda st: _vis(st["mark"] == "on"))))
+    if any(st["binoc"] == "on" for st in [start] + states):
+        (c1, c2, r) = BINOC
+        cx, cy = (c1[0] + c2[0]) / 2, c1[1]
+        td = ship_pt(-6.0, A_DECK, deg, NEAR)                         # 甲板（上になった右舷の側）
+        dk = (cx - td[0], cy - td[1])
+        se = (cx - (NEAR[0] + 560.0), cy - (WATER + 20.0))             # 左舷の側の海の面
+        # 🔴 本番は層を 1920×1080 に焼いてから PIL でずらす＝画面の外に描いた所は消える（下見の SVG では消えない）。
+        #   ずらしで空く帯が双眼鏡の黒い枠に隠れるよう、先に置く位置（base）を決める：横は2つの真ん中・縦は甲板で
+        #   下へ枠の上の余白（丸の上＝cy−r）ぶんだけ
+        base = ((dk[0] + se[0]) / 2, dk[1] - (cy - r) + 2.0)
+        deck = dict(dx=dk[0] - base[0], dy=dk[1] - base[1])
+        sea = dict(dx=se[0] - base[0], dy=se[1] - base[1])
+        if max(abs(deck["dx"]), abs(sea["dx"])) > c1[0] - r or min(deck["dy"], sea["dy"]) < -(H - cy - r):
+            raise ValueError("illu D far：双眼鏡のずらしが黒い枠の余白を越える（本番で絵の無い所が見える）")
+        on = start["binoc"] == "on"
+        ks = [dict(stage=0, delay=0.0, a=1.0 if on else 0.0, **deck)]
+        for i, (st, sp) in enumerate(zip(states, steps)):
+            dl = float(sp.get("delay", KEY_DELAY))
+            if st["binoc"] == "on" and not on:
+                ks.append(dict(stage=i, delay=dl, dur=0.5, a=1.0, **deck))           # 双眼鏡を上げる＝まず甲板
+                ks.append(dict(stage=i, delay=dl + 2.1, dur=1.9, a=1.0, **sea))      # 海の面へなぞる
+                on = True
+            else:
+                ks.append(dict(stage=i, delay=dl, dur=0.5, a=1.0 if st["binoc"] == "on" else 0.0,
+                               dx=ks[-1]["dx"], dy=ks[-1]["dy"]))
+                on = st["binoc"] == "on"
+        rec = "艇長の判決 p5002（双眼鏡で甲板にも海にも乗客が見えなかった）"
+        mk = [dict(stage=q["stage"], delay=q["delay"], dur=q.get("dur", 0.5), a=q["a"]) for q in ks]   # 暗い枠は濃さだけ
+        parts += [_part("near", near_ship_svg(deg, base), rec, (0.0, 0.0), ks),
+                  _part("binoc", binoc_svg(), rec, (0.0, 0.0), mk)]
+    return parts
+
+
+def _scene_D_heli(start, states, steps):
+    """船の上のヘリ1機と吊り下げの線（c905）。救助された人は描かない（線の先に人を付けない）。"""
+    piv = PIVOT["A"]
+    parts = _ship_parts("D", start, states, steps, piv)
+    parts.append(_part("front_sea", front_sea_svg(), "判決 p16"))
+    ks = [dict(stage=0, delay=0.0, dy=0.0)]
+    for i, sp in enumerate(steps):                                     # 空中で止まる（上下にわずかに揺れる）
+        ks.append(dict(stage=i, delay=0.2, dur=2.4, dy=-7.0 if i % 2 == 0 else 3.0))
+    parts.append(_part("heli", heli_svg(), "判決 p70（最初に着いた海洋警察のヘリが 9時30分ごろから救助）", HELI, ks))
+    return parts
+
+
+def _scene_D_rail(start, states, steps):
+    """3階の左舷の手すりとゴムボート（c908〜c910）。艇長の判決 p5002「고무단정이 J에 처음 접안한 09:38경 내지 09:39경 촬영된
+    동영상에 의하면, 고무단정에서 일어선 승조원의 머리 높이가 J 3층 좌현 갑판 난간 윗부분과 일치」＝立った1人の頭＝手すりの上。
+    🔴 ボートに乗っていた海洋警察の人数は記録に無い＝**立った1人だけ**を描く（ほかの人を足さない）。
+    機関部の船員は3階の通路につながる左舷の出入り口から出てボートへ（判決 p17）＝board（人数は判決の7人）"""
+    k = RAIL["k"]
+    h = 1.7 * k
+    foot = big_foot(h)
+    bk = lambda st: dict(dx=0.0 if st["rboat"] == "on" else -980.0, a=1.0 if st["rboat"] == "on" else 0.0)  # noqa: E731
+    rb = "艇長の判決 p5002（ゴムボートが 9時38〜39分に初めて横づけ）・特調委小 p4194（ゴムボートは1隻だけ）"
+    parts = [_part("rail_ship", rail_ship_svg(),
+                   "艇長の判決 p5002（3階の左舷の甲板の手すり）・判決 p17（3階の通路につながる左舷の出入り口）"),
+             dict(_part("waves", wave_band_svg((748, 772, 802, 838, 874), seed="illu-rail"), "判決 p16（波が穏やか）"),
+                  drift=-12.0),
+             _part("rboat_back", rboat_svg("back"), rb, (0.0, 0.0), _keys(start, states, steps, bk))]
+    cg = None
+    if start["cg"] == "on":
+        cg = (0, -1.0)
+    else:
+        for i, (st, sp) in enumerate(zip(states, steps)):
+            if st["cg"] == "on":
+                cg = (i, float(sp.get("delay", 0.3)))
+                break
+    if cg:
+        parts.append(dict(_part("cg", fig_svg(h, foot=foot), "艇長の判決 p5002（ボートで立った乗組員）"),
+                          kind="sprite", foot=list(foot), inst=[dict(stage=cg[0], delay=cg[1], path=[list(RAIL_CG)])],
+                          role="coast_guard", fig_h=h))
+    inst, n = [], 0
+    for i, (st, sp) in enumerate(zip(states, steps)):
+        for j in range(int(sp.get("board") or 0)):
+            if n >= len(RAIL_SPOTS):
+                raise ValueError(f"illu D rail：ボートに置ける影は {len(RAIL_SPOTS)} まで")
+            inst.append(dict(stage=i, delay=float(sp.get("delay", 0.3)) + float(sp.get("gap", 0.45)) * j,
+                             path=[list(p) for p in rail_board_path(n)]))
+            n += 1
+    if inst:
+        parts.append(dict(_part("crew", fig_svg(h, foot=foot), "判決 p17（9時39分に機関部の船員が海洋警察のボートへ）・海審 p1061"),
+                          kind="sprite", foot=list(foot), inst=inst, role="crew", fig_h=h))
+    parts += [_part("rboat_front", rboat_svg("front"), rb, (0.0, 0.0), _keys(start, states, steps, bk)),
+              _part("guide", rail_guide_svg(), "艇長の判決 p5002（立った乗組員の頭の高さが手すりの上と同じ）", (0.0, 0.0),
+                    _keys(start, states, steps, lambda st: _vis(st["cg"] == "on")))]
+    return parts
+
+
+def _c_points(view, deg):
+    """置き場 C の札・輪の指し先（回した後の画面）。"""
+    cen = CCEN[view]
+    R = lambda p: rot_pt(p, deg, cen)  # noqa: E731
+    hr, hh = 1.7 * ROOMC["k"], 1.7 * HELM["k"]
+    up = lambda p, h: (R(p)[0], R(p)[1] - h)  # noqa: E731   影は立てたまま＝頭は足もとの真上
+    a, c = ROOM_FIG[ROOM_ASKER], ROOM_FIG[ROOM_CAPTAIN]
+    ha = up(a, hr)
+    return dict(radio=R(CONS_RADIO), lamp=R(CONS_LAMP), pa=R(CONS_PA), walkie=R(ROOM_WALKIE), wheel=R(HELM_WHEEL),
+                helmsman=up(HELM_FIG[0], hh), officer3=up(HELM_FIG[1], hh),
+                asker=ha, captain=up(c, hr), ask=(ha[0] + 78.0, ha[1] - 46.0))
+
+
+def _scene_C(start, states, steps):
+    view, deg, crew = start["view"], float(start["heel"]), int(start["crew"])
+    if any(st["view"] != view or float(st["heel"]) != deg or int(st["crew"]) != crew for st in states):
+        raise ValueError("illu C：操舵室の見え方・傾き・人の影の数は場面の頭（start）で1つだけ（SVG で傾けて焼く）")
+    cen = CCEN[view]
+    L = dict(helm=HELM, console=CONS, room=ROOMC)[view]
+    rec_room = dict(helm="海審 p1045（当直は3等航海士と操舵手）・p1047（操舵手が舵を回す）",
+                    console="判決 p49（操舵室の放送の機器・無線機）・海審 p1058（VHF の交信）",
+                    room="判決 p14（操舵室の無線機）・p49（操舵室の放送の機器・非常ベル・無線機）")[view]
+    parts = [_part("c_sea", seascape_svg(L["horizon"]), "判決 p16（晴れ・波が穏やか）")]
+    if view == "helm":
+        parts.append(dict(_part("c_waves", wave_band_svg((472, 490, 510, 532, 553)),
+                                "海審 p1048（8時46分ごろ 約18ノットで進んでいた）"), drift=150.0))
+    parts.append(_part("c_room", _rot_at(c_room_svg(view), deg, cen), rec_room, cen))
+    if crew:
+        spots = dict(helm=HELM_FIG, room=ROOM_FIG).get(view, ())
+        if crew > len(spots):
+            raise ValueError(f"illu C：view={view} に置ける人の影は {len(spots)} まで（console は寄り＝人は枠の外）")
+        h = 1.7 * dict(helm=HELM, room=ROOMC)[view]["k"]
+        foot = big_foot(h)
+        inst = [dict(stage=0, delay=-1.0, path=[list(rot_pt(p, deg, cen))]) for p in spots[:crew]]
+        who = dict(helm="海審 p1045（当直は3等航海士と操舵手の2人）", room="判決 p11（操舵室に集まった甲板部）・p14（まだ操舵室に）")[view]
+        parts.append(dict(_part("crew", fig_svg(h, 0.0, foot), who),
+                          kind="sprite", foot=list(foot), inst=inst, role="crew", fig_h=h, fig_deg=0.0))
+    pts = _c_points(view, deg)
+    if view == "console":
+        parts += _pulse_part("ring_out", ring_svg(pts["radio"], -55.0 + deg), "判決 p11・海審 p1058（VHF の交信）",
+                             pts["radio"], states, steps, "rings", "out")
+        parts += _pulse_part("ring_in", ring_svg(pts["radio"], -55.0 + deg, r=70), "判決 p13〜14（管制センターからの交信）",
+                             pts["radio"], states, steps, "rings_in", "inn")
+        parts += _pulse_part("glow", glow_svg(pts["lamp"]), "海審 p1060（注30：非常電源が来ていた）", pts["lamp"],
+                             states, steps, "glow", "glow")
+    if view == "room":
+        parts += _pulse_part("walkie", ring_svg(pts["walkie"], 125.0 + deg, r=56), "判決 p14（3階の乗務員から無線機で）",
+                             pts["walkie"], states, steps, "walkie", "inn")
+        parts += _pulse_part("asks", ask_svg(pts["ask"]), "判決 p14（2等航海士から何度も「どうしましょうか」）", pts["ask"],
+                             states, steps, "asks", "ask")
+    parts.append(_part("inset", inset_svg(deg, "bridge"), "海審 p1013（要目）・p1015（〔그림1〕の写真）"))
+    return parts
+
+
+def _scene_E(start, states, steps):
+    parts = [_part("e_room", e_room_svg(),
+                   "特調委 p3096（管制センター＝レーダーと交信の装備で船の動きを見守る所）・特調委小 p4180（管制の画面）"),
+             _part("e_dot", e_dot_svg(), "海審 p1010（진도VTS のレーダーの航跡）・p1059（セウォル号を呼んだ）"),
+             _part("e_sel", e_sel_svg(), "海審 p1059（9時6分に VHF でセウォル号を呼んだ）", EDOT,
+                   _keys(start, states, steps, lambda st: _vis(st["sel"] == "on")))]
+    parts += _pulse_part("ring_out", ring_svg(EMIC, EDIR, r=70), "特調委小 p4180（9時6分〜9時36分の交信）", EMIC, states, steps,
+                         "rings", "out")
+    return parts
+
+
+def _scene_D_ship(start, states, steps):
     piv = PIVOT["D"]
     parts = _ship_parts("D", start, states, steps, piv)
     rot = lambda st: float(st["heel"])  # noqa: E731
@@ -748,24 +1412,66 @@ def _scene_B(start, states, steps):
 
 def _anchors(place, st):
     """札の指し先（その段の終わりの状態で）。"""
-    if place in ("A", "D"):
-        piv, h = PIVOT[place], float(st["heel"])
+    v = st.get("view")
+    if place == "A" or (place == "D" and v in ("ship", "heli")):
+        piv = PIVOT["D"] if (place == "D" and v == "ship") else PIVOT["A"]
+        h = float(st["heel"])
         a = {"b_port": ship_pt(SHIP_HALF, B_DECK, h, piv), "br_port": ship_pt(SHIP_HALF, BR_DECK, h, piv),
              "boxes_sea": box_fall_pt(h, piv), "win": ship_pt(3.0, A_DECK + 1.35, h, piv),
              "boxes": ship_pt(-2.0, HULL_TOP + BOX["tier"] * 1.5, h, piv),
-             "boat": (BOAT["x0"] + 264.0, BOAT["deck"] - 100.0), "ship": ship_pt(0.0, ROOF, h, piv)}
+             "boat": (BOAT["x0"] + 264.0, BOAT["deck"] - 100.0), "ship": ship_pt(0.0, ROOF, h, piv),
+             "bridge": ship_pt(0.0, ROOF + 0.55, h, piv), "heli": (HELI[0] + 10.0, HELI[1] - 50.0),
+             "line": (HELI_LINE[0], HELI_LINE[2])}
         return a
+    if place == "D":
+        h = float(st["heel"])
+        if v == "sea":
+            x0, s, wy = float(st["bx"]), SEA["s"], SEA["water"]
+            return {"boat": (x0 + 13.2 * s, wy - 6.4 * s), "cabin": (x0 + 13.0 * s, wy - 3.7 * s),
+                    "spk": (x0 + BOAT_M["spk"][0] * s, wy - (BOAT_M["spk"][1] + 0.62) * s),
+                    "far": far_center(FAR_SEA["piv"], h, FAR_SEA["s"])}
+        if v == "far":
+            fp, fs = FAR["piv"], FAR["s"]
+            w = ship_pt(3.0, A_DECK + 1.35, h, fp)
+            return {"far": far_center(fp, h, fs), "win_far": (fp[0] + (w[0] - fp[0]) * fs, fp[1] + (w[1] - fp[1]) * fs)}
+        return {"rail": (RAIL_CG[0] + 330.0, RAIL_TOP), "head": (RAIL_CG[0], RAIL_TOP), "door": (RAIL_DOOR[0], RAIL_DOOR[1] - 150.0),
+                "rboat": (760.0, RAIL_FLOOR + 26.0)}
+    if place == "C":
+        return _c_points(v, float(st["heel"]))
+    if place == "E":
+        return {"dot": EDOT, "mic": EMIC, "screen": (ERAD[0], ESCR[1] + 60.0)}
     deg = float(st["heel"])
     return {"desk": rot_pt((960.0, 560.0), deg, CB), "spk": rot_pt(CABIN_SPK, deg, CB),
             "corr_spk": rot_pt(corridor_spk(), deg, CB), "crowd": rot_pt((900.0, ROOM["floor"] + 60), deg, CB)}
 
 
+def _camc(place, st0, states):
+    """カメラ（cam）で寄る中心の既定。見え方ごとに主役の所へ。"""
+    last = states[-1] if states else st0
+    if place == "C":
+        return CCEN[st0["view"]]
+    if place == "A" and any(st["bridge"] == "on" for st in [st0] + states):
+        return ship_pt(0.0, (BR_DECK + ROOF) / 2, float(last["heel"]), PIVOT["A"])
+    if place == "D":
+        v = st0["view"]
+        if v == "sea":
+            return (float(last["bx"]) + BOAT_L * SEA["s"] * 0.42, SEA["water"] - 90.0)
+        if v == "far":
+            return far_center(FAR["piv"], float(st0["heel"]), FAR["s"])
+        if v == "heli":
+            return (900.0, 380.0)
+        if v == "rail":
+            return (960.0, 560.0)
+    return CAM_C[place]
+
+
 def scene(place, steps, start=None, at=None, people=None, src=None, view=None, rec=None, scale=None, camc=None):
     """再現イラストの場面1つ（型 `illu`・冒頭の絵 `intro=dict(illu=…)`・小さく戻す `illu_pair` が使う）。
 
-    place  … 置き場 "A"／"B"／"D"（上の説明）
+    place  … 置き場 "A"／"B"／"C"／"D"／"E"（上の説明）
     start  … 頭の状態（既定は FIELDS）。steps … 台本の行ごとの段 dict(state=dict(…), rec="資料 p頁", tag=…,
-             rings=数〈B の音の輪〉, board=数〈D の乗り移る人〉, delay=秒, dur=秒, touch="3階（B甲板）の左舷")
+             rings=数〈音の輪〉, rings_in=数〈外から集まる輪〉, glow=数〈灯〉, asks=数〈問いかけの印〉, walkie=数〈3階から〉,
+             board=数〈乗り移る人〉, delay=秒, dur=秒, touch="3階（B甲板）の左舷")
     at     … 場面の時刻（宣言・画面には出さない）。人を描く場面は必須（門番 ②）
     people … 描いた人の数の宣言 dict(crew=(8, "判決 p11"))（門番 ③）
     src    … 左下の出典（省略時は部品と段の rec から組む）
@@ -775,11 +1481,11 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
         raise ValueError(f"illu：知らない置き場 {place!r}（{tuple(FIELDS)}）")
     steps = [dict(s) for s in steps]
     for sp in steps:
-        bad = set(sp) - {"state", "rec", "tag", "rings", "board", "gap", "delay", "dur", "ring_delay", "touch"}
+        bad = set(sp) - {"state", "rec", "tag", "gap", "delay", "dur", "ring_delay", "touch"} - set(EVENTS)
         if bad:
             raise ValueError(f"illu：段に知らない鍵 {sorted(bad)}")
     st0, states = _states(place, start, steps)
-    parts = {"A": _scene_A, "B": _scene_B, "D": _scene_D}[place](st0, states, steps)
+    parts = {"A": _scene_A, "B": _scene_B, "C": _scene_C, "D": _scene_D, "E": _scene_E}[place](st0, states, steps)
     cam = _keys(st0, states, steps, lambda st: dict(z=float(st["cam"])))
     tags = []
     for i, (st, sp) in enumerate(zip(states, steps)):
@@ -796,8 +1502,9 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
         tags.append(dict(svg="".join(g) or " ", texts=texts, keep=keep, delay=dl))
     recs = [p["rec"] for p in parts] + [sp.get("rec") for sp in steps if sp.get("rec")] + ([rec] if rec else [])
     recs += [v[1] for v in (people or {}).values() if isinstance(v, (tuple, list)) and len(v) > 1]
-    return dict(place=place, view=view or VIEW[place], at=at, people=dict(people or {}), scale=scale, rec=rec,
-                parts=parts, cam=cam, camc=list(camc or CAM_C[place]), tags=tags, nstage=len(steps),
+    label = view or (D_VIEW[st0["view"]] if place == "D" else VIEW[place])
+    return dict(place=place, view=label, at=at, people=dict(people or {}), scale=scale, rec=rec,
+                parts=parts, cam=cam, camc=list(camc or _camc(place, st0, states)), tags=tags, nstage=len(steps),
                 start=st0, states=states, steps=steps, recs=recs, src=src or rec_line(recs))
 
 
