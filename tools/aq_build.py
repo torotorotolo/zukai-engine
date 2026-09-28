@@ -6,7 +6,8 @@ r"""aq_build.py — ゆっくり（AquesTalk）で全カットを合成し、el_
   python tools/aq_build.py --dry             … アプリを呼ばない（キャッシュだけで組む・無い行は止まる）
   python tools/aq_build.py --rate            … audio/narration.json から尺・冒頭・「句読点なしの字数÷尺」（字/分）と話速の当たり
   python tools/aq_build.py --listen c1 --cand A --out X.mp3 [--kanji]
-                                             … 章の試聴（カットの頭尻・決め所の余白・章の扉を入れた並び）。audio/ は触らない
+                                             … 声の候補の聞き比べ（カットの頭尻・決め所の余白・章の扉を入れた並び）。audio/ は触らない
+  python tools/aq_build.py --times X.tsv     … 行ごとの開始時刻の表（narration.json の秒から＝本編の試写の時刻と同じ並び）
   python tools/aq_build.py --selftest        … 組み立ての検算（アプリを呼ばない）
 
 出力（scene_jiko / audio_mix / audio_pack / check_subwrap / check_listener / check_script が読む形は el_build と同じ）:
@@ -55,6 +56,10 @@ _BASE = dict(エンジン="AquesTalk1", 音量=100, 高さ=100, アクセント=
 VOICES = {
     # 🔴 14本目（2026-09-28 ⑤a-2）：話速は段々でしか動かない（実測：154〜157＝26分52〜55秒・150〜153＝27分39〜42秒）。
     #    27分を割らず 373字/分を保つ話速は無い → 話速 154・行間 0.43（＋30ms）で 27分02秒台・373字/分に合わせた
+    # ⚠️ 音量（プリセットの "vol"・既定 100）は下げない（09-28 実測）：100 でもアプリの出力は 442行中231行で波の山が
+    #    上限に届く（計456標本・連続は最長2標本＝アプリの中で削れている）が、80 に下げると上限（0.8倍）に届く行が
+    #    351行に**増えた**（波形も「100×0.8」と一致しない＝単純な掛け算でない）。こちらの変換で削らないための余裕は
+    #    aq_tts.GAIN（8k→24k の前に 0.8 倍）で取る。本編の聞こえの大きさは audio_mix が -15.0 LUFS に合わせる
     "ep14": {"speed": 154, "gap": 0.43, "cand": "A"},     # cand＝声の候補（カズヤくんが選ぶ）
 }
 
@@ -77,10 +82,11 @@ def voice_defs(slug=None, cand=None, speed=None):
         raise SystemExit(f"🔴 aq_build.VOICES に {slug} が無い（声と話速を回ごとに決める）")
     cand = cand or v["cand"]
     speed = int(speed or v["speed"])
+    vol = int(v.get("vol", 100))
     out = {}
     for who, (voice, flat) in CANDIDATES[cand].items():
         name = f"jiko-{slug}-{cand}-{'q' if who else 'n'}"
-        out[who] = (name, dict(_BASE, 声種=voice, 棒読み=flat, 話速=speed))
+        out[who] = (name, dict(_BASE, 声種=voice, 棒読み=flat, 話速=speed, 音量=vol))
     return out
 
 
@@ -107,7 +113,7 @@ def _sig(cid, lines, yomi, presets):
     sent = [T.sent_text(yomi[f"{cid}-{i}"]) for i in range(1, len(lines) + 1)]
     who = [speaker.split(x)[0] for x in lines]
     rows = {str(w): T.preset_row(presets[w]) for w in set(who)}
-    blob = json.dumps([sent, who, rows, T.sound_settings(), T.EXE_MD5, gap_of(), SR, FADE_MS],
+    blob = json.dumps([sent, who, rows, T.sound_settings(), T.EXE_MD5, gap_of(), SR, FADE_MS, T.GAIN],
                       ensure_ascii=False, sort_keys=True)
     return hashlib.sha1(blob.encode("utf-8")).hexdigest()[:12]
 
@@ -276,10 +282,29 @@ def build(cuts=None, dry=False, cand=None, speed=None):
     return 1
 
 
+def write_times(out):
+    """行ごとの開始時刻の表（本編の試写の「何分何秒」から行へ戻る表）。🔴 narration.json の秒（描画 scene_jiko が読むのと
+    同じ 0.001秒に丸めた値）から並べる＝本編の時刻と一致する（丸める前の秒を足すと196カットで最大 数十ms ずれた・09-28）。"""
+    import check_script as CSC
+    js = json.loads((AUDIO / "narration.json").read_text(encoding="utf-8"))
+    tl, total = timeline(js["durations"], narration.SCRIPT, quotes_and_md())
+    n = 0
+    with open(out, "w", encoding="utf-8", newline="") as f:
+        f.write("時刻\t秒\t行ID\t話者\t文\n")
+        for cid, _ in narration.SCRIPT:
+            for i, r in enumerate(js["subtitles"][cid], 1):
+                t = tl[cid][0] + CSC.LEAD + r["t"]
+                f.write(f"{int(t // 60)}:{t % 60:04.1f}\t{t:.3f}\t{cid}-{i}\t{r.get('who', '')}\t{r['text']}\n")
+                n += 1
+    print(f"{out}: {n}行・尺 {fmt(total)}（narration.json の秒から＝本編と同じ並び）")
+    return 0
+
+
 def listen(prefix, out, cand, kanji=False, speed=None):
-    """試聴 mp3（audio/ を触らない）。prefix＝章（"c1"）か "all"（全編＝⑤a' の音声だけの試聴）。
+    """聞き比べの mp3（audio/ を触らない）。prefix＝章（"c1"）か "all"（全編）。声の候補を選ぶとき（⑤a-2）に使う。
+    ⚠️ 事故検証chは14本目から音声だけの試聴（⑤a'）をしない（09-28）＝全編の mp3 は作らなくてよい。
     並びは本編と同じ（章の扉 2秒は2つ目の章から・LEAD・声・TAIL・決め所の余白）。
-    横に <out>.tsv＝行ごとの開始時刻（試聴の「何分何秒」から行へ戻る表）。"""
+    横に <out>.tsv＝行ごとの開始時刻（本編の試写の「何分何秒」から行へ戻る表にも使える＝並びが同じ）。"""
     import check_script as CSC
     import numpy as np
     defs = voice_defs(cand=cand, speed=speed)
@@ -381,6 +406,8 @@ if __name__ == "__main__":
     if "--rate" in sys.argv:
         rate_report()
         sys.exit(0)
+    if "--times" in sys.argv:
+        sys.exit(write_times(_arg("--times")))
     sp = _arg("--speed")
     if "--listen" in sys.argv:
         sys.exit(listen(_arg("--listen"), _arg("--out"), _arg("--cand", "A"), "--kanji" in sys.argv, sp))

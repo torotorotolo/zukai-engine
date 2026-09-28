@@ -48,6 +48,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 EXE = Path(os.environ.get("AQ_PLAYER", r"C:\Users\konar\AquesTalkPlayer\AquesTalkPlayer.exe"))
 EXE_MD5 = "4a7a908259ee07d85cae7ea67b63e4de"   # aquestalkplayer_20250606.zip の exe。違えば止める（音が変わりうる）
 SR = 24000                                      # 返す pcm＝el_tts.SR と同じ（audio_mix.read_wav が 44.1kHz へ直す）
+# 🔴 変換の前に掛ける利得（09-28・14本目⑤a-2）。アプリの出力は波の山が上限に届く（既定の音量100で442行中231行）＝
+#    そのまま 8k→24k に直すとフィルタの行き過ぎで上限を越え、196カット中172で計1,068標本が削れた。0.8倍（-1.94dB）で0。
+#    本編の聞こえの大きさは audio_mix が -15.0 LUFS に合わせる＝小さくならない。⚠️ 値を変えたら aq_build の指紋が変わる
+GAIN = 0.8
 CACHE = ROOT / "audio" / "aq_cache"             # <SLUG>/<鍵>.wav＝アプリの出力そのまま（.gitignore 済み）
 FIELDS = ["プリセット名", "棒読み", "エンジン", "声種", "話速", "音量", "高さ", "アクセント", "声質", "音程", "メモ"]
 NUMS = ("話速", "音量", "高さ", "アクセント", "声質", "音程")
@@ -188,13 +192,13 @@ def read_wav(p):
 
 
 def to_sr(x, fs, sr=None):
-    """fs → sr（既定 SR）。整数比の多相フィルタ（scipy resample_poly）＝決定的。8k→24k はちょうど3倍。"""
+    """fs → sr（既定 SR）。先に GAIN を掛け、整数比の多相フィルタ（scipy resample_poly）で直す＝決定的。8k→24k はちょうど3倍。"""
     sr = SR if sr is None else sr
-    if fs == sr:
-        return x.astype("<i2").tobytes()
-    from scipy.signal import resample_poly
-    g = gcd(sr, fs)
-    y = resample_poly(x.astype(np.float64), sr // g, fs // g)
+    y = x.astype(np.float64) * GAIN
+    if fs != sr:
+        from scipy.signal import resample_poly
+        g = gcd(sr, fs)
+        y = resample_poly(y, sr // g, fs // g)
     return np.clip(np.round(y), -32768, 32767).astype("<i2").tobytes()
 
 
@@ -348,7 +352,19 @@ def selftest():
             except SystemExit:
                 pass
             x = np.array([0, 1000, -1000, 0], dtype="<i2")
-            ok(to_sr(x, 24000) == x.tobytes(), "同じ周波数は1バイトも変えない")
+            ok(to_sr(x, 24000) == np.round(x * GAIN).astype("<i2").tobytes(), "同じ周波数は GAIN を掛けるだけ（長さ不変）")
+            # 山が上限で削れた波（アプリの出力と同じ形＝500Hz の正弦波を1.3倍して削った）を 24kHz に直しても削れない。
+            # 利得1.0 なら行き過ぎで削れる（陽性対照）。⚠️ 8kHz の 2kHz 矩形波は行き過ぎ約1.41倍＝声（実測 約1.11倍）より極端で見本に向かない
+            t = np.arange(1600)
+            sq = (np.clip(1.3 * np.sin(2 * np.pi * 500 * t / 8000), -1, 1) * 32767).astype("<i2")
+            clipped = lambda b: int((np.abs(np.frombuffer(b, dtype="<i2").astype(np.int32)) >= 32767).sum())
+            ok(clipped(to_sr(sq, 8000)) == 0, f"GAIN {GAIN} で上限に届く標本が0")
+            keep_gain = GAIN
+            try:
+                globals()["GAIN"] = 1.0
+                ok(clipped(to_sr(sq, 8000)) > 0, "陽性対照：利得1.0 なら行き過ぎで削れる")
+            finally:
+                globals()["GAIN"] = keep_gain
         finally:
             EXE, CACHE, RUN, EXE_MD5 = keep
     if fails:
