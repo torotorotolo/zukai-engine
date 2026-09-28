@@ -6,7 +6,9 @@ r"""check_subwrap.py — **字幕**の折り返しの門番（9本目テネリ�
 
 ■ なぜ要るか
   字幕は描画のときに `scene_jiko.wrap2()` が折る（実測幅が SUB_MAXW を超えたら2行。読点が無ければ**幅の真ん中の字の境目**）。
-  ⚠️ wrap2 は**禁則も語の途中の割れも見ていない**。しかも、これを検査する門番がリポに1本も無かった
+  🆕 2026-09-28（14本目⑤a-2・字幕56px）：wrap2 は**収まる折り目の中から選ぶ**（はみ出し・尻切れ・語の途中を避ける）
+     ＝この門番は「避けられなかったもの」を止める網。大きさは el_script.SUB_SIZE（描く側と同じ1か所）
+  ⚠️（〜09-27）wrap2 は**禁則も語の途中の割れも見ていない**。しかも、これを検査する門番がリポに1本も無かった
      （`wrap2(` の呼び出しは scene_jiko.sub_row の1か所だけ＝2026-09-16 に grep で確認）。
   図の中の文字には `check_wrap.py` があるが、あれは `titan_fig.wrap/balance` を包む門番で、**字幕は通らない**。
   ＝ 長い行が来た回に「ボーイング7／47」「「離陸中／」とは」が**黙って**画面に出る（机上検査は1本も鳴らない）。
@@ -39,10 +41,17 @@ ORPHAN = 3
 
 
 def judge(text):
-    """1枚の字幕 → (折った行, 違反の一覧)。"""
+    """1枚の字幕 → (折った行, 違反の一覧)。折るのは本番の wrap2。"""
+    import scene_jiko as S
+    rows = S.wrap2(text)
+    return rows, judge_rows(rows)
+
+
+def judge_rows(rows):
+    """折った行 → 違反の一覧（E1〜E3）。🔴 2026-09-28：wrap2 が悪い折り目を避けるようになったので、
+    検出器そのものは折った結果を直に渡して試す（selftest）。"""
     import scene_jiko as S
     import titan_fig as T
-    rows = S.wrap2(text)
     bad = []
     for r in rows:
         w = S.fm.width(r, S.SUB_SIZE, "Noto")
@@ -54,7 +63,7 @@ def judge(text):
                 bad.append(f"E2 語の途中で折れる「{a}／{b}」")
         if min(len(r.strip()) for r in rows) <= ORPHAN:
             bad.append(f"E3 尻切れ（{ORPHAN}字以下）「{'／'.join(rows)}」")
-    return rows, bad
+    return bad
 
 
 def run():
@@ -96,38 +105,71 @@ def run():
 
 
 def selftest():
+    """🔴 2026-09-28（14本目⑤a-2）：2つに分けて試す。
+    ① 検出器（judge_rows）＝悪い折り目を直に渡して鳴るか（wrap2 は悪い折り目を避けるので、wrap2 越しでは試せない）
+    ② 折り方（wrap2）＝旧式が悪く折った文を、38px と この回の大きさ（el_script.SUB_SIZE）の両方で、違反なく折るか"""
     import scene_jiko as S
     fails = []
-    base = "あ" * 60
-    cut = len(S.wrap2(base)[0])            # 読点の無い文を wrap2 がどこで折るか（本番の関数で測る）
+    ok = lambda c, name: None if c else fails.append(name)
+    if ORPHAN != S.SUB_ORPHAN:
+        fails.append(f"ORPHAN {ORPHAN} と scene_jiko.SUB_ORPHAN {S.SUB_ORPHAN} が違う")
 
-    def at(mid, left="あ", right="い"):
-        """mid の真ん中の字の境目が、wrap2 の折り目に来るように並べる。"""
-        k = len(mid) // 2
-        return left * (cut - k) + mid + right * (60 - (cut - k) - len(mid))
+    # ① 検出器の陽性対照（折り目を直に渡す）
+    det = [("幅（E1）", ["あ" * 60, "い"]),
+           ("数の途中（E2）", ["ボーイング7", "47便が"]),
+           ("カタカナ語の途中（E2）", ["あいうボーイ", "ングえお"]),
+           ("行頭の閉じ括弧（E2）", ["離陸中", "」とは"]),
+           ("行末の始め括弧（E2）", ["あいう「", "離陸"]),
+           ("漢字の熟語の途中（E2）", ["あいう滑走", "路えお"]),
+           ("尻切れ（E3）", ["あ" * 20 + "、", "いい"])]
+    for name, rows in det:
+        ok(judge_rows(rows), f"検出器の陽性対照が鳴らない: {name}")
+    ok(not judge_rows(["報告書は、根本の原因を", "こう書いている。"]), "検出器の陰性対照が鳴った")
 
-    pos = [("数の途中", at("747便")),                       # 7|47 → E2
-           ("カタカナ語の途中", at("ボーイング")),
-           ("行頭の閉じ括弧", at("中」と", "あ", "い")),
-           ("行末の始め括弧", at("「離陸", "あ", "い")),
-           ("漢字の熟語の途中", at("滑走路")),
-           ("尻切れ", "あ" * 40 + "、" + "いい" + "う" * 0)]
-    for name, t in pos:
-        rows, bad = judge(t)
-        if not bad:
-            fails.append(f"陽性対照が鳴らない: {name} → {'／'.join(rows)}")
-    # 陰性対照＝読点で折れる長い文（鳴ってはいけない）
-    neg = "報告書は、根本の原因をこう書いている。KLMの機長が、次の四つをしたこと。そして四つとも、止まるための機会だった。"
-    rows, bad = judge(neg)
-    if bad:
-        fails.append(f"陰性対照が鳴った: {bad}")
-    if len(rows) < 2:
-        fails.append("陰性対照が折れていない（対照になっていない）")
-    print(f"wrap2 の折り目（読点なし・60字）= {cut}字目")
+    # ② 折り方：旧式が悪く折った形（真ん中が語の途中・読点が寄っていて片側がはみ出す）を、どの大きさでも違反なく折るか
+    keep = S.SUB_SIZE
+    try:
+        for size in sorted({38, keep}):
+            S.SUB_SIZE = size
+            n = int(S.SUB_MAXW * 1.6 / size)          # 2行に折れる長さ（1行の約1.6倍）
+            half = n // 2
+
+            def at(mid, left="あ", right="い"):
+                k = len(mid) // 2
+                return left * (half - k) + mid + right * (n - (half - k) - len(mid))
+            # ⚠️ ひらがなだけの文は、_midword では境目がほぼ全部「語の途中」＝折れる所が無い（実際の文でない）。
+            #    読点の寄りと尻切れは、折れる所のある文（「船は」「海へ」の繰り返し）で試す
+            k = int(n * 0.75)
+            cases = [("数の途中", at("747便")), ("カタカナ語の途中", at("ボーイング")),
+                     ("閉じ括弧", at("中」と")), ("始め括弧", at("「離陸")), ("熟語の途中", at("滑走路")),
+                     ("読点が後ろ寄り", ("船は" * n)[:k] + "、" + ("海へ" * n)[:n - k - 1]),
+                     ("尻切れ", ("船は" * n)[:n - 3] + "、" + "海へ")]
+            for name, t in cases:
+                rows, bad = judge(t)
+                ok(len(rows) == 2 and not bad, f"{size}px {name}: 違反なく折れない → {'／'.join(rows)} {bad}")
+            # 折れる所が1つも無い文は、wrap2 は旧式に落ち、門番が止める（網が素通りしない）
+            ok(judge("あ" * n)[1], f"{size}px 折れる所の無い文で門番が鳴らない")
+    finally:
+        S.SUB_SIZE = keep
+    # 14本目 56px で旧式が悪く折った実例 c813-1（語と助詞を割らない＝「何度／も」にしない。始め括弧の前で折る）
+    S.SUB_SIZE = 56
+    try:
+        rows, bad = judge("判決によれば、そのころ2等航海士から何度も「どうしましょうか」と聞かれていた。")
+        ok(rows == ["判決によれば、そのころ2等航海士から何度も", "「どうしましょうか」と聞かれていた。"] and not bad,
+           f"56px の実例 c813-1 → {'／'.join(rows)}")
+    finally:
+        S.SUB_SIZE = keep
+    # 陰性対照＝読点で素直に折れる文（38px で2行・鳴ってはいけない）
+    S.SUB_SIZE = 38
+    try:
+        rows, bad = judge("報告書は、根本の原因をこう書いている。KLMの機長が、次の四つをしたこと。そして四つとも、止まるための機会だった。")
+        ok(len(rows) == 2 and not bad, f"陰性対照: {bad or '折れていない'}")
+    finally:
+        S.SUB_SIZE = keep
     if fails:
         print("🔴 selftest:\n  " + "\n  ".join(fails))
         return 1
-    print(f"selftest: 陽性 {len(pos)}/{len(pos)} 鳴った・陰性 1/1 静か")
+    print(f"selftest: 検出器 {len(det)}/{len(det)} 鳴った・陰性 静か／折り方 38px と {keep}px で違反なし・c813-1 の実例 ✓")
     return 0
 
 

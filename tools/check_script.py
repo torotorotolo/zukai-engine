@@ -127,7 +127,8 @@ CPS_FALLBACK = 5.885    # 文字/秒（**Otani＋TEMPO1.06・実測**。ep10 11,
 PER_CUT = 11.636        # 秒/カット（**ep10 の完成尺 2,269.033秒 ÷ 195カット**。🔴 ep11 公開後に取り直す）
 LEAD, TAIL = 0.35, 0.50
 CARD_SEC = 2.0          # 🔴 12本目から：章の扉（scene_jiko.CARD_SEC と同じ値。替えたら両方直す）
-GAP = 0.40              # カット内の行と行のあいだ（narration.json の gap と同じ値。替えたら両方直す）
+GAP_DEFAULT = 0.40      # カット内の行と行のあいだ（el_build・aq_build の既定と同じ値。替えたら両方直す）
+GAP = GAP_DEFAULT       # 🔴 この回の音があれば narration.json の gap に差し替わる（use_measured_cps）
 TAIL_EXTRA_QUOTE = 2.0
 # 陽性対照＝この3本を下の measure() の式に当てて 0.5% 以内に入ること（--refcheck）
 # ⚠️ EP7_REF の cps は**この回の完成尺から逆に解いた値**なので、独立した検証ではない（作り直しの見張り）。
@@ -249,12 +250,54 @@ MEASURED = False        # 🔴 CPS が「この回の音」から来ているか
 
 
 def use_measured_cps(cuts):
-    """検査する台本が決まった時点で CPS を実測に差し替える（合わなければ定数のまま）。"""
-    global CPS, CPS_SOURCE, MEASURED
+    """検査する台本が決まった時点で CPS を実測に差し替える（合わなければ定数のまま）。
+
+    🔴 2026-09-28（14本目⑤a-2）：行間 GAP も**この回の音の narration.json の gap** に合わせる。
+       ゆっくり（AquesTalk）の話速は段々でしか動かず（153→154 で尺が44秒跳ぶ）、14本目は行間 0.43 で
+       27分に合わせた＝定数 0.40 のままだと③と「冒頭:」が 0.03×(行数−カット数)＝約7秒短く出る。
+       音が別の回（MEASURED でない）なら定数のまま。"""
+    global CPS, CPS_SOURCE, MEASURED, GAP, DURS
     v, why = measured_cps(cuts)
     CPS, CPS_SOURCE = (v, why) if v else (CPS_FALLBACK, f"定数（話速1.0 の推定・{why}）")
     MEASURED = bool(v)
+    GAP = measured_gap() if MEASURED else GAP_DEFAULT
+    DURS = measured_durations(cuts) if MEASURED else None
     return CPS
+
+
+DURS = None             # 🔴 この回の音のカットごとの秒（発話＋行間）。あれば③と「冒頭:」は実測の足し上げ
+
+
+def measured_durations(cuts, path="audio/narration.json"):
+    """narration.json のカットごとの秒。台本の md の全カットがそろっていなければ None（③は式のまま）。"""
+    import json
+    from pathlib import Path
+    try:
+        d = json.loads((Path(__file__).resolve().parent.parent / path).read_text(encoding="utf-8"))["durations"]
+    except Exception:                                    # noqa: BLE001
+        return None
+    return d if all(cid in d for cid, _, _ in cuts) else None
+
+
+def exact_sec(cuts):
+    """🔴 2026-09-28（14本目⑤a-2）：音があれば③は**実測の足し上げ**（字/秒の近似でなく）。
+    式の近似（8字以上の行で測った字/秒×全字数）は14本目で実測より6.5秒短く出て、27分の下限で E を出した。
+    足すのは narration.json の**全カット**＝台本の md に無い共通エンディング ed01 も（本編に描かれる）
+    ＋カットの頭尻＋決め所の余白＋章の扉（aq_build.timeline と同じ並び）。"""
+    nq = sum(1 for _, _, ls in cuts if any(STAR_RE.match(l) for l in ls))
+    return (sum(DURS.values()) + (LEAD + TAIL) * len(DURS)
+            + TAIL_EXTRA_QUOTE * nq + CARD_SEC * n_cards(cuts))
+
+
+def measured_gap(path="audio/narration.json"):
+    """narration.json の行間（gap）。読めなければ定数。"""
+    import json
+    from pathlib import Path
+    try:
+        g = json.loads((Path(__file__).resolve().parent.parent / path).read_text(encoding="utf-8")).get("gap")
+        return float(g) if g is not None else GAP_DEFAULT
+    except Exception:                                    # noqa: BLE001
+        return GAP_DEFAULT
 
 
 def judged_sec(d1, d2, d3, measured):
@@ -351,6 +394,8 @@ def measure(cuts):
     # 🔴 12本目から：第2章以降の頭に章の扉（CARD_SEC 秒）が入る＝章の数−1 枚
     ncard = n_cards(cuts)
     d3 = est_sec(chars, len(lines), n, nq, CPS, ncard)
+    if DURS:
+        d3 = exact_sec(cuts)                 # 🔴 この回の音があれば実測の足し上げ（近似の式を使わない）
     jud, why = judged_sec(d1, d2, d3, MEASURED)
     return dict(cuts=cuts, lines=lines, chars=chars, n=n, nq=nq,
                 d1=d1, d2=d2, d3=d3, med=sorted([d1, d2, d3])[1],
@@ -612,7 +657,9 @@ def report(cuts):
             if prev is not None and key != prev:
                 t += CARD_SEC
             prev = key
-        t += (c / CPS + GAP * (len(ls) - 1) + LEAD + TAIL
+        # 🔴 2026-09-28：この回の音があればカットの実測の秒（ルール 4-7「音ができたら実測で当て直す」）
+        speech = DURS[cid] if DURS and cid in DURS else c / CPS + GAP * (len(ls) - 1)
+        t += (speech + LEAD + TAIL
               + (TAIL_EXTRA_QUOTE if any(STAR_RE.match(l) for l in ls) else 0.0))
         print('%s=%.1fs' % (cid, t), end=' ')
         if t > HOOK_DEADLINE:
