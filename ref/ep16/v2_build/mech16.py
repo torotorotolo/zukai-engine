@@ -150,12 +150,13 @@ def analyze(path, roles_path=None):
         t = mm.group(2).strip()
         n = len(t)
         bad = []
-        if not t.endswith("の真相【事故検証】"):
-            bad.append("末尾が「の真相【事故検証】」でない")
+        # 🔴 2026-09-28 カズヤくん：末尾に【ゆっくり解説】（ルール §B4-8・事故検証chの全回）
+        if not t.endswith("の真相【事故検証】【ゆっくり解説】"):
+            bad.append("末尾が「の真相【事故検証】【ゆっくり解説】」でない（§B4-8）")
         if not re.search(r"\d[\d,]*人が亡くなった", t):
             bad.append("「N人が亡くなった」が無い")
-        if not 67 <= n <= 94:
-            bad.append("67〜94字の外")
+        if not 67 <= n <= 100:
+            bad.append("67〜100字の外")
         for w in ["死亡", "決壊", "崩壊", "即死", "世界一"]:
             if w in t:
                 bad.append(f"「{w}」")
