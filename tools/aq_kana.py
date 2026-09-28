@@ -251,8 +251,9 @@ def phrases(text, dropped=None):
     return res
 
 
-def to_aq(text, where=""):
-    """文 → (音声記号列, E の一覧, W の一覧)。E があれば記号列は使ってはいけない。"""
+def to_aq(text, where="", cont=False):
+    """文 → (音声記号列, E の一覧, W の一覧)。E があれば記号列は使ってはいけない。
+    cont＝同じカットに次の行がある（sheet が渡す）＝句読点なしで終わる行は文が次の行へ続く＝「、」で閉じる。"""
     E, W = [], []
     dropped = []
     ps = phrases(text, dropped)
@@ -269,7 +270,14 @@ def to_aq(text, where=""):
         buf.append(body + (delim or ""))
     s = "".join(buf)
     if not s or s[-1] not in "。？、":
-        s = s.rstrip("/") + "。"             # 文の最後は必ず句切り記号（仕様書 §3.7）
+        # 文の最後は必ず句切り記号（仕様書 §3.7）。🔴 2026-09-28（14本目⑤a-2）：文が「、」で終わる行（次の行へ続く）は
+        #    「、」で閉じる。pyopenjtalk は文の終わりの「、」を落とすので、ここで「。」を足すと**言い終わりの下がり調子**に
+        #    なっていた（14本目6行＝c109-1 ほか・15本目 c105-1 ほか。アプリの実測：語尾の高さ「。」205Hz・「、」222Hz・尺は同じ）
+        #    句読点なしで終わる行も、同じカットに次の行があれば（cont）文が続く＝「、」（共通エンディング ed01-2「…高評価と」）。
+        #    カットの最後の行（句読点なしの見出しふうの文・14本目24行）は「。」のまま
+        tail = text.rstrip().rstrip("」』）)")
+        end = "、" if tail.endswith(("、", "，")) or (cont and not tail.endswith(("。", "？", "！", "?", "!"))) else "。"
+        s = s.rstrip("/") + end
     return s, E, W
 
 
@@ -312,7 +320,7 @@ def sheet(write=True):
                 E, W = validate(aq, f"（{lid}）")
                 seen.add(lid)
             else:
-                aq, E, W = to_aq(body, lid)
+                aq, E, W = to_aq(body, lid, cont=i < len(ls))   # 同じカットに次の行があるか（句読点なしの行の閉じ方）
                 src = "auto"
             rows.append((lid, who or "", body, aq, plain(aq), src, E, W))
     stale = sorted(set(ov) - seen)
@@ -356,6 +364,12 @@ def selftest():
     chk("句の中に ' は1つまで", all(seg.count("'") <= 1 for seg in re.split(r"[/、。？]", s)), True)
     s2, _, _ = to_aq("9時50分、最後の放送も船内で待つように")
     chk("句点の無い文は。で閉じる", s2[-1], "。")
+    # 🔴 2026-09-28（14本目⑤a-2）：「、」で終わる行（次の行へ続く）は「、」で閉じる（陽性）／「。」の行は「。」のまま（陰性）
+    chk("🔴「、」で終わる行は「、」で閉じる", to_aq("韓国の最高裁判所の判決と、")[0][-1], "、")
+    chk("「。」で終わる行は「。」のまま", to_aq("韓国の最高裁判所の判決だ。")[0][-1], "。")
+    chk("🔴句読点なしで同じカットに次の行＝「、」", to_aq("高評価と", cont=True)[0][-1], "、")
+    chk("句読点なしでカットの最後＝「。」", to_aq("高評価と", cont=False)[0][-1], "。")
+    chk("「。」の行は次の行があっても「。」", to_aq("判決だ。", cont=True)[0][-1], "。")
     chk("読み：くじごじゅっぷん", plain(s2).startswith("くじごじゅっぷん、"), True)
     s3, _, _ = to_aq("進水した。")
     chk("無声化の印 ’ を外す", "’" in s3, False)

@@ -249,7 +249,16 @@ def build(cuts=None, dry=False, cand=None, speed=None):
                 skipped.append(cid)
             continue
         pcm, total, rows = build_cut(cid, lines, synth)
-        write_wav(AUDIO / f"{cid}.wav", pcm)
+        # 🔴 中身が同じ wav は書き直さない（09-28）：書き直すと更新時刻だけ新しくなり、audio_pack pack が全カットを詰め直す
+        #    ＝opus（Ogg）は詰めるたびに乱数の番号が入って別のファイルになる＝音が9カットしか変わらなくても196本・約20MB が
+        #    公開リポに積もった。同じなら触らない（pack は時刻で「変わっていない」と分かる）
+        wp = AUDIO / f"{cid}.wav"
+        same = False
+        if wp.exists():
+            with wave.open(str(wp)) as w:
+                same = (w.getframerate(), w.getnchannels(), w.readframes(w.getnframes())) == (SR, 1, pcm)
+        if not same:
+            write_wav(wp, pcm)
         durs[cid], subs[cid], sigs[cid] = round(total, 3), rows, sig
         built += 1
 
