@@ -933,7 +933,17 @@ def _episode_sub_q_color():
     return getattr(el_script, "SUB_Q_COLOR", None) or J.INK_W
 
 
+def _episode_sub_band():
+    """字幕の帯の形（回ごと＝el_script.SUB_BAND）。"solid"＝真っ黒・"grad"＝下が濃く上へ薄い（無い回の既定）。"""
+    import el_script
+    v = getattr(el_script, "SUB_BAND", "grad")
+    if v not in ("solid", "grad"):
+        raise SystemExit(f"el_script.SUB_BAND は solid か grad（いま {v!r}）")
+    return v
+
+
 SUB_SIZE = _episode_sub_size()
+SUB_BAND = _episode_sub_band()
 SUB_STROKE = round(7 * SUB_SIZE / 38)
 # 🔴 2026-09-28（14本目⑤b-1）：聞き役（`who:"q"`）の行だけこの色。語りは J.INK_W（白 #eaf2f6）。
 #    ⚠️ 水色 #8fb6c9 は J.LINE（図の技術線）と**同じ値**＝章の色の置き換え（J.remap）を通すと
@@ -1007,7 +1017,11 @@ def sub_band(w=W, h=SUB_H):
     ⚠️ 帯は**全カット共通**なので焼くのは1枚（`_subband`）。226枚焼かない。
     ⚠️ 図の本体は y=210〜892（jiko_style の BAND_T / BAND_B）に収まっていて、
        帯は y=900 から下。**常時出しても図に一切かからない**（確認済み）。
+    🔴 2026-09-28（14本目⑤b-1）：形は回ごとの設定 `SUB_BAND`（el_script）。"solid"＝真っ黒（見本 mock_c103・14本目から）
+       ／"grad"＝下が濃く上へ薄い（13本目まで）。門番＝check_subwrap の E7（この関数の SVG に設定が届いているか）
     """
+    if SUB_BAND == "solid":
+        return f'<rect x="0" y="0" width="{w}" height="{h}" fill="#000"/>'
     return (f'<linearGradient id="subbg" x1="0" y1="1" x2="0" y2="0">'
             f'<stop offset="0" stop-color="#000" stop-opacity="0.78"/>'
             f'<stop offset="0.62" stop-color="#000" stop-opacity="0.70"/>'
@@ -1857,10 +1871,14 @@ def render_all(force=False, only=None, jobs_workers=4):
         todo.append((k, svg, p, W, H))
         fresh[k] = f_
     # ★字幕の黒帯。全カット共通の1枚。**常時貼るので必ず焼く**
+    # 🔴 2026-09-28（14本目⑤b-1）：帯も**中身の指紋**で焼き直す（それまでは「ファイルが無いときだけ」＝回ごとの設定 SUB_BAND を
+    #    solid に替えても、前に焼いた帯（grad）が残っている所では**黙って古い帯のまま**合成された＝設定が絵に届かない形）
     if not (only and not "_subband".startswith(only)):
         p = OUT / "_subband.png"
-        if force or not p.exists():
+        f_ = fp("_subband", sub_band())
+        if force or not p.exists() or seen.get("_subband") != f_:
             todo.append(("_subband", sub_band(), p, W, SUB_H))
+            fresh["_subband"] = f_
     for cid, rows in SUBS.items():
         if only and not cid.startswith(only):
             continue

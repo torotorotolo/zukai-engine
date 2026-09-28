@@ -33,6 +33,8 @@ r"""check_subwrap.py — **字幕**の折り返しの門番（9本目テネリ�
      （水色は J.LINE と同じ値＝赤銅の章で #f2ab95 に化ける）。聞き役の行があるのに色が白のまま（設定が無い）も E5
   E6 2行の字幕の置き方＝行の間が字の 1.25倍未満／字（フチこみ）が帯からはみ出す（`scene_jiko.sub_ys` の値で測る）。
      字の上下＝Noto Sans JP の漢字の枠（基線の上 0.88・下 0.12）。旧式（0.42／0.78）は 56px で行の間 64.8px＝鳴る
+  E7 帯の形の設定（el_script.SUB_BAND＝solid 真っ黒／grad 下が濃く上へ薄い）が、焼く帯の SVG（scene_jiko.sub_band）に届いていない
+     ⚠️ 帯の PNG は render_all が中身の指紋で焼き直す（09-28 まで「ファイルが無いときだけ」＝設定を替えても古い帯のまま合成された）
 """
 import json
 import sys
@@ -119,6 +121,17 @@ def judge_geometry():
     return bad
 
 
+def judge_band():
+    """E7：帯の形の設定（el_script.SUB_BAND）が、焼く帯の SVG（scene_jiko.sub_band）に届いているか。"""
+    import scene_jiko as S
+    svg = S.sub_band()
+    solid = 'fill="#000"' in svg and "stop-opacity" not in svg
+    grad = "linearGradient" in svg and 'stop-opacity="0"' in svg
+    if (S.SUB_BAND == "solid" and not solid) or (S.SUB_BAND == "grad" and not grad):
+        return [f"E7 帯の設定 {S.SUB_BAND} が帯の SVG に届いていない（{svg[:70]}…）"]
+    return []
+
+
 def run():
     import narration
     p = ROOT / "audio" / "narration.json"
@@ -150,13 +163,14 @@ def run():
             folded += len(folded_rows) >= 2
             errs += [f"{cid}-{i} {b}" for b in bad]
         errs += judge_colors(cid, segs)
-    errs += judge_q_setting(subs) + judge_geometry()
+    errs += judge_q_setting(subs) + judge_geometry() + judge_band()
     nq = sum(1 for segs in subs.values() for s in segs if s.get("who") == "q")
-    print(f"字幕 {n}枚（{len(subs)}カット）／2行に折れる {folded}枚／聞き役 {nq}枚")
+    import scene_jiko as S
+    print(f"字幕 {n}枚（{len(subs)}カット）／2行に折れる {folded}枚／聞き役 {nq}枚／帯 {S.SUB_BAND}")
     if errs:
         print(f"🔴 違反 {len(errs)}件:\n  " + "\n  ".join(errs[:40]))
         return 1
-    print("✓ 違反 0件（E1 幅・E2 語の途中・E3 尻切れ・E4 台本との食い違い・E5 話し手の色・E6 2行の置き方）")
+    print("✓ 違反 0件（E1 幅・E2 語の途中・E3 尻切れ・E4 台本との食い違い・E5 話し手の色・E6 2行の置き方・E7 帯の形）")
     return 0
 
 
@@ -253,11 +267,22 @@ def selftest():
         ok(judge_geometry(), "E6 陽性対照（旧式の 0.42／0.78 を 56px で）が鳴らない")
     finally:
         S.sub_ys, S.SUB_SIZE, S.SUB_STROKE = keep_ys, keep, round(7 * keep / 38)
+    # ⑤ 🆕 E7 帯の形：solid と grad は本番の sub_band で静か・設定を無視する sub_band（いつも grad を返す）で solid だと鳴る
+    keep_band, keep_fn = S.SUB_BAND, S.sub_band
+    try:
+        for b in ("solid", "grad"):
+            S.SUB_BAND = b
+            ok(not judge_band(), f"E7 陰性対照（{b}）が鳴った: {judge_band()}")
+        S.SUB_BAND = "solid"
+        S.sub_band = lambda w=S.W, h=S.SUB_H: '<linearGradient id="g"><stop stop-opacity="0"/></linearGradient><rect fill="url(#g)"/>'
+        ok(judge_band(), "E7 陽性対照（設定が帯に届かない）が鳴らない")
+    finally:
+        S.SUB_BAND, S.sub_band = keep_band, keep_fn
     if fails:
         print("🔴 selftest:\n  " + "\n  ".join(fails))
         return 1
     print(f"selftest: 検出器 {len(det)}/{len(det)} 鳴った・陰性 静か／折り方 38px と {keep}px で違反なし・c813-1 の実例 ✓"
-          f"／E5 色 陽性3・陰性2 ✓／E6 置き方 陽性1・陰性2 ✓")
+          f"／E5 色 陽性3・陰性2 ✓／E6 置き方 陽性1・陰性2 ✓／E7 帯 陽性1・陰性2 ✓")
     return 0
 
 
