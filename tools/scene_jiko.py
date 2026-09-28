@@ -897,10 +897,21 @@ def page(inner, w=W, h=H):
 
 
 # ── 字幕 ─────────────────────────────────────────────────
-# 黒帯の上・38px・NotoSansJP-Bold・全カット統一（映像ルール1）。帯は y=900〜1080。
+# 黒帯の上・NotoSansJP-Bold・全カット統一（映像ルール1）。帯は y=900〜1080。
+# 🔴 大きさは**回ごとの設定** el_script.SUB_SIZE（14本目から 56px＝ルール §5a-15b。無い回は 38）。
+#    門番 check_subwrap もこの値で折る（描く大きさと測る大きさが1か所から出る）。フチは大きさに比例＝38px で 7・56px で 10
 SUB_Y, SUB_H = 900, 180
-SUB_SIZE = 38
+
+
+def _episode_sub_size(default=38):
+    import el_script
+    return int(getattr(el_script, "SUB_SIZE", default))
+
+
+SUB_SIZE = _episode_sub_size()
+SUB_STROKE = round(7 * SUB_SIZE / 38)
 SUB_MAXW = 1560          # 字幕1行に許す最大の幅（px）。**実測で折る**
+SUB_ORPHAN = 3           # これ以下の字数の行を折って作らない（check_subwrap の E3 と同じ値）
 XML = {"&": "&amp;", "<": "&lt;", ">": "&gt;"}
 
 
@@ -915,19 +926,45 @@ def wrap2(text):
        字幕は漢字・かな・数字が混ざるので、字数で折ると1行の長さが 1.6 倍ぶれる
        （「2023年6月18日、午前10時47分。」は16字だが数字が多く、
          「潜水艇は、原型をとどめていなかった。」の18字より狭い）。
+
+    🔴 2026-09-28（14本目⑤a-2・56px）：**収まる折り目の中から選ぶ**。
+       旧式は「真ん中に近い読点」を、収まるかを見ずに選んでいた＝38px では足りたが、56px（1行 約27字）では
+       読点が文の後ろ寄りにあると片側が SUB_MAXW を越えた（14本目 442枚中4枚）。候補から外すもの＝
+       どちらかの行が SUB_MAXW を越える・SUB_ORPHAN 字以下の尻切れ・語の途中（titan_fig._midword＝
+       check_subwrap の E2 と同じ規則）。選ぶ順＝①読点 ②文節の切れ目らしい所（ひらがなの後ろ・ひらがなでない字の前
+       ＝「何度も／「どう…」。真ん中に近いだけだと「何度／も」と語と助詞が割れた）③ほかの境目。どれも真ん中に近いもの。
+       どれも無ければ旧式のまま（門番 check_subwrap が止める）。
+       ⚠️ 38px の回（13本目まで）は字幕が1枚も2行に折れていない（10・12・13本目の6版 2,652枚で0）＝前の回の絵は変わらない
     """
-    if fm.width(text, SUB_SIZE, "Noto") <= SUB_MAXW:
+    width = lambda s: fm.width(s, SUB_SIZE, "Noto")
+    if width(text) <= SUB_MAXW:
         return [text]
-    half = fm.width(text, SUB_SIZE, "Noto") / 2
+    half = width(text) / 2
     best, acc = None, 0.0
-    cands = []
+    hira = lambda c: "ぁ" <= c <= "ゖ"
+    cands, punct, edge, plain = [], [], [], []
     for i, ch in enumerate(text):
         acc += fm.adv(ch, "Noto") * SUB_SIZE
+        key = (abs(acc - half), i + 1)
         if ch in "、。":
-            cands.append((abs(acc - half), i + 1))
-        if best is None or abs(acc - half) < best[0]:
-            best = (abs(acc - half), i + 1)
-    cut = min(cands)[1] if cands else best[1]
+            cands.append(key)
+        if best is None or key[0] < best[0]:
+            best = key
+        a, b = text[:i + 1], text[i + 1:]
+        if (not b or width(a) > SUB_MAXW or width(b) > SUB_MAXW
+                or min(len(a.strip()), len(b.strip())) <= SUB_ORPHAN
+                or F._midword(a.rstrip()[-1:], b.lstrip()[:1])):
+            continue
+        if ch in "、。":
+            punct.append(key)
+        elif hira(ch) and not hira(b[0]) and b[0] != "ー":
+            edge.append(key)
+        else:
+            plain.append(key)
+    if punct or edge or plain:
+        cut = min(punct or edge or plain)[1]
+    else:
+        cut = min(cands)[1] if cands else best[1]          # 収まる折り目が無い＝旧式（門番が止める）
     return [text[:cut], text[cut:]]
 
 
@@ -960,7 +997,7 @@ def sub_row(text, w=W, h=SUB_H):
     for t, y in zip(lines, ys):
         g.append(f'<text x="{w / 2:.0f}" y="{y:.0f}" font-family="Noto" '
                  f'font-size="{SUB_SIZE}" fill="{J.INK_W}" text-anchor="middle" '
-                 f'stroke="#000" stroke-width="7" stroke-linejoin="round" '
+                 f'stroke="#000" stroke-width="{SUB_STROKE}" stroke-linejoin="round" '
                  f'paint-order="stroke fill">{esc(t)}</text>')
     return "".join(g)
 

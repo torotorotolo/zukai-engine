@@ -46,6 +46,9 @@ import speaker    # noqa: E402  聞き役の印 `Q: `（14本目から）
 # 🔴 声のエンジン（2026-09-25・14本目⑤a 新設）。"aquestalk"＝ゆっくり（読みは tools/aq_kana.py・合成は aq_build）。
 #    13本目までは ElevenLabs（この名前が無い回は elevenlabs とみなす＝check_yomi_numbers が振り分ける）
 VOICE_ENGINE = "aquestalk"
+# 🔴 字幕の大きさ（回ごと・2026-09-28 14本目⑤a-2 新設）。14本目から 56px（ルール §5a-15b・カズヤくん 09-26）。
+#    scene_jiko（描く）と check_subwrap（折りを測る）がここを読む＝描く大きさと測る大きさが1か所から出る。13本目までは 38
+SUB_SIZE = 56
 SLUG = "ep15"               # 15本目 リノ・エアレース2011（2026-09-26・⑤a-1＝作業ツリー zukai-engine-ep15a5・声はゆっくり）。14本目 "ep14"（セウォル号）・13本目 "ep13"・12本目 "ep12"・11本目 "ep11"・10本目 "ep10"・9本目 "ep9"・8本目 "ep8"・7本目 "ep7"・6本目 "keybridge"・5本目 "sl1"・4本目 "surfside"
 # 🔴 話速 1.0 を**明示して送る**（2026-09-07 カズヤくん指示）。渡さないと声に保存された既定
 #    speed 1.14 で読まれる。speed 以外の4つは /v1/voices/<id>/settings の実測をそのまま写した
