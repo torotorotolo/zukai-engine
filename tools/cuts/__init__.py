@@ -190,11 +190,10 @@ if _ng:
 #       （台帳 `ref/ep13/materials.md` §10-2・10本目と同じ決め）。「1点も入れない」網から
 #       **額装の網**（`ss.check_frame_only`＝切る・色を変える・重ねる・2回使うを止める）へ戻した。
 #       ⚠️ 写真を1点も当てていない章だけのときは照合する点が無い（`assets.json` は読む＝fail closed）。
-#    🔴 2026-09-28（14本目 ⑤b-1）：**写真を1点も当てていないうちは網を呼ばない**（照合する点が無い）。
+#    🔴 2026-09-28（14本目 ⑤b-1）：**写真を1点も当てていないうちは台帳を読まない**（照合する点が無い＝`ss.frame_only_for`）。
 #       回を切り替えた直後は `assets.json`（⑤b-2 で作る）が無く、読むと `import cuts` が落ちて**全部の門番が起動時に落ちる**
 #       （字幕・章名・色の門番まで測れない）。1点でも `photo=`／`intro=` を当てたら今までどおり読む＝無ければ止まる（fail closed）
-_uses_photo = any(s.get("photo") or (s.get("intro") or {}).get("photo") for s in SPEC.values())
-_frame = ss.check_frame_only(SPEC) if _uses_photo else []
+_frame = ss.check_frame_only(SPEC)
 if _frame:
     raise RuntimeError(
         "CC BY-SA の写真は額装（無加工・丸ごと・色を変えない・何も重ねない・1点1カット）でだけ使えます。"

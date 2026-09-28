@@ -874,7 +874,9 @@ def meta_of(idx):
         solo = v["photo"] and not v["back"]
         # 🔴 13本目 ⑤b-2：継承つき（BY-SA）の額装の写真＝寄らない・ディゾルブを掛けない
         #    （前の絵を半透明で重ねる＝「上に重ねない」の灰色）。点の一覧は `cuts/ss.frame_only()`（assets.json の権利）
-        fo = S._cuts_ss.frame_only() if hasattr(S._cuts_ss, "frame_only") else {}
+        #    🔴 2026-09-28（14本目 ⑤b-1）：`frame_only_for`＝写真を1点も当てていなければ台帳を読まない（回を切り替えた直後に
+        #       ここで落ちて試し焼きが止まった）。1点でも当てたら今までどおり台帳が必須
+        fo = S._cuts_ss.frame_only_for(S.SPEC) if hasattr(S._cuts_ss, "frame_only_for") else {}
         m[cid]["frame_only"] = (S.SPEC.get(cid) or {}).get("photo") in fo
         if (prev and solo and prev in idx and idx[prev]["photo"] and not idx[prev]["back"]
                 and prev[:2] == cid[:2] and not S.card_of(cid)

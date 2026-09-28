@@ -126,6 +126,22 @@ def frame_only():
     return out
 
 
+def uses_photo(spec):
+    """SPEC が写真を1点でも当てているか（`photo=` か `intro=dict(photo=…)`）。"""
+    return any(s.get("photo") or (s.get("intro") or {}).get("photo") for s in spec.values())
+
+
+def frame_only_for(spec):
+    """🔴 2026-09-28（14本目 ⑤b-1）：**写真を1点も当てていなければ {}（台帳 `assets.json` を読まない）**。
+    1点でも当てたら `frame_only()`＝台帳が無ければ止まる（fail closed のまま）。
+
+    回を切り替えた直後は台帳（⑤b-2 で作る）が無い。ここを通さずに `frame_only()` を呼ぶと、
+    `import cuts`（`check_frame_only`）と合成（`build_jiko.meta_of`）が落ち、写真を使わない試し焼きも門番も全部止まった
+    （14本目 ⑤b-1 の Actions で合成の側が落ちた＝呼び出し元は2か所・ここに1か所でまとめた）。
+    """
+    return frame_only() if uses_photo(spec) else {}
+
+
 # 額装の約束を破る書き方（10本目の一覧＋`cam`）。🔴 `zoom` は 1.0 ちょうどなら可・`panel=True` と `color=1.0` は必須
 _BREAKS_FRAME = ("trim", "veil", "vignette", "focus", "xbias", "bias", "ann", "mark", "blur", "cam", "intro")
 
@@ -134,8 +150,9 @@ def check_frame_only(spec):
     """継承つきの点を、切る・色を変える・重ねる型に渡しているカット／2回使っているカットを挙げる（空なら合格）。
 
     ⚠️ `intro=dict(photo=…)`（冒頭の秒だけ写真を全画面）も**全画面＝切る**ので、継承つきの点を渡したら止める。
+    ⚠️ 写真を1点も当てていなければ照合する点が無い＝台帳を読まずに合格（`frame_only_for`）。
     """
-    fo = frame_only()
+    fo = frame_only_for(spec)
     bad, seen = [], {}
     for cid, s in sorted(spec.items()):
         ph = s.get("photo")
