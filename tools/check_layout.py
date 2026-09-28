@@ -140,11 +140,13 @@ def main(only=None):
 
     print("\n── 同じカットで重なっている文字 ──")
     bycut = defaultdict(list)
+    # 🔴 2026-09-28（14本目 ⑤b-2）：冒頭の絵（`intro=dict(illu=…)`）の層も `_ilab` と同じ「冒頭の画面」＝決め所と同時には出ない
+    intro_il = {p["name"] for m_ in S.STAGE_META.values() for p in ((m_.get("intro_illu") or {}).get("parts") or [])}
     for k, svg in jobs.items():
         cid = k.rsplit("_", 1)[0]
         # 🔴 12本目から：冒頭の写真の板（`_ilab`）は**図と同時には出ない**（写真→図へ入れ替え）。
         #    別の画面として束ねる（板の中どうしは今までどおり比べる）
-        if k.endswith("_ilab"):
+        if k.endswith("_ilab") or k in intro_il:
             cid += "〔冒頭の写真〕"
         bycut[cid] += boxes(svg, k)
     for cid in sorted(bycut):
@@ -195,7 +197,10 @@ def main(only=None):
     print("\n── 図形が文字を横切っている ──")
     bymark = defaultdict(list)
     for k, svg in jobs.items():
-        if k.endswith("_base"):
+        # 🔴 2026-09-28（14本目 ⑤b-2）：案C の再現イラストの層（`<cid>_il<番号>`）は**絵＝地**（写真と同じ扱い）。
+        #    廊下の遠近の線や船の輪郭を「文字を貫く罫」と数えると、絵の上の札・章の名が全部鳴る（21件）。
+        #    絵の上の文字はフチ（paint-order）と札の地で守る＝焼いた絵を目で見る（Actions の試し焼き）
+        if k.endswith("_base") or S.KEEP_COLOR.search(k) and not k.startswith("sub_"):
             continue
         cid = k.rsplit("_", 1)[0]
         for m in CB.parse(svg, k)[1]:

@@ -88,7 +88,10 @@ KATAKANA = re.compile(r"[ァ-ヶー・]+")
 
 # 図の引数のうち、文字列でも「画面の文」ではないもの（色・種類・ファイル名・位置）
 NOT_TEXT_KEYS = {"c", "vc", "dc", "tc", "kc", "kind", "mode", "photo", "at", "anchor", "fam",
-                 "font", "img", "src", "side", "ref"}
+                 "font", "img", "src", "side", "ref",
+                 # 🔴 2026-09-28（14本目 ⑤b-2）：案C の再現イラストの**画面に出ない欄**（出典の宣言 rec・人数の宣言 people・
+                 #    場面の状態 state／start・置き場 place・touch）。画面の出典は rec から「PDF N頁」の形で組み直して出る
+                 "rec", "people", "state", "start", "place", "touch"}
 
 
 def unesc(t):

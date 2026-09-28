@@ -466,6 +466,13 @@ def measure(only=None, cut=None, kind=None, hist=False, verbose=False):
             texts += t
             fills += fl
         frames_ = dedupe(frames_)
+        # 🔴 2026-09-28（14本目 ⑤b-2）：2つの問いのパネルに小さく戻す再現イラスト（illu_pair）の枠は、中身が
+        #    **合成のときに PIL で入る絵**（`build_jiko.illu_minis`）＝SVG の中は空で当然。その枠だけ外す（枠の位置は型が持つ）
+        minis = [sc["box"] for sc in ((S.STAGE_META.get(cid) or {}).get("illu") or {}).get("scenes", [])
+                 if sc.get("role") == "mini"]
+        frames_ = [f_ for f_ in frames_
+                   if not any(abs(f_[0] - bx) <= 8 and abs(f_[1] - by) <= 8 and abs(f_[2] - bw) <= 16
+                              and abs(f_[3] - bh) <= 16 for bx, by, bw, bh in minis)]
         if not frames_:
             continue
         for bi, fr in enumerate(frames_):

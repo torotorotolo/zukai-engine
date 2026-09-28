@@ -150,10 +150,17 @@ def screen_texts(sp):
             if a.get(k):
                 out.append((f"ann{i + 1}.{k}", str(a[k])))
     f = sp.get("fig")
+    # 🔴 2026-09-28（14本目 ⑤b-2）：案C の再現イラスト（illu・illu_pair・冒頭の絵）の**画面に出ない欄**は歩かない
+    #    ＝出典の宣言 rec／人数の宣言 people／場面の時刻 at／置き場 place・view の既定・touch（門番 check_illu が読む欄）。
+    #    画面の出典は rec から「PDF N頁」の形に組み直して出る（illu.rec_line）＝「p12」の形は画面に出ない
+    skip = ({"rec", "people", "at", "place", "touch", "state", "start", "view"}
+            if f and f[0] in ("illu", "illu_pair") else set())
     if f:
         def walk(o, where):
             if isinstance(o, dict):
                 for k, v in o.items():
+                    if k in skip:
+                        continue
                     walk(v, f"{where}.{k}")
             elif isinstance(o, (list, tuple)):
                 for j, v in enumerate(o):

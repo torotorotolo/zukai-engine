@@ -4906,3 +4906,18 @@ def section(steps, start=None, rel=(), note="", src=""):
     f.mech = dict(kind="section", start=start, states=states, rel=list(rel), tags=texts, shapes=shapes,
                   steps=[dict(st) for st in steps])
     return f
+
+
+# ── ③ 14本目 ⑤b-2（2026-09-28）：案C の再現イラスト＝中身は `tools/illu.py`（置き場・部品・鍵・門番 check_illu の物差し）──
+#   `fig=("illu", dict(place="A", steps=[…]))`＝全面の絵（画面の種類「再現イラスト」）
+#   `fig=("illu_pair", dict(blocks=[…]))`＝2つの問いのパネルに絵を小さく戻す（「混ざり」）
+#   冒頭の1行だけ絵にして決め所へ入れ替える（c102）は SPEC の `intro=dict(illu=dict(place="B", …))`（scene_jiko が組む）
+#   ⚠️ illu.py はこのファイルを読むので、ここでは呼ぶときに読む（読み込みの輪を作らない）
+def illu(place, steps, **kw):
+    import illu as _il
+    return _il.illu(place, steps, **kw)
+
+
+def illu_pair(blocks, lead=""):
+    import illu as _il
+    return _il.illu_pair(blocks, lead)

@@ -40,6 +40,7 @@ sys.stdout.reconfigure(encoding="utf-8")
 
 import jiko_style as J
 import titan_fig as F
+import illu as ILLU          # 14本目 ⑤b-2：案C の再現イラスト（titan_fig のあとで読む）
 import fontmetrics as fm
 import render
 
@@ -1697,6 +1698,27 @@ def stage_times(cid, nstage, holds=None):
 SUB_MUTE = {}
 
 
+# ── 14本目 ⑤b-2（2026-09-28）：案C の再現イラスト ────────────────
+def _illu_layers(cid, scenes, jobs, n):
+    """絵の部品を1つずつ層にする。🔴 名前は `<cid>_il<番号>`＝KEEP_COLOR（章の色に置き換えない）。部品に名前を書き戻す。"""
+    for sc in scenes:
+        for p in sc["parts"]:
+            p["name"] = f"{cid}_il{n}"
+            jobs[p["name"]] = p["svg"]
+            n += 1
+    return n
+
+
+def illu_base(cid, il):
+    """全面の再現イラストの上に載る層（地は置かない）：左上の「再現イラスト」と見る向き・右上の章・左下の出典。
+    ⚠️ この層は章の色の層（名前が `_il<番号>` でない）＝札と章は今までどおり章の色。見出し（t）は出さない（見本 c103）"""
+    g = [ILLU.overlay_svg(il.get("view", ""), il.get("src", ""))]
+    ch = chapter_of(cid)
+    if ch:
+        g.append(J.chapter(ch[0], NCH, ch[1]))
+    return "".join(g)
+
+
 # ── レイヤーの組み立て ────────────────────────────────────
 def build_layers(allow_missing=False):
     """cid → {レイヤー名: SVG} と、ワイプの x 範囲を返す。
@@ -1705,6 +1727,7 @@ def build_layers(allow_missing=False):
     """
     jobs, spans, holds, labks = {}, {}, {}, {}
     moves_of = {}
+    illu_of, intro_of = {}, {}      # 🔴 14本目 ⑤b-2：案C の再現イラスト（全面・小さく戻す）と冒頭の絵
     for cid in ORDER:
         spec = SPEC.get(cid)
         if spec is None:
@@ -1725,7 +1748,16 @@ def build_layers(allow_missing=False):
         back = bool(spec.get("photo"))
         kind, kw = spec["fig"]
         fig = getattr(F, kind)(**kw)
-        jobs[f"{cid}_base"] = fig_base(cid, spec, ground=not back)
+        il = getattr(fig, "illu", None)
+        # 🔴 14本目 ⑤b-2：全面の再現イラストは**地を置かない**（絵が地）＝左上の札・右上の章・左下の出典だけの層
+        jobs[f"{cid}_base"] = (illu_base(cid, il) if il and il.get("full")
+                               else fig_base(cid, spec, ground=not back))
+        n_il = 0
+        if il:
+            if back:
+                raise SystemExit(f"{cid}: 再現イラストと写真（地に敷く）は同時に使えない（§5b-74③ 写真と絵を混ぜない）")
+            n_il = _illu_layers(cid, il["scenes"], jobs, 0)
+            illu_of[cid] = dict(full=bool(il.get("full")), scenes=[ILLU.strip(s) for s in il["scenes"]])
         lab, stages = fig.lab, list(fig.stages)
         holds[cid], labks[cid] = list(fig.holds), fig.labk
         # 🔴 12本目から：動く部品（drift・trace）。**画素の座標のまま** meta で運ぶ（build_jiko が PIL で描く）
@@ -1735,7 +1767,16 @@ def build_layers(allow_missing=False):
         if spec.get("intro"):
             if back:
                 raise SystemExit(f"{cid}: intro と photo（地に敷く）は同時に使えない")
-            jobs[f"{cid}_ilab"] = full_top(cid, dict(spec, photo=spec["intro"]["photo"]))
+            if spec["intro"].get("illu"):
+                # 🔴 14本目 ⑤b-2：冒頭の1行だけ再現イラスト → 決め所へ画面ごと入れ替える（c102・§5b-74③）
+                isc = ILLU.scene(**spec["intro"]["illu"])
+                if any(t["texts"] for t in isc["tags"]):
+                    raise SystemExit(f"{cid}: 冒頭の絵に札（tag）は付けない（段の層は決め所のもの）")
+                _illu_layers(cid, [isc], jobs, n_il)
+                jobs[f"{cid}_ilab"] = illu_base(cid, isc)
+                intro_of[cid] = dict(ILLU.strip(isc), role="intro")
+            else:
+                jobs[f"{cid}_ilab"] = full_top(cid, dict(spec, photo=spec["intro"]["photo"]))
         if not stages:
             # 段が無いと「描いている途中」が作れず、カットが丸ごと静止する。
             # 骨格を段に格上げして、カット全体をかけて描かせる。
@@ -1757,7 +1798,8 @@ def build_layers(allow_missing=False):
     #    段の時間割はここに置いて layer_index が直後に読む。
     STAGE_META.clear()
     STAGE_META.update({c: {"holds": holds.get(c) or [], "labk": labks.get(c),
-                           "moves": moves_of.get(c) or []}
+                           "moves": moves_of.get(c) or [],
+                           "illu": illu_of.get(c), "intro_illu": intro_of.get(c)}
                        for c in spans})
     # 🔴 決め所と同じ行の字幕を消す（"with_last" のときだけ）。
     SUB_MUTE.clear()
@@ -1780,6 +1822,13 @@ def layer_index(allow_missing=False):
         # photo … 写真を読む必要があるか（実写カットと、地に敷くカットの両方で True）
         # back  … **地に敷く**カットか（写真だけの実写カットと区別する）
         m = STAGE_META.get(cid, {})
+        intro = s.get("intro")
+        if m.get("intro_illu"):
+            # 🔴 14本目 ⑤b-2：冒頭の絵は**最後の行（決め所）を読み始める少し前**まで（build_jiko が INTRO_X 秒で重ねて入れ替える）。
+            #    絵の段の時刻はこのカットの行から（絵は決め所と別の段の数を持つ）
+            rows = SUBS.get(cid, [])
+            isc = dict(m["intro_illu"], times=stage_times(cid, m["intro_illu"]["nstage"]))
+            intro = dict(illu=isc, sec=round(max(0.5, (rows[-1]["t"] + LEAD - 0.30) if rows else 1.0), 3))
         idx[cid] = {"photo": bool(s.get("photo")), "back": bool(s.get("photo") and s.get("fig")),
                     "veil": float(s.get("veil", VEIL)), "span": spans[cid],
                     # 🔴 実写カット（fig の無いカット）にかける暗幕。**書いたカットだけ**
@@ -1787,7 +1836,8 @@ def layer_index(allow_missing=False):
                     "stages": ns, "layers": sorted(names),
                     "holds": m.get("holds") or [], "labk": m.get("labk"),
                     # 🔴 12本目から：動く部品と冒頭の写真（build_jiko.meta_of がそのまま運ぶ）
-                    "moves": m.get("moves") or [], "intro": s.get("intro")}
+                    #    14本目 ⑤b-2 から：案C の再現イラスト（illu）と冒頭の絵（intro の illu）
+                    "moves": m.get("moves") or [], "intro": intro, "illu": m.get("illu")}
     return idx, jobs
 
 

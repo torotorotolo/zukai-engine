@@ -414,6 +414,10 @@ def scene(cut, t, dur, lay, photos, meta):
     """字幕を除いた画面。"""
     span = meta[cut]["span"]
     times = meta[cut]["times"]
+    il = meta[cut].get("illu")
+    if il and il.get("full"):
+        # 🔴 14本目 ⑤b-2：全面の再現イラスト（地は絵・上の層 `_base` は札と章と出典だけ）
+        return illu_frame(cut, t, lay, meta, il["scenes"][0], f"{cut}_base")
     if meta[cut]["back"]:
         # ★写真を地にして、暗幕を挟み、その上に図解を重ねる
         k = t / max(dur, 0.001)
@@ -482,6 +486,9 @@ def scene(cut, t, dur, lay, photos, meta):
     if f"{cut}_lab" in lay:
         wipe(fr, lay[f"{cut}_lab"],
              min(1.0, max(0.0, (t - 0.15) / (dur * meta[cut]["labk"]))), span=span)
+    if il:
+        # 14本目 ⑤b-2：2つの問いのパネルに小さく戻す絵（骨格の枠のあと・段の札の前＝「再現イラスト」の札が絵の上に来る）
+        fr = illu_minis(fr, cut, t, lay, meta)
     # 段は draw_span() の秒で描き終え、残りは出そろった状態で見せる。
     # 🔴 r6 の目視で分かった：持ち時間いっぱい使うと、引用の2行目が
     #    カットの終わりでやっと出そろい、**読み終わる前に切り替わる**（c518 は尺3.7秒）。
@@ -754,12 +761,192 @@ def draw_moves(fr, cut, t, meta):
     return fr
 
 
+# ══════════════════════════════════════════════════════════
+#  14本目 ⑤b-2（2026-09-28）：案C の再現イラスト（illu）── 部品の PNG を PIL で重ねる
+# ══════════════════════════════════════════════════════════
+# 型（`tools/illu.py`）が部品ごとに層（`<cid>_il<番号>`＝章の色に置き換えない）と**段の鍵**を渡す。
+# 鍵＝rot（度・pivot のまわり・画面で時計回りが正＝titan_fig.mech_pts と同じ向き）・sc（pivot のまわりの拡大）・dx・dy・a（濃さ）。
+# 鍵の段の行頭＋delay から dur 秒かけて、前の鍵から余弦の半周（ease）で移る（13本目 anim と同じ）。
+# 部品の種類：layer（鍵で動く）／ring（音の輪＝広げて薄める・pulse）／sprite（人の影の型紙を道 inst に沿って置く）／
+#             drift（波＝画面の幅で巻き戻して横に流す）。カメラ cam（z≧1）は絵と札に掛け、左上の札・章・出典（base）には掛けない。
+# 🔴 層は**不透明の部分だけ切り出して**持つ（1920×1080 を毎コマ回さない）。回すときは乗算済みの色（RGBa）で補間する
+#    （透明のふちの黒が混ざって縁が汚れるのを防ぐ）
+_IL = {}
+IL_DEF = dict(rot=0.0, sc=1.0, dx=0.0, dy=0.0, a=1.0)
+IL_FADE = 0.45          # 札と小さな絵の出入り（秒）
+
+
+def _il_img(lay, name):
+    """層の不透明な部分の切り出し（絵, 左上の x, y）。"""
+    if name not in _IL:
+        im = lay[name]
+        bb = im.getchannel("A").getbbox()
+        _IL[name] = (im.crop(bb), bb[0], bb[1]) if bb else (None, 0, 0)
+    return _IL[name]
+
+
+def _il_tk(stage, delay, times):
+    return (times[stage][0] if stage < len(times) else 0.0) + float(delay or 0.0)
+
+
+def _il_state(keys, t, times, dflt=IL_DEF):
+    """鍵の並びの、時刻 t の状態（前の鍵から余弦の半周で）。"""
+    tks = [_il_tk(k["stage"], k.get("delay", 0.0), times) for k in keys]
+    j = 0
+    for i, tk in enumerate(tks):
+        if t >= tk:
+            j = i
+    cur = keys[j]
+    if j == 0:
+        return {k: float(cur.get(k, d)) for k, d in dflt.items()}
+    prev = keys[j - 1]
+    u = ease((t - tks[j]) / max(0.01, float(cur.get("dur", 1.1))))
+    return {k: float(prev.get(k, d)) + (float(cur.get(k, d)) - float(prev.get(k, d))) * u for k, d in dflt.items()}
+
+
+def _il_put(fr, img, X, Y, a=1.0):
+    """はみ出しを切って重ねる（濃さ a）。"""
+    w, h = img.size
+    x0, y0, x1, y1 = max(0, X), max(0, Y), min(fr.width, X + w), min(fr.height, Y + h)
+    if x1 <= x0 or y1 <= y0:
+        return
+    if (x0, y0, x1, y1) != (X, Y, X + w, Y + h):
+        img = img.crop((x0 - X, y0 - Y, x1 - X, y1 - Y))
+    if a < 0.996:
+        img = img.copy()
+        img.putalpha(img.getchannel("A").point(lambda v: int(v * a)))
+    fr.alpha_composite(img, (x0, y0))
+
+
+def _il_paste(fr, img, ox, oy, st, pivot):
+    """切り出した層（左上 ox, oy）を、状態 st（rot・sc・dx・dy・a）で pivot のまわりに動かして重ねる。"""
+    a = st["a"]
+    if img is None or a <= 0.004:
+        return
+    rot, sc, dx, dy = st["rot"], st["sc"], st["dx"], st["dy"]
+    if abs(rot) < 1e-3 and abs(sc - 1.0) < 1e-4:
+        _il_put(fr, img, int(round(ox + dx)), int(round(oy + dy)), a)
+        return
+    px, py = pivot
+    r = math.radians(rot)
+    c, s = math.cos(r), math.sin(r)
+    w, h = img.size
+    cs = [(px + sc * (c * (x - px) - s * (y - py)) + dx, py + sc * (s * (x - px) + c * (y - py)) + dy)
+          for x, y in ((ox, oy), (ox + w, oy), (ox, oy + h), (ox + w, oy + h))]
+    bx0, by0 = max(0, int(math.floor(min(p[0] for p in cs)))), max(0, int(math.floor(min(p[1] for p in cs))))
+    bx1, by1 = min(fr.width, int(math.ceil(max(p[0] for p in cs)))), min(fr.height, int(math.ceil(max(p[1] for p in cs))))
+    if bx1 <= bx0 or by1 <= by0:
+        return
+    ex, ey = bx0 - px - dx, by0 - py - dy
+    coef = (c / sc, s / sc, px - ox + (c * ex + s * ey) / sc, -s / sc, c / sc, py - oy + (-s * ex + c * ey) / sc)
+    out = img.convert("RGBa").transform((bx1 - bx0, by1 - by0), Image.AFFINE, coef,
+                                        resample=Image.BICUBIC).convert("RGBA")
+    _il_put(fr, out, bx0, by0, a)
+
+
+def _il_path(path, dt, speed=190.0):
+    """道（点の並び）に沿った位置。区間ごとに 長さ÷速さ（最短 0.3秒）で・区間ごとに緩急。"""
+    for p, q in zip(path, path[1:]):
+        d = max(0.3, math.hypot(q[0] - p[0], q[1] - p[1]) / speed)
+        if dt < d:
+            u = ease(dt / d)
+            return p[0] + (q[0] - p[0]) * u, p[1] + (q[1] - p[1]) * u
+        dt -= d
+    return tuple(path[-1])
+
+
+def _il_scene(t, lay, sc, times):
+    """場面の絵（部品を重ねただけ・札とカメラの前）。"""
+    fr = Image.new("RGBA", (S.W, S.H), (0, 0, 0, 255))
+    for p in sc["parts"]:
+        name = p["name"]
+        if name not in lay:
+            continue
+        kind = p.get("kind", "layer")
+        if p.get("drift"):
+            d = int(round(t * float(p["drift"]))) % S.W
+            fr.alpha_composite(ImageChops.offset(lay[name], d, 0))
+            continue
+        img, ox, oy = _il_img(lay, name)
+        if img is None:
+            continue
+        if kind == "layer":
+            _il_paste(fr, img, ox, oy, _il_state(p["keys"], t, times), p["pivot"])
+        elif kind == "ring":
+            for ev in p["pulse"]:
+                t0 = _il_tk(ev["stage"], ev["delay"], times)
+                for j in range(int(ev["n"])):
+                    u = (t - t0 - j * float(ev["gap"])) / float(ev["dur"])
+                    if 0.0 <= u < 1.0:
+                        st = dict(IL_DEF, sc=ev["s0"] + (ev["s1"] - ev["s0"]) * ease(u), a=(1.0 - u) ** 1.2)
+                        _il_paste(fr, img, ox, oy, st, p["pivot"])
+        elif kind == "sprite":
+            fx, fy = p["foot"]
+            for ins in p["inst"]:
+                t0 = _il_tk(ins["stage"], ins["delay"], times)
+                if t < t0:
+                    continue
+                x, y = _il_path(ins["path"], t - t0)
+                _il_put(fr, img, int(round(ox + x - fx)), int(round(oy + y - fy)), min(1.0, (t - t0) / 0.25))
+    return fr
+
+
+def illu_frame(cut, t, lay, meta, sc, base):
+    """全面の再現イラストの1コマ（絵→段の札→カメラ→上の層 base）。冒頭の絵（intro）もこれを通る。"""
+    times = sc.get("times") or meta[cut]["times"]
+    fr = _il_scene(t, lay, sc, times)
+    if sc.get("role") == "main":
+        # 札（段の層）＝行頭＋delay で**薄く出す**（写真の注記と同じ＝絵の上を横切るワイプは汚れに見える）。
+        #   次の段で消す（keep の札だけ残す）＝動いた物を前の札が指したまま残らない（16本目の見本の粗）
+        tg = sc.get("tags") or []
+        for i, (a, _b) in enumerate(times):
+            k = f"{cut}_a{i + 1}"
+            if k not in lay:
+                continue
+            info = tg[i] if i < len(tg) else {}
+            al = ease((t - a - float(info.get("delay", 0.35))) / IL_FADE)
+            if not info.get("keep") and i + 1 < len(times):
+                al *= 1.0 - ease((t - times[i + 1][0]) / IL_FADE)
+            if al > 0.004:
+                img, ox, oy = _il_img(lay, k)
+                if img is not None:
+                    _il_put(fr, img, ox, oy, al)
+    if sc.get("cam"):
+        z = _il_state(sc["cam"], t, times, dict(z=1.0))["z"]
+        if z > 1.0005:
+            cx, cy = sc.get("camc") or (S.W / 2, S.H / 2)
+            fr = fr.transform(fr.size, Image.AFFINE, (1 / z, 0, cx - cx / z, 0, 1 / z, cy - cy / z),
+                              resample=Image.BICUBIC)
+    if base in lay:
+        fr.alpha_composite(lay[base])
+    return fr
+
+
+def illu_minis(fr, cut, t, lay, meta):
+    """2つの問いのパネルに小さく戻す絵（illu_pair）。その問いの段の行頭から薄く出す。"""
+    times = meta[cut]["times"]
+    for sc in (meta[cut].get("illu") or {}).get("scenes") or []:
+        if sc.get("role") != "mini":
+            continue
+        show = int(sc.get("show", 0))
+        al = ease((t - (times[show][0] if show < len(times) else 0.0)) / IL_FADE)
+        if al <= 0.004:
+            continue
+        x, y, w, h = sc["box"]
+        im = _il_scene(t, lay, sc, times).resize((w, h), Image.BILINEAR, reducing_gap=2.0)
+        _il_put(fr, im, x, y, al)
+    return fr
+
+
 _INTRO_SRC = {}
 
 
 def intro_frame(cut, t, lay, meta):
-    """冒頭の写真のコマ（全画面・ゆっくり寄る）。見出しと出典は `{cut}_ilab`。"""
+    """冒頭の写真のコマ（全画面・ゆっくり寄る）。見出しと出典は `{cut}_ilab`。
+    🔴 14本目 ⑤b-2：冒頭の絵（`intro=dict(illu=…)`）なら再現イラストの1コマ（上の層は `{cut}_ilab`）"""
     it = meta[cut]["intro"]
+    if it.get("illu"):
+        return illu_frame(cut, t, lay, meta, it["illu"], f"{cut}_ilab")
     if it["photo"] not in _INTRO_SRC:
         _INTRO_SRC[it["photo"]] = load_photo(it["photo"], (0, 0, S.W, S.H))
     k = t / max(float(it["sec"]) + INTRO_X, 0.001)
@@ -867,7 +1054,8 @@ def meta_of(idx):
                   "flash": (S.SPEC.get(cid) or {}).get("flash"),   # 閃光の秒（爆発の瞬間だけ）
                   "cam": (S.SPEC.get(cid) or {}).get("cam"),       # カメラの型
                   "moves": v.get("moves") or [],            # 動く部品（drift・trace）
-                  "intro": v.get("intro")}                  # 冒頭の写真（c104）
+                  "intro": v.get("intro"),                  # 冒頭の写真（c104）・14本目から冒頭の絵（intro の illu）
+                  "illu": v.get("illu")}                    # 🔴 14本目 ⑤b-2：案C の再現イラスト（全面・小さく戻す）
         # ディゾルブ：**同じ章の、写真だけのカットどうし**（図解・扉つきのカットには掛けない）
         i = S.ORDER.index(cid)
         prev = S.ORDER[i - 1] if i > 0 else None
