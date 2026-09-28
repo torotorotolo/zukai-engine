@@ -86,7 +86,8 @@ SPEC = {
         fig=("illu", dict(
             place="A", at="8:50", start=dict(heel=17.5, boxes="on"), rec="海審 p1056（15〜20度）・p1097（2段積み）",
             steps=[dict(state=dict(cam=1.03), dur=3.0,
-                        tag=dict(t="コンテナ（2段積み）", at="boxes", off=(300, -150), delay=0.6)),
+                        # ⑤b-2 の試し焼き：off=(300,-150) は右上の章の名（y≈146）の真下に詰まった＝下げた
+                        tag=dict(t="コンテナ（2段積み）", at="boxes", off=(330, -40), delay=0.6)),
                    dict(state=dict(heel=30.0), rec="海審 p1056（8時50分33秒に約30度＝推定）", delay=1.4, dur=1.4),
                    dict(state=dict(boxes="fall"), rec="海審 p1009（船首の甲板のコンテナが海へ）", delay=0.2,
                         tag=dict(t="コンテナの一部", at="boxes_sea", off=(90, -70), delay=0.7, keep=True))])),

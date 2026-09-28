@@ -381,7 +381,9 @@ def win_crowd(piv):
         rows.append((lay, x0, x1))
         cp = "".join(_mrect(x, y, x + w, y + h, piv, "#000") for (x, y, w, h) in row)
         clips.append(f'<clipPath id="wc{k}">{cp}</clipPath>')
-        g.append(f'<g clip-path="url(#wc{k})">{crowd_svg(lay)}</g>')
+        # ⑤b-2 の試し焼き：暗い窓（#3a4f60）に暗い影（#1b2631）では群れが見えなかった＝窓の奥を明るく敷いてから影を置く
+        lit = "".join(_mrect(x, y, x + w, y + h, piv, "#9fb3c2") for (x, y, w, h) in row)
+        g.append(f'{lit}<g clip-path="url(#wc{k})">{crowd_svg(lay)}</g>')
     return "<defs>" + "".join(clips) + "</defs>" + "".join(g), rows
 
 
@@ -433,7 +435,8 @@ def corridor_svg(deg):
 
 # 小さな位置の図（B の左上・ルール §5b-80「見る向きを替えるときは合図」）：A と同じ船首の側から見た船を、
 # その場面の傾きで小さく描き、客室の階（B・A＝3階・4階＝海審 p1019・p1023）に色を付ける＝「この船の中の、この傾き」
-INSET = dict(x=72.0, y=150.0, w=250.0, h=176.0, s=3.6)
+# ⑤b-2 の試し焼き：左上に置くと客室の群れの帯（画面の左上から右下へ）と重なった＝左下（出典の上）へ
+INSET = dict(x=72.0, y=600.0, w=250.0, h=176.0, s=3.6)
 
 
 def inset_svg(deg):
