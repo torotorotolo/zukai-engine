@@ -531,6 +531,10 @@ def _deck_labels(view, V):
     else:
         for t, y in names[3:]:
             yy = V.p(0, y)[1] + 9
+            if t == "底のタンク":
+                # 🔴 ⑤c'（2026-09-29）：寄り（hold）でタンクの帯の真ん中に置くと、水の帯（動く部品・不透明0.9）が札を覆って
+                #    読めなかった（c408・c409）。動く部品は札より上に描かれる＝札をタンクの上の線の上（左の空き）へ出す
+                yy = V.p(0, E_Y)[1] - 10
             if CLIP[1] + 20 < yy < CLIP[3] - 10:
                 g.append(F.txtfit(V.p(X_EHOLD[0] + 1.0, 0)[0] if t == "E甲板" else CLIP[0] + 60, yy, t, 200, cap=24,
                                   col=J.TICK))
@@ -725,7 +729,11 @@ def _stage_svgs(view, V, steps, cap=34):
             c = tg.get("cap", cap)
             if tg.get("to") or tg.get("to_px"):
                 tx, ty = tg["to_px"] if tg.get("to_px") else V.p(*tg["to"])
-                s.append(F.line(x, y + 8, tx, ty, J.AMBER, 2))
+                # 🔴 ⑤c'（2026-09-29）：線は札の左下（基線の8px下）から出していた＝指す先が札より上だと、線が札の字を
+                #    斜めに横切った（c309 ほか船体の下の12札・原寸の切り出しで見つけた。線は太さ2＝机上の式は4未満を測らない）。
+                #    → 指す先が札より上なら、札の**上の辺**（字の頭の約3px上）から出す。下なら今までどおり
+                sy = y - round(c * 0.9) if ty < y - c else y + 8
+                s.append(F.line(x, sy, tx, ty, J.AMBER, 2))
             s.append(F.txtfit(x, y, tg["t"], mw, cap=c, col=tg.get("col", J.AMBER), anchor=anchor))
             texts.append(tg["t"])
             if tg.get("d"):

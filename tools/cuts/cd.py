@@ -72,10 +72,12 @@ SPEC = {
         photo=P("danwon_banner"), **ss.kind(P("danwon_banner")),
     ),
     # P1（CC0）＝ソウル市庁の「미안합니다」の幕と黄色いテント（人は小さな遠景）
+    # 🔴 ⑤c'（2026-09-29・Q4 はカズヤくん「推奨で」）：章の色（白黒）だと黄色いテントが白く、語り「黄色いリボン」と
+    #   つながらない＝原色に戻す（cd04 と同じ `color=1.0`）。⚠️ cd01 は戻さない（色でも写るのは庭のつつじ＝寄せられた花に見える）
     "cd03": dict(
         t="市庁の前の広場",
         s="2014年6月22日",
-        photo=P("seoul_plaza_2014"), **ss.kind(P("seoul_plaza_2014")),
+        photo=P("seoul_plaza_2014"), **ss.kind(P("seoul_plaza_2014")), color=1.0,
     ),
     # AN74（CC BY-SA 3.0＝額装・無改変）＝通りの横断幕（人なし）
     "cd04": dict(

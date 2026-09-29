@@ -400,10 +400,13 @@ def card_frame(cut, t, off, lay, photos, meta):
     """章の扉。その章の色の方眼に、頭のカットの写真を薄く混ぜ、章番号と章名を載せる。"""
     m = meta.get(cut) or {}
     fr = lay[_empty_name(m.get("pal"))].copy()
-    if cut in photos:
+    # 🔴 14本目 ⑤c'（2026-09-29）：頭のカットが白い頁（判決の1頁＝cb01）だと、0.36 で地が他の扉の約1.5倍明るくなり
+    #    頁の字が章の題に大きく透けた＝カットの SPEC の `card_mix=` で混ぜる割合を変えられる（書かなければ今までどおり）
+    mix = float((S.SPEC.get(cut) or {}).get("card_mix", CARD_PHOTO))
+    if cut in photos and mix > 0:
         ph = fit(photos[cut], (0, 0, S.W, S.H), 0.3 * t / max(off, 0.001),
                  S.PHOTO_CUTS[cut][2], *S.PHOTO_CROP[cut])
-        fr = Image.blend(fr, tone(ph, cut, meta), CARD_PHOTO)
+        fr = Image.blend(fr, tone(ph, cut, meta), mix)
     over(fr, lay[f"card_{cut}"], min(1.0, max(0.0, (t - 0.20) / 0.45)))
     if t < FADE_BLACK:
         fr = Image.blend(_solid((0, 0, 0)), fr, ease(t / FADE_BLACK))
@@ -635,11 +638,10 @@ def _draw_anim(d, P, mv, t, times, mc, pal):
             continue
         pts = _anim_pts(sh, st)
         # 🔴 14本目 ⑤b-7b：動く部品は SVG の切り抜き（clipPath）の外で描く＝図の枠を越えて画面の余白まで塗っていた
-        #    （c408・c409 の底のタンクの水の帯が左右の端まで）。型が枠（clip）を渡したら、点を枠の内側に収める
-        #    （四角の面は形が正しく切れる）。🔴 門番が測る部品の座標（mech の shapes）は変えない＝物差しは狂わない
-        if mv.get("clip"):
-            cx0, cy0, cx1, cy1 = mv["clip"]
-            pts = [(min(max(x, cx0), cx1), min(max(y, cy0), cy1)) for x, y in pts]
+        #    （c408・c409 の底のタンクの水の帯が左右の端まで）。型が枠（clip）を渡したら枠で切る。
+        #    🔴 ⑤c'（2026-09-29）：点を枠の内側へ**寄せる**やり方は、寄せた辺にも縁取りの線を引いた＝枠の端に琥珀の縦線
+        #    （c409 の積み荷の箱が枠で終わって見えた）。→ 切り抜きは draw_moves が枠の大きさの板で行う（ここでは寄せない）。
+        #    門番が測る部品の座標（mech の shapes）は変えない＝物差しは狂わない
         q = [P(x, y) for x, y in pts]
         if len(q) < 2:
             continue
@@ -768,14 +770,38 @@ def draw_moves(fr, cut, t, meta):
             x, y = mv["at"]
             R, n = float(mv.get("r", 220)), int(mv.get("n", 24))
             rg = random.Random(f"{cut}-gather")
+            av = mv.get("avoid") or []
             for _ in range(n):
                 a0, ph = rg.uniform(0, math.tau), rg.random()
                 u = (dt / 3.0 + ph) % 1.0
                 rr = 26 + (R - 26) * (1.0 - u)
                 al = min(1.0, u / 0.15) * min(1.0, (1.0 - u) / 0.2) * min(1.0, dt / 0.8) * 0.95
-                dot(x + rr * math.cos(a0), y + rr * math.sin(a0), 6, ink, al)
+                px, py = x + rr * math.cos(a0), y + rr * math.sin(a0)
+                if av:
+                    # 🔴 ⑤c'：船の名の札の箱（型が余白10pxを足して渡す）に近づいたら薄れ、箱の中では描かない
+                    #    （c812「セヴォル号」）。乱数の引き方は変えない＝ほかの点の位置は前と同じ
+                    dd = min(math.hypot(max(b[0] - px, 0.0, px - b[2]), max(b[1] - py, 0.0, py - b[3])) for b in av)
+                    al *= min(1.0, dd / 14.0)
+                    if al <= 0.01:
+                        continue
+                dot(px, py, 6, ink, al)
         elif mv["kind"] == "anim":
-            _draw_anim(d, P, mv, t, times, mc, pal)
+            if mv.get("clip"):
+                # 🔴 ⑤c'：枠（clip）は**本当に切り抜く**＝枠の大きさの板に描き、描いた画素だけを貼る（2値の型紙で置き換え
+                #    ＝半透明の面を混ぜずに置き換える今までの見え方 §5b-91 は変えない）。枠の外に出た形は板の外で消える
+                cx0, cy0, cx1, cy1 = mv["clip"]
+                bx0, by0 = (int(round(v)) for v in P(max(cx0, X0), max(cy0, Y0)))
+                bx1, by1 = (int(round(v)) for v in P(min(cx1, X1), min(cy1, Y1)))
+                if bx1 > bx0 and by1 > by0:
+                    tl = Image.new("RGBA", (bx1 - bx0, by1 - by0), (0, 0, 0, 0))
+
+                    def Pc(x, y, _b=(bx0, by0)):
+                        px, py = P(x, y)
+                        return px - _b[0], py - _b[1]
+                    _draw_anim(ImageDraw.Draw(tl), Pc, mv, t, times, mc, pal)
+                    ov.paste(tl, (bx0, by0), tl.getchannel("A").point(lambda v: 255 if v else 0))
+            else:
+                _draw_anim(d, P, mv, t, times, mc, pal)
         elif mv["kind"] == "hl":
             # 蛍光ペン：**読む順に**行ごとに左→右へ塗る（1行 0.7秒）。頁が出そろってから（delay）
             rest = dt - float(mv.get("delay", 0.4))

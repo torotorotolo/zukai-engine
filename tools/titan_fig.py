@@ -4459,6 +4459,7 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
         g += [txtfit(dx_, dy_ - dr - 12, "北", 60, cap=26, col=J.TICK, anchor="middle"),
               txtfit(dx_, dy_ + dr + 38, dial.get("t", "針路（北が0度）"), 320, cap=26, col=J.TICK, anchor="middle")]
     stages, moves = [], []
+    ship_boxes = []          # 🔴 14本目 ⑤c'：船の名の札の箱（集まる点 gather が避ける＝下の gather を見よ）
     for i, st in enumerate(steps):
         s = []
         for rt in _many(st.get("route")):
@@ -4485,6 +4486,9 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
             s.append(_ship_svg(x, y, sh.get("deg", 0.0)))
             if sh.get("t"):
                 s.append(txtfit(x + 34, y - 30, sh["t"], 360, cap=38, col=J.INK_W))
+                fs = fm.fit(str(sh["t"]), 360, "Noto", cap=38)
+                ship_boxes.append([x + 34 - 10, y - 30 - fs * 0.9 - 10,
+                                   x + 34 + fm.width(str(sh["t"]), fs, "Noto") + 10, y - 30 + fs * 0.2 + 10])
         for tg in _many(st.get("tag")):
             x, y = P[tg["at"]]
             side = tg.get("side", "above")
@@ -4513,6 +4517,10 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
                 ring = mv["kind"] == "ring"
                 m.update(at=P[mv["at"]], r=float(mv.get("r", 80 if ring else 220)), n=int(mv.get("n", 3 if ring else 24)),
                          inward=bool(mv.get("inward")))
+                if not ring and ship_boxes:
+                    # 🔴 ⑤c'（2026-09-29）：点は船のぐるりを動き続け、船の名の札の上を通った＝c812 で点が「ウ」に乗り
+                    #    「セヴォル号」と読めた（原寸）。動く点は札より上に描かれる＝札の箱に近づいたら薄れて消える（avoid）
+                    m.update(avoid=[list(b) for b in ship_boxes])
             else:
                 raise ValueError(f"drift：知らない動き {mv['kind']!r}")
             moves.append({k: (list(v) if isinstance(v, tuple) else v) for k, v in m.items()})
