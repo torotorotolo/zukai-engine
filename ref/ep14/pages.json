@@ -1,0 +1,352 @@
+{
+ "pg1": {
+  "doc": "判決",
+  "pdf": "sewol_scourt.pdf",
+  "pdf_page": 1,
+  "w": 1654,
+  "h": 2339,
+  "dpi": 200,
+  "md5": "77864dc7d09e13c93a4111399ec136ee",
+  "how": {
+   "rows": [
+    0,
+    9
+   ],
+   "anchor_rows": [
+    2,
+    2
+   ],
+   "n_rows": 20
+  },
+  "trim": [
+   0.0751,
+   0.143,
+   0.9452,
+   0.5332
+  ]
+ },
+ "pg12": {
+  "doc": "判決",
+  "pdf": "sewol_scourt.pdf",
+  "pdf_page": 12,
+  "w": 1654,
+  "h": 2339,
+  "dpi": 200,
+  "md5": "ff7c84ded305c1c0fc7a5134fdb359e0",
+  "how": {
+   "rows": [
+    10,
+    20
+   ],
+   "anchor_rows": [
+    20,
+    20
+   ],
+   "n_rows": 21
+  },
+  "trim": [
+   0.0751,
+   0.4976,
+   0.9353,
+   0.9119
+  ]
+ },
+ "pg18": {
+  "doc": "判決",
+  "pdf": "sewol_scourt.pdf",
+  "pdf_page": 18,
+  "w": 1654,
+  "h": 2339,
+  "dpi": 200,
+  "md5": "655eb512265e9e2ca68f08db6d7f39b0",
+  "how": {
+   "rows": [
+    1,
+    11
+   ],
+   "anchor_rows": [
+    6,
+    6
+   ],
+   "n_rows": 21
+  },
+  "trim": [
+   0.0751,
+   0.1769,
+   0.9353,
+   0.5689
+  ]
+ },
+ "pg20": {
+  "doc": "判決",
+  "pdf": "sewol_scourt.pdf",
+  "pdf_page": 20,
+  "w": 1654,
+  "h": 2339,
+  "dpi": 200,
+  "md5": "fbcae298c9457318932e3fd257c910b5",
+  "how": {
+   "rows": [
+    0,
+    10
+   ],
+   "anchor_rows": [
+    3,
+    3
+   ],
+   "n_rows": 21
+  },
+  "trim": [
+   0.0751,
+   0.142,
+   0.9353,
+   0.5332
+  ]
+ },
+ "pg33": {
+  "doc": "判決",
+  "pdf": "sewol_scourt.pdf",
+  "pdf_page": 33,
+  "w": 1654,
+  "h": 2339,
+  "dpi": 200,
+  "md5": "061a133759a46ae5ec19b161dbde1b67",
+  "how": {
+   "rows": [
+    10,
+    20
+   ],
+   "anchor_rows": [
+    18,
+    18
+   ],
+   "n_rows": 21
+  },
+  "trim": [
+   0.0751,
+   0.4976,
+   0.9353,
+   0.9119
+  ]
+ },
+ "pg1001": {
+  "doc": "海審",
+  "pdf": "kmst_sewol.pdf",
+  "pdf_page": 1,
+  "w": 1653,
+  "h": 2337,
+  "dpi": 200,
+  "md5": "4d91d1a2844ff640afe9a57d9175c6f3",
+  "how": {
+   "by": "FIGVEC"
+  },
+  "trim": [
+   0.17,
+   0.235,
+   0.83,
+   0.405
+  ]
+ },
+ "pg1015": {
+  "doc": "海審",
+  "pdf": "kmst_sewol.pdf",
+  "pdf_page": 15,
+  "w": 1653,
+  "h": 2337,
+  "dpi": 200,
+  "md5": "f00da61320c2a8587d4c219ef4ebdcfa",
+  "how": {
+   "images": 3
+  },
+  "trim": [
+   0.122,
+   0.1246,
+   0.8776,
+   0.491
+  ]
+ },
+ "pg1016": {
+  "doc": "海審",
+  "pdf": "kmst_sewol.pdf",
+  "pdf_page": 16,
+  "w": 1653,
+  "h": 2337,
+  "dpi": 200,
+  "md5": "a57a3930cd03642b4d5f65b7a2f3d6c3",
+  "how": {
+   "rows": [
+    0,
+    8
+   ],
+   "anchor_rows": [
+    1,
+    1
+   ],
+   "n_rows": 19
+  },
+  "trim": [
+   0.075,
+   0.0719,
+   0.9248,
+   0.4724
+  ]
+ },
+ "pg1060": {
+  "doc": "海審",
+  "pdf": "kmst_sewol.pdf",
+  "pdf_page": 60,
+  "w": 1653,
+  "h": 2337,
+  "dpi": 200,
+  "md5": "19b317a5bdf2e2bec8610b22291d089e",
+  "how": {
+   "rows": [
+    10,
+    20
+   ],
+   "anchor_rows": [
+    19,
+    19
+   ],
+   "n_rows": 21
+  },
+  "trim": [
+   0.075,
+   0.5109,
+   0.9248,
+   0.9234
+  ]
+ },
+ "pg1083": {
+  "doc": "海審",
+  "pdf": "kmst_sewol.pdf",
+  "pdf_page": 83,
+  "w": 1653,
+  "h": 2337,
+  "dpi": 200,
+  "md5": "2b050bde28bdfb7a21e2de08d73e3061",
+  "how": {
+   "by": "FIGVEC"
+  },
+  "trim": [
+   0.085,
+   0.075,
+   0.905,
+   0.4845
+  ]
+ },
+ "pg1091": {
+  "doc": "海審",
+  "pdf": "kmst_sewol.pdf",
+  "pdf_page": 91,
+  "w": 1653,
+  "h": 2337,
+  "dpi": 200,
+  "md5": "ee4f499a5cd97074b921ddbeba5b1104",
+  "how": {
+   "rows": [
+    0,
+    9
+   ],
+   "anchor_rows": [
+    2,
+    2
+   ],
+   "n_rows": 23
+  },
+  "trim": [
+   0.075,
+   0.0718,
+   0.9249,
+   0.4628
+  ]
+ },
+ "pg1113": {
+  "doc": "海審",
+  "pdf": "kmst_sewol.pdf",
+  "pdf_page": 113,
+  "w": 1653,
+  "h": 2337,
+  "dpi": 200,
+  "md5": "1505167f6cd8b58bbc1aa7dbdce2e2d6",
+  "how": {
+   "by": "FIGVEC"
+  },
+  "trim": [
+   0.085,
+   0.08,
+   0.915,
+   0.418
+  ]
+ },
+ "pg1136": {
+  "doc": "海審",
+  "pdf": "kmst_sewol.pdf",
+  "pdf_page": 136,
+  "w": 1653,
+  "h": 2337,
+  "dpi": 200,
+  "md5": "ac04ea38d72436eb97cc90e70825962d",
+  "how": {
+   "rows": [
+    11,
+    18
+   ],
+   "anchor_rows": [
+    15,
+    15
+   ],
+   "n_rows": 20
+  },
+  "trim": [
+   0.075,
+   0.5269,
+   0.9248,
+   0.8988
+  ]
+ },
+ "pg2003": {
+  "doc": "裁決",
+  "pdf": "later/kmst_2026_001_central_verdict.pdf",
+  "pdf_page": 3,
+  "w": 1653,
+  "h": 2337,
+  "dpi": 200,
+  "md5": "29e7fb0208995603d29eb420aed380a9",
+  "how": {
+   "rows": [
+    11,
+    19
+   ],
+   "anchor_rows": [
+    12,
+    12
+   ],
+   "n_rows": 20
+  },
+  "trim": [
+   0.0788,
+   0.5179,
+   0.9224,
+   0.8982
+  ]
+ },
+ "pg2089": {
+  "doc": "裁決",
+  "pdf": "later/kmst_2026_001_central_verdict.pdf",
+  "pdf_page": 89,
+  "w": 1653,
+  "h": 2337,
+  "dpi": 200,
+  "md5": "6a2b72ad67ee5d056ed65d13cb9902cb",
+  "how": {
+   "by": "FIGVEC"
+  },
+  "trim": [
+   0.085,
+   0.129,
+   0.915,
+   0.4675
+  ]
+ }
+}

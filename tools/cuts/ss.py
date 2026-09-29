@@ -43,10 +43,12 @@ SCREEN_AR = W / H
 #    1.263（dc10_cabin・dc10_flight_1971）の 27ポイント＝その中点 1.1275 を丸めて 1.13。
 #    （12本目は 1.049→1.200 の中点 1.12。値が近いのは偶然）
 #    ⚠️ BY-SA の点は縦横比にかかわらず額装だけ（下の `FRAME_ONLY`）。
-#    🔴 2026-09-28（14本目 ⑤b-1）：**この値は13本目の束のまま**＝⑤b-2 で14本目の束（`qa_out/ep14_assets.py panel`）の
-#       縦横比の並びで取り直す（→ [[feedback-per-episode-constants-go-stale]]）。写真を1点も当てていないうちは効かない
-PANEL_AR = 1.13                     # これ未満＝縦長すぎ（上下が切れる）
-WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝2.82。これ超＝横長すぎ
+#    ✅ 2026-09-29（14本目 ⑤b-7a）に**14本目の束（22点）で取り直した**。`python qa_out/ep14_assets.py panel` の並びで、
+#       16:9 より縦長の側のいちばん大きな切れ目は AR 1.517（search_divers_0504）→ 1.650（search_ship21_0419）の 13ポイント
+#       ＝中点 1.58（次は 1.351→1.473 の 12ポイント）。4:3 の3点（学校2・ソウル広場）と K1 は額装、3:2 の BY-SA は額装だけ（権利）。
+#       WIDE_AR＝2.00＝site_0418（2.21・PD）は額装（横に 19.5% 切れるのを避ける）。gwanghwamun_2018 は切り出しのあと 1.97＝全画面
+PANEL_AR = 1.58                     # これ未満＝縦長すぎ（上下が切れる）
+WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝2.00。これ超＝横長すぎ
 
 # 報告書の頁から切る図の矩形（⑤b-2 で作る `ref/ep14/pages.json`）。
 _PAGES_FILE = REF / "pages.json"
@@ -62,8 +64,17 @@ BANDS = {k: v for k, v in PAGES.items() if v.get("fig_box")}
 #       欠けるので、切り口は寄りの掃きが届かない所へ（13本目 c504・c520＝門番 `edges` が拾った）
 #     ・写真の頁は写真だけ（頁番号・印・説明文を落とす）。斜めの写真は水平の切り口で分けきれない（13本目 p95）
 #     ・人の顔を外す切り出しは 16:9 ちょうどに（13本目 dc10_cabin・klm_cockpit_1972）
+#   🔴 2026-09-29（14本目 ⑤b-7a）：**頁の切り出しは `pages.json` の `trim` から読む**（下の update＝手で写さない）。
+#      `qa_out/ep14_assets.py pages` が、文字の頁は目印の語の行（`ANCHOR`）から、図の頁は測った行・画像の位置（`FIGVEC`）
+#      から決めて書く。ここに手で書くのは写真の切り出しだけ
 TRIM: dict[str, tuple] = {
+    # 🔴 私人の顔と名前を外す（09-29・原寸で見た）。権利は Attribution／CC BY＝切り出しは可（改変の旨は出典の行に出る）
+    #   光化門 2018：下の黄色い板（y 0.776〜0.863）に**見つかっていない5人の顔写真と名前**＝板の上端より上だけ
+    "ep14/gwanghwamun_2018.jpg": (0.0, 0.0, 1.0, 0.76),
+    #   救命胴衣の列 2017：奥の集会の人の顔（足もとが y 0.51〜0.57）＝胴衣の列だけ（y 0.60 から下・横長＝額装）
+    "ep14/lifejackets_2017.jpg": (0.0, 0.60, 1.0, 1.0),
 }
+TRIM.update({f"{EP}{k}.png": tuple(v["trim"]) for k, v in PAGES.items() if v.get("trim")})
 
 
 def page(pr):
@@ -119,8 +130,11 @@ def _is_sa(lic):
 
 
 def frame_only():
-    """継承つき（BY-SA）の点 {`ep14/<名>.jpg`: 権利}。1点も読めなければ止める（14本目は捜索11点・J1・M1 がある）。"""
-    out = {P(n): r["lic"] for n, r in _assets().items() if _is_sa(r.get("lic"))}
+    """額装だけの点 {`ep14/<名>.jpg`: 権利}＝継承つき（BY-SA）と**引用**（`assets.json` の `frame`）。
+    1点も読めなければ止める（14本目は捜索11点・J1・M1・AN74 の BY-SA と H1 の引用がある）。
+    🔴 2026-09-29（14本目 ⑤b-7a）：引用（当日の沈む船 H1＝Commons の表示に根拠が無い）も「改変しない＝色も切り出しもせず
+       額装で置く」（ルール §2-5b）＝BY-SA と同じ網に入れた。読む側＝門番 `check_frame_only`・合成 `build_jiko.meta_of`（寄りとディゾルブを止める）"""
+    out = {P(n): r["lic"] for n, r in _assets().items() if _is_sa(r.get("lic")) or r.get("frame")}
     if not out:
         raise RuntimeError("assets.json から継承つきの点が1つも読めない（14本目は捜索の11点ほかがある＝fail closed）")
     return out
@@ -192,6 +206,16 @@ NG_PHOTOS: dict[str, str] = {}
 #    🔴 2026-09-28（14本目 ⑤b-1）：13本目の1点（慰霊の名前の壁 names_wall・c814）を外した＝git の `b54ee4f`。
 #       ⚠️ CC BY-SA の点は隠すこと自体が翻案＝使わない（ルール §B2-2）。隠せるのは改変を許す権利の点だけ
 NEEDS_MASK: dict[str, str] = {
+}
+
+# 🔴 2026-09-29（14本目 ⑤b-7a）：**切り出し（`TRIM`）で外した私人の範囲**（元画像の割合 x0,y0,x1,y1・何か）。
+#    門番 photomask が「その写真を使う全カットの窓（`trim` か `TRIM`・冒頭の写真は切らない＝全体）がこの範囲に
+#    1画素も入らない」を見る（NEEDS_MASK は元画像を直す点だけ＝切り出しで外した点を見ていなかった）。範囲は原寸で見て測った
+PRIVATE_OUT: dict[str, list] = {
+    # 光化門 2018：下の黄色い板＝見つかっていない5人の顔写真と名前（x 0.159〜0.293・y 0.776〜0.863）
+    "ep14/gwanghwamun_2018.jpg": [(0.15, 0.77, 0.30, 0.87, "見つかっていない5人の顔写真と名前の板")],
+    # 救命胴衣の列 2017：奥の集会の人の顔（足もとは y 0.51〜0.57）
+    "ep14/lifejackets_2017.jpg": [(0.0, 0.0, 1.0, 0.575, "集会の人の顔（足もとまで）")],
 }
 
 
@@ -432,11 +456,13 @@ MAP_LAB = {"wide": dict(_l1=dict(lat=36.9, lon=125.35), _r1=dict(lat=35.2, lon=1
            "near": dict(_l1=dict(lat=34.19, lon=125.875), _r1=dict(lat=34.137, lon=126.035))}
 
 
-def sewol_map(which, steps, rel=None, note=None, recs=None, dial=None):
-    """14本目の地図（drift）。which＝wide（インチョン〜チェジュ）／local（メンゴル水道のまわり）／near（ピョンプンドの寄り）。"""
+def sewol_map(which, steps, rel=None, note=None, recs=None, dial=None, places=None):
+    """14本目の地図（drift）。which＝wide（インチョン〜チェジュ）／local（メンゴル水道のまわり）／near（ピョンプンドの寄り）。
+    places＝その見え方の地点に足す地点（⑤b-7a の cc09＝モッポ）。"""
     m = MAP_VIEWS[which]
     pts = dict(MAP_PTS, **MAP_LAB[which])
-    return ("drift", dict(view=m["view"], places=m["places"], pts=pts, rel=list(m["rel"]) + list(rel or []),
+    return ("drift", dict(view=m["view"], places=list(m["places"]) + list(places or []), pts=pts,
+                          rel=list(m["rel"]) + list(rel or []),
                           steps=steps, note=note or m["note"], src=src(recs or ["海審 p1065"]), scale_km=m["scale_km"],
                           grid=m["grid"], dial=dial))
 

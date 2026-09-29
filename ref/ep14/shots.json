@@ -1,0 +1,174 @@
+{
+ "e1": {
+  "src": "e1.mp4",
+  "dur": 90.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 6.81
+   },
+   {
+    "start": 4.0,
+    "until": 9.0,
+    "motion": 5.9
+   },
+   {
+    "start": 9.0,
+    "until": 11.0,
+    "motion": 11.91
+   },
+   {
+    "start": 11.0,
+    "until": 15.0,
+    "motion": 10.08
+   },
+   {
+    "start": 15.0,
+    "until": 17.0,
+    "motion": 12.81
+   },
+   {
+    "start": 17.0,
+    "until": 22.0,
+    "motion": 6.82
+   },
+   {
+    "start": 22.0,
+    "until": 30.0,
+    "motion": 4.13
+   },
+   {
+    "start": 30.0,
+    "until": 42.0,
+    "motion": 4.42
+   },
+   {
+    "start": 42.0,
+    "until": 58.0,
+    "motion": 3.14
+   },
+   {
+    "start": 58.0,
+    "until": 60.0,
+    "motion": 13.54
+   },
+   {
+    "start": 60.0,
+    "until": 72.0,
+    "motion": 7.26
+   },
+   {
+    "start": 72.0,
+    "until": 90.0,
+    "motion": 3.47
+   }
+  ]
+ },
+ "e2": {
+  "src": "e2.mp4",
+  "dur": 122.0,
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 2.0,
+    "motion": 0.01
+   },
+   {
+    "start": 2.0,
+    "until": 7.0,
+    "motion": 18.26
+   },
+   {
+    "start": 7.0,
+    "until": 12.0,
+    "motion": 19.83
+   },
+   {
+    "start": 12.0,
+    "until": 16.0,
+    "motion": 12.56
+   },
+   {
+    "start": 16.0,
+    "until": 40.0,
+    "motion": 2.19
+   },
+   {
+    "start": 40.0,
+    "until": 44.0,
+    "motion": 3.95
+   },
+   {
+    "start": 44.0,
+    "until": 49.0,
+    "motion": 1.64
+   },
+   {
+    "start": 49.0,
+    "until": 55.0,
+    "motion": 3.83
+   },
+   {
+    "start": 55.0,
+    "until": 59.0,
+    "motion": 3.66
+   },
+   {
+    "start": 59.0,
+    "until": 69.0,
+    "motion": 2.43
+   },
+   {
+    "start": 69.0,
+    "until": 76.0,
+    "motion": 2.41
+   },
+   {
+    "start": 76.0,
+    "until": 80.0,
+    "motion": 3.61
+   },
+   {
+    "start": 80.0,
+    "until": 87.0,
+    "motion": 1.56
+   },
+   {
+    "start": 87.0,
+    "until": 89.0,
+    "motion": 6.22
+   },
+   {
+    "start": 89.0,
+    "until": 94.0,
+    "motion": 6.37
+   },
+   {
+    "start": 94.0,
+    "until": 99.0,
+    "motion": 4.18
+   },
+   {
+    "start": 99.0,
+    "until": 105.0,
+    "motion": 2.71
+   },
+   {
+    "start": 105.0,
+    "until": 111.0,
+    "motion": 3.49
+   },
+   {
+    "start": 111.0,
+    "until": 118.0,
+    "motion": 3.73
+   },
+   {
+    "start": 118.0,
+    "until": 122.0,
+    "motion": 13.64
+   }
+  ]
+ }
+}

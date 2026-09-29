@@ -1,0 +1,28 @@
+{
+ "e1": {
+  "page": "https://www.dvidshub.net/video/330919/",
+  "dvids": 330919,
+  "date": "2014-04-18",
+  "sec": "1:30",
+  "media": "https://d34w7g4gy10iej.cloudfront.net/video/1404/DOD_101385880/DOD_101385880.mp4",
+  "bytes": 111457456,
+  "title": "USS Bonhomme Richard (LHD 6) Assists in Capsized ROK Ferry Search and Rescue Efforts",
+  "by": "MC3 Christian Senyk（米海軍）",
+  "file": "ep14/vid/e1.mp4",
+  "md5": "54fddd5742e616c595196e494d9436f1",
+  "fetched": "2026-09-29"
+ },
+ "e2": {
+  "page": "https://www.dvidshub.net/video/332722/sewol-ferry-sar-efforts-31st-meu",
+  "dvids": 332722,
+  "date": "2014-04-19",
+  "sec": "2:02",
+  "media": "https://d34w7g4gy10iej.cloudfront.net/video/1404/DOD_101470723/DOD_101470723.mp4",
+  "bytes": 144787410,
+  "title": "Sewol Ferry SAR Efforts 31st MEU",
+  "by": "LCpl Alexander Pool（米海兵隊）",
+  "file": "ep14/vid/e2.mp4",
+  "md5": "2b81778093a9cdd31097235606af294b",
+  "fetched": "2026-09-29"
+ }
+}

@@ -1872,3 +1872,55 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `pg4301` | （章ファイル） | 1974 | Public domain（米国の職務著作） | 米官報（Federal Register） | 官報 1974-04-02 PDF 1頁 |
 | `pg5002` | （章ファイル） | 1972 | 企業の技術文書＝引用（改変しない） | マクドネル・ダグラス社 | SB 52-37 PDF 2頁 |
 | `pg5003` | （章ファイル） | 1972 | 企業の技術文書＝引用（改変しない） | マクドネル・ダグラス社 | SB 52-37 PDF 3頁 |
+
+## セウォル号沈没事故（2014-04-16・14本目）　※2026-09-29（⑤b-7a）
+
+### 1. 写真（Wikimedia Commons ＝ CC BY-SA は**額装・無改変・1点1カット**／CC BY／Attribution／CC0／PD／引用）・映像・判決と報告書の頁
+`qa_out/ep14_assets.py credits --write` が書く（手で直さない）。BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許諾の URL は概要欄で）。
+
+- 🔴 **私人の顔と名前は出さない**：G2（光化門 2018）の下の板＝見つかっていない5人の顔写真と名前／L1（救命胴衣の列）の奥の集会の人＝どちらも切り出し（`cuts/ss.py` の `TRIM`）で外した（改変の旨は画面の出典に出る）
+- 🔴 H1（当日の沈む船）＝Commons の表示「South Korea-Gov」に根拠が無い（削除依頼中）＝**引用**（額装・無改変・出典＝韓国 海洋警察）。サムネに使わない
+- 🔴 **米国防総省（米海軍・米海兵隊）の写真と映像**（`site_0418`・`e1`・`e2`）＝DVIDS の条件「The appearance of U.S. Department of Defense (DoD) visual information does not imply or constitute DoD endorsement.」＝**概要欄に「米国防総省の画像の使用は、同省の推奨を意味しません」**（⑥の申し送り）
+- 映像＝DVIDS 330919（USS Bonhomme Richard・2014-04-18・1920×1080）・332722（31st MEU・2014-04-19・1280×720）。原本は CloudFront の `DOD_<番号>.mp4`（`ref/ep14/clips.json` の `media`）
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `sinking_0416` | c107 | 2014 | 引用（Commons の表示 South Korea-Gov は根拠なし） | 韓国 海洋警察 | Wikimedia Commons「South-Korea-Ferry-Sewol-sinking.jpg」　https://commons.wikimedia.org/wiki/File:South-Korea-Ferry-Sewol-sinking.jpg |
+| `sewol_incheon` | c202・c306・c501 | 2014 | Public domain | jinjoo2713 | Wikimedia Commons「Ferry Sewol 1.jpg」　https://commons.wikimedia.org/wiki/File:Ferry_Sewol_1.jpg |
+| `naminoue_2010` | c301 | 2010 | CC BY-SA 2.0 | tsuda | Wikimedia Commons「Ferry Naminoue 20100214.jpg」　https://commons.wikimedia.org/wiki/File:Ferry_Naminoue_20100214.jpg |
+| `mokpo_2017` | c412 | 2017 | CC BY-SA 4.0 | Trainholic | Wikimedia Commons「2017 MV Sewol in Mokpo New Port.jpg」　https://commons.wikimedia.org/wiki/File:2017_MV_Sewol_in_Mokpo_New_Port.jpg |
+| `site_0418` | c918 | 2014 | Public domain | 米海軍 | Wikimedia Commons「USS Bonhomme Richard operations 140418-N-LM312-287.jpg」　https://commons.wikimedia.org/wiki/File:USS_Bonhomme_Richard_operations_140418-N-LM312-287.jpg |
+| `search_tent_0418` | ca02 | 2014 | CC BY-SA 2.0 | 韓国 国防部 | Wikimedia Commons「2014.4 세월호 구조 작전 (13999504453).jpg」　https://commons.wikimedia.org/wiki/File:2014.4_세월호_구조_작전_(13999504453).jpg |
+| `search_ssu_0419` | ca03 | 2014 | CC BY-SA 2.0 | 韓国 国防部 | Wikimedia Commons「2014.4 세월호 구조 작전 (13979939304).jpg」　https://commons.wikimedia.org/wiki/File:2014.4_세월호_구조_작전_(13979939304).jpg |
+| `search_ship21_0419` | ca04 | 2014 | CC BY-SA 2.0 | 韓国 国防部 | Wikimedia Commons「2014.4 세월호 구조 작전 (13956410506).jpg」　https://commons.wikimedia.org/wiki/File:2014.4_세월호_구조_작전_(13956410506).jpg |
+| `search_waves_0420` | ca05 | 2014 | CC BY-SA 2.0 | 韓国 国防部 | Wikimedia Commons「2014.4 세월호 구조 작전 (13976287932).jpg」　https://commons.wikimedia.org/wiki/File:2014.4_세월호_구조_작전_(13976287932).jpg |
+| `search_night_0420` | ca06 | 2014 | CC BY-SA 2.0 | 韓国 国防部 | Wikimedia Commons「2014.4 세월호 구조 작전 (13979938264).jpg」　https://commons.wikimedia.org/wiki/File:2014.4_세월호_구조_작전_(13979938264).jpg |
+| `search_flare_0420` | ca07 | 2014 | CC BY-SA 2.0 | 韓国 国防部 | Wikimedia Commons「2014.4 세월호 구조 작전 (13999503253).jpg」　https://commons.wikimedia.org/wiki/File:2014.4_세월호_구조_작전_(13999503253).jpg |
+| `search_diver_0504` | ca09 | 2014 | CC BY-SA 2.0 | 韓国 国防部 | Wikimedia Commons「2014.4 세월호 구조 작전 (14134129785).jpg」　https://commons.wikimedia.org/wiki/File:2014.4_세월호_구조_작전_(14134129785).jpg |
+| `search_fleet_0506` | ca10 | 2014 | CC BY-SA 2.0 | 韓国 国防部 | Wikimedia Commons「2014.4 세월호 구조 작전 (13947458749).jpg」　https://commons.wikimedia.org/wiki/File:2014.4_세월호_구조_작전_(13947458749).jpg |
+| `search_banner_0504` | ca12 | 2014 | CC BY-SA 2.0 | 韓国 国防部 | Wikimedia Commons「2014.4 세월호 구조 작전 (13947445037).jpg」　https://commons.wikimedia.org/wiki/File:2014.4_세월호_구조_작전_(13947445037).jpg |
+| `search_divers_0504` | ca13 | 2014 | CC BY-SA 2.0 | 韓国 国防部 | Wikimedia Commons「2014.4 세월호 구조 작전 (14134384094).jpg」　https://commons.wikimedia.org/wiki/File:2014.4_세월호_구조_작전_(14134384094).jpg |
+| `search_flare_0501` | ca14 | 2014 | CC BY-SA 2.0 | 韓国 国防部 | Wikimedia Commons「2014.4 세월호 구조 작전 (14154193263).jpg」　https://commons.wikimedia.org/wiki/File:2014.4_세월호_구조_작전_(14154193263).jpg |
+| `danwon_school` | cd01 | 2014 | Public domain | Fyodor Tertitskiy | Wikimedia Commons「Tanwon School 5.jpg」　https://commons.wikimedia.org/wiki/File:Tanwon_School_5.jpg |
+| `danwon_banner` | cd02 | 2014 | Public domain | Fyodor Tertitskiy | Wikimedia Commons「Tanwon School 7.jpg」　https://commons.wikimedia.org/wiki/File:Tanwon_School_7.jpg |
+| `seoul_plaza_2014` | cd03 | 2014 | CC0 | PuzzletChung | Wikimedia Commons「Sewol memorial ribbons, Seoul Plaza, 2014-06-22.jpg」　https://commons.wikimedia.org/wiki/File:Sewol_memorial_ribbons,_Seoul_Plaza,_2014-06-22.jpg |
+| `ansan_street_2014` | cd04 | 2014 | CC BY-SA 3.0 | Piotrus | Wikimedia Commons「Memorial for the victims of the sinking of the MV Sewol 01.JPG」　https://commons.wikimedia.org/wiki/File:Memorial_for_the_victims_of_the_sinking_of_the_MV_Sewol_01.JPG |
+| `gwanghwamun_2018` | cd05 | 2018 | Attribution | Garam | Wikimedia Commons「Memorial place of the MV Sewol on Gwanghwamun Plaza in 2018 - 2.jpg」　https://commons.wikimedia.org/wiki/File:Memorial_place_of_the_MV_Sewol_on_Gwanghwamun_Plaza_in_2018_-_2.jpg |
+| `lifejackets_2017` | cd07 | 2017 | CC BY 3.0 | Mathew Schwartz | Wikimedia Commons「Lost Children (191940227).jpeg」　https://commons.wikimedia.org/wiki/File:Lost_Children_(191940227).jpeg |
+| `fb_ca01` | ca01 | 2014 | Public domain（米国の職務著作） | 米海軍 | https://www.dvidshub.net/video/330919/　https://www.dvidshub.net/video/330919/ |
+| `fb_ca11` | ca11 | 2014 | Public domain（米国の職務著作） | 米海兵隊 | https://www.dvidshub.net/video/332722/sewol-ferry-sar-efforts-31st-meu　https://www.dvidshub.net/video/332722/sewol-ferry-sar-efforts-31st-meu |
+| `pg1` | （章ファイル） | 2015 | 判決＝韓国著作権法7条・日本の著作権法13条で権利の目的とならない | 大韓民国 大法院 | sewol_scourt.pdf PDF 1頁 |
+| `pg12` | （章ファイル） | 2015 | 判決＝韓国著作権法7条・日本の著作権法13条で権利の目的とならない | 大韓民国 大法院 | sewol_scourt.pdf PDF 12頁 |
+| `pg18` | （章ファイル） | 2015 | 判決＝韓国著作権法7条・日本の著作権法13条で権利の目的とならない | 大韓民国 大法院 | sewol_scourt.pdf PDF 18頁 |
+| `pg20` | （章ファイル） | 2015 | 判決＝韓国著作権法7条・日本の著作権法13条で権利の目的とならない | 大韓民国 大法院 | sewol_scourt.pdf PDF 20頁 |
+| `pg33` | （章ファイル） | 2015 | 判決＝韓国著作権法7条・日本の著作権法13条で権利の目的とならない | 大韓民国 大法院 | sewol_scourt.pdf PDF 33頁 |
+| `pg1001` | （章ファイル） | 2014 | 公共ヌリの表示なし＝引用（紙面をそのまま・出典） | 海洋安全審判院 | kmst_sewol.pdf PDF 1頁 |
+| `pg1015` | （章ファイル） | 2014 | 公共ヌリの表示なし＝引用（紙面をそのまま・出典） | 海洋安全審判院 | kmst_sewol.pdf PDF 15頁 |
+| `pg1016` | （章ファイル） | 2014 | 公共ヌリの表示なし＝引用（紙面をそのまま・出典） | 海洋安全審判院 | kmst_sewol.pdf PDF 16頁 |
+| `pg1060` | （章ファイル） | 2014 | 公共ヌリの表示なし＝引用（紙面をそのまま・出典） | 海洋安全審判院 | kmst_sewol.pdf PDF 60頁 |
+| `pg1083` | （章ファイル） | 2014 | 公共ヌリの表示なし＝引用（紙面をそのまま・出典） | 海洋安全審判院 | kmst_sewol.pdf PDF 83頁 |
+| `pg1091` | （章ファイル） | 2014 | 公共ヌリの表示なし＝引用（紙面をそのまま・出典） | 海洋安全審判院 | kmst_sewol.pdf PDF 91頁 |
+| `pg1113` | （章ファイル） | 2014 | 公共ヌリの表示なし＝引用（紙面をそのまま・出典） | 海洋安全審判院 | kmst_sewol.pdf PDF 113頁 |
+| `pg1136` | （章ファイル） | 2014 | 公共ヌリの表示なし＝引用（紙面をそのまま・出典） | 海洋安全審判院 | kmst_sewol.pdf PDF 136頁 |
+| `pg2003` | （章ファイル） | 2026 | 一覧の頁の表示は公共ヌリ第4類型（改変禁止）＝引用（紙面をそのまま・出典） | 中央海洋安全審判院 | later/kmst_2026_001_central_verdict.pdf PDF 3頁 |
+| `pg2089` | （章ファイル） | 2026 | 一覧の頁の表示は公共ヌリ第4類型（改変禁止）＝引用（紙面をそのまま・出典） | 中央海洋安全審判院 | later/kmst_2026_001_central_verdict.pdf PDF 89頁 |

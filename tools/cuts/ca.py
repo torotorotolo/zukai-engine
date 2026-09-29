@@ -74,4 +74,35 @@ SPEC = {
                                       cur="12:19")],
                           note="時刻の帯：時刻は報告書", src=ss.src(["海審 p1057", "海審 p1060・p1061"]))),
     ),
+
+    # ── 🔴 ⑤b-7a（2026-09-29）：捜索の写真11点と映像2本 ──
+    # 写真＝韓国国防部の Flickr（Commons・CC BY-SA 2.0）＝**額装・無改変・1点1カット**（`ss.frame_only` が止める）。
+    #   どれも4月18日以降＝「当日の救助」と名乗らない。日付＝Commons の撮影日（艦の名前は記録で確かめていない＝番号だけ）
+    # 映像＝DVIDS（PD）。秒は `footage.USE`（ショットの中）・`ss.vid` はひかえの静止画つき（取れなければ黙って静止画＝⑥で数える）
+    "ca01": ss.vid("ca01", t="捜索に向かうヘリ", s="2014年4月18日　強襲揚陸艦の甲板"),
+    "ca02": dict(t="捜索の日々", s="4月18日　テントの前で簡易ベッドを組む兵士",
+                 photo=P("search_tent_0418"), panel=True, color=1.0),
+    "ca03": dict(t="潜水員を乗せたボート", s="4月19日　SSU のゴムボート",
+                 photo=P("search_ssu_0419"), panel=True, color=1.0),
+    "ca04": dict(t="艦とゴムボート", s="4月19日　艦番号21",
+                 photo=P("search_ship21_0419"), panel=True, color=1.0),
+    "ca05": dict(t="荒れた海", s="4月20日　高い波の中の潜水員",
+                 photo=P("search_waves_0420"), panel=True, color=1.0),
+    "ca06": dict(t="夜も続く作業", s="4月20日の夜　クレーンと大きな浮き",
+                 photo=P("search_night_0420"), panel=True, color=1.0),
+    "ca07": dict(t="照明弾の下で", s="4月20日の夜　SSU のボート",
+                 photo=P("search_flare_0420"), panel=True, color=1.0),
+    "ca09": dict(t="海へ入る潜水員", s="5月4日　送気式の潜水装備で",
+                 photo=P("search_diver_0504"), panel=True, color=1.0),
+    # 横長（3.51）＝額装でも横いっぱい。Commons の日時 05-06 01:31 は UTC の見込み（昼の写真）＝日付だけ
+    "ca10": dict(t="沈んだ海域の船団", s="2014年5月6日",
+                 photo=P("search_fleet_0506"), panel=True, color=1.0),
+    "ca11": ss.vid("ca11", t="空から探す", s="2014年4月19日　ヘリの乗員と艦"),
+    # 奥のはしけの幕「당신은 우리 아이들의 마지막 희망입니다」（語りが読む）。手前の艇＝米海軍の救難艦の乗員と韓国海軍の救助隊員（Flickr の説明）
+    "ca12": dict(t="はしけの幕", s="5月4日　手前はアメリカ海軍と韓国海軍の隊員",
+                 photo=P("search_banner_0504"), panel=True, color=1.0),
+    "ca13": dict(t="水の中の潜水員", s="5月4日　海軍の潜水員とボート",
+                 photo=P("search_divers_0504"), panel=True, color=1.0),
+    "ca14": dict(t="夜の海", s="5月1日　照明弾と明かりのはしけ",
+                 photo=P("search_flare_0501"), panel=True, color=1.0),
 }

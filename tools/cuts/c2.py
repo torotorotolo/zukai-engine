@@ -16,9 +16,9 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    "c201": dict(kind='写真',
-               plan='台本の画：実写 Googleアース インチョン港の旅客ターミナル（現在）',
-               src='海審 p1008・p1037'),
+    "c201": dict(kind='図・写真の頁',
+               plan='【写真の頁】海審 p1015〔그림1〕2014年4月15日・仁川港のセウォル号（霧）｜⑤b-7a（09-29）：Googleアースは使わない（カズヤくん＝地図に替える）→ 頁を見たら語りの日と場所の写真があった＝地図よりこちら',
+               src='海審 p1008・p1015・p1037'),
     "c202": dict(kind='写真',
                plan='台本の画：実写 K1 インチョン港のセウォル号（2014年3月27日・沈没の20日前・PD・額装）',
                src='海審 p1013・p1018'),
@@ -160,5 +160,21 @@ SPEC = {
                            steps=[dict(add=[dict(k="end", id="ship"), dict(k="paper"), dict(k="edge", fr="ship", to="paper")]),
                                   dict(add=[dict(k="end", id="office"), dict(k="edge", fr="paper", to="office")])],
                            note="書類の形は再現（欄の名は報告書の文にあるものだけ）", src=ss.src(["海審 p1037"]))),
+    ),
+
+    # ── 🔴 ⑤b-7a（2026-09-29）：写真と頁 ──
+    # 報告書 p1015 の〔그림1〕「세월호 접안(2014.4.15, 인천항) 모습」＝写真だけに切る（見出し・頁番号を落とす＝`pages.json` の trim）。
+    #   霧は写っている／夕方かは写真の説明に無い＝副題に時刻を書かない
+    "c201": dict(
+        t="霧の中の岸壁",
+        s="4月15日のセウォル号（報告書の写真）",
+        photo=ss.page(1015), panel=True, color=1.0,
+    ),
+
+    # K1（PD・900px＝額装）。2014年3月27日・仁川港（Commons の撮影日）
+    "c202": dict(
+        t="インチョン港のセウォル号",
+        s="2014年3月27日",
+        photo=P("sewol_incheon"), **ss.kind(P("sewol_incheon")),
     ),
 }

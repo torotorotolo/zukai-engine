@@ -1,0 +1,46 @@
+{
+ "e1": {
+  "file": "ep14/vid/e1.mp4",
+  "url": "https://www.dvidshub.net/video/330919/",
+  "media": "https://d34w7g4gy10iej.cloudfront.net/video/1404/DOD_101385880/DOD_101385880.mp4",
+  "credit": "出典：米海軍（DVIDS）（記録映像より）",
+  "src": "dvids",
+  "at": 0.0,
+  "date": "2014-04-18",
+  "what": "USS ボノム・リシャールの見張り・艦橋・MH-60S の発艦（1分30秒・スレートなし）",
+  "w": 1920,
+  "h": 1080,
+  "fps": 29.97,
+  "sar": "1:1",
+  "sec": 90.475,
+  "dar": "16:9",
+  "square_w": 1920,
+  "dispw": 1920,
+  "decoded": [
+   1920,
+   1080
+  ]
+ },
+ "e2": {
+  "file": "ep14/vid/e2.mp4",
+  "url": "https://www.dvidshub.net/video/332722/sewol-ferry-sar-efforts-31st-meu",
+  "media": "https://d34w7g4gy10iej.cloudfront.net/video/1404/DOD_101470723/DOD_101470723.mp4",
+  "credit": "出典：米海兵隊（DVIDS）（記録映像より）",
+  "src": "dvids",
+  "at": 0.0,
+  "date": "2014-04-19",
+  "what": "第31海兵遠征部隊のヘリから見た捜索の海（2分02秒・0〜2秒は英字のスレート＝NOGO）",
+  "w": 1280,
+  "h": 720,
+  "fps": 29.97,
+  "sar": "1:1",
+  "sec": 122.022,
+  "dar": "16:9",
+  "square_w": 1248,
+  "dispw": 1248,
+  "decoded": [
+   1248,
+   702
+  ]
+ }
+}

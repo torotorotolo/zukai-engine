@@ -40,8 +40,8 @@ PLAN = {
     "cc08": dict(kind='パネル',
                plan='台本の画：panel 刑事裁判のきまり',
                src='船員2審 p5007'),
-    "cc09": dict(kind='写真',
-               plan='台本の画：実写 Googleアース モッポ新港（現在）',
+    "cc09": dict(kind='図解',
+               plan='【地図】wide＋モッポ（⑤b-7a 09-29：Googleアースは使わない＝カズヤくん「地図に替える」）｜台本の画：実写 Googleアース モッポ新港（現在）',
                src='裁決 p2050・p2088'),
     "cc10": dict(kind='図・写真の頁',
                plan='【図の頁】裁決 p2089〔사진5〕弁の鉄の芯の固着の写真（出典は p2088〜2089）（追補 §4）｜⚠️ 出典は「裁決 p2088〜2089」（写真は p2089・追補 §7-5）',
@@ -144,5 +144,45 @@ SPEC = {
         fig=("boxes", dict(view="row", slots=3, past=[ss.cause("rudder", keep=True), ss.cause("fault", keep=True)],
                            steps=[dict(add=ss.cause("outer")), dict(), dict()],
                            src=ss.src(["特調委 p3013", "特調委小 p4161"]))),
+    ),
+
+    # ── 🔴 ⑤b-7a（2026-09-29）：頁と地図 ──
+    # 海審 p1091「얼마나 큰 타각을, 얼마나 길게 사용하였는지 확인할 수 있는 자료는 없지만」＝その行を真ん中に
+    "cc03": dict(
+        t="報告書の判断の節",
+        s="舵角の資料について",
+        photo=ss.page(1091), panel=True, color=1.0,
+    ),
+    # 海審 p1083〔그림4〕（舵角の場合ごとの横傾斜＝模擬の結果）＝見出し＋上のグラフ（CASE 1）。⑤b-7a で頁を見て、語り（航跡と模擬）に
+    #   合うと確かめた（追補 §7-4）。出典は「海審 p1083・p1091〜1092」（§7-5＝`qa_out/ep14_assets.py` の PAGE_CITE）
+    "cc04": dict(
+        t="計算で試した傾き",
+        s="図4　舵の切り方の場合ごと",
+        photo=ss.page(1083), panel=True, color=1.0,
+    ),
+    # 引き揚げた船体を運んだ先（裁決 p2050「2017.3.24. 사고현장에서 세월호를 인양하여 2017.3.31. 목포신항에 도착」）。
+    #   Googleアースの代わりの地図（カズヤくん「地図に替える」）。モッポは市の中心の1点（港の点は Wikidata に無い）＝札は「モッポ」
+    "cc09": dict(
+        t="沈んだ場所からモッポへ",
+        s="2017年3月",
+        fig=ss.sewol_map("wide", [
+            dict(move=[dict(kind="ring", at="acc", r=60)], tag=dict(at="acc", t="引き揚げた場所", side="left")),
+            dict(move=[dict(kind="ring", at="mokpo", r=60)]),
+            dict()],
+            places=["mokpo"],
+            note="模式図：港と島は中心の1点。モッポは市の中心（運んだ道すじは描いていない）",
+            recs=["裁決 p2050", "海審 p1065"]),
+    ),
+    # 裁決 p2089〔사진5〕「세월호 솔레노이드 밸브의 철심 고착 사진(선조위 보고서)」＝写真の枠＋説明の行（出典は p2088〜2089＝PAGE_CITE）
+    "cc10": dict(
+        t="弁の中の鉄の芯",
+        s="写真5（船体調査委員会の報告から）",
+        photo=ss.page(2089), panel=True, color=1.0,
+    ),
+    # 裁決 p2003 の主文「주문 이 전복사건은 …」＝その行を真ん中に
+    "cc14": dict(
+        t="裁決の主文",
+        s="韓国語の原文",
+        photo=ss.page(2003), panel=True, color=1.0,
     ),
 }
