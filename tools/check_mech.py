@@ -54,7 +54,8 @@ sys.stdout.reconfigure(encoding="utf-8")
 
 import titan_fig as F  # noqa: E402
 
-NUM = re.compile(r"約?[0-9０-９][0-9０-９,.．]*\s*(キロ|ミリ|メートル|ポンド|㎡|平方メートル|人|秒|分|時|度)")
+# 🆕 ⑤b-7b：固縛の札の単位（トン・本・台・個・センチ）を足した（「約30本」が素通りした＝陽性対照で見つけた）
+NUM = re.compile(r"約?[0-9０-９][0-9０-９,.．]*\s*(キロ|ミリ|メートル|ポンド|㎡|平方メートル|人|秒|分|時|度|トン|本|台|個|センチ)")
 
 
 def _shape(f, ident):
@@ -196,7 +197,13 @@ def judge_section(f):
 # 🔴 断面F の記録の値は**門番の側にも別に持つ**（型の定数と比べると、型を壊しても「型どおり」で通る＝物差しにならない）
 REC_HULL = dict(a_ext=5.6, br_ext=2.6, roof0=3.5, rise=1.7,               # 海審 p1016 2.2.4
                 cargo_less=987.0 / 2437.0,                              # 海審 p1018 表1
-                bw=dict(before=370.0 / 2501.826, req=1703.0 / 2501.826, low=761.272 / 2501.826))  # 表1・p1044 表7
+                bw=dict(before=370.0 / 2501.826, req=1703.0 / 2501.826, low=761.272 / 2501.826),  # 表1・p1044 表7
+                draft_seen=6.20, draft_full=6.26)                       # 🆕 ⑤b-7b：海審 p1038 注14（確かめた喫水・満載の喫水）
+
+# 🆕 ⑤b-7b：固縛の本数（海審 p1093 4.4.1・4.4.2・4.4.5／p1042 3.1.4.3〜3.1.4.5）。🔴 型（lash.py）の表と別に持つ
+REC_LASH = dict(car_req=dict(front=2, rear=2), car_act=dict(front=1, rear=1),   # 앞․뒤 각 2개씩 → 실제로는 앞․뒤 각 1개만
+                truck_req=10, truck_act=4,                                     # 10개 사용하도록 → 체인 4개만
+                zone_belts=0, lock_used=0)                                     # 임시번호 승용차＝고박밴드 없음／Twistlock 사용 안 함
 
 
 def judge_hull(f):
@@ -260,6 +267,21 @@ def judge_hull(f):
                 ra = sum(math.dist(a, b) for a, b in zip(pts("R_force", i), pts("R_force", i)[1:]))
                 rules.append((st["g"] == "high" and not ra < la,
                               f"重心が高い船の力の矢印が短くない（左 {la:.0f}・右 {ra:.0f}画素）"))
+        elif kind == "mark":
+            # 🆕 ⑤b-7b（c211）：水面と限りの線の画素を目盛りの式で喫水へ戻す＝記録（海審 p1038）
+            V = H._MarkV(v)
+            rules = []
+            yw = min(p[1] for p in pts("water", i))
+            yf = pts("full", i)[0][1]
+            if st["water"] == "seen":
+                dw = (V.p(0, R["draft_seen"])[1] - yw) / v["s"]
+                rules.append((abs(dw) > 0.005 or alpha("water", i) < 0.2,
+                              f"水面が記録の約{R['draft_seen']}メートルから {dw:+.3f} メートル（海審 p1038）・または見えない"))
+            if st["full"] == "on":
+                df = (V.p(0, R["draft_full"])[1] - yf) / v["s"]
+                rules.append((abs(df) > 0.005 or alpha("full", i) < 0.5,
+                              f"限りの線が記録の {R['draft_full']}メートルから {df:+.3f} メートル（海審 p1038）・または見えない"))
+                rules.append((st["water"] == "seen" and not yf < yw, "限りの線が水面より下（記録＝確かめた値は限りの内）"))
         else:
             V = H._PortV(v)
             top = min(p[1] for p in pts("water", i))
@@ -279,9 +301,67 @@ def judge_hull(f):
     return bad, n
 
 
+def judge_lash(f):
+    """🆕 ⑤b-7b：固縛（`tools/lash.py`）。**描いた SVG の印 data-l を数える**＝本数・木の止め・面・留め金。"""
+    import lash as Lh
+    R = REC_LASH
+    m = f.mech
+    svg = f.lab + "".join(f.stages)
+    c = Lh.count(svg)
+    bad, n = [], 0
+    final = (m["states"] or [m["start"]])[-1]
+
+    def got(key):
+        return c.get(key, 0)
+    for who in ("car", "truck"):
+        lv = final.get(who, "off")
+        if lv == "off":
+            continue
+        n += 1
+        wheels, chocks = got(f"{who}|wheel"), got(f"{who}|chock")
+        if lv == "all" and chocks != wheels:
+            bad.append(f"{who}: 木の止め {chocks} 個・タイヤ {wheels} 個（記録＝各タイヤに＝海審 p1042 3.1.4.3・p1093）")
+        if lv != "all" and chocks:
+            bad.append(f"{who}: 実際の固縛の前に木の止めが {chocks} 個")
+        req = {e: got(f"{who}|req|{e}") for e in ("front", "rear", "side")}
+        act = {e: got(f"{who}|act|{e}") for e in ("front", "rear", "side")}
+        if lv in ("req", "all"):
+            n += 1
+            if who == "car" and (req["front"], req["rear"], req["side"]) != (R["car_req"]["front"], R["car_req"]["rear"], 0):
+                bad.append(f"乗用車の基準の帯 前{req['front']}・後ろ{req['rear']}・横{req['side']}（記録＝前・後ろ2本ずつ＝p1093 4.4.1）")
+            if who == "truck" and sum(req.values()) != R["truck_req"]:
+                bad.append(f"25トン車の基準の帯 {sum(req.values())} 本（記録＝10本＝p1093 4.4.2）")
+        if lv == "all":
+            n += 1
+            if who == "car" and (act["front"], act["rear"], act["side"]) != (R["car_act"]["front"], R["car_act"]["rear"], 0):
+                bad.append(f"乗用車の実際の帯 前{act['front']}・後ろ{act['rear']}・横{act['side']}（記録＝前・後ろ1本ずつ＝p1093 4.4.1）")
+            if who == "truck" and sum(act.values()) != R["truck_act"]:
+                bad.append(f"25トン車の鎖 {sum(act.values())} 本（記録＝4本＝p1093 4.4.2）")
+        elif sum(act.values()):
+            bad.append(f"{who}: 状態 {lv} なのに実際の帯が {sum(act.values())} 本")
+    if final.get("zone") == "on":
+        n += 1
+        zb = got("zone|belt")
+        if zb != R["zone_belts"] or not got("zone|area"):
+            bad.append(f"仮ナンバーの乗用車の面：帯 {zb} 本・面 {got('zone|area')}（記録＝帯なし＝p1042 3.1.4.4・p1093 4.4.5）")
+    if m["view"] == "box":
+        n += 1
+        if got("box|lock|used") != R["lock_used"]:
+            bad.append(f"留め金を使った絵が {got('box|lock|used')} か所（記録＝使っていない＝p1042 3.1.4.5・p1093 4.4.3）")
+        if final.get("rope") == "on" and not got("box|rope"):
+            bad.append("ロープの状態 on なのに、ロープの絵が無い")
+        if final.get("lock") == "on" and not got("box|lock|empty"):
+            bad.append("留め金の場所の状態 on なのに、点線の枠が無い")
+        if got("box|casting") != 8:
+            bad.append(f"隅の金具 {got('box|casting')} 個（横から見た2段の箱は 4×2＝8）")
+    bad += _numbers(f)
+    return bad, n
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
-    return (judge_latch(f) if kind == "latch" else judge_section(f) if kind == "section" else judge_hull(f))
+    return (judge_latch(f) if kind == "latch" else judge_section(f) if kind == "section"
+            else judge_lash(f) if kind == "lash" else judge_hull(f))
 
 
 def selftest():
@@ -349,6 +429,21 @@ def selftest():
         ("🔴 陽性対照：札の数「約9.9メートル」が宣言に無い", "hull",
          dict(view="side", steps=[dict(tag=dict(t="約9.9メートル"))], note=N,
               rel=[dict(t="約5.6メートル", src="海審 p1016")]), False),
+        # 🆕 ⑤b-7b：喫水の寄り（hull の mark）と固縛（lash）
+        ("正しい喫水の寄り（水面 約6.20・限りの線 6.26＝海審 p1038）", "hull",
+         dict(view="mark", steps=[dict(state=dict(water="seen")), dict(state=dict(full="on"))], note=N), True),
+        ("正しい乗用車（前・後ろ2本ずつ → 1本ずつ・各タイヤに木の止め）", "lash",
+         dict(view="car", steps=[dict(state=dict(car="req")), dict(state=dict(car="all"))], note=N, src="s"), True),
+        ("正しい乗用車と25トン車（10本 → 鎖4本）", "lash",
+         dict(view="both", steps=[dict(state=dict(car="all")), dict(state=dict(truck="all"),
+                                                                    tag=dict(t="25トン車の鎖", xy=(1200, 300)))],
+              note=N, src="s", rel=[dict(t="25トン", src="海審 p1093")]), True),
+        ("正しい仮ナンバーの車の面（帯なし）", "lash",
+         dict(view="loose", steps=[dict(state=dict(zone="on"))], note=N, src="s"), True),
+        ("正しい2段の箱（留め金の場所・ロープ）", "lash",
+         dict(view="box", steps=[dict(state=dict(lock="on")), dict(state=dict(rope="on"))], note=N, src="s"), True),
+        ("🔴 陽性対照：固縛の札の数「約30本」が宣言に無い", "lash",
+         dict(view="car", steps=[dict(state=dict(car="all"), tag=dict(t="約30本", xy=(100, 300)))], note=N, src="s"), False),
     ]
     for name, kind, kw, want in cases:
         bad, _ = judge(kind, kw)
@@ -404,6 +499,41 @@ def selftest():
         good = True
     ok &= good
     print(f"  {'OK' if good else '🔴 NG'} 🔴 陽性対照：宣言の無い傾き 40度で型が止まる: {'止まった' if good else '通った'}（止まるはず）")
+    # 🆕 ⑤b-7b：喫水の寄りと固縛の画素の陽性対照（型の表・定数をわざと壊す＝描いた絵が記録と食い違う）
+    import lash as Lh
+    mark_kw = dict(view="mark", steps=[dict(state=dict(water="seen", full="on"))], note=N)
+    car_kw = dict(view="car", steps=[dict(state=dict(car="req")), dict(state=dict(car="all"))], note=N, src="s")
+    both_kw = dict(view="both", steps=[dict(state=dict(car="all")), dict(state=dict(truck="all"))], note=N, src="s")
+    box_kw = dict(view="box", steps=[dict(state=dict(lock="on")), dict(state=dict(rope="on"))], note=N, src="s")
+    zone_kw = dict(view="loose", steps=[dict(state=dict(zone="on"))], note=N, src="s")
+    keep_zone, keep_box = Lh._zone_svg, Lh._box_layer
+    for name, mod, attr, val, kind, kw in (
+            ("限りの線を 6.20 に描く型", H, "FULL_DRAFT", 6.20, "hull", mark_kw),
+            ("水面を 6.30 に描く型", H, "DRAFT", 6.30, "hull", mark_kw),
+            ("乗用車の実際の帯を前2本で描く型", Lh, "CAR_ACT", (("front", -1), ("front", +1), ("rear", +1)), "lash", car_kw),
+            ("25トン車の基準の帯を9本で描く型", Lh, "TRUCK_REQ", Lh.TRUCK_REQ[:9], "lash", both_kw),
+            ("25トン車の鎖を5本で描く型", Lh, "TRUCK_ACT", Lh.TRUCK_ACT + (("side", -1, 0.12),), "lash", both_kw),
+            ("仮ナンバーの車の面に帯を描く型", Lh, "_zone_svg",
+             lambda: keep_zone() + Lh._g("zone|belt", F.line(0, 0, 9, 9, "#fff", 2)), "lash", zone_kw),
+            ("留め金を使った絵を描く型", Lh, "_box_layer",
+             lambda what: keep_box(what) + Lh._g("box|lock|used", F.rect(0, 0, 9, 9, "#fff")), "lash", box_kw)):
+        keep = getattr(mod, attr)
+        setattr(mod, attr, val)
+        try:
+            bad, _ = judge(kind, kw)
+        finally:
+            setattr(mod, attr, keep)
+        good = bool(bad)
+        ok &= good
+        print(f"  {'OK' if good else '🔴 NG'} 🔴 陽性対照（画素）：{name}: "
+              f"{'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    try:
+        judge("lash", dict(view="car", steps=[dict(state=dict(car="all")), dict(state=dict(car="req"))], note=N, src="s"))
+        good = False
+    except ValueError:
+        good = True
+    ok &= good
+    print(f"  {'OK' if good else '🔴 NG'} 🔴 陽性対照：固縛の段が戻る（all → req）で型が止まる: {'止まった' if good else '通った'}（止まるはず）")
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 
@@ -415,9 +545,9 @@ def main():
         return 0
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items())
-               if s.get("fig") and s["fig"][0] in ("latch", "section", "hull")}
+               if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash")}
     if not targets:
-        print("⚠️ latch・section・hull のカットが0件（この回に仕組みの模式図が無いなら正しい。**0件を調べて合格**にしていないか確かめる）")
+        print("⚠️ latch・section・hull・lash のカットが0件（この回に仕組みの模式図が無いなら正しい。**0件を調べて合格**にしていないか確かめる）")
         return 0
     bad_all, n_all = 0, 0
     for cid, (kind, kw) in targets.items():

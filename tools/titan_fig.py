@@ -5019,3 +5019,10 @@ def qty(view, steps, **kw):
 def boxes(view, steps, **kw):
     import boxes as _b
     return _b.boxes(view, steps, **kw)
+
+
+# ── ⑦ 14本目 ⑤b-7b（2026-09-29）：固縛の型（帯と鎖の本数・2段のコンテナ）＝`tools/lash.py`（門番 check_mech の judge_lash）──
+#   `fig=("lash", dict(view="car"|"both"|"loose"|"box", start=dict(…), steps=[…], rel=[…], note="模式…", src=…))`
+def lash(view, steps, **kw):
+    import lash as _l
+    return _l.lash(view, steps, **kw)

@@ -168,7 +168,15 @@ def _bar(groups, past, steps, note, src):
 # ══════════════════════════════════════════════════════════
 #  マス目
 # ══════════════════════════════════════════════════════════
-def _grid(n, title, steps, cols, note, src):
+def _mark_svg(k, x, y):
+    if k == "ok":
+        return F.poly([(x + 34, y + 80), (x + 64, y + 112), (x + 118, y + 42)], "none", J.OK, 14)
+    return (F.line(x + 38, y + 38, x + 112, y + 112, J.ALERT, 14)
+            + F.line(x + 112, y + 38, x + 38, y + 112, J.ALERT, 14))
+
+
+def _grid(n, title, steps, cols, note, src, past=()):
+    """past … 🆕 ⑤b-7b（c516）：前のカットの ✓✕ を**基図に**同じ色で置いて続ける（c515 の ✓5 → c516 で ✕4 を足す）。"""
     cols = cols or n
     rows = math.ceil(n / cols)
     wtot = cols * CELL + (cols - 1) * CELL_GAP
@@ -183,25 +191,25 @@ def _grid(n, title, steps, cols, note, src):
         lab.append(dq(F.rect(x, y, CELL, CELL, J.BG2, J.LINE, 4, rx=10), "cell"))
     used = 0
     stages, marks = [], []
+
+    def put(p, out):
+        nonlocal used
+        if p["k"] not in ("ok", "ng"):
+            raise ValueError(f"qty：マス目に知らない部品 {p['k']!r}（ok／ng）")
+        if not p.get("rec"):
+            raise ValueError(f"qty：rec（記録の頁）が無い部品 {p}")
+        if used + p["n"] > n:
+            raise ValueError(f"qty：印が {used + p['n']} 個＝マス {n} を超える")
+        for x, y in cells[used:used + p["n"]]:
+            out.append(f'<g data-q="{p["k"]}">{_mark_svg(p["k"], x, y)}</g>')
+        used += p["n"]
+        marks.append(dict(p))
+    for p in past:
+        put(p, lab)
     for st in steps:
         s = []
         for p in F._many(st.get("add")):
-            if p["k"] not in ("ok", "ng"):
-                raise ValueError(f"qty：マス目に知らない部品 {p['k']!r}（ok／ng）")
-            if not p.get("rec"):
-                raise ValueError(f"qty：rec（記録の頁）が無い部品 {p}")
-            if used + p["n"] > n:
-                raise ValueError(f"qty：印が {used + p['n']} 個＝マス {n} を超える")
-            for x, y in cells[used:used + p["n"]]:
-                if p["k"] == "ok":
-                    pts = [(x + 34, y + 80), (x + 64, y + 112), (x + 118, y + 42)]
-                    g = F.poly(pts, "none", J.OK, 14)
-                else:
-                    g = (F.line(x + 38, y + 38, x + 112, y + 112, J.ALERT, 14)
-                         + F.line(x + 112, y + 38, x + 38, y + 112, J.ALERT, 14))
-                s.append(f'<g data-q="{p["k"]}">{g}</g>')
-            used += p["n"]
-            marks.append(dict(p))
+            put(p, s)
         stages.append("".join(s) or " ")
     lab.append(_foot(note, src))
     f = F.Fig("".join(lab), stages, "", (F.BX0, F.BX1))
@@ -302,5 +310,5 @@ def qty(view, steps, groups=(), past=(), n=0, title="", cols=0, order=(), sets=N
     if view == "bar":
         return _bar(groups, past, steps, note, src)
     if view == "grid":
-        return _grid(n, title, steps, cols, note, src)
+        return _grid(n, title, steps, cols, note, src, past)
     return _people(order, sets, past, steps, note, src)

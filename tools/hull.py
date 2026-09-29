@@ -13,6 +13,9 @@
   hold  … 同じ断面の船体の下の寄り（底のタンクの水＝c409・c509）
   front … 船首の側から見た断面。傾き heel（度・左舷が下＝画面で時計回り＝案C の A と同じ向き）は段の鍵
   pair  … front を2隻並べる（c405 重心と復原力＝足す前と足したあと）
+  mark  … 🆕（⑤b-7b）船の横腹の喫水の目盛りの寄り（c211）。水面＝出港のときに確かめた約6.20メートル・限りの線＝
+          満載の喫水 6.26メートル（どちらも海審 p1038）。差 0.06メートルは全体の断面では 0.6画素＝見えない＝寄りに分けた
+          （目盛りと限りの線を1つの寄りに描いた＝位置は模式）
   port  … 3階と4階の左舷の外側を横から見た図（出入口・手すり・水位＝c817・c914）。傾きは描かない
           （🔴 手すりが水につかった時刻〈判決 p18〉と傾きの角度〈海審 p1057〉を1枚の傾いた断面に重ねると、
             どう描いても片方の記録と食い違う＝傾きを描かない見え方に分けた）
@@ -49,6 +52,7 @@ CMP_Y = BR_Y + 2.5                      # 屋上（コンパス甲板）。船�
 E_Y = 1.8                               # E甲板＝その下の天井 約1.5〜1.8（p1020）
 TW_Y = B_Y - 2.2                        # トゥイーン甲板（天井 約2.2・長さ 約18.6＝p1019）
 DRAFT = 6.20                            # 出港のときの喫水（海審 p1038 注14「약 6.20미터」）＝横から見た断面の水面
+FULL_DRAFT = 6.26                       # 満載の喫水＝沈んでよい限り（海審 p1038 注14「만재흘수는 6.26미터」）＝mark の限りの線
 FR0, FR = 2.0, 0.7                      # 肋骨の番号 → 位置（間隔 0.7＝p1019 Fr.71〜136 が約45.5メートル。Fr.0 の位置は模式）
 RAIL_H = 1.1                            # 手すりの高さ（記録に無い＝模式）
 WALK = 1.5                              # 左舷の通路の幅（記録に無い＝模式）
@@ -105,6 +109,8 @@ VIEWS = {
                   lab="船首の側から見た断面（左舷が右）"),
     "pair": dict(kind="pair", s=9.0, piv=[(500.0, 590.0), (1240.0, 590.0)], lab="船首の側から見た断面（左舷が右）"),
     "port": dict(kind="port", s=26.0, x0=150.0, y3=640.0, len=38.0, lab="3階と4階の左舷の外側を横から見た図"),
+    # 🆕 ⑤b-7b：横腹の喫水の目盛りの寄り。y＝喫水（メートル）・6.0 が画素 600・1メートル＝560画素（0.06メートル＝約34画素）
+    "mark": dict(kind="mark", s=560.0, x0=360.0, y6=600.0, lab="横から見た船の横腹・喫水の目盛りの寄り"),
 }
 
 
@@ -137,6 +143,16 @@ class _PortV:
         return [self.x0 + u * self.s, self.y3 - (y - B_Y) * self.s]
 
 
+class _MarkV:
+    """横腹の寄り（mark）：u＝横のメートル（x0 から右）・y＝喫水（メートル）。6.0 メートルが画素 y6。"""
+
+    def __init__(self, v):
+        self.s, self.x0, self.y6 = v["s"], v["x0"], v["y6"]
+
+    def p(self, u, y):
+        return [self.x0 + u * self.s, self.y6 - (y - 6.0) * self.s]
+
+
 def _box(V, x0, y0, x1, y1):
     return [V.p(x0, y0), V.p(x1, y0), V.p(x1, y1), V.p(x0, y1)]
 
@@ -158,13 +174,15 @@ HULL_FRONT = [(-HALF, B_Y), (-HALF, 3.0), (-HALF + 1.2, 0.8), (-7.0, 0.0), (7.0,
 # ══════════════════════════════════════════════════════════
 ONOFF = ("off", "on")
 FIELDS = {
+    # 🆕 ⑤b-7b：hl="cab"（客室の階＝3階・4階・5階の枠＝c309）・crew="en"（機関部の居場所だけ＝c713）
     "side": dict(aroof=("low", "high"), aext=ONOFF, bcab=ONOFF, ramp=("on", "gone", "off"), marble=ONOFF,
                  cargo=("none", "load", "less"), ballast=("none", "before", "req", "low"), arrows=ONOFF,
-                 hl=("none", "new", "de"), crew=("off", "br", "both"), run=ONOFF),
+                 hl=("none", "new", "de", "cab"), crew=("off", "br", "both", "en"), run=ONOFF),
     "front": dict(heel=None, cargo=("off", "mid", "port"), lash=ONOFF, exits=ONOFF, paths=("off", "faint", "on"),
                   angle=ONOFF),
     "pair": dict(heel=None, add=ONOFF, g=("low", "high"), force=ONOFF, up=ONOFF),
     "port": dict(water=("low", "b", "a"), exits=("off", "on", "shut3", "shut"), out=ONOFF),
+    "mark": dict(water=("off", "seen"), full=ONOFF),
 }
 START = {
     "side": dict(aroof="high", aext="on", bcab="on", ramp="off", marble="off", cargo="none", ballast="none",
@@ -172,6 +190,7 @@ START = {
     "front": dict(heel=0.0, cargo="off", lash="off", exits="off", paths="off", angle="off"),
     "pair": dict(heel=0.0, add="off", g="low", force="off", up="off"),
     "port": dict(water="low", exits="off", out="off"),
+    "mark": dict(water="off", full="off"),
 }
 PORT_LEVEL = dict(low=B_Y - 2.3, b=B_Y + RAIL_H + 0.5, a=A_Y + RAIL_H + 0.5)   # 水の面（模式の高さ・順番は判決 p18）
 DOOR_U = dict(b=(8.0, 9.3), a=(22.0, 23.3))                                   # 出入口の位置（記録に無い＝模式）
@@ -260,13 +279,19 @@ def _side_parts(V, st):
     parts += [_P("hl_d", "poly", _box(V, 4.0, D_Y + 0.12, 124.0, C_Y - 0.12), stroke="ALERT", w=5, alpha=on(de)),
               _P("hl_e", "poly", _box(V, X_EHOLD[0] + 0.1, E_Y + 0.12, X_EHOLD[1] - 0.1, D_Y - 0.12), stroke="ALERT",
                  w=5, alpha=on(de))]
+    # 🆕 ⑤b-7b（c309）：客室のある階＝3階・4階・5階（海審 p1018 2.3.2〜2.3.4）の枠
+    cab = st["hl"] == "cab"
+    for k, ((x0, x1), (y0, y1)) in (("3", (X_SUP3, (B_Y, A_Y))), ("4", (X_SUP4, (A_Y, BR_Y))),
+                                    ("5", (X_SUP5, (BR_Y, CMP_Y)))):
+        parts.append(_P(f"hl_cab{k}", "poly", _box(V, x0 + 0.15, y0 + 0.12, x1 - 0.15, y1 - 0.12), stroke="AMBER", w=5,
+                        alpha=on(cab)))
     # 船員の居場所（c712）＝人は描かない・輪だけ（判決 p14〜15）
     cr = st["crew"]
     r_ring = max(16.0, 1.9 * s)
     parts += [_P("crew_br", "circle", c=V.p(92.5, BR_Y + 1.25), r=r_ring, stroke="AMBER", w=5,
                  alpha=on(cr in ("br", "both")), glow=on(cr in ("br", "both")), fill=None),
               _P("crew_en", "circle", c=V.p(22.0, B_Y + 1.35), r=r_ring, stroke="AMBER", w=5,
-                 alpha=on(cr == "both"), glow=on(cr == "both"), fill=None)]
+                 alpha=on(cr in ("both", "en")), glow=on(cr in ("both", "en")), fill=None)]
     # 矢印（c409：荷 ↓・水 ↑）と進む向き（c509）
     ar = st["arrows"] == "on"
     parts += [_P("arr_cg", "line", [V.p(45.0, B_Y - 0.4), V.p(45.0, C_Y + 2.6)], stroke="AMBER", w=6, head=20,
@@ -389,6 +414,24 @@ def _port_parts(V, st):
     return parts
 
 
+MARK_U = (-0.52, 2.66)                  # 寄りの横の範囲（メートル＝枠の左右の端）
+MARK_FULL_U = (0.62, 2.30)              # 限りの線の横の範囲（模式）
+MARK_RING_U = 1.46                      # 限りの線の輪（満載喫水線の標）の中心（模式）
+
+
+def _mark_parts(V, st):
+    """🆕 ⑤b-7b（c211）：水面＝確かめた喫水・限りの線＝満載の喫水（どちらも海審 p1038）。"""
+    on = lambda b: 1.0 if b else 0.0  # noqa: E731
+    y_bot = 6.0 - (CLIP[3] - V.y6) / V.s
+    seen, full = st["water"] == "seen", st["full"] == "on"
+    rx, ry = V.p(MARK_RING_U, FULL_DRAFT)
+    return [_P("water", "poly", _box(V, MARK_U[0], y_bot, MARK_U[1], DRAFT), fill="LINE", alpha=0.42 * on(seen)),
+            _P("wline", "line", [V.p(MARK_U[0], DRAFT), V.p(MARK_U[1], DRAFT)], stroke="LINE", w=4, alpha=on(seen)),
+            _P("full", "line", [V.p(MARK_FULL_U[0], FULL_DRAFT), V.p(MARK_FULL_U[1], FULL_DRAFT)], stroke="AMBER", w=6,
+               alpha=on(full)),
+            _P("ring", "circle", c=[rx, ry], r=64.0, stroke="AMBER", w=6, alpha=on(full), fill=None)]
+
+
 def parts_of(view, st):
     v = VIEWS[view]
     k = v["kind"]
@@ -398,6 +441,8 @@ def parts_of(view, st):
         return _front_parts(_FrontV(v), st)
     if k == "pair":
         return _pair_parts(v, st)
+    if k == "mark":
+        return _mark_parts(_MarkV(v), st)
     return _port_parts(_PortV(v), st)
 
 
@@ -446,6 +491,26 @@ def _side_base(view, V):
           F.line(*V.p(127.0, C_Y + 8.5), *V.p(119.0, C_Y + 5.4), J.INK_W, 2)]
     g.append(F.poly([V.p(*q) for q in HULL_SIDE], "none", J.INK_W, 4, close=True))
     g.append(F.line(CLIP[0], ywl, CLIP[2], ywl, J.LINE, 2, dash="12 8"))
+    g.append("</g>")
+    return g
+
+
+def _mark_base(view, V):
+    """横腹の板と喫水の目盛り（0.2メートルごとに数・0.1メートルごとに刻み）。🔴 数字は目盛りだけ（§5b-9）。"""
+    y_top, y_bot = 6.0 + (V.y6 - CLIP[1]) / V.s, 6.0 - (CLIP[3] - V.y6) / V.s
+    g = [_clip_open(view)]
+    g.append(F.poly(_box(V, 0.0, y_bot, MARK_U[1], y_top), J.BG2, None, close=True, op=0.6))
+    g.append(F.line(*V.p(0.0, y_bot), *V.p(0.0, y_top), J.INK_W, 4))
+    k = 0
+    while 5.5 + 0.1 * k <= y_top:
+        y = round(5.5 + 0.1 * k, 2)
+        if y >= y_bot:
+            big = abs(y * 10 - round(y * 10)) < 1e-6 and round(y * 10) % 2 == 0
+            x0, y0 = V.p(0.10, y)
+            g.append(F.line(x0, y0, x0 + (70 if big else 36), y0, J.INK_W, 4 if big else 2))
+            if big and y + 0.1 <= y_top:
+                g.append(F.txt(x0 + 84, y0, f"{y:.1f}", 50, J.INK_W, "Noto"))
+        k += 1
     g.append("</g>")
     return g
 
@@ -539,6 +604,7 @@ TAG_AT = {
     "pair": {"lh": (500, 835, "middle", 520), "rh": (1240, 835, "middle", 520), "top": (870, 290, "middle", 700),
              "gl": (330, 470, "end", 240), "gr": (1410, 440, "start", 300)},
     "port": {f"row{i}": (1250, 330 + 105 * i, "start", 580) for i in range(5)},
+    "mark": {"r1": (1320, 330, "start", 500), "r2": (1320, 700, "start", 500)},
 }
 
 
@@ -577,6 +643,14 @@ def _icon(kind, cx, cy, sc=1.0):
         return "".join([R(-26, -24, 52, 26)] + [Ln(-26 + 13 * i, -24, -26 + 13 * i, 2, 2) for i in (1, 2, 3)])
     if kind == "bag":
         return "".join([R(-16, -24, 32, 26), Ln(-8, -24, -4, -32, 2), Ln(8, -24, 4, -32, 2), Ln(-4, -32, 4, -32, 2)])
+    # 🆕 ⑤b-7b（c311・c713）：救命いかだ＝筒の入れ物（海審 p1018「구명뗏목(25인승44개)」）・脱出シューター＝箱と滑り台
+    #    （同「강하식탑승장치(Marine Evacuation System, 일명 Chute)」）。🔴 印は種類（数ではない）・置き場所は模式
+    if kind == "raft":
+        return "".join([F.rect(cx - 28 * k, cy - 22 * k, 56 * k, 22 * k, bg, ink, 2.5, rx=11 * k),
+                        Ln(-10, -22, -10, 0, 2), Ln(10, -22, 10, 0, 2), Ln(-20, 0, -24, 6, 3), Ln(20, 0, 24, 6, 3)])
+    if kind == "chute":
+        return "".join([R(-30, -30, 26, 30), F.poly([P(-4, -24), P(30, 10), P(30, 22), P(-4, -12)], bg, ink, 2.5,
+                                                      close=True)])
     raise ValueError(f"hull：知らない印 {kind!r}")
 
 
@@ -596,6 +670,12 @@ def _dim_svg(view, V, dm):
         m = (a + b) / 2
         g += [F.arrow(x, m, x, a, col, 4, 16), F.arrow(x, m, x, b, col, 4, 16),
               F.txtfit(x + 16, m + 10, dm.get("t", "深さ"), 120, cap=30, col=col)]
+    elif dm["kind"] == "draft":
+        # 🆕 ⑤b-7b（c210）：喫水＝竜骨から水面まで（数字は書かない＝模式）。船の真ん中より前（右の外は甲板の名の札）
+        x = V.p(78.0, 0)[0]
+        a, b = V.p(0, 0)[1], V.p(0, DRAFT)[1]
+        g += [F.arrow(x, (a + b) / 2, x, a, col, 4, 14), F.arrow(x, (a + b) / 2, x, b, col, 4, 14),
+              F.txtfit(x + 16, (a + b) / 2 + 12, dm.get("t", "喫水"), 200, cap=32, col=col)]
     elif dm["kind"] == "bre":
         cx, cy, k = 1640.0, 330.0, 5.0
         q = [(cx + x * k, cy - (y - C_Y) * k) for x, y in HULL_FRONT]
@@ -694,7 +774,8 @@ def hull(view, steps, start=None, rel=(), note="", src=""):
         if k in ("front", "pair") and abs(st["heel"]) > 0.01 and not any(
                 isinstance(r, dict) and abs(float(r.get("heel", -999)) - st["heel"]) < 0.01 for r in rel):
             raise ValueError(f"hull：傾き {st['heel']} 度を rel に宣言していない（記録の頁か「模式」を src に）")
-    V = _SideV(v) if k == "side" else _FrontV(v) if k in ("front", "pair") else _PortV(v)
+    V = (_SideV(v) if k == "side" else _FrontV(v) if k in ("front", "pair") else _MarkV(v) if k == "mark"
+         else _PortV(v))
     seq = [start] + states
     per = [parts_of(view, st) for st in seq]
     shapes, anim = [], []
@@ -718,6 +799,8 @@ def hull(view, steps, start=None, rel=(), note="", src=""):
         g += _side_base(view, V)
     elif k in ("front", "pair"):
         g += _front_base(view, v)
+    elif k == "mark":
+        g += _mark_base(view, V)
     else:
         g += _port_base(view, V)
     static = "".join(_svg_of(sh, sh["keys"][0]) for sh in shapes if not sh["anim"])
