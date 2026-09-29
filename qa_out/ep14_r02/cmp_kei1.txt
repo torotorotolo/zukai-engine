@@ -1,0 +1,6 @@
+比べた 211枚（cfix1 だけ 0・kei1 だけ 5）
+帯の上が変わった 0枚／帯の中だけ変わった 183枚／全く同じ 28枚
+帯に字のあるコマ cfix1 187枚・kei1 187枚
+kei1 だけ: at_c101_028.jpg, at_c103_008.jpg, at_c206_040.jpg, at_cd06_073.jpg, at_cd08_050.jpg
+cfix1 だけ: 
+字があるのに帯が変わっていないコマ 4枚: card_c201.png, card_ca01.png, card_cb01.png, card_cd01.png

@@ -1,0 +1,384 @@
+start 2026-09-29 22:58:18
+✓ Initialized. View run at 
+https://modal.com/apps/torotorotolo/main/ap-ynkehqWsRKIEbbpCqOzHSf
+✓ Created objects.
+├── 🔨 Created mount C:\Users\konar\Desktop\zukai-engine\modal_app.py
+├── 🔨 Created function full.
+├── 🔨 Created function qa.
+├── 🔨 Created function check.
+└── 🔨 Created function layer_hash.
+BGM … /assets/bgm.mp3 / 3.20 MB
+
+$ git clone --depth 1 https://github.com/torotorotolo/zukai-engine.git /work/zukai-engine
+Cloning into '/work/zukai-engine'...
+Updating files:  44% (1393/3099)
+[1AUpdating files:  45% (1395/3099)
+[1AUpdating files:  46% (1426/3099)
+[1AUpdating files:  47% (1457/3099)
+[1AUpdating files:  48% (1488/3099)
+[1AUpdating files:  49% (1519/3099)
+[1AUpdating files:  50% (1550/3099)
+[1AUpdating files:  51% (1581/3099)
+[1AUpdating files:  52% (1612/3099)
+[1AUpdating files:  53% (1643/3099)
+[1AUpdating files:  54% (1674/3099)
+[1AUpdating files:  55% (1705/3099)
+[1AUpdating files:  56% (1736/3099)
+[1AUpdating files:  57% (1767/3099)
+[1AUpdating files:  58% (1798/3099)
+[1AUpdating files:  59% (1829/3099)
+[1AUpdating files:  60% (1860/3099)
+[1AUpdating files:  61% (1891/3099)
+[1AUpdating files:  62% (1922/3099)
+[1AUpdating files:  63% (1953/3099)
+[1AUpdating files:  64% (1984/3099)
+[1AUpdating files:  65% (2015/3099)
+[1AUpdating files:  66% (2046/3099)
+[1AUpdating files:  67% (2077/3099)
+[1AUpdating files:  68% (2108/3099)
+[1AUpdating files:  69% (2139/3099)
+[1AUpdating files:  70% (2170/3099)
+[1AUpdating files:  70% (2184/3099)
+[1AUpdating files:  71% (2201/3099)
+[1AUpdating files:  72% (2232/3099)
+[1AUpdating files:  73% (2263/3099)
+[1AUpdating files:  74% (2294/3099)
+[1AUpdating files:  75% (2325/3099)
+[1AUpdating files:  76% (2356/3099)
+[1AUpdating files:  77% (2387/3099)
+[1AUpdating files:  78% (2418/3099)
+[1AUpdating files:  78% (2429/3099)
+[1AUpdating files:  79% (2449/3099)
+[1AUpdating files:  80% (2480/3099)
+[1AUpdating files:  81% (2511/3099)
+[1AUpdating files:  82% (2542/3099)
+[1AUpdating files:  83% (2573/3099)
+[1AUpdating files:  84% (2604/3099)
+[1AUpdating files:  85% (2635/3099)
+[1AUpdating files:  86% (2666/3099)
+[1AUpdating files:  87% (2697/3099)
+[1AUpdating files:  88% (2728/3099)
+[1AUpdating files:  89% (2759/3099)
+[1AUpdating files:  90% (2790/3099)
+[1AUpdating files:  91% (2821/3099)
+[1AUpdating files:  92% (2852/3099)
+[1AUpdating files:  93% (2883/3099)
+[1AUpdating files:  94% (2914/3099)
+[1AUpdating files:  95% (2945/3099)
+[1AUpdating files:  96% (2976/3099)
+[1AUpdating files:  97% (3007/3099)
+[1AUpdating files:  98% (3038/3099)
+[1AUpdating files:  99% (3069/3099)
+[1AUpdating files: 100% (3099/3099)
+[1AUpdating files: 100% (3099/3099), done.
+  (36秒 / 終了コード 0)
+
+$ git fetch --depth 50 origin d52ad3c769dfbcf2b5fe67cbb41f3711ccc1f41f
+From https://github.com/torotorotolo/zukai-engine
+ * branch            d52ad3c769dfbcf2b5fe67cbb41f3711ccc1f41f -> FETCH_HEAD
+  (4秒 / 終了コード 0)
+
+$ git checkout d52ad3c769dfbcf2b5fe67cbb41f3711ccc1f41f
+Note: switching to 'd52ad3c769dfbcf2b5fe67cbb41f3711ccc1f41f'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at d52ad3c 14本目⑥-2: けいふぉんとの同梱文書を元のバイトのまま（改行の自動変換を止める）
+  (0秒 / 終了コード 0)
+
+$ git log --oneline -1
+d52ad3c 14本目⑥-2: けいふぉんとの同梱文書を元のバイトのまま（改行の自動変換を止める）
+  (0秒 / 終了コード 0)
+
+$ python3 tools/scene_jiko.py --report
+カット 196 ／ 完成尺 1622.4秒 = 27分02.4秒
+字幕 442 枚
+実写 41 ／ ★写真を地に敷いた図解 0
+図の種類:
+   photo         41
+   illu          33
+   hull          28
+   axis          23
+   quote         16
+   drift         16
+   boxes         12
+   qty            9
+   panel          8
+   illu_pair      5
+   lash           4
+   ending         1
+
+⚠️ cuts/__init__.py が**中身ごと上書き**しているカット（0件）:
+   
+   章ファイルの fig / ann を直すときは、ここに載っていないか必ず見ること。
+
+🔴 章の名前（題材を替えたら必ず書き換える／13章）:
+   1/13  9時50分の放送
+   2/13  霧の夜の出港
+   3/13  日本で生まれた船
+   4/13  船の上に客室を足した
+   5/13  積める貨物は987トンまで
+   6/13  8時49分
+   7/13  「その場で待機」
+   8/13  31分の交信
+   9/13  9時35分、123艇
+   10/13  304人
+   11/13  裁判が決めたこと
+   12/13  舵は、まだ決まっていない
+   13/13  その後
+   ↑ これは**いま作っている動画の章名**か？ 前作のままなら止めて直す。
+   （上流が無いので push の検査は飛ばす）
+  (1秒 / 終了コード 0)
+
+$ python3 tools/check_layout.py
+── 画面から出ている文字（944レイヤー） ──
+  ✓ 全部おさまっている
+
+── フォントに無い字（豆腐になる） ──
+  ✓ 無い字は無い
+
+── 小さい Dela に漢字の句が入っている ──
+  ✓ つぶれる大きさの Dela に漢字の句は無い
+
+── 同じカットで重なっている文字 ──
+  ✓ 重なりなし
+
+── 図形が文字を横切っている ──
+  ✓ 横切っている図形は無い
+
+✓ 机上の検算はすべて通った（画面外 0件・重なり 0件・豆腐 0件・図形が横切る 0件／フォントは実測）
+  (33秒 / 終了コード 0)
+
+$ python3 tools/check_echo.py
+
+✓ 複写は無い（複写 0件・見出し/副題の同文 0件・見出しの近さ 4件）
+   （見出しの近さは --all で出る。0.80 未満は「話題を出す場所」として黙る）
+  (11秒 / 終了コード 0)
+
+$ python3 tools/audio_pack.py check
+台本 196 カット ／ audio/opus 196 本
+✓ 過不足なし
+✓ 全 0 本の尺が一致
+  (0秒 / 終了コード 0)
+
+$ python3 tools/audio_pack.py unpack
+✓ 196 カットを wav に戻した（既存 0 本はそのまま）
+  (51秒 / 終了コード 0)
+
+$ python3 tools/check_mask.py
+BGM「bgm.mp3」133秒を 1 回つないだ（継ぎ目 3秒の重ね）
+ドローンの寝床（80〜400Hz・いちばん膨らむ瞬間）= -47.5 dB
+行 442 ／ 🔴消える(<6.0dB) 0 ／ ⚠️弱い(6.0〜10.0dB) 0 ／ ✓聞こえる 442
+中央値 34.6 dB
+
+   余裕dB  カット     語尾（発話の最後 0.18 秒）
+   30.1   c414    …れば、この試験の計算に入っていない重さがあった。
+   30.2   c908    …立った乗組員の頭が、3階の手すりの高さにあった。
+   30.3   c106    …3人のうち325人は、修学旅行中の高校生だった。
+   30.3   c409    …原力の基準を満たすための、認められた条件だった。
+   30.5   c811    …したら、すぐに救助できるのか、という趣旨だった。
+   30.5   c611    …場所は、メンゴル水道を抜けた先だった。
+   30.5   c605    …、前任の船長の指針どおり、大きな舵を避けていた。
+   30.6   c705    …を着せて、その場で待機させよ、という趣旨だった。
+   30.7   c812    …近くの漁船も、助けに向かっていた。
+   30.7   c201    …制は、見通しが1キロ以内だとして注意報を出した。
+   30.8   c902    …約450人が乗っていると、無線で知らされていた。
+   30.8   c604    …ンドまでは、約1.7キロ（0.9マイル）だった。
+   30.8   cd02    …校門の幕には、こう書かれていた。
+   30.8   c815    …そういう結果だった。
+   30.9   c603    …は、事故の10分あまり前に、操舵室を離れていた。
+   30.9   c204    …は、アンサン市のダンウォン高校の修学旅行だった。
+   30.9   c709    …ら絶対に動かず、その場で待て、という趣旨だった。
+   30.9   c919    …123艇にも、外へ呼びかける放送の設備があった。
+   31.0   c208    …船会社の団体の運航管理室に出していた。
+   31.0   c907    …傾きは、止まらずに大きくなっていた。
+   31.0   c609    …9分13秒からの43秒で、右へ約79度も回った。
+   31.0   c506    …ョベルカーやフォークリフト、鉄の資材まであった。
+   31.0   cb10    …不具合が起きた可能性を、打ち消せないことだった。
+   31.1   c804    …船が大きく傾いて脱出は不可能、という趣旨だった。
+   31.1   c212    …57トン。人の数も車の数も、実際とは違っていた。
+   31.1   c901    …警察の警備艇の1つに、123艇という船があった。
+   31.1   c812    …制センターは、警備艇が10分以内に着くと伝えた。
+   31.1   c504    …承認された上限は、約987トンだった。
+   31.1   c717    …全に船を出られるよう、準備をしておくべきだった。
+   31.1   c511    …のトラックは、10本のはずが、鎖4本だけだった。
+（悪い順に 30 行だけ表示。全部見るなら --all）
+  (7秒 / 終了コード 0)
+
+$ python3 tools/footage.py
+■ 動画を当てるカット 2 件（＋静止画で受ける 0 件: ）
+  ca01  尺10.38s  ← e1 73.0〜83.4秒（1.00倍速）
+  ca11  尺 3.73s  ← e2 7.2〜10.9秒（1.00倍速）
+✓ 全 2 欄に until= があり、尻のはみ出しも ショットまたぎも無く、使ってはいけない秒にも掛かっておらず、素材の黒帯も残らない（実測ショット 32 本と照合）
+  ca01: e1 の 73.0秒目から切り出す
+     ✓ 媒体を手元に落とした（111.5MB・12ac53d105ef.mp4）
+     → 313コマ（要 313）
+  ca11: e2 の 7.2秒目から切り出す
+     ✓ 媒体を手元に落とした（144.8MB・43b06748b073.mp4）
+     → 114コマ（要 114）
+✓ 切り出し完了 2/2 カット: ca01、ca11
+  (7秒 / 終了コード 0)
+
+$ ZUKAI_WORKERS=8 python3 tools/scene_jiko.py --force
+書き出すレイヤー 1159 枚（並列 4）
+  50/1159
+  100/1159
+  150/1159
+  200/1159
+  250/1159
+  300/1159
+  350/1159
+  400/1159
+  450/1159
+  500/1159
+  550/1159
+  600/1159
+  650/1159
+  700/1159
+  750/1159
+  800/1159
+  850/1159
+  900/1159
+  950/1159
+  1000/1159
+  1050/1159
+  1100/1159
+  1150/1159
+done 1159
+  (717秒 / 終了コード 0)
+
+$ python3 tools/layer_hash.py
+レイヤー 1159 枚 ／ 合計 53.5 MB
+★全体の指紋  4f5691771edc0ca74daeaf61191d1137a05a43c2c43d519d0481e85616da0507
+
+代表（ずれたときに場所を絞るため）
+  _empty           d0634a2abbcd31f0882b9e94ad72430c
+  c101_a1          788ae0147bdf979a6575938ca2d7d440
+  c101_a2          788ae0147bdf979a6575938ca2d7d440
+  c107_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c107_lab         99599a3736cd64c22b3d360630bd6894
+  c201_bg          e410c91b4930aca833da39cf368a1926
+  c201_lab         4f7f114cceb618dddec8a0c84a03a48b
+  c208_a1          acf55137ee5fd333e542ffa352d14e31
+  c208_a2          2e9a5036e004d35e19586702a46234a5
+  c301_bg          860e8e8b5d3e99af136877458628391c
+  c301_lab         24ced0dc22c60b711c31fde5ebd1a700
+  c307_a1          dc529764ae84c5b969d93f589addd073
+  c307_a2          788ae0147bdf979a6575938ca2d7d440
+  c401_a1          b188bbae5f6406de3ce4d34a608e4c7b
+  c401_a2          fa9bbc585e8fd66beade61c175c1a50c
+  c409_a1          ef4da13f1e7432fa140fc475202ca3f3
+  c409_a2          af556ce9c20bdcc4be862fa4a443ff99
+  c501_bg          7da1dd042b656f7d203a0c95245d3302
+  c501_lab         820b84e38b72ec2a96cad0fada89fcf9
+  c509_a1          8e1591ef0e8fd1bd93fe30e838dd80d2
+  c509_a2          5de1c642a3fab0a9cc61237b9d06da3d
+  c601_a1          8fd11d8fe3738c2dbc92aaf5391f9183
+  c601_a2          788ae0147bdf979a6575938ca2d7d440
+  c609_bg          4c76b50e9abb27e7e2a4ba2e2045bf73
+  c609_lab         12c96874bd6666dadcaef8d69d89b8a6
+  sub_c101         fb22305620eb033a9af241bdd96750f2
+  sub_c102         e85397407b4d6b2e876e3cbe01f48e26
+  sub_c103         c553119cd85db7f79211f74e7a52a343
+
+⚠️ Actions と Modal で**★全体の指紋が一致すれば**、9巡の検品はそのまま生きている。
+  (62秒 / 終了コード 0)
+
+$ ZUKAI_WORKERS=8 python3 tools/build_jiko.py full
+図が動かない最長区間 = 4.13秒
+✓ 図が 5.0秒以上止まるカットは無い
+（参考）最長の字幕 = 5.55秒「2015年11月12日。韓国の最高裁判所、大法院が、」 ／ 字幕の枚数 442
+検品画像 196 カット
+mp4 を 8 並列で焼く（196カット）
+  20/196  4992コマ
+  40/196  10042コマ
+  60/196  14717コマ
+  80/196  19946コマ
+  100/196  24722コマ
+  120/196  29442コマ
+  140/196  34500コマ
+  160/196  39266コマ
+  180/196  44722コマ
+  196/196  48673コマ
+wrote /work/zukai-engine/out/jiko/titan.mp4 1622.4 sec
+  (637秒 / 終了コード 0)
+
+$ ls -la /assets/ || true
+total 3131
+drwxr-xr-x 1 root root       7 Jan  1  1970 .
+drwxr-xr-x 4 root root      72 Sep 29 13:58 ..
+-rw-r--r-- 1 root root 3204163 Sep 20 23:26 bgm.mp3
+  (0秒 / 終了コード 0)
+
+$ python3 tools/audio_mix.py --bgm=music
+BGM「bgm.mp3」133秒を 13 回つないだ（継ぎ目 3秒の重ね）
+サイドチェイン：話している時間 95% ／ 最大 7.0dB 下げた
+  1周目：利得 +0.0dB → 実測 -12.7 LUFS ／ ピーク 0.970
+  2周目：利得 -2.3dB → 実測 -14.7 LUFS ／ ピーク 0.970
+  3周目：利得 -2.6dB → 実測 -15.0 LUFS ／ ピーク 0.970
+wrote /work/zukai-engine/out/jiko/mix.wav  1622.4秒  ピーク 0.970
+  (24秒 / 終了コード 0)
+
+$ ffmpeg -y -hide_banner -loglevel error -i out/jiko/titan.mp4 -i out/jiko/mix.wav -c:v copy -c:a aac -b:a 192k -shortest out/jiko/titan_audio.mp4
+  (49秒 / 終了コード 0)
+
+$ cp out/jiko/titan_audio.mp4 /vol/titan_audio-ep14-r02.mp4
+  (0秒 / 終了コード 0)
+
+$ ffprobe -v error -show_entries format=duration -of default=nw=1 /vol/titan_audio-ep14-r02.mp4
+duration=1622.433333
+  (0秒 / 終了コード 0)
+
+$ ls -la /vol/
+total 6249817
+drwxr-xr-x 1 root root       645 Sep 29 14:25 .
+drwxr-xr-x 4 root root        72 Sep 29 13:58 ..
+-rw-r--r-- 1 root root 148820698 Sep 20 22:47 titan_audio-ep10-r03.mp4
+-rw-r--r-- 1 root root 158714884 Sep 21 00:45 titan_audio-ep10-r04.mp4
+-rw-r--r-- 1 root root 151307126 Sep 21 02:53 titan_audio-ep10-r05.mp4
+-rw-r--r-- 1 root root 151362224 Sep 21 03:54 titan_audio-ep10-r06.mp4
+-rw-r--r-- 1 root root 189964855 Sep 22 07:58 titan_audio-ep11-r04.mp4
+-rw-r--r-- 1 root root 190246914 Sep 22 11:16 titan_audio-ep11-r05.mp4
+-rw-r--r-- 1 root root 291824115 Sep 23 23:14 titan_audio-ep12-r04.mp4
+-rw-r--r-- 1 root root 257241688 Sep 24 03:54 titan_audio-ep12-r05.mp4
+-rw-r--r-- 1 root root 257241111 Sep 24 04:38 titan_audio-ep12-r06.mp4
+-rw-r--r-- 1 root root 257251819 Sep 24 09:30 titan_audio-ep12-r07.mp4
+-rw-r--r-- 1 root root 159763234 Sep 25 12:57 titan_audio-ep13-r09.mp4
+-rw-r--r-- 1 root root 120025493 Sep 29 10:37 titan_audio-ep14-r01.mp4
+-rw-r--r-- 1 root root 124719250 Sep 29 14:25 titan_audio-ep14-r02.mp4
+-rw-r--r-- 1 root root 276059930 Sep 14 02:22 titan_audio-ep7-r03.mp4
+-rw-r--r-- 1 root root 275765238 Sep 14 11:24 titan_audio-ep7-r04.mp4
+-rw-r--r-- 1 root root 226651875 Sep 15 14:20 titan_audio-ep8-r01.mp4
+-rw-r--r-- 1 root root 226802671 Sep 16 02:51 titan_audio-ep8-r02.mp4
+-rw-r--r-- 1 root root 305455259 Sep 17 04:13 titan_audio-ep9-r03.mp4
+-rw-r--r-- 1 root root 305247998 Sep 17 14:30 titan_audio-ep9-r04.mp4
+-rw-r--r-- 1 root root 455907358 Sep 11 04:48 titan_audio-kb-r09.mp4
+-rw-r--r-- 1 root root 123761860 Aug  1 04:21 titan_audio-r11.mp4
+-rw-r--r-- 1 root root 123147684 Aug  1 11:39 titan_audio-r13.mp4
+-rw-r--r-- 1 root root 172258222 Aug  6 00:05 titan_audio-r14.mp4
+-rw-r--r-- 1 root root 172202839 Aug  6 13:11 titan_audio-r15.mp4
+-rw-r--r-- 1 root root 204664596 Aug 10 02:12 titan_audio-r28.mp4
+-rw-r--r-- 1 root root 155390866 Aug  2 09:33 titan_audio-r29.mp4
+-rw-r--r-- 1 root root 204252885 Aug 16 06:24 titan_audio-r30.mp4
+-rw-r--r-- 1 root root 413714501 Sep  7 23:04 titan_audio-sl1r03.mp4
+-rw-r--r-- 1 root root 300035704 Sep  6 08:31 titan_audio-ss.mp4
+  (0秒 / 終了コード 0)
+
+✓ 焼けた → modal volume get jiko-out titan_audio-ep14-r02.mp4 out/jiko/
+✓ App completed. View run at 
+https://modal.com/apps/torotorotolo/main/ap-ynkehqWsRKIEbbpCqOzHSf
+exit=0
+end 2026-09-29 23:25:55
