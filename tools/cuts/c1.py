@@ -174,4 +174,17 @@ SPEC = {
             dict(move=[dict(kind="sight", a="acc", b="incheon")], tag=dict(at="incheon", t="前の晩の港", side="left"))],
             recs=["海審 p1037", "海審 p1065"]),
     ),
+
+    # ── 🔴 ⑤b-5（2026-09-29）：軸の型＝`tools/axis.py`（門番 check_axis）──
+    # 割れる時刻の印の約束（c708・c906 で戻す）。船長らが船を離れた時刻＝判決 p18 は 9時46分・海審 p1055 は 9時48分。
+    # 🔴 どれが正しいとは描かない（同じ形・出典の名だけ）＝カーソルも置かない
+    "c110": dict(
+        t="1つの出来事に2つの時刻",
+        s="例：船長らが船を離れた時刻",
+        fig=("axis", dict(view="clock", span=("9:40", "9:55"), ticks=("9:40", "9:45", "9:50", "9:55"),
+                          steps=[dict(add=[dict(k="split", at="9:46", rec="判決 p18"),
+                                           dict(k="split", at="9:48", rec="海審 p1055")])],
+                          cur_on=False, note="資料ごとの時刻を並べた（どれが正しいとは決めていない）",
+                          src=ss.src(["判決 p18", "海審 p1055"]))),
+    ),
 }

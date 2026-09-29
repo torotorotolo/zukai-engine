@@ -77,4 +77,45 @@ SPEC = {
                             via=ss.ROUTE[:6] + ["chujado", "jeju", "chujado"] + ss.ROUTE[5::-1])])],
             recs=["海審 p1024", "海審 p1034", "海審 p1065"]),
     ),
+
+    # ── 🔴 ⑤b-5（2026-09-29）：軸の型＝`tools/axis.py`（門番 check_axis）──
+    # 造った年（1994年1月25日に竜骨を据え・4月1日に進水＝海審 p1013）。2つの点が近いので月の寄りの年表で
+    "c302": dict(
+        t="日本の造船所で",
+        s="林兼造船",
+        fig=("axis", dict(ss.AX_BUILD,
+                          steps=[dict(), dict(add=[ss.ax("keel"), ss.ax("launch", big=True)], cur="1994-04-01"), dict()],
+                          note="年表：工事の始まり＝竜骨（船の背骨）を据えた日", src=ss.src(["海審 p1013"]))),
+    ),
+
+    # 日本での18年（マルエーフェリーの「なみのうえ」＝海審 p1016）。区間の名は船の名だけ（会社と航路は字幕）
+    "c303": dict(
+        t="日本の船だった時代",
+        s="九州・沖縄の航路",
+        fig=("axis", dict(ss.AX_SHIP,
+                          past=[ss.ax("launch"), ss.ax("accident", t="", lab=False)],
+                          steps=[dict(add=ss.ax("naminoue"), cur="2012-10-08"), dict()],
+                          note="年表：日本の会社が使った期間", src=ss.src(["海審 p1013", "海審 p1016"]))),
+    ),
+
+    # 2012年10月8日に日本から導入（海審 p1016）。進水からの長さは括弧（数は字幕）
+    "c304": dict(
+        t="韓国の会社へ",
+        s="韓国の海運会社",
+        fig=("axis", dict(ss.AX_SHIP,
+                          past=[ss.ax("launch"), ss.ax("japan"), ss.ax("accident", t="", lab=False)],
+                          steps=[dict(add=ss.ax("import", big=True), cur="2012-10-08"),
+                                 dict(add=dict(k="br", a="1994-04-01", b="2012-10-08", rec=["海審 p1013", "海審 p1016"]))],
+                          note="年表：進水から導入まで", src=ss.src(["海審 p1013", "海審 p1016"]))),
+    ),
+
+    # 改造（2012-10-12〜2013-02-12・全羅南道ヨンアムの造船所＝海審 p1016）→ 初めての運航 2013-03-16（p1026）
+    "c312": dict(
+        t="客を乗せる前の工事",
+        s="2012年10月〜2013年2月",
+        fig=("axis", dict(ss.AX_KAIZO,
+                          steps=[dict(add=[ss.ax("import"), ss.ax("first")], cur="2012-10-08"),
+                                 dict(add=ss.ax("kaizo"), cur="2013-02-12")],
+                          note="年表：月の寄り", src=ss.src(["海審 p1016", "海審 p1026"]))),
+    ),
 }

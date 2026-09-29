@@ -86,4 +86,37 @@ SPEC = {
                  tag=dict(at="heuksando", t="翌朝 7時ごろ", side="left"))],
             recs=["海審 p1038", "海審 p1045", "裁決 p2040", "海審 p1065"]),
     ),
+
+    # ── 🔴 ⑤b-5（2026-09-29）：軸の型＝`tools/axis.py`（門番 check_axis）──
+    # 出港の夜の帯（c203 の予定 → c207 の実際）。予定＝海審 p1026（火・木 18時30分にインチョン港→翌 9時10分ごろチェジュ港）
+    "c203": dict(
+        t="インチョン発・チェジュ行き",
+        s="いつもの運航",
+        fig=("axis", dict(ss.AX_NIGHT,
+                          steps=[dict(add=[ss.ax("dep_plan"), ss.ax("arr_plan"), ss.ax("plan")], cur="18:30"),
+                                 dict(), dict()],
+                          note="週2往復の運航の予定", src=ss.src(["海審 p1026"]))),
+    ),
+
+    # 4月15日の夜。出港＝21時5分ごろ（海審 p1038）＝予定より2時間35分遅れ（数は字幕）
+    "c207": dict(
+        t="4月15日の夜",
+        s="予定と実際",
+        fig=("axis", dict(ss.AX_NIGHT,
+                          past=[ss.ax("dep_plan"), ss.ax("arr_plan"), ss.ax("plan")],
+                          steps=[dict(add=dict(k="pt", at="21:05", t="出港", rec="海審 p1038", big=True), cur="21:05"),
+                                 dict(add=dict(k="span", a="18:30", b="21:05", t="遅れ", rec=["海審 p1026", "海審 p1038"],
+                                               c="ALERT"))],
+                          note="時刻の帯：時刻は報告書", src=ss.src(["海審 p1026", "海審 p1038"]))),
+    ),
+
+    # 船の歩みの予告（第3章の年表への入口）。日本の区間＝進水 1994-04-01（p1013）〜導入 2012-10-08（p1016）
+    "c214": dict(
+        t="この船の歩み",
+        s="1994年〜2014年",
+        fig=("axis", dict(ss.AX_SHIP,
+                          steps=[dict(add=ss.ax("accident"), cur="2014-04-16"), dict(),
+                                 dict(add=ss.ax("japan"), cur="1994-04-01")],
+                          note="年表：進水から事故まで", src=ss.src(["海審 p1013", "海審 p1016", "海審 p1008"]))),
+    ),
 }

@@ -212,4 +212,45 @@ SPEC = {
                           note="模式図：傾きは描いていない。出入口と階段の位置は模式（手すりと階段があったのは判決の記述）",
                           src=ss.src(["判決 p14・p16"]))),
     ),
+
+    # ── 🔴 ⑤b-5（2026-09-29）：軸の型＝`tools/axis.py`（門番 check_axis）──
+    # 交信の帯（9:06 管制の呼びかけ＝海審 p1059 〜 9:37 最後の交信＝p1061）。🔴 段の名だけ・言葉は字幕（私人の言葉を帯に書かない）
+    "c803": dict(
+        t="31分間のやりとり",
+        s="9時6分〜9時37分",
+        fig=("axis", dict(ss.AX_TALK, past=[ss.ax("t0906")],
+                          steps=[dict(add=ss.ax("t0913"), cur="9:13"), dict()],
+                          note="交信の帯：主な交信だけ（ほかにもある）", src=ss.src(["海審 p1059", "判決 p13"]))),
+    ),
+
+    # 9:14 管制が問い → 船が答える（海審 p1059）。答えの矢印は同じ時刻の逆向き（時刻の札は重ねない）
+    "c804": dict(
+        t="管制センターの問い",
+        s="9時14分",
+        fig=("axis", dict(ss.AX_TALK, past=[ss.ax("t0906"), ss.ax("t0913")], start=dict(cur="9:13"),
+                          steps=[dict(add=ss.ax("t0914"), cur="9:14"), dict(),
+                                 dict(add=ss.ax("t0914", fr="セウォル号", to="管制", lab=False))],
+                          note="交信の帯：主な交信だけ（ほかにもある）", src=ss.src(["海審 p1059"]))),
+    ),
+
+    # 9:24 近くの船の船長から（判決 p14）
+    "c809": dict(
+        t="9時24分の無線",
+        s="別の船の船長から",
+        fig=("axis", dict(ss.AX_TALK, past=[ss.ax("t0906"), ss.ax("t0913"), ss.ax("t0914")], start=dict(cur="9:14"),
+                          steps=[dict(add=ss.ax("t0924"), cur="9:24"), dict()],
+                          note="交信の帯：主な交信だけ（ほかにもある）", src=ss.src(["判決 p14"]))),
+    ),
+
+    # 9:37 最後の交信（海審 p1061）＝帯が閉じる（9:06〜9:37 の区間を軸に）
+    "c818": dict(
+        t="最後の交信",
+        s="9時37分",
+        fig=("axis", dict(ss.AX_TALK, past=[ss.ax("t0906"), ss.ax("t0913"), ss.ax("t0914"), ss.ax("t0924")],
+                          start=dict(cur="9:24"),
+                          steps=[dict(add=[ss.ax("t0937"),
+                                           dict(k="span", a="9:06", b="9:37", rec=["海審 p1059", "海審 p1061"], c="AMBER")],
+                                      cur="9:37"), dict()],
+                          note="交信の帯：主な交信だけ（ほかにもある）", src=ss.src(["海審 p1059", "海審 p1061", "判決 p17"]))),
+    ),
 }

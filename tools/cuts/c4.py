@@ -176,4 +176,16 @@ SPEC = {
                                            dict(m=(74.0, 3.0), t="？", cap=52), dict(m=(112.0, 15.6), t="？", cap=52)])],
                           note=ss.HULL_NOTE, src=ss.src(["海審 p1018・p1019・p1020"]))),
     ),
+
+    # ── 🔴 ⑤b-5（2026-09-29）：軸の型＝`tools/axis.py`（門番 check_axis）──
+    # 傾斜試験＝2013年1月24日・モッポ港（海審 p1022）＝改造の終わり（2月12日）の前・初めての運航（3月16日）の前
+    "c413": dict(
+        t="モッポ港で",
+        s="韓国船級が立ち会い",
+        fig=("axis", dict(ss.AX_KAIZO,
+                          past=[ss.ax("import"), ss.ax("kaizo"), ss.ax("first")],
+                          start=dict(cur="2013-02-12"),
+                          steps=[dict(add=ss.ax("incline", big=True), cur="2013-01-24"), dict(), dict()],
+                          note="年表：月の寄り", src=ss.src(["海審 p1016", "海審 p1022", "海審 p1026"]))),
+    ),
 }

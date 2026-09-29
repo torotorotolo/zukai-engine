@@ -67,4 +67,50 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🔴 ⑤b-5（2026-09-29）：軸の型＝`tools/axis.py`（門番 check_axis）──
+    # 原因の年表（2014→2026）。🔴 原因は決まっていない＝場面にせず、機関の名と、その機関が挙げた原因の項目の札を並べるだけ。
+    #   札の項目は c615・cc13 の並べ図と同じ言葉（舵の使い方／装置の故障／外からの力）
+    "cc02": dict(
+        t="最初の結論",
+        s="原因の年表",
+        fig=("axis", dict(ss.AX_CAUSE,
+                          steps=[dict(add=ss.ax("kmst"), cur="2014-12-29"),
+                                 dict(add=dict(k="chips", at="2014-12-29", chips=["舵の使い方"], rec=["海審 p1001", "海審 p1125"],
+                                               c="INST"))],
+                          note=ss.CAUSE_NOTE, src=ss.src(["海審 p1001", "海審 p1125"]))),
+    ),
+
+    # 2015年＝2審（2015-04-28）・大法院（2015-11-12）＝船員の2審 p5007。年だけで置く（年の真ん中）
+    "cc06": dict(
+        t="2015年の裁判",
+        s="原因の年表",
+        fig=("axis", dict(ss.AX_CAUSE, past=[ss.ax("kmst")], start=dict(cur="2014-12-29"),
+                          steps=[dict(add=ss.ax("court"), cur="2015"),
+                                 dict(add=dict(k="chips", at="2015", chips=["装置の故障？"], rec=["船員の2審 p5007", "判決 p33"],
+                                               c="INST"))],
+                          note=ss.CAUSE_NOTE, src=ss.src(["船員の2審 p5007", "判決 p33〜34"]))),
+    ),
+
+    # 2018年8月 船体調査委（特調委 p3073）＝内側の原因の案と、外からの力を否定しきれない案に分かれた
+    "cc11": dict(
+        t="2018年の委員会",
+        s="原因の年表",
+        fig=("axis", dict(ss.AX_CAUSE, past=[ss.ax("kmst"), ss.ax("court"), ss.ax("raise")], start=dict(cur="2017-03-23"),
+                          steps=[dict(), dict(add=ss.ax("hull18"), cur="2018-08"),
+                                 dict(add=dict(k="chips", at="2018-08", chips=["内側の原因", "外からの力"], rec="特調委 p3073",
+                                               c="INST"))],
+                          note=ss.CAUSE_NOTE, src=ss.src(["特調委 p3061", "特調委 p3073"]))),
+    ),
+
+    # 2026年1月28日 中央海審の裁決（裁決 p2001）。主文に原因の項目は無い＝1行目は点だけ・2行目で理由の部分の項目
+    "cc15": dict(
+        t="2026年の裁決",
+        s="主文と理由の部分",
+        fig=("axis", dict(ss.AX_CAUSE, past=[ss.ax("kmst"), ss.ax("court"), ss.ax("raise"), ss.ax("hull18"), ss.ax("sccc")],
+                          start=dict(cur="2022-09"),
+                          steps=[dict(add=ss.ax("kmst26", big=True), cur="2026-01-28"),
+                                 dict(add=dict(k="chips", at="2026-01-28", chips=["舵の使い方", "装置の故障"],
+                                               rec=["裁決 p2001", "裁決 p2087〜2088"], c="INST")), dict()],
+                          note=ss.CAUSE_NOTE, src=ss.src(["裁決 p2001", "裁決 p2003", "裁決 p2087〜2088"]))),
+    ),
 }
