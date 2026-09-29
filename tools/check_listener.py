@@ -21,6 +21,13 @@ r"""check_listener.py — 「最小限の聞き役」の門番（2026-09-25・14
 ■ 秒
   audio/narration.json が**この台本の音**なら実測（カットの尺＋字幕の t）。違えば check_script の式（③と同じ）。
   どちらで出したかを必ず表に出す。
+  並び＝`aq_build.timeline`・check_script の③と同じ（章の扉 → LEAD → 声 → TAIL＋決め所の余白）＝3つの尺が秒まで一致する。
+  🔴 2026-09-30（15本目 ⑤b-1）に直した2つ（09-29 15本目 ⑤a-2 で見つけた・カズヤくん了承）：
+    ① **決め所は台本の md の★から**（`quote_cuts`＝`aq_build.quotes_and_md` と同じ読み方）。それまでは `narration.SCRIPT` の
+       行の頭に★を探していた＝SCRIPT は★を外してある＝1回も当たらず、決め所の余白（2.0秒×決め所の数）を足していなかった
+    ② **共通の末尾 `ed01` を尺に入れる**（行には数えない＝行の割合は台本 md の行で見る）。それまでは台本から外していた
+    ＝尺を 決め所の数×2.0秒＋ed01 だけ短く出していた（15本目で 38.73秒＝27分02.5秒 → 26分23秒）。
+    決め所より後ろの聞き役の秒が早く出る・1分あたりの回数がやや多く出る（W の判定に効く）
 ■ 対象外
   聞き役の行が1つも無く roles.tsv も無い回（13本目まで）は「対象外」で exit 0。
 """
@@ -62,25 +69,42 @@ def load_roles(slug):
     return out, p
 
 
-def timeline(script, cs):
-    """[(cid, 行番号, 話者, 文, 開始秒)] と 全体の秒・出どころ。cs＝check_script（定数と式）。"""
-    cuts = [(cid, "", ls) for cid, ls in script]
-    subs, src = None, "check_script の式（音がまだ無い）"
+def quote_cuts(cs, script_ids, md=None):
+    """決め所（★の行を持つカット）の集合＝**台本の md から**（`narration.SCRIPT` は★を外してある）。
+    `aq_build.quotes_and_md()` と同じ読み方（check_script.parse＋STAR_RE）。カットの並びも突き合わせる（違えば止める）。"""
+    if md is None:
+        import el_script
+        md = el_script.EXPECT[el_script.SLUG]["md"]
+    cuts = cs.parse(Path(md).read_text(encoding="utf-8"))
+    ids = [c for c, _, _ in cuts]
+    if ids != [c for c in script_ids if c in set(ids)]:
+        raise SystemExit("🔴 台本の md と narration.SCRIPT でカットの並びが違う（決め所を決められない）")
+    return {c for c, _, ls in cuts if any(cs.STAR_RE.match(l) for l in ls)}
+
+
+def load_subs(script):
+    """narration.json が**この台本の音**なら (字幕, 出どころ)。違えば (None, 理由)。script は共通の末尾 ed01 まで含める。"""
     p = ROOT / "audio" / "narration.json"
-    if p.exists():
-        try:
-            d = json.loads(p.read_text(encoding="utf-8"))
-            s = d.get("subtitles", {})
-            same = all(cid in s and [x.get("text") for x in s[cid]] == [speaker.bare(t) for t in ls]
-                       for cid, ls in script)
-            if same:
-                subs, src = s, "narration.json の実測"
-            else:
-                src = "check_script の式（narration.json は別の台本の音）"
-        except Exception as e:                       # noqa: BLE001
-            src = f"check_script の式（narration.json を読めない {type(e).__name__}）"
+    if not p.exists():
+        return None, "check_script の式（音がまだ無い）"
+    try:
+        d = json.loads(p.read_text(encoding="utf-8"))
+        s = d.get("subtitles", {})
+        same = all(cid in s and [x.get("text") for x in s[cid]] == [speaker.bare(t) for t in ls]
+                   for cid, ls in script)
+        if same:
+            return s, "narration.json の実測"
+        return None, "check_script の式（narration.json は別の台本の音）"
+    except Exception as e:                       # noqa: BLE001
+        return None, f"check_script の式（narration.json を読めない {type(e).__name__}）"
+
+
+def timeline(script, cs, quotes, subs=None, tail_cuts=()):
+    """[(cid, 行番号, 話者, 文, 開始秒)] と 全体の秒。cs＝check_script（定数と式）。
+    quotes＝決め所のカット（TAIL に決め所の余白 TAIL_EXTRA_QUOTE を足す）。subs＝narration.json の字幕（None＝check_script の式）。
+    tail_cuts＝共通の末尾（ed01）＝**尺には入れ、行には数えない**（行の割合は台本 md の行で見る）。"""
     if subs is None:
-        cs.use_measured_cps([(cid, pic, [speaker.bare(t) for t in ls]) for cid, pic, ls in cuts])
+        cs.use_measured_cps([(cid, "", [speaker.bare(t) for t in ls]) for cid, ls in script if cid not in tail_cuts])
     rows, t, prev = [], 0.0, None
     for cid, ls in script:
         key = cid[:2] if cs.CHAPTER_CUT_RE.match(cid) else None
@@ -89,19 +113,22 @@ def timeline(script, cs):
                 t += cs.CARD_SEC
             prev = key
         t += cs.LEAD
+        count = cid not in tail_cuts
         if subs is not None:
             for i, (x, raw) in enumerate(zip(subs[cid], ls), 1):
-                rows.append((cid, i, speaker.split(raw)[0], speaker.bare(raw), t + float(x["t"])))
+                if count:
+                    rows.append((cid, i, speaker.split(raw)[0], speaker.bare(raw), t + float(x["t"])))
             last = subs[cid][-1]
             t += float(last["t"]) + float(last["d"])
         else:
             for i, raw in enumerate(ls, 1):
                 if i > 1:
                     t += cs.GAP
-                rows.append((cid, i, speaker.split(raw)[0], speaker.bare(raw), t))
+                if count:
+                    rows.append((cid, i, speaker.split(raw)[0], speaker.bare(raw), t))
                 t += len(speaker.bare(raw)) / cs.CPS
-        t += cs.TAIL + (cs.TAIL_EXTRA_QUOTE if any(cs.STAR_RE.match(l) for l in ls) else 0.0)
-    return rows, t, src
+        t += cs.TAIL + (cs.TAIL_EXTRA_QUOTE if cid in quotes else 0.0)
+    return rows, t
 
 
 def judge(rows, total, roles):
@@ -167,14 +194,21 @@ def run(listing=False):
     import check_script as CS
     import el_script
     import narration
-    script = [(cid, ls) for cid, ls in narration.SCRIPT if cid not in el_script.COMMON_TAIL]
+    full = list(narration.SCRIPT)                          # 共通の末尾 ed01 まで（尺に入れる）
+    tail = set(el_script.COMMON_TAIL)
     roles, rp = load_roles(el_script.SLUG)
-    rows, total, src = timeline(script, CS)
-    if not any(r[2] == speaker.WHO_Q for r in rows) and roles is None:
+    if not any(speaker.split(t)[0] == speaker.WHO_Q for _, ls in full for t in ls) and roles is None:
         print(f"聞き役なし（{el_script.SLUG}＝この回は対象外・roles.tsv も無い）")
         return 0
+    quotes = quote_cuts(CS, [c for c, _ in full])
+    subs, src = load_subs(full)
+    rows, total = timeline(full, CS, quotes, subs, tail)
     E, W, info = judge(rows, total, roles)
-    print(f"秒の出どころ：{src}／尺 {int(total) // 60}分{int(total) % 60:02d}秒")
+    want_q = el_script.EXPECT.get(el_script.SLUG, {}).get("quotes")
+    if want_q is not None and len(quotes) != want_q:
+        E.append(f"決め所が台本の md で {len(quotes)}（el_script.EXPECT は {want_q}）＝余白の足し方が決まらない")
+    print(f"秒の出どころ：{src}／尺 {int(total) // 60}分{total % 60:04.1f}秒"
+          f"（決め所 {len(quotes)}×{CS.TAIL_EXTRA_QUOTE}秒・共通の末尾 {'・'.join(sorted(tail))} こみ）")
     if info["q"]:
         print(f"聞き役 {info['q']}／{info['lines']}行＝{100 * info['ratio']:.1f}%・1分あたり {info['per_min']:.2f}回・"
               f"最初 {info['first']:.1f}秒・最長の空き {info['max_gap']:.0f}秒（最後→終わり {info['tail']:.0f}秒）")
@@ -230,6 +264,33 @@ def selftest():
     nosou[4] = (70, None, "待てだ。")
     chk("まとめのあと「そう」が無ければ W", any("そう" in w for w in judge(rows_of(nosou), 120.0, roles)[1]), True)
     chk("聞き役0行なら何も言わない", judge(rows_of([(0, None, "語り。")]), 10.0, None)[:2], ([], []))
+
+    # 🔴 2026-09-30（15本目 ⑤b-1）：秒の組み立ての陽性対照（決め所の余白・共通の末尾）。本物の check_script の定数で組む
+    import tempfile
+    import check_script as CS
+    scr = [("c101", ["語り。"]), ("c102", ["Q: なんで？"]), ("c103", ["語り。"]), ("ed01", ["おわり。"])]
+    subs = {c: [dict(t=0.0, d=2.0, text=speaker.bare(ls[0]))] for c, ls in scr}
+    r0, t0 = timeline(scr, CS, set(), subs, {"ed01"})
+    r1, t1 = timeline(scr, CS, {"c101"}, subs, {"ed01"})
+    chk("🔴決め所の余白が次のカットの秒に足される", round(r1[1][4] - r0[1][4], 6), CS.TAIL_EXTRA_QUOTE)
+    chk("🔴決め所の余白が尺に足される", round(t1 - t0, 6), CS.TAIL_EXTRA_QUOTE)
+    chk("共通の末尾は行に数えない", [r[0] for r in r0], ["c101", "c102", "c103"])
+    _, t2 = timeline(scr[:3], CS, set(), subs, {"ed01"})
+    chk("🔴共通の末尾は尺に入る", round(t0 - t2, 6), round(CS.LEAD + 2.0 + CS.TAIL, 6))
+    # 旧式（SCRIPT の行の頭に★を探す）の穴の再現＝★を外した SCRIPT からは決め所が1つも取れない
+    chk("★を外した SCRIPT からは決め所が取れない（旧式の穴）", {c for c, ls in scr if any(CS.STAR_RE.match(l) for l in ls)}, set())
+    # 決め所は台本の md の★から（§4 の中だけ・カットの並びも突き合わせる）
+    md = ("## 4. 台本\n**c101** ／ quote（決め所） ／ 出典\n> ★語り。\n**c102** ／ panel ／ 出典\n> Q: なんで？\n"
+          "**c103** ／ panel ／ 出典\n> 語り。\n## 5. 次\n**c104** ／ quote ／ 出典\n> ★外の行。\n")
+    with tempfile.TemporaryDirectory() as td:
+        p = Path(td) / "daihon.md"
+        p.write_text(md, encoding="utf-8")
+        chk("🔴md の★から決め所を取る（§4 の中だけ）", quote_cuts(CS, [c for c, _ in scr], p), {"c101"})
+        try:
+            quote_cuts(CS, ["c102", "c101", "c103", "ed01"], p)
+            chk("🔴md と SCRIPT の並びが違えば止める", "止まらなかった", "止まる")
+        except SystemExit:
+            chk("🔴md と SCRIPT の並びが違えば止める", "止まる", "止まる")
     print("check_listener selftest:", "PASS" if ok else "🔴FAIL")
     return ok
 
