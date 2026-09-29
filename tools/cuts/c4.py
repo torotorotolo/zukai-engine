@@ -67,4 +67,112 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🔴 ⑤b-4（2026-09-29）：断面F＝`tools/hull.py`（門番 check_mech の judge_hull）──
+    # 形のもと＝海審 p1013（要目）・p1018〜p1020（甲板の並びと天井の高さ）。改造＝p1016 2.2.4〜2.2.6。
+    # 🔴 部屋の前後の位置と長さ・通路の幅は記録に無い＝模式（note に書く）。長さ・高さの数は記録の値（門番が画素で測る）。
+    #   札に出す数は rel に宣言。人は描かない。「改造の前」の札は付けない（段の札は残る＝変わったあとも「前」と読める）
+    "c401": dict(
+        t="船尾の上に足した部屋",
+        s="2012年10月〜2013年2月の改造",
+        fig=("hull", dict(view="side", start=dict(aroof="low", aext="off", bcab="off", hl="new"),
+                          steps=[dict(tag=dict(m=(3.0, 33.0), t="船の後ろ（船尾）", to=(9.0, 27.0))),
+                                 dict(state=dict(aroof="high", aext="on", bcab="on"),
+                                      tag=dict(m=(40.0, 33.0), t="上に部屋を足した", to=(26.0, 27.2)))],
+                          note=ss.HULL_NOTE, src=ss.src(["海審 p1013", "海審 p1016", "海審 p1018・p1019・p1020"]))),
+    ),
+
+    # 船尾の寄り：天井を約1.7メートル上げる → 下の階（A甲板）を約5.6・上の階（船橋甲板）を約2.6 延ばして2層に（p1016 2.2.4）
+    "c402": dict(
+        t="A甲板の船尾の部屋",
+        s="天井を上げて、上と下の2つの階に",
+        fig=("hull", dict(view="stern", start=dict(aroof="low", aext="off", bcab="off", hl="new"),
+                          steps=[dict(state=dict(aroof="high"), dim=dict(kind="rise", t="約1.7メートル"),
+                                      tag=dict(m=(19.0, 29.6), t="天井を上げた")),
+                                 dict(state=dict(aext="on"), dim=dict(kind="ext", ta="約5.6メートル", tb="約2.6メートル"),
+                                      tag=dict(m=(36.0, 29.6), t="延ばして2つの階に"))],
+                          rel=[dict(t="約1.7メートル", src="海審 p1016"), dict(t="約5.6メートル", src="海審 p1016"),
+                               dict(t="約2.6メートル", src="海審 p1016")],
+                          note=ss.HULL_NOTE, src=ss.src(["海審 p1016", "海審 p1018・p1019"]))),
+    ),
+
+    # 上の階＝展示室・下の階＝客室（定員114人＝p1016。人数は字幕だけ）。B甲板の運転手の客室は次の c404 で足す
+    "c403": dict(
+        t="展示室と客室",
+        s="改造でできた2つの階",
+        fig=("hull", dict(view="stern", start=dict(bcab="off", hl="new"),
+                          steps=[dict(tag=[dict(m=(24.5, 24.9), t="展示室", cap=40),
+                                           dict(m=(24.5, 22.3), t="客室", cap=40)])],
+                          note=ss.HULL_NOTE, src=ss.src(["海審 p1016"]))),
+    ),
+
+    # B甲板の船尾の乗用車の置き場 → 運転手の客室（長さ約10.5・定員56人＝p1016 2.2.5）／船首の右側の渡し板（約50トン）を外した（2.2.6）
+    "c404": dict(
+        t="車の置き場を客室に・渡し板を外す",
+        s="B甲板の船尾と、船首の右側",
+        fig=("hull", dict(view="side", start=dict(bcab="off", ramp="on", hl="new"),
+                          steps=[dict(state=dict(bcab="on"), tag=dict(m=(3.0, 33.0), t="運転手の客室", to=(7.0, 20.4))),
+                                 dict(state=dict(ramp="gone"),
+                                      tag=dict(m=(99.0, 33.0), t="右側の渡し板を外した", to=(91.5, 17.4)))],
+                          note=ss.HULL_NOTE + "。渡し板の位置と大きさは模式", src=ss.src(["海審 p1016"]))),
+    ),
+
+    # 重心と復原力（台本の画「模式図」）＝足す前と足したあとを並べる。重心の上がり方は大きく描く（記録＝約51センチ・表1）
+    "c405": dict(
+        t="重心と復原力",
+        s="足す前と、足したあと",
+        fig=("hull", dict(view="pair",
+                          steps=[dict(tag=[dict(at="lh", t="足す前"), dict(at="rh", t="足したあと"),
+                                           dict(at="gl", t="重心", cap=30)]),
+                                 dict(state=dict(add="on", g="high", up="on"), tag=dict(at="gr", t="重心が上がる", cap=30)),
+                                 dict(state=dict(heel=15.0, up="off", force="on"),
+                                      tag=dict(at="top", t="復原力（戻す力）"))],
+                          rel=[dict(heel=15.0, src="模式（傾けて見せるための角度）")],
+                          note="模式図：重心の上がり方と力の大きさは大きく描いた（記録は重心が約51センチ上がった）",
+                          src=ss.src(["海審 p1017・p1018"]))),
+    ),
+
+    # 認められた条件＝積める荷 2,437→987トン・平衡水 370→1,703トン（p1017 2.2.9・p1018 表1）。量は表1の値の比で描く
+    "c409": dict(
+        t="認められた条件",
+        s="積み荷と重しの水",
+        fig=("hull", dict(view="hold", start=dict(cargo="load", ballast="before"),
+                          steps=[dict(state=dict(cargo="less", ballast="req", arrows="on"),
+                                      tag=[dict(m=(46.5, 18.2), t="荷を減らす"),
+                                           dict(m=(46.5, -3.0), t="底のタンクに水を足す")]),
+                                 dict(tag=dict(m=(62.0, 18.2), t="改造のあとの積み方"))],
+                          note=ss.HULL_NOTE + "。荷と水の量は表の値の比", src=ss.src(["海審 p1017・p1018"]))),
+    ),
+
+    # 許可が要るのは長さ・幅・深さ・使い道が変わるとき（p1017 2.2.10・注5）＝足したのは上の部屋だけ（数字は書かない）
+    "c411": dict(
+        t="許可の要らなかった改造",
+        s="船舶安全法の事前の許可",
+        fig=("hull", dict(view="side", start=dict(hl="new"),
+                          steps=[dict(tag=dict(m=(3.0, 33.0), t="足したのは上の部屋", to=(14.0, 26.0))),
+                                 dict(dim=[dict(kind="len"), dict(kind="dep"), dict(kind="bre")],
+                                      tag=dict(m=(58.0, 33.0), t="長さ・幅・深さは変わらない"))],
+                          note=ss.HULL_NOTE, src=ss.src(["海審 p1013", "海審 p1017"]))),
+    ),
+
+    # 検査のあとに足した展示室の大理石 約37トン（p1024 2.4.8）が計算に入っていない（p1017 注2）
+    "c414": dict(
+        t="計算に入らなかった重さ",
+        s="検査のあとに足した大理石",
+        fig=("hull", dict(view="stern", start=dict(bcab="on"),
+                          steps=[dict(tag=dict(m=(19.0, 29.6), t="計算に入っていない重さ")),
+                                 dict(state=dict(marble="on"),
+                                      tag=dict(m=(26.0, 25.0), t="展示室の大理石", d="検査のあと・約37トン",
+                                               to=(24.2, 24.9)))],
+                          note=ss.HULL_NOTE + "。大理石の置き場所は模式", src=ss.src(["海審 p1017", "海審 p1024"]))),
+    ),
+
+    # 積み荷の甲板（トゥイーン・C・D・E＝裁決 p2031 の「적재할 수 있는 장소」と同じ並び）に「？」
+    "c416": dict(
+        t="積み荷は？",
+        s="事故の前の晩",
+        fig=("hull", dict(view="side", start=dict(cargo="none"),
+                          steps=[dict(tag=[dict(m=(52.0, 9.2), t="？", cap=64), dict(m=(22.0, 15.4), t="？", cap=52),
+                                           dict(m=(74.0, 3.0), t="？", cap=52), dict(m=(112.0, 15.6), t="？", cap=52)])],
+                          note=ss.HULL_NOTE, src=ss.src(["海審 p1018・p1019・p1020"]))),
+    ),
 }

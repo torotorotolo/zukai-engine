@@ -152,4 +152,26 @@ SPEC = {
         ])),
     ),
 
+    # ── 🔴 ⑤b-4（2026-09-29）：地図（drift）＝`cuts/ss.py` の `sewol_map`（門番 check_drift）──
+    # 広い地図＝インチョン〜チェジュ。港と島は Wikidata の中心の1点・事故の地点は海審 p1065 の緯度経度。
+    # 航路＝報告書の通った島（p1045・p1046）を直線で結んだ模式。予定の残り＝p1034 の報告の地点（チュジャド→チェジュ）の点線
+    "c111": dict(
+        t="予定の航路",
+        s="2014年4月15日の夜に出港",
+        fig=ss.sewol_map("wide", [
+            dict(tag=dict(at="_l1", t="時刻は韓国の時刻（日本と同じ）", side="left")),
+            dict(route=dict(via=ss.ROUTE_PLAN), move=[dict(kind="path", via=ss.ROUTE, sec=3.0)],
+                 tag=dict(at="acc", t="事故の地点", side="left"))],
+            recs=["海審 p1034", "海審 p1045・p1046", "海審 p1065"]),
+    ),
+
+    "c112": dict(
+        t="事故が起きた海",
+        s="4月16日の朝",
+        fig=ss.sewol_map("wide", [
+            dict(route=dict(via=ss.ROUTE + ss.ROUTE_PLAN[1:])),
+            dict(move=[dict(kind="ring", at="acc", r=60)], tag=dict(at="acc", t="チンドの沖", side="left")),
+            dict(move=[dict(kind="sight", a="acc", b="incheon")], tag=dict(at="incheon", t="前の晩の港", side="left"))],
+            recs=["海審 p1037", "海審 p1065"]),
+    ),
 }

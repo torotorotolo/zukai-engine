@@ -121,4 +121,82 @@ SPEC = {
             steps=[dict(state=dict(wake="off", cam=1.05), rec="判決 p11（8時52分に止まった）", delay=2.2, dur=1.8)])),
     ),
 
+    # ── 🔴 ⑤b-4（2026-09-29）：地図（drift）＝`cuts/ss.py` の `sewol_map`（門番 check_drift）──
+    # メンゴル水道＝거차도と맹골도のあいだ（海審 p1046）。水道へ 8時27分ごろ・針路 約137度（p1046）。
+    #   🔴 船長が操舵室を離れたことは描かない（方針 §4-2＝空の椅子を作らない）＝2行目は何も足さない
+    "c603": dict(
+        t="メンゴル水道を南へ",
+        s="4月16日の朝",
+        fig=ss.sewol_map("local", [
+            dict(move=[dict(kind="path", via=["appr", "ch", "t0846"], sec=3.5)],
+                 tag=dict(at="ch", t="メンゴル水道", side="left")),
+            dict()],
+            recs=["海審 p1046・p1047", "海審 p1065"]),
+    ),
+
+    # 8時46分：針路 約136度・ピョンプンドを右 約0.9マイル（1.7キロ）で通過・135度→140度へ変針を指示（海審 p1046）
+    #   方位盤の針は段の鍵（北＝0度・時計回り）。船の位置＝島から46度の向き 1.667キロ（`ss.MAP_PTS["t0846"]`）
+    "c604": dict(
+        t="1回目の変針",
+        s="4月16日 8時46分",
+        fig=ss.sewol_map("near", [
+            dict(ship=dict(at="t0846", deg=136, t="セウォル号"), course=140,
+                 tag=dict(at="_l1", t="8時46分", side="right")),
+            dict(dim=dict(a="t0846", b="byeongpungdo", t="約1.7キロ", d="右に見えた島"))],
+            rel=[dict(course=135, src="海審 p1046"), dict(course=140, src="海審 p1046")],
+            recs=["海審 p1046", "海審 p1065"], dial=dict(x=1560, y=410, r=95, start=135)),
+    ),
+
+    # 前任の船長の指針（判決・海審 p1091）＝大きな舵を避け、向きは5度以内ずつ2回に＝針路 135→140（8:46）→145（p1046・p1047）
+    #   2回目の時刻は割れる（8:48／8:49）＝時刻は出さない。船は描かない（8時48分の位置は記録に無い）
+    "c605": dict(
+        t="小さく2回に分けて",
+        s="舵の使い方",
+        fig=ss.sewol_map("near", [
+            dict(tag=dict(at="_l1", t="大きな舵を避ける", side="right")),
+            dict(course=140, then=dict(course=145, delay=1.9), tag=dict(at="_r1", t="5度以内ずつ・2回", side="left")),
+            dict()],
+            rel=[dict(course=135, src="海審 p1046"), dict(course=140, src="海審 p1046・p1047"),
+                 dict(course=145, src="海審 p1047")],
+            recs=["海審 p1046・p1047", "海審 p1091", "海審 p1065"], dial=dict(x=1560, y=410, r=95, start=135)),
+    ),
+
+    # 2回目＝145度へ（海審 p1047「145도로 추가변침」）。時刻は報告書の中で 8:48／8:49 の2通り＝🔴 時刻の札は出さない
+    "c606": dict(
+        t="2回目の変針",
+        s="ピョンプンドの近く",
+        fig=ss.sewol_map("near", [
+            dict(course=145, tag=dict(at="_r1", t="145度（南東より少し南）", side="left")),
+            dict(tag=dict(at="_l1", t="時刻は報告書でも2通り", side="right"))],
+            rel=[dict(course=140, src="海審 p1047"), dict(course=145, src="海審 p1047")],
+            recs=["海審 p1047", "海審 p1008", "海審 p1065"], dial=dict(x=1560, y=410, r=95, start=140)),
+    ),
+
+    # 航跡（海審 p1048 3.3.3）：針路 約150度・17ノット → 約229度・約10ノット（43秒あまり）。船＝8時50分ごろの地点（p1065）
+    #   🔴 時刻の札は出さない（8:49 は割れる時刻の表にある）。速さは字幕と札（時速のキロ＝§B1 メートル法）
+    "c610": dict(
+        t="急に右へ回った船",
+        s="報告書の航跡",
+        fig=ss.sewol_map("near", [
+            dict(ship=dict(at="acc", deg=229), course=229, tag=dict(at="_l1", t="急に右へ・速さも落ちる", side="right")),
+            dict(tag=dict(at="_r1", t="1分足らず", side="left")),
+            dict()],
+            rel=[dict(course=150, src="海審 p1048"), dict(course=229, src="海審 p1048")],
+            recs=["海審 p1048", "海審 p1065"], dial=dict(x=1560, y=410, r=95, start=150)),
+    ),
+
+    # ── 🔴 ⑤b-4：断面F（船首の側から）＝荷が片寄って傾きが増す（裁決 p2003 の主文「적재와 고박이 제대로 되지 않은 화물이
+    #   한쪽으로 쏠리면서 선회와 경사가 가중」）。寄ったあとの約30度＝判決 p12「좌현으로 약 30도 정도 기울고」。
+    #   🔴 寄る前の傾き（15度）は記録に無い＝模式（rel に src="模式…"）。荷は面・固縛の帯は寄ると外れて消える
+    "c613": dict(
+        t="荷が片寄る",
+        s="傾きが大きくなった",
+        fig=("hull", dict(view="front", start=dict(heel=15.0, cargo="mid", lash="on"),
+                          steps=[dict(state=dict(cargo="port", lash="off"), tag=dict(at="row0", t="荷が左舷へ寄る")),
+                                 dict(state=dict(heel=30.0), tag=dict(at="row1", t="傾きは約30度に", d="判決（事故の直後）"))],
+                          rel=[dict(heel=15.0, src="模式（寄る前の傾きは記録に無い）"), dict(heel=30.0, src="判決 p12"),
+                               dict(t="約30度", src="判決 p12")],
+                          note="模式図：寄る前の傾きは記録に無い（小さく描いた）。荷は面で描いた（1台ずつではない）",
+                          src=ss.src(["裁決 p2003", "判決 p12"]))),
+    ),
 }

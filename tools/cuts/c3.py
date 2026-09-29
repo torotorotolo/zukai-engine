@@ -55,4 +55,26 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🔴 ⑤b-4（2026-09-29）：地図（drift）＝`cuts/ss.py` の `sewol_map("wide")`（門番 check_drift）──
+    # 2012-10-22 インチョンを本籍の港に登録（海審 p1016 2.2.2）
+    "c305": dict(
+        t="セウォル号として登録",
+        s="2012年10月22日",
+        fig=ss.sewol_map("wide", [
+            dict(),
+            dict(ship=dict(at="incheon", deg=180, t="セウォル号")),
+            dict(move=[dict(kind="ring", at="incheon", r=70)], tag=dict(at="incheon", t="本籍の港", side="left"))],
+            recs=["海審 p1016", "海審 p1065"]),
+    ),
+
+    # 2013年3月からインチョン〜チェジュを定期に運航（海審 p1024 2.4.9）＝航路を往復する点
+    "c307": dict(
+        t="インチョンとチェジュを往復",
+        s="2013年3月から",
+        fig=ss.sewol_map("wide", [
+            dict(tag=dict(at="_l1", t="約1年1か月", side="left")),
+            dict(move=[dict(kind="path", sec=2.0,
+                            via=ss.ROUTE[:6] + ["chujado", "jeju", "chujado"] + ss.ROUTE[5::-1])])],
+            recs=["海審 p1024", "海審 p1034", "海審 p1065"]),
+    ),
 }

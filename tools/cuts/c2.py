@@ -61,4 +61,29 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🔴 ⑤b-4（2026-09-29）：地図（drift）＝`cuts/ss.py` の `sewol_map("wide")`（門番 check_drift）──
+    # 🔴 インチョン港の寄りの地図は作らない：照合できる記録が無い（p1034 の「7.5マイル」は航路の長さ＝Wikidata の港の点から
+    #    パルミドまでの直線 8.1マイルと 8% 食い違う＝門番の許し 5% を越える）→ 広い地図の上で描く（照合＝事故の地点）
+    # 出港の報告は無線（VHF）で運航管理室へ（海審 p1038）。報告の数（旅客450・船員24・車150・貨物657トン）は字幕だけ
+    "c212": dict(
+        t="無線で出港の報告",
+        s="4月15日の夜",
+        fig=ss.sewol_map("wide", [
+            dict(ship=dict(at="incheon", deg=200, t="セウォル号"), move=[dict(kind="ring", at="incheon", r=70)],
+                 tag=dict(at="incheon", t="出港の報告（無線）", side="left")),
+            dict(tag=dict(at="_r1", t="報告の数は実際と違った", side="right"))],
+            recs=["海審 p1038", "海審 p1065"]),
+    ),
+
+    # 21時39分 パルミド通過の報告（海審 p1038）→ 夜のあいだ南へ（p1045：옹도 00:35・어청도 02:20・대흑산도 07:00）
+    #   パルミドでの針路 210度（裁決 p2040「침로를 210도에」）
+    "c213": dict(
+        t="パルミドを通って南へ",
+        s="4月15日 21時39分",
+        fig=ss.sewol_map("wide", [
+            dict(ship=dict(at="palmido", deg=210), tag=dict(at="palmido", t="パルミド　21時39分", side="left")),
+            dict(move=[dict(kind="path", via=["palmido", "ongdo", "eocheongdo", "heuksando"], sec=3.2)],
+                 tag=dict(at="heuksando", t="翌朝 7時ごろ", side="left"))],
+            recs=["海審 p1038", "海審 p1045", "裁決 p2040", "海審 p1065"]),
+    ),
 }

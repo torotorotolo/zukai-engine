@@ -159,4 +159,57 @@ SPEC = {
                         tag=dict(t="船長", at="captain", off=(110, -60), delay=0.4, keep=True))])),
     ),
 
+    # ── 🔴 ⑤b-4（2026-09-29）：地図（drift）＝集まる船。9時26分 管制センターが VHF 16番で近くの船（操業中の船を含む）に
+    #   救助の支援を頼む放送（海審 p1060 3.5.3.15）・警備艇が10分以内に着くと伝えた・近くの漁船も向かっていた（判決 p13〜14）
+    #   🔴 漁船の数と来た向きは記録に無い＝「ぐるりから点が寄る」（向きも数も描かない）。船の位置＝8時50分ごろの地点（p1065）
+    "c812": dict(
+        t="集まる船",
+        s="4月16日 9時26分",
+        fig=ss.sewol_map("local", [
+            dict(ship=dict(at="acc", deg=240, t="セウォル号"), move=[dict(kind="ring", at="acc", r=70, inward=True)],
+                 tag=dict(at="_l1", t="管制センターの知らせ", side="right")),
+            dict(move=[dict(kind="gather", at="acc", r=240)], tag=dict(at="_r1", t="近くの漁船も", side="left")),
+            dict()],
+            note="模式図：船の位置は8時50分ごろの地点。集まる点は、船の数と来た向きを描いていない",
+            recs=["海審 p1060", "判決 p13・p14", "海審 p1065"]),
+    ),
+
+    # ── 🔴 ⑤b-4：断面F（船首の側から）＝脱出の模擬実験（判決 p16「가천대학교 초고층방재융합연구소 … 52.2도 기운 상태에서 …
+    #   약 9분28초 안에 탈출을 완료」）。52.2度で3階（B甲板）の左舷の端が水面（海審 p1057）＝型の水面の高さで合わせた
+    #   🔴 人は描かない（逃げる向きの矢印だけ）。出入口と通路の位置は模式
+    "c814": dict(
+        t="脱出の模擬実験",
+        s="2015年の判決が引いた結果",
+        fig=("hull", dict(view="front",
+                          steps=[dict(tag=dict(at="row0", t="大学の研究所")),
+                                 dict(state=dict(heel=52.2, paths="faint"), tag=dict(at="row1", t="コンピューターで再現"))],
+                          rel=[dict(heel=52.2, src="判決 p16")],
+                          note="模式図：人は描かない（逃げる向きの矢印だけ）。出入口と通路の位置は模式",
+                          src=ss.src(["判決 p16", "海審 p1057"]))),
+    ),
+
+    "c815": dict(
+        t="52.2度で逃げ始めると",
+        s="模擬実験の結果",
+        fig=("hull", dict(view="front", start=dict(heel=52.2, paths="faint"),
+                          steps=[dict(state=dict(angle="on", paths="on"), tag=dict(at="row0", t="52.2度")),
+                                 dict(state=dict(exits="on"), tag=dict(at="row1", t="3階と4階の出入口へ", d="客室から"))],
+                          rel=[dict(heel=52.2, src="判決 p16"), dict(t="52.2度", src="判決 p16")],
+                          note="模式図：人は描かない（逃げる向きの矢印だけ）。出入口と通路の位置は模式",
+                          src=ss.src(["判決 p16", "海審 p1057"]))),
+    ),
+
+    # ── 🔴 ⑤b-4：断面F（3階と4階の左舷の外側）＝出入口が水につかる前（判決 p16「3,4층의 출구가 침수되기 전」）。
+    #   傾きは描かない見え方（手すりの時刻〈判決 p18〉と傾き〈海審 p1057〉を1枚の傾いた断面に重ねると食い違う＝`hull.py` の冒頭）
+    "c817": dict(
+        t="水につかる前の出入口",
+        s="まだ間に合った時刻",
+        fig=("hull", dict(view="port",
+                          steps=[dict(),
+                                 dict(state=dict(exits="on", out="on"), tag=dict(at="row0", t="3階と4階の出入口", d="まだ水の前")),
+                                 dict(tag=dict(at="row1", t="9時26分", d="管制センターの知らせの時刻"))],
+                          rel=[dict(t="9時26分", src="判決 p14・p16")],
+                          note="模式図：傾きは描いていない。出入口と階段の位置は模式（手すりと階段があったのは判決の記述）",
+                          src=ss.src(["判決 p14・p16"]))),
+    ),
 }
