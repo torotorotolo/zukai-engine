@@ -4263,6 +4263,23 @@ GEO = {
     # 13本目 ⑤b-3（09-25）：c201 の経路の地図（Googleアースの代わり）。Wikidata Q406・Q84 の座標（都市の中心）
     "istanbul": (41.01, 28.960278, "イスタンブール"),
     "london": (51.507222, -0.1275, "ロンドン"),
+    # 14本目（セウォル号・2026-09-29 ⑤b-4）：Wikidata P625（인천항 Q16099490・제주항 Q12616503・팔미도 Q12621580・
+    #   옹도 Q27273070・어청도 Q11696977・흑산도 Q478199・맹골도 Q16510633・서거차도 Q17166404・동거차도 Q17166438・
+    #   병풍도 Q12598287・상추자도 Q16167912・진도 Q485651）。2026-09-29 に SPARQL で取得（同じ名の島が別にある物は説明で選んだ）
+    #   ⚠️ 병풍도は新安郡にも同じ名の島がある（Q27270501）＝使うのは「진도군 조도면 동거차도리」のほう（海審 p1046・p1065 の병풍도）
+    #   ⚠️ 島は中心の1点（大きさ・形は描かない）。事故の地点は報告書の緯度経度（`cuts/ss.py` の pts）。진도は2つの値のうち1つ目
+    "incheon": (37.460105, 126.624899, "インチョン港"),
+    "jeju": (33.52239444, 126.54078611, "チェジュ港"),
+    "palmido": (37.358070721, 126.511861096, "パルミド"),
+    "ongdo": (36.6475, 126.008333333, "オンド"),
+    "eocheongdo": (36.11667, 125.97972, "オチョンド"),
+    "heuksando": (34.666666666, 125.416666666, "フクサンド"),
+    "maenggoldo": (34.211388888, 125.856666666, "メンゴルド"),
+    "seogeochado": (34.2514, 125.908, "ソゴチャド"),
+    "donggeochado": (34.23639, 125.93861, "トンゴチャド"),
+    "byeongpungdo": (34.1489, 125.944, "ピョンプンド"),
+    "chujado": (33.96111, 126.29167, "チュジャド"),
+    "jindo": (34.4575, 126.253333333, "チンド"),
 }
 DIR16 = ("北", "北北東", "北東", "東北東", "東", "東南東", "南東", "南南東",
          "南", "南南西", "南西", "西南西", "西", "西北西", "北西", "北北西")
@@ -4335,7 +4352,11 @@ def _pt_geo(p, geo):
         dict(of="bikini", km=157, dir="東北東")   16方位で書かれた値（DNA p212「east-northeast of Bikini」）
         dict(of="bikini", km=167, deg=270)          方位角（度）で書かれた値（DNA p209「270° bearing」）
         dict(lat=11.875, lon=166.5833)              緯度経度で書かれた値（日本政府の文書・DNA p477）
+        dict(mid=["maenggoldo", "seogeochado"])     14本目 ⑤b-4：2点の真ん中（海審 p1046「거차도와 맹골도 사이」の水道）
     ⚠️ `of` は GEO の鍵か、**先に書いた** pts の名前（辞書の順に解く）。"""
+    if "mid" in p:
+        a, b = (geo[k] for k in p["mid"])
+        return (a[0] + b[0]) / 2, (a[1] + b[1]) / 2
     if "lat" in p:
         return float(p["lat"]), float(p["lon"])
     deg = float(p["deg"]) if "deg" in p else dir_deg(p["dir"])
@@ -4352,7 +4373,7 @@ def _ticks(a, b, g):
     return [k * g for k in range(math.ceil(a / g - 1e-9), math.floor(b / g + 1e-9) + 1)]
 
 
-def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km=100, grid=1.0):
+def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km=100, grid=1.0, dial=None):
     """動く模式図。
 
     view   … dict(lon=(西, 東), lat=(南, 北))。枠に**縮尺をそろえて**収める
@@ -4370,6 +4391,13 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
         dict(kind="sight", a="ship", b="gz")           a から b へ視線の線が伸び、b が光る
         dict(kind="fall", at="ship")                    白い点が点の上へ降りはじめ、積もる
         dict(kind="path", via=["a", "b", …], sec=)     点がその順に進む（船の航路など）
+        dict(kind="ring", at=, r=, inward=True)         14本目 ⑤b-4：無線の輪（inward＝外から届く＝縮む・既定は広がる）
+        dict(kind="gather", at=, r=)                    14本目 ⑤b-4：ぐるりから点が寄る（**向きを描かない・数えない**＝集まる船）
+      14本目 ⑤b-4 で足した段の部品：
+        route=dict(via=[…], dash="14 10")              点線の航路（予定の航路など・動かない）
+        course=145・then=dict(course=, delay=)          方位盤（`dial=dict(x=, y=, r=, start=, t=)`）の針を段の鍵で回す
+                                                        （針は動く部品＝段の層に描くと前の針が残る）。🔴 値は rel に
+                                                        `dict(course=145, src=…)` で宣言（宣言の無い針路は止まる）
     rel    … 報告書の値の宣言（門番 `check_drift` が照合する）
              [dict(a="gz", b="ship", km=157, dir="東北東", src="DNA p212")]
              方位角で書かれた値は `deg=270`（±2度）、緯度経度で書かれた値は
@@ -4416,9 +4444,23 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
     g.append(txtfit(sx + sl / 2, ny - 18, f"{scale_km}キロ", 220, cap=26, col=J.TICK, anchor="middle"))
     g.append(txtfit(BX0, BY1 - 6, note + (f"　出典：{src}" if src else ""), BW, cap=26, col=J.TICK))
 
+    if dial:
+        # 方位盤（北＝0度・時計回り）。盤は動かない（基図）・針は動く部品（下）
+        dx_, dy_, dr = float(dial["x"]), float(dial["y"]), float(dial.get("r", 90))
+        g += [circ(dx_, dy_, dr, J.BG, J.LINE, 3), circ(dx_, dy_, 7, J.LINE)]
+        for a in range(0, 360, 30):
+            ra = math.radians(a)
+            k = 16 if a % 90 == 0 else 8
+            g.append(line(dx_ + (dr - k) * math.sin(ra), dy_ - (dr - k) * math.cos(ra),
+                          dx_ + dr * math.sin(ra), dy_ - dr * math.cos(ra), J.LINE, 3 if a % 90 == 0 else 2))
+        g += [txtfit(dx_, dy_ - dr - 12, "北", 60, cap=26, col=J.TICK, anchor="middle"),
+              txtfit(dx_, dy_ + dr + 38, dial.get("t", "針路（北が0度）"), 320, cap=26, col=J.TICK, anchor="middle")]
     stages, moves = [], []
     for i, st in enumerate(steps):
         s = []
+        for rt in _many(st.get("route")):
+            s.append(poly([P[k] for k in rt["via"]], "none", rt.get("col", J.TICK), rt.get("sw", 3),
+                          dash=rt.get("dash", "14 10")))
         for d in _many(st.get("dim")):
             (ax, ay), (bx, by) = P[d["a"]], P[d["b"]]
             s.append(line(ax, ay, bx, by, J.AMBER, 4, dash="14 10"))
@@ -4464,9 +4506,35 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
                 m.update(at=P[mv["at"]], n=mv.get("n", 26), top=y0 + 10)
             elif mv["kind"] == "path":
                 m.update(pts=[P[k] for k in mv["via"]], sec=mv.get("sec", 3.0))
+            elif mv["kind"] in ("ring", "gather"):
+                ring = mv["kind"] == "ring"
+                m.update(at=P[mv["at"]], r=float(mv.get("r", 80 if ring else 220)), n=int(mv.get("n", 3 if ring else 24)),
+                         inward=bool(mv.get("inward")))
             else:
                 raise ValueError(f"drift：知らない動き {mv['kind']!r}")
             moves.append({k: (list(v) if isinstance(v, tuple) else v) for k, v in m.items()})
+    if dial:
+        said = [float(r["course"]) for r in rel if isinstance(r, dict) and "course" in r]
+        cur, al = dial.get("start"), 1.0 if dial.get("start") is not None else 0.0
+        used = [cur] if cur is not None else []
+        keys = [dict(stage=0, delay=0.0, rot=float(cur or 0.0), alpha=al)]
+        for i, st in enumerate(steps):
+            if "course" in st:
+                cur, al = st["course"], 1.0
+                used.append(cur)
+            keys.append(dict(stage=i, delay=(1.0 if i == 0 else MECH_DELAY), rot=float(cur or 0.0), alpha=al))
+            th = st.get("then")
+            if th:
+                cur, al = th["course"], 1.0
+                used.append(cur)
+                keys.append(dict(stage=i, delay=float(th.get("delay", 1.8)), rot=float(cur), alpha=al))
+        for c in used:
+            if not any(abs(float(c) - x) < 0.01 for x in said):
+                raise ValueError(f"drift：針路 {c} 度を rel に宣言していない（dict(course={c}, src=…)）")
+        needle = dict(id="needle", type="line", pts=[[dx_, dy_ + 16], [dx_, dy_ - dr + 18]], w=6, stroke="AMBER",
+                      head=18, pivot=[dx_, dy_], keys=keys)
+        moves.append(dict(kind="anim", stage=0, shapes=[needle], box=_mech_box([needle]), delay=MECH_DELAY,
+                          dur=MECH_DUR))
     f = Fig("".join(g), stages, "", (x0, x0 + w))
     f.moves = moves
     # 門番が照合する（本番の関数が描いた画素そのもの）
@@ -4921,3 +4989,10 @@ def illu(place, steps, **kw):
 def illu_pair(blocks, lead=""):
     import illu as _il
     return _il.illu_pair(blocks, lead)
+
+
+# ── ④ 14本目 ⑤b-4（2026-09-29）：断面F（船の断面の動く模式図）＝中身は `tools/hull.py`（門番 check_mech の judge_hull）──
+#   `fig=("hull", dict(view="side"|"stern"|"hold"|"front"|"pair"|"port", start=…, steps=[…], rel=…, note="模式…", src=…))`
+def hull(view, steps, **kw):
+    import hull as _h
+    return _h.hull(view, steps, **kw)

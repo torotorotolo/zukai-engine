@@ -26,6 +26,15 @@
           与圧 push ⇒ ドア on
     2. 画素：ドア gone＝重心が胴体の円の外（半径＋30画素より外）で見えない／床 down＝左端が元の床より60画素以上下／
              ケーブル hurt＝赤
+  hull（14本目 ⑤b-4・断面F＝船の断面・`tools/hull.py`）
+    1. 筋（記録）：延ばした ⇒ 天井を上げたあと（海審 p1016「천정을 약1.7미터 높인 후 … 연장」）／
+          大理石 ⇒ 展示室（延ばした上の階）がある（p1024）／片寄った荷に固縛の帯が付いたまま、は無い／
+          重心 high ⇒ 足した重さがある／元へ戻ろうとする力 ⇒ 傾いている／
+          水は下がらない・3階の出入口が閉じる ⇒ 3階の手すりの上まで水・4階の出入口 ⇒ 4階の手すりの上まで（判決 p18）
+    2. 画素：底のタンクの水の高さ＝表1・表7 の割合（±1%）／延ばした長さ 約5.6・約2.6・上げた天井 約1.7（±0.05メートル）／
+             荷を減らした長さ＝987／2437／52.2度で3階（B甲板）の左舷の端が水面（±0.3メートル＝海審 p1057「닿을 정도」）／
+             足したあとの重心が上・力の矢印が短い／水面が手すりの上下のどちらか
+    ⚠️ 傾き heel の0でない値は `rel=[dict(heel=…, src=…)]` に宣言しないと型が止まる（記録に無い傾きは src="模式"）
   共通 3. 札の数（キロ・ミリ・メートル・ポンド・㎡・人・秒・分・時・度）は `rel=` の宣言に同じ文字列があること
 
 ■ 使い方
@@ -184,9 +193,95 @@ def judge_section(f):
     return bad, n
 
 
+# 🔴 断面F の記録の値は**門番の側にも別に持つ**（型の定数と比べると、型を壊しても「型どおり」で通る＝物差しにならない）
+REC_HULL = dict(a_ext=5.6, br_ext=2.6, roof0=3.5, rise=1.7,               # 海審 p1016 2.2.4
+                cargo_less=987.0 / 2437.0,                              # 海審 p1018 表1
+                bw=dict(before=370.0 / 2501.826, req=1703.0 / 2501.826, low=761.272 / 2501.826))  # 表1・p1044 表7
+
+
+def judge_hull(f):
+    """断面F（`tools/hull.py`）。部品の形は `hull.parts_of`＝描く側と同じ関数が組んだもの。"""
+    import hull as H
+    R = REC_HULL
+    m = f.mech
+    bad, n = [], 0
+    view = m["view"]
+    kind = H.kind_of(view)
+    v = H.VIEWS[view]
+    seq = [m["start"]] + m["states"]
+    shp = {s["id"]: s for s in m["shapes"]}
+
+    def pts(ident, i):
+        return F.mech_pts(shp[ident], shp[ident]["keys"][i])
+
+    def alpha(ident, i):
+        a = shp[ident]["keys"][i].get("alpha", 1.0)
+        return 1.0 if a is None else float(a)
+
+    def span(q, ax):
+        return max(p[ax] for p in q) - min(p[ax] for p in q)
+    for i, st in enumerate(seq):
+        tag = "頭" if i == 0 else f"段{i}"
+        if kind == "side":
+            s = v["s"]
+            rules = [(st["aext"] == "on" and st["aroof"] != "high", "後ろへ延ばしたのに天井が上がっていない（海審 p1016＝上げてから延ばした）"),
+                     (st["marble"] == "on" and st["aext"] != "on", "展示室（延ばした上の階）が無いのに大理石（海審 p1024）"),
+                     (i == 0 and st["ramp"] == "gone", "頭の状態で渡し板が「外した」（外す動きは段で見せる）")]
+            if st["ballast"] != "none":
+                frac = span(pts("bw", i), 1) / (H.E_Y * s)
+                want = R["bw"][st["ballast"]]
+                rules.append((abs(frac - want) > 0.01 or alpha("bw", i) < 0.5,
+                              f"底のタンクの水の高さ {frac:.3f}＝宣言 {want:.3f}（表1・表7）と違う・または見えない"))
+            if st["aext"] == "on":
+                wa, wb = span(pts("aext_f", i), 0) / s, span(pts("brext_f", i), 0) / s
+                roof = span(pts("comp_f", i), 1) / s
+                rules += [(abs(wa - R["a_ext"]) > 0.05, f"A甲板の延ばした長さ {wa:.2f}＝記録 約{R['a_ext']}（p1016）と違う"),
+                          (abs(wb - R["br_ext"]) > 0.05, f"船橋甲板の延ばした長さ {wb:.2f}＝記録 約{R['br_ext']}（p1016）と違う"),
+                          (abs(roof - (R["roof0"] + R["rise"])) > 0.05,
+                           f"部屋の天井の高さ {roof:.2f}＝記録 約{R['roof0']}＋約{R['rise']}（p1016）と違う")]
+            if st["cargo"] == "less":
+                r = span(pts("cg_d_f", i), 0) / ((118.0 - 8.0) * s)
+                rules.append((abs(r - R["cargo_less"]) > 0.01, f"減らした荷の長さの比 {r:.3f}＝987／2437（表1）と違う"))
+        elif kind == "front":
+            rules = [(st["cargo"] == "port" and st["lash"] == "on", "片寄った荷に固縛の帯が付いたまま")]
+            if abs(st["heel"] - 52.2) < 0.01:
+                q = pts("dkB", i)
+                dm = (q[1][1] - v["piv"][0][1]) / v["s"]
+                rules.append((abs(dm) > 0.3, f"52.2度で3階の左舷の端が水面から {dm:+.2f} メートル（記録＝届くほど＝海審 p1057）"))
+        elif kind == "pair":
+            rules = [(st["g"] == "high" and st["add"] != "on", "足した重さが無いのに重心が上がっている"),
+                     (st["force"] == "on" and abs(st["heel"]) < 0.01, "傾いていないのに元へ戻ろうとする力を描いている")]
+            yl = sum(p[1] for p in pts("L_g", i)) / 12
+            yr = sum(p[1] for p in pts("R_g", i)) / 12
+            if st["g"] == "high":
+                rules.append((not yr < yl - 8, f"足したあとの重心が上に描かれていない（左 {yl:.0f}・右 {yr:.0f}画素）"))
+            if st["force"] == "on":
+                la = sum(math.dist(a, b) for a, b in zip(pts("L_force", i), pts("L_force", i)[1:]))
+                ra = sum(math.dist(a, b) for a, b in zip(pts("R_force", i), pts("R_force", i)[1:]))
+                rules.append((st["g"] == "high" and not ra < la,
+                              f"重心が高い船の力の矢印が短くない（左 {la:.0f}・右 {ra:.0f}画素）"))
+        else:
+            V = H._PortV(v)
+            top = min(p[1] for p in pts("water", i))
+            f3, r3, r4 = V.p(0, H.B_Y)[1], V.p(0, H.B_Y + H.RAIL_H)[1], V.p(0, H.A_Y + H.RAIL_H)[1]
+            order = {"low": 0, "b": 1, "a": 2}
+            rules = [(i > 0 and order[st["water"]] < order[seq[i - 1]["water"]], "水が下がる（記録＝3階→4階の順＝判決 p18）"),
+                     (st["water"] == "low" and not top > f3, "まだ水の前なのに3階の床より上に水"),
+                     (st["water"] == "b" and not (r4 < top < r3), "3階の手すりの上・4階の手すりの下に水の面が無い"),
+                     (st["water"] == "a" and not top < r4, "4階の手すりが水の上に出ている"),
+                     (st["exits"] in ("shut3", "shut") and st["water"] == "low", "水の前に出入口が閉じている"),
+                     (st["exits"] == "shut" and st["water"] != "a", "4階の手すりがつかる前に4階の出入口が閉じている")]
+        for hit, why in rules:
+            n += 1
+            if hit:
+                bad.append(f"{tag}: {why}")
+    bad += _numbers(f)
+    return bad, n
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
-    return judge_latch(f) if kind == "latch" else judge_section(f)
+    return (judge_latch(f) if kind == "latch" else judge_section(f) if kind == "section" else judge_hull(f))
 
 
 def selftest():
@@ -225,6 +320,35 @@ def selftest():
         ("🔴 陽性対照：逃げ道があるのに床が落ちる", "section",
          dict(steps=[dict(state=dict(door="gone", air="out", vent="open", floor="down", cable="hurt"),
                           tag=dict(t="x"))], note=N), False),
+        # 14本目 ⑤b-4：断面F（hull）
+        ("正しい改造（天井を上げる→延ばす・約5.6メートル＝海審 p1016）", "hull",
+         dict(view="stern", start=dict(aroof="low", aext="off", bcab="off"),
+              steps=[dict(state=dict(aroof="high"), tag=dict(t="天井を上げる")),
+                     dict(state=dict(aext="on"), tag=dict(t="約5.6メートル延ばす"))],
+              note=N, rel=[dict(t="約5.6メートル", src="海審 p1016")]), True),
+        ("正しい水の順（3階→4階＝判決 p18）", "hull",
+         dict(view="port", steps=[dict(state=dict(water="b", exits="shut3")), dict(state=dict(water="a", exits="shut"))],
+              note=N), True),
+        ("正しい重心と力（足す→上がる→傾くと力が小さい）", "hull",
+         dict(view="pair", steps=[dict(), dict(state=dict(add="on", g="high", up="on")),
+                                  dict(state=dict(heel=15.0, up="off", force="on"))],
+              note=N, rel=[dict(heel=15.0, src="模式")]), True),
+        ("正しい52.2度（3階の左舷の端が水面＝海審 p1057）", "hull",
+         dict(view="front", start=dict(heel=52.2), steps=[dict(state=dict(paths="on"))], note=N,
+              rel=[dict(heel=52.2, src="判決 p16")]), True),
+        ("正しいタンクの水（表7＝約3割）", "hull",
+         dict(view="hold", steps=[dict(state=dict(ballast="low"))], note=N), True),
+        ("🔴 陽性対照：天井を上げないまま延ばす", "hull",
+         dict(view="stern", start=dict(aroof="low", aext="off"), steps=[dict(state=dict(aext="on"))], note=N), False),
+        ("🔴 陽性対照：4階の手すりのあとに3階（水が下がる）", "hull",
+         dict(view="port", steps=[dict(state=dict(water="a")), dict(state=dict(water="b"))], note=N), False),
+        ("🔴 陽性対照：水の前に出入口が閉じる", "hull",
+         dict(view="port", steps=[dict(state=dict(exits="shut3"))], note=N), False),
+        ("🔴 陽性対照：足さないのに重心が上がる", "hull",
+         dict(view="pair", steps=[dict(state=dict(g="high"))], note=N), False),
+        ("🔴 陽性対照：札の数「約9.9メートル」が宣言に無い", "hull",
+         dict(view="side", steps=[dict(tag=dict(t="約9.9メートル"))], note=N,
+              rel=[dict(t="約5.6メートル", src="海審 p1016")]), False),
     ]
     for name, kind, kw, want in cases:
         bad, _ = judge(kind, kw)
@@ -249,6 +373,37 @@ def selftest():
     ok &= good
     print(f"  {'OK' if good else '🔴 NG'} 🔴 陽性対照（画素）：床を落とさない型＝床 down の絵が嘘: "
           f"{'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    # 🔴 断面F の画素の陽性対照：型の定数をわざと壊す（延ばした長さ・タンクの水・52.2度の甲板の高さ）
+    import hull as H
+    for name, attr, val, kw in (
+            ("延ばした長さを 6.6 で描く型", "A_EXT", 6.6,
+             dict(view="stern", start=dict(aroof="high", aext="on"), steps=[dict()], note=N)),
+            ("タンクの水を半分で描く型", "BW_FRAC", dict(H.BW_FRAC, low=0.5),
+             dict(view="hold", steps=[dict(state=dict(ballast="low"))], note=N)),
+            ("3階の床を3メートル高く描く型", "B_Y", H.B_Y + 3.0,
+             dict(view="front", start=dict(heel=52.2), steps=[dict()], note=N, rel=[dict(heel=52.2, src="判決 p16")]))):
+        keep = getattr(H, attr)
+        setattr(H, attr, val)
+        try:
+            if attr == "A_EXT":
+                keep_x = H.X_AEXT
+                H.X_AEXT = H.X_COMP[0] - val
+            bad, _ = judge("hull", kw)
+        finally:
+            setattr(H, attr, keep)
+            if attr == "A_EXT":
+                H.X_AEXT = keep_x
+        good = bool(bad)
+        ok &= good
+        print(f"  {'OK' if good else '🔴 NG'} 🔴 陽性対照（画素）：{name}: "
+              f"{'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    try:
+        judge("hull", dict(view="front", start=dict(heel=40.0), steps=[dict()], note=N))
+        good = False
+    except ValueError:
+        good = True
+    ok &= good
+    print(f"  {'OK' if good else '🔴 NG'} 🔴 陽性対照：宣言の無い傾き 40度で型が止まる: {'止まった' if good else '通った'}（止まるはず）")
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 
@@ -260,9 +415,9 @@ def main():
         return 0
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items())
-               if s.get("fig") and s["fig"][0] in ("latch", "section")}
+               if s.get("fig") and s["fig"][0] in ("latch", "section", "hull")}
     if not targets:
-        print("⚠️ latch・section のカットが0件（この回に仕組みの模式図が無いなら正しい。**0件を調べて合格**にしていないか確かめる）")
+        print("⚠️ latch・section・hull のカットが0件（この回に仕組みの模式図が無いなら正しい。**0件を調べて合格**にしていないか確かめる）")
         return 0
     bad_all, n_all = 0, 0
     for cid, (kind, kw) in targets.items():

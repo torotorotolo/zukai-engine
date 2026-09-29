@@ -51,6 +51,11 @@ def judge(kw):
 
     for r in f.rel:
         n += 1
+        if "course" in r:
+            # 14本目 ⑤b-4：方位盤の針路の宣言（値の照合は drift() が型の中で止める＝宣言の無い針路は描けない）
+            if not r.get("src"):
+                bad.append(f"針路 {r['course']} 度の宣言に出どころ（src）が無い")
+            continue
         if "lat" in r:
             # 🔴 緯度経度で書かれた値（日本政府の文書など）＝描いた点がその位置から ±2キロ
             off, _ = F.geo_between(V.geo(*P[r["a"]]), (float(r["lat"]), float(r["lon"])))
@@ -76,7 +81,8 @@ def judge(kw):
                        f"［{r.get('src', '')}］")
     for st in kw.get("steps", []):
         for d in F._many(st.get("dim")):
-            m = re.search(r"(\d[\d,]*)キロ", d.get("t", ""))
+            # 🔴 14本目 ⑤b-4：小数を読む（「約1.7キロ」を「7キロ」と読んでいた＝12・13本目は整数だけだった）
+            m = re.search(r"(\d[\d,]*(?:\.\d+)?)キロ", d.get("t", ""))
             if not m:
                 continue
             n += 1

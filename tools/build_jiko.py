@@ -531,6 +531,10 @@ def _move_box(mv):
     if mv["kind"] == "fall":
         x, y = mv["at"]
         return x - 110, y - 260, x + 110, y + 30
+    if mv["kind"] in ("ring", "gather"):     # 14本目 ⑤b-4
+        x, y = mv["at"]
+        r = float(mv.get("r", 80)) + 24
+        return x - r, y - r, x + r, y + r
     pts = mv.get("pts") or [mv[k] for k in ("a", "b") if k in mv]
     xs, ys = [p[0] for p in pts], [p[1] for p in pts]
     return min(xs) - 60, min(ys) - 60, max(xs) + 60, max(ys) + 60
@@ -740,6 +744,29 @@ def draw_moves(fr, cut, t, meta):
                 if gone <= 0:
                     break
             dot(px_, py_, 9, ink, 1.0)
+        elif mv["kind"] == "ring":
+            # 14本目 ⑤b-4：無線の輪（1.6秒で1つ）。inward＝外から届く（輪が縮む）・既定は外へ広がる
+            x, y = mv["at"]
+            R, n = float(mv.get("r", 80)), int(mv.get("n", 3))
+            cx, cy = P(x, y)
+            for j in range(n):
+                if dt < j * 1.6 / n:
+                    continue
+                u = ((dt - j * 1.6 / n) / 1.6) % 1.0
+                rr = (8 + (R - 8) * ((1.0 - u) if mv.get("inward") else u)) * _SS
+                a = max(0, min(255, int(235 * math.sin(math.pi * u))))
+                d.ellipse((cx - rr, cy - rr, cx + rr, cy + rr), outline=amber + (a,), width=4 * _SS)
+        elif mv["kind"] == "gather":
+            # 14本目 ⑤b-4：ぐるりから点が寄る（**向きを描かない・数えない**＝近くの船が集まる。3秒で中へ）
+            x, y = mv["at"]
+            R, n = float(mv.get("r", 220)), int(mv.get("n", 24))
+            rg = random.Random(f"{cut}-gather")
+            for _ in range(n):
+                a0, ph = rg.uniform(0, math.tau), rg.random()
+                u = (dt / 3.0 + ph) % 1.0
+                rr = 26 + (R - 26) * (1.0 - u)
+                al = min(1.0, u / 0.15) * min(1.0, (1.0 - u) / 0.2) * min(1.0, dt / 0.8) * 0.95
+                dot(x + rr * math.cos(a0), y + rr * math.sin(a0), 6, ink, al)
         elif mv["kind"] == "anim":
             _draw_anim(d, P, mv, t, times, mc, pal)
         elif mv["kind"] == "hl":

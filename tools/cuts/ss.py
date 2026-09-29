@@ -320,3 +320,63 @@ REC_DOCS = {
 }
 ILLU_SPLIT_TIMES = ("8:48", "8:49", "8:52", "8:54", "8:56", "8:58", "9:30", "9:32", "9:33", "9:35", "9:46", "9:48")
 ILLU_CROWD_UNTIL = "9:47"
+
+
+# ══════════════════════════════════════════════════════════
+#  14本目 ⑤b-4（2026-09-29）：断面F（`tools/hull.py`）と地図（drift）
+# ══════════════════════════════════════════════════════════
+# 🔴 §0b（題材を替えるとき空にする場所）：下の MAP_* ・HULL_NOTE・`sewol_map()` はこの回の地図と資料。
+#    画面の出典は `src()`（台本の頁「海審 p1016」→ 画面の頁「…PDF 16頁」＝門番 check_wording の I が通し番号を止める）
+def src(recs):
+    """出典の行（「出典：」を除く）。recs＝「海審 p1016・p1017」のような台本の頁の書き方（文字列か list）。"""
+    import illu
+    return illu.rec_line(recs if isinstance(recs, (list, tuple)) else [recs]).replace("出典：", "", 1)
+
+
+HULL_NOTE = "模式図：形は報告書の要目と構造の文から（部屋の前後の位置・通路の幅は模式）"
+
+# 地図（drift）の点。🔴 地点＝Wikidata（`titan_fig.GEO`）と報告書の値だけ（§5b-35・§5b-38）
+MAP_PTS = {
+    # 8時50分ごろ（傾いて荷が寄った時点）＝海審 p1065「병풍도 북동쪽 1.3마일(북위34도09분34초, 동경125도57분56초)」
+    "acc": dict(lat=34 + 9 / 60 + 34 / 3600, lon=125 + 57 / 60 + 56 / 3600),
+    # メンゴル水道＝海審 p1046「맹골수도(진도군 거차도와 맹골도 사이)」＝2つの島の真ん中
+    "ch": dict(mid=["maenggoldo", "seogeochado"]),
+    # 水道の手前（針路 約160度で近づいた＝p1046「대략 160도 정도이었던 세월호 침로를 서서히 변침」）。🔴 位置は模式（7キロは描く都合）
+    "appr": dict(of="ch", km=7.0, deg=340),
+    # 8時46分＝ピョンプンドを右 約0.9マイルに見て通った（p1046「병풍도를 우현 약 0.9마일로 통과」・針路 約136度）
+    #   ＝島は船の右の真横（136＋90＝226度）＝船は島から46度の向き 0.9マイル（1.667キロ）。「真横」は読み方（記録は距離と右）
+    "t0846": dict(of="byeongpungdo", km=1.667, deg=46),
+}
+MAP_REL_ACC = dict(a="acc", lat=MAP_PTS["acc"]["lat"], lon=MAP_PTS["acc"]["lon"], tol_km=0.3, src="海審 p1065")
+# ピョンプンドの点（Wikidata の島の中心）から事故の地点まで＝報告書「북동쪽 1.3마일」（8方位の言い方＝sector=8）
+MAP_REL_NE = dict(a="byeongpungdo", b="acc", km=2.41, dir="北東", sector=8, src="海審 p1065")
+MAP_REL_0846 = dict(a="t0846", b="byeongpungdo", km=1.667, src="海審 p1046")
+# 通った島の順（海審 p1045：옹도 00:35・어청도 02:20・대흑산도 07:00 → p1046 맹골수도 08:27 → 병풍도 08:46）。
+#   p1045 の「신안군 매물도」は Wikidata に同じ島が見つからない＝点にしない（直線で結ぶ＝模式）。予定の残り＝p1034 の報告の地点
+ROUTE = ["incheon", "palmido", "ongdo", "eocheongdo", "heuksando", "ch", "t0846", "acc"]
+ROUTE_PLAN = ["acc", "chujado", "jeju"]
+MAP_VIEWS = {
+    "wide": dict(view=dict(lon=(125.2, 126.9), lat=(33.40, 37.66)), scale_km=100, grid=1.0,
+                 # インチョン港の札は輪の下・右へ（上に置くと枠の上の端に出る・船の札「セウォル号」と重なった＝⑤b-4 の layout）
+                 places=[dict(k="incheon", dx=130), dict(k="jeju", dx=60), dict(k="jindo", side="above", dx=40)],
+                 rel=[MAP_REL_ACC], note="模式図：航路は報告書の通った島を直線で結んだもの（実際の線ではない）。港と島は中心の1点"),
+    "local": dict(view=dict(lon=(125.62, 126.28), lat=(34.10, 34.30)), scale_km=5, grid=0.1,
+                  places=["maenggoldo", dict(k="seogeochado", side="above"), "byeongpungdo"],
+                  rel=[MAP_REL_ACC, MAP_REL_NE], note="模式図：島は中心の1点（形は描いていない）。船の位置は報告書の値から"),
+    "near": dict(view=dict(lon=(125.86, 126.06), lat=(34.125, 34.195)), scale_km=1, grid=0.05,
+                 places=["byeongpungdo"], rel=[MAP_REL_ACC, MAP_REL_NE, MAP_REL_0846],
+                 note="模式図：島は中心の1点（形は描いていない）。船の位置は報告書の値から"),
+}
+# 札を置くための点（地名ではない・輪を描かない）
+MAP_LAB = {"wide": dict(_l1=dict(lat=36.9, lon=125.35), _r1=dict(lat=35.2, lon=126.75)),
+           "local": dict(_l1=dict(lat=34.285, lon=125.66), _r1=dict(lat=34.285, lon=126.12)),
+           "near": dict(_l1=dict(lat=34.19, lon=125.875), _r1=dict(lat=34.137, lon=126.035))}
+
+
+def sewol_map(which, steps, rel=None, note=None, recs=None, dial=None):
+    """14本目の地図（drift）。which＝wide（インチョン〜チェジュ）／local（メンゴル水道のまわり）／near（ピョンプンドの寄り）。"""
+    m = MAP_VIEWS[which]
+    pts = dict(MAP_PTS, **MAP_LAB[which])
+    return ("drift", dict(view=m["view"], places=m["places"], pts=pts, rel=list(m["rel"]) + list(rel or []),
+                          steps=steps, note=note or m["note"], src=src(recs or ["海審 p1065"]), scale_km=m["scale_km"],
+                          grid=m["grid"], dial=dial))
