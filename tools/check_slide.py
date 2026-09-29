@@ -316,8 +316,14 @@ def load_ocr():
 
 
 # ── 切り方の幾何（build_jiko.fit と同じ式。k を外から渡せるようにしただけ）────
+# 🔴 2026-09-29（14本目 ⑤b-7a）：**本番は額装（箱の高さが画面より低い）の寄りを 0.35倍にしている**
+#    （`build_jiko` の `kb = … k * (0.35 if box[3] < S.H else 1.0)`）のに、ここは全画面と同じ 5.5% で測っていた
+#    ＝頁の門番 edges が本番より約3倍きびしく、正しい切り出しの頁（cc14 ほか）に鳴った。本番と同じ式にした
+#    （→ [[feedback-gates-must-share-the-production-geometry]]）。全画面の箱（高さ1080）の検算は変わらない。
+#    ⚠️ 額装だけの点（BY-SA・引用）は本番では寄らない（k=0）が、ここは 0.35倍で測る（きびしい側に倒したまま）
 def crop_rect(sw, sh, box, k, bias, xbias, zoom):
     _, _, w, h = box
+    k = k * (0.35 if h < H else 1.0)
     z = max(w / sw, h / sh) * zoom * (1.0 + 0.055 * k)
     cw, ch = min(sw, w / z), min(sh, h / z)
     left, top = (sw - cw) * xbias, (sh - ch) * bias

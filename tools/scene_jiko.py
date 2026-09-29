@@ -670,6 +670,26 @@ def ep13_credit(name):
 
 
 # ══════════════════════════════════════════════════════════
+#  14本目（セウォル号）── `ref/ep14/`（2026-09-29 ⑤b-7a）
+# ══════════════════════════════════════════════════════════
+#   ep14/<欄の名>.jpg … 写真22点（Commons。🔴 CC BY-SA と引用 H1 は**額装・無改変**＝`ss.check_frame_only`）
+#   ep14/pg<頁>.png   … 判決・報告書・裁決の頁（出典の頁は図の出典と同じ書き方＝`illu.rec_line`）
+#   ep14/fb_<カット>.jpg … 動く映像のひかえの静止画
+# 🔴 表はファイルから読む。`python qa_out/ep14_assets.py credits --write` が**写真も頁も**書く（13本目と違い頁も表に入れた）。
+#    ⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）
+_EP14_CREDITS = HERE / "ref" / "ep14" / "credits.json"
+EP14_CREDIT = (json.loads(_EP14_CREDITS.read_text(encoding="utf-8"))
+               if _EP14_CREDITS.exists() else {})
+
+
+def ep14_credit(name):
+    """`ref/ep14/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if not name.startswith("ep14/"):
+        return None
+    return EP14_CREDIT.get(name)
+
+
+# ══════════════════════════════════════════════════════════
 #  11本目（チャレンジャー号）── `ref/ep11/`
 # ══════════════════════════════════════════════════════════
 # 名前の付け方（`tools/cuts/ss.py`）:
@@ -875,7 +895,8 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep13_credit(spec["photo"]) or ep12_credit(spec["photo"]) or ep11_credit(spec["photo"])
+    cr = (ep14_credit(spec["photo"]) or ep13_credit(spec["photo"]) or ep12_credit(spec["photo"])
+          or ep11_credit(spec["photo"])
           or ep10_credit(spec["photo"])
           or ep9_credit(spec["photo"]) or ep8_credit(spec["photo"]) or ep7_credit(spec["photo"])
           or keybridge_credit(spec["photo"])

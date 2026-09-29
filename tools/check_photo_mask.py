@@ -88,6 +88,31 @@ def used_photos():
     return out
 
 
+def _hits(win, rects):
+    """窓（x0,y0,x1,y1）が私人の範囲のどれかに入るなら、その範囲の説明を返す。"""
+    return [r[4] for r in rects if win[0] < r[2] and r[0] < win[2] and win[1] < r[3] and r[1] < win[3]]
+
+
+def private_out(spec=None):
+    """🔴 2026-09-29（14本目 ⑤b-7a）：**切り出しで外した私人の範囲**（`ss.PRIVATE_OUT`）に、その写真を使う全カットの窓が
+    入っていないか。窓＝カットの `trim`／`ss.TRIM`（無ければ全体）。冒頭の写真（`intro`）は切らない＝全体で測る。
+    返り値＝(照らした欄の数, 鳴った行の一覧)。⚠️ 寄りと振りの窓は切り出しの内側なので、切り出しの矩形で足りる"""
+    import cuts
+    import cuts.ss as ss
+    spec = cuts.SPEC if spec is None else spec
+    out = getattr(ss, "PRIVATE_OUT", {})
+    n, bad = 0, []
+    for cid, s in sorted(spec.items()):
+        for p, win in ((s.get("photo"), s.get("trim") or ss.TRIM.get(s.get("photo") or "")),
+                       ((s.get("intro") or {}).get("photo"), None)):
+            if p in out:
+                n += 1
+                w = tuple(win or (0.0, 0.0, 1.0, 1.0))
+                for why in _hits(w, out[p]):
+                    bad.append(f"{cid}＝{p} の窓 {w} が私人の範囲に入る：{why}")
+    return n, bad
+
+
 def check(quiet=False):
     import cuts.ss as ss
 
@@ -98,6 +123,15 @@ def check(quiet=False):
         return 2
 
     bad, ok = [], []
+    n_po, bad_po = private_out()
+    po = getattr(ss, "PRIVATE_OUT", {})
+    if po:
+        if bad_po:
+            bad += bad_po
+        elif n_po == 0:
+            bad.append(f"`PRIVATE_OUT` に {len(po)}点あるのに、どのカットにも当たっていない（名前の取り違え？）")
+        else:
+            ok.append(f"✓ 切り出しで外した私人の範囲 {len(po)}点を、その写真を使う {n_po}欄の窓と照らした（入っていない）")
     for name, why in sorted(need.items()):
         cids = used.get(name)
         if not cids:
@@ -133,9 +167,11 @@ def check(quiet=False):
         print("   ⚠️ `blur=` を章ファイルに書いても効かない（実装されていない）。"
               "元画像そのものを直すこと")
         return 2
-    if not need:
+    if not need and not po:
         print("  🔴 `NEEDS_MASK` が空。この回に隠す素材が無いなら正しいが、"
               "**0件を調べて合格**にしていないか確かめること")
+    elif not need and not quiet:
+        print(f"  ・`NEEDS_MASK` は空（元画像を直す点は無い）。私人は切り出しで外した＝上の {n_po}欄で照らした")
     if not quiet:
         print("\n✓ 通った")
     return 0
@@ -166,7 +202,27 @@ def selftest():
     import cuts.ss as ss
 
     print("■ selftest（陽性対照つき）")
+    # 🔴 2026-09-29（14本目 ⑤b-7a）：切り出しで外した私人の範囲（PRIVATE_OUT）の対照
+    po = getattr(ss, "PRIVATE_OUT", {})
+    if po:
+        p, rects = sorted(po.items())[0]
+        r = rects[0]
+        inside = ((r[0] + r[2]) / 2 - 0.01, (r[1] + r[3]) / 2 - 0.01, (r[0] + r[2]) / 2 + 0.01, (r[1] + r[3]) / 2 + 0.01)
+        assert _hits(inside, rects), "範囲の真ん中の窓で鳴らない＝測れていない"
+        assert _hits((0.0, 0.0, 1.0, 1.0), rects), "全体の窓で鳴らない"
+        # ⚠️ 写真ごとの `ss.TRIM` はその写真のどのカットにも効く＝「切り出しの無いカット」は作れない。
+        #    破れるのは「カットの trim で広げる」と「冒頭の写真（切らない）に使う」の2つ＝その2つを対照にする
+        n, bad = private_out({"cX": dict(photo=p, trim=(0.0, 0.0, 1.0, 1.0))})
+        assert n == 1 and bad, "カットの trim で全体に広げても鳴らない"
+        n, bad = private_out({"cY": dict(intro=dict(photo=p))})
+        assert n == 1 and bad, "冒頭の写真（切らない）に使っても鳴らない"
+        n, bad = private_out()
+        assert n > 0 and not bad, f"本番で鳴った／0欄: {n} {bad}"
+        print(f"  ✓ 私人の範囲：真ん中の窓・全体の窓・カットの trim で広げた・冒頭の写真に使った で鳴る／本番 {n}欄は鳴らない")
     need = getattr(ss, "NEEDS_MASK", {})
+    if not need and po:
+        print("  ・NEEDS_MASK は空＝元画像を直す点の検算（md5）は対象が無い（切り出しで外した点は上で検算した）")
+        return 0
     assert need, "NEEDS_MASK が空では検算にならない"
     name = sorted(need)[0]
     f = HERE / "ref" / name

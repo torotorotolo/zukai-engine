@@ -278,7 +278,11 @@ def selftest():
         ok = ok and bool(cond)
 
     rows = load_table()
-    chk(f"表が読めている（{len(rows)}行）", len(rows) >= 60)
+    # 🔴 2026-09-29（14本目 ⑤b-7a）：「60行以上」は**前の回の写真の数のまま残った定数**（14本目は39点で正しいのに 🔴）
+    #    → 題材に依らない形＝「この回にカットが使っている写真の数以上・1以上」（→ [[feedback-per-episode-constants-go-stale]]）
+    import cuts
+    used = {s["photo"] for s in cuts.SPEC.values() if s.get("photo")}
+    chk(f"表が読めている（{len(rows)}行・カットが使う写真 {len(used)}点）", len(rows) >= len(used) > 0)
     # ── 陽性対照＝**値**で見る（[[feedback-verify-your-own-instrument]]）
     r24 = dict(year=2024, lic="PD（Public domain）", who="X", title="")
     r99 = dict(year=1999, lic="PD（Public domain）", who="X", title="")
