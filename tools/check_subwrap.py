@@ -31,10 +31,17 @@ r"""check_subwrap.py — **字幕**の折り返しの門番（9本目テネリ�
      （記憶 feedback-settings-may-not-reach-the-picture＝設定ではなく絵に届いたものを測る）。
      落ちる形2つ＝①話し手が途中で落ちる（render_all が文字だけ渡していた）②章の色の置き換えが水色を塗り替える
      （水色は J.LINE と同じ値＝赤銅の章で #f2ab95 に化ける）。聞き役の行があるのに色が白のまま（設定が無い）も E5
-  E6 2行の字幕の置き方＝行の間が字の 1.25倍未満／字（フチこみ）が帯からはみ出す（`scene_jiko.sub_ys` の値で測る）。
-     字の上下＝Noto Sans JP の漢字の枠（基線の上 0.88・下 0.12）。旧式（0.42／0.78）は 56px で行の間 64.8px＝鳴る
+  E6 2行の字幕の置き方＝行の間が字の 1.25倍未満／字（フチこみ）が帯からはみ出す／2行の字どうしが重なる（`scene_jiko.sub_ys` の値で測る）。
+     旧式（0.42／0.78）は 56px で行の間 64.8px＝鳴る
   E7 帯の形の設定（el_script.SUB_BAND＝solid 真っ黒／grad 下が濃く上へ薄い）が、焼く帯の SVG（scene_jiko.sub_band）に届いていない
      ⚠️ 帯の PNG は render_all が中身の指紋で焼き直す（09-28 まで「ファイルが無いときだけ」＝設定を替えても古い帯のまま合成された）
+  🆕 2026-09-29（14本目⑥-2・試写1回目の指摘＝まりさ 黄＋黒フチ／れいむ 赤＋白フチ・書体 けいふぉんと）：
+  E5 は**字とフチの両方**の色を測る（語り＝el_script.SUB_COLOR＋SUB_EDGE・聞き役＝SUB_Q_COLOR＋SUB_Q_EDGE）
+  E6 の字の上下は**字幕の書体の実寸**（字幕に出る全部の字の字面の最大・fontmetrics）。それまでは Noto の漢字の枠（上 0.88・下 0.12）の
+     決め打ち＝けいふぉんとは下 0.136em（「た」）で枠より深い。書体を替えたら物差しも替わる
+  E8 字幕の書体（el_script.SUB_FONT）が絵に届かない＝①書体を開けない ②字幕に出る字が書体に無い（豆腐か別の書体に落ちる）
+     ③焼く SVG の <text> の書体が SUB_FONT でない ④字幕の層の CSS（scene_jiko.sub_css）に SUB_FONT の @font-face が無い
+     ⚠️ E1〜E3 の幅も SUB_FONT で測る（折り＝wrap2 も同じ書体。けいふぉんとの1行の幅は Noto の 0.94〜1.01倍）
 """
 import json
 import sys
@@ -48,6 +55,14 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 ORPHAN = 3
+# E6 の selftest と、字幕の束を渡さないときの字（上に高い字・下に深い字を含む＝14本目 c103・c101 の字幕から）
+SAMPLE = "船長たちは？2014年4月16日の朝。韓国の南西の海で、旅客船セウォル号が傾いた。「」（）"
+
+
+def _hex(c):
+    """色の書き方をそろえる（#abc → #aabbcc・小文字）"""
+    c = c.lower()
+    return "#" + "".join(ch * 2 for ch in c[1:]) if len(c) == 4 else c
 
 
 def judge(text):
@@ -64,7 +79,7 @@ def judge_rows(rows):
     import titan_fig as T
     bad = []
     for r in rows:
-        w = S.fm.width(r, S.SUB_SIZE, "Noto")
+        w = S.fm.width(r, S.SUB_SIZE, S.SUB_FONT)       # 🆕 09-29：描く書体で測る（折り＝wrap2 と同じ）
         if w > S.SUB_MAXW:
             bad.append(f"E1 幅 {w:.0f}px > {S.SUB_MAXW}px「{r}」")
     if len(rows) >= 2:
@@ -87,37 +102,88 @@ def judge_colors(cid, segs, strip=None):
     if len(parts) != len(segs):
         return [f"E5 {cid}: 字幕 {len(segs)}行 ≠ 焼く SVG {len(parts)}行"]
     bad = []
+    hexre = r'="(#[0-9a-fA-F]{3}(?:[0-9a-fA-F]{3})?)"'
     for i, (seg, part) in enumerate(zip(segs, parts), 1):
         q = seg.get("who") == "q"
-        want = (S.SUB_Q_COLOR if q else J.INK_W).lower()
-        got = sorted({m.lower() for m in re.findall(r'fill="(#[0-9a-fA-F]{6})"', part)})
-        if got != [want]:
-            bad.append(f"E5 {cid}-{i} 色 {got} ≠ {want}（{'聞き役' if q else '語り'}）")
+        # 🆕 2026-09-29（14本目⑥-2）：字（fill）とフチ（stroke）の両方を測る
+        want = [_hex(c) for c in ((S.SUB_Q_COLOR, S.SUB_Q_EDGE) if q else (S.SUB_COLOR, S.SUB_EDGE))]
+        got = [sorted({_hex(m) for m in re.findall(a + hexre, part)}) for a in ("fill", "stroke")]
+        if got != [[want[0]], [want[1]]]:
+            bad.append(f"E5 {cid}-{i} 字 {got[0]}・フチ {got[1]} ≠ 字 {want[0]}・フチ {want[1]}"
+                       f"（{'聞き役' if q else '語り'}）")
     return bad
 
 
 def judge_q_setting(subs):
-    """E5（回の設定）：聞き役の行があるのに、聞き役の色が語りの白と同じ（el_script.SUB_Q_COLOR が無い）"""
-    import jiko_style as J
+    """E5（回の設定）：聞き役の行があるのに、聞き役の字もフチも語りと同じ（el_script.SUB_Q_COLOR／SUB_Q_EDGE が無い）"""
     import scene_jiko as S
     nq = sum(1 for segs in subs.values() for s in segs if s.get("who") == "q")
-    if nq and S.SUB_Q_COLOR.lower() == J.INK_W.lower():
-        return [f"E5 聞き役の行が {nq}行あるのに、色が語りと同じ白（el_script.SUB_Q_COLOR を回ごとに書く）"]
+    same = (_hex(S.SUB_Q_COLOR), _hex(S.SUB_Q_EDGE)) == (_hex(S.SUB_COLOR), _hex(S.SUB_EDGE))
+    if nq and same:
+        return [f"E5 聞き役の行が {nq}行あるのに、字とフチの色が語りと同じ（el_script.SUB_Q_COLOR・SUB_Q_EDGE を回ごとに書く）"]
     return []
 
 
-def judge_geometry():
-    """E6：1行・2行の字幕の置き方（`scene_jiko.sub_ys`）＝2行の行の間が字の 1.25倍以上・字（フチこみ）が帯の中。
-    字の上下＝Noto Sans JP の漢字の枠（基線の上 0.88em・下 0.12em）＋フチの半分。下は帯の下端から 8px 空ける"""
+def font_extent(chars):
+    """字幕の書体（scene_jiko.SUB_FONT）で、その字の字面の上下の最大（em）＝(基線より上, 基線より下)。書体を開けなければ None"""
     import scene_jiko as S
+    if not S.fm._load(S.SUB_FONT):
+        return None
+    vals = [S.fm._ink_em(c, S.SUB_FONT) for c in set(chars) if not c.isspace()]
+    return (max(v[0] for v in vals), max(v[1] for v in vals)) if vals else None
+
+
+def judge_geometry(chars=None):
+    """E6：1行・2行の字幕の置き方（`scene_jiko.sub_ys`）＝2行の行の間が字の 1.25倍以上・字（フチこみ）が帯の中・2行の字どうしが重ならない。
+    字の上下＝**字幕の書体の実寸**（chars＝字幕に出る全部の字。無ければ SAMPLE）＋フチの半分。下は帯の下端から 8px 空ける。
+    🆕 2026-09-29（14本目⑥-2）：それまでは Noto の漢字の枠（上 0.88em・下 0.12em）の決め打ち"""
+    import scene_jiko as S
+    ext = font_extent(chars or SAMPLE)
+    if ext is None:
+        return [f"E6 字幕の書体 {S.SUB_FONT}（{S.fm.FAMILY_FILE.get(S.SUB_FONT)}）を実測できない"]
+    up, dn = ext
     size, half, bad = S.SUB_SIZE, S.SUB_STROKE / 2, []
     for n in (1, 2):
         ys = S.sub_ys(n)
-        top, bot = ys[0] - 0.88 * size - half, ys[-1] + 0.12 * size + half
+        top, bot = ys[0] - up * size - half, ys[-1] + dn * size + half
         if top < 0 or bot > S.SUB_H - 8:
             bad.append(f"E6 {n}行の字が帯（0〜{S.SUB_H}px・下 8px 空け）からはみ出す（上 {top:.0f}・下 {bot:.0f}）")
         if n == 2 and ys[1] - ys[0] < 1.25 * size:
             bad.append(f"E6 2行の行の間 {ys[1] - ys[0]:.1f}px < 字の 1.25倍（{1.25 * size:.0f}px）＝フチどうしが触れる")
+        if n == 2:
+            gap = (ys[1] - up * size - half) - (ys[0] + dn * size + half)
+            if gap < 0:
+                bad.append(f"E6 2行の字（フチこみ）どうしが {-gap:.1f}px 重なる（{S.SUB_FONT} 上 {up:.3f}・下 {dn:.3f}em）")
+    return bad
+
+
+def judge_font(subs, strip=None, css=None):
+    """E8：字幕の書体（el_script.SUB_FONT）が絵に届くか（🆕 2026-09-29・14本目⑥-2）。
+    ①書体を開ける（fontTools）②字幕に出る字が全部書体にある（無い字＝豆腐か、ブラウザが別の書体に落とす）
+    ③焼く SVG（render_all と同じ `J.remap(sub_strip(行), …)`）の <text> がすべて font-family=SUB_FONT
+    ④字幕の層を焼く CSS（scene_jiko.sub_css）に SUB_FONT の @font-face がある
+    strip・css … selftest が落ちる形を差し込む（既定＝本番の sub_strip・sub_css）"""
+    import re
+    import jiko_style as J
+    import scene_jiko as S
+    fam = S.SUB_FONT
+    if not S.fm._load(fam):
+        return [f"E8 字幕の書体 {fam}（{S.fm.FAMILY_FILE.get(fam)}）を開けない"]
+    bad = []
+    text = "".join(s["text"] for segs in subs.values() for s in segs)
+    miss = sorted(set(S.fm.missing(text, fam)))
+    if miss:
+        bad.append(f"E8 書体 {fam} に無い字 {len(miss)}種「{''.join(miss[:30])}」（豆腐か別の書体に落ちる）")
+    for cid, segs in subs.items():
+        if not segs:
+            continue
+        svg = J.remap((strip or S.sub_strip)(segs), S.pal_of_layer(f"sub_{cid}"))
+        fams = set(re.findall(r'<text[^>]*?font-family="([^"]+)"', svg))
+        if fams != {fam}:
+            bad.append(f"E8 {cid}: 字幕の SVG の書体 {sorted(fams)} ≠ {fam}")
+    c = S.sub_css() if css is None else css
+    if f"font-family:'{fam}'" not in c:
+        bad.append(f"E8 字幕の層の CSS に書体 {fam} の @font-face が無い（scene_jiko.sub_css）")
     return bad
 
 
@@ -163,14 +229,19 @@ def run():
             folded += len(folded_rows) >= 2
             errs += [f"{cid}-{i} {b}" for b in bad]
         errs += judge_colors(cid, segs)
-    errs += judge_q_setting(subs) + judge_geometry() + judge_band()
+    chars = "".join(s["text"] for segs in subs.values() for s in segs)
+    errs += judge_q_setting(subs) + judge_geometry(chars) + judge_band() + judge_font(subs)
     nq = sum(1 for segs in subs.values() for s in segs if s.get("who") == "q")
     import scene_jiko as S
-    print(f"字幕 {n}枚（{len(subs)}カット）／2行に折れる {folded}枚／聞き役 {nq}枚／帯 {S.SUB_BAND}")
+    ext = font_extent(chars)
+    face = f"・字面 上 {ext[0]:.3f}・下 {ext[1]:.3f}em" if ext else "・実測できない"
+    print(f"字幕 {n}枚（{len(subs)}カット）／2行に折れる {folded}枚／聞き役 {nq}枚／帯 {S.SUB_BAND}"
+          f"／書体 {S.SUB_FONT}（{S.fm.FAMILY_FILE[S.SUB_FONT]}{face}）")
+    print(f"色＝語り 字 {S.SUB_COLOR}・フチ {S.SUB_EDGE}／聞き役 字 {S.SUB_Q_COLOR}・フチ {S.SUB_Q_EDGE}")
     if errs:
         print(f"🔴 違反 {len(errs)}件:\n  " + "\n  ".join(errs[:40]))
         return 1
-    print("✓ 違反 0件（E1 幅・E2 語の途中・E3 尻切れ・E4 台本との食い違い・E5 話し手の色・E6 2行の置き方・E7 帯の形）")
+    print("✓ 違反 0件（E1 幅・E2 語の途中・E3 尻切れ・E4 台本との食い違い・E5 話し手の字とフチの色・E6 2行の置き方・E7 帯の形・E8 書体）")
     return 0
 
 
@@ -240,24 +311,28 @@ def selftest():
     import jiko_style as J
     segs = [{"t": 0.0, "d": 0.7, "text": "船長たちは？", "who": "q"},
             {"t": 1.1, "d": 3.0, "text": "その数分前、助けに来た海洋警察の船に乗り移っていた。"}]
-    keep_q, keep_pal = S.SUB_Q_COLOR, S.pal_of_layer
+    keep_colors, keep_pal = (S.SUB_COLOR, S.SUB_EDGE, S.SUB_Q_COLOR, S.SUB_Q_EDGE), S.pal_of_layer
     try:
-        S.SUB_Q_COLOR = "#8fb6c9"
+        # 🆕 2026-09-29（14本目⑥-2）：陰性対照は**この回の本番の値のまま**（まりさ 黄＋黒フチ／れいむ 赤＋白フチ）
         ok(not judge_colors("c103", segs), f"E5 陰性対照（本番の経路）が鳴った: {judge_colors('c103', segs)}")
         # 陽性①＝話し手を落とす（09-28 まで render_all は文字だけ渡していた）
         drop = lambda ss: S.sub_strip([s["text"] for s in ss])
         ok(judge_colors("c103", segs, strip=drop), "E5 陽性対照①（話し手が落ちる）が鳴らない")
-        # 陽性②＝字幕の層を章の色で置き換える（赤銅の章で水色 = J.LINE が #f2ab95 に化ける）
+        # 陽性②＝章の色で化ける色（09-28 の水色＝J.LINE）を聞き役に置き、字幕の層を赤銅の章で置き換える（#f2ab95 に化ける）
+        S.SUB_Q_COLOR = J.LINE
         S.pal_of_layer = lambda k: "copper"
-        ok(judge_colors("c103", segs), "E5 陽性対照②（章の色で水色が化ける）が鳴らない")
-        S.pal_of_layer = keep_pal
-        # 陽性③＝聞き役の行があるのに色の設定が無い（白のまま）
-        S.SUB_Q_COLOR = J.INK_W
-        ok(judge_q_setting({"c103": segs}), "E5 陽性対照③（聞き役の色が白のまま）が鳴らない")
+        ok(judge_colors("c103", segs), "E5 陽性対照②（章の色で J.LINE が化ける）が鳴らない")
+        S.pal_of_layer, S.SUB_Q_COLOR = keep_pal, keep_colors[2]
+        # 陽性③＝🆕 フチの色だけ違う（聞き役のフチが別の色で焼かれる）
+        edge = lambda ss: S.sub_strip(ss).replace(f'stroke="{S.SUB_Q_EDGE}"', 'stroke="#123456"')
+        ok(judge_colors("c103", segs, strip=edge), "E5 陽性対照③（フチの色が違う）が鳴らない")
+        # 陽性④＝聞き役の行があるのに、字もフチも語りと同じ（回の設定が無い）
+        S.SUB_Q_COLOR, S.SUB_Q_EDGE = S.SUB_COLOR, S.SUB_EDGE
+        ok(judge_q_setting({"c103": segs}), "E5 陽性対照④（聞き役の字とフチが語りと同じ）が鳴らない")
         ok(not judge_q_setting({"c101": [{"text": "語りだけ"}]}), "E5 陰性対照（聞き役の無い回）が鳴った")
     finally:
-        S.SUB_Q_COLOR, S.pal_of_layer = keep_q, keep_pal
-    # ④ 🆕 E6 2行の置き方：本番（56px）と 38px は静か・旧式の置き方を 56px で使うと鳴る
+        (S.SUB_COLOR, S.SUB_EDGE, S.SUB_Q_COLOR, S.SUB_Q_EDGE), S.pal_of_layer = keep_colors, keep_pal
+    # ④ 🆕 E6 2行の置き方：本番（56px）と 38px は静か・旧式の置き方を 56px で使うと鳴る（字の上下は字幕の書体の実寸）
     keep_ys = S.sub_ys
     try:
         for size in (38, 56):
@@ -278,11 +353,19 @@ def selftest():
         ok(judge_band(), "E7 陽性対照（設定が帯に届かない）が鳴らない")
     finally:
         S.SUB_BAND, S.sub_band = keep_band, keep_fn
+    # ⑥ 🆕 E8 書体（2026-09-29・14本目⑥-2）：本番の経路は静か・書体に無い字／SVG の書体違い／CSS に書体が無い、で鳴る
+    subs = {"c103": segs}
+    ok(not judge_font(subs), f"E8 陰性対照（本番の経路）が鳴った: {judge_font(subs)}")
+    ok(judge_font({"c103": [{"text": "船長たちは\U0001F600"}]}), "E8 陽性対照①（書体に無い字＝絵文字）が鳴らない")
+    wrong = lambda ss: S.sub_strip(ss).replace(f'font-family="{S.SUB_FONT}"', 'font-family="Nope"')
+    ok(judge_font(subs, strip=wrong), "E8 陽性対照②（SVG の書体が回の書体でない）が鳴らない")
+    ok(judge_font(subs, css="@font-face{font-family:'Other';}"), "E8 陽性対照③（字幕の層の CSS に書体が無い）が鳴らない")
     if fails:
         print("🔴 selftest:\n  " + "\n  ".join(fails))
         return 1
     print(f"selftest: 検出器 {len(det)}/{len(det)} 鳴った・陰性 静か／折り方 38px と {keep}px で違反なし・c813-1 の実例 ✓"
-          f"／E5 色 陽性3・陰性2 ✓／E6 置き方 陽性1・陰性2 ✓／E7 帯 陽性1・陰性2 ✓")
+          f"／E5 字とフチの色 陽性4・陰性2 ✓／E6 置き方 陽性1・陰性2 ✓／E7 帯 陽性1・陰性2 ✓／E8 書体 陽性3・陰性1 ✓"
+          f"（書体 {S.SUB_FONT}）")
     return 0
 
 

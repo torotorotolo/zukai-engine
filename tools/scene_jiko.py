@@ -924,21 +924,25 @@ def credit_of(cid, spec):
 
 
 def face_css(name, filename):
+    """🆕 2026-09-29（14本目⑥-2）：TTF（けいふぉんと＝手を加えずそのまま置く）も読む。woff2 の出力は前と同じ文字列"""
     b = base64.b64encode((FONTS / filename).read_bytes()).decode()
-    return (f"@font-face{{font-family:'{name}';src:url(data:font/woff2;base64,{b}) "
-            f"format('woff2');font-weight:400;font-display:block;}}")
+    mime, fmt = {".ttf": ("font/ttf", "truetype"), ".otf": ("font/otf", "opentype")}.get(
+        Path(filename).suffix.lower(), ("font/woff2", "woff2"))
+    return (f"@font-face{{font-family:'{name}';src:url(data:{mime};base64,{b}) "
+            f"format('{fmt}');font-weight:400;font-display:block;}}")
 
 
-def page(inner, w=W, h=H):
+def page(inner, w=W, h=H, css=None):
+    """css … 既定は全体の CSS（Dela・Noto・NotoM）。字幕の層は sub_css()（回ごとの書体）を渡す"""
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" '
            f'viewBox="0 0 {w} {h}">{inner}</svg>')
-    return (f'<html><head><meta charset="utf-8"><style>*{{margin:0}}{CSS}'
+    return (f'<html><head><meta charset="utf-8"><style>*{{margin:0}}{CSS if css is None else css}'
             f'body{{width:{w}px;height:{h}px;overflow:hidden}}</style></head>'
             f'<body>{svg}</body></html>')
 
 
 # ── 字幕 ─────────────────────────────────────────────────
-# 黒帯の上・NotoSansJP-Bold・全カット統一（映像ルール1）。帯は y=900〜1080。
+# 黒帯の上・全カット統一（映像ルール1）。帯は y=900〜1080。書体は回ごと（el_script.SUB_FONT・無い回は NotoSansJP-Bold）。
 # 🔴 大きさは**回ごとの設定** el_script.SUB_SIZE（14本目から 56px＝ルール §5a-15b。無い回は 38）。
 #    門番 check_subwrap もこの値で折る（描く大きさと測る大きさが1か所から出る）。フチは大きさに比例＝38px で 7・56px で 10
 SUB_Y, SUB_H = 900, 180
@@ -949,10 +953,25 @@ def _episode_sub_size(default=38):
     return int(getattr(el_script, "SUB_SIZE", default))
 
 
-def _episode_sub_q_color():
-    """聞き役の字幕の色（回ごと＝el_script.SUB_Q_COLOR）。無い回は語りと同じ白。"""
+def _episode_sub_colors():
+    """字幕の字とフチの色（回ごと＝el_script）→ (語りの字, 語りのフチ, 聞き役の字, 聞き役のフチ)。
+    無い回（13本目まで）＝語りは白（J.INK_W）＋黒フチ・聞き役は語りと同じ（SVG の文字列も前と同じ）。
+    🆕 2026-09-29（14本目⑥-2）：語り（まりさ）＝黄＋黒フチ／聞き役（れいむ）＝赤＋白フチ（ルール §5a-15b）"""
     import el_script
-    return getattr(el_script, "SUB_Q_COLOR", None) or J.INK_W
+    a = getattr(el_script, "SUB_COLOR", None) or J.INK_W
+    ae = getattr(el_script, "SUB_EDGE", None) or "#000"
+    q = getattr(el_script, "SUB_Q_COLOR", None) or a
+    qe = getattr(el_script, "SUB_Q_EDGE", None) or ae
+    return a, ae, q, qe
+
+
+def _episode_sub_font():
+    """字幕の書体（回ごと＝el_script.SUB_FONT・fontmetrics.FAMILY_FILE の名前）。無い回は "Noto"（NotoSansJP-Bold）。"""
+    import el_script
+    v = getattr(el_script, "SUB_FONT", "Noto")
+    if v not in fm.FAMILY_FILE:
+        raise SystemExit(f"el_script.SUB_FONT {v!r} は fontmetrics.FAMILY_FILE に無い（{list(fm.FAMILY_FILE)}）")
+    return v
 
 
 def _episode_sub_band():
@@ -966,12 +985,16 @@ def _episode_sub_band():
 
 SUB_SIZE = _episode_sub_size()
 SUB_BAND = _episode_sub_band()
-SUB_STROKE = round(7 * SUB_SIZE / 38)
-# 🔴 2026-09-28（14本目⑤b-1）：聞き役（`who:"q"`）の行だけこの色。語りは J.INK_W（白 #eaf2f6）。
-#    ⚠️ 水色 #8fb6c9 は J.LINE（図の技術線）と**同じ値**＝章の色の置き換え（J.remap）を通すと
-#       赤銅の章で #f2ab95（桃色）・セピアで #dcc497 に化ける → 字幕の層は置き換えない（pal_of_layer の KEEP_COLOR）。
-#       門番＝check_subwrap の E5（焼く直前の SVG の色を全行で測る）
-SUB_Q_COLOR = _episode_sub_q_color()
+SUB_STROKE = round(7 * SUB_SIZE / 38)     # フチの**太さ**（px）。色は下の SUB_EDGE／SUB_Q_EDGE
+# 🔴 2026-09-28（14本目⑤b-1）：聞き役（`who:"q"`）の行だけ色を変える。
+#    ⚠️ 当時の水色 #8fb6c9 は J.LINE（図の技術線）と**同じ値**＝章の色の置き換え（J.remap）を通すと
+#       赤銅の章で #f2ab95（桃色）・セピアで #dcc497 に化けた → 字幕の層は置き換えない（pal_of_layer の KEEP_COLOR）。
+#       門番＝check_subwrap の E5（焼く直前の SVG の字とフチの色を全行で測る）
+# 🆕 2026-09-29（14本目⑥-2）：字とフチの色を話し手ごとに（語り＝SUB_COLOR＋SUB_EDGE・聞き役＝SUB_Q_COLOR＋SUB_Q_EDGE）
+SUB_COLOR, SUB_EDGE, SUB_Q_COLOR, SUB_Q_EDGE = _episode_sub_colors()
+# 🆕 2026-09-29（14本目⑥-2）：字幕の書体（回ごと）。折り（wrap2）もこの書体の字幅で測る＝描く書体と測る書体が1か所から出る。
+#    門番＝check_subwrap の E8（書体に無い字＝豆腐・字幕の層の SVG と CSS に書体が届いているか）
+SUB_FONT = _episode_sub_font()
 SUB_MAXW = 1560          # 字幕1行に許す最大の幅（px）。**実測で折る**
 SUB_ORPHAN = 3           # これ以下の字数の行を折って作らない（check_subwrap の E3 と同じ値）
 XML = {"&": "&amp;", "<": "&lt;", ">": "&gt;"}
@@ -998,7 +1021,7 @@ def wrap2(text):
        どれも無ければ旧式のまま（門番 check_subwrap が止める）。
        ⚠️ 38px の回（13本目まで）は字幕が1枚も2行に折れていない（10・12・13本目の6版 2,652枚で0）＝前の回の絵は変わらない
     """
-    width = lambda s: fm.width(s, SUB_SIZE, "Noto")
+    width = lambda s: fm.width(s, SUB_SIZE, SUB_FONT)     # 🆕 09-29：描く書体の字幅で測る（けいふぉんとは Noto の 0.94〜1.01倍）
     if width(text) <= SUB_MAXW:
         return [text]
     half = width(text) / 2
@@ -1006,7 +1029,7 @@ def wrap2(text):
     hira = lambda c: "ぁ" <= c <= "ゖ"
     cands, punct, edge, plain = [], [], [], []
     for i, ch in enumerate(text):
-        acc += fm.adv(ch, "Noto") * SUB_SIZE
+        acc += fm.adv(ch, SUB_FONT) * SUB_SIZE
         key = (abs(acc - half), i + 1)
         if ch in "、。":
             cands.append(key)
@@ -1070,18 +1093,19 @@ def sub_ys(n, h=SUB_H):
 def sub_row(text, who=None, w=W, h=SUB_H):
     """字幕1枚ぶんの**文字だけ**。1行なら帯の中ほど、2行なら上下に振り分ける（`sub_ys`）。
 
-    who … narration.json の字幕の話し手。`"q"`＝聞き役（`SUB_Q_COLOR`）・それ以外＝語り（白）。
+    who … narration.json の字幕の話し手。`"q"`＝聞き役（`SUB_Q_COLOR`＋フチ `SUB_Q_EDGE`）・それ以外＝語り（`SUB_COLOR`＋`SUB_EDGE`）。
     ⚠️ 帯はここに含めない（`sub_band()` が別に持つ）。太いフチは残す
        ── 帯があっても、明るい写真の上では文字がフチで持っている。
+    🆕 2026-09-29（14本目⑥-2）：書体（SUB_FONT）とフチの色も回ごと。値の無い回は前と同じ文字列（Noto・白・黒フチ）
     """
     lines = wrap2(text)
     ys = sub_ys(len(lines), h)
-    fill = SUB_Q_COLOR if who == "q" else J.INK_W
+    fill, edge = (SUB_Q_COLOR, SUB_Q_EDGE) if who == "q" else (SUB_COLOR, SUB_EDGE)
     g = []
     for t, y in zip(lines, ys):
-        g.append(f'<text x="{w / 2:.0f}" y="{y:.0f}" font-family="Noto" '
+        g.append(f'<text x="{w / 2:.0f}" y="{y:.0f}" font-family="{SUB_FONT}" '
                  f'font-size="{SUB_SIZE}" fill="{fill}" text-anchor="middle" '
-                 f'stroke="#000" stroke-width="{SUB_STROKE}" stroke-linejoin="round" '
+                 f'stroke="{edge}" stroke-width="{SUB_STROKE}" stroke-linejoin="round" '
                  f'paint-order="stroke fill">{esc(t)}</text>')
     return "".join(g)
 
@@ -1967,7 +1991,9 @@ def render_all(force=False, only=None, jobs_workers=4):
     def one(t):
         k, svg, p, w, h = t
         # 🔴 章の色は**ここで1回だけ**置き換える（門番は元の色の SVG を読むので build_layers は触らない）
-        render.png(page(J.remap(svg, pal_of_layer(k)), w, h), p, w, h)
+        # 🆕 2026-09-29（14本目⑥-2）：字幕の層（sub_<cid>）は回ごとの書体の CSS（sub_css）で焼く
+        css = sub_css() if k.startswith("sub_") else None
+        render.png(page(J.remap(svg, pal_of_layer(k)), w, h, css=css), p, w, h)
         done[0] += 1
         if done[0] % 50 == 0:
             print(f"  {done[0]}/{len(todo)}", flush=True)
@@ -1987,6 +2013,22 @@ def ensure_css():
         CSS = (face_css("Dela", "DelaGothicOne.woff2")
                + face_css("Noto", "NotoSansJP-Bold.woff2")
                + face_css("NotoM", "NotoSansJP-Medium.woff2"))
+
+
+SUB_CSS = ""
+
+
+def sub_css():
+    """字幕の層（sub_<cid>）を焼く CSS。書体が全体の CSS にある回（Noto＝13本目まで）は全体の CSS のまま（前と同じ）。
+    🆕 2026-09-29（14本目⑥-2）：けいふぉんと（TTF 4.3MB＝base64 で 5.8MB）は**字幕の層だけ**に入れる
+       ＝ほかの層の HTML を太らせない。門番＝check_subwrap の E8（この CSS に SUB_FONT の @font-face があるか）"""
+    global SUB_CSS
+    ensure_css()
+    if SUB_FONT in ("Dela", "Noto", "NotoM"):
+        return CSS
+    if not SUB_CSS:
+        SUB_CSS = face_css(SUB_FONT, fm.FAMILY_FILE[SUB_FONT])
+    return SUB_CSS
 
 
 def report():

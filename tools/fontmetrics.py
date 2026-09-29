@@ -44,6 +44,10 @@ FAMILY_FILE = {
     "Noto": "NotoSansJP-Bold.woff2",
     "NotoM": "NotoSansJP-Medium.woff2",
     "Black": "NotoSansJP-Black.woff2",
+    # 🆕 2026-09-29（14本目⑥-2）：字幕の書体 けいふぉんと（回ごとの設定 el_script.SUB_FONT）。TTF のまま（手を加えない＝
+    #    fonts/keifont-license/SOURCE.md）。⚠️ _metrics.json（キャッシュ）には入れていない＝fontTools で読めなければ
+    #    adv() が例外で止まる（黙って推定に戻さない）
+    "Kei": "keifont.ttf",
 }
 
 _FONTS = {}
@@ -69,6 +73,10 @@ def _load(family):
     if family in _FONTS:
         return _FONTS[family]
     try:
+        import logging
+        # 🆕 2026-09-29：keifont.ttf は head の作成・更新日時が 0＝fontTools が開くたびに
+        #    「'created' timestamp seems very low」を2行出す（字の寸法とは無関係）。門番の出力に紛れて本物の警告を埋めないよう、この1本だけ黙らせる
+        logging.getLogger("fontTools.ttLib.tables._h_e_a_d").setLevel(logging.ERROR)
         from fontTools.ttLib import TTFont
         ft = TTFont(FONTS / FAMILY_FILE[family], lazy=True)
         upm = ft["head"].unitsPerEm
