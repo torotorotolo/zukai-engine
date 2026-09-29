@@ -155,6 +155,11 @@ def screen_texts(sp):
     #    画面の出典は rec から「PDF N頁」の形に組み直して出る（illu.rec_line）＝「p12」の形は画面に出ない
     skip = ({"rec", "people", "at", "place", "touch", "state", "start", "view"}
             if f and f[0] in ("illu", "illu_pair") else set())
+    # 🔴 2026-09-29（14本目 ⑤b-5）：軸の型（axis）の画面に出ない欄＝記録の頁 rec（画面の出典は src が「PDF N頁」で出す・
+    #    割れる時刻の印は rec から資料の名だけを組む＝axis.doc_names）・部品の種類 k・色の名 c・値 at／a／b／cur（画面には
+    #    axis.label が「1994年4月1日」「8:52」の形で出す）・軸の範囲 span
+    if f and f[0] == "axis":
+        skip = {"rec", "k", "c", "view", "span", "at", "a", "b", "start", "cur", "ticks", "anchor", "fmt"}
     if f:
         def walk(o, where):
             if isinstance(o, dict):

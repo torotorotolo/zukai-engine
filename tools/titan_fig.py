@@ -4996,3 +4996,10 @@ def illu_pair(blocks, lead=""):
 def hull(view, steps, **kw):
     import hull as _h
     return _h.hull(view, steps, **kw)
+
+
+# ── ⑤ 14本目 ⑤b-5（2026-09-29）：軸の型（年表・時間の帯・交信の帯）＝中身は `tools/axis.py`（門番 check_axis）──
+#   `fig=("axis", dict(view="date"|"clock"|"lanes", span=(…, …), ticks=(…), past=[…], steps=[…], note=…, src=…))`
+def axis(view, steps, **kw):
+    import axis as _a
+    return _a.axis(view, steps, **kw)
