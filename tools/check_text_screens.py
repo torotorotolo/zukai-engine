@@ -12,8 +12,13 @@
 ■ 決まり（§5b-79）＝E：文字だけ > 20%／3カット以上続く所がある／種類と図の型の食い違い／PLAN に無いカット（ed01 を除く）
   時間の割合（実測の秒）は参考に出す（決まりはカットの数）
 ■ 陽性対照（`--selftest`・毎回まず回す）
-  ① **15本目の案B**（`ref/ep15/daihon_v2.md` を Vault の数え方で読んだ＝59/190・31%・最長5）で E が出ること
+  ① **15本目の案B**（`ref/ep15/daihon_v2.md` を Vault の数え方で読んだ＝59/192・31%・最長5）を**決まり**で数えると E が出ること
   ② 2割の内でも3カット続けば E  ③ 札の嘘（種類＝図解・図＝panel）で E  ④ 14本目の承認ずみの並び（34/195・最長2）で出ないこと
+  ⑤ 15本目の案B を**この回の承認**で数えると通る ⑥ 承認より1カット多いと E ⑦ 承認の区間の外で3カット続くと E
+■ 🔴 回ごとの例外（2026-09-30 15本目 ⑤b-1）＝`EXCEPTIONS`
+  15本目は決まり（§5b-79＝16本目の ④ から）の前に案B（文字だけ 59/192＝30.7%・続く最長5・3連続以上4か所）で承認ずみ
+  （09-26 カズヤくん・映像方針 §11・ルール §A0b 0b-24）。**承認の数だけ**を許す＝文字だけは59まで・3カット以上続くのは承認の
+  4区間の中だけ（1カットでも増えれば E）。16本目からは例外なし（決まりのまま）。
 使い方： python tools/check_text_screens.py [--selftest] [--ids]
 """
 import re
@@ -27,6 +32,12 @@ sys.stdout.reconfigure(encoding="utf-8")
 TEXT = ("パネル", "決め所", "文字の頁")
 LIMIT, RUN_MAX = 0.20, 2
 REPO = Path(__file__).resolve().parent.parent
+# 🔴 回ごとの例外＝承認ずみの数だけ（増えたら E）。鍵は el_script.SLUG。16本目からは例外なし＝決まり（2割・最長2）
+EXCEPTIONS = {
+    "ep15": dict(max_text=59, runs_ok=("c313〜c316", "c517〜c519", "c821〜c903", "c908〜c912"),
+                 why="15本目は案B（文字だけ 59/192＝30.7%・続く最長5・3連続以上4か所）＝09-26 カズヤくん承認"
+                     "（映像方針 §11・ルール §5b-79・§A0b 0b-24）"),
+}
 
 
 def pic_kinds(s):
@@ -48,8 +59,19 @@ def pic_kinds(s):
     return None
 
 
-def judge(order, plan, spec, secs=None):
-    """order＝台本の順のカットID・plan＝PLAN・spec＝SPEC。戻り＝(E の list, W の list, 数の dict)。"""
+def _inside(span, allowed, pos):
+    """span「cA〜cB」が allowed の区間「cX〜cY」のどれかの中か（pos＝台本の順の位置）。"""
+    a, b = span.split("〜")
+    for x in allowed:
+        lo, hi = x.split("〜")
+        if lo in pos and hi in pos and pos[lo] <= pos[a] and pos[b] <= pos[hi]:
+            return True
+    return False
+
+
+def judge(order, plan, spec, secs=None, exc=None):
+    """order＝台本の順のカットID・plan＝PLAN・spec＝SPEC・exc＝この回の例外（EXCEPTIONS の値）。
+    戻り＝(E の list, W の list, 数の dict)。"""
     E, W = [], []
     kinds = []
     for c in order:
@@ -86,10 +108,19 @@ def judge(order, plan, spec, secs=None):
         runs += 1
         spans.append(f"{kinds[-run][0]}〜{kinds[-1][0]}")
     ratio = tc / n if n else 0.0
-    if ratio > LIMIT:
-        E.append(f"文字だけ {tc}/{n}＝{ratio * 100:.1f}%（2割まで）")
-    if runs:
-        E.append(f"文字だけが3カット以上続く所 {runs} か所：{'・'.join(spans)}（2まで）")
+    if exc:
+        pos = {c: i for i, (c, _) in enumerate(kinds)}
+        if tc > exc["max_text"]:
+            E.append(f"文字だけ {tc}/{n}＝{ratio * 100:.1f}%（この回の承認は {exc['max_text']} まで）")
+        out = [sp for sp in spans if not _inside(sp, exc["runs_ok"], pos)]
+        if out:
+            E.append(f"文字だけが3カット以上続く所が承認の区間の外に {len(out)} か所：{'・'.join(out)}"
+                     f"（承認＝{'・'.join(exc['runs_ok'])}）")
+    else:
+        if ratio > LIMIT:
+            E.append(f"文字だけ {tc}/{n}＝{ratio * 100:.1f}%（2割まで）")
+        if runs:
+            E.append(f"文字だけが3カット以上続く所 {runs} か所：{'・'.join(spans)}（2まで）")
     ts = tot = 0.0
     if secs:
         for c, k in kinds:
@@ -146,9 +177,9 @@ def ep15_plan():
 def selftest():
     ok = True
 
-    def run(name, order, plan, spec, want_e):
+    def run(name, order, plan, spec, want_e, exc=None):
         nonlocal ok
-        E, _, st = judge(order, plan, spec)
+        E, _, st = judge(order, plan, spec, exc=exc)
         got = bool(E)
         ok &= got == want_e
         print(f"  {'OK' if got == want_e else '🔴 NG'} {name}: {'E' if got else '合格'}（{'E' if want_e else '合格'}のはず）"
@@ -158,7 +189,13 @@ def selftest():
         print("  🔴 NG ① 15本目の台本（ref/ep15/daihon_v2.md）が無い＝陽性対照を作れない")
         ok = False
     else:
-        run("① 15本目の案B（Vault の数え方で 31%・最長5）", list(p15), p15, {}, True)
+        run("① 15本目の案B を決まり（2割・最長2）で数える（31%・最長5）", list(p15), p15, {}, True)
+        run("⑤ 15本目の案B をこの回の承認（59・4区間）で数える", list(p15), p15, {}, False, EXCEPTIONS["ep15"])
+        # ⑥ 承認より1カット多い＝文字だけでない最初のカットを1つパネルにする（区間の外で続かない所）
+        p60 = {c: dict(v) for c, v in p15.items()}
+        extra = next(c for c in ("c206", "c407", "c605") if p60[c]["kind"] not in TEXT)
+        p60[extra] = dict(kind="パネル")
+        run(f"⑥ 承認より1カット多い（{extra} をパネルに＝60）", list(p60), p60, {}, True, EXCEPTIONS["ep15"])
     ids = [f"c{i:03d}" for i in range(100, 200)]
     plan = {c: dict(kind="図解") for c in ids}
     for c in ids[10:13]:
@@ -170,6 +207,13 @@ def selftest():
     for c in ids[10:12] + ids[20:22]:
         plan3[c] = dict(kind="決め所")
     run("④ 4%・最長2・札と絵が合う", ids, plan3, {ids[10]: dict(fig=("quote", {})), ids[11]: dict(fig=("quote", {}))}, False)
+    # ⑦ 例外の回でも、承認の区間の外で3カット続けば E（区間の中なら通る）
+    exc7 = dict(max_text=10, runs_ok=(f"{ids[10]}〜{ids[12]}",), why="見本")
+    run("⑦a 承認の区間の中で3カット続く", ids, plan, {}, False, exc7)
+    plan7 = {c: dict(kind="図解") for c in ids}
+    for c in ids[50:53]:
+        plan7[c] = dict(kind="パネル")
+    run("⑦b 承認の区間の外で3カット続く", ids, plan7, {}, True, exc7)
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 
@@ -180,10 +224,14 @@ def main():
     if "--selftest" in sys.argv:
         return 0
     import cuts
+    import el_script
     import scene_jiko as SJ
     secs = dict(SJ.CUTS)
-    E, W, st = judge(list(SJ.ORDER), cuts.PLAN, cuts.SPEC, secs)
-    print(f"\n== 14本目の画面の種類（{st['n']}カット・台本の順）")
+    exc = EXCEPTIONS.get(el_script.SLUG)
+    E, W, st = judge(list(SJ.ORDER), cuts.PLAN, cuts.SPEC, secs, exc)
+    print(f"\n== {el_script.SLUG} の画面の種類（{st['n']}カット・台本の順）")
+    if exc:
+        print(f"  ⚠️ この回の例外：{exc['why']}＝文字だけ {exc['max_text']} まで・3連続以上は {'・'.join(exc['runs_ok'])} の中だけ")
     print("  " + "・".join(f"{k} {st['cnt'][k]}" for k in ("写真", "図・写真の頁", "再現イラスト", "図解", "混ざり",
                                                           "文字の頁", "パネル", "決め所")))
     tm = f"・時間 {st['time'] * 100:.1f}%（実測の秒）" if st["time"] is not None else ""
