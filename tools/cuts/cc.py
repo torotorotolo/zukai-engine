@@ -113,4 +113,36 @@ SPEC = {
                                                rec=["裁決 p2001", "裁決 p2087〜2088"], c="INST")), dict()],
                           note=ss.CAUSE_NOTE, src=ss.src(["裁決 p2001", "裁決 p2003", "裁決 p2087〜2088"]))),
     ),
+
+    # ── 🔴 ⑤b-6（2026-09-29）：箱の型＝`tools/boxes.py`（門番 check_boxes）──
+    # 舵を動かす仕組み（模式）＝海審 p1118 の注60（操舵の電気の信号 → 弁が油の流れを切りかえる → 舵）。
+    #   固着の説は報告書が退けた（p1118 5.3.4〜5.3.5）。部品の形・位置は描かない（役目のつながりだけ）
+    "cc05": dict(
+        t="舵を動かす仕組み",
+        s="2014年の検討",
+        fig=("boxes", dict(view="flow", layout=ss.RUD,
+                           steps=[dict(add=ss.rud("q_valve")), dict(add=[ss.rud("e_elec"), ss.rud("e_oil")]),
+                                  dict(add=ss.rud("c_kmst"))],
+                           note="部品の形と位置は描いていない（役目のつながりだけ）", src=ss.src(["海審 p1118"]))),
+    ),
+
+    # 2022年 特別調査委＝弁の固着が急な右旋回と傾きを起こした可能性は非常に低い（特調委 p3013。PLAN の p3088 は外からの力の頁）
+    "cc12": dict(
+        t="固まった弁の見方",
+        s="国の委員会の調べ",
+        fig=("boxes", dict(view="flow", layout=ss.RUD,
+                           past=[ss.rud("q_valve"), ss.rud("e_elec"), ss.rud("e_oil"), ss.rud("c_kmst")],
+                           steps=[dict(), dict(add=ss.rud("c_sccc"))],
+                           note="部品の形と位置は描いていない（役目のつながりだけ）", src=ss.src(["特調委 p3013"]))),
+    ),
+
+    # 並べ図に3つめ（外からの力？）＝特調委 p3013・特調委小 p4161（外からの衝撃の可能性を打ち消せない・沈んだとは確認されない）。
+    #   c615 の2つは沈めない（同じ形で並べるだけ＝どれかを目立たせない）
+    "cc13": dict(
+        t="船体の傷",
+        s="2022年の報告",
+        fig=("boxes", dict(view="row", slots=3, past=[ss.cause("rudder", keep=True), ss.cause("fault", keep=True)],
+                           steps=[dict(add=ss.cause("outer")), dict(), dict()],
+                           src=ss.src(["特調委 p3013", "特調委小 p4161"]))),
+    ),
 }

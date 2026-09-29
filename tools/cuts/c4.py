@@ -188,4 +188,26 @@ SPEC = {
                           steps=[dict(add=ss.ax("incline", big=True), cur="2013-01-24"), dict(), dict()],
                           note="年表：月の寄り", src=ss.src(["海審 p1016", "海審 p1022", "海審 p1026"]))),
     ),
+
+    # ── 🔴 ⑤b-6（2026-09-29）：量の型（棒）＝`tools/qty.py`（門番 check_qty）。表1（海審 p1018）＝数は字幕だけ ──
+    # 貨物の上限 2437→987（4割ほど＝「改造の後」の行に、改造の前の長さの破線の枠）
+    "c407": dict(
+        t="改造で減ったもの",
+        s="報告書の表1",
+        fig=("qty", dict(view="bar", groups=[ss.QG["cargo"]],
+                         steps=[dict(add=[ss.qb("cargo_before"), ss.qb("cargo_after")]),
+                                dict(add=dict(k="ghost", g="cargo", row="改造の後", v=2437, rec="海審 p1018")),
+                                dict()],
+                         src=ss.src(["海審 p1018"]))),
+    ),
+
+    # 定員 840→956（c407 の貨物の棒を沈めて上に残す＝貨物は減り、人は増えた）
+    "c410": dict(
+        t="改造で増えたもの",
+        s="報告書の表1",
+        fig=("qty", dict(view="bar", groups=[ss.QG["cargo"], ss.QG["pax"]],
+                         past=[ss.qb("cargo_before"), ss.qb("cargo_after")],
+                         steps=[dict(add=[ss.qb("pax_before"), ss.qb("pax_after")])],
+                         src=ss.src(["海審 p1017", "海審 p1018"]))),
+    ),
 }

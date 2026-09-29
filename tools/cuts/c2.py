@@ -119,4 +119,46 @@ SPEC = {
                                  dict(add=ss.ax("japan"), cur="1994-04-01")],
                           note="年表：進水から事故まで", src=ss.src(["海審 p1013", "海審 p1016", "海審 p1008"]))),
     ),
+
+    # ── 🔴 ⑤b-6（2026-09-29）：量の型＝`tools/qty.py`（門番 check_qty）・箱の型＝`tools/boxes.py`（門番 check_boxes）──
+    # 人の形＝1つ＝1人で476（海審 p1038）。🔴 この3カットだけ（ルール §C-1 #59）＝亡くなった方の数には使わない・
+    #   同じ並びを後の章で灰色にしない。3カットとも同じ並び（ss.PEOPLE_ORDER）。数は字幕だけ（凡例は項目名）
+    "c204": dict(
+        t="乗っていた人",
+        s="4月15日 インチョン港",
+        fig=("qty", dict(view="people", order=ss.PEOPLE_ORDER, sets=ss.PEOPLE_SETS,
+                         steps=[dict(add=[ss.pp("乗客", "LINE"), ss.pp("船で働く人", "DOC")]),
+                                dict(add=[ss.pp("生徒", "AMBER", parent="乗客"), ss.pp("先生", "OK", parent="乗客")])],
+                         src=ss.src(["海審 p1038", "海審 p1062"]))),
+    ),
+
+    # 一般の乗客 104（海審 p1038・表8 p1062）。ほかは沈めた色のまま（同じ並び）
+    "c205": dict(
+        t="修学旅行のほかに",
+        fig=("qty", dict(view="people", order=ss.PEOPLE_ORDER, sets=ss.PEOPLE_SETS,
+                         steps=[dict(add=ss.pp("一般の乗客", "LINE")), dict()],
+                         src=ss.src(["海審 p1038", "海審 p1062"]))),
+    ),
+
+    # 船で働く人 33＝船員15・調理と事務の係8・ほか10（海審 p1038〜1039）
+    "c206": dict(
+        t="乗組員の内わけ",
+        fig=("qty", dict(view="people", order=ss.PEOPLE_ORDER, sets=ss.PEOPLE_SETS,
+                         steps=[dict(add=ss.pp("船で働く人", "DOC")),
+                                dict(add=[ss.pp("船員", "INK_W", parent="船で働く人"),
+                                          ss.pp("調理・事務の係", "INST", parent="船で働く人")]),
+                                dict(add=ss.pp("ほか（アルバイトなど）", "OK", parent="船で働く人"))],
+                         src=ss.src(["海審 p1038・p1039"]))),
+    ),
+
+    # 書類の再現図＝欄の名は報告書の文にあるものだけ（海審 p1037「승선인원, 화물량 등이 기재되어 있지 않았다」）。
+    #   空の欄は次の決め所 c209「未記入」の前触れ（欄に値を書かない）。船→運航管理室へ（動かさず矢印で）
+    "c208": dict(
+        t="出港の前の書類",
+        s="4月15日 17時ごろ",
+        fig=("boxes", dict(view="form", form=ss.FORM_PRE,
+                           steps=[dict(add=[dict(k="end", id="ship"), dict(k="paper"), dict(k="edge", fr="ship", to="paper")]),
+                                  dict(add=[dict(k="end", id="office"), dict(k="edge", fr="paper", to="office")])],
+                           note="書類の形は再現（欄の名は報告書の文にあるものだけ）", src=ss.src(["海審 p1037"]))),
+    ),
 }

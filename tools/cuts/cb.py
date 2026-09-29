@@ -63,7 +63,88 @@ PLAN = {
                src='幹部の判決 p5003・p5004'),
 }
 
+# ── 🔴 ⑤b-6（2026-09-29）：裁判の流れ図＝`tools/boxes.py`（門番 check_boxes）。前のカットの箱を沈めて続ける（同じ地図）──
+_TO3 = ["r_mate1", "r_mate2", "r_chief"]
+_CB04 = [ss.ct("r_captain"), ss.ct("x_cap"), ss.ce("r_captain", "x_cap"), ss.ct("o_cap"), ss.ce("x_cap", "o_cap")]
+_CB08 = [ss.ct("r_mate1"), ss.ct("r_mate2"), ss.ct("r_chief"), ss.ct("x_murder"), ss.ce(_TO3, "x_murder", xm=334),
+         ss.ct("o_murder"), ss.ce("x_murder", "o_murder"),
+         ss.ct("x_aband"), ss.ce(_TO3, "x_aband", xm=334), ss.ct("o_aband"), ss.ce("x_aband", "o_aband")]
+_CB09 = [ss.ct("r_mate3"), ss.ct("r_helm"), ss.ct("x_rudder"), ss.ce(["r_mate3", "r_helm"], "x_rudder", xm=334),
+         ss.ct("o_rud2"), ss.ce("x_rudder", "o_rud2"), ss.ct("o_rud3"), ss.ce("o_rud2", "o_rud3")]
+
+
+def _sent(r, s):
+    """役職の箱・刑の箱・点線（刑は大法院の列＝確定した刑）。"""
+    return [ss.ct(r), ss.ct(s), ss.ce(r, s, style="leader")]
+
+
+_CB12A = _sent("r_captain", "s_captain") + _sent("r_mate1", "s_mate1") + _sent("r_chief", "s_chief")
+_CB12B = _sent("r_mate2", "s_mate2") + _sent("r_mate3", "s_mate3") + _sent("r_helm", "s_helm")
+_CB13 = [dict(k="rule", y=698)] + _sent("r_ceo", "s_ceo")
+
 SPEC = {
+
+    # 裁判の地図＝船員15人（役職名だけ・甲板部8／機関部7＝判決 p2〜3）→ 1審→2審→大法院。🔴 人の形・名前を使わない
+    "cb02": dict(
+        t="裁かれた15人",
+        s="船員の裁判",
+        fig=("boxes", dict(view="flow", layout=ss.CT, steps=[dict(add=ss.CREW15)],
+                           note="役職は判決の書き方", src=ss.src(["判決 p2", "判決 p3"]))),
+    ),
+
+    # 船長の殺人・殺人未遂（判決 p18・p21）＝有罪。反対意見はこの部分に無い（判決 p39）＝裁判官13人（p79〜81）の席が全部灯る
+    "cb04": dict(
+        t="大法院の判断",
+        s="船長の殺人の罪",
+        fig=("boxes", dict(view="flow", layout=ss.CT,
+                           steps=[dict(add=[ss.ct("r_captain"), ss.ct("x_cap"), ss.ce("r_captain", "x_cap")]),
+                                  dict(add=[ss.ct("o_cap"), ss.ce("x_cap", "o_cap"), dict(k="seats_on", n=13, rec="判決 p39")])],
+                           src=ss.src(["判決 p18", "判決 p21", "判決 p39", "判決 p79"]))),
+    ),
+
+    # 1等・2等航海士と機関長＝殺人は無罪（判決 p24〜25）・遺棄致死などで有罪（判決 p1）＝罪名の違いを枝で
+    "cb08": dict(
+        t="航海士と機関長",
+        s="罪名で分かれた判断",
+        fig=("boxes", dict(view="flow", layout=ss.CT, past=_CB04,
+                           steps=[dict(add=_CB08[:5]), dict(add=_CB08[5:7]), dict(add=_CB08[7:])],
+                           src=ss.src(["判決 p1", "判決 p24", "判決 p25"]))),
+    ),
+
+    # 舵の過失＝3等航海士と当直の操舵手は2審で無罪（1審の有罪を破棄）・大法院も（判決 p33〜34）
+    "cb09": dict(
+        t="舵を切った過失",
+        s="当直の2人",
+        fig=("boxes", dict(view="flow", layout=ss.CT, past=_CB04 + _CB08,
+                           steps=[dict(add=_CB09[:6]), dict(add=_CB09[6:])],
+                           src=ss.src(["判決 p33", "判決 p34"]))),
+    ),
+
+    # 刑＝2審の主文（船員の2審 p5007）を大法院が上告を退けて確定（判決 p3）。行ごとに役職と刑の組（名前は出さない）
+    "cb12": dict(
+        t="確定した刑",
+        s="2015年11月12日",
+        fig=("boxes", dict(view="flow", layout=ss.CT, steps=[dict(add=_CB12A), dict(add=_CB12B)],
+                           note="刑は2審が言い渡し、大法院で確定", src=ss.src(["船員の2審 p5007", "判決 p3"]))),
+    ),
+
+    # 会社の枝＝代表 懲役7年（民事の判決 N＝ソウル中央地裁 2015가합579799 の表・大法院 2015도7703＝会社の判決 p5005）
+    "cb13": dict(
+        t="会社の裁判",
+        s="船を運航した会社",
+        fig=("boxes", dict(view="flow", layout=ss.CT, past=_CB12A + _CB12B,
+                           steps=[dict(add=_CB13), dict()],
+                           src=ss.src(["会社の判決 p5005"]) + "／ソウル中央地方法院の判決（2020年）の表")),
+    ),
+
+    # 海洋警察の枝＝123艇の艇長 懲役3年（艇長の判決 p5002＝2審・p5001＝大法院で上告を退けた）
+    "cb14": dict(
+        t="海洋警察の裁判",
+        s="現場の責任者",
+        fig=("boxes", dict(view="flow", layout=ss.CT, past=_CB12A + _CB12B + _CB13,
+                           steps=[dict(add=_sent("r_123", "s_123")), dict(), dict()],
+                           src=ss.src(["艇長の判決 p5001", "艇長の判決 p5002"]))),
+    ),
 
     # 用語のパネル（文字のまま残す34カットの1つ＝追補 §5）。⑤b-1 で字幕の試し（聞き役の水色・章の色で化けないか）に先に書いた。
     #   §5b-9＝「不作為」の中身（しなければならないことを、しない）は語りが言う＝図には罪名と判決の出どころだけ。

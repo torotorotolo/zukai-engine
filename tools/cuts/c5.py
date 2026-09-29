@@ -137,4 +137,33 @@ SPEC = {
                           rel=[dict(t="約2.4メートル", src="海審 p1041・p1042（8フィート）")],
                           note=ss.HULL_NOTE, src=ss.src(["海審 p1042・p1043", "海審 p1093"]))),
     ),
+
+    # ── 🔴 ⑤b-6（2026-09-29）：量の型（棒・マス目）＝`tools/qty.py`（門番 check_qty）。数は字幕だけ ──
+    # 積み荷 約2142.7（語りは約2143）と上限 約987（海審 p1041）＝c407 の「改造の後」と同じ尺（次の決め所「2倍超」の前に長さで）
+    "c504": dict(
+        t="事故の日の積み荷",
+        s="4月15日 インチョン港",
+        fig=("qty", dict(view="bar", groups=[ss.QG["load"]],
+                         steps=[dict(), dict(add=ss.qb("load_real")), dict(add=ss.qb("load_limit"))],
+                         src=ss.src(["海審 p1041"]))),
+    ),
+
+    # 承認の組＝貨物 約987 ならバラスト 約1703（海審 p1043）。出港のときの 761.2 は次の決め所 c508（ここに描かない）
+    "c507": dict(
+        t="改造のあとの承認",
+        s="積む量の組み合わせ",
+        fig=("qty", dict(view="bar", groups=[ss.QG["pair"]],
+                         steps=[dict(), dict(add=[ss.qb("pair_cargo"), ss.qb("pair_water")]), dict()],
+                         src=ss.src(["海審 p1043"]))),
+    ),
+
+    # 復原力の判定 9項目のうち合格5（海審 p1080「총9가지의 복원성판정세부기준 중 합격5가지, 불합격4가지」＝出港のときも事故の
+    #   ときも同じ項目）。残り4の✕は c516 で（⑤b-7 が決める）。項目の名は画面に書かない（マスは数だけ）
+    "c515": dict(
+        t="復原力の計算",
+        s="出港のときと事故のとき",
+        fig=("qty", dict(view="grid", n=9, title="判定の項目",
+                         steps=[dict(), dict(), dict(add=dict(k="ok", n=5, rec="海審 p1080"))],
+                         src=ss.src(["海審 p1080"]))),
+    ),
 }
