@@ -95,10 +95,26 @@ def _digits_ok(svg):
 # ══════════════════════════════════════════════════════════
 #  棒
 # ══════════════════════════════════════════════════════════
-def judge_bar(f):
+def judge_bar(f, pal=None):
+    import jiko_style as J
+    from check_color import de
     svg = f.lab + "".join(f.stages)
-    els = _els(svg)
+    els = _els(J.remap(svg, pal) if pal else svg)
     bad, n = [], 0
+    # ⑪ 同じ群の灯した棒どうしの色（章の色に置き換えたあと）＝前と後を取り違えない距離（§5b-94①）。
+    #    ⑤b-6 の下見で「改造の前」TICK と「改造の後」LINE が紺の地でほぼ同じ色に見えた（ΔE 約8）
+    dim = (J.palette(pal)["LINE_DIM"] if pal else J.LINE_DIM).lower()
+    lit = {}
+    for e in els:
+        kq = e["q"].split("|")
+        if kq[0] == "bar" and e["a"].get("stroke", "").lower() != dim:
+            lit.setdefault(kq[1], []).append((kq[2], e["a"]["stroke"].lower()))
+    for gid, bs in lit.items():
+        for i, (ta, ca) in enumerate(bs):
+            for tb, cb in bs[i + 1:]:
+                n += 1
+                if de(ca, cb) < DE_MIN:
+                    bad.append(f"群 {gid} の棒「{ta}」{ca} と「{tb}」{cb} の色が近い（ΔE {de(ca, cb):.1f}＜{DE_MIN}）＝前と後を取り違える")
     title = {e["q"].split("|")[1]: _unesc(e["text"]) for e in els if e["q"].startswith("gt|")}
     rlab = {tuple(e["q"].split("|")[1:3]): _unesc(e["text"]) for e in els if e["q"].startswith("rlab|")}
     fit = {}
@@ -282,7 +298,7 @@ def judge(cid, kw, pal=None):
     f = Q.qty(**kw)
     v = kw["view"]
     if v == "bar":
-        return judge_bar(f)
+        return judge_bar(f, pal)
     if v == "grid":
         return judge_grid(f)
     return judge_people(f, cid, pal)
@@ -323,6 +339,8 @@ def selftest():
         dict(bar, steps=[dict(add=[qb("cargo_before", v=2400), qb("cargo_after")])]), False)
     run("🔴 陽性対照：棒の頁が違う（海審 p1017）", "c407",
         dict(bar, steps=[dict(add=[qb("cargo_before", rec="海審 p1017"), qb("cargo_after")])]), False)
+    run("🔴 陽性対照：前と後の棒がほぼ同じ色（TICK と LINE＝⑤b-6 の最初の版）", "c407",
+        dict(bar, steps=[dict(add=[qb("cargo_before", c="TICK"), qb("cargo_after", c="LINE")])]), False, pal=None)
     run("🔴 陽性対照：棒の名が記録に無い（改造中）", "c407",
         dict(bar, steps=[dict(add=[qb("cargo_before", t="改造中"), qb("cargo_after")])]), False)
     run("🔴 陽性対照：✓ が4つ", "c515", dict(grid, steps=[dict(add=dict(k="ok", n=4, rec="海審 p1080"))]), False)
