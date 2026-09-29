@@ -1181,9 +1181,53 @@ def ep13():
         bake(f"ep13_{nm}", fx_type(hero[nm.rsplit('_', 1)[1]], red, YEL, "e_veil", yel_plain=True))
 
 
+EP14_JACKETS = "ep14/lifejackets_2017.jpg"   # Mathew Schwartz／CC BY 3.0：ソウルの集会の救命胴衣の列（2017-01）
+EP14_SHIP = "ep14/sewol_incheon.jpg"         # jinjoo2713／PD：沈む20日前、仁川港のセウォル号（2014-03-27・900px）
+
+
+def ep14():
+    """14本目・セウォル号（2026-09-29・⑥）1巡目。
+
+    🔴 地に使えるのは ②③ で選んだ候補（ref/ep14/materials.md §8）のうち手元にある2点だけ：
+       jackets … T1 救命胴衣の列（CC BY 3.0＝文字の重ねが可・**改変の表示**を概要欄に）。
+                 ⚠️ 上 57.5% に集会の人の顔（`ss.PRIVATE_OUT`）＝本編と同じ `trim`（下 40%）で切る＝§B5-4
+       ship    … T6 仁川港のセウォル号（PD）。船首の「SEWOL」が読める。900px＝1.42倍に引き伸ばす
+       ✕ 当日の沈む船（H1）は引用だけ＝サムネ不可／捜索・なみのうえ・木浦の船体は BY-SA＝サムネ不可
+       ✕ T2b 現場の周り（site_0418・PD）は船が小さく霞む＝210px で読めない（⑥で縮小を見た）
+    🔴 赤は §B5-5「犠牲N人＋この回だけの核心」。「死亡」は使わない。どちらも本編の言い方から：
+       meirei … 「退船命令は出ず」＝c104 の決め所「退船の命令は、一度も出なかった」（判決）
+       taiki  … 「待機の放送だけ」＝c706 の決め所「船長が指示したのは『待機』の放送だけ」（判決）
+    黄は日本で通っている呼び名＋「の真相」（§B5-1・§B4-4）。
+    ⚠️ 字数は空白を含めて数える（「犠牲304人 退船の命令は出ず」「…最後まで待機放送」は15字＝型の10〜14字を超えた）
+    """
+    RED = {
+        "a_meirei_jackets": "犠牲304人 退船命令は出ず",     # 14字
+        "b_taiki_jackets": "犠牲304人 待機の放送だけ",      # 13字
+        "c_meirei_ship": "犠牲304人 退船命令は出ず",        # 14字
+        "d_taiki_ship": "犠牲304人 待機の放送だけ",         # 13字
+    }
+    YEL = "セウォル号沈没の真相"    # 10字
+
+    for nm, red in RED.items():
+        for bad in ("死亡", "ﾀﾋ", "下着", "孟骨", "潜水艦"):
+            if bad in red:
+                raise SystemExit(f"🔴 {nm} の赤に使ってはいけない語「{bad}」がある: {red}")
+        if not (10 <= len(red) <= 14):
+            raise SystemExit(f"🔴 {nm} の赤が {len(red)}字（型は10〜14字）: {red}")
+
+    jackets = photo(EP14_JACKETS, cy=0.50, cx=0.50, contrast=1.10, color=1.05, bright=1.00,
+                    trim=(0.0, 0.6, 1.0, 1.0))
+    ship = photo(EP14_SHIP, cy=0.50, cx=0.50, contrast=1.10, color=1.05, bright=1.00)
+    hero = {"jackets": jackets, "ship": ship}
+    for nm, red in RED.items():
+        bake(f"ep14_{nm}", fx_type(hero[nm.rsplit('_', 1)[1]], red, YEL, "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep13" in sys.argv:
+    if "ep14" in sys.argv:
+        ep14()
+    elif "ep13" in sys.argv:
         ep13()
     elif "ep12" in sys.argv:
         ep12()
