@@ -456,15 +456,41 @@ MAP_LAB = {"wide": dict(_l1=dict(lat=36.9, lon=125.35), _r1=dict(lat=35.2, lon=1
            "near": dict(_l1=dict(lat=34.19, lon=125.875), _r1=dict(lat=34.137, lon=126.035))}
 
 
-def sewol_map(which, steps, rel=None, note=None, recs=None, dial=None, places=None):
+def sewol_map(which, steps, rel=None, note=None, recs=None, dial=None, places=None, drop=()):
     """14本目の地図（drift）。which＝wide（インチョン〜チェジュ）／local（メンゴル水道のまわり）／near（ピョンプンドの寄り）。
-    places＝その見え方の地点に足す地点（⑤b-7a の cc09＝モッポ）。"""
+    places＝その見え方の地点に足す地点（⑤b-7a の cc09＝モッポ）。
+    drop＝その見え方の地点から外す地点の名（🆕 ⑤b-7b：cc09 はチンドとモッポが約45画素しか離れず、チンドの札がモッポの輪に・
+          モッポの札がチンドの印に潜った＝⑤b-7a の試し焼きを原寸で見て見つけた。語りはチンドを使わない＝外す）。"""
     m = MAP_VIEWS[which]
     pts = dict(MAP_PTS, **MAP_LAB[which])
-    return ("drift", dict(view=m["view"], places=list(m["places"]) + list(places or []), pts=pts,
+    base = [p for p in m["places"] if (p if isinstance(p, str) else p["k"]) not in set(drop)]
+    return ("drift", dict(view=m["view"], places=base + list(places or []), pts=pts,
                           rel=list(m["rel"]) + list(rel or []),
                           steps=steps, note=note or m["note"], src=src(recs or ["海審 p1065"]), scale_km=m["scale_km"],
                           grid=m["grid"], dial=dial))
+
+
+# 🆕 ⑤b-7b（2026-09-29）：2つの問い（c105 の型）を戻すカット（c616・cc01・cc16）。絵は c105 と同じ＝左は A の傾く船・
+#   右は D の123艇（同じ画面で問いを覚えてもらう＝c108）。🔴 「灯す」＝その問いの絵を語りの行で動かす（型に薄める引数は無い）
+Q1_TILT = dict(state=dict(heel=30.0), rec="判決 p12・海審 p1056（約30度）", delay=0.6, dur=1.5)
+Q2_BOARD = dict(board=8, gap=0.3, rec="判決 p18（123艇に乗った）")
+
+
+def q_pair(n, left, right, lv="", rv=""):
+    """n＝台本の行の数。left／right＝(出る段, 絵の段の list＝n 個)。lv／rv＝問いの下の小さな字（12字未満＝check_echo）。
+    左の絵は傾いたまま始める（heel 30）か、段で傾ける（Q1_TILT）。右の絵は8人の影が段で123艇へ（Q2_BOARD）。"""
+    (ls, lsteps), (rs, rsteps) = left, right
+    lstart = {} if any(st.get("state", {}).get("heel") for st in lsteps) else dict(heel=30.0)
+    lrec = {} if lstart == {} else dict(rec="判決 p12・海審 p1056（約30度）")
+    # 🔴 8人の影は「123艇へ乗り移る段（board）」があるときだけ描かれる＝乗り移らない絵に人を宣言すると門番 check_illu ③ が
+    #    「描いた数 0 ≠ 宣言 8」で止める（⑤b-7b の cc01）＝乗り移らない右の絵は人を描かない（宣言もしない）
+    ppl = (dict(people=dict(crew=(8, "判決 p11（操舵室に集まった甲板部の8人）")))
+           if any(st.get("board") for st in rsteps) else {})
+    return ("illu_pair", dict(blocks=[
+        dict(k="問い1", t="なぜ傾いたか", v=lv, stage=ls, stages=n,
+             scene=dict(place="A", at="8:50", start=lstart, steps=lsteps, **lrec)),
+        dict(k="問い2", t="なぜ助からなかったか", v=rv, stage=rs, stages=n,
+             scene=dict(place="D", at="9:46", start=dict(heel=61.2), rec="判決 p18・海審 p1057", steps=rsteps, **ppl))]))
 
 
 # ══════════════════════════════════════════════════════════
