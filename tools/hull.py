@@ -323,8 +323,9 @@ def _front_ship(V, st, heel, pre="", full=True):
 
 def _front_parts(V, st):
     parts = _front_ship(V, st, st["heel"])
-    x0, y0, x1, y1 = VIEWS["front"]["clip"][0], V.piv[1], VIEWS["front"]["clip"][2], CLIP[3]
-    parts.append(_P("sea", "poly", [[x0, y0], [x1, y0], [x1, y1], [x0, y1]], fill="LINE", alpha=0.22, top=True))
+    # 🔴 半透明の海の面を船の上に重ねない（⑤b-4 の試し焼き）：動く部品は1枚の板に順に描く＝半透明の面は下の船の画素を
+    #    **混ぜずに上書き**する（PIL の ImageDraw）＝水の下の船体が消えて、船が水面に乗って見えた。海は基図（船の下）と水面の線だけ
+    x0, y0, x1 = VIEWS["front"]["clip"][0], V.piv[1], VIEWS["front"]["clip"][2]
     parts.append(_P("wl", "line", [[x0, y0], [x1, y0]], stroke="LINE", w=3, top=True))
     r = 250.0
     a0, a1 = -90.0, -90.0 + float(st["heel"])
@@ -362,8 +363,6 @@ def _pair_parts(v, st):
         parts.append(_P(pre + "force", "line", arc, stroke="AMBER", w=7, head=22, alpha=on(st["force"] == "on"),
                         top=True))
         x0, x1 = V.piv[0] - 300, V.piv[0] + 300
-        parts.append(_P(pre + "sea", "poly", [[x0, V.piv[1]], [x1, V.piv[1]], [x1, CLIP[3]], [x0, CLIP[3]]],
-                        fill="LINE", alpha=0.22, top=True))
         parts.append(_P(pre + "wl", "line", [[x0, V.piv[1]], [x1, V.piv[1]]], stroke="LINE", w=3, top=True))
     return parts
 
@@ -414,7 +413,9 @@ def _clip_open(view, box=None):
 
 def _side_base(view, V):
     s = V.s
-    g = [_clip_open(view)]
+    # 船体の下の寄り（hold）は3階より上を切り落とす（⑤b-4 の試し焼き：左上の見る向きの札が3階の窓の列と重なった）
+    box = (CLIP[0], max(CLIP[1], V.p(0, B_Y + 0.6)[1]), CLIP[2], CLIP[3]) if view == "hold" else None
+    g = [_clip_open(view, box)]
     ywl = V.p(0, DRAFT)[1]
     g.append(F.rect(CLIP[0], ywl, CLIP[2] - CLIP[0], CLIP[3] - ywl, J.GRID, op=0.75))
     g.append(F.poly([V.p(*q) for q in HULL_SIDE], J.BG2, None, close=True, op=0.6))
@@ -534,8 +535,9 @@ TAG_AT = {
     "hold": {"t1": (160, 290, "start", 700), "t2": (160, 350, "start", 700), "t3": (1000, 290, "start", 800),
              "t4": (1000, 350, "start", 800)},
     "front": {f"row{i}": (1170, 330 + 110 * i, "start", 660) for i in range(5)},
+    # 重心の札は船の外（船の絵は動く部品＝札の層の上に描かれる＝船の中に置くと札が隠れた＝⑤b-4 の試し焼き）
     "pair": {"lh": (500, 835, "middle", 520), "rh": (1240, 835, "middle", 520), "top": (870, 290, "middle", 700),
-             "gl": (524, 555, "start", 200), "gr": (1268, 518, "start", 300)},
+             "gl": (330, 470, "end", 240), "gr": (1410, 440, "start", 300)},
     "port": {f"row{i}": (1250, 330 + 105 * i, "start", 580) for i in range(5)},
 }
 
@@ -640,8 +642,8 @@ def _stage_svgs(view, V, steps, cap=34):
                 x, y, anchor, mw = pre[at] if isinstance(at, str) else (tuple(at) if len(at) == 4
                                                                         else (at[0], at[1], "start", 420))
             c = tg.get("cap", cap)
-            if tg.get("to"):
-                tx, ty = V.p(*tg["to"])
+            if tg.get("to") or tg.get("to_px"):
+                tx, ty = tg["to_px"] if tg.get("to_px") else V.p(*tg["to"])
                 s.append(F.line(x, y + 8, tx, ty, J.AMBER, 2))
             s.append(F.txtfit(x, y, tg["t"], mw, cap=c, col=tg.get("col", J.AMBER), anchor=anchor))
             texts.append(tg["t"])
