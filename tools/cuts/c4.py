@@ -138,9 +138,9 @@ SPEC = {
         s="積み荷と重しの水",
         fig=("hull", dict(view="hold", start=dict(cargo="load", ballast="before"),
                           steps=[dict(state=dict(cargo="less", ballast="req", arrows="on"),
-                                      tag=[dict(m=(46.5, 18.2), t="荷を減らす"),
+                                      tag=[dict(m=(46.5, 17.2), t="荷を減らす"),
                                            dict(m=(46.5, -3.0), t="底のタンクに水を足す")]),
-                                 dict(tag=dict(m=(62.0, 18.2), t="改造のあとの積み方"))],
+                                 dict(tag=dict(m=(62.0, 17.2), t="改造のあとの積み方"))],
                           note=ss.HULL_NOTE + "。荷と水の量は表の値の比", src=ss.src(["海審 p1017・p1018"]))),
     ),
 

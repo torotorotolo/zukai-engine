@@ -121,7 +121,7 @@ SPEC = {
         s="出港のときのまま",
         fig=("hull", dict(view="hold", start=dict(cargo="load", ballast="low"),
                           steps=[dict(tag=dict(m=(22.0, -3.0), t="底のタンクの水（容量の約3割）", to=(30.0, 0.3))),
-                                 dict(state=dict(run="on"), tag=dict(m=(62.0, 18.2), t="そのまま走らせ続けた"))],
+                                 dict(state=dict(run="on"), tag=dict(m=(62.0, 17.2), t="そのまま走らせ続けた"))],
                           note=ss.HULL_NOTE + "。水の量は表7の値の比", src=ss.src(["海審 p1043・p1044"]))),
     ),
 
