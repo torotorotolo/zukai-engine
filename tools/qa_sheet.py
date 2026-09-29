@@ -110,8 +110,10 @@ def cuts_of(src, extra=()):
 
 
 def card_cut_name(fname):
-    """章の扉 `card_c201.png` → `cut_c200card.jpg`（名前順で章の頭 c201 の前に来る）。扉でなければ None。"""
-    m = re.fullmatch(r"card_c(\d+)01\.png", fname)
+    """章の扉 `card_c201.png` → `cut_c200card.jpg`（名前順で章の頭 c201 の前に来る）。扉でなければ None。
+    🔴 2026-09-29（14本目 ⑤b-7b）：13章の回は第10〜13章が `ca`〜`cd`（章の字が16進）＝`\\d` だけだと扉4枚が黙って漏れた
+       （シート 34枚＝扉 8枚。全数のはずが欠ける）→ 章の字を 0-9・a-f に。`cut_ca00card` は名前順で `cut_ca01` の前に来る"""
+    m = re.fullmatch(r"card_c([0-9a-f])01\.png", fname)
     return f"cut_c{m.group(1)}00card.jpg" if m else None
 
 
