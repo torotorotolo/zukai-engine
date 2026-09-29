@@ -1,0 +1,12 @@
+メタ: meta_ep14.json
+接続先: 仕事帰りの事故調査ノート（@shigotogaeri／動画13本）
+動画: titan_audio-ep14-r02.mp4（124.7 MB）
+題　: 9時50分、最後の放送も船内で待つよう告げた。船長たちはその数分前、船員だと名乗らずに警備艇へ移っていた。高校生250人を含む304人が犠牲になったセウォル号沈没事故の真相【事故検証】【ゆっくり解説】
+非公開で上げる（予約はあとで `schedule`）
+  6%  13%  20%  26%  33%  40%  47%  53%  60%  67%  73%  80%  87%  94%
+上がった: https://youtu.be/WqhSTqWvqAc
+管理　　: https://studio.youtube.com/video/WqhSTqWvqAc/edit
+サムネを貼った: ep14ai_a_meirei.png
+
+次: python tools/upload_jiko.py status WqhSTqWvqAc
+exit=0
