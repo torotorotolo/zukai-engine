@@ -160,6 +160,13 @@ def screen_texts(sp):
     #    axis.label が「1994年4月1日」「8:52」の形で出す）・軸の範囲 span
     if f and f[0] == "axis":
         skip = {"rec", "k", "c", "view", "span", "at", "a", "b", "start", "cur", "ticks", "anchor", "fmt"}
+    # 🔴 2026-09-29（14本目 ⑤b-6）：量の型（qty）・箱の型（boxes）の画面に出ない欄＝記録の頁 rec・部品の種類 k・色の名 c・
+    #    群の id g・値 v（棒の長さ＝数字は画面に書かない）・目盛り ticks（画面には数だけ）・並び order（区分の名と人数）・
+    #    まとめ sets・親 parent・行 row／rows・列 col・置き場 x／y／pos・つながり fr／to・id・線の種類 style・層 layout の座標
+    if f and f[0] in ("qty", "boxes"):
+        skip = {"rec", "k", "c", "g", "v", "id", "view", "ticks", "order", "sets", "parent", "row", "rows", "col",
+                "x", "y", "pos", "fr", "to", "style", "keep", "n", "cols", "head_y", "guide_y", "bounds", "chain",
+                "grp", "over", "at", "dy", "xm", "slots", "values", "kind"}
     if f:
         def walk(o, where):
             if isinstance(o, dict):

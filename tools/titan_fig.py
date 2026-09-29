@@ -5003,3 +5003,16 @@ def hull(view, steps, **kw):
 def axis(view, steps, **kw):
     import axis as _a
     return _a.axis(view, steps, **kw)
+
+
+# ── ⑥ 14本目 ⑤b-6（2026-09-29）：量の型（棒・マス目・人の形）＝`tools/qty.py`（門番 check_qty）・
+#      箱の型（流れ図・書類の再現図・並べ図）＝`tools/boxes.py`（門番 check_boxes）──
+#   `fig=("qty", dict(view="bar"|"grid"|"people", steps=[…], …))`・`fig=("boxes", dict(view="flow"|"form"|"row", steps=[…], …))`
+def qty(view, steps, **kw):
+    import qty as _q
+    return _q.qty(view, steps, **kw)
+
+
+def boxes(view, steps, **kw):
+    import boxes as _b
+    return _b.boxes(view, steps, **kw)

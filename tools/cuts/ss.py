@@ -439,3 +439,174 @@ def sewol_map(which, steps, rel=None, note=None, recs=None, dial=None):
     return ("drift", dict(view=m["view"], places=m["places"], pts=pts, rel=list(m["rel"]) + list(rel or []),
                           steps=steps, note=note or m["note"], src=src(recs or ["海審 p1065"]), scale_km=m["scale_km"],
                           grid=m["grid"], dial=dial))
+
+
+# ══════════════════════════════════════════════════════════
+#  14本目 ⑤b-6（2026-09-29）：量の型（`tools/qty.py`・門番 check_qty）と箱の型（`tools/boxes.py`・門番 check_boxes）
+# ══════════════════════════════════════════════════════════
+# 🔴 §0b（題材を替えるとき空にする場所）：下の QG・QB・PEOPLE_*・CT・CTP・RUD・FORM_PRE・CAUSE はこの回の記録（値と頁）。
+#    記録の値は門番の側にも別に持つ（check_qty.REC_*／check_boxes.REC_*＝§5b-88）＝回を替えたら両方を替える。
+#    頁は ref/ep14/src/sewol_pages.txt で当てた（2026-09-29 ⑤b-6）
+# 棒の群（尺は 0 から・項目名に単位）。数字は棒に書かない（§5b-9＝数は字幕）
+QG = {
+    "cargo": dict(id="cargo", t="積める貨物の上限（トン）", ticks=(0, 500, 1000, 1500, 2000, 2500)),
+    "pax": dict(id="pax", t="乗せられる人の数（人）", ticks=(0, 200, 400, 600, 800, 1000)),
+    "load": dict(id="load", t="貨物の重さ（トン）", ticks=(0, 500, 1000, 1500, 2000, 2500), rows=("上限", "積み荷")),
+    "pair": dict(id="pair", t="重さ（トン）", ticks=(0, 500, 1000, 1500, 2000, 2500)),
+}
+QB = {
+    # 表1（海審 p1018）：화물적재최대량 2,437톤→987톤・최대승선인원 840명→956명。
+    #   色＝改造の前 LINE・改造の後 AMBER（下見で TICK と LINE がほぼ同じ色に見えた）。987 は第5章まで同じ AMBER で戻す
+    "cargo_before": dict(k="bar", g="cargo", t="改造の前", v=2437, rec="海審 p1018"),
+    "cargo_after": dict(k="bar", g="cargo", t="改造の後", v=987, rec="海審 p1018", c="AMBER"),
+    "pax_before": dict(k="bar", g="pax", t="改造の前", v=840, rec="海審 p1018"),
+    "pax_after": dict(k="bar", g="pax", t="改造の後", v=956, rec="海審 p1018", c="AMBER"),
+    # p1041 3.1.4.1：최대 약987톤 적재 승인・사고당시 약2,142.7톤（語りは「約2143トン」）＝積みすぎは会社の選んだ危ないほう＝赤
+    "load_limit": dict(k="bar", g="load", t="上限", v=987, rec="海審 p1041", c="AMBER"),
+    "load_real": dict(k="bar", g="load", t="積み荷", v=2142.7, rec="海審 p1041", c="ALERT"),
+    # p1043 3.1.5.1：화물 약987톤 실을 경우 선박평형수는 약1,703톤（出港のときの 761.2 は決め所 c508）
+    "pair_cargo": dict(k="bar", g="pair", t="貨物", v=987, rec="海審 p1043", c="AMBER"),
+    "pair_water": dict(k="bar", g="pair", t="バラスト", v=1703, rec="海審 p1043"),
+}
+
+
+def qb(name, **kw):
+    return dict(QB[name], **kw)
+
+
+# 人の形（1つ＝1人・c204〜c206 だけ＝ルール §C-1 #59）。並び＝この順に左上から（3カットとも同じ並び）
+#   海審 p1038：총승선인원 476명・여객 443명（학생 325・교사 14・일반승객 104）・선원및승무원 33명
+#   （선박운항 선원 15・지원부서 선원 8〈조리장・사무장〉・아르바이트 학생・가수・불꽃놀이 직원 등 기타 승무원 10＝p1039 に続く）
+PEOPLE_ORDER = (("生徒", 325), ("先生", 14), ("一般の乗客", 104), ("船員", 15), ("調理・事務の係", 8),
+                ("ほか（アルバイトなど）", 10))
+PEOPLE_SETS = {"乗客": ("生徒", "先生", "一般の乗客"), "船で働く人": ("船員", "調理・事務の係", "ほか（アルバイトなど）")}
+PEOPLE_REC = {"乗客": "海審 p1038", "生徒": "海審 p1038", "先生": "海審 p1038", "一般の乗客": "海審 p1038",
+              "船で働く人": "海審 p1038", "船員": "海審 p1038", "調理・事務の係": "海審 p1038",
+              "ほか（アルバイトなど）": "海審 p1038・p1039"}
+PEOPLE_CUTS = ("c204", "c205", "c206")     # 🔴 門番 check_qty がこの外の人の形を止める（亡くなった方の数に使わない）
+
+
+def pp(who, c, parent=None):
+    """人の形の部品（who の形を c の色に灯して凡例に1行）。"""
+    return dict(k="lit", who=who, c=c, rec=PEOPLE_REC[who], **({"parent": parent} if parent else {}))
+
+
+# 裁判の流れ図（第11章）。🔴 役職名だけ（判決 p2〜3 の書き方）・名前を出さない・人の形を使わない・赤を使わない
+#   列＝役職（who）・罪名（crime）・1審・2審・大法院。結果は決めた裁判所の列に（刑は大法院の列＝上告を退けて確定）
+CT = dict(
+    cols=dict(who=(84, 304), crime=(364, 604), c1=(680, 960), c2=(1040, 1320), c3=(1400, 1760)),
+    heads=[dict(id="c1", t="1審", col="c1", rec="船員の1審 p5006"), dict(id="c2", t="2審", col="c2", rec="船員の2審 p5007"),
+           dict(id="c3", t="大法院", col="c3", rec="判決 p1")],
+    head_y=(232, 292), chain=True,
+    # 裁判官13人＝대법원장 1＋대법관 12（判決 p79〜81 の署名）
+    seats=dict(col="c3", n=13, y=306, t="裁判官", rec=["判決 p79", "判決 p80", "判決 p81"]),
+    bounds=(642, 1000, 1360), guide_y=(346, 850),
+    rows={"船長": 392, "1等航海士": 444, "2等航海士": 496, "機関長": 548, "3等航海士": 600, "操舵手（当直）": 652,
+          "会社の代表": 744, "123艇の艇長": 796},
+)
+
+
+def _cr(i, t, row, rec="判決 p2"):
+    return dict(k="role", id=i, t=t, row=row, rec=rec)
+
+
+CTP = {
+    # 役職（判決 p2〜3：피고인1 선장・2 1등항해사・3 2등항해사・4 3등항해사・5 조타수・9 기관장）
+    "r_captain": _cr("r_captain", "船長", "船長"),
+    "r_mate1": _cr("r_mate1", "1等航海士", "1等航海士"),
+    "r_mate2": _cr("r_mate2", "2等航海士", "2等航海士"),
+    "r_chief": _cr("r_chief", "機関長", "機関長"),
+    "r_mate3": _cr("r_mate3", "3等航海士", "3等航海士"),
+    # 当直の操舵手＝피고인5（判決 p33「피고인5가 피고인4의 지시에 따라 … 변침」）
+    "r_helm": _cr("r_helm", "操舵手（当直）", "操舵手（当直）", ["判決 p2", "判決 p33"]),
+    # 会社の代表の刑は p5005 に無い＝民事の判決 N（2015가합579799）の表（台本 §G6-10）
+    "r_ceo": _cr("r_ceo", "会社の代表", "会社の代表", ["会社の判決 p5005", "民事の判決 N"]),
+    "r_123": _cr("r_123", "123艇の艇長", "123艇の艇長", ["艇長の判決 p5001", "艇長の判決 p5002"]),
+    # 罪名（箱の中の文字）
+    "x_cap": dict(k="crime", id="x_cap", t="殺人・殺人未遂", row="船長", rec=["判決 p18", "判決 p21"]),
+    "x_murder": dict(k="crime", id="x_murder", t="殺人", y=470, rec="判決 p24"),
+    "x_aband": dict(k="crime", id="x_aband", t="遺棄致死など", y=522, rec="判決 p1"),
+    "x_rudder": dict(k="crime", id="x_rudder", t="舵の過失", rows=("3等航海士", "操舵手（当直）"), rec="判決 p33"),
+    # 結果（判決 p39：船長の殺人の有罪は反対意見なし・p24〜25：航海士と機関長に殺人の故意は認めにくい・
+    #   p1：遺棄致死・p34：2審が1審の有罪を破棄して無罪・大法院も）
+    "o_cap": dict(k="res", id="o_cap", t="有罪", col="c3", row="船長", rec="判決 p39"),
+    "o_murder": dict(k="res", id="o_murder", t="無罪", col="c3", y=470, rec="判決 p24"),
+    "o_aband": dict(k="res", id="o_aband", t="有罪", col="c3", y=522, rec="判決 p1"),
+    "o_rud2": dict(k="res", id="o_rud2", t="無罪", col="c2", rows=("3等航海士", "操舵手（当直）"), rec="判決 p34"),
+    "o_rud3": dict(k="res", id="o_rud3", t="無罪", col="c3", rows=("3等航海士", "操舵手（当直）"), rec="判決 p34"),
+    # 刑（船員の2審 p5007 の主文：피고인1 무기징역・2 징역12년・3 징역7년・4,5 각 징역5년・9 징역10년＝大法院で確定）
+    "s_captain": dict(k="res", id="s_captain", t="無期懲役", col="c3", row="船長", rec="船員の2審 p5007"),
+    "s_mate1": dict(k="res", id="s_mate1", t="懲役12年", col="c3", row="1等航海士", rec="船員の2審 p5007"),
+    "s_mate2": dict(k="res", id="s_mate2", t="懲役7年", col="c3", row="2等航海士", rec="船員の2審 p5007"),
+    "s_chief": dict(k="res", id="s_chief", t="懲役10年", col="c3", row="機関長", rec="船員の2審 p5007"),
+    "s_mate3": dict(k="res", id="s_mate3", t="懲役5年", col="c3", row="3等航海士", rec="船員の2審 p5007"),
+    "s_helm": dict(k="res", id="s_helm", t="懲役5年", col="c3", row="操舵手（当直）", rec="船員の2審 p5007"),
+    "s_ceo": dict(k="res", id="s_ceo", t="懲役7年", col="c3", row="会社の代表", rec="民事の判決 N"),
+    # 艇長＝2審（p5002）「피고인을 징역3년에 처한다」→ 大法院（p5001）「상고를 모두 기각한다」
+    "s_123": dict(k="res", id="s_123", t="懲役3年", col="c3", row="123艇の艇長", rec="艇長の判決 p5002"),
+}
+
+
+def ct(name, **kw):
+    return dict(CTP[name], **kw)
+
+
+def ce(fr, to, **kw):
+    """流れ図の矢印（fr・to は部品の id か id の list）。"""
+    return dict(k="edge", fr=fr, to=to, **kw)
+
+
+# cb02 の船員15人（判決 p2〜3 の順を 甲板部 8・機関部 7 に分けて2列に＝役職名だけ）
+CREW15 = [dict(k="grp", t="甲板部", x=84, y=372)]
+for _i, (_t, _y, _c) in enumerate([("船長", 412, "who"), ("1等航海士", 412, "crime"), ("2等航海士", 460, "who"),
+                                   ("3等航海士", 460, "crime"), ("操舵手（当直）", 508, "who"), ("航海士", 508, "crime"),
+                                   ("操舵手", 556, "who"), ("操舵手", 556, "crime")]):
+    CREW15.append(dict(k="role", id=f"d{_i + 1}", t=_t, y=_y, pos=CT["cols"][_c], grp="甲板部",
+                       rec=["判決 p2", "判決 p33"] if _t == "操舵手（当直）" else "判決 p2"))
+CREW15.append(dict(k="grp", t="機関部", x=84, y=626))
+for _i, (_t, _y, _c) in enumerate([("機関長", 666, "who"), ("1等機関士", 666, "crime"), ("3等機関士", 714, "who"),
+                                   ("操機長", 714, "crime"), ("操機手", 762, "who"), ("操機手", 762, "crime"),
+                                   ("操機手", 810, "who")]):
+    CREW15.append(dict(k="role", id=f"e{_i + 1}", t=_t, y=_y, pos=CT["cols"][_c], grp="機関部",
+                       rec="判決 p2" if _i < 3 else "判決 p3"))
+CREW15.append(dict(k="bracket", id="br15", over=[f"d{i}" for i in range(1, 9)] + [f"e{i}" for i in range(1, 8)]))
+CREW15.append(ce("br15", "c1"))
+
+# 舵を動かす仕組み（cc05・cc12）＝模式。海審 p1118 の注60「조타기 사용에 의한 전기적 신호에 따라 타를 작동하기 위한
+#   유압의 흐름을 제어하는 밸브」＝操舵の電気の信号 → 弁が油の流れを切りかえる → 舵
+RUD = dict(kind="模式図",
+           heads=[dict(id="helm", t="操舵台", kind="node", x=(150, 470), y=(470, 570), rec="海審 p1118"),
+                  dict(id="valve", t="ソレノイド弁", kind="node", x=(760, 1160), y=(470, 570), rec="海審 p1118"),
+                  dict(id="rudder", t="舵", kind="node", x=(1450, 1770), y=(470, 570), rec="海審 p1118")])
+RUDP = {
+    "q_valve": dict(k="mark", at="valve", t="？"),
+    "e_elec": dict(k="edge", fr="helm", to="valve", lab="電気の信号", rec="海審 p1118"),
+    "e_oil": dict(k="edge", fr="valve", to="rudder", lab="油の流れ", rec="海審 p1118"),
+    # 海審 p1118 5.3.4〜5.3.5（当直の操舵手の話・事故のあと舵が真ん中）＝固着の説を退けた
+    "c_kmst": dict(k="chip", id="c_kmst", at="valve", t="報告書：退けた", dy=60, rec="海審 p1118"),
+    # 特調委 p3013「솔레노이드밸브 고착이 … 급격한 우선회와 횡경사를 유발했을 가능성은 매우 낮다」
+    #   （PLAN の出典は p3088＝外からの力の頁。弁の結論は p3013）
+    "c_sccc": dict(k="chip", id="c_sccc", at="valve", t="特別調査委：可能性は非常に低い", dy=130, rec="特調委 p3013"),
+}
+
+
+def rud(name, **kw):
+    return dict(RUDP[name], **kw)
+
+
+# 書類の再現図（c208）。🔴 欄の名は報告書の文にあるものだけ＝海審 p1037「보고서에는 승선인원, 화물량 등이 기재되어 있지 않았다」
+FORM_PRE = dict(title="出港前安全点検報告書", rec="海審 p1037",
+                fields=[dict(t="乗船人員", rec="海審 p1037"), dict(t="貨物量", rec="海審 p1037")],
+                ends=dict(ship=dict(t="セウォル号", rec="海審 p1037"), office=dict(t="運航管理室", rec="海審 p1037")))
+
+# 原因の並べ図（c615・cc13）＝同じ形で並べるだけ（場面にしない）。札の言葉は原因の年表（⑤b-5 の chips）と同じ
+CAUSE = {
+    "rudder": dict(k="item", t="舵の使い方？", rec=["海審 p1091", "裁決 p2087"]),
+    "fault": dict(k="item", t="装置の故障？", rec=["判決 p33", "特調委 p3073"]),
+    # cc13 の出典（PLAN は「特調委 p4161」＝頁は小委員会の報告）＝特調委小 p4161「외부충격일 가능성을 배제할 수 없다」・p3013
+    "outer": dict(k="item", t="外からの力？", rec=["特調委 p3013", "特調委小 p4161"]),
+}
+
+
+def cause(name, **kw):
+    return dict(CAUSE[name], **kw)
