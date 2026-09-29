@@ -1237,9 +1237,30 @@ def ep14_ai():
                                     "e_veil", yel_plain=True))
 
 
+# 🆕 2026-09-30（14本目 公開のあと・カズヤくん「船の写真をもっと大きく拡大。上下の字の間いっぱいに船が映っているイメージ」）
+#    地の船＝x 176〜1135・y 228〜405（1280×720 の地で）＝高さ約177px。字のあいだ＝y 190〜500（上の赤 〜180・下の黄 505〜）。
+#    z1＝字のあいだいっぱい（1.70倍＝船の上端 y195／下端 y495・船首と船尾の端が少し切れる）
+#    z2＝両端が収まる（1.32倍＝横幅いっぱい・高さは字のあいだの約75%）
+#    ⚠️ 地は同じ生成画像（新しく生成しない＝課金なし）。値は photo() の zoom・cx・cy
+#    ✅ 決定＝**z2**（カズヤくん 案1 → 「案2に変更」）＝YouTube に貼った（09-30・out/thumb/ep14-ai2/ep14ai_a_meirei.png に写した・
+#       名前は `_meirei.png` で終える＝qa_out/ep14_meta.py の断り書きの条件）。⚠️ 元の生成画像（1792×1008）は残っていない
+#       （gen_thumb_ai が 1280×720 に縮めて保存）＝1.7倍の寄りは細部が甘くなる
+EP14AI_ZOOM = {"z1": dict(zoom=1.70, cx=0.529, cy=0.382),
+               "z2": dict(zoom=1.32, cx=0.550, cy=0.316)}
+
+
+def ep14_ai_zoom(keys=("z1", "z2")):
+    for k in keys:
+        hero = photo("ep14/ai/ep14_sewol_a.jpg", contrast=1.14, color=1.08, bright=0.97, **EP14AI_ZOOM[k])
+        bake(f"ep14ai_a_meirei_{k}", fx_type(hero, "犠牲304人 退船命令は出ず", "セウォル号沈没の真相",
+                                             "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep14-ai" in sys.argv:
+    if "ep14-ai-zoom" in sys.argv:
+        ep14_ai_zoom()
+    elif "ep14-ai" in sys.argv:
         ep14_ai()
     elif "ep14" in sys.argv:
         ep14()

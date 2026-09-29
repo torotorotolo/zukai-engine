@@ -110,7 +110,11 @@ THUMB_NOTE = {
     "meirei": "※ サムネイルの画像は、生成AIで作ったイメージです。実際の写真ではありません。"
               "本編の写真と映像は、すべて実際の記録です。",
 }
-THUMB = "out/thumb/ep14-ai1/ep14ai_a_meirei.png"   # ✅ 2026-09-29 カズヤくん決定（Actions 36560552438）
+# ✅ 2026-09-29 カズヤくん決定＝out/thumb/ep14-ai1/ep14ai_a_meirei.png（Actions 36560552438）
+# 🆕 2026-09-30（公開のあと）カズヤくん「船をもっと大きく。上下の字の間いっぱいに」→ 見本2案 → 「案2に変更」
+#    ＝案2（1.32倍・船の全体が収まる・thumb_jiko.EP14AI_ZOOM["z2"]＝out/thumb/ep14ai_a_meirei_z2.png を同じ中身のまま写した）。
+#    ⚠️ ファイル名は `_meirei.png` で終える＝THUMB_NOTE の断り書き（生成AIのイメージ）が付く条件（`_z2.png` だと止まる）
+THUMB = "out/thumb/ep14-ai2/ep14ai_a_meirei.png"
 
 # 権利（`assets.json` の `lic` を正規化した値）→ 概要欄の許諾の URL。ここに無い権利が出たら止める
 LICENSE_URL = OrderedDict([
