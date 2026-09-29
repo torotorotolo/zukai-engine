@@ -1,0 +1,3 @@
+# 同梱の文書は元のバイトのまま置く（改行コードを自動で変えない）。2026-09-29 14本目⑥-2
+# core.autocrlf=true の Windows では CRLF の文書（README-ja.txt・LICENSE_J・README_J）が LF に書き換えて記録された
+* -text
