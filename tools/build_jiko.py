@@ -633,7 +633,14 @@ def _draw_anim(d, P, mv, t, times, mc, pal):
                       fill=(fill + (A,)) if fill else None, outline=(stroke + (A,)) if stroke else None,
                       width=w)
             continue
-        q = [P(x, y) for x, y in _anim_pts(sh, st)]
+        pts = _anim_pts(sh, st)
+        # 🔴 14本目 ⑤b-7b：動く部品は SVG の切り抜き（clipPath）の外で描く＝図の枠を越えて画面の余白まで塗っていた
+        #    （c408・c409 の底のタンクの水の帯が左右の端まで）。型が枠（clip）を渡したら、点を枠の内側に収める
+        #    （四角の面は形が正しく切れる）。🔴 門番が測る部品の座標（mech の shapes）は変えない＝物差しは狂わない
+        if mv.get("clip"):
+            cx0, cy0, cx1, cy1 = mv["clip"]
+            pts = [(min(max(x, cx0), cx1), min(max(y, cy0), cy1)) for x, y in pts]
+        q = [P(x, y) for x, y in pts]
         if len(q) < 2:
             continue
         if sh["type"] == "poly":

@@ -671,8 +671,9 @@ def _dim_svg(view, V, dm):
         g += [F.arrow(x, m, x, a, col, 4, 16), F.arrow(x, m, x, b, col, 4, 16),
               F.txtfit(x + 16, m + 10, dm.get("t", "深さ"), 120, cap=30, col=col)]
     elif dm["kind"] == "draft":
-        # 🆕 ⑤b-7b（c210）：喫水＝竜骨から水面まで（数字は書かない＝模式）。船の真ん中より前（右の外は甲板の名の札）
-        x = V.p(78.0, 0)[0]
+        # 🆕 ⑤b-7b（c210）：喫水＝竜骨から水面まで（数字は書かない＝模式）。E甲板の倉（Fr.71〜136＝約52〜97メートル）より前
+        #    （最初は 78 メートルに置いて、積み荷の面〈琥珀〉の上に琥珀の矢印と札が乗って見にくかった＝試し焼きで見た）
+        x = V.p(112.0, 0)[0]
         a, b = V.p(0, 0)[1], V.p(0, DRAFT)[1]
         g += [F.arrow(x, (a + b) / 2, x, a, col, 4, 14), F.arrow(x, (a + b) / 2, x, b, col, 4, 14),
               F.txtfit(x + 16, (a + b) / 2 + 12, dm.get("t", "喫水"), 200, cap=32, col=col)]
@@ -814,7 +815,13 @@ def hull(view, steps, start=None, rel=(), note="", src=""):
     g.append(F.txtfit(F.BX0, F.BY1 - 6, note + (f"　出典：{src}" if src else ""), F.BW, cap=26, col=J.TICK))
     stages, texts = _stage_svgs(view, V, steps)
     f = F.Fig("".join(g), stages, "", (F.BX0, F.BX1))
-    f.moves = ([dict(kind="anim", stage=0, shapes=anim, box=F._mech_box(anim), delay=F.MECH_DELAY, dur=F.MECH_DUR)]
+    # 🔴 ⑤b-7b：横から見た断面の寄り（hold・stern）は形が図の枠より長い＝動く部品に枠（clip）を渡す（描き手が点を枠に収める）。
+    #    基図の切り抜きと同じ枠（hold は3階より上を落とす）。形そのもの（門番が測る座標）は変えない
+    clip = None
+    if k == "side":
+        clip = [CLIP[0], max(CLIP[1], V.p(0, B_Y + 0.6)[1]) if view == "hold" else CLIP[1], CLIP[2], CLIP[3]]
+    f.moves = ([dict(kind="anim", stage=0, shapes=anim, box=F._mech_box(anim), delay=F.MECH_DELAY, dur=F.MECH_DUR,
+                     clip=clip)]
                if anim else [])
     f.mech = dict(kind="hull", view=view, start=start, states=states, rel=list(rel), tags=texts, shapes=shapes,
                   steps=[dict(st) for st in steps])
