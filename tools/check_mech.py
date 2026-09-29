@@ -195,15 +195,11 @@ def judge_section(f):
 
 
 # 🔴 断面F の記録の値は**門番の側にも別に持つ**（型の定数と比べると、型を壊しても「型どおり」で通る＝物差しにならない）
-REC_HULL = dict(a_ext=5.6, br_ext=2.6, roof0=3.5, rise=1.7,               # 海審 p1016 2.2.4
-                cargo_less=987.0 / 2437.0,                              # 海審 p1018 表1
-                bw=dict(before=370.0 / 2501.826, req=1703.0 / 2501.826, low=761.272 / 2501.826),  # 表1・p1044 表7
-                draft_seen=6.20, draft_full=6.26)                       # 🆕 ⑤b-7b：海審 p1038 注14（確かめた喫水・満載の喫水）
-
-# 🆕 ⑤b-7b：固縛の本数（海審 p1093 4.4.1・4.4.2・4.4.5／p1042 3.1.4.3〜3.1.4.5）。🔴 型（lash.py）の表と別に持つ
-REC_LASH = dict(car_req=dict(front=2, rear=2), car_act=dict(front=1, rear=1),   # 앞․뒤 각 2개씩 → 실제로는 앞․뒤 각 1개만
-                truck_req=10, truck_act=4,                                     # 10개 사용하도록 → 체인 4개만
-                zone_belts=0, lock_used=0)                                     # 임시번호 승용차＝고박밴드 없음／Twistlock 사용 안 함
+# 🔴 2026-09-30（15本目 リノ ⑤b-1・§0b）：14本目（セウォル号）の REC_HULL・REC_LASH は selftest の見本 `tools/fixture_ep14.py`
+#    （GATES["check_mech"]・値は1つも変えていない）へ移した＝空。断面F（hull）と固縛（lash）は14本目の船の型＝15本目は使わない。
+#    15本目の尾翼の板の模式図（映像方針 §4）で記録の値が要る型を足すときは、その型の記録の表をここに別に持つ（§5b-88）
+REC_HULL = {}
+REC_LASH = {}
 
 
 def judge_hull(f):
@@ -365,6 +361,9 @@ def judge(kind, kw):
 
 
 def selftest():
+    # 🔴 2026-09-30（15本目 ⑤b-1）：見本は14本目の実物（本番の表は回ごとに空にする＝§0b）＝この処理の中だけ14本目にする
+    import fixture_ep14
+    fixture_ep14.apply(sys.modules[__name__])
     N = "模式図：テスト"
     ok = True
     closing = [dict(state=dict(hook="closed", motor="run"), tag=dict(t="フックが回る")),

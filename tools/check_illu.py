@@ -247,6 +247,10 @@ def judge_cut(cid, spec, kind_of):
 
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
+    # 🔴 2026-09-30（15本目 ⑤b-1）：見本は14本目の実物（置き場 A〜E の部品の既定の rec が14本目の資料を指す）。
+    #    本番の表は回ごとに空にする（§0b）＝この処理の中だけ14本目の資料の表・原文・時刻にする
+    import fixture_ep14
+    fixture_ep14.apply(sys.modules[__name__])
     # 資料の表と原文の頁はこの回のもの（置き場の部品の既定の rec がこの回の資料を指すため）
     docs, pages = _ss().REC_DOCS, _pages()
     split = ("9:46", "9:48")
