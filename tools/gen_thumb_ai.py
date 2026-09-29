@@ -191,16 +191,109 @@ TAIL = ("The result must look like a genuine, sombre, respectful news photograph
         "illustration, not a movie still, no motion blur, no dramatic lighting.")
 
 
+# ══ 14本目・セウォル号（2026-09-29・⑥）══════════════════════════════════════════
+# カズヤくん指示「もっと事件の凄惨さが伝わるような刺激的な写真。なければ OpenAI API で生成も可。生成前に相談」。
+# 🔴 文字を重ねられる実写が無い（Commons 68点・DVIDS 30点・韓国政府の頁＝傾いた船／沈む船の写真は
+#    海洋警察の1点〈権利の根拠なし〉と報道機関の写真〈非自由〉だけ）→ 地だけを生成する。
+# 🔴 札は3枚とも**新規**（記憶 feedback-prompt-cards-must-not-be-reused）＝10本目の LOOK・FRAME・BAN は
+#    建物の崩落向け（コンクリート・粉じん・地面の靴・車）で、海の場面に混ぜると絵が崩れる。
+# ⚠️ 本編の守りの線（映像方針 09-26）どおり、**人は描かせない**（乗客・救助隊・遺体・血・火・煙）。
+#    船の名前・文字も描かせない（`thumb_jiko.py` が赤・黄を焼く）。この絵は**サムネだけ**・本編に入れない。
+LOOK_SEA = (
+    "A real PHOTOGRAPH, indistinguishable from documentary press photography, taken in "
+    "2014 with a digital SLR and a long telephoto lens from a helicopter flying low over "
+    "the sea. Flat, hazy, overcast spring morning light, muted natural colours, fine "
+    "sensor grain, slight atmospheric haze that softens the distance, true photographic "
+    "depth of field. Physically accurate materials: painted steel hull plating streaked "
+    "with rust and salt, glass windows, calm grey-green sea water with small wavelets. "
+    "The mood is heavy, silent and grave — a disaster unfolding in plain daylight. "
+)
+FRAME_SEA = (
+    "COMPOSITION, critical: 16:9 frame. The TOP 25% and the BOTTOM 26% will later be "
+    "covered by two lines of very large text, and the corners will be darkened. So the "
+    "ship and every important detail must sit in the MIDDLE HORIZONTAL BAND, stretched "
+    "across most of the width. Keep the top quarter as plain hazy sky or distant sea, "
+    "and the bottom quarter as plain, darker open water with no important detail, so "
+    "that large lettering will read cleanly over them. Keep the bottom-right corner dark. "
+)
+BAN_SEA = (
+    "There must be NO people anywhere — no passengers, no crew, no rescuers, no divers, "
+    "no figures on decks, in boats or in the water, no bodies, no blood, no injuries. "
+    "No fire, no flames, no explosion, no smoke. "
+    "No text, letters, numbers, ship names, words, flags with writing, logos, labels or "
+    "watermarks of any kind, in any language — the hull and superstructure carry no "
+    "lettering at all. "
+)
+TAIL_SEA = (
+    "The result must look like a genuine, sombre news photograph of a real maritime "
+    "disaster — not a render, not an illustration, not a disaster-movie still, not a "
+    "3D visualisation. No lens flare, no colour grading, no cinematic teal-and-orange, "
+    "no dramatic storm, no giant waves: the sea is calm, which is what makes it terrible."
+)
+SEWOL_SHIP = (
+    "The ship: a large Korean passenger car-ferry, about 146 metres long, with a long "
+    "white hull and a tall white superstructure of several passenger decks lined with "
+    "rows of small square windows, the navigation bridge near the bow, and a single "
+    "funnel toward the stern. The underwater part of the hull is painted dark red. "
+)
+SCENES.update({
+    "sewol_a": {
+        "ep": "ep14",
+        "name": "大きく左へ傾いた船（浮かぶコンテナと救命いかだ・遠巻きの救助の船）",
+        "hypothesis": "「助けを待つあいだに傾いていく」という、この回の芯そのもの。"
+                      "穏やかな海で巨大な船だけが横倒しになっていく異様さが、一覧で止める",
+        "look": LOOK_SEA, "frame": FRAME_SEA, "ban": BAN_SEA, "tail": TAIL_SEA,
+        "scene": (
+            "April 2014, the calm sea off the south-western coast of Korea, mid-morning. "
+            + SEWOL_SHIP +
+            "It is CAPSIZING RIGHT NOW: the whole ship is heeled over onto its LEFT (port) "
+            "side at about sixty degrees, the port side of the superstructure already "
+            "under the sea up to the upper decks, the long flat starboard side and the "
+            "rounded hull turned up toward the sky, a broad band of the dark red hull "
+            "bottom lifted clear of the water. Loose cargo containers and white "
+            "capsule-shaped life-raft canisters float in the water beside the hull. "
+            "At a distance, a few small orange rescue boats and a grey coast-guard patrol "
+            "boat wait, tiny against the ship; a helicopter hangs in the haze above. "
+            "Seen from a low oblique angle from the air, the leaning ship fills the middle "
+            "band of the frame from left to right. Faint low islands on the horizon. "
+        ),
+    },
+    "sewol_b": {
+        "ep": "ep14",
+        "name": "船首の先だけが残った海（まわりに群がる救助の船）",
+        "hypothesis": "10時31分の「船首の先だけを水面に残して沈んだ」（c107）。"
+                      "船がほぼ見えないこと自体が、中に残された人の数を想像させる",
+        "look": LOOK_SEA, "frame": FRAME_SEA, "ban": BAN_SEA, "tail": TAIL_SEA,
+        "scene": (
+            "April 2014, the calm sea off the south-western coast of Korea, late morning. "
+            "A large passenger car-ferry, about 146 metres long, has turned completely "
+            "upside down and sunk. Only the very tip of its BOW still breaks the surface: "
+            "the upturned, rounded bulbous bow and a short length of the keel, painted "
+            "dark red, sticking up out of the grey-green water like a small island. "
+            "Everything else of the ship is already under the sea. "
+            "Around it, spread across the whole width of the frame, dozens of small "
+            "boats — grey coast-guard patrol boats, fishing boats, orange rescue "
+            "boats — hold position in a loose ring, all of them far too small to help. "
+            "A helicopter hovers in the haze. Seen from the air at a low oblique angle, "
+            "the red bow sits in the centre of the middle band of the frame. "
+        ),
+    },
+})
+
+
 def build(v):
     """🔴 質感（look）と締め（tail）は**場面ごとに差し替えられる**（2026-09-22 追加）。
 
     それまではここが「崩れた**あと**」「動きのブレなし」で決め打ちだった。
     「崩れている**最中**」を作るには、静けさを求める `LOOK` と
     「no motion blur / no dramatic lighting」で終わる締めが**真正面からぶつかる**。
-    ⚠️ `FRAME`（文字の帯）・`BAN`（人・炎・文字）・`PINK` は**どの場面でも外さない**。
+    ⚠️ 10本目の場面は `FRAME`（文字の帯）・`BAN`（人・炎・文字）・`PINK` を外さない。
+    🆕 14本目（2026-09-29）：構図と禁止も**場面ごとに差し替える**（`frame`・`ban`）。
+       10本目の札は建物の崩落向け（粉じん・地面の靴・車）＝海の場面に流用しない。
     """
     s = SCENES[v]
-    return f"{s.get('look', LOOK)}{s['scene']}{FRAME}{BAN}{s.get('tail', TAIL)}"
+    return (f"{s.get('look', LOOK)}{s['scene']}{s.get('frame', FRAME)}"
+            f"{s.get('ban', BAN)}{s.get('tail', TAIL)}")
 
 
 def key():
@@ -219,8 +312,11 @@ def main():
         sys.exit(f"使い方: python tools/gen_thumb_ai.py [{'|'.join(SCENES)}] [--dry]")
     v = args[0]
     prompt = build(v)
-    OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / f"ep10_{v}_prompt.txt").write_text(prompt, encoding="utf-8")
+    # 🆕 14本目（2026-09-29）：出力先と名前の頭を場面の `ep` から（無ければ10本目のまま）
+    ep = SCENES[v].get("ep", "ep10")
+    out = HERE / "ref" / ep / "ai"
+    out.mkdir(parents=True, exist_ok=True)
+    (out / f"{ep}_{v}_prompt.txt").write_text(prompt, encoding="utf-8")
 
     if "--dry" in sys.argv:
         print(f"== 案{v.upper()}：{SCENES[v]['name']} ==")
@@ -246,9 +342,9 @@ def main():
         t = int((h - target) / 2)
         im = im.crop((0, t, w, int(t + target)))
     im = im.resize((1280, 720), Image.LANCZOS)
-    dst = OUT / f"ep10_{v}.jpg"
+    dst = out / f"{ep}_{v}.jpg"
     im.save(dst, "JPEG", quality=94)
-    im.resize((246, 138), Image.LANCZOS).save(OUT / f"ep10_{v}_246.jpg", "JPEG", quality=92)
+    im.resize((246, 138), Image.LANCZOS).save(out / f"{ep}_{v}_246.jpg", "JPEG", quality=92)
     print(f"OK -> {dst}（246px版も出力）")
     print("🔴 次＝thumb_jiko.py で赤・黄を焼いてから検品する（地だけで判断しない）")
     return 0

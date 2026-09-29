@@ -1223,9 +1223,25 @@ def ep14():
         bake(f"ep14_{nm}", fx_type(hero[nm.rsplit('_', 1)[1]], red, YEL, "e_veil", yel_plain=True))
 
 
+def ep14_ai():
+    """14本目・地だけ生成（2026-09-29 カズヤくん「もっと事件の凄惨さが伝わる刺激的な写真。なければ生成も可」→ 案A を GO）。
+
+    地＝`tools/gen_thumb_ai.py sewol_a`（`ref/ep14/ai/ep14_sewol_a.jpg`・gpt-image-2.5-flare high）。
+    文字は ep14 の a のまま（カズヤくん「文言は a のままで良い」）。
+    🔴 この地は**サムネだけ**。本編に入れない。概要欄に「生成AIのイメージ」の断り書き（`qa_out/ep14_meta.py`）。
+    ⚠️ 補正は実写側の値（10本目 c・d・e と同じ）。
+    """
+    hero = photo("ep14/ai/ep14_sewol_a.jpg", cy=0.50, cx=0.50,
+                 contrast=1.14, color=1.08, bright=0.97)
+    bake("ep14ai_a_meirei", fx_type(hero, "犠牲304人 退船命令は出ず", "セウォル号沈没の真相",
+                                    "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep14" in sys.argv:
+    if "ep14-ai" in sys.argv:
+        ep14_ai()
+    elif "ep14" in sys.argv:
         ep14()
     elif "ep13" in sys.argv:
         ep13()
