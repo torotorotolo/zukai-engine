@@ -1,0 +1,90 @@
+# 18本目（スレッシャー号 SSN-593・1963-04-10 のリメイク）一次資料の台帳
+
+- 作成：2026-09-30（18本目 ①「芯の再確認」）。芯の当て直しと通説の判定＝[legend_2026-09-30.md](legend_2026-09-30.md)。素材の権利＝[materials.md](materials.md)
+- 凡例：**S**＝一次（査問会の記録・海軍の当時の文書・議会の記録）／**L**＝後年の公的な文書（海軍の後年の文書・NHHC・NAVSEA）／**A**＝当事者・元分析官の後年の分析（個人）／**D**＝同時代の研究（学位論文）／**P**＝報道・雑誌
+- 頁の書き方：「PDF p.」＝ファイルの頁。「記録 p.」＝査問会の記録の通し頁。Vol.I（第1回）の**認定・意見・勧告は頁の印字が文字層に出ない**ので、索引（PDF p.2「Findings of Fact 1679／Opinions 1702／Recommendations 1715」）から換算＝**記録 p.＝PDF p.＋1645**（3か所の差が一致）。**証言の頁は下に印字がある＝記録 p.＝PDF p.−73**（例 PDF p.144＝印字 71）。第9・10次と第18回は文書ごとに自分の頁番号（Exhibit・「-3-」など）を持つ
+- 文字は NFKC＋行末のハイフンの継ぎ＋空白を潰してから探した（scratchpad の `grepq.py`）。画像は読んでいない
+- 保存先 `ref/ep18/src/` は **git の管理外**（`.gitignore:9 ref/*` で確認）。合計 **45MB**
+- ⚠️ **取れなかった物（突破していない）**：USNI News の全記事（Cloudflare の確認画面）／DocumentCloud の API と静的な文字版（`s3`・`assets` とも同じ確認画面＝旧版の頃とは変わった）／usni.org の本の頁（403）。海軍の閲覧室は WebFetch では拒否、ふつうのブラウザ名（UA）の curl では 200（確認画面ではない）
+
+---
+
+## 1. 海軍の FOIA 公開＝**全23回**（James Bryant 元大佐の訴訟・2019 提訴・2020-02 に連邦地裁〈DC〉が月ごとの公開を命令）
+
+- 棚（海軍の FOIA 閲覧室「THRESHER RELEASE」）：https://www.secnav.navy.mil/foia/readingroom/HotTopics/Forms/AllItems.aspx?RootFolder=%2Ffoia%2Freadingroom%2FHotTopics%2FTHRESHER%20RELEASE （34ファイル＋台帳 xlsx）
+- 各ファイルの URL＝`https://www.secnav.navy.mil/foia/readingroom/HotTopics/THRESHER%20RELEASE/` ＋ファイル名（空白は `%20`、括弧は `%28` `%29`）
+- 公開日＝海軍の台帳 `Running Release Inventory.xlsx`（第1〜17回・Excel の日付の通し番号を換算）。第18〜23回は台帳に無い＝**棚の更新日**。大きさ＝Range 要求の Content-Range、頁数＝線形化 PDF の `/N`（先頭 4KB だけ取って読んだ）
+- 権利：**米海軍の記録＝米連邦政府の著作物（PD）**。⚠️ 黒塗りの札は b(1)（国家安全保障）・b(3) 10 USC 130（技術情報）・b(6)（個人の私生活）
+- 旧版＝3本目（2026-08-16 公開）が使ったのは **第1回（DocumentCloud 7216658 の OCR 版）と第9・10回（DocumentCloud 20986255 `tresher9_10_reduced`＝第9回300頁＋第10回300頁）だけ**
+
+| 回 | 公開日 | 棚の更新日 | ファイル | 大きさ | PDF頁 | 中身（台帳の記載／本文で確かめた所は ✓） | 旧版 | 手元 |
+|---|---|---|---|---|---|---|---|---|
+| 1 | 2020-09-23 | 2020-09-23 | `THRESHER pg 1-300.pdf` | 28.0MB | 300 | COI 第1巻（索引・記録 pp.1-227）：索引・証人一覧・証拠一覧・**認定・意見・勧告**・最初の証言 ✓ | ✅（DC 7216658 の OCR 版 87MB） | `_thresher_raw/inquiry_vol1_p1-300.pdf`（旧版の写し）→ 文字 `src/inquiry_vol1.pages.txt` |
+| 2 | 2020-10-26 | 2020-10-26 | `m_0001_1 and 2 of 3 V2 N97_Review_page 301-600 JRG_Redacted.pdf` | 54.9MB | 300 | 第1巻 pp.228-280・第2巻 pp.281-526（証言の続き） | — | — |
+| 3 | 2020-11-24 | 2020-11-24 | `USS Thresher Interim Release 3.pdf` | 66.4MB | 322 | 第2巻 pp.527-558・第3巻 pp.559-846（**Rickover 中将の証言**を含む）。DocumentCloud 20417074 にも写しあり（未読・確認画面） | — | — |
+| 4 | 2020-12-22 | 2020-12-22 | `… Release 4 pt 1.pdf`・`pt 2.pdf` | 5.5＋6.4MB | **未測**（線形化でない・取得が海軍側で止まった） | 第4巻 pp.847-1173（証言の続き＝記録で327頁） | — | —（途中で打ち切り） |
+| 5 | 2021-01-27 | 2021-02-02 | `… Release 5 pt 1(RS)_Part1/2a/2b/2c/3.pdf`・`pt 2(RS)_Part1/2.pdf`（7本） | 計53.6MB | **未測** | 🔴 **査問会の記録ではない**：1978年の2巻本『Sea-Based Airborne Antisubmarine Warfare 1940-1977』（台帳の記載） | — | — |
+| 6 | 2021-02-24 | 2021-02-24・03-01 | `… Release 6 pt 1.pdf`・`pt 2.pdf` | 225.9＋4.9MB | 148＋209 | 同上（対潜航空の歴史の続き） | — | — |
+| 7 | 2021-03-24 | 2021-03-24 | `… Release 7.pdf` | 59.4MB | 328 | 第5巻（証言の続き） | — | — |
+| 8 | 2021-04-20 | 2021-04-27 | `… Release 8.pdf` | 44.7MB | 220 | 第6巻・第7巻（証拠 pp.1-80）：**最後の証言（人事局長を含む）**と最初の証拠 | — | — |
+| 9 | 2021-05-24 | 2021-05-28 | `… Release 9.pdf` | 180.3MB | 300 | 第7・8巻（pp.1-164）＝証拠の続き | ✅（DC 20986255 の前半） | `_thresher_raw/inquiry_9_10.pdf`→ `src/inquiry_9_10.pages.txt` |
+| 10 | 2021-06-28 | 2021-06-29 | `… Release 10.pdf` | 124.9MB | 300 | 第8・9巻（pp.1-225）＝証拠の続き（**Seawolf の記録＝証拠49** ✓ 旧写しの PDF p.122-124） | ✅（同 後半） | 同上 |
+| 11 | 2021-07-26 | 2021-08-03 | `… Release 11.pdf` | 49.5MB | 300 | 第9・10巻（証拠） | — | — |
+| 12 | 2021-08-28 | 2021-08-26 | `… Release 12.pdf` | 105.5MB | 301 | 第10・11・12巻（証拠） | — | — |
+| 13 | 2021-09-30 | 2021-10-01 | `… Release 13.pdf` | 33.0MB | 194 | 第12巻・**DOE の機密解除の指針**（海水系の継手・衝撃試験の証拠） | — | — |
+| 14 | 2021-10-31 | 2021-11-03・12-02 | `… Release 14 (1 of 3)/(2 of 3)/(3 of 3).pdf` | 104.5＋10.1＋15.6MB | 34＋14＋33 | 第12巻の最後の証拠＝**査問会の記録の公開はここで終わり** | — | — |
+| 15 | 2021-11-30 | 2021-12-02 | `… Release 15 pt 1.pdf`・`pt 2.pdf` | 12.8＋17.0MB | 300＋304 | **USNS Mizar の1964年の写真**（残骸の場の写真302点） | — | — |
+| 16 | 2021-12-21 | 2021-12-21 | `… Release 16.pdf` | 31.0MB | 690 | 同（写真345点） | — | — |
+| 17 | 2022-01-26 | 2022-02-02 | `… Release 17.pdf` | 126.6MB | 319 | 造船局（BUSHIPS）との往復文書・**1964年の残骸の場への調査の報告** | — | — |
+| 18 | 2022-03-03（棚） | 2022-03-03 | `… Release 18.pdf` | 21.4MB | 203 | ✓ **上級の意見書（1st＝大西洋艦隊司令官 1963-06-12／4th＝人事局／7th＝海軍長官・最終）**・勧告への措置のまとめ・事故の要約（Summary of Events）3版・1976〜77年の APL（ジョンズ・ホプキンズ大）の残骸の場の調査。🔴 **PDF p.69 に「set at 1300 fe…」**（legend §1-h） | — | `src/navy_IR18.pdf`（md5 c7122fd9…）→ 文字 `src/navy_IR18.pages.txt` |
+| 19 | 2022-08-16（棚） | 2022-08-16 | `… Release 19 (rd).pdf` | 16.1MB | 86 | Naval Reactors（原子炉部門・NR）の内部文書（NR-HA の説明）。文字層なし＝中身は未確認。USNI 2022-09-08「放射能の危険の説明」の記事は第19回か第20回を扱ったもの（どちらかは未確定） | — | — |
+| 20 | 2022-09-20（棚） | 2022-09-20 | `… Release 20.pdf` | 23.1MB | 102 | ✓ NR の往復文書：Rickover の部署から市民への返信・「潜水艦の安全の設計の検討」メモ（1963-04-22）・**Rickover の声明の下書き（継手の約5%を検査し約10%が要修理＝「数百の不良継手」）**・Rickover の AP 声明（1963-04-12・放射能なし） | — | `src/navy_IR20.pdf`（md5 3a4f17fc…）→ `src/navy_IR20.pages.txt` |
+| 21 | 2023-05-02（棚） | 2023-05-02 | `… Release 21_Redacted.pdf` | 6.4MB | 7 | NR の内部文書（NR-HA の説明）。文字層なし | — | — |
+| 22 | 2023-05-02（棚） | 2023-05-02 | `… Release 22.pdf` | 10.3MB | 6 | 同上 | — | — |
+| 23 | 2023-05-02（棚） | 2023-05-02 | `USS THRESHEr INTERIM RELEASE 23.pdf` | 7.3MB | 28 | 同上（棚で最後のファイル＝2026-09-30 時点で第24回は無い） | — | — |
+| 台帳 | 2022-02-02 | — | `Running Release Inventory.xlsx` | 20KB | — | 第1〜17回の日付・中身の一覧（海軍） | — | `src/navy_running_release_inventory.xlsx`（md5 3b12cc0d…） |
+
+- **合計の頁**：測れた回の合計＝**5,348 PDF頁**（第4回・第5回を除く）＋第4回（記録で327頁）＋第5回（未測）＝**およそ5,700頁＋第5回**。Bryant の本の案内は「6,000頁を超える記録」＝矛盾しない。うち**査問会の記録そのもの（第1〜4・7〜14回）**は PDF で約3,300頁（本文 1,718頁〈第18回 p.67 の要約〉＋証拠）
+- **旧版が使っていない回**＝第2・3・4・7・8・11〜23回（第5・6回は別の本）。特に効きそうなのは **第3回（Rickover の証言）・第8回（最後の証言）・第13回（機密解除の指針）・第17回（1964年の調査の報告）・第18回（上級の意見書と要約）・第20回（NR の文書）**
+- 回の番号の注意：USNI News の「○回目（round）」の記事の番号・日付は海軍の回とずれる（例：USNI「7回目」2021-04-14・「8回目」2021-04-29・「最新」2021-07-09＝第9・10回）。**正本は海軍の棚の番号**
+- 写し：NR-HA（原子力推進の歴史の会）の一覧 https://www.nr-ha.org/books-sources/1963-thresher-court-of-inquiry-proceedings-release （第1〜18回を Google Drive で配布。第19〜23回は会員だけ＝海軍の棚では誰でも取れる）
+
+## 2. ほかの一次資料・後年の公的な資料
+
+| 記号 | 資料 | 日付 | 頁数 | URL | 権利 | 旧版 | 手元 |
+|---|---|---|---|---|---|---|---|
+| **S-J** | 米議会 両院原子力合同委員会（JCAE）公聴会記録『Loss of the U.S.S. "Thresher"』（第88議会 第1・2会期／1963-06-26・27・07-23、1964-07-01） | 1965 刊（USGPO） | 192 p. | Stanford Digital Repository https://purl.stanford.edu/yk130sc8375 （画像の閲覧器。検索で出る直接の PDF `stacks.stanford.edu/file/yk130sc8375/00002075_mixed.pdf` は 2026-09-30 に 404）／NR-HA の案内 https://www.nr-ha.org/books-sources/1963-&-1964---the-loss-of-the-uss-thresher-congress-testimony | 🟢 **Public domain**（Stanford の表示＝Public Domain Mark 1.0。米議会の刊行物） | — | —（取得不要の指示） |
+| S-P | 国防総省の報道発表 1964-04-28（`330-PSA-99-64a/b`）・1964-10-01（`330-PSA-309-64a/b/c`） | 1964 | 各1〜3枚 | Commons（元は米海軍国立博物館の Flickr）例 https://commons.wikimedia.org/wiki/File:330-PSA-309-64a_(22791587391).jpg | 🟢 PD-USNavy | ✅ | `ref/thresher/cm_330-PSA-*`（旧版の写し）。⚠️ **説明文に本文の書き起こしが無い＝画像だけ**（サブエージェントは読まない＝②で人が原寸で読む） |
+| L-N1 | NHHC（海軍歴史遺産司令部）DANFS「Thresher II (SSN-593)」（**2021-07-13 公開の書き直し版**） | 2021-07-13 | 長い1頁 | https://www.history.navy.mil/research/histories/ship-histories/danfs/t/thresher-ssn-593-ii.html | 🟢 米政府の著作物（PD・頁内の写真は個別） | — | —（curl で読んだ・保存せず） |
+| L-N2 | 旧 DANFS（2004 の写し）「空気がタンクに流れ込むような音」の文がある版 | 2004 の写し | — | https://webharvest.gov/peth04/20041017005029/http:/www.history.navy.mil/danfs/t/thresher.htm （未読・検索の要約だけ） | PD | — | — |
+| L-N3 | NHHC の話題の頁「USS Thresher (SSN-593)」 | — | — | https://history.navy.mil/browse-by-topic/ships/submarines/uss-thresher--ssn-593-.html | PD | — | — |
+| L-S1 | NAVSEA「Thresher 59th Remembrance: SUBSAFE Program」 | 2022 | — | https://www.navsea.navy.mil/Media/News/Article/2998364/thresher-59th-remembrance-subsafe-program/ | 🟢 PD（米海軍） | — | — |
+| L-S2 | NAVSEA「USS Thresher: A Loss, A Legacy」（SUBSAFE は1963年6月に始まった、の公式の説明） | 2023 | — | https://www.navsea.navy.mil/Media/News/Article/3354927/uss-thresher-a-loss-a-legacy/ | 🟢 PD | — | — |
+| L-S3 | Sullivan 少将（NAVSEA）の議会証言「SUBSAFE」（下院科学委員会・2003-10-29） | 2003 | — | 公式の原本は未特定（写しは spaceref 等） | PD（議会証言） | — | — |
+| **D** | Stierman, Joseph William, Jr.（**海軍少佐**）『Public relations aspects of a major disaster: a case study of the loss of USS Thresher』Boston University 広報学修士論文 | 1964-05 | 426 画像（参考文献 p.188-194） | https://archive.org/details/publicrelationsa00stie （文字版 `…_djvu.txt`・所蔵＝海軍大学院 Dudley Knox 図書館） | ⚠️ IA の権利欄は空。Commons は PD（米政府）と表示。**BU の学位論文＝職務著作かは未確定**→ 引用の範囲で使う | — | `src/stierman1964_djvu.txt`（md5 11d2c08d…）・`src/ia_publicrelationsa00stie_meta.json` |
+| S-X | 米海軍の報道発表「Department of Navy Releases Records Related to Loss of USS Thresher」 | 2020-09-23 | — | https://www.navy.mil/Press-Office/Press-Releases/display-pressreleases/Article/2358204/department-of-navy-releases-records-related-to-loss-of-uss-thresher/ （WebFetch は 403＝本文は未読） | PD | — | — |
+
+## 3. 後年の分析・報道（二次＝**帰属つき**でしか使わない）
+
+| 記号 | 資料 | 日付 | URL | 権利 | 読んだか |
+|---|---|---|---|---|---|
+| **A-R** | Bruce Rule（1963年4月に SOSUS 評価センターの分析士官）の書簡「Information and Security Issues Associated with the Loss of the USS THRESHER」＝海軍作戦部次長 Breckenridge 少将あて | 2013-04-10 | https://www.iusscaa.org/articles/brucerule/letter_to_the_deputy_cno.htm | 著作権あり（個人）＝短い引用だけ | ✅（WebFetch の要約＝原文の語は legend §2 に引用） |
+| P-T | The War Zone「USS Thresher's Crew May Have Survived Many Hours After Its Disappearance According To New Docs (Updated)」Thomas Newdick | 2021-07（更新 07-15） | https://www.twz.com/41523/uss-threshers-crew-may-have-survived-many-hours-after-its-disappearance-according-to-new-docs | 著作権あり | ✅ |
+| P-AP | AP（David Sharp）「Skipper: Docs show no coverup in submarine sinking」（Military Times 掲載） | 2021-08-02 | https://www.militarytimes.com/news/your-navy/2021/08/02/skipper-docs-show-no-coverup-in-submarine-sinking/ | 著作権あり | ✅ |
+| P-U1 | USNI News の各回の記事（初回 2020-09-23・Rickover の証言 2020-11-25・4回目 2020-12-23・2021-02-04・2021-04-14・2021-04-29・2021-07-09・放射能の報告 2022-09-08） | 2020〜2022 | https://news.usni.org/2020/09/23/navy-releases-first-tranche-of-uss-thresher-documents ほか | 著作権あり | ❌ Cloudflare の確認画面＝**読めていない**（検索の要約だけ） |
+| P-U2 | Proceedings「Declassify the Thresher Data」（2018-07）／「What Did the Thresher Disaster Court of Inquiry Find?」（2021-08）／Naval History「What Killed the Thresher?」（2023-04）／Proceedings「Was the Thresher Ready for Sea?」（2023-04） | 2018〜2023 | https://www.usni.org/magazines/proceedings/2021/august/what-did-thresher-disaster-court-inquiry-find ほか | 著作権あり | ❌ 未読 |
+| P-B | James B. Bryant『Rush to Disaster』Naval Institute Press（288頁・「6,000頁を超える機密解除の記録」にもとづく） | **2026-12-08 発売予定** | https://www.usni.org/press/books/rush-disaster | 著作権あり | ❌ 未刊（案内の要約だけ） |
+| P-M | Military.com「55 Years After Thresher Disaster, Navy Still Keeps Secrets」（2018-04-09）／「Questions About Infamous Lost Sub Resurface…」（2021-08-14）／Legion Magazine | 2018〜2021 | https://www.military.com/daily-news/2021/08/14/questions-about-infamous-lost-sub-thresher-resurface-navy-releases-new-documents-tied-decades-old-mystery.html ほか | 著作権あり | ❌ 未読 |
+
+## 4. 手元のファイル（`ref/ep18/src/`・計 45MB・git の管理外）
+
+| ファイル | 中身 | 大きさ | md5（先頭） |
+|---|---|---|---|
+| `inquiry_vol1.pages.txt` | 第1回（旧版の写し `_thresher_raw/inquiry_vol1_p1-300.pdf`）の文字層を1頁ずつ（`=== PDF p.N ===`）。300頁・空の頁0 | 770KB | 932b25ee… |
+| `inquiry_9_10.pages.txt` | 第9・10回（旧版の写し `_thresher_raw/inquiry_9_10.pdf`）の文字層。600頁・空の頁31（図や白紙） | 693KB | b73da2f0… |
+| `navy_IR18.pdf`／`.pages.txt` | 第18回（海軍の棚から 2026-09-30 取得）。203頁・文字層あり（OCR）・空の頁1 | 21.4MB／337KB | c7122fd9…／5c3a12ce… |
+| `navy_IR20.pdf`／`.pages.txt` | 第20回（同）。102頁・文字層あり | 23.1MB／119KB | 3a4f17fc…／1cfb93ee… |
+| `navy_running_release_inventory.xlsx` | 海軍の公開の台帳（第1〜17回） | 20KB | 3b12cc0d… |
+| `stierman1964_djvu.txt`／`ia_publicrelationsa00stie_meta.json` | Stierman の論文の文字版と IA の目録 | 365KB／83KB | 11d2c08d…／a655c064… |
+
+- 道具（リポに入れない・scratchpad）：`dump_pages.py`（1頁ずつ文字層を出す）・`grepq.py`（NFKC＋空白を潰して探す）・`pg.py`（頁の文字を出す）・`navy_sizes.py`（Range で大きさと `/N`）・`redact_probe.py`（語の位置の画素の明るさを**数値だけ**測る＝画像は保存も表示もしない）
