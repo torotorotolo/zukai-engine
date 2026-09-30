@@ -51,13 +51,29 @@ function path(p, dt, speed) {
   }
   return p[p.length - 1];
 }
+// 15本目 ⑤b-2：道に沿う動き（draw＝線を頭から見せる・mover＝印が道を進んで向きを変える）・濃さだけの鍵 akeys
+function segs(p) { const s = []; for (let i = 0; i + 1 < p.length; i++) s.push(Math.hypot(p[i + 1][0] - p[i][0], p[i + 1][1] - p[i][1])); return s; }
+function prefix(p, u) { const sg = segs(p), tot = sg.reduce((a, b) => a + b, 0) || 1; let s = Math.min(1, Math.max(0, u)) * tot; const out = [p[0]];
+  for (let i = 0; i < sg.length; i++) { if (s >= sg[i]) { out.push(p[i + 1]); s -= sg[i]; } else { const f = sg[i] ? s / sg[i] : 0;
+    out.push([p[i][0] + (p[i + 1][0] - p[i][0]) * f, p[i][1] + (p[i + 1][1] - p[i][1]) * f]); break; } } return out; }
+function along(p, u) { const q = prefix(p, u), a = q.length > 1 ? q[q.length - 2] : p[0], b = q[q.length - 1];
+  let c = a, d = b; if (Math.hypot(b[0] - a[0], b[1] - a[1]) < 1e-6) { c = p[p.length - 2]; d = p[p.length - 1]; }
+  return [b[0], b[1], Math.atan2(d[1] - c[1], d[0] - c[0]) * 180 / Math.PI]; }
 function drawScene(sc, t, times) {
   for (const p of sc.parts) {
     const el = document.getElementById(p.name);
-    if (!el && (p.drift || (p.kind || 'layer') === 'layer')) continue;
+    if (!el && (p.drift || (p.kind || 'layer') === 'layer' || p.kind === 'draw' || p.kind === 'mover')) continue;
     if (p.drift) { const d = ((t * p.drift) % 1920 + 1920) % 1920; el.setAttribute('transform', `translate(${d} 0)`);
-      const e2 = document.getElementById(p.name + '_w'); if (e2) e2.setAttribute('transform', `translate(${d - 1920} 0)`); continue; }
-    if ((p.kind || 'layer') === 'layer') { const st = state(p.keys, t, times); el.setAttribute('transform', tf(st, p.pivot)); el.setAttribute('opacity', st.a); }
+      const e2 = document.getElementById(p.name + '_w'); if (e2) e2.setAttribute('transform', `translate(${d - 1920} 0)`);
+      const a = p.keys ? state(p.keys, t, times).a : 1; el.setAttribute('opacity', a); if (e2) e2.setAttribute('opacity', a); continue; }
+    if ((p.kind || 'layer') === 'layer') { const st = state(p.keys, t, times); if (p.akeys) st.a = state(p.akeys, t, times).a;
+      el.setAttribute('transform', tf(st, p.pivot)); el.setAttribute('opacity', st.a); }
+    else if (p.kind === 'draw') { const u = state(p.go, t, times, {u: 0}).u, a = state(p.keys, t, times).a;
+      document.getElementById(p.name + '_mp').setAttribute('points', prefix(p.path, u).map(q => q[0].toFixed(1) + ',' + q[1].toFixed(1)).join(' '));
+      el.setAttribute('opacity', u > 0.002 ? a : 0); }
+    else if (p.kind === 'mover') { const u = state(p.go, t, times, {u: 0}).u, a = state(p.keys, t, times).a, r = along(p.path, u);
+      el.setAttribute('transform', `translate(${r[0] - p.anchor[0]} ${r[1] - p.anchor[1]}) rotate(${r[2] + (p.rot0 || 0)} ${p.anchor[0]} ${p.anchor[1]})`);
+      el.setAttribute('opacity', a); }
     else if (p.kind === 'ring') {
       let k = 0;
       for (const ev of p.pulse) { const t0 = tk(ev.stage, ev.delay, times);
@@ -83,6 +99,12 @@ function frame(t) {
       el.setAttribute('opacity', a); });
     const z = sc.cam ? state(sc.cam, t, times, {z: 1}).z : 1, c = sc.camc;
     document.getElementById('cam').setAttribute('transform', `translate(${c[0]} ${c[1]}) scale(${z}) translate(${-c[0]} ${-c[1]})`);
+    if (C.intro) {   // 15本目 ⑤b-2：全面の絵の前の冒頭の絵（c101 B→A）
+      const si = C.intro; drawScene(si, t, si.times);
+      document.getElementById('introwrap').setAttribute('opacity', t < C.introSec ? 1 : Math.max(0, 1 - (t - C.introSec) / 0.6));
+      const zi = si.cam ? state(si.cam, t, si.times, {z: 1}).z : 1, ci = si.camc;
+      document.getElementById('icam').setAttribute('transform', `translate(${ci[0]} ${ci[1]}) scale(${zi}) translate(${-ci[0]} ${-ci[1]})`);
+    }
   } else if (C.intro) {
     const sc = C.intro; drawScene(sc, t, sc.times);
     document.getElementById('introwrap').setAttribute('opacity', t < C.introSec ? 1 : Math.max(0, 1 - (t - C.introSec) / 0.6));
@@ -90,7 +112,9 @@ function frame(t) {
     document.getElementById('cam').setAttribute('transform', `translate(${c[0]} ${c[1]}) scale(${z}) translate(${-c[0]} ${-c[1]})`);
   } else {
     C.scenes.forEach((sc, k) => { drawScene(sc, t, times); const a = ease((t - (sc.show < times.length ? times[sc.show][0] : 0)) / 0.45);
-      document.getElementById('mini' + k).setAttribute('opacity', a); });
+      document.getElementById('mini' + k).setAttribute('opacity', a);
+      const z = sc.cam ? state(sc.cam, t, times, {z: 1}).z : 1, c = sc.camc || [960, 540];     // 15本目 ⑤b-2：小さな絵にも寄り
+      document.getElementById('minicam' + k).setAttribute('transform', `translate(${c[0]} ${c[1]}) scale(${z}) translate(${-c[0]} ${-c[1]})`); });
     C.tagIds.forEach((id, i) => { const el = document.getElementById(id); if (el) el.setAttribute('opacity', ease((t - times[i][0]) / 0.6)); });
   }
   const r = C.subs.find(x => t >= x.t && t < x.t + x.d + 0.43) || null;
@@ -130,6 +154,11 @@ def _parts_svg(cid, sc, jobs):
             g += [f'<g id="{name}_{j}" opacity="0">{_ns(jobs[name], f"{name}_{j}_")}</g>' for j in range(k)]
         elif p.get("kind") == "sprite":
             g += [f'<g id="{name}_{j}" opacity="0">{_ns(jobs[name], f"{name}_{j}_")}</g>' for j in range(len(p["inst"]))]
+        elif p.get("kind") == "draw":
+            # 15本目 ⑤b-2：道をなぞる型紙（mask）の折れ線を JS が頭から伸ばす
+            g.append(f'<defs><mask id="{name}_m" maskUnits="userSpaceOnUse" x="-4000" y="-4000" width="12000" height="12000">'
+                     f'<polyline id="{name}_mp" fill="none" stroke="#fff" stroke-width="{p.get("reveal", 30)}" '
+                     f'stroke-linejoin="round"/></mask></defs><g id="{name}" opacity="0" mask="url(#{name}_m)">{inner}</g>')
         else:
             g.append(f'<g id="{name}">{inner}</g>')
     return "".join(g)
@@ -152,6 +181,12 @@ def page(cid, idx, jobs, css_href):
                     + "".join(f'<g id="{k}" opacity="0">{L(k)}</g>' for k in tag_ids) + "</g>")
         body.append(L(f"{cid}_base"))
         data.update(full=True, scenes=[sc])
+        if intro and intro.get("illu"):
+            # 15本目 ⑤b-2：全面の絵の前に冒頭の絵（c101＝B→A）＝本番の compose と同じく introSec から 0.6秒で重ねて入れ替える
+            si = intro["illu"]
+            body.append('<g id="introwrap"><rect width="1920" height="1080" fill="#000"/><g id="icam">'
+                        + _parts_svg(cid, si, jobs) + "</g>" + L(f"{cid}_ilab") + "</g>")
+            data.update(intro=si, introSec=intro["sec"])
     elif intro and intro.get("illu"):
         sc = intro["illu"]
         body.append(L(f"{cid}_base") + L(f"{cid}_lab") + "".join(L(k) for k in tag_ids))
@@ -163,7 +198,7 @@ def page(cid, idx, jobs, css_href):
         for k, sc in enumerate((il or {}).get("scenes") or []):
             x, y, w, h = sc["box"]
             body.append(f'<g id="mini{k}" opacity="0"><svg x="{x}" y="{y}" width="{w}" height="{h}" viewBox="0 0 1920 1080">'
-                        f'<rect width="1920" height="1080" fill="#000"/>{_parts_svg(cid, sc, jobs)}</svg></g>')
+                        f'<rect width="1920" height="1080" fill="#000"/><g id="minicam{k}">{_parts_svg(cid, sc, jobs)}</g></svg></g>')
         body.append("".join(f'<g id="{k}" opacity="0">{L(k)}</g>' for k in tag_ids))
         data.update(full=False, scenes=(il or {}).get("scenes") or [])
     band = '<rect x="0" y="900" width="1920" height="180" fill="#000"/>'

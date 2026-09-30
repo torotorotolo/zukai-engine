@@ -383,6 +383,8 @@ def main():
         return 2
     if "--selftest" in sys.argv:
         return 0
+    import fixture_ep14
+    fixture_ep14.restore()       # 🔴 15本目 ⑤b-2：selftest で差し込んだ14本目の見本を本番の表に戻す（戻さないと14本目の表で本番を測る）
     import cuts
     import scene_jiko as S
     targets = {c: s["fig"][1] for c, s in sorted(cuts.SPEC.items()) if s.get("fig") and s["fig"][0] == "qty"}

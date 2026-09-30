@@ -337,9 +337,30 @@ def vid(cid, **kw):
 #        ⚠️ 14本目は時計の時刻（"9:47"）で比べる作り＝15本目は秒の札（AAB p28 の経過の表）で書く場面がある
 #           ＝check_illu ② の役割（{観客の群れ}）と時刻の条件を ⑤b-2 で広げる（ルール §5b-75・映像方針 §6）
 REC_PAGES = REF / "src" / "ep15_pages.txt"      # ④ の make_pages.py の出力（261頁・git の外＝手元だけ）
-REC_DOCS = {}
+# 🔴 2026-09-30（15本目 ⑤b-2）：15本目の値を入れた。頁の番号は `ref/ep15/v1_build/make_pages.py` が振った通し番号
+#    （AAB＝PDF の頁のまま p1〜p52・#40 p1001〜・#33 p2001〜・#14 p3001〜・#53 p4001〜・CAROL p5008〜p5017・勧告書 p6001〜・
+#     #17 p7001〜）。画面の出典は「PDF N頁」（base を引く）。⚠️ 台本の出典欄の「#33 p9」は #33 の PDF の頁＝ここでは p2009
+REC_DOCS = {
+    "AAB": dict(range=(1, 52), name="NTSB 事故報告 AAB-12/01", page="pdf", base=0),
+    "#40": dict(range=(1001, 1061), name="NTSB 資料 #40（材料の試験）", page="pdf", base=1000),
+    "#33": dict(range=(2001, 2022), name="NTSB 資料 #33（生存と運営）", page="pdf", base=2000),
+    "#14": dict(range=(3001, 3040), name="NTSB 資料 #14（データの記録）", page="pdf", base=3000),
+    "#53": dict(range=(4001, 4029), name="NTSB 資料 #53（性能の解析）", page="pdf", base=4000),
+    "CAROL": dict(range=(5008, 5017), name="NTSB 勧告の記録（CAROL）", page=None, base=0),
+    "勧告書": dict(range=(6001, 6207), name="NTSB 勧告書（A-12-08〜17）", page=None, base=0),
+    "#17": dict(range=(7001, 7029), name="NTSB 資料 #17（耐空性）", page="pdf", base=7000),
+}
+# 資料で割れる時刻（時計）＝15本目は無い（割れるのは秒の起点＝#42 の「5.3秒」と AAB の「4.6秒」＝台本 §1-5）。
+#   秒の札は下の ILLU_SEC_OK（AAB p28 の表の値だけ）で止める＝5.3秒・写真の EXIF から推した時刻は札に出せない
 ILLU_SPLIT_TIMES = ()
+# 観客の群れ（置き場 C）は ⑤b-3 で入れる（落ちる瞬間＝崩れ始めから約9.1秒より前・映像方針 §10-1「ゆるめる」）
 ILLU_CROWD_UNTIL = None
+# 🆕 15本目：画面に出してよい秒（札の「N秒」「約N秒」）＝AAB p28 の経過の表の値だけ（映像方針 §6 ⑤）。門番 check_illu ⑤
+ILLU_SEC_OK = {s: "AAB p28" for s in ("0", "0.27", "0.56", "0.83", "1.3", "1.44", "3.1", "4.6", "9.1")}
+# 🆕 15本目：札に出してよい時計の時刻＝表の時刻（16時24分台）だけ（EXIF から推した時刻を出さない）
+ILLU_CLOCK_OK = ("16:24",)
+# 🆕 15本目：描いてよい数（部品の obj の合計＝その場面に描いた数）と記録（映像方針 §6 ③）。門番 check_illu ③
+ILLU_COUNTS = dict(aircraft=(1, "AAB p10"), fuel_truck=(1, "AAB p19"), stands=(3, "AAB p20"), pylons=(12, "AAB p17"))
 
 # 🔴 §0b：軸の型（`tools/axis.py`・14本目 ⑤b-5）の「割れる時刻の印」に添える出典の名（`rec=` の資料名 → 画面の名）。
 #   語りが資料を呼ぶ名に合わせる（海審の特別調査報告＝語りは「報告書」）。ILLU_SPLIT_TIMES の時刻は、軸の型では

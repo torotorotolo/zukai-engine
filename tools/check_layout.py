@@ -142,13 +142,20 @@ def main(only=None):
     bycut = defaultdict(list)
     # 🔴 2026-09-28（14本目 ⑤b-2）：冒頭の絵（`intro=dict(illu=…)`）の層も `_ilab` と同じ「冒頭の画面」＝決め所と同時には出ない
     intro_il = {p["name"] for m_ in S.STAGE_META.values() for p in ((m_.get("intro_illu") or {}).get("parts") or [])}
-    for k, svg in jobs.items():
+    # 🔴 2026-09-30（15本目 ⑤b-2）：小さく戻す絵（illu_pair）の層は 1920×1080 の絵を枠へ縮めて貼る＝層の中の文字（機体の
+    #    「177」など）の座標は画面の座標でない＝文字として測らない（原寸の座標のまま測ると問いの札と「重なる」と鳴った＝c109）
+    mini_il = {p["name"] for m_ in S.STAGE_META.values() if not ((m_.get("illu") or {}).get("full", True))
+               for sc in ((m_.get("illu") or {}).get("scenes") or []) for p in (sc.get("parts") or [])}
+
+    def screen(k):
         cid = k.rsplit("_", 1)[0]
         # 🔴 12本目から：冒頭の写真の板（`_ilab`）は**図と同時には出ない**（写真→図へ入れ替え）。
         #    別の画面として束ねる（板の中どうしは今までどおり比べる）
-        if k.endswith("_ilab") or k in intro_il:
-            cid += "〔冒頭の写真〕"
-        bycut[cid] += boxes(svg, k)
+        return cid + "〔冒頭の写真〕" if (k.endswith("_ilab") or k in intro_il) else cid
+    for k, svg in jobs.items():
+        if k in mini_il:
+            continue
+        bycut[screen(k)] += boxes(svg, k)
     for cid in sorted(bycut):
         bs = bycut[cid]
         for i in range(len(bs)):
@@ -202,7 +209,9 @@ def main(only=None):
         #    絵の上の文字はフチ（paint-order）と札の地で守る＝焼いた絵を目で見る（Actions の試し焼き）
         if k.endswith("_base") or S.KEEP_COLOR.search(k) and not k.startswith("sub_"):
             continue
-        cid = k.rsplit("_", 1)[0]
+        # 🔴 2026-09-30（15本目 ⑤b-2）：冒頭の絵の板（`_ilab`）の図形は冒頭の画面の文字とだけ比べる（文字の重なりと同じ束ね方）。
+        #    c101（冒頭の絵 B → 全面の絵 A）で、B の板の出典の行の地が A の出典の行を「覆う」と鳴った＝同時には出ない
+        cid = screen(k)
         for m in CB.parse(svg, k)[1]:
             kind, *v = m
             xs = [p[0] for p in v[0]] if kind == "pts" else [v[0], v[2]]

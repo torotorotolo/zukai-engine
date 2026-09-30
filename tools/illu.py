@@ -31,6 +31,14 @@
       無線機へ）・glow（放送の機器の電源の灯）・asks（問いかけの印）・walkie（3階からの無線機）
   E … 管制センターの中（⑤b-3）。管制の画面（レーダー）と船の点・交信の装備。人は描かない（管制官の人数が記録に無い）。
       sel＝画面の船の点に印・出来事 rings（交信の装備から外へ）
+  ── 15本目（リノ・エアレース2011・⑤b-2）＝頭に R を付けた別の鍵（A〜E は14本目の船＝selftest の見本が使う）──
+  RA … 上から見たステッド空港（北が上）。view＝wide（コース全体）／near（パイロン7・8と駐機場）／ramp（駐機場の寄り）。
+       事故機の印 gg（off／p7／p8／gone＝道に沿って進み 0秒で消える）・点線 path（模式）・琥珀の線 trace・× x・ボックス席 box・
+       3周の航跡 laps・パイロン6〜7 seg67・パイロン8の輪 ring8・一片が見つかった所 piece・燃料車の輪 fuel・コースの破線 course
+  RB … 空の中の事故機。view＝side（横から・機首が右）／rear（後ろから）＝段で入れ替えてよい。ground（on＝丘と砂漠）・
+       pitch（機首の上げ・度）・roll（左への傾き・度）・ail（補助翼 off／right）・出来事 rings（テレメトリー）・pylon（1本流れる）
+  RD … ピットの事故機（⑤b-2 は c109 の小さな絵の尾翼の寄り tail だけ・mark＝尾翼の輪）＝⑤b-3 で本格的に
+  動きの部品（build_jiko）：draw（線を道の頭から見せる）・mover（印が道を進み向きを変える）・akeys（濃さだけの鍵）
 
 ■ 守りの線（ルール §5b-74）と門番 `check_illu`（§5b-75）
   ① 描く物・人・動作・数・時刻は1つずつ出典（資料と頁＝`rec=`）。部品は置き場が既定の rec を持つ。記録の欄（傾き・波・
@@ -924,6 +932,670 @@ def rail_board_path(j):
 
 
 # ══════════════════════════════════════════════════════════
+#  15本目（リノ・エアレース2011）── ⑤b-2（2026-09-30）：RA・RB・RD
+# ══════════════════════════════════════════════════════════
+# 置き場：RA＝上から見たステッド空港（北が上）／RB＝空の中の事故機（横から side・後ろから rear）／
+#         RD＝ピットの事故機（⑤b-2 は c109 の小さな絵の「尾翼の寄り」tail だけ＝本格は ⑤b-3）
+# 🔴 鍵 A〜E は14本目（セウォル号）の置き場＝触らない（14本目の selftest の見本 fixture_ep14 が使う）。15本目は頭に R。
+# 🔴 守りの線（Vault 映像方針 15本目 §1・§10）：パイロットは人の形で描かない（操縦席の覆いは光る面＝中を描かない）／
+#    落ちたことは RA の×と札だけ（機体の印は0秒で消し、そこから先は点線＝模式）／形のもとは PD の図だけ
+#    （AAB 図1 p11・図2 p14・図3 p20・#33 図7 p2009・#14 図12 p3014）＝写真（BY-SA・CC BY・courtesy）はなぞらない／
+#    RA の縮尺は1画素あたり1.5メートル以上（人を描けない縮尺＝門番 ⑧）／横転のきっかけは場面にしない（渦も板も描かない）／
+#    時刻・秒の札は AAB p28 の経過の表の値だけ（`cuts.ss.ILLU_SEC_OK`＝門番 ⑤）／数（機体1・燃料車1・スタンド3・パイロン12）
+#    は部品の obj で名乗る（`cuts.ss.ILLU_COUNTS`＝門番 ③）
+# 位置（メートル・東 E・北 N・原点＝本部のパイロン）＝`ref/ep15/measure_reno.py` が図の画素から機械で測った（目で読んでいない。
+#   結果の正本＝`ref/ep15/illu_reno.json`）：
+#   ・図1（AAB p11・北が上）：パイロン12本（青・黄・赤の三角の色の塊）・ショーライン（緑の画素を直線で当てた）・事故地点（赤い点）。
+#     縮尺＝コースの長さ 8.4333マイル（#33 p2009）÷ パイロンを回る順の折れ線＝1画素 8.644メートル。
+#     確かめ＝事故地点はショーラインの南 約280メートル（記録：ボックス席の端は 874フィート＝266メートル＝AAB p19 の内側）
+#   ・#14 図12（p3014・1周目 黄・2周目 橙・3周目 赤）：パイロン12本で図1 へ相似に当てた（残差 平均28メートル）。
+#     航跡＝色ごとの画素を角度で並べた点（4つおき）。3周目の終わり＝最後の GPS（16:24:29＝#14 p3008）の近く
+#   ・滑走路：14/32＝9,000フィート・8/26＝7,608フィート（AAB p16）。8/26 の南の縁＝ショーライン（p17）。14/32 の向きは図12 の
+#     暗い帯・南の端は 8/26 の中心線と交わる所。
+#   ⚠️ 8/26 の東西の端・駐機場・ピット・ボックス席・スタンドの東西の広がりは図3（p20・斜めの空撮）から読んだ概略（記録の数は
+#      ショーラインから 266・228メートルと「燃料車はピットの近く」だけ）＝左下の出典に「配置は概略」。幅（滑走路 46メートル・
+#      ボックス席 24メートル・スタンド 30メートル）も記録に無い＝抽象
+R_PYL = dict(hm=(0.0, 0.0), p1=(468.0, 163.0), p2=(1251.0, 717.0), p3=(1470.0, 1755.0), sg=(1054.0, 3276.0),
+             p4=(660.0, 4426.0), p5=(-709.0, 4889.0), p6=(-1899.0, 4085.0), gw=(-1902.0, 3107.0),
+             p7=(-1962.0, 1093.0), p8=(-1511.0, 430.0), p9=(-924.0, 147.0))
+R_ORDER = ("hm", "p1", "p2", "p3", "sg", "p4", "p5", "p6", "gw", "p7", "p8", "p9")    # 回る順（左回り＝図1 の向きの矢印）
+R_SHOW_DEG = -6.13                 # ショーラインの向き（東から・北が＋）
+R_S0 = (0.0, -320.2)               # ショーラインの上で本部のパイロンの真南の点
+R_ACC = (-46.0, -598.0)            # 事故地点（図1 の赤い点）
+R_LAPS = dict(
+    lap1=((1658, 1084), (1683, 1446), (1691, 1764), (1692, 2049), (1694, 2313), (1691, 2567), (1676, 2819), (1657, 3075),
+          (1631, 3345), (1588, 3633), (1530, 3950), (1423, 4280), (1259, 4613), (1039, 4946), (746, 5241), (377, 5403),
+          (-21, 5551), (-435, 5506), (-831, 5393), (-1216, 5261), (-1527, 4987), (-1766, 4659), (-1972, 4221),
+          (-2062, 3864), (-2109, 3524), (-2130, 3207), (-2136, 2910), (-2133, 2624), (-2124, 2342), (-2112, 2055),
+          (-2097, 1751), (-2054, 1431), (-1942, 1122), (-1810, 793), (-1594, 508), (-1320, 273), (-999, 103),
+          (-652, -16), (-290, -83), (-12, -102)),
+    lap2=((2051, 2796), (1944, 3082), (1827, 3353), (1705, 3620), (1489, 3822), (1267, 4002), (1056, 4184), (661, 4498),
+          (411, 4700), (125, 4919), (-212, 5094), (-647, 5024), (-1188, 4948), (-1472, 4716), (-1714, 4454), (-1920, 4175),
+          (-2053, 3858), (-2084, 3513), (-2113, 3202), (-2155, 2768), (-2148, 2482), (-2135, 2123), (-2124, 1821),
+          (-2090, 1501), (-2021, 1060), (-1913, 685), (-1628, 462), (-1373, 174), (-1045, -26), (-671, -107),
+          (-296, -180), (89, -209), (448, -41), (817, 29), (1160, 184), (1476, 388), (1771, 621), (1938, 969), (1978, 1051)),
+    lap3=((188, -220), (572, -152), (942, -28), (1273, 177), (1531, 469), (1739, 783), (1810, 1172), (1866, 1517),
+          (1914, 1830), (1911, 2137), (1859, 2429), (1777, 2699), (1698, 2952), (1580, 3252), (1464, 3479), (1346, 3709),
+          (1222, 3954), (993, 4215), (790, 4431), (563, 4672), (288, 4890), (-38, 5002), (-386, 5058), (-740, 5032),
+          (-1077, 4919), (-1384, 4742), (-1690, 4563), (-1991, 4124), (-2138, 3719), (-2189, 3390), (-2210, 3075),
+          (-2210, 2773), (-2200, 2480), (-2185, 2188), (-2160, 1888), (-2124, 1571), (-2052, 1243), (-1912, 930),
+          (-1730, 621), (-1480, 357), (-1404, 309)))
+R_LAP_COL = dict(lap1="#f2d24a", lap2="#ef9b3a", lap3="#e0533c")     # 図12 と同じ 黄・橙・赤（何周目かの色）
+R_GG = ((-1912.0, 930.0), (-1730.0, 621.0), (-1480.0, 357.0), (-1404.0, 309.0))   # 3周目：パイロン7のすぐ後 → 航跡の終わり
+R_SEG67 = ((-1991.0, 4124.0), (-2138.0, 3719.0), (-2189.0, 3390.0), (-2210.0, 3075.0), (-2210.0, 2773.0), (-2200.0, 2480.0),
+           (-2185.0, 2188.0), (-2160.0, 1888.0), (-2124.0, 1571.0), (-2052.0, 1243.0))   # 3周目のパイロン6〜7の区間（AAB p29）
+# 崩れ始め（航跡の終わり）→ 事故地点＝🔴 模式（地面の上の道は記録に無い＝AAB p11「らせん状に降下」だけ）＝点線で描く
+R_FALL = ((-1404.0, 309.0), (-1060.0, 205.0), (-720.0, 60.0), (-440.0, -150.0), (-220.0, -370.0), (-46.0, -598.0))
+R_RW = 46.0                        # 滑走路の幅（記録に無い＝抽象）
+R_RW826 = (-1390.0, 929.0)         # 8/26：ショーラインに沿った範囲（長さ 2,319メートル＝7,608フィート・東の端＝14/32 と交わる所）
+R_RW1432 = dict(s_end=(926.0, -396.5), deg=116.3, len=2743.0)    # 14/32：南の端・向き（東から・北が＋）・長さ（9,000フィート）
+R_RAMP = dict(s=(-760.0, 929.0), d=(0.0, 266.0))      # 駐機場（ランプ）＝ボックス席の端まで（266メートル＝AAB p19）
+R_PITS = dict(s=(-730.0, -170.0), d=(228.0, 330.0))   # ピット（端はショーラインの南 228メートル＝748フィート＝AAB p19）
+R_BOX = dict(s=(-150.0, 450.0), d=(266.0, 290.0))     # ボックス席
+R_STANDS = ((-140.0, 60.0), (90.0, 250.0), (280.0, 440.0))   # スタンド3つ（図3 の矢印）の s の範囲
+R_STAND_D = (296.0, 326.0)
+R_BUILT = dict(s=(-900.0, 1000.0), d=(330.0, 560.0))  # スタンドの奥（テント・建物＝数が記録に無い＝塗りだけ）
+R_FUEL = (-650.0, 185.0)           # 燃料車（ピットの近くの駐機場＝AAB p19・図3）の s, d
+R_FUEL_M = (12.0, 3.0)             # 燃料車の長さと幅（記録に無い＝抽象）
+R_PIECE_R = 120.0                  # 一片が見つかった所＝本部のパイロンの「近く」（AAB p18）の輪の半径（点にしない）
+R_RING8 = 330.0                    # パイロン8を回る所（3周の航跡が重なる所）の輪の半径
+RA_VIEW = dict(wide=dict(c=(-300.0, 2650.0), mpp=7.8, lab="上から見た図（コース全体）"),
+               near=dict(c=(-800.0, 150.0), mpp=2.5, lab="上から見た図"),
+               ramp=dict(c=(-150.0, -420.0), mpp=1.5, lab="上から見た図（駐機場の寄り）"))
+RA_Y0 = 485.0                      # 画面の真ん中の y（左上の札の下〜左下の出典の上）
+RA_T = dict(move=0.95, fade=0.22, path=0.75, x=0.3, box=0.45, trace=1.8, lap=1.9, lap_gap=0.35, glow=1.1, show=0.4)
+RA_MK = (960.0, 540.0)             # 事故機の印の層の中の真ん中（mover が道の上へ動かして向きを変える）
+RA_MK_K = 6.2                      # 印の1メートル＝画素（翼の幅 8.8メートル＝55画素＝実物の約15倍・出典に「機体は拡大」）
+
+
+def r_sd(s, d):
+    """ショーラインに沿って s メートル（東が＋）・南へ d メートルの点（E, N）。"""
+    a = math.radians(R_SHOW_DEG)
+    u, v = (math.cos(a), math.sin(a)), (math.sin(a), -math.cos(a))
+    return (R_S0[0] + s * u[0] + d * v[0], R_S0[1] + s * u[1] + d * v[1])
+
+
+def r_px(p, view):
+    """世界の点（メートル）→ RA の見え方 view の画面の点。"""
+    v = RA_VIEW[view]
+    return (960.0 + (p[0] - v["c"][0]) / v["mpp"], RA_Y0 - (p[1] - v["c"][1]) / v["mpp"])
+
+
+def _pl(pts):
+    return "M" + " L".join(f"{x:.1f} {y:.1f}" for x, y in pts)
+
+
+def _poly(pts, fill, stroke=None, sw=0.0, op=None):
+    s = f' stroke="{stroke}" stroke-width="{sw}" stroke-linejoin="round"' if stroke else ""
+    o = f' opacity="{op}"' if op is not None else ""
+    return f'<path d="{_d(pts)}" fill="{fill}"{s}{o}/>'
+
+
+def _smooth(pts, closed=False, per=8):
+    """Catmull-Rom で滑らかにした点の並び。"""
+    n = len(pts)
+    P = (lambda i: pts[i % n]) if closed else (lambda i: pts[max(0, min(n - 1, i))])
+    out = []
+    for i in range(n if closed else n - 1):
+        p0, p1, p2, p3 = P(i - 1), P(i), P(i + 1), P(i + 2)
+        for k in range(per):
+            t = k / per
+            t2, t3 = t * t, t * t * t
+            out.append(tuple(0.5 * (2 * p1[j] + (-p0[j] + p2[j]) * t + (2 * p0[j] - 5 * p1[j] + 4 * p2[j] - p3[j]) * t2
+                                    + (-p0[j] + 3 * p1[j] - 3 * p2[j] + p3[j]) * t3) for j in (0, 1)))
+    out.append(tuple(pts[0] if closed else pts[-1]))
+    return out
+
+
+def ra_path(view, pts, per=8, closed=False):
+    """世界の点の並び（メートル）→ 画面の滑らかな点の並び（画素）。"""
+    return _smooth([r_px(p, view) for p in pts], closed=closed, per=per)
+
+
+def _sd_poly(s0, s1, d0, d1, view):
+    return [r_px(r_sd(s, d), view) for s, d in ((s0, d0), (s1, d0), (s1, d1), (s0, d1))]
+
+
+def ra_ground_svg(view):
+    """地面：砂漠・スタンドの奥の塗り・駐機場・滑走路2本・ピット・ボックス席（と前の幕）・スタンド3つ・燃料車1台。
+    人・テント・駐機の機体・建物の1つずつは描かない（数が記録に無い）。"""
+    import random
+    mpp = RA_VIEW[view]["mpp"]
+    g = [f'<rect x="-10" y="-10" width="{W + 20}" height="{H + 20}" fill="#cbb792"/>']
+    rnd = random.Random("reno-desert")
+    for _ in range(160):                      # 地面の濃淡（世界に固定＝見え方が変わっても同じ所に同じ濃淡）
+        e, n = rnd.uniform(-7000, 6500), rnd.uniform(-4000, 9000)
+        rx, ry = rnd.uniform(120, 900) / mpp, rnd.uniform(80, 520) / mpp
+        col = ("#bfa982", "#d6c7a5", "#c4ae87")[rnd.randrange(3)]
+        op = rnd.uniform(0.22, 0.48)
+        x, y = r_px((e, n), view)
+        if -rx - 60 < x < W + rx + 60 and -ry - 60 < y < H + ry + 60:
+            g.append(f'<ellipse cx="{x:.1f}" cy="{y:.1f}" rx="{rx:.1f}" ry="{ry:.1f}" fill="{col}" opacity="{op:.2f}"/>')
+    b, r, p, bx = R_BUILT, R_RAMP, R_PITS, R_BOX
+    g.append(_poly(_sd_poly(b["s"][0], b["s"][1], b["d"][0], b["d"][1], view), "#b5b0a4"))
+    g.append(_poly(_sd_poly(r["s"][0], r["s"][1], r["d"][0], r["d"][1], view), "#aeb2b4"))
+    g.append(_poly(_sd_poly(R_RW826[0], R_RW826[1], -R_RW, 0.0, view), "#5d6266"))
+    a = math.radians(R_RW1432["deg"])
+    u, nrm = (math.cos(a), math.sin(a)), (-math.sin(a), math.cos(a))
+    s_ = R_RW1432["s_end"]
+    n_ = (s_[0] + u[0] * R_RW1432["len"], s_[1] + u[1] * R_RW1432["len"])
+    hw = R_RW / 2
+    g.append(_poly([r_px(q, view) for q in ((s_[0] + nrm[0] * hw, s_[1] + nrm[1] * hw), (n_[0] + nrm[0] * hw, n_[1] + nrm[1] * hw),
+                                            (n_[0] - nrm[0] * hw, n_[1] - nrm[1] * hw), (s_[0] - nrm[0] * hw, s_[1] - nrm[1] * hw))],
+                   "#5d6266"))
+    g.append(_poly(_sd_poly(p["s"][0], p["s"][1], p["d"][0], p["d"][1], view), "#9a9ea2"))
+    g.append(_poly(_sd_poly(bx["s"][0], bx["s"][1], bx["d"][0], bx["d"][1], view), "#dcd3bb"))
+    for s0, s1 in R_STANDS:
+        g.append(_poly(_sd_poly(s0, s1, R_STAND_D[0], R_STAND_D[1], view), "#e8eaec", "#8f989e", 1.2))
+    if mpp <= 3.0:     # 寄りの絵だけ：柵と幕（全体の絵では 1画素に満たない）
+        (x0, y0), (x1, y1) = r_px(r_sd(p["s"][0], p["d"][0]), view), r_px(r_sd(p["s"][1], p["d"][0]), view)
+        g.append(f'<path d="M {x0:.1f} {y0:.1f} L {x1:.1f} {y1:.1f}" stroke="#6d7378" stroke-width="1.6"/>')   # ピットの端の低い柵（p20）
+        (x0, y0), (x1, y1) = r_px(r_sd(bx["s"][0], bx["d"][0]), view), r_px(r_sd(bx["s"][1], bx["d"][0]), view)
+        for col, off in (("#3d6ea6", 0), ("#b0443a", 7)):     # ボックス席の前の幕を付けたパイプ（p20・幕は青と赤＝p21 注26）
+            g.append(f'<path d="M {x0:.1f} {y0:.1f} L {x1:.1f} {y1:.1f}" stroke="{col}" stroke-width="3" '
+                     f'stroke-dasharray="7 7" stroke-dashoffset="{off}"/>')
+    fl, fw = R_FUEL_M
+    fs, fd = R_FUEL
+    g.append(_poly(_sd_poly(fs - fl / 2, fs + fl / 2, fd - fw / 2, fd + fw / 2, view), "#f4f5f6", "#3f464c", 1.2))
+    return "".join(g)
+
+
+def ra_course_pts():
+    """コース（パイロンの外側を回る線）＝パイロンを真ん中から 90メートル外へ押した点。道の細部は記録に無い＝模式の破線。"""
+    c = (sum(p[0] for p in R_PYL.values()) / len(R_PYL), sum(p[1] for p in R_PYL.values()) / len(R_PYL))
+    out = []
+    for k in R_ORDER:
+        x, y = R_PYL[k]
+        L = math.hypot(x - c[0], y - c[1]) or 1.0
+        out.append((x + (x - c[0]) / L * 90.0, y + (y - c[1]) / L * 90.0))
+    return out
+
+
+def ra_course_svg(view):
+    return (f'<path d="{_pl(ra_path(view, ra_course_pts(), per=10, closed=True))} Z" fill="none" stroke="#f4f1ea" '
+            f'stroke-width="2.6" stroke-dasharray="9 10" opacity="0.55"/>')
+
+
+def ra_pylons_svg(view):
+    """パイロン10本＋案内2本（AAB p17）。どれも同じ印（記号の大きさは見え方で変えない）。"""
+    g = []
+    for k in R_ORDER:
+        x, y = r_px(R_PYL[k], view)
+        g.append(f'<circle cx="{x + 1.5:.1f}" cy="{y + 1.5:.1f}" r="7" fill="#1a2530" opacity="0.35"/>'
+                 f'<circle cx="{x:.1f}" cy="{y:.1f}" r="6" fill="#f4f1ea" stroke="#2b2f33" stroke-width="1.8"/>')
+    return "".join(g)
+
+
+def ra_marker_svg():
+    """上から見た事故機の印（機首が +x）。形は AAB 図2（p14）の上から見た図の概形（翼を短くした形・翼端の板）。
+    操縦席の覆いは光る面（中を描かない）。大きさは拡大（RA_MK_K）"""
+    cx, cy = RA_MK
+    k = RA_MK_K
+
+    def P(x, y):
+        return (cx + x * k, cy - y * k)
+    hw = 4.395
+    body = [(4.8, 0.0), (4.3, 0.42), (2.0, 0.55), (-3.9, 0.30), (-5.0, 0.18), (-5.0, -0.18), (-3.9, -0.30), (2.0, -0.55),
+            (4.3, -0.42)]
+    wing = [(1.6, 0.5), (0.7, hw), (-0.5, hw), (-1.2, 0.5), (-1.2, -0.5), (-0.5, -hw), (0.7, -hw), (1.6, -0.5)]
+    stab = [(-4.0, 0.25), (-4.5, 1.84), (-5.0, 1.84), (-5.0, -1.84), (-4.5, -1.84), (-4.0, -0.25)]
+    return (f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{5.6 * k:.1f}" fill="#f7f4ee" opacity="0.30"/>'
+            + _poly([P(*q) for q in wing], "#cfd6db", "#3a454e", 1.6) + _poly([P(*q) for q in stab], "#cfd6db", "#3a454e", 1.4)
+            + _poly([P(*q) for q in body], "#dde3e7", "#3a454e", 1.6)
+            + f'<ellipse cx="{cx + 0.5 * k:.1f}" cy="{cy:.1f}" rx="{0.8 * k:.1f}" ry="{0.3 * k:.1f}" fill="#9cc0d6" '
+            f'stroke="#3a454e" stroke-width="1"/>')
+
+
+def ra_line_svg(pts, col, w, dash=None, op=1.0, glow=False):
+    """道の線（draw の部品＝build_jiko が頭から順に見せる）。"""
+    d = _pl(pts)
+    da = f' stroke-dasharray="{dash}"' if dash else ""
+    g = ""
+    if glow:
+        g += (f'<path d="{d}" fill="none" stroke="{col}" stroke-opacity="0.35" stroke-width="{w * 3.2:.1f}" '
+              f'stroke-linecap="round" stroke-linejoin="round"/>')
+    return g + (f'<path d="{d}" fill="none" stroke="#1a2530" stroke-opacity="{0.5 * op:.2f}" stroke-width="{w + 3:.1f}" '
+                f'stroke-linecap="round" stroke-linejoin="round"{da}/>'
+                f'<path d="{d}" fill="none" stroke="{col}" stroke-opacity="{op}" stroke-width="{w}" stroke-linecap="round" '
+                f'stroke-linejoin="round"{da}/>')
+
+
+def ra_x_svg(view):
+    x, y = r_px(R_ACC, view)
+    d = f"M {x - 13:.1f} {y - 13:.1f} L {x + 13:.1f} {y + 13:.1f} M {x + 13:.1f} {y - 13:.1f} L {x - 13:.1f} {y + 13:.1f}"
+    return (f'<path d="{d}" stroke="#1a2530" stroke-width="10" stroke-linecap="round"/>'
+            f'<path d="{d}" stroke="{C["mark"]}" stroke-width="5" stroke-linecap="round"/>')
+
+
+def ra_box_svg(view):
+    bx = R_BOX
+    return _poly(_sd_poly(bx["s"][0], bx["s"][1], bx["d"][0] - 3, bx["d"][1] + 3, view), "none", C["mark"], 3.0)
+
+
+def ra_ring_svg(center, rad_m, view, dash=None):
+    x, y = r_px(center, view)
+    r = max(16.0, rad_m / RA_VIEW[view]["mpp"])
+    da = f' stroke-dasharray="{dash}"' if dash else ""
+    return (f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r:.1f}" fill="none" stroke="#1a2530" stroke-opacity="0.5" stroke-width="7"{da}/>'
+            f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r:.1f}" fill="none" stroke="{C["mark"]}" stroke-width="3.5"{da}/>')
+
+
+def _ra_timeline(start, states, steps):
+    """RA の鍵（段の中の順番つき）＝事故機の印が進む → 消える（0秒）→ 点線が伸びる → ×・ボックス席 の順（見本 §8）。"""
+    T = RA_T
+    on = (lambda st, f: st[f] == "on")
+    gg0 = start["gg"]
+    K = dict(gg_u=[dict(stage=0, delay=0.0, u=1.0 if gg0 in ("p8", "gone") else 0.0)],
+             gg_a=[dict(stage=0, delay=0.0, a=1.0 if gg0 in ("p7", "p8") else 0.0)])
+    for f in ("path", "trace", "laps", "seg67"):
+        K[f] = [dict(stage=0, delay=0.0, u=1.0 if on(start, f) else 0.0)]
+    for f in ("x", "box", "ring8", "piece", "fuel", "course"):
+        K[f] = [dict(stage=0, delay=0.0, a=1.0 if on(start, f) else 0.0)]
+    K["lap"] = {n: [dict(stage=0, delay=0.0, u=1.0 if on(start, "laps") else 0.0)] for n in R_LAPS}
+    prev = start
+    for i, (st, sp) in enumerate(zip(states, steps)):
+        dl = float(sp.get("delay", KEY_DELAY))
+        t = dl
+        g0, g1 = prev["gg"], st["gg"]
+        if g0 != g1:
+            if g1 == "off":
+                K["gg_a"].append(dict(stage=i, delay=t, dur=T["fade"], a=0.0))
+            elif g1 == "p7":
+                K["gg_u"].append(dict(stage=i, delay=t, dur=0.02, u=0.0))
+                K["gg_a"].append(dict(stage=i, delay=t, dur=0.3, a=1.0))
+            else:                                   # p8／gone：まだ動いていなければ動いてから
+                if g0 in ("off", "p7"):
+                    if g0 == "off":
+                        K["gg_a"].append(dict(stage=i, delay=t, dur=0.25, a=1.0))
+                    K["gg_u"].append(dict(stage=i, delay=t, dur=T["move"], u=1.0))
+                    t += T["move"]
+                if g1 == "gone":
+                    K["gg_a"].append(dict(stage=i, delay=t, dur=T["fade"], a=0.0))
+                    t += T["fade"]
+        if prev["path"] != st["path"]:
+            K["path"].append(dict(stage=i, delay=t, dur=T["path"], u=1.0 if on(st, "path") else 0.0))
+            t += T["path"] if on(st, "path") else 0.0
+        if prev["x"] != st["x"]:
+            K["x"].append(dict(stage=i, delay=t, dur=T["x"], a=1.0 if on(st, "x") else 0.0))
+        if prev["box"] != st["box"]:
+            K["box"].append(dict(stage=i, delay=t + 0.1, dur=T["box"], a=1.0 if on(st, "box") else 0.0))
+        if prev["trace"] != st["trace"]:
+            K["trace"].append(dict(stage=i, delay=dl, dur=float(sp.get("dur", T["trace"])), u=1.0 if on(st, "trace") else 0.0))
+        if prev["laps"] != st["laps"]:
+            for j, n in enumerate(R_LAPS):
+                K["lap"][n].append(dict(stage=i, delay=dl + j * T["lap_gap"], dur=T["lap"], u=1.0 if on(st, "laps") else 0.0))
+        if prev["seg67"] != st["seg67"]:
+            K["seg67"].append(dict(stage=i, delay=dl, dur=T["glow"], u=1.0 if on(st, "seg67") else 0.0))
+        for f in ("ring8", "piece", "fuel", "course"):
+            if prev[f] != st[f]:
+                late = T["lap"] + 2 * T["lap_gap"] if (f == "ring8" and prev["laps"] != st["laps"]) else 0.0
+                K[f].append(dict(stage=i, delay=dl + late, dur=T["show"], a=1.0 if on(st, f) else 0.0))
+        prev = st
+    return K
+
+
+def _scene_RA(start, states, steps):
+    """RA＝上から見たステッド空港（北が上）。見え方 view＝wide（コース全体）／near（パイロン7・8と駐機場）／ramp（駐機場の寄り）。"""
+    view = start["view"]
+    if any(st["view"] != view for st in states):
+        raise ValueError("illu RA：見え方 view は場面の頭（start）で1つだけ（地面の縮尺を焼き込む）")
+    allst = [start] + states
+
+    def used(f):
+        return any(st[f] != "off" for st in allst)
+    K = _ra_timeline(start, states, steps)
+    A1 = [dict(stage=0, delay=0.0, a=1.0)]
+    parts = [dict(_part("ground", ra_ground_svg(view),
+                        "AAB p11（図1）・p16（滑走路2本の長さ）・p17（ショーライン）・p19（ボックス席・ピット・燃料車）・p20（図3・柵と幕）・p21（幕は青と赤）"),
+                  obj=dict(fuel_truck=1, stands=3)),
+             _part("course", ra_course_svg(view), "#33 p2009（コース＝パイロン10本と案内2本）", keys=K["course"])]
+    if used("laps"):
+        for n in R_LAPS:
+            pts = ra_path(view, R_LAPS[n], per=4)
+            parts.append(dict(_part(n, ra_line_svg(pts, R_LAP_COL[n], 3.5, op=0.95), "#14 p3014（図12＝1〜3周目の航跡）・p3008"),
+                              kind="draw", path=[list(q) for q in pts], go=K["lap"][n], keys=A1, reveal=18))
+    if used("seg67"):
+        pts = ra_path(view, R_SEG67, per=6)
+        parts.append(dict(_part("seg67", ra_line_svg(pts, C["mark"], 5.0, glow=True),
+                                "AAB p29（パイロン6と7のあいだで一番速かった）・#14 p3014（図12＝3周目の航跡）"),
+                          kind="draw", path=[list(q) for q in pts], go=K["seg67"], keys=A1, reveal=40))
+    if used("ring8"):
+        parts.append(_part("ring8", ra_ring_svg(R_PYL["p8"], R_RING8, view),
+                           "AAB p29（パイロン8を回る速さとGは前の2周とほぼ同じ）・#14 p3014（図12）", keys=K["ring8"]))
+    parts.append(dict(_part("pylons", ra_pylons_svg(view), "AAB p17（パイロン10本と案内のパイロン2本）・p11（図1）"),
+                      obj=dict(pylons=len(R_ORDER))))
+    gp = ra_path(view, R_GG, per=10)
+    if used("gg"):
+        parts.append(dict(_part("trail", ra_line_svg(gp, "#f7f4ee", 3.0, op=0.7), "#14 p3014（図12＝3周目の航跡）・p3008"),
+                          kind="draw", path=[list(q) for q in gp], go=K["gg_u"], keys=A1, reveal=14))
+    fp = ra_path(view, R_FALL, per=10)
+    if used("path"):
+        parts.append(dict(_part("fall", ra_line_svg(fp, "#f7f4ee", 3.4, dash="3 9", op=0.95),
+                                "AAB p11（右へ転がりながら上昇し、らせん状に降下して地面へ）・p19（ボックス席）"),
+                          kind="draw", path=[list(q) for q in fp], go=K["path"], keys=A1, reveal=16))
+    if used("trace"):
+        parts.append(dict(_part("trace", ra_line_svg(fp, C["mark"], 6.0), "AAB p28（崩れ始めてから約9.1秒で地面）"),
+                          kind="draw", path=[list(q) for q in fp], go=K["trace"], keys=A1, reveal=18))
+    if used("piece"):
+        parts.append(_part("piece", ra_ring_svg(R_PYL["hm"], R_PIECE_R, view, dash="10 7"),
+                           "AAB p18（左の板の内側の一片は本部のパイロンの近くで見つかった）", keys=K["piece"]))
+    if used("fuel"):
+        parts.append(_part("fuel", ra_ring_svg(r_sd(*R_FUEL), 18.0, view), "AAB p19（燃料車がピットの近くの駐機場に）",
+                           keys=K["fuel"]))
+    if used("box"):
+        parts.append(_part("box", ra_box_svg(view), "AAB p19（観客のボックス席に落ちた）", keys=K["box"]))
+    if used("x"):
+        parts.append(_part("x", ra_x_svg(view), "AAB p11（図1＝事故地点）・p19", keys=K["x"]))
+    if used("gg"):
+        parts.append(dict(_part("gg", ra_marker_svg(), "AAB p14（図2＝機体の形）・p28（パイロン8を回って崩れ始めた）"),
+                          kind="mover", path=[list(q) for q in gp], go=K["gg_u"], keys=K["gg_a"], anchor=list(RA_MK),
+                          obj=dict(aircraft=1)))
+    return parts
+
+
+def _ra_anchors(view):
+    P = lambda p: r_px(p, view)  # noqa: E731
+    a = {k: P(v) for k, v in R_PYL.items()}
+    fp = ra_path(view, R_FALL, per=10)
+    a.update(x=P(R_ACC), gg0=P(R_GG[0]), gg1=P(R_GG[-1]), fall0=fp[0], fall_mid=fp[len(fp) // 2],
+             box=P(r_sd(150.0, 278.0)), ramp=P(r_sd(-330.0, 120.0)), fuel=P(r_sd(*R_FUEL)), pits=P(r_sd(-450.0, 280.0)),
+             stands=P(r_sd(160.0, 311.0)), seg67=P(R_SEG67[len(R_SEG67) // 2]), center=(960.0, RA_Y0))
+    return a
+
+
+# ── RB：空の中の事故機（横から side・後ろから rear）。形＝AAB 図2（p14）の横から見た図と上から見た図の寸法（翼の幅 約8.8メートル・
+#    水平尾翼 約3.7メートル＝p13）。色（銀）と「177」＝事故の週の写真で確かめただけ（写真はなぞらない）。胴体の下の取り入れ口は無い（p13）
+RB_K = 58.0                        # 横から：1メートル＝58画素（機体の長さ 9.83メートル＝570画素）
+RB_KR = 54.0                       # 後ろから：1メートル＝54画素（翼の幅 8.79メートル＝475画素）
+RB_C = (960.0, 430.0)              # 機体の真ん中＝回す中心（横から）
+# 後ろから：⑤b-2 の下見で、90度前後に傾いた翼の下の先が地平線より下（砂漠の上）に出て「翼が地面に触れた」ように見えた
+#   ＝回す中心を上へ（翼の半分 237画素＋余白 → 下の先が地平線より上）
+RB_CR = (960.0, 360.0)
+RB_HZ = 612.0                      # 地平線
+RB_T = dict(view=0.35, pitch=0.55, roll=2.6, ail=0.4, pylon=2.4)
+RB_VIEW = dict(side="横から見た図", rear="後ろから見た図")
+# 横から見た形（メートル・x＝前・y＝上・原点＝翼の付け根のあたり）。図2 の横の図から概形を読んだ（線の数は減らした＝抽象）
+RB_SIDE = dict(
+    body=((4.80, -0.02), (4.45, 0.22), (4.20, 0.30), (3.30, 0.36), (1.45, 0.50), (1.05, 0.78), (0.55, 0.84), (-0.20, 0.68),
+          (-1.50, 0.62), (-2.85, 0.55), (-4.35, 1.62), (-4.85, 1.66), (-5.05, 1.50), (-5.05, 0.15), (-4.75, -0.05),
+          (-3.00, -0.42), (-1.00, -0.62), (0.80, -0.62), (2.60, -0.52), (3.60, -0.42), (4.45, -0.24)),
+    glass=((1.45, 0.50), (1.05, 0.78), (0.55, 0.84), (-0.20, 0.68), (-0.05, 0.54)),
+    wing=((2.20, -0.40), (1.20, -0.30), (-0.80, -0.34), (-1.90, -0.42), (-0.80, -0.56), (1.20, -0.58)),
+    stab=((-3.55, 0.31), (-5.00, 0.37), (-5.00, 0.27), (-3.55, 0.24)),
+    glare=((1.45, 0.50), (3.30, 0.36), (4.05, 0.31), (4.05, 0.25), (3.30, 0.29), (1.45, 0.43)),
+    prop=(4.25, 0.0, 0.07, 1.70), num=(-1.75, -0.24, 0.62), tail=(-4.95, 0.30))
+RB_SPAN = 4.395                    # 翼の半分（28フィート10インチ÷2＝AAB p13）
+RB_STAB = 1.84                     # 水平尾翼の半分（12フィート1インチ÷2＝p13）
+RB_AIL = (3.30, 4.20)              # 補助翼（約3フィートに短くした＝p13）の外側の範囲
+RB_AIL_D = 0.14                    # 補助翼の切れの見せ方（メートル・記録の角度は無い＝向きだけ）
+
+
+def rb_side_svg(c, k):
+    """横から見た事故機（機首が右）。操縦席の覆いは光る面（中を描かない）。回る翼は薄い円。"""
+    S = RB_SIDE
+
+    def P(x, y):
+        return (c[0] + x * k, c[1] - y * k)
+    g = ['<defs><linearGradient id="rbb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef2f4"/>'
+         '<stop offset="0.55" stop-color="#c3cbd1"/><stop offset="1" stop-color="#9aa5ad"/></linearGradient>'
+         '<linearGradient id="rbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8f4fb"/>'
+         '<stop offset="0.45" stop-color="#9dbfd4"/><stop offset="1" stop-color="#557489"/></linearGradient></defs>']
+    px, py, rx, ry = S["prop"]
+    cx, cy = P(px, py)
+    g.append(f'<ellipse cx="{cx:.1f}" cy="{cy:.1f}" rx="{rx * k:.1f}" ry="{ry * k:.1f}" fill="#d8dee2" opacity="0.35" '
+             f'stroke="#8a969e" stroke-width="1.5" stroke-opacity="0.5"/>')
+    g.append(_poly([P(*q) for q in S["stab"]], "#b9c2c8", "#44505a", 2))
+    g.append(_poly([P(*q) for q in S["body"]], "url(#rbb)", "#44505a", 2.4))
+    g.append(_poly([P(*q) for q in S["wing"]], "#aeb8bf", "#44505a", 2))
+    g.append(_poly([P(*q) for q in S["glare"]], "#2b3036"))
+    g.append(_poly([P(*q) for q in S["glass"]], "url(#rbg)", "#44505a", 2))
+    (a1, b1), (a2, b2) = P(1.10, 0.70), P(0.30, 0.78)
+    g.append(f'<path d="M {a1:.1f} {b1:.1f} Q {(a1 + a2) / 2:.1f} {min(b1, b2) - 0.08 * k:.1f} {a2:.1f} {b2:.1f}" stroke="#ffffff" '
+             f'stroke-opacity="0.85" stroke-width="{0.05 * k:.1f}" fill="none" stroke-linecap="round"/>')
+    nx, ny, nh = S["num"]
+    tx, ty = P(nx, ny)
+    g.append(f'<text x="{tx:.1f}" y="{ty:.1f}" font-family="Noto" font-size="{nh * k:.1f}" fill="#15181b" text-anchor="middle" '
+             f'stroke="#f3f5f6" stroke-width="{0.035 * k:.1f}" paint-order="stroke fill">177</text>')
+    return "".join(g)
+
+
+def rb_rear_svg(c, k, ail=0.0):
+    """後ろから見た事故機（機体の左が画面の左）。奥から：回る翼の円 → 翼と補助翼と翼端の板 → 胴 → 覆い（光る面）→ 水平尾翼 → 垂直尾翼。
+    ail＝補助翼の切れ（メートル）。正＝右の翼を下げる向き（右の補助翼が上・左が下＝AAB p28 の 0.27秒）"""
+    def P(x, y):
+        return (c[0] + x * k, c[1] - y * k)
+    hw = RB_SPAN
+    g = ['<defs><radialGradient id="rbr" cx="0.4" cy="0.35" r="0.8"><stop offset="0" stop-color="#e8f4fb"/>'
+         '<stop offset="0.6" stop-color="#9dbfd4"/><stop offset="1" stop-color="#557489"/></radialGradient></defs>']
+    cx, cy = P(0.0, 0.02)
+    g.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{1.70 * k:.1f}" fill="#d8dee2" opacity="0.22" stroke="#8a969e" '
+             f'stroke-opacity="0.4" stroke-width="1.5"/>')
+    g.append(_poly([P(*q) for q in ((-hw, -0.26), (-0.5, -0.22), (0.5, -0.22), (hw, -0.26), (hw, -0.36), (0.5, -0.48),
+                                    (-0.5, -0.48), (-hw, -0.36))], "#c3cbd1", "#44505a", 2))
+    for sgn in (1, -1):
+        x0, x1 = sgn * RB_AIL[0], sgn * RB_AIL[1]
+        dy = ail * sgn
+        g.append(_poly([P(x0, -0.30 + dy), P(x1, -0.29 + dy), P(x1, -0.37 + dy), P(x0, -0.38 + dy)], "#9aa5ad", "#44505a", 1.6))
+        g.append(_poly([P(sgn * hw - 0.03, -0.52), P(sgn * hw + 0.03, -0.52), P(sgn * hw + 0.03, -0.12), P(sgn * hw - 0.03, -0.12)],
+                       "#aeb8bf", "#44505a", 1.4))
+    fx, fy = P(0.0, 0.0)
+    g.append(f'<ellipse cx="{fx:.1f}" cy="{fy:.1f}" rx="{0.55 * k:.1f}" ry="{0.72 * k:.1f}" fill="#c9d1d7" stroke="#44505a" stroke-width="2.2"/>')
+    ox, oy = P(0.0, 0.74)
+    g.append(f'<ellipse cx="{ox:.1f}" cy="{oy:.1f}" rx="{0.30 * k:.1f}" ry="{0.22 * k:.1f}" fill="url(#rbr)" stroke="#44505a" stroke-width="1.8"/>')
+    g.append(_poly([P(-RB_STAB, 0.34), P(RB_STAB, 0.34), P(RB_STAB, 0.26), P(-RB_STAB, 0.26)], "#b9c2c8", "#44505a", 1.8))
+    g.append(_poly([P(-0.06, 0.40), P(0.06, 0.40), P(0.035, 1.72), P(-0.035, 1.72)], "#b9c2c8", "#44505a", 1.6))
+    return "".join(g)
+
+
+def rb_sky_svg(hz=RB_HZ):
+    """快晴の空（AAB p16）。🔴 画面いっぱいに塗る（地平線より下は地平線の色のまま）＝空だけの見え方（ground=off）や、
+    後ろから→横から（空だけ）へ入れ替えるときに下が黒く抜けない（⑤b-2 の下見で c104 の下半分が黒かった）"""
+    return (f'<defs><linearGradient id="rbs" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="{hz:.0f}">'
+            '<stop offset="0" stop-color="#4f84b3"/><stop offset="1" stop-color="#cfe0ea"/></linearGradient></defs>'
+            f'<rect x="0" y="0" width="{W}" height="{H + 10}" fill="url(#rbs)"/>')
+
+
+def rb_hills_svg(far=True, hz=RB_HZ):
+    """遠い山並み／手前の丘（図3 の奥の山並みの概形）。🔴 横に流す（drift）ので 1920 の周期で継ぎ目なし（整数回の正弦の和）。"""
+    import random
+    rnd = random.Random("reno-hills-far" if far else "reno-hills-near")
+    base = hz - (46.0 if far else 8.0)
+    amp = 30.0 if far else 14.0
+    comps = [(n, rnd.uniform(0.35, 1.0) * amp / (1 + j * 0.6), rnd.uniform(0, math.tau)) for j, n in enumerate((2, 3, 5, 7, 11))]
+    pts = [(float(i), base - sum(a * math.sin(2 * math.pi * n * i / W + ph) for n, a, ph in comps)) for i in range(0, W + 1, 8)]
+    d = f"M 0 {hz + 20:.1f} " + " ".join(f"L {x:.1f} {y:.1f}" for x, y in pts) + f" L {W} {hz + 20:.1f} Z"
+    return f'<path d="{d}" fill="{"#a4b4bf" if far else "#b9a887"}"/>'
+
+
+def rb_ground_svg(hz=RB_HZ, seed="reno-ground"):
+    """砂漠の地面と筋（流れる＝速さ）。筋は画面の幅で折り返す（drift で継ぎ目なし）。"""
+    import random
+    rnd = random.Random(seed)
+    g = [f'<rect x="0" y="{hz:.0f}" width="{W}" height="{H - hz + 10:.0f}" fill="#cbb792"/>']
+    for j in range(20):
+        y = hz + 12 + j * 15 + (j % 3) * 3
+        x = rnd.uniform(0, W)
+        for _ in range(4):
+            ln = rnd.uniform(60, 190)
+            for xa, xb in ((x, min(x + ln, W)), (0.0, max(0.0, x + ln - W))):
+                if xb > xa:
+                    g.append(f'<path d="M {xa:.0f} {y:.0f} H {xb:.0f}" stroke="#bda57f" stroke-width="3" opacity="0.7"/>')
+            x = (x + ln + rnd.uniform(180, 420)) % W
+    return "".join(g)
+
+
+def rb_air_svg():
+    """空だけの見え方（ground=off）の流れる筋（進む向き＝左へ流れる）。雲ではない（快晴＝AAB p16）＝細く薄い線だけ。"""
+    import random
+    rnd = random.Random("reno-air")
+    g = []
+    for j in range(14):
+        y = 90 + j * 52 + rnd.uniform(-10, 10)
+        x = rnd.uniform(0, W)
+        ln = rnd.uniform(120, 320)
+        for xa, xb in ((x, min(x + ln, W)), (0.0, max(0.0, x + ln - W))):
+            if xb > xa:
+                g.append(f'<path d="M {xa:.0f} {y:.0f} H {xb:.0f}" stroke="#ffffff" stroke-opacity="0.28" stroke-width="3"/>')
+    return "".join(g)
+
+
+def rb_pylon_svg(x, foot, h):
+    """パイロン＝電柱の上の樽（#33 p2009「a barrel mounted at the top of a telephone pole … about 50-feet」）。色は記録に無い＝抽象。"""
+    w, bw, bh = max(4.0, h * 0.035), h * 0.10, h * 0.12
+    return (f'<rect x="{x - w / 2:.1f}" y="{foot - h:.1f}" width="{w:.1f}" height="{h:.1f}" fill="#e7e2d6" stroke="#6f6a60" stroke-width="1.5"/>'
+            f'<rect x="{x - bw / 2:.1f}" y="{foot - h - bh:.1f}" width="{bw:.1f}" height="{bh:.1f}" rx="3" fill="#d9d2c3" '
+            f'stroke="#6f6a60" stroke-width="1.5"/>')
+
+
+def _rb_timeline(start, states, steps):
+    """RB の鍵：見え方の入れ替え（0.35秒）→ そのあと 機首の上げ（0.55秒＝一気に）・傾き（ゆっくり）・補助翼。"""
+    T = RB_T
+    K = dict(side=[dict(stage=0, delay=0.0, a=1.0 if start["view"] == "side" else 0.0)],
+             rear=[dict(stage=0, delay=0.0, a=1.0 if start["view"] == "rear" else 0.0)],
+             pitch=[dict(stage=0, delay=0.0, rot=-float(start["pitch"]))],
+             roll=[dict(stage=0, delay=0.0, rot=-float(start["roll"]))],
+             ail=[dict(stage=0, delay=0.0, a=1.0 if start["ail"] == "right" else 0.0)],
+             pylon=[dict(stage=0, delay=0.0, dx=1350.0)])
+    prev = start
+    for i, (st, sp) in enumerate(zip(states, steps)):
+        dl = float(sp.get("delay", KEY_DELAY))
+        t = dl
+        if st["view"] != prev["view"]:
+            for v in ("side", "rear"):
+                K[v].append(dict(stage=i, delay=t, dur=T["view"], a=1.0 if st["view"] == v else 0.0))
+            t += T["view"] + 0.25
+        if float(st["pitch"]) != float(prev["pitch"]):
+            K["pitch"].append(dict(stage=i, delay=t, dur=float(sp.get("dur", T["pitch"])), rot=-float(st["pitch"])))
+        if float(st["roll"]) != float(prev["roll"]):
+            K["roll"].append(dict(stage=i, delay=t, dur=float(sp.get("dur", T["roll"])), rot=-float(st["roll"])))
+        if st["ail"] != prev["ail"]:
+            K["ail"].append(dict(stage=i, delay=t + 0.2, dur=T["ail"], a=1.0 if st["ail"] == "right" else 0.0))
+        if sp.get("pylon"):
+            K["pylon"].append(dict(stage=i, delay=dl, dur=T["pylon"], dx=-1400.0))
+        prev = st
+    return K
+
+
+def _scene_RB(start, states, steps):
+    """RB＝空の中の事故機。view＝side（横から・機首が右）／rear（後ろから）＝段で入れ替えてよい（0.35秒で重ねて）。
+    ground＝on（丘と砂漠と筋・パイロンが流れる＝c101・c215）／off（空と流れる筋だけ＝機首の上げを機体の向きだけで見せる）。
+    🔴 上った高さ・降下は描かない（線2＝1.3秒の最大Gで止める）。板（トリムタブ）は描き分けない・渦も描かない（線3）"""
+    allst = [start] + states
+    if any(st["ground"] != start["ground"] for st in states):
+        raise ValueError("illu RB：ground は場面の頭（start）で1つだけ")
+    views = {st["view"] for st in allst}
+    K = _rb_timeline(start, states, steps)
+    rear_on = "rear" in views
+    side_g = "side" in views and start["ground"] == "on"
+    side_a = "side" in views and start["ground"] == "off"
+    if side_g and rear_on:
+        raise ValueError("illu RB：地面ありの横から（ground=on）と後ろからは同じ場面にしない（地面の流れる向きが逆）")
+    grnd_keys = [dict(stage=0, delay=0.0, a=1.0)] if side_g else K["rear"]     # 地面は 横から（ground=on）か 後ろから のときだけ
+    parts = [_part("sky", rb_sky_svg(), "AAB p16（快晴＝clear sky）")]
+    if side_g or rear_on:
+        parts += [dict(_part("hills_far", rb_hills_svg(True), "AAB p20（図3 の奥の山並み）", keys=grnd_keys),
+                       drift=-14.0 if side_g else 6.0),
+                  dict(_part("hills_near", rb_hills_svg(False), "AAB p20（図3）・p16（リノ＝ネバダの砂漠の空港）", keys=grnd_keys),
+                       drift=-60.0 if side_g else 18.0),
+                  dict(_part("ground", rb_ground_svg(), "AAB p16（砂漠の空港）", keys=grnd_keys), drift=-900.0 if side_g else 40.0)]
+    if side_a:
+        parts.append(dict(_part("air", rb_air_svg(), "AAB p16（快晴）", keys=K["side"]), drift=-1100.0))
+    if side_g and any(sp.get("pylon") for sp in steps):
+        parts.append(_part("pylon", rb_pylon_svg(960.0, RB_HZ + 40.0, 300.0), "#33 p2009（パイロン＝電柱の上の樽）",
+                           keys=K["pylon"]))
+    if rear_on:
+        parts.append(_part("pylon8", rb_pylon_svg(300.0, RB_HZ + 10.0, 150.0), "AAB p28（パイロン8を回って崩れ始めた）・#33 p2009",
+                           keys=K["rear"]))
+    # 🔴 回す鍵（keys＝rot）と濃さの鍵（akeys＝a）は別の並び（build_jiko._il_scene）。1本にまとめると、長い回転（2.6秒）の途中に
+    #    短い濃さの鍵（0.35秒）が入ったとき、回転が次の鍵の値へ飛ぶ（_il_state は「次の鍵の前に前の鍵が終わる」作り）
+    first = True
+    if "side" in views:
+        parts.append(dict(_part("side", rb_side_svg(RB_C, RB_K), "AAB p14（図2＝機体の形）・p13（翼と尾翼を短くした）", RB_C,
+                                K["pitch"]), akeys=K["side"], obj=dict(aircraft=1)))
+        first = False
+    if rear_on:
+        for nm, ail, want in (("rear_n", 0.0, 0.0), ("rear_d", RB_AIL_D, 1.0)):
+            if nm == "rear_d" and not any(st["ail"] == "right" for st in allst):
+                continue
+            vis = [dict(k, a=k["a"] * (1.0 - abs(want - a["a"]))) for k, a in _pair_keys(K["rear"], K["ail"])]
+            p = dict(_part(nm, rb_rear_svg(RB_CR, RB_KR, ail), "AAB p14（図2 の寸法）・p13（翼端の板・補助翼を短くした）" +
+                           ("・p28（0.27秒に補助翼が右の翼を下げる向きに）" if ail else ""), RB_CR, K["roll"]), akeys=vis)
+            if first:
+                p["obj"] = dict(aircraft=1)
+                first = False
+            parts.append(p)
+    at = next((st for st, sp in zip(states, steps) if sp.get("rings")), None)
+    if at is not None:
+        c = (RB_C[0] - 0.4 * RB_K, RB_C[1] + 0.45 * RB_K)
+        parts += _pulse_part("ring", ring_svg(c, 90.0, r=64), "AAB p17・p18（テレメトリー＝機体の状態を地上へ送る）", c, states, steps,
+                             "rings", "out")
+    return parts
+
+
+def _key_time(k):
+    return (int(k["stage"]), float(k.get("delay", 0.0)))
+
+
+def _pair_keys(ka, kb):
+    """2つの並び（どちらも a の欄）を時刻でそろえ、[(その時刻の ka の鍵, kb の鍵)…]（前の値を引き継ぐ）。"""
+    evs = sorted({_key_time(k) for k in ka + kb})
+    out, a, b = [], dict(ka[0]), dict(kb[0])
+    for tm in evs:
+        for k in ka:
+            if _key_time(k) == tm:
+                a = dict(k)
+        for k in kb:
+            if _key_time(k) == tm:
+                b = dict(k)
+        dur = max(float(a.get("dur", 0.0)) if _key_time(a) == tm else 0.0, float(b.get("dur", 0.0)) if _key_time(b) == tm else 0.0)
+        out.append((dict(stage=tm[0], delay=tm[1], dur=dur or 0.3, a=float(a["a"])), dict(b)))
+    return out
+
+
+def _rb_anchors(st):
+    if st["view"] == "rear":
+        d = -float(st["roll"])
+        R = lambda x, y: rot_pt((RB_CR[0] + x * RB_KR, RB_CR[1] - y * RB_KR), d, RB_CR)  # noqa: E731
+        return dict(plane=RB_CR, lwing=R(-RB_SPAN, -0.3), rwing=R(RB_SPAN, -0.3), lail=R(-3.75, -0.34), rail=R(3.75, -0.34),
+                    top=R(0.0, 1.2))
+    d = -float(st["pitch"])
+    R = lambda x, y: rot_pt((RB_C[0] + x * RB_K, RB_C[1] - y * RB_K), d, RB_C)  # noqa: E731
+    return dict(plane=R(0.0, 0.0), nose=R(4.5, 0.0), tail=R(*RB_SIDE["tail"]), mid=R(-0.4, -0.45), top=R(0.0, 0.9),
+                ring=(RB_C[0] - 0.4 * RB_K, RB_C[1] + 0.45 * RB_K + 110.0))
+
+
+# ── RD：ピットの事故機（⑤b-2 は c109 の小さな絵＝尾翼の寄り tail だけ）。地面に置いた姿勢・脚は描かない（記録の図に無い）＝
+#    尾翼へ寄って、胴の前と脚は枠の外。🔴 人（整備の仲間・検査員）は描かない（映像方針 §1 線2）
+RD_K = 300.0                       # 1メートル＝300画素（尾翼の寄り）
+RD_TAIL = (560.0, 560.0)           # 水平尾翼の後ろの縁の真ん中が来る画面の位置
+RD_HZ = 330.0                      # 地平線（少し上から見下ろす＝尾翼の奥が駐機場の舗装）
+
+
+def rd_ramp_svg():
+    return (f'<rect x="0" y="{RD_HZ:.0f}" width="{W}" height="{H - RD_HZ + 10:.0f}" fill="#a9adb0"/>'
+            + "".join(f'<path d="M 0 {RD_HZ + 40 + 70 * j:.0f} H {W}" stroke="#9ca0a3" stroke-width="3" opacity="0.6"/>'
+                      for j in range(10)))
+
+
+def rd_mark_svg():
+    x, y = RD_TAIL
+    return (f'<ellipse cx="{x + 40:.0f}" cy="{y:.0f}" rx="170" ry="90" fill="none" stroke="#1a2530" stroke-opacity="0.5" stroke-width="12"/>'
+            f'<ellipse cx="{x + 40:.0f}" cy="{y:.0f}" rx="170" ry="90" fill="none" stroke="{C["mark"]}" stroke-width="6"/>')
+
+
+def _scene_RD(start, states, steps):
+    """RD＝ピットの事故機（尾翼の寄り）。mark＝尾翼（昇降舵とトリムタブのあたり）の輪。"""
+    tx, ty = RB_SIDE["tail"]
+    c = (RD_TAIL[0] - tx * RD_K, RD_TAIL[1] + ty * RD_K)
+    return [_part("sky", rb_sky_svg(RD_HZ), "AAB p16（快晴）"),
+            _part("hills", rb_hills_svg(True, RD_HZ), "AAB p20（図3 の奥の山並み）"),
+            _part("ramp", rd_ramp_svg(), "AAB p37（9月12日の技術検査）・p19（ピット）"),
+            dict(_part("plane", rb_side_svg(c, RD_K), "AAB p14（図2＝機体の形・水平尾翼と昇降舵とトリムタブ）"), obj=dict(aircraft=1)),
+            _part("mark", rd_mark_svg(), "AAB p14（水平尾翼・昇降舵・トリムタブ）",
+                  keys=_keys(start, states, steps, lambda st: _vis(st["mark"] == "on")))]
+
+
+# ══════════════════════════════════════════════════════════
 #  札（段ごとの `_a<番号>`）と、左上の「再現イラスト」・左下の出典
 # ══════════════════════════════════════════════════════════
 def tag_svg(x, y, t, to=None, anchor="start", col=None, cap=30):
@@ -1018,16 +1690,29 @@ FIELDS = {
     "B": dict(view="corridor", heel=0.0, crowd="off", cam=1.0),
     "C": dict(view="console", heel=0.0, crew=0, cam=1.0),
     "E": dict(sel="off", cam=1.0),
+    # 15本目 ⑤b-2：RA 上から見たステッド空港／RB 空の中の事故機／RD ピットの事故機（上の「15本目」の節）
+    "RA": dict(view="near", gg="off", path="off", trace="off", x="off", box="off", laps="off", seg67="off", ring8="off",
+               piece="off", fuel="off", course="on", cam=1.0),
+    "RB": dict(view="side", ground="on", pitch=0.0, roll=0.0, ail="off", cam=1.0),
+    "RD": dict(view="tail", mark="off", cam=1.0),
 }
 ONOFF = ("off", "on")
 CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONOFF, crowd=ONOFF, bridge=ONOFF, run=ONOFF,
-               far=ONOFF, spk=ONOFF, binoc=ONOFF, rboat=ONOFF, cg=ONOFF, sel=ONOFF)
-VIEWS = dict(B=("corridor", "cabin", "desk"), C=("helm", "console", "room"), D=("ship", "sea", "far", "heli", "rail"))
+               far=ONOFF, spk=ONOFF, binoc=ONOFF, rboat=ONOFF, cg=ONOFF, sel=ONOFF,
+               gg=("off", "p7", "p8", "gone"), path=ONOFF, trace=ONOFF, x=ONOFF, box=ONOFF, laps=ONOFF, seg67=ONOFF,
+               ring8=ONOFF, piece=ONOFF, fuel=ONOFF, course=ONOFF, ground=ONOFF, ail=("off", "right"))
+VIEWS = dict(B=("corridor", "cabin", "desk"), C=("helm", "console", "room"), D=("ship", "sea", "far", "heli", "rail"),
+             RA=tuple(RA_VIEW), RB=("side", "rear"), RD=("tail",))
 # 変える段には rec が要る（記録の事実を描く欄）。⑤b-3 で置き場 C・D・E の欄を足した（位置 bx とカメラ cam は要らない）
-REC_FIELDS = ("heel", "wake", "boxes", "crowd", "mark", "bridge", "run", "far", "binoc", "rboat", "cg", "crew", "sel")
-# 段ごとの出来事（引き継がない・数で書く＝画面の文字の門番が文字として読まない）
-EVENTS = ("rings", "board", "rings_in", "asks", "walkie", "glow")
-VIEW = dict(A="船首の側から見た図", D="船首の側から見た図", B="船の中", C="操舵室の中", E="管制センターの中")
+#   15本目 ⑤b-2：RA の印・線・×・輪、RB の機首の上げ・傾き・補助翼（コースの破線 course と地面 ground は要らない）
+REC_FIELDS = ("heel", "wake", "boxes", "crowd", "mark", "bridge", "run", "far", "binoc", "rboat", "cg", "crew", "sel",
+              "gg", "path", "trace", "x", "box", "laps", "seg67", "ring8", "piece", "fuel", "pitch", "roll", "ail")
+# 段ごとの出来事（引き継がない・数で書く＝画面の文字の門番が文字として読まない）。pylon＝RB でパイロンが1本流れる
+EVENTS = ("rings", "board", "rings_in", "asks", "walkie", "glow", "pylon")
+VIEW = dict(A="船首の側から見た図", D="船首の側から見た図", B="船の中", C="操舵室の中", E="管制センターの中",
+            RD="ピットの事故機（横から）")
+# 左下の出典のあとに添える断り（15本目）
+NOTE = dict(RA="配置は概略・機体は拡大・点線は模式")
 D_VIEW = dict(ship="船首の側から見た図", heli="船首の側から見た図", sea="123艇を横から見た図", far="123艇から見た図",
               rail="3階の左舷を横から見た図")
 ROLES = ("crew", "coast_guard", "control")                # 型紙（数えられる影）で置ける役割
@@ -1413,6 +2098,12 @@ def _scene_B(start, states, steps):
 def _anchors(place, st):
     """札の指し先（その段の終わりの状態で）。"""
     v = st.get("view")
+    if place == "RA":
+        return _ra_anchors(v)
+    if place == "RB":
+        return _rb_anchors(st)
+    if place == "RD":
+        return dict(tail=RD_TAIL)
     if place == "A" or (place == "D" and v in ("ship", "heli")):
         piv = PIVOT["D"] if (place == "D" and v == "ship") else PIVOT["A"]
         h = float(st["heel"])
@@ -1448,6 +2139,12 @@ def _anchors(place, st):
 def _camc(place, st0, states):
     """カメラ（cam）で寄る中心の既定。見え方ごとに主役の所へ。"""
     last = states[-1] if states else st0
+    if place == "RA":
+        return (960.0, RA_Y0)
+    if place == "RB":
+        return RB_CR if st0["view"] == "rear" else RB_C
+    if place == "RD":
+        return RD_TAIL
     if place == "C":
         return CCEN[st0["view"]]
     if place == "A" and any(st["bridge"] == "on" for st in [st0] + states):
@@ -1474,8 +2171,14 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
              board=数〈乗り移る人〉, delay=秒, dur=秒, touch="3階（B甲板）の左舷")
     at     … 場面の時刻（宣言・画面には出さない）。人を描く場面は必須（門番 ②）
     people … 描いた人の数の宣言 dict(crew=(8, "判決 p11"))（門番 ③）
-    src    … 左下の出典（省略時は部品と段の rec から組む）
+    src    … 左下の出典（省略時は部品と段の rec から組む＋置き場の断り NOTE）
     view   … 左上の見る向き（省略時は置き場の既定）。scale … 上から見た絵の縮尺（メートル／画素）
+             🔴 15本目 RA は描く側が組む（見え方の縮尺 ÷ カメラの寄りの最大＝門番 ⑧ が見る値）
+    camc   … カメラで寄る中心（画素か、札の指し先の名＝RA の "fall_mid" など）
+    15本目（⑤b-2）の置き場：RA＝上から見たステッド空港（view＝wide／near／ramp・gg＝事故機の印 off／p7／p8／gone・
+             path＝点線（模式）・trace＝琥珀の線・x・box・laps＝3周の航跡・seg67・ring8・piece・fuel・course）／
+             RB＝空の中の事故機（view＝side／rear・ground・pitch＝機首の上げ（度）・roll＝左への傾き（度）・ail＝補助翼 off／right・
+             出来事 rings＝テレメトリーの輪・pylon＝パイロンが1本流れる）／RD＝ピットの事故機（view＝tail・mark）
     """
     if place not in FIELDS:
         raise ValueError(f"illu：知らない置き場 {place!r}（{tuple(FIELDS)}）")
@@ -1485,8 +2188,18 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
         if bad:
             raise ValueError(f"illu：段に知らない鍵 {sorted(bad)}")
     st0, states = _states(place, start, steps)
-    parts = {"A": _scene_A, "B": _scene_B, "C": _scene_C, "D": _scene_D, "E": _scene_E}[place](st0, states, steps)
+    parts = {"A": _scene_A, "B": _scene_B, "C": _scene_C, "D": _scene_D, "E": _scene_E,
+             "RA": _scene_RA, "RB": _scene_RB, "RD": _scene_RD}[place](st0, states, steps)
     cam = _keys(st0, states, steps, lambda st: dict(z=float(st["cam"])))
+    if place == "RA":
+        auto = RA_VIEW[st0["view"]]["mpp"] / max(float(k.get("z", 1.0)) for k in cam)
+        scale = min(float(scale), auto) if scale else auto
+    if isinstance(camc, str):
+        camc = _anchors(place, states[-1] if states else st0)[camc]
+    objects = {}
+    for p in parts:
+        for k, n in (p.get("obj") or {}).items():
+            objects[k] = objects.get(k, 0) + int(n)
     tags = []
     for i, (st, sp) in enumerate(zip(states, steps)):
         g, texts, keep, dl = [], [], False, 0.35
@@ -1502,10 +2215,30 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
         tags.append(dict(svg="".join(g) or " ", texts=texts, keep=keep, delay=dl))
     recs = [p["rec"] for p in parts] + [sp.get("rec") for sp in steps if sp.get("rec")] + ([rec] if rec else [])
     recs += [v[1] for v in (people or {}).values() if isinstance(v, (tuple, list)) and len(v) > 1]
-    label = view or (D_VIEW[st0["view"]] if place == "D" else VIEW[place])
-    return dict(place=place, view=label, at=at, people=dict(people or {}), scale=scale, rec=rec,
+    label = view or _label(place, st0, states)
+    if not src:
+        src = rec_line(recs)
+        if NOTE.get(place):
+            src = (src + "／" if src else "") + NOTE[place]
+    return dict(place=place, view=label, at=at, people=dict(people or {}), scale=scale, rec=rec, objects=objects,
                 parts=parts, cam=cam, camc=list(camc or _camc(place, st0, states)), tags=tags, nstage=len(steps),
-                start=st0, states=states, steps=steps, recs=recs, src=src or rec_line(recs))
+                start=st0, states=states, steps=steps, recs=recs, src=src)
+
+
+def _label(place, st0, states):
+    """左上の見る向き。RB で見え方が段で入れ替わる場面は、出てくる順に「後ろから→横から見た図」（§5b-80 の合図）。
+    ⚠️ ⑤b-2 の下見のあと：見え方の名を絵の層で2つ入れ替える形は、同じ位置の文字が重なる（check_layout）＝上の層の1行にした"""
+    if place == "D":
+        return D_VIEW[st0["view"]]
+    if place == "RA":
+        return RA_VIEW[st0["view"]]["lab"]
+    if place == "RB":
+        seq = []
+        for st in [st0] + list(states):
+            if st["view"] not in seq:
+                seq.append(st["view"])
+        return "→".join(RB_VIEW[v].replace("見た図", "") for v in seq[:-1]) + ("→" if len(seq) > 1 else "") + RB_VIEW[seq[-1]]
+    return VIEW[place]
 
 
 def strip(sc):
@@ -1529,20 +2262,21 @@ def illu(place, steps, **kw):
 
 
 PAIR_BOX = ((96, 262, 840, 473), (984, 262, 840, 473))
+TRIO_BOX = ((96, 262, 560, 315), (680, 262, 560, 315), (1264, 262, 560, 315))     # 15本目 ⑤b-2：3つの問い（c109）
 
 
 def illu_pair(blocks, lead=""):
-    """2つの問いのパネルの中に、再現イラストを小さく戻す（画面の種類「混ざり」・14本目 c105・c108）。
+    """2つ（または3つ）の問いのパネルの中に、再現イラストを小さく戻す（画面の種類「混ざり」・14本目 c105・c108・15本目 c109）。
 
-    blocks … [dict(k="問い1", t="なぜ傾いたか", v="…", stage=段, scene=dict(place="A", steps=[…], …)), 2つ]
-             段の数は台本の行の数（`stages=`）。絵は block の stage の行頭から見せる（それまでは枠だけ）。
+    blocks … [dict(k="問い1", t="なぜ傾いたか", v="…", stage=段, scene=dict(place="A", steps=[…], …)), 2つか3つ]
+             段の数は台本の行の数（`stages=`・行より多ければ行のあいだに挟まる）。絵は block の stage の行頭から見せる。
     """
-    if len(blocks) != 2:
-        raise ValueError("illu_pair：問いは2つ")
+    if len(blocks) not in (2, 3):
+        raise ValueError("illu_pair：問いは2つか3つ")
     n = max(int(b.get("stages", 1)) for b in blocks)
     stages = [[] for _ in range(n)]
     lab, scenes, recs = [], [], []
-    for b, (x, y, w, h) in zip(blocks, PAIR_BOX):
+    for b, (x, y, w, h) in zip(blocks, PAIR_BOX if len(blocks) == 2 else TRIO_BOX):
         sc = scene(**b["scene"])
         if sc["nstage"] != n:
             raise ValueError(f"illu_pair：{b['k']} の絵の段 {sc['nstage']} が行の数 {n} と違う")

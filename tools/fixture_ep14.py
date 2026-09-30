@@ -250,7 +250,14 @@ CAUSE = {
     "outer": dict(k="item", t="外からの力？", rec=["特調委 p3013", "特調委小 p4161"]),
 }
 
-SS_NAMES = ("REC_PAGES", "REC_DOCS", "ILLU_SPLIT_TIMES", "ILLU_CROWD_UNTIL", "AXIS_DOCS",
+# 🆕 2026-09-30（15本目 ⑤b-2）：15本目で足した表（秒の札・時計の札・描いてよい数）＝14本目には無かった＝空（門番はその回の表が
+#    空なら測らない）。apply() が本番の15本目の値を消して14本目の見本だけで回す
+ILLU_SEC_OK = {}
+ILLU_CLOCK_OK = ()
+ILLU_COUNTS = {}
+
+SS_NAMES = ("REC_PAGES", "REC_DOCS", "ILLU_SPLIT_TIMES", "ILLU_CROWD_UNTIL", "ILLU_SEC_OK", "ILLU_CLOCK_OK", "ILLU_COUNTS",
+            "AXIS_DOCS",
             "AX_SHIP", "AX_BUILD", "AX_KAIZO", "AX_CAUSE", "AX_NIGHT", "AX_0850", "AX_TALK", "AXI", "CAUSE_NOTE",
             "HULL_NOTE", "MAP_PTS", "MAP_REL_ACC", "MAP_REL_NE", "MAP_REL_0846", "ROUTE", "ROUTE_PLAN", "MAP_VIEWS",
             "MAP_LAB", "sewol_map", "Q1_TILT", "Q2_BOARD", "q_pair", "QG", "QB", "PEOPLE_ORDER", "PEOPLE_SETS",
@@ -358,15 +365,39 @@ GATES = {
 }
 
 
+_SAVED = []
+
+
 def apply(gate=None):
-    """selftest の処理の中だけ、ss・titan_fig.GEO・（gate を渡せば）その門番の記録の表を14本目の値にする。"""
+    """selftest の処理の中だけ、ss・titan_fig.GEO・（gate を渡せば）その門番の記録の表を14本目の値にする。
+    🔴 2026-09-30（15本目 ⑤b-2）：差し替える前の本番の値を覚える＝selftest のあと `restore()` で戻す
+       （戻さないと、selftest のあとの本番の照合が14本目の表で15本目の画を測る＝⑤b-1〜⑤b-2 に在った穴。
+        本番に15本目の案C・軸のカットが無かったあいだは表に出なかった）"""
     import titan_fig as F
     from cuts import ss
     g = globals()
+    saved = dict(ss={n: getattr(ss, n) for n in SS_NAMES if hasattr(ss, n)}, geo=dict(F.GEO), gate=gate, tables={})
     for n in SS_NAMES:
         setattr(ss, n, g[n])
     F.GEO.update(GEO)
     if gate is not None:
         name = Path(getattr(gate, "__file__", "") or "").stem
         for k, v in GATES.get(name, {}).items():
+            if hasattr(gate, k):
+                saved["tables"][k] = getattr(gate, k)
             setattr(gate, k, v)
+    _SAVED.append(saved)
+
+
+def restore():
+    """apply() の前の本番の値に戻す（selftest のあと・本番の照合の前に呼ぶ）。apply を呼んでいなければ何もしない。"""
+    import titan_fig as F
+    from cuts import ss
+    while _SAVED:
+        s = _SAVED.pop()
+        for n, v in s["ss"].items():
+            setattr(ss, n, v)
+        F.GEO.clear()
+        F.GEO.update(s["geo"])
+        for k, v in s["tables"].items():
+            setattr(s["gate"], k, v)

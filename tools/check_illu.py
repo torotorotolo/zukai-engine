@@ -40,6 +40,7 @@ import titan_fig as F  # noqa: E402,F401  （illu より先に読む）
 import illu as IL  # noqa: E402
 
 TIME = re.compile(r"(\d{1,2})\s*[時:：]\s*(\d{1,2})")
+SEC = re.compile(r"(約)?\s*(\d+(?:\.\d+)?)\s*秒")          # 15本目：秒の札（「0.27秒」「約9.1秒」）
 CROWD_ROLES = ("passengers",)
 NON_ILLU_KINDS = ("写真", "図・写真の頁", "決め所", "文字の頁", "図解", "パネル")
 
@@ -80,13 +81,17 @@ def check_recs(recs, where, docs, pages):
     return bad
 
 
-def judge_scene(sc, where, docs=None, pages=None, split=None, until=None):
-    """場面1つを測る。返り値＝(食い違いの一覧, 照合した件数)。"""
+def judge_scene(sc, where, docs=None, pages=None, split=None, until=None, sec_ok=None, clock_ok=None, counts=None):
+    """場面1つを測る。返り値＝(食い違いの一覧, 照合した件数)。
+    15本目 ⑤b-2 から：sec_ok（秒の札の表）・clock_ok（時計の札の表）・counts（描いてよい数）＝その回の表が空なら測らない"""
     ss = _ss()
     docs = docs if docs is not None else ss.REC_DOCS
     pages = pages if pages is not None else _pages()
     split = split if split is not None else ss.ILLU_SPLIT_TIMES
     until = until if until is not None else ss.ILLU_CROWD_UNTIL
+    sec_ok = sec_ok if sec_ok is not None else (getattr(ss, "ILLU_SEC_OK", None) or {})
+    clock_ok = clock_ok if clock_ok is not None else tuple(getattr(ss, "ILLU_CLOCK_OK", None) or ())
+    counts = counts if counts is not None else (getattr(ss, "ILLU_COUNTS", None) or {})
     bad, n = [], 0
     # ① 部品の rec・段の rec
     for p in sc["parts"]:
@@ -173,11 +178,46 @@ def judge_scene(sc, where, docs=None, pages=None, split=None, until=None):
             if hm and f"{hm[0]}:{hm[1]:02d}" in split:
                 n += 1
                 bad.append(f"⑤{where}：札「{txt}」の時刻は資料で割れる（{split}）＝画面に出さない")
+            # 15本目〜：秒の札は表の値だけ（#42 の 5.3秒・EXIF から推した時刻を出さない＝映像方針 §6 ⑤）
+            if sec_ok:
+                for m in SEC.finditer(txt):
+                    n += 1
+                    if m.group(2) not in sec_ok:
+                        bad.append(f"⑤{where}：札「{txt}」の「{m.group(0)}」は表の値でない（AAB p28 の表＝"
+                                   f"{sorted(sec_ok, key=float)}）")
+                if hm and f"{hm[0]}:{hm[1]:02d}" not in clock_ok:
+                    n += 1
+                    bad.append(f"⑤{where}：札「{txt}」の時刻は表の時刻でない（{clock_ok}＝写真の EXIF から推した時刻は出さない）")
+    # ③' 15本目〜：描いた物の数（部品の obj の合計＝描く側の部品そのもの）＝記録の数（`cuts.ss.ILLU_COUNTS`）
+    if counts:
+        drawn_obj = {}
+        for p in sc["parts"]:
+            for k, v in (p.get("obj") or {}).items():
+                drawn_obj[k] = drawn_obj.get(k, 0) + int(v)
+        for k, v in drawn_obj.items():
+            n += 1
+            if k not in counts:
+                bad.append(f"③{where}：{k} を {v} 描いたのに記録の数（cuts.ss.ILLU_COUNTS）が無い")
+            elif v != counts[k][0]:
+                bad.append(f"③{where}：{k} を {v} 描いた（記録は {counts[k][0]}＝{counts[k][1]}）")
+            else:
+                bad += check_recs([counts[k][1]], where, docs, pages)
     # ⑧ 上から見た絵の縮尺
     if "上から" in (sc.get("view") or ""):
         n += 1
         if not sc.get("scale") or float(sc["scale"]) < 1.5:
             bad.append(f"⑧{where}：上から見た絵の縮尺 {sc.get('scale')} メートル／画素（1.5 以上＝人が1画素に満たない縮尺だけ）")
+    # 15本目 ⑤b-2：空の中の事故機（RB）は地面に触れて見えない（下見：90度前後の翼の下の先が地平線より下＝「翼が地面に触れた」絵
+    #   ＝記録を越える＝落ちたのは約9.1秒）。後ろから見た段ごとに、描く側と同じ幾何（_rb_anchors）で翼の先が地平線より上か
+    if sc["place"] == "RB":
+        for i, st in enumerate([sc["start"]] + sc["states"]):
+            if st["view"] == "rear":
+                n += 1
+                an = IL._rb_anchors(st)
+                low = max(an["lwing"][1], an["rwing"][1])
+                if low > IL.RB_HZ - 8:
+                    bad.append(f"⑨{where}：段{i}の傾き {st['roll']}度で翼の下の先 y={low:.0f} が地平線 {IL.RB_HZ:.0f} に届く"
+                               "（地面に触れた絵に見える＝落ちたのは約9.1秒）")
     # touch：記録の「どの甲板が水面に」を同じ幾何で
     for i, (st, sp) in enumerate(zip(sc["states"], sc["steps"])):
         if sp.get("touch"):
@@ -227,8 +267,14 @@ def judge_cut(cid, spec, kind_of):
         bad.append(f"⑦{cid}：混ざりに全面の絵（illu）＝画面の種類を「再現イラスト」にするか、冒頭の絵か小さく戻す絵に")
     if kind == "再現イラスト" and not has_full:
         bad.append(f"⑦{cid}：画面の種類「再現イラスト」なのに全面の絵（fig=(\"illu\", …)）で書いていない")
-    if it and fig[0] != "quote":
-        bad.append(f"⑦{cid}：冒頭の絵（intro の illu）は決め所の前だけ（fig は quote）")
+    # 冒頭の絵（intro の illu）＝画面ごと入れ替える（重ねない）。15本目 ⑤b-2 から、あとに来てよいのは
+    #   決め所（quote＝14本目 c102・15本目 c104）・全面の絵（illu＝c101 B→A）・時間の帯（axis＝c312 A→帯）
+    if it and fig[0] not in ("quote", "illu", "axis"):
+        bad.append(f"⑦{cid}：冒頭の絵（intro の illu）のあとは 決め所（quote）・全面の絵（illu）・時間の帯（axis）だけ")
+    elif it and fig[0] == "illu" and kind != "再現イラスト":
+        bad.append(f"⑦{cid}：冒頭の絵のあとが全面の絵なら画面の種類は「再現イラスト」（いまは「{kind}」）")
+    elif it and fig[0] in ("quote", "axis") and kind != "混ざり":
+        bad.append(f"⑦{cid}：冒頭の絵のあとが決め所・時間の帯なら画面の種類は「混ざり」（いまは「{kind}」）")
     if has_full or has_mini:
         b, m = judge_fig(fig[0], fig[1], cid)
         bad += b
@@ -245,12 +291,147 @@ def judge_cut(cid, spec, kind_of):
     return bad, n
 
 
+def _run(cases, kw):
+    ok = True
+    for name, spec, want in cases:
+        try:
+            sc = IL.scene(**spec)
+            bad, _ = judge_scene(sc, "selftest", **kw)
+        except Exception as e:                           # noqa: BLE001
+            bad = [f"組めない：{e}"]
+        got = not bad
+        ok &= got == want
+        print(f"  {'OK' if got == want else '🔴 NG'} {name}: {'合格' if got else '不合格'}"
+              f"（{'合格' if want else '不合格'}のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    return ok
+
+
+def _expect(name, bad, head):
+    good = any(b.startswith(head) for b in bad)
+    print(f"  {'OK' if good else '🔴 NG'} {name}: {'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    return good
+
+
+def selftest_ep15():
+    """15本目（リノ・⑤b-2）の置き場 RA・RB・RD の物差しの検算＝**本番の表（cuts.ss＝15本目）**で回す。
+    🔴 16本目の ⑤b-1 で本番の表を空にしたら、この表（REC_DOCS・ILLU_SEC_OK・ILLU_CLOCK_OK・ILLU_COUNTS）を
+       fixture_ep15 へ移して差し込む（14本目と同じ＝記憶 project-jiko-rules-index §0b）"""
+    ss = _ss()
+    kw = dict(docs=dict(ss.REC_DOCS), pages=_pages(), split=tuple(ss.ILLU_SPLIT_TIMES), until=ss.ILLU_CROWD_UNTIL,
+              sec_ok=dict(ss.ILLU_SEC_OK), clock_ok=tuple(ss.ILLU_CLOCK_OK), counts=dict(ss.ILLU_COUNTS))
+    good_near = dict(place="RA", at="16:24", start=dict(view="near", gg="p7"), rec="AAB p28",
+                     steps=[dict(), dict(state=dict(gg="gone", path="on", x="on", box="on"), rec="AAB p28・p19",
+                                         tag=[dict(t="パイロン8", at="p8"), dict(t="観客席（ボックス席）", at="box")])])
+    good_trace = dict(place="RA", at="16:24", start=dict(view="near", gg="gone", path="on", x="on", box="on"), rec="AAB p28",
+                      steps=[dict(state=dict(trace="on"), rec="AAB p28", tag=dict(t="崩れ始め 0秒", at="fall0")),
+                             dict(tag=dict(t="約9.1秒", at="x"))])
+    good_wide = dict(place="RA", at="16:24", start=dict(view="wide"),
+                     steps=[dict(state=dict(laps="on", ring8="on"), rec="#14 p3014・AAB p29"),
+                            dict(state=dict(seg67="on"), rec="AAB p29")])
+    good_rear = dict(place="RB", at="16:24", start=dict(view="rear", roll=73.0), rec="AAB p28",
+                     steps=[dict(state=dict(roll=77.0), rec="AAB p28", tag=dict(t="0秒", xy=(1300, 200))),
+                            dict(state=dict(roll=81.0, ail="right"), rec="AAB p28", tag=dict(t="0.27秒", xy=(1300, 200)))])
+    good_mix = dict(place="RB", at="16:24", start=dict(view="rear", ground="off", roll=86.0), rec="AAB p28",
+                    steps=[dict(state=dict(roll=93.0), rec="AAB p28"),
+                           dict(state=dict(view="side", pitch=32.0), rec="AAB p28", tag=dict(t="1.3秒 17.3G", xy=(1300, 200)))])
+    good_tail = dict(place="RD", at="16:24", steps=[dict(state=dict(mark="on"), rec="AAB p14")])
+    cases = [
+        ("15本目 正しい RA near（印が7→8・消えて点線・×・ボックス席）", good_near, True),
+        ("15本目 正しい RA near（琥珀の線・0秒と約9.1秒の札）", good_trace, True),
+        ("15本目 正しい RA wide（3周の航跡・パイロン8の輪・6〜7の区間）", good_wide, True),
+        ("15本目 正しい RB rear（73度から深まる・補助翼）", good_rear, True),
+        ("15本目 正しい RB rear→side（93度→機首の上げ・17.3G）", good_mix, True),
+        ("15本目 正しい RD tail（尾翼の輪）", good_tail, True),
+        ("🔴 15本目 陽性対照⑤：札に表に無い秒（#42 の 5.3秒）",
+         dict(good_trace, steps=[dict(state=dict(trace="on"), rec="AAB p28", tag=dict(t="5.3秒", at="x"))]), False),
+        ("🔴 15本目 陽性対照⑤：札に表に無い時刻（16時25分）",
+         dict(good_rear, steps=[dict(state=dict(roll=77.0), rec="AAB p28", tag=dict(t="16時25分", xy=(1300, 200)))]), False),
+        ("🔴 15本目 陽性対照①：航跡を出した段に rec が無い", dict(good_wide, steps=[dict(state=dict(laps="on"))]), False),
+        ("🔴 15本目 陽性対照①：傾きを変えた段に rec が無い", dict(good_rear, steps=[dict(state=dict(roll=80.0))]), False),
+        ("🔴 15本目 陽性対照①：rec の資料名が表に無い（#42）", dict(good_tail, steps=[dict(state=dict(mark="on"), rec="#42 p5")]), False),
+        ("🔴 15本目 陽性対照⑧：上から見た絵に寄りすぎ（cam 1.8＝1.39メートル／画素）",
+         dict(good_near, start=dict(view="near", gg="p7", cam=1.8)), False),
+    ]
+    ok = _run(cases, kw)
+    # 🔴 位置の正本（`ref/ep15/illu_reno.json`＝`ref/ep15/measure_reno.py` が図の画素から測った値）と `illu.py` の定数が同じか
+    #    （写し間違い・手で動かした値を止める。⑤b-2 で scratchpad の手の丸めと 0〜1メートル違っていたのを直した）
+    js = HERE / "ref" / "ep15" / "illu_reno.json"
+    if js.exists():
+        import json
+        g = json.loads(js.read_text(encoding="utf-8"))
+        diff = [k for k in IL.R_ORDER if tuple(float(x) for x in g["pylons"][k]) != IL.R_PYL[k]]
+        diff += ["accident"] if tuple(float(x) for x in g["accident"]) != IL.R_ACC else []
+        diff += ["S0"] if tuple(g["S0"]) != IL.R_S0 else []
+        diff += [n for n in IL.R_LAPS if [tuple(p) for p in g["laps"][n]] != list(IL.R_LAPS[n])]
+        diff += ["showline_deg"] if abs(g["showline_deg"] - IL.R_SHOW_DEG) > 1e-9 else []
+        diff += ["R_GG・R_FALL の端"] if (IL.R_GG[-1] != tuple(float(x) for x in g["laps"]["lap3"][-1])
+                                        or IL.R_FALL[0] != IL.R_GG[-1] or IL.R_FALL[-1] != IL.R_ACC) else []
+        print(f"  {'OK' if not diff else '🔴 NG'} 15本目 位置の正本 illu_reno.json と illu.py の定数: "
+              f"{'同じ' if not diff else '違う ' + str(diff)}")
+        ok &= not diff
+    else:
+        print("  ⚠️ 15本目 位置の正本 ref/ep15/illu_reno.json が無い＝照合していない")
+    # 🔴 陽性対照③（数）：事故機の印を2つ（部品を複写）・燃料車を2台（地面の obj を壊す）
+    sc = IL.scene(**good_near)
+    p = next(q for q in sc["parts"] if (q.get("obj") or {}).get("aircraft"))
+    sc["parts"].append(dict(p, id="gg2"))
+    ok &= _expect("🔴 15本目 陽性対照③：事故機を2つ描く", judge_scene(sc, "selftest", **kw)[0], "③")
+    sc = IL.scene(**good_near)
+    g = next(q for q in sc["parts"] if (q.get("obj") or {}).get("fuel_truck"))
+    g["obj"] = dict(g["obj"], fuel_truck=2)
+    ok &= _expect("🔴 15本目 陽性対照③：燃料車を2台描く", judge_scene(sc, "selftest", **kw)[0], "③")
+    # 🔴 陽性対照⑧（描く側の定数を壊す）：near の縮尺を 1.2 メートル／画素に
+    keep = IL.RA_VIEW["near"]["mpp"]
+    IL.RA_VIEW["near"]["mpp"] = 1.2
+    try:
+        bad = judge_scene(IL.scene(**good_near), "selftest", **kw)[0]
+    finally:
+        IL.RA_VIEW["near"]["mpp"] = keep
+    ok &= _expect("🔴 15本目 陽性対照⑧（描く側）：near の縮尺 1.2", bad, "⑧")
+    # 🔴 陽性対照⑨（描く側）：後ろから見た機体を下げて大きく（⑤b-2 の下見の前の値）＝93度で翼の先が地平線に届く
+    keep = (IL.RB_CR, IL.RB_KR)
+    IL.RB_CR, IL.RB_KR = (960.0, 430.0), 62.0
+    try:
+        bad = judge_scene(IL.scene(**good_mix), "selftest", **kw)[0]
+    finally:
+        IL.RB_CR, IL.RB_KR = keep
+    ok &= _expect("🔴 15本目 陽性対照⑨（描く側）：後ろから見た機体を下げる（翼の先が地平線に届く）", bad, "⑨")
+    # 🔴 陽性対照⑦：冒頭の絵のあとがパネル／時間の帯なのに種類が「再現イラスト」
+    for name, spec, kind in (("冒頭の絵のあとがパネル", dict(fig=("panel", dict(blocks=[])), intro=dict(illu=good_tail)), "混ざり"),
+                             ("冒頭の絵→時間の帯なのに種類が「再現イラスト」",
+                              dict(fig=("axis", dict()), intro=dict(illu=good_tail)), "再現イラスト")):
+        bad = [b for b in judge_cut("x9", spec, {"x9": kind})[0] if b.startswith("⑦")]
+        ok &= _expect(f"🔴 15本目 陽性対照⑦：{name}", bad, "⑦")
+    bad = [b for b in judge_cut("x8", dict(fig=("illu", good_near), intro=dict(illu=good_mix)), {"x8": "再現イラスト"})[0]
+           if b.startswith("⑦")]
+    print(f"  {'OK' if not bad else '🔴 NG'} 15本目 正しい ⑦：冒頭の絵（B）→ 全面の絵（A）＝再現イラスト: "
+          f"{'合格' if not bad else '不合格'}（合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    ok &= not bad
+    return ok
+
+
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
+    # 🔴 2026-09-30（15本目 ⑤b-2）：先に15本目（本番の表）で RA・RB・RD を検算してから、14本目の見本に差し替える
+    ok15 = selftest_ep15()
     # 🔴 2026-09-30（15本目 ⑤b-1）：見本は14本目の実物（置き場 A〜E の部品の既定の rec が14本目の資料を指す）。
     #    本番の表は回ごとに空にする（§0b）＝この処理の中だけ14本目の資料の表・原文・時刻にする
     import fixture_ep14
     fixture_ep14.apply(sys.modules[__name__])
+    _pages.cache_clear()          # 🔴 原文の頁の読み込みは覚えている（lru_cache）＝15本目の原文を捨てて14本目を読み直す
+    try:
+        ok = _selftest_ep14() and ok15
+    finally:
+        # 🔴 2026-09-30（15本目 ⑤b-2）：selftest のあと本番の表に戻す（戻さないと、本番の照合が14本目の出典の表で15本目の絵を
+        #    測る＝⑤b-1 から ⑤b-2 まで本番に案C が無かったので表に出なかった穴）
+        fixture_ep14.restore()
+        _pages.cache_clear()
+    print("selftest:", "通った" if ok else "🔴 落ちた")
+    return ok
+
+
+def _selftest_ep14():
+    """14本目（セウォル号）の見本での検算（fixture_ep14 を差し込んだ中で呼ぶ）。"""
     # 資料の表と原文の頁はこの回のもの（置き場の部品の既定の rec がこの回の資料を指すため）
     docs, pages = _ss().REC_DOCS, _pages()
     split = ("9:46", "9:48")
@@ -366,7 +547,6 @@ def selftest():
     good = "出典" not in ov
     ok &= good
     print(f"  {'OK' if good else '🔴 NG'} 🔴 陽性対照④：出典を空にすると上の層に出典が出ない（門番が拾う前提）")
-    print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 
 

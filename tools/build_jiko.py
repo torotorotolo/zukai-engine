@@ -915,6 +915,40 @@ def _il_path(path, dt, speed=190.0):
     return tuple(path[-1])
 
 
+# ── 15本目 ⑤b-2（2026-09-30）：道に沿う動き2つ ─────────────────────
+#   draw  … 描いた線の層を、道（path＝画素の点の並び）の頭から長さの割合 u まで見せる（航跡・点線・琥珀の線）。
+#           u は段の鍵 `go`（u の欄）。見せる幅 `reveal`（線の太さより広く）で道をなぞった型紙を、層の濃さに掛ける
+#   mover … 型紙（事故機の印）を道の上の割合 u の点へ置き、道の向きに回す（`anchor`＝層の中の印の真ん中）。濃さは keys
+#   akeys … 層の濃さだけの鍵（回す鍵 keys と別の並び＝長い回転の途中に短い入れ替えが入っても回転が飛ばない）
+def _il_along(path, u):
+    """道の、長さの割合 u の点と向き（度・画面で時計回りが正）。"""
+    segs = [math.hypot(q[0] - p[0], q[1] - p[1]) for p, q in zip(path, path[1:])]
+    s = max(0.0, min(1.0, u)) * (sum(segs) or 1.0)
+    for (p, q), L in zip(zip(path, path[1:]), segs):
+        if s <= L and L > 0:
+            f = s / L
+            return (p[0] + (q[0] - p[0]) * f, p[1] + (q[1] - p[1]) * f), math.degrees(math.atan2(q[1] - p[1], q[0] - p[0]))
+        s -= L
+    p, q = path[-2], path[-1]
+    return (float(q[0]), float(q[1])), math.degrees(math.atan2(q[1] - p[1], q[0] - p[0]))
+
+
+def _il_prefix(path, u):
+    """道の頭から長さの割合 u までの点の並び。"""
+    segs = [math.hypot(q[0] - p[0], q[1] - p[1]) for p, q in zip(path, path[1:])]
+    s = max(0.0, min(1.0, u)) * (sum(segs) or 1.0)
+    out = [tuple(path[0])]
+    for (p, q), L in zip(zip(path, path[1:]), segs):
+        if s >= L:
+            out.append(tuple(q))
+            s -= L
+        else:
+            f = s / L if L else 0.0
+            out.append((p[0] + (q[0] - p[0]) * f, p[1] + (q[1] - p[1]) * f))
+            break
+    return out
+
+
 def _il_scene(t, lay, sc, times):
     """場面の絵（部品を重ねただけ・札とカメラの前）。"""
     fr = Image.new("RGBA", (S.W, S.H), (0, 0, 0, 255))
@@ -925,13 +959,36 @@ def _il_scene(t, lay, sc, times):
         kind = p.get("kind", "layer")
         if p.get("drift"):
             d = int(round(t * float(p["drift"]))) % S.W
-            fr.alpha_composite(ImageChops.offset(lay[name], d, 0))
+            a = _il_state(p["keys"], t, times)["a"] if p.get("keys") else 1.0     # 15本目：流れる層にも濃さ（見え方の入れ替え）
+            if a > 0.996:
+                fr.alpha_composite(ImageChops.offset(lay[name], d, 0))
+            elif a > 0.004:
+                _il_put(fr, ImageChops.offset(lay[name], d, 0), 0, 0, a)
             continue
         img, ox, oy = _il_img(lay, name)
         if img is None:
             continue
         if kind == "layer":
-            _il_paste(fr, img, ox, oy, _il_state(p["keys"], t, times), p["pivot"])
+            st = _il_state(p["keys"], t, times)
+            if p.get("akeys"):
+                st["a"] = _il_state(p["akeys"], t, times)["a"]
+            _il_paste(fr, img, ox, oy, st, p["pivot"])
+        elif kind == "draw":
+            u = _il_state(p["go"], t, times, dict(u=0.0))["u"]
+            a = _il_state(p["keys"], t, times)["a"]
+            if u > 0.002 and a > 0.004:
+                m = Image.new("L", img.size, 0)
+                ImageDraw.Draw(m).line([(x - ox, y - oy) for x, y in _il_prefix(p["path"], u)], fill=255,
+                                       width=int(p.get("reveal", 30)), joint="curve")
+                cut = img.copy()
+                cut.putalpha(ImageChops.multiply(img.getchannel("A"), m))
+                _il_put(fr, cut, ox, oy, a)
+        elif kind == "mover":
+            u = _il_state(p["go"], t, times, dict(u=0.0))["u"]
+            a = _il_state(p["keys"], t, times)["a"]
+            (x, y), ang = _il_along(p["path"], u)
+            ax, ay = p["anchor"]
+            _il_paste(fr, img, ox, oy, dict(IL_DEF, rot=ang + float(p.get("rot0", 0.0)), dx=x - ax, dy=y - ay, a=a), (ax, ay))
         elif kind == "ring":
             for ev in p["pulse"]:
                 t0 = _il_tk(ev["stage"], ev["delay"], times)
@@ -971,14 +1028,20 @@ def illu_frame(cut, t, lay, meta, sc, base):
                 img, ox, oy = _il_img(lay, k)
                 if img is not None:
                     _il_put(fr, img, ox, oy, al)
+    fr = _il_cam(fr, sc, t, times)
+    if base in lay:
+        fr.alpha_composite(lay[base])
+    return fr
+
+
+def _il_cam(fr, sc, t, times):
+    """カメラの寄り（cam の z≧1・camc のまわり）。全面の絵と、15本目 ⑤b-2 から小さく戻す絵（illu_minis）にも。"""
     if sc.get("cam"):
         z = _il_state(sc["cam"], t, times, dict(z=1.0))["z"]
         if z > 1.0005:
             cx, cy = sc.get("camc") or (S.W / 2, S.H / 2)
             fr = fr.transform(fr.size, Image.AFFINE, (1 / z, 0, cx - cx / z, 0, 1 / z, cy - cy / z),
                               resample=Image.BICUBIC)
-    if base in lay:
-        fr.alpha_composite(lay[base])
     return fr
 
 
@@ -993,7 +1056,7 @@ def illu_minis(fr, cut, t, lay, meta):
         if al <= 0.004:
             continue
         x, y, w, h = sc["box"]
-        im = _il_scene(t, lay, sc, times).resize((w, h), Image.BILINEAR, reducing_gap=2.0)
+        im = _il_cam(_il_scene(t, lay, sc, times), sc, t, times).resize((w, h), Image.BILINEAR, reducing_gap=2.0)
         _il_put(fr, im, x, y, al)
     return fr
 

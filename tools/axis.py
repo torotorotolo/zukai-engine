@@ -43,7 +43,10 @@ import re
 import jiko_style as J
 import titan_fig as F
 
-VIEWS = ("date", "clock", "lanes")
+VIEWS = ("date", "clock", "lanes", "sec")
+# 🆕 2026-09-30（15本目 ⑤b-2）：sec＝秒の帯（値は "0.56"／"約9.1"＝崩れ始めからの秒・c312 の 0.56→1.3→4.6）。
+#    札は「0.56秒」。門番 check_axis は秒の読み方を自分で持つ（書いた桁の半分の幅＝"1.3"±0.05・"0.56"±0.005）
+TITLE = dict(date="年表", lanes="交信の帯", clock="時刻の帯", sec="時間の帯（秒）")
 # 軸の左右（画素）。lanes は左に段の名を置くので左を空ける
 X0, X1 = F.BX0 + 110, F.BX1 - 110
 X0_LANES = F.BX0 + 250
@@ -83,6 +86,11 @@ def val(view, s):
         mo = int(m[2]) + 1 - MONTH0
         y, mo = y + (mo - 1) // 12, (mo - 1) % 12 + 1
         return _yr(datetime.date(y, mo, 1)), "month"
+    if view == "sec":
+        m = re.fullmatch(r"(約)?(\d+(?:\.\d+)?)", s)
+        if not m:
+            raise ValueError(f"axis：秒の書き方が違う {s!r}（0.56／約9.1）")
+        return float(m[2]), "sec"
     m = re.fullmatch(r"(翌)?(\d{1,2}):(\d{2})", s)
     if not m:
         raise ValueError(f"axis：時刻の書き方が違う {s!r}（8:52／翌9:10）")
@@ -95,6 +103,8 @@ def label(view, s, fmt=""):
     if view == "date":
         p = s.split("-")[:{"ym": 2, "y": 1}.get(fmt, 3)]
         return p[0] + "年" + (f"{int(p[1])}月" if len(p) > 1 else "") + (f"{int(p[2])}日" if len(p) > 2 else "")
+    if view == "sec":
+        return s + "秒"
     return s.replace("翌", "")
 
 
@@ -156,6 +166,8 @@ def _tick_lab(view, s):
     if view == "date":
         p = s.split("-")
         return (f"{int(p[1])}月", p[0] + "年") if len(p) > 1 else (p[0], "")
+    if view == "sec":
+        return (s + "秒", "")
     return (s.replace("翌", ""), "翌日" if s.startswith("翌") and s.replace("翌", "") in ("0:00", "00:00") else "")
 
 
@@ -347,8 +359,7 @@ def axis(view, steps, span, ticks=(), past=(), lanes=(), start=None, note="", sr
             parts.append(dict(r, stage=j))
         stages.append("".join(s) or " ")
         xs.append(A.x(st["cur"], True) if st.get("cur") else xs[-1])
-    g.append(F.txtfit(F.BX0 + 8, F.BY0 + 34, "年表" if view == "date" else ("交信の帯" if view == "lanes" else "時刻の帯"),
-                      400, cap=28, col=J.TICK))
+    g.append(F.txtfit(F.BX0 + 8, F.BY0 + 34, TITLE[view], 400, cap=28, col=J.TICK))
     f = F.Fig("".join(g), stages, "", (F.BX0, F.BX1))
     anim = _cursor(A, xs) if cur_on else []
     f.moves = ([dict(kind="anim", stage=0, shapes=anim, box=F._mech_box(anim), delay=F.MECH_DELAY, dur=F.MECH_DUR)]

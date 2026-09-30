@@ -1873,9 +1873,15 @@ def layer_index(allow_missing=False):
         if m.get("intro_illu"):
             # 🔴 14本目 ⑤b-2：冒頭の絵は**最後の行（決め所）を読み始める少し前**まで（build_jiko が INTRO_X 秒で重ねて入れ替える）。
             #    絵の段の時刻はこのカットの行から（絵は決め所と別の段の数を持つ）
+            #    🔴 15本目 ⑤b-2：`intro=dict(illu=…, until=k)`＝k 行目（0 から）を読み始める少し前に入れ替える（c101 B→A・
+            #    c312 A→時間の帯）。書かなければ最後の行（決め所）＝14本目までと同じ
             rows = SUBS.get(cid, [])
             isc = dict(m["intro_illu"], times=stage_times(cid, m["intro_illu"]["nstage"]))
-            intro = dict(illu=isc, sec=round(max(0.5, (rows[-1]["t"] + LEAD - 0.30) if rows else 1.0), 3))
+            k0 = (s.get("intro") or {}).get("until")
+            k = len(rows) - 1 if k0 is None else int(k0)
+            if k0 is not None and rows and not 0 < k < len(rows):
+                raise SystemExit(f"{cid}: intro の until={k} は 1〜{len(rows) - 1}（行の番号・0 は入れ替える前が無い）")
+            intro = dict(illu=isc, sec=round(max(0.5, (rows[k]["t"] + LEAD - 0.30) if rows else 1.0), 3))
         idx[cid] = {"photo": bool(s.get("photo")), "back": bool(s.get("photo") and s.get("fig")),
                     "veil": float(s.get("veil", VEIL)), "span": spans[cid],
                     # 🔴 実写カット（fig の無いカット）にかける暗幕。**書いたカットだけ**

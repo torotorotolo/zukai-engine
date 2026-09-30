@@ -53,6 +53,8 @@ def pic_kinds(s):
             return {"再現イラスト"}
         if k == "illu_pair":
             return {"混ざり"}
+        if (s.get("intro") or {}).get("illu"):
+            return {"混ざり"}          # 15本目 ⑤b-2：冒頭の絵 → 時間の帯（c312）＝画面の中で絵から図解へ入れ替わる
         return {"混ざり", "図解"} if photo else {"図解"}
     if photo:
         return {"文字の頁", "図・写真の頁"} if "/pg" in str(photo) else {"写真"}

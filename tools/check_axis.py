@@ -37,13 +37,24 @@ sys.stdout.reconfigure(encoding="utf-8")
 #        （GATES["check_axis"]・値は1つも変えていない）。15本目の年表・時間の帯を書くチャットで、値と頁を
 #        ref/ep15/src/ep15_pages.txt で当てて入れる（空のあいだ、軸のカットは「記録に無い値」で止まる＝fail closed）
 # ══════════════════════════════════════════════════════════
-REC_AXIS = {}
+# 🔴 2026-09-30（15本目 ⑤b-2）：15本目の値＝秒の帯（崩れ始めからの秒＝AAB p28 の経過の表・c312）。
+#    0.56秒＝左の板の後ろの縁が21度以上上がった（p28）＝リンクがこのときまでに折れていた（p24・p39）／4.6秒＝一片が離れた（p28）・
+#    本部のパイロンの近くで見つかった（p18）。年表・時間の帯（分・日）の値は ⑤b-5 で足す
+REC_AXIS = {
+    "0": {"AAB p28"}, "0.27": {"AAB p28"}, "0.56": {"AAB p24", "AAB p28", "AAB p39"}, "0.83": {"AAB p28"},
+    "1.3": {"AAB p28"}, "1.44": {"AAB p28"}, "約3.1": {"AAB p28"}, "4.6": {"AAB p18", "AAB p28"}, "約9.1": {"AAB p28"},
+}
 LANES_OK = set()
 
 
 def gv(view, s):
-    """門番の読み方（型とは別に書く）＝(下限, 上限)。date は年（小数）・clock は分。"""
+    """門番の読み方（型とは別に書く）＝(下限, 上限)。date は年（小数）・clock は分・sec は秒（15本目〜）。"""
     s = str(s).strip()
+    if view == "sec":
+        m = re.fullmatch(r"(?:約)?(\d+)(?:\.(\d+))?", s)
+        v = float(m[1] + ("." + m[2] if m[2] else ""))
+        tol = 0.5 * 10 ** -len(m[2]) if m[2] else 0.05        # 書いた桁の半分（整数は ±0.05＝目盛りの 0秒）
+        return v - tol, v + tol
     if view == "date":
         p = [int(x) for x in s.split("-")]
         if len(p) == 1:
@@ -86,6 +97,8 @@ def _texts(view, s):
         if len(p) > 2:
             forms.append(f"{p[0]}年{p[1]}月{p[2]}日")
         return set(forms)
+    if view == "sec":
+        return {s + "秒"}
     return {s.replace("翌", "")}
 
 
@@ -93,6 +106,8 @@ def _tick_text(view, s):
     if view == "date":
         p = s.split("-")
         return f"{int(p[1])}月" if len(p) > 1 else p[0]
+    if view == "sec":
+        return s + "秒"
     return s.replace("翌", "")
 
 
@@ -102,7 +117,7 @@ def judge_fig(kw, split_times=()):
     f = A.axis(**kw)
     m = f.mech
     view = m["view"]
-    vk = "date" if view == "date" else "clock"
+    vk = view if view in ("date", "sec") else "clock"
     bad, n = [], 0
     tk = m["ticks"]
     if len(tk) < 2:
@@ -189,12 +204,52 @@ def _split_times():
         return ()
 
 
+def selftest_ep15():
+    """15本目（⑤b-2）の秒の帯（sec）の検算＝**本番の表（この門番の REC_AXIS＝15本目）**で回す。
+    🔴 16本目の ⑤b-1 で本番の表を空にしたら、秒の値を fixture_ep15 へ移して差し込む（14本目と同じ）"""
+    import axis as A
+    sec = dict(view="sec", span=("0", "5"), ticks=("0", "1", "2", "3", "4", "5"),
+               steps=[dict(add=[dict(k="pt", at="1.3", t="最大G", rec="AAB p28"),
+                                dict(k="pt", at="4.6", t="一片が離れる", rec="AAB p28")], cur="4.6"),
+                      dict(add=dict(k="pt", at="0.56", t="リンクが折れている", rec="AAB p24"), cur="0.56")],
+               note="n", src="s")
+    cases = [("15本目 正しい秒の帯（1.3→4.6→0.56）", sec, True),
+             ("🔴 15本目 陽性対照：表に無い秒（#42 の 5.3）",
+              dict(sec, span=("0", "6"), ticks=("0", "2", "4", "6"),
+                   steps=[dict(add=dict(k="pt", at="5.3", t="一片", rec="AAB p28"))]), False),
+             ("🔴 15本目 陽性対照：1.3秒の頁が違う（AAB p29）",
+              dict(sec, steps=[dict(add=dict(k="pt", at="1.3", t="最大G", rec="AAB p29"))]), False)]
+    ok = True
+    for name, kw, want in cases:
+        bad, _ = judge_fig(kw, ())
+        got = not bad
+        ok &= got == want
+        print(f"  {'OK' if got == want else '🔴 NG'} {name}: {'合格' if got else '不合格'}"
+              f"（{'合格' if want else '不合格'}のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    keep = A.val
+    # 小数の秒だけ 0.3秒ずらして描く型（目盛り＝整数は正しい＝一様な伸び縮みは目盛りの物差しに吸われるので、部品だけずらす）
+    A.val = lambda view, s: ((keep(view, s)[0] + (0.3 if "." in str(s) else 0.0), keep(view, s)[1]) if view == "sec"
+                             else keep(view, s))
+    try:
+        bad, _ = judge_fig(sec, ())
+    except ValueError as e:
+        bad = [f"型が止まった：{e}"]
+    finally:
+        A.val = keep
+    good = bool(bad)
+    ok &= good
+    print(f"  {'OK' if good else '🔴 NG'} 🔴 15本目 陽性対照（画素）：小数の秒を 0.3秒ずらして描く型: {'不合格' if bad else '合格'}（不合格のはず）"
+          + (f"  ← {bad[0]}" if bad else ""))
+    return ok
+
+
 def selftest():
+    # 🔴 2026-09-30（15本目 ⑤b-2）：先に15本目の秒の帯を本番の表で検算してから、14本目の見本に差し替える
+    ok = selftest_ep15()
     # 🔴 2026-09-30（15本目 ⑤b-1）：見本は14本目の実物（本番の表は回ごとに空にする＝§0b）＝この処理の中だけ14本目にする
     import fixture_ep14
     fixture_ep14.apply(sys.modules[__name__])
     import axis as A
-    ok = True
     ST = ("8:52", "8:58", "9:46", "9:48")
     night = dict(view="clock", span=("18:00", "翌10:00"), ticks=("18:00", "22:00", "翌2:00", "翌6:00", "翌10:00"),
                  steps=[dict(add=[dict(k="pt", at="18:30", t="出港", rec="海審 p1026"),
@@ -286,6 +341,8 @@ def main():
         return 2
     if "--selftest" in sys.argv:
         return 0
+    import fixture_ep14
+    fixture_ep14.restore()       # 🔴 15本目 ⑤b-2：selftest で差し込んだ14本目の見本を本番の表に戻す（戻さないと14本目の表で本番を測る）
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items()) if s.get("fig") and s["fig"][0] == "axis"}
     if not targets:
