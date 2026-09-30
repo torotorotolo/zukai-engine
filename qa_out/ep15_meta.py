@@ -92,7 +92,10 @@ THUMB_NOTE = {
     "pit": _T3.format(how="切り出し"),
     "pitz": _T3.format(how="拡大して切り出し"),
 }
-THUMB = ""
+# ✅ 2026-09-30 カズヤくん決定＝案 c「犠牲11人 改造機が観客席へ」＋実際の写真（T3・2010年の事故機・全幅）。
+#    Actions 36712879523（版 83a7d6d）の ep15_c_kaizou_pit.png を同じ中身のまま写した（md5 0866c3d4fa9b78718b6f3f3a8893c122）。
+#    ⚠️ 生成の地（案A・`ref/ep15/ai/`・約$0.2）は見比べたうえで**使わない**＝断り書きは写真の方（THUMB_NOTE["pit"]）
+THUMB = "out/thumb/ep15-t1/ep15_c_kaizou_pit.png"
 
 # 権利（`assets.json` の `lic`）→ 概要欄の許諾の URL。ここに無い権利が出たら止める
 LICENSE_URL = OrderedDict([
