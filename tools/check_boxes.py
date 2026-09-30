@@ -40,16 +40,41 @@ from check_qty import ATTR, EL, _els, _recs, _unesc  # noqa: E402
 # ══════════════════════════════════════════════════════════
 REC_CREW = {}
 REC_ROLE_PAGES = set()
-REC_OTHER_ROLE = {}
+# 🆕 2026-09-30（15本目 ⑤b-5）：原文 ref/ep15/src/ep15_pages.txt で当てた（型の側 ss.FACTORS・MCP・FORM_* とは別に持つ）。
+#   流れ図の「role」の箱＝15本目は役職でなく、報告書の文の言葉（重なった要因＝AAB p52・実況の担当がしたこと＝AAB p20）
+REC_OTHER_ROLE = {
+    "記録も試験も無い改造": {"AAB p52"},        # the undocumented and untested major modifications
+    "十分な試験なしのレース": {"AAB p52"},      # operation … in the unique air racing environment without adequate flight testing
+    "観客へ避難の案内": {"AAB p20"},            # provided clear evacuation procedures guidance to the crowd
+    "救護の人を手伝う": {"AAB p20"},            # assisted first responders
+    "医療の応援を頼む": {"AAB p20"},            # requested additional help from medical staff on scene
+}
 REC_CRIME = {}
 REC_VERDICT = {}   # (役職, 罪名, 列) → (結果, 頁)
 REC_SENT = {}      # 役職 → (確定した刑, 頁)
 REC_SEATS = 0
 REC_UNANIMOUS = set()
 HEADS = set()
-REC_MECH = set()
-REC_CHIP = {}
-REC_FORM = {}
+# 🆕 15本目：報告書の鎖（AAB p52 の推定原因）・実況の担当（p20）・2010年の成績（p38）の箱の言葉
+REC_MECH = {"ナットの劣化", "ねじのゆるみ", "かたさが落ちる", "板の震え", "棒が折れる", "リンクが折れる", "機首上げ",
+            "実況の担当", "いちばん下の組", "勝ち上がる", "ゴールドのレース"}
+REC_CHIP = {"風で中止": {"AAB p38"}}           # that race was cancelled due to wind
+# 🆕 15本目：書類の再現図（表題 → 欄の名・行き来の箱・欄の値＝記録の文にある値だけ・頁）
+REC_FORM = {
+    "記録簿（2011年7月29日）": dict(fields={"機体の総時間"}, ends=set(), values={"機体の総時間": "1,453.6時間"},
+                                  rec={"AAB p15", "AAB p16"}),
+    "記録簿（2009年9月22日）": dict(fields={"試験飛行の時間", "署名"}, ends=set(),
+                                  values={"試験飛行の時間": "終えた", "署名": "パイロット本人"}, rec={"AAB p15"}),
+    "参加の書類（2009年）": dict(fields={"大きな改造をしたか"}, ends=set(), values={"大きな改造をしたか": "はい"},
+                             rec={"AAB p37"}),
+    "参加の書類（2009年・2010年）": dict(fields={"年齢"}, ends=set(), values={"年齢": "59"}, rec={"AAB p12"}),
+    "技術検査の用紙": dict(fields={"備考", "承認の日付"}, ends={"レースのコース"},
+                        values={"備考": "トリムタブのねじが短すぎる", "承認の日付": "2011年9月12日"}, rec={"AAB p37"}),
+    "技術検査の決まり（付録E）": dict(fields={"技術委員会の承認"}, ends=set(),
+                                 values={"技術委員会の承認": "機体の状態や、飛べるかを表さない"}, rec={"AAB p37"}),
+    "技術検査の用紙（事故のあと）": dict(fields={"指摘", "直した中身", "再検査"}, ends={"レースのコース"}, values={},
+                                  rec={"CAROL p5010"}),
+}
 REC_CAUSE = {}
 MARKS = {"？"}
 EXTRA = {"模式図"}
@@ -261,7 +286,37 @@ def judge(kw):
 # ══════════════════════════════════════════════════════════
 #  物差しの検算
 # ══════════════════════════════════════════════════════════
+def selftest_ep15():
+    """15本目（⑤b-5）の書類の再現図と鎖の検算＝**本番の表（この門番の REC_*＝15本目）**で回す。
+    🔴 16本目の ⑤b-1 で本番の表を空にしたら、この見本を fixture_ep15 へ移して差し込む（14本目と同じ）"""
+    from cuts import ss
+    entry = dict(view="form", form=ss.FORM_ENTRY09, note="n", src="s",
+                 steps=[dict(add=dict(k="paper")), dict(add=dict(k="fill", f="大きな改造をしたか"))])
+    bad_v = dict(ss.FORM_ENTRY09, fields=[dict(ss.FORM_ENTRY09["fields"][0], v="いいえ")])
+    bad_f = dict(ss.FORM_ENTRY09, fields=[dict(t="飛んだ時間", rec="AAB p37")])     # 型は通す＝門番が止めるか
+    chain = dict(view="flow", layout=ss.CHAIN2, steps=[dict(add=ss.chain_links())], note="n", src="s")
+    bad_w = dict(chain, layout=dict(heads=ss.CHAIN2["heads"][:5] + [dict(ss.CHAIN2["heads"][5], t="墜落の原因")]))
+    cases = [("15本目 正しい参加の書類（後から「はい」）", entry, True),
+             ("🔴 15本目 陽性対照：書き込む値が記録と違う（いいえ）", dict(entry, form=bad_v), False),
+             ("🔴 15本目 陽性対照：報告書の文に無い欄", dict(entry, form=bad_f, steps=[dict(add=dict(k="paper"))]), False),
+             ("15本目 正しい報告書の鎖", chain, True),
+             ("🔴 15本目 陽性対照：鎖に記録の表に無い言葉", bad_w, False)]
+    ok = True
+    for name, kw, want in cases:
+        try:
+            bad, _ = judge(kw)
+        except ValueError as e:
+            bad = [f"型が止まった：{e}"]
+        got = not bad
+        ok &= got == want
+        print(f"  {'OK' if got == want else '🔴 NG'} {name}: {'合格' if got else '不合格'}"
+              f"（{'合格' if want else '不合格'}のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    return ok
+
+
 def selftest():
+    # 🔴 2026-09-30（15本目 ⑤b-5）：先に15本目の書類と鎖を本番の表で検算してから、14本目の見本に差し替える
+    ok15 = selftest_ep15()
     # 🔴 2026-09-30（15本目 ⑤b-1）：見本は14本目の実物（本番の表は回ごとに空にする＝§0b）＝この処理の中だけ14本目にする
     import fixture_ep14
     fixture_ep14.apply(sys.modules[__name__])
@@ -334,6 +389,7 @@ def selftest():
         cnt[0] += 1
         return rect0(x, y, w + (40 if cnt[0] == 1 else 0), h, *a, **k)
     broken("並べ図の最初の箱だけ広く描く（F.rect）", F, "rect", uneven, row)
+    ok = ok and ok15
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 

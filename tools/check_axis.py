@@ -43,6 +43,25 @@ sys.stdout.reconfigure(encoding="utf-8")
 REC_AXIS = {
     "0": {"AAB p28"}, "0.27": {"AAB p28"}, "0.56": {"AAB p24", "AAB p28", "AAB p39"}, "0.83": {"AAB p28"},
     "1.3": {"AAB p28"}, "1.44": {"AAB p28"}, "約3.1": {"AAB p28"}, "4.6": {"AAB p18", "AAB p28"}, "約9.1": {"AAB p28"},
+    # 🆕 2026-09-30（15本目 ⑤b-5）：年表・時刻の帯・横転の前の秒（原文 ref/ep15/src/ep15_pages.txt で当てた）
+    #   p12「delivered … on December 23, 1944 … in July 1946 … surplus and sold … acquired by the accident pilot in July 1983
+    #        … raced … from 1983 through 1989 before placing it in storage until 2007 … Between 2007 and 2009 … overhaul」
+    "1944-12-23": {"AAB p12"}, "1946-07": {"AAB p12"}, "1983-07": {"AAB p12"},
+    "1983": {"AAB p12"}, "1989": {"AAB p12"}, "2007": {"AAB p12"}, "2009": {"AAB p12"},
+    "1983-08-17": {"AAB p35"},                              # p35「on August 17, 1983 … special airworthiness certificate」
+    "2009-09-21": {"AAB p36"},                              # p36「completion of its major modifications occurred on September 21, 2009」
+    "2010": {"AAB p36", "AAB p38"},                         # p36「entered into the 2010 NCAR」・p38
+    "2011-09-16": {"AAB p8", "AAB p10", "CAROL p5008"},     # p10「On September 16, 2011」
+    #   CAROL p5008（A-12-08）：NTSB の評価（OPEN—ACCEPTABLE RESPONSE）3回・命令の改め・通達の廃止・閉じた日
+    "2012-07-25": {"CAROL p5008"}, "2016-11-30": {"CAROL p5008"}, "2020-07-22": {"CAROL p5008"},
+    "2020-02-27": {"CAROL p5008"}, "2020-11-03": {"CAROL p5008"}, "2021-07-13": {"CAROL p5008"},
+    #   p21「tabletop exercise … on June 2, 2011」「full-scale emergency exercise on May 25, 2011」
+    "2011-06-02": {"AAB p21"}, "2011-05-25": {"AAB p21"},
+    #   p28 の表（16:24:28.9 に崩れ始め・約9.1秒後に落ちた＝台本 c317「午後4時24分38秒ごろ」）・p20「declared a mass-casualty
+    #   incident at 1626」
+    "16:24": {"AAB p28"}, "16:26": {"AAB p20"},
+    #   p29「About 8 seconds before the beginning of the upset, there was a noticeable reduction in engine manifold pressure and rpm」
+    "約-8": {"AAB p29"},
 }
 LANES_OK = set()
 
@@ -51,9 +70,10 @@ def gv(view, s):
     """門番の読み方（型とは別に書く）＝(下限, 上限)。date は年（小数）・clock は分・sec は秒（15本目〜）。"""
     s = str(s).strip()
     if view == "sec":
-        m = re.fullmatch(r"(?:約)?(\d+)(?:\.(\d+))?", s)
-        v = float(m[1] + ("." + m[2] if m[2] else ""))
-        tol = 0.5 * 10 ** -len(m[2]) if m[2] else 0.05        # 書いた桁の半分（整数は ±0.05＝目盛りの 0秒）
+        # 🆕 15本目 ⑤b-5（c218）：負の秒＝0 の時点より前（"約-8"）
+        m = re.fullmatch(r"(?:約)?(-)?(\d+)(?:\.(\d+))?", s)
+        v = float(m[2] + ("." + m[3] if m[3] else "")) * (-1 if m[1] else 1)
+        tol = 0.5 * 10 ** -len(m[3]) if m[3] else 0.05        # 書いた桁の半分（整数は ±0.05＝目盛りの 0秒）
         return v - tol, v + tol
     if view == "date":
         p = [int(x) for x in s.split("-")]
@@ -98,8 +118,15 @@ def _texts(view, s):
             forms.append(f"{p[0]}年{p[1]}月{p[2]}日")
         return set(forms)
     if view == "sec":
-        return {s + "秒"}
+        return {_sec_word(s)}
     return {s.replace("翌", "")}
+
+
+def _sec_word(s):
+    """門番の秒の書き方（型とは別に書く）：負は「N秒前」。"""
+    if s.startswith(("-", "約-")):
+        return s.replace("-", "", 1) + "秒前"
+    return s + "秒"
 
 
 def _tick_text(view, s):
@@ -107,7 +134,7 @@ def _tick_text(view, s):
         p = s.split("-")
         return f"{int(p[1])}月" if len(p) > 1 else p[0]
     if view == "sec":
-        return s + "秒"
+        return _sec_word(s)
     return s.replace("翌", "")
 
 
@@ -219,6 +246,16 @@ def selftest_ep15():
                    steps=[dict(add=dict(k="pt", at="5.3", t="一片", rec="AAB p28"))]), False),
              ("🔴 15本目 陽性対照：1.3秒の頁が違う（AAB p29）",
               dict(sec, steps=[dict(add=dict(k="pt", at="1.3", t="最大G", rec="AAB p29"))]), False)]
+    # 🆕 ⑤b-5（c218）：負の秒（横転の約8秒前）＝札「約8秒前」・目盛り「10秒前」
+    upset = dict(view="sec", span=("-10", "1"), ticks=("-10", "-8", "-6", "-4", "-2", "0"),
+                 steps=[dict(add=dict(k="pt", at="0", t="横転の始まり", rec="AAB p28"), cur="0"),
+                        dict(add=dict(k="pt", at="約-8", t="圧力と回転が下がる", rec="AAB p29"), cur="約-8")],
+                 note="n", src="s")
+    cases += [("15本目 正しい負の秒（約8秒前）", upset, True),
+              ("🔴 15本目 陽性対照：約8秒前の頁が違う（AAB p28）",
+               dict(upset, steps=[dict(add=dict(k="pt", at="約-8", t="圧力", rec="AAB p28"))]), False),
+              ("🔴 15本目 陽性対照：記録に無い負の秒（約-7）",
+               dict(upset, steps=[dict(add=dict(k="pt", at="約-7", t="圧力", rec="AAB p29"))]), False)]
     ok = True
     for name, kw, want in cases:
         bad, _ = judge_fig(kw, ())
@@ -226,6 +263,27 @@ def selftest_ep15():
         ok &= got == want
         print(f"  {'OK' if got == want else '🔴 NG'} {name}: {'合格' if got else '不合格'}"
               f"（{'合格' if want else '不合格'}のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    # 型を壊す陽性対照（負の秒）：① 約付きの負の秒だけ半分の所に描く（画素）② 札の「前」を落とす（文字）
+    keep_val, keep_txt = A.val, A._sec_text
+    A.val = lambda view, s: ((keep_val(view, s)[0] / 2 if view == "sec" and str(s).startswith("約-") else keep_val(view, s)[0]),
+                             keep_val(view, s)[1])
+    try:
+        bad, _ = judge_fig(upset, ())
+    except ValueError as e:
+        bad = [f"型が止まった：{e}"]
+    finally:
+        A.val = keep_val
+    ok &= bool(bad)
+    print(f"  {'OK' if bad else '🔴 NG'} 🔴 15本目 陽性対照（画素）：約8秒前を半分の所に描く型: {'不合格' if bad else '合格'}（不合格のはず）"
+          + (f"  ← {bad[0]}" if bad else ""))
+    A._sec_text = lambda s: s.replace("-", "") + "秒"
+    try:
+        bad, _ = judge_fig(upset, ())
+    finally:
+        A._sec_text = keep_txt
+    ok &= bool(bad)
+    print(f"  {'OK' if bad else '🔴 NG'} 🔴 15本目 陽性対照（文字）：「前」を落とす型（約8秒）: {'不合格' if bad else '合格'}（不合格のはず）"
+          + (f"  ← {bad[0]}" if bad else ""))
     keep = A.val
     # 小数の秒だけ 0.3秒ずらして描く型（目盛り＝整数は正しい＝一様な伸び縮みは目盛りの物差しに吸われるので、部品だけずらす）
     A.val = lambda view, s: ((keep(view, s)[0] + (0.3 if "." in str(s) else 0.0), keep(view, s)[1]) if view == "sec"

@@ -209,29 +209,42 @@ def _flow(layout, past, steps, note, src):
 FORM_BOX = dict(ship=(110, 430), office=(1430, 1790))
 PAPER = (690, 1170, 360, 760)     # x0, x1, y0, y1
 FORM_CY = 560
+# 🆕 2026-09-30（15本目 ⑤b-5）：書類の値（記録の文にある値だけ＝門番 REC_FORM の values）を読める大きさで出すため、
+#    form に `paper=(x0, x1, y0, y1)`（紙の大きさ）・`lw=`（欄の名の幅）を持てるようにした（既定は14本目の寸法のまま）。
+#    欄に `late=True` を書くと紙には値を出さず、段の部品 `dict(k="fill", f="欄の名")` でその段に値を書き込む
+#    （c617＝「はい」に丸が付いていた、を語りと同じ時に出す）。🔴 行き来の箱（ship／office）と紙を重ねない（紙は 470〜1390 の内）
 
 
 def _form(form, steps, note, src):
     if not form.get("rec") or any(not fd.get("rec") for fd in form["fields"]):
         raise ValueError("boxes：書類の再現図の title と欄には rec（報告書の頁）が要る")
-    x0, x1, y0, y1 = PAPER
+    x0, x1, y0, y1 = form.get("paper") or PAPER
+    lw = form.get("lw", 190)                     # 欄の名の幅（値はその右）
     nodes = {k: dict(id=k, k="end", x0=a, x1=b, cy=FORM_CY, h=96) for k, (a, b) in FORM_BOX.items()}
     nodes["paper"] = dict(id="paper", k="paper", x0=x0, x1=x1, cy=FORM_CY, h=y1 - y0)
+    if form.get("ends") and (x0 < FORM_BOX["ship"][1] + 40 or x1 > FORM_BOX["office"][0] - 40):
+        raise ValueError(f"boxes：紙 {x0}〜{x1} が行き来の箱と重なる（行き来の箱を使う書類の紙は 470〜1390 の内）")
+    fys = {fd["t"]: y0 + 180 + 110 * i for i, fd in enumerate(form["fields"])}
+    if fys and max(fys.values()) + 30 > y1:
+        raise ValueError(f"boxes：欄 {len(fys)} 個が紙の高さ {y1 - y0} に収まらない")
     lab = []
     rec = []
+
+    def val(fd):
+        return dq(F.txtfit(x0 + lw + 70, fys[fd["t"]] - 4, fd["v"], x1 - x0 - lw - 110, cap=34, col=J.AMBER),
+                  f"fval|{fd['t']}")
 
     def paper():
         g = [dq(F.rect(x0, y0, x1 - x0, y1 - y0, J.BG2, J.DOC, 4, rx=4), "paper"),
              dq(F.txtfit((x0 + x1) / 2, y0 + 70, form["title"], x1 - x0 - 60, cap=38, col=J.INK_W, anchor="middle"),
                 "ftitle"),
              F.line(x0 + 30, y0 + 100, x1 - 30, y0 + 100, J.DOC, 3)]
-        fy = y0 + 180
         for fd in form["fields"]:
-            g.append(dq(F.txtfit(x0 + 40, fy, fd["t"], 190, cap=34, col=J.INK_W), f"field|{fd['t']}"))
-            g.append(F.line(x0 + 250, fy + 8, x1 - 40, fy + 8, J.DOC, 3))
-            if fd.get("v"):
-                g.append(dq(F.txtfit(x0 + 260, fy - 4, fd["v"], x1 - x0 - 300, cap=34, col=J.AMBER), f"fval|{fd['t']}"))
-            fy += 110
+            fy = fys[fd["t"]]
+            g.append(dq(F.txtfit(x0 + 40, fy, fd["t"], lw, cap=34, col=J.INK_W), f"field|{fd['t']}"))
+            g.append(F.line(x0 + lw + 60, fy + 8, x1 - 40, fy + 8, J.DOC, 3))
+            if fd.get("v") and not fd.get("late"):
+                g.append(val(fd))
         # 札「再現」（紙の左上の外）
         w = F.fm.width(REPRO, 28, "Noto") + 32
         g.append(dq(F.rect(x0, y0 - 56, w, 44, J.BG2, J.DOC, 3, rx=6), "repro"))
@@ -254,6 +267,12 @@ def _form(form, steps, note, src):
             a, b = nodes[p["fr"]], nodes[p["to"]]
             return (f'<g data-q="edge|{p["fr"]}>{p["to"]}">'
                     + F.arrow(a["x1"] + 10, FORM_CY, b["x0"] - 10, FORM_CY, J.LINE, 5, 20) + "</g>")
+        if k == "fill":          # 🆕 ⑤b-5：late の欄に値を書き込む
+            fd = next((f for f in form["fields"] if f["t"] == p["f"]), None)
+            if not fd or not fd.get("v") or not fd.get("late"):
+                raise ValueError(f"boxes：fill の欄 {p['f']!r} が late=True の値のある欄でない")
+            rec.append(dict(k="fill", f=fd["t"], rec=fd["rec"]))
+            return val(fd)
         raise ValueError(f"boxes：書類の再現図に知らない部品 {k!r}")
 
     stages = ["".join(draw(p) for p in F._many(st.get("add"))) or " " for st in steps]

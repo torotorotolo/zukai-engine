@@ -373,12 +373,79 @@ ILLU_COUNTS = dict(aircraft=(1, "AAB p10"), fuel_truck=(1, "AAB p19"), stands=(3
 # 🔴 2026-09-30（15本目 ⑤b-1）：空にした（14本目の値＝`tools/fixture_ep14.py`）。15本目の年表（1944→2011 の機体の歩み・
 #    勧告 A-12-08 が閉じるまで）と時間の帯（9秒・試験飛行・観客席の62分）は ⑤b（映像方針 §11-2＝新しい型4つ）で入れる。
 #    ⚠️ 語りが資料を呼ぶ名に合わせる（15本目の語りは NTSB の報告を「報告書」と呼ぶ）
-AXIS_DOCS = {}
+# 🔴 2026-09-30（15本目 ⑤b-5）：15本目の値を入れた（割れる時刻の印は使わない＝ILLU_SPLIT_TIMES が空）
+AXIS_DOCS = {"AAB": "報告書", "CAROL": "勧告の記録"}
 
 # 軸（カットをまたいで同じ軸を使う＝前のカットの点を past で沈めて続ける）。回ごとに `AX_<名> = dict(view, span, ticks)` を足す
+# 🆕 15本目 ⑤b-5（値と頁は ref/ep15/src/ep15_pages.txt で当てた）
+#   HIST＝機体の歩み 1944→2011（c324・c404・c408・c410・c411・c412＝第3〜4章）
+#   LATE＝その寄り 2006→2012（c607・c615＝第6章・改造のあとの初飛行と2010年の出場）
+#   A08 ＝勧告 A-12-08 が閉じるまで（c913・c915・c916＝CAROL の記録 p5008）
+#   DRILL＝2011年の訓練と事故（c809・c813＝AAB p21）／EMS＝事故と多数傷病者事故の宣言（c804＝AAB p20・p28）
+#   UPSET＝横転の前の秒（c218＝負の秒・AAB p29）／NINE＝その9秒（c220＝AAB p28 の経過の表）
+AX_HIST = dict(view="date", span=("1942", "2013"), ticks=("1950", "1960", "1970", "1980", "1990", "2000", "2010"))
+AX_LATE = dict(view="date", span=("2006", "2012"), ticks=("2007", "2008", "2009", "2010", "2011", "2012"))
+# ⚠️ ⑤b-5 の layout：左の端の点（事故）の札が右へ伸びると、すぐ右の点の縦の線が札を貫いた＝左に余白を取り、事故の札は左へ
+AX_A08 = dict(view="date", span=("2010-01", "2022-03"), ticks=("2010", "2012", "2014", "2016", "2018", "2020", "2022"))
+# ⚠️ ⑤b-5 の layout：5月25日の札（左へ）が枠の左の端を越えた＝4月1日から
+AX_DRILL = dict(view="date", span=("2011-04-01", "2011-10-05"),
+                ticks=("2011-04", "2011-05", "2011-06", "2011-07", "2011-08", "2011-09", "2011-10"))
+AX_EMS = dict(view="clock", span=("16:20", "16:32"), ticks=("16:20", "16:22", "16:24", "16:26", "16:28", "16:30", "16:32"))
+AX_UPSET = dict(view="sec", span=("-10", "1"), ticks=("-10", "-8", "-6", "-4", "-2", "0"))
+AX_NINE = dict(view="sec", span=("0", "10"), ticks=("0", "2", "4", "6", "8", "10"))
 
 # 部品（記録の頁つき。値と頁は門番 check_axis の REC_AXIS と照らされる）。t は項目名だけ（§5b-9）
-AXI = {}
+#   ⚠️ 年だけの値（"1983"）は年の真ん中に置く（span の両端も）＝1983〜1989 のレースは 1983.5〜1989.5 の帯
+#   ⚠️ 事故の時刻は台本 c317 の「午後4時24分38秒ごろ」（AAB p28 の表）＝16:24。本文の要約の「about 1625」（p8・p10）は丸めた値
+AXI = {
+    # ── 機体の歩み（AAB p12「delivered to the Army Air Forces on December 23, 1944 … in July 1946, it was declared surplus
+    #    and sold … acquired by the accident pilot in July 1983 … raced … from 1983 through 1989 before placing it in storage
+    #    until 2007 … Between 2007 and 2009 … overhaul and further modifications」・p35「August 17, 1983 … special
+    #    airworthiness certificate」・p36「completion of its major modifications occurred on September 21, 2009」「the 2010 NCAR」）
+    "deliver": dict(k="pt", at="1944-12-23", t="軍へ引き渡し", rec="AAB p12"),
+    "sold": dict(k="pt", at="1946-07", t="売却", rec="AAB p12"),
+    "owner": dict(k="pt", at="1983-07", t="パイロットが取得", rec="AAB p12", anchor="end"),
+    "exp": dict(k="pt", at="1983-08-17", t="FAAの許可", rec="AAB p35", anchor="start", fmt="ym"),
+    "race8389": dict(k="span", a="1983", b="1989", t="リノのレース", rec="AAB p12", c="INST"),
+    "store": dict(k="span", a="1989", b="2007", t="保管", rec="AAB p12", c="TICK"),
+    "store_br": dict(k="br", a="1989", b="2007", rec="AAB p12"),
+    # ⚠️ 2年の帯は札の幅が 164画素まで＝7字は小さくなる → 5字
+    "rebuild": dict(k="span", a="2007", b="2009", t="分解と改造", rec="AAB p12", c="AMBER"),
+    "first": dict(k="pt", at="2009-09-21", t="初飛行", rec="AAB p36"),
+    "race10": dict(k="pt", at="2010", t="出場", rec="AAB p36"),
+    "acc": dict(k="pt", at="2011-09-16", t="事故", rec="AAB p10", c="ALERT", fmt="y"),
+    "life_br": dict(k="br", a="1944-12-23", b="2011-09-16", rec=["AAB p12", "AAB p10"]),
+    # ── 勧告 A-12-08（CAROL p5008：NTSB の評価 2012-07-25・2016-11-30・2020-07-22＝OPEN—ACCEPTABLE RESPONSE／
+    #    2020-02-27 命令 8900.1 を改めた・2020-11-03 通達 AC 91-45C を廃止（守らせる言い方が 49 CFR 5.25 で禁じられた）／
+    #    2021-07-13 CLOSED—ACCEPTABLE ALTERNATE ACTION）
+    "a08_acc": dict(k="pt", at="2011-09-16", t="事故", rec="CAROL p5008", c="ALERT", fmt="ym", anchor="end"),
+    # ⚠️ ⑤b-5 の layout：「2020年7月」の札（右へ）が枠の右の端を越えた＝3回の評価は年だけ（語りも「3回」とだけ言う）
+    "a08_1": dict(k="pt", at="2012-07-25", t="まだ閉じない", rec="CAROL p5008", fmt="y"),
+    "a08_2": dict(k="pt", at="2016-11-30", t="まだ閉じない", rec="CAROL p5008", fmt="y"),
+    "a08_3": dict(k="pt", at="2020-07-22", t="まだ閉じない", rec="CAROL p5008", fmt="y", anchor="start"),
+    "a08_order": dict(k="pt", at="2020-02-27", t="命令を改めた", rec="CAROL p5008", c="INST", fmt="ym", anchor="end"),
+    "a08_ac": dict(k="pt", at="2020-11-03", t="通達の廃止", rec="CAROL p5008", c="INST"),
+    "a08_close": dict(k="pt", at="2021-07-13", t="閉じた", rec="CAROL p5008", c="OK", anchor="end"),
+    "a08_br": dict(k="br", a="2011-09-16", b="2021-07-13", rec="CAROL p5008"),
+    # ── 2011年の訓練（AAB p21「tabletop exercise had been conducted on June 2, 2011」「full-scale emergency exercise on
+    #    May 25, 2011」）
+    "d_acc": dict(k="pt", at="2011-09-16", t="事故", rec="AAB p10", c="ALERT"),
+    "tabletop": dict(k="pt", at="2011-06-02", t="机上訓練", rec="AAB p21", anchor="start"),
+    "fullscale": dict(k="pt", at="2011-05-25", t="総合訓練", rec="AAB p21", anchor="end"),
+    "drill_br": dict(k="br", a="2011-06-02", b="2011-09-16", rec=["AAB p21", "AAB p10"]),
+    # ── 事故と宣言（AAB p28 の表＝16:24:28.9 に崩れ始め・約9.1秒後に落ちた／p20「declared a mass-casualty incident at 1626」）
+    "t1624": dict(k="pt", at="16:24", t="事故", rec="AAB p28", c="ALERT"),
+    "t1626": dict(k="pt", at="16:26", t="多数傷病者事故の宣言", rec="AAB p20"),
+    # ── 横転の前（AAB p29「About 8 seconds before the beginning of the upset, there was a noticeable reduction in engine
+    #    manifold pressure and rpm」）・0秒＝横転の始まり（p28 の表の 0秒）
+    "u0": dict(k="pt", at="0", t="横転の始まり", rec="AAB p28", c="ALERT"),
+    "u8": dict(k="pt", at="約-8", t="圧力と回転が下がる", rec="AAB p29"),
+    # ── その9秒（AAB p28 の経過の表の秒＝ILLU_SEC_OK と同じ9つ）。札を出さない点（lab=False）＝秒の単位で並んだことだけ
+    **{f"s{s}": dict(k="pt", at=s, t="", lab=False, rec="AAB p28")
+       for s in ("0", "0.27", "0.56", "0.83", "1.3", "1.44", "約3.1", "4.6", "約9.1")},
+    "nine": dict(k="span", a="0", b="約9.1", t="崩れ始めから落ちるまで", rec="AAB p28", c="LINE"),
+}
+NINE_PTS = ("s0", "s0.27", "s0.56", "s0.83", "s1.3", "s1.44", "s約3.1", "s4.6", "s約9.1")
 
 
 def ax(name, **kw):
@@ -414,8 +481,46 @@ def src(recs):
 #       15本目の棒（c206・c217・c616・c620・c622・c907）と書類の再現図（c415・c524・c617・c621・c704・c705・c905）は
 #       ⑤b（映像方針 §11-2）で、回の値と頁を ref/ep15/src/ep15_pages.txt に当てて入れる
 # 棒の群（尺は 0 から・項目名に単位）。数字は棒に書かない（§5b-9＝数は字幕）
-QG = {}
-QB = {}
+# 🔴 2026-09-30（15本目 ⑤b-5）：15本目の値を入れた（値と頁は ref/ep15/src/ep15_pages.txt で当てた）
+#   speed＝c206（AAB p10「about 445 knots as it passed pylon 8」＝時速約824キロ／新幹線の営業の最高 時速320キロ＝一般の事実）
+#   lap  ＝c217（AAB p29「maximum 458-knot GPS ground speed between pylons 6 and 7 … the fastest that the airplane had flown
+#          on the course by about 35 knots」＝848 と、そこから約65キロ〈35ノット〉を引いた 783＝🔴 783 は報告書の差から引いた値
+#          ＝注で言う。⚠️ #14 p3008 の「記録した GPS の最高 431ノット（2010-09-14）」は9回の飛行の全体＝物差しが違う）
+#   test ＝c606・c609・c612（AAB p36「3 hours of flight time」・p50「all five flights … 20 minutes … only 1 hour 40 minutes」・
+#          p36／p49「about 23 minutes」）
+#   hours＝c620（AAB p12「“2,700±” hours」＝2011年の参加の書類・p15 注15／p16「1,453.6 hours」）
+#   recent＝c622（AAB p51「about 25 total hours between its assembly in 2009 and its July 2011 inspection … about 200 flight
+#          hours in it since the previous year」）
+#   g    ＝c907（CAROL p5011・p5012「normally between 3 and 4 g」＝棒は上の端 4／AAB p28 の表 17.3G）
+#   ⚠️ c616（2010年の速さ＝公式の平均の速さ 325ノット未満＝AAB p36 注41）は棒にしない：同じ物差し（周の平均）の2011年の値が
+#      記録に無い＝「その瞬間の速さ」と並べると物差しが違う → 箱の型（2010年の成績の流れ）にした
+QG = {
+    "speed": dict(id="speed", t="速さ（時速・キロ）", ticks=(0, 200, 400, 600, 800, 1000)),
+    "lap": dict(id="lap", t="コースでの速さ（時速・キロ）", ticks=(0, 200, 400, 600, 800, 1000),
+                rows=("それまでの最高", "事故の周")),
+    "test": dict(id="test", t="試験の飛行の時間（分）", ticks=(0, 30, 60, 90, 120, 150, 180),
+                 rows=("求められた", "多く見積もっても", "テレメトリーの記録")),
+    "hours": dict(id="hours", t="この機体での時間（時間）", ticks=(0, 500, 1000, 1500, 2000, 2500, 3000),
+                  rows=("参加の書類", "記録簿の総時間")),
+    "recent": dict(id="recent", t="この機体での時間（時間）", ticks=(0, 50, 100, 150, 200),
+                   rows=("書類：前の年から", "記録簿：組み立てから")),
+    "g": dict(id="g", t="かかったG（重さの何倍か）", ticks=(0, 5, 10, 15, 20), rows=("ふつうのコース", "事故の最大")),
+}
+QB = {
+    "shinkansen": dict(k="bar", g="speed", t="新幹線（営業の最高）", v=320, rec="一般の事実"),
+    "plane824": dict(k="bar", g="speed", t="事故機", v=824, rec="AAB p10", c="AMBER"),
+    "lap_prev": dict(k="bar", g="lap", t="それまでの最高", v=783, rec="AAB p29"),
+    "lap_acc": dict(k="bar", g="lap", t="事故の周", v=848, rec="AAB p29", c="AMBER"),
+    "test_req": dict(k="bar", g="test", t="求められた", v=180, rec="AAB p36"),
+    "test_max": dict(k="bar", g="test", t="多く見積もっても", v=100, rec="AAB p50", c="AMBER"),
+    "test_tele": dict(k="bar", g="test", t="テレメトリーの記録", v=23, rec="AAB p36", c="ALERT"),
+    "hours_form": dict(k="bar", g="hours", t="参加の書類", v=2700, rec="AAB p12", c="AMBER"),
+    "hours_log": dict(k="bar", g="hours", t="記録簿の総時間", v=1453.6, rec="AAB p16"),
+    "recent_form": dict(k="bar", g="recent", t="書類：前の年から", v=200, rec="AAB p51", c="AMBER"),
+    "recent_log": dict(k="bar", g="recent", t="記録簿：組み立てから", v=25, rec="AAB p51"),
+    "g_course": dict(k="bar", g="g", t="ふつうのコース", v=4, rec="CAROL p5011"),
+    "g_acc": dict(k="bar", g="g", t="事故の最大", v=17.3, rec="AAB p28", c="ALERT"),
+}
 
 
 def qb(name, **kw):
@@ -469,3 +574,85 @@ CAUSE = {}
 
 def cause(name, **kw):
     return dict(CAUSE[name], **kw)
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 15本目 ⑤b-5（2026-09-30）：箱の型の15本目の表（門番 check_boxes の REC_MECH・REC_OTHER_ROLE・REC_CHIP・REC_FORM と照らす）
+# ══════════════════════════════════════════════════════════
+# 報告書の鎖（c106・c723・c725）＝AAB p52 の推定原因「deteriorated locknut inserts → screws to become loose → reduced
+#   stiffness → flutter at racing speeds → failure of the left trim tab link assembly → elevator movement, high flight loads」。
+#   箱は動かない（基図）＝段で矢印（つなぎ）が出る。c106 は第1章＝「リンク」の語がまだ出ていない＝「棒が折れる」（台本 c106 の画）
+_CX = ((85, 335), (385, 635), (685, 935), (985, 1235), (1285, 1535), (1585, 1835))
+CHAIN_Y = (400, 500)
+
+
+def _chain(words):
+    return dict(heads=[dict(id=f"n{i + 1}", t=w, kind="node", x=_CX[i], y=CHAIN_Y, rec="AAB p52")
+                       for i, w in enumerate(words)])
+
+
+CHAIN1 = _chain(("ナットの劣化", "ねじのゆるみ", "かたさが落ちる", "板の震え", "棒が折れる", "機首上げ"))
+CHAIN2 = _chain(("ナットの劣化", "ねじのゆるみ", "かたさが落ちる", "板の震え", "リンクが折れる", "機首上げ"))
+
+
+def chain_links(**kw):
+    """鎖の5本の矢印（n1→n2 … n5→n6）。"""
+    return [dict(k="edge", fr=f"n{i}", to=f"n{i + 1}", rec="AAB p52", **kw) for i in range(1, 6)]
+
+
+# 重なった要因（c725）＝AAB p52「Contributing to the accident were the undocumented and untested major modifications … and
+#   the pilot's operation of the airplane in the unique air racing environment without adequate flight testing」＝鎖の下に
+#   区切りの線を引いて並べるだけ（鎖のどの輪につながるかは報告書が言っていない＝矢印でつながない）
+FACTORS = {
+    "f_mod": dict(k="role", id="f_mod", t="記録も試験も無い改造", y=700, pos=(160, 860), rec="AAB p52"),
+    "f_ops": dict(k="role", id="f_ops", t="十分な試験なしのレース", y=700, pos=(1060, 1760), rec="AAB p52"),
+}
+# 実況の担当（c806）＝AAB p20「The NCAR announcing team … remained calm and provided clear evacuation procedures guidance to the
+#   crowd, assisted first responders, and requested additional help from medical staff on scene」。人の形は描かない（文字の箱だけ）
+MC = dict(heads=[dict(id="mc", t="実況の担当", kind="node", x=(150, 560), y=(470, 570), rec="AAB p20")])
+MCP = {
+    "a_evac": dict(k="role", id="a_evac", t="観客へ避難の案内", y=380, pos=(900, 1500), rec="AAB p20"),
+    "a_help": dict(k="role", id="a_help", t="救護の人を手伝う", y=520, pos=(900, 1500), rec="AAB p20"),
+    "a_med": dict(k="role", id="a_med", t="医療の応援を頼む", y=660, pos=(900, 1500), rec="AAB p20"),
+}
+# 2010年の成績（c616）＝AAB p38「started in the last place in the lowest heat in the class. The airplane won a series of races
+#   and qualified to run the unlimited class gold race in 2010, but that race was cancelled due to wind」
+HEAT = dict(heads=[dict(id="h1", t="いちばん下の組", kind="node", x=(150, 610), y=(430, 530), rec="AAB p38"),
+                   dict(id="h2", t="勝ち上がる", kind="node", x=(730, 1190), y=(430, 530), rec="AAB p38"),
+                   dict(id="h3", t="ゴールドのレース", kind="node", x=(1310, 1770), y=(430, 530), rec="AAB p38")])
+
+# 書類の再現図（c415・c524・c617・c621・c704・c705・c905）。🔴 本物の書類の写しではない＝「再現」の札と出典・書いてある字は
+#   報告書に引かれた文だけ（様式は抽象）。欄の値は記録の値だけ（門番 REC_FORM の values）
+#   c415＝AAB p15 注15・p16（2011-07-29 のエンジンの記録簿の総時間 1,453.6＝機体の記録簿の 1,447.2 は 6.4時間の書き違い）
+#   c524＝AAB p15（2009-09-22・本人の署名「The prescribed flight test hours have been completed」）
+#   c617＝AAB p37（2009年の参加の書類の問い〈前に出たあとの大きな改造〉に「yes」の丸）
+#   c621＝AAB p12 注7（2009年と2010年の書類の年齢「59」）
+#   c704＝AAB p37（「Remarks」の欄「elev trim tab screws too short …」・2011-09-12 に承認・書面で確かめる手順は無かった）
+#   c705＝AAB p37（付録E：技術委員会の承認は「機体の状態や耐空性を表すものではない」＝規則の文を1行に＝様式は抽象）
+#   c905＝CAROL p5010（A-12-10：用紙に「指摘」と「直した中身」の書面・再検査まで出さない）
+FORM_LOG11 = dict(title="記録簿（2011年7月29日）", rec="AAB p15",
+                  fields=[dict(t="機体の総時間", v="1,453.6時間", rec="AAB p16")],
+                  paper=(560, 1360, 330, 690), lw=260)
+FORM_LOG09 = dict(title="記録簿（2009年9月22日）", rec="AAB p15",
+                  fields=[dict(t="試験飛行の時間", v="終えた", rec="AAB p15"),
+                          dict(t="署名", v="パイロット本人", rec="AAB p15")],
+                  paper=(560, 1360, 300, 740), lw=260)
+FORM_ENTRY09 = dict(title="参加の書類（2009年）", rec="AAB p37",
+                    fields=[dict(t="大きな改造をしたか", v="はい", rec="AAB p37", late=True)],
+                    paper=(460, 1460, 330, 690), lw=340)
+FORM_AGE = dict(title="参加の書類（2009年・2010年）", rec="AAB p12",
+                fields=[dict(t="年齢", v="59", rec="AAB p12")],
+                paper=(560, 1360, 330, 690), lw=200)
+FORM_TECH = dict(title="技術検査の用紙", rec="AAB p37",
+                 fields=[dict(t="備考", v="トリムタブのねじが短すぎる", rec="AAB p37"),
+                         dict(t="承認の日付", v="2011年9月12日", rec="AAB p37")],
+                 ends=dict(office=dict(t="レースのコース", rec="AAB p37")),
+                 paper=(520, 1300, 300, 740), lw=200)
+FORM_RULE = dict(title="技術検査の決まり（付録E）", rec="AAB p37",
+                 fields=[dict(t="技術委員会の承認", v="機体の状態や、飛べるかを表さない", rec="AAB p37")],
+                 paper=(360, 1560, 330, 690), lw=300)
+FORM_NEW = dict(title="技術検査の用紙（事故のあと）", rec="CAROL p5010",
+                fields=[dict(t="指摘", rec="CAROL p5010"), dict(t="直した中身", rec="CAROL p5010"),
+                        dict(t="再検査", rec="CAROL p5010")],
+                ends=dict(office=dict(t="レースのコース", rec="CAROL p5010")),
+                paper=(520, 1300, 280, 800), lw=220)

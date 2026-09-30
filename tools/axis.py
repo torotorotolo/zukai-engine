@@ -46,6 +46,7 @@ import titan_fig as F
 VIEWS = ("date", "clock", "lanes", "sec")
 # 🆕 2026-09-30（15本目 ⑤b-2）：sec＝秒の帯（値は "0.56"／"約9.1"＝崩れ始めからの秒・c312 の 0.56→1.3→4.6）。
 #    札は「0.56秒」。門番 check_axis は秒の読み方を自分で持つ（書いた桁の半分の幅＝"1.3"±0.05・"0.56"±0.005）
+# 🆕 2026-09-30（15本目 ⑤b-5・c218）：負の秒＝0 の時点より前（"約-8"＝横転の約8秒前）。札と目盛りは「約8秒前」「10秒前」
 TITLE = dict(date="年表", lanes="交信の帯", clock="時刻の帯", sec="時間の帯（秒）")
 # 軸の左右（画素）。lanes は左に段の名を置くので左を空ける
 X0, X1 = F.BX0 + 110, F.BX1 - 110
@@ -87,9 +88,10 @@ def val(view, s):
         y, mo = y + (mo - 1) // 12, (mo - 1) % 12 + 1
         return _yr(datetime.date(y, mo, 1)), "month"
     if view == "sec":
-        m = re.fullmatch(r"(約)?(\d+(?:\.\d+)?)", s)
+        # 🆕 15本目 ⑤b-5（c218）：負の秒＝ある時点より前（"約-8"＝約8秒前・札は「約8秒前」）
+        m = re.fullmatch(r"(約)?(-?\d+(?:\.\d+)?)", s)
         if not m:
-            raise ValueError(f"axis：秒の書き方が違う {s!r}（0.56／約9.1）")
+            raise ValueError(f"axis：秒の書き方が違う {s!r}（0.56／約9.1／約-8）")
         return float(m[2]), "sec"
     m = re.fullmatch(r"(翌)?(\d{1,2}):(\d{2})", s)
     if not m:
@@ -104,8 +106,13 @@ def label(view, s, fmt=""):
         p = s.split("-")[:{"ym": 2, "y": 1}.get(fmt, 3)]
         return p[0] + "年" + (f"{int(p[1])}月" if len(p) > 1 else "") + (f"{int(p[2])}日" if len(p) > 2 else "")
     if view == "sec":
-        return s + "秒"
+        return _sec_text(s)
     return s.replace("翌", "")
+
+
+def _sec_text(s):
+    """秒の札。負の秒は「N秒前」（"約-8"→「約8秒前」・"-10"→「10秒前」）。"""
+    return s.replace("-", "") + "秒前" if "-" in s else s + "秒"
 
 
 def doc_names(rec):
@@ -167,7 +174,7 @@ def _tick_lab(view, s):
         p = s.split("-")
         return (f"{int(p[1])}月", p[0] + "年") if len(p) > 1 else (p[0], "")
     if view == "sec":
-        return (s + "秒", "")
+        return (_sec_text(s), "")
     return (s.replace("翌", ""), "翌日" if s.startswith("翌") and s.replace("翌", "") in ("0:00", "00:00") else "")
 
 
