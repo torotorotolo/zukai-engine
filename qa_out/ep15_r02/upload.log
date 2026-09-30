@@ -1,0 +1,11 @@
+メタ: meta_ep15.json
+接続先: 仕事帰りの事故調査ノート（@shigotogaeri／動画14本）
+動画: titan_audio-ep15-r02.mp4（118.0 MB）
+題　: 4日前の検査で「ねじが短すぎる」と指摘されていた。ナットは少なくとも26年前から付いていたとみられ、11人が亡くなったリノ・エアレース墜落事故の真相【事故検証】【ゆっくり解説】
+非公開で上げる（予約はあとで `schedule`）
+上がった: https://youtu.be/hsDtzoHIvE0
+管理　　: https://studio.youtube.com/video/hsDtzoHIvE0/edit
+サムネを貼った: ep15_c_kaizou_pit.png
+
+次: python tools/upload_jiko.py status hsDtzoHIvE0
+up exit=0
