@@ -80,6 +80,60 @@ PLAN = {
 
 SPEC = {
 
+    # ── 🔴 ⑤b-5（2026-09-30）：型の使い回し（書類の再現図・棒・年表）──
+    # 新しい検査の用紙（CAROL p5010＝A-12-10）：1行目（聞き役の反応）はそのまま／2行目＝紙（指摘・直した中身・再検査の欄＝値なし）／
+    #   3行目＝コースへの矢印（書面と再検査が済むまで出さない）
+    "c905": dict(
+        t="書面で確かめる",
+        s="勧告 A-12-10 のあと",
+        fig=("boxes", dict(view="form", form=ss.FORM_NEW,
+                           steps=[dict(), dict(add=dict(k="paper")),
+                                  dict(add=[dict(k="end", id="office"), dict(k="edge", fr="paper", to="office")])],
+                           note="再現（本物の頁ではない・欄は勧告の記録の文から）", src=ss.src(["CAROL p5010"]))),
+    ),
+    # Gスーツ（棒）：1行目＝事故の最大 17.3G（AAB p28 の表）／2行目＝ふつうのコース 3〜4G の上の端（CAROL p5011・p5012）
+    "c907": dict(
+        t="Gスーツ",
+        s="A-12-12・A-12-17 の答え",
+        fig=("qty", dict(view="bar", groups=[ss.QG["g"]],
+                         steps=[dict(add=ss.qb("g_acc")), dict(add=ss.qb("g_course"))],
+                         note="ふつうのコースは3〜4G（棒は上の端）", src=ss.src(["AAB p28", "CAROL p5011・p5012"]))),
+    ),
+    # 勧告 A-12-08 が閉じるまで（年表 AX_A08・CAROL p5008）：事故の点は沈んで残る。1行目＝NTSB の評価3回（まだ閉じない）／
+    #   2行目＝2020年2月に FAA が命令を改めた
+    "c913": dict(
+        t="途中の3回",
+        s="NTSBの評価",
+        fig=("axis", dict(**ss.AX_A08, past=[ss.ax("a08_acc")], start=dict(cur="2011-09-16"),
+                          steps=[dict(add=[ss.ax("a08_1"), ss.ax("a08_2"), ss.ax("a08_3")], cur="2020-07-22"),
+                                 dict(add=ss.ax("a08_order"), cur="2020-02-27")],
+                          note="年表（勧告の記録から）", src=ss.src(["CAROL p5008"]))),
+    ),
+    # 通達の廃止の理由：2020年11月3日の点（決め所 c914 の日）と札「守らせる言い方」。2行目（新しい決まりで禁じられた＝
+    #   49 CFR 5.25）は日付が記録に無い＝点にしない（字幕だけ）。前の点は札を消して沈める（札が3段に収まらない）
+    "c915": dict(
+        t="なぜ廃止か",
+        s="通達の書き方",
+        fig=("axis", dict(**ss.AX_A08,
+                          past=[ss.ax("a08_acc"), ss.ax("a08_1", lab=False, t=""), ss.ax("a08_2", lab=False, t=""),
+                                ss.ax("a08_3", lab=False, t=""), ss.ax("a08_order")],
+                          start=dict(cur="2020-02-27"),
+                          steps=[dict(add=ss.ax("a08_ac", chips=["守らせる言い方"]), cur="2020-11-03"), dict()],
+                          note="年表（勧告の記録から）", src=ss.src(["CAROL p5008"]))),
+    ),
+    # 閉じた日：2021年7月13日の点／2行目＝事故から閉じるまでの括弧（約10年＝数は書かない）／3行目（聞き役）そのまま
+    "c916": dict(
+        t="勧告が閉じた日",
+        s="NTSBの分類",
+        fig=("axis", dict(**ss.AX_A08,
+                          past=[ss.ax("a08_acc"), ss.ax("a08_1", lab=False, t=""), ss.ax("a08_2", lab=False, t=""),
+                                ss.ax("a08_3", lab=False, t=""), ss.ax("a08_order", lab=False, t=""),
+                                ss.ax("a08_ac", lab=False, t="")],
+                          start=dict(cur="2020-11-03"),
+                          steps=[dict(add=ss.ax("a08_close"), cur="2021-07-13"), dict(add=ss.ax("a08_br")), dict()],
+                          note="年表（勧告の記録から）", src=ss.src(["CAROL p5008"]))),
+    ),
+
     # ── 🔴 ⑤b-1（2026-09-30）：字幕の試し焼きに先に書いた4カット（案B で「文字のまま残す」パネル＝最終形）──
     #   選んだ理由＝字幕の型（まりさ 黄＋黒フチ／れいむ 赤＋白フチ・けいふぉんと・56px・2行 y968／1044）を
     #   語り1行・語り2行・聞き役・書体で折りが変わった行（qa_out/ep15_b1/15本目_字幕の折り_Noto→けいふぉんと.tsv）で焼いて見るため。

@@ -86,6 +86,46 @@ PLAN = {
 
 SPEC = {
 
+    # ── 🔴 ⑤b-5（2026-09-30）：型の使い回し（14本目の `axis` 時刻の帯・年表／`boxes` 流れ図）──
+    # 午後4時26分の宣言（時刻の帯）：事故（16:24＝台本 c317 の 4時24分38秒ごろ・AAB p28 の表）は沈んで残り、1行目＝16:26 の宣言。
+    #   2行目（言葉の意味）は字幕だけ
+    "c804": dict(
+        t="午後4時26分",
+        s="救急の組織の判断",
+        fig=("axis", dict(**ss.AX_EMS, past=[ss.ax("t1624")], start=dict(cur="16:24"),
+                          steps=[dict(add=ss.ax("t1626"), cur="16:26"), dict()],
+                          note="時刻の帯（報告書の値）", src=ss.src(["AAB p20・p28"]))),
+    ),
+    # 実況の担当（流れ図・人の形は描かない）：1行目＝観客へ避難の案内／2行目＝救護の人を手伝う・医療の応援を頼む（AAB p20）
+    "c806": dict(
+        t="落ち着いた案内",
+        s="事故のすぐ近くで",
+        fig=("boxes", dict(view="flow", layout=ss.MC,
+                           steps=[dict(add=[ss.MCP["a_evac"], dict(k="edge", fr="mc", to="a_evac")]),
+                                  dict(add=[ss.MCP["a_help"], ss.MCP["a_med"], dict(k="edge", fr="mc", to=["a_help", "a_med"])])],
+                           note="報告書の文を短くしたもの", src=ss.src(["AAB p20"]))),
+    ),
+    # 3か月半前の訓練（年表 AX_DRILL）：1行目（聞き役）＝事故の点だけ／2行目＝2011年6月2日の机上訓練と事故までの括弧／
+    #   3行目＝参加した機関の札（主催の団体・FAA・消防・警察・病院など）
+    "c809": dict(
+        t="備えはあった",
+        s="大事故の対応の練習",
+        fig=("axis", dict(**ss.AX_DRILL, start=dict(cur="2011-09-16"),
+                          steps=[dict(add=ss.ax("d_acc")),
+                                 dict(add=[ss.ax("tabletop"), ss.ax("drill_br")], cur="2011-06-02"),
+                                 dict(add=dict(k="chips", at="2011-06-02", chips=["主催の団体・FAA", "消防・警察・病院など"],
+                                               rec="AAB p21"))],
+                          note="年表（報告書の値）", src=ss.src(["AAB p10・p21"]))),
+    ),
+    # 5月25日の総合訓練（同じ年表）：机上訓練（沈む）の前に、リノの別の空港での訓練（AAB p21）
+    "c813": dict(
+        t="その前の週にも",
+        s="3年に1度の大きな訓練",
+        fig=("axis", dict(**ss.AX_DRILL, past=[ss.ax("tabletop"), ss.ax("d_acc")], start=dict(cur="2011-06-02"),
+                          steps=[dict(add=ss.ax("fullscale"), cur="2011-05-25")],
+                          note="年表（報告書の値）", src=ss.src(["AAB p10・p21"]))),
+    ),
+
     # ── 🔴 ⑤b-2（2026-09-30）：案C の戻り（`tools/illu.py` の RA＝15本目）──
     # A を動かさずに戻す：×とボックス席だけ（人なし・亡くなった方とけがの人の数は字幕だけ＝映像方針 §11-2・§5b-9）。
     #   カメラはごくゆっくり引くだけ（1.06→1.0＝2.36〜2.5メートル／画素）。航跡・点線は出さない（数の話＝落ちた道は c101・c102）

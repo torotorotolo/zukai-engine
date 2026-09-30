@@ -98,6 +98,65 @@ PLAN = {
 
 SPEC = {
 
+    # ── 🔴 ⑤b-5（2026-09-30）：型の使い回し（書類の再現図・尾翼 `tail`・ねじ `bolt`・報告書の鎖 `boxes`）──
+    # 技術検査の用紙（AAB p37）：1行目＝紙（備考「トリムタブのねじが短すぎる」＝c702 の決め所・2011年9月12日の承認）と
+    #   コースへの矢印／2行目（書面で確かめる手順は無かった）は字幕だけ＝「直した中身」の欄は描かない（無い欄を描かない）
+    "c704": dict(
+        t="コースへの承認",
+        s="事故の4日前",
+        fig=("boxes", dict(view="form", form=ss.FORM_TECH,
+                           steps=[dict(add=[dict(k="paper"), dict(k="end", id="office"), dict(k="edge", fr="paper", to="office")]),
+                                  dict()],
+                           note="再現（本物の頁ではない・備考は報告書に引かれた文の一部）", src=ss.src(["AAB p37"]))),
+    ),
+    # 技術検査の決まり（付録E）：技術委員会の承認は「機体の状態や耐空性を表すものではない」（規則の文を欄の形で1行に）。
+    #   2行目（事故のあとのナットの傷＝注42）は字幕だけ（次の c706 で左右の板の写真）
+    "c705": dict(
+        t="合格の意味",
+        s="規則に書かれた一文",
+        fig=("boxes", dict(view="form", form=ss.FORM_RULE, steps=[dict(add=dict(k="paper")), dict()],
+                           note="再現（規則の文を欄の形にした・様式は抽象）", src=ss.src(["AAB p37"]))),
+    ),
+    # 大会の前の作業（尾翼を上から＝c719 と同じ図）：1行目＝左右の板に印・がたつきを減らす作業（整備の仲間の1人の話）／
+    #   2行目＝右の板のちょうつがいのねじを外して付け直した（検査の指摘のあと）＝AAB p16
+    "c721": dict(
+        t="大会の前にも",
+        s="整備の仲間の1人の話",
+        fig=("tail", dict(view="plan", start=dict(rod="on"),
+                          steps=[dict(state=dict(lmark="on", rmark="on"), tag=dict(t="がたつきを減らす作業", at="lt")),
+                                 dict(state=dict(lmark="off", hinge="on"), tag=dict(t="右の板：外して付け直し", at="r1"))],
+                          note="模式（形は模式）", src="NTSB 事故報告 AAB-12/01 PDF 16頁")),
+    ),
+    # 気づけたはず（ねじの断面＝c709 と同じ図）：1行目＝ゆるみと塗装のはげ・古い詰め物（気づけた印）／2行目＝何度も締め直す
+    #   必要があった・替える機会はあった（札だけ＝状態は変えない：門番の筋「塗装のはげはゆるみのとき」「締め直しの段でゆるまない」）
+    "c722": dict(
+        t="気づけたはず",
+        s="報告書の見方",
+        fig=("bolt", dict(view="nut", start=dict(insert="old"),
+                          steps=[dict(state=dict(loose="on", paint="on"),
+                                      tag=[dict(t="ねじのゆるみ", at="r1", col=J.ALERT), dict(t="詰め物の傷み", at="r2")]),
+                                 dict(tag=[dict(t="何度も締め直した（とみられる）", at="r3"), dict(t="替える機会はあった", at="r4")])],
+                          note="模式（形・大きさは模式）", src="NTSB 事故報告 AAB-12/01 PDF 31・41頁")),
+    ),
+    # 推定原因へ（報告書の鎖＝c106 と同じ箱）：1行目（聞き役の問い）＝箱だけ／2行目＝5本の矢印（「こうつながる」）。
+    #   第7章＝「リンク」の語が出たあと＝「リンクが折れる」。次の c724 は推定原因の頁
+    "c723": dict(
+        t="推定原因",
+        s="調べた結果、原因と判断したこと",
+        fig=("boxes", dict(view="flow", layout=ss.CHAIN2, steps=[dict(), dict(add=ss.chain_links())],
+                           note="箱は報告書のまとめの言葉を短くしたもの", src=ss.src(["AAB p52"]))),
+    ),
+    # 重なった要因：鎖は前から（矢印つき）・区切りの線の下に2つの要因を並べる（鎖のどの輪につながるかは報告書が言っていない＝
+    #   矢印でつながない）。1行目＝記録も試験も無い改造／2行目＝十分な試験なしにレースで飛ばした（AAB p52）
+    "c725": dict(
+        t="重なった要因",
+        s="推定原因に加えて",
+        fig=("boxes", dict(view="flow", layout=ss.CHAIN2, past=ss.chain_links(keep=True) + [dict(k="rule", y=590, keep=True)],
+                           steps=[dict(add=ss.FACTORS["f_mod"]), dict(add=ss.FACTORS["f_ops"])],
+                           note="箱は報告書の言葉を短くしたもの（要因は鎖の特定の輪につながるとは書かれていない）",
+                           src=ss.src(["AAB p52"]))),
+    ),
+
     # ── 🔴 ⑤b-3（2026-09-30）：案C（`tools/illu.py` の RD・RC＝15本目）と尾翼の板の模式図（`tools/tail15.py`）──
     #   全面の絵は見出し t・副題 s を書かない（画面に出ない）。模式図は t・s を書く
 

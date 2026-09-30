@@ -80,6 +80,64 @@ PLAN = {
 
 SPEC = {
 
+    # ── 🔴 ⑤b-5（2026-09-30）：年表（14本目の `axis` date＝c324 と同じ軸 AX_HIST）と書類の再現図（`boxes` form）──
+    # 前の点は沈んだ色で残す（past）。事故（2011年）は右の端にいつも沈んで残る
+    "c404": dict(
+        t="戦争のあと",
+        s="軍から民間へ",
+        # ⚠️ 1944年の点の札は出さない（1946年の点の縦の線が札を貫いた＝31画素しか離れていない・日付は c403 の決め所）
+        fig=("axis", dict(**ss.AX_HIST, past=[ss.ax("deliver", lab=False, t=""), ss.ax("acc")], start=dict(cur="1944-12-23"),
+                          steps=[dict(), dict(add=ss.ax("sold"), cur="1946-07")],
+                          note="機体の歩み（報告書の来歴から）", src=ss.src(["AAB p10・p12"]))),
+    ),
+    # 1行目＝1983年7月にパイロットが取得／2行目＝翌月（8月17日）に FAA の特別な許可（AAB p35）＝点の下の札で。
+    #   ⚠️ 8月17日を別の点にすると2点が2画素しか離れず、右の点の縦の線が左の札を貫いた（⑤b-5 の layout）
+    "c408": dict(
+        t="持ち主が替わる",
+        s="実験機という区分",
+        fig=("axis", dict(**ss.AX_HIST, past=[ss.ax("deliver", fmt="y"), ss.ax("sold", fmt="y"), ss.ax("acc")],
+                          start=dict(cur="1946-07"),
+                          steps=[dict(add=ss.ax("owner"), cur="1983-07"),
+                                 dict(add=dict(k="chips", at="1983-07", chips=["翌月：FAAの許可"], rec=["AAB p12", "AAB p35"]))],
+                          note="機体の歩み（報告書の来歴から）", src=ss.src(["AAB p10・p12・p35"]))),
+    ),
+    # 1983年から1989年まで（年だけの記録＝帯は年の真ん中から真ん中）。2行目（番号と名前が変わった＝注9）は字幕だけ
+    "c410": dict(
+        t="持ち主の時代",
+        s="レースに出た年月",
+        fig=("axis", dict(**ss.AX_HIST, past=[ss.ax("deliver", fmt="y"), ss.ax("owner", fmt="y"), ss.ax("acc")],
+                          start=dict(cur="1983-07"),
+                          steps=[dict(add=ss.ax("race8389"), cur="1989"), dict()],
+                          note="機体の歩み（報告書の来歴から）", src=ss.src(["AAB p10・p12"]))),
+    ),
+    # 1行目＝1989年から保管（帯）／2行目＝2007年に出された（18年＝括弧・数は書かない）
+    "c411": dict(
+        t="しまい込まれた機体",
+        s="レースを離れて",
+        fig=("axis", dict(**ss.AX_HIST, past=[ss.ax("deliver", fmt="y"), ss.ax("race8389"), ss.ax("acc")],
+                          start=dict(cur="1989"),
+                          steps=[dict(add=ss.ax("store")), dict(add=ss.ax("store_br"), cur="2007")],
+                          note="機体の歩み（報告書の来歴から）", src=ss.src(["AAB p10・p12"]))),
+    ),
+    # 1行目（聞き役）そのまま／2行目＝2007年から2009年の分解整備と改造（アリゾナ・テキサス・ネバダ＝次の c413 の地図）
+    "c412": dict(
+        t="長い眠りのあと",
+        s="3つの州で",
+        fig=("axis", dict(**ss.AX_HIST, past=[ss.ax("deliver", fmt="y"), ss.ax("race8389"), ss.ax("store"), ss.ax("acc")],
+                          start=dict(cur="2007"),
+                          steps=[dict(), dict(add=ss.ax("rebuild"), cur="2009")],
+                          note="機体の歩み（報告書の来歴から）", src=ss.src(["AAB p10・p12"]))),
+    ),
+    # 記録簿の総時間（書類の再現図）：1行目（聞き役）で紙・2行目で読む・3行目そのまま。値＝2011年7月29日の総時間 1,453.6時間
+    #   （機体の記録簿の 1,447.2 は 6.4時間の書き違い＝エンジンの記録簿の値が正しい＝AAB p15 注15・p16）
+    "c415": dict(
+        t="この機体の飛行時間",
+        s="生まれてからの合計",
+        fig=("boxes", dict(view="form", form=ss.FORM_LOG11, steps=[dict(add=dict(k="paper")), dict(), dict()],
+                           note="再現（本物の頁ではない・値はエンジンの記録簿の総時間＝報告書 注15）",
+                           src=ss.src(["AAB p15・p16"]))),
+    ),
+
     # ── 🔴 ⑤b-3（2026-09-30）：案C の戻り（`tools/illu.py` の RB＝15本目）──
     # B（横から・レース中の事故機）でエンジンとプロペラに札（AAB p13「Rolls-Royce Merlin V-1650-9A engine, which was modified
     #   for racing, and an unmodified Hamilton Standard 24D50 propeller」）。PLAN の予定は「D の機体」＝止まった機体はプロペラの

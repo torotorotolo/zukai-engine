@@ -80,6 +80,53 @@ PLAN = {
 
 SPEC = {
 
+    # ── 🔴 ⑤b-5（2026-09-30）：型の使い回し（14本目の `qty` の棒・`axis` の秒の帯）──
+    # 速さの物差し：新幹線の営業の最高（時速320キロ＝一般の事実・台本の出典欄）と事故機（パイロン8を通る時 445ノット＝824キロ・
+    #   AAB p10）。1行目で2本・2行目（聞き役）はそのまま。数は字幕（§5b-9）
+    "c206": dict(
+        t="速さの物差し",
+        s="日本の鉄道と比べると",
+        fig=("qty", dict(view="bar", groups=[ss.QG["speed"]],
+                         steps=[dict(add=[ss.qb("shinkansen"), ss.qb("plane824")]), dict()],
+                         note="事故機＝パイロン8を通る時の速さ",
+                         src="新幹線の営業の最高 時速320キロ（一般の事実）・NTSB 事故報告 AAB-12/01 PDF 10頁")),
+    ),
+
+    # それまでの最高との差：事故の周（パイロン6と7のあいだ 458ノット＝848キロ）とそれまでの最高（🔴 報告書の差 約35ノット＝
+    #   約65キロを引いた 783＝注で言う）＝AAB p29。2行目（エンジンの圧力と回転もいちばん高い）は字幕だけ
+    "c217": dict(
+        t="いちばん速い周",
+        s="この機体がコースで出した中で",
+        fig=("qty", dict(view="bar", groups=[ss.QG["lap"]],
+                         steps=[dict(add=[ss.qb("lap_prev"), ss.qb("lap_acc")]), dict()],
+                         note="パイロン6と7のあいだ・それまでの最高は報告書の差（約65キロ）から引いた値",
+                         src=ss.src(["AAB p29"]))),
+    ),
+
+    # 横転の約8秒前（負の秒の帯＝0秒が横転の始まり）：1行目（聞き役）＝0秒の点・2行目＝約8秒前に圧力と回転が下がる・
+    #   3行目＝理由は書かれていない（点の下の札）。AAB p29「About 8 seconds before the beginning of the upset, there was a
+    #   noticeable reduction in engine manifold pressure and rpm」＝理由を書いていない
+    "c218": dict(
+        t="エンジンの変化",
+        s="テレメトリーの記録",
+        fig=("axis", dict(**ss.AX_UPSET,
+                          steps=[dict(add=ss.ax("u0"), cur="0"),
+                                 dict(add=ss.ax("u8"), cur="約-8"),
+                                 dict(add=dict(k="chips", at="約-8", chips=["理由は書かれていない"], rec="AAB p29"))],
+                          note="秒は報告書の値", src=ss.src(["AAB p28・p29"]))),
+    ),
+
+    # その9秒を秒の単位で並べた（AAB p28 の経過の表の9つの秒＝札を出さない点）：1行目＝崩れ始めから落ちるまでの帯・
+    #   2行目＝表の秒の点が並び、カーソルが約9.1秒まで進む。表の中身（リンク・G・一片）は第3章＝ここでは名を出さない
+    "c220": dict(
+        t="9秒の並べ方",
+        s="写真と映像とデータから",
+        fig=("axis", dict(**ss.AX_NINE,
+                          steps=[dict(add=ss.ax("nine")),
+                                 dict(add=[ss.ax(k) for k in ss.NINE_PTS], cur="約9.1")],
+                          note="点＝報告書の経過の表にある秒", src=ss.src(["AAB p11・p28"]))),
+    ),
+
     # ── 🔴 ⑤b-2（2026-09-30）：案C（`tools/illu.py` の RA・RB＝15本目）。全面の絵は見出し t・副題 s を書かない ──
 
     # B（横から・レース中）：1行目はパイロンが1本流れる（記録装置は描かない＝積んでいなかった）。2行目で機体の中ほどから地上へ

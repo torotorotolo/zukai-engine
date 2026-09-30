@@ -92,6 +92,16 @@ PLAN = {
 
 SPEC = {
 
+    # ── 🔴 ⑤b-5（2026-09-30）：書類の再現図（14本目の `boxes` form）──
+    # 第6章への橋：記録簿の 2009年9月22日の書き込み（本人の署名「The prescribed flight test hours have been completed」＝AAB p15）。
+    #   決め所 c610 で同じ文を引く（ここは欄の形で「終えた」だけ）
+    "c524": dict(
+        t="試験の書き込み",
+        s="本人の署名つき",
+        fig=("boxes", dict(view="form", form=ss.FORM_LOG09, steps=[dict(add=dict(k="paper"))],
+                           note="再現（本物の頁ではない・書いてある字は報告書に引かれた文だけ）", src=ss.src(["AAB p15・p36"]))),
+    ),
+
     # ── 🔴 ⑤b-3（2026-09-30）：尾翼の板の模式図（`tools/tail15.py`＝門番 check_mech の judge_tail）──
     #   🔴 段の札は残る（ルール §5b-89）＝3行目「ふつうの P-51D」で絵を元の作りへ戻すと、1行目の「鉄の棒で固定」の札が嘘になる
     #      ＝c512 は改造後の絵のまま比べの札だけ。元の作り→改造後の入れ替えは c513（札を付けるのは入れ替えのあと）
