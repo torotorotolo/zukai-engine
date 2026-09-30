@@ -49,7 +49,7 @@ PLAN = {
     "c311": dict(kind='図・写真の頁',
                plan='台本の画：図 p27（報告書の図9・10＝板の一片・写真 Frank Ranney・Julia Kirchenbauer・NTSB AAB-12/01・紙面の引用）｜⚠️ 報告書の courtesy の写真＝紙面の引用のまま（頁ごと・額装・無加工）。描いた物を重ねない・なぞらない・絵と同じ画面に並べない（映像方針 §1 線3）',
                src='AAB p26・p27・p28'),
-    "c312": dict(kind='再現イラスト',
+    "c312": dict(kind='混ざり',       # ⑤b-2：1行目＝A（冒頭の絵）→ 時間の帯（axis）＝混ざり（文字だけの数は変わらない）
                plan='【案C A → 時間の帯】【案C】1行目＝A を戻す：本部のパイロンの近くに「一片が見つかった所」の印（p18＝near）。2〜3行目＝時間の帯の模式図（0.56 リンク → 1.3 最大G → 4.6 一片）へ入れ替え｜人：なし（映像方針 §3-2）｜⚠️ 印は点でなく「近く」の輪',
                src='AAB p18・p24・p28・p39・#33 p9'),
     "c313": dict(kind='パネル',
@@ -91,4 +91,49 @@ PLAN = {
 }
 
 SPEC = {
+
+    # ── 🔴 ⑤b-2（2026-09-30）：案C（`tools/illu.py` の RA・RB＝15本目）と秒の帯（`tools/axis.py` の sec）──
+    #   B は 1.3秒（最大G）で止める＝上昇と降下は描かない（映像方針 §1 線2）。渦も板も描かない（線3＝横転のきっかけは場面にしない）。
+    #   秒の札は AAB p28 の表の値だけ（0・0.27・0.83・1.3）。途中の傾き（77・81・86度）は札に出さない（表に無い＝動きの模式）
+
+    # B（後ろから）：パイロン8を回って左へ約73度の傾きから深まる（0秒）→ 補助翼が右の翼を下げる向きに（0.27秒＝右が上・左が下）
+    "c305": dict(
+        fig=("illu", dict(
+            place="RB", at="16:24", start=dict(view="rear", roll=73.0),
+            rec="AAB p28（0秒＝パイロン8を回って、左へ73度の傾きから崩れ始めた）",
+            steps=[dict(state=dict(roll=77.0), delay=0.2, dur=2.8, rec="AAB p28（0秒）",
+                        tag=dict(t="0秒", xy=(1500, 250))),
+                   dict(state=dict(roll=81.0, ail="right"), delay=0.2, dur=3.6,
+                        rec="AAB p28（0.27秒＝右の翼を下げる向きの補助翼）",
+                        tag=[dict(t="0.27秒", xy=(1500, 320)), dict(t="補助翼", at="rail", off=(100, -30))])])),
+    ),
+
+    # B：後ろから約93度（真横を少し越える＝0.83秒）→ 横から（空だけ）機首が一気に上がる・17.3G（1.3秒）＝ここで B を止める
+    "c307": dict(
+        fig=("illu", dict(
+            place="RB", at="16:24", start=dict(view="rear", ground="off", roll=86.0),
+            rec="AAB p28（0.56〜0.83秒＝傾きが深まる）",
+            steps=[dict(state=dict(roll=93.0), delay=0.2, dur=1.8, rec="AAB p28（0.83秒＝左へ約93度）",
+                        tag=[dict(t="0.83秒", xy=(1500, 250)), dict(t="約93度", at="lwing", off=(-150, 30), anchor="end")]),
+                   dict(state=dict(view="side", pitch=30.0), delay=0.1, rec="AAB p28（1.3秒＝最大の17.3G）・p11（高いGの機首上げ）",
+                        tag=[dict(t="1.3秒", xy=(1500, 320)), dict(t="17.3G", at="nose", off=(70, -60))])])),
+    ),
+
+    # 混ざり：1行目＝A（冒頭の絵）で本部のパイロンの「近く」に輪（一片が見つかった所＝AAB p18・点にしない）→ 2行目の少し前で
+    #   時間の帯（秒）へ画面ごと入れ替え：1.3秒（機首が上がる・最大G）と 4.6秒（一片が離れる）→ 3行目で 0.56秒（リンクは折れていた
+    #   ＝p24・p39）。カーソルが 4.6 → 0.56 へ戻る＝「さらにその前に」。⚠️ 冒頭の絵に札は付けない（段の層は時間の帯のもの）
+    "c312": dict(
+        t="9秒の順番",
+        s="崩れ始めからの秒（報告書の経過の表）",
+        fig=("axis", dict(view="sec", span=("0", "5"), ticks=("0", "1", "2", "3", "4", "5"),
+                          steps=[dict(),
+                                 dict(add=[dict(k="pt", at="1.3", t="最大G（機首が上がる）", rec="AAB p28"),
+                                           dict(k="pt", at="4.6", t="一片が離れる", rec="AAB p28")], cur="4.6"),
+                                 dict(add=dict(k="pt", at="0.56", t="リンクは折れていた", rec="AAB p24", big=True), cur="0.56")],
+                          note="0秒＝パイロン8を回って崩れ始めた時", src=ss.src(["AAB p24・p28・p39"]))),
+        intro=dict(until=1, illu=dict(
+            place="RA", at="16:24", start=dict(view="near", gg="gone", path="on", x="on"),
+            rec="AAB p28（4.6秒に一片が離れた）・p11（図1）",
+            steps=[dict(state=dict(piece="on"), delay=0.8, rec="AAB p18（左の板の内側の一片は本部のパイロンの近くで見つかった）")])),
+    ),
 }

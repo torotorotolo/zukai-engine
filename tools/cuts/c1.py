@@ -40,7 +40,7 @@ PLAN = {
     "c108": dict(kind='再現イラスト',
                plan='【案C】A を戻す（寄り）：ボックス席・駐機場・燃料車1台に札｜人：なし（映像方針 §3-2）｜⚠️ #33 図13 は c814 の1回だけになる（台本 §0-10 の「同じ図を2回」が1組解ける）',
                src='#33 p15・AAB p19'),
-    "c109": dict(kind='再現イラスト',
+    "c109": dict(kind='混ざり',       # ⑤b-2：3つの問いのパネルに小さく戻す＝混ざり（14本目 c105 と同じ・文字だけの数は変わらない）
                plan='【案C を小さく戻す（3つの問い）】【案C】パネルの中に小さく戻す：問い①＝B の傾く機体・問い②＝D の尾翼・問い③＝A の駐機場と×｜人：—（映像方針 §3-2）｜⚠️ 14本目 c105 と同じ型',
                src='—'),
     "c110": dict(kind='文字の頁',
@@ -55,4 +55,90 @@ PLAN = {
 }
 
 SPEC = {
+
+    # ── 🔴 ⑤b-2（2026-09-30）：案C の再現イラスト（`tools/illu.py` の置き場 RA・RB・RD＝15本目）───────────────
+    #   守りの線（映像方針 15本目 §1・§10）：パイロットは人の形で描かない（覆いは光る面）／落ちたことは×と札だけ・機体の印は
+    #   0秒で消して点線（模式）／形のもとは PD の図だけ／秒の札は AAB p28 の表の値だけ／左上「再現イラスト」・左下の出典
+    #   （門番 check_illu）。🔴 全面の絵は見出し t・副題 s を書かない（画面に出ない＝14本目 ⑤b-2）
+
+    # 1行目＝B（横から・レース中の事故機・砂漠とパイロンが流れる）→ 2行目の少し前で A（上から見たステッド空港）へ入れ替え
+    #   （intro の until=1）。A：事故機の印がパイロン7のすぐ後から3周目の航跡をたどってパイロン8へ（#14 図12）→ 崩れ始め（0秒）で
+    #   印を消す → 点線（模式）がボックス席の×へ（見本 §8）。人なし（パイロットは光る面の中・A の縮尺は 2.5メートル／画素）
+    "c101": dict(
+        fig=("illu", dict(
+            place="RA", at="16:24", start=dict(view="near", gg="p7"),
+            rec="AAB p28（パイロン8を回って崩れ始めた）・#14 p3014（図12＝3周目の航跡）",
+            steps=[dict(),
+                   dict(state=dict(gg="gone", path="on", x="on", box="on"), delay=0.05,
+                        rec="AAB p28（崩れ始め＝0秒）・p11（らせん状に降下して地面へ）・p19（観客のボックス席に落ちた）",
+                        tag=[dict(t="パイロン8", at="p8", off=(-150, 30), anchor="end", delay=1.8),
+                             dict(t="観客席（ボックス席）", at="box", off=(60, -110), delay=1.8)])])),
+        intro=dict(until=1, illu=dict(
+            place="RB", at="16:24", start=dict(view="side", ground="on"),
+            steps=[dict(pylon=1, delay=0.1, rec="AAB p10（パイロンを回るレース）・#33 p2009（パイロン）")])),
+    ),
+
+    # A：崩れ始め（0秒）から地面まで、点線を琥珀の線がなぞる（経過の表の 0 → 約9.1秒＝札は表の値だけ・数える札は出さない）。
+    #   2行目は何も動かさず、カメラがゆっくり引く（亡くなった方の数は字幕だけ＝§5b-9）
+    "c102": dict(
+        fig=("illu", dict(
+            place="RA", at="16:24", start=dict(view="near", gg="gone", path="on", x="on", box="on"), camc="fall_mid",
+            rec="AAB p28（崩れ始め＝0秒・約9.1秒で地面）・p19（ボックス席）",
+            steps=[dict(state=dict(trace="on", cam=1.1), delay=0.1, dur=1.8, rec="AAB p28（経過の表＝0〜約9.1秒）",
+                        tag=dict(t="崩れ始め（0秒）", at="fall0", off=(-40, -70), anchor="end", keep=True, delay=0.1)),
+                   dict(state=dict(cam=1.0), delay=0.1, dur=2.0,
+                        tag=dict(t="約9.1秒", at="x", off=(70, -70), keep=True, delay=0.05))])),
+    ),
+
+    # 混ざり：1行目＝B（横から・空だけ＝機体の向きだけを見せる）で機首が一気に上がる（板は描き分けない＝線3）→ ★で決め所へ
+    #   画面ごと入れ替え（§5b-74③「決め所に絵を置かない」＝冒頭の絵は決め所の行を読み始める前に消える）。
+    #   決め所＝台本 §2 #1（AAB p28 の表：1.3秒 maximum vertical acceleration → 4.6秒 inboard piece … separated＝3.3秒後）
+    "c104": dict(
+        t="報告書の経過の表",
+        s="横転の始まりから数えた秒",
+        fig=("quote", dict(
+            phrase="板の一片が離れたのは、最大Gの約3秒後",
+            rows=[("記録", "NTSB 事故報告 AAB-12/01（2012年）", J.INK_W),
+                  ("頁", "PDF 28頁（経過の表）", J.TICK)], paper=True)),
+        intro=dict(illu=dict(
+            place="RB", at="16:24", start=dict(view="side", ground="off"),
+            steps=[dict(state=dict(pitch=30.0), delay=1.4, rec="AAB p11（高いGの機首上げ）・p28（1.3秒に最大G）")])),
+    ),
+
+    # A（駐機場の寄り＝1.5メートル／画素＝人は1画素に満たない）：ボックス席・駐機場に札 → 燃料車（1台＝AAB p19）に輪と札。
+    #   ×は事故地点（図1）。人・テント・駐機の機体は描かない（数が記録に無い）
+    "c108": dict(
+        fig=("illu", dict(
+            place="RA", at="16:24", start=dict(view="ramp", x="on", course="off"),
+            rec="AAB p19（観客のボックス席に落ちた）・p11（図1＝事故地点）",
+            steps=[dict(state=dict(box="on"), rec="AAB p19（ボックス席）・p20（図3）",
+                        tag=[dict(t="ボックス席", at="box", off=(90, -120), keep=True),
+                             dict(t="駐機場", at="ramp", off=(-60, -80), anchor="end", keep=True)]),
+                   dict(state=dict(fuel="on"), rec="AAB p19（燃料車がピットの近くの駐機場に止まっていた）",
+                        tag=dict(t="燃料を積んだ車", at="fuel", off=(-40, -100), anchor="end", keep=True))])),
+    ),
+
+    # 混ざり：3つの問いのパネルに小さく戻す（illu_pair の3つ・14本目 c105 と同じ型）。問い1＝B の傾く機体（後ろから・73→93度）／
+    #   問い2＝D の尾翼（ピットの事故機の尾翼の寄り＝⑤b-3 で置き場 D を本格的に描く）／問い3＝A の駐機場と×。
+    #   段は4つ（行は3つ）＝4つ目の段は3行目の途中（「そして、観客席との距離は」のあたり）に挟まる＝問い3 はそこで出る。
+    #   ⚠️ 札の文は語りの複写にしない（12字未満の問いの名だけ・check_echo）
+    "c109": dict(
+        t="3つの問い",
+        s="事故を追う3本の軸",
+        fig=("illu_pair", dict(blocks=[
+            # ⚠️ 下見：後ろから見た 73〜93度の機体は小さな絵では縦の十字（パイロンの柱）にしか見えなかった＝横から機首の上げに
+            dict(k="問い1", t="9秒に何が起きたか", stage=1, stages=4,
+                 scene=dict(place="RB", at="16:24", start=dict(view="side", ground="off", cam=1.25),
+                            steps=[dict(), dict(state=dict(pitch=30.0), delay=0.9, rec="AAB p11（高いGの機首上げ）・p28（1.3秒に最大G）"),
+                                   dict(), dict()])),
+            dict(k="問い2", t="なぜ板は震えたか", stage=2, stages=4,
+                 scene=dict(place="RD", at="16:24",
+                            steps=[dict(), dict(), dict(state=dict(mark="on"), rec="AAB p14（水平尾翼・昇降舵・トリムタブ）"),
+                                   dict()])),
+            dict(k="問い3", t="観客席との距離", stage=3, stages=4,
+                 scene=dict(place="RA", at="16:24", start=dict(view="ramp", course="off"),
+                            steps=[dict(), dict(), dict(),
+                                   dict(state=dict(x="on", box="on"), rec="AAB p19（ボックス席に落ちた）・p11（図1＝事故地点）")])),
+        ])),
+    ),
 }

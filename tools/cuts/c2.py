@@ -79,4 +79,31 @@ PLAN = {
 }
 
 SPEC = {
+
+    # ── 🔴 ⑤b-2（2026-09-30）：案C（`tools/illu.py` の RA・RB＝15本目）。全面の絵は見出し t・副題 s を書かない ──
+
+    # B（横から・レース中）：1行目はパイロンが1本流れる（記録装置は描かない＝積んでいなかった）。2行目で機体の中ほどから地上へ
+    #   電波の輪（テレメトリー＝AAB p17・p18）。受ける側（地上の局）は描かない（場所と形が記録に無い）
+    "c215": dict(
+        fig=("illu", dict(
+            place="RB", at="16:24", start=dict(view="side", ground="on"),
+            steps=[dict(pylon=1, delay=0.5, rec="AAB p17（パイロンを回るレース）・#33 p2009（パイロン）"),
+                   dict(rings=3, rec="AAB p17・p18（テレメトリー＝機体の状態を地上へ送る）",
+                        tag=dict(t="テレメトリー", at="mid", off=(-280, 170), anchor="end"))])),
+    ),
+
+    # A（コース全体・7.8メートル／画素）：#14 図12 の1〜3周目の航跡（黄・橙・赤＝図12 と同じ色）を順に重ねる → パイロン8で
+    #   ほぼ重なる所に輪。2行目で3周目のパイロン6〜7の区間が光る（AAB p29＝一番速かった）。速さの数は字幕だけ（札に書かない）
+    "c216": dict(
+        fig=("illu", dict(
+            place="RA", at="16:24", start=dict(view="wide", course="off"),
+            steps=[dict(state=dict(laps="on", ring8="on"), delay=0.1,
+                        rec="#14 p3014（図12＝1〜3周目の航跡）・AAB p29（パイロン8を回る速さとGは前の2周とほぼ同じ）",
+                        tag=[dict(t="1周目", xy=(1420, 330), col="#f2d24a", keep=True),
+                             dict(t="2周目", xy=(1420, 385), col="#ef9b3a", keep=True),
+                             dict(t="3周目（事故の周）", xy=(1420, 440), col="#e0533c", keep=True),
+                             dict(t="パイロン8", at="p8", off=(-140, 20), anchor="end", keep=True, delay=2.2)]),
+                   dict(state=dict(seg67="on"), rec="AAB p29（パイロン6と7のあいだで一番速かった）",
+                        tag=dict(t="パイロン6〜7", at="seg67", off=(-150, 0), anchor="end", keep=True))])),
+    ),
 }

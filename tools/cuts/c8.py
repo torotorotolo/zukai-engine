@@ -85,4 +85,15 @@ PLAN = {
 }
 
 SPEC = {
+
+    # ── 🔴 ⑤b-2（2026-09-30）：案C の戻り（`tools/illu.py` の RA＝15本目）──
+    # A を動かさずに戻す：×とボックス席だけ（人なし・亡くなった方とけがの人の数は字幕だけ＝映像方針 §11-2・§5b-9）。
+    #   カメラはごくゆっくり引くだけ（1.06→1.0＝2.36〜2.5メートル／画素）。航跡・点線は出さない（数の話＝落ちた道は c101・c102）
+    "c802": dict(
+        fig=("illu", dict(
+            place="RA", at="16:24", start=dict(view="near", x="on", box="on", cam=1.06), camc="x",
+            rec="AAB p19（観客のボックス席に落ちた）・p11（図1＝事故地点）",
+            steps=[dict(tag=dict(t="観客席（ボックス席）", at="box", off=(60, -110), keep=True)),
+                   dict(state=dict(cam=1.03), dur=3.0), dict(state=dict(cam=1.0), dur=3.0)])),
+    ),
 }

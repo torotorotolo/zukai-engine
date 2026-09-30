@@ -49,6 +49,8 @@ MIXED = {
     "c312": "【案C A → 時間の帯】",
     "c109": "【案C を小さく戻す（3つの問い）】",
 }
+# ⑤b-2 で種類を「混ざり」に（c109＝3つの問いのパネルに小さく戻す／c312＝A → 時間の帯）
+KIND_FIX = {"c109": "混ざり", "c312": "混ざり"}
 # 映像方針のカットごとの注意（§1 の線・§3・§11-2・④' の申し送り）。plan の末尾に「⚠️」で足す
 COURTESY = "⚠️ 報告書の courtesy の写真＝紙面の引用のまま（頁ごと・額装・無加工）。描いた物を重ねない・なぞらない・絵と同じ画面に並べない（映像方針 §1 線3）"
 NOTES = {c: COURTESY for c in "c103 c301 c306 c309 c310 c311 c520 c521".split()}
@@ -123,6 +125,9 @@ def build():
         raise SystemExit(f"🔴 見出し行の読み方が2つで食い違う: {sorted(set(pic) ^ set(cuts))}")
     over, tp = ct.PRESETS[PRESET]
     kind = {k: over.get(k, ct.base(k, c["pic"], tp)) for k, c in cuts.items()}
+    # 🔴 2026-09-30（⑤b-2）：画面の中で入れ替わる案C のカットは「混ざり」（門番 check_illu ⑦＝「再現イラスト」は全面の絵だけ）。
+    #    どちらも文字だけの画面ではない＝文字だけの数（59）・続く長さは変わらない
+    kind.update(KIND_FIX)
     bad = {k: v for k, v in kind.items() if v not in KINDS}
     if bad:
         raise SystemExit(f"🔴 種類が決まらないカット: {bad}")
