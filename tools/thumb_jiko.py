@@ -1256,9 +1256,53 @@ def ep14_ai_zoom(keys=("z1", "z2")):
                                              "e_veil", yel_plain=True))
 
 
+EP15_PIT = "ep15/gg_pit_2010.jpg"   # jeggernot／CC BY 2.0：2010-09-18 リノのピットの事故機（全身・「177」）。顔はモザイク済みの元画像
+
+
+def ep15():
+    """15本目・リノ・エアレース2011（2026-09-30・⑥）1巡目。
+
+    🔴 地に使えるのは ②③ の候補（ref/ep15/materials.md §8）のうち T3 だけ：
+       pit  … 2010年の事故機の横（CC BY 2.0＝文字の重ねが可・**改変の表示**を概要欄に）。全幅＝機首から尾翼まで
+       pitz … 同じ写真を 1.15倍・右寄せ＝手前左の観客2人と機首の先を外す（§B5-4 の「人」を減らす案）
+       ⚠️ 手前の観客・テントの人の顔は**元画像でモザイク済み**（`qa_out/ep15_assets.py` の MASK・masked.json の md5）
+       ⚠️ 2010年の写真＝事故の年ではない（概要欄で断る）
+       ✕ 事故の週の tataquax の5点は BY-SA＝サムネ不可（文字を重ねる＝翻案）／courtesy・報道写真も不可
+       ✕ T2（2010年の機首）は右に顔の近い人3〜4人／T1（NTSB 図13）は 210px で物が読めない＋**右**のタブ
+    🔴 赤は §B5-5「犠牲N人＋この回だけの核心」。「死亡」は使わない。本編の言い方から：
+       neji   … 「ねじが短すぎる」＝決め所 c702（AAB p37）・②③と④の推奨
+       kaizou … 「改造機が観客席へ」＝c101-2「改造した古い戦闘機が、観客席に落ちた」
+       nut    … 「26年前のナット」＝c105-2「26年以上前から付いていたとみられる」（AAB p41 at least 26 years）
+    黄は事故名＋「の真相」（§B5-1）＝タイトルの「リノ・エアレース墜落事故」は15字＞型の14字 →「墜落の真相」
+    ⚠️ 字数は空白を含めて数える（§6-54）
+    """
+    RED = {
+        "a_neji_pit": "犠牲11人 ねじが短すぎる",       # 13字
+        "b_neji_pitz": "犠牲11人 ねじが短すぎる",      # 13字
+        "c_kaizou_pit": "犠牲11人 改造機が観客席へ",    # 14字
+        "d_nut_pit": "犠牲11人 26年前のナット",       # 14字
+    }
+    YEL = "リノ・エアレース墜落の真相"    # 13字
+
+    for nm, red in list(RED.items()) + [("yellow", YEL)]:
+        for bad in ("死亡", "ﾀﾋ", "即死", "絶命"):
+            if bad in red:
+                raise SystemExit(f"🔴 {nm} に使ってはいけない語「{bad}」がある: {red}")
+        if not (10 <= len(red) <= 14):
+            raise SystemExit(f"🔴 {nm} が {len(red)}字（型は10〜14字・空白を含む）: {red}")
+
+    pit = photo(EP15_PIT, cy=0.50, cx=0.50, contrast=1.10, color=1.05, bright=1.00)
+    pitz = photo(EP15_PIT, zoom=1.15, cy=0.58, cx=1.00, contrast=1.10, color=1.05, bright=1.00)
+    hero = {"pit": pit, "pitz": pitz}
+    for nm, red in RED.items():
+        bake(f"ep15_{nm}", fx_type(hero[nm.rsplit('_', 1)[1]], red, YEL, "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep14-ai-zoom" in sys.argv:
+    if "ep15" in sys.argv:
+        ep15()
+    elif "ep14-ai-zoom" in sys.argv:
         ep14_ai_zoom()
     elif "ep14-ai" in sys.argv:
         ep14_ai()
