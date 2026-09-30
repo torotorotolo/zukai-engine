@@ -1313,9 +1313,25 @@ def ep15_ai():
                                     "e_veil", yel_plain=True))
 
 
+# 🆕 2026-09-30（ep15-ai1 の検品）：地の機体が小さい（横210pxで約45画素）→ 生成の原寸（1792x1008・課金なし）から寄る2案。
+#    地の機体＝尾翼の先 y≈145・プロペラ y≈480・中心 x≈750（1280x720 の地で）。字のあいだ＝y 175〜510。
+#    z1＝1.15倍・右寄せ＝機体の全体が字のあいだに収まる／z2＝1.30倍＝機首を黄の帯の直前に置き、尾翼は赤の字の下（FRAME_RENO が許した形）
+EP15AI_ZOOM = {"z1": dict(zoom=1.15, cx=1.00, cy=0.15),
+               "z2": dict(zoom=1.30, cx=0.87, cy=0.55)}
+
+
+def ep15_ai_zoom(keys=("z1", "z2")):
+    for k in keys:
+        hero = photo("ep15/ai/ep15_reno_a_orig.png", contrast=1.08, color=1.04, bright=1.00, **EP15AI_ZOOM[k])
+        bake(f"ep15ai_c_kaizou_{k}", fx_type(hero, "犠牲11人 改造機が観客席へ", "リノ・エアレース墜落の真相",
+                                             "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep15-ai" in sys.argv:
+    if "ep15-ai-zoom" in sys.argv:
+        ep15_ai_zoom()
+    elif "ep15-ai" in sys.argv:
         ep15_ai()
     elif "ep15" in sys.argv:
         ep15()
