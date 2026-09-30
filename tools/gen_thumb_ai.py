@@ -281,6 +281,106 @@ SCENES.update({
 })
 
 
+# ══ 15本目・リノ・エアレース2011（2026-09-30・⑥）════════════════════════════════════
+# カズヤくん指示「もっとショッキングで目をひくものに。なければ事故の瞬間を再現したようなイラストを OpenAI API で生成。
+#   生成する場合は具体案を出して、私の承認後 GO」。赤は c「犠牲11人 改造機が観客席へ」で決定（09-30）。
+# 🔴 文字を重ねられる写真が無い（09-30 に探し直した）：Commons の分類「2011 Reno Air Races crash」＝NTSB の部品の図（PD）と
+#    tataquax の BY-SA だけ／Openverse（CC BY・CC0・PD）＝2010年の jeggernot 1点だけ／NTSB 資料 #20（付録A 写真と図）は
+#    サーバーの写しが途中で切れ、写真の中身は暗号化（鍵は切れた側）＝取り出せない／#42 は観客の写真（撮影者の著作物）・
+#    #40 は部品／DVIDS は2018〜2023年の大会だけ。
+# 🔴 札は4枚とも**新規**（記憶 feedback-prompt-cards-must-not-be-reused）＝10本目は建物の崩落・14本目は海。
+# 🔴 事実に合わせる（報告書 AAB-12/01）：快晴・22℃・西南西の風（p16）／16時24分（p28）／降下は「らせん状の飛び方で地上へ」
+#    （p10・p39）／駐機場に衝突して機体がばらばらになった＝**火が出たという記述は無い**（p10）→ 火・爆発は描かせない／
+#    ボックス席の幕は青と赤（p21 脚注26）。
+# ⚠️ 本編の守りの線（映像方針 09-26）どおり、**人は描かせない**（パイロット＝風防は光る面・観客・救助の人・遺体・血）。
+#    機体の番号「177」・文字も描かせない（崩れた字を防ぐ・`thumb_jiko.py` が赤・黄を焼く）。この絵は**サムネだけ**・本編に入れない。
+# ⚠️ 通説（「尾翼の板が外れて機首が上がった」）の絵にしない＝板の破片を機首上げと同じ瞬間に描かない（一片が離れたのは最大Gの約3秒後）。
+LOOK_RENO = (
+    "A real PHOTOGRAPH, indistinguishable from a press photographer's grab shot, taken at an "
+    "air race in September 2011 on a digital SLR with a long telephoto lens, panning with the "
+    "airplane so that the airplane is sharp and only the propeller disc is blurred. Bright, "
+    "clear late-afternoon high-desert light from the west, a cloudless deep-blue sky, hard "
+    "shadows, crisp dry air, the bare brown sagebrush hills and mountains of northern Nevada "
+    "low on the horizon. Physically accurate materials: polished bare aluminium skin that "
+    "reflects the sun, painted steel grandstand framing, sun-bleached asphalt, fabric bunting. "
+    "Fine natural sensor grain. The image is shocking and immediate, but it is a photograph of "
+    "a real event, not a spectacle. "
+)
+FRAME_RENO = (
+    "COMPOSITION, critical: 16:9 frame. The TOP 25% and the BOTTOM 26% will later be covered by "
+    "two lines of very large text, and the corners will be darkened. So the airplane's nose, "
+    "canopy and wings, and the edge of the spectator seating it is heading into, must all sit "
+    "in the MIDDLE HORIZONTAL BAND; only the airplane's tail may reach up into the top quarter. "
+    "Keep the top quarter as plain, empty, cloudless deep-blue sky, and the bottom quarter as "
+    "plain, shadowed, featureless asphalt in the foreground, so that large lettering will read "
+    "cleanly over them. Keep the bottom-right corner dark. "
+)
+BAN_RENO = (
+    "There must be NO people anywhere — no spectators, no pilot visible in the cockpit (the "
+    "canopy is only a bright sun glare), no crew, no rescuers, no figures in the seats or on "
+    "the grandstand, no bodies, no body parts, no blood, no injuries. The chairs and stands "
+    "are simply empty. No fire, no flames, no explosion, no smoke, no fireball. "
+    "No text, letters, numbers, race numbers, words, sponsor decals, logos, flags with writing, "
+    "labels or watermarks of any kind, in any language — the airplane carries no markings at "
+    "all, just bare polished metal. "
+)
+TAIL_RENO = (
+    "The result must look like a genuine news photograph taken a split second before a real "
+    "air-race crash — sharp, bright, sudden and real. It must NOT look like a render, a video "
+    "game, a movie poster, a 3D visualisation or an illustration. No lens flare, no colour "
+    "grading, no cinematic teal-and-orange, no speed lines, no debris frozen in the air. "
+    "Gravity and perspective must read correctly: the airplane is falling steeply toward the "
+    "ground."
+)
+RENO_PLANE = (
+    "The airplane: a single, heavily modified World War II P-51D Mustang racing airplane — a "
+    "long, slim, gleaming polished bare-metal silver fuselage, a low teardrop bubble canopy, "
+    "short clipped wings, a large four-blade propeller, and a big air-scoop under the belly. "
+)
+SCENES.update({
+    "reno_a": {
+        "ep": "ep15",
+        "name": "落ちる直前の1秒（らせんを描いて観客のボックス席へ突っ込んでくる機体）",
+        "hypothesis": "サムネの赤「改造機が観客席へ」をそのまま絵にする。空から突っ込む機体と、"
+                      "その真下の観客席が同じ画面にある＝一覧で「何が起きたか」が一目で分かり、止める",
+        "look": LOOK_RENO, "frame": FRAME_RENO, "ban": BAN_RENO, "tail": TAIL_RENO,
+        "scene": (
+            "September 16, 2011, about 4:24 in the afternoon, the Reno air races at Stead "
+            "airfield, Nevada. " + RENO_PLANE +
+            "It is plunging almost straight DOWN toward the ground, nose first, in a steep, "
+            "twisting corkscrew dive, rolled partly onto its back, only a second or two from "
+            "impact. It is seen from the side and slightly below, from the edge of the "
+            "spectator area, large in the frame, in the centre-right of the middle band. "
+            "Directly below it, along the lower middle of the frame, is the front of the "
+            "spectator area on the flat asphalt ramp: a long row of boxed seating areas "
+            "separated by low metal railings and hung with BLUE and RED fabric bunting, rows "
+            "of empty folding chairs inside them, and behind them the steel frame and roof of "
+            "a large covered grandstand. The airplane is unmistakably diving into the seating "
+            "area. "
+        ),
+    },
+    "reno_b": {
+        "ep": "ep15",
+        "name": "横転と機首上げの瞬間（コースの上空で、急に機首を上げて裏返りかける機体）",
+        "hypothesis": "事故の始まりの0〜1.3秒（横転→17.3G）。空の中の異様な姿勢で止める。"
+                      "観客席は遠く小さい＝Aより穏やか",
+        "look": LOOK_RENO, "frame": FRAME_RENO, "ban": BAN_RENO, "tail": TAIL_RENO,
+        "scene": (
+            "September 16, 2011, about 4:24 in the afternoon, the Reno air races at Stead "
+            "airfield, Nevada. " + RENO_PLANE +
+            "At racing speed, low over the desert race course, it has suddenly rolled far to "
+            "the left, past vertical, and at the same instant pitched violently NOSE-UP, its "
+            "tail-wheel hanging down — the whole airplane twisted into a wrong, uncontrolled "
+            "attitude against the deep-blue sky. Nothing has broken off it; it is intact. "
+            "It fills the centre of the middle band, seen from the ground with a telephoto "
+            "lens. Far below and behind it, small and distant along the lower middle of the "
+            "frame, a tall race-course pylon marker and the long covered grandstands of the "
+            "airfield. "
+        ),
+    },
+})
+
+
 def build(v):
     """🔴 質感（look）と締め（tail）は**場面ごとに差し替えられる**（2026-09-22 追加）。
 
@@ -336,6 +436,8 @@ def main():
 
     from PIL import Image
     im = Image.open(io.BytesIO(base64.b64decode(data["data"][0]["b64_json"]))).convert("RGB")
+    # 🆕 15本目（2026-09-30）：生成の原寸も残す（14本目は 1280x720 に縮めた版しか残らず、寄ると細部が甘かった）
+    im.save(out / f"{ep}_{v}_orig.png")
     w, h = im.size
     target = w * 9 / 16
     if h > target:

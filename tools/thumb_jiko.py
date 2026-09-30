@@ -1298,9 +1298,26 @@ def ep15():
         bake(f"ep15_{nm}", fx_type(hero[nm.rsplit('_', 1)[1]], red, YEL, "e_veil", yel_plain=True))
 
 
+def ep15_ai():
+    """15本目・地だけ生成（2026-09-30 カズヤくん「もっとショッキングで目をひくものに。なければ事故の瞬間を再現したような
+    イラストを OpenAI API で生成」→ 写真を探し直して無し → 具体案 A（落ちる直前の1秒）・報道写真風を承認）。
+
+    地＝`tools/gen_thumb_ai.py reno_a`（`ref/ep15/ai/ep15_reno_a.jpg`・gpt-image-2.5-flare high）。
+    赤＝c「犠牲11人 改造機が観客席へ」（09-30 カズヤくん決定）・黄は ep15 と同じ。
+    🔴 この地は**サムネだけ**。本編に入れない。概要欄に「生成AIのイメージ」の断り書き（`qa_out/ep15_meta.py`）。
+    ⚠️ 名前は `_kaizou.png` で終える＝概要欄の道具の断り書き（生成AI）の条件。
+    """
+    hero = photo("ep15/ai/ep15_reno_a.jpg", cy=0.50, cx=0.50,
+                 contrast=1.08, color=1.04, bright=1.00)
+    bake("ep15ai_c_kaizou", fx_type(hero, "犠牲11人 改造機が観客席へ", "リノ・エアレース墜落の真相",
+                                    "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep15" in sys.argv:
+    if "ep15-ai" in sys.argv:
+        ep15_ai()
+    elif "ep15" in sys.argv:
         ep15()
     elif "ep14-ai-zoom" in sys.argv:
         ep14_ai_zoom()
