@@ -92,6 +92,38 @@ PLAN = {
 
 SPEC = {
 
+    # ── 🔴 ⑤b-6（2026-09-30）：頁（`qa_out/ep15_assets.py`・切り口はカットごと＝目印の語の行を真ん中に）──
+    # 報告書 1.11.1（p35）＝「…based and maintained at Leeward Air Ranch Airport, Ocala, Florida」の行を真ん中に（c409 と同じ頁の下）
+    "c601": dict(
+        t="運用の制限",
+        s="報告書 1.11.1（基地はフロリダ州オカラ）",
+        photo=ss.page(35), trim=ss.ptrim("c601"), panel=True, color=1.0,
+    ),
+    # 報告書（p36）＝「Telemetry data showed that about 23 minutes of flight time…」の行を真ん中に
+    "c608": dict(
+        t="試験飛行の記録",
+        s="報告書 1.11.1（テレメトリーの記録）",
+        photo=ss.page(36), trim=ss.ptrim("c608"), panel=True, color=1.0,
+    ),
+    # 報告書（p15）＝本人が署名した記録簿の文の引用（「…controllable throughout its normal range of speeds…」）
+    "c611": dict(
+        t="記録簿の文",
+        s="本人が署名した記録簿の文（報告書の引用）",
+        photo=ss.page(15), trim=ss.ptrim("c611"), panel=True, color=1.0,
+    ),
+    # 報告書 1.11.3（p37）＝「On the 2010 and 2011 entry documents, "no" was circled」の行を真ん中に
+    "c618": dict(
+        t="参加の書類",
+        s="大きな改造の問いへの答え（報告書）",
+        photo=ss.page(37), trim=ss.ptrim("c618"), panel=True, color=1.0,
+    ),
+    # 報告書の分析（p51）＝「…submitted such inaccurate information to RARA」の行を真ん中に
+    "c624": dict(
+        t="不正確",
+        s="報告書の分析　参加の書類の申告について",
+        photo=ss.page(51), trim=ss.ptrim("c624"), panel=True, color=1.0,
+    ),
+
     # ── 🔴 ⑤b-5（2026-09-30）：型の使い回し（14本目の `qty` 棒・`axis` 年表・`boxes` 流れ図と書類の再現図）──
     # 試験の飛行の時間（分）の棒＝c606（求められた 180）→ c609（多く見積もっても 100）→ c612（テレメトリーの記録 23）。
     #   行の並びは群で決めた（3行ぶんの場所を最初から取る＝カットをまたいで棒の位置が動かない）。数は字幕

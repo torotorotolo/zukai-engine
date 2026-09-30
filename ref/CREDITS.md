@@ -1924,3 +1924,74 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 | `pg1136` | （章ファイル） | 2014 | 公共ヌリの表示なし＝引用（紙面をそのまま・出典） | 海洋安全審判院 | kmst_sewol.pdf PDF 136頁 |
 | `pg2003` | （章ファイル） | 2026 | 一覧の頁の表示は公共ヌリ第4類型（改変禁止）＝引用（紙面をそのまま・出典） | 中央海洋安全審判院 | later/kmst_2026_001_central_verdict.pdf PDF 3頁 |
 | `pg2089` | （章ファイル） | 2026 | 一覧の頁の表示は公共ヌリ第4類型（改変禁止）＝引用（紙面をそのまま・出典） | 中央海洋安全審判院 | later/kmst_2026_001_central_verdict.pdf PDF 89頁 |
+
+## リノ・エアレース墜落事故（2011-09-16・15本目）
+
+※2026-09-30（⑤b-6）。`qa_out/ep15_assets.py credits --write` が書く（手で直さない）。
+
+### 1. 写真（Wikimedia Commons ＝ CC BY-SA は**額装・無改変・1点1カット**／CC BY）・報告書の courtesy の写真（紙面の引用）・報告書と資料の頁
+BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許諾の URL は概要欄で）。
+
+- 🔴 **報告書の courtesy の写真（図5〜10・15・17）＝紙面の引用**（ルール §2-6c・09-25 カズヤくん）：写真だけを切り出さず、**図・説明の行・撮影者の行まで**を紙面のまま（`pg<頁>_fig<NN>`）。額装・寄り0・色を変えない・1点1カット。画面の出典＝撮影者名と NTSB（「引用・無改変」）
+- 🔴 **tataquax（日本の観客＝私人）の撮影時刻は EXIF が日本時間のまま＝現地は −16時間**（推定・materials.md §3-0）。副題は「事故のレースの離陸／周回中」まで（「事故の◯秒前」と書かない）。撮影者名は Flickr の名前だけ
+- 🔴 観客・整備の人は私人＝顔と名前は出さない。CC BY の2010年の2点（`gg_nose_2010`・`gg_pit_2010`）は**顔だけモザイク**（09-30 カズヤくん「顔面のみのモザイク加工」＝元画像を直す・`cuts/ss.py` の `NEEDS_MASK`・`masked.json` に md5）。BY-SA はモザイク自体が翻案＝かけない（近景の私人の顔が写る点は使わない・中景の小さな人は §B2-2 のとおり使う）
+- 来歴の3点（Bill Larkins）の撮影年は題名の「69」「70」（Commons の日付 2011 は取り込みの年）
+- 動く映像は使わない（【映像あり】なし＝09-25 カズヤくん）。Googleアースは使わない（09-30 カズヤくん＝地図に替えた）
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `gg_below_race` | c205 | 2011 | CC BY-SA 2.0 | tataquax | Wikimedia Commons「Reno Air Races 2011 (6452065839).jpg」　https://commons.wikimedia.org/wiki/File:Reno_Air_Races_2011_(6452065839).jpg |
+| `gg_takeoff_race` | c208 | 2011 | CC BY-SA 2.0 | tataquax | Wikimedia Commons「Reno Air Races 2011 (6452065605).jpg」　https://commons.wikimedia.org/wiki/File:Reno_Air_Races_2011_(6452065605).jpg |
+| `gg_taxi_0915` | c401 | 2011 | CC BY-SA 2.0 | tataquax | Wikimedia Commons「Jimmy Leeward's Galloping Ghost at 2011 Reno Air Races.jpg」　https://commons.wikimedia.org/wiki/File:Jimmy_Leeward's_Galloping_Ghost_at_2011_Reno_Air_Races.jpg |
+| `gg_nose_0916` | c419 | 2011 | CC BY-SA 2.0 | tataquax | Wikimedia Commons「Reno Air Races 2011 (6452063939).jpg」　https://commons.wikimedia.org/wiki/File:Reno_Air_Races_2011_(6452063939).jpg |
+| `gg_pit_0914` | c504 | 2011 | CC BY-SA 2.0 | tataquax | Wikimedia Commons「Reno Air Races 2011 (6452062347).jpg」　https://commons.wikimedia.org/wiki/File:Reno_Air_Races_2011_(6452062347).jpg |
+| `strega_taxi` | c207 | 2011 | CC BY-SA 2.0 | tataquax | Wikimedia Commons「Reno Air Races 2011 (6361173745).jpg」　https://commons.wikimedia.org/wiki/File:Reno_Air_Races_2011_(6361173745).jpg |
+| `voodoo_taxi` | c203 | 2011 | CC BY-SA 2.0 | tataquax | Wikimedia Commons「Reno Air Races 2011 (6450673359).jpg」　https://commons.wikimedia.org/wiki/File:Reno_Air_Races_2011_(6450673359).jpg |
+| `strega_takeoff` | c202 | 2011 | CC BY-SA 2.0 | tataquax | Wikimedia Commons「Reno Air Races 2011 (6361174323).jpg」　https://commons.wikimedia.org/wiki/File:Reno_Air_Races_2011_(6361174323).jpg |
+| `strega_below` | c219 | 2011 | CC BY-SA 2.0 | tataquax | Wikimedia Commons「Reno Air Races 2011 (6361174465).jpg」　https://commons.wikimedia.org/wiki/File:Reno_Air_Races_2011_(6361174465).jpg |
+| `voodoo_below` | c318 | 2011 | CC BY-SA 2.0 | tataquax | Wikimedia Commons「Reno Air Races 2011 (6450673505).jpg」　https://commons.wikimedia.org/wiki/File:Reno_Air_Races_2011_(6450673505).jpg |
+| `stands_0916` | c801 | 2011 | CC BY-SA 2.0 | tataquax | Wikimedia Commons「Reno Air Races 2011 (6179482685).jpg」　https://commons.wikimedia.org/wiki/File:Reno_Air_Races_2011_(6179482685).jpg |
+| `pylon_0916` | c204 | 2011 | CC BY-SA 2.0 | tataquax | Wikimedia Commons「Reno Air Races 2011 (6225303046).jpg」　https://commons.wikimedia.org/wiki/File:Reno_Air_Races_2011_(6225303046).jpg |
+| `candace_1969` | c405 | 1969 | CC BY-SA 2.0 | Bill Larkins | Wikimedia Commons「P-51n79111side69 (5658262832).jpg」　https://commons.wikimedia.org/wiki/File:P-51n79111side69_(5658262832).jpg |
+| `taxi_1970` | c406 | 1970 | CC BY-SA 2.0 | Bill Larkins | Wikimedia Commons「P-51n79111side70 (5658262932).jpg」　https://commons.wikimedia.org/wiki/File:P-51n79111side70_(5658262932).jpg |
+| `damage_1970` | c407 | 1970 | CC BY-SA 2.0 | Bill Larkins | Wikimedia Commons「P-51 N79111 after damage 1970 (6161387830).jpg」　https://commons.wikimedia.org/wiki/File:P-51_N79111_after_damage_1970_(6161387830).jpg |
+| `gg_nose_2010` | c417 | 2010 | CC BY 2.0 | jeggernot | Wikimedia Commons「Galloping Ghost.jpg」　https://commons.wikimedia.org/wiki/File:Galloping_Ghost.jpg |
+| `gg_pit_2010` | c416 | 2010 | CC BY 2.0 | jeggernot | Wikimedia Commons「GallopingGhost 2010-09-18.jpg」　https://commons.wikimedia.org/wiki/File:GallopingGhost_2010-09-18.jpg |
+| `stead_2009` | c112 | 2009 | CC BY-SA 2.0 | Shawn from Airdrie | Wikimedia Commons「Reno Stead Field (3392833169).jpg」　https://commons.wikimedia.org/wiki/File:Reno_Stead_Field_(3392833169).jpg |
+| `seminar_2016` | c906 | 2016 | CC BY 4.0 | Don Ramey Logan | Wikimedia Commons「2016 National Championship Air Races Pylon Racing Seminar by Don Ramey Logan.jpg」　https://commons.wikimedia.org/wiki/File:2016_National_Championship_Air_Races_Pylon_Racing_Seminar_by_Don_Ramey_Logan.jpg |
+| `pg23_fig05` | c301 | 2011 | 引用（NTSB 報告書の紙面に載った courtesy の写真） | Jonathan Apfelbaum | NTSB AAB-12/01（2012年）PDF 23頁 図5　https://www.ntsb.gov/investigations/AccidentReports/Reports/AAB1201.pdf |
+| `pg24_fig06` | c306 | 2011 | 引用（NTSB 報告書の紙面に載った courtesy の写真） | Jonathan Apfelbaum | NTSB AAB-12/01（2012年）PDF 24頁 図6　https://www.ntsb.gov/investigations/AccidentReports/Reports/AAB1201.pdf |
+| `pg25_fig07` | c309 | 2011 | 引用（NTSB 報告書の紙面に載った courtesy の写真） | Jonathan Apfelbaum | NTSB AAB-12/01（2012年）PDF 25頁 図7　https://www.ntsb.gov/investigations/AccidentReports/Reports/AAB1201.pdf |
+| `pg26_fig08` | c310 | 2011 | 引用（NTSB 報告書の紙面に載った courtesy の写真） | Jonathan Apfelbaum | NTSB AAB-12/01（2012年）PDF 26頁 図8　https://www.ntsb.gov/investigations/AccidentReports/Reports/AAB1201.pdf |
+| `pg27_fig09` | c311 | 2011 | 引用（NTSB 報告書の紙面に載った courtesy の写真） | Frank Ranney | NTSB AAB-12/01（2012年）PDF 27頁 図9　https://www.ntsb.gov/investigations/AccidentReports/Reports/AAB1201.pdf |
+| `pg27_fig10` | c103 | 2011 | 引用（NTSB 報告書の紙面に載った courtesy の写真） | Julia Kirchenbauer | NTSB AAB-12/01（2012年）PDF 27頁 図10　https://www.ntsb.gov/investigations/AccidentReports/Reports/AAB1201.pdf |
+| `pg33_fig15` | c520 | 2011 | 引用（NTSB 報告書の紙面に載った courtesy の写真） | Florian Schmehl | NTSB AAB-12/01（2012年）PDF 33頁 図15　https://www.ntsb.gov/investigations/AccidentReports/Reports/AAB1201.pdf |
+| `pg34_fig17` | c521 | 2011 | 引用（NTSB 報告書の紙面に載った courtesy の写真） | Florian Schmehl | NTSB AAB-12/01（2012年）PDF 34頁 図17　https://www.ntsb.gov/investigations/AccidentReports/Reports/AAB1201.pdf |
+| `pg1` | c110 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 1頁 |
+| `pg12` | c402 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 12頁 |
+| `pg13` | c503 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 13頁 |
+| `pg14` | c501 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 14頁 |
+| `pg15` | c507 c611 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 15頁 |
+| `pg17` | c818 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 17頁 |
+| `pg20` | c211 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 20頁 |
+| `pg28` | c304 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 28頁 |
+| `pg29` | c308 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 29頁 |
+| `pg31` | c707 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 31頁 |
+| `pg32` | c105 c708 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 32頁 |
+| `pg35` | c409 c601 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 35頁 |
+| `pg36` | c608 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 36頁 |
+| `pg37` | c618 c703 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 37頁 |
+| `pg43` | c901 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 43頁 |
+| `pg51` | c624 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 51頁 |
+| `pg52` | c724 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 52頁 |
+| `pg1034` | c706 | 2012 | PD（米連邦の職務著作） | NTSB | ntsb_docket_40_materials_lab_12-029.pdf PDF 34頁 |
+| `pg1036` | c710 | 2012 | PD（米連邦の職務著作） | NTSB | ntsb_docket_40_materials_lab_12-029.pdf PDF 36頁 |
+| `pg1037` | c713 | 2012 | PD（米連邦の職務著作） | NTSB | ntsb_docket_40_materials_lab_12-029.pdf PDF 37頁 |
+| `pg1038` | c714 | 2012 | PD（米連邦の職務著作） | NTSB | ntsb_docket_40_materials_lab_12-029.pdf PDF 38頁 |
+| `pg1041` | c718 | 2012 | PD（米連邦の職務著作） | NTSB | ntsb_docket_40_materials_lab_12-029.pdf PDF 41頁 |
+| `pg2009` | c209 | 2012 | PD（米連邦の職務著作・図の下地の空撮は出どころ未記載＝頁ごとの引用） | NTSB | ntsb_docket_33_survival_factors_operations_factual.pdf PDF 9頁 |
+| `pg2015` | c814 | 2012 | PD（米連邦の職務著作・図の下地の空撮は出どころ未記載＝頁ごとの引用） | NTSB | ntsb_docket_33_survival_factors_operations_factual.pdf PDF 15頁 |
+| `pg2019` | c805 | 2012 | PD（米連邦の職務著作・図の下地の空撮は出どころ未記載＝頁ごとの引用） | NTSB | ntsb_docket_33_survival_factors_operations_factual.pdf PDF 19頁 |
+| `pg3014` | c317 | 2012 | PD（米連邦の職務著作・図の下地は Google Earth＝頁ごとの引用） | NTSB | ntsb_docket_14_data_recorders_factual.pdf PDF 14頁 |
+| `pg4021` | c319 | 2012 | PD（米連邦の職務著作） | NTSB | ntsb_docket_53_aircraft_performance_study.pdf PDF 21頁 |
+| `pg6001` | c902 | 2012 | PD（米連邦の職務著作） | NTSB | ntsb_recletter_A-12-008.pdf PDF 1頁 |

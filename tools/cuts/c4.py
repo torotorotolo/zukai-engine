@@ -80,6 +80,64 @@ PLAN = {
 
 SPEC = {
 
+    # ── 🔴 ⑤b-6（2026-09-30）：写真と頁の束（`qa_out/ep15_assets.py`）──
+    # A6＝前日（9/15 現地）・地上を走る事故機（「177」）。人物は操縦席だけ（顔は見えない＝②の台帳）
+    "c401": dict(
+        t="事故機",
+        s="2011年9月15日　地上を走る事故機（観客の撮影）",
+        photo=P("gg_taxi_0915"), panel=True, color=1.0,
+    ),
+    # 報告書 1.3「機体の情報」（p12）＝「The P-51D variant entered production in April 1944」の行を真ん中に
+    "c402": dict(
+        t="機体の来歴",
+        s="報告書 1.3　機体の情報",
+        photo=ss.page(12), trim=ss.ptrim("c402"), panel=True, color=1.0,
+    ),
+    # C1（Bill Larkins・BY-SA 2.0）＝1969年の「Miss Candace」「69」（撮影年は題名の「69」）
+    "c405": dict(
+        t="1969年の姿",
+        s="1969年　番号69の「ミス・キャンディス」",
+        photo=P("candace_1969"), panel=True, color=1.0,
+    ),
+    # C2＝1970年のタキシング（題名の「70」）
+    "c406": dict(
+        t="改造の歴史",
+        s="1970年　地上を走る番号69の機体",
+        photo=P("taxi_1970"), panel=True, color=1.0,
+    ),
+    # C3＝格納庫の中・胴体の下が壊れた状態（題名「after damage 1970」）。⚠️ 胴体着陸の損傷かは写真だけで決められない
+    #   ＝副題は題名の言葉まで（④' の訂正＝materials.md §11）
+    "c407": dict(
+        t="壊れたあと",
+        s="1970年　損傷のあとの機体（写真の題名から）",
+        photo=P("damage_1970"), panel=True, color=1.0,
+    ),
+    # 報告書 1.11.1（p35）＝「received a special airworthiness certificate」の行を真ん中に
+    "c409": dict(
+        t="特別耐空証明",
+        s="報告書 1.11.1　FAAの決まり",
+        photo=ss.page(35), trim=ss.ptrim("c409"), panel=True, color=1.0,
+    ),
+    # C5（jeggernot・CC BY 2.0）＝2010年9月18日・ピットの事故機（「177」）。🔴 手前の人・テントの人の顔＝顔だけモザイク
+    #   （09-30 カズヤくん・元画像を直す＝`ss.NEEDS_MASK`・`qa_out/ep15_assets.py` の MASK）
+    "c416": dict(
+        t="21年ぶりのリノ",
+        s="2010年9月18日　ピットの事故機",
+        photo=P("gg_pit_2010"), **ss.kind(P("gg_pit_2010")),
+    ),
+    # C4（jeggernot・CC BY 2.0）＝2010年9月18日・ピットの機首。🔴 整備の人と周りの人の顔＝顔だけモザイク（元画像を直す）
+    "c417": dict(
+        t="事故機の機首",
+        s="2010年9月18日　ピットの事故機の機首",
+        photo=P("gg_nose_2010"), **ss.kind(P("gg_nose_2010")),
+    ),
+    # B5＝事故の日の朝（9/16 現地 07:59）・ピットの機首「THE GALLOPING GHOST」
+    "c419": dict(
+        t="事故の日の朝",
+        s="2011年9月16日の朝　ピットの機首（観客の撮影）",
+        photo=P("gg_nose_0916"), panel=True, color=1.0,
+    ),
+
     # ── 🔴 ⑤b-5（2026-09-30）：年表（14本目の `axis` date＝c324 と同じ軸 AX_HIST）と書類の再現図（`boxes` form）──
     # 前の点は沈んだ色で残す（past）。事故（2011年）は右の端にいつも沈んで残る
     "c404": dict(

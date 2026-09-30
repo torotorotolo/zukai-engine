@@ -92,6 +92,45 @@ PLAN = {
 
 SPEC = {
 
+    # ── 🔴 ⑤b-6（2026-09-30）：写真と頁の束（`qa_out/ep15_assets.py`）──
+    # 報告書の図2（p14）＝事故機の図にふつうの P-51D の寸法を赤で（語りが「報告書の図2」と呼ぶ）
+    "c501": dict(
+        t="報告書の図2",
+        s="改造のあとの形と、もとの寸法（赤）",
+        photo=ss.page(14), trim=ss.ptrim("c501"), panel=True, color=1.0,
+    ),
+    # 報告書 1.3.1（p13）＝「Each aileron was shortened to about 3 feet」の行を真ん中に
+    "c503": dict(
+        t="改造の節",
+        s="報告書 1.3.1　補助翼と水平尾翼",
+        photo=ss.page(13), trim=ss.ptrim("c503"), panel=True, color=1.0,
+    ),
+    # B6＝事故の週（9/14 現地）・ピットの事故機の全身（左に人2人＝遠景）
+    "c504": dict(
+        t="事故の週の事故機",
+        s="2011年9月14日　ピットの事故機（観客の撮影）",
+        photo=P("gg_pit_0914"), panel=True, color=1.0,
+    ),
+    # 報告書（p15）＝「…ground crew were aware of any detailed drawings」の行を真ん中に（改造の理由が分からない）
+    "c507": dict(
+        t="改造の理由",
+        s="報告書　改造の図面や計算について",
+        photo=ss.page(15), trim=ss.ptrim("c507"), panel=True, color=1.0,
+    ),
+    # 図15（p33・写真 Florian Schmehl）＝事故のレース中の右の胴体の斜めのしわ（紙面の引用）
+    "c520": dict(
+        t="報告書の図15",
+        s="事故のレース中の右の胴体（斜めのしわ）",
+        photo=P("pg33_fig15"), panel=True, color=1.0,
+    ),
+    # 図17（p34・写真 Florian Schmehl）＝飛んでいるときの覆いと風よけのすき間（紙面の引用）。
+    #   ⚠️ PLAN は「図16・17」＝語りは覆いのすき間だけ（図17）・左の胴体のしわ（図16）は c520 の話と重なる＝図17 だけ（推奨で決めた）
+    "c521": dict(
+        t="報告書の図17",
+        s="飛んでいるときの覆いと風よけのすき間",
+        photo=P("pg34_fig17"), panel=True, color=1.0,
+    ),
+
     # ── 🔴 ⑤b-5（2026-09-30）：書類の再現図（14本目の `boxes` form）──
     # 第6章への橋：記録簿の 2009年9月22日の書き込み（本人の署名「The prescribed flight test hours have been completed」＝AAB p15）。
     #   決め所 c610 で同じ文を引く（ここは欄の形で「終えた」だけ）
