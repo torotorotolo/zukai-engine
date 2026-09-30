@@ -348,4 +348,26 @@ SPEC = {
                         tag=dict(t="観客席（ボックス席）", at="box", off=(60, -120), keep=True, delay=0.8)),
                    dict()])),
     ),
+
+    # ── 🔴 ⑤b-7（2026-09-30）：決め所 ──
+    # 決め所⑫（台本 §2 #12）。AAB p37 技術検査の用紙の備考「elev trim tab screws too short, area washer in L/H wheel well」
+    #   （前半の訳・2011年9月12日に承認）
+    "c702": dict(
+        t="4日前の技術検査",
+        s="2011年9月12日",
+        fig=("quote", dict(
+            phrase=["技術検査「トリムタブの", "ねじが短すぎる」"],
+            rows=[("記録", "NTSB 事故報告 AAB-12/01（2012年）", J.INK_W),
+                  ("書かれた所", "技術検査の用紙の備考", J.LINE),
+                  ("頁", "PDF 37頁", J.TICK)], paper=True)),
+    ),
+    # 決め所⑬（台本 §2 #13）。AAB p41 §2.4「the locknuts had likely been installed for at least 26 years」（黄色の塗装＝1985年より前）
+    "c711": dict(
+        t="ナットの年数",
+        s="黄色の塗装から",
+        fig=("quote", dict(
+            phrase=["ナットは26年以上", "付いていた可能性が高い"],
+            rows=[("記録", "NTSB 事故報告 AAB-12/01（2012年）", J.INK_W),
+                  ("頁", "PDF 41頁（分析）", J.TICK)], paper=True)),
+    ),
 }

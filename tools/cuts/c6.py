@@ -207,4 +207,96 @@ SPEC = {
                          steps=[dict(add=ss.qb("recent_form")), dict(add=ss.qb("recent_log")), dict()],
                          note="記録簿の値は、組み立て（2009年）から2011年7月の検査までの合計", src=ss.src(["AAB p51"]))),
     ),
+
+    # ── 🔴 ⑤b-7（2026-09-30）：地図（`ss.fla_map`・`ss.usa_map`）・決め所・パネル ──
+    # 地図：運用の制限＝基地から半径100マイル（AAB p35「proficiency flights were to be conducted within a 100-mile radius of
+    #   that airport, with a special allowance for proficiency flights to be conducted en route to air shows or air races」）。
+    #   1行目＝円と半径の寸法線・「決められた基地」／2行目＝外へ出る矢印（向かう途中は例外・向きはリノの方角＝模式）
+    "c602": dict(
+        t="練習の飛行の範囲",
+        s="運用の制限",
+        fig=ss.fla_map([
+            ss.merge(ss.CIRCLE, dict(dim=dict(a="reno_ocala", b="ocala_r", t="約161キロ"),
+                                     tag=dict(at="reno_ocala", t="決められた基地", side="below"))),
+            dict(arrow=dict(a="reno_ocala", b="fl_out"), tag=dict(at="fl_out", t="向かう途中は例外", side="left"))]),
+    ),
+    # 地図：機体の居場所（AAB p49「not been based in Ocala, Florida, since April 2007 … remained based in Minden, Nevada」）。
+    #   1行目（聞き役の問い）＝オカラの円（半径100マイル・この縮尺では小さい）／2行目＝2007年4月から不在／3行目＝2009年からネバダ
+    "c603": dict(
+        t="機体の居場所",
+        s="運用の制限と比べて",
+        # ⚠️ 下見（09-30）：この縮尺の円は半径約46画素＝オカラを輪の地点にすると町の名と札が円の線に重なった
+        #    ＝オカラは輪を描かず、円の下に名と札・円の上に「不在」
+        fig=ss.usa_map([
+            ss.merge(ss.CIRCLE, dict(tag=dict(at="reno_ocala", t="オカラ（決められた基地）", side="below"))),
+            dict(tag=dict(at="reno_ocala", t="2007年4月〜 不在", side="above")),
+            dict(tag=dict(at="reno_minden", t="2009年〜 ネバダ州", side="left"))],
+            places=["reno_minden", dict(k="reno_stead", side="above")],
+            note="模式図：町は緯度経度から。円は半径約161キロ（100マイル・オカラの町の中心から）",
+            recs=("AAB p35", "AAB p49", "#17 p7008"), rel=ss.FLA_REL),
+    ),
+    # 大きな改造のあとの決まり（AAB p36）：基地を受け持つFAAの地方の事務所に届ける・書面の返事を受け取るまで飛ばない
+    "c604": dict(
+        t="大きな改造のあと",
+        s="運用の制限（報告書 36頁）",
+        fig=("panel", dict(
+            blocks=[dict(k="届け先", t="FAAの地方の事務所", c=J.INST),
+                    dict(k="飛べるのは", t="書面の返事のあと", c=J.AMBER)],
+            cols=2)),
+    ),
+    # 届けたのは冷却装置だけ（AAB p36・p49 注47）：2009年の冷却装置の1件・届け先はリノの事務所／ほかは記録なし
+    "c605": dict(
+        t="届けの記録",
+        s="報告書 36頁・49頁",
+        fig=("panel", dict(
+            blocks=[dict(k="2009年", t="冷却装置の1件", v="リノの事務所へ", c=J.OK),
+                    dict(k="ほかの大きな改造", t="記録なし", c=J.ALERT)],
+            cols=2)),
+    ),
+    # 決め所⑨（台本 §2 #9）。AAB p15「The prescribed flight test hours have been completed」（2009-09-22・本人の署名）
+    "c610": dict(
+        t="記録簿の署名",
+        s="組み立てのあと",
+        fig=("quote", dict(
+            phrase=["記録簿「規定の", "試験飛行時間を終えた」"],
+            rows=[("誰が", "パイロット本人（署名）", J.INK_W),
+                  ("日付", "2009年9月22日", J.LINE),
+                  ("頁", "報告書 PDF 15頁（引用）", J.TICK)], paper=True)),
+    ),
+    # 実験機の飛行試験（14 CFR 91.319(b)・AAB p35・p50）
+    "c613": dict(
+        t="実験機の決まり",
+        s="14 CFR 91.319(b)",
+        fig=("panel", dict(
+            blocks=[dict(k="安全を示すまで", t="決められた空域の中", c=J.INST),
+                    dict(k="事故機の飛行試験", t="レースの速さとG", v="確認なし", c=J.ALERT)],
+            cols=2)),
+    ),
+    # 届けていれば（AAB p50）：取り入れ口・おもり・右の板の固定＝届けた記録なし／FAAはおそらく、もっと重い試験を求めた
+    "c614": dict(
+        t="届けていれば",
+        s="報告書 50頁",
+        fig=("panel", dict(
+            blocks=[dict(k="届けていない改造", t="取り入れ口・おもり・右の板", c=J.ALERT),
+                    dict(k="FAAは", t="重い試験を求めた", v="おそらく", c=J.AMBER)],
+            cols=2)),
+    ),
+    # 決め所⑩（台本 §2 #10）。AAB p51 §2.7「should not have been eligible to race the airplane in the 2010 or 2011 NCAR」
+    "c619": dict(
+        t="出場の資格",
+        s="報告書の分析",
+        fig=("quote", dict(
+            phrase="2010年と11年は、本来資格が無かった",
+            rows=[("記録", "NTSB 事故報告 AAB-12/01（2012年）", J.INK_W),
+                  ("頁", "PDF 51頁（分析）", J.TICK)], paper=True)),
+    ),
+    # 決め所⑪（台本 §2 #11）。AAB p51「it is unclear why he submitted such inaccurate information to RARA」
+    "c623": dict(
+        t="申告の食い違い",
+        s="理由について",
+        fig=("quote", dict(
+            phrase=["なぜ不正確な情報を", "出したのかは、不明"],
+            rows=[("記録", "NTSB 事故報告 AAB-12/01（2012年）", J.INK_W),
+                  ("頁", "PDF 51頁（分析）", J.TICK)], paper=True)),
+    ),
 }

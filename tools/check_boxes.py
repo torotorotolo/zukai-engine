@@ -48,6 +48,13 @@ REC_OTHER_ROLE = {
     "観客へ避難の案内": {"AAB p20"},            # provided clear evacuation procedures guidance to the crowd
     "救護の人を手伝う": {"AAB p20"},            # assisted first responders
     "医療の応援を頼む": {"AAB p20"},            # requested additional help from medical staff on scene
+    # 🆕 ⑤b-7（2026-09-30）：3つの問いの答え（c918）と、事故の前にあった手がかり
+    "先に折れたリンク": {"AAB p52"},            # failure of the left trim tab link assembly（p28 の表＝0.56秒に板が21度以上）
+    "ゆるんだねじ": {"AAB p52"},                # allowed the trim tab attachment screws to become loose
+    "食い違った2つの資料": {"AAB p17"},         # A comparison of the two FAA guidance documents revealed …
+    "26年以上のナット": {"AAB p41"},            # the locknuts had likely been installed for at least 26 years
+    "「ねじが短すぎる」": {"AAB p37"},          # "elev trim tab screws too short"（技術検査の用紙の備考）
+    "記録簿の「終えた」": {"AAB p15"},          # The prescribed flight test hours have been completed
 }
 REC_CRIME = {}
 REC_VERDICT = {}   # (役職, 罪名, 列) → (結果, 頁)
@@ -57,7 +64,9 @@ REC_UNANIMOUS = set()
 HEADS = set()
 # 🆕 15本目：報告書の鎖（AAB p52 の推定原因）・実況の担当（p20）・2010年の成績（p38）の箱の言葉
 REC_MECH = {"ナットの劣化", "ねじのゆるみ", "かたさが落ちる", "板の震え", "棒が折れる", "リンクが折れる", "機首上げ",
-            "実況の担当", "いちばん下の組", "勝ち上がる", "ゴールドのレース"}
+            "実況の担当", "いちばん下の組", "勝ち上がる", "ゴールドのレース",
+            # 🆕 ⑤b-7：c918 の上の段＝c109 の3つの問いの名（台本 c109 の画）と、手がかりの見出し（台本 c918 の3行目）
+            "9秒に何が起きたか", "なぜ板は震えたか", "観客席との距離", "事故の前の手がかり"}
 REC_CHIP = {"風で中止": {"AAB p38"}}           # that race was cancelled due to wind
 # 🆕 15本目：書類の再現図（表題 → 欄の名・行き来の箱・欄の値＝記録の文にある値だけ・頁）
 REC_FORM = {

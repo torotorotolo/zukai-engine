@@ -299,4 +299,63 @@ SPEC = {
                          rel=[dict(t="約741キロ", src="AAB p43（400ノットの換算）")],
                          note="模式（輪郭は報告書の図2から・揺れの印と補助翼の角度は模式）", src="NTSB 事故報告 AAB-12/01 PDF 13・43頁")),
     ),
+
+    # ── 🔴 ⑤b-7（2026-09-30）：決め所とパネル（案B で文字のまま＝映像方針 §11-3）──
+    # 決め所⑦（台本 §2 #7）。AAB p15 §1.3.1「The reasons for many of the modifications could not be established」
+    "c506": dict(
+        t="改造の理由",
+        s="報告書 1.3.1",
+        fig=("quote", dict(
+            phrase="多くの改造の理由は、確かめられなかった",
+            rows=[("記録", "NTSB 事故報告 AAB-12/01（2012年）", J.INK_W),
+                  ("頁", "PDF 15頁（改造の節）", J.TICK)], paper=True)),
+    ),
+    # 決め所⑧（台本 §2 #8）。AAB p42 §2.5「in a scenario involving the failure of one tab in a two-tab system, the pilot could
+    #   have maintained consciousness and regained control of the airplane」（conceivable を強めない）
+    "c515": dict(
+        t="ふつうの作りなら",
+        s="2枚の板の作り",
+        fig=("quote", dict(
+            phrase="板が2枚なら、立て直せた可能性もある",
+            rows=[("記録", "NTSB 事故報告 AAB-12/01（2012年）", J.INK_W),
+                  ("頁", "PDF 42頁（分析）", J.TICK)], paper=True)),
+    ),
+    # スティレット（AAB p15）：整備の仲間の話＝パイロットは昔のレース機「スティレット」に似せたかった
+    "c517": dict(
+        t="手本にした機",
+        s="報告書 15頁",
+        fig=("panel", dict(
+            blocks=[dict(k="手本", t="スティレット", v="昔のレース機", c=J.AMBER),
+                    dict(k="誰の話", t="整備の仲間", c=J.INST)],
+            cols=2)),
+    ),
+    # スティレットの飛行試験（AAB p15 注13）：翼と水平尾翼を縮めた・動く板は左だけ／1985年の記事＝震えまで確かめた試験
+    "c518": dict(
+        t="スティレットの試験",
+        s="報告書 15頁の注13",
+        fig=("panel", dict(
+            blocks=[dict(k="改造", t="翼と水平尾翼を縮めた", c=J.INST),
+                    dict(k="動く板", t="左だけ", c=J.INST),
+                    dict(k="1985年の記事", t="震えまで確かめた", c=J.OK)],
+            cols=3)),
+    ),
+    # 事故機に無かったもの（AAB p42）：図面・影響を確かめる飛行試験・解析
+    "c519": dict(
+        t="事故機に無かったもの",
+        s="報告書 42頁",
+        fig=("panel", dict(
+            blocks=[dict(k="図面", t="無い", c=J.ALERT),
+                    dict(k="確かめる飛行試験", t="無い", c=J.ALERT),
+                    dict(k="解析", t="無い", c=J.ALERT)],
+            cols=3)),
+    ),
+    # 見つけて直せた、とみる（AAB p43）
+    "c523": dict(
+        t="報告書の見立て",
+        s="43頁",
+        fig=("panel", dict(
+            blocks=[dict(k="入念な評価と試験", t="していれば", c=J.INST),
+                    dict(k="悪い所の多く", t="見つけて直せた", c=J.OK)],
+            cols=2)),
+    ),
 }

@@ -195,4 +195,101 @@ SPEC = {
                     dict(k="問い2", t="改造した機体に求めること", v="大会を開くなら", c=J.ALERT)],
             cols=2)),
     ),
+
+    # ── 🔴 ⑤b-7（2026-09-30）：パネル・混ざり（頁→地図）・決め所・地図・3つの問いの答え ──
+    # 安全勧告とは（CAROL A-12-08）：出す→見届ける→区切りがつくと閉じる
+    "c903": dict(
+        t="勧告の流れ",
+        s="NTSBの安全勧告",
+        fig=("panel", dict(
+            blocks=[dict(k="1", t="出す", v="変えてほしいこと", c=J.INST),
+                    dict(k="2", t="見届ける", v="対応", c=J.LINE),
+                    dict(k="3", t="閉じる", v="区切りがつくと", c=J.OK)],
+            cols=3)),
+    ),
+    # 混ざり：1行目＝頁 p46（主催の団体の返事・額装）のまま → 2行目から飛行場のまわりの地図（前と後）
+    #   （映像方針 §4・§5＝c104 と同じ入れ替え。頁を残すので第9章の写真の割合は下がらない）。
+    #   地図：コースを北へ＝矢印だけ（距離は AAB p46・CAROL A-12-14 に無い）／燃料車＝ピットの近く（AAB p19）→ 飛行場の南東の側・
+    #   主な観客席から約1.5マイル（p46）／より頑丈な柵＝ピットの西の端からボックス席を通って一般の観客席まで（p46）
+    "c904": dict(
+        t="主催の団体の返事",
+        s="2012年の大会から",
+        fig=ss.field_map([
+            dict(route=[dict(via=["sl_w", "sl_e"], col=J.INK_W, sw=4, dash=None),
+                        dict(via=["pit_w", "pit_e"], col=J.LINE, sw=6, dash=None),
+                        dict(via=["box_w", "box_e"], col=J.LINE, sw=6, dash=None)],
+                 arrow=dict(a="reno_stead", b="cn1"),
+                 tag=[dict(at="cn1", t="コースを北へ", side="right"), dict(at="box", t="観客席", side="below")]),
+            dict(move=[dict(kind="path", via=["fuel0", "fuel1"], sec=2.5)],
+                 dim=dict(a="box", b="fuel1", t="約2.4キロ"),
+                 tag=[dict(at="fuel0", t="燃料車（前）", side="left"), dict(at="fuel1", t="燃料車（後）", side="right")]),
+            dict(route=dict(via=["pbw", "grand"], col=J.OK, sw=9, dash=None),
+                 tag=dict(at="grand", t="より頑丈な柵", side="right"))]),
+        intro=dict(photo=ss.page(46), trim=ss.ptrim("c904"), panel=True, color=1.0, until=1),
+    ),
+    # 大きな改造をした機の評価（CAROL A-12-09・A-12-13）
+    "c908": dict(
+        t="改造した機体",
+        s="勧告 A-12-09・A-12-13 のあと",
+        fig=("panel", dict(
+            blocks=[dict(k="出場の条件", t="技術の評価", c=J.OK),
+                    dict(k="無制限クラスの団体", t="仕様の決まりを書き直し", c=J.OK)],
+            cols=2)),
+    ),
+    # 一から作った機との差（AAB p43）
+    "c909": dict(
+        t="それまでの差",
+        s="報告書 43頁",
+        fig=("panel", dict(
+            blocks=[dict(k="一から作った機体", t="フラッターの試験", v="対象", c=J.OK),
+                    dict(k="改造した昔の戦闘機", t="対象の外", c=J.ALERT)],
+            cols=2)),
+    ),
+    # 決め所⑯（台本 §2 #16）。NTSB から FAA への手紙（CAROL p5008・2021年7月13日）「on November 3, 2020, you cancelled
+    #   AC 91-45C because it contained mandatory language」＝改訂でなく廃止
+    "c914": dict(
+        t="通達の行方",
+        s="勧告 A-12-08 の結び",
+        fig=("quote", dict(
+            phrase="通達は直さず、2020年11月3日に廃止",
+            rows=[("記録", "NTSB 安全勧告の記録（CAROL）", J.INK_W),
+                  ("手紙", "NTSBからFAAへ（2021年7月13日）", J.LINE)], paper=True)),
+    ),
+    # 地図（Googleアースの代わり＝09-30 カズヤくん）：大会の移転（翌年もリノ＝CAROL p5013／2024年5月に発表・2025年からロズウェル＝
+    #   主催の団体 RARA の発表）。1行目＝2024年5月の発表／2行目＝ロズウェルへ動く点と「2025年から」
+    "c917": dict(
+        t="大会の移転",
+        s="開かれる場所",
+        fig=ss.usa_map([
+            # ⚠️ 最初の札「2024年5月 移転の発表」は語りの複写＝check_echo が止めた
+            dict(tag=dict(at="reno_stead", t="2024年5月に発表", side="left")),
+            dict(route=dict(via=["reno_stead", "reno_roswell"]),
+                 move=[dict(kind="path", via=["reno_stead", "reno_roswell"], sec=3.0)],
+                 tag=dict(at="reno_roswell", t="2025年から", side="right"))],
+            places=[dict(k="reno_stead", side="above"), "reno_roswell"],
+            note="模式図：地点は緯度経度から（ロズウェルは町の中心）",
+            recs=("CAROL p5013", "#17 p7008"), extra="・主催の団体 RARA の発表（2024年5月23日）"),
+    ),
+    # 3つの問いの答え（台本 c918）＝c109 の3つの問いの名を上に・1行目＝答え3つ／2行目＝区切りの線の下に、事故の前にあった
+    #   手がかり3つ（答えとは矢印でつながない＝台本は組にしていない）／3行目＝手がかりの見出し。
+    #   ⚠️ 映像方針 §4 の「模式図と2つの資料の頁を小さく戻す」は型が無い（新しい型は予算の外＝§11-3）＝箱の型の使い回しで
+    #   ⚠️ 最初の見出し「3つの問いの答え」は語りの1行目の頭と同じ＝check_echo が止めた
+    "c918": dict(
+        t="答えと手がかり",
+        s="3つの問いから",
+        fig=("boxes", dict(view="flow", layout=ss.ANS,
+                           steps=[dict(add=[ss.ANSP["a1"], ss.ANSP["a2"], ss.ANSP["a3"]] + ss.ans_links()),
+                                  dict(add=[dict(k="rule", y=585), ss.ANSP["k1"], ss.ANSP["k2"], ss.ANSP["k3"]]),
+                                  dict(add=dict(k="grp", t="事故の前の手がかり", x=160, y=640))],
+                           note="箱は報告書の言葉を短くしたもの", src=ss.src(["AAB p15", "AAB p17", "AAB p37", "AAB p41", "AAB p52"]))),
+    ),
+    # 報告書の言葉（AAB p41）：傷んだ部品を見つけて替える機会はあった
+    "c919": dict(
+        t="報告書の言葉",
+        s="41頁",
+        fig=("panel", dict(
+            blocks=[dict(k="傷んだ部品", t="見つけて替える機会", c=J.AMBER),
+                    dict(k="報告書", t="あった", c=J.DOC)],
+            cols=2)),
+    ),
 }

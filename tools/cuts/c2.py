@@ -52,7 +52,7 @@ PLAN = {
                plan='台本の画：図 p20（報告書の図3＝駐機場の配置図・事故地点・頁ごと）',
                src='AAB p19・p20'),
     "c212": dict(kind='再現イラスト',
-               plan='【案C】C：地上から、低い金属の柵の奥に観客の群れ・駐機場に燃料車1台（その日の午後＝事故の前）｜人：観客（群れ）（映像方針 §3-2）｜⚠️ 現在の空撮は c817 に残る',
+               plan='【案C】C：地上から、低い金属の柵の奥に観客の群れ・駐機場に燃料車1台（その日の午後＝事故の前）｜人：観客（群れ）（映像方針 §3-2）｜⚠️ 現在の空撮（Googleアース）は使わない＝c817 も地図（09-30 カズヤくん・⑤b-7 で注を直した）',
                src='AAB p19'),
     "c213": dict(kind='図解',
                plan='【地図】地図 drift：3つの距離（152・228・266メートル）と命令・通達（152／305メートル）＝どちらの内か／オカラ・アリゾナ・テキサス・ミンデン／オカラから半径約161キロと機体の居場所／州道395号を止める／その後の配置（コースを北へ・燃料車を約2.4キロ先へ）（映像方針 §4）｜台本の画：panel 3つの距離（152・228・266メートル）',
@@ -111,8 +111,9 @@ SPEC = {
         photo=P("gg_below_race"), panel=True, color=1.0,
     ),
     # A1＝ストレガのタキシング（9/16 現地）
+    # 🔴 09-30（⑤b-7）：見出し「前の2機」は写るのが1機だけ＝語りの「1位のストレガ」に合わせ、c318「2位の機」と対に
     "c207": dict(
-        t="前の2機",
+        t="1位の機",
         s="2011年9月16日　地上を走るストレガ（観客の撮影）",
         photo=P("strega_taxi"), panel=True, color=1.0,
     ),
@@ -226,5 +227,49 @@ SPEC = {
             steps=[dict(state=dict(pan=560.0), delay=0.2, dur=10.0,
                         tag=dict(t="ピットの端（低い金属の柵）", at="fence", off=(60, 120), keep=True, delay=0.8)),
                    dict(tag=dict(t="燃料を積んだ車", at="truck", off=(-40, -90), anchor="end", keep=True))])),
+    ),
+
+    # ── 🔴 ⑤b-7（2026-09-30）：地図（`ss.town_map`・`ss.ramp_map`）・決め所・パネル ──
+    # 地図（Googleアースの代わり＝09-30 カズヤくん）：リノの町とステッド空港。1行目＝快晴（AAB p16「clear sky」）／
+    #   2行目＝風上（240度）から空港を通って流れる点の列（向きだけ・AAB p16「wind was from 240° at 15 knots」）と気温22度
+    "c201": dict(
+        t="リノとステッド空港",
+        s="事故の日の天気",
+        fig=ss.town_map([
+            dict(tag=dict(at="reno_stead", t="快晴", side="left")),
+            dict(move=[dict(kind="stream", a="wind0", deg=60, km=10, n=14)],
+                 tag=[dict(at="wind0", t="西南西の風", side="left"), dict(at="reno_stead", t="気温22度", side="below")])],
+            recs=("#17 p7008", "AAB p16")),
+    ),
+    # 決め所②（台本 §2 #2）。AAB p17「race flight operations may be no closer than 500 feet horizontally from the primary
+    #   spectator areas for all aircraft」・許可（certificate of waiver）は2011年9月2日（p16）。152メートル＝500フィート
+    "c210": dict(
+        t="FAAの許可の条件",
+        s="観客席との水平の距離",
+        fig=("quote", dict(
+            phrase=["観客席から152メートル以上", "離れて飛ぶ"],
+            rows=[("記録", "NTSB 事故報告 AAB-12/01（2012年）", J.INK_W),
+                  ("条件の出どころ", "FAAの許可（2011年9月2日）", J.LINE),
+                  ("頁", "PDF 16・17頁", J.TICK)], paper=True)),
+    ),
+    # 駐機場の地図（模式）：1行目（聞き役の問い）＝ショーラインとピット・ボックス席の端／2行目＝2つの距離（AAB p19）と
+    #   許可の条件の152メートルの線（p17）／3行目＝そのまま（通達の305メートルは第8章 c820 で）
+    "c213": dict(
+        t="観客席との距離",
+        s="事故の日の配置",      # ⚠️ 最初の「ショーラインから南へ」は図の札「ショーライン」と重なる＝check_dup
+        fig=ss.ramp_map([
+            ss.R_BASE,
+            ss.merge(ss.R_DIMS, dict(route=dict(via=["o_w", "o_e"], col=J.INST, sw=4),
+                                     tag=dict(at="o_e", t="許可の条件 152メートル", side="right"))),
+            dict()]),
+    ),
+    # 予選は4位（9月13日＝事故の3日前）・この日はゴールドの組（AAB p38）
+    "c214": dict(
+        t="事故機の順位と組",
+        s="2011年の大会",
+        fig=("panel", dict(
+            blocks=[dict(k="予選", t="4位", v="9月13日", c=J.INST),
+                    dict(k="この日の組", t="ゴールド", v="無制限クラス", c=J.AMBER)],
+            cols=2)),
     ),
 }

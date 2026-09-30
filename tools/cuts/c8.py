@@ -178,4 +178,117 @@ SPEC = {
                              dict(t="幕を付けたパイプ（ボックス席の前）", at="curtain", off=(-420, 300), keep=True, delay=0.4)]),
                    dict(), dict()])),
     ),
+
+    # ── 🔴 ⑤b-7（2026-09-30）：パネル・決め所・地図（`ss.town_map`・`ss.ramp_map`）──
+    # 資料で割れる数（AAB p10 注4＝少なくとも16人・4つの病院のうち1つなどから限られた情報／勧告書 A-12-08 p1（2012年4月）
+    #   「based on preliminary information, 66 people sustained serious injuries」）。🔴 66人は札だけ（語りで読まない＝16と66の
+    #   聞き違えを避ける＝台本 §1-5）。報道の数（56・69・70人超）は出さない（「日を追って変わった」だけ）
+    "c803": dict(
+        t="重いけがの人数",
+        s="資料で割れる数",
+        fig=("panel", dict(
+            blocks=[dict(k="報告書（2012年8月）", t="少なくとも16人", v="限られた情報から", c=J.DOC),
+                    dict(k="勧告書（2012年4月）", t="66人", v="仮の数", c=J.INST),
+                    dict(k="報道", t="日を追って変わった", c=J.LINE)],
+            cols=3)),
+    ),
+    # 毛布と幕（AAB p21 注26）
+    "c807": dict(
+        t="その場にあった物",
+        s="報告書 21頁の注26",
+        fig=("panel", dict(
+            blocks=[dict(k="空港の車から", t="黄色の毛布", c=J.AMBER),
+                    dict(k="ボックス席から", t="青と赤の幕", c=J.INST)],
+            cols=2)),
+    ),
+    # 携帯と無線（AAB p20「some loss of service for about 15 to 20 minutes」・救護は無線で影響なし）
+    "c808": dict(
+        t="連絡の手段",
+        s="報告書 20頁",
+        fig=("panel", dict(
+            blocks=[dict(k="携帯電話", t="つながりにくい", v="15〜20分ほど", c=J.AMBER),
+                    dict(k="救護の連絡", t="無線", v="影響なし", c=J.OK)],
+            cols=2)),
+    ),
+    # 決め所⑭（台本 §2 #14）。AAB p21 §1.9.2「The scenario for the exercise had been for 23 fatalities with an additional
+    #   46 injured」（机上訓練＝2011年6月2日）。死の語は「亡くなる人」（§B2-4）
+    "c810": dict(
+        t="机上訓練",
+        s="2011年6月2日",
+        fig=("quote", dict(
+            phrase=["訓練の想定は", "亡くなる人23人、負傷46人"],
+            rows=[("記録", "NTSB 事故報告 AAB-12/01（2012年）", J.INK_W),
+                  ("頁", "PDF 21頁（1.9.2）", J.TICK)], paper=True)),
+    ),
+    # 地図：州道395号（AAB p21「State Highway 395 would be shut down to allow better travel time for multiple ambulances」）。
+    #   1行目＝空港と町を結ぶ線（道の形は記録に無い＝直線の模式）と札／2行目＝点が空港から町へ動く（行き来しやすく）
+    "c811": dict(
+        t="救急車の道",
+        s="訓練のあとの決めごと",
+        fig=ss.town_map([
+            dict(route=dict(via=["reno_stead", "reno_city"], col=J.AMBER, sw=5), tag=dict(at="hw_mid", t="州道395号", side="right")),
+            dict(move=[dict(kind="path", via=["reno_stead", "reno_city"], sec=3.0)])],
+            note="模式図：道の線は空港と町を直線で結んだもの（実際の道の形ではない）", recs=("AAB p21", "#17 p7008")),
+    ),
+    # 地図：事故の日に使われた（AAB p21「this decision was put into practice for the accident response」・#33 p2021）
+    "c812": dict(
+        t="事故の日",
+        s="決めごとの実行",
+        fig=ss.town_map([
+            dict(route=dict(via=["reno_stead", "reno_city"], col=J.AMBER, sw=5), tag=dict(at="hw_mid", t="州道395号", side="right")),
+            dict(move=[dict(kind="path", via=["reno_stead", "reno_city"], sec=3.0)],
+                 tag=dict(at="reno_stead", t="2011年9月16日", side="left"))],
+            note="模式図：道の線は空港と町を直線で結んだもの（実際の道の形ではない）", recs=("AAB p21", "#33 p2021", "#17 p7008")),
+    ),
+    # 決め所⑮（台本 §2 #15）。AAB p46 §2.6.4「although the fuel truck parked on the ramp was not hit by any debris from the
+    #   accident airplane, the outcome could easily have been different」
+    "c815": dict(
+        t="燃料車",
+        s="報告書の注意",
+        fig=("quote", dict(
+            phrase="燃料車は、たやすく別の結果になり得た",
+            rows=[("記録", "NTSB 事故報告 AAB-12/01（2012年）", J.INK_W),
+                  ("頁", "PDF 46頁（分析）", J.TICK)], paper=True)),
+    ),
+    # 地図（Googleアースの代わり＝09-30 カズヤくん）：駐機場とショーライン（c819・c820 の最初の段と同じ絵）
+    "c817": dict(
+        t="駐機場とショーライン",
+        s="事故の日の配置",
+        fig=ss.ramp_map([ss.R_BASE, dict()]),
+    ),
+    # 地図：2つの端の距離（AAB p19 のピット 748フィート・ボックス席 874フィート）。1行目＝配置／2行目＝2本の寸法線
+    "c819": dict(
+        t="2つの端",
+        s="事故の日の配置",      # ⚠️ 「ショーラインから南へ」「南への距離」は図の札・注と重なる＝check_dup
+        fig=ss.ramp_map([ss.R_BASE, ss.R_DIMS]),
+    ),
+    # 地図：どちらの内か（勧告書 A-12-08 p3＝どちらも命令〈500フィート〉は満たし、通達〈1,000フィート〉には届かない・AAB p17）
+    "c820": dict(
+        t="どちらの内か",
+        s="命令と通達の距離",
+        fig=ss.ramp_map([
+            ss.merge(ss.R_BASE, ss.R_DIMS,
+                     dict(route=dict(via=["o_w", "o_e"], col=J.INST, sw=4), tag=dict(at="o_e", t="命令 152メートル", side="right")),
+                     dict(route=dict(via=["a_w", "a_e"], col=J.DOC, sw=4), tag=dict(at="a_w", t="通達 305メートル", side="left"))),
+            dict()],
+            recs=("AAB p17", "AAB p19", "勧告書 p6003")),
+    ),
+    # NTSBが求めたこと（AAB p46）：2つの資料（命令と通達）の誤りと食い違いを直すよう FAA に
+    "c821": dict(
+        t="NTSBの求め",
+        s="勧告 A-12-08",
+        fig=("panel", dict(
+            blocks=[dict(k="直す先", t="FAAの命令と通達", c=J.INST),
+                    dict(k="直す中身", t="誤りと食い違い", c=J.AMBER)],
+            cols=2)),
+    ),
+    # 橋（最後の章へ）：その求めが片づくまで、どれだけかかったか
+    "c822": dict(
+        t="片づくまで",
+        s="勧告 A-12-08 の行方",
+        fig=("panel", dict(
+            blocks=[dict(k="求めた先", t="FAA", c=J.INST),
+                    dict(k="かかった時間", t="？", v="最後の章で", c=J.AMBER)],
+            cols=2)),
+    ),
 }

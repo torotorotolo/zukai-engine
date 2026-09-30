@@ -211,4 +211,49 @@ SPEC = {
                                  anchor="end", keep=True, delay=0.8)),
                    dict(tag=dict(t="プロペラ：手を加えていない", at="prop", off=(60, -80), keep=True))])),
     ),
+
+    # ── 🔴 ⑤b-7（2026-09-30）：決め所・地図（`ss.usa_map`）・パネル ──
+    # 決め所⑥（台本 §2 #6）。AAB p12「The accident airplane, serial number 44-15651, was delivered to the Army Air Forces on
+    #   December 23, 1944」
+    "c403": dict(
+        t="引き渡された日",
+        s="陸軍航空軍へ",
+        fig=("quote", dict(
+            phrase="事故機の納入は、1944年12月23日",
+            rows=[("記録", "NTSB 事故報告 AAB-12/01（2012年）", J.INK_W),
+                  ("製造番号", "44-15651", J.LINE),
+                  ("頁", "PDF 12頁（1.3 機体の情報）", J.TICK)], paper=True)),
+    ),
+    # 地図：改造の場所（AAB p12「modifications in Arizona, Texas, and Nevada … completed in the fall of 2009 in Minden, Nevada,
+    #   where it remained when not being raced」・#17 p7004「began its transformation in Arizona … trucked to McKinney, Texas, and
+    #   finally to Minden, Nevada」）。1行目＝運ばれた順の線（アリゾナ→マッキニー→ミンデン）と「2009年の秋」／2行目＝ふだんの置き場。
+    #   アリゾナは町の名が記録に無い＝州の代表点に札だけ（輪を描かない）
+    "c413": dict(
+        t="組み立ての場所",
+        s="2007年から2009年",
+        fig=ss.usa_map([
+            dict(route=dict(via=["reno_az", "reno_mckinney", "reno_minden"]),
+                 tag=[dict(at="reno_az", t="アリゾナ州", side="below"), dict(at="reno_minden", t="2009年の秋", side="left")]),
+            dict(tag=dict(at="reno_minden", t="ふだんの置き場", side="below"))],
+            places=["reno_ocala", "reno_mckinney", "reno_minden", dict(k="reno_stead", side="above")],
+            note="模式図：町は緯度経度から（アリゾナ州は州の代表点）。線は運ばれた順に結んだもの（道ではない）",
+            recs=("AAB p12", "#17 p7004", "#17 p7008")),
+    ),
+    # たとえ話（台本の画：panel 古い機械を直して動かす）＝案A でも文字のまま（映像方針 §11-3）
+    "c418": dict(
+        t="たとえば",
+        s="古い車やバイク",
+        fig=("panel", dict(
+            blocks=[dict(k="動いているあいだ", t="大丈夫に見える", c=J.OK),
+                    dict(k="見えない所", t="傷むものもある", c=J.AMBER)],
+            cols=2)),
+    ),
+    # 次の章への橋（AAB p42）：調査は残骸・写真・聞き取りから改造を見つけた
+    "c420": dict(
+        t="改造を見つけた手がかり",
+        s="次の章へ",
+        fig=("panel", dict(
+            blocks=[dict(k="1", t="残骸", c=J.DOC), dict(k="2", t="写真", c=J.DOC), dict(k="3", t="聞き取り", c=J.DOC)],
+            cols=3)),
+    ),
 }

@@ -275,4 +275,62 @@ SPEC = {
                                            dict(t="機首が上がる", at="nose", to="nose")])],
                           note="模式（形と角度は模式）", src="NTSB 事故報告 AAB-12/01 PDF 41・42頁")),
     ),
+
+    # ── 🔴 ⑤b-7（2026-09-30）：決め所とパネル（案B で文字のまま＝映像方針 §11-3）──
+    # パイロットの姿勢（AAB p28 の表）。🔴 絵にしない＝崩れた姿勢（苦しむ瞬間）は描かない（映像方針 §1 線2）＝文字の札だけ
+    "c313": dict(
+        t="パイロットの姿勢",
+        s="上昇のあいだの写真（報告書）",
+        fig=("panel", dict(
+            blocks=[dict(k="写真で見えた向き", t="前へ・右へ", c=J.AMBER),
+                    dict(k="いつものレース", t="違う姿勢", c=J.INST)],
+            cols=2)),
+    ),
+    # 決め所③（台本 §2 #3）。AAB p39 §2.1「the pilot's time of useful consciousness was likely less than 1 second」
+    "c314": dict(
+        t="パイロットの意識",
+        s="急なGの立ち上がり",
+        fig=("quote", dict(
+            phrase="意識を保てたのは、1秒未満とみられる",
+            rows=[("記録", "NTSB 事故報告 AAB-12/01（2012年）", J.INK_W),
+                  ("頁", "PDF 39頁（分析）", J.TICK)], paper=True)),
+    ),
+    # 決め所④（台本 §2 #4）。AAB p39「the airplane's continued climb and helical descent occurred without his control」
+    "c315": dict(
+        t="その後の機体",
+        s="上昇とらせんの降下",
+        fig=("quote", dict(
+            phrase="その後の上昇と降下は、操縦なしで起きた",
+            rows=[("記録", "NTSB 事故報告 AAB-12/01（2012年）", J.INK_W),
+                  ("頁", "PDF 39頁（分析）", J.TICK)], paper=True)),
+    ),
+    # 報道と報告書（報道・AAB p39）。🔴 観客の言葉（「避けようとしたように見えた」）は画面に出さない＝私人の言葉は絵に出さない
+    #   （映像方針 §1 線2）。札は「どこの話か」だけ
+    "c316": dict(
+        t="報道と報告書",
+        s="最後の数秒について",
+        fig=("panel", dict(
+            blocks=[dict(k="報道", t="観客の印象", c=J.INST),
+                    dict(k="報告書", t="操縦できなかった", v="39頁", c=J.DOC)],
+            cols=2)),
+    ),
+    # 決め所⑤（台本 §2 #5）。AAB p41 §2.3「An evaluation determined that a wake encounter could not be ruled out」
+    "c320": dict(
+        t="横転のきっかけ",
+        s="前の2機の渦の評価",
+        fig=("quote", dict(
+            phrase=["後方乱気流に入った", "可能性は、排除できない"],
+            rows=[("記録", "NTSB 事故報告 AAB-12/01（2012年）", J.INK_W),
+                  ("頁", "PDF 41頁（分析）", J.TICK)], paper=True)),
+    ),
+    # 考えにくいとされたもの（AAB p41）：突風＝風は比較的安定／板の暴走＝電気でゆっくりしか動かない。
+    #   ⚠️ 横転のきっかけ（後方乱気流／リンクが先に折れた）は未確定＝場面にしない（映像方針 §1 線3）
+    "c323": dict(
+        t="外れた2つの候補",
+        s="報告書 41頁",
+        fig=("panel", dict(
+            blocks=[dict(k="突風", t="風は比較的安定", c=J.INST),
+                    dict(k="板の暴走", t="電気でゆっくり動く", c=J.INST)],
+            cols=2)),
+    ),
 }

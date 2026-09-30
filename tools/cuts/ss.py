@@ -484,10 +484,134 @@ def src(recs):
 
 # 🔴 2026-09-30（15本目 ⑤b-1）：14本目の注（HULL_NOTE）・地図の点（MAP_*・ROUTE）・地図の関数 `sewol_map()`・2つの問いを
 #    戻す型（`q_pair()`・Q1_TILT・Q2_BOARD）は `tools/fixture_ep14.py` へ移した（値は1つも変えていない）。
-#    15本目の地図（drift）は ⑤b-6（3つの距離 152・228・266メートル・命令と通達・オカラ〜テキサス・州道395号・その後の配置
-#    ＝映像方針 §4）で、ここに回の関数を足す。地点は Wikidata（`titan_fig.GEO`）と報告書の値だけ（§5b-35・§5b-38）。
-#    ⚠️ `titan_fig.GEO` には13本目の "crash"（エルムノンヴィルの森）などの鍵が残っている＝15本目の地点は `reno_` の頭で名付ける。
 #    15本目の3つの問い（c109）は案C の A・B・D を小さく戻す＝⑤b-2（14本目の q_pair の型を回の関数で）
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 15本目 ⑤b-7（2026-09-30）：地図（drift）＝5つの範囲（映像方針 §4・09-30 カズヤくん「Googleアースは地図に替える」）
+# ══════════════════════════════════════════════════════════
+#   RAMP  … 駐機場（c213・c817・c819・c820）＝ショーライン・ピットとボックス席の端・許可と命令の152メートル・通達の305メートル
+#   FIELD … 飛行場のまわり（c904 の2行目から）＝燃料車を約2.4キロ先へ・コースを北へ（矢印だけ）・より頑丈な柵
+#   TOWN  … リノの町とステッド空港（c201・c811・c812）＝風の向き・州道395号（道の線は模式）
+#   FLA   … フロリダ州オカラ（c602）＝基地から半径約161キロ
+#   USA   … アメリカ（c413・c603・c917）＝アリゾナ→テキサス→ミンデン／オカラの円と機体の居場所／リノ→ロズウェル
+#   地点＝`titan_fig.GEO`（Wikidata・`reno_` の頭）と、報告書の値で置く点（下の pts）。照合（rel）は範囲ごと：
+#     空港の点＝NTSB 資料 #17 p7008 の座標（±2キロ）・駐機場＝AAB p19 と p17 の南北の距離・燃料車＝AAB p46・円＝AAB p35
+#   🔴 駐機場と飛行場の線（ショーライン・ピット・ボックス席・燃料車・柵）の**長さと東西の並びは模式**＝報告書の値は
+#      ショーラインからの南北の距離と、燃料車の距離だけ（注に書く）。コースを北へ移した距離は記録に無い＝矢印だけ（映像方針 §4）
+#   ⚠️ 距離の札は語りと同じ「約228メートル」の形（門番 check_drift は⑤b-7 から「メートル」も読む＝描いた2点と ±5%）
+import jiko_style as _J  # noqa: E402  （地図の線の色。ss は章ファイルより先に読まれる＝ここで読む）
+
+_FT = 0.0003048            # 1フィート（キロ）
+RENO_TAB = (39 + 39 / 60 + 50 / 3600, -(119 + 52 / 60 + 36 / 3600))
+RENO_REL = [dict(a="reno_stead", lat=RENO_TAB[0], lon=RENO_TAB[1], tol_km=2.0,
+                 src="NTSB 資料 #17 p7008（左の板の一片が見つかった所＝滑走路8-26 の北側・ホームパイロンの近く）")]
+_SLAT, _SLON = 39.667222, -119.876111          # ステッド空港（Wikidata）＝駐機場と飛行場の模式の原点
+
+# 駐機場（1キロ＝約993画素）。ショーライン＝滑走路8/26 の南の縁（AAB p17）・ピットの端は南へ748フィート・
+#   ボックス席の端は874フィート（AAB p19）・許可の条件と命令＝500フィート（p17）・通達＝1,000フィート（p17・勧告書 A-12-08 p3）
+RAMP_VIEW = dict(lon=(_SLON - 0.00997, _SLON + 0.00997), lat=(_SLAT - 0.0040, _SLAT + 0.0013))
+RAMP_PTS = dict(
+    sl_w=dict(of="reno_stead", km=0.40, deg=270), sl_e=dict(of="reno_stead", km=0.40, deg=90),
+    sl_pit=dict(of="reno_stead", km=0.25, deg=270), sl_box=dict(of="reno_stead", km=0.05, deg=90),
+    pit=dict(of="sl_pit", km=748 * _FT, deg=180), box=dict(of="sl_box", km=874 * _FT, deg=180),
+    pit_w=dict(of="pit", km=0.10, deg=270), pit_e=dict(of="pit", km=0.10, deg=90),
+    box_w=dict(of="box", km=0.13, deg=270), box_e=dict(of="box", km=0.13, deg=90),
+    o_w=dict(of="sl_w", km=500 * _FT, deg=180), o_e=dict(of="sl_e", km=500 * _FT, deg=180),
+    a_w=dict(of="sl_w", km=1000 * _FT, deg=180), a_e=dict(of="sl_e", km=1000 * _FT, deg=180),
+    rn=dict(of="sl_e", km=0.06, deg=0),
+)
+RAMP_REL = [
+    # ⚠️ 注の字にもメートル法の換算を添える（門番 wording＝§B1：フィート・マイルだけの字を置かない）
+    dict(a="sl_pit", b="pit", km=748 * _FT, dir="南", src="AAB p19（ピットの端はショーラインの南 748フィート＝約228メートル）"),
+    dict(a="sl_box", b="box", km=874 * _FT, dir="南", src="AAB p19（ボックス席の端は南 874フィート＝約266メートル）"),
+    dict(a="sl_w", b="o_w", km=500 * _FT, dir="南", src="AAB p17（許可の条件・命令＝500フィート＝約152メートル）"),
+    dict(a="sl_w", b="a_w", km=1000 * _FT, dir="南", src="AAB p17（通達＝1,000フィート＝約305メートル）"),
+]
+RAMP_NOTE = "模式図：線の長さと東西の並びは模式。ショーラインから南への距離は報告書の値"
+# 段の部品（語りの行に合わせて `_merge` で足す）
+R_BASE = dict(route=[dict(via=["sl_w", "sl_e"], col=_J.INK_W, sw=5, dash=None),
+                     dict(via=["pit_w", "pit_e"], col=_J.LINE, sw=7, dash=None),
+                     dict(via=["box_w", "box_e"], col=_J.LINE, sw=7, dash=None)],
+              # ⚠️ 下見（09-30）：ボックス席の札を線の左に置くとピットの線の真下に来て、どちらの線の札か紛らわしかった＝右へ
+              tag=[dict(at="sl_e", t="ショーライン", side="right"), dict(at="rn", t="滑走路8/26", side="right"),
+                   dict(at="pit_w", t="ピットの端", side="left"), dict(at="box_e", t="ボックス席の端", side="right")])
+R_DIMS = dict(dim=[dict(a="pit", b="sl_pit", t="約228メートル"), dict(a="sl_box", b="box", t="約266メートル")])
+# 許可の条件・命令（152メートル）の線の札は右の端・通達（305メートル）は左の端（右はボックス席の札に近い＝下見）
+_LISTS = ("route", "tag", "dim", "move", "circle", "arrow")
+
+
+def _as_list(x):
+    return [] if not x else (list(x) if isinstance(x, list) else [x])
+
+
+def merge(*parts):
+    """段の部品を1つの段にまとめる（route・tag・dim・move・circle・arrow は list をつなぐ）。"""
+    out = {}
+    for p in parts:
+        for k, v in p.items():
+            out[k] = _as_list(out.get(k)) + _as_list(v) if k in _LISTS else v
+    return out
+
+
+def ramp_map(steps, note=RAMP_NOTE, recs=("AAB p17", "AAB p19")):
+    """駐機場の地図（c213・c817・c819・c820）。steps は段の list（`merge` で部品を足して作る）。"""
+    return ("drift", dict(view=RAMP_VIEW, places=[], pts=RAMP_PTS, rel=list(RAMP_REL), steps=steps, note=note,
+                          src=src(list(recs)), scale_km=0.1, grid=0.002))
+
+
+# 飛行場のまわり（c904 の2行目から・1キロ＝約173画素）。燃料車は「ピットの近くの駐機場」（AAB p19）→ 2012年から
+#   「飛行場の南東の側・主な観客席から約1.5マイル」（AAB p46）。柵は「ピットの西の端からボックス席を通って一般の観客席まで」
+#   （p46）。コースと選手を「北へ移した」（p46・CAROL A-12-14＝距離の記録は無い）。燃料車の距離だけ宣言（向きは模式）
+FIELD_VIEW = dict(lon=(_SLON - 0.0523, _SLON + 0.0623), lat=(_SLAT - 0.0215, _SLAT + 0.0090))
+FIELD_PTS = dict(RAMP_PTS,
+                 fuel0=dict(of="pit", km=0.25, deg=270), fuel1=dict(of="box", km=1.5 * 1.609344, deg=135),
+                 pbw=dict(of="pit", km=0.10, deg=270), grand=dict(of="box", km=0.40, deg=90),
+                 cn1=dict(of="reno_stead", km=0.80, deg=0))
+FIELD_REL = [dict(a="box", b="fuel1", km=1.5 * 1.609344, src="AAB p46（主な観客席から約1.5マイル＝約2.4キロ）")]
+FIELD_NOTE = "模式図：場所の並びと線の長さは模式（燃料車の距離だけ報告書の値）。コースを動かした距離は記録に無い"
+
+
+def field_map(steps):
+    return ("drift", dict(view=FIELD_VIEW, places=[], pts=FIELD_PTS, rel=list(FIELD_REL), steps=steps,
+                          note=FIELD_NOTE, src=src(["AAB p19", "AAB p46"]), scale_km=0.5, grid=0.01))
+
+
+# リノの町とステッド空港（1キロ＝約24画素）。州道395号の線は町と空港を直線で結んだ模式（道の形は記録に無い）
+TOWN_VIEW = dict(lon=(-120.257, -119.432), lat=(39.49, 39.71))
+TOWN_PTS = dict(hw_mid=dict(mid=["reno_stead", "reno_city"]),
+                wind0=dict(of="reno_stead", km=5.0, deg=240))   # 風上（AAB p16「wind was from 240°」）＝流れの起点（模式）
+TOWN_PLACES = [dict(k="reno_stead", side="above"), "reno_city"]
+
+
+def town_map(steps, note="模式図：地点は緯度経度から（リノは町の中心）", recs=("#17 p7008",)):
+    return ("drift", dict(view=TOWN_VIEW, places=TOWN_PLACES, pts=TOWN_PTS, rel=list(RENO_REL), steps=steps,
+                          note=note, src=src(list(recs)), scale_km=5, grid=0.1))
+
+
+# フロリダ州オカラ（1キロ＝約1.39画素）。運用の制限＝基地（オカラの飛行場）から半径100マイル（AAB p35）。
+#   円の中心はオカラの町の中心（基地の飛行場の位置は報告書に無い）。外へ出る矢印＝レースへ向かう途中（向きはリノの方角 298.9度）
+FLA_VIEW = dict(lon=(-88.44, -75.84), lat=(27.3, 31.1))
+FLA_PTS = dict(ocala_r=dict(of="reno_ocala", km=100 * 1.609344, deg=90),
+               fl_out=dict(of="reno_ocala", km=300, deg=298.9))
+FLA_REL = [dict(a="reno_ocala", b="ocala_r", km=100 * 1.609344, src="AAB p35（半径100マイル＝約161キロ）")]
+CIRCLE = dict(circle=dict(at="reno_ocala", through="ocala_r"))
+
+
+def fla_map(steps):
+    return ("drift", dict(view=FLA_VIEW, places=["reno_ocala"], pts=FLA_PTS, rel=list(FLA_REL), steps=steps,
+                          note="模式図：円の中心はオカラの町の中心（基地の飛行場の位置ではない）",
+                          src=src(["AAB p35"]), scale_km=100, grid=1.0))
+
+
+# アメリカ（1キロ＝約0.28画素）。ミンデンと空港は約80キロ＝約23画素（輪が重なる＝札は空港を上・ミンデンを下）
+USA_VIEW = dict(lon=(-133.1, -67.9), lat=(25.5, 44.0))
+
+
+def usa_map(steps, places, note, recs, rel=(), extra=""):
+    """extra＝出典の行に足す字（`REC_DOCS` に無い資料＝主催の団体の発表など）。"""
+    return ("drift", dict(view=USA_VIEW, places=places, pts=dict(FLA_PTS), rel=list(RENO_REL) + list(rel),
+                          steps=steps, note=note, src=src(list(recs)) + extra, scale_km=500, grid=5.0))
 
 
 # ══════════════════════════════════════════════════════════
@@ -625,6 +749,29 @@ FACTORS = {
     "f_mod": dict(k="role", id="f_mod", t="記録も試験も無い改造", y=700, pos=(160, 860), rec="AAB p52"),
     "f_ops": dict(k="role", id="f_ops", t="十分な試験なしのレース", y=700, pos=(1060, 1760), rec="AAB p52"),
 }
+# 🆕 ⑤b-7（2026-09-30）：3つの問いの答え（c918）＝台本 c918「先に折れたリンク、ゆるんだねじ、食い違った2つの資料」
+#   （AAB p52 の推定原因＝リンクの破損とねじのゆるみ・p17 の2つの手引きの食い違い）と、事故の前にあった手がかり
+#   （26年以上のナット＝p41・「ねじが短すぎる」＝p37 の検査の用紙・記録簿の「終えた」＝p15）。上の段＝c109 の問いの名
+#   （台本 c109 の画）。🔴 答えと手がかりを矢印でつながない（台本は組にしていない）＝区切りの線の下に並べるだけ
+#   ⚠️ 下見（09-30）：問いの箱を node（38px）にすると答えの箱（28px）より目立った＝問いは head（34px・低い箱）に
+ANS = dict(heads=[dict(id="q1", t="9秒に何が起きたか", kind="head", x=(110, 650), y=(320, 380), rec="AAB p28"),
+                  dict(id="q2", t="なぜ板は震えたか", kind="head", x=(690, 1230), y=(320, 380), rec="AAB p41"),
+                  dict(id="q3", t="観客席との距離", kind="head", x=(1270, 1810), y=(320, 380), rec="AAB p19")])
+ANSP = {
+    "a1": dict(k="role", id="a1", t="先に折れたリンク", y=480, pos=(160, 600), rec="AAB p52"),
+    "a2": dict(k="role", id="a2", t="ゆるんだねじ", y=480, pos=(740, 1180), rec="AAB p52"),
+    "a3": dict(k="role", id="a3", t="食い違った2つの資料", y=480, pos=(1320, 1760), rec="AAB p17"),
+    "k1": dict(k="role", id="k1", t="26年以上のナット", y=690, pos=(160, 600), rec="AAB p41"),
+    "k2": dict(k="role", id="k2", t="「ねじが短すぎる」", y=690, pos=(740, 1180), rec="AAB p37"),
+    "k3": dict(k="role", id="k3", t="記録簿の「終えた」", y=690, pos=(1320, 1760), rec="AAB p15"),
+}
+
+
+def ans_links():
+    """問い → 答え の3本の矢印。"""
+    return [dict(k="edge", fr=f"q{i}", to=f"a{i}", rec=ANSP[f"a{i}"]["rec"]) for i in (1, 2, 3)]
+
+
 # 実況の担当（c806）＝AAB p20「The NCAR announcing team … remained calm and provided clear evacuation procedures guidance to the
 #   crowd, assisted first responders, and requested additional help from medical staff on scene」。人の形は描かない（文字の箱だけ）
 MC = dict(heads=[dict(id="mc", t="実況の担当", kind="node", x=(150, 560), y=(470, 570), rec="AAB p20")])
