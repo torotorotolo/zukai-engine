@@ -119,7 +119,7 @@ SPEC = {
     ),
 
     # 横から見た断面（左の板）：1行目（聞き役の問い）＝左の板／2行目＝後ろの縁が上へ（機首下げの調整＝p42・3日前の写真で5度・8度＝p22）
-    #   ＝空気が板を押して昇降舵の後ろの縁が下がる／3行目＝0度の点線（整備の仲間は0度と思っていた＝p15）
+    #   ＝空気が板を押して昇降舵の後ろの縁が下がる／3行目＝0度の灰色の板（整備の仲間は0度と思っていた＝p15）
     "c514": dict(
         t="左の板の角度",
         s="予選とレースの調整",
@@ -127,7 +127,7 @@ SPEC = {
                           steps=[dict(state=dict(hinge="on"), tag=dict(t="左の板", at="b1", to="tab")),
                                  dict(state=dict(hinge="off", tab="up", force="on", elev="down"),
                                       tag=dict(t="後ろの縁が上へ 5〜8度（3日前の写真）＝機首を下げる向き", at="b2")),
-                                 dict(state=dict(ghost="on"), tag=dict(t="0度（整備の仲間の見方）＝点線", at="b3"))],
+                                 dict(state=dict(ghost="on"), tag=dict(t="0度（整備の仲間の見方）＝灰色の板", at="b3"))],
                           rel=[dict(t="5〜8度", src="AAB p22"), dict(t="0度", src="AAB p15")],
                           note="模式（形は模式・板の角度は写真の値）", src="NTSB 事故報告 AAB-12/01 PDF 15・22・42頁")),
     ),

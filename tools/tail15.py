@@ -159,7 +159,9 @@ def parts_of(view, st):
         red = "ALERT" if st["link"] == "broken" else "AMBER"
         return [
             _P("elev", "poly", q["elev"], fill="BG2", stroke="INK_W", w=3),
-            _P("ghost", "poly", q["ghost"], fill=None, stroke="TICK", w=2.5, alpha=_on(st["ghost"] == "on")),
+            # ⚠️ ⑤b-3 の試し焼き：細い線は本番の動く部品で点線にならず（描き手に dash が無い）、札の「点線」と食い違った
+            #    ＝灰色の板（塗り）にした（札は「＝灰色の板」）
+            _P("ghost", "poly", q["ghost"], fill="TICK", stroke="INK_W", w=1.5, alpha=0.85 if st["ghost"] == "on" else 0.0),
             _P("tab", "poly", q["tab"], fill="AMBER" if st["tab"] != "free" else "ALERT", stroke="INK_W", w=2.5),
             _P("link_a", "line", q["link_a"], stroke=red, w=5),
             _P("link_b", "line", q["link_b"], stroke=red, w=5),
