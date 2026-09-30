@@ -106,4 +106,17 @@ SPEC = {
                    dict(state=dict(seg67="on"), rec="AAB p29（パイロン6と7のあいだで一番速かった）",
                         tag=dict(t="パイロン6〜7", at="seg67", off=(-150, 0), anchor="end", keep=True))])),
     ),
+
+    # ── 🔴 ⑤b-3（2026-09-30）：C（`tools/illu.py` の RC＝駐機場から見たピット）──
+    # 地上から：ピットの端の低い金属の柵（AAB p20）の奥に観客の群れ（p19「many other spectators」＝数えられない形・端で切れる）・
+    #   駐機場に燃料車1台（p19）。場面の時刻＝16:24:28（0秒のころ・落ちる瞬間 16:24:38 より前）。カメラがゆっくり横へ（首振り）。
+    #   ピットの機体・テント・ほかの車は描かない（数が記録に無い）。距離（約228メートル）は字幕だけ（この向きでは見せられない）
+    "c212": dict(
+        fig=("illu", dict(
+            place="RC", at="16:24:28", start=dict(view="pits", crowd="on", fuel="on", cam=1.12, pan=-560.0),
+            rec="AAB p19（ピットのあたりにも多くの観客・燃料車がピットの近くの駐機場に止まっていた）",
+            steps=[dict(state=dict(pan=560.0), delay=0.2, dur=10.0,
+                        tag=dict(t="ピットの端（低い金属の柵）", at="fence", off=(60, 120), keep=True, delay=0.8)),
+                   dict(tag=dict(t="燃料を積んだ車", at="truck", off=(-40, -90), anchor="end", keep=True))])),
+    ),
 }

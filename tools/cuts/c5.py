@@ -91,4 +91,44 @@ PLAN = {
 }
 
 SPEC = {
+
+    # ── 🔴 ⑤b-3（2026-09-30）：尾翼の板の模式図（`tools/tail15.py`＝門番 check_mech の judge_tail）──
+    #   🔴 段の札は残る（ルール §5b-89）＝3行目「ふつうの P-51D」で絵を元の作りへ戻すと、1行目の「鉄の棒で固定」の札が嘘になる
+    #      ＝c512 は改造後の絵のまま比べの札だけ。元の作り→改造後の入れ替えは c513（札を付けるのは入れ替えのあと）
+
+    # 上から見た左右：1行目＝右の板はリンクと昇降舵の後ろの桁を鉄の棒でつないで固定（AAB p14）／2行目＝動くのは左だけ（電気＝p15）
+    "c512": dict(
+        t="板の動かし方",
+        s="右は固定・左だけが動く",
+        fig=("tail", dict(view="plan",
+                          steps=[dict(state=dict(rod="on"), tag=dict(t="右の板：鉄の棒で固定", at="rt")),
+                                 dict(state=dict(act="on"), tag=dict(t="左の板：電気の力で動かす", at="lt")),
+                                 dict(tag=dict(t="ふつうは2枚とも動く", at="l1"))],
+                          note="模式（形は模式）", src="NTSB 事故報告 AAB-12/01 PDF 14・15頁")),
+    ),
+
+    # 上から見た左右：頭＝元の作り（2枚とも動く・輪2つ）→ 1行目で改造後へ（右の作動器が消え、鉄の棒で固定＝1枚だけ）／
+    #   2行目＝報告書の言葉（p42 "removing the system's redundancy"）
+    "c513": dict(
+        t="1枚だけの作り",
+        s="片方が壊れたときの備え",
+        fig=("tail", dict(view="plan", start=dict(mode="stock", lmark="on", rmark="on"),
+                          steps=[dict(state=dict(mode="mod", rmark="off", rod="on"), tag=dict(t="2枚 → 1枚（右を固定）", at="lt")),
+                                 dict(tag=dict(t="冗長性を取り除いた", at="l1"))],
+                          note="模式（形は模式）", src="NTSB 事故報告 AAB-12/01 PDF 14・42頁")),
+    ),
+
+    # 横から見た断面（左の板）：1行目（聞き役の問い）＝左の板／2行目＝後ろの縁が上へ（機首下げの調整＝p42・3日前の写真で5度・8度＝p22）
+    #   ＝空気が板を押して昇降舵の後ろの縁が下がる／3行目＝0度の点線（整備の仲間は0度と思っていた＝p15）
+    "c514": dict(
+        t="左の板の角度",
+        s="予選とレースの調整",
+        fig=("tail", dict(view="side",
+                          steps=[dict(state=dict(hinge="on"), tag=dict(t="左の板", at="b1", to="tab")),
+                                 dict(state=dict(hinge="off", tab="up", force="on", elev="down"),
+                                      tag=dict(t="後ろの縁が上へ 5〜8度（3日前の写真）＝機首を下げる向き", at="b2")),
+                                 dict(state=dict(ghost="on"), tag=dict(t="0度（整備の仲間の見方）＝点線", at="b3"))],
+                          rel=[dict(t="5〜8度", src="AAB p22"), dict(t="0度", src="AAB p15")],
+                          note="模式（形は模式・板の角度は写真の値）", src="NTSB 事故報告 AAB-12/01 PDF 15・22・42頁")),
+    ),
 }

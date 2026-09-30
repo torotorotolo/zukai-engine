@@ -79,4 +79,19 @@ PLAN = {
 }
 
 SPEC = {
+
+    # ── 🔴 ⑤b-3（2026-09-30）：案C の戻り（`tools/illu.py` の RB＝15本目）──
+    # B（横から・レース中の事故機）でエンジンとプロペラに札（AAB p13「Rolls-Royce Merlin V-1650-9A engine, which was modified
+    #   for racing, and an unmodified Hamilton Standard 24D50 propeller」）。PLAN の予定は「D の機体」＝止まった機体はプロペラの
+    #   羽根の数（記録に無い）を描くことになる＝回る翼の円で描ける B に付けた（c107 と同じ理由）。全面の絵＝見出し t・副題 s なし
+    "c414": dict(
+        fig=("illu", dict(
+            place="RB", at="16:24", start=dict(view="side", ground="on"),
+            rec="AAB p13（レース用に改造したロールス・ロイスのマーリン・手を加えていないプロペラ）",
+            steps=[dict(pylon=1, delay=0.3, rec="AAB p10（パイロンを回るレース）",
+                        # ⚠️ 下見：25字の札は字が縮み（約24px）遠い山並みに掛かった＝短くして砂漠の上へ（名前の全部は字幕）
+                        tag=dict(t="エンジン：マーリン（レース用に改造）", at="engine", off=(-60, 220),
+                                 anchor="end", keep=True, delay=0.8)),
+                   dict(tag=dict(t="プロペラ：手を加えていない", at="prop", off=(60, -80), keep=True))])),
+    ),
 }

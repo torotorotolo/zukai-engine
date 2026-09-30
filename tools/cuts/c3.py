@@ -19,7 +19,7 @@ PLAN = {
     "c301": dict(kind='図・写真の頁',
                plan='台本の画：図 p23（報告書の図5＝パイロン8を回る事故機・写真 Jonathan Apfelbaum・NTSB AAB-12/01・紙面の引用）｜⚠️ 報告書の courtesy の写真＝紙面の引用のまま（頁ごと・額装・無加工）。描いた物を重ねない・なぞらない・絵と同じ画面に並べない（映像方針 §1 線3）',
                src='AAB p22・p23'),
-    "c302": dict(kind='図解',
+    "c302": dict(kind='混ざり',       # ⑤b-3：1行目＝D（冒頭の絵）→ 尾翼の模式図（tail）＝混ざり（文字だけの数は変わらない）
                plan='【案C D → 尾翼の模式図】1行目＝D：止まっている事故機の尾翼へ寄る → 2行目から模式図（尾翼）へ入れ替え｜人：なし（映像方針 §3-2）｜⚠️ 14本目の「写真→図」と同じ入れ替え',
                src='AAB p14・p40'),
     "c303": dict(kind='図解',
@@ -135,5 +135,67 @@ SPEC = {
             place="RA", at="16:24", start=dict(view="near", gg="gone", path="on", x="on"),
             rec="AAB p28（4.6秒に一片が離れた）・p11（図1）",
             steps=[dict(state=dict(piece="on"), delay=0.8, rec="AAB p18（左の板の内側の一片は本部のパイロンの近くで見つかった）")])),
+    ),
+
+    # ── 🔴 ⑤b-3（2026-09-30）：尾翼の板の模式図（`tools/tail15.py`＝門番 check_mech の judge_tail）と D（ピットの事故機）──
+    #   形と角度は模式（板の角度だけ記録＝後ろの縁が上へ 8度＝AAB p22）。横から見た断面は機首が右（B・D と同じ向き）
+
+    # 混ざり：1行目（聞き役の問い）＝D（ピットの事故機の尾翼の寄り・ゆっくり寄って輪）→ 2行目から尾翼の断面の模式図へ入れ替え。
+    #   2行目＝板（トリムタブ）を名指し／3行目＝板の後ろの縁が上がる → 空気が板を押す → 昇降舵の角度が保たれる（機首下げの調整＝p42）
+    "c302": dict(
+        t="トリムタブ",
+        s="機首の向きを保つための小さな板",
+        fig=("tail", dict(view="side",
+                          steps=[dict(),
+                                 # ⚠️ check_dup：見出し「トリムタブ」と同じ語を札に書かない
+                                 dict(state=dict(hinge="on"), tag=dict(t="昇降舵の後ろの板", at="b1", to="tab")),
+                                 dict(state=dict(hinge="off", tab="up", force="on", elev="down"),
+                                      tag=dict(t="空気が板を押して、昇降舵の角度を保つ", at="top", to="force"))],
+                          note="模式（形と角度は模式・板の角度は写真の値＝AAB PDF 22頁）", src="NTSB 事故報告 AAB-12/01 PDF 14・22・42頁")),
+        intro=dict(until=1, illu=dict(
+            place="RD", at="16:24", rec="AAB p14（図2＝水平尾翼・昇降舵・トリムタブ）",
+            steps=[dict(state=dict(mark="on", cam=1.15), delay=0.4, dur=2.2, rec="AAB p14（水平尾翼・昇降舵・トリムタブ）")])),
+    ),
+
+    # 上から見た左右：1行目＝左の板の3か所のちょうつがい（p31）と細い棒「リンク」／2行目＝動かせるのは左だけ（電気の作動器）・
+    #   右は鉄の棒で固定（p14）
+    "c303": dict(
+        t="板の留め方",
+        s="留める所と、角度を決める棒",
+        fig=("tail", dict(view="plan",
+                          steps=[dict(state=dict(hinge="on"), tag=[dict(t="3か所のちょうつがい", at="l1", to="lhinge"),
+                                                                    dict(t="リンク", at="act", to="llink")]),
+                                 # 引き出し線は付けない（上の札から作動器へ引くと「リンク」の札の字を横切る）＝輪の強調で指す
+                                 dict(state=dict(hinge="off", act="on", rod="on"),
+                                      tag=[dict(t="左の板：動かせる（電気）", at="lt"),
+                                           dict(t="右の板：鉄の棒で固定", at="rt")])],
+                          note="模式（形は模式）", src="NTSB 事故報告 AAB-12/01 PDF 14・31頁")),
+    ),
+
+    # 使い回し（横から見た断面）：もう1つの見方＝板の震えで先にリンクが折れ、板の押す力が消えて昇降舵がはね上がる
+    #   （操縦桿を後ろへ引く力が急に強まる）。2・3行目は操縦桿の押さえ（図に描かない＝札だけ）。原因は図で並べるだけ（線3）
+    "c321": dict(
+        t="もう1つの見方",
+        s="板の震えが先の場合",
+        # ⚠️ check_echo・check_dup：札は12字未満の名前か、語りと続けて一致しない言い方（見出しの語も札に書かない）
+        fig=("tail", dict(view="side", start=dict(tab="up", force="on", elev="down"),
+                          steps=[dict(state=dict(link="broken", tab="free", force="off", elev="up"),
+                                      tag=dict(t="リンクが先に折れる", at="b1", to="link")),
+                                 dict(tag=dict(t="操縦桿：右へ押さえ", at="b2")),
+                                 dict(tag=dict(t="押さえがくずれ→左へ傾く", at="b3"))],
+                          note="模式（形と角度は模式）", src="NTSB 事故報告 AAB-12/01 PDF 41頁")),
+    ),
+
+    # 使い回し（横から見た断面）：どちらの見方でも、その先は同じ＝左の板の押す力が消え、昇降舵がはね上がって機首が上がる
+    "c322": dict(
+        t="その先は同じ",
+        s="横転のきっかけは2通り",
+        fig=("tail", dict(view="side", start=dict(tab="up", force="on", elev="down"),
+                          steps=[dict(tag=dict(t="どちらが先？", at="b1")),
+                                 dict(tag=dict(t="報告書：決めていない", at="b2")),
+                                 dict(state=dict(link="broken", tab="free", force="off", elev="up", nose="on"),
+                                      tag=[dict(t="昇降舵がはね上がる", at="elev", to="elev"),
+                                           dict(t="機首が上がる", at="nose", to="nose")])],
+                          note="模式（形と角度は模式）", src="NTSB 事故報告 AAB-12/01 PDF 41・42頁")),
     ),
 }

@@ -96,4 +96,18 @@ SPEC = {
             steps=[dict(tag=dict(t="観客席（ボックス席）", at="box", off=(60, -110), keep=True)),
                    dict(state=dict(cam=1.03), dur=3.0), dict(state=dict(cam=1.0), dur=3.0)])),
     ),
+
+    # ── 🔴 ⑤b-3（2026-09-30）：C の柵だけ（`tools/illu.py` の RC＝fences）──
+    # 2つの柵の寄りを低い位置から（左＝ピットの前の低い金属の柵・右＝ボックス席の前の幕を付けたパイプ＝AAB p20・幕の色 p21 注26）。
+    #   落ちたあとの章＝人を描かない（線2）。柵の奥は**ぼかした面**（人も物も描かない＝空っぽの席にも見せない）。
+    #   柵の形・高さ・幕の色の並びは模式（左下の断り）。2・3行目は報告書の結論＝ごくゆっくり寄るだけ
+    "c816": dict(
+        fig=("illu", dict(
+            place="RC", start=dict(view="fences"),
+            # ⚠️ 下見：札を柵の上に置き、寄り（cam）で札が上へ動くと、左上の見え方の名・右上の章の札に重なった
+            #    ＝札は柵の下（手前の舗装の上）・寄りはしない
+            steps=[dict(tag=[dict(t="低い金属の柵（ピットの前）", at="fence", off=(-360, 350), keep=True, delay=0.4),
+                             dict(t="幕を付けたパイプ（ボックス席の前）", at="curtain", off=(-420, 300), keep=True, delay=0.4)]),
+                   dict(), dict()])),
+    ),
 }

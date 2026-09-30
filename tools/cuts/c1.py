@@ -118,6 +118,20 @@ SPEC = {
                         tag=dict(t="燃料を積んだ車", at="fuel", off=(-40, -100), anchor="end", keep=True))])),
     ),
 
+    # ⑤b-3（2026-09-30）：B（横から・レース中の事故機）に「操縦していた人」の名前と歳の札。🔴 人は描かない（覆いは光る面）。
+    #   PLAN の予定は「D の機体に札」＝止まった機体はプロペラの羽根を描くことになる（羽根の数は記録に無い＝AAB p13 は
+    #   「手を加えていない Hamilton Standard 24D50」だけ）＝回る翼の円で描ける B に付けた。脚と地上の姿勢も図に無い。
+    #   名前＝ドケット #17（PDF 2頁 "Operator: James K. Leeward"・26頁 "President"）・歳＝AAB p11（age 74）
+    "c107": dict(
+        fig=("illu", dict(
+            place="RB", at="16:24", start=dict(view="side", ground="on"),
+            rec="AAB p11（パイロット 74歳）・#17 p7002（Operator: James K. Leeward）・p7026（President）",
+            steps=[dict(pylon=1, delay=0.3, rec="AAB p10（パイロンを回るレース）",
+                        # ⚠️ check_echo：語りの写し（12字以上で続けて一致 0.72 以上）にしない＝名前と歳だけ
+                        tag=dict(t="パイロット：ジェームズ・リーワード", at="canopy", off=(40, -150), keep=True, delay=0.8)),
+                   dict(tag=dict(t="74歳", xy=(1042, 290), keep=True))])),
+    ),
+
     # 混ざり：3つの問いのパネルに小さく戻す（illu_pair の3つ・14本目 c105 と同じ型）。問い1＝B の傾く機体（後ろから・73→93度）／
     #   問い2＝D の尾翼（ピットの事故機の尾翼の寄り＝⑤b-3 で置き場 D を本格的に描く）／問い3＝A の駐機場と×。
     #   段は4つ（行は3つ）＝4つ目の段は3行目の途中（「そして、観客席との距離は」のあたり）に挟まる＝問い3 はそこで出る。
@@ -135,8 +149,10 @@ SPEC = {
                  scene=dict(place="RD", at="16:24",
                             steps=[dict(), dict(), dict(state=dict(mark="on"), rec="AAB p14（水平尾翼・昇降舵・トリムタブ）"),
                                    dict()])),
+            # 🔴 ⑤b-3：試し焼き 36657377530 で×が約8画素＝小さな絵では読めない＝×へ寄せた（寄り 2.4・画面の上の縮尺は
+            #    1.5÷2.4×1920÷560＝2.1メートル／画素＝人は描けない縮尺のまま＝門番 ⑧ は枠の縮みを数える）
             dict(k="問い3", t="観客席との距離", stage=3, stages=4,
-                 scene=dict(place="RA", at="16:24", start=dict(view="ramp", course="off"),
+                 scene=dict(place="RA", at="16:24", start=dict(view="ramp", course="off", cam=2.4), camc="x",
                             steps=[dict(), dict(), dict(),
                                    dict(state=dict(x="on", box="on"), rec="AAB p19（ボックス席に落ちた）・p11（図1＝事故地点）")])),
         ])),
