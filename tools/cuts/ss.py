@@ -10,8 +10,9 @@
 （値は1つも変えていない）。15本目の束は写真の束のチャットで作る（`qa_out/ep14_assets.py` を写して `qa_out/ep15_assets.py`）。
 
 ■ 素材の名前（`ref/ep15/`。選び方と出どころは台本 `ref/ep15/daihon_v2.md` §7・②の台帳 `ref/ep15/materials.md`）
-  `ep15/<欄の名>.jpg` … 写真
-  `ep15/pg<頁>.png`   … NTSB の報告書 AAB-12/01・ドケットの頁（台本の頁番号）
+  `ep15/<欄の名>.jpg` … 写真（Commons 19点＝⑤b-6・`qa_out/ep15_assets.py build`）
+  `ep15/pg<頁>_fig<NN>.jpg` … 報告書の courtesy の写真＝**紙面の引用**（図・説明の行・撮影者の行まで・`frame=True`＝額装だけ）
+  `ep15/pg<頁>.png`   … NTSB の報告書 AAB-12/01・ドケットの頁（台本の頁番号）＝切り口はカットごと（下の `ptrim`）
   🔴 空にした直後は**未作成**＝`_assets()` が止める（権利を確かめずに焼かない）。
      ⚠️ 写真を1点も当てていないうちは `cuts/__init__.py` が額装の網を呼ばない（照合する点が無い）。1点でも当てたら要る
 
@@ -47,10 +48,12 @@ SCREEN_AR = W / H
 #       16:9 より縦長の側のいちばん大きな切れ目は AR 1.517（search_divers_0504）→ 1.650（search_ship21_0419）の 13ポイント
 #       ＝中点 1.58（次は 1.351→1.473 の 12ポイント）。4:3 の3点（学校2・ソウル広場）と K1 は額装、3:2 の BY-SA は額装だけ（権利）。
 #       WIDE_AR＝2.00＝site_0418（2.21・PD）は額装（横に 19.5% 切れるのを避ける）。gwanghwamun_2018 は切り出しのあと 1.97＝全画面
-#    🔴 2026-09-30（15本目 ⑤b-1）：**この値は14本目の束のまま**＝15本目の写真の束（`qa_out/ep15_assets.py panel`）の
-#       縦横比の並びで取り直す（→ [[feedback-per-episode-constants-go-stale]]）。写真を1点も当てていないうちは効かない
-PANEL_AR = 1.58                     # これ未満＝縦長すぎ（上下が切れる）
-WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝2.00。これ超＝横長すぎ
+#    ✅ 2026-09-30（15本目 ⑤b-6）に**15本目の束（写真19点＋courtesy の紙面8点）で取り直した**。
+#       `python qa_out/ep15_assets.py panel` の並びで、16:9 より縦長の側のいちばん大きな切れ目は AR 1.505（事故の週の
+#       tataquax の5点・3:2）→ 1.700（damage_1970）の 19.5ポイント＝中点 1.60（次は 1.353→1.385 の 3.2ポイント）。
+#       ⚠️ 27点のうち額装だけでない（`kind()` が効く）のは CC BY の3点だけ（gg_nose_2010・gg_pit_2010・seminar_2016）
+PANEL_AR = 1.60                     # これ未満＝縦長すぎ（上下が切れる）
+WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝1.98。これ超＝横長すぎ
 
 # 報告書の頁から切る図の矩形（写真と頁の束のチャットで作る `ref/<回>/pages.json`＝15本目は `ref/ep15/pages.json`）。
 _PAGES_FILE = REF / "pages.json"
@@ -75,6 +78,17 @@ BANDS = {k: v for k, v in PAGES.items() if v.get("fig_box")}
 TRIM: dict[str, tuple] = {
 }
 TRIM.update({f"{EP}{k}.png": tuple(v["trim"]) for k, v in PAGES.items() if v.get("trim")})
+# 🔴 2026-09-30（15本目 ⑤b-6）：**頁の切り口はカットごと**（同じ頁を2カットで別の所を切る＝p15 c507・c611／p32 c105・c708／
+#    p35 c409・c601／p37 c618・c703）。`qa_out/ep15_assets.py pages` が `pages.json` の `cuts` に書く＝章ファイルは
+#    `photo=ss.page(N), trim=ss.ptrim("c…")`（頁ごとの `TRIM` は置かない＝どのカットにも黙って効く切り口を作らない）
+PAGE_CUT_TRIM: dict[str, tuple] = {cid: tuple(t) for v in PAGES.values() for cid, t in (v.get("cuts") or {}).items()}
+
+
+def ptrim(cid):
+    """カットの頁の切り口（頁の割合 x0,y0,x1,y1）。`pages.json` に無ければ止める（黙って頁全体を出さない）。"""
+    if cid not in PAGE_CUT_TRIM:
+        raise KeyError(f"{cid} の頁の切り口が無い（`qa_out/{EP[:-1]}_assets.py` の PAGE_CUTS に足して pages）")
+    return PAGE_CUT_TRIM[cid]
 
 
 def page(pr):
@@ -206,6 +220,10 @@ NG_PHOTOS: dict[str, str] = {}
 #    🔴 2026-09-28（14本目 ⑤b-1）：13本目の1点（慰霊の名前の壁 names_wall・c814）を外した＝git の `b54ee4f`。
 #       ⚠️ CC BY-SA の点は隠すこと自体が翻案＝使わない（ルール §B2-2）。隠せるのは改変を許す権利の点だけ
 NEEDS_MASK: dict[str, str] = {
+    # 🔴 2026-09-30（15本目 ⑤b-6・カズヤくん「顔面のみのモザイク加工」）：CC BY の2010年の2点（jeggernot）＝整備の人・観客（私人）の
+    #    **顔だけモザイク**。範囲は `qa_out/ep15_assets.py` の MASK（原寸で2倍の拡大と目盛りで読んだ）＝`build` が元画像に当てる
+    f"{EP}gg_nose_2010.jpg": "整備の人と周りの人の顔（4か所）＝顔だけモザイク",
+    f"{EP}gg_pit_2010.jpg": "手前の人・ジープの人・テントの人・右端の人の顔（11か所）＝顔だけモザイク",
 }
 
 # 🔴 2026-09-29（14本目 ⑤b-7a）：**切り出し（`TRIM`）で外した私人の範囲**（元画像の割合 x0,y0,x1,y1・何か）。

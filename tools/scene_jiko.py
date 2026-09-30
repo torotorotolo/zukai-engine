@@ -692,6 +692,26 @@ def ep14_credit(name):
 
 
 # ══════════════════════════════════════════════════════════
+#  15本目（リノ・エアレース2011）── `ref/ep15/`（2026-09-30 ⑤b-6）
+# ══════════════════════════════════════════════════════════
+#   ep15/<欄の名>.jpg      … 写真19点（Commons。🔴 CC BY-SA は**額装・無改変**＝`ss.check_frame_only`）
+#   ep15/pg<頁>_fig<NN>.jpg … 報告書の courtesy の写真＝**紙面の引用**（図・説明の行・撮影者の行まで・額装だけ）
+#   ep15/pg<頁>.png        … 報告書と資料の頁（出典の頁は図の出典と同じ書き方＝`illu.rec_line`・図の頁は図の番号も）
+# 🔴 表はファイルから読む。`python qa_out/ep15_assets.py credits --write` が**写真も頁も**書く（14本目と同じ）。
+#    ⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）
+_EP15_CREDITS = HERE / "ref" / "ep15" / "credits.json"
+EP15_CREDIT = (json.loads(_EP15_CREDITS.read_text(encoding="utf-8"))
+               if _EP15_CREDITS.exists() else {})
+
+
+def ep15_credit(name):
+    """`ref/ep15/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if not name.startswith("ep15/"):
+        return None
+    return EP15_CREDIT.get(name)
+
+
+# ══════════════════════════════════════════════════════════
 #  11本目（チャレンジャー号）── `ref/ep11/`
 # ══════════════════════════════════════════════════════════
 # 名前の付け方（`tools/cuts/ss.py`）:
@@ -897,7 +917,8 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep14_credit(spec["photo"]) or ep13_credit(spec["photo"]) or ep12_credit(spec["photo"])
+    cr = (ep15_credit(spec["photo"]) or ep14_credit(spec["photo"]) or ep13_credit(spec["photo"])
+          or ep12_credit(spec["photo"])
           or ep11_credit(spec["photo"])
           or ep10_credit(spec["photo"])
           or ep9_credit(spec["photo"]) or ep8_credit(spec["photo"]) or ep7_credit(spec["photo"])
