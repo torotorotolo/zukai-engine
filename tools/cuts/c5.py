@@ -131,4 +131,121 @@ SPEC = {
                           rel=[dict(t="5〜8度", src="AAB p22"), dict(t="0度", src="AAB p15")],
                           note="模式（形は模式・板の角度は写真の値）", src="NTSB 事故報告 AAB-12/01 PDF 15・22・42頁")),
     ),
+
+    # ── 🔴 ⑤b-4（2026-09-30）：改造の比べ（`tools/mod15.py`＝門番 check_mech の judge_mod）と尾翼の断面の塗った材料（`tail`）──
+    #   形のもと＝AAB 図2（p14）の画素から機械で測った輪郭（`ref/ep15/fig2_shapes.json`）。緑＝ふつうの P-51D にだけある部分
+    #   （図2 の赤＝このチャンネルでは「壊れ・欠陥」の色なので使わない）。札は12字未満の名前か、語りと続けて一致しない言い方
+
+    # 上から見た機体：1行目（聞き役の問い）＝緑の面（ふつうの形だけの部分）／2行目＝翼の幅の寸法（約11.3・約8.8メートル＝p13）／
+    #   3行目＝短い翼の縁取り（2011年の改造 P-51D でいちばん短い＝p13）
+    "c502": dict(
+        t="短く切った翼",
+        s="外側を外し、翼端に板を付けた",
+        fig=("mod", dict(view="plan",
+                         steps=[dict(state=dict(stock="on"), tag=dict(t="緑＝ふつうの P-51D だけの部分", at="r1", col=J.OK)),
+                                dict(state=dict(span="on"), tag=[dict(t="約11.3メートル", at="r2", col=J.OK, d="ふつうの P-51D"),
+                                                                 dict(t="約8.8メートル", at="r4", d="事故機")]),
+                                dict(state=dict(wing="on"), tag=dict(t="出場機でいちばん短い", at="b1"))],
+                         rel=[dict(t="約11.3メートル", src="AAB p13"), dict(t="約8.8メートル", src="AAB p13")],
+                         note="模式（輪郭は報告書の図2から測った）", src="NTSB 事故報告 AAB-12/01 PDF 13・14頁")),
+    ),
+
+    # 横から見た機体：1行だけ＝ふつうの胴の下の取り入れ口（緑）が薄れ、操縦席の後ろの箱（放熱器を水とメタノールの液に沈める）・
+    #   沸く泡・湯気で外へ（p13・注11）。箱の大きさと位置・湯気の道は模式（記録は「操縦席の後ろの、操縦席と仕切った所」だけ）
+    "c505": dict(
+        t="冷やす仕組み",
+        s="操縦席の後ろに沸かす箱",
+        fig=("mod", dict(view="side",
+                         steps=[dict(state=dict(scoop="dim", boiler="on", boil="on", vent="on"),
+                                     tag=[dict(t="放熱器を液に沈めた箱", at="top", to="box"),
+                                          dict(t="沸いた湯気は外へ", at="t2", to="vent"),
+                                          dict(t="緑＝ふつうの取り入れ口（外した）", at="low", col=J.OK, to="scoop")])],
+                         note="模式（輪郭は報告書の図2から・箱の大きさと位置は模式）", src="NTSB 事故報告 AAB-12/01 PDF 13・14頁")),
+    ),
+
+    # 上から見た機体：1行目＝尾翼のまわりの輪（残骸で分かった改造＝p14 はおもり・方向舵の上のおもり・取り付け角・方向舵）／
+    #   2行目＝昇降舵の釣り合いのおもり（左右・場所は模式＝p14 の「外側のちょうつがいが付いたまま」から外側の端に）
+    "c508": dict(
+        t="残骸で分かった改造",
+        s="おもり・取り付け角・方向舵",
+        fig=("mod", dict(view="plan",
+                         steps=[dict(state=dict(tailring="on"), tag=dict(t="尾翼のまわり", at="lt", to="tail")),
+                                dict(state=dict(cw="on"), tag=dict(t="釣り合いのおもり（左右）", at="lb", to="cw_r"))],
+                         note="模式（輪郭は報告書の図2から・おもりの場所は模式）", src="NTSB 事故報告 AAB-12/01 PDF 14頁")),
+    ),
+
+    # おもりの重さ（高さ＝重さ・同じ尺）：1行目＝左のおもり 26ポンド（約11.8キロ）／2行目＝資料のふつうの最大 13.75ポンド（約6.2キロ）／
+    #   3行目（聞き役）＝ふつうの最大の高さの線と「約2倍」（p43「about twice」）
+    "c509": dict(
+        t="約2倍のおもり",
+        s="残骸で量った重さ",
+        fig=("mod", dict(view="weights",
+                         steps=[dict(state=dict(cw="acc"), tag=[dict(t="昇降舵の釣り合いのおもり", at="cwl", col=J.TICK, cap=32),
+                                                               dict(t="約11.8キロ", at="cwn2"), dict(t="事故機（左）", at="cw2", cap=30)]),
+                                dict(state=dict(cw="both"), tag=[dict(t="約6.2キロ", at="cwn1", col=J.OK),
+                                                                 dict(t="ふつうの最大", at="cw1", col=J.OK, cap=30)]),
+                                dict(state=dict(cwx2="on"), tag=dict(t="約2倍", at="x2", cap=40))],
+                         rel=[dict(t="約11.8キロ", src="AAB p14"), dict(t="約6.2キロ", src="AAB p14"), dict(t="約2倍", src="AAB p43")],
+                         note="模式（高さ＝重さ・形は模式）", src="NTSB 事故報告 AAB-12/01 PDF 14・43頁")),
+    ),
+
+    # おもりの重さの続き（頭＝c509 の終わり）：1行目＝機首の上げ下げが敏感に（p43）／2行目＝動きを安定させるおもり
+    #   （bob weight＝勧告書 p3 注5）ふつう 20ポンド・事故機は推定 8⅔ポンド（#53 p10）＝半分未満（p43）。重さの数は画面に書かない
+    "c510": dict(
+        t="2つのおもりの改造",
+        s="報告書の見立て",
+        fig=("mod", dict(view="weights", start=dict(cw="both", cwx2="on"),
+                         base_tags=[dict(t="昇降舵の釣り合いのおもり", at="cwl", col=J.TICK, cap=32), dict(t="約11.8キロ", at="cwn2"),
+                                    dict(t="事故機（左）", at="cw2", cap=30), dict(t="約6.2キロ", at="cwn1", col=J.OK),
+                                    dict(t="ふつうの最大", at="cw1", col=J.OK, cap=30), dict(t="約2倍", at="x2", cap=40)],
+                         steps=[dict(state=dict(sens="on"), tag=dict(t="機首の上下が敏感に", at="sens", col=J.ALERT)),
+                                dict(state=dict(bw="on"), tag=[dict(t="動きを安定させるおもり", at="bwl", col=J.TICK, cap=32),
+                                                               dict(t="ふつう", at="bw1", col=J.OK, cap=30),
+                                                               dict(t="事故機（推定）", at="bw2", cap=30),
+                                                               dict(t="半分未満", at="half")])],
+                         rel=[dict(t="約11.8キロ", src="AAB p14"), dict(t="約6.2キロ", src="AAB p14"), dict(t="約2倍", src="AAB p43")],
+                         note="模式（高さ＝重さ・動きを安定させるおもりの事故機の値は推定）",
+                         src="NTSB 事故報告 AAB-12/01 PDF 14・43頁・資料 #53 PDF 10頁")),
+    ),
+
+    # 尾翼の断面（横から）：1行目＝水平尾翼・昇降舵・板の上と下に塗った材料（最大 1/8インチ＝約3ミリ＝p14・厚みは模式で強めた）／
+    #   2行目＝板の重心が後ろへ・重く（p40）・震えを起こしやすく（p40）
+    "c511": dict(
+        t="塗った材料",
+        s="表面をなめらかに",
+        fig=("tail", dict(view="side",
+                          steps=[dict(state=dict(fill="on"), tag=dict(t="最大約3ミリ（厚みは強めて描いた）", at="stab", to="fill")),
+                                 dict(state=dict(cg="aft"), tag=[dict(t="重心が後ろへ", at="b1", to="cg"),
+                                                                 dict(t="震えを起こしやすく", at="b2")])],
+                          rel=[dict(t="約3ミリ", src="AAB p14")],
+                          note="模式（形・厚み・重心の位置は模式＝向きだけ記録）", src="NTSB 事故報告 AAB-12/01 PDF 14・40頁")),
+    ),
+
+    # 上から見た機体（頭＝ふつうの形の緑）：1行目＝短い翼の縁取り・速く飛べる・強い力に耐える（p42＝縦横比が下がった）／
+    #   2行目＝17.3G でも翼は空中で壊れず・G は一瞬（p42・p28）
+    "c516": dict(
+        t="短い翼の利点",
+        s="翼の縦横比が下がる",
+        fig=("mod", dict(view="plan", start=dict(stock="on"),
+                         steps=[dict(state=dict(wing="on"), tag=[dict(t="速く飛べる", at="r1", to="wing"),
+                                                                 dict(t="強い力に耐える", at="r2")]),
+                                dict(tag=[dict(t="17.3G でも空中で壊れず", at="r3"), dict(t="G は一瞬だった", at="r4")])],
+                         rel=[dict(t="17.3G", src="AAB p28")],
+                         note="模式（輪郭は報告書の図2から測った）", src="NTSB 事故報告 AAB-12/01 PDF 28・42頁")),
+    ),
+
+    # 上から見た機体：1行目＝揺れの印（400ノット近くで揺れの出方が変わる＝p43 のテレメトリー）／2行目＝補助翼の印と断面の小窓
+    #   （左の補助翼の後ろの縁がいつも少し下＝p43 の写真＝取り付けがずれていたとみられる。角度は模式）
+    "c522": dict(
+        t="揺れと補助翼",
+        s="計器の記録と写真から",
+        fig=("mod", dict(view="plan",
+                         # ⚠️ 門番 wording：「400ノット」だけではメートル法の言い方が同じ画面に無い＝語りと同じ「時速約741キロ」
+                         steps=[dict(state=dict(shake="on"), tag=[dict(t="時速約741キロ付近", at="r1"),
+                                                                  dict(t="揺れの出方が変わる", at="r2")]),
+                                dict(state=dict(ail="on"), tag=[dict(t="左の補助翼が少し下", at="r3", to="ail"),
+                                                                dict(t="補助翼の断面（左・模式）", at="ins", col=J.TICK, cap=28)])],
+                         rel=[dict(t="約741キロ", src="AAB p43（400ノットの換算）")],
+                         note="模式（輪郭は報告書の図2から・揺れの印と補助翼の角度は模式）", src="NTSB 事故報告 AAB-12/01 PDF 13・43頁")),
+    ),
 }

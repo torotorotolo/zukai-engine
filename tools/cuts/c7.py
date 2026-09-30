@@ -127,6 +127,95 @@ SPEC = {
                           note="模式（形は模式）", src="NTSB 事故報告 AAB-12/01 PDF 32・40頁")),
     ),
 
+    # ── 🔴 ⑤b-4（2026-09-30）：ねじ・ナット・フラッターの模式図（`tools/bolt15.py`＝門番 check_mech の judge_bolt）──
+    #   人は描かない（整備の仲間・検査員も）。ねじの長さの比＝#40 の実測（決まり 1.219インチ・実際 0.96インチ）
+
+    # ちょうつがいの断面：頭＝新しい詰め物がねじ山を締めつける（c708 の説明の続き）→ 1行目＝古い詰め物（すき間・締めつけない）＋
+    #   整備の指針（注37＝AC 43.13-1B：締めつけが決まりに届かないナットは使い回さない）／2行目＝ゆるみ（回る・ずれる）と
+    #   合わせ目の塗装のはげ（p31＝こすれた跡）
+    "c709": dict(
+        t="指針と塗装のはげ",
+        s="ゆるみ止めのしくみ",
+        fig=("bolt", dict(view="nut", start=dict(insert="new", clamp="on"),
+                          steps=[dict(state=dict(insert="old", clamp="off"),
+                                      tag=[dict(t="締めつけが足りない詰め物", at="r1"), dict(t="→ 使い回さない", at="r2")]),
+                                 dict(state=dict(loose="on", paint="on"),
+                                      tag=[dict(t="ゆるんで、ずれる", at="r3", col=J.ALERT),
+                                           dict(t="塗装がはげて地の金属", at="pl", to="paint_l", cap=28)])],
+                          note="模式（形・大きさは模式）",
+                          src="NTSB 事故報告 AAB-12/01 PDF 31頁（注37＝FAA AC 43.13-1B）")),
+    ),
+
+    # ちょうつがいの断面（頭＝古い詰め物）：1行目＝左の板の真ん中のねじは決まりより短い（ねじが縮み、決まりの長さの影）／
+    #   2行目＝先がナットの端とそろう（輪）。長さの比＝#40 p2（NAS221-19＝1.219インチ）・p6（0.96インチ）
+    "c712": dict(
+        t="短すぎるねじ",
+        s="長さの比は材料試験の実測",
+        fig=("bolt", dict(view="nut", start=dict(insert="old"),
+                          steps=[dict(state=dict(screw="short", ghost="on"),
+                                      tag=[dict(t="左の板の真ん中のねじ", at="r1", to="head"),
+                                           dict(t="決まりの長さ", at="gh", to="ghost", col=J.TICK, cap=30)]),
+                                 dict(state=dict(tip="on"), tag=dict(t="先がナットの端まで", at="tp", to="tip"))],
+                          note="模式（長さの比だけ実測・形は模式）",
+                          src="NTSB 事故報告 AAB-12/01 PDF 31頁・資料 #40 PDF 2・6頁")),
+    ),
+
+    # 板の支え（ばね）と震え：1行目（聞き役の問い）＝ねじがゆるむ（ちょうつがいの輪）／2行目＝支えのかたさが落ちる（ばねが弱く）・
+    #   板がぐらつく／3行目＝フラッター（揺れの幅が大きく・震えの印）＝p40
+    "c715": dict(
+        t="ゆるみから震えへ",
+        s="ちょうつがいとリンクの支え",
+        fig=("bolt", dict(view="spring",
+                          steps=[dict(state=dict(screw="loose"), tag=dict(t="ねじのゆるみ", at="top", to="scr", col=J.ALERT)),
+                                 dict(state=dict(stiff="low", wobble="on"),
+                                      tag=[dict(t="ぐらつく", at="t2", to="tab"), dict(t="支えがやわらかく", at="spr", to="spring")]),
+                                 dict(state=dict(shake="on"), tag=dict(t="フラッター", at="lft", col=J.ALERT, cap=44))],
+                          note="模式（支えの強さを「ばね」で表した・形は模式）", src="NTSB 事故報告 AAB-12/01 PDF 39・40頁")),
+    ),
+
+    # 板の支えと震えの続き（頭＝c715 の終わり）：1行目＝揺れの向きと空気の力の向きがそろう（かみ合う）／2行目＝続く震えと
+    #   大きくなる震え（p40＝うるさい震えから、一瞬で壊れるまで）
+    "c716": dict(
+        t="フラッターとは",
+        s="報告書の説明から",
+        fig=("bolt", dict(view="spring", start=dict(screw="loose", stiff="low", shake="on"),
+                          steps=[dict(state=dict(air="on"), tag=[dict(t="空気の力", at="r1", to="up", col=J.LINE),
+                                                                 dict(t="揺れと同じ向きに押す", at="top")]),
+                                 dict(state=dict(graph="on"), tag=[dict(t="うるさい震え", at="s1", col=J.AMBER),
+                                                                   dict(t="一瞬で壊れる", at="s2", col=J.ALERT)])],
+                          note="模式（形・揺れの幅は模式）", src="NTSB 事故報告 AAB-12/01 PDF 40頁")),
+    ),
+
+    # 速さと支えのかたさ（目盛りの数は無い）：1行目＝起きやすい所（速いほど・かたさが落ちるほど＝p40）と向きの矢印／
+    #   2行目＝事故機の点（ゆるんだねじ・レースの速さ）／3行目（聞き役）＝輪（2つがそろう）
+    "c717": dict(
+        t="震えが起きる条件",
+        s="決め手は2つ",
+        fig=("bolt", dict(view="chart",
+                          steps=[dict(state=dict(region="on", arrows="on"),
+                                      tag=[dict(t="起きやすい所", at="reg", col=J.ALERT), dict(t="速いほど", at="sp"),
+                                           dict(t="かたさが落ちるほど", at="st")]),
+                                 dict(state=dict(acc="on"), tag=[dict(t="事故機", at="acc", col=J.INK_W),
+                                                                 dict(t="ゆるんだねじのまま", at="r1"), dict(t="レースの速さで", at="r2")]),
+                                 dict(state=dict(ring="on"), tag=dict(t="速さとゆるみの両方", at="r3"))],
+                          note="模式（曲線の形は模式・報告書は「速いほど、かたさが落ちるほど起きやすい」）",
+                          src="NTSB 事故報告 AAB-12/01 PDF 40頁")),
+    ),
+
+    # ちょうつがいの断面（頭＝ゆるんだねじ・古い詰め物）：1行目＝締め直し（4日前の技術検査の指摘のあと＝可能性が高い＝p41）／
+    #   2行目＝そのあとの飛行3回（事故の飛行を含む）・それでもゆるんでいた／3行目（聞き役）＝ナットは古いまま（p41＝26年以上）
+    "c720": dict(
+        t="4日前の締め直し",
+        s="技術検査の指摘のあと",
+        fig=("bolt", dict(view="nut", start=dict(insert="old", loose="on"),
+                          steps=[dict(state=dict(loose="off", tight="on"), tag=dict(t="4日前：締め直し（とみられる）", at="r1", to="head")),
+                                 dict(state=dict(tight="off", flights="3", loose="on"),
+                                      tag=[dict(t="3回（事故の飛行を含む）", at="b1"), dict(t="ゆるんでいた", at="r2", col=J.ALERT)]),
+                                 dict(tag=dict(t="ナットは古いまま", at="r3"))],
+                          rel=[dict(t="3回", src="AAB p41")],
+                          note="模式（形・大きさは模式）", src="NTSB 事故報告 AAB-12/01 PDF 31・41頁")),
+    ),
+
     # C（駐機場から見たボックス席）：幕を付けたパイプ（青と赤＝p21 注26）の奥に観客の群れ（数えられない形）・スタンド。
     #   カメラがゆっくり横へ（首振り pan）。場面の時刻＝16:24:28（0秒のころ＝観客はボックス席にいた・落ちる瞬間 16:24:38 より前）。
     #   🔴 空に機体を描かない（近づく機体を描かない）
