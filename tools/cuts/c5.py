@@ -227,6 +227,8 @@ SPEC = {
         t="短い翼の利点",
         s="翼の縦横比が下がる",
         fig=("mod", dict(view="plan", start=dict(stock="on"),
+                         # 頭から緑の面が出る＝c502 の凡例を基図に（c502 から数分あとで、緑の意味を言い直さない）
+                         base_tags=[dict(t="緑＝ふつうの P-51D だけの部分", at="b1", col=J.OK)],
                          steps=[dict(state=dict(wing="on"), tag=[dict(t="速く飛べる", at="r1", to="wing"),
                                                                  dict(t="強い力に耐える", at="r2")]),
                                 dict(tag=[dict(t="17.3G でも空中で壊れず", at="r3"), dict(t="G は一瞬だった", at="r4")])],

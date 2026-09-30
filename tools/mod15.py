@@ -297,8 +297,11 @@ def parts_of(view, st):
             out.append(_P(f"wing_{'l' if s > 0 else 'r'}", "line", _wing_edge(s), stroke="AMBER", w=6, alpha=_on(st["wing"] == "on")))
             out.append(_P(f"ail_{'l' if s > 0 else 'r'}", "poly", _ail(s), fill="AMBER", stroke="AMBER", w=1,
                           alpha=0.85 * _on(st["ail"] == "on")))
-        # 揺れの印（翼端の外・尾の後ろ・機首の前）
-        zz = [_zig(700, STK_Y[0] - 8, 760, STK_Y[0] - 8, 4, 9), _zig(700, STK_Y[1] + 8, 760, STK_Y[1] + 8, 4, 9),
+        # 揺れの印（翼端の横・尾の後ろ・機首の前）
+        # ⚠️ 試し焼き 36669995876：翼端の外（下）に横向きで置いた印が、出典の行の文字「模式」に乗った＝翼端の横に縦向き
+        #    （下見：ふつうの翼端の高さに合わせると、緑を出さない c522 では事故機の翼端より上に浮いた＝事故機の翼端に合わせる）
+        zx = TIP_X["dim_m"][0] + 22.0
+        zz = [_zig(zx, MOD_Y[0] - 10, zx, MOD_Y[0] + 44, 4, 9), _zig(zx, MOD_Y[1] - 44, zx, MOD_Y[1] + 10, 4, 9),
               _zig(330, 470, 330, 654, 5, 10), _zig(860, 520, 860, 604, 3, 10)]
         for j, pts in enumerate(zz):
             out.append(_P(f"shake{j}", "line", pts, stroke="AMBER", w=4, alpha=_on(st["shake"] == "on")))
