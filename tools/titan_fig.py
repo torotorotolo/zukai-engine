@@ -4268,6 +4268,18 @@ GEO = {
     #    残す教訓＝同じ名の島が別にある（병풍도は진도군と신안군に1つずつ）＝説明で選ぶ／P625 の無い港は市の中心＝札は港と名乗らない。
     #    ⚠️ 12本目の地点（gz・bikini・rongerik ほか）は check_drift の selftest の見本＝消さない。
     #    ⚠️ 13本目の鍵が残っている（"crash"＝エルムノンヴィルの森 ほか）＝15本目の地点は `reno_` の頭で名付ける（鍵がぶつからない）
+    # 🆕 15本目（リノ・エアレース2011）⑤b-7（2026-09-30）：Wikidata P625（query.wikidata.org の SPARQL・2026-09-30）
+    #   Reno Q49225（市の中心）・Reno Stead Airport Q5796729・Ocala Q918195・Minden, Nevada Q680911・McKinney, Texas Q51697・
+    #   Roswell, New Mexico Q33561・Arizona Q816（州の代表点＝札だけに使う）。都市の位置は報告書に無い＝照合の宣言に入れない。
+    #   照合は NTSB 資料 #17 p7008 の座標（板の一片が見つかった所＝滑走路8-26 の北側）で空港の点を当てる（`cuts/ss.py` の RENO_REL）
+    #   ⚠️ 同じ名の町が多い（Minden は NE・LA・IA ほか・Roswell は GA ほか）＝説明（郡）で選んだ
+    "reno_city": (39.526111, -119.8125, "リノの町"),
+    "reno_stead": (39.667222, -119.876111, "ステッド空港"),
+    "reno_ocala": (29.1875, -82.141389, "オカラ"),
+    "reno_minden": (38.955833, -119.769167, "ミンデン"),
+    "reno_mckinney": (33.2, -96.633333, "マッキニー"),
+    "reno_roswell": (33.394167, -104.522778, "ロズウェル"),
+    "reno_az": (34.286667, -111.656944, "アリゾナ州"),
 }
 DIR16 = ("北", "北北東", "北東", "東北東", "東", "東南東", "南東", "南南東",
          "南", "南南西", "南西", "西南西", "西", "西北西", "北西", "北北西")
@@ -4386,6 +4398,11 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
         course=145・then=dict(course=, delay=)          方位盤（`dial=dict(x=, y=, r=, start=, t=)`）の針を段の鍵で回す
                                                         （針は動く部品＝段の層に描くと前の針が残る）。🔴 値は rel に
                                                         `dict(course=145, src=…)` で宣言（宣言の無い針路は止まる）
+      15本目 ⑤b-7 で足した段の部品：
+        circle=dict(at=, through=)                      半径の円（破線）＝半径は at→through（記録の値で置いた点）。
+                                                        🔴 rel に `dict(a=at, b=through, km=…)` が無いと門番が止める
+        arrow=dict(a=, b=)                              向きだけの矢印（距離が記録に無い動き＝コースを北へ）
+      scale_km が1未満なら縮尺は「100メートル」と書く（駐機場の地図）
     rel    … 報告書の値の宣言（門番 `check_drift` が照合する）
              [dict(a="gz", b="ship", km=157, dir="東北東", src="DNA p212")]
              方位角で書かれた値は `deg=270`（±2度）、緯度経度で書かれた値は
@@ -4429,7 +4446,9 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
     g.append(line(sx, ny, sx + sl, ny, J.TICK, 4))
     g.append(line(sx, ny - 10, sx, ny + 10, J.TICK, 4))
     g.append(line(sx + sl, ny - 10, sx + sl, ny + 10, J.TICK, 4))
-    g.append(txtfit(sx + sl / 2, ny - 18, f"{scale_km}キロ", 220, cap=26, col=J.TICK, anchor="middle"))
+    # 🆕 15本目 ⑤b-7：駐機場の地図（数百メートル）は縮尺を「100メートル」と書く（「0.1キロ」と出していた）
+    g.append(txtfit(sx + sl / 2, ny - 18, f"{round(scale_km * 1000)}メートル" if scale_km < 1 else f"{scale_km}キロ",
+                    220, cap=26, col=J.TICK, anchor="middle"))
     g.append(txtfit(BX0, BY1 - 6, note + (f"　出典：{src}" if src else ""), BW, cap=26, col=J.TICK))
 
     if dial:
@@ -4450,6 +4469,18 @@ def drift(view, places=(), pts=None, steps=(), rel=(), note="", src="", scale_km
         for rt in _many(st.get("route")):
             s.append(poly([P[k] for k in rt["via"]], "none", rt.get("col", J.TICK), rt.get("sw", 3),
                           dash=rt.get("dash", "14 10")))
+        for ci in _many(st.get("circle")):
+            # 🆕 15本目 ⑤b-7：半径の円（オカラの基地から半径約161キロ＝AAB p35）。半径は at→through の2点の距離
+            #    （through は記録の値で置いた点）。🔴 その2点の距離を rel に宣言していないと門番 check_drift が止める
+            (cx_, cy_), (tx_, ty_) = P[ci["at"]], P[ci["through"]]
+            rr = math.hypot(tx_ - cx_, ty_ - cy_)
+            s.append(poly([(cx_ + rr * math.cos(2 * math.pi * k / 120), cy_ + rr * math.sin(2 * math.pi * k / 120))
+                           for k in range(120)], "none", ci.get("col", J.AMBER), ci.get("sw", 4), close=True,
+                          dash=ci.get("dash", "14 10")))
+        for ar in _many(st.get("arrow")):
+            # 🆕 15本目 ⑤b-7：向きだけの矢印（コースを北へ移した＝距離は記録に無い＝AAB p46・CAROL A-12-14）
+            (ax_, ay_), (bx_, by_) = P[ar["a"]], P[ar["b"]]
+            s.append(arrow(ax_, ay_, bx_, by_, ar.get("col", J.AMBER), 5, head=22))
         for d in _many(st.get("dim")):
             (ax, ay), (bx, by) = P[d["a"]], P[d["b"]]
             s.append(line(ax, ay, bx, by, J.AMBER, 4, dash="14 10"))

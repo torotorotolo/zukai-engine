@@ -1844,7 +1844,14 @@ def build_layers(allow_missing=False):
                 jobs[f"{cid}_ilab"] = illu_base(cid, isc)
                 intro_of[cid] = dict(ILLU.strip(isc), role="intro")
             else:
-                jobs[f"{cid}_ilab"] = full_top(cid, dict(spec, photo=spec["intro"]["photo"]))
+                ip = dict(spec, photo=spec["intro"]["photo"])
+                if spec["intro"].get("panel"):
+                    # 🆕 15本目 ⑤b-7：**額装の頁**の冒頭（c904＝1行目は頁 p46 のまま → 2行目から地図＝映像方針 §4）。
+                    #    全画面の頁は、ほかの文字の頁16カット（額装）と見た目がそろわず、実写の暗幕が頁の片側を暗くする
+                    #    ＝地・額の縁・見出し・額の下の出典は実写の額装カットと同じ（`full_bg`・`full_top` の panel）
+                    ip.update(panel=True, trim=spec["intro"].get("trim"))
+                    jobs[f"{cid}_ibg"] = full_bg()
+                jobs[f"{cid}_ilab"] = full_top(cid, ip)
         if not stages:
             # 段が無いと「描いている途中」が作れず、カットが丸ごと静止する。
             # 骨格を段に格上げして、カット全体をかけて描かせる。
@@ -1903,6 +1910,16 @@ def layer_index(allow_missing=False):
             if k0 is not None and rows and not 0 < k < len(rows):
                 raise SystemExit(f"{cid}: intro の until={k} は 1〜{len(rows) - 1}（行の番号・0 は入れ替える前が無い）")
             intro = dict(illu=isc, sec=round(max(0.5, (rows[k]["t"] + LEAD - 0.30) if rows else 1.0), 3))
+        elif intro and intro.get("panel"):
+            # 🆕 15本目 ⑤b-7：額装の頁の冒頭（c904）も `until=k`＝k 行目を読み始める少し前に地図へ入れ替える。
+            #    額の箱は実写の額装と同じ計算（`photo_box`）＝build_jiko.intro_frame がこの箱に頁をはめる（寄らない＝端を切らない）
+            rows = SUBS.get(cid, [])
+            k = int(intro.get("until", len(rows) - 1))
+            if rows and not 0 < k < len(rows):
+                raise SystemExit(f"{cid}: intro の until={k} は 1〜{len(rows) - 1}（行の番号・0 は入れ替える前が無い）")
+            box = photo_box(dict(s, photo=intro["photo"], panel=True, trim=intro.get("trim")))
+            intro = dict(intro, sec=round(max(0.5, (rows[k]["t"] + LEAD - 0.30) if rows else 1.0), 3),
+                         box=[int(v) for v in box])
         idx[cid] = {"photo": bool(s.get("photo")), "back": bool(s.get("photo") and s.get("fig")),
                     "veil": float(s.get("veil", VEIL)), "span": spans[cid],
                     # 🔴 実写カット（fig の無いカット）にかける暗幕。**書いたカットだけ**

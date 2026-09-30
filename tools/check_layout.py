@@ -151,7 +151,8 @@ def main(only=None):
         cid = k.rsplit("_", 1)[0]
         # 🔴 12本目から：冒頭の写真の板（`_ilab`）は**図と同時には出ない**（写真→図へ入れ替え）。
         #    別の画面として束ねる（板の中どうしは今までどおり比べる）
-        return cid + "〔冒頭の写真〕" if (k.endswith("_ilab") or k in intro_il) else cid
+        #    🆕 15本目 ⑤b-7：額装の頁の冒頭（c904）の地 `_ibg` も冒頭の画面
+        return cid + "〔冒頭の写真〕" if (k.endswith(("_ilab", "_ibg")) or k in intro_il) else cid
     for k, svg in jobs.items():
         if k in mini_il:
             continue

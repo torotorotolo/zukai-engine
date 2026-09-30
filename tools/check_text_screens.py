@@ -55,6 +55,8 @@ def pic_kinds(s):
             return {"混ざり"}
         if (s.get("intro") or {}).get("illu"):
             return {"混ざり"}          # 15本目 ⑤b-2：冒頭の絵 → 時間の帯（c312）＝画面の中で絵から図解へ入れ替わる
+        if (s.get("intro") or {}).get("photo"):
+            return {"混ざり"}          # 15本目 ⑤b-7：冒頭の写真・頁 → 図解（c904＝頁 p46 → 地図）
         return {"混ざり", "図解"} if photo else {"図解"}
     if photo:
         return {"文字の頁", "図・写真の頁"} if "/pg" in str(photo) else {"写真"}

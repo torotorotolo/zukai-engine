@@ -161,6 +161,8 @@ PAGE_CUTS = {
     'c724': (52, ('box', 0.091, 0.280)),                  # 「3. PROBABLE CAUSE」と推定原因の段落だけ（下の委員の名は入れない）
     'c818': (17, ('anchor', 'requireadistanceof500feet')),
     'c901': (43, ('anchor', 'January10,2012,investigative')),
+    # 🆕 ⑤b-7：c904 の1行目（混ざり＝頁 p46 → 地図）。主催の団体の返事「moved the racers and the race course further north」
+    'c904': (46, ('anchor', 'movedtheracersandtheracecoursefurthernorth')),
     'c902': (6001, ('box', 0.107, 0.370)),                # 勧告書の上だけ＝紋章・宛名・日付の欄（460ノットと人数の段落は映さない）
     # ── 図・写真の頁（NTSB の図＝PD）────────────────────────────────
     'c105': (32, ('img', 0)),                             # 図14 の写真だけ（冒頭の物証）
@@ -347,6 +349,11 @@ def _is_head(t):
     return t == 'WPR11MA454' or t.startswith('DataRecordersFactualReport')
 
 
+def _is_sect_head(t):
+    """節の見出しの行（空白なしの字）＝「2.8SUMMARY」「1.6FLIGHTRECORDERS」「1.11.3RARARules」「3.PROBABLECAUSE」"""
+    return bool(re.match(r'\d+(\.\d+)+\.?[A-Za-z]|\d+\.[A-Z]', t))
+
+
 def _foot_rule(page):
     """脚注の区切りの短い横線の y（頁の下 45% にある、いちばん上の横線）。無ければ None。"""
     H = page.rect.height
@@ -413,6 +420,10 @@ def text_trim(page, anchor):
         pick = next((c for c in cand if c[0] == ('up' if up else 'down')), cand[0])
         j0, j1 = (j0 - 1, j1) if pick[0] == 'up' else (j0, j1 + 1)
         up = not up
+    # 🔴 2026-09-30（⑤b-7）：試し焼きで下の端に**次の節の見出しだけ**が残った（c608「1.11.2」・c624「2.8 SUMMARY」・
+    #    c703「1.11.3」・c818「1.6」・c901「2.6.1」＝1行の見出しも段落として足していた）→ 下の端の見出しだけの段落は外す
+    while j1 > pid[a1] and len(paras[j1]) == 1 and _is_sect_head(rows[paras[j1][0]]['t']):
+        j1 -= 1
     y_top, y_bot = top_of(j0), bot_of(j1)
     lines = [d['rect'] for d in page.get_drawings() if d['rect'].height < 2]
     above = [r['box'][3] for r in every if r['box'][3] <= y_top + 0.5] + [ln.y1 for ln in lines if ln.y1 <= y_top]

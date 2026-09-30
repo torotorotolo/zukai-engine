@@ -1072,6 +1072,24 @@ def intro_frame(cut, t, lay, meta):
     it = meta[cut]["intro"]
     if it.get("illu"):
         return illu_frame(cut, t, lay, meta, it["illu"], f"{cut}_ilab")
+    if it.get("panel"):
+        # 🆕 15本目 ⑤b-7：**額装の頁**の冒頭（c904＝1行目は頁 p46 → 2行目から地図）。地 `{cut}_ibg` の上の額の箱
+        #    （scene_jiko が `photo_box` で出した）に頁をはめる。寄らない（頁の端の行を切らない＝§5b-108）・
+        #    色は intro の color（頁は原色 1.0＝ほかの文字の頁と同じ）
+        box = tuple(int(v) for v in it["box"])
+        key = (it["photo"], tuple(it.get("trim") or ()), box)
+        if key not in _INTRO_SRC:
+            _INTRO_SRC[key] = load_photo(it["photo"], box, it.get("trim"))
+        ph = fit(_INTRO_SRC[key], box).convert("RGBA")
+        keep = float(it.get("color", 1.0))
+        if keep < 0.999:
+            pal = J.palette(meta[cut].get("pal"))
+            ph = Image.blend(duotone(ph, pal["BG2"], pal["DUO_L"]), ph, max(0.0, keep))
+        fr = lay[f"{cut}_ibg"].copy()
+        fr.paste(ph, (box[0], box[1]))
+        if f"{cut}_ilab" in lay:
+            over(fr, lay[f"{cut}_ilab"], min(1.0, max(0.0, (t - 0.15) / 0.5)))
+        return fr
     if it["photo"] not in _INTRO_SRC:
         _INTRO_SRC[it["photo"]] = load_photo(it["photo"], (0, 0, S.W, S.H))
     k = t / max(float(it["sec"]) + INTRO_X, 0.001)

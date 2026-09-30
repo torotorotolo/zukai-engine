@@ -40,6 +40,11 @@ def _adiff(a, b):
     return abs((a - b + 180) % 360 - 180)
 
 
+def _km(v):
+    """所見の距離の書き方（15本目 ⑤b-7：駐機場の数百メートルが「0キロ」と出ていた）。"""
+    return f"{v * 1000:.0f}メートル" if v < 1 else f"{v:.1f}キロ" if v < 10 else f"{v:.0f}キロ"
+
+
 def judge(kw):
     """1つの drift の引数 → 所見のリスト（空なら合格）と、照合した件数。"""
     f = F.drift(**kw)
@@ -67,7 +72,7 @@ def judge(kw):
         km, deg = measured(r["a"], r["b"])
         tol = float(r.get("tol", 0.05))
         if abs(km - r["km"]) / r["km"] > tol:
-            bad.append(f"{r['a']}→{r['b']}: 図は {km:.0f}キロ／報告書 {r['km']}キロ"
+            bad.append(f"{r['a']}→{r['b']}: 図は {_km(km)}／報告書 {_km(r['km'])}"
                        f"（差 {abs(km - r['km']) / r['km']:.1%}＞{tol:.0%}）［{r.get('src', '')}］")
         half = {16: 11.25, 8: 22.5}[int(r.get("sector", 16))]
         if r.get("dir") and int(r.get("sector", 16)) == 8 and F.dir_deg(r["dir"]) % 45:
@@ -79,17 +84,24 @@ def judge(kw):
         if r.get("deg") is not None and _adiff(deg, float(r["deg"])) > float(r.get("tol_deg", 2.0)):
             bad.append(f"{r['a']}→{r['b']}: 図の方位 {deg:.1f}度／報告書 {float(r['deg']):g}度"
                        f"［{r.get('src', '')}］")
+    declared = {frozenset((r["a"], r["b"])) for r in f.rel if "b" in r and "km" in r}
     for st in kw.get("steps", []):
         for d in F._many(st.get("dim")):
             # 🔴 14本目 ⑤b-4：小数を読む（「約1.7キロ」を「7キロ」と読んでいた＝12・13本目は整数だけだった）
-            m = re.search(r"(\d[\d,]*(?:\.\d+)?)キロ", d.get("t", ""))
+            # 🔴 15本目 ⑤b-7：「メートル」も読む（駐機場の地図の「約228メートル」はキロの札でないので**黙って素通り**していた）
+            m = re.search(r"(\d[\d,]*(?:\.\d+)?)(キロ|メートル)", d.get("t", ""))
             if not m:
                 continue
             n += 1
             km, _ = measured(d["a"], d["b"])
-            say = float(m.group(1).replace(",", ""))
+            say = float(m.group(1).replace(",", "")) / (1000.0 if m.group(2) == "メートル" else 1.0)
             if abs(km - say) / say > 0.05:
-                bad.append(f"寸法線 {d['a']}→{d['b']}「{d['t']}」: 図は {km:.0f}キロ（差 {abs(km - say) / say:.1%}）")
+                bad.append(f"寸法線 {d['a']}→{d['b']}「{d['t']}」: 図は {_km(km)}（差 {abs(km - say) / say:.1%}）")
+        for ci in F._many(st.get("circle")):
+            # 🆕 15本目 ⑤b-7：半径の円は、中心と半径の点の距離が**報告書の値として宣言**されていること
+            n += 1
+            if frozenset((ci["at"], ci["through"])) not in declared:
+                bad.append(f"円 {ci['at']}（半径の点 {ci['through']}）: 半径の距離が rel に宣言されていない")
     if not f.rel:
         bad.append("rel（報告書の値の宣言）が1件も無い＝照合できない模式図")
     return bad, n
@@ -140,6 +152,23 @@ def selftest():
         ("🔴 陽性対照：16方位（既定）で25度ずれた点を「北東」",
          dict(base, pts=dict(base["pts"], n8=dict(of="gz", km=38, deg=20.0)),
               rel=[dict(a="gz", b="n8", km=38, dir="北東")]), False),
+        # 15本目 ⑤b-7（2026-09-30）で足した口：メートルの寸法線（駐機場）と半径の円（オカラから約161キロ）
+        ("正しい寸法線（約228メートル・南）",
+         dict(base, pts=dict(base["pts"], pit=dict(of="gz", km=0.228, deg=180)),
+              steps=[dict(dim=dict(a="gz", b="pit", t="約228メートル"))],
+              rel=[dict(a="gz", b="pit", km=0.228, dir="南")]), True),
+        ("🔴 陽性対照：メートルの札を約400メートルと書く（図は228メートル）",
+         dict(base, pts=dict(base["pts"], pit=dict(of="gz", km=0.228, deg=180)),
+              steps=[dict(dim=dict(a="gz", b="pit", t="約400メートル"))],
+              rel=[dict(a="gz", b="pit", km=0.228, dir="南")]), False),
+        ("正しい半径の円（半径161キロを宣言）",
+         dict(base, pts=dict(base["pts"], r161=dict(of="gz", km=161, deg=90)),
+              steps=[dict(circle=dict(at="gz", through="r161"), dim=dict(a="gz", b="r161", t="約161キロ"))],
+              rel=[dict(a="gz", b="r161", km=161)]), True),
+        ("🔴 陽性対照：円の半径を宣言していない",
+         dict(base, pts=dict(base["pts"], r161=dict(of="gz", km=161, deg=90)),
+              steps=[dict(circle=dict(at="gz", through="r161"))],
+              rel=[dict(a="gz", b="ship", km=157, dir="東北東")]), False),
     ]
     for name, kw, want in cases:
         bad, _ = judge(kw)

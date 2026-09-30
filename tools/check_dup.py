@@ -138,7 +138,7 @@ def collect(only=None):
         if only and not cid.startswith(only):
             continue
         # 🔴 12本目から：冒頭の写真の板（`_ilab`）は**図と同時には出ない**＝別の画面として束ねる
-        if k.endswith("_ilab"):
+        if k.endswith(("_ilab", "_ibg")):       # 🆕 15本目 ⑤b-7：額装の頁の冒頭（c904）の地も冒頭の画面
             cid += "〔冒頭の写真〕"
         # 見出しと章マーカーのレイヤーは「図の中」ではない。
         # ⚠️ 実写カットは見出しが _lab に入るので、レイヤー名では切れない。
