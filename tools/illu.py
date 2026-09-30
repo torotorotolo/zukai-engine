@@ -1306,12 +1306,17 @@ def _ra_anchors(view):
 # ── RB：空の中の事故機（横から side・後ろから rear）。形＝AAB 図2（p14）の横から見た図と上から見た図の寸法（翼の幅 約8.8メートル・
 #    水平尾翼 約3.7メートル＝p13）。色（銀）と「177」＝事故の週の写真で確かめただけ（写真はなぞらない）。胴体の下の取り入れ口は無い（p13）
 RB_K = 58.0                        # 横から：1メートル＝58画素（機体の長さ 9.83メートル＝570画素）
-RB_KR = 54.0                       # 後ろから：1メートル＝54画素（翼の幅 8.79メートル＝475画素）
+RB_KR = 50.0                       # 後ろから：1メートル＝50画素（翼の幅 8.79メートル＝440画素）
 RB_C = (960.0, 430.0)              # 機体の真ん中＝回す中心（横から）
 # 後ろから：⑤b-2 の下見で、90度前後に傾いた翼の下の先が地平線より下（砂漠の上）に出て「翼が地面に触れた」ように見えた
 #   ＝回す中心を上へ（翼の半分 237画素＋余白 → 下の先が地平線より上）
-RB_CR = (960.0, 360.0)
+# 🔴 ⑤b-3（2026-09-30）：試し焼き 36657377530 の c307（93度）で、下の翼の先 y≈596 が**地平線 612 の 16画素上**＝手前の丘と
+#    砂漠の境にちょうど乗り、やはり「地面に触れた」絵に見えた（門番 ⑨ の余白 8画素では通っていた）。
+#    ＝中心をさらに上へ（360→330）・少し小さく（54→50）＝93度で翼の先 y≈549（地平線の63画素上＝手前の丘より上）。
+#    門番 ⑨ の余白も RB_GAP（50画素）に広げた（翼の厚み約10画素を引いても40画素のすき間が見える）
+RB_CR = (960.0, 330.0)
 RB_HZ = 612.0                      # 地平線
+RB_GAP = 50.0                      # 後ろから見た翼の下の先と地平線のすき間の下限（門番 ⑨）
 RB_T = dict(view=0.35, pitch=0.55, roll=2.6, ail=0.4, pylon=2.4)
 RB_VIEW = dict(side="横から見た図", rear="後ろから見た図")
 # 横から見た形（メートル・x＝前・y＝上・原点＝翼の付け根のあたり）。図2 の横の図から概形を読んだ（線の数は減らした＝抽象）
@@ -1532,6 +1537,17 @@ def _scene_RB(start, states, steps):
     return parts
 
 
+def _rb_motion_end(start, states, steps):
+    """段ごとの「大きく動く鍵」（見え方の入れ替え・機首の上げ）が終わる時刻（行頭からの秒）。札の既定の出る時刻に使う。
+    傾き（roll）はゆっくり小さく動く＝札を待たせない（c305 の「0.27秒」が行の後ろへずれる）"""
+    K = _rb_timeline(start, states, steps)
+    out = {}
+    for nm in ("side", "rear", "pitch"):
+        for k in K[nm][1:]:
+            out[k["stage"]] = max(out.get(k["stage"], 0.0), float(k.get("delay", 0.0)) + float(k.get("dur", 0.0)))
+    return out
+
+
 def _key_time(k):
     return (int(k["stage"]), float(k.get("delay", 0.0)))
 
@@ -1560,8 +1576,10 @@ def _rb_anchors(st):
                     top=R(0.0, 1.2))
     d = -float(st["pitch"])
     R = lambda x, y: rot_pt((RB_C[0] + x * RB_K, RB_C[1] - y * RB_K), d, RB_C)  # noqa: E731
+    # 🆕 ⑤b-3：canopy（操縦席の覆い＝光る面の上）・engine（機首の覆い）・prop（回る翼の円の上の方）＝c107・c414 の札
     return dict(plane=R(0.0, 0.0), nose=R(4.5, 0.0), tail=R(*RB_SIDE["tail"]), mid=R(-0.4, -0.45), top=R(0.0, 0.9),
-                ring=(RB_C[0] - 0.4 * RB_K, RB_C[1] + 0.45 * RB_K + 110.0))
+                ring=(RB_C[0] - 0.4 * RB_K, RB_C[1] + 0.45 * RB_K + 110.0), canopy=R(0.55, 0.80), engine=R(3.0, 0.10),
+                prop=R(4.25, 1.15))
 
 
 # ── RD：ピットの事故機（⑤b-2 は c109 の小さな絵＝尾翼の寄り tail だけ）。地面に置いた姿勢・脚は描かない（記録の図に無い）＝
@@ -1593,6 +1611,223 @@ def _scene_RD(start, states, steps):
             dict(_part("plane", rb_side_svg(c, RD_K), "AAB p14（図2＝機体の形・水平尾翼と昇降舵とトリムタブ）"), obj=dict(aircraft=1)),
             _part("mark", rd_mark_svg(), "AAB p14（水平尾翼・昇降舵・トリムタブ）",
                   keys=_keys(start, states, steps, lambda st: _vis(st["mark"] == "on")))]
+
+
+# ── RC：ボックス席とピット（地上から）── 15本目 ⑤b-3（2026-09-30）
+# 記録（AAB）：p19「the edge of the pit area (where many other spectators were located) was 748 feet south of the showline,
+#   and a fuel truck was parked on the ramp near the pits」／p20「Low-level metal fencing was installed at the edge of the pit
+#   area between the crew pits and the ramp …」「Metal piping fitted with curtains was installed at the edge of the box seating
+#   area between the box seats and the ramp」／p21 注26「the curtains used by spectators were blue and red」／p16（快晴）・
+#   p20 図3（スタンド・奥の山並み）。
+# 🔴 形・高さ・間隔・幕の色の並びは記録に無い＝抽象（平らな塗り・左下に「模式」）。人は顔の無い群れだけ（`crowd_layout`＝
+#    重なって数えられない形・枠の外まで続く）＝役割 spectators・場面の時刻 at は落ちる瞬間（`cuts.ss.ILLU_CROWD_UNTIL`）より前
+#    （門番 ②）。燃料車は1台（obj）。ピットの機体・テント・ほかの車は描かない（数が記録に無い）。スタンドは枠で切れる1続きの帯
+#    （数を名乗らない＝図の「3つ」は A の上から見た絵で）
+# 見え方：pits＝駐機場からピットの端（低い金属の柵）・その奥の観客・駐機場の燃料車（c212）／box＝駐機場からボックス席の前の幕と
+#   その奥の観客・スタンド（c726）／fences＝2つの柵の寄りを低い位置から（左＝ピットの前の低い金属の柵・右＝ボックス席の前の
+#   幕を付けたパイプ＝c816。落ちたあとの章＝人を描かない。柵の奥は**ぼかした面**＝人も物も描かない）
+# 地上から見る絵＝ピンホールの透視（焦点 RC_F 画素・目の高さ E メートル・地平線 hz）：地面の点（横 x・奥行き D メートル）は
+#   (cx＋F·x／D, hz＋F·E／D)、高さ h の点は (…, hz＋F·(E−h)／D)
+RC_F = 1150.0
+RC_CAM = dict(pits=dict(E=1.6, hz=470.0), box=dict(E=1.6, hz=470.0), fences=dict(E=0.6, hz=400.0))
+RC_PIT_D, RC_BOX_D = 24.0, 18.0          # カメラから柵までの奥行き（記録に無い＝模式）
+RC_FENCE_H, RC_PIPE_H = 1.05, 1.2        # 低い金属の柵・幕を付けたパイプの高さ（記録に無い＝「low-level」の模式）
+RC_TRUCK = dict(D=19.0, x0=-9.0, x1=-1.0, h=3.0)    # 燃料車（奥行き・横の範囲・高さ＝記録に無い＝抽象・運転台が右）
+RC_BLUE, RC_RED = "#2f5c9c", "#b23f36"   # 幕の青と赤（注26。色味と並びは記録に無い＝交互の模式）
+RC_FEN = dict(D=4.0, split=960.0)        # fences：柵までの奥行き・左右の境
+RC_VIEW = dict(pits="駐機場から見たピット", box="駐機場から見たボックス席", fences="駐機場から見た2つの柵（低い位置から）")
+
+
+def rc_p(view, x, D, h=0.0, cx=960.0):
+    c = RC_CAM[view]
+    return (cx + RC_F * x / D, c["hz"] + RC_F * (c["E"] - h) / D)
+
+
+def rc_ground_svg(view, y0, col="#8e9295", line="#7f8386", x0=0.0, x1=float(W), cx=960.0):
+    """手前の舗装（駐機場）。奥行きごとの継ぎ目と、消える点へ向かう線（平らな地面の手がかり）。"""
+    c = RC_CAM[view]
+    g = [f'<rect x="{x0:.0f}" y="{y0:.0f}" width="{x1 - x0:.0f}" height="{H - y0 + 10:.0f}" fill="{col}"/>']
+    for D in (3.0, 4.2, 5.8, 8.0, 11.0, 15.0):
+        y = c["hz"] + RC_F * c["E"] / D
+        if y0 + 6 < y < H:
+            g.append(f'<path d="M {x0:.0f} {y:.1f} H {x1:.0f}" stroke="{line}" stroke-width="2.5" opacity="0.8"/>')
+    d0, d1 = RC_F * c["E"] / max(1.0, y0 - c["hz"]), RC_F * c["E"] / (H - c["hz"])
+    for xm in range(-30, 31, 6):
+        a, b = cx + RC_F * xm / d0, cx + RC_F * xm / d1
+        g.append(f'<path d="M {a:.1f} {y0:.1f} L {b:.1f} {H}" stroke="{line}" stroke-width="2" opacity="0.55"/>')
+    return (f'<clipPath id="rcg{int(x0)}"><rect x="{x0:.0f}" y="0" width="{x1 - x0:.0f}" height="{H}"/></clipPath>'
+            f'<g clip-path="url(#rcg{int(x0)})">' + "".join(g) + "</g>")
+
+
+def rc_fence_svg(view, D, h=RC_FENCE_H, step=2.5, cx=960.0, x0=0.0, x1=float(W)):
+    """低い金属の柵（柱と2本の横棒＝形は記録に無い＝抽象）。x0〜x1 の画面の範囲に描く。"""
+    k = RC_F / D
+    xm0, xm1 = (x0 - cx) / k - step, (x1 - cx) / k + step
+    g = []
+    for yh in (h, h * 0.5):
+        (_, y) = rc_p(view, 0.0, D, yh)
+        g.append(f'<path d="M {x0:.0f} {y:.1f} H {x1:.0f}" stroke="#4d565c" stroke-width="{0.075 * k:.1f}"/>'
+                 f'<path d="M {x0:.0f} {y:.1f} H {x1:.0f}" stroke="#aab2b7" stroke-width="{0.045 * k:.1f}"/>')
+    xm = math.floor(xm0 / step) * step
+    while xm <= xm1:
+        (px, ytop), (_, ybot) = rc_p(view, xm, D, h + 0.04, cx), rc_p(view, xm, D, 0.0, cx)
+        if x0 - 20 < px < x1 + 20:
+            g.append(f'<rect x="{px - 0.03 * k:.1f}" y="{ytop:.1f}" width="{0.06 * k:.1f}" height="{ybot - ytop:.1f}" '
+                     f'fill="#aab2b7" stroke="#4d565c" stroke-width="{max(1.5, 0.012 * k):.1f}"/>')
+        xm += step
+    return "".join(g)
+
+
+def rc_curtain_svg(view, D, h=RC_PIPE_H, step=3.0, cx=960.0, x0=0.0, x1=float(W)):
+    """幕を付けた金属のパイプ（柱・上のパイプ・柱のあいだに幕＝青と赤の交互は模式）。"""
+    k = RC_F / D
+    xm0, xm1 = (x0 - cx) / k - step, (x1 - cx) / k + step
+    g = []
+    xm = math.floor(xm0 / step) * step
+    j = int(round(xm / step))
+    while xm <= xm1:
+        (a, yt), (b, _) = rc_p(view, xm, D, h - 0.04, cx), rc_p(view, xm + step, D, h - 0.04, cx)
+        (_, yb) = rc_p(view, xm, D, 0.15, cx)
+        col = RC_BLUE if j % 2 == 0 else RC_RED
+        g.append(f'<path d="M {a:.1f} {yt:.1f} L {b:.1f} {yt:.1f} L {b:.1f} {yb:.1f} L {a:.1f} {yb:.1f} Z" fill="{col}" '
+                 f'stroke="#1f262b" stroke-width="{max(1.5, 0.01 * k):.1f}"/>')
+        for q in range(1, 4):                      # 布のたるみ（縦の筋）
+            xx = a + (b - a) * q / 4
+            g.append(f'<path d="M {xx:.1f} {yt + 4:.1f} V {yb - 3:.1f}" stroke="#000" stroke-opacity="0.13" '
+                     f'stroke-width="{max(2.0, 0.02 * k):.1f}"/>')
+        xm += step
+        j += 1
+    (_, yp) = rc_p(view, 0.0, D, h)
+    g.append(f'<path d="M {x0:.0f} {yp:.1f} H {x1:.0f}" stroke="#4d565c" stroke-width="{0.07 * k:.1f}"/>'
+             f'<path d="M {x0:.0f} {yp:.1f} H {x1:.0f}" stroke="#c3cacf" stroke-width="{0.04 * k:.1f}"/>')
+    xm = math.floor(xm0 / step) * step
+    while xm <= xm1:
+        (px, ytop), (_, ybot) = rc_p(view, xm, D, h + 0.03, cx), rc_p(view, xm, D, 0.0, cx)
+        g.append(f'<rect x="{px - 0.025 * k:.1f}" y="{ytop:.1f}" width="{0.05 * k:.1f}" height="{ybot - ytop:.1f}" '
+                 f'fill="#c3cacf" stroke="#4d565c" stroke-width="{max(1.5, 0.012 * k):.1f}"/>')
+        xm += step
+    return "".join(g)
+
+
+def rc_truck_svg(view):
+    """燃料車（1台＝AAB p19）。横から見た形（運転台・タンク・車輪）＝形と色は記録に無い＝抽象。"""
+    t = RC_TRUCK
+    D, x0, x1 = t["D"], t["x0"], t["x1"]
+    k = RC_F / D
+
+    def P(x, h):
+        return rc_p(view, x, D, h)
+    (sx0, gy), (sx1, _) = P(x0 - 0.3, 0.0), P(x1 + 0.3, 0.0)
+    g = [f'<ellipse cx="{(sx0 + sx1) / 2:.1f}" cy="{gy:.1f}" rx="{(sx1 - sx0) / 2:.1f}" ry="{0.22 * k:.1f}" fill="#000" '
+         f'opacity="0.22"/>']
+    (a, b), (c_, d) = P(x0 + 0.2, 1.0), P(x1 - 0.2, 0.55)
+    g.append(f'<rect x="{a:.1f}" y="{b:.1f}" width="{c_ - a:.1f}" height="{d - b:.1f}" fill="#3a4147"/>')
+    (a, b), (c_, d) = P(x0, 3.0), P(x1 - 2.5, 1.0)
+    g.append(f'<rect x="{a:.1f}" y="{b:.1f}" width="{c_ - a:.1f}" height="{d - b:.1f}" rx="{0.9 * k:.1f}" fill="#e2e5e3" '
+             f'stroke="#4b545a" stroke-width="2.5"/>')
+    g.append(f'<path d="M {a + 0.4 * k:.1f} {(b + d) / 2:.1f} H {c_ - 0.4 * k:.1f}" stroke="#9aa3a8" stroke-width="{0.12 * k:.1f}"/>')
+    cab = [P(x1 - 2.3, 1.0), P(x1 - 2.3, 2.75), P(x1 - 0.9, 2.75), P(x1, 1.8), P(x1, 1.0)]
+    g.append(_poly(cab, "#c9ced1", "#4b545a", 2.5))
+    g.append(_poly([P(x1 - 2.0, 2.55), P(x1 - 1.0, 2.55), P(x1 - 0.35, 1.9), P(x1 - 2.0, 1.9)], "#6f8796", "#4b545a", 2))
+    for xw in (x0 + 1.2, x0 + 2.6, x1 - 1.2):
+        (wx, wy) = P(xw, 0.5)
+        g.append(f'<circle cx="{wx:.1f}" cy="{wy:.1f}" r="{0.5 * k:.1f}" fill="#23282c"/>'
+                 f'<circle cx="{wx:.1f}" cy="{wy:.1f}" r="{0.2 * k:.1f}" fill="#8a9297"/>')
+    return "".join(g)
+
+
+def rc_stands_svg(view):
+    """スタンド（box の奥・枠で切れる1続きの帯＝数を名乗らない）と、段ごとの小さな群れ。返り値＝(SVG, 群れの並び)。"""
+    c = RC_CAM[view]
+    tiers = [(40.0 + 3.0 * i, 1.0 + 1.25 * i) for i in range(7)]     # (奥行き, 段の高さ)＝記録に無い＝模式
+    (_, yf), (_, yb) = rc_p(view, 0.0, tiers[0][0], 0.0), rc_p(view, 0.0, tiers[-1][0], tiers[-1][1] + 1.2)
+    g = [f'<rect x="0" y="{yb:.1f}" width="{W}" height="{yf - yb:.1f}" fill="#8796a1"/>',
+         f'<path d="M 0 {yb:.1f} H {W}" stroke="#56626b" stroke-width="5"/>']
+    rows = []
+    for D, h in tiers:
+        (_, y) = rc_p(view, 0.0, D, h)
+        g.append(f'<path d="M 0 {y:.1f} H {W}" stroke="#6b7a85" stroke-width="3"/>')
+        lay = crowd_layout(0.0, float(W), y, RC_F * 0.95 / D, rows=1)
+        rows.append((lay, 0.0, float(W)))
+        g.append(crowd_svg(lay, cols=("#34414b", "#34414b", "#34414b")))
+    return "".join(g), rows
+
+
+def rc_haze_svg(view, y1, x0=0.0, x1=float(W)):
+    """柵の奥のぼかした面（fences）＝人も物も描かない（落ちたあとの章・線2）。地平線より上の遠い所を平らな霞に。"""
+    c = RC_CAM[view]
+    return (f'<rect x="{x0:.0f}" y="{y1:.0f}" width="{x1 - x0:.0f}" height="{c["hz"] - y1 + 2:.0f}" fill="#d7dbd6"/>'
+            f'<rect x="{x0:.0f}" y="{c["hz"]:.0f}" width="{x1 - x0:.0f}" height="{H - c["hz"]:.0f}" fill="#b8b2a3"/>')
+
+
+def _rc_clip(svg, x0, x1, ident):
+    """左右に分けた絵（fences）の片側を枠で切る。"""
+    return (f'<defs><clipPath id="{ident}"><rect x="{x0:.0f}" y="0" width="{x1 - x0:.0f}" height="{H}"/></clipPath></defs>'
+            f'<g clip-path="url(#{ident})">{svg}</g>')
+
+
+def _rc_anchors(view):
+    if view == "pits":
+        t = RC_TRUCK
+        return dict(fence=rc_p(view, 3.0, RC_PIT_D, RC_FENCE_H), truck=rc_p(view, (t["x0"] + t["x1"] - 2.5) / 2, t["D"], 3.0),
+                    crowd=rc_p(view, 6.0, RC_PIT_D + 3.0, 1.6))
+    if view == "box":
+        return dict(box=rc_p(view, 2.0, RC_BOX_D + 4.0, 1.7), curtain=rc_p(view, -2.5, RC_BOX_D, 0.7))
+    s = RC_FEN["split"]
+    return dict(fence=rc_p(view, 0.0, RC_FEN["D"], RC_FENCE_H, cx=s / 2),
+                curtain=rc_p(view, 0.0, RC_FEN["D"], RC_PIPE_H * 0.6, cx=s + (W - s) / 2))
+
+
+def _scene_RC(start, states, steps):
+    """RC＝ボックス席とピット（地上から）。view＝pits／box／fences（場面の頭で1つ）。crowd＝観客の群れ・fuel＝燃料車。"""
+    v = start["view"]
+    if any(st["view"] != v for st in states):
+        raise ValueError("illu RC：view は場面の頭で1つだけ")
+    c = RC_CAM[v]
+    parts = [_part("sky", rb_sky_svg(c["hz"]), "AAB p16（快晴）")]
+    ck = _keys(start, states, steps, lambda st: _vis(st["crowd"] == "on"))
+    if v == "pits":
+        (_, yf) = rc_p(v, 0.0, RC_PIT_D, 0.0)
+        parts += [_part("hills", rb_hills_svg(True, c["hz"]), "AAB p20（図3 の奥の山並み）"),
+                  _part("pitground", f'<rect x="0" y="{c["hz"]:.0f}" width="{W}" height="{yf - c["hz"] + 2:.0f}" fill="#b9ad96"/>',
+                        "AAB p19（ピット）・p20（図3）")]
+        (_, base) = rc_p(v, 0.0, RC_PIT_D + 2.0, 0.0)
+        lay = crowd_layout(0.0, float(W), base, RC_F * 1.7 / (RC_PIT_D + 2.0), rows=3)
+        parts.append(_part("crowd", crowd_svg(lay), "AAB p19（ピットのあたりにも多くの観客＝many other spectators）",
+                           keys=ck, role="spectators", crowd=[dict(layout=lay, x0=0.0, x1=float(W))]))
+        parts += [_part("fence", rc_fence_svg(v, RC_PIT_D), "AAB p20（ピットと駐機場のあいだの低い金属の柵）"),
+                  _part("ramp", rc_ground_svg(v, yf), "AAB p19（駐機場＝ramp）"),
+                  dict(_part("truck", rc_truck_svg(v), "AAB p19（燃料車がピットの近くの駐機場に止まっていた）",
+                             keys=_keys(start, states, steps, lambda st: _vis(st["fuel"] == "on"))), obj=dict(fuel_truck=1))]
+    elif v == "box":
+        (_, yf) = rc_p(v, 0.0, RC_BOX_D, 0.0)
+        svg, rows = rc_stands_svg(v)
+        parts += [_part("hills", rb_hills_svg(True, c["hz"]), "AAB p20（図3 の奥の山並み）"),
+                  _part("stands", svg, "AAB p19（スタンド＝grandstands）・p20（図3）", keys=ck, role="spectators",
+                        crowd=[dict(layout=lay, x0=x0, x1=x1) for lay, x0, x1 in rows])]
+        (_, base) = rc_p(v, 0.0, RC_BOX_D + 2.0, 0.0)
+        lay = crowd_layout(0.0, float(W), base, RC_F * 1.7 / (RC_BOX_D + 2.0), rows=4)
+        parts += [_part("crowd", crowd_svg(lay), "AAB p19（観客のボックス席）", keys=ck, role="spectators",
+                        crowd=[dict(layout=lay, x0=0.0, x1=float(W))]),
+                  _part("curtain", rc_curtain_svg(v, RC_BOX_D),
+                        "AAB p20（ボックス席と駐機場のあいだの幕を付けた金属のパイプ）・p21（注26＝幕は青と赤）"),
+                  _part("ramp", rc_ground_svg(v, yf), "AAB p19（駐機場＝ramp）")]
+    else:
+        s, D = RC_FEN["split"], RC_FEN["D"]
+        (_, yf) = rc_p(v, 0.0, D, 0.0)
+        (_, yh) = rc_p(v, 0.0, D, 2.4)
+        parts += [_part("haze", rc_haze_svg(v, max(0.0, yh)), "AAB p20（柵の場所）"),
+                  _part("ramp", rc_ground_svg(v, yf, x0=0.0, x1=s, cx=s / 2) + rc_ground_svg(v, yf, x0=s, x1=float(W), cx=s + (W - s) / 2),
+                        "AAB p19（駐機場＝ramp）"),
+                  # 🔴 ⑤b-3 の下見：幕の板は範囲の外まで描く作り＝右半分の幕が左半分へはみ出して低い金属の柵を覆った
+                  #    ＝左右それぞれを枠で切る（clip）。寄りの絵では柱の間隔を詰める（2.5→1.2・3.0→1.6 メートル＝模式）
+                  _part("fence", _rc_clip(rc_fence_svg(v, D, step=1.2, cx=s / 2, x0=0.0, x1=s - 6.0), 0.0, s - 6.0, "rcf"),
+                        "AAB p20（ピットと駐機場のあいだの低い金属の柵）"),
+                  _part("curtain", _rc_clip(rc_curtain_svg(v, D, step=1.6, cx=s + (W - s) / 2, x0=s + 6.0, x1=float(W)),
+                                            s + 6.0, float(W), "rcc"),
+                        "AAB p20（ボックス席と駐機場のあいだの幕を付けた金属のパイプ）・p21（注26＝幕は青と赤）"),
+                  _part("split", f'<rect x="{s - 6:.0f}" y="0" width="12" height="{H}" fill="#10161b"/>', "AAB p20（柵の場所）")]
+    return parts
 
 
 # ══════════════════════════════════════════════════════════
@@ -1695,6 +1930,8 @@ FIELDS = {
                piece="off", fuel="off", course="on", cam=1.0),
     "RB": dict(view="side", ground="on", pitch=0.0, roll=0.0, ail="off", cam=1.0),
     "RD": dict(view="tail", mark="off", cam=1.0),
+    # 15本目 ⑤b-3：RC ボックス席とピット（地上から）。pan＝カメラの中心を横へ（画素・cam の寄りのまま首を振る）
+    "RC": dict(view="pits", crowd="off", fuel="off", cam=1.0, pan=0.0),
 }
 ONOFF = ("off", "on")
 CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONOFF, crowd=ONOFF, bridge=ONOFF, run=ONOFF,
@@ -1702,7 +1939,7 @@ CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONO
                gg=("off", "p7", "p8", "gone"), path=ONOFF, trace=ONOFF, x=ONOFF, box=ONOFF, laps=ONOFF, seg67=ONOFF,
                ring8=ONOFF, piece=ONOFF, fuel=ONOFF, course=ONOFF, ground=ONOFF, ail=("off", "right"))
 VIEWS = dict(B=("corridor", "cabin", "desk"), C=("helm", "console", "room"), D=("ship", "sea", "far", "heli", "rail"),
-             RA=tuple(RA_VIEW), RB=("side", "rear"), RD=("tail",))
+             RA=tuple(RA_VIEW), RB=("side", "rear"), RD=("tail",), RC=tuple(RC_VIEW))
 # 変える段には rec が要る（記録の事実を描く欄）。⑤b-3 で置き場 C・D・E の欄を足した（位置 bx とカメラ cam は要らない）
 #   15本目 ⑤b-2：RA の印・線・×・輪、RB の機首の上げ・傾き・補助翼（コースの破線 course と地面 ground は要らない）
 REC_FIELDS = ("heel", "wake", "boxes", "crowd", "mark", "bridge", "run", "far", "binoc", "rboat", "cg", "crew", "sel",
@@ -1712,7 +1949,7 @@ EVENTS = ("rings", "board", "rings_in", "asks", "walkie", "glow", "pylon")
 VIEW = dict(A="船首の側から見た図", D="船首の側から見た図", B="船の中", C="操舵室の中", E="管制センターの中",
             RD="ピットの事故機（横から）")
 # 左下の出典のあとに添える断り（15本目）
-NOTE = dict(RA="配置は概略・機体は拡大・点線は模式")
+NOTE = dict(RA="配置は概略・機体は拡大・点線は模式", RC="柵・幕・車の形と並びは模式・配置は概略")
 D_VIEW = dict(ship="船首の側から見た図", heli="船首の側から見た図", sea="123艇を横から見た図", far="123艇から見た図",
               rail="3階の左舷を横から見た図")
 ROLES = ("crew", "coast_guard", "control")                # 型紙（数えられる影）で置ける役割
@@ -1733,6 +1970,8 @@ def _check_state(place, st):
             raise ValueError(f"illu {place}：{k}={v!r} は知らない状態（{CHOICES[k]}）")
         if k == "cam" and float(v) < 1.0:
             raise ValueError("illu：cam（寄り）は 1.0 以上（引きすぎると画面の端が空く）")
+        if k == "pan" and not -880.0 <= float(v) <= 880.0:
+            raise ValueError("illu：pan（カメラの中心の横のずれ）は ±880 画素まで（中心が画面の外へ出ると端が空く）")
 
 
 def _states(place, start, steps):
@@ -2104,6 +2343,8 @@ def _anchors(place, st):
         return _rb_anchors(st)
     if place == "RD":
         return dict(tail=RD_TAIL)
+    if place == "RC":
+        return _rc_anchors(v)
     if place == "A" or (place == "D" and v in ("ship", "heli")):
         piv = PIVOT["D"] if (place == "D" and v == "ship") else PIVOT["A"]
         h = float(st["heel"])
@@ -2145,6 +2386,8 @@ def _camc(place, st0, states):
         return RB_CR if st0["view"] == "rear" else RB_C
     if place == "RD":
         return RD_TAIL
+    if place == "RC":
+        return (960.0, RC_CAM[st0["view"]]["hz"])
     if place == "C":
         return CCEN[st0["view"]]
     if place == "A" and any(st["bridge"] == "on" for st in [st0] + states):
@@ -2189,20 +2432,29 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
             raise ValueError(f"illu：段に知らない鍵 {sorted(bad)}")
     st0, states = _states(place, start, steps)
     parts = {"A": _scene_A, "B": _scene_B, "C": _scene_C, "D": _scene_D, "E": _scene_E,
-             "RA": _scene_RA, "RB": _scene_RB, "RD": _scene_RD}[place](st0, states, steps)
-    cam = _keys(st0, states, steps, lambda st: dict(z=float(st["cam"])))
+             "RA": _scene_RA, "RB": _scene_RB, "RD": _scene_RD, "RC": _scene_RC}[place](st0, states, steps)
+    if isinstance(camc, str):
+        camc = _anchors(place, states[-1] if states else st0)[camc]
+    if "pan" in FIELDS[place]:
+        # 15本目 ⑤b-3：首振り（pan）＝カメラの中心 cx を段の鍵で動かす（build_jiko._il_cam・下見が cx を読む）。
+        #   層は画面の大きさで焼くので、層を横にずらすと端が空く＝寄り（cam）の中で中心だけ動かす
+        c0 = camc if isinstance(camc, (list, tuple)) else _camc(place, st0, states)
+        cam = _keys(st0, states, steps, lambda st: dict(z=float(st["cam"]), cx=float(c0[0]) + float(st["pan"])))
+    else:
+        cam = _keys(st0, states, steps, lambda st: dict(z=float(st["cam"])))
     if place == "RA":
         auto = RA_VIEW[st0["view"]]["mpp"] / max(float(k.get("z", 1.0)) for k in cam)
         scale = min(float(scale), auto) if scale else auto
-    if isinstance(camc, str):
-        camc = _anchors(place, states[-1] if states else st0)[camc]
     objects = {}
     for p in parts:
         for k, n in (p.get("obj") or {}).items():
             objects[k] = objects.get(k, 0) + int(n)
     tags = []
+    mend = _rb_motion_end(st0, states, steps) if place == "RB" else {}
     for i, (st, sp) in enumerate(zip(states, steps)):
-        g, texts, keep, dl = [], [], False, 0.35
+        # 🔴 ⑤b-3：札の指し先は「段の終わりの状態」＝見え方の入れ替えや機首の上げ（一気に大きく動く）の段で札を 0.35秒に出すと、
+        #    動く前の空を指す（試し焼き 36657377530 の c307：「17.3G」が水平の機体の先の空を指した）＝既定は動きが終わってから
+        g, texts, keep, dl = [], [], False, max(0.35, mend.get(i, 0.0))
         an = _anchors(place, st)
         for tg in F._many(sp.get("tag")):
             to = an[tg["at"]] if isinstance(tg.get("at"), str) else tg.get("at")
@@ -2232,6 +2484,8 @@ def _label(place, st0, states):
         return D_VIEW[st0["view"]]
     if place == "RA":
         return RA_VIEW[st0["view"]]["lab"]
+    if place == "RC":
+        return RC_VIEW[st0["view"]]
     if place == "RB":
         seq = []
         for st in [st0] + list(states):

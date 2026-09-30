@@ -1037,9 +1037,11 @@ def illu_frame(cut, t, lay, meta, sc, base):
 def _il_cam(fr, sc, t, times):
     """カメラの寄り（cam の z≧1・camc のまわり）。全面の絵と、15本目 ⑤b-2 から小さく戻す絵（illu_minis）にも。"""
     if sc.get("cam"):
-        z = _il_state(sc["cam"], t, times, dict(z=1.0))["z"]
+        cx, cy = sc.get("camc") or (S.W / 2, S.H / 2)
+        # 🆕 15本目 ⑤b-3：鍵に cx があれば中心を横へ動かす（首振り pan＝illu.scene が RC の pan から組む）。無ければ camc のまま
+        st = _il_state(sc["cam"], t, times, dict(z=1.0, cx=float(cx)))
+        z, cx = st["z"], st["cx"]
         if z > 1.0005:
-            cx, cy = sc.get("camc") or (S.W / 2, S.H / 2)
             fr = fr.transform(fr.size, Image.AFFINE, (1 / z, 0, cx - cx / z, 0, 1 / z, cy - cy / z),
                               resample=Image.BICUBIC)
     return fr

@@ -5019,3 +5019,10 @@ def boxes(view, steps, **kw):
 def lash(view, steps, **kw):
     import lash as _l
     return _l.lash(view, steps, **kw)
+
+
+# ── ⑧ 15本目 ⑤b-3（2026-09-30）：尾翼の板（トリムタブ）の動く模式図＝`tools/tail15.py`（門番 check_mech の judge_tail）──
+#   `fig=("tail", dict(view="side"|"plan", start=dict(…), steps=[…], rel=[…], note="模式…", src=…))`
+def tail(view, steps, **kw):
+    import tail15 as _t
+    return _t.tail(view, steps, **kw)

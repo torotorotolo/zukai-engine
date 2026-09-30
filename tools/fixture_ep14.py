@@ -255,8 +255,12 @@ CAUSE = {
 ILLU_SEC_OK = {}
 ILLU_CLOCK_OK = ()
 ILLU_COUNTS = {}
+# 🆕 2026-09-30（15本目 ⑤b-3）：置いてよい役割は回ごとの表（ss.ILLU_ROLES）になった＝14本目の値（船員・海洋警察・管制の型紙と
+#    乗客の群れ＝illu.ROLES と check_illu.CROWD_ROLES の既定と同じ）
+ILLU_ROLES = dict(sprite=("crew", "coast_guard", "control"), crowd=("passengers",))
 
 SS_NAMES = ("REC_PAGES", "REC_DOCS", "ILLU_SPLIT_TIMES", "ILLU_CROWD_UNTIL", "ILLU_SEC_OK", "ILLU_CLOCK_OK", "ILLU_COUNTS",
+            "ILLU_ROLES",
             "AXIS_DOCS",
             "AX_SHIP", "AX_BUILD", "AX_KAIZO", "AX_CAUSE", "AX_NIGHT", "AX_0850", "AX_TALK", "AXI", "CAUSE_NOTE",
             "HULL_NOTE", "MAP_PTS", "MAP_REL_ACC", "MAP_REL_NE", "MAP_REL_0846", "ROUTE", "ROUTE_PLAN", "MAP_VIEWS",

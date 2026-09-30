@@ -39,6 +39,11 @@ function state(keys, t, times, dflt) {
   for (const k in dflt) { const a = prev[k] ?? dflt[k], b = cur[k] ?? dflt[k]; out[k] = a + (b - a) * u; }
   return out;
 }
+// 15本目 ⑤b-3：カメラの寄り z と中心の横 cx（首振り pan）＝本番 build_jiko._il_cam と同じ（鍵に cx が無ければ camc のまま）
+function camTf(sc, t, times, c) {
+  const s = sc.cam ? state(sc.cam, t, times, {z: 1, cx: c[0]}) : {z: 1, cx: c[0]};
+  return `translate(${s.cx} ${c[1]}) scale(${s.z}) translate(${-s.cx} ${-c[1]})`;
+}
 function tf(st, piv) {
   return `translate(${st.dx} ${st.dy}) translate(${piv[0]} ${piv[1]}) rotate(${st.rot}) scale(${st.sc}) translate(${-piv[0]} ${-piv[1]})`;
 }
@@ -97,24 +102,21 @@ function frame(t) {
       let a = ease((t - times[i][0] - (info.delay ?? 0.35)) / 0.45);
       if (!info.keep && i + 1 < times.length) a *= 1 - ease((t - times[i + 1][0]) / 0.45);
       el.setAttribute('opacity', a); });
-    const z = sc.cam ? state(sc.cam, t, times, {z: 1}).z : 1, c = sc.camc;
-    document.getElementById('cam').setAttribute('transform', `translate(${c[0]} ${c[1]}) scale(${z}) translate(${-c[0]} ${-c[1]})`);
+    document.getElementById('cam').setAttribute('transform', camTf(sc, t, times, sc.camc));
     if (C.intro) {   // 15本目 ⑤b-2：全面の絵の前の冒頭の絵（c101 B→A）
       const si = C.intro; drawScene(si, t, si.times);
       document.getElementById('introwrap').setAttribute('opacity', t < C.introSec ? 1 : Math.max(0, 1 - (t - C.introSec) / 0.6));
-      const zi = si.cam ? state(si.cam, t, si.times, {z: 1}).z : 1, ci = si.camc;
-      document.getElementById('icam').setAttribute('transform', `translate(${ci[0]} ${ci[1]}) scale(${zi}) translate(${-ci[0]} ${-ci[1]})`);
+      document.getElementById('icam').setAttribute('transform', camTf(si, t, si.times, si.camc));
     }
   } else if (C.intro) {
     const sc = C.intro; drawScene(sc, t, sc.times);
     document.getElementById('introwrap').setAttribute('opacity', t < C.introSec ? 1 : Math.max(0, 1 - (t - C.introSec) / 0.6));
-    const z = sc.cam ? state(sc.cam, t, sc.times, {z: 1}).z : 1, c = sc.camc;
-    document.getElementById('cam').setAttribute('transform', `translate(${c[0]} ${c[1]}) scale(${z}) translate(${-c[0]} ${-c[1]})`);
+    document.getElementById('cam').setAttribute('transform', camTf(sc, t, sc.times, sc.camc));
   } else {
     C.scenes.forEach((sc, k) => { drawScene(sc, t, times); const a = ease((t - (sc.show < times.length ? times[sc.show][0] : 0)) / 0.45);
       document.getElementById('mini' + k).setAttribute('opacity', a);
-      const z = sc.cam ? state(sc.cam, t, times, {z: 1}).z : 1, c = sc.camc || [960, 540];     // 15本目 ⑤b-2：小さな絵にも寄り
-      document.getElementById('minicam' + k).setAttribute('transform', `translate(${c[0]} ${c[1]}) scale(${z}) translate(${-c[0]} ${-c[1]})`); });
+      // 15本目 ⑤b-2：小さな絵にも寄り
+      document.getElementById('minicam' + k).setAttribute('transform', camTf(sc, t, times, sc.camc || [960, 540])); });
     C.tagIds.forEach((id, i) => { const el = document.getElementById(id); if (el) el.setAttribute('opacity', ease((t - times[i][0]) / 0.6)); });
   }
   const r = C.subs.find(x => t >= x.t && t < x.t + x.d + 0.43) || null;

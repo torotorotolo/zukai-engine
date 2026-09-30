@@ -354,10 +354,100 @@ def judge_lash(f):
     return bad, n
 
 
+def judge_tail(f):
+    """15本目 ⑤b-3：尾翼の板の模式図（`tools/tail15.py`）。①筋（AAB）②本番の関数が置いた部品の画素 ③札の数。"""
+    import tail15 as T
+    bad, n = [], 0
+    view = f.mech["view"]
+    sh = {s["id"]: s for s in f.mech["shapes"]}
+
+    def pts(ident, i):
+        return F.mech_pts(sh[ident], _at(sh[ident], i))
+
+    def alpha(ident, i):
+        a = _at(sh[ident], i).get("alpha", 1.0)
+        return 1.0 if a is None else float(a)
+
+    def gap(a, b):
+        return math.hypot(b[0][0] - a[-1][0], b[0][1] - a[-1][1])
+
+    for i, st in enumerate(f.mech["states"]):
+        tag = f"段{i + 1}"
+        if view == "side":
+            rules = [
+                (st["tab"] == "free" and st["link"] != "broken", "板が限り（約13度＝p23）を越えたのにリンクが折れていない（p28 0.56秒）"),
+                (st["link"] == "broken" and st["force"] == "on", "リンクが折れたのに板が昇降舵を押す力が残っている（p41〜p42）"),
+                (st["elev"] == "up" and (st["link"] != "broken" or st["force"] != "off"),
+                 "昇降舵がはね上がるのは、板の押す力が消えた（リンクが折れた）あと（c322・p41〜p42）"),
+                (st["nose"] == "on" and st["elev"] != "up", "機首が上がるのは昇降舵がはね上がってから"),
+                (st["force"] == "on" and st["tab"] != "up", "押す力は後ろの縁が上の板（機首下げの調整＝p22・p42）から"),
+                (st["elev"] == "down" and st["force"] != "on", "昇降舵の後ろの縁が下がるのは板の押す力で"),
+                (st["ghost"] == "on" and st["tab"] == "zero", "0度の点線（整備の仲間の見方＝p15）は板が0度でないときだけ"),
+            ]
+        else:
+            rules = [
+                (st["rlink"] == "broken" and st["llink"] != "broken", "右のリンクが先に折れた（記録は左→右＝p40）"),
+                (st["shake"] == "both" and st["llink"] != "broken", "右の板の震えは左のリンクの震えと破断のあと（p40）"),
+                (st["spread"] == "on" and st["shake"] != "both", "左から右への広がりの矢印なのに右が震えていない"),
+                (st["mode"] == "stock" and (st["llink"] != "ok" or st["rlink"] != "ok" or st["shake"] != "none"),
+                 "ふつうの P-51D（stock）の絵に事故の壊れ方を描いた"),
+                (st["rod"] == "on" and st["mode"] != "mod", "鉄の棒（p14）は改造後の右の板だけ"),
+            ]
+        for hit, why in rules:
+            n += 1
+            if hit:
+                bad.append(f"{tag}: {why}（{st}）")
+        # ── 画素 ──
+        if view == "side":
+            eq = pts("elev", i)
+            te = [(eq[T.E_TE[0]][0] + eq[T.E_TE[1]][0]) / 2, (eq[T.E_TE[0]][1] + eq[T.E_TE[1]][1]) / 2]
+            ea = math.degrees(math.atan2(te[1] - T.E_H[1], te[0] - T.E_H[0]))
+            e_deg = ((ea - 180.0 + 180.0) % 360.0) - 180.0
+            tq = pts("tab", i)
+            th = T._elev_pt(T.T_H, st)
+            tt = [(tq[T.T_TE[0]][0] + tq[T.T_TE[1]][0]) / 2, (tq[T.T_TE[0]][1] + tq[T.T_TE[1]][1]) / 2]
+            ta = math.degrees(math.atan2(tt[1] - th[1], tt[0] - th[0]))
+            t_deg = ((ta - ea + 180.0) % 360.0) - 180.0
+            n += 2
+            want_e = dict(trim=(-0.5, 0.5), down=(-12.0, -2.0), up=(8.0, 25.0))[st["elev"]]
+            if not want_e[0] <= e_deg <= want_e[1]:
+                bad.append(f"{tag}: 昇降舵 {st['elev']} なのに、描いた角度 {e_deg:+.1f}度（{want_e}）")
+            # 板の角度：zero＝0度／up＝後ろの縁が上へ 5〜13度（p22 の写真 5・8度・p23 の限り）／free＝21度以上（p28）
+            want_t = dict(zero=(-0.5, 0.5), up=(5.0, 13.0), free=(21.0, 60.0))[st["tab"]]
+            if not want_t[0] <= t_deg <= want_t[1]:
+                bad.append(f"{tag}: 板 {st['tab']} なのに、昇降舵に対する角度 {t_deg:+.1f}度（記録の幅 {want_t}）")
+            g_ = gap(pts("link_a", i), pts("link_b", i))
+            red = _at(sh["link_a"], i).get("stroke") == "ALERT"
+            n += 1
+            if (st["link"] == "broken") != (g_ >= 20.0 and red):
+                bad.append(f"{tag}: リンク {st['link']} なのに、すき間 {g_:.0f}画素・赤 {red}")
+            for ident, on in (("force", st["force"] == "on"), ("nose", st["nose"] == "on"), ("ghost", st["ghost"] == "on")):
+                n += 1
+                if (alpha(ident, i) > 0.5) != on:
+                    bad.append(f"{tag}: {ident} の濃さ {alpha(ident, i)} が状態と違う")
+        else:
+            mod = st["mode"] == "mod"
+            for ident, on in (("rod", mod), ("act_r", not mod), ("link_rs", not mod), ("bolt", mod),
+                              ("shake_l", st["shake"] in ("left", "both")), ("shake_r", st["shake"] == "both"),
+                              ("spread", st["spread"] == "on")):
+                n += 1
+                if (alpha(ident, i) > 0.5) != on:
+                    bad.append(f"{tag}: {ident} の濃さ {alpha(ident, i)} が状態 {st} と違う")
+            for side in ("l", "r"):
+                g_ = gap(pts(f"link_{side}a", i), pts(f"link_{side}b", i))
+                red = _at(sh[f"link_{side}a"], i).get("stroke") == "ALERT"
+                brk = st[f"{side}link"] == "broken"
+                n += 1
+                if brk != (g_ >= 20.0 and red):
+                    bad.append(f"{tag}: {'左' if side == 'l' else '右'}のリンク {st[side + 'link']} なのに、すき間 {g_:.0f}画素・赤 {red}")
+    bad += _numbers(f)
+    return bad, n
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
     return (judge_latch(f) if kind == "latch" else judge_section(f) if kind == "section"
-            else judge_lash(f) if kind == "lash" else judge_hull(f))
+            else judge_lash(f) if kind == "lash" else judge_tail(f) if kind == "tail" else judge_hull(f))
 
 
 def selftest():
@@ -443,6 +533,34 @@ def selftest():
          dict(view="box", steps=[dict(state=dict(lock="on")), dict(state=dict(rope="on"))], note=N, src="s"), True),
         ("🔴 陽性対照：固縛の札の数「約30本」が宣言に無い", "lash",
          dict(view="car", steps=[dict(state=dict(car="all"), tag=dict(t="約30本", xy=(100, 300)))], note=N, src="s"), False),
+    ]
+    # 🆕 15本目 ⑤b-3：尾翼の板の模式図（tail）＝筋（AAB p14・p22・p23・p28・p40〜p42）・画素・札の数
+    trim = [dict(tag=dict(t="トリムタブ")),
+            dict(state=dict(tab="up", force="on", elev="down"), tag=dict(t="後ろの縁が上へ 8度", at="b1", to="tab"))]
+    pop = [dict(state=dict(link="broken", tab="free", force="off", elev="up"), tag=dict(t="リンクが折れる", at="b1", to="link")),
+           dict(state=dict(nose="on"), tag=dict(t="機首が上がる", at="nose", to="nose"))]
+    spread = [dict(state=dict(llink="broken", shake="left")), dict(state=dict(rlink="broken", shake="both", spread="on"))]
+    cases += [
+        ("15本目 正しい尾翼（横から：0度→後ろの縁が上へ8度・押す力・昇降舵が下がる）", "tail",
+         dict(view="side", steps=trim, note=N, rel=[dict(t="8度", src="AAB p22")]), True),
+        ("15本目 正しい尾翼（横から：リンクが折れ→力が消え→昇降舵がはね上がり機首が上がる）", "tail",
+         dict(view="side", start=dict(tab="up", force="on", elev="down"), steps=pop, note=N), True),
+        ("15本目 正しい尾翼（上から：左のリンク→右の震え・右のリンク・広がり）", "tail", dict(view="plan", steps=spread, note=N), True),
+        ("15本目 正しい尾翼（上から：ふつうの P-51D＝2枚とも動く）", "tail",
+         dict(view="plan", steps=[dict(state=dict(mode="stock"))], note=N), True),
+        ("🔴 15本目 陽性対照：板が限りを越えたのにリンクが折れていない", "tail",
+         dict(view="side", steps=[dict(state=dict(tab="free"))], note=N), False),
+        ("🔴 15本目 陽性対照：昇降舵が下がったまま機首が上がる", "tail",
+         dict(view="side", steps=[dict(state=dict(nose="on"))], note=N), False),
+        ("🔴 15本目 陽性対照：リンクが折れたのに押す力が残る", "tail",
+         dict(view="side", start=dict(tab="up", force="on", elev="down"), steps=[dict(state=dict(link="broken"))], note=N), False),
+        ("🔴 15本目 陽性対照：右のリンクが先に折れる（記録は左→右）", "tail",
+         dict(view="plan", steps=[dict(state=dict(rlink="broken"))], note=N), False),
+        ("🔴 15本目 陽性対照：ふつうの P-51D に鉄の棒の印", "tail",
+         dict(view="plan", steps=[dict(state=dict(mode="stock", rod="on"))], note=N), False),
+        ("🔴 15本目 陽性対照：札の角度「約10度」が宣言（8度）に無い", "tail",
+         dict(view="side", steps=[dict(state=dict(tab="up", force="on", elev="down"), tag=dict(t="約10度"))], note=N,
+              rel=[dict(t="8度", src="AAB p22")]), False),
     ]
     for name, kind, kw, want in cases:
         bad, _ = judge(kind, kw)
@@ -533,6 +651,29 @@ def selftest():
         good = True
     ok &= good
     print(f"  {'OK' if good else '🔴 NG'} 🔴 陽性対照：固縛の段が戻る（all → req）で型が止まる: {'止まった' if good else '通った'}（止まるはず）")
+    # 🔴 15本目 ⑤b-3 画素の陽性対照（描く側の定数を壊す）：①限りを越えた板を 15度で描く（21度以上＝p28 に届かない）
+    #    ②折れたリンクのすき間を0に（折れて見えない）
+    import tail15 as T
+    keep = dict(T.TAB_DEG)
+    T.TAB_DEG["free"] = 15.0
+    try:
+        bad, _ = judge("tail", dict(view="side", start=dict(tab="up", force="on", elev="down"), steps=pop, note=N))
+    finally:
+        T.TAB_DEG.update(keep)
+    good = any("板 free" in b for b in bad)
+    ok &= good
+    print(f"  {'OK' if good else '🔴 NG'} 🔴 15本目 陽性対照（画素）：限りを越えた板を15度で描く型: "
+          f"{'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    keep = T.GAP
+    T.GAP = 0.0
+    try:
+        bad, _ = judge("tail", dict(view="plan", steps=spread, note=N))
+    finally:
+        T.GAP = keep
+    good = any("リンク broken" in b for b in bad)
+    ok &= good
+    print(f"  {'OK' if good else '🔴 NG'} 🔴 15本目 陽性対照（画素）：折れたリンクのすき間0の型: "
+          f"{'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 
@@ -546,7 +687,7 @@ def main():
     fixture_ep14.restore()       # 🔴 15本目 ⑤b-2：selftest で差し込んだ14本目の見本を本番の表に戻す（戻さないと14本目の表で本番を測る）
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items())
-               if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash")}
+               if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail")}
     if not targets:
         print("⚠️ latch・section・hull・lash のカットが0件（この回に仕組みの模式図が無いなら正しい。**0件を調べて合格**にしていないか確かめる）")
         return 0

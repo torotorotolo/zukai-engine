@@ -64,6 +64,19 @@ def _hm(s):
     return (int(m.group(1)), int(m.group(2))) if m else None
 
 
+HMS = re.compile(r"(\d{1,2})\s*[時:：]\s*(\d{1,2})(?:\s*[分:：]\s*(\d{1,2}(?:\.\d+)?))?")
+
+
+def _hms(s, end):
+    """場面の時刻 at・群れの上限 until を秒まで（15本目 ⑤b-3）。秒が無い書き方は、at（end=True）はその分の終わり（59.99秒）
+    ＝その分のどこかもしれない＝**遅い側に倒す**（fail closed）、上限（end=False）はその分の頭。14本目（"9:46" < "9:47"）は前と同じ答え"""
+    m = HMS.search(str(s or ""))
+    if not m:
+        return None
+    sec = float(m.group(3)) if m.group(3) else (59.99 if end else 0.0)
+    return (int(m.group(1)), int(m.group(2)), sec)
+
+
 def check_recs(recs, where, docs, pages):
     bad = []
     for r in recs:
@@ -81,9 +94,12 @@ def check_recs(recs, where, docs, pages):
     return bad
 
 
-def judge_scene(sc, where, docs=None, pages=None, split=None, until=None, sec_ok=None, clock_ok=None, counts=None):
+def judge_scene(sc, where, docs=None, pages=None, split=None, until=None, sec_ok=None, clock_ok=None, counts=None,
+                roles=None):
     """場面1つを測る。返り値＝(食い違いの一覧, 照合した件数)。
-    15本目 ⑤b-2 から：sec_ok（秒の札の表）・clock_ok（時計の札の表）・counts（描いてよい数）＝その回の表が空なら測らない"""
+    15本目 ⑤b-2 から：sec_ok（秒の札の表）・clock_ok（時計の札の表）・counts（描いてよい数）＝その回の表が空なら測らない
+    15本目 ⑤b-3 から：roles（その回に置いてよい役割＝dict(sprite=(…), crowd=(…))・`cuts.ss.ILLU_ROLES`）。空なら型の既定
+       （illu.ROLES・CROWD_ROLES＝14本目の船）"""
     ss = _ss()
     docs = docs if docs is not None else ss.REC_DOCS
     pages = pages if pages is not None else _pages()
@@ -114,30 +130,36 @@ def judge_scene(sc, where, docs=None, pages=None, split=None, until=None, sec_ok
     bad += check_recs([sp["rec"] for sp in sc["steps"] if sp.get("rec")] + ([sc["rec"]] if sc.get("rec") else []),
                       where, docs, pages)
     # ② 人の役割・群れの型・群れの時刻
-    at = _hm(sc.get("at"))
+    #   🔴 15本目 ⑤b-3：置いてよい役割は回ごとの表（`ss.ILLU_ROLES`）＝15本目は型紙（1人ずつ数えられる影）0・群れは観客だけ
+    #      （パイロット・審判・救護・検査員・整備の仲間を置くと止まる＝映像方針 §6②）。時刻は秒まで（`_hms`）
+    roles = roles if roles is not None else (getattr(ss, "ILLU_ROLES", None) or {})
+    sprite_ok = tuple(roles["sprite"]) if "sprite" in roles else IL.ROLES
+    crowd_ok = tuple(roles["crowd"]) if "crowd" in roles else CROWD_ROLES
+    at = _hms(sc.get("at"), end=True)
     for p in sc["parts"]:
         role = p.get("role")
         if role is None:
             continue
         n += 1
         if p.get("kind") == "sprite":
-            if role not in IL.ROLES:
-                bad.append(f"②{where}：型紙の影（1人ずつ数えられる形）の役割「{role}」は {IL.ROLES} だけ"
-                           "（乗客は群れの型でだけ＝1人を抜き出さない）")
-        elif role in CROWD_ROLES:
+            if role not in sprite_ok:
+                bad.append(f"②{where}：型紙の影（1人ずつ数えられる形）の役割「{role}」は {sprite_ok} だけ"
+                           "（群れの人は群れの型でだけ＝1人を抜き出さない）")
+        elif role in crowd_ok:
             if not p.get("crowd"):
-                bad.append(f"②{where}：乗客の部品 {p['id']} が群れの型（crowd_layout）で描かれていない")
+                bad.append(f"②{where}：群れの部品 {p['id']} が群れの型（crowd_layout）で描かれていない")
             for c in p.get("crowd") or []:
                 bad += [f"②{where}：{b}" for b in IL.crowd_uncountable(c["layout"], c["x0"], c["x1"])]
             shown = any(float(k.get("a", 1.0)) > 0.0 for k in p["keys"])
             if shown:
+                lim = _hms(until, end=False)
                 if at is None:
-                    bad.append(f"②{where}：乗客の群れを出す場面なのに時刻 at が無い")
-                elif at >= _hm(until):
-                    bad.append(f"②{where}：乗客の群れを {sc['at']} の場面に出した（{until} より前だけ＝水が入った後の船内に"
-                               "乗客を描かない）")
+                    bad.append(f"②{where}：群れを出す場面なのに時刻 at が無い")
+                elif lim is None or at >= lim:
+                    bad.append(f"②{where}：群れを {sc['at']} の場面に出した（{until} より前だけ＝§5b-74②。"
+                               "秒の無い時刻はその分の終わりとみなす）")
         else:
-            bad.append(f"②{where}：知らない役割「{role}」")
+            bad.append(f"②{where}：この回に置けない役割「{role}」（型紙 {sprite_ok}・群れ {crowd_ok}）")
     # ③ 描いた人の数＝宣言＝記録
     #   ⑤b-3：重なりは**部品をまたいで**全部の組で・型紙の背の高さ（fig_h＝置き場ごとに違う）で測る
     #   （ゴムボートの海洋警察と乗り移る船員は別の部品＝部品の中だけ見ると重なりを見逃す）
@@ -203,10 +225,13 @@ def judge_scene(sc, where, docs=None, pages=None, split=None, until=None, sec_ok
             else:
                 bad += check_recs([counts[k][1]], where, docs, pages)
     # ⑧ 上から見た絵の縮尺
+    #   🔴 ⑤b-3：小さく戻す絵（illu_pair の枠 box）は、全面の絵を枠の幅へ縮めて置く（build_jiko.illu_minis）＝画面の上の縮尺は
+    #      scale × 1920 ÷ 枠の幅（本番と同じ幾何で測る。c109 問い3 を寄せて×を読めるようにした＝枠 560 で 1.5÷2.4×3.43＝2.1）
     if "上から" in (sc.get("view") or ""):
         n += 1
-        if not sc.get("scale") or float(sc["scale"]) < 1.5:
-            bad.append(f"⑧{where}：上から見た絵の縮尺 {sc.get('scale')} メートル／画素（1.5 以上＝人が1画素に満たない縮尺だけ）")
+        eff = float(sc["scale"]) * (IL.W / float(sc["box"][2])) if sc.get("scale") and sc.get("box") else sc.get("scale")
+        if not eff or float(eff) < 1.5:
+            bad.append(f"⑧{where}：上から見た絵の画面の上の縮尺 {eff} メートル／画素（1.5 以上＝人が1画素に満たない縮尺だけ）")
     # 15本目 ⑤b-2：空の中の事故機（RB）は地面に触れて見えない（下見：90度前後の翼の下の先が地平線より下＝「翼が地面に触れた」絵
     #   ＝記録を越える＝落ちたのは約9.1秒）。後ろから見た段ごとに、描く側と同じ幾何（_rb_anchors）で翼の先が地平線より上か
     if sc["place"] == "RB":
@@ -215,9 +240,11 @@ def judge_scene(sc, where, docs=None, pages=None, split=None, until=None, sec_ok
                 n += 1
                 an = IL._rb_anchors(st)
                 low = max(an["lwing"][1], an["rwing"][1])
-                if low > IL.RB_HZ - 8:
-                    bad.append(f"⑨{where}：段{i}の傾き {st['roll']}度で翼の下の先 y={low:.0f} が地平線 {IL.RB_HZ:.0f} に届く"
-                               "（地面に触れた絵に見える＝落ちたのは約9.1秒）")
+                # 🔴 ⑤b-3：余白 8画素では、地平線の16画素上の翼の先が手前の丘と砂漠の境に乗って「触れた」絵に見えた（c307 の
+                #    試し焼き）＝すき間の下限 RB_GAP（50画素）
+                if low > IL.RB_HZ - IL.RB_GAP:
+                    bad.append(f"⑨{where}：段{i}の傾き {st['roll']}度で翼の下の先 y={low:.0f} が地平線 {IL.RB_HZ:.0f} の"
+                               f"{IL.RB_HZ - low:.0f}画素上（{IL.RB_GAP:.0f}画素未満＝地面に触れた絵に見える＝落ちたのは約9.1秒）")
     # touch：記録の「どの甲板が水面に」を同じ幾何で
     for i, (st, sp) in enumerate(zip(sc["states"], sc["steps"])):
         if sp.get("touch"):
@@ -269,12 +296,13 @@ def judge_cut(cid, spec, kind_of):
         bad.append(f"⑦{cid}：画面の種類「再現イラスト」なのに全面の絵（fig=(\"illu\", …)）で書いていない")
     # 冒頭の絵（intro の illu）＝画面ごと入れ替える（重ねない）。15本目 ⑤b-2 から、あとに来てよいのは
     #   決め所（quote＝14本目 c102・15本目 c104）・全面の絵（illu＝c101 B→A）・時間の帯（axis＝c312 A→帯）
-    if it and fig[0] not in ("quote", "illu", "axis"):
-        bad.append(f"⑦{cid}：冒頭の絵（intro の illu）のあとは 決め所（quote）・全面の絵（illu）・時間の帯（axis）だけ")
+    #   ⑤b-3：尾翼の模式図（tail＝c302 D→模式図）も（14本目の「写真→図」と同じ画面ごとの入れ替え）
+    if it and fig[0] not in ("quote", "illu", "axis", "tail"):
+        bad.append(f"⑦{cid}：冒頭の絵（intro の illu）のあとは 決め所（quote）・全面の絵（illu）・時間の帯（axis）・尾翼の模式図（tail）だけ")
     elif it and fig[0] == "illu" and kind != "再現イラスト":
         bad.append(f"⑦{cid}：冒頭の絵のあとが全面の絵なら画面の種類は「再現イラスト」（いまは「{kind}」）")
-    elif it and fig[0] in ("quote", "axis") and kind != "混ざり":
-        bad.append(f"⑦{cid}：冒頭の絵のあとが決め所・時間の帯なら画面の種類は「混ざり」（いまは「{kind}」）")
+    elif it and fig[0] in ("quote", "axis", "tail") and kind != "混ざり":
+        bad.append(f"⑦{cid}：冒頭の絵のあとが決め所・時間の帯・模式図なら画面の種類は「混ざり」（いまは「{kind}」）")
     if has_full or has_mini:
         b, m = judge_fig(fig[0], fig[1], cid)
         bad += b
@@ -318,7 +346,15 @@ def selftest_ep15():
        fixture_ep15 へ移して差し込む（14本目と同じ＝記憶 project-jiko-rules-index §0b）"""
     ss = _ss()
     kw = dict(docs=dict(ss.REC_DOCS), pages=_pages(), split=tuple(ss.ILLU_SPLIT_TIMES), until=ss.ILLU_CROWD_UNTIL,
-              sec_ok=dict(ss.ILLU_SEC_OK), clock_ok=tuple(ss.ILLU_CLOCK_OK), counts=dict(ss.ILLU_COUNTS))
+              sec_ok=dict(ss.ILLU_SEC_OK), clock_ok=tuple(ss.ILLU_CLOCK_OK), counts=dict(ss.ILLU_COUNTS),
+              roles=dict(ss.ILLU_ROLES))
+    # ⑤b-3：RC（ボックス席とピット・地上から）＝観客の群れは落ちる瞬間（16:24:38）より前・役割は spectators だけ
+    good_pits = dict(place="RC", at="16:24:28", start=dict(view="pits", crowd="on", fuel="on", cam=1.12, pan=-200.0),
+                     rec="AAB p19（ピットのあたりにも多くの観客・燃料車）",
+                     steps=[dict(state=dict(pan=200.0), dur=8.0), dict()])
+    good_box = dict(place="RC", at="16:24:28", start=dict(view="box", crowd="on", cam=1.12), rec="AAB p19（観客のボックス席）",
+                    steps=[dict(), dict()])
+    good_fences = dict(place="RC", start=dict(view="fences"), steps=[dict(), dict(), dict()])
     good_near = dict(place="RA", at="16:24", start=dict(view="near", gg="p7"), rec="AAB p28",
                      steps=[dict(), dict(state=dict(gg="gone", path="on", x="on", box="on"), rec="AAB p28・p19",
                                          tag=[dict(t="パイロン8", at="p8"), dict(t="観客席（ボックス席）", at="box")])])
@@ -351,8 +387,35 @@ def selftest_ep15():
         ("🔴 15本目 陽性対照①：rec の資料名が表に無い（#42）", dict(good_tail, steps=[dict(state=dict(mark="on"), rec="#42 p5")]), False),
         ("🔴 15本目 陽性対照⑧：上から見た絵に寄りすぎ（cam 1.8＝1.39メートル／画素）",
          dict(good_near, start=dict(view="near", gg="p7", cam=1.8)), False),
+        ("15本目 正しい RC pits（ピットの柵の奥の観客・燃料車1台・首振り）", good_pits, True),
+        ("15本目 正しい RC box（ボックス席の幕の奥の観客・スタンド）", good_box, True),
+        ("15本目 正しい RC fences（2つの柵の寄り・人なし・時刻なし）", good_fences, True),
+        ("🔴 15本目 陽性対照②：観客の群れを落ちたあと（16:24:40）の場面に", dict(good_box, at="16:24:40"), False),
+        ("🔴 15本目 陽性対照②：秒の無い時刻（16:24＝その分の終わりとみなす）", dict(good_box, at="16:24"), False),
+        ("🔴 15本目 陽性対照②：群れを出すのに時刻 at が無い", dict(good_box, at=None), False),
+        ("🔴 15本目 陽性対照①：群れを出したのに場面の rec が無い", dict(good_box, rec=None), False),
     ]
     ok = _run(cases, kw)
+    # 🔴 陽性対照②（役割）：15本目に14本目の役割（乗客の群れ・船員の型紙）を置く＝回ごとの表で止まる
+    sc = IL.scene(**good_box)
+    next(p for p in sc["parts"] if p.get("role") == "spectators")["role"] = "passengers"
+    ok &= _expect("🔴 15本目 陽性対照②：観客の群れの役割を passengers に（14本目の役割）", judge_scene(sc, "selftest", **kw)[0], "②")
+    sc = IL.scene(**good_fences)
+    sc["parts"].append(dict(IL._part("pilot", "", "AAB p11"), kind="sprite", role="crew", inst=[dict(path=[(900.0, 600.0)])]))
+    ok &= _expect("🔴 15本目 陽性対照②：型紙の影（crew＝1人ずつ数えられる人）を置く", judge_scene(sc, "selftest", **kw)[0], "②")
+    # 🔴 陽性対照②（形）：描く側の群れの間隔を壊す（1.15＝重ならない）＝1人ずつ数えられる群れ
+    keep = IL.CROWD_STEP
+    IL.CROWD_STEP = 1.15
+    try:
+        bad = judge_scene(IL.scene(**good_pits), "selftest", **kw)[0]
+    finally:
+        IL.CROWD_STEP = keep
+    ok &= _expect("🔴 15本目 陽性対照②（描く側）：ピットの群れが重ならない（数えられる）", bad, "②")
+    # 🔴 陽性対照③：RC の燃料車を2台に
+    sc = IL.scene(**good_pits)
+    g = next(q for q in sc["parts"] if (q.get("obj") or {}).get("fuel_truck"))
+    g["obj"] = dict(g["obj"], fuel_truck=2)
+    ok &= _expect("🔴 15本目 陽性対照③：RC の燃料車を2台描く", judge_scene(sc, "selftest", **kw)[0], "③")
     # 🔴 位置の正本（`ref/ep15/illu_reno.json`＝`ref/ep15/measure_reno.py` が図の画素から測った値）と `illu.py` の定数が同じか
     #    （写し間違い・手で動かした値を止める。⑤b-2 で scratchpad の手の丸めと 0〜1メートル違っていたのを直した）
     js = HERE / "ref" / "ep15" / "illu_reno.json"
