@@ -98,6 +98,7 @@ SPEC = {
         t="報告書の図2",
         s="改造のあとの形と、もとの寸法（赤）",
         photo=ss.page(14), trim=ss.ptrim("c501"), panel=True, color=1.0,
+        card_mix=0.14,  # ⑤c'（2026-09-30）：白い頁の扉は地が明るい（中央値 106）＝14本目 cb01 と同じ割合
     ),
     # 報告書 1.3.1（p13）＝「Each aileron was shortened to about 3 feet」の行を真ん中に
     "c503": dict(
@@ -274,7 +275,7 @@ SPEC = {
     #   2行目＝17.3G でも翼は空中で壊れず・G は一瞬（p42・p28）
     "c516": dict(
         t="短い翼の利点",
-        s="翼の縦横比が下がる",
+        s="速さと強さ",       # ⑤c'：「翼の縦横比が下がる」は語りに無い語＝語り「速く飛べて、強い力にも耐えられる」から
         fig=("mod", dict(view="plan", start=dict(stock="on"),
                          # 頭から緑の面が出る＝c502 の凡例を基図に（c502 から数分あとで、緑の意味を言い直さない）
                          base_tags=[dict(t="緑＝ふつうの P-51D だけの部分", at="b1", col=J.OK)],

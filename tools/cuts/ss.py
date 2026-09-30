@@ -206,6 +206,24 @@ def check_frame_only(spec):
     return bad
 
 
+def check_card_mix(spec, heads, fo=None):
+    """🔴 2026-09-30（15本目 ⑤c'・ルール §5b-110）：章の扉の地（`build_jiko.card_frame`）は、頭のカットの写真を章の色で
+    **染めて全画面に拡大して**混ぜる（既定 0.36）＝額装だけの点（BY-SA・courtesy の紙面の引用＝`frame_only`）を頭に持つ章は、
+    カットの SPEC に `card_mix=0` を**書く**（書かなければ既定で混ざる＝止める）。空なら合格。
+    15本目 c300card（報告書の図5＝courtesy）・c400card・c800card（BY-SA）＝640px のシートで見つけた（門番は扉を見ていなかった）。
+    12〜14本目の扉も同じ作り（公開ずみ＝直さない）。呼ぶ側＝`scene_jiko`（扉の一覧 CARD_HEADS が決まった直後・読み込みで止める）
+    fo＝額装だけの点の表（selftest が見本を渡す＝回の台帳に左右されない）。本番は渡さない＝assets.json から読む"""
+    fo = frame_only_for(spec) if fo is None else fo
+    bad = []
+    for cid in sorted(heads):
+        s = spec.get(cid) or {}
+        ph = s.get("photo") or (s.get("intro") or {}).get("photo")
+        if ph in fo and float(s.get("card_mix", 1.0)) > 0:
+            bad.append(f"{cid}＝{ph}（{fo[ph]}）: 扉の地に染めて拡大して混ぜる（card_mix={s.get('card_mix', '未記入＝既定 0.36')}）"
+                       "＝額装の約束（無加工・丸ごと・色を変えない）を外れる → SPEC に card_mix=0")
+    return bad
+
+
 # ══════════════════════════════════════════════════════════
 #  🔴🔴 使わない写真（シートで見て落とした。**使うと `cuts` の読み込みで止まる**）
 # ══════════════════════════════════════════════════════════
@@ -565,7 +583,9 @@ def ramp_map(steps, note=RAMP_NOTE, recs=("AAB p17", "AAB p19")):
 #   （p46）。コースと選手を「北へ移した」（p46・CAROL A-12-14＝距離の記録は無い）。燃料車の距離だけ宣言（向きは模式）
 FIELD_VIEW = dict(lon=(_SLON - 0.0523, _SLON + 0.0623), lat=(_SLAT - 0.0215, _SLAT + 0.0090))
 FIELD_PTS = dict(RAMP_PTS,
-                 fuel0=dict(of="pit", km=0.25, deg=270), fuel1=dict(of="box", km=1.5 * 1.609344, deg=135),
+                 fuel0=dict(of="pit", km=0.25, deg=270),
+                 fuelm=dict(of="fuel0", km=0.60, deg=180),   # ⑤c'：燃料車の道の曲がり角（模式）＝札「観客席」の下を通す
+                 fuel1=dict(of="box", km=1.5 * 1.609344, deg=135),
                  pbw=dict(of="pit", km=0.10, deg=270), grand=dict(of="box", km=0.40, deg=90),
                  cn1=dict(of="reno_stead", km=0.80, deg=0))
 FIELD_REL = [dict(a="box", b="fuel1", km=1.5 * 1.609344, src="AAB p46（主な観客席から約1.5マイル＝約2.4キロ）")]

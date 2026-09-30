@@ -583,6 +583,13 @@ PAGE_DOC = {
     '#53': (2012, 'NTSB', 'PD（米連邦の職務著作）'),
     '勧告書': (2012, 'NTSB', 'PD（米連邦の職務著作）'),
 }
+# 🆕 ⑤c'（2026-09-30）：同じ資料でも**頁ごとに図の下地が違う**＝資料ごとの1行（PAGE_DOC）では食い違った。
+#    #33 図7（p2009＝c209）は図の説明が「Overlaid onto Google Earth」なのに表は「出どころ未記載」／
+#    AAB 図3（p20＝c211）は下地の空撮を名乗らないのに表は「PD」だけ（同じ形の #33 図13＝c814 は「出どころ未記載」）
+PAGE_RIGHTS = {
+    2009: 'PD（米連邦の職務著作・図の下地は Google Earth＝頁ごとの引用）',
+    20: 'PD（米連邦の職務著作・図の下地の空撮は出どころ未記載＝頁ごとの引用）',
+}
 
 
 def page_credit(pr):
@@ -603,7 +610,8 @@ def cmd_credits(write=False):
     cj.update({f'ep15/{k}.png': page_credit(int(k[2:])) for k in pages})
     rows = [f"| `{n}` | {r.get('cut') or '（章ファイル）'} | {r['year'] or '不明'} | {r['lic']} | "
             f"{WHO.get(n) or r['author']} | {r['hold']}　{r.get('url', '')} |" for n, r in db.items()]
-    rows += [f"| `{k}` | {' '.join(sorted(p.get('cuts', {})))} | {PAGE_DOC[p['doc']][0]} | {PAGE_DOC[p['doc']][2]} | "
+    rows += [f"| `{k}` | {' '.join(sorted(p.get('cuts', {})))} | {PAGE_DOC[p['doc']][0]} | "
+             f"{PAGE_RIGHTS.get(int(k[2:]), PAGE_DOC[p['doc']][2])} | "
              f"{PAGE_DOC[p['doc']][1]} | {p['pdf']} PDF {p['pdf_page']}頁 |" for k, p in sorted(
                  pages.items(), key=lambda kv: int(kv[0][2:]))]
     for k, v in list(cj.items()):

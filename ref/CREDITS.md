@@ -1973,7 +1973,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `pg14` | c501 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 14頁 |
 | `pg15` | c507 c611 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 15頁 |
 | `pg17` | c818 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 17頁 |
-| `pg20` | c211 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 20頁 |
+| `pg20` | c211 | 2012 | PD（米連邦の職務著作・図の下地の空撮は出どころ未記載＝頁ごとの引用） | NTSB | AAB1201.pdf PDF 20頁 |
 | `pg28` | c304 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 28頁 |
 | `pg29` | c308 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 29頁 |
 | `pg31` | c707 | 2012 | PD（米連邦の職務著作） | NTSB | AAB1201.pdf PDF 31頁 |
@@ -1990,7 +1990,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `pg1037` | c713 | 2012 | PD（米連邦の職務著作） | NTSB | ntsb_docket_40_materials_lab_12-029.pdf PDF 37頁 |
 | `pg1038` | c714 | 2012 | PD（米連邦の職務著作） | NTSB | ntsb_docket_40_materials_lab_12-029.pdf PDF 38頁 |
 | `pg1041` | c718 | 2012 | PD（米連邦の職務著作） | NTSB | ntsb_docket_40_materials_lab_12-029.pdf PDF 41頁 |
-| `pg2009` | c209 | 2012 | PD（米連邦の職務著作・図の下地の空撮は出どころ未記載＝頁ごとの引用） | NTSB | ntsb_docket_33_survival_factors_operations_factual.pdf PDF 9頁 |
+| `pg2009` | c209 | 2012 | PD（米連邦の職務著作・図の下地は Google Earth＝頁ごとの引用） | NTSB | ntsb_docket_33_survival_factors_operations_factual.pdf PDF 9頁 |
 | `pg2015` | c814 | 2012 | PD（米連邦の職務著作・図の下地の空撮は出どころ未記載＝頁ごとの引用） | NTSB | ntsb_docket_33_survival_factors_operations_factual.pdf PDF 15頁 |
 | `pg2019` | c805 | 2012 | PD（米連邦の職務著作・図の下地の空撮は出どころ未記載＝頁ごとの引用） | NTSB | ntsb_docket_33_survival_factors_operations_factual.pdf PDF 19頁 |
 | `pg3014` | c317 | 2012 | PD（米連邦の職務著作・図の下地は Google Earth＝頁ごとの引用） | NTSB | ntsb_docket_14_data_recorders_factual.pdf PDF 14頁 |

@@ -36,6 +36,11 @@ KSTY = dict(head=("INST", 34, 60), role=("LINE", 28, 40), crime=("DOC", 28, 40),
             node=("LINE", 38, 100), chip=("INST", 28, 48))
 SEAT, SEAT_GAP = 22, 5         # 13席で 346 画素（大法院の列 360 の内）。18 では「全員一致」の灯りが小さかった（下見）
 REPRO = "再現"                # 書類の再現図の札（🔴 門番の陽性対照がここを壊す）
+# 🆕 2026-09-30（15本目 ⑤c'）：上の箱から**真下の箱**（x の範囲が重なる）へは縦の矢印。
+#    それまでの矢印は「左の箱の右端 → 右の箱の左端」の流れしか描けず、c918 の問い（上）→答え（下）では横の線が
+#    問いの字と答えの字の**真ん中を通り**、打ち消し線に見えた（原寸）。門番＝check_boxes ⑨（線分 `segs` と箱）。
+#    🔴 門番の陽性対照がここを False にする（縦の矢印を切ると、線が箱の中を通って鳴る）
+VERT = True
 
 
 def _c(name):
@@ -81,7 +86,15 @@ class _Flow:
         return dict(p, col=col, x0=x0, x1=x1, cy=cy, h=KSTY[p["k"]][2])
 
 
-def _edge(fl, p, dim):
+def _above(a, b):
+    """a が b の真上（a の下の辺が b の上の辺より上で、x の範囲が重なる）。"""
+    return (a["k"] != "bracket" and b["k"] != "bracket" and a["cy"] + a["h"] / 2 < b["cy"] - b["h"] / 2
+            and max(a["x0"], b["x0"]) < min(a["x1"], b["x1"]))
+
+
+def _edge(fl, p, dim, segs=None):
+    """矢印。描いた線分（x1, y1, x2, y2）を `segs` に足す（門番 check_boxes ⑨ が箱と照らす）。"""
+    segs = [] if segs is None else segs
     fr = [fl.nodes[i] for i in F._many(p["fr"])] if isinstance(p["fr"], list) else [fl.nodes[p["fr"]]]
     to = [fl.nodes[i] for i in F._many(p["to"])] if isinstance(p["to"], list) else [fl.nodes[p["to"]]]
     col = J.LINE_DIM if dim else J.LINE
@@ -98,6 +111,14 @@ def _edge(fl, p, dim):
         tx = (t["x0"] + t["x1"]) / 2
         g.append(F.poly([(xa + 4, ya), (tx, ya), (tx, t["cy"] + t["h"] / 2 + 26)], "none", col, sw))
         g.append(F.arrow(tx, t["cy"] + t["h"] / 2 + 30, tx, t["cy"] + t["h"] / 2 + 6, col, sw, 18))
+        segs += [(xa + 4, ya, tx, ya), (tx, ya, tx, t["cy"] + t["h"] / 2 + 6)]
+    elif VERT and len(fr) == 1 and len(to) == 1 and _above(fr[0], to[0]):
+        # 🆕 ⑤c'：真下の箱へは、重なる x の範囲の真ん中に縦の矢印（箱の辺から 6 画素あける）
+        a, b = fr[0], to[0]
+        x = (max(a["x0"], b["x0"]) + min(a["x1"], b["x1"])) / 2
+        y0, y1 = a["cy"] + a["h"] / 2 + 6, b["cy"] - b["h"] / 2 - 6
+        g.append(F.line(x, y0, x, y1, col, sw, dash=dash) if lead else F.arrow(x, y0, x, y1, col, sw, 18))
+        segs.append((x, y0, x, y1))
     else:
         xa = max(right(n)[0] for n in fr) + 4
         xb = min(n["x0"] for n in to) - 4
@@ -105,14 +126,18 @@ def _edge(fl, p, dim):
         if len(fr) == 1 and len(to) == 1 and abs(fr[0]["cy"] - to[0]["cy"]) < 1:
             y = fr[0]["cy"]
             g.append(F.line(xa, y, xb, y, col, sw, dash=dash) if lead else F.arrow(xa, y, xb, y, col, sw, 18))
+            segs.append((xa, y, xb, y))
         else:
             xm = p.get("xm") or (xa + xb) / 2
             for n in fr:
                 g.append(F.line(right(n)[0] + 4, n["cy"], xm, n["cy"], col, sw, dash=dash))
+                segs.append((right(n)[0] + 4, n["cy"], xm, n["cy"]))
             g.append(F.line(xm, min(ys), xm, max(ys), col, sw, dash=dash))
+            segs.append((xm, min(ys), xm, max(ys)))
             for n in to:
                 g.append(F.line(xm, n["cy"], n["x0"] - 4, n["cy"], col, sw, dash=dash) if lead
                          else F.arrow(xm, n["cy"], n["x0"] - 4, n["cy"], col, sw, 18))
+                segs.append((xm, n["cy"], n["x0"] - 4, n["cy"]))
         if p.get("lab"):
             y = fr[0]["cy"] - 26
             g.append(dq(F.txtfit((xa + xb) / 2, y, p["lab"], xb - xa - 16, cap=30, col=J.TICK if dim else J.INK_W,
@@ -168,8 +193,10 @@ def _flow(layout, past, steps, note, src):
             col = J.LINE_DIM if dim else J.LINE
             return F.poly([(x - 12, y0), (x, y0), (x, y1), (x - 12, y1)], "none", col, 4)
         if k == "edge":
-            rec.append(dict(p, dim=dim))
-            return _edge(fl, p, dim)
+            segs = []
+            svg = _edge(fl, p, dim, segs)
+            rec.append(dict(p, dim=dim, segs=segs))
+            return svg
         if k == "grp":
             return dq(F.txt(p["x"], p["y"], p["t"], 30, J.TICK if dim else J.INK_W), f"grp|{p['t']}")
         if k == "seats_on":
@@ -199,7 +226,9 @@ def _flow(layout, past, steps, note, src):
     stages = ["".join(draw(p, False) for p in F._many(st.get("add"))) or " " for st in steps]
     lab.append(_foot(note, src))
     f = F.Fig("".join(lab), stages, "", (F.BX0, F.BX1))
-    f.mech = dict(kind="boxes", view="flow", parts=rec, seats=len(sx))
+    # heads＝見出しの箱の位置（門番 ⑨ が矢印の線分と照らす。部品の箱は parts の role・crime・res）
+    f.mech = dict(kind="boxes", view="flow", parts=rec, seats=len(sx),
+                  heads=[{k: fl.nodes[h["id"]][k] for k in ("id", "k", "t", "x0", "x1", "cy", "h")} for h in heads])
     return f
 
 

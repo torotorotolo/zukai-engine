@@ -237,7 +237,9 @@ SPEC = {
         s="事故の日の天気",
         fig=ss.town_map([
             dict(tag=dict(at="reno_stead", t="快晴", side="left")),
-            dict(move=[dict(kind="stream", a="wind0", deg=60, km=10, n=14)],
+            # 🔴 ⑤c'（2026-09-30）：流れの点は札をよけない＝10キロ（空港の先5キロ）だと点が札「ステッド空港」の「港」に乗った（原寸）
+            #    → 空港の先1.5キロで止める（6.5キロ・点の間は同じ 約0.72キロ＝14→9点）。門番 check_drift ⑤（動く道と札の字）
+            dict(move=[dict(kind="stream", a="wind0", deg=60, km=6.5, n=9)],
                  tag=[dict(at="wind0", t="西南西の風", side="left"), dict(at="reno_stead", t="気温22度", side="below")])],
             recs=("#17 p7008", "AAB p16")),
     ),
@@ -249,7 +251,8 @@ SPEC = {
         fig=("quote", dict(
             phrase=["観客席から152メートル以上", "離れて飛ぶ"],
             rows=[("記録", "NTSB 事故報告 AAB-12/01（2012年）", J.INK_W),
-                  ("条件の出どころ", "FAAの許可（2011年9月2日）", J.LINE),
+                  # ⑤c'：「FAAの許可（2011年9月／2日）」と日付が行で割れた（札の幅＝全角12字）＝1行に収まる言い方に
+                  ("条件の出どころ", "2011年9月2日のFAAの許可", J.LINE),
                   ("頁", "PDF 16・17頁", J.TICK)], paper=True)),
     ),
     # 駐機場の地図（模式）：1行目（聞き役の問い）＝ショーラインとピット・ボックス席の端／2行目＝2つの距離（AAB p19）と

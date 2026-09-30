@@ -86,6 +86,7 @@ SPEC = {
         t="事故機",
         s="2011年9月15日　地上を走る事故機（観客の撮影）",
         photo=P("gg_taxi_0915"), panel=True, color=1.0,
+        card_mix=0,     # 🔴 ⑤c'：BY-SA は扉の地に混ぜない（染める・拡大する＝翻案）＝ss.check_card_mix・§5b-110
     ),
     # 報告書 1.3「機体の情報」（p12）＝「The P-51D variant entered production in April 1944」の行を真ん中に
     "c402": dict(
@@ -193,7 +194,8 @@ SPEC = {
         t="この機体の飛行時間",
         s="生まれてからの合計",
         fig=("boxes", dict(view="form", form=ss.FORM_LOG11, steps=[dict(add=dict(k="paper")), dict(), dict()],
-                           note="再現（本物の頁ではない・値はエンジンの記録簿の総時間＝報告書 注15）",
+                           # ⑤c'：「エンジンの記録簿の総時間」はエンジンの時間と読めた＝注15 は「エンジンの記録簿に書かれた機体の総時間」
+                           note="再現（本物の頁ではない・値はエンジンの記録簿に書かれた機体の総時間＝報告書 注15）",
                            src=ss.src(["AAB p15・p16"]))),
     ),
 
@@ -222,7 +224,7 @@ SPEC = {
             phrase="事故機の納入は、1944年12月23日",
             rows=[("記録", "NTSB 事故報告 AAB-12/01（2012年）", J.INK_W),
                   ("製造番号", "44-15651", J.LINE),
-                  ("頁", "PDF 12頁（1.3 機体の情報）", J.TICK)], paper=True)),
+                  ("頁", "PDF 12頁（機体の情報）", J.TICK)], paper=True)),   # ⑤c'：「（1.3 機体の／情報）」とかっこが割れた＝節の番号を外して1行に
     ),
     # 地図：改造の場所（AAB p12「modifications in Arizona, Texas, and Nevada … completed in the fall of 2009 in Minden, Nevada,
     #   where it remained when not being raced」・#17 p7004「began its transformation in Arizona … trucked to McKinney, Texas, and

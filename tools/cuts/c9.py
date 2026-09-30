@@ -87,6 +87,7 @@ SPEC = {
         t="公聴会",
         s="報告書 2.6　勧告10件の節",
         photo=ss.page(43), trim=ss.ptrim("c901"), panel=True, color=1.0,
+        card_mix=0.14,  # ⑤c'（2026-09-30）：白い頁の扉は地が明るく「第9章」と題が英文に乗った（中央値 103）＝14本目 cb01 と同じ割合
     ),
     # 勧告書 A-12-08 の1頁目の上だけ（紋章・日付の欄・FAA の長官代行あての宛名）。460ノットと人数の段落は映さない（PLAN）
     "c902": dict(
@@ -220,7 +221,9 @@ SPEC = {
                         dict(via=["box_w", "box_e"], col=J.LINE, sw=6, dash=None)],
                  arrow=dict(a="reno_stead", b="cn1"),
                  tag=[dict(at="cn1", t="コースを北へ", side="right"), dict(at="box", t="観客席", side="below")]),
-            dict(move=[dict(kind="path", via=["fuel0", "fuel1"], sec=2.5)],
+            # 🔴 ⑤c'（2026-09-30）：前→後を直線で結ぶと道が札「観客席」（ボックス席の下）の真ん中を斜めに通った（原寸）
+            #    → 南へ回してから南東へ（途中の点 fuelm＝道の形は記録に無い＝注の「模式」のうち）。門番 check_drift ⑤
+            dict(move=[dict(kind="path", via=["fuel0", "fuelm", "fuel1"], sec=2.5)],
                  dim=dict(a="box", b="fuel1", t="約2.4キロ"),
                  tag=[dict(at="fuel0", t="燃料車（前）", side="left"), dict(at="fuel1", t="燃料車（後）", side="right")]),
             dict(route=dict(via=["pbw", "grand"], col=J.OK, sw=9, dash=None),
@@ -253,7 +256,9 @@ SPEC = {
         fig=("quote", dict(
             phrase="通達は直さず、2020年11月3日に廃止",
             rows=[("記録", "NTSB 安全勧告の記録（CAROL）", J.INK_W),
-                  ("手紙", "NTSBからFAAへ（2021年7月13日）", J.LINE)], paper=True)),
+                  # ⑤c'：「NTSBからFAAへ（2021年／7月13日）」と日付が行で割れた＝日付を欄に分ける
+                  ("手紙", "NTSBからFAAへ", J.LINE),
+                  ("日付", "2021年7月13日", J.LINE)], paper=True)),
     ),
     # 地図（Googleアースの代わり＝09-30 カズヤくん）：大会の移転（翌年もリノ＝CAROL p5013／2024年5月に発表・2025年からロズウェル＝
     #   主催の団体 RARA の発表）。1行目＝2024年5月の発表／2行目＝ロズウェルへ動く点と「2025年から」

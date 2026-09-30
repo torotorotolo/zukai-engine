@@ -334,6 +334,20 @@ def selftest():
         f"{'「使わない」側に落ちて通る' if not ss.BANDS else '図版を測る側に落ちる'}",
         c == 0)
 
+    # 🆕 2026-09-30（15本目 ⑤c'・ルール §5b-110）：扉の地（ss.check_card_mix）＝額装だけの点を頭に持つ章は card_mix=0 を書く。
+    #    本番の照合は scene_jiko の読み込みで走る（止まれば全部の門番が落ちる）＝ここは物差しの検算だけ（見本の表を渡す）
+    fo = {"epX/by_sa.jpg": "CC BY-SA 2.0", "epX/pg23_fig05.jpg": "引用（courtesy）"}
+    chk("陰性対照：額装だけの点を頭に持つ扉に card_mix=0 は通る",
+        not ss.check_card_mix({"c301": dict(photo="epX/by_sa.jpg", card_mix=0)}, {"c301"}, fo))
+    chk("陽性対照：card_mix を書かない（既定 0.36 で染めて混ぜる）は止まる",
+        bool(ss.check_card_mix({"c301": dict(photo="epX/pg23_fig05.jpg")}, {"c301"}, fo)))
+    chk("陽性対照：card_mix=0.14（白い頁の扉の値）でも額装だけの点なら止まる",
+        bool(ss.check_card_mix({"c401": dict(photo="epX/by_sa.jpg", card_mix=0.14)}, {"c401"}, fo)))
+    chk("陰性対照：額装でない点（PD の頁）は card_mix を書かなくても通る",
+        not ss.check_card_mix({"c501": dict(photo="epX/pg14.png")}, {"c501"}, fo))
+    chk("陰性対照：扉の頭でないカットは見ない",
+        not ss.check_card_mix({"c302": dict(photo="epX/by_sa.jpg")}, {"c301"}, fo))
+
     chk("台本のカットIDが読める（本番の narration.json）", len(script_cuts()) > 0)
     good_all = all(ok)
     print("  " + (f"✓ 検算 {len(ok)}/{len(ok)}" if good_all

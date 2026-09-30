@@ -15,6 +15,12 @@
           ⚠️ 報告書が16方位（east-northeast など）で書いた値に `sector=8` を付けない（許しを広げる口にしない）
     2. 🔴 寸法線の札（`dim` の「157キロ」）が、描いた2点の距離と ±5% で合うか
     3. ⚠️ 宣言（`rel`）が1件も無い drift は E（**照合できない模式図を出さない**）
+    4. 半径の円は、中心と半径の点の距離が rel に宣言されていること（15本目 ⑤b-7）
+    5. 🆕 🔴 **動く道（stream の点・path の線と点・sight の線）が札の字を通らない**（2026-09-30・15本目 ⑤c'）
+       動く部品は札より上に描かれる（`build_jiko.draw_moves`）＝点や線が字に乗る。14本目 c812（gather の点が「セヴォル号」に
+       乗った＝avoid で薄める）、15本目 c201（風の点が「ステッド空港」の「港」に乗った）・c904（燃料車の道が「観客席」を
+       斜めに通った）＝**どれも門番0件で、原寸の目視で見つけた**。道（本番の関数が返す `f.moves`）と札の字の箱（字幅と
+       字面は fontmetrics の実測＝check_layout と同じ）の最短の距離が、点の半径（stream 6・path 9・sight 2）より近ければ止める
     → [[feedback-gates-must-share-the-production-geometry]]（対照は本番の関数そのものを呼ぶ）
 
 ■ 使い方
@@ -23,6 +29,7 @@
 """
 from __future__ import annotations
 
+import math
 import re
 import sys
 from pathlib import Path
@@ -43,6 +50,69 @@ def _adiff(a, b):
 def _km(v):
     """所見の距離の書き方（15本目 ⑤b-7：駐機場の数百メートルが「0キロ」と出ていた）。"""
     return f"{v * 1000:.0f}メートル" if v < 1 else f"{v:.1f}キロ" if v < 10 else f"{v:.0f}キロ"
+
+
+# ── ⑤ 動く道と札の字（15本目 ⑤c'）────────────────────────
+TEXT = re.compile(r'<text\s([^>]*)>([^<]*)</text>')
+ATTR = re.compile(r'([\w-]+)="([^"]*)"')
+MOVE_R = dict(stream=6.0, path=9.0, sight=2.0)     # build_jiko.draw_moves の点の半径（sight は線の太さの半分）
+_FM = []
+
+
+def _text_boxes(svg):
+    """字の箱 (x0, y0, x1, y1, 字)＝check_layout.boxes と同じ実測（字幅＝送り幅・上下＝字面）。"""
+    import fontmetrics as fm
+    if not _FM:
+        fm.measured()          # 先に読む（check_layout の注＝後だとこの PC は MemoryError で粗いキャッシュへ落ちる）
+        _FM.append(fm)
+    out = []
+    for m in TEXT.finditer(svg):
+        a, t = dict(ATTR.findall(m.group(1))), m.group(2).replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
+        if not t.strip():
+            continue
+        x, y, size, fam = float(a["x"]), float(a["y"]), float(a["font-size"]), a.get("font-family", "Noto")
+        w = fm.width(t, size, fam)
+        up, dn = fm.ink(t, size, fam)
+        anc = a.get("text-anchor", "start")
+        x0 = x - w / 2 if anc == "middle" else (x - w if anc == "end" else x)
+        out.append((x0, y - up, x0 + w, y + dn, t))
+    return out
+
+
+def _move_segs(m):
+    """動く部品 → [(点a, 点b, 半径)]（道のない動き＝輪・降る点・集まる点・図の動きは見ない）。"""
+    r = MOVE_R.get(m.get("kind"))
+    if r is None:
+        return []
+    if m["kind"] == "path":
+        return [(p, q, r) for p, q in zip(m["pts"], m["pts"][1:])]
+    return [(m["a"], m["b"], r)]
+
+
+def _seg_box_dist(a, b, box):
+    """線分 a→b と字の箱の最短の距離（2画素ごとに当てる＝誤差1画素）。"""
+    (ax, ay), (bx, by) = a, b
+    x0, y0, x1, y1 = box
+    k = max(1, int(math.hypot(bx - ax, by - ay) / 2))
+    best = 1e9
+    for i in range(k + 1):
+        px, py = ax + (bx - ax) * i / k, ay + (by - ay) * i / k
+        best = min(best, math.hypot(max(x0 - px, 0.0, px - x1), max(y0 - py, 0.0, py - y1)))
+    return best
+
+
+def judge_moves(f):
+    """⑤ 動く道が札の字を通るか → 所見のリスト（空なら合格）と照合した件数。"""
+    bad, n = [], 0
+    boxes = _text_boxes(f.lab + "".join(f.stages))
+    for m in getattr(f, "moves", None) or []:
+        for a, b, r in _move_segs(m):
+            n += 1
+            for x0, y0, x1, y1, t in boxes:
+                d = _seg_box_dist(a, b, (x0, y0, x1, y1))
+                if d < r:
+                    bad.append(f"動く道（{m['kind']}）が札「{t}」の字を通る（最短 {d:.1f}画素＜点の半径 {r:g}）")
+    return bad, n
 
 
 def judge(kw):
@@ -104,7 +174,8 @@ def judge(kw):
                 bad.append(f"円 {ci['at']}（半径の点 {ci['through']}）: 半径の距離が rel に宣言されていない")
     if not f.rel:
         bad.append("rel（報告書の値の宣言）が1件も無い＝照合できない模式図")
-    return bad, n
+    mb, mn = judge_moves(f)
+    return bad + mb, n + mn
 
 
 def selftest():
@@ -168,6 +239,19 @@ def selftest():
         ("🔴 陽性対照：円の半径を宣言していない",
          dict(base, pts=dict(base["pts"], r161=dict(of="gz", km=161, deg=90)),
               steps=[dict(circle=dict(at="gz", through="r161"))],
+              rel=[dict(a="gz", b="ship", km=157, dir="東北東")]), False),
+        # 15本目 ⑤c'（2026-09-30）で足した口 ⑤：動く道と札の字（c201 の風の点・c904 の燃料車の道と同じ形）
+        ("正しい流れの点（札の右から離れて北へ）",
+         dict(base, steps=[dict(tag=dict(at="ship", t="船の位置", side="right"),
+                                move=[dict(kind="stream", a="ship", deg=0, km=100, n=8)])],
+              rel=[dict(a="gz", b="ship", km=157, dir="東北東")]), True),
+        ("🔴 陽性対照：流れの点が札の字の真ん中を東へ通る",
+         dict(base, steps=[dict(tag=dict(at="ship", t="船の位置", side="right"),
+                                move=[dict(kind="stream", a="ship", deg=90, km=100, n=8)])],
+              rel=[dict(a="gz", b="ship", km=157, dir="東北東")]), False),
+        ("🔴 陽性対照：動く道（path）の線が札の字を通る",
+         dict(base, steps=[dict(tag=dict(at="gz", t="出発した所", side="right"),
+                                move=[dict(kind="path", via=["gz", "ship"], sec=2.0)])],
               rel=[dict(a="gz", b="ship", km=157, dir="東北東")]), False),
     ]
     for name, kw, want in cases:

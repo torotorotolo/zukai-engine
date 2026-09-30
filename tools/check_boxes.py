@@ -13,6 +13,7 @@
          ② 役職→罪名→結果（列＝裁判所）のつながり＝`REC_VERDICT`・役職→刑（点線・大法院の列）＝`REC_SENT`
          ③ 席の数＝裁判官の数（`REC_SEATS`）・灯した席は 0 か全部（全員一致）④ 甲板部・機関部の役職の数と並び＝`REC_CREW`
          ⑤ 赤（ALERT）を使わない・円（人の頭に読める形）を使わない ⑥ 部品の rec の頁
+         ⑨ 🆕（15本目 ⑤c'）矢印の線分が箱の内側を通らない（c918＝問い→答えの横線が字の真ん中を通り打ち消し線に見えた）
   書類   ⑦ 表題・欄の名・行き来の箱＝`REC_FORM`（報告書の文にあるものだけ）・欄に値を書かない（記録が「未記入」）・「再現」の札
   並べ図 ⑧ 項目＝`REC_CAUSE`・2つ以上・全部同じ大きさと色（どれかを目立たせない）・項目のほかに絵を置かない（場面にしない）
 
@@ -214,7 +215,27 @@ def judge_flow(f):
             n += 1
             if not (_recs(p["rec"]) & REC_CHIP.get(p["t"], set())):
                 bad.append(f"札「{p['t']}」の rec {p['rec']} が記録の頁と合わない")
+    # ⑨ 🆕 2026-09-30（15本目 ⑤c'）：矢印の線が箱の中を通らない。c918 の問い（上）→答え（真下）は横の線が両方の字の
+    #    真ん中を通り、打ち消し線に見えた（原寸）＝型は「左→右」しか描けなかった。字は箱の中にある＝箱の内側（辺から3画素）
+    #    に線分が入ったら止める。線分は型が描いたものそのもの（`segs`＝boxes._edge）
+    rects = [(p["id"], p["x0"], p["x1"], p["cy"] - p["h"] / 2, p["cy"] + p["h"] / 2)
+             for p in list(nodes.values()) + list(f.mech.get("heads") or [])]
+    hit = set()
+    for e in edges:
+        ek = (str(e["fr"]), str(e["to"]))       # fr・to はリストのこともある（寄せる・分ける矢印）＝文字にして鍵に
+        for x1, y1, x2, y2 in e.get("segs") or []:
+            n += 1
+            for bid, bx0, bx1, by0, by1 in rects:
+                if ek + (bid,) not in hit and _seg_enters(x1, y1, x2, y2, bx0 + 3, bx1 - 3, by0 + 3, by1 - 3):
+                    hit.add(ek + (bid,))
+                    bad.append(f"矢印 {e['fr']}→{e['to']} の線が箱「{bid}」の中を通る（字に打ち消し線が引かれて見える）")
     return bad, n
+
+
+def _seg_enters(x1, y1, x2, y2, bx0, bx1, by0, by1):
+    """線分が箱の内側に入るか（2画素ごとに当てる）。"""
+    k = max(1, int(max(abs(x2 - x1), abs(y2 - y1)) / 2))
+    return any(bx0 < x1 + (x2 - x1) * i / k < bx1 and by0 < y1 + (y2 - y1) * i / k < by1 for i in range(k + 1))
 
 
 # ══════════════════════════════════════════════════════════
@@ -305,11 +326,21 @@ def selftest_ep15():
     bad_f = dict(ss.FORM_ENTRY09, fields=[dict(t="飛んだ時間", rec="AAB p37")])     # 型は通す＝門番が止めるか
     chain = dict(view="flow", layout=ss.CHAIN2, steps=[dict(add=ss.chain_links())], note="n", src="s")
     bad_w = dict(chain, layout=dict(heads=ss.CHAIN2["heads"][:5] + [dict(ss.CHAIN2["heads"][5], t="墜落の原因")]))
+    # 🆕 ⑤c'（2026-09-30）：答えと手がかり（c918）＝問い（上）→答え（真下）の矢印
+    ans = dict(view="flow", layout=ss.ANS, steps=[dict(add=[ss.ANSP["a1"], ss.ANSP["a2"], ss.ANSP["a3"]] + ss.ans_links())],
+               note="n", src="s")
     cases = [("15本目 正しい参加の書類（後から「はい」）", entry, True),
              ("🔴 15本目 陽性対照：書き込む値が記録と違う（いいえ）", dict(entry, form=bad_v), False),
              ("🔴 15本目 陽性対照：報告書の文に無い欄", dict(entry, form=bad_f, steps=[dict(add=dict(k="paper"))]), False),
              ("15本目 正しい報告書の鎖", chain, True),
-             ("🔴 15本目 陽性対照：鎖に記録の表に無い言葉", bad_w, False)]
+             ("🔴 15本目 陽性対照：鎖に記録の表に無い言葉", bad_w, False),
+             ("15本目 正しい答えの図（問い→真下の答えは縦の矢印）", ans, True),
+             # ⚠️ ⑤c'：⑨ を足した最初の版は、fr・to がリストの矢印（分ける・寄せる）で門番ごと落ちた（本番の c806 で）
+             #    ＝見本が1対1の矢印だけだった → 分ける矢印の見本を置く
+             ("15本目 正しい実況の担当（1つから2つへ分ける矢印）",
+              dict(view="flow", layout=ss.MC, note="n", src="s",
+                   steps=[dict(add=[ss.MCP["a_help"], ss.MCP["a_med"], dict(k="edge", fr="mc", to=["a_help", "a_med"])])]),
+              True)]
     ok = True
     for name, kw, want in cases:
         try:
@@ -320,6 +351,18 @@ def selftest_ep15():
         ok &= got == want
         print(f"  {'OK' if got == want else '🔴 NG'} {name}: {'合格' if got else '不合格'}"
               f"（{'合格' if want else '不合格'}のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    # 🔴 陽性対照（型を壊す）：縦の矢印を切る（VERT=False）＝⑤c の c918 と同じ絵（横の線が問いと答えの字を通る）→ ⑨ が鳴ること
+    import boxes as B
+    keep = B.VERT
+    B.VERT = False
+    try:
+        bad, _ = judge(ans)
+    finally:
+        B.VERT = keep
+    hit7 = any("の中を通る" in b for b in bad)
+    ok &= hit7
+    print(f"  {'OK' if hit7 else '🔴 NG'} 🔴 15本目 陽性対照（型を壊す）：縦の矢印を切る（VERT=False）: "
+          f"{'不合格' if bad else '合格'}（⑨で不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
     return ok
 
 

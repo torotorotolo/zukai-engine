@@ -100,6 +100,9 @@ SPEC = {
         t="報告書の図5",
         s="パイロン8を回る事故機　横転の前",
         photo=P("pg23_fig05"), panel=True, color=1.0,
+        # 🔴 ⑤c'（2026-09-30）：扉の地に混ぜない＝courtesy の写真（紙面の引用）を染めて全画面に拡大すると「頁ごと・無加工」を外れる
+        #    （門番＝ss.check_card_mix・ルール §5b-110）
+        card_mix=0,
     ),
     # 経過の表（p28）＝題「Table. Summary of events.」から下の罫まで
     "c304": dict(

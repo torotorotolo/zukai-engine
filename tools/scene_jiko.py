@@ -1544,6 +1544,15 @@ def _narration():
 CUTS, SUBS, CARD_HEADS = _narration()
 ORDER = [c for c, _ in CUTS]
 
+# 🔴 2026-09-30（15本目 ⑤c'・ルール §5b-110）：章の扉の地に額装だけの写真（BY-SA・courtesy の紙面の引用）を混ぜない。
+#    扉は頭のカットの写真を章の色で染めて全画面に拡大する（`build_jiko.card_frame`）＝権利の話なので、額装の網
+#    （`cuts/__init__` の check_frame_only）と同じく**読み込みで止める**（全部の門番が落ちる＝黙って焼けない）。
+#    扉の一覧はここで初めて決まる（ナレーションの章の頭）＝ここで照らす
+import cuts.ss as _card_ss  # noqa: E402
+_card_bad = _card_ss.check_card_mix(SPEC, CARD_HEADS)
+if _card_bad:
+    raise RuntimeError("章の扉の地に額装だけの写真を混ぜています（頭のカットの SPEC に card_mix=0）: " + "／".join(_card_bad))
+
 
 def card_of(cid):
     """そのカットの頭に置く扉の秒（扉の無いカットは 0）。"""

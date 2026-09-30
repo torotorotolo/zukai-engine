@@ -98,6 +98,7 @@ SPEC = {
         t="運用の制限",
         s="報告書 1.11.1（基地はフロリダ州オカラ）",
         photo=ss.page(35), trim=ss.ptrim("c601"), panel=True, color=1.0,
+        card_mix=0.14,  # ⑤c'（2026-09-30）：白い頁の扉は地が明るく「第6章」と題が英文に乗った（中央値 102）＝14本目 cb01 と同じ割合
     ),
     # 報告書（p36）＝「Telemetry data showed that about 23 minutes of flight time…」の行を真ん中に
     "c608": dict(
@@ -278,7 +279,10 @@ SPEC = {
         s="報告書 50頁",
         fig=("panel", dict(
             blocks=[dict(k="届けていない改造", t="取り入れ口・おもり・右の板", c=J.ALERT),
-                    dict(k="FAAは", t="重い試験を求めた", v="おそらく", c=J.AMBER)],
+                    # ⑤c'：「重い試験を求めた／おそらく」は仮定（届けていれば〜求めただろう＝likely would have）が事実に読めた
+                    #   →「FAAは／重い試験を求めた／はず」＝1つの文に読める仮定の形。⚠️ 本文を「求めたはず」にすると字が
+                    #   65→52px に下がり、左のブロックも引きずられた（型は2つの本文を同じ大きさにそろえる）＝本文は元のまま
+                    dict(k="FAAは", t="重い試験を求めた", v="はず", c=J.AMBER)],
             cols=2)),
     ),
     # 決め所⑩（台本 §2 #10）。AAB p51 §2.7「should not have been eligible to race the airplane in the 2010 or 2011 NCAR」
