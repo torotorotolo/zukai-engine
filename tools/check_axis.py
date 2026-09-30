@@ -204,6 +204,18 @@ def judge_fig(kw, split_times=()):
                 bad.append(f"交信 {part['at']} に文字（私人の言葉を帯に書かない）")
             if not {part["fr"], part["to"]} <= LANES_OK:
                 bad.append(f"交信 {part['at']} の段の名 {part['fr']}／{part['to']} が決まった名（{sorted(LANES_OK)}）でない")
+    # 🆕 ⑤b-5：上の段へ伸びる縦の線が、それより下の段の札を貫かない（前のカットの点どうし＝同じ層でも）。
+    #   門番 layout は層どうしの横切りしか見ない＝c408 の「1946年」の線が「1944年」の札を貫いたのを素通りした（試し焼きで見つけた）
+    labs = [p for p in m["parts"] if p.get("lx") and "at" in p]
+    for b in m["parts"]:
+        if "at" not in b or b["k"] in ("chips", "link"):
+            continue
+        for a in labs:
+            if a is b:
+                continue
+            n += 1
+            if b.get("row", 0) > a.get("row", 0) and a["lx"][0] + 2 < b["x"] < a["lx"][1] - 2:
+                bad.append(f"{b['at']} の縦の線（段{b.get('row', 0)}）が {a['at']} の札（段{a.get('row', 0)}）を貫く")
     if view == "lanes":
         for nm in m["lanes"]:
             n += 1
@@ -256,6 +268,14 @@ def selftest_ep15():
                dict(upset, steps=[dict(add=dict(k="pt", at="約-8", t="圧力", rec="AAB p28"))]), False),
               ("🔴 15本目 陽性対照：記録に無い負の秒（約-7）",
                dict(upset, steps=[dict(add=dict(k="pt", at="約-7", t="圧力", rec="AAB p29"))]), False)]
+    # 🆕 ⑤b-5：縦の線が別の札を貫く（試し焼きの c408＝前のカットの 1944年と1946年の点が31画素しか離れていない）
+    hist = dict(view="date", span=("1942", "2013"), ticks=("1950", "1960", "1970", "1980", "1990", "2000", "2010"),
+                steps=[dict(add=dict(k="pt", at="1983-07", t="パイロットが取得", rec="AAB p12", anchor="end"), cur="1983-07")],
+                note="n", src="s")
+    p44 = dict(k="pt", at="1944-12-23", t="軍へ引き渡し", rec="AAB p12", fmt="y")
+    p46 = dict(k="pt", at="1946-07", t="売却", rec="AAB p12", fmt="y")
+    cases += [("🔴 15本目 陽性対照：1946年の縦の線が1944年の札を貫く（直す前の c408）", dict(hist, past=[p44, p46]), False),
+              ("15本目 正しい：1946年の札を消して沈める（直した c408）", dict(hist, past=[p44, dict(p46, lab=False, t="")]), True)]
     ok = True
     for name, kw, want in cases:
         bad, _ = judge_fig(kw, ())

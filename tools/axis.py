@@ -270,6 +270,11 @@ def _draw(A, it, row, dim):
         return _chips(A, x, it.get("chips") or [], col, ink), rec
     anch = it["_anch"]
     tx = x - OFF if anch == "start" else (x + OFF if anch == "end" else x)
+    if it["_row"]:
+        # 🆕 ⑤b-5：札の横の広がり（門番 check_axis が、上の段へ伸びる別の点の縦の線と照らす）。⚠️ 門番 layout は層どうしの
+        #   横切りしか見ない＝前のカットの点どうし（同じ基図の層）の貫きを素通りした（c408 の 1946年の線 × 1944年の札）
+        lo = x - OFF if anch == "start" else (x - it["_w"] + OFF if anch == "end" else x - it["_w"] / 2)
+        rec["lx"] = (round(lo, 1), round(lo + it["_w"], 1))
     if k == "link":
         y0, y1 = A.ly[it["fr"]], A.ly[it["to"]]
         rec.update(fr=it["fr"], to=it["to"], both=bool(it.get("both")))

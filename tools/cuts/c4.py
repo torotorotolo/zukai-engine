@@ -92,10 +92,11 @@ SPEC = {
     ),
     # 1行目＝1983年7月にパイロットが取得／2行目＝翌月（8月17日）に FAA の特別な許可（AAB p35）＝点の下の札で。
     #   ⚠️ 8月17日を別の点にすると2点が2画素しか離れず、右の点の縦の線が左の札を貫いた（⑤b-5 の layout）
+    #   ⚠️ 1946年の点の札は消して沈める（試し焼き 36676841212 で、1946年の縦の線が1944年の札を貫いた＝31画素しか離れていない）
     "c408": dict(
         t="持ち主が替わる",
         s="実験機という区分",
-        fig=("axis", dict(**ss.AX_HIST, past=[ss.ax("deliver", fmt="y"), ss.ax("sold", fmt="y"), ss.ax("acc")],
+        fig=("axis", dict(**ss.AX_HIST, past=[ss.ax("deliver", fmt="y"), ss.ax("sold", lab=False, t=""), ss.ax("acc")],
                           start=dict(cur="1946-07"),
                           steps=[dict(add=ss.ax("owner"), cur="1983-07"),
                                  dict(add=dict(k="chips", at="1983-07", chips=["翌月：FAAの許可"], rec=["AAB p12", "AAB p35"]))],
