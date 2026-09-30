@@ -5026,3 +5026,16 @@ def lash(view, steps, **kw):
 def tail(view, steps, **kw):
     import tail15 as _t
     return _t.tail(view, steps, **kw)
+
+
+# ── ⑨ 15本目 ⑤b-4（2026-09-30）：改造の比べ＝`tools/mod15.py`・ねじとナットとフラッター＝`tools/bolt15.py`
+#      （門番 check_mech の judge_mod・judge_bolt）──
+#   `fig=("mod", dict(view="plan"|"side"|"weights", …))`・`fig=("bolt", dict(view="nut"|"spring"|"chart", …))`
+def mod(view, steps, **kw):
+    import mod15 as _m
+    return _m.mod(view, steps, **kw)
+
+
+def bolt(view, steps, **kw):
+    import bolt15 as _b
+    return _b.bolt(view, steps, **kw)

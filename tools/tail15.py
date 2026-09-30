@@ -44,11 +44,11 @@ VIEWS = dict(side=dict(lab="横から見た断面（左の板・模式）"), pla
 ONOFF = ("off", "on")
 FIELDS = dict(
     side=dict(elev=("trim", "down", "up"), tab=("zero", "up", "free"), link=("ok", "broken"), force=ONOFF, nose=ONOFF,
-              ghost=ONOFF, hinge=ONOFF),
+              ghost=ONOFF, hinge=ONOFF, fill=ONOFF, cg=("off", "stock", "aft")),
     plan=dict(mode=("stock", "mod"), lmark=ONOFF, rmark=ONOFF, hinge=ONOFF, llink=("ok", "broken"), rlink=("ok", "broken"),
               shake=("none", "left", "both"), spread=ONOFF, rod=ONOFF, act=ONOFF),
 )
-START = dict(side=dict(elev="trim", tab="zero", link="ok", force="off", nose="off", ghost="off", hinge="off"),
+START = dict(side=dict(elev="trim", tab="zero", link="ok", force="off", nose="off", ghost="off", hinge="off", fill="off", cg="off"),
              plan=dict(mode="mod", lmark="off", rmark="off", hinge="off", llink="ok", rlink="ok", shake="none", spread="off",
                        rod="off", act="off"))
 
@@ -74,6 +74,36 @@ T_TE = (2, 3)
 HORN = (401.0, 608.0)                    # 板のホーンの先（リンクの後ろの端）＝板と一緒に回る
 LINK_E = (609.0, 588.0)                  # リンクの前の端（昇降舵の下＝作動器の棒の先）＝昇降舵と一緒に回る
 GAP = 16.0                               # 折れたリンクのすき間（片側）
+# 🆕 ⑤b-4（c511）：表面に塗った材料（AAB p14＝水平尾翼・昇降舵・板の上と下の外板に最大 1/8インチ＝約3ミリ）と板の重心
+#    （p40＝材料で板が重くなり重心が後ろへ）。帯の厚み・重心の位置は**模式**（3ミリはこの大きさで1画素に満たない＝強めた）
+FILL_T = 5.0                             # 帯の中心を面から離す画素（帯の太さ FILL_W）。⚠️ 下見：6 では面の線とのあいだに
+#                                          地が見えて「二重の線」に読めた＝5（帯の内の縁が面の線に触れる＝塗った層に見える）
+FILL_W = 7.0
+FILL_COL = "#d8c79a"                     # 塗った材料（章の色に置き換わらない固定の色）
+FILL_EDGES = dict(stab=((0, 7), (7, 13)), elev=((0, 6), (6, 11)), tab=((0, 3), (3, 5)))   # 上の縁・下の縁（点の番号の範囲）
+#   上＝range(i0, i1)・下＝range(i0, i1＋1)（最後の番号は輪で頭へ戻る）。板の 6・7 はホーン＝下の縁に入れない
+CG_AT = dict(stock=0.40, aft=0.58)       # 板の重心（ちょうつがいから後ろの縁へ・弦の割合＝模式。向きだけ記録）
+TAB_CHORD = T_H[0] - 150.0
+
+
+def fill_band(part, which, st):
+    """塗った材料の帯（面の外へ FILL_T 画素離した線）。which＝0 上・1 下。昇降舵と板は一緒に回す。"""
+    pts = dict(stab=STAB, elev=ELEV, tab=TAB)[part]
+    i0, i1 = FILL_EDGES[part][which]
+    seg = [pts[i % len(pts)] for i in range(i0, i1 + (1 if which == 1 else 0))]
+    dy = -FILL_T if which == 0 else FILL_T
+    seg = [(x, y + dy) for x, y in seg]
+    if part == "elev":
+        return [_elev_pt(p, st) for p in seg]
+    if part == "tab":
+        return [_tab_pt(p, st) for p in seg]
+    return [list(p) for p in seg]
+
+
+def cg_point(st, where=None):
+    """板の重心の点（板と一緒に回す）。"""
+    k = CG_AT[where or ("aft" if st["cg"] == "aft" else "stock")]
+    return _tab_pt((T_H[0] - k * TAB_CHORD, 540.0), st)
 
 
 def _rot(p, c, deg):
@@ -157,7 +187,11 @@ def parts_of(view, st):
     if view == "side":
         q = side_points(st)
         red = "ALERT" if st["link"] == "broken" else "AMBER"
-        return [
+        fa = _on(st["fill"] == "on")
+        cg_now, cg_old = cg_point(st), cg_point(st, "stock")
+        bands = [_P(f"fill_{part}{w_}", "line", fill_band(part, w_, st), stroke=FILL_COL, w=FILL_W, alpha=fa)
+                 for part in ("stab", "elev", "tab") for w_ in (0, 1)]
+        return bands + [
             _P("elev", "poly", q["elev"], fill="BG2", stroke="INK_W", w=3),
             # ⚠️ ⑤b-3 の試し焼き：細い線は本番の動く部品で点線にならず（描き手に dash が無い）、札の「点線」と食い違った
             #    ＝灰色の板（塗り）にした（札は「＝灰色の板」）
@@ -169,6 +203,13 @@ def parts_of(view, st):
             _P("hglow", "poly", _ring(q["th"], 22.0), fill=None, stroke="AMBER", w=4, alpha=_on(st["hinge"] == "on")),
             _P("force", "line", q["force"], stroke="AMBER", w=6, head=18, alpha=_on(st["force"] == "on")),
             _P("nose", "line", [[1826.0, 700.0], [1826.0, 420.0]], stroke="ALERT", w=7, head=22, alpha=_on(st["nose"] == "on")),
+            # 板の重心（丸）・元の重心（薄い丸）・後ろへの矢印・重さの矢印（下へ）
+            _P("cg_old", "poly", _ring(cg_old, 12.0, 16), fill=None, stroke="TICK", w=3, alpha=_on(st["cg"] == "aft")),
+            _P("cg", "poly", _ring(cg_now, 12.0, 16), fill="AMBER", stroke="INK_W", w=2, alpha=_on(st["cg"] != "off")),
+            _P("cg_move", "line", [[cg_old[0] - 16.0, cg_old[1] - 30.0], [cg_now[0] + 4.0, cg_now[1] - 30.0]], stroke="AMBER", w=4,
+               head=12, alpha=_on(st["cg"] == "aft")),
+            _P("cg_wt", "line", [[cg_now[0], cg_now[1] + 18.0], [cg_now[0], cg_now[1] + 70.0]], stroke="AMBER", w=5, head=14,
+               alpha=_on(st["cg"] == "aft")),
         ]
     mod = st["mode"] == "mod"
     la, lb = plan_link("l", st["llink"] == "broken")
@@ -220,7 +261,8 @@ def anchors(view, st):
         te = [(q["tab"][T_TE[0]][0] + q["tab"][T_TE[1]][0]) / 2, (q["tab"][T_TE[0]][1] + q["tab"][T_TE[1]][1]) / 2]
         lm = q["link_a"][1]
         return dict(tab=q["tm"], tab_te=te, elev=_elev_pt((700.0, 512.0), st), stab=(1400.0, 462.0), link=lm, hinge=q["th"],
-                    ehinge=E_H, force=q["force"][0], nose=(1826.0, 420.0))
+                    ehinge=E_H, force=q["force"][0], nose=(1826.0, 420.0), cg=cg_point(st),
+                    fill=fill_band("stab", 0, st)[3])
     return dict(ltab=(760.0, 752.0), rtab=(1160.0, 752.0), act=(PACT[0] + PACT[2] / 2, PACT[1]),
                 rod=(2 * CX - PROD[0][0], PROD[1][1]), lhinge=(PHINGE[0], 700.0), llink=(760.0, 616.0),
                 rlink=(1160.0, 640.0), spread=(1090.0, 830.0))

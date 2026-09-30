@@ -55,7 +55,8 @@ sys.stdout.reconfigure(encoding="utf-8")
 import titan_fig as F  # noqa: E402
 
 # 🆕 ⑤b-7b：固縛の札の単位（トン・本・台・個・センチ）を足した（「約30本」が素通りした＝陽性対照で見つけた）
-NUM = re.compile(r"約?[0-9０-９][0-9０-９,.．]*\s*(キロ|ミリ|メートル|ポンド|㎡|平方メートル|人|秒|分|時|度|トン|本|台|個|センチ)")
+# 🆕 15本目 ⑤b-4：倍・回・ノット・G を足した（改造の比べ「約2倍」・締め直しのあとの「3回」・「17.3G」）
+NUM = re.compile(r"約?[0-9０-９][0-9０-９,.．]*\s*(キロ|ミリ|メートル|ポンド|㎡|平方メートル|人|秒|分|時|度|トン|本|台|個|センチ|倍|回|ノット|G)")
 
 
 def _shape(f, ident):
@@ -383,6 +384,8 @@ def judge_tail(f):
                 (st["force"] == "on" and st["tab"] != "up", "押す力は後ろの縁が上の板（機首下げの調整＝p22・p42）から"),
                 (st["elev"] == "down" and st["force"] != "on", "昇降舵の後ろの縁が下がるのは板の押す力で"),
                 (st["ghost"] == "on" and st["tab"] == "zero", "0度の点線（整備の仲間の見方＝p15）は板が0度でないときだけ"),
+                # 🆕 ⑤b-4（c511）：材料を塗って板が重くなり重心が後ろへ（p40）
+                (st["cg"] == "aft" and st["fill"] != "on", "板の重心が後ろへ動くのは、表面に材料を塗ったから（p14・p40）"),
             ]
         else:
             rules = [
@@ -421,10 +424,27 @@ def judge_tail(f):
             n += 1
             if (st["link"] == "broken") != (g_ >= 20.0 and red):
                 bad.append(f"{tag}: リンク {st['link']} なのに、すき間 {g_:.0f}画素・赤 {red}")
-            for ident, on in (("force", st["force"] == "on"), ("nose", st["nose"] == "on"), ("ghost", st["ghost"] == "on")):
+            for ident, on in (("force", st["force"] == "on"), ("nose", st["nose"] == "on"), ("ghost", st["ghost"] == "on"),
+                              ("fill_stab0", st["fill"] == "on"), ("fill_tab1", st["fill"] == "on"), ("cg", st["cg"] != "off"),
+                              ("cg_wt", st["cg"] == "aft")):
                 n += 1
                 if (alpha(ident, i) > 0.5) != on:
                     bad.append(f"{tag}: {ident} の濃さ {alpha(ident, i)} が状態と違う")
+            # 🆕 ⑤b-4：塗った材料の帯は面の外（上の縁の帯は面より上・下の縁の帯は面より下）・重心 aft は元の重心より後ろ（左）
+            if st["fill"] == "on":
+                n += 1
+                mean_y = lambda ps: sum(p[1] for p in ps) / len(ps)  # noqa: E731
+                up, dn = mean_y(pts("fill_tab0", i)), mean_y(pts("fill_tab1", i))
+                up_edge, dn_edge = mean_y(tq[0:3]), mean_y(tq[3:6])
+                if not (up < up_edge - 2.0 and dn > dn_edge + 2.0):
+                    bad.append(f"{tag}: 塗った材料の帯が板の外に出ていない（帯 上 {up:.0f}・下 {dn:.0f}／板の縁 上 {up_edge:.0f}・"
+                               f"下 {dn_edge:.0f}）")
+            if st["cg"] == "aft":
+                n += 1
+                c_now = [sum(v) / len(v) for v in zip(*pts("cg", i))]
+                c_old = [sum(v) / len(v) for v in zip(*pts("cg_old", i))]
+                if not c_old[0] - c_now[0] >= 20.0:
+                    bad.append(f"{tag}: 重心 aft なのに、元の重心より後ろ（左）へ {c_old[0] - c_now[0]:.0f}画素（20以上のはず）")
         else:
             mod = st["mode"] == "mod"
             for ident, on in (("rod", mod), ("act_r", not mod), ("link_rs", not mod), ("bolt", mod),
@@ -444,10 +464,268 @@ def judge_tail(f):
     return bad, n
 
 
+# ── 15本目 ⑤b-4：改造の比べ（mod）・ねじとナットとフラッター（bolt）の記録の値＝門番の側に独立して持つ
+#    （型の定数を読まない＝型の定数を壊す陽性対照が捕まえられる）──
+_FT, _LB = 0.3048, 0.45359237
+REC_MOD = dict(span_stock=(37 + (5 / 16) / 12) * _FT,    # 11.286 メートル（AAB p13）
+               span_mod=(28 + 10 / 12) * _FT,            # 8.788
+               cw_ratio=26.0 / 13.75,                    # 左の昇降舵のおもり／資料のふつうの最大（AAB p14）
+               cw_kg=26.0 * _LB,                         # 11.79 キロ（AAB p14）
+               bw_ratio=(8 + 2 / 3) / 20.0)              # 動きを安定させるおもり（#53 p10＝推定）＜ 0.5（AAB p43「半分未満」）
+REC_BOLT = dict(len_ratio=0.96 / 1.219,                  # 実際のねじ／決まりのねじ（#40 p2・p6＝頭の下の長さ）
+                flights=3,                               # 締め直しのあとの飛行（AAB p41）
+                shake_deg=(10.0, 20.0), wobble_deg=(3.0, 8.0))   # 板の揺れの幅（模式＝震えはぐらつきより大きい）
+
+
+def _in_poly(p, poly):
+    x, y = p
+    inside = False
+    n = len(poly)
+    for i in range(n):
+        (x1, y1), (x2, y2) = poly[i], poly[(i + 1) % n]
+        if (y1 > y) != (y2 > y) and x < x1 + (y - y1) * (x2 - x1) / (y2 - y1):
+            inside = not inside
+    return inside
+
+
+def _mid(ps):
+    return [sum(p[0] for p in ps) / len(ps), sum(p[1] for p in ps) / len(ps)]
+
+
+def judge_mod(f):
+    """15本目 ⑤b-4：改造の比べ（`tools/mod15.py`）。①筋（AAB p13・p14・p42・p43）②本番の関数が置いた部品の画素 ③札の数。"""
+    import mod15 as Mo
+    bad, n = [], 0
+    view = f.mech["view"]
+    sh = {s["id"]: s for s in f.mech["shapes"]}
+
+    def pts(ident, i):
+        return F.mech_pts(sh[ident], _at(sh[ident], i) if i >= 0 else sh[ident]["keys"][0])
+
+    def alpha(ident, i):
+        a = _at(sh[ident], i).get("alpha", 1.0)
+        return 1.0 if a is None else float(a)
+
+    # ── 形（段によらない）──
+    if view == "plan":
+        mod_ = pts("mod", -1)
+        span_m = (max(p[1] for p in mod_) - min(p[1] for p in mod_)) / Mo.K_P
+        top = min(p[1] for p in pts("stk_wing_l", -1))
+        bot = max(p[1] for p in pts("stk_wing_r", -1))
+        span_s = (bot - top) / Mo.K_P
+        n += 2
+        for nm, got, rec in (("事故機の翼の幅", span_m, REC_MOD["span_mod"]), ("ふつうの翼の幅", span_s, REC_MOD["span_stock"])):
+            if abs(got / rec - 1.0) > 0.015:
+                bad.append(f"{nm}：描いた {got:.2f}メートル ≠ 記録 {rec:.3f}（±1.5%＝AAB p13）")
+        # 寸法の線の端＝翼端（±3画素）
+        for nm, (y0, y1) in (("dim_s", (top, bot)), ("dim_m", (min(p[1] for p in mod_), max(p[1] for p in mod_)))):
+            n += 1
+            a_, b_ = pts(nm + "_a", -1)[-1], pts(nm + "_b", -1)[-1]
+            if abs(a_[1] - y0) > 3.0 or abs(b_[1] - y1) > 3.0:
+                bad.append(f"寸法の線 {nm} の端 {a_[1]:.0f}・{b_[1]:.0f} が翼端 {y0:.0f}・{y1:.0f} と違う")
+        # おもりの印は水平尾翼の中（事故機の輪郭の内）・補助翼は翼の後ろの縁
+        for s in ("l", "r"):
+            n += 1
+            if not _in_poly(_mid(pts(f"cw_{s}", -1)), mod_):
+                bad.append(f"昇降舵のおもりの印（{s}）が機体の形の外")
+            n += 1
+            aq = pts(f"ail_{s}", -1)
+            if not all(_in_poly(_mid([p, _mid(aq)]), mod_) for p in aq):
+                bad.append(f"補助翼（{s}）が翼の形の外にはみ出す")
+        # 補助翼の断面：後ろの縁が少し下（p43）＝基準の線より 8画素以上下
+        n += 1
+        ail_te = max(pts("ins_ail", -1), key=lambda p: -p[0])
+        ref_te = min(pts("ins_ref", -1), key=lambda p: p[0])
+        if not ail_te[1] - ref_te[1] >= 8.0:
+            bad.append(f"補助翼の断面：後ろの縁が基準より {ail_te[1] - ref_te[1]:.0f}画素下（8以上のはず＝p43 後ろの縁が少し下）")
+    elif view == "side":
+        body = pts("mod", -1)
+        n += 2
+        if not all(_in_poly(p, body) for p in pts("box", -1)):
+            bad.append("沸かして冷やす箱が胴の形の外（p13＝操縦席の後ろの胴の中）")
+        if _in_poly(pts("vent", -1)[-1], body):
+            bad.append("湯気の矢印の先が胴の中（外へ逃がす＝p13 注11）")
+    else:
+        h = {k: (lambda ps: max(p[1] for p in ps) - min(p[1] for p in ps))(pts(k, -1)) for k in ("cw_stock", "cw_acc", "bw_stock", "bw_acc")}
+        n += 3
+        if abs((h["cw_acc"] / h["cw_stock"]) / REC_MOD["cw_ratio"] - 1.0) > 0.02:
+            bad.append(f"おもりの高さの比 {h['cw_acc'] / h['cw_stock']:.3f} ≠ 記録 {REC_MOD['cw_ratio']:.3f}（26／13.75ポンド＝AAB p14）")
+        if abs(h["cw_acc"] / Mo.K_W / REC_MOD["cw_kg"] - 1.0) > 0.02:
+            bad.append(f"左のおもりの高さ {h['cw_acc'] / Mo.K_W:.2f}キロ ≠ 記録 {REC_MOD['cw_kg']:.2f}")
+        r = h["bw_acc"] / h["bw_stock"]
+        if abs(r / REC_MOD["bw_ratio"] - 1.0) > 0.02 or not r < 0.5:
+            bad.append(f"動きを安定させるおもりの比 {r:.3f} ≠ 記録 {REC_MOD['bw_ratio']:.3f}（半分未満＝AAB p43・#53 p10）")
+    for i, st in enumerate(f.mech["states"]):
+        tag = f"段{i + 1}"
+        if view == "plan":
+            rules = [
+                (st["span"] == "on" and st["stock"] != "on", "翼の幅の寸法は、ふつうの P-51D の形（緑）と並べて出す"),
+                (st["wing"] == "on" and st["stock"] != "on", "「短い翼」の印は、ふつうの翼（緑）と並べて出す（p42）"),
+            ]
+            ons = [("stk_wing_l", st["stock"] == "on"), ("stk_wing_l_ln", st["stock"] == "on"), ("dim_s_a", st["span"] == "on"),
+                   ("dim_m_b", st["span"] == "on"), ("tailring", st["tailring"] == "on"), ("cw_l", st["cw"] == "on"),
+                   ("wing_l", st["wing"] == "on"), ("shake0", st["shake"] == "on"), ("ail_l", st["ail"] == "on"),
+                   ("ins_ail", st["ail"] == "on")]
+        elif view == "side":
+            rules = [
+                (st["boil"] == "on" and st["boiler"] != "on", "沸く印は、沸かして冷やす箱があるときだけ"),
+                (st["vent"] == "on" and st["boil"] != "on", "湯気で外へ逃がすのは、液が沸いてから（p13 注11）"),
+            ]
+            ons = [("box", st["boiler"] == "on"), ("bub0", st["boil"] == "on"), ("vent", st["vent"] == "on"),
+                   ("scoop_ln", True)]
+        else:
+            rules = [
+                (st["cwx2"] == "on" and st["cw"] != "both", "「約2倍」の線は、ふつうの最大と事故機の両方を出してから"),
+                (st["sens"] == "on" and st["cw"] != "both", "機首の上げ下げが敏感に＝おもりの比べ（p43）を出してから"),
+            ]
+            ons = [("cw_acc", st["cw"] in ("acc", "both")), ("cw_stock", st["cw"] == "both"), ("cw_line", st["cwx2"] == "on"),
+                   ("bw_acc", st["bw"] == "on"), ("sens", st["sens"] == "on")]
+        for hit, why in rules:
+            n += 1
+            if hit:
+                bad.append(f"{tag}: {why}（{st}）")
+        for ident, on in ons:
+            n += 1
+            if (alpha(ident, i) > 0.05) != on:
+                bad.append(f"{tag}: {ident} の濃さ {alpha(ident, i)} が状態と違う")
+    bad += _numbers(f)
+    return bad, n
+
+
+def judge_bolt(f):
+    """15本目 ⑤b-4：ねじ・ナット・フラッター（`tools/bolt15.py`）。①筋（AAB p31・p40・p41・#40）②画素 ③札の数。"""
+    import bolt15 as B
+    bad, n = [], 0
+    view = f.mech["view"]
+    sh = {s["id"]: s for s in f.mech["shapes"]}
+
+    def pts(ident, i):
+        return F.mech_pts(sh[ident], _at(sh[ident], i) if i >= 0 else sh[ident]["keys"][0])
+
+    def alpha(ident, i):
+        a = _at(sh[ident], i).get("alpha", 1.0)
+        return 1.0 if a is None else float(a)
+
+    seq = [f.mech["start"]] + list(f.mech["states"])
+    if view == "nut":
+        # 決まりの長さと実際の長さ（頭の下）の比＝#40 の実測
+        n += 1
+        l_spec = B.TIP["spec"] - B.HEAD_B
+        l_short = B.TIP["short"] - B.HEAD_B
+        if abs((l_short / l_spec) / REC_BOLT["len_ratio"] - 1.0) > 0.02:
+            bad.append(f"ねじの長さの比 {l_short / l_spec:.3f} ≠ 記録 {REC_BOLT['len_ratio']:.3f}（0.96／1.219インチ＝#40 p2・p6）")
+    tightened = seq[0].get("tight") == "on"
+    for i, st in enumerate(f.mech["states"]):
+        tag = f"段{i + 1}"
+        prev = seq[i]
+        if view == "nut":
+            nf, pf = int(st["flights"]), int(prev["flights"])
+            rules = [
+                (st["ghost"] == "on" and st["screw"] != "short", "決まりの長さの影は、実際のねじが短いときだけ（p31）"),
+                (st["tip"] == "on" and st["screw"] != "short", "先の輪（ナットの端とそろう）は短いねじのとき（p31）"),
+                (st["clamp"] == "on" and st["insert"] != "new", "古い詰め物はねじ山をほとんど締めつけない（p31）"),
+                (st["loose"] == "on" and st["insert"] != "old", "ねじのゆるみは古いナット（詰め物）から（p40）"),
+                (st["paint"] == "on" and st["loose"] != "on", "塗装のはげ＝ゆるんだねじでこすれ合った跡（p31）"),
+                (st["tight"] == "on" and st["loose"] == "on", "締め直した段でゆるんでいる"),
+                (nf < pf, "飛行の数が減った"),
+                (nf > 0 and not (tightened or st["tight"] == "on"), "飛行の数は締め直しのあとから数える（p41）"),
+                (st["loose"] == "on" and tightened and nf == 0, "締め直したあと、飛ばずにゆるんだ（p41＝そのあと3回飛んだ）"),
+                (nf > REC_BOLT["flights"], f"締め直しのあとの飛行は {REC_BOLT['flights']}回（p41）"),
+            ]
+            tightened = tightened or st["tight"] == "on"
+            # 画素：ねじの先とナットの端・詰め物のすき間・印の濃さ
+            sq = pts("shank", i)
+            tip = max(p[1] for p in sq)
+            n += 2
+            if st["screw"] == "short" and abs(tip - B.NUT_END) > 2.0:
+                bad.append(f"{tag}: 短いねじの先 {tip:.0f} がナットの端 {B.NUT_END:.0f} とそろわない（p31）")
+            if st["screw"] == "spec" and not tip - B.NUT_END >= 20.0:
+                bad.append(f"{tag}: 決まりのねじの先 {tip:.0f} がナットの端 {B.NUT_END:.0f} から出ていない")
+            gap = min(p[0] for p in sq) - max(p[0] for p in pts("ins_l", i))
+            if (st["insert"] == "old") != (gap >= 4.0) or (st["insert"] == "new" and gap > 1.0):
+                bad.append(f"{tag}: 詰め物 {st['insert']} なのに、ねじとのすき間 {gap:.1f}画素")
+            ons = [("ghost", st["ghost"] == "on"), ("tipring", st["tip"] == "on"), ("clamp0", st["clamp"] == "on"),
+                   ("turn", st["loose"] == "on"), ("slip_a", st["loose"] == "on"), ("paint0", st["paint"] == "on"),
+                   ("tight", st["tight"] == "on")] + [(f"fly{j}", nf > j) for j in range(3)]
+        elif view == "spring":
+            rules = [
+                (st["stiff"] == "low" and st["screw"] != "loose", "支えのかたさが落ちるのは、ねじのゆるみから（p40）"),
+                (st["wobble"] == "on" and st["screw"] != "loose", "板がぐらつくのは、ねじがゆるんでから（p40）"),
+                (st["shake"] == "on" and st["stiff"] != "low", "フラッターは、支えのかたさが落ちてから（p40）"),
+                (st["air"] == "on" and st["shake"] != "on", "空気の力がかみ合う矢印は、震えているとき"),
+                (st["graph"] == "on" and st["shake"] != "on", "震えの続き方は、震えが起きてから"),
+            ]
+            # 画素：揺れの幅（板の後ろの縁の角度）
+            th = abs(_at(sh["tab_up"], i).get("rot", 0.0) or 0.0)
+            n += 1
+            want = REC_BOLT["shake_deg"] if st["shake"] == "on" else REC_BOLT["wobble_deg"] if st["wobble"] == "on" else None
+            if want and not (want[0] <= th <= want[1] and alpha("tab_up", i) > 0.2):
+                bad.append(f"{tag}: 板の揺れの幅 {th:.1f}度（{want}）")
+            if want is None and alpha("tab_up", i) > 0.05:
+                bad.append(f"{tag}: 揺れていないのに揺れの影が出ている")
+            if st["air"] == "on":
+                n += 2
+                au, ad = pts("air_up", i), pts("air_dn", i)
+                te_up = max(pts("tab_up", i), key=lambda p: -p[0])
+                if not (au[-1][1] < au[0][1] and au[0][1] < te_up[1]):
+                    bad.append(f"{tag}: 上へ揺れた板の後ろの縁の上で、空気の力が上を向いていない（かみ合う＝向きがそろう）")
+                te_dn = max(pts("tab_dn", i), key=lambda p: -p[0])
+                if not (ad[-1][1] > ad[0][1] and ad[0][1] > te_dn[1]):
+                    bad.append(f"{tag}: 下へ揺れた板の後ろの縁の下で、空気の力が下を向いていない")
+            if st["graph"] == "on":
+                n += 2
+                for ident, lo, hi in (("g_steady", 0.85, 1.15), ("g_grow", 4.0, 99.0)):
+                    q = pts(ident, i)
+                    cy = sum(p[1] for p in q) / len(q)
+                    k = len(q) // 4
+                    a0 = max(abs(p[1] - cy) for p in q[:k])
+                    a1 = max(abs(p[1] - cy) for p in q[-k:])
+                    if not lo <= a1 / max(a0, 1e-6) <= hi:
+                        bad.append(f"{tag}: {ident} の幅の比（終わり／始め）{a1 / max(a0, 1e-6):.2f}（{lo}〜{hi}）")
+            ons = [("spr_lo", st["stiff"] == "low"), ("spr_hi", st["stiff"] == "high"), ("scr_gap", st["screw"] == "loose"),
+                   ("zz", st["shake"] == "on"), ("air_up", st["air"] == "on"), ("g_grow", st["graph"] == "on")]
+        else:
+            rules = [
+                (st["ring"] == "on" and st["acc"] != "on", "輪は事故機の点に付ける"),
+                (st["acc"] == "on" and st["region"] != "on", "事故機の点は、起きやすい所と一緒に出す"),
+                (st["arrows"] == "on" and st["region"] != "on", "向きの矢印は、起きやすい所と一緒に出す"),
+            ]
+            region = pts("region", i)
+            if st["acc"] == "on":
+                n += 1
+                if not _in_poly(_mid(pts("acc", i)), region):
+                    bad.append(f"{tag}: 事故機の点が「起きやすい所」の外（p40＝ゆるみとレースの速さ）")
+            if st["arrows"] == "on":
+                for ident in ("ar_speed", "ar_stiff"):
+                    n += 1
+                    q = pts(ident, i)
+                    if _in_poly(q[0], region) or not _in_poly(q[-1], region):
+                        bad.append(f"{tag}: 矢印 {ident} が「起きにくい所 → 起きやすい所」へ向いていない（p40）")
+            ons = [("region", st["region"] == "on"), ("ar_speed", st["arrows"] == "on"), ("acc", st["acc"] == "on"),
+                   ("ring", st["ring"] == "on")]
+        for hit, why in rules:
+            n += 1
+            if hit:
+                bad.append(f"{tag}: {why}（{st}）")
+        for ident, on in ons:
+            n += 1
+            if (alpha(ident, i) > 0.05) != on:
+                bad.append(f"{tag}: {ident} の濃さ {alpha(ident, i)} が状態と違う")
+    if view == "chart":
+        # 起きやすい所の境＝速いほど高いかたさが要る（右へ行くほど上＝画面の y が小さく）＝p40
+        n += 1
+        edge = pts("edge", 0)
+        if any(b[1] >= a[1] for a, b in zip(edge, edge[1:])):
+            bad.append("起きやすい所の境が、速さとともに上がっていない（p40＝速いほど起きやすい）")
+    bad += _numbers(f)
+    return bad, n
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
     return (judge_latch(f) if kind == "latch" else judge_section(f) if kind == "section"
-            else judge_lash(f) if kind == "lash" else judge_tail(f) if kind == "tail" else judge_hull(f))
+            else judge_lash(f) if kind == "lash" else judge_tail(f) if kind == "tail"
+            else judge_mod(f) if kind == "mod" else judge_bolt(f) if kind == "bolt" else judge_hull(f))
 
 
 def selftest():
@@ -561,6 +839,62 @@ def selftest():
         ("🔴 15本目 陽性対照：札の角度「約10度」が宣言（8度）に無い", "tail",
          dict(view="side", steps=[dict(state=dict(tab="up", force="on", elev="down"), tag=dict(t="約10度"))], note=N,
               rel=[dict(t="8度", src="AAB p22")]), False),
+        # 🆕 ⑤b-4：尾翼の断面に塗った材料と板の重心（c511）
+        ("15本目 正しい尾翼（材料を塗る → 板の重心が後ろへ）", "tail",
+         dict(view="side", steps=[dict(state=dict(fill="on"), tag=dict(t="最大約3ミリ", at="stab")),
+                                  dict(state=dict(cg="aft"), tag=dict(t="重心が後ろへ", at="b1", to="cg"))],
+              note=N, rel=[dict(t="約3ミリ", src="AAB p14")]), True),
+        ("🔴 15本目 陽性対照：材料を塗らずに板の重心が後ろへ", "tail",
+         dict(view="side", steps=[dict(state=dict(cg="aft"))], note=N), False),
+        # 🆕 ⑤b-4：改造の比べ（mod）
+        ("15本目 正しい改造の比べ（上から：ふつうの形 → 翼の幅の寸法）", "mod",
+         dict(view="plan", steps=[dict(state=dict(stock="on")),
+                                  dict(state=dict(span="on"), tag=dict(t="約11.3メートル"))], note=N,
+              rel=[dict(t="約11.3メートル", src="AAB p13")]), True),
+        ("15本目 正しい改造の比べ（横から：箱 → 沸く → 湯気で外へ）", "mod",
+         dict(view="side", steps=[dict(state=dict(scoop="dim", boiler="on", boil="on", vent="on"))], note=N), True),
+        ("15本目 正しいおもりの比べ（事故機 → ふつうの最大 → 約2倍 → 敏感に → 動きを安定させるおもり）", "mod",
+         dict(view="weights", steps=[dict(state=dict(cw="acc")), dict(state=dict(cw="both", cwx2="on"), tag=dict(t="約2倍")),
+                                     dict(state=dict(sens="on")), dict(state=dict(bw="on"))], note=N,
+              rel=[dict(t="約2倍", src="AAB p43")]), True),
+        ("🔴 15本目 陽性対照：ふつうの形なしに翼の幅の寸法", "mod",
+         dict(view="plan", steps=[dict(state=dict(span="on"))], note=N), False),
+        ("🔴 15本目 陽性対照：沸く前に湯気で外へ", "mod", dict(view="side", steps=[dict(state=dict(boiler="on", vent="on"))], note=N),
+         False),
+        ("🔴 15本目 陽性対照：ふつうの最大を出さずに「約2倍」の線", "mod",
+         dict(view="weights", steps=[dict(state=dict(cw="acc", cwx2="on"))], note=N), False),
+        ("🔴 15本目 陽性対照：札「約3倍」が宣言（約2倍）に無い", "mod",
+         dict(view="weights", steps=[dict(state=dict(cw="both", cwx2="on"), tag=dict(t="約3倍"))], note=N,
+              rel=[dict(t="約2倍", src="AAB p43")]), False),
+        # 🆕 ⑤b-4：ねじとナットとフラッター（bolt）
+        ("15本目 正しいねじ（短いねじ＝決まりの影・先がナットの端）", "bolt",
+         dict(view="nut", start=dict(insert="old"), steps=[dict(state=dict(screw="short", ghost="on")), dict(state=dict(tip="on"))],
+              note=N), True),
+        ("15本目 正しいねじ（締め直し → 3回 → ゆるんでいた）", "bolt",
+         dict(view="nut", start=dict(insert="old"), steps=[dict(state=dict(tight="on")),
+                                                           dict(state=dict(tight="off", flights="3", loose="on"),
+                                                                tag=dict(t="3回"))],
+              note=N, rel=[dict(t="3回", src="AAB p41")]), True),
+        ("15本目 正しい支え（ゆるむ → かたさが落ちてぐらつく → 震え → かみ合う → 続き方）", "bolt",
+         dict(view="spring", steps=[dict(state=dict(screw="loose")), dict(state=dict(stiff="low", wobble="on")),
+                                    dict(state=dict(shake="on")), dict(state=dict(air="on")), dict(state=dict(graph="on"))],
+              note=N), True),
+        ("15本目 正しい速さとかたさ（起きやすい所・向き → 事故機 → 輪）", "bolt",
+         dict(view="chart", steps=[dict(state=dict(region="on", arrows="on")), dict(state=dict(acc="on")),
+                                   dict(state=dict(ring="on"))], note=N), True),
+        ("🔴 15本目 陽性対照：決まりの長さのねじに「決まりの影」", "bolt",
+         dict(view="nut", steps=[dict(state=dict(ghost="on"))], note=N), False),
+        ("🔴 15本目 陽性対照：古い詰め物がねじ山を締めつける", "bolt",
+         dict(view="nut", start=dict(insert="old"), steps=[dict(state=dict(clamp="on"))], note=N), False),
+        ("🔴 15本目 陽性対照：ゆるまずに塗装がはげる", "bolt",
+         dict(view="nut", start=dict(insert="old"), steps=[dict(state=dict(paint="on"))], note=N), False),
+        ("🔴 15本目 陽性対照：締め直したあと飛ばずにゆるむ", "bolt",
+         dict(view="nut", start=dict(insert="old"), steps=[dict(state=dict(tight="on")), dict(state=dict(tight="off", loose="on"))],
+              note=N), False),
+        ("🔴 15本目 陽性対照：かたさが落ちないまま震える（フラッター）", "bolt",
+         dict(view="spring", steps=[dict(state=dict(screw="loose", shake="on"))], note=N), False),
+        ("🔴 15本目 陽性対照：起きやすい所なしに事故機の点", "bolt", dict(view="chart", steps=[dict(state=dict(acc="on"))], note=N),
+         False),
     ]
     for name, kind, kw, want in cases:
         bad, _ = judge(kind, kw)
@@ -674,6 +1008,38 @@ def selftest():
     ok &= good
     print(f"  {'OK' if good else '🔴 NG'} 🔴 15本目 陽性対照（画素）：折れたリンクのすき間0の型: "
           f"{'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    # 🔴 15本目 ⑤b-4 画素の陽性対照（描く側の定数を壊す＝筋は正しいのに絵が記録と食い違う）
+    import mod15 as Mo
+    import bolt15 as Bo
+    cg_kw = dict(view="side", steps=[dict(state=dict(fill="on")), dict(state=dict(cg="aft"))], note=N)
+    w_kw = dict(view="weights", steps=[dict(state=dict(cw="both", bw="on"))], note=N)
+    for name, mod_, attr, val, kind, kw, key in (
+            ("板の重心 aft を元より前に描く型", T, "CG_AT", dict(T.CG_AT, aft=0.30), "tail", cg_kw, "重心 aft"),
+            ("左のおもりを 20ポンドで描く型", Mo, "W_KG", dict(Mo.W_KG, cw_acc=20.0 * 0.45359237), "mod", w_kw, "おもりの高さの比"),
+            ("動きを安定させるおもりを 0.6倍で描く型", Mo, "W_KG", dict(Mo.W_KG, bw_acc=Mo.BW_STOCK * 0.6), "mod", w_kw,
+             "動きを安定させる"),
+            ("事故機の形を縦に 1.1倍で描く型", Mo, "MOD", [[x, Mo.Y_C + (y - Mo.Y_C) * 1.1] for x, y in Mo.MOD], "mod",
+             dict(view="plan", steps=[dict(state=dict(stock="on"))], note=N), "事故機の翼の幅"),
+            ("沸かして冷やす箱を胴の上に描く型", Mo, "BOX", (-5.75, 0.9, -4.85, 1.5), "mod",
+             dict(view="side", steps=[dict(state=dict(boiler="on"))], note=N), "胴の形の外"),
+            ("短いねじの先をナットの端の 30画素上に描く型", Bo, "TIP", dict(Bo.TIP, short=Bo.NUT_END - 30.0), "bolt",
+             dict(view="nut", start=dict(insert="old"), steps=[dict(state=dict(screw="short"))], note=N), "そろわない"),
+            ("古い詰め物のすき間を0に描く型", Bo, "INS_GAP", dict(Bo.INS_GAP, old=0.0), "bolt",
+             dict(view="nut", steps=[dict(state=dict(insert="old"))], note=N), "詰め物 old"),
+            ("フラッターの揺れを 0度で描く型", Bo, "GHOST_DEG", dict(Bo.GHOST_DEG, shake=0.0), "bolt",
+             dict(view="spring", steps=[dict(state=dict(screw="loose", stiff="low", shake="on"))], note=N), "揺れの幅"),
+            ("事故機の点を起きにくい所に描く型", Bo, "ACC_UV", (0.3, 0.8), "bolt",
+             dict(view="chart", steps=[dict(state=dict(region="on", acc="on"))], note=N), "起きやすい所」の外")):
+        keep = getattr(mod_, attr)
+        setattr(mod_, attr, val)
+        try:
+            bad, _ = judge(kind, kw)
+        finally:
+            setattr(mod_, attr, keep)
+        good = any(key in b for b in bad)
+        ok &= good
+        print(f"  {'OK' if good else '🔴 NG'} 🔴 15本目 陽性対照（画素）：{name}: "
+              f"{'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 
@@ -687,9 +1053,10 @@ def main():
     fixture_ep14.restore()       # 🔴 15本目 ⑤b-2：selftest で差し込んだ14本目の見本を本番の表に戻す（戻さないと14本目の表で本番を測る）
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items())
-               if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail")}
+               if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt")}
     if not targets:
-        print("⚠️ latch・section・hull・lash のカットが0件（この回に仕組みの模式図が無いなら正しい。**0件を調べて合格**にしていないか確かめる）")
+        print("⚠️ latch・section・hull・lash・tail・mod・bolt のカットが0件（この回に仕組みの模式図が無いなら正しい。"
+              "**0件を調べて合格**にしていないか確かめる）")
         return 0
     bad_all, n_all = 0, 0
     for cid, (kind, kw) in targets.items():
