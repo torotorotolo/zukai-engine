@@ -111,7 +111,10 @@ UA = ("zukai-engine/1.0 (accident-documentary research; "
 #          🔴 123艇の映像は海洋警察庁の許可待ち＝使わない（台本 §1-4）。`ref/ep14/clips.json` は作るまで無い
 #       🔴 2026-09-30（15本目 リノ・エアレース2011 ⑤b-1）：**15本目へ切り替えた**（§0b）。14本目は映像2本（`ref/ep14/`）。
 #          15本目は動く映像0本（②③ 09-25 カズヤくん＝事故の動く映像は使わない）＝`ref/ep15/clips.json` は無い＝CLIPS は空
-_CLIPS_JSON = HERE / "ref" / "ep15" / "clips.json"
+#       🔴 2026-10-01（16本目 バイオントダム災害 ⑤b-1）：**16本目へ切り替えた**（§0b）。15本目は動く映像0本。
+#          16本目も動く映像0本（②③ 09-26＝幅1280以上の PD・CC の記録映像は0本＝【映像あり】なし・`ref/ep16/materials.md` §5）
+#          ＝`ref/ep16/clips.json` は無い＝CLIPS は空（Google Earth の飛行は⑤b-7 で写真の束として扱う）
+_CLIPS_JSON = HERE / "ref" / "ep16" / "clips.json"
 CLIPS = json.loads(_CLIPS_JSON.read_text(encoding="utf-8")) if _CLIPS_JSON.exists() else {}
 
 # 🔴🔴 2026-09-07（5本目 SL-1 ⑤c'・K-12）：**素材そのものが横に黒帯を持っている。**
@@ -182,7 +185,7 @@ def bars_left(cid, u=None):
 #    ＝ `SHOTS` が空のまま `outside_shot()` を回すと、**全欄が「対象外」で素通り**する。
 #    そうならないように `unknown_clip()` を足した（`fetch --check` が呼ぶ）。
 SHOTS = {}
-SHOT_FILE = HERE / "ref" / "ep15" / "shots.json"          # 15本目（0本＝無い）。14本目は ref/ep14/（2本）・13本目は ref/ep13/（0本）・12本目は ref/ep12/（2本）
+SHOT_FILE = HERE / "ref" / "ep16" / "shots.json"          # 16本目（0本＝無い）。15本目は ref/ep15/（0本）・14本目は ref/ep14/（2本）・13本目は ref/ep13/（0本）・12本目は ref/ep12/（2本）
 # 🔴 2026-09-13（7本目②）：**この表はまだ無い。**⑤で `tools/shots.py` が作る。
 #    無いあいだ SHOTS は空で、`outside_shot()` は全欄を「対象外」で飛ばす＝**素通りする**。
 #    それを塞ぐのが下の `unknown_clip()`（`fetch --check` が呼ぶ）。USE を書いたら必ず通す。

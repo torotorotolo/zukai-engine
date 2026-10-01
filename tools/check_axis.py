@@ -36,33 +36,12 @@ sys.stdout.reconfigure(encoding="utf-8")
 #     🔴 2026-09-30（15本目 リノ ⑤b-1）：**空にした**。14本目（セウォル号）の表は selftest の見本 `tools/fixture_ep14.py`
 #        （GATES["check_axis"]・値は1つも変えていない）。15本目の年表・時間の帯を書くチャットで、値と頁を
 #        ref/ep15/src/ep15_pages.txt で当てて入れる（空のあいだ、軸のカットは「記録に無い値」で止まる＝fail closed）
+#     🔴 2026-10-01（16本目 バイオントダム災害 ⑤b-1）：15本目の表（秒の帯・年表・時刻の帯・横転の前の秒）も**空にした**。
+#        selftest の見本 `tools/fixture_ep15.py`（GATES["check_axis"]・値は1つも変えていない＝git の `c646174`）。
+#        16本目の値は、軸の型を初めて使う ⑤b のチャットで、値と頁を ref/ep16/src/ep16_pages.txt で当てて入れる
+#        （空のあいだ、軸のカットは「記録に無い値」で止まる＝fail closed）
 # ══════════════════════════════════════════════════════════
-# 🔴 2026-09-30（15本目 ⑤b-2）：15本目の値＝秒の帯（崩れ始めからの秒＝AAB p28 の経過の表・c312）。
-#    0.56秒＝左の板の後ろの縁が21度以上上がった（p28）＝リンクがこのときまでに折れていた（p24・p39）／4.6秒＝一片が離れた（p28）・
-#    本部のパイロンの近くで見つかった（p18）。年表・時間の帯（分・日）の値は ⑤b-5 で足す
-REC_AXIS = {
-    "0": {"AAB p28"}, "0.27": {"AAB p28"}, "0.56": {"AAB p24", "AAB p28", "AAB p39"}, "0.83": {"AAB p28"},
-    "1.3": {"AAB p28"}, "1.44": {"AAB p28"}, "約3.1": {"AAB p28"}, "4.6": {"AAB p18", "AAB p28"}, "約9.1": {"AAB p28"},
-    # 🆕 2026-09-30（15本目 ⑤b-5）：年表・時刻の帯・横転の前の秒（原文 ref/ep15/src/ep15_pages.txt で当てた）
-    #   p12「delivered … on December 23, 1944 … in July 1946 … surplus and sold … acquired by the accident pilot in July 1983
-    #        … raced … from 1983 through 1989 before placing it in storage until 2007 … Between 2007 and 2009 … overhaul」
-    "1944-12-23": {"AAB p12"}, "1946-07": {"AAB p12"}, "1983-07": {"AAB p12"},
-    "1983": {"AAB p12"}, "1989": {"AAB p12"}, "2007": {"AAB p12"}, "2009": {"AAB p12"},
-    "1983-08-17": {"AAB p35"},                              # p35「on August 17, 1983 … special airworthiness certificate」
-    "2009-09-21": {"AAB p36"},                              # p36「completion of its major modifications occurred on September 21, 2009」
-    "2010": {"AAB p36", "AAB p38"},                         # p36「entered into the 2010 NCAR」・p38
-    "2011-09-16": {"AAB p8", "AAB p10", "CAROL p5008"},     # p10「On September 16, 2011」
-    #   CAROL p5008（A-12-08）：NTSB の評価（OPEN—ACCEPTABLE RESPONSE）3回・命令の改め・通達の廃止・閉じた日
-    "2012-07-25": {"CAROL p5008"}, "2016-11-30": {"CAROL p5008"}, "2020-07-22": {"CAROL p5008"},
-    "2020-02-27": {"CAROL p5008"}, "2020-11-03": {"CAROL p5008"}, "2021-07-13": {"CAROL p5008"},
-    #   p21「tabletop exercise … on June 2, 2011」「full-scale emergency exercise on May 25, 2011」
-    "2011-06-02": {"AAB p21"}, "2011-05-25": {"AAB p21"},
-    #   p28 の表（16:24:28.9 に崩れ始め・約9.1秒後に落ちた＝台本 c317「午後4時24分38秒ごろ」）・p20「declared a mass-casualty
-    #   incident at 1626」
-    "16:24": {"AAB p28"}, "16:26": {"AAB p20"},
-    #   p29「About 8 seconds before the beginning of the upset, there was a noticeable reduction in engine manifold pressure and rpm」
-    "約-8": {"AAB p29"},
-}
+REC_AXIS = {}
 LANES_OK = set()
 
 
@@ -244,8 +223,20 @@ def _split_times():
 
 
 def selftest_ep15():
-    """15本目（⑤b-2）の秒の帯（sec）の検算＝**本番の表（この門番の REC_AXIS＝15本目）**で回す。
-    🔴 16本目の ⑤b-1 で本番の表を空にしたら、秒の値を fixture_ep15 へ移して差し込む（14本目と同じ）"""
+    """15本目（⑤b-2・⑤b-5）の秒の帯（sec）・年表・負の秒の検算＝**見本 `fixture_ep15`（15本目の表）を差し込んで**回す。
+    🔴 2026-10-01（16本目 ⑤b-1）：本番の表（この門番の REC_AXIS）は16本目の空の器にした＝15本目の値は
+       `fixture_ep15.GATES["check_axis"]`（14本目と同じ作り）。ss の側（AXIS_DOCS・AXI ほか）と GEO も15本目の見本になる
+       ＝落ちても終わっても `restore()` で本番の値へ戻す（try/finally）。本体は `_selftest_ep15`"""
+    import fixture_ep15
+    fixture_ep15.apply(sys.modules[__name__])
+    try:
+        return _selftest_ep15()
+    finally:
+        fixture_ep15.restore()
+
+
+def _selftest_ep15():
+    """15本目の検算の本体（`fixture_ep15` を差し込んだ中で呼ぶ）。"""
     import axis as A
     sec = dict(view="sec", span=("0", "5"), ticks=("0", "1", "2", "3", "4", "5"),
                steps=[dict(add=[dict(k="pt", at="1.3", t="最大G", rec="AAB p28"),
@@ -322,7 +313,8 @@ def selftest_ep15():
 
 
 def selftest():
-    # 🔴 2026-09-30（15本目 ⑤b-2）：先に15本目の秒の帯を本番の表で検算してから、14本目の見本に差し替える
+    # 🔴 2026-09-30（15本目 ⑤b-2）：先に15本目の秒の帯を検算してから、14本目の見本に差し替える
+    #    （2026-10-01〜：15本目も見本 fixture_ep15 の表＝selftest_ep15 が差し込んで・終わったら戻す）
     ok = selftest_ep15()
     # 🔴 2026-09-30（15本目 ⑤b-1）：見本は14本目の実物（本番の表は回ごとに空にする＝§0b）＝この処理の中だけ14本目にする
     import fixture_ep14
