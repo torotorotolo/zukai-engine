@@ -96,9 +96,11 @@ SPEC = {
         fig=("vsec", dict(view="two",
                           # ⚠️ qa_all の echo（札が語りの写し）・dup（断り書きが見出し「2人の見立て」を覆う）＝札は名前だけ・
                           #   断り書きに見出しの言葉を入れない
-                          steps=[dict(state=dict(block="on"), delay=2.4, tag=dict(t="古い岩の塊（模式）", at="t1")),
+                          # 試し焼き 36847144315：札に指す線が無かった＝塊とすべり面へ線
+                          steps=[dict(state=dict(block="on"), delay=2.4, tag=dict(t="古い岩の塊（模式）", at="t1", to="block")),
                                  dict(),
-                                 dict(state=dict(slip="on", move="on"), delay=0.4, tag=dict(t="すべり面（模式）", at="r1"))],
+                                 dict(state=dict(slip="on", move="on"), delay=0.4,
+                                      tag=dict(t="すべり面（模式）", at="r1", to="slip"))],
                           note="塊とすべり面の形は模式・地形は1934年の地形図から・縦横同じ縮尺",
                           src="イタリア議会 調査委員会 最終報告 PDF 73・174頁")),
     ),

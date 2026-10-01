@@ -106,7 +106,10 @@ def _lake_um(level, u1=U1):
     """湖（谷の底から水位まで）＝南の岸と北の岸のあいだ。"""
     import illu as IL
     G = [q for q in IL.VB_G if q[0] <= u1]
-    xs = [a + (b - a) * (level - za) / (zb - za) for (a, za), (b, zb) in zip(G, G[1:]) if (za - level) * (zb - level) < 0]
+    # 🔴 ⑤b-4 の試し焼き（c504）：水位700m は地形の点（南と北の岸＝ちょうど700m）と同じ値＝「< 0」では端の点を数えず湖が消えた
+    #   ＝端に触れる所も数え、同じ u は1つに
+    xs = sorted({round(a + (b - a) * (level - za) / (zb - za), 6) for (a, za), (b, zb) in zip(G, G[1:])
+                 if (za - level) * (zb - level) <= 0 and za != zb})
     if len(xs) < 2:
         return []
     a, b = xs[0], xs[-1]
@@ -273,7 +276,8 @@ def anchors(view, st):
                     lake=xy(m, m["u0"] + 120.0, DAM_LAKE), face=xy(m, d[12][0], d[12][1]))
     m = SLOPE
     import illu as IL
-    return dict(marks=xy(m, MARKS_U[1], _lin_g(MARKS_U[1])), block=xy(m, 520.0, 980.0),
+    a, b = xy(m, 300.0, _lin_g(300.0) + 120.0), xy(m, 1180.0, _lin_g(1180.0) + 90.0)     # 動く向きの矢印（stage_art と同じ）
+    return dict(marks=xy(m, MARKS_U[1], _lin_g(MARKS_U[1])), block=xy(m, 520.0, 980.0), dir=((a[0] + b[0]) / 2, (a[1] + b[1]) / 2),
                 slip=xy(m, 800.0, _lin(IL.VB_SLIP, 800.0)), top=xy(m, IL.VB_SLIP[0][0], IL.VB_SLIP[0][1]),
                 lake=xy(m, 1500.0, LAKE.get(view, 650.0)), survey=xy(m, sum(SURVEY_U) / 2, _lin_g(sum(SURVEY_U) / 2)),
                 holes=xy(m, *boring_um(BORINGS[1])[1]), inner=xy(m, 900.0, _lin_g(900.0) - 140.0))

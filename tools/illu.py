@@ -3633,9 +3633,13 @@ def _vd_scar_svg(view, poly_um, tod, niche=False):
     """塊が下がると見える面（すべった跡）。niche＝1960年の崩落の跡（えぐれた暗いくぼみ・縁は細く＝⑤b-4 の下見）。"""
     px = [sec_xy(view, w, z) for w, z in poly_um]
     if niche:
-        # 明るい土の面（縁なし）＋上の縁だけ暗い線（崩れた崖）＝下見のあと
-        return (_poly(px, VD_PAL[tod]["scar"], None, 0.0, 0.95) +
-                f'<path d="{_pl(px[1:-1])}" fill="none" stroke="{VD_PAL[tod]["niche"]}" stroke-width="4" '
+        # 🔴 試し焼き 36847144315 と下見（c408 水位600m）：塗った面は明るくても暗くても、筋を入れても「水から立つ柱・アーチの門」に
+        #   見えた（正面の平らな斜面の上では、塗った形は手前の物に見える）＝**「ここが崩れた所」という印**にした：ごく薄い面＋点線の
+        #   輪郭＋上の縁（崩れた崖）だけ実線。c312 では砂色の土が湖へ落ちたあとにこの印が残る
+        P = VD_PAL[tod]
+        return (_poly(px, P["scar"], None, 0.0, 0.3) +
+                f'<path d="{_d(px)}" fill="none" stroke="{P["niche"]}" stroke-width="3" stroke-dasharray="10 7"/>'
+                f'<path d="{_pl(px[1:-1])}" fill="none" stroke="{P["niche"]}" stroke-width="5" '
                 'stroke-linejoin="round" stroke-linecap="round"/>')
     return _poly(px, VD_PAL[tod]["scar"], "#10161b", 2.0)
 
@@ -3727,8 +3731,10 @@ def vd_pip_geom():
 
 
 def _g_cross(G, z):
-    """折れ線 G（u 昇順）が標高 z を横切る u の並び。"""
-    return [a + (b - a) * (z - za) / (zb - za) for (a, za), (b, zb) in zip(G, G[1:]) if (za - z) * (zb - z) < 0]
+    """折れ線 G（u 昇順）が標高 z を横切る u の並び。⚠️ ⑤b-4 の試し焼き（vsec16 の c504）：z が地形の点と同じ値（700m＝岸の点）
+    だと「< 0」では数えなかった＝端に触れる所も数え、同じ u は1つに"""
+    return sorted({round(a + (b - a) * (z - za) / (zb - za), 6) for (a, za), (b, zb) in zip(G, G[1:])
+                   if (za - z) * (zb - z) <= 0 and za != zb})
 
 
 def vd_pip_svg(level):

@@ -97,7 +97,8 @@ SPEC = {
         fig=("vsec", dict(view="marks",
                           steps=[dict(state=dict(marks="on"), delay=0.8),
                                  dict(state=dict(marks="moved"), delay=2.4, tag=dict(t="前の日の位置（輪）からのずれ", at="t1")),
-                                 dict(state=dict(dir="on"), delay=0.4, tag=dict(t="斜面の動く向き", at="r1"))],
+                                 # 試し焼き 36847144315：右上の札は矢印から離れて何の札か分からなかった＝左の札の下へ・矢印へ線
+                                 dict(state=dict(dir="on"), delay=0.4, tag=dict(t="斜面の動く向き", at="t2", to="dir"))],
                           note="目印の数と位置・ずれの大きさは模式（大きく描いた）・地形は1934年の地形図から・縦横同じ縮尺",
                           src="イタリア議会 調査委員会 最終報告 PDF 148頁")),
     ),
