@@ -466,15 +466,13 @@ def judge_tail(f):
 
 # ── 15本目 ⑤b-4：改造の比べ（mod）・ねじとナットとフラッター（bolt）の記録の値＝門番の側に独立して持つ
 #    （型の定数を読まない＝型の定数を壊す陽性対照が捕まえられる）──
+# 🔴 2026-10-01（16本目 バイオントダム災害 ⑤b-1・§0b）：15本目の REC_MOD・REC_BOLT は selftest の見本 `tools/fixture_ep15.py`
+#    （GATES["check_mech"]・値は1つも変えていない＝git の `c646174`）へ移した＝空。selftest は見本の表だけ差し込む
+#    （`fixture_ep15.apply(gate, tables_only=True)`）。16本目で改造の比べ（mod）・ねじ（bolt）の型を使うときは、
+#    その回の記録の値をここに別に持つ（§5b-88）。`_FT, _LB`＝メートル・キロの換算（見本の表の式も同じ値）
 _FT, _LB = 0.3048, 0.45359237
-REC_MOD = dict(span_stock=(37 + (5 / 16) / 12) * _FT,    # 11.286 メートル（AAB p13）
-               span_mod=(28 + 10 / 12) * _FT,            # 8.788
-               cw_ratio=26.0 / 13.75,                    # 左の昇降舵のおもり／資料のふつうの最大（AAB p14）
-               cw_kg=26.0 * _LB,                         # 11.79 キロ（AAB p14）
-               bw_ratio=(8 + 2 / 3) / 20.0)              # 動きを安定させるおもり（#53 p10＝推定）＜ 0.5（AAB p43「半分未満」）
-REC_BOLT = dict(len_ratio=0.96 / 1.219,                  # 実際のねじ／決まりのねじ（#40 p2・p6＝頭の下の長さ）
-                flights=3,                               # 締め直しのあとの飛行（AAB p41）
-                shake_deg=(10.0, 20.0), wobble_deg=(3.0, 8.0))   # 板の揺れの幅（模式＝震えはぐらつきより大きい）
+REC_MOD = {}
+REC_BOLT = {}
 
 
 def _in_poly(p, poly):
@@ -732,6 +730,10 @@ def selftest():
     # 🔴 2026-09-30（15本目 ⑤b-1）：見本は14本目の実物（本番の表は回ごとに空にする＝§0b）＝この処理の中だけ14本目にする
     import fixture_ep14
     fixture_ep14.apply(sys.modules[__name__])
+    # 🔴 2026-10-01（16本目 ⑤b-1）：下の15本目の尾翼・改造・ねじの検算は REC_MOD・REC_BOLT を使う＝本番の表は16本目の空の器なので、
+    #    見本 fixture_ep15 の表だけ差し込む（ss・GEO は触らない＝14本目の見本を壊さない）。main() が restore で戻す（LIFO）
+    import fixture_ep15
+    fixture_ep15.apply(sys.modules[__name__], tables_only=True)
     N = "模式図：テスト"
     ok = True
     closing = [dict(state=dict(hook="closed", motor="run"), tag=dict(t="フックが回る")),
@@ -1050,6 +1052,8 @@ def main():
     if "--selftest" in sys.argv:
         return 0
     import fixture_ep14
+    import fixture_ep15
+    fixture_ep15.restore()       # 🔴 16本目 ⑤b-1：selftest で足した15本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep14.restore()       # 🔴 15本目 ⑤b-2：selftest で差し込んだ14本目の見本を本番の表に戻す（戻さないと14本目の表で本番を測る）
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items())

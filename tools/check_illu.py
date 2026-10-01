@@ -341,9 +341,23 @@ def _expect(name, bad, head):
 
 
 def selftest_ep15():
-    """15本目（リノ・⑤b-2）の置き場 RA・RB・RD の物差しの検算＝**本番の表（cuts.ss＝15本目）**で回す。
-    🔴 16本目の ⑤b-1 で本番の表を空にしたら、この表（REC_DOCS・ILLU_SEC_OK・ILLU_CLOCK_OK・ILLU_COUNTS）を
-       fixture_ep15 へ移して差し込む（14本目と同じ＝記憶 project-jiko-rules-index §0b）"""
+    """15本目（リノ・⑤b-2〜⑤b-3）の置き場 RA・RB・RC・RD の物差しの検算＝**見本 `fixture_ep15`（15本目の表）を差し込んで**回す。
+    🔴 2026-10-01（16本目 ⑤b-1）：本番の表（cuts.ss の REC_DOCS・ILLU_ROLES・ILLU_SEC_OK・ILLU_CLOCK_OK・ILLU_COUNTS ほか）は
+       16本目の空の器にした＝15本目の値は `fixture_ep15`（14本目と同じ作り＝記憶 project-jiko-rules-index §0b）。
+       差し込んだら原文の頁の読み込み `_pages()`（lru_cache）を捨てて15本目の原文を読み直し、戻したらまた捨てる
+       ＝落ちても終わっても `restore()` で本番の値へ戻す（try/finally）。本体は `_selftest_ep15`"""
+    import fixture_ep15
+    fixture_ep15.apply(sys.modules[__name__])
+    _pages.cache_clear()          # 🔴 原文の頁の読み込みは覚えている（lru_cache）＝本番の（空の）原文を捨てて15本目を読み直す
+    try:
+        return _selftest_ep15()
+    finally:
+        fixture_ep15.restore()
+        _pages.cache_clear()
+
+
+def _selftest_ep15():
+    """15本目の検算の本体（`fixture_ep15` を差し込んだ中で呼ぶ）。"""
     ss = _ss()
     kw = dict(docs=dict(ss.REC_DOCS), pages=_pages(), split=tuple(ss.ILLU_SPLIT_TIMES), until=ss.ILLU_CROWD_UNTIL,
               sec_ok=dict(ss.ILLU_SEC_OK), clock_ok=tuple(ss.ILLU_CLOCK_OK), counts=dict(ss.ILLU_COUNTS),
@@ -475,7 +489,8 @@ def selftest_ep15():
 
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
-    # 🔴 2026-09-30（15本目 ⑤b-2）：先に15本目（本番の表）で RA・RB・RD を検算してから、14本目の見本に差し替える
+    # 🔴 2026-09-30（15本目 ⑤b-2）：先に15本目で RA・RB・RC・RD を検算してから、14本目の見本に差し替える
+    #    （2026-10-01〜：15本目も見本 fixture_ep15 の表＝selftest_ep15 が差し込んで・終わったら戻す）
     ok15 = selftest_ep15()
     # 🔴 2026-09-30（15本目 ⑤b-1）：見本は14本目の実物（置き場 A〜E の部品の既定の rec が14本目の資料を指す）。
     #    本番の表は回ごとに空にする（§0b）＝この処理の中だけ14本目の資料の表・原文・時刻にする
