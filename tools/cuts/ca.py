@@ -92,8 +92,9 @@ PLAN = {
     "ca25": dict(kind='図解',
                plan='台本の画：図 年表 その後の裁判（1975 ラクイラの控訴院）',
                src='S9 PDF18'),
-    "ca26": dict(kind='写真',
-               plan='台本の画：実写 Googleアース⑥ ピアーヴェ川の下流（現在）',
+    "ca26": dict(kind='再現イラスト',
+               plan='【案C VA 上から見た谷】🆕 ⑤b-7（2026-10-02 カズヤくん）：Google Earth → 地図（VA）に替えた＝ピアーヴェ川の下流'
+                    '（SPEC は ⑤b-8）｜台本の画：実写 Googleアース⑥ ピアーヴェ川の下流（現在）',
                src='S10 PDF20'),
     "ca27": dict(kind='写真',
                plan='台本の画：実写 #118 ロンガローネから峡谷ごしに見る今のダム（現在・CC BY 3.0）',
@@ -101,6 +102,62 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-7（2026-10-02）：写真と頁の束（`qa_out/ep16_assets.py`）──
+    # #108（1968年11月・ラクイラの法廷）。🔴 座っている人の横顔8人＝顔だけモザイク。章の頭（扉の地に混ざる＝PD・モザイクのまま）
+    "ca01": dict(
+        t="責任を問う",
+        s="1968年11月　ラクイラの法廷",
+        photo=P("trial_1968"), **ss.kind(P("trial_1968")),
+    ),
+    # #116（Riccardo Sartor・PD）＝下流の峡谷から見たいまのダム
+    "ca03": dict(
+        t="いまのダム",
+        s="2008年2月　下流の峡谷から見たダム",
+        photo=P("dam_now_downstream"), **ss.kind(P("dam_now_downstream")),
+    ),
+    # 多数派の本文（p178 右の段）＝「…non fu previsto da nessuno e che le previsioni formulate, anche considerate nella loro
+    #   peggiore combinazione, escludevano pericoli per la pubblica incolumità.」（ca05 の★も同じ段）
+    "ca06": dict(
+        t="多数派の本文",
+        s="当時の予測について書く段",
+        photo=ss.page(178), trim=ss.ptrim("ca06"), panel=True, color=1.0,
+    ),
+    # #117（Stefano Petri・CC BY 3.0）＝真下から見たダム（縦）
+    "ca07": dict(
+        t="多数派の疑問",
+        s="2003年4月　真下から見たダム",
+        photo=P("dam_now_below"), **ss.kind(P("dam_now_below")),
+    ),
+    # 少数派の報告（p207 左の段）＝「…travolti da un evento prevedibile e probabile, e quindi evitabile…」（c910 と同じ頁・切り口は別）
+    "ca08": dict(
+        t="少数派の報告",
+        s="「予見でき、避けられた」と書く段",
+        photo=ss.page(207), trim=ss.ptrim("ca08"), panel=True, color=1.0,
+    ),
+    # #108 の右側（判事席と憲兵＝法廷の公務・モザイクの外）に寄る＝PLAN「別の部分に寄る」
+    "ca12": dict(
+        t="11人の被告",
+        s="1968年11月　一審の法廷の判事席",
+        photo=P("trial_1968"), trim=(0.38, 0.0, 1.0, 1.0), panel=True,
+    ),
+    # #122（Gianmarco139・CC BY 4.0）＝残った湖と崩れた山
+    "ca23": dict(
+        t="いまの湖",
+        s="2015年5月　残った湖と崩れた山",
+        photo=P("lake_now"), **ss.kind(P("lake_now")),
+    ),
+    # #121（Christian Thiergan・CC BY 2.5）＝トック山のすべり面の近景
+    "ca24": dict(
+        t="すべり面",
+        s="2005年7月　トック山のすべり面",
+        photo=P("slide_surface_now"), **ss.kind(P("slide_surface_now")),
+    ),
+    # #118（Stefano Petri・CC BY 3.0）を戻す（bias 0.6＝c111 の注）
+    "ca27": dict(
+        t="峡谷の奥のダム",
+        s="2003年4月　ロンガローネから峡谷ごしに見たダム",
+        photo=P("dam_gorge_now"), **ss.kind(P("dam_gorge_now")), bias=0.6,
+    ),
     # ── 🆕 ⑤b-6b（2026-10-01）：年表（`axis` の date）・数の比べ（`qty`）・書類の再現図と並べ図（`boxes`）＝14本目の型 ──
     # 🔴 裁判の年表は c110 と同じ軸（ss.AX_ANS＝1963〜72年）で続ける。前のカットの点は札を消して沈める（ss.dot）・すぐ前の点だけ札を
     #   沈めて残す。一審・控訴審・破毀院の言葉は c719・ca16・ca18 で初めて説明する＝その前のカットの画面に出さない

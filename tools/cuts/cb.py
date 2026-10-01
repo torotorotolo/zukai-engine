@@ -38,8 +38,9 @@ PLAN = {
     "cb07": dict(kind='写真',
                plan='台本の画：実写 #122 残った湖と崩れた山（現在・CC BY 4.0）',
                src='S1 PDF146・PDF41'),
-    "cb08": dict(kind='写真',
-               plan='台本の画：実写 Googleアース⑤ エルトとカッソ（現在・真上から）【上から】 合図（向きの札「上から見た図」・北の矢印）・崩れた山と残った湖の位置に印',
+    "cb08": dict(kind='再現イラスト',
+               plan='【案C VA 上から見た谷】🆕 ⑤b-7（2026-10-02 カズヤくん）：Google Earth → 地図（VA）に替えた＝エルトとカッソ・'
+                    '湖に近い集落（SPEC は ⑤b-8）｜台本の画：実写 Googleアース⑤ エルトとカッソ（現在・真上から）【上から】 合図（向きの札「上から見た図」・北の矢印）・崩れた山と残った湖の位置に印',
                src='S1 PDF171・PDF98'),
     "cb09": dict(kind='写真',
                plan='台本の画：実写 #115 「バイオントの救助者の通り」の標識（2023年）',
@@ -47,8 +48,9 @@ PLAN = {
     "cb10": dict(kind='写真',
                plan='台本の画：実写 #014 慰霊の十字架（1963年）',
                src='—'),
-    "cb11": dict(kind='写真',
-               plan='台本の画：実写 Googleアース⑥ ピアーヴェ川の下流（現在・ca26 とは別の向き）',
+    "cb11": dict(kind='再現イラスト',
+               plan='【案C VA 上から見た谷】🆕 ⑤b-7（2026-10-02 カズヤくん）：Google Earth → 地図（VA）に替えた＝ピアーヴェ川の下流'
+                    '（ca26 と別の範囲・SPEC は ⑤b-8）｜台本の画：実写 Googleアース⑥ ピアーヴェ川の下流（現在・ca26 とは別の向き）',
                src='S10 PDF24・PDF11'),
     "cb12": dict(kind='図解',
                plan='台本の画：図 並べ図 3つの答え（議会の多数派〈予見できたかを確かめるのは裁判所の仕事・起きた形では誰も予見しなかった〉・少数派〈予見でき避けられた〉・破毀院〈崩落も含めて予見していながらの重い過失として2人を有罪〉）（rec= PDF178・PDF207・PDF241・S9 PDF18）',
@@ -80,6 +82,67 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-7（2026-10-02）：写真の束（`qa_out/ep16_assets.py`）＝いまの谷 ──
+    # #119（Emanuele Paolini・PD）を戻す。⚠️ 見出しは章の題（第11章「今も立つダム」＝右上の章の札）と重ねない（門番 dup）
+    "cb02": dict(
+        t="家並みの上のダム",
+        s="2005年8月　ロンガローネの家並みの上に見えるダム",
+        photo=P("dam_houses_now"), **ss.kind(P("dam_houses_now")),
+    ),
+    # #118（Stefano Petri・CC BY 3.0）を戻す（bias 0.6＝c111 の注）
+    "cb03": dict(
+        t="峡谷のダム",
+        s="2003年4月　ロンガローネから峡谷ごしに見たダム",
+        photo=P("dam_gorge_now"), **ss.kind(P("dam_gorge_now")), bias=0.6,
+    ),
+    # #116（Riccardo Sartor・PD）を戻す
+    "cb04": dict(
+        t="終わらない検査",
+        s="2008年2月　下流の峡谷から見たダム",
+        photo=P("dam_now_downstream"), **ss.kind(P("dam_now_downstream")),
+    ),
+    # #120（Davide Cavalli・CC BY 3.0）を戻す
+    "cb05": dict(
+        t="トック山の跡",
+        s="2016年8月　いまのトック山の斜面",
+        photo=P("toc_now"), **ss.kind(P("toc_now")),
+    ),
+    # #121（Christian Thiergan・CC BY 2.5）を戻す
+    "cb06": dict(
+        t="すべり面",
+        s="2005年7月　トック山のすべり面の近景",
+        photo=P("slide_surface_now"), **ss.kind(P("slide_surface_now")),
+    ),
+    # #122（Gianmarco139・CC BY 4.0）を戻す
+    "cb07": dict(
+        t="残った湖",
+        s="2015年5月　崩れた山と、上流側に残った湖",
+        photo=P("lake_now"), **ss.kind(P("lake_now")),
+    ),
+    # #115（米陸軍 2023年10月8日・PD）＝「Viale Soccorritori del Vajont」の標識。🔴 ⑥の概要欄に米陸軍の断り書き
+    "cb09": dict(
+        t="記念の通りの名",
+        s="2023年10月　「Viale Soccorritori del Vajont」の標識",
+        photo=P("sign_2023"), **ss.kind(P("sign_2023")),
+    ),
+    # #014（イタリア消防・1963年・318px）＝慰霊の大きな木の十字架と花輪
+    "cb10": dict(
+        t="慰霊の十字架",
+        s="1963年　木の十字架と花輪",
+        photo=P("memorial_cross_1963"), **ss.kind(P("memorial_cross_1963")),
+    ),
+    # #117（Stefano Petri・CC BY 3.0）を戻す
+    "cb17": dict(
+        t="真下から見たダム",
+        s="2003年4月　ダムの下流の面",
+        photo=P("dam_now_below"), **ss.kind(P("dam_now_below")),
+    ),
+    # #023（米陸軍・1963年）を戻す（第8章の写真）
+    "cb18": dict(
+        t="ダムと谷",
+        s="1963年10月　ダムの奥の谷を埋めた崩れた山",
+        photo=P("dam_slide_1963"), **ss.kind(P("dam_slide_1963")),
+    ),
 
     # ── 🆕 ⑤b-6b（2026-10-01）：並べ図（`boxes` の row）と年表（`axis` の date）＝14本目の型・門番 check_boxes・check_axis ──
     # cb12（12.31秒）＝3つの答え（多数派 S1 p178「così come si è manifestato, non fu previsto da nessuno」・少数派 S1 p207「prevedibile e

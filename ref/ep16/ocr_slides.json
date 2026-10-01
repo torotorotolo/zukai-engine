@@ -1,0 +1,7364 @@
+{
+ "aerial_1960.jpg": {
+  "size": [
+   640,
+   750
+  ],
+  "lines": []
+ },
+ "aerial_slide_1963.jpg": {
+  "size": [
+   836,
+   689
+  ],
+  "lines": []
+ },
+ "army_trucks_1963.jpg": {
+  "size": [
+   886,
+   660
+  ],
+  "lines": [
+   {
+    "box": [
+     453,
+     420,
+     520,
+     444
+    ],
+    "text": "ロ ロ"
+   }
+  ]
+ },
+ "bridge_works_1956.jpg": {
+  "size": [
+   1499,
+   1934
+  ],
+  "lines": []
+ },
+ "bulldozer_1963.jpg": {
+  "size": [
+   897,
+   660
+  ],
+  "lines": []
+ },
+ "color_postcard.jpg": {
+  "size": [
+   849,
+   579
+  ],
+  "lines": []
+ },
+ "crack_1960.jpg": {
+  "size": [
+   433,
+   291
+  ],
+  "lines": []
+ },
+ "crest_cabin.jpg": {
+  "size": [
+   2774,
+   1973
+  ],
+  "lines": [
+   {
+    "box": [
+     1470,
+     301,
+     1714,
+     333
+    ],
+    "text": "ニ い 一"
+   },
+   {
+    "box": [
+     476,
+     1053,
+     1155,
+     1273
+    ],
+    "text": "第 、 イ ← 、"
+   }
+  ]
+ },
+ "crest_full_lake.jpg": {
+  "size": [
+   1600,
+   1026
+  ],
+  "lines": []
+ },
+ "crest_lake_1960.jpg": {
+  "size": [
+   800,
+   559
+  ],
+  "lines": []
+ },
+ "dam_from_debris_1963.jpg": {
+  "size": [
+   800,
+   558
+  ],
+  "lines": []
+ },
+ "dam_gorge_now.jpg": {
+  "size": [
+   2560,
+   1920
+  ],
+  "lines": [
+   {
+    "box": [
+     2388,
+     215,
+     2435,
+     271
+    ],
+    "text": "一 だ"
+   }
+  ]
+ },
+ "dam_houses_now.jpg": {
+  "size": [
+   1625,
+   2229
+  ],
+  "lines": [
+   {
+    "box": [
+     1593,
+     1883,
+     1615,
+     2015
+    ],
+    "text": "0 u.1 0"
+   }
+  ]
+ },
+ "dam_now_below.jpg": {
+  "size": [
+   1920,
+   2560
+  ],
+  "lines": []
+ },
+ "dam_now_downstream.jpg": {
+  "size": [
+   1712,
+   1299
+  ],
+  "lines": []
+ },
+ "dam_slide_1963.jpg": {
+  "size": [
+   800,
+   550
+  ],
+  "lines": []
+ },
+ "dam_us_1963.jpg": {
+  "size": [
+   550,
+   800
+  ],
+  "lines": []
+ },
+ "dam_works_1960.jpg": {
+  "size": [
+   1058,
+   1482
+  ],
+  "lines": []
+ },
+ "erto_1960.jpg": {
+  "size": [
+   800,
+   552
+  ],
+  "lines": []
+ },
+ "gorge_1955.jpg": {
+  "size": [
+   1000,
+   1340
+  ],
+  "lines": []
+ },
+ "gorge_1956.jpg": {
+  "size": [
+   496,
+   700
+  ],
+  "lines": [
+   {
+    "box": [
+     229,
+     139,
+     330,
+     163
+    ],
+    "text": "式 や 第"
+   }
+  ]
+ },
+ "gorge_exit_1963.jpg": {
+  "size": [
+   886,
+   660
+  ],
+  "lines": []
+ },
+ "igm_1934.jpg": {
+  "size": [
+   1600,
+   845
+  ],
+  "lines": [
+   {
+    "box": [
+     596,
+     43,
+     653,
+     54
+    ],
+    "text": "、 物 鬘 を 第"
+   },
+   {
+    "box": [
+     745,
+     62,
+     788,
+     76
+    ],
+    "text": "0 ゞ 22 -"
+   },
+   {
+    "box": [
+     492,
+     68,
+     654,
+     89
+    ],
+    "text": "ゾ 第 、 当 ー ( 下 参 亶 い 1"
+   },
+   {
+    "box": [
+     255,
+     95,
+     456,
+     115
+    ],
+    "text": "物 : 気 ・ 曾 ↓ ド に な - 気"
+   },
+   {
+    "box": [
+     386,
+     114,
+     528,
+     136
+    ],
+    "text": "、 い を 回 第 颪 、"
+   },
+   {
+    "box": [
+     148,
+     125,
+     206,
+     137
+    ],
+    "text": "い 物"
+   },
+   {
+    "box": [
+     0,
+     205,
+     56,
+     218
+    ],
+    "text": "わ ′ / ツ レ ・"
+   },
+   {
+    "box": [
+     0,
+     294,
+     41,
+     305
+    ],
+    "text": "マ : ノ に"
+   },
+   {
+    "box": [
+     762,
+     376,
+     809,
+     394
+    ],
+    "text": "9 : ゞ の"
+   },
+   {
+    "box": [
+     726,
+     382,
+     748,
+     391
+    ],
+    "text": "い に"
+   },
+   {
+    "box": [
+     1067,
+     388,
+     1080,
+     399
+    ],
+    "text": "S 、"
+   },
+   {
+    "box": [
+     1053,
+     397,
+     1170,
+     412
+    ],
+    "text": "。 ぉ ~ 0 、 を"
+   },
+   {
+    "box": [
+     1178,
+     477,
+     1220,
+     484
+    ],
+    "text": "- イ ぢ SO"
+   },
+   {
+    "box": [
+     930,
+     556,
+     1016,
+     572
+    ],
+    "text": "ッ ド 虹 イ ′ ・ 第"
+   },
+   {
+    "box": [
+     1157,
+     633,
+     1220,
+     644
+    ],
+    "text": "隘 詩 記 化"
+   },
+   {
+    "box": [
+     1396,
+     717,
+     1569,
+     751
+    ],
+    "text": "、 こ 第 を ぐ"
+   },
+   {
+    "box": [
+     549,
+     824,
+     657,
+     837
+    ],
+    "text": "を ン 、 に 、 ′ ツ 三 し 第 、"
+   },
+   {
+    "box": [
+     1502,
+     29,
+     1588,
+     43
+    ],
+    "text": "\" 3 の 一 し - イ い"
+   },
+   {
+    "box": [
+     1429,
+     85,
+     1524,
+     100
+    ],
+    "text": "、 一 第 を を に 00 ト 、 一"
+   },
+   {
+    "box": [
+     1305,
+     316,
+     1385,
+     333
+    ],
+    "text": "ン 、 & い に 砡"
+   },
+   {
+    "box": [
+     1538,
+     401,
+     1600,
+     414
+    ],
+    "text": "′ な つ わ 冫 ま 二"
+   }
+  ]
+ },
+ "lake_now.jpg": {
+  "size": [
+   2560,
+   1920
+  ],
+  "lines": []
+ },
+ "longarone_above_1963.jpg": {
+  "size": [
+   800,
+   600
+  ],
+  "lines": []
+ },
+ "longarone_before.jpg": {
+  "size": [
+   1709,
+   1128
+  ],
+  "lines": []
+ },
+ "longarone_before_after.jpg": {
+  "size": [
+   1744,
+   629
+  ],
+  "lines": []
+ },
+ "memorial_cross_1963.jpg": {
+  "size": [
+   318,
+   440
+  ],
+  "lines": []
+ },
+ "model_nove.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "pg1.png": {
+  "size": [
+   1654,
+   2339
+  ],
+  "lines": [
+   {
+    "box": [
+     202,
+     245,
+     1446,
+     294
+    ],
+    "text": "S 、 A T 0 D E L L A R E P U B B L I C A"
+   },
+   {
+    "box": [
+     602,
+     336,
+     1029,
+     362
+    ],
+    "text": "I V L E G I S L A T U R A"
+   },
+   {
+    "box": [
+     486,
+     429,
+     907,
+     458
+    ],
+    "text": "ー ー 广 0 ” ・ 一 第 VO"
+   },
+   {
+    "box": [
+     854,
+     528,
+     907,
+     556
+    ],
+    "text": "し つ"
+   },
+   {
+    "box": [
+     205,
+     440,
+     237,
+     552
+    ],
+    "text": "0 く 第 。 一"
+   },
+   {
+    "box": [
+     1096,
+     443,
+     1449,
+     492
+    ],
+    "text": "(Documento N. 76-bis)"
+   },
+   {
+    "box": [
+     199,
+     658,
+     1448,
+     696
+    ],
+    "text": "COMMISSIONE PARLAMENTARE D'INCHIESTA"
+   },
+   {
+    "box": [
+     440,
+     735,
+     1207,
+     775
+    ],
+    "text": "SUL DISASTRO DEL VAJONT"
+   },
+   {
+    "box": [
+     615,
+     835,
+     1027,
+     860
+    ],
+    "text": "(LEGGE 22 MAGGIO 1964 , 几 37 の"
+   },
+   {
+    "box": [
+     517,
+     937,
+     1097,
+     967
+    ],
+    "text": "Presidente: RUBINACCI Le0001d0 , 記 れ 0"
+   },
+   {
+    "box": [
+     215,
+     1009,
+     1429,
+     1038
+    ],
+    "text": "Commissari: AJROLDI Tomaso, se れ 襯 0 : ALICATA Mario, d 己 2 掖 ね ; BARONI Cesare,"
+   },
+   {
+    "box": [
+     214,
+     1042,
+     1430,
+     1074
+    ],
+    "text": "de 〃 0 ; BONACINA Ercole, “ れ 0 : BRE S SANI Pier Giorgio, d 印 砒 0 ; BUSET-"
+   },
+   {
+    "box": [
+     214,
+     1080,
+     1430,
+     1109
+    ],
+    "text": "TO Franco, dep 砒 0 ; CATELLA Vittore, d 町 0 ; COVELLI Alfredo, 売 な 砒 0 ; CROL-"
+   },
+   {
+    "box": [
+     213,
+     1116,
+     1429,
+     1146
+    ],
+    "text": "LALANZA Araldo, se れ 砒 0 ; CURTI lvano, de 々 曜 砒 0 ; DEGAN Costante, d 印 地 ; DEL-"
+   },
+   {
+    "box": [
+     213,
+     1151,
+     1429,
+     1181
+    ],
+    "text": "L'ANDRO Renato, dep 曜 砒 0 ; DE LUCA Angelo, 砒 0 ; DE UNTERRICHTER Guido,"
+   },
+   {
+    "box": [
+     213,
+     1188,
+     1429,
+     1218
+    ],
+    "text": "s 7 砒 0 ; FERRONI Luigi, s 夜 2 0 肥 ; FODERARO Salvatore, d 酊 0 ; FORTINI Nicola,"
+   },
+   {
+    "box": [
+     214,
+     1222,
+     1428,
+     1253
+    ],
+    "text": "d 罕 0 : GAIANI Luigi, れ 砒 0 肥 ; GENCO Giacinto, se れ 砒 0 ; GIANQUINTO Giovanni"
+   },
+   {
+    "box": [
+     214,
+     1260,
+     1430,
+     1288
+    ],
+    "text": "Battista, s 夜 7 砒 0 肥 ; LIZZERO Mario, de 砒 0 ; LO GIUDICE Barbaro, se れ 砒 0 肥 ; MO-"
+   },
+   {
+    "box": [
+     214,
+     1295,
+     1429,
+     1324
+    ],
+    "text": "SCA Giovanni, d 曜 砒 0 : SCOCCIMARRO Mauro, se れ 砒 0 ; VECELLIO Pietro, sena-"
+   },
+   {
+    "box": [
+     269,
+     1332,
+     1428,
+     1361
+    ],
+    "text": "; VERONESI Enzo, れ 砒 0 肥 ; VIANELLO Gian Mario, de を 曜 砒 0 ; VIDALI Vittorio,"
+   },
+   {
+    "box": [
+     330,
+     1368,
+     1306,
+     1397
+    ],
+    "text": "s 夜 ta 肥 ; ZANNIER AttiIio, れ 0 ; ZUCALLI Lanfranco, を 0."
+   },
+   {
+    "box": [
+     465,
+     1617,
+     864,
+     1657
+    ],
+    "text": "R E L A Z I O N E"
+   },
+   {
+    "box": [
+     923,
+     1617,
+     1171,
+     1657
+    ],
+    "text": "F I N A L E"
+   },
+   {
+    "box": [
+     407,
+     1790,
+     1223,
+     1820
+    ],
+    "text": "Comunicata alla Presidenza delle Camere 15 血 g Ⅱ 0 1965"
+   },
+   {
+    "box": [
+     475,
+     1959,
+     1418,
+     1993
+    ],
+    "text": "ReIazione di minoranza degli onorevoli Busetto, Vianello,"
+   },
+   {
+    "box": [
+     233,
+     1960,
+     397,
+     1986
+    ],
+    "text": "カ カ EGA :"
+   },
+   {
+    "box": [
+     478,
+     2001,
+     1422,
+     2035
+    ],
+    "text": "Gaiani, Lizzero, Scoccimarro, Gianquinto, Vidali e Alicata."
+   },
+   {
+    "box": [
+     423,
+     2061,
+     1419,
+     2094
+    ],
+    "text": "2 ) Relazione di minoranza degli onorevoli Bonacina e Ferroni."
+   }
+  ]
+ },
+ "pg171.png": {
+  "size": [
+   1657,
+   2342
+  ],
+  "lines": [
+   {
+    "box": [
+     203,
+     125,
+     430,
+     148
+    ],
+    "text": ".4 れ ~ 24 の れ e れ 一 の"
+   },
+   {
+    "box": [
+     200,
+     271,
+     637,
+     300
+    ],
+    "text": "cupazione per l'abitato di ErtO"
+   },
+   {
+    "box": [
+     806,
+     126,
+     845,
+     148
+    ],
+    "text": "171"
+   },
+   {
+    "box": [
+     1107,
+     124,
+     1450,
+     149
+    ],
+    "text": "S 閉 砒 0 della ″ わ ら 〃 ca"
+   },
+   {
+    "box": [
+     425,
+     193,
+     1219,
+     211
+    ],
+    "text": "LEGISLATURA TV - DISEGNI DI LEGGE E RELAZIONI - DOCUMENTI"
+   },
+   {
+    "box": [
+     699,
+     270,
+     808,
+     300
+    ],
+    "text": "quale si"
+   },
+   {
+    "box": [
+     202,
+     307,
+     805,
+     337
+    ],
+    "text": "evince chi aramente da tutti gli interventi"
+   },
+   {
+    "box": [
+     202,
+     343,
+     809,
+     372
+    ],
+    "text": "delle popolazioni interessate, dalle discus-"
+   },
+   {
+    "box": [
+     204,
+     379,
+     807,
+     410
+    ],
+    "text": "sioni che ebbero 0g0 nel febbraio e nel hl-"
+   },
+   {
+    "box": [
+     203,
+     415,
+     806,
+     446
+    ],
+    "text": "glio 1961 引 Cons iglio provinciale di Belluno"
+   },
+   {
+    "box": [
+     203,
+     451,
+     807,
+     481
+    ],
+    "text": "e dagli interventi di alcuni parlamentari che,"
+   },
+   {
+    "box": [
+     202,
+     487,
+     808,
+     513
+    ],
+    "text": "come l'onorevole Corona e l'onorevole Bu-"
+   },
+   {
+    "box": [
+     204,
+     523,
+     808,
+     553
+    ],
+    "text": "settO, avevano presentato interrogazioni al"
+   },
+   {
+    "box": [
+     203,
+     559,
+     809,
+     589
+    ],
+    "text": "Ministro dei lavori pubblici, subito d 叩 0 la"
+   },
+   {
+    "box": [
+     201,
+     594,
+     809,
+     625
+    ],
+    "text": "frana del 1 % 0 ー era quella stessa che aveva"
+   },
+   {
+    "box": [
+     203,
+     631,
+     808,
+     661
+    ],
+    "text": "indotto, ancora prima Che la frana Si veri-"
+   },
+   {
+    "box": [
+     204,
+     667,
+     808,
+     695
+    ],
+    "text": "ficasse, ad effettuare, con concorso dei"
+   },
+   {
+    "box": [
+     204,
+     703,
+     808,
+     733
+    ],
+    "text": "tecnici appartenenti agli organi di controll 0"
+   },
+   {
+    "box": [
+     204,
+     739,
+     808,
+     769
+    ],
+    "text": "dello Stato ed agli uffici responsabili del 信"
+   },
+   {
+    "box": [
+     204,
+     775,
+     808,
+     805
+    ],
+    "text": "concessionaria, indagini e S tudi diretti ad"
+   },
+   {
+    "box": [
+     204,
+     811,
+     808,
+     841
+    ],
+    "text": "accertare gli eventuali pericoli per l'abitato"
+   },
+   {
+    "box": [
+     204,
+     847,
+     491,
+     871
+    ],
+    "text": "di ErtO e ad evitarli."
+   },
+   {
+    "box": [
+     234,
+     883,
+     807,
+     913
+    ],
+    "text": "Dopo la frana del novembre 1960 nei vari"
+   },
+   {
+    "box": [
+     204,
+     919,
+     808,
+     949
+    ],
+    "text": "interventi emerge anche qualche preoccu-"
+   },
+   {
+    "box": [
+     203,
+     955,
+     808,
+     985
+    ],
+    "text": "pazione per gli abitati a valle dello sbarra-"
+   },
+   {
+    "box": [
+     203,
+     991,
+     808,
+     1018
+    ],
+    "text": "mento, 1 れ a Cio in diretta relazione con 1 れ"
+   },
+   {
+    "box": [
+     203,
+     1027,
+     729,
+     1057
+    ],
+    "text": "resistenza della diga. Ci si chiedeva,"
+   },
+   {
+    "box": [
+     204,
+     1063,
+     808,
+     1093
+    ],
+    "text": "se la diga avrebbe potuto resistere ad even-"
+   },
+   {
+    "box": [
+     204,
+     1099,
+     808,
+     1127
+    ],
+    "text": "tuali frane di materiale in movimento, ben"
+   },
+   {
+    "box": [
+     204,
+     1135,
+     809,
+     1165
+    ],
+    "text": "superiorl come volume a quello della frana"
+   },
+   {
+    "box": [
+     204,
+     1171,
+     809,
+     1195
+    ],
+    "text": "del 1960. Si avevano notine indirette circ. a"
+   },
+   {
+    "box": [
+     204,
+     1207,
+     809,
+     1231
+    ],
+    "text": "l'entita della massa franosa tenuta sotto"
+   },
+   {
+    "box": [
+     205,
+     1243,
+     811,
+     1271
+    ],
+    "text": "controllo e Si accennava ( C01 第 e in arti-"
+   },
+   {
+    "box": [
+     205,
+     1279,
+     810,
+     1307
+    ],
+    "text": "C010 pubblicato su 《 L'Unita ” dalla orna -"
+   },
+   {
+    "box": [
+     206,
+     1315,
+     810,
+     1345
+    ],
+    "text": "lista Merlin e nell'intervento del consigliere"
+   },
+   {
+    "box": [
+     205,
+     1351,
+     810,
+     1380
+    ],
+    "text": "provinciale di Belluno, onorevole Francesco"
+   },
+   {
+    "box": [
+     205,
+     1387,
+     809,
+     1415
+    ],
+    "text": "Giorgio Bettiol, nella seduta del 13 febbraio"
+   },
+   {
+    "box": [
+     208,
+     1422,
+     811,
+     1451
+    ],
+    "text": "1961 ) a 50 milioni di metri cubi, cio き a circa"
+   },
+   {
+    "box": [
+     205,
+     1458,
+     810,
+     1488
+    ],
+    "text": "un. quarto di queJla che era la previsione が ⅱ"
+   },
+   {
+    "box": [
+     205,
+     1495,
+     810,
+     1523
+    ],
+    "text": "pessimistica ipotizzata nella relazione del"
+   },
+   {
+    "box": [
+     206,
+     1529,
+     455,
+     1559
+    ],
+    "text": "professor Mueller."
+   },
+   {
+    "box": [
+     236,
+     1661,
+     808,
+     1691
+    ],
+    "text": "L'esame del testo lntegrale degli inter ・"
+   },
+   {
+    "box": [
+     205,
+     1697,
+     810,
+     1727
+    ],
+    "text": "venti porta a constatare che gli allarmi per-"
+   },
+   {
+    "box": [
+     205,
+     1733,
+     809,
+     1763
+    ],
+    "text": "venuti dalle popolazioni interessate e dai"
+   },
+   {
+    "box": [
+     205,
+     1769,
+     809,
+     1799
+    ],
+    "text": "10r0 organi rappresentativi in sede locale,"
+   },
+   {
+    "box": [
+     205,
+     1805,
+     810,
+     1835
+    ],
+    "text": "noncho dalle 10r0 rappresentanze parlamen-"
+   },
+   {
+    "box": [
+     204,
+     1841,
+     722,
+     1870
+    ],
+    "text": "tari, non erano diversi da quelle Che"
+   },
+   {
+    "box": [
+     204,
+     1877,
+     812,
+     1907
+    ],
+    "text": "state e furono sempre 厄 preoccupazloni de-"
+   },
+   {
+    "box": [
+     203,
+     1914,
+     809,
+     1943
+    ],
+    "text": "gli organi de110 Stat0 e della concessionaria :"
+   },
+   {
+    "box": [
+     267,
+     1961,
+     809,
+     1991
+    ],
+    "text": "1 ) la sicurezza dell'abitato di E 0 pros-"
+   },
+   {
+    "box": [
+     206,
+     1997,
+     559,
+     2025
+    ],
+    "text": "S11 0 al bacino di invaso :"
+   },
+   {
+    "box": [
+     264,
+     2039,
+     799,
+     2069
+    ],
+    "text": "2 ) la resistenza della diga di sbarra"
+   },
+   {
+    "box": [
+     204,
+     2075,
+     763,
+     2105
+    ],
+    "text": "mento del bacino artificiale del Vajont."
+   },
+   {
+    "box": [
+     876,
+     271,
+     1455,
+     300
+    ],
+    "text": "L'abitato di ErtO si salvo ⅲ parte note-"
+   },
+   {
+    "box": [
+     846,
+     307,
+     1455,
+     330
+    ],
+    "text": "vole dalla catastrofe dell'ottobre del 1963"
+   },
+   {
+    "box": [
+     848,
+     343,
+     1454,
+     372
+    ],
+    "text": "e si salvb anche la diga di sbarramento la"
+   },
+   {
+    "box": [
+     848,
+     379,
+     1454,
+     408
+    ],
+    "text": "quale resistette all'enorme pressione di"
+   },
+   {
+    "box": [
+     847,
+     415,
+     1456,
+     444
+    ],
+    "text": "30 milioni di metri cubi di massa d'acqua"
+   },
+   {
+    "box": [
+     849,
+     452,
+     1454,
+     481
+    ],
+    "text": "alzatasi come colonna e riversatasi in parte"
+   },
+   {
+    "box": [
+     849,
+     487,
+     1454,
+     517
+    ],
+    "text": "verso l'interno della valle e in parte, pur-"
+   },
+   {
+    "box": [
+     850,
+     523,
+     1454,
+     553
+    ],
+    "text": "troppo, verso la gola del Vajont, portando"
+   },
+   {
+    "box": [
+     849,
+     559,
+     1299,
+     583
+    ],
+    "text": "a valle la distruzione e la 1 れ orte."
+   },
+   {
+    "box": [
+     910,
+     595,
+     1454,
+     625
+    ],
+    "text": "dunque da concludere che anche le pre-"
+   },
+   {
+    "box": [
+     848,
+     631,
+     1454,
+     660
+    ],
+    "text": "visioni Che mossero persone ed enti 10Ca1 i"
+   },
+   {
+    "box": [
+     849,
+     667,
+     1454,
+     697
+    ],
+    "text": "agli interventi di Ct1i Si き parlato, non erano"
+   },
+   {
+    "box": [
+     849,
+     703,
+     1454,
+     733
+    ],
+    "text": "diverse da quanto era stato previsto dai"
+   },
+   {
+    "box": [
+     849,
+     739,
+     1455,
+     769
+    ],
+    "text": "tecnici ed in particolare dai geologi : ma"
+   },
+   {
+    "box": [
+     849,
+     775,
+     1455,
+     799
+    ],
+    "text": "Che nessun 0 nemmeno indirettamente"
+   },
+   {
+    "box": [
+     849,
+     811,
+     1455,
+     840
+    ],
+    "text": "ipotizzato il fenomeno catastrofico della ira-"
+   },
+   {
+    "box": [
+     849,
+     847,
+     1455,
+     877
+    ],
+    "text": "cimazione dell'onda sopra la diga, che fu la"
+   },
+   {
+    "box": [
+     848,
+     883,
+     1454,
+     907
+    ],
+    "text": "causa materiale diretta del disastroso evento."
+   },
+   {
+    "box": [
+     879,
+     919,
+     1455,
+     949
+    ],
+    "text": "Durante la complessa e laboriosa istrut-"
+   },
+   {
+    "box": [
+     850,
+     955,
+     1456,
+     984
+    ],
+    "text": "toria に preoccupazioni del comune di ErtO"
+   },
+   {
+    "box": [
+     850,
+     991,
+     1455,
+     1020
+    ],
+    "text": "Casso e di Longarone, 市 alcuni cittadini e"
+   },
+   {
+    "box": [
+     851,
+     1027,
+     1456,
+     1056
+    ],
+    "text": "di parlamentari Si limitavano esclttsivamen-"
+   },
+   {
+    "box": [
+     851,
+     1063,
+     1456,
+     1093
+    ],
+    "text": "te a problemi di carattere economico-patri-"
+   },
+   {
+    "box": [
+     850,
+     1099,
+     1457,
+     1128
+    ],
+    "text": "moniale, e ⅲ ispecie, per ErtO, al problema"
+   },
+   {
+    "box": [
+     851,
+     1134,
+     1375,
+     1165
+    ],
+    "text": "delle comunicazioni fra le due sponde."
+   },
+   {
+    "box": [
+     880,
+     1173,
+     1456,
+     1197
+    ],
+    "text": "Prima della frana del novembre 1960 le"
+   },
+   {
+    "box": [
+     851,
+     1209,
+     1455,
+     1239
+    ],
+    "text": "comspondenze pubblicate su 《 L'Unita 》"
+   },
+   {
+    "box": [
+     851,
+     1245,
+     1456,
+     1275
+    ],
+    "text": "avevano come finalita prmcipale quella 山"
+   },
+   {
+    "box": [
+     851,
+     1281,
+     1456,
+     1311
+    ],
+    "text": "dar voce al malcontento per temuti dann i"
+   },
+   {
+    "box": [
+     849,
+     1317,
+     1458,
+     1341
+    ],
+    "text": "economici inercnti a “ be;ni minacciati Od"
+   },
+   {
+    "box": [
+     851,
+     1354,
+     1455,
+     1383
+    ],
+    "text": "espropriati dalla SADE ) 〉 , con riferimento"
+   },
+   {
+    "box": [
+     851,
+     1390,
+     1457,
+     1419
+    ],
+    "text": "espresso ai supposti pericoli per Ⅱ cedi-"
+   },
+   {
+    "box": [
+     851,
+     1425,
+     1455,
+     1455
+    ],
+    "text": "mentO dei terreni su cui poggia il centro"
+   },
+   {
+    "box": [
+     851,
+     1461,
+     1455,
+     1485
+    ],
+    "text": "abitato di Erto sul bordo destro del bacino."
+   },
+   {
+    "box": [
+     852,
+     1497,
+     1457,
+     1527
+    ],
+    "text": "Si indico un pericolo di franamenti 0 smot ・"
+   },
+   {
+    "box": [
+     852,
+     1533,
+     1457,
+     1563
+    ],
+    "text": "tamenti della sponda destra , senza alcun"
+   },
+   {
+    "box": [
+     852,
+     1569,
+     1457,
+     1599
+    ],
+    "text": "cenno a pericoli stllla sponda sinistra dove"
+   },
+   {
+    "box": [
+     853,
+     1605,
+     1192,
+     1629
+    ],
+    "text": "si verificato il disastro."
+   },
+   {
+    "box": [
+     881,
+     1641,
+     1456,
+     1671
+    ],
+    "text": "Dall'analisi degli atti del processo che,"
+   },
+   {
+    "box": [
+     851,
+     1677,
+     1457,
+     1707
+    ],
+    "text": "per iniziativa dell'Autorita giudiziaria segui"
+   },
+   {
+    "box": [
+     850,
+     1712,
+     1458,
+     1742
+    ],
+    "text": "la pubblicazione della citata corrispondenza"
+   },
+   {
+    "box": [
+     851,
+     1749,
+     1459,
+     1779
+    ],
+    "text": "del 5 maggio 1959 , si constata che nel pro-"
+   },
+   {
+    "box": [
+     852,
+     1785,
+     1457,
+     1814
+    ],
+    "text": "cedimento non emersero segnalazioni di"
+   },
+   {
+    "box": [
+     849,
+     1820,
+     1457,
+     1850
+    ],
+    "text": "fatti 0 circostanze Che fossero gia S0ttO"
+   },
+   {
+    "box": [
+     849,
+     1857,
+     1458,
+     1886
+    ],
+    "text": "esame 0 controllo degli organi tecnici ed"
+   },
+   {
+    "box": [
+     850,
+     1893,
+     1458,
+     1922
+    ],
+    "text": "amministrativi e che i pericoli temuti Si"
+   },
+   {
+    "box": [
+     849,
+     1929,
+     1459,
+     1953
+    ],
+    "text": "triferivano esclusivamente alla stabilita di"
+   },
+   {
+    "box": [
+     850,
+     1968,
+     916,
+     1992
+    ],
+    "text": "Erto."
+   },
+   {
+    "box": [
+     882,
+     2002,
+     1457,
+     2032
+    ],
+    "text": "D'altra parte non risulta che per tuttO"
+   },
+   {
+    "box": [
+     853,
+     2038,
+     1458,
+     2068
+    ],
+    "text": "l'anno 1959 e per quasi tuttO il 1960 ⅵ sia-"
+   },
+   {
+    "box": [
+     851,
+     2074,
+     1457,
+     2104
+    ],
+    "text": "Ⅱ 0 Stati interventi 0 segnalazioni di sorta ,"
+   }
+  ]
+ },
+ "pg178.png": {
+  "size": [
+   1656,
+   2340
+  ],
+  "lines": [
+   {
+    "box": [
+     225,
+     124,
+     397,
+     148
+    ],
+    "text": "ー 〃 22r な 襯 e れ"
+   },
+   {
+    "box": [
+     808,
+     124,
+     849,
+     147
+    ],
+    "text": "178"
+   },
+   {
+    "box": [
+     1108,
+     123,
+     1422,
+     152
+    ],
+    "text": "Senat0 施 I 沢 罕 ″ わ わ 〃"
+   },
+   {
+    "box": [
+     429,
+     192,
+     1221,
+     210
+    ],
+    "text": "LEGISLATURA IV - DISEGNI DI LEGGE E RELAZIONI - DOCUMENTI"
+   },
+   {
+    "box": [
+     204,
+     269,
+     807,
+     299
+    ],
+    "text": "dimostrano che le istruttorie , 01tre che lun-"
+   },
+   {
+    "box": [
+     201,
+     305,
+     809,
+     335
+    ],
+    "text": "ghe, furono ampie, che ad esse parteciparo-"
+   },
+   {
+    "box": [
+     202,
+     341,
+     807,
+     371
+    ],
+    "text": "no sia gli organi statali dell'Amministra-"
+   },
+   {
+    "box": [
+     202,
+     377,
+     807,
+     407
+    ],
+    "text": "zione atuva, sia quelli consultivi e che ogni"
+   },
+   {
+    "box": [
+     202,
+     413,
+     807,
+     442
+    ],
+    "text": "vaiul&zione 0 decisione fu sempre ampia-"
+   },
+   {
+    "box": [
+     203,
+     451,
+     424,
+     476
+    ],
+    "text": "mente motivata."
+   },
+   {
+    "box": [
+     231,
+     484,
+     807,
+     510
+    ],
+    "text": "Avendo meticolosamente consi derato ed"
+   },
+   {
+    "box": [
+     203,
+     520,
+     808,
+     550
+    ],
+    "text": "approfondito ogni dubbio circa la regola-"
+   },
+   {
+    "box": [
+     203,
+     556,
+     808,
+     586
+    ],
+    "text": "rita, anche formale, dei singoli atti, ⅲ rela-"
+   },
+   {
+    "box": [
+     202,
+     592,
+     808,
+     622
+    ],
+    "text": "zione alle Ⅱ 0r1 れ e di legge e regolamentari"
+   },
+   {
+    "box": [
+     201,
+     628,
+     809,
+     658
+    ],
+    "text": "Che li disciplinavano, e nelle 10r0 connessiani"
+   },
+   {
+    "box": [
+     201,
+     665,
+     809,
+     691
+    ],
+    "text": "con le vicende del disastro, si constatato"
+   },
+   {
+    "box": [
+     202,
+     700,
+     810,
+     730
+    ],
+    "text": "che i dubbi risultano irrilevanti, sia perche"
+   },
+   {
+    "box": [
+     202,
+     736,
+     810,
+     766
+    ],
+    "text": "Ⅱ 0 Ⅱ influenti sul fattO catastrofico, sia per-"
+   },
+   {
+    "box": [
+     259,
+     771,
+     810,
+     798
+    ],
+    "text": "sostanzialmente e formalmente non fon-"
+   },
+   {
+    "box": [
+     202,
+     810,
+     262,
+     834
+    ],
+    "text": "dati."
+   },
+   {
+    "box": [
+     235,
+     922,
+     808,
+     949
+    ],
+    "text": "Quando si verifico l'allarme suscitato dai"
+   },
+   {
+    "box": [
+     204,
+     958,
+     810,
+     987
+    ],
+    "text": "fenomeni dell'autunno 1960 , che resero ma-"
+   },
+   {
+    "box": [
+     204,
+     994,
+     809,
+     1024
+    ],
+    "text": "nifesto un probilema di stabi!lita per il fian-"
+   },
+   {
+    "box": [
+     205,
+     1031,
+     809,
+     1060
+    ],
+    "text": "CO sinistro del serbatoio, tutta la situazio-"
+   },
+   {
+    "box": [
+     204,
+     1067,
+     452,
+     1092
+    ],
+    "text": "ne ftl riesaminata."
+   },
+   {
+    "box": [
+     233,
+     1102,
+     810,
+     1132
+    ],
+    "text": "Le successive indagini furono numero se"
+   },
+   {
+    "box": [
+     202,
+     1138,
+     810,
+     1168
+    ],
+    "text": "e di diversa natura (geologica, geofisica e geo-"
+   },
+   {
+    "box": [
+     203,
+     1175,
+     810,
+     1204
+    ],
+    "text": "meccanica) e tutte, attraverso la concatena-"
+   },
+   {
+    "box": [
+     204,
+     1210,
+     810,
+     1240
+    ],
+    "text": "zione dei fenomeni accertati (fessure, frat-"
+   },
+   {
+    "box": [
+     205,
+     1247,
+     810,
+     1276
+    ],
+    "text": "turazioni, natura delle formazioni, caratte-"
+   },
+   {
+    "box": [
+     204,
+     1283,
+     809,
+     1312
+    ],
+    "text": "ristiche dei 1 0 ⅵ men ⅱ , eccetera) e la ] 0r0"
+   },
+   {
+    "box": [
+     204,
+     1319,
+     809,
+     1348
+    ],
+    "text": "interpretazione scientifica, indussero a ri-"
+   },
+   {
+    "box": [
+     205,
+     1354,
+     810,
+     1384
+    ],
+    "text": "tenere che Si sarebbero potute avere fra-"
+   },
+   {
+    "box": [
+     205,
+     1390,
+     808,
+     1420
+    ],
+    "text": "ne, forse anche di notevoli dimensioni , ma"
+   },
+   {
+    "box": [
+     204,
+     1426,
+     809,
+     1450
+    ],
+    "text": "che esse avrebbero assunto le caratteristiche"
+   },
+   {
+    "box": [
+     206,
+     1462,
+     810,
+     1492
+    ],
+    "text": "del tipi di frana fino ad allora conosciuti."
+   },
+   {
+    "box": [
+     235,
+     1498,
+     810,
+     1528
+    ],
+    "text": "ln base alle indagini geologiche, geofi-"
+   },
+   {
+    "box": [
+     204,
+     1535,
+     812,
+     1564
+    ],
+    "text": "SiChe e geomeccaniche, l'ipotesi estrema"
+   },
+   {
+    "box": [
+     204,
+     1570,
+     811,
+     1601
+    ],
+    "text": "鈿 quella formulata dal Mueller (che as-"
+   },
+   {
+    "box": [
+     204,
+     1606,
+     812,
+     1637
+    ],
+    "text": "sorbi quella Giudici-Semenza) che riteneva"
+   },
+   {
+    "box": [
+     204,
+     1643,
+     809,
+     1667
+    ],
+    "text": "essere la massa interessata dal movimen ・"
+   },
+   {
+    "box": [
+     203,
+     1680,
+     811,
+     1708
+    ],
+    "text": "to franoso suddivisa in parti caratteriz-"
+   },
+   {
+    "box": [
+     202,
+     1715,
+     758,
+     1745
+    ],
+    "text": "zate da moumenti diversi; ipotesi Che,"
+   },
+   {
+    "box": [
+     202,
+     1752,
+     808,
+     1782
+    ],
+    "text": "condo l'autorevole professor Penta, appari-"
+   },
+   {
+    "box": [
+     202,
+     1787,
+     808,
+     1818
+    ],
+    "text": "va, semmal, potesse esser difettosa per ec-"
+   },
+   {
+    "box": [
+     203,
+     1824,
+     809,
+     1854
+    ],
+    "text": "cesso, 0 di della quale nessuno penso"
+   },
+   {
+    "box": [
+     203,
+     1860,
+     508,
+     1890
+    ],
+    "text": "che si potesse andare."
+   },
+   {
+    "box": [
+     232,
+     1895,
+     812,
+     1922
+    ],
+    "text": "Come si き visto la frana del 9 ottobre ri-"
+   },
+   {
+    "box": [
+     206,
+     1931,
+     811,
+     1960
+    ],
+    "text": "sulto radicalmente diversa dalle previsio-"
+   },
+   {
+    "box": [
+     204,
+     1968,
+     811,
+     1993
+    ],
+    "text": "ni del Mueller ed associo in se stessa carat-"
+   },
+   {
+    "box": [
+     206,
+     2003,
+     811,
+     2028
+    ],
+    "text": "teristiche che secondo le classificazioni"
+   },
+   {
+    "box": [
+     205,
+     2039,
+     812,
+     2070
+    ],
+    "text": "scientifiche, apparivano incompatibili fra"
+   },
+   {
+    "box": [
+     206,
+     2077,
+     267,
+     2100
+    ],
+    "text": "10r0."
+   },
+   {
+    "box": [
+     878,
+     270,
+     1454,
+     300
+    ],
+    "text": "Non rientra nei compiti della C01 miSS10-"
+   },
+   {
+    "box": [
+     847,
+     306,
+     1456,
+     335
+    ],
+    "text": "ne parlamentare valutare se le caratteristi-"
+   },
+   {
+    "box": [
+     849,
+     341,
+     1454,
+     371
+    ],
+    "text": "che della frana del 9 ottobre 1963 (che hanno"
+   },
+   {
+    "box": [
+     847,
+     378,
+     1455,
+     408
+    ],
+    "text": "determinato la catastrofe ) aves sero potuto"
+   },
+   {
+    "box": [
+     847,
+     415,
+     1453,
+     445
+    ],
+    "text": "essere previste. Siffatta indagine, in quanto"
+   },
+   {
+    "box": [
+     850,
+     450,
+     1455,
+     481
+    ],
+    "text": "dovrebbe accertare cdlpa di Ⅱ 0 Ⅱ aver pre-"
+   },
+   {
+    "box": [
+     848,
+     487,
+     1455,
+     517
+    ],
+    "text": "VIStO per negligenza 0 per lmperizia き , evi-"
+   },
+   {
+    "box": [
+     850,
+     523,
+     1455,
+     554
+    ],
+    "text": "dentemente, di pertinenza dell 'Autorita giu-"
+   },
+   {
+    "box": [
+     850,
+     566,
+     957,
+     582
+    ],
+    "text": "d1Z1ar1a."
+   },
+   {
+    "box": [
+     879,
+     596,
+     1455,
+     625
+    ],
+    "text": "La C0111n11SSi0 Ⅱ e parlamentare ー ー confron-"
+   },
+   {
+    "box": [
+     850,
+     631,
+     1455,
+     657
+    ],
+    "text": "tando le caratteristiche accertate della fra-"
+   },
+   {
+    "box": [
+     850,
+     667,
+     1338,
+     697
+    ],
+    "text": "na, con tutte le ipotesi formulate"
+   },
+   {
+    "box": [
+     1406,
+     670,
+     1455,
+     697
+    ],
+    "text": "puo"
+   },
+   {
+    "box": [
+     851,
+     703,
+     1455,
+     732
+    ],
+    "text": "e deve constatare Che l'evento, COSi come Si"
+   },
+   {
+    "box": [
+     850,
+     738,
+     1455,
+     769
+    ],
+    "text": "き manifestato, non fu previsto da nessuno"
+   },
+   {
+    "box": [
+     850,
+     774,
+     1456,
+     805
+    ],
+    "text": "e che le previsioni formulate, anche conslde-"
+   },
+   {
+    "box": [
+     851,
+     811,
+     1457,
+     841
+    ],
+    "text": "rate nella loro pegglore combinazione, esclu-"
+   },
+   {
+    "box": [
+     851,
+     846,
+     1455,
+     877
+    ],
+    "text": "devano pericdli per la pubblica incolumita."
+   },
+   {
+    "box": [
+     881,
+     882,
+     1454,
+     908
+    ],
+    "text": "Puo anche constatare che ⅵ fu continuita"
+   },
+   {
+    "box": [
+     851,
+     918,
+     1455,
+     947
+    ],
+    "text": "di ricerche, che esse furono dirette a chia-"
+   },
+   {
+    "box": [
+     851,
+     956,
+     1456,
+     986
+    ],
+    "text": "rlre e ad approfondire gli aspetti nuovi dei"
+   },
+   {
+    "box": [
+     849,
+     991,
+     1455,
+     1021
+    ],
+    "text": "fenomeni ed anche ad integrare indaglni"
+   },
+   {
+    "box": [
+     850,
+     1027,
+     1455,
+     1056
+    ],
+    "text": "geologiche tradizionali con le nuove nsorse"
+   },
+   {
+    "box": [
+     851,
+     1063,
+     1374,
+     1093
+    ],
+    "text": "della geofisica e della geomeccanica."
+   },
+   {
+    "box": [
+     881,
+     1193,
+     1456,
+     1218
+    ],
+    "text": "La Commissione deve anche riconoscere"
+   },
+   {
+    "box": [
+     852,
+     1228,
+     1457,
+     1258
+    ],
+    "text": "che la qualificazione dei tecnici e degli scien-"
+   },
+   {
+    "box": [
+     851,
+     1264,
+     1457,
+     1294
+    ],
+    "text": "ziati che furono chiamati ad eseguire le in-"
+   },
+   {
+    "box": [
+     852,
+     1300,
+     1456,
+     1330
+    ],
+    "text": "dagini fu piu alta e che essi vennero, inol-"
+   },
+   {
+    "box": [
+     852,
+     1336,
+     1458,
+     1366
+    ],
+    "text": "tre, scelti in relazione ad una specializzata"
+   },
+   {
+    "box": [
+     851,
+     1372,
+     1457,
+     1402
+    ],
+    "text": "preparazione 0 riferita alla zona (Dal Piaz,"
+   },
+   {
+    "box": [
+     852,
+     1408,
+     1457,
+     1438
+    ],
+    "text": "considerato uno dei maggiori esperti nella"
+   },
+   {
+    "box": [
+     852,
+     1444,
+     1457,
+     1474
+    ],
+    "text": "ge010 a delle Alpi e Prealpi orientali) , 0 nfe-"
+   },
+   {
+    "box": [
+     852,
+     1480,
+     1458,
+     1509
+    ],
+    "text": "rita la natura del fenomeno (Penta, consi-"
+   },
+   {
+    "box": [
+     853,
+     1515,
+     1458,
+     1545
+    ],
+    "text": "deratO uno dei magglori specialisti in fra-"
+   },
+   {
+    "box": [
+     852,
+     1551,
+     1458,
+     1582
+    ],
+    "text": "(e) 0 riferita alle nuove tecniche geognosti-"
+   },
+   {
+    "box": [
+     851,
+     1588,
+     1458,
+     1616
+    ],
+    "text": "che (Caloi, direttore dell'lstituto nazionale"
+   },
+   {
+    "box": [
+     853,
+     1624,
+     1457,
+     1654
+    ],
+    "text": "dl geofisica; Mueller, considerato uno dei"
+   },
+   {
+    "box": [
+     851,
+     1660,
+     1456,
+     1689
+    ],
+    "text": "magglori e rari specialisti ⅱ 1 meccanica delle"
+   },
+   {
+    "box": [
+     851,
+     1695,
+     1456,
+     1725
+    ],
+    "text": "rocce). Significativo appare ⅱ fatt0 che に"
+   },
+   {
+    "box": [
+     851,
+     1731,
+     1457,
+     1761
+    ],
+    "text": "ricerche affdate agli scienziati e tecnici di"
+   },
+   {
+    "box": [
+     851,
+     1768,
+     1457,
+     1796
+    ],
+    "text": "nota reputazione furono integrate dalle in-"
+   },
+   {
+    "box": [
+     851,
+     1803,
+     1456,
+     1833
+    ],
+    "text": "dagini affldate a glovani geologi e geotecnici,"
+   },
+   {
+    "box": [
+     853,
+     1839,
+     1457,
+     1869
+    ],
+    "text": "dai quali venne, in effetti , la prima ipotesi"
+   },
+   {
+    "box": [
+     853,
+     1876,
+     1458,
+     1901
+    ],
+    "text": "dell'esistenza di un Ⅱ 0 ⅵ れ Ⅱ tO franoso non"
+   },
+   {
+    "box": [
+     853,
+     1911,
+     1011,
+     1941
+    ],
+    "text": "superficiale."
+   },
+   {
+    "box": [
+     883,
+     2037,
+     1459,
+     2068
+    ],
+    "text": "La Commissione parlamentare ha special-"
+   },
+   {
+    "box": [
+     852,
+     2072,
+     1458,
+     2103
+    ],
+    "text": "mente approfondito l'esame dei rapporti fra"
+   }
+  ]
+ },
+ "pg179.png": {
+  "size": [
+   1654,
+   2339
+  ],
+  "lines": [
+   {
+    "box": [
+     220,
+     127,
+     392,
+     146
+    ],
+    "text": "ー ′ 襯 e れ"
+   },
+   {
+    "box": [
+     803,
+     123,
+     844,
+     145
+    ],
+    "text": "179"
+   },
+   {
+    "box": [
+     1103,
+     121,
+     1448,
+     145
+    ],
+    "text": "Se れ 厩 0 R こ ル ら 〃 c は"
+   },
+   {
+    "box": [
+     427,
+     190,
+     1221,
+     208
+    ],
+    "text": "LEGTSLATURA 1 ー - DISEGNI DI LEGGE E RELAZIONi - DOCUATsr? 、 い 一"
+   },
+   {
+    "box": [
+     200,
+     269,
+     807,
+     298
+    ],
+    "text": "la Pubblica Amministrazione e gli enti con-"
+   },
+   {
+    "box": [
+     200,
+     305,
+     807,
+     334
+    ],
+    "text": "cessionarl, per accertare se l'attivita れ -"
+   },
+   {
+    "box": [
+     200,
+     341,
+     807,
+     366
+    ],
+    "text": "mimstrativa sia stata correttamente diret ・"
+   },
+   {
+    "box": [
+     201,
+     377,
+     805,
+     406
+    ],
+    "text": "ta all'interesse pubblico, consistente nella"
+   },
+   {
+    "box": [
+     202,
+     412,
+     806,
+     442
+    ],
+    "text": "acqt11Sizione di nuove fonti di energla, ac-"
+   },
+   {
+    "box": [
+     200,
+     449,
+     805,
+     478
+    ],
+    "text": "compagnata dall'imprescindibile esigenza di"
+   },
+   {
+    "box": [
+     200,
+     485,
+     627,
+     510
+    ],
+    "text": "tutelare la sicurezza collettiva."
+   },
+   {
+    "box": [
+     232,
+     521,
+     805,
+     550
+    ],
+    "text": "它 gia stato rilevato che la costruzione del"
+   },
+   {
+    "box": [
+     201,
+     557,
+     805,
+     586
+    ],
+    "text": "serbatoio del Vajont, COSI come era statO pre-"
+   },
+   {
+    "box": [
+     200,
+     593,
+     805,
+     622
+    ],
+    "text": "VIStO con le varianti 'del progetto 2 aprile"
+   },
+   {
+    "box": [
+     203,
+     629,
+     805,
+     658
+    ],
+    "text": "1957 , era stata ritenuta di pubblico interes-"
+   },
+   {
+    "box": [
+     201,
+     664,
+     805,
+     694
+    ],
+    "text": "se, tanto che l'impresa fu impegnata da110"
+   },
+   {
+    "box": [
+     201,
+     701,
+     805,
+     725
+    ],
+    "text": "Stato a realizzare 幵 serbatoio ed a metterlo"
+   },
+   {
+    "box": [
+     200,
+     737,
+     805,
+     766
+    ],
+    "text": "1 Ⅱ esercizio nel termine prestabilito del 1960."
+   },
+   {
+    "box": [
+     229,
+     772,
+     804,
+     802
+    ],
+    "text": "C01 れ せ Si ViStO, la CommiSSione parlamen-"
+   },
+   {
+    "box": [
+     200,
+     809,
+     805,
+     837
+    ],
+    "text": "tare ha anche attentamente esaminato gli"
+   },
+   {
+    "box": [
+     199,
+     846,
+     804,
+     874
+    ],
+    "text": "atti amministrativi , per accertare se POS-"
+   },
+   {
+    "box": [
+     198,
+     881,
+     804,
+     910
+    ],
+    "text": "sa assumere aspetti di condiscendenza al-"
+   },
+   {
+    "box": [
+     198,
+     917,
+     805,
+     946
+    ],
+    "text": "ll'impresa la concessione della istruttoria bre-"
+   },
+   {
+    "box": [
+     200,
+     953,
+     805,
+     983
+    ],
+    "text": "ve, in 1u0g0 di quella normale, sulle doman-"
+   },
+   {
+    "box": [
+     200,
+     988,
+     805,
+     1018
+    ],
+    "text": "de di approvazione di varianti presentate dal-"
+   },
+   {
+    "box": [
+     200,
+     1025,
+     804,
+     1054
+    ],
+    "text": "la SADE il 15 maggio 1948 ed il 31 gennaio"
+   },
+   {
+    "box": [
+     202,
+     1060,
+     804,
+     1086
+    ],
+    "text": "1957 ed ha esaminato anche se i fenomeni"
+   },
+   {
+    "box": [
+     199,
+     1096,
+     803,
+     1125
+    ],
+    "text": "franosi ed i risultati delle indagini che essi"
+   },
+   {
+    "box": [
+     200,
+     1132,
+     805,
+     1162
+    ],
+    "text": "determinarono ()n particolare qudlle Giudi-"
+   },
+   {
+    "box": [
+     199,
+     1168,
+     804,
+     1197
+    ],
+    "text": "c1-Semenza, Muel;ler e Ghetti) siano stati"
+   },
+   {
+    "box": [
+     198,
+     1204,
+     804,
+     1234
+    ],
+    "text": "portati a conoscenza degli organi di control-"
+   },
+   {
+    "box": [
+     200,
+     1240,
+     684,
+     1266
+    ],
+    "text": "lo della Pubblica Amministrazione."
+   },
+   {
+    "box": [
+     228,
+     1275,
+     802,
+     1305
+    ],
+    "text": "SottO questi aspetti si constatato che,"
+   },
+   {
+    "box": [
+     197,
+     1312,
+     802,
+     1341
+    ],
+    "text": "no dall'esame dei comportamenti nelle va-"
+   },
+   {
+    "box": [
+     197,
+     1348,
+     802,
+     1377
+    ],
+    "text": "rie fasi, ne dall'analisi dei singoli atti, emer-"
+   },
+   {
+    "box": [
+     197,
+     1383,
+     802,
+     1413
+    ],
+    "text": "gono fatti 0 ciroostanze nelle quali sia pos-"
+   },
+   {
+    "box": [
+     198,
+     1419,
+     802,
+     1444
+    ],
+    "text": "sibile ravvisare condiscendenze dellla Pub-"
+   },
+   {
+    "box": [
+     282,
+     1457,
+     801,
+     1479
+    ],
+    "text": "AmminiS trazione concessio-"
+   },
+   {
+    "box": [
+     197,
+     1491,
+     801,
+     1521
+    ],
+    "text": "naria, mentre da quaS1 tutti gli atti emerge"
+   },
+   {
+    "box": [
+     197,
+     1527,
+     540,
+     1552
+    ],
+    "text": "un intento collaborativo."
+   },
+   {
+    "box": [
+     229,
+     1563,
+     803,
+     1593
+    ],
+    "text": "per Cib Che riguarda la comunicazione dei"
+   },
+   {
+    "box": [
+     199,
+     1600,
+     803,
+     1629
+    ],
+    "text": "rlsultati delle in dagini Giudici-Semenza e"
+   },
+   {
+    "box": [
+     200,
+     1635,
+     803,
+     1665
+    ],
+    "text": "MueIIer e dellc prove su modello idraulico,"
+   },
+   {
+    "box": [
+     200,
+     1671,
+     804,
+     1697
+    ],
+    "text": "Si e ViStO Che essi erano conosciuti alla Pub-"
+   },
+   {
+    "box": [
+     198,
+     1707,
+     803,
+     1736
+    ],
+    "text": "blica Amministrazione, bencho non consti"
+   },
+   {
+    "box": [
+     199,
+     1743,
+     804,
+     1768
+    ],
+    "text": "che le relazioni siano state uffcialmente tra-"
+   },
+   {
+    "box": [
+     200,
+     1779,
+     773,
+     1807
+    ],
+    "text": "smesse, come poteva essere desiderabile."
+   },
+   {
+    "box": [
+     228,
+     1922,
+     804,
+     1952
+    ],
+    "text": "La Commissione parlamentare ha larga ・"
+   },
+   {
+    "box": [
+     199,
+     1957,
+     804,
+     1987
+    ],
+    "text": "mente considerato il particolare aspetto del-"
+   },
+   {
+    "box": [
+     238,
+     1995,
+     713,
+     2023
+    ],
+    "text": "concessione amministrativa per ⅱ"
+   },
+   {
+    "box": [
+     199,
+     2030,
+     804,
+     2059
+    ],
+    "text": "il concessionario, quando Si tratta di grandi"
+   },
+   {
+    "box": [
+     198,
+     2065,
+     803,
+     2095
+    ],
+    "text": "imprese, Viene a disporre di quadri tecnici"
+   },
+   {
+    "box": [
+     850,
+     268,
+     1456,
+     298
+    ],
+    "text": "che, con il 10r0 prestigio scientifico, posso-"
+   },
+   {
+    "box": [
+     849,
+     304,
+     1456,
+     334
+    ],
+    "text": "no affievolire l'autorita degli organi di con-"
+   },
+   {
+    "box": [
+     849,
+     340,
+     1027,
+     366
+    ],
+    "text": "trollo statali."
+   },
+   {
+    "box": [
+     879,
+     377,
+     1455,
+     405
+    ],
+    "text": "Su questo aspetto stato osservato che き"
+   },
+   {
+    "box": [
+     849,
+     412,
+     1455,
+     442
+    ],
+    "text": "proprio 10 StatO che impone al concessiona-"
+   },
+   {
+    "box": [
+     848,
+     447,
+     1455,
+     477
+    ],
+    "text": "rio l'obbligo di servisi di personale altamen-"
+   },
+   {
+    "box": [
+     849,
+     483,
+     1454,
+     514
+    ],
+    "text": "te qualificato. Ⅱ fatto che delle personali-"
+   },
+   {
+    "box": [
+     891,
+     519,
+     1454,
+     550
+    ],
+    "text": "illustri nel campo della tecnica 0 della"
+   },
+   {
+    "box": [
+     849,
+     556,
+     1453,
+     581
+    ],
+    "text": "scienza siano utilizzate dal conces SIonario"
+   },
+   {
+    "box": [
+     848,
+     592,
+     1453,
+     621
+    ],
+    "text": "Ⅱ 0 Ⅱ き quindi, un elemento deteriore, bensi"
+   },
+   {
+    "box": [
+     846,
+     628,
+     1454,
+     658
+    ],
+    "text": "ll'ademplmento di una precisa disposizione"
+   },
+   {
+    "box": [
+     849,
+     663,
+     1454,
+     693
+    ],
+    "text": "di legge; in Cib Si puo vedere non gia una"
+   },
+   {
+    "box": [
+     848,
+     700,
+     1453,
+     729
+    ],
+    "text": "contrapposizione di gerarchie di valori fra"
+   },
+   {
+    "box": [
+     847,
+     735,
+     1453,
+     765
+    ],
+    "text": "tecnici del concessionario e dellO StatO, 1 れ a"
+   },
+   {
+    "box": [
+     847,
+     771,
+     1452,
+     801
+    ],
+    "text": "piuttosto l'acquisizione, da parte dello Stato,"
+   },
+   {
+    "box": [
+     847,
+     806,
+     1453,
+     837
+    ],
+    "text": "ai fini di decisioni riguardanti atti ammini-"
+   },
+   {
+    "box": [
+     847,
+     844,
+     1452,
+     873
+    ],
+    "text": "strativi di notevole importanza, di alte com-"
+   },
+   {
+    "box": [
+     847,
+     880,
+     1452,
+     908
+    ],
+    "text": "petenze di carattere scientifico e di carat-"
+   },
+   {
+    "box": [
+     847,
+     917,
+     1011,
+     940
+    ],
+    "text": "tere tecnico."
+   },
+   {
+    "box": [
+     876,
+     951,
+     1452,
+     980
+    ],
+    "text": "D'altra parte. i quadri tecnici dello StatO"
+   },
+   {
+    "box": [
+     846,
+     988,
+     1452,
+     1017
+    ],
+    "text": "non mancano di personalita altamente qua-"
+   },
+   {
+    "box": [
+     847,
+     1023,
+     1404,
+     1053
+    ],
+    "text": "lificate, Che non si possono considerare"
+   },
+   {
+    "box": [
+     846,
+     1059,
+     1451,
+     1087
+    ],
+    "text": "scientificamente, moralmente inclinate a"
+   },
+   {
+    "box": [
+     846,
+     1096,
+     1406,
+     1125
+    ],
+    "text": "soggezione verso i tecnici delle imprese."
+   },
+   {
+    "box": [
+     875,
+     1238,
+     1451,
+     1269
+    ],
+    "text": "ln concreto, dall'analisi delle procedure"
+   },
+   {
+    "box": [
+     844,
+     1275,
+     1450,
+     1300
+    ],
+    "text": "110n risulta che la Pubblica Amminis traz10-"
+   },
+   {
+    "box": [
+     844,
+     1311,
+     1450,
+     1341
+    ],
+    "text": "ne Si Sia dimostrata succube e compiacente."
+   },
+   {
+    "box": [
+     844,
+     1347,
+     1450,
+     1375
+    ],
+    "text": "A parte il fatto che la realizzazione dell'im-"
+   },
+   {
+    "box": [
+     844,
+     1383,
+     1450,
+     1411
+    ],
+    "text": "pianto き stata richiesta da110 StatO stesso,"
+   },
+   {
+    "box": [
+     845,
+     1418,
+     1450,
+     1449
+    ],
+    "text": "risulta che i voti del ConsigIio superiore dei"
+   },
+   {
+    "box": [
+     845,
+     1454,
+     1451,
+     1484
+    ],
+    "text": "lavori pubblici contengono pre.scrizioni 0 ri-"
+   },
+   {
+    "box": [
+     843,
+     1490,
+     1451,
+     1520
+    ],
+    "text": "chledono adempimenti; che quando sorse-"
+   },
+   {
+    "box": [
+     845,
+     1525,
+     1451,
+     1557
+    ],
+    "text": "ro dei dubbi, quando si pose il problema del-"
+   },
+   {
+    "box": [
+     845,
+     1561,
+     1450,
+     1592
+    ],
+    "text": "la stabilita della sponda sinistra, 10 stato"
+   },
+   {
+    "box": [
+     844,
+     1599,
+     1450,
+     1628
+    ],
+    "text": "non rimase inattivo, Si a"
+   },
+   {
+    "box": [
+     845,
+     1633,
+     1450,
+     1664
+    ],
+    "text": "chledere allla SAD E di far eseguire determi-"
+   },
+   {
+    "box": [
+     845,
+     1669,
+     1450,
+     1699
+    ],
+    "text": "nate indagini, determinati studi e controlli,"
+   },
+   {
+    "box": [
+     845,
+     1707,
+     1451,
+     1735
+    ],
+    "text": "1 第 a vi provvide anche direttamente attra-"
+   },
+   {
+    "box": [
+     844,
+     1742,
+     1450,
+     1771
+    ],
+    "text": "verso il consulente geologo che faceva parte"
+   },
+   {
+    "box": [
+     846,
+     1777,
+     1450,
+     1803
+    ],
+    "text": "della Commissione di C0ntr0110 e direttamen-"
+   },
+   {
+    "box": [
+     845,
+     1813,
+     1450,
+     1843
+    ],
+    "text": "te controllan dO tutta una serie di prescrizioni"
+   },
+   {
+    "box": [
+     843,
+     1850,
+     1449,
+     1879
+    ],
+    "text": "POSte a cariCO della societa concesslonaria."
+   },
+   {
+    "box": [
+     875,
+     1993,
+     1451,
+     2023
+    ],
+    "text": "Dall'analisi delle segnalazioni ed istanze"
+   },
+   {
+    "box": [
+     844,
+     2029,
+     1451,
+     2059
+    ],
+    "text": "pervenute da Enti, inclusi quelli locali, da"
+   },
+   {
+    "box": [
+     845,
+     2065,
+     1451,
+     2095
+    ],
+    "text": "parlamentari, stampa e da qualsiasi al-"
+   }
+  ]
+ },
+ "pg207.png": {
+  "size": [
+   1656,
+   2340
+  ],
+  "lines": [
+   {
+    "box": [
+     217,
+     124,
+     428,
+     146
+    ],
+    "text": "7 〃 Pa 襯 れ の"
+   },
+   {
+    "box": [
+     817,
+     124,
+     829,
+     146
+    ],
+    "text": "3"
+   },
+   {
+    "box": [
+     1104,
+     122,
+     1447,
+     152
+    ],
+    "text": "Se れ 砒 0 施 〃 な 犬 叩 み わ ″ c ロ"
+   },
+   {
+    "box": [
+     428,
+     192,
+     1222,
+     210
+    ],
+    "text": "LEGISLATURA IV - DISEGNI DT LEGGE E RELAZIONI - DOCUMENTI"
+   },
+   {
+    "box": [
+     417,
+     373,
+     580,
+     394
+    ],
+    "text": "PREMESSA"
+   },
+   {
+    "box": [
+     227,
+     443,
+     802,
+     472
+    ],
+    "text": "Sono noti i tragici eventi del Vajont. Alle"
+   },
+   {
+    "box": [
+     198,
+     478,
+     802,
+     508
+    ],
+    "text": "ore 22 , 39 del 9 ottobre 1963 , la grande frana"
+   },
+   {
+    "box": [
+     197,
+     515,
+     802,
+     545
+    ],
+    "text": "gia in attO sulla sponda sinistla del baci-"
+   },
+   {
+    "box": [
+     198,
+     551,
+     802,
+     582
+    ],
+    "text": "no precipitava nel lago quando i] livello del-"
+   },
+   {
+    "box": [
+     198,
+     588,
+     802,
+     618
+    ],
+    "text": "l'acqua si trovava a quota 700 42 metri, S01-"
+   },
+   {
+    "box": [
+     198,
+     624,
+     802,
+     648
+    ],
+    "text": "levando una enorme ondata alta 200 metri"
+   },
+   {
+    "box": [
+     197,
+     660,
+     802,
+     690
+    ],
+    "text": "Che ricadeva in parte verso lago, mentre"
+   },
+   {
+    "box": [
+     197,
+     696,
+     802,
+     724
+    ],
+    "text": "una massa di 25 milioni di metri cubi, traci-"
+   },
+   {
+    "box": [
+     198,
+     732,
+     802,
+     762
+    ],
+    "text": "mando dalla diga, si lanciava nella gola del"
+   },
+   {
+    "box": [
+     198,
+     768,
+     802,
+     797
+    ],
+    "text": "Vajont, dirompendo nella VaIIe del Piave e"
+   },
+   {
+    "box": [
+     199,
+     804,
+     802,
+     834
+    ],
+    "text": "distruggendo ogni traccia di vita su Lon-"
+   },
+   {
+    "box": [
+     198,
+     840,
+     802,
+     870
+    ],
+    "text": "garone, P1rago, la sponda di Fornace, di"
+   },
+   {
+    "box": [
+     198,
+     876,
+     802,
+     906
+    ],
+    "text": "VilIanova, di dei borghi di CasteIIavaz-"
+   },
+   {
+    "box": [
+     198,
+     912,
+     802,
+     943
+    ],
+    "text": "ZO e di Codissago, e della cartiera posta a] -"
+   },
+   {
+    "box": [
+     198,
+     948,
+     478,
+     978
+    ],
+    "text": "10 sbocco della gola."
+   },
+   {
+    "box": [
+     228,
+     984,
+     802,
+     1014
+    ],
+    "text": "Nel ramo interno del lago l'ondata inve-"
+   },
+   {
+    "box": [
+     199,
+     1020,
+     802,
+     1051
+    ],
+    "text": "s tiva Pineda, si rifletteva a colpire San Mar-"
+   },
+   {
+    "box": [
+     199,
+     1056,
+     802,
+     1087
+    ],
+    "text": "tino, Le Spesse, risalendo 升 no al passo di"
+   },
+   {
+    "box": [
+     199,
+     1092,
+     688,
+     1122
+    ],
+    "text": "S. Osvaldo, distruggendo ogni cosa."
+   },
+   {
+    "box": [
+     229,
+     1128,
+     801,
+     1159
+    ],
+    "text": "Si verificava, cosi, la piu grande trage ・"
+   },
+   {
+    "box": [
+     199,
+     1164,
+     802,
+     1195
+    ],
+    "text": "dia accadtlta nel nostro paese negli ultim i"
+   },
+   {
+    "box": [
+     198,
+     1200,
+     802,
+     1231
+    ],
+    "text": "50 anni. L'animo degli italiani si riempi di"
+   },
+   {
+    "box": [
+     198,
+     1235,
+     802,
+     1264
+    ],
+    "text": "dolore di fronte ai lutti, alle rovine e alla"
+   },
+   {
+    "box": [
+     199,
+     1271,
+     355,
+     1296
+    ],
+    "text": "diS truzione."
+   },
+   {
+    "box": [
+     228,
+     1308,
+     802,
+     1334
+    ],
+    "text": "Nel momento stesso in cui il paese dava"
+   },
+   {
+    "box": [
+     198,
+     1344,
+     802,
+     1374
+    ],
+    "text": "i segni piu tangibil. i della solidarieta nazio-"
+   },
+   {
+    "box": [
+     198,
+     1379,
+     802,
+     1410
+    ],
+    "text": "nale, nessuno Si rassegno ad una visione fa-"
+   },
+   {
+    "box": [
+     197,
+     1415,
+     801,
+     1448
+    ],
+    "text": "talistica della catastrofe ; scaturi imperiosa"
+   },
+   {
+    "box": [
+     198,
+     1450,
+     802,
+     1484
+    ],
+    "text": "l'esigenza di verita e di giustizia. Chiunque"
+   },
+   {
+    "box": [
+     198,
+     1486,
+     801,
+     1518
+    ],
+    "text": "rifiuti un giudizio ispirato da cinismo e da"
+   },
+   {
+    "box": [
+     199,
+     1522,
+     801,
+     1555
+    ],
+    "text": "indifferenza, non puo non respingere l'idea"
+   },
+   {
+    "box": [
+     198,
+     1558,
+     801,
+     1592
+    ],
+    "text": "che duemila cittadini italiani , fra i quali"
+   },
+   {
+    "box": [
+     198,
+     1596,
+     802,
+     1627
+    ],
+    "text": "cinquecento bambini , abbiano potuto mori-"
+   },
+   {
+    "box": [
+     198,
+     1631,
+     801,
+     1661
+    ],
+    "text": "re in pochi minuti, travolti da un evento"
+   },
+   {
+    "box": [
+     198,
+     1668,
+     802,
+     1699
+    ],
+    "text": "prevedibile e probabile, e quindi evitabiJe,"
+   },
+   {
+    "box": [
+     199,
+     1704,
+     803,
+     1736
+    ],
+    "text": "senza che qualcosa cambi nel profondo del-"
+   },
+   {
+    "box": [
+     199,
+     1739,
+     576,
+     1765
+    ],
+    "text": "le strutture civili del paese."
+   },
+   {
+    "box": [
+     228,
+     1776,
+     802,
+     1806
+    ],
+    "text": "Si imponeva, al Parlamento, il dovere di"
+   },
+   {
+    "box": [
+     198,
+     1812,
+     802,
+     1843
+    ],
+    "text": "investire con il piu approfondito esame 厄"
+   },
+   {
+    "box": [
+     198,
+     1848,
+     802,
+     1878
+    ],
+    "text": "cause e le responsabilita della catastrofe ri-"
+   },
+   {
+    "box": [
+     198,
+     1884,
+     802,
+     1918
+    ],
+    "text": "spondendo alla legittima attesa delle popo ・"
+   },
+   {
+    "box": [
+     228,
+     1980,
+     801,
+     2008
+    ],
+    "text": "Nella citazione di testi e documen ti originali"
+   },
+   {
+    "box": [
+     198,
+     2010,
+     802,
+     2035
+    ],
+    "text": "riportati tra virgolette, le sottolineature in corsi-"
+   },
+   {
+    "box": [
+     198,
+     2041,
+     801,
+     2067
+    ],
+    "text": "VO di alcune frasi sono a cura degli autori della"
+   },
+   {
+    "box": [
+     197,
+     2072,
+     424,
+     2094
+    ],
+    "text": "presente nelazione."
+   },
+   {
+    "box": [
+     844,
+     269,
+     1449,
+     301
+    ],
+    "text": "lazioni colpite e dell'opinione pubblica na-"
+   },
+   {
+    "box": [
+     844,
+     305,
+     1449,
+     336
+    ],
+    "text": "zionale. A questa esigenza il Parlamento ri-"
+   },
+   {
+    "box": [
+     845,
+     342,
+     1450,
+     373
+    ],
+    "text": "spose istituendo , con legge 22 maggio 1964 ,"
+   },
+   {
+    "box": [
+     844,
+     376,
+     1450,
+     407
+    ],
+    "text": "n. 370 , la Commissione d'inchiesta cui affi-"
+   },
+   {
+    "box": [
+     844,
+     413,
+     1450,
+     444
+    ],
+    "text": "do Ⅱ compito di provvedere all'accertamen-"
+   },
+   {
+    "box": [
+     845,
+     450,
+     1450,
+     478
+    ],
+    "text": "to delle cause della catastrofe e delle respon-"
+   },
+   {
+    "box": [
+     845,
+     485,
+     1450,
+     517
+    ],
+    "text": "sabilita pubbliche e private ad essa inerenti,"
+   },
+   {
+    "box": [
+     844,
+     521,
+     1450,
+     552
+    ],
+    "text": "di esaminare la rispondenza della legislazio-"
+   },
+   {
+    "box": [
+     844,
+     559,
+     1319,
+     588
+    ],
+    "text": "ne e dell'organizzazione e prassi"
+   },
+   {
+    "box": [
+     844,
+     593,
+     1450,
+     624
+    ],
+    "text": "strative a]le esigenze della tutela della si-"
+   },
+   {
+    "box": [
+     845,
+     630,
+     1433,
+     657
+    ],
+    "text": "curezza collettiva, di accertare ["
+   },
+   {
+    "box": [
+     846,
+     665,
+     1450,
+     696
+    ],
+    "text": "delle mi sure adottate e preventivate a favo-"
+   },
+   {
+    "box": [
+     844,
+     701,
+     1450,
+     732
+    ],
+    "text": "re delle popolazioni colpite, di formula re"
+   },
+   {
+    "box": [
+     844,
+     738,
+     1450,
+     768
+    ],
+    "text": "le indicazioni di politica legislativa per la"
+   },
+   {
+    "box": [
+     844,
+     774,
+     1450,
+     803
+    ],
+    "text": "tutela della sicurezza collettiva e per ⅱ mi-"
+   },
+   {
+    "box": [
+     844,
+     810,
+     1450,
+     841
+    ],
+    "text": "glior funzionamento della Pubblica Am mi-"
+   },
+   {
+    "box": [
+     843,
+     846,
+     1450,
+     876
+    ],
+    "text": "nistrazione, in ordine opere idrauliche"
+   },
+   {
+    "box": [
+     844,
+     882,
+     1450,
+     913
+    ],
+    "text": "a qualunque uso destinate sistema-"
+   },
+   {
+    "box": [
+     844,
+     918,
+     1448,
+     949
+    ],
+    "text": "zione idrogeologica del territorio nazionale."
+   },
+   {
+    "box": [
+     873,
+     954,
+     1448,
+     984
+    ],
+    "text": "La Commissione, di fronte all'urgenza dei"
+   },
+   {
+    "box": [
+     844,
+     989,
+     1450,
+     1021
+    ],
+    "text": "problemi delle popolazioni delle zone C01-"
+   },
+   {
+    "box": [
+     844,
+     1026,
+     1450,
+     1056
+    ],
+    "text": "pite, ancora non riSOlti , ha presentato , per"
+   },
+   {
+    "box": [
+     844,
+     1062,
+     1450,
+     1094
+    ],
+    "text": "quantO nguarda il tema relativo all'accer-"
+   },
+   {
+    "box": [
+     845,
+     1098,
+     1449,
+     1128
+    ],
+    "text": "tamento dell'idoneita delle provvidenze"
+   },
+   {
+    "box": [
+     844,
+     1134,
+     1450,
+     1164
+    ],
+    "text": "adottate e preventivate, una prima relazio-"
+   },
+   {
+    "box": [
+     844,
+     1170,
+     1449,
+     1198
+    ],
+    "text": "ne al parlamento ; relazione che ha trovato"
+   },
+   {
+    "box": [
+     844,
+     1206,
+     1449,
+     1234
+    ],
+    "text": "l'unanimita dei consensi de}la Comm1S sione,"
+   },
+   {
+    "box": [
+     845,
+     1242,
+     1449,
+     1272
+    ],
+    "text": "anche nelle critiche per i gravi ritardi che"
+   },
+   {
+    "box": [
+     845,
+     1278,
+     1396,
+     1309
+    ],
+    "text": "in questO campo Si sono verificati e Che"
+   },
+   {
+    "box": [
+     844,
+     1315,
+     1449,
+     1345
+    ],
+    "text": "cora perdurano. La presente relazione き"
+   },
+   {
+    "box": [
+     844,
+     1350,
+     1448,
+     1381
+    ],
+    "text": "quindi rivolta ad affrontare l'accertamento"
+   },
+   {
+    "box": [
+     844,
+     1386,
+     1448,
+     1416
+    ],
+    "text": "delle cause e delle responsabilita della ca?"
+   },
+   {
+    "box": [
+     843,
+     1422,
+     1450,
+     1452
+    ],
+    "text": "tastrofe. lnoltre, proprio per i rilevantissi-"
+   },
+   {
+    "box": [
+     843,
+     1459,
+     1448,
+     1489
+    ],
+    "text": "mi problemi d'ordine politico, sociale e 市"
+   },
+   {
+    "box": [
+     844,
+     1494,
+     1449,
+     1524
+    ],
+    "text": "democrazia, che dalla tragedia del Vajont"
+   },
+   {
+    "box": [
+     844,
+     1530,
+     1449,
+     1561
+    ],
+    "text": "sono emersi, Si rltiene doveroso suggenre"
+   },
+   {
+    "box": [
+     843,
+     1568,
+     1441,
+     1596
+    ],
+    "text": "misure e proposte atte a rimuovere le cau"
+   },
+   {
+    "box": [
+     844,
+     1602,
+     1295,
+     1632
+    ],
+    "text": "se di future possibili catastrofi."
+   },
+   {
+    "box": [
+     872,
+     1638,
+     1449,
+     1669
+    ],
+    "text": "NeII'esame delle cause e delle responsa-"
+   },
+   {
+    "box": [
+     843,
+     1674,
+     1450,
+     1705
+    ],
+    "text": "bilita, ci siamo ispirati all'esigenza di dare"
+   },
+   {
+    "box": [
+     843,
+     1711,
+     1450,
+     1741
+    ],
+    "text": "un giudizio obiettivo; si tratta di un giudi-"
+   },
+   {
+    "box": [
+     843,
+     1746,
+     1449,
+     1777
+    ],
+    "text": "zio responsabile che impegna l'inteiligenza"
+   },
+   {
+    "box": [
+     844,
+     1782,
+     1450,
+     1808
+    ],
+    "text": "e la coscienza di ciascuno di fronte par-"
+   },
+   {
+    "box": [
+     844,
+     1818,
+     1449,
+     1844
+    ],
+    "text": "lamento e al paese: ー 0 affermiamo senza re-"
+   },
+   {
+    "box": [
+     844,
+     1855,
+     1449,
+     1880
+    ],
+    "text": "torica di fronte ai duemila morti che at ten-"
+   },
+   {
+    "box": [
+     844,
+     1891,
+     1043,
+     1920
+    ],
+    "text": "dono giustizia."
+   },
+   {
+    "box": [
+     874,
+     1926,
+     1449,
+     1957
+    ],
+    "text": "Per giungere all'accertamento delle cau-"
+   },
+   {
+    "box": [
+     846,
+     1963,
+     1450,
+     1993
+    ],
+    "text": "se e delle responsabilita occorre verifi-"
+   },
+   {
+    "box": [
+     844,
+     1998,
+     1449,
+     2029
+    ],
+    "text": "care se prima del disastro siano state avan-"
+   },
+   {
+    "box": [
+     843,
+     2034,
+     1449,
+     2065
+    ],
+    "text": "zate ipotesi, fatte segnalazioni da parte di"
+   },
+   {
+    "box": [
+     844,
+     2070,
+     1449,
+     2100
+    ],
+    "text": "cittadini , di Enti, di pubbliche amm inis tra-"
+   }
+  ]
+ },
+ "pg217.png": {
+  "size": [
+   1654,
+   2339
+  ],
+  "lines": [
+   {
+    "box": [
+     196,
+     124,
+     417,
+     146
+    ],
+    "text": "= 4 な え 201 ・ 襯 れ 4"
+   },
+   {
+    "box": [
+     802,
+     124,
+     828,
+     146
+    ],
+    "text": "13"
+   },
+   {
+    "box": [
+     1095,
+     122,
+     1440,
+     146
+    ],
+    "text": "Se れ 0 della R ″ み み 〃 ca"
+   },
+   {
+    "box": [
+     431,
+     193,
+     1226,
+     210
+    ],
+    "text": "LEGISLATURA IV - DISEGNI DI} LEGGE E RELAZIONI - DOCUMENTI"
+   },
+   {
+    "box": [
+     201,
+     269,
+     1455,
+     300
+    ],
+    "text": "umana 》 , 0 percho 《 d'incerto effettO C1rca ー care la stabilita di manufatti e di abitati, e"
+   },
+   {
+    "box": [
+     201,
+     306,
+     1455,
+     335
+    ],
+    "text": "i nsultati 》 0 percho ぐ oltrepassanti di 1 第 OltC al timore che possano distaccarsi frane ⅱ れ -"
+   },
+   {
+    "box": [
+     201,
+     339,
+     1454,
+     380
+    ],
+    "text": "i limiti dell'economia ,. per cio che riguarda ー provvise di grande entita che potrebbero"
+   },
+   {
+    "box": [
+     201,
+     378,
+     807,
+     408
+    ],
+    "text": "il costO di alcune opere di garanzia dell'in-"
+   },
+   {
+    "box": [
+     201,
+     413,
+     806,
+     444
+    ],
+    "text": "columita pubblica, questO giudizio tiene con-"
+   },
+   {
+    "box": [
+     201,
+     450,
+     807,
+     480
+    ],
+    "text": "10 S010 dell'interesse privato (economico e"
+   },
+   {
+    "box": [
+     200,
+     486,
+     806,
+     514
+    ],
+    "text": "finanziario) della societa concessionaria e"
+   },
+   {
+    "box": [
+     200,
+     522,
+     805,
+     552
+    ],
+    "text": "non della tutela della sicurezza delle popo-"
+   },
+   {
+    "box": [
+     199,
+     558,
+     805,
+     588
+    ],
+    "text": "lazioni : poiclQ, se per garantire tale sicu-"
+   },
+   {
+    "box": [
+     200,
+     594,
+     805,
+     623
+    ],
+    "text": "rezza la spesa fosse stata eccessiva, il di-"
+   },
+   {
+    "box": [
+     201,
+     629,
+     805,
+     654
+    ],
+    "text": "lemma che Si doveva risolvere era fra la"
+   },
+   {
+    "box": [
+     200,
+     665,
+     806,
+     695
+    ],
+    "text": "attuazione della spesa che tutelasse l'inco-"
+   },
+   {
+    "box": [
+     201,
+     702,
+     807,
+     730
+    ],
+    "text": "lumita pubblica 0 la rinuncia al bacino idro-"
+   },
+   {
+    "box": [
+     200,
+     738,
+     319,
+     762
+    ],
+    "text": "elettrico."
+   },
+   {
+    "box": [
+     230,
+     792,
+     805,
+     820
+    ],
+    "text": "ln realta l'interesse privato della SADE si"
+   },
+   {
+    "box": [
+     225,
+     827,
+     808,
+     857
+    ],
+    "text": "sovrppposto ?ll'interesse pubblico e il Mi-"
+   },
+   {
+    "box": [
+     200,
+     863,
+     805,
+     892
+    ],
+    "text": "nistero non ha assolto al suo compito di tu-"
+   },
+   {
+    "box": [
+     201,
+     899,
+     608,
+     929
+    ],
+    "text": "tela della incolumita pubblica."
+   },
+   {
+    "box": [
+     230,
+     936,
+     805,
+     964
+    ],
+    "text": "La stessa costruzione del わ ss s iSP1re-"
+   },
+   {
+    "box": [
+     248,
+     970,
+     803,
+     1000
+    ],
+    "text": "all esigenza di garantire la funzional ita"
+   },
+   {
+    "box": [
+     255,
+     1006,
+     656,
+     1036
+    ],
+    "text": "bacino, l'incolumita."
+   },
+   {
+    "box": [
+     229,
+     1043,
+     802,
+     1072
+    ],
+    "text": "Ma l'affermazione del Muller, decisiva per"
+   },
+   {
+    "box": [
+     200,
+     1078,
+     805,
+     1108
+    ],
+    "text": "stabilire qual'era in effetti l'unica misura"
+   },
+   {
+    "box": [
+     201,
+     1115,
+     805,
+     1144
+    ],
+    "text": "da adottare, き la seguente : 《 Alla domanda"
+   },
+   {
+    "box": [
+     200,
+     1151,
+     805,
+     1180
+    ],
+    "text": "se questi franamenti possono venire arresta-"
+   },
+   {
+    "box": [
+     201,
+     1187,
+     805,
+     1215
+    ],
+    "text": "tl mediante misure artificiali, deve essere ri-"
+   },
+   {
+    "box": [
+     199,
+     1222,
+     790,
+     1252
+    ],
+    "text": "SPOStO negativamente in linea generale; al"
+   },
+   {
+    "box": [
+     200,
+     1259,
+     805,
+     1288
+    ],
+    "text": "Che se, teorica, Si doves se rinuncia-"
+   },
+   {
+    "box": [
+     200,
+     1294,
+     806,
+     1324
+    ],
+    "text": "re all'esercizio del serbatoio, una frana tar"
+   },
+   {
+    "box": [
+     200,
+     1330,
+     805,
+     1360
+    ],
+    "text": "1 れ ente grande, dOPO essersi mossa una VOI-"
+   },
+   {
+    "box": [
+     200,
+     1365,
+     805,
+     1396
+    ],
+    "text": "ta, non tornerebbe tantO presto all'arresto"
+   },
+   {
+    "box": [
+     201,
+     1402,
+     805,
+     1432
+    ],
+    "text": "assoluto 》 . C え う CO れ / e れ 4 Che la 50Z 住 7 な ″ ′ 4"
+   },
+   {
+    "box": [
+     201,
+     1438,
+     805,
+     1468
+    ],
+    "text": "ィ ー 5 な こ む ℃ ~ こ 住 歹 05S え わ ″ e e ′ 卩 を 貰 es を れ な ー d な"
+   },
+   {
+    "box": [
+     201,
+     1475,
+     549,
+     1498
+    ],
+    "text": "I わ わ 4 れ 面 ” 0 del 襯 e ."
+   },
+   {
+    "box": [
+     231,
+     1516,
+     807,
+     1545
+    ],
+    "text": "L'ipotesi di una frana di grandi propor-"
+   },
+   {
+    "box": [
+     200,
+     1552,
+     805,
+     1582
+    ],
+    "text": "zioni , del volume di quella indicata dal Miii-"
+   },
+   {
+    "box": [
+     200,
+     1588,
+     805,
+     1618
+    ],
+    "text": "ler, emerge anche durante la visita della Com-"
+   },
+   {
+    "box": [
+     200,
+     1624,
+     807,
+     1649
+    ],
+    "text": "rrassione di collaudo effettuata iJ 28 novcm-"
+   },
+   {
+    "box": [
+     200,
+     1660,
+     620,
+     1690
+    ],
+    "text": "bre 1960 al bacino del Vajont."
+   },
+   {
+    "box": [
+     231,
+     1703,
+     805,
+     1728
+    ],
+    "text": "Viene constatato innanzitutto che 《 SI cra-"
+   },
+   {
+    "box": [
+     246,
+     1739,
+     806,
+     1768
+    ],
+    "text": "aperte larghe fenditure con un andamen-"
+   },
+   {
+    "box": [
+     200,
+     1775,
+     807,
+     1804
+    ],
+    "text": "t0 1 ) ⅲ 0 parallelo alla valle, denun-"
+   },
+   {
+    "box": [
+     200,
+     1811,
+     805,
+     1840
+    ],
+    "text": "ciando movimento di vaste proporzioni"
+   },
+   {
+    "box": [
+     234,
+     1846,
+     690,
+     1875
+    ],
+    "text": "COII possibili altrl franamenti 》 ."
+   },
+   {
+    "box": [
+     231,
+     1889,
+     805,
+     1914
+    ],
+    "text": "Si osserva Che 1 a situazione determin ata-"
+   },
+   {
+    "box": [
+     201,
+     1924,
+     805,
+     1954
+    ],
+    "text": "SI solleva due questioni fondamentali : ( ( La"
+   },
+   {
+    "box": [
+     201,
+     1960,
+     805,
+     1990
+    ],
+    "text": "prnna relativa alla pubblica incolumiia, al"
+   },
+   {
+    "box": [
+     201,
+     1996,
+     797,
+     2026
+    ],
+    "text": "timore che ⅲ altre zone del lago, che appaio"
+   },
+   {
+    "box": [
+     201,
+     2032,
+     807,
+     2062
+    ],
+    "text": "no analoghe a quella dissestata, possano ve-"
+   },
+   {
+    "box": [
+     200,
+     2068,
+     805,
+     2098
+    ],
+    "text": "rlhcarsi fenomeni franosi tali da pregiudi-"
+   },
+   {
+    "box": [
+     850,
+     378,
+     1456,
+     402
+    ],
+    "text": "ancora avere riflessi sulla stabilita della di-"
+   },
+   {
+    "box": [
+     849,
+     413,
+     1455,
+     442
+    ],
+    "text": "ga 》 . ( く La seconda さ reJativa funziona-"
+   },
+   {
+    "box": [
+     848,
+     450,
+     1454,
+     479
+    ],
+    "text": "mento del serbatoio che potrebbe essere"
+   },
+   {
+    "box": [
+     849,
+     485,
+     1455,
+     514
+    ],
+    "text": "compromesso da franamenti di notevole en-"
+   },
+   {
+    "box": [
+     849,
+     521,
+     1454,
+     552
+    ],
+    "text": "tlta 》 . L'ingegner penta cosi si esprime sullo"
+   },
+   {
+    "box": [
+     849,
+     557,
+     1454,
+     583
+    ],
+    "text": "statO del bacino : ( く 111 ordine a movimenti"
+   },
+   {
+    "box": [
+     849,
+     593,
+     1455,
+     622
+    ],
+    "text": "aituali una tra le numerose fenditure, lun-"
+   },
+   {
+    "box": [
+     849,
+     629,
+     1454,
+     659
+    ],
+    "text": "ga circa 2.500 metri, ha fatto sorgere i mag 、"
+   },
+   {
+    "box": [
+     848,
+     667,
+     1455,
+     695
+    ],
+    "text": "giori timorl in quanto es sere interpre-"
+   },
+   {
+    "box": [
+     849,
+     701,
+     1454,
+     726
+    ],
+    "text": "tat0 ' i 一 に rse / 0 れ CO れ 〃 terreno ( ″"
+   },
+   {
+    "box": [
+     866,
+     737,
+     1455,
+     766
+    ],
+    "text": "れ 4 S 〃 ビ ( c 歹 己 ( ′ 0 / な ・ 住 〃 ro / 0 れ d e Che 07 丁 た"
+   },
+   {
+    "box": [
+     849,
+     773,
+     1452,
+     802
+    ],
+    "text": "リ 召 肥 わ み e 2 川 / の れ 群 れ e れ 170 記 / 0 れ イ 0 1 〃 e ,"
+   },
+   {
+    "box": [
+     849,
+     809,
+     1454,
+     838
+    ],
+    "text": "sepa ア ・ 住 れ dO d ロ 〃 7 れ 0 を な 住 g れ 0 ″ れ 0 0 れ e 1 as -"
+   },
+   {
+    "box": [
+     848,
+     845,
+     1452,
+     869
+    ],
+    "text": "sa を 7 住 ー e ア ・ / ~ 己 》 . 《 Prima di accedere a tale"
+   },
+   {
+    "box": [
+     865,
+     881,
+     1454,
+     910
+    ],
+    "text": "? / ど ア を お e 一 2i0 れ C 一 S / 貫 0 C 住 》 (espressione"
+   },
+   {
+    "box": [
+     847,
+     917,
+     1455,
+     946
+    ],
+    "text": "( 、 he si trova nel pro-memoria del professor"
+   },
+   {
+    "box": [
+     849,
+     953,
+     1451,
+     978
+    ],
+    "text": "Pcnta al Presidente della Commissione di"
+   },
+   {
+    "box": [
+     848,
+     989,
+     1453,
+     1017
+    ],
+    "text": "collaudo 1 。 dicembre 1960 ) , il Penta osserva"
+   },
+   {
+    "box": [
+     849,
+     1025,
+     1454,
+     1054
+    ],
+    "text": "Che i dati diSI)0SIZione SOIAO relativi a ma-"
+   },
+   {
+    "box": [
+     848,
+     1061,
+     1355,
+     1090
+    ],
+    "text": "nifestazioni di superficie, Si"
+   },
+   {
+    "box": [
+     849,
+     1096,
+     1453,
+     1126
+    ],
+    "text": "elementi per giL1dicare se fenomeno Si"
+   },
+   {
+    "box": [
+     849,
+     1133,
+     1453,
+     1162
+    ],
+    "text": "し stenda in profondita se Sia veramente in"
+   },
+   {
+    "box": [
+     849,
+     1169,
+     1454,
+     1193
+    ],
+    "text": "attO un 1 OV ⅱ entO di massa 》 . 《 II mOV1-"
+   },
+   {
+    "box": [
+     848,
+     1205,
+     1453,
+     1234
+    ],
+    "text": "mento, potrebbe essere llimitato al massimo"
+   },
+   {
+    "box": [
+     849,
+     1241,
+     1454,
+     1269
+    ],
+    "text": "ad una C01Lre dello spessorc di 10-20 metri,"
+   },
+   {
+    "box": [
+     849,
+     1276,
+     1452,
+     1305
+    ],
+    "text": "con velocita basse, e COrnUIIQUe, 月 01 〕"
+   },
+   {
+    "box": [
+     848,
+     1312,
+     1454,
+     1341
+    ],
+    "text": "comvolgerebbe masse di materiali tali da"
+   },
+   {
+    "box": [
+     849,
+     1348,
+     1453,
+     1373
+    ],
+    "text": "decidere n011 S010 de!la vita del serbatoio,"
+   },
+   {
+    "box": [
+     848,
+     1384,
+     1454,
+     1413
+    ],
+    "text": "ma anche del pericolo di sollecitazioni anor-"
+   },
+   {
+    "box": [
+     848,
+     1420,
+     1454,
+     1449
+    ],
+    "text": "mali sulla diga 》 . 《 Ⅳ ell ' 記 な 0 c 0 , 面 物 で わ -"
+   },
+   {
+    "box": [
+     892,
+     1456,
+     1436,
+     1484
+    ],
+    "text": "anunettere / 4 0S3 ~ わ 〃 え な ラ イ え な 〃 カ れ 卩 「 0 ↓ , ヤ"
+   },
+   {
+    "box": [
+     848,
+     1492,
+     1432,
+     1517
+    ],
+    "text": "50 distacco ″ 2 SS 住 e れ 07 マ れ e イ ~ / e \""
+   },
+   {
+    "box": [
+     849,
+     1527,
+     1454,
+     1556
+    ],
+    "text": "れ 0 ( s 0Z0 e SO OS れ 0Z0 ) 》 . Decidere per"
+   },
+   {
+    "box": [
+     848,
+     1563,
+     1453,
+     1593
+    ],
+    "text": "l'uno 0 per l'altro evento, 猷 ! 0 statO dellf 、"
+   },
+   {
+    "box": [
+     849,
+     1599,
+     1454,
+     1629
+    ],
+    "text": "C ・ )aoscenze, 110n gli こ possibile rltiene per-"
+   },
+   {
+    "box": [
+     848,
+     1635,
+     1452,
+     1665
+    ],
+    "text": "tantO 《 consigliabile approfondire le indagini"
+   },
+   {
+    "box": [
+     848,
+     1671,
+     1452,
+     1698
+    ],
+    "text": "al fine di chiarire la situazione e stabilire,"
+   },
+   {
+    "box": [
+     848,
+     1707,
+     1454,
+     1737
+    ],
+    "text": "con la maggior precisione possibile, la na ・"
+   },
+   {
+    "box": [
+     849,
+     1744,
+     1454,
+     1769
+    ],
+    "text": "ロ .tr del movimento e l'entita della massa"
+   },
+   {
+    "box": [
+     849,
+     1781,
+     1175,
+     1805
+    ],
+    "text": "di terreno interessata 》 ."
+   },
+   {
+    "box": [
+     879,
+     1815,
+     1451,
+     1845
+    ],
+    "text": "00 venne fatto dal dottor MulIer, che, ⅲ"
+   },
+   {
+    "box": [
+     848,
+     1851,
+     1452,
+     1880
+    ],
+    "text": "fondo, れ 0 れ escludeva 4 / / 4 な 0 , れ え 々 0 2 ヤ れ"
+   },
+   {
+    "box": [
+     848,
+     1887,
+     1454,
+     1917
+    ],
+    "text": "ap 々 こ な 0 1'eventualita di 4 れ 川 01 盟 夜 ? tO ( 石"
+   },
+   {
+    "box": [
+     857,
+     1923,
+     1454,
+     1948
+    ],
+    "text": "リ 観 d え masse di ℃ れ 0 ↓ ん れ ろ え 〃 0 200 襯 / -"
+   },
+   {
+    "box": [
+     849,
+     1959,
+     1113,
+     1984
+    ],
+    "text": "〃 0 〃 / di 身 ゼ C み え"
+   },
+   {
+    "box": [
+     875,
+     1995,
+     1197,
+     2024
+    ],
+    "text": "Le preoccupa710ni SOlle"
+   },
+   {
+    "box": [
+     846,
+     2031,
+     1455,
+     2060
+    ],
+    "text": "ti della SADE per い situazione creatasi ncl"
+   },
+   {
+    "box": [
+     845,
+     2067,
+     1455,
+     2091
+    ],
+    "text": "novembre 1960 sul fianco sinistro del baci-"
+   }
+  ]
+ },
+ "pg225.png": {
+  "size": [
+   1654,
+   2339
+  ],
+  "lines": [
+   {
+    "box": [
+     201,
+     269,
+     808,
+     298
+    ],
+    "text": "menti del livello stesso 》 . lnfatti, il pro-"
+   },
+   {
+    "box": [
+     200,
+     304,
+     809,
+     329
+    ],
+    "text": "fessor Ghetti affermava: 《 con l'invaso 01-"
+   },
+   {
+    "box": [
+     198,
+     123,
+     393,
+     146
+    ],
+    "text": "ス な え 2 の ・ 襯 e れ"
+   },
+   {
+    "box": [
+     808,
+     123,
+     835,
+     146
+    ],
+    "text": "21"
+   },
+   {
+    "box": [
+     434,
+     190,
+     1228,
+     210
+    ],
+    "text": "LEGISLATURA IV - DI SEGNI DIi LEGGE E RELAZIONI - DOCUMENTI"
+   },
+   {
+    "box": [
+     201,
+     340,
+     809,
+     365
+    ],
+    "text": "tre i 700 metri la caduta di una frana di"
+   },
+   {
+    "box": [
+     200,
+     376,
+     809,
+     405
+    ],
+    "text": "200 milioni di metri cubi avrebbe potuto"
+   },
+   {
+    "box": [
+     200,
+     412,
+     809,
+     442
+    ],
+    "text": "provocare conseguenze dannose accentuan-"
+   },
+   {
+    "box": [
+     201,
+     447,
+     808,
+     477
+    ],
+    "text": "tesi gradatamente Ⅱ 110 a divemre manifesta-"
+   },
+   {
+    "box": [
+     200,
+     484,
+     809,
+     513
+    ],
+    "text": "mente impresslonanti al massn 蝨 0 invaso"
+   },
+   {
+    "box": [
+     201,
+     519,
+     809,
+     549
+    ],
+    "text": "( 722 , 5 metri) anche per la zona a valle della"
+   },
+   {
+    "box": [
+     201,
+     555,
+     287,
+     585
+    ],
+    "text": "diga 》 ."
+   },
+   {
+    "box": [
+     355,
+     591,
+     808,
+     621
+    ],
+    "text": "0 れ e del professor G segna-"
+   },
+   {
+    "box": [
+     225,
+     626,
+     807,
+     656
+    ],
+    "text": "1 だ 0 を を 0 な 材 れ ″ a di es の 加 ℃ sui modello"
+   },
+   {
+    "box": [
+     198,
+     662,
+     809,
+     692
+    ],
+    "text": "CO れ ve れ れ 襯 引 e を ro ん れ g ー 0 gli effetti nel-"
+   },
+   {
+    "box": [
+     201,
+     698,
+     745,
+     728
+    ],
+    "text": "I ' 記 怩 0 del V 可 0 厩 e 記 co れ / 夜 4 nel"
+   },
+   {
+    "box": [
+     200,
+     734,
+     808,
+     764
+    ],
+    "text": "ve del passaggio 市 0 れ イ e 市 piena 市 e れ だ 瓰"
+   },
+   {
+    "box": [
+     200,
+     769,
+     784,
+     800
+    ],
+    "text": "を 4 I 乞 れ 市 c 砒 4 per i ossi 〃 s 0"
+   },
+   {
+    "box": [
+     232,
+     806,
+     348,
+     836
+    ],
+    "text": "I 市 g 化"
+   },
+   {
+    "box": [
+     230,
+     842,
+     808,
+     872
+    ],
+    "text": "Per riempire il bacino fino a quota 700"
+   },
+   {
+    "box": [
+     200,
+     877,
+     807,
+     908
+    ],
+    "text": "e per superare tale quota occorreva d ⅱ れ 0-"
+   },
+   {
+    "box": [
+     201,
+     913,
+     808,
+     943
+    ],
+    "text": "strare Che non esistevano condizioni di pe-"
+   },
+   {
+    "box": [
+     200,
+     949,
+     695,
+     979
+    ],
+    "text": "ⅱ C010 per le zone a valle della diga."
+   },
+   {
+    "box": [
+     229,
+     991,
+     807,
+     1020
+    ],
+    "text": "Questi 〃 ど r え 0 acce ′ ta ″ れ れ 0 れ / 0 れ 0"
+   },
+   {
+    "box": [
+     200,
+     1027,
+     808,
+     1056
+    ],
+    "text": "eseg え . Ⅱ Comitato Direttivo del Centro"
+   },
+   {
+    "box": [
+     200,
+     1063,
+     806,
+     1091
+    ],
+    "text": "modelli idraulici di Nove, nella sua riunione"
+   },
+   {
+    "box": [
+     200,
+     1099,
+     807,
+     1128
+    ],
+    "text": "del 30 aprile 1962 espresse il parere che"
+   },
+   {
+    "box": [
+     200,
+     1134,
+     807,
+     1164
+    ],
+    "text": "《 almeno per il momento non siano da com-"
+   },
+   {
+    "box": [
+     200,
+     1170,
+     742,
+     1200
+    ],
+    "text": "piere ricerche relative al propagarsi di"
+   },
+   {
+    "box": [
+     200,
+     1206,
+     676,
+     1236
+    ],
+    "text": "onda di piena a valle della diga 》 ."
+   },
+   {
+    "box": [
+     231,
+     1241,
+     805,
+     1271
+    ],
+    "text": "危 significativo ⅱ fatto che la SADE ri-"
+   },
+   {
+    "box": [
+     199,
+     1277,
+     807,
+     1302
+    ],
+    "text": "levava Che sarebbe StatO necessario cono-"
+   },
+   {
+    "box": [
+     200,
+     1313,
+     807,
+     1343
+    ],
+    "text": "scere la rip artizione di un'onda provenien-"
+   },
+   {
+    "box": [
+     199,
+     1349,
+     805,
+     1379
+    ],
+    "text": "te dal Vaj ont in corrispondenza dell'abitato"
+   },
+   {
+    "box": [
+     200,
+     1384,
+     807,
+     1414
+    ],
+    "text": "di Longarone. Questo fattO indica che non"
+   },
+   {
+    "box": [
+     200,
+     1420,
+     722,
+     1451
+    ],
+    "text": "S010 erano previste tracimanti"
+   },
+   {
+    "box": [
+     199,
+     1456,
+     805,
+     1487
+    ],
+    "text": "diga, in caso di frana, ma Si VOleva perfino"
+   },
+   {
+    "box": [
+     199,
+     1493,
+     806,
+     1523
+    ],
+    "text": "conoscere ⅱ n10d0 con CLti queste onde Si"
+   },
+   {
+    "box": [
+     200,
+     1528,
+     807,
+     1558
+    ],
+    "text": "sarebbero ripartite in corrlspondenza del-"
+   },
+   {
+    "box": [
+     199,
+     1563,
+     806,
+     1594
+    ],
+    "text": "l'abitato di Longarone. La temerarieta va"
+   },
+   {
+    "box": [
+     200,
+     1600,
+     805,
+     1630
+    ],
+    "text": "Oltre ogni limite, se si pone mente al fatto"
+   },
+   {
+    "box": [
+     198,
+     1635,
+     806,
+     1666
+    ],
+    "text": "che immediatamente sotto la gola del"
+   },
+   {
+    "box": [
+     200,
+     1672,
+     805,
+     1702
+    ],
+    "text": "Vajont, sul greto del Piave, si trovavano"
+   },
+   {
+    "box": [
+     200,
+     1708,
+     806,
+     1738
+    ],
+    "text": "la cartiera di Verona ed il complesso del-"
+   },
+   {
+    "box": [
+     199,
+     1744,
+     806,
+     1774
+    ],
+    "text": "le abitazioni degli operai e dei tecnici della"
+   },
+   {
+    "box": [
+     199,
+     1781,
+     408,
+     1804
+    ],
+    "text": "stessa cartiera."
+   },
+   {
+    "box": [
+     229,
+     1856,
+     807,
+     1881
+    ],
+    "text": "Ⅱ 1 。 dicembre 1962 viene sostituito il ti-"
+   },
+   {
+    "box": [
+     200,
+     1892,
+     806,
+     1917
+    ],
+    "text": "tolare del Genio civile di Belluno con l'in-"
+   },
+   {
+    "box": [
+     199,
+     1928,
+     807,
+     1957
+    ],
+    "text": "gegnere ViOlin. Ⅱ nuovo titolare sostituisce"
+   },
+   {
+    "box": [
+     200,
+     1963,
+     806,
+     1994
+    ],
+    "text": "l'ingegnere gia preposto al settore delle di-"
+   },
+   {
+    "box": [
+     200,
+     1999,
+     807,
+     2029
+    ],
+    "text": "ghe della provincia di Belluno, con un geo-"
+   },
+   {
+    "box": [
+     200,
+     2035,
+     806,
+     2065
+    ],
+    "text": "metra, il quale per sue stesse dichiarazioni"
+   },
+   {
+    "box": [
+     201,
+     2071,
+     806,
+     2096
+    ],
+    "text": "era all'oscuro di tuttO e non conosceva"
+   },
+   {
+    "box": [
+     854,
+     269,
+     1462,
+     298
+    ],
+    "text": "nemmeno progetto esecutivo della diga"
+   },
+   {
+    "box": [
+     855,
+     305,
+     1462,
+     334
+    ],
+    "text": "del VaJont. risultato che 10 stesso tito-"
+   },
+   {
+    "box": [
+     854,
+     341,
+     1462,
+     370
+    ],
+    "text": "lare del GeniO CiVile non era uno speciali-"
+   },
+   {
+    "box": [
+     855,
+     377,
+     1461,
+     406
+    ],
+    "text": "sta nel ramo per la CO struzione di dighe"
+   },
+   {
+    "box": [
+     853,
+     413,
+     1052,
+     437
+    ],
+    "text": "e sbarramenti."
+   },
+   {
+    "box": [
+     883,
+     448,
+     1462,
+     478
+    ],
+    "text": "Questi fatti dimostrano le gravi respon-"
+   },
+   {
+    "box": [
+     853,
+     484,
+     1460,
+     514
+    ],
+    "text": "sabilita del Ministero dei lavori pubblici."
+   },
+   {
+    "box": [
+     853,
+     520,
+     1460,
+     550
+    ],
+    "text": "お sconcertante Che in una provmcia C01 れ e"
+   },
+   {
+    "box": [
+     853,
+     556,
+     1460,
+     585
+    ],
+    "text": "quella di Belluno , ove esistevano diversi"
+   },
+   {
+    "box": [
+     854,
+     592,
+     1462,
+     621
+    ],
+    "text": "sbarramenti idroelettrici, e nel perio dO in"
+   },
+   {
+    "box": [
+     853,
+     627,
+     1452,
+     657
+    ],
+    "text": "CLII gravi pericoli sovrastavano sulle POPO"
+   },
+   {
+    "box": [
+     853,
+     663,
+     1460,
+     692
+    ],
+    "text": "lazioni per i movimenti franosi verificatisi"
+   },
+   {
+    "box": [
+     855,
+     698,
+     1461,
+     729
+    ],
+    "text": "sulla sponda sinistra del Vajont, vemssero"
+   },
+   {
+    "box": [
+     855,
+     735,
+     1460,
+     765
+    ],
+    "text": "cambiati repentinamente i tecnici del GeniO"
+   },
+   {
+    "box": [
+     852,
+     771,
+     1461,
+     796
+    ],
+    "text": "civile con funzioni di controllo che da tem-"
+   },
+   {
+    "box": [
+     853,
+     807,
+     1460,
+     836
+    ],
+    "text": "PO seguivano la vicenda, con tecnici nuovi"
+   },
+   {
+    "box": [
+     853,
+     843,
+     1460,
+     873
+    ],
+    "text": "e priVi delle neces sarie conoscenze specia-"
+   },
+   {
+    "box": [
+     853,
+     878,
+     1459,
+     902
+    ],
+    "text": "listiche relative a costruzioni idroelettriche."
+   },
+   {
+    "box": [
+     1126,
+     993,
+     1186,
+     1014
+    ],
+    "text": "VIII"
+   },
+   {
+    "box": [
+     1031,
+     1065,
+     1281,
+     1087
+    ],
+    "text": "LA CATASTROFE"
+   },
+   {
+    "box": [
+     883,
+     1135,
+     1458,
+     1160
+    ],
+    "text": "La Societa SADE ⅲ data 20 marzo 1963"
+   },
+   {
+    "box": [
+     851,
+     1171,
+     1459,
+     1201
+    ],
+    "text": "chiedeva l'autorizzazione a portare l'invaso"
+   },
+   {
+    "box": [
+     852,
+     1207,
+     1462,
+     1237
+    ],
+    "text": "sino a quota 715 metri, autorizzanone che"
+   },
+   {
+    "box": [
+     853,
+     1243,
+     1459,
+     1268
+    ],
+    "text": "vemva concessa 30 dellO stesso mese di"
+   },
+   {
+    "box": [
+     851,
+     1288,
+     941,
+     1304
+    ],
+    "text": "marzo."
+   },
+   {
+    "box": [
+     882,
+     1315,
+     1459,
+     1344
+    ],
+    "text": "Si noti che a norma del decreto presiden-"
+   },
+   {
+    "box": [
+     851,
+     1351,
+     1459,
+     1379
+    ],
+    "text": "ziale 4 febbraio 1963 , n. 36 , la SADE, ⅲ"
+   },
+   {
+    "box": [
+     853,
+     1387,
+     1459,
+     1417
+    ],
+    "text": "quanto custode di tutti i beni, era tenuta a"
+   },
+   {
+    "box": [
+     851,
+     1423,
+     1459,
+     1452
+    ],
+    "text": "compiere SOIO atti di ordinaria amministra-"
+   },
+   {
+    "box": [
+     851,
+     1459,
+     1459,
+     1489
+    ],
+    "text": "zione per la gestione dell'impresa e che la"
+   },
+   {
+    "box": [
+     851,
+     1495,
+     1459,
+     1519
+    ],
+    "text": "comunicazione uffciosa della nomina del-"
+   },
+   {
+    "box": [
+     851,
+     1530,
+     1459,
+     1560
+    ],
+    "text": "l'ammimstratore provvisorio per contO del-"
+   },
+   {
+    "box": [
+     852,
+     1567,
+     1458,
+     1591
+    ],
+    "text": "I'ENEL venne fatta alla SADE il 22 marzo"
+   },
+   {
+    "box": [
+     853,
+     1604,
+     917,
+     1626
+    ],
+    "text": "1963."
+   },
+   {
+    "box": [
+     881,
+     1640,
+     1459,
+     1665
+    ],
+    "text": "Da cio risulta chiaramente che la richiesta"
+   },
+   {
+    "box": [
+     852,
+     1677,
+     1459,
+     1706
+    ],
+    "text": "dell'invaso al di sopra della quota di sicu-"
+   },
+   {
+    "box": [
+     852,
+     1712,
+     1458,
+     1736
+    ],
+    "text": "rezza di 700 metri venne fatta dalla SADE"
+   },
+   {
+    "box": [
+     851,
+     1747,
+     1459,
+     1777
+    ],
+    "text": "nonostante che, sulla base degli esperimen-"
+   },
+   {
+    "box": [
+     853,
+     1783,
+     1459,
+     1813
+    ],
+    "text": "ti su modello, la relazione del professore"
+   },
+   {
+    "box": [
+     852,
+     1819,
+     1459,
+     1849
+    ],
+    "text": "Ghetti avesse affermato che la quota di si-"
+   },
+   {
+    "box": [
+     851,
+     1856,
+     1458,
+     1885
+    ],
+    "text": "curezza non dovesse superare i 700 metri."
+   },
+   {
+    "box": [
+     852,
+     1891,
+     1459,
+     1921
+    ],
+    "text": "Tanto piu grave la responsabilita della"
+   },
+   {
+    "box": [
+     852,
+     1927,
+     1459,
+     1956
+    ],
+    "text": "SADE per non aver dat0 comunicazlone uf-"
+   },
+   {
+    "box": [
+     851,
+     1962,
+     1459,
+     1992
+    ],
+    "text": "ficiale di tale relazione agli orgam di con-"
+   },
+   {
+    "box": [
+     854,
+     1997,
+     1459,
+     2023
+    ],
+    "text": "trollo e al Ministero. Cio non esclude la re-"
+   },
+   {
+    "box": [
+     853,
+     2034,
+     1459,
+     2063
+    ],
+    "text": "sponsabilita del Ministero per l'autorizza-"
+   },
+   {
+    "box": [
+     852,
+     2069,
+     1459,
+     2100
+    ],
+    "text": "zione, ln quanto agli esperimentl su modello"
+   }
+  ]
+ },
+ "pg226.png": {
+  "size": [
+   1654,
+   2339
+  ],
+  "lines": [
+   {
+    "box": [
+     201,
+     124,
+     422,
+     146
+    ],
+    "text": "ス 打 え 2 な r 1 れ 夜 4"
+   },
+   {
+    "box": [
+     809,
+     124,
+     838,
+     145
+    ],
+    "text": "22"
+   },
+   {
+    "box": [
+     1103,
+     119,
+     1448,
+     144
+    ],
+    "text": "S 0 〃 4 e ル え ca"
+   },
+   {
+    "box": [
+     432,
+     190,
+     1226,
+     209
+    ],
+    "text": "LEGISLATURA IV - DISEGNI LEGGE E RELAZIONI - DOCUMENTI"
+   },
+   {
+    "box": [
+     197,
+     268,
+     803,
+     303
+    ],
+    "text": "era statO presente Ⅱ presidente del Consiglio"
+   },
+   {
+    "box": [
+     197,
+     306,
+     803,
+     340
+    ],
+    "text": "superiore dei lavori pubblici ingegnere Pa-"
+   },
+   {
+    "box": [
+     197,
+     341,
+     803,
+     374
+    ],
+    "text": "doan, nonostante la sua affermaziOne di aver"
+   },
+   {
+    "box": [
+     197,
+     376,
+     802,
+     412
+    ],
+    "text": "presenziato a tali esperimenti S010 a titolo"
+   },
+   {
+    "box": [
+     197,
+     418,
+     492,
+     447
+    ],
+    "text": "di く く rappresentanza 》 ."
+   },
+   {
+    "box": [
+     226,
+     455,
+     803,
+     488
+    ],
+    "text": "Dal 10 aprile cominciava dunque il terzo"
+   },
+   {
+    "box": [
+     198,
+     490,
+     803,
+     525
+    ],
+    "text": "invaso 《 sperimentale , che , partendo da"
+   },
+   {
+    "box": [
+     198,
+     526,
+     803,
+     562
+    ],
+    "text": "quota 647 , 5 , portava il livello del lago alla"
+   },
+   {
+    "box": [
+     199,
+     564,
+     803,
+     596
+    ],
+    "text": "data del 14 agosto a quota 705 ー ト 706 metri."
+   },
+   {
+    "box": [
+     197,
+     598,
+     803,
+     633
+    ],
+    "text": "DaI 30 agosto al 26 settembre ⅱ livello del"
+   },
+   {
+    "box": [
+     197,
+     636,
+     724,
+     670
+    ],
+    "text": "lago veniva ulteriormente elevatO a"
+   },
+   {
+    "box": [
+     197,
+     671,
+     803,
+     703
+    ],
+    "text": "ね 710 metri. Con questa decisione la SADE"
+   },
+   {
+    "box": [
+     198,
+     706,
+     804,
+     737
+    ],
+    "text": "si assumeva il deliberato proposit() di su-"
+   },
+   {
+    "box": [
+     197,
+     743,
+     804,
+     777
+    ],
+    "text": "perare di 15 metri la quota di sicurezza"
+   },
+   {
+    "box": [
+     198,
+     778,
+     750,
+     811
+    ],
+    "text": "indicata nell 'esperimento SLI 1 0 dellO ; e"
+   },
+   {
+    "box": [
+     197,
+     815,
+     804,
+     846
+    ],
+    "text": "mentre da un latO sapeva che ogni ulteriore"
+   },
+   {
+    "box": [
+     197,
+     850,
+     804,
+     884
+    ],
+    "text": "invaso a quote superiori avrebbe accelerato"
+   },
+   {
+    "box": [
+     199,
+     885,
+     804,
+     916
+    ],
+    "text": "i movimenti franosi montagna , e dal-"
+   },
+   {
+    "box": [
+     199,
+     922,
+     804,
+     953
+    ],
+    "text": "l'altro non era affatto in gradO di prevedere"
+   },
+   {
+    "box": [
+     200,
+     959,
+     805,
+     989
+    ],
+    "text": "e di controllare tutte le p ossibili conse-"
+   },
+   {
+    "box": [
+     199,
+     1007,
+     297,
+     1029
+    ],
+    "text": "gu enze."
+   },
+   {
+    "box": [
+     227,
+     1036,
+     804,
+     1065
+    ],
+    "text": "Durante l'invaso del serbatoio del luglio"
+   },
+   {
+    "box": [
+     202,
+     1074,
+     805,
+     1104
+    ],
+    "text": "1963 , in relazione all'intermittente susseguir-"
+   },
+   {
+    "box": [
+     201,
+     1109,
+     805,
+     1140
+    ],
+    "text": "si di boati e tremiti, seguiti da intorbidamen-"
+   },
+   {
+    "box": [
+     198,
+     1145,
+     805,
+     1177
+    ],
+    "text": "t0 delle acque del lago, il Consiglio comu-"
+   },
+   {
+    "box": [
+     197,
+     1181,
+     757,
+     1212
+    ],
+    "text": "月 ale di Ert0 considera l'opportunit 諟 di"
+   },
+   {
+    "box": [
+     197,
+     1216,
+     805,
+     1249
+    ],
+    "text": "pristinare nelle immediate ViCinanze la-"
+   },
+   {
+    "box": [
+     198,
+     1254,
+     804,
+     1285
+    ],
+    "text": "go artificiale il divieto di transito. Nel set-"
+   },
+   {
+    "box": [
+     198,
+     1289,
+     805,
+     1320
+    ],
+    "text": "tembre del 1963 compare una fes sura pres-"
+   },
+   {
+    "box": [
+     198,
+     1324,
+     804,
+     1357
+    ],
+    "text": "so la punta del Toc, nella stessa zona del"
+   },
+   {
+    "box": [
+     200,
+     1360,
+     805,
+     1392
+    ],
+    "text": "1960 , seguita da inclinazione di alberi, da"
+   },
+   {
+    "box": [
+     197,
+     1395,
+     805,
+     1425
+    ],
+    "text": "nuove fessure nel terreno, avallamenti sulla"
+   },
+   {
+    "box": [
+     198,
+     1432,
+     804,
+     1462
+    ],
+    "text": "strada, dall'accentuarsi della lunga fra ttura"
+   },
+   {
+    "box": [
+     200,
+     1469,
+     805,
+     1500
+    ],
+    "text": "pertmetrale, nonche dall'aumento di velocita"
+   },
+   {
+    "box": [
+     197,
+     1504,
+     805,
+     1536
+    ],
+    "text": "di tutti i capisaldi: il 2 settembre 6 , 5 milli-"
+   },
+   {
+    "box": [
+     197,
+     1540,
+     804,
+     1570
+    ],
+    "text": "metri, il 15 settembre 12 millimetri, il 26"
+   },
+   {
+    "box": [
+     198,
+     1576,
+     805,
+     1604
+    ],
+    "text": "settembre 22 millimetri, ⅱ 2 e il 3 ottobre"
+   },
+   {
+    "box": [
+     196,
+     1613,
+     804,
+     1641
+    ],
+    "text": "40 millimetri, il 9 ottobre fu addirittura rag-"
+   },
+   {
+    "box": [
+     197,
+     1648,
+     804,
+     1679
+    ],
+    "text": "giunta una velocita di 200 millimetri al"
+   },
+   {
+    "box": [
+     196,
+     1693,
+     290,
+     1715
+    ],
+    "text": "g10n10."
+   },
+   {
+    "box": [
+     228,
+     1727,
+     804,
+     1755
+    ],
+    "text": "ll 2 settembre 1963 , il sindaco di Ertc-"
+   },
+   {
+    "box": [
+     197,
+     1763,
+     804,
+     1792
+    ],
+    "text": "Casso invia una lettera dettagliata agli uffici"
+   },
+   {
+    "box": [
+     197,
+     1802,
+     806,
+     1831
+    ],
+    "text": "dell'ENEL-SADE e per conoscenza al Mini-"
+   },
+   {
+    "box": [
+     198,
+     1841,
+     804,
+     1871
+    ],
+    "text": "stero dei lavori pubblici, al Geni0 civile, ed"
+   },
+   {
+    "box": [
+     196,
+     1879,
+     804,
+     1904
+    ],
+    "text": "alla Prefettura di Udine diffldando I'ENEL"
+   },
+   {
+    "box": [
+     196,
+     1919,
+     804,
+     1948
+    ],
+    "text": "SADE 《 a togliere dal Comune la causa del-"
+   },
+   {
+    "box": [
+     196,
+     1957,
+     804,
+     1987
+    ],
+    "text": "10 stato di penco!o pubblico a mettere la"
+   },
+   {
+    "box": [
+     196,
+     1996,
+     803,
+     2026
+    ],
+    "text": "popolazione di Ert0 in stat0 di tranquillta"
+   },
+   {
+    "box": [
+     196,
+     2035,
+     804,
+     2065
+    ],
+    "text": "e di sicurezza e S010 dOPO rimettere in at-"
+   },
+   {
+    "box": [
+     195,
+     2074,
+     429,
+     2099
+    ],
+    "text": "tivita il bacino 》 ."
+   },
+   {
+    "box": [
+     877,
+     268,
+     1453,
+     297
+    ],
+    "text": "ll Vice s indaco di Longarone, ⅱ 1 relazio-"
+   },
+   {
+    "box": [
+     845,
+     304,
+     1452,
+     333
+    ],
+    "text": "ne al vivo s tato di allarme della p opolanone,"
+   },
+   {
+    "box": [
+     845,
+     339,
+     1452,
+     369
+    ],
+    "text": "incarica il segretario comunale di interessare"
+   },
+   {
+    "box": [
+     845,
+     374,
+     1452,
+     405
+    ],
+    "text": "l'Uffcio del Genio civile di Belluno per i"
+   },
+   {
+    "box": [
+     844,
+     410,
+     1422,
+     439
+    ],
+    "text": "provvedimenti di tutela e di incolumita."
+   },
+   {
+    "box": [
+     874,
+     448,
+     1452,
+     472
+    ],
+    "text": "Questa comunicanone Viene trasmessa al-"
+   },
+   {
+    "box": [
+     845,
+     481,
+     1452,
+     506
+    ],
+    "text": "I'ENEL-SADE. ll 12 settembre la direzione"
+   },
+   {
+    "box": [
+     845,
+     517,
+     1453,
+     548
+    ],
+    "text": "dell'ENEL di Venezia risponde a I Comune"
+   },
+   {
+    "box": [
+     845,
+     553,
+     1452,
+     584
+    ],
+    "text": "di Erto-Casso, inviando copia della rlsposta"
+   },
+   {
+    "box": [
+     847,
+     589,
+     1453,
+     620
+    ],
+    "text": "al Ministero dei lavori pubblici con affer-"
+   },
+   {
+    "box": [
+     845,
+     626,
+     1453,
+     650
+    ],
+    "text": "mazioni minimizzanti e a ssolutamente de-"
+   },
+   {
+    "box": [
+     845,
+     660,
+     946,
+     684
+    ],
+    "text": "ludenti."
+   },
+   {
+    "box": [
+     878,
+     701,
+     1453,
+     732
+    ],
+    "text": "II prefetto di Belluno ha dichiarato, da-"
+   },
+   {
+    "box": [
+     847,
+     738,
+     1454,
+     768
+    ],
+    "text": "vanti alla Commissione d'inchiesta, di non"
+   },
+   {
+    "box": [
+     845,
+     774,
+     1453,
+     800
+    ],
+    "text": "essere statO informato della situazione di"
+   },
+   {
+    "box": [
+     845,
+     809,
+     1452,
+     840
+    ],
+    "text": "pericolo che da tempo sovrastava sul Va-"
+   },
+   {
+    "box": [
+     845,
+     845,
+     1454,
+     878
+    ],
+    "text": "jont. ln realta egli Ⅱ 0 Ⅱ poteva Ⅱ 0 Ⅱ aver ap-"
+   },
+   {
+    "box": [
+     847,
+     882,
+     1454,
+     914
+    ],
+    "text": "preso, lungo tuttO il corso della vicenda, sia"
+   },
+   {
+    "box": [
+     847,
+     917,
+     1452,
+     948
+    ],
+    "text": "dei precedenti della diga che delle vive"
+   },
+   {
+    "box": [
+     845,
+     954,
+     1456,
+     984
+    ],
+    "text": "preoccupazioni della popolazione : {la costi-"
+   },
+   {
+    "box": [
+     846,
+     990,
+     1455,
+     1016
+    ],
+    "text": "tuzione del Consorzio Ertano e la lettera in-"
+   },
+   {
+    "box": [
+     845,
+     1027,
+     1455,
+     1057
+    ],
+    "text": "viata a lui e agli stessi prefetti di Udine e"
+   },
+   {
+    "box": [
+     846,
+     1063,
+     1454,
+     1089
+    ],
+    "text": "Gorizia dal direttivo del Consorzio medesi-"
+   },
+   {
+    "box": [
+     845,
+     1099,
+     1454,
+     1131
+    ],
+    "text": "1 第 0 , nella quale erano menzionati i pericoli"
+   },
+   {
+    "box": [
+     846,
+     1136,
+     1452,
+     1167
+    ],
+    "text": "cui era esposta la popolazione; il processo"
+   },
+   {
+    "box": [
+     845,
+     1171,
+     1453,
+     1202
+    ],
+    "text": "penale a carico delJa giornalista delI'Unita"
+   },
+   {
+    "box": [
+     847,
+     1207,
+     1456,
+     1237
+    ],
+    "text": "che ebbe pure risonanza ; la frana del れ 0-"
+   },
+   {
+    "box": [
+     847,
+     1243,
+     1453,
+     1274
+    ],
+    "text": "vemb ℃ 1960 e le sue conseguenze; il dibat-"
+   },
+   {
+    "box": [
+     847,
+     1281,
+     1454,
+     1311
+    ],
+    "text": "titO avvenuto nel Consiglio provinciale di"
+   },
+   {
+    "box": [
+     848,
+     1316,
+     1454,
+     1344
+    ],
+    "text": "Belluno e i relativi atti, noncho la lettera"
+   },
+   {
+    "box": [
+     847,
+     1351,
+     1454,
+     1382
+    ],
+    "text": "del ministro zaccagnini che non aveva tran-"
+   },
+   {
+    "box": [
+     846,
+     1387,
+     1415,
+     1417
+    ],
+    "text": "quillizzato nessuno, 1 a , anzi, aumentatO"
+   },
+   {
+    "box": [
+     846,
+     1425,
+     1454,
+     1454
+    ],
+    "text": "preoccupazioni; le interrogazioni alla Ca-"
+   },
+   {
+    "box": [
+     846,
+     1460,
+     1454,
+     1490
+    ],
+    "text": "mera, 厄 delegazioni e le proteste dei citta-"
+   },
+   {
+    "box": [
+     847,
+     1496,
+     905,
+     1520
+    ],
+    "text": "dini."
+   },
+   {
+    "box": [
+     876,
+     1532,
+     1453,
+     1563
+    ],
+    "text": "Ⅱ prefetto di Udine per la sua inerzia,"
+   },
+   {
+    "box": [
+     847,
+     1569,
+     1454,
+     1594
+    ],
+    "text": "mancanza di iniziativa e difetto di interessa-"
+   },
+   {
+    "box": [
+     848,
+     1604,
+     1454,
+     1635
+    ],
+    "text": "mentO, ha mancato suo compito sia verso"
+   },
+   {
+    "box": [
+     846,
+     1640,
+     1454,
+     1671
+    ],
+    "text": "gli organi dipendenti della sua provincia sia"
+   },
+   {
+    "box": [
+     846,
+     1678,
+     1454,
+     1708
+    ],
+    "text": "nei rapporLi con i rispettivi orgam e umci"
+   },
+   {
+    "box": [
+     848,
+     1713,
+     1453,
+     1744
+    ],
+    "text": "della provinci a di B elluno. lnfatti , pur aven-"
+   },
+   {
+    "box": [
+     847,
+     1749,
+     1453,
+     1775
+    ],
+    "text": "do ricevuto l'allarme dal sindaco di Erto"
+   },
+   {
+    "box": [
+     847,
+     1785,
+     1454,
+     1814
+    ],
+    "text": "con lettera del 2 settembre, non comunica"
+   },
+   {
+    "box": [
+     847,
+     1821,
+     1454,
+     1852
+    ],
+    "text": "ね 厄 documento al prefetto di Belluno; ⅲ 0 ト"
+   },
+   {
+    "box": [
+     848,
+     1857,
+     1454,
+     1887
+    ],
+    "text": "tre, dOPO aver ricevuto comunicazione del"
+   },
+   {
+    "box": [
+     847,
+     1893,
+     1454,
+     1923
+    ],
+    "text": "telegramma inviato dall'Amministratore"
+   },
+   {
+    "box": [
+     845,
+     1929,
+     1454,
+     1958
+    ],
+    "text": "provvisorio dell'E NEL-SADE al sindaco di"
+   },
+   {
+    "box": [
+     847,
+     1965,
+     1453,
+     1996
+    ],
+    "text": "Erto richiedente 10 sgombero, seppur limi-"
+   },
+   {
+    "box": [
+     847,
+     2002,
+     1453,
+     2032
+    ],
+    "text": "tato, della popolazione, non si preoccupo"
+   },
+   {
+    "box": [
+     847,
+     2037,
+     1456,
+     2068
+    ],
+    "text": "di accertare, attraverso gli organi della sua"
+   },
+   {
+    "box": [
+     847,
+     2075,
+     1456,
+     2102
+    ],
+    "text": "amministrazione, 10 statO reale della situae"
+   }
+  ]
+ },
+ "piave_valley_1963.jpg": {
+  "size": [
+   895,
+   660
+  ],
+  "lines": []
+ },
+ "pirago_tower2_1963.jpg": {
+  "size": [
+   600,
+   352
+  ],
+  "lines": []
+ },
+ "pirago_tower_1963.jpg": {
+  "size": [
+   540,
+   543
+  ],
+  "lines": []
+ },
+ "postcard_280_1961.jpg": {
+  "size": [
+   546,
+   800
+  ],
+  "lines": [
+   {
+    "box": [
+     498,
+     289,
+     541,
+     419
+    ],
+    "text": "ン ア ー"
+   },
+   {
+    "box": [
+     284,
+     752,
+     396,
+     768
+    ],
+    "text": "( . 28 の"
+   }
+  ]
+ },
+ "rail_bridge_1963.jpg": {
+  "size": [
+   896,
+   660
+  ],
+  "lines": []
+ },
+ "rubble_tower_1963.jpg": {
+  "size": [
+   908,
+   660
+  ],
+  "lines": [
+   {
+    "box": [
+     529,
+     329,
+     817,
+     355
+    ],
+    "text": "や ご を 辷 ミ 気 き 義 こ"
+   }
+  ]
+ },
+ "ruined_house_1963.jpg": {
+  "size": [
+   588,
+   440
+  ],
+  "lines": []
+ },
+ "sign_2023.jpg": {
+  "size": [
+   3000,
+   2000
+  ],
+  "lines": [
+   {
+    "box": [
+     1246,
+     702,
+     1737,
+     817
+    ],
+    "text": "VIALE"
+   },
+   {
+    "box": [
+     875,
+     903,
+     2112,
+     1018
+    ],
+    "text": "SOCCORRITORI"
+   },
+   {
+    "box": [
+     991,
+     1103,
+     1991,
+     1229
+    ],
+    "text": "DEL VAJONT"
+   }
+  ]
+ },
+ "slide_19601104.jpg": {
+  "size": [
+   1252,
+   938
+  ],
+  "lines": []
+ },
+ "slide_1960_small.jpg": {
+  "size": [
+   360,
+   237
+  ],
+  "lines": []
+ },
+ "slide_surface_now.jpg": {
+  "size": [
+   1600,
+   1200
+  ],
+  "lines": []
+ },
+ "temp_bridge_1963.jpg": {
+  "size": [
+   579,
+   440
+  ],
+  "lines": []
+ },
+ "tent_camp_1963.jpg": {
+  "size": [
+   873,
+   660
+  ],
+  "lines": []
+ },
+ "tents_above_1963.jpg": {
+  "size": [
+   898,
+   660
+  ],
+  "lines": []
+ },
+ "toc_now.jpg": {
+  "size": [
+   2048,
+   1367
+  ],
+  "lines": [
+   {
+    "box": [
+     271,
+     1103,
+     289,
+     1113
+    ],
+    "text": "ィ ・"
+   },
+   {
+    "box": [
+     76,
+     996,
+     147,
+     1027
+    ],
+    "text": "、 第 を 「"
+   },
+   {
+    "box": [
+     1491,
+     1002,
+     1598,
+     1043
+    ],
+    "text": "心 う い"
+   },
+   {
+    "box": [
+     323,
+     1089,
+     539,
+     1121
+    ],
+    "text": "の き プ ゞ : の"
+   }
+  ]
+ },
+ "trial_1968.jpg": {
+  "size": [
+   593,
+   443
+  ],
+  "lines": []
+ },
+ "valley_above_1963.jpg": {
+  "size": [
+   633,
+   500
+  ],
+  "lines": []
+ }
+}

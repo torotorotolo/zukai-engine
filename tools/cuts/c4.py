@@ -31,8 +31,9 @@ PLAN = {
     "c405": dict(kind='図解',
                plan='【断面の図解】断面の図解（模式図）：ダムの断面（寸法）・斜面の目印・2人の見立てと反対の見方・地下を調べる揺れと試しの穴・水理模型・しみこんだ水。VB と同じ地形の線を使う（向きがそろう）（映像方針 §6）｜台本の画：図 断面【横から】（地下を調べる揺れの線と、試しの穴）',
                src='S1 PDF74・PDF76・PDF148・PDF174・S9 PDF6'),
-    "c406": dict(kind='写真',
-               plan='台本の画：実写 Googleアース③ 残った湖と崩れた山の表面（現在）',
+    "c406": dict(kind='再現イラスト',
+               plan='【案C VA 上から見た谷】🆕 ⑤b-7（2026-10-02 カズヤくん）：Google Earth → 地図（VA）に替えた＝1960年11月の崩落の'
+                    '場所（SPEC は ⑤b-8）｜台本の画：実写 Googleアース③ 残った湖と崩れた山の表面（現在）',
                src='S1 PDF72・PDF75・PDF174'),
     "c407": dict(kind='図解',
                plan='台本の画：図 年表（c401 の図・1961年2月3日に印）',
@@ -88,6 +89,39 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-7（2026-10-02）：写真と頁の束（`qa_out/ep16_assets.py`）──
+    # 少数派の報告（p217 左の段）＝ミュラーの報告の一文「Alla domanda se questi franamenti possono venire arrestati mediante
+    #   misure artificiali, deve essere risposto negativamente…」をそのまま引く段
+    "c412": dict(
+        t="少数派の報告の引用",
+        s="ミュラーの報告の一文を引く段",
+        photo=ss.page(217), trim=ss.ptrim("c412"), panel=True, color=1.0,
+    ),
+    # #083（1960年11月）＝ダムの上から見た湖と崩れた跡（全体）
+    "c415": dict(
+        t="崩落のあとの湖",
+        s="1960年11月　ダムの上から見た湖と崩れた跡",
+        photo=P("slide_19601104"), **ss.kind(P("slide_19601104")),
+    ),
+    # 多数派の本文（p179 左の段）＝「…Mueller e delle prove su modello idraulico, si è visto che essi erano conosciuti alla
+    #   Pubblica Amministrazione, benchè non consti che le relazioni siano state ufficialmente trasmesse…」（c417 の★も同じ段）
+    "c416": dict(
+        t="多数派の本文",
+        s="報告と模型の実験の扱いを書く段",
+        photo=ss.page(179), trim=ss.ptrim("c416"), panel=True, color=1.0,
+    ),
+    # #079（1960年の絵はがき）＝湖とエルトの村（北の岸の村の側＝記者の話）
+    "c420": dict(
+        t="北の岸の村",
+        s="1960年の絵はがき　湖とエルトの村",
+        photo=P("erto_1960"), **ss.kind(P("erto_1960")),
+    ),
+    # #089（1960年）＝天端の道と湖
+    "c423": dict(
+        t="反対の岸",
+        s="1960年　ダムの天端から見た湖",
+        photo=P("crest_lake_1960"), **ss.kind(P("crest_lake_1960")),
+    ),
     # ── 🆕 ⑤b-6a（2026-10-01）：年表・量・箱（14・15本目の型）──
     # c401（12.06秒）・c402（10.97秒）・c407（7.51秒）＝崩落の前の専門家の報告（揺れの調べ S1 p36〈1960年2月4日〉・2人の地質学者 p73
     #   〈1960年6月〉・ミュラー p76〈1961年2月3日〉）。c401：1行目＝崩落の点（「崩落の前に戻す」）／2行目＝3つの報告（カーソルが前へ戻る）／

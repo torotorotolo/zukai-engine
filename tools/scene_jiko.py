@@ -726,6 +726,25 @@ def ep15_credit(name):
 
 
 # ══════════════════════════════════════════════════════════
+#  16本目（バイオントダム災害）── `ref/ep16/`（2026-10-02 ⑤b-7）
+# ══════════════════════════════════════════════════════════
+#   ep16/<欄の名>.jpg … 写真45点（Commons。🔴 CC BY-SA の2点は**額装・無改変**＝`ss.check_frame_only`）＋地形図 #100
+#   ep16/pg<頁>.png   … 議会の調査委員会の最終報告（S1・1965年）の頁（出典の行＝`illu.rec_line`）
+# 🔴 表はファイルから読む。`python qa_out/ep16_assets.py credits --write` が**写真も頁も**書く（15本目と同じ）。
+#    ⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）
+_EP16_CREDITS = HERE / "ref" / "ep16" / "credits.json"
+EP16_CREDIT = (json.loads(_EP16_CREDITS.read_text(encoding="utf-8"))
+               if _EP16_CREDITS.exists() else {})
+
+
+def ep16_credit(name):
+    """`ref/ep16/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if not name.startswith("ep16/"):
+        return None
+    return EP16_CREDIT.get(name)
+
+
+# ══════════════════════════════════════════════════════════
 #  11本目（チャレンジャー号）── `ref/ep11/`
 # ══════════════════════════════════════════════════════════
 # 名前の付け方（`tools/cuts/ss.py`）:
@@ -931,7 +950,8 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep15_credit(spec["photo"]) or ep14_credit(spec["photo"]) or ep13_credit(spec["photo"])
+    cr = (ep16_credit(spec["photo"]) or ep15_credit(spec["photo"]) or ep14_credit(spec["photo"])
+          or ep13_credit(spec["photo"])
           or ep12_credit(spec["photo"])
           or ep11_credit(spec["photo"])
           or ep10_credit(spec["photo"])

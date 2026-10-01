@@ -79,6 +79,100 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-7（2026-10-02）：写真の束（`qa_out/ep16_assets.py`）。事故の直後（1963年10月）の記録＝イタリア消防・米陸軍・撮影者不明 ──
+    #   救援の兵士・消防は公的な任務＝顔は使ってよい（§B2-2）。がれきの原の人は背丈 10〜20px（原寸で見た＝遺体は写っていない）
+    # #019（左1960年・右1963年＝米陸軍・合成 1744×629）。🔴 AR 2.773 は WIDE_AR（2.87）の内＝ss.kind だと全画面で左右 36% 切れる
+    #   ＝比べが壊れる → panel=True を明記（ss.py の PANEL_AR の注）
+    "c901": dict(
+        t="夜が明けた谷",
+        s="左は事故の前、右は事故のあと（同じ場所・同じ向き）",
+        photo=P("longarone_before_after"), panel=True,
+    ),
+    # #028（イタリア消防）＝がれきの原・ピラーゴの鐘楼・奥に峡谷の出口・作業する兵士
+    "c902": dict(
+        t="消えた町",
+        s="1963年10月　がれきの原とピラーゴの鐘楼・奥に峡谷の出口",
+        photo=P("rubble_tower_1963"), **ss.kind(P("rubble_tower_1963")),
+    ),
+    # #018（米陸軍）＝上から見たロンガローネ一帯（削られた地面と残った家並み）
+    "c903": dict(
+        t="上から見た町の跡",
+        s="1963年10月　削られた地面と残った家並み",
+        photo=P("longarone_above_1963"), **ss.kind(P("longarone_above_1963")),
+    ),
+    # #001（撮影者不明）＝ピラーゴの鐘楼とがれき（人なし）
+    "c904": dict(
+        t="残った鐘の塔",
+        s="1963年10月　ピラーゴの鐘楼とがれき",
+        photo=P("pirago_tower_1963"), **ss.kind(P("pirago_tower_1963")),
+    ),
+    # #004（イタリア消防）＝上から：鉄道の石のアーチ橋と道路・奥に削られた平地
+    "c905": dict(
+        t="鉄道の橋と道",
+        s="1963年10月　上から見た鉄道の石のアーチ橋と道路",
+        photo=P("rail_bridge_1963"), **ss.kind(P("rail_bridge_1963")),
+    ),
+    # #006（イタリア消防）＝ピアーヴェ川の谷の広い眺め・遠くに町（左端にスキャンの黒い影）
+    "c909": dict(
+        t="ピアーヴェ川の谷",
+        s="1963年10月　谷の広い眺めと遠くの町",
+        photo=P("piave_valley_1963"), **ss.kind(P("piave_valley_1963")),
+    ),
+    # 少数派の報告（p207 左の段）＝「…che duemila cittadini italiani, fra i quali cinquecento bambini, abbiano potuto morire in pochi
+    #   minuti…」（ca08 と同じ頁・切り口は別＝目印「cinquecento bambini」を真ん中に）
+    "c910": dict(
+        t="少数派の報告",
+        s="2,000人と子ども500人を書く段",
+        photo=ss.page(207), trim=ss.ptrim("c910"), panel=True, color=1.0,
+    ),
+    # #013（イタリア消防）＝仮の橋を架ける兵士たち
+    "c911": dict(
+        t="救援",
+        s="1963年10月　仮の橋を架ける兵士たち",
+        photo=P("temp_bridge_1963"), **ss.kind(P("temp_bridge_1963")),
+    ),
+    # #025（イタリア消防）＝軍のトラックの列と整列した兵士
+    "c912": dict(
+        t="軍の車列",
+        s="1963年10月　並んだ軍のトラックと兵士",
+        photo=P("army_trucks_1963"), **ss.kind(P("army_trucks_1963")),
+    ),
+    # #024（消防）＝テントの村とトラック
+    "c913": dict(
+        t="救援の宿営地",
+        s="1963年10月　並んだテントとトラック",
+        photo=P("tent_camp_1963"), **ss.kind(P("tent_camp_1963")),
+    ),
+    # #003（イタリア消防）＝上から：削られた地面・軍のテント・道路
+    "c914": dict(
+        t="空から見た宿営地",
+        s="1963年10月　削られた地面と軍のテント",
+        photo=P("tents_above_1963"), **ss.kind(P("tents_above_1963")),
+    ),
+    # #027（イタリア消防）＝兵士の運転するブルドーザーと流木（後ろ姿）
+    "c915": dict(
+        t="がれきの片づけ",
+        s="1963年10月　ブルドーザーと流木（運転する兵士）",
+        photo=P("bulldozer_1963"), **ss.kind(P("bulldozer_1963")),
+    ),
+    # #032（米陸軍）＝上から：削られたピアーヴェの谷と残った家並み（語り＝この章の写真の多くは消防と米陸軍）
+    "c916": dict(
+        t="上から見た谷",
+        s="1963年10月　削られたピアーヴェ川の谷（米陸軍の撮影）",
+        photo=P("valley_above_1963"), **ss.kind(P("valley_above_1963")),
+    ),
+    # #009（イタリア消防）＝壊れた建物とがれき・遠くに小さな人影
+    "c917": dict(
+        t="壊れた家",
+        s="1963年10月　壊れた建物とがれき",
+        photo=P("ruined_house_1963"), **ss.kind(P("ruined_house_1963")),
+    ),
+    # #020（撮影者不明）＝ピラーゴの鐘楼（別の向き）・根こそぎの木
+    "c920": dict(
+        t="ピラーゴの鐘楼",
+        s="1963年10月　別の向きから見た鐘楼と根こそぎの木",
+        photo=P("pirago_tower2_1963"), **ss.kind(P("pirago_tower2_1963")),
+    ),
     # ── 🆕 ⑤b-6b（2026-10-01）：数の比べ（`qty` の bar）と年表（`axis` の date）＝14本目の型・門番 check_qty・check_axis ──
     # c907（9.89秒）＝内務省の調べの内わけ（議会の報告書 S1 p98「delle quali 1.450 a Longarone, 109 a Castellavazzo, 158 a Erto e
     #   Casso e 200 persone originarie di altri comuni」）。1行目でロンガローネとカステッラヴァッツォ／2行目でエルトとカッソ・ほかの町の出身／

@@ -1996,3 +1996,74 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `pg3014` | c317 | 2012 | PD（米連邦の職務著作・図の下地は Google Earth＝頁ごとの引用） | NTSB | ntsb_docket_14_data_recorders_factual.pdf PDF 14頁 |
 | `pg4021` | c319 | 2012 | PD（米連邦の職務著作） | NTSB | ntsb_docket_53_aircraft_performance_study.pdf PDF 21頁 |
 | `pg6001` | c902 | 2012 | PD（米連邦の職務著作） | NTSB | ntsb_recletter_A-12-008.pdf PDF 1頁 |
+
+## バイオントダム災害（1963-10-09・16本目）
+
+※2026-10-02（⑤b-7）。`qa_out/ep16_assets.py credits --write` が書く（手で直さない）。
+
+### 1. 写真（Wikimedia Commons ＝ PD・CC BY・CC BY-SA は**額装・無改変・1点1カット**）・地形図・議会の報告書の頁
+BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許諾の URL は概要欄で）。
+
+- 🔴 **PD の根拠は点ごとに違う**（記憶 feedback-pd-label-hides-two-different-grounds）＝米連邦 §105（米陸軍）／撮影者本人の宣言／伊の単純写真（撮影から20年＝1963年の写真は1983年に保護が切れた。米国でも PD-1996 の点がある）／1934年の地形図（PD-old）。権利の欄に1点ずつ書いた（「PD」と1行にまとめない）
+- 🔴 **米陸軍の写真（1963年の4点・2023年の標識）＝⑥の概要欄に「米陸軍の写真の使用は推奨を意味しない」の断り書き**（ルール §5b-98⑧）
+- 🔴 人が写る写真（§B2-2）：1968年の法廷（`trial_1968`）の座っている人の横顔8人は**顔だけモザイク**（2026-09-30 カズヤくん「顔面のみのモザイク加工」＝PD は手直しを許す＝元画像を直す・`cuts/ss.py` の `NEEDS_MASK`・`ref/ep16/masked.json`）。奥の判事席・憲兵（法廷の公務）・救援の兵士と消防（公的な任務）はそのまま。ほかの点の人（がれきの原の兵士・水辺の2人・天端の人影）は原寸で背丈 10〜25px＝顔は見分けられない
+- 撮影年が割れる・分からない点（天端と満水の湖＝#084／#088 と同じ写真・操作の建物・カラーの絵はがき・建設前の絵はがき・水理模型）は撮影年を「不明」にし、**副題に年を書かない**（門番 credits）
+- 取ったが当てない点：#029（道のトンネル＝事故のあとの記録）・#074（作業員の顔＝BY-SA）・#075（橋だけ）
+- 動く映像は使わない（【映像あり】なし）。Google Earth は使わない（2026-10-02 カズヤくん＝7カットは地図〈VA〉に替えた）
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `dam_us_1963` | c103 c820 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | U.S. Army | Wikimedia Commons「Diga Vajont 1963.jpg」　https://commons.wikimedia.org/wiki/File:Diga_Vajont_1963.jpg |
+| `toc_now` | c105 cb05 | 2016 | CC BY 3.0 | Davide Cavalli | Wikimedia Commons「Monte Toc (190845863).jpeg」　https://commons.wikimedia.org/wiki/File:Monte_Toc_(190845863).jpeg |
+| `dam_houses_now` | c107 cb02 | 2005 | PD（撮影者本人の宣言） | Emanuele Paolini | Wikimedia Commons「La diga del Vajont vista da Longarone 18-8-2005.jpg」　https://commons.wikimedia.org/wiki/File:La_diga_del_Vajont_vista_da_Longarone_18-8-2005.jpg |
+| `dam_gorge_now` | c111 ca27 cb03 | 2003 | CC BY 3.0 | Stefano Petri | Wikimedia Commons「Diga del Vajont da Longarone - panoramio.jpg」　https://commons.wikimedia.org/wiki/File:Diga_del_Vajont_da_Longarone_-_panoramio.jpg |
+| `longarone_before` | c117 | 不明 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | 撮影者不明 | Wikimedia Commons「Vista della gola del Vajont prima della costruzione della diga.jpg」　https://commons.wikimedia.org/wiki/File:Vista_della_gola_del_Vajont_prima_della_costruzione_della_diga.jpg |
+| `gorge_1956` | c201 | 1956 | PD（伊の単純写真＝撮影から20年） | 撮影者不明 | Wikimedia Commons「Vajont 1956.jpg」　https://commons.wikimedia.org/wiki/File:Vajont_1956.jpg |
+| `igm_1934` | c202 | 1934 | PD（1934年の地形図＝PD-old） | イタリア軍地理院 IGM | Wikimedia Commons「Mappa Vajont IGM 1934.jpg」　https://commons.wikimedia.org/wiki/File:Mappa_Vajont_IGM_1934.jpg |
+| `gorge_1955` | c203 | 1955 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | M. Reberschak 編『Il grande Vajont』 | Wikimedia Commons「Valle del Vajont 1955.jpg」　https://commons.wikimedia.org/wiki/File:Valle_del_Vajont_1955.jpg |
+| `bridge_works_1956` | c206 | 1956 | CC BY-SA 4.0 | Enel・Archivio Enel | Wikimedia Commons「1956. Ponte SACAIM. Avanzamento lavori.jpg」　https://commons.wikimedia.org/wiki/File:1956._Ponte_SACAIM._Avanzamento_lavori.jpg |
+| `dam_works_1960` | c208 | 1960 | CC BY-SA 4.0 | Torno S.p.A.・Archivio Torno | Wikimedia Commons「Diga del Vajont vista da valle (1960).jpg」　https://commons.wikimedia.org/wiki/File:Diga_del_Vajont_vista_da_valle_(1960).jpg |
+| `crest_cabin` | c212 c519 c622 c704 c709 | 不明 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | 撮影者不明 | Wikimedia Commons「Diga con cabina comandi.jpg」　https://commons.wikimedia.org/wiki/File:Diga_con_cabina_comandi.jpg |
+| `crest_lake_1960` | c213 c317 c423 c610 c623 | 1960 | PD（伊の単純写真＝撮影から20年） | 撮影者不明 | Wikimedia Commons「Vajont Diga 1960.jpg」　https://commons.wikimedia.org/wiki/File:Vajont_Diga_1960.jpg |
+| `postcard_280_1961` | c214 | 1961 | PD（伊の単純写真＝撮影から20年） | 撮影者不明 | Wikimedia Commons「Cartolina Diga del Vajont.jpg」　https://commons.wikimedia.org/wiki/File:Cartolina_Diga_del_Vajont.jpg |
+| `erto_1960` | c215 c420 c702 | 1960 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | 撮影者不明 | Wikimedia Commons「Diga del Vajont 1960.jpg」　https://commons.wikimedia.org/wiki/File:Diga_del_Vajont_1960.jpg |
+| `color_postcard` | c216 c521 c605 c714 | 不明 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | 撮影者不明 | Wikimedia Commons「Diga Vajont colori (bromocolor).jpg」　https://commons.wikimedia.org/wiki/File:Diga_Vajont_colori_(bromocolor).jpg |
+| `crest_full_lake` | c219 c520 c615 | 不明 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | 撮影者不明 | Wikimedia Commons「Invaso Vajont estate 1963.jpg」　https://commons.wikimedia.org/wiki/File:Invaso_Vajont_estate_1963.jpg |
+| `aerial_1960` | c220 | 1960 | PD（伊の単純写真＝撮影から20年） | 撮影者不明 | Wikimedia Commons「Valle del Vajont 1960.jpg」　https://commons.wikimedia.org/wiki/File:Valle_del_Vajont_1960.jpg |
+| `crack_1960` | c307 | 1960 | PD（伊の単純写真＝撮影から20年） | 撮影者不明 | Wikimedia Commons「Frana Monte Toc 1960 1.jpg」　https://commons.wikimedia.org/wiki/File:Frana_Monte_Toc_1960_1.jpg |
+| `slide_19601104` | c309 c323 c415 c501 | 1960 | PD（伊の単純写真＝撮影から20年） | 撮影者不明 | Wikimedia Commons「Frana 4-11-1960.jpg」　https://commons.wikimedia.org/wiki/File:Frana_4-11-1960.jpg |
+| `slide_1960_small` | c321 | 1960 | PD（伊の単純写真＝撮影から20年） | 撮影者不明 | Wikimedia Commons「Frana Monte Toc 1960 2.jpg」　https://commons.wikimedia.org/wiki/File:Frana_Monte_Toc_1960_2.jpg |
+| `model_nove` | c503 c505 c506 | 不明 | PD（伊の単純写真＝撮影から20年） | 撮影者不明 | Wikimedia Commons「Simulazione frana Vajont.jpg」　https://commons.wikimedia.org/wiki/File:Simulazione_frana_Vajont.jpg |
+| `trial_1968` | c719 ca01 ca12 | 1968 | PD（伊の単純写真＝撮影から20年） | 撮影者不明 | Wikimedia Commons「Primo processo sul Vajont (1968).jpg」　https://commons.wikimedia.org/wiki/File:Primo_processo_sul_Vajont_(1968).jpg |
+| `dam_slide_1963` | c804 cb18 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | U.S. Army | Wikimedia Commons「Vajont Dam landslide.jpg」　https://commons.wikimedia.org/wiki/File:Vajont_Dam_landslide.jpg |
+| `aerial_slide_1963` | c818 | 1963 | PD（伊の単純写真＝撮影から20年） | 撮影者不明 | Wikimedia Commons「Disastro Vajont.jpg」　https://commons.wikimedia.org/wiki/File:Disastro_Vajont.jpg |
+| `dam_from_debris_1963` | c821 | 1963 | PD（伊の単純写真＝撮影から20年） | 撮影者不明 | Wikimedia Commons「Vajont Dam 1963.jpg」　https://commons.wikimedia.org/wiki/File:Vajont_Dam_1963.jpg |
+| `gorge_exit_1963` | c822 | 1963 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | イタリア消防 | Wikimedia Commons「Vajont1963 8.jpg」　https://commons.wikimedia.org/wiki/File:Vajont1963_8.jpg |
+| `longarone_before_after` | c901 | 1963 | PD（米連邦 §105＋伊の単純写真＝撮影から20年） | 撮影者不明・U.S. Army | Wikimedia Commons「Longarone disastro.jpg」　https://commons.wikimedia.org/wiki/File:Longarone_disastro.jpg |
+| `rubble_tower_1963` | c902 | 1963 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | イタリア消防 | Wikimedia Commons「Vajont1963 5.jpg」　https://commons.wikimedia.org/wiki/File:Vajont1963_5.jpg |
+| `longarone_above_1963` | c903 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | U.S. Army | Wikimedia Commons「Longarone 1963.jpg」　https://commons.wikimedia.org/wiki/File:Longarone_1963.jpg |
+| `pirago_tower_1963` | c904 | 1963 | PD（伊の単純写真＝撮影から20年） | 撮影者不明 | Wikimedia Commons「Campanile Pirago.jpg」　https://commons.wikimedia.org/wiki/File:Campanile_Pirago.jpg |
+| `rail_bridge_1963` | c905 | 1963 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | イタリア消防 | Wikimedia Commons「Disastro del Vajont, 9 ottobre 1963 (2).jpg」　https://commons.wikimedia.org/wiki/File:Disastro_del_Vajont,_9_ottobre_1963_(2).jpg |
+| `piave_valley_1963` | c909 | 1963 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | イタリア消防 | Wikimedia Commons「Disastro del Vajont, 9 ottobre 1963.jpg」　https://commons.wikimedia.org/wiki/File:Disastro_del_Vajont,_9_ottobre_1963.jpg |
+| `temp_bridge_1963` | c911 | 1963 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | イタリア消防 | Wikimedia Commons「DisastroVajont5.jpg」　https://commons.wikimedia.org/wiki/File:DisastroVajont5.jpg |
+| `army_trucks_1963` | c912 | 1963 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | イタリア消防 | Wikimedia Commons「Vajont1963 2.jpg」　https://commons.wikimedia.org/wiki/File:Vajont1963_2.jpg |
+| `tent_camp_1963` | c913 | 1963 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | イタリア消防 | Wikimedia Commons「Vajont1963 1.jpg」　https://commons.wikimedia.org/wiki/File:Vajont1963_1.jpg |
+| `tents_above_1963` | c914 | 1963 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | イタリア消防 | Wikimedia Commons「Disastro del Vajont, 9 ottobre 1963 (1).jpg」　https://commons.wikimedia.org/wiki/File:Disastro_del_Vajont,_9_ottobre_1963_(1).jpg |
+| `bulldozer_1963` | c915 | 1963 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | イタリア消防 | Wikimedia Commons「Vajont1963 4.jpg」　https://commons.wikimedia.org/wiki/File:Vajont1963_4.jpg |
+| `valley_above_1963` | c916 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | U.S. Army | Wikimedia Commons「Vajont1963usarmy.jpg」　https://commons.wikimedia.org/wiki/File:Vajont1963usarmy.jpg |
+| `ruined_house_1963` | c917 | 1963 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | イタリア消防 | Wikimedia Commons「DisastroVajont10.jpg」　https://commons.wikimedia.org/wiki/File:DisastroVajont10.jpg |
+| `pirago_tower2_1963` | c920 | 1963 | PD（伊の単純写真＝撮影から20年） | 撮影者不明 | Wikimedia Commons「Longarone Pirago.jpg」　https://commons.wikimedia.org/wiki/File:Longarone_Pirago.jpg |
+| `dam_now_downstream` | ca03 cb04 | 2008 | PD（撮影者本人の宣言） | Riccardo Sartor | Wikimedia Commons「Diga Vajont.jpg」　https://commons.wikimedia.org/wiki/File:Diga_Vajont.jpg |
+| `dam_now_below` | ca07 cb17 | 2003 | CC BY 3.0 | Stefano Petri | Wikimedia Commons「Diga del Vajont - panoramio.jpg」　https://commons.wikimedia.org/wiki/File:Diga_del_Vajont_-_panoramio.jpg |
+| `lake_now` | ca23 cb07 | 2015 | CC BY 4.0 | Gianmarco139 | Wikimedia Commons「Vale dal Vajont.jpg」　https://commons.wikimedia.org/wiki/File:Vale_dal_Vajont.jpg |
+| `slide_surface_now` | ca24 cb06 | 2005 | CC BY 2.5 | Christian Thiergan | Wikimedia Commons「Bergsturz Monte Toc Vajont.jpg」　https://commons.wikimedia.org/wiki/File:Bergsturz_Monte_Toc_Vajont.jpg |
+| `sign_2023` | cb09 | 2023 | PD（米連邦の職務著作 17 U.S.C. §105） | U.S. Army・Sgt. Bobbi-Jo McGinley | Wikimedia Commons「SETAF-AF remembers Vajont Dam (8062917).jpg」　https://commons.wikimedia.org/wiki/File:SETAF-AF_remembers_Vajont_Dam_(8062917).jpg |
+| `memorial_cross_1963` | cb10 | 1963 | PD（伊の単純写真＝撮影から20年・米国も PD-1996） | イタリア消防 | Wikimedia Commons「DisastroVajont6.jpg」　https://commons.wikimedia.org/wiki/File:DisastroVajont6.jpg |
+| `pg1` | c112 | 1965 | 保護の外（伊著作権法 第5条＝国の公文書）／Senato della Repubblica の公開版 | イタリア議会 ヴァイオント災害調査委員会 | senato_doc76bis_285307.pdf PDF 1頁 |
+| `pg171` | c819 | 1965 | 保護の外（伊著作権法 第5条＝国の公文書）／Senato della Repubblica の公開版 | イタリア議会 ヴァイオント災害調査委員会 | senato_doc76bis_285307.pdf PDF 171頁 |
+| `pg178` | ca06 | 1965 | 保護の外（伊著作権法 第5条＝国の公文書）／Senato della Repubblica の公開版 | イタリア議会 ヴァイオント災害調査委員会 | senato_doc76bis_285307.pdf PDF 178頁 |
+| `pg179` | c416 | 1965 | 保護の外（伊著作権法 第5条＝国の公文書）／Senato della Repubblica の公開版 | イタリア議会 ヴァイオント災害調査委員会 | senato_doc76bis_285307.pdf PDF 179頁 |
+| `pg207` | c910 ca08 | 1965 | 保護の外（伊著作権法 第5条＝国の公文書）／Senato della Repubblica の公開版 | イタリア議会 ヴァイオント災害調査委員会 | senato_doc76bis_285307.pdf PDF 207頁 |
+| `pg217` | c412 | 1965 | 保護の外（伊著作権法 第5条＝国の公文書）／Senato della Repubblica の公開版 | イタリア議会 ヴァイオント災害調査委員会 | senato_doc76bis_285307.pdf PDF 217頁 |
+| `pg225` | c516 | 1965 | 保護の外（伊著作権法 第5条＝国の公文書）／Senato della Repubblica の公開版 | イタリア議会 ヴァイオント災害調査委員会 | senato_doc76bis_285307.pdf PDF 225頁 |
+| `pg226` | c606 | 1965 | 保護の外（伊著作権法 第5条＝国の公文書）／Senato della Repubblica の公開版 | イタリア議会 ヴァイオント災害調査委員会 | senato_doc76bis_285307.pdf PDF 226頁 |
