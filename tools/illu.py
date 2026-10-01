@@ -45,7 +45,14 @@
        tunnel・split（会社の説明の想定＝off／on／flow）・road（off／on／low＝730m未満）・gates・marks（北の岸の930m）・
        wave_w（西へダムを越える水）・flood（ピアーヴェ川の谷へ広がる水）・wave_e（東へ向かった波）・
        見る向きの合図＝prev（頭だけ：B／C／D の切り口の線と目の印）・nxt（次の断面の線）・switch（頭だけ：「上から見ると」）。
+       🆕 ⑤b-3：grow（頭だけ＝c101 の左上の小さな地図が全画面へ広がる・c102）。
        形のもと＝#100（1934年の地形図）を目で読んだ点（正本 ref/ep16/map16.json）＝上の「16本目」の節
+  VB … 谷を横切る断面（⑤b-3・#100 の x=740＝北の岸の約1.1km上流の印を通る南北の線・西を向いて見る＝左が南のトック山・
+       右が北の岸）。move（塊の動き 0〜1＝形を段ごとに移す部品 morph・底はすべり面と地面に沿う）・lake・runup（北の岸を
+       駆け上がる水＝930m まで）・level・ghost・path・dim（水平に300〜400m）・bracket。地形の線＝map16.json の sections.B
+  VC … 谷に沿う断面（ダム）（⑤b-3・y=536＝ダムを通る東西の線・南を向いて見る＝左が上流）。view＝wide／near（天端の寄り）・
+       over（天端を越える水＝天端の上120m・数は描かない）・l695・gap・hbr・south（南の岸から塊が入る向き）。ダムは壊さない
+       VB・VC の左上に位置の小さな地図（VA wide を小さく・いまの断面の線＝太い・前の断面の線＝細い・目の印）＝上の層（overlay_svg）
 
 ■ 守りの線（ルール §5b-74）と門番 `check_illu`（§5b-75）
   ① 描く物・人・動作・数・時刻は1つずつ出典（資料と頁＝`rec=`）。部品は置き場が既定の rec を持つ。記録の欄（傾き・波・
@@ -1942,7 +1949,9 @@ VA_FIX = dict(dam="#e6eaed", dam_ln="#20262d", block="#b9a079", block_ln="#5e4b3
               low="#c9a2ff")
 VA_T = dict(wave=0.9, flood=1.3, flood_lag=0.7, towns_lag=0.55, towns=0.55, recede=0.8, mud=0.8, slide=0.9, block=0.6,
             tunnel=1.6, ends=0.4, road=1.4, low=0.6, gates=0.45, split=0.8, flow=1.6, marks=0.45, wave_e=2.6, shore=0.8,
-            dawn=1.8, line=0.45, prev_hold=1.5, prev_fade=0.5, prev_thin=0.55, switch_hold=1.2, switch_fade=0.35)
+            dawn=1.8, line=0.45, prev_hold=1.5, prev_fade=0.5, prev_thin=0.55, switch_hold=1.2, switch_fade=0.35,
+            # 🆕 ⑤b-3：c102 の頭で c101 の左上の小さな地図が全画面へ広がる（止め・広がる・消える）
+            grow_hold=0.1, grow=0.5, grow_fade=0.25)
 # 部品の出典（rec）。頁は ss.REC_DOCS の通し番号（S1＝PDF の頁・S8＝p1041〜・S9＝p2001〜・#100＝画像＝p1）
 VA_REC = dict(
     ground="#100 p1（1934年の地形図＝谷・川・村の位置・湖の700mの線の概略）",
@@ -2303,9 +2312,14 @@ def _va_timeline(start, states, steps):
              flood_go=k0(u=float(s0["flood"] != "off")), flood_a=k0(a=float(s0["flood"] == "on")),
              nxtB=k0(a=float(s0["nxt"] == "B")), nxtC=k0(a=float(s0["nxt"] == "C")))
     # 頭だけの合図：前の図の切り口の線（はじめ太く・1.5秒で細く）と切り替えの字（1.2秒で消える）
-    K["prev"] = [dict(stage=0, delay=0.0, a=1.0), dict(stage=0, delay=T["prev_hold"], dur=T["prev_fade"], a=0.0)]
-    K["prev_thin"] = [dict(stage=0, delay=0.0, a=0.0), dict(stage=0, delay=T["prev_hold"], dur=T["prev_fade"], a=T["prev_thin"])]
-    K["switch"] = [dict(stage=0, delay=0.0, a=1.0), dict(stage=0, delay=T["switch_hold"], dur=T["switch_fade"], a=0.0)]
+    #   🆕 ⑤b-3：小さな地図が全画面へ広がる（grow）ときは、広がり終わってから（g0 秒）出す
+    g0 = (T["grow_hold"] + T["grow"]) if s0.get("grow", "off") != "off" else 0.0
+    a0 = 0.0 if g0 else 1.0
+    K["prev"] = [dict(stage=0, delay=0.0, a=a0)] + ([dict(stage=0, delay=g0, dur=0.15, a=1.0)] if g0 else []) + \
+        [dict(stage=0, delay=g0 + T["prev_hold"], dur=T["prev_fade"], a=0.0)]
+    K["prev_thin"] = [dict(stage=0, delay=0.0, a=0.0), dict(stage=0, delay=g0 + T["prev_hold"], dur=T["prev_fade"], a=T["prev_thin"])]
+    K["switch"] = [dict(stage=0, delay=0.0, a=a0)] + ([dict(stage=0, delay=g0, dur=0.15, a=1.0)] if g0 else []) + \
+        [dict(stage=0, delay=g0 + T["switch_hold"], dur=T["switch_fade"], a=0.0)]
     prev = start
     for i, (st, sp) in enumerate(zip(states, steps)):
         dl = float(sp.get("delay", KEY_DELAY))
@@ -2386,8 +2400,12 @@ def _scene_VA(start, states, steps):
     t0 = start["tod"]
     if t0 == "dawn" or any(st["tod"] not in (t0, "dawn") or (t0 == "day" and st["tod"] != "day") for st in states):
         raise ValueError("illu VA：tod は頭で day か night・段で変えてよいのは night → dawn（夜明け＝c823 の2行目）だけ")
-    if any(st["prev"] != start["prev"] or st["switch"] != start["switch"] for st in states):
-        raise ValueError("illu VA：prev（前の図の切り口の線）と switch（切り替えの字）は頭（start）だけ＝合図")
+    if any(st["prev"] != start["prev"] or st["switch"] != start["switch"] or st["grow"] != start["grow"] for st in states):
+        raise ValueError("illu VA：prev（前の図の切り口の線）・switch（切り替えの字）・grow（小さな地図が広がる）は頭（start）だけ＝合図")
+    if start["switch"] not in ("off", "on"):
+        raise ValueError("illu VA：switch は off／on（「上から見ると」）だけ")
+    if start["grow"] != "off" and start["view"] != "wide":
+        raise ValueError("illu VA：grow（小さな地図が全画面へ）は view=wide だけ（小さな地図は wide を小さくしたもの）")
     if start["prev"] == start["nxt"] != "off":
         raise ValueError("illu VA：前の図の線と次の図の線が同じ")
 
@@ -2435,18 +2453,37 @@ def _scene_VA(start, states, steps):
         parts.append(dict(_part("marks", va_marks_svg(view), R["marks"], keys=K["marks"]), obj=dict(north_marks=2)))
     if used("wave_e"):
         ep = va_wave_e_path(view)
+        xs = va_px((VA_EAST_X0, 0.0), view)[0]
         parts.append(dict(_part("wave_e", va_wave_e_svg(view), R["wave_e"], keys=K["wave_e_a"]), kind="draw",
-                          path=[list(q) for q in ep], go=K["wave_e_go"], reveal=int(150 * k)))
+                          path=[list(q) for q in ep], go=K["wave_e_go"], reveal=int(150 * k),
+                          water=dict(poly=[list(q) for q in va_lake_px(view) if q[0] >= xs])))
     if used("wave_w"):
         wp = va_path(view, VA_WAVE_W, per=6)
         parts.append(dict(_part("wave_w", va_wave_w_svg(view), R["wave_w"], keys=K["wave_w_a"]), kind="draw",
-                          path=[list(q) for q in wp], go=K["wave_w_go"], reveal=int(VA_WAVE_W_W * k + 30)))
+                          path=[list(q) for q in wp], go=K["wave_w_go"], reveal=int(VA_WAVE_W_W * k + 30),
+                          water=dict(poly=[list(q) for q in wp] + [list(q) for q in wp[::-1]])))
     if used("flood"):
+        # 🆕 ⑤b-3：水の範囲（water＝画面の多角形）＝門番 ⑭（群れは水が触れる段までで消す）が使う
+        fpoly = [list(q) for q in va_path(view, VA_FLOOD, per=4, closed=True)]
         for half in ("n", "s"):
             gp = va_path(view, VA_FLOOD_GO[half], per=6)
             parts.append(dict(_part("flood_" + half, va_flood_svg(view, half), R["flood"], keys=K["flood_a"]),
-                              kind="draw", path=[list(q) for q in gp], go=K["flood_go"], reveal=int(300 * k)))
+                              kind="draw", path=[list(q) for q in gp], go=K["flood_go"], reveal=int(300 * k),
+                              water=dict(poly=fpoly)))
     parts.append(dict(_part("dam", va_dam_svg(view), R["dam"]), obj=dict(dam=1)))
+    # 🆕 ⑤b-3：c101（VB）の左上の小さな地図が全画面へ広がる（映像方針 §4-2 #1）。下＝c101 の終わりの VB（崩れたあと）・
+    #   上＝小さな地図の中身を全画面の大きさで描いた層を、小さな地図の位置（左上）から PIL で広げる。広がり終えたら消える
+    #   （下の VA の絵と同じ＝見た目が切れない）。合図の部品＝signal（記録の物でない・数を持たない）
+    if start["grow"] != "off":
+        T = VA_T
+        s = INSET_V["w"] / W
+        g1, g2 = T["grow_hold"], T["grow_hold"] + T["grow"]
+        parts.append(dict(_part("grow_cover", vb_still_svg(), "", keys=[
+            dict(stage=0, delay=0.0, a=1.0), dict(stage=0, delay=g2 - 0.05, dur=0.1, a=0.0)]), signal=True))
+        parts.append(dict(_part("grow", v_inset_body(start["grow"], None, 1.0, 0.0, 0.0, lw=1.0 / s), "", (0.0, 0.0), keys=[
+            dict(stage=0, delay=0.0, sc=s, dx=INSET_V["x"], dy=float(inset_top(VB_LAB)), a=1.0),
+            dict(stage=0, delay=g1, dur=T["grow"], sc=1.0, dx=0.0, dy=0.0, a=1.0),
+            dict(stage=0, delay=g2, dur=T["grow_fade"], sc=1.0, dx=0.0, dy=0.0, a=0.0)]), signal=True))
     # 合図の部品（切り口の線・目の印・切り替えの字＝見る向きの合図・ルール §5b-80）は記録の物でない＝出典を持たない
     #   ＝`signal=True`（門番 ① は rec を求めない・③ の数にも入らない＝obj を持たない）
     for w in ("B", "C"):
@@ -2492,6 +2529,893 @@ def _va_note(st0, states):
     return "・".join(note)
 
 
+# ══════════════════════════════════════════════════════════
+#  16本目 ⑤b-3（2026-10-01）：VB 谷を横切る断面・VC 谷に沿う断面（ダム）・見る向きの合図の型（位置の小さな地図）
+# ══════════════════════════════════════════════════════════
+# 🔴 守りの線（Vault 映像方針 16本目 §2・§4・§5-2・§5-3・§7・§9＝ルール §5b-111）：
+#    ・地形の線＝#100 を目で読んだ点（正本 `ref/ep16/map16.json` の sections＝`measure_map16.py profile` が記録の高さで照らす）。
+#      谷の底（川の高さ）は地図に数字が無い＝ダムの底463.9m（天端725.5−高さ261.6＝S9 PDF6）〜湖の上流の端700m／峡谷の出口450m を
+#      川の長さで内挿した模式。縦と横は同じ縮尺（高さを強めない）
+#    ・すべり面と塊の形は模式。塊は1つのまま・すべり面と地面に沿って運ぶ（浮かせない）＝柱ごとに厚さを保って水平に約350m
+#      （VA と同じ・S8 p1046「300〜400m」）・上の面は軽くならす（面積は保つ）。厚さの最大約251m・平均約160m（S1 p144 の
+#      最大約330m・平均157m／S8 p1046「250m」の内）・崩れたあとの谷の中の頂上約865m（S1 p146「866m」を越えない）＝厚さは札にしない
+#    ・北の岸の水は930mまで（S1 p146）＝越えない・谷の真ん中で盛り上がる水は描かない（記録に数が無い）。天端の上の水は120m
+#      （S8 p1041「140m」・p1047「100m以上」の間＝数は描かない）・峡谷の出口に近い所で約70m（S8 p1041）。ダムは壊さない（S1 p171）
+#    ・人は置かない（22時39分に町の人がどこにいたかの記録が無い）。夜の色（月・星・明かりは描かない）
+VB_Y0 = 830.0                      # 切り口の線（#100 の x=740）の南の端の y＝横の距離 u の 0（南→北）
+VB_PTS = ((830, 1270.0), (814, 1250.0), (790, 1110.0), (742, 1040.0), (703, 935.0), (641, 852.0), (601, 754.0),
+          (579, 700.0), (548, 513.0), (524, 700.0), (481, 816.0), (448, 930.0), (417, 938.0), (360, 1050.0))   # map16 sections.B.pts
+VB_G = tuple(((VB_Y0 - y) * VA_MPX, z) for y, z in VB_PTS)        # 地形の線 [(u m, 標高 m)]（南→北）
+VB_SEAT = 540.0                    # すべり面の座（模式）＝谷の中の頂上が 866m を越えない高さ（⑤b-3 の試算：座 540・ならし ±3 で 865m）
+VB_RIVER_U, VB_SHORE_S, VB_SHORE_N = VB_G[8][0], VB_G[7][0], VB_G[9][0]
+
+
+def vb_slip_of(seat):
+    """すべり面（模式）＝後ろのふち（亀裂・y814）→ 急な背 → ゆるい座（seat）→ 南の峡谷の壁（つま先）。[(u m, 標高 m)]"""
+    toe = VB_SHORE_S + (VB_G[7][1] - seat) / ((VB_G[7][1] - VB_G[8][1]) / (VB_RIVER_U - VB_SHORE_S))   # 座が峡谷の壁に出る所
+    return ((VB_G[1][0], VB_G[1][1]), (215.2, 1090.0), (473.4, 860.0), (683.2, 705.0), (1016.6, 600.0), (1232.0, 575.0),
+            (VB_SHORE_S, seat), (toe, seat))
+
+
+VB_SLIP = vb_slip_of(VB_SEAT)
+VB_TOE = VB_SLIP[-1][0]
+VB_RUN_TOP = 930.0                 # 北の岸を駆け上がる水の上の縁の上限（S1 p146＝930m・門番 ⑩ は自分の側の記録で測る）
+VB_D = VA_SHIFT * VA_MPX           # 塊が北へ動いた量（m）＝VA と同じ約350m（S8 p1046「水平に300〜400m」）
+# 上の面の点・底の点・形の数（段 s＝0, 0.1, …, 1）・最後の上の面のならし（±点＝約±70m）。⑤b-3 の試算：点60・±3 で谷の中の頂上
+#   865.1m（S1 p146 の866m を越えない）。点48・±3 は 856.5m（ならしが広すぎ＝「866m」の札の指す高さと合わない）
+#   底の点 260＝間隔約3.5画素（150＝約6画素では谷底の V 字の先で底の辺が約4画素浮く＝門番 ⑪ の許し 3画素を越える）
+VB_NT, VB_NB, VB_NS, VB_SMOOTH = 60, 260, 11, 3
+VB_RUN_H = (18.0, 5.0)             # 北の岸を駆け上がる水の帯の厚さ（画素・下の端→上の端）。⑤b-3 の下見：9→3 は細くて水に見えない
+VB_VIEW = dict(wide=dict(k=0.64, x0=151.0, y0=340.0, z0=1270.0))   # 1m＝0.64画素（縦横同じ）・u0 の x・標高 z0 の y
+VB_EDGE = ("南", "北")
+VB_LAB = "横から見た断面（谷を横切る）"
+VB_PAL = dict(night=dict(sky0="#0b1322", sky1="#1b2840", ground="#2b3549", ground2="#232c3e", surf="#6a7891",
+                         scar="#8a847a", lake="#2a5f8f", lake_ln="#6c9cc6"),
+              day=dict(sky0="#8fb7d3", sky1="#d5e5ee", ground="#7c8b69", ground2="#6d7b5c", surf="#4e5a45",
+                       scar="#a39a8a", lake="#5d92b4", lake_ln="#3f7193"))
+# 動く物・大事な物は時刻で変えない明るい色（夜の地と ΔE 25 以上＝門番 ⑬）＝VA と同じ塊・水の色
+VB_FIX = dict(block="#b9a079", block_ln="#5e4b33", water="#a8d9ec", foam="#dff1f9", level="#9fd0ee", ghost="#f2c14e",
+              dim="#f3f6f8")
+VB_T = dict(slide=2.4, run=0.9, run_lag=0.35, recede=0.8, line=0.45, ghost=0.5, path=1.4, dim=0.6, bracket=0.5,
+            switch_hold=1.2, switch_fade=0.35)
+VB_REC = dict(
+    ground="#100 p1（1934年の地形図＝トック山の斜面・峡谷・北の岸の斜面の標高の点）・S1 p96（湖の水位＝約700m）",
+    block="S1 p147（1つの塊のまま）・S1 p144（崩れた斜面＝幅およそ1.7キロ・厚さ最大約330m・平均157m）・S8 p1046（水平に300〜400m）",
+    lake="S1 p96（その朝の水位＝約700m）",
+    runup="S1 p146（北の岸で標高930m＝崩れる前の水面より200m高い）",
+    level="S1 p146（崩れる前の水面より165m高い）",
+    dim="S8 p1046（水平に300〜400m）",
+    peak="S1 p146（積もった土砂の頂上＝標高866m）")
+
+
+def _lin(P, u):
+    """折れ線 P＝[(u, z)]（u は昇順）の u での z。範囲の外は端の区間を延ばす。"""
+    if u <= P[0][0]:
+        (a, za), (b, zb) = P[0], P[1]
+    elif u >= P[-1][0]:
+        (a, za), (b, zb) = P[-2], P[-1]
+    else:
+        for (a, za), (b, zb) in zip(P, P[1:]):
+            if a <= u <= b:
+                break
+    return za + (zb - za) * (u - a) / (b - a) if b != a else za
+
+
+def sec_xy(view, u, z):
+    """断面の見え方 view（dict）での画面の点。縦と横は同じ縮尺（k）。"""
+    return (view["x0"] + u * view["k"], view["y0"] + (view["z0"] - z) * view["k"])
+
+
+def sec_z(view, y):
+    """画面の y → 標高（門番も同じ目盛りで読む）。"""
+    return view["z0"] - (y - view["y0"]) / view["k"]
+
+
+def vb_support(u):
+    """塊の底の支え＝すべり面（崩れた範囲の中）か地形の線。"""
+    return _lin(VB_SLIP, u) if VB_SLIP[0][0] <= u <= VB_SLIP[-1][0] else _lin(VB_G, u)
+
+
+def vb_block_um(s):
+    """段 s（0〜1）の塊＝(上の面 [(u, z)] 後ろ→前, 底 [(u, z)] 後ろ→前)。
+    柱ごとに厚さを保って水平に VB_D×s 運ぶ（底＝支え＝すべり面か地面＝浮かない）。上の面は s に比べてならし、面積を保つ"""
+    ub, ut = VB_SLIP[0][0], VB_SLIP[-1][0]
+    us = [ub + (ut - ub) * j / VB_NT for j in range(VB_NT + 1)]
+    t = [max(0.0, _lin(VB_G, u) - _lin(VB_SLIP, u)) for u in us]
+    d = VB_D * s
+    base = [vb_support(u + d) for u in us]
+    top = [b + x for b, x in zip(base, t)]
+    if s > 0:
+        w = VB_SMOOTH
+        sm = [sum(top[max(0, j - w): j + w + 1]) / len(top[max(0, j - w): j + w + 1]) for j in range(len(top))]
+        top = [(1 - s) * a + s * b for a, b in zip(top, sm)]
+        th = [max(0.0, a - b) for a, b in zip(top, base)]
+        th[0] = th[-1] = 0.0
+        f = sum(t) / sum(th)
+        top = [b + x * f for b, x in zip(base, th)]
+    bu = [ub + d + (ut - ub) * j / VB_NB for j in range(VB_NB + 1)]
+    return list(zip([u + d for u in us], top)), [(u, vb_support(u)) for u in bu]
+
+
+def vb_block_px(view, s):
+    """段 s の塊の多角形（画面の点）＝上の面（後ろ→前）＋底（前→後ろ・両端は上の面と同じ点なので外す）。"""
+    top, base = vb_block_um(s)
+    T = [sec_xy(view, u, z) for u, z in top]
+    B = [sec_xy(view, u, z) for u, z in base]
+    return T + B[-2:0:-1]
+
+
+def vb_support_px(view):
+    """塊の底が乗る支えの線（画面の点・左→右）＝すべり面＋つま先から先の地形の線（描き手が底の点を乗せ直す）。"""
+    ub = VB_SLIP[0][0]
+    ue = VB_SLIP[-1][0] + VB_D + 120.0
+    pts = [(u, z) for u, z in VB_SLIP] + [(u, z) for u, z in VB_G if VB_SLIP[-1][0] < u <= ue]
+    pts.append((ue, _lin(VB_G, ue)))
+    return [sec_xy(view, u, z) for u, z in pts if u >= ub]
+
+
+def vb_ground_line(view):
+    """地形の線を画面の左右の端まで延ばした点（u, z）。"""
+    k, x0 = view["k"], view["x0"]
+    ul, ur = (-12.0 - x0) / k, (W + 12.0 - x0) / k
+    return [(ul, _lin(VB_G, ul))] + list(VB_G) + [(ur, _lin(VB_G, ur))]
+
+
+def vb_sky_svg(tod):
+    P = VB_PAL[tod]
+    return (f'<defs><linearGradient id="vbS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{P["sky0"]}"/>'
+            f'<stop offset="1" stop-color="{P["sky1"]}"/></linearGradient></defs>'
+            f'<rect x="-10" y="-10" width="{W + 20}" height="{H + 20}" fill="url(#vbS)"/>')
+
+
+def vb_ground_svg(view, tod):
+    """地面（切り口）＝崩れた範囲はすべり面の下（塊は別の部品）。すべり面はむき出しの面の色の線（塊が動くと見える）。"""
+    P = VB_PAL[tod]
+    gl = vb_ground_line(view)
+    ub, ut = VB_SLIP[0][0], VB_SLIP[-1][0]
+    surf = [q for q in gl if q[0] < ub] + list(VB_SLIP) + [q for q in gl if q[0] > ut]
+    px = [sec_xy(view, u, z) for u, z in surf]
+    poly = px + [(W + 12.0, H + 12.0), (-12.0, H + 12.0)]
+    g = [_poly(poly, P["ground"]),
+         f'<path d="{_pl(px)}" fill="none" stroke="{P["surf"]}" stroke-width="3" stroke-linejoin="round"/>',
+         f'<path d="{_pl([sec_xy(view, u, z) for u, z in VB_SLIP])}" fill="none" stroke="{P["scar"]}" stroke-width="4" '
+         'stroke-linejoin="round" stroke-linecap="round"/>']
+    return "".join(g)
+
+
+def vb_lake_px(view):
+    """湖（700m）＝南の岸〜北の岸の水面と、その下の支え（すべり面か地面）。"""
+    us = [VB_SHORE_S + (VB_SHORE_N - VB_SHORE_S) * j / 40 for j in range(41)]
+    top = [sec_xy(view, VB_SHORE_S, 700.0), sec_xy(view, VB_SHORE_N, 700.0)]
+    return top + [sec_xy(view, u, vb_support(u)) for u in reversed(us)]
+
+
+def vb_lake_svg(view, tod):
+    P = VB_PAL[tod]
+    pts = vb_lake_px(view)
+    (xa, ya), (xb, yb) = pts[0], pts[1]
+    return (_poly(pts, P["lake"]) +
+            f'<path d="M {xa:.1f} {ya:.1f} L {xb:.1f} {yb:.1f}" stroke="{P["lake_ln"]}" stroke-width="3"/>')
+
+
+def vb_block_tex_svg(rect):
+    """塊の地（模様と地層の筋）＝形の型紙で切り抜いて、塊と一緒に動かす（描き手の morph）。"""
+    x0, y0, x1, y1 = rect
+    g = [f'<defs><pattern id="vbB" width="16" height="16" patternUnits="userSpaceOnUse">'
+         f'<rect width="16" height="16" fill="{VB_FIX["block"]}"/><circle cx="4" cy="5" r="1.7" fill="{VB_FIX["block_ln"]}" '
+         f'opacity="0.45"/><circle cx="12" cy="12" r="1.4" fill="{VB_FIX["block_ln"]}" opacity="0.35"/></pattern></defs>',
+         f'<rect x="{x0:.1f}" y="{y0:.1f}" width="{x1 - x0:.1f}" height="{y1 - y0:.1f}" fill="url(#vbB)"/>']
+    for j in range(int((y1 - y0) // 26) + 1):           # 地層の筋（塊と一緒に動く＝1つの塊）
+        y = y0 + 13 + j * 26
+        g.append(f'<path d="M {x0:.1f} {y:.1f} H {x1:.1f}" stroke="{VB_FIX["block_ln"]}" stroke-width="2" opacity="0.35"/>')
+    return "".join(g)
+
+
+def vb_block_part(view, rec, keys, go):
+    """塊の部品（kind=morph）。形 VB_NS 個（段 s＝0〜1）・底の点は描き手が支えの線へ乗せ直す（snap）・地は動いた量だけずらす（tex）。"""
+    shapes = [vb_block_px(view, i / (VB_NS - 1)) for i in range(VB_NS)]
+    nt = VB_NT + 1
+    tex = []
+    for sh in shapes:
+        tex.append([sum(sh[j][0] - shapes[0][j][0] for j in range(nt)) / nt,
+                    sum(sh[j][1] - shapes[0][j][1] for j in range(nt)) / nt])
+    xs0 = min(q[0] - tx[0] for sh, tx in zip(shapes, tex) for q in sh) - 8
+    ys0 = min(q[1] - tx[1] for sh, tx in zip(shapes, tex) for q in sh) - 8
+    xs1 = max(q[0] - tx[0] for sh, tx in zip(shapes, tex) for q in sh) + 8
+    ys1 = max(q[1] - tx[1] for sh, tx in zip(shapes, tex) for q in sh) + 8
+    idx = [0, VB_NT] + list(range(nt, len(shapes[0])))
+    return dict(_part("block", vb_block_tex_svg((xs0, ys0, xs1, ys1)), rec, keys=keys), kind="morph",
+                shapes=[[list(q) for q in sh] for sh in shapes], go=go, tex=tex,
+                snap=dict(idx=idx, path=[list(q) for q in vb_support_px(view)]),
+                line=dict(col=VB_FIX["block_ln"], w=3.0), obj=dict(block=1))
+
+
+def vb_runup_um(start_u=None):
+    """北の岸を駆け上がる水の帯の（下の線, 上の線）[(u, z)]。上の端の上の縁＝930m を越えない（S1 p146）。"""
+    k = VB_VIEW["wide"]["k"]
+    h0, h1 = VB_RUN_H
+    u0 = start_u if start_u is not None else VB_SHORE_N
+    # 上の縁（地面＋h1 画素）が VB_RUN_TOP（930m）になる所で止める＝北の岸の地形の線の上で、その高さを横切る所
+    z_end = VB_RUN_TOP - h1 / k
+    north = [q for q in VB_G if q[0] >= VB_SHORE_N]
+    lo, hi = next((a, b) for a, b in zip(north, north[1:]) if a[1] <= z_end <= b[1])
+    u_end = lo[0] + (hi[0] - lo[0]) * (z_end - lo[1]) / (hi[1] - lo[1])
+    us = [u0 + (u_end - u0) * j / 30 for j in range(31)]
+    low = [(u, _lin(VB_G, u)) for u in us]
+    up = [(u, _lin(VB_G, u) + (h0 + (h1 - h0) * j / 30) / k) for j, u in enumerate(us)]
+    return low, up
+
+
+def vb_runup_svg(view, start_u=None):
+    low, up = vb_runup_um(start_u)
+    pts = [sec_xy(view, u, z) for u, z in low] + [sec_xy(view, u, z) for u, z in reversed(up)]
+    return _poly(pts, VB_FIX["water"], VB_FIX["foam"], 2.0, 0.95), pts
+
+
+def vb_runup_path(view, start_u=None):
+    low, up = vb_runup_um(start_u)
+    return [sec_xy(view, u, (a + b) / 2.0) for (u, a), (_u, b) in zip(low, up)]
+
+
+def vb_front_um(s):
+    """南の岸の点（崩れる前の斜面と湖の境＝u 1,350m・700m）だった塊の上の面の点の、段 s での位置。"""
+    top, _b = vb_block_um(s)
+    ub, ut = VB_SLIP[0][0], VB_SLIP[-1][0]
+    j = round((VB_SHORE_S - ub) / (ut - ub) * VB_NT)
+    return top[j]
+
+
+def vb_peak_um():
+    """崩れたあとの谷の中（南の岸より北）の上の面の頂上（u, z）。"""
+    top, _b = vb_block_um(1.0)
+    return max((q for q in top if q[0] >= VB_SHORE_S), key=lambda q: q[1])
+
+
+def vb_ghost_svg(view):
+    pts = vb_block_px(view, 0.0)
+    return (_poly(pts, "none", "#10161b", 6.0, 0.55) +
+            f'<path d="{_pl(pts)} Z" fill="none" stroke="{VB_FIX["ghost"]}" stroke-width="3" stroke-dasharray="12 9"/>')
+
+
+def vb_path_px(view):
+    """湖を横切って北の岸へ乗り上げる向きの矢印（南の岸の点 → 崩れたあとの同じ点）。"""
+    a, b = vb_front_um(0.0), vb_front_um(1.0)
+    pa, pb = sec_xy(view, *a), sec_xy(view, *b)
+    mid = ((pa[0] + pb[0]) / 2, min(pa[1], pb[1]) - 120.0)
+    return [((1 - t) ** 2 * pa[0] + 2 * (1 - t) * t * mid[0] + t * t * pb[0],
+             (1 - t) ** 2 * pa[1] + 2 * (1 - t) * t * mid[1] + t * t * pb[1] - 18.0) for t in (i / 24 for i in range(25))]
+
+
+def _arrow_head(p, q, col, size=22.0):
+    ang = math.atan2(q[1] - p[1], q[0] - p[0])
+    ux, uy = math.cos(ang), math.sin(ang)
+    hx, hy = q[0] - ux * size, q[1] - uy * size
+    a, b = (hx - uy * size * 0.55, hy + ux * size * 0.55), (hx + uy * size * 0.55, hy - ux * size * 0.55)
+    return (f'<path d="M {q[0]:.1f} {q[1]:.1f} L {a[0]:.1f} {a[1]:.1f} L {b[0]:.1f} {b[1]:.1f} Z" fill="{col}" '
+            'stroke="#10161b" stroke-width="2.5" stroke-linejoin="round"/>')
+
+
+def vb_path_svg(view):
+    pts = vb_path_px(view)
+    return (f'<path d="{_pl(pts)}" fill="none" stroke="#10161b" stroke-width="10" stroke-linecap="round" stroke-opacity="0.6"/>'
+            f'<path d="{_pl(pts)}" fill="none" stroke="{VB_FIX["ghost"]}" stroke-width="5" stroke-linecap="round"/>')
+
+
+def vb_path_head_svg(view):
+    pts = vb_path_px(view)
+    return _arrow_head(pts[-3], pts[-1], VB_FIX["ghost"], 26.0)
+
+
+VB_DIM_Z = 1000.0                  # 「水平に300〜400m」の矢印の高さ（標高 m・塊の上の空）
+
+
+def vb_dim_ends(view):
+    a, b = vb_front_um(0.0), vb_front_um(1.0)
+    return sec_xy(view, a[0], VB_DIM_Z), sec_xy(view, b[0], VB_DIM_Z), sec_xy(view, *a), sec_xy(view, *b)
+
+
+def vb_dim_svg(view):
+    (xa, y), (xb, _y), pa, pb = vb_dim_ends(view)
+    c = VB_FIX["dim"]
+    g = []
+    for (x, yy) in (pa, pb):             # 縦の点線（同じ点の、崩れる前と後）
+        g.append(f'<path d="M {x:.1f} {yy - 8:.1f} L {x:.1f} {y - 14:.1f}" stroke="{c}" stroke-width="2.5" '
+                 'stroke-dasharray="6 6"/>')
+    g.append(f'<path d="M {xa + 4:.1f} {y:.1f} L {xb - 4:.1f} {y:.1f}" stroke="#10161b" stroke-width="9" stroke-opacity="0.6"/>'
+             f'<path d="M {xa + 4:.1f} {y:.1f} L {xb - 4:.1f} {y:.1f}" stroke="{c}" stroke-width="4"/>')
+    g.append(_arrow_head((xb, y), (xa, y), c, 20.0) + _arrow_head((xa, y), (xb, y), c, 20.0))
+    return "".join(g)
+
+
+def vb_level_svg(view):
+    """崩れる前の水面（700m）の点線（崩れたあとの絵に重ねる）。"""
+    xa, y = sec_xy(view, VB_SHORE_S - 160.0, 700.0)
+    xb, _y = sec_xy(view, VB_SHORE_N + 230.0, 700.0)
+    return (f'<path d="M {xa:.1f} {y:.1f} L {xb:.1f} {y:.1f}" stroke="#10161b" stroke-width="7" stroke-opacity="0.5"/>'
+            f'<path d="M {xa:.1f} {y:.1f} L {xb:.1f} {y:.1f}" stroke="{VB_FIX["level"]}" stroke-width="3.5" '
+            'stroke-dasharray="14 9"/>')
+
+
+def vb_bracket_ends(view):
+    pk = vb_peak_um()
+    x = sec_xy(view, pk[0] + 70.0, 0.0)[0]
+    return (x, sec_xy(view, 0.0, 700.0)[1]), (x, sec_xy(view, 0.0, pk[1])[1])
+
+
+def _bracket_svg(a, b, col):
+    (x, ya), (_x, yb) = a, b
+    return (f'<path d="M {x:.1f} {ya:.1f} L {x:.1f} {yb:.1f}" stroke="#10161b" stroke-width="8" stroke-opacity="0.6"/>'
+            f'<path d="M {x:.1f} {ya:.1f} L {x:.1f} {yb:.1f}" stroke="{col}" stroke-width="3.5"/>'
+            f'<path d="M {x - 12:.1f} {ya:.1f} H {x + 12:.1f} M {x - 12:.1f} {yb:.1f} H {x + 12:.1f}" stroke="{col}" '
+            'stroke-width="3.5"/>')
+
+
+def vb_bracket_svg(view):
+    a, b = vb_bracket_ends(view)
+    return _bracket_svg(a, b, VB_FIX["dim"])
+
+
+def sec_edge_svg(texts):
+    """断面の左右の端の札（VB＝南・北／VC＝上流・下流）＝見る向きの合図（§4-1 の1）。"""
+    lt, rt = texts
+    return (_va_text(78, 640, lt, size=34) + _va_text(W - 78, 640, rt, size=34, anchor="end"))
+
+
+def sec_switch_svg(text):
+    return va_switch_svg(text)
+
+
+# ── VC 谷に沿う断面（ダム）＝南を向いて見る・左が上流（東）・右が下流（西）──
+VC_X0E = 905.0                     # 切り口の線（#100 の y=536）の東の端の x＝横の距離 w の 0（東→西）
+VC_DAM = dict(crest=725.5, height=261.6, base=22.11, top=3.40, bulge=5.0)   # S9 PDF6（反り bulge は模式）
+VC_DAM_W = (VC_X0E - VA_PTS["dam"][0]) * VA_MPX
+VC_LAKE = 700.0                    # その夜の水位（S1 PDF96＝約700m）
+VC_L695 = 695.0                    # 下げようとした水位（S1 PDF96＝695m）
+VC_OVER = 120.0                    # 天端の上の水の高さ（S8 p1041「140m」・p1047「100m以上」の間＝数は描かない）
+VC_EXIT_D = 70.0                   # 峡谷の出口での水の深さ（S8 p1041「約70m」）
+VC_BED_REC = dict(base=VC_DAM["crest"] - VC_DAM["height"], exit=((330, 545), 450.0), end=((1480, 394), 700.0))
+VC_VIEW = dict(wide=dict(k=0.64, x0=70.0, y0=340.0, z0=1250.0),
+               near=dict(k=3.2, x0=768.0 - VC_DAM_W * 3.2, y0=560.0, z0=700.0))
+VC_LAB = "横から見た断面（谷に沿う）"
+VC_EDGE = ("上流", "下流")
+# 奥の山並み（南の岸・模式）＝[(w m, 標高 m)]。崩れた範囲の上の端は亀裂の高さ（S1 PDF72＝930〜1,260m）の内
+VC_FAR = ((-400.0, 1150.0), (0.0, 1160.0), (500.0, 1235.0), (1100.0, 1250.0), (1700.0, 1120.0), (1990.0, 960.0),
+          (2300.0, 900.0), (2800.0, 880.0), (3400.0, 880.0))
+VC_SLIDE_W = ((VC_X0E - VA_PTS["slide_e"][0]) * VA_MPX, (VC_X0E - VA_PTS["slide_w"][0]) * VA_MPX)   # 崩れた範囲の幅（谷に沿う）
+VC_PAL = dict(night=dict(sky0="#0b1322", sky1="#1b2840", far="#202a3b", far_ln="#3a4760", ground="#2b3549", surf="#6a7891",
+                         lake="#2a5f8f", lake_ln="#6c9cc6"),
+              day=dict(sky0="#8fb7d3", sky1="#d5e5ee", far="#8d9a83", far_ln="#6f7c66", ground="#7c8b69", surf="#4e5a45",
+                       lake="#5d92b4", lake_ln="#2f5f80"))
+VC_FIX = dict(dam="#e6eaed", dam_ln="#20262d", water="#a8d9ec", foam="#dff1f9", level="#9fd0ee", south="#f2c14e",
+              dim="#f3f6f8")
+VC_T = dict(over=2.0, recede=0.8, line=0.45, south=0.6, gap=0.5, switch_hold=1.2, switch_fade=0.35)
+VC_REC = dict(
+    ground="#100 p1（1934年の地形図）・S9 p2006（ダムの高さ261.60m・天端725.50m＝谷の底463.9m）",
+    dam="S9 p2006（高さ261.60m・天端725.50m・厚さ 底22.11m 上3.40m）・S1 p171（ダムは耐えた）",
+    lake="S1 p96（その朝の水位＝約700m）",
+    l695="S1 p96（695mまで下げるつもり＝波のための余裕）",
+    over="S1 p146（西へダムを越えた）・S8 p1041（天端より140m）・S8 p1047（天端より100m以上）",
+    south="S1 p147（南の岸の斜面が1つの塊のまま湖へ）",
+    gap="S9 p2006（天端725.50m）・S1 p96（水位約700m）")
+
+
+def vc_bed_um():
+    """谷の底（川の高さ）＝[(w m, 標高 m)]（東→西）。川の線の点を、ダム〜湖の上流の端／峡谷の出口のあいだで川の長さで内挿（模式）。"""
+    riv = [tuple(map(float, p)) for p in VA_LINES["vajont"]]
+    dam = tuple(map(float, VA_PTS["dam"]))
+    i = riv.index(dam)
+    end, zu = VC_BED_REC["end"]
+    ex, ze = VC_BED_REC["exit"]
+    up = riv[:i + 1][::-1]
+    up = up[:up.index(tuple(map(float, end))) + 1]
+    dn = riv[i:]
+    dn = dn[:dn.index(tuple(map(float, ex))) + 1]
+
+    def acc(pts):
+        out, L = [0.0], 0.0
+        for a, b in zip(pts, pts[1:]):
+            L += math.hypot(b[0] - a[0], b[1] - a[1])
+            out.append(L)
+        return out
+    z0 = VC_BED_REC["base"]
+    Lu, Ld = acc(up), acc(dn)
+    pts = [(p[0], z0 + (zu - z0) * L / Lu[-1]) for p, L in zip(up, Lu)]
+    pts += [(p[0], z0 + (ze - z0) * L / Ld[-1]) for p, L in zip(dn[1:], Ld[1:])]
+    return sorted(((VC_X0E - x) * VA_MPX, z) for x, z in pts)
+
+
+VC_BED = tuple(vc_bed_um())
+
+
+def vc_bed(w):
+    return _lin(VC_BED, w)
+
+
+def vc_dam_um():
+    """ダムの断面（谷に沿う＝冠の断面）＝[(w, z)]。上流の面（底→天端）＋下流の面（天端→底）。厚さは底22.11m→上3.40m（S9 PDF6）。"""
+    D = VC_DAM
+    zb = D["crest"] - D["height"]
+    zs = [zb + D["height"] * j / 24 for j in range(25)]
+    up, dn = [], []
+    for z in zs:
+        f = (D["crest"] - z) / D["height"]
+        th = D["top"] + (D["base"] - D["top"]) * f
+        bulge = D["bulge"] * math.sin(math.pi * f)               # 反り（模式）＝上流へ少し張り出す
+        wu = VC_DAM_W - th / 2.0 - bulge
+        up.append((wu, z))
+        dn.append((wu + th, z))
+    return up + dn[::-1]
+
+
+def vc_dam_svg(view):
+    pts = [sec_xy(view, w, z) for w, z in vc_dam_um()]
+    return _poly(pts, VC_FIX["dam"], VC_FIX["dam_ln"], 2.5 if view["k"] < 1 else 3.5), pts
+
+
+def vc_x_range(view):
+    k, x0 = view["k"], view["x0"]
+    return (-12.0 - x0) / k, (W + 12.0 - x0) / k
+
+
+def vc_far_svg(view, tod):
+    P = VC_PAL[tod]
+    wl, wr = vc_x_range(view)
+    ws = [wl + (wr - wl) * j / 60 for j in range(61)]
+    px = [sec_xy(view, w, _lin(VC_FAR, w)) for w in ws]
+    poly = px + [(W + 12.0, H + 12.0), (-12.0, H + 12.0)]
+    return (_poly(poly, P["far"]) +
+            f'<path d="{_pl(px)}" fill="none" stroke="{P["far_ln"]}" stroke-width="2.5" stroke-linejoin="round"/>')
+
+
+def vc_ground_svg(view, tod):
+    """切り口の地面（谷の底より下）。上流は湖の底・下流は峡谷の底。"""
+    P = VC_PAL[tod]
+    wl, wr = vc_x_range(view)
+    bed = [(wl, vc_bed(wl))] + [q for q in VC_BED if wl < q[0] < wr] + [(wr, vc_bed(wr))]
+    px = [sec_xy(view, w, z) for w, z in bed]
+    poly = px + [(W + 12.0, H + 12.0), (-12.0, H + 12.0)]
+    return (_poly(poly, P["ground"]) +
+            f'<path d="{_pl(px)}" fill="none" stroke="{P["surf"]}" stroke-width="3" stroke-linejoin="round"/>')
+
+
+def vc_lake_px(view, level=VC_LAKE):
+    """湖＝左の端からダムの上流の面まで、谷の底と水面のあいだ。"""
+    wl, _wr = vc_x_range(view)
+    dam = vc_dam_um()
+    wu = _lin(sorted((z, w) for w, z in dam[:25]), level)        # 上流の面の、水面の高さの所
+    bed = [(wl, vc_bed(wl))] + [q for q in VC_BED if wl < q[0] < wu]
+    face = [(w, z) for w, z in dam[:25] if z <= level]
+    return ([sec_xy(view, wl, level), sec_xy(view, wu, level)] + [sec_xy(view, w, z) for w, z in reversed(face)]
+            + [sec_xy(view, w, z) for w, z in reversed(bed)])
+
+
+def vc_lake_svg(view, tod, level=VC_LAKE):
+    P = VC_PAL[tod]
+    pts = vc_lake_px(view, level)
+    (xa, ya), (xb, yb) = pts[0], pts[1]
+    return (_poly(pts, P["lake"]) +
+            f'<path d="M {xa:.1f} {ya:.1f} L {xb:.1f} {yb:.1f}" stroke="{P["lake_ln"]}" stroke-width="3"/>')
+
+
+def vc_level_svg(view, level, dash=True):
+    wl, _wr = vc_x_range(view)
+    wu = _lin(sorted((z, w) for w, z in vc_dam_um()[:25]), level)
+    (xa, y), (xb, _y) = sec_xy(view, wl, level), sec_xy(view, wu, level)
+    da = ' stroke-dasharray="14 9"' if dash else ""
+    return (f'<path d="M {xa:.1f} {y:.1f} L {xb - 3:.1f} {y:.1f}" stroke="#10161b" stroke-width="7" stroke-opacity="0.5"/>'
+            f'<path d="M {xa:.1f} {y:.1f} L {xb - 3:.1f} {y:.1f}" stroke="{VC_FIX["level"]}" stroke-width="3.5"{da}/>')
+
+
+def vc_over_um():
+    """ダムを越えた水（谷に沿う断面）＝(上の縁, 下の縁)。上の縁はダムの所で天端＋120m（S8 p1041・p1047 の間）→ 峡谷を下り、
+    出口に近い所で深さ約70m（S8 p1041）。上流は湖の水面（700m）から近づく水の先（ダムの手前 約300m）だけ＝谷の真ん中は盛らない"""
+    D = VC_DAM
+    top = D["crest"] + VC_OVER
+    dam = vc_dam_um()
+    wu_c = dam[24][0]                       # 天端の上流の角
+    wd_c = dam[25][0]                       # 天端の下流の角
+    up = [(VC_DAM_W - 300.0, VC_LAKE), (VC_DAM_W - 200.0, VC_LAKE + 28.0), (VC_DAM_W - 110.0, VC_LAKE + 75.0),
+          (VC_DAM_W - 40.0, top - 12.0), (wu_c, top), (wd_c + 30.0, top - 6.0), (VC_DAM_W + 90.0, top - 50.0),
+          (VC_DAM_W + 170.0, 700.0), (VC_DAM_W + 260.0, 610.0), (VC_DAM_W + 380.0, 560.0)]
+    wr = VC_DAM_W + 1103.0                  # 峡谷の出口（川の長さで約1.1km 下流）
+    for w in (VC_DAM_W + 520.0, VC_DAM_W + 700.0, wr - 100.0, wr + 60.0):
+        up.append((w, vc_bed(w) + VC_EXIT_D + max(0.0, (wr - w) / (wr - VC_DAM_W - 380.0)) * 25.0))
+    low = [(VC_DAM_W - 300.0, VC_LAKE), (_lin(sorted((z, w) for w, z in dam[:25]), VC_LAKE), VC_LAKE)]
+    low += [(w, z) for w, z in dam[:25] if z > VC_LAKE]              # 上流の面（700m→天端）
+    low += [(w, z) for w, z in dam[25:]]                             # 下流の面（天端→底）
+    low += [q for q in VC_BED if VC_DAM_W < q[0] < wr + 60.0] + [(wr + 60.0, vc_bed(wr + 60.0))]
+    return up, low
+
+
+def vc_over_svg(view):
+    up, low = vc_over_um()
+    pts = [sec_xy(view, w, z) for w, z in up] + [sec_xy(view, w, z) for w, z in reversed(low)]
+    return _poly(pts, VC_FIX["water"], VC_FIX["foam"], 2.5, 0.94), pts
+
+
+def vc_over_path(view):
+    up, _low = vc_over_um()
+    pts = [(w, (z + max(vc_bed(w), VC_LAKE if w < VC_DAM_W else vc_bed(w))) / 2.0) for w, z in up]
+    return [sec_xy(view, w, z) for w, z in pts]
+
+
+def vc_gap_ends(view, a, b):
+    x = sec_xy(view, VC_DAM_W - 46.0 / view["k"] - 28.0, 0.0)[0]
+    return (x, sec_xy(view, 0.0, a)[1]), (x, sec_xy(view, 0.0, b)[1])
+
+
+def vc_gap_svg(view, a, b):
+    pa, pb = vc_gap_ends(view, a, b)
+    return _bracket_svg(pa, pb, VC_FIX["dim"])
+
+
+def vc_hbr_ends(view):
+    x = sec_xy(view, VC_DAM_W + 150.0, 0.0)[0]
+    return (x, sec_xy(view, 0.0, VC_DAM["crest"])[1]), (x, sec_xy(view, 0.0, VC_DAM["crest"] + VC_OVER)[1])
+
+
+def vc_south_svg(view):
+    """南の岸から塊が入る向き（手前へ）＝奥の山並みの崩れた範囲を琥珀に・大きくなる下向きの矢印3つ（奥から手前へ）。"""
+    a, b = VC_SLIDE_W
+    ws = [a + (b - a) * j / 30 for j in range(31)]
+    top = [sec_xy(view, w, _lin(VC_FAR, w)) for w in ws]
+    bot = [sec_xy(view, w, VC_LAKE + 4.0) for w in reversed(ws)]
+    g = [_poly(top + bot, VC_FIX["south"], None, 0.0, 0.22),
+         f'<path d="{_pl(top + bot)} Z" fill="none" stroke="{VC_FIX["south"]}" stroke-width="3" stroke-dasharray="12 9"/>']
+    cx = sec_xy(view, (a + b) / 2.0, 0.0)[0]
+    for j, (z, s) in enumerate(((1120.0, 18.0), (980.0, 30.0), (820.0, 46.0))):
+        y = sec_xy(view, 0.0, z)[1]
+        g.append(f'<path d="M {cx - s:.1f} {y - s * 0.6:.1f} L {cx:.1f} {y + s * 0.6:.1f} L {cx + s:.1f} {y - s * 0.6:.1f}" '
+                 f'fill="none" stroke="#10161b" stroke-width="{4 + s * 0.28:.1f}" stroke-linecap="round" stroke-linejoin="round" '
+                 'stroke-opacity="0.6"/>'
+                 f'<path d="M {cx - s:.1f} {y - s * 0.6:.1f} L {cx:.1f} {y + s * 0.6:.1f} L {cx + s:.1f} {y - s * 0.6:.1f}" '
+                 f'fill="none" stroke="{VC_FIX["south"]}" stroke-width="{2 + s * 0.18:.1f}" stroke-linecap="round" '
+                 'stroke-linejoin="round"/>')
+    return "".join(g)
+
+
+# ── 位置の小さな地図（VB・VC の左上＝見る向きの札の下・VA の wide を小さく・ルール §5b-80・映像方針 §4-1）──
+#    いまの断面の線は太く・前の断面の線（VB↔VC は90度ちがう）は細く＋目の印（VB＝西を向く・VC＝南を向く）
+INSET_V = dict(x=72.0, w=300.0)
+INSET_LW = (5.0, 2.5)              # 線の太さ（いま・前）
+
+
+def v_inset_body(cur, other, s, ox, oy, lw=1.0):
+    """小さな地図の中身＝VA wide（夜）を倍率 s で (ox, oy) に。lw＝線と目の印の倍率（c102 の拡大の層は 1/s）。"""
+    sw, sh = W * s, H * s
+    g = [f'<defs><clipPath id="viC"><rect x="0" y="0" width="{W}" height="{H}"/></clipPath></defs>',
+         f'<g transform="translate({ox:.2f} {oy:.2f}) scale({s:.5f})"><g clip-path="url(#viC)">',
+         va_ground_svg("wide", "night"), va_towns_svg("wide", "night", ("longarone", "pirago", "fornace")),
+         va_towns_svg("wide", "night", ("pineda", "smartino")),
+         _poly(va_path("wide", va_slide_pts(), per=4, closed=True), "none", C["mark"], 7.0, 0.8),
+         va_dam_svg("wide"), "</g></g>"]
+
+    def P(p):
+        x, y = va_px(p, "wide")
+        return (ox + x * s, oy + y * s)
+    for which, wd in ((other, INSET_LW[1]), (cur, INSET_LW[0])):
+        if not which:
+            continue
+        c = VA_CUT[which]
+        (x0, y0), (x1, y1) = P(c["a"]), P(c["b"])
+        g.append(f'<path d="M {x0:.2f} {y0:.2f} L {x1:.2f} {y1:.2f}" stroke="#10161b" stroke-opacity="0.7" '
+                 f'stroke-width="{(wd + 3) * lw:.2f}" stroke-linecap="round"/>'
+                 f'<path d="M {x0:.2f} {y0:.2f} L {x1:.2f} {y1:.2f}" stroke="{c["col"]}" stroke-width="{wd * lw:.2f}" '
+                 'stroke-linecap="round"/>')
+    if cur:
+        c = VA_CUT[cur]
+        ex, ey = P(c["eye"])
+        r = math.radians(c["look"])
+        ux, uy = math.cos(r), math.sin(r)
+        L, hs = 22.0 * lw, 7.0 * lw
+        tx, ty = ex + ux * L, ey + uy * L
+        g.append(f'<circle cx="{ex:.2f}" cy="{ey:.2f}" r="{5.5 * lw:.2f}" fill="#f3f6f8" stroke="#10161b" '
+                 f'stroke-width="{2 * lw:.2f}"/>'
+                 f'<path d="M {ex + ux * 6 * lw:.2f} {ey + uy * 6 * lw:.2f} L {tx:.2f} {ty:.2f}" stroke="#10161b" '
+                 f'stroke-width="{5 * lw:.2f}" stroke-linecap="round"/>'
+                 f'<path d="M {ex + ux * 6 * lw:.2f} {ey + uy * 6 * lw:.2f} L {tx:.2f} {ty:.2f}" stroke="{c["col"]}" '
+                 f'stroke-width="{2.5 * lw:.2f}" stroke-linecap="round"/>'
+                 f'<path d="M {tx + ux * hs:.2f} {ty + uy * hs:.2f} L {tx - uy * hs:.2f} {ty + ux * hs:.2f} '
+                 f'L {tx + uy * hs:.2f} {ty - ux * hs:.2f} Z" fill="{c["col"]}" stroke="#10161b" stroke-width="{1.5 * lw:.2f}"/>')
+    g.append(f'<rect x="{ox:.2f}" y="{oy:.2f}" width="{sw:.2f}" height="{sh:.2f}" fill="none" stroke="#e3eaee" '
+             f'stroke-width="{2 * lw:.2f}"/>')
+    return "".join(g)
+
+
+def v_inset_svg(cur, other=None, y=None):
+    """左上の小さな地図（上の層＝カメラが掛からない）。y＝上の端（見る向きの札・想定の札の下＝overlay_svg が決める）。"""
+    s = INSET_V["w"] / W
+    return v_inset_body(cur, other, s, INSET_V["x"], y if y is not None else 136.0)
+
+
+def vb_still_svg(view_name="wide", tod="night"):
+    """c101 の終わりの VB（崩れたあと・水は引いた）＝c102 の頭で小さな地図が広がるまでの下の絵（VA の grow）。"""
+    v = VB_VIEW[view_name]
+    pts = vb_block_px(v, 1.0)
+    # 🔴 ⑤b-3 の下見：模様の四角だけを切り抜くと、地層の筋が塊の外まで延びた＝地（模様と筋）をまとめて塊の形で切り抜く
+    tex = vb_block_tex_svg((min(q[0] for q in pts) - 8, min(q[1] for q in pts) - 8,
+                            max(q[0] for q in pts) + 8, max(q[1] for q in pts) + 8))
+    return (vb_sky_svg(tod) + vb_ground_svg(v, tod) + vb_lake_svg(v, tod) +
+            f'<defs><clipPath id="vbK"><path d="{_pl(pts)} Z"/></clipPath></defs><g clip-path="url(#vbK)">{tex}</g>' +
+            f'<path d="{_pl(pts)} Z" fill="none" stroke="{VB_FIX["block_ln"]}" stroke-width="3" stroke-linejoin="round"/>' +
+            sec_edge_svg(VB_EDGE))
+
+
+def _sec_switch_text(place, v):
+    return dict(on="横から見ると", dam="ダムを横から見ると").get(v, "")
+
+
+def _vb_timeline(start, states, steps):
+    T = VB_T
+
+    def k0(**kw):
+        return [dict(stage=0, delay=0.0, **kw)]
+    s0 = start
+    K = dict(block_go=k0(m=float(s0["move"]) * (VB_NS - 1)), block_a=k0(a=1.0),
+             lake=k0(a=float(s0["lake"] == "on")),
+             run_go=k0(u=float(s0["runup"] in ("on", "over"))), run_a=k0(a=float(s0["runup"] == "on")),
+             runo_go=k0(u=float(s0["runup"] == "over")), runo_a=k0(a=float(s0["runup"] == "over")),
+             level=k0(a=float(s0["level"] == "on")), ghost=k0(a=float(s0["ghost"] == "on")),
+             path_go=k0(u=float(s0["path"] == "on")), path_a=k0(a=1.0), head=k0(a=float(s0["path"] == "on")),
+             dim=k0(a=float(s0["dim"] == "on")), bracket=k0(a=float(s0["bracket"] == "on")))
+    K["switch"] = [dict(stage=0, delay=0.0, a=1.0), dict(stage=0, delay=T["switch_hold"], dur=T["switch_fade"], a=0.0)]
+    prev = start
+    for i, (st, sp) in enumerate(zip(states, steps)):
+        dl = float(sp.get("delay", KEY_DELAY))
+
+        def ch(f):
+            return prev[f] != st[f]
+        if float(st["move"]) != float(prev["move"]):
+            K["block_go"].append(dict(stage=i, delay=dl, dur=float(sp.get("dur", T["slide"])), m=float(st["move"]) * (VB_NS - 1)))
+        if ch("lake"):
+            K["lake"].append(dict(stage=i, delay=dl, dur=T["line"], a=float(st["lake"] == "on")))
+        if ch("runup"):
+            rl = float(sp.get("run_delay", dl))
+            # run_hold＝駆け上がったあと、その段の中で引くまでの秒（c101＝冒頭の終わりに水の無い絵＝c102 の頭の絵にそろえる）
+            hold = sp.get("run_hold")
+            if st["runup"] == "on":
+                K["run_go"].append(dict(stage=i, delay=rl, dur=T["run"], u=1.0))
+                K["run_a"].append(dict(stage=i, delay=rl, dur=0.12, a=1.0))
+                if hold is not None:
+                    K["run_a"].append(dict(stage=i, delay=rl + T["run"] + float(hold), dur=T["recede"], a=0.0))
+            elif st["runup"] == "over":
+                K["runo_go"].append(dict(stage=i, delay=rl, dur=T["run"], u=1.0))
+                K["runo_a"].append(dict(stage=i, delay=rl, dur=0.12, a=1.0))
+                if hold is not None:
+                    K["runo_a"].append(dict(stage=i, delay=rl + T["run"] + float(hold), dur=T["recede"], a=0.0))
+            elif st["runup"] == "recede":
+                nm = "runo_a" if prev["runup"] == "over" else "run_a"
+                K[nm].append(dict(stage=i, delay=rl, dur=T["recede"], a=0.0))
+        for f, nm in (("level", "level"), ("ghost", "ghost"), ("dim", "dim"), ("bracket", "bracket")):
+            if ch(f):
+                K[nm].append(dict(stage=i, delay=dl, dur=T.get(f, T["line"]), a=float(st[f] == "on")))
+        if ch("path") and st["path"] == "on":
+            K["path_go"].append(dict(stage=i, delay=dl, dur=T["path"], u=1.0))
+            K["path_a"].append(dict(stage=i, delay=dl, dur=0.1, a=1.0))
+            K["head"].append(dict(stage=i, delay=dl + T["path"] - 0.15, dur=0.2, a=1.0))
+        elif ch("path") and st["path"] == "off":
+            # 🔴 ⑤b-3 の下見：消す鍵が無く、c810 の3行目まで矢印が残った
+            K["path_a"].append(dict(stage=i, delay=dl, dur=T["line"], a=0.0))
+            K["head"].append(dict(stage=i, delay=dl, dur=T["line"], a=0.0))
+        prev = st
+    return K
+
+
+def _scene_VB(start, states, steps):
+    """VB＝谷を横切る断面（約1.1km上流の北の岸の印を通る南北の線・西を向いて見る＝左が南のトック山・右が北の岸）。"""
+    view = VB_VIEW[start["view"]]
+    allst = [start] + states
+    t0 = start["tod"]
+    if any(st["tod"] != t0 for st in states) or any(st["view"] != start["view"] for st in states):
+        raise ValueError("illu VB：tod と view は場面の頭（start）で1つだけ")
+    if any(st["switch"] != start["switch"] or st["edge"] != start["edge"] or st["other"] != start["other"] for st in states):
+        raise ValueError("illu VB：switch・edge・other（合図）は頭（start）だけ")
+    for st in allst:
+        if not 0.0 <= float(st["move"]) <= 1.0:
+            raise ValueError("illu VB：move（塊の動き＝0 崩れる前〜1 止まった所）は 0〜1")
+    if any(float(b["move"]) < float(a["move"]) for a, b in zip(allst, allst[1:])):
+        raise ValueError("illu VB：塊は戻さない（move は段で増えるだけ）")
+
+    def used(f, v=None):
+        return any((st[f] != "off") if v is None else (st[f] == v) for st in allst)
+    K = _vb_timeline(start, states, steps)
+    R = VB_REC
+    parts = [_part("sky", vb_sky_svg(t0), R["ground"]),
+             dict(_part("ground", vb_ground_svg(view, t0), R["ground"]),
+                  geo=dict(kind="ground", line=[list(sec_xy(view, u, z)) for u, z in VB_G], slip=[list(sec_xy(view, u, z))
+                                                                                                for u, z in VB_SLIP]))]
+    if used("lake", "on"):
+        parts.append(dict(_part("lake", vb_lake_svg(view, t0), R["lake"], keys=K["lake"]),
+                          geo=dict(kind="lake", y=sec_xy(view, 0.0, 700.0)[1])))
+    if used("runup", "on"):
+        svg, poly = vb_runup_svg(view)
+        parts.append(dict(_part("runup", svg, R["runup"], keys=K["run_a"]), kind="draw",
+                          path=[list(q) for q in vb_runup_path(view)], go=K["run_go"], reveal=34,
+                          water=dict(poly=[list(q) for q in poly])))
+    parts.append(vb_block_part(view, R["block"], K["block_a"], K["block_go"]))
+    if used("runup", "over"):
+        su = vb_block_um(1.0)[0][-1][0]
+        svg, poly = vb_runup_svg(view, start_u=su)
+        parts.append(dict(_part("runup_over", svg, R["runup"], keys=K["runo_a"]), kind="draw",
+                          path=[list(q) for q in vb_runup_path(view, start_u=su)], go=K["runo_go"], reveal=34,
+                          water=dict(poly=[list(q) for q in poly])))
+    if used("ghost"):
+        parts.append(_part("ghost", vb_ghost_svg(view), R["block"], keys=K["ghost"]))
+    if used("path"):
+        pp = vb_path_px(view)
+        parts.append(dict(_part("path", vb_path_svg(view), R["block"], keys=K["path_a"]), kind="draw",
+                          path=[list(q) for q in pp], go=K["path_go"], reveal=26))
+        parts.append(_part("path_head", vb_path_head_svg(view), R["block"], keys=K["head"]))
+    if used("level"):
+        parts.append(dict(_part("level", vb_level_svg(view), R["level"], keys=K["level"]),
+                          geo=dict(kind="level", y=sec_xy(view, 0.0, 700.0)[1])))
+    if used("dim"):
+        (xa, y), (xb, _y), _pa, _pb = vb_dim_ends(view)
+        parts.append(dict(_part("dim", vb_dim_svg(view), R["dim"], keys=K["dim"]), geo=dict(kind="len", a=[xa, y], b=[xb, y])))
+    if used("bracket"):
+        a, b = vb_bracket_ends(view)
+        parts.append(dict(_part("bracket", vb_bracket_svg(view), R["level"], keys=K["bracket"]),
+                          geo=dict(kind="gap", a=list(a), b=list(b))))
+    if start["edge"] == "on":
+        parts.append(dict(_part("edge", sec_edge_svg(VB_EDGE), ""), signal=True))
+    if start["switch"] != "off":
+        parts.append(dict(_part("switch", sec_switch_svg(_sec_switch_text("VB", start["switch"])), "", keys=K["switch"]),
+                          signal=True))
+    return parts
+
+
+def _vb_anchors(st):
+    v = VB_VIEW[st["view"]]
+    s = float(st["move"])
+    pk = vb_peak_um()
+    (xa, y), (xb, _y), _pa, _pb = vb_dim_ends(v)
+    a, b = vb_bracket_ends(v)
+    top, _base = vb_block_um(s)
+    mid = top[len(top) // 2]
+    return dict(peak=sec_xy(v, *pk), toc=sec_xy(v, 300.0, _lin(VB_G, 300.0)), north=sec_xy(v, 2100.0, _lin(VB_G, 2100.0)),
+                lake=sec_xy(v, (VB_SHORE_S + VB_SHORE_N) / 2.0, 700.0), level=sec_xy(v, VB_SHORE_N + 180.0, 700.0),
+                dim=((xa + xb) / 2.0, y), rise=((a[0] + b[0]) / 2.0, (a[1] + b[1]) / 2.0), block=sec_xy(v, *mid),
+                runup_top=sec_xy(v, *vb_runup_um()[1][-1]), slip=sec_xy(v, 600.0, _lin(VB_SLIP, 600.0)),
+                date=(W - 80.0, 170.0))
+
+
+def _vb_ageo(st, name):
+    """札の指し先の幾何（門番 ⑨ が同じ目盛りで読む）。"""
+    v = VB_VIEW[st["view"]]
+    an = _vb_anchors(st)
+    if name == "dim":
+        (xa, y), (xb, _y), _pa, _pb = vb_dim_ends(v)
+        return dict(kind="len", a=[xa, y], b=[xb, y], k=v["k"])
+    if name == "rise":
+        a, b = vb_bracket_ends(v)
+        return dict(kind="gap", a=list(a), b=list(b), k=v["k"])
+    if name in an:
+        return dict(kind="z", xy=list(an[name]), view=dict(v))
+    return None
+
+
+def _vb_note(st0, states):
+    allst = [st0] + list(states)
+    note = ["地形は1934年の地形図から・すべり面と塊の形は模式・高さと横は同じ縮尺"]
+    if any(float(st["move"]) != float(st0["move"]) for st in allst) or any(st["runup"] != "off" for st in allst):
+        note.append("動きは縮めてある")
+    return "・".join(note)
+
+
+def _vc_timeline(start, states, steps):
+    T = VC_T
+
+    def k0(**kw):
+        return [dict(stage=0, delay=0.0, **kw)]
+    s0 = start
+    K = dict(over_go=k0(u=float(s0["over"] != "off")), over_a=k0(a=float(s0["over"] == "on")),
+             l695=k0(a=float(s0["l695"] == "on")), gap=k0(a=float(s0["gap"] == "on")), hbr=k0(a=float(s0["hbr"] == "on")),
+             south=k0(a=float(s0["south"] == "on")))
+    K["switch"] = [dict(stage=0, delay=0.0, a=1.0), dict(stage=0, delay=T["switch_hold"], dur=T["switch_fade"], a=0.0)]
+    prev = start
+    for i, (st, sp) in enumerate(zip(states, steps)):
+        dl = float(sp.get("delay", KEY_DELAY))
+
+        def ch(f):
+            return prev[f] != st[f]
+        if ch("over"):
+            if st["over"] == "on":
+                K["over_go"].append(dict(stage=i, delay=dl, dur=float(sp.get("dur", T["over"])), u=1.0))
+                K["over_a"].append(dict(stage=i, delay=dl, dur=0.12, a=1.0))
+            elif st["over"] == "recede":
+                K["over_a"].append(dict(stage=i, delay=dl, dur=T["recede"], a=0.0))
+        for f in ("l695", "gap", "hbr", "south"):
+            if ch(f):
+                K[f].append(dict(stage=i, delay=dl, dur=T.get(f, T["line"]), a=float(st[f] == "on")))
+        prev = st
+    return K
+
+
+def _scene_VC(start, states, steps):
+    """VC＝谷に沿う断面（ダムを通る東西の線・南を向いて見る＝左が上流〈東〉・右が下流〈西〉）。ダムは壊さない。"""
+    view = VC_VIEW[start["view"]]
+    allst = [start] + states
+    t0 = start["tod"]
+    if any(st["tod"] != t0 for st in states) or any(st["view"] != start["view"] for st in states):
+        raise ValueError("illu VC：tod と view は場面の頭（start）で1つだけ")
+    if any(st["switch"] != start["switch"] or st["edge"] != start["edge"] or st["other"] != start["other"] for st in states):
+        raise ValueError("illu VC：switch・edge・other（合図）は頭（start）だけ")
+    if start["view"] == "near" and any(st["over"] != "off" or st["south"] != "off" for st in allst):
+        raise ValueError("illu VC：near（天端の寄り）に越える水と南の岸の印は描かない（wide で）")
+
+    def used(f, v=None):
+        return any((st[f] != "off") if v is None else (st[f] == v) for st in allst)
+    K = _vc_timeline(start, states, steps)
+    R = VC_REC
+    dam_svg, dam_px = vc_dam_svg(view)
+    parts = [_part("sky", vb_sky_svg(t0), R["ground"]), _part("far", vc_far_svg(view, t0), R["ground"])]
+    if used("south"):
+        parts.append(_part("south", vc_south_svg(view), R["south"], keys=K["south"]))
+    parts += [dict(_part("ground", vc_ground_svg(view, t0), R["ground"]),
+                   geo=dict(kind="ground", line=[list(sec_xy(view, w, z)) for w, z in VC_BED])),
+              dict(_part("lake", vc_lake_svg(view, t0), R["lake"]), geo=dict(kind="lake", y=sec_xy(view, 0.0, VC_LAKE)[1]))]
+    if used("over"):
+        svg, poly = vc_over_svg(view)
+        parts.append(dict(_part("over", svg, R["over"], keys=K["over_a"]), kind="draw",
+                          path=[list(q) for q in vc_over_path(view)], go=K["over_go"], reveal=int(190 * view["k"] / 0.64),
+                          water=dict(poly=[list(q) for q in poly], dam_x=sec_xy(view, VC_DAM_W, 0.0)[0])))
+    parts.append(dict(_part("dam", dam_svg, R["dam"]), obj=dict(dam=1), geo=dict(kind="dam", poly=[list(q) for q in dam_px])))
+    if used("l695"):
+        parts.append(dict(_part("l695", vc_level_svg(view, VC_L695), R["l695"], keys=K["l695"]),
+                          geo=dict(kind="level", y=sec_xy(view, 0.0, VC_L695)[1])))
+    if used("gap"):
+        a, b = vc_gap_ends(view, VC_LAKE, VC_DAM["crest"])
+        parts.append(dict(_part("gap", vc_gap_svg(view, VC_LAKE, VC_DAM["crest"]), R["gap"], keys=K["gap"]),
+                          geo=dict(kind="gap", a=list(a), b=list(b))))
+    if used("hbr"):
+        a, b = vc_hbr_ends(view)
+        parts.append(dict(_part("hbr", _bracket_svg(a, b, VC_FIX["dim"]), R["over"], keys=K["hbr"]),
+                          geo=dict(kind="gap", a=list(a), b=list(b))))
+    if start["edge"] == "on":
+        parts.append(dict(_part("edge", sec_edge_svg(VC_EDGE), ""), signal=True))
+    if start["switch"] != "off":
+        parts.append(dict(_part("switch", sec_switch_svg(_sec_switch_text("VC", start["switch"])), "", keys=K["switch"]),
+                          signal=True))
+    return parts
+
+
+def _vc_anchors(st):
+    v = VC_VIEW[st["view"]]
+    dam = vc_dam_um()
+    cw = (dam[24][0] + dam[25][0]) / 2.0
+    wl, _wr = vc_x_range(v)
+    lake_w = max(wl + 120.0 / v["k"], VC_DAM_W - 520.0 / v["k"])
+    ga, gb = vc_gap_ends(v, VC_LAKE, VC_DAM["crest"])
+    ha, hb = vc_hbr_ends(v)
+    return dict(crest=sec_xy(v, cw, VC_DAM["crest"]), dam=sec_xy(v, VC_DAM_W, VC_DAM["crest"] - 60.0),
+                lake=sec_xy(v, lake_w, VC_LAKE), l695=sec_xy(v, lake_w + 60.0 / v["k"], VC_L695),
+                gap=((ga[0] + gb[0]) / 2.0, (ga[1] + gb[1]) / 2.0), hbr=((ha[0] + hb[0]) / 2.0, (ha[1] + hb[1]) / 2.0),
+                south=sec_xy(v, sum(VC_SLIDE_W) / 2.0 + 140.0, 1000.0), gorge=sec_xy(v, VC_DAM_W + 600.0, 560.0),
+                over=sec_xy(v, cw, VC_DAM["crest"] + VC_OVER))
+
+
+def _vc_ageo(st, name):
+    v = VC_VIEW[st["view"]]
+    if name == "gap":
+        a, b = vc_gap_ends(v, VC_LAKE, VC_DAM["crest"])
+        return dict(kind="gap", a=list(a), b=list(b), k=v["k"])
+    if name == "hbr":
+        a, b = vc_hbr_ends(v)
+        return dict(kind="gap", a=list(a), b=list(b), k=v["k"])
+    an = _vc_anchors(st)
+    if name in an:
+        return dict(kind="z", xy=list(an[name]), view=dict(v))
+    return None
+
+
+def _vc_note(st0, states):
+    allst = [st0] + list(states)
+    note = ["谷の底と奥の山並みは模式・ダムの断面の反りは模式・高さと横は同じ縮尺"]
+    if any(st["over"] != "off" for st in allst):
+        note.append("動きは縮めてある")
+    return "・".join(note)
+
+
 def tag_svg(x, y, t, to=None, anchor="start", col=None, cap=30):
     col = col or C["tag"]
     s = fm.fit(t, 620, "Noto", cap=cap, floor=20)
@@ -2509,15 +3433,23 @@ def tag_svg(x, y, t, to=None, anchor="start", col=None, cap=30):
 
 CHIP = (72, 32, 208, 50)       # 見本は x 36＝画面の余白（J.MG＝72）の外だった＝check_layout に合わせて寄せた
 SRC_Y = 884
+SRC_W = 1776                   # 出典の行の幅の上限（右の端 1848＝check_layout − 左の余白 72）
 
 
 ASSUME_FG = "#f2c14e"
 
 
-def overlay_svg(view, src, assume=""):
+def inset_top(view, assume=""):
+    """位置の小さな地図の上の端（見る向きの札・想定の札の下）。"""
+    x, y, w, h = CHIP
+    return y + h + (54 if view else 14) + (56 if assume else 0)
+
+
+def overlay_svg(view, src, assume="", inset=None):
     """左上の「再現イラスト」の札（と見る向き）・左下の出典（ルール §5b-74③・§5b-80）。check_illu ④ が同じ関数で見る。
     🆕 16本目 ⑤b-2：assume＝想定の札（「会社の説明（想定）」「模型の想定」＝起きた事ではない絵・映像方針 16本目 §2③）を
-       見る向きの下に（琥珀の枠）"""
+       見る向きの下に（琥珀の枠）
+    🆕 16本目 ⑤b-3：inset＝位置の小さな地図 dict(cur="B"/"C", other=前の断面)＝その下（上の層＝カメラが掛からない）"""
     x, y, w, h = CHIP
     g = [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="6" fill="{CHIP_BG}" fill-opacity="0.62" '
          f'stroke="{CHIP_FG}" stroke-width="2"/>',
@@ -2533,10 +3465,22 @@ def overlay_svg(view, src, assume=""):
                  f'stroke="{ASSUME_FG}" stroke-width="2.5"/>'
                  f'<text x="{x + aw / 2:.0f}" y="{ay + 33}" font-family="Noto" font-size="27" fill="{ASSUME_FG}" '
                  f'text-anchor="middle">{F.esc(assume)}</text>')
+    if inset:
+        g.append(v_inset_svg(inset["cur"], inset.get("other"), y=inset_top(view, assume)))
     if src:
         s = fm.fit(src, 1500, "Noto", cap=22, floor=15)
-        g.append(f'<text x="{x}" y="{SRC_Y}" font-family="Noto" font-size="{s}" fill="#e3eaee" stroke="#10161b" '
-                 f'stroke-width="4" stroke-linejoin="round" paint-order="stroke fill">{F.esc(src)}</text>')
+        lines = [src]
+        if fm.width(src, s) > SRC_W:
+            # 🆕 16本目 ⑤b-3：断面（VB・VC）の出典は資料と断りが多く、いちばん小さい字でも右の端（1848）を越えた（layout）
+            #   ＝越えるときだけ「／」の切れ目で2行に（幅のそろう所で割る・語の途中で割らない）。1行で収まる回は前と同じ
+            seg = src.split("／")
+            k = min(range(1, len(seg)), key=lambda i: max(fm.width("／".join(seg[:i]) + "／", 20), fm.width("／".join(seg[i:]), 20)))
+            lines = ["／".join(seg[:k]) + "／", "／".join(seg[k:])]
+            s = min(fm.fit(t, SRC_W, "Noto", cap=22, floor=15) for t in lines)
+        for j, t in enumerate(lines):
+            yy = SRC_Y - (len(lines) - 1 - j) * (s + 8)
+            g.append(f'<text x="{x}" y="{yy}" font-family="Noto" font-size="{s}" fill="#e3eaee" stroke="#10161b" '
+                     f'stroke-width="4" stroke-linejoin="round" paint-order="stroke fill">{F.esc(t)}</text>')
     return "".join(g)
 
 
@@ -2608,7 +3552,16 @@ FIELDS = {
     #   marks・wave_w／flood／wave_e（off／on／recede）・prev（頭だけ：B／C／D）・nxt（B／C）・switch（頭だけ）
     "VA": dict(view="wide", tod="night", block="off", slide="off", towns="on", shore="on", tunnel="off", split="off",
                road="off", gates="off", marks="off", wave_w="off", flood="off", wave_e="off", prev="off", nxt="off",
-               switch="off", cam=1.0),
+               switch="off", grow="off", cam=1.0),
+    # 16本目 ⑤b-3：VB 谷を横切る断面・VC 谷に沿う断面（上の「16本目 ⑤b-3」の節）。
+    #   VB＝move（塊の動き 0〜1）・lake・runup（off／on＝北の岸を駆け上がる／over＝崩れたあとの絵の上で／recede）・level（崩れる前の
+    #   水面の点線）・ghost（崩れる前の塊の輪郭）・path（湖を横切る向き）・dim（水平に300〜400m の矢印）・bracket（700→頂上）
+    #   VC＝view（wide／near）・over（天端を越える水）・l695（下げようとした水位）・gap（水位→天端）・hbr（天端→水の上・数なし）・
+    #   south（南の岸から塊が入る向き）。どちらも other（小さな地図の前の断面の線・頭だけ）・switch（頭だけ）・edge（左右の端の札）
+    "VB": dict(view="wide", tod="night", move=0.0, lake="on", runup="off", level="off", ghost="off", path="off", dim="off",
+               bracket="off", other="off", switch="off", edge="on", cam=1.0),
+    "VC": dict(view="wide", tod="night", over="off", l695="off", gap="off", hbr="off", south="off", other="off", switch="off",
+               edge="on", cam=1.0),
 }
 ONOFF = ("off", "on")
 CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONOFF, crowd=ONOFF, bridge=ONOFF, run=ONOFF,
@@ -2619,22 +3572,30 @@ CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONO
                tod=("day", "night", "dawn"), block=ONOFF, slide=ONOFF, towns=("on", "gone", "mud"),
                shore=("on", "gone", "mud"), tunnel=ONOFF, split=("off", "on", "flow"), road=("off", "on", "low"),
                gates=ONOFF, marks=ONOFF, wave_w=("off", "on", "recede"), flood=("off", "on", "recede"),
-               wave_e=("off", "on", "recede"), prev=("off", "B", "C", "D"), nxt=("off", "B", "C"), switch=ONOFF)
+               wave_e=("off", "on", "recede"), prev=("off", "B", "C", "D"), nxt=("off", "B", "C"),
+               # 🆕 ⑤b-3：switch に dam（「ダムを横から見ると」＝c816）・VA の grow・VB／VC の欄
+               switch=("off", "on", "dam"), grow=("off", "B"), lake=ONOFF, runup=("off", "on", "over", "recede"),
+               level=ONOFF, ghost=ONOFF, dim=ONOFF, bracket=ONOFF, edge=ONOFF, other=("off", "B", "C"),
+               over=("off", "on", "recede"), l695=ONOFF, gap=ONOFF, hbr=ONOFF, south=ONOFF)
 VIEWS = dict(B=("corridor", "cabin", "desk"), C=("helm", "console", "room"), D=("ship", "sea", "far", "heli", "rail"),
-             RA=tuple(RA_VIEW), RB=("side", "rear"), RD=("tail",), RC=tuple(RC_VIEW), VA=tuple(VA_VIEW))
+             RA=tuple(RA_VIEW), RB=("side", "rear"), RD=("tail",), RC=tuple(RC_VIEW), VA=tuple(VA_VIEW),
+             VB=tuple(VB_VIEW), VC=tuple(VC_VIEW))
 # 変える段には rec が要る（記録の事実を描く欄）。⑤b-3 で置き場 C・D・E の欄を足した（位置 bx とカメラ cam は要らない）
 #   15本目 ⑤b-2：RA の印・線・×・輪、RB の機首の上げ・傾き・補助翼（コースの破線 course と地面 ground は要らない）
 #   16本目 ⑤b-2：VA の時刻（夜明け）・塊・崩れた範囲・建物の面・トンネル・想定の帯・道・入口・印・水（合図の prev・nxt・switch は要らない）
 REC_FIELDS = ("heel", "wake", "boxes", "crowd", "mark", "bridge", "run", "far", "binoc", "rboat", "cg", "crew", "sel",
               "gg", "path", "trace", "x", "box", "laps", "seg67", "ring8", "piece", "fuel", "pitch", "roll", "ail",
               "tod", "block", "slide", "towns", "shore", "tunnel", "split", "road", "gates", "marks", "wave_w", "flood",
-              "wave_e")
+              "wave_e",
+              # 🆕 ⑤b-3：VB の塊の動き・水・線と、VC の越える水・水位・寸法・南の岸の向き（合図の other・switch・edge は要らない）
+              "move", "lake", "runup", "level", "ghost", "dim", "bracket", "over", "l695", "gap", "hbr", "south")
 # 段ごとの出来事（引き継がない・数で書く＝画面の文字の門番が文字として読まない）。pylon＝RB でパイロンが1本流れる
 EVENTS = ("rings", "board", "rings_in", "asks", "walkie", "glow", "pylon")
 VIEW = dict(A="船首の側から見た図", D="船首の側から見た図", B="船の中", C="操舵室の中", E="管制センターの中",
             RD="ピットの事故機（横から）")
 # 左下の出典のあとに添える断り（15本目）。16本目 VA は場面の中身で変わる（関数＝_va_note）
-NOTE = dict(RA="配置は概略・機体は拡大・点線は模式", RC="柵・幕・車の形と並びは模式・配置は概略", VA=_va_note)
+NOTE = dict(RA="配置は概略・機体は拡大・点線は模式", RC="柵・幕・車の形と並びは模式・配置は概略", VA=_va_note,
+            VB=_vb_note, VC=_vc_note)
 D_VIEW = dict(ship="船首の側から見た図", heli="船首の側から見た図", sea="123艇を横から見た図", far="123艇から見た図",
               rail="3階の左舷を横から見た図")
 ROLES = ("crew", "coast_guard", "control")                # 型紙（数えられる影）で置ける役割
@@ -3026,6 +3987,10 @@ def _anchors(place, st):
         return _ra_anchors(v)
     if place == "VA":
         return _va_anchors(v)
+    if place == "VB":
+        return _vb_anchors(st)
+    if place == "VC":
+        return _vc_anchors(st)
     if place == "RB":
         return _rb_anchors(st)
     if place == "RD":
@@ -3071,6 +4036,8 @@ def _camc(place, st0, states):
         return (960.0, RA_Y0)
     if place == "VA":
         return (960.0, VA_Y0)
+    if place in ("VB", "VC"):
+        return (960.0, 540.0)
     if place == "RB":
         return RB_CR if st0["view"] == "rear" else RB_C
     if place == "RD":
@@ -3112,19 +4079,21 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
              RB＝空の中の事故機（view＝side／rear・ground・pitch＝機首の上げ（度）・roll＝左への傾き（度）・ail＝補助翼 off／right・
              出来事 rings＝テレメトリーの輪・pylon＝パイロンが1本流れる）／RD＝ピットの事故機（view＝tail・mark）
     16本目（⑤b-2）の置き場：VA＝上から見た谷（view＝wide／near／west・欄は FIELDS["VA"] の注）
+    16本目（⑤b-3）の置き場：VB＝谷を横切る断面／VC＝谷に沿う断面（ダム）（欄は FIELDS["VB"]・FIELDS["VC"] の注）。
+             段の鍵 run_delay・run_hold（北の岸を駆け上がる水の出る秒・引くまでの秒）。札の cap（字の大きさの上限）
     assume … 想定の札（「会社の説明（想定）」など＝起きた事ではない絵・左上の見る向きの下）
     """
     if place not in FIELDS:
         raise ValueError(f"illu：知らない置き場 {place!r}（{tuple(FIELDS)}）")
     steps = [dict(s) for s in steps]
     for sp in steps:
-        bad = set(sp) - {"state", "rec", "tag", "gap", "delay", "dur", "ring_delay", "touch"} - set(EVENTS)
+        bad = set(sp) - {"state", "rec", "tag", "gap", "delay", "dur", "ring_delay", "touch", "run_delay", "run_hold"} - set(EVENTS)
         if bad:
             raise ValueError(f"illu：段に知らない鍵 {sorted(bad)}")
     st0, states = _states(place, start, steps)
     parts = {"A": _scene_A, "B": _scene_B, "C": _scene_C, "D": _scene_D, "E": _scene_E,
              "RA": _scene_RA, "RB": _scene_RB, "RD": _scene_RD, "RC": _scene_RC,
-             "VA": _scene_VA}[place](st0, states, steps)
+             "VA": _scene_VA, "VB": _scene_VB, "VC": _scene_VC}[place](st0, states, steps)
     if isinstance(camc, str):
         camc = _anchors(place, states[-1] if states else st0)[camc]
     if "pan" in FIELDS[place]:
@@ -3149,15 +4118,21 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
         #    動く前の空を指す（試し焼き 36657377530 の c307：「17.3G」が水平の機体の先の空を指した）＝既定は動きが終わってから
         g, texts, keep, dl = [], [], False, max(0.35, mend.get(i, 0.0))
         an = _anchors(place, st)
+        ats, ageo = [], []
         for tg in F._many(sp.get("tag")):
             to = an[tg["at"]] if isinstance(tg.get("at"), str) else tg.get("at")
             ox, oy = tg.get("off", (60, -70))
             x, y = (to[0] + ox, to[1] + oy) if to else tuple(tg["xy"])
-            g.append(tag_svg(x, y, tg["t"], to=to, anchor=tg.get("anchor", "start"), col=tg.get("col")))
+            g.append(tag_svg(x, y, tg["t"], to=to, anchor=tg.get("anchor", "start"), col=tg.get("col"),
+                             cap=tg.get("cap", 30)))
             texts.append(tg["t"])
             keep = keep or bool(tg.get("keep"))
             dl = float(tg.get("delay", dl))
-        tags.append(dict(svg="".join(g) or " ", texts=texts, keep=keep, delay=dl))
+            # 🆕 ⑤b-3：札の指し先の名と幾何（門番 ⑨＝札の数と、指す高さ・寸法を同じ目盛りで読む）
+            nm = tg.get("at") if isinstance(tg.get("at"), str) else None
+            ats.append(nm)
+            ageo.append((_vb_ageo if place == "VB" else _vc_ageo)(st, nm) if place in ("VB", "VC") and nm else None)
+        tags.append(dict(svg="".join(g) or " ", texts=texts, keep=keep, delay=dl, ats=ats, ageo=ageo))
     recs = [p["rec"] for p in parts] + [sp.get("rec") for sp in steps if sp.get("rec")] + ([rec] if rec else [])
     recs += [v[1] for v in (people or {}).values() if isinstance(v, (tuple, list)) and len(v) > 1]
     label = view or _label(place, st0, states)
@@ -3167,9 +4142,12 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
         note = note(st0, states) if callable(note) else note
         if note:
             src = (src + "／" if src else "") + note
+    # 🆕 ⑤b-3：断面（VB・VC）の左上の位置の小さな地図（いまの断面の線＝太い・前の断面の線＝細い）と目盛り（門番 ⑨〜⑪）
+    inset = dict(cur=place[1], other=None if st0["other"] == "off" else st0["other"]) if place in ("VB", "VC") else None
+    ruler = dict((VB_VIEW if place == "VB" else VC_VIEW)[st0["view"]]) if place in ("VB", "VC") else None
     return dict(place=place, view=label, at=at, people=dict(people or {}), scale=scale, rec=rec, objects=objects,
                 parts=parts, cam=cam, camc=list(camc or _camc(place, st0, states)), tags=tags, nstage=len(steps),
-                start=st0, states=states, steps=steps, recs=recs, src=src, assume=assume or "")
+                start=st0, states=states, steps=steps, recs=recs, src=src, assume=assume or "", inset=inset, ruler=ruler)
 
 
 def _label(place, st0, states):
@@ -3183,6 +4161,10 @@ def _label(place, st0, states):
         return RC_VIEW[st0["view"]]
     if place == "VA":
         return VA_LAB
+    if place == "VB":
+        return VB_LAB
+    if place == "VC":
+        return VC_LAB
     if place == "RB":
         seq = []
         for st in [st0] + list(states):
@@ -3208,7 +4190,8 @@ def illu(place, steps, **kw):
     """全面の再現イラスト（画面の種類「再現イラスト」）。段＝台本の行（札は段の層 `_a<番号>`）。"""
     sc = scene(place, steps, **kw)
     f = F.Fig("", [t["svg"] for t in sc["tags"]], "", (0, W))
-    f.illu = dict(full=True, scenes=[dict(sc, role="main", box=None)], view=sc["view"], src=sc["src"], assume=sc["assume"])
+    f.illu = dict(full=True, scenes=[dict(sc, role="main", box=None)], view=sc["view"], src=sc["src"], assume=sc["assume"],
+                  inset=sc.get("inset"))
     return f
 
 

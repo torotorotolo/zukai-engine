@@ -949,6 +949,74 @@ def _il_prefix(path, u):
     return out
 
 
+# ── 16本目 ⑤b-3（2026-10-01）：形を段ごとに移す部品 morph（VB の塊＝1つのまま・すべり面と地面に沿って運ぶ）──────
+#   shapes … 形の並び（どれも同じ点の数・画面の点）。go の m＝形の番号（小数＝前後の形のあいだを点ごとに直線で）
+#   snap   … 底の点（idx）を支えの線（path＝すべり面と地面）の上へ乗せ直す（形のあいだで浮かない・食い込まない）
+#   tex    … 形ごとの地の模様のずれ（塊と一緒に動く＝1つの塊）。層の絵（模様）を型紙（多角形）で切り抜いて重ねる
+#   line   … 縁の線 dict(col, w)。🔴 型紙と縁は2倍の大きさで描いて縮める（PIL の多角形は縁がぎざぎざ・太い線は折れ目にすき間
+#            ＝⑤b-2 の draw と同じく折れ目ごとに円を押す）
+def _il_ypath(path, x):
+    """折れ線（x は昇順）の x での y。範囲の外は端の値。"""
+    if x <= path[0][0]:
+        return path[0][1]
+    for (x0, y0), (x1, y1) in zip(path, path[1:]):
+        if x0 <= x <= x1:
+            return y0 + (y1 - y0) * (x - x0) / (x1 - x0) if x1 > x0 else y0
+    return path[-1][1]
+
+
+def _il_morph(p, m):
+    """morph の部品の、形の番号 m（小数）の点の並びと地のずれ。"""
+    sh = p["shapes"]
+    m = max(0.0, min(len(sh) - 1.0, float(m)))
+    i = min(int(m), len(sh) - 2)
+    f = m - i
+    A, B = sh[i], sh[i + 1]
+    pts = [(a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f) for a, b in zip(A, B)]
+    sn = p.get("snap")
+    if sn:
+        for j in sn["idx"]:
+            pts[j] = (pts[j][0], _il_ypath(sn["path"], pts[j][0]))
+    tx = p.get("tex") or [[0.0, 0.0]] * len(sh)
+    return pts, (tx[i][0] + (tx[i + 1][0] - tx[i][0]) * f, tx[i][1] + (tx[i + 1][1] - tx[i][1]) * f)
+
+
+def _il_rgb(h):
+    h = h.lstrip("#")
+    return tuple(int(h[k:k + 2], 16) for k in (0, 2, 4))
+
+
+def _il_poly_tex(fr, img, ox, oy, pts, tdx, tdy, a, line):
+    """層の絵（模様）を多角形の型紙で切り抜き、地のずれ（tdx, tdy）だけずらして重ねる＋縁の線。"""
+    xs, ys = [q[0] for q in pts], [q[1] for q in pts]
+    lw = float((line or {}).get("w", 0.0))
+    pad = int(lw) + 3
+    bx0, by0 = max(0, int(math.floor(min(xs))) - pad), max(0, int(math.floor(min(ys))) - pad)
+    bx1, by1 = min(fr.width, int(math.ceil(max(xs))) + pad), min(fr.height, int(math.ceil(max(ys))) + pad)
+    if bx1 <= bx0 or by1 <= by0:
+        return
+    w, h, ss = bx1 - bx0, by1 - by0, 2
+    q2 = [((x - bx0) * ss, (y - by0) * ss) for x, y in pts]
+    m2 = Image.new("L", (w * ss, h * ss), 0)
+    ImageDraw.Draw(m2).polygon(q2, fill=255)
+    mask = m2.resize((w, h), Image.LANCZOS)
+    sx, sy = int(round(bx0 - ox - tdx)), int(round(by0 - oy - tdy))
+    tex = img.crop((sx, sy, sx + w, sy + h))            # 層の外は透明（RGBA の crop は 0 で埋まる）
+    tex.putalpha(ImageChops.multiply(tex.getchannel("A"), mask))
+    _il_put(fr, tex, bx0, by0, a)
+    if line and lw > 0:
+        o2 = Image.new("L", (w * ss, h * ss), 0)
+        do = ImageDraw.Draw(o2)
+        lw2 = max(1, int(round(lw * ss)))
+        do.line(q2 + [q2[0]], fill=255, width=lw2, joint="curve")
+        r = lw2 / 2.0
+        for x, y in q2:
+            do.ellipse((x - r, y - r, x + r, y + r), fill=255)
+        ol = Image.new("RGBA", (w, h), _il_rgb(line["col"]) + (255,))
+        ol.putalpha(o2.resize((w, h), Image.LANCZOS))
+        _il_put(fr, ol, bx0, by0, a)
+
+
 def _il_scene(t, lay, sc, times):
     """場面の絵（部品を重ねただけ・札とカメラの前）。"""
     fr = Image.new("RGBA", (S.W, S.H), (0, 0, 0, 255))
@@ -991,6 +1059,13 @@ def _il_scene(t, lay, sc, times):
                 cut = img.copy()
                 cut.putalpha(ImageChops.multiply(img.getchannel("A"), m))
                 _il_put(fr, cut, ox, oy, a)
+        elif kind == "morph":
+            # 🆕 16本目 ⑤b-3：形を段ごとに移す（VB の塊）＝上の _il_morph・_il_poly_tex
+            m = _il_state(p["go"], t, times, dict(m=0.0))["m"]
+            a = _il_state(p["keys"], t, times)["a"]
+            if a > 0.004:
+                pts, (tdx, tdy) = _il_morph(p, m)
+                _il_poly_tex(fr, img, ox, oy, pts, tdx, tdy, a, p.get("line"))
         elif kind == "mover":
             u = _il_state(p["go"], t, times, dict(u=0.0))["u"]
             a = _il_state(p["keys"], t, times)["a"]

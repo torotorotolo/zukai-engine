@@ -99,6 +99,55 @@ SPEC = {
                         tag=dict(t="崩れた範囲", at="slide", off=(60, 80), keep=True)),
                    dict(state=dict(nxt="B"), delay=1.1)])),
     ),
+    # ── 🆕 ⑤b-3（2026-10-01）：案C の置き場 VB（谷を横切る断面・夜）・VC（谷に沿う断面・夜）＝`tools/illu.py` の「16本目 ⑤b-3」──
+    #   左上に位置の小さな地図（いまの断面の線＝太い・前の断面の線＝細い＝VB と VC は90度ちがう・映像方針 §4-1 の4）。
+    #   塊は1つのまま・すべり面と地面に沿って運ぶ（浮かせない・戻さない＝move は段で増えるだけ）。人は置かない。秒は narration.json
+    # c805（9.84秒）＝合図（映像方針 §4-2 #10・c802 の南北の線から）＝「横から見ると」・小さな地図。1行目（聞き役）・2行目＝崩れる前の
+    #   まま／3行目「いきなり…速さになった」で塊が動き出す（すべり面に沿って・0→0.35）。速さの札は出さない（字幕）
+    "c805": dict(
+        fig=("illu", dict(
+            place="VB", at="22:39", start=dict(view="wide", switch="on", other="C"),
+            rec="S1 p96（その朝の水位＝約700m）",
+            steps=[dict(), dict(),
+                   dict(state=dict(move=0.35), delay=0.5, dur=2.6, rec="S1 p147（1つの塊のまま動いた）")])),
+    ),
+    # c806（10.91秒）＝1行目：塊が湖へ（0.35→0.75）／2行目：入り切って止まる（→1.0）／3行目：「水平に300〜400m」の矢印
+    #   （南の岸の点が、崩れたあとどこへ来たか＝同じ点の水平の動き約350m＝S8 p1046）
+    "c806": dict(
+        fig=("illu", dict(
+            place="VB", at="22:39", start=dict(view="wide", move=0.35, other="C"),
+            rec="S1 p147（1つの塊のまま）・S1 p96（湖の水位＝約700m）",
+            steps=[dict(state=dict(move=0.75), delay=0.2, dur=3.4, rec="S8 p1041（45秒足らずで湖へ）・S1 p147（1つの塊のまま）"),
+                   dict(state=dict(move=1.0), delay=0.1, dur=2.4, rec="S8 p1046（向かいの斜面に乗り上げて止まった）"),
+                   dict(state=dict(dim="on"), delay=0.3, rec="S8 p1046（水平に300〜400m）",
+                        tag=dict(t="水平に300〜400m", at="dim", off=(0, -46), anchor="middle", keep=True))])),
+    ),
+    # c810（12.54秒）＝1行目：崩れたあと＋崩れる前の塊の輪郭（点線）と、南の岸の点が湖を横切って北の岸へ乗り上げた向き（矢印）／
+    #   2行目：積もった土砂の頂上に「866m」（S1 PDF146＝絵の頂上は約865m＝越えない）／3行目：崩れる前の水面（700m の点線）と
+    #   その差「165m」（S1 PDF146）。前の行の札は次の行で消す（見本の粗④）＝866m は残し、点線と矢印は2行目で消す
+    "c810": dict(
+        fig=("illu", dict(
+            place="VB", at="22:39", start=dict(view="wide", move=1.0, other="C"),
+            rec="S1 p147（1つの塊のまま）・S8 p1046（水平に300〜400m・向かいの斜面に乗り上げて止まった）",
+            steps=[dict(state=dict(ghost="on", path="on"), delay=0.3, rec="S8 p1046（湖を横切り向かいの斜面に乗り上げた）"),
+                   dict(state=dict(ghost="off", path="off"), delay=0.2, rec="S1 p146（積もった土砂の頂上＝標高866m）",
+                        tag=dict(t="866m", at="peak", off=(-70, -80), anchor="end", keep=True)),
+                   dict(state=dict(level="on", bracket="on"), delay=0.3, rec="S1 p146（崩れる前の水面より165m高い）",
+                        tag=[dict(t="崩れる前の水面", at="level", off=(70, 70)),
+                             dict(t="165m", at="rise", off=(40, 10))])])),
+    ),
+    # c811（7.62秒）＝崩れたあとの絵のまま。1行目（聞き役）／2行目「押しのけられた水は…持ち上がった」＝崩れる前の水面（700m の点線）／
+    #   3行目「北の岸の斜面を一気に駆け上がった」＝水の帯が北の岸を 930m まで（S1 PDF146・越えない＝札は c812）。🔴 谷の真ん中で
+    #   盛り上がる水は描かない（斜面に沿う帯だけ）。崩れたあとの絵の上に描く（塊の前の端から上＝over）
+    "c811": dict(
+        fig=("illu", dict(
+            place="VB", at="22:39", start=dict(view="wide", move=1.0, other="C"),
+            rec="S1 p147（1つの塊のまま）・S8 p1046（向かいの斜面に乗り上げて止まった）",
+            steps=[dict(),
+                   dict(state=dict(level="on"), delay=0.3, rec="S1 p146（崩れる前の水面より200m高い所まで）",
+                        tag=dict(t="崩れる前の水面", at="level", off=(70, 70))),
+                   dict(state=dict(runup="over"), delay=0.2, rec="S1 p146（北の岸で930m）")])),
+    ),
     # c812（12.20秒）＝崩れたあと（塊が湖を埋めた）。1行目の後半（約2.6秒〜）に北の岸の印2か所（ダムの真横と約1.1km上流＝
     #   2つの印のあいだを地図の縮尺で照らした）／2行目で両方に「930m」。さっきの断面の線（c811 の VB＝約1.1km上流の点を通る南北）
     #   ＝字は出さない（語りが「上から見ると」＝映像方針 §4-2 #11）
@@ -135,6 +184,26 @@ SPEC = {
             steps=[dict(state=dict(wave_w="on"), delay=0.8, dur=2.0, rec="S1 p146（西へダムを越え下流の峡谷へ）",
                         tag=dict(t="ダム", at="dam", off=(40, -80), keep=True)),
                    dict(state=dict(nxt="C"), delay=2.4)])),
+    ),
+    # c816（6.34秒・VC）＝合図（映像方針 §4-2 #12・c815 の東西の線から）＝「ダムを横から見ると」（台本どおり）・小さな地図に2本の線
+    #   （谷に沿う線＝太い・南北は細い）。1行目：天端の上を水が越える（c104 の1行目と同じ・数は描かない）／2行目：そのまま
+    "c816": dict(
+        fig=("illu", dict(
+            place="VC", at="22:39", start=dict(view="wide", switch="dam", other="B"),
+            rec="S1 p96（その夜の水位＝約700m）",
+            steps=[dict(state=dict(over="on"), delay=0.5, dur=2.2,
+                        rec="S1 p146（西へダムを越えた）・S8 p1041（天端より140m）・S8 p1047（天端より100m以上）"),
+                   dict()])),
+    ),
+    # c817（5.66秒・VC）＝c816 の絵のまま（越えた水）。2行目：天端の札と、天端から水の上までの寸法の線（数は描かない＝天端の上の
+    #   高さは記録で100〜140m の幅＝S8 p1041・p1047・数は字幕だけ）
+    "c817": dict(
+        fig=("illu", dict(
+            place="VC", at="22:39", start=dict(view="wide", over="on", other="B"),
+            rec="S1 p146（西へダムを越えた）・S8 p1047（天端より100m以上）",
+            steps=[dict(),
+                   dict(state=dict(hbr="on"), delay=0.3, rec="S8 p1047（天端より100m以上の高さで越えた）",
+                        tag=dict(t="天端", at="crest", off=(-70, 80), anchor="end", keep=True))])),
     ),
     # c823（7.42秒）＝峡谷の出口の先（見え方 west）。1行目：水が峡谷の出口を出てピアーヴェ川の谷へ広がり、町の建物の面が消える
     #   （冒頭 c102 と同じ見せ方）＋札（峡谷の出口・ピアーヴェ川・ロンガローネ）／2行目：夜の色から夜明けの色へ・泥の色の跡（PDF98

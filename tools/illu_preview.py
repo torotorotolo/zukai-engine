@@ -64,10 +64,21 @@ function prefix(p, u) { const sg = segs(p), tot = sg.reduce((a, b) => a + b, 0) 
 function along(p, u) { const q = prefix(p, u), a = q.length > 1 ? q[q.length - 2] : p[0], b = q[q.length - 1];
   let c = a, d = b; if (Math.hypot(b[0] - a[0], b[1] - a[1]) < 1e-6) { c = p[p.length - 2]; d = p[p.length - 1]; }
   return [b[0], b[1], Math.atan2(d[1] - c[1], d[0] - c[0]) * 180 / Math.PI]; }
+// 16本目 ⑤b-3：形を段ごとに移す（morph＝VB の塊）。本番 build_jiko._il_morph と同じ（点ごとに直線・底の点を支えの線へ・地のずれ）
+function ypath(p, x) { if (x <= p[0][0]) return p[0][1];
+  for (let i = 0; i + 1 < p.length; i++) { const a = p[i], b = p[i + 1];
+    if (a[0] <= x && x <= b[0]) return b[0] > a[0] ? a[1] + (b[1] - a[1]) * (x - a[0]) / (b[0] - a[0]) : a[1]; }
+  return p[p.length - 1][1]; }
+function morphPts(p, m) { const sh = p.shapes, n = sh.length; m = Math.max(0, Math.min(n - 1, m));
+  const i = Math.min(Math.floor(m), n - 2), f = m - i, A = sh[i], B = sh[i + 1];
+  const pts = A.map((a, j) => [a[0] + (B[j][0] - a[0]) * f, a[1] + (B[j][1] - a[1]) * f]);
+  if (p.snap) for (const j of p.snap.idx) pts[j][1] = ypath(p.snap.path, pts[j][0]);
+  const tx = p.tex || sh.map(() => [0, 0]);
+  return [pts, tx[i][0] + (tx[i + 1][0] - tx[i][0]) * f, tx[i][1] + (tx[i + 1][1] - tx[i][1]) * f]; }
 function drawScene(sc, t, times) {
   for (const p of sc.parts) {
     const el = document.getElementById(p.name);
-    if (!el && (p.drift || (p.kind || 'layer') === 'layer' || p.kind === 'draw' || p.kind === 'mover')) continue;
+    if (!el && (p.drift || (p.kind || 'layer') === 'layer' || p.kind === 'draw' || p.kind === 'mover' || p.kind === 'morph')) continue;
     if (p.drift) { const d = ((t * p.drift) % 1920 + 1920) % 1920; el.setAttribute('transform', `translate(${d} 0)`);
       const e2 = document.getElementById(p.name + '_w'); if (e2) e2.setAttribute('transform', `translate(${d - 1920} 0)`);
       const a = p.keys ? state(p.keys, t, times).a : 1; el.setAttribute('opacity', a); if (e2) e2.setAttribute('opacity', a); continue; }
@@ -76,6 +87,12 @@ function drawScene(sc, t, times) {
     else if (p.kind === 'draw') { const u = state(p.go, t, times, {u: 0}).u, a = state(p.keys, t, times).a;
       document.getElementById(p.name + '_mp').setAttribute('points', prefix(p.path, u).map(q => q[0].toFixed(1) + ',' + q[1].toFixed(1)).join(' '));
       el.setAttribute('opacity', u > 0.002 ? a : 0); }
+    else if (p.kind === 'morph') { const m = state(p.go, t, times, {m: 0}).m, a = state(p.keys, t, times).a, r = morphPts(p, m);
+      const s = r[0].map(q => q[0].toFixed(1) + ',' + q[1].toFixed(1)).join(' ');
+      document.getElementById(p.name + '_mp').setAttribute('points', s);
+      const ol = document.getElementById(p.name + '_ol'); if (ol) { ol.setAttribute('points', s); ol.setAttribute('opacity', a); }
+      document.getElementById(p.name + '_tex').setAttribute('transform', `translate(${r[1]} ${r[2]})`);
+      el.setAttribute('opacity', a); }
     else if (p.kind === 'mover') { const u = state(p.go, t, times, {u: 0}).u, a = state(p.keys, t, times).a, r = along(p.path, u);
       el.setAttribute('transform', `translate(${r[0] - p.anchor[0]} ${r[1] - p.anchor[1]}) rotate(${r[2] + (p.rot0 || 0)} ${p.anchor[0]} ${p.anchor[1]})`);
       el.setAttribute('opacity', a); }
@@ -161,6 +178,14 @@ def _parts_svg(cid, sc, jobs):
             g.append(f'<defs><mask id="{name}_m" maskUnits="userSpaceOnUse" x="-4000" y="-4000" width="12000" height="12000">'
                      f'<polyline id="{name}_mp" fill="none" stroke="#fff" stroke-width="{p.get("reveal", 30)}" '
                      f'stroke-linejoin="round"/></mask></defs><g id="{name}" opacity="0" mask="url(#{name}_m)">{inner}</g>')
+        elif p.get("kind") == "morph":
+            # 16本目 ⑤b-3：形の型紙（多角形）を JS が段ごとに移す・地の模様は塊と一緒にずらす・縁の線
+            ln = p.get("line") or {}
+            g.append(f'<defs><mask id="{name}_m" maskUnits="userSpaceOnUse" x="-4000" y="-4000" width="12000" height="12000">'
+                     f'<polygon id="{name}_mp" fill="#fff"/></mask></defs><g id="{name}" mask="url(#{name}_m)">'
+                     f'<g id="{name}_tex">{inner}</g></g>'
+                     + (f'<polygon id="{name}_ol" fill="none" stroke="{ln["col"]}" stroke-width="{ln["w"]}" '
+                        'stroke-linejoin="round"/>' if ln else ""))
         else:
             g.append(f'<g id="{name}">{inner}</g>')
     return "".join(g)

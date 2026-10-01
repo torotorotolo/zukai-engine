@@ -20,6 +20,19 @@
      カットは全面の絵（`illu`）で書く（SPEC が在るものだけ）
   ⑧ 上から見た絵（view に「上から」）は縮尺 `scale`（メートル／画素）が 1.5 以上（人が1画素に満たない＝15本目の申し送り）
   ほかに touch＝記録の「どの甲板が水面に届いたか」を、描く側と同じ幾何（`illu.contact_y`）で ±0.35 メートル
+  🆕 16本目 ⑤b-3（映像方針 16本目 §9＝断面 VB・VC。記録の値は門番の側に＝REC_ELEV・REC_GAP・REC_RANGE・REC_SEC＝§5b-88）：
+     ⚠️ 番号の ⑨ は15本目の「空の機体は地面に触れて見えない（RB）」と同じ番号（置き場が違う＝ぶつからない）
+  ⑨ 断面の札の数（「866m」「約700m」「25mあまり」「水平に300〜400m」）は記録の表の数だけ・札の指す高さ／寸法を断面の目盛りで読むと
+     値と合う（±3m・寸法 ±1.5m・横の寸法は範囲の内）
+  ⑩ 記録を越える絵を止める：北の岸の水 ≤ 930m・水は斜面に沿う帯だけ（谷の真ん中で盛り上がらない）・崩れたあとの谷の中の頂上
+     846〜866m・塊の水平の動き 300〜400m・塊の厚さ ≤ 330m／天端の上の水 100〜140m・ダムの天端725.5m と底463.9m・水位の線
+  ⑪ 1つの塊：形のあいだ（と形と形の真ん中＝描き手と同じ補間）で面積 ±5%・底の点が支えの線に乗る（≤1画素）・底の辺が支えから
+     浮かない（≤3画素）・支えの線はつま先から先が地形の線と同じ
+  ⑫ 壊れる物の境目：町と集落の建物の面が消える（towns／shore＝gone・mud）・水が町を覆う（flood）・湖の岸の集落へ届く波（wave_e）は
+     表（cuts.ss.ILLU_DESTROY_CUTS）のカットだけ・ダムの部品は壊さない（全部の段で同じ＝消えない・動かない）
+  ⑬ 夜の色：夜の場面の動く物・大事な物の色（型の FIX の色で場面に使ったもの）と夜の地の色（門番の表 NIGHT_GROUND）の差 ΔE 25 以上
+  ⑭ 群れと水：群れの部品は、水の部品が触れる段までに消える・顔・1人だけの影・倒れた形・人数の札を持たない（16本目はいまの
+     絵コンテに群れが無い＝陽性対照だけ）
   ⑥ 陽性対照（わざと壊した場面で鳴るか）＝`--selftest`（本番の前に必ず回る）
 
 ■ 使い方
@@ -285,6 +298,361 @@ def judge_scene(sc, where, docs=None, pages=None, split=None, until=None, sec_ok
             if abs(h) > 0.35:
                 bad.append(f"touch {where}：段{i + 1}の傾き {st['heel']}度で「{sp['touch']}」は水面から {h:+.2f} メートル"
                            "（記録は水面に届いた）")
+    # 🆕 16本目 ⑤b-3：⑨⑩⑪（断面 VB・VC）・⑬（夜の色）・⑭（群れと水）
+    b, m = judge_sec(sc, where, crowd_ok)
+    return bad + b, n + m
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 16本目 ⑤b-3（2026-10-01）：断面（VB・VC）の ⑨〜⑪・⑬・⑭（⑫ は judge_cut）
+# ══════════════════════════════════════════════════════════
+# 🔴 記録の値は門番の側に持つ（型の定数を読まない＝§5b-88）。頁は ss.REC_DOCS の通し番号
+REC_ELEV = {700.0: "S1 p96（その朝・その夜の水位＝約700m）", 695.0: "S1 p96（695mまで下げるつもり）",
+            725.5: "S9 p2006（天端725.50m）", 866.0: "S1 p146（積もった土砂の頂上＝866m）", 930.0: "S1 p146（北の岸で930m）"}
+REC_GAP = {25.0: (725.5 - 700.0, "S9 p2006・S1 p96（天端まで25mあまり）"),
+           165.0: (866.0 - 700.0, "S1 p146（崩れる前の水面より165m）"),
+           200.0: (930.0 - 700.0, "S1 p146（崩れる前の水面より200m）")}
+REC_RANGE = {(300.0, 400.0): "S8 p1046（水平に300〜400m）"}
+REC_SEC = dict(north=(930.0, "S1 p146"), peak=(846.0, 866.0, "S1 p146（866m）"), shift=(300.0, 400.0, "S8 p1046"),
+               thick=(330.0, "S1 p144（厚さ最大約330m）"), over=(100.0, 140.0, "S8 p1041（140m）・p1047（100m以上）"),
+               crest=(725.5, "S9 p2006"), height=(261.6, "S9 p2006"), lake=(700.0, "S1 p96"), l695=(695.0, "S1 p96"))
+ELEV_TOL, GAP_TOL = 3.0, 1.5
+SEC_PLACES = ("VB", "VC")
+# ⑬ 夜の地の色（場面の地になる色の名＝門番の表）。型の FIX（動く物・大事な物の色）と、この地の色の差を全部の組で測る
+NIGHT_GROUND = dict(VA=("VA_PAL", ("b0", "b1", "b2", "b3", "b4", "floor")), VB=("VB_PAL", ("sky0", "sky1", "ground")),
+                    VC=("VC_PAL", ("sky0", "sky1", "ground", "far")))
+NIGHT_FIX = dict(VA="VA_FIX", VB="VB_FIX", VC="VC_FIX")
+NIGHT_DE = 25.0
+NUM_M = re.compile(r"(\d+(?:\.\d+)?)\s*m(?![²³2-3])")
+RANGE_M = re.compile(r"(\d+(?:\.\d+)?)\s*〜\s*(\d+(?:\.\d+)?)\s*m")
+
+
+@lru_cache(maxsize=1)
+def _map16():
+    import json
+    js = HERE / "ref" / "ep16" / "map16.json"
+    return json.loads(js.read_text(encoding="utf-8")) if js.exists() else None
+
+
+def _secz(r, y):
+    """断面の目盛り（門番の式）：画面の y → 標高。"""
+    return r["z0"] - (y - r["y0"]) / r["k"]
+
+
+def _area(P):
+    return abs(sum(a[0] * b[1] - b[0] * a[1] for a, b in zip(P, list(P[1:]) + [P[0]]))) / 2.0
+
+
+def _ypath(path, x):
+    if x <= path[0][0]:
+        return path[0][1]
+    for (x0, y0), (x1, y1) in zip(path, path[1:]):
+        if x0 <= x <= x1:
+            return y0 + (y1 - y0) * (x - x0) / (x1 - x0) if x1 > x0 else y0
+    return path[-1][1]
+
+
+def _morph_at(p, m):
+    """描き手（build_jiko._il_morph）と同じ補間：点ごとに直線＋底の点を支えの線へ。"""
+    sh = p["shapes"]
+    i = min(int(m), len(sh) - 2)
+    f = m - i
+    pts = [(a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f) for a, b in zip(sh[i], sh[i + 1])]
+    sn = p.get("snap")
+    if sn:
+        for j in sn["idx"]:
+            pts[j] = (pts[j][0], _ypath(sn["path"], pts[j][0]))
+    return pts
+
+
+def _poly_top_at(poly, x):
+    """多角形の、縦の線 x との交わりのうち一番上の y（無ければ None）。"""
+    ys = []
+    for (x0, y0), (x1, y1) in zip(poly, list(poly[1:]) + [poly[0]]):
+        if min(x0, x1) <= x <= max(x0, x1) and x1 != x0:
+            ys.append(y0 + (y1 - y0) * (x - x0) / (x1 - x0))
+    return min(ys) if ys else None
+
+
+def judge_labels_sec(sc, where):
+    """⑨ 断面の札の数と、札の指す高さ・寸法（断面の目盛りで読む＝型の定数を読まない）。"""
+    bad, n = [], 0
+    for i, t in enumerate(sc["tags"]):
+        for txt, at, geo in zip(t.get("texts") or [], t.get("ats") or [None] * 9, t.get("ageo") or [None] * 9):
+            rg = RANGE_M.search(txt)
+            singles = [] if rg else [float(v) for v in NUM_M.findall(txt)]
+            if not rg and not singles:
+                continue
+            n += 1
+            if geo is None:
+                bad.append(f"⑨{where}：段{i + 1}の札「{txt}」に数があるのに、指し先（at）が断面の点でない（高さを読めない）")
+                continue
+            if rg:
+                lo, hi = float(rg.group(1)), float(rg.group(2))
+                if (lo, hi) not in REC_RANGE:
+                    bad.append(f"⑨{where}：札「{txt}」の範囲 {lo:g}〜{hi:g}m は記録の表（REC_RANGE）に無い")
+                if geo["kind"] != "len":
+                    bad.append(f"⑨{where}：札「{txt}」（横の寸法）の指し先が寸法の矢印でない")
+                else:
+                    L = abs(geo["b"][0] - geo["a"][0]) / geo["k"]
+                    if not lo <= L <= hi:
+                        bad.append(f"⑨{where}：札「{txt}」の矢印の長さ {L:.0f}m が {lo:g}〜{hi:g}m の外")
+                continue
+            for v in singles:
+                if geo["kind"] == "gap":
+                    if v not in REC_GAP:
+                        bad.append(f"⑨{where}：札「{txt}」の差 {v:g}m は記録の表（REC_GAP）に無い")
+                        continue
+                    dz = abs(geo["a"][1] - geo["b"][1]) / geo["k"]
+                    ok = (v <= dz <= v + GAP_TOL) if "あまり" in txt else abs(dz - v) <= GAP_TOL
+                    if not ok or abs(dz - REC_GAP[v][0]) > GAP_TOL:
+                        bad.append(f"⑨{where}：札「{txt}」の寸法の線は {dz:.1f}m（記録 {REC_GAP[v][0]:g}m＝{REC_GAP[v][1]}）")
+                elif geo["kind"] == "z":
+                    if v not in REC_ELEV:
+                        bad.append(f"⑨{where}：札「{txt}」の {v:g}m は記録の表（REC_ELEV）に無い")
+                        continue
+                    z = _secz(geo["view"], geo["xy"][1])
+                    if abs(z - v) > ELEV_TOL:
+                        bad.append(f"⑨{where}：札「{txt}」の指す高さは断面の目盛りで {z:.1f}m（札 {v:g}m・許し ±{ELEV_TOL:g}）")
+                else:
+                    bad.append(f"⑨{where}：札「{txt}」（高さの数）の指し先が横の寸法")
+    return bad, n
+
+
+def judge_records_sec(sc, where):
+    """⑩ 記録を越える絵（断面の目盛りで読む）。"""
+    bad, n = [], 0
+    r = sc.get("ruler")
+    if not r:
+        return [f"⑩{where}：断面の場面に目盛り（ruler）が無い"], 1
+    js = _map16()
+    ground = next((p.get("geo") for p in sc["parts"] if (p.get("geo") or {}).get("kind") == "ground"), None)
+    if ground is None:
+        bad.append(f"⑩{where}：地形の線（ground の geo）が無い")
+    for p in sc["parts"]:
+        w = p.get("water")
+        if not w:
+            continue
+        n += 1
+        top = min(q[1] for q in w["poly"])
+        if sc["place"] == "VB":
+            z = _secz(r, top)
+            if z > REC_SEC["north"][0] + 0.5:
+                bad.append(f"⑩{where}：水 {p['id']} の上の縁 {z:.1f}m が北の岸の記録 930m を越える（{REC_SEC['north'][1]}）")
+            if ground:
+                gl = sorted(ground["line"])
+                far = max(_ypath(gl, q[0]) - q[1] for q in w["poly"])
+                if far > 24.0:                     # 帯の厚さ（⑤b-3 の下見で 18画素に太くした）＋余白
+                    bad.append(f"⑩{where}：水 {p['id']} が地面から {far:.0f}画素上まで盛り上がる（斜面に沿う帯だけ＝谷の真ん中で"
+                               "盛り上がる水は描かない）")
+        if sc["place"] == "VC" and w.get("dam_x") is not None:
+            ty = _poly_top_at(w["poly"], w["dam_x"])
+            if ty is None:
+                bad.append(f"⑩{where}：越える水がダムの所に無い")
+            else:
+                h = _secz(r, ty) - REC_SEC["crest"][0]
+                lo, hi, rec = REC_SEC["over"]
+                if not lo <= h <= hi:
+                    bad.append(f"⑩{where}：天端の上の水 {h:.1f}m が {lo:g}〜{hi:g}m の外（{rec}）")
+    for p in sc["parts"]:
+        g = p.get("geo") or {}
+        if g.get("kind") == "dam":
+            n += 1
+            zt, zb = _secz(r, min(q[1] for q in g["poly"])), _secz(r, max(q[1] for q in g["poly"]))
+            want_t, want_b = REC_SEC["crest"][0], REC_SEC["crest"][0] - REC_SEC["height"][0]
+            if abs(zt - want_t) > 0.6 or abs(zb - want_b) > 0.6:
+                bad.append(f"⑩{where}：ダムの天端 {zt:.1f}m・底 {zb:.1f}m（記録 天端{want_t:g}m・高さ{REC_SEC['height'][0]:g}m＝"
+                           f"{REC_SEC['crest'][1]}）")
+        elif g.get("kind") in ("lake", "level"):
+            n += 1
+            z = _secz(r, g["y"])
+            want = REC_SEC["l695"][0] if (p["id"] == "l695") else REC_SEC["lake"][0]
+            if abs(z - want) > 0.5:
+                bad.append(f"⑩{where}：{p['id']} の水位の線 {z:.1f}m（記録 {want:g}m）")
+    for p in sc["parts"]:
+        if p.get("kind") != "morph" or not (p.get("obj") or {}).get("block"):
+            continue
+        n += 1
+        sh, nt = p["shapes"], None
+        snap = set((p.get("snap") or {}).get("idx") or [])
+        nt = min(snap - {0}) if snap else len(sh[0]) // 2
+        top0, top1 = sh[0][:nt + 1], sh[-1][:nt + 1]
+        shift = sum(b[0] - a[0] for a, b in zip(top0, top1)) / len(top0) / r["k"]
+        lo, hi, rec = REC_SEC["shift"]
+        if not lo <= shift <= hi:
+            bad.append(f"⑩{where}：塊の水平の動き {shift:.0f}m が {lo:g}〜{hi:g}m の外（{rec}）")
+        path = (p.get("snap") or {}).get("path")
+        if path:
+            th = max(_ypath(path, q[0]) - q[1] for q in top0) / r["k"]
+            if th > REC_SEC["thick"][0]:
+                bad.append(f"⑩{where}：塊の厚さ {th:.0f}m が記録の最大 330m を越える（{REC_SEC['thick'][1]}）")
+        if js:
+            b = js["sections"]["B"]
+            ys = next(y for y, z, _h in b["pts"] if z == 700)               # 南の岸（湖の700mの線）
+            xs = r["x0"] + (b["line"][0][1] - ys) * js["m_per_px"] * r["k"]
+            pk = max(_secz(r, q[1]) for q in top1 if q[0] >= xs)
+            lo, hi, rec = REC_SEC["peak"]
+            if not lo <= pk <= hi:
+                bad.append(f"⑩{where}：崩れたあとの谷の中の頂上 {pk:.1f}m が {lo:g}〜{hi:g}m の外（{rec}）")
+    return bad, n
+
+
+def judge_block(sc, where):
+    """⑪ 1つの塊：面積を保つ・底が支えに乗る・底の辺が浮かない・支えはつま先から先が地形の線。"""
+    bad, n = [], 0
+    ground = next((p.get("geo") for p in sc["parts"] if (p.get("geo") or {}).get("kind") == "ground"), None)
+    for p in sc["parts"]:
+        if p.get("kind") != "morph":
+            continue
+        n += 1
+        sh = p["shapes"]
+        a0 = _area(sh[0])
+        ms = [float(i) for i in range(len(sh))] + [i + 0.5 for i in range(len(sh) - 1)]
+        sn = p.get("snap") or {}
+        path = sn.get("path")
+        for m in ms:
+            pts = _morph_at(p, m)
+            ar = _area(pts)
+            if abs(ar / a0 - 1.0) > 0.05:
+                bad.append(f"⑪{where}：塊の面積が形 {m:g} で {ar / a0 * 100 - 100:+.1f}%（±5% の外＝1つの塊の大きさを保たない）")
+                break
+            if not path:
+                continue
+            idx = sorted(sn.get("idx") or [])
+            off = max(abs(pts[j][1] - _ypath(path, pts[j][0])) for j in idx)
+            if off > 1.0:
+                bad.append(f"⑪{where}：形 {m:g} で塊の底の点が支えの線から {off:.1f}画素（浮く・食い込む）")
+                break
+            base = sorted(pts[j] for j in idx)
+            gap = 0.0
+            for (x0, y0), (x1, y1) in zip(base, base[1:]):
+                for q in path:
+                    if x0 < q[0] < x1:
+                        cy = y0 + (y1 - y0) * (q[0] - x0) / (x1 - x0)
+                        gap = max(gap, q[1] - cy)
+            if gap > 3.0:
+                bad.append(f"⑪{where}：形 {m:g} で塊の底の辺が支えの線から {gap:.1f}画素浮く（≤3）")
+                break
+        if not path:
+            bad.append(f"⑪{where}：塊の部品に支えの線（snap）が無い＝形のあいだで底が浮く・食い込むのを止められない")
+        elif ground:
+            gl = sorted(ground["line"])
+            sl = sorted((ground.get("slip") or []))
+            x_toe = max(q[0] for q in sl) if sl else None
+            if x_toe is not None:
+                d = max((abs(q[1] - _ypath(gl, q[0])) for q in path if q[0] > x_toe + 0.5), default=0.0)
+                if d > 1.0:
+                    bad.append(f"⑪{where}：塊の支えの線がつま先から先で地形の線と {d:.1f}画素ちがう（描いた地面の上に乗らない）")
+    return bad, n
+
+
+def judge_night(sc, where):
+    """⑬ 夜の場面の動く物・大事な物の色と、夜の地の色の差。"""
+    if sc["place"] not in NIGHT_GROUND or sc["start"].get("tod") != "night":
+        return [], 0
+    import check_color
+    pal_name, keys = NIGHT_GROUND[sc["place"]]
+    pal = getattr(IL, pal_name)["night"]
+    fix = getattr(IL, NIGHT_FIX[sc["place"]])
+    body = "".join(p.get("svg", "") for p in sc["parts"] if p["id"] not in ("ground", "sky") and not p.get("signal")).lower()
+    bad, n = [], 0
+    for nm, col in fix.items():
+        if nm.endswith("_ln") or col.lower() not in body:
+            continue
+        for gk in keys:
+            n += 1
+            d = check_color.de(col, pal[gk])
+            if d < NIGHT_DE:
+                bad.append(f"⑬{where}：夜の {nm}（{col}）と地の {gk}（{pal[gk]}）の差 ΔE {d:.1f}（{NIGHT_DE:g} 以上）")
+    return bad, n
+
+
+def _key_end(keys, field, want):
+    """鍵の並びで、field が want に着いた時刻（段, 秒）。着かなければ None。"""
+    for k in keys:
+        v = float(k.get(field, 0.0 if field == "u" else 1.0))
+        if (want >= 0.5 and v >= want) or (want < 0.5 and v <= want):
+            return (int(k["stage"]), float(k.get("delay", 0.0)) + float(k.get("dur", 0.0)))
+    return None
+
+
+def judge_crowd_water(sc, where, crowd_ok):
+    """⑭ 群れと水：群れは水が触れる段までに消える・顔／1人だけ／倒れた形／人数の札を持たない。"""
+    if sc["place"] not in ("VA", "VB", "VC"):          # 16本目の置き場だけ（14・15本目の見本の答えは変えない）
+        return [], 0
+    crowds = [p for p in sc["parts"] if p.get("role") in crowd_ok and p.get("kind") != "sprite"]
+    if not crowds:
+        return [], 0
+    bad, n = [], 0
+    waters = [p for p in sc["parts"] if p.get("water")]
+    for c in crowds:
+        n += 1
+        for flag in ("face", "single", "fallen"):
+            if c.get(flag):
+                bad.append(f"⑭{where}：群れ {c['id']} が「{flag}」（顔・1人だけの影・倒れた形は描かない）")
+        pts = [q for cc in c.get("crowd") or [] for q in (cc.get("pts") or [])] or c.get("bbox_pts") or []
+        if not pts:
+            continue
+        bx0, by0 = min(q[0] for q in pts), min(q[1] for q in pts)
+        bx1, by1 = max(q[0] for q in pts), max(q[1] for q in pts)
+        hide = _key_end(c["keys"][1:], "a", 0.0) if len(c["keys"]) > 1 else None
+        for w in waters:
+            wp = w["water"]["poly"]
+            if max(q[0] for q in wp) < bx0 or min(q[0] for q in wp) > bx1 or max(q[1] for q in wp) < by0 or \
+                    min(q[1] for q in wp) > by1:
+                continue
+            arrive = _key_end(w.get("go") or w["keys"], "u" if w.get("go") else "a", 1.0)
+            if arrive is None:
+                continue
+            if hide is None or hide > arrive:
+                bad.append(f"⑭{where}：群れ {c['id']} が水 {w['id']} の触れたあとも残る（消える {hide}・水 {arrive}）")
+    for t in sc["tags"]:
+        for txt in t.get("texts") or []:
+            if re.search(r"\d+\s*人", txt):
+                n += 1
+                bad.append(f"⑭{where}：群れのある場面に人数の札「{txt}」（亡くなった人の数を人の形で見せない）")
+    return bad, n
+
+
+def judge_sec(sc, where, crowd_ok=()):
+    """16本目 ⑤b-3：⑨⑩⑪（断面）・⑬（夜の色）・⑭（群れと水）。"""
+    bad, n = [], 0
+    if sc["place"] in SEC_PLACES:
+        for fn in (judge_labels_sec, judge_records_sec, judge_block):
+            b, m = fn(sc, where)
+            bad += b
+            n += m
+    b, m = judge_night(sc, where)
+    bad += b
+    n += m
+    b, m = judge_crowd_water(sc, where, crowd_ok)
+    return bad + b, n + m
+
+
+DESTROY = dict(towns=("gone", "mud"), shore=("gone", "mud"), flood=("on", "recede"), wave_e=("on", "recede"))
+
+
+def judge_destroy(scs, cid, destroy=None):
+    """⑫ 壊れる物の部品は表のカットだけ・ダムは壊さない（全部の段で同じ）。"""
+    destroy = destroy if destroy is not None else tuple(getattr(_ss(), "ILLU_DESTROY_CUTS", None) or ())
+    bad, n = [], 0
+    for sc in scs:
+        if sc["place"] not in ("VA", "VB", "VC"):
+            continue
+        n += 1
+        used = sorted({f for st in [sc["start"]] + sc["states"] for f, vs in DESTROY.items() if st.get(f) in vs})
+        if used and cid not in destroy:
+            bad.append(f"⑫{cid}：壊れる物の部品 {used} は表のカット（cuts.ss.ILLU_DESTROY_CUTS＝{destroy or '空'}）だけ")
+        for p in sc["parts"]:
+            if (p.get("obj") or {}).get("dam"):
+                n += 1
+                ks = p.get("keys") or []
+                moved = any(abs(float(k.get(f, d)) - d) > 1e-6 for k in ks for f, d in
+                            (("a", 1.0), ("dx", 0.0), ("dy", 0.0), ("rot", 0.0), ("sc", 1.0)))
+                if moved or p.get("kind") not in (None, "layer"):
+                    bad.append(f"⑫{cid}：ダムの部品が段で変わる（消える・動く）＝ダムは壊さない（S1 p171）")
+        if sc["place"] in ("VA", "VC") and not any((p.get("obj") or {}).get("dam") for p in sc["parts"]):
+            bad.append(f"⑫{cid}：ダムの部品が無い（ダムは残る＝S1 p171）")
     return bad, n
 
 
@@ -338,12 +706,15 @@ def judge_cut(cid, spec, kind_of):
     elif it and fig[0] in ("quote", "axis", "tail") and kind != "混ざり":
         bad.append(f"⑦{cid}：冒頭の絵のあとが決め所・時間の帯・模式図なら画面の種類は「混ざり」（いまは「{kind}」）")
     asm = []
+    scs = []
     if has_full or has_mini:
         b, m, asm = judge_fig(fig[0], fig[1], cid)
         bad += b
         n += m
+        scs += list(getattr(F, fig[0])(**fig[1]).illu["scenes"])
     if it:
         sc = IL.scene(**it)
+        scs.append(sc)
         b, m = judge_scene(sc, f"{cid}#冒頭")
         bad += b
         n += m + 1
@@ -361,7 +732,9 @@ def judge_cut(cid, spec, kind_of):
             bad.append(f"④{cid}：想定のカットなのに想定の札「{want}」が無い（cuts.ss.ILLU_ASSUME）")
         if any(a != want for a in got):
             bad.append(f"④{cid}：想定の札 {got} が表（cuts.ss.ILLU_ASSUME＝{want or 'なし'}）と違う")
-    return bad, n
+    # ⑫ 16本目 ⑤b-3：壊れる物の部品は表のカットだけ・ダムは壊さない
+    b, m = judge_destroy(scs, cid)
+    return bad + b, n + m
 
 
 def _run(cases, kw):
@@ -567,7 +940,154 @@ def selftest_ep16():
         ok &= got_ok == want_ok
         print(f"  {'OK' if got_ok == want_ok else '🔴 NG'} {name}: {'合格' if got_ok else '不合格'}"
               f"（{'合格' if want_ok else '不合格'}のはず）" + (f"  ← {bad[0]}" if bad else ""))
-    return _selftest_ep16_va(ss) and ok
+    ok_va = _selftest_ep16_va(ss)
+    ok_sec = _selftest_ep16_sec(ss)
+    return ok_va and ok_sec and ok
+
+
+def _selftest_ep16_sec(ss):
+    """16本目 ⑤b-3：断面 VB・VC の検算（⑨〜⑭）＝本番の表で回す。陽性対照は**型の定数を壊す形**（§5b-88）。"""
+    kw = dict(docs=dict(ss.REC_DOCS), pages=_pages(), split=tuple(ss.ILLU_SPLIT_TIMES), until=ss.ILLU_CROWD_UNTIL,
+              sec_ok=dict(ss.ILLU_SEC_OK), clock_ok=tuple(ss.ILLU_CLOCK_OK), counts=dict(ss.ILLU_COUNTS),
+              roles=dict(ss.ILLU_ROLES))
+    RB_, RC_ = IL.VB_REC, IL.VC_REC
+    g101 = dict(place="VB", at="22:39", start=dict(view="wide"), rec="S1 p98・S1 p96",
+                steps=[dict(tag=dict(t="1963年10月9日 22:39", xy=(1840, 178), anchor="end")),
+                       dict(state=dict(move=1.0, runup="on"), rec=RB_["block"] + "・" + RB_["runup"], run_hold=0.5)])
+    g806 = dict(place="VB", start=dict(view="wide", move=0.35, other="C"), rec=RB_["block"],
+                steps=[dict(state=dict(move=1.0), rec=RB_["block"]),
+                       dict(state=dict(dim="on"), rec=RB_["dim"], tag=dict(t="水平に300〜400m", at="dim", anchor="middle"))])
+    g810 = dict(place="VB", start=dict(view="wide", move=1.0, other="C"), rec=RB_["block"],
+                steps=[dict(state=dict(ghost="on", path="on"), rec=RB_["block"]),
+                       dict(state=dict(ghost="off", path="off"), rec=RB_["peak"], tag=dict(t="866m", at="peak")),
+                       dict(state=dict(level="on", bracket="on"), rec=RB_["level"],
+                            tag=[dict(t="崩れる前の水面", at="level"), dict(t="165m", at="rise")])])
+    g811 = dict(place="VB", start=dict(view="wide", move=1.0, other="C"), rec=RB_["block"],
+                steps=[dict(state=dict(level="on"), rec=RB_["level"]), dict(state=dict(runup="over"), rec=RB_["runup"])])
+    g106 = dict(place="VC", at="22:39", start=dict(view="wide", other="B"), rec=RC_["lake"] + "・" + RC_["gap"],
+                steps=[dict(state=dict(south="on"), rec=RC_["south"],
+                            tag=[dict(t="天端725.5m", at="crest"), dict(t="水位約700m", at="lake"), dict(t="南の岸から", at="south")]),
+                       dict(state=dict(over="on"), rec=RC_["over"])])
+    g721 = dict(place="VC", start=dict(view="near", switch="on", other="B"), rec=RC_["lake"],
+                steps=[dict(tag=dict(t="約700m", at="lake")), dict(),
+                       dict(state=dict(gap="on"), rec=RC_["gap"],
+                            tag=[dict(t="天端725.5m", at="crest"), dict(t="25mあまり", at="gap")])])
+    g708 = dict(place="VC", start=dict(view="near", tod="day", other="B"), rec=RC_["lake"],
+                steps=[dict(tag=dict(t="約700m", at="lake")), dict(state=dict(l695="on"), rec=RC_["l695"],
+                                                                 tag=dict(t="695m", at="l695"))])
+    g817 = dict(place="VC", start=dict(view="wide", over="on", other="B"), rec=RC_["over"],
+                steps=[dict(), dict(state=dict(hbr="on"), rec=RC_["over"], tag=dict(t="天端", at="crest"))])
+    cases = [("16本目 正しい VB c101（崩れる前→塊が北の岸へ・水が930mまで→引く）", g101, True),
+             ("16本目 正しい VB c806（水平に300〜400m の矢印）", g806, True),
+             ("16本目 正しい VB c810（866m・崩れる前の水面・165m）", g810, True),
+             ("16本目 正しい VB c811（崩れたあとの絵の上で水が930mまで）", g811, True),
+             ("16本目 正しい VC c106（天端725.5m・水位約700m・南の岸から・天端を越える水）", g106, True),
+             ("16本目 正しい VC c721（near・約700m・天端725.5m・25mあまり）", g721, True),
+             ("16本目 正しい VC c708（near・昼・約700m・695m）", g708, True),
+             ("16本目 正しい VC c817（越えた水・天端・寸法の線＝数なし）", g817, True),
+             ("🔴 16本目 陽性対照⑨：「866m」を湖の水面（700m）に付ける",
+              dict(g810, steps=[dict(state=dict(level="on"), rec=RB_["level"], tag=dict(t="866m", at="lake"))]), False),
+             ("🔴 16本目 陽性対照⑨：記録の表に無い高さ「900m」",
+              dict(g810, steps=[dict(state=dict(level="on"), rec=RB_["level"], tag=dict(t="900m", at="peak"))]), False),
+             ("🔴 16本目 陽性対照⑨：「25mあまり」を天端→水の上（120m）の線に付ける",
+              dict(g817, steps=[dict(), dict(state=dict(hbr="on"), rec=RC_["over"], tag=dict(t="25mあまり", at="hbr"))]), False),
+             ("🔴 16本目 陽性対照⑨：横の寸法「水平に300〜400m」を高さの点に付ける",
+              dict(g806, steps=[dict(state=dict(move=1.0), rec=RB_["block"]),
+                                dict(state=dict(dim="on"), rec=RB_["dim"], tag=dict(t="水平に300〜400m", at="peak"))]), False)]
+    ok = _run(cases, kw)
+    # 🔴 型の定数を壊す陽性対照（門番が型の定数を読まない＝§5b-88）
+    breaks = [
+        ("⑨⑩ 天端を 735.5m で描く型（VC_DAM の crest）", "VC_DAM", dict(IL.VC_DAM, crest=735.5), g721, ("⑨", "⑩")),
+        ("⑩ ダムの高さを 250m で描く型", "VC_DAM", dict(IL.VC_DAM, height=250.0), g106, ("⑩",)),
+        ("⑩ 天端の上の水を 160m で描く型（VC_OVER）", "VC_OVER", 160.0, g106, ("⑩",)),
+        ("⑨⑩ 塊を水平に 450m 運ぶ型（VB_D）", "VB_D", 450.0, g806, ("⑨", "⑩")),
+        ("⑩ 北の岸の水の上限を 960m にした型（VB_RUN_TOP）", "VB_RUN_TOP", 960.0, g101, ("⑩",)),
+        ("⑩ すべり面の座を 470m に下げた型（頂上が866mを越える）", "VB_SLIP", IL.vb_slip_of(470.0), g810, ("⑩",)),
+        ("⑬ 塊を夜の地に近い色で描く型（VB_FIX の block）", "VB_FIX", dict(IL.VB_FIX, block="#2f3a4c"), g101, ("⑬",)),
+    ]
+    for name, attr, val, spec, heads in breaks:
+        keep = getattr(IL, attr)
+        setattr(IL, attr, val)
+        try:
+            bad = judge_scene(IL.scene(**spec), "selftest", **kw)[0]
+        except Exception as e:                           # noqa: BLE001
+            bad = [f"組めない：{e}"]
+        finally:
+            setattr(IL, attr, keep)
+        good = all(any(b.startswith(h) for b in bad) for h in heads)
+        print(f"  {'OK' if good else '🔴 NG'} 16本目 陽性対照（型）{name}: {'不合格' if bad else '合格'}（{'・'.join(heads)}で不合格のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+        ok &= good
+    # 🔴 陽性対照⑩：谷の真ん中で盛り上がる水（斜面に沿わない水の部品を足す）
+    sc = IL.scene(**g101)
+    r = sc["ruler"]
+    x0, x1 = r["x0"] + 1450 * r["k"], r["x0"] + 1600 * r["k"]
+    ytop = r["y0"] + (r["z0"] - 800.0) * r["k"]
+    sc["parts"].append(dict(id="mound", svg="", rec=IL.VB_REC["runup"], keys=[dict(stage=0, delay=0.0)], kind="layer",
+                            pivot=[0, 0], water=dict(poly=[[x0, 700.0], [(x0 + x1) / 2, ytop], [x1, 700.0]])))
+    ok &= _expect("🔴 16本目 陽性対照⑩：谷の真ん中で盛り上がる水", judge_scene(sc, "selftest", **kw)[0], "⑩")
+    # 🔴 陽性対照⑪：底を支えの線へ乗せ直さない塊（形のあいだで谷底の上に浮く）・面積を 1.1倍にした形
+    sc = IL.scene(**g101)
+    blk = next(p for p in sc["parts"] if p["id"] == "block")
+    blk.pop("snap")
+    ok &= _expect("🔴 16本目 陽性対照⑪：支えの線（snap）の無い塊", judge_block(sc, "selftest")[0], "⑪")
+    sc = IL.scene(**g101)
+    blk = next(p for p in sc["parts"] if p["id"] == "block")
+    cx = sum(q[0] for q in blk["shapes"][5]) / len(blk["shapes"][5])
+    cy = sum(q[1] for q in blk["shapes"][5]) / len(blk["shapes"][5])
+    blk["shapes"][5] = [[cx + (q[0] - cx) * 1.1, cy + (q[1] - cy) * 1.1] for q in blk["shapes"][5]]
+    ok &= _expect("🔴 16本目 陽性対照⑪：途中の形を真ん中から1.1倍に広げる（底は支えへ乗せ直される）", judge_block(sc, "selftest")[0], "⑪")
+    # 🔴 陽性対照⑫：表に無いカットで町の面を消す・ダムが段で消える・表が空
+    g823 = dict(place="VA", start=dict(view="west", block="on"), rec=IL.VA_REC["block"],
+                steps=[dict(state=dict(wave_w="on", flood="on", towns="gone"), rec=IL.VA_REC["flood"])])
+    sc = IL.scene(**g823)
+    b, _ = judge_destroy([sc], "c823")
+    print(f"  {'OK' if not b else '🔴 NG'} 16本目 正しい⑫：c823（表のカット）で町の面が消える: {'合格' if not b else b[0]}")
+    ok &= not b
+    ok &= _expect("🔴 16本目 陽性対照⑫：表に無いカット（c815）で町の面を消す", judge_destroy([sc], "c815")[0], "⑫")
+    ok &= _expect("🔴 16本目 陽性対照⑫：表が空（fail closed）", judge_destroy([sc], "c823", destroy=())[0], "⑫")
+    sc = IL.scene(**g106)
+    dam = next(p for p in sc["parts"] if (p.get("obj") or {}).get("dam"))
+    dam["keys"] = [dict(stage=0, delay=0.0, a=1.0), dict(stage=1, delay=0.5, dur=0.5, a=0.0)]
+    ok &= _expect("🔴 16本目 陽性対照⑫：ダムが段で消える", judge_destroy([sc], "c106")[0], "⑫")
+    # 🔴 陽性対照⑭（いまの絵コンテに群れは無い＝陽性対照だけ）：水が触れたあとも残る群れ・顔・人数の札
+    lay = IL.crowd_layout(120.0, 300.0, 560.0, 26.0)
+    crowd = dict(id="crowd", svg="", rec=IL.VA_REC["towns"], kind="layer", pivot=[0, 0], role="residents",
+                 crowd=[dict(layout=lay, x0=120.0, x1=300.0)], bbox_pts=[[130, 480], [290, 560]],
+                 keys=[dict(stage=0, delay=0.0, a=1.0)])
+    sc = IL.scene(**g823)
+    sc["parts"].append(dict(crowd))
+    ok &= _expect("🔴 16本目 陽性対照⑭：水が触れたあとも残る群れ", judge_crowd_water(sc, "selftest", ("residents",))[0], "⑭")
+    sc = IL.scene(**g823)
+    sc["parts"].append(dict(crowd, keys=[dict(stage=0, delay=0.0, a=1.0), dict(stage=0, delay=0.3, dur=0.3, a=0.0)]))
+    b, _ = judge_crowd_water(sc, "selftest", ("residents",))
+    print(f"  {'OK' if not b else '🔴 NG'} 16本目 正しい⑭：水が触れる前に消える群れ: {'合格' if not b else b[0]}")
+    ok &= not b
+    sc = IL.scene(**g823)
+    sc["parts"].append(dict(crowd, face=True, keys=[dict(stage=0, delay=0.0, a=1.0), dict(stage=0, delay=0.3, dur=0.3, a=0.0)]))
+    ok &= _expect("🔴 16本目 陽性対照⑭：顔のある群れ", judge_crowd_water(sc, "selftest", ("residents",))[0], "⑭")
+    sc = IL.scene(**dict(g823, steps=[dict(state=dict(wave_w="on", flood="on", towns="gone"), rec=IL.VA_REC["flood"],
+                                           tag=dict(t="約300人", at="longarone"))]))
+    sc["parts"].append(dict(crowd, keys=[dict(stage=0, delay=0.0, a=1.0), dict(stage=0, delay=0.3, dur=0.3, a=0.0)]))
+    ok &= _expect("🔴 16本目 陽性対照⑭：群れのある場面に人数の札", judge_crowd_water(sc, "selftest", ("residents",))[0], "⑭")
+    # 🔴 正本（map16.json の sections）と illu.py の断面の定数が同じか
+    js = _map16()
+    if js:
+        b = js["sections"]["B"]
+        c = js["sections"]["C"]
+        diff = [] if [(float(y), float(z)) for y, z, _h in b["pts"]] == [(float(y), float(z)) for y, z in IL.VB_PTS] else ["B.pts"]
+        diff += [] if float(b["line"][0][1]) == IL.VB_Y0 and float(b["line"][0][0]) == IL.VA_CUT["B"]["a"][0] else ["B.line"]
+        diff += [] if float(c["line"][0][0]) == IL.VC_X0E and float(c["line"][0][1]) == IL.VA_CUT["C"]["a"][1] else ["C.line"]
+        diff += [] if abs(c["dam_base"] - IL.VC_BED_REC["base"]) < 1e-6 else ["C.dam_base"]
+        diff += [] if (tuple(c["gorge_exit"][:2]), float(c["gorge_exit"][2])) == IL.VC_BED_REC["exit"] else ["C.gorge_exit"]
+        diff += [] if (tuple(c["lake_end"][:2]), float(c["lake_end"][2])) == IL.VC_BED_REC["end"] else ["C.lake_end"]
+        print(f"  {'OK' if not diff else '🔴 NG'} 16本目 正本 map16.json の sections と illu.py の断面の定数: "
+              f"{'同じ' if not diff else '違う ' + str(diff)}")
+        ok &= not diff
+    else:
+        print("  🔴 NG 16本目 正本 ref/ep16/map16.json が無い＝断面を照合できない")
+        ok = False
+    return ok
 
 
 # 🔴 16本目 ⑤b-2：置き場 VA の記録の値を**門番の側に**持つ（型の定数を読まない＝ルール §5b-88。型の点を壊すと捕まる）

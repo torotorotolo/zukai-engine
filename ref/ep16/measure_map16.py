@@ -12,6 +12,8 @@
     python ref/ep16/measure_map16.py grid             # 方眼を機械で取る（くぼみ・間隔・ずれ）＝縮尺
     python ref/ep16/measure_map16.py sheet X0 Y0      # 原寸2倍＋10画素の目盛りの切り出し（目で読む用・qa_out/ep16_b1/）
     python ref/ep16/measure_map16.py check            # 目で読んだ点（ref/ep16/map16.json）を記録の距離で照らす
+    python ref/ep16/measure_map16.py profile          # 🆕 ⑤b-3：断面 B・C の地形の線（水平距離・標高）を記録の高さで照らす
+    python ref/ep16/measure_map16.py sheet X0 Y0 W H K AX AY BX BY   # 🆕 ⑤b-3：大きさ・倍率・切り口の線を選んだ切り出し
 
 🔴 #100 の取得はカズヤくんの許可のあと（ファイル名・出どころ・大きさ）。置き場＝`ref/ep16/src/igm1934.jpg`（git の外）。
    無いあいだは止まる（黙って0件で通さない）。
@@ -93,10 +95,19 @@ def grid():
     return (sx + sy) / 2, vx, vy
 
 
-def sheet(x0, y0, size=(400, 300), k=2):
-    """原寸 k 倍の切り出しに 10画素（原寸）ごとの目盛りを足す（目で読む用・qa_out/ep16_b1/）。"""
+def sheet(x0, y0, size=(400, 300), k=2, mark=None):
+    """原寸 k 倍の切り出しに 10画素（原寸）ごとの目盛りを足す（目で読む用・qa_out/ep16_b1/）。
+    🆕 ⑤b-3：size（幅・高さ）を選べる・mark＝断面の切り口の線（#100 の画素の2点）を細い赤の破線で重ねる（線の上の標高を読む用）"""
     from PIL import ImageDraw
     im = load().crop((x0, y0, x0 + size[0], y0 + size[1])).resize((size[0] * k, size[1] * k), 0)
+    if mark:
+        dm = ImageDraw.Draw(im)
+        (ax, ay), (bx, by) = mark
+        n = int(max(abs(bx - ax), abs(by - ay)) // 6)
+        for i in range(0, n, 2):                       # 破線（6画素ごと・地図の線を隠さない）
+            p = (ax + (bx - ax) * i / n, ay + (by - ay) * i / n)
+            q = (ax + (bx - ax) * (i + 1) / n, ay + (by - ay) * (i + 1) / n)
+            dm.line([((p[0] - x0) * k, (p[1] - y0) * k), ((q[0] - x0) * k, (q[1] - y0) * k)], fill=(220, 0, 0), width=1)
     d = ImageDraw.Draw(im)
     for i in range(0, size[0] + 1, 10):
         d.line([(i * k, 0), (i * k, 12 if i % 50 else 24)], fill=(220, 0, 0), width=1)
@@ -177,6 +188,111 @@ def wikidata(js):
     return bad
 
 
+# 🆕 ⑤b-3（2026-10-01）：断面（VB＝谷を横切る・VC＝谷に沿う）の地形の線。照らす記録の高さ（門番 check_illu も別に持つ＝§5b-88）
+REC_Z = dict(lake=(700.0, "S1 PDF96（その朝の水位＝約700m）"), north=(930.0, "S1 PDF146（北の岸で930m）"),
+             crest=(725.5, "S9 PDF6（天端725.50m）"), height=(261.6, "S9 PDF6（高さ261.60m）"),
+             crack=(930.0, 1260.0, "S1 PDF72（囲む亀裂＝1,200→930→1,260→1,030m）"))
+
+
+def _river_len(pts):
+    out, L = [0.0], 0.0
+    for a, b in zip(pts, pts[1:]):
+        L += ((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2) ** 0.5
+        out.append(L)
+    return out
+
+
+def section_c(js):
+    """C の谷の底＝川の線の点（ダムから上流と下流）を、川の長さで内挿した標高に。[(x, z)]（x の大きい＝東＝上流の順）。"""
+    C = js["sections"]["C"]
+    riv = [tuple(p) for p in js["lines"]["vajont"]]           # 上流（東）→ 下流（西）
+    dam = (js["points"]["dam"]["x"], js["points"]["dam"]["y"])
+    i = riv.index(dam)
+    up = riv[:i + 1][::-1]                                     # ダム → 上流の端
+    end = tuple(C["lake_end"][:2])
+    up = up[:up.index(end) + 1]
+    Lu = _river_len(up)
+    z0, zu = C["dam_base"], C["lake_end"][2]
+    out = [(p[0], z0 + (zu - z0) * L / Lu[-1]) for p, L in zip(up, Lu)]
+    dn = riv[i:]
+    ex = tuple(C["gorge_exit"][:2])
+    dn = dn[:dn.index(ex) + 1]
+    Ld = _river_len(dn)
+    out += [(p[0], z0 + (C["gorge_exit"][2] - z0) * L / Ld[-1]) for p, L in zip(dn[1:], Ld[1:])]
+    return sorted(out, key=lambda q: -q[0])
+
+
+def section_b(js):
+    """B の地形の線＝[(南の端からの水平距離 m, 標高 m)]（南→北）。"""
+    B = js["sections"]["B"]
+    y0 = B["line"][0][1]
+    return [((y0 - y) * js["m_per_px"], z) for y, z, _h in B["pts"]]
+
+
+def _interp(prof, u):
+    for (u0, z0), (u1, z1) in zip(prof, prof[1:]):
+        if u0 <= u <= u1:
+            return z0 + (z1 - z0) * (u - u0) / (u1 - u0) if u1 > u0 else z0
+    raise ValueError(f"u={u} は断面の外")
+
+
+def profile():
+    """断面の地形の線を「水平距離・標高」で示し、記録の高さで照らす（⑤b-3）。"""
+    js = json.loads(POINTS.read_text(encoding="utf-8"))
+    m = js["m_per_px"]
+    rows = js["lake_stations"]["rows"]
+    bad = []
+    B = js["sections"]["B"]
+    x = B["line"][0][0]
+    y0 = B["line"][0][1]
+    prof = section_b(js)
+    print(f"■ B 谷を横切る断面（#100 の x={x}・{B['look']}）")
+    for (u, z), (y, _z, how) in zip(prof, B["pts"]):
+        print(f"  y{y:>4}  {u:7.0f}m  {z:6.0f}m  {how}")
+    for side, nm in (("s", "南の岸"), ("n", "北の岸")):
+        u = (y0 - shore(rows, x, side)) * m
+        z = _interp(prof, u)
+        ok = abs(z - REC_Z["lake"][0]) <= 15
+        print(f"  {'✓' if ok else '🔴'} {nm}（湖の700mの線・y{shore(rows, x, side):.1f}）の地面 {z:.0f}m（{REC_Z['lake'][1]}）")
+        if not ok:
+            bad.append(nm)
+    u = (y0 - js["points"]["north_1100"]["y"]) * m
+    z = _interp(prof, u)
+    ok = abs(z - REC_Z["north"][0]) <= 1
+    print(f"  {'✓' if ok else '🔴'} 北の岸の印（y{js['points']['north_1100']['y']}）の地面 {z:.0f}m（{REC_Z['north'][1]}）")
+    bad += [] if ok else ["北の岸の印"]
+    hi = max(z for u2, z in prof if u2 > u)
+    ok = hi > REC_Z["north"][0]
+    print(f"  {'✓' if ok else '🔴'} 印より北の地面の最高 {hi:.0f}m（930m より高い＝水が越えない）")
+    bad += [] if ok else ["北の端"]
+    back = next(z for (u2, z), (y, _z, _h) in zip(prof, B["pts"]) if y == 814)
+    lo, hi2, rec = REC_Z["crack"]
+    ok = lo <= back <= hi2
+    print(f"  {'✓' if ok else '🔴'} 崩れた範囲の後ろのふち（y814）{back:.0f}m（{rec}の {lo:.0f}〜{hi2:.0f}m の内）")
+    bad += [] if ok else ["後ろのふち"]
+    C = js["sections"]["C"]
+    pc = section_c(js)
+    xe = C["line"][0][0]
+    print(f"\n■ C 谷に沿う断面（#100 の y={C['line'][0][1]}・{C['look']}）＝{C['how']}")
+    for xx, z in pc:
+        if C["line"][1][0] - 60 <= xx <= xe + 60:
+            print(f"  x{xx:>5}  {(xe - xx) * m:7.0f}m  {z:6.1f}m")
+    zd = dict(pc)[js["points"]["dam"]["x"]]
+    want = REC_Z["crest"][0] - REC_Z["height"][0]
+    ok = abs(zd - want) <= 0.05
+    print(f"  {'✓' if ok else '🔴'} ダムの所の谷の底 {zd:.1f}m（天端−高さ＝{want:.1f}m・{REC_Z['crest'][1]}・{REC_Z['height'][1]}）")
+    bad += [] if ok else ["ダムの底"]
+    ok = all(a[1] >= b[1] for a, b in zip(pc, pc[1:]))
+    print(f"  {'✓' if ok else '🔴'} 谷の底は上流ほど高い（東→西で下る）")
+    bad += [] if ok else ["谷の底の向き"]
+    zb = _interp(sorted(((xe - xx) * m, z) for xx, z in pc), (xe - x) * m)
+    zb_b = next(z for y, z, _h in B["pts"] if y == 548)
+    ok = abs(zb - zb_b) <= 3
+    print(f"  {'✓' if ok else '🔴'} B と C の交わる所（x{x}）の谷の底：C {zb:.0f}m／B {zb_b:.0f}m")
+    bad += [] if ok else ["B と C の谷の底"]
+    sys.exit(1 if bad else 0)
+
+
 def check():
     """目で読んだ点（画素）を km に直し、記録の距離・面積と照らす＋Wikidata の座標で縮尺と向きを照らす（⑤b-2）。"""
     if not POINTS.exists():
@@ -209,8 +325,13 @@ if __name__ == "__main__":
     if cmd == "grid":
         grid()
     elif cmd == "sheet":
-        sheet(int(sys.argv[2]), int(sys.argv[3]))
+        # sheet X0 Y0 [W H [K [AX AY BX BY]]]＝切り出しの大きさ・倍率・重ねる切り口の線（⑤b-3）
+        a = [int(v) for v in sys.argv[2:]]
+        sheet(a[0], a[1], size=tuple(a[2:4]) if len(a) >= 4 else (400, 300), k=a[4] if len(a) >= 5 else 2,
+              mark=((a[5], a[6]), (a[7], a[8])) if len(a) >= 9 else None)
     elif cmd == "check":
         check()
+    elif cmd == "profile":
+        profile()
     else:
         raise SystemExit(__doc__)

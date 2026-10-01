@@ -88,6 +88,19 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-3（2026-10-01）：案C の置き場 VC（谷に沿う断面・天端の寄り near＝`tools/illu.py` の「16本目 ⑤b-3」の節）──
+    #   near＝1m 3.2画素（695m と 700m の線が16画素離れて見える）。縦横同じ縮尺。左上に位置の小さな地図（谷に沿う線＝太い・
+    #   c101 の谷を横切る線＝細い）。秒は narration.json の実測
+    # c708（5.87秒・昼＝10月9日の朝）＝1行目（聞き役）：その朝の水位 約700m（S1 PDF96）／2行目：下げようとした 695m の点線
+    #   （S1 PDF96「波のための余裕」）。合図の字は出さない（前の c707 は図解＝見る向きの切り替えでない）
+    "c708": dict(
+        fig=("illu", dict(
+            place="VC", start=dict(view="near", tod="day", other="B"),
+            rec="S1 p96（10月9日の朝の水位＝約700m）",
+            steps=[dict(tag=dict(t="約700m", at="lake", off=(40, -70), keep=True)),
+                   dict(state=dict(l695="on"), delay=0.5, rec="S1 p96（695mまで下げるつもり＝波のための余裕）",
+                        tag=dict(t="695m", at="l695", off=(40, 75), keep=True))])),
+    ),
     # ── 🆕 ⑤b-2（2026-10-01）：案C の置き場 VA（上から見た谷・夜＝`tools/illu.py` の「16本目」の節）──
     # c715（9.36秒）＝1行目：道（形は模式＝S1 PDF98 に道の形は無い・出典の行「道は模式」）をエルトから北の岸ぞい・ダムの北の
     #   たもと・峡谷ぞいにロンガローネへ描く／2行目：エルト・カッソ・ロンガローネの札／3行目：標高730mより低い区間（上の入口〜
@@ -114,5 +127,17 @@ SPEC = {
                         tag=[dict(t="上の入り口", at="road_up", off=(40, -80), keep=True),
                              dict(t="下の入り口", at="road_down", off=(-30, 95), anchor="end", keep=True)]),
                    dict(state=dict(nxt="C"), delay=2.0)])),
+    ),
+    # c721（9.26秒・夜）＝合図（映像方針 §4-2 #9・c716 の VC の線から）＝「横から見ると」・小さな地図。1行目：その夜の水位
+    #   約700m（S1 PDF96）／2行目（聞き役）：そのまま／3行目：天端725.5m（S9 PDF6）とその間の寸法「25mあまり」
+    "c721": dict(
+        fig=("illu", dict(
+            place="VC", start=dict(view="near", switch="on", other="B"),
+            rec="S1 p96（その夜の水位＝約700m）",
+            steps=[dict(tag=dict(t="約700m", at="lake", off=(40, -70), keep=True)),
+                   dict(),
+                   dict(state=dict(gap="on"), delay=0.3, rec="S9 p2006（天端725.50m）・S1 p96（水位約700m）",
+                        tag=[dict(t="天端725.5m", at="crest", off=(70, -90), keep=True),
+                             dict(t="25mあまり", at="gap", off=(-40, 12), anchor="end", keep=True)])])),
     ),
 }
