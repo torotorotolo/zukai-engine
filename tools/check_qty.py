@@ -40,7 +40,29 @@ sys.stdout.reconfigure(encoding="utf-8")
 #        いまの selftest（14本目の見本）は15本目の棒を使わない。16本目の棒を書くチャットで、値と頁を
 #        ref/ep16/src/ep16_pages.txt で当てて入れる（空のあいだ、量のカットは「記録に無い値」で止まる）
 # ══════════════════════════════════════════════════════════
-REC_QTY = {}          # (群の項目名＝画面の文字, 行の名＝画面の文字) → (値, 頁)
+#     🆕 2026-10-01（16本目 ⑤b-6a）：16本目の棒の値を入れた（原文 ref/ep16/src/ep16_pages.txt で当てた＝型の側 ss.QB とは別に持つ）
+REC_QTY = {          # (群の項目名＝画面の文字, 行の名＝画面の文字) → (値, 頁)
+    # c205：S1 p63「aumentata l'altezza da 202 a 266 metri ed il livello di massimo invaso portato dalla quota 677 alla quota 722,50」
+    ("ダムの高さ（メートル）", "もとの計画"): (202, {"S1 p63"}),
+    ("ダムの高さ（メートル）", "変えた計画"): (266, {"S1 p63"}),
+    ("いちばん高い水位（メートル）", "もとの計画"): (677, {"S1 p63"}),
+    ("いちばん高い水位（メートル）", "変えた計画"): (722.5, {"S1 p63"}),
+    # c311・c410：S1 p72「una frana di circa 700.000 metri cubi」・p77「circa 200 milioni di metri cubi」（ミュラー）・
+    #   東京ドームの容積 124万立方メートル（一般の事実＝台本 c206・c311・c410 の「120杯」「半分を少し超える」「160杯」の元）
+    ("量（万立方メートル）", "崩れた量"): (70, {"S1 p72"}),
+    ("量（万立方メートル）", "東京ドーム"): (124, {"一般の事実"}),
+    ("量（万立方メートル）", "動いている塊"): (20000, {"S1 p77"}),
+    # c515：S1 p97「con il massimo invaso e con il crollo istantaneo della frana l'onda conseguente raggiungerebbe una altezza
+    #   di 25 metri」（10月8日の国の監督の報告が引く模型の結果）
+    ("波の高さ（メートル）", "模型の波"): (25, {"S1 p97"}),
+    # c611・c613：S1 p226「il 2 settembre 6,5 millimetri, il 15 settembre 12 millimetri, il 26 settembre 22 millimetri, il 2 e il
+    #   3 ottobre 40 millimetri, il 9 ottobre …」・S9 p2014「fino ai 200 mm del 9 ottobre」・S1 p93「da mm/g 6,5 … a 200 mm/g」
+    ("日ごとに動いた距離（ミリ）", "9月2日"): (6.5, {"S1 p226", "S9 p2014", "S1 p93"}),
+    ("日ごとに動いた距離（ミリ）", "9月15日"): (12, {"S1 p226", "S9 p2014"}),
+    ("日ごとに動いた距離（ミリ）", "9月26日"): (22, {"S1 p226", "S9 p2014"}),
+    ("日ごとに動いた距離（ミリ）", "10月2〜3日"): (40, {"S1 p226", "S9 p2014"}),
+    ("日ごとに動いた距離（ミリ）", "10月9日"): (200, {"S1 p93", "S9 p2014"}),
+}
 REC_GHOST = {}        # 「後」の行に「前」の長さを薄く残す棒
 REC_GRID = {}         # マス目（項目名 → n・ok・ng・頁）
 REC_PEOPLE = {}       # 人の形（14本目 c204〜c206 だけの例外＝§C-1 #59）
@@ -77,11 +99,22 @@ def _unesc(s):
     return s.replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
 
 
+# 🆕 2026-10-01（16本目 ⑤b-6a）：行の名がまるごと日付（「9月2日」「10月2〜3日」「1963年」）＝同じ物差しの値の時間の並び（c611・c613）。
+#   日付は棒の値（長さ）ではない＝行の名に書いてよい（数は字幕＝§5b-9 の網は値の数字に効く）。⚠️ 日付の形だけ（「6.5ミリ」は止まる）
+DATE_ROW = re.compile(r"(?=.)(?:\d{4}年)?(?:\d{1,2}月)?(?:\d{1,2}(?:〜\d{1,2})?日)?")
+
+
+def _is_date_row(t):
+    return bool(DATE_ROW.fullmatch(t or ""))
+
+
 def _digits_ok(svg):
-    """⑩ 画面の数字は目盛り（tlab）・単位の札（kind）・注（note）の中だけ。"""
+    """⑩ 画面の数字は目盛り（tlab）・単位の札（kind）・注（note）の中だけ（🆕 行の名がまるごと日付なら、その行の名は通す）。"""
     bad = []
     for m in TEXT.finditer(svg):
         q = dict(ATTR.findall(m[1])).get("data-q", "")
+        if q.startswith("rlab|") and _is_date_row(_unesc(m[2])):
+            continue
         if re.search(r"[0-9０-９]", m[2]) and not (q.startswith("tlab|") or q in ("kind", "note")):
             bad.append(f"画面に数字「{_unesc(m[2])}」（{q or '印なし'}）＝数は字幕に（§5b-9）")
     return bad
@@ -108,6 +141,10 @@ def judge_bar(f, pal=None):
         for i, (ta, ca) in enumerate(bs):
             for tb, cb in bs[i + 1:]:
                 n += 1
+                # 🆕 16本目 ⑤b-6a：日付を名にした行どうし（同じ物差しの時間の並び＝c611）は同じ色でよい。
+                #   前と後・別の物の比べ（行の名が日付でない）は今までどおり ΔE 25 以上（同じ色も止める）
+                if ca == cb and _is_date_row(ta) and _is_date_row(tb):
+                    continue
                 if de(ca, cb) < DE_MIN:
                     bad.append(f"群 {gid} の棒「{ta}」{ca} と「{tb}」{cb} の色が近い（ΔE {de(ca, cb):.1f}＜{DE_MIN}）＝前と後を取り違える")
     title = {e["q"].split("|")[1]: _unesc(e["text"]) for e in els if e["q"].startswith("gt|")}
@@ -348,6 +385,15 @@ def selftest():
         dict(ppl, steps=[dict(add=[ss.pp("乗客", "LINE"), ss.pp("船で働く人", "INST")])]), False)
     run("🔴 陽性対照：乗客の数が違う並び（生徒324）", "c204",
         dict(ppl, order=(("生徒", 324),) + tuple(ss.PEOPLE_ORDER[1:])), False)
+    # 🆕 16本目 ⑤b-6a：日付の行の名と、日付の並びの同じ色（狭めた2つの網が、狭めた外では今までどおり鳴るか）
+    run("🔴 陽性対照：前と後の棒を同じ色（LINE と LINE・行の名が日付でない）", "c407",
+        dict(bar, steps=[dict(add=[qb("cargo_before", c="LINE"), qb("cargo_after", c="LINE")])]), False, pal=None)
+    for name, t, want in (("行の名がまるごと日付（9月2日）", "9月2日", True), ("行の名がまるごと日付（10月2〜3日）", "10月2〜3日", True),
+                          ("🔴 陽性対照：行の名に値の数（6.5ミリ）", "6.5ミリ", False),
+                          ("🔴 陽性対照：日付のあとに値（9月2日に6.5ミリ）", "9月2日に6.5ミリ", False)):
+        got = not _digits_ok(f'<text data-q="rlab|g|{t}">{t}</text>')
+        ok &= got == want
+        print(f"  {'OK' if got == want else '🔴 NG'} {name}: {'合格' if got else '不合格'}（{'合格' if want else '不合格'}のはず）")
 
     def broken(name, obj, attr, val, cid, kw):
         nonlocal ok

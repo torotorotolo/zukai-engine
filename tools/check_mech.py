@@ -721,6 +721,9 @@ def judge_bolt(f):
 
 # 🆕 16本目 ⑤b-4：断面の図解（vsec）の記録＝門番の側（§5b-88＝型の定数〈vsec16・illu〉を読まない）
 REC_VSEC = dict(dam=dict(height=261.6, crest=725.5, base=22.11, top=3.40, lake=722.5, src="S9 p2006・S1 p63"),
+                # 🆕 ⑤b-6a：c209 の上から見た弓＝天端の弦・天端の長さ・上の厚さ（S9 p2006「190,15 metri di lunghezza al coronamento …
+                #   3,40 metri di spessore alla sommità; 168 metri di corda in sommità」）
+                arch=dict(chord=168.0, length=190.15, top=3.40, src="S9 p2006"),
                 lake=dict(marks=650.0, two=650.0, pair=650.0, probe=650.0, model=700.0, seep=702.5),
                 cover=(10.0, 20.0, "S1 p74（崩れた土の厚さ10〜20m）"), borings=(3, "S1 p148（試し掘り3本）"),
                 tunnels=(2, "S1 p148（横穴2本）"))
@@ -747,7 +750,23 @@ def judge_vsec(f):
         if view == "marks" and s["dir"] == "on" and s["marks"] != "moved":
             bad.append(f"① 筋：目印のずれ（moved）より前に動く向きを出した（{s}）")
     # ② 形
-    if view == "dam":
+    if view == "arch":
+        # 🆕 ⑤b-6a：上から見た弓（画素を上から見た図の写しの縮尺で m に戻す）＝弦・弓の長さ・頂きの厚さ
+        A = REC_VSEC["arch"]
+        kp = g["plan"]["k"]
+        arc = g["arc"]
+        chord = math.dist(arc[0], arc[-1]) / kp
+        length = sum(math.dist(a, b) for a, b in zip(arc, arc[1:])) / kp
+        th = math.dist(*g["apex"]) / kp
+        n += 3
+        if abs(chord - A["chord"]) > 0.5:
+            bad.append(f"② 上から見た弓の弦 {chord:.2f}m（記録 {A['chord']}m＝{A['src']}）")
+        if abs(length - A["length"]) > 0.6:
+            bad.append(f"② 上から見た弓の長さ {length:.2f}m（記録 天端の長さ {A['length']}m＝{A['src']}）")
+        if abs(th - A["top"]) > 0.3:
+            bad.append(f"② 上から見た弓の厚さ {th:.2f}m（記録 上の厚さ {A['top']}m＝{A['src']}）")
+    if view in ("dam", "arch") and "dam" in g:
+        # ダムの断面（c211 と、c209 の右の小さな断面＝同じ形）
         R = REC_VSEC["dam"]
         d = g["dam"]
         ymin, ymax = min(p[1] for p in d), max(p[1] for p in d)
@@ -760,7 +779,7 @@ def judge_vsec(f):
             bad.append(f"② ダムの厚さ 底{wb:.2f}m・上{wt:.2f}m（記録 底{R['base']}m・上{R['top']}m＝{R['src']}）")
         if abs(z(g["lake_y"]) - R["lake"]) > 0.5:
             bad.append(f"② ダムの断面の湖 {z(g['lake_y']):.1f}m（記録 最も高い水位 {R['lake']}m＝{R['src']}）")
-    else:
+    elif view not in ("dam", "arch"):
         n += 1
         want = REC_VSEC["lake"][view]
         if abs(z(g["lake_y"]) - want) > 0.5:
@@ -811,6 +830,9 @@ def _selftest_vsec(ok):
                        rel=[dict(t="200分の1", src="S1 p89")], note=N)),
         ("seep", dict(steps=[dict(state=dict(inner="on", push="on"), tag=dict(t="702.5m", at="r1"))],
                       rel=[dict(t="702.5m", src="S1 p96")], note=N)),
+        # 🆕 ⑤b-6a：c209（上から見た弓 → 横から切った断面）
+        ("arch", dict(steps=[dict(state=dict(force="on"), tag=dict(t="上から見ると", at="plan")),
+                             dict(state=dict(sec="on"), tag=dict(t="横から切ると", at="sec"))], note=N)),
     ]
     for view, kw in good_cases:
         bad, _ = judge("vsec", dict(view=view, **kw))
@@ -825,7 +847,16 @@ def _selftest_vsec(ok):
             ("調べた線の上の土を 30m で描く型（COVER）", V, "COVER", 30.0, probe, "土の厚さ"),
             ("試し掘りを4本描く型（BORINGS）", V, "BORINGS", (300.0, 420.0, 760.0, 1050.0), probe, "borings の数"),
             ("10月8日の水位を 710m で描く型（LAKE）", V, "LAKE", dict(V.LAKE, seep=710.0), dict(good_cases[6][1], view="seep"),
-             "湖の水位")):
+             "湖の水位"),
+            # 🆕 ⑤b-6a：上から見た弓の型の値を壊す（弦・長さ・厚さ）・右の断面のダムを c211 と違う厚さで描く
+            ("上から見た弓の弦を 180m で描く型（ARCH）", V, "ARCH", dict(V.ARCH, chord=180.0), dict(good_cases[7][1], view="arch"),
+             "弓の弦"),
+            ("上から見た弓の長さを 200m で描く型（ARCH）", V, "ARCH", dict(V.ARCH, length=200.0),
+             dict(good_cases[7][1], view="arch"), "弓の長さ"),
+            ("上から見た弓の厚さを 6m で描く型（ARCH）", V, "ARCH", dict(V.ARCH, top=6.0), dict(good_cases[7][1], view="arch"),
+             "弓の厚さ"),
+            ("c209 の右の断面のダムの底を 30m で描く型（illu.VC_DAM）", IL, "VC_DAM", dict(IL.VC_DAM, base=30.0),
+             dict(good_cases[7][1], view="arch"), "ダムの厚さ")):
         keep = getattr(mod_, attr)
         setattr(mod_, attr, val)
         try:

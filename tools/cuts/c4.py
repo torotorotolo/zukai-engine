@@ -88,6 +88,88 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-6a（2026-10-01）：年表・量・箱（14・15本目の型）──
+    # c401（12.06秒）・c402（10.97秒）・c407（7.51秒）＝崩落の前の専門家の報告（揺れの調べ S1 p36〈1960年2月4日〉・2人の地質学者 p73
+    #   〈1960年6月〉・ミュラー p76〈1961年2月3日〉）。c401：1行目＝崩落の点（「崩落の前に戻す」）／2行目＝3つの報告（カーソルが前へ戻る）／
+    #   3行目＝そのまま。c402＝地質学者の点を大きく＋札（名前・設計者の息子＝S1 p73「quest'ultimo figlio del progettista」）。
+    #   c407＝ミュラーの点を大きく＋札「1957年から会社の依頼」（S9 p2004＝1957年8月6日の報告は会社が頼んだ2本目）
+    "c401": dict(
+        t="崩落の前の調べ", s="会社が頼んだ専門家",
+        fig=("axis", dict(**ss.AX_EXP, steps=[
+            dict(add=ss.ax("e_fall"), cur="1960-11-04"),
+            dict(add=[ss.ax("e_caloi"), ss.ax("e_geo"), ss.ax("e_mul")], cur="1960-02-04"),
+            dict()],
+            src=ss.src(["S1 p36", "S1 p72", "S1 p73", "S1 p76"]))),
+    ),
+    "c402": dict(
+        t="2人の見立て", s="崩落の前の報告",
+        fig=("axis", dict(**ss.AX_EXP, past=[ss.ax("e_caloi"), ss.ax("e_fall"), ss.ax("e_mul")], start=dict(cur="1960-02-04"),
+                          steps=[dict(add=ss.ax("e_geo", big=True, chips=["ジュディチ・セメンツァ"]), cur="1960-06"),
+                                 dict(),
+                                 dict(add=dict(k="chips", at="1960-06", chips=["セメンツァは設計者の息子"], rec="S1 p73", i0=1))],
+                          src=ss.src(["S1 p36", "S1 p72", "S1 p73", "S1 p76"]))),
+    ),
+    "c407": dict(
+        t="地盤の専門家", s="オーストリアから",
+        fig=("axis", dict(**ss.AX_EXP, past=[ss.ax("e_caloi"), ss.ax("e_geo"), ss.ax("e_fall")], start=dict(cur="1960-11-04"),
+                          steps=[dict(add=ss.ax("e_mul", big=True), cur="1961-02-03"),
+                                 dict(add=dict(k="chips", at="1961-02-03", chips=["1957年から会社の依頼"],
+                                               rec=["S1 p76", "S9 p2004"]))],
+                          src=ss.src(["S1 p36", "S1 p72", "S1 p73", "S1 p76", "S9 p2004"]))),
+    ),
+    # c410（10.25秒）＝ミュラーの見積もり 2億（S1 p77）・崩れた量 70万（p72）・東京ドーム 124万。尺を 2億まで＝崩れた量と東京ドームは
+    #   細い線（300倍・160杯の差がそのまま見える）。2〜3行目（聞き役と答え）は足さない
+    "c410": dict(
+        t="山の斜面ごと", s="ミュラーの見積もり",
+        fig=("qty", dict(view="bar", groups=[ss.QG["vol_big"]],
+                         steps=[dict(add=[ss.qb("v_fall"), ss.qb("v_dome"), ss.qb("v_mass")]), dict(), dict()],
+                         note="東京ドームの容積は124万立方メートル",
+                         src=ss.src(["S1 p72", "S1 p77"]) + "・東京ドームの容積（一般の事実）")),
+    ),
+    # c413（5.48秒）＝ミュラーの一文（少数派の報告が引く形＝S1 p217）：1行目＝紙と「問い」／2行目＝「答え」を書き込む。
+    #   欄の字は原文のイタリア語のまま（日本語は字幕だけ＝PLAN）
+    "c413": dict(
+        t="止められるか", s="イタリア語の原文",
+        fig=("boxes", dict(view="form", form=ss.FORM_MUELLER, steps=[
+            dict(add=dict(k="paper")), dict(add=dict(k="fill", f="答え"))],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["S1 p217"]))),
+    ),
+    # c418（13.16秒）＝報告の行き先：1行目（多数派の書き添え）＝会社 → 国の役所・地方の長官・土木局を点線（正式に送られたとは確認
+    #   できない＝S1 p179）／2行目（少数派＝隠した・S1 p232）＝会社の下に札／3行目＝3つの報告 → 会社（S1 p232 が挙げる3つ）
+    "c418": dict(
+        t="報告の行き先", s="多数派と少数派の書き方",
+        fig=("boxes", dict(view="flow", layout=ss.FL_HIDE, steps=[
+            dict(add=[ss.fl("g_gov"), ss.fl("g_pref"), ss.fl("g_gc"),
+                      ss.ce("co", ["g_gov", "g_pref", "g_gc"], style="leader")]),
+            dict(add=dict(k="chip", at="co", t="少数派「隠した」", rec="S1 p232", dy=70)),
+            dict(add=[ss.fl("r_geo"), ss.fl("r_mul"), ss.fl("r_mod"), ss.ce(["r_geo", "r_mul", "r_mod"], "co")])],
+            note="点線＝役所は知っていたが、正式に送られたとは確認できない（多数派）", src=ss.src(["S1 p179", "S1 p232"]))),
+    ),
+    # c419（5.46秒）＝2つの見方を同じ形で並べる（どちらかに決めない＝並べ図）
+    "c419": dict(
+        t="割れた見方", s="議会の中の2つの報告",
+        fig=("boxes", dict(view="row", slots=2, steps=[dict(add=[ss.cause("majority"), ss.cause("minority")]), dict()],
+                           src=ss.src(["S1 p179", "S1 p232"]))),
+    ),
+    # c421（11.85秒）＝メルリンの記事（S1 p39・S9 p2005・S1 p220）：1行目＝1959年5月の記事／2行目＝札「「うその知らせ」で訴えられる」／
+    #   3行目＝1960年11月30日 無罪＋札「ミラノの裁判所」
+    "c421": dict(
+        t="訴えられた記者", s="北の岸の村の危険",
+        fig=("axis", dict(**ss.AX_MERLIN, steps=[
+            dict(add=ss.ax("m_art"), cur="1959-05-05"),
+            dict(add=dict(k="chips", at="1959-05-05", chips=["「うその知らせ」で訴えられる"],
+                          rec=["S1 p39", "S9 p2005", "S1 p220"])),
+            dict(add=ss.ax("m_free", chips=["ミラノの裁判所"]), cur="1960-11-30")],
+            src=ss.src(["S1 p39", "S1 p220", "S9 p2005"]))),
+    ),
+    # c422（8.09秒）＝1961年2月21日の記事の見出し（S1 p39）：1行目＝紙／2行目＝見出しを書き込む（原文のイタリア語のまま）
+    "c422": dict(
+        t="記事の見出し", s="イタリア語の原文",
+        fig=("boxes", dict(view="form", form=ss.FORM_UNITA, steps=[
+            dict(add=dict(k="paper")), dict(add=dict(k="fill", f="見出し"))],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["S1 p39"]))),
+    ),
+
     # ── 🆕 ⑤b-5（2026-10-01）：場面1 水位と斜面の速さの線（`tools/lv16.py`・1960〜61年の区間＝ミュラーが見た線）──
     # c411（8.58秒）＝1行目（聞き役）は線を戻すだけ／2行目 2.21〜「…湖の水位と雨と斜面の速さの関係をつかめば、」で上がって下がった
     #   区間の水位と速さを太く重ねる（雨は記録の数が無い＝描かない）／3行目 6.58〜「速さを調整できるようになるだろう、と」で止まった点を囲む

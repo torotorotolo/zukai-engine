@@ -55,6 +55,30 @@ REC_AXIS = {
     "22:00": {"S9 p2017"},                 # 割れる時刻 S9「Ore 22. Rittmeyer telefona a Biadene, a Venezia」
     "22:15": {"S1 p228"},                  # 割れる時刻 S1 p228（少数派）「Alle 22,15 — come hanno affermato le telefoniste di Longarone」
     "22:39": {"S1 p98", "S9 p2017"},       # S9 p2017「Ore 22.39. La frana si stacca」・S1 p98
+    # 🆕 2026-10-01（16本目 ⑤b-6a）：年表（date）＝第1〜6章。原文 ref/ep16/src/ep16_pages.txt で当てた
+    "1963-10-09": {"S1 p98", "S9 p2017"},  # 崩落の日
+    "1965": {"S1 p26"},                    # p26「La Commissione ha approvato — con 19 voti favorevoli e 8 contrari — la relazione redatta dal Presidente」（6月8日の会議の後）
+    "1969-12-17": {"S9 p2018"},            # 「1969 17 dicembre. Si conclude il processo di primo grado」
+    "1970-10-03": {"S9 p2018"},            # 「3 ottobre. La sentenza riconosce la totale colpevolezza di Biadene e Sensidoni」（控訴審）
+    "1971-03": {"S9 p2018", "S10 p3020"},  # S9「1971 15-25 marzo. Processo di Cassazione」・S10 p3020「la sentenza finale della Cassazione venne emessa nel marzo 1971」
+    "1962-12-06": {"S1 p90"},              # p90「Con la legge 6 dicembre 1962, n. 1643 … fu istituito l'Ente nazionale energia elettrica (ENEL)」
+    "1963-03-14": {"S1 p91"},              # p91「Con decreto presidenziale 14 marzo 1963, n. 221, venne disposto il trasferimento della impresa elettrica della SADE all'ENEL」
+    "1961-11-16": {"S9 p2011"},            # S9「16 novembre. Autorizzazione alla ripresa dell'invaso, ma solo fino a quota 640」（1961年＝31 ottobre の Semenza の死のあと）
+    "1961-12-23": {"S9 p2012"},            # 「23 dicembre. Il Servizio Dighe autorizza quota 655」（1962 の見出しの前）
+    "1962-02-06": {"S9 p2012"},            # 「1962 … 6 febbraio. Il Servizio Dighe autorizza quota 675」
+    "1962-06-08": {"S1 p92", "S1 p33"},    # p92「dalla quota 700 (consentita in data 8 giugno 1962)」・p33「autorizzazione Servizio dighe dell'8 giugno 1962 … fino a quota 700」
+    "1960-11-04": {"S1 p72"},              # p72「il 4 novembre 1960 una frana di circa 700.000 metri cubi si distaccava」
+    "1961-02-03": {"S1 p76", "S1 p36"},    # p76「« Rapporto geologico preparato per conto della SADE » datato 3 febbraio 1961」（ミュラー）
+    "1962-07-03": {"S1 p89", "S9 p2012"},  # p89「Il 3 luglio 1962 il professor Augusto Ghetti … completava la relazione」
+    "1963-03-20": {"S1 p92", "S1 p33"},    # p92「Il 20 marzo 1963 venne chiesta l'autorizzazione ad elevare l'invaso sperimentale dalla quota 700 … alla quota 715」
+    "1960-02-04": {"S1 p36", "S9 p2006"},  # p36「P. CALOI — relazione geofisica su indagini condotte nel novembre-dicembre 1959 (4 febbraio 1960)」
+    "1960-06": {"S1 p73", "S1 p36", "S9 p2007"},  # p73「Lo « Studio geologico sul serbatoio del Vajont » datato giugno 1960 dei geologi Giudici e Semenza」
+    "1959-05-05": {"S1 p39", "S9 p2005"},  # p39「Tina Merlin, sull'Unità del 5 maggio 1959」
+    "1960-11-30": {"S1 p39"},              # p39「Tribunale di Milano il 30 novembre 1960 … conclusosi con sentenza di assoluzione」
+    "1960-11-16": {"S1 p75"},              # p75「una nota datata 16 novembre 1960」（会社の記録）
+    "1961": {"S1 p89"},                    # p89「il modello era stato costruito nell'estate del 1961 in scala 1:200」
+    "1962-03-30": {"S9 p2012"},            # 割れる日 S9「30 marzo. Il Comitato direttivo del Centro Modelli Idraulici di Nove è del parere …」
+    "1962-04-30": {"S1 p225"},             # 割れる日 S1 p225（少数派）「nella sua riunione del 30 aprile 1962 espresse il parere …」
 }
 LANES_OK = set()
 

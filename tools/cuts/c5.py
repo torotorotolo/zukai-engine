@@ -88,6 +88,74 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-6a（2026-10-01）：箱・量・年表（14・15本目の型）。書類の再現図の欄の字は原文のイタリア語のまま（日本語は字幕だけ）──
+    # c502（8.54秒）＝1960年11月16日の会社の記録（議会の報告書が引く形＝S1 p75）：1行目＝紙と「第一の心配」／
+    #   2行目＝「必要なこと」「波」を書き込む
+    "c502": dict(
+        t="技術の責任者の言葉", s="議会の報告書が引く記録",
+        fig=("boxes", dict(view="form", form=ss.FORM_NOTE60, steps=[
+            dict(add=dict(k="paper")), dict(add=[dict(k="fill", f="必要なこと"), dict(k="fill", f="波")])],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["S1 p75"]))),
+    ),
+    # c510（15.01秒）＝模型の実験のやり方：1行目＝22回の実験 → 2つの進め方（S1 p89「due diversi indirizzi」＝重力で崩す・地質の予想
+    #   どおりに崩す）→ 水位680〜720m（S9 p2010）→ 波の高さ／2行目＝札「最も破局的な崩れ」（S1 p89）／3行目＝札「いつも2つの塊
+    #   （少数派）」（S1 p224）。🔴 PLAN は「数の比べ」＝22回は数えるだけで比べる物が無い＝流れ図にした（映像方針 §15）
+    "c510": dict(
+        t="模型の実験のやり方", s="ゲッティの報告",
+        fig=("boxes", dict(view="flow", layout=ss.FL_EXP, steps=[
+            dict(add=[ss.fl("x_grav"), ss.fl("x_geo"), ss.fl("x_lvl"), ss.ce("x22", ["x_grav", "x_geo"]),
+                      ss.ce(["x_grav", "x_geo"], "x_lvl"), ss.ce("x_lvl", "xw")]),
+            dict(add=dict(k="chip", at="x22", t="最も破局的な崩れ", rec="S1 p89")),
+            dict(add=dict(k="chip", at="x_geo", t="いつも2つの塊（少数派）", rec="S1 p224"))],
+            src=ss.src(["S1 p89", "S1 p224", "S9 p2010"]))),
+    ),
+    # c512（6.73秒）＝ゲッティの報告の結論（S1 p89）：1行目＝紙と「結論」／2行目＝「何に対して」を書き込む
+    "c512": dict(
+        t="結論の一文", s="イタリア語の原文",
+        fig=("boxes", dict(view="form", form=ss.FORM_GHETTI, steps=[
+            dict(add=[dict(k="paper"), dict(k="fill", f="結論")]), dict(add=dict(k="fill", f="何に対して"))],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["S1 p89"]))),
+    ),
+    # c515（6.66秒）＝模型の波 25m（S1 p97＝10月8日の国の監督の報告が引く）。⚠️「8階建てのビル」は行の名に数字＝棒にしない
+    #   （語りだけ）。尺は 0〜30m（実際の波と並べるのは c813＝⑤b-6b）
+    "c515": dict(
+        t="覚えておく数", s="模型の実験の答え",
+        fig=("qty", dict(view="bar", groups=[ss.QG["wave"]], steps=[dict(add=ss.qb("w_model")), dict()],
+                         note="最大の水位で一瞬に崩れた場合", src=ss.src(["S1 p97"]))),
+    ),
+    # c517（8.31秒）＝模型の研究所の委員会の意見（S1 p225＝4月30日・S9 p2012＝3月30日＝月が割れる＝「1962年の春」）：
+    #   1行目＝紙／2行目＝「意見」「研究」を書き込む
+    "c517": dict(
+        t="下流は調べない", s="イタリア語の原文",
+        fig=("boxes", dict(view="form", form=ss.FORM_NOVE, steps=[
+            dict(add=dict(k="paper")), dict(add=[dict(k="fill", f="意見"), dict(k="fill", f="研究")])],
+            note="欄の字は原文のまま・様式は再現・1962年の春（3月30日と4月30日＝資料で割れる）",
+            src=ss.src(["S1 p225", "S9 p2012"]))),
+    ),
+    # c518（9.74秒）＝模型の歩み（会社の記録 S1 p75・模型をつくる p89・委員会の意見＝割れる日の印2つ〈S9 p2012・S1 p225〉）を
+    #   出したまま（keep）→ 1行目＝ゲッティの報告（1962年7月3日）／2行目＝札「ピアーヴェ川との合流点」（p89）／3行目＝札「その実験は
+    #   行われず（少数派）」（p225「Questi ulteriori accertamenti non furono eseguiti」）
+    "c518": dict(
+        t="のばさなかった模型", s="模型の歩み",
+        fig=("axis", dict(**ss.AX_MODEL, past=[ss.ax(n, keep=True) for n in ("md_note", "md_build", "md_s1", "md_s2")],
+                          steps=[dict(add=ss.ax("md_rep"), cur="1962-07-03"),
+                                 dict(add=dict(k="chips", at="1962-07-03", chips=["ピアーヴェ川との合流点"], rec="S1 p89")),
+                                 dict(add=dict(k="chips", at="1962-07-03", chips=["その実験は行われず（少数派）"],
+                                               rec=["S1 p89", "S1 p225"], i0=1))],
+                          note="委員会の意見の月は資料で割れる",
+                          src=ss.src(["S1 p75", "S1 p89", "S1 p225", "S9 p2012"]))),
+    ),
+    # c523（9.20秒）＝1963年の欄を開く：c518 の点を沈めて続ける → 1行目＝700m より上を求める（1963年3月20日＝S1 p92・札は年だけ）／
+    #   2行目（聞き役）＝そのまま／3行目（次の章で追う）＝その日から崩落までの括弧
+    "c523": dict(
+        t="目安の先へ", s="模型の歩みの続き",
+        fig=("axis", dict(**ss.AX_MODEL, past=[ss.ax(n) for n in ("md_note", "md_build", "md_s1", "md_s2", "md_rep")],
+                          start=dict(cur="1962-07-03"),
+                          steps=[dict(add=ss.ax("md_715"), cur="1963-03-20"), dict(), dict(add=ss.ax("md_br"))],
+                          note="委員会の意見の月は資料で割れる",
+                          src=ss.src(["S1 p75", "S1 p89", "S1 p92", "S1 p98", "S1 p225", "S9 p2012"]))),
+    ),
+
     # ── 🆕 ⑤b-5（2026-10-01）：場面1 水位と斜面の速さの線（`tools/lv16.py`）──
     # c522（6.60秒）＝1963年3月までの線（第3章で出した＝past）→ 1行目（聞き役）「…その高さが、安全の目安になった？」で700m の線
     #   （模型の結論＝S1 PDF89）／2行目「そう。この700という数は、このあと、水位を決めるたびに出てくる」で1962年12月の700m を囲む

@@ -43,19 +43,82 @@ from check_qty import ATTR, EL, _els, _recs, _unesc  # noqa: E402
 #        （GATES["check_boxes"]・値は1つも変えていない＝git の `c646174`）。16本目の箱を書くチャットで、言葉と頁を
 #        ref/ep16/src/ep16_pages.txt で当てて入れる（空のあいだ、箱のカットは「記録に無い言葉」で止まる）
 # ══════════════════════════════════════════════════════════
+#     🆕 2026-10-01（16本目 ⑤b-6a）：第1〜6章の箱（流れ図・書類の再現図・並べ図）の言葉と頁を入れた（原文で当てた）
 REC_CREW = {}
 REC_ROLE_PAGES = set()
-REC_OTHER_ROLE = {}   # 流れ図の「role」の箱＝役職でない言葉（報告書の文の言葉）→ 頁の集合
+REC_OTHER_ROLE = {    # 流れ図の「role」の箱＝役職でない言葉（報告書の文の言葉）→ 頁の集合
+    # c113：S1 p99「Il Ministro dei lavori pubblici, con suo decreto dell'11 ottobre 1963 … costituì una Commissione di inchiesta」・
+    #   「l'ENEL nominò il 1° novembre 1963 altra Commissione di inchiesta」
+    "国の調査委員会": {"S1 p99"}, "電力公社の調査委員会": {"S1 p99"}, "公共事業大臣": {"S1 p99"}, "電力公社": {"S1 p99"},
+    # c418：S1 p232（少数派）「all'occultamento alle autorità, ai Prefetti, e al Genio civile di Belluno e di Udine della relazione
+    #   Ghetti come delle relazioni Semenza-Giudici e Müller」・p179（多数派）「conosciuti alla Pubblica Amministrazione, benché non
+    #   consti che le relazioni siano state ufficialmente trasmesse」
+    "2人の地質学者の報告": {"S1 p232"}, "ミュラーの報告": {"S1 p232"}, "模型の報告": {"S1 p232"},
+    "国の役所": {"S1 p179", "S1 p232"}, "地方の長官": {"S1 p232"}, "土木局": {"S1 p232"},
+    # c510：S1 p89「le prove erano state svolte secondo due diversi indirizzi」＝①「facendolo avvenire per azione della gravità」
+    #   ②「rimettersi alle previsioni che poteva fornire lo studio geologico」（④' の照合 G3＝2通りは p89）・S9 p2010「con invaso a
+    #   quote comprese tra i 680 e 720 metri」
+    "重力で崩す": {"S1 p89"}, "地質の予想どおりに崩す": {"S1 p89"}, "水位680〜720m": {"S9 p2010"},
+    # c621：1960年と1962年は下げると止まった（S1 p85＝1961年1月にほぼ0・p93＝1963年3月にほぼ0）／1963年は下げても速まった
+    #   （p96「il serbatoio sta calando un metro al giorno」と速さの増え）・p96〜p97（10月8日の報告）「hanno tempestivamente informato le
+    #   Autorità competenti … il Sindaco, su invito del Prefetto e del Genio civile, ha emesso una ordinanza per la evacuazione di
+    #   persone ed animali dalla zona pericolante」
+    "下げると止まった": {"S1 p85", "S1 p93"}, "下げても速まった": {"S1 p96", "S1 p93"},
+    "会社": {"S1 p96"}, "役所": {"S1 p96"}, "村長": {"S1 p96"}, "危ない区域から人を出す": {"S1 p96", "S1 p97"},
+}
 REC_CRIME = {}
 REC_VERDICT = {}   # (役職, 罪名, 列) → (結果, 頁)
 REC_SENT = {}      # 役職 → (確定した刑, 頁)
 REC_SEATS = 0
 REC_UNANIMOUS = set()
 HEADS = set()
-REC_MECH = set()      # 流れ図に出してよい言葉のうち、役職・罪名でないもの（仕組み・鎖・問いの箱と矢印の札）
-REC_CHIP = {}         # 札（chip）の言葉 → 頁の集合
-REC_FORM = {}         # 書類の再現図（表題 → dict(fields・ends・values＝記録の文にある値だけ・rec＝頁の集合)）
-REC_CAUSE = {}
+REC_MECH = {          # 流れ図に出してよい言葉のうち、役職・罪名でないもの（仕組み・鎖・問いの箱と矢印の札）
+    "議会の報告書",                                         # c113（S1＝議会の調査委員会の最終報告）
+    "ダムを高くする", "ためる水が増える", "つくれる電気が増える",   # c207（S1 p63「capacità … elevata」「producibilità annua」）
+    "会社",                                                 # c418
+    "22回の実験", "波の高さ",                               # c510（S1 p89「i 22 esperimenti compiuti」・S9 p2010「l'entità dell'onda」）
+    "1960年", "1962年", "1963年", "10月8日の報告",          # c621（S1 p96＝国の監督の担当者の10月8日の報告）
+}
+REC_CHIP = {          # 札（chip）の言葉 → 頁の集合
+    "1963年10月11日": {"S1 p99"}, "1963年11月1日": {"S1 p99"},                 # c113
+    "少数派「隠した」": {"S1 p232"},                                            # c418（occultamento）
+    "最も破局的な崩れ": {"S1 p89"},                                            # c510「il più catastrofico prevedibile crollo franoso」
+    "いつも2つの塊（少数派）": {"S1 p224"},                                    # c510「sempre partendo dall'ipotesi che si trattasse di due frane distinte」
+}
+# 書類の再現図（表題 → dict(fields・ends・values＝記録の文にある値だけ・rec＝頁の集合)）。🆕 16本目は欄の値に**原文のイタリア語**を
+#   そのまま書く（日本語は字幕だけ＝映像方針の c413・c422 の決め）。欄の名は原文の文の言葉（domanda→問い・risposto→答え・titolo→見出し・
+#   prima preoccupazione→第一の心配・è necessario→必要なこと・ondate→波・concludeva→結論・nei riguardi→何に対して・parere→意見・
+#   ricerche→研究・lago pieno→湖が満ちたとき・svaso rapido→急に下げるとき・versante→斜面）
+REC_FORM = {
+    "ミュラーの報告（少数派の報告が引く）": dict(                                       # c413：S1 p217
+        fields={"問い", "答え"}, ends=set(), rec={"S1 p217"},
+        values={"問い": "se questi franamenti possono venire arrestati mediante misure artificiali",
+                "答え": "deve essere risposto negativamente in linea generale"}),
+    "ウニタの記事（1961年2月21日）": dict(                                            # c422：S1 p39
+        fields={"見出し"}, ends=set(), rec={"S1 p39"},
+        values={"見出し": "Una enorme massa di 50 milioni di metri cubi minaccia la vita e gli averi degli abitanti di Erto"}),
+    "会社の記録（1960年11月16日）": dict(                                             # c502：S1 p75（⚠️ 原文の PDF の文字は「divello」＝livello の崩れ）
+        fields={"第一の心配", "必要なこと", "波"}, ends=set(), rec={"S1 p75"},
+        values={"第一の心配": "garantire l'incolumità delle persone che abitano nella valle",
+                "必要なこと": "abbassare il livello del serbatoio",
+                "波": "non possano assolutamente raggiungere la zona abitata"}),
+    "ゲッティの報告（1962年7月3日）": dict(                                           # c512：S1 p89
+        fields={"結論", "何に対して"}, ends=set(), rec={"S1 p89"},
+        values={"結論": "la quota 700 può considerarsi di assoluta sicurezza",
+                "何に対して": "del più catastrofico prevedibile evento di frana"}),
+    "模型の研究所の委員会": dict(                                                    # c517：S1 p225（4月30日）・S9 p2012（3月30日）＝月が割れる
+        fields={"意見", "研究"}, ends=set(), rec={"S1 p225", "S9 p2012"},
+        values={"意見": "almeno per il momento non siano da compiere ricerche",
+                "研究": "propagarsi di una onda di piena a valle della diga"}),
+    "土木局の手紙（1961年1月7日）": dict(                                             # c617：S1 p78〜p79（lettera 7 gennaio 1961）
+        fields={"湖が満ちたとき", "急に下げるとき", "斜面"}, ends=set(), rec={"S1 p79", "S1 p78"},
+        values={"湖が満ちたとき": "le acque, eventualmente infiltratesi nel terreno",
+                "急に下げるとき": "possano mettersi in pressione",
+                "斜面": "pregiudicando la stabilità del versante"}),
+}
+REC_CAUSE = {         # 並べ図の項目 → 頁（c419＝2つの見方を同じ形で並べる・どちらかに決めない）
+    "多数派「確認できない」": {"S1 p179"}, "少数派「隠した」": {"S1 p232"},
+}
 MARKS = {"？"}
 EXTRA = {"模式図"}
 

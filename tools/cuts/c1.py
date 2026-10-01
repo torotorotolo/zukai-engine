@@ -82,6 +82,31 @@ SPEC = {
             dict(add=dict(k="ring", s="z", at="1963-10-09"))]),
     ),
 
+    # ── 🆕 ⑤b-6a（2026-10-01）：年表・箱（14・15本目の型＝axis・boxes）。値と頁は ss の AXI・FL_*（門番 check_axis・check_boxes）──
+    # c110（11.29秒）＝答えの割れ方：1行目（聞き役）＝崩落の点／2行目（多数決で報告書）＝議会の報告書（1965年）＋札「19対8で決定」／
+    #   3行目（反対の報告・判決3回）＝札「反対の報告2本」＋判決3つ（年だけ＝判決の名は後の章で初めて説明する）
+    "c110": dict(
+        t="割れた答え", s="議会と裁判所",
+        fig=("axis", dict(**ss.AX_ANS, steps=[
+            dict(add=ss.ax("a_fall"), cur="1963-10-09"),
+            dict(add=ss.ax("a_parl", chips=["19対8で決定"]), cur="1965"),
+            dict(add=[dict(k="chips", at="1965", chips=["反対の報告2本"], rec="S1 p26", i0=1),
+                      ss.ax("a_j1"), ss.ax("a_j2"), ss.ax("a_j3")], cur="1971-03")],
+            note="判決は年だけ", src=ss.src(["S1 p26", "S9 p2018", "S10 p3020"]))),
+    ),
+    # c113（12.16秒）＝資料のつながり：1行目＝2つの委員会 → 議会の報告書／2行目＝つくった所（公共事業大臣・電力公社）と日付の札／
+    #   3行目（呼び名）＝足さない（名は1行目から箱にある）。S1 p99
+    "c113": dict(
+        t="報告書が引く調べ", s="専門家の調べの出どころ",
+        fig=("boxes", dict(view="flow", layout=ss.FL_SRC, steps=[
+            dict(add=[ss.fl("c_state"), ss.fl("c_enel"), ss.ce(["c_state", "c_enel"], "parl")]),
+            dict(add=[ss.fl("o_min"), ss.fl("o_enel"), ss.ce("o_min", "c_state"), ss.ce("o_enel", "c_enel"),
+                      dict(k="chip", at="c_state", t="1963年10月11日", rec="S1 p99"),
+                      dict(k="chip", at="c_enel", t="1963年11月1日", rec="S1 p99")]),
+            dict()],
+            src=ss.src(["S1 p99"]))),
+    ),
+
     # ── 🔴 ⑤b-1（2026-10-01）：字幕の試し焼きに使うパネル（最終の形＝案B でパネルのまま残る3枚のうち2枚・cb20 は cb.py）──
     #   中身は台本の言葉と数だけ（台本に無い事実を足さない）。語りの文をそのまま札にしない（check_echo）。
     #   「この動画」は楽屋の言葉＝画面に出さない（台本の画の欄「この動画の問い」→ 見出しは「2つの問い」）

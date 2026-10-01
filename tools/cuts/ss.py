@@ -416,7 +416,8 @@ ILLU_DESTROY_CUTS = ("c102", "c814", "c823")
 # 🔴 2026-10-01（16本目 ⑤b-1）：空にした（15本目の値＝`tools/fixture_ep15.py`）。REC_DOCS の資料名が決まってから、
 #    語りが資料を呼ぶ名に合わせて入れる（軸の型を初めて使う ⑤b のチャットで）
 # 🆕 2026-10-01（16本目 ⑤b-5）：語りの呼び名（c701「財団の年表」・c712「少数派の報告」）。"S1 p228"＝頁ごとの名が先（axis.doc_names）
-AXIS_DOCS = {"S1 p228": "少数派の報告", "S1": "議会の報告書", "S9": "財団の年表"}
+# 🆕 ⑤b-6a：c518 の割れる日（模型の研究所の委員会の意見＝S9 p2012 は3月30日・S1 p225〈少数派〉は4月30日）
+AXIS_DOCS = {"S1 p228": "少数派の報告", "S1 p225": "少数派の報告", "S1": "議会の報告書", "S9": "財団の年表"}
 
 # 軸（カットをまたいで同じ軸を使う＝前のカットの点を past で沈めて続ける）。回ごとに `AX_<名> = dict(view, span, ticks)` を足す
 # 🔴 2026-10-01（16本目 ⑤b-1）：15本目の軸（AX_HIST・AX_LATE・AX_A08・AX_DRILL・AX_EMS・AX_UPSET・AX_NINE）と
@@ -449,6 +450,68 @@ AXI = {
     "t2239": dict(k="pt", at="22:39", t="崩落", rec=["S1 p98", "S9 p2017"], c="ALERT"),
     "day": dict(k="br", a="9:45", b="22:39", rec=["S1 p98", "S9 p2017"]),
 }
+
+
+# 🆕 2026-10-01（16本目 ⑤b-6a）：年表（date）＝第1〜6章の12カット。値と頁は ref/ep16/src/ep16_pages.txt で当てた＝門番
+#   check_axis の REC_AXIS と照らす。札は語りの細かさまで（fmt="ym"／"y"＝§5b-93）・近い2点は左右に振る（anchor）
+#   ANS＝答えの割れ方（c110）・ENEL＝サーデからエネルへ（c217・c218）・PERMIT＝許された水位（c318）・Y3＝3年の流れ（c322）・
+#   EXP＝専門家の報告（c401・c402・c407）・MERLIN＝メルリンの記事（c421）・MODEL＝模型の歩み（c518・c523）・Y63＝1963年（c604）
+AX_ANS = dict(view="date", span=("1963-01", "1972-06"), ticks=("1964", "1966", "1968", "1970", "1972"))
+AX_ENEL = dict(view="date", span=("1962-10", "1963-06"), ticks=("1962-11", "1963-01", "1963-03", "1963-05"))
+AX_PERMIT = dict(view="date", span=("1961-10", "1962-07"),
+                 ticks=("1961-11", "1962-01", "1962-03", "1962-05", "1962-07"))
+# ⚠️ ⑤b-6a の qa_all（layout）：1960年7月からだと左の端の点（崩落）の札が画面の左へはみ出した＝軸の左に余白（§5b-107④）
+AX_Y3 = dict(view="date", span=("1960-01", "1963-07"), ticks=("1960", "1961", "1962", "1963"))
+AX_EXP = dict(view="date", span=("1959-10", "1961-05"),
+              ticks=("1960-01", "1960-04", "1960-07", "1960-10", "1961-01", "1961-04"))
+AX_MERLIN = dict(view="date", span=("1959-01", "1961-04"), ticks=("1959", "1960", "1961"))
+AX_MODEL = dict(view="date", span=("1960-09", "1963-12"), ticks=("1961", "1962", "1963"))
+AX_Y63 = dict(view="date", span=("1962-05", "1963-11"), ticks=("1962-07", "1963-01", "1963-07"))
+AXI.update({
+    # ── c110 答えの割れ方（S1 p26＝19対8で多数派の報告を可決・通らなかった2つの案は最終報告に添える／S9 p2018＝判決3回）
+    #    判決の名（一審・控訴審・破毀院）は後の章で初めて説明する＝ここは「判決」とだけ
+    "a_fall": dict(k="pt", at="1963-10-09", t="崩落", rec=["S1 p98", "S9 p2017"], c="ALERT", fmt="y"),
+    "a_parl": dict(k="pt", at="1965", t="議会の報告書", rec="S1 p26", c="INST"),
+    "a_j1": dict(k="pt", at="1969-12-17", t="判決", rec="S9 p2018", fmt="y", anchor="end"),
+    "a_j2": dict(k="pt", at="1970-10-03", t="判決", rec="S9 p2018", fmt="y"),
+    "a_j3": dict(k="pt", at="1971-03", t="判決", rec=["S9 p2018", "S10 p3020"], fmt="y", anchor="start"),
+    # ── c217・c218（S1 p90＝1962年12月6日の法律でエネルを設立・p91＝1963年3月14日の大統領令でサーデの事業をエネルへ）
+    "n_enel": dict(k="pt", at="1962-12-06", t="エネルができる", rec="S1 p90", fmt="ym", c="INST"),
+    "n_move": dict(k="pt", at="1963-03-14", t="事業がエネルへ", rec="S1 p91", fmt="ym", c="INST"),
+    # ── c318 ダム局の許可（S9 p2011・p2012・S1 p92）＝札は水位だけ（月は目盛りで読む）・最後の700m だけ年月（語りが言う）
+    "p640": dict(k="pt", at="1961-11-16", t="640m", rec="S9 p2011", lab=False),
+    "p655": dict(k="pt", at="1961-12-23", t="655m", rec="S9 p2012", lab=False),
+    "p675": dict(k="pt", at="1962-02-06", t="675m", rec="S9 p2012", lab=False),
+    "p700": dict(k="pt", at="1962-06-08", t="700m", rec=["S1 p92", "S1 p33"], fmt="ym", big=True),
+    # ── c322 3年の流れ（崩落 S1 p72・ミュラーの報告 p76・模型の報告 p89・715m を求める p92）
+    "y_fall": dict(k="pt", at="1960-11-04", t="崩落", rec="S1 p72", c="ALERT", fmt="ym", anchor="end"),
+    "y_mul": dict(k="pt", at="1961-02-03", t="ミュラーの報告", rec="S1 p76", fmt="ym", big=True, anchor="start"),
+    "y_model": dict(k="pt", at="1962-07-03", t="模型の報告", rec="S1 p89", fmt="ym"),
+    "y_715": dict(k="pt", at="1963-03-20", t="715mを求める", rec="S1 p92", fmt="ym"),
+    # ── c401・c402・c407 崩落の前の専門家の報告（揺れで地下を調べた報告 S1 p36〈1960年2月4日〉・2人の地質学者 p73〈1960年6月〉・
+    #    ミュラー p76〈1961年2月3日〉）。c407 の「1957年から」は S9 p2004（1957年8月6日＝会社が頼んだ2本目の報告）＝項目の札
+    "e_caloi": dict(k="pt", at="1960-02-04", t="揺れで地下を調べる", rec=["S1 p36", "S9 p2006"], fmt="ym"),
+    "e_geo": dict(k="pt", at="1960-06", t="2人の地質学者", rec="S1 p73", fmt="ym"),
+    "e_fall": dict(k="pt", at="1960-11-04", t="崩落", rec="S1 p72", c="ALERT", fmt="ym"),
+    "e_mul": dict(k="pt", at="1961-02-03", t="ミュラーの報告", rec="S1 p76", fmt="ym"),
+    # ── c421 メルリンの記事（S1 p39＝1959年5月5日の記事・1960年11月30日 ミラノの裁判所で無罪／S9 p2005・S1 p220＝訴えの名）
+    "m_art": dict(k="pt", at="1959-05-05", t="ウニタの記事", rec=["S1 p39", "S9 p2005"], fmt="ym"),
+    "m_free": dict(k="pt", at="1960-11-30", t="無罪", rec="S1 p39", c="OK"),
+    # ── c518・c523 模型の歩み（会社の記録 S1 p75・模型をつくる p89〈1961年の夏＝年の真ん中〉・委員会の意見＝🔴 月が割れる
+    #    〈S9 p2012＝3月30日・S1 p225＝4月30日〉＝割れる日の印2つ・同じ札・出典の名つき・ゲッティの報告 p89）
+    "md_note": dict(k="pt", at="1960-11-16", t="会社の記録", rec="S1 p75", fmt="ym"),
+    "md_build": dict(k="pt", at="1961", t="模型をつくる", rec="S1 p89"),
+    # ⚠️ ⑤b-6a の門番 check_axis：4月の印の札を右へ出すと、すぐ右のゲッティの報告（段が上）の縦の線が札を貫いた＝割れる日の札は
+    #   2つとも左へ（段を分ける）・ゲッティの報告は年月まで（語りの c511 が日まで言う）で右へ＝札が 1963年3月の縦の線に届かない
+    "md_s1": dict(k="split", at="1962-03-30", t="委員会の意見", rec="S9 p2012", fmt="ym", anchor="end"),
+    "md_s2": dict(k="split", at="1962-04-30", t="委員会の意見", rec="S1 p225", fmt="ym", anchor="end"),
+    "md_rep": dict(k="pt", at="1962-07-03", t="ゲッティの報告", rec="S1 p89", big=True, fmt="ym", anchor="start"),
+    "md_715": dict(k="pt", at="1963-03-20", t="700mより上を求める", rec="S1 p92", fmt="y", big=True),
+    "md_br": dict(k="br", a="1963-03-20", b="1963-10-09", rec=["S1 p92", "S1 p98"]),
+    # ── c604 1963年（700m までの許可＝S1 p92〈1962年6月8日〉・715m を求める p92〈1963年3月20日〉）
+    "q_700": dict(k="pt", at="1962-06-08", t="700mまでの許可", rec="S1 p92", fmt="ym"),
+    "q_715": dict(k="pt", at="1963-03-20", t="715mを求める", rec=["S1 p92", "S1 p33"], big=True),
+})
 
 
 def ax(name, **kw):
@@ -607,8 +670,44 @@ def merge(*parts):
 #       `tools/fixture_ep15.py` へ移した（値は1つも変えていない＝git の `c646174`）＝ここも門番の表も空。
 #       16本目の棒と箱は ⑤b で、回の値と頁を ref/ep16/src/ep16_pages.txt に当てて入れる
 # 棒の群（尺は 0 から・項目名に単位）。数字は棒に書かない（§5b-9＝数は字幕）
-QG = {}
-QB = {}
+# 🆕 2026-10-01（16本目 ⑤b-6a）：第1〜6章の棒（c205・c311・c410・c515・c611・c613）。値と頁は門番 check_qty.REC_QTY と照らす
+#   ⚠️ 同じ群の灯した棒は色を分ける（ΔE 25 以上＝門番 ⑪）。日付を名にした行（同じ物差しの時間の並び＝c611）だけ同じ色でよい
+#   ⚠️ 行の名に数字を書かない（⑩）＝日付だけ例外（「9月2日」）。「8階建てのビル」は数字＝棒にしない（c515 は語りだけ）
+QG = {
+    "dam_h": dict(id="dam_h", t="ダムの高さ（メートル）", ticks=(0, 50, 100, 150, 200, 250, 300), rows=("もとの計画", "変えた計画")),
+    "lake_max": dict(id="lake_max", t="いちばん高い水位（メートル）", ticks=(0, 200, 400, 600, 800),
+                     rows=("もとの計画", "変えた計画")),
+    "vol": dict(id="vol", t="量（万立方メートル）", ticks=(0, 25, 50, 75, 100, 125), rows=("崩れた量", "東京ドーム")),
+    # c410＝同じ群の尺を 2億まで（崩れた量と東京ドームは細い線になる＝300倍・160杯の差がそのまま見える）
+    "vol_big": dict(id="vol", t="量（万立方メートル）", ticks=(0, 5000, 10000, 15000, 20000),
+                    rows=("崩れた量", "東京ドーム", "動いている塊")),
+    "wave": dict(id="wave", t="波の高さ（メートル）", ticks=(0, 5, 10, 15, 20, 25, 30)),
+    # ⚠️ ⑤b-6a の門番 ⑩：群の名「1日に動いた距離」の「1」が数字の網に当たった＝言い方を変えた（1日あたりは注で言う）
+    "speed": dict(id="speed", t="日ごとに動いた距離（ミリ）", ticks=(0, 10, 20, 30, 40, 50),
+                  rows=("9月2日", "9月15日", "9月26日", "10月2〜3日")),
+    # c613＝同じ群の尺を 200 まで（10月9日の棒を足す＝9月2日の30倍）
+    "speed_hi": dict(id="speed", t="日ごとに動いた距離（ミリ）", ticks=(0, 50, 100, 150, 200),
+                     rows=("9月2日", "9月15日", "9月26日", "10月2〜3日", "10月9日")),
+}
+QB = {
+    # c205：S1 p63（1957年の変更＝高さ 202→266m・いちばん高い水位 677→722.50m）
+    "h_old": dict(k="bar", g="dam_h", t="もとの計画", v=202, rec="S1 p63"),
+    "h_new": dict(k="bar", g="dam_h", t="変えた計画", v=266, rec="S1 p63", c="AMBER"),
+    "l_old": dict(k="bar", g="lake_max", t="もとの計画", v=677, rec="S1 p63"),
+    "l_new": dict(k="bar", g="lake_max", t="変えた計画", v=722.5, rec="S1 p63", c="AMBER"),
+    # c311・c410：崩れた量 70万（S1 p72）・東京ドーム 124万（一般の事実）・ミュラーの見積もり 2億（S1 p77）
+    "v_fall": dict(k="bar", g="vol", t="崩れた量", v=70, rec="S1 p72", c="AMBER"),
+    "v_dome": dict(k="bar", g="vol", t="東京ドーム", v=124, rec="一般の事実"),
+    "v_mass": dict(k="bar", g="vol", t="動いている塊", v=20000, rec="S1 p77", c="ALERT"),
+    # c515：模型の波 25m（S1 p97＝10月8日の国の監督の報告が引く）
+    "w_model": dict(k="bar", g="wave", t="模型の波", v=25, rec="S1 p97", c="AMBER"),
+    # c611・c613：1日に動いた距離（S1 p226・S9 p2014・S1 p93）
+    "s0902": dict(k="bar", g="speed", t="9月2日", v=6.5, rec="S1 p226"),
+    "s0915": dict(k="bar", g="speed", t="9月15日", v=12, rec="S1 p226"),
+    "s0926": dict(k="bar", g="speed", t="9月26日", v=22, rec="S1 p226"),
+    "s1002": dict(k="bar", g="speed", t="10月2〜3日", v=40, rec="S1 p226", c="AMBER"),
+    "s1009": dict(k="bar", g="speed", t="10月9日", v=200, rec="S1 p93", c="ALERT"),
+}
 
 
 def qb(name, **kw):
@@ -657,7 +756,11 @@ def rud(name, **kw):
 #   欄に値を書かない（記録に無い値を作らない）・「再現」の札。15本目＝記録簿・参加書類・検査の用紙（c415・c524・c617・c621・
 #   c704・c705・c905）＝⑤b で `FORM_<名> = dict(title, rec, fields, ends)` を回の名で足す（`form=` に渡す）
 # 原因の並べ図（14本目＝c615・cc13）＝同じ形で並べるだけ（場面にしない）
-CAUSE = {}
+# 🆕 16本目 ⑤b-6a：c419＝議会の中の2つの見方（S1 p179 多数派・p232 少数派）を同じ形で並べる（どちらかに決めない）
+CAUSE = {
+    "majority": dict(k="item", t="多数派「確認できない」", rec="S1 p179"),
+    "minority": dict(k="item", t="少数派「隠した」", rec="S1 p232"),
+}
 
 
 def cause(name, **kw):
@@ -668,3 +771,89 @@ def cause(name, **kw):
 #    実況の担当 MC・MCP・2010年の成績 HEAT・書類の再現図 FORM_LOG11 ほか7枚）と、その関数（`chain_links()`・`ans_links()`）は
 #    `tools/fixture_ep15.py` へ移した（値は1つも変えていない＝git の `c646174`）。16本目の箱は ⑤b で足す
 #    （門番 check_boxes の REC_MECH・REC_OTHER_ROLE・REC_CHIP・REC_FORM も、回の値を門番の側に別に持つ＝§5b-88）
+
+# ══════════════════════════════════════════════════════════
+#  🆕 2026-10-01（16本目 ⑤b-6a）：第1〜6章の箱（流れ図 c113・c207・c418・c510・c621／書類の再現図 c413・c422・c502・c512・c517・c617）
+# ══════════════════════════════════════════════════════════
+# 🔴 §0b（題材を替えるとき空にする場所）：下の FL_*・FLP・FORM_* は16本目の記録（言葉と頁＝門番 check_boxes の REC_* と照らす）。
+#   流れ図は役職でなく報告書の文の言葉（16本目は名前を箱に書かない＝実名は語りだけ）・赤を使わない・人の形を使わない
+# c113 資料のつながり（S1 p99＝公共事業大臣の令 1963年10月11日・エネルが 11月1日に別の委員会）
+FL_SRC = dict(heads=[dict(id="parl", t="議会の報告書", kind="node", x=(1360, 1800), y=(450, 550), rec="S1 p99")])
+# c207 計画を大きくすると（S1 p63＝容量と年間の発電量が上がった）。箱は基図・段で矢印が出る
+FL_GROW = dict(heads=[dict(id="g1", t="ダムを高くする", kind="node", x=(120, 600), y=(470, 570), rec="S1 p63"),
+                      dict(id="g2", t="ためる水が増える", kind="node", x=(720, 1200), y=(470, 570), rec="S1 p63"),
+                      dict(id="g3", t="つくれる電気が増える", kind="node", x=(1320, 1800), y=(470, 570), rec="S1 p63")])
+# c418 報告の行き先（S1 p179 多数派＝役所は知っていたが正式に送られたとは確認できない・p232 少数派＝役所・地方の長官・土木局に隠した）
+FL_HIDE = dict(heads=[dict(id="co", t="会社", kind="node", x=(780, 1100), y=(470, 570), rec="S1 p232")])
+# c510 模型の実験（S1 p89＝22回・2つの進め方・最も破局的な崩れ／S9 p2010＝水位680〜720m／S1 p224＝少数派「いつも2つの塊」）
+FL_EXP = dict(heads=[dict(id="x22", t="22回の実験", kind="node", x=(110, 470), y=(430, 530), rec="S1 p89"),
+                     dict(id="xw", t="波の高さ", kind="node", x=(1500, 1810), y=(430, 530), rec="S9 p2010")])
+# c621 3回の比べ（左）と10月8日の報告（右＝S1 p96〜p97）。左の年は見出しの箱・右は縦の矢印（箱が真下＝§5b-110②）
+FL_THREE = dict(heads=[dict(id="y60", t="1960年", kind="head", x=(110, 360), y=(300, 360), rec="S1 p85"),
+                       dict(id="y62", t="1962年", kind="head", x=(110, 360), y=(440, 500), rec="S1 p93"),
+                       dict(id="y63", t="1963年", kind="head", x=(110, 360), y=(580, 640), rec="S1 p96")],
+                bounds=(990,), guide_y=(280, 820))
+FLP = {
+    # c113
+    "c_state": dict(k="role", id="c_state", t="国の調査委員会", y=380, pos=(760, 1180), rec="S1 p99"),
+    "c_enel": dict(k="role", id="c_enel", t="電力公社の調査委員会", y=620, pos=(760, 1180), rec="S1 p99"),
+    "o_min": dict(k="role", id="o_min", t="公共事業大臣", y=380, pos=(160, 580), rec="S1 p99"),
+    "o_enel": dict(k="role", id="o_enel", t="電力公社", y=620, pos=(160, 580), rec="S1 p99"),
+    # c418
+    "r_geo": dict(k="role", id="r_geo", t="2人の地質学者の報告", y=380, pos=(110, 560), rec="S1 p232"),
+    "r_mul": dict(k="role", id="r_mul", t="ミュラーの報告", y=520, pos=(110, 560), rec="S1 p232"),
+    "r_mod": dict(k="role", id="r_mod", t="模型の報告", y=660, pos=(110, 560), rec="S1 p232"),
+    "g_gov": dict(k="role", id="g_gov", t="国の役所", y=380, pos=(1340, 1800), rec="S1 p232"),
+    "g_pref": dict(k="role", id="g_pref", t="地方の長官", y=520, pos=(1340, 1800), rec="S1 p232"),
+    "g_gc": dict(k="role", id="g_gc", t="土木局", y=660, pos=(1340, 1800), rec="S1 p232"),
+    # c510
+    "x_grav": dict(k="role", id="x_grav", t="重力で崩す", y=400, pos=(600, 980), rec="S1 p89"),
+    "x_geo": dict(k="role", id="x_geo", t="地質の予想どおりに崩す", y=560, pos=(600, 980), rec="S1 p89"),
+    "x_lvl": dict(k="role", id="x_lvl", t="水位680〜720m", y=480, pos=(1100, 1400), rec="S9 p2010"),
+    # c621（左＝3回の比べ・右＝10月8日の報告の手当て）
+    "t60": dict(k="role", id="t60", t="下げると止まった", y=330, pos=(460, 880), rec="S1 p85"),
+    "t62": dict(k="role", id="t62", t="下げると止まった", y=470, pos=(460, 880), rec="S1 p93"),
+    "t63": dict(k="role", id="t63", t="下げても速まった", y=610, pos=(460, 880), rec="S1 p96"),
+    "k_co": dict(k="role", id="k_co", t="会社", y=360, pos=(1160, 1660), rec="S1 p96"),
+    "k_off": dict(k="role", id="k_off", t="役所", y=480, pos=(1160, 1660), rec="S1 p96"),
+    "k_may": dict(k="role", id="k_may", t="村長", y=600, pos=(1160, 1660), rec="S1 p96"),
+    "k_ord": dict(k="role", id="k_ord", t="危ない区域から人を出す", y=720, pos=(1160, 1660), rec="S1 p97"),
+}
+
+
+def fl(name, **kw):
+    return dict(FLP[name], **kw)
+
+
+# 書類の再現図（16本目）。🔴 欄の値は**原文のイタリア語のまま**（日本語は字幕だけ＝映像方針の c413・c422 の決めを、書類の再現図の
+#   6カットにそろえた）・欄の名は原文の文の言葉・「再現」の札（様式は抽象）。値は門番 check_boxes.REC_FORM の values と照らす
+FORM_MUELLER = dict(title="ミュラーの報告（少数派の報告が引く）", rec="S1 p217",
+                    fields=[dict(t="問い", v="se questi franamenti possono venire arrestati mediante misure artificiali",
+                                 rec="S1 p217"),
+                            dict(t="答え", v="deve essere risposto negativamente in linea generale", rec="S1 p217", late=True)],
+                    paper=(140, 1780, 330, 690), lw=120)
+FORM_UNITA = dict(title="ウニタの記事（1961年2月21日）", rec="S1 p39",
+                  fields=[dict(t="見出し", rec="S1 p39", late=True,
+                               v="Una enorme massa di 50 milioni di metri cubi minaccia la vita e gli averi degli abitanti di Erto")],
+                  paper=(100, 1820, 360, 640), lw=130)
+FORM_NOTE60 = dict(title="会社の記録（1960年11月16日）", rec="S1 p75",
+                   fields=[dict(t="第一の心配", v="garantire l'incolumità delle persone che abitano nella valle", rec="S1 p75"),
+                           dict(t="必要なこと", v="abbassare il livello del serbatoio", rec="S1 p75", late=True),
+                           dict(t="波", v="non possano assolutamente raggiungere la zona abitata", rec="S1 p75", late=True)],
+                   paper=(200, 1720, 300, 760), lw=220)
+FORM_GHETTI = dict(title="ゲッティの報告（1962年7月3日）", rec="S1 p89",
+                   fields=[dict(t="結論", v="la quota 700 può considerarsi di assoluta sicurezza", rec="S1 p89", late=True),
+                           dict(t="何に対して", v="del più catastrofico prevedibile evento di frana", rec="S1 p89", late=True)],
+                   paper=(240, 1680, 330, 690), lw=220)
+# ⚠️ ⑤b-6a の qa_all（echo）：表題「模型の研究所の委員会（1962年の春）」は c517 の1行目と2か所に割れて 100% 一致＝日付は注へ
+FORM_NOVE = dict(title="模型の研究所の委員会", rec="S1 p225",
+                 fields=[dict(t="意見", v="almeno per il momento non siano da compiere ricerche", rec=["S1 p225", "S9 p2012"],
+                              late=True),
+                         dict(t="研究", v="propagarsi di una onda di piena a valle della diga", rec=["S1 p225", "S9 p2012"],
+                              late=True)],
+                 paper=(240, 1680, 330, 690), lw=160)
+FORM_GC61 = dict(title="土木局の手紙（1961年1月7日）", rec="S1 p79",
+                 fields=[dict(t="湖が満ちたとき", v="le acque, eventualmente infiltratesi nel terreno", rec="S1 p79", late=True),
+                         dict(t="急に下げるとき", v="possano mettersi in pressione", rec="S1 p79", late=True),
+                         dict(t="斜面", v="pregiudicando la stabilità del versante", rec="S1 p79", late=True)],
+                 paper=(200, 1720, 300, 760), lw=280)

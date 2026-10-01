@@ -19,6 +19,9 @@
   model … c504 水理模型とは（本物の谷を小さくした谷に水を張る・200分の1＝S1 PDF89）。大きさの比は模式（200分の1 は描けない）
   seep  … c618 湖の水位 702.50m（1963年10月8日・1日1m ずつ下げた＝S1 PDF96）・斜面にしみこんだ水（中の水の高さは模式）・
           急に下げると斜面を押しうる（S1 PDF79）
+  arch  … 🆕 ⑤b-6a c209 アーチダムのしくみ＝左に上から見た弓なり（天端の弦 168m・天端の長さ 190.15m・上の厚さ 3.40m＝S9 PDF6
+          ＝2つの記録の値で円の弓が1つに決まる・縦横同じ縮尺）・水の力の矢印と両側の岩へ逃がす矢印（長さは模式）／2行目で右に
+          横から切った断面（🔴 c211 と同じ形＝`illu.vc_dam_um`・c211 より小さい縮尺＝c211 が「右の絵を大きくする」）
 
 ■ SPEC の書き方（15本目 `tail` と同じ）
   fig=("vsec", dict(view=…, start=dict(…), steps=[dict(state=dict(…), tag=dict(t=…, at=…, to=…)), …],
@@ -41,8 +44,10 @@ VIEWS = dict(dam=dict(lab="横から見た断面（ダム・谷に沿う）"), m
              probe=dict(lab="横から見た断面（谷を横切る）"),
              # ⚠️ qa_all の dup：見る向きの札「水理模型とは」が c504 の見出しと同じだった＝左の本物の谷の向きを言う
              model=dict(lab="横から見た断面（谷を横切る）と模型"),
-             seep=dict(lab="横から見た断面（谷を横切る）"))
+             seep=dict(lab="横から見た断面（谷を横切る）"),
+             arch=dict(lab="上から見た形と、横から切った断面"))
 FIELDS = dict(dam=dict(base=ONOFF, top=ONOFF, force=ONOFF),
+              arch=dict(force=ONOFF, sec=ONOFF),
               marks=dict(marks=("off", "on", "moved"), dir=ONOFF),
               two=dict(block=ONOFF, slip=ONOFF, move=ONOFF),
               pair=dict(right=ONOFF),
@@ -74,11 +79,25 @@ SEEP_DROP = 40.0                   # 斜面の中の水の高さが湖より高�
 COL_FIX = dict(rock="#56606b", cover="#b9a079", block="#b9a079", slip="#e8b33c", water="#5d92b4", water_ln="#8fc3e4",
                inner="#8fc3e4", mark="#f2c14e")
 
+# ── 🆕 ⑤b-6a（2026-10-01）：c209 アーチダムのしくみ（arch）。🔴 型の値（門番 check_mech は REC_VSEC["arch"] を別に持つ）──
+#   S9 PDF6「190,15 metri di lunghezza al coronamento … 3,40 metri di spessore alla sommità; 168 metri di corda in sommità」
+#   ＝天端の弓の長さ L と弦 c から、円の弓（半径 R・半分の角 φ）が1つに決まる：L/c＝φ/sin φ（模式＝円と見なす）
+ARCH = dict(chord=168.0, length=190.15, top=3.40)
+# 上から見た図：上が湖（上流）・弓は湖の側へふくらむ。cy＝弦の高さ（画面）・k＝1m の画素（縦横同じ）。湖は弦から上へ110m・
+#   下流は下へ60m まで（谷の壁の開き方は模式）
+ARCH_PLAN = dict(k=3.0, cx=520.0, cy=670.0, up=110.0, down=60.0)     # 図の上の端 y340・下の端 y850
+# 横から切った断面：c211（k＝2.0）より小さく（c211 が「右の絵を大きくする」）。u0＝ダムの w（_map で決める）
+ARCH_SEC = dict(k=1.3, x0=1500.0, u0=None, y0=380.0, z0=725.5)
+ARCH_SEC_W = (-300.0, 250.0)       # 断面に描く範囲（ダムから上流 300m・下流 250m）
+
 
 def _map(view, idx=0):
     if view == "dam":
         import illu as IL
         return dict(DAM, u0=IL.VC_DAM_W - 480.0)
+    if view == "arch":            # 横から切った断面（右）の写し。上から見た図は ARCH_PLAN（arch_xy）
+        import illu as IL
+        return dict(ARCH_SEC, u0=IL.VC_DAM_W)
     if view == "pair":
         return PAIR[idx]
     if view == "model":
@@ -176,6 +195,41 @@ def dam_lake_um(m):
     return [(bed[0][0], DAM_LAKE), (wu, DAM_LAKE)] + list(reversed(face)) + list(reversed(bed))
 
 
+# ── 🆕 ⑤b-6a：アーチ（上から見た弓）。座標は弦の真ん中が (0, 0)・x は右・y は上（湖の側）が正（m）──
+def arch_geom():
+    """天端の弓（円と見なす）の (半径 R, 半分の角 φ, 弦からの高さ s)。L/c＝φ/sin φ をニュートン法で解く。"""
+    c, L = ARCH["chord"], ARCH["length"]
+    r = L / c
+    phi = 1.0
+    for _ in range(60):
+        sn = math.sin(phi)
+        phi -= (phi / sn - r) / ((sn - phi * math.cos(phi)) / sn ** 2)
+    R = c / (2.0 * math.sin(phi))
+    return R, phi, R * (1.0 - math.cos(phi))
+
+
+def arch_um(off=0.0, n=60):
+    """弓の線（中心から off m 外＝湖の側）の点 [(x, y)]（左の端 → 右の端）。"""
+    R, phi, s = arch_geom()
+    cy = s - R
+    return [((R + off) * math.sin(t), cy + (R + off) * math.cos(t))
+            for t in (-phi + 2.0 * phi * j / n for j in range(n + 1))]
+
+
+def arch_xy(x, y):
+    P = ARCH_PLAN
+    return (P["cx"] + x * P["k"], P["cy"] - y * P["k"])
+
+
+def arch_wall(side):
+    """谷の壁の線（湖の上の端 → 弓の端 → 下流の端）。side＝-1 左・+1 右。開き方は模式。"""
+    P = ARCH_PLAN
+    c2 = ARCH["chord"] / 2.0
+    up = [(side * (c2 + 0.40 * y), y) for y in (P["up"], P["up"] * 0.5, 0.0)]
+    dn = [(side * (c2 - 0.25 * y), -y) for y in (P["down"] * 0.5, P["down"])]
+    return up + dn
+
+
 def survey_um():
     """調べた線の上の崩れた土の層（地表から COVER m 下まで）。"""
     a, b = SURVEY_U
@@ -266,6 +320,9 @@ def parts_of(view, st):
 
 def anchors(view, st):
     """札の指し先（段の終わりの状態で）。"""
+    if view == "arch":
+        R, phi, s = arch_geom()
+        return dict(apex=arch_xy(0.0, s), right=arch_xy(ARCH["chord"] / 2.0 + 30.0, -10.0))
     if view == "dam":
         m = _map("dam")
         d = dam_um()
@@ -293,12 +350,14 @@ TAG_AT = dict(
               rb=(974.0, 836.0, "start", 840.0)),
     model=dict(left=(96.0, 316.0, "start", 760.0), right=(1290.0, 380.0, "start", 520.0), scale=(1290.0, 760.0, "start", 520.0),
                b1=(96.0, 836.0, "start", 1100.0)),
+    # 🆕 ⑤b-6a：上から見た図（左）・横から切った断面（右）の札は、それぞれの図の左上（図の上の端 y310・y330 より上）
+    arch=dict(plan=(110.0, 296.0, "start", 560.0), sec=(1080.0, 296.0, "start", 560.0)),
 )
 
 
 def _tag_at(view):
     return TAG_AT["dam"] if view == "dam" else TAG_AT["pair"] if view == "pair" else TAG_AT["model"] \
-        if view == "model" else TAG_AT["slope"]
+        if view == "model" else TAG_AT["arch"] if view == "arch" else TAG_AT["slope"]
 
 
 def _states(view, start, steps):
@@ -341,6 +400,52 @@ def stage_art(view, prev, st):
 
     def on(f):
         return st.get(f) == "on" and prev.get(f) != "on"
+    if view == "arch":
+        R, phi, s = arch_geom()
+        t2 = ARCH["top"] / 2.0
+        if on("force"):
+            # 水の力（湖の側から弓の面へ・弓の中心へ向かう＝長さは模式）
+            for f_ in (-0.62, -0.31, 0.0, 0.31, 0.62):
+                t = f_ * phi
+                p = arch_xy((R + t2 + 40.0) * math.sin(t), s - R + (R + t2 + 40.0) * math.cos(t))
+                q = arch_xy((R + t2 + 3.0) * math.sin(t), s - R + (R + t2 + 3.0) * math.cos(t))
+                g.append(_arrow(p, q, COL_FIX["water_ln"], 5.0, 16.0))
+            # 両側の岩へ逃がす力（弓の端の近くから、弓に沿って岩の中へ＝模式）
+            for sd in (-1.0, 1.0):
+                t = sd * phi
+                ex, ey = R * math.sin(t), s - R + R * math.cos(t)          # 弓の端（m）
+                dx, dy = sd * math.cos(t), -sd * math.sin(t)               # 弓に沿って端の先へ向かう向き（右の端＝右下）
+                pts = [arch_xy(R * math.sin(t * u), s - R + R * math.cos(t * u)) for u in (0.62, 0.74, 0.86, 1.0)]
+                g.append(F.poly(pts, "none", J.AMBER, 7))
+                g.append(_arrow(arch_xy(ex, ey), arch_xy(ex + 26.0 * dx, ey + 26.0 * dy), J.AMBER, 7.0, 24.0))
+        if on("sec"):
+            m = _map("arch")
+            g.append(F.line(1000.0, 330.0, 1000.0, 850.0, J.LINE_DIM, 2, dash="8 8"))
+            w0, w1 = m["u0"] + ARCH_SEC_W[0], m["u0"] + ARCH_SEC_W[1]
+            import illu as IL
+            ws = [w0] + [q[0] for q in IL.VC_BED if w0 < q[0] < w1] + [w1]
+            bed = [(w, IL.vc_bed(w)) for w in ws]
+            zf = 440.0
+            g.append(F.poly([xy(m, w, z) for w, z in bed] + [xy(m, w1, zf), xy(m, w0, zf)], GROUND, J.INK_W, 2.0,
+                            close=True))
+            d = dam_um()
+            wu = IL._lin(sorted((z, w) for w, z in d[:25]), DAM_LAKE)
+            face = [(w, z) for w, z in d[:25] if z <= DAM_LAKE]
+            bl = [q for q in bed if q[0] < wu]
+            lk = [(w0, DAM_LAKE), (wu, DAM_LAKE)] + list(reversed(face)) + list(reversed(bl))
+            g.append(F.poly([xy(m, w, z) for w, z in lk], COL_FIX["water"], None, 0, close=True, op=0.9))
+            g.append(F.poly([xy(m, w, z) for w, z in lk[:2]], "none", COL_FIX["water_ln"], 3))
+            g.append(F.poly([xy(m, w, z) for w, z in d], "#e6eaed", "#20262d", 2, close=True))
+            # 縦の反り（上流の面に沿う弓の矢印＝模式）
+            up = d[:25]
+            arc = [xy(m, w - 14.0, z) for w, z in up[2:23]]
+            g.append(F.poly(arc[:-1], "none", J.AMBER, 4))
+            g.append(_arrow(arc[-2], arc[-1], J.AMBER, 4.0, 16.0))
+            (xa, _ya), (xb, _yb) = xy(m, w0, 0.0), xy(m, w1, 0.0)
+            ys = xy(m, 0.0, DAM_LAKE)[1]
+            g.append(F.txtfit(xa + 8.0, ys - 12.0, "湖", 120, cap=28, col=J.INK_W))
+            g.append(F.txtfit(xb - 8.0, ys - 12.0, "下流", 160, cap=28, col=J.TICK, anchor="end"))
+        return g
     if view == "dam":
         m = _map("dam")
         d = dam_um()
@@ -468,6 +573,32 @@ def _stage_svgs(view, steps, start, states, cap=34):
 def _base(view, start):
     """動かない基図（頭の状態で出ている絵も＝段の層は差だけ）。"""
     g = []
+    if view == "arch":
+        # 上から見た図（左）：両側の岩・湖（上）・弓（天端の厚さ 3.40m）・下流（下）。谷の壁の開き方は模式
+        P = ARCH_PLAN
+        xl, xr = (96.0 - P["cx"]) / P["k"], (944.0 - P["cx"]) / P["k"]
+        for sd, xe in ((-1.0, xl), (1.0, xr)):
+            wall = arch_wall(sd)
+            rock = wall + [(xe, wall[-1][1]), (xe, wall[0][1])]
+            g.append(F.poly([arch_xy(x, y) for x, y in rock], COL_FIX["rock"], "#20262d", 2, close=True))
+        R, phi, s = arch_geom()
+        t2 = ARCH["top"] / 2.0
+        wl, wr = arch_wall(-1.0), arch_wall(1.0)
+        lake = wl[:2] + arch_um(t2) + [wr[1], wr[0]]
+        g.append(F.poly([arch_xy(x, y) for x, y in lake], COL_FIX["water"], None, 0, close=True, op=0.9))
+        band = arch_um(t2) + list(reversed(arch_um(-t2)))
+        g.append(F.poly([arch_xy(x, y) for x, y in band], "#e6eaed", "#20262d", 1.5, close=True))
+        # ⚠️ ⑤b-6a の qa_all（layout）：湖の真ん中（弓の頂きの上）は水の力の矢印が縦に通る＝字を左上へ
+        x, y = arch_xy(-60.0, P["up"] * 0.86)
+        g.append(F.txtfit(x, y, "湖", 120, cap=30, col=J.INK_W, anchor="middle"))
+        x, y = arch_xy(0.0, -P["down"] * 0.6)
+        g.append(F.txtfit(x, y, "下流", 160, cap=28, col=J.TICK, anchor="middle"))
+        for sd, xe in ((-1.0, xl), (1.0, xr)):
+            x, y = arch_xy(sd * (abs(xe) + 70.0) / 2.0, -28.0)      # 岩の帯の真ん中（画面の端と壁のあいだ）
+            g.append(F.txtfit(x, y, "岩", 80, cap=28, col=J.INK_W, anchor="middle"))
+        st = dict(START["arch"], **start)
+        g += stage_art("arch", START["arch"], st)
+        return g
     if view == "dam":
         m = _map("dam")
         bed = dam_bed_um(m)
@@ -515,6 +646,17 @@ def geo_of(view, start, states):
     """門番が測る形（画面の点）と写し（目盛り）。🔴 描く関数と同じ式（§5b-88＝門番は記録を自分の側に持つ）。"""
     m = _map(view)
     out = dict(map=dict(m))
+    if view == "arch":
+        # 上から見た弓の中心の線（端から端）と、弓の頂きの外の面・内の面（天端の厚さ）。横から切った断面は出た段があれば
+        R, phi, s = arch_geom()
+        t2 = ARCH["top"] / 2.0
+        out["plan"] = dict(ARCH_PLAN)
+        out["arc"] = [list(arch_xy(x, y)) for x, y in arch_um(0.0, 120)]
+        out["apex"] = [list(arch_xy(0.0, s + t2)), list(arch_xy(0.0, s - t2))]
+        if any(s_["sec"] == "on" for s_ in [start] + list(states)):
+            out["dam"] = [list(xy(m, w, z)) for w, z in dam_um()]
+            out["lake_y"] = xy(m, 0.0, DAM_LAKE)[1]
+        return out
     if view == "dam":
         out["dam"] = [list(xy(m, w, z)) for w, z in dam_um()]
         out["lake_y"] = xy(m, 0.0, DAM_LAKE)[1]
@@ -541,7 +683,7 @@ KEY_FIELDS = ("pts", "rot", "alpha", "fill", "stroke", "glow", "dx", "dy")
 
 
 def vsec(view, steps, start=None, rel=(), note="", src=""):
-    """16本目の断面の図解。view＝dam｜marks｜two｜pair｜probe｜model｜seep。steps＝ナレーションの行ごとの段。"""
+    """16本目の断面の図解。view＝dam｜marks｜two｜pair｜probe｜model｜seep｜arch。steps＝ナレーションの行ごとの段。"""
     if view not in VIEWS:
         raise ValueError(f"vsec：知らない見え方 {view!r}（{tuple(VIEWS)}）")
     if "模式" not in note:
