@@ -2114,11 +2114,13 @@ def va_wave_w_svg(view):
 def va_flood_svg(view, half):
     """ピアーヴェ川の谷へ広がる水（north＝境より北・south＝南）。平らな面＝盛り上がりは描かない。"""
     pts = va_path(view, VA_FLOOD, per=4, closed=True)
-    ys = va_px((0.0, VA_FLOOD_SPLIT), view)[1]
+    # 🔴 ⑤b-2 の焼き直し（36825556985）：北と南の層の境に細い横の線が透けた（境の行の縁がぼかされ、半透明の2つの層の重なりが
+    #    薄くなる）＝境は整数の行・2つの層を3画素重ねる・水の面は不透明（重なっても色が変わらない）
+    ys = round(va_px((0.0, VA_FLOOD_SPLIT), view)[1])
+    y0, y1 = (-10, ys + 2) if half == "n" else (ys - 1, H + 10)
     cid = f"vaF{half}"
-    clip = (f'<defs><clipPath id="{cid}"><rect x="-10" y="{"-10" if half == "n" else f"{ys:.1f}"}" width="{W + 20}" '
-            f'height="{(ys + 10) if half == "n" else (H + 10 - ys):.1f}"/></clipPath></defs>')
-    return clip + f'<g clip-path="url(#{cid})">' + _poly(pts, VA_FIX["flood"], VA_FIX["foam"], 3.0, 0.86) + "</g>"
+    clip = f'<defs><clipPath id="{cid}"><rect x="-10" y="{y0}" width="{W + 20}" height="{y1 - y0}"/></clipPath></defs>'
+    return clip + f'<g clip-path="url(#{cid})">' + _poly(pts, VA_FIX["flood"], VA_FIX["foam"], 3.0) + "</g>"
 
 
 def va_wave_e_svg(view):
