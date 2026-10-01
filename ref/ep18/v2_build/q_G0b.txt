@@ -1,0 +1,8 @@
+# G0：芯の⚠️を原文に引き直す問い
+9901	Friedman	500	400
+9901	deeper	300	200
+2001	classified \w+ deleted	10	10
+8001-8192	classified (?!matter|material)\w+ deleted	200	100
+4185	0913R, when	50	10
+4216	55\.	50	900
+4210	42\.	50	500

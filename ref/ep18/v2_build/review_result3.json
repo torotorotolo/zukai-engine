@@ -1,0 +1,119 @@
+[
+ {
+  "half": "R3",
+  "checked": 23,
+  "issues": [
+   {
+    "cut": "c904",
+    "severity": "⚠️",
+    "source": "J p.164（1963-08-29 海軍長官の返事）：\"it would be a poor time indeed to release piecemeal the facts and assumptions documented by your hearings. Such action could materially downgrade ... both in the public mind and the minds of our officers and men\"",
+    "what": "新しい聞き役「公聴会の記録は、出たの？」は OK（c903 の公聴会の記録を指し、c905 の答えと合う・roles 一致・数字なし）。ただ語りの1行目「今、事実を小出しにすれば」は原文の facts and assumptions から「推測」を落としている（型③＝範囲を狭める）。噂の章（海軍は何かを隠している）なので、長官の理由が「事実を出すと評判が下がる＝事実を隠す」寄りに聞こえる。G5-02 は字数のため「事実や推測」を画の欄だけに置いたが、2行目の「の中」2つを外せば語りに入れても第9章で −1字（+3 −4）で収まる。1行は31字と34字。",
+    "patches": [
+     {
+      "file": "v2_cuts_G5.txt",
+      "old": "> 海軍長官の返事は、こうだった。今、事実を小出しにすれば、",
+      "new": "> 海軍長官の返事は、こうだった。今、事実や推測を小出しにすれば、"
+     },
+     {
+      "file": "v2_cuts_G5.txt",
+      "old": "> 潜水艦の戦力への見方を、国民の心の中でも、乗る者の心の中でも、下げかねない。",
+      "new": "> 潜水艦の戦力への見方を、国民の心でも、乗る者の心でも、下げかねない。"
+     }
+    ]
+   },
+   {
+    "cut": "c620",
+    "severity": "・",
+    "source": "J p.18（ブロケット少将＝艦船局の長〈J p.2・3・8〉）：\"It was in process and it was received after the 11th of April.\"",
+    "what": "語りは原文どおりで、聞き役は roles_G3 と一致（質問・数字なし）。ただ c618「造船所から艦船局へは、上がっていない」・c619★「艦長より上に伝わっていない」の直後に「艦船局には、いつ届いたの？」が来ると、届いたことが前提になっていて、一瞬「届いていないのでは？」と引っかかる。「結局」を足すと「事故の前には上がらず、あとで届いた」という前提が耳で分かる。答えの「艦船局に」は質問と重なるので外す（+2 −4＝第6章 −2字。c616→c627 の聞き役の空きは縮む向き）。",
+    "patches": [
+     {
+      "file": "v2_cuts_G0.txt",
+      "old": "> Q: 艦船局には、いつ届いたの？",
+      "new": "> Q: 艦船局には、結局いつ届いたの？"
+     },
+     {
+      "file": "v2_cuts_G0.txt",
+      "old": "> 検査の報告書が、艦船局に届いたのは、4月11日より後だった。",
+      "new": "> 検査の報告書が届いたのは、4月11日より後だった。"
+     },
+     {
+      "file": "roles_G3.tsv",
+      "old": "c620\t質問\t艦船局には、いつ届いたの？",
+      "new": "c620\t質問\t艦船局には、結局いつ届いたの？"
+     }
+    ]
+   },
+   {
+    "cut": "c219",
+    "severity": "・",
+    "source": "R08 p.77（アンドリュース大佐）：\"I can't honestly cite instances. I can make one statement concerning one incident that occurred during the beginning of the fast cruise. ... hot words exchanged between the boat officer and the Ship Superintendent. ... That was the only incident I know of.\"",
+    "what": "新しい3行目は原文の範囲に合っている（例外の1件を落としていない）。ただ「言い合いの1件」は誰と誰の言い合いかが語りに無く、はじめて聞く人には何の例か分からない。「艦と造船所の」と言えば、出港を急がせる圧力（造船所の側から）の例だと耳で分かる（画の欄はすでに「艦の士官と造船所の監督」）。第2章で −2字。",
+    "patches": [
+     {
+      "file": "v2_cuts_G1.txt",
+      "old": "> ただ、実際の例として挙げたのは、言い合いの1件だけだった。",
+      "new": "> ただ、挙げた例は、艦と造船所の言い合い1件だけだった。"
+     }
+    ]
+   },
+   {
+    "cut": "c116",
+    "severity": "・",
+    "source": "認定1（R08 p.181＝見える再録の頁・V1 p.34）：\"the first of a new class of nuclear powered attack submarines, capable of diving to a depth [塗り] and with significant advances in sonar equipment, ability to resist shock, and to operate with reduced noise radiation\"",
+    "what": "「音も静かに」を外した理由（R1「quiet は0件」・review_not.json「quiet を支える見える一次の頁が無い」）は誤り。原文は quiet ではなく \"reduced noise radiation\" と書いていて、出典欄にすでにある認定1（R08 p.181）が支えている（「0件は無いの証明ではない」の型）。今の語り「それまでの艦より、深く潜れるように作られていた」は誤りではない（V1 p.92・AP）ので、最低限やることは台帳の理由の文（review_not.json の c116）を直すこと。語りを戻すなら −1字（第1章・冒頭の外）の案を下に書いた（任意）。",
+    "patches": [
+     {
+      "file": "v2_cuts_G1.txt",
+      "old": "> それまでの艦より、深く潜れるように作られていた。",
+      "new": "> それまでの艦より深く潜れ、音も静かに作られた。"
+     },
+     {
+      "file": "v2_cuts_G1.txt",
+      "old": "認定1（R08 p.181）・認定40（R08 p.189）",
+      "new": "認定1（R08 p.181＝\"to operate with reduced noise radiation\"）・認定40（R08 p.189）"
+     }
+    ]
+   },
+   {
+    "cut": "c621",
+    "severity": "・",
+    "source": "R08 p.197（＝V1 p.50）の終わり：\"109. That Portsmouth Naval Shipyard management and workers exhibited a high degree of confidence in sil-braze joints in THRESHER's piping systems.\"（R08 p.198 の頭は認定110）",
+    "what": "出典欄「認定109・意見18（R08 p.198・206）」は、認定109 の頁がずれている。認定109 は R08 p.197 にあり、p.198 には無い（kwic 4198 で 109 は0件・頁の頭は 110）。⑤bで頁を映すときに取り違えないよう 197 に直す。語り（「とみた」＝意見18 R08 p.206 の意見の言い方・41字）は OK。",
+    "patches": [
+     {
+      "file": "v2_cuts_G3.txt",
+      "old": "認定109・意見18（R08 p.198・206）",
+      "new": "認定109・意見18（R08 p.197・206）"
+     }
+    ]
+   },
+   {
+    "cut": "c916",
+    "severity": "・",
+    "source": "J p.122（リッコーヴァー中将）：\"It was originally just on the basis of cost.\"／\"There has been no real evaluation made yet.\"",
+    "what": "語りを第1版の「元は、費用だけが根拠だった、と。」に戻したのは原文どおり（反応「元は、お金の計算だったんだ。」も受ける文が戻った）。ただ画の欄は語りで言わない「本当の評価はまだ無い」だけを出し、語りの芯の「元は費用だけが根拠」が画面に無い＝声と画がずれる（R2 が c820 で指摘したのと同じ型）。画の欄に足す（語りの字は変わらない）。",
+    "patches": [
+     {
+      "file": "v2_cuts_G5.txt",
+      "old": "／本当の評価はまだ無い＝There has been no real evaluation made yet）",
+      "new": "／元は費用だけが根拠＝It was originally just on the basis of cost／本当の評価はまだ無い＝There has been no real evaluation made yet）"
+     }
+    ]
+   },
+   {
+    "cut": "c625",
+    "severity": "・",
+    "source": "J p.68：\"If the quality of the joints so inspected was representative of all the Thresher's silver-brazed joints this means that the ship had several hundred substandard joints\"",
+    "what": "語り（「そして」を外した）と★は OK（条件は残っていて、主語の中将は c624 から続く）。ただ節の決め所 #9 の注（v2_sect_Z.txt）に「★の前の行は「そして、調べた分を見本として、条件をつけて、こう続けた。」（G7-63）」が古いまま残っていて、今の語り「調べた分を見本に、条件をつけて、こう続けた。」と食い違う。R1 の patch は c624 の分母だけ節を直していて、この文は直していなかった。",
+    "patches": [
+     {
+      "file": "v2_sect_Z.txt",
+      "old": "★の前の行は「そして、調べた分を見本として、条件をつけて、こう続けた。」（G7-63）",
+      "new": "★の前の行は「🔧 調べた分を見本に、条件をつけて、こう続けた。」（G7-63・R1＝字数のため「そして」を外した）"
+     }
+    ]
+   }
+  ]
+ }
+]

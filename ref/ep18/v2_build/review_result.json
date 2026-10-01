@@ -1,0 +1,296 @@
+[
+ {
+  "half": "R1",
+  "checked": 105,
+  "issues": [
+   {
+    "cut": "c624",
+    "severity": "⚠️",
+    "source": "J p.68 \"about 5 percent of her silver-brazed joints were ultrasonically inspected. These joints were in critical piping systems, 2-inch diameter or larger.\"",
+    "what": "③範囲を広げた：語り「スレッシャーの継手の約5パーセント」は分母から「銀ろう付けの」が落ちた。c602 で継手の「多く」が銀ろう付けと言っているので、全部の継手の5%に聞こえる。★c625「数百」の前提（all the Thresher's silver-brazed joints）とも分母がずれる。直径・重要な配管は画の欄のまま（J の文では調べた継手の説明）。+6字は、同じ c616→c627 の聞き役の空きの中で c617（−3）と c625（−5）で埋めた（第6章 −2）。Z の §1-5・§2 #9 の注の同じ語も直す",
+    "patches": [
+     {
+      "file": "v2_cuts_G3.txt",
+      "old": "> スレッシャーの継手の約5パーセントを、超音波で調べた。",
+      "new": "> スレッシャーの銀ろう付けの継手の約5パーセントを、超音波で調べた。"
+     },
+     {
+      "file": "v2_cuts_G3.txt",
+      "old": "スレッシャーの継手の約5%を検査〈直径約5センチ以上の重要な配管〉",
+      "new": "スレッシャーの銀ろう付けの継手の約5%を検査〈直径約5センチ以上の重要な配管〉"
+     },
+     {
+      "file": "v2_sect_Z.txt",
+      "old": "スレッシャーの継手の約5%を超音波で調べ、",
+      "new": "スレッシャーの銀ろう付けの継手の約5%を超音波で調べ、"
+     },
+     {
+      "file": "v2_sect_Z.txt",
+      "old": "「スレッシャーの継手の約5パーセントを、超音波で調べた。",
+      "new": "「スレッシャーの銀ろう付けの継手の約5パーセントを、超音波で調べた。"
+     },
+     {
+      "file": "v2_cuts_G3.txt",
+      "old": "> 艦が海に出る、4か月以上前のことだ。",
+      "new": "> 出港の4か月以上前のことだ。"
+     },
+     {
+      "file": "v2_cuts_G3.txt",
+      "old": "> そして、調べた分を見本として、条件をつけて、こう続けた。",
+      "new": "> 調べた分を見本に、条件をつけて、こう続けた。"
+     }
+    ]
+   },
+   {
+    "cut": "c619",
+    "severity": "⚠️",
+    "source": "認定108 R08 p.197 \"... or to anyone in the operational command line higher than the Commanding Officer of THRESHER\"",
+    "what": "範囲は認定108 と合う（c618＝艦船局へ／c619＝艦に命令を出す系統）。ただ★の前の行「艦に命令を出す側でも、査問会の認定は、こう書いている。」は「でも」が認定にかかり、認定が命令を出す側に書かれたように読めて日本語が通らない。「〜については」にすれば、★「艦長より上に」が命令の系統の話だと分かる（字数±0）。Z の §2 #8 の注も同じ文を引いている",
+    "patches": [
+     {
+      "file": "v2_cuts_G3.txt",
+      "old": "> 艦に命令を出す側でも、査問会の認定は、こう書いている。",
+      "new": "> 艦に命令を出す側については、査問会の認定はこう書く。"
+     },
+     {
+      "file": "v2_sect_Z.txt",
+      "old": "「艦に命令を出す側でも、査問会の認定は、こう書いている」",
+      "new": "「艦に命令を出す側については、査問会の認定はこう書く」"
+     }
+    ]
+   },
+   {
+    "cut": "c521",
+    "severity": "⚠️",
+    "source": "認定28b R08 p.187 \"became knowledgeable for the first time of the last communications ... This information had not previously been communicated to him or to anyone outside SKYLARK.\"",
+    "what": "1行目の「中身」で c509 の電文（認定24＝最後の声は崩れていた）とは食い違わない＝OK。ただ2行目「それまでのことを、」は「それ」がどこまでを指すか耳でつかみにくい。★だけ見ると「ずっと外へ出なかった」に読め、28c（少将がそのあと司令官へ伝えた）と合わない。previously の区切り（少将が記録を見るまで）を言い切る。+3字は同じ章の c522「それが」（−3）で埋めた（第5章 ±0・c518→c523 の聞き役の空きも±0）。Z の §2 #7 の注も同じ文を引いている",
+    "patches": [
+     {
+      "file": "v2_cuts_G3.txt",
+      "old": "> それまでのことを、査問会はこう書く。",
+      "new": "> 少将が知るまでのことを、査問会はこう書く。"
+     },
+     {
+      "file": "v2_sect_Z.txt",
+      "old": "／それまでのことを、査問会はこう書く。」",
+      "new": "／少将が知るまでのことを、査問会はこう書く。」"
+     },
+     {
+      "file": "v2_cuts_G3.txt",
+      "old": "> ただし、それが艦を失うことに関わったとは考えられない、とも書いている。",
+      "new": "> ただし、艦を失うことに関わったとは考えられない、とも書いている。"
+     }
+    ]
+   },
+   {
+    "cut": "c412",
+    "severity": "⚠️",
+    "source": "認定17 R08 p.185（意味は書いていない）・c919（AP・ルール氏＝試験深度より900フィート深い、の1つだけ）",
+    "what": "③範囲を広げた：「のちに、いくつかの読み方が出された。それは、後半で見る。」とあるが、後半（c919）で見せる読み方は1つだけ。「いくつか」を支える頁も無い。「いくつかの」を外す（−5字）",
+    "patches": [
+     {
+      "file": "v2_cuts_G2.txt",
+      "old": "> のちに、いくつかの読み方が出された。それは、後半で見る。",
+      "new": "> のちに、読み方が出された。それは、後半で見る。"
+     }
+    ]
+   },
+   {
+    "cut": "c116",
+    "severity": "・",
+    "source": "V1 p.92 \"the first of a deeper diving class of submarines built by our Navy\"（見える頁）・AP \"dive deeper than any previous sub\"・J p.177（付録14＝NYT 1963-04-13 の論説）\"designed to run silent, run deep\"",
+    "what": "足した出典 V1 p.92〜93 は本当にある見える頁で、「深く」を一次で支える＝OK。ただ語りの「音も静かに作られていた」は出典欄のどの頁にも無い（V1 p.92〜93・AP・認定1・40 に quiet は0件）。見つかったのは J p.177（議会の記録に載せた NYT の論説＝報道の言葉）だけ。出典欄に足すか、語りから外すか（外すなら G1 の判断）",
+    "patches": [
+     {
+      "file": "v2_cuts_G1.txt",
+      "old": "built by our Navy\"）・AP（2021-08-02）",
+      "new": "built by our Navy\"）・AP（2021-08-02）・音の静かさ＝J p.177（付録14＝NYT 1963-04-13 の論説を議会の記録に載せたもの \"designed to run silent, run deep\"＝報道の言葉）"
+     }
+    ]
+   },
+   {
+    "cut": "c618",
+    "severity": "・",
+    "source": "認定106 R08 p.197 \"a copy of this decision was furnished the Commanding Officer of THRESHER\"",
+    "what": "語りは OK。画の欄「当時の艦長へは決定の写しだけが点線で届く」の「だけ」は原文に無い。認定106 は写しが渡ったとだけ書き、結果が艦長に行ったかは書いていない（認定108 の「艦長より上」はむしろ艦長が結果を知っていた含みもある）。「だけ」を外す",
+    "patches": [
+     {
+      "file": "v2_cuts_G3.txt",
+      "old": "当時の艦長へは決定の写しだけが点線で届く",
+      "new": "当時の艦長へは決定の写しが点線で届く"
+     }
+    ]
+   },
+   {
+    "cut": "c621",
+    "severity": "・",
+    "source": "意見18 R08 p.206 \"did not aggressively pursue ... nor did the Commanding Officer, THRESHER\"",
+    "what": "④意見の言い方：意見18 は査問会の「意見」なので、§4-2 では「査問会は〜とみた」。「とする」は認定のようにも聞こえる。字数±0・行は41字のまま",
+    "patches": [
+     {
+      "file": "v2_cuts_G3.txt",
+      "old": "検査を強く進めなかったとする。",
+      "new": "検査を強く進めなかったとみた。"
+     }
+    ]
+   },
+   {
+    "cut": "c508",
+    "severity": "・",
+    "source": "X p.61（R 101604Z・17:45Z の受領）＝G3-06",
+    "what": "c508 の頁は X p.64 から X p.61 に直ったが、台本の §1-4 に「スカイラークの無線の記録は X p.64（`c508`）」が第1版のまま残っていて、カットと食い違う。Z の置き換えを1つ足す（1-4 の見出しの置き換えのあとに入れる）",
+    "patches": [
+     {
+      "file": "v2_sect_Z.txt",
+      "old": "### 1-4. 写真・実写の割り当て（kousei.md §3 の 56 → 第1版 63 → 🔧 第2版 64）\n@@@END",
+      "new": "### 1-4. 写真・実写の割り当て（kousei.md §3 の 56 → 第1版 63 → 🔧 第2版 64）\n@@@END\n\n@@@OLD\n- 🔴 `thr_fig_log_*` は**シーウルフの報告（証拠49）**として使う（`c516`〜`c517`＝旧版の「スカイラークの記録」は誤り）。スカイラークの無線の記録は X p.64（`c508`）\n@@@NEW\n- 🔴 `thr_fig_log_*` は**シーウルフの報告（証拠49）**として使う（`c516`〜`c517`＝旧版の「スカイラークの記録」は誤り）。スカイラークの無線の記録は 🔧 X p.61（`c508`＝12時45分に陸の局が受け取った行・X p.64 は夕方の交信＝G3-06）\n@@@END"
+     }
+    ]
+   },
+   {
+    "cut": "c219",
+    "severity": "・",
+    "source": "R08 p.77 \"I can't honestly cite instances. I can make one statement concerning one incident ... That was the only incident I know of.\"",
+    "what": "帰属（大佐の証言では）と「出港を急がせる圧力」（get him out on time）は OK。ただ大佐は「例は挙げられない」と言ったすぐあとに、岸壁の訓練の初めの口論1件を挙げ「知っているのはそれだけ」と述べている。「例は挙げられない、とも述べた」で止めると、証言より「圧力は無かった」に寄る。直すなら字が増える（第2章）＝判断が要る",
+    "patches": []
+   },
+   {
+    "cut": "c212",
+    "severity": "・",
+    "source": "勧告8 R08 p.218 \"a. The adequacy of instrumentation coverage and capability to insure that all damage is found ... b. The shock resistance ...\"",
+    "what": "聞き役は「まとめ」になっていて（質問ではない）、次が「そう。」・roles_G1 も同じ＝OK。ただ「艦船局が計器や機器の強さを見直すまで」は、a（損傷を見つける計器の備えが足りるか）を「計器の強さ」と読ませうる。「計器の備えや機器の強さ」なら原文どおり（+3字）＝任意",
+    "patches": []
+   },
+   {
+    "cut": "c107",
+    "severity": "・",
+    "source": "認定91c（前の艦長の書簡）・認定108・28b",
+    "what": "「危ないと書いた人はいた。検査の数字も、その書類も」のあと「その紙がどこまで届いたかを追う」の「紙」には前の艦長の書簡も入る。けれども書簡の届き先はこの動画では言わない（decisions §5）。c114 で追う物を2つ（検査の結果・最後の声）に絞ってあるので大きな食い違いではない＝判断だけ",
+    "patches": []
+   }
+  ]
+ },
+ {
+  "half": "R2",
+  "checked": 143,
+  "issues": [
+   {
+    "cut": "c904",
+    "severity": "⚠️",
+    "what": "足した聞き役「その記録は、あとで出たの？」の「その記録」が、c902 の査問会の記録とも取れる。しかも c905 は第1版にあった「公聴会の記録」の語を落とした。そのため「査問会の記録が1965年に印刷されて出た」と聞こえ、c906（査問会の記録は訴えで出た）・c907（2020年から公開）と食い違う。J p.164 の返事は公聴会の書き起こし（hearings transcript）の話。聞き役の主語を公聴会の記録にする（質問のまま・数字なし・12字・字は−1）。",
+    "source": "J p.164 \"The hearings transcript should at this time maintain its classified status\"・J 前付 p.3 \"WASHINGTON: 1965\"",
+    "patches": [
+     {
+      "file": "v2_cuts_G5.txt",
+      "old": "> Q: その記録は、あとで出たの？",
+      "new": "> Q: 公聴会の記録は、出たの？"
+     },
+     {
+      "file": "roles_G5.tsv",
+      "old": "c904\t質問\tその記録は、あとで出たの？",
+      "new": "c904\t質問\t公聴会の記録は、出たの？"
+     }
+    ]
+   },
+   {
+    "cut": "c916",
+    "severity": "⚠️",
+    "what": "G7-104 は「元は、費用だけが根拠だった」を強める語とみたが、所見のほうが誤り。J p.122 に \"It was originally just on the basis of cost.\" とあり、第1版の文は原文どおりだった。替えた「本当の評価は、まだ無い」も原文にはある。ただ、そのせいで反応「元は、お金の計算だったんだ。」の「元は」を受ける文が語りから消えた。第1版の文に戻す（+2字）。同じ章の c905「という印」→「の印」（−2字）と組にする。「本当の評価はまだ無い」は画の欄に残っている。",
+    "source": "J p.122 \"It was originally just on the basis of cost.\" / \"There has been no real evaluation made yet.\"",
+    "patches": [
+     {
+      "file": "v2_cuts_G5.txt",
+      "old": "ざっと計算した答えが、その数字だった。本当の評価は、まだ無い、と。",
+      "new": "ざっと計算した答えが、その数字だった。元は、費用だけが根拠だった、と。"
+     },
+     {
+      "file": "v2_cuts_G5.txt",
+      "old": "ただ、「機密部分は削除」という印が、約240か所ある。",
+      "new": "ただ、「機密部分は削除」の印が、約240か所ある。"
+     }
+    ]
+   },
+   {
+    "cut": "c917",
+    "severity": "⚠️",
+    "what": "「その数字に、戦術の上の根拠は無い」は原文の \"for [classified] feet or any other depth\" の「ほかのどの深さにも」を落としていて、引用の範囲が狭い（型③）。画の欄は「その数字にも、ほかのどの深さにも」で、語りと合っていない。「どの深さにも」にする（+1字）。1行目の「こう」を外して（−2字）組にする。",
+    "source": "J p.124 \"Therefore, there is not a tactical justification for [classified matter deleted] feet or any other depth.\"",
+    "patches": [
+     {
+      "file": "v2_cuts_G5.txt",
+      "old": "行く深さは、技術が許すところまで。その数字に、戦術の上の根拠は無い、と。",
+      "new": "行く深さは、技術が許すところまで。どの深さにも、戦術の上の根拠は無い、と。"
+     },
+     {
+      "file": "v2_cuts_G5.txt",
+      "old": "海軍の少将は、海軍の中の検討の結論を、こう述べた。",
+      "new": "海軍の少将は、海軍の中の検討の結論を述べた。"
+     }
+    ]
+   },
+   {
+    "cut": "c918",
+    "severity": "⚠️",
+    "what": "ルール氏は「書簡に…1,300フィートと書いた」で良い（書簡の字は test-depth of 1300-feet）。分析家の中身も AP の本文どおりで、推定にはしていない。ただ「AP通信の記事の分析家も」は、分析家が AP の人のように聞こえる。decisions §4-2 の「記事で／によると」の帰属の形にする（字は±0）。節の §1-3・§1-5 の引用も合わせる。",
+    "source": "AP \"The test depth was redacted but previously declassified documents indicated it was 1,300 feet, said Norman Friedman, a naval analyst\"・書簡 \"the 1300-foot test-depth\"",
+    "patches": [
+     {
+      "file": "v2_cuts_G5.txt",
+      "old": "AP通信の記事の分析家も、前に機密を解かれた文書では同じ数だ、と話す。",
+      "new": "AP通信の記事で、分析家が、前に機密を解かれた文書でも同じ数だ、と話す。"
+     },
+     {
+      "file": "v2_sect_Z.txt",
+      "old": "語り「AP通信の記事の分析家」",
+      "new": "語り「AP通信の記事で、分析家が」"
+     },
+     {
+      "file": "v2_sect_Z.txt",
+      "old": "AP の記事の分析家は「前に機密を解かれた文書では同じ数」と話す",
+      "new": "AP の記事で分析家が「前に機密を解かれた文書でも同じ数」と話す"
+     }
+    ]
+   },
+   {
+    "cut": "c820",
+    "severity": "⚠️",
+    "what": "帰属は行ごとにあり、強さ（査問会＝おそらく…とみた／ルール氏＝とみる／司令官＝ひどく不十分）も原文どおり。ただ語る順（査問会→ルール氏→c821 の司令官）と、画の欄の並び（査問会→司令官→ルール氏）が違い、声と画面がずれる。語りは c821 の画（司令官の意見書）とつながっているので、画の欄の並びを語りの順にそろえる（語りの字は変わらない）。あわせて「おそらくの原因」の字の崩れも直す。",
+    "source": "R08 p.204 意見1d \"in all probability due to … A deficient air system, susceptible to freeze-up\"・IR18 p.122 \"grossly unsatisfactory\"・書簡 \"unable to deballast because of the formation of ice\"",
+    "patches": [
+     {
+      "file": "v2_cuts_G4.txt",
+      "old": "（査問会の意見1d＝おそらくの原因の1つ・量も速さも足りず凍りやすい系統／大西洋艦隊司令官の意見書＝凍りやすい系統はひどく不十分／ルール氏＝氷で吹き出せなかった＝個人の推定）",
+      "new": "（語りの順：査問会の意見1d＝おそらく原因の1つ・量も速さも足りず凍りやすい系統／ルール氏＝氷で吹き出せなかった＝個人の推定／大西洋艦隊司令官の意見書＝凍りやすい系統はひどく不十分〈次の c821 で書類〉）"
+     }
+    ]
+   },
+   {
+    "cut": "c720",
+    "severity": "・",
+    "what": "足した「ただ、査問会は、この場合の可能性は高くない、とした。」は Case I の前提（0911R にポンプが止まる）と評価（not highly probable）に合っている。ただ、評価の理由は軌跡（0913 の時点で約100フィートしか上がらない）。c802 の意見1b（電気が引き金の原子炉の自動停止＝おそらくの原因の1つ）と食い違って聞こえるおそれがある。最もありうる Case III では、0911 はポンプが遅い回し方に落ちただけで、停止はそのあと。言い足すと約+8字になるので、判断は係に任せる。",
+    "source": "R08 p.213 \"In Case I … 3. Power lost at 0911R when pumps stop … not highly probable, mainly due to … decreased depth only about 100 feet\"・R08 p.214 Case III \"most probable\"",
+    "patches": []
+   },
+   {
+    "cut": "cb07",
+    "severity": "・",
+    "what": "語りは認定157 どおり。画を書類の再現図から thr_film593_c に替えたため、同じコマが c212・c318・c701・cb07 の4回使われる。G4-17（c722 と c701 の入れ替え）とあわせて、⑤bで絵の重なりを見る。",
+    "source": "R08 p.202 認定157 \"no organization at any level within the Navy\"",
+    "patches": []
+   },
+   {
+    "cut": "§1-8",
+    "severity": "・",
+    "what": "意見45 の追記「Case III の約750フィート・7.1分・約5ノット」では、7.1分と約5ノットが Case III の数に読める。原文でこの2つは、ポンプが止まった場合（c720 の仮定）の数。⑤bで引く人が取り違えないよう、節の文だけ直す。",
+    "source": "R08 p.212 \"If the main coolant pumps stopped … the 7.1 minutes between 0911R and time of collapse depth … only sufficient for about 5 knots\"",
+    "patches": [
+     {
+      "file": "v2_sect_Z.txt",
+      "old": "🔧 Case I＝可能性は高くない〈not highly probable〉・Case III の約750フィート・7.1分・約5ノット",
+      "new": "🔧 Case I＝可能性は高くない〈not highly probable〉・Case III の約750フィート・ポンプが止まった場合の7.1分・約5ノット〈R08 p.212〉"
+     }
+    ]
+   }
+  ]
+ }
+]

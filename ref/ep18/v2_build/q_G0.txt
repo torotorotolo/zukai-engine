@@ -1,0 +1,10 @@
+# G0（④'本人）が🔴を原文に引き直す問い
+4200	twenty minutes to isolate	400	250
+4200	expressed his concurrence	350	60
+4185	believed to contain	250	300
+117	garbled message	150	400
+139	garbled transmi	150	250
+4197	This decision was known	500	300
+4214	frozen reducer	500	150
+2122	susceptible to freeze	300	200
+8163	perhaps 1,000 feet	300	150

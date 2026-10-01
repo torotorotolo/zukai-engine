@@ -1,0 +1,9 @@
+all	b ?\( ?3 ?\)	80	80
+all	10 ?U\.? ?S\.? ?C\.? ?(§ ?)?130	80	80
+FOR	nine hundred	250	150
+6001-6319	numbered	250	250
+6001-6319	(rebuil|modifi|improved|new) TRIESTE	200	200
+6001-6319	TRIESTE II (was|is) (a|the)	200	200
+1132	.	0	600
+1135	.	0	600
+8159-8160	Sincerely yours, Fred Korth	900	50

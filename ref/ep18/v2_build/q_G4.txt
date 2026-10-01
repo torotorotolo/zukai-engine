@@ -1,0 +1,11 @@
+FOR	sil-?braze	150	250
+FOR	most probabl	250	250
+FOR	initial sea trials	250	250
+R08	Zucker	200	200
+IR18	June 1963	200	100
+IR18	12 June	200	100
+T	.	0	1500
+FOR	TINOSA	300	300
+J	Tinosa	200	200
+FOR	strainer	200	200
+FOR	dehydrat	200	200

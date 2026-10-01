@@ -1,0 +1,13 @@
+4185-4188	0921	300	300
+4188	oil slick	300	200
+4187	final communication	400	200
+9801-9802	square yards	300	200
+4197	copy	300	300
+4181-4220	91\.? ?c|Commanding Officer.{0,40}evaluat	200	400
+8079	THRESHER	200	300
+8089	conclu|summar	200	200
+8035	strainer	300	300
+8112	strainer	300	300
+4198	3,?000	300	200
+4185	visibility	100	100
+8122-8124	magic	200	300

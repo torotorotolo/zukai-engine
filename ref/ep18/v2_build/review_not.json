@@ -1,0 +1,10 @@
+[
+  ["c412", "いくつかの読み方が出された", "一部だけ採った：「いくつか」を外す指摘は採り、案の「読み方が出された」ではなく「ある読み方が出された」にした（G0・review_extra.json）＝後半の c919 で見せる読み方は1つ（AP・ルール氏）"],
+  ["c116", "足した出典 V1 p.92", "直した（別の形）：出典を足す案（J p.177＝NYT の論説）は採らない。🔴 G0 はいったん「quiet を支える見える一次の頁が無い」として語りから「音も静かに」を外したが、これは誤り＝見える頁の認定1（R08 p.181）が「to operate with reduced noise radiation」（R3 c116 が見つけた）→ 語りは第1版に戻し、出典欄に認定1 の原文を書いた（R3 の行・review_extra3.json）"],
+  ["c219", "帰属（大佐の証言では）", "直した（G0・review_extra.json）：「ただ、実際の例として挙げたのは、言い合いの1件だけだった。」＝R08 p.77「I can't honestly cite instances. I can make one statement concerning one incident … hot words exchanged … That was the only incident I know of.」（+4字・画の欄も合わせた）"],
+  ["c212", "聞き役は「まとめ」になっていて", "直した（G0・review_extra.json）：「計器の備えや機器の強さ」＝勧告8a（adequacy of instrumentation coverage and capability to insure that all damage is found）・8b（shock resistance … of system components）＝R08 p.218（+3字・1行41字）"],
+  ["c107", "危ないと書いた人はいた", "直さない：c114 で追う物を2つ（検査の結果・最後の声）に絞ってある＝書簡の届き先は追わないと耳で分かる（係も「大きな食い違いではない」）"],
+  ["c918", "ルール氏は「書簡に", "一部だけ採った：帰属の形「AP通信の記事で、分析家が」は採り、「文書でも」は採らず「文書では」のまま（AP「previously declassified documents indicated it was 1,300 feet」＝文書によれば、の意）。節 §1-3・§1-5 も同じ形にした（G0・review_extra.json）"],
+  ["c720", "足した「ただ、査問会は", "直した（G0・review_extra.json）：「ただ、査問会は、9時11分に止まった場合の可能性は高くない、とした。」＝Case I の前提（R08 p.213「Power lost at 0911R when pumps stop」→ not highly probable）に限る。c802 の意見1b（電気が引き金の原子炉の自動停止＝おそらくの原因の1つ）と食い違って聞こえない（+8字）"],
+  ["cb07", "語りは認定157", "⑤bで原寸：同じコマ thr_film593_c が c212・c318・c701・cb07 の4回＝⑤bで絵の重なりを見る（§0-7 ⑤bへ・語りは認定157 どおり）"]
+]
