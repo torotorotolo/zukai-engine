@@ -101,4 +101,139 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-6b（2026-10-01）：年表（`axis` の date）・数の比べ（`qty`）・書類の再現図と並べ図（`boxes`）＝14本目の型 ──
+    # 🔴 裁判の年表は c110 と同じ軸（ss.AX_ANS＝1963〜72年）で続ける。前のカットの点は札を消して沈める（ss.dot）・すぐ前の点だけ札を
+    #   沈めて残す。一審・控訴審・破毀院の言葉は c719・ca16・ca18 で初めて説明する＝その前のカットの画面に出さない
+    # ca02（9.60秒）＝議会の調査委員会（S1 p1「LEGGE 22 MAGGIO 1964, n. 370」・委員は senatore／deputato）。1行目「1964年5月の法律で」で
+    #   点／2行目「委員は、上院と下院の議員たち」で項目の札
+    "ca02": dict(
+        t="議会が調べる", s="法律でつくられた委員会",
+        fig=("axis", dict(**ss.AX_ANS, past=[ss.ax("a_fall", anchor="end")], start=dict(cur="1963-10-09"), steps=[
+            dict(add=ss.ax("l_parl"), cur="1964-05-22"),
+            dict(add=dict(k="chips", at="1964-05-22", chips=["上院と下院の議員"], rec="S1 p1"))],
+            src=ss.src(["S1 p1", "S1 p98"]))),
+    ),
+    # ca04（9.66秒）＝議会の3つの報告（S1 p26＝多数派の報告を19対8で決め、2つの少数派の報告を添えた）。同じ形で並べるだけ（多数派の
+    #   中身は語りと ca05 の決め所）。1行目（聞き役）で3つ／2〜3行目は足さない
+    "ca04": dict(
+        t="予見できたか", s="議会の3つの報告",
+        fig=("boxes", dict(view="row", slots=3, steps=[
+            dict(add=[ss.cause("rep_maj"), ss.cause("rep_min1"), ss.cause("rep_min2")]), dict(), dict()],
+            src=ss.src(["S1 p26", "S1 p178", "S1 p207", "S1 p241"]))),
+    ),
+    # ca09（7.63秒）＝もう1つの少数派の報告の一文（S1 p241「la tesi, piuttosto affermata che dimostrata, secondo cui la sciagura del
+    #   Vajont ha avuto tutti i caratteri della assoluta imprevedibilità」）。1行目で紙と「退ける説」／2行目「示されたというより、言い張られた
+    #   もの」で「その説は」
+    "ca09": dict(
+        t="言い張られた説", s="イタリア語の原文",
+        fig=("boxes", dict(view="form", form=ss.FORM_MIN2, steps=[
+            dict(add=[dict(k="paper"), dict(k="fill", f="退ける説")]), dict(add=dict(k="fill", f="その説は"))],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["S1 p241"]))),
+    ),
+    # ca10（5.03秒）＝ca04 を戻す（同じ3つ）
+    "ca10": dict(
+        t="見方が割れた", s="議会の3つの報告",
+        fig=("boxes", dict(view="row", slots=3,
+                           past=[ss.cause("rep_maj", keep=True), ss.cause("rep_min1", keep=True),
+                                 ss.cause("rep_min2", keep=True)], steps=[dict(), dict()],
+                           src=ss.src(["S1 p26", "S1 p178", "S1 p207", "S1 p241"]))),
+    ),
+    # ca11（7.58秒）＝予審（S9 p2017「20 febbraio. Il Giudice istruttore Mario Fabbri deposita la sentenza」）。1行目「まず、ベッルーノの
+    #   予審判事…が調べた」で崩落から1968年2月までの括弧と点（札は括弧の右の端の上）／2行目（予審の説明）は足さない
+    "ca11": dict(
+        t="刑事の裁判", s="判事が調べる",          # ⚠️ ⑤b-6b の qa_all（echo）：「ベッルーノの予審判事」は語りの1文の一部と同じ
+        fig=("axis", dict(**ss.AX_ANS, past=[ss.dot("a_fall"), ss.dot("l_parl"), ss.dot("a_parl")], start=dict(cur="1965"),
+                          steps=[dict(add=[ss.ax("l_prebr"), ss.ax("l_pre")], cur="1968-02-20"), dict()],
+                          src=ss.src(["S9 p2017", "S1 p98"]))),
+    ),
+    # ca14（8.31秒）＝一審が始まる（S9 p2017「29 novembre. Inizia all'Aquila il processo di primo grado」＝一審の言葉は c719 で説明ずみ）。
+    #   1行目（聞き役）は足さない／2行目「裁判が始まるまでに、11人のうち3人が亡くなっていた」で点／3行目は足さない。
+    #   亡くなった3人（S9 p2017）は語りだけ＝札にしない
+    "ca14": dict(
+        t="裁判の前に", s="ラクイラの裁判所",
+        fig=("axis", dict(**ss.AX_ANS, past=[ss.dot("a_fall"), ss.dot("l_parl"), ss.dot("a_parl"), ss.ax("l_prebr"),
+                                             ss.ax("l_pre")], start=dict(cur="1968-02-20"),
+                          steps=[dict(), dict(add=ss.ax("l_start"), cur="1968-11-29"), dict()],
+                          src=ss.src(["S9 p2017"]))),
+    ),
+    # ca15（9.77秒）＝一審の判決（S9 p2018「Non viene riconosciuta la prevedibilità della frana」・ビアデーネ・バティーニ・ヴィオリンの3人が
+    #   有罪＝知らせず・避難を始めなかった）。1行目で点と札「予見できたとは認めず」／2行目で札「3人が有罪」
+    "ca15": dict(
+        t="最初の判決", s="予見をどう見たか",
+        fig=("axis", dict(**ss.AX_ANS, past=[ss.dot("a_fall"), ss.dot("l_parl"), ss.dot("a_parl"), ss.dot("l_pre"),
+                                             ss.ax("l_start", anchor="end")], start=dict(cur="1968-11-29"), steps=[
+            dict(add=ss.ax("l_j1", chips=["予見できたとは認めず"]), cur="1969-12-17"),
+            dict(add=dict(k="chips", at="1969-12-17", chips=["3人が有罪"], rec="S9 p2018", i0=1))],
+            src=ss.src(["S9 p2018"]))),
+    ),
+    # ca16（11.18秒）＝控訴審の判決（S9 p2018「riconosciuti colpevoli di frana, inondazione e degli omicidi」）。1行目「2度目の裁判、控訴審」
+    #   で点／2行目「崩落も、水があふれたことも、人々が亡くなったことも、罪とされた」で札／3行目（聞き役）は足さない
+    "ca16": dict(
+        t="判断が変わる", s="2度目の裁判",
+        fig=("axis", dict(**ss.AX_ANS, past=[ss.dot("a_fall"), ss.dot("l_parl"), ss.dot("a_parl"), ss.dot("l_pre"),
+                                             ss.dot("l_start"), ss.ax("l_j1", anchor="end")], start=dict(cur="1969-12-17"),
+                          steps=[dict(add=ss.ax("l_j2"), cur="1970-10-03"),
+                                 dict(add=dict(k="chips", at="1970-10-03", chips=["崩落もあふれた水も罪に"], rec="S9 p2018")),
+                                 dict()],
+                          src=ss.src(["S9 p2018"]))),
+    ),
+    # ca17（12.88秒）＝控訴審の結果（S9 p2018＝有罪2人〈ビアデーネ・センシドーニ〉・無罪5人〈フロジーニ・ヴィオリン・マリン・トニーニ・
+    #   ゲッティ〉・病気で外れた1人〈バティーニ〉）。同じ形で並べる・名前は語りだけ・顔は描かない。1行目で有罪／3行目で無罪と外れた1人
+    "ca17": dict(
+        t="控訴審の結果", s="1970年10月",
+        fig=("boxes", dict(view="row", slots=3, steps=[
+            dict(add=ss.cause("ap_guilty")), dict(), dict(add=[ss.cause("ap_free"), ss.cause("ap_out")])],
+            src=ss.src(["S9 p2018"]))),
+    ),
+    # ca18（10.88秒）＝破毀院の判決（S9 p2018「15-25 marzo. Processo di Cassazione a Roma: … colpevoli di un unico disastro: inondazione
+    #   aggravata dalla previsione dell'evento compresa la frana e gli omicidi」）。🔴 PLAN の出典 S2 p.718 は照らせない＝S9 p2018。
+    #   1行目「ローマの破毀院。イタリアの最高裁判所だ」で点／2行目で札「崩落も含めて1つの災害」／3行目で札「予見していた重い過失」
+    #   （④' の G5-04＝「予見できた」でなく「予見していた」）
+    "ca18": dict(
+        t="最高裁判所の判断", s="ローマで",
+        fig=("axis", dict(**ss.AX_ANS, past=[ss.dot("a_fall"), ss.dot("l_parl"), ss.dot("a_parl"), ss.dot("l_pre"),
+                                             ss.dot("l_start"), ss.dot("l_j1"), ss.ax("l_j2", anchor="end")],
+                          start=dict(cur="1970-10-03"), steps=[
+            dict(add=ss.ax("l_j3"), cur="1971-03-25"),
+            dict(add=dict(k="chips", at="1971-03-25", chips=["崩落も含めて1つの災害"], rec="S9 p2018")),
+            dict(add=dict(k="chips", at="1971-03-25", chips=["予見していた重い過失"], rec="S9 p2018", i0=1))],
+            src=ss.src(["S9 p2018", "S10 p3020"]))),
+    ),
+    # ca19（9.89秒）＝判決（財団の年表 S9 p2018 が記す＝伊語の原文）。1行目（聞き役）で紙／2行目「崩れることまで含めて、危ないと分かって
+    #   いながら、という重い形だ」で破毀院の欄／3行目「最初の判決から、予見についての答えは、大きく変わった」で一審の欄（同じ頁の1969年）。
+    #   🔴 PLAN の出典 S2 p.718 は照らせない（映像方針 §16）
+    "ca19": dict(
+        t="変わった答え", s="イタリア語の原文",
+        fig=("boxes", dict(view="form", form=ss.FORM_JUDG, steps=[
+            dict(add=dict(k="paper")), dict(add=dict(k="fill", f="破毀院")), dict(add=dict(k="fill", f="一審"))],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["S9 p2018"]))),
+    ),
+    # ca21（4.66秒）＝時効（崩落の7年半後＝S9 p2018・S10 p3020）。崩落から時効までの括弧と点（札は点の下の項目の札「時効」＝破毀院の
+    #   判決の点と約7画素しか離れない）。「あと15日で」＝2つの点が触れるほど近いことで見せる（数字は書かない）
+    "ca21": dict(
+        t="7年半の期限", s="時効まで",
+        fig=("axis", dict(**ss.AX_ANS, past=[ss.dot("a_fall"), ss.dot("l_parl"), ss.dot("a_parl"), ss.dot("l_pre"),
+                                             ss.dot("l_start"), ss.dot("l_j1"), ss.dot("l_j2"), ss.ax("l_j3")],
+                          start=dict(cur="1971-03-25"),
+                          steps=[dict(add=[ss.ax("l_presbr"), ss.ax("l_pres", chips=["時効"])], cur="1971-04-09")],
+                          src=ss.src(["S9 p2018", "S10 p3020"]))),
+    ),
+    # ca22（9.28秒）＝刑の重さ（S9 p2018・S10 p3020＝ビアデーネ 5年うち3年免除・センシドーニ 3年8か月うち3年免除）。言い渡された刑と
+    #   恩赦で免除の2つの群（尺は同じ）・人で色を分ける。1行目でビアデーネ／2行目でセンシドーニ／3行目（恩赦の説明）は足さない
+    "ca22": dict(
+        t="刑の重さ", s="破毀院の判決",
+        fig=("qty", dict(view="bar", groups=[ss.QG["sentence"], ss.QG["pardon"]], steps=[
+            dict(add=[ss.qb("j_bia"), ss.qb("p_bia")]), dict(add=[ss.qb("j_sen"), ss.qb("p_sen")]), dict()],
+            note="3年8か月は約3.7年", src=ss.src(["S9 p2018", "S10 p3020"]))),
+    ),
+    # ca25（9.86秒）＝その後の裁判（S9 p2018「1975 16 dicembre. La Corte d'appello dell'Aquila rigetta la richiesta del comune di
+    #   Longarone … condannando viceversa l'ENEL al risarcimento dei danni subiti dalle pubbliche amministrazioni」）。軸を1977年まで
+    #   （ss.AX_CIV）＝罪を問う裁判（1968年11月〜1971年3月）を沈めて残す。1行目で点と札「エネルに償いを命じる」／2行目で札「町の訴えは退ける」
+    "ca25": dict(
+        t="その後の裁判", s="償いのお金をめぐって",
+        fig=("axis", dict(**ss.AX_CIV, past=[ss.ax("v_crim")], start=dict(cur="1971-03-25"), steps=[
+            dict(add=ss.ax("v_1975", chips=["エネルに償いを命じる"]), cur="1975-12-16"),
+            dict(add=dict(k="chips", at="1975-12-16", chips=["町の訴えは退ける"], rec="S9 p2018", i0=1))],
+            src=ss.src(["S9 p2018"]))),
+    ),
 }

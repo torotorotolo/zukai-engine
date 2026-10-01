@@ -115,9 +115,52 @@ REC_FORM = {
         values={"湖が満ちたとき": "le acque, eventualmente infiltratesi nel terreno",
                 "急に下げるとき": "possano mettersi in pressione",
                 "斜面": "pregiudicando la stabilità del versante"}),
+    # 🆕 2026-10-01（16本目 ⑤b-6b）：第7・10章の書類の再現図（欄の値＝原文のイタリア語）
+    # c705・c707：S1 p96（議会の報告書が引くビアデーネの10月9日の手紙）「Le fessure sul terreno, gli avvallamenti sulla strada, la evidente
+    #   inclinazione degli alberi sulla costa che sovrasta la " Pozza ", l'aprirsi della grande fessura che delimita la zona franosa, il
+    #   muoversi dei punti anche verso la " Pineda " che finora erano rimasti fermi, fanno pensare al peggio」（Pineda の引用符は外した）・
+    #   「questa mattina dovrebbe essere a quota 700. « Penso di raggiungere quota 695 sempre allo scopo di creare una fascia di sicurezza
+    #   per le ondate」。欄の名＝fessure・avvallamenti・alberi→地面と道と木・grande fessura→大きな亀裂・punti→目印・questa mattina→
+    #   今朝の水位・raggiungere quota→下げる先・allo scopo di→ねらい
+    "ビアデーネの手紙（議会の報告書が引く）": dict(
+        fields={"地面と道と木", "大きな亀裂", "目印"}, ends=set(), rec={"S1 p96"},
+        values={"地面と道と木": "Le fessure sul terreno, gli avvallamenti sulla strada, la evidente inclinazione degli alberi",
+                "大きな亀裂": "l'aprirsi della grande fessura che delimita la zona franosa",
+                "目印": "il muoversi dei punti anche verso la Pineda che finora erano rimasti fermi"}),
+    "ビアデーネの手紙（続き）": dict(
+        fields={"今朝の水位", "下げる先", "ねらい"}, ends=set(), rec={"S1 p96"},
+        values={"今朝の水位": "questa mattina dovrebbe essere a quota 700",
+                "下げる先": "Penso di raggiungere quota 695",
+                "ねらい": "creare una fascia di sicurezza per le ondate"}),
+    # ca09：S1 p241（もう1つの少数派の報告）「dalla tesi, piuttosto affermata che dimostrata, secondo cui la sciagura del Vajont ha avuto
+    #   tutti i caratteri della assòluta imprevedibilità」（⚠️ 原文の PDF の文字「assòluta」＝assoluta の崩れ＝直して書いた）。
+    #   欄の名＝tesi→退ける説（「non accettazione … dei giudizi conclusivi」が退ける説）・piuttosto affermata→その説は
+    "もう1つの少数派の報告": dict(
+        fields={"退ける説", "その説は"}, ends=set(), rec={"S1 p241"},
+        values={"退ける説": "la sciagura del Vajont ha avuto tutti i caratteri della assoluta imprevedibilità",
+                "その説は": "piuttosto affermata che dimostrata"}),
+    # ca19：S9 p2018（財団の年表が記す判決）「1969 … Non viene riconosciuta la prevedibilità della frana」・「1971 … colpevoli di un unico
+    #   disastro: inondazione aggravata dalla previsione dell'evento compresa la frana e gli omicidi」。🔴 PLAN の S2 p.718（判決の複写＝
+    #   画像だけ）は照らせない＝この頁に当て直した。欄の名＝processo di primo grado→一審・Processo di Cassazione→破毀院
+    "判決（財団の年表が記す）": dict(
+        fields={"一審", "破毀院"}, ends=set(), rec={"S9 p2018"},
+        values={"一審": "Non viene riconosciuta la prevedibilità della frana",
+                "破毀院": "inondazione aggravata dalla previsione dell'evento compresa la frana"}),
 }
 REC_CAUSE = {         # 並べ図の項目 → 頁（c419＝2つの見方を同じ形で並べる・どちらかに決めない）
     "多数派「確認できない」": {"S1 p179"}, "少数派「隠した」": {"S1 p232"},
+    # 🆕 2026-10-01（16本目 ⑤b-6b）
+    # ca04・ca10：S1 p26「La Commissione ha approvato — con 19 voti favorevoli e 8 contrari — la relazione … alla relazione finale siano
+    #   allegate le due relazioni di minoranza」（多数派 p178・少数派 p207・もう1つの少数派 p241）
+    "多数派の報告": {"S1 p26", "S1 p178"}, "少数派の報告": {"S1 p26", "S1 p207"}, "もう1つの少数派の報告": {"S1 p26", "S1 p241"},
+    # ca17：S9 p2018（控訴審）「riconosce la totale colpevolezza di Biadene e Sensidoni … Frosini e Violin vengono assolti per insufficienza
+    #   di prove; Marin e Tonini assolti perché il fatto non costituisce reato; Ghetti per non aver commesso il fatto」・「con lo stralcio
+    #   della posizione di Batini, gravemente ammalato」＝有罪2・無罪5・外れた1（11−亡くなった3＝8）
+    "有罪 2人": {"S9 p2018"}, "無罪 5人": {"S9 p2018"}, "裁判から外れた 1人": {"S9 p2018"},
+    # cb12・cb13：多数派 S1 p178「l'evento, così come si è manifestato, non fu previsto da nessuno」・少数派 S1 p207「un evento prevedibile
+    #   e probabile, e quindi evitabile」・破毀院 S9 p2018「inondazione aggravata dalla previsione dell'evento compresa la frana」
+    "多数派「その形は誰も予見せず」": {"S1 p178"}, "少数派「予見でき、防げた」": {"S1 p207"},
+    "破毀院「予見していた重い過失」": {"S9 p2018"},
 }
 MARKS = {"？"}
 EXTRA = {"模式図"}

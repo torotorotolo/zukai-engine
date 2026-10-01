@@ -81,6 +81,55 @@ PLAN = {
 
 SPEC = {
 
+    # ── 🆕 ⑤b-6b（2026-10-01）：並べ図（`boxes` の row）と年表（`axis` の date）＝14本目の型・門番 check_boxes・check_axis ──
+    # cb12（12.31秒）＝3つの答え（多数派 S1 p178「così come si è manifestato, non fu previsto da nessuno」・少数派 S1 p207「prevedibile e
+    #   probabile, e quindi evitabile」・破毀院 S9 p2018「aggravata dalla previsione dell'evento compresa la frana」）。同じ形で並べるだけ
+    #   （どれかに決めない＝cb14「この動画も、答えを1つに決めない」）。1行目「2つの問いに戻る」で3つ／2〜3行目（多数派）は足さない。
+    #   ⚠️ 並べ図は2つ以上が要る（門番 ⑧）＝語りの順に1つずつ出すと cb12 が1つになる＝3つを1行目で並べる（映像方針 §16）
+    "cb12": dict(
+        t="3つの答え", s="予見できたのか",
+        fig=("boxes", dict(view="row", slots=3, steps=[
+            dict(add=[ss.cause("ans_maj"), ss.cause("ans_min"), ss.cause("ans_cass")]), dict(), dict()],
+            src=ss.src(["S1 p178", "S1 p207", "S9 p2018"]))),
+    ),
+    # cb13（9.84秒）＝同じ図（少数派・破毀院は語り）
+    "cb13": dict(
+        t="3つの答え", s="立場で違う答え",
+        fig=("boxes", dict(view="row", slots=3,
+                           past=[ss.cause("ans_maj", keep=True), ss.cause("ans_min", keep=True),
+                                 ss.cause("ans_cass", keep=True)], steps=[dict(), dict(), dict()],
+                           src=ss.src(["S1 p178", "S1 p207", "S9 p2018"]))),
+    ),
+    # cb14（11.18秒）＝決める場面の年表（ss.AX_DEC＝1960〜63年）。1行目で行き先の崩落（1963年10月9日）／2行目（学術の総説 S8 p.43
+    #   ＝当時の知識と技術を踏まえて）は足さない／3行目「決める場面が、何度もあった」で5つの点（札なし）。1962年の春は札なしの点1つ
+    #   （S1 p225 の4月）＝割れる日の印は cb15 で
+    "cb14": dict(
+        t="決める場面", s="1960〜1963年",
+        fig=("axis", dict(**ss.AX_DEC, steps=[
+            dict(add=ss.ax("d_end"), cur="1963-10-09"), dict(),
+            dict(add=[ss.dot("d_fall60"), ss.dot("d_mul"), ss.ax("d_spr"), ss.dot("d_715"), ss.dot("d_speed")])],
+            src=ss.src(["S8 p1043", "S1 p72", "S1 p76", "S1 p225", "S1 p92", "S1 p93", "S1 p98"]))),
+    ),
+    # cb15（10.30秒）＝1960〜62年に札（④' の G6＝PDF72・PDF76・PDF225）。1行目「1960年11月の崩落のあと。1961年2月、約2億立方メートルの
+    #   報告のあと」で2つの点／2行目「1962年の春、下流の波の研究を、見送ったとき」で割れる日の印2つ（S9 p2012＝3月30日・S1 p225＝4月30日・
+    #   c518 と同じ＝どちらが正しいと描かない・カーソルを置かない）
+    "cb15": dict(
+        t="決める場面", s="1960〜1962年",
+        fig=("axis", dict(**ss.AX_DEC, past=[ss.ax("d_end"), ss.dot("d_715"), ss.dot("d_speed")], steps=[
+            dict(add=[ss.ax("d_fall60"), ss.ax("d_mul")], cur="1961-02-03"),
+            dict(add=[ss.ax("d_s1"), ss.ax("d_s2")])],
+            note="下流の研究を見送った月は資料で割れる", src=ss.src(["S1 p72", "S1 p76", "S9 p2012", "S1 p225"]))),
+    ),
+    # cb16（7.59秒）＝1963年に札（S1 p92＝3月20日 715m を求める・p93＝9月2日から速さが増す・p98＝10月9日）。1行目で2つの点／2行目
+    #   「そして、10月9日の夜」で崩落
+    "cb16": dict(
+        t="決める場面", s="1963年",
+        fig=("axis", dict(**ss.AX_DEC, past=[ss.dot("d_fall60"), ss.dot("d_mul"), ss.ax("d_spr")], start=dict(cur="1961-02-03"),
+                          steps=[dict(add=[ss.ax("d_715"), ss.ax("d_speed")], cur="1963-09-02"),
+                                 dict(add=ss.ax("d_end"), cur="1963-10-09")],
+                          src=ss.src(["S1 p92", "S1 p93", "S1 p98"]))),
+    ),
+
     # ── 🆕 ⑤b-5（2026-10-01）：場面1 水位と斜面の速さの線（`tools/lv16.py`・門番 check_mech judge_lv）──
     # cb19（10.18秒）＝3年分の線を全部（1960年3月〜1963年10月9日・速さは 0〜210ミリ）。1行目「3年分の水位と速さの線を、もう一度並べる」
     #   で水位の線と700m・715m の線／2行目「この動画の線は、議会の報告書、学術の総説、財団の年表の数をつないだものだ」で速さの線（出典の

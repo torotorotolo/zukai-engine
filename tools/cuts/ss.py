@@ -857,3 +857,152 @@ FORM_GC61 = dict(title="土木局の手紙（1961年1月7日）", rec="S1 p79",
                          dict(t="急に下げるとき", v="possano mettersi in pressione", rec="S1 p79", late=True),
                          dict(t="斜面", v="pregiudicando la stabilità del versante", rec="S1 p79", late=True)],
                  paper=(200, 1720, 300, 760), lw=280)
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 2026-10-01（16本目 ⑤b-6b）：第7〜11章の年表・量・箱（27カット）
+# ══════════════════════════════════════════════════════════
+# 🔴 §0b（題材を替えるとき空にする場所）：下の AX_*・AXI の追加・QG／QB の追加・FORM_*・CAUSE の追加は16本目の記録。
+#   値と頁は ref/ep16/src/ep16_pages.txt で当てた＝門番の側の表（check_axis.REC_AXIS・check_qty.REC_QTY／REC_GHOST・
+#   check_boxes.REC_FORM／REC_CAUSE）と照らす。数の中身は台本の確かめ（④' の照合表＝daihon_v2.md の G4〜G6）が当てた頁で決めた。
+#   🔴 一審・控訴審・破毀院の言葉は c719・ca16・ca18 で初めて説明する＝その前のカットの画面に出さない（ca14 の「一審」は c719 の後）
+#   🔴 ca18・ca19 の PLAN の出典 S2 p.718（破毀院の判決の複写＝画像だけ・文字の層が無い＝REC_DOCS に無い＝照らせない）は、同じ中身の
+#      財団の年表 S9 p2018「un unico disastro: inondazione aggravata dalla previsione dell'evento compresa la frana」に当て直した
+
+# 年表の軸。第10章の裁判の年表（ca02〜ca21）は c110 と同じ AX_ANS（答えの割れ方の続き）
+# ⚠️ c918・c919：10月11日と11月1日は21日＝札を左右に振る（左の点は "end"）＝左の点の札が画面の左へ出ないよう軸を8月から
+AX_INQ = dict(view="date", span=("1963-08", "1964-03"), ticks=("1963-08", "1963-10", "1963-12", "1964-02"))
+AX_DEC = dict(view="date", span=("1960-01", "1963-12"), ticks=("1960", "1961", "1962", "1963"))      # cb14〜cb16 決める場面
+AX_CIV = dict(view="date", span=("1968-01", "1977-01"), ticks=("1969", "1971", "1973", "1975"))      # ca25 償いの裁判
+
+
+def dot(name, **kw):
+    """前のカットの点を札なしの点で沈める（§5b-107④＝札は消して沈める・lab=False・t=""）。"""
+    return dict(AXI[name], lab=False, t="", **kw)
+
+
+AXI.update({
+    # ── c918・c919 事故のあとの2つの調査委員会（S1 p99＝大臣の令 1963年10月11日・報告は1964年1月／エネルが 11月1日に別の委員会・
+    #    報告は1964年1月16日。S9 p2017＝「le cause, prossime e remote」・90日で報告）。報告は c919 の3行目に1つの点（どちらも1月）
+    "i_state": dict(k="pt", at="1963-10-11", t="国の調査委員会", rec=["S1 p99", "S9 p2017"], c="INST", anchor="end"),
+    "i_br": dict(k="br", a="1963-10-11", b="1964-01", rec=["S1 p99", "S9 p2017"]),
+    # ⚠️ ⑤b-6b の門番 check_axis：11月1日の札を日まで書くと幅が広がり、「2つの報告」の縦の線が札を貫いた＝年月まで・報告の札は右へ
+    "i_enel": dict(k="pt", at="1963-11-01", t="電力公社の調査委員会", rec="S1 p99", c="INST", fmt="ym", anchor="start"),
+    "i_rep": dict(k="pt", at="1964-01", t="2つの報告", rec="S1 p99", fmt="ym", big=True, anchor="start"),
+    # ── 第10章 議会と裁判（AX_ANS）。議会＝S1 p1（法律 1964年5月22日 第370号・委員は上院と下院の議員）・p26（1965年の最終報告）／
+    #    裁判＝S9 p2017（1968年2月20日 予審判事ファッブリが判決を出す・11月29日 ラクイラで一審が始まる）・p2018（判決3つ・時効）
+    "l_parl": dict(k="pt", at="1964-05-22", t="議会の調査委員会", rec="S1 p1", fmt="ym", c="INST", anchor="start"),
+    "l_pre": dict(k="pt", at="1968-02-20", t="予審", rec="S9 p2017", fmt="ym", anchor="end"),   # 札は括弧の右の端の上へ
+    "l_prebr": dict(k="br", a="1963-10-09", b="1968-02-20", rec=["S1 p98", "S9 p2017"]),
+    "l_start": dict(k="pt", at="1968-11-29", t="一審が始まる", rec="S9 p2017", fmt="ym", anchor="start"),
+    "l_j1": dict(k="pt", at="1969-12-17", t="一審の判決", rec="S9 p2018", fmt="ym", anchor="start"),
+    "l_j2": dict(k="pt", at="1970-10-03", t="控訴審の判決", rec="S9 p2018", fmt="ym", anchor="start"),
+    # 破毀院＝S9 p2018「15-25 marzo. Processo di Cassazione」（25日＝判決の日・S2 の表紙も 1971-03-25）。札は年月まで（語りの細かさ）
+    "l_j3": dict(k="pt", at="1971-03-25", t="破毀院の判決", rec=["S9 p2018", "S10 p3020"], fmt="ym", anchor="end"),
+    # 時効＝崩落の7年半後（S9 p2018「Dopo quindici giorni sarebbero scaduti i 7 anni e mezzo」＝3月25日＋15日＝4月9日・S10 p3020）。
+    #   ⚠️ 破毀院の判決と約7画素しか離れない＝点に札を立てると判決の札を縦の線が貫く → 札は点の下の項目の札（chips）
+    "l_pres": dict(k="pt", at="1971-04-09", t="", lab=False, rec=["S9 p2018", "S10 p3020"], c="LINE"),
+    "l_presbr": dict(k="br", a="1963-10-09", b="1971-04-09", rec=["S1 p98", "S9 p2017", "S9 p2018", "S10 p3020"]),
+    # ── ca25 償いの裁判（S9 p2018＝1975年12月16日 ラクイラの控訴院がエネルに公の機関の損害の償いを命じ、ロンガローネの町の訴えは退けた）
+    "v_crim": dict(k="span", a="1968-11-29", b="1971-03-25", t="罪を問う裁判", rec=["S9 p2017", "S9 p2018"]),
+    "v_1975": dict(k="pt", at="1975-12-16", t="ラクイラの控訴院", rec="S9 p2018", fmt="y", big=True),
+    # ── cb14〜cb16 決める場面（④' の照合 G6＝PDF72・PDF76〈PDF174 も 1961-02-03〉・PDF225／S9 p2012・PDF92・PDF93）
+    "d_fall60": dict(k="pt", at="1960-11-04", t="崩落のあと", rec="S1 p72", fmt="ym", anchor="end"),
+    "d_mul": dict(k="pt", at="1961-02-03", t="ミュラーの報告", rec="S1 p76", fmt="ym", anchor="start"),
+    # 1962年の春＝月が資料で割れる（S9 p2012 は3月30日・S1 p225〈少数派〉は4月30日）＝割れる日の印2つ（c518 と同じ・札は2つとも左へ）。
+    #   cb14・cb16 の札なしの点は「1962年4月」（S1 p225 の月）の1つ（札を出さない＝割れる日の印は cb15 だけ）
+    "d_s1": dict(k="split", at="1962-03-30", t="下流の研究を見送る", rec="S9 p2012", fmt="ym", anchor="end"),
+    "d_s2": dict(k="split", at="1962-04-30", t="下流の研究を見送る", rec="S1 p225", fmt="ym", anchor="end"),
+    "d_spr": dict(k="pt", at="1962-04", t="", lab=False, rec="S1 p225"),
+    "d_715": dict(k="pt", at="1963-03-20", t="715mを求める", rec="S1 p92", fmt="ym"),
+    # 9月＝S1 p93「da mm/g 6,5 del 2 settembre a 200 mm/g del 9 ottobre」（速さが増し始めた日）
+    "d_speed": dict(k="pt", at="1963-09-02", t="速さが増す", rec=["S1 p93", "S1 p226"], fmt="ym", anchor="end"),
+    "d_end": dict(k="pt", at="1963-10-09", t="崩落", rec=["S1 p98", "S9 p2017"], c="ALERT", big=True, anchor="end"),
+})
+
+# 棒（第8〜10章）。⚠️ 同じ群の灯した棒は色を分ける（ΔE 25 以上＝門番 ⑪）。第9章（白黒）は LINE と DOC が 22.2・
+#   第8章（夜の藍）は LINE と INST が 9.4＝その組を同じ群に灯さない（scratchpad の de_pairs.py で章の色ごとに測った）
+QG.update({
+    # c803：崩れた量（S1 p144＝280〜300百万立方メートル）とミュラーの見積もり（S1 p77＝約2億）・東京ドーム（細い線＝約230杯）
+    "vol_63": dict(id="vol", t="量（万立方メートル）", ticks=(0, 10000, 20000, 30000),
+                   rows=("東京ドーム", "ミュラーの見積もり", "崩れた斜面")),
+    # c813：模型の波（c515 と同じ群・尺を 250 まで）と、実際に北の岸を駆け上がった高さ（S1 p146＝崩れる前の水面より「ゆうに200m」）。
+    #   🔴 測り方が同じでない（波そのものの高さ／斜面を駆け上がった高さ）＝群を分け、尺だけそろえる（長さは比べられる）
+    "wave_all": dict(id="wave", t="波の高さ（メートル）", ticks=(0, 50, 100, 150, 200, 250)),
+    "runup": dict(id="runup", t="北の岸で水面から上がった高さ（メートル）", ticks=(0, 50, 100, 150, 200, 250)),
+    # c907・c908：犠牲者（S1 p98＝内務省の調べ 1,917人・町ごと／S9 p2017・S10 p3020＝1,910人）。🔴 人の形は使わない（§C-1 #59）
+    "victims": dict(id="victims", t="犠牲者（人）", ticks=(0, 500, 1000, 1500, 2000),
+                    rows=("ロンガローネ", "カステッラヴァッツォ", "エルトとカッソ", "ほかの町の出身")),
+    "victims_sum": dict(id="victims", t="犠牲者（人）", ticks=(0, 500, 1000, 1500, 2000),
+                        rows=("ロンガローネ", "全体（内務省）", "全体（財団と歴史家）")),
+    # ca22：刑の長さ（S9 p2018・S10 p3020＝ビアデーネ 5年うち3年免除・センシドーニ 3年8か月うち3年免除）。人で色を分ける
+    "sentence": dict(id="sentence", t="言い渡された刑（年）", ticks=(0, 1, 2, 3, 4, 5, 6), rows=("ビアデーネ", "センシドーニ")),
+    "pardon": dict(id="pardon", t="恩赦で免除（年）", ticks=(0, 1, 2, 3, 4, 5, 6), rows=("ビアデーネ", "センシドーニ")),
+})
+QB.update({
+    "v_mul": dict(k="bar", g="vol", t="ミュラーの見積もり", v=20000, rec="S1 p77", c="AMBER"),
+    "v_63": dict(k="bar", g="vol", t="崩れた斜面", v=28000, rec="S1 p144", c="ALERT"),
+    # 見積もりの幅の上の端（S1 p144「fra 280 e 300 milioni」）＝破線の枠（注で「破線＝見積もりの幅の上の端」と言う）
+    "v_63hi": dict(k="ghost", g="vol", row="崩れた斜面", v=30000, rec="S1 p144"),
+    "w_real": dict(k="bar", g="runup", t="実際の波", v=200, rec="S1 p146", c="ALERT"),
+    "k_lon": dict(k="bar", g="victims", t="ロンガローネ", v=1450, rec="S1 p98", c="ALERT"),
+    "k_cas": dict(k="bar", g="victims", t="カステッラヴァッツォ", v=109, rec="S1 p98", c="AMBER"),
+    "k_erto": dict(k="bar", g="victims", t="エルトとカッソ", v=158, rec="S1 p98", c="INST"),
+    "k_other": dict(k="bar", g="victims", t="ほかの町の出身", v=200, rec="S1 p98"),
+    "k_tot": dict(k="bar", g="victims", t="全体（内務省）", v=1917, rec="S1 p98"),
+    "k_tot2": dict(k="bar", g="victims", t="全体（財団と歴史家）", v=1910, rec=["S9 p2017", "S10 p3020"], c="INST"),
+    "j_bia": dict(k="bar", g="sentence", t="ビアデーネ", v=5, rec=["S9 p2018", "S10 p3020"], c="AMBER"),
+    "j_sen": dict(k="bar", g="sentence", t="センシドーニ", v=44 / 12, rec=["S9 p2018", "S10 p3020"]),
+    "p_bia": dict(k="bar", g="pardon", t="ビアデーネ", v=3, rec=["S9 p2018", "S10 p3020"], c="AMBER"),
+    "p_sen": dict(k="bar", g="pardon", t="センシドーニ", v=3, rec=["S9 p2018", "S10 p3020"]),
+})
+
+# 書類の再現図（第7・10章）。欄の値は原文のイタリア語のまま（⑤b-6a と同じ）・欄の名は原文の文の言葉を日本語に
+# c705・c707＝ビアデーネの10月9日朝の手紙（議会の報告書 S1 p96 が引く形＝財団の年表 S9 p2016 の写しとは綴りが少し違う
+#   〈sul terreno／del terreno〉＝S1 の綴り・Pineda の引用符は外した）。🔴 紙1枚に欄は4つまで（図の高さ 682画素）＝7つの欄は
+#   入らない → c707 は「続き」の紙（映像方針 §16）
+FORM_LET9 = dict(title="ビアデーネの手紙（議会の報告書が引く）", rec="S1 p96",
+                 fields=[dict(t="地面と道と木", rec="S1 p96", late=True,
+                              v="Le fessure sul terreno, gli avvallamenti sulla strada, la evidente inclinazione degli alberi"),
+                         dict(t="大きな亀裂", v="l'aprirsi della grande fessura che delimita la zona franosa", rec="S1 p96",
+                              late=True),
+                         dict(t="目印", v="il muoversi dei punti anche verso la Pineda che finora erano rimasti fermi",
+                              rec="S1 p96", late=True)],
+                 paper=(100, 1820, 300, 760), lw=230)
+FORM_LET9B = dict(title="ビアデーネの手紙（続き）", rec="S1 p96",
+                  fields=[dict(t="今朝の水位", v="questa mattina dovrebbe essere a quota 700", rec="S1 p96", late=True),
+                          dict(t="下げる先", v="Penso di raggiungere quota 695", rec="S1 p96", late=True),
+                          dict(t="ねらい", v="creare una fascia di sicurezza per le ondate", rec="S1 p96", late=True)],
+                  paper=(240, 1680, 300, 760), lw=200)
+# ca09＝もう1つの少数派の報告（S1 p241）。⚠️ 原文の PDF の文字は「assòluta」＝assoluta の崩れ（門番の表の注に書いて直した）
+FORM_MIN2 = dict(title="もう1つの少数派の報告", rec="S1 p241",
+                 fields=[dict(t="退ける説", rec="S1 p241", late=True,
+                              v="la sciagura del Vajont ha avuto tutti i caratteri della assoluta imprevedibilità"),
+                         dict(t="その説は", v="piuttosto affermata che dimostrata", rec="S1 p241", late=True)],
+                 paper=(100, 1820, 330, 690), lw=170)
+# ca19＝判決（財団の年表 S9 p2018 が記す）。🔴 PLAN の S2 p.718 は照らせない（上の注）。3行目「最初の判決から、予見についての答えは、
+#   大きく変わった」＝一審の欄（同じ頁の1969年の行）を最後に書き込む（映像方針 §16）
+FORM_JUDG = dict(title="判決（財団の年表が記す）", rec="S9 p2018",
+                 fields=[dict(t="一審", v="Non viene riconosciuta la prevedibilità della frana", rec="S9 p2018", late=True),
+                         dict(t="破毀院", v="inondazione aggravata dalla previsione dell'evento compresa la frana",
+                              rec="S9 p2018", late=True)],
+                 paper=(140, 1780, 330, 690), lw=150)
+
+# 並べ図（第10・11章）＝同じ形で並べるだけ（どれかを目立たせない・場面にしない）
+CAUSE.update({
+    # ca04・ca10：議会の3つの報告（S1 p26＝多数派の報告を19対8で決め、2つの少数派の報告を添えた・p178・p207・p241）
+    "rep_maj": dict(k="item", t="多数派の報告", rec=["S1 p26", "S1 p178"]),
+    "rep_min1": dict(k="item", t="少数派の報告", rec=["S1 p26", "S1 p207"]),
+    "rep_min2": dict(k="item", t="もう1つの少数派の報告", rec=["S1 p26", "S1 p241"]),
+    # ca17：控訴審の結果（S9 p2018＝ビアデーネ・センシドーニ有罪／フロジーニ・ヴィオリン・マリン・トニーニ・ゲッティ無罪／バティーニは
+    #   病気で外れた＝11−亡くなった3＝8人）。名前は語りだけ・顔は描かない
+    "ap_guilty": dict(k="item", t="有罪 2人", rec="S9 p2018"),
+    "ap_free": dict(k="item", t="無罪 5人", rec="S9 p2018"),
+    "ap_out": dict(k="item", t="裁判から外れた 1人", rec="S9 p2018"),
+    # cb12・cb13：3つの答え（多数派 S1 p178「l'evento, così come si è manifestato, non fu previsto da nessuno」・少数派 p207
+    #   「prevedibile e probabile, e quindi evitabile」・破毀院 S9 p2018「aggravata dalla previsione dell'evento compresa la frana」）
+    "ans_maj": dict(k="item", t="多数派「その形は誰も予見せず」", rec="S1 p178"),
+    # ⚠️ ⑤b-6b の qa_all（echo）：「予見でき、避けられた」は cb13 の語りの複写（連続一致 0.75）＝evitabile を「防げた」と言い換えた
+    "ans_min": dict(k="item", t="少数派「予見でき、防げた」", rec="S1 p207"),
+    "ans_cass": dict(k="item", t="破毀院「予見していた重い過失」", rec="S9 p2018"),
+})

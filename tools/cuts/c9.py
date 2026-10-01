@@ -79,4 +79,45 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-6b（2026-10-01）：数の比べ（`qty` の bar）と年表（`axis` の date）＝14本目の型・門番 check_qty・check_axis ──
+    # c907（9.89秒）＝内務省の調べの内わけ（議会の報告書 S1 p98「delle quali 1.450 a Longarone, 109 a Castellavazzo, 158 a Erto e
+    #   Casso e 200 persone originarie di altri comuni」）。1行目でロンガローネとカステッラヴァッツォ／2行目でエルトとカッソ・ほかの町の出身／
+    #   3行目（聞き役）は足さない。🔴 人の形は使わない（§C-1 #59＝亡くなった方の数）・行の名は町の名だけ（数は字幕）。
+    #   ⚠️ 同じ群の灯した棒は ΔE 25 以上（門番 ⑪）＝4色（第9章は白黒＝LINE と DOC が 22.2 で近い＝DOC を使わない）
+    "c907": dict(
+        t="1,917人の内わけ", s="内務省の調べ",
+        fig=("qty", dict(view="bar", groups=[ss.QG["victims"]], steps=[
+            dict(add=[ss.qb("k_lon"), ss.qb("k_cas")]), dict(add=[ss.qb("k_erto"), ss.qb("k_other")]), dict()],
+            src=ss.src(["S1 p98"]))),
+    ),
+    # c908（12.42秒）＝c907 のロンガローネを灯したまま、全体を並べる。1行目「4人のうち3人」で全体（内務省＝1,917）／2行目「いま、
+    #   バイオント財団や歴史家は、1,910人と数えている」で全体（財団と歴史家＝S9 p2017・S10 p3020）／3行目は足さない。
+    #   ⚠️ PLAN の「c907 の棒を戻し」＝4つの町の棒と全体の2本（6行・2群）は図の高さに収まらない（目盛りの字が出典の行に触れる）＝
+    #   ロンガローネだけ戻した（映像方針 §16）
+    "c908": dict(
+        t="1,917人と1,910人", s="資料ごとの数",
+        fig=("qty", dict(view="bar", groups=[ss.QG["victims_sum"]], past=[ss.qb("k_lon", keep=True)], steps=[
+            dict(add=ss.qb("k_tot")), dict(add=ss.qb("k_tot2")), dict()],
+            src=ss.src(["S1 p98", "S9 p2017", "S10 p3020"]))),
+    ),
+    # c918（10.84秒）＝国の調査委員会（S1 p99＝公共事業大臣の令 1963年10月11日・報告は1964年1月／S9 p2017＝役目は「近い原因も遠い
+    #   原因も」・90日で報告）。1行目で10月11日の点／2行目で項目の札「近い原因と遠い原因」／3行目「90日で報告をまとめた」で任命から
+    #   1964年1月までの括弧（数字は書かない）
+    "c918": dict(
+        t="事故のあとの調べ", s="大臣が任命",
+        fig=("axis", dict(**ss.AX_INQ, steps=[
+            dict(add=ss.ax("i_state"), cur="1963-10-11"),
+            dict(add=dict(k="chips", at="1963-10-11", chips=["近い原因と遠い原因"], rec=["S1 p99", "S9 p2017"])),
+            dict(add=ss.ax("i_br"), cur="1964-01")],
+            note="括弧＝任命から報告まで", src=ss.src(["S1 p99", "S9 p2017"]))),
+    ),
+    # c919（12.15秒）＝同じ軸。1行目「電力公社エネルも、11月1日、自分たちの調査委員会をつくった」で11月1日の点（S1 p99）／2行目は足さない
+    #   ／3行目「2つの委員会は、どちらも1964年1月に報告を出した」で「2つの報告」（S1 p99＝国は1964年1月・エネルは1月16日＝1つの点で）
+    "c919": dict(
+        t="もう1つの委員会", s="エネルも",
+        fig=("axis", dict(**ss.AX_INQ, past=[ss.ax("i_state"), ss.ax("i_br")], start=dict(cur="1963-10-11"), steps=[
+            dict(add=ss.ax("i_enel"), cur="1963-11-01"), dict(),
+            dict(add=ss.ax("i_rep"), cur="1964-01")],
+            note="括弧＝任命から報告まで", src=ss.src(["S1 p99"]))),
+    ),
 }

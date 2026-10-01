@@ -79,6 +79,20 @@ REC_AXIS = {
     "1961": {"S1 p89"},                    # p89「il modello era stato costruito nell'estate del 1961 in scala 1:200」
     "1962-03-30": {"S9 p2012"},            # 割れる日 S9「30 marzo. Il Comitato direttivo del Centro Modelli Idraulici di Nove è del parere …」
     "1962-04-30": {"S1 p225"},             # 割れる日 S1 p225（少数派）「nella sua riunione del 30 aprile 1962 espresse il parere …」
+    # 🆕 2026-10-01（16本目 ⑤b-6b）：年表（date）＝第9〜11章。原文 ref/ep16/src/ep16_pages.txt で当てた
+    "1963-10-11": {"S1 p99", "S9 p2017"},  # p99「Il Ministro dei lavori pubblici, con suo decreto dell'11 ottobre 1963 … costituì una Commissione」
+    "1963-11-01": {"S1 p99"},              # p99「l'ENEL nominò il 1° novembre 1963 altra Commissione di inchiesta」
+    "1964-01": {"S1 p99"},                 # p99「presentò, nel gennaio 1964, la sua relazione」・エネルの委員会「il 16 gennaio 1964, presentò la relazione」
+    "1964-05-22": {"S1 p1"},               # p1「(LEGGE 22 MAGGIO 1964, n. 370)」（議会の調査委員会をつくった法律）
+    "1968-02-20": {"S9 p2017"},            # S9「1968 20 febbraio. Il Giudice istruttore Mario Fabbri deposita la sentenza」
+    "1968-11-29": {"S9 p2017"},            # 「29 novembre. Inizia all'Aquila il processo di primo grado」
+    "1971-03-25": {"S9 p2018", "S10 p3020"},  # S9「1971 15-25 marzo. Processo di Cassazione a Roma」（25日＝判決）・S10 p3020「nel marzo 1971」
+    # 時効の日＝崩落の7年半後（計算：1963-10-09＋7年6か月＝1971-04-09＝判決の15日後）。S9「Dopo quindici giorni sarebbero scaduti i
+    #   7 anni e mezzo dall'avvenimento contestato」・S10 p3020「a soli 15 giorni dalla data che avrebbe fatto scattare la prescrizione」
+    "1971-04-09": {"S9 p2018", "S10 p3020"},
+    "1975-12-16": {"S9 p2018"},            # 「1975 16 dicembre. La Corte d'appello dell'Aquila rigetta la richiesta del comune di Longarone」
+    "1962-04": {"S1 p225"},                # cb14・cb16 の札なしの点（S1 p225＝4月30日＝少数派の報告の月）。割れる日の印は cb15
+    "1963-09-02": {"S1 p93", "S1 p226"},   # p93「da mm/g 6,5 del 2 settembre a 200 mm/g del 9 ottobre」（速さが増し始めた日）
 }
 LANES_OK = set()
 
