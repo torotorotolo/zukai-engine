@@ -2874,7 +2874,9 @@ VC_L695 = 695.0                    # 下げようとした水位（S1 PDF96＝69
 VC_OVER = 120.0                    # 天端の上の水の高さ（S8 p1041「140m」・p1047「100m以上」の間＝数は描かない）
 VC_EXIT_D = 70.0                   # 峡谷の出口での水の深さ（S8 p1041「約70m」）
 VC_BED_REC = dict(base=VC_DAM["crest"] - VC_DAM["height"], exit=((330, 545), 450.0), end=((1480, 394), 700.0))
-VC_VIEW = dict(wide=dict(k=0.64, x0=70.0, y0=340.0, z0=1250.0),
+# wide：⑤b-3 の試し焼き（36834401282）で 1m＝0.64画素はダムと水が画面の下3分の1に小さかった（上の3分の2が奥の山並みと空）
+#   ＝1m＝0.9画素（縦横同じのまま）・ダムを x1150・天端の上の水（845.5m）を y470 に（上流約1.3km・下流約0.9km が画面に入る）
+VC_VIEW = dict(wide=dict(k=0.9, x0=1150.0 - VC_DAM_W * 0.9, y0=470.0, z0=845.5),
                near=dict(k=3.2, x0=768.0 - VC_DAM_W * 3.2, y0=560.0, z0=700.0))
 VC_LAB = "横から見た断面（谷に沿う）"
 VC_EDGE = ("上流", "下流")
@@ -2949,7 +2951,8 @@ def vc_dam_um():
 
 def vc_dam_svg(view):
     pts = [sec_xy(view, w, z) for w, z in vc_dam_um()]
-    return _poly(pts, VC_FIX["dam"], VC_FIX["dam_ln"], 2.5 if view["k"] < 1 else 3.5), pts
+    # 縁の線は細く（wide＝天端の厚さ3.40m は約3画素＝太い縁だと白い本体が見えない＝⑤b-3 の試し焼き）
+    return _poly(pts, VC_FIX["dam"], VC_FIX["dam_ln"], 1.5 if view["k"] < 1 else 3.0), pts
 
 
 def vc_x_range(view):
@@ -3054,6 +3057,15 @@ def vc_hbr_ends(view):
     return (x, sec_xy(view, 0.0, VC_DAM["crest"])[1]), (x, sec_xy(view, 0.0, VC_DAM["crest"] + VC_OVER)[1])
 
 
+def vc_south_at(view):
+    """南の岸からの矢印の置き場所＝崩れた範囲のうち画面に見える所の真ん中（w）と、3つの矢印の高さ（奥の山並みの上→湖の上）。"""
+    a, b = VC_SLIDE_W
+    wl, _wr = vc_x_range(view)
+    cw = (max(a, wl + 60.0 / view["k"]) + b) / 2.0
+    zt = _lin(VC_FAR, cw)
+    return cw, (zt - 110.0, zt - 270.0, max(VC_LAKE + 90.0, zt - 430.0))
+
+
 def vc_south_svg(view):
     """南の岸から塊が入る向き（手前へ）＝奥の山並みの崩れた範囲を琥珀に・大きくなる下向きの矢印3つ（奥から手前へ）。"""
     a, b = VC_SLIDE_W
@@ -3062,8 +3074,9 @@ def vc_south_svg(view):
     bot = [sec_xy(view, w, VC_LAKE + 4.0) for w in reversed(ws)]
     g = [_poly(top + bot, VC_FIX["south"], None, 0.0, 0.22),
          f'<path d="{_pl(top + bot)} Z" fill="none" stroke="{VC_FIX["south"]}" stroke-width="3" stroke-dasharray="12 9"/>']
-    cx = sec_xy(view, (a + b) / 2.0, 0.0)[0]
-    for j, (z, s) in enumerate(((1120.0, 18.0), (980.0, 30.0), (820.0, 46.0))):
+    cw, zs = vc_south_at(view)
+    cx = sec_xy(view, cw, 0.0)[0]
+    for j, (z, s) in enumerate(zip(zs, (18.0, 30.0, 46.0))):
         y = sec_xy(view, 0.0, z)[1]
         g.append(f'<path d="M {cx - s:.1f} {y - s * 0.6:.1f} L {cx:.1f} {y + s * 0.6:.1f} L {cx + s:.1f} {y - s * 0.6:.1f}" '
                  f'fill="none" stroke="#10161b" stroke-width="{4 + s * 0.28:.1f}" stroke-linecap="round" stroke-linejoin="round" '
@@ -3369,7 +3382,7 @@ def _scene_VC(start, states, steps):
                           geo=dict(kind="gap", a=list(a), b=list(b))))
     if used("hbr"):
         a, b = vc_hbr_ends(view)
-        parts.append(dict(_part("hbr", _bracket_svg(a, b, VC_FIX["dim"]), R["over"], keys=K["hbr"]),
+        parts.append(dict(_part("hbr", vc_hbr_svg(view), R["over"], keys=K["hbr"]),
                           geo=dict(kind="gap", a=list(a), b=list(b))))
     if start["edge"] == "on":
         parts.append(dict(_part("edge", sec_edge_svg(VC_EDGE), ""), signal=True))
@@ -3390,8 +3403,25 @@ def _vc_anchors(st):
     return dict(crest=sec_xy(v, cw, VC_DAM["crest"]), dam=sec_xy(v, VC_DAM_W, VC_DAM["crest"] - 60.0),
                 lake=sec_xy(v, lake_w, VC_LAKE), l695=sec_xy(v, lake_w + 60.0 / v["k"], VC_L695),
                 gap=((ga[0] + gb[0]) / 2.0, (ga[1] + gb[1]) / 2.0), hbr=((ha[0] + hb[0]) / 2.0, (ha[1] + hb[1]) / 2.0),
-                south=sec_xy(v, sum(VC_SLIDE_W) / 2.0 + 140.0, 1000.0), gorge=sec_xy(v, VC_DAM_W + 600.0, 560.0),
+                south=_vc_south_anchor(v), gorge=sec_xy(v, VC_DAM_W + 600.0, 560.0),
                 over=sec_xy(v, cw, VC_DAM["crest"] + VC_OVER))
+
+
+def _vc_south_anchor(v):
+    cw, zs = vc_south_at(v)
+    x, y = sec_xy(v, cw, zs[1])
+    return (x + 40.0, y)
+
+
+def vc_hbr_svg(view):
+    """天端→越えた水の上の寸法の線（数は描かない）＋天端と水の上から線へ点線の目印（⑤b-3 の試し焼き：線だけだと何の高さか
+    分からなかった＝水の山の右に立っていた）。"""
+    (x, ya), (_x, yb) = vc_hbr_ends(view)
+    dam = vc_dam_um()
+    xc = sec_xy(view, (dam[24][0] + dam[25][0]) / 2.0, 0.0)[0]
+    g = [f'<path d="M {xc + 4:.1f} {ya:.1f} H {x - 6:.1f} M {xc + 4:.1f} {yb:.1f} H {x - 6:.1f}" stroke="{VC_FIX["dim"]}" '
+         'stroke-width="2.5" stroke-dasharray="7 6"/>']
+    return "".join(g) + _bracket_svg((x, ya), (x, yb), VC_FIX["dim"])
 
 
 def _vc_ageo(st, name):
