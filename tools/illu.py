@@ -1937,7 +1937,9 @@ VA_PAL = dict(
               road="#a2a6af", road_ln="#5d616b", scar="#86807a"))
 # 動く物・大事な物は時刻で変えない明るい色（夜の地と ΔE 25 以上＝門番 ⑬〈⑤b-3〉の値）
 VA_FIX = dict(dam="#e6eaed", dam_ln="#20262d", block="#b9a079", block_ln="#5e4b33", flood="#a8d9ec", foam="#dff1f9",
-              mud="#8c7357", mud_ln="#5f4c38", split="#a8916f", flow="#f2c14e")
+              mud="#8c7357", mud_ln="#5f4c38", split="#a8916f", flow="#f2c14e",
+              # 道の730mより低い区間（⑤b-2 の試し焼き：琥珀だと細く残る VC の切り口の線〈琥珀の破線〉と取り違える＝薄紫）
+              low="#c9a2ff")
 VA_T = dict(wave=0.9, flood=1.3, flood_lag=0.7, towns_lag=0.55, towns=0.55, recede=0.8, mud=0.8, slide=0.9, block=0.6,
             tunnel=1.6, ends=0.4, road=1.4, low=0.6, gates=0.45, split=0.8, flow=1.6, marks=0.45, wave_e=2.6, shore=0.8,
             dawn=1.8, line=0.45, prev_hold=1.5, prev_fade=0.5, prev_thin=0.55, switch_hold=1.2, switch_fade=0.35)
@@ -2205,7 +2207,7 @@ def va_road_low_svg(view):
     r = VA_LINES["road"]
     i, j = r.index((560, 508)), r.index((345, 532))
     pts = va_path(view, r[i:j + 1], per=6)
-    return _va_band(pts, 7.0, C["mark"], 1.0, edge="#10161b")
+    return _va_band(pts, 7.0, VA_FIX["low"], 1.0, edge="#10161b")
 
 
 def va_gates_svg(view):

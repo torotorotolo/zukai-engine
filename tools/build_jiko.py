@@ -978,8 +978,16 @@ def _il_scene(t, lay, sc, times):
             a = _il_state(p["keys"], t, times)["a"]
             if u > 0.002 and a > 0.004:
                 m = Image.new("L", img.size, 0)
-                ImageDraw.Draw(m).line([(x - ox, y - oy) for x, y in _il_prefix(p["path"], u)], fill=255,
-                                       width=int(p.get("reveal", 30)), joint="curve")
+                pts = [(x - ox, y - oy) for x, y in _il_prefix(p["path"], u)]
+                w = int(p.get("reveal", 30))
+                dr = ImageDraw.Draw(m)
+                dr.line(pts, fill=255, width=w, joint="curve")
+                # 🔴 16本目 ⑤b-2：太い見せ方（谷へ広がる水 reveal 約390画素）は、PIL の太い線の折れ目に**くさび形のすき間**が
+                #    出た（試し焼き 36824459474 の c102・c823＝水の中の黒い放射の筋・c814 の帯の縦の筋）＝折れ目ごとに同じ太さの
+                #    円を押して埋める（下見の SVG の丸い継ぎ目と同じ形・先端も丸くなる）
+                r = w / 2.0
+                for x, y in pts:
+                    dr.ellipse((x - r, y - r, x + r, y + r), fill=255)
                 cut = img.copy()
                 cut.putalpha(ImageChops.multiply(img.getchannel("A"), m))
                 _il_put(fr, cut, ox, oy, a)
