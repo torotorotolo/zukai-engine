@@ -88,6 +88,119 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-5（2026-10-01）：場面1 水位と斜面の速さの線（`tools/lv16.py`・門番 check_mech judge_lv）──
+    #   c601〜c603＝1960〜63年の全体（横軸は c301 と同じ）／c607〜c619＝1963年3月〜10月の寄り（LV_63）／c620＝全体へ引く。
+    #   🔴 1963年3月〜9月2日の速さは数の記録が無い（S1 PDF93「目立った速まりは無かった」・S8 p.46「low」）＝線を結ばない（LV_BRK）・
+    #   帯「大きな速まりなし」で言う。速さの縦は c616 まで 0〜50ミリ・c619 から 0〜210ミリ（10月8日の約100ミリ・9日の200ミリ）
+    # c601（6.63秒）＝1行目「ここまでの3年を、1本の線にしてみる」で水位の線（1963年3月まで）／2行目「上の線が、湖の水位。下の線が、
+    #   斜面の目印の動く速さだ」で速さの線
+    "c601": dict(
+        t=ss.LV_T, s="1960〜1963年",
+        fig=ss.lv_fig(ss.LV_ALL, past=[ss.LV_EV["fall60"], ss.LV_REF["model"]], rel=[ss.LV_REL["model"]], steps=[
+            dict(add=ss.lv_upto("1963-03-15", rows="z")),
+            dict(add=ss.lv_upto("1963-03-15", rows="v"))]),
+    ),
+    # c602（8.73秒）＝1行目「1960年は650メートル、1962年は700メートルで、動きが速くなった」で2つの山を囲む／2行目「どちらのときも、
+    #   水位を下げると、動きは遅くなった」で下げた区間（水位と速さ）を太く重ねる
+    "c602": dict(
+        t=ss.LV_T, s="1960〜1963年",
+        fig=ss.lv_fig(ss.LV_ALL, past=ss.lv_upto("1963-03-15") + [ss.LV_EV["fall60"], ss.LV_REF["model"]],
+                      rel=[ss.LV_REL["model"]], steps=[
+            dict(add=[dict(k="ring", s="z", at="1960-11-04", t="1960年"), dict(k="ring", s="v", at="1960-11-04"),
+                      dict(k="ring", s="z", at="1962-12-15", t="1962年"), dict(k="ring", s="v", at="1962-12-15")]),
+            dict(add=[dict(k="hl", s="z", a="1960-11-04", b="1961-01-08"), dict(k="hl", s="v", a="1960-11-04", b="1961-01-08"),
+                      dict(k="hl", s="z", a="1962-12-15", b="1963-03-15"), dict(k="hl", s="v", a="1962-12-15", b="1963-03-15")])]),
+    ),
+    # c603（8.41秒）＝c602 の線を戻す。1行目（聞き役「だから、水位で動きを抑えられると考えた？」）で下げた水位・2行目「水位を、山の動きを
+    #   操るハンドルのように使う」で遅くなった速さを太く重ねる／3行目は戻すだけ
+    "c603": dict(
+        t=ss.LV_T, s="1960〜1963年",
+        fig=ss.lv_fig(ss.LV_ALL, past=ss.lv_upto("1963-03-15") + [ss.LV_EV["fall60"], ss.LV_REF["model"]],
+                      rel=[ss.LV_REL["model"]], steps=[
+            dict(add=[dict(k="hl", s="z", a="1960-11-04", b="1961-01-08"), dict(k="hl", s="z", a="1962-12-15", b="1963-03-15")]),
+            dict(add=[dict(k="hl", s="v", a="1960-11-04", b="1961-01-08"), dict(k="hl", s="v", a="1962-12-15", b="1963-03-15")]),
+            dict(add=[])]),
+    ),
+    # c607（9.22秒）＝1963年の寄り。past＝3月の点・700m（模型）・715m の許可（5月4日から＝c604〜c606）→ 1行目「その少し前の4月、
+    #   3回目の水ためが始まっていた。水位は、647.5メートルから」（S1 PDF226）／2行目「5月から8月、水位は700メートルに戻り、それを越えた」
+    #   で8月14日の705〜706m（同じ頁）へ
+    "c607": dict(
+        t=ss.LV_T, s="1963年3月〜10月",
+        fig=ss.lv_fig(ss.LV_63, past=ss.lvp("z6303", "v6303") + [ss.LV_REF["model"], ss.LV_REF["permit"]],
+                      rel=[ss.LV_REL["model"], ss.LV_REL["permit"]], steps=[
+            dict(add=ss.lvp("z6304") + [ss.LV_EV["fill3"]]),
+            dict(add=ss.lvp("z6308"))]),
+    ),
+    # c608（6.62秒）＝1行目（聞き役「…前に速まった高さまで、戻った？」）で8月14日の点を囲む／2行目「…目立った速まりは無かった、と議会の
+    #   報告書は書く」（S1 PDF93＝5〜8月）で速さの段に帯
+    "c608": dict(
+        t=ss.LV_T, s="1963年3月〜10月",
+        fig=ss.lv_fig(ss.LV_63, past=ss.lvp("z6303", "z6304", "z6308", "v6303")
+                      + [ss.LV_REF["model"], ss.LV_REF["permit"], ss.LV_EV["fill3"]],
+                      rel=[ss.LV_REL["model"], ss.LV_REL["permit"]], steps=[
+            dict(add=dict(k="ring", s="z", at="1963-08-14")),
+            dict(add=ss.LV_BAND["calm63"])]),
+    ),
+    # c609（11.41秒）＝1行目「8月の半ば。水位が約705メートルから710メートルへ上がる」で9月1日の709.4m（S9 PDF14）へ・8月の半ばを囲む／
+    #   2行目「そのあいだに、斜面の動きが、速くなり始めた」（S1 PDF93・PDF96）で速さの段に縦の線／3行目「水位を上げると、動きが速くなる」
+    #   で上がった水位を太く重ねる（速さの数は9月2日から＝c614）
+    "c609": dict(
+        t=ss.LV_T, s="1963年3月〜10月",
+        fig=ss.lv_fig(ss.LV_63, past=ss.lvp("z6303", "z6304", "z6308", "v6303")
+                      + [ss.LV_REF["model"], ss.LV_REF["permit"], ss.LV_EV["fill3"], ss.LV_BAND["calm63"]],
+                      rel=[ss.LV_REL["model"], ss.LV_REL["permit"]], steps=[
+            dict(add=ss.lvp("z6309") + [dict(k="ring", s="z", at="1963-08-14", t="8月の半ば", off=(-20, 40), anchor="end")]),
+            dict(add=ss.LV_EV["acc"]),
+            dict(add=dict(k="hl", s="z", a="1963-08-14", b="1963-09-01"))]),
+    ),
+    # c614（10.95秒）＝1行目「9月の終わり、動きの速さは、1960年11月の崩落のときに近づいていた」で9月2日6.5・15日12・26日22ミリ
+    #   （S9 PDF14）と1960年の速さの線（4センチ近く＝S1 PDF73）・水位は9月26日まで710m／2行目（聞き役）で26日を囲む／
+    #   3行目「…まだ届いてはいない、と議会の報告書は書く」（S1 PDF93）で26日の点から1960年の線までの寸法の線
+    "c614": dict(
+        t=ss.LV_T, s="1963年3月〜10月",
+        fig=ss.lv_fig(ss.LV_63, past=ss.lvp("z6303", "z6304", "z6308", "z6309", "v6303")
+                      + [ss.LV_REF["model"], ss.LV_REF["permit"], ss.LV_EV["fill3"], ss.LV_BAND["calm63"], ss.LV_EV["acc"]],
+                      rel=[ss.LV_REL["model"], ss.LV_REL["permit"]], steps=[
+            dict(add=ss.lvp("v6302s", "v6315s", "v6326s", "z6326") + [ss.LV_BRK, ss.LV_REF["v1960"]]),
+            dict(add=dict(k="ring", s="v", at="1963-09-26")),
+            dict(add=dict(k="gap", s="v", at="1963-09-26", a=22, b=40, rec=["S9 p2014", "S1 p73"], dx=30))]),
+    ),
+    # c616（7.49秒）＝1行目「そして9月26日、水位を下げると決める。下げる速さは、1日1メートル」で縦の線（S9 PDF15）と10月8日の
+    #   702.5m（S1 PDF96）へ下がる線・札「1日1m」／2行目「急に下げて、斜面の釣り合いを崩さないためだった」で下げた区間を太く重ねる
+    "c616": dict(
+        t=ss.LV_T, s="1963年3月〜10月",
+        fig=ss.lv_fig(ss.LV_63, past=ss.lvp("z6303", "z6304", "z6308", "z6309", "z6326", "v6303", "v6302s", "v6315s", "v6326s")
+                      + [ss.LV_BRK, ss.LV_REF["model"], ss.LV_REF["permit"], ss.LV_REF["v1960"], ss.LV_EV["fill3"],
+                         ss.LV_BAND["calm63"], ss.LV_EV["acc"]],
+                      rel=[ss.LV_REL["model"], ss.LV_REL["permit"], dict(t="1日1m", src="S1 p96")], steps=[
+            dict(add=ss.lvp("z6308o", t="1日1m", off=(-18, 36), anchor="end") + [ss.LV_EV["lower"]]),
+            dict(add=dict(k="hl", s="z", a="1963-09-26", b="1963-10-08"))]),
+    ),
+    # c619（9.99秒）＝合図＝見出し「水位と斜面の速さ」（c618 の断面の図解からグラフへ戻る）。速さの縦を 0〜210ミリへ。
+    #   1行目「でも、今度は、下げても遅くならなかった」で10月2〜3日の40ミリ（S9 PDF14）／2行目「…10月8日の報告に、こう書く」で縦の線
+    #   （S1 PDF96）／3行目「速さは9月の終わりにさらに増し、今日は1日約100ミリ」で10月8日の約100ミリ（同じ頁「circa 10 cm/giorno」）
+    "c619": dict(
+        t=ss.LV_T, s="1963年3月〜10月",
+        fig=ss.lv_fig(ss.LV_63, vr=ss.VR_HI,
+                      past=ss.lvp("z6303", "z6304", "z6308", "z6309", "z6326", "z6308o", "v6303", "v6302s", "v6315s", "v6326s")
+                      + [ss.LV_BRK, ss.LV_REF["model"], ss.LV_REF["permit"], ss.LV_REF["v1960"], ss.LV_EV["fill3"],
+                         ss.LV_BAND["calm63"], ss.LV_EV["acc"], ss.LV_EV["lower"]],
+                      rel=[ss.LV_REL["model"], ss.LV_REL["permit"], dict(t="約100ミリ", src="S1 p96")], steps=[
+            dict(add=ss.lvp("v6302o")),
+            dict(add=dict(ss.LV_EV["rep"], s="v", pos="top", dy=30)),
+            dict(add=ss.lvp("v6308o", t="約100ミリ", off=(-18, -16), anchor="end"))]),
+    ),
+    # c620（7.80秒）＝全体へ引く（1960〜63年・速さは 0〜210ミリ）。1行目（聞き役「下げたのに、速くなったの？」）で10月8日を囲む／
+    #   2行目「そう。1960年と1962年に効いたやり方が、1963年には効かなかった」で1960年と1962年の山を囲む
+    "c620": dict(
+        t=ss.LV_T, s="1960〜1963年",
+        fig=ss.lv_fig(ss.LV_ALL, vr=ss.VR_HI,
+                      past=ss.lv_upto("1963-10-08") + [ss.LV_BRK, ss.LV_EV["fall60"], ss.LV_REF["model"], ss.LV_REF["permit"]],
+                      rel=[ss.LV_REL["model"], ss.LV_REL["permit"]], steps=[
+            dict(add=dict(k="ring", s="v", at="1963-10-08", t="1963年", off=(-28, -30), anchor="end")),
+            dict(add=[dict(k="ring", s="v", at="1960-11-04", t="1960年"), dict(k="ring", s="v", at="1962-12-15", t="1962年")])]),
+    ),
+
     # ── 🆕 ⑤b-4（2026-10-01）：断面の図解（`tools/vsec16.py`・VB と同じ線＝左が南）──
     # c618（4.47秒・1行）＝「だから、ゆっくり下げる。10月8日、水位は702.5メートルまで下がった」で湖の水位 702.5m（S1 PDF96＝
     #   1日1mずつ）・斜面にしみこんだ水の高さ（点線・模式）と押す向き（急に下げると斜面を押しうる＝S1 PDF79）。見る向きの札で

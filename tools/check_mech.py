@@ -856,12 +856,349 @@ def _selftest_vsec(ok):
     return ok
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 16本目 ⑤b-5（2026-10-01）：水位と斜面の速さの線（lv＝`tools/lv16.py`）
+# ══════════════════════════════════════════════════════════
+# 🔴 記録＝門番の側（§5b-88＝型〈lv16〉も ss の点の表〈LVP〉も読まない）。原文 ref/ep16/src/ep16_pages.txt で当てた
+#    （S1＝議会の調査委員会の最終報告 PDF の頁 p1〜p248・S8＝学術の総説の冊子の頁 p1041〜・S9＝財団の年表 PDF p2001〜）。
+#    行＝((日付の窓の頭, 尻), (値の下限, 上限), {頁})。月だけの記録（「nel marzo 1960」）は窓をその月まるごと・
+#    「primi di ottobre」＝1〜10日・「metà」＝11〜20日・「fine」＝21〜末日。値の「circa」は書いた値のまま（幅は丸めの外に広げない）
+#    🔴 §0b（題材を替えるとき空にする場所）：次の回は見本 fixture へ移して空にする（16本目の型＝lv16 を使う回だけの表）
+REC_LV = dict(
+    z=[  # 湖の水位（m）
+        (("1960-03-01", "1960-03-31"), (580, 580), {"S1 p72"}),             # p72「iniziate dalla quota 580 nel marzo 1960」
+        (("1960-10-01", "1960-10-10"), (630, 630), {"S1 p73"}),             # p73「fino all'ottobre 1960, quando il lago raggiunse la quota 630 circa. Dai primi di ottobre」
+        (("1960-11-04", "1960-11-04"), (650, 650), {"S1 p72", "S1 p73", "S8 p1046"}),  # p72「La frana del 4 novembre 1960 … raggiunse quota 650」
+        (("1961-01-01", "1961-01-15"), (600, 600), {"S8 p1046"}),           # 「slowly reduced to 600 m a.s.l. (reached at the beginning of January 1961)」
+        (("1961-10-11", "1961-10-20"), (600, 600), {"S1 p88", "S1 p90"}),   # p90「Dalla metà dell'ottobre 1961, cioè da quando fu ripreso l'invaso」・p88「reinvaso dalla quota 600」
+        (("1962-01-28", "1962-01-28"), (655, 655), {"S1 p87"}),             # p87「La detta quota di m. 655 venne gradualmente raggiunta il 28 gennaio」
+        (("1962-10-21", "1962-10-31"), (690, 690), {"S1 p90"}),             # p90「alla fine di ottobre 1962, quando il livello del lago venne portato dalla quota 690 alla quota 700」
+        (("1962-12-01", "1962-12-31"), (700, 700), {"S1 p90", "S8 p1046"}), # p90「nel dicembre 1962, col lago alla quota 700」・S8「in December 1962, it reached 700 m」
+        (("1963-02-01", "1963-02-28"), (680, 680), {"S1 p90"}),             # p90「nel febbraio 1963, col lago a quota 680 circa」
+        (("1963-03-01", "1963-03-31"), (650, 650), {"S1 p90", "S1 p93", "S8 p1046"}),  # p93「nel marzo successivo, col lago alla quota di 650 circa」
+        (("1963-04-10", "1963-04-10"), (647.5, 647.5), {"S1 p226"}),        # p226「Dal 10 aprile … il terzo invaso … partendo da quota 647,5」
+        (("1963-08-14", "1963-08-14"), (705, 706), {"S1 p226"}),            # p226「alla data del 14 agosto a quota 705-706 metri」
+        (("1963-09-01", "1963-09-01"), (709.4, 709.4), {"S9 p2014", "S1 p93"}),  # S9「1° settembre. La quota dell'acqua raggiunge m. 709,40」
+        (("1963-09-26", "1963-09-26"), (710, 710), {"S9 p2014", "S1 p226"}),     # S9「con piccole oscillazioni fino a m 710, l'acqua resterà fino al 26 settembre」
+        (("1963-10-08", "1963-10-08"), (702.5, 702.5), {"S1 p96"}),         # p96「a quota 702,50 (8 ottobre 1963) con decremento di un metro al giorno」
+        (("1963-10-09", "1963-10-09"), (700, 700.42), {"S1 p96", "S9 p2017"}),   # p96「questa mattina dovrebbe essere a quota 700」・S9 p2017「a quota 700,42」
+    ],
+    v=[  # 斜面の目印が1日に動く距離（ミリ）。「ほぼ0」＝(0, 1)
+        (("1960-03-01", "1960-03-31"), (0, 1), {"S1 p72"}),                 # p72〜73「non diedero luogo ad alcuna rilevabile accelerazione … velocità che rimase pressoché nulla fino all'ottobre 1960」
+        (("1960-10-01", "1960-10-10"), (0, 1), {"S1 p73"}),                 # p73「Dai primi di ottobre … da quasi zero」
+        (("1960-11-04", "1960-11-04"), (35, 40), {"S1 p73"}),               # p73「raggiunse quasi 4 centimetri al giorno fra i primi di ottobre ed il 4 novembre」
+        (("1961-01-01", "1961-01-15"), (0, 1), {"S1 p85"}),                 # p85「fino a praticamente annullarsi nella prima metà del gennaio 1961」
+        (("1962-08-01", "1962-10-10"), (0, 1), {"S1 p92", "S1 p90"}),       # p92「Dal gennaio 1961 fino al settembre-ottobre 1962 … velocità pressocchè nulle」
+        (("1962-12-01", "1962-12-31"), (15, 15), {"S8 p1046"}),             # S8「in December 1962 … the displacement rates exceeded 1.5 cm per day」（S1 p90 は約1cm＝台本は S8）
+        (("1963-03-01", "1963-03-31"), (0, 1), {"S1 p93", "S8 p1046"}),     # p93「nel marzo successivo … era pressoché nulla」・S8「the movements on the slope stopped」
+        (("1963-09-02", "1963-09-02"), (6.5, 6.5), {"S9 p2014", "S1 p93"}), # S9「il 2 6,5 mm」・p93「da mm/g 6,5 del 2 settembre」
+        (("1963-09-15", "1963-09-15"), (12, 12), {"S9 p2014"}),             # S9「il 15 settembre 12 mm」
+        (("1963-09-26", "1963-09-26"), (22, 22), {"S9 p2014"}),             # S9「il 26 22 mm」
+        (("1963-10-02", "1963-10-03"), (40, 40), {"S9 p2014"}),             # S9「il 2 ed il 3 ottobre 40 mm」
+        (("1963-10-08", "1963-10-08"), (100, 100), {"S1 p96"}),             # p96（10月8日の報告）「toccando oggi il valore di circa 10 cm/giorno」
+        (("1963-10-09", "1963-10-09"), (200, 200), {"S9 p2014", "S1 p93"}), # S9「fino ai 200 mm del 9 ottobre」
+    ],
+)
+# 横の線＝(段, 下限, 上限, 引き始めてよい日〈None＝軸の端から〉, {頁})
+REC_LV_REF = [
+    ("z", 700, 700, None, {"S1 p89"}),              # 模型の結論 p89「la quota 700 può considerarsi di assoluta sicurezza」
+    ("z", 715, 715, "1963-05-04", {"S1 p92"}),      # p92「alla quota 715 e l'autorizzazione venne concessa il 4 maggio 1963」
+    ("z", 725.5, 725.5, None, {"S9 p2006"}),        # 天端 S9 p2006「725,50 metri di quota del coronamento」
+    ("v", 35, 40, None, {"S1 p73", "S1 p93"}),      # 1960年11月の崩落のときの速さ（p73 quasi 4 cm）＝p93「avvicinarsi … ai valori … della frana del novembre 1960」
+]
+# 縦の線（ev）と帯（band）の日＝(窓, {頁})
+REC_LV_DATE = [
+    (("1960-11-04", "1960-11-04"), {"S1 p72", "S1 p73"}),           # 1960年11月4日の崩落
+    (("1961-01-01", "1961-01-15"), {"S1 p85", "S8 p1046"}),         # 1961年1月の前半（止まる）
+    (("1963-04-10", "1963-04-10"), {"S1 p226"}),                    # 3回目の水ための始まり
+    (("1963-05-01", "1963-05-31"), {"S1 p93"}),                     # p93「tra il maggio e l'agosto 1963 segnò accelerazioni non rilevanti」の頭
+    (("1963-08-01", "1963-08-31"), {"S1 p93"}),                     # 同じ区間の尻
+    (("1963-08-11", "1963-08-20"), {"S1 p93", "S1 p96"}),           # 8月の半ば＝速まり始め（p93「Nella metà dell'agosto」・p96「Dalla metà di agosto」）
+    (("1963-09-26", "1963-09-26"), {"S9 p2015", "S9 p2014"}),       # S9 p2015「26 settembre. Biadene decide di iniziare l'opera di svaso」
+    (("1963-10-08", "1963-10-08"), {"S1 p96"}),                     # 国の監督の担当者の10月8日の報告
+]
+# 線を切ってよい区間＝(段, 頭の窓, 尻の窓, {頁})＝数の記録が無い区間だけ
+REC_LV_BRK = [
+    ("v", ("1963-03-01", "1963-03-31"), ("1963-09-02", "1963-09-02"), {"S1 p93", "S8 p1046"}),  # 5〜8月は「目立った速まり無し」だけ・数は9月2日から
+]
+NUM_LV = re.compile(r"[0-9０-９][0-9０-９,.．]*\s*(?:m|メートル|ミリ|センチ)")
+
+
+def _lv_yr(d):
+    """門番の日付の読み方（型〈axis.val〉とは別に書く＝§5b-93）：日付 → 年（小数・その年の日数で割る）。"""
+    import datetime
+    j = datetime.date(d.year, 1, 1)
+    return d.year + (d - j).days / (datetime.date(d.year + 1, 1, 1) - j).days
+
+
+def _lv_date(s):
+    """"1960"／"1963-03"／"1960-11-04" → その期間の頭（年・小数）。"""
+    import datetime
+    p = [int(x) for x in str(s).split("-")]
+    return _lv_yr(datetime.date(p[0], p[1] if len(p) > 1 else 1, p[2] if len(p) > 2 else 1))
+
+
+def _lv_win(a, b):
+    """日付の窓（両端の日を含む）→ 年の範囲。"""
+    import datetime
+    da = datetime.date(*[int(x) for x in a.split("-")])
+    db = datetime.date(*[int(x) for x in b.split("-")]) + datetime.timedelta(days=1)
+    return _lv_yr(da), _lv_yr(db)
+
+
+def _lv_fit(pairs):
+    """[(値, 画素)] → (傾き, 切片)＝画素 = 傾き×値 + 切片（最小二乗）。"""
+    k = len(pairs)
+    mv = sum(v for v, _ in pairs) / k
+    mx = sum(x for _, x in pairs) / k
+    sxx = sum((v - mv) ** 2 for v, _ in pairs)
+    p = sum((v - mv) * (x - mx) for v, x in pairs) / sxx
+    return p, mx - p * mv
+
+
+def _lv_recs(r):
+    return set(r if isinstance(r, (list, tuple)) else [r])
+
+
+def judge_lv(f):
+    """16本目 水位と斜面の速さの線：①目盛り ②点（画素→日付と値→記録の表）③線（隣どうしだけ・切ってよい区間）④横の線
+    ⑤縦の線と帯 ⑥寸法の線と囲み ⑦札の日付と数（rel）。"""
+    bad, n = [], 0
+    m = f.mech
+    day = 1.0 / 365.25
+    xt = m["xt"]
+    if len(xt) < 2:
+        return ["① 横の目盛りが2本未満（画素から日付へ戻せない）"], 1
+    px_, qx = _lv_fit([(_lv_date(t["at"]), t["x"]) for t in xt])
+    for t in xt:
+        n += 2
+        if abs(px_ * _lv_date(t["at"]) + qx - t["x"]) > 1.0:
+            bad.append(f"① 横の目盛り {t['at']} が一直線に並ばない（{t['x']}）")
+        p = str(t["at"]).split("-")
+        want = f"{p[0]}年" if len(p) == 1 else f"{int(p[1])}月"
+        if t["lab"] != want:
+            bad.append(f"① 目盛り {t['at']} の字が「{t['lab']}」（{want} のはず）")
+    fy = {}
+    for s, ys in m["yt"].items():
+        n += 1
+        if len(ys) < 2:
+            bad.append(f"① 縦の目盛り（{s}）が2本未満")
+            continue
+        fy[s] = _lv_fit([(t["v"], t["y"]) for t in ys])
+        for t in ys:
+            if abs(fy[s][0] * t["v"] + fy[s][1] - t["y"]) > 1.0:
+                bad.append(f"① 縦の目盛り（{s}）{t['v']} が一直線に並ばない")
+
+    def bx(x):
+        return (x - qx) / px_
+
+    def by(s, y):
+        return (y - fy[s][1]) / fy[s][0]
+
+    def ymd(yr):
+        import datetime
+        y = int(yr)
+        d0 = datetime.date(y, 1, 1)
+        return (d0 + datetime.timedelta(days=(yr - y) * (datetime.date(y + 1, 1, 1) - d0).days)).isoformat()
+
+    def hit_date(rows, yr):
+        return [r for r in rows if _lv_win(*r[0])[0] - 0.6 * day <= yr <= _lv_win(*r[0])[1] + 0.6 * day]
+
+    # ② 点
+    pts = m["pts"]
+    for p in pts:
+        n += 2
+        if p["s"] not in fy:
+            bad.append(f"② 点 {p['s']} {p['at']} の段に縦の目盛りが無い")
+            continue
+        yr, val = bx(p["x"]), by(p["s"], p["y"])
+        rows = [r for r in hit_date(REC_LV[p["s"]], yr) if r[1][0] - 0.3 <= val <= r[1][1] + 0.3]
+        if not rows:
+            bad.append(f"② 点 {p['s']} {p['at']}（画素から {ymd(yr)}・{val:.2f}）が記録の表 REC_LV に無い")
+        elif not any(_lv_recs(p["rec"]) & r[2] for r in rows):
+            bad.append(f"② 点 {p['s']} {p['at']} の rec {sorted(_lv_recs(p['rec']))} が記録の頁 {sorted(rows[0][2])} と合わない")
+    # ③ 線＝同じ段の点を日付の順に隣どうしだけ（飛ばさない・延ばさない）。切ってよいのは REC_LV_BRK の区間だけ
+    for s in ("z", "v"):
+        ps = sorted([p for p in pts if p["s"] == s], key=lambda p: p["x"])
+        pairs = [(a["at"], b["at"]) for a, b in zip(ps, ps[1:])]
+        sg = {(g["a"], g["b"]): g for g in m["segs"] if g["s"] == s}
+        brk = {(b["a"], b["b"]) for b in m["brks"] if b["s"] == s}
+        at_px = {p["at"]: p for p in ps}
+        for a, b in pairs:
+            n += 1
+            if (a, b) in brk:
+                ok_ = any(r[0] == s and _lv_win(*r[1])[0] <= _lv_date(a) < _lv_win(*r[1])[1]
+                          and _lv_win(*r[2])[0] <= _lv_date(b) < _lv_win(*r[2])[1] for r in REC_LV_BRK)
+                if not ok_:
+                    bad.append(f"③ 線を切った区間 {s} {a}〜{b} が記録の表 REC_LV_BRK に無い（数の記録が無い区間だけ切ってよい）")
+                if (a, b) in sg:
+                    bad.append(f"③ 切った区間 {s} {a}〜{b} に線がある")
+            elif (a, b) not in sg:
+                bad.append(f"③ 隣どうしの点 {s} {a}〜{b} が結ばれていない")
+        for (a, b), g in sg.items():
+            n += 1
+            if (a, b) not in pairs:
+                bad.append(f"③ 線 {s} {a}〜{b} が隣どうしの点を結んでいない（飛ばした・延ばした）")
+                continue
+            pa, pb = at_px[a], at_px[b]
+            if max(abs(pa["x"] - g["xa"]), abs(pa["y"] - g["ya"]), abs(pb["x"] - g["xb"]), abs(pb["y"] - g["yb"])) > 0.6:
+                bad.append(f"③ 線 {s} {a}〜{b} の端が点の画素と違う（延ばした線）")
+    # ④ 横の線
+    for r in m["refs"]:
+        n += 2
+        if r["s"] not in fy:
+            continue
+        val = by(r["s"], r["y"])
+        rows = [q for q in REC_LV_REF if q[0] == r["s"] and q[1] - 0.3 <= val <= q[2] + 0.3]
+        if not rows:
+            bad.append(f"④ 横の線 {val:.2f}（{r['s']}）が記録の表 REC_LV_REF に無い")
+            continue
+        if not any(_lv_recs(r["rec"]) & q[4] for q in rows):
+            bad.append(f"④ 横の線 {val:.2f} の rec {sorted(_lv_recs(r['rec']))} が記録の頁と合わない")
+        q = rows[0]
+        if q[3] and r["xa"] < px_ * _lv_date(q[3]) + qx - 0.6:
+            bad.append(f"④ 横の線 {val:g}（{r['s']}）が記録の日 {q[3]} より前から引いてある（x={r['xa']}）")
+    # ⑤ 縦の線と帯の日
+    for e in m["evs"]:
+        n += 1
+        rows = hit_date(REC_LV_DATE, bx(e["x"]))
+        if not rows or not any(_lv_recs(e["rec"]) & r[1] for r in rows):
+            bad.append(f"⑤ 縦の線 {e['at']}（画素から {ymd(bx(e['x']))}）が記録の表 REC_LV_DATE（頁）に無い")
+    for bd in m["bands"]:
+        for key in ("xa", "xb"):
+            n += 1
+            rows = hit_date(REC_LV_DATE, bx(bd[key])) + [(r[0], r[2]) for s in ("z", "v") for r in hit_date(REC_LV[s], bx(bd[key]))]
+            if not any(_lv_recs(bd["rec"]) & r[1] for r in rows):
+                bad.append(f"⑤ 帯 {bd['a']}〜{bd['b']} の端（{ymd(bx(bd[key]))}）が記録の日（頁）に無い")
+    # ⑥ 寸法の線（両端が記録の値）と囲み（描いた点）
+    vals = {s: [(r[1], r[2]) for r in REC_LV[s]] + [((q[1], q[2]), q[4]) for q in REC_LV_REF if q[0] == s] for s in ("z", "v")}
+    for gp in m["gaps"]:
+        for key in ("ya", "yb"):
+            n += 1
+            val = by(gp["s"], gp[key])
+            if not any(lo - 0.3 <= val <= hi + 0.3 and _lv_recs(gp["rec"]) & rr for (lo, hi), rr in vals[gp["s"]]):
+                bad.append(f"⑥ 寸法の線の端 {val:.2f}（{gp['s']}）が記録の値（頁）に無い")
+    for rg in m["rings"]:
+        n += 1
+        if not any(p["s"] == rg["s"] and p["at"] == rg["at"] and abs(p["x"] - rg["x"]) < 0.6 and abs(p["y"] - rg["y"]) < 0.6
+                   for p in pts):
+            bad.append(f"⑥ 囲み {rg['s']} {rg['at']} が描いた点に無い")
+    # ⑦ 札の日付（点・縦の線・囲みの日と合う）と数（rel）
+    said = [r.get("t", "") for r in m["rel"]]
+    for tx in m["texts"]:
+        t = tx["t"]
+        if tx.get("at"):
+            p = [int(x) for x in str(tx["at"]).split("-")]
+            # 日は「10月8日」の形だけ日付と読む（「1日1m」＝1日あたり1m を日付と読まない）
+            for rx, i in ((r"(\d{4})年", 0), (r"(\d{1,2})月", 1), (r"(?<=月)(\d{1,2})日", 2)):
+                for mm in re.finditer(rx, t):
+                    n += 1
+                    if len(p) <= i or int(mm.group(1)) != p[i]:
+                        bad.append(f"⑦ 札「{t}」の日付「{mm.group(0)}」が {tx['at']} と合わない")
+        for mm in NUM_LV.finditer(t):
+            n += 1
+            if not any(mm.group(0) in s for s in said):
+                bad.append(f"⑦ 札「{t}」の数「{mm.group(0)}」が rel（記録の値の宣言）に無い")
+    for r in m["rel"]:
+        if not r.get("src"):
+            bad.append(f"⑦ rel「{r.get('t')}」に出どころ（src）が無い")
+    n += 1
+    if "模式" not in m["note"]:
+        bad.append("⑦ note に「模式」が無い（点と点のあいだは直線でつないだ模式）")
+    return bad, n
+
+
+def _selftest_lv(ok):
+    """16本目 ⑤b-5：水位と斜面の速さの線の検算（正しい2つ・陽性対照＝記録・頁・札・rel・切る区間＋型を壊す3つ）。"""
+    import axis as AX
+    import lv16 as L
+    N = "点＝記録の値・あいだは直線でつないだ模式"
+
+    def P(s, at, v, rec, **kw):
+        return dict(k="pt", s=s, at=at, v=v, rec=rec, **kw)
+    allv = dict(span=("1960-01-01", "1963-11-01"), ticks=("1960", "1961", "1962", "1963"), zr=(560, 740),
+                zt=(600, 650, 700), vr=(0, 50), vt=(0, 10, 20, 30, 40, 50), src="s", note=N)
+    good = dict(allv, steps=[dict(add=[P("z", "1960-03-15", 580, "S1 p72", t="1960年3月"), P("v", "1960-03-15", 0, "S1 p72"),
+                                       dict(k="ref", s="z", v=725.5, t="天端725.5m", rec="S9 p2006", c="LINE"),
+                                       dict(k="gap", s="z", at="1960-03-15", a=580, b=725.5, rec=["S1 p72", "S9 p2006"], dx=-30)]),
+                             dict(add=[P("z", "1960-11-04", 650, "S1 p72"), P("v", "1960-11-04", 40, "S1 p73"),
+                                       dict(k="ev", at="1960-11-04", t="崩落", rec="S1 p72", c="ALERT")]),
+                             dict(add=[P("z", "1961-01-08", 600, "S8 p1046"), P("v", "1961-01-08", 0, "S1 p85"),
+                                       dict(k="ring", s="v", at="1961-01-08"),
+                                       dict(k="ref", s="z", v=700, t="700m（模型）", rec="S1 p89")])],
+                rel=[dict(t="天端725.5m", src="S9 p2006"), dict(t="700m（模型）", src="S1 p89")])
+    y63 = dict(span=("1963-03-01", "1963-10-20"),
+               ticks=("1963-03", "1963-04", "1963-05", "1963-06", "1963-07", "1963-08", "1963-09", "1963-10"),
+               zr=(640, 730), zt=(650, 700), vr=(0, 50), vt=(0, 25, 50), src="s", note=N)
+    good63 = dict(y63, past=[P("z", "1963-03-15", 650, "S1 p93"), P("v", "1963-03-15", 0, "S1 p93")],
+                  steps=[dict(add=[P("z", "1963-04-10", 647.5, "S1 p226"), P("v", "1963-09-02", 6.5, "S9 p2014"),
+                                   dict(k="brk", s="v", a="1963-03-15", b="1963-09-02", rec="S1 p93"),
+                                   dict(k="ref", s="z", v=715, a="1963-05-04", t="715mの許可", rec="S1 p92", c="INST"),
+                                   dict(k="band", s="v", a="1963-05-01", b="1963-08-31", t="大きな速まりなし", rec="S1 p93")])],
+                  rel=[dict(t="715m", src="S1 p92")])
+
+    def add(kw, j, *its):
+        st = [dict(s) for s in kw["steps"]]
+        st[j] = dict(st[j], add=list(F._many(st[j].get("add"))) + list(its))
+        return dict(kw, steps=st)
+    cases = [("正しい線の図（1960年の水ためと崩落・700m・天端）", good, True),
+             ("正しい線の図（1963年・715m の許可は5月4日から・速さは3月〜9月2日を切る）", good63, True),
+             ("🔴 陽性対照：記録に無い速さ（1962年12月を30ミリ）", add(good, 2, P("v", "1962-12-15", 30, "S8 p1046")), False),
+             ("🔴 陽性対照：頁が違う（580m を S1 p91）",
+              dict(good, steps=[dict(add=P("z", "1960-03-15", 580, "S1 p91"))]), False),
+             ("🔴 陽性対照：札の日付が点と違う（1960年3月の点に「1960年4月」）",
+              dict(good, steps=[dict(add=P("z", "1960-03-15", 580, "S1 p72", t="1960年4月"))]), False),
+             ("🔴 陽性対照：札の数が rel に無い（700m（模型））", dict(good, rel=[dict(t="天端725.5m", src="S9 p2006")]), False),
+             ("🔴 陽性対照：数の記録がある区間で線を切る（1960年11月4日〜1961年1月）",
+              add(good, 2, dict(k="brk", s="z", a="1960-11-04", b="1961-01-08", rec="S1 p72")), False)]
+    for name, kw, want in cases:
+        bad, _ = judge("lv", kw)
+        got = not bad
+        ok &= got == want
+        print(f"  {'OK' if got == want else '🔴 NG'} 16本目 {name}: {'合格' if got else '不合格'}（{'合格' if want else '不合格'}のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+    # 型を壊す陽性対照（§5b-88）：①日まである日付だけ20日ずらして描く型（目盛りは年・月＝ずれない）②最後の点の先へ線を延ばす型
+    #   ③715m の許可を左の端から引く型
+    keep_val, keep_segs, keep_ref = AX.val, L._segs_of, L._ref_span
+    # ⚠️ 軸の端（"1960-01-01"）までずらすと型が先に止まる（範囲の外）＝門番の検算にならない → 月の1日は外す（点の日だけずらす）
+    AX.val = lambda view, s: ((keep_val(view, s)[0] + (20 / 365.25 if view == "date" and str(s).count("-") == 2
+                                                        and not str(s).endswith("-01") else 0.0)), keep_val(view, s)[1])
+
+    def ext(pts_, brks_):
+        out = keep_segs(pts_, brks_)
+        for s, lst in pts_.items():
+            if lst:
+                j, last = lst[-1]
+                out.append(dict(s=s, a=last["at"], b="1963-10-31", stage=j, pa=last, pb=dict(last, at="1963-10-31")))
+        return out
+    for name, patch, kw, key in (("日まである日付を20日ずらして描く型（axis.val）", ("val",), good, "記録の表"),
+                                 ("最後の点の先へ線を延ばす型（lv16._segs_of）", ("segs",), good, "隣どうし"),
+                                 ("715m の許可を左の端から引く型（lv16._ref_span）", ("ref",), good63, "より前")):
+        if "val" not in patch:
+            AX.val = keep_val
+        if "segs" in patch:
+            L._segs_of = ext
+        if "ref" in patch:
+            L._ref_span = lambda V, it: (L.X0, L.X1)
+        try:
+            bad, _ = judge("lv", kw)
+        except ValueError as e:
+            bad = [f"型が止まった：{e}"]
+        finally:
+            AX.val, L._segs_of, L._ref_span = keep_val, keep_segs, keep_ref
+        g_ = any(key in b for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 16本目 陽性対照（型）：{name}: {'不合格' if bad else '合格'}（不合格のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+    return ok
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
     return (judge_latch(f) if kind == "latch" else judge_section(f) if kind == "section"
             else judge_lash(f) if kind == "lash" else judge_tail(f) if kind == "tail"
             else judge_mod(f) if kind == "mod" else judge_bolt(f) if kind == "bolt"
-            else judge_vsec(f) if kind == "vsec" else judge_hull(f))
+            else judge_vsec(f) if kind == "vsec" else judge_lv(f) if kind == "lv" else judge_hull(f))
 
 
 def selftest():
@@ -1181,6 +1518,7 @@ def selftest():
         print(f"  {'OK' if good else '🔴 NG'} 🔴 15本目 陽性対照（画素）：{name}: "
               f"{'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
     ok = _selftest_vsec(ok)
+    ok = _selftest_lv(ok)
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 
@@ -1196,7 +1534,7 @@ def main():
     fixture_ep14.restore()       # 🔴 15本目 ⑤b-2：selftest で差し込んだ14本目の見本を本番の表に戻す（戻さないと14本目の表で本番を測る）
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items())
-               if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt", "vsec")}
+               if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt", "vsec", "lv")}
     if not targets:
         print("⚠️ latch・section・hull・lash・tail・mod・bolt のカットが0件（この回に仕組みの模式図が無いなら正しい。"
               "**0件を調べて合格**にしていないか確かめる）")

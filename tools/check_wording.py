@@ -163,6 +163,12 @@ def screen_texts(sp):
     # 🔴 2026-09-29（14本目 ⑤b-6）：量の型（qty）・箱の型（boxes）の画面に出ない欄＝記録の頁 rec・部品の種類 k・色の名 c・
     #    群の id g・値 v（棒の長さ＝数字は画面に書かない）・目盛り ticks（画面には数だけ）・並び order（区分の名と人数）・
     #    まとめ sets・親 parent・行 row／rows・列 col・置き場 x／y／pos・つながり fr／to・id・線の種類 style・層 layout の座標
+    # 🔴 2026-10-01（16本目 ⑤b-5）：線の図（lv）の画面に出ない欄＝記録の頁 rec・数の宣言 rel（門番 judge_lv だけが読む）・
+    #    部品の種類 k・段 s・色の名 c・日付 at／a／b・軸 span／ticks・縦の範囲 zr／zt／vr／vt・段の組 rows・札の置き方
+    #    anchor／lab／pos／off／dx／dy（画面の出典は src が「PDF N頁」で出す）
+    if f and f[0] == "lv":
+        skip = {"rec", "rel", "k", "s", "c", "at", "a", "b", "span", "ticks", "zr", "zt", "vr", "vt", "rows", "anchor", "lab",
+                "pos", "off", "dx", "dy"}
     if f and f[0] in ("qty", "boxes"):
         skip = {"rec", "k", "c", "g", "v", "id", "view", "ticks", "order", "sets", "parent", "row", "rows", "col",
                 "x", "y", "pos", "fr", "to", "style", "keep", "n", "cols", "head_y", "guide_y", "bounds", "chain",

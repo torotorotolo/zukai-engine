@@ -41,7 +41,21 @@ sys.stdout.reconfigure(encoding="utf-8")
 #        16本目の値は、軸の型を初めて使う ⑤b のチャットで、値と頁を ref/ep16/src/ep16_pages.txt で当てて入れる
 #        （空のあいだ、軸のカットは「記録に無い値」で止まる＝fail closed）
 # ══════════════════════════════════════════════════════════
-REC_AXIS = {}
+#     🆕 2026-10-01（16本目 ⑤b-5）：16本目の値を入れた＝10月9日の時刻の帯（場面4）。原文 ref/ep16/src/ep16_pages.txt で当てた
+#        （S1＝議会の調査委員会の最終報告 PDF の頁・S9＝バイオント財団の年表 PDF の頁 p2001〜）
+REC_AXIS = {
+    "9:45": {"S1 p98"},                    # p98「Il successivo 9 ottobre alle ore 9,45 del mattino … tutte le 35 famiglie … sistemandosi provvisoriamente a Casso」
+    "12:00": {"S9 p2016"},                 # p2016「Ore 12. Durante la pausa pranzo alcuni operai ENEL fermi sul coronamento della diga vedono …」
+    "13:00": {"S9 p2016"},                 # 「Ore 13. Dietro le baracche degli operai in sponda sinistra, si apre una crepa larga 50 centimetri e lunga 5 metri」
+    "16:00": {"S9 p2016"},                 # 「Dopo tre ore la crepa ha progredito di 40-50 centimetri」（13時＋3時間）／「Ore 15-16.」の尻
+    "15:00": {"S9 p2016"},                 # 「Ore 15-16. un operaio attraversando la zona del Massalezza … vede alberi cadere」
+    "17:00": {"S9 p2016", "S1 p228"},      # 「Ore 17. Caruso riceve da Venezia le direttive …」・S1 p228（少数派「ma non per fare sgomberare la popolazione」）
+    "17:50": {"S9 p2016"},                 # 「Ore 17.50. Biadene telefona a Penta … per la prima volta, informa Penta degli esperimenti su modello … quota 700」
+    "20:00": {"S9 p2016", "S1 p228"},      # 「Ore 20. I camion non sono più in grado di transitare … La strada per il Toc viene sbarrata」・p228「Alle ore 20 …」
+    "22:00": {"S9 p2017"},                 # 割れる時刻 S9「Ore 22. Rittmeyer telefona a Biadene, a Venezia」
+    "22:15": {"S1 p228"},                  # 割れる時刻 S1 p228（少数派）「Alle 22,15 — come hanno affermato le telefoniste di Longarone」
+    "22:39": {"S1 p98", "S9 p2017"},       # S9 p2017「Ore 22.39. La frana si stacca」・S1 p98
+}
 LANES_OK = set()
 
 

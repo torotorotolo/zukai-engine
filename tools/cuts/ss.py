@@ -415,7 +415,8 @@ ILLU_DESTROY_CUTS = ("c102", "c814", "c823")
 #   **出典の名つきでだけ**出してよい（門番 check_axis ②＝点に by=True か split）
 # 🔴 2026-10-01（16本目 ⑤b-1）：空にした（15本目の値＝`tools/fixture_ep15.py`）。REC_DOCS の資料名が決まってから、
 #    語りが資料を呼ぶ名に合わせて入れる（軸の型を初めて使う ⑤b のチャットで）
-AXIS_DOCS = {}
+# 🆕 2026-10-01（16本目 ⑤b-5）：語りの呼び名（c701「財団の年表」・c712「少数派の報告」）。"S1 p228"＝頁ごとの名が先（axis.doc_names）
+AXIS_DOCS = {"S1 p228": "少数派の報告", "S1": "議会の報告書", "S9": "財団の年表"}
 
 # 軸（カットをまたいで同じ軸を使う＝前のカットの点を past で沈めて続ける）。回ごとに `AX_<名> = dict(view, span, ticks)` を足す
 # 🔴 2026-10-01（16本目 ⑤b-1）：15本目の軸（AX_HIST・AX_LATE・AX_A08・AX_DRILL・AX_EMS・AX_UPSET・AX_NINE）と
@@ -423,12 +424,135 @@ AXIS_DOCS = {}
 #    ⚠️ 軸の教訓は移した注の側にある（年だけの値は年の真ん中に置く・札が枠の端を越えた layout の直し＝fixture_ep15 の AX_*・AXI の上）
 
 # 部品（記録の頁つき。値と頁は門番 check_axis の REC_AXIS と照らされる）。t は項目名だけ（§5b-9）
-AXI = {}
+# 🆕 2026-10-01（16本目 ⑤b-5）：場面4 10月9日の時刻の帯（c701〜c723 の9カット）。値と頁は ref/ep16/src/ep16_pages.txt で当てた
+#   （S9 p2016〜2017＝財団の年表・S1 p98・p228）。🔴 22:00 と 22:15 は割れる時刻の印（split＝出典の名つき・カーソルを置かない）。
+#   ⚠️ 目盛りは奇数の時（9〜23時）＝22時の目盛りの字が割れる時刻の印の横に出ない。時計の絵は描かない（映像方針 §6）
+AX_DAY = dict(view="clock", span=("9:00", "23:00"),
+              ticks=("9:00", "11:00", "13:00", "15:00", "17:00", "19:00", "21:00", "23:00"))
+# ⚠️ ⑤b-5 の門番：22:00・22:15・22:39 は一日の帯では約70画素に3つ＝札が3段に収まらない → 割れる時刻の印は夕方の寄り（c720）だけ。
+#   目盛りに22時を置かない（割れる時刻の印の横に時刻の字を出さない）
+AX_EVE = dict(view="clock", span=("20:00", "23:00"), ticks=("20:00", "21:00", "23:00"))
+# ⚠️ 近い2点の札は左右に振る（§5b-93＝12時↔13時・17時↔17時50分）・札は短く（同じ段に並べる）
+AXI = {
+    "t0945": dict(k="pt", at="9:45", t="35家族が離れる", rec="S1 p98"),
+    "t1200": dict(k="pt", at="12:00", t="動きが見える", rec="S9 p2016", anchor="end"),
+    "t1300": dict(k="pt", at="13:00", t="割れ目", rec="S9 p2016", anchor="start"),
+    "t1316": dict(k="span", a="13:00", b="16:00", rec="S9 p2016"),                       # 3時間で割れ目が広がる（札は c710 の項目の札）
+    "t1516": dict(k="span", a="15:00", b="16:00", t="木が倒れる", rec="S9 p2016", c="ALERT"),
+    "t1700": dict(k="pt", at="17:00", t="本部の指示", rec=["S9 p2016", "S1 p228"], anchor="end"),
+    "t1750": dict(k="pt", at="17:50", t="電話", rec="S9 p2016", anchor="start"),
+    "t2000": dict(k="pt", at="20:00", t="道をふさぐ", rec="S9 p2016"),
+    "phone": dict(k="span", a="22:00", b="22:15", t="電話", rec=["S9 p2017", "S1 p228"]),   # 札に時刻を書かない（割れる時刻）
+    "s2200": dict(k="split", at="22:00", rec="S9 p2017"),
+    "s2215": dict(k="split", at="22:15", rec="S1 p228"),
+    "nowarn": dict(k="span", a="20:00", b="22:39", t="下流の町に呼びかけなし", rec=["S1 p228", "S1 p98"], c="ALERT"),
+    "t2239": dict(k="pt", at="22:39", t="崩落", rec=["S1 p98", "S9 p2017"], c="ALERT"),
+    "day": dict(k="br", a="9:45", b="22:39", rec=["S1 p98", "S9 p2017"]),
+}
 
 
 def ax(name, **kw):
     """AXI の部品の写し（同じカットで past と add に同じ物を2回入れても別の部品になる）。"""
     return dict(AXI[name], **kw)
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 16本目 ⑤b-5（2026-10-01）：場面1 水位と斜面の速さの線（`tools/lv16.py`・門番 check_mech の judge_lv）
+# ══════════════════════════════════════════════════════════
+# 🔴 §0b（題材を替えるとき空にする場所）：下の LV_*・LVP は16本目の値（次の回は見本へ移して空にする）。
+#   値と頁は ref/ep16/src/ep16_pages.txt で当てた＝門番の側の表（check_mech.REC_LV）と照らされる（§5b-88）。
+#   置く日＝月だけの記録は15日・「primi」＝5日・「metà」＝15日・「fine」＝28日（門番の窓の内）。
+#   🔴 1962年12月の速さは台本どおり S8 p.46「1.5センチ超」（S1 p90 は「約1センチ」＝資料で割れる・台本の確かめ G2）。
+#   🔴 10月8日の報告の「9月の終わりに1日5センチ」は描かない（c611 の26日22ミリと食い違って聞こえる＝台本の確かめ G3-21）
+LV_T = "水位と斜面の速さ"      # 見出し＝c619 の合図（断面の図解からグラフへ戻る札・映像方針 §6）。図の札と4字以上の語を重ねない
+LV_NOTE = "点＝記録の値・あいだは直線でつないだ模式"
+LV_ALL = dict(span=("1960-01-01", "1963-11-01"), ticks=("1960", "1961", "1962", "1963"), zr=(560, 740), zt=(600, 650, 700))
+LV_63 = dict(span=("1963-03-01", "1963-10-20"),
+             ticks=("1963-03", "1963-04", "1963-05", "1963-06", "1963-07", "1963-08", "1963-09", "1963-10"),
+             zr=(640, 730), zt=(650, 675, 700))
+VR_LO = dict(vr=(0, 50), vt=(0, 10, 20, 30, 40, 50))       # 1963年10月3日まで（1960年の山＝4センチ近く）
+VR_HI = dict(vr=(0, 210), vt=(0, 50, 100, 150, 200))        # 10月8日（約100ミリ）・9日（200ミリ）まで
+LVP = {
+    # ── 湖の水位（m）──
+    "z6003": dict(k="pt", s="z", at="1960-03-15", v=580, rec="S1 p72"),
+    "z6010": dict(k="pt", s="z", at="1960-10-05", v=630, rec="S1 p73"),
+    "z6011": dict(k="pt", s="z", at="1960-11-04", v=650, rec="S1 p72"),
+    "z6101": dict(k="pt", s="z", at="1961-01-08", v=600, rec="S8 p1046"),
+    "z6110": dict(k="pt", s="z", at="1961-10-15", v=600, rec=["S1 p88", "S1 p90"]),
+    "z6201": dict(k="pt", s="z", at="1962-01-28", v=655, rec="S1 p87"),
+    "z6210": dict(k="pt", s="z", at="1962-10-28", v=690, rec="S1 p90"),
+    "z6212": dict(k="pt", s="z", at="1962-12-15", v=700, rec=["S1 p90", "S8 p1046"]),
+    "z6302": dict(k="pt", s="z", at="1963-02-15", v=680, rec="S1 p90"),
+    "z6303": dict(k="pt", s="z", at="1963-03-15", v=650, rec=["S1 p93", "S8 p1046"]),
+    "z6304": dict(k="pt", s="z", at="1963-04-10", v=647.5, rec="S1 p226"),
+    "z6308": dict(k="pt", s="z", at="1963-08-14", v=705.5, rec="S1 p226"),
+    "z6309": dict(k="pt", s="z", at="1963-09-01", v=709.4, rec="S9 p2014"),
+    "z6326": dict(k="pt", s="z", at="1963-09-26", v=710, rec="S9 p2014"),
+    "z6308o": dict(k="pt", s="z", at="1963-10-08", v=702.5, rec="S1 p96"),
+    "z6309o": dict(k="pt", s="z", at="1963-10-09", v=700.4, rec=["S1 p96", "S9 p2017"]),
+    # ── 斜面の目印が1日に動く距離（ミリ）。「ほぼ0」は 0 に置く ──
+    "v6003": dict(k="pt", s="v", at="1960-03-15", v=0, rec="S1 p72"),
+    "v6010": dict(k="pt", s="v", at="1960-10-05", v=0, rec="S1 p73"),
+    "v6011": dict(k="pt", s="v", at="1960-11-04", v=40, rec="S1 p73"),
+    "v6101": dict(k="pt", s="v", at="1961-01-08", v=0, rec="S1 p85"),
+    "v6209": dict(k="pt", s="v", at="1962-09-01", v=0, rec="S1 p92"),
+    "v6212": dict(k="pt", s="v", at="1962-12-15", v=15, rec="S8 p1046"),
+    "v6303": dict(k="pt", s="v", at="1963-03-15", v=0, rec="S1 p93"),
+    "v6302s": dict(k="pt", s="v", at="1963-09-02", v=6.5, rec="S9 p2014"),
+    "v6315s": dict(k="pt", s="v", at="1963-09-15", v=12, rec="S9 p2014"),
+    "v6326s": dict(k="pt", s="v", at="1963-09-26", v=22, rec="S9 p2014"),
+    "v6302o": dict(k="pt", s="v", at="1963-10-02", v=40, rec="S9 p2014"),
+    "v6308o": dict(k="pt", s="v", at="1963-10-08", v=100, rec="S1 p96"),
+    "v6309o": dict(k="pt", s="v", at="1963-10-09", v=200, rec="S9 p2014"),
+}
+LV_BRK = dict(k="brk", s="v", a="1963-03-15", b="1963-09-02", rec="S1 p93")   # 3月〜9月2日＝数の記録が無い（「目立った速まり無し」）
+LV_REF = {
+    "model": dict(k="ref", s="z", v=700, t="700m（模型）", rec="S1 p89", c="DOC", lab="l"),
+    # ⚠️ 札は線の左の端（5月4日の側）＝右の端だと c619 の縦の線の札「下げると決める」と横に並んで1つの言葉に読めた（下見）
+    "permit": dict(k="ref", s="z", v=715, a="1963-05-04", t="715mの許可", rec="S1 p92", c="INST", lab="l"),
+    "crest": dict(k="ref", s="z", v=725.5, t="天端725.5m", rec="S9 p2006", c="LINE"),
+    # ALERT_DIM は文字に使わない。⚠️ qa_all の echo：「1960年11月の崩落のとき」は c614 の語りの写し → 短く
+    "v1960": dict(k="ref", s="v", v=40, t="1960年の山", rec="S1 p73", c="TICK", lab="l"),
+}
+LV_REL = {"model": dict(t="700m（模型）", src="S1 p89"), "permit": dict(t="715mの許可", src="S1 p92"),
+          "crest": dict(t="天端725.5m", src="S9 p2006")}
+# 縦の線（出来事の日）と帯。⚠️ 札は図の上の端（top）か下の端（bot）・近い札は dy でずらす（715m の許可の札＝線の左の端）
+LV_EV = {
+    "fall60": dict(k="ev", at="1960-11-04", t="崩落", rec="S1 p72", c="ALERT"),
+    "fill3": dict(k="ev", s="z", at="1963-04-10", t="3回目の水ため", rec="S1 p226", c="LINE", dy=34),
+    "acc": dict(k="ev", s="v", at="1963-08-15", t="速まり始める", rec=["S1 p93", "S1 p96"], c="ALERT"),
+    "lower": dict(k="ev", at="1963-09-26", t="下げると決める", rec="S9 p2015", c="LINE"),
+    "rep": dict(k="ev", at="1963-10-08", t="10月8日の報告", rec="S1 p96", c="DOC", pos="bot"),
+}
+LV_BAND = {"calm63": dict(k="band", s="v", a="1963-05-01", b="1963-08-31", t="大きな速まりなし", rec="S1 p93")}
+
+
+def lvp(*names, **kw):
+    """LVP の点の写し（名を並べた順）。"""
+    return [dict(LVP[n], **kw) for n in names]
+
+
+def lv_upto(date, rows="zv", skip=()):
+    """date（その日を含む）までの点（日付の順・rows の段だけ）。前のカットまでに出した点＝past に使う。"""
+    import axis as _A
+    d = _A.val("date", date)[0]
+    out = [n for n, p in LVP.items() if p["s"] in rows and _A.val("date", p["at"])[0] <= d + 1e-9 and n not in skip]
+    return [dict(LVP[n]) for n in sorted(out, key=lambda n: _A.val("date", LVP[n]["at"])[0])]
+
+
+def _rk(r):
+    d, _, p = str(r).partition(" p")
+    return ({"S1": 0, "S8": 1, "S9": 2}.get(d, 9), int(p) if p.isdigit() else 0)
+
+
+def lv_fig(view, steps, past=(), vr=None, rows="zv", rel=()):
+    """線の図の fig＝("lv", …)。出典の行は描いた部品の rec から組む（左下）。"""
+    import titan_fig as _F
+    items = list(past) + [x for st in steps for x in _F._many(st.get("add"))]
+    recs = sorted({r for it in items for r in (it.get("rec") if isinstance(it.get("rec"), list) else [it.get("rec")]) if r},
+                  key=_rk)
+    vv = (vr or VR_LO) if "v" in rows else dict(vr=None, vt=())
+    return ("lv", dict(view, **vv, rows=rows, past=list(past), steps=list(steps), rel=list(rel), note=LV_NOTE, src=src(recs)))
 
 
 # ══════════════════════════════════════════════════════════

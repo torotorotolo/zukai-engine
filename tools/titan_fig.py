@@ -5068,3 +5068,11 @@ def bolt(view, steps, **kw):
 def vsec(view, steps, **kw):
     import vsec16 as _v
     return _v.vsec(view, steps, **kw)
+
+
+# ── ⑪ 16本目 ⑤b-5（2026-10-01）：水位と斜面の速さの線（上下2段・横軸は年月で共通・記録の点だけを結ぶ）
+#      ＝`tools/lv16.py`（門番 check_mech の judge_lv）──
+#   `fig=("lv", dict(span=…, ticks=…, zr=…, zt=…, vr=…, vt=…, rows="zv"|"z", past=[…], steps=[…], rel=[…], note="模式…", src=…))`
+def lv(steps, **kw):
+    import lv16 as _l
+    return _l.lv(steps, **kw)

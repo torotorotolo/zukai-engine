@@ -124,8 +124,10 @@ def doc_names(rec):
         names = {}
     out = []
     for r in (rec if isinstance(rec, (list, tuple)) else [rec]):
-        d = str(r).split(" p")[0].strip()
-        nm = names.get(d, d)
+        # 🆕 16本目 ⑤b-5：頁ごとの名を先に引く（同じ S1 の中の少数派の報告＝"S1 p228"→「少数派の報告」）
+        full = str(r).strip()
+        d = full.split(" p")[0].strip()
+        nm = names.get(full, names.get(d, d))
         if nm not in out:
             out.append(nm)
     return "・".join(out)
@@ -266,8 +268,8 @@ def _draw(A, it, row, dim):
     x = A.x(it["at"], True)
     rec.update(at=it["at"], x=round(x, 2), top=it["_top"], d=it["_d"], row=row, c=it.get("c") or COL[k],
                big=bool(it.get("big")), by=bool(it.get("by")), chips=[] if dim else list(it.get("chips") or []))
-    if k == "chips":          # 項目の札だけを後の段で出す（点は前の段で描いた）
-        return _chips(A, x, it.get("chips") or [], col, ink), rec
+    if k == "chips":          # 項目の札だけを後の段で出す（点は前の段で描いた）。i0＝前の段の札の下へ続ける（16本目 ⑤b-5）
+        return _chips(A, x, it.get("chips") or [], col, ink, int(it.get("i0", 0))), rec
     anch = it["_anch"]
     tx = x - OFF if anch == "start" else (x + OFF if anch == "end" else x)
     if it["_row"]:
@@ -308,11 +310,12 @@ def _draw(A, it, row, dim):
     return "".join(g), rec
 
 
-def _chips(A, x, chips, col, ink):
-    """点の下（目盛りの札のさらに下）に項目の札を縦に並べる。原因は「並べるだけ」＝場面にしない。"""
+def _chips(A, x, chips, col, ink, i0=0):
+    """点の下（目盛りの札のさらに下）に項目の札を縦に並べる。原因は「並べるだけ」＝場面にしない。
+    i0＝何段目から並べるか（前の段で出した札の下へ続ける＝16本目 ⑤b-5 c712・c713）。"""
     g = []
     ay = A.ay
-    for i, ch in enumerate(chips):
+    for i, ch in enumerate(chips, start=i0):
         cy = ay + 108 + 58 * i
         w = F.fm.width(ch, 28, "Noto") + 36
         cx = min(max(x, F.BX0 + w / 2 + 4), F.BX1 - w / 2 - 4)
