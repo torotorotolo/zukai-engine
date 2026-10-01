@@ -426,8 +426,10 @@ def stage_art(view, prev, st):
             ws = [w0] + [q[0] for q in IL.VC_BED if w0 < q[0] < w1] + [w1]
             bed = [(w, IL.vc_bed(w)) for w in ws]
             zf = 440.0
-            g.append(F.poly([xy(m, w, z) for w, z in bed] + [xy(m, w1, zf), xy(m, w0, zf)], GROUND, J.INK_W, 2.0,
-                            close=True))
+            # ⚠️ ⑤b-6a の試し焼き（36867596478・原寸）：地面の多角形の四辺に白い縁取り＝谷の底が「白い枠の板」に見えた
+            #   ＝塗りは縁取りなし・白い線は地面の上の線（谷の底）だけ
+            g.append(F.poly([xy(m, w, z) for w, z in bed] + [xy(m, w1, zf), xy(m, w0, zf)], GROUND, None, 0, close=True))
+            g.append(F.poly([xy(m, w, z) for w, z in bed], "none", J.INK_W, 2.0))
             d = dam_um()
             wu = IL._lin(sorted((z, w) for w, z in d[:25]), DAM_LAKE)
             face = [(w, z) for w, z in d[:25] if z <= DAM_LAKE]
@@ -444,7 +446,8 @@ def stage_art(view, prev, st):
             (xa, _ya), (xb, _yb) = xy(m, w0, 0.0), xy(m, w1, 0.0)
             ys = xy(m, 0.0, DAM_LAKE)[1]
             g.append(F.txtfit(xa + 8.0, ys - 12.0, "湖", 120, cap=28, col=J.INK_W))
-            g.append(F.txtfit(xb - 8.0, ys - 12.0, "下流", 160, cap=28, col=J.TICK, anchor="end"))
+            # 「下流」は下流の谷の底のすぐ上（湖の水面の高さだと右上に浮いて、何を指すか分からなかった＝試し焼き）
+            g.append(F.txtfit(xb - 8.0, xy(m, w1, IL.vc_bed(w1))[1] - 16.0, "下流", 160, cap=28, col=J.TICK, anchor="end"))
         return g
     if view == "dam":
         m = _map("dam")
