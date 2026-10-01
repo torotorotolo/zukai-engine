@@ -521,7 +521,8 @@ LV_EV = {
     "fall60": dict(k="ev", at="1960-11-04", t="崩落", rec="S1 p72", c="ALERT"),
     "fill3": dict(k="ev", s="z", at="1963-04-10", t="3回目の水ため", rec="S1 p226", c="LINE", dy=34),
     "acc": dict(k="ev", s="v", at="1963-08-15", t="速まり始める", rec=["S1 p93", "S1 p96"], c="ALERT"),
-    "lower": dict(k="ev", at="1963-09-26", t="下げると決める", rec="S9 p2015", c="LINE"),
+    # ⚠️ 試し焼き（36857375434）：上の端の札が715m の許可の破線の真上に乗り「715m の札」に読めた → 上の段だけ・札は下の端
+    "lower": dict(k="ev", s="z", at="1963-09-26", t="下げると決める", rec="S9 p2015", c="LINE", pos="bot"),
     "rep": dict(k="ev", at="1963-10-08", t="10月8日の報告", rec="S1 p96", c="DOC", pos="bot"),
 }
 LV_BAND = {"calm63": dict(k="band", s="v", a="1963-05-01", b="1963-08-31", t="大きな速まりなし", rec="S1 p93")}

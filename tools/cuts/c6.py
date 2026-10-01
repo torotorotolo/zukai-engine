@@ -149,7 +149,8 @@ SPEC = {
         fig=ss.lv_fig(ss.LV_63, past=ss.lvp("z6303", "z6304", "z6308", "v6303")
                       + [ss.LV_REF["model"], ss.LV_REF["permit"], ss.LV_EV["fill3"], ss.LV_BAND["calm63"]],
                       rel=[ss.LV_REL["model"], ss.LV_REL["permit"]], steps=[
-            dict(add=ss.lvp("z6309") + [dict(k="ring", s="z", at="1963-08-14", t="8月の半ば", off=(-20, 40), anchor="end")]),
+            # ⚠️ 試し焼き（36857375434）：札を左下に置くと4月10日→8月14日の水位の線に乗った → 右下（700m の線より下）
+            dict(add=ss.lvp("z6309") + [dict(k="ring", s="z", at="1963-08-14", t="8月の半ば", off=(24, 62), anchor="start")]),
             dict(add=ss.LV_EV["acc"]),
             dict(add=dict(k="hl", s="z", a="1963-08-14", b="1963-09-01"))]),
     ),
