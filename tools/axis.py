@@ -300,6 +300,10 @@ def _draw(A, it, row, dim):
     for s, cap, fam, c in reversed(lines):
         g.append(F.txtfit(tx, yy, s, it["_w"], cap=cap, col=c, anchor=anch, fam=fam))
         yy -= cap + 6
+    if lines:
+        # 🆕 16本目 ⑤b-6b：札の縦の広がり（いちばん上の行の字の上の端〜いちばん下の行の字の下の線）。門番 check_axis が右上の章の札
+        #   （jiko_style.chapter）と照らす＝cb16 の3段目の札が「11 / 11」に接したのを、層どうしの横切りしか見ない layout が素通りした
+        rec["ly"] = (round(yy + 6, 1), round(ty, 1))
     g.append(F.line(x, ay - 10, x, ty + 10, col, 3 if k == "split" else 4))
     if k == "pt":
         g.append(F.circ(x, ay, 12 if it.get("big") else 9, col))

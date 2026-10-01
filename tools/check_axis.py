@@ -95,6 +95,7 @@ REC_AXIS = {
     "1963-09-02": {"S1 p93", "S1 p226"},   # p93「da mm/g 6,5 del 2 settembre a 200 mm/g del 9 ottobre」（速さが増し始めた日）
 }
 LANES_OK = set()
+CH_PAD = 12          # 🆕 16本目 ⑤b-6b：札と右上の章の札（jiko_style.chapter）のあいだに要る画素
 
 
 def gv(view, s):
@@ -247,6 +248,19 @@ def judge_fig(kw, split_times=()):
             n += 1
             if b.get("row", 0) > a.get("row", 0) and a["lx"][0] + 2 < b["x"] < a["lx"][1] - 2:
                 bad.append(f"{b['at']} の縦の線（段{b.get('row', 0)}）が {a['at']} の札（段{a.get('row', 0)}）を貫く")
+    # 🆕 2026-10-01（16本目 ⑤b-6b）：上の段へ積んだ札が、右上の章の札（`jiko_style.chapter`＝x RIGHT−470〜RIGHT・y 56〜158）に
+    #   触れない（間 CH_PAD 画素）。試し焼き 36880658544 の cb16＝3段目の「1963年10月9日」が「11 / 11・今も立つダム」の真下に接し、
+    #   1つの塊に読めた（原寸の切り出しで見つけた）。門番 layout は層どうしの横切りしか見ない＝札が図の枠の上へ出ても鳴らなかった。
+    #   札の縦の広がりは型が描いたとおりに記録する（`ly`＝lx と同じ作り）
+    import jiko_style as J
+    cbox = (J.RIGHT - 470 - CH_PAD, J.RIGHT + CH_PAD, 56 - CH_PAD, 158 + CH_PAD)
+    for a in labs:
+        if not a.get("ly"):
+            continue
+        n += 1
+        if a["lx"][1] > cbox[0] and a["lx"][0] < cbox[1] and a["ly"][0] < cbox[3] and a["ly"][1] > cbox[2]:
+            bad.append(f"{a['at']} の札（段{a.get('row', 0)}・上の端 y={a['ly'][0]:.0f}）が右上の章の札に触れる"
+                       f"（間 {CH_PAD} 画素未満）＝段を減らす（軸の右に余白・札を年月まで）")
     if view == "lanes":
         for nm in m["lanes"]:
             n += 1
@@ -319,6 +333,14 @@ def _selftest_ep15():
     p46 = dict(k="pt", at="1946-07", t="売却", rec="AAB p12", fmt="y")
     cases += [("🔴 15本目 陽性対照：1946年の縦の線が1944年の札を貫く（直す前の c408）", dict(hist, past=[p44, p46]), False),
               ("15本目 正しい：1946年の札を消して沈める（直した c408）", dict(hist, past=[p44, dict(p46, lab=False, t="")]), True)]
+    # 🆕 16本目 ⑤b-6b：上の段へ積んだ札が右上の章の札に触れる（直す前の cb16＝軸の右の端に近い3点の札が3段に積まれた）。
+    #   日付は15本目の見本の表にある値（CAROL p5008）＝3段目の札だけが章の札の箱に入り、縦の線の貫きは起きない並べ方
+    late = dict(view="date", span=("2016-01", "2021-12"), ticks=("2016", "2018", "2020"), note="n", src="s",
+                steps=[dict(add=[dict(k="pt", at=d, t="事故", rec="CAROL p5008", anchor="end")
+                                 for d in ("2020-07-22", "2020-11-03", "2021-07-13")])])
+    cases += [("🔴 16本目 陽性対照：3段目の札が右上の章の札に触れる（直す前の cb16）", late, False),
+              ("16本目 正しい：同じ右の端でも2段に収める", dict(late, steps=[dict(add=[
+                  dict(k="pt", at=d, t="事故", rec="CAROL p5008", anchor="end") for d in ("2020-07-22", "2020-11-03")])]), True)]
     ok = True
     for name, kw, want in cases:
         bad, _ = judge_fig(kw, ())
