@@ -39,6 +39,13 @@
        pitch（機首の上げ・度）・roll（左への傾き・度）・ail（補助翼 off／right）・出来事 rings（テレメトリー）・pylon（1本流れる）
   RD … ピットの事故機（⑤b-2 は c109 の小さな絵の尾翼の寄り tail だけ・mark＝尾翼の輪）＝⑤b-3 で本格的に
   動きの部品（build_jiko）：draw（線を道の頭から見せる）・mover（印が道を進み向きを変える）・akeys（濃さだけの鍵）
+  ── 16本目（バイオントダム災害・⑤b-2）＝頭に V の別の鍵 ──
+  VA … 上から見た谷（北が上）。view＝wide（谷の全体）／near（ダムと崩れた斜面）／west（峡谷の出口とピアーヴェ川の谷）。
+       tod（day／night・段で night→dawn）・block（崩れたあとの塊）・slide（崩れた範囲）・towns／shore（建物の面 on／gone／mud）・
+       tunnel・split（会社の説明の想定＝off／on／flow）・road（off／on／low＝730m未満）・gates・marks（北の岸の930m）・
+       wave_w（西へダムを越える水）・flood（ピアーヴェ川の谷へ広がる水）・wave_e（東へ向かった波）・
+       見る向きの合図＝prev（頭だけ：B／C／D の切り口の線と目の印）・nxt（次の断面の線）・switch（頭だけ：「上から見ると」）。
+       形のもと＝#100（1934年の地形図）を目で読んだ点（正本 ref/ep16/map16.json）＝上の「16本目」の節
 
 ■ 守りの線（ルール §5b-74）と門番 `check_illu`（§5b-75）
   ① 描く物・人・動作・数・時刻は1つずつ出典（資料と頁＝`rec=`）。部品は置き場が既定の rec を持つ。記録の欄（傾き・波・
@@ -1833,6 +1840,654 @@ def _scene_RC(start, states, steps):
 # ══════════════════════════════════════════════════════════
 #  札（段ごとの `_a<番号>`）と、左上の「再現イラスト」・左下の出典
 # ══════════════════════════════════════════════════════════
+# ══════════════════════════════════════════════════════════
+#  16本目（バイオントダム災害）⑤b-2（2026-10-01）：VA 上から見た谷（北が上）
+# ══════════════════════════════════════════════════════════
+# 🔴 鍵は頭に V（14本目 A〜E・15本目 RA〜RD は selftest の見本が使う＝触らない）。VB・VC（⑤b-3）・VD（⑤b-4）も V の頭で足す
+# 🔴 守りの線（Vault 映像方針 16本目 §2・§7・§9＝ルール §5b-111）：
+#    ・形のもと＝#100 イタリア軍地理院 1934年の地形図（PD）を**目で読んだ点**（正本＝`ref/ep16/map16.json`・道具＝
+#      `ref/ep16/measure_map16.py check`＝記録の距離〈トンネル2.5km・北の岸の印1.1km・崩れた幅1.7km〉・面積〈1.9km²〉・
+#      Wikidata の4点で縮尺と向きを照らす）。座標は #100 の画素（x 東・y 南）＝1画素 5.379メートル（1 km 方眼＝185.9画素）。
+#      茶と灰の単色刷りで等高線は1本ずつ追えない＝湖の700mの線は標高の点から内挿した**概略**・標高の帯は谷からの距離の**模式**
+#      （左下の出典の行で断る）。S8 の図・BY-SA・CC BY・Google Earth はなぞらない
+#    ・人は置かない（22時39分に町の人がどこにいたかの記録が無い＝S1・S8・S9）。町と集落は建物の面だけ（数えない形＝斜めの縞）。
+#      消えるのは S1 PDF98 が挙げた所だけ＝ロンガローネ・ピラーゴ・フォルナーチェ（ピアーヴェ川の谷）・ピネダとサン・マルティーノ
+#      （湖の岸）。ファエとカステッラヴァッツォ（の一部）は #100 の外＝描かない。記録に無い町（リヴァルタ・ヴィッラノーヴァ・
+#      コディッサーゴ）は建物の面を描かない（残った／消えたのどちらも名乗らない）
+#    ・記録の最高を越えない（北の岸の印は 930m の2か所＝S1 PDF146）。上からの絵は高さを描かない＝谷の真ん中で盛り上がる水も無い
+#    ・夜の色（月・星・明かりは描かない）。動く水・塊・ダムは明るい固定の色（夜の地と ΔE 25 以上）
+#    ・縮尺は1画素あたり1.5m 以上（門番 ⑧）＝人が1画素に満たない
+VA_MPX = 5.379                     # #100 の1画素＝メートル（1 km 方眼＝185.9画素・measure_map16.py grid）
+VA_PTS = dict(                     # 目で読んだ点（#100 の画素）＝map16.json の points と同じ（selftest が照合）
+    dam=(535.0, 536.0), casso=(577.0, 437.0), erto=(1148.0, 424.0), longarone=(140.0, 520.0), pirago=(105.0, 634.0),
+    fornace=(118.0, 697.0), smartino=(1323.0, 352.0), pineda=(1058.0, 585.0), gorge_exit=(330.0, 545.0),
+    tunnel_in=(1000.0, 507.0), tunnel_out=(525.0, 527.0), north_dam=(535.0, 445.0), north_1100=(740.0, 448.0),
+    slide_w=(553.0, 551.0), slide_e=(869.0, 610.0), road_up=(560.0, 508.0), road_down=(345.0, 532.0), toc=(715.0, 700.0))
+VA_LINES = dict(                   # map16.json の lines と同じ
+    vajont=((1480, 394), (1440, 392), (1380, 392), (1320, 398), (1270, 418), (1240, 438), (1200, 468), (1150, 503),
+            (1100, 515), (1045, 528), (1000, 552), (945, 574), (900, 578), (850, 575), (800, 565), (750, 550), (700, 539),
+            (650, 547), (600, 546), (560, 535), (535, 536), (500, 540), (450, 545), (400, 547), (360, 543), (330, 545),
+            (300, 552), (270, 562)),
+    piave=((205, 250), (215, 320), (222, 385), (214, 450), (206, 515), (214, 580), (226, 645), (232, 705), (242, 780),
+           (248, 845)),
+    tunnel=((525, 527), (560, 519), (640, 521), (720, 514), (800, 526), (880, 527), (950, 516), (1000, 507)),
+    road=((1140, 436), (1060, 468), (990, 488), (900, 500), (800, 508), (700, 503), (620, 500), (560, 508), (500, 520),
+          (440, 528), (385, 532), (345, 532), (300, 532), (250, 530), (200, 525), (165, 522)),
+    road_casso=((620, 500), (600, 470), (577, 445)))
+# 湖の700mの線の概略＝[x, 川の y, 北の岸までの画素, 南の岸までの画素]（map16.json の lake_stations の rows と同じ）
+VA_LAKE = ((535, 536, 15, 15), (560, 535, 15, 16), (600, 546, 18, 18), (650, 547, 20, 22), (700, 539, 22, 28),
+           (750, 550, 24, 32), (800, 565, 22, 30), (850, 575, 32, 34), (900, 578, 46, 32), (945, 574, 52, 28),
+           (1000, 552, 44, 28), (1045, 528, 36, 40), (1100, 515, 46, 30), (1150, 503, 44, 48), (1200, 468, 40, 30),
+           (1240, 438, 48, 24), (1270, 418, 40, 22), (1320, 398, 18, 16), (1380, 392, 14, 12), (1440, 392, 10, 9),
+           (1480, 394, 0, 0))
+VA_POLY = dict(                    # map16.json の polys と同じ
+    piave_floor=((185, 250), (170, 330), (160, 390), (165, 440), (168, 500), (172, 560), (150, 600), (145, 650), (152, 700),
+                 (160, 760), (165, 845), (170, 1000), (330, 1000), (318, 845), (306, 760), (304, 690), (304, 620),
+                 (310, 575), (330, 555), (305, 520), (300, 470), (290, 420), (262, 380), (240, 330), (228, 250)),
+    longarone=((128, 428), (152, 428), (160, 470), (166, 520), (170, 565), (165, 605), (140, 615), (122, 590), (115, 545),
+               (118, 490), (122, 455)),
+    pirago=((86, 622), (122, 618), (128, 640), (110, 652), (88, 648)),
+    fornace=((108, 690), (124, 688), (128, 702), (110, 706)),
+    casso=((563, 431), (588, 428), (594, 440), (580, 448), (565, 445)),
+    erto=((1128, 414), (1150, 408), (1172, 416), (1168, 434), (1140, 436)),
+    smartino=((1306, 346), (1330, 342), (1340, 352), (1322, 361), (1305, 357)),
+    pineda=((1040, 578), (1062, 575), (1076, 583), (1064, 594), (1042, 592)),
+    slide_back=((869, 610), (884, 675), (866, 742), (828, 790), (765, 814), (690, 814), (625, 790), (580, 742), (558, 675),
+                (553, 600)))
+# ダムの弧（上から見たアーチ＝上流〈東〉へ張り出す・天端の長さ190m＝S9 PDF6 の寸法の範囲。弧の形は模式）
+VA_DAM_N, VA_DAM_S, VA_DAM_C = (533.0, 520.0), (533.0, 552.0), (540.0, 536.0)
+VA_SHIFT = 65.0                    # 塊が北へ動いた量（画素）＝約350m（S8 p.46「水平に300〜400m」）
+VA_GORGE_W = 8.0                   # 峡谷の暗い筋の幅（画素＝約43m・模式）。⑤b-2 の下見：13（70m）は近い見え方で37画素の黒い帯＝道路に見えた
+VA_GORGE_PX = (6.0, 16.0)          # 画面の上の峡谷の筋の太さの下限と上限（画素）
+# ピアーヴェ川の谷へ広がる水の範囲（谷底＋町の段丘＝ロンガローネ・ピラーゴ・フォルナーチェを覆う・南北は画面の外へ続く＝模式）
+VA_FLOOD = ((185, 250), (160, 330), (140, 390), (112, 425), (103, 470), (100, 530), (104, 590), (74, 614), (72, 655),
+            (94, 690), (97, 722), (118, 780), (138, 845), (150, 1000), (330, 1000), (318, 845), (306, 760), (304, 690),
+            (304, 620), (312, 575), (345, 560), (372, 546), (345, 528), (305, 520), (300, 470), (290, 420), (262, 380),
+            (240, 330), (228, 250))
+VA_FLOOD_SPLIT = 548.0             # 北へ広がる水／南へ広がる水の境（画素の y）
+VA_FLOOD_GO = dict(n=((345, 545), (290, 530), (230, 500), (190, 440), (185, 380), (200, 300), (205, 200)),
+                   s=((345, 545), (290, 560), (230, 590), (180, 640), (175, 720), (195, 820), (215, 1000)))
+VA_WAVE_W = ((578, 528), (548, 534), (533, 536), (500, 540), (450, 545), (400, 547), (360, 543), (330, 545))
+VA_WAVE_W_W = 34.0                 # ダムを越えた水の帯の幅（画素＝約180m・模式。高さは描かない）
+VA_EAST_X0 = 880.0                 # 東へ向かった波が走る湖（塊の東の端から上流の端まで）
+VA_SPLIT_X = (665.0, 800.0)        # c316 会社の説明（想定）の土砂の帯（模式）
+# 見る向きの合図（Vault 映像方針 16本目 §4）：B＝谷を横切る断面（約1.1km上流の点を通る南北の線・西を向いて見る）／
+#   C＝谷に沿う断面（ダムを通る東西の線・南を向いて見る）／D＝正面から見た斜面（北の岸の目の印・南を向いて見る）
+VA_CUT = dict(B=dict(a=(740.0, 360.0), b=(740.0, 830.0), col="#3fb8a8", eye=(778.0, 470.0), look=180.0),
+              C=dict(a=(390.0, 536.0), b=(905.0, 536.0), col="#e2a83c", eye=(640.0, 470.0), look=90.0),
+              D=dict(a=None, b=None, col="#f3f6f8", eye=(700.0, 472.0), look=90.0))
+VA_SWITCH = "上から見ると"         # 切り替えの字（画面の上の真ん中・約1.2秒で消える）。語りが同じ言葉を言うカットは出さない
+VA_LAB = "上から見た図（北が上）"
+VA_VIEW = dict(wide=dict(c=(770.0, 560.0), mpp=4.1),       # 谷の全体（ロンガローネ〜湖の上流の端）
+               near=dict(c=(720.0, 545.0), mpp=1.9),       # ダムと崩れた斜面（トンネルの入口まで）
+               west=dict(c=(392.0, 565.0), mpp=2.2))       # 峡谷の出口とピアーヴェ川の谷（ロンガローネ・ピラーゴ・フォルナーチェ）
+VA_Y0 = 500.0                      # 画面の真ん中の y（左上の札の下〜左下の出典の上）
+VA_BANDS = (1500.0, 950.0, 520.0, 220.0)    # 標高の帯（模式）＝谷底・湖からの距離（メートル）
+VA_PAL = dict(
+    day=dict(b0="#7c8b69", b1="#899a75", b2="#97a881", b3="#a6b68e", b4="#b5c49c", floor="#d5d0b8", floor_ln="#c3bda2",
+             gorge="#66735e", lake="#5d92b4", shore="#3f7193", river="#4c86ab", house="#c49a84", house_ln="#9c725e",
+             road="#f1e9d3", road_ln="#7d735e", scar="#a39a8a"),
+    # 夜（⑤b-2 の下見のあと check_color.de で測った）：湖と谷の帯の差 7.2 → 22.2（湖 #1b3653 → #2a5f8f）・
+    #   建物の面と地の差 17.4 → 27.2（#625e68 → #807886＝消える前の町が夜でも見える・泥の色とも 25.7）
+    night=dict(b0="#151b27", b1="#1a2130", b2="#1f2738", b3="#252e41", b4="#2b3549", floor="#333d52", floor_ln="#3b465b",
+               gorge="#0e131b", lake="#2a5f8f", shore="#5584ad", river="#3c6c97", house="#807886", house_ln="#5e5866",
+               road="#858d9f", road_ln="#3c4352", scar="#77726a"),
+    dawn=dict(b0="#4f5868", b1="#566070", b2="#5e6878", b3="#667082", b4="#6f798b", floor="#8a8e94", floor_ln="#7c8188",
+              gorge="#454c58", lake="#5a7690", shore="#46637d", river="#46637d", house="#8c8584", house_ln="#6e6766",
+              road="#a2a6af", road_ln="#5d616b", scar="#86807a"))
+# 動く物・大事な物は時刻で変えない明るい色（夜の地と ΔE 25 以上＝門番 ⑬〈⑤b-3〉の値）
+VA_FIX = dict(dam="#e6eaed", dam_ln="#20262d", block="#b9a079", block_ln="#5e4b33", flood="#a8d9ec", foam="#dff1f9",
+              mud="#8c7357", mud_ln="#5f4c38", split="#a8916f", flow="#f2c14e")
+VA_T = dict(wave=0.9, flood=1.3, flood_lag=0.7, towns_lag=0.55, towns=0.55, recede=0.8, mud=0.8, slide=0.9, block=0.6,
+            tunnel=1.6, ends=0.4, road=1.4, low=0.6, gates=0.45, split=0.8, flow=1.6, marks=0.45, wave_e=2.6, shore=0.8,
+            dawn=1.8, line=0.45, prev_hold=1.5, prev_fade=0.5, prev_thin=0.55, switch_hold=1.2, switch_fade=0.35)
+# 部品の出典（rec）。頁は ss.REC_DOCS の通し番号（S1＝PDF の頁・S8＝p1041〜・S9＝p2001〜・#100＝画像＝p1）
+VA_REC = dict(
+    ground="#100 p1（1934年の地形図＝谷・川・村の位置・湖の700mの線の概略）",
+    dawn="S1 p98（10月10日の夜明けには…もう存在しなかった）",
+    towns="S1 p98（ロンガローネ・ピラーゴ・フォルナーチェ＝夜明けにはもう存在しなかった）・#100 p1（位置）",
+    shore="S1 p98（湖の岸のピネダとサン・マルティーノ）・#100 p1（位置）",
+    dam="S1 p171（ダムは耐えた）",
+    block="S1 p147（1つの塊のまま）・S8 p1046（水平に300〜400m）・S1 p146（北の岸に乗り上げた）",
+    slide="S1 p144（崩れた斜面＝幅およそ1.7キロ・面積およそ1.9平方キロ）",
+    tunnel="S1 p85（右岸の岩の中の迂回トンネル・出口はダムの近く・入口は約2,500m上流）",
+    split="S9 p2007（崩れても2つの湖をつなぐ迂回トンネル）・S1 p78（洪水を流せる）",
+    road="S1 p98（エルト・カッソからロンガローネへの道・730m未満）",
+    gates="S1 p98（上の入口＝作業員2人・下の入口＝憲兵隊がふさいだか、ふさごうとしていた）",
+    marks="S1 p146（北の岸のダムの真横と約1.1km上流で930m）",
+    wave_w="S1 p146（西へダムを越えた）・S1 p98（ダムを越えてピアーヴェ川の谷へ）",
+    flood="S1 p98（ダムを越えてピアーヴェ川の谷へ）",
+    wave_e="S1 p146（東へ・湖の上流の岸へ）")
+
+
+def va_px(p, view):
+    """#100 の画素の点 → VA の見え方 view の画面の点。"""
+    v = VA_VIEW[view]
+    k = VA_MPX / v["mpp"]
+    return (960.0 + (p[0] - v["c"][0]) * k, VA_Y0 + (p[1] - v["c"][1]) * k)
+
+
+def va_path(view, pts, per=8, closed=False):
+    return _smooth([va_px(p, view) for p in pts], closed=closed, per=per)
+
+
+def va_shore(x, side):
+    """湖の700mの線の概略の、x での岸の y（side＝"n" 北／"s" 南）。行のあいだは直線（measure_map16.shore と同じ式）。"""
+    for (x0, y0, n0, s0), (x1, y1, n1, s1) in zip(VA_LAKE, VA_LAKE[1:]):
+        if x0 <= x <= x1:
+            f = (x - x0) / (x1 - x0) if x1 > x0 else 0.0
+            y, n, s = y0 + (y1 - y0) * f, n0 + (n1 - n0) * f, s0 + (s1 - s0) * f
+            return y - n if side == "n" else y + s
+    raise ValueError(f"illu VA：x={x} は湖の範囲の外")
+
+
+def va_dam_arc(n=10):
+    """ダムの弧（南のたもと → 冠 → 北のたもと）。2次のベジエを冠を通るように置いた。"""
+    (nx, ny), (sx, sy), (cx, cy) = VA_DAM_N, VA_DAM_S, VA_DAM_C
+    kx, ky = 2 * cx - (nx + sx) / 2, 2 * cy - (ny + sy) / 2
+    return [((1 - t) ** 2 * sx + 2 * (1 - t) * t * kx + t * t * nx, (1 - t) ** 2 * sy + 2 * (1 - t) * t * ky + t * t * ny)
+            for t in (i / n for i in range(n + 1))]
+
+
+def va_lake_px(view):
+    """湖の輪郭（画面の点）＝北の岸（ダム→上流の端）＋南の岸（上流の端→ダム）＋ダムの弧。"""
+    x0 = VA_PTS["dam"][0] + 10.0
+    north = [VA_DAM_N] + [(float(x), float(y - n)) for x, y, n, _s in VA_LAKE if x > x0]
+    south = [(float(x), float(y + s)) for x, y, _n, s in reversed(VA_LAKE) if x > x0] + [VA_DAM_S]
+    N, S = va_path(view, north, per=6), va_path(view, south, per=6)
+    arc = [va_px(p, view) for p in va_dam_arc()]
+    return N + S[1:] + arc[1:-1]
+
+
+def va_slide_pts():
+    """崩れた範囲（形は模式）＝前のふち（湖の南の岸・slide_w〜slide_e）＋後ろのふち（VA_POLY slide_back）。#100 の画素。"""
+    x0, x1 = VA_PTS["slide_w"][0], VA_PTS["slide_e"][0]
+    front = [(float(x), va_shore(x, "s")) for x in range(int(x0), int(x1) + 1, 8)] + [(x1, va_shore(x1, "s"))]
+    return front + [tuple(map(float, q)) for q in VA_POLY["slide_back"]]
+
+
+def _va_hatch(pid, bg, ln, step=7, w=3):
+    """建物の面の斜めの縞（数えない形＝1軒ずつ描かない）。"""
+    return (f'<defs><pattern id="{pid}" width="{step}" height="{step}" patternUnits="userSpaceOnUse" '
+            f'patternTransform="rotate(45)"><rect width="{step}" height="{step}" fill="{bg}"/>'
+            f'<rect width="{w}" height="{step}" fill="{ln}"/></pattern></defs>')
+
+
+def _va_poly(view, pts, fill, stroke=None, sw=0.0, op=None, per=4):
+    return _poly(va_path(view, pts, per=per, closed=True), fill, stroke, sw, op)
+
+
+def va_ground_svg(view, tod):
+    """地面：標高の帯（模式＝谷底と湖からの距離）・ピアーヴェ川の河原と川・峡谷と川・湖・残る村（エルト・カッソ）。"""
+    P = VA_PAL[tod]
+    mpp = VA_VIEW[view]["mpp"]
+    k = VA_MPX / mpp
+    g = [f'<rect x="-10" y="-10" width="{W + 20}" height="{H + 20}" fill="{P["b0"]}"/>',
+         _va_hatch("vaH", P["house"], P["house_ln"])]
+    lake = va_lake_px(view)
+    floor = va_path(view, VA_POLY["piave_floor"], per=6, closed=True)
+    i = VA_LINES["vajont"].index((535, 536))
+    gorge = va_path(view, VA_LINES["vajont"][i:], per=6)
+    for d_m, col in zip(VA_BANDS, ("b1", "b2", "b3", "b4")):
+        w = 2.0 * d_m / mpp
+        for s in (floor, lake):
+            g.append(f'<path d="{_pl(s)} Z" fill="{P[col]}" stroke="{P[col]}" stroke-width="{w:.1f}" stroke-linejoin="round"/>')
+        g.append(f'<path d="{_pl(gorge)}" fill="none" stroke="{P[col]}" stroke-width="{w + VA_GORGE_W * k:.1f}" '
+                 'stroke-linecap="round" stroke-linejoin="round"/>')
+    g.append(f'<path d="{_pl(floor)} Z" fill="{P["floor"]}"/>')
+    pv = va_path(view, VA_LINES["piave"], per=6)
+    for dx, op in ((-9.0, 0.55), (8.0, 0.45)):            # 河原の筋（模式）
+        g.append(f'<path d="{_pl([(x + dx * k / 2.4, y) for x, y in pv])}" fill="none" stroke="{P["floor_ln"]}" '
+                 f'stroke-width="{max(1.5, 1.2 * k):.1f}" opacity="{op}"/>')
+    g.append(f'<path d="{_pl(pv)}" fill="none" stroke="{P["river"]}" stroke-width="{max(2.5, 2.2 * k):.1f}" '
+             'stroke-linecap="round" stroke-linejoin="round"/>')
+    gw = min(VA_GORGE_PX[1], max(VA_GORGE_PX[0], VA_GORGE_W * k))
+    g.append(f'<path d="{_pl(gorge)}" fill="none" stroke="{P["gorge"]}" stroke-width="{gw:.1f}" '
+             'stroke-linecap="round" stroke-linejoin="round"/>')
+    g.append(f'<path d="{_pl(gorge)}" fill="none" stroke="{P["river"]}" stroke-width="{max(1.8, min(3.5, 0.9 * k)):.1f}" '
+             'stroke-linecap="round" stroke-linejoin="round"/>')
+    # 湖の上流の端から先の川（#100 の東の端まで）
+    g.append(f'<path d="{_pl(va_path(view, ((1480, 394), (1540, 392), (1610, 388)), per=4))}" fill="none" '
+             f'stroke="{P["river"]}" stroke-width="{max(1.8, 0.9 * k):.1f}"/>')
+    g.append(f'<path d="{_pl(lake)} Z" fill="{P["lake"]}" stroke="{P["shore"]}" stroke-width="{max(2.0, 0.8 * k):.1f}" '
+             'stroke-linejoin="round"/>')
+    for name in ("erto", "casso"):
+        g.append(_va_poly(view, VA_POLY[name], "url(#vaH)", P["house_ln"], 1.5))
+    return "".join(g)
+
+
+def va_towns_svg(view, tod, names, mud=False):
+    """建物の面（数えない形）か、消えたあとの泥の色の跡（mud）。"""
+    P = VA_PAL[tod]
+    if mud:
+        return "".join(_va_poly(view, VA_POLY[n], VA_FIX["mud"], VA_FIX["mud_ln"], 2.0) for n in names)
+    pid = "vaT" + names[0][:3]
+    return _va_hatch(pid, P["house"], P["house_ln"]) + "".join(
+        _va_poly(view, VA_POLY[n], f"url(#{pid})", P["house_ln"], 1.5) for n in names)
+
+
+def va_block_svg(view):
+    """崩れたあと：崩れた範囲（むき出しの滑った面＝明るい灰）と、北へ動いて湖を埋めた1つの塊（明るい茶）。形は模式。"""
+    sl = va_slide_pts()
+    blk = [(x, y - VA_SHIFT) for x, y in sl]
+    k = VA_MPX / VA_VIEW[view]["mpp"]
+    g = [f'<defs><pattern id="vaB" width="14" height="14" patternUnits="userSpaceOnUse">'
+         f'<rect width="14" height="14" fill="{VA_FIX["block"]}"/><circle cx="4" cy="5" r="1.6" fill="{VA_FIX["block_ln"]}" '
+         f'opacity="0.45"/><circle cx="11" cy="11" r="1.3" fill="{VA_FIX["block_ln"]}" opacity="0.35"/></pattern></defs>',
+         _poly(va_path(view, sl, per=4, closed=True), VA_PAL["night"]["scar"], "#4b4740", max(1.5, 0.5 * k)),
+         _poly(va_path(view, blk, per=4, closed=True), "url(#vaB)", VA_FIX["block_ln"], max(2.0, 0.7 * k))]
+    return "".join(g)
+
+
+def va_slide_svg(view):
+    """崩れた範囲（崩れる前の斜面の上・形は模式）＝薄い琥珀の面と太い縁。"""
+    k = VA_MPX / VA_VIEW[view]["mpp"]
+    pts = va_path(view, va_slide_pts(), per=4, closed=True)
+    return (_poly(pts, C["mark"], None, 0.0, 0.30) + _poly(pts, "none", "#10161b", max(6.0, 1.6 * k), 0.55)
+            + _poly(pts, "none", C["mark"], max(3.0, 0.9 * k)))
+
+
+def va_dam_svg(view):
+    """ダムの弧（明るい固定の色＝夜の地と ΔE 25 以上。太さは天端の厚さより太い＝見える太さの模式）。"""
+    arc = [va_px(p, view) for p in va_dam_arc(16)]
+    w = max(5.0, 30.0 / VA_VIEW[view]["mpp"])
+    return (f'<path d="{_pl(arc)}" fill="none" stroke="{VA_FIX["dam_ln"]}" stroke-width="{w + 4:.1f}" stroke-linecap="round"/>'
+            f'<path d="{_pl(arc)}" fill="none" stroke="{VA_FIX["dam"]}" stroke-width="{w:.1f}" stroke-linecap="round"/>')
+
+
+def _va_band(pts, w, col, op, edge=None):
+    e = (f'<path d="{_pl(pts)}" fill="none" stroke="{edge}" stroke-width="{w + 5:.1f}" stroke-opacity="{op * 0.8:.2f}" '
+         'stroke-linecap="round" stroke-linejoin="round"/>') if edge else ""
+    return e + (f'<path d="{_pl(pts)}" fill="none" stroke="{col}" stroke-width="{w:.1f}" stroke-opacity="{op}" '
+                'stroke-linecap="round" stroke-linejoin="round"/>')
+
+
+def va_wave_w_svg(view):
+    """西へダムを越えて峡谷を下る水（帯・高さは描かない）。"""
+    k = VA_MPX / VA_VIEW[view]["mpp"]
+    pts = va_path(view, VA_WAVE_W, per=6)
+    return _va_band(pts, VA_WAVE_W_W * k, VA_FIX["flood"], 0.88, edge=VA_FIX["foam"])
+
+
+def va_flood_svg(view, half):
+    """ピアーヴェ川の谷へ広がる水（north＝境より北・south＝南）。平らな面＝盛り上がりは描かない。"""
+    pts = va_path(view, VA_FLOOD, per=4, closed=True)
+    ys = va_px((0.0, VA_FLOOD_SPLIT), view)[1]
+    cid = f"vaF{half}"
+    clip = (f'<defs><clipPath id="{cid}"><rect x="-10" y="{"-10" if half == "n" else f"{ys:.1f}"}" width="{W + 20}" '
+            f'height="{(ys + 10) if half == "n" else (H + 10 - ys):.1f}"/></clipPath></defs>')
+    return clip + f'<g clip-path="url(#{cid})">' + _poly(pts, VA_FIX["flood"], VA_FIX["foam"], 3.0, 0.86) + "</g>"
+
+
+def va_wave_e_svg(view):
+    """東へ向かった波（崩れた塊の東の端から湖の上流の端まで）＝湖の面を泡の色で覆う。岸を少し越える（上流の岸で25〜90m）。"""
+    lake = va_lake_px(view)
+    xs = va_px((VA_EAST_X0, 0.0), view)[0]
+    k = VA_MPX / VA_VIEW[view]["mpp"]
+    return (f'<defs><clipPath id="vaE"><rect x="{xs:.1f}" y="-10" width="{W + 20 - xs:.1f}" height="{H + 20}"/></clipPath></defs>'
+            f'<g clip-path="url(#vaE)"><path d="{_pl(lake)} Z" fill="{VA_FIX["foam"]}" fill-opacity="0.82" '
+            f'stroke="{VA_FIX["foam"]}" stroke-width="{max(4.0, 3.0 * k):.1f}" stroke-opacity="0.82" stroke-linejoin="round"/></g>')
+
+
+def va_wave_e_path(view):
+    pts = [(VA_EAST_X0 + 4.0, va_shore(VA_EAST_X0 + 4.0, "n") / 2 + va_shore(VA_EAST_X0 + 4.0, "s") / 2)]
+    pts += [(float(x), y + (s - n) / 2.0) for x, y, n, s in VA_LAKE if x > VA_EAST_X0 + 10]
+    return va_path(view, pts, per=6)
+
+
+def va_tunnel_svg(view):
+    """迂回トンネル（北の岸の岩の中＝点線）。"""
+    pts = va_path(view, VA_LINES["tunnel"], per=6)
+    return (f'<path d="{_pl(pts)}" fill="none" stroke="#10161b" stroke-opacity="0.55" stroke-width="9" stroke-linecap="round" '
+            'stroke-linejoin="round"/>'
+            f'<path d="{_pl(pts)}" fill="none" stroke="{C["mark"]}" stroke-width="5" stroke-dasharray="3 11" '
+            'stroke-linecap="round" stroke-linejoin="round"/>')
+
+
+def va_tunnel_ends_svg(view):
+    g = []
+    for p in (VA_PTS["tunnel_in"], VA_PTS["tunnel_out"]):
+        x, y = va_px(p, view)
+        g.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="11" fill="#10161b" fill-opacity="0.55" stroke="{C["mark"]}" '
+                 'stroke-width="4"/>')
+    return "".join(g)
+
+
+def va_split_svg(view):
+    """会社の説明（想定）：崩れた土砂で湖が2つに分かれる（湖を横切る帯＝模式）。"""
+    x0, x1 = VA_SPLIT_X
+    top = [(float(x), va_shore(x, "n") - 6.0) for x in range(int(x0), int(x1) + 1, 15)]
+    bot = [(float(x), va_shore(x, "s") + 6.0) for x in range(int(x1), int(x0) - 1, -15)]
+    pts = va_path(view, top + bot, per=3, closed=True)
+    return (_poly(pts, VA_FIX["split"], None, 0.0, 0.92)
+            + f'<path d="{_pl(pts)} Z" fill="none" stroke="#2b2117" stroke-width="2.5" stroke-dasharray="10 7"/>')
+
+
+def va_flow_path(view):
+    """想定の水の通り道＝分かれた上流の湖 → トンネルの入口 → トンネル → 出口（ダムのそば）。"""
+    lead = ((905.0, va_shore(905.0, "n") / 2 + va_shore(905.0, "s") / 2), (965.0, 528.0))
+    return va_path(view, lead + VA_LINES["tunnel"][::-1], per=6)
+
+
+def va_flow_svg(view):
+    pts = va_flow_path(view)
+    g = [_va_band(pts, 7.0, VA_FIX["flow"], 0.95, edge="#10161b")]
+    n = len(pts)
+    for j in range(3, n - 1, max(4, n // 7)):                # 流れる向きの山形（模式）
+        (x0, y0), (x1, y1) = pts[j - 1], pts[j + 1]
+        a = math.atan2(y1 - y0, x1 - x0)
+        x, y = pts[j]
+        L = 14.0
+        p1 = (x - L * math.cos(a) + 0.7 * L * math.sin(a), y - L * math.sin(a) - 0.7 * L * math.cos(a))
+        p2 = (x - L * math.cos(a) - 0.7 * L * math.sin(a), y - L * math.sin(a) + 0.7 * L * math.cos(a))
+        g.append(f'<path d="M {p1[0]:.1f} {p1[1]:.1f} L {x:.1f} {y:.1f} L {p2[0]:.1f} {p2[1]:.1f}" fill="none" '
+                 f'stroke="#10161b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>')
+    return "".join(g)
+
+
+def va_road_px(view):
+    return va_path(view, VA_LINES["road"], per=6)
+
+
+def va_road_svg(view):
+    """道（形は模式）＝エルトから北の岸ぞい・ダムの北のたもと・峡谷ぞいにロンガローネへ。カッソへの枝も。"""
+    g = []
+    for pts in (va_road_px(view), va_path(view, VA_LINES["road_casso"], per=6)):
+        g.append(f'<path d="{_pl(pts)}" fill="none" stroke="{VA_PAL["night"]["road_ln"]}" stroke-width="7" '
+                 'stroke-linecap="round" stroke-linejoin="round"/>'
+                 f'<path d="{_pl(pts)}" fill="none" stroke="{VA_PAL["night"]["road"]}" stroke-width="3.5" '
+                 'stroke-linecap="round" stroke-linejoin="round"/>')
+    return "".join(g)
+
+
+def va_road_low_svg(view):
+    """道の標高730mより低い区間（上の入口〜下の入口）。"""
+    r = VA_LINES["road"]
+    i, j = r.index((560, 508)), r.index((345, 532))
+    pts = va_path(view, r[i:j + 1], per=6)
+    return _va_band(pts, 7.0, C["mark"], 1.0, edge="#10161b")
+
+
+def va_gates_svg(view):
+    """道の入口2か所の印（上＝実線の輪〈作業員2人がふさいだ〉・下＝点線の輪〈ふさいだか、ふさごうとしていた〉）。人は描かない。"""
+    g = []
+    for p, dash in ((VA_PTS["road_up"], None), (VA_PTS["road_down"], "5 5")):
+        x, y = va_px(p, view)
+        da = f' stroke-dasharray="{dash}"' if dash else ""
+        g.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="15" fill="#10161b" fill-opacity="0.45" stroke="#10161b" '
+                 f'stroke-width="8"{da}/>'
+                 f'<circle cx="{x:.1f}" cy="{y:.1f}" r="15" fill="none" stroke="#f3f6f8" stroke-width="4"{da}/>'
+                 f'<path d="M {x - 8:.1f} {y:.1f} L {x + 8:.1f} {y:.1f}" stroke="#f3f6f8" stroke-width="4"{da}/>')
+    return "".join(g)
+
+
+def va_marks_svg(view):
+    """北の岸の印2か所（930m＝波が最も高く届いた所）。"""
+    g = []
+    for p in (VA_PTS["north_dam"], VA_PTS["north_1100"]):
+        x, y = va_px(p, view)
+        g.append(f'<path d="M {x:.1f} {y - 15:.1f} L {x + 13:.1f} {y + 9:.1f} L {x - 13:.1f} {y + 9:.1f} Z" fill="{C["mark"]}" '
+                 'stroke="#10161b" stroke-width="3.5" stroke-linejoin="round"/>')
+    return "".join(g)
+
+
+def va_eye_svg(x, y, look, col):
+    """目の印（見ている向きの矢印つき）。look＝画面の向き（度・東が0・南が90・西が180）。"""
+    r = math.radians(look)
+    ux, uy = math.cos(r), math.sin(r)
+    t0, t1 = (x + ux * 26, y + uy * 26), (x + ux * 66, y + uy * 66)
+    hx, hy = t1[0] - ux * 14, t1[1] - uy * 14
+    h1, h2 = (hx - uy * 9, hy + ux * 9), (hx + uy * 9, hy - ux * 9)
+    return (f'<path d="M {t0[0]:.1f} {t0[1]:.1f} L {t1[0]:.1f} {t1[1]:.1f}" stroke="#10161b" stroke-width="8" stroke-linecap="round"/>'
+            f'<path d="M {t0[0]:.1f} {t0[1]:.1f} L {hx:.1f} {hy:.1f}" stroke="{col}" stroke-width="4"/>'
+            f'<path d="M {t1[0]:.1f} {t1[1]:.1f} L {h1[0]:.1f} {h1[1]:.1f} L {h2[0]:.1f} {h2[1]:.1f} Z" fill="{col}" '
+            'stroke="#10161b" stroke-width="2"/>'
+            f'<path d="M {x - 21:.1f} {y:.1f} Q {x:.1f} {y - 17:.1f} {x + 21:.1f} {y:.1f} Q {x:.1f} {y + 17:.1f} {x - 21:.1f} {y:.1f} Z" '
+            'fill="#f3f6f8" stroke="#10161b" stroke-width="3"/>'
+            f'<circle cx="{x:.1f}" cy="{y:.1f}" r="6.5" fill="{col}" stroke="#10161b" stroke-width="2"/>')
+
+
+def _va_text(x, y, t, col="#f3f6f8", size=28, anchor="start"):
+    return (f'<text x="{x:.1f}" y="{y:.1f}" font-family="Noto" font-size="{size}" fill="{col}" text-anchor="{anchor}" '
+            f'stroke="#10161b" stroke-width="6" stroke-linejoin="round" paint-order="stroke fill">{F.esc(t)}</text>')
+
+
+def va_cut_svg(view, which, strong=True, label=None):
+    """断面の切り口の線（B＝青緑・C＝琥珀の破線）と目の印。D は目の印だけ（正面から見た斜面＝北の岸から南を向いて）。"""
+    c = VA_CUT[which]
+    g = []
+    if c["a"]:
+        (x0, y0), (x1, y1) = va_px(c["a"], view), va_px(c["b"], view)
+        w = 6.0 if strong else 3.0
+        g.append(f'<path d="M {x0:.1f} {y0:.1f} L {x1:.1f} {y1:.1f}" stroke="#10161b" stroke-opacity="0.55" '
+                 f'stroke-width="{w + 5:.1f}" stroke-linecap="round"/>'
+                 f'<path d="M {x0:.1f} {y0:.1f} L {x1:.1f} {y1:.1f}" stroke="{c["col"]}" stroke-width="{w:.1f}" '
+                 'stroke-dasharray="16 11" stroke-linecap="round"/>')
+    if strong or not c["a"]:
+        ex, ey = va_px(c["eye"], view)
+        g.append(va_eye_svg(ex, ey, c["look"], c["col"]))
+        if label:
+            g.append(_va_text(ex + 30, ey - 30, label, col=c["col"] if c["a"] else "#f3f6f8"))
+    return "".join(g)
+
+
+def va_switch_svg(text=VA_SWITCH):
+    w = 70 + 46 * len(text)
+    x = 960 - w / 2
+    return (f'<rect x="{x:.0f}" y="40" width="{w:.0f}" height="66" rx="10" fill="{CHIP_BG}" fill-opacity="0.72" '
+            f'stroke="{CHIP_FG}" stroke-width="2.5"/>'
+            f'<text x="960" y="87" font-family="Noto" font-size="44" fill="{CHIP_FG}" text-anchor="middle">{F.esc(text)}</text>')
+
+
+def _va_timeline(start, states, steps):
+    """VA の鍵（段の中の順番つき）。水がダムを越える → 谷へ広がる → 建物の面が消える、の順（冒頭 c102・c823）。"""
+    T = VA_T
+
+    def k0(**kw):
+        return [dict(stage=0, delay=0.0, **kw)]
+    s0 = start
+    K = dict(dawn=k0(a=float(s0["tod"] == "dawn")), slide=k0(a=float(s0["slide"] == "on")),
+             block=k0(a=float(s0["block"] == "on")), towns=k0(a=float(s0["towns"] == "on")),
+             mud=k0(a=float(s0["towns"] == "mud")), shore=k0(a=float(s0["shore"] == "on")),
+             shore_mud=k0(a=float(s0["shore"] == "mud")), tunnel_go=k0(u=float(s0["tunnel"] == "on")),
+             tunnel_a=k0(a=1.0), ends=k0(a=float(s0["tunnel"] == "on")), split=k0(a=float(s0["split"] != "off")),
+             flow_go=k0(u=float(s0["split"] == "flow")), flow_a=k0(a=1.0), road_go=k0(u=float(s0["road"] != "off")),
+             road_a=k0(a=1.0), low=k0(a=float(s0["road"] == "low")), gates=k0(a=float(s0["gates"] == "on")),
+             marks=k0(a=float(s0["marks"] == "on")),
+             wave_e_go=k0(u=float(s0["wave_e"] != "off")), wave_e_a=k0(a=float(s0["wave_e"] == "on")),
+             wave_w_go=k0(u=float(s0["wave_w"] != "off")), wave_w_a=k0(a=float(s0["wave_w"] == "on")),
+             flood_go=k0(u=float(s0["flood"] != "off")), flood_a=k0(a=float(s0["flood"] == "on")),
+             nxtB=k0(a=float(s0["nxt"] == "B")), nxtC=k0(a=float(s0["nxt"] == "C")))
+    # 頭だけの合図：前の図の切り口の線（はじめ太く・1.5秒で細く）と切り替えの字（1.2秒で消える）
+    K["prev"] = [dict(stage=0, delay=0.0, a=1.0), dict(stage=0, delay=T["prev_hold"], dur=T["prev_fade"], a=0.0)]
+    K["prev_thin"] = [dict(stage=0, delay=0.0, a=0.0), dict(stage=0, delay=T["prev_hold"], dur=T["prev_fade"], a=T["prev_thin"])]
+    K["switch"] = [dict(stage=0, delay=0.0, a=1.0), dict(stage=0, delay=T["switch_hold"], dur=T["switch_fade"], a=0.0)]
+    prev = start
+    for i, (st, sp) in enumerate(zip(states, steps)):
+        dl = float(sp.get("delay", KEY_DELAY))
+
+        def ch(f):
+            return prev[f] != st[f]
+        ww = ch("wave_w") and st["wave_w"] == "on"
+        wdur = float(sp.get("dur", T["wave"])) if ww and not ch("flood") else T["wave"]   # 谷へ広がらない段（c815）は dur で
+        if ch("wave_w"):
+            if st["wave_w"] == "on":
+                K["wave_w_go"].append(dict(stage=i, delay=dl, dur=wdur, u=1.0))
+                K["wave_w_a"].append(dict(stage=i, delay=dl, dur=0.12, a=1.0))
+            elif st["wave_w"] == "recede":
+                K["wave_w_a"].append(dict(stage=i, delay=dl, dur=T["recede"], a=0.0))
+        fl0 = dl + (T["flood_lag"] / T["wave"] * wdur if ww else 0.0)     # 水が峡谷の出口に着いてから谷へ広がる
+        fl_on = ch("flood") and st["flood"] == "on"
+        if ch("flood"):
+            if st["flood"] == "on":
+                K["flood_go"].append(dict(stage=i, delay=fl0, dur=T["flood"], u=1.0))
+                K["flood_a"].append(dict(stage=i, delay=fl0, dur=0.12, a=1.0))
+            elif st["flood"] == "recede":
+                K["flood_a"].append(dict(stage=i, delay=dl, dur=T["recede"], a=0.0))
+        if ch("towns"):
+            t_t = fl0 + T["towns_lag"] if fl_on else dl
+            if prev["towns"] == "on" and st["towns"] in ("gone", "mud"):
+                K["towns"].append(dict(stage=i, delay=t_t, dur=T["towns"], a=0.0))
+            if st["towns"] == "mud":
+                K["mud"].append(dict(stage=i, delay=dl, dur=T["mud"], a=1.0))
+            if st["towns"] == "on":
+                K["towns"].append(dict(stage=i, delay=dl, dur=T["towns"], a=1.0))
+                K["mud"].append(dict(stage=i, delay=dl, dur=T["mud"], a=0.0))
+        if ch("wave_e"):
+            if st["wave_e"] == "on":
+                K["wave_e_go"].append(dict(stage=i, delay=dl, dur=float(sp.get("dur", T["wave_e"])), u=1.0))
+                K["wave_e_a"].append(dict(stage=i, delay=dl, dur=0.12, a=1.0))
+            elif st["wave_e"] == "recede":
+                K["wave_e_a"].append(dict(stage=i, delay=dl, dur=T["recede"], a=0.0))
+        if ch("shore"):
+            if prev["shore"] == "on" and st["shore"] in ("gone", "mud"):
+                K["shore"].append(dict(stage=i, delay=dl, dur=T["shore"], a=0.0))
+            if st["shore"] == "mud":
+                K["shore_mud"].append(dict(stage=i, delay=dl + 0.3, dur=T["mud"], a=1.0))
+        for f in ("slide", "block", "gates", "marks"):
+            if ch(f):
+                K[f].append(dict(stage=i, delay=dl, dur=T[f], a=float(st[f] == "on")))
+        if ch("tunnel") and st["tunnel"] == "on":
+            K["tunnel_go"].append(dict(stage=i, delay=dl, dur=float(sp.get("dur", T["tunnel"])), u=1.0))
+            K["ends"].append(dict(stage=i, delay=dl + float(sp.get("dur", T["tunnel"])), dur=T["ends"], a=1.0))
+        if ch("split"):
+            late = 0.0
+            if prev["split"] == "off":
+                K["split"].append(dict(stage=i, delay=dl, dur=T["split"], a=1.0))
+                late = T["split"]
+            if st["split"] == "flow":
+                K["flow_go"].append(dict(stage=i, delay=dl + late, dur=T["flow"], u=1.0))
+        if ch("road"):
+            late = 0.0
+            if prev["road"] == "off":
+                K["road_go"].append(dict(stage=i, delay=dl, dur=T["road"], u=1.0))
+                late = T["road"]
+            if st["road"] == "low":
+                K["low"].append(dict(stage=i, delay=dl + late, dur=T["low"], a=1.0))
+        if ch("tod") and st["tod"] == "dawn":
+            K["dawn"].append(dict(stage=i, delay=dl, dur=float(sp.get("dur", T["dawn"])), a=1.0))
+        if ch("nxt"):
+            for w in ("B", "C"):
+                K["nxt" + w].append(dict(stage=i, delay=dl, dur=T["line"], a=float(st["nxt"] == w)))
+        prev = st
+    return K
+
+
+def _scene_VA(start, states, steps):
+    """VA＝上から見た谷（北が上）。見え方 view＝wide（谷の全体）／near（ダムと崩れた斜面）／west（峡谷の出口とピアーヴェ川の谷）。"""
+    view = start["view"]
+    allst = [start] + states
+    if any(st["view"] != view for st in states):
+        raise ValueError("illu VA：見え方 view は場面の頭（start）で1つだけ（地面の縮尺を焼き込む）")
+    t0 = start["tod"]
+    if t0 == "dawn" or any(st["tod"] not in (t0, "dawn") or (t0 == "day" and st["tod"] != "day") for st in states):
+        raise ValueError("illu VA：tod は頭で day か night・段で変えてよいのは night → dawn（夜明け＝c823 の2行目）だけ")
+    if any(st["prev"] != start["prev"] or st["switch"] != start["switch"] for st in states):
+        raise ValueError("illu VA：prev（前の図の切り口の線）と switch（切り替えの字）は頭（start）だけ＝合図")
+    if start["prev"] == start["nxt"] != "off":
+        raise ValueError("illu VA：前の図の線と次の図の線が同じ")
+
+    def used(f, v=None):
+        return any((st[f] != "off") if v is None else (st[f] == v) for st in allst)
+    K = _va_timeline(start, states, steps)
+    A1 = [dict(stage=0, delay=0.0, a=1.0)]
+    k = VA_MPX / VA_VIEW[view]["mpp"]
+    R = VA_REC
+    parts = [_part("ground", va_ground_svg(view, t0), R["ground"])]
+    if used("tod", "dawn"):
+        parts.append(_part("dawn", va_ground_svg(view, "dawn"), R["dawn"], keys=K["dawn"]))
+    if used("slide"):
+        parts.append(_part("slide", va_slide_svg(view), R["slide"], keys=K["slide"]))
+    if used("block"):
+        parts.append(dict(_part("block", va_block_svg(view), R["block"], keys=K["block"]), obj=dict(block=1)))
+    tn = ("longarone", "pirago", "fornace")
+    parts.append(_part("towns", va_towns_svg(view, t0, tn), R["towns"], keys=K["towns"]))
+    if used("towns", "mud"):
+        parts.append(_part("mud", va_towns_svg(view, t0, tn, mud=True), R["towns"], keys=K["mud"]))
+    sn = ("pineda", "smartino")
+    parts.append(_part("shore", va_towns_svg(view, t0, sn), R["shore"], keys=K["shore"]))
+    if used("shore", "mud"):
+        parts.append(_part("shore_mud", va_towns_svg(view, t0, sn, mud=True), R["shore"], keys=K["shore_mud"]))
+    if used("road"):
+        rp = va_road_px(view)
+        parts.append(dict(_part("road", va_road_svg(view), R["road"], keys=K["road_a"]), kind="draw",
+                          path=[list(q) for q in rp], go=K["road_go"], reveal=60))
+        if used("road", "low"):
+            parts.append(_part("road_low", va_road_low_svg(view), R["road"], keys=K["low"]))
+    if used("gates"):
+        parts.append(dict(_part("gates", va_gates_svg(view), R["gates"], keys=K["gates"]), obj=dict(road_gates=2)))
+    if used("tunnel"):
+        tp = va_path(view, VA_LINES["tunnel"], per=6)
+        parts.append(dict(_part("tunnel", va_tunnel_svg(view), R["tunnel"], keys=K["tunnel_a"]), kind="draw",
+                          path=[list(q) for q in tp], go=K["tunnel_go"], reveal=40, obj=dict(tunnel=1)))
+        parts.append(_part("tunnel_ends", va_tunnel_ends_svg(view), R["tunnel"], keys=K["ends"]))
+    if used("split"):
+        parts.append(_part("split", va_split_svg(view), R["split"], keys=K["split"]))
+        if used("split", "flow"):
+            fp = va_flow_path(view)
+            parts.append(dict(_part("flow", va_flow_svg(view), R["split"], keys=K["flow_a"]), kind="draw",
+                              path=[list(q) for q in fp], go=K["flow_go"], reveal=44))
+    if used("marks"):
+        parts.append(dict(_part("marks", va_marks_svg(view), R["marks"], keys=K["marks"]), obj=dict(north_marks=2)))
+    if used("wave_e"):
+        ep = va_wave_e_path(view)
+        parts.append(dict(_part("wave_e", va_wave_e_svg(view), R["wave_e"], keys=K["wave_e_a"]), kind="draw",
+                          path=[list(q) for q in ep], go=K["wave_e_go"], reveal=int(150 * k)))
+    if used("wave_w"):
+        wp = va_path(view, VA_WAVE_W, per=6)
+        parts.append(dict(_part("wave_w", va_wave_w_svg(view), R["wave_w"], keys=K["wave_w_a"]), kind="draw",
+                          path=[list(q) for q in wp], go=K["wave_w_go"], reveal=int(VA_WAVE_W_W * k + 30)))
+    if used("flood"):
+        for half in ("n", "s"):
+            gp = va_path(view, VA_FLOOD_GO[half], per=6)
+            parts.append(dict(_part("flood_" + half, va_flood_svg(view, half), R["flood"], keys=K["flood_a"]),
+                              kind="draw", path=[list(q) for q in gp], go=K["flood_go"], reveal=int(300 * k)))
+    parts.append(dict(_part("dam", va_dam_svg(view), R["dam"]), obj=dict(dam=1)))
+    # 合図の部品（切り口の線・目の印・切り替えの字＝見る向きの合図・ルール §5b-80）は記録の物でない＝出典を持たない
+    #   ＝`signal=True`（門番 ① は rec を求めない・③ の数にも入らない＝obj を持たない）
+    for w in ("B", "C"):
+        if used("nxt", w):
+            parts.append(dict(_part("nxt" + w, va_cut_svg(view, w, strong=True), "", keys=K["nxt" + w]), signal=True))
+    if start["prev"] != "off":
+        lab = "さっきの断面" if VA_CUT[start["prev"]]["a"] else "さっきの見る位置"
+        parts.append(dict(_part("prev", va_cut_svg(view, start["prev"], strong=True, label=lab), "", keys=K["prev"]),
+                          signal=True))
+        if VA_CUT[start["prev"]]["a"]:
+            parts.append(dict(_part("prev_thin", va_cut_svg(view, start["prev"], strong=False), "", keys=K["prev_thin"]),
+                              signal=True))
+    if start["switch"] == "on":
+        parts.append(dict(_part("switch", va_switch_svg(), "", keys=K["switch"]), signal=True))
+    return parts
+
+
+def _va_anchors(view):
+    P = lambda p: va_px(p, view)  # noqa: E731
+    a = {k: P(v) for k, v in VA_PTS.items()}
+    a.update(lake=P((900.0, 560.0)), gorge=P((440.0, 545.0)), piave=P((228.0, 690.0)), piave_n=P((214.0, 455.0)),
+             mark1=P(VA_PTS["north_dam"]),
+             mark2=P(VA_PTS["north_1100"]), slide=P((715.0, 690.0)), road_low=P((450.0, 528.0)),
+             upstream=P((1400.0, 381.0)), split=P((735.0, 560.0)), block=P((710.0, 540.0)), center=(960.0, VA_Y0))
+    return a
+
+
+def _va_note(st0, states):
+    """左下の出典のあとに添える断り（16本目 VA）。"""
+    allst = [st0] + list(states)
+
+    def u(f):
+        return any(st[f] != "off" for st in allst)
+    note = ["谷の形は1934年の地形図から・湖の形は概略"]
+    if u("wave_w") or u("flood") or u("wave_e"):
+        note.append("動きは縮めてある")
+    if u("road"):
+        note.append("道は模式")
+    if u("slide") or u("block"):
+        note.append("崩れた範囲は模式")
+    if u("split"):
+        note.append("土砂の帯は模式")
+    return "・".join(note)
+
+
 def tag_svg(x, y, t, to=None, anchor="start", col=None, cap=30):
     col = col or C["tag"]
     s = fm.fit(t, 620, "Noto", cap=cap, floor=20)
@@ -1852,8 +2507,13 @@ CHIP = (72, 32, 208, 50)       # 見本は x 36＝画面の余白（J.MG＝72）
 SRC_Y = 884
 
 
-def overlay_svg(view, src):
-    """左上の「再現イラスト」の札（と見る向き）・左下の出典（ルール §5b-74③・§5b-80）。check_illu ④ が同じ関数で見る。"""
+ASSUME_FG = "#f2c14e"
+
+
+def overlay_svg(view, src, assume=""):
+    """左上の「再現イラスト」の札（と見る向き）・左下の出典（ルール §5b-74③・§5b-80）。check_illu ④ が同じ関数で見る。
+    🆕 16本目 ⑤b-2：assume＝想定の札（「会社の説明（想定）」「模型の想定」＝起きた事ではない絵・映像方針 16本目 §2③）を
+       見る向きの下に（琥珀の枠）"""
     x, y, w, h = CHIP
     g = [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="6" fill="{CHIP_BG}" fill-opacity="0.62" '
          f'stroke="{CHIP_FG}" stroke-width="2"/>',
@@ -1862,6 +2522,13 @@ def overlay_svg(view, src):
     if view:
         g.append(f'<text x="{x + 4}" y="{y + h + 34}" font-family="Noto" font-size="24" fill="#e3eaee" '
                  f'stroke="#10161b" stroke-width="5" stroke-linejoin="round" paint-order="stroke fill">{F.esc(view)}</text>')
+    if assume:
+        ay = y + h + (54 if view else 14)
+        aw = 40 + 28 * len(assume)
+        g.append(f'<rect x="{x}" y="{ay}" width="{aw}" height="46" rx="6" fill="{CHIP_BG}" fill-opacity="0.72" '
+                 f'stroke="{ASSUME_FG}" stroke-width="2.5"/>'
+                 f'<text x="{x + aw / 2:.0f}" y="{ay + 33}" font-family="Noto" font-size="27" fill="{ASSUME_FG}" '
+                 f'text-anchor="middle">{F.esc(assume)}</text>')
     if src:
         s = fm.fit(src, 1500, "Noto", cap=22, floor=15)
         g.append(f'<text x="{x}" y="{SRC_Y}" font-family="Noto" font-size="{s}" fill="#e3eaee" stroke="#10161b" '
@@ -1932,24 +2599,38 @@ FIELDS = {
     "RD": dict(view="tail", mark="off", cam=1.0),
     # 15本目 ⑤b-3：RC ボックス席とピット（地上から）。pan＝カメラの中心を横へ（画素・cam の寄りのまま首を振る）
     "RC": dict(view="pits", crowd="off", fuel="off", cam=1.0, pan=0.0),
+    # 16本目 ⑤b-2：VA 上から見た谷（上の「16本目」の節）。tod＝day／night（段で night→dawn だけ）・block＝崩れたあとの塊・
+    #   slide＝崩れた範囲・towns／shore＝建物の面（on／gone／mud）・tunnel・split（off／on／flow）・road（off／on／low）・gates・
+    #   marks・wave_w／flood／wave_e（off／on／recede）・prev（頭だけ：B／C／D）・nxt（B／C）・switch（頭だけ）
+    "VA": dict(view="wide", tod="night", block="off", slide="off", towns="on", shore="on", tunnel="off", split="off",
+               road="off", gates="off", marks="off", wave_w="off", flood="off", wave_e="off", prev="off", nxt="off",
+               switch="off", cam=1.0),
 }
 ONOFF = ("off", "on")
 CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONOFF, crowd=ONOFF, bridge=ONOFF, run=ONOFF,
                far=ONOFF, spk=ONOFF, binoc=ONOFF, rboat=ONOFF, cg=ONOFF, sel=ONOFF,
                gg=("off", "p7", "p8", "gone"), path=ONOFF, trace=ONOFF, x=ONOFF, box=ONOFF, laps=ONOFF, seg67=ONOFF,
-               ring8=ONOFF, piece=ONOFF, fuel=ONOFF, course=ONOFF, ground=ONOFF, ail=("off", "right"))
+               ring8=ONOFF, piece=ONOFF, fuel=ONOFF, course=ONOFF, ground=ONOFF, ail=("off", "right"),
+               # 16本目 ⑤b-2：VA
+               tod=("day", "night", "dawn"), block=ONOFF, slide=ONOFF, towns=("on", "gone", "mud"),
+               shore=("on", "gone", "mud"), tunnel=ONOFF, split=("off", "on", "flow"), road=("off", "on", "low"),
+               gates=ONOFF, marks=ONOFF, wave_w=("off", "on", "recede"), flood=("off", "on", "recede"),
+               wave_e=("off", "on", "recede"), prev=("off", "B", "C", "D"), nxt=("off", "B", "C"), switch=ONOFF)
 VIEWS = dict(B=("corridor", "cabin", "desk"), C=("helm", "console", "room"), D=("ship", "sea", "far", "heli", "rail"),
-             RA=tuple(RA_VIEW), RB=("side", "rear"), RD=("tail",), RC=tuple(RC_VIEW))
+             RA=tuple(RA_VIEW), RB=("side", "rear"), RD=("tail",), RC=tuple(RC_VIEW), VA=tuple(VA_VIEW))
 # 変える段には rec が要る（記録の事実を描く欄）。⑤b-3 で置き場 C・D・E の欄を足した（位置 bx とカメラ cam は要らない）
 #   15本目 ⑤b-2：RA の印・線・×・輪、RB の機首の上げ・傾き・補助翼（コースの破線 course と地面 ground は要らない）
+#   16本目 ⑤b-2：VA の時刻（夜明け）・塊・崩れた範囲・建物の面・トンネル・想定の帯・道・入口・印・水（合図の prev・nxt・switch は要らない）
 REC_FIELDS = ("heel", "wake", "boxes", "crowd", "mark", "bridge", "run", "far", "binoc", "rboat", "cg", "crew", "sel",
-              "gg", "path", "trace", "x", "box", "laps", "seg67", "ring8", "piece", "fuel", "pitch", "roll", "ail")
+              "gg", "path", "trace", "x", "box", "laps", "seg67", "ring8", "piece", "fuel", "pitch", "roll", "ail",
+              "tod", "block", "slide", "towns", "shore", "tunnel", "split", "road", "gates", "marks", "wave_w", "flood",
+              "wave_e")
 # 段ごとの出来事（引き継がない・数で書く＝画面の文字の門番が文字として読まない）。pylon＝RB でパイロンが1本流れる
 EVENTS = ("rings", "board", "rings_in", "asks", "walkie", "glow", "pylon")
 VIEW = dict(A="船首の側から見た図", D="船首の側から見た図", B="船の中", C="操舵室の中", E="管制センターの中",
             RD="ピットの事故機（横から）")
-# 左下の出典のあとに添える断り（15本目）
-NOTE = dict(RA="配置は概略・機体は拡大・点線は模式", RC="柵・幕・車の形と並びは模式・配置は概略")
+# 左下の出典のあとに添える断り（15本目）。16本目 VA は場面の中身で変わる（関数＝_va_note）
+NOTE = dict(RA="配置は概略・機体は拡大・点線は模式", RC="柵・幕・車の形と並びは模式・配置は概略", VA=_va_note)
 D_VIEW = dict(ship="船首の側から見た図", heli="船首の側から見た図", sea="123艇を横から見た図", far="123艇から見た図",
               rail="3階の左舷を横から見た図")
 ROLES = ("crew", "coast_guard", "control")                # 型紙（数えられる影）で置ける役割
@@ -2339,6 +3020,8 @@ def _anchors(place, st):
     v = st.get("view")
     if place == "RA":
         return _ra_anchors(v)
+    if place == "VA":
+        return _va_anchors(v)
     if place == "RB":
         return _rb_anchors(st)
     if place == "RD":
@@ -2382,6 +3065,8 @@ def _camc(place, st0, states):
     last = states[-1] if states else st0
     if place == "RA":
         return (960.0, RA_Y0)
+    if place == "VA":
+        return (960.0, VA_Y0)
     if place == "RB":
         return RB_CR if st0["view"] == "rear" else RB_C
     if place == "RD":
@@ -2405,7 +3090,7 @@ def _camc(place, st0, states):
     return CAM_C[place]
 
 
-def scene(place, steps, start=None, at=None, people=None, src=None, view=None, rec=None, scale=None, camc=None):
+def scene(place, steps, start=None, at=None, people=None, src=None, view=None, rec=None, scale=None, camc=None, assume=None):
     """再現イラストの場面1つ（型 `illu`・冒頭の絵 `intro=dict(illu=…)`・小さく戻す `illu_pair` が使う）。
 
     place  … 置き場 "A"／"B"／"C"／"D"／"E"（上の説明）
@@ -2422,6 +3107,8 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
              path＝点線（模式）・trace＝琥珀の線・x・box・laps＝3周の航跡・seg67・ring8・piece・fuel・course）／
              RB＝空の中の事故機（view＝side／rear・ground・pitch＝機首の上げ（度）・roll＝左への傾き（度）・ail＝補助翼 off／right・
              出来事 rings＝テレメトリーの輪・pylon＝パイロンが1本流れる）／RD＝ピットの事故機（view＝tail・mark）
+    16本目（⑤b-2）の置き場：VA＝上から見た谷（view＝wide／near／west・欄は FIELDS["VA"] の注）
+    assume … 想定の札（「会社の説明（想定）」など＝起きた事ではない絵・左上の見る向きの下）
     """
     if place not in FIELDS:
         raise ValueError(f"illu：知らない置き場 {place!r}（{tuple(FIELDS)}）")
@@ -2432,7 +3119,8 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
             raise ValueError(f"illu：段に知らない鍵 {sorted(bad)}")
     st0, states = _states(place, start, steps)
     parts = {"A": _scene_A, "B": _scene_B, "C": _scene_C, "D": _scene_D, "E": _scene_E,
-             "RA": _scene_RA, "RB": _scene_RB, "RD": _scene_RD, "RC": _scene_RC}[place](st0, states, steps)
+             "RA": _scene_RA, "RB": _scene_RB, "RD": _scene_RD, "RC": _scene_RC,
+             "VA": _scene_VA}[place](st0, states, steps)
     if isinstance(camc, str):
         camc = _anchors(place, states[-1] if states else st0)[camc]
     if "pan" in FIELDS[place]:
@@ -2442,8 +3130,9 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
         cam = _keys(st0, states, steps, lambda st: dict(z=float(st["cam"]), cx=float(c0[0]) + float(st["pan"])))
     else:
         cam = _keys(st0, states, steps, lambda st: dict(z=float(st["cam"])))
-    if place == "RA":
-        auto = RA_VIEW[st0["view"]]["mpp"] / max(float(k.get("z", 1.0)) for k in cam)
+    if place in ("RA", "VA"):
+        # 🔴 上から見た絵の縮尺は描く側が組む（見え方の縮尺 ÷ カメラの寄りの最大＝門番 ⑧ が見る値）。16本目 VA も同じ
+        auto = (RA_VIEW if place == "RA" else VA_VIEW)[st0["view"]]["mpp"] / max(float(k.get("z", 1.0)) for k in cam)
         scale = min(float(scale), auto) if scale else auto
     objects = {}
     for p in parts:
@@ -2470,11 +3159,13 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
     label = view or _label(place, st0, states)
     if not src:
         src = rec_line(recs)
-        if NOTE.get(place):
-            src = (src + "／" if src else "") + NOTE[place]
+        note = NOTE.get(place)
+        note = note(st0, states) if callable(note) else note
+        if note:
+            src = (src + "／" if src else "") + note
     return dict(place=place, view=label, at=at, people=dict(people or {}), scale=scale, rec=rec, objects=objects,
                 parts=parts, cam=cam, camc=list(camc or _camc(place, st0, states)), tags=tags, nstage=len(steps),
-                start=st0, states=states, steps=steps, recs=recs, src=src)
+                start=st0, states=states, steps=steps, recs=recs, src=src, assume=assume or "")
 
 
 def _label(place, st0, states):
@@ -2486,6 +3177,8 @@ def _label(place, st0, states):
         return RA_VIEW[st0["view"]]["lab"]
     if place == "RC":
         return RC_VIEW[st0["view"]]
+    if place == "VA":
+        return VA_LAB
     if place == "RB":
         seq = []
         for st in [st0] + list(states):
@@ -2511,7 +3204,7 @@ def illu(place, steps, **kw):
     """全面の再現イラスト（画面の種類「再現イラスト」）。段＝台本の行（札は段の層 `_a<番号>`）。"""
     sc = scene(place, steps, **kw)
     f = F.Fig("", [t["svg"] for t in sc["tags"]], "", (0, W))
-    f.illu = dict(full=True, scenes=[dict(sc, role="main", box=None)], view=sc["view"], src=sc["src"])
+    f.illu = dict(full=True, scenes=[dict(sc, role="main", box=None)], view=sc["view"], src=sc["src"], assume=sc["assume"])
     return f
 
 

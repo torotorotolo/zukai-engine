@@ -13,7 +13,9 @@
   ③ 描いた人の数（型紙を置く inst の数）＝宣言（`people=`）＝記録（宣言の rec）。型紙の影どうしは重ならない（1人ずつ数えられる）
      ＝⑤b-3 から**部品をまたいで全部の組**を・型紙の背（`fig_h`）で測る（傾けた型紙は `fig_deg` の向きに戻して）
   ④ 「再現イラスト」の札と出典（`illu.overlay_svg`＝全面・冒頭の絵／`illu_pair` は段の層の札と骨格の出典）
-  ⑤ 画面に出す文字（札）に、資料で割れる時刻（`cuts.ss.ILLU_SPLIT_TIMES`）が無い
+  ⑤ 画面に出す文字（札・左上の見る向き・左下の出典）に、資料で割れる時刻（`cuts.ss.ILLU_SPLIT_TIMES`）が無い。
+     時計の札は表 `cuts.ss.ILLU_CLOCK_OK` の時刻だけ・秒の札は表 `cuts.ss.ILLU_SEC_OK` の値だけ＝🔴 表が空なら全部止める
+     （16本目 ⑤b-2 から＝`judge_labels`）
   ⑦ 写真・頁・決め所・文字の頁のカットに絵が無い（混ざりは冒頭の絵か小さく戻す絵だけ）。「再現イラスト」の PLAN の
      カットは全面の絵（`illu`）で書く（SPEC が在るものだけ）
   ⑧ 上から見た絵（view に「上から」）は縮尺 `scale`（メートル／画素）が 1.5 以上（人が1画素に満たない＝15本目の申し送り）
@@ -41,6 +43,8 @@ import illu as IL  # noqa: E402
 
 TIME = re.compile(r"(\d{1,2})\s*[時:：]\s*(\d{1,2})")
 SEC = re.compile(r"(約)?\s*(\d+(?:\.\d+)?)\s*秒")          # 15本目：秒の札（「0.27秒」「約9.1秒」）
+# 16本目 ⑤b-2：分の無い時計の札（「22時ごろ」）も時計の札（「1時間」の「時」と「22時39分」の「時」は外す）
+CLOCK_HOUR = re.compile(r"(?<!\d)(\d{1,2})\s*時(?!\s*\d|間)")
 CROWD_ROLES = ("passengers",)
 NON_ILLU_KINDS = ("写真", "図・写真の頁", "決め所", "文字の頁", "図解", "パネル")
 
@@ -57,11 +61,6 @@ def _pages():
     if not p or not Path(p).exists():
         return None
     return {int(m) for m in re.findall(r"^=== p(\d+) ===", Path(p).read_text(encoding="utf-8"), re.M)}
-
-
-def _hm(s):
-    m = TIME.search(str(s or ""))
-    return (int(m.group(1)), int(m.group(2))) if m else None
 
 
 HMS = re.compile(r"(\d{1,2})\s*[時:：]\s*(\d{1,2})(?:\s*[分:：]\s*(\d{1,2}(?:\.\d+)?))?")
@@ -86,12 +85,42 @@ def check_recs(recs, where, docs, pages):
             continue
         for doc, ps in got:
             lo, hi = docs[doc]["range"]
+            # 16本目 ⑤b-2：原文の頁ファイルに無い資料（#100＝地形図の画像）は `text=False`＝範囲だけ見る（頁の照合を飛ばす）
+            in_text = docs[doc].get("text", True)
             for p in ps:
                 if not lo <= p <= hi:
                     bad.append(f"①{where}：rec「{r}」の p{p} が {doc} の頁の範囲（p{lo}〜p{hi}）の外")
-                elif pages is not None and p not in pages:
+                elif in_text and pages is not None and p not in pages:
                     bad.append(f"①{where}：rec「{r}」の p{p} が原文（REC_PAGES）に無い")
     return bad
+
+
+def judge_labels(texts, where, split, sec_ok, clock_ok):
+    """⑤ 画面に出す文字の時計と秒の札。返り値＝(食い違いの一覧, 照合した件数)。
+    🔴 2026-10-01（16本目 ⑤b-2）：前は時計の照合が `if sec_ok:` の中＝秒の表が空だと**時計も秒も照合しなかった**
+       （16本目の決め「秒の札は出さない＝ILLU_SEC_OK は空・時計は 22:39 だけ」が効かない穴）→ 表が空なら**全部止める**
+       （その回が「出してよい」と書いた値だけ通す＝fail closed）。14本目の見本の場面は秒・時計の札を出さない＝前と同じに通る。
+       ほかに：1つの札の中の時刻と秒は全部（前は最初の時刻1つだけ）・分の無い時計（「22時ごろ」）も時計の札"""
+    bad, n = [], 0
+    for txt in texts:
+        txt = str(txt or "")
+        for m in TIME.finditer(txt):
+            n += 1
+            hm = f"{int(m.group(1))}:{int(m.group(2)):02d}"
+            if hm in split:
+                bad.append(f"⑤{where}：札「{txt}」の時刻は資料で割れる（{split}）＝画面に出さない")
+            elif hm not in clock_ok:
+                bad.append(f"⑤{where}：札「{txt}」の時刻 {hm} は表の時刻でない（cuts.ss.ILLU_CLOCK_OK＝{clock_ok}・"
+                           "空なら時計の札は出さない）")
+        for m in CLOCK_HOUR.finditer(txt):
+            n += 1
+            bad.append(f"⑤{where}：札「{txt}」の「{m.group(0)}」は分の無い時計（表の時刻 {clock_ok} の形で書く）")
+        for m in SEC.finditer(txt):
+            n += 1
+            if m.group(2) not in sec_ok:
+                bad.append(f"⑤{where}：札「{txt}」の「{m.group(0)}」は表の値でない（cuts.ss.ILLU_SEC_OK＝"
+                           f"{sorted(sec_ok, key=float)}・空なら秒の札は出さない）")
+    return bad, n
 
 
 def judge_scene(sc, where, docs=None, pages=None, split=None, until=None, sec_ok=None, clock_ok=None, counts=None,
@@ -112,9 +141,20 @@ def judge_scene(sc, where, docs=None, pages=None, split=None, until=None, sec_ok
     # ① 部品の rec・段の rec
     for p in sc["parts"]:
         n += 1
+        if p.get("signal"):
+            # 16本目 ⑤b-2：見る向きの合図の部品（切り口の線・目の印・切り替えの字＝ルール §5b-80）は記録の物でない＝rec は要らない。
+            #   ただし数（obj）と人（role）は持たせない（合図に記録の物を紛れ込ませない）
+            if p.get("obj") or p.get("role"):
+                bad.append(f"①{where}：合図の部品 {p['id']} が数か人を持つ（合図は記録の物を描かない）")
+            continue
         if not p.get("rec"):
             bad.append(f"①{where}：部品 {p['id']} に rec が無い")
     bad += check_recs([p["rec"] for p in sc["parts"] if p.get("rec")], where, docs, pages)
+    # ④ 16本目 ⑤b-2：会社の説明の想定（VA の split）は「想定」の札（assume）と一緒にだけ描く（起きた事ではない＝映像方針 §2③）
+    if sc["place"] == "VA" and any(st["split"] != "off" for st in [sc["start"]] + sc["states"]):
+        n += 1
+        if "想定" not in (sc.get("assume") or ""):
+            bad.append(f"④{where}：会社の説明の想定（split）を描いたのに「想定」の札が無い（assume=）")
     prev = sc["start"]
     base = IL.FIELDS[sc["place"]]
     if any(sc["start"].get(k) != base.get(k) for k in IL.REC_FIELDS if k in base) and not sc.get("rec"):
@@ -193,23 +233,12 @@ def judge_scene(sc, where, docs=None, pages=None, split=None, until=None, sec_ok
             bad.append(f"③{where}：宣言 {role} に記録（rec）が無い＝people=dict({role}=(数, \"資料 p頁\"))")
         elif d is not None:
             bad += check_recs([d[1]], where, docs, pages)
-    # ⑤ 札の時刻
-    for t in sc["tags"]:
-        for txt in t.get("texts") or []:
-            hm = _hm(txt)
-            if hm and f"{hm[0]}:{hm[1]:02d}" in split:
-                n += 1
-                bad.append(f"⑤{where}：札「{txt}」の時刻は資料で割れる（{split}）＝画面に出さない")
-            # 15本目〜：秒の札は表の値だけ（#42 の 5.3秒・EXIF から推した時刻を出さない＝映像方針 §6 ⑤）
-            if sec_ok:
-                for m in SEC.finditer(txt):
-                    n += 1
-                    if m.group(2) not in sec_ok:
-                        bad.append(f"⑤{where}：札「{txt}」の「{m.group(0)}」は表の値でない（AAB p28 の表＝"
-                                   f"{sorted(sec_ok, key=float)}）")
-                if hm and f"{hm[0]}:{hm[1]:02d}" not in clock_ok:
-                    n += 1
-                    bad.append(f"⑤{where}：札「{txt}」の時刻は表の時刻でない（{clock_ok}＝写真の EXIF から推した時刻は出さない）")
+    # ⑤ 画面に出す文字（段の札・左上の見る向き・左下の出典）の時計と秒＝表の値だけ（表が空なら全部止める＝judge_labels）。
+    #   15本目〜：#42 の 5.3秒・EXIF から推した時刻を出さない（映像方針 §6 ⑤）／16本目：秒の札は出さない・時計は 22:39 だけ（§9 ⑤）
+    texts = [txt for t in sc["tags"] for txt in (t.get("texts") or [])] + [sc.get("view") or "", sc.get("src") or ""]
+    b, m = judge_labels(texts, where, split, sec_ok, clock_ok)
+    bad += b
+    n += m
     # ③' 15本目〜：描いた物の数（部品の obj の合計＝描く側の部品そのもの）＝記録の数（`cuts.ss.ILLU_COUNTS`）
     if counts:
         drawn_obj = {}
@@ -260,7 +289,7 @@ def judge_scene(sc, where, docs=None, pages=None, split=None, until=None, sec_ok
 
 
 def judge_fig(kind, kw, where):
-    """型（illu・illu_pair）から場面と上の層を組み、①〜⑤⑧と④を測る。"""
+    """型（illu・illu_pair）から場面と上の層を組み、①〜⑤⑧と④を測る。返り値＝(食い違い, 件数, 想定の札の一覧)。"""
     f = getattr(F, kind)(**kw)
     bad, n = [], 0
     for k, sc in enumerate(f.illu["scenes"]):
@@ -269,14 +298,19 @@ def judge_fig(kind, kw, where):
         n += m
     n += 1
     if f.illu.get("full"):
-        ov = IL.overlay_svg(f.illu.get("view", ""), f.illu.get("src", ""))
+        asm = f.illu.get("assume", "")
+        ov = IL.overlay_svg(f.illu.get("view", ""), f.illu.get("src", ""), asm)
         if "再現イラスト" not in ov or not f.illu.get("src"):
             bad.append(f"④{where}：「再現イラスト」の札か出典が無い")
+        if asm and asm not in ov:
+            bad.append(f"④{where}：想定の札「{asm}」が上の層に出ない")
     else:
         stages = "".join(f.stages)
         if stages.count("再現イラスト") < len(f.illu["scenes"]) or "出典：" not in f.lab:
             bad.append(f"④{where}：小さく戻す絵の数だけ「再現イラスト」の札が無い／出典が無い")
-    return bad, n
+        if any(sc.get("assume") for sc in f.illu["scenes"]):
+            bad.append(f"④{where}：小さく戻す絵に想定の札（assume）は出せない（左上の札が無い）＝パネルの文で言う")
+    return bad, n, [sc.get("assume") or "" for sc in f.illu["scenes"]]
 
 
 def judge_cut(cid, spec, kind_of):
@@ -303,8 +337,9 @@ def judge_cut(cid, spec, kind_of):
         bad.append(f"⑦{cid}：冒頭の絵のあとが全面の絵なら画面の種類は「再現イラスト」（いまは「{kind}」）")
     elif it and fig[0] in ("quote", "axis", "tail") and kind != "混ざり":
         bad.append(f"⑦{cid}：冒頭の絵のあとが決め所・時間の帯・模式図なら画面の種類は「混ざり」（いまは「{kind}」）")
+    asm = []
     if has_full or has_mini:
-        b, m = judge_fig(fig[0], fig[1], cid)
+        b, m, asm = judge_fig(fig[0], fig[1], cid)
         bad += b
         n += m
     if it:
@@ -312,10 +347,20 @@ def judge_cut(cid, spec, kind_of):
         b, m = judge_scene(sc, f"{cid}#冒頭")
         bad += b
         n += m + 1
-        if "再現イラスト" not in IL.overlay_svg(sc["view"], sc["src"]) or not sc["src"]:
+        if "再現イラスト" not in IL.overlay_svg(sc["view"], sc["src"], sc.get("assume", "")) or not sc["src"]:
             bad.append(f"④{cid}#冒頭：「再現イラスト」の札か出典が無い")
         if any(t["texts"] for t in sc["tags"]):
             bad.append(f"④{cid}#冒頭：冒頭の絵に札を付けた（段の層は決め所のもの）")
+        asm = asm + [sc.get("assume") or ""]
+    # ④ 16本目 ⑤b-2：想定の札は表（cuts.ss.ILLU_ASSUME）のカットに、表の言葉で（表に無いカットに出さない・表のカットで落とさない）
+    if has_full or has_mini or it:
+        n += 1
+        want = (getattr(_ss(), "ILLU_ASSUME", None) or {}).get(cid, "")
+        got = [a for a in asm if a]
+        if want and want not in got:
+            bad.append(f"④{cid}：想定のカットなのに想定の札「{want}」が無い（cuts.ss.ILLU_ASSUME）")
+        if any(a != want for a in got):
+            bad.append(f"④{cid}：想定の札 {got} が表（cuts.ss.ILLU_ASSUME＝{want or 'なし'}）と違う")
     return bad, n
 
 
@@ -487,11 +532,216 @@ def _selftest_ep15():
     return ok
 
 
+def selftest_ep16():
+    """16本目（バイオントダム災害）の検算＝**本番の表**（cuts.ss の16本目の値）で回す（見本を差し込まない）。
+    ⑤b-2：⑤ 時計と秒の札（映像方針 §9 ⑤＝秒の札は出さない〈ILLU_SEC_OK＝空〉・時計は 22:39 だけ・22:00 と 22:15 は割れる）"""
+    ss = _ss()
+    split, sec_ok, clock_ok = tuple(ss.ILLU_SPLIT_TIMES), dict(ss.ILLU_SEC_OK), tuple(ss.ILLU_CLOCK_OK)
+    ok = True
+    # 🔴 本番の表そのものが16本目の決めのとおりか（表を書き換えた・空のまま忘れたを止める＝門番の側に決めを持つ §5b-88）
+    want = dict(split=("22:00", "22:15"), sec_ok={}, clock_ok=("22:39",))
+    got = dict(split=split, sec_ok=sec_ok, clock_ok=clock_ok)
+    diff = [k for k in want if want[k] != got[k]]
+    print(f"  {'OK' if not diff else '🔴 NG'} 16本目 ⑤ の表（割れる時刻・秒・時計）が映像方針 §9 ⑤ のとおり: "
+          f"{'同じ' if not diff else '違う ' + str({k: got[k] for k in diff})}")
+    ok &= not diff
+    cases = [
+        ("16本目 正しい ⑤：時計「22:39」", ["22:39"], True),
+        ("16本目 正しい ⑤：日付と時計「1963年10月9日 22:39」", ["1963年10月9日 22:39"], True),
+        ("16本目 正しい ⑤：時計「22時39分」", ["22時39分"], True),
+        ("16本目 正しい ⑤：時計でない「時」（約1時間・時速50〜60km）", ["約1時間", "時速50〜60km"], True),
+        ("16本目 正しい ⑤：時刻も秒も無い札（ダム・930m・天端の上100〜140m）", ["ダム", "930m", "天端の上100〜140m"], True),
+        ("🔴 16本目 陽性対照⑤：秒の札（45秒足らず）", ["45秒足らず"], False),
+        ("🔴 16本目 陽性対照⑤：秒の札（約1秒）", ["約1秒"], False),
+        ("🔴 16本目 陽性対照⑤：22:39 以外の時計（22:40）", ["22:40"], False),
+        ("🔴 16本目 陽性対照⑤：22:39 以外の時計（9時45分）", ["9時45分"], False),
+        ("🔴 16本目 陽性対照⑤：割れる時刻（22時15分＝電話）", ["22時15分"], False),
+        ("🔴 16本目 陽性対照⑤：割れる時刻（22:00）", ["22:00"], False),
+        ("🔴 16本目 陽性対照⑤：分の無い時計（22時ごろ）", ["22時ごろ"], False),
+        ("🔴 16本目 陽性対照⑤：2つ目の時刻だけ表の外（22:39 と 22:41）", ["22:39 → 22:41"], False),
+        ("🔴 16本目 陽性対照⑤：左下の出典の行の時刻（判定は札と同じ）", ["出典：…（22:15 の電話）"], False),
+    ]
+    for name, texts, want_ok in cases:
+        bad, _ = judge_labels(texts, "selftest", split, sec_ok, clock_ok)
+        got_ok = not bad
+        ok &= got_ok == want_ok
+        print(f"  {'OK' if got_ok == want_ok else '🔴 NG'} {name}: {'合格' if got_ok else '不合格'}"
+              f"（{'合格' if want_ok else '不合格'}のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    return _selftest_ep16_va(ss) and ok
+
+
+# 🔴 16本目 ⑤b-2：置き場 VA の記録の値を**門番の側に**持つ（型の定数を読まない＝ルール §5b-88。型の点を壊すと捕まる）
+REC_VA = dict(tunnel_km=(2.5, 0.25, "S1 p85（入口はダムの約2,500m上流）"),
+              marks_km=(1.1, 0.15, "S1 p146（ダムの真横と約1.1km上流）"),
+              slide_km=(1.7, 0.2, "S1 p144（幅およそ1.7キロ）"),
+              slide_km2=(1.9, 0.19, "S1 p144（面積およそ1.9平方キロ）"),
+              shift_m=(300.0, 400.0, "S8 p1046（水平に300〜400m）"))
+VA_GRID_PX = 185.9                   # #100 の 1 km 方眼（measure_map16.py grid の実測）
+
+
+def va_records(il=None):
+    """型 VA の点と形（#100 の画素）から、記録の距離・面積・塊の動きを測って REC_VA と照らす。返り値＝食い違いの一覧。"""
+    il = il or IL
+    m = 1000.0 / VA_GRID_PX
+    bad = []
+    if abs(il.VA_MPX - m) > 0.005:
+        bad.append(f"記録：型の縮尺 {il.VA_MPX}m/画素が方眼（1 km＝{VA_GRID_PX}画素＝{m:.3f}m）と違う")
+    P = il.VA_PTS
+
+    def km(a, b):
+        return math.hypot(P[a][0] - P[b][0], P[a][1] - P[b][1]) * m / 1000.0
+    for name, val in (("tunnel_km", km("dam", "tunnel_in")), ("marks_km", km("north_dam", "north_1100")),
+                      ("slide_km", km("slide_w", "slide_e"))):
+        want, tol, rec = REC_VA[name]
+        if abs(val - want) > tol:
+            bad.append(f"記録：{name} {val:.2f}km（記録 {want}±{tol}＝{rec}）")
+    pts = il.va_slide_pts()
+    km2 = abs(sum(a[0] * b[1] - b[0] * a[1] for a, b in zip(pts, pts[1:] + pts[:1]))) / 2 * m * m / 1e6
+    want, tol, rec = REC_VA["slide_km2"]
+    if abs(km2 - want) > tol:
+        bad.append(f"記録：崩れた範囲の面積 {km2:.2f}km²（記録 {want}±{tol}＝{rec}）")
+    lo, hi, rec = REC_VA["shift_m"]
+    if not lo <= il.VA_SHIFT * m <= hi:
+        bad.append(f"記録：塊の北への動き {il.VA_SHIFT * m:.0f}m（記録 {lo:.0f}〜{hi:.0f}m＝{rec}）")
+    return bad
+
+
+def _selftest_ep16_va(ss):
+    """16本目の置き場 VA（上から見た谷）の検算＝本番の表（cuts.ss の16本目の値）で回す。"""
+    kw = dict(docs=dict(ss.REC_DOCS), pages=_pages(), split=tuple(ss.ILLU_SPLIT_TIMES), until=ss.ILLU_CROWD_UNTIL,
+              sec_ok=dict(ss.ILLU_SEC_OK), clock_ok=tuple(ss.ILLU_CLOCK_OK), counts=dict(ss.ILLU_COUNTS),
+              roles=dict(ss.ILLU_ROLES))
+    R = IL.VA_REC
+    good_c102 = dict(place="VA", at="22:39", start=dict(view="wide", block="on", prev="B", switch="on", cam=1.05),
+                     rec="S1 p98（22時39分）・S1 p147（1つの塊）",
+                     steps=[dict(state=dict(wave_w="on", flood="on", towns="gone"), rec=R["wave_w"],
+                                 tag=[dict(t="ダム", at="dam"), dict(t="ロンガローネ", at="longarone")]),
+                            dict(state=dict(wave_w="recede", flood="recede", towns="mud", cam=1.0), rec=R["dawn"])])
+    good_c116 = dict(place="VA", start=dict(view="wide", tod="day", prev="C", switch="on"), rec="#100 p1",
+                     steps=[dict(tag=[dict(t="湖", at="lake"), dict(t="エルト", at="erto")]), dict(tag=dict(t="ダム", at="dam"))])
+    good_c315 = dict(place="VA", start=dict(view="near", tod="day", prev="D", switch="on"), rec="#100 p1",
+                     steps=[dict(state=dict(tunnel="on"), rec=R["tunnel"]),
+                            dict(tag=[dict(t="入り口", at="tunnel_in"), dict(t="出口", at="tunnel_out")])])
+    good_c316 = dict(place="VA", start=dict(view="near", tod="day", tunnel="on"), rec=R["tunnel"], assume="会社の説明（想定）",
+                     steps=[dict(state=dict(split="on"), rec=R["split"]), dict(state=dict(split="flow"), rec=R["split"])])
+    good_c716 = dict(place="VA", start=dict(view="wide", road="low"), rec=R["road"],
+                     steps=[dict(state=dict(gates="on"), rec=R["gates"], tag=dict(t="上の入り口", at="road_up")),
+                            dict(state=dict(nxt="C"), delay=2.0)])
+    good_c802 = dict(place="VA", start=dict(view="wide"),
+                     steps=[dict(state=dict(slide="on"), rec=R["slide"]), dict(state=dict(nxt="B"), delay=1.0)])
+    good_c812 = dict(place="VA", start=dict(view="near", block="on", prev="B"), rec=R["block"],
+                     steps=[dict(state=dict(marks="on"), rec=R["marks"]),
+                            dict(tag=[dict(t="930m", at="mark1"), dict(t="930m", at="mark2")])])
+    good_c814 = dict(place="VA", start=dict(view="wide", block="on"), rec=R["block"],
+                     steps=[dict(state=dict(wave_e="on"), rec=R["wave_e"]), dict(state=dict(shore="mud"), rec=R["shore"])])
+    good_c823 = dict(place="VA", start=dict(view="west", block="on", prev="C"), rec=R["block"],
+                     steps=[dict(state=dict(wave_w="on", flood="on", towns="gone"), rec=R["flood"]),
+                            dict(state=dict(tod="dawn", wave_w="recede", flood="recede", towns="mud"), rec=R["dawn"])])
+    cases = [
+        ("16本目 正しい VA c102（夜・ダムを越えた水が谷へ・町の面が消える・泥の色）", good_c102, True),
+        ("16本目 正しい VA c116（昼・場所の札）", good_c116, True),
+        ("16本目 正しい VA c315（昼・トンネル・D の目の印）", good_c315, True),
+        ("16本目 正しい VA c316（会社の説明の想定＝想定の札つき）", good_c316, True),
+        ("16本目 正しい VA c716（道の入口2か所・次の断面の線）", good_c716, True),
+        ("16本目 正しい VA c802（崩れた範囲・次の断面の線）", good_c802, True),
+        ("16本目 正しい VA c812（北の岸の印2・930m）", good_c812, True),
+        ("16本目 正しい VA c814（東へ向かった波・岸の集落が消える）", good_c814, True),
+        ("16本目 正しい VA c823（峡谷の出口の先・夜明けの色）", good_c823, True),
+        ("🔴 16本目 陽性対照①：水を出した段に rec が無い",
+         dict(good_c812, steps=[dict(state=dict(wave_w="on"))]), False),
+        ("🔴 16本目 陽性対照①：rec の頁が資料の範囲の外（S1 p300）",
+         dict(good_c802, steps=[dict(state=dict(slide="on"), rec="S1 p300")]), False),
+        ("🔴 16本目 陽性対照①：#100 の頁が範囲の外（#100 p2）", dict(good_c116, rec="#100 p2"), False),
+        ("🔴 16本目 陽性対照①：頭を昼にしたのに場面の rec が無い", dict(good_c116, rec=None), False),
+        ("🔴 16本目 陽性対照⑤：札に 22:39 以外の時計（22:40）",
+         dict(good_c812, steps=[dict(state=dict(marks="on"), rec=R["marks"], tag=dict(t="22:40", at="mark1"))]), False),
+        ("🔴 16本目 陽性対照⑤：札に秒（45秒足らず）",
+         dict(good_c812, steps=[dict(state=dict(marks="on"), rec=R["marks"], tag=dict(t="45秒足らず", at="mark1"))]), False),
+        ("🔴 16本目 陽性対照⑧：near に寄りすぎ（cam 1.4＝1.36m/画素）",
+         dict(good_c812, start=dict(view="near", block="on", prev="B", cam=1.4)), False),
+        ("🔴 16本目 陽性対照④：会社の説明の想定なのに想定の札が無い", dict(good_c316, assume=None), False),
+    ]
+    ok = _run(cases, kw)
+    # 🔴 陽性対照（組めない形＝型が止める）：前の図の線を段で出す・夜明けから始める・昼から夜明けへ
+    for name, spec in (("prev（前の図の線）を段で変える", dict(good_c812, steps=[dict(state=dict(prev="C"))])),
+                       ("頭を夜明けにする", dict(good_c823, start=dict(view="west", tod="dawn"))),
+                       ("昼から夜明けへ", dict(good_c116, steps=[dict(state=dict(tod="dawn"), rec=R["dawn"])]))):
+        try:
+            IL.scene(**spec)
+            print(f"  🔴 NG 16本目 陽性対照（型）：{name}: 組めた（止まるはず）")
+            ok = False
+        except ValueError as e:
+            print(f"  OK 16本目 陽性対照（型）：{name}: 止まった  ← {e}")
+    # 🔴 陽性対照③'（数）：北の岸の印を3つ・道の入口を1つ・ダムを2つ（部品の obj を壊す）
+    for name, spec, key, val in (("北の岸の印を3つ", good_c812, "north_marks", 3), ("道の入口を1つ", good_c716, "road_gates", 1),
+                                 ("ダムを2つ", good_c802, "dam", 2)):
+        sc = IL.scene(**spec)
+        p = next(q for q in sc["parts"] if key in (q.get("obj") or {}))
+        p["obj"] = dict(p["obj"], **{key: val})
+        ok &= _expect(f"🔴 16本目 陽性対照③：{name}", judge_scene(sc, "selftest", **kw)[0], "③")
+    # 🔴 陽性対照①（合図の部品に数を持たせる）
+    sc = IL.scene(**good_c102)
+    next(q for q in sc["parts"] if q.get("signal"))["obj"] = dict(dam=1)
+    ok &= _expect("🔴 16本目 陽性対照①：合図の部品が数（obj）を持つ", judge_scene(sc, "selftest", **kw)[0], "①")
+    # 🔴 陽性対照⑧（描く側の定数を壊す）：near の縮尺を 1.2m/画素に
+    keep = IL.VA_VIEW["near"]["mpp"]
+    IL.VA_VIEW["near"]["mpp"] = 1.2
+    try:
+        bad = judge_scene(IL.scene(**good_c812), "selftest", **kw)[0]
+    finally:
+        IL.VA_VIEW["near"]["mpp"] = keep
+    ok &= _expect("🔴 16本目 陽性対照⑧（描く側）：near の縮尺 1.2", bad, "⑧")
+    # 🔴 陽性対照④（カットの表）：想定の札を表に無いカットに出す・表のカットで落とす
+    #   （2つ目は想定の帯を描かない絵＝場面の規則〈帯があるのに札が無い〉では鳴らない形で、表の規則だけを測る）
+    for name, cid, spec, head in (("表に無いカットに想定の札", "x16", good_c316, "④x16：想定の札"),
+                                  ("表のカット（c316）で想定の札を落とす", "c316", good_c315, "④c316：想定のカットなのに")):
+        bad = [b for b in judge_cut(cid, dict(fig=("illu", spec)), {cid: "再現イラスト"})[0] if b.startswith("④")]
+        ok &= _expect(f"🔴 16本目 陽性対照④：{name}", bad, head)
+    # 🔴 記録の距離・面積・塊の動き（門番の側の記録 REC_VA）と、型の定数を壊したら鳴るか
+    bad = va_records()
+    print(f"  {'OK' if not bad else '🔴 NG'} 16本目 VA の点と形が記録の距離・面積・塊の動きのとおり: "
+          f"{'合格' if not bad else bad}")
+    ok &= not bad
+    keep = dict(IL.VA_PTS)
+    IL.VA_PTS["tunnel_in"] = (900.0, 507.0)
+    try:
+        bad = va_records()
+    finally:
+        IL.VA_PTS.clear()
+        IL.VA_PTS.update(keep)
+    ok &= _expect("🔴 16本目 陽性対照（記録）：トンネルの入口を約2.0kmに", bad, "記録")
+    keep = IL.VA_SHIFT
+    IL.VA_SHIFT = 90.0
+    try:
+        bad = va_records()
+    finally:
+        IL.VA_SHIFT = keep
+    ok &= _expect("🔴 16本目 陽性対照（記録）：塊を北へ約480m動かす", bad, "記録")
+    # 🔴 正本（`ref/ep16/map16.json`＝#100 を目で読んだ点）と illu.py の定数が同じか（写し間違い・手で動かした値を止める）
+    js = HERE / "ref" / "ep16" / "map16.json"
+    if js.exists():
+        import json
+        g = json.loads(js.read_text(encoding="utf-8"))
+        diff = [k for k, v in IL.VA_PTS.items() if (float(g["points"][k]["x"]), float(g["points"][k]["y"])) != v]
+        diff += [k for k, v in IL.VA_LINES.items() if [tuple(q) for q in g["lines"][k]] != [tuple(q) for q in v]]
+        diff += ["lake_stations"] if [tuple(r) for r in g["lake_stations"]["rows"]] != [tuple(r) for r in IL.VA_LAKE] else []
+        diff += [k for k, v in IL.VA_POLY.items() if [tuple(q) for q in g["polys"][k]] != [tuple(q) for q in v]]
+        diff += ["m_per_px"] if abs(g["m_per_px"] - IL.VA_MPX) > 1e-9 else []
+        print(f"  {'OK' if not diff else '🔴 NG'} 16本目 正本 map16.json と illu.py の定数: {'同じ' if not diff else '違う ' + str(diff)}")
+        ok &= not diff
+    else:
+        print("  🔴 NG 16本目 正本 ref/ep16/map16.json が無い＝照合できない（git の中にある＝無ければ止める）")
+        ok = False
+    return ok
+
+
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
+    # 🔴 2026-10-01（16本目 ⑤b-2）：先に16本目（本番の表）を検算する
+    ok16 = selftest_ep16()
     # 🔴 2026-09-30（15本目 ⑤b-2）：先に15本目で RA・RB・RC・RD を検算してから、14本目の見本に差し替える
     #    （2026-10-01〜：15本目も見本 fixture_ep15 の表＝selftest_ep15 が差し込んで・終わったら戻す）
-    ok15 = selftest_ep15()
+    ok15 = selftest_ep15() and ok16
     # 🔴 2026-09-30（15本目 ⑤b-1）：見本は14本目の実物（置き場 A〜E の部品の既定の rec が14本目の資料を指す）。
     #    本番の表は回ごとに空にする（§0b）＝この処理の中だけ14本目の資料の表・原文・時刻にする
     import fixture_ep14

@@ -93,4 +93,41 @@ SPEC = {
                     dict(k="水位", t="水面の標高", v="湖の深さではない", c=J.AMBER)],
             cols=3)),
     ),
+
+    # ── 🆕 ⑤b-2（2026-10-01）：案C の置き場 VA（上から見た谷・北が上＝`tools/illu.py` の「16本目」の節）──
+    #   形のもと＝#100（1934年の地形図）を目で読んだ点（正本 `ref/ep16/map16.json`）。人は置かない（22時39分に町の人がどこに
+    #   いたかの記録が無い＝映像方針 §2）。全面の絵は見出し t・副題 s を書かない（§5b-83③）。秒は narration.json の実測：
+    # 冒頭 c102（5.39秒）＝c101（VB・横から）の続き。1行目（0〜2.97秒）＝合図（「上から見ると」・さっきの断面の線＝c101 の
+    #   南北の線と目の印・1.5秒で細く）→ 水が西へダムの弧を越え峡谷を下り（0.15秒〜）、峡谷の出口からピアーヴェ川の谷へ広がり
+    #   （約0.85秒〜）、町の建物の面を覆う（約1.4秒〜）。札はダムとロンガローネだけ（映像方針 §1-3）／2行目（3.32秒〜）＝水が引き、
+    #   PDF98 が挙げた町（ロンガローネ・ピラーゴ・フォルナーチェ）の建物の面が泥の色に。何も動かさず、カメラがゆっくり引く
+    #   （数は字幕だけ）。⚠️ ファエとカステッラヴァッツォ（の一部）は #100 の外＝描いていない（左下の出典の行は PDF98）。
+    #   ⚠️ 「左上の小さな地図が全画面へ広がる」（映像方針 §4-2 #1）は、位置の小さな地図（⑤b-3 の合図の型）ができてから足す
+    "c102": dict(
+        fig=("illu", dict(
+            place="VA", at="22:39", start=dict(view="wide", block="on", prev="B", switch="on", cam=1.05),
+            rec="S1 p98（10月9日22時39分・波がダムを越えてピアーヴェ川の谷へ）・S1 p147（1つの塊のまま）・S8 p1046（水平に300〜400m）",
+            steps=[dict(state=dict(wave_w="on", flood="on", towns="gone"), delay=0.15,
+                        rec="S1 p146（西へダムを越えた）・S1 p98（ダムを越えてピアーヴェ川の谷へ）",
+                        tag=[dict(t="ダム", at="dam", off=(40, -90), keep=True),
+                             dict(t="ロンガローネ", at="longarone", off=(70, -90), keep=True)]),
+                   dict(state=dict(wave_w="recede", flood="recede", towns="mud", cam=1.0), delay=0.1, dur=2.0,
+                        rec="S1 p98（10月10日の夜明けには…もう存在しなかった）")])),
+    ),
+    # c116（6.90秒）＝昼の VA に場所の札を語りの順に（3段＝1行目の真ん中に段が挟まる）：湖・エルト・カッソ（とトック山＝c115 の続き）
+    #   → ダム・峡谷 → ピアーヴェ川・ロンガローネ。合図（映像方針 §4-2 #3・c106 から）＝「上から見ると」・VC の線（ダムを通る東西）。
+    #   ⚠️ c115（Google Earth①・⑤b-7）は、ここと同じ印（ダムの弧・トック山の斜面の札）にそろえる
+    "c116": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="wide", tod="day", prev="C", switch="on"),
+            rec="#100 p1（1934年の地形図＝谷・湖・村・町の位置）",
+            steps=[dict(tag=[dict(t="湖", at="lake", off=(40, -60), keep=True),
+                             dict(t="エルト", at="erto", off=(40, -60), keep=True),
+                             dict(t="カッソ", at="casso", off=(-40, -60), anchor="end", keep=True),
+                             dict(t="トック山", at="toc", off=(50, 60), keep=True)]),
+                   dict(tag=[dict(t="ダム", at="dam", off=(-30, -80), anchor="end", keep=True),
+                             dict(t="峡谷", at="gorge", off=(-20, 70), anchor="end", keep=True)]),
+                   dict(tag=[dict(t="ピアーヴェ川", at="piave", off=(50, 70), keep=True),
+                             dict(t="ロンガローネ", at="longarone", off=(60, -80), keep=True)])])),
+    ),
 }

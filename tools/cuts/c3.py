@@ -88,4 +88,31 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-2（2026-10-01）：案C の置き場 VA（上から見た谷・昼＝`tools/illu.py` の「16本目」の節）──
+    # c315（8.37秒）＝迂回トンネル（北の岸の岩の中＝点線）を出口（ダムのそば）から入口（約2.5km上流＝地図の縮尺で照らした＝
+    #   measure_map16.py check）へ描き、2行目で「入り口」「出口」の札。合図（映像方針 §4-2 #6・c312 から）＝「上から見ると」・
+    #   VD の目の印（北の岸から南を向いて＝さっきの見る位置）。湖は1963年の約700mの概略のまま（1961年の水位は描き分けない＝出典の行
+    #   「湖の形は概略」）
+    "c315": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="near", tod="day", prev="D", switch="on"),
+            rec="#100 p1（1934年の地形図＝谷と湖の位置）",
+            steps=[dict(state=dict(tunnel="on"), delay=1.6, dur=2.6,
+                        rec="S1 p85（右岸の岩の中の迂回トンネル・出口はダムの近く・入口は約2,500m上流）"),
+                   dict(tag=[dict(t="入り口", at="tunnel_in", off=(-20, -75), anchor="end", keep=True),
+                             dict(t="出口", at="tunnel_out", off=(-30, -75), anchor="end", keep=True)],
+                        rec="S1 p85（入口は約2,500m上流・出口はダムの近く）")])),
+    ),
+    # c316（6.53秒）＝会社の説明（想定）：左上に「会社の説明（想定）」の札（cuts.ss.ILLU_ASSUME）。1行目＝崩れた土砂で湖が
+    #   2つに分かれる（湖を横切る帯＝模式）／2行目＝上流の湖の水がトンネルの入口へ・トンネルを通ってダムのそばへ（流れる向きの
+    #   山形）。⚠️ 起きた事ではない（想定）＝帯の位置と幅は模式（出典の行「土砂の帯は模式」）
+    "c316": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="near", tod="day", tunnel="on"), assume="会社の説明（想定）",
+            rec="S1 p85（右岸の岩の中の迂回トンネル）",
+            steps=[dict(state=dict(split="on"), delay=0.2,
+                        rec="S9 p2007（崩れても2つの湖をつなぐ迂回トンネル）"),
+                   dict(state=dict(split="flow"), delay=0.3,
+                        rec="S1 p78（迂回トンネルで洪水を流せる）・S9 p2007")])),
+    ),
 }

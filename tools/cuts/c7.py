@@ -88,4 +88,31 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-2（2026-10-01）：案C の置き場 VA（上から見た谷・夜＝`tools/illu.py` の「16本目」の節）──
+    # c715（9.36秒）＝1行目：道（形は模式＝S1 PDF98 に道の形は無い・出典の行「道は模式」）をエルトから北の岸ぞい・ダムの北の
+    #   たもと・峡谷ぞいにロンガローネへ描く／2行目：エルト・カッソ・ロンガローネの札／3行目：標高730mより低い区間（上の入口〜
+    #   下の入口）を琥珀に。合図（映像方針 §4-2 #8・c708 から）＝「上から見ると」・VC の線（ダムの位置）。人は描かない
+    "c715": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="wide", prev="C", switch="on"),
+            steps=[dict(state=dict(road="on"), delay=1.2,
+                        rec="S1 p98（エルト・カッソからロンガローネへの道を止めると決めた）"),
+                   dict(tag=[dict(t="エルト", at="erto", off=(40, -60), keep=True),
+                             dict(t="カッソ", at="casso", off=(-40, -60), anchor="end", keep=True),
+                             dict(t="ロンガローネ", at="longarone", off=(60, -80), keep=True)]),
+                   dict(state=dict(road="low"), delay=0.3, rec="S1 p98（道の標高は730mより低い）",
+                        tag=dict(t="730mより低い区間", at="road_low", off=(-20, 95), anchor="end", keep=True))])),
+    ),
+    # c716（6.84秒）＝道の入口2か所の印（上＝実線の輪〈会社の作業員2人がふさいだ〉・下＝点線の輪〈憲兵隊がふさいだか、
+    #   ふさごうとしていた〉＝映像方針 §5-1）。人は描かない（上からの縮尺では人は見えない）。2行目の終わり（約6.0秒）に VC の線を
+    #   先に出す（→ c721 VC・映像方針 §4-2 #9）
+    "c716": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="wide", road="low"), rec="S1 p98（エルト・カッソからロンガローネへの道・730m未満）",
+            steps=[dict(state=dict(gates="on"), delay=0.3,
+                        rec="S1 p98（上の入口＝作業員2人・下の入口＝憲兵隊がふさいだか、ふさごうとしていた）",
+                        tag=[dict(t="上の入り口", at="road_up", off=(40, -80), keep=True),
+                             dict(t="下の入り口", at="road_down", off=(-30, 95), anchor="end", keep=True)]),
+                   dict(state=dict(nxt="C"), delay=2.0)])),
+    ),
 }

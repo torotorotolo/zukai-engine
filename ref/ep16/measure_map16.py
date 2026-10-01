@@ -31,11 +31,18 @@ GRID_SPACING_GUESS = 185        # ⑤b-1 にブラウザの表示で測った見
 DIP = 12                        # 列（行）の平均の明るさが全体より これ以上暗い所＝線の候補
 
 # 記録の距離（照らす相手＝映像方針 §7 の 5b-109②・範囲ごとに記録の値を1つ以上）
+# 🔴 2026-10-01（⑤b-2）：北の岸の印は「ダムの真横と約1.1キロ上流」の2か所＝2つの印のあいだを測る（ダムの点から斜面の上の印までは
+#    斜めの距離になる）
 REC_DIST = [
     dict(a="dam", b="tunnel_in", km=2.5, tol=0.25, rec="S1 PDF85（迂回トンネルの入口＝ダムの約2.5キロ上流）"),
-    dict(a="dam", b="north_1100", km=1.1, tol=0.15, rec="S1 PDF146（北の岸の印＝ダムの真横と約1.1キロ上流）"),
+    dict(a="north_dam", b="north_1100", km=1.1, tol=0.15, rec="S1 PDF146（北の岸の印＝ダムの真横と約1.1キロ上流）"),
     dict(a="slide_w", b="slide_e", km=1.7, tol=0.2, rec="S1 PDF144（崩れた斜面の幅およそ1.7キロ）"),
 ]
+REC_AREA = dict(km2=1.9, tol=0.19, rec="S1 PDF144（崩れた斜面の面積およそ1.9平方キロ）")
+# Wikidata の照合の許し（村の家並みの真ん中は ±100〜200m ずれる＝町が長いロンガローネは 250m まで）
+WD_RESID_M = 250.0
+WD_SCALE_TOL = 0.06          # 相似で当てた縮尺と方眼の縮尺の差（割合）
+WD_ROT_TOL = 4.0             # 相似で当てた回転（度）＝方眼の投影のずれ（約2度）より大きく回っていたら北が上と言えない
 
 
 def load():
@@ -105,13 +112,79 @@ def sheet(x0, y0, size=(400, 300), k=2):
     print(f"✓ {out.relative_to(HERE)}（原寸 {size[0]}×{size[1]}px を {k} 倍・10画素の目盛り）")
 
 
+def shore(rows, x, side):
+    """湖の700mの線の概略（lake_stations の行）の、x での岸の y（side＝"n" 北／"s" 南）。行のあいだは直線で。"""
+    rows = sorted(rows)
+    for (x0, y0, n0, s0), (x1, y1, n1, s1) in zip(rows, rows[1:]):
+        if x0 <= x <= x1:
+            f = (x - x0) / (x1 - x0) if x1 > x0 else 0.0
+            y, n, s = y0 + (y1 - y0) * f, n0 + (n1 - n0) * f, s0 + (s1 - s0) * f
+            return y - n if side == "n" else y + s
+    raise ValueError(f"x={x} は湖の範囲の外")
+
+
+def slide_poly(js):
+    """崩れた範囲（模式）＝前のふち（湖の南の岸・slide_w〜slide_e）＋後ろのふち（polys.slide_back）。"""
+    p = js["points"]
+    rows = js["lake_stations"]["rows"]
+    x0, x1 = p["slide_w"]["x"], p["slide_e"]["x"]
+    front = [(float(x), shore(rows, x, "s")) for x in range(int(x0), int(x1) + 1, 8)] + [(float(x1), shore(rows, x1, "s"))]
+    return front + [tuple(map(float, q)) for q in js["polys"]["slide_back"]]
+
+
+def area(poly):
+    return abs(sum(a[0] * b[1] - b[0] * a[1] for a, b in zip(poly, poly[1:] + poly[:1]))) / 2
+
+
+def wikidata(js):
+    """地図の画素と Wikidata の座標を照らす（方眼の縮尺・北が上の当て＝残差／相似の当て＝縮尺と回転）。返り値＝食い違いの一覧。"""
+    import cmath
+    import math
+    wd = js["scale"]["wikidata"]
+    lat0, lon0 = wd["dam"]
+    r0 = math.radians(lat0)
+    mlat = 111132.954 - 559.822 * math.cos(2 * r0) + 1.175 * math.cos(4 * r0)
+    mlon = 111412.84 * math.cos(r0) - 93.5 * math.cos(3 * r0) + 0.118 * math.cos(5 * r0)
+    s = js["m_per_px"]
+    use = {k: v for k, v in wd["points"].items() if v["use"]}
+    en = {k: ((v["lon"] - lon0) * mlon, (v["lat"] - lat0) * mlat) for k, v in wd["points"].items()}
+    dx = sum(v["x"] - en[k][0] / s for k, v in use.items()) / len(use)
+    dy = sum(v["y"] + en[k][1] / s for k, v in use.items()) / len(use)
+    bad = []
+    print(f"■ Wikidata の照合（方眼の縮尺 {s}m・北が上）：ダム＝({dx:.1f}, {dy:.1f})・読んだダム "
+          f"({js['points']['dam']['x']}, {js['points']['dam']['y']})")
+    for k, v in wd["points"].items():
+        r = math.hypot(v["x"] - (dx + en[k][0] / s), v["y"] - (dy - en[k][1] / s)) * s
+        ok = r <= WD_RESID_M or not v["use"]
+        print(f"  {'✓' if ok else '🔴'} {k} 残差 {r:.0f}m" + ("" if v["use"] else "（照合に使わない）"))
+        if not ok:
+            bad.append(f"{k} の残差 {r:.0f}m")
+    z = [complex(*en[k]) for k in use]
+    w = [complex(v["x"], -v["y"]) for v in use.values()]
+    zm, wm = sum(z) / len(z), sum(w) / len(w)
+    a = sum((wi - wm) * (zi - zm).conjugate() for wi, zi in zip(w, z)) / sum(abs(zi - zm) ** 2 for zi in z)
+    sc, rot = 1 / abs(a), math.degrees(cmath.phase(a))
+    ok = abs(sc / s - 1) <= WD_SCALE_TOL and abs(rot) <= WD_ROT_TOL
+    print(f"  {'✓' if ok else '🔴'} 相似の当て：1画素 {sc:.3f}m（方眼と {(sc / s - 1) * 100:+.1f}%・許し ±{WD_SCALE_TOL * 100:.0f}%）・"
+          f"回転 {rot:+.1f}度（許し ±{WD_ROT_TOL}度）")
+    if not ok:
+        bad.append(f"相似の当て 縮尺 {sc:.3f}・回転 {rot:+.1f}")
+    d = math.hypot(js["points"]["dam"]["x"] - dx, js["points"]["dam"]["y"] - dy) * s
+    ok = d <= WD_RESID_M
+    print(f"  {'✓' if ok else '🔴'} 読んだダムと当てたダムの差 {d:.0f}m")
+    if not ok:
+        bad.append(f"ダムの差 {d:.0f}m")
+    return bad
+
+
 def check():
-    """目で読んだ点（画素）を km に直し、記録の距離と照らす。⑤b-2 で map16.json を作ってから。"""
+    """目で読んだ点（画素）を km に直し、記録の距離・面積と照らす＋Wikidata の座標で縮尺と向きを照らす（⑤b-2）。"""
     if not POINTS.exists():
         raise SystemExit(f"🔴 {POINTS.relative_to(HERE)} が無い＝⑤b-2 で目で読んだ点を書いてから（how＝目で読んだ）")
     pts = json.loads(POINTS.read_text(encoding="utf-8"))
     m_per_px = pts["m_per_px"]          # grid と地点の座標で決めた値（JSON に根拠と一緒に書く）
     bad = []
+    print("■ 記録の距離")
     for r in REC_DIST:
         a, b = pts["points"][r["a"]], pts["points"][r["b"]]
         km = ((a["x"] - b["x"]) ** 2 + (a["y"] - b["y"]) ** 2) ** 0.5 * m_per_px / 1000
@@ -119,6 +192,15 @@ def check():
         print(f"  {'✓' if ok else '🔴'} {r['a']}→{r['b']} {km:.2f}km（記録 {r['km']}km±{r['tol']}・{r['rec']}）")
         if not ok:
             bad.append(r)
+    km2 = area(slide_poly(pts)) * m_per_px ** 2 / 1e6
+    ok = abs(km2 - REC_AREA["km2"]) <= REC_AREA["tol"]
+    print(f"  {'✓' if ok else '🔴'} 崩れた範囲（模式）の面積 {km2:.2f}km²（記録 {REC_AREA['km2']}±{REC_AREA['tol']}・{REC_AREA['rec']}）")
+    if not ok:
+        bad.append(REC_AREA)
+    rows = pts["lake_stations"]["rows"]
+    L = sum(((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2) ** 0.5 for a, b in zip(rows, rows[1:])) * m_per_px / 1000
+    print(f"  （参考）湖の700mの線の概略：ダムから上流の端まで川ぞいに {L:.1f}km（記録に長さは無い）")
+    bad += wikidata(pts)
     sys.exit(1 if bad else 0)
 
 

@@ -88,4 +88,68 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-2（2026-10-01）：案C の置き場 VA（上から見た谷・夜＝`tools/illu.py` の「16本目」の節）──
+    #   人は置かない（22時39分に町の人・集落の人がどこにいたかの記録が無い＝映像方針 §2）。秒は narration.json の実測
+    # c802（6.64秒）＝崩れた範囲（崩れる前の斜面の上・形は模式＝前のふちは湖の南の岸・幅1.7km と面積1.9km² に合わせた＝
+    #   measure_map16.py check）。厚さは描かない。2行目の終わり（約5.7秒）に南北の切り口の線を先に出す（→ c805 VB）
+    "c802": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="wide"),
+            steps=[dict(state=dict(slide="on"), delay=0.4, rec="S1 p144（崩れた斜面＝幅およそ1.7キロ・面積およそ1.9平方キロ）",
+                        tag=dict(t="崩れた範囲", at="slide", off=(60, 80), keep=True)),
+                   dict(state=dict(nxt="B"), delay=1.1)])),
+    ),
+    # c812（12.20秒）＝崩れたあと（塊が湖を埋めた）。1行目の後半（約2.6秒〜）に北の岸の印2か所（ダムの真横と約1.1km上流＝
+    #   2つの印のあいだを地図の縮尺で照らした）／2行目で両方に「930m」。さっきの断面の線（c811 の VB＝約1.1km上流の点を通る南北）
+    #   ＝字は出さない（語りが「上から見ると」＝映像方針 §4-2 #11）
+    "c812": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="near", block="on", prev="B"),
+            rec="S1 p147（1つの塊のまま）・S8 p1046（水平に300〜400m）・S1 p146（北の岸に乗り上げた）",
+            steps=[dict(state=dict(marks="on"), delay=2.6, rec="S1 p146（北の岸のダムの真横と約1.1km上流が最も高い）"),
+                   dict(tag=[dict(t="930m", at="mark1", off=(-30, -60), anchor="end", keep=True),
+                             dict(t="930m", at="mark2", off=(30, -60), keep=True)],
+                        rec="S1 p146（その2か所で標高930m）"),
+                   dict()])),
+    ),
+    # c814（13.31秒）＝1行目：東へ向かった波（塊の東の端から湖の上流の端まで・約1.0秒〜3.0秒かけて）／2行目：湖の岸の
+    #   ピネダとサン・マルティーノの建物の面が消えて泥の色に（PDF98）＋札／3行目：上流の岸に「25〜90m」。
+    #   ⚠️ ピネダの位置は概略（地名「Pineda」が書かれた南の岸の湖のふち＝map16.json の how）
+    "c814": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="wide", block="on"),
+            rec="S1 p147（1つの塊のまま）・S8 p1046（水平に300〜400m）",
+            steps=[dict(state=dict(wave_e="on"), delay=1.0, dur=3.0, rec="S1 p146（東へ・湖の上流の岸へ）"),
+                   dict(state=dict(shore="mud"), delay=1.2, rec="S1 p98（湖の岸のピネダとサン・マルティーノはもう存在しなかった）",
+                        tag=[dict(t="ピネダ", at="pineda", off=(30, 75), keep=True),
+                             # ⑤b-2 の qa_all（layout）：点の左上に置くと右上の章の札「22時39分」に 6画素かかった＝点の左横へ
+                             dict(t="サン・マルティーノ", at="smartino", off=(-40, 10), anchor="end", keep=True)]),
+                   dict(tag=dict(t="25〜90m", at="upstream", off=(-30, 75), anchor="end"),
+                        rec="S1 p146（上流の岸で湖面より25〜90m）")])),
+    ),
+    # c815（7.44秒）＝西へ向かった水がダムの弧を越え峡谷へ（2.0秒かけて）。2行目の終わり（約6.4秒）に東西の切り口の線（→ c816 VC）
+    "c815": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="near", block="on"),
+            rec="S1 p147（1つの塊のまま）・S8 p1046（水平に300〜400m）",
+            steps=[dict(state=dict(wave_w="on"), delay=0.8, dur=2.0, rec="S1 p146（西へダムを越え下流の峡谷へ）",
+                        tag=dict(t="ダム", at="dam", off=(40, -80), keep=True)),
+                   dict(state=dict(nxt="C"), delay=2.4)])),
+    ),
+    # c823（7.42秒）＝峡谷の出口の先（見え方 west）。1行目：水が峡谷の出口を出てピアーヴェ川の谷へ広がり、町の建物の面が消える
+    #   （冒頭 c102 と同じ見せ方）＋札（峡谷の出口・ピアーヴェ川・ロンガローネ）／2行目：夜の色から夜明けの色へ・泥の色の跡（PDF98
+    #   「10月10日の夜明けには…もう存在しなかった」）→ 第9章の写真へ。さっきの断面の線（c817 の VC）＝字は出さない（語りが
+    #   「上から見ると」）
+    "c823": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="west", block="on", prev="C"),
+            rec="S1 p147（1つの塊のまま）・S8 p1046（水平に300〜400m）",
+            steps=[dict(state=dict(wave_w="on", flood="on", towns="gone"), delay=0.6,
+                        rec="S1 p146（西へダムを越えた）・S1 p98（ダムを越えてピアーヴェ川の谷へ）",
+                        tag=[dict(t="峡谷の出口", at="gorge_exit", off=(30, -80), keep=True),
+                             dict(t="ピアーヴェ川", at="piave_n", off=(40, -60), keep=True),
+                             dict(t="ロンガローネ", at="longarone", off=(-30, -80), anchor="end", keep=True)]),
+                   dict(state=dict(tod="dawn", wave_w="recede", flood="recede", towns="mud"), delay=0.3, dur=1.8,
+                        rec="S1 p98（10月10日の夜明けには…もう存在しなかった）")])),
+    ),
 }
