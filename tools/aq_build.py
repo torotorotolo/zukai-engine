@@ -17,7 +17,8 @@ r"""aq_build.py — ゆっくり（AquesTalk）で全カットを合成し、el_
   字幕の text は印 `Q: ` を外した文（speaker.split）。読みは aq_kana の音声記号列（override・利用者辞書こみ・E 0 が前提）
 
 ⚠️ 台本に無いカットの wav は消す（el_build と同じ）＝本線で回すと前の回の音が消える。回ごとの作業ツリーで（ルール 5a-23）
-⚠️ 話速は合成の後で変えない（atempo を通さない）＝アプリの話速（プリセット）で決める。ルール 5a-28＝380字/分・下限27分
+⚠️ 話速は合成の後で変えない（atempo を通さない）＝アプリの話速（プリセット）で決める。ルール 5a-28＝16本目から約365字/分
+   （合格の幅 360〜370・§C-1 #68。14・15本目は 380・下限373）・尺の下限27分
 """
 import hashlib
 import json
@@ -46,9 +47,13 @@ FADE_MS = 5         # 行の頭と尻のクリック止め（長さ不変）
 SR = T.SR
 AUDIO = ROOT / "audio"
 PUNCT = re.compile(r"[、。？！「」（）・]")   # 「句読点なし」の字数（ルール 5a-28＝競合分析 §5 と同じ数え方）
-TARGET_CPM = 380    # 字/分（競合「ゆっくり事故検証」5本の中央値）
-FLOOR_SEC = 27 * 60  # 尺の下限。割るなら話速を1段ずつ下げる（373字/分まで）
-FLOOR_CPM = 373      # 話速を下げてよい下限（字/分）
+# 🔴 話速の目安（句読点なしの字数÷尺）。2026-10-01 カズヤくん「15本目 r02 の速さを標準に」＝16本目から（ルール §C-1 #68）。
+#    r02＝話速147・364.3字/分（声だけ 453.1）。14本目 373.2・15本目 r01 374.8 は試写で「ほんの少し遅く」と言われた速さ。
+#    14・15本目は TARGET 380（競合「ゆっくり事故検証」5本の中央値）・下限 373（27分を割るときに下げてよい所まで）だった
+TARGET_CPM = 365     # 字/分（16本目から）
+FLOOR_SEC = 27 * 60  # 尺の下限（据え置き）
+FLOOR_CPM = 360      # 合格の幅の下。これより遅くするならカズヤくんに聞く
+CEIL_CPM = 370       # 合格の幅の上。14本目・15本目 r01（373〜375）の手前で止める
 MEMO = "事故検証ch aq_build が書く（手で直さない）"
 
 # 声（回ごと）。キー None＝語り・"q"＝聞き役（speaker.split の who）。プリセットはアプリの CSV に ensure_presets が書く
@@ -188,8 +193,14 @@ def fmt(s):
     return f"{int(s) // 60}分{s - 60 * (int(s) // 60):04.1f}秒"
 
 
+def judge_rate(total, cpm):
+    """(尺が27分以上か, 字/分が FLOOR_CPM〜CEIL_CPM の内か, 外れの向き "遅すぎ"／"速すぎ"／"")。境目は内側。"""
+    side = "遅すぎ" if cpm < FLOOR_CPM else "速すぎ" if cpm > CEIL_CPM else ""
+    return total >= FLOOR_SEC, not side, side
+
+
 def rate_report(js=None, quiet=False):
-    """narration.json の実測から 尺・冒頭・字/分 と、話速の当たり（380字/分・下限27分）を出す。"""
+    """narration.json の実測から 尺・冒頭・字/分 と、話速の当たり（365字/分の幅・下限27分）を出す。"""
     js = js or json.loads((AUDIO / "narration.json").read_text(encoding="utf-8"))
     if js.get("engine") != "aquestalk":
         raise SystemExit(f"🔴 narration.json の engine が {js.get('engine')}（aq_build の音でない）")
@@ -206,12 +217,12 @@ def rate_report(js=None, quiet=False):
     s0 = js["presets"]["n"]["話速"]
     # ⚠️ 話速から尺を式で当てない：AquesTalk1 の話速は段々（14本目の実測＝154→153 で声が 2.7% 跳ぶ・1段では 0.1%）。
     #    話速を替えたら全行を焼き直して、ここの実測で合否を見る（1回 約1分・費用なし）
-    ok_floor, ok_cpm = total >= FLOOR_SEC, cpm >= FLOOR_CPM
+    ok_floor, ok_cpm, side = judge_rate(total, cpm)
     if not quiet:
         print(f"話速 {s0}・行間 {js.get('gap')}秒／句読点なし {chars:,}字／声 {fmt(speech)}＋構造 {fmt(over)} ＝ 尺 {fmt(total)}")
-        print(f"  字/分（句読点なし÷尺）= {cpm:.1f}（目標 {TARGET_CPM}・下げてよいのは {FLOOR_CPM} まで）"
+        print(f"  字/分（句読点なし÷尺）= {cpm:.1f}（目標 {TARGET_CPM}・合格の幅 {FLOOR_CPM}〜{CEIL_CPM}）"
               f"／声だけの字/分 = {chars / (speech / 60):.1f}")
-        print(f"  判定：尺 27分00秒以上 {'✓' if ok_floor else '🔴'}・{FLOOR_CPM}字/分以上 {'✓' if ok_cpm else '🔴'}")
+        print(f"  判定：尺 27分00秒以上 {'✓' if ok_floor else '🔴'}・{FLOOR_CPM}〜{CEIL_CPM}字/分 {'✓' if ok_cpm else '🔴' + side}")
         op = [c for c, _ in narration.SCRIPT][:8]
         print("  冒頭: " + " ".join(f"{c}={tl[c][1]:.1f}s" for c in op))
     return dict(total=total, speech=speech, over=over, cpm=cpm, chars=chars, s0=s0,
@@ -407,6 +418,13 @@ def selftest():
     ok(d1["q"][1]["声種"] == "f1" and d1[None][1]["声種"] == "f2", "候補A＝説明 f2・聞き役 f1")
     ok(voice_defs("ep14", "B", 150)[None][1]["棒読み"] == "false" and d1[None][1]["棒読み"] == "true",
        "候補A は棒読み・B はアクセントあり")
+    # 話速の判定（2026-10-01・ルール §C-1 #68）。見本＝実測の尺と字/分
+    ok(judge_rate(1669.6, 364.3) == (True, True, ""), "15本目 r02（話速147・364.3）は合格＝16本目からの標準")
+    ok(judge_rate(1622.5, 374.8) == (True, False, "速すぎ"), "15本目 r01（話速153・374.8）は速すぎ")
+    ok(judge_rate(1622.5, 373.2) == (True, False, "速すぎ"), "14本目（話速154・373.2）は速すぎ")
+    ok(judge_rate(2300.0, 354.0) == (True, False, "遅すぎ"), "大きな段を1つ遅くした値（354）は遅すぎ")
+    ok(judge_rate(2300.0, FLOOR_CPM)[1] and judge_rate(2300.0, CEIL_CPM)[1], "幅の境目は合格")
+    ok(judge_rate(1619.0, 365.0)[0] is False, "27分を割ると尺が🔴")
     if fails:
         print(f"selftest: 落ちた {len(fails)}: {fails}")
         return 1
