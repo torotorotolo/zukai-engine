@@ -5060,3 +5060,11 @@ def mod(view, steps, **kw):
 def bolt(view, steps, **kw):
     import bolt15 as _b
     return _b.bolt(view, steps, **kw)
+
+
+# ── ⑩ 16本目 ⑤b-4（2026-10-01）：断面の図解（ダムの断面・南の岸の斜面を南北に切った断面＝案C の VB と同じ線）
+#      ＝`tools/vsec16.py`（門番 check_mech の judge_vsec）──
+#   `fig=("vsec", dict(view="dam"|"marks"|"two"|"pair"|"probe"|"model"|"seep", start=…, steps=[…], rel=[…], note="模式…", src=…))`
+def vsec(view, steps, **kw):
+    import vsec16 as _v
+    return _v.vsec(view, steps, **kw)

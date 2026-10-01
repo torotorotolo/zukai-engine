@@ -33,6 +33,12 @@
   ⑬ 夜の色：夜の場面の動く物・大事な物の色（型の FIX の色で場面に使ったもの）と夜の地の色（門番の表 NIGHT_GROUND）の差 ΔE 25 以上
   ⑭ 群れと水：群れの部品は、水の部品が触れる段までに消える・顔・1人だけの影・倒れた形・人数の札を持たない（16本目はいまの
      絵コンテに群れが無い＝陽性対照だけ）
+  🆕 16本目 ⑤b-4（VD＝正面から見た斜面・記録は門番の側の REC_VD・REC_LEN_KM）：
+     ⑨ 札の数はカンマを外して読む（「1,200m」を 200m と読んでいた）・「幅1.8km」＝矢印の長さが 1,800m ±3%
+     ⑩ 亀裂の折れ目の標高＝1,200→930→1,260・東の端 1,030m（S1 p72）／1960年の崩落の上の端 ≤850m・大きい方はダムの 400〜600m 上流
+        （S1 p72・p82）／模型の塊は 600〜1,200m・2つの境は沢（亀裂の 930m の谷）の真下（S1 p89・p224）／実際の塊が下がったあとの
+        上の端 846〜866m（S1 p146）／波の高さの印 25m（S1 p97）は模型の場面だけ／湖の水位は記録の水位（600・650・700・722.5m）だけ
+     ④ 模型の想定（model）は「想定」の札と一緒にだけ・小さく戻す絵ならパネルの文に「想定」
   ⑥ 陽性対照（わざと壊した場面で鳴るか）＝`--selftest`（本番の前に必ず回る）
 
 ■ 使い方
@@ -168,6 +174,11 @@ def judge_scene(sc, where, docs=None, pages=None, split=None, until=None, sec_ok
         n += 1
         if "想定" not in (sc.get("assume") or ""):
             bad.append(f"④{where}：会社の説明の想定（split）を描いたのに「想定」の札が無い（assume=）")
+    # 🆕 ⑤b-4：模型の想定（VD の model）も「想定」の札と一緒にだけ（小さく戻す絵＝box は judge_cut がパネルの文で見る）
+    if sc["place"] == "VD" and not sc.get("box") and any(st["model"] != "off" for st in [sc["start"]] + sc["states"]):
+        n += 1
+        if "想定" not in (sc.get("assume") or ""):
+            bad.append(f"④{where}：模型の想定（model）を描いたのに「想定」の札が無い（assume=）")
     prev = sc["start"]
     base = IL.FIELDS[sc["place"]]
     if any(sc["start"].get(k) != base.get(k) for k in IL.REC_FIELDS if k in base) and not sc.get("rec"):
@@ -308,7 +319,11 @@ def judge_scene(sc, where, docs=None, pages=None, split=None, until=None, sec_ok
 # ══════════════════════════════════════════════════════════
 # 🔴 記録の値は門番の側に持つ（型の定数を読まない＝§5b-88）。頁は ss.REC_DOCS の通し番号
 REC_ELEV = {700.0: "S1 p96（その朝・その夜の水位＝約700m）", 695.0: "S1 p96（695mまで下げるつもり）",
-            725.5: "S9 p2006（天端725.50m）", 866.0: "S1 p146（積もった土砂の頂上＝866m）", 930.0: "S1 p146（北の岸で930m）"}
+            725.5: "S9 p2006（天端725.50m）", 866.0: "S1 p146（積もった土砂の頂上＝866m）", 930.0: "S1 p146（北の岸で930m）・S1 p72（亀裂の谷）",
+            # 🆕 ⑤b-4（VD）：亀裂の折れ目・1960年の水位・模型の範囲・1961年の水位・最高水位
+            1200.0: "S1 p72（亀裂は1,200mまで上り）・S1 p89（模型は1,200mまで）", 1260.0: "S1 p72（また1,260mまで）",
+            1030.0: "S1 p72（1,030mへ）", 650.0: "S1 p72（1960年11月4日の水位650m）",
+            600.0: "S1 p89（模型は600mから）・S8 p1046（1961年1月に600m）", 722.5: "S1 p224（最高水位722.5m）"}
 REC_GAP = {25.0: (725.5 - 700.0, "S9 p2006・S1 p96（天端まで25mあまり）"),
            165.0: (866.0 - 700.0, "S1 p146（崩れる前の水面より165m）"),
            200.0: (930.0 - 700.0, "S1 p146（崩れる前の水面より200m）")}
@@ -317,14 +332,24 @@ REC_SEC = dict(north=(930.0, "S1 p146"), peak=(846.0, 866.0, "S1 p146（866m）"
                thick=(330.0, "S1 p144（厚さ最大約330m）"), over=(100.0, 140.0, "S8 p1041（140m）・p1047（100m以上）"),
                crest=(725.5, "S9 p2006"), height=(261.6, "S9 p2006"), lake=(700.0, "S1 p96"), l695=(695.0, "S1 p96"))
 ELEV_TOL, GAP_TOL = 3.0, 1.5
-SEC_PLACES = ("VB", "VC")
+# 🆕 ⑤b-4：VD（正面から見た斜面）の記録（門番の側＝§5b-88。型の VD_CRACK・VD_1960・VD_MODEL_Z・VD_PEAK・VD_WAVE_H を読まない）
+REC_VD = dict(crack=((1200.0, 930.0, 1260.0), 1030.0, "S1 p72（1,200m まで上り・930m まで下り・1,260m・1,030m）"),
+              c1960_top=(850.0, "S1 p72（400〜850m の間）"), c1960_from_dam=(400.0, 600.0, "S1 p82（ダムの約500m上流）"),
+              model_z=(600.0, 1200.0, "S1 p89（標高600〜1,200m）"), model_split="S1 p224（マッサレッツァの沢の東と西）",
+              peak=(846.0, 866.0, "S1 p146（積もった土砂の頂上866m）"), wave=(25.0, "S1 p97（波は25メートル）"),
+              water={600.0: "S8 p1046", 650.0: "S1 p72", 700.0: "S1 p96・S1 p224", 722.5: "S1 p224"})
+REC_LEN_KM = {1.8: (1800.0, "S1 p89（前の幅1.8キロ）")}
+KM_TOL = 0.03
+SPLIT_TOL = 12.0                     # 模型の2つの塊の境と沢（亀裂の 930m の谷）の横のずれの許し（画素）
+SEC_PLACES = ("VB", "VC", "VD")
 # ⑬ 夜の地の色（場面の地になる色の名＝門番の表）。型の FIX（動く物・大事な物の色）と、この地の色の差を全部の組で測る
 NIGHT_GROUND = dict(VA=("VA_PAL", ("b0", "b1", "b2", "b3", "b4", "floor")), VB=("VB_PAL", ("sky0", "sky1", "ground")),
-                    VC=("VC_PAL", ("sky0", "sky1", "ground", "far")))
-NIGHT_FIX = dict(VA="VA_FIX", VB="VB_FIX", VC="VC_FIX")
+                    VC=("VC_PAL", ("sky0", "sky1", "ground", "far")), VD=("VD_PAL", ("face0", "face1")))
+NIGHT_FIX = dict(VA="VA_FIX", VB="VB_FIX", VC="VC_FIX", VD="VD_FIX")
 NIGHT_DE = 25.0
 NUM_M = re.compile(r"(\d+(?:\.\d+)?)\s*m(?![²³2-3])")
 RANGE_M = re.compile(r"(\d+(?:\.\d+)?)\s*〜\s*(\d+(?:\.\d+)?)\s*m")
+KM_M = re.compile(r"(\d+(?:\.\d+)?)\s*km")
 
 
 @lru_cache(maxsize=1)
@@ -379,13 +404,29 @@ def judge_labels_sec(sc, where):
     bad, n = [], 0
     for i, t in enumerate(sc["tags"]):
         for txt, at, geo in zip(t.get("texts") or [], t.get("ats") or [None] * 9, t.get("ageo") or [None] * 9):
-            rg = RANGE_M.search(txt)
-            singles = [] if rg else [float(v) for v in NUM_M.findall(txt)]
-            if not rg and not singles:
+            # 🔴 ⑤b-4：カンマを外して読む（前は「1,200m」の「200m」だけを読んで、表に無い 200m と言っていた＝VD の札で見つけた）
+            tn = str(txt).replace(",", "").replace("，", "")
+            km = KM_M.search(tn)
+            rg = None if km else RANGE_M.search(tn)
+            singles = [] if (rg or km) else [float(v) for v in NUM_M.findall(tn)]
+            if not rg and not singles and not km:
                 continue
             n += 1
             if geo is None:
                 bad.append(f"⑨{where}：段{i + 1}の札「{txt}」に数があるのに、指し先（at）が断面の点でない（高さを読めない）")
+                continue
+            if km:
+                # 🆕 ⑤b-4：キロの横の寸法（「幅1.8km」＝矢印の長さ）
+                v = float(km.group(1))
+                if v not in REC_LEN_KM:
+                    bad.append(f"⑨{where}：札「{txt}」の {v:g}km は記録の表（REC_LEN_KM）に無い")
+                elif geo["kind"] != "len":
+                    bad.append(f"⑨{where}：札「{txt}」（横の寸法）の指し先が寸法の矢印でない")
+                else:
+                    L = abs(geo["b"][0] - geo["a"][0]) / geo["k"]
+                    want = REC_LEN_KM[v][0]
+                    if abs(L - want) > want * KM_TOL:
+                        bad.append(f"⑨{where}：札「{txt}」の矢印の長さ {L:.0f}m（記録 {want:g}m ±{KM_TOL * 100:g}%＝{REC_LEN_KM[v][1]}）")
                 continue
             if rg:
                 lo, hi = float(rg.group(1)), float(rg.group(2))
@@ -466,6 +507,12 @@ def judge_records_sec(sc, where):
         elif g.get("kind") in ("lake", "level"):
             n += 1
             z = _secz(r, g["y"])
+            if sc["place"] == "VD":
+                # 🆕 ⑤b-4：VD は場面ごとに水位が違う（1960年秋 650m・1961年2月 600m・模型 700m と最高 722.5m・その夜 700m）
+                #   ＝記録の水位のどれかだけ（門番の側の表 REC_VD["water"]）
+                if not any(abs(z - lv) <= 0.5 for lv in REC_VD["water"]):
+                    bad.append(f"⑩{where}：湖の水位の線 {z:.1f}m は記録の水位（{sorted(REC_VD['water'])}m）でない")
+                continue
             want = REC_SEC["l695"][0] if (p["id"] == "l695") else REC_SEC["lake"][0]
             if abs(z - want) > 0.5:
                 bad.append(f"⑩{where}：{p['id']} の水位の線 {z:.1f}m（記録 {want:g}m）")
@@ -494,6 +541,87 @@ def judge_records_sec(sc, where):
             lo, hi, rec = REC_SEC["peak"]
             if not lo <= pk <= hi:
                 bad.append(f"⑩{where}：崩れたあとの谷の中の頂上 {pk:.1f}m が {lo:g}〜{hi:g}m の外（{rec}）")
+    return bad, n
+
+
+def judge_vd(sc, where):
+    """⑩ VD（正面から見た斜面）：亀裂の折れ目の標高・1960年の崩落の高さと場所・模型の範囲と境・実際の塊の下がり方・波の高さ
+    （🆕 ⑤b-4。札の無い絵の高さも、正面の目盛り＝ruler で読む）。"""
+    if sc["place"] != "VD":
+        return [], 0
+    bad, n = [], 0
+    r = sc["ruler"]
+    k = r["k"]
+    geo = {}
+    for p in sc["parts"]:
+        g = p.get("geo") or {}
+        if g.get("kind"):
+            geo.setdefault(g["kind"], []).append((p, g))
+    crack = next((g for _p, g in geo.get("crack", [])), None)
+    if crack:
+        n += 1
+        zs = [_secz(r, q[1]) for q in crack["line"]]
+        turns = [zs[i] for i in range(1, len(zs) - 1) if (zs[i] - zs[i - 1]) * (zs[i + 1] - zs[i]) < 0]
+        want, end, rec = REC_VD["crack"]
+        if len(turns) != len(want) or any(abs(a - b) > ELEV_TOL for a, b in zip(turns, want)):
+            bad.append(f"⑩{where}：亀裂の折れ目の標高 {[round(t) for t in turns]}m が記録 {[round(w) for w in want]}m と違う（{rec}）")
+        if abs(zs[-1] - end) > ELEV_TOL:
+            bad.append(f"⑩{where}：亀裂の東の端 {zs[-1]:.0f}m が記録 {end:g}m と違う（{rec}）")
+        if zs[0] > want[0] + ELEV_TOL:
+            bad.append(f"⑩{where}：亀裂の始まり {zs[0]:.0f}m が「1,200m まで上る」より高い（{rec}）")
+    dam = next((g for _p, g in geo.get("dam", [])), None)
+    dam_w = (sum(q[0] for q in dam["poly"]) / len(dam["poly"]) - r["x0"]) / k if dam else None
+    for _p, g in geo.get("c1960", []):
+        top_lim, rec = REC_VD["c1960_top"]
+        for name, poly in g["polys"].items():
+            n += 1
+            top = _secz(r, min(q[1] for q in poly))
+            if top > top_lim + 0.5:
+                bad.append(f"⑩{where}：1960年の崩落（{name}）の上の端 {top:.0f}m が記録の {top_lim:g}m を越える（{rec}）")
+        big = max(g["polys"].values(), key=_area)
+        if dam_w is not None:
+            n += 1
+            d = dam_w - (sum(q[0] for q in big) / len(big) - r["x0"]) / k
+            lo, hi, rec2 = REC_VD["c1960_from_dam"]
+            if not lo <= d <= hi:
+                bad.append(f"⑩{where}：1960年の崩落（大きい方）がダムの {d:.0f}m 上流（{lo:g}〜{hi:g}m＝{rec2}）")
+    mods = geo.get("model", [])
+    for p, g in mods:
+        n += 1
+        zt, zb = _secz(r, min(q[1] for q in g["poly"])), _secz(r, max(q[1] for q in g["poly"]))
+        lo, hi, rec = REC_VD["model_z"]
+        if zt > hi + 0.5 or zb < lo - 0.5:
+            bad.append(f"⑩{where}：模型の塊 {p['id']} の高さ {zb:.0f}〜{zt:.0f}m が {lo:g}〜{hi:g}m の外（{rec}）")
+    if mods:
+        n += 1
+        if len(mods) != 2:
+            bad.append(f"⑩{where}：模型の塊が {len(mods)}つ（2つ＝{REC_VD['model_split']}）")
+        elif crack:
+            a, b = sorted(mods, key=lambda pg: min(q[0] for q in pg[1]["poly"]))
+            gap_x = (max(q[0] for q in a[1]["poly"]) + min(q[0] for q in b[1]["poly"])) / 2.0
+            dip = max(crack["line"], key=lambda q: q[1])                 # 亀裂の一番低い所（930m の谷＝沢）
+            if abs(dip[0] - gap_x) > SPLIT_TOL:
+                bad.append(f"⑩{where}：模型の2つの塊の境 x={gap_x:.0f} が沢（亀裂の 930m の谷 x={dip[0]:.0f}）からずれる"
+                           f"（{REC_VD['model_split']}）")
+    for p, g in geo.get("whole", []):
+        dy = max(float(kk.get("dy", 0.0)) for kk in p["keys"])
+        if dy <= 0.0:
+            continue
+        n += 1
+        top = _secz(r, min(q[1] for q in g["poly"]) + dy)
+        lo, hi, rec = REC_VD["peak"]
+        if not lo <= top <= hi + 0.5:
+            bad.append(f"⑩{where}：実際の塊が下がったあとの上の端 {top:.0f}m が {lo:g}〜{hi:g}m の外（{rec}）")
+    for _p, g in geo.get("wave", []):
+        n += 1
+        h = abs(g["a"][1] - g["b"][1]) / k
+        want, rec = REC_VD["wave"]
+        if abs(h - want) > GAP_TOL:
+            bad.append(f"⑩{where}：波の高さの印 {h:.1f}m（記録 {want:g}m＝{rec}）")
+        if abs(g["a"][1] - g["level_y"]) > 0.6:
+            bad.append(f"⑩{where}：波の高さの印の下の端が湖の水面に無い")
+        if not mods:
+            bad.append(f"⑩{where}：波の高さの印は模型の想定の場面だけ（{rec}＝模型の答え）")
     return bad, n
 
 
@@ -578,7 +706,7 @@ def _key_end(keys, field, want):
 
 def judge_crowd_water(sc, where, crowd_ok):
     """⑭ 群れと水：群れは水が触れる段までに消える・顔／1人だけ／倒れた形／人数の札を持たない。"""
-    if sc["place"] not in ("VA", "VB", "VC"):          # 16本目の置き場だけ（14・15本目の見本の答えは変えない）
+    if sc["place"] not in ("VA", "VB", "VC", "VD"):    # 16本目の置き場だけ（14・15本目の見本の答えは変えない）
         return [], 0
     crowds = [p for p in sc["parts"] if p.get("role") in crowd_ok and p.get("kind") != "sprite"]
     if not crowds:
@@ -618,7 +746,7 @@ def judge_sec(sc, where, crowd_ok=()):
     """16本目 ⑤b-3：⑨⑩⑪（断面）・⑬（夜の色）・⑭（群れと水）。"""
     bad, n = [], 0
     if sc["place"] in SEC_PLACES:
-        for fn in (judge_labels_sec, judge_records_sec, judge_block):
+        for fn in (judge_labels_sec, judge_records_sec, judge_block, judge_vd):
             b, m = fn(sc, where)
             bad += b
             n += m
@@ -637,7 +765,7 @@ def judge_destroy(scs, cid, destroy=None):
     destroy = destroy if destroy is not None else tuple(getattr(_ss(), "ILLU_DESTROY_CUTS", None) or ())
     bad, n = [], 0
     for sc in scs:
-        if sc["place"] not in ("VA", "VB", "VC"):
+        if sc["place"] not in ("VA", "VB", "VC", "VD"):
             continue
         n += 1
         used = sorted({f for st in [sc["start"]] + sc["states"] for f, vs in DESTROY.items() if st.get(f) in vs})
@@ -651,7 +779,7 @@ def judge_destroy(scs, cid, destroy=None):
                             (("a", 1.0), ("dx", 0.0), ("dy", 0.0), ("rot", 0.0), ("sc", 1.0)))
                 if moved or p.get("kind") not in (None, "layer"):
                     bad.append(f"⑫{cid}：ダムの部品が段で変わる（消える・動く）＝ダムは壊さない（S1 p171）")
-        if sc["place"] in ("VA", "VC") and not any((p.get("obj") or {}).get("dam") for p in sc["parts"]):
+        if sc["place"] in ("VA", "VC", "VD") and not any((p.get("obj") or {}).get("dam") for p in sc["parts"]):
             bad.append(f"⑫{cid}：ダムの部品が無い（ダムは残る＝S1 p171）")
     return bad, n
 
@@ -732,6 +860,15 @@ def judge_cut(cid, spec, kind_of):
             bad.append(f"④{cid}：想定のカットなのに想定の札「{want}」が無い（cuts.ss.ILLU_ASSUME）")
         if any(a != want for a in got):
             bad.append(f"④{cid}：想定の札 {got} が表（cuts.ss.ILLU_ASSUME＝{want or 'なし'}）と違う")
+    # 🆕 ⑤b-4：小さく戻す絵に模型の想定（VD の model）を描いたら、その問いのパネルの文（k・t）に「想定」（左上の札が出せない）
+    if has_mini:
+        for blk in fig[1].get("blocks") or []:
+            scn = blk.get("scene") or {}
+            sts = [dict(scn.get("start") or {})] + [dict(s.get("state") or {}) for s in scn.get("steps") or []]
+            if scn.get("place") == "VD" and any(s.get("model", "off") != "off" for s in sts):
+                n += 1
+                if "想定" not in str(blk.get("k", "")) + str(blk.get("t", "")):
+                    bad.append(f"④{cid}：小さく戻す絵に模型の想定を描いたのに、パネルの文（k・t）に「想定」が無い")
     # ⑫ 16本目 ⑤b-3：壊れる物の部品は表のカットだけ・ダムは壊さない
     b, m = judge_destroy(scs, cid)
     return bad + b, n + m
@@ -942,7 +1079,8 @@ def selftest_ep16():
               f"（{'合格' if want_ok else '不合格'}のはず）" + (f"  ← {bad[0]}" if bad else ""))
     ok_va = _selftest_ep16_va(ss)
     ok_sec = _selftest_ep16_sec(ss)
-    return ok_va and ok_sec and ok
+    ok_vd = _selftest_ep16_vd(ss)
+    return ok_va and ok_sec and ok_vd and ok
 
 
 def _selftest_ep16_sec(ss):
@@ -1087,6 +1225,93 @@ def _selftest_ep16_sec(ss):
     else:
         print("  🔴 NG 16本目 正本 ref/ep16/map16.json が無い＝断面を照合できない")
         ok = False
+    return ok
+
+
+def _selftest_ep16_vd(ss):
+    """16本目 ⑤b-4：VD（正面から見た斜面）の検算＝本番の表で回す。陽性対照は**型の定数を壊す形**（§5b-88）。"""
+    kw = dict(docs=dict(ss.REC_DOCS), pages=_pages(), split=tuple(ss.ILLU_SPLIT_TIMES), until=ss.ILLU_CROWD_UNTIL,
+              sec_ok=dict(ss.ILLU_SEC_OK), clock_ok=tuple(ss.ILLU_CLOCK_OK), counts=dict(ss.ILLU_COUNTS),
+              roles=dict(ss.ILLU_ROLES))
+    R = IL.VD_REC
+    g306 = dict(place="VD", start=dict(crack="on"), rec=R["water"]["650"],
+                steps=[dict(state=dict(trace="on"), rec=R["crack"],
+                            tag=[dict(t="1,200m", at="p1200"), dict(t="930m", at="p930")]), dict()])
+    g312 = dict(place="VD", start=dict(crack="on"), rec=R["water"]["650"],
+                steps=[dict(state=dict(c1960="fall"), rec=R["c1960"]), dict(state=dict(area="on"), rec=R["area"]), dict()])
+    g408 = dict(place="VD", start=dict(crack="on", water="600", c1960="fell", switch="on"), rec=R["water"]["600"] + "・" + R["c1960"],
+                steps=[dict(state=dict(area="on"), rec=R["area"]), dict(state=dict(pip="on"), rec=R["pip"])])
+    g507 = dict(place="VD", start=dict(crack="on", water="700", switch="on"), assume="模型の想定", rec=R["water_model"],
+                steps=[dict(state=dict(model="area"), rec=R["model"]),
+                       dict(state=dict(dim="on", bracket="on"), rec=R["dim"],
+                            tag=[dict(t="幅1.8km", at="dim"), dict(t="1,200m", at="b1200"), dict(t="600m", at="b600")]), dict()])
+    g508 = dict(place="VD", start=dict(crack="on", water="700", model="area"), assume="模型の想定", rec=R["water_model"],
+                steps=[dict(state=dict(model="split"), rec=R["model"]), dict(state=dict(model="fall"), rec=R["model"])])
+    g513 = dict(place="VD", start=dict(crack="on", water="722.5", model="split"), assume="模型の想定", rec=R["water"]["722.5"],
+                steps=[dict(), dict(state=dict(wave="on"), rec=R["wave"], tag=dict(t="模型の波の高さ", at="wave")),
+                       dict(tag=dict(t="いちばん高い水位", at="water"))])
+    g809 = dict(place="VD", start=dict(tod="night", water="700", crack="on", whole="on"), rec=R["water"]["700"],
+                steps=[dict(state=dict(whole="fall"), rec=R["whole"]), dict(), dict()])
+    cases = [("16本目 正しい VD c306（亀裂をなぞる・1,200m・930m）", g306, True),
+             ("16本目 正しい VD c312（1960年の崩落の2か所が湖へ・範囲に色）", g312, True),
+             ("16本目 正しい VD c408（1961年2月・水位600m・小さな断面と線）", g408, True),
+             ("16本目 正しい VD c507（模型の範囲・幅1.8km・1,200m・600m）", g507, True),
+             ("16本目 正しい VD c508（沢の東と西の2つの塊が2回に）", g508, True),
+             ("16本目 正しい VD c513（最高水位・波の高さの印＝数なし）", g513, True),
+             ("16本目 正しい VD c809（夜・実際の塊がまるごと下がる）", g809, True),
+             ("🔴 16本目 陽性対照⑨：「1,200m」を 930m の谷に付ける（カンマの数を 1200 と読む）",
+              dict(g306, steps=[dict(state=dict(trace="on"), rec=R["crack"], tag=dict(t="1,200m", at="p930")), dict()]), False),
+             ("🔴 16本目 陽性対照⑨：記録に無い幅「幅2.5km」",
+              dict(g507, steps=[dict(state=dict(model="area"), rec=R["model"]),
+                                dict(state=dict(dim="on"), rec=R["dim"], tag=dict(t="幅2.5km", at="dim")), dict()]), False),
+             ("🔴 16本目 陽性対照④：模型の想定を「想定」の札なしで描く", dict(g508, assume=""), False)]
+    ok = _run(cases, kw)
+    breaks = [
+        ("⑩ 亀裂の西の山を 1,240m で描く型（VD_CRACK）", "VD_CRACK",
+         tuple((x, 1240.0 if z == 1200.0 else z) for x, z in IL.VD_CRACK), g306, ("⑩",)),
+        ("⑩ 1960年の崩落の上の端を 900m で描く型（VD_1960）", "VD_1960",
+         dict(IL.VD_1960, niche=dict(IL.VD_1960["niche"], top=900.0)), g312, ("⑩",)),
+        ("⑩ 1960年の崩落をダムの約1km上流に置く型（VD_1960 の x）", "VD_1960",
+         dict(IL.VD_1960, niche=dict(IL.VD_1960["niche"], x=(700.0, 730.0))), g312, ("⑩",)),
+        ("⑩ 実際の塊の下がったあとの上の端を 900m にする型（VD_PEAK）", "VD_PEAK", 900.0, g809, ("⑩",)),
+        ("⑩ 模型の範囲を 1,260m まで描く型（VD_MODEL_Z）", "VD_MODEL_Z", (600.0, 1260.0), g508, ("⑩",)),
+        ("⑩ 模型の2つの塊の境を沢からずらす型（VD_MASS_X）", "VD_MASS_X", 760.0, g508, ("⑩",)),
+        ("⑩ 波の高さの印を 40m で描く型（VD_WAVE_H）", "VD_WAVE_H", 40.0, g513, ("⑩",)),
+        ("⑩ 1960年の水位を 680m で描く型（VD_WATER）", "VD_WATER", dict(IL.VD_WATER, **{"650": 680.0}), g312, ("⑩",)),
+        ("⑨ 模型の幅を 2.0km に広げる型（VD_FLANK_W の西の端）", "VD_FLANK_W",
+         tuple((500.0 if x == 553.0 else x, z) for x, z in IL.VD_FLANK_W), g507, ("⑨",)),
+        ("⑬ 塊を夜の地に近い色で描く型（VD_FIX の block）", "VD_FIX", dict(IL.VD_FIX, block="#2f3a4c"), g809, ("⑬",)),
+    ]
+    for name, attr, val, spec, heads in breaks:
+        keep = getattr(IL, attr)
+        setattr(IL, attr, val)
+        try:
+            bad = judge_scene(IL.scene(**spec), "selftest", **kw)[0]
+        except Exception as e:                           # noqa: BLE001
+            bad = [f"組めない：{e}"]
+        finally:
+            setattr(IL, attr, keep)
+        good = all(any(b.startswith(h) for b in bad) for h in heads)
+        print(f"  {'OK' if good else '🔴 NG'} 16本目 陽性対照（型）{name}: {'不合格' if bad else '合格'}（{'・'.join(heads)}で不合格のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+        ok &= good
+    # 🔴 型の見張り（門番より前で止まる）：波の印を実際の場面に・模型と実際を同じ場面に・塊を戻す
+    for name, spec in (("波の高さの印を実際の場面に描く", dict(g809, steps=[dict(state=dict(wave="on"), rec=R["wave"]), dict(), dict()])),
+                       ("模型と実際を同じ場面に描く", dict(g508, start=dict(g508["start"], whole="on"))),
+                       ("下がった模型の塊を戻す", dict(g508, steps=[dict(state=dict(model="fell"), rec=R["model"]),
+                                                            dict(state=dict(model="split"), rec=R["model"])]))):
+        try:
+            IL.scene(**spec)
+            got = False
+        except ValueError:
+            got = True
+        print(f"  {'OK' if got else '🔴 NG'} 16本目 型の見張り：{name}: {'組めない（止まった）' if got else '🔴 組めた'}")
+        ok &= got
+    # ④ 小さく戻す絵（c807）：パネルの文に「想定」が無いと止まる
+    pair = dict(blocks=[dict(k="模型", t="2つの塊が2回に", stage=0, stages=2, scene=dict(g508, assume="", steps=[dict(), dict()])),
+                        dict(k="実際", t="1つの塊のまま", stage=1, stages=2, scene=dict(g809, steps=[dict(), dict()]))])
+    b, _ = judge_cut("c807", dict(fig=("illu_pair", pair)), {"c807": "混ざり"})
+    ok &= _expect("🔴 16本目 陽性対照④：小さく戻す模型の絵のパネルに「想定」が無い", b, "④")
     return ok
 
 

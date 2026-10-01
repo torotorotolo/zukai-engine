@@ -3107,7 +3107,8 @@ def v_inset_body(cur, other, s, ox, oy, lw=1.0):
         x, y = va_px(p, "wide")
         return (ox + x * s, oy + y * s)
     for which, wd in ((other, INSET_LW[1]), (cur, INSET_LW[0])):
-        if not which:
+        # 🆕 ⑤b-4：D（正面から見た斜面）は切り口の線が無い＝目の印と南向きの矢印だけ（映像方針 §4-1 の3）
+        if not which or VA_CUT[which]["a"] is None:
             continue
         c = VA_CUT[which]
         (x0, y0), (x1, y1) = P(c["a"]), P(c["b"])
@@ -3155,6 +3156,8 @@ def vb_still_svg(view_name="wide", tod="night"):
 
 
 def _sec_switch_text(place, v):
+    if place == "VD":
+        return "正面から見ると" if v == "on" else ""
     return dict(on="横から見ると", dam="ダムを横から見ると").get(v, "")
 
 
@@ -3446,6 +3449,546 @@ def _vc_note(st0, states):
     return "・".join(note)
 
 
+# ══════════════════════════════════════════════════════════
+#  16本目 ⑤b-4（2026-10-01）：VD 正面から見た斜面（北の岸から南のトック山の北の斜面を見る）
+# ══════════════════════════════════════════════════════════
+# 🔴 守りの線（Vault 映像方針 16本目 §2・§5-4・§7・§9＝ルール §5b-111）：
+#    ・南を向いて見る（VC と同じ向き）＝左が上流（東）・右が下流（西）。横の距離 w は VC と同じ（#100 の x905 から西へ・m）・
+#      縦は標高・縦横同じ縮尺。湖・谷の底・ダムは VC と同じ式（vc_lake_svg・vc_ground_svg・vc_dam_svg＝谷に沿う線の模式）
+#    ・斜面の横の線＝100m ごとの等高線（正面から見ると等高線は水平の線＝高さは正しい・斜面の広がりは模式）
+#    ・長い亀裂（S1 PDF72）＝ポッツァの少し東から 1,200m まで上り・マッサレッツァの沢で 930m・また 1,260m まで上り・
+#      等高線に直角に（斜面を下る向き）1,030m へ。🔴 折れ目の標高は記録・横の位置と始まりの標高（1,000m）は模式
+#    ・囲まれた範囲＝亀裂と、VA の崩れた範囲の模式（slide_back）の東西の端から湖の岸へ下る線（模式）
+#    ・1960年11月4日の崩落（S1 PDF72）＝2か所（トック山の北のかど・ポッツァの下の大きなくぼみ）・標高400〜850m の間・水位650m。
+#      場所はダムの約500m上流（S1 PDF81〜82＝図の赤い範囲）。形と横の位置は模式・上の端は 850m を越えない
+#    ・模型の想定（S1 PDF89）＝前の幅1.8km・標高600〜1,200m（真ん中の厚さ200m は正面では見えない＝語りだけ）・2つの塊で2回に
+#      ＝🔴 マッサレッツァの沢の東と西（S1 PDF224・ミュラーの見立て PDF76）＝南北に切る VB では片方しか見えない＝VD で描く。
+#      2つの境＝亀裂の 930m の谷（沢）・落ちる順（東→西）は記録に無い＝模式
+#    ・実際（S1 PDF147＝1つの塊のまま）＝範囲がまるごと下がる。下がる量＝亀裂の最高 1,260m が積もった土砂の頂上 866m（S1 PDF146）に
+#      着く量（正面では北へ動く量が見えない＝下がる量だけの模式）。⚠️ ⑤b-4 の下見：下げると沢の谷（930m）が湖の下に沈み、残りが
+#      2つの山に見えた（「1つの塊」の場面なのに模型の「2つの塊」に見える）＝**実際の崩れ方（c807 の右・c809）は VB で描く**。
+#      whole の欄は型と門番の検算だけに残す（カットでは使わない）
+#    ・人は置かない。月・星・明かりは描かない
+VD_VIEW = dict(wide=dict(k=0.7, x0=300.0, y0=330.0, z0=1260.0))   # 1m＝0.7画素（縦横同じ）・ダム x≈1690・水位700m が y≈722
+VD_LAB = "正面から見た斜面（北の岸から）"
+VD_EDGE = VC_EDGE
+# 亀裂（#100 の x, 標高 m）＝西の端（ポッツァの少し東）→ 東の端。折れ目の標高は S1 PDF72・横の位置と始まりの標高は模式
+VD_CRACK = ((588.0, 1000.0), (612.0, 1110.0), (632.0, 1200.0), (660.0, 1120.0), (695.0, 930.0), (740.0, 1120.0),
+            (800.0, 1220.0), (850.0, 1252.0), (874.0, 1260.0), (880.0, 1030.0))
+VD_MASS_X = 695.0                  # マッサレッツァの沢（亀裂の 930m の谷）＝模型の2つの塊の境（S1 PDF224）
+# 囲まれた範囲の東と西の端（VA の slide_back の東西の端 → 湖の岸 → 湖の下＝見えない）
+VD_FLANK_E = ((878.0, 900.0), (872.0, 760.0), (869.0, 700.0), (869.0, 450.0))
+VD_FLANK_W = ((553.0, 450.0), (553.0, 700.0), (560.0, 800.0), (575.0, 900.0))
+# 1960年11月4日の崩落の2か所（#100 の x の幅・上の端 m）。大きなくぼみの真ん中 x628＝ダムの約500m上流（S1 PDF82）
+#   ⚠️ 下見のあと（下へ広げた形）：かどの形を西へ（x585〜600）＝2か所の下の端が重ならない（約30m のすき間＝2か所＝S1 PDF72）
+VD_1960 = dict(niche=dict(x=(613.0, 643.0), top=840.0), corner=dict(x=(585.0, 600.0), top=760.0))
+VD_1960_LOW = 600.0                # 2か所の形の下の端（湖の下＝見えない・1961年の水位600m では跡が見える）
+VD_DROP_1960 = 260.0               # 崩れた2か所が下がる量（上の端 840m → 580m＝水位650m の下へ）
+VD_MODEL_Z = (600.0, 1200.0)       # 模型の想定の範囲（S1 PDF89）
+VD_SPLIT_GAP = 8.0                 # 模型の2つの塊のすき間（m・2つと読めるように）
+VD_PEAK = 866.0                    # 積もった土砂の頂上（S1 PDF146）＝実際の塊が下がったあとの上の端
+VD_WAVE_H = 25.0                   # 模型の波の高さ（S1 PDF97「最高水位で一瞬に崩れても波は25メートル」）＝札に数は出さない
+VD_WAVE_W = 520.0                  # 波の印の幅（m・模式）。⑤b-4 の下見：360m（約250画素の幅・高さ17.5画素）は小さすぎた
+VD_WATER = {"600": 600.0, "650": 650.0, "700": 700.0, "722.5": 722.5}
+VD_DIM_Z = 1335.0                  # 「幅1.8km」の矢印の高さ（標高 m・亀裂の上の斜面）
+VD_BR_W = 1940.0                   # 「600m」「1,200m」の縦の寸法の線の w（範囲の西の端とダムのあいだ）
+# c408：右上の小さな断面の枠（x, y, w, h）。⑤b-4 の下見：y140 は第4章の章の札（2行目「約2億立方メートル」）に重なった
+#   ＝章の札の下（y172〜）・亀裂の西の山（x1328, y372）の右上へ
+VD_PIP = (1380.0, 172.0, 476.0, 196.0)
+VD_PIP_X = 740.0                   # 小さな断面の切り口（VB の線＝#100 の x740）＝正面の亀裂の上の点と線でつなぐ
+# niche＝1960年の崩落の跡（えぐれたくぼみ＝暗い面）。⑤b-4 の下見：明るい面と黒い縁では「墓石のような塊」に見えた
+VD_PAL = dict(day=dict(face0="#8d9a7a", face1="#6f7e5c", contour="#56634a", scar="#b3a894", niche="#5f5a4c", gully="#3f4836"),
+              night=dict(face0="#2f3a4f", face1="#232c3e", contour="#46536b", scar="#8a847a", niche="#1a1f29", gully="#151a24"))
+# 動く物・大事な物は時刻で変えない明るい色（夜の地と ΔE 25 以上＝門番 ⑬）＝塊は VA・VB と同じ色
+VD_FIX = dict(block="#b9a079", block_ln="#5e4b33", crack="#f2c14e", area="#f2c14e", trace="#fff4c2", dim="#f3f6f8",
+              wave="#dff1f9", link="#f2c14e")
+VD_T = dict(crack=2.4, trace=4.2, area=0.6, fall=1.4, gap2=1.7, fall_whole=2.4, line=0.45, pip=0.6, link=1.0,
+            c1960_in=0.3, c1960_hold=0.4, switch_hold=1.2, switch_fade=0.35)
+VD_REC = dict(
+    face="#100 p1（1934年の地形図＝トック山の北の斜面）",
+    crack="S1 p72（長さ約2,500mの亀裂＝1,200mまで上り・930mまで下り・1,260m・1,030m）",
+    area="S1 p93（長い周りを囲む亀裂）・S1 p89（亀裂に囲まれた塊）",
+    c1960="S1 p72（1960年11月4日・約70万m³・トック山の北のかどと大きなくぼみの2か所・400〜850m）・S1 p82（ダムの約500m上流）",
+    model="S1 p89（前の幅1.8キロ・標高600〜1,200m・2つの塊で2回に）・S1 p224（マッサレッツァの沢の東と西）",
+    whole="S1 p147（1つの塊のまま）・S1 p146（積もった土砂の頂上＝866m）",
+    wave="S1 p97（最高水位で一瞬に崩れても波は25メートル）",
+    dim="S1 p89（前の幅1.8キロ）", bracket="S1 p89（標高600から1,200メートル）",
+    pip="S1 p77（ミュラー：1960年10月の亀裂＝深いすべり面が地表と交わる線）・S1 p163",
+    water={"600": "S8 p1046（1961年1月の初めに600m）", "650": "S1 p72（水位650m）", "700": "S1 p96（その夜の水位＝約700m）",
+           "722.5": "S1 p224（最高水位722.5m）"},
+    water_model="S1 p224（水位700mで絶対に安全＝ゲッティの結論）")
+
+
+def vd_w(x):
+    """#100 の x → 横の距離 w（m・東の端 x905 から西へ）。"""
+    return (VC_X0E - float(x)) * VA_MPX
+
+
+def _vd_wz(pts):
+    return [(vd_w(x), float(z)) for x, z in pts]
+
+
+def vd_crack_um():
+    return _vd_wz(VD_CRACK)
+
+
+def vd_crack_z(x):
+    """亀裂の、#100 の x での標高（x は西→東で増える）。"""
+    return _lin(list(VD_CRACK), float(x))
+
+
+def vd_area_um():
+    """囲まれた範囲の多角形 [(w, z)]（亀裂＋東の端＋湖の下＋西の端）。"""
+    return _vd_wz(VD_CRACK + VD_FLANK_E + VD_FLANK_W)
+
+
+def _clip_half(poly, inside, cross):
+    """多角形を半平面で切る（Sutherland–Hodgman）。inside(p)・cross(p, q)＝境の線との交点。"""
+    out = []
+    for i in range(len(poly)):
+        p, q = poly[i - 1], poly[i]
+        ip, iq = inside(p), inside(q)
+        if iq:
+            if not ip:
+                out.append(cross(p, q))
+            out.append(q)
+        elif ip:
+            out.append(cross(p, q))
+    return out
+
+
+def _cut_z(poly, z, keep_below):
+    def cross(p, q):
+        f = (z - p[1]) / (q[1] - p[1])
+        return (p[0] + (q[0] - p[0]) * f, z)
+    return _clip_half(poly, (lambda p: p[1] <= z) if keep_below else (lambda p: p[1] >= z), cross)
+
+
+def _cut_w(poly, w, keep_less):
+    def cross(p, q):
+        f = (w - p[0]) / (q[0] - p[0])
+        return (w, p[1] + (q[1] - p[1]) * f)
+    return _clip_half(poly, (lambda p: p[0] <= w) if keep_less else (lambda p: p[0] >= w), cross)
+
+
+def vd_model_um(which=None):
+    """模型の想定の範囲（囲まれた範囲を標高600〜1,200m で切る＝S1 PDF89）。which＝east／west＝マッサレッツァの沢で分けた塊
+    （東＝w が小さい側）。"""
+    poly = _cut_z(_cut_z(vd_area_um(), VD_MODEL_Z[1], True), VD_MODEL_Z[0], False)
+    if which is None:
+        return poly
+    wm = vd_w(VD_MASS_X)
+    if which == "east":
+        return _cut_w(poly, wm - VD_SPLIT_GAP / 2.0, True)
+    return _cut_w(poly, wm + VD_SPLIT_GAP / 2.0, False)
+
+
+def vd_1960_um(name):
+    """1960年の崩落の1か所の形 [(w, z)]（上の縁＝崩れた崖・下へ広がる・下の端は湖の下＝模式）。
+    ⚠️ ⑤b-4 の下見：上が丸く縦に細い形は、明るくても暗くても「墓石」「洞穴の口」に見えた＝上の縁を平たく・下へ広げる"""
+    d = VD_1960[name]
+    xa, xb = d["x"]
+    top, low, wx = d["top"], VD_1960_LOW, xb - xa
+    pts = [(xa - 0.15 * wx, low), (xa - 0.04 * wx, top - 120.0), (xa + 0.12 * wx, top - 30.0), (xa + 0.3 * wx, top - 6.0),
+           (xa + 0.55 * wx, top), (xa + 0.8 * wx, top - 14.0), (xb + 0.02 * wx, top - 60.0), (xb + 0.1 * wx, top - 140.0),
+           (xb + 0.2 * wx, low)]
+    return _vd_wz(pts)
+
+
+def vd_drop():
+    """実際の塊（と模型の塊）が下がる量（m）＝亀裂の最高が積もった土砂の頂上 866m（S1 PDF146）に着く量。"""
+    return max(z for _x, z in VD_CRACK) - VD_PEAK
+
+
+def vd_face_svg(view, tod):
+    """斜面の面（画面いっぱい）＋100m ごとの等高線（正面から見ると水平の線）。"""
+    P = VD_PAL[tod]
+    g = [f'<defs><linearGradient id="vdF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{P["face0"]}"/>'
+         f'<stop offset="1" stop-color="{P["face1"]}"/></linearGradient></defs>',
+         f'<rect x="-10" y="-10" width="{W + 20}" height="{H + 20}" fill="url(#vdF)"/>']
+    for z in range(500, 1800, 100):
+        y = sec_xy(view, 0.0, float(z))[1]
+        if -5 < y < H + 5:
+            g.append(f'<path d="M -10 {y:.1f} H {W + 10}" stroke="{P["contour"]}" stroke-width="2" opacity="0.45"/>')
+    # 🆕 下見のあと：マッサレッツァの沢（亀裂が 930m まで下りる所＝S1 PDF72「マッサレッツァの沢で930m」）の筋＝斜面を下る沢は
+    #   正面では縦の線（幅と形は模式）。模型の2つの塊の境（S1 PDF224）と同じ所
+    x = sec_xy(view, vd_w(VD_MASS_X), 0.0)[0]
+    g.append(f'<path d="M {x:.1f} -10 V {H + 10}" stroke="{P["gully"]}" stroke-width="34" opacity="0.22"/>'
+             f'<path d="M {x:.1f} -10 V {H + 10}" stroke="{P["gully"]}" stroke-width="5" opacity="0.5"/>')
+    return "".join(g)
+
+
+def _vd_block_svg(view, poly_um, cid):
+    """塊（形 poly_um）＝地の色＋等高線（塊と一緒に動く＝前の面の形を保つ）＋縁の線。"""
+    px = [sec_xy(view, w, z) for w, z in poly_um]
+    x0, x1 = min(q[0] for q in px) - 4, max(q[0] for q in px) + 4
+    ln = VD_FIX["block_ln"]
+    lines = "".join(f'<path d="M {x0:.1f} {sec_xy(view, 0.0, float(z))[1]:.1f} H {x1:.1f}" stroke="{ln}" stroke-width="2" '
+                    'opacity="0.45"/>' for z in range(500, 1800, 100))
+    return (f'<defs><clipPath id="{cid}"><path d="{_d(px)}"/></clipPath></defs>' + _poly(px, VD_FIX["block"]) +
+            f'<g clip-path="url(#{cid})">{lines}</g>' + _poly(px, "none", ln, 3.0))
+
+
+def _vd_scar_svg(view, poly_um, tod, niche=False):
+    """塊が下がると見える面（すべった跡）。niche＝1960年の崩落の跡（えぐれた暗いくぼみ・縁は細く＝⑤b-4 の下見）。"""
+    px = [sec_xy(view, w, z) for w, z in poly_um]
+    if niche:
+        # 明るい土の面（縁なし）＋上の縁だけ暗い線（崩れた崖）＝下見のあと
+        return (_poly(px, VD_PAL[tod]["scar"], None, 0.0, 0.95) +
+                f'<path d="{_pl(px[1:-1])}" fill="none" stroke="{VD_PAL[tod]["niche"]}" stroke-width="4" '
+                'stroke-linejoin="round" stroke-linecap="round"/>')
+    return _poly(px, VD_PAL[tod]["scar"], "#10161b", 2.0)
+
+
+def vd_crack_px(view):
+    return [sec_xy(view, w, z) for w, z in vd_crack_um()]
+
+
+def vd_crack_svg(view):
+    pts = vd_crack_px(view)
+    return (f'<path d="{_pl(pts)}" fill="none" stroke="#10161b" stroke-width="9" stroke-opacity="0.65" '
+            'stroke-linejoin="round" stroke-linecap="round"/>'
+            f'<path d="{_pl(pts)}" fill="none" stroke="{VD_FIX["crack"]}" stroke-width="4" stroke-linejoin="round" '
+            'stroke-linecap="round"/>')
+
+
+def vd_trace_svg(view):
+    return (f'<path d="{_pl(vd_crack_px(view))}" fill="none" stroke="{VD_FIX["trace"]}" stroke-width="7" '
+            'stroke-linejoin="round" stroke-linecap="round" opacity="0.92"/>')
+
+
+def vd_area_svg(view, poly_um):
+    px = [sec_xy(view, w, z) for w, z in poly_um]
+    return (_poly(px, VD_FIX["area"], None, 0.0, 0.24) +
+            f'<path d="{_d(px)}" fill="none" stroke="{VD_FIX["area"]}" stroke-width="3" stroke-dasharray="12 9"/>')
+
+
+def vd_dim_ends(view):
+    """「幅1.8km」の矢印の両端＝模型の想定の範囲の東と西の端（S1 PDF89＝前の幅）。"""
+    poly = vd_model_um()
+    return sec_xy(view, min(w for w, _z in poly), VD_DIM_Z), sec_xy(view, max(w for w, _z in poly), VD_DIM_Z)
+
+
+def vd_dim_svg(view):
+    (xa, y), (xb, _y) = vd_dim_ends(view)
+    poly = vd_model_um()
+    c = VD_FIX["dim"]
+    g = []
+    for wx in (min(w for w, _z in poly), max(w for w, _z in poly)):     # 縦の点線（範囲の端の上の点 → 矢印）
+        zt = max(z for w, z in poly if abs(w - wx) < 1.0)
+        x, yy = sec_xy(view, wx, zt)
+        g.append(f'<path d="M {x:.1f} {yy - 8:.1f} L {x:.1f} {y + 14:.1f}" stroke="{c}" stroke-width="2.5" '
+                 'stroke-dasharray="6 6"/>')
+    g.append(f'<path d="M {xa + 4:.1f} {y:.1f} L {xb - 4:.1f} {y:.1f}" stroke="#10161b" stroke-width="9" stroke-opacity="0.6"/>'
+             f'<path d="M {xa + 4:.1f} {y:.1f} L {xb - 4:.1f} {y:.1f}" stroke="{c}" stroke-width="4"/>')
+    g.append(_arrow_head((xb, y), (xa, y), c, 20.0) + _arrow_head((xa, y), (xb, y), c, 20.0))
+    return "".join(g)
+
+
+def vd_bracket_ends(view):
+    """「1,200m」（上）と「600m」（下）＝模型の想定の範囲の高さ（S1 PDF89）。"""
+    return sec_xy(view, VD_BR_W, VD_MODEL_Z[1]), sec_xy(view, VD_BR_W, VD_MODEL_Z[0])
+
+
+def vd_bracket_svg(view):
+    a, b = vd_bracket_ends(view)
+    return _bracket_svg(a, b, VD_FIX["dim"])
+
+
+def vd_wave_ends(view, level):
+    """模型の波の高さの印（湖の水面 → 25m 上）。置き場所は2つの塊の境（沢）の前の湖。"""
+    wc = vd_w(VD_MASS_X)
+    return sec_xy(view, wc, level), sec_xy(view, wc, level + VD_WAVE_H)
+
+
+def vd_wave_svg(view, level):
+    """湖の水面の上の、波の高さの印（盛り上がりの形＋寸法の線・数は描かない）。"""
+    (x, ya), (_x, yb) = vd_wave_ends(view, level)
+    half = VD_WAVE_W / 2.0 * view["k"]
+    c = VD_FIX["wave"]
+    bump = [(x - half + 2 * half * j / 24, ya - (ya - yb) * math.sin(math.pi * j / 24) ** 2) for j in range(25)]
+    xr = x + half + 26.0
+    return (_poly(bump + [(x + half, ya + 2), (x - half, ya + 2)], c, "#10161b", 3.0) +
+            f'<path d="M {x:.1f} {yb:.1f} H {xr:.1f}" stroke="{c}" stroke-width="2.5" stroke-dasharray="6 5"/>' +
+            _bracket_svg((xr, ya), (xr, yb), c))
+
+
+def vd_pip_geom():
+    """c408 の右上の小さな断面（VB の線＝#100 の x740・西を向いて見る＝左が南）の写し。返り値＝(P(u, z)→画面, 範囲)。"""
+    bx, by, bw, bh = VD_PIP
+    u0, u1, z0, z1 = 0.0, 2100.0, 450.0, 1300.0
+    k = min((bw - 24.0) / (u1 - u0), (bh - 54.0) / (z1 - z0))
+    ox = bx + 12.0 + ((bw - 24.0) - (u1 - u0) * k) / 2.0
+    oy = by + 44.0
+
+    def P(u, z):
+        return (ox + (u - u0) * k, oy + (z1 - z) * k)
+    return P, (u0, u1, z0, z1)
+
+
+def _g_cross(G, z):
+    """折れ線 G（u 昇順）が標高 z を横切る u の並び。"""
+    return [a + (b - a) * (z - za) / (zb - za) for (a, za), (b, zb) in zip(G, G[1:]) if (za - z) * (zb - z) < 0]
+
+
+def vd_pip_svg(level):
+    """c408：右上の小さな断面＝ミュラーの読み（地表の亀裂＝地下深くのすべり面が地表に出た端）。形は VB と同じ線（模式）。"""
+    bx, by, bw, bh = VD_PIP
+    P, (u0, u1, z0, _z1) = vd_pip_geom()
+    us = [u0] + [q[0] for q in VB_G if u0 < q[0] < u1] + [u1]
+    gl = [P(u, _lin(VB_G, u)) for u in us]
+    ub, ut = VB_SLIP[0][0], VB_SLIP[-1][0]
+    ss = [ub + (ut - ub) * j / 40 for j in range(41)]
+    blk = [P(u, _lin(VB_G, u)) for u in ss] + [P(u, _lin(VB_SLIP, u)) for u in reversed(ss)]
+    g = [f'<rect x="{bx:.0f}" y="{by:.0f}" width="{bw:.0f}" height="{bh:.0f}" rx="8" fill="#10161b" fill-opacity="0.84" '
+         'stroke="#e3eaee" stroke-width="2.5"/>',
+         _va_text(bx + 14, by + 32, "横から見た断面（模式）", size=22),
+         _poly(gl + [P(u1, z0), P(u0, z0)], VB_PAL["day"]["ground"])]
+    xs = _g_cross(list(VB_G), level)
+    if len(xs) >= 2:
+        a, b = xs[0], xs[-1]
+        ls = [a] + [q[0] for q in VB_G if a < q[0] < b] + [b]
+        g.append(_poly([P(a, level), P(b, level)] + [P(u, _lin(VB_G, u)) for u in reversed(ls)], VB_PAL["day"]["lake"]))
+    g += [_poly(blk, VD_FIX["block"], VD_FIX["block_ln"], 2.0, 0.92),
+          f'<path d="{_pl([P(u, z) for u, z in VB_SLIP])}" fill="none" stroke="{VD_FIX["crack"]}" stroke-width="4" '
+          'stroke-dasharray="9 6"/>',
+          f'<path d="{_pl(gl)}" fill="none" stroke="#e3eaee" stroke-width="2"/>']
+    cx, cy = P(*VB_SLIP[0])
+    g.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="7" fill="{VD_FIX["link"]}" stroke="#10161b" stroke-width="2.5"/>')
+    g.append(_va_text(bx + 16, by + bh - 12, "南", size=20) + _va_text(bx + bw - 16, by + bh - 12, "北", size=20, anchor="end"))
+    return "".join(g)
+
+
+def vd_link_px(view):
+    """正面の亀裂の上の点（VB の切り口の x740）→ 小さな断面のすべり面の上の端（＝亀裂）。"""
+    P, _r = vd_pip_geom()
+    return [sec_xy(view, vd_w(VD_PIP_X), vd_crack_z(VD_PIP_X)), P(*VB_SLIP[0])]
+
+
+def vd_link_svg(view):
+    a, b = vd_link_px(view)
+    c = VD_FIX["link"]
+    return (f'<path d="M {a[0]:.1f} {a[1]:.1f} L {b[0]:.1f} {b[1]:.1f}" stroke="#10161b" stroke-width="8" stroke-opacity="0.6"/>'
+            f'<path d="M {a[0]:.1f} {a[1]:.1f} L {b[0]:.1f} {b[1]:.1f}" stroke="{c}" stroke-width="3.5" stroke-dasharray="10 7"/>'
+            f'<circle cx="{a[0]:.1f}" cy="{a[1]:.1f}" r="9" fill="{c}" stroke="#10161b" stroke-width="3"/>')
+
+
+def _vd_timeline(start, states, steps, k):
+    """VD の鍵。🔴 層の鍵は濃さ a と下がる量 dy を毎回そろえて書く（描き手は書いていない値を既定〈dy＝0〉へ戻す）。"""
+    T = VD_T
+    D, D60 = vd_drop() * k, VD_DROP_1960 * k
+    s0 = start
+    mon = ("split", "fall", "fell")
+    cur = dict(
+        crack_a=dict(a=float(s0["crack"] == "on")), crack_go=dict(u=float(s0["crack"] == "on")),
+        trace_a=dict(a=float(s0["trace"] == "on")), trace_go=dict(u=float(s0["trace"] == "on")),
+        area=dict(a=float(s0["area"] == "on")), marea=dict(a=float(s0["model"] == "area")),
+        c60_niche=dict(a=0.0, dy=0.0), c60_corner=dict(a=0.0, dy=0.0), c60s=dict(a=float(s0["c1960"] == "fell")),
+        m_east=dict(a=float(s0["model"] in mon), dy=D * float(s0["model"] == "fell")),
+        m_west=dict(a=float(s0["model"] in mon), dy=D * float(s0["model"] == "fell")),
+        mscar=dict(a=float(s0["model"] in mon)),
+        whole=dict(a=float(s0["whole"] != "off"), dy=D * float(s0["whole"] == "fell")),
+        wscar=dict(a=float(s0["whole"] != "off")),
+        dim=dict(a=float(s0["dim"] == "on")), bracket=dict(a=float(s0["bracket"] == "on")),
+        wave=dict(a=float(s0["wave"] == "on")), pip=dict(a=float(s0["pip"] == "on")),
+        link_a=dict(a=float(s0["pip"] == "on")), link_go=dict(u=float(s0["pip"] == "on")))
+    K = {n: [dict(stage=0, delay=0.0, **v)] for n, v in cur.items()}
+
+    def add(n, i, delay, dur, **chg):
+        cur[n] = dict(cur[n], **chg)
+        K[n].append(dict(stage=i, delay=float(delay), dur=float(dur), **cur[n]))
+    prev = start
+    for i, (st, sp) in enumerate(zip(states, steps)):
+        dl = float(sp.get("delay", KEY_DELAY))
+
+        def ch(f):
+            return prev[f] != st[f]
+        for f in ("crack", "trace"):
+            if ch(f) and st[f] == "on":
+                add(f"{f}_a", i, dl, 0.1, a=1.0)
+                add(f"{f}_go", i, dl, float(sp.get("dur", T[f])), u=1.0)
+            elif ch(f):
+                add(f"{f}_a", i, dl, T["line"], a=0.0)
+        for f, d in (("area", T["area"]), ("dim", T["line"]), ("bracket", T["line"]), ("wave", T["line"])):
+            if ch(f):
+                add(f, i, dl, d, a=float(st[f] == "on"))
+        if ch("pip"):
+            on = float(st["pip"] == "on")
+            add("pip", i, dl, T["pip"], a=on)
+            add("link_a", i, dl + 0.3, 0.1, a=on)
+            if on:
+                add("link_go", i, dl + 0.3, T["link"], u=1.0)
+        if ch("c1960") and st["c1960"] == "fall":
+            t1 = dl + T["c1960_in"] + T["c1960_hold"]
+            for j, n in enumerate(VD_1960):
+                add(f"c60_{n}", i, dl, T["c1960_in"], a=1.0)
+                add(f"c60_{n}", i, t1 + 0.35 * j, T["fall"], dy=D60)
+                add(f"c60_{n}", i, t1 + 0.35 * j + T["fall"] + 0.1, 0.3, a=0.0)
+            add("c60s", i, t1, 0.15, a=1.0)
+        elif ch("c1960") and prev["c1960"] == "off":
+            add("c60s", i, dl, T["line"], a=1.0)
+        if ch("model"):
+            m, pm = st["model"], prev["model"]
+            if m == "area":
+                add("marea", i, dl, T["area"], a=1.0)
+            if m in mon and pm in ("off", "area"):
+                add("marea", i, dl, T["line"], a=0.0)
+                for n in ("m_east", "m_west"):
+                    add(n, i, dl, T["line"], a=1.0)
+                add("mscar", i, dl, 0.1, a=1.0)
+            if m == "fall":
+                t1 = dl + (T["line"] + 0.2 if pm in ("off", "area") else 0.0)
+                add("m_east", i, t1, float(sp.get("dur", T["fall"])), dy=D)
+                add("m_west", i, t1 + T["gap2"], float(sp.get("dur", T["fall"])), dy=D)
+            elif m == "fell" and pm != "fall":
+                for n in ("m_east", "m_west"):
+                    add(n, i, dl, T["fall"], dy=D)
+        if ch("whole"):
+            w, pw = st["whole"], prev["whole"]
+            if pw == "off":
+                add("whole", i, dl, T["line"], a=1.0)
+                add("wscar", i, dl, 0.1, a=1.0)
+            if w == "fall":
+                add("whole", i, dl + (T["line"] + 0.2 if pw == "off" else 0.0), float(sp.get("dur", T["fall_whole"])), dy=D)
+            elif w == "fell" and pw != "fall":
+                add("whole", i, dl, T["fall_whole"], dy=D)
+        prev = st
+    K["switch"] = [dict(stage=0, delay=0.0, a=1.0), dict(stage=0, delay=T["switch_hold"], dur=T["switch_fade"], a=0.0)]
+    return K
+
+
+def _scene_VD(start, states, steps):
+    """VD＝正面から見た斜面（北の岸から南を向いて見る＝左が上流〈東〉・右が下流〈西〉）。ダムは壊さない・人は置かない。"""
+    view = VD_VIEW[start["view"]]
+    allst = [start] + states
+    t0 = start["tod"]
+    for f in ("tod", "view", "water", "switch", "edge", "other"):
+        if any(st[f] != start[f] for st in states):
+            raise ValueError(f"illu VD：{f} は場面の頭（start）で1つだけ")
+    for f, seq in (("c1960", CHOICES["c1960"]), ("model", CHOICES["model"]), ("whole", CHOICES["whole"])):
+        idx = [seq.index(st[f]) for st in allst]
+        if any(b < a for a, b in zip(idx, idx[1:])):
+            raise ValueError(f"illu VD：{f} は戻さない（{' → '.join(seq)} の順だけ）")
+    model = any(st["model"] != "off" for st in allst)
+    if model and any(st["whole"] != "off" or st["c1960"] != "off" for st in allst):
+        raise ValueError("illu VD：模型の想定（model）と実際（whole・c1960）を同じ場面に描かない（想定は想定の札の場面だけ）")
+    if any(st["wave"] != "off" for st in allst) and not model:
+        raise ValueError("illu VD：波の高さの印（wave）は模型の想定の場面だけ（S1 p97＝模型の答え）")
+
+    def used(f, v=None):
+        return any((st[f] != "off") if v is None else (st[f] == v) for st in allst)
+    K = _vd_timeline(start, states, steps, view["k"])
+    R = VD_REC
+    wk = start["water"]
+    lvl = VD_WATER[wk]
+    dam_svg, dam_px = vc_dam_svg(view)
+    parts = [_part("face", vd_face_svg(view, t0), R["face"])]
+    if used("area"):
+        parts.append(_part("area", vd_area_svg(view, vd_area_um()), R["area"], keys=K["area"]))
+    if used("model", "area"):
+        parts.append(_part("model_area", vd_area_svg(view, vd_model_um()), R["model"], keys=K["marea"]))
+    # 跡（塊が下がると見える面）は塊の下に。数（obj）は跡の側で数える（崩れた2か所＝S1 p72）
+    if used("c1960"):
+        parts.append(dict(_part("scar1960", "".join(_vd_scar_svg(view, vd_1960_um(n), t0, niche=True) for n in VD_1960), R["c1960"],
+                                keys=K["c60s"]), obj=dict(collapse1960=len(VD_1960)),
+                          geo=dict(kind="c1960", polys={n: [list(sec_xy(view, w, z)) for w, z in vd_1960_um(n)]
+                                                        for n in VD_1960})))
+    mblk = any(st["model"] in ("split", "fall", "fell") for st in allst)
+    if mblk:
+        parts.append(_part("model_scar", _vd_scar_svg(view, vd_model_um(), t0), R["model"], keys=K["mscar"]))
+    if used("whole"):
+        parts.append(_part("scar", _vd_scar_svg(view, vd_area_um(), t0), R["whole"], keys=K["wscar"]))
+    # 塊（下がる＝層の dy）
+    if used("c1960", "fall"):
+        for n in VD_1960:
+            parts.append(_part(f"c1960_{n}", _vd_block_svg(view, vd_1960_um(n), f"vdK{n}"), R["c1960"], keys=K[f"c60_{n}"]))
+    if mblk:
+        for n in ("east", "west"):
+            parts.append(dict(_part(f"model_{n}", _vd_block_svg(view, vd_model_um(n), f"vdM{n}"), R["model"],
+                                    keys=K[f"m_{n}"]), obj=dict(model_blocks=1),
+                              geo=dict(kind="model", side=n, poly=[list(sec_xy(view, w, z)) for w, z in vd_model_um(n)])))
+    if used("whole"):
+        parts.append(dict(_part("whole", _vd_block_svg(view, vd_area_um(), "vdW"), R["whole"], keys=K["whole"]),
+                          obj=dict(block=1), geo=dict(kind="whole", poly=[list(sec_xy(view, w, z)) for w, z in vd_area_um()])))
+    if used("crack"):
+        pts = vd_crack_px(view)
+        parts.append(dict(_part("crack", vd_crack_svg(view), R["crack"], keys=K["crack_a"]), kind="draw",
+                          path=[list(q) for q in pts], go=K["crack_go"], reveal=30, geo=dict(kind="crack", line=[list(q) for q in pts])))
+    if used("trace"):
+        parts.append(dict(_part("trace", vd_trace_svg(view), R["crack"], keys=K["trace_a"]), kind="draw",
+                          path=[list(q) for q in vd_crack_px(view)], go=K["trace_go"], reveal=24))
+    lake_rec = R["water_model"] if (model and wk == "700") else R["water"][wk]
+    parts += [dict(_part("lake", vc_lake_svg(view, t0, lvl), lake_rec), geo=dict(kind="lake", y=sec_xy(view, 0.0, lvl)[1])),
+              dict(_part("ground", vc_ground_svg(view, t0), VC_REC["ground"]),
+                   geo=dict(kind="ground", line=[list(sec_xy(view, w, z)) for w, z in VC_BED])),
+              dict(_part("dam", dam_svg, VC_REC["dam"]), obj=dict(dam=1), geo=dict(kind="dam", poly=[list(q) for q in dam_px]))]
+    if used("dim"):
+        a, b = vd_dim_ends(view)
+        parts.append(dict(_part("dim", vd_dim_svg(view), R["dim"], keys=K["dim"]), geo=dict(kind="len", a=list(a), b=list(b))))
+    if used("bracket"):
+        a, b = vd_bracket_ends(view)
+        parts.append(dict(_part("bracket", vd_bracket_svg(view), R["bracket"], keys=K["bracket"]),
+                          geo=dict(kind="zr", a=list(a), b=list(b))))
+    if used("wave"):
+        a, b = vd_wave_ends(view, lvl)
+        parts.append(dict(_part("wave", vd_wave_svg(view, lvl), R["wave"], keys=K["wave"]),
+                          geo=dict(kind="wave", a=list(a), b=list(b), level_y=sec_xy(view, 0.0, lvl)[1])))
+    if used("pip"):
+        parts.append(_part("pip", vd_pip_svg(lvl), R["pip"], keys=K["pip"]))
+        parts.append(dict(_part("link", vd_link_svg(view), R["pip"], keys=K["link_a"]), kind="draw",
+                          path=[list(q) for q in vd_link_px(view)], go=K["link_go"], reveal=30))
+    if start["edge"] == "on":
+        parts.append(dict(_part("edge", sec_edge_svg(VD_EDGE), ""), signal=True))
+    if start["switch"] != "off":
+        parts.append(dict(_part("switch", sec_switch_svg(_sec_switch_text("VD", start["switch"])), "", keys=K["switch"]),
+                          signal=True))
+    return parts
+
+
+def _vd_anchors(st):
+    v = VD_VIEW[st["view"]]
+    lvl = VD_WATER[st["water"]]
+    da, db = vd_dim_ends(v)
+    ba, bb = vd_bracket_ends(v)
+    wa, wb = vd_wave_ends(v, lvl)
+
+    def cr(x):
+        return sec_xy(v, vd_w(x), vd_crack_z(x))
+    return dict(p1200=cr(632.0), p930=cr(695.0), p1260=cr(874.0), p1030=cr(880.0), start=cr(588.0),
+                dim=((da[0] + db[0]) / 2.0, da[1]), b1200=ba, b600=bb,
+                water=sec_xy(v, vd_w(VD_MASS_X) + 520.0, lvl), wave=((wa[0] + wb[0]) / 2.0, (wa[1] + wb[1]) / 2.0),
+                area=sec_xy(v, vd_w(760.0), 1040.0), niche=sec_xy(v, vd_w(628.0), 760.0),
+                east=sec_xy(v, vd_w(800.0), 1000.0), west=sec_xy(v, vd_w(625.0), 1000.0),
+                link=sec_xy(v, vd_w(VD_PIP_X), vd_crack_z(VD_PIP_X)), dam=sec_xy(v, VC_DAM_W, VC_DAM["crest"]))
+
+
+def _vd_ageo(st, name):
+    """札の指し先の幾何（門番 ⑨ が同じ目盛りで読む）。"""
+    v = VD_VIEW[st["view"]]
+    if name == "dim":
+        a, b = vd_dim_ends(v)
+        return dict(kind="len", a=list(a), b=list(b), k=v["k"])
+    if name == "wave":
+        a, b = vd_wave_ends(v, VD_WATER[st["water"]])
+        return dict(kind="gap", a=list(a), b=list(b), k=v["k"])
+    an = _vd_anchors(st)
+    if name in an:
+        return dict(kind="z", xy=list(an[name]), view=dict(v))
+    return None
+
+
+def _vd_note(st0, states):
+    allst = [st0] + list(states)
+    note = ["斜面の広がりと亀裂の横の位置は模式（標高は記録）・湖と谷の底とダムは模式・高さと横は同じ縮尺"]
+    if any(st["model"] in ("split", "fall", "fell") for st in allst):
+        note.append("落ちる順は模式")
+    if any(st["pip"] != "off" for st in allst):
+        note.append("小さな断面は模式")
+    if any("fall" in (st["c1960"], st["model"], st["whole"]) for st in allst):
+        note.append("動きは模式（北へ動く量は正面では見えない）")
+    return "・".join(note)
+
+
 def tag_svg(x, y, t, to=None, anchor="start", col=None, cap=30):
     col = col or C["tag"]
     s = fm.fit(t, 620, "Noto", cap=cap, floor=20)
@@ -3592,6 +4135,11 @@ FIELDS = {
                bracket="off", other="off", switch="off", edge="on", cam=1.0),
     "VC": dict(view="wide", tod="night", over="off", l695="off", gap="off", hbr="off", south="off", other="off", switch="off",
                edge="on", cam=1.0),
+    # 🆕 16本目 ⑤b-4：VD 正面から見た斜面（上の「16本目 ⑤b-4」の節）。water（湖の水位＝頭だけ）・crack（長い亀裂）・trace（亀裂を
+    #   なぞる明るい線）・area（囲まれた範囲）・c1960（1960年の崩落 off／fall／fell）・model（模型の想定 off／area／split／fall／fell）・
+    #   whole（実際の塊 off／on／fall／fell）・dim（幅1.8km）・bracket（600〜1,200m）・wave（模型の波の高さの印）・pip（小さな断面）
+    "VD": dict(view="wide", tod="day", water="650", crack="off", trace="off", area="off", c1960="off", model="off",
+               whole="off", dim="off", bracket="off", wave="off", pip="off", other="off", switch="off", edge="on", cam=1.0),
 }
 ONOFF = ("off", "on")
 CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONOFF, crowd=ONOFF, bridge=ONOFF, run=ONOFF,
@@ -3606,10 +4154,13 @@ CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONO
                # 🆕 ⑤b-3：switch に dam（「ダムを横から見ると」＝c816）・VA の grow・VB／VC の欄
                switch=("off", "on", "dam"), grow=("off", "B"), lake=ONOFF, runup=("off", "on", "over", "recede"),
                level=ONOFF, ghost=ONOFF, dim=ONOFF, bracket=ONOFF, edge=ONOFF, other=("off", "B", "C"),
-               over=("off", "on", "recede"), l695=ONOFF, gap=ONOFF, hbr=ONOFF, south=ONOFF)
+               over=("off", "on", "recede"), l695=ONOFF, gap=ONOFF, hbr=ONOFF, south=ONOFF,
+               # 🆕 ⑤b-4：VD（c1960・model・whole は並びの順にだけ進む＝戻さない。trace は 15本目 RA と同じ off／on）
+               water=tuple(VD_WATER), crack=ONOFF, area=ONOFF, c1960=("off", "fall", "fell"),
+               model=("off", "area", "split", "fall", "fell"), whole=("off", "on", "fall", "fell"), wave=ONOFF, pip=ONOFF)
 VIEWS = dict(B=("corridor", "cabin", "desk"), C=("helm", "console", "room"), D=("ship", "sea", "far", "heli", "rail"),
              RA=tuple(RA_VIEW), RB=("side", "rear"), RD=("tail",), RC=tuple(RC_VIEW), VA=tuple(VA_VIEW),
-             VB=tuple(VB_VIEW), VC=tuple(VC_VIEW))
+             VB=tuple(VB_VIEW), VC=tuple(VC_VIEW), VD=tuple(VD_VIEW))
 # 変える段には rec が要る（記録の事実を描く欄）。⑤b-3 で置き場 C・D・E の欄を足した（位置 bx とカメラ cam は要らない）
 #   15本目 ⑤b-2：RA の印・線・×・輪、RB の機首の上げ・傾き・補助翼（コースの破線 course と地面 ground は要らない）
 #   16本目 ⑤b-2：VA の時刻（夜明け）・塊・崩れた範囲・建物の面・トンネル・想定の帯・道・入口・印・水（合図の prev・nxt・switch は要らない）
@@ -3618,14 +4169,17 @@ REC_FIELDS = ("heel", "wake", "boxes", "crowd", "mark", "bridge", "run", "far", 
               "tod", "block", "slide", "towns", "shore", "tunnel", "split", "road", "gates", "marks", "wave_w", "flood",
               "wave_e",
               # 🆕 ⑤b-3：VB の塊の動き・水・線と、VC の越える水・水位・寸法・南の岸の向き（合図の other・switch・edge は要らない）
-              "move", "lake", "runup", "level", "ghost", "dim", "bracket", "over", "l695", "gap", "hbr", "south")
+              "move", "lake", "runup", "level", "ghost", "dim", "bracket", "over", "l695", "gap", "hbr", "south",
+              # 🆕 ⑤b-4：VD の水位・亀裂・範囲・1960年の崩落・模型の想定・実際の塊・波の印・小さな断面（trace は上の RA と同じ欄）
+              "water", "crack", "area", "c1960", "model", "whole", "wave", "pip")
 # 段ごとの出来事（引き継がない・数で書く＝画面の文字の門番が文字として読まない）。pylon＝RB でパイロンが1本流れる
 EVENTS = ("rings", "board", "rings_in", "asks", "walkie", "glow", "pylon")
 VIEW = dict(A="船首の側から見た図", D="船首の側から見た図", B="船の中", C="操舵室の中", E="管制センターの中",
             RD="ピットの事故機（横から）")
 # 左下の出典のあとに添える断り（15本目）。16本目 VA は場面の中身で変わる（関数＝_va_note）
 NOTE = dict(RA="配置は概略・機体は拡大・点線は模式", RC="柵・幕・車の形と並びは模式・配置は概略", VA=_va_note,
-            VB=_vb_note, VC=_vc_note)
+            VB=_vb_note, VC=_vc_note, VD=_vd_note)
+SEC_VIEW = dict(VB=VB_VIEW, VC=VC_VIEW, VD=VD_VIEW)       # 断面と正面の目盛り（門番 ⑨〜⑪ が同じ式で読む）
 D_VIEW = dict(ship="船首の側から見た図", heli="船首の側から見た図", sea="123艇を横から見た図", far="123艇から見た図",
               rail="3階の左舷を横から見た図")
 ROLES = ("crew", "coast_guard", "control")                # 型紙（数えられる影）で置ける役割
@@ -4021,6 +4575,8 @@ def _anchors(place, st):
         return _vb_anchors(st)
     if place == "VC":
         return _vc_anchors(st)
+    if place == "VD":
+        return _vd_anchors(st)
     if place == "RB":
         return _rb_anchors(st)
     if place == "RD":
@@ -4066,7 +4622,7 @@ def _camc(place, st0, states):
         return (960.0, RA_Y0)
     if place == "VA":
         return (960.0, VA_Y0)
-    if place in ("VB", "VC"):
+    if place in ("VB", "VC", "VD"):
         return (960.0, 540.0)
     if place == "RB":
         return RB_CR if st0["view"] == "rear" else RB_C
@@ -4111,6 +4667,7 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
     16本目（⑤b-2）の置き場：VA＝上から見た谷（view＝wide／near／west・欄は FIELDS["VA"] の注）
     16本目（⑤b-3）の置き場：VB＝谷を横切る断面／VC＝谷に沿う断面（ダム）（欄は FIELDS["VB"]・FIELDS["VC"] の注）。
              段の鍵 run_delay・run_hold（北の岸を駆け上がる水の出る秒・引くまでの秒）。札の cap（字の大きさの上限）
+    16本目（⑤b-4）の置き場：VD＝正面から見た斜面（北の岸から南を向いて）（欄は FIELDS["VD"] の注）
     assume … 想定の札（「会社の説明（想定）」など＝起きた事ではない絵・左上の見る向きの下）
     """
     if place not in FIELDS:
@@ -4123,7 +4680,7 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
     st0, states = _states(place, start, steps)
     parts = {"A": _scene_A, "B": _scene_B, "C": _scene_C, "D": _scene_D, "E": _scene_E,
              "RA": _scene_RA, "RB": _scene_RB, "RD": _scene_RD, "RC": _scene_RC,
-             "VA": _scene_VA, "VB": _scene_VB, "VC": _scene_VC}[place](st0, states, steps)
+             "VA": _scene_VA, "VB": _scene_VB, "VC": _scene_VC, "VD": _scene_VD}[place](st0, states, steps)
     if isinstance(camc, str):
         camc = _anchors(place, states[-1] if states else st0)[camc]
     if "pan" in FIELDS[place]:
@@ -4161,7 +4718,7 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
             # 🆕 ⑤b-3：札の指し先の名と幾何（門番 ⑨＝札の数と、指す高さ・寸法を同じ目盛りで読む）
             nm = tg.get("at") if isinstance(tg.get("at"), str) else None
             ats.append(nm)
-            ageo.append((_vb_ageo if place == "VB" else _vc_ageo)(st, nm) if place in ("VB", "VC") and nm else None)
+            ageo.append(dict(VB=_vb_ageo, VC=_vc_ageo, VD=_vd_ageo)[place](st, nm) if place in SEC_VIEW and nm else None)
         tags.append(dict(svg="".join(g) or " ", texts=texts, keep=keep, delay=dl, ats=ats, ageo=ageo))
     recs = [p["rec"] for p in parts] + [sp.get("rec") for sp in steps if sp.get("rec")] + ([rec] if rec else [])
     recs += [v[1] for v in (people or {}).values() if isinstance(v, (tuple, list)) and len(v) > 1]
@@ -4173,8 +4730,9 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
         if note:
             src = (src + "／" if src else "") + note
     # 🆕 ⑤b-3：断面（VB・VC）の左上の位置の小さな地図（いまの断面の線＝太い・前の断面の線＝細い）と目盛り（門番 ⑨〜⑪）
-    inset = dict(cur=place[1], other=None if st0["other"] == "off" else st0["other"]) if place in ("VB", "VC") else None
-    ruler = dict((VB_VIEW if place == "VB" else VC_VIEW)[st0["view"]]) if place in ("VB", "VC") else None
+    #   🆕 ⑤b-4：VD（正面から見た斜面）も＝小さな地図は目の印と南向きの矢印だけ（線は無い）・目盛りは VD_VIEW
+    inset = dict(cur=place[1], other=None if st0["other"] == "off" else st0["other"]) if place in SEC_VIEW else None
+    ruler = dict(SEC_VIEW[place][st0["view"]]) if place in SEC_VIEW else None
     return dict(place=place, view=label, at=at, people=dict(people or {}), scale=scale, rec=rec, objects=objects,
                 parts=parts, cam=cam, camc=list(camc or _camc(place, st0, states)), tags=tags, nstage=len(steps),
                 start=st0, states=states, steps=steps, recs=recs, src=src, assume=assume or "", inset=inset, ruler=ruler)
@@ -4195,6 +4753,8 @@ def _label(place, st0, states):
         return VB_LAB
     if place == "VC":
         return VC_LAB
+    if place == "VD":
+        return VD_LAB
     if place == "RB":
         seq = []
         for st in [st0] + list(states):
