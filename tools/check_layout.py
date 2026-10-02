@@ -171,6 +171,32 @@ def main(only=None):
     if not ov:
         print("  ✓ 重なりなし")
 
+    # 🆕 2026-10-02（16本目 ⑤b-8）：再現イラストの札（段の層 `<cid>_a<番号>`・keep で最後まで残る）どうしが**触れる・近すぎる**。
+    #    上の重なりは「横も縦も 6px を超えて重なる」ときだけ鳴る＝cb08 の「サン・マルティーノ」（2段目）と「エルト」（1段目）は
+    #    縦に約2px 触れて1つの札の塊に読めたのに鳴らなかった（640px のシートで疑い・原寸で見つけた＝試し焼き 36952575174）。
+    #    片方の向きに重なり、もう片方の向きのすき間が TAG_GAP 未満なら止める。札は別の段から出ても最後の画面で同時に見える
+    TAG_GAP = 6
+    illu_cuts = {c for c, m_ in S.STAGE_META.items() if (m_.get("illu") or {}).get("full")}
+    near = 0
+    print("\n── 再現イラストの札どうしが触れる（すき間 6px 未満） ──")
+    for cid in sorted(bycut):
+        if cid not in illu_cuts:
+            continue
+        tg = [b for b in bycut[cid] if re.search(r"_a\d+$", b[5])]
+        for i in range(len(tg)):
+            for j in range(i + 1, len(tg)):
+                a, b = tg[i], tg[j]
+                ix = min(a[2], b[2]) - max(a[0], b[0])
+                iy = min(a[3], b[3]) - max(a[1], b[1])
+                if ix > 6 and iy > 6:
+                    continue                           # 上の重なりで数えた
+                if (ix > 0 and iy > -TAG_GAP) or (iy > 0 and ix > -TAG_GAP):
+                    near += 1
+                    print(f"  🔴 {cid}: 札「{a[4][:16]}」({a[5]}) と「{b[4][:16]}」({b[5]}) のすき間 "
+                          f"{max(0.0, -min(ix, iy)):.0f}px（縦 {iy:.0f}・横 {ix:.0f}）＝1つの札の塊に読める")
+    if not near:
+        print("  ✓ 触れている札は無い")
+
     # ── 🔴 図形が文字を横切っていないか（2026-08-02 追加） ──────────
     #    この道具は**文字どうし**しか見ていなかったので、
     #      ・depth の潜水艇の絵が「浮上している途中」の上に乗る
@@ -310,7 +336,7 @@ def main(only=None):
     if not cross:
         print("  ✓ 横切っている図形は無い")
 
-    n = bad + ov + tofu + cross
+    n = bad + ov + tofu + cross + near
     # 🔴 2026-09-07（5本目 ⑤c'）：**どの物差しで測ったかを必ず出す。**
     #    fontTools が読めないと fontmetrics が黙って粗いキャッシュに落ち、
     #    同じコードで「重なり5件」と「0件」が出た（幻の所見）。
@@ -320,7 +346,7 @@ def main(only=None):
               "**この結果は当てにならない**。fontTools/brotli を入れ直して回し直すこと")
         return 1
     print(f"\n{'🔴 直すところあり' if n else '✓ 机上の検算はすべて通った'}"
-          f"（画面外 {bad}件・重なり {ov}件・豆腐 {tofu}件・図形が横切る {cross}件"
+          f"（画面外 {bad}件・重なり {ov}件・札が触れる {near}件・豆腐 {tofu}件・図形が横切る {cross}件"
           f"／フォントは実測）")
     return 1 if n else 0
 

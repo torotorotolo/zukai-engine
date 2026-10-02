@@ -233,8 +233,10 @@ SPEC = {
         fig=("illu", dict(
             place="VA", start=dict(view="wide", tod="day", block="on", slide="on", towns="mud", shore="mud"),
             rec="S1 p147（1つの塊のまま）・S1 p98（10月10日の夜明けには…もう存在しなかった）",
+            # ⚠️ ⑤b-8 の試し焼き 36952575174（原寸）：「エルト」を c715 と同じ右上（40, -60）に置くと、2段目の「サン・マルティーノ」の
+            #    真下に縦2px で触れて1つの札の塊に読めた（門番 layout の重なりは鳴らなかった＝「札が触れる」を足した）＝村の左へ
             steps=[dict(rec="S1 p171（エルトの村はかなりの部分が助かった）",
-                        tag=dict(t="エルト", at="erto", off=(40, -60), keep=True, delay=0.8)),
+                        tag=dict(t="エルト", at="erto", off=(-50, 0), anchor="end", keep=True, delay=0.8)),
                    dict(rec="S1 p98（湖の岸のピネダとサン・マルティーノはもう存在しなかった）",
                         tag=[dict(t="ピネダ", at="pineda", off=(30, 75), keep=True, delay=0.6),
                              dict(t="サン・マルティーノ", at="smartino", off=(-40, 10), anchor="end", keep=True, delay=0.6)])])),
