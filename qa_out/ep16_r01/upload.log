@@ -1,0 +1,15 @@
+md5 before upload: b0e8eaff0f0c22252505b741a61c706a (試写した r01 = b0e8eaff0f0c22252505b741a61c706a)
+2026-10-02 22:48:10 start
+メタ: meta_ep16.json
+接続先: 仕事帰りの事故調査ノート（@shigotogaeri／動画15本）
+動画: titan_audio-ep16-r01.mp4（197.5 MB）
+題　: 模型の実験は「水位700メートルなら絶対に安全」と結論していた。その夜の水位は約700メートル、1,910人が亡くなったバイオントダム災害の真相【事故検証】【ゆっくり解説】
+非公開で上げる（予約はあとで `schedule`）
+  4%  8%  12%  16%  21%  25%  29%  33%  38%  42%  46%  50%  55%  59%  63%  67%  72%  76%  80%  84%  89%  93%  97%
+上がった: https://youtu.be/y3v7q6YKBpk
+管理　　: https://studio.youtube.com/video/y3v7q6YKBpk/edit
+サムネを貼った: ep16_k_tsunami_AI.png
+
+次: python tools/upload_jiko.py status y3v7q6YKBpk
+up_exit=0
+2026-10-02 22:48:48 end

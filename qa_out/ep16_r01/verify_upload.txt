@@ -1,0 +1,13 @@
+✓ 題：86字
+✓ 説明：4146字
+✓ タグ（集合）：16件／設定 16件
+✓ カテゴリ：27
+✓ 言語：ja／音声 ja
+✓ 子ども向けでない：madeForKids=False
+✓ ライセンス・埋め込み：youtube・True
+✓ 尺：PT38M9S（設計 2,288.33秒）
+✓ 処理：succeeded
+✓ 予約：private・publishAt 2026-10-02T22:00:00Z（狙い 2026-10-02T22:00:00Z）
+✓ サムネ：縮小して平均の差 0.4（maxresdefault.jpg?sqp=CIjt_tUG&rs=AOn4CLAKeSHlr9kcKNgqLgkGLr3NX2dsiA）
+✓ 全項目一致
+verify_exit=0
