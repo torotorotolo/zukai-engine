@@ -380,6 +380,91 @@ SCENES.update({
     },
 })
 
+# ── 16本目 バイオントダム災害（1963-10-09 22:39・イタリア北東部）──────────────────────
+# 🆕 2026-10-02 ⑥ の試写のあと、カズヤくん「写真はインパクトが弱いので変更。OpenAI API で生成。生成の前に具体案を出して、
+#    承認後生成。とにかく目を引くような、事件の瞬間を象徴するような写真。サムネイルなので、ある程度の誇張表現は許容」。
+#    札は4枚とも新規（ep15 の飛行機・観客席・砂漠の語を流用しない＝`--dry` で数える）。ブレ止めの1文だけ ep15 から1字も変えずに写した。
+# 🔴 事実の芯（本編の語り）：夜の22時39分／ダムは壊れず立ったまま（c104）／湖の水がダムの上を越えた（c815）・
+#    天端より100メートル以上の高さで越えた（学術の総説＝c817）／峡谷の出口でも約70メートル（c904）。
+#    誇張してよいのは光と迫力（月・投光・しぶき）。ダムは壊さない（本編の芯＝ダムは耐えた）。
+# 🆕🔴 2026-10-02 カズヤくん（案A の承認と同時に）「人（ダムや岸の人・救助の人も）・遺体・血・家や窓の灯り・車・火・煙を
+#    描かないというルールは今後撤廃します」＝ルール §6-55⑤ のうち**文字以外の禁止を外した**（BAN_VAJ は文字だけ）。
+#    ⚠️ 文字は引き続き描かせない（赤・黄は thumb_jiko.py が焼く＝絵の字は崩れて二重になる）。
+#    ⚠️ YouTube のサムネの決まり（暴力的・生々しい画像）は別に残る＝こちらから遺体・血を足しはしない（言われたら相談）
+LOOK_VAJ = (
+    "A real PHOTOGRAPH, indistinguishable from documentary press photography, taken at night "
+    "in October 1963 in a deep alpine gorge in north-eastern Italy, on a large-format press "
+    "camera. The only light comes from a bright moon behind thin high cloud and from a short "
+    "row of lamps along the top of the dam: cold blue-white light on the water, deep "
+    "blue-black shadow in the gorge. Physically accurate materials: smooth pale concrete, wet "
+    "grey limestone cliffs, churning white water, fine drifting spray and mist. Fine natural "
+    "film grain. The image is shocking and immediate, but it is a photograph of a real "
+    "event, not a spectacle. "
+)
+FRAME_VAJ = (
+    "COMPOSITION, critical: 16:9 frame. The TOP 25% and the BOTTOM 26% will later be covered by "
+    "two lines of very large text, and the corners will be darkened. So the main subject — "
+    "described above — must sit in the MIDDLE HORIZONTAL BAND, across most of the width; only "
+    "the highest spray may reach up into the top quarter. Keep the top quarter as plain, dark "
+    "night sky with faint mountain silhouettes, and the bottom quarter as plain, black, "
+    "featureless shadow deep in the valley, so that large lettering will read cleanly over "
+    "them. Keep the bottom-right corner dark. "
+)
+BAN_VAJ = (
+    "No text, letters, numbers, words, signs, logos, labels or watermarks of any kind, in any "
+    "language. "
+)
+TAIL_VAJ = (
+    "The result must look like a genuine photograph of the real disaster at that very "
+    "instant — dark, violent, sudden and real. It must NOT look like a render, a video game, "
+    "a movie poster, a 3D visualisation or an illustration. No lens flare, no colour grading, "
+    "no cinematic teal-and-orange, no lightning, no rain. Gravity and scale must read "
+    "correctly: the dam is enormous and the water falls a very long way."
+)
+VAJ_DAM = (
+    "The dam: a very tall, thin, double-curvature concrete arch dam, about 260 metres high, "
+    "its gently curved top about 190 metres long, wedged into a narrow, sheer-walled limestone "
+    "gorge. The dam itself is intact and standing — it does NOT break, crack or collapse. "
+)
+SCENES.update({
+    "vaj_a": {
+        "ep": "ep16",
+        "name": "ダムを越える波（夜・ダムは立ったまま、天端の上を白い水の壁が越えて峡谷へ落ちる）",
+        "hypothesis": "本編の芯「ダムは耐えた。水がその上を越えた」を1枚に。赤の「予兆は3年前」と組で"
+                      "「分かっていたのに」を引く。白い水と黒い谷の明暗＝210px でも何が起きたかが読める",
+        "look": LOOK_VAJ, "frame": FRAME_VAJ, "ban": BAN_VAJ, "tail": TAIL_VAJ,
+        "scene": (
+            "October 9, 1963, 10:39 at night, the Vajont dam in the Italian Alps. " + VAJ_DAM +
+            "At this instant a colossal wave from the reservoir behind it is pouring over the "
+            "ENTIRE length of its top: a towering wall of white, foaming water bursting more "
+            "than a hundred metres up above the top of the dam and then plunging down its "
+            "downstream face into the black gorge below, throwing up enormous clouds of white "
+            "spray. Seen from high on the downstream side of the gorge, a little above the "
+            "height of the dam's top, so that the curved top of the dam runs horizontally "
+            "across the middle band of the frame, the white water exploding over it, and the "
+            "dark cliffs of the gorge close in on both sides. "
+        ),
+    },
+    "vaj_b": {
+        "ep": "ep16",
+        "name": "山が湖へ滑り込む瞬間（夜・南の岸の山の斜面が1つの塊のまま湖へ、押し出された水が北の岸を駆け上がる）",
+        "hypothesis": "事故の始まり（c101・c811）。山と波の大きさで止める。ダムは右の奥に小さい＝A より何の事故かが伝わりにくい",
+        "look": LOOK_VAJ, "frame": FRAME_VAJ, "ban": BAN_VAJ, "tail": TAIL_VAJ,
+        "scene": (
+            "October 9, 1963, 10:39 at night, the long, narrow reservoir behind the Vajont dam "
+            "in the Italian Alps. The whole forested lower face of the mountain on the south "
+            "shore — a slope about two kilometres long — is sliding as ONE single solid block "
+            "down into the reservoir, trees still standing on it, pushing the water ahead of "
+            "it. The displaced water rises as a gigantic white wave that races up the steep "
+            "opposite (north) shore of the valley, far higher than the lake. Far to the right, "
+            "at the end of the lake, the thin curved concrete arch dam stands intact, the "
+            "first water just reaching its top. Seen from high on the valley side, looking "
+            "along the lake, so that the sliding mountainside, the rising wave and the lake "
+            "run horizontally across the middle band of the frame. "
+        ),
+    },
+})
+
 
 def build(v):
     """🔴 質感（look）と締め（tail）は**場面ごとに差し替えられる**（2026-09-22 追加）。
