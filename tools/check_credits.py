@@ -201,6 +201,27 @@ def judge(sub, row):
     return hard, soft, n
 
 
+# 🔴 2026-10-02（16本目 ⑤c'）：**副題の中身**（色の名前・作り手の言葉）。「副題に色の名前を書かない」は 2026-09-20 に記憶にしたのに
+#    門番が無く、16本目で c216・c521・c605「事故の前の**カラーの**絵はがき」（画面はデュオトーン＝色が1画素も無い）と c323「同じ写真の
+#    右の岸に**寄る**」が ⑤b-7 を通って ⑤c まで来た（記憶 feedback-judge-in-the-final-colour-space・feedback-rules-need-gates）。
+#    ⚠️ 色は「青い・赤の・黄色」の形だけ（「青年」「赤字」「水の模型」を拾わない）・`color=1.0`（原色を残す額装）のカットは名乗ってよい
+#    ⚠️ 「寄る」は「押し寄せる」「年寄り」「立ち寄る」「近寄る」を外す
+COLOR_WORD = re.compile(r"カラー|彩色|水色|茶色|金色|銀色|(?:青|赤|緑|黄|紫)(?:い|色|の)|オレンジ|ピンク")
+MAKER_WORD = re.compile(r"(?<!押し)(?<!年)(?<!立ち)(?<!近)寄(?:る|り|せ|って)")
+
+
+def wording(sub, spec):
+    """副題の言い方の 🔴（色の名前・作り手の言葉）。"""
+    hard = []
+    m = COLOR_WORD.search(sub)
+    if m and float(spec.get("color") or 0.0) < 1.0:
+        hard.append(f"副題に色の名前「{m.group(0)}」＝画面はデュオトーンで色が無い（形・数・位置で書く）")
+    m = MAKER_WORD.search(sub)
+    if m:
+        hard.append(f"副題に作り手の言葉「{m.group(0)}」＝写っているものを言う")
+    return hard
+
+
 def words(title, sub):
     """原題に出る地名・機種のうち、副題に出てこないもの。**判定はしない。**"""
     got = {w for w in PLACE.findall(title)} | {w for w in MODEL.findall(title)}
@@ -238,6 +259,7 @@ def run(full=False):
             continue
         sub = str(spec.get("s") or "")
         hard, soft, nc = judge(sub, row)
+        hard += wording(sub, spec)
         claims += nc
         for h in hard:
             hits.append((cid, slot, h))
@@ -326,6 +348,16 @@ def selftest():
         and judge("官報の命令（1974年4月2日の号）", r73)[2] == 1)
     chk("陽性対照⑯：『1970年ごろ』は年だけの網に入らない（⚠️ の受け持ち）",
         judge("1970年ごろの空港", r73)[0] == [] and judge("1970年ごろの空港", r73)[2] == 1)
+    # ── 2026-10-02（16本目 ⑤c'）：副題の中身＝直す前の c216・c323 が鳴り、直したあと・紛らわしい語は黙る
+    chk("陽性対照⑰：『事故の前のカラーの絵はがき』（デュオトーン）→ 鳴る（直す前の c216）",
+        len(wording("事故の前のカラーの絵はがき　左岸の道とダム", {})) == 1)
+    chk("陽性対照⑱：『同じ写真の右の岸に寄る』→ 鳴る（直す前の c323）",
+        len(wording("同じ写真の右の岸に寄る（1960年11月）", {})) == 1)
+    chk("陽性対照⑲：『カラーの絵はがき』でも color=1.0（原色を残す額装）なら鳴らない",
+        wording("カラーの絵はがき", {"color": 1.0}) == [])
+    chk("陽性対照⑳：直したあと・『押し寄せた水』『水の模型』『年寄り』『青年』は鳴らない",
+        all(wording(s, {}) == [] for s in ("事故の前の絵はがき　南の岸の道とダム", "押し寄せた水の跡",
+                                           "水の模型の実験場", "年寄りの家", "青年団の碑")))
     print(f"\n{'✓ 物差しは通った' if ok else '🔴 物差しが壊れている'}")
     return 0 if ok else 2
 

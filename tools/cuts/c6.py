@@ -94,7 +94,7 @@ SPEC = {
     # #082（カラーの絵はがき）
     "c605": dict(
         t="土木局の許可",
-        s="事故の前のカラーの絵はがき　左岸の道とダム",
+        s="事故の前の絵はがき　南の岸の道とダム",       # ⑤c'（R3・W12）＝c216 と同じ
         photo=P("color_postcard"), **ss.kind(P("color_postcard")),
     ),
     # 少数派の報告（p226 左の段）＝「Con questa decisione la SADE si assumeva il deliberato proposito di superare di 15 metri la

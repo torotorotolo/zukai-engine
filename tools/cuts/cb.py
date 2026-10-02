@@ -90,10 +90,13 @@ SPEC = {
         photo=P("dam_houses_now"), **ss.kind(P("dam_houses_now")),
     ),
     # #118（Stefano Petri・CC BY 3.0）を戻す（bias 0.6＝c111 の注）
+    # 🔴 ⑤c'（2026-10-02・W10）：ca27 と同じ写真・ほぼ同じ切り口が3カットの間（約20秒）に2回 → ダムに2倍で寄る（ダムの真ん中＝
+    #   元の画素 約(1244, 957)・窓 1,280×720＝両側に峡谷の壁が残る）。同じ写真なので副題は同じまま（記憶
+    #   feedback-subtitle-must-match-what-is-visible「同じ写真 → 副題は同じ」＝⑤c-2 の推奨「副題も替える」より優先）
     "cb03": dict(
         t="峡谷のダム",
         s="2003年4月　ロンガローネから峡谷ごしに見たダム",
-        photo=P("dam_gorge_now"), **ss.kind(P("dam_gorge_now")), bias=0.6,
+        photo=P("dam_gorge_now"), **ss.kind(P("dam_gorge_now")), **ss.focus(P("dam_gorge_now"), 0.486, 0.498, zoom=2.0),
     ),
     # #116（Riccardo Sartor・PD）を戻す
     "cb04": dict(
@@ -122,7 +125,8 @@ SPEC = {
     # #115（米陸軍 2023年10月8日・PD）＝「Viale Soccorritori del Vajont」の標識。🔴 ⑥の概要欄に米陸軍の断り書き
     "cb09": dict(
         t="記念の通りの名",
-        s="2023年10月　「Viale Soccorritori del Vajont」の標識",
+        # 🔴 ⑤c'（2026-10-02・R5）：副題が標識の字の写しだった（ルール §5b-115⑦）＝日本語で中身を
+        s="2023年10月　イタリア語の通りの名の標識",
         photo=P("sign_2023"), **ss.kind(P("sign_2023")),
     ),
     # #014（イタリア消防・1963年・318px）＝慰霊の大きな木の十字架と花輪

@@ -303,6 +303,10 @@ def load_ocr():
     data = json.loads(OCR_JSON.read_text(encoding="utf-8"))
     _DROPPED.clear()
     for name, v in data.items():
+        # 🔴 2026-10-02（16本目 ⑤c'）：落とす前の全行も持つ＝G-09（写し）だけはこちらと比べる。標識・看板の大きな字は行の高さが
+        #    画像の 5〜6%（cb09 の VIALE／SOCCORRITORI／DEL VAJONT＝0.058〜0.063）で、下の「幻の行」のふるい（0.035）に3行とも
+        #    落ち、副題が標識の字の写しでも G-09 が鳴らなかった。G-09 は文字列の比べ＝幻の行（木や岩の模様）は副題と一致しない
+        v["lines_all"] = list(v["lines"])
         keep = []
         for ln in v["lines"]:
             if line_is_text(ln["box"], v["size"]):
@@ -445,12 +449,14 @@ def cut_geom(cid, spec, ocr, photo_of, box_of, skip):
         return None
     sw, sh = o["size"]
     lines = o["lines"]
+    lines_all = o.get("lines_all", lines)          # 🔴 16本目 ⑤c'：G-09 だけが使う（load_ocr の注）
     all_text = " ".join(l["text"] for l in lines)
     tr = trim_of(spec)
     if tr:
+        _, _, lines_all = apply_trim(sw, sh, lines_all, tr)
         sw, sh, lines = apply_trim(sw, sh, lines, tr)
     box = box_of[cid]
-    return dict(name=Path(name).name, sw=sw, sh=sh, lines=lines, trim=tr,
+    return dict(name=Path(name).name, sw=sw, sh=sh, lines=lines, lines_all=lines_all, trim=tr,
                 all_text=all_text, rects=cam_rects(sw, sh, box, spec))
 
 
@@ -573,12 +579,19 @@ def scan(spec_map, ocr, photo_of, box_of, skip, jobs=None):
 
         # ── G-09 注記が焼き込みの英文の写し ────────────────────
         # ⚠️ OCR は1文を複数行に割る。**連続 WINDOW 行までつないだ窓**と比べる
+        # 🔴 2026-10-02（16本目 ⑤c'）：比べる相手は「幻の行」のふるいの**前**の全行（load_ocr の注＝cb09 の標識の大きな字）
+        vis_all = []
+        for ln in g.get("lines_all", g["lines"]):
+            scr = {k: to_screen(ln["box"], g["rects"][k]) for k in g["rects"]}
+            if any(s[2] > 0 and s[0] < W and s[3] > 0 and s[1] < H for s in scr.values()):
+                vis_all.append(dict(txt=ln["text"].strip(), box=ln["box"]))
+        vis_all.sort(key=lambda d: (d["box"][1], d["box"][0]))
         windows = []
-        for i in range(len(vis_lines)):
+        for i in range(len(vis_all)):
             for n in range(1, WINDOW + 1):
-                if i + n > len(vis_lines):
+                if i + n > len(vis_all):
                     break
-                chunk = vis_lines[i:i + n]
+                chunk = vis_all[i:i + n]
                 windows.append((" ".join(c["txt"] for c in chunk),
                                 norm_en("".join(c["txt"] for c in chunk))))
         for where, mytxt in mine:
@@ -1029,6 +1042,30 @@ def selfcheck():
 
     # ⚠️ full_only は「その規則が起こりうる置き方」で決める（candidates() の説明を見る）。
     ok = probe("G-09", b09, full_only=False)
+    # 🔴 2026-10-02（16本目 ⑤c'）：「幻の行」のふるい（LINE_H_MAX）を越える**大きな字**（標識・看板）の写しでも G-09 が鳴る。
+    #    直す前の cb09＝標識の3行が全部ふるいに落ち、副題が字の写しでも黙っていた。題材に依らず試せるよう、写真の映るカットの
+    #    読み置きの写しに画像の高さの 6% の行を1本足して（ふるいには落ちる）、その字を副題に写すと鳴り・写さないと黙るを見る
+    big_ok = False
+    for cid, g, _vis in candidates(full_only=False):
+        nm = g["name"]
+        o2 = copy.deepcopy(ocr)
+        sw0, sh0 = o2[nm]["size"]
+        big = dict(box=[round(sw0 * 0.30), round(sh0 * 0.45), round(sw0 * 0.70), round(sh0 * 0.51)],
+                   text="VIALE SOCCORRITORI DEL VAJONT")
+        if line_is_text(big["box"], o2[nm]["size"]):
+            continue
+        o2[nm]["lines_all"] = list(o2[nm].get("lines_all", o2[nm]["lines"])) + [big]
+        one = dict(copy.deepcopy(spec_map[cid]), s="2023年10月　「Viale Soccorritori del Vajont」の標識")
+        h1, _ = scan({cid: one}, o2, photo_of, box_of, skip, jobs_for({cid: one}))
+        h0, _ = scan({cid: spec_map[cid]}, o2, photo_of, box_of, skip, jobs_for({cid: spec_map[cid]}))
+        if any(x[1].startswith("G-09") for x in h1) and not any(x[1].startswith("G-09") for x in h0):
+            print(f"  ✓ G-09 大きな字（{cid}：高さ {(big['box'][3] - big['box'][1]) / sh0:.0%} の行＝幻の行のふるいに落ちる）"
+                  "… 写すと鳴り、写さないと黙る")
+            big_ok = True
+            break
+    if not big_ok:
+        print("  🔴 G-09 大きな字の陽性対照が通らない（ふるいに落ちた行と比べていない）")
+    ok &= big_ok
     ok &= probe("G-10", b10)                       # 画面の左端で切れる＝全画面だけ
     ok &= probe("G-13", b13)                       # 字幕帯まで届く＝全画面だけ
     ok &= probe("G-14", b14, full_only=False)

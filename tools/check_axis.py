@@ -170,8 +170,33 @@ def _tick_text(view, s):
     return s.replace("翌", "")
 
 
-def judge_fig(kw, split_times=()):
-    """(食い違いの list, 照合した件数)。"""
+def head_touch(labs, head):
+    """🆕 2026-10-02（16本目 ⑤c'）：札（`lx`・`ly`＝型が描いた広がり）が左上の見出し（字・下線・副題＝`jiko_style.title`）に
+    触れない（間 CH_PAD）。軸の3段目（ROW_UP 398）は字が3行だと y≈110 まで上がり、見出しの帯に入る作り＝見出しが長いと重なる。
+    直す前の c518＝見出し「のばさなかった模型」の下線（x72〜670・y134）に「1962年4月」の札（x630〜985・y110〜248）が重なった
+    （⑤c の 640px で疑い→幾何で確かめた）。layout は字の箱どうししか見ず、下線は見ていない。head＝(見出し t, 副題 s)"""
+    import fontmetrics as fm
+    import jiko_style as J
+    t, s = head
+    hb = []
+    if t:
+        hb.append(("見出しの字", J.MG - 5, J.MG + fm.width(t, 62, "Dela") + 5, 104 - 0.88 * 62 - 5, 104 + 0.12 * 62 + 5))
+        hb.append(("見出しの下線", J.MG, J.MG + min(J.RIGHT - J.MG, 40 + len(t) * 62), 134 - 2.5, 134 + 2.5))
+    if s:
+        hb.append(("副題", J.MG - 3, J.MG + fm.width(s, 32, "Noto") + 3, 182 - 0.88 * 32 - 3, 182 + 0.12 * 32 + 3))
+    bad = []
+    for a in labs:
+        if not a.get("ly"):
+            continue
+        for nm, x0, x1, y0, y1 in hb:
+            if a["lx"][1] > x0 - CH_PAD and a["lx"][0] < x1 + CH_PAD and a["ly"][0] < y1 + CH_PAD and a["ly"][1] > y0 - CH_PAD:
+                bad.append(f"{a['at']} の札（段{a.get('row', 0)}・x {a['lx'][0]:.0f}〜{a['lx'][1]:.0f}・上の端 y={a['ly'][0]:.0f}）が"
+                           f"{nm}に触れる（間 {CH_PAD} 画素未満）＝見出しを短く／段を減らす")
+    return bad
+
+
+def judge_fig(kw, split_times=(), head=None):
+    """(食い違いの list, 照合した件数)。head＝(見出し, 副題)＝渡せば札が見出しに触れないかも見る（head_touch）。"""
     import axis as A
     f = A.axis(**kw)
     m = f.mech
@@ -261,6 +286,10 @@ def judge_fig(kw, split_times=()):
         if a["lx"][1] > cbox[0] and a["lx"][0] < cbox[1] and a["ly"][0] < cbox[3] and a["ly"][1] > cbox[2]:
             bad.append(f"{a['at']} の札（段{a.get('row', 0)}・上の端 y={a['ly'][0]:.0f}）が右上の章の札に触れる"
                        f"（間 {CH_PAD} 画素未満）＝段を減らす（軸の右に余白・札を年月まで）")
+    if head:
+        hb = head_touch(labs, head)
+        n += len([a for a in labs if a.get("ly")])
+        bad += hb
     if view == "lanes":
         for nm in m["lanes"]:
             n += 1
@@ -342,6 +371,15 @@ def _selftest_ep15():
               ("16本目 正しい：同じ右の端でも2段に収める", dict(late, steps=[dict(add=[
                   dict(k="pt", at=d, t="事故", rec="CAROL p5008", anchor="end") for d in ("2020-07-22", "2020-11-03")])]), True)]
     ok = True
+    # 🆕 16本目 ⑤c'：札が見出しに触れる（直す前の c518 の札の広がりと見出し）／見出しを7字にすれば黙る（直した c518）。
+    #   札の座標は型が描いた値（⑤c' で axis.axis を呼んで取った）＝回の表に左右されない
+    lab518 = [dict(at="1962-04-30", row=2, lx=(630.0, 985.0), ly=(110.5, 248.0)),
+              dict(at="1961", row=1, lx=(453.0, 709.0), ly=(300.5, 402.0))]
+    for name, hd, want in (("🔴 16本目 陽性対照：3段目の札が見出しの下線に触れる（直す前の c518）", ("のばさなかった模型", "模型の歩み"), False),
+                           ("16本目 正しい：見出しを7字に（直した c518）", ("模型はのばさず", "模型の歩み"), True)):
+        got = not head_touch(lab518, hd)
+        ok &= got == want
+        print(f"  {'OK' if got == want else '🔴 NG'} {name}: {'合格' if got else '不合格'}")
     for name, kw, want in cases:
         bad, _ = judge_fig(kw, ())
         got = not bad
@@ -489,13 +527,14 @@ def main():
     fixture_ep14.restore()       # 🔴 15本目 ⑤b-2：selftest で差し込んだ14本目の見本を本番の表に戻す（戻さないと14本目の表で本番を測る）
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items()) if s.get("fig") and s["fig"][0] == "axis"}
+    heads = {c: (cuts.SPEC[c].get("t", ""), cuts.SPEC[c].get("s", "")) for c in targets}     # 🆕 16本目 ⑤c'（head_touch）
     if not targets:
         print("⚠️ axis のカットが0件（この回に年表・時間の帯が無いなら正しい。**0件を調べて合格**にしていないか確かめる）")
         return 0
     st = _split_times()
     bad_all, n_all = 0, 0
     for cid, (_, kw) in targets.items():
-        bad, n = judge_fig(kw, st)
+        bad, n = judge_fig(kw, st, head=heads[cid])
         n_all += n
         if bad:
             bad_all += len(bad)

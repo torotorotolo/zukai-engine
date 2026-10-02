@@ -344,7 +344,10 @@ def anchors(view, st):
 TAG_AT = dict(
     dam=dict(base=(1180.0, 812.0, "start", 520.0), top=(1180.0, 312.0, "start", 520.0), force=(110.0, 300.0, "start", 640.0),
              height=(1352.0, 560.0, "start", 300.0)),
-    slope=dict(t1=(110.0, 300.0, "start", 760.0), t2=(110.0, 350.0, "start", 760.0), t3=(110.0, 400.0, "start", 760.0),
+    # 🔴 ⑤c'（2026-10-02）：左上の札（x110）の字の中を地表の白い線が通っていた（南の尾根の上の端＝x234・y283 から右下へ下がる線）
+    #   ＝c302・c403・c405・c618 で −13〜−18px（描く関数の幾何で測った・どの門番も字と線の重なりを見ていない）→ 札の左の端を
+    #   地表の線が y420 まで下がった所（x480）へ。t3（y370〜404）でも地表の線と 14px あく
+    slope=dict(t1=(480.0, 300.0, "start", 760.0), t2=(480.0, 350.0, "start", 760.0), t3=(480.0, 400.0, "start", 760.0),
                r1=(1810.0, 300.0, "end", 640.0), r2=(1810.0, 350.0, "end", 640.0), b1=(1810.0, 836.0, "end", 760.0)),
     pair=dict(left=(86.0, 316.0, "start", 840.0), right=(974.0, 316.0, "start", 840.0), lb=(86.0, 836.0, "start", 840.0),
               rb=(974.0, 836.0, "start", 840.0)),
@@ -605,8 +608,11 @@ def _base(view, start):
     if view == "dam":
         m = _map("dam")
         bed = dam_bed_um(m)
-        g.append(F.poly([xy(m, w, z) for w, z in bed] + [xy(m, bed[-1][0], 440.0), xy(m, bed[0][0], 440.0)], GROUND, J.INK_W,
-                        2.5, close=True))
+        # 🔴 ⑤c'（2026-10-02・c211）：帯の下の縁（白い線・z440＝y880）が左下の注の行（y868〜889）を横切った → 帯は塗りだけ
+        #   （下の端 z450＝y860・谷底のいちばん低い 458.7m の下）・白い線は谷底の上の縁だけ（slope_base と同じ作り）
+        g.append(F.poly([xy(m, w, z) for w, z in bed] + [xy(m, bed[-1][0], 450.0), xy(m, bed[0][0], 450.0)], GROUND, None, 0,
+                        close=True))
+        g.append(F.poly([xy(m, w, z) for w, z in bed], "none", J.INK_W, 2.5))
         g.append(F.poly([xy(m, w, z) for w, z in dam_lake_um(m)], COL_FIX["water"], None, 0, close=True, op=0.9))
         lk = dam_lake_um(m)[:2]
         g.append(F.poly([xy(m, w, z) for w, z in lk], "none", COL_FIX["water_ln"], 3))

@@ -3130,8 +3130,17 @@ def vc_south_svg(view):
     ws = [a + (b - a) * j / 30 for j in range(31)]
     top = [sec_xy(view, w, _lin(VC_FAR, w)) for w in ws]
     bot = [sec_xy(view, w, VC_LAKE + 4.0) for w in reversed(ws)]
+    # 🔴 ⑤c'（2026-10-02・c106）：奥の山並みの上の縁（琥珀の破線）が左上の向きの札「横から見た断面（谷に沿う）」の字の中を通った
+    #   （幾何で −16px）→ 破線だけを札の箱＋8px の外に切る（塗り 0.22 は残す・札は縁取りつきで読める）。寄り（cam）の無い c106 だけが
+    #   使う（cam があると札＝上の層と破線＝絵の層がずれる＝使うカットを足すときは測り直す）
+    cx, cy, cw_, ch_ = CHIP
+    lw = fm.width(VC_LAB, 24)
+    lb = (cx + 4 - 2.5 - 8, cy + ch_ + 34 - 0.88 * 24 - 2.5 - 8, cx + 4 + lw + 2.5 + 8, cy + ch_ + 34 + 0.12 * 24 + 2.5 + 8)
     g = [_poly(top + bot, VC_FIX["south"], None, 0.0, 0.22),
-         f'<path d="{_pl(top + bot)} Z" fill="none" stroke="{VC_FIX["south"]}" stroke-width="3" stroke-dasharray="12 9"/>']
+         f'<defs><clipPath id="vcSouthCut"><path clip-rule="evenodd" d="M-4000 -4000 H6000 V6000 H-4000 Z '
+         f'M{lb[0]:.1f} {lb[1]:.1f} H{lb[2]:.1f} V{lb[3]:.1f} H{lb[0]:.1f} Z"/></clipPath></defs>',
+         f'<path d="{_pl(top + bot)} Z" fill="none" stroke="{VC_FIX["south"]}" stroke-width="3" stroke-dasharray="12 9" '
+         'clip-path="url(#vcSouthCut)"/>']
     cw, zs = vc_south_at(view)
     cx = sec_xy(view, cw, 0.0)[0]
     for j, (z, s) in enumerate(zip(zs, (18.0, 30.0, 46.0))):
