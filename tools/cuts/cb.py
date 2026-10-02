@@ -217,4 +217,37 @@ SPEC = {
                     dict(k="問い2", t="どこで手を止めるか", v="水位を決める立場なら", c=J.ALERT)],
             cols=2)),
     ),
+
+    # ── 🆕 ⑤b-8（2026-10-02）：決め所 cb01・Google Earth⑤⑥ の替え cb08・cb11 ──
+    # S10 p3020「per la prima volta in Italia una sentenza penale colpiva insieme l'esponente di una società industriale e finanziaria
+    #   privata e un uomo appartenente all'istituzione pubblica dello Stato」
+    "cb01": dict(
+        t="判決の意味",
+        s="何が初めてだったか",
+        fig=("quote", dict(phrase=["イタリア初、", "会社と国の人を共に罰した判決"], rows=ss.qrows("S10", "PDF 20頁"), paper=True)),
+    ),
+    # cb08（7.45秒）＝Google Earth⑤ の替え。昼の VA wide＝崩れたあとの谷（塊・崩れた範囲・町と湖の岸の集落は泥の色＝c823 の終わりと
+    #   c814 の状態＝門番 ⑫ の表 ss.ILLU_DESTROY_CUTS に足した）。1行目＝札「エルト」（S1 PDF171「L'abitato di Erto si salvò in parte
+    #   notevole」＝エルトの建物の面は残っている）／2行目＝湖の岸の集落の札（ピネダ・サン・マルティーノ＝c814 と同じ位置・S1 PDF98）
+    "cb08": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="wide", tod="day", block="on", slide="on", towns="mud", shore="mud"),
+            rec="S1 p147（1つの塊のまま）・S1 p98（10月10日の夜明けには…もう存在しなかった）",
+            steps=[dict(rec="S1 p171（エルトの村はかなりの部分が助かった）",
+                        tag=dict(t="エルト", at="erto", off=(40, -60), keep=True, delay=0.8)),
+                   dict(rec="S1 p98（湖の岸のピネダとサン・マルティーノはもう存在しなかった）",
+                        tag=[dict(t="ピネダ", at="pineda", off=(30, 75), keep=True, delay=0.6),
+                             dict(t="サン・マルティーノ", at="smartino", off=(-40, 10), anchor="end", keep=True, delay=0.6)])])),
+    ),
+    # cb11（12.30秒）＝Google Earth⑥ の替え（ca26 と別の範囲）。昼の VA near＝いまも立つダムと、谷を埋めた塊（cb07 の写真と同じ
+    #   いまの谷・町と湖の岸の集落は画面の外＝壊れる部品は使わない）を、3行をかけてダムへゆっくり寄る（頭から少し寄せる＝右の端の
+    #   ピネダを画面の外に）。語りは裁判の記録の登録＝谷の絵は場所の目印（ピアーヴェ川の下流は ca26 で見せた＝映像方針 §18）
+    "cb11": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="near", tod="day", block="on", slide="on", cam=1.08), camc="dam",
+            rec="S1 p147（1つの塊のまま）・S8 p1046（水平に300〜400m）",
+            steps=[dict(state=dict(cam=1.11), delay=0.0, dur=4.6),
+                   dict(state=dict(cam=1.14), delay=0.0, dur=3.7),
+                   dict(state=dict(cam=1.17), delay=0.0, dur=3.6)])),
+    ),
 }

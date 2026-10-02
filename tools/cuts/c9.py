@@ -214,4 +214,12 @@ SPEC = {
             dict(add=ss.ax("i_rep"), cur="1964-01")],
             note="括弧＝任命から報告まで", src=ss.src(["S1 p99"]))),
     ),
+
+    # ── 🆕 ⑤b-8（2026-10-02）：決め所 c906 ──
+    # S1 p98「da una accurata indagine del Ministero dell'interno, risultò che le vittime furono 1.917」
+    "c906": dict(
+        t="犠牲者の数",
+        s="くわしい調べのあと",
+        fig=("quote", dict(phrase=["内務省の調べで、", "犠牲者は1,917人"], rows=ss.qrows("S1", "PDF 98頁"), paper=True)),
+    ),
 }

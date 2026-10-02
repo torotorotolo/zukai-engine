@@ -306,4 +306,13 @@ SPEC = {
                           note="斜面の中の水の高さと押す矢印は模式・地形は1934年の地形図から・縦横同じ縮尺",
                           src="イタリア議会 調査委員会 最終報告 PDF 79・96頁")),
     ),
+
+    # ── 🆕 ⑤b-8（2026-10-02）：決め所 c612 ──
+    # S1 p93「l'aumento della velocità su tutti i caposaldi del versante sinistro, con progressione crescente: da mm/g 6,5 del
+    #   2 settembre a 200 mm/g del 9 ottobre」（p226 も同じ数＝6.5・12・22・40・200 ミリ）
+    "c612": dict(
+        t="速まる斜面",
+        s="9月2日から10月9日まで",
+        fig=("quote", dict(phrase=["斜面の速さ、", "1日6.5ミリから200ミリ"], rows=ss.qrows("S1", "PDF 93頁"), paper=True)),
+    ),
 }

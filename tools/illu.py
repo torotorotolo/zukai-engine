@@ -44,6 +44,8 @@
        tod（day／night・段で night→dawn）・block（崩れたあとの塊）・slide（崩れた範囲）・towns／shore（建物の面 on／gone／mud）・
        tunnel・split（会社の説明の想定＝off／on／flow）・road（off／on／low＝730m未満）・gates・marks（北の岸の930m）・
        wave_w（西へダムを越える水）・flood（ピアーヴェ川の谷へ広がる水）・wave_e（東へ向かった波）・
+       🆕 ⑤b-8：creep（1960年5月から、ごくゆっくり動いた斜面の広い範囲＝c303）・c1960（1960年11月4日の崩落2か所＝c406・
+       VD と同じ欄 off／fall／fell）・
        見る向きの合図＝prev（頭だけ：B／C／D の切り口の線と目の印）・nxt（次の断面の線）・switch（頭だけ：「上から見ると」）。
        🆕 ⑤b-3：grow（頭だけ＝c101 の左上の小さな地図が全画面へ広がる・c102）。
        形のもと＝#100（1934年の地形図）を目で読んだ点（正本 ref/ep16/map16.json）＝上の「16本目」の節
@@ -1918,6 +1920,10 @@ VA_WAVE_W = ((578, 528), (548, 534), (533, 536), (500, 540), (450, 545), (400, 5
 VA_WAVE_W_W = 34.0                 # ダムを越えた水の帯の幅（画素＝約180m・模式。高さは描かない）
 VA_EAST_X0 = 880.0                 # 東へ向かった波が走る湖（塊の東の端から上流の端まで）
 VA_SPLIT_X = (665.0, 800.0)        # c316 会社の説明（想定）の土砂の帯（模式）
+# 🆕 ⑤b-8（2026-10-02）：1960年11月4日の崩落の2か所（c406＝Google Earth の替え）。x の幅は VD の VD_1960 と同じ（大きなくぼみの
+#   真ん中 x628＝ダムの約500m上流＝S1 PDF82）。d＝湖の南の岸から南（山の側）への長さ（#100 の画素・模式＝上の端 760m／840m の
+#   高さは上からは描けない）
+VA_1960 = dict(corner=dict(x=(585.0, 600.0), d=20.0), niche=dict(x=(613.0, 643.0), d=34.0))
 # 見る向きの合図（Vault 映像方針 16本目 §4）：B＝谷を横切る断面（約1.1km上流の点を通る南北の線・西を向いて見る）／
 #   C＝谷に沿う断面（ダムを通る東西の線・南を向いて見る）／D＝正面から見た斜面（北の岸の目の印・南を向いて見る）
 VA_CUT = dict(B=dict(a=(740.0, 360.0), b=(740.0, 830.0), col="#3fb8a8", eye=(778.0, 470.0), look=180.0),
@@ -1951,7 +1957,9 @@ VA_T = dict(wave=0.9, flood=1.3, flood_lag=0.7, towns_lag=0.55, towns=0.55, rece
             tunnel=1.6, ends=0.4, road=1.4, low=0.6, gates=0.45, split=0.8, flow=1.6, marks=0.45, wave_e=2.6, shore=0.8,
             dawn=1.8, line=0.45, prev_hold=1.5, prev_fade=0.5, prev_thin=0.55, switch_hold=1.2, switch_fade=0.35,
             # 🆕 ⑤b-3：c102 の頭で c101 の左上の小さな地図が全画面へ広がる（止め・広がる・消える）
-            grow_hold=0.1, grow=0.5, grow_fade=0.25)
+            grow_hold=0.1, grow=0.5, grow_fade=0.25,
+            # 🆕 ⑤b-8：ゆっくり動いた範囲（c303）・1960年の崩落の2か所（c406）が出る秒
+            creep=0.9, c1960=0.6)
 # 部品の出典（rec）。頁は ss.REC_DOCS の通し番号（S1＝PDF の頁・S8＝p1041〜・S9＝p2001〜・#100＝画像＝p1）
 VA_REC = dict(
     ground="#100 p1（1934年の地形図＝谷・川・村の位置・湖の700mの線の概略）",
@@ -1968,7 +1976,10 @@ VA_REC = dict(
     marks="S1 p146（北の岸のダムの真横と約1.1km上流で930m）",
     wave_w="S1 p146（西へダムを越えた）・S1 p98（ダムを越えてピアーヴェ川の谷へ）",
     flood="S1 p98（ダムを越えてピアーヴェ川の谷へ）",
-    wave_e="S1 p146（東へ・湖の上流の岸へ）")
+    wave_e="S1 p146（東へ・湖の上流の岸へ）",
+    # 🆕 ⑤b-8（2026-10-02）：Google Earth の替え（c303・c406）
+    creep="S1 p148（1960年5月から毎日の測量で、斜面の広い範囲がごくゆっくり動く証拠）",
+    c1960="S1 p72（1960年11月4日・約70万m³・トック山の北のかどと大きなくぼみの2か所）・S1 p82（ダムの約500m上流）")
 
 
 def va_px(p, view):
@@ -2096,6 +2107,39 @@ def va_slide_svg(view):
     pts = va_path(view, va_slide_pts(), per=4, closed=True)
     return (_poly(pts, C["mark"], None, 0.0, 0.30) + _poly(pts, "none", "#10161b", max(6.0, 1.6 * k), 0.55)
             + _poly(pts, "none", C["mark"], max(3.0, 0.9 * k)))
+
+
+def va_creep_svg(view):
+    """🆕 ⑤b-8：1960年5月から、ごくゆっくり動いた斜面の広い範囲（c303・S1 PDF148「un ampio tratto del versante」）。
+    範囲の境は記録に無い＝崩れた範囲の模式（va_slide_pts）と同じ線を、白い破線と薄い面で（崩れた範囲の琥珀と分ける）。"""
+    k = VA_MPX / VA_VIEW[view]["mpp"]
+    pts = va_path(view, va_slide_pts(), per=4, closed=True)
+    d = f"{_pl(pts)} Z"
+    return (_poly(pts, "#f3f6f8", None, 0.0, 0.16)
+            + f'<path d="{d}" fill="none" stroke="#10161b" stroke-opacity="0.5" stroke-width="{max(6.0, 1.4 * k):.1f}"/>'
+            + f'<path d="{d}" fill="none" stroke="#f3f6f8" stroke-width="{max(3.0, 0.8 * k):.1f}" stroke-dasharray="14 10"/>')
+
+
+def va_1960_pts(name):
+    """1960年11月4日の崩落の1か所の形（#100 の画素・形は模式）＝湖の南の岸から南へ d の丸いくぼみ（岸は湖へ2画素かける）。"""
+    d = VA_1960[name]
+    x0, x1 = d["x"]
+    n = 8
+    xs = [x0 + (x1 - x0) * i / n for i in range(n + 1)]
+    north = [(x, va_shore(x, "s") - 2.0) for x in xs]
+    south = [(x, va_shore(x, "s") + d["d"] * (0.35 + 0.65 * math.sin(math.pi * i / n))) for i, x in enumerate(xs)]
+    return north + south[::-1]
+
+
+def va_1960_svg(view, tod):
+    """🆕 ⑤b-8：1960年11月4日の崩落の2か所（c406・むき出しの崩れた面の色＋琥珀の縁）。"""
+    k = VA_MPX / VA_VIEW[view]["mpp"]
+    g = []
+    for n in VA_1960:
+        pts = va_path(view, va_1960_pts(n), per=4, closed=True)
+        g.append(_poly(pts, VA_PAL[tod]["scar"], "#10161b", max(5.0, 1.2 * k), 0.95)
+                 + _poly(pts, "none", C["mark"], max(2.5, 0.6 * k)))
+    return "".join(g)
 
 
 def va_dam_svg(view):
@@ -2310,7 +2354,8 @@ def _va_timeline(start, states, steps):
              wave_e_go=k0(u=float(s0["wave_e"] != "off")), wave_e_a=k0(a=float(s0["wave_e"] == "on")),
              wave_w_go=k0(u=float(s0["wave_w"] != "off")), wave_w_a=k0(a=float(s0["wave_w"] == "on")),
              flood_go=k0(u=float(s0["flood"] != "off")), flood_a=k0(a=float(s0["flood"] == "on")),
-             nxtB=k0(a=float(s0["nxt"] == "B")), nxtC=k0(a=float(s0["nxt"] == "C")))
+             nxtB=k0(a=float(s0["nxt"] == "B")), nxtC=k0(a=float(s0["nxt"] == "C")),
+             creep=k0(a=float(s0["creep"] == "on")), c1960=k0(a=float(s0["c1960"] != "off")))
     # 頭だけの合図：前の図の切り口の線（はじめ太く・1.5秒で細く）と切り替えの字（1.2秒で消える）
     #   🆕 ⑤b-3：小さな地図が全画面へ広がる（grow）ときは、広がり終わってから（g0 秒）出す
     g0 = (T["grow_hold"] + T["grow"]) if s0.get("grow", "off") != "off" else 0.0
@@ -2362,9 +2407,11 @@ def _va_timeline(start, states, steps):
                 K["shore"].append(dict(stage=i, delay=dl, dur=T["shore"], a=0.0))
             if st["shore"] == "mud":
                 K["shore_mud"].append(dict(stage=i, delay=dl + 0.3, dur=T["mud"], a=1.0))
-        for f in ("slide", "block", "gates", "marks"):
+        for f in ("slide", "block", "gates", "marks", "creep"):
             if ch(f):
                 K[f].append(dict(stage=i, delay=dl, dur=T[f], a=float(st[f] == "on")))
+        if ch("c1960"):      # 🆕 ⑤b-8：VA では fall も fell も同じ跡（上からは崩れる動きを描かない）
+            K["c1960"].append(dict(stage=i, delay=dl, dur=T["c1960"], a=float(st["c1960"] != "off")))
         if ch("tunnel") and st["tunnel"] == "on":
             K["tunnel_go"].append(dict(stage=i, delay=dl, dur=float(sp.get("dur", T["tunnel"])), u=1.0))
             K["ends"].append(dict(stage=i, delay=dl + float(sp.get("dur", T["tunnel"])), dur=T["ends"], a=1.0))
@@ -2420,6 +2467,11 @@ def _scene_VA(start, states, steps):
         parts.append(_part("dawn", va_ground_svg(view, "dawn"), R["dawn"], keys=K["dawn"]))
     if used("slide"):
         parts.append(_part("slide", va_slide_svg(view), R["slide"], keys=K["slide"]))
+    if used("creep"):
+        parts.append(_part("creep", va_creep_svg(view), R["creep"], keys=K["creep"]))
+    if used("c1960"):
+        parts.append(dict(_part("c1960", va_1960_svg(view, t0), R["c1960"], keys=K["c1960"]),
+                          obj=dict(collapse1960=len(VA_1960))))
     if used("block"):
         parts.append(dict(_part("block", va_block_svg(view), R["block"], keys=K["block"]), obj=dict(block=1)))
     tn = ("longarone", "pirago", "fornace")
@@ -2507,7 +2559,9 @@ def _va_anchors(view):
     a.update(lake=P((900.0, 560.0)), gorge=P((440.0, 545.0)), piave=P((228.0, 690.0)), piave_n=P((214.0, 455.0)),
              mark1=P(VA_PTS["north_dam"]),
              mark2=P(VA_PTS["north_1100"]), slide=P((715.0, 690.0)), road_low=P((450.0, 528.0)),
-             upstream=P((1400.0, 381.0)), split=P((735.0, 560.0)), block=P((710.0, 540.0)), center=(960.0, VA_Y0))
+             upstream=P((1400.0, 381.0)), split=P((735.0, 560.0)), block=P((710.0, 540.0)), center=(960.0, VA_Y0),
+             # 🆕 ⑤b-8：トック山の斜面の中ほど（湖とトック山のあいだ＝c115）・1960年の崩落の2か所のあいだの岸（c406）
+             slope=P((715.0, 625.0)), c1960=P((612.0, 580.0)))
     return a
 
 
@@ -2526,6 +2580,10 @@ def _va_note(st0, states):
         note.append("崩れた範囲は模式")
     if u("split"):
         note.append("土砂の帯は模式")
+    if u("creep"):
+        note.append("動いた範囲は模式")
+    if u("c1960"):
+        note.append("1960年の崩落の形は模式")
     return "・".join(note)
 
 
@@ -4131,7 +4189,7 @@ FIELDS = {
     #   marks・wave_w／flood／wave_e（off／on／recede）・prev（頭だけ：B／C／D）・nxt（B／C）・switch（頭だけ）
     "VA": dict(view="wide", tod="night", block="off", slide="off", towns="on", shore="on", tunnel="off", split="off",
                road="off", gates="off", marks="off", wave_w="off", flood="off", wave_e="off", prev="off", nxt="off",
-               switch="off", grow="off", cam=1.0),
+               switch="off", grow="off", creep="off", c1960="off", cam=1.0),
     # 16本目 ⑤b-3：VB 谷を横切る断面・VC 谷に沿う断面（上の「16本目 ⑤b-3」の節）。
     #   VB＝move（塊の動き 0〜1）・lake・runup（off／on＝北の岸を駆け上がる／over＝崩れたあとの絵の上で／recede）・level（崩れる前の
     #   水面の点線）・ghost（崩れる前の塊の輪郭）・path（湖を横切る向き）・dim（水平に300〜400m の矢印）・bracket（700→頂上）
@@ -4157,6 +4215,7 @@ CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONO
                shore=("on", "gone", "mud"), tunnel=ONOFF, split=("off", "on", "flow"), road=("off", "on", "low"),
                gates=ONOFF, marks=ONOFF, wave_w=("off", "on", "recede"), flood=("off", "on", "recede"),
                wave_e=("off", "on", "recede"), prev=("off", "B", "C", "D"), nxt=("off", "B", "C"),
+               creep=ONOFF,      # 🆕 ⑤b-8：VA のゆっくり動いた範囲（c1960 は下の VD の欄を VA も使う）
                # 🆕 ⑤b-3：switch に dam（「ダムを横から見ると」＝c816）・VA の grow・VB／VC の欄
                switch=("off", "on", "dam"), grow=("off", "B"), lake=ONOFF, runup=("off", "on", "over", "recede"),
                level=ONOFF, ghost=ONOFF, dim=ONOFF, bracket=ONOFF, edge=ONOFF, other=("off", "B", "C"),
@@ -4177,7 +4236,9 @@ REC_FIELDS = ("heel", "wake", "boxes", "crowd", "mark", "bridge", "run", "far", 
               # 🆕 ⑤b-3：VB の塊の動き・水・線と、VC の越える水・水位・寸法・南の岸の向き（合図の other・switch・edge は要らない）
               "move", "lake", "runup", "level", "ghost", "dim", "bracket", "over", "l695", "gap", "hbr", "south",
               # 🆕 ⑤b-4：VD の水位・亀裂・範囲・1960年の崩落・模型の想定・実際の塊・波の印・小さな断面（trace は上の RA と同じ欄）
-              "water", "crack", "area", "c1960", "model", "whole", "wave", "pip")
+              "water", "crack", "area", "c1960", "model", "whole", "wave", "pip",
+              # 🆕 ⑤b-8：VA のゆっくり動いた範囲（c303）
+              "creep")
 # 段ごとの出来事（引き継がない・数で書く＝画面の文字の門番が文字として読まない）。pylon＝RB でパイロンが1本流れる
 EVENTS = ("rings", "board", "rings_in", "asks", "walkie", "glow", "pylon")
 VIEW = dict(A="船首の側から見た図", D="船首の側から見た図", B="船の中", C="操舵室の中", E="管制センターの中",

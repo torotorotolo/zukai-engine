@@ -65,6 +65,13 @@ REC_OTHER_ROLE = {    # 流れ図の「role」の箱＝役職でない言葉（�
     #   persone ed animali dalla zona pericolante」
     "下げると止まった": {"S1 p85", "S1 p93"}, "下げても速まった": {"S1 p96", "S1 p93"},
     "会社": {"S1 p96"}, "役所": {"S1 p96"}, "村長": {"S1 p96"}, "危ない区域から人を出す": {"S1 p96", "S1 p97"},
+    # 🆕 ⑤b-8（2026-10-02）：c204（地図 drift の替え）＝S1 p51「la sezione della valle del Vajont presa in considerazione per la
+    #   costruzione della diga di sbarramento」・「dal serbatoio del Vajont … addotte alla grande centrale di Soverzene」（下流の町）
+    "谷をせき止めるダム": {"S1 p51"}, "下流の発電所": {"S1 p51"},
+    # ca13（地図 drift の替え）＝S10 p3019「avrebbe dovuto svolgersi a Belluno … trasferito per «rimessione» al Tribunale dell'Aquila
+    #   su ordinanza della Cassazione … per conseguenza ad una mancata serenità dei giudici」
+    #   ・「esacerbazione degli stati d'animo della popolazione」（住民の気持ちの高ぶり）
+    "ベッルーノの裁判所": {"S10 p3019"}, "ラクイラの裁判所": {"S10 p3019"}, "住民の気持ちの高ぶり": {"S10 p3019"},
 }
 REC_CRIME = {}
 REC_VERDICT = {}   # (役職, 罪名, 列) → (結果, 頁)
@@ -78,12 +85,17 @@ REC_MECH = {          # 流れ図に出してよい言葉のうち、役職・�
     "会社",                                                 # c418
     "22回の実験", "波の高さ",                               # c510（S1 p89「i 22 esperimenti compiuti」・S9 p2010「l'entità dell'onda」）
     "1960年", "1962年", "1963年", "10月8日の報告",          # c621（S1 p96＝国の監督の担当者の10月8日の報告）
+    "大きな湖",                                             # 🆕 ⑤b-8 c204（S1 p51「serbatoio del Vajont」）
 }
 REC_CHIP = {          # 札（chip）の言葉 → 頁の集合
     "1963年10月11日": {"S1 p99"}, "1963年11月1日": {"S1 p99"},                 # c113
     "少数派「隠した」": {"S1 p232"},                                            # c418（occultamento）
     "最も破局的な崩れ": {"S1 p89"},                                            # c510「il più catastrofico prevedibile crollo franoso」
     "いつも2つの塊（少数派）": {"S1 p224"},                                    # c510「sempre partendo dall'ipotesi che si trattasse di due frane distinte」
+    # 🆕 ⑤b-8：c204（S1 p51「centrale」「serbatoio」）・ca13（S10 p3019「giudice naturale」＝地元の裁判所・「su ordinanza della
+    #   Cassazione adducendo il motivo」）
+    "電気をつくる": {"S1 p51"}, "発電のための水がめ": {"S1 p51"},
+    "地元": {"S10 p3019"}, "最高裁判所が挙げた理由": {"S10 p3019"},
 }
 # 書類の再現図（表題 → dict(fields・ends・values＝記録の文にある値だけ・rec＝頁の集合)）。🆕 16本目は欄の値に**原文のイタリア語**を
 #   そのまま書く（日本語は字幕だけ＝映像方針の c413・c422 の決め）。欄の名は原文の文の言葉（domanda→問い・risposto→答え・titolo→見出し・

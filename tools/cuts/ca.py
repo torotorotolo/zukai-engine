@@ -54,7 +54,8 @@ PLAN = {
                plan='台本の画：実写 #108 1968年11月のラクイラの法廷（別の部分に寄る）',
                src='S9 PDF17・S10 PDF20'),
     "ca13": dict(kind='図解',
-               plan='【地図】地図 drift：水の通り道（湖 → 発電所）・ベッルーノとラクイラ（映像方針 §6）｜台本の画：図 地図【上から】 ベッルーノとラクイラ（rec= S10 PDF19）',
+               plan='【地図】地図 drift：水の通り道（湖 → 発電所）・ベッルーノとラクイラ（映像方針 §6）｜台本の画：図 地図【上から】 ベッルーノとラクイラ（rec= S10 PDF19）'
+                    '｜🆕 ⑤b-8（2026-10-02）：流れ図（箱の型）に替えた＝2つの町の距離・座標が資料に無い（門番 check_drift ③）＝映像方針 §18',
                src='S10 PDF19'),
     "ca14": dict(kind='図解',
                plan='台本の画：図 年表（ca02 の図・1968年11月に印）',
@@ -292,5 +293,53 @@ SPEC = {
             dict(add=ss.ax("v_1975", chips=["エネルに償いを命じる"]), cur="1975-12-16"),
             dict(add=dict(k="chips", at="1975-12-16", chips=["町の訴えは退ける"], rec="S9 p2018", i0=1))],
             src=ss.src(["S9 p2018"]))),
+    ),
+
+    # ── 🆕 ⑤b-8（2026-10-02）：決め所 ca05・ca20・流れ図 ca13・Google Earth⑥ の替え ca26 ──
+    # S1 p178（多数派の結論）「l'evento, così come si è manifestato, non fu previsto da nessuno」。19対8＝S1 p26（c110 と同じ）
+    "ca05": dict(
+        t="多数派の結論",
+        s="19対8で決まった報告",
+        fig=("quote", dict(phrase=["起きたとおりの形では、", "誰も予見しなかった"], rows=ss.qrows("S1", "PDF 178頁"), paper=True)),
+    ),
+    # ca13（9.54秒）＝裁判の場所。🔴 PLAN は地図 drift だったが、ベッルーノとラクイラの距離・座標は資料に無い（S1・S8・S9・S10 を
+    #   「km・chilometri・座標」で引いた）＝門番 check_drift ③ を正直には通せない → 移った流れを流れ図で＝映像方針 §18。
+    #   S10 p3019「Il processo, che avrebbe dovuto svolgersi a Belluno, fu invece sottratto al giudice naturale di quel Tribunale e
+    #   trasferito per «rimessione» al Tribunale dell'Aquila su ordinanza della Cassazione adducendo il motivo di «legitima suspicione»,
+    #   dovuta ad un'ipotesi di turbamento dell'ordine pubblico per esacerbazione degli stati d'animo della popolazione, e per
+    #   conseguenza ad una mancata serenità dei giudici」。1行目＝ベッルーノ（地元）→ ラクイラ／2行目＝理由の箱「住民の気持ちの高ぶり」
+    #   （esacerbazione degli stati d'animo della popolazione＝⚠️ ⑤b-8 の echo：「落ち着いた裁判ができないおそれ」は字幕の複写）／
+    #   3行目＝理由の箱に「最高裁判所が挙げた理由」（語りの呼び名＝最高裁判所。破毀院と同じ）
+    "ca13": dict(
+        t="裁判の場所",
+        s="移された裁判",
+        fig=("boxes", dict(
+            view="flow",
+            steps=[dict(add=[dict(k="role", id="bl", t="ベッルーノの裁判所", pos=(160, 700), y=430, rec="S10 p3019"),
+                             dict(k="role", id="aq", t="ラクイラの裁判所", pos=(1220, 1760), y=430, rec="S10 p3019"),
+                             dict(k="edge", fr="bl", to="aq"),
+                             dict(k="chip", at="bl", t="地元", dy=70, rec="S10 p3019")]),
+                   dict(add=dict(k="role", id="why", t="住民の気持ちの高ぶり", pos=(660, 1260), y=650, rec="S10 p3019")),
+                   dict(add=dict(k="chip", at="why", t="最高裁判所が挙げた理由", dy=72, rec="S10 p3019"))],
+            src=ss.src(["S10 p3019"]))),
+    ),
+    # S10 p3020「la sentenza finale della Cassazione venne emessa nel marzo 1971, a soli 15 giorni dalla data che avrebbe fatto scattare
+    #   la prescrizione dei reati」・「ritenne colpevoli soltanto due imputati su 11 che erano stati inizialmente rinviati a giudizio」
+    "ca20": dict(
+        t="最後の判決",
+        s="1971年3月の破毀院",
+        fig=("quote", dict(phrase=["時効の15日前。", "11人のうち有罪は2人"], rows=ss.qrows("S10", "PDF 20頁"), paper=True)),
+    ),
+    # ca26（5.09秒）＝Google Earth⑥ の替え。昼の VA west（峡谷の出口とロンガローネ＝次の ca27 はロンガローネから峡谷ごしに見る
+    #   いまのダムの写真）。崩れたあとの塊と崩れた範囲・町の建物の面（建て直された町＝泥の色にしない・壊れる部品は使わない＝
+    #   門番 ⑫）。1行目＝そのまま／2行目＝札（c823 と同じ位置）と峡谷の出口へゆっくり寄る。語りは判決の話＝谷の絵は場所の目印
+    "ca26": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="west", tod="day", block="on", slide="on"), camc="gorge_exit",
+            rec="S1 p147（1つの塊のまま）・S8 p1046（水平に300〜400m）",
+            steps=[dict(),
+                   dict(state=dict(cam=1.06), delay=0.2, dur=3.4,
+                        tag=[dict(t="峡谷の出口", at="gorge_exit", off=(30, -80), keep=True),
+                             dict(t="ロンガローネ", at="longarone", off=(-30, -80), anchor="end", keep=True)])])),
     ),
 }

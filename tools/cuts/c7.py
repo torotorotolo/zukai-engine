@@ -264,8 +264,8 @@ SPEC = {
                         tag=dict(t="730mより低い区間", at="road_low", off=(-20, 95), anchor="end", keep=True))])),
     ),
     # c716（6.84秒）＝道の入口2か所の印（上＝実線の輪〈会社の作業員2人がふさいだ〉・下＝点線の輪〈憲兵隊がふさいだか、
-    #   ふさごうとしていた〉＝映像方針 §5-1）。人は描かない（上からの縮尺では人は見えない）。2行目の終わり（約6.0秒）に VC の線を
-    #   先に出す（→ c721 VC・映像方針 §4-2 #9）
+    #   ふさごうとしていた〉＝映像方針 §5-1）。人は描かない（上からの縮尺では人は見えない）。
+    #   🆕 ⑤b-8：2行目の VC の線（→ c721）は c717 へ移した（Google Earth④ を VA に替え、c721 の前の上からの絵が c717 になった）
     "c716": dict(
         fig=("illu", dict(
             place="VA", start=dict(view="wide", road="low"), rec="S1 p98（エルト・カッソからロンガローネへの道・730m未満）",
@@ -273,7 +273,17 @@ SPEC = {
                         rec="S1 p98（上の入口＝作業員2人・下の入口＝憲兵隊がふさいだか、ふさごうとしていた）",
                         tag=[dict(t="上の入り口", at="road_up", off=(40, -80), keep=True),
                              dict(t="下の入り口", at="road_down", off=(-30, 95), anchor="end", keep=True)]),
-                   dict(state=dict(nxt="C"), delay=2.0)])),
+                   dict()])),
+    ),
+    # 🆕 ⑤b-8（2026-10-02）：c717（3.88秒・夜）＝Google Earth④ の替え。VA west（峡谷の出口とロンガローネ）。1行目（聞き役「下流の町
+    #   には、備えがあったの？」）＝札（峡谷の出口・ロンガローネ＝c823 と同じ位置）／2行目＝VC の線を先に出す（→ c721 VC・
+    #   映像方針 §4-2 #9＝c716 から移した＝映像方針 §18）
+    "c717": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="west"),
+            steps=[dict(tag=[dict(t="峡谷の出口", at="gorge_exit", off=(30, -80), keep=True),
+                             dict(t="ロンガローネ", at="longarone", off=(-30, -80), anchor="end", keep=True)]),
+                   dict(state=dict(nxt="C"), delay=0.6)])),
     ),
     # c721（9.26秒・夜）＝合図（映像方針 §4-2 #9・c716 の VC の線から）＝「横から見ると」・小さな地図。1行目：その夜の水位
     #   約700m（S1 PDF96）／2行目（聞き役）：そのまま／3行目：天端725.5m（S9 PDF6）とその間の寸法「25mあまり」
@@ -286,5 +296,24 @@ SPEC = {
                    dict(state=dict(gap="on"), delay=0.3, rec="S9 p2006（天端725.50m）・S1 p96（水位約700m）",
                         tag=[dict(t="天端725.5m", at="crest", off=(70, -90), keep=True),
                              dict(t="25mあまり", at="gap", off=(-40, 12), anchor="end", keep=True)])])),
+    ),
+
+    # ── 🆕 ⑤b-8（2026-10-02）：決め所 c706・c718 ──
+    # S1 p96（ビアデーネの10月9日の朝の手紙＝c705 の続き）「il muoversi dei punti anche verso la " Pineda " che finora erano rimasti
+    #   fermi, fanno pensare al peggio」
+    "c706": dict(
+        t="10月9日の朝",
+        s="ビアデーネの手紙の続き",
+        fig=("quote", dict(phrase=["当日の朝の手紙", "「最悪のことを思わせる」"],
+                           rows=ss.qrows("S1", "PDF 96頁", ("書いた人", "ビアデーネ")), paper=True)),
+    ),
+    # S1 p228（少数派の報告）「né l'ENEL-SADE, né le Autorità di Governo (Prefetti) si erano preoccupati di disporre un sistema di
+    #   allarme e un piano di sgombero sia delle popolazioni a valle della diga del Vajont, sia dei cittadini del comune di Erto
+    #   abitanti le case poste sotto il livello della strada circumlacuale」
+    "c718": dict(
+        t="下流の備え",
+        s="会社と国の地方の長官",
+        fig=("quote", dict(phrase=["ダムの下流に、", "警報も避難の計画も無かった"],
+                           rows=ss.qrows("S1", "PDF 228頁", ("出どころ", "少数派の報告")), paper=True)),
     ),
 }

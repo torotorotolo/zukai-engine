@@ -281,4 +281,34 @@ SPEC = {
                    dict(state=dict(pip="on"), delay=0.5,
                         rec="S1 p77（10月の亀裂＝深いすべり面が地表と交わる線）・S1 p163（周りの亀裂＝深いすべり面の地表との交わり）")])),
     ),
+
+    # ── 🆕 ⑤b-8（2026-10-02）：Google Earth③ の替え c406・決め所 c409・c417 ──
+    # c406（9.73秒）＝昼の VA near。合図（c405 の断面の図解＝VB と同じ南北の線）＝「上から見ると」・さっきの断面の線（B）。
+    #   1行目（約1.8秒〜＝「1960年11月4日の崩落」）＝崩落の2か所（VD の c312 と同じ x の幅＝S1 PDF72・ダムの約500m上流＝PDF82・
+    #   形は模式）と札／2行目（崩落のあとの現場の話し合い）＝同じ場所へゆっくり寄る
+    "c406": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="near", tod="day", prev="B", switch="on"), camc="c1960",
+            rec="#100 p1（1934年の地形図＝谷と湖の位置）",
+            steps=[dict(state=dict(c1960="fell"), delay=1.8,
+                        rec="S1 p72（1960年11月4日・約70万m³・2か所）・S1 p82（ダムの約500m上流）",
+                        # ⚠️ ⑤b-8 の echo：「1960年11月4日の崩落」は字幕の複写（100%）＝語りに無い「2か所」（S1 PDF72）を札に
+                        tag=dict(t="崩れた2か所", at="c1960", off=(-60, 100), anchor="end", keep=True, delay=2.3)),
+                   dict(state=dict(cam=1.08), delay=0.3, dur=4.5)])),
+    ),
+    # 決め所（台本の★）。S1 p77「il dottor Mueller, interpretando la fessura apparsa nell'ottobre 1960 come l'intersezione di una
+    #   superficie di rottura profonda, riteneva che il volume … dovesse essere considerato di circa 200 milioni di metri cubi」
+    "c409": dict(
+        t="ミュラーの見積もり",
+        s="1960年10月の亀裂から",
+        fig=("quote", dict(phrase=["動いている塊は、", "約2億立方メートル"], rows=ss.qrows("S1", "PDF 77頁"), paper=True)),
+    ),
+    # 決め所（台本の★）。S1 p179（多数派）「essi erano conosciuti alla Pubblica Amministrazione, benché non consti che le relazioni
+    #   siano state ufficialmente trasmesse」
+    "c417": dict(
+        t="報告の扱い",
+        s="役所は中身を知っていた",
+        fig=("quote", dict(phrase=["報告書が正式に送られたとは、", "確認できない"],
+                           rows=ss.qrows("S1", "PDF 179頁", ("出どころ", "多数派の報告")), paper=True)),
+    ),
 }

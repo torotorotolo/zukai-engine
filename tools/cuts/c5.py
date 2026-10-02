@@ -279,4 +279,22 @@ SPEC = {
                    dict(tag=dict(t="いちばん高い水位", at="water", off=(70, 92)), delay=0.6,
                         rec="S1 p224（最高水位722.5m）")])),
     ),
+
+    # ── 🆕 ⑤b-8（2026-10-02）：決め所 c511・c514 ──
+    # S1 p89「Il 3 luglio 1962 il professor Augusto Ghetti … completava la relazione」・「Dopo aver fornito i dati sui 22 esperimenti
+    #   compiuti, la relazione concludeva che « la quota 700 può considerarsi di assoluta sicurezza nei riguardi del più catastrofico
+    #   prevedibile evento di frana »」
+    "c511": dict(
+        t="模型の報告の結論",
+        s="22回の実験のあと",
+        fig=("quote", dict(phrase=["水位700メートルなら、", "絶対に安全"],
+                           rows=ss.qrows("S1", "PDF 89頁", ("書いた人", "ゲッティ"), ("日付", "1962年7月3日")), paper=True)),
+    ),
+    # S1 p97・p163（1963年10月8日の国の監督〈Assistente governativo〉ベルトリッシの報告が模型の実験を引く）「con il massimo invaso e con
+    #   il crollo istantaneo della frana l'onda conseguente raggiungerebbe una altezza di 25 metri」
+    "c514": dict(
+        t="模型の波",
+        s="10月8日の国の監督の報告",
+        fig=("quote", dict(phrase=["最大水位で一瞬に崩れても", "波は25メートル"], rows=ss.qrows("S1", "PDF 97・163頁"), paper=True)),
+    ),
 }

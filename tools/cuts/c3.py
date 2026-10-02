@@ -281,4 +281,32 @@ SPEC = {
                    dict(state=dict(split="flow"), delay=0.3,
                         rec="S1 p78（迂回トンネルで洪水を流せる）・S9 p2007")])),
     ),
+
+    # ── 🆕 ⑤b-8（2026-10-02）：Google Earth② の替え c303・決め所 c305・c310 ──
+    # c303（8.12秒）＝昼の VA wide。合図（c302 の断面の図解＝VB と同じ南北の線＝映像方針 §4）＝「上から見ると」・さっきの断面の線（B）。
+    #   1行目＝合図だけ／2行目（約1.4秒〜）＝ごくゆっくり動いた斜面の広い範囲（S1 PDF148「un ampio tratto del versante」＝境は記録に
+    #   無い＝崩れた範囲の模式と同じ線を白い破線で・崩れた範囲の琥珀と分ける）と札
+    "c303": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="wide", tod="day", prev="B", switch="on"),
+            rec="#100 p1（1934年の地形図＝谷と湖の位置）",
+            steps=[dict(),
+                   dict(state=dict(creep="on"), delay=1.4,
+                        rec="S1 p148（1960年5月から毎日の測量で、斜面の広い範囲がごくゆっくり動く証拠）",
+                        tag=dict(t="ゆっくり動いた広い範囲", at="slide", off=(-90, 70), anchor="end", keep=True, delay=2.0))])),
+    ),
+    # 決め所（台本の★）。S1 p72「In precedenza si era determinata in alto, sul versante sinistro della valle, una fessura lunga
+    #   circa 2.500 metri」（11月4日の崩落より前）
+    "c305": dict(
+        t="長い亀裂",
+        s="11月4日の崩落より前",
+        fig=("quote", dict(phrase=["斜面に、", "長さ約2,500メートルの亀裂"], rows=ss.qrows("S1", "PDF 72頁"), paper=True)),
+    ),
+    # 決め所（台本の★）。S1 p72「il 4 novembre 1960 una frana di circa 700.000 metri cubi si distaccava dalla parete del monte Toc」・
+    #   「Durante le operazioni sperimentali di graduale invaso」（水をためる試しの途中）
+    "c310": dict(
+        t="崩落の大きさ",           # ⚠️ ⑤b-8 の dup：「1960年11月4日」は第3章の章名（右上の章の札）と同じ
+        s="水をためる試しの途中",
+        fig=("quote", dict(phrase=["トック山の", "約70万立方メートルが崩れた"], rows=ss.qrows("S1", "PDF 72頁"), paper=True)),
+    ),
 }

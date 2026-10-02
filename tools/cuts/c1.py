@@ -244,12 +244,25 @@ SPEC = {
                    dict(state=dict(wave_w="recede", flood="recede", towns="mud", cam=1.0), delay=0.1, dur=2.0,
                         rec="S1 p98（10月10日の夜明けには…もう存在しなかった）")])),
     ),
-    # c116（6.90秒）＝昼の VA に場所の札を語りの順に（3段＝1行目の真ん中に段が挟まる）：湖・エルト・カッソ（とトック山＝c115 の続き）
-    #   → ダム・峡谷 → ピアーヴェ川・ロンガローネ。合図（映像方針 §4-2 #3・c106 から）＝「上から見ると」・VC の線（ダムを通る東西）。
-    #   ⚠️ c115（Google Earth①・⑤b-7）は、ここと同じ印（ダムの弧・トック山の斜面の札）にそろえる
-    "c116": dict(
+    # 🆕 ⑤b-8（2026-10-02）：c115（7.70秒）＝Google Earth① の替え（10-02 カズヤくん＝VA に）。昼の VA wide に c116 と同じ印
+    #   （トック山・ダム・湖の札＝同じ位置）。1行目＝札3つ／2行目＝「湖へ傾く斜面」（トック山と湖のあいだを指す＝#100 でトック山の
+    #   斜面は北の湖へ下る）。🔴 見る向きの合図（映像方針 §4-2 #3＝c106 VC から）は c116 からここへ移した（向きの付いた画で c106 の
+    #   次がこのカットになった）＝「上から見ると」・VC の線（ダムを通る東西）。c116 は VA の続き（合図なし）＝映像方針 §18
+    "c115": dict(
         fig=("illu", dict(
             place="VA", start=dict(view="wide", tod="day", prev="C", switch="on"),
+            rec="#100 p1（1934年の地形図＝トック山・ダム・湖の位置・トック山の斜面は北の湖へ下る）",
+            steps=[dict(tag=[dict(t="トック山", at="toc", off=(50, 60), keep=True, delay=0.5),
+                             dict(t="ダム", at="dam", off=(-30, -80), anchor="end", keep=True, delay=0.5),
+                             dict(t="湖", at="lake", off=(40, -60), keep=True, delay=0.5)]),
+                   dict(tag=dict(t="湖へ傾く斜面", at="slope", off=(-110, 40), anchor="end", keep=True, delay=0.6))])),
+    ),
+    # c116（6.90秒）＝昼の VA に場所の札を語りの順に（3段＝1行目の真ん中に段が挟まる）：湖・エルト・カッソ（とトック山＝c115 の続き）
+    #   → ダム・峡谷 → ピアーヴェ川・ロンガローネ。🆕 ⑤b-8：合図（「上から見ると」・VC の線）は c115 へ移した＝c115 と同じ VA の続き。
+    #   c115 と同じ印（ダムの弧・トック山の斜面の札＝同じ位置）
+    "c116": dict(
+        fig=("illu", dict(
+            place="VA", start=dict(view="wide", tod="day"),
             rec="#100 p1（1934年の地形図＝谷・湖・村・町の位置）",
             steps=[dict(tag=[dict(t="湖", at="lake", off=(40, -60), keep=True),
                              dict(t="エルト", at="erto", off=(40, -60), keep=True),

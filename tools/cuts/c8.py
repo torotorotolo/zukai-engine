@@ -312,4 +312,20 @@ SPEC = {
                    dict(state=dict(tod="dawn", wave_w="recede", flood="recede", towns="mud"), delay=0.3, dur=1.8,
                         rec="S1 p98（10月10日の夜明けには…もう存在しなかった）")])),
     ),
+
+    # ── 🆕 ⑤b-8（2026-10-02）：決め所 c801・c808 ──
+    # S1 p98（第7章「L'IMMANE DISASTRO」の書き出し）「Alle 22 e 39 del 9 ottobre franò un'enorme massa di montagna」
+    "c801": dict(
+        t="10月9日の夜",
+        s="報告書の第7章",
+        fig=("quote", dict(phrase=["22時39分、", "巨大な山の塊が崩れた"], rows=ss.qrows("S1", "PDF 98頁"), paper=True)),
+    ),
+    # S1 p147（国の調査委員会の専門家の調べの引用）「…unità senza smembrarsi in blocchi a movimenti differenziati. Anzi perfino il suo
+    #   fronte ha conservato la morfologia primitiva del versante」
+    "c808": dict(
+        t="崩れ方",
+        s="10月9日の崩落",
+        fig=("quote", dict(phrase=["山の塊は、", "ばらばらにならず一体を保った"],
+                           rows=ss.qrows("S1", "PDF 147頁", ("書いた人", "国の調査委員会の専門家")), paper=True)),
+    ),
 }

@@ -26,7 +26,8 @@ PLAN = {
                plan='台本の画：実写 #033 1955年の峡谷',
                src='S1 PDF49・PDF50・PDF51・PDF98'),
     "c204": dict(kind='図解',
-               plan='【地図】地図 drift：水の通り道（湖 → 発電所）・ベッルーノとラクイラ（映像方針 §6）｜台本の画：図 地図【上から】 水の通り道（バイオントの湖 → 下流の発電所）（rec= PDF51）',
+               plan='【地図】地図 drift：水の通り道（湖 → 発電所）・ベッルーノとラクイラ（映像方針 §6）｜台本の画：図 地図【上から】 水の通り道（バイオントの湖 → 下流の発電所）（rec= PDF51）'
+                    '｜🆕 ⑤b-8（2026-10-02）：流れ図（箱の型）に替えた＝湖と発電所の位置・距離が資料に無い（門番 check_drift ③）＝映像方針 §18',
                src='S1 PDF51'),
     "c205": dict(kind='図解',
                plan='台本の画：図 数の比べ 1957年の計画の変更（高さ202→266m・最も高い水位677→722.50m・容量1億5,000万m³）（rec= PDF63）',
@@ -223,5 +224,33 @@ SPEC = {
                                dict(t="261.6m", src="S9 PDF6（高さ261.60m）")],
                           note="断面の反りと水の力の矢印の長さは模式・縦横同じ縮尺・湖は最も高い水位（722.50m）まで",
                           src="バイオント財団の年表 PDF 6頁／イタリア議会 調査委員会 最終報告 PDF 63頁")),
+    ),
+
+    # ── 🆕 ⑤b-8（2026-10-02）：流れ図 c204・決め所 c210 ──
+    # c204（9.59秒）＝水の通り道。🔴 PLAN は地図 drift だったが、湖と下流の発電所（ソヴェルゼーネ）の位置・距離は資料に無い
+    #   （S1・S8・S9・S10 を「km・chilometri・座標」で引いた）＝門番 check_drift ③（記録の宣言が無い地図は止める）を正直には
+    #   通せない → 計画の流れ（台本の3行どおり）を流れ図で＝映像方針 §18。S1 PDF51「la sezione della valle del Vajont presa in
+    #   considerazione per la costruzione della diga di sbarramento」「dal serbatoio del Vajont … addotte alla grande centrale di
+    #   Soverzene」。1行目＝ダム → 湖／2行目＝湖 → 下流の発電所（電気をつくる）／3行目＝湖に「発電のための水がめ」
+    "c204": dict(
+        t="ダムと発電の計画",
+        s="会社の申請の中身",
+        fig=("boxes", dict(
+            view="flow",
+            layout=dict(heads=[dict(id="lake", kind="node", t="大きな湖", x=(760, 1160), y=(450, 550), rec="S1 p51")]),
+            steps=[dict(add=[dict(k="role", id="dam", t="谷をせき止めるダム", pos=(160, 600), y=500, rec="S1 p51"),
+                             dict(k="edge", fr="dam", to="lake")]),
+                   dict(add=[dict(k="role", id="plant", t="下流の発電所", pos=(1320, 1760), y=500, rec="S1 p51"),
+                             dict(k="edge", fr="lake", to="plant"),
+                             dict(k="chip", at="plant", t="電気をつくる", dy=70, rec="S1 p51")]),
+                   dict(add=dict(k="chip", at="lake", t="発電のための水がめ", dy=85, rec="S1 p51"))],
+            src=ss.src(["S1 p51"]))),
+    ),
+    # 決め所（台本の★・c210）。S8 p1043「The Vaiont dam, a 276 meter high thin arch dam, was the highest double-arch dam in Europe」。
+    #   ⚠️ S8 の 276m は高さの別の測り方＝画面に出さない（高さの数は c211 の S9 PDF6＝261.60m）。完成の年＝S8 p1041（1957〜1960）
+    "c210": dict(
+        t="当時のダム",
+        s="1960年に完成したダム",
+        fig=("quote", dict(phrase=["当時ヨーロッパで最も高い", "二重アーチダム"], rows=ss.qrows("S8", "43頁"), paper=True)),
     ),
 }
