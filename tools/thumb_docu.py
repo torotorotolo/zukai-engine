@@ -110,10 +110,10 @@ def water(seed=3):
     return Image.fromarray(base.clip(0, 255).astype(np.uint8))
 
 
-def rock(seed=7):
-    """海底の岩の断面（灰色がかった茶）。細かい凹凸の陰影で写真らしく。"""
+def rock(seed=7, dark=(38, 32, 28), light=(150, 132, 112)):
+    """岩の断面（灰色がかった茶）。細かい凹凸の陰影で写真らしく。dark／light で濃淡の幅を変える。"""
     f = fractal(W, H, seed, ((10, 1.0), (40, 0.6), (140, 0.45), (420, 0.35)))
-    im = colorize(f, (38, 32, 28), (150, 132, 112))
+    im = colorize(f, dark, light)
     em = im.filter(ImageFilter.EMBOSS).convert("L")
     a = np.asarray(im, float) * (0.55 + 0.6 * np.asarray(em, float)[..., None] / 255)
     return Image.fromarray(a.clip(0, 255).astype(np.uint8))
@@ -151,14 +151,15 @@ def defs(extra=""):
             '<feGaussianBlur stdDeviation="14"/></filter>' + extra + '</defs>')
 
 
-def bake(name, body, extra_defs=""):
+def bake(name, body, extra_defs="", out=None):
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" '
            f'viewBox="0 0 {W} {H}">{defs(extra_defs)}{body}</svg>')
     html = (f'<html><head><meta charset="utf-8"><style>*{{margin:0}}{face_css()}'
             f'body{{width:{W}px;height:{H}px;overflow:hidden}}</style></head><body>{svg}</body></html>')
-    OUT.mkdir(parents=True, exist_ok=True)
-    render.png(html, OUT / f"{name}.png", W, H)
-    print(name, "->", OUT / f"{name}.png", flush=True)
+    out = out or OUT
+    out.mkdir(parents=True, exist_ok=True)
+    render.png(html, out / f"{name}.png", W, H)
+    print(name, "->", out / f"{name}.png", flush=True)
 
 
 # ── 艦の横からの形（平らな赤の影）。長さ 1000・中心線 y=0・胴の半径 56 ──────
@@ -297,6 +298,110 @@ def ep18_b2():
     bake("ep18_B2_docu_photo", "".join(g), ex)
 
 
+# ── 16本目 バイオントダム（2026-10-04・公開ずみ `y3v7q6YKBpk` で B の型を試す）──────────────
+#    🔴 カズヤくん（10-04）「16本目のサムネを B1・B2 の型で作成。実際に差し替えてテストしてみる。差し替えは手動」
+#       ＝記憶の「公開ずみの動画は直さない」より新しい指示が優先。
+#    言葉は公開中の A（`thumb_jiko.ep16()` の `k_tsunami_AI`）と1字も変えない：
+#       赤「津波1910人 予兆は3年前」→ 白「津波1910人」＋赤「予兆は3年前」（主＝この回の決め語）
+#       黄「バイオントダムの真相」→ 黄「バイオントダム」＋白「の真相」
+#    字幅（Noto Serif JP Black）：上の行 10.0em×116＝1,160px・字の高さ 約110px／
+#       下の行 白 5.152em×82＋赤 5.612em×136＋間 24＝1,209px・赤の字の高さ 約129px
+OUT16 = HERE / "out" / "thumb" / "ep16-ab"
+TOP16 = [("バイオントダム", YEL, 116), ("の真相", WHT, 116)]
+BOT16 = [("津波1910人", WHT, 82), ("予兆は3年前", RED, 136, 24)]
+
+# 地形の線（左＝南のトック山・右＝北の岸＝本編 VB の向き：#100 の x=740 で西を向いた断面）
+GROUND16 = [(-20, 175), (90, 170), (180, 215), (260, 275), (340, 345), (410, 420), (460, 475), (500, 505),
+            (600, 505), (650, 470), (740, 410), (830, 350), (930, 300), (1040, 262), (1150, 240), (1300, 225)]
+
+
+def _pts(ps):
+    return " L".join(f"{x},{y}" for x, y in ps)
+
+
+def ep16_b1():
+    """B1＝断面図（本編の VB と同じ向き）＋平らな赤の主役（崩れた斜面の塊）＋赤い矢印＋赤枠の実写（#023）。
+
+    🔴 本編に忠実に：塊は**1つのまま**左（南）の斜面から湖へ滑り、水は右（北）の岸を駆け上がる
+       （本編の冒頭 c101 と同じ）。**ダムは壊さない**（この断面にダムは出ない＝差し込みの写真で見せる）。
+       高さ・水位・深さの数は絵に入れない（目盛りなし）。
+    赤い矢印は塊を指す＝決め語「予兆は3年前」（斜面は事故の3年以上前から動いていた）と組。
+    差し込み＝#023 U.S. Army／PD（ダムが立ったまま・奥に谷を埋めた崩れた山と残った湖）。
+    """
+    sky = np.zeros((H, W, 3), float)
+    y = np.linspace(0, 1, H)[:, None]
+    f = fractal(W, H, 31, ((6, 1.0), (24, 0.4)))
+    sky[..., 0] = 10 + 10 * (1 - y) + 8 * f
+    sky[..., 1] = 14 + 16 * (1 - y) + 8 * f
+    sky[..., 2] = 26 + 30 * (1 - y) + 10 * f
+    sky_u = uri(Image.fromarray(sky.clip(0, 255).astype(np.uint8)))
+    rk = uri(rock(seed=17, dark=(24, 20, 17), light=(178, 156, 128)))
+    line = _pts(GROUND16)
+    ground = f"M-20,{H + 20} L{line} L1300,{H + 20} Z"
+    lake = "M442,455 L672,455 L650,470 L600,505 L500,505 L460,475 Z"
+    # 🔴 1巡目は厚さ約45px の帯＝「塊が滑った」と読めなかった → 厚さ約110px・先端を湖へ（2巡目）
+    mass = ("M128,189 L180,215 L260,275 L340,345 L410,420 L452,466 L535,468 L552,500 "
+            "L472,542 L400,522 L330,472 L250,412 L170,347 L95,283 L62,232 Z")
+    surge = "M590,452 Q690,424 755,398 L838,347 L905,312 L920,329 L852,369 L770,421 Q700,459 640,470 Z"
+    f2 = fractal(512, 256, 23, ((12, 1.0), (40, 0.6), (120, 0.4)))
+    red_tex = colorize(f2, (150, 6, 4), (236, 26, 16))
+    sp = speckle(W, H, seed=13, frac=0.09)
+    ex = (f'<pattern id="rt16" patternUnits="userSpaceOnUse" width="{W}" height="{H}">'
+          f'<image href="{uri(red_tex)}" width="{W}" height="{H}" preserveAspectRatio="none"/></pattern>'
+          f'<clipPath id="gc"><path d="{ground}"/></clipPath>'
+          '<linearGradient id="lk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2aa7d6"/>'
+          '<stop offset="1" stop-color="#0d4f78"/></linearGradient>'
+          '<linearGradient id="sg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#bfefff"/>'
+          '<stop offset="1" stop-color="#ffffff"/></linearGradient>'
+          f'<mask id="ks" maskUnits="userSpaceOnUse" x="0" y="0" width="{W}" height="{H}">'
+          f'<image href="{uri(sp, "PNG")}" width="{W}" height="{H}"/></mask>')
+    g = [f'<image href="{sky_u}" width="{W}" height="{H}"/>',
+         f'<image href="{rk}" width="{W}" height="{H}" clip-path="url(#gc)"/>',
+         f'<path d="{lake}" fill="url(#lk)"/>',
+         f'<path d="M{line}" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round"/>',
+         # 塊（赤い光のにじみ＋質感）
+         f'<path d="{mass}" fill="{SIL}" filter="url(#glow)" opacity="0.6"/>',
+         f'<path d="{mass}" fill="url(#rt16)"/>',
+         # 北の岸を駆け上がる水
+         f'<path d="{surge}" fill="#dff6ff" filter="url(#glow)" opacity="0.7"/>',
+         f'<path d="{surge}" fill="url(#sg)"/>',
+         # 駆け上がった水の先のしぶき
+         "".join(f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="#ffffff" filter="url(#sh)" opacity="{o}"/>'
+                 for cx, cy, r, o in ((900, 300, 30, 0.85), (930, 318, 22, 0.75), (870, 318, 20, 0.7),
+                                      (820, 345, 16, 0.6), (915, 282, 16, 0.6))),
+         block_arrow(545, 182, 330, 330),
+         inset(EP16_A, 950, 168, 300, 280, cx=0.79, cy=1.0, zoom=1.2, contrast=1.15, color=1.0, bright=0.98),
+         '<radialGradient id="vg" cx="0.5" cy="0.48" r="0.8"><stop offset="0.55" stop-color="#000" stop-opacity="0"/>'
+         '<stop offset="1" stop-color="#000" stop-opacity="0.55"/></radialGradient>'
+         f'<rect width="{W}" height="{H}" fill="url(#vg)"/>',
+         seg(TOP16, 40, 121, kasure="ks"),
+         seg(BOT16, 36, 687)]
+    bake("ep16_B1_docu", "".join(g), ex, out=OUT16)
+
+
+def ep16_b2():
+    """B2＝全面の絵＋赤い矢印＋極太明朝。🔴 地は**公開中の A と同じ生成の地**（`ref/ep16/ai/ep16_vaj_a_orig.png`）
+    ＝絵を同じにして「字と矢印の様式」だけを比べる（18本目の B2 は実写の地だったが、16本目の A は生成の地）。
+    矢印はダムの天端を越える水へ（地の天端は 1280 幅で y≈300・水の壁は x≈180〜970）。
+    """
+    hero = TJ.photo("ep16/ai/ep16_vaj_a_orig.png", cy=0.50, cx=0.50, contrast=1.06, color=1.02, bright=0.92)
+    sp = speckle(W, H, seed=13, frac=0.09)
+    ex = (f'<mask id="ks" maskUnits="userSpaceOnUse" x="0" y="0" width="{W}" height="{H}">'
+          f'<image href="{uri(sp, "PNG")}" width="{W}" height="{H}"/></mask>')
+    g = [f'<image href="{hero}" width="{W}" height="{H}"/>',
+         '<linearGradient id="tb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0.5"/>'
+         '<stop offset="0.22" stop-color="#000" stop-opacity="0"/><stop offset="0.7" stop-color="#000" stop-opacity="0"/>'
+         '<stop offset="1" stop-color="#000" stop-opacity="0.7"/></linearGradient>'
+         f'<rect width="{W}" height="{H}" fill="url(#tb)"/>',
+         block_arrow(95, 420, 330, 300),
+         seg(TOP16, 40, 121, kasure="ks"),
+         seg(BOT16, 36, 687)]
+    bake("ep16_B2_docu_ai", "".join(g), ex, out=OUT16)
+
+
+EP16_A = "ep16/dam_slide_1963.jpg"   # #023 U.S. Army／PD（`thumb_jiko.EP16_A` と同じ）
+
+
 if __name__ == "__main__":
     only = [a for a in sys.argv if a.startswith("--only=")]
     keep = only[0].split("=", 1)[1].split(",") if only else ["a", "b1", "b2"]
@@ -307,3 +412,8 @@ if __name__ == "__main__":
             ep18_b1()
         if "b2" in keep:
             ep18_b2()
+    if "ep16" in sys.argv:
+        if "b1" in keep:
+            ep16_b1()
+        if "b2" in keep:
+            ep16_b2()
