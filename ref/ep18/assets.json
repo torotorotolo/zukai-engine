@@ -711,5 +711,253 @@
   "hold": "NARA 85185（RG 428）「USS THRESHER (SSN-593)」記録映画 1963年3月",
   "url": "https://catalog.archives.gov/id/85185",
   "ident": "NARA 85185"
+ },
+ "skylark_front": {
+  "src": "commons",
+  "file": "USS Skylark (ASR-20).jpg",
+  "cut": "c304 c523",
+  "note": "救難艦スカイラークの正面（網点の印刷・1950年代後半〜60年代＝撮影年は割れる）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   578,
+   737
+  ],
+  "sar": null,
+  "w": 578,
+  "h": 737,
+  "md5": "5a0f7a0173afc2f94a6257aaafdbccca",
+  "src_md5": "34aa5ed3c122e81db562f5720ef97d01",
+  "lic": "Public domain",
+  "frame": false,
+  "author": "米海軍",
+  "ground": "A",
+  "year": null,
+  "hold": "Wikimedia Commons「USS Skylark (ASR-20).jpg」",
+  "url": "https://commons.wikimedia.org/wiki/File:USS_Skylark_%28ASR-20%29.jpg",
+  "ident": null
+ },
+ "skylark_side": {
+  "src": "commons",
+  "file": "USS Skylark (ASR-20) underway c1950.jpg",
+  "cut": "c306 c511 c415",
+  "note": "海上のスカイラーク（横から・1951年ごろ＝撮影年は「ごろ」）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   809,
+   383
+  ],
+  "sar": null,
+  "w": 809,
+  "h": 383,
+  "md5": "2dbe5c4a8fd26480884c597ea73eed91",
+  "src_md5": "db580cd91b85e4902d19c5dd7917c698",
+  "lic": "Public domain",
+  "frame": false,
+  "author": "米海軍",
+  "ground": "A",
+  "year": null,
+  "hold": "Wikimedia Commons「USS Skylark (ASR-20) underway c1950.jpg」",
+  "url": "https://commons.wikimedia.org/wiki/File:USS_Skylark_%28ASR-20%29_underway_c1950.jpg",
+  "ident": null
+ },
+ "door_711348": {
+  "src": "commons",
+  "file": "330-PSA-191-63 (USN 711348) (22171493730).jpg",
+  "cut": "ca10",
+  "note": "1963年8月24日 トリエステの2回目の潜航で撮った艦の中の水密扉",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   2903,
+   2248
+  ],
+  "sar": null,
+  "w": 2903,
+  "h": 2248,
+  "md5": "d6bdfb8249e6cfc387cdf6291f610ea0",
+  "src_md5": "a7aa855247ed07333857541fa4e26a8a",
+  "lic": "Public domain",
+  "frame": false,
+  "author": "米海軍",
+  "ground": "A",
+  "year": 1963,
+  "hold": "Wikimedia Commons「330-PSA-191-63 (USN 711348) (22171493730).jpg」",
+  "url": "https://commons.wikimedia.org/wiki/File:330-PSA-191-63_%28USN_711348%29_%2822171493730%29.jpg",
+  "ident": "USN 711348"
+ },
+ "pipe_711350": {
+  "src": "commons",
+  "file": "330-PSA-191-63 (USN 711350) (22172651149).jpg",
+  "cut": "ca11",
+  "note": "1963年 トリエステが回収した真鍮の管（刻印「593 Boat」）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   2888,
+   2280
+  ],
+  "sar": null,
+  "w": 2888,
+  "h": 2280,
+  "md5": "88cd8e459a6f09d9a02f0ae0e3edbaa9",
+  "src_md5": "2518c7a748633c5f0d7e7fbf2888ee59",
+  "lic": "Public domain",
+  "frame": false,
+  "author": "米海軍",
+  "ground": "A",
+  "year": 1963,
+  "hold": "Wikimedia Commons「330-PSA-191-63 (USN 711350) (22172651149).jpg」",
+  "url": "https://commons.wikimedia.org/wiki/File:330-PSA-191-63_%28USN_711350%29_%2822172651149%29.jpg",
+  "ident": "USN 711350"
+ },
+ "trieste2_sea": {
+  "src": "commons",
+  "file": "330-PSA-309-64 (KN-9302C) (22766865552).jpg",
+  "cut": "ca14",
+  "note": "1964年 海上のトリエステ2世（説明文の「ボストンの造船所」と絵〈海の上〉が合わない＝場所は名乗らない）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   2868,
+   2312
+  ],
+  "sar": null,
+  "w": 2868,
+  "h": 2312,
+  "md5": "802d985adc2f64cf4dd0ddb774fb7348",
+  "src_md5": "108f3b75964d0eff0e752efbe666530b",
+  "lic": "Public domain",
+  "frame": false,
+  "author": "米海軍",
+  "ground": "A",
+  "year": 1964,
+  "hold": "Wikimedia Commons「330-PSA-309-64 (KN-9302C) (22766865552).jpg」",
+  "url": "https://commons.wikimedia.org/wiki/File:330-PSA-309-64_%28KN-9302C%29_%2822766865552%29.jpg",
+  "ident": "KN-9302C"
+ },
+ "trieste2_drawing": {
+  "src": "commons",
+  "file": "330-PSA-276-63 (USN 711389) (22517726786).jpg",
+  "cut": "ca17",
+  "note": "1963年 海軍が描いたトリエステ2世の想像図",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   2816,
+   2144
+  ],
+  "sar": null,
+  "w": 2816,
+  "h": 2144,
+  "md5": "59d355143a2f087b204f6d43e7dadbf7",
+  "src_md5": "e56b67d139895902d21323c4a87c5805",
+  "lic": "Public domain",
+  "frame": false,
+  "author": "米海軍",
+  "ground": "A",
+  "year": 1963,
+  "hold": "Wikimedia Commons「330-PSA-276-63 (USN 711389) (22517726786).jpg」",
+  "url": "https://commons.wikimedia.org/wiki/File:330-PSA-276-63_%28USN_711389%29_%2822517726786%29.jpg",
+  "ident": "USN 711389"
+ },
+ "fish_1104636": {
+  "src": "commons",
+  "file": "330-PSA-309-64 (USN 1104636-D) (22592418930).jpg",
+  "cut": "ca18",
+  "note": "1964年 ミザーから降ろされる曳航カメラ「The Fish」",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   2951,
+   2188
+  ],
+  "sar": null,
+  "w": 2951,
+  "h": 2188,
+  "md5": "65475d8cbbd2a6872d9dca63ea7a5ac4",
+  "src_md5": "7ed70c0a30f2185513b95c43cb91212c",
+  "lic": "Public domain",
+  "frame": false,
+  "author": "米海軍",
+  "ground": "A",
+  "year": 1964,
+  "hold": "Wikimedia Commons「330-PSA-309-64 (USN 1104636-D) (22592418930).jpg」",
+  "url": "https://commons.wikimedia.org/wiki/File:330-PSA-309-64_%28USN_1104636-D%29_%2822592418930%29.jpg",
+  "ident": "USN 1104636-D"
+ },
+ "search_ships_1963": {
+  "src": "commons",
+  "file": "Ships searching for USS Thresher (SSN-593), 15 April 1963 (NH 97555).jpg",
+  "cut": "cb09",
+  "note": "1963年4月15日 スレッシャーの沈んだあたりを回る海軍の艦",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   738,
+   586
+  ],
+  "sar": null,
+  "w": 738,
+  "h": 586,
+  "md5": "b0979199b2ebb0ffa37927b38a08595f",
+  "src_md5": "1fb9d8b4188e1cc32c86d87c8fd27792",
+  "lic": "Public domain",
+  "frame": false,
+  "author": "米海軍",
+  "ground": "A",
+  "year": 1963,
+  "hold": "Wikimedia Commons「Ships searching for USS Thresher (SSN-593), 15 April 1963 (NH 97555).jpg」",
+  "url": "https://commons.wikimedia.org/wiki/File:Ships_searching_for_USS_Thresher_%28SSN-593%29%2C_15_April_1963_%28NH_97555%29.jpg",
+  "ident": "NH 97555"
  }
 }

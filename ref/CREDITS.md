@@ -2078,7 +2078,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 - 🔴 人が写る写真（§B2-2）：就役式（1961-08-03）の左の座った観客（私人）は**切り落とした**（x 385 より左）。甲板の乗員と式台の造船所の人（公的な任務）は残る（原寸で顔 約10px）。進水（1960）の岸の人は全員が後ろ姿か横向き
 - 撮影年が書かれていない・割れる点（289-T の造船所の写真2点と謝辞の頁の航走写真・スカイラークの2点）は撮影年を「不明」にし、**副題に年を書かない**（門番 credits）
 - 記録映画のコマは画素が縦長（SAR 10:11）＝655×480 に直した。動く映像（記録映画）は ⑤b-7b で `clips.json` に足す
-- 🔴 Commons の新しい点は、落とす前にカズヤくんの了承を取る（2026-10-04 に一覧で聞いた）
+- Commons の新しい8点は、落とす前に一覧（名前・大きさ）でカズヤくんの了承を取った（2026-10-04）＝取ったファイルは Commons の原本と SHA-1 が一致（`ref/ep18/img/fetched.json`＝git の外）
 
 | 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
 |---|---|---|---|---|---|
@@ -2105,3 +2105,11 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `film_a` | c301 c601 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍の記録映画 | NARA 85185（RG 428）「USS THRESHER (SSN-593)」記録映画 1963年3月　https://catalog.archives.gov/id/85185 |
 | `film_b` | cb01 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍の記録映画 | NARA 85185（RG 428）「USS THRESHER (SSN-593)」記録映画 1963年3月　https://catalog.archives.gov/id/85185 |
 | `film_c` | c212 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍の記録映画 | NARA 85185（RG 428）「USS THRESHER (SSN-593)」記録映画 1963年3月　https://catalog.archives.gov/id/85185 |
+| `skylark_front` | c304 c523 | 不明 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「USS Skylark (ASR-20).jpg」　https://commons.wikimedia.org/wiki/File:USS_Skylark_%28ASR-20%29.jpg |
+| `skylark_side` | c306 c511 c415 | 不明 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「USS Skylark (ASR-20) underway c1950.jpg」　https://commons.wikimedia.org/wiki/File:USS_Skylark_%28ASR-20%29_underway_c1950.jpg |
+| `door_711348` | ca10 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「330-PSA-191-63 (USN 711348) (22171493730).jpg」　https://commons.wikimedia.org/wiki/File:330-PSA-191-63_%28USN_711348%29_%2822171493730%29.jpg |
+| `pipe_711350` | ca11 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「330-PSA-191-63 (USN 711350) (22172651149).jpg」　https://commons.wikimedia.org/wiki/File:330-PSA-191-63_%28USN_711350%29_%2822172651149%29.jpg |
+| `trieste2_sea` | ca14 | 1964 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「330-PSA-309-64 (KN-9302C) (22766865552).jpg」　https://commons.wikimedia.org/wiki/File:330-PSA-309-64_%28KN-9302C%29_%2822766865552%29.jpg |
+| `trieste2_drawing` | ca17 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「330-PSA-276-63 (USN 711389) (22517726786).jpg」　https://commons.wikimedia.org/wiki/File:330-PSA-276-63_%28USN_711389%29_%2822517726786%29.jpg |
+| `fish_1104636` | ca18 | 1964 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「330-PSA-309-64 (USN 1104636-D) (22592418930).jpg」　https://commons.wikimedia.org/wiki/File:330-PSA-309-64_%28USN_1104636-D%29_%2822592418930%29.jpg |
+| `search_ships_1963` | cb09 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「Ships searching for USS Thresher (SSN-593), 15 April 1963 (NH 97555).jpg」　https://commons.wikimedia.org/wiki/File:Ships_searching_for_USS_Thresher_%28SSN-593%29%2C_15_April_1963_%28NH_97555%29.jpg |
