@@ -1,0 +1,286 @@
+{
+ "bottle_t37.jpg": {
+  "size": [
+   1700,
+   1582
+  ],
+  "lines": []
+ },
+ "bow_1961.jpg": {
+  "size": [
+   2140,
+   2390
+  ],
+  "lines": []
+ },
+ "bow_plating_t5.jpg": {
+  "size": [
+   1760,
+   990
+  ],
+  "lines": []
+ },
+ "break78_t29.jpg": {
+  "size": [
+   1650,
+   1340
+  ],
+  "lines": []
+ },
+ "break78_top_t30.jpg": {
+  "size": [
+   1430,
+   1351
+  ],
+  "lines": []
+ },
+ "commission_1961.jpg": {
+  "size": [
+   1365,
+   1211
+  ],
+  "lines": [
+   {
+    "box": [
+     1242,
+     552,
+     1317,
+     581
+    ],
+    "text": "593"
+   }
+  ]
+ },
+ "debris_711302.jpg": {
+  "size": [
+   2160,
+   1736
+  ],
+  "lines": []
+ },
+ "film_a.jpg": {
+  "size": [
+   655,
+   480
+  ],
+  "lines": [
+   {
+    "box": [
+     313,
+     258,
+     326,
+     290
+    ],
+    "text": "3"
+   }
+  ]
+ },
+ "film_b.jpg": {
+  "size": [
+   655,
+   480
+  ],
+  "lines": [
+   {
+    "box": [
+     243,
+     245,
+     304,
+     277
+    ],
+    "text": "531"
+   }
+  ]
+ },
+ "film_c.jpg": {
+  "size": [
+   655,
+   480
+  ],
+  "lines": [
+   {
+    "box": [
+     266,
+     248,
+     331,
+     278
+    ],
+    "text": "593"
+   }
+  ]
+ },
+ "hull_aft_t33.jpg": {
+  "size": [
+   1800,
+   1470
+  ],
+  "lines": []
+ },
+ "launch_1960.jpg": {
+  "size": [
+   3000,
+   2394
+  ],
+  "lines": []
+ },
+ "page24.jpg": {
+  "size": [
+   2400,
+   1546
+  ],
+  "lines": [
+   {
+    "box": [
+     1870,
+     868,
+     2252,
+     890
+    ],
+    "text": "Draft markers on the topside"
+   },
+   {
+    "box": [
+     1871,
+     923,
+     1961,
+     940
+    ],
+    "text": "rudder."
+   },
+   {
+    "box": [
+     1995,
+     923,
+     2265,
+     945
+    ],
+    "text": "In the foreground is"
+   },
+   {
+    "box": [
+     1873,
+     977,
+     2294,
+     999
+    ],
+    "text": "the port stern plane. The line"
+   },
+   {
+    "box": [
+     1871,
+     1032,
+     2307,
+     1054
+    ],
+    "text": "on the lower right is associated"
+   },
+   {
+    "box": [
+     2189,
+     1086,
+     2239,
+     1108
+    ],
+    "text": "(Run"
+   },
+   {
+    "box": [
+     1870,
+     1087,
+     2152,
+     1105
+    ],
+    "text": "with the camera S1ed ."
+   },
+   {
+    "box": [
+     1871,
+     1140,
+     2126,
+     1162
+    ],
+    "text": "0030- S ) (NRL/MIZAR)"
+   }
+  ]
+ },
+ "plating_t39.jpg": {
+  "size": [
+   1570,
+   1530
+  ],
+  "lines": []
+ },
+ "rudder_t24.jpg": {
+  "size": [
+   1340,
+   690
+  ],
+  "lines": []
+ },
+ "running_t2.jpg": {
+  "size": [
+   2400,
+   1160
+  ],
+  "lines": []
+ },
+ "sail_t16.jpg": {
+  "size": [
+   1850,
+   1334
+  ],
+  "lines": []
+ },
+ "shipyard_sail_t14.jpg": {
+  "size": [
+   1555,
+   752
+  ],
+  "lines": [
+   {
+    "box": [
+     528,
+     480,
+     1256,
+     712
+    ],
+    "text": "5 9 3 ー"
+   }
+  ]
+ },
+ "shipyard_stern_t22.jpg": {
+  "size": [
+   1899,
+   2400
+  ],
+  "lines": []
+ },
+ "stern_plane_t26.jpg": {
+  "size": [
+   2070,
+   1665
+  ],
+  "lines": []
+ },
+ "tail_t23.jpg": {
+  "size": [
+   1790,
+   1174
+  ],
+  "lines": []
+ },
+ "tracks_t41.jpg": {
+  "size": [
+   1600,
+   900
+  ],
+  "lines": []
+ },
+ "underway_1961.jpg": {
+  "size": [
+   3000,
+   2347
+  ],
+  "lines": []
+ }
+}

@@ -736,6 +736,25 @@ def ep15_credit(name):
 
 
 # ══════════════════════════════════════════════════════════
+#  18本目（スレッシャー号のリメイク）── `ref/ep18/`（2026-10-04 ⑤b-7a）
+# ══════════════════════════════════════════════════════════
+#   ep18/<欄の名>.jpg … 写真（すべて米海軍の職務著作＝PD：NARA 289-T・428-N・記録映画 85185 のコマ・Commons の PD US Navy）
+#   ep18/pg<頁>.png   … 査問会の記録ほかの頁（⑤b-7b で足す）
+# 🔴 表はファイルから読む。`python qa_out/ep18_assets.py credits --write` が書く（ルール 0b-34①＝足し忘れると写真のカットが
+#    出典の行で止まる）。⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）
+_EP18_CREDITS = HERE / "ref" / "ep18" / "credits.json"
+EP18_CREDIT = (json.loads(_EP18_CREDITS.read_text(encoding="utf-8"))
+               if _EP18_CREDITS.exists() else {})
+
+
+def ep18_credit(name):
+    """`ref/ep18/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if not name.startswith("ep18/"):
+        return None
+    return EP18_CREDIT.get(name)
+
+
+# ══════════════════════════════════════════════════════════
 #  16本目（バイオントダム災害）── `ref/ep16/`（2026-10-02 ⑤b-7）
 # ══════════════════════════════════════════════════════════
 #   ep16/<欄の名>.jpg … 写真45点（Commons。🔴 CC BY-SA の2点は**額装・無改変**＝`ss.check_frame_only`）＋地形図 #100
@@ -960,7 +979,8 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep16_credit(spec["photo"]) or ep15_credit(spec["photo"]) or ep14_credit(spec["photo"])
+    cr = (ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
+          or ep14_credit(spec["photo"])
           or ep13_credit(spec["photo"])
           or ep12_credit(spec["photo"])
           or ep11_credit(spec["photo"])

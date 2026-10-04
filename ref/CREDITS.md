@@ -2067,3 +2067,41 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `pg217` | c412 | 1965 | 保護の外（伊著作権法 第5条＝国の公文書）／Senato della Repubblica の公開版 | イタリア議会 ヴァイオント災害調査委員会 | senato_doc76bis_285307.pdf PDF 217頁 |
 | `pg225` | c516 | 1965 | 保護の外（伊著作権法 第5条＝国の公文書）／Senato della Repubblica の公開版 | イタリア議会 ヴァイオント災害調査委員会 | senato_doc76bis_285307.pdf PDF 225頁 |
 | `pg226` | c606 | 1965 | 保護の外（伊著作権法 第5条＝国の公文書）／Senato della Repubblica の公開版 | イタリア議会 ヴァイオント災害調査委員会 | senato_doc76bis_285307.pdf PDF 226頁 |
+
+## スレッシャー号のリメイク（1963-04-10・18本目）
+
+※2026-10-04（⑤b-7a）。`qa_out/ep18_assets.py credits --write` が書く（手で直さない）。旧版（3本目）の節は上の「USS Thresher (SSN-593)（1963-04-10・3本目）」＝旧版の誤り（Anefo の1点を「米海軍」・シーウルフの記録を「スカイラーク」）は直さない（公開ずみ・⑥で非公開にするだけ）。18本目は Anefo の1点（写っているのはノーチラス）とシーウルフの記録の頁を使わない。
+
+### 1. 写真（すべて米海軍の職務著作＝PD）
+- 出どころは3つ：NARA 289-T（RG 289・1963〜64年の捜索のアルバム・NARA の表示 Use: Unrestricted）／NARA 428-N（RG 428）・記録映画 85185 のコマ（RG 428・作り手は海軍写真センター）／Wikimedia Commons（隠しカテゴリ `PD US Navy`＋`CC-PD-Mark`）
+- 🔴 289-T の英字の説明札・428-N の台紙と札は**切り落とした**（`qa_out/ep18_assets.py` の crop＝OCR の文字の箱の外で切る）。頁全体を見せる `page24`（c911＝角の黒い塗り）だけ札が残る
+- 🔴 人が写る写真（§B2-2）：就役式（1961-08-03）の左の座った観客（私人）は**切り落とした**（x 385 より左）。甲板の乗員と式台の造船所の人（公的な任務）は残る（原寸で顔 約10px）。進水（1960）の岸の人は全員が後ろ姿か横向き
+- 撮影年が書かれていない・割れる点（289-T の造船所の写真2点と謝辞の頁の航走写真・スカイラークの2点）は撮影年を「不明」にし、**副題に年を書かない**（門番 credits）
+- 記録映画のコマは画素が縦長（SAR 10:11）＝655×480 に直した。動く映像（記録映画）は ⑤b-7b で `clips.json` に足す
+- 🔴 Commons の新しい点は、落とす前にカズヤくんの了承を取る（2026-10-04 に一覧で聞いた）
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `bow_1961` | c114 c709 | 1961 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 175539769（428-N-1057645）　https://catalog.archives.gov/id/175539769 |
+| `commission_1961` | c116 c215 | 1961 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「SSN593 service entering.jpg」　https://commons.wikimedia.org/wiki/File:SSN593_service_entering.jpg |
+| `launch_1960` | c201 | 1960 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「USN 1048964 USS Thresher (SSN-593).jpg」　https://commons.wikimedia.org/wiki/File:USN_1048964_USS_Thresher_(SSN-593).jpg |
+| `underway_1961` | cb23 | 1961 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「USS Thresher (SSN-593).jpg」　https://commons.wikimedia.org/wiki/File:USS_Thresher_(SSN-593).jpg |
+| `running_t2` | c220 c423 c627 | 不明 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-2　https://catalog.archives.gov/id/138924735 |
+| `shipyard_sail_t14` | c203 | 不明 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-14　https://catalog.archives.gov/id/138924735 |
+| `shipyard_stern_t22` | c208 c611 | 不明 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-22　https://catalog.archives.gov/id/138924735 |
+| `bottle_t37` | c722 | 1964 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-37　https://catalog.archives.gov/id/138924735 |
+| `hull_aft_t33` | c805 | 1964 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-33　https://catalog.archives.gov/id/138924735 |
+| `break78_t29` | c812 | 1964 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-29　https://catalog.archives.gov/id/138924735 |
+| `tail_t23` | c819 | 1964 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-23　https://catalog.archives.gov/id/138924735 |
+| `break78_top_t30` | c822 | 1964 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-30　https://catalog.archives.gov/id/138924735 |
+| `sail_t16` | c906 | 1964 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-16　https://catalog.archives.gov/id/138924735 |
+| `page24` | c911 | 1964 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-24（頁全体）　https://catalog.archives.gov/id/138924735 |
+| `stern_plane_t26` | c914 | 1964 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-26　https://catalog.archives.gov/id/138924735 |
+| `rudder_t24` | c920 | 1964 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-24　https://catalog.archives.gov/id/138924735 |
+| `plating_t39` | ca05 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-39　https://catalog.archives.gov/id/138924735 |
+| `debris_711302` | ca06 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「330-PSA-110-63 (USN 711302) (22171571340).jpg」　https://commons.wikimedia.org/wiki/File:330-PSA-110-63_(USN_711302)_(22171571340).jpg |
+| `bow_plating_t5` | ca13 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-5　https://catalog.archives.gov/id/138924735 |
+| `tracks_t41` | ca20 | 1964 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-41　https://catalog.archives.gov/id/138924735 |
+| `film_a` | c301 c601 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍の記録映画 | NARA 85185（RG 428）「USS THRESHER (SSN-593)」記録映画 1963年3月　https://catalog.archives.gov/id/85185 |
+| `film_b` | cb01 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍の記録映画 | NARA 85185（RG 428）「USS THRESHER (SSN-593)」記録映画 1963年3月　https://catalog.archives.gov/id/85185 |
+| `film_c` | c212 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍の記録映画 | NARA 85185（RG 428）「USS THRESHER (SSN-593)」記録映画 1963年3月　https://catalog.archives.gov/id/85185 |
