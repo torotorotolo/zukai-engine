@@ -1834,7 +1834,9 @@ def illu_base(cid, il):
     """全面の再現イラストの上に載る層（地は置かない）：左上の「再現イラスト」と見る向き・右上の章・左下の出典。
     ⚠️ この層は章の色の層（名前が `_il<番号>` でない）＝札と章は今までどおり章の色。見出し（t）は出さない（見本 c103）"""
     # 16本目 ⑤b-2：想定の札／⑤b-3：断面（VB・VC）の左上の位置の小さな地図（inset＝カメラの掛からない上の層）
-    g = [ILLU.overlay_svg(il.get("view", ""), il.get("src", ""), il.get("assume", ""), il.get("inset"))]
+    # 🆕 18本目 ⑤b-2：段の途中で出す想定の札（assume_at＝c103 の「推定」）は絵の層の部品が出す＝上の層には描かない
+    g = [ILLU.overlay_svg(il.get("view", ""), il.get("src", ""), il.get("assume", ""), il.get("inset"),
+                          timed=bool(il.get("assume_at")))]
     ch = chapter_of(cid)
     if ch:
         g.append(J.chapter(ch[0], NCH, ch[1]))

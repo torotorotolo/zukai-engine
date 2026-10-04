@@ -90,6 +90,59 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-2（2026-10-04）：案C の置き場 SA（横から見た海・`tools/illu.py` の「18本目 ⑤b-2」の節）──
+    #   人は描かない。潜水艦は 9:17 まで＝c411 で艦の絵を止める（cuts.ss.ILLU_SUB_STOP・kousei §4-1）／c420・c422 は潜水艦なし。
+    #   秒は narration.json の実測（c405 0〜3.81／4.30〜7.24・c407 0〜2.04／2.53〜5.13・c409 0〜1.36／1.85〜4.42／4.90〜8.16・
+    #   c411 0〜2.38／2.87〜5.99／6.47〜11.34・c420 0〜3.21／3.70〜7.42／7.92〜10.10・c422 0〜2.92／3.41〜5.76）
+    # c405＝9時13分、スカイラークに水中電話の声が届く（冒頭 c101〜c102 の絵を戻す・艦首はまだ水平＝傾きは c407 の声の中身）
+    "c405": dict(
+        fig=("illu", dict(
+            place="SA", start=dict(sub="on", clk="9:13"), rec="R08 p4185（認定15・16）",
+            steps=[dict(voice=1, ring_delay=0.9, rec="R08 p4185（認定16：9時13分・水中電話の声）",
+                        tag=dict(t="9:13", at="sk_rx", off=(70, 100), delay=1.7)),
+                   dict()])),
+    ),
+    # c407＝声は続いた。艦首が上を向いている（12度＝模式）・タンクを吹こうとしている（艦の中は描かない）
+    "c407": dict(
+        fig=("illu", dict(
+            place="SA", start=dict(sub="on", clk="9:13"), rec="R08 p4185（認定16）",
+            steps=[dict(state=dict(tilt=12.0), delay=0.2, voice=1, ring_delay=0.1,
+                        rec="R08 p4185（認定16：Have positive up angle）", tag=dict(t="艦首が上", at="bow", off=(40, -80))),
+                   dict(voice=1, ring_delay=0.2, rec="R08 p4185（認定16：Am attempting to blow. Will keep you informed.）")])),
+    ),
+    # c409＝スカイラークから下へ呼びかけの輪（ほかの船はいない／9時15分ごろ、制御できているか＝くり返し）
+    "c409": dict(
+        fig=("illu", dict(
+            place="SA", start=dict(sub="on", tilt=12.0, clk="9:13"), rec="R08 p4185（認定16：艦首が上）",
+            steps=[dict(),
+                   dict(call=1, ring_delay=0.3, rec="R08 p4186（認定22a：あたりにほかの船はいない）"),
+                   dict(state=dict(clk="9:15"), call=2, ring_delay=0.3,
+                        rec="R08 p4186（認定22c：9時15分ごろ・Are you in control?・くり返した）",
+                        tag=dict(t="9:15ごろ", at="sk_rx", off=(70, 100)))])),
+    ),
+    # c411＝9時17分ごろ、もう1度、崩れた声（言葉は c412 のパネル）。🔴 ここで艦の絵を止める（このあとのカットに潜水艦を置かない）
+    "c411": dict(
+        fig=("illu", dict(
+            place="SA", start=dict(sub="on", tilt=12.0, clk="9:16"), rec="R08 p4185（認定16・17）",
+            steps=[dict(state=dict(clk="9:17"), broken=1, ring_delay=0.2, rec="R08 p4185（認定17：9時17分ごろ・崩れた声）",
+                        tag=dict(t="9:17ごろ", at="sk_rx", off=(70, 100), keep=True)),
+                   dict(), dict()])),
+    ),
+    # c420＝海面のスカイラークだけ（潜水艦は描かない＝9:17 より後）・水中電話で呼び続ける（艦の中の様子は記録に無い）
+    "c420": dict(
+        fig=("illu", dict(
+            place="SA", start=dict(), rec="R08 p4185（認定14）",
+            steps=[dict(call=1, ring_delay=0.6, rec="R08 p4186（認定22e・24：水中電話で呼び続けた）"),
+                   dict(call=1, ring_delay=0.8, rec="R08 p4186（認定24：UQC で毎分呼んだ）"),
+                   dict()])),
+    ),
+    # c422＝水中電話と音の信号で呼びかけを続けた・返事は無かった（潜水艦なし）
+    "c422": dict(
+        fig=("illu", dict(
+            place="SA", start=dict(), rec="R08 p4185（認定14）",
+            steps=[dict(call=1, xsig=1, ring_delay=0.5, rec="R08 p4186（認定22e・f・24：水中電話・音の信号）"),
+                   dict(call=1, ring_delay=0.3, rec="R08 p4186（認定24：with no success）")])),
+    ),
     # c412＝聞き役「それって、どういう意味なの？」（赤）＋語り（黄）＝⑤b-1 の字幕の試し焼き（最終の形・台本の画の欄どおり）
     "c412": dict(
         t="崩れた声の言葉",

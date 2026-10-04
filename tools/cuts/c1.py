@@ -72,4 +72,57 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-2（2026-10-04）：案C の置き場 SA（横から見た海・`tools/illu.py` の「18本目 ⑤b-2」の節）＝冒頭（映像方針 §1-3・案2）──
+    #   人は描かない。深さの数を幾何で漏らさない（目盛りの段に潜水艦を置かない・試験深度の線は切れ目の向こう）。秒は narration.json の実測
+    #   （c101 0〜4.68／5.03〜7.90・c102 0〜3.20／3.55〜5.89・c103 0〜1.36／1.72〜4.38／4.73〜7.16・c106 0〜3.84／4.33〜7.63）
+    # c101＝1行目：穏やかな海面にスカイラーク・暗い深い海・右上に日付と時刻・左上に位置の小さな地図（東海岸と基準点）・ゆっくり寄る／
+    #   2行目：声の輪が深い所から上がり、スカイラークに届く（潜水艦はまだ暗がりの中＝輪の出どころだけ）
+    "c101": dict(
+        fig=("illu", dict(
+            place="SA", start=dict(map="base", clk="9:13"), rec="R08 p4185（認定14：9時の海は穏やか・うねりが少し）",
+            steps=[dict(state=dict(cam=1.03), delay=0.2, dur=4.4, rec="R08 p4185（認定16：1963年4月10日・9時13分）",
+                        tag=dict(t="1963年4月10日 9:13", xy=(1330, 78), anchor="end", keep=True)),
+                   dict(voice=1, ring_delay=0.15, rec="R08 p4185（認定16：水中電話の声）",
+                        tag=dict(t="水中電話の声", at="sk_rx", off=(70, 110), delay=1.0))])),
+    ),
+    # c102＝混ざり（1行目＝本物の記録映画 85185 → 2行目 SA）。🔴 本物の側は ⑤b-7 の束でつなぐ（cuts.ss.ILLU_MIX_TODO）＝いまは
+    #   1行目も SA（潜水艦は水平・声の輪）／2行目：艦首を上へ（12度＝模式・意見45 Case III の 15°を越えない）・声の輪「9:13」
+    "c102": dict(
+        fig=("illu", dict(
+            place="SA", start=dict(sub="on", clk="9:13"), rec="R08 p4185（認定15・16：深い潜航・9時13分の声）",
+            steps=[dict(voice=1, ring_delay=0.2, rec="R08 p4185（認定16）"),
+                   dict(state=dict(tilt=12.0), delay=0.25, voice=1, ring_delay=0.3,
+                        rec="R08 p4185（認定16：Have positive up angle. Am attempting to blow.）",
+                        tag=dict(t="9:13 の声", at="sail", off=(-50, -80), anchor="end"))])),
+    ),
+    # c103＝混ざり（1〜2行目 SA → 3行目＝本物の写真 thr_t16）。🔴 本物の写真は ⑤b-7（ILLU_MIX_TODO）＝いまは3行目も SA（暗い海）。
+    #   1行目：崩れた輪 9:16ごろ → 9:17ごろ（輪が欠けて乱れる）。9:17 で左上に「推定」の札（assume_at）・潜水艦が暗い方へ下がり始める
+    #   （深さの目盛り・数は出さない）／2行目（推定）：9時18.1分、船体が押しつぶされ、大きく低い音の輪が艦から広がって画面の外へ。壊れた
+    #   船体は暗がりへ沈み、数えられる前に見えなくなる（塊の数「5か6」は描かない）。光・泡・炎・人は描かない。スカイラークは動かない
+    "c103": dict(
+        fig=("illu", dict(
+            place="SA", start=dict(sub="on", tilt=12.0, clk="9:16"), rec="R08 p4185（認定16・17）",
+            assume="推定（査問会の見立て）", assume_at=(0, 0.62),
+            steps=[dict(state=dict(sub="sink", clk="9:17"), delay=0.7, broken=2, ring_delay=0.05,
+                        rec="R08 p4185（認定17：9時16分ごろ・17分ごろの崩れた声）・R08 p4214（意見45：見立て）",
+                        tag=dict(t="崩れた声 9:16ごろ・9:17ごろ", at="sail", off=(-50, -70), anchor="end")),
+                   dict(state=dict(sub="crush", clk="9:18.1"), delay=0.4, boom=2, ring_delay=0.42,
+                        rec="R08 p4214（意見45：the actual hull collapse occurred at 0918.1R）・R08 p4185（認定18）",
+                        tag=[dict(t="9時18.1分　船体の圧壊（査問会の見立て）", at="crush", off=(70, -90), delay=0.5),
+                             dict(t="内破でありうる型の、大きく低い音（監視の記録）", at="boom", off=(30, -80), delay=0.5)]),
+                   dict(state=dict(clk="9:18.1"))])),
+    ),
+    # c106＝1行目：試験深度の線（数なし・切れ目1 の向こう）と、切れ目2 の向こうの海底 約2,600m（線と海底の比が出ない）／
+    #   2行目：9時9分、潜水艦がその線にいる（意見45「at 0909R the THRESHER was at test depth」）
+    "c106": dict(
+        fig=("illu", dict(
+            place="SA", start=dict(clk="9:09"), rec="R08 p4185（認定14：9時の海）",
+            steps=[dict(state=dict(test="on", seabed="far"), delay=0.3,
+                        rec="IR18 p2074（試験深度の定義だけ）・V1 p38（認定14：約8,500フィート）",
+                        # ⚠️ qa_all の echo：「試験深度＝ふだん潜ってよい、いちばん深い所」は字幕の複写（75%）＝札は名だけ（定義は語り）
+                        tag=[dict(t="試験深度", at="test", off=(-60, -60), anchor="end", keep=True),
+                             dict(t="海底 約2,600m", at="seabed_far", off=(-60, -44), anchor="end", keep=True)]),
+                   dict(state=dict(sub="on"), delay=0.3, rec="R08 p4212（意見45：9時9分に試験深度）",
+                        tag=dict(t="9:09", at="sail", off=(-50, -70), anchor="end"))])),
+    ),
 }

@@ -39,6 +39,18 @@
         （S1 p72・p82）／模型の塊は 600〜1,200m・2つの境は沢（亀裂の 930m の谷）の真下（S1 p89・p224）／実際の塊が下がったあとの
         上の端 846〜866m（S1 p146）／波の高さの印 25m（S1 p97）は模型の場面だけ／湖の水位は記録の水位（600・650・700・722.5m）だけ
      ④ 模型の想定（model）は「想定」の札と一緒にだけ・小さく戻す絵ならパネルの文に「想定」
+  🆕 18本目 ⑤b-2（SA＝横から見た海・映像方針 18本目 §12・記録は門番の側の REC_DEPTH・REC_UP_MAX・REC_BOOM_*）：
+  ⑤ 時計の札は分の小数まで読む（「9時18.1分」＝"9:18.1"・表に無い小数／小数の無い 9:18 は止める）
+  ⑦ 混ざりの本物の側のつなぎ待ち（cuts.ss.ILLU_MIX_TODO）は束（ILLU_MIX_BUNDLE）ができるまで全面の絵でよい（参考の行）＝束ができたら止める
+  ⑫ 潜水艦の圧壊と破片（sub＝crush・destroy の部品）は表（ILLU_DESTROY_CUTS）のカットだけ
+  ⑮ 潜水艦は記録の時刻 clk（読める形）つきで ILLU_SUB_UNTIL（例外 ILLU_SUB_EXC）まで・艦の絵を止めたカット（ILLU_SUB_STOP）より後に
+     置かない・下がる／圧壊は例外のカットで「推定」の札と一緒に（段の途中の札は下がり始めより前）・艦首の上げは記録の上限まで・
+     壊れた船体の破片は数を持たず、最後の段で見えず、見える長さ 1.6秒まで（数えられる前に暗がりへ）
+  ⑯ 深さの数を幾何で漏らさない：深さの目盛り（縮尺どおりの段）と潜水艦・試験深度の線を同じ段に置かない・試験深度の線は切れ目1の向こう／
+     切れ目の向こうの海底とのあいだに切れ目2・試験深度の札に数を書かない・深さの数の札は目盛りの段の記録の値（260・2,200・2,600m）だけ・
+     縮尺どおりの線は海底との比で記録の値（±3%）・目盛りは 2,600÷260＝10区間（型の定数を壊す陽性対照で門番が型を読んでいないことを確かめた）
+  ⑰ 9時18.1分の大きく低い音の輪：表（ILLU_BOOM_CUTS）のカットの圧壊の段だけ・時刻は記録 9:18.1・輪の中心は圧壊した船体・札は認定18 と
+     意見45 の言い方（内破でありうる・大きく低い音・船体の圧壊・見立て）・光・泡・炎の部品と glow の出来事なし
   ⑥ 陽性対照（わざと壊した場面で鳴るか）＝`--selftest`（本番の前に必ず回る）
 
 ■ 使い方
@@ -60,7 +72,8 @@ sys.stdout.reconfigure(encoding="utf-8")
 import titan_fig as F  # noqa: E402,F401  （illu より先に読む）
 import illu as IL  # noqa: E402
 
-TIME = re.compile(r"(\d{1,2})\s*[時:：]\s*(\d{1,2})")
+# 🆕 18本目 ⑤b-2：分の小数（「9時18.1分」＝認定18・意見45 の 0918.1R）まで読む＝"9:18.1"。小数の無い時刻は前と同じ "H:MM"
+TIME = re.compile(r"(\d{1,2})\s*[時:：]\s*(\d{1,2}(?:\.\d+)?)")
 SEC = re.compile(r"(約)?\s*(\d+(?:\.\d+)?)\s*秒")          # 15本目：秒の札（「0.27秒」「約9.1秒」）
 # 16本目 ⑤b-2：分の無い時計の札（「22時ごろ」）も時計の札（「1時間」の「時」と「22時39分」の「時」は外す）
 CLOCK_HOUR = re.compile(r"(?<!\d)(\d{1,2})\s*時(?!\s*\d|間)")
@@ -125,7 +138,8 @@ def judge_labels(texts, where, split, sec_ok, clock_ok):
         txt = str(txt or "")
         for m in TIME.finditer(txt):
             n += 1
-            hm = f"{int(m.group(1))}:{int(m.group(2)):02d}"
+            mm, _dot, frac = m.group(2).partition(".")
+            hm = f"{int(m.group(1))}:{int(mm):02d}" + (f".{frac}" if frac else "")
             if hm in split:
                 bad.append(f"⑤{where}：札「{txt}」の時刻は資料で割れる（{split}）＝画面に出さない")
             elif hm not in clock_ok:
@@ -736,7 +750,7 @@ def judge_crowd_water(sc, where, crowd_ok):
 
 
 def judge_sec(sc, where, crowd_ok=()):
-    """16本目 ⑤b-3：⑨⑩⑪（断面）・⑬（夜の色）・⑭（群れと水）。"""
+    """16本目 ⑤b-3：⑨⑩⑪（断面）・⑬（夜の色）・⑭（群れと水）。🆕 18本目 ⑤b-2：SA の ⑮⑯⑰（judge_sa）"""
     bad, n = [], 0
     if sc["place"] in SEC_PLACES:
         for fn in (judge_labels_sec, judge_records_sec, judge_block, judge_vd):
@@ -746,18 +760,260 @@ def judge_sec(sc, where, crowd_ok=()):
     b, m = judge_night(sc, where)
     bad += b
     n += m
+    b, m = judge_sa(sc, where)
+    bad += b
+    n += m
     b, m = judge_crowd_water(sc, where, crowd_ok)
     return bad + b, n + m
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 18本目 ⑤b-2（2026-10-04）：SA 横から見た海の ⑮⑯⑰（Vault 映像方針 18本目 §12）
+# ══════════════════════════════════════════════════════════
+# 🔴 記録の値は門番の側に持つ（型の定数 SA_RESCUE_M・SA_ROPE_M・SA_SEABED_M・SA_UP を読まない＝§5b-88）。頁は ss.REC_DOCS の通し番号
+REC_DEPTH = dict(rescue=(260.0, "V1 p38（認定13：850フィート）"), rope=(2200.0, "V1 p183（7,200フィートの綱）"),
+                 seabed=(2600.0, "R08 p4185（認定14：約8,500フィート）"))
+DEPTH_TOL = 0.03                     # 縮尺どおりの深さの許し（記録の値の 3%）
+REC_UP_MAX = (15.0, "R08 p4214（意見45 Case III：15° up angle＝頁の画像で確かめた）")
+REC_BOOM_CLK = ("9:18.1", "R08 p4185（認定18：0918.1R）")
+# 9時18.1分の段の札に要る言い方（認定18 と意見45 の言い方＝映像方針 §1-3・§12 ⑰）
+REC_BOOM_WORDS = (("内破でありうる", "認定18「of the type which could have been made by an implosion」"),
+                  ("大きく低い音", "認定18「high energy, low frequency noise」"),
+                  ("船体の圧壊", "意見45「the actual hull collapse occurred at 0918.1R」"),
+                  ("見立て", "意見45＝査問会の見立て（推定）"))
+SA_LIGHT = ("glow", "flash", "bubble", "fire", "flame", "light", "spark", "smoke")   # 光・泡・炎の部品（⑰＝記録に無い）
+SA_DEBRIS_MAX = 1.6                  # 破片が見える（濃さ 0.5 以上）長さの上限＝秒（数えられる前に暗がりへ＝⑮）
+DEPTH_NUM = re.compile(r"(\d+(?:\.\d+)?)\s*(m(?![²³2-3])|メートル|フィート|ft)")
+
+
+def _clk(s):
+    """記録の時刻 "9:17"・"9:18.1" → 分（小数まで）。読めなければ None（fail closed）。"""
+    m = re.fullmatch(r"\s*(\d{1,2})\s*:\s*(\d{1,2}(?:\.\d+)?)\s*", str(s or ""))
+    return int(m.group(1)) * 60 + float(m.group(2)) if m else None
+
+
+def _stage_on(keys, nst, field="a"):
+    """部品の鍵から、段ごとに「その欄が 0 より大きい瞬間があるか」（段の中の鍵と、前の段から持ち越した値）。鍵の無い部品は全部の段で見える。"""
+    if not keys:
+        return [True] * nst
+    ks = sorted(keys, key=lambda k: (int(k["stage"]), float(k.get("delay", 0.0))))
+    dflt = 1.0 if field == "a" else 0.0
+    out = []
+    for i in range(nst):
+        before = [k for k in ks if int(k["stage"]) < i]
+        inside = [k for k in ks if int(k["stage"]) == i]
+        carry = float(before[-1].get(field, dflt)) if before else None
+        out.append((carry is not None and carry > 0.004) or any(float(k.get(field, dflt)) > 0.004 for k in inside))
+    return out
+
+
+def _fade_window(keys, half=0.5):
+    """破片の濃さの鍵（同じ段の中）から、濃さが half 以上の長さ（秒・余弦の半周の真ん中で half を越える）。"""
+    ks = sorted(keys or [], key=lambda k: (int(k["stage"]), float(k.get("delay", 0.0))))
+    t_on = t_off = None
+    prev = None
+    for k in ks:
+        a, t0, d = float(k.get("a", 1.0)), float(k.get("delay", 0.0)), float(k.get("dur", 0.0))
+        if prev is not None:
+            if prev < half <= a and t_on is None:
+                t_on = t0 + d / 2.0
+            elif prev >= half > a and t_on is not None:
+                t_off = t0 + d / 2.0
+        prev = a
+    return (t_off - t_on) if (t_on is not None and t_off is not None) else None
+
+
+def judge_sa(sc, where):
+    """SA（横から見た海）の場面の ⑮⑯⑰。カットの表（潜水艦の時刻の例外・止めるカット・音の輪のカット）は judge_sa_cut。"""
+    if sc["place"] != "SA":
+        return [], 0
+    bad, n = [], 0
+    allst = [sc["start"]] + list(sc["states"])
+    nst = max(1, len(sc["states"]))
+    P = {p["id"]: p for p in sc["parts"]}
+    G = {p["id"]: (p.get("geo") or {}) for p in sc["parts"]}
+
+    def on(pid):
+        p = P.get(pid)
+        if not p:
+            return [False] * nst
+        a = _stage_on(p.get("keys"), nst, "a")
+        if p.get("kind") == "draw":
+            a = [x and y for x, y in zip(a, _stage_on(p.get("go"), nst, "u"))]
+        return a
+    sub, test, b1, far, b2 = on("sub"), on("test"), on("break1"), on("seabed_far"), on("break2")
+    lin = [any(t) for t in zip(on("ruler"), on("seabed"), on("rescue_line"), on("rope"))]
+    # ⑯ 深さの目盛り（縮尺どおりの段）に潜水艦を置かない・試験深度の線は切れ目の向こう
+    for i in range(nst):
+        n += 1
+        if sub[i] and lin[i]:
+            bad.append(f"⑯{where}：段{i + 1}で深さの目盛り（縮尺どおりの深さ）と潜水艦が同じ段に＝潜水艦の位置から深さの数が"
+                       "割り出せる（18本目 §2 ③'）")
+        if test[i] and lin[i]:
+            bad.append(f"⑯{where}：段{i + 1}で試験深度の線と深さの目盛りが同じ段に＝線の位置から塗られた数が割り出せる")
+        if test[i] and not b1[i]:
+            bad.append(f"⑯{where}：段{i + 1}の試験深度の線が切れ目（≈）の向こうでない（切れ目1が出ていない）")
+        if far[i] and not b2[i]:
+            bad.append(f"⑯{where}：段{i + 1}の切れ目の向こうの海底に、試験深度の線とのあいだの切れ目2が無い")
+    if "test" in G:
+        n += 1
+        ty = G["test"].get("y")
+        bb = G.get("break1") or {}
+        if not bb or not (IL.SA_SURF < bb.get("y0", -1) < bb.get("y1", -1) < ty):
+            bad.append(f"⑯{where}：切れ目1 {bb.get('y0')}〜{bb.get('y1')} が海面 {IL.SA_SURF:.0f} と試験深度の線 {ty} のあいだに無い")
+        if "seabed_far" in G:
+            b2g = G.get("break2") or {}
+            if not b2g or not (ty < b2g.get("y0", -1) < b2g.get("y1", -1) < G["seabed_far"]["y"]):
+                bad.append(f"⑯{where}：切れ目2 {b2g.get('y0')}〜{b2g.get('y1')} が試験深度の線と海底のあいだに無い")
+    # ⑯ 数の札：深さの数は目盛りの段だけ（記録の 260・2,200・2,600m）・切れ目の向こうの海底は 2,600m だけ・試験深度の札に数を書かない
+    for i, t in enumerate(sc["tags"]):
+        k = min(i, nst - 1)
+        for txt, at in zip(t.get("texts") or [], (t.get("ats") or []) + [None] * len(t.get("texts") or [])):
+            n += 1
+            tn = str(txt).replace(",", "")
+            if at == "test" and re.search(r"\d", tn):
+                bad.append(f"⑯{where}：試験深度の札「{txt}」に数（公開の記録でも塗られている＝札に数を書かない）")
+            for v, unit in DEPTH_NUM.findall(tn):
+                ok = (unit == "m" and lin[k] and any(abs(float(v) - r[0]) < 1e-6 for r in REC_DEPTH.values())) or \
+                     (unit == "m" and far[k] and not lin[k] and abs(float(v) - REC_DEPTH["seabed"][0]) < 1e-6)
+                if not ok:
+                    bad.append(f"⑯{where}：段{i + 1}の札「{txt}」の深さの数 {v}{unit} は出せない（目盛りの段の記録の値"
+                               f" {[r[0] for r in REC_DEPTH.values()]}m・切れ目の向こうの海底 2600m だけ）")
+    # ⑯ 縮尺どおりの深さの幾何＝記録の比（海底 2,600m に対する 260m・2,200m）・目盛りは 260m ごとに 2,600÷260＝10区間
+    ruler = G.get("ruler")
+    depth = {g["what"]: g for g in G.values() if g.get("kind") == "depth"}
+    if depth and not ruler:
+        bad.append(f"⑯{where}：縮尺どおりの深さ {sorted(depth)} を描いたのに目盛りが無い")
+    if ruler:
+        n += 1
+        surf, ticks = float(ruler["surf"]), [float(y) for y in ruler["ticks"]]
+        want = round(REC_DEPTH["seabed"][0] / REC_DEPTH["rescue"][0])
+        steps_px = [b - a for a, b in zip(ticks, ticks[1:])]
+        if len(steps_px) != want or (steps_px and max(steps_px) - min(steps_px) > 1.0):
+            bad.append(f"⑯{where}：目盛りの区間 {len(steps_px)}（等しい幅か {steps_px[:3]}…）が記録の比 2,600÷260＝{want} と違う")
+        base = depth["seabed"]["y"] if "seabed" in depth else ticks[-1]
+        if "seabed" in depth and abs(ticks[-1] - base) > 2.0:
+            bad.append(f"⑯{where}：目盛りの終わり y{ticks[-1]:.0f} が海底 y{base:.0f} でない")
+        for what in ("rescue", "rope"):
+            if what in depth:
+                n += 1
+                m = (float(depth[what]["y"]) - surf) / (base - surf) * REC_DEPTH["seabed"][0]
+                rv, rr = REC_DEPTH[what]
+                if abs(m - rv) > DEPTH_TOL * rv:
+                    bad.append(f"⑯{where}：{what} の線は海底との比で {m:.0f}m（記録 {rv:.0f}m＝{rr}）")
+    # ⑮ 潜水艦：描いた段は記録の時刻 clk（読める形）・艦首の上げは記録の上限まで・下がる／圧壊は「推定」の札と一緒に
+    for i, st in enumerate(allst):
+        if st["sub"] == "off":
+            continue
+        n += 1
+        if _clk(st.get("clk")) is None:
+            bad.append(f"⑮{where}：{'頭' if i == 0 else f'段{i}'}で潜水艦を描いたのに記録の時刻 clk が無い／読めない（{st.get('clk')!r}）")
+        if float(st["tilt"]) > REC_UP_MAX[0] + 1e-9:
+            bad.append(f"⑮{where}：艦首の上げ {st['tilt']}度が記録の上限 {REC_UP_MAX[0]:.0f}度（{REC_UP_MAX[1]}）を越える")
+    sink = next(((i, float(sp.get("delay", IL.KEY_DELAY))) for i, (st, sp) in enumerate(zip(sc["states"], sc["steps"]))
+                 if st["sub"] in ("sink", "crush")), None)
+    if sink or sc["start"]["sub"] in ("sink", "crush"):
+        n += 1
+        if "推定" not in (sc.get("assume") or ""):
+            bad.append(f"⑮{where}：9:17 より後の潜水艦（下がる・圧壊）に「推定」の札が無い（assume=）")
+        aa = sc.get("assume_at")
+        if aa and sink and (int(aa[0]), float(aa[1])) > sink:
+            bad.append(f"⑮{where}：「推定」の札（段{int(aa[0]) + 1}・{aa[1]}秒）が潜水艦の下がり始め（段{sink[0] + 1}・{sink[1]}秒）より遅い")
+    for pid in ("debris", "crushed"):
+        p = P.get(pid)
+        if not p:
+            continue
+        n += 1
+        ks = sorted(p.get("keys") or [], key=lambda k: (int(k["stage"]), float(k.get("delay", 0.0))))
+        if not ks or float(ks[-1].get("a", 1.0)) > 0.004:
+            bad.append(f"⑮{where}：{pid} が最後まで見えている（壊れた船体は数えられる前に暗がりへ＝最後の段で見える画素0）")
+        if p.get("obj"):
+            bad.append(f"⑮{where}：{pid} が数（obj）を持つ（塊の数「5か6」は描かない＝数えない形）")
+        if pid == "debris":
+            w = _fade_window(ks)
+            if w is None or w > SA_DEBRIS_MAX:
+                bad.append(f"⑮{where}：破片が見える長さ {w} 秒（{SA_DEBRIS_MAX}秒まで＝数えられる前に暗がりへ）")
+    # ⑰ 9時18.1分の大きく低い音の輪：圧壊の段・記録の時刻・輪の中心は圧壊した船体・札は認定18 と意見45 の言い方
+    boom = P.get("boom")
+    if boom:
+        for ev in boom.get("pulse") or []:
+            n += 1
+            i = int(ev["stage"])
+            st = sc["states"][i] if i < len(sc["states"]) else sc["start"]
+            if st["sub"] != "crush":
+                bad.append(f"⑰{where}：段{i + 1}の音の輪が圧壊の段でない（輪は圧壊した船体から＝認定18「emanated from THRESHER」）")
+            if _clk(st.get("clk")) != _clk(REC_BOOM_CLK[0]):
+                bad.append(f"⑰{where}：段{i + 1}の音の輪の時刻 {st.get('clk')!r} が記録 {REC_BOOM_CLK[0]}（{REC_BOOM_CLK[1]}）でない")
+            cc = IL._sa_anchors(st)["crush"]
+            if math.hypot(boom["pivot"][0] - cc[0], boom["pivot"][1] - cc[1]) > 3.0:
+                bad.append(f"⑰{where}：音の輪の中心 {boom['pivot']} が圧壊した船体 {tuple(round(v) for v in cc)} でない")
+            texts = " ".join(sc["tags"][i].get("texts") or []) if i < len(sc["tags"]) else ""
+            for w, rr in REC_BOOM_WORDS:
+                if w not in texts:
+                    bad.append(f"⑰{where}：段{i + 1}の札に「{w}」が無い（{rr}）")
+    for p in sc["parts"]:
+        if any(w in str(p["id"]).lower() for w in SA_LIGHT):
+            bad.append(f"⑰{where}：光・泡・炎の部品 {p['id']}（記録に無い）")
+    if any(sp.get("glow") for sp in sc["steps"]):
+        bad.append(f"⑰{where}：光の出来事 glow（記録に無い）")
+    return bad, n
+
+
+def judge_sa_cut(scs, cid):
+    """⑮⑰ のカットの表：潜水艦は ILLU_SUB_UNTIL（例外 ILLU_SUB_EXC）までの時刻だけ・艦の絵を止めたカット（ILLU_SUB_STOP）より後に
+    潜水艦を置かない・下がる／圧壊は例外のカットだけ・9時18.1分の音の輪は ILLU_BOOM_CUTS だけ（表が無ければ空＝全部止める）"""
+    ss = _ss()
+    until = getattr(ss, "ILLU_SUB_UNTIL", None)
+    exc = getattr(ss, "ILLU_SUB_EXC", None) or {}
+    stop = getattr(ss, "ILLU_SUB_STOP", None)
+    booms = tuple(getattr(ss, "ILLU_BOOM_CUTS", None) or ())
+    try:
+        import cuts
+        order = list(cuts.PLAN)
+    except Exception:                                   # noqa: BLE001
+        order = []
+    bad, n = [], 0
+    for sc in scs:
+        if sc["place"] != "SA":
+            continue
+        drawn = [st for st in [sc["start"]] + list(sc["states"]) if st["sub"] != "off"]
+        if drawn:
+            n += 1
+            lim = exc.get(cid, until)
+            if _clk(lim) is None:
+                bad.append(f"⑮{cid}：潜水艦を描いたのに時刻の上限の表（cuts.ss.ILLU_SUB_UNTIL・ILLU_SUB_EXC）が無い")
+            else:
+                for st in drawn:
+                    c = _clk(st.get("clk"))
+                    if c is not None and c > _clk(lim) + 1e-9:
+                        bad.append(f"⑮{cid}：{st.get('clk')} の潜水艦（{'例外の上限' if cid in exc else '上限'} {lim} より後）")
+            if stop and cid in order and stop in order and order.index(cid) > order.index(stop):
+                bad.append(f"⑮{cid}：艦の絵を止めたカット（cuts.ss.ILLU_SUB_STOP＝{stop}）より後に潜水艦")
+            if any(st["sub"] in ("sink", "crush") for st in drawn) and cid not in exc:
+                bad.append(f"⑮{cid}：潜水艦が下がる・圧壊するのは例外の表（cuts.ss.ILLU_SUB_EXC＝{sorted(exc) or '空'}）のカットだけ")
+        if any(p["id"] == "boom" for p in sc["parts"]):
+            n += 1
+            if cid not in booms:
+                bad.append(f"⑰{cid}：9時18.1分の音の輪は表のカット（cuts.ss.ILLU_BOOM_CUTS＝{booms or '空'}）だけ")
+    return bad, n
+
+
 DESTROY = dict(towns=("gone", "mud"), shore=("gone", "mud"), flood=("on", "recede"), wave_e=("on", "recede"))
+DESTROY_SA = dict(sub=("crush",))      # 🆕 18本目 ⑤b-2：潜水艦の圧壊と破片
 
 
 def judge_destroy(scs, cid, destroy=None):
-    """⑫ 壊れる物の部品は表のカットだけ・ダムは壊さない（全部の段で同じ）。"""
+    """⑫ 壊れる物の部品は表のカットだけ・ダムは壊さない（全部の段で同じ）。🆕 18本目 ⑤b-2：SA の圧壊（sub＝crush）も"""
     destroy = destroy if destroy is not None else tuple(getattr(_ss(), "ILLU_DESTROY_CUTS", None) or ())
     bad, n = [], 0
     for sc in scs:
+        if sc["place"] == "SA":
+            n += 1
+            used = sorted({f for st in [sc["start"]] + sc["states"] for f, vs in DESTROY_SA.items() if st.get(f) in vs})
+            used += [p["id"] for p in sc["parts"] if p.get("destroy") and p["id"] not in used]
+            if used and cid not in destroy:
+                bad.append(f"⑫{cid}：壊れる物の部品 {used} は表のカット（cuts.ss.ILLU_DESTROY_CUTS＝{destroy or '空'}）だけ")
+            continue
         if sc["place"] not in ("VA", "VB", "VC", "VD"):
             continue
         n += 1
@@ -788,11 +1044,17 @@ def judge_fig(kind, kw, where):
     n += 1
     if f.illu.get("full"):
         asm = f.illu.get("assume", "")
-        ov = IL.overlay_svg(f.illu.get("view", ""), f.illu.get("src", ""), asm)
+        timed = bool(f.illu.get("assume_at"))
+        ov = IL.overlay_svg(f.illu.get("view", ""), f.illu.get("src", ""), asm, timed=timed)
         if "再現イラスト" not in ov or not f.illu.get("src"):
             bad.append(f"④{where}：「再現イラスト」の札か出典が無い")
-        if asm and asm not in ov:
+        if asm and not timed and asm not in ov:
             bad.append(f"④{where}：想定の札「{asm}」が上の層に出ない")
+        if asm and timed:
+            # 🆕 18本目 ⑤b-2：段の途中で出す想定の札＝絵の層の部品 assume_chip（札の言葉が入り・濃さが 1 まで上がる）
+            chip = [p for sc in f.illu["scenes"] for p in sc["parts"] if p["id"] == "assume_chip"]
+            if not chip or asm not in chip[0]["svg"] or max(float(k.get("a", 1.0)) for k in chip[0]["keys"]) < 0.999:
+                bad.append(f"④{where}：段の途中で出す想定の札「{asm}」の部品が無い／出ない")
     else:
         stages = "".join(f.stages)
         if stages.count("再現イラスト") < len(f.illu["scenes"]) or "出典：" not in f.lab:
@@ -814,7 +1076,17 @@ def judge_cut(cid, spec, kind_of):
     if kind in NON_ILLU_KINDS and (has_full or has_mini or it):
         bad.append(f"⑦{cid}：画面の種類「{kind}」に再現イラストを置いた（写真・頁・決め所・文字の頁に絵を置かない）")
     if kind == "混ざり" and has_full:
-        bad.append(f"⑦{cid}：混ざりに全面の絵（illu）＝画面の種類を「再現イラスト」にするか、冒頭の絵か小さく戻す絵に")
+        # 🆕 18本目 ⑤b-2：本物の側（映像・写真）のつなぎ待ちの表（cuts.ss.ILLU_MIX_TODO）のカットは、束ができるまで全面の絵でよい
+        #   （参考の行を毎回出す）。束（ILLU_MIX_BUNDLE＝credits.json）ができたら、つないでいないカットは止める（忘れ防止）
+        todo = (getattr(_ss(), "ILLU_MIX_TODO", None) or {}).get(cid)
+        bundle = getattr(_ss(), "ILLU_MIX_BUNDLE", None)
+        if todo and not (bundle and Path(bundle).exists()):
+            NOTES.append(f"⚠️ ⑦{cid}：混ざりの本物の側がつなぎ待ち（{todo}）＝いまは SA の段だけを全面の絵で焼く")
+        elif todo:
+            bad.append(f"⑦{cid}：束（{Path(bundle).name}）ができたのに混ざりの本物の側をつないでいない（{todo}）"
+                       "＝つないで cuts.ss.ILLU_MIX_TODO から外す")
+        else:
+            bad.append(f"⑦{cid}：混ざりに全面の絵（illu）＝画面の種類を「再現イラスト」にするか、冒頭の絵か小さく戻す絵に")
     if kind == "再現イラスト" and not has_full:
         bad.append(f"⑦{cid}：画面の種類「再現イラスト」なのに全面の絵（fig=(\"illu\", …)）で書いていない")
     # 冒頭の絵（intro の illu）＝画面ごと入れ替える（重ねない）。15本目 ⑤b-2 から、あとに来てよいのは
@@ -864,7 +1136,14 @@ def judge_cut(cid, spec, kind_of):
                     bad.append(f"④{cid}：小さく戻す絵に模型の想定を描いたのに、パネルの文（k・t）に「想定」が無い")
     # ⑫ 16本目 ⑤b-3：壊れる物の部品は表のカットだけ・ダムは壊さない
     b, m = judge_destroy(scs, cid)
+    bad += b
+    n += m
+    # ⑮⑰ 18本目 ⑤b-2：潜水艦の時刻・止めるカット・音の輪のカット（表）
+    b, m = judge_sa_cut(scs, cid)
     return bad + b, n + m
+
+
+NOTES = []        # 🆕 18本目 ⑤b-2：止めない参考の行（つなぎ待ちの混ざり）＝main が最後に出す
 
 
 def _run(cases, kw):
@@ -1488,11 +1767,164 @@ def _selftest_ep16_va(ss):
     return ok
 
 
+def selftest_ep18():
+    """🆕 18本目 ⑤b-2（2026-10-04）：置き場 SA（横から見た海）の ⑤⑦⑫⑮⑯⑰ と ④（段の途中の想定の札）の検算＝**本番の表**
+    （cuts.ss の18本目の値）で回す。正しい側＝本番の章ファイルの SPEC そのもの（c101・c103・c106・c314・c318・c411・c502）。
+    🔴 陽性対照は**型の定数を壊す**形も入れる（SA_RESCUE_M・SA_ROPE_M・SA_BREAK1・SA_T＝§5b-88）"""
+    import copy
+    import cuts
+    ss = _ss()
+    ok = True
+    S = {c: copy.deepcopy(cuts.SPEC[c]["fig"][1]) for c in ("c101", "c103", "c106", "c314", "c318", "c405", "c411", "c502")}
+    kinds = {c: cuts.PLAN[c]["kind"] for c in S}
+
+    def scn(kw):
+        return IL.scene(**kw)
+
+    def run_scene(name, kw, head, mutate=None):
+        nonlocal ok
+        try:
+            sc = scn(kw)
+            if mutate:
+                mutate(sc)
+            bad = judge_scene(sc, "selftest")[0]
+        except Exception as e:                           # noqa: BLE001
+            bad = [f"組めない：{e}"]
+        ok &= _expect(f"🔴 18本目 陽性対照{head}：{name}", bad, head)
+
+    def run_cut(name, cid, kw, kind, head):
+        nonlocal ok
+        bad = [b for b in judge_cut(cid, dict(fig=("illu", kw)), {cid: kind})[0] if b.startswith(head)]
+        ok &= _expect(f"🔴 18本目 陽性対照{head}：{name}", bad, head)
+    # 正しい側（本番の SPEC）
+    for c, kw in S.items():
+        bad = judge_cut(c, dict(fig=("illu", kw)), kinds)[0]
+        print(f"  {'OK' if not bad else '🔴 NG'} 18本目 正しい SA {c}: {'合格' if not bad else bad[0]}")
+        ok &= not bad
+    # ⑤ 時計：分の小数まで（9時18分・9時18.2分は表に無い）・秒の札・表が空なら全部止める
+    k103 = S["c103"]
+
+    def with_tag(kw, i, t):
+        kw = copy.deepcopy(kw)
+        kw["steps"][i]["tag"] = dict(t=t, at="sk_rx")
+        return kw
+    run_scene("札に 9時18分（小数なし＝表に無い）", with_tag(k103, 1, "9時18分　船体の圧壊（査問会の見立て）"), "⑤")
+    run_scene("札に 9時18.2分（表に無い小数）", with_tag(k103, 1, "9時18.2分"), "⑤")
+    run_scene("札に秒（約0.1秒）", with_tag(S["c101"], 1, "約0.1秒"), "⑤")
+    sc = scn(S["c101"])
+    ok &= _expect("🔴 18本目 陽性対照⑤：時計の表が空（c101 の 9:13）",
+                  judge_scene(sc, "selftest", clock_ok=())[0], "⑤")
+    # ⑮ 潜水艦の時刻・止めるカット・推定の札・破片
+    k405 = S["c405"]
+    late = copy.deepcopy(k405)
+    late["start"]["clk"] = "9:20"
+    run_cut("9:20 の潜水艦（例外でないカット）", "x18", late, "再現イラスト", "⑮")
+    run_cut("艦の絵を止めた c411 より後のカット（c420）に潜水艦", "c420", k405, "再現イラスト", "⑮")
+    run_cut("例外でないカットで潜水艦が下がる・圧壊する", "x18", k103, "再現イラスト", "⑮")
+    run_scene("c103 の圧壊に「推定」の札が無い", dict(k103, assume=None, assume_at=None), "⑮")
+    run_scene("「推定」の札が下がり始めより遅い（1.5秒）", dict(k103, assume_at=(0, 1.5)), "⑮")
+    noclk = copy.deepcopy(k405)
+    noclk["start"]["clk"] = ""
+    run_scene("潜水艦を描いた段に記録の時刻が無い", noclk, "⑮")
+    up20 = copy.deepcopy(S["c411"])
+    up20["start"]["tilt"] = 20.0
+    run_scene("艦首の上げ 20度（記録 15°を越える）", up20, "⑮")
+
+    def keep_debris(sc):
+        p = next(q for q in sc["parts"] if q["id"] == "debris")
+        p["keys"] = [dict(k, a=1.0) for k in p["keys"]]
+    run_scene("破片が最後まで見えている", k103, "⑮", keep_debris)
+    run_scene("破片が数（obj）を持つ", k103, "⑮",
+              lambda sc: next(q for q in sc["parts"] if q["id"] == "debris").update(obj=dict(pieces=6)))
+    keep_t = dict(IL.SA_T)
+    IL.SA_T["debris"] = 4.0
+    try:
+        run_scene("破片が見える長さ 2秒あまり（型の定数 SA_T を壊す）", k103, "⑮")
+    finally:
+        IL.SA_T.clear()
+        IL.SA_T.update(keep_t)
+    # ⑯ 深さの数を幾何で漏らさない
+    lin_sub = copy.deepcopy(S["c314"])
+    lin_sub["start"].update(sub="on", clk="9:09")
+    run_scene("目盛りの段（約260m）に潜水艦", lin_sub, "⑯")
+    t_rope = copy.deepcopy(S["c106"])
+    t_rope["steps"][0]["state"]["rope"] = "on"
+    run_scene("試験深度の線と綱の目盛りが同じ段", t_rope, "⑯")
+    run_scene("試験深度の線に切れ目1が無い", S["c106"], "⑯",
+              lambda sc: sc["parts"].remove(next(q for q in sc["parts"] if q["id"] == "break1")))
+    run_scene("切れ目の向こうの海底に切れ目2が無い", S["c106"], "⑯",
+              lambda sc: sc["parts"].remove(next(q for q in sc["parts"] if q["id"] == "break2")))
+    t_num = copy.deepcopy(S["c106"])
+    t_num["steps"][0]["tag"][0]["t"] = "試験深度 約400m"
+    run_scene("試験深度の札に数", t_num, "⑯")
+    run_scene("潜水艦の段に深さの数（約1,000m）", with_tag(k405, 0, "約1,000m"), "⑯")
+    for name, attr, val in (("救難室の限界を 300m で描く型", "SA_RESCUE_M", 300.0), ("綱を 2,400m で描く型", "SA_ROPE_M", 2400.0),
+                            ("切れ目1を試験深度の線の下に置く型", "SA_BREAK1", (600.0, 618.0))):
+        keep = getattr(IL, attr)
+        setattr(IL, attr, val)
+        try:
+            run_scene(name, S["c318"] if attr == "SA_ROPE_M" else S["c106"] if attr == "SA_BREAK1" else S["c314"], "⑯")
+        finally:
+            setattr(IL, attr, keep)
+    # ⑰ 9時18.1分の大きく低い音の輪
+    run_cut("音の輪を c405 に（表のカットの外）", "c405", k103, "再現イラスト", "⑰")
+    run_scene("音の輪の中心が圧壊した船体でない", k103, "⑰",
+              lambda sc: next(q for q in sc["parts"] if q["id"] == "boom").update(pivot=[900.0, 400.0]))
+    nowords = copy.deepcopy(k103)
+    nowords["steps"][1]["tag"] = [dict(t="9時18.1分　船体の圧壊（査問会の見立て）", at="crush")]
+    run_scene("音の輪の段の札に「内破でありうる」「大きく低い音」が無い", nowords, "⑰")
+    c918 = copy.deepcopy(k103)
+    c918["steps"][1]["state"]["clk"] = "9:18"
+    run_scene("音の輪の段の時刻が 9:18（記録は 9:18.1）", c918, "⑰")
+    run_scene("光の部品（flash）を足す", S["c101"], "⑰",
+              lambda sc: sc["parts"].append(dict(IL._part("flash", "<rect/>", "R08 p4185"))))
+    # ⑫ 壊れる物は表のカットだけ
+    run_cut("圧壊を c405 に", "c405", k103, "再現イラスト", "⑫")
+    # ②③ 人は置かない・数は記録の数
+    run_scene("人の型紙（crew）を置く", S["c101"], "②",
+              lambda sc: sc["parts"].append(dict(IL._part("crew", "<rect/>", "R08 p4185"), kind="sprite", role="crew",
+                                                 inst=[dict(path=[[1300, 280]], stage=0, delay=0.0)])))
+    run_scene("スカイラークを2隻", S["c101"], "③",
+              lambda sc: next(q for q in sc["parts"] if q["id"] == "skylark").update(obj=dict(skylark=2)))
+    # ④ 段の途中の想定の札（部品の札の言葉が抜けた型）
+    keep = IL.assume_chip_svg
+    IL.assume_chip_svg = lambda view, assume: "<rect/>"
+    try:
+        bad = [b for b in judge_cut("c103", dict(fig=("illu", k103)), kinds)[0] if b.startswith("④")]
+    finally:
+        IL.assume_chip_svg = keep
+    ok &= _expect("🔴 18本目 陽性対照④：段の途中の想定の札に言葉が無い型", bad, "④")
+    # ⑦ 混ざりのつなぎ待ち：束ができたら止まる・表に無い混ざりの全面の絵は止まる
+    keep = ss.ILLU_MIX_BUNDLE
+    ss.ILLU_MIX_BUNDLE = HERE / "ref" / "ep18" / "make_plan.py"         # 在るファイル＝束ができた見立て
+    try:
+        run_cut("束ができたのに c102 をつないでいない", "c102", copy.deepcopy(cuts.SPEC["c102"]["fig"][1]), "混ざり", "⑦")
+    finally:
+        ss.ILLU_MIX_BUNDLE = keep
+    run_cut("つなぎ待ちの表に無い混ざりの全面の絵", "x19", k405, "混ざり", "⑦")
+    # 型が止める形
+    for name, kw in (("圧壊のあとに潜水艦を戻す", dict(k103, steps=k103["steps"][:2] + [dict(state=dict(sub="on"), rec="R08 p4185")])),
+                     ("圧壊の無い場面に音の輪", dict(k405, steps=[dict(boom=1, rec="R08 p4185"), dict()])),
+                     ("艦首の上げ 40度", dict(k405, start=dict(k405["start"], tilt=40.0))),
+                     ("想定の札なしで assume_at", dict(k103, assume=None)),
+                     ("assume_at の場面でカメラを寄せる", dict(k103, start=dict(k103["start"], cam=1.05)))):
+        try:
+            IL.scene(**kw)
+            print(f"  🔴 NG 18本目 陽性対照（型）：{name}: 組めた（止まるはず）")
+            ok = False
+        except ValueError as e:
+            print(f"  OK 18本目 陽性対照（型）：{name}: 止まった  ← {e}")
+    print(f"  18本目 SA の検算: {'通った' if ok else '🔴 落ちた'}")
+    return ok
+
+
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
+    # 🆕 2026-10-04（18本目 ⑤b-2）：先に18本目（本番の表）を検算する＝見本の差し込み（16・15・14本目）より前
+    ok18 = selftest_ep18()
     # 🔴 2026-10-01（16本目 ⑤b-2）：先に16本目を検算する（2026-10-04〜：16本目も見本 fixture_ep16 の表＝selftest_ep16 が差し込んで・
     #    終わったら戻す）
-    ok16 = selftest_ep16()
+    ok16 = selftest_ep16() and ok18
     # 🔴 2026-09-30（15本目 ⑤b-2）：先に15本目で RA・RB・RC・RD を検算してから、14本目の見本に差し替える
     #    （2026-10-01〜：15本目も見本 fixture_ep15 の表＝selftest_ep15 が差し込んで・終わったら戻す）
     ok15 = selftest_ep15() and ok16
@@ -1657,6 +2089,8 @@ def main():
             print(f"✓ {cid}（{kind_of.get(cid)}）: 照合 {n}件")
     miss = sorted(c for c, k in kind_of.items() if k == "再現イラスト" and c not in cuts.SPEC)
     print(f"\n（参考）PLAN が「再現イラスト」でまだ SPEC の無いカット {len(miss)}：{' '.join(miss)}")
+    for t in dict.fromkeys(NOTES):
+        print(f"（参考）{t}")
     print(f"{'✓' if not bad_all else '🔴'} 再現イラスト {len(targets)}カット・照合 {n_all}件・食い違い {bad_all}件")
     return 1 if bad_all else 0
 

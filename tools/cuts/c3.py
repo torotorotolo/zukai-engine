@@ -81,4 +81,68 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-2（2026-10-04）：案C の置き場 SA（横から見た海・`tools/illu.py` の「18本目 ⑤b-2」の節）──
+    #   人は描かない。🔴 深さの数を幾何で漏らさない＝潜水艦の段（c310・c311・c319）は目盛りを出さない／目盛りの段（c314・c318）は
+    #   潜水艦を置かない／試験深度の線（c310）は切れ目の向こう・数なし。秒は narration.json の実測
+    #   （c310 0〜4.13／4.62〜8.09・c311 0〜3.85／4.34〜6.53／7.02〜9.58・c313 0〜2.29／2.78〜4.00／4.49〜7.25・c314 0〜4.36／4.85〜8.36・
+    #    c318 0〜3.45／3.94〜8.28・c319 0〜2.76／3.25〜5.11）
+    # c310＝合図（映像方針 §4 #2・c308 の SB から）＝「横から見ると」・小さな地図に待ち合わせの点。1行目：7時47分、海面近くの潜水艦が
+    #   水中電話で伝える／2行目：目指す深さの線（数は塗られている＝黒い帯）が切れ目の向こうに出る
+    "c310": dict(
+        fig=("illu", dict(
+            place="SA", start=dict(map="meet", switch="on", sub="on", sy=390.0, clk="7:47"),
+            rec="R08 p4185（認定15：7時47分・深い潜航を始める）",
+            steps=[dict(voice=1, ring_delay=0.6, rec="R08 p4185（認定15：水中電話で伝えた）",
+                        tag=dict(t="7:47", at="sail", off=(-50, -50), anchor="end")),
+                   dict(state=dict(test="on", redact="on"), delay=0.3,
+                        rec="V1 p38（認定15：この潜航の深さの数は塗られている）・IR18 p2074（試験深度の定義だけ）",
+                        tag=dict(t="目指す深さ", xy=(1180, 548), anchor="end"))])),
+    ),
+    # c311＝段ごとに下がる（目盛りなし・海底は描かない）・スカイラークはほぼ同じ位置・位置を図に書いていない
+    "c311": dict(
+        fig=("illu", dict(
+            place="SA", start=dict(sub="on", sy=390.0, clk="7:47"), rec="R08 p4185（認定15）",
+            steps=[dict(state=dict(sy=450.0, clk="9:09"), delay=0.3, dur=3.0, voice=1, ring_delay=1.2,
+                        rec="R08 p4185（認定15：深さを変えながら針路と深さを報告）"),
+                   dict(state=dict(sy=500.0), delay=0.2, dur=1.8, rec="R08 p4185（認定15：スカイラークはほぼ同じ位置）",
+                        tag=dict(t="ほぼ同じ位置", at="sk", off=(-60, -50), anchor="end")),
+                   dict(state=dict(sy=540.0), delay=0.2, dur=2.0, rec="R08 p4185（認定15：潜水艦の位置を図に書いていない）",
+                        tag=dict(t="潜水艦の位置は図に書いていない", at="sk", off=(70, -30)))])),
+    ),
+    # c313＝救難室（甲板の上）。🔴 下ろす動作は描かない（その日に起きていない＝記録に無い）。潜水艦なし
+    "c313": dict(
+        fig=("illu", dict(
+            place="SA", start=dict(), rec="R08 p4185（認定14）",
+            steps=[dict(state=dict(rescue="deck"), delay=0.3, rec="V1 p38（認定13：救難室を積んでいた）",
+                        tag=dict(t="救難室", at="chamber", off=(90, -20), keep=True)),
+                   dict(), dict()])),
+    ),
+    # c314＝1行目：救難室が下りられる限界 約260m（線と点線の輪郭）と目盛り（260m ごとの10区間）／2行目：海底 約2,600m＝およそ10倍
+    #   （縮尺どおり・潜水艦なし＝§2 ③'）
+    "c314": dict(
+        fig=("illu", dict(
+            place="SA", start=dict(rescue="deck"), rec="V1 p38（認定13：救難室）",
+            steps=[dict(state=dict(rescue="down"), delay=0.4, rec="V1 p38（認定13：最大で850フィート＝約260m）",
+                        tag=dict(t="約260m", at="rescue", off=(40, 64), keep=True)),
+                   dict(state=dict(seabed="on"), delay=0.3, rec="V1 p38（認定14：約8,500フィート＝約2,600m）",
+                        tag=[dict(t="海底 約2,600m", at="seabed", off=(-60, -50), anchor="end"),
+                             dict(t="約10倍", at="ruler", off=(-60, 0), anchor="end")])])),
+    ),
+    # c318＝少佐の証言（仮定）：約2,200m の綱を垂らしても、海底 約2,600m に届かない（縮尺どおり・潜水艦なし）
+    "c318": dict(
+        fig=("illu", dict(
+            place="SA", start=dict(), rec="R08 p4185（認定14）", assume="少佐の証言（仮定）",
+            steps=[dict(state=dict(rope="on"), delay=0.3, dur=2.6, rec="V1 p183（7,200フィートのナイロンの綱）",
+                        tag=dict(t="約2,200m の綱", at="rope", off=(50, -40), keep=True)),
+                   dict(state=dict(seabed="on"), delay=0.3, rec="V1 p38（認定14：約8,500フィート＝約2,600m）",
+                        tag=dict(t="海底 約2,600m", at="seabed", off=(-60, -50), anchor="end"))])),
+    ),
+    # c319＝深い所の潜水艦・上に水中電話の線（目盛りなし）／2行目：声と音
+    "c319": dict(
+        fig=("illu", dict(
+            place="SA", start=dict(sub="on", clk="9:09"), rec="R08 p4185（認定15・16）",
+            steps=[dict(state=dict(uqc="on"), delay=0.3, rec="R08 p4185（認定12：水中電話＝潜っているときの声の手段）",
+                        tag=dict(t="水中電話", at="uqc", off=(50, -50), keep=True)),
+                   dict(voice=1, ring_delay=0.2, rec="R08 p4185（認定12・16）")])),
+    ),
 }

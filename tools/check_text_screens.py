@@ -96,11 +96,14 @@ def _inside(span, allowed, pos):
     return False
 
 
-def judge(order, plan, spec, secs=None, exc=None, stock=None):
+def judge(order, plan, spec, secs=None, exc=None, stock=None, mix_todo=None):
     """order＝台本の順のカットID・plan＝PLAN・spec＝SPEC・exc＝この回の例外（EXCEPTIONS の値）・
     stock＝(cid, SPEC) → 絵がフリー素材か（無ければ `is_stock` を footage の本番の表で）。
+    🆕 18本目 ⑤b-2：mix_todo＝混ざりの本物の側のつなぎ待ち（`cuts.ss.ILLU_MIX_TODO`・束ができる前だけ）＝そのカットは
+       「混ざり」を全面の絵（再現イラスト）で書いてよい（W で並べる）。束ができたら門番 check_illu ⑦ が止める
     戻り＝(E の list, W の list, 数の dict)。"""
     E, W = [], []
+    mix_todo = mix_todo or {}
     kinds = []
     if stock is None:
         import footage
@@ -120,6 +123,8 @@ def judge(order, plan, spec, secs=None, exc=None, stock=None):
             got = pic_kinds(s, stk)
             if got is None:
                 E.append(f"{c}: SPEC に図も写真も無い")
+            elif k == "混ざり" and got == {"再現イラスト"} and c in mix_todo:
+                W.append(f"{c}: 混ざりの本物の側がつなぎ待ち（{mix_todo[c]}）＝いまは全面の絵（数は PLAN の「混ざり」で）")
             elif k not in got:
                 why = ("＝フリー素材をこの事故の写真（20%の数）に数えている" if stk and k == "写真"
                        else "＝この事故の写真をフリー素材と名乗っている" if k == "フリー素材" else "")
@@ -277,6 +282,15 @@ def selftest():
     ok &= good11
     print(f"  {'OK' if good11 else '🔴 NG'} ⑪b 数：この事故の写真2・フリー素材3／10 → 写真 {st11['photo']}（20%の数）・"
           f"フリー素材 {st11['stock']}（別に数える）（2・3 のはず）")
+    # 🆕 18本目 ⑤b-2：混ざりのつなぎ待ち（mix_todo）＝表のカットだけ E にしない・表が空（束ができた）なら E
+    p12 = {c: dict(kind="図解") for c in ids8}
+    p12[ids8[0]] = dict(kind="混ざり")
+    sp12 = {ids8[0]: dict(fig=("illu", {}))}
+    E12a = judge(ids8, p12, sp12, stock=no_clip, mix_todo={ids8[0]: "1行目＝本物の映像"})[0]
+    E12b = judge(ids8, p12, sp12, stock=no_clip)[0]
+    good12 = not E12a and any("混ざり" in e for e in E12b)
+    ok &= good12
+    print(f"  {'OK' if good12 else '🔴 NG'} ⑫ 混ざりのつなぎ待ち：表のカットは E にしない（{len(E12a)}件）・表が空なら E（{len(E12b)}件）")
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 
@@ -291,7 +305,11 @@ def main():
     import scene_jiko as SJ
     secs = dict(SJ.CUTS)
     exc = EXCEPTIONS.get(el_script.SLUG)
-    E, W, st = judge(list(SJ.ORDER), cuts.PLAN, cuts.SPEC, secs, exc)
+    # 🆕 18本目 ⑤b-2：混ざりのつなぎ待ち（束ができる前だけ＝束ができたら空＝E に戻る）
+    import cuts.ss as ss
+    bundle = getattr(ss, "ILLU_MIX_BUNDLE", None)
+    todo = {} if (bundle and Path(bundle).exists()) else dict(getattr(ss, "ILLU_MIX_TODO", None) or {})
+    E, W, st = judge(list(SJ.ORDER), cuts.PLAN, cuts.SPEC, secs, exc, mix_todo=todo)
     print(f"\n== {el_script.SLUG} の画面の種類（{st['n']}カット・台本の順）")
     if exc:
         print(f"  ⚠️ この回の例外：{exc['why']}＝文字だけ {exc['max_text']} まで・3連続以上は {'・'.join(exc['runs_ok'])} の中だけ")
