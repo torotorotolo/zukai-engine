@@ -101,6 +101,46 @@ SPEC = {
                    dict(state=dict(seabed="on"), delay=0.3, rec="V1 p38（認定14：約8,500フィート＝約2,600m）",
                         tag=dict(t="海底 約2,600m", at="seabed", off=(-60, -50), anchor="end"))])),
     ),
+    # ── 🆕 ⑤b-3（2026-10-04）：案C の置き場 SB（上から見た海・北が上・近い図＝基準の点のまわり・1画素 23m）──
+    # c503（0〜1.65／2.14〜4.72／5.21〜7.44）＝合図（映像方針 §4 #3・c502 の SA から）：頭の1.5秒、スカイラークの位置に目の印と「さっきの
+    #   横から見た絵」（切り替えの字は出さない＝1行目の語りが「上から見た地図で見る」と言う）／2行目：9時21分の測位（輪）＝認定22d／
+    #   3行目：捜索の基準の点（R08 p.65 の証言「point called datum, 65 degrees west and 41 degrees, 45 minutes north」）
+    "c503": dict(
+        fig=("illu", dict(
+            place="SB", start=dict(view="near", prev="SA", skl="loran"), rec="R08 p4186（認定22d：9時21分の LORAN の位置）",
+            steps=[dict(),
+                   dict(fix=2, ring_delay=0.3, rec="R08 p4186（認定22d：自分の位置を測った）",
+                        tag=dict(t="スカイラーク　9:21", at="sk", off=(40, 70))),
+                   dict(state=dict(datum="on"), delay=0.3, rec="R08 p4065（捜索の基準の点＝datum）",
+                        tag=dict(t="捜索の基準の点", at="datum", off=(-60, 70), anchor="end"))])),
+    ),
+    # c513（0〜1.21 聞き役／1.70〜6.20／6.68〜10.08）＝17時30分ごろ、リカバリーが油の帯を見つけた（認定30・31）→ スカイラークの9時17分の
+    #   位置（点線の輪＝9時21分の測位で代えた）から南東へ十数キロ（7マイル＝マイルの種類が無い＝11.3〜13.0km の幅だけ言う）。
+    #   リカバリーの位置は記録に無い（油の帯のそば＝模式）
+    "c513": dict(
+        fig=("illu", dict(
+            place="SB", start=dict(view="near", skl="past", datum="on"),
+            rec="R08 p4186（認定22d）・R08 p4188（認定31：スカイラークの9時17分の位置）・R08 p4065（捜索の基準の点）",
+            steps=[dict(),
+                   dict(state=dict(oil="on", rcv="on"), delay=0.3,
+                        rec="R08 p4188（認定30・31：17時30分ごろ、リカバリーが油の帯を見つけた）",
+                        tag=[dict(t="17:30ごろ　油の帯", at="oil", off=(60, -60), keep=True),
+                             dict(t="リカバリー", at="rcv", off=(-50, -50), anchor="end", keep=True)]),
+                   dict(state=dict(se="on"), delay=0.2, dur=1.6, rec="R08 p4188（認定31：南東へ約7マイル）",
+                        tag=[dict(t="南東へ 十数キロ", at="mid_se", off=(70, -30)),
+                             dict(t="9:17 の位置", at="past", off=(-60, -60), anchor="end")])])),
+    ),
+    # c519（0〜3.69／4.18〜8.26）＝11日の朝5時半ごろ、捜索の指揮が移る（認定34）。🔴 捜索の艦は描かない（認定34「additional ships and
+    #   aircraft were employed」＝数が無い＝映像方針 §12 ③'）＝基準の点と札だけ
+    "c519": dict(
+        fig=("illu", dict(
+            place="SB", start=dict(view="near", datum="on"), rec="R08 p4065（捜索の基準の点）",
+            steps=[dict(rec="R08 p4188（認定34：11日の朝5時半ごろ、捜索の指揮が移った）",
+                        tag=[dict(t="11日 5:30ごろ", at="datum", off=(-60, -70), anchor="end", keep=True),
+                             dict(t="捜索の指揮が移る", at="datum", off=(60, -70), keep=True)]),
+                   dict(rec="R08 p4188（認定34：指揮はそのあとも順に移った＝捜索が続く）",
+                        tag=dict(t="捜索は何か月も続く", at="datum", off=(60, 80)))])),
+    ),
     # c518＝聞き役「まさか、乗っていた人が生きていたの？」（赤）＋語りの2行×2（黄）＝両方の話し手と2行を1カットで見る
     #   ＝⑤b-1 の字幕の試し焼き（最終の形・台本の画の欄どおり）。噂は噂と札で分ける（記録の側を機関の色に）
     "c518": dict(

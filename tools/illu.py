@@ -62,6 +62,12 @@
        uqc・map（左上の東海岸の小さな地図＝Natural Earth）・switch・clk（記録の時刻＝門番 ⑮）。出来事＝voice・broken・call・ping
        （弧の重なりを draw で出どころから）・boom（9時18.1分の大きく低い音の輪＝c103 だけ）・xsig（音の信号）。想定の札を段の途中から
        出す assume_at（c103 の「推定」）。🔴 深さの数を幾何で漏らさない（目盛りの段に潜水艦を置かない＝門番 ⑯）
+  SB … 上から見た海（北が上・⑤b-3）。view＝wide（証拠50 と同じ並び・Natural Earth の陸）／near（基準の点のまわり・1画素 23m）。
+       zin（wide→near へ寄る）・skl（スカイラークの点）・thr・d31（約3.1km）・datum（捜索の基準の点）・oil・rcv・se（南東へ十数キロ）・
+       prev（頭だけ：SA＝さっきの横から見た絵の目の印）・出来事 fix。艦は向きの無い点。捜索の艦（認定34＝数が無い）は描かない
+  SC … 上から見た海の底（1964年・⑤b-3）。mk（目印900個＝数えない形）・mkx（目印1つの拡大＝模式）・circ（直径 約370m の円）・dia
+  SD … 横から見た海の底の捜索（1964年・⑤b-3）。ミザー・トリエステ2世（tri＝down／on）・船体の一部・出来事 track（音で位置を伝える弧）・
+       mini（頭だけ：左上の小さな地図＝SC を縮めたもの＋切り口の線と目の印）。The Fish・案内索のおもり・人は描かない
 
 ■ 守りの線（ルール §5b-74）と門番 `check_illu`（§5b-75）
   ① 描く物・人・動作・数・時刻は1つずつ出典（資料と頁＝`rec=`）。部品は置き場が既定の rec を持つ。記録の欄（傾き・波・
@@ -4671,6 +4677,620 @@ def _sa_note(st0, states):
     return "・".join(note)
 
 
+# ══════════════════════════════════════════════════════════
+#  18本目 ⑤b-3（2026-10-04）：SB 上から見た海・SC 上から見た海の底・SD 横から見た海の底の捜索
+# ══════════════════════════════════════════════════════════
+# 🔴 守りの線（Vault 映像方針 18本目 §2・§3・§4・§5-2・§5-3・§12＋引き継ぎ ⑤b-3 §3 の決め）：
+#    ・SB＝点は記録の緯度経度だけ＝待ち合わせ 41-46N 65-03W（認定11）・捜索の基準の点「65 degrees west and 41 degrees, 45 minutes
+#      north」（R08 p.65 の証言＝datum）・9時21分の LORAN の位置 41-45N 64-59W（認定22d）。スレッシャーは「SKYLARK bore 147 True,
+#      3400 yards from THRESHER」（認定11）から逆に置く。艦の向きと大きさは記録に無い＝向きの無い点。油の帯＝「SKYLARK's 0917R
+#      position から南東へ about seven miles」（認定31＝マイルの種類が書いていない＝11.3〜13.0km の真ん中 12.1km・9時17分の位置は
+#      9時21分の LORAN で代える・形と大きさは模式）。リカバリーの位置は記録に無い（油の帯のそば＝模式）。
+#      捜索の艦（認定34「additional ships and aircraft were employed」＝数が無い）は描かない
+#    ・SC＝目印900個（No.710-64）は数えない形（枠の外まで続く・並びと間隔は模式・広さの数は描かない＝"1,200 square yard field" の
+#      読みが2通り）。円＝直径 約370m（R17 p.97「with all major debris lying in an area certainly no greater than a circle of
+#      diameter 400 yd」＝大きな物だけの範囲＝Fig.67 の錨〈約640m 先〉は小さな物で食い違いではない＝⑤b-3 に頁の画像で確かめた）。
+#      「five or six large pieces」は数が1つに決まらない＝塊は描かない（札だけ＝映像方針 §2①）
+#    ・SD＝ミザー（R17 p.97「conned in by acoustic tracking information furnished by MIZAR」＝音の弧）・トリエステ2世（人は描かない）・
+#      船体の一部（「locate on top of a portion of the THRESHER hull」）。The Fish と案内索のおもりは描かない（ca22 の語りに無い・
+#      同じ時刻に動いていた記録が無い）。深さは切れ目（≈）で縮める（数は出さない）
+#    ・形のもと＝ミザー：Commons「USNS Mizar (T-AGOR-11) underway c1966.jpg」（米海軍・PD・艦首が左）／トリエステ2世：Commons
+#      「330-PSA-276-63 (USN 711389)」（海軍の公式の想像図）＝輪郭をなぞった模式（大きさは縮尺の外）
+#    ・見る向きの合図（映像方針 §4・ルール 5b-80）：c503＝目印 prev（さっきの横から見た絵＝スカイラークの位置に目の印・1.5秒）／
+#      ca22＝左上の小さな地図（SC を縮めたもの・切り口の線・目の印＝mini）。切り替えの字は出さない（語りが同じ言葉を言う＝16本目の決め）
+SB_LAB, SC_LAB, SD_LAB = "上から見た海（北が上）", "上から見た海の底", "横から見た海の底"
+SB_VIEW = dict(wide=dict(c=(-67.05, 42.4), o=(960.0, 540.0), mpp=412.0),     # 証拠50 と同じ並び（メイン湾〜ノバスコシア）
+               near=dict(c=(-65.0, 41.75), o=(871.0, 431.0), mpp=23.0))      # 基準の点のまわり（待ち合わせ〜油の帯）
+SB_PTS = dict(meet=((-65.05, 41.0 + 46.0 / 60.0), "R08 p4185（認定11：41-46 North, 65-03 West）"),
+              datum=((-65.0, 41.75), "R08 p4065（捜索の基準の点＝datum：65度西・41度45分北）"),
+              loran=((-(64.0 + 59.0 / 60.0), 41.75), "R08 p4186（認定22d：9時21分の LORAN の位置 41-45N 64-59W）"))
+SB_TS = dict(brg=147.0, m=3400 * 0.9144, rec="R08 p4185（認定11：SKYLARK bore 147 True, 3400 yards from THRESHER）")
+SB_OIL = dict(brg=135.0, m=12100.0, rec="R08 p4188（認定31：9時17分の位置から南東へ約7マイル）")
+SB_RCV = dict(brg=300.0, m=1500.0, rec="R08 p4188（認定30・31：午後から加わり、油の帯を見つけた）")   # 位置は記録に無い（模式）
+SB_ZK = 6.0                       # c308：広い図から近い図へ寄るときの、広い図の拡大（寄りながら薄れる）
+SB_T = dict(line=0.5, zoom=1.2, late=0.85, draw=1.4, prev_hold=1.5, prev_fade=0.5)
+SB_COL = dict(sk="#f3f6f8", th="#1b2631", th_ln="#cfe3ea", rc="#d9c9a0", mark="#f2c14e", ts="#e3eaee", oil="#10161b",
+              oil_ln="#9fae86", eye="#8fd3e6")
+SB_REC = dict(sea="R08 p4185（認定11・14：その日の海）", sk="R08 p4185（認定11：スカイラーク）",
+              past="R08 p4186（認定22d）・R08 p4188（認定31：スカイラークの9時17分の位置）")
+
+
+def sb_px(ll, view):
+    """緯度経度 → SB の画面の点（北が上・その見え方の真ん中の緯度で東西を縮める）。"""
+    v = SB_VIEW[view]
+    (lon, lat), (lon0, lat0) = ll, v["c"]
+    return (v["o"][0] + (lon - lon0) * 111320.0 * math.cos(math.radians(lat0)) / v["mpp"],
+            v["o"][1] - (lat - lat0) * 111130.0 / v["mpp"])
+
+
+def sb_off(ll, brg, m):
+    """ll から真方位 brg 度・m メートルの点（平面の近似＝十数キロまで）。"""
+    lon, lat = ll
+    r = math.radians(brg)
+    return (lon + m * math.sin(r) / (111320.0 * math.cos(math.radians(lat))), lat + m * math.cos(r) / 111130.0)
+
+
+def sb_ll(what):
+    """SB の点の緯度経度（記録の点＝SB_PTS・記録から組む点＝thr・oil・rcv）。"""
+    if what in SB_PTS:
+        return SB_PTS[what][0]
+    if what == "thr":
+        return sb_off(SB_PTS["meet"][0], (SB_TS["brg"] + 180.0) % 360.0, SB_TS["m"])
+    if what == "oil":
+        return sb_off(SB_PTS["loran"][0], SB_OIL["brg"], SB_OIL["m"])
+    if what == "rcv":
+        return sb_off(sb_ll("oil"), SB_RCV["brg"], SB_RCV["m"])
+    raise KeyError(what)
+
+
+def sb_sea_svg(view):
+    """上から見た海＋経緯の線（数は出さない・近い図は2分ごと・広い図は1度ごと）。"""
+    g = [f'<defs><linearGradient id="sbSea{view}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f6079"/>'
+         f'<stop offset="1" stop-color="#21475d"/></linearGradient></defs>',
+         f'<rect x="0" y="0" width="{W}" height="{H}" fill="url(#sbSea{view})"/>']
+    step = 2.0 / 60.0 if view == "near" else 1.0
+    lon0, lat0 = SB_VIEW[view]["c"]
+    for k in range(-60, 61):
+        x = sb_px((round(lon0 / step) * step + k * step, lat0), view)[0]
+        if -2.0 <= x <= W + 2.0:
+            g.append(f'<path d="M {x:.1f} 0 L {x:.1f} {H}" stroke="#dbe7ec" stroke-width="1.2" opacity="0.13"/>')
+        y = sb_px((lon0, round(lat0 / step) * step + k * step), view)[1]
+        if -2.0 <= y <= H + 2.0:
+            g.append(f'<path d="M 0 {y:.1f} L {W} {y:.1f}" stroke="#dbe7ec" stroke-width="1.2" opacity="0.13"/>')
+    return "".join(g)
+
+
+def sb_land_svg():
+    """広い図の陸（Natural Earth 1:50m を切り出した `ref/ep18/coast_ne50m.json`＝位置の小さな地図と同じ）。"""
+    return "".join('<polygon points="' + " ".join(f"{x:.1f},{y:.1f}" for x, y in (sb_px(p, "wide") for p in poly)) +
+                   '" fill="#8e9b94" stroke="#c9d3d6" stroke-width="2" stroke-linejoin="round"/>' for poly in _sa_coast())
+
+
+def sb_mark_svg(x, y):
+    """場所の印（待ち合わせの場所＝広い図）。"""
+    return (f'<circle cx="{x:.1f}" cy="{y:.1f}" r="15" fill="none" stroke="#10161b" stroke-width="7" opacity="0.6"/>'
+            f'<circle cx="{x:.1f}" cy="{y:.1f}" r="15" fill="none" stroke="{SB_COL["mark"]}" stroke-width="3"/>'
+            f'<circle cx="{x:.1f}" cy="{y:.1f}" r="6" fill="{SB_COL["mark"]}" stroke="#10161b" stroke-width="1.5"/>')
+
+
+def sb_dot_svg(x, y, fill, ln="#10161b", r=11.0, hollow=False):
+    """艦の点（向きと大きさは描かない）。hollow＝前の時刻の位置（点線の輪）。"""
+    if hollow:
+        return (f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r + 2:.1f}" fill="none" stroke="#10161b" stroke-width="7" opacity="0.6"/>'
+                f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r + 2:.1f}" fill="none" stroke="{fill}" stroke-width="3.2" '
+                'stroke-dasharray="6 4"/>')
+    return (f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r + 3:.1f}" fill="#10161b" opacity="0.5"/>'
+            f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r:.1f}" fill="{fill}" stroke="{ln}" stroke-width="2.6"/>')
+
+
+def sb_datum_svg(x, y):
+    """捜索の基準の点（二重の線の十字＝点そのものは記録の緯度経度）。"""
+    c = SB_COL["mark"]
+    return (f'<circle cx="{x:.1f}" cy="{y:.1f}" r="24" fill="none" stroke="#10161b" stroke-width="8" opacity="0.55"/>'
+            f'<circle cx="{x:.1f}" cy="{y:.1f}" r="24" fill="none" stroke="{c}" stroke-width="3.5"/>'
+            f'<path d="M {x - 34:.1f} {y:.1f} L {x + 34:.1f} {y:.1f} M {x:.1f} {y - 34:.1f} L {x:.1f} {y + 34:.1f}" '
+            f'stroke="#10161b" stroke-width="6" opacity="0.5"/>'
+            f'<path d="M {x - 34:.1f} {y:.1f} L {x + 34:.1f} {y:.1f} M {x:.1f} {y - 34:.1f} L {x:.1f} {y + 34:.1f}" '
+            f'stroke="{c}" stroke-width="2.5"/>')
+
+
+def sb_oil_svg(x, y):
+    """油の帯（形と大きさは模式＝記録は「油の帯」と位置だけ）。"""
+    import random
+    rnd = random.Random(1730)
+    L, wd, ang = 84.0, 24.0, math.radians(-28.0)
+    n = 26
+    hw = [wd / 2.0 * math.sin(math.pi * j / (n - 1)) ** 0.6 * rnd.uniform(0.7, 1.15) for j in range(n)]
+    hw2 = [wd / 2.0 * math.sin(math.pi * j / (n - 1)) ** 0.6 * rnd.uniform(0.7, 1.15) for j in range(n)]
+    pts = [(-L / 2 + L * j / (n - 1), -hw[j]) for j in range(n)] + [(-L / 2 + L * j / (n - 1), hw2[j]) for j in range(n - 1, -1, -1)]
+    P = [(x + a * math.cos(ang) - b * math.sin(ang), y + a * math.sin(ang) + b * math.cos(ang)) for a, b in pts]
+    d = " ".join(f"{a:.1f},{b:.1f}" for a, b in P)
+    return (f'<polygon points="{d}" fill="{SB_COL["oil"]}" fill-opacity="0.8" stroke="{SB_COL["oil_ln"]}" stroke-width="2"/>'
+            f'<polygon points="{d}" fill="none" stroke="#c9b26a" stroke-width="1" opacity="0.5" transform="translate(0 -2)"/>')
+
+
+def _flag_keys(start, states, steps, f, want, dur=0.5, late=None):
+    """欄 f が want（の中）のとき見える部品の濃さの鍵。late＝{段: 足す秒}（寄り終わってから出す＝c308）。"""
+    vs = want if isinstance(want, tuple) else (want,)
+    ks = [dict(stage=0, delay=0.0, a=float(start[f] in vs))]
+    prev = start
+    for i, (st, sp) in enumerate(zip(states, steps)):
+        if (prev[f] in vs) != (st[f] in vs):
+            ks.append(dict(stage=i, delay=float(sp.get("delay", KEY_DELAY)) + (late or {}).get(i, 0.0), dur=dur,
+                           a=float(st[f] in vs)))
+        prev = st
+    return ks
+
+
+def _draw_go(start, states, steps, f, dur, late=None):
+    """線を頭から見せる部品（draw）の道の割合の鍵＝欄 f が on になる段で 0→1。"""
+    ks = [dict(stage=0, delay=0.0, u=float(start[f] == "on"))]
+    prev = start
+    for i, (st, sp) in enumerate(zip(states, steps)):
+        if prev[f] != st[f] and st[f] == "on":
+            ks.append(dict(stage=i, delay=float(sp.get("delay", KEY_DELAY)) + (late or {}).get(i, 0.0),
+                           dur=float(sp.get("dur", dur)), u=1.0))
+        prev = st
+    return ks
+
+
+def _scene_SB(start, states, steps):
+    """SB＝上から見た海（北が上）。view＝wide（証拠50 と同じ並び＝メイン湾〜ノバスコシア・待ち合わせの場所）／near（基準の点のまわり）。
+    zin（view=wide の場面の段で on）＝広い図が待ち合わせの場所へ寄りながら薄れ、近い図の点が出る（c308）。"""
+    allst = [start] + states
+    view = start["view"]
+    if any(st["view"] != view for st in states):
+        raise ValueError("illu SB：view は場面の頭（start）で1つだけ（広い図→近い図は zin で寄る）")
+    if any(st["prev"] != start["prev"] for st in states) or start["prev"] not in ("off", "SA"):
+        raise ValueError("illu SB：prev（さっきの横から見た絵の目の印）は頭（start）だけ・SA だけ")
+    if start["zin"] != "off" or (view != "wide" and any(st["zin"] != "off" for st in states)):
+        raise ValueError("illu SB：zin（近い図へ寄る）は view=wide の場面の段で on にする（頭は off）")
+    seq = [st["zin"] for st in allst]
+    if any(a == "on" and b == "off" for a, b in zip(seq, seq[1:])):
+        raise ValueError("illu SB：zin は戻さない")
+    near_f = ("skl", "thr", "d31", "datum", "oil", "rcv", "se")
+    if view == "wide" and any(st["zin"] == "off" and any(st[f] != "off" for f in near_f) for st in allst):
+        raise ValueError("illu SB：広い図（寄る前）に近い図の点は置かない（縮尺が合わない）")
+    if start["prev"] == "SA" and view != "near":
+        raise ValueError("illu SB：prev は近い図（near）だけ")
+    zi = next((i for i, st in enumerate(states) if st["zin"] == "on"), None)
+    late = {zi: SB_T["late"]} if zi is not None else None
+    near = view == "near" or zi is not None
+    T = SB_T
+
+    def P(w):
+        return sb_px(sb_ll(w), "near")
+
+    def geo(what, xy, **kw):
+        return dict(kind="pt", what=what, xy=list(xy), mpp=SB_VIEW["near"]["mpp"], view="near", **kw)
+
+    def used(f, v=None):
+        return any((st[f] != "off") if v is None else (st[f] == v) for st in allst)
+    parts = []
+    if near:
+        parts.append(_part("sea", sb_sea_svg("near"), SB_REC["sea"]))
+    if view == "wide":
+        mw, mn = sb_px(SB_PTS["meet"][0], "wide"), P("meet")
+        keys = [dict(stage=0, delay=0.0, a=1.0)]
+        if zi is not None:
+            keys.append(dict(stage=zi, delay=float(steps[zi].get("delay", KEY_DELAY)), dur=T["zoom"], a=0.0, sc=SB_ZK,
+                             dx=mn[0] - mw[0], dy=mn[1] - mw[1]))
+        parts.append(dict(_part("wide", sb_sea_svg("wide") + sb_land_svg() + sb_mark_svg(*mw), SB_PTS["meet"][1], mw, keys),
+                          geo=dict(kind="pt", what="meet", xy=list(mw), view="wide", mpp=SB_VIEW["wide"]["mpp"])))
+    if used("datum"):
+        d = P("datum")
+        parts.append(dict(_part("datum", sb_datum_svg(*d), SB_PTS["datum"][1],
+                                keys=_flag_keys(start, states, steps, "datum", "on", late=late)), geo=geo("datum", d)))
+    if used("oil"):
+        o = P("oil")
+        parts.append(dict(_part("oil", sb_oil_svg(*o), SB_OIL["rec"], keys=_flag_keys(start, states, steps, "oil", "on", late=late)),
+                          geo=geo("oil", o)))
+    if used("se"):
+        a, b = P("loran"), P("oil")
+        parts.append(dict(_part("se", sa_line_svg([a, b], SB_COL["mark"], 3.0, "12 9"), SB_OIL["rec"],
+                                keys=_flag_keys(start, states, steps, "se", "on", dur=0.1, late=late)),
+                          kind="draw", path=[list(a), list(b)], go=_draw_go(start, states, steps, "se", T["draw"], late),
+                          reveal=18, geo=dict(kind="seg", what="se", a=list(a), b=list(b), mpp=SB_VIEW["near"]["mpp"])))
+    if used("d31"):
+        a, b = P("thr"), P("meet")
+        parts.append(dict(_part("d31", sa_line_svg([a, b], SB_COL["ts"], 3.0, "10 8"), SB_TS["rec"],
+                                keys=_flag_keys(start, states, steps, "d31", "on", dur=0.1, late=late)),
+                          kind="draw", path=[list(a), list(b)], go=_draw_go(start, states, steps, "d31", T["draw"], late),
+                          reveal=18, geo=dict(kind="seg", what="ts", a=list(a), b=list(b), mpp=SB_VIEW["near"]["mpp"])))
+    if used("skl", "past"):
+        p = P("loran")
+        parts.append(dict(_part("sk_past", sb_dot_svg(*p, SB_COL["sk"], hollow=True), SB_REC["past"],
+                                keys=_flag_keys(start, states, steps, "skl", "past", late=late)), geo=geo("past", p)))
+    for w, pt in (("meet", "meet"), ("loran", "loran")):
+        if used("skl", w):
+            p = P(pt)
+            parts.append(dict(_part("sk_" + w, sb_dot_svg(*p, SB_COL["sk"]), SB_PTS[pt][1],
+                                    keys=_flag_keys(start, states, steps, "skl", w, late=late)),
+                              obj=dict(skylark=1), geo=geo("skl", p, at=pt)))
+    if used("thr"):
+        p = P("thr")
+        parts.append(dict(_part("thr", sb_dot_svg(*p, SB_COL["th"], SB_COL["th_ln"]), SB_TS["rec"],
+                                keys=_flag_keys(start, states, steps, "thr", "on", late=late)),
+                          obj=dict(thresher=1), geo=geo("thr", p)))
+    if used("rcv"):
+        p = P("rcv")
+        parts.append(dict(_part("rcv", sb_dot_svg(*p, SB_COL["rc"]), SB_RCV["rec"],
+                                keys=_flag_keys(start, states, steps, "rcv", "on", late=late)),
+                          obj=dict(recovery=1), geo=geo("rcv", p)))
+    # 段ごとの出来事 fix（位置を測った＝その点から輪が広がる・認定22d）
+    lp = P("loran")
+    parts += [dict(p, ev="fix") for p in _pulse_part("fix", sa_ring_svg(lp, 26.0, SB_COL["eye"], 3), SB_PTS["loran"][1], lp,
+                                                      states, steps, "fix", "out")]
+    if start["prev"] == "SA":
+        # 合図（ルール 5b-80・映像方針 §4 #3）：さっきの横から見た絵＝スカイラークの位置に目の印（西を向く＝点を見る）と札＝1.5秒で消える
+        e = (lp[0] + 100.0, lp[1])
+        svg = va_eye_svg(e[0], e[1], 180.0, SB_COL["eye"]) + _va_text(e[0] + 30, e[1] - 34, "さっきの横から見た絵", col=SB_COL["eye"])
+        parts.append(dict(_part("prev", svg, "", keys=[dict(stage=0, delay=0.0, a=1.0),
+                                                       dict(stage=0, delay=T["prev_hold"], dur=T["prev_fade"], a=0.0)]),
+                          signal=True))
+    return parts
+
+
+def _sb_anchors(st):
+    def P(w):
+        return sb_px(sb_ll(w), "near")
+    t, m, lo, o = P("thr"), P("meet"), P("loran"), P("oil")
+    return dict(meet=m, meet_w=sb_px(SB_PTS["meet"][0], "wide"), thr=t, sk=(m if st["skl"] == "meet" else lo), loran=lo, past=lo,
+                datum=P("datum"), oil=o, rcv=P("rcv"), mid_ts=((t[0] + m[0]) / 2.0, (t[1] + m[1]) / 2.0),
+                mid_se=((lo[0] + o[0]) / 2.0, (lo[1] + o[1]) / 2.0))
+
+
+def _sb_note(st0, states):
+    allst = [st0] + list(states)
+    note = ["艦の点は位置だけ（向きと大きさは描かない）"]
+    if st0["view"] == "wide":
+        note.append("海岸線は Natural Earth")
+    if any(st["oil"] == "on" for st in allst):
+        note.append("油の帯の形と大きさは模式・9時17分の位置は9時21分の測位で代えた")
+    if any(st["rcv"] == "on" for st in allst):
+        note.append("リカバリーの位置は模式")
+    return "・".join(note)
+
+
+# ── SC 上から見た海の底（1964年）──
+SC_MPP = 1.5                       # 1画素＝1.5m（門番 ⑧ の下限）＝円 約370m が 244画素
+SC_C = (960.0, 500.0)              # 円の真ん中
+SC_CIRCLE_M = 400 * 0.9144         # R17 p.97「a circle of diameter 400 yd」＝365.8m（札は「約370m」）
+SC_MK = dict(step=54.0, jit=9.0, seed=900)       # 目印の並び（模式＝間隔は記録に無い）
+SC_X = dict(c=(1480.0, 470.0), r=150.0, near=(1240.0, 560.0))   # 目印の拡大の丸（模式）と、指す目印（いちばん近いもの）
+SC_REC = dict(floor="R17書 p9802（1964年の海の底）", mk="No.710-64 p9801（a 1,200 square yard field of 900 markers）",
+              mkx="No.710-64 p9801（文字と番号を付けたナイロンの綱と重り）",
+              circ="R17書 p9802（with all major debris lying in an area certainly no greater than a circle of diameter 400 yd）")
+
+
+def sc_floor_svg():
+    """海の底（色の記録は無い＝落ち着いた灰緑で抽象に・まだら）。"""
+    import random
+    rnd = random.Random(2600)
+    g = [f'<defs><radialGradient id="scF" cx="0.5" cy="0.46" r="0.78"><stop offset="0" stop-color="#4b5046"/>'
+         f'<stop offset="1" stop-color="#262a25"/></radialGradient></defs>',
+         f'<rect x="0" y="0" width="{W}" height="{H}" fill="url(#scF)"/>']
+    for _j in range(150):
+        x, y = rnd.uniform(-40, W + 40), rnd.uniform(-40, H + 40)
+        g.append(f'<ellipse cx="{x:.0f}" cy="{y:.0f}" rx="{rnd.uniform(30, 120):.0f}" ry="{rnd.uniform(10, 40):.0f}" '
+                 f'fill="{rnd.choice(("#5a5f53", "#353a32"))}" opacity="0.16"/>')
+    return "".join(g)
+
+
+def sc_marker_pts():
+    """目印の並び（ずらした方眼＋ゆらぎ・枠の外まで続く＝数えない形）。"""
+    import random
+    rnd = random.Random(SC_MK["seed"])
+    s, j = SC_MK["step"], SC_MK["jit"]
+    pts, y, row = [], -s, 0
+    while y < H + s:
+        x = -s + (s / 2.0 if row % 2 else 0.0)
+        while x < W + s:
+            pts.append((x + rnd.uniform(-j, j), y + rnd.uniform(-j, j)))
+            x += s
+        y += s * 0.87
+        row += 1
+    return pts
+
+
+def sc_markers_svg(pts):
+    g = []
+    for x, y in pts:
+        g.append(f'<path d="M {x:.1f} {y:.1f} L {x + 5:.1f} {y - 7:.1f}" stroke="#e6dcb4" stroke-width="1.8" opacity="0.85"/>'
+                 f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3.8" fill="#14171a" stroke="#9aa093" stroke-width="1"/>')
+    return "".join(g)
+
+
+def sc_x_at():
+    """拡大の丸が指す目印（並びの中で SC_X["near"] にいちばん近い点）。"""
+    return min(sc_marker_pts(), key=lambda p: math.hypot(p[0] - SC_X["near"][0], p[1] - SC_X["near"][1]))
+
+
+def sc_marker_x_svg():
+    """目印1つの拡大（横から見た模式＝重り・ナイロンの綱・文字と番号の札〈字は描かない〉）＋引き出し線。"""
+    (cx, cy), r = SC_X["c"], SC_X["r"]
+    ax, ay = sc_x_at()
+    a = math.atan2(ay - cy, ax - cx)
+    ex, ey = cx + r * math.cos(a), cy + r * math.sin(a)
+    by = cy + 72.0
+    return (f'<path d="M {ex:.1f} {ey:.1f} L {ax:.1f} {ay:.1f}" stroke="#10161b" stroke-width="6" opacity="0.6"/>'
+            f'<path d="M {ex:.1f} {ey:.1f} L {ax:.1f} {ay:.1f}" stroke="#e3eaee" stroke-width="2.5"/>'
+            f'<circle cx="{ax:.1f}" cy="{ay:.1f}" r="11" fill="none" stroke="#e3eaee" stroke-width="2.5"/>'
+            f'<defs><clipPath id="scX"><circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r:.1f}"/></clipPath></defs>'
+            f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r + 3:.1f}" fill="#10161b" opacity="0.6"/>'
+            f'<g clip-path="url(#scX)"><rect x="{cx - r:.1f}" y="{cy - r:.1f}" width="{2 * r:.1f}" height="{2 * r:.1f}" fill="#1d3442"/>'
+            f'<rect x="{cx - r:.1f}" y="{by:.1f}" width="{2 * r:.1f}" height="{r:.1f}" fill="#3c4139"/>'
+            f'<path d="M {cx - r:.1f} {by:.1f} L {cx + r:.1f} {by:.1f}" stroke="#7b8379" stroke-width="3"/></g>'
+            f'<rect x="{cx - 28:.1f}" y="{by - 30:.1f}" width="56" height="30" rx="4" fill="#14171a" stroke="#9aa093" stroke-width="2"/>'
+            f'<path d="M {cx:.1f} {by - 30:.1f} L {cx:.1f} {cy - 86:.1f}" stroke="#e6dcb4" stroke-width="4"/>'
+            f'<rect x="{cx:.1f}" y="{cy - 86:.1f}" width="50" height="26" fill="#e6dcb4" stroke="#6f6a55" stroke-width="1.5"/>'
+            f'<path d="M {cx + 8:.1f} {cy - 79:.1f} l 9 0 M {cx + 8:.1f} {cy - 72:.1f} l 6 0 M {cx + 24:.1f} {cy - 79:.1f} l 0 13 '
+            f'M {cx + 32:.1f} {cy - 79:.1f} l 9 0 l 0 6 l -9 0 l 0 7 l 9 0" stroke="#3b3a30" stroke-width="2.2" fill="none"/>'
+            f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r:.1f}" fill="none" stroke="#e3eaee" stroke-width="3"/>'
+            f'<text x="{cx:.1f}" y="{cy + r - 16:.1f}" font-family="Noto" font-size="22" fill="#e3eaee" text-anchor="middle" '
+            f'stroke="#10161b" stroke-width="4" stroke-linejoin="round" paint-order="stroke fill">拡大（模式）</text>')
+
+
+def sc_circle_r():
+    return SC_CIRCLE_M / 2.0 / SC_MPP
+
+
+def sc_circle_path(n=72):
+    (cx, cy), r = SC_C, sc_circle_r()
+    return [[cx + r * math.sin(2 * math.pi * k / n), cy - r * math.cos(2 * math.pi * k / n)] for k in range(n + 1)]
+
+
+def sc_circle_svg():
+    (cx, cy), r = SC_C, sc_circle_r()
+    c = SB_COL["mark"]
+    return (f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r:.1f}" fill="{c}" fill-opacity="0.07" stroke="#10161b" stroke-width="9" '
+            'stroke-opacity="0.55"/>'
+            f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r:.1f}" fill="none" stroke="{c}" stroke-width="4" stroke-dasharray="16 10"/>')
+
+
+def sc_dia_svg():
+    (cx, cy), r = SC_C, sc_circle_r()
+    c = SB_COL["mark"]
+    return (f'<path d="M {cx - r:.1f} {cy:.1f} L {cx + r:.1f} {cy:.1f}" stroke="#10161b" stroke-width="7" opacity="0.55"/>'
+            f'<path d="M {cx - r:.1f} {cy:.1f} L {cx + r:.1f} {cy:.1f} M {cx - r:.1f} {cy - 12:.1f} L {cx - r:.1f} {cy + 12:.1f} '
+            f'M {cx + r:.1f} {cy - 12:.1f} L {cx + r:.1f} {cy + 12:.1f}" stroke="{c}" stroke-width="3"/>')
+
+
+def sc_shade_svg():
+    return (f'<defs><radialGradient id="scV" cx="0.5" cy="0.47" r="0.75"><stop offset="0.6" stop-color="#05080a" stop-opacity="0"/>'
+            f'<stop offset="1" stop-color="#05080a" stop-opacity="0.55"/></radialGradient></defs>'
+            f'<rect x="0" y="0" width="{W}" height="{H}" fill="url(#scV)"/>')
+
+
+def _scene_SC(start, states, steps):
+    """SC＝上から見た海の底（1964年）。mk＝目印900個（数えない形）・mkx＝目印1つの拡大（模式）・circ＝直径 約370m の円・dia＝直径の線。"""
+    allst = [start] + states
+
+    def used(f):
+        return any(st[f] != "off" for st in allst)
+    if any(st["circ"] == "off" and st["dia"] == "on" for st in allst):
+        raise ValueError("illu SC：dia（直径の線）は円（circ）と一緒に")
+    parts = [_part("floor", sc_floor_svg(), SC_REC["floor"])]
+    if used("mk"):
+        pts = sc_marker_pts()
+        parts.append(dict(_part("markers", sc_markers_svg(pts), SC_REC["mk"],
+                                keys=_flag_keys(start, states, steps, "mk", "on", dur=1.2)),
+                          geo=dict(kind="markers", bbox=[min(p[0] for p in pts), min(p[1] for p in pts),
+                                                         max(p[0] for p in pts), max(p[1] for p in pts)], n=len(pts))))
+    if used("circ"):
+        parts.append(dict(_part("circle", sc_circle_svg(), SC_REC["circ"], keys=_flag_keys(start, states, steps, "circ", "on", dur=0.1)),
+                          kind="draw", path=sc_circle_path(), go=_draw_go(start, states, steps, "circ", 1.6), reveal=26,
+                          geo=dict(kind="circle", c=list(SC_C), r=sc_circle_r(), mpp=SC_MPP)))
+    if used("dia"):
+        parts.append(dict(_part("dia", sc_dia_svg(), SC_REC["circ"], keys=_flag_keys(start, states, steps, "dia", "on")),
+                          geo=dict(kind="dia", r=sc_circle_r(), mpp=SC_MPP)))
+    parts.append(_part("shade", sc_shade_svg(), SC_REC["floor"]))
+    if used("mkx"):
+        parts.append(dict(_part("marker_x", sc_marker_x_svg(), SC_REC["mkx"], keys=_flag_keys(start, states, steps, "mkx", "on")),
+                          geo=dict(kind="callout")))
+    return parts
+
+
+def _sc_anchors(st):
+    (cx, cy), r = SC_C, sc_circle_r()
+    return dict(center=SC_C, edge_r=(cx + r, cy), edge_l=(cx - r, cy), top=(cx, cy - r), dia_mid=SC_C,
+                mk=sc_x_at(), x=SC_X["c"], xtop=(SC_X["c"][0], SC_X["c"][1] - SC_X["r"]))
+
+
+def _sc_note(st0, states):
+    allst = [st0] + list(states)
+    note = []
+    if any(st["mk"] != "off" for st in allst):
+        note.append("目印の並びと間隔は模式（広さは描かない）")
+    if any(st["mkx"] != "off" for st in allst):
+        note.append("目印の拡大は模式")
+    if any(st["circ"] != "off" for st in allst):
+        note.append("円は縮尺どおり・大きな塊の数と位置は描かない")
+    return "・".join(note)
+
+
+# ── SD 横から見た海の底の捜索（1964年・ミザーとトリエステ2世）──
+SD_SURF = 260.0                    # 海面の y
+SD_BREAK = (330.0, 348.0)          # 深さの切れ目（≈＝この下は縮めてある・数は出さない）
+SD_FLOOR = 842.0                   # 海の底の y
+SD_MZ = dict(x0=640.0, x1=1100.0)  # ミザー（艦首が左）。⚠️ 右へ置くと柱が右上の章の札に近づく（⑤b-2 のデリックと同じ）
+SD_HULL = dict(x0=980.0, x1=1260.0, top=794.0)    # 船体の一部（模式）
+SD_TRI = dict(L=300.0, cx=1120.0, down=480.0, sph=0.2, sph_r=22.0, gap=44.0)   # トリエステ2世（浮きの長さ・真ん中・降りる途中の y・球）
+SD_TRK = "#b8e0a8"                 # 音で位置を伝える弧の色
+SD_REC = dict(sea="R17書 p9802（1964年の捜索）", mizar="R17書 p9802（USNS MIZAR・音で位置を伝えた）",
+              tri="R17書 p9802（TRIESTE II, conned in by acoustic tracking information furnished by MIZAR）",
+              hull="R17書 p9802（locate on top of a portion of the THRESHER hull）",
+              track="R17書 p9802（acoustic tracking information furnished by MIZAR）")
+
+
+def _mz(x, y):
+    """ミザーの形のもと（800×600 の画面写しで艦首 x57・艦尾 x480・水線 y313）→ 画面。"""
+    s = (SD_MZ["x1"] - SD_MZ["x0"]) / 423.0
+    return (SD_MZ["x0"] + (x - 57.0) * s, SD_SURF + (y - 313.0) * s)
+
+
+def sd_mizar_svg():
+    """ミザー（T-AGOR-11・艦首が左）。形のもと＝Commons「USNS Mizar (T-AGOR-11) underway c1966.jpg」の輪郭（模式）。人は描かない。"""
+    def P(pts):
+        return " ".join(f"{a:.1f},{b:.1f}" for a, b in (_mz(x, y) for x, y in pts))
+
+    def L(a, b, w=3.0):
+        (x0, y0), (x1, y1) = _mz(*a), _mz(*b)
+        return f'<path d="M {x0:.1f} {y0:.1f} L {x1:.1f} {y1:.1f}" stroke="#55616a" stroke-width="{w}" stroke-linecap="round"/>'
+    hull = [(57, 250), (110, 256), (160, 266), (230, 276), (480, 280), (478, 298), (468, 313), (98, 313), (84, 296), (68, 270)]
+    return "".join([
+        L((143, 176), (143, 140), 3.0), L((332, 232), (332, 150), 3.0), L((356, 232), (355, 132), 3.2), L((440, 250), (440, 180), 2.6),
+        L((326, 172), (362, 172), 2.2), L((180, 280), (186, 262), 3.0), L((200, 280), (196, 262), 3.0), L((183, 262), (199, 262), 3.0),
+        f'<polygon points="{P(hull)}" fill="#c4ccd2" stroke="#4f5b64" stroke-width="2.4" stroke-linejoin="round"/>',
+        f'<polygon points="{P([(118, 262), (118, 205), (146, 205), (146, 262)])}" fill="#d3dade" stroke="#5c6870" stroke-width="2"/>',
+        f'<polygon points="{P([(112, 205), (112, 178), (152, 178), (152, 205)])}" fill="#e4e9eb" stroke="#5c6870" stroke-width="2"/>',
+        f'<polygon points="{P([(245, 280), (245, 250), (470, 250), (470, 281)])}" fill="#dce2e5" stroke="#5c6870" stroke-width="2"/>',
+        f'<polygon points="{P([(300, 250), (302, 232), (405, 232), (408, 250)])}" fill="#e4e9eb" stroke="#5c6870" stroke-width="2"/>',
+        f'<polygon points="{P([(325, 232), (327, 215), (392, 215), (395, 232)])}" fill="#d3dade" stroke="#5c6870" stroke-width="2"/>'])
+
+
+def sd_tri_geom(cy):
+    """トリエステ2世の浮きの真ん中の y が cy のときの、球の真ん中と下の端。"""
+    L = SD_TRI["L"]
+    sx = SD_TRI["cx"] - L / 2.0 + SD_TRI["sph"] * L + SD_TRI["sph_r"]
+    sy = cy + SD_TRI["gap"]
+    return (sx, sy), sy + SD_TRI["sph_r"]
+
+
+def sd_tri_on_y():
+    """船体の一部の真上に着いた（球の下の端＝船体の上）ときの浮きの真ん中の y。"""
+    return SD_HULL["top"] - SD_TRI["gap"] - SD_TRI["sph_r"]
+
+
+def sd_trieste_svg(cy):
+    """トリエステ2世（浮き・上の塔・下の球）。形のもと＝Commons「330-PSA-276-63 (USN 711389)」（海軍の公式の想像図・模式）。"""
+    L, cx = SD_TRI["L"], SD_TRI["cx"]
+    x0, x1 = cx - L / 2.0, cx + L / 2.0
+    (sx, sy), _b = sd_tri_geom(cy)
+    fl = (f'M {x0 + 18:.1f} {cy - 22:.1f} L {x1 - 26:.1f} {cy - 25:.1f} Q {x1 + 4:.1f} {cy - 23:.1f} {x1 + 2:.1f} {cy - 1:.1f} '
+          f'Q {x1 - 2:.1f} {cy + 20:.1f} {x1 - 30:.1f} {cy + 23:.1f} L {x0 + 30:.1f} {cy + 24:.1f} Q {x0 - 2:.1f} {cy + 21:.1f} '
+          f'{x0:.1f} {cy:.1f} Q {x0 + 2:.1f} {cy - 20:.1f} {x0 + 18:.1f} {cy - 22:.1f} Z')
+    tx = cx - 0.14 * L
+    g = [f'<path d="M {sx - 14:.1f} {cy + 20:.1f} L {sx - 8:.1f} {sy - 16:.1f} M {sx + 14:.1f} {cy + 20:.1f} L {sx + 8:.1f} {sy - 16:.1f}" '
+         'stroke="#55616a" stroke-width="3"/>',
+         f'<circle cx="{sx:.1f}" cy="{sy:.1f}" r="{SD_TRI["sph_r"]:.1f}" fill="#9aa6ad" stroke="#3c464d" stroke-width="2.4"/>',
+         f'<circle cx="{sx - 7:.1f}" cy="{sy + 2:.1f}" r="4" fill="#3c464d"/>',
+         f'<rect x="{tx - 15:.1f}" y="{cy - 46:.1f}" width="30" height="24" fill="#d3dade" stroke="#5c6870" stroke-width="2"/>',
+         f'<ellipse cx="{tx:.1f}" cy="{cy - 46:.1f}" rx="15" ry="4" fill="#e4e9eb" stroke="#5c6870" stroke-width="1.6"/>',
+         f'<path d="{fl}" fill="#cfd6da" stroke="#4f5b64" stroke-width="2.4" stroke-linejoin="round"/>']
+    for k in range(1, 6):
+        x = x0 + L * k / 6.0
+        g.append(f'<path d="M {x:.1f} {cy - 22:.1f} L {x:.1f} {cy + 22:.1f}" stroke="#9aa6ad" stroke-width="1.4"/>')
+    return "".join(g)
+
+
+def sd_hull_svg():
+    """船体の一部（R17 p.97「a portion of the THRESHER hull」＝形は記録に無い＝丸い筒の切れた形の模式）。"""
+    x0, x1, top = SD_HULL["x0"], SD_HULL["x1"], SD_HULL["top"]
+    bot = SD_FLOOR + 6.0
+    jag_l = [(x0 + 14, top + 2), (x0 + 2, top + 12), (x0 + 12, top + 22), (x0, top + 33), (x0 + 10, top + 44), (x0 + 4, bot)]
+    jag_r = [(x1 - 6, bot), (x1 + 4, top + 40), (x1 - 8, top + 28), (x1 + 2, top + 16), (x1 - 12, top + 3)]
+    pts = jag_l + jag_r + [(x1 - 30, top), (x0 + 40, top)]
+    d = " ".join(f"{a:.1f},{b:.1f}" for a, b in pts)
+    g = [f'<polygon points="{d}" fill="#39434a" stroke="#8fa0aa" stroke-width="2.4" stroke-linejoin="round"/>']
+    for k in range(1, 7):
+        x = x0 + (x1 - x0) * k / 7.0
+        g.append(f'<path d="M {x:.1f} {top + 3:.1f} L {x:.1f} {bot - 4:.1f}" stroke="#56626a" stroke-width="2"/>')
+    return "".join(g)
+
+
+def sd_sky_svg():
+    return (f'<defs><linearGradient id="sdSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b3c4cf"/>'
+            f'<stop offset="1" stop-color="#e2e9ed"/></linearGradient></defs>'
+            f'<rect x="0" y="0" width="{W}" height="{SD_SURF:.0f}" fill="url(#sdSky)"/>'
+            f'<path d="M 0 {SD_SURF:.1f} L {W} {SD_SURF:.1f}" stroke="#dbe6eb" stroke-width="2.5" opacity="0.8"/>')
+
+
+def sd_break_svg():
+    y0, y1 = SD_BREAK
+    return (f'<path d="{_sa_wavy(y0)}" stroke="#c9d6dd" stroke-width="2.6" fill="none" opacity="0.85"/>'
+            f'<path d="{_sa_wavy(y1)}" stroke="#c9d6dd" stroke-width="2.6" fill="none" opacity="0.85"/>'
+            f'<text x="1500" y="{(y0 + y1) / 2 + 10:.0f}" font-family="Noto" font-size="30" fill="#c9d6dd" text-anchor="middle">≈</text>')
+
+
+def _scene_SD(start, states, steps):
+    """SD＝横から見た海の底の捜索（1964年）。tri＝トリエステ2世（down 降りる途中／on 船体の一部の真上に着いた）・出来事 track
+    （ミザーから音で位置を伝える弧）・mini（左上の小さな地図＝SC を縮めたもの・切り口の線と目の印＝頭だけ）。"""
+    allst = [start] + states
+    if any(st["mini"] != start["mini"] for st in states):
+        raise ValueError("illu SD：mini（左上の小さな地図）は頭（start）だけ＝合図")
+    seq = [st["tri"] for st in allst]
+    if any(a == "on" and b == "down" for a, b in zip(seq, seq[1:])):
+        raise ValueError("illu SD：トリエステ2世は着いたあと戻さない")
+    oy = sd_tri_on_y() - SD_TRI["down"]
+    tk = [dict(stage=0, delay=0.0, a=1.0, dy=(oy if start["tri"] == "on" else 0.0))]
+    prev = start
+    for i, (st, sp) in enumerate(zip(states, steps)):
+        if prev["tri"] != st["tri"]:
+            tk.append(dict(stage=i, delay=float(sp.get("delay", KEY_DELAY)), dur=float(sp.get("dur", 2.4)), a=1.0, dy=oy))
+        prev = st
+    (sx, sy), bottom = sd_tri_geom(SD_TRI["down"])
+    mz_rx = _mz(268.0, 313.0)
+    tgt = (SD_TRI["cx"], sd_tri_on_y() - 30.0)
+    parts = [_part("sea", sa_sea_svg(), SD_REC["sea"]),
+             dict(_part("seabed", sa_seabed_svg(SD_FLOOR), SD_REC["hull"]), geo=dict(kind="floor", y=SD_FLOOR)),
+             dict(_part("break", sd_break_svg(), ""), signal=True, geo=dict(kind="break", y0=SD_BREAK[0], y1=SD_BREAK[1])),
+             dict(_part("hull", sd_hull_svg(), SD_REC["hull"]), obj=dict(hull_part=1),
+                  geo=dict(kind="hull", x0=SD_HULL["x0"], x1=SD_HULL["x1"], top=SD_HULL["top"])),
+             dict(_part("trieste", sd_trieste_svg(SD_TRI["down"]), SD_REC["tri"], keys=tk), obj=dict(trieste2=1),
+                  geo=dict(kind="tri", sph=[sx, sy], r=SD_TRI["sph_r"], bottom=bottom))]
+    n = 0
+    for i, (st, sp) in enumerate(zip(states, steps)):
+        k = int(sp.get("track") or 0)
+        rd = float(sp.get("ring_delay", 0.3))
+        for j in range(k):
+            t = rd + j * 1.1
+            parts.append(dict(_part(f"track{n}", sa_arcs_svg(mz_rx, tgt, SD_TRK, seed=40 + n), sp.get("rec") or SD_REC["track"],
+                                    keys=[dict(stage=0, delay=0.0, a=0.0), dict(stage=i, delay=t, dur=0.08, a=1.0),
+                                          dict(stage=i, delay=t + 1.4, dur=0.45, a=0.0)]),
+                              kind="draw", path=[list(mz_rx), list(tgt)], go=[dict(stage=0, delay=0.0, u=0.0),
+                                                                             dict(stage=i, delay=t, dur=1.4, u=1.0)],
+                              reveal=int(min(420.0, 2.0 * math.hypot(tgt[0] - mz_rx[0], tgt[1] - mz_rx[1]) *
+                                             math.sin(math.radians(16.0)) + 40.0)), ev="track"))
+            n += 1
+    parts += [_part("sky", sd_sky_svg(), SD_REC["sea"]),
+              dict(_part("mizar", sd_mizar_svg(), SD_REC["mizar"]), obj=dict(mizar=1))]
+    if start["mini"] != "off":
+        parts.append(_part("mini_pt", " ", SC_REC["circ"]))        # 小さな地図（上の層）の円の出典＝門番 ① と左下の出典の行へ
+    return parts
+
+
+def _sd_anchors(st):
+    cy = sd_tri_on_y() if st["tri"] == "on" else SD_TRI["down"]
+    return dict(mizar=_mz(80.0, 262.0), tri=(SD_TRI["cx"] + SD_TRI["L"] / 2.0, cy - 10.0), hull=(SD_HULL["x1"], SD_HULL["top"] + 22.0),
+                floor=(1500.0, SD_FLOOR))
+
+
+def _sd_note(st0, states):
+    return "・".join(["船と潜水艇の形は米海軍の写真と絵から・大きさは縮尺の外（模式）", "深さは切れ目（≈）で縮めてある",
+                      "船体の一部の形は模式"])
+
+
+def sc_inset_svg(y):
+    """左上の小さな地図（SD の頭）＝SC（上から見た海の底）を縮めたもの＋いまの断面の切り口の線（太い）＋目の印（北を向く）。"""
+    x0, w = 72.0, 300.0
+    s = w / W
+    h = H * s
+    cx, cy, r = x0 + SC_C[0] * s, y + SC_C[1] * s, sc_circle_r() * s
+    ex, ey = cx, cy + 46.0
+    return (f'<rect x="{x0:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" fill="#3a3f37"/>'
+            f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r:.1f}" fill="none" stroke="{SB_COL["mark"]}" stroke-width="2" stroke-dasharray="4 3"/>'
+            f'<path d="M {x0 + 10:.1f} {cy:.1f} L {x0 + w - 10:.1f} {cy:.1f}" stroke="#10161b" stroke-width="8" stroke-opacity="0.7" '
+            'stroke-linecap="round"/>'
+            f'<path d="M {x0 + 10:.1f} {cy:.1f} L {x0 + w - 10:.1f} {cy:.1f}" stroke="{SD_TRK}" stroke-width="5" stroke-linecap="round"/>'
+            f'<circle cx="{ex:.1f}" cy="{ey:.1f}" r="5.5" fill="#f3f6f8" stroke="#10161b" stroke-width="2"/>'
+            f'<path d="M {ex:.1f} {ey - 6:.1f} L {ex:.1f} {ey - 26:.1f}" stroke="#10161b" stroke-width="5" stroke-linecap="round"/>'
+            f'<path d="M {ex:.1f} {ey - 6:.1f} L {ex:.1f} {ey - 26:.1f}" stroke="{SD_TRK}" stroke-width="2.5" stroke-linecap="round"/>'
+            f'<path d="M {ex:.1f} {ey - 33:.1f} L {ex - 7:.1f} {ey - 24:.1f} L {ex + 7:.1f} {ey - 24:.1f} Z" fill="{SD_TRK}" '
+            'stroke="#10161b" stroke-width="1.5"/>'
+            f'<rect x="{x0:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" fill="none" stroke="#e3eaee" stroke-width="2"/>')
+
+
 def tag_svg(x, y, t, to=None, anchor="start", col=None, cap=30):
     col = col or C["tag"]
     s = fm.fit(t, 620, "Noto", cap=cap, floor=20)
@@ -4730,6 +5350,8 @@ def overlay_svg(view, src, assume="", inset=None, timed=False):
         g.append(assume_chip_svg(view, assume))
     if inset and inset.get("kind") == "SA":
         g.append(sa_inset_svg(inset["pt"], inset_top(view, assume)))
+    elif inset and inset.get("kind") == "SC":
+        g.append(sc_inset_svg(inset_top(view, assume)))   # 🆕 18本目 ⑤b-3：SD の頭（SC を縮めたもの）
     elif inset:
         g.append(v_inset_svg(inset["cur"], inset.get("other"), y=inset_top(view, assume)))
     if src:
@@ -4840,6 +5462,18 @@ FIELDS = {
     #   clk（その段の記録の時刻＝画面に出さない・門番 ⑮ が潜水艦の時刻を測る）
     "SA": dict(view="wide", sub="off", tilt=0.0, sy=SA_SUB["y"], test="off", redact="off", seabed="off", rescue="off",
                rope="off", uqc="off", map="off", switch="off", clk="", cam=1.0),
+    # 🆕 18本目 ⑤b-3：SB 上から見た海（北が上）。view（wide＝証拠50 と同じ並び／near＝基準の点のまわり）・zin（wide の段で on＝近い図へ寄る）・
+    #   skl（スカイラークの点 off／meet＝7時45分の待ち合わせ／loran＝9時21分の測位／past＝9時17分の位置の点線の輪）・thr（7時45分の
+    #   スレッシャーの点）・d31（約3.1km の線）・datum（捜索の基準の点）・oil（油の帯）・rcv（リカバリー）・se（南東へ十数キロの線）・
+    #   prev（頭だけ：SA＝さっきの横から見た絵の目の印）。出来事 fix（位置を測った輪）
+    "SB": dict(view="near", zin="off", skl="off", thr="off", d31="off", datum="off", oil="off", rcv="off", se="off", prev="off",
+               cam=1.0),
+    # 🆕 18本目 ⑤b-3：SC 上から見た海の底（1964年）。mk（目印900個＝数えない形）・mkx（目印1つの拡大＝模式）・circ（直径 約370m の円）・
+    #   dia（直径の線）
+    "SC": dict(view="floor", mk="off", mkx="off", circ="off", dia="off", cam=1.0),
+    # 🆕 18本目 ⑤b-3：SD 横から見た海の底の捜索（1964年）。tri（トリエステ2世 down／on＝船体の一部の真上）・mini（頭だけ：左上の小さな地図
+    #   SC＝切り口の線と目の印）。出来事 track（ミザーから音で位置を伝える弧）
+    "SD": dict(view="side", tri="down", mini="off", cam=1.0),
 }
 ONOFF = ("off", "on")
 CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONOFF, crowd=ONOFF, bridge=ONOFF, run=ONOFF,
@@ -4850,7 +5484,7 @@ CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONO
                tod=("day", "night", "dawn"), block=ONOFF, slide=ONOFF, towns=("on", "gone", "mud"),
                shore=("on", "gone", "mud"), tunnel=ONOFF, split=("off", "on", "flow"), road=("off", "on", "low"),
                gates=ONOFF, marks=ONOFF, wave_w=("off", "on", "recede"), flood=("off", "on", "recede"),
-               wave_e=("off", "on", "recede"), prev=("off", "B", "C", "D"), nxt=("off", "B", "C"),
+               wave_e=("off", "on", "recede"), prev=("off", "B", "C", "D", "SA"), nxt=("off", "B", "C"),
                creep=ONOFF,      # 🆕 ⑤b-8：VA のゆっくり動いた範囲（c1960 は下の VD の欄を VA も使う）
                # 🆕 ⑤b-3：switch に dam（「ダムを横から見ると」＝c816）・VA の grow・VB／VC の欄
                switch=("off", "on", "dam"), grow=("off", "B"), lake=ONOFF, runup=("off", "on", "over", "recede"),
@@ -4861,10 +5495,14 @@ CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONO
                model=("off", "area", "split", "fall", "fell"), whole=("off", "on", "fall", "fell"), wave=ONOFF, pip=ONOFF,
                # 🆕 18本目 ⑤b-2：SA
                sub=("off", "on", "sink", "crush"), test=ONOFF, redact=ONOFF, seabed=("off", "on", "far"),
-               rescue=("off", "deck", "down"), rope=ONOFF, uqc=ONOFF, map=("off", "base", "meet"))
+               rescue=("off", "deck", "down"), rope=ONOFF, uqc=ONOFF, map=("off", "base", "meet"),
+               # 🆕 18本目 ⑤b-3：SB・SC・SD
+               zin=ONOFF, skl=("off", "meet", "loran", "past"), thr=ONOFF, d31=ONOFF, datum=ONOFF, oil=ONOFF, rcv=ONOFF,
+               se=ONOFF, mk=ONOFF, mkx=ONOFF, circ=ONOFF, dia=ONOFF, tri=("down", "on"), mini=("off", "SC"))
 VIEWS = dict(B=("corridor", "cabin", "desk"), C=("helm", "console", "room"), D=("ship", "sea", "far", "heli", "rail"),
              RA=tuple(RA_VIEW), RB=("side", "rear"), RD=("tail",), RC=tuple(RC_VIEW), VA=tuple(VA_VIEW),
-             VB=tuple(VB_VIEW), VC=tuple(VC_VIEW), VD=tuple(VD_VIEW), SA=("wide",))
+             VB=tuple(VB_VIEW), VC=tuple(VC_VIEW), VD=tuple(VD_VIEW), SA=("wide",), SB=tuple(SB_VIEW), SC=("floor",),
+             SD=("side",))
 # 変える段には rec が要る（記録の事実を描く欄）。⑤b-3 で置き場 C・D・E の欄を足した（位置 bx とカメラ cam は要らない）
 #   15本目 ⑤b-2：RA の印・線・×・輪、RB の機首の上げ・傾き・補助翼（コースの破線 course と地面 ground は要らない）
 #   16本目 ⑤b-2：VA の時刻（夜明け）・塊・崩れた範囲・建物の面・トンネル・想定の帯・道・入口・印・水（合図の prev・nxt・switch は要らない）
@@ -4879,16 +5517,20 @@ REC_FIELDS = ("heel", "wake", "boxes", "crowd", "mark", "bridge", "run", "far", 
               # 🆕 ⑤b-8：VA のゆっくり動いた範囲（c303）
               "creep",
               # 🆕 18本目 ⑤b-2：SA の潜水艦・深さの線・救難室・綱・水中電話の線（合図の map・switch と記録の時刻 clk は要らない）
-              "sub", "tilt", "sy", "test", "redact", "seabed", "rescue", "rope", "uqc")
+              "sub", "tilt", "sy", "test", "redact", "seabed", "rescue", "rope", "uqc",
+              # 🆕 18本目 ⑤b-3：SB の点と線・SC の目印と円・SD のトリエステ2世（合図の zin・prev・mini は要らない）
+              "skl", "thr", "d31", "datum", "oil", "rcv", "se", "mk", "mkx", "circ", "dia", "tri")
 # 段ごとの出来事（引き継がない・数で書く＝画面の文字の門番が文字として読まない）。pylon＝RB でパイロンが1本流れる
 #   🆕 18本目 ⑤b-2（SA）：voice（潜水艦→スカイラークの声）・broken（崩れた声）・call（スカイラークの呼びかけ）・ping（探知機）・
 #   boom（9時18.1分の大きく低い音の輪＝c103 だけ・門番 ⑰）・xsig（音の信号＝認定22・24）
-EVENTS = ("rings", "board", "rings_in", "asks", "walkie", "glow", "pylon", "voice", "broken", "call", "ping", "boom", "xsig")
+#   🆕 18本目 ⑤b-3：fix（SB＝スカイラークが位置を測った輪・認定22d）・track（SD＝ミザーから音で位置を伝える弧・R17 p.97）
+EVENTS = ("rings", "board", "rings_in", "asks", "walkie", "glow", "pylon", "voice", "broken", "call", "ping", "boom", "xsig",
+          "fix", "track")
 VIEW = dict(A="船首の側から見た図", D="船首の側から見た図", B="船の中", C="操舵室の中", E="管制センターの中",
             RD="ピットの事故機（横から）")
 # 左下の出典のあとに添える断り（15本目）。16本目 VA は場面の中身で変わる（関数＝_va_note）
 NOTE = dict(RA="配置は概略・機体は拡大・点線は模式", RC="柵・幕・車の形と並びは模式・配置は概略", VA=_va_note,
-            VB=_vb_note, VC=_vc_note, VD=_vd_note, SA=_sa_note)
+            VB=_vb_note, VC=_vc_note, VD=_vd_note, SA=_sa_note, SB=_sb_note, SC=_sc_note, SD=_sd_note)
 SEC_VIEW = dict(VB=VB_VIEW, VC=VC_VIEW, VD=VD_VIEW)       # 断面と正面の目盛り（門番 ⑨〜⑪ が同じ式で読む）
 D_VIEW = dict(ship="船首の側から見た図", heli="船首の側から見た図", sea="123艇を横から見た図", far="123艇から見た図",
               rail="3階の左舷を横から見た図")
@@ -5291,6 +5933,12 @@ def _anchors(place, st):
         return _vd_anchors(st)
     if place == "SA":
         return _sa_anchors(st)
+    if place == "SB":
+        return _sb_anchors(st)
+    if place == "SC":
+        return _sc_anchors(st)
+    if place == "SD":
+        return _sd_anchors(st)
     if place == "RB":
         return _rb_anchors(st)
     if place == "RD":
@@ -5340,6 +5988,8 @@ def _camc(place, st0, states):
         return (960.0, 540.0)
     if place == "SA":
         return (960.0, 470.0)
+    if place in ("SB", "SC", "SD"):
+        return (960.0, 500.0)
     if place == "RB":
         return RB_CR if st0["view"] == "rear" else RB_C
     if place == "RD":
@@ -5399,7 +6049,8 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
     st0, states = _states(place, start, steps)
     parts = {"A": _scene_A, "B": _scene_B, "C": _scene_C, "D": _scene_D, "E": _scene_E,
              "RA": _scene_RA, "RB": _scene_RB, "RD": _scene_RD, "RC": _scene_RC,
-             "VA": _scene_VA, "VB": _scene_VB, "VC": _scene_VC, "VD": _scene_VD, "SA": _scene_SA}[place](st0, states, steps)
+             "VA": _scene_VA, "VB": _scene_VB, "VC": _scene_VC, "VD": _scene_VD, "SA": _scene_SA,
+             "SB": _scene_SB, "SC": _scene_SC, "SD": _scene_SD}[place](st0, states, steps)
     if assume_at is not None:
         # 🆕 18本目 ⑤b-2：段の途中で出す想定の札＝絵の層の部品（上の層の札と同じ形・同じ位置）。合図と同じく記録の物でない
         if not assume:
@@ -5421,6 +6072,15 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
     if place in ("RA", "VA"):
         # 🔴 上から見た絵の縮尺は描く側が組む（見え方の縮尺 ÷ カメラの寄りの最大＝門番 ⑧ が見る値）。16本目 VA も同じ
         auto = (RA_VIEW if place == "RA" else VA_VIEW)[st0["view"]]["mpp"] / max(float(k.get("z", 1.0)) for k in cam)
+        scale = min(float(scale), auto) if scale else auto
+    if place in ("SB", "SC"):
+        # 🆕 18本目 ⑤b-3：SB（広い図→近い図へ寄る場面は近い図の縮尺）・SC も描く側が組む（門番 ⑧）
+        if place == "SB":
+            vs = {st0["view"]} | ({"near"} if any(st["zin"] == "on" for st in states) else set())
+            mpp = min(SB_VIEW[v]["mpp"] for v in vs)
+        else:
+            mpp = SC_MPP
+        auto = mpp / max(float(k.get("z", 1.0)) for k in cam)
         scale = min(float(scale), auto) if scale else auto
     objects = {}
     for p in parts:
@@ -5462,6 +6122,8 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
     inset = dict(cur=place[1], other=None if st0["other"] == "off" else st0["other"]) if place in SEC_VIEW else None
     if place == "SA" and st0["map"] != "off":
         inset = dict(kind="SA", pt=st0["map"])          # 🆕 18本目 ⑤b-2：東海岸の小さな地図と点（overlay_svg）
+    if place == "SD" and st0["mini"] != "off":
+        inset = dict(kind="SC")                          # 🆕 18本目 ⑤b-3：SC を縮めた小さな地図・切り口の線・目の印（合図 #5）
     ruler = dict(SEC_VIEW[place][st0["view"]]) if place in SEC_VIEW else None
     return dict(place=place, view=label, at=at, people=dict(people or {}), scale=scale, rec=rec, objects=objects,
                 parts=parts, cam=cam, camc=list(camc or _camc(place, st0, states)), tags=tags, nstage=len(steps),
@@ -5488,6 +6150,8 @@ def _label(place, st0, states):
         return VD_LAB
     if place == "SA":
         return SA_LAB
+    if place in ("SB", "SC", "SD"):
+        return dict(SB=SB_LAB, SC=SC_LAB, SD=SD_LAB)[place]
     if place == "RB":
         seq = []
         for st in [st0] + list(states):

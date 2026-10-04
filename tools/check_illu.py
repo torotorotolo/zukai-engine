@@ -51,6 +51,16 @@
      縮尺どおりの線は海底との比で記録の値（±3%）・目盛りは 2,600÷260＝10区間（型の定数を壊す陽性対照で門番が型を読んでいないことを確かめた）
   ⑰ 9時18.1分の大きく低い音の輪：表（ILLU_BOOM_CUTS）のカットの圧壊の段だけ・時刻は記録 9:18.1・輪の中心は圧壊した船体・札は認定18 と
      意見45 の言い方（内破でありうる・大きく低い音・船体の圧壊・見立て）・光・泡・炎の部品と glow の出来事なし
+  🆕 18本目 ⑤b-3（SB 上から見た海・SC 上から見た海の底・SD 横から見た海の底の捜索＝記録は門番の側の REC_SB・REC_SB_TS・REC_SB_OIL・
+     REC_SC_CIRCLE・REC_SC_MARKERS・REC_SD_ON）：
+  ⑱ SB：記録の緯度経度の点（待ち合わせ・基準の点・9時21分の測位）が記録の位置（±2画素）・スレッシャー→スカイラークは 147度・3,400ヤード
+     （±1.5度・±3%）・油の帯は9時17分の位置から南東（±11.25度）へ 7マイルの幅（法定マイル〜海里・±3%）・距離の札は「約3.1km」「十数キロ」
+     だけで、その線を指す
+  ⑲ SC：円の直径は 400ヤード（±3%）・札に「約370m」と「より広くない」・目印は枠の外まで続き数を持たない・札に目印の数 900・札の数は
+     900・370・5・6・710-64 だけ（広さの数・塊の数を1つに決めない）
+  ⑳ SD：トリエステ2世は最後の段で船体の一部の真上に着く（球の下の端と船体の上 ±3画素・球が船体の幅の内）・深さの切れ目がある・札に数なし
+  ㉑ 見る向きの合図：PLAN の順で、すぐ前の全面の絵とのあいだが1カットまでで置き場か向きが替わるカットに、切り替えの字・目の印・位置の
+     小さな地図のどれか（main と selftest）
   ⑥ 陽性対照（わざと壊した場面で鳴るか）＝`--selftest`（本番の前に必ず回る）
 
 ■ 使い方
@@ -763,6 +773,11 @@ def judge_sec(sc, where, crowd_ok=()):
     b, m = judge_sa(sc, where)
     bad += b
     n += m
+    # 🆕 18本目 ⑤b-3：SB ⑱・SC ⑲・SD ⑳
+    for fn in (judge_sb, judge_sc, judge_sd):
+        b, m = fn(sc, where)
+        bad += b
+        n += m
     b, m = judge_crowd_water(sc, where, crowd_ok)
     return bad + b, n + m
 
@@ -995,6 +1010,196 @@ def judge_sa_cut(scs, cid):
             n += 1
             if cid not in booms:
                 bad.append(f"⑰{cid}：9時18.1分の音の輪は表のカット（cuts.ss.ILLU_BOOM_CUTS＝{booms or '空'}）だけ")
+    return bad, n
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 18本目 ⑤b-3（2026-10-04）：SB 上から見た海 ⑱・SC 上から見た海の底 ⑲・SD 横から見た海の底の捜索 ⑳・見る向きの合図 ㉑
+# ══════════════════════════════════════════════════════════
+# 🔴 記録の値は門番の側に持つ（型の SB_PTS・SB_TS・SB_OIL・SC_CIRCLE_M を読まない＝§5b-88）。頁は ss.REC_DOCS の通し番号
+REC_SB = dict(meet=((-65.05, 41.0 + 46.0 / 60.0), "R08 p4185（認定11：41-46 North, 65-03 West）"),
+              datum=((-65.0, 41.75), "R08 p4065（datum：65 degrees west and 41 degrees, 45 minutes north）"),
+              loran=((-(64.0 + 59.0 / 60.0), 41.75), "R08 p4186（認定22d：logged at 0921R as 41-45N 64-59W）"))
+REC_SB_TS = (147.0, 3400 * 0.9144, "R08 p4185（認定11：SKYLARK bore 147 True, 3400 yards from THRESHER）")
+# 認定31「about seven miles to the Southeast of SKYLARK's 0917R position」＝マイルの種類が書いていない＝法定マイルと海里の両方の幅
+REC_SB_OIL = (135.0, (7 * 1609.344, 7 * 1852.0), "R08 p4188（認定31）")
+SB_POS_TOL, SB_BRG_TOL, SB_DIST_TOL, SB_OIL_BRG_TOL = 2.0, 1.5, 0.03, 11.25   # 画素・度・割合・16方位の幅の半分
+# 距離の札＝言ってよい言い方と、その札が指す線（約3.1km＝3,400ヤード・十数キロ＝7マイルのどちらでも合う幅＝台本 §9-1）
+SB_DIST_TAGS = (("約3.1km", "mid_ts"), ("十数キロ", "mid_se"))
+DIST_NUM = re.compile(r"(\d+(?:\.\d+)?)\s*(km|キロ|m(?![²³2-3])|メートル|マイル|ヤード|フィート)")
+REC_SC_CIRCLE = (400 * 0.9144, "R17書 p9802（a circle of diameter 400 yd）")
+REC_SC_MARKERS = (900, "No.710-64 p9801（900 markers）")
+SC_NUMS = {"900", "370", "5", "6", "710", "64"}      # SC の札に出してよい数（目印900・直径約370m・5つか6つ・発表 No.710-64）
+REC_SD_ON = "R17書 p9802（TRIESTE II … was able to locate on top of a portion of the THRESHER hull）"
+SD_ON_TOL = 3.0                                      # 船体の一部の真上に「着いた」＝球の下の端と船体の上のすき間（画素）
+
+
+def _sb_px(ll, view):
+    """門番の側の投影（北が上・その見え方の真ん中の緯度で東西を縮める）。見え方の真ん中・原点・縮尺は型の SB_VIEW（記録ではない）。"""
+    v = IL.SB_VIEW[view]
+    lon0, lat0 = v["c"]
+    k = 111320.0 * math.cos(math.radians(lat0))
+    return (v["o"][0] + (ll[0] - lon0) * k / v["mpp"], v["o"][1] - (ll[1] - lat0) * 111130.0 / v["mpp"])
+
+
+def _brg(a, b):
+    """画面の点 a → b の真方位（度・北が上）。"""
+    return math.degrees(math.atan2(b[0] - a[0], -(b[1] - a[1]))) % 360.0
+
+
+def _dang(a, b):
+    return abs((a - b + 180.0) % 360.0 - 180.0)
+
+
+def judge_sb(sc, where):
+    """⑱ SB：記録の緯度経度の点が記録の位置・スレッシャー↔スカイラークは147度・3,400ヤード・油の帯は9時17分の位置から南東へ7マイルの幅・
+    距離の札は言ってよい言い方と線だけ。"""
+    if sc["place"] != "SB":
+        return [], 0
+    bad, n = [], 0
+    G = {}
+    for p in sc["parts"]:
+        g = p.get("geo") or {}
+        if g.get("kind") == "pt":
+            G.setdefault(g["what"] if g["what"] != "skl" else "skl_" + g.get("at", ""), []).append((p, g))
+    for what, rec_key in (("datum", "datum"), ("past", "loran"), ("skl_loran", "loran"), ("skl_meet", "meet"), ("meet", "meet")):
+        for p, g in G.get(what, []):
+            n += 1
+            want = _sb_px(REC_SB[rec_key][0], g.get("view", "near"))
+            if math.hypot(g["xy"][0] - want[0], g["xy"][1] - want[1]) > SB_POS_TOL:
+                bad.append(f"⑱{where}：{p['id']} の位置 {tuple(round(v) for v in g['xy'])} が記録の緯度経度の位置 "
+                           f"{tuple(round(v) for v in want)}（{REC_SB[rec_key][1]}）でない")
+    mpp = IL.SB_VIEW["near"]["mpp"]
+    meet = _sb_px(REC_SB["meet"][0], "near")
+    for p, g in G.get("thr", []):
+        n += 1
+        b, d = _brg(g["xy"], meet), math.hypot(meet[0] - g["xy"][0], meet[1] - g["xy"][1]) * mpp
+        if _dang(b, REC_SB_TS[0]) > SB_BRG_TOL or abs(d - REC_SB_TS[1]) > SB_DIST_TOL * REC_SB_TS[1]:
+            bad.append(f"⑱{where}：スレッシャーから見たスカイラーク（待ち合わせの点）が {b:.1f}度・{d:.0f}m（記録 {REC_SB_TS[0]:.0f}度・"
+                       f"{REC_SB_TS[1]:.0f}m＝{REC_SB_TS[2]}）")
+    lor = _sb_px(REC_SB["loran"][0], "near")
+    for p, g in G.get("oil", []):
+        n += 1
+        b, d = _brg(lor, g["xy"]), math.hypot(g["xy"][0] - lor[0], g["xy"][1] - lor[1]) * mpp
+        lo, hi = REC_SB_OIL[1]
+        if _dang(b, REC_SB_OIL[0]) > SB_OIL_BRG_TOL or not lo * (1 - SB_DIST_TOL) <= d <= hi * (1 + SB_DIST_TOL):
+            bad.append(f"⑱{where}：油の帯が9時17分の位置から {b:.0f}度・{d:.0f}m（記録は南東＝{REC_SB_OIL[0]:.0f}±{SB_OIL_BRG_TOL}度・"
+                       f"{lo:.0f}〜{hi:.0f}m＝{REC_SB_OIL[2]}）")
+    want_ts = f"約{REC_SB_TS[1] / 1000.0:.1f}km"
+    for i, t in enumerate(sc["tags"]):
+        for txt, at in zip(t.get("texts") or [], (t.get("ats") or []) + [None] * len(t.get("texts") or [])):
+            n += 1
+            ok = [w for w, a in SB_DIST_TAGS if w in txt]
+            if ok and ok[0] == "約3.1km" and ok[0] != want_ts:
+                bad.append(f"⑱{where}：札「{txt}」の距離が記録（{want_ts}）と合わない")
+            if ok and dict(SB_DIST_TAGS)[ok[0]] != at:
+                bad.append(f"⑱{where}：段{i + 1}の札「{txt}」が距離の線（{dict(SB_DIST_TAGS)[ok[0]]}）を指していない（指し先 {at}）")
+            rest = txt
+            for w, _a in SB_DIST_TAGS:
+                rest = rest.replace(w, "")
+            if DIST_NUM.search(rest.replace(",", "")):
+                bad.append(f"⑱{where}：段{i + 1}の札「{txt}」の距離の数は出せない（言ってよいのは {[w for w, _a in SB_DIST_TAGS]} だけ）")
+    return bad, n
+
+
+def judge_sc(sc, where):
+    """⑲ SC：円の直径は記録 400ヤード（±3%）・札は「約370m」と「より広くない」・目印は数えない形（枠の外まで続く・数を持たない）・
+    札の数は SC_NUMS だけ。"""
+    if sc["place"] != "SC":
+        return [], 0
+    bad, n = [], 0
+    G = {p["id"]: (p, p.get("geo") or {}) for p in sc["parts"]}
+    texts = [txt for t in sc["tags"] for txt in (t.get("texts") or [])]
+    if "circle" in G:
+        n += 1
+        p, g = G["circle"]
+        d = 2.0 * float(g["r"]) * float(g["mpp"])
+        if abs(d - REC_SC_CIRCLE[0]) > DEPTH_TOL * REC_SC_CIRCLE[0]:
+            bad.append(f"⑲{where}：円の直径 {d:.0f}m（記録 {REC_SC_CIRCLE[0]:.0f}m＝{REC_SC_CIRCLE[1]}）")
+        if not any("より広くない" in t for t in texts):
+            bad.append(f"⑲{where}：円の札に「より広くない」が無い（原文 certainly no greater than）")
+    if "dia" in G:
+        n += 1
+        want = f"約{int(round(REC_SC_CIRCLE[0], -1))}m"
+        if not any(want in t for t in texts):
+            bad.append(f"⑲{where}：直径の線の札に「{want}」が無い（{REC_SC_CIRCLE[1]}）")
+    if "markers" in G:
+        n += 1
+        p, g = G["markers"]
+        x0, y0, x1, y1 = g["bbox"]
+        if not (x0 < -10 and y0 < -10 and x1 > IL.W + 10 and y1 > IL.H + 10):
+            bad.append(f"⑲{where}：目印の並び {tuple(round(v) for v in g['bbox'])} が枠の外まで続かない（数えられる形になる）")
+        if p.get("obj"):
+            bad.append(f"⑲{where}：目印が数（obj）を持つ（900個は数えない形＝札だけ）")
+        if not any(str(REC_SC_MARKERS[0]) in t for t in texts):
+            bad.append(f"⑲{where}：目印の札に記録の数 {REC_SC_MARKERS[0]}（{REC_SC_MARKERS[1]}）が無い")
+    for t in texts:
+        n += 1
+        extra = set(re.findall(r"\d+", t.replace(",", ""))) - SC_NUMS
+        if extra:
+            bad.append(f"⑲{where}：札「{t}」の数 {sorted(extra)} は出せない（{sorted(SC_NUMS)} だけ＝広さの数・塊の数を1つに決めない）")
+    return bad, n
+
+
+def judge_sd(sc, where):
+    """⑳ SD：トリエステ2世は最後の段で船体の一部の真上に着く（球の下の端と船体の上 ±3画素・球が船体の幅の内）・深さの切れ目がある・
+    深さの数を札に書かない。"""
+    if sc["place"] != "SD":
+        return [], 0
+    bad, n = [], 0
+    G = {p["id"]: (p, p.get("geo") or {}) for p in sc["parts"]}
+    last = (sc["states"] or [sc["start"]])[-1]
+    if "trieste" in G and "hull" in G and last["tri"] == "on":
+        n += 1
+        p, g = G["trieste"]
+        hg = G["hull"][1]
+        ks = sorted(p.get("keys") or [], key=lambda k: (int(k["stage"]), float(k.get("delay", 0.0))))
+        dy = float(ks[-1].get("dy", 0.0)) if ks else 0.0
+        bottom, sx = float(g["bottom"]) + dy, float(g["sph"][0])
+        if abs(bottom - float(hg["top"])) > SD_ON_TOL or not float(hg["x0"]) <= sx <= float(hg["x1"]):
+            bad.append(f"⑳{where}：トリエステ2世の球の下の端 y{bottom:.0f}（x{sx:.0f}）が船体の一部の上 y{hg['top']:.0f}"
+                       f"（x{hg['x0']:.0f}〜{hg['x1']:.0f}）に着いていない（{REC_SD_ON}）")
+    n += 1
+    if not any(g.get("kind") == "break" for _p, g in G.values()):
+        bad.append(f"⑳{where}：深さの切れ目（≈）が無い（船とトリエステ2世と海の底を1枚に入れる＝深さは縮めてある）")
+    for t in [txt for tg in sc["tags"] for txt in (tg.get("texts") or [])]:
+        n += 1
+        if DIST_NUM.search(t.replace(",", "")):
+            bad.append(f"⑳{where}：札「{t}」に深さ・距離の数（SD は切れ目で縮めた絵＝数を書かない）")
+    return bad, n
+
+
+def view_dir(sc):
+    v = sc.get("view") or ""
+    return "上から" if "上から" in v else "横から" if "横から" in v else None
+
+
+SIG_GAP = 1           # ㉑ あいだに挟まってよい全面の絵でないカットの数（映像方針 18本目 §4 #2＝c308 →〈c309 年表〉→ c310）
+
+
+def judge_signals(specs, order=None):
+    """㉑ 見る向きの合図（ルール 5b-80・映像方針 18本目 §4）：全面の絵のカットを PLAN の順に並べ、すぐ前の全面の絵とのあいだが SIG_GAP
+    カットまでで、置き場か見る向き（横から／上から）が替わるカットに合図（切り替えの字 switch・目の印 prev・位置の小さな地図 inset のどれか）が
+    あるか。あいだが長い（写真・頁が何枚も挟まる）所は向きの切り替えではない＝向きの札だけ（§4 #4 の注・⑤b-1 の make_plan の数え方を
+    1カット広げた）。返り値＝(食い違い, 件数)。"""
+    if order is None:
+        import cuts
+        order = list(cuts.PLAN)
+    pos = {c: i for i, c in enumerate(order)}
+    bad, n, prev = [], 0, None
+    for cid, spec in specs:
+        fig = spec.get("fig") or (None, None)
+        if fig[0] != "illu" or cid not in pos:
+            continue
+        sc = getattr(F, "illu")(**fig[1]).illu["scenes"][0]
+        d = view_dir(sc)
+        if prev and pos[cid] - pos[prev[0]] - 1 <= SIG_GAP and (d != prev[1] or sc["place"] != prev[2]):
+            n += 1
+            sig = sc.get("inset") or any(p.get("signal") and p["id"] in ("switch", "prev") for p in sc["parts"])
+            if not sig:
+                bad.append(f"㉑{cid}：{prev[0]}（{prev[2]}・{prev[1]}）→ {sc['place']}（{d}）に替わるのに合図（切り替えの字・目の印・"
+                           "位置の小さな地図）が無い")
+        prev = (cid, d, sc["place"])
     return bad, n
 
 
@@ -1915,6 +2120,123 @@ def selftest_ep18():
         except ValueError as e:
             print(f"  OK 18本目 陽性対照（型）：{name}: 止まった  ← {e}")
     print(f"  18本目 SA の検算: {'通った' if ok else '🔴 落ちた'}")
+    ok = selftest_ep18_sbcd() and ok
+    return ok
+
+
+def selftest_ep18_sbcd():
+    """🆕 18本目 ⑤b-3（2026-10-04）：SB ⑱・SC ⑲・SD ⑳・合図 ㉑ の検算＝本番の表と本番の SPEC（c308・c503・c513・c519・ca19・ca21・ca22）。
+    🔴 陽性対照は型の定数を壊す形も入れる（SB_TS・SB_OIL・SB_PTS・SC_CIRCLE_M・sc_marker_pts・sd_tri_on_y＝§5b-88）"""
+    import copy
+    import cuts
+    ok = True
+    C7 = ("c308", "c503", "c513", "c519", "ca19", "ca21", "ca22")
+    S = {c: copy.deepcopy(cuts.SPEC[c]["fig"][1]) for c in C7}
+    kinds = {c: cuts.PLAN[c]["kind"] for c in S}
+    for c, kw in S.items():
+        bad = judge_cut(c, dict(fig=("illu", kw)), kinds)[0]
+        print(f"  {'OK' if not bad else '🔴 NG'} 18本目 正しい {kw['place']} {c}: {'合格' if not bad else bad[0]}")
+        ok &= not bad
+
+    def run(name, kw, head, mutate=None):
+        nonlocal ok
+        try:
+            sc = IL.scene(**kw)
+            if mutate:
+                mutate(sc)
+            bad = judge_scene(sc, "selftest")[0]
+        except Exception as e:                           # noqa: BLE001
+            bad = [f"組めない：{e}"]
+        ok &= _expect(f"🔴 18本目 陽性対照{head}：{name}", bad, head)
+
+    def broken(name, obj, key, val, kw, head):
+        """型の定数（dict の欄か、モジュールの名）を壊して組む＝門番が型の定数を読んでいないこと（§5b-88）。"""
+        if isinstance(obj, dict):
+            keep = obj[key]
+            obj[key] = val
+            try:
+                run(name, kw, head)
+            finally:
+                obj[key] = keep
+        else:
+            keep = getattr(IL, key)
+            setattr(IL, key, val)
+            try:
+                run(name, kw, head)
+            finally:
+                setattr(IL, key, keep)
+
+    def tag(kw, i, t, at=None):
+        kw = copy.deepcopy(kw)
+        kw["steps"][i]["tag"] = dict(t=t, at=at) if at else dict(t=t, xy=(960, 300))
+        return kw
+    # ⑱ SB
+    broken("スレッシャーを 3,600ヤードに置く型（SB_TS）", IL.SB_TS, "m", 3600 * 0.9144, S["c308"], "⑱")
+    broken("スレッシャーを 157度に置く型（SB_TS）", IL.SB_TS, "brg", 157.0, S["c308"], "⑱")
+    broken("油の帯を北東に置く型（SB_OIL）", IL.SB_OIL, "brg", 45.0, S["c513"], "⑱")
+    broken("油の帯を 15km に置く型（SB_OIL）", IL.SB_OIL, "m", 15000.0, S["c513"], "⑱")
+    broken("基準の点を 65度05分西に置く型（SB_PTS）", IL.SB_PTS, "datum", ((-65.0833, 41.75), "R08 p4065"), S["c503"], "⑱")
+    run("札に「約3.4km」", tag(S["c308"], 1, "約3.4km", "mid_ts"), "⑱")
+    run("「十数キロ」の札が線を指していない", tag(S["c513"], 2, "南東へ 十数キロ", "datum"), "⑱")
+    run("札に距離の数「約12km」", tag(S["c513"], 2, "約12km", "mid_se"), "⑱")
+    zoom = copy.deepcopy(S["c503"])
+    zoom["start"]["cam"] = 16.0
+    run("上から見た海に寄りすぎ（cam 16＝1.44m／画素）", zoom, "⑧")
+    run("札に 7:46（表に無い時刻）", tag(S["c308"], 0, "7:46", "meet_w"), "⑤")
+    run("捜索の艦（数の記録が無い）を足す", S["c519"], "③",
+        lambda sc: sc["parts"].append(dict(IL._part("search", "<rect/>", "R08 p4188"), obj=dict(search_ship=3))))
+    # ⑲ SC
+    broken("円を直径 400m で描く型（SC_CIRCLE_M）", IL, "SC_CIRCLE_M", 400.0, S["ca21"], "⑲")
+    run("札に「直径 約400m」", dict(S["ca21"], steps=S["ca21"]["steps"][:2] + [
+        dict(S["ca21"]["steps"][2], tag=[dict(t="直径 約400m", at="dia_mid"), dict(t="この円より広くない", at="edge_r")])]), "⑲")
+    run("「より広くない」の札が無い", dict(S["ca21"], steps=S["ca21"]["steps"][:2] + [
+        dict(S["ca21"]["steps"][2], tag=dict(t="直径 約370m", at="dia_mid"))]), "⑲")
+    broken("目印を枠の中だけに並べる型（sc_marker_pts）", IL, "sc_marker_pts",
+           (lambda f=IL.sc_marker_pts: [p for p in f() if 40 < p[0] < 1880 and 40 < p[1] < 1040]), S["ca19"], "⑲")
+    run("目印が数を持つ", S["ca19"], "⑲", lambda sc: next(q for q in sc["parts"] if q["id"] == "markers").update(obj=dict(marker=900)))
+    run("札に広さの数（1,200）", tag(S["ca19"], 2, "1,200平方ヤード"), "⑲")
+    run("大きな塊を6つ描く", S["ca21"], "③",
+        lambda sc: sc["parts"].append(dict(IL._part("pieces", "<rect/>", "R17書 p9802"), obj=dict(large_piece=6))))
+    # ⑳ SD
+    run("トリエステ2世が船体の上に着いていない（40画素浮く）", S["ca22"], "⑳",
+        lambda sc: next(q for q in sc["parts"] if q["id"] == "trieste")["keys"][-1].update(
+            dy=next(q for q in sc["parts"] if q["id"] == "trieste")["keys"][-1]["dy"] - 40.0))
+    broken("着く高さを 40画素上にずらす型（sd_tri_on_y）", IL, "sd_tri_on_y",
+           (lambda f=IL.sd_tri_on_y: f() - 40.0), S["ca22"], "⑳")
+    run("深さの切れ目が無い", S["ca22"], "⑳", lambda sc: sc["parts"].remove(next(q for q in sc["parts"] if q["id"] == "break")))
+    run("札に深さの数（海底 約2,600m）", tag(S["ca22"], 0, "海底 約2,600m", "floor"), "⑳")
+    run("The Fish を足す（ca22 の語りに無い）", S["ca22"], "③",
+        lambda sc: sc["parts"].append(dict(IL._part("fish", "<rect/>", "R17書 p9802"), obj=dict(fish=1))))
+    run("人の型紙を置く", S["ca22"], "②",
+        lambda sc: sc["parts"].append(dict(IL._part("crew", "<rect/>", "R17書 p9802"), kind="sprite", role="crew",
+                                           inst=[dict(path=[[800, 250]], stage=0, delay=0.0)])))
+    # ㉑ 見る向きの合図（本番の並び＋合図を外した SPEC）
+    specs = [(c, cuts.SPEC[c]) for c in cuts.PLAN if c in cuts.SPEC]
+    bad, m = judge_signals(specs)
+    print(f"  {'OK' if not bad else '🔴 NG'} 18本目 正しい ㉑ 合図: {'合格（' + str(m) + 'か所）' if not bad else bad[0]}")
+    ok &= not bad and m >= 3
+    for cid, fld, val in (("c503", "prev", "off"), ("ca22", "mini", "off"), ("c310", "map", "off")):
+        sp = copy.deepcopy(cuts.SPEC[cid])
+        sp["fig"][1]["start"][fld] = val
+        if cid == "c310":
+            sp["fig"][1]["start"]["switch"] = "off"
+        b = judge_signals([(c, sp if c == cid else s) for c, s in specs])[0]
+        ok &= _expect(f"🔴 18本目 陽性対照㉑：{cid} の合図を外す（{fld}={val}）", b, "㉑")
+    # 型が止める形
+    for name, kw in (("広い図の頭で近い図の点", dict(S["c308"], start=dict(view="wide", thr="on"))),
+                     ("近い図で zin", dict(S["c503"], steps=[dict(state=dict(zin="on"))] + S["c503"]["steps"][1:])),
+                     ("円の無い直径の線", dict(S["ca21"], start=dict(dia="on"))),
+                     ("着いたトリエステ2世を戻す", dict(S["ca22"], start=dict(mini="SC", tri="on"),
+                                                     steps=[dict(state=dict(tri="down"), rec="R17書 p9802")])),
+                     ("段で小さな地図を出す", dict(S["ca22"], start=dict(tri="down"),
+                                                 steps=[dict(state=dict(mini="SC", tri="on"), rec="R17書 p9802")]))):
+        try:
+            IL.scene(**kw)
+            print(f"  🔴 NG 18本目 陽性対照（型）：{name}: 組めた（止まるはず）")
+            ok = False
+        except ValueError as e:
+            print(f"  OK 18本目 陽性対照（型）：{name}: 止まった  ← {e}")
+    print(f"  18本目 SB・SC・SD・合図の検算: {'通った' if ok else '🔴 落ちた'}")
     return ok
 
 
@@ -2087,6 +2409,15 @@ def main():
                 print(f"🔴 {b}")
         elif cid in targets:
             print(f"✓ {cid}（{kind_of.get(cid)}）: 照合 {n}件")
+    # 🆕 18本目 ⑤b-3：㉑ 見る向きの合図（PLAN の順に、すぐ前の全面の絵と見る向きが替わるカット）
+    b, m = judge_signals([(c, cuts.SPEC[c]) for c in cuts.PLAN if c in cuts.SPEC])
+    n_all += m
+    if b:
+        bad_all += len(b)
+        for x in b:
+            print(f"🔴 {x}")
+    else:
+        print(f"✓ ㉑ 見る向きの合図：向きが替わる {m} か所すべてに合図")
     miss = sorted(c for c, k in kind_of.items() if k == "再現イラスト" and c not in cuts.SPEC)
     print(f"\n（参考）PLAN が「再現イラスト」でまだ SPEC の無いカット {len(miss)}：{' '.join(miss)}")
     for t in dict.fromkeys(NOTES):

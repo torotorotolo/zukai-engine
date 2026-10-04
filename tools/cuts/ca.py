@@ -90,4 +90,45 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-3（2026-10-04）：案C の置き場 SC（上から見た海の底）・SD（横から見た海の底の捜索）＝`tools/illu.py` の「18本目 ⑤b-3」の節 ──
+    # ca19（0〜3.52／4.01〜6.85／7.34〜9.74）＝合図 #4（ca18 は写真＝向きの札だけ）。目印900個（No.710-64）＝数えない形（枠の外まで
+    #   続く・並びと間隔は模式・広さの数は描かない）→ 2行目：目印1つの拡大（文字と番号を付けたナイロンの綱と重り＝模式）→ 3行目：札だけ
+    "ca19": dict(
+        fig=("illu", dict(
+            place="SC", start=dict(), rec="R17書 p9802（1964年の海の底）",
+            steps=[dict(state=dict(mk="on"), delay=0.3, rec="No.710-64 p9801（a 1,200 square yard field of 900 markers）",
+                        tag=dict(t="目印900個（国防総省の発表 No.710-64）", xy=(960, 196), anchor="middle", keep=True)),
+                   dict(state=dict(mkx="on"), delay=0.2, rec="No.710-64 p9801（文字と番号を付けたナイロンの綱と重り）",
+                        tag=dict(t="綱と重り", at="xtop", off=(0, -24), anchor="middle", keep=True)),
+                   dict(rec="No.710-64 p9801（900 markers by which TRIESTE II could locate herself）",
+                        tag=dict(t="目印で位置を知る", xy=(960, 820), anchor="middle"))])),
+    ),
+    # ca21（0〜3.74／4.23〜5.77／6.26〜9.90）＝R17 p.97「the hulk has broken into five or six large pieces, and many small pieces, with
+    #   all major debris lying in an area certainly no greater than a circle of diameter 400 yd」。🔴 「5つか6つ」は数が1つに決まらない＝
+    #   大きな塊は描かない（円と札だけ＝映像方針 §2①・⑤b-3 の決め）。円は縮尺どおり（直径 約370m＝1画素 1.5m で 244画素）
+    "ca21": dict(
+        fig=("illu", dict(
+            place="SC", start=dict(), rec="R17書 p9802（1964年の海の底）",
+            steps=[dict(state=dict(circ="on"), delay=0.3, dur=1.6,
+                        rec="R17書 p9802（the hulk has broken into five or six large pieces・all major debris … circle）",
+                        tag=dict(t="大きな塊　5つか6つ", at="center", off=(-330, -150), anchor="end", keep=True)),
+                   dict(rec="R17書 p9802（and many small pieces）",
+                        tag=dict(t="小さな破片も　たくさん", xy=(960, 760), anchor="middle", keep=True)),
+                   dict(state=dict(dia="on"), delay=0.3, rec="R17書 p9802（certainly no greater than a circle of diameter 400 yd）",
+                        tag=[dict(t="直径 約370m", at="dia_mid", off=(0, -38), anchor="middle"),
+                             dict(t="この円より広くない", at="edge_r", off=(60, 90))])])),
+    ),
+    # ca22（0〜4.30・1行）＝合図 #5（ca21 の SC から）：左上の小さな地図（SC を縮めたもの）に切り口の線と目の印（切り替えの字は出さない＝
+    #   語りが「横から見ると」と言う）。ミザーが音で位置を伝え、トリエステ2世が船体の一部の真上に着く（R17 p.97）。人は描かない・
+    #   The Fish と案内索のおもりは描かない（語りに無い・同じ時刻に動いていた記録が無い）。深さは切れ目（≈）で縮める
+    "ca22": dict(
+        fig=("illu", dict(
+            place="SD", start=dict(mini="SC", tri="down"), rec="R17書 p9802（1964年・MIZAR と TRIESTE II）",
+            steps=[dict(state=dict(tri="on"), delay=0.2, dur=2.6, track=2, ring_delay=0.2,
+                        rec="R17書 p9802（TRIESTE II, conned in by acoustic tracking information furnished by MIZAR, "
+                            "was able to locate on top of a portion of the THRESHER hull）",
+                        tag=[dict(t="ミザー", at="mizar", off=(-60, -40), anchor="end", delay=2.2),
+                             dict(t="トリエステ2世", at="tri", off=(60, -40), delay=2.2),
+                             dict(t="船体の一部", at="hull", off=(60, 10), delay=2.2)])])),
+    ),
 }
