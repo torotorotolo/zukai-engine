@@ -45,8 +45,84 @@ sys.stdout.reconfigure(encoding="utf-8")
 #        18本目の値は、軸の型を初めて使う ⑤b のチャットで、値と頁を ref/ep18/src/ep18_pages.txt で当てて入れる
 #        （空のあいだ、軸のカットは「記録に無い値」で止まる＝fail closed）
 # ══════════════════════════════════════════════════════════
-REC_AXIS = {}
-LANES_OK = set()
+#     🆕 2026-10-04（18本目 スレッシャー号 ⑤b-5）：18本目の値を入れた（下）。原文＝ref/ep18/src/ep18_pages.txt（頁の番号は
+#        cuts/ss.REC_DOCS の通し番号＝R08 p4185＝第8回公開の PDF 185頁ほか）。公開の23回だけは原文が表＝海軍の台帳 xlsx（第1〜17回）と
+#        公開の棚の更新日（第18〜23回＝2026-10-04 に棚の一覧で確かめた）＝rec は "台帳"・"棚"（頁なし）
+#        🔴 §0b：19本目以降の ⑤b-1 で、下の4つ（REC_AXIS・LANES_OK・REC_APPROX・REC_LANE）を見本 `tools/fixture_ep18.py` へ移して空に
+#        （selftest_ep18 は見本を差して回す形に直す＝fixture_ep16 と同じ）
+# ══════════════════════════════════════════════════════════
+_V, _M = "水中電話の声", "監視の記録"
+REC_AXIS = {
+    # ── 4月10日の朝（c309・c312・c320）。R08 p4185＝認定10〜20・p4212＝意見45
+    "7:45": {"R08 p4185"},                  # 認定11「That at 0745R, 10 April 1963, SKYLARK was in the vicinity of Latitude 41-46 North」
+    "7:47": {"R08 p4185"},                  # 認定15「That at 0747R, THRESHER reported by underwater telephone that she was starting a deep dive」
+    "9:00": {"R08 p4185"},                  # 認定14「That the sea was calm, with a slight swell, at 0900R on 10 April. Wind was from 015 True at seven knots」
+    "9:09": {"R08 p4212"},                  # 意見45「It is known with reasonable certainty that at 0909R the THRESHER was at test depth」（V1 p65・IR18 p106 も同文）
+    "9:10": {"R08 p4212"},                  # 意見45「At about 0910R a message from THRESHER announced a course change to 090 T from 000 T and gave no indication of any difficulty」
+    "9:13": {"R08 p4185", "R08 p4212"},     # 認定16「until about 0913R, when THRESHER reported … "Experiencing minor difficulties"」・意見45「message at 0913R」
+    # ── 9時9分〜18分（第4章の2段の帯・c720）。認定18＝監視の記録（Commander Oceanographic Systems Atlantic）
+    "9:09.8": {"R08 p4185"},                # 認定18「two disturbances, one extending from 0909.8R to 0911.3R, the other from 0913.5R to 0914R,
+    "9:11.3": {"R08 p4185"},                #   which could have been made by the blowing of the ballast tanks」
+    "9:13.5": {"R08 p4185"},
+    "9:14": {"R08 p4185"},
+    "9:11": {"R08 p4185", "R08 p4212"},     # 認定18「main coolant pumps ceased functioning in "FAST mode" of operation at 0911R」・意見45（7.1 minutes between 0911R…）
+    "9:18.1": {"R08 p4185", "R08 p4212"},   # 認定18「noise disturbance of the type which could have been made by an implosion emanated from THRESHER at 0918.1R」
+    #                                         ・意見45「the actual hull collapse occurred at 0918.1R」（c720 の「押しつぶされる深さ」）
+    "9:15": {"R08 p4186"},                  # 認定22c「Asked THRESHER at about 0915R, "Are you in control?" and repeated this query」
+    "9:16": {"R08 p4185"},                  # 認定17「at about 0916R, SKYLARK heard a garbled transmission … "... test depth"」
+    "9:17": {"R08 p4185", "R08 p4186", "R08 p4187"},   # 認定17「An additional garbled transmission was received about 0917R」・認定24（電文「SINCE 0917R」）・
+    #                                         認定29「shortly after 0917R, when efforts to communicate with THRESHER had been unsuccessful, SKYLARK commenced an expanding」
+    # ── 救難艦の5時間とワシントン（第5章）。R08 p4186＝認定22〜24・p4187＝認定26〜29。D p9001＝Stierman 1964（付録の国防総省の発表 509-63 も同じ頁）
+    "9:40": {"R08 p4186"},                  # 認定23a「At about 0940R, when the Operations Officer had asked the Commanding Officer if he should send such a message」
+    "10:40": {"R08 p4186"},                 # 認定22f「At 1040R commenced dropping series of hand grenades」
+    "10:45": {"R08 p4186"},                 # 認定23「That at about 1045R, SKYLARK began preparation of a message」・23b
+    "12:45": {"R08 p4186"},                 # 認定23d「NBL receipted for the message at 1245R」（23c 無線の不調・alternate frequency）
+    "14:35": {"R08 p4187"},                 # 認定26「At 1435R he was advised of THRESHER's status」（大西洋の潜水艦部隊の司令官）
+    "15:40": {"D p9001"},                   # 「the Chief of Naval Operations learned at 3:40 p.m. that THRESHER might be in difficulty」・「at about 3:40」
+    "20:00": {"D p9001"},                   # 「At 8:00 p.m that night … "overdue and presumed missing."」・NO. 509-63「April 10, 1963, 8:00 p.m.」
+    # ── 年表（date）
+    "1963-04-10": {"R08 p4185"},            # 認定19「THRESHER was lost … at about 0918R on 10 April 1963」
+    "1963-04-11": {"IR18 p2067", "R08 p4188", "R08 p4181", "R08 p4196", "J p8018"},
+    #   IR18 p67「The Court met for the first time at 8:25 p.m. on Thursday, 11 April 1963」／認定34（11日 0530R 捜索の指揮が移る＝R08 p188）／
+    #   認定2・95（整備の完成の予定日の最後＝11 April）／J p18（ブロケット少将「it was received after the 11th of April」）
+    "1963-06-05": {"IR18 p2067", "R08 p4180"},  # IR18 p67「Before the Court closed on 5 June 1963, it heard 179 separate appearances」・R08 p180「The court closed at 0921, 5 June 1963」
+    "1962-07-16": {"R08 p4181", "R08 p4195"},   # 認定2「a post shakedown availability which extended from 16 July 1962 to 11 April 1963」・認定92「commenced on 16 July 1962」
+    "1963-01-18": {"R08 p4196"},            # 認定95「completion date was successively extended from 18 January to 15 February, to 28 February, to 30 March,
+    #                                         to 2 April, and finally to 11 April, because of work added and the under-estimation of the effects」
+    "1963-04-09": {"R08 p4181"},            # 認定2「departed Portsmouth Naval Shipyard, on the morning of 9 April 1963」
+    "1963-01": {"R08 p4196", "R08 p4203"},  # 認定96「loose condenser foundation bolts in January, 1963」・認定166a/b（艦長・副長 January, 1963）
+    "1963-03": {"R08 p4196"},               # 認定96「a misaligned torpedo ejection pump in March, 1963」
+    "1962-12": {"R08 p4203"},               # 認定166c「a change of THRESHER's Ship Superintendent in December, 1962」
+    "1962-11": {"R08 p4203"},               # 認定166d「a change of THRESHER's Assistant Ship Superintendent in November, 1962」
+    "1963-04-12": {"R08 p4187"},            # 認定28「on 12 April 1963」・28b「Rear Admiral Ramage interviewed Lieutenant (jg) Watson and examined the UQC log」
+    "1961-05": {"J p8067"},                 # J p67（リッコーヴァー中将）「a … silver-brazed joint in the trim system of the Thresher in May 1961」
+    "1962-11-29": {"R08 p4197"},            # 認定104「on 29 November 1962, the Quality Assurance Division … requested decision as to whether lagged joints
+    #                                         should be unlagged」・認定107「no further ultrasonic testing … after 29 November 1962」
+    "1962-12-04": {"R08 p4197"},            # 認定105「decision was made on 4 December 1962 not to unlag」
+    "1963-06-03": {"J p8097"},              # J p97「the Chief of the Bureau of Ships on June 3, 1963, directed the establishment within the Bureau of a
+    #                                         submarine safety program」
+    "1963-07-08": {"J p8098"},              # J p98「BuShips Instruction 5100.18 of July 8,1963」（語りは「7月には」＝札は年月まで）
+    "1964-02-18": {"J p8094"},              # J p94「On February 18, 1964, the Secretary of the Navy established the Submarine Safety Center at Groton」
+    # 公開の23回（c108・c907）。台帳＝navy_running_release_inventory.xlsx（B 列の Excel の日付）・棚＝閲覧室 THRESHER RELEASE の更新日
+    "2020-09-23": {"台帳"},                 # Interim Release 1（COI Volume 1＝認定・意見・勧告）
+    "2022-01-26": {"台帳"},                 # Interim Release 17（台帳の最後）
+    "2021-01-27": {"台帳"},                 # Interim Release 5「Sea-Based Airborne Anti-Submarine Warfare」（事故の記録ではない）
+    "2021-02-24": {"台帳"},                 # Interim Release 6（同上）
+    "2022-03-03": {"棚"},                   # Interim Release 18 の更新日 3/3/2022（台帳に無い）
+    "2023-05-02": {"棚"},                   # Interim Release 21・22・23 の更新日 5/2/2023（台帳に無い）
+    # ── 秒の帯（c717）。認定51＝R08 p4191
+    "0": {"R08 p4191"},                     # 認定51「in event of loss of electrical power … air banks 2, 3 and 4 would automatically be shut off and
+    "30": {"R08 p4191"},                    #   air bank #1 would be opened up slowly. It takes thirty seconds to get valves fully open again」
+}
+LANES_OK = {_V, _M}
+# 🆕 2026-10-04（18本目 ⑤b-5）：①**記録が about の時刻**（「ごろ」が要る＝札に「ごろ」が無ければ止める・about でない時刻に
+#    「ごろ」を付けても止める）②**2段の帯（tiers）の記録ごとの段**（値 → 段の名＝その値を拾った記録。違う段に置けば止める）。
+#    🔴 §0b：次の回は REC_AXIS・LANES_OK と一緒に空にする（空のあいだ、2段の帯の部品は「段の記録に無い値」で止まる＝fail closed）
+#    9:13 は意見45 が「at 0913R」＝「ごろ」なし（語りも「9時13分」）。9:17 は認定17 が about＝第5章の「9時17分のあと」も「ごろ」
+REC_APPROX = {"9:10", "9:15", "9:16", "9:17", "9:40", "10:45", "15:40"}
+LANE_COL = 20        # 🆕 18本目 ⑤b-5：2段の帯の札が軸の左端より左へ出てよい画素（段の名の列にかけない）
+REC_LANE = {"9:13": _V, "9:15": _V, "9:16": _V, "9:17": _V,
+            "9:09.8": _M, "9:11.3": _M, "9:11": _M, "9:13.5": _M, "9:14": _M, "9:18.1": _M}
 CH_PAD = 12          # 🆕 16本目 ⑤b-6b：札と右上の章の札（jiko_style.chapter）のあいだに要る画素
 
 
@@ -80,6 +156,12 @@ def gv(view, s):
         return yr(a) - 1e-6, yr(b) + 1e-6
     nxt = s.startswith("翌")
     h, m = s.replace("翌", "").split(":")
+    if "." in m:
+        # 🆕 18本目 ⑤b-5：分の小数（"9:18.1"）＝書いた桁の半分の幅（±0.05分）。整数の分は今までどおり ±0.3分
+        whole, frac = m.split(".")
+        v = (1440 if nxt else 0) + int(h) * 60 + int(whole) + int(frac) / 10 ** len(frac)
+        tol = 0.5 / 10 ** len(frac)
+        return v - tol, v + tol
     v = (1440 if nxt else 0) + int(h) * 60 + int(m)
     return v - 0.3, v + 0.3
 
@@ -103,7 +185,18 @@ def _texts(view, s):
         return set(forms)
     if view == "sec":
         return {_sec_word(s)}
-    return {s.replace("翌", "")}
+    t = s.replace("翌", "")
+    if "." in t:
+        # 🆕 18本目 ⑤b-5：分の小数は「9時18.1分」（「9:18.1」は9時18分1秒に読める）。分の頭の0は書かない（9:09.8→9時9.8分）
+        h, m = t.split(":")
+        return {f"{int(h)}時{m.lstrip('0') if not m.startswith('0.') else m}分"}
+    return {t}
+
+
+def _want_texts(view, s):
+    """札に出してよい文字（「ごろ」込み）。🆕 18本目 ⑤b-5：REC_APPROX の時刻は「ごろ」が要る・ほかは付けない。"""
+    base = _texts(view, s)
+    return {b + "ごろ" for b in base} if s in REC_APPROX else base
 
 
 def _sec_word(s):
@@ -116,6 +209,8 @@ def _sec_word(s):
 def _tick_text(view, s):
     if view == "date":
         p = s.split("-")
+        if len(p) == 3:       # 🆕 18本目 ⑤b-5：日まである目盛りは「12日」（前の型は「4月」と出した＝日の軸で読めない）
+            return f"{int(p[2])}日"
         return f"{int(p[1])}月" if len(p) > 1 else p[0]
     if view == "sec":
         return _sec_word(s)
@@ -142,9 +237,31 @@ def head_touch(labs, head):
             continue
         for nm, x0, x1, y0, y1 in hb:
             if a["lx"][1] > x0 - CH_PAD and a["lx"][0] < x1 + CH_PAD and a["ly"][0] < y1 + CH_PAD and a["ly"][1] > y0 - CH_PAD:
-                bad.append(f"{a['at']} の札（段{a.get('row', 0)}・x {a['lx'][0]:.0f}〜{a['lx'][1]:.0f}・上の端 y={a['ly'][0]:.0f}）が"
+                bad.append(f"{_nm(a)} の札（段{a.get('row', 0)}・x {a['lx'][0]:.0f}〜{a['lx'][1]:.0f}・上の端 y={a['ly'][0]:.0f}）が"
                            f"{nm}に触れる（間 {CH_PAD} 画素未満）＝見出しを短く／段を減らす")
     return bad
+
+
+def _nm(p):
+    """部品の呼び名（点＝値・帯＝始め〜終わり）。🆕 18本目 ⑤b-5：2段の帯の帯 span も札を持つ"""
+    return p["at"] if "at" in p else f"{p.get('a')}〜{p.get('b')}"
+
+
+def tier_pierce(parts):
+    """🆕 18本目 ⑤b-5：2段の帯（tiers）の縦の線（点から札へ・型が描いた vl）が、**同じ段**のほかの札（lx・ly）を貫かない。
+    段ごとに札の段 row が別に数えられる＝14本目の「段の番号で比べる」測り方は段をまたいで誤って鳴る → 幾何で測る"""
+    bad, n = [], 0
+    for b in parts:
+        if not b.get("vl"):
+            continue
+        x, y0, y1 = b["vl"]
+        for a in parts:
+            if a is b or not (a.get("lx") and a.get("ly")) or a.get("lane") != b.get("lane"):
+                continue
+            n += 1
+            if a["lx"][0] + 2 < x < a["lx"][1] - 2 and y0 < a["ly"][1] and y1 > a["ly"][0]:
+                bad.append(f"{_nm(b)} の縦の線（段「{b.get('lane')}」）が {_nm(a)} の札を貫く")
+    return bad, n
 
 
 def judge_fig(kw, split_times=(), head=None):
@@ -181,6 +298,11 @@ def judge_fig(kw, split_times=(), head=None):
     splits = []
     for part in m["parts"]:
         recs = part["rec"] if isinstance(part["rec"], (list, tuple)) else [part["rec"]]
+        if part["k"] == "lane":           # 🆕 18本目 ⑤b-5：段の明かり（値を持たない）＝段の名だけ照らす
+            n += 1
+            if part.get("lane") not in LANES_OK:
+                bad.append(f"段の明かりの名「{part.get('lane')}」が決まった名でない")
+            continue
         vals = [(part["at"], part["x"])] if "at" in part else [(part["a"], part["xa"]), (part["b"], part["xb"])]
         for s, x in vals:
             n += 2
@@ -194,10 +316,16 @@ def judge_fig(kw, split_times=(), head=None):
             if not lo - eps <= v <= hi + eps:
                 bad.append(f"{s} の画素 x={x} は値 {v:.4f} に当たる（{lo:.4f}〜{hi:.4f} の外）")
             placed.append(x)
+            # 🆕 18本目 ⑤b-5：2段の帯は、値を拾った記録の段に置く（REC_LANE＝門番の側の表。表に無い値は止める）
+            if view == "tiers" and part["k"] != "br":
+                n += 1
+                if REC_LANE.get(s) != part.get("lane"):
+                    bad.append(f"{s} を段「{part.get('lane')}」に置いた（記録の段は「{REC_LANE.get(s, '表に無い')}」）")
         if part.get("top"):
             n += 1
-            if part["top"] not in _texts(vk, part["at"]):
-                bad.append(f"{part['at']} の画面の文字が「{part['top']}」（値と合わない）")
+            if part["top"] not in _want_texts(vk, part["at"]):
+                bad.append(f"{part['at']} の画面の文字が「{part['top']}」（値と合わない"
+                           + ("・記録は about＝「ごろ」が要る" if part["at"] in REC_APPROX else "") + "）")
         if part["k"] == "split":
             splits.append(part)
             n += 1
@@ -215,8 +343,12 @@ def judge_fig(kw, split_times=(), head=None):
                 bad.append(f"交信 {part['at']} の段の名 {part['fr']}／{part['to']} が決まった名（{sorted(LANES_OK)}）でない")
     # 🆕 ⑤b-5：上の段へ伸びる縦の線が、それより下の段の札を貫かない（前のカットの点どうし＝同じ層でも）。
     #   門番 layout は層どうしの横切りしか見ない＝c408 の「1946年」の線が「1944年」の札を貫いたのを素通りした（試し焼きで見つけた）
-    labs = [p for p in m["parts"] if p.get("lx") and "at" in p]
-    for b in m["parts"]:
+    labs = [p for p in m["parts"] if p.get("lx") and ("at" in p or view == "tiers")]
+    if view == "tiers":
+        tb, tn = tier_pierce(m["parts"])
+        bad += tb
+        n += tn
+    for b in ([] if view == "tiers" else m["parts"]):
         if "at" not in b or b["k"] in ("chips", "link"):
             continue
         for a in labs:
@@ -236,17 +368,30 @@ def judge_fig(kw, split_times=(), head=None):
             continue
         n += 1
         if a["lx"][1] > cbox[0] and a["lx"][0] < cbox[1] and a["ly"][0] < cbox[3] and a["ly"][1] > cbox[2]:
-            bad.append(f"{a['at']} の札（段{a.get('row', 0)}・上の端 y={a['ly'][0]:.0f}）が右上の章の札に触れる"
+            bad.append(f"{_nm(a)} の札（段{a.get('row', 0)}・上の端 y={a['ly'][0]:.0f}）が右上の章の札に触れる"
                        f"（間 {CH_PAD} 画素未満）＝段を減らす（軸の右に余白・札を年月まで）")
     if head:
         hb = head_touch(labs, head)
         n += len([a for a in labs if a.get("ly")])
         bad += hb
-    if view == "lanes":
+    if view in ("lanes", "tiers"):
         for nm in m["lanes"]:
             n += 1
             if nm not in LANES_OK:
                 bad.append(f"段の名「{nm}」が決まった名でない")
+    if view == "tiers":
+        # 🆕 18本目 ⑤b-5：段は書いた順（上の段→下の段）に上から並ぶ（型の TIER_Y を逆にすると鳴る＝陽性対照）
+        ys = [m["lanes"].get(nm) for nm in (kw.get("lanes") or ())]
+        n += 1
+        if len(ys) != 2 or None in ys or ys[0] >= ys[1]:
+            bad.append(f"2段の帯の段が書いた順（上の段→下の段）に上から並んでいない（{ys}）")
+        # 🆕 18本目 ⑤b-5（下見）：札が段の名の列（軸の左端より左）にかかると、段の名の真上に来て1つの言葉に読めた
+        #   （c413「タンクを吹いた音でありうる」の上に「監視の記録」）＝札の左の端は軸の左端から LANE_COL 画素まで
+        for a in labs:
+            n += 1
+            if a["lx"][0] < m["x0"] - LANE_COL:
+                bad.append(f"{_nm(a)} の札（左の端 x={a['lx'][0]:.0f}）が段の名の列にかかる（軸の左端 {m['x0']:.0f}）"
+                           "＝札を短く／右へ振る")
     if splits:
         n += 1
         if len(splits) < 2 or len({s["at"] for s in splits}) < 2:
@@ -276,10 +421,94 @@ def selftest_ep15():
        ＝落ちても終わっても `restore()` で本番の値へ戻す（try/finally）。本体は `_selftest_ep15`"""
     import fixture_ep15
     fixture_ep15.apply(sys.modules[__name__])
+    keep = _quiet18()
     try:
         return _selftest_ep15()
     finally:
+        _loud18(keep)
         fixture_ep15.restore()
+
+
+def _quiet18():
+    """🆕 18本目 ⑤b-5：前の回の見本で回すあいだ、18本目の「ごろ」と段の表（REC_APPROX・REC_LANE）を空にする（見本に無い表）。"""
+    global REC_APPROX, REC_LANE
+    keep = (REC_APPROX, REC_LANE)
+    REC_APPROX, REC_LANE = set(), {}
+    return keep
+
+
+def _loud18(keep):
+    global REC_APPROX, REC_LANE
+    REC_APPROX, REC_LANE = keep
+
+
+def selftest_ep18():
+    """🆕 2026-10-04（18本目 ⑤b-5）：2段の帯（tiers）・分の小数・「ごろ」・日の目盛りの検算＝**本番の表（18本目）**で回す。
+    🔴 19本目以降の ⑤b-1 で表を見本 fixture_ep18 へ移したら、ここも見本を差して回す形に（fixture_ep16 と同じ）。
+    陽性対照＝筋（段・ごろ・表に無い値・貫き）と、型の定数を壊す形（分の小数を落とす・札の書き方・日の目盛り・段の上下）"""
+    import axis as A
+    import jiko_style as J  # noqa: F401
+    V, M = _V, _M
+    five = dict(view="tiers", span=("9:08", "9:20"), ticks=("9:08", "9:10", "9:12", "9:14", "9:16", "9:18", "9:20"), lanes=(V, M),
+                past=[dict(k="span", lane=M, a="9:09.8", b="9:11.3", t="吹いた音？", rec="R08 p4185"),
+                      dict(k="pt", lane=V, at="9:13", t="声", rec="R08 p4185"),
+                      dict(k="pt", lane=V, at="9:16", t="崩れた声", rec="R08 p4185", approx=True)],
+                steps=[dict(add=dict(k="pt", lane=M, at="9:18.1", t="音", rec="R08 p4185", big=True, c="ALERT"), cur="9:18.1")],
+                note="n", src="s")
+    day = dict(view="date", span=("1963-04-09", "1963-04-14"),
+               ticks=("1963-04-10", "1963-04-11", "1963-04-12", "1963-04-13"),
+               steps=[dict(add=dict(k="pt", at="1963-04-12", t="記録を見る", rec="R08 p4187"), cur="1963-04-12")], note="n", src="s")
+
+    def swap(kw, i, **ch):
+        p = list(kw["past"])
+        p[i] = dict(p[i], **ch)
+        return dict(kw, past=p)
+    cases = [("18本目 正しい2段の帯（9:09.8〜9:11.3・9:13・9:16ごろ・9時18.1分）", five, True),
+             ("18本目 正しい日の年表（12日）", day, True),
+             ("🔴 18本目 陽性対照：9:13 の声を監視の記録の段に置く", swap(five, 1, lane=M), False),
+             ("🔴 18本目 陽性対照：9:16（about）の札に「ごろ」が無い", swap(five, 2, approx=False), False),
+             ("🔴 18本目 陽性対照：9:13（at）の札に「ごろ」を付ける", swap(five, 1, approx=True), False),
+             ("🔴 18本目 陽性対照：段の記録に無い値（9:09 試験深度）を2段の帯に置く",
+              dict(five, steps=[dict(add=dict(k="pt", lane=V, at="9:09", t="試験深度", rec="R08 p4212"))]), False),
+             ("🔴 18本目 陽性対照：下の段の帯の札が段の名の列にかかる（下見の c413＝左へ振った長い札）",
+              swap(five, 0, t="タンクを吹いた音でありうる", anchor="end"), False),
+             ("🔴 18本目 陽性対照：点の縦の線が同じ段の帯の札を貫く（9:11 の札を長くして2段目へ）",
+              dict(five, past=[dict(five["past"][0], t="タンクを吹いた音でありうる"),
+                               dict(k="pt", lane=M, at="9:11", t="主冷却材ポンプが速い回し方をやめる", rec="R08 p4185")]), False)]
+    ok = True
+    for name, kw, want in cases:
+        try:
+            bad, _ = judge_fig(kw, ())
+        except ValueError as e:
+            bad = [f"型が止まった：{e}"]
+        got = not bad
+        ok &= got == want
+        print(f"  {'OK' if got == want else '🔴 NG'} {name}: {'合格' if got else '不合格'}"
+              f"（{'合格' if want else '不合格'}のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    # 🔴 型の定数・関数を壊す（§5b-88）
+    keep_val, keep_lab, keep_tick, keep_y = A.val, A.label, A._tick_lab, A.TIER_Y
+    breaks = (
+        ("分の小数を落として描く型（9:18.1 を 9:18 に）", "val",
+         lambda view, s: ((float(int(keep_val(view, s)[0])), keep_val(view, s)[1]) if view in ("clock", "tiers") else keep_val(view, s)),
+         five),
+        ("分の小数の札を「9:18.1」と書く型", "label", lambda view, s, fmt="": str(s).replace("翌", "") if view in ("clock", "tiers")
+         else keep_lab(view, s, fmt), five),
+        ("日の目盛りを「4月」と書く型（前の型）", "_tick_lab",
+         lambda view, s: ((f"{int(s.split('-')[1])}月", s.split("-")[0] + "年") if view == "date" and s.count("-") == 2 else keep_tick(view, s)),
+         day),
+        ("上の段と下の段を逆に描く型（TIER_Y を逆に）", "TIER_Y", tuple(reversed(keep_y)), five))
+    for name, attr, val, kw in breaks:
+        setattr(A, attr, val)
+        try:
+            bad, _ = judge_fig(kw, ())
+        except ValueError as e:
+            bad = [f"型が止まった：{e}"]
+        finally:
+            A.val, A.label, A._tick_lab, A.TIER_Y = keep_val, keep_lab, keep_tick, keep_y
+        ok &= bool(bad)
+        print(f"  {'OK' if bad else '🔴 NG'} 🔴 18本目 陽性対照（型）：{name}: {'不合格' if bad else '合格'}（不合格のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+    return ok
 
 
 def _selftest_ep15():
@@ -377,12 +606,15 @@ def _selftest_ep15():
 
 
 def selftest():
+    # 🆕 2026-10-04（18本目 ⑤b-5）：先に18本目（本番の表）を検算する＝前の回の見本を差す前に
+    ok = selftest_ep18()
     # 🔴 2026-09-30（15本目 ⑤b-2）：先に15本目の秒の帯を検算してから、14本目の見本に差し替える
     #    （2026-10-01〜：15本目も見本 fixture_ep15 の表＝selftest_ep15 が差し込んで・終わったら戻す）
-    ok = selftest_ep15()
+    ok &= selftest_ep15()
     # 🔴 2026-09-30（15本目 ⑤b-1）：見本は14本目の実物（本番の表は回ごとに空にする＝§0b）＝この処理の中だけ14本目にする
     import fixture_ep14
     fixture_ep14.apply(sys.modules[__name__])
+    keep18 = _quiet18()
     import axis as A
     ST = ("8:52", "8:58", "9:46", "9:48")
     night = dict(view="clock", span=("18:00", "翌10:00"), ticks=("18:00", "22:00", "翌2:00", "翌6:00", "翌10:00"),
@@ -466,6 +698,7 @@ def selftest():
         good = True
     ok &= good
     print(f"  {'OK' if good else '🔴 NG'} 🔴 陽性対照：交信に言葉を書くと型が止まる: {'止まった' if good else '通った'}（止まるはず）")
+    _loud18(keep18)
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 

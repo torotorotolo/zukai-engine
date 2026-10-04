@@ -43,11 +43,20 @@ import re
 import jiko_style as J
 import titan_fig as F
 
-VIEWS = ("date", "clock", "lanes", "sec")
+VIEWS = ("date", "clock", "lanes", "sec", "tiers")
 # 🆕 2026-09-30（15本目 ⑤b-2）：sec＝秒の帯（値は "0.56"／"約9.1"＝崩れ始めからの秒・c312 の 0.56→1.3→4.6）。
 #    札は「0.56秒」。門番 check_axis は秒の読み方を自分で持つ（書いた桁の半分の幅＝"1.3"±0.05・"0.56"±0.005）
 # 🆕 2026-09-30（15本目 ⑤b-5・c218）：負の秒＝0 の時点より前（"約-8"＝横転の約8秒前）。札と目盛りは「約8秒前」「10秒前」
-TITLE = dict(date="年表", lanes="交信の帯", clock="時刻の帯", sec="時間の帯（秒）")
+# 🆕 2026-10-04（18本目 ⑤b-5）：
+#   ① tiers＝**2段の時刻の帯**（上の段・下の段に別々の記録＝スレッシャー号の第4章「水中電話の声」と「監視の記録」）。
+#      lanes（交信の帯）は段のあいだの矢印 link だけ＝点と帯を段に置けない → 段ごとに点 pt・帯 span を置く見え方を足した。
+#      部品は lane=段の名 が要る（門番 check_axis が記録ごとの段 REC_LANE と照らす）。目盛りの軸は下・カーソルは軸の上だけ。
+#      札は段ごとに2段まで（TIER_ROW）・項目の札 chips と割れる時刻 split は使わない（軸の下に場所が無い）。
+#      k="lane"＝その段の名と線を明るくする（段を語りで紹介する段に）・br は t を持てる（軸のすぐ上）
+#   ② 分の小数（"9:18.1"＝9時18.1分）。札は「9時18.1分」（「9:18.1」は9時18分1秒に読める）
+#   ③ approx=True＝札の時刻に「ごろ」（記録が about の時刻＝門番 check_axis の REC_APPROX は「ごろ」が要る）
+#   ④ 日まである目盛り（"1963-04-12"）は「12日」（その月の最初の目盛りと1日には「4月」を添える）＝前は「4月」と出た
+TITLE = dict(date="年表", lanes="交信の帯", clock="時刻の帯", sec="時間の帯（秒）", tiers="時刻の帯")
 # 軸の左右（画素）。lanes は左に段の名を置くので左を空ける
 X0, X1 = F.BX0 + 110, F.BX1 - 110
 X0_LANES = F.BX0 + 250
@@ -59,7 +68,12 @@ OFF = 8                                  # 左右に寄せた札（anchor start�
 LANE_Y0, LANE_GAP = F.BY0 + 190, 130     # lanes の段（上から）
 MONTH0 = 1                               # 月の数え始め（🔴 門番の陽性対照がここを壊す）
 NEXT_DAY = 24 * 60                       # 「翌」の足し分（分）（同上）
-COL = dict(pt="AMBER", split="DOC", span="LINE", br="LINE", link="LINE", chips="LINE")
+COL = dict(pt="AMBER", split="DOC", span="LINE", br="LINE", link="LINE", chips="LINE", lane="LINE")
+# 🆕 18本目 ⑤b-5：tiers（2段の時刻の帯）の幾何。段の線の高さ・目盛りの軸・札の段（段の線からの高さ＝札の下の端）・札の字
+TIER_Y = (F.BY0 + 0.36 * F.BH, F.BY0 + 0.70 * F.BH)
+TIER_AY = F.BY0 + 0.86 * F.BH
+TIER_ROW = (24, 120)
+TCAP_TOP, TCAP_T = 44, 34
 
 
 # ══════════════════════════════════════════════════════════
@@ -93,21 +107,27 @@ def val(view, s):
         if not m:
             raise ValueError(f"axis：秒の書き方が違う {s!r}（0.56／約9.1／約-8）")
         return float(m[2]), "sec"
-    m = re.fullmatch(r"(翌)?(\d{1,2}):(\d{2})", s)
+    # 🆕 18本目 ⑤b-5：分の小数（"9:18.1"＝認定18 の 0918.1R）
+    m = re.fullmatch(r"(翌)?(\d{1,2}):(\d{2}(?:\.\d)?)", s)
     if not m:
-        raise ValueError(f"axis：時刻の書き方が違う {s!r}（8:52／翌9:10）")
-    return (NEXT_DAY if m[1] else 0) + int(m[2]) * 60 + int(m[3]), "min"
+        raise ValueError(f"axis：時刻の書き方が違う {s!r}（8:52／翌9:10／9:18.1）")
+    return (NEXT_DAY if m[1] else 0) + int(m[2]) * 60 + float(m[3]), "min"
 
 
 def label(view, s, fmt=""):
-    """画面に出す値の文字（date＝「1994年4月1日」・clock＝「8:52」）。fmt="ym"＝年月まで・"y"＝年だけ（語りの細かさに合わせる）。"""
+    """画面に出す値の文字（date＝「1994年4月1日」・clock＝「8:52」・分の小数＝「9時18.1分」）。
+    fmt="ym"＝年月まで・"y"＝年だけ（語りの細かさに合わせる）。"""
     s = str(s).strip()
     if view == "date":
         p = s.split("-")[:{"ym": 2, "y": 1}.get(fmt, 3)]
         return p[0] + "年" + (f"{int(p[1])}月" if len(p) > 1 else "") + (f"{int(p[2])}日" if len(p) > 2 else "")
     if view == "sec":
         return _sec_text(s)
-    return s.replace("翌", "")
+    t = s.replace("翌", "")
+    if "." in t:
+        h, mi = t.split(":")
+        return f"{int(h)}時{float(mi):g}分"
+    return t
 
 
 def _sec_text(s):
@@ -157,6 +177,13 @@ class _Ax:
             self.ly = {nm: LANE_Y0 + LANE_GAP * i for i, nm in enumerate(self.lanes)}
             self.ay = LANE_Y0 + LANE_GAP * (len(self.lanes) - 1) + 70    # 目盛りの軸は段の下
             self.top = LANE_Y0 - 40
+        elif view == "tiers":
+            if len(self.lanes) != 2:
+                raise ValueError("axis：tiers の段の名はちょうど2つ（上の段・下の段）")
+            self.x0 = X0_LANES
+            self.ly = {nm: TIER_Y[i] for i, nm in enumerate(self.lanes)}
+            self.ay = TIER_AY
+            self.top = TIER_Y[0] - 40
         else:
             self.ly = {}
             self.ay = AY
@@ -174,6 +201,8 @@ class _Ax:
 def _tick_lab(view, s):
     if view == "date":
         p = s.split("-")
+        if len(p) > 2:        # 🆕 18本目 ⑤b-5：日まである目盛りは「12日」（月は下に添える＝_base が最初と1日だけ残す）
+            return f"{int(p[2])}日", f"{int(p[1])}月"
         return (f"{int(p[1])}月", p[0] + "年") if len(p) > 1 else (p[0], "")
     if view == "sec":
         return (_sec_text(s), "")
@@ -183,7 +212,7 @@ def _tick_lab(view, s):
 def _base(A, ticks, note, src):
     g = []
     ay = A.ay
-    if A.view == "lanes":
+    if A.view in ("lanes", "tiers"):
         for nm, y in A.ly.items():
             g.append(F.line(A.x0, y, A.x1, y, J.LINE_DIM, 3, dash="10 10"))
             g.append(F.txtfit(F.BX0 + 8, y + 11, nm, A.x0 - F.BX0 - 30, cap=32, col=J.INK_W))
@@ -193,8 +222,8 @@ def _base(A, ticks, note, src):
     for i, s in enumerate(ticks):
         x = A.x(s)
         lb, sub = _tick_lab(A.view, s)
-        if A.view == "date" and sub and not (i == 0 or lb == "1月"):
-            sub = ""          # 月の目盛りの年は、最初と1月にだけ添える
+        if A.view == "date" and sub and not (i == 0 or lb in ("1月", "1日")):
+            sub = ""          # 月の目盛りの年は、最初と1月にだけ添える（日の目盛りの月は、最初と1日にだけ）
         g.append(F.line(x, ay - 12, x, ay + 12, J.LINE_DIM, 3))
         g.append(F.txt(x, ay + 48, lb, 30, J.TICK, "Noto", "middle", ol=6))
         if sub:
@@ -235,14 +264,100 @@ def _prep(A, it):
     if k not in COL:
         raise ValueError(f"axis：知らない部品 {k!r}（{tuple(COL)}）")
     top = label(A.view, it["at"], it.get("fmt", "")) if k in ("pt", "split", "link") and it.get("lab", True) else ""
+    if top and it.get("approx"):
+        top += "ごろ"          # 🆕 18本目 ⑤b-5：記録が about の時刻（門番 check_axis の REC_APPROX）
     t = it.get("t", "")
     d = doc_names(it["rec"]) if (k == "split" or it.get("by")) else ""
-    w = max(F.fm.width(top, CAP_TOP, "Dela") if top else 0, F.fm.width(t, CAP_T, "Noto") if t else 0,
+    ct, cn = (TCAP_TOP, TCAP_T) if A.view == "tiers" else (CAP_TOP, CAP_T)
+    w = max(F.fm.width(top, ct, "Dela") if top else 0, F.fm.width(t, cn, "Noto") if t else 0,
             F.fm.width(d, CAP_D, "Noto") if d else 0) + 16
+    if A.view == "tiers":
+        # 🆕 18本目 ⑤b-5：2段の帯は点 pt と帯 span が段の上に札を持つ（br・lane は札の段を使わない）
+        row = (k == "pt" and bool(top or t or d)) or (k == "span" and bool(t))
+        cx = A.x(it["at"], True) if "at" in it else ((A.x(it["a"], True) + A.x(it["b"], True)) / 2 if "a" in it else 0.0)
+        it = dict(it, _top=top, _t=t, _d=d, _w=min(w, 520), _row=row, _cx=cx)
+        it["_anch"] = it.get("anchor") or (_anch(A, cx, it["_w"]) if row else "middle")
+        return it
     it = dict(it, _top=top, _t=t, _d=d, _w=min(w, 460), _row=bool(top or t or d) and k != "link")
     # anchor＝近い2点の札を左右に振る（左の点は "end"・右の点は "start"＝縦の線が隣の札を貫かない）
     it["_anch"] = (it.get("anchor") or _anch(A, A.x(it["at"], True), it["_w"])) if "at" in it else "middle"
     return it
+
+
+def _lo(it):
+    """札の左の端（anchor と幅から）。"""
+    x, w = it["_cx"], it["_w"]
+    return x - OFF if it["_anch"] == "start" else (x - w + OFF if it["_anch"] == "end" else x - w / 2)
+
+
+def _rows_tiers(items, A):
+    """🆕 18本目 ⑤b-5：2段の帯の札を、段ごとに TIER_ROW の2段へ振る（左から順に・前の札と重なれば1段上へ）。"""
+    out = {}
+    for lane in A.lanes:
+        ends = [-1e9] * len(TIER_ROW)
+        for it in sorted([i for i in items if i.get("lane") == lane], key=lambda d: d["_cx"]):
+            lo = _lo(it)
+            for r in range(len(TIER_ROW)):
+                if lo > ends[r] + 24:
+                    out[id(it)] = r
+                    ends[r] = lo + it["_w"]
+                    break
+            else:
+                raise ValueError(f"axis：段「{lane}」の札が {len(TIER_ROW)} 段に収まらない（{it.get('at') or it.get('a')}）")
+    return out
+
+
+def _draw_tier(A, it, row, dim):
+    """🆕 18本目 ⑤b-5：2段の帯（tiers）の部品1つの SVG と、門番が読む画素の記録（札の広がり lx・ly・縦の線 vl）。"""
+    k = it["k"]
+    g = []
+    col = J.LINE_DIM if dim else _c(it.get("c"), COL[k])
+    ink = J.TICK if dim else J.INK_W
+    rec = dict(k=k, rec=it.get("rec"), dim=dim, t=it.get("t", ""), lane=it.get("lane"))
+    if k == "lane":           # 段を語りで紹介する段＝段の線を明るく（名は基図のまま＝同じ字を重ねない）
+        y = A.ly[it["lane"]]
+        g.append(F.line(A.x0, y, A.x1, y, col, 5))
+        return "".join(g), rec
+    if k in ("span", "br"):
+        xa, xb = A.x(it["a"], True), A.x(it["b"], True)
+        rec.update(a=it["a"], b=it["b"], xa=round(xa, 2), xb=round(xb, 2))
+        if k == "br":
+            y = A.ay - 40
+            g += [F.line(xa, y, xb, y, col, 4), F.line(xa, y - 14, xa, y + 14, col, 4), F.line(xb, y - 14, xb, y + 14, col, 4)]
+            if it.get("t"):
+                g.append(F.txtfit((xa + xb) / 2, y - 22, it["t"], max(200, xb - xa + 160), cap=30, col=ink, anchor="middle"))
+            return "".join(g), rec
+        y = A.ly[it["lane"]]
+        g.append(F.rect(xa, y - 11, xb - xa, 22, col, op=0.45 if dim else 0.85))
+    else:
+        x = A.x(it["at"], True)
+        y = A.ly[it["lane"]]
+        rec.update(at=it["at"], x=round(x, 2), top=it["_top"], d=it["_d"], row=row, c=it.get("c") or COL[k],
+                   big=bool(it.get("big")), by=bool(it.get("by")), chips=[], approx=bool(it.get("approx")))
+        g.append(F.circ(x, y, 12 if it.get("big") else 9, col))
+    if not it["_row"]:
+        return "".join(g), rec
+    anch = it["_anch"]
+    cx = it["_cx"]
+    tx = cx - OFF if anch == "start" else (cx + OFF if anch == "end" else cx)
+    ty = y - TIER_ROW[row]
+    lines = [(it["_top"], TCAP_TOP, "Dela", ink)] if it["_top"] else []
+    if it["_t"]:
+        lines.append((it["_t"], TCAP_T, "Noto", col if k == "pt" or dim else ink))
+    if it["_d"]:
+        lines.append((it["_d"], CAP_D, "Noto", J.TICK if dim else _c("DOC", "DOC")))
+    yy = ty
+    for s, cap, fam, c in reversed(lines):
+        g.append(F.txtfit(tx, yy, s, it["_w"], cap=cap, col=c, anchor=anch, fam=fam))
+        yy -= cap + 6
+    lo = _lo(it)
+    rec.update(row=row, lx=(round(lo, 1), round(lo + it["_w"], 1)), ly=(round(yy + 6, 1), round(ty, 1)))
+    # 縦の線＝点（帯は2段目の札のときだけ）から札の下の端へ。門番 check_axis が同じ段のほかの札を貫かないか測る
+    if k == "pt" or row > 0:
+        y0 = y - (10 if k == "pt" else 11)
+        g.append(F.line(cx, y0, cx, ty + 10, col, 4 if k == "pt" else 3))
+        rec["vl"] = (round(cx, 2), round(ty + 10, 1), round(y0, 1))
+    return "".join(g), rec
 
 
 def _draw(A, it, row, dim):
@@ -355,16 +470,29 @@ def axis(view, steps, span, ticks=(), past=(), lanes=(), start=None, note="", sr
             raise ValueError("axis：交信 link に文字を書かない（私人の言葉を帯に書かない＝守りの線）")
         if it["k"] == "link" and view != "lanes":
             raise ValueError("axis：交信 link は lanes だけ")
+        # 🆕 18本目 ⑤b-5：2段の帯は段の名が要る・項目の札と割れる時刻と交信は使わない／段の明かり lane は tiers だけ
+        if view == "tiers":
+            if it["k"] in ("chips", "split", "link"):
+                raise ValueError(f"axis：tiers に {it['k']} は置けない（軸の下に場所が無い＝札の文字 t で）")
+            if it["k"] != "br" and it.get("lane") not in A.ly:
+                raise ValueError(f"axis：tiers の部品に段の名 lane が無い／違う {it.get('lane')!r}（{tuple(A.ly)}）")
+        elif it["k"] == "lane":
+            raise ValueError("axis：段の明かり lane は tiers だけ")
     base, tk = _base(A, ticks, note, src)
     # 札の段は、past と全部の段の点をまとめて振る（段をまたいで重ならない）
     raw = list(past) + [x for st in steps for x in F._many(st.get("add"))]
     prep = {id(it): _prep(A, it) for it in raw}
-    rows = _rows([p for p in prep.values() if "at" in p and p["_row"]], A)
+    if view == "tiers":
+        rows = _rows_tiers([p for p in prep.values() if p["_row"]], A)
+        draw = _draw_tier
+    else:
+        rows = _rows([p for p in prep.values() if "at" in p and p["_row"]], A)
+        draw = _draw
     parts = []
     g = list(base)
     for it in past:
         p = prep[id(it)]
-        s, r = _draw(A, p, rows.get(id(p), 0), dim=not it.get("keep"))
+        s, r = draw(A, p, rows.get(id(p), 0), dim=not it.get("keep"))
         g.append(s)
         parts.append(dict(r, stage=-1))
     stages = []
@@ -373,7 +501,7 @@ def axis(view, steps, span, ticks=(), past=(), lanes=(), start=None, note="", sr
         s = []
         for it in F._many(st.get("add")):
             p = prep[id(it)]
-            sv, r = _draw(A, p, rows.get(id(p), 0), dim=False)
+            sv, r = draw(A, p, rows.get(id(p), 0), dim=False)
             s.append(sv)
             parts.append(dict(r, stage=j))
         stages.append("".join(s) or " ")
