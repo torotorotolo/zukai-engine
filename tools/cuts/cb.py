@@ -90,6 +90,26 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-7b（2026-10-05）：頁（`qa_out/ep18_assets.py pages`＝切り口は pages.json の cuts・副題に年を書かない）──
+    # cb12（9.4秒）＝リッコーヴァー中将の声明「特定のろう付け・溶接・系統・部品の故障だけを原因と見るべきでない」（J p.79）
+    "cb12": dict(
+        t="原因の見方",
+        s="公聴会記録　声明の終わり近くの段",
+        photo=ss.page(8079), trim=ss.ptrim("cb12"), bias=ss.pbias("cb12"), panel=True, color=1.0,
+    ),
+    # cb21（7.0秒）＝証拠111 の別紙の第5段落（X p.533＝c105 の3行目と同じ所＝物証を終章で回収）
+    #   🔴 2行目の勧告20（R08 p.220・切り口 cb21t）は ⑤b-7c の「尻の差し込み」で
+    "cb21": dict(
+        t="前の艦長の警告",
+        s="査問会の証拠111 の別紙　第5段落",
+        photo=ss.page(1533), trim=ss.ptrim("cb21"), bias=ss.pbias("cb21"), panel=True, color=1.0,
+    ),
+    # cb22（7.9秒）＝認定4 の書き出しと名簿の頭（R08 p.181＝見える頁・V1 p.34・36・37 は見えない頁＝使わない）
+    "cb22": dict(
+        t="査問会の名簿",
+        s="認定4 の書き出しと名前の列",
+        photo=ss.page(4181), trim=ss.ptrim("cb22"), bias=ss.pbias("cb22"), panel=True, color=1.0,
+    ),
     # ── 🆕 ⑤b-7a（2026-10-04）：写真の束（`qa_out/ep18_assets.py`・すべて米海軍の PD）──
     # cb01（5.9秒）＝すべての潜水艦の深さを約150m までに制限。記録映画 85185 のコマ（セイルの上の乗員＝公務・額装）
     "cb01": dict(

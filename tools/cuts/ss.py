@@ -107,6 +107,22 @@ def ptrim(cid):
     return PAGE_CUT_TRIM[cid]
 
 
+# 🆕 2026-10-05（18本目 ⑤b-7b）：**頁のカットの寄りの縦の寄せ（bias）も `pages.json` から読む**（手で写さない）。
+#    行間の詰まった頁（議会の本）は上下どちらのすき間も寄りの縮みの半分に足りず、bias 0.5 のままだと端の行が寄りの終わりに
+#    72〜87% しか見えなかった（門番 edges・6カット）＝`qa_out/ep18_assets.py` の `_fit_cut` が縮みをすき間の広さに比例して配る。
+#    `pages.json` に bias の表が無い回（16本目まで）は 0.5＝今までどおり。表がある回で欠けていたら止める
+PAGE_CUT_BIAS: dict[str, float] = {cid: float(b) for v in PAGES.values() for cid, b in (v.get("bias") or {}).items()}
+
+
+def pbias(cid):
+    """カットの頁の寄りの縦の寄せ（SPEC の `bias`）。"""
+    if cid in PAGE_CUT_BIAS:
+        return PAGE_CUT_BIAS[cid]
+    if any("bias" in v for v in PAGES.values()):
+        raise KeyError(f"{cid} の頁の寄せが無い（`qa_out/{EP[:-1]}_assets.py pages` をもう一度）")
+    return 0.5
+
+
 def page(pr):
     """台本の頁番号 → 頁の画像のパス。
 

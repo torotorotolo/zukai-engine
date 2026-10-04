@@ -2080,6 +2080,12 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 - 記録映画のコマは画素が縦長（SAR 10:11）＝655×480 に直した。動く映像（記録映画）は ⑤b-7b で `clips.json` に足す
 - Commons の新しい8点は、落とす前に一覧（名前・大きさ）でカズヤくんの了承を取った（2026-10-04）＝取ったファイルは Commons の原本と SHA-1 が一致（`ref/ep18/img/fetched.json`＝git の外）
 
+### 2. 頁（査問会の記録・証拠・上級の意見書・議会の本・国防総省の発表の紙）＝⑤b-7b（2026-10-05）
+- 欄 `pg<通し頁>`＝台本の通し頁（V1＝p1〜300・X＝p1001〜・IR18＝p2001〜・R08＝p4001〜・J＝印刷頁＋8000・No.710-64＝p9801）。画面の出典は資料の名と頁（`illu.rec_line`）
+- 🔴 画面に映す頁は**見た目の字がある版だけ**（V1 の見えない43頁は使わない＝映像方針 §9）。塗り（b(1)・(b)(6)・［classified matter deleted］）は公開の版のまま
+- 頁は灰色の PNG（PDF を 200dpi・議会の本は 300dpi・海図は 100dpi で描いた）。薄い海図（c910）は SPEC の `levels` で濃淡だけ強める＝出典の行に「濃淡補正」
+- 名簿（認定4・R08 p.181）と名簿の終わり（p.184）の名前＝公務の乗員と、公務を果たすために乗っていた造船所・会社の人（認定6）＝実名の線（§B2-1）の内
+
 | 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
 |---|---|---|---|---|---|
 | `bow_1961` | c114 c709 | 1961 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 175539769（428-N-1057645）　https://catalog.archives.gov/id/175539769 |
@@ -2113,3 +2119,26 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `trieste2_drawing` | ca17 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「330-PSA-276-63 (USN 711389) (22517726786).jpg」　https://commons.wikimedia.org/wiki/File:330-PSA-276-63_%28USN_711389%29_%2822517726786%29.jpg |
 | `fish_1104636` | ca18 | 1964 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「330-PSA-309-64 (USN 1104636-D) (22592418930).jpg」　https://commons.wikimedia.org/wiki/File:330-PSA-309-64_%28USN_1104636-D%29_%2822592418930%29.jpg |
 | `search_ships_1963` | cb09 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「Ships searching for USS Thresher (SSN-593), 15 April 1963 (NH 97555).jpg」　https://commons.wikimedia.org/wiki/File:Ships_searching_for_USS_Thresher_%28SSN-593%29%2C_15_April_1963_%28NH_97555%29.jpg |
+| `pg38` | c414 c909 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105）／海軍が FOIA の訴えで公開（第1回・2020-09-23） | 米海軍 スレッシャー号の査問会 | inquiry_vol1_p1-300.pdf PDF 38頁 |
+| `pg57` | （c104＝⑤b-8） | 1963 | PD（米連邦の職務著作 17 U.S.C. §105）／海軍が FOIA の訴えで公開（第1回・2020-09-23） | 米海軍 スレッシャー号の査問会 | inquiry_vol1_p1-300.pdf PDF 57頁 |
+| `pg183` | c316 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105）／海軍が FOIA の訴えで公開（第1回・2020-09-23） | 米海軍 スレッシャー号の査問会 | inquiry_vol1_p1-300.pdf PDF 183頁 |
+| `pg1061` | c508 | 1963 | PD（米連邦の職務著作）／海軍が FOIA の訴えで公開（第9・10回・2021-05） | 米海軍 スレッシャー号の査問会（証拠） | inquiry_9_10.pdf PDF 61頁 |
+| `pg1120` | c516 | 1963 | PD（米連邦の職務著作）／海軍が FOIA の訴えで公開（第9・10回・2021-05） | 米海軍 スレッシャー号の査問会（証拠） | inquiry_9_10.pdf PDF 120頁 |
+| `pg1131` | c307 | 1963 | PD（米連邦の職務著作）／海軍が FOIA の訴えで公開（第9・10回・2021-05） | 米海軍 スレッシャー号の査問会（証拠） | inquiry_9_10.pdf PDF 131頁 |
+| `pg1135` | c910 | 1963 | PD（米連邦の職務著作）／海軍が FOIA の訴えで公開（第9・10回・2021-05） | 米海軍 スレッシャー号の査問会（証拠） | inquiry_9_10.pdf PDF 135頁 |
+| `pg1531` | c105 | 1963 | PD（米連邦の職務著作）／海軍が FOIA の訴えで公開（第9・10回・2021-05） | 米海軍 スレッシャー号の査問会（証拠） | inquiry_9_10.pdf PDF 531頁 |
+| `pg1533` | c105t cb21 | 1963 | PD（米連邦の職務著作）／海軍が FOIA の訴えで公開（第9・10回・2021-05） | 米海軍 スレッシャー号の査問会（証拠） | inquiry_9_10.pdf PDF 533頁 |
+| `pg2001` | c109 | 1965 | PD（米連邦の職務著作）／海軍が FOIA の訴えで公開（第18回） | 米海軍長官（上級の意見書） | navy_IR18.pdf PDF 1頁 |
+| `pg2005` | （c104＝⑤b-8） | 1965 | PD（米連邦の職務著作）／海軍が FOIA の訴えで公開（第18回） | 米海軍長官（上級の意見書） | navy_IR18.pdf PDF 5頁 |
+| `pg4181` | cb22 | 1963 | PD（米連邦の職務著作）／海軍が FOIA の訴えで公開（第8回） | 米海軍 スレッシャー号の査問会 | navy_IR08.pdf PDF 181頁 |
+| `pg4184` | c303 | 1963 | PD（米連邦の職務著作）／海軍が FOIA の訴えで公開（第8回） | 米海軍 スレッシャー号の査問会 | navy_IR08.pdf PDF 184頁 |
+| `pg4204` | （c104＝⑤b-8） | 1963 | PD（米連邦の職務著作）／海軍が FOIA の訴えで公開（第8回） | 米海軍 スレッシャー号の査問会 | navy_IR08.pdf PDF 204頁 |
+| `pg4220` | cb21t | 1963 | PD（米連邦の職務著作）／海軍が FOIA の訴えで公開（第8回） | 米海軍 スレッシャー号の査問会 | navy_IR08.pdf PDF 220頁 |
+| `pg8013` | c623 | 1965 | PD（米議会の刊行物）／Stanford Digital Repository の PDF（印刷頁＋14＝PDF の頁） | 米議会 両院原子力合同委員会 | jcae1965_stanford.pdf PDF 27頁 |
+| `pg8038` | c712 | 1965 | PD（米議会の刊行物）／Stanford Digital Repository の PDF（印刷頁＋14＝PDF の頁） | 米議会 両院原子力合同委員会 | jcae1965_stanford.pdf PDF 52頁 |
+| `pg8079` | cb12 | 1965 | PD（米議会の刊行物）／Stanford Digital Repository の PDF（印刷頁＋14＝PDF の頁） | 米議会 両院原子力合同委員会 | jcae1965_stanford.pdf PDF 93頁 |
+| `pg8089` | c814 | 1965 | PD（米議会の刊行物）／Stanford Digital Repository の PDF（印刷頁＋14＝PDF の頁） | 米議会 両院原子力合同委員会 | jcae1965_stanford.pdf PDF 103頁 |
+| `pg8112` | c721 | 1965 | PD（米議会の刊行物）／Stanford Digital Repository の PDF（印刷頁＋14＝PDF の頁） | 米議会 両院原子力合同委員会 | jcae1965_stanford.pdf PDF 126頁 |
+| `pg8122` | c905 | 1965 | PD（米議会の刊行物）／Stanford Digital Repository の PDF（印刷頁＋14＝PDF の頁） | 米議会 両院原子力合同委員会 | jcae1965_stanford.pdf PDF 136頁 |
+| `pg8160` | c903 | 1965 | PD（米議会の刊行物）／Stanford Digital Repository の PDF（印刷頁＋14＝PDF の頁） | 米議会 両院原子力合同委員会 | jcae1965_stanford.pdf PDF 174頁 |
+| `pg9801` | ca15 | 1964 | PD（米連邦の職務著作）／Wikimedia Commons「330-PSA-309-64a (22791587391).jpg」（NARA RG 330） | 米国防総省 | cm_330-PSA-309-64a__22791587391_.jpg |
