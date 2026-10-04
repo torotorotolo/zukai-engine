@@ -15,6 +15,11 @@
   ① **15本目の案B**（`ref/ep15/daihon_v2.md` を Vault の数え方で読んだ＝59/192・31%・最長5）を**決まり**で数えると E が出ること
   ② 2割の内でも3カット続けば E  ③ 札の嘘（種類＝図解・図＝panel）で E  ④ 14本目の承認ずみの並び（34/195・最長2）で出ないこと
   ⑤ 15本目の案B を**この回の承認**で数えると通る ⑥ 承認より1カット多いと E ⑦ 承認の区間の外で3カット続くと E
+■ 🆕🔴 フリー素材（2026-10-04 18本目 ⑤b-1・ルール §2-5c・映像方針 §17）＝種類「フリー素材」
+  テーマに関連したフリー素材の映像・静止画は、**この事故の写真・映像（種類「写真」＝20%の数・【映像あり】）に数えない**＝別に数えて並べる。
+  札（PLAN の種類）と絵（素材の置き場）で照らす＝素材がフリー素材（静止画の道が `<回>/stock/`・または `footage.USE` の映像が
+  `ref/<回>/clips.json` で `"stock": true`）なら種類は「フリー素材」（図の地に敷いたなら「混ざり」か「図解」）でなければ E
+  ＝「フリー素材を写真に数えた」を止める。逆に種類「フリー素材」なのに素材がこの事故の写真でも E。陽性対照 ⑧〜⑪（`--selftest`）
 ■ 🔴 回ごとの例外（2026-09-30 15本目 ⑤b-1）＝`EXCEPTIONS`
   15本目は決まり（§5b-79＝16本目の ④ から）の前に案B（文字だけ 59/192＝30.7%・続く最長5・3連続以上4か所）で承認ずみ
   （09-26 カズヤくん・映像方針 §11・ルール §A0b 0b-24）。**承認の数だけ**を許す＝文字だけは59まで・3カット以上続くのは承認の
@@ -40,8 +45,24 @@ EXCEPTIONS = {
 }
 
 
-def pic_kinds(s):
-    """SPEC の1カットの図から、あり得る画面の種類（集合）。None＝画が無い。"""
+# 🆕 2026-10-04（18本目 ⑤b-1）：フリー素材の静止画（映像のひかえの静止画も）を置く所＝`ref/<回>/stock/`（例 "ep18/stock/sea.jpg"）
+STOCK_DIR = "/stock/"
+
+
+def is_stock(cid, s, use=None, clips=None):
+    """そのカットの絵がフリー素材か＝静止画の道が `<回>/stock/`、または `footage.USE` の映像が clips.json で "stock": true。
+    use・clips を渡さなければ footage の本番の表（selftest は自分の表を渡す）。"""
+    if STOCK_DIR in str((s or {}).get("photo") or ""):
+        return True
+    if use is None or clips is None:
+        import footage
+        use, clips = footage.USE, footage.CLIPS
+    u = use.get(cid)
+    return bool(u and (clips.get(u.get("clip")) or {}).get("stock"))
+
+
+def pic_kinds(s, stock=False):
+    """SPEC の1カットの図から、あり得る画面の種類（集合）。None＝画が無い。stock＝絵がフリー素材（`is_stock`）。"""
     fig, photo = s.get("fig"), s.get("photo")
     if fig:
         k = fig[0]
@@ -59,6 +80,8 @@ def pic_kinds(s):
             return {"混ざり"}          # 15本目 ⑤b-7：冒頭の写真・頁 → 図解（c904＝頁 p46 → 地図）
         return {"混ざり", "図解"} if photo else {"図解"}
     if photo:
+        if stock:
+            return {"フリー素材"}       # 18本目 ⑤b-1：この事故の写真（20%の数）と分ける
         return {"文字の頁", "図・写真の頁"} if "/pg" in str(photo) else {"写真"}
     return None
 
@@ -73,11 +96,16 @@ def _inside(span, allowed, pos):
     return False
 
 
-def judge(order, plan, spec, secs=None, exc=None):
-    """order＝台本の順のカットID・plan＝PLAN・spec＝SPEC・exc＝この回の例外（EXCEPTIONS の値）。
+def judge(order, plan, spec, secs=None, exc=None, stock=None):
+    """order＝台本の順のカットID・plan＝PLAN・spec＝SPEC・exc＝この回の例外（EXCEPTIONS の値）・
+    stock＝(cid, SPEC) → 絵がフリー素材か（無ければ `is_stock` を footage の本番の表で）。
     戻り＝(E の list, W の list, 数の dict)。"""
     E, W = [], []
     kinds = []
+    if stock is None:
+        import footage
+        use, clips = footage.USE, footage.CLIPS
+        stock = lambda c, s: is_stock(c, s, use, clips)    # noqa: E731
     for c in order:
         if c not in plan:
             if c != "ed01":
@@ -88,11 +116,14 @@ def judge(order, plan, spec, secs=None, exc=None):
         if s is None:
             W.append(f"{c}: 画が無い（PLAN の種類「{k}」で数えた）")
         else:
-            got = pic_kinds(s)
+            stk = stock(c, s)
+            got = pic_kinds(s, stk)
             if got is None:
                 E.append(f"{c}: SPEC に図も写真も無い")
             elif k not in got:
-                E.append(f"{c}: 種類は「{k}」なのに、図は「{'／'.join(sorted(got))}」（札でなく絵で数える＝PLAN を直す）")
+                why = ("＝フリー素材をこの事故の写真（20%の数）に数えている" if stk and k == "写真"
+                       else "＝この事故の写真をフリー素材と名乗っている" if k == "フリー素材" else "")
+                E.append(f"{c}: 種類は「{k}」なのに、図は「{'／'.join(sorted(got))}」（札でなく絵で数える＝PLAN を直す）{why}")
         kinds.append((c, k))
     n = len(kinds)
     tc = sum(1 for _, k in kinds if k in TEXT)
@@ -132,7 +163,8 @@ def judge(order, plan, spec, secs=None, exc=None):
             ts += secs.get(c, 0.0) if k in TEXT else 0.0
     cnt = Counter(k for _, k in kinds)
     return E, W, dict(n=n, tc=tc, ratio=ratio, best=best, span=span, time=(ts / tot if tot else None), cnt=cnt,
-                      ids={k: [c for c, kk in kinds if kk == k] for k in TEXT})
+                      ids={k: [c for c, kk in kinds if kk == k] for k in TEXT},
+                      photo=cnt["写真"], stock=cnt["フリー素材"])
 
 
 # ══════════════════════════════════════════════════════════
@@ -181,9 +213,11 @@ def ep15_plan():
 def selftest():
     ok = True
 
-    def run(name, order, plan, spec, want_e, exc=None):
+    no_clip = lambda c, s: is_stock(c, s, {}, {})     # noqa: E731  見本は footage の本番の表を読まない
+
+    def run(name, order, plan, spec, want_e, exc=None, stock=no_clip):
         nonlocal ok
-        E, _, st = judge(order, plan, spec, exc=exc)
+        E, _, st = judge(order, plan, spec, exc=exc, stock=stock)
         got = bool(E)
         ok &= got == want_e
         print(f"  {'OK' if got == want_e else '🔴 NG'} {name}: {'E' if got else '合格'}（{'E' if want_e else '合格'}のはず）"
@@ -218,6 +252,31 @@ def selftest():
     for c in ids[50:53]:
         plan7[c] = dict(kind="パネル")
     run("⑦b 承認の区間の外で3カット続く", ids, plan7, {}, True, exc7)
+    # ⑧〜⑪ フリー素材（2026-10-04 18本目 ⑤b-1・ルール §2-5c）：この事故の写真（20%の数）に入れない＝札と絵で照らす
+    ids8 = ids[:10]
+    p8 = {c: dict(kind="図解") for c in ids8}
+    p8[ids8[0]] = dict(kind="写真")
+    run("⑧ フリー素材の静止画（ep18/stock/）を種類「写真」で数える", ids8, p8, {ids8[0]: dict(photo="ep18/stock/sea.jpg")}, True)
+    use9, clips9 = {ids8[0]: dict(clip="s1")}, {"s1": dict(stock=True), "r1": dict()}
+    run("⑨ フリー素材の映像（clips.json の stock）を種類「写真」で数える", ids8, p8, {ids8[0]: dict(photo="ep18/fb_x.jpg")},
+        True, stock=lambda c, s: is_stock(c, s, use9, clips9))
+    run("⑨b この事故の映像（stock の印なし）を種類「写真」で数える", ids8, p8, {ids8[0]: dict(photo="ep18/fb_x.jpg")},
+        False, stock=lambda c, s: is_stock(c, s, {ids8[0]: dict(clip="r1")}, clips9))
+    p10 = {c: dict(kind="図解") for c in ids8}
+    p10[ids8[0]] = dict(kind="フリー素材")
+    run("⑩ この事故の写真を種類「フリー素材」と名乗る", ids8, p10, {ids8[0]: dict(photo="ep18/thr_t16.jpg")}, True)
+    run("⑪a フリー素材の静止画を種類「フリー素材」で数える", ids8, p10, {ids8[0]: dict(photo="ep18/stock/sea.jpg")}, False)
+    p11 = {c: dict(kind="図解") for c in ids8}
+    sp11 = {}
+    for c in ids8[:2]:
+        p11[c], sp11[c] = dict(kind="写真"), dict(photo=f"ep18/{c}.jpg")
+    for c in ids8[2:5]:
+        p11[c], sp11[c] = dict(kind="フリー素材"), dict(photo=f"ep18/stock/{c}.jpg")
+    E11, _, st11 = judge(ids8, p11, sp11, stock=no_clip)
+    good11 = not E11 and (st11["photo"], st11["stock"]) == (2, 3)
+    ok &= good11
+    print(f"  {'OK' if good11 else '🔴 NG'} ⑪b 数：この事故の写真2・フリー素材3／10 → 写真 {st11['photo']}（20%の数）・"
+          f"フリー素材 {st11['stock']}（別に数える）（2・3 のはず）")
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 
@@ -237,9 +296,12 @@ def main():
     if exc:
         print(f"  ⚠️ この回の例外：{exc['why']}＝文字だけ {exc['max_text']} まで・3連続以上は {'・'.join(exc['runs_ok'])} の中だけ")
     print("  " + "・".join(f"{k} {st['cnt'][k]}" for k in ("写真", "図・写真の頁", "再現イラスト", "図解", "混ざり",
-                                                          "文字の頁", "パネル", "決め所")))
+                                                          "文字の頁", "パネル", "決め所", "フリー素材")))
     tm = f"・時間 {st['time'] * 100:.1f}%（実測の秒）" if st["time"] is not None else ""
     print(f"  ◆ 文字だけ {st['tc']}/{st['n']}＝{st['ratio'] * 100:.1f}%{tm}・続く最長 {st['best']}（{st['span']}）")
+    pr = st["photo"] / st["n"] if st["n"] else 0.0
+    print(f"  ◆ 写真（この事故の写真・映像＝20%の数・【映像あり】）{st['photo']}/{st['n']}＝{pr * 100:.1f}%"
+          f"・フリー素材 {st['stock']}（別に数える＝20%にも【映像あり】にも数えない・ルール §2-5c）")
     if "--ids" in sys.argv:
         for k in TEXT:
             print(f"  {k} {len(st['ids'][k])}: " + " ".join(st["ids"][k]))

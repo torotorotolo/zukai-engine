@@ -17,6 +17,8 @@
   3. 写真映像の割合が **20%以上**（事故検証chの規則・上限なし・下回っても⚠️だけで止めない。
      2026-09-23〜。旧＝45〜50%・範囲外で exit 2。[[feedback-jiko-photo-ratio]]）
      写真映像＝`photo=` を持つカット（実写・報告書の図・地に敷いた図解のすべて）
+     🆕 2026-10-04（18本目 ⑤b-1）：**フリー素材は数えない**（ルール §2-5c＝この事故の写真・映像だけで20%を数える）。
+        フリー素材＝`check_text_screens.is_stock`（静止画の道が `<回>/stock/`・または clips.json の "stock": true）＝別に数えて並べる
   4. 🔴 全画面の写真で**切り落としが 12.8% を超えていない**（2026-09-08 ⑤b-5 に新設）
      `cuts/ss.py` の `kind()` は縦長しか額装に回しておらず、**横長の側に規則が無かった**。
      「Left to right: …」の2枚組の図（縦横比 2.6〜3.3）を全画面にすると
@@ -103,8 +105,8 @@ def script_cuts():
     return ids
 
 
-def check(spec=None, broken=None, want=None):
-    """(見つけたことの一覧, 最悪の exit) を返す。"""
+def check(spec=None, broken=None, want=None, stock=None):
+    """(見つけたことの一覧, 最悪の exit) を返す。stock＝(cid, SPEC) → 絵がフリー素材か（無ければ footage の本番の表）。"""
     import cuts
     spec = cuts.SPEC if spec is None else spec
     broken = cuts.BROKEN if broken is None else broken
@@ -135,11 +137,18 @@ def check(spec=None, broken=None, want=None):
 
     # 3. 写真映像の割合（2026-09-23〜：下限だけ・上限なし・下回っても⚠️で止めない＝code を上げない）
     #    ⚠️ 台本と1対1でないうちは割合を出しても意味が無いが、測って出すだけなので同じ扱い
-    photo = [c for c, s in spec.items() if s.get("photo")]
+    #    🆕 2026-10-04（18本目 ⑤b-1）：フリー素材（ルール §2-5c）はこの割合に数えない＝別に数えて並べる
+    if stock is None:
+        import check_text_screens as TS
+        import footage
+        stock = lambda c, s: TS.is_stock(c, s, footage.USE, footage.CLIPS)    # noqa: E731
+    stk = [c for c, s in spec.items() if s.get("photo") and stock(c, s)]
+    photo = [c for c, s in spec.items() if s.get("photo") and c not in stk]
     r = len(photo) / max(1, len(spec))
     mark = "✓" if r >= PHOTO_MIN else "⚠️"
     out.append(f"{mark} 写真映像 {len(photo)}/{len(spec)} ＝ {r * 100:.1f}%"
-               f"（規則 {PHOTO_MIN * 100:.0f}%以上・上限なし・下回っても警告だけ）")
+               f"（この事故の写真・映像だけ・規則 {PHOTO_MIN * 100:.0f}%以上・上限なし・下回っても警告だけ）"
+               f"・フリー素材 {len(stk)}（別に数える＝20%にも【映像あり】にも数えない）")
 
     # 4. 全画面の写真の切り落とし
     #    ⚠️ 実物を開いて測る（縦横比を推定しない）。ファイルが無い欄は「測れていない」と言う。
@@ -290,6 +299,26 @@ def selftest():
     chk("写真20%ちょうどは ✓ で通る", photo_mark(1, 5) == ("✓", 0))
     chk("写真17%は ⚠️ を出すが止めない", photo_mark(1, 6) == ("⚠️", 0))
     chk("写真100%でも止めない（上限なし）", photo_mark(4, 4) == ("✓", 0))
+
+    # 🆕 2026-10-04（18本目 ⑤b-1）：フリー素材は写真映像（20%の数）に数えない（ルール §2-5c）。
+    #    この事故の写真1・フリー素材1／6カット＝正しく数えれば 16.7% で ⚠️、フリー素材まで数えると 33% で ✓（＝見分けのつく見本）
+    import check_text_screens as TS
+
+    def photo_mark_stock(n_photo, n_stock, n_all, stock):
+        ids = [f"a{i}" for i in range(1, n_all + 1)]
+        spec_ = {}
+        for i, c_ in enumerate(ids):
+            spec_[c_] = (dict(photo=FIG) if i < n_photo else dict(photo="ep18/stock/sea.jpg") if i < n_photo + n_stock
+                         else dict(fig=("panel", {})))
+        rows, code_ = check(spec=spec_, broken={}, want=ids, stock=stock)
+        marks = [r_.split(" ", 1)[0] for r_ in rows if "写真映像" in r_]
+        return (marks[0] if marks else None), code_
+
+    real = lambda c_, s_: TS.is_stock(c_, s_, {}, {})      # noqa: E731
+    chk("陽性対照：フリー素材は写真映像に数えない（この事故1・フリー素材1／6＝16.7% で ⚠️）",
+        photo_mark_stock(1, 1, 6, real) == ("⚠️", 0))
+    chk("物差しの検算：フリー素材まで写真に数える物差しなら 33% で ✓ になる（＝上の見本で見分けがつく）",
+        photo_mark_stock(1, 1, 6, lambda c_, s_: False) == ("✓", 0))
 
     # 4. 切り落としの検算。⚠️ **実在の絵**で測る（架空の名前だと「測れていない」に落ちて
     #    黙って通ってしまう＝0件を調べて合格）。→ [[feedback-gates-blind-to-the-new-material]]
