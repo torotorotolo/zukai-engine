@@ -39,6 +39,7 @@
 """
 import base64
 import io
+import math
 import sys
 from pathlib import Path
 
@@ -402,6 +403,208 @@ def ep16_b2():
 EP16_A = "ep16/dam_slide_1963.jpg"   # #023 U.S. Army／PD（`thumb_jiko.EP16_A` と同じ）
 
 
+def night_sky(seed=31):
+    """暗い夜空（上がわずかに明るい紺）。16本目の B1 と同じ作り。"""
+    sky = np.zeros((H, W, 3), float)
+    y = np.linspace(0, 1, H)[:, None]
+    f = fractal(W, H, seed, ((6, 1.0), (24, 0.4)))
+    sky[..., 0] = 10 + 10 * (1 - y) + 8 * f
+    sky[..., 1] = 14 + 16 * (1 - y) + 8 * f
+    sky[..., 2] = 26 + 30 * (1 - y) + 10 * f
+    return uri(Image.fromarray(sky.clip(0, 255).astype(np.uint8)))
+
+
+def day_gray(seed=43):
+    """暗い灰色の地（図の背景）。🔴 昼の事故（14本目＝朝・15本目＝夕方前）に夜空を使うと「夜」と読める＝事実と合わない。
+    16本目（22時39分）は夜空のまま。"""
+    g = np.zeros((H, W, 3), float)
+    y = np.linspace(0, 1, H)[:, None]
+    f = fractal(W, H, seed, ((6, 1.0), (24, 0.4)))
+    for k, (top, bot) in enumerate(((58, 30), (62, 33), (68, 37))):
+        g[..., k] = bot + (top - bot) * (1 - y) + 10 * f
+    return uri(Image.fromarray(g.clip(0, 255).astype(np.uint8)))
+
+
+def red_pattern(pid, seed=23):
+    f2 = fractal(512, 256, seed, ((12, 1.0), (40, 0.6), (120, 0.4)))
+    tex = colorize(f2, (150, 6, 4), (236, 26, 16))
+    return (f'<pattern id="{pid}" patternUnits="userSpaceOnUse" width="{W}" height="{H}">'
+            f'<image href="{uri(tex)}" width="{W}" height="{H}" preserveAspectRatio="none"/></pattern>')
+
+
+def kasure_mask():
+    sp = speckle(W, H, seed=13, frac=0.09)
+    return (f'<mask id="ks" maskUnits="userSpaceOnUse" x="0" y="0" width="{W}" height="{H}">'
+            f'<image href="{uri(sp, "PNG")}" width="{W}" height="{H}"/></mask>')
+
+
+def darken_photo():
+    """B2（全面の絵）の締め＝上下の暗幕＋周りを落とす（DS844 の実写の回は暗い）。"""
+    return ('<linearGradient id="tb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0.55"/>'
+            '<stop offset="0.22" stop-color="#000" stop-opacity="0"/><stop offset="0.68" stop-color="#000" stop-opacity="0"/>'
+            '<stop offset="1" stop-color="#000" stop-opacity="0.72"/></linearGradient>'
+            f'<rect width="{W}" height="{H}" fill="url(#tb)"/>'
+            '<radialGradient id="vg" cx="0.5" cy="0.5" r="0.78"><stop offset="0.5" stop-color="#000" stop-opacity="0"/>'
+            '<stop offset="1" stop-color="#000" stop-opacity="0.6"/></radialGradient>'
+            f'<rect width="{W}" height="{H}" fill="url(#vg)"/>')
+
+
+# ── 14本目 セウォル号（2026-10-04・公開ずみ `WqhSTqWvqAc` で B の型を試す）──────────────
+#    🔴 カズヤくん（10-04）「セウォル号、リノ・エアレースの動画も B タイプのサムネを作成。16本目同様にテスト」
+#    言葉は公開中の A（`thumb_jiko.ep14_ai_zoom()` の z2）と1字も変えない：
+#       赤「犠牲304人 退船命令は出ず」→ 白「犠牲304人」＋赤「退船命令は出ず」（主）／黄「セウォル号沈没の真相」→ 黄「セウォル号」＋白「沈没の真相」
+#    字幅：上の行 10.0em×116＝1,160px／下の行 白×71＋赤×119＋間 24＝約1,200px（赤の字の高さ 約113px）
+OUT14 = HERE / "out" / "thumb" / "ep14-ab"
+TOP14 = [("セウォル号", YEL, 116), ("沈没の真相", WHT, 116)]
+BOT14 = [("犠牲304人", WHT, 71), ("退船命令は出ず", RED, 119, 24)]
+EP14_SHIP = "ep14/sewol_incheon.jpg"   # jinjoo2713／PD：沈む20日前、仁川港のセウォル号（`thumb_jiko.EP14_SHIP` と同じ）
+
+# 船の寸法（メートル）＝本編の `tools/hull.py` の値（海審 p1013・p1018〜1019）
+#    全長 145.61・幅 22（HALF 11）・C甲板 14.00・3階（B甲板）18.95・4階（A甲板）21.65・5階（船橋甲板）24.25・操舵室の前の端 97
+#    🔴 煙突の位置と大きさ・船首と船尾の線・船底の丸みは模式（hull.py と同じく記録に無い）
+HEEL14 = 52.2                        # 🔴 海審 p1057「B甲板の左舷が水面に届くほど（傾き約52.2度）」＝本編 hull の front と同じ考え
+
+
+def sewol_side(heel=HEEL14):
+    """左舷へ heel 度傾いた船を**右舷の側から**見た横の形（船尾 x=0 → 船首 x=145.61・高さ z' は傾けたあとの上下）。
+
+    🔴 1巡目は本編 hull の front（船首の側から見た断面）をそのまま傾けた＝**赤い箱にしか見えず船と読めなかった**
+       → 横の形に替えた。傾きは「右舷の側から見た高さ」の計算に入れる：z' ＝ z・cos θ ＋ y・sin θ（y＝右舷が＋）。
+       水面＝3階の左舷の端（y −11・z 18.95）の z'＝本編と同じ記録（52.2度で3階の左舷の端が水面に届く）。
+       ＝水面の上に**船底の帯**（右舷の湾曲部 z' 8.69 から下）が出る＝いまのサムネの生成の地と同じ見え方。
+    """
+    th = math.radians(heel)
+    c, sn = math.cos(th), math.sin(th)
+    zp = lambda z, y: z * c + y * sn
+    v = dict(water=zp(18.95, -11), bilge=zp(0, 11), pbilge=zp(0, -11), cdeck=zp(14.0, 11),
+             bdeck=zp(18.95, 11), adeck=zp(21.65, 11), brdeck=zp(24.25, 10))
+    L, top, fun = 145.61, v["brdeck"], v["brdeck"] + 2.5
+    outline = [(0, 3.5), (0, v["adeck"]), (2, v["adeck"]), (2, top), (30, top), (31, fun), (39, fun), (40, top),
+               (97, top), (98, v["adeck"] - 1), (100, v["cdeck"]), (138, v["cdeck"] + 1.2), (L, v["cdeck"] + 2.5),
+               (L, 12), (142, -2), (128, v["pbilge"]), (14, v["pbilge"]), (2, -1)]
+    bottom = [(6, v["bilge"]), (135, v["bilge"]), (141, 2), (128, v["pbilge"]), (14, v["pbilge"]), (3, 0)]
+    return outline, bottom, v
+
+
+def ep14_b1():
+    """B1＝横から見た図（海の断面）＋平らな赤の主役（傾いた船）＋赤い矢印＋赤枠の実写（沈む20日前の船・PD）。
+
+    🔴 本編に忠実に：傾き＝左舷へ 52.2度（海審 p1057）・水面＝3階の左舷の端が水面に届く高さ（本編 hull の front と同じ記録）。
+       右舷の側から見る＝船首が右。人は描かない（本編も亡くなった方の数に人の形を使っていない＝§C-1 #59）。角度の数は絵に入れない。
+    矢印は3階・4階（客室）へ。
+    """
+    # 🔴 2巡目（640px で見た）：赤一色だと「まっすぐ浮いた船」に見えた＝傾きが伝わらない
+    #    → 船底の帯を暗い色にして白い線（喫水の上の塗り分けの線）で分け、客室の窓の列を足し、船を大きく（3巡目）
+    s, x0, water = 6.0, 30.0, 440.0       # 船首の先＝x 904（6.2 では差し込みの下にもぐった）
+    outline, bottom, v = sewol_side()
+    tr = lambda pts: [(round(x0 + s * x, 1), round(water - s * (z - v["water"]), 1)) for x, z in pts]
+    ship = "M" + _pts(tr(outline)) + " Z"
+    band = "M" + _pts(tr(bottom)) + " Z"
+    decks = "".join(f'<path d="M{_pts(tr([(0, v[k]), (x1, v[k])]))}" stroke="#6e0000" stroke-width="3" fill="none"/>'
+                    for k, x1 in (("cdeck", 100), ("bdeck", 97)))
+    ex = (red_pattern("rt14") + kasure_mask() +
+          '<linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a9fd4"/>'
+          '<stop offset="1" stop-color="#062a45"/></linearGradient>')
+    # 客室の窓（3階・4階の帯に2列・間隔 2.4m・灯りではない＝暗い赤）
+    wins = []
+    for z0, z1 in ((v["bdeck"], v["adeck"]), (v["adeck"], v["brdeck"])):
+        zc, hh = (z0 + z1) / 2, max(0.35, (z1 - z0) * 0.45)
+        for xm in np.arange(5.0, 95.0, 2.4):
+            (ax, ay), (bx, by) = tr([(xm, zc + hh / 2), (xm + 1.3, zc - hh / 2)])
+            wins.append(f'<rect x="{ax}" y="{ay}" width="{bx - ax:.1f}" height="{by - ay:.1f}" fill="#5c0000"/>')
+    bilge_line = f'<path d="M{_pts(tr([(6, v["bilge"]), (135, v["bilge"])]))}" stroke="#ffffff" stroke-width="3"/>'
+    g = [f'<image href="{day_gray(41)}" width="{W}" height="{H}"/>',
+         f'<path d="{ship}" fill="{SIL}" filter="url(#glow)" opacity="0.6"/>',
+         f'<path d="{ship}" fill="url(#rt14)"/>',
+         f'<path d="{band}" fill="#3a0a0a"/>', bilge_line, decks, "".join(wins),
+         # 海（船の沈んだ所は海の色が重なって見える）
+         f'<rect x="0" y="{water}" width="{W}" height="{H - water}" fill="url(#sea)" opacity="0.8"/>',
+         f'<path d="M0,{water} L{W},{water}" stroke="#ffffff" stroke-width="5"/>',
+         block_arrow(250, 185, 400, 316),
+         inset(EP14_SHIP, 950, 168, 300, 280, cx=0.682, cy=1.0, zoom=1.397, contrast=1.12, color=1.05, bright=0.98),
+         '<radialGradient id="vg" cx="0.5" cy="0.48" r="0.8"><stop offset="0.55" stop-color="#000" stop-opacity="0"/>'
+         '<stop offset="1" stop-color="#000" stop-opacity="0.55"/></radialGradient>'
+         f'<rect width="{W}" height="{H}" fill="url(#vg)"/>',
+         seg(TOP14, 40, 121, kasure="ks"),
+         seg(BOT14, 38, 689)]
+    bake("ep14_B1_docu", "".join(g), ex, out=OUT14)
+
+
+def ep14_b2():
+    """B2＝公開中の A と同じ生成の地（z2 の寄り）＋赤い矢印＋極太明朝＝字と矢印の様式だけを比べる。
+    地の船＝横いっぱい（y≈240〜450）。矢印は上の甲板へ。"""
+    import thumb_jiko as T
+    hero = T.photo("ep14/ai/ep14_sewol_a.jpg", contrast=1.14, color=1.08, bright=0.90, **T.EP14AI_ZOOM["z2"])
+    g = [f'<image href="{hero}" width="{W}" height="{H}"/>', darken_photo(),
+         block_arrow(450, 160, 620, 252),
+         seg(TOP14, 40, 121, kasure="ks"),
+         seg(BOT14, 38, 689)]
+    bake("ep14_B2_docu_ai", "".join(g), kasure_mask(), out=OUT14)
+
+
+# ── 15本目 リノ・エアレース2011（2026-10-04・公開ずみ `hsDtzoHIvE0`）──────────────
+#    言葉は公開中の A（`thumb_jiko.ep15()` の `c_kaizou_pit`）と1字も変えない：
+#       赤「犠牲11人 改造機が観客席へ」→ 白「犠牲11人」（上）＋赤「改造機が観客席へ」（下・主）の2行
+#       （1行だと赤が 120px 級でも 1,267px で入らない＝DS844 の「実際の映像／※閲覧注意」の2行の組み方）
+#       黄「リノ・エアレース墜落の真相」→ 黄「リノ・エアレース」＋白「墜落の真相」（13.0em×92＝1,196px）
+OUT15 = HERE / "out" / "thumb" / "ep15-ab"
+TOP15 = [("リノ・エアレース", YEL, 92), ("墜落の真相", WHT, 92)]
+EP15_PIT = "ep15/gg_pit_2010.jpg"   # jeggernot／CC BY 2.0：2010年のピットの事故機（「177」）。顔は元画像でモザイク済み
+
+# P-51 の横の形（機首＝x 0・長さ 1000・上が −）。改造機の細部（切り詰めた翼など）は模式
+P51 = ("M0,0 Q15,-38 70,-48 L330,-58 Q380,-118 470,-104 Q520,-90 545,-62 L840,-36 L905,-190 Q930,-205 960,-190 "
+       "L985,-30 L1000,-10 L1000,10 L960,14 L700,40 L620,42 Q560,95 470,90 L440,58 L300,58 Q120,58 50,40 Q10,30 0,0 Z "
+       "M250,28 L540,20 L540,40 L250,48 Z M830,-6 L992,-14 L992,2 L830,8 Z M-8,-150 L6,-150 L6,150 L-8,150 Z")
+
+
+def ep15_b1():
+    """B1＝横から見た図（地面の断面＋観客席）＋平らな赤の主役（機体）＋白い航跡＋赤い矢印＋赤枠の実写（T3「177」）。
+
+    🔴 本編に忠実に：機首上げ → 上昇 → 降下して観客席へ（AAB-12/01）。**「最後に観客席を避けた」は描かない**
+       （支えられない＝⑤の決め）。降下は「操縦なしに」＝機体は**動きの線だけ**で、操縦の向きを示す物を足さない。
+       背面になった（横転）の向きは描かない（きっかけが未確定）。高さ・G・秒の数は絵に入れない。人（観客）は描かない。
+    """
+    ground_y = 530
+    # 🔴 1巡目は機体が 300px で小さく、差し込みの上にモザイクの顔が入った → 機体 450px・航跡の下りを機体の向き（40度）に・
+    #    差し込みは「177」と翼まで下げた（2巡目）
+    traj = "M40,430 C300,430 420,200 560,190 C650,185 720,225 1050,500"
+    seats = ("M1000,530 L1000,505 L1050,505 L1050,486 L1100,486 L1100,467 L1150,467 L1150,448 L1200,448 "
+             "L1200,430 L1290,430 L1290,530 Z")
+    ex = red_pattern("rt15") + kasure_mask()
+    g = [f'<image href="{day_gray(51)}" width="{W}" height="{H}"/>',
+         f'<image href="{uri(rock(seed=19, dark=(30, 24, 18), light=(170, 140, 104)))}" width="{W}" height="{H}" '
+         f'clip-path="url(#gc15)"/>',
+         f'<clipPath id="gc15"><rect x="-10" y="{ground_y}" width="{W + 20}" height="{H}"/></clipPath>',
+         f'<path d="{seats}" fill="#8f969e" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/>',
+         f'<path d="M-10,{ground_y} L{W + 10},{ground_y}" stroke="#ffffff" stroke-width="5"/>',
+         # 航跡（白・うすい光）
+         f'<path d="{traj}" fill="none" stroke="#ffffff" stroke-width="16" opacity="0.25" filter="url(#sh)"/>',
+         f'<path d="{traj}" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" opacity="0.9"/>',
+         # 機体（機首が右下＝航跡の向き。上下は裏返さない）
+         f'<g transform="translate(1042,505) rotate(40) scale(-0.45,0.45)">'
+         f'<path d="{P51}" fill="{SIL}" filter="url(#glow)" opacity="0.6"/><path d="{P51}" fill="url(#rt15)"/></g>',
+         block_arrow(1195, 172, 985, 330),
+         inset(EP15_PIT, 40, 160, 300, 260, cx=0.651, cy=0.879, zoom=2.343, contrast=1.10, color=1.05, bright=1.0),
+         '<radialGradient id="vg" cx="0.5" cy="0.48" r="0.8"><stop offset="0.55" stop-color="#000" stop-opacity="0"/>'
+         '<stop offset="1" stop-color="#000" stop-opacity="0.55"/></radialGradient>'
+         f'<rect width="{W}" height="{H}" fill="url(#vg)"/>',
+         seg(TOP15, 40, 101, kasure="ks"),
+         seg([("犠牲11人", WHT, 84)], 40, 548),
+         seg([("改造機が観客席へ", RED, 140)], 40, 687)]
+    bake("ep15_B1_docu", "".join(g), ex, out=OUT15)
+
+
+def ep15_b2():
+    """B2＝公開中の A と同じ写真の地（T3・全体）＋赤い矢印（「177」へ）＋極太明朝＝字と矢印の様式だけを比べる。"""
+    hero = TJ.photo(EP15_PIT, cy=0.50, cx=0.50, contrast=1.10, color=1.05, bright=0.86)
+    g = [f'<image href="{hero}" width="{W}" height="{H}"/>', darken_photo(),
+         block_arrow(1010, 165, 895, 385),
+         seg(TOP15, 40, 101, kasure="ks"),
+         seg([("犠牲11人", WHT, 84)], 40, 548),
+         seg([("改造機が観客席へ", RED, 140)], 40, 687)]
+    bake("ep15_B2_docu_photo", "".join(g), kasure_mask(), out=OUT15)
+
+
 if __name__ == "__main__":
     only = [a for a in sys.argv if a.startswith("--only=")]
     keep = only[0].split("=", 1)[1].split(",") if only else ["a", "b1", "b2"]
@@ -412,8 +615,9 @@ if __name__ == "__main__":
             ep18_b1()
         if "b2" in keep:
             ep18_b2()
-    if "ep16" in sys.argv:
-        if "b1" in keep:
-            ep16_b1()
-        if "b2" in keep:
-            ep16_b2()
+    for ep, b1, b2 in (("ep16", ep16_b1, ep16_b2), ("ep14", ep14_b1, ep14_b2), ("ep15", ep15_b1, ep15_b2)):
+        if ep in sys.argv:
+            if "b1" in keep:
+                b1()
+            if "b2" in keep:
+                b2()
