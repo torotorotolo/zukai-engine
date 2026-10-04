@@ -218,7 +218,8 @@ SPEC = {
                       ss.ce(["v_court", "v_cinc", "v_rule"], "v_air")]),
             dict(add=dict(k="chip", at="v_court", t="おそらく原因の1つ", rec="R08 p4204", dy=50)),
             dict(add=dict(k="chip", at="v_rule", t="氷で吹けなかった（推定）", rec="A-R p9961", dy=50))],
-            note="凍って吹き出せなかったと言うのは元分析官（個人の推定）だけ", src=ss.src(["R08 p4204", "IR18 p2122", "A-R p9961"]))),
+            # ⚠️ 試し焼き（Actions 37201365970）の字の大きさ：注と出典3つで19画素まで縮んだ＝注を短く
+            note="凍ったと言うのは元分析官だけ（推定）", src=ss.src(["R08 p4204", "IR18 p2122", "A-R p9961"]))),
     ),
     # c821（8.99秒＝0〜3.84／4.33〜8.99）＝大西洋艦隊の司令官の意見書（IR18 p.122）
     "c821": dict(
@@ -226,7 +227,7 @@ SPEC = {
         fig=("boxes", dict(view="form", form=ss.FORM_CINC2, steps=[
             dict(add=dict(k="paper")),
             dict(add=[dict(k="fill", f="空気の系統"), dict(k="fill", f="評価"), dict(k="fill", f="現役の艦")])],
-            note="大西洋艦隊の司令官が査問会の報告に添えた・欄の字は原文のまま・様式は再現・strainers＝こし器",
+            note="大西洋艦隊の司令官が添えた・欄の字は原文のまま・strainers＝こし器",    # ⚠️ 長いと25画素に縮んだ
             src=ss.src(["IR18 p2120", "IR18 p2122"]))),
     ),
     # c823（6.45秒＝0〜1.05／1.54〜3.80／4.29〜6.45）＝次の章へ（噂の中身は次の c901）
