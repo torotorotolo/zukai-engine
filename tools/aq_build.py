@@ -81,11 +81,29 @@ VOICES = {
     #    148 は 153 とほぼ同じ段（§6-67）＝15本目で「ほんの少し遅く」と言われた声に戻る → 話速は r02 の 147 のまま、
     #    行間を 0.35（−140ms・333か所）にして幅に入れた（ルール 5a-30・§C-1 #68）
     "ep16": {"speed": 147, "gap": 0.35, "cand": "A"},
+    # 18本目（2026-10-04 ⑤a-2・作業ツリー ep18a5）：実測（全603行・句読点なし 13,850字＝ed01 こみ・147）
+    #    147・0.35（16本目の値）＝37分11.8秒・372.4字/分（幅の外＝速すぎ）・冒頭 c105 の終わり 45.9秒。
+    #    台本が16本目より字が詰まっていない（声だけの字/分 450.4＝15本目 r02 の 453.1 に近い）＝行間を広げれば幅に入るが、
+    #    行間は冒頭 c101〜c105 の8か所にも効く＝全体で1つの値だと「幅の内」と「c105 が46秒より前」（ルール 4-7）が両立しない
+    #    （0.36＝371.7・45.96秒／0.39＝370.0・46.20秒／0.49＝364.1・47.00秒）。
+    #    → 本編は15本目 r02 と同じ 147・0.49（試写 OK の設定）・冒頭5カットだけ 16本目と同じ 0.35（試写 OK の設定）
+    #    ＝gap_cuts（カットごとの行間）。どちらもカズヤくんが耳で通した値で、両方の決まりの内に入る
+    "ep18": {"speed": 147, "gap": 0.49, "cand": "A",
+             "gap_cuts": {c: 0.35 for c in ("c101", "c102", "c103", "c104", "c105")}},
 }
 
 
-def gap_of(slug=None):
-    return float(VOICES.get(slug or ES.SLUG, {}).get("gap", GAP))
+def gap_of(slug=None, cid=None):
+    """行間（秒）。回の gap に、カットごとの gap_cuts があればそれを優先（18本目〜・無い回は今までどおり1つの値）。"""
+    v = VOICES.get(slug or ES.SLUG, {})
+    if cid is not None and cid in v.get("gap_cuts", {}):
+        return float(v["gap_cuts"][cid])
+    return float(v.get("gap", GAP))
+
+
+def gap_cuts(slug=None):
+    """カットごとの行間の表（narration.json の gap_cuts に写す・check_aq_audio が照合する）。無い回は空。"""
+    return {c: float(g) for c, g in VOICES.get(slug or ES.SLUG, {}).get("gap_cuts", {}).items()}
 # 声の候補（⑤a-2 でカズヤくんに選んでもらう）。(声種, 棒読み)。話速は VOICES の speed を使う
 CANDIDATES = {
     "A": {None: ("f2", "true"), "q": ("f1", "true")},     # まりさ（説明）・れいむ（聞き役）＝棒読み（ゆっくりの定番の音）
@@ -133,7 +151,7 @@ def _sig(cid, lines, yomi, presets):
     sent = [T.sent_text(yomi[f"{cid}-{i}"]) for i in range(1, len(lines) + 1)]
     who = [speaker.split(x)[0] for x in lines]
     rows = {str(w): T.preset_row(presets[w]) for w in set(who)}
-    blob = json.dumps([sent, who, rows, T.sound_settings(), T.EXE_MD5, gap_of(), SR, FADE_MS, T.GAIN],
+    blob = json.dumps([sent, who, rows, T.sound_settings(), T.EXE_MD5, gap_of(cid=cid), SR, FADE_MS, T.GAIN],
                       ensure_ascii=False, sort_keys=True)
     return hashlib.sha1(blob.encode("utf-8")).hexdigest()[:12]
 
@@ -149,7 +167,7 @@ def write_wav(path, pcm, sr=SR):
 def build_cut(cid, lines, synth, gap_sec=None):
     """1カットぶん。行ごとに合成→フェード→行間で連結。(pcm, 秒, 字幕rows)。synth(行ID, who, 文) → pcm。"""
     chunks, rows, t = [], [], 0.0
-    gap = b"\x00\x00" * int(round((gap_of() if gap_sec is None else gap_sec) * SR))
+    gap = b"\x00\x00" * int(round((gap_of(cid=cid) if gap_sec is None else gap_sec) * SR))
     for i, line in enumerate(lines, 1):
         who, body = speaker.split(line)
         pcm = ART.edge_fade(synth(f"{cid}-{i}", who, body), FADE_MS)
@@ -225,7 +243,10 @@ def rate_report(js=None, quiet=False):
     #    話速を替えたら全行を焼き直して、ここの実測で合否を見る（1回 約1分・費用なし）
     ok_floor, ok_cpm, side = judge_rate(total, cpm)
     if not quiet:
-        print(f"話速 {s0}・行間 {js.get('gap')}秒／句読点なし {chars:,}字／声 {fmt(speech)}＋構造 {fmt(over)} ＝ 尺 {fmt(total)}")
+        gc = js.get("gap_cuts") or {}
+        gcs = ("（" + "・".join(f"{g}秒＝{len([c for c in gc if gc[c] == g])}カット" for g in sorted(set(gc.values())))
+               + "だけ別）") if gc else ""
+        print(f"話速 {s0}・行間 {js.get('gap')}秒{gcs}／句読点なし {chars:,}字／声 {fmt(speech)}＋構造 {fmt(over)} ＝ 尺 {fmt(total)}")
         print(f"  字/分（句読点なし÷尺）= {cpm:.1f}（目標 {TARGET_CPM}・合格の幅 {FLOOR_CPM}〜{CEIL_CPM}）"
               f"／声だけの字/分 = {chars / (speech / 60):.1f}")
         print(f"  判定：尺 27分00秒以上 {'✓' if ok_floor else '🔴'}・{FLOOR_CPM}〜{CEIL_CPM}字/分 {'✓' if ok_cpm else '🔴' + side}")
@@ -297,6 +318,8 @@ def build(cuts=None, dry=False, cand=None, speed=None):
         "speed": defs[None][1]["話速"], "tempo": 1.0, "credit": "",
         "gap": gap_of(), "sr": SR, "durations": durs, "subtitles": subs, "signatures": sigs,
     }
+    if gap_cuts():                                        # カットごとの行間がある回だけ（無い回の narration.json は今までと同じ形）
+        js["gap_cuts"] = gap_cuts()
     jp.write_text(json.dumps(js, ensure_ascii=False, indent=2), encoding="utf-8")
 
     gone = 0
@@ -404,6 +427,32 @@ def selftest():
     ok(len(pcm) == (sum(n_of.values()) + 2 * g) * 2, "pcm の長さ ＝ 声＋GAP×(行数−1)")
     ok(abs(total - len(pcm) / 2 / SR) < 1e-6, "total ＝ pcm の長さ")
     ok(pcm[:2] == b"\x00\x00", "先頭はフェードで 0")
+    # カットごとの行間（2026-10-04・18本目）：gap_cuts のカットだけ別の値・無い回は1つの値のまま
+    VOICES["_t"] = {"speed": 147, "gap": 0.49, "gap_cuts": {"c101": 0.35}}
+    VOICES["_u"] = {"speed": 147, "gap": 0.35}
+    try:
+        ok(gap_of("_t", "c101") == 0.35 and gap_of("_t", "c106") == 0.49 and gap_of("_t") == 0.49,
+           "gap_cuts のカットだけ別の行間・ほかと cid なしは gap")
+        ok(gap_of("_u", "c101") == gap_of("_u") == 0.35 and gap_cuts("_u") == {}, "gap_cuts の無い回は今までどおり")
+        ok(gap_cuts("_t") == {"c101": 0.35}, "gap_cuts の表")
+        keep = VOICES.get(ES.SLUG)
+        VOICES[ES.SLUG] = VOICES["_t"]
+        try:
+            n_of.clear()
+            p1, _, r1 = build_cut("c101", ["あ。", "い。"], synth)
+            n_of.clear()
+            p2, _, r2 = build_cut("c106", ["あ。", "い。"], synth)
+            ok(abs(r1[1]["t"] - (r1[0]["d"] + 0.35)) < 1e-3 and abs(r2[1]["t"] - (r2[0]["d"] + 0.49)) < 1e-3,
+               "build_cut は gap_sec なしならカットの行間（gap_cuts）で組む")
+            ok(len(p2) - len(p1) == 2 * (int(round(0.49 * SR)) - int(round(0.35 * SR))), "行間の差だけ pcm が長い")
+        finally:
+            if keep is None:
+                VOICES.pop(ES.SLUG, None)
+            else:
+                VOICES[ES.SLUG] = keep
+    finally:
+        VOICES.pop("_t", None)
+        VOICES.pop("_u", None)
 
     script = [("c101", ["あ。"]), ("c102", ["い。"]), ("c201", ["う。"]), ("ca01", ["え。"]), ("ed01", ["お。"])]
     durs = {c: 10.0 for c, _ in script}
