@@ -29,6 +29,11 @@
   ②線は同じ段の点を日付の順に隣どうしだけ結ぶ（飛ばさない・延ばさない・切ってよいのは表の区間だけ）③横の線・縦の線・帯の値と
   日付も記録の表（715m の許可の線は1963年5月4日より前に引かない）④札の日付は点の日付と合う・札の数は rel
   x・y は全部この関数が組む（`f.mech`）＝描く側と門番が同じ幾何（[[feedback-gates-must-share-the-production-geometry]]）
+
+■ 🔴 2026-10-04（18本目 ⑤b-1・§0b）：16本目の型の道具＝**ファイルとして残す**（この道具は `cuts.ss` を読まない＝ss から16本目の値を
+  移しても import で落ちない）。16本目の点の表（`cuts.ss` の LVP・LV_*・VR_* と関数 `lv_fig()`）と、門番 check_mech の記録の表
+  （REC_LV・REC_LV_REF・REC_LV_DATE・REC_LV_BRK）は selftest の見本 `tools/fixture_ep16.py` へ移した（値は1つも変えていない＝
+  git の `b044b56`）。18本目で線の図を使うときは、点の表を ss に、記録の値を REC_LV＊に回の値で足す
 """
 from __future__ import annotations
 

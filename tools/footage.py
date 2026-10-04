@@ -114,7 +114,12 @@ UA = ("zukai-engine/1.0 (accident-documentary research; "
 #       🔴 2026-10-01（16本目 バイオントダム災害 ⑤b-1）：**16本目へ切り替えた**（§0b）。15本目は動く映像0本。
 #          16本目も動く映像0本（②③ 09-26＝幅1280以上の PD・CC の記録映像は0本＝【映像あり】なし・`ref/ep16/materials.md` §5）
 #          ＝`ref/ep16/clips.json` は無い＝CLIPS は空（Google Earth の飛行は⑤b-7 で写真の束として扱う）
-_CLIPS_JSON = HERE / "ref" / "ep16" / "clips.json"
+#       🔴 2026-10-04（18本目 スレッシャー号のリメイク ⑤b-1）：**18本目へ切り替えた**（§0b）。16本目は動く映像0本（USE・NOGO は空のまま）。
+#          18本目の候補＝NARA の記録映画 85185（カラー・720×480＝【映像あり】なし・SAR を測る）と、1963年の捜索・海底の
+#          国防総省撮影の PD の映像（映像方針 §16）。🆕 テーマに関連したフリー素材の映像（映像方針 §17・ルール §2-5c）は
+#          `clips.json` の欄に `"stock": true`（＋credit の頭に「イメージ」）＝門番 check_text_screens・check_cuts が
+#          この事故の写真・映像（20%の数）と別に数える。`ref/ep18/clips.json` は ⑤b-7 で作る（無いあいだ CLIPS は空）
+_CLIPS_JSON = HERE / "ref" / "ep18" / "clips.json"
 CLIPS = json.loads(_CLIPS_JSON.read_text(encoding="utf-8")) if _CLIPS_JSON.exists() else {}
 
 # 🔴🔴 2026-09-07（5本目 SL-1 ⑤c'・K-12）：**素材そのものが横に黒帯を持っている。**
@@ -185,7 +190,7 @@ def bars_left(cid, u=None):
 #    ＝ `SHOTS` が空のまま `outside_shot()` を回すと、**全欄が「対象外」で素通り**する。
 #    そうならないように `unknown_clip()` を足した（`fetch --check` が呼ぶ）。
 SHOTS = {}
-SHOT_FILE = HERE / "ref" / "ep16" / "shots.json"          # 16本目（0本＝無い）。15本目は ref/ep15/（0本）・14本目は ref/ep14/（2本）・13本目は ref/ep13/（0本）・12本目は ref/ep12/（2本）
+SHOT_FILE = HERE / "ref" / "ep18" / "shots.json"          # 18本目（⑤b-7 で作る）。16本目は ref/ep16/（0本）・15本目は ref/ep15/（0本）・14本目は ref/ep14/（2本）・13本目は ref/ep13/（0本）・12本目は ref/ep12/（2本）
 # 🔴 2026-09-13（7本目②）：**この表はまだ無い。**⑤で `tools/shots.py` が作る。
 #    無いあいだ SHOTS は空で、`outside_shot()` は全欄を「対象外」で飛ばす＝**素通りする**。
 #    それを塞ぐのが下の `unknown_clip()`（`fetch --check` が呼ぶ）。USE を書いたら必ず通す。

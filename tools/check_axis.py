@@ -40,60 +40,12 @@ sys.stdout.reconfigure(encoding="utf-8")
 #        selftest の見本 `tools/fixture_ep15.py`（GATES["check_axis"]・値は1つも変えていない＝git の `c646174`）。
 #        16本目の値は、軸の型を初めて使う ⑤b のチャットで、値と頁を ref/ep16/src/ep16_pages.txt で当てて入れる
 #        （空のあいだ、軸のカットは「記録に無い値」で止まる＝fail closed）
+#     🔴 2026-10-04（18本目 スレッシャー号 ⑤b-1）：16本目の表（10月9日の時刻の帯・年表＝第1〜11章）も**空にした**。
+#        selftest の見本 `tools/fixture_ep16.py`（GATES["check_axis"]・値は1つも変えていない＝git の `b044b56`）。
+#        18本目の値は、軸の型を初めて使う ⑤b のチャットで、値と頁を ref/ep18/src/ep18_pages.txt で当てて入れる
+#        （空のあいだ、軸のカットは「記録に無い値」で止まる＝fail closed）
 # ══════════════════════════════════════════════════════════
-#     🆕 2026-10-01（16本目 ⑤b-5）：16本目の値を入れた＝10月9日の時刻の帯（場面4）。原文 ref/ep16/src/ep16_pages.txt で当てた
-#        （S1＝議会の調査委員会の最終報告 PDF の頁・S9＝バイオント財団の年表 PDF の頁 p2001〜）
-REC_AXIS = {
-    "9:45": {"S1 p98"},                    # p98「Il successivo 9 ottobre alle ore 9,45 del mattino … tutte le 35 famiglie … sistemandosi provvisoriamente a Casso」
-    "12:00": {"S9 p2016"},                 # p2016「Ore 12. Durante la pausa pranzo alcuni operai ENEL fermi sul coronamento della diga vedono …」
-    "13:00": {"S9 p2016"},                 # 「Ore 13. Dietro le baracche degli operai in sponda sinistra, si apre una crepa larga 50 centimetri e lunga 5 metri」
-    "16:00": {"S9 p2016"},                 # 「Dopo tre ore la crepa ha progredito di 40-50 centimetri」（13時＋3時間）／「Ore 15-16.」の尻
-    "15:00": {"S9 p2016"},                 # 「Ore 15-16. un operaio attraversando la zona del Massalezza … vede alberi cadere」
-    "17:00": {"S9 p2016", "S1 p228"},      # 「Ore 17. Caruso riceve da Venezia le direttive …」・S1 p228（少数派「ma non per fare sgomberare la popolazione」）
-    "17:50": {"S9 p2016"},                 # 「Ore 17.50. Biadene telefona a Penta … per la prima volta, informa Penta degli esperimenti su modello … quota 700」
-    "20:00": {"S9 p2016", "S1 p228"},      # 「Ore 20. I camion non sono più in grado di transitare … La strada per il Toc viene sbarrata」・p228「Alle ore 20 …」
-    "22:00": {"S9 p2017"},                 # 割れる時刻 S9「Ore 22. Rittmeyer telefona a Biadene, a Venezia」
-    "22:15": {"S1 p228"},                  # 割れる時刻 S1 p228（少数派）「Alle 22,15 — come hanno affermato le telefoniste di Longarone」
-    "22:39": {"S1 p98", "S9 p2017"},       # S9 p2017「Ore 22.39. La frana si stacca」・S1 p98
-    # 🆕 2026-10-01（16本目 ⑤b-6a）：年表（date）＝第1〜6章。原文 ref/ep16/src/ep16_pages.txt で当てた
-    "1963-10-09": {"S1 p98", "S9 p2017"},  # 崩落の日
-    "1965": {"S1 p26"},                    # p26「La Commissione ha approvato — con 19 voti favorevoli e 8 contrari — la relazione redatta dal Presidente」（6月8日の会議の後）
-    "1969-12-17": {"S9 p2018"},            # 「1969 17 dicembre. Si conclude il processo di primo grado」
-    "1970-10-03": {"S9 p2018"},            # 「3 ottobre. La sentenza riconosce la totale colpevolezza di Biadene e Sensidoni」（控訴審）
-    "1971-03": {"S9 p2018", "S10 p3020"},  # S9「1971 15-25 marzo. Processo di Cassazione」・S10 p3020「la sentenza finale della Cassazione venne emessa nel marzo 1971」
-    "1962-12-06": {"S1 p90"},              # p90「Con la legge 6 dicembre 1962, n. 1643 … fu istituito l'Ente nazionale energia elettrica (ENEL)」
-    "1963-03-14": {"S1 p91"},              # p91「Con decreto presidenziale 14 marzo 1963, n. 221, venne disposto il trasferimento della impresa elettrica della SADE all'ENEL」
-    "1961-11-16": {"S9 p2011"},            # S9「16 novembre. Autorizzazione alla ripresa dell'invaso, ma solo fino a quota 640」（1961年＝31 ottobre の Semenza の死のあと）
-    "1961-12-23": {"S9 p2012"},            # 「23 dicembre. Il Servizio Dighe autorizza quota 655」（1962 の見出しの前）
-    "1962-02-06": {"S9 p2012"},            # 「1962 … 6 febbraio. Il Servizio Dighe autorizza quota 675」
-    "1962-06-08": {"S1 p92", "S1 p33"},    # p92「dalla quota 700 (consentita in data 8 giugno 1962)」・p33「autorizzazione Servizio dighe dell'8 giugno 1962 … fino a quota 700」
-    "1960-11-04": {"S1 p72"},              # p72「il 4 novembre 1960 una frana di circa 700.000 metri cubi si distaccava」
-    "1961-02-03": {"S1 p76", "S1 p36"},    # p76「« Rapporto geologico preparato per conto della SADE » datato 3 febbraio 1961」（ミュラー）
-    "1962-07-03": {"S1 p89", "S9 p2012"},  # p89「Il 3 luglio 1962 il professor Augusto Ghetti … completava la relazione」
-    "1963-03-20": {"S1 p92", "S1 p33"},    # p92「Il 20 marzo 1963 venne chiesta l'autorizzazione ad elevare l'invaso sperimentale dalla quota 700 … alla quota 715」
-    "1960-02-04": {"S1 p36", "S9 p2006"},  # p36「P. CALOI — relazione geofisica su indagini condotte nel novembre-dicembre 1959 (4 febbraio 1960)」
-    "1960-06": {"S1 p73", "S1 p36", "S9 p2007"},  # p73「Lo « Studio geologico sul serbatoio del Vajont » datato giugno 1960 dei geologi Giudici e Semenza」
-    "1959-05-05": {"S1 p39", "S9 p2005"},  # p39「Tina Merlin, sull'Unità del 5 maggio 1959」
-    "1960-11-30": {"S1 p39"},              # p39「Tribunale di Milano il 30 novembre 1960 … conclusosi con sentenza di assoluzione」
-    "1960-11-16": {"S1 p75"},              # p75「una nota datata 16 novembre 1960」（会社の記録）
-    "1961": {"S1 p89"},                    # p89「il modello era stato costruito nell'estate del 1961 in scala 1:200」
-    "1962-03-30": {"S9 p2012"},            # 割れる日 S9「30 marzo. Il Comitato direttivo del Centro Modelli Idraulici di Nove è del parere …」
-    "1962-04-30": {"S1 p225"},             # 割れる日 S1 p225（少数派）「nella sua riunione del 30 aprile 1962 espresse il parere …」
-    # 🆕 2026-10-01（16本目 ⑤b-6b）：年表（date）＝第9〜11章。原文 ref/ep16/src/ep16_pages.txt で当てた
-    "1963-10-11": {"S1 p99", "S9 p2017"},  # p99「Il Ministro dei lavori pubblici, con suo decreto dell'11 ottobre 1963 … costituì una Commissione」
-    "1963-11-01": {"S1 p99"},              # p99「l'ENEL nominò il 1° novembre 1963 altra Commissione di inchiesta」
-    "1964-01": {"S1 p99"},                 # p99「presentò, nel gennaio 1964, la sua relazione」・エネルの委員会「il 16 gennaio 1964, presentò la relazione」
-    "1964-05-22": {"S1 p1"},               # p1「(LEGGE 22 MAGGIO 1964, n. 370)」（議会の調査委員会をつくった法律）
-    "1968-02-20": {"S9 p2017"},            # S9「1968 20 febbraio. Il Giudice istruttore Mario Fabbri deposita la sentenza」
-    "1968-11-29": {"S9 p2017"},            # 「29 novembre. Inizia all'Aquila il processo di primo grado」
-    "1971-03-25": {"S9 p2018", "S10 p3020"},  # S9「1971 15-25 marzo. Processo di Cassazione a Roma」（25日＝判決）・S10 p3020「nel marzo 1971」
-    # 時効の日＝崩落の7年半後（計算：1963-10-09＋7年6か月＝1971-04-09＝判決の15日後）。S9「Dopo quindici giorni sarebbero scaduti i
-    #   7 anni e mezzo dall'avvenimento contestato」・S10 p3020「a soli 15 giorni dalla data che avrebbe fatto scattare la prescrizione」
-    "1971-04-09": {"S9 p2018", "S10 p3020"},
-    "1975-12-16": {"S9 p2018"},            # 「1975 16 dicembre. La Corte d'appello dell'Aquila rigetta la richiesta del comune di Longarone」
-    "1962-04": {"S1 p225"},                # cb14・cb16 の札なしの点（S1 p225＝4月30日＝少数派の報告の月）。割れる日の印は cb15
-    "1963-09-02": {"S1 p93", "S1 p226"},   # p93「da mm/g 6,5 del 2 settembre a 200 mm/g del 9 ottobre」（速さが増し始めた日）
-}
+REC_AXIS = {}
 LANES_OK = set()
 CH_PAD = 12          # 🆕 16本目 ⑤b-6b：札と右上の章の札（jiko_style.chapter）のあいだに要る画素
 

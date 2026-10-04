@@ -30,6 +30,10 @@
 
 ■ 門番 `check_mech`（judge_vsec）＝①状態の筋 ②本番の関数が置いた形（`f.mech["geo"]` の画素を写しの目盛りで読む＝ダムの寸法・
   水位・土の厚さ・穴の数）③札の数（rel）。🔴 記録の値は門番の側に持つ（§5b-88）
+
+■ 🔴 2026-10-04（18本目 ⑤b-1・§0b）：16本目の型の道具＝**ファイルとして残す**（この道具は `cuts.ss` を読まない＝ss から16本目の値を
+  移しても import で落ちない）。16本目の記録の値（門番 check_mech の REC_VSEC）は selftest の見本 `tools/fixture_ep16.py` へ移した
+  （値は1つも変えていない＝git の `b044b56`）。18本目で断面の図解を使うときは、REC_VSEC に回の値を足す
 """
 from __future__ import annotations
 

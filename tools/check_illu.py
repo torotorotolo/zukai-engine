@@ -318,27 +318,20 @@ def judge_scene(sc, where, docs=None, pages=None, split=None, until=None, sec_ok
 #  🆕 16本目 ⑤b-3（2026-10-01）：断面（VB・VC）の ⑨〜⑪・⑬・⑭（⑫ は judge_cut）
 # ══════════════════════════════════════════════════════════
 # 🔴 記録の値は門番の側に持つ（型の定数を読まない＝§5b-88）。頁は ss.REC_DOCS の通し番号
-REC_ELEV = {700.0: "S1 p96（その朝・その夜の水位＝約700m）", 695.0: "S1 p96（695mまで下げるつもり）",
-            725.5: "S9 p2006（天端725.50m）", 866.0: "S1 p146（積もった土砂の頂上＝866m）", 930.0: "S1 p146（北の岸で930m）・S1 p72（亀裂の谷）",
-            # 🆕 ⑤b-4（VD）：亀裂の折れ目・1960年の水位・模型の範囲・1961年の水位・最高水位
-            1200.0: "S1 p72（亀裂は1,200mまで上り）・S1 p89（模型は1,200mまで）", 1260.0: "S1 p72（また1,260mまで）",
-            1030.0: "S1 p72（1,030mへ）", 650.0: "S1 p72（1960年11月4日の水位650m）",
-            600.0: "S1 p89（模型は600mから）・S8 p1046（1961年1月に600m）", 722.5: "S1 p224（最高水位722.5m）"}
-REC_GAP = {25.0: (725.5 - 700.0, "S9 p2006・S1 p96（天端まで25mあまり）"),
-           165.0: (866.0 - 700.0, "S1 p146（崩れる前の水面より165m）"),
-           200.0: (930.0 - 700.0, "S1 p146（崩れる前の水面より200m）")}
-REC_RANGE = {(300.0, 400.0): "S8 p1046（水平に300〜400m）"}
-REC_SEC = dict(north=(930.0, "S1 p146"), peak=(846.0, 866.0, "S1 p146（866m）"), shift=(300.0, 400.0, "S8 p1046"),
-               thick=(330.0, "S1 p144（厚さ最大約330m）"), over=(100.0, 140.0, "S8 p1041（140m）・p1047（100m以上）"),
-               crest=(725.5, "S9 p2006"), height=(261.6, "S9 p2006"), lake=(700.0, "S1 p96"), l695=(695.0, "S1 p96"))
+# 🔴 2026-10-04（18本目 スレッシャー号 ⑤b-1・§0b）：16本目の値（断面 VB・VC・VD の高さ・差・範囲・記録 REC_ELEV・REC_GAP・REC_RANGE・REC_SEC・
+#    REC_VD・REC_LEN_KM／置き場 VA の記録 REC_VA・方眼 VA_GRID_PX）は selftest の見本 `tools/fixture_ep16.py`
+#    （GATES["check_illu"]・値は1つも変えていない＝git の `b044b56`）へ移した＝空。selftest は `selftest_ep16()` が見本を差し込んで回す
+#    （落ちても終わっても `restore()` で本番の値へ戻す）。18本目で断面（VB〜VD）・上から見た絵（VA）の型を使うときは、その回の
+#    記録の値をここに別に持つ（§5b-88）。空のあいだ、断面の札の数・高さ・寸法は「記録の表に無い」で止まる（fail closed）。
+#    許し（ELEV_TOL・GAP_TOL・KM_TOL・SPLIT_TOL）・場所の名（SEC_PLACES）・夜の色の表（NIGHT_*）は型の側の定数＝残す
+REC_ELEV = {}
+REC_GAP = {}
+REC_RANGE = {}
+REC_SEC = {}
 ELEV_TOL, GAP_TOL = 3.0, 1.5
 # 🆕 ⑤b-4：VD（正面から見た斜面）の記録（門番の側＝§5b-88。型の VD_CRACK・VD_1960・VD_MODEL_Z・VD_PEAK・VD_WAVE_H を読まない）
-REC_VD = dict(crack=((1200.0, 930.0, 1260.0), 1030.0, "S1 p72（1,200m まで上り・930m まで下り・1,260m・1,030m）"),
-              c1960_top=(850.0, "S1 p72（400〜850m の間）"), c1960_from_dam=(400.0, 600.0, "S1 p82（ダムの約500m上流）"),
-              model_z=(600.0, 1200.0, "S1 p89（標高600〜1,200m）"), model_split="S1 p224（マッサレッツァの沢の東と西）",
-              peak=(846.0, 866.0, "S1 p146（積もった土砂の頂上866m）"), wave=(25.0, "S1 p97（波は25メートル）"),
-              water={600.0: "S8 p1046", 650.0: "S1 p72", 700.0: "S1 p96・S1 p224", 722.5: "S1 p224"})
-REC_LEN_KM = {1.8: (1800.0, "S1 p89（前の幅1.8キロ）")}
+REC_VD = {}
+REC_LEN_KM = {}
 KM_TOL = 0.03
 SPLIT_TOL = 12.0                     # 模型の2つの塊の境と沢（亀裂の 930m の谷）の横のずれの許し（画素）
 SEC_PLACES = ("VB", "VC", "VD")
@@ -1043,7 +1036,23 @@ def _selftest_ep15():
 
 
 def selftest_ep16():
-    """16本目（バイオントダム災害）の検算＝**本番の表**（cuts.ss の16本目の値）で回す（見本を差し込まない）。
+    """16本目（バイオントダム災害）の検算＝**見本 `fixture_ep16`（16本目の表）を差し込んで**回す。
+    🔴 2026-10-04（18本目 ⑤b-1）：本番の表（cuts.ss の REC_DOCS・ILLU_SPLIT_TIMES・ILLU_CLOCK_OK・ILLU_COUNTS ほか／この門番の REC_ELEV・
+       REC_GAP・REC_RANGE・REC_SEC・REC_VD・REC_LEN_KM・REC_VA・VA_GRID_PX）は18本目の空の器にした＝16本目の値は `fixture_ep16`
+       （14・15本目と同じ作り＝記憶 project-jiko-rules-index §0b）。差し込んだら原文の頁の読み込み `_pages()`（lru_cache）を捨てて
+       16本目の原文を読み直し、戻したらまた捨てる＝落ちても終わっても `restore()` で本番の値へ戻す（try/finally）。本体は `_selftest_ep16`"""
+    import fixture_ep16
+    fixture_ep16.apply(sys.modules[__name__])
+    _pages.cache_clear()          # 🔴 原文の頁の読み込みは覚えている（lru_cache）＝本番の（空の）原文を捨てて16本目を読み直す
+    try:
+        return _selftest_ep16()
+    finally:
+        fixture_ep16.restore()
+        _pages.cache_clear()
+
+
+def _selftest_ep16():
+    """16本目の検算の本体（`fixture_ep16` を差し込んだ中で呼ぶ）。
     ⑤b-2：⑤ 時計と秒の札（映像方針 §9 ⑤＝秒の札は出さない〈ILLU_SEC_OK＝空〉・時計は 22:39 だけ・22:00 と 22:15 は割れる）"""
     ss = _ss()
     split, sec_ok, clock_ok = tuple(ss.ILLU_SPLIT_TIMES), dict(ss.ILLU_SEC_OK), tuple(ss.ILLU_CLOCK_OK)
@@ -1316,12 +1325,11 @@ def _selftest_ep16_vd(ss):
 
 
 # 🔴 16本目 ⑤b-2：置き場 VA の記録の値を**門番の側に**持つ（型の定数を読まない＝ルール §5b-88。型の点を壊すと捕まる）
-REC_VA = dict(tunnel_km=(2.5, 0.25, "S1 p85（入口はダムの約2,500m上流）"),
-              marks_km=(1.1, 0.15, "S1 p146（ダムの真横と約1.1km上流）"),
-              slide_km=(1.7, 0.2, "S1 p144（幅およそ1.7キロ）"),
-              slide_km2=(1.9, 0.19, "S1 p144（面積およそ1.9平方キロ）"),
-              shift_m=(300.0, 400.0, "S8 p1046（水平に300〜400m）"))
-VA_GRID_PX = 185.9                   # #100 の 1 km 方眼（measure_map16.py grid の実測）
+# 🔴 2026-10-04（18本目 ⑤b-1・§0b）：16本目の値（REC_VA・方眼 VA_GRID_PX）は `tools/fixture_ep16.py` の GATES["check_illu"] へ移した
+#    （値は1つも変えていない＝git の `b044b56`）。本番は空（`va_records()` は見本を差し込んだ selftest の中だけで呼ぶ）。
+#    VA_GRID_PX は #100（1934年の地形図）の 1 km 方眼の画素の実測＝その地図の値（未設定は None）
+REC_VA = {}
+VA_GRID_PX = None
 
 
 def va_records(il=None):
@@ -1482,7 +1490,8 @@ def _selftest_ep16_va(ss):
 
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
-    # 🔴 2026-10-01（16本目 ⑤b-2）：先に16本目（本番の表）を検算する
+    # 🔴 2026-10-01（16本目 ⑤b-2）：先に16本目を検算する（2026-10-04〜：16本目も見本 fixture_ep16 の表＝selftest_ep16 が差し込んで・
+    #    終わったら戻す）
     ok16 = selftest_ep16()
     # 🔴 2026-09-30（15本目 ⑤b-2）：先に15本目で RA・RB・RC・RD を検算してから、14本目の見本に差し替える
     #    （2026-10-01〜：15本目も見本 fixture_ep15 の表＝selftest_ep15 が差し込んで・終わったら戻す）

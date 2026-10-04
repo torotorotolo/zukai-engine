@@ -42,138 +42,24 @@ from check_qty import ATTR, EL, _els, _recs, _unesc  # noqa: E402
 #        実況の担当・3つの問いの答え・書類の再現図）も**空にした**。selftest の見本 `tools/fixture_ep15.py`
 #        （GATES["check_boxes"]・値は1つも変えていない＝git の `c646174`）。16本目の箱を書くチャットで、言葉と頁を
 #        ref/ep16/src/ep16_pages.txt で当てて入れる（空のあいだ、箱のカットは「記録に無い言葉」で止まる）
+#     🔴 2026-10-04（18本目 スレッシャー号 ⑤b-1）：16本目の表（REC_OTHER_ROLE・REC_MECH・REC_CHIP・REC_FORM・REC_CAUSE＝流れ図・
+#        書類の再現図〈欄の値は原文のイタリア語〉・並べ図）も**空にした**。selftest の見本 `tools/fixture_ep16.py`
+#        （GATES["check_boxes"]・値は1つも変えていない＝git の `b044b56`）。18本目の箱を書くチャットで、言葉と頁を
+#        ref/ep18/src/ep18_pages.txt で当てて入れる（空のあいだ、箱のカットは「記録に無い言葉」で止まる）
 # ══════════════════════════════════════════════════════════
-#     🆕 2026-10-01（16本目 ⑤b-6a）：第1〜6章の箱（流れ図・書類の再現図・並べ図）の言葉と頁を入れた（原文で当てた）
 REC_CREW = {}
 REC_ROLE_PAGES = set()
-REC_OTHER_ROLE = {    # 流れ図の「role」の箱＝役職でない言葉（報告書の文の言葉）→ 頁の集合
-    # c113：S1 p99「Il Ministro dei lavori pubblici, con suo decreto dell'11 ottobre 1963 … costituì una Commissione di inchiesta」・
-    #   「l'ENEL nominò il 1° novembre 1963 altra Commissione di inchiesta」
-    "国の調査委員会": {"S1 p99"}, "電力公社の調査委員会": {"S1 p99"}, "公共事業大臣": {"S1 p99"}, "電力公社": {"S1 p99"},
-    # c418：S1 p232（少数派）「all'occultamento alle autorità, ai Prefetti, e al Genio civile di Belluno e di Udine della relazione
-    #   Ghetti come delle relazioni Semenza-Giudici e Müller」・p179（多数派）「conosciuti alla Pubblica Amministrazione, benché non
-    #   consti che le relazioni siano state ufficialmente trasmesse」
-    "2人の地質学者の報告": {"S1 p232"}, "ミュラーの報告": {"S1 p232"}, "模型の報告": {"S1 p232"},
-    "国の役所": {"S1 p179", "S1 p232"}, "地方の長官": {"S1 p232"}, "土木局": {"S1 p232"},
-    # c510：S1 p89「le prove erano state svolte secondo due diversi indirizzi」＝①「facendolo avvenire per azione della gravità」
-    #   ②「rimettersi alle previsioni che poteva fornire lo studio geologico」（④' の照合 G3＝2通りは p89）・S9 p2010「con invaso a
-    #   quote comprese tra i 680 e 720 metri」
-    "重力で崩す": {"S1 p89"}, "地質の予想どおりに崩す": {"S1 p89"}, "水位680〜720m": {"S9 p2010"},
-    # c621：1960年と1962年は下げると止まった（S1 p85＝1961年1月にほぼ0・p93＝1963年3月にほぼ0）／1963年は下げても速まった
-    #   （p96「il serbatoio sta calando un metro al giorno」と速さの増え）・p96〜p97（10月8日の報告）「hanno tempestivamente informato le
-    #   Autorità competenti … il Sindaco, su invito del Prefetto e del Genio civile, ha emesso una ordinanza per la evacuazione di
-    #   persone ed animali dalla zona pericolante」
-    "下げると止まった": {"S1 p85", "S1 p93"}, "下げても速まった": {"S1 p96", "S1 p93"},
-    "会社": {"S1 p96"}, "役所": {"S1 p96"}, "村長": {"S1 p96"}, "危ない区域から人を出す": {"S1 p96", "S1 p97"},
-    # 🆕 ⑤b-8（2026-10-02）：c204（地図 drift の替え）＝S1 p51「la sezione della valle del Vajont presa in considerazione per la
-    #   costruzione della diga di sbarramento」・「dal serbatoio del Vajont … addotte alla grande centrale di Soverzene」（下流の町）
-    "谷をせき止めるダム": {"S1 p51"}, "下流の発電所": {"S1 p51"},
-    # ca13（地図 drift の替え）＝S10 p3019「avrebbe dovuto svolgersi a Belluno … trasferito per «rimessione» al Tribunale dell'Aquila
-    #   su ordinanza della Cassazione … per conseguenza ad una mancata serenità dei giudici」
-    #   ・「esacerbazione degli stati d'animo della popolazione」（住民の気持ちの高ぶり）
-    "ベッルーノの裁判所": {"S10 p3019"}, "ラクイラの裁判所": {"S10 p3019"}, "住民の気持ちの高ぶり": {"S10 p3019"},
-}
+REC_OTHER_ROLE = {}   # 流れ図の「role」の箱＝役職でない言葉（報告書の文の言葉）→ 頁の集合
 REC_CRIME = {}
 REC_VERDICT = {}   # (役職, 罪名, 列) → (結果, 頁)
 REC_SENT = {}      # 役職 → (確定した刑, 頁)
 REC_SEATS = 0
 REC_UNANIMOUS = set()
 HEADS = set()
-REC_MECH = {          # 流れ図に出してよい言葉のうち、役職・罪名でないもの（仕組み・鎖・問いの箱と矢印の札）
-    "議会の報告書",                                         # c113（S1＝議会の調査委員会の最終報告）
-    "ダムを高くする", "ためる水が増える", "つくれる電気が増える",   # c207（S1 p63「capacità … elevata」「producibilità annua」）
-    "会社",                                                 # c418
-    "22回の実験", "波の高さ",                               # c510（S1 p89「i 22 esperimenti compiuti」・S9 p2010「l'entità dell'onda」）
-    "1960年", "1962年", "1963年", "10月8日の報告",          # c621（S1 p96＝国の監督の担当者の10月8日の報告）
-    "大きな湖",                                             # 🆕 ⑤b-8 c204（S1 p51「serbatoio del Vajont」）
-}
-REC_CHIP = {          # 札（chip）の言葉 → 頁の集合
-    "1963年10月11日": {"S1 p99"}, "1963年11月1日": {"S1 p99"},                 # c113
-    "少数派「隠した」": {"S1 p232"},                                            # c418（occultamento）
-    "最も破局的な崩れ": {"S1 p89"},                                            # c510「il più catastrofico prevedibile crollo franoso」
-    "いつも2つの塊（少数派）": {"S1 p224"},                                    # c510「sempre partendo dall'ipotesi che si trattasse di due frane distinte」
-    # 🆕 ⑤b-8：c204（S1 p51「centrale」「serbatoio」）・ca13（S10 p3019「giudice naturale」＝地元の裁判所・「su ordinanza della
-    #   Cassazione adducendo il motivo」）
-    "電気をつくる": {"S1 p51"}, "発電のための水がめ": {"S1 p51"},
-    "地元": {"S10 p3019"}, "最高裁判所が挙げた理由": {"S10 p3019"},
-}
-# 書類の再現図（表題 → dict(fields・ends・values＝記録の文にある値だけ・rec＝頁の集合)）。🆕 16本目は欄の値に**原文のイタリア語**を
-#   そのまま書く（日本語は字幕だけ＝映像方針の c413・c422 の決め）。欄の名は原文の文の言葉（domanda→問い・risposto→答え・titolo→見出し・
-#   prima preoccupazione→第一の心配・è necessario→必要なこと・ondate→波・concludeva→結論・nei riguardi→何に対して・parere→意見・
-#   ricerche→研究・lago pieno→湖が満ちたとき・svaso rapido→急に下げるとき・versante→斜面）
-REC_FORM = {
-    "ミュラーの報告（少数派の報告が引く）": dict(                                       # c413：S1 p217
-        fields={"問い", "答え"}, ends=set(), rec={"S1 p217"},
-        values={"問い": "se questi franamenti possono venire arrestati mediante misure artificiali",
-                "答え": "deve essere risposto negativamente in linea generale"}),
-    "ウニタの記事（1961年2月21日）": dict(                                            # c422：S1 p39
-        fields={"見出し"}, ends=set(), rec={"S1 p39"},
-        values={"見出し": "Una enorme massa di 50 milioni di metri cubi minaccia la vita e gli averi degli abitanti di Erto"}),
-    "会社の記録（1960年11月16日）": dict(                                             # c502：S1 p75（⚠️ 原文の PDF の文字は「divello」＝livello の崩れ）
-        fields={"第一の心配", "必要なこと", "波"}, ends=set(), rec={"S1 p75"},
-        values={"第一の心配": "garantire l'incolumità delle persone che abitano nella valle",
-                "必要なこと": "abbassare il livello del serbatoio",
-                "波": "non possano assolutamente raggiungere la zona abitata"}),
-    "ゲッティの報告（1962年7月3日）": dict(                                           # c512：S1 p89
-        fields={"結論", "何に対して"}, ends=set(), rec={"S1 p89"},
-        values={"結論": "la quota 700 può considerarsi di assoluta sicurezza",
-                "何に対して": "del più catastrofico prevedibile evento di frana"}),
-    "模型の研究所の委員会": dict(                                                    # c517：S1 p225（4月30日）・S9 p2012（3月30日）＝月が割れる
-        fields={"意見", "研究"}, ends=set(), rec={"S1 p225", "S9 p2012"},
-        values={"意見": "almeno per il momento non siano da compiere ricerche",
-                "研究": "propagarsi di una onda di piena a valle della diga"}),
-    "土木局の手紙（1961年1月7日）": dict(                                             # c617：S1 p78〜p79（lettera 7 gennaio 1961）
-        fields={"湖が満ちたとき", "急に下げるとき", "斜面"}, ends=set(), rec={"S1 p79", "S1 p78"},
-        values={"湖が満ちたとき": "le acque, eventualmente infiltratesi nel terreno",
-                "急に下げるとき": "possano mettersi in pressione",
-                "斜面": "pregiudicando la stabilità del versante"}),
-    # 🆕 2026-10-01（16本目 ⑤b-6b）：第7・10章の書類の再現図（欄の値＝原文のイタリア語）
-    # c705・c707：S1 p96（議会の報告書が引くビアデーネの10月9日の手紙）「Le fessure sul terreno, gli avvallamenti sulla strada, la evidente
-    #   inclinazione degli alberi sulla costa che sovrasta la " Pozza ", l'aprirsi della grande fessura che delimita la zona franosa, il
-    #   muoversi dei punti anche verso la " Pineda " che finora erano rimasti fermi, fanno pensare al peggio」（Pineda の引用符は外した）・
-    #   「questa mattina dovrebbe essere a quota 700. « Penso di raggiungere quota 695 sempre allo scopo di creare una fascia di sicurezza
-    #   per le ondate」。欄の名＝fessure・avvallamenti・alberi→地面と道と木・grande fessura→大きな亀裂・punti→目印・questa mattina→
-    #   今朝の水位・raggiungere quota→下げる先・allo scopo di→ねらい
-    "ビアデーネの手紙（議会の報告書が引く）": dict(
-        fields={"地面と道と木", "大きな亀裂", "目印"}, ends=set(), rec={"S1 p96"},
-        values={"地面と道と木": "Le fessure sul terreno, gli avvallamenti sulla strada, la evidente inclinazione degli alberi",
-                "大きな亀裂": "l'aprirsi della grande fessura che delimita la zona franosa",
-                "目印": "il muoversi dei punti anche verso la Pineda che finora erano rimasti fermi"}),
-    "ビアデーネの手紙（続き）": dict(
-        fields={"今朝の水位", "下げる先", "ねらい"}, ends=set(), rec={"S1 p96"},
-        values={"今朝の水位": "questa mattina dovrebbe essere a quota 700",
-                "下げる先": "Penso di raggiungere quota 695",
-                "ねらい": "creare una fascia di sicurezza per le ondate"}),
-    # ca09：S1 p241（もう1つの少数派の報告）「dalla tesi, piuttosto affermata che dimostrata, secondo cui la sciagura del Vajont ha avuto
-    #   tutti i caratteri della assòluta imprevedibilità」（⚠️ 原文の PDF の文字「assòluta」＝assoluta の崩れ＝直して書いた）。
-    #   欄の名＝tesi→退ける説（「non accettazione … dei giudizi conclusivi」が退ける説）・piuttosto affermata→その説は
-    "もう1つの少数派の報告": dict(
-        fields={"退ける説", "その説は"}, ends=set(), rec={"S1 p241"},
-        values={"退ける説": "la sciagura del Vajont ha avuto tutti i caratteri della assoluta imprevedibilità",
-                "その説は": "piuttosto affermata che dimostrata"}),
-    # ca19：S9 p2018（財団の年表が記す判決）「1969 … Non viene riconosciuta la prevedibilità della frana」・「1971 … colpevoli di un unico
-    #   disastro: inondazione aggravata dalla previsione dell'evento compresa la frana e gli omicidi」。🔴 PLAN の S2 p.718（判決の複写＝
-    #   画像だけ）は照らせない＝この頁に当て直した。欄の名＝processo di primo grado→一審・Processo di Cassazione→破毀院
-    "判決（財団の年表が記す）": dict(
-        fields={"一審", "破毀院"}, ends=set(), rec={"S9 p2018"},
-        values={"一審": "Non viene riconosciuta la prevedibilità della frana",
-                "破毀院": "inondazione aggravata dalla previsione dell'evento compresa la frana"}),
-}
-REC_CAUSE = {         # 並べ図の項目 → 頁（c419＝2つの見方を同じ形で並べる・どちらかに決めない）
-    "多数派「確認できない」": {"S1 p179"}, "少数派「隠した」": {"S1 p232"},
-    # 🆕 2026-10-01（16本目 ⑤b-6b）
-    # ca04・ca10：S1 p26「La Commissione ha approvato — con 19 voti favorevoli e 8 contrari — la relazione … alla relazione finale siano
-    #   allegate le due relazioni di minoranza」（多数派 p178・少数派 p207・もう1つの少数派 p241）
-    "多数派の報告": {"S1 p26", "S1 p178"}, "少数派の報告": {"S1 p26", "S1 p207"}, "もう1つの少数派の報告": {"S1 p26", "S1 p241"},
-    # ca17：S9 p2018（控訴審）「riconosce la totale colpevolezza di Biadene e Sensidoni … Frosini e Violin vengono assolti per insufficienza
-    #   di prove; Marin e Tonini assolti perché il fatto non costituisce reato; Ghetti per non aver commesso il fatto」・「con lo stralcio
-    #   della posizione di Batini, gravemente ammalato」＝有罪2・無罪5・外れた1（11−亡くなった3＝8）
-    "有罪 2人": {"S9 p2018"}, "無罪 5人": {"S9 p2018"}, "裁判から外れた 1人": {"S9 p2018"},
-    # cb12・cb13：多数派 S1 p178「l'evento, così come si è manifestato, non fu previsto da nessuno」・少数派 S1 p207「un evento prevedibile
-    #   e probabile, e quindi evitabile」・破毀院 S9 p2018「inondazione aggravata dalla previsione dell'evento compresa la frana」
-    "多数派「その形は誰も予見せず」": {"S1 p178"}, "少数派「予見でき、防げた」": {"S1 p207"},
-    "破毀院「予見していた重い過失」": {"S9 p2018"},
-}
+REC_MECH = set()      # 流れ図に出してよい言葉のうち、役職・罪名でないもの（仕組み・鎖・問いの箱と矢印の札）
+REC_CHIP = {}         # 札（chip）の言葉 → 頁の集合
+REC_FORM = {}         # 書類の再現図（表題 → dict(fields・ends・values＝記録の文にある値だけ・rec＝頁の集合)）
+REC_CAUSE = {}        # 並べ図の項目 → 頁
 MARKS = {"？"}
 EXTRA = {"模式図"}
 

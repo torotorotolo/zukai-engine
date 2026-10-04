@@ -720,13 +720,11 @@ def judge_bolt(f):
 
 
 # 🆕 16本目 ⑤b-4：断面の図解（vsec）の記録＝門番の側（§5b-88＝型の定数〈vsec16・illu〉を読まない）
-REC_VSEC = dict(dam=dict(height=261.6, crest=725.5, base=22.11, top=3.40, lake=722.5, src="S9 p2006・S1 p63"),
-                # 🆕 ⑤b-6a：c209 の上から見た弓＝天端の弦・天端の長さ・上の厚さ（S9 p2006「190,15 metri di lunghezza al coronamento …
-                #   3,40 metri di spessore alla sommità; 168 metri di corda in sommità」）
-                arch=dict(chord=168.0, length=190.15, top=3.40, src="S9 p2006"),
-                lake=dict(marks=650.0, two=650.0, pair=650.0, probe=650.0, model=700.0, seep=702.5),
-                cover=(10.0, 20.0, "S1 p74（崩れた土の厚さ10〜20m）"), borings=(3, "S1 p148（試し掘り3本）"),
-                tunnels=(2, "S1 p148（横穴2本）"))
+# 🔴 2026-10-04（18本目 スレッシャー号 ⑤b-1・§0b）：16本目の値（ダムの断面・上から見た弓・湖の水位・調べた土の厚さ・試し掘りと横穴）は
+#    selftest の見本 `tools/fixture_ep16.py`（GATES["check_mech"]・値は1つも変えていない＝git の `b044b56`）へ移した＝空。
+#    selftest は見本の表だけ差し込む（`fixture_ep16.apply(gate, tables_only=True)`）。18本目で断面の図解（vsec）の型を使うときは、
+#    その回の記録の値をここに別に持つ（§5b-88）。空のあいだ、断面の図解は止まる（fail closed）
+REC_VSEC = {}
 NUM_VSEC = re.compile(r"[0-9０-９][0-9０-９,.．]*(?:\s*〜\s*[0-9０-９][0-9０-９,.．]*)?\s*(?:m|メートル|本|分の1)")
 
 
@@ -895,63 +893,16 @@ def _selftest_vsec(ok):
 #    行＝((日付の窓の頭, 尻), (値の下限, 上限), {頁})。月だけの記録（「nel marzo 1960」）は窓をその月まるごと・
 #    「primi di ottobre」＝1〜10日・「metà」＝11〜20日・「fine」＝21〜末日。値の「circa」は書いた値のまま（幅は丸めの外に広げない）
 #    🔴 §0b（題材を替えるとき空にする場所）：次の回は見本 fixture へ移して空にする（16本目の型＝lv16 を使う回だけの表）
-REC_LV = dict(
-    z=[  # 湖の水位（m）
-        (("1960-03-01", "1960-03-31"), (580, 580), {"S1 p72"}),             # p72「iniziate dalla quota 580 nel marzo 1960」
-        (("1960-10-01", "1960-10-10"), (630, 630), {"S1 p73"}),             # p73「fino all'ottobre 1960, quando il lago raggiunse la quota 630 circa. Dai primi di ottobre」
-        (("1960-11-04", "1960-11-04"), (650, 650), {"S1 p72", "S1 p73", "S8 p1046"}),  # p72「La frana del 4 novembre 1960 … raggiunse quota 650」
-        (("1961-01-01", "1961-01-15"), (600, 600), {"S8 p1046"}),           # 「slowly reduced to 600 m a.s.l. (reached at the beginning of January 1961)」
-        (("1961-10-11", "1961-10-20"), (600, 600), {"S1 p88", "S1 p90"}),   # p90「Dalla metà dell'ottobre 1961, cioè da quando fu ripreso l'invaso」・p88「reinvaso dalla quota 600」
-        (("1962-01-28", "1962-01-28"), (655, 655), {"S1 p87"}),             # p87「La detta quota di m. 655 venne gradualmente raggiunta il 28 gennaio」
-        (("1962-10-21", "1962-10-31"), (690, 690), {"S1 p90"}),             # p90「alla fine di ottobre 1962, quando il livello del lago venne portato dalla quota 690 alla quota 700」
-        (("1962-12-01", "1962-12-31"), (700, 700), {"S1 p90", "S8 p1046"}), # p90「nel dicembre 1962, col lago alla quota 700」・S8「in December 1962, it reached 700 m」
-        (("1963-02-01", "1963-02-28"), (680, 680), {"S1 p90"}),             # p90「nel febbraio 1963, col lago a quota 680 circa」
-        (("1963-03-01", "1963-03-31"), (650, 650), {"S1 p90", "S1 p93", "S8 p1046"}),  # p93「nel marzo successivo, col lago alla quota di 650 circa」
-        (("1963-04-10", "1963-04-10"), (647.5, 647.5), {"S1 p226"}),        # p226「Dal 10 aprile … il terzo invaso … partendo da quota 647,5」
-        (("1963-08-14", "1963-08-14"), (705, 706), {"S1 p226"}),            # p226「alla data del 14 agosto a quota 705-706 metri」
-        (("1963-09-01", "1963-09-01"), (709.4, 709.4), {"S9 p2014", "S1 p93"}),  # S9「1° settembre. La quota dell'acqua raggiunge m. 709,40」
-        (("1963-09-26", "1963-09-26"), (710, 710), {"S9 p2014", "S1 p226"}),     # S9「con piccole oscillazioni fino a m 710, l'acqua resterà fino al 26 settembre」
-        (("1963-10-08", "1963-10-08"), (702.5, 702.5), {"S1 p96"}),         # p96「a quota 702,50 (8 ottobre 1963) con decremento di un metro al giorno」
-        (("1963-10-09", "1963-10-09"), (700, 700.42), {"S1 p96", "S9 p2017"}),   # p96「questa mattina dovrebbe essere a quota 700」・S9 p2017「a quota 700,42」
-    ],
-    v=[  # 斜面の目印が1日に動く距離（ミリ）。「ほぼ0」＝(0, 1)
-        (("1960-03-01", "1960-03-31"), (0, 1), {"S1 p72"}),                 # p72〜73「non diedero luogo ad alcuna rilevabile accelerazione … velocità che rimase pressoché nulla fino all'ottobre 1960」
-        (("1960-10-01", "1960-10-10"), (0, 1), {"S1 p73"}),                 # p73「Dai primi di ottobre … da quasi zero」
-        (("1960-11-04", "1960-11-04"), (35, 40), {"S1 p73"}),               # p73「raggiunse quasi 4 centimetri al giorno fra i primi di ottobre ed il 4 novembre」
-        (("1961-01-01", "1961-01-15"), (0, 1), {"S1 p85"}),                 # p85「fino a praticamente annullarsi nella prima metà del gennaio 1961」
-        (("1962-08-01", "1962-10-10"), (0, 1), {"S1 p92", "S1 p90"}),       # p92「Dal gennaio 1961 fino al settembre-ottobre 1962 … velocità pressocchè nulle」
-        (("1962-12-01", "1962-12-31"), (15, 15), {"S8 p1046"}),             # S8「in December 1962 … the displacement rates exceeded 1.5 cm per day」（S1 p90 は約1cm＝台本は S8）
-        (("1963-03-01", "1963-03-31"), (0, 1), {"S1 p93", "S8 p1046"}),     # p93「nel marzo successivo … era pressoché nulla」・S8「the movements on the slope stopped」
-        (("1963-09-02", "1963-09-02"), (6.5, 6.5), {"S9 p2014", "S1 p93"}), # S9「il 2 6,5 mm」・p93「da mm/g 6,5 del 2 settembre」
-        (("1963-09-15", "1963-09-15"), (12, 12), {"S9 p2014"}),             # S9「il 15 settembre 12 mm」
-        (("1963-09-26", "1963-09-26"), (22, 22), {"S9 p2014"}),             # S9「il 26 22 mm」
-        (("1963-10-02", "1963-10-03"), (40, 40), {"S9 p2014"}),             # S9「il 2 ed il 3 ottobre 40 mm」
-        (("1963-10-08", "1963-10-08"), (100, 100), {"S1 p96"}),             # p96（10月8日の報告）「toccando oggi il valore di circa 10 cm/giorno」
-        (("1963-10-09", "1963-10-09"), (200, 200), {"S9 p2014", "S1 p93"}), # S9「fino ai 200 mm del 9 ottobre」
-    ],
-)
-# 横の線＝(段, 下限, 上限, 引き始めてよい日〈None＝軸の端から〉, {頁})
-REC_LV_REF = [
-    ("z", 700, 700, None, {"S1 p89"}),              # 模型の結論 p89「la quota 700 può considerarsi di assoluta sicurezza」
-    ("z", 715, 715, "1963-05-04", {"S1 p92"}),      # p92「alla quota 715 e l'autorizzazione venne concessa il 4 maggio 1963」
-    ("z", 725.5, 725.5, None, {"S9 p2006"}),        # 天端 S9 p2006「725,50 metri di quota del coronamento」
-    ("v", 35, 40, None, {"S1 p73", "S1 p93"}),      # 1960年11月の崩落のときの速さ（p73 quasi 4 cm）＝p93「avvicinarsi … ai valori … della frana del novembre 1960」
-]
-# 縦の線（ev）と帯（band）の日＝(窓, {頁})
-REC_LV_DATE = [
-    (("1960-11-04", "1960-11-04"), {"S1 p72", "S1 p73"}),           # 1960年11月4日の崩落
-    (("1961-01-01", "1961-01-15"), {"S1 p85", "S8 p1046"}),         # 1961年1月の前半（止まる）
-    (("1963-04-10", "1963-04-10"), {"S1 p226"}),                    # 3回目の水ための始まり
-    (("1963-05-01", "1963-05-31"), {"S1 p93"}),                     # p93「tra il maggio e l'agosto 1963 segnò accelerazioni non rilevanti」の頭
-    (("1963-08-01", "1963-08-31"), {"S1 p93"}),                     # 同じ区間の尻
-    (("1963-08-11", "1963-08-20"), {"S1 p93", "S1 p96"}),           # 8月の半ば＝速まり始め（p93「Nella metà dell'agosto」・p96「Dalla metà di agosto」）
-    (("1963-09-26", "1963-09-26"), {"S9 p2015", "S9 p2014"}),       # S9 p2015「26 settembre. Biadene decide di iniziare l'opera di svaso」
-    (("1963-10-08", "1963-10-08"), {"S1 p96"}),                     # 国の監督の担当者の10月8日の報告
-]
-# 線を切ってよい区間＝(段, 頭の窓, 尻の窓, {頁})＝数の記録が無い区間だけ
-REC_LV_BRK = [
-    ("v", ("1963-03-01", "1963-03-31"), ("1963-09-02", "1963-09-02"), {"S1 p93", "S8 p1046"}),  # 5〜8月は「目立った速まり無し」だけ・数は9月2日から
-]
+#    🔴 2026-10-04（18本目 スレッシャー号 ⑤b-1・§0b）：16本目の値（湖の水位・斜面の速さの記録の表 REC_LV／横の線 REC_LV_REF／縦の線と帯の日
+#       REC_LV_DATE／線を切ってよい区間 REC_LV_BRK）は selftest の見本 `tools/fixture_ep16.py`（GATES["check_mech"]・値は1つも
+#       変えていない＝git の `b044b56`）へ移した＝空。selftest は見本の表だけ差し込む（`fixture_ep16.apply(gate, tables_only=True)`）。
+#       18本目で線の図（lv）の型を使うときは、その回の記録の値をここに別に持つ（§5b-88）。空のあいだ、線の図は止まる（fail closed）
+#       ⚠️ 記録の表の読み方（行＝((日付の窓の頭, 尻), (値の下限, 上限), {頁})・月だけの記録は窓をその月まるごと・「primi」＝1〜10日・
+#          「metà」＝11〜20日・「fine」＝21〜末日・「circa」は書いた値のまま）は移した注の側にある＝fixture_ep16 の GATES["check_mech"]
+REC_LV = dict(z=[], v=[])     # 湖の水位（z）・斜面の速さ（v）の段ごとの行＝空でも段の名は持つ（KeyError でなく「記録の表に無い」と止める）
+REC_LV_REF = []       # 横の線＝(段, 下限, 上限, 引き始めてよい日〈None＝軸の端から〉, {頁})
+REC_LV_DATE = []      # 縦の線（ev）と帯（band）の日＝(窓, {頁})
+REC_LV_BRK = []       # 線を切ってよい区間＝(段, 頭の窓, 尻の窓, {頁})＝数の記録が無い区間だけ
 NUM_LV = re.compile(r"[0-9０-９][0-9０-９,.．]*\s*(?:m|メートル|ミリ|センチ)")
 
 
@@ -1240,6 +1191,10 @@ def selftest():
     #    見本 fixture_ep15 の表だけ差し込む（ss・GEO は触らない＝14本目の見本を壊さない）。main() が restore で戻す（LIFO）
     import fixture_ep15
     fixture_ep15.apply(sys.modules[__name__], tables_only=True)
+    # 🔴 2026-10-04（18本目 ⑤b-1）：下の16本目の断面（vsec）・線の図（lv）の検算は REC_VSEC・REC_LV＊を使う＝本番の表は18本目の空の器なので、
+    #    見本 fixture_ep16 の表だけ差し込む（ss・GEO は触らない＝14本目の見本を壊さない）。main() が restore で戻す（LIFO＝16→15→14）
+    import fixture_ep16
+    fixture_ep16.apply(sys.modules[__name__], tables_only=True)
     N = "模式図：テスト"
     ok = True
     closing = [dict(state=dict(hook="closed", motor="run"), tag=dict(t="フックが回る")),
@@ -1561,6 +1516,8 @@ def main():
         return 0
     import fixture_ep14
     import fixture_ep15
+    import fixture_ep16
+    fixture_ep16.restore()       # 🔴 18本目 ⑤b-1：selftest で足した16本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep15.restore()       # 🔴 16本目 ⑤b-1：selftest で足した15本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep14.restore()       # 🔴 15本目 ⑤b-2：selftest で差し込んだ14本目の見本を本番の表に戻す（戻さないと14本目の表で本番を測る）
     import cuts

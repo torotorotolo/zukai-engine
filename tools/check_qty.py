@@ -39,57 +39,15 @@ sys.stdout.reconfigure(encoding="utf-8")
 #        selftest の見本 `tools/fixture_ep15.py`（GATES["check_qty"]・値は1つも変えていない＝git の `c646174`）＝
 #        いまの selftest（14本目の見本）は15本目の棒を使わない。16本目の棒を書くチャットで、値と頁を
 #        ref/ep16/src/ep16_pages.txt で当てて入れる（空のあいだ、量のカットは「記録に無い値」で止まる）
+#     🔴 2026-10-04（18本目 スレッシャー号 ⑤b-1）：16本目の表（棒＝ダムの高さ・量・波・日ごとに動いた距離・犠牲者・刑ほか）も**空にした**。
+#        selftest の見本 `tools/fixture_ep16.py`（GATES["check_qty"]の REC_QTY・REC_GHOST・値は1つも変えていない＝git の `b044b56`）＝
+#        いまの selftest（14本目の見本）は16本目の棒を使わない。18本目の棒を書くチャットで、値と頁を
+#        ref/ep18/src/ep18_pages.txt で当てて入れる（空のあいだ、量のカットは「記録に無い値」で止まる）
+#        ⚠️ 16本目の棒の教訓（日付を名にした行だけ同じ色でよい＝`_is_date_row`・見積もりの幅の上の端は REC_GHOST の破線の枠）は
+#           この門番の型の側（下の `_digits_ok`・`judge_bar`）に残してある
 # ══════════════════════════════════════════════════════════
-#     🆕 2026-10-01（16本目 ⑤b-6a）：16本目の棒の値を入れた（原文 ref/ep16/src/ep16_pages.txt で当てた＝型の側 ss.QB とは別に持つ）
-REC_QTY = {          # (群の項目名＝画面の文字, 行の名＝画面の文字) → (値, 頁)
-    # c205：S1 p63「aumentata l'altezza da 202 a 266 metri ed il livello di massimo invaso portato dalla quota 677 alla quota 722,50」
-    ("ダムの高さ（メートル）", "もとの計画"): (202, {"S1 p63"}),
-    ("ダムの高さ（メートル）", "変えた計画"): (266, {"S1 p63"}),
-    ("いちばん高い水位（メートル）", "もとの計画"): (677, {"S1 p63"}),
-    ("いちばん高い水位（メートル）", "変えた計画"): (722.5, {"S1 p63"}),
-    # c311・c410：S1 p72「una frana di circa 700.000 metri cubi」・p77「circa 200 milioni di metri cubi」（ミュラー）・
-    #   東京ドームの容積 124万立方メートル（一般の事実＝台本 c206・c311・c410 の「120杯」「半分を少し超える」「160杯」の元）
-    ("量（万立方メートル）", "崩れた量"): (70, {"S1 p72"}),
-    ("量（万立方メートル）", "東京ドーム"): (124, {"一般の事実"}),
-    ("量（万立方メートル）", "動いている塊"): (20000, {"S1 p77"}),
-    # c515：S1 p97「con il massimo invaso e con il crollo istantaneo della frana l'onda conseguente raggiungerebbe una altezza
-    #   di 25 metri」（10月8日の国の監督の報告が引く模型の結果）
-    ("波の高さ（メートル）", "模型の波"): (25, {"S1 p97"}),
-    # c611・c613：S1 p226「il 2 settembre 6,5 millimetri, il 15 settembre 12 millimetri, il 26 settembre 22 millimetri, il 2 e il
-    #   3 ottobre 40 millimetri, il 9 ottobre …」・S9 p2014「fino ai 200 mm del 9 ottobre」・S1 p93「da mm/g 6,5 … a 200 mm/g」
-    ("日ごとに動いた距離（ミリ）", "9月2日"): (6.5, {"S1 p226", "S9 p2014", "S1 p93"}),
-    ("日ごとに動いた距離（ミリ）", "9月15日"): (12, {"S1 p226", "S9 p2014"}),
-    ("日ごとに動いた距離（ミリ）", "9月26日"): (22, {"S1 p226", "S9 p2014"}),
-    ("日ごとに動いた距離（ミリ）", "10月2〜3日"): (40, {"S1 p226", "S9 p2014"}),
-    ("日ごとに動いた距離（ミリ）", "10月9日"): (200, {"S1 p93", "S9 p2014"}),
-    # 🆕 2026-10-01（16本目 ⑤b-6b）：第8〜10章の棒（原文 ref/ep16/src/ep16_pages.txt で当てた）
-    # c803：S1 p144「per un volume compreso fra 280 e 300 milioni di metri cubi」（国の調査委員会の専門家）・p77（ミュラー）
-    ("量（万立方メートル）", "崩れた斜面"): (28000, {"S1 p144"}),
-    ("量（万立方メートル）", "ミュラーの見積もり"): (20000, {"S1 p77"}),
-    # c813：S1 p146「raggiunse la quota massima di 930 metri sul livello mare « di ben 200 metri superiore al livello dell'acqua
-    #   preesistente alla frana »」（崩れる前の水面から測った高さ＝波そのものの高さ〈模型の25m〉とは測り方が違う＝群を分けた）
-    ("北の岸で水面から上がった高さ（メートル）", "実際の波"): (200, {"S1 p146"}),
-    # c907・c908：S1 p98「da una accurata indagine del Ministero dell'interno, risultò che le vittime furono 1.917, delle quali 1.450 a
-    #   Longarone, 109 a Castellavazzo, 158 a Erto e Casso e 200 persone originarie di altri comuni」・S9 p2017「la morte di 1910
-    #   persone」・S10 p3020「1910」
-    ("犠牲者（人）", "ロンガローネ"): (1450, {"S1 p98"}),
-    ("犠牲者（人）", "カステッラヴァッツォ"): (109, {"S1 p98"}),
-    ("犠牲者（人）", "エルトとカッソ"): (158, {"S1 p98"}),
-    ("犠牲者（人）", "ほかの町の出身"): (200, {"S1 p98"}),
-    ("犠牲者（人）", "全体（内務省）"): (1917, {"S1 p98"}),
-    ("犠牲者（人）", "全体（財団と歴史家）"): (1910, {"S9 p2017", "S10 p3020"}),
-    # ca22：S9 p2018「Biadene viene condannato a 5 anni (di cui 3 condonati), Sensidoni a 3 anni e 8 mesi (di cui tre condonati)」・
-    #   S10 p3020（同じ）。3年8か月＝44/12年
-    ("言い渡された刑（年）", "ビアデーネ"): (5, {"S9 p2018", "S10 p3020"}),
-    ("言い渡された刑（年）", "センシドーニ"): (44 / 12, {"S9 p2018", "S10 p3020"}),
-    ("恩赦で免除（年）", "ビアデーネ"): (3, {"S9 p2018", "S10 p3020"}),
-    ("恩赦で免除（年）", "センシドーニ"): (3, {"S9 p2018", "S10 p3020"}),
-}
-# 「後」の行に「前」の長さを薄く残す棒（14本目）。🆕 16本目 ⑤b-6b：見積もりの幅の上の端にも使う（c803＝S1 p144「fra 280 e 300」の
-#   300＝崩れた斜面の棒〈下の端 280〉の外の破線の枠・注で「破線＝見積もりの幅の上の端」と言う）
-REC_GHOST = {
-    ("量（万立方メートル）", "崩れた斜面"): (30000, {"S1 p144"}),
-}
+REC_QTY = {}          # (群の項目名＝画面の文字, 行の名＝画面の文字) → (値, 頁)
+REC_GHOST = {}        # 「後」の行に「前」の長さを薄く残す棒
 REC_GRID = {}         # マス目（項目名 → n・ok・ng・頁）
 REC_PEOPLE = {}       # 人の形（14本目 c204〜c206 だけの例外＝§C-1 #59）
 REC_PEOPLE_PAGES = set()
