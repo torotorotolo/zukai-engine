@@ -1273,6 +1273,15 @@ def judge_m18(f):
         v = g["vessel"]
         if abs(path[0][0] - v[2]) > 2.0 or abs(path[-1][0] - v[2]) > 2.0:
             bad.append("② 回り道の両端が原子炉につながっていない")
+        # 🆕 ⑤b-4 の試し焼き（Actions 37185142461）：止まった印を段の層に描いたら、動く部品のポンプの円に隠れた
+        #   ＝止まった場合は、印が動く部品として**ポンプより後（上）**に描かれ、その段で見えていること
+        if any(s["pump"] == "stop" for s in seq):
+            n += 1
+            ids = [sh["id"] for sh in m["shapes"]]
+            mk = next((sh for sh in m["shapes"] if sh["id"] == "stopmark"), None)
+            if mk is None or "pump" not in ids or ids.index("stopmark") < ids.index("pump") \
+                    or float(mk["keys"][-1].get("alpha", 0.0)) < 0.99:
+                bad.append("② 止まった印がポンプの円に隠れる（印は動く部品としてポンプより後に描き、止まった段で見えること）")
     if view in ("braze", "ut", "crit"):
         want, rec = REC_M18["lands"]
         lands, gr, so = g["lands"], g["groove"], g["socket"]
@@ -1474,6 +1483,17 @@ def _selftest_m18(ok):
         ok &= g_
         print(f"  {'OK' if g_ else '🔴 NG'} 🔴 18本目 陽性対照：{nm}: {'不合格' if bad else '合格'}（不合格のはず）"
               + (f"  ← {bad[0]}" if bad else ""))
+    # 🆕 ⑤b-4 の試し焼き：止まった印が動く部品のポンプの円に隠れる型（印を部品から外す＝段の層に描いていた前の形）
+    keep = M._loop_parts
+    M._loop_parts = lambda st: [p for p in keep(st) if p["id"] != "stopmark"]
+    try:
+        bad, _ = judge("m18", good["loop2"])
+    finally:
+        M._loop_parts = keep
+    g_ = any("隠れる" in b for b in bad)
+    ok &= g_
+    print(f"  {'OK' if g_ else '🔴 NG'} 🔴 18本目 陽性対照（型）：止まった印をポンプの円の下に描く型: {'不合格' if bad else '合格'}（不合格のはず）"
+          + (f"  ← {bad[0]}" if bad else ""))
     for nm, fn in (("溶けた合金を輪に戻す", lambda: M.m18("braze", [dict(state=dict(alloy="flow", heat="on")),
                                                                      dict(state=dict(alloy="ring"))], note=N)),
                    ("水分を取る装置を付ける", lambda: M.m18("cold", [dict(state=dict(dry="on"))], note=N))):

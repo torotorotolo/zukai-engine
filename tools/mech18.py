@@ -234,7 +234,11 @@ def _loop_parts(st):
     out = [_P("core", "poly", _rect_pts(*c), fill=COL["core"] if st["reactor"] == "on" else COL["core_off"],
               stroke=COL["edge"], w=2, alpha=1.0),
            _P("pump", "circle", c=[px, py], r=pr, fill=COL["metal"] if st["pump"] != "stop" else COL["core_off"],
-              stroke=COL["edge"], w=3, alpha=1.0)]
+              stroke=COL["edge"], w=3, alpha=1.0),
+           # ⚠️ Actions 37185142461（at_c719_095）：止まった印（赤い■）を段の層に描いたら、動く部品のポンプの円が上に描かれて隠れた
+           #   ＝印も動く部品（ポンプより後＝上に描く）
+           _P("stopmark", "poly", _rect_pts(px - 15, py - 15, px + 15, py + 15), fill=J.ALERT, w=0,
+              alpha=1.0 if st["pump"] == "stop" else 0.0)]
     on = 1.0 if st["pump"] == "fast" else 0.0
     for j, sg in enumerate((-1.0, 1.0)):
         a0, a1 = (200.0, 250.0) if sg < 0 else (290.0, 340.0)
@@ -256,9 +260,6 @@ def _loop_stage(prev, st):
     g = []
     if prev.get("pump") == "fast" and st["pump"] != "fast":
         g += _loop_quit()
-    if st["pump"] == "stop" and prev.get("pump") != "stop":
-        px, py = LOOP["pump"]
-        g.append(F.rect(px - 15, py - 15, 30, 30, J.ALERT, None, 0, rx=3))
     return g
 
 
@@ -685,7 +686,10 @@ def ice_crust(on):
     th = 16.0
     up = [(bx + 30, y0 + 12), (ax_ - 10, ya - 4), (ax_ - 10, ya + th), (bx + 30, y0 + 12 + th * 2.2)]
     dn = [(bx + 30, y1 - 12), (ax_ - 10, yb + 4), (ax_ - 10, yb - th), (bx + 30, y1 - 12 - th * 2.2)]
-    tip = [(ax_ - 46, ya - 24), (ax_ + 18, ya - 10), (ax_ + 18, yb + 10), (ax_ - 46, yb + 24)]
+    # ⚠️ Actions 37185142461（at_c716_095）：先の氷を台形にしたら網と合わせて右向きの白い矢印に見えた（空気が流れると読める）
+    #   ＝先は丸い塊（先から右へはみ出さない）
+    cx, cy = ax_ - 18.0, (ya + yb) / 2.0
+    tip = [(cx + 22.0 * math.cos(2 * math.pi * k / 10), cy + 22.0 * math.sin(2 * math.pi * k / 10)) for k in range(10)]
     return dict(up=up, dn=dn, tip=tip)
 
 
