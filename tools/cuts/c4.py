@@ -143,6 +143,21 @@ SPEC = {
             steps=[dict(call=1, xsig=1, ring_delay=0.5, rec="R08 p4186（認定22e・f・24：水中電話・音の信号）"),
                    dict(call=1, ring_delay=0.3, rec="R08 p4186（認定24：with no success）")])),
     ),
+    # ── 🆕 ⑤b-4（2026-10-04）：仕組みの模式図（`tools/mech18.py`・門番 check_mech の judge_m18）──
+    # c404（9.28秒＝0〜5.16／5.65〜9.28）＝原子炉と熱を運ぶ水の回り道。9:11 に速い回し方（FAST mode）での働きが止んだ（認定18）→
+    #   止まったか遅い回し方（SLOW）に落ちたかは記録から決められない（意見45）。🔴 c719（第7章）は同じ絵の続き（止まった場合＝仮定）
+    "c404": dict(
+        t="主冷却材ポンプ", s="9:11 の記録と査問会の見立て",
+        fig=("m18", dict(view="loop",
+                         steps=[dict(state=dict(pump="quit"), tag=[dict(t="9:11", at="clock", cap=40),
+                                                                  dict(t="速い回し方が止む", at="fast")]),
+                                dict(state=dict(pump="ask"), delay=0.3,
+                                     tag=[dict(t="止まった？", at="q1", to="chipl"), dict(t="遅い回し方？", at="q2", to="chipr"),
+                                          dict(t="記録からは決められない", at="q3")])],
+                         rel=[dict(t="9:11", src="R08 p4185（認定18：ceased functioning in FAST mode at 0911R）")],
+                         note="原子炉・管・ポンプの形と位置は模式（熱を渡す先は描かない）",
+                         src="査問会の記録（第8回公開）p.185（認定18）・p.212（意見45）")),
+    ),
     # c412＝聞き役「それって、どういう意味なの？」（赤）＋語り（黄）＝⑤b-1 の字幕の試し焼き（最終の形・台本の画の欄どおり）
     "c412": dict(
         t="崩れた声の言葉",

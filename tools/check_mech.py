@@ -1175,12 +1175,325 @@ def _selftest_lv(ok):
     return ok
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 18本目 ⑤b-4（2026-10-04）：仕組みの模式図（m18＝`tools/mech18.py`）
+# ══════════════════════════════════════════════════════════
+# 🔴 記録＝門番の側（§5b-88＝型〈mech18 の CRIT_AVG・BANKS_N・JT・CONE_APEX ほか〉を読まない）。原文 ref/ep18/src/ep18_pages.txt で当てた
+#    （R08＝査問会の記録 第8回公開 p4001〜・X＝査問会の証拠 第9・10回公開 p1001〜・J＝議会の公聴会 印刷頁＋8000）。
+#    🔴 §0b（題材を替えるとき空にする場所）：19本目以降の ⑤b-1 で見本 `tools/fixture_ep18.py` へ移して空にする（18本目の型＝mech18 だけの表）
+REC_M18 = dict(
+    lands=(2, "X p1171（40% Average・25% Min. each land）・R08 p4197（認定103：either land）"),
+    avg=(40.0, "R08 p4197（認定103：40 per cent bond）"),
+    land=(25.0, "R08 p4197（認定103：25 per cent minimum, either land）"),
+    banks=(4, "R08 p4191（認定51：air banks 2, 3 and 4 … air bank #1）"),
+    cone=(0.25, "R08 p4190（認定49：conical mesh strainers）"),          # 先の高さ÷底の高さ の上限（円すい＝先がすぼまる）
+    clock={"9:11": "R08 p4185（認定18：ceased functioning in FAST mode at 0911R）"},
+    pct={"40%": "R08 p4197", "25%": "R08 p4197"},
+    # 語りに無い出来事（次のカットの語り）＝札に出さない語（ルール 0b-38③）
+    ng=dict(shock=("フィート", "メートル", "トン", "ポンド", "m"),          # 距離と重さは c207（数の比べ）
+            loop=("7.1", "電動機", "時速", "ノット"),                       # 7.1分・非常用の電動機は c720（時間の帯）
+            ice=("破",)),                                                   # 網が破れる（認定50）は c715 の決め所
+)
+NUM_M18 = re.compile(r"[0-9０-９]{1,2}[:：][0-9０-９]{2}|[0-9０-９][0-9０-９,.．]*\s*(?:%|％|m|メートル|フィート|トン|ポンド|秒|分|本|個|"
+                     r"年|月|倍|キロ)?")
+
+
+def _seg_dist(p, a, b):
+    ax_, ay = a
+    bx, by = b
+    dx, dy = bx - ax_, by - ay
+    L2 = dx * dx + dy * dy or 1.0
+    t = max(0.0, min(1.0, ((p[0] - ax_) * dx + (p[1] - ay) * dy) / L2))
+    return math.hypot(p[0] - (ax_ + t * dx), p[1] - (ay + t * dy))
+
+
+def _box(pts):
+    xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+    return min(xs), min(ys), max(xs), max(ys)
+
+
+def _conical(cone):
+    """円すい形か（先の高さ÷底の高さ）＝cone_pts の4点（底の上・先の上・先の下・底の下）。"""
+    (_bx, y0), (_ax, ya), (_ax2, yb), (_bx2, y1) = cone
+    base = abs(y1 - y0) or 1.0
+    return abs(yb - ya) / base
+
+
+def judge_m18(f):
+    """18本目 仕組みの模式図：①状態の筋 ②形（f.mech["geo"] の画素）を記録（REC_M18）で ③札の数・時刻・語りに無い語。"""
+    bad, n = [], 0
+    m = f.mech
+    g = m["geo"]
+    view = m["view"]
+    seq = [m["start"]] + list(m["states"])
+    steps = m["steps"]
+
+    def tags_upto(i):                     # 段 i（0＝頭・i≥1＝steps[i-1]）までに出た札
+        out = []
+        for st in steps[:i]:
+            out += [t.get("t", "") + t.get("d", "") for t in F._many(st.get("tag"))]
+        return out
+    # ① 筋
+    for i, s in enumerate(seq):
+        n += 1
+        if view == "loop":
+            if s["reactor"] == "scram" and s["pump"] != "stop":
+                bad.append(f"① 筋：原子炉が自動で止まるのはポンプが止まった場合だけ（意見45）＝{s}")
+            if s["pump"] == "stop" and not any("仮定" in t for t in tags_upto(max(i, 1))):
+                bad.append("① 筋：ポンプが止まった場合は査問会の仮定（意見45）＝その段までに「仮定」の札が要る")
+        if view == "braze" and s["alloy"] == "flow" and s["heat"] != "on":
+            bad.append("① 筋：合金は溶かしてから流れる（熱の印より先に流した）")
+        if view == "ut" and s["sound"] == "on" and s["probe"] != "on":
+            bad.append("① 筋：音は外から当てる道具から（道具より先に音）")
+        if view == "cold" and s["ice"] == "on" and s["expand"] != "on":
+            bad.append("① 筋：氷は空気が一気に広がって冷えてから（J p32・意見8c）")
+        if view == "ice" and s["flow"] == "stop" and s["ice"] != "on":
+            bad.append("① 筋：タンクへの空気が止まるのは網に氷がついてから（J p32 の注）")
+        if view == "shock" and s["blast"] == "on" and s["sub"] != "on":
+            bad.append("① 筋：爆薬より先に艦（揺れに耐えるかを試すのは艦）")
+    if view == "loop" and any(s["pump"] != "fast" for s in seq):
+        n += 1
+        if not any(t in REC_M18["clock"] for t in m["tags"]):
+            bad.append(f"① 筋：ポンプの速い回し方が止んだ時刻の札が無い（記録 {list(REC_M18['clock'])}）")
+    # ② 形（記録の値で照らす）
+    if view == "shock":
+        n += 2
+        if g["obj"]["sub"] != 1 or g["obj"]["charge"] > 1:
+            bad.append(f"② 艦 {g['obj']['sub']}・爆薬の印 {g['obj']['charge']}（艦は1・爆薬の印は1つまで＝試験は何回かを note で断る）")
+        hx0, hy0, hx1, hy1 = _box(g["hull"])
+        cx, cy = g["charge"]
+        if hx0 - 2 <= cx <= hx1 + 2 and hy0 - 2 <= cy <= hy1 + 2:
+            bad.append("② 爆薬の印が艦の上にある（近くで爆発させる＝艦から離す）")
+    if view == "loop":
+        n += 2
+        path = g["path"]
+        d = min(_seg_dist(g["pump"], a, b) for a, b in zip(path, path[1:]))
+        if d > 2.0:
+            bad.append(f"② ポンプが熱を運ぶ水の回り道の上に無い（管から {d:.1f}画素）")
+        v = g["vessel"]
+        if abs(path[0][0] - v[2]) > 2.0 or abs(path[-1][0] - v[2]) > 2.0:
+            bad.append("② 回り道の両端が原子炉につながっていない")
+    if view in ("braze", "ut", "crit"):
+        want, rec = REC_M18["lands"]
+        lands, gr, so = g["lands"], g["groove"], g["socket"]
+        n += 2
+        if len(lands) != want:
+            bad.append(f"② 面の数 {len(lands)}（記録 {want}＝{rec}）")
+        elif not (so[0] - 0.5 <= lands[0][0] < lands[0][1] <= gr[0] + 0.5 and gr[1] - 0.5 <= lands[1][0] < lands[1][1] <= so[1] + 0.5):
+            bad.append(f"② 輪の溝が2つの面のあいだ（受け口の中）に無い（面 {lands}・溝 {gr}・受け口 {so}）")
+        ylo, yhi = min(g["gap"]), max(g["gap"])
+        ax = g["ax"]
+        if view == "braze" and g.get("alloy"):
+            cover = {}
+            for pts in g["alloy"]:
+                x0, y0, x1, y1 = _box(pts)
+                top = y1 <= ax
+                lo, hi = (ylo, yhi) if top else (2 * ax - yhi, 2 * ax - ylo)
+                n += 1
+                if x1 - x0 > 0.5 and (y0 < lo - 0.5 or y1 > hi + 0.5 or x0 < so[0] - 0.5 or x1 > so[1] + 0.5):
+                    bad.append(f"② 合金がすき間の外（x {x0:.0f}〜{x1:.0f}・y {y0:.0f}〜{y1:.0f}／すき間 y {lo:.0f}〜{hi:.0f}）")
+                for k, (a0, a1) in enumerate(lands):
+                    ov = max(0.0, min(x1, a1) - max(x0, a0))
+                    cover[(k, top)] = cover.get((k, top), 0.0) + ov
+            if any(s["alloy"] == "flow" for s in seq):
+                for k, (a0, a1) in enumerate(lands):
+                    for top in (True, False):
+                        n += 1
+                        if cover.get((k, top), 0.0) < 0.98 * (a1 - a0):
+                            bad.append(f"② 溶けた合金が{'左' if k == 0 else '右'}の面（{'上' if top else '下'}）に届いていない"
+                                       f"（輪は2つの面のあいだ＝両方へ流れる）")
+        if view == "ut" and "probe" in g:
+            n += 1
+            yb = g["probe"][3]
+            if yb > g["outer"] + 0.5 or yb < g["outer"] - 3.0:
+                bad.append(f"② 音を当てる道具が継手の外の面に当たっていない（下の端 y{yb:.0f}・外の面 y{g['outer']:.0f}＝外から当てる）")
+        if view == "crit" and g.get("bars"):
+            B = g["bars"]
+            if B.get("avg"):
+                x0, x1, _y, _h, fr = B["avg"]
+                n += 1
+                if abs(fr - REC_M18["avg"][0] / 100.0) > 0.003:
+                    bad.append(f"② 平均の合格の線 {fr * 100:.1f}%（記録 {REC_M18['avg'][0]:g}%＝{REC_M18['avg'][1]}）")
+            if B.get("lands") is not None and any(s["land"] == "on" for s in seq):
+                n += 1
+                if len(B["lands"]) != REC_M18["lands"][0]:
+                    bad.append(f"② 面の棒の数 {len(B['lands'])}（記録 {REC_M18['lands'][0]}）")
+                for b in B["lands"]:
+                    n += 1
+                    if abs(b[4] - REC_M18["land"][0] / 100.0) > 0.003:
+                        bad.append(f"② 面の合格の線 {b[4] * 100:.1f}%（記録 {REC_M18['land'][0]:g}%＝{REC_M18['land'][1]}）")
+    if view == "blow":
+        want, rec = REC_M18["banks"]
+        n += 3
+        if len(g["banks"]) != want:
+            bad.append(f"② 空気のボンベの数 {len(g['banks'])}（記録 {want}＝{rec}）")
+        if not (max(b[2] for b in g["banks"]) < g["valve"][0] < g["valve"][2] < g["tank"][0]):
+            bad.append("② 空気の通り道の順番（ボンベ → 減圧弁 → 主タンク）が違う")
+        for i, s in enumerate(seq):
+            if s["flow"] == "on" and not g["water"][i] > g["water"][0]:
+                bad.append("② 空気を送ってもタンクの海水が下がっていない")
+            if s["flow"] != "on" and abs(g["water"][i] - g["water"][0]) > 0.5:
+                bad.append("② 空気を送る前にタンクの海水が下がった")
+    if view in ("blow", "cold", "ice") and g.get("cone"):
+        n += 1
+        r = _conical(g["cone"])
+        if r > REC_M18["cone"][0]:
+            bad.append(f"② こし器が円すい形でない（先の高さ÷底の高さ {r:.2f}＞{REC_M18['cone'][0]}＝{REC_M18['cone'][1]}）")
+    if view == "cold":
+        n += 1
+        if any(s != "none" for s in g["dry"]):
+            bad.append("② 水分を取る装置を描いた（認定48：Dehydrators were not installed）")
+        if g.get("ice"):
+            x0, y0, x1, y1 = _box(g["cone"])
+            for p in g["ice"]:
+                n += 1
+                if not (x0 - 12 <= p[0] <= x1 + 12 and y0 - 12 <= p[1] <= y1 + 12):
+                    bad.append(f"② 氷がこし器の網の上に無い（{p[0]:.0f}, {p[1]:.0f}）")
+                    break
+    if view == "ice":
+        x0, y0, x1, y1 = _box(g["cone"])
+        for pts in g["ice"]:
+            n += 1
+            cx_, cy_ = sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts)
+            if not (x0 - 30 <= cx_ <= x1 + 30 and y0 - 30 <= cy_ <= y1 + 30):
+                bad.append(f"② 氷がこし器の網の上に無い（{cx_:.0f}, {cy_:.0f}）")
+        if any(s["flow"] == "stop" for s in seq):
+            n += 1
+            if any(a > 0.01 for a in g["down"]):
+                bad.append("② 空気が止まったのに網のあとの空気の矢印が残っている")
+    if view == "tinosa":
+        n += 1
+        top, bot, _xl, _xr = g["hull"]
+        if not (top < g["water_y"] < bot):
+            bad.append(f"② 岸壁の艦が水面にいない（船体 y{top:.0f}〜{bot:.0f}・水面 y{g['water_y']:.0f}＝岸壁での試験）")
+    # ③ 札の数・時刻・語りに無い語
+    said = [r.get("t", "") for r in m["rel"]]
+    for t in m["tags"]:
+        for mm in NUM_M18.finditer(t):
+            tok = mm.group(0).strip()
+            if not tok:
+                continue
+            n += 1
+            if view == "shock":
+                bad.append(f"③ 札「{t}」に数「{tok}」＝距離と重さは次の c207（数の比べ）の語り")
+                continue
+            if not any(tok in s or s in tok for s in said):
+                bad.append(f"③ 札「{t}」の数「{tok}」が rel（記録の値の宣言）に無い")
+            if ":" in tok or "：" in tok:
+                if tok.replace("：", ":") not in REC_M18["clock"]:
+                    bad.append(f"③ 札「{t}」の時刻「{tok}」が記録の時刻（{list(REC_M18['clock'])}）に無い")
+            elif "%" in tok or "％" in tok:
+                if tok.replace("％", "%") not in REC_M18["pct"]:
+                    bad.append(f"③ 札「{t}」の割合「{tok}」が記録の割合（{list(REC_M18['pct'])}）に無い")
+        for w in REC_M18["ng"].get(view, ()):
+            n += 1
+            if w in t:
+                bad.append(f"③ 札「{t}」の「{w}」は語りに無い出来事（次のカットの語り）")
+    for r in m["rel"]:
+        if not r.get("src"):
+            bad.append(f"③ rel「{r.get('t')}」に出どころ（src）が無い")
+    return bad, n
+
+
+def _selftest_m18(ok):
+    """18本目 ⑤b-4：仕組みの模式図の検算（正しい10・陽性対照＝型の定数を壊す10＋筋と札10・型の見張り2）。"""
+    import mech18 as M
+    N = "模式"
+    R911 = [dict(t="9:11", src="R08 p4185")]
+    good = dict(
+        shock=dict(view="shock", steps=[dict(state=dict(sub="on"), tag=dict(t="スレッシャー", at="sub")),
+                                        dict(state=dict(blast="on"), tag=dict(t="爆薬", at="charge"))], note=N),
+        loop=dict(view="loop", steps=[dict(state=dict(pump="quit"), tag=dict(t="9:11", at="clock")),
+                                      dict(state=dict(pump="ask"), tag=dict(t="止まった？", at="q1"))], rel=R911, note=N),
+        loop2=dict(view="loop", start=dict(pump="ask"),
+                   steps=[dict(tag=dict(t="9:11", at="clock")),
+                          dict(state=dict(pump="stop", reactor="scram"), tag=dict(t="止まった（仮定）", at="q2"))], rel=R911, note=N),
+        braze=dict(view="braze", steps=[dict(), dict(state=dict(alloy="flow", heat="on"))], note=N),
+        ut=dict(view="ut", steps=[dict(state=dict(probe="on")), dict(state=dict(sound="on"))], note=N),
+        crit=dict(view="crit", steps=[dict(state=dict(avg="on"), tag=dict(t="40%以上", at="avg")),
+                                      dict(state=dict(land="on"), tag=dict(t="25%以上", at="l1"))],
+                  rel=[dict(t="40%", src="R08 p4197"), dict(t="25%", src="R08 p4197")], note=N),
+        blow=dict(view="blow", steps=[dict(), dict(state=dict(flow="on")), dict(state=dict(strainer="on"))], note=N),
+        cold=dict(view="cold", steps=[dict(state=dict(expand="on")), dict(state=dict(ice="on"))], note=N),
+        tinosa=dict(view="tinosa", steps=[dict(), dict(state=dict(sys="on"))], note=N),
+        ice=dict(view="ice", steps=[dict(state=dict(ice="on", flow="stop")), dict(), dict()], note=N),
+    )
+    for name, kw in good.items():
+        bad, _ = judge("m18", kw)
+        ok &= not bad
+        print(f"  {'OK' if not bad else '🔴 NG'} 18本目 正しい仕組みの模式図（{name}）: {'合格' if not bad else '不合格'}"
+              + (f"  ← {bad[0]}" if bad else ""))
+    # 🔴 型の定数を壊す（筋は正しいのに絵が記録と食い違う＝§5b-88 の陽性対照）
+    for nm, attr, val, kw, key in (
+            ("平均の合格の線を 45% で描く型（CRIT_AVG）", "CRIT_AVG", 0.45, good["crit"], "平均の合格の線"),
+            ("面の合格の線を 30% で描く型（CRIT_LAND）", "CRIT_LAND", 0.30, good["crit"], "面の合格の線"),
+            ("空気のボンベを3つで描く型（BANKS_N）", "BANKS_N", 3, good["blow"], "ボンベの数"),
+            ("溶けた合金が右の面にだけ流れる型（FLOW_BOTH）", "FLOW_BOTH", False, good["braze"], "左の面"),
+            ("合金の帯をすき間より太く描く型（ALLOY_PAD）", "ALLOY_PAD", 6.0, good["braze"], "すき間の外"),
+            ("輪の溝を受け口の口の外に描く型（JT）", "JT", dict(M.JT, gx=1300.0), good["braze"], "輪の溝"),
+            ("こし器を筒の形で描く型（CONE_APEX）", "CONE_APEX", 0.8, good["blow"], "円すい形でない"),
+            ("超音波の道具を金属の中に描く型（PROBE_GAP）", "PROBE_GAP", -12.0, good["ut"], "外の面に当たっていない"),
+            ("ポンプを管から外して描く型（LOOP）", "LOOP", dict(M.LOOP, pump=(1000.0, 690.0)), good["loop"], "回り道の上に無い"),
+            ("岸壁の艦を水の中に沈めて描く型（TIN）", "TIN", dict(M.TIN, cy=650.0), good["tinosa"], "水面にいない")):
+        keep = getattr(M, attr)
+        setattr(M, attr, val)
+        try:
+            bad, _ = judge("m18", kw)
+        finally:
+            setattr(M, attr, keep)
+        g_ = any(key in b for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 18本目 陽性対照（型）：{nm}: {'不合格' if bad else '合格'}（不合格のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+    for nm, kw, key in (
+            ("ポンプが止まっていないのに原子炉が止まる",
+             dict(view="loop", steps=[dict(state=dict(pump="quit", reactor="scram"), tag=dict(t="9:11", at="clock"))], rel=R911,
+                  note=N), "筋"),
+            ("止まった場合に「仮定」の札が無い",
+             dict(view="loop", steps=[dict(state=dict(pump="stop"), tag=dict(t="9:11", at="clock"))], rel=R911, note=N), "仮定"),
+            ("時刻の札が 9:13（記録は 9:11）",
+             dict(view="loop", steps=[dict(state=dict(pump="quit"), tag=dict(t="9:13", at="clock"))],
+                  rel=[dict(t="9:13", src="R08 p4185")], note=N), "記録の時刻"),
+            ("7.1分の札（次の c720 の語り）",
+             dict(view="loop", steps=[dict(state=dict(pump="quit"), tag=[dict(t="9:11", at="clock"), dict(t="7.1分", at="r1")])],
+                  rel=R911 + [dict(t="7.1分", src="R08 p4212")], note=N), "語りに無い"),
+            ("合格の札が 50%（記録は 40%）",
+             dict(view="crit", steps=[dict(state=dict(avg="on"), tag=dict(t="50%以上", at="avg"))],
+                  rel=[dict(t="50%", src="R08 p4197")], note=N), "記録の割合"),
+            ("衝撃試験に距離の札",
+             dict(view="shock", steps=[dict(state=dict(sub="on", blast="on"), tag=dict(t="約110m", at="charge"))],
+                  rel=[dict(t="約110m", src="R08 p4194")], note=N), "c207"),
+            ("広がる前に氷", dict(view="cold", steps=[dict(state=dict(ice="on"))], note=N), "筋"),
+            ("氷の前に空気が止まる", dict(view="ice", steps=[dict(state=dict(flow="stop"))], note=N), "筋"),
+            ("網が破れる札（c715 の決め所の語り）",
+             dict(view="ice", steps=[dict(state=dict(ice="on", flow="stop"), tag=dict(t="網が破れる", at="stop"))], note=N),
+             "語りに無い"),
+            ("熱の前に合金が流れる", dict(view="braze", steps=[dict(state=dict(alloy="flow"))], note=N), "筋")):
+        bad, _ = judge("m18", kw)
+        g_ = any(key in b for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 18本目 陽性対照：{nm}: {'不合格' if bad else '合格'}（不合格のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+    for nm, fn in (("溶けた合金を輪に戻す", lambda: M.m18("braze", [dict(state=dict(alloy="flow", heat="on")),
+                                                                     dict(state=dict(alloy="ring"))], note=N)),
+                   ("水分を取る装置を付ける", lambda: M.m18("cold", [dict(state=dict(dry="on"))], note=N))):
+        try:
+            fn()
+            g_ = False
+        except ValueError:
+            g_ = True
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 18本目 型の見張り：{nm}: {'組めない（止まった）' if g_ else '🔴 組めた'}")
+    return ok
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
     return (judge_latch(f) if kind == "latch" else judge_section(f) if kind == "section"
             else judge_lash(f) if kind == "lash" else judge_tail(f) if kind == "tail"
             else judge_mod(f) if kind == "mod" else judge_bolt(f) if kind == "bolt"
-            else judge_vsec(f) if kind == "vsec" else judge_lv(f) if kind == "lv" else judge_hull(f))
+            else judge_vsec(f) if kind == "vsec" else judge_lv(f) if kind == "lv"
+            else judge_m18(f) if kind == "m18" else judge_hull(f))
 
 
 def selftest():
@@ -1505,6 +1818,7 @@ def selftest():
               f"{'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
     ok = _selftest_vsec(ok)
     ok = _selftest_lv(ok)
+    ok = _selftest_m18(ok)
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 
@@ -1522,7 +1836,7 @@ def main():
     fixture_ep14.restore()       # 🔴 15本目 ⑤b-2：selftest で差し込んだ14本目の見本を本番の表に戻す（戻さないと14本目の表で本番を測る）
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items())
-               if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt", "vsec", "lv")}
+               if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt", "vsec", "lv", "m18")}
     if not targets:
         print("⚠️ latch・section・hull・lash・tail・mod・bolt のカットが0件（この回に仕組みの模式図が無いなら正しい。"
               "**0件を調べて合格**にしていないか確かめる）")

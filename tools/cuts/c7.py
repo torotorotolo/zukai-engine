@@ -90,4 +90,66 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-4（2026-10-04）：仕組みの模式図（`tools/mech18.py`・門番 check_mech の judge_m18）──
+    # c702（9.24秒＝0〜2.11／2.60〜6.08／6.57〜9.24）＝空気のボンベ4つ（認定51＝air banks 1〜4・c717 の「3つ／残る1つ」と同じ数）→
+    #   減圧弁 → 主タンク（海水を押し出す）／3行目で弁の中の円すい形の網のこし器（認定49）
+    "c702": dict(
+        t="吹き出しの仕組み", s="空気で海水を押し出す",
+        fig=("m18", dict(view="blow",
+                         steps=[dict(tag=dict(t="高い圧力の空気（ボンベ）", at="banks")),
+                                dict(state=dict(flow="on"), delay=0.3,
+                                     tag=[dict(t="減圧弁", at="valve"), dict(t="主タンク", at="tank")]),
+                                dict(state=dict(strainer="on"), delay=0.3, tag=dict(t="こし器（円すい形の網）", at="strainer"))],
+                         note="ボンベは4つ（記録）・弁と管とタンクの数・形・位置は模式",
+                         src="査問会の記録（第8回公開）p.190〜191（認定49・51）・p.205（意見8）")),
+    ),
+    # c707（8.79秒＝0〜4.13／4.31〜8.79）＝弁を抜けて一気に広がる → 温度が下がる（J p.32 ブロケット少将）→ こし器に氷（意見8c）／
+    #   水分を取る装置は無い（認定48「Dehydrators were not installed」＝点線の枠と×）
+    "c707": dict(
+        t="空気が冷える", s="こし器に氷がつく仕組み",
+        fig=("m18", dict(view="cold",
+                         steps=[dict(state=dict(expand="on"), delay=0.3,
+                                     tag=[dict(t="一気に広がる", at="out"), dict(t="温度が大きく下がる", at="therm")]),
+                                dict(state=dict(ice="on"), delay=0.3,
+                                     tag=[dict(t="氷", at="ice", to="ice"), dict(t="なし", at="dry", col=J.ALERT)])],
+                         note="弁とこし器の形・空気の点の数は模式（温度の数は描かない）",
+                         src="米議会 両院原子力合同委員会の公聴会記録 p.32／査問会の記録（第8回公開）p.190（認定48）・p.205（意見8）")),
+    ),
+    # c714（7.40秒＝0〜2.93／3.42〜7.40）＝同じ型のティノサ（造船所で仕上げ中）の岸壁での空気の系統の試験（J p.32 の注・認定50）
+    "c714": dict(
+        t="ティノサの試験", s="査問会が求めた試験",
+        fig=("m18", dict(view="tinosa",
+                         steps=[dict(tag=dict(t="事故のあと", at="when")),
+                                dict(state=dict(sys="on"), delay=0.3,
+                                     tag=[dict(t="ティノサ（同じ型）", at="sub"), dict(t="造船所で仕上げ中", at="quay"),
+                                          dict(t="空気の系統", at="sys")])],
+                         note="艦の形はスレッシャーの絵と同じ（同じ型）・岸壁と空気の系統は模式",
+                         src="米議会 両院原子力合同委員会の公聴会記録 p.32（注）／査問会の記録（第8回公開）p.191（認定50）")),
+    ),
+    # c716（8.56秒＝0〜3.59／4.08〜6.44／6.93〜8.56）＝網の形のこし器に氷 → タンクへの空気が止まる（J p.32・p.112 の注）。
+    #   ⚠️「網が破れる」（認定50）は c716 の語りに無い＝c715 の決め所で出る＝描かない（PLAN の「→ 網が破れる」を外した＝映像方針 §18）
+    "c716": dict(
+        t="こし器の氷", s="ティノサでの試験の結果",
+        fig=("m18", dict(view="ice",
+                         steps=[dict(state=dict(ice="on", flow="stop"), delay=0.3,
+                                     tag=[dict(t="氷", at="ice", to="ice"), dict(t="空気が止まる", at="stop")]),
+                                dict(tag=dict(t="公聴会の記録の注", at="doc")),
+                                dict(tag=dict(t="網", at="mesh", to="mesh"))],
+                         note="こし器と管の形・氷の量は模式",
+                         src="米議会 両院原子力合同委員会の公聴会記録 p.32・p.112（注）")),
+    ),
+    # c719（8.24秒＝0〜1.44 聞き役／1.93〜5.89／6.38〜8.24）＝c404 と同じ絵の続き。もし 9:11 にポンプが止まっていたなら原子炉は
+    #   自動で止まる（意見45＝仮定の札）。⚠️ 7.1分・非常用の電動機は次の c720（時間の帯）の語り＝描かない（PLAN から外した）
+    "c719": dict(
+        t="原子炉が止まった場合", s="査問会の仮定の計算",
+        fig=("m18", dict(view="loop", start=dict(pump="ask"),
+                         steps=[dict(tag=dict(t="9:11", at="clock", cap=40)),
+                                dict(state=dict(pump="stop", reactor="scram"), delay=0.4,
+                                     tag=[dict(t="止まった（仮定）", at="q2", to="pumpr"),
+                                          dict(t="原子炉は自動で止まる", at="core", to="core")]),
+                                dict(tag=dict(t="査問会の計算", at="r1", d="止まった場合（意見）"))],
+                         rel=[dict(t="9:11", src="R08 p4185（認定18）")],
+                         note="止まった場合は仮定の話（どちらだったかは記録から決められない）・形と位置は模式",
+                         src="査問会の記録（第8回公開）p.212（意見45）")),
+    ),
 }

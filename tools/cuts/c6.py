@@ -102,4 +102,41 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-4（2026-10-04）：仕組みの模式図（`tools/mech18.py`・門番 check_mech の judge_m18）──
+    #   継手の形＝受け口の溝に**前もって入れた合金の輪**（証拠 X p.1185「preinserted rings of silver brazing alloy」）が溶けて、
+    #   すき間を溝の**左右の2つの面**へ流れる（X p.1171「each land」・認定103「either land」）＝c602・c608・c612 で同じ形
+    # c602（6.31秒＝0〜2.04／2.53〜6.31）。⚠️「付いている面／付いていない面」は c608・c612 の語り＝この絵は流れて付くまで
+    "c602": dict(
+        t="銀ろう付け", s="多くの系統の継手",
+        fig=("m18", dict(view="braze",
+                         steps=[dict(tag=dict(t="銀を含む金属の輪", at="ring", to="ring")),
+                                dict(state=dict(alloy="flow", heat="on"), delay=0.3,
+                                     tag=dict(t="溶かして、すき間へ", at="flow", to="land"))],
+                         note="すき間と輪は大きく描いた模式（輪は受け口の溝に前もって入れてある）",
+                         src="査問会の証拠（第9・10回公開）p.185（造船所の手順）／査問会の記録（第8回公開）p.189（認定43）")),
+    ),
+    # c608（6.41秒＝0〜2.42／2.91〜6.41）＝継手の**外から**音を当てる（認定74・103）。付いている所と付いていない所の並びは模式
+    "c608": dict(
+        t="超音波の検査", s="継手を壊さずに調べる",
+        fig=("m18", dict(view="ut",
+                         steps=[dict(state=dict(probe="on"), tag=dict(t="音を当てる道具", at="probe", to="probe")),
+                                dict(state=dict(sound="on"), delay=0.3,
+                                     tag=[dict(t="付いている所", at="bond", to="bond"),
+                                          dict(t="付いていない所", at="void", to="void", col=J.ALERT)])],
+                         note="付いている所と付いていない所の並びと長さ・すき間の大きさは模式",
+                         src="査問会の記録（第8回公開）p.194・p.197（認定74・103）")),
+    ),
+    # c612（6.84秒＝0〜3.85／4.33〜6.84）＝合格の基準（認定103「40 per cent bond, 25 per cent minimum, either land」・
+    #   造船所の指示 X p.1171「40% Average・25% Min. each land」）。棒の合格の線は記録の値（門番 judge_m18 が REC_M18 で照らす）
+    "c612": dict(
+        t="合格の基準", s="艦船局が決めた割合",
+        fig=("m18", dict(view="crit",
+                         steps=[dict(state=dict(avg="on"), tag=dict(t="40%以上", at="avg")),
+                                dict(state=dict(land="on"), delay=0.3,
+                                     tag=[dict(t="25%以上", at="l1"), dict(t="25%以上", at="l2")])],
+                         rel=[dict(t="40%", src="R08 p4197（認定103：40 per cent bond）"),
+                              dict(t="25%", src="R08 p4197（認定103：25 per cent minimum, either land）")],
+                         note="継手の断面は模式（棒の合格の線は記録の割合）",
+                         src="査問会の記録（第8回公開）p.197（認定103）／査問会の証拠（第9・10回公開）p.171（造船所の指示）")),
+    ),
 }

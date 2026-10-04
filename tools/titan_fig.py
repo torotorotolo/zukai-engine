@@ -5079,3 +5079,12 @@ def vsec(view, steps, **kw):
 def lv(steps, **kw):
     import lv16 as _l
     return _l.lv(steps, **kw)
+
+
+# ── ⑫ 18本目 ⑤b-4（2026-10-04）：仕組みの模式図（衝撃試験・原子炉の回り道・銀ろう付けの継手・超音波・合格の基準・
+#      吹き出しの仕組み・空気が冷える・ティノサの試験・こし器の氷）＝`tools/mech18.py`（門番 check_mech の judge_m18）──
+#   `fig=("m18", dict(view="shock"|"loop"|"braze"|"ut"|"crit"|"blow"|"cold"|"tinosa"|"ice", start=…, steps=[…], rel=[…],
+#                     note="模式…", src=…))`
+def m18(view, steps, **kw):
+    import mech18 as _m
+    return _m.m18(view, steps, **kw)
