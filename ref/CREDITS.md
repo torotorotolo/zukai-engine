@@ -2142,3 +2142,19 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `pg8122` | c905 | 1965 | PD（米議会の刊行物）／Stanford Digital Repository の PDF（印刷頁＋14＝PDF の頁） | 米議会 両院原子力合同委員会 | jcae1965_stanford.pdf PDF 136頁 |
 | `pg8160` | c903 | 1965 | PD（米議会の刊行物）／Stanford Digital Repository の PDF（印刷頁＋14＝PDF の頁） | 米議会 両院原子力合同委員会 | jcae1965_stanford.pdf PDF 174頁 |
 | `pg9801` | ca15 | 1964 | PD（米連邦の職務著作）／Wikimedia Commons「330-PSA-309-64a (22791587391).jpg」（NARA RG 330） | 米国防総省 | cm_330-PSA-309-64a__22791587391_.jpg |
+
+### 3. フリー素材の映像（イメージ）＝⑤b-7b（2026-10-05 カズヤくん了承・頭の1行の差し込み11カット＝差し込みは ⑤b-7c）
+- ルール §2-5c：画面に「イメージ（フリー素材）：サイト名／撮影者」を出す・【映像あり】と20%に数えない・動画はリポに入れない（`ref/ep18/stock/`＝git の外・本番は Actions が URL から取る）
+- ライセンス：Pexels License（https://www.pexels.com/license/）／Pixabay Content License（https://pixabay.com/service/license-summary/）＝商用可・クレジット不要・改変可。生成AI＝Pexels は規約で投稿を認めない・Pixabay は印を付ける（選んだ点に印なし）
+
+- `docs_binders_7710340`（c109）机の上に積んだ書類の綴じ込み（人は写らない）＝Pexels・Kaboompics・投稿 2021-04-29・2048×1080・12.8秒・Pexels License・取った日 2026-10-05　https://www.pexels.com/video/documents-on-the-table-7710340/
+- `deep_rays_63427`（c114）水の中から見上げた水面と光の筋＝Pixabay・Jackdrafahl・投稿 2021-01-30・2560×1440・23.4秒・Pixabay Content License・取った日 2026-10-05　https://pixabay.com/videos/waves-ocean-sea-underwater-water-63427/
+- `pier_blue_10354787`（c215）桟橋の杭と海面のさざ波（人・船なし）＝Pexels・Engin Akyurt・投稿 2021-11-26・2048×1080・59.93秒・Pexels License・取った日 2026-10-05　https://www.pexels.com/video/ripples-in-water-surface-under-a-pier-10354787/
+- `pier_dark_11812247`（c220）桟橋の下の暗い海面（人・船なし）＝Pexels・Engin Akyurt・投稿 2022-04-14・2048×1080・60.03秒・Pexels License・取った日 2026-10-05　https://www.pexels.com/video/ripples-on-seawater-under-a-pier-11812247/
+- `sea_dark_5668613`（c511）暗い沖の海面＝Pexels・ROMAN ODINTSOV・投稿 2020-10-22・2048×1080・8.01秒・Pexels License・取った日 2026-10-05　https://www.pexels.com/video/dark-surface-of-the-deep-water-5668613/
+- `deep_sun_48596`（c805）水の中から見上げた太陽（暗い青）＝Pixabay・ChristianBodhi・投稿 2020-09-04・2560×1440・20.0秒・Pixabay Content License・取った日 2026-10-05　https://pixabay.com/videos/underwater-rays-light-sun-48596/
+- `deep_blue_32790667`（c812）青い水の中に差す光の筋＝Pexels・JUN HO LEE・投稿 2025-06-30・1920×1080・14.63秒・Pexels License・取った日 2026-10-05　https://www.pexels.com/video/underwater-ocean-view-with-sunlight-rays-32790667/
+- `typewriter_33068304`（c903）古いタイプライターの活字の寄り＝Pexels・Stefan・投稿 2025-07-18・1920×1080・48.6秒・Pexels License・取った日 2026-10-05　https://www.pexels.com/video/vintage-typewriter-typing-close-up-33068304/
+- `files_hands_6549976`（c906）引き出しの記録のカードを手で繰る（顔は写らない）＝Pexels・Tima Miroshnichenko・投稿 2021-01-20・1920×1080・21.61秒・Pexels License・取った日 2026-10-05　https://www.pexels.com/video/looking-among-files-6549976/
+- `seabed_sand_11781634`（ca05）光のゆらぐ砂の海底（タイムラプス）＝Pexels・Markus Winkler・投稿 2022-04-11・1920×1080・45.93秒・Pexels License・取った日 2026-10-05　https://www.pexels.com/video/time-lapse-of-a-sandy-seabed-11781634/
+- `seabed_murky_33896777`（ca06）砂の動く海の底（濁った青緑）＝Pexels・JUN HO LEE・投稿 2025-09-14・1920×1080・15.6秒・Pexels License・取った日 2026-10-05　https://www.pexels.com/video/underwater-ocean-floor-with-sand-movement-33896777/

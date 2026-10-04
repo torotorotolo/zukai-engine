@@ -183,7 +183,10 @@ PAGE_CUTS = {
     #   ⚠️ 1回目（lo なし）は上の余白の頁番号とスキャンの汚れまで足して縦横比 1.18＝艦名の行から下へだけ広げる
     'c105': (1531, ('rows', 'thresherssn593', 'chiefbureauofships', dict(lo='thresherssn593'))),
     # 🔴 c105 の3行目（X p.533 第5段落）と印（映像方針 §1-3）は ⑤b-7c の「尻の差し込み」・⑤b-8 の trace で＝切り口だけ先に作る
-    'c105t': (1533, ('rows', 'inmyopinionthemostdangerous', 'pipingandflexiblehoses')),
+    #   ⚠️ 試し焼き 37217579198：第5段落の上下に手書きの書き込みがあり、右の端で切れた＝第5段落だけ（lo＝段落の頭・hi＝0.852
+    #      ＝「essential.」の下・手書きは文字の層に無い＝頁の割合で止める）・横の範囲を広げる
+    'c105t': (1533, ('rows', 'inmyopinionthemostdangerous', 'totalisolationis',
+                     dict(lo='inmyopinionthemostdangerous', hi=0.852, cols=(0.05, 0.97)))),
     # 海軍長官の第7 endorsement の1頁目（1965-03-19・第18回公開）＝題と差出人・宛先・件名
     'c109': (2001, ('rows', 'seventhendorsement', 'lossatseaofussthresher')),
     # 認定5・6（R08 p.184）＝「乗っていた全員は公務を果たすために乗っていた」＝c303 の語り（PLAN は p.181＝cb22 と同じ頁だった）
@@ -192,11 +195,14 @@ PAGE_CUTS = {
     'c307': (1131, ('box', 0.05, 0.24, 0.66, 0.82)),
     # ヘッカー少佐への問い「SKYLARK に何ができるか」「None, sir.」（下の「8400 feet of water」の行は入れない＝深さの数は「約2,600メートル」で言う）
     #   ⚠️「None, sir.」は頁に2回ある＝終わりの目印は問いの行・hi で答えの行まで入る
-    'c316': (183, ('rows', 'questionsbythepresident', 'assistingasubmarineoutofcontrol', dict(hi='ifthatsubmarineisin'))),
+    #   ⚠️ 試し焼き 37217579198：1行目「…approximate time by 'pho」が右の端で切れた＝横の範囲を広げる
+    'c316': (183, ('rows', 'questionsbythepresident', 'assistingasubmarineoutofcontrol',
+                   dict(hi='ifthatsubmarineisin', cols=(0.08, 0.97)))),
     # 認定19＝9時18分ごろ全員とともに失われた・北緯41度45分 西経65度
     'c414': (38, ('rows', 'thresherwaslostatsea', 'longitude6500')),
     # スカイラークの無線の記録（電文 101604Z〜17:45Z に陸の局が受け取った行）＝表＝文字の層が崩れる
-    'c508': (1061, ('imgbox', 0.225, 0.49)),
+    #   ⚠️ 試し焼き 37217579198：17:45Z の行「R 101604Z AR」（語りの「3時間半」）が切り口の下に外れた＝下を 0.49 → 0.50
+    'c508': (1061, ('imgbox', 0.225, 0.50)),
     # 潜水艦シーウルフの報告（証拠49）の題と General の段落（文字の層が崩れる＝見た目の字はくっきり）
     'c516': (1120, ('imgbox', 0.215, 0.365)),
     # 議員「残りの2,855の継手は、なぜ一度も試されなかったのか」→ オースティン中将「査問会も同じ思いだった」
@@ -223,11 +229,13 @@ PAGE_CUTS = {
     # リッコーヴァー中将の声明（1963-07）「特定のろう付け・溶接・系統・部品の故障だけを原因と見るべきでない」
     'cb12': (8079, ('rows', 'nowiwillconcludeibelieve', 'navalshipbuildingprograms')),
     # 証拠111 の第5段落（c105 の3行目と同じ所＝物証を終章で回収）
-    'cb21': (1533, ('rows', 'inmyopinionthemostdangerous', 'pipingandflexiblehoses')),
+    'cb21': (1533, ('rows', 'inmyopinionthemostdangerous', 'totalisolationis',
+                    dict(lo='inmyopinionthemostdangerous', hi=0.852, cols=(0.05, 0.97)))),
     # 🔴 cb21 の2行目＝勧告20（R08 p.220）は ⑤b-7c の「尻の差し込み」で＝切り口だけ先に作る
     'cb21t': (4220, ('rows', 'thatearlyconsideration', 'timelydisseminationofsuchinformation')),
     # 認定4 の書き出しと名簿の頭（R08 p.181）
-    'cb22': (4181, ('rows', 'thatthefollowingpersons', 'smarzjohn')),
+    #   ⚠️ 試し焼き 37217579198：右の列「STAFF, DEPUTY COMMANDER SUBMARINE FORCE, U.S.」が右の端で切れた＝横の範囲を広げる
+    'cb22': (4181, ('rows', 'thatthefollowingpersons', 'smarzjohn', dict(cols=(0.08, 0.97)))),
 }
 # 切り口を持たずに焼く頁＝c104（決め所＝⑤b-8 の trace が頁と行の箱を自分で切る）：意見1（V1 p.57）・IR18 p.1（c109 と同じ）・p.5 段落11
 #   ⚠️ 意見1 は V1 p.57 と R08 p.204 で同じ文・どちらも意見1 の段落に塗りの印が無い（⑤b-7b に文字の層で確かめた）
@@ -419,24 +427,32 @@ def row_trim(page, a, pr, a_from, a_to, opt=None):
         return k
     j0, j1 = band_of(r0), band_of(r1)
     lo, hi = 0, len(bands) - 1
-    if opt.get('lo'):
-        # lo＝この目印の行から上は入れない（頁の上の余白のごみ・頁番号まで足して縦長になるのを止める＝c105）
-        lo = band_of(_find(rows, opt['lo'], pr)[0])
-        start = bands[lo][0]
+    if opt.get('lo') is not None:
+        # lo＝この目印の行から上は入れない（頁の上の余白のごみ・頁番号まで足して縦長になるのを止める＝c105）。
+        #   数なら頁の割合＝帯の上の端がそれより上の帯は入れない
+        lo = (band_of(_find(rows, opt['lo'], pr)[0]) if isinstance(opt['lo'], str)
+              else min(i for i, b in enumerate(bands) if b[0] >= opt['lo']))
         if lo > j0:
             raise SystemExit(f'🔴 p{pr}：lo の目印が始めの目印より下')
-    if opt.get('hi'):
-        hb = band_of(_find(rows, opt['hi'], pr)[0])
-        hi, stop = hb - 1, bands[hb][0]
+    if opt.get('hi') is not None:
+        # hi＝この目印の行から下は入れない。数なら頁の割合＝帯の真ん中がそれより下の帯は入れない（文字の層に無い手書き＝cb21）
+        hb = (band_of(_find(rows, opt['hi'], pr)[0]) if isinstance(opt['hi'], str)
+              else min(i for i, b in enumerate(bands) if (b[0] + b[1]) / 2 > opt['hi']))
+        hi = hb - 1
         if hi < j1:
             raise SystemExit(f'🔴 p{pr}：hi の目印の帯が終わりの目印の帯と同じか上（帯がつながっている）')
     # 左右の端＝画像のインク（目印の行の上下 4本ぶんの帯で測る）＋10pt
-    x0, x1 = _ink_x(a, bands[max(lo, j0 - 4)][0], bands[min(hi, j1 + 4)][1], *COLS)
+    x0, x1 = _ink_x(a, bands[max(lo, j0 - 4)][0], bands[min(hi, j1 + 4)][1], *opt.get('cols', COLS))
     W, H = page.rect.width, page.rect.height
     x0, x1 = max(0.0, x0 - 10 / W), min(1.0, x1 + 10 / W)
     want = (x1 - x0) * W / PANEL_AR_T / H
     # lo・hi は _fit_cut の探す範囲（lo の帯より上・hi の帯から下の行は入れない＝切り線は lo の上の帯・hi の帯の手前まで）
     j0, j1, top, bot, bias = _fit_cut(bands, j0, j1, lo, hi, 1 / a.shape[0], want)
+    # 🔴 左右の端は**最後に決まった切り口の中の行全部**で測り直す（試し焼き 37217579198：目印のまわりの行だけで測ったので、
+    #    切り口に入った長い行・右の列・手書きが右の端で切れた＝c316「by 'pho」・cb22「DEPUTY COMM」・cb21 の手書き）。
+    #    横の範囲は既定 COLS（余白の汚れを拾わない）・長い行や手書きのある頁は opt の cols で広げる
+    x0, x1 = _ink_x(a, top, bot, *opt.get('cols', COLS))
+    x0, x1 = max(0.0, x0 - 10 / W), min(1.0, x1 + 10 / W)
     box = (x0, max(0.0, top), x1, min(1.0, bot))
     return [round(float(v), 4) for v in box], dict(by='rows', rows=[j0, j1], n_rows=j1 - j0 + 1, bias=bias,
                                                     ar=round((x1 - x0) * W / ((box[3] - box[1]) * H), 2))
@@ -704,7 +720,7 @@ def cmd_credits(write=False):
             '濃淡だけ強める＝出典の行に「濃淡補正」',
             '- 名簿（認定4・R08 p.181）と名簿の終わり（p.184）の名前＝公務の乗員と、公務を果たすために乗っていた造船所・会社の人'
             '（認定6）＝実名の線（§B2-1）の内',
-            '', hdr, '|---|---|---|---|---|---|', *rows, ''])
+            '', hdr, '|---|---|---|---|---|---|', *rows, '', *stock_md()])
         if head in md:
             pre, rest = md.split(head, 1)
             nxt = rest.find('\n## ')
@@ -821,6 +837,24 @@ STOCK = {
                                'https://videos.pexels.com/video-files/33896777/14385381_1920_1080_60fps.mp4',
                                'JUN HO LEE', '2025-09-14', 15, 15639270, '砂の動く海の底（濁った青緑）'),
 }
+
+
+def stock_md():
+    """ref/CREDITS.md の18本目の節の「3. フリー素材の映像」（stock.json＝取った点だけ）。表にしない＝門番 credits の写真の表と混ぜない"""
+    p = DEST / 'stock.json'
+    if not p.exists():
+        return []
+    led = json.loads(p.read_text(encoding='utf-8'))
+    out = ['### 3. フリー素材の映像（イメージ）＝⑤b-7b（2026-10-05 カズヤくん了承・頭の1行の差し込み11カット＝差し込みは ⑤b-7c）',
+           '- ルール §2-5c：画面に「イメージ（フリー素材）：サイト名／撮影者」を出す・【映像あり】と20%に数えない・動画はリポに入れない'
+           '（`ref/ep18/stock/`＝git の外・本番は Actions が URL から取る）',
+           '- ライセンス：Pexels License（https://www.pexels.com/license/）／Pixabay Content License'
+           '（https://pixabay.com/service/license-summary/）＝商用可・クレジット不要・改変可。生成AI＝Pexels は規約で投稿を認めない・'
+           'Pixabay は印を付ける（選んだ点に印なし）', '']
+    for n, r in led.items():
+        out.append(f"- `{n}`（{r['cut']}）{r['what']}＝{r['site']}・{r['author']}・投稿 {r['up']}・{r['w']}×{r['h']}・{r['dur']}秒・"
+                   f"{r['license']}・取った日 {r['fetched']}　{r['page']}")
+    return out + ['']
 
 
 def stock_credit(name):
