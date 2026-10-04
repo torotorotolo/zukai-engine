@@ -131,4 +131,15 @@ SPEC = {
                              dict(t="トリエステ2世", at="tri", off=(60, -40), delay=2.2),
                              dict(t="船体の一部", at="hull", off=(60, 10), delay=2.2)])])),
     ),
+    # ── 🆕 ⑤b-6b（2026-10-04）：箱の型（書類の再現図＝check_boxes.REC_FORM）──
+    # ca04（11.12秒＝0〜1.96 聞き役／2.45〜6.57／7.06〜11.12）＝捜索の指揮官の証言（R08 p.66）。2行目で写すこととカメラの位置（30 feet＝約9メートル
+    #   ＝台本 §9-1 の画の欄だけの数）／3行目でたとえ（8500 feet＝約2,600メートル）
+    "ca04": dict(
+        t="海の底の写真", s="海の底を写す難しさ",    # ⚠️ dup：「カメラの位置」は欄の名と同じ
+        fig=("boxes", dict(view="form", form=ss.FORM_ANDR2, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=[dict(k="fill", f="写すこと"), dict(k="fill", f="カメラの位置")]),
+            dict(add=dict(k="fill", f="たとえ"))],
+            note="欄の字は原文のまま・様式は再現・30 feet＝約9メートル・8500 feet＝約2,600メートル", src=ss.src(["R08 p4066"]))),
+    ),
 }

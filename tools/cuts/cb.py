@@ -70,13 +70,13 @@ PLAN = {
                plan='台本の画：quote（決め所）',
                src='意見55（V1 p.69・R08 p.216）'),
     "cb18": dict(kind='図解',
-               plan='台本の画：図 流れ図 原因が分からない → すべてを調べ直す（設計・材料・運用）',
+               plan='台本の画：図 流れ図 原因が分からない → すべてを調べ直す（設計・材料・運用）｜（⑤b-6b で替えた＝映像方針 §21）いま＝流れ図 → 書類の再現図（段落11「The fact that we have not been able to establish the cause, however, has had its beneficial effects.」）・理由＝「すべてを調べ直した（設計・材料・運用）」は次の cb19 の語り＝残るのは1つの文',
                src='IR18 p.6（海軍長官ニッツェの第7 endorsement・1965-03-19）'),
     "cb19": dict(kind='写真',
                plan='台本の画：実写 NARA 83740（ポーツマスの追悼式の記録映画・遠景だけ＝顔の分かるショットは使わない）',
                src='IR18 p.6'),
     "cb20": dict(kind='図解',
-               plan='台本の画：図 数の比べ 潜水艦の事故（NAVSEA 2023 の数：第一次大戦の始まりから1963年まで＝戦争以外の事故で16隻／サブセーフを採り入れてから＝1隻〈スコーピオン・1968年・サブセーフの認証を受けていない・沈んだ理由は分かっていない〉）',
+               plan='台本の画：図 数の比べ 潜水艦の事故（NAVSEA 2023 の数：第一次大戦の始まりから1963年まで＝戦争以外の事故で16隻／サブセーフを採り入れてから＝1隻〈スコーピオン・1968年・サブセーフの認証を受けていない・沈んだ理由は分かっていない〉）｜（⑤b-6b で替えた＝映像方針 §21）いま＝数の比べ → 書類の再現図（NAVSEA の記事の2つの文）・理由＝「16隻」は語りに無い＝比べる棒が1本しか無い',
                src='NAVSEA（2023-04-06）'),
     "cb21": dict(kind='文字の頁',
                plan='台本の画：実写 thr_t1（アルバムの表紙・海に白抜きの「593」）｜頁の版（映像方針 §9）：証拠111＝X p.531・p.533＝見える（p.533 は原寸の切り出しで目でも確かめた）｜頁の版（映像方針 §9）：勧告20＝R08 p.220＝見える見込み＝⑤b-7 で原寸｜替える画（映像方針 §11）：いま＝実写 thr_t1 → 頁 証拠111 第5段落（c105 と同じ）→ 勧告20・理由＝物証を終章で回収（語りは変えない）｜🔴 証拠111 の第5段落（c105 と同じ段落）→ 勧告20（R08 p.220）＝物証を終章で回収（語りは変えない）',
@@ -111,5 +111,95 @@ SPEC = {
             dict(add=dict(k="chips", at="1964-02-18", chips=["手引き・事故の情報"], rec="J p8094"))],    # ⚠️ echo＝語りの複写を短く
             # ⚠️ dup：州の名「コネ**ティカット**」に制作用語「カット」が当たった＝州の名を書かない
             note="センターはアメリカ東部の町グロトン", src=ss.src(["J p8094", "J p8097", "J p8098"]))),
+    ),
+    # ── 🆕 ⑤b-6b（2026-10-04）：箱の型（書類の再現図・流れ図＝check_boxes.REC_*）──
+    # cb02（5.39秒＝0〜2.97／3.46〜5.39）＝意見4（R08 p.204）
+    "cb02": dict(
+        t="深さの制限", s="1隻ずつ見直すまで",
+        fig=("boxes", dict(view="form", form=ss.FORM_O4, steps=[
+            dict(add=[dict(k="paper"), dict(k="fill", f="見直すまで")]),
+            dict(add=dict(k="fill", f="制限"))],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4204"]))),
+    ),
+    # cb04（9.85秒＝0〜2.10／2.59〜7.46／7.95〜9.85 聞き役）＝1隻ずつの認め（流れ図・J p.93＝1964年7月1日・艦隊の運用の担当の中将の説明）。
+    #   見出しの箱「サブセーフ」は1行目（呼び名）から
+    "cb04": dict(
+        t="1隻ずつの認め", s="1964年の説明",
+        fig=("boxes", dict(view="flow", layout=ss.FL_SS, steps=[
+            dict(),
+            dict(add=[ss.fl("c_fix"), ss.fl("c_cert"), ss.fl("c_lift"), ss.ce("c_fix", "c_cert"), ss.ce("c_cert", "c_lift"),
+                      dict(k="chip", at="c_lift", t="それまで制限は続く", rec="J p8093", dy=60)]),
+            dict()],
+            note="艦船局＝艦の設計と建造を受け持つ海軍の局", src=ss.src(["J p8093"]))),
+    ),
+    # cb06（9.25秒＝0〜2.07／2.56〜7.45／7.93〜9.25）＝勧告20（R08 p.220＝最後の勧告）
+    "cb06": dict(
+        t="最後の勧告", s="潜水艦の安全の組織",
+        fig=("boxes", dict(view="form", form=ss.FORM_R20, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=[dict(k="fill", f="組織"), dict(k="fill", f="分析"), dict(k="fill", f="伝えること")]),
+            dict(add=dict(k="fill", f="検討"))],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4220"]))),
+    ),
+    # cb08（9.72秒＝0〜1.51／2.00〜6.16／6.65〜9.72）＝意見42（R08 p.212）
+    "cb08": dict(
+        t="減らせた欠陥", s="意見の42番",
+        fig=("boxes", dict(view="form", form=ss.FORM_O42, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=[dict(k="fill", f="情報"), dict(k="fill", f="分析と伝達")]),
+            dict(add=[dict(k="fill", f="欠陥"), dict(k="fill", f="結果")])],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4212"]))),
+    ),
+    # cb10（12.13秒＝0〜2.88／3.38〜6.86／7.35〜12.13）＝艦船局の副長の証言（J p.95・97）
+    "cb10": dict(
+        t="追いつかなかった安全", s="設計を急ぎすぎた",    # ⚠️ dup：「1964年の公聴会」は紙の表題・出典の行と同じ
+        fig=("boxes", dict(view="form", form=ss.FORM_CURTZE, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=dict(k="fill", f="始まり")),
+            dict(add=[dict(k="fill", f="振り返れば"), dict(k="fill", f="安全")])],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["J p8095", "J p8097"]))),
+    ),
+    # cb11（11.98秒＝0〜4.68／5.17〜9.16／9.65〜11.98 聞き役）＝艦隊の運用の担当の中将の証言（J p.94）。同じ頁の安全センター（cb05）は書かない
+    "cb11": dict(
+        t="深い海の救難", s="救難の限界",    # ⚠️ echo：「1964年の時点」は字幕の1行の切り取り
+        fig=("boxes", dict(view="form", form=ss.FORM_RAMAGE, steps=[
+            dict(add=[dict(k="paper"), dict(k="fill", f="4月の勧告")]),
+            dict(add=[dict(k="fill", f="動けなくなる所"), dict(k="fill", f="救難")]),
+            dict()],
+            note="欄の字は原文のまま・様式は再現・Deep Submergence＝深い海", src=ss.src(["J p8094"]))),
+    ),
+    # cb15（8.05秒＝0〜1.88／2.37〜4.88／5.37〜8.05）＝意見55 の前半（R08 p.216）
+    "cb15": dict(
+        t="最後の意見", s="意見の55番",
+        fig=("boxes", dict(view="form", form=ss.FORM_O55A, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=dict(k="fill", f="水準")),
+            dict(add=dict(k="fill", f="届いていないもの"))],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4216"]))),
+    ),
+    # cb16（9.19秒＝0〜4.26／4.75〜9.19）＝意見55 の続き。🔴 責任の文（cannot be charged to neglect …）は次の cb17（決め所）＝書かない
+    "cb16": dict(
+        t="急な変化の中で", s="意見の55番（続き）",
+        fig=("boxes", dict(view="form", form=ss.FORM_O55B, steps=[
+            dict(add=[dict(k="paper"), dict(k="fill", f="急な変化"), dict(k="fill", f="計画")]),
+            dict(add=[dict(k="fill", f="誰のせいか"), dict(k="fill", f="気づかれなかったもの")])],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4216"]))),
+    ),
+    # cb18（6.94秒＝0〜4.01／4.50〜6.94）＝海軍長官の最後の意見書（流れ図 → 書類の再現図＝映像方針 §21）。「すべてを調べ直した」は次の cb19
+    "cb18": dict(
+        t="思わぬ利点", s="原因が決まらないこと",    # ⚠️ dup：「良い面」は欄の名・「1965年の意見書」は紙の表題と同じ
+        fig=("boxes", dict(view="form", form=ss.FORM_NITZE2, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=[dict(k="fill", f="原因"), dict(k="fill", f="良い面")])],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["IR18 p2006"]))),
+    ),
+    # cb20（9.94秒＝0〜3.82／4.31〜7.02／7.51〜9.94）＝NAVSEA の記事（数の比べ → 書類の再現図＝映像方針 §21）。「16隻」は語りに無い＝書かない
+    "cb20": dict(
+        t="その後の潜水艦", s="2023年の記事",
+        fig=("boxes", dict(view="form", form=ss.FORM_NAVSEA, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=dict(k="fill", f="サブセーフのあと")),
+            dict(add=dict(k="fill", f="その艦"))],
+            note="欄の字は原文のまま（記事の一部）・様式は再現・SUBSAFE＝サブセーフ", src=ss.src(["NAVSEA p9951"]))),
     ),
 }

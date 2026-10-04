@@ -394,6 +394,12 @@ REC_DOCS = {
     "No.710-64": dict(range=(9801, 9801), name="国防総省の発表 No.710-64（1964年）", page=None, base=0),
     # 🆕 ⑤b-5（c512）：Stierman 1964（海軍の広報を調べた修士論文・付録に国防総省の発表 509-63）＝語りは「当時の海軍の広報を調べた論文」
     "D": dict(range=(9001, 9001), name="海軍の広報を調べた論文（1964年）", page=None, base=0),
+    # 🆕 ⑤b-6b（c808・c912・c918・c919・c823）：AP の記事（2021-08-02・Military Times 掲載＝通し頁 p9901）／cb20：NAVSEA の記事
+    #   （2023-04-06＝p9951）／c817・c818・c820・c918：元分析官の書簡（2013-04-10・個人＝p9961＝画面に使う短い一節だけを 2026-10-04 に
+    #   アプリ内ブラウザの本文で1字ずつ照らして通し頁に足した）。名前は語りだけ（画面の資料名は役割で）
+    "AP": dict(range=(9901, 9901), name="AP通信の記事（2021年8月2日）", page=None, base=0),
+    "NAVSEA": dict(range=(9951, 9951), name="米海軍 艦艇の部門の記事（2023年4月6日）", page=None, base=0),
+    "A-R": dict(range=(9961, 9961), name="元分析官の書簡（2013年4月10日・個人）", page=None, base=0),
 }
 # 割れる時刻＝台本 §1-5 に無い（9時18分ごろ〈認定19〉と 9時18.1分〈認定18・意見45〉は「ごろ」で合う）＝空
 ILLU_SPLIT_TIMES = ()
@@ -879,6 +885,245 @@ FORM_RICK = dict(title="原子炉の責任者の証言（1963年4月29日）", r
                          dict(t="その結果", v="about 10 percent of those checked required repair or replacement", rec="J p8068",
                               late=True)])
 
+# 🆕 2026-10-04（18本目 ⑤b-6b）：第7〜11章の書類の再現図37枚（紙1枚36・紙2枚1＝c919）。欄の値は**原文の英語のまま**・頁は
+#   ref/ep18/src/ep18_pages.txt の文字の層で当て、崩れた所（認定48・IR18 p.6 の行の順・J p.32「Deptli」）と塗りの札の形は頁の画像を
+#   原寸で切り出して読んだ（2026-10-04）。🔴 **この記録の塗りは白く抜いて赤い字で記号**（「b(1)」「(b) (1)」「b(3) 10 USC 130」
+#   「(b) (6)」）＝値に頁に見えるとおりの記号を書く（黒い帯は描かない）。公聴会の本（1965年刊）の削除は「[classified matter deleted]」
+#   と刷られている＝そのまま。🔴 次のカットの語りにある事は書かない（0b-40⑤）：c706 の除湿器（c707）・c711 の「一度も無い」（c712）・
+#   c801 の4つの中身（c802・c803）・c809 の「推測が事実として通る」（c810）・c813 の「原因は決められていない」（c812）・c912 の原告の言葉
+#   （c913）・c915 の計算の中身（c916）・cb16 の「怠慢には帰せられない」（cb17）・cb18 の「すべてを調べ直した」（cb19）
+_P1 = (100, 1820, 360, 660)
+# c703（数の比べ → 書類の再現図＝⑤b-6b・映像方針 §21）：認定46（R08 p.190）「as compared to the SKIPJACK, the immediately preceding class
+#   of attack submarine, THRESHER had: a. An increase in test depth from 700 feet to b(1) … c. About the same high pressure air bank
+#   capacity.」（「b(1)」は頁の画像の塗りの札）。スレッシャーの深さは塗られている＝棒にできない（棒1本）
+FORM_F46A = dict(title="査問会の認定46", rec="R08 p4190", paper=_P3, lw=160,
+                 fields=[dict(t="比べた艦", v="as compared to the SKIPJACK", rec="R08 p4190"),
+                         dict(t="試験深度", v="An increase in test depth from 700 feet to b(1)", rec="R08 p4190", late=True),
+                         dict(t="空気", v="About the same high pressure air bank capacity.", rec="R08 p4190", late=True)])
+# c704：認定46 d（R08 p.190）「d. While at test depth: (1) A reduction in the amount of ballast which could be blown from (b) (1) per cent
+#   to (b) (1) per cent. (2) A reduction in the rate of blowing ballast from …」。数（d(1) の塗りの札）は2行目「塗られている」で
+FORM_F46D = dict(title="査問会の認定46", rec="R08 p4190", paper=_P4, lw=190,
+                 fields=[dict(t="いつ", v="While at test depth:", rec="R08 p4190"),
+                         dict(t="吹き出せる量", v="A reduction in the amount of ballast which could be blown", rec="R08 p4190", late=True),
+                         dict(t="その数", v="from (b) (1) per cent to (b) (1) per cent", rec="R08 p4190", late=True),
+                         dict(t="速さ", v="A reduction in the rate of blowing ballast", rec="R08 p4190", late=True)])
+# c706：認定48（R08 p.190＝文字の層が崩れている「a4r」「blovw」ほか＝頁の画像で読んだ）。除湿器（Dehydrators were not installed）は
+#   次の c707 の語り＝書かない
+FORM_F48 = dict(title="艦船局の設計の基準（認定48）", rec="R08 p4190", paper=_P3, lw=150,
+                fields=[dict(t="基準", v="capability to blow all main ballast tanks twice at periscope depth", rec="R08 p4190",
+                             late=True),
+                        dict(t="深さ", v="There is no modification to this criteria for depth of blowing", rec="R08 p4190", late=True),
+                        dict(t="氷", v="There are no requirements … which would prevent the formation of blockages due to ice",
+                             rec="R08 p4190", late=True)])
+# c708：艦船局の長の証言（J p.32＝1963年6月27日・文字の層「Deptli」は頁の画像で Depth）・J p.35（同じ日）「It is a matter of pressure
+#   differential.」
+FORM_BROCK = dict(title="艦船局の長の証言（議会・1963年6月27日）", rec=["J p8032", "J p8035"], paper=_P2, lw=130,
+                  fields=[dict(t="深さ", v="Depth is not significant insofar as freezeup is concerned.", rec="J p8032", late=True),
+                          dict(t="決め手", v="It is a matter of pressure differential.", rec="J p8035", late=True)])
+# c710：最初の試運転の前夜（R08 p.26＝大佐の証言・その場にいた〈and myself〉）。ポンプは「in high」（語りの「速い回し方」）
+FORM_ZUR = dict(title="大佐の証言（査問会）", rec="R08 p4026", paper=_P3, lw=230,
+                fields=[dict(t="話したこと", v="what would happen if we flooded any one area", rec="R08 p4026", late=True),
+                        dict(t="ポンプの回し方", v="we were all for having them in high", rec="R08 p4026", late=True),
+                        dict(t="理由", v="air was very questionable and how much good it would do at that depth", rec="R08 p4026",
+                             late=True)])
+# c711：元設計部長の証言（R08 p.33）。「一度も行われていない」は次の c712（J p.38）＝書かない
+FORM_JACK = dict(title="元設計部長の証言（査問会）", rec="R08 p4033", paper=_P4, lw=190,
+                 fields=[dict(t="話し合い", v="whether or not we should attempt to blow the main ballast tanks at deep depths",
+                              rec="R08 p4033", late=True),
+                         dict(t="決まったこと", v="it was decided that this would not be prudent", rec="R08 p4033", late=True),
+                         dict(t="空気", v="the air would expand", rec="R08 p4033", late=True),
+                         dict(t="おそれ", v="we might make an uncontrolled ascent", rec="R08 p4033", late=True)])
+# c713：J p.83（1963年7月23日）「the Navy from the time of the 400-foot submarine [classified material deleted] did not basically change
+#   the blowing requirements as they went deeper.」・議員「That doesn't seem right to me.」・中将「This isn't right.」
+FORM_RICK83 = dict(title="原子炉の責任者の証言（議会・1963年7月23日）", rec="J p8083", paper=_P4, lw=150,
+                   fields=[dict(t="いつから", v="from the time of the 400-foot submarine", rec="J p8083", late=True),
+                           dict(t="決まり", v="did not basically change the blowing requirements as they went deeper", rec="J p8083",
+                                late=True),
+                           dict(t="議員", v="That doesn't seem right to me.", rec="J p8083", late=True),
+                           dict(t="中将", v="This isn't right.", rec="J p8083", late=True)])
+# c718：意見38k（R08 p.211）。「電気が切れると閉まる」は認定51（p.191）の設計＝fail-closed の語で
+FORM_O38 = dict(title="査問会の意見38", rec="R08 p4211", paper=_P3, lw=170,
+                fields=[dict(t="考え方", v="The fail-closed concept for the three air banks", rec="R08 p4211", late=True),
+                        dict(t="試験深度で", v="is not desirable for safety of the ship at test depth", rec="R08 p4211", late=True),
+                        dict(t="改め方", v="should be modified to provide fail-on-the-line; i.e., air bank valves open.", rec="R08 p4211",
+                             late=True)])
+# c723：意見39（R08 p.211）
+FORM_O39 = dict(title="査問会の意見39", rec="R08 p4211", paper=_P2, lw=170,
+                fields=[dict(t="何を", v="the high pressure blow of submarine main ballast tanks", rec="R08 p4211", late=True),
+                        dict(t="どう試すか", v="tested under conditions simulating a full blow at test depth", rec="R08 p4211", late=True)])
+# c801〜c803：意見1（R08 p.204）＝1つの文「in all probability due to: a. An initial flooding casualty … which continued, compounded by
+#   b. … c. … and d. …」＝**a の浸水が続き、b・c・d が重なった**（a→b・c→d の因果の鎖ではない）＝流れ図の矢印にしない（映像方針 §21）
+#   ・c801 は4つの中身を書かない（c802・c803 の語り）
+FORM_O1 = dict(title="査問会の意見1", rec="R08 p4204", paper=_P2, lw=150,
+               fields=[dict(t="何が", v="the loss of the U.S.S. THRESHER", rec="R08 p4204"),
+                       dict(t="見立て", v="was in all probability due to:", rec="R08 p4204", late=True)])
+_O1 = dict(a='An initial flooding casualty from an orifice between 2" and 5" in size in the engine room',
+           b="Loss of reactor power due to an electrically-induced automatic shutdown",
+           c="Inadequate operating procedures … a flooding casualty and the loss of reactor power",
+           d="A deficient air system, susceptible to freeze-up, with low capacity and low blow rate.")
+FORM_O1A = dict(title="査問会の意見1", rec="R08 p4204", paper=_P2, lw=120,
+                fields=[dict(t="1つ目", v=_O1["a"], rec="R08 p4204", late=True),
+                        dict(t="2つ目", v=_O1["b"], rec="R08 p4204", late=True)])
+FORM_O1B = dict(title="査問会の意見1", rec="R08 p4204", paper=_P4, lw=120,
+                fields=[dict(t="1つ目", v=_O1["a"], rec="R08 p4204"), dict(t="2つ目", v=_O1["b"], rec="R08 p4204"),
+                        dict(t="3つ目", v=_O1["c"], rec="R08 p4204", late=True),
+                        dict(t="4つ目", v=_O1["d"], rec="R08 p4204", late=True)])
+# c806・c808：意見5（R08 p.204）「a flooding casualty in THRESHER could have resulted from: a. A faulty sil-braze joint. …」
+#   （「次のどれからも」の語は原文に無い）。6つの候補は c807 の並べ図。c808 は「継手＝候補 a」だけ（AP の「burst pipe」は海軍の
+#   見方として書かれた語＝「よく語られる話」の例に使わない）
+FORM_O5 = dict(title="査問会の意見5", rec="R08 p4204", paper=_P1, lw=130,
+               fields=[dict(t="浸水は", v="a flooding casualty in THRESHER could have resulted from:", rec="R08 p4204", late=True)])
+FORM_O5A = dict(title="査問会の意見5", rec="R08 p4204", paper=_P2, lw=130,
+                fields=[dict(t="浸水は", v="a flooding casualty in THRESHER could have resulted from:", rec="R08 p4204"),
+                        dict(t="候補a", v="A faulty sil-braze joint.", rec="R08 p4204", late=True)])
+# c809：意見2（R08 p.204）。🔴 中の句「conjecture may be stretched too far and become accepted as fact」は次の c810（決め所）＝書かない
+FORM_O2 = dict(title="査問会の意見2", rec="R08 p4204", paper=_P2, lw=170,
+               fields=[dict(t="混ぜると", v="in melding together fact and conjecture,", rec="R08 p4204", late=True),
+                       dict(t="狭まるもの", v="thus narrowing the field of search for possible causes of the casualty.", rec="R08 p4204",
+                            late=True)])
+# c811：意見49（R08 p.215）
+FORM_O49 = dict(title="査問会の意見49", rec="R08 p4215", paper=_P2, lw=270,
+                fields=[dict(t="正確な原因", v="although we may never learn the exact cause", rec="R08 p4215", late=True),
+                        dict(t="分かっていること",
+                             v="we do know enough to make it necessary for us to explore in depth the many possible causes",
+                             rec="R08 p4215", late=True)])
+# c813・cb18：海軍長官の最後の意見書（第7 endorsement・1965年＝IR18 p.6 の段落11。文字の層は行の順が崩れている＝頁の画像で読んだ）。
+#   「原因は決められていない・おそらく永久に分からない」は c812 の語り＝書かない／「Not knowing the exact cause, we have carefully
+#   examined all phases …」は cb19 の語り＝書かない
+FORM_NITZE = dict(title="海軍長官の最後の意見書（1965年）", rec="IR18 p2006", paper=_P3, lw=170,
+                  fields=[dict(t="候補", v="faulty design, structural or mechanical failure or malfunction or personnel error",
+                               rec="IR18 p2006", late=True),
+                          dict(t="始まり", v="set in motion the chain of events which led to eventual catastrophe", rec="IR18 p2006",
+                               late=True),
+                          dict(t="分からない", v="We, therefore, will never know whether", rec="IR18 p2006", late=True)])
+FORM_NITZE2 = dict(title="海軍長官の最後の意見書（1965年）", rec="IR18 p2006", paper=_P2, lw=130,
+                   fields=[dict(t="原因", v="we have not been able to establish the cause", rec="IR18 p2006", late=True),
+                           dict(t="良い面", v="has had its beneficial effects", rec="IR18 p2006", late=True)])
+# c816：原子炉の責任者の声明の結び（J p.89＝1963年7月23日・「(b)」の札は文字の層で「(S)」）。前の c815 の「I do not know」は書かない
+FORM_RICK89 = dict(title="原子炉の責任者の声明（議会・1963年7月23日）", rec="J p8089", paper=_P2, lw=270,
+                   fields=[dict(t="分かっていること",
+                                v="I do know there were weaknesses in her design, fabrication, and inspection", rec="J p8089",
+                                late=True),
+                           dict(t="どうするか", v="that must be corrected", rec="J p8089", late=True)])
+# c817：元分析官の書簡（A-R＝2013年4月10日・個人＝短い一節だけ）。中身（筋書き）は次の c818
+FORM_RULE = dict(title="元分析官の書簡（2013年4月10日）", rec="A-R p9961", paper=_P3, lw=150,
+                 fields=[dict(t="書いた人", v="the Analysis Officer at the SOSUS Evaluation Center in April 1963", rec="A-R p9961",
+                              late=True),
+                         dict(t="宛て先", v="Deputy Chief of Naval Operations Warfare Systems", rec="A-R p9961", late=True),
+                         dict(t="件名", v="Information and Security Issues Associated with the Loss of the USS THRESHER",
+                              rec="A-R p9961", late=True)])
+# c821：大西洋艦隊の司令官の意見書（第1 endorsement・1963年6月12日＝IR18 p.120・本文 p.122）。c605 の「艦隊司令官の意見書」と同じ書類
+#   （表題は別の名＝門番の表も別の行）。⚠️ echo：「大西洋艦隊の司令官の意見書（1963年6月12日）」は字幕「大西洋艦隊の司令官も、1963年6月の
+#   意見書で、」と73%（2か所に割れた一致）＝表題は「1番目の意見書」（FIRST ENDORSEMENT）・誰のかは注で
+FORM_CINC2 = dict(title="1番目の意見書（1963年6月12日）", rec=["IR18 p2120", "IR18 p2122"], paper=_P3, lw=170,
+                  fields=[dict(t="空気の系統", v="of inadequate capacity, susceptible to freeze-up and with an inadequate blow rate",
+                               rec="IR18 p2122", late=True),
+                          dict(t="評価", v="This grossly unsatisfactory situation", rec="IR18 p2122", late=True),
+                          dict(t="現役の艦",
+                               v="Immediate steps have been taken in operating ships to: (1) remove high pressure air reducer strainers",
+                               rec="IR18 p2122", late=True)])
+# c902：海軍長官の書簡（付録6＝J p.146〜147・1963年6月20日・宛て先は委員長）。「nuclear ship」（原子力艦）
+FORM_KORTH1 = dict(title="海軍長官の書簡（1963年6月20日）", rec=["J p8146", "J p8147"], paper=_P3, lw=150,
+                   fields=[dict(t="宛て先", v="Chairman, Joint Committee on Atomic Energy", rec="J p8146", late=True),
+                           dict(t="記録", v="a considerable portion of the record is classified", rec="J p8147", late=True),
+                           dict(t="漏れたら", v="Any unauthorized release would seriously affect our nuclear ship and Polaris programs.",
+                                rec="J p8147", late=True)])
+# c904：海軍長官の返事（J p.164・1963年8月29日・宛て先は小委員長）。出すのは公聴会の記録の事実と仮定（assumptions）
+FORM_KORTH2 = dict(title="海軍長官の返事（1963年8月29日）", rec="J p8164", paper=_P4, lw=150,
+                   fields=[dict(t="時期", v="it would be a poor time indeed", rec="J p8164", late=True),
+                           dict(t="何を", v="to release piecemeal the facts and assumptions documented by your hearings", rec="J p8164",
+                                late=True),
+                           dict(t="おそれ", v="could materially downgrade our offensive-defensive submarine weapons systems",
+                                rec="J p8164", late=True),
+                           dict(t="誰の心で", v="both in the public mind and the minds of our officers and men that man them",
+                                rec="J p8164", late=True)])
+# c908：塗った理由を示す札（頁の画像の赤い字＝V1 p.38「b(1)」・V1 p.54「b(3) 10 USC 130」・R08 p.181「(b) (6)」）。欄の名は情報公開の
+#   法律の除外の中身（語りの言い方）・記号は画だけ（語りでは読まない＝台本 §1-6）
+FORM_CODES = dict(title="塗った理由を示す札（公開の記録）", rec=["V1 p38", "V1 p54", "R08 p4181"], paper=_P3, lw=340,
+                  fields=[dict(t="国の安全", v="b(1)", rec="V1 p38"),
+                          dict(t="法律で伏せてよい情報", v="b(3) 10 USC 130", rec="V1 p54"),
+                          dict(t="個人の私生活", v="(b) (6)", rec="R08 p4181")])
+# c912・c919（紙2枚目）：AP の記事（p9901＝2021-08-02）。原告の言葉「There's no coverup. No smoking gun」は次の c913（決め所）＝書かない。
+#   名前は語りだけ
+FORM_AP = dict(title="AP通信の記事（2021年8月2日）", rec="AP p9901", paper=_P2, lw=150,
+               fields=[dict(t="訴えた人", v="who sued for release of the documents under the Freedom of Information Act",
+                            rec="AP p9901", late=True),
+                       dict(t="その人", v="himself the skipper of a Thresher-class submarine", rec="AP p9901", late=True)])
+FORM_AP900 = dict(title="AP通信の記事（2021年8月2日）", rec="AP p9901", lw=130,
+                  fields=[dict(t="読み方", v="900 feet beyond its test depth", rec="AP p9901", late=True)])
+# c919（紙1枚目）：認定17（R08 p.185）「An additional garbled transmission was received about 0917R, reported as containing the words
+#   "... nine hundred North".」＝査問会は意味を書いていない（意味の欄は作らない）
+FORM_F17 = dict(title="査問会の認定17", rec="R08 p4185", lw=230,
+                fields=[dict(t="9:17ごろの声", v='"... nine hundred North"', rec="R08 p4185", late=True)])
+# c915：原子炉の責任者の証言（J p.122・1964年7月1日）。深さの数は刷られていない（[classified matter deleted]）。計算の中身は c916
+FORM_RICK122 = dict(title="原子炉の責任者の証言（議会・1964年7月1日）", rec="J p8122", paper=_P1, lw=170,
+                    fields=[dict(t="話したこと", v="how that magic number [classified matter deleted] first came about", rec="J p8122",
+                                 late=True)])
+# c917：潜水艦戦の部長（海軍の少将）の証言（J p.124・1964年7月1日）
+FORM_WILK = dict(title="海軍の少将の証言（議会・1964年7月1日）", rec="J p8124", paper=_P3, lw=170,
+                 fields=[dict(t="検討", v="one other study in the Office of Chief of Naval Operations", rec="J p8124", late=True),
+                         dict(t="行く深さ", v="the depth to which we would go is what the state of the art will allow us", rec="J p8124",
+                              late=True),
+                         dict(t="戦術の根拠",
+                              v="there is not a tactical justification for [classified matter deleted] feet or any other depth",
+                              rec="J p8124", late=True)])
+# ca04：捜索の指揮官の証言（R08 p.66）。たとえの高さは 8500 feet（＝約2,600メートル・語り）
+FORM_ANDR2 = dict(title="捜索の指揮官の証言（査問会）", rec="R08 p4066", paper=_P3, lw=190,
+                  fields=[dict(t="写すこと", v="is a very easy operation", rec="R08 p4066", late=True),
+                          dict(t="カメラの位置", v="the camera must be 30 feet from the spot", rec="R08 p4066", late=True),
+                          dict(t="たとえ", v="being up in an airplane 8500 feet high with a string and a camera on the end of it",
+                               rec="R08 p4066", late=True)])
+# cb02：意見4（R08 p.204）
+FORM_O4 = dict(title="査問会の意見4", rec="R08 p4204", paper=_P2, lw=170,
+               fields=[dict(t="見直すまで", v="until each individual submarine's readiness has been reassessed", rec="R08 p4204",
+                            late=True),
+                       dict(t="制限", v="it would be prudent to retain the current interim depth limitation", rec="R08 p4204",
+                            late=True)])
+# cb06：勧告20（R08 p.220＝最後の勧告・文字の層の頭の「"」は外す）
+FORM_R20 = dict(title="査問会の勧告20", rec="R08 p4220", paper=_P4, lw=170,
+                fields=[dict(t="組織", v="an organization, similar to that employed in Naval Aviation", rec="R08 p4220", late=True),
+                        dict(t="分析", v="the analysis of events and developments which pertain to submarine safety", rec="R08 p4220",
+                             late=True),
+                        dict(t="伝えること", v="the timely dissemination of such information", rec="R08 p4220", late=True),
+                        dict(t="検討", v="That early consideration be given", rec="R08 p4220", late=True)])
+# cb08：意見42（R08 p.212）
+FORM_O42 = dict(title="査問会の意見42", rec="R08 p4212", paper=_P4, lw=170,
+                fields=[dict(t="情報", v="all information to be had from the BARBEL and other casualties", rec="R08 p4212", late=True),
+                        dict(t="分析と伝達", v="thorough and imaginative analysis and timely dissemination", rec="R08 p4212", late=True),
+                        dict(t="欠陥", v="the deficiencies which probably caused THRESHER's loss", rec="R08 p4212", late=True),
+                        dict(t="結果", v="could have been reduced", rec="R08 p4212", late=True)])
+# cb10：艦船局の副長の証言（J p.95・97＝1964年7月1日・綴りは Curtze＝J p.174）
+FORM_CURTZE = dict(title="艦船局の副長の証言（議会・1964年7月1日）", rec=["J p8095", "J p8097"], paper=_P3, lw=170,
+                   fields=[dict(t="始まり", v="The genesis of this effort was not Thresher's loss", rec="J p8095", late=True),
+                           dict(t="振り返れば", v="we moved too fast and too far in areas of offensive and defensive capabilities",
+                                rec="J p8097", late=True),
+                           dict(t="安全", v="Submarine safety did not keep pace.", rec="J p8097", late=True)])
+# cb11：艦隊の運用の担当の中将の証言（J p.94＝1964年7月1日・4月の勧告＝1964年4月）。同じ頁の安全センター（cb05）は書かない
+FORM_RAMAGE = dict(title="海軍の中将の証言（議会・1964年7月1日）", rec="J p8094", paper=_P3, lw=230,
+                   fields=[dict(t="4月の勧告", v="the Deep Submergence System Review Group … submitted its recommendations",
+                                rec="J p8094", late=True),
+                           dict(t="動けなくなる所", v="could be disabled in water too shallow to collapse the hull", rec="J p8094",
+                                late=True),
+                           dict(t="救難", v="still be beyond our rescue capability", rec="J p8094", late=True)])
+# cb15・cb16：意見55（R08 p.216＝最後の意見・「U.S.S. Thresher」は頁の画像でも小文字まじり）。🔴「The responsibility for the loss of
+#   THRESHER cannot be charged to neglect or dereliction …」は次の cb17（決め所）＝書かない
+FORM_O55A = dict(title="査問会の意見55", rec="R08 p4216", paper=_P2, lw=270,
+                 fields=[dict(t="水準", v="required to insure the thorough overhaul and safe operation of the U.S.S. Thresher",
+                              rec="R08 p4216", late=True),
+                         dict(t="届いていないもの", v="numerous practices, conditions and standards which were short of those",
+                              rec="R08 p4216", late=True)])
+FORM_O55B = dict(title="査問会の意見55", rec="R08 p4216", paper=_P4, lw=340,
+                 fields=[dict(t="急な変化", v="the rapid changes … of submarines during the last decade", rec="R08 p4216", late=True),
+                         dict(t="計画", v="the accelerated pace of the submarine program", rec="R08 p4216", late=True),
+                         dict(t="誰のせいか", v="They can be blamed on no individual or individuals", rec="R08 p4216", late=True),
+                         dict(t="気づかれなかったもの", v="many would not have come to notice had THRESHER not been lost",
+                              rec="R08 p4216", late=True)])
+# cb20（数の比べ → 書類の再現図＝映像方針 §21）：NAVSEA の記事（p9951＝2023-04-06）。「16隻」（第一次大戦〜1963年）は語りに無い＝書かない
+FORM_NAVSEA = dict(title="米海軍 艦艇の部門の記事（2023年4月6日）", rec="NAVSEA p9951", paper=_P2, lw=270,
+                   fields=[dict(t="サブセーフのあと", v="the U.S. Navy has only lost one submarine, USS Scorpion (SSN 589)",
+                                rec="NAVSEA p9951", late=True),
+                           dict(t="その艦", v="Scorpion was not SUBSAFE-certified", rec="NAVSEA p9951", late=True)])
+
 # 🆕 18本目 ⑤b-6a：流れ図（c107・c110・c218・c421・c616・c618）。箱の言葉は記録の文の言葉・役職だけ（名前は語りだけ）・赤を使わない。
 #   言葉と頁は門番 check_boxes の REC_OTHER_ROLE・REC_MECH・REC_CHIP と照らす
 FL_EMPTY = dict(heads=[])
@@ -919,7 +1164,50 @@ FLP = {
     "u_res": dict(k="role", id="u_res", t="検査の結果の数字", y=430, pos=(130, 640), rec="R08 p4197"),
     "u_dec": dict(k="role", id="u_dec", t="外さないという決定", y=590, pos=(130, 640), rec="R08 p4197"),
     "u_bu": dict(k="role", id="u_bu", t="艦船局", y=510, pos=(1280, 1760), rec=["R08 p4197", "J p8014"]),
+    # ── 🆕 ⑤b-6b（2026-10-04）：第7〜11章の流れ図（c705・c818・c820・c823・c916・c918・cb04）。箱の言葉は11字まで（門番 echo は12字から）──
+    # c705 認定47（R08 p.190「the increasing operating depths of submarines has compressed the time available in which to take effective
+    #   damage control action with respect to flooding. The shortness of time … is not well recognized.」）
+    "d_deep": dict(k="role", id="d_deep", t="潜る深さが増す", y=520, pos=(160, 760), rec="R08 p4190"),
+    "d_time": dict(k="role", id="d_time", t="手を打てる時間が縮む", y=520, pos=(1100, 1760), rec="R08 p4190"),
+    # c818 元分析官の推定（A-R＝個人）「the initial casualty … was the failure at 0911 of the primary (non-vital) electrical bus which shut down
+    #   the submarine's Main Coolant Pumps (MCPs) resulting in the immediate scram」・「there was no flooding prior to collapse」
+    "r_elec": dict(k="role", id="r_elec", t="電気の系統の故障（9:11）", y=440, pos=(100, 640), rec="A-R p9961"),
+    "r_pump": dict(k="role", id="r_pump", t="ポンプが止まる", y=440, pos=(760, 1180), rec="A-R p9961"),
+    "r_scram": dict(k="role", id="r_scram", t="原子炉が止まる", y=440, pos=(1300, 1800), rec="A-R p9961"),
+    # c820 3つの見方がそろって挙げる所＝空気の系統（台本 §1-5：査問会＝意見1d・艦隊司令官＝IR18 p.122・元分析官＝個人の推定。「凍って吹き
+    #   出せなかった」で一致とは言わない＝当日に凍ったと言うのは元分析官だけ）
+    "v_court": dict(k="role", id="v_court", t="査問会の意見1", y=360, pos=(110, 720), rec="R08 p4204"),
+    "v_cinc": dict(k="role", id="v_cinc", t="艦隊司令官の意見書", y=540, pos=(110, 720), rec="IR18 p2122"),
+    "v_rule": dict(k="role", id="v_rule", t="元分析官の書簡（個人）", y=720, pos=(110, 720), rec="A-R p9961"),
+    "v_air": dict(k="role", id="v_air", t="空気の系統", y=540, pos=(1260, 1760), rec=["R08 p4204", "IR18 p2122", "A-R p9961"]),
+    # c823 次の章へ（原因は決まっていない＝IR18 p.6・意見49／塗り＝V1 p.38 の b(1)）→ ある噂（AP p9901＝coverup の疑い）。噂の中身は c901
+    "n_cause": dict(k="role", id="n_cause", t="決まっていない原因", y=400, pos=(110, 700), rec=["IR18 p2006", "R08 p4215"]),
+    "n_red": dict(k="role", id="n_red", t="塗られたままの記録", y=640, pos=(110, 700), rec="V1 p38"),
+    "n_rumor": dict(k="role", id="n_rumor", t="ある噂", y=520, pos=(1300, 1760), rec="AP p9901"),
+    # c916 数字の生まれ（J p.122「the Bureau of Ships was asked, "How deep can you go without a major increase in the cost of submarines?"
+    #   They made a quick calculation and came up with [classified matter deleted].」「It was originally just on the basis of cost.」）。
+    #   「その先は費用が急に上がる」「本当の評価はまだ無い」は語りに無い＝描かない
+    "q_ask": dict(k="role", id="q_ask", t="艦船局への問い", y=440, pos=(110, 560), rec="J p8122"),
+    "q_calc": dict(k="role", id="q_calc", t="ざっとした計算", y=440, pos=(720, 1180), rec="J p8122"),
+    "q_num": dict(k="role", id="q_num", t="その数字", y=440, pos=(1340, 1780), rec="J p8122"),
+    # c918 試験深度の数（数の比べ → 流れ図＝映像方針 §21）。🔴 **深さの数を絵に出さない**（守りの線＝公開の記録では塗られている＝V1 p.38
+    #   の b(1)）。書簡（A-R「test-depth: 1300-feet」）と記事（AP「previously declassified documents indicated it was 1,300 feet」）は
+    #   「数が書かれている」とだけ＝数は語りだけ
+    "s_pub": dict(k="role", id="s_pub", t="公開の記録", y=380, pos=(110, 640), rec="V1 p38"),
+    "s_red": dict(k="role", id="s_red", t="塗られている", y=380, pos=(1220, 1760), rec="V1 p38"),
+    "s_rule": dict(k="role", id="s_rule", t="元分析官の書簡（2013年）", y=560, pos=(110, 640), rec="A-R p9961"),
+    "s_ap": dict(k="role", id="s_ap", t="AP通信の記事（2021年）", y=720, pos=(110, 640), rec="AP p9901"),
+    "s_num": dict(k="role", id="s_num", t="数が書かれている", y=640, pos=(1220, 1760), rec=["A-R p9961", "AP p9901"]),
+    # cb04 1隻ずつの認め（J p.93＝1964年7月1日「will remain in effect until all subsafe measures have been accomplished and certified by
+    #   the Bureau of Ships in the case of each submarine」）
+    "c_fix": dict(k="role", id="c_fix", t="安全の改修を終える", y=580, pos=(100, 600), rec="J p8093"),
+    "c_cert": dict(k="role", id="c_cert", t="艦船局が1隻ずつ認める", y=580, pos=(700, 1240), rec="J p8093"),
+    "c_lift": dict(k="role", id="c_lift", t="深さの制限が解ける", y=580, pos=(1340, 1820), rec="J p8093"),
 }
+# 🆕 ⑤b-6b：流れ図の左上の札（kind）と見出しの箱（heads）
+FL_RULE = dict(heads=[], kind="元分析官の推定（個人）")
+FL_DEPTH = dict(heads=[], kind="試験深度の数")
+FL_SS = dict(heads=[dict(id="h_ss", t="サブセーフ", kind="head", x=(660, 1260), y=(300, 370), rec="J p8093")])
 
 
 def fl(name, **kw):
@@ -933,6 +1221,14 @@ CAUSE = {
     "q_float": dict(k="item", t="浮き上がれなかった理由", rec="R08 p4204"),
     "q_pass": dict(k="item", t="伝わらなかった検査と声", rec=["R08 p4197", "R08 p4186"]),
     "q_sea": dict(k="item", t="海の底に残った物", rec="R17書 p9802"),
+    # 🆕 ⑤b-6b：c807＝意見5（R08 p.204）の6つの候補（a〜f）を2段に同じ形で（数の比べ → 並べ図＝映像方針 §21）。言葉は語りの丸写しにしない
+    #   （門番 echo＝12字から）：b「Undiscovered shock damage」＝未発見の衝撃の損傷・f「Unknowns, including component failure」＝不明（部品の故障を含む）
+    "f_a": dict(k="item", t="銀ろう付けの継手の不良", rec="R08 p4204"),
+    "f_b": dict(k="item", t="未発見の衝撃の損傷", rec="R08 p4204"),
+    "f_c": dict(k="item", t="曲がるホースの故障", rec="R08 p4204"),
+    "f_d": dict(k="item", t="鋳物か配管の故障", rec="R08 p4204"),
+    "f_e": dict(k="item", t="船体の小さな破損", rec="R08 p4204"),
+    "f_f": dict(k="item", t="不明（部品の故障を含む）", rec="R08 p4204"),
 }
 
 

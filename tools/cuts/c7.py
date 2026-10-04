@@ -25,7 +25,7 @@ PLAN = {
                plan='台本の画：図 模式図 吹き出しの仕組み（【横から】空気のボンベ → 減圧弁・弁の中に円すい形の網のこし器 → 主タンク → 海水が出る）',
                src='認定49（R08 p.190）・認定50（R08 p.191）・意見8c（R08 p.205）'),
     "c703": dict(kind='図解',
-               plan='台本の画：図 数の比べ スキップジャックとスレッシャー（試験深度 約210メートル → 数は伏せ字／予備の浮力 ほぼ同じ／空気の量 ほぼ同じ／試験深度で吹ける量と速さ＝減った・数は伏せ字）',
+               plan='台本の画：図 数の比べ スキップジャックとスレッシャー（試験深度 約210メートル → 数は伏せ字／予備の浮力 ほぼ同じ／空気の量 ほぼ同じ／試験深度で吹ける量と速さ＝減った・数は伏せ字）｜（⑤b-6b で替えた＝映像方針 §21）いま＝数の比べ → 書類の再現図（認定46 の a・c＝「from 700 feet to b(1)」と空気の量）・理由＝スレッシャーの深さは塗られている＝比べる棒が1本しか無い',
                src='認定46（R08 p.190）'),
     "c704": dict(kind='図解',
                plan='台本の画：図 書類の再現図 認定46（試験深度で吹き出せる量も、速さも、前の型より減った＝数は塗られている）',
@@ -176,5 +176,95 @@ SPEC = {
             dict(add=dict(k="chips", at="9:11", chips=["非常用の電動機だけ（遅い）"], rec="R08 p4212", i0=1)),
             dict(add=dict(k="chips", at="9:18.1", chips=["この場合の可能性は高くない（査問会）"], rec="R08 p4212"))],
             note="時刻は現地（アメリカ東部）・止まったか遅い回し方かは記録から決められない", src=ss.src(["R08 p4212"]))),
+    ),
+    # ── 🆕 ⑤b-6b（2026-10-04）：箱の型（書類の再現図・流れ図＝check_boxes.REC_*）──
+    #   欄の値は原文の英語のまま（日本語は字幕だけ）・塗りは頁に見えるとおりの札の記号（b(1)・(b) (1)）・次のカットの語りは描かない
+    # c703（9.14秒＝0〜4.50／4.99〜9.14）＝認定46（数の比べ → 書類の再現図＝スレッシャーの深さは塗られている＝棒1本・映像方針 §21）。
+    #   1行目で比べた艦と試験深度（700 feet → b(1)）／2行目で空気の量（ほぼ同じ）
+    "c703": dict(
+        t="前の型と比べて", s="スキップジャックとの違い",
+        fig=("boxes", dict(view="form", form=ss.FORM_F46A, steps=[
+            dict(add=[dict(k="paper"), dict(k="fill", f="試験深度")]),
+            dict(add=dict(k="fill", f="空気"))],
+            note="欄の字は原文のまま・様式は再現・b(1)＝塗られた所の札", src=ss.src(["R08 p4190"]))),
+    ),
+    # c704（9.94秒＝0〜3.88／4.37〜7.34／7.83〜9.94 聞き役）＝認定46 d。1行目で量と速さ／2行目「数は塗られている」で d(1) の札の行
+    "c704": dict(
+        t="吹き出せる量と速さ", s="試験深度で減った",
+        fig=("boxes", dict(view="form", form=ss.FORM_F46D, steps=[
+            dict(add=[dict(k="paper"), dict(k="fill", f="吹き出せる量"), dict(k="fill", f="速さ")]),
+            dict(add=dict(k="fill", f="その数")),
+            dict()],
+            note="欄の字は原文のまま・様式は再現・(b) (1)＝塗られた所の札", src=ss.src(["R08 p4190"]))),
+    ),
+    # c705（7.08秒＝0〜4.15／4.64〜7.08）＝認定47（流れ図）。1行目で深さ → 時間／2行目で札「よく知られていない」
+    "c705": dict(
+        t="深さと時間", s="深いほど短い",      # ⚠️ dup：「査問会の認定47」は注の字と同じ
+        fig=("boxes", dict(view="flow", layout=ss.FL_EMPTY, steps=[
+            dict(add=[ss.fl("d_deep"), ss.fl("d_time"), ss.ce("d_deep", "d_time")]),
+            dict(add=dict(k="chip", at="d_time", t="よく知られていない", rec="R08 p4190", dy=70))],
+            note="浸水に手を打てる時間（査問会の認定47）", src=ss.src(["R08 p4190"]))),
+    ),
+    # c706（9.89秒＝0〜1.76 聞き役／2.25〜5.61／6.10〜9.89）＝認定48（文字の層が崩れている＝頁の画像で読んだ）。2行目で基準（潜望鏡深度で
+    #   2回）／3行目で深さと氷。除湿器は次の c707＝書かない
+    "c706": dict(
+        t="空気の決まり", s="海面のすぐ下で2回",
+        fig=("boxes", dict(view="form", form=ss.FORM_F48, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=dict(k="fill", f="基準")),
+            dict(add=[dict(k="fill", f="深さ"), dict(k="fill", f="氷")])],
+            note="欄の字は原文のまま・様式は再現・periscope depth＝海面のすぐ下の深さ", src=ss.src(["R08 p4190"]))),
+    ),
+    # c708（6.70秒＝0〜2.27／2.76〜6.70）＝艦船局の長の証言（J p.32・p.35）。2行目で2つの欄
+    "c708": dict(
+        t="凍る理由", s="深さか、圧力の差か",    # ⚠️ dup：「艦船局の長の説明」は紙の表題と75%同じ
+        fig=("boxes", dict(view="form", form=ss.FORM_BROCK, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=[dict(k="fill", f="深さ"), dict(k="fill", f="決め手")])],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["J p8032", "J p8035"]))),
+    ),
+    # c710（9.55秒＝0〜3.58／4.07〜5.76／6.25〜9.55）＝最初の試運転の前夜（R08 p.26）。1行目で話したこととポンプ／2行目で理由
+    "c710": dict(
+        t="前夜の決め事", s="最初の試運転の前",
+        fig=("boxes", dict(view="form", form=ss.FORM_ZUR, steps=[
+            dict(add=[dict(k="paper"), dict(k="fill", f="話したこと"), dict(k="fill", f="ポンプの回し方")]),
+            dict(add=dict(k="fill", f="理由")),
+            dict()],
+            note="欄の字は原文のまま・様式は再現・in high＝速い回し方", src=ss.src(["R08 p4026"]))),
+    ),
+    # c711（10.54秒＝0〜2.17 聞き役／2.65〜6.98／7.47〜10.54）＝元設計部長の証言（R08 p.33）。「一度も行われていない」は次の c712
+    "c711": dict(
+        t="試さなかった試験", s="深い所で吹き切る",
+        fig=("boxes", dict(view="form", form=ss.FORM_JACK, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=[dict(k="fill", f="話し合い"), dict(k="fill", f="決まったこと")]),
+            dict(add=[dict(k="fill", f="空気"), dict(k="fill", f="おそれ")])],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4033"]))),
+    ),
+    # c713（12.95秒＝0〜4.68／5.17〜8.82／9.31〜12.95）＝議会の公聴会（J p.83）。中将の言葉と議員とのやりとり（役職だけ）
+    "c713": dict(
+        t="変わらなかった決まり", s="議会での中将と議員",
+        fig=("boxes", dict(view="form", form=ss.FORM_RICK83, steps=[
+            dict(add=[dict(k="paper"), dict(k="fill", f="いつから")]),
+            dict(add=dict(k="fill", f="決まり")),
+            dict(add=[dict(k="fill", f="議員"), dict(k="fill", f="中将")])],
+            note="欄の字は原文のまま・様式は再現・400-foot＝約120メートル", src=ss.src(["J p8083"]))),
+    ),
+    # c718（7.46秒＝0〜2.85／3.34〜7.46）＝意見38k（R08 p.211）
+    "c718": dict(
+        t="閉まる弁", s="電気が切れたとき",
+        fig=("boxes", dict(view="form", form=ss.FORM_O38, steps=[
+            dict(add=[dict(k="paper"), dict(k="fill", f="考え方")]),
+            dict(add=[dict(k="fill", f="試験深度で"), dict(k="fill", f="改め方")])],
+            note="欄の字は原文のまま・様式は再現・fail-closed＝電気が切れると閉まる", src=ss.src(["R08 p4211"]))),
+    ),
+    # c723（8.33秒＝0〜1.82／2.31〜6.21／6.70〜8.33 聞き役）＝意見39（R08 p.211）
+    "c723": dict(
+        t="査問会が求めた試験", s="試験深度をまねて",
+        fig=("boxes", dict(view="form", form=ss.FORM_O39, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=[dict(k="fill", f="何を"), dict(k="fill", f="どう試すか")]),
+            dict()],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4211"]))),
     ),
 }

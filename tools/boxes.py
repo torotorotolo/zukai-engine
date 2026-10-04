@@ -18,6 +18,7 @@
   fig=("boxes", dict(view="form", form=ss.FORM_PRE, steps=[dict(add=[dict(k="end", id="ship"), dict(k="paper"), …])], …))
   🆕 18本目 ⑤b-6a：紙を2〜3枚並べる＝form=[ss.FORM_A, ss.FORM_B]・steps=[dict(add=dict(k="paper", i=0)), dict(add=dict(k="paper", i=1))]
   fig=("boxes", dict(view="row", slots=3, past=[…], steps=[dict(add=[dict(k="item", t="舵の使い方？", rec=…)])], …))
+  🆕 18本目 ⑤b-6b：2段に並べる＝slots=6, per=3（1段に3つ・c807 の6つの候補）
   🔴 rec（記録の頁）は全部の箱に要る。門番 `check_boxes` が自分の側の記録の表と照らす（§5b-88）
 
 ■ 門番 `check_boxes`（焼く直前の SVG の `data-q` と、部品のつながり）
@@ -354,10 +355,17 @@ def _form(form, steps, note, src):
 #  並べ図
 # ══════════════════════════════════════════════════════════
 ROW_W, ROW_H, ROW_GAP, ROW_CY = 480, 140, 100, 540
+# 🆕 2026-10-04（18本目 ⑤b-6b）：**2段に並べる**（`per=3`＝1段に3つ）。横1列は幅480の箱が3つまで（4つで本体 1776 を越える）＝
+#    c807（査問会の意見5＝浸水のもとの6つの候補）は1列に入らない。段の間は ROW_VGAP。箱の形と色は全部同じ（どれかを目立たせない）。
+#    🔴 門番 check_boxes の judge_row が箱どうしの重なりと本体の外を測る（陽性対照＝ROW_VGAP を負にする）
+ROW_VGAP = 60
 
 
-def _row(slots, past, steps, note, src):
-    xs = [F.BCX + (i - (slots - 1) / 2) * (ROW_W + ROW_GAP) for i in range(slots)]
+def _row(slots, past, steps, note, src, per=None):
+    per = per or slots
+    cols, nrow = min(per, slots), -(-slots // per)
+    xs = [F.BCX + (i - (cols - 1) / 2) * (ROW_W + ROW_GAP) for i in range(cols)]
+    ys = [ROW_CY + (r - (nrow - 1) / 2) * (ROW_H + ROW_VGAP) for r in range(nrow)]
     items = list(past) + [p for st in steps for p in F._many(st.get("add"))]
     if len(items) > slots:
         raise ValueError(f"boxes：並べる項目 {len(items)} が枠 {slots} を超える")
@@ -372,22 +380,22 @@ def _row(slots, past, steps, note, src):
     rec = []
 
     def draw(p, dim):
-        x = xs[slot[id(p)]]
+        x, cy = xs[slot[id(p)] % per], ys[slot[id(p)] // per]
         rec.append(dict(p, dim=dim))
-        return (dq(F.rect(x - ROW_W / 2, ROW_CY - ROW_H / 2, ROW_W, ROW_H, J.BG2, J.LINE_DIM if dim else J.LINE, 4, rx=12),
+        return (dq(F.rect(x - ROW_W / 2, cy - ROW_H / 2, ROW_W, ROW_H, J.BG2, J.LINE_DIM if dim else J.LINE, 4, rx=12),
                    f"item|{p['t']}")
-                + dq(F.txtfit(x, ROW_CY + 17, p["t"], ROW_W - 40, cap=48, col=J.TICK if dim else J.INK_W, anchor="middle"),
+                + dq(F.txtfit(x, cy + 17, p["t"], ROW_W - 40, cap=48, col=J.TICK if dim else J.INK_W, anchor="middle"),
                      f"itext|{p['t']}"))
 
     lab = [draw(p, dim=not p.get("keep")) for p in past]
     stages = ["".join(draw(p, False) for p in F._many(st.get("add"))) or " " for st in steps]
     lab.append(_foot(note, src))
     f = F.Fig("".join(lab), stages, "", (F.BX0, F.BX1))
-    f.mech = dict(kind="boxes", view="row", parts=rec, slots=slots)
+    f.mech = dict(kind="boxes", view="row", parts=rec, slots=slots, per=per)
     return f
 
 
-def boxes(view, steps, layout=None, past=(), form=None, slots=3, note="", src=""):
+def boxes(view, steps, layout=None, past=(), form=None, slots=3, per=None, note="", src=""):
     """箱の型。steps＝ナレーションの行ごとの段（上の「SPEC の書き方」）。"""
     if view not in VIEWS:
         raise ValueError(f"boxes：知らない見え方 {view!r}（{VIEWS}）")
@@ -397,4 +405,4 @@ def boxes(view, steps, layout=None, past=(), form=None, slots=3, note="", src=""
         return _flow(layout or {}, past, steps, note, src)
     if view == "form":
         return _form(form, steps, note, src)
-    return _row(slots, past, steps, note, src)
+    return _row(slots, past, steps, note, src, per)

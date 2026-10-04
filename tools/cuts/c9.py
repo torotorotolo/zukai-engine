@@ -70,7 +70,7 @@ PLAN = {
                plan='台本の画：図 書類の再現図 海軍の少将の答え（1964年・海軍作戦部の中の検討の結論＝行く深さは技術が許すところまで・その数字にも、ほかのどの深さにも、戦術の上の根拠は無い）',
                src='J p.124（Wilkinson 少将）'),
     "c918": dict(kind='図解',
-               plan='台本の画：図 数の比べ 試験深度の数（公開の記録＝塗られている／元分析官ルール氏の書簡＝約400メートル〈1,300フィート〉／海軍に詳しい分析家＝前に機密を解かれた文書による〈AP 2021〉・分析家の名は出さない）',
+               plan='台本の画：図 数の比べ 試験深度の数（公開の記録＝塗られている／元分析官ルール氏の書簡＝約400メートル〈1,300フィート〉／海軍に詳しい分析家＝前に機密を解かれた文書による〈AP 2021〉・分析家の名は出さない）｜（⑤b-6b で替えた＝映像方針 §21）いま＝数の比べ → 流れ図（公開の記録 → 塗られている／書簡と記事 → 数が書かれている）・理由＝🔴 深さの数を絵に出さない（守りの線＝数は語りだけ）・棒にすると塗られた数を描くことになる',
                src='A-R（Rule 2013）・AP（2021-08-02 の Friedman の言＝"previously declassified documents indicated it was 1,300 feet"）'),
     "c919": dict(kind='図解',
                plan='台本の画：図 書類の再現図 9時17分ごろの言葉の読み方（査問会＝意味を書いていない／のちの読み方＝「試験深度より約270メートル深い」＝AP の記事・ルール氏）',
@@ -92,5 +92,92 @@ SPEC = {
             dict(add=dict(k="chips", at="2020-09-23", chips=["認定・意見・勧告"], rec="台帳"), cur="2020-09-23")],
             note="第1〜17回＝海軍の台帳の公開日／第18〜23回＝台帳に無い（公開の棚の更新日）",
             src="海軍の公開の台帳（第1〜17回）・公開の棚 THRESHER RELEASE（第18〜23回）")),
+    ),
+    # ── 🆕 ⑤b-6b（2026-10-04）：箱の型（書類の再現図・流れ図＝check_boxes.REC_*）──
+    #   🔴 第9章は深さの数を絵に出さない（守りの線）＝公聴会の本の削除は「[classified matter deleted]」と刷られたまま・c918 は数を書かない
+    # c902（11.90秒＝0〜2.67／3.16〜8.22／8.71〜11.90）＝海軍長官の書簡（付録6＝J p.146〜147・1963年6月20日）
+    "c902": dict(
+        t="長く機密だった記録", s="漏れたときの影響",    # ⚠️ dup：「1963年6月の書簡」は紙の表題と70%同じ
+        fig=("boxes", dict(view="form", form=ss.FORM_KORTH1, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=[dict(k="fill", f="宛て先"), dict(k="fill", f="記録")]),
+            dict(add=dict(k="fill", f="漏れたら"))],
+            note="欄の字は原文のまま・様式は再現・宛て先＝両院原子力合同委員会の委員長", src=ss.src(["J p8146", "J p8147"]))),
+    ),
+    # c904（11.35秒＝0〜4.16／4.65〜9.28／9.77〜11.35 聞き役）＝海軍長官の返事（J p.164・1963年8月29日・宛て先は小委員長）
+    "c904": dict(
+        t="今は時期が悪い", s="小出しにしない理由",    # ⚠️ dup：「1963年8月の返事」は紙の表題と70%同じ
+        fig=("boxes", dict(view="form", form=ss.FORM_KORTH2, steps=[
+            dict(add=[dict(k="paper"), dict(k="fill", f="時期"), dict(k="fill", f="何を")]),
+            dict(add=[dict(k="fill", f="おそれ"), dict(k="fill", f="誰の心で")]),
+            dict()],
+            note="欄の字は原文のまま・様式は再現・your hearings＝議会の公聴会", src=ss.src(["J p8164"]))),
+    ),
+    # c908（10.06秒＝0〜4.08／4.57〜8.34／8.83〜10.06 聞き役）＝塗った理由を示す札（頁の画像の赤い字）。記号は画だけ（語りでは読まない）
+    "c908": dict(
+        t="3種類の札", s="記号の意味",    # ⚠️ dup：「塗った理由」は紙の表題の頭と同じ
+        fig=("boxes", dict(view="form", form=ss.FORM_CODES, steps=[
+            dict(add=dict(k="paper")),
+            dict(),
+            dict()],
+            note="記号は公開の記録の頁のまま（情報公開の法律の除外の番号）", src=ss.src(["V1 p38", "V1 p54", "R08 p4181"]))),
+    ),
+    # c912（7.09秒＝0〜1.67 聞き役／2.16〜4.13／4.62〜7.09）＝AP の記事。原告の言葉は次の c913（決め所）＝書かない・名前は語りだけ
+    "c912": dict(
+        t="公開を求めた人", s="情報公開の法律で",    # ⚠️ dup：「訴えた人」は欄の名・「2021年の記事」は紙の表題と同じ
+        fig=("boxes", dict(view="form", form=ss.FORM_AP, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=[dict(k="fill", f="訴えた人"), dict(k="fill", f="その人")]),
+            dict()],
+            note="欄の字は原文のまま（記事の一部）・様式は再現・Thresher-class＝スレッシャー級", src=ss.src(["AP p9901"]))),
+    ),
+    # c915（8.26秒＝0〜2.43／2.92〜5.97／6.46〜8.26）＝原子炉の責任者の証言（J p.122・1964年7月1日）。計算の中身は次の c916
+    "c915": dict(
+        t="魔法の数字", s="中将の話",    # ⚠️ echo：「1964年の公聴会」は字幕の1文の頭の切り取り
+        fig=("boxes", dict(view="form", form=ss.FORM_RICK122, steps=[
+            dict(add=dict(k="paper")),
+            dict(),
+            dict(add=dict(k="fill", f="話したこと"))],
+            note="欄の字は刷られたまま（数は削除の印）・様式は再現", src=ss.src(["J p8122"]))),
+    ),
+    # c916（11.16秒＝0〜3.88／4.37〜8.93／9.42〜11.16 聞き役）＝数字の生まれ（流れ図・J p.122）。「その先は費用が急に上がる」「本当の評価は
+    #   まだ無い」は語りに無い＝描かない
+    "c916": dict(
+        t="数字の生まれ", s="元は費用の計算",
+        fig=("boxes", dict(view="flow", layout=ss.FL_EMPTY, steps=[
+            dict(add=[ss.fl("q_ask"), dict(k="chip", at="q_ask", t="費用を増やさずに行ける深さ", rec="J p8122", dy=70)]),
+            dict(add=[ss.fl("q_calc"), ss.fl("q_num"), ss.ce("q_ask", "q_calc"), ss.ce("q_calc", "q_num"),
+                      dict(k="chip", at="q_num", t="元は費用だけが根拠", rec="J p8122", dy=70)]),
+            dict()],
+            note="原子炉の責任者の証言（1964年）・数は刷られていない", src=ss.src(["J p8122"]))),
+    ),
+    # c917（10.35秒＝0〜3.00／3.48〜8.26／8.75〜10.35 聞き役）＝潜水艦戦の部長（海軍の少将）の証言（J p.124）
+    "c917": dict(
+        t="根拠の無い深さ", s="海軍の中の検討",    # ⚠️ dup：「戦術の根拠」は欄の名と同じ
+        fig=("boxes", dict(view="form", form=ss.FORM_WILK, steps=[
+            dict(add=[dict(k="paper"), dict(k="fill", f="検討")]),
+            dict(add=[dict(k="fill", f="行く深さ"), dict(k="fill", f="戦術の根拠")]),
+            dict()],
+            note="欄の字は刷られたまま（数は削除の印）・様式は再現", src=ss.src(["J p8124"]))),
+    ),
+    # c918（12.27秒＝0〜1.91／2.40〜6.57／7.06〜12.27）＝試験深度の数（数の比べ → 流れ図＝映像方針 §21）。🔴 数は絵に出さない（語りだけ）。
+    #   1行目で公開の記録 → 塗られている／2行目で書簡 → 数が書かれている／3行目で記事と札「前に機密を解かれた文書」
+    "c918": dict(
+        t="何メートルだったか", s="記録と書簡と記事",
+        fig=("boxes", dict(view="flow", layout=ss.FL_DEPTH, steps=[
+            dict(add=[ss.fl("s_pub"), ss.fl("s_red"), ss.ce("s_pub", "s_red")]),
+            dict(add=[ss.fl("s_rule"), ss.fl("s_num"), ss.ce("s_rule", "s_num")]),
+            dict(add=[ss.fl("s_ap"), ss.ce("s_ap", "s_num"),
+                      dict(k="chip", at="s_ap", t="前に機密を解かれた文書", rec="AP p9901", dy=50)])],
+            note="公開の記録の深さは b(1) で塗られている", src=ss.src(["V1 p38", "A-R p9961", "AP p9901"]))),
+    ),
+    # c919（8.43秒＝0〜1.84／2.33〜6.27／6.76〜8.43）＝紙2枚（認定17 と AP の記事＝別の書類）。査問会は意味を書いていない（意味の欄は作らない）
+    "c919": dict(
+        t="声の中の数", s="9:17ごろの声の読み方",    # ⚠️ echo：「ナイン・ハンドレッド」は字幕の1行の切り取り
+        fig=("boxes", dict(view="form", form=[ss.FORM_F17, ss.FORM_AP900], steps=[
+            dict(add=[dict(k="paper", i=0), dict(k="fill", i=0, f="9:17ごろの声")]),
+            dict(add=[dict(k="paper", i=1), dict(k="fill", i=1, f="読み方")]),
+            dict()],
+            note="査問会の認定17 は意味を書いていない", src=ss.src(["R08 p4185", "AP p9901"]))),
     ),
 }
