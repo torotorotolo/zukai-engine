@@ -164,10 +164,12 @@ SPEC = {
             note="時刻は現地（アメリカ東部）", src=ss.src(["R08 p4187"]))),
     ),
     # c504（6.79秒＝0〜3.58／4.07〜6.79）＝1行目「9時40分ごろ。作戦士官が、艦長に聞いた」（認定23a「At about 0940R」）／2行目「報告を、上に
-    #   出しますか」で項目の札。艦長の答え（「まだ早い」）は次の c505 の決め所＝描かない。9:17 の点は札を消して沈める（23分＝約150画素）
+    #   出しますか」で項目の札。艦長の答え（「まだ早い」）は次の c505 の決め所＝描かない。9:17 の点は出さない（23分＝約150画素で札が
+    #   ぶつかる・札を消した点は棒に見えた）
     "c504": dict(
         t="スカイラークの動き", s="1963年4月10日",
-        fig=("axis", dict(ss.AX_SKY, past=[ss.ax("s0917", lab=False, t="")], start=dict(cur="9:17"), steps=[
+        # ⚠️ 試し焼き：札を消した 9:17 の点は目盛りの棒に見えた＝出さない（c320 と同じ）
+        fig=("axis", dict(ss.AX_SKY, start=dict(cur="9:00"), steps=[
             dict(add=ss.ax("s0940"), cur="9:40"),
             dict(add=dict(k="chips", at="9:40", chips=["報告を上に出すか"], rec="R08 p4186"))],
             note="時刻は現地（アメリカ東部）", src=ss.src(["R08 p4186", "R08 p4187"]))),
@@ -176,7 +178,7 @@ SPEC = {
     #   替えた」（23c）で項目の札／3行目「陸の無線局が受け取ったのは、12時45分」（23d）。「3時間半」は次の c508 の語り＝括弧を描かない
     "c507": dict(
         t="スカイラークの動き", s="1963年4月10日",
-        fig=("axis", dict(ss.AX_SKY, past=[ss.ax("s0917", lab=False, t=""), ss.ax("s0940")], start=dict(cur="9:40"), steps=[
+        fig=("axis", dict(ss.AX_SKY, past=[ss.ax("s0940")], start=dict(cur="9:40"), steps=[
             dict(add=ss.ax("s1045"), cur="10:45"),
             dict(add=dict(k="chips", at="10:45", chips=["無線の不調・周波数を替える"], rec="R08 p4186")),
             dict(add=ss.ax("s1245"), cur="12:45")],

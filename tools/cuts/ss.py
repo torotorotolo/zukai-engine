@@ -517,7 +517,8 @@ AXI.update({
     "lm": dict(k="lane", lane=TM, rec="R08 p4185"),
     # ⚠️ 下見：札「タンクを吹いた音でありうる」を左へ振ると段の名「監視の記録」の真上に来て1つの言葉に読めた＝短く（門番 LANE_COL）
     "blow1": dict(k="span", lane=TM, a="9:09.8", b="9:11.3", t="吹いた音でありうる", rec="R08 p4185", anchor="end"),
-    "cool": dict(k="pt", lane=TM, at="9:11", t="ポンプ", rec="R08 p4185", anchor="start"),
+    # ⚠️ 試し焼き（Actions 37191779632）：右へ振ると「吹いた音でありうる」と同じ高さで「…ありうる ポンプ」と続けて読めた＝真ん中（上の段へ）
+    "cool": dict(k="pt", lane=TM, at="9:11", t="ポンプ", rec="R08 p4185"),
     "v0913": dict(k="pt", lane=TV, at="9:13", t="「軽微な問題」", rec="R08 p4185"),
     "blow2": dict(k="span", lane=TM, a="9:13.5", b="9:14", t="2回目", rec="R08 p4185"),
     "q0915": dict(k="pt", lane=TV, at="9:15", t="問いかけ", rec="R08 p4186", approx=True),
@@ -549,7 +550,8 @@ AXI.update({
     "u_none": dict(k="span", a="1962-11-29", b="1963-04-09", t="超音波の検査なし", rec=["R08 p4197", "R08 p4181"], c="ALERT"),
     "u_dep": dict(k="pt", at="1963-04-09", t="出港", rec="R08 p4181", anchor="end"),
     "a10": dict(k="pt", at="1963-04-10", t="艦が失われる", rec="R08 p4185", c="ALERT", anchor="end"),
-    "a11": dict(k="pt", at="1963-04-11", t="報告書はこれより後", rec="J p8018", anchor="start"),
+    # ⚠️ 試し焼き：右へ振ると「1963年4月10日」「1963年4月11日」が同じ高さで1行に読めた＝真ん中（上の段へ）
+    "a11": dict(k="pt", at="1963-04-11", t="報告書はこれより後", rec="J p8018"),
     # ── 別の30秒（c717＝AX_AIR・認定51）
     "e0": dict(k="pt", at="0", t="電気が落ちる", rec="R08 p4191", anchor="start", lab=False),   # 「0秒」は目盛りが言う
     "e30": dict(k="pt", at="30", t="開き切る", rec="R08 p4191", anchor="end"),
