@@ -126,4 +126,68 @@ SPEC = {
             dict(add=[ss.ax("co"), ss.ax("dep", lab=False)], cur="1963-01")],
             note="担当＝造船所でこの艦の仕事を受け持つ人", src=ss.src(["R08 p4181", "R08 p4203"]))),
     ),
+    # ── 🆕 ⑤b-6a（2026-10-04）：量の型（棒＝門番 check_qty.REC_QTY）と箱の型（書類の再現図・流れ図＝check_boxes.REC_*）──
+    # c204（9.03秒＝0〜4.72／5.21〜9.03）＝仕事の量。見込み 約3万5,000人日（認定92）→ 実際 10万人日を超えた（認定95＝棒は10万まで）。
+    #   5回の延びは次の c205（年表の帯）＝描かない
+    "c204": dict(
+        t="見込みと実際", s="整備の見積もり",
+        fig=("qty", dict(view="bar", groups=[ss.QG["work"]], steps=[
+            dict(add=ss.qb("w_est")),
+            dict(add=ss.qb("w_act"))],
+            note="1人日＝1人が1日働く量・実際の棒は10万まで（記録は「10万を超える」）", src=ss.src(["R08 p4195", "R08 p4196"]))),
+    ),
+    # c207（9.80秒＝0〜3.22／3.71〜8.47／8.96〜9.80 聞き役）＝艦からの距離（認定80＝1,180〜370フィート）。棒＝メートルに直した長さ
+    #   （丸めない）。爆薬の約4.5トンは字幕だけ（棒1本の群にしない）
+    "c207": dict(
+        t="爆薬と艦の距離", s="1962年夏の衝撃試験",
+        fig=("qty", dict(view="bar", groups=[ss.QG["dist"]], steps=[
+            dict(),
+            dict(add=[ss.qb("d_far"), ss.qb("d_near")]),
+            dict()],
+            note="棒＝記録のフィート（1,180と370）をメートルに直した長さ", src=ss.src(["R08 p4194"]))),
+    ),
+    # c209（6.95秒＝0〜3.43／3.92〜6.95）＝損傷の調べ（認定96・86）。「見つかり続けた」は次の c210（決め所）＝書かない
+    "c209": dict(
+        t="損傷の調べ", s="試験のあとの点検",
+        fig=("boxes", dict(view="form", form=ss.FORM_SHOCK, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=[dict(k="fill", f="調べ方"), dict(k="fill", f="直す予定")])],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4196", "R08 p4195"]))),
+    ),
+    # c213（10.83秒＝0〜4.84／5.33〜9.55／10.04〜10.83 聞き役）＝取扱説明書（認定69）。「承認せず・仮の本」は次の c214＝書かない
+    "c213": dict(
+        t="手本にした別の本", s="外の会社の仕事",
+        fig=("boxes", dict(view="form", form=ss.FORM_SIB, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=[dict(k="fill", f="写し方"), dict(k="fill", f="違い")]),
+            dict()],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4193"]))),
+    ),
+    # c217（9.85秒＝0〜1.13 聞き役／1.62〜5.37／5.86〜9.85）＝人事局長の証言（R08 p.107＝非公開の場）。「整備中に動かすのは好まない」は
+    #   語りに無い＝書かない
+    "c217": dict(
+        t="艦長を動かした理由", s="査問会の非公開の場で",
+        fig=("boxes", dict(view="form", form=ss.FORM_SMED, steps=[
+            dict(),
+            dict(add=dict(k="paper")),
+            dict(add=dict(k="fill", f="何の圧力"))],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4107"]))),
+    ),
+    # c218（8.55秒＝0〜3.49／3.98〜8.55）＝艦長の行き先（R08 p.107・p.109）。名前は語りだけ（箱は役職）
+    "c218": dict(
+        t="2人の艦長", s="1963年1月の交代",
+        fig=("boxes", dict(view="flow", layout=ss.FL_CAPT, steps=[
+            dict(add=[ss.fl("a_old"), ss.fl("a_pol"), ss.ce("a_old", "a_pol")]),
+            dict(add=[ss.fl("a_new"), dict(k="chip", at="a_new", t="最も資格のある1人（人事局長）", rec="R08 p4109", dy=70)])],
+            src=ss.src(["R08 p4107", "R08 p4109", "R08 p4203"]))),
+    ),
+    # c219（11.70秒＝0〜2.91／3.40〜8.17／8.66〜11.70）＝部隊の司令の証言（R08 p.77）。2行目で助言と答え・3行目で挙げた例
+    "c219": dict(
+        t="急がせる圧力", s="艦長に伝えたこと",
+        fig=("boxes", dict(view="form", form=ss.FORM_ANDR, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=[dict(k="fill", f="助言"), dict(k="fill", f="答え")]),
+            dict(add=[dict(k="fill", f="挙げた例"), dict(k="fill", f="ほかに")])],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4077"]))),
+    ),
 }

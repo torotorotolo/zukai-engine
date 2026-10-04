@@ -15,6 +15,7 @@
          ⑤ 赤（ALERT）を使わない・円（人の頭に読める形）を使わない ⑥ 部品の rec の頁
          ⑨ 🆕（15本目 ⑤c'）矢印の線分が箱の内側を通らない（c918＝問い→答えの横線が字の真ん中を通り打ち消し線に見えた）
   書類   ⑦ 表題・欄の名・行き来の箱＝`REC_FORM`（報告書の文にあるものだけ）・欄に値を書かない（記録が「未記入」）・「再現」の札
+         ⑩ 🆕（18本目 ⑤b-6a）紙を2〜3枚並べる書類は紙ごとに ⑦ を照らし、紙どうしの間（24画素以上）と本体の左右（72〜1848）を測る
   並べ図 ⑧ 項目＝`REC_CAUSE`・2つ以上・全部同じ大きさと色（どれかを目立たせない）・項目のほかに絵を置かない（場面にしない）
 
 ■ 使い方
@@ -47,19 +48,158 @@ from check_qty import ATTR, EL, _els, _recs, _unesc  # noqa: E402
 #        （GATES["check_boxes"]・値は1つも変えていない＝git の `b044b56`）。18本目の箱を書くチャットで、言葉と頁を
 #        ref/ep18/src/ep18_pages.txt で当てて入れる（空のあいだ、箱のカットは「記録に無い言葉」で止まる）
 # ══════════════════════════════════════════════════════════
+#     🆕 2026-10-04（18本目 ⑤b-6a）：第1〜6章の箱（流れ図6・書類の再現図19・並べ図1）の言葉と頁を入れた（原文
+#        ref/ep18/src/ep18_pages.txt で当てた・文字の層が崩れた5か所は頁の画像を切り出して読んだ）。🔴 19本目の ⑤b-1 でこの表を空にし、
+#        値は見本 `tools/fixture_ep18.py` へ（selftest_ep18 も見本を差す形に＝check_axis の selftest_ep18 と同じ）
 REC_CREW = {}
 REC_ROLE_PAGES = set()
-REC_OTHER_ROLE = {}   # 流れ図の「role」の箱＝役職でない言葉（報告書の文の言葉）→ 頁の集合
+REC_OTHER_ROLE = {    # 流れ図の「role」の箱＝役職でない言葉（報告書の文の言葉）→ 頁の集合
+    # c107「3枚の紙」：前の艦長の評価書＝証拠111（X p.531）・認定91（R08 p.195）／検査の数字＝認定102（p.197「145 old joints … rejection
+    #   rate of 13.8 per cent」）／検査の書類＝認定104〜106（p.197＝品質保証の部署の報告・12月4日の決定・その写し）／どこまで届いたか＝
+    #   認定108（p.197「neither the results … nor the decision … was made known to the Bureau of Ships」）・J p.18（報告書は4月11日より後）
+    "前の艦長の評価書": {"X p1531", "R08 p4195"}, "検査の数字": {"R08 p4197"}, "検査の書類": {"R08 p4197"},
+    "どこまで届いたか": {"R08 p4197", "J p8018"},
+    # c110：査問会の記録（R08 p.181〜＝認定）・議会の公聴会の記録（J p.1「Joint Committee on Atomic Energy」1963年6月26日）
+    "査問会の記録": {"R08 p4181"}, "議会の公聴会の記録": {"J p8001"},
+    # c218：R08 p.107「we had to have him as Prospective Commanding Officer of the JOHN C. CALHOUN SSB(N) 630」・p.109「I felt that Harvey
+    #   was one of the best qualified people we could find.」
+    "前の艦長": {"R08 p4107"}, "艦長の予定者（ポラリス）": {"R08 p4107"}, "新しい艦長": {"R08 p4109"},
+    # c421：認定16・17（水中電話の声）・認定18（監視の記録の音）＝R08 p.185／意見45（p.212「assumptions and computer solutions」
+    #   「a reasonable rationalization of probable events」・p.214「the most probable approximation of the sequence of events」）
+    "水中電話の声": {"R08 p4185"}, "監視の記録": {"R08 p4185"}, "仮定と計算": {"R08 p4212"},
+    "最もありうる筋書き": {"R08 p4212", "R08 p4214"},
+    # c616：認定105（p.197「known to the management personnel of the Shipyard, including the Production Officer and the Commander」）・
+    #   認定106（「a copy of this decision was furnished the Commanding Officer of THRESHER」）
+    "造船所の生産の責任者": {"R08 p4197"}, "造船所の司令官": {"R08 p4197"}, "スレッシャーの艦長（当時）": {"R08 p4197"},
+    # c618：認定102・105・108（p.197）・J p.14「no decision or no recommendation was sent to the Bureau of Ships」
+    "検査の結果の数字": {"R08 p4197"}, "外さないという決定": {"R08 p4197"}, "艦船局": {"R08 p4197", "J p8014"},
+}
 REC_CRIME = {}
 REC_VERDICT = {}   # (役職, 罪名, 列) → (結果, 頁)
 REC_SENT = {}      # 役職 → (確定した刑, 頁)
 REC_SEATS = 0
 REC_UNANIMOUS = set()
 HEADS = set()
-REC_MECH = set()      # 流れ図に出してよい言葉のうち、役職・罪名でないもの（仕組み・鎖・問いの箱と矢印の札）
-REC_CHIP = {}         # 札（chip）の言葉 → 頁の集合
-REC_FORM = {}         # 書類の再現図（表題 → dict(fields・ends・values＝記録の文にある値だけ・rec＝頁の集合)）
-REC_CAUSE = {}        # 並べ図の項目 → 頁
+REC_MECH = {          # 流れ図に出してよい言葉のうち、役職・罪名でないもの（仕組み・鎖・問いの箱と矢印の札）
+    "スレッシャーの艦長",      # c218 の左上の札（R08 p.107＝艦長と副長の交代の問い）
+    "外さないという決定",      # c616 の見出しの箱（認定105＝R08 p.197「decision was made on 4 December 1962 not to unlag」）
+    "上がっていない", "造船所の中",   # c618 の矢印の札・群の名（認定108・J p.14「the decision was made locally in the yard」）
+}
+REC_CHIP = {          # 札（chip）の言葉 → 頁の集合
+    "両院原子力合同委員会・1963年と1964年": {"J p8001", "J p8091"},   # c110（J p.1＝1963年6月26日・p.91＝1964年7月1日）
+    "最も資格のある1人（人事局長）": {"R08 p4109"},                    # c218（one of the best qualified people we could find）
+    "決定の写し": {"R08 p4197"},                                        # c616（認定106 a copy of this decision）
+}
+# 書類の再現図（表題 → dict(fields・ends・values＝記録の文にある値だけ・rec＝頁の集合)）。🆕 18本目は欄の値に**原文の英語**をそのまま
+#   書く（日本語は字幕だけ＝ルール 0b-33）。🔴 査問会の「0913R」の形は画面に出さない（台本 §1-7）＝時刻は欄の名へ。
+#   ⚠️ 文字の層の崩れを頁の画像で直した所：認定111「SCULPIN8 ETHAN' ALLEN」→ SCULPIN, ETHAN ALLEN・認定24「COMMIUNICATE」→
+#   COMMUNICATE・V1 p.140「No, sirs I don 9 t thifilk so.」→ No, sir, I don't think so.・X p.122「trv be interrupted」→ may be
+#   interrupted・X p.124「May bear very weak voice」→ May hear very weak voice（2026-10-04 に原寸の切り出しで読んだ）
+REC_FORM = {
+    # c112：R08 p.181「FINDINGS OF FACT」・p.204「OPINIONS」・p.217「RECOMMENDATIONS」（紙3枚）
+    "認定": dict(fields={"見出し"}, ends=set(), rec={"R08 p4181"}, values={"見出し": "FINDINGS OF FACT"}),
+    "意見": dict(fields={"見出し"}, ends=set(), rec={"R08 p4204"}, values={"見出し": "OPINIONS"}),
+    "勧告": dict(fields={"見出し"}, ends=set(), rec={"R08 p4217"}, values={"見出し": "RECOMMENDATIONS"}),
+    # c209：認定96（R08 p.196）・認定86（p.195）
+    "衝撃試験の損傷（認定96・86）": dict(
+        fields={"調べた人", "調べ方", "直す予定"}, ends=set(), rec={"R08 p4196", "R08 p4195"},
+        values={"調べた人": "ship's force, Bureau of Ships, and Shipyard personnel", "調べ方": "intensively investigated",
+                "直す予定": "scheduled for repair during the post shakedown availability"}),
+    # c213：認定69（R08 p.193）
+    "取扱説明書（認定69）": dict(
+        fields={"作った所", "手本", "写し方", "違い"}, ends=set(), rec={"R08 p4193"},
+        values={"作った所": "an outside firm under subcontract", "手本": "an SS(N) 588 Class Ship Information Book as a guide",
+                "写し方": "virtually copied large portions of it", "違い": "many systems on THRESHER were quite different"}),
+    # c217：R08 p.107（1963年5月21日・非公開の場＝THIRTY-THIRD DAY・Tuesday, 21 May 1963）
+    "人事局長の証言（1963年5月21日）": dict(
+        fields={"理由", "何の圧力"}, ends=set(), rec={"R08 p4107"},
+        values={"理由": "The basic consideration was the pressure",
+                "何の圧力": "to furnish experienced commanding officers for the POLARIS submarines"}),
+    # c219：R08 p.77
+    "部隊の司令の証言（査問会）": dict(
+        fields={"助言", "答え", "挙げた例", "ほかに"}, ends=set(), rec={"R08 p4077"},
+        values={"助言": "he must resist that pressure", "答え": "he would resist it",
+                "挙げた例": "some hot words exchanged between the boat officer and the Ship Superintendent",
+                "ほかに": "That was the only incident I know of."}),
+    # c305：認定8（R08 p.184）
+    "2隻の命令（認定8）": dict(
+        fields={"スレッシャー", "スカイラーク", "予定表"}, ends=set(), rec={"R08 p4184"},
+        values={"スレッシャー": "THRESHER's movement orders were CONFIDENTIAL", "スカイラーク": "SKYLARK's were unclassified",
+                "予定表": "were not held by SKYLARK"}),
+    # c416：V1 p.118（記録の45頁・航海士）
+    "航海士の証言（査問会の記録）": dict(
+        fields={"前に聞いた音", "どんな船", "似ていた音"}, ends=set(), rec={"V1 p118"},
+        values={"前に聞いた音": "a lot of ships breaking up during World War II", "どんな船": "after having been torpedoed at depths",
+                "似ていた音": "a compartment collapsing"}),
+    # c418：V1 p.132（甲板の当直の下士官＝p.127 で証言台に）・p.140（記録簿の係の無線員＝p.136）
+    "スカイラークの乗員の証言": dict(
+        fields={"当直の下士官", "問い", "記録簿の係"}, ends=set(), rec={"V1 p132", "V1 p140"},
+        values={"当直の下士官": "air rushing into his tanks for about four to five seconds",
+                "問い": "like air being blown into a tank", "記録簿の係": "No, sir, I don't think so."}),
+    # c509：認定24（R08 p.186＝頁の画像で読んだ）
+    "スカイラークの電文（認定24）": dict(
+        fields={"9:17 から", "最後の交信", "示したこと", "いま"}, ends=set(), rec={"R08 p4186"},
+        values={"9:17 から": "UNABLE TO COMMUNICATE WITH THRESHER", "最後の交信": "LAST TRANSMISSION RECD WAS GARBLED",
+                "示したこと": "INDICATED THRESHER WAS APPROACHING TEST DEPTH", "いま": "CONDUCTING EXPANDING SEARCH"}),
+    # c510：認定25（R08 p.186〜187）
+    "査問会の認定25": dict(
+        fields={"9:13 の声", "勧めた人", "艦長", "その後"}, ends=set(), rec={"R08 p4186", "R08 p4187"},
+        values={"9:13 の声": "Experiencing minor difficulty", "勧めた人": "suggested by the Operations Officer",
+                "艦長": "the Commanding Officer decided not to include such information",
+                "その後": "did not include such additional information in any subsequent reports"}),
+    # c517：証拠49（X p.122＝11日 12時19分・p.124＝14時33分）
+    "シーウルフの報告（証拠49）": dict(
+        fields={"合図", "声"}, ends=set(), rec={"X p1122", "X p1124"},
+        values={"合図": "what may be interrupted keying", "声": "May hear very weak voice"}),
+    # c522：意見48（R08 p.214）
+    "査問会の意見48": dict(
+        fields={"伝えなかったこと", "どのくらい", "関わり"}, ends=set(), rec={"R08 p4214"},
+        values={"伝えなかったこと": "failed fully to inform higher authority", "どのくらい": "for an unreasonable length of time",
+                "関わり": "could not conceivably have contributed in any way to the loss of THRESHER"}),
+    # c603：認定112（R08 p.198）
+    "査問会の認定112": dict(
+        fields={"どの艦", "系統", "大きさ", "数"}, ends=set(), rec={"R08 p4198"},
+        values={"どの艦": "an S5W reactor equipped ship", "系統": "in hazardous systems", "大きさ": "of 2-inch size and above",
+                "数": "over 3000"}),
+    # c604・c605（紙1枚目）：認定111（R08 p.198＝頁の画像で艦名を読んだ）。c604＝本文の一文／c605＝スケートの括弧（深さは語りに無い＝書かない）
+    "査問会の認定111": dict(
+        fields={"いつ", "どの艦", "何が", "スケート", "場所"}, ends=set(), rec={"R08 p4198"},
+        values={"いつ": "prior to THRESHER's post shakedown availability",
+                "どの艦": "BARBEL, SKATE, SNOOK, SCULPIN, ETHAN ALLEN and THRESHER",
+                "何が": "reports of serious failures of sil-braze joints",
+                "スケート": "a 3-inch sil-braze joint parted", "場所": "under the ice"}),
+    # c605（紙2枚目）：大西洋艦隊の司令官の意見書（IR18 p.123「The failure of the sil-braze joint in SKATE did not occur under the ice but in
+    #   open water」）
+    "艦隊司令官の意見書": dict(
+        fields={"訂正", "場所"}, ends=set(), rec={"IR18 p2123"},
+        values={"訂正": "did not occur under the ice", "場所": "in open water"}),
+    # c609：認定98（R08 p.196＝艦船局の手紙 1962年8月28日を引く）
+    "艦船局の手紙（1962年8月28日）": dict(
+        fields={"何を", "いつまで", "どれだけ"}, ends=set(), rec={"R08 p4196"},
+        values={"何を": "employ a minimum of at least one ultrasonic test team",
+                "いつまで": "throughout the entire assigned post shakedown availability",
+                "どれだけ": "the maximum number of sil-braze joints"}),
+    # c610：認定99（R08 p.196）
+    "作業の指示書（認定99）": dict(
+        fields={"班", "先に", "時間があれば"}, ends=set(), rec={"R08 p4196"},
+        values={"班": "use of one ultrasonic test team", "先に": "to test first those joints not lagged",
+                "時間があれば": "lagging would be removed to permit tests of additional joints"}),
+    # c622：意見21（R08 p.207）
+    "査問会の意見21": dict(
+        fields={"誰が", "何を", "判断"}, ends=set(), rec={"R08 p4207"},
+        values={"誰が": "the management of the Portsmouth Naval Shipyard", "何を": "determining not to unlag pipes",
+                "判断": "did not exercise good judgment"}),
+    # c624：J p.67（「the testimony I gave in closed session to the court of inquiry on April 29, 1963」）・p.68
+    "原子炉の責任者の証言（1963年4月29日）": dict(
+        fields={"調べた分", "その結果"}, ends=set(), rec={"J p8067", "J p8068"},
+        values={"調べた分": "about 5 percent of her silver-brazed joints were ultrasonically inspected",
+                "その結果": "about 10 percent of those checked required repair or replacement"}),
+}
+REC_CAUSE = {         # 並べ図の項目 → 頁
+    # c115：この動画の3つの問い（c114 の語り）＝その問いに答える記録の頁（意見1・認定108／25・1964年の要旨）
+    "浮き上がれなかった理由": {"R08 p4204"}, "伝わらなかった検査と声": {"R08 p4197", "R08 p4186"},
+    "海の底に残った物": {"R17書 p9802"},
+}
 MARKS = {"？"}
 EXTRA = {"模式図"}
 
@@ -215,40 +355,74 @@ def _seg_enters(x1, y1, x2, y2, bx0, bx1, by0, by1):
 # ══════════════════════════════════════════════════════════
 #  書類の再現図
 # ══════════════════════════════════════════════════════════
-def judge_form(f):
-    svg = f.lab + "".join(f.stages)
-    els = _els(svg)
+PAPER_SPAN = (72, 1848)     # 🆕 18本目 ⑤b-6a：紙を並べる範囲＝図の本体の左右（titan_fig.BX0・BX1＝型の定数を読まない）
+PAPER_GAP_MIN = 24          # 並べた紙どうしの間（これより狭いと1枚の紙に見える）
+
+
+def _judge_paper(els, parts, head=""):
+    """紙1枚ぶん（els＝その紙の印の要素・印の `@番号` は外してある／parts＝その紙の段の部品）。"""
     bad, n = [], 3
     title = next((_unesc(e["text"]) for e in els if e["q"] == "ftitle"), "")
     r = REC_FORM.get(title)
     if not r:
-        return [f"書類の表題「{title}」が記録の表に無い"], n
+        return [f"{head}書類の表題「{title}」が記録の表に無い"], n
     fields = {_unesc(e["text"]) for e in els if e["q"].startswith("field|")}
     ends = {_unesc(e["text"]) for e in els if e["q"].startswith("ntext|role|")}
     if not fields <= r["fields"]:
-        bad.append(f"欄 {sorted(fields - r['fields'])} は報告書の文に無い（無い欄を描かない）")
+        bad.append(f"{head}欄 {sorted(fields - r['fields'])} は報告書の文に無い（無い欄を描かない）")
     if not ends <= r["ends"]:
-        bad.append(f"行き来の箱 {sorted(ends - r['ends'])} が記録に無い")
+        bad.append(f"{head}行き来の箱 {sorted(ends - r['ends'])} が記録に無い")
     for e in els:
         if e["q"].startswith("fval|"):
             n += 1
             nm = e["q"].split("|", 1)[1]
             if r["values"].get(nm) != _unesc(e["text"]):
-                bad.append(f"欄「{nm}」に値「{_unesc(e['text'])}」（記録は {r['values'].get(nm) or '未記入'}）")
+                bad.append(f"{head}欄「{nm}」に値「{_unesc(e['text'])}」（記録は {r['values'].get(nm) or '未記入'}）")
     tag = next((_unesc(e["text"]) for e in els if e["q"] == "reprot"), "")
     if tag != "再現":
-        bad.append(f"「再現」の札が無い（「{tag}」）＝自作の用紙だと画面で言う")
-    for p in f.mech["parts"]:
+        bad.append(f"{head}「再現」の札が無い（「{tag}」）＝自作の用紙だと画面で言う")
+    for p in parts:
         n += 1
         rs = _recs(p["rec"])
         if not (rs & r["rec"]):
-            bad.append(f"{p['k']} の rec {p['rec']} が記録の頁 {sorted(r['rec'])} と合わない")
+            bad.append(f"{head}{p['k']} の rec {p['rec']} が記録の頁 {sorted(r['rec'])} と合わない")
         for fd in p.get("fields") or []:
             n += 1
             if not (_recs(fd["rec"]) & r["rec"]):
-                bad.append(f"欄「{fd['t']}」の rec {fd['rec']} が記録の頁と合わない")
-    bad += _alert_bad(svg)
+                bad.append(f"{head}欄「{fd['t']}」の rec {fd['rec']} が記録の頁と合わない")
     return bad, n
+
+
+def judge_form(f):
+    svg = f.lab + "".join(f.stages)
+    els = _els(svg)
+    # 🆕 2026-10-04（18本目 ⑤b-6a）：紙を2〜3枚並べる書類（印に `@番号`）は紙ごとに照らす（c605＝査問会の認定と艦隊司令官の意見書）
+    idx = sorted({int(m[1]) for e in els for m in [re.match(r"ftitle@(\d+)$", e["q"])] if m})
+    if not idx:
+        bad, n = _judge_paper(els, f.mech["parts"])
+        return bad + _alert_bad(svg), n
+    bad, n = [], 0
+    for i in idx:
+        sub = []
+        for e in els:
+            m = re.match(rf"^([a-z]+)@{i}(\|.*)?$", e["q"])
+            if m:
+                sub.append(dict(e, q=m[1] + (m[2] or "")))
+        b, k = _judge_paper(sub, [p for p in f.mech["parts"] if p.get("i", 0) == i], f"紙{i + 1}：")
+        bad += b
+        n += k
+    # ⑩ 紙どうしが重ならない・本体の左右の外へ出ない（焼く直前の SVG の四角を読む）
+    rects = sorted((float(e["a"]["x"]), float(e["a"]["x"]) + float(e["a"]["width"]), e["q"])
+                   for e in els if re.fullmatch(r"paper@\d+", e["q"]))
+    for a0, a1, q in rects:
+        n += 1
+        if a0 < PAPER_SPAN[0] or a1 > PAPER_SPAN[1]:
+            bad.append(f"紙 {q}（x {a0:.0f}〜{a1:.0f}）が図の本体 {PAPER_SPAN} の外へ出る")
+    for (a0, a1, qa), (b0, b1, qb) in zip(rects, rects[1:]):
+        n += 1
+        if b0 - a1 < PAPER_GAP_MIN:
+            bad.append(f"紙 {qa} と {qb} の間が {b0 - a1:.0f} 画素（{PAPER_GAP_MIN} 未満＝重なるか1枚に見える）")
+    return bad + _alert_bad(svg), n
 
 
 # ══════════════════════════════════════════════════════════
@@ -352,7 +526,78 @@ def _selftest_ep15():
     return ok
 
 
+def selftest_ep18():
+    """🆕 2026-10-04（18本目 ⑤b-6a）：紙を並べる書類（c605・c112）・電文の時刻の形・流れ図（c618）・並べ図（c115）の検算。
+    本番の表（この門番の REC_*＝18本目）と ss の18本目の値で回す（🔴 19本目の ⑤b-1 で見本 fixture_ep18 を差す形に直す）。
+    陽性対照＝筋を壊す（値・語・枚数）＋型の定数を壊す（FORM_GAP を負に＝紙が重なる・FORM_SPAN を画面いっぱいに＝本体の外）"""
+    import boxes as B
+    from cuts import ss
+    ok = True
+    pair = dict(view="form", form=[ss.FORM_F111S, ss.FORM_CINC], note="n", src="s",
+                steps=[dict(add=[dict(k="paper", i=0), dict(k="fill", i=0, f="スケート")]),
+                       dict(add=dict(k="fill", i=0, f="場所")), dict(add=dict(k="paper", i=1))])
+    three = dict(view="form", form=ss.FORM_COURT3, note="n", src="s",
+                 steps=[dict(add=[dict(k="paper", i=0), dict(k="paper", i=1)]), dict(add=dict(k="paper", i=2))])
+    msg = dict(view="form", form=ss.FORM_MSG, note="n", src="s",
+               steps=[dict(add=dict(k="paper")), dict(add=[dict(k="fill", f="示したこと"), dict(k="fill", f="いま")])])
+    up = dict(view="flow", layout=ss.FL_UP, src="s",
+              steps=[dict(add=[dict(k="grp", t="造船所の中", x=130, y=360), ss.fl("u_res"), ss.fl("u_dec"), ss.fl("u_bu")]),
+                     dict(add=ss.ce(["u_res", "u_dec"], "u_bu", style="leader", lab="上がっていない"))])
+    row = dict(view="row", slots=3, src="s", steps=[dict(add=[ss.cause("q_float"), ss.cause("q_pass"), ss.cause("q_sea")])])
+    bad_cinc = dict(ss.FORM_CINC, fields=[dict(ss.FORM_CINC["fields"][0], v="under the ice"), ss.FORM_CINC["fields"][1]])
+    bad_msg = dict(ss.FORM_MSG, fields=[dict(ss.FORM_MSG["fields"][0], v="UNABLE TO COMMUNICATE WITH THRESHER SINCE 0917R")]
+                   + list(ss.FORM_MSG["fields"][1:]))
+
+    def run(name, kw, want):
+        nonlocal ok
+        try:
+            bad, _ = judge(kw)
+        except (ValueError, KeyError) as e:
+            bad = [f"型が止まった：{type(e).__name__} {e}"]
+        got = not bad
+        ok &= got == want
+        print(f"  {'OK' if got == want else '🔴 NG'} 18本目 {name}: {'合格' if got else '不合格'}（{'合格' if want else '不合格'}のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+
+    run("正しい紙2枚（c605＝査問会の認定111・艦隊司令官の意見書）", pair, True)
+    run("正しい紙3枚（c112＝認定・意見・勧告）", three, True)
+    run("正しい電文（c509＝時刻は欄の名へ）", msg, True)
+    run("正しい流れ図（c618＝造船所の中 → 艦船局へ上がっていない）", up, True)
+    run("正しい並べ図（c115＝3つの問い）", row, True)
+    run("🔴 陽性対照：紙2枚目の値が記録と違う（under the ice）", dict(pair, form=[ss.FORM_F111S, bad_cinc]), False)
+    run("🔴 陽性対照：電文の値に「0917R」の形（記録の表は時刻を欄の名へ移した）", dict(msg, form=bad_msg), False)
+    run("🔴 陽性対照：紙を4枚並べる", dict(three, form=ss.FORM_COURT3 + [ss.FORM_CINC]), False)
+    run("🔴 陽性対照：紙2枚目の欄を紙1枚目に書き込む（fill i=0 の「訂正」）",
+        dict(pair, steps=pair["steps"] + [dict(add=dict(k="fill", i=0, f="訂正"))]), False)
+    run("🔴 陽性対照：次のカット（c619）の語りの箱を足す（艦に命令を出す側）",
+        dict(up, steps=[dict(add=up["steps"][0]["add"] + [dict(k="role", id="u_op", t="艦に命令を出す側", y=700,
+                                                               pos=(1280, 1760), rec="R08 p4197")])] + up["steps"][1:]), False)
+    run("🔴 陽性対照：並べ図に記録の表に無い項目（なぜ沈んだか）",
+        dict(row, steps=[dict(add=[ss.cause("q_float"), dict(k="item", t="なぜ沈んだか", rec="R08 p4204")])]), False)
+
+    def broken(name, attr, val, kw):
+        nonlocal ok
+        keep = getattr(B, attr)
+        setattr(B, attr, val)
+        try:
+            bad, _ = judge(kw)
+        except (ValueError, KeyError) as e:
+            bad = [f"型が止まった：{e}"]
+        finally:
+            setattr(B, attr, keep)
+        ok &= bool(bad)
+        print(f"  {'OK' if bad else '🔴 NG'} 🔴 18本目 陽性対照（型を壊す）：{name}: {'不合格' if bad else '合格'}（不合格のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+
+    broken("紙の間を負にする（FORM_GAP＝−100＝紙が重なる）", "FORM_GAP", -100, pair)
+    broken("紙の範囲を画面いっぱいに（FORM_SPAN＝0〜1920）", "FORM_SPAN", (0, 1920), three)
+    broken("紙の間を狭める（FORM_GAP＝10＝1枚の紙に見える）", "FORM_GAP", 10, three)
+    return ok
+
+
 def selftest():
+    # 🆕 2026-10-04（18本目 ⑤b-6a）：本番の表（18本目）で先に検算する（あとの見本の差し込みより前）
+    ok18 = selftest_ep18()
     # 🔴 2026-09-30（15本目 ⑤b-5）：先に15本目の書類と鎖を検算してから、14本目の見本に差し替える
     #    （2026-10-01〜：15本目も見本 fixture_ep15 の表＝selftest_ep15 が差し込んで・終わったら戻す）
     ok15 = selftest_ep15()
@@ -428,7 +673,7 @@ def selftest():
         cnt[0] += 1
         return rect0(x, y, w + (40 if cnt[0] == 1 else 0), h, *a, **k)
     broken("並べ図の最初の箱だけ広く描く（F.rect）", F, "rect", uneven, row)
-    ok = ok and ok15
+    ok = ok and ok15 and ok18
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 

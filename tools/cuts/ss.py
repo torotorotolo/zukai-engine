@@ -637,8 +637,62 @@ def merge(*parts):
 #       書類の再現図 FORM_*・並べ図 CAUSE）は `tools/fixture_ep16.py` へ移した（値は1つも変えていない＝git の `b044b56`）＝ここも
 #       門番の表も空。18本目の棒と箱は ⑤b で、回の値と頁を ref/ep18/src/ep18_pages.txt に当てて入れる
 # 棒の群（尺は 0 から・項目名に単位）。数字は棒に書かない（§5b-9＝数は字幕）
-QG = {}
-QB = {}
+# 🆕 2026-10-04（18本目 ⑤b-6a）：第1〜6章の棒（c204・c207・c302・c315・c613・c614・c626）。値と頁は ref/ep18/src/ep18_pages.txt で
+#   当てた＝門番 check_qty.REC_QTY と照らす（門番の側にも別に持つ＝§5b-88）。
+#   ・フィートの記録は**メートルに直した長さ**で描く（×0.3048＝台本 §9-1。語りは「約」で丸める・棒は丸めない）
+#   ・「〜を超える」（10万人日・3,000）は棒をその数まで＝注で「記録は〜を超える」と断る
+#   ・🔴 測り方の違う割合は群を分ける（ルール §5b-114③・台本 §1-5）＝不合格（査問会 13.8%・委員会の数字 14%＝J p.14 の「145本の
+#     検査で基準を下回った14%」）と、修理か交換を要した割合（中将 約10%）を同じ群に入れない
+#   ・c302 の内わけは名簿（認定4＝R08 p.181〜184）の身分の欄を機械で数えた（艦の乗員108＝USS THRESHER の行・造船所の士官3＝USN と
+#     PORTSMOUTH NAVAL SHIPYARD・造船所の職員13＝Civilian Employee・請け負った会社4＝Contractor's Representative・司令部の士官1＝STAFF）
+#   ・c603（数の比べ）は棒1本しか無い＝認定112 の書類の再現図に替えた（映像方針 §20）
+QG = {
+    "work": dict(id="work", t="仕事の量（万人日）", ticks=(0, 2, 4, 6, 8, 10, 12), rows=("見込み", "実際")),
+    "dist": dict(id="dist", t="艦からの距離（メートル）", ticks=(0, 100, 200, 300, 400), rows=("いちばん遠い", "いちばん近い")),
+    # ⚠️ c302 は群2つ＝行が5つまで（6行だと図の高さ 682画素を越えて注に重なる＝qty._bar の行の高さの下限 48）。「全体129」は棒にしない
+    #   （108と21の和）・内わけは語りの3つの言い方（造船所の士官と職員・請け負った会社の担当者・司令部の士官）
+    "aboard": dict(id="aboard", t="乗っていた人（人）", ticks=(0, 30, 60, 90, 120), rows=("艦の乗員", "ほかに乗った人")),
+    "others": dict(id="others", t="ほかに乗った人の内わけ（人）", ticks=(0, 5, 10, 15, 20),
+                   rows=("造船所の士官と職員", "請け負った会社", "司令部の士官")),
+    "depth": dict(id="depth", t="深さ（メートル）", ticks=(0, 500, 1000, 1500, 2000, 2500, 3000), rows=("救難室の限界", "海の深さ")),
+    "tested": dict(id="tested", t="調べた古い継手（本）", ticks=(0, 50, 100, 150)),
+    "rej": dict(id="rej", t="不合格の割合（パーセント）", ticks=(0, 20, 40, 60, 80, 100)),
+    "joints": dict(id="joints", t="銀ろう付けの継手（本）", ticks=(0, 500, 1000, 1500, 2000, 2500, 3000),
+                   rows=("調べた古い継手", "同じ型の艦の全体")),
+    "rej15": dict(id="rej", t="不合格の割合（パーセント）", ticks=(0, 5, 10, 15), rows=("査問会", "委員会の数字")),
+    "fix15": dict(id="fix", t="修理か交換を要した割合（パーセント）", ticks=(0, 5, 10, 15)),
+}
+QB = {
+    # c204：認定92（R08 p.195）「an estimate of approximately 35,000 man-days」・認定95（p.196）「The total of man-days expended was over 100,000」
+    "w_est": dict(k="bar", g="work", t="見込み", v=3.5, rec="R08 p4195"),
+    "w_act": dict(k="bar", g="work", t="実際", v=10, rec="R08 p4196", c="AMBER"),
+    # c207：認定80（R08 p.194）「ten thousand pound charges at ranges varying from 1180 feet to 370 feet」
+    "d_far": dict(k="bar", g="dist", t="いちばん遠い", v=1180 * 0.3048, rec="R08 p4194"),
+    "d_near": dict(k="bar", g="dist", t="いちばん近い", v=370 * 0.3048, rec="R08 p4194", c="AMBER"),
+    # c302：認定4（名簿 R08 p.181〜184＝頁ごとに数えた：艦の乗員 p.181〜183・司令部の士官 p.181・造船所の士官 p.183・造船所の職員
+    #   p.183〜184・請け負った会社 p.184）
+    "a_crew": dict(k="bar", g="aboard", t="艦の乗員", v=108, rec=["R08 p4181", "R08 p4182", "R08 p4183"]),
+    "a_oth": dict(k="bar", g="aboard", t="ほかに乗った人", v=21, rec=["R08 p4181", "R08 p4183", "R08 p4184"], c="AMBER"),
+    # 造船所の士官3（USN・PORTSMOUTH NAVAL SHIPYARD＝p.183）＋造船所の職員13（Civilian Employee＝p.183〜184）＝16
+    "o_yard": dict(k="bar", g="others", t="造船所の士官と職員", v=16, rec=["R08 p4183", "R08 p4184"], c="AMBER"),
+    "o_ct": dict(k="bar", g="others", t="請け負った会社", v=4, rec="R08 p4184", c="DOC"),
+    "o_st": dict(k="bar", g="others", t="司令部の士官", v=1, rec="R08 p4181", c="INST"),
+    # c315：認定13・14（V1 p.38＝見える頁）「a rescue chamber with a maximum depth capability of 850 feet」「Depth of water in this area
+    #   is about 8500 feet」（R08 p.185 は 850 が塗られている＝V1 p.38）
+    "dp_ch": dict(k="bar", g="depth", t="救難室の限界", v=850 * 0.3048, rec="V1 p38", c="AMBER"),
+    "dp_sea": dict(k="bar", g="depth", t="海の深さ", v=8500 * 0.3048, rec="V1 p38"),
+    # c613・c614：認定102（R08 p.197）「by 29 November 1962, 145 old joints had been ultrasonically tested … with a rejection rate of 13.8
+    #   per cent」・認定112（p.198）「over 3000 of 2-inch size and above in hazardous systems」
+    "t_145": dict(k="bar", g="tested", t="11月29日", v=145, rec="R08 p4197"),
+    "r_138": dict(k="bar", g="rej", t="不合格", v=13.8, rec="R08 p4197", c="AMBER"),
+    "j_145": dict(k="bar", g="joints", t="調べた古い継手", v=145, rec="R08 p4197", c="AMBER"),
+    "j_3000": dict(k="bar", g="joints", t="同じ型の艦の全体", v=3000, rec="R08 p4198"),
+    # c626：J p.68「Representative Holifield. Our figure on this is 14 percent.」・J p.14（委員長「14 percent below standard on the
+    #   examination that was made of the 145 joints」）・J p.68（中将「about 10 percent of those checked required repair or replacement」）
+    "q_court": dict(k="bar", g="rej", t="査問会", v=13.8, rec="R08 p4197"),
+    "q_jcae": dict(k="bar", g="rej", t="委員会の数字", v=14, rec=["J p8068", "J p8014"], c="AMBER"),
+    "q_rick": dict(k="bar", g="fix", t="中将", v=10, rec="J p8068", c="INST"),
+}
 
 
 def qb(name, **kw):
@@ -687,8 +741,199 @@ def rud(name, **kw):
 #   欄に値を書かない（記録に無い値を作らない）・「再現」の札。15本目＝記録簿・参加書類・検査の用紙（c415・c524・c617・c621・
 #   c704・c705・c905）＝⑤b で `FORM_<名> = dict(title, rec, fields, ends)` を回の名で足す（`form=` に渡す）
 #   🔴 2026-10-04（18本目 ⑤b-1）：16本目の書類の再現図10枚（FORM_MUELLER ほか＝欄の値は原文のイタリア語）は `tools/fixture_ep16.py`
+# 🆕 2026-10-04（18本目 ⑤b-6a）：第1〜6章の書類の再現図19枚。🔴 欄の値は**原文の英語のまま**（日本語は字幕だけ＝ルール 0b-33）・
+#   欄の名は原文の文の言葉を日本語に・紙1枚に欄は4つまで（§5b-114⑤）。値は ref/ep18/src/ep18_pages.txt の文字の層で当て、文字の層が
+#   崩れた5か所（認定111 の艦名・認定24 の電文・V1 p.140・X p.122・p.124）は頁の画像を原寸で切り出して読んだ（2026-10-04）。
+#   🔴 査問会の「0913R」の書き方は画面に出さない（台本 §1-7）＝時刻は欄の名へ「9:13 の声」「9:17 から」と移し、値から外した。
+#   🔴 次のカットの語りにある事は書かない（ルール 0b-40⑤）：c209 の「見つかり続けた」（c210）・c213 の「承認せず」（c214）・c217 の
+#   「整備中に動かすのは好まない」（語りに無い）・c416 の「くぐもった、鈍い音」（c417）・c604 のスケートの括弧（c605）
+_P4 = (100, 1820, 270, 840)    # 欄4つの紙（図の本体 210〜892 の内・「再現」の札は 214〜258）
+_P3 = (100, 1820, 300, 760)
+_P2 = (100, 1820, 330, 690)
+# c112：査問会の結論の3つの部分（R08 p.181「FINDINGS OF FACT」・p.204「OPINIONS」・p.217「RECOMMENDATIONS」）＝紙3枚を並べる
+FORM_COURT3 = [dict(title="認定", rec="R08 p4181", fields=[dict(t="見出し", v="FINDINGS OF FACT", rec="R08 p4181")], lw=110),
+               dict(title="意見", rec="R08 p4204", fields=[dict(t="見出し", v="OPINIONS", rec="R08 p4204")], lw=110),
+               dict(title="勧告", rec="R08 p4217", fields=[dict(t="見出し", v="RECOMMENDATIONS", rec="R08 p4217")], lw=110)]
+# c209：認定96（R08 p.196）「intensively investigated by ship's force, Bureau of Ships, and Shipyard personnel」・認定86（p.195）
+#   「damaged items were scheduled for repair during the post shakedown availability」
+FORM_SHOCK = dict(title="衝撃試験の損傷（認定96・86）", rec=["R08 p4196", "R08 p4195"], paper=_P3, lw=190,
+                  fields=[dict(t="調べた人", v="ship's force, Bureau of Ships, and Shipyard personnel", rec="R08 p4196"),
+                          dict(t="調べ方", v="intensively investigated", rec="R08 p4196", late=True),
+                          dict(t="直す予定", v="scheduled for repair during the post shakedown availability", rec="R08 p4195",
+                               late=True)])
+# c213：認定69（R08 p.193）「prepared by an outside firm under subcontract … used an SS(N) 588 Class Ship Information Book as a guide and
+#   virtually copied large portions of it, although many systems on THRESHER were quite different」
+FORM_SIB = dict(title="取扱説明書（認定69）", rec="R08 p4193", paper=_P4, lw=160,
+                fields=[dict(t="作った所", v="an outside firm under subcontract", rec="R08 p4193"),
+                        dict(t="手本", v="an SS(N) 588 Class Ship Information Book as a guide", rec="R08 p4193"),
+                        dict(t="写し方", v="virtually copied large portions of it", rec="R08 p4193", late=True),
+                        dict(t="違い", v="many systems on THRESHER were quite different", rec="R08 p4193", late=True)])
+# c217：人事局長の証言（R08 p.107＝1963年5月21日・非公開の場）「The basic consideration was the pressure placed on the Bureau of Naval
+#   Personnel to furnish experienced commanding officers for the POLARIS submarines」
+FORM_SMED = dict(title="人事局長の証言（1963年5月21日）", rec="R08 p4107", paper=_P2, lw=200,
+                 fields=[dict(t="理由", v="The basic consideration was the pressure", rec="R08 p4107"),
+                         dict(t="何の圧力", v="to furnish experienced commanding officers for the POLARIS submarines", rec="R08 p4107",
+                              late=True)])
+# c219：部隊の司令の証言（R08 p.77）「I advised him that he must resist that pressure」「he would resist it」「there were some hot words
+#   exchanged between the boat officer and the Ship Superintendent」「That was the only incident I know of.」
+FORM_ANDR = dict(title="部隊の司令の証言（査問会）", rec="R08 p4077", paper=_P4, lw=170,
+                 fields=[dict(t="助言", v="he must resist that pressure", rec="R08 p4077", late=True),
+                         dict(t="答え", v="he would resist it", rec="R08 p4077", late=True),
+                         dict(t="挙げた例", v="some hot words exchanged between the boat officer and the Ship Superintendent",
+                              rec="R08 p4077", late=True),
+                         dict(t="ほかに", v="That was the only incident I know of.", rec="R08 p4077", late=True)])
+# c305：認定8（R08 p.184）「THRESHER's movement orders were CONFIDENTIAL; SKYLARK's were unclassified. Sea trial agenda … were
+#   unclassified and were not held by SKYLARK.」
+FORM_ORD = dict(title="2隻の命令（認定8）", rec="R08 p4184", paper=_P3, lw=230,
+                fields=[dict(t="スレッシャー", v="THRESHER's movement orders were CONFIDENTIAL", rec="R08 p4184"),
+                        dict(t="スカイラーク", v="SKYLARK's were unclassified", rec="R08 p4184"),
+                        dict(t="予定表", v="were not held by SKYLARK", rec="R08 p4184", late=True)])
+# c416：航海士の証言（V1 p.118＝記録の45頁）「I had heard a lot of ships breaking up during World War II after having been torpedoed at
+#   depths. It sounded as though there was a compartment collapsing」
+FORM_WATSON = dict(title="航海士の証言（査問会の記録）", rec="V1 p118", paper=_P3, lw=230,
+                   fields=[dict(t="前に聞いた音", v="a lot of ships breaking up during World War II", rec="V1 p118"),
+                           dict(t="どんな船", v="after having been torpedoed at depths", rec="V1 p118"),
+                           dict(t="似ていた音", v="a compartment collapsing", rec="V1 p118", late=True)])
+# c418：証言の割れ（V1 p.132＝甲板の当直の下士官〈水中電話の係・p.127〉「air rushing into his tanks for about four to five seconds」／
+#   V1 p.140＝記録簿の係の無線員〈p.136〉への問い「like air being blown into a tank」と答え「No, sir, I don't think so.」＝頁の画像で読んだ）
+FORM_SPLIT = dict(title="スカイラークの乗員の証言", rec=["V1 p132", "V1 p140"], paper=_P3, lw=230,
+                  fields=[dict(t="当直の下士官", v="air rushing into his tanks for about four to five seconds", rec="V1 p132", late=True),
+                          dict(t="問い", v="like air being blown into a tank", rec="V1 p140", late=True),
+                          dict(t="記録簿の係", v="No, sir, I don't think so.", rec="V1 p140", late=True)])
+# c509：認定24（R08 p.186＝頁の画像で読んだ）"UNABLE TO COMMUNICATE WITH THRESHER SINCE 0917R. … LAST TRANSMISSION RECD WAS GARBLED.
+#   INDICATED THRESHER WAS APPROACHING TEST DEPTH. MY PRESENT POSITION … CONDUCTING EXPANDING SEARCH."
+FORM_MSG = dict(title="スカイラークの電文（認定24）", rec="R08 p4186", paper=_P4, lw=200,
+                fields=[dict(t="9:17 から", v="UNABLE TO COMMUNICATE WITH THRESHER", rec="R08 p4186"),
+                        dict(t="最後の交信", v="LAST TRANSMISSION RECD WAS GARBLED", rec="R08 p4186"),
+                        dict(t="示したこと", v="INDICATED THRESHER WAS APPROACHING TEST DEPTH", rec="R08 p4186", late=True),
+                        dict(t="いま", v="CONDUCTING EXPANDING SEARCH", rec="R08 p4186", late=True)])
+# c510：認定25（R08 p.186〜187）「Although inclusion of additional information such as the 0913R UQC transmission "Experiencing minor
+#   difficulty..." etc., was suggested by the Operations Officer, the Commanding Officer decided not to include such information.」・
+#   「SKYLARK did not include such additional information in any subsequent reports.」
+FORM_F25 = dict(title="査問会の認定25", rec=["R08 p4186", "R08 p4187"], paper=_P4, lw=170,
+                fields=[dict(t="9:13 の声", v="Experiencing minor difficulty", rec="R08 p4186"),
+                        dict(t="勧めた人", v="suggested by the Operations Officer", rec="R08 p4186", late=True),
+                        dict(t="艦長", v="the Commanding Officer decided not to include such information", rec="R08 p4186",
+                             late=True),
+                        dict(t="その後", v="did not include such additional information in any subsequent reports", rec="R08 p4187",
+                             late=True)])
+# c517：シーウルフの報告（証拠49＝X p.122・p.124＝頁の画像で読んだ）「We hear what may be interrupted keying now」（11日 12時19分）・
+#   「May hear very weak voice on 8KC over RYCOM. … Unreadable.」（14時33分）
+FORM_SEAWOLF = dict(title="シーウルフの報告（証拠49）", rec=["X p1122", "X p1124"], paper=_P2, lw=120,
+                    fields=[dict(t="合図", v="what may be interrupted keying", rec="X p1122"),
+                            dict(t="声", v="May hear very weak voice", rec="X p1124", late=True)])
+# c522：意見48（R08 p.214）「the Commanding Officer, SKYLARK, failed fully to inform higher authority … for an unreasonable length of
+#   time; but that this could not conceivably have contributed in any way to the loss of THRESHER」
+FORM_O48 = dict(title="査問会の意見48", rec="R08 p4214", paper=_P3, lw=280,
+                fields=[dict(t="伝えなかったこと", v="failed fully to inform higher authority", rec="R08 p4214", late=True),
+                        dict(t="どのくらい", v="for an unreasonable length of time", rec="R08 p4214", late=True),
+                        dict(t="関わり", v="could not conceivably have contributed in any way to the loss of THRESHER",
+                             rec="R08 p4214", late=True)])
+# c603（数の比べ → 書類の再現図＝映像方針 §20）：認定112（R08 p.198）「the approximate number of sil-braze joints in an S5W reactor
+#   equipped ship is over 3000 of 2-inch size and above in hazardous systems」
+FORM_F112 = dict(title="査問会の認定112", rec="R08 p4198", paper=_P4, lw=140,
+                 fields=[dict(t="どの艦", v="an S5W reactor equipped ship", rec="R08 p4198"),
+                         dict(t="系統", v="in hazardous systems", rec="R08 p4198"),
+                         dict(t="大きさ", v="of 2-inch size and above", rec="R08 p4198", late=True),
+                         dict(t="数", v="over 3000", rec="R08 p4198", late=True)])
+# c604（年表 → 書類の再現図＝⑤b-5・映像方針 §19）：認定111（R08 p.198＝頁の画像で艦名を読んだ）「prior to THRESHER's post shakedown
+#   availability, there had been reports of serious failures of sil-braze joints in BARBEL, SKATE, SNOOK, SCULPIN, ETHAN ALLEN and THRESHER」
+FORM_F111 = dict(title="査問会の認定111", rec="R08 p4198", paper=_P3, lw=140,
+                 fields=[dict(t="いつ", v="prior to THRESHER's post shakedown availability", rec="R08 p4198", late=True),
+                         dict(t="どの艦", v="BARBEL, SKATE, SNOOK, SCULPIN, ETHAN ALLEN and THRESHER", rec="R08 p4198", late=True),
+                         dict(t="何が", v="reports of serious failures of sil-braze joints", rec="R08 p4198", late=True)])
+# c605：紙2枚＝認定111 の括弧（R08 p.198）「The SKATE casualty occurred on a polar cruise at 600 feet under the ice when a 3-inch sil-braze
+#   joint parted」／大西洋艦隊の司令官の意見書（IR18 p.123）「The failure of the sil-braze joint in SKATE did not occur under the ice but
+#   in open water」。🔴 深さ（600・570フィート）は語りに無い＝書かない
+FORM_F111S = dict(title="査問会の認定111", rec="R08 p4198", lw=150,
+                  fields=[dict(t="スケート", v="a 3-inch sil-braze joint parted", rec="R08 p4198", late=True),
+                          dict(t="場所", v="under the ice", rec="R08 p4198", late=True)])
+FORM_CINC = dict(title="艦隊司令官の意見書", rec="IR18 p2123", lw=110,
+                 fields=[dict(t="訂正", v="did not occur under the ice", rec="IR18 p2123"),
+                         dict(t="場所", v="in open water", rec="IR18 p2123")])
+# c609：艦船局の手紙（認定98＝R08 p.196 が引く・1962年8月28日・証拠115）「employ a minimum of at least one ultrasonic test team throughout
+#   the entire assigned post shakedown availability to examine, insofar as possible, the maximum number of sil-braze joints」
+FORM_BUSHIPS = dict(title="艦船局の手紙（1962年8月28日）", rec="R08 p4196", paper=_P3, lw=160,
+                    fields=[dict(t="何を", v="employ a minimum of at least one ultrasonic test team", rec="R08 p4196", late=True),
+                            dict(t="いつまで", v="throughout the entire assigned post shakedown availability", rec="R08 p4196",
+                                 late=True),
+                            dict(t="どれだけ", v="the maximum number of sil-braze joints", rec="R08 p4196", late=True)])
+# c610：認定99（R08 p.196）「job orders … called for use of one ultrasonic test team, to test first those joints not lagged, and provided
+#   that if time permitted thereafter, lagging would be removed to permit tests of additional joints」
+FORM_JOB = dict(title="作業の指示書（認定99）", rec="R08 p4196", paper=_P3, lw=230,
+                fields=[dict(t="班", v="use of one ultrasonic test team", rec="R08 p4196"),
+                        dict(t="先に", v="to test first those joints not lagged", rec="R08 p4196", late=True),
+                        dict(t="時間があれば", v="lagging would be removed to permit tests of additional joints", rec="R08 p4196",
+                             late=True)])
+# c622：意見21（R08 p.207）「the management of the Portsmouth Naval Shipyard did not exercise good judgment in determining not to unlag
+#   pipes」
+FORM_O21 = dict(title="査問会の意見21", rec="R08 p4207", paper=_P3, lw=120,
+                fields=[dict(t="誰が", v="the management of the Portsmouth Naval Shipyard", rec="R08 p4207"),
+                        dict(t="何を", v="determining not to unlag pipes", rec="R08 p4207"),
+                        dict(t="判断", v="did not exercise good judgment", rec="R08 p4207", late=True)])
+# c624：原子炉の責任者の査問会での証言（1963年4月29日・非公開の場＝J p.67 が議会で読み上げた形・p.68）「about 5 percent of her
+#   silver-brazed joints were ultrasonically inspected」「about 10 percent of those checked required repair or replacement」
+FORM_RICK = dict(title="原子炉の責任者の証言（1963年4月29日）", rec=["J p8067", "J p8068"], paper=_P2, lw=170,
+                 fields=[dict(t="調べた分", v="about 5 percent of her silver-brazed joints were ultrasonically inspected", rec="J p8068",
+                              late=True),
+                         dict(t="その結果", v="about 10 percent of those checked required repair or replacement", rec="J p8068",
+                              late=True)])
+
+# 🆕 18本目 ⑤b-6a：流れ図（c107・c110・c218・c421・c616・c618）。箱の言葉は記録の文の言葉・役職だけ（名前は語りだけ）・赤を使わない。
+#   言葉と頁は門番 check_boxes の REC_OTHER_ROLE・REC_MECH・REC_CHIP と照らす
+FL_EMPTY = dict(heads=[])
+FL_CAPT = dict(heads=[], kind="スレッシャーの艦長")
+FL_KNEW = dict(heads=[dict(id="d_dec", t="外さないという決定", kind="node", x=(110, 600), y=(470, 570), rec="R08 p4197")])
+FL_UP = dict(heads=[])
+FLP = {
+    # c107「3枚の紙」（映像方針 §6）＝前の艦長の評価書（証拠111＝X p.531・認定91）・検査の数字（認定102）・検査の書類（認定104〜106）→
+    #   どこまで届いたか（認定108・J p.18＝報告書は4月11日より後）
+    "p_eval": dict(k="role", id="p_eval", t="前の艦長の評価書", y=380, pos=(130, 690), rec=["X p1531", "R08 p4195"]),
+    "p_num": dict(k="role", id="p_num", t="検査の数字", y=520, pos=(130, 690), rec="R08 p4197"),
+    "p_doc": dict(k="role", id="p_doc", t="検査の書類", y=660, pos=(130, 690), rec="R08 p4197"),
+    "p_far": dict(k="role", id="p_far", t="どこまで届いたか", y=520, pos=(1180, 1760), rec=["R08 p4197", "J p8018"]),
+    # c110 手がかり＝査問会の記録（R08 p.181〜）と議会の公聴会の記録（J p.1＝1963年6月26日・p.91＝1964年7月1日）
+    "k_court": dict(k="role", id="k_court", t="査問会の記録", y=470, pos=(180, 800), rec="R08 p4181"),
+    "k_jcae": dict(k="role", id="k_jcae", t="議会の公聴会の記録", y=470, pos=(1060, 1740), rec="J p8001"),
+    # c218 艦長の行き先（R08 p.107「Prospective Commanding Officer of the JOHN C. CALHOUN」・p.109「one of the best qualified people we
+    #   could find」）
+    "a_old": dict(k="role", id="a_old", t="前の艦長", y=420, pos=(160, 600), rec="R08 p4107"),
+    # ⚠️ echo：「ポラリス潜水艦の艦長の予定者」は字幕の丸写し（100%）＝語順を替えて連続一致を短く
+    "a_pol": dict(k="role", id="a_pol", t="艦長の予定者（ポラリス）", y=420, pos=(1000, 1760), rec="R08 p4107"),
+    "a_new": dict(k="role", id="a_new", t="新しい艦長", y=640, pos=(160, 600), rec="R08 p4109"),
+    # c421 査問会の組み立て（意見45＝R08 p.212「assumptions and computer solutions」「a reasonable rationalization of probable events」・
+    #   p.214「the most probable approximation of the sequence of events」・声＝認定16・17／音＝認定18〈R08 p.185〉）
+    "z_voice": dict(k="role", id="z_voice", t="水中電話の声", y=380, pos=(130, 650), rec="R08 p4185"),
+    "z_sound": dict(k="role", id="z_sound", t="監視の記録", y=520, pos=(130, 650), rec="R08 p4185"),
+    "z_calc": dict(k="role", id="z_calc", t="仮定と計算", y=660, pos=(130, 650), rec="R08 p4212"),
+    "z_plot": dict(k="role", id="z_plot", t="最もありうる筋書き", y=520, pos=(1180, 1760), rec=["R08 p4212", "R08 p4214"]),
+    # c616 決定を知っていた人（認定105「known to the management personnel of the Shipyard, including the Production Officer and the
+    #   Commander」・認定106「a copy of this decision was furnished the Commanding Officer of THRESHER」＝R08 p.197）
+    "k_prod": dict(k="role", id="k_prod", t="造船所の生産の責任者", y=360, pos=(1180, 1780), rec="R08 p4197"),
+    "k_cmdr": dict(k="role", id="k_cmdr", t="造船所の司令官", y=480, pos=(1180, 1780), rec="R08 p4197"),
+    # ⚠️ echo：「当時のスレッシャーの艦長」は字幕の丸写し（100%）
+    "k_co": dict(k="role", id="k_co", t="スレッシャーの艦長（当時）", y=660, pos=(1180, 1780), rec="R08 p4197"),
+    # c618 上がっていない（認定108＝R08 p.197「neither the results of the surveillance nor the decision … was made known to the Bureau of
+    #   Ships」・J p.14「no decision or no recommendation was sent to the Bureau of Ships, and the decision was made locally in the yard」）。
+    #   🔴 「艦に命令を出す上の人たち」は次の c619 の語り＝描かない／当時の艦長への写しは前の c616＝描かない（映像方針 §20）
+    "u_res": dict(k="role", id="u_res", t="検査の結果の数字", y=430, pos=(130, 640), rec="R08 p4197"),
+    "u_dec": dict(k="role", id="u_dec", t="外さないという決定", y=590, pos=(130, 640), rec="R08 p4197"),
+    "u_bu": dict(k="role", id="u_bu", t="艦船局", y=510, pos=(1280, 1760), rec=["R08 p4197", "J p8014"]),
+}
+
+
+def fl(name, **kw):
+    return dict(FLP[name], **kw)
+
+
 # 原因の並べ図（14本目＝c615・cc13）＝同じ形で並べるだけ（場面にしない）
-CAUSE = {}
+# 🆕 18本目 ⑤b-6a：c115＝この動画の3つの問い（c114 の語り）を同じ形で並べる（流れ図 → 並べ図＝映像方針 §20）。頁＝その問いに答える記録
+#   （浮き上がれなかった＝意見1 R08 p.204／伝わらなかった＝認定108 p.197・認定25 p.186／海の底＝1964年の要旨 R17書 p9802）
+CAUSE = {
+    "q_float": dict(k="item", t="浮き上がれなかった理由", rec="R08 p4204"),
+    "q_pass": dict(k="item", t="伝わらなかった検査と声", rec=["R08 p4197", "R08 p4186"]),
+    "q_sea": dict(k="item", t="海の底に残った物", rec="R17書 p9802"),
+}
 
 
 def cause(name, **kw):

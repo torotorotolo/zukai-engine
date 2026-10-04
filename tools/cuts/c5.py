@@ -203,4 +203,40 @@ SPEC = {
             dict(add=dict(k="chips", at="1963-04-12", chips=["水中電話の記録を見る"], rec="R08 p4187"))],
             note="副司令官＝大西洋の潜水艦部隊の副司令官", src=ss.src(["R08 p4185", "R08 p4187", "R08 p4188"]))),
     ),
+    # ── 🆕 ⑤b-6a（2026-10-04）：箱の型（書類の再現図＝check_boxes.REC_FORM）。欄の値は原文の英語のまま・0917R の形は欄の名へ ──
+    # c509（8.19秒＝0〜4.28／4.77〜8.19）＝スカイラークの電文（認定24＝頁の画像で読んだ）。1行目で連絡と最後の交信・2行目で示したことといま
+    "c509": dict(
+        t="救難艦の報告", s="上へ送った言葉",
+        fig=("boxes", dict(view="form", form=ss.FORM_MSG, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=[dict(k="fill", f="示したこと"), dict(k="fill", f="いま")])],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4186"]))),
+    ),
+    # c510（9.92秒＝0〜2.21 聞き役／2.70〜5.74／6.24〜9.92）＝電文に入れなかった声（認定25）。1行目で 9:13 の声・2行目で勧めた人・
+    #   3行目で艦長の決定とその後
+    "c510": dict(
+        t="入れなかった声", s="作戦士官の勧め",
+        fig=("boxes", dict(view="form", form=ss.FORM_F25, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=dict(k="fill", f="勧めた人")),
+            dict(add=[dict(k="fill", f="艦長"), dict(k="fill", f="その後")])],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4186", "R08 p4187"]))),
+    ),
+    # c517（6.18秒＝0〜2.39／2.88〜6.18）＝シーウルフの報告（証拠49＝X p.122・p.124・頁の画像で読んだ）。「may」を保つ＝かもしれない
+    "c517": dict(
+        t="シーウルフが聞いた音", s="4月11日の記録",
+        fig=("boxes", dict(view="form", form=ss.FORM_SEAWOLF, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=dict(k="fill", f="声"))],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["X p1122", "X p1124"]))),
+    ),
+    # c522（11.06秒＝0〜3.81／4.30〜7.05／7.54〜11.06）＝意見48（R08 p.214）。2行目で伝えなかったこととその長さ・3行目で関わり
+    "c522": dict(
+        t="救難艦の艦長への見方", s="遅れと原因",
+        fig=("boxes", dict(view="form", form=ss.FORM_O48, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=[dict(k="fill", f="伝えなかったこと"), dict(k="fill", f="どのくらい")]),
+            dict(add=dict(k="fill", f="関わり"))],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4214"]))),
+    ),
 }

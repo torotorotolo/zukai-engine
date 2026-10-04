@@ -46,7 +46,40 @@ sys.stdout.reconfigure(encoding="utf-8")
 #        ⚠️ 16本目の棒の教訓（日付を名にした行だけ同じ色でよい＝`_is_date_row`・見積もりの幅の上の端は REC_GHOST の破線の枠）は
 #           この門番の型の側（下の `_digits_ok`・`judge_bar`）に残してある
 # ══════════════════════════════════════════════════════════
-REC_QTY = {}          # (群の項目名＝画面の文字, 行の名＝画面の文字) → (値, 頁)
+#     🆕 2026-10-04（18本目 ⑤b-6a）：第1〜6章の棒（c204・c207・c302・c315・c613・c614・c626）の値と頁を入れた（原文
+#        ref/ep18/src/ep18_pages.txt で当てた＝型の側 ss.QB とは別に持つ）。フィートの記録は門番の側でも ×0.3048 で持つ（語りの「約」の
+#        丸めで描くと鳴る＝陽性対照）。🔴 19本目の ⑤b-1 で空にし、値は見本 `tools/fixture_ep18.py` へ（selftest_ep18 も見本を差す形に）
+REC_QTY = {          # (群の項目名＝画面の文字, 行の名＝画面の文字) → (値, 頁)
+    # c204：認定92（R08 p.195）「an estimate of approximately 35,000 man-days」・認定95（p.196）「The total of man-days expended was over
+    #   100,000」（「超えた」＝棒は10万まで・注で断る）
+    ("仕事の量（万人日）", "見込み"): (3.5, {"R08 p4195"}),
+    ("仕事の量（万人日）", "実際"): (10, {"R08 p4196"}),
+    # c207：認定80（R08 p.194）「ten thousand pound charges at ranges varying from 1180 feet to 370 feet」
+    ("艦からの距離（メートル）", "いちばん遠い"): (1180 * 0.3048, {"R08 p4194"}),
+    ("艦からの距離（メートル）", "いちばん近い"): (370 * 0.3048, {"R08 p4194"}),
+    # c302：認定4 の名簿（R08 p.181〜184）の身分の欄を数えた＝USS THRESHER 108（p.181〜183）／ほか21＝STAFF 1（p.181）・USN と PORTSMOUTH
+    #   NAVAL SHIPYARD 3（p.183）・Civilian Employee 13（p.183〜184）・Contractor's Representative 4（p.184）
+    ("乗っていた人（人）", "艦の乗員"): (108, {"R08 p4181", "R08 p4182", "R08 p4183"}),
+    ("乗っていた人（人）", "ほかに乗った人"): (21, {"R08 p4181", "R08 p4183", "R08 p4184"}),
+    ("ほかに乗った人の内わけ（人）", "造船所の士官と職員"): (3 + 13, {"R08 p4183", "R08 p4184"}),
+    ("ほかに乗った人の内わけ（人）", "請け負った会社"): (4, {"R08 p4184"}),
+    ("ほかに乗った人の内わけ（人）", "司令部の士官"): (1, {"R08 p4181"}),
+    # c315：認定13・14（V1 p.38）「a rescue chamber with a maximum depth capability of 850 feet」「Depth of water in this area is about 8500
+    #   feet」（試験深度は描かない＝守りの線）
+    ("深さ（メートル）", "救難室の限界"): (850 * 0.3048, {"V1 p38"}),
+    ("深さ（メートル）", "海の深さ"): (8500 * 0.3048, {"V1 p38"}),
+    # c613・c614：認定102（R08 p.197）「by 29 November 1962, 145 old joints had been ultrasonically tested … rejection rate of 13.8 per cent」・
+    #   認定112（p.198）「is over 3000 of 2-inch size and above in hazardous systems」（「超える」＝棒は3,000まで・注で断る）
+    ("調べた古い継手（本）", "11月29日"): (145, {"R08 p4197"}),
+    ("不合格の割合（パーセント）", "不合格"): (13.8, {"R08 p4197"}),
+    ("銀ろう付けの継手（本）", "調べた古い継手"): (145, {"R08 p4197"}),
+    ("銀ろう付けの継手（本）", "同じ型の艦の全体"): (3000, {"R08 p4198"}),
+    # c626：🔴 測り方の違う割合は群を分ける（§5b-114③）＝不合格（査問会 13.8・委員会の数字 14＝J p.14「14 percent below standard on the
+    #   examination that was made of the 145 joints」・p.68「Our figure on this is 14 percent.」）／修理か交換を要した（中将 約10＝J p.68）
+    ("不合格の割合（パーセント）", "査問会"): (13.8, {"R08 p4197"}),
+    ("不合格の割合（パーセント）", "委員会の数字"): (14, {"J p8068", "J p8014"}),
+    ("修理か交換を要した割合（パーセント）", "中将"): (10, {"J p8068"}),
+}
 REC_GHOST = {}        # 「後」の行に「前」の長さを薄く残す棒
 REC_GRID = {}         # マス目（項目名 → n・ok・ng・頁）
 REC_PEOPLE = {}       # 人の形（14本目 c204〜c206 だけの例外＝§C-1 #59）
@@ -323,7 +356,57 @@ def judge(cid, kw, pal=None):
 # ══════════════════════════════════════════════════════════
 #  物差しの検算
 # ══════════════════════════════════════════════════════════
+def selftest_ep18():
+    """🆕 2026-10-04（18本目 ⑤b-6a）：18本目の棒（本番の表 REC_QTY と ss.QG／QB）の検算。陽性対照＝語りの丸めで描く・群を混ぜる・
+    頁違い・棒を1割長く描く（型を壊す）。🔴 19本目の ⑤b-1 で見本 fixture_ep18 を差す形に直す"""
+    import titan_fig as F
+    from cuts import ss
+    QG, qb = ss.QG, ss.qb
+    ok = True
+    dist = dict(view="bar", groups=[QG["dist"]], steps=[dict(add=[qb("d_far"), qb("d_near")])], src="s")
+    pct = dict(view="bar", groups=[QG["rej15"], QG["fix15"]], src="s",
+               steps=[dict(add=[qb("q_court"), qb("q_jcae")]), dict(add=qb("q_rick"))])
+    crew = dict(view="bar", groups=[QG["aboard"], QG["others"]], src="s",
+                steps=[dict(add=[qb("a_crew"), qb("a_oth")]), dict(add=[qb("o_yard"), qb("o_ct"), qb("o_st")])])
+
+    def run(name, cid, kw, want, pal):
+        nonlocal ok
+        try:
+            bad, _ = judge(cid, kw, pal)
+        except ValueError as e:
+            bad = [f"型が止まった：{e}"]
+        got = not bad
+        ok &= got == want
+        print(f"  {'OK' if got == want else '🔴 NG'} 18本目 {name}: {'合格' if got else '不合格'}（{'合格' if want else '不合格'}のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+
+    run("正しい距離（c207＝フィートをメートルに直した長さ）", "c207", dist, True, "sepia")
+    run("正しい割合（c626＝不合格の群と、修理か交換の群）", "c626", pct, True, "mono")
+    run("正しい乗っていた人（c302）", "c302", crew, True, None)
+    run("🔴 陽性対照：語りの丸め（約110メートル）で描く", "c207",
+        dict(dist, steps=[dict(add=[qb("d_far"), qb("d_near", v=110)])]), False, "sepia")
+    run("🔴 陽性対照：中将の約10%を不合格の群に入れる（測り方の違う割合を混ぜる）", "c626",
+        dict(pct, steps=[dict(add=[qb("q_court"), qb("q_jcae"), qb("q_rick", g="rej")])]), False, "mono")
+    run("🔴 陽性対照：13.8% を語りの「14」に丸めて描く（査問会の行）", "c626",
+        dict(pct, steps=[dict(add=[qb("q_court", v=14), qb("q_jcae")])]), False, "mono")
+    run("🔴 陽性対照：頁違い（請け負った会社を p.183）", "c302",
+        dict(crew, steps=[dict(add=[qb("a_crew"), qb("a_oth")]), dict(add=[qb("o_yard"), qb("o_ct", rec="R08 p4183"),
+                                                                         qb("o_st")])]), False, None)
+    rect0 = F.rect
+    F.rect = lambda x, y, w, h, *a, **k: rect0(x, y, w * 1.1, h, *a, **k)
+    try:
+        bad, _ = judge("c626", pct, "mono")
+    finally:
+        F.rect = rect0
+    ok &= bool(bad)
+    print(f"  {'OK' if bad else '🔴 NG'} 🔴 18本目 陽性対照（型を壊す）：棒を1割長く描く（F.rect）: {'不合格' if bad else '合格'}（不合格のはず）"
+          + (f"  ← {bad[0]}" if bad else ""))
+    return ok
+
+
 def selftest():
+    # 🆕 2026-10-04（18本目 ⑤b-6a）：本番の表（18本目）で先に検算する（14本目の見本の差し込みより前）
+    ok18 = selftest_ep18()
     # 🔴 2026-09-30（15本目 ⑤b-1）：見本は14本目の実物（本番の表は回ごとに空にする＝§0b）＝この処理の中だけ14本目にする
     import fixture_ep14
     fixture_ep14.apply(sys.modules[__name__])
@@ -408,6 +491,7 @@ def selftest():
     broken("マス目の単位の札を消す（KIND_GRID）", Q, "KIND_GRID", "", "c515", grid)
     slots0 = Q.slots
     broken("並びから1人落とす（slots）", Q, "slots", lambda order, cols=Q.PCOLS: slots0(order, cols)[:-1], "c204", ppl)
+    ok = ok and ok18
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 

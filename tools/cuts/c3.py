@@ -194,4 +194,31 @@ SPEC = {
             dict(add=[ss.ax("five"), dict(k="chips", at="9:13", chips=["ここから5分間"], rec="R08 p4185")])],
             note="時刻は現地（アメリカ東部）", src=ss.src(["R08 p4185", "R08 p4212"]))),
     ),
+    # ── 🆕 ⑤b-6a（2026-10-04）：量の型（棒＝check_qty.REC_QTY）と箱の型（書類の再現図＝check_boxes.REC_FORM）──
+    # c302（9.48秒＝0〜4.38／4.87〜9.48）＝乗っていた人（認定4 の名簿の身分の欄を数えた）。1行目で艦の乗員108・ほかに21／2行目で内わけ
+    #   （語りの3つの言い方）。⚠️ 亡くなった方の数＝棒（人の形は使わない §C-1 #59）・名前は出さない
+    "c302": dict(
+        t="129人の内わけ", s="名簿の身分の欄から",
+        fig=("qty", dict(view="bar", groups=[ss.QG["aboard"], ss.QG["others"]], steps=[
+            dict(add=[ss.qb("a_crew"), ss.qb("a_oth")]),
+            dict(add=[ss.qb("o_yard"), ss.qb("o_ct"), ss.qb("o_st")])],
+            note="査問会の名簿（認定4）の身分の欄を数えた", src=ss.src(["R08 p4181", "R08 p4184"]))),
+    ),
+    # c305（9.62秒＝0〜4.04／4.53〜7.10／7.59〜9.62 聞き役）＝2隻の命令（認定8）。1行目で2隻の命令・2行目で予定表
+    "c305": dict(
+        t="予定表を持たない付き添い", s="秘密の扱い",
+        fig=("boxes", dict(view="form", form=ss.FORM_ORD, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=dict(k="fill", f="予定表")),
+            dict()],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4184"]))),
+    ),
+    # c315（8.03秒＝0〜1.26 聞き役／1.75〜4.49／4.98〜8.03）＝救難室の限界と海の深さ（認定13・14＝V1 p.38）。c314 の語りの数を棒で残す。
+    #   🔴 試験深度は描かない（守りの線 ③'）・棒＝フィートをメートルに直した長さ
+    "c315": dict(
+        t="届かない深さ", s="スカイラークの備え",
+        fig=("qty", dict(view="bar", groups=[ss.QG["depth"]], steps=[
+            dict(add=[ss.qb("dp_ch"), ss.qb("dp_sea")]), dict(), dict()],
+            note="棒＝記録のフィート（850と約8,500）をメートルに直した長さ", src=ss.src(["V1 p38"]))),
+    ),
 }

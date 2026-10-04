@@ -234,4 +234,32 @@ SPEC = {
             dict(add=[ss.ax("boom"), ss.ax("five4")], cur="9:18.1")],
             note="時刻は現地（アメリカ東部）", src=ss.src(["R08 p4185", "R08 p4186"]))),
     ),
+    # ── 🆕 ⑤b-6a（2026-10-04）：箱の型（書類の再現図・流れ図＝check_boxes.REC_*）──
+    # c416（7.93秒＝0〜3.65／4.14〜7.93）＝航海士の証言（V1 p.118＝記録の45頁）。「くぐもった、鈍い音」は次の c417（決め所）＝書かない
+    "c416": dict(
+        t="聞き覚えのある音", s="第二次大戦の記憶",
+        fig=("boxes", dict(view="form", form=ss.FORM_WATSON, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=dict(k="fill", f="似ていた音"))],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["V1 p118"]))),
+    ),
+    # c418（10.23秒＝0〜2.28／2.77〜7.42／7.91〜10.23）＝証言の割れ（V1 p.132・p.140）。2行目で当直の下士官・3行目で記録簿の係（問いと答え）。
+    #   話者は役目の名だけ（名前は出さない）
+    "c418": dict(
+        t="そろわない証言", s="空気の音を聞いたか",
+        fig=("boxes", dict(view="form", form=ss.FORM_SPLIT, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=dict(k="fill", f="当直の下士官")),
+            dict(add=[dict(k="fill", f="問い"), dict(k="fill", f="記録簿の係")])],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["V1 p132", "V1 p140"]))),
+    ),
+    # c421（7.85秒＝0〜2.91／3.40〜7.85）＝査問会の組み立て（意見45）。1行目で声・音・仮定と計算／2行目で最もありうる筋書き。中身（Case III
+    #   ほか）は第7・8章＝描かない（語り「その中身は、あとの章で見る」）
+    "c421": dict(
+        t="査問会の組み立て", s="声と音と計算から",
+        fig=("boxes", dict(view="flow", layout=ss.FL_EMPTY, steps=[
+            dict(add=[ss.fl("z_voice"), ss.fl("z_sound"), ss.fl("z_calc")]),
+            dict(add=[ss.fl("z_plot"), ss.ce(["z_voice", "z_sound", "z_calc"], "z_plot")])],
+            src=ss.src(["R08 p4185", "R08 p4212", "R08 p4214"]))),
+    ),
 }

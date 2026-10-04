@@ -16,6 +16,7 @@
           dict(k="bracket", id=…, over=[ids])・dict(k="grp", t="甲板部", x=…, y=…)・dict(k="seats_on", n=13, rec=…)
           dict(k="mark", at=id, t="？")・dict(k="chip", at=id, t="…", dy=…, rec=…)・dict(k="rule", y=…)
   fig=("boxes", dict(view="form", form=ss.FORM_PRE, steps=[dict(add=[dict(k="end", id="ship"), dict(k="paper"), …])], …))
+  🆕 18本目 ⑤b-6a：紙を2〜3枚並べる＝form=[ss.FORM_A, ss.FORM_B]・steps=[dict(add=dict(k="paper", i=0)), dict(add=dict(k="paper", i=1))]
   fig=("boxes", dict(view="row", slots=3, past=[…], steps=[dict(add=[dict(k="item", t="舵の使い方？", rec=…)])], …))
   🔴 rec（記録の頁）は全部の箱に要る。門番 `check_boxes` が自分の側の記録の表と照らす（§5b-88）
 
@@ -238,6 +239,14 @@ def _flow(layout, past, steps, note, src):
 FORM_BOX = dict(ship=(110, 430), office=(1430, 1790))
 PAPER = (690, 1170, 360, 760)     # x0, x1, y0, y1
 FORM_CY = 560
+# 🆕 2026-10-04（18本目 ⑤b-6a）：**紙を2〜3枚横に並べる**（`form=[書類1, 書類2, …]`）。c605＝査問会の認定111「氷の下」と、大西洋艦隊の
+#    司令官の意見書「開けた海」＝**別の2つの書類**を1枚の紙に混ぜると、無い書類を作ることになる／c112＝認定・意見・勧告の3つの部分。
+#    紙は FORM_SPAN の内を FORM_GAP あけて等分（書類ごとに `paper=` を書けばそれを使う）。門番の印は紙ごとに `@番号`
+#    （"ftitle@0"・"field@1|場所"…）。段の部品は `dict(k="paper", i=1)`・`dict(k="fill", i=0, f="場所")`（i を省くと 0）。
+#    🔴 門番 check_boxes ⑩ が紙どうしの重なり・紙の左右の外れを測る（陽性対照＝FORM_GAP を負にする）
+FORM_SPAN = (100, 1820)
+FORM_GAP = 60
+FORM_Y = (330, 690)               # 並べる紙の上下の既定（欄2つまで。3〜4つは書類ごとに paper=）
 # 🆕 2026-09-30（15本目 ⑤b-5）：書類の値（記録の文にある値だけ＝門番 REC_FORM の values）を読める大きさで出すため、
 #    form に `paper=(x0, x1, y0, y1)`（紙の大きさ）・`lw=`（欄の名の幅）を持てるようにした（既定は14本目の寸法のまま）。
 #    欄に `late=True` を書くと紙には値を出さず、段の部品 `dict(k="fill", f="欄の名")` でその段に値を書き込む
@@ -245,46 +254,76 @@ FORM_CY = 560
 
 
 def _form(form, steps, note, src):
-    if not form.get("rec") or any(not fd.get("rec") for fd in form["fields"]):
-        raise ValueError("boxes：書類の再現図の title と欄には rec（報告書の頁）が要る")
-    x0, x1, y0, y1 = form.get("paper") or PAPER
-    lw = form.get("lw", 190)                     # 欄の名の幅（値はその右）
+    multi = isinstance(form, (list, tuple))      # 🆕 18本目 ⑤b-6a：紙を2〜3枚並べる
+    forms = list(form) if multi else [form]
+    if multi and not 2 <= len(forms) <= 3:
+        raise ValueError(f"boxes：並べる紙は2〜3枚（{len(forms)}枚）")
+    for fm in forms:
+        if not fm.get("rec") or any(not fd.get("rec") for fd in fm["fields"]):
+            raise ValueError("boxes：書類の再現図の title と欄には rec（報告書の頁）が要る")
+    if multi:
+        if any(fm.get("ends") for fm in forms):
+            raise ValueError("boxes：行き来の箱（ends）は紙1枚の書類だけ")
+        w = (FORM_SPAN[1] - FORM_SPAN[0] - FORM_GAP * (len(forms) - 1)) / len(forms)
+        boxes_ = [fm.get("paper") or (FORM_SPAN[0] + i * (w + FORM_GAP), FORM_SPAN[0] + i * (w + FORM_GAP) + w) + FORM_Y
+                  for i, fm in enumerate(forms)]
+    else:
+        boxes_ = [form.get("paper") or PAPER]
     nodes = {k: dict(id=k, k="end", x0=a, x1=b, cy=FORM_CY, h=96) for k, (a, b) in FORM_BOX.items()}
+    x0, x1, y0, y1 = boxes_[0]
     nodes["paper"] = dict(id="paper", k="paper", x0=x0, x1=x1, cy=FORM_CY, h=y1 - y0)
-    if form.get("ends") and (x0 < FORM_BOX["ship"][1] + 40 or x1 > FORM_BOX["office"][0] - 40):
+    if not multi and form.get("ends") and (x0 < FORM_BOX["ship"][1] + 40 or x1 > FORM_BOX["office"][0] - 40):
         raise ValueError(f"boxes：紙 {x0}〜{x1} が行き来の箱と重なる（行き来の箱を使う書類の紙は 470〜1390 の内）")
-    fys = {fd["t"]: y0 + 180 + 110 * i for i, fd in enumerate(form["fields"])}
-    if fys and max(fys.values()) + 30 > y1:
-        raise ValueError(f"boxes：欄 {len(fys)} 個が紙の高さ {y1 - y0} に収まらない")
+    fyss = []
+    for fm, (_, _, b0, b1) in zip(forms, boxes_):
+        fys = {fd["t"]: b0 + 180 + 110 * i for i, fd in enumerate(fm["fields"])}
+        if fys and max(fys.values()) + 30 > b1:
+            raise ValueError(f"boxes：欄 {len(fys)} 個が紙の高さ {b1 - b0} に収まらない")
+        fyss.append(fys)
     lab = []
     rec = []
 
-    def val(fd):
-        return dq(F.txtfit(x0 + lw + 70, fys[fd["t"]] - 4, fd["v"], x1 - x0 - lw - 110, cap=34, col=J.AMBER),
-                  f"fval|{fd['t']}")
+    def tg(q, i):
+        """門番の印（紙1枚なら今までどおり・並べるなら紙の番号 @i を名の後ろに）。"""
+        if not multi:
+            return q
+        head, sep, rest = q.partition("|")
+        return f"{head}@{i}{sep}{rest}"
 
-    def paper():
-        g = [dq(F.rect(x0, y0, x1 - x0, y1 - y0, J.BG2, J.DOC, 4, rx=4), "paper"),
-             dq(F.txtfit((x0 + x1) / 2, y0 + 70, form["title"], x1 - x0 - 60, cap=38, col=J.INK_W, anchor="middle"),
-                "ftitle"),
-             F.line(x0 + 30, y0 + 100, x1 - 30, y0 + 100, J.DOC, 3)]
-        for fd in form["fields"]:
-            fy = fys[fd["t"]]
-            g.append(dq(F.txtfit(x0 + 40, fy, fd["t"], lw, cap=34, col=J.INK_W), f"field|{fd['t']}"))
-            g.append(F.line(x0 + lw + 60, fy + 8, x1 - 40, fy + 8, J.DOC, 3))
+    def val(fd, i):
+        a0, a1, _, _ = boxes_[i]
+        lw = forms[i].get("lw", 190)
+        return dq(F.txtfit(a0 + lw + 70, fyss[i][fd["t"]] - 4, fd["v"], a1 - a0 - lw - 110, cap=34, col=J.AMBER),
+                  tg(f"fval|{fd['t']}", i))
+
+    def paper(i):
+        fm = forms[i]
+        a0, a1, b0, b1 = boxes_[i]
+        lw = fm.get("lw", 190)                   # 欄の名の幅（値はその右）
+        g = [dq(F.rect(a0, b0, a1 - a0, b1 - b0, J.BG2, J.DOC, 4, rx=4), tg("paper", i)),
+             dq(F.txtfit((a0 + a1) / 2, b0 + 70, fm["title"], a1 - a0 - 60, cap=38, col=J.INK_W, anchor="middle"),
+                tg("ftitle", i)),
+             F.line(a0 + 30, b0 + 100, a1 - 30, b0 + 100, J.DOC, 3)]
+        for fd in fm["fields"]:
+            fy = fyss[i][fd["t"]]
+            g.append(dq(F.txtfit(a0 + 40, fy, fd["t"], lw, cap=34, col=J.INK_W), tg(f"field|{fd['t']}", i)))
+            g.append(F.line(a0 + lw + 60, fy + 8, a1 - 40, fy + 8, J.DOC, 3))
             if fd.get("v") and not fd.get("late"):
-                g.append(val(fd))
+                g.append(val(fd, i))
         # 札「再現」（紙の左上の外）
         w = F.fm.width(REPRO, 28, "Noto") + 32
-        g.append(dq(F.rect(x0, y0 - 56, w, 44, J.BG2, J.DOC, 3, rx=6), "repro"))
-        g.append(dq(F.txt(x0 + 16, y0 - 24, REPRO, 28, J.DOC), "reprot"))
-        rec.append(dict(k="paper", title=form["title"], rec=form["rec"], fields=[dict(fd) for fd in form["fields"]]))
+        g.append(dq(F.rect(a0, b0 - 56, w, 44, J.BG2, J.DOC, 3, rx=6), tg("repro", i)))
+        g.append(dq(F.txt(a0 + 16, b0 - 24, REPRO, 28, J.DOC), tg("reprot", i)))
+        rec.append(dict(k="paper", i=i, title=fm["title"], rec=fm["rec"], fields=[dict(fd) for fd in fm["fields"]]))
         return "".join(g)
 
     def draw(p):
         k = p["k"]
+        i = p.get("i", 0)
+        if k in ("paper", "fill") and not 0 <= i < len(forms):
+            raise ValueError(f"boxes：紙の番号 {i} が無い（紙は {len(forms)} 枚）")
         if k == "paper":
-            return paper()
+            return paper(i)
         if k == "end":
             e = form["ends"][p["id"]]
             if not e.get("rec"):
@@ -297,17 +336,17 @@ def _form(form, steps, note, src):
             return (f'<g data-q="edge|{p["fr"]}>{p["to"]}">'
                     + F.arrow(a["x1"] + 10, FORM_CY, b["x0"] - 10, FORM_CY, J.LINE, 5, 20) + "</g>")
         if k == "fill":          # 🆕 ⑤b-5：late の欄に値を書き込む
-            fd = next((f for f in form["fields"] if f["t"] == p["f"]), None)
+            fd = next((f for f in forms[i]["fields"] if f["t"] == p["f"]), None)
             if not fd or not fd.get("v") or not fd.get("late"):
                 raise ValueError(f"boxes：fill の欄 {p['f']!r} が late=True の値のある欄でない")
-            rec.append(dict(k="fill", f=fd["t"], rec=fd["rec"]))
-            return val(fd)
+            rec.append(dict(k="fill", i=i, f=fd["t"], rec=fd["rec"]))
+            return val(fd, i)
         raise ValueError(f"boxes：書類の再現図に知らない部品 {k!r}")
 
     stages = ["".join(draw(p) for p in F._many(st.get("add"))) or " " for st in steps]
     lab.append(_foot(note, src))
     f = F.Fig("".join(lab), stages, "", (F.BX0, F.BX1))
-    f.mech = dict(kind="boxes", view="form", parts=rec)
+    f.mech = dict(kind="boxes", view="form", parts=rec, papers=len(forms))
     return f
 
 
