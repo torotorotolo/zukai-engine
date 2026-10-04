@@ -167,6 +167,8 @@ def collect():
             E.append(f"E1 narration.json の声（{key}）が {got}＝aq_build.VOICES の {presets[w]} と違う（焼き直す）")
     if abs(float(js.get("gap", -1)) - B.gap_of()) > 1e-9:
         E.append(f"E1 narration.json の行間 {js.get('gap')}＝aq_build の {B.gap_of()} と違う（焼き直す）")
+    if (js.get("gap_cuts") or {}) != B.gap_cuts():           # カットごとの行間（18本目〜・無い回は両方とも空）
+        E.append(f"E1 narration.json のカットごとの行間 {js.get('gap_cuts')}＝aq_build の {B.gap_cuts()} と違う（焼き直す）")
     yomi = B.yomi_table()
     rows_by = {w: T.preset_row(n) for w, n in presets.items()}
     cache = T.CACHE / ES.SLUG
@@ -186,7 +188,7 @@ def collect():
 
     for cid, lines in narration.SCRIPT:
         try:
-            pcm, total, rows = B.build_cut(cid, lines, synth, B.gap_of())
+            pcm, total, rows = B.build_cut(cid, lines, synth, B.gap_of(cid=cid))
         except KeyError as e:
             E.append(f"E1 {e.args[0]} の合成キャッシュが無い（いまの読み・声で焼いていない＝aq_build）")
             continue
