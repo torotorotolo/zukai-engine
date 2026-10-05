@@ -22,14 +22,21 @@ args = [a for a in args if not a.startswith("qa_")]
 if args and args[0] == "at":
     print(",".join([f"{c}:0.15" for c in FILM] + [f"{c}:0.1" for c in HEAD] + [f"{c}:0.95" for c in TAIL]))
     sys.exit(0)
+# 焼き直し（差分だけ）＝記録映画21カットの額装（0.5）＋頭の直した3カット（0.1）
+FIX = [(c, 0.5) for c in FILM] + [(c, 0.1) for c in ("c102", "c903", "c906")]
+if args and args[0] == "fixat":
+    print(",".join(f"{c}:{t}" for c, t in FIX))
+    sys.exit(0)
 base = ROOT / "out" / "jiko" / qa_dir
-hit = next(iter(base.rglob("at_*_015.jpg")), None)
+hit = next(iter(base.rglob("at_*.jpg")), None)
 SRC = hit.parent if hit else base
 CUT = next(iter(base.rglob("cut_c117.jpg")), None)
 CSRC = CUT.parent if CUT else base
 
 
 def frames():
+    if args and args[0] == "fix":
+        return [(f"{c} {t:.2f}", SRC / f"at_{c}_{int(round(t * 100)):03d}.jpg") for c, t in FIX]
     out = []
     for c in FILM:
         out += [(f"{c} 0.15", SRC / f"at_{c}_015.jpg"), (f"{c} 0.92", CSRC / f"cut_{c}.jpg")]
