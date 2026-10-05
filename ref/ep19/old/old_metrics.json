@@ -1,0 +1,3547 @@
+{
+ "rev": "e6fe892",
+ "n_cuts": 240,
+ "n_lines": 486,
+ "n_subtitles": 486,
+ "total_sec": 2127.31,
+ "total_mmss": "35:27.3",
+ "speech_sec": 1899.31,
+ "structure_sec": 228.0,
+ "lead": 0.35,
+ "tail": 0.5,
+ "tail_extra": {
+  "quote": 2.0
+ },
+ "gap": 0.4,
+ "voice": {
+  "engine": "elevenlabs",
+  "voice": "qaCSabKToUUT4sTqBZtz",
+  "voice_name": "Hiro - Ultra Deep Japanese Voice",
+  "model": "eleven_v3",
+  "settings": null,
+  "speed": 1.0
+ },
+ "chars_with_punct": 11027,
+ "chars_nopunct_channel": 9879,
+ "chars_nopunct_ext": 9826,
+ "cpm_channel": 278.6,
+ "cpm_channel_speech_only": 312.1,
+ "cpm_with_punct": 311.0,
+ "chapters": [
+  {
+   "key": "pr",
+   "name": "プロローグ",
+   "first": "pr01",
+   "last": "pr10",
+   "n_cuts": 8,
+   "start": 0.0,
+   "sec": 102.18,
+   "n_lines": 19,
+   "chars_nopunct": 460,
+   "photo": 5,
+   "footage_moving": 1,
+   "text_A": 0,
+   "text_B": 1,
+   "planned_header": "プロローグ（73秒・8カット・写真映像5＝62.5%）"
+  },
+  {
+   "key": "c1",
+   "name": "第1章 開かなくなった門",
+   "first": "c101",
+   "last": "c131",
+   "n_cuts": 31,
+   "start": 102.18,
+   "sec": 293.48,
+   "n_lines": 64,
+   "chars_nopunct": 1375,
+   "photo": 18,
+   "footage_moving": 2,
+   "text_A": 6,
+   "text_B": 7,
+   "planned_header": "第1章　開かなくなった門（285秒・31カット・写真映像18＝58.1%）"
+  },
+  {
+   "key": "c2",
+   "name": "第2章 4インチの隙間",
+   "first": "c201",
+   "last": "c232",
+   "n_cuts": 32,
+   "start": 395.66,
+   "sec": 268.48,
+   "n_lines": 64,
+   "chars_nopunct": 1240,
+   "photo": 15,
+   "footage_moving": 2,
+   "text_A": 5,
+   "text_B": 9,
+   "planned_header": "第2章　4インチの隙間（294秒・32カット・写真映像15＝46.9%）"
+  },
+  {
+   "key": "c3",
+   "name": "第3章 柱が床を突き抜ける",
+   "first": "c301",
+   "last": "c336",
+   "n_cuts": 36,
+   "start": 664.14,
+   "sec": 296.57,
+   "n_lines": 72,
+   "chars_nopunct": 1394,
+   "photo": 18,
+   "footage_moving": 13,
+   "text_A": 4,
+   "text_B": 9,
+   "planned_header": "第3章　柱が床を突き抜ける（330秒・36カット・写真映像18＝50.0%）"
+  },
+  {
+   "key": "c4",
+   "name": "第4章 図面と、実物",
+   "first": "c401",
+   "last": "c434",
+   "n_cuts": 34,
+   "start": 960.71,
+   "sec": 308.23,
+   "n_lines": 69,
+   "chars_nopunct": 1432,
+   "photo": 18,
+   "footage_moving": 3,
+   "text_A": 12,
+   "text_B": 15,
+   "planned_header": "第4章　図面と、実物（312秒・34カット・写真映像17＝50.0%）"
+  },
+  {
+   "key": "c5",
+   "name": "第5章 上に載せたもの",
+   "first": "c501",
+   "last": "c528",
+   "n_cuts": 28,
+   "start": 1268.94,
+   "sec": 244.65,
+   "n_lines": 56,
+   "chars_nopunct": 1142,
+   "photo": 15,
+   "footage_moving": 5,
+   "text_A": 6,
+   "text_B": 11,
+   "planned_header": "第5章　上に載せたもの（257秒・28カット・写真映像14＝50.0%）"
+  },
+  {
+   "key": "c6",
+   "name": "第6章 塔へ渡った",
+   "first": "c601",
+   "last": "c629",
+   "n_cuts": 29,
+   "start": 1513.59,
+   "sec": 244.43,
+   "n_lines": 58,
+   "chars_nopunct": 1141,
+   "photo": 15,
+   "footage_moving": 1,
+   "text_A": 4,
+   "text_B": 11,
+   "planned_header": "第6章　塔へ渡った（266秒・29カット・写真映像15＝51.7%）"
+  },
+  {
+   "key": "c7",
+   "name": "第7章 そうではなかったもの",
+   "first": "c701",
+   "last": "c726",
+   "n_cuts": 26,
+   "start": 1758.02,
+   "sec": 229.27,
+   "n_lines": 52,
+   "chars_nopunct": 1063,
+   "photo": 12,
+   "footage_moving": 3,
+   "text_A": 5,
+   "text_B": 9,
+   "planned_header": "第7章　そうではなかったもの（239秒・26カット・写真映像12＝46.2%）"
+  },
+  {
+   "key": "ep",
+   "name": "エピローグ",
+   "first": "ep01",
+   "last": "ep16",
+   "n_cuts": 16,
+   "start": 1987.29,
+   "sec": 140.02,
+   "n_lines": 32,
+   "chars_nopunct": 632,
+   "photo": 8,
+   "footage_moving": 0,
+   "text_A": 11,
+   "text_B": 13,
+   "planned_header": "エピローグ　余裕（147秒・16カット・写真映像8＝50.0%）"
+  }
+ ],
+ "opening_60s": [
+  [
+   0.35,
+   "pr01",
+   1,
+   "2021年6月24日、午前1時22分ごろ。"
+  ],
+  [
+   6.25,
+   "pr01",
+   2,
+   "アメリカ、フロリダ州サーフサイド。マイアミの北にある、"
+  ],
+  [
+   11.2,
+   "pr01",
+   3,
+   "大西洋に面した、小さな町である。"
+  ],
+  [
+   14.93,
+   "pr02",
+   1,
+   "海沿いに建つ12階建てのマンションの、およそ半分が、"
+  ],
+  [
+   19.57,
+   "pr02",
+   2,
+   "数秒のうちに崩れ落ちた。98人が亡くなっている。"
+  ],
+  [
+   25.3,
+   "pr03",
+   1,
+   "ただし、この崩落には、はっきりしていることがある。"
+  ],
+  [
+   29.21,
+   "pr03",
+   2,
+   "崩れ始めたのは、この夜ではない。"
+  ],
+  [
+   32.77,
+   "pr04",
+   1,
+   "3週間前、この建物では、ひとつの門が開かなくなっていた。"
+  ],
+  [
+   38.37,
+   "pr04",
+   2,
+   "下に沈んだ量は、1.2センチほど。それが、最初の合図である。"
+  ],
+  [
+   44.65,
+   "pr05",
+   1,
+   "3週間前から数え始めているのは、こちらの都合ではない。"
+  ],
+  [
+   48.89,
+   "pr05",
+   2,
+   "5年をかけて調べた、アメリカの国の調査団である。"
+  ],
+  [
+   53.47,
+   "pr07",
+   1,
+   "崩れたのは、建物の東側と、中央だった。"
+  ],
+  [
+   57.92,
+   "pr07",
+   2,
+   "生きて助け出されたのは4人と報じられ、うち1人は病院で亡くなっている。"
+  ]
+ ],
+ "first_quote": {
+  "cid": "c112",
+  "cut_start": 214.93,
+  "appears": 225.04,
+  "phrase": "門が開かなくなった",
+  "rows": [
+   [
+    "誰が",
+    "NIST（証言の描き起こし）"
+   ],
+   [
+    "いつ",
+    "崩落の3週間前（2021年6月初め）"
+   ],
+   [
+    "どこに",
+    "技術的知見 スライド50"
+   ]
+  ],
+  "ctx": "原文 Less than 1/2\" vertical shift. Gate door is stuck and cannot be opened.",
+  "star_in_script": true,
+  "heading": "1.2センチで、扉は動かなくなる"
+ },
+ "first_chapter_cut": "c101",
+ "first_chapter_start": 102.18,
+ "quotes": [
+  {
+   "cid": "c112",
+   "cut_start": 214.93,
+   "appears": 225.04,
+   "phrase": "門が開かなくなった",
+   "rows": [
+    [
+     "誰が",
+     "NIST（証言の描き起こし）"
+    ],
+    [
+     "いつ",
+     "崩落の3週間前（2021年6月初め）"
+    ],
+    [
+     "どこに",
+     "技術的知見 スライド50"
+    ]
+   ],
+   "ctx": "原文 Less than 1/2\" vertical shift. Gate door is stuck and cannot be opened.",
+   "star_in_script": true,
+   "heading": "1.2センチで、扉は動かなくなる"
+  },
+  {
+   "cid": "c126",
+   "cut_start": 343.95,
+   "appears": 348.86,
+   "phrase": "修理のあと、約1インチ沈んだ",
+   "rows": [
+    [
+     "誰が",
+     "NIST（証言の描き起こし）"
+    ],
+    [
+     "いつ",
+     "崩落の1週間前（2021年6月17日ごろ）"
+    ],
+    [
+     "どこに",
+     "技術的知見 スライド52"
+    ]
+   ],
+   "ctx": "原文 Approx. 1\" vertical shift after repairs.",
+   "star_in_script": true,
+   "heading": "書き添えは、ひとことだけ"
+  },
+  {
+   "cid": "c214",
+   "cut_start": 502.28,
+   "appears": 507.19,
+   "phrase": "床に、4インチの隙間",
+   "rows": [
+    [
+     "誰が",
+     "目撃者（NIST の聞き取り）"
+    ],
+    [
+     "いつ",
+     "2021年6月23日 朝（崩落の約17時間前）"
+    ],
+    [
+     "どこに",
+     "スライド57　手書きの図と文"
+    ]
+   ],
+   "ctx": "原文 Morning June 23 noticed in the floor area, a space or gap of 4 inches",
+   "star_in_script": true,
+   "heading": "幅の数字まで、残っている"
+  },
+  {
+   "cid": "c225",
+   "cut_start": 589.51,
+   "appears": 594.26,
+   "phrase": "配管ではない。天井からの漏れ",
+   "rows": [
+    [
+     "誰が",
+     "目撃者（NIST の聞き取り）"
+    ],
+    [
+     "いつ",
+     "2021年6月23日 夜（崩落の約9時間前）"
+    ],
+    [
+     "どこに",
+     "スライド58　区画図の付箋"
+    ]
+   ],
+   "ctx": "原文 Leak from the ceiling, not the pipe - 1/4 inch deep crack",
+   "star_in_script": true,
+   "heading": "深さも、数字で書いてある"
+  },
+  {
+   "cid": "c318",
+   "cut_start": 800.25,
+   "appears": 805.64,
+   "phrase": "6月初旬に、2本の柱で起きた",
+   "rows": [
+    [
+     "誰が",
+     "NIST（ニュースの説明文）"
+    ],
+    [
+     "いつ",
+     "2026年6月22日 公表"
+    ],
+    [
+     "どこに",
+     "NIST ニュース　押し抜きせん断のアニメの説明"
+    ]
+   ],
+   "ctx": "原文 punching shear failure at two columns in the garage under the pool deck slab in early June 2021",
+   "star_in_script": true,
+   "heading": "起きた時期は、崩落の夜ではない"
+  },
+  {
+   "cid": "c412",
+   "cut_start": 1057.2,
+   "appears": 1062.91,
+   "phrase": "図面は¾インチ、実物は2インチ",
+   "rows": [
+    [
+     "誰が",
+     "NIST（回収した床の断面の実測）"
+    ],
+    [
+     "いつ",
+     "2026年6月22日 公表"
+    ],
+    [
+     "どこに",
+     "技術的知見 スライド75"
+    ]
+   ],
+   "ctx": "原文 ¾ in. cover as shown on design drawings ／ 2 in. cover as built",
+   "star_in_script": true,
+   "heading": "図面の値と実物とで、違っていた"
+  },
+  {
+   "cid": "c426",
+   "cut_start": 1185.91,
+   "appears": 1190.1,
+   "phrase": "4本のはずが、2本だった",
+   "rows": [
+    [
+     "誰が",
+     "NIST（回収した柱の標本を数えた）"
+    ],
+    [
+     "いつ",
+     "2026年6月22日 公表"
+    ],
+    [
+     "どこに",
+     "技術的知見 スライド76"
+    ]
+   ],
+   "ctx": "原文 only 2 rather than 4 top bars were centered over the column in each direction",
+   "star_in_script": true,
+   "heading": "縦横どちらの向きでも、同じ"
+  },
+  {
+   "cid": "c515",
+   "cut_start": 1389.38,
+   "appears": 1393.65,
+   "phrase": "25年以上、進み続けていた",
+   "rows": [
+    [
+     "誰が",
+     "NIST（鉄筋の標本の評価）"
+    ],
+    [
+     "いつ",
+     "2026年6月22日 公表"
+    ],
+    [
+     "どこに",
+     "技術的知見 スライド174"
+    ]
+   ],
+   "ctx": "原文 Ongoing for more than 25 years",
+   "star_in_script": true,
+   "heading": "繰り返しは、四半世紀続いていた"
+  },
+  {
+   "cid": "c614",
+   "cut_start": 1618.85,
+   "appears": 1622.8,
+   "phrase": "下端筋が、下から抜けていく",
+   "rows": [
+    [
+     "誰が",
+     "NIST（進行の機構の線図）"
+    ],
+    [
+     "いつ",
+     "2026年6月22日 公表"
+    ],
+    [
+     "どこに",
+     "技術的知見 スライド139"
+    ]
+   ],
+   "ctx": "原文 Bottom reinforcement tears out of bottom of slab",
+   "star_in_script": true,
+   "heading": "切れた、ではなく、抜けた"
+  },
+  {
+   "cid": "c717",
+   "cut_start": 1896.21,
+   "appears": 1899.2,
+   "phrase": "傷んだつなぎ目を壊すにも、小さすぎた",
+   "rows": [
+    [
+     "誰が",
+     "NIST（土と構造の解析）"
+    ],
+    [
+     "いつ",
+     "2026年6月22日 公表"
+    ],
+    [
+     "どこに",
+     "技術的知見 スライド185"
+    ]
+   ],
+   "ctx": "原文 Computed vibrations at critical slab-column connections of CTS were too small to damage even the distressed connections.",
+   "star_in_script": true,
+   "heading": "届いた振動は、壊す大きさではない"
+  },
+  {
+   "cid": "c722",
+   "cut_start": 1938.18,
+   "appears": 1943.23,
+   "phrase": "大きく寄与してはいない",
+   "rows": [
+    [
+     "誰が",
+     "NIST"
+    ],
+    [
+     "いつ",
+     "2026年6月22日 公表"
+    ],
+    [
+     "どこに",
+     "技術的知見 スライド189 の見出し"
+    ]
+   ],
+   "ctx": "原文 Things that did not contribute significantly to the collapse",
+   "star_in_script": true,
+   "heading": "こうした説を、1枚にまとめて"
+  },
+  {
+   "cid": "ep11",
+   "cut_start": 2068.47,
+   "appears": 2073.62,
+   "phrase": "余裕は決定的に小さかった",
+   "rows": [
+    [
+     "誰が",
+     "NIST"
+    ],
+    [
+     "いつ",
+     "2026年6月22日 公表"
+    ],
+    [
+     "どこに",
+     "技術的知見 スライド16・86・191（3枚に出る）"
+    ]
+   ],
+   "ctx": "原文 critically low margins against failure",
+   "star_in_script": true,
+   "heading": "3枚のスライドで繰り返される言葉"
+  }
+ ],
+ "star_without_quote_fig": [],
+ "fig_kinds": [
+  [
+   "photo",
+   124
+  ],
+  [
+   "panel",
+   25
+  ],
+  [
+   "absent",
+   20
+  ],
+  [
+   "compare",
+   15
+  ],
+  [
+   "timeline",
+   13
+  ],
+  [
+   "quote",
+   12
+  ],
+  [
+   "punch",
+   9
+  ],
+  [
+   "process",
+   6
+  ],
+  [
+   "beforeafter",
+   6
+  ],
+  [
+   "icons",
+   4
+  ],
+  [
+   "layers",
+   3
+  ],
+  [
+   "moment",
+   1
+  ],
+  [
+   "people",
+   1
+  ],
+  [
+   "mapfig",
+   1
+  ]
+ ],
+ "photo_cuts": 124,
+ "photo_ratio": 0.5167,
+ "photo_source_kinds": [
+  [
+   "NIST スライド（tf_）",
+   85
+  ],
+  [
+   "記録映像（動く）",
+   30
+  ],
+  [
+   "記録映像の1コマ（静止画・fb_）",
+   6
+  ],
+  [
+   "記録映像の1コマ（静止画・ss_）",
+   3
+  ]
+ ],
+ "photo_files_static": [
+  [
+   "surfside/tf_p086_causes.jpg",
+   8
+  ],
+  [
+   "surfside/tf_p185_87park.jpg",
+   8
+  ],
+  [
+   "surfside/tf_p191_closing.jpg",
+   7
+  ],
+  [
+   "surfside/tf_p003_model.jpg",
+   5
+  ],
+  [
+   "surfside/tf_p076_bars.jpg",
+   5
+  ],
+  [
+   "surfside/tf_p139_bars.jpg",
+   5
+  ],
+  [
+   "surfside/tf_p133_plan.jpg",
+   5
+  ],
+  [
+   "surfside/tf_p029_model.jpg",
+   4
+  ],
+  [
+   "surfside/tf_p057_memo.jpg",
+   4
+  ],
+  [
+   "surfside/tf_p036_punch.jpg",
+   4
+  ],
+  [
+   "surfside/tf_p050_gate.jpg",
+   3
+  ],
+  [
+   "surfside/tf_p062_summary.jpg",
+   3
+  ],
+  [
+   "surfside/tf_p052_gate.jpg",
+   3
+  ],
+  [
+   "surfside/tf_p174_corr.jpg",
+   3
+  ],
+  [
+   "surfside/ss_b1_sign.jpg",
+   2
+  ],
+  [
+   "surfside/tf_p048_deck.jpg",
+   2
+  ],
+  [
+   "surfside/tf_p057_3d.jpg",
+   2
+  ],
+  [
+   "surfside/tf_p058_note.jpg",
+   2
+  ],
+  [
+   "surfside/tf_p065_garage.jpg",
+   2
+  ],
+  [
+   "surfside/tf_p067_deflect.jpg",
+   2
+  ],
+  [
+   "surfside/tf_p075_cover.jpg",
+   2
+  ],
+  [
+   "surfside/fb_pr01.jpg",
+   1
+  ],
+  [
+   "surfside/fb_pr02.jpg",
+   1
+  ],
+  [
+   "surfside/fb_c106.jpg",
+   1
+  ],
+  [
+   "surfside/tf_p050_3d.jpg",
+   1
+  ],
+  [
+   "surfside/tf_p058_3d.jpg",
+   1
+  ],
+  [
+   "surfside/fb_c223.jpg",
+   1
+  ],
+  [
+   "surfside/tf_p016_q.jpg",
+   1
+  ],
+  [
+   "surfside/tf_p016_map.jpg",
+   1
+  ],
+  [
+   "surfside/tf_p016_legend.jpg",
+   1
+  ],
+  [
+   "surfside/fb_c434.jpg",
+   1
+  ],
+  [
+   "surfside/tf_p084_salt.jpg",
+   1
+  ],
+  [
+   "surfside/fb_c628.jpg",
+   1
+  ],
+  [
+   "surfside/ss_b2_87park.jpg",
+   1
+  ]
+ ],
+ "footage_moving": [
+  "pr03",
+  "c119",
+  "c128",
+  "c204",
+  "c217",
+  "c315",
+  "c321",
+  "c322",
+  "c324",
+  "c325",
+  "c326",
+  "c327",
+  "c328",
+  "c329",
+  "c331",
+  "c332",
+  "c333",
+  "c334",
+  "c419",
+  "c430",
+  "c431",
+  "c505",
+  "c513",
+  "c519",
+  "c520",
+  "c521",
+  "c607",
+  "c703",
+  "c709",
+  "c726"
+ ],
+ "footage_still": [
+  "pr01",
+  "pr02",
+  "c106",
+  "c223",
+  "c434",
+  "c628"
+ ],
+ "text_A": 53,
+ "text_A_ratio": 0.2208,
+ "text_B": 85,
+ "text_B_ratio": 0.3542,
+ "text_A_secs": 474.4,
+ "text_B_secs": 766.0,
+ "runs_A": [
+  [
+   "c401",
+   "c402",
+   "c403",
+   "c404"
+  ],
+  [
+   "ep01",
+   "ep02",
+   "ep03",
+   "ep04",
+   "ep05",
+   "ep06",
+   "ep07",
+   "ep08",
+   "ep09"
+  ]
+ ],
+ "runs_B": [
+  [
+   "c129",
+   "c130",
+   "c131"
+  ],
+  [
+   "c312",
+   "c313",
+   "c314"
+  ],
+  [
+   "c401",
+   "c402",
+   "c403",
+   "c404"
+  ],
+  [
+   "c721",
+   "c722",
+   "c723",
+   "c724",
+   "c725"
+  ],
+  [
+   "ep01",
+   "ep02",
+   "ep03",
+   "ep04",
+   "ep05",
+   "ep06",
+   "ep07",
+   "ep08",
+   "ep09"
+  ]
+ ],
+ "text_A_cuts": [
+  "c112",
+  "c118",
+  "c124",
+  "c126",
+  "c130",
+  "c131",
+  "c206",
+  "c210",
+  "c214",
+  "c222",
+  "c225",
+  "c303",
+  "c314",
+  "c318",
+  "c320",
+  "c401",
+  "c402",
+  "c403",
+  "c404",
+  "c411",
+  "c412",
+  "c414",
+  "c417",
+  "c422",
+  "c426",
+  "c432",
+  "c433",
+  "c501",
+  "c502",
+  "c504",
+  "c507",
+  "c515",
+  "c527",
+  "c603",
+  "c608",
+  "c614",
+  "c619",
+  "c704",
+  "c710",
+  "c717",
+  "c722",
+  "c725",
+  "ep01",
+  "ep02",
+  "ep03",
+  "ep04",
+  "ep05",
+  "ep06",
+  "ep07",
+  "ep08",
+  "ep09",
+  "ep11",
+  "ep14"
+ ],
+ "text_B_cuts": [
+  "pr08",
+  "c112",
+  "c118",
+  "c124",
+  "c126",
+  "c129",
+  "c130",
+  "c131",
+  "c206",
+  "c210",
+  "c213",
+  "c214",
+  "c216",
+  "c222",
+  "c224",
+  "c225",
+  "c232",
+  "c303",
+  "c312",
+  "c313",
+  "c314",
+  "c318",
+  "c320",
+  "c323",
+  "c330",
+  "c335",
+  "c401",
+  "c402",
+  "c403",
+  "c404",
+  "c408",
+  "c411",
+  "c412",
+  "c414",
+  "c416",
+  "c417",
+  "c422",
+  "c426",
+  "c429",
+  "c432",
+  "c433",
+  "c501",
+  "c502",
+  "c504",
+  "c507",
+  "c508",
+  "c510",
+  "c514",
+  "c515",
+  "c524",
+  "c526",
+  "c527",
+  "c603",
+  "c606",
+  "c608",
+  "c612",
+  "c614",
+  "c615",
+  "c618",
+  "c619",
+  "c623",
+  "c626",
+  "c627",
+  "c702",
+  "c704",
+  "c710",
+  "c717",
+  "c721",
+  "c722",
+  "c723",
+  "c724",
+  "c725",
+  "ep01",
+  "ep02",
+  "ep03",
+  "ep04",
+  "ep05",
+  "ep06",
+  "ep07",
+  "ep08",
+  "ep09",
+  "ep11",
+  "ep12",
+  "ep14",
+  "ep15"
+ ],
+ "unsure_text_slides": [
+  "c711",
+  "c712",
+  "c713",
+  "c714",
+  "c715",
+  "c716",
+  "c718",
+  "c719"
+ ],
+ "units_narration": [
+  {
+   "cid": "c112",
+   "line": 1,
+   "text": "下にずれた量は、2分の1インチに満たないと書かれている。",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_line": false,
+   "metric_same_cut": true,
+   "metric_next_cut": true
+  },
+  {
+   "cid": "c122",
+   "line": 1,
+   "text": "ずれた量は、2分の1インチ足らずから、およそ1インチへ。",
+   "units": [
+    "インチ",
+    "インチ"
+   ],
+   "metric_same_line": false,
+   "metric_same_cut": true,
+   "metric_next_cut": true
+  },
+  {
+   "cid": "c126",
+   "line": 2,
+   "text": "修理のあと、約1インチ沈んだ",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_line": false,
+   "metric_same_cut": false,
+   "metric_next_cut": false
+  },
+  {
+   "cid": "c214",
+   "line": 2,
+   "text": "床に、4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_line": false,
+   "metric_same_cut": false,
+   "metric_next_cut": true
+  },
+  {
+   "cid": "c215",
+   "line": 1,
+   "text": "4インチは、およそ10センチである。",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_line": true,
+   "metric_same_cut": true,
+   "metric_next_cut": true
+  },
+  {
+   "cid": "c225",
+   "line": 1,
+   "text": "そして、割れの深さまで書いてある。4分の1インチ。",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_line": false,
+   "metric_same_cut": false,
+   "metric_next_cut": true
+  },
+  {
+   "cid": "c226",
+   "line": 1,
+   "text": "4分の1インチは、およそ6ミリである。",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_line": true,
+   "metric_same_cut": true,
+   "metric_next_cut": false
+  },
+  {
+   "cid": "c412",
+   "line": 2,
+   "text": "図面は¾インチ、実物は2インチ",
+   "units": [
+    "インチ",
+    "インチ"
+   ],
+   "metric_same_line": false,
+   "metric_same_cut": false,
+   "metric_next_cut": true
+  },
+  {
+   "cid": "c413",
+   "line": 1,
+   "text": "4分の3インチは、約1.9センチ。2インチは、約5.1センチ。",
+   "units": [
+    "インチ",
+    "インチ"
+   ],
+   "metric_same_line": true,
+   "metric_same_cut": true,
+   "metric_next_cut": false
+  },
+  {
+   "cid": "c526",
+   "line": 1,
+   "text": "錆に対しては、2インチのかぶりは、有利に働いていた。",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_line": false,
+   "metric_same_cut": false,
+   "metric_next_cut": false
+  },
+  {
+   "cid": "c707",
+   "line": 2,
+   "text": "NIST が測った最短の距離は、およそ9フィートだった。",
+   "units": [
+    "フィート"
+   ],
+   "metric_same_line": false,
+   "metric_same_cut": false,
+   "metric_next_cut": true
+  }
+ ],
+ "units_screen": [
+  {
+   "cid": "pr04",
+   "text": "2分の1インチに満たない",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c114",
+   "text": "2分の1インチ未満",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c122",
+   "text": "½インチ足らず",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c122",
+   "text": "約1インチ",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c126",
+   "text": "約1インチ沈んだ",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c201",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c202",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c203",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c204",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c205",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c206",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c207",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c208",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c209",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c210",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c211",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c212",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c213",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c214",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c214",
+   "text": "床に、4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c215",
+   "text": "4インチという長さ",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c215",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c215",
+   "text": "※ 隙間 4インチ＝メモの値（p57）。門の沈みは p50",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c215",
+   "text": "4インチ",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c215",
+   "text": "½インチ未満",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c216",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c217",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c218",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c219",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c220",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c221",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c222",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c223",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c224",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c225",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c226",
+   "text": "4分の1インチという深さ",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c226",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c226",
+   "text": "¼インチ",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c226",
+   "text": "4インチ",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c227",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c228",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c229",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c230",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c231",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c232",
+   "text": "4インチの隙間",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": true
+  },
+  {
+   "cid": "c412",
+   "text": "原文 ¾ in. cover as shown on",
+   "units": [
+    "in."
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c412",
+   "text": "design drawings ／ 2 in. cover",
+   "units": [
+    "in."
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c412",
+   "text": "図面は¾インチ、",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c412",
+   "text": "実物は2インチ",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c413",
+   "text": "¾インチ",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c413",
+   "text": "2インチ",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c416",
+   "text": "かぶり ¾インチ",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c416",
+   "text": "かぶり 2インチ",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c418",
+   "text": "※ 3.2cm＝2インチ − ¾インチ（p75）",
+   "units": [
+    "インチ",
+    "インチ"
+   ],
+   "metric_same_text": true,
+   "metric_same_cut": true,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c526",
+   "text": "同じ2インチが、逆に効く",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c526",
+   "text": "かぶり 2インチの二つの顔",
+   "units": [
+    "インチ"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c526",
+   "text": "同じ一つの数字（p75 の 2 in. cover as built）",
+   "units": [
+    "in."
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c706",
+   "text": "最短 約9フィート",
+   "units": [
+    "フィート"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c707",
+   "text": "最短で、およそ9フィート",
+   "units": [
+    "フィート"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c707",
+   "text": "※ 9フィート＝NIST の実測（p184）",
+   "units": [
+    "フィート"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c707",
+   "text": "ft",
+   "units": [
+    "ft"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": false,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c708",
+   "text": "9フィートをメートルに",
+   "units": [
+    "フィート"
+   ],
+   "metric_same_text": true,
+   "metric_same_cut": true,
+   "chapter_marker": false
+  },
+  {
+   "cid": "c708",
+   "text": "約9フィート",
+   "units": [
+    "フィート"
+   ],
+   "metric_same_text": false,
+   "metric_same_cut": true,
+   "chapter_marker": false
+  }
+ ],
+ "time_narration": {
+  "午前/午後N時N分": [
+   {
+    "cid": "pr01",
+    "match": "午前1時22分",
+    "text": "2021年6月24日、午前1時22分ごろ。"
+   }
+  ],
+  "午前/午後N時（分なし）": [],
+  "N時N分（午前午後なし）": [],
+  "H:MM / HH:MM（コロン）": [],
+  "4桁の時刻（0122 など）": []
+ },
+ "time_screen": {
+  "午前/午後N時N分": [
+   {
+    "cid": "pr01",
+    "match": "午前1時22分",
+    "text": "2021年6月24日、午前1時22分"
+   },
+   {
+    "cid": "pr03",
+    "match": "午前1時22分",
+    "text": "午前1時22分ごろ"
+   },
+   {
+    "cid": "c202",
+    "match": "午前1時22分",
+    "text": "6月24日（木）午前1時22分"
+   }
+  ],
+  "午前/午後N時（分なし）": [],
+  "N時N分（午前午後なし）": [],
+  "H:MM / HH:MM（コロン）": [
+   {
+    "cid": "pr01",
+    "match": "01:22",
+    "text": "01:22"
+   },
+   {
+    "cid": "pr05",
+    "match": "01:22",
+    "text": "01:22"
+   },
+   {
+    "cid": "pr07",
+    "match": "01:22",
+    "text": "01:22"
+   },
+   {
+    "cid": "c218",
+    "match": "01:22",
+    "text": "単位は時間。崩落（6月24日 01:22）を 0 とする"
+   },
+   {
+    "cid": "c227",
+    "match": "01:22",
+    "text": "単位は時間。崩落（6月24日 01:22）を 0 とする"
+   },
+   {
+    "cid": "c228",
+    "match": "01:22",
+    "text": "単位は分。崩落（01:22）を 0 とする"
+   },
+   {
+    "cid": "c228",
+    "match": "01:22",
+    "text": "01:22"
+   },
+   {
+    "cid": "ep13",
+    "match": "01:22",
+    "text": "01:22"
+   }
+  ],
+  "4桁の時刻（0122 など）": []
+ },
+ "death_narration": {
+  "死亡": 0,
+  "亡くな": 2,
+  "犠牲": 0,
+  "遺体": 0,
+  "死者": 0,
+  "死ん": 0,
+  "命を落と": 0,
+  "遺族": 0,
+  "亡骸": 0,
+  "即死": 0,
+  "絶命": 0,
+  "死去": 0,
+  "殺": 0
+ },
+ "death_screen": {
+  "死亡": 0,
+  "亡くな": 1,
+  "犠牲": 0,
+  "遺体": 0,
+  "死者": 0,
+  "死ん": 0,
+  "命を落と": 0,
+  "遺族": 0,
+  "亡骸": 0,
+  "即死": 0,
+  "絶命": 0,
+  "死去": 0,
+  "殺": 0
+ },
+ "death_narration_hits": {
+  "死亡": [],
+  "亡くな": [
+   {
+    "cid": "pr02",
+    "text": "数秒のうちに崩れ落ちた。98人が亡くなっている。"
+   },
+   {
+    "cid": "pr07",
+    "text": "生きて助け出されたのは4人と報じられ、うち1人は病院で亡くなっている。"
+   }
+  ],
+  "犠牲": [],
+  "遺体": [],
+  "死者": [],
+  "死ん": [],
+  "命を落と": [],
+  "遺族": [],
+  "亡骸": [],
+  "即死": [],
+  "絶命": [],
+  "死去": [],
+  "殺": []
+ },
+ "death_screen_hits": {
+  "死亡": [],
+  "亡くな": [
+   {
+    "cid": "pr02",
+    "text": "亡くなった人"
+   }
+  ],
+  "犠牲": [],
+  "遺体": [],
+  "死者": [],
+  "死ん": [],
+  "命を落と": [],
+  "遺族": [],
+  "亡骸": [],
+  "即死": [],
+  "絶命": [],
+  "死去": [],
+  "殺": []
+ },
+ "rumor_hits": {
+  "地盤": [
+   {
+    "cid": "c712",
+    "text": "建物を、上の骨組み、地下、基礎、そして地盤に分け、"
+   },
+   {
+    "cid": "c713",
+    "text": "計算には、この土地の地盤の性質が入っている。"
+   },
+   {
+    "cid": "c725",
+    "text": "地盤が沈んでいたという説も、この一覧に入っている。"
+   }
+  ],
+  "沈下": [
+   {
+    "cid": "c723",
+    "text": "隣の工事の振動。基礎の破壊、陥没、そして不同沈下。"
+   }
+  ],
+  "陥没": [
+   {
+    "cid": "c723",
+    "text": "隣の工事の振動。基礎の破壊、陥没、そして不同沈下。"
+   },
+   {
+    "cid": "c725",
+    "text": "陥没も、場所ごとに沈み方が違うことも、大きくは効いていない。"
+   }
+  ],
+  "シンクホール": [],
+  "87": [],
+  "パーク": [
+   {
+    "cid": "c706",
+    "text": "エイティセブン・パークという建物である。"
+   }
+  ],
+  "工事": [
+   {
+    "cid": "c705",
+    "text": "なかでもいちばん強く言われたのが、隣の工事である。"
+   },
+   {
+    "cid": "c706",
+    "text": "地面を掘り、鋼の板を打ち込む工事が行われていた。"
+   },
+   {
+    "cid": "c709",
+    "text": "住民は、その工事のあいだ、揺れを感じたと話している。"
+   },
+   {
+    "cid": "c710",
+    "text": "隣の工事の振動が、この建物を傷めたのではないか、と。"
+   },
+   {
+    "cid": "c723",
+    "text": "隣の工事の振動。基礎の破壊、陥没、そして不同沈下。"
+   },
+   {
+    "cid": "c724",
+    "text": "そして、崩落の当時に進んでいた、屋上の改修と、アンカーの工事。"
+   }
+  ],
+  "振動": [
+   {
+    "cid": "c709",
+    "text": "建物が振動していた、という証言が残っている。"
+   },
+   {
+    "cid": "c710",
+    "text": "隣の工事の振動が、この建物を傷めたのではないか、と。"
+   },
+   {
+    "cid": "c712",
+    "text": "振動がどこをどう伝わっていくかを追いかけた。"
+   },
+   {
+    "cid": "c713",
+    "text": "振動は、地面の性質しだいで、伝わり方がまるで変わるからである。"
+   },
+   {
+    "cid": "c714",
+    "text": "ひとつめは、振動がどう減っていったか、である。"
+   },
+   {
+    "cid": "c715",
+    "text": "この2つが、伝わってくる振動を大きく減らしていた。"
+   },
+   {
+    "cid": "c716",
+    "text": "ふたつめ。実際に届いた振動の大きさを、計算している。"
+   },
+   {
+    "cid": "c720",
+    "text": "人が感じ取れる振動の大きさは、建物を壊す振動の大きさより、"
+   },
+   {
+    "cid": "c720",
+    "text": "人が感じ取れる振動の大きさは、建物を壊す振動の大きさより、"
+   },
+   {
+    "cid": "c723",
+    "text": "隣の工事の振動。基礎の破壊、陥没、そして不同沈下。"
+   }
+  ],
+  "塩": [
+   {
+    "cid": "c522",
+    "text": "標本を塩水に浸し、電極をあてて、電気を流す。"
+   },
+   {
+    "cid": "c523",
+    "text": "塩は、波でも、風でも、霧でも運ばれてくる。"
+   },
+   {
+    "cid": "c524",
+    "text": "塩は、コンクリートのなかを、何年もかけて進んでいく。"
+   },
+   {
+    "cid": "c525",
+    "text": "かぶりが厚ければ、塩が鉄筋に届くまでの時間は長くなる。"
+   },
+   {
+    "cid": "c527",
+    "text": "重さが足され、塩が入り、時間が進み、"
+   }
+  ],
+  "海水": [],
+  "海面": [],
+  "ハリケーン": [
+   {
+    "cid": "c724",
+    "text": "ハリケーンと高潮。突発的にかかる、衝撃荷重。"
+   }
+  ],
+  "高潮": [
+   {
+    "cid": "c724",
+    "text": "ハリケーンと高潮。突発的にかかる、衝撃荷重。"
+   }
+  ],
+  "屋根": [
+   {
+    "cid": "c106",
+    "text": "土地の狭い海沿いでは、駐車場の屋根を庭として使うのは、"
+   }
+  ],
+  "噂": [
+   {
+    "cid": "c704",
+    "text": "確かめられてはいない、あくまで噂の段階の話である。"
+   }
+  ],
+  "言われ": [
+   {
+    "cid": "c705",
+    "text": "なかでもいちばん強く言われたのが、隣の工事である。"
+   },
+   {
+    "cid": "c710",
+    "text": "だから、こう言われてきた。"
+   }
+  ],
+  "報じ": [
+   {
+    "cid": "pr07",
+    "text": "生きて助け出されたのは4人と報じられ、うち1人は病院で亡くなっている。"
+   }
+  ],
+  "うわさ": [],
+  "通説": [],
+  "雷": [],
+  "テロ": [],
+  "爆": [
+   {
+    "cid": "pr07",
+    "text": "崩れずに残った西側は、その年の7月4日に、爆破で解体されている。"
+   }
+  ]
+ },
+ "katakana_names": [
+  [
+   "パンチング・シア",
+   2
+  ],
+  [
+   "エイティセブン・パーク",
+   1
+  ]
+ ],
+ "latin_names": [
+  [
+   "Champlain Towers South",
+   2
+  ],
+  [
+   "Pool Deck",
+   2
+  ],
+  [
+   "Grid Point",
+   2
+  ],
+  [
+   "Morning June",
+   2
+  ],
+  [
+   "Collins Avenue",
+   1
+  ],
+  [
+   "Technical Findings",
+   1
+  ],
+  [
+   "Hot Tub",
+   1
+  ],
+  [
+   "Pool Deck Drains",
+   1
+  ],
+  [
+   "Planter Drains",
+   1
+  ],
+  [
+   "Punching Shear",
+   1
+  ],
+  [
+   "Pool-Deck",
+   1
+  ],
+  [
+   "Tower Interface",
+   1
+  ],
+  [
+   "Concrete Wall",
+   1
+  ],
+  [
+   "West Part",
+   1
+  ],
+  [
+   "Middle Part",
+   1
+  ],
+  [
+   "East Part",
+   1
+  ],
+  [
+   "Soil-Structure Interaction",
+   1
+  ],
+  [
+   "Closing Remarks",
+   1
+  ]
+ ],
+ "no_source_cuts": [
+  "c118",
+  "c124",
+  "c130",
+  "c210",
+  "c216",
+  "c303",
+  "c312",
+  "c313",
+  "c314",
+  "c320",
+  "c323",
+  "c330",
+  "c335",
+  "c408",
+  "c411",
+  "c414",
+  "c415",
+  "c417",
+  "c418",
+  "c422",
+  "c427",
+  "c506",
+  "c508",
+  "c509",
+  "c510",
+  "c514",
+  "c517",
+  "c523",
+  "c524",
+  "c526",
+  "c603",
+  "c606",
+  "c612",
+  "c615",
+  "c616",
+  "c619",
+  "c623",
+  "c627",
+  "c704",
+  "c710",
+  "c721",
+  "ep08",
+  "ep12",
+  "ep14"
+ ],
+ "has_ed01": false,
+ "last_cut": "ep16",
+ "last_lines": [
+  "分かったのは、なぜ崩れたのか、である。",
+  "分かっていないのは、なぜ、誰にも読めなかったのか、である。"
+ ],
+ "question_lines": [],
+ "start": {
+  "pr01": 0.0,
+  "pr02": 14.58,
+  "pr03": 24.95,
+  "pr04": 32.42,
+  "pr05": 44.3,
+  "pr07": 53.12,
+  "pr08": 69.86,
+  "pr10": 91.03,
+  "c101": 102.18,
+  "c102": 115.03,
+  "c103": 128.5,
+  "c104": 137.38,
+  "c105": 145.41,
+  "c106": 156.34,
+  "c107": 166.68,
+  "c108": 177.21,
+  "c109": 185.18,
+  "c110": 195.26,
+  "c111": 205.61,
+  "c112": 214.93,
+  "c113": 229.38,
+  "c114": 239.43,
+  "c115": 248.52,
+  "c116": 256.54,
+  "c117": 268.3,
+  "c118": 277.79,
+  "c119": 285.52,
+  "c120": 293.57,
+  "c121": 302.26,
+  "c122": 310.47,
+  "c123": 320.12,
+  "c124": 328.49,
+  "c125": 335.18,
+  "c126": 343.95,
+  "c127": 354.4,
+  "c128": 363.96,
+  "c129": 370.45,
+  "c130": 378.62,
+  "c131": 387.61,
+  "c201": 395.66,
+  "c202": 403.01,
+  "c203": 415.3,
+  "c204": 422.52,
+  "c205": 430.09,
+  "c206": 440.22,
+  "c207": 448.83,
+  "c208": 458.19,
+  "c209": 467.76,
+  "c210": 475.35,
+  "c211": 482.43,
+  "c212": 489.41,
+  "c213": 495.03,
+  "c214": 502.28,
+  "c215": 512.06,
+  "c216": 519.49,
+  "c217": 526.9,
+  "c218": 534.47,
+  "c219": 542.65,
+  "c220": 551.5,
+  "c221": 559.15,
+  "c222": 566.48,
+  "c223": 574.85,
+  "c224": 583.94,
+  "c225": 589.51,
+  "c226": 599.64,
+  "c227": 608.96,
+  "c228": 618.27,
+  "c229": 631.66,
+  "c230": 639.87,
+  "c231": 648.16,
+  "c232": 655.93,
+  "c301": 664.14,
+  "c302": 670.67,
+  "c303": 679.12,
+  "c304": 687.01,
+  "c305": 694.66,
+  "c306": 703.43,
+  "c307": 710.97,
+  "c308": 719.26,
+  "c309": 728.64,
+  "c310": 736.84,
+  "c311": 745.26,
+  "c312": 752.59,
+  "c313": 759.28,
+  "c314": 767.46,
+  "c315": 775.86,
+  "c316": 785.99,
+  "c317": 793.24,
+  "c318": 800.25,
+  "c319": 810.8,
+  "c320": 819.86,
+  "c321": 828.79,
+  "c322": 837.66,
+  "c323": 847.6,
+  "c324": 856.13,
+  "c325": 865.01,
+  "c326": 872.82,
+  "c327": 882.98,
+  "c328": 890.43,
+  "c329": 897.85,
+  "c330": 906.9,
+  "c331": 915.09,
+  "c332": 921.54,
+  "c333": 929.68,
+  "c334": 935.06,
+  "c335": 943.19,
+  "c336": 952.68,
+  "c401": 960.71,
+  "c402": 970.04,
+  "c403": 978.25,
+  "c404": 987.14,
+  "c405": 995.16,
+  "c406": 1003.91,
+  "c407": 1013.55,
+  "c408": 1020.72,
+  "c409": 1028.93,
+  "c410": 1037.04,
+  "c411": 1048.08,
+  "c412": 1057.2,
+  "c413": 1069.41,
+  "c414": 1081.89,
+  "c415": 1089.82,
+  "c416": 1098.73,
+  "c417": 1109.5,
+  "c418": 1120.88,
+  "c419": 1127.65,
+  "c420": 1135.94,
+  "c421": 1142.7,
+  "c422": 1151.99,
+  "c423": 1161.72,
+  "c424": 1167.89,
+  "c425": 1178.42,
+  "c426": 1185.91,
+  "c427": 1194.66,
+  "c428": 1203.35,
+  "c429": 1211.23,
+  "c430": 1222.88,
+  "c431": 1230.53,
+  "c432": 1240.96,
+  "c433": 1251.17,
+  "c434": 1260.3,
+  "c501": 1268.94,
+  "c502": 1278.48,
+  "c503": 1285.02,
+  "c504": 1294.27,
+  "c505": 1303.84,
+  "c506": 1312.31,
+  "c507": 1321.56,
+  "c508": 1328.77,
+  "c509": 1339.14,
+  "c510": 1347.52,
+  "c511": 1356.02,
+  "c512": 1363.42,
+  "c513": 1371.79,
+  "c514": 1379.97,
+  "c515": 1389.38,
+  "c516": 1398.71,
+  "c517": 1408.39,
+  "c518": 1417.63,
+  "c519": 1426.14,
+  "c520": 1433.78,
+  "c521": 1441.99,
+  "c522": 1450.97,
+  "c523": 1458.82,
+  "c524": 1467.71,
+  "c525": 1476.48,
+  "c526": 1485.65,
+  "c527": 1496.41,
+  "c528": 1505.14,
+  "c601": 1513.59,
+  "c602": 1522.6,
+  "c603": 1529.67,
+  "c604": 1536.76,
+  "c605": 1544.33,
+  "c606": 1553.82,
+  "c607": 1562.31,
+  "c608": 1571.16,
+  "c609": 1580.95,
+  "c610": 1589.37,
+  "c611": 1597.66,
+  "c612": 1604.83,
+  "c613": 1610.88,
+  "c614": 1618.85,
+  "c615": 1628.1,
+  "c616": 1634.71,
+  "c617": 1643.65,
+  "c618": 1652.02,
+  "c619": 1660.59,
+  "c620": 1668.07,
+  "c621": 1676.88,
+  "c622": 1684.85,
+  "c623": 1692.77,
+  "c624": 1701.86,
+  "c625": 1713.43,
+  "c626": 1720.45,
+  "c627": 1731.68,
+  "c628": 1738.93,
+  "c629": 1749.11,
+  "c701": 1758.02,
+  "c702": 1766.55,
+  "c703": 1774.09,
+  "c704": 1780.54,
+  "c705": 1791.39,
+  "c706": 1801.2,
+  "c707": 1809.16,
+  "c708": 1818.78,
+  "c709": 1825.15,
+  "c710": 1834.4,
+  "c711": 1842.45,
+  "c712": 1850.58,
+  "c713": 1860.79,
+  "c714": 1870.12,
+  "c715": 1876.83,
+  "c716": 1886.4,
+  "c717": 1896.21,
+  "c718": 1905.06,
+  "c719": 1910.69,
+  "c720": 1918.74,
+  "c721": 1927.65,
+  "c722": 1938.18,
+  "c723": 1947.28,
+  "c724": 1957.97,
+  "c725": 1968.72,
+  "c726": 1978.52,
+  "ep01": 1987.29,
+  "ep02": 1995.02,
+  "ep03": 2004.99,
+  "ep04": 2013.04,
+  "ep05": 2022.52,
+  "ep06": 2028.97,
+  "ep07": 2036.66,
+  "ep08": 2044.03,
+  "ep09": 2054.2,
+  "ep10": 2061.02,
+  "ep11": 2068.47,
+  "ep12": 2078.74,
+  "ep13": 2087.37,
+  "ep14": 2100.7,
+  "ep15": 2110.91,
+  "ep16": 2119.76
+ },
+ "length": {
+  "pr01": 14.58,
+  "pr02": 10.37,
+  "pr03": 7.47,
+  "pr04": 11.88,
+  "pr05": 8.82,
+  "pr07": 16.74,
+  "pr08": 21.17,
+  "pr10": 11.15,
+  "c101": 12.85,
+  "c102": 13.47,
+  "c103": 8.88,
+  "c104": 8.03,
+  "c105": 10.93,
+  "c106": 10.34,
+  "c107": 10.53,
+  "c108": 7.97,
+  "c109": 10.08,
+  "c110": 10.35,
+  "c111": 9.32,
+  "c112": 14.45,
+  "c113": 10.05,
+  "c114": 9.09,
+  "c115": 8.02,
+  "c116": 11.76,
+  "c117": 9.49,
+  "c118": 7.73,
+  "c119": 8.05,
+  "c120": 8.69,
+  "c121": 8.21,
+  "c122": 9.65,
+  "c123": 8.37,
+  "c124": 6.69,
+  "c125": 8.77,
+  "c126": 10.45,
+  "c127": 9.56,
+  "c128": 6.49,
+  "c129": 8.17,
+  "c130": 8.99,
+  "c131": 8.05,
+  "c201": 7.35,
+  "c202": 12.29,
+  "c203": 7.22,
+  "c204": 7.57,
+  "c205": 10.13,
+  "c206": 8.61,
+  "c207": 9.36,
+  "c208": 9.57,
+  "c209": 7.59,
+  "c210": 7.08,
+  "c211": 6.98,
+  "c212": 5.62,
+  "c213": 7.25,
+  "c214": 9.78,
+  "c215": 7.43,
+  "c216": 7.41,
+  "c217": 7.57,
+  "c218": 8.18,
+  "c219": 8.85,
+  "c220": 7.65,
+  "c221": 7.33,
+  "c222": 8.37,
+  "c223": 9.09,
+  "c224": 5.57,
+  "c225": 10.13,
+  "c226": 9.32,
+  "c227": 9.31,
+  "c228": 13.39,
+  "c229": 8.21,
+  "c230": 8.29,
+  "c231": 7.77,
+  "c232": 8.21,
+  "c301": 6.53,
+  "c302": 8.45,
+  "c303": 7.89,
+  "c304": 7.65,
+  "c305": 8.77,
+  "c306": 7.54,
+  "c307": 8.29,
+  "c308": 9.38,
+  "c309": 8.2,
+  "c310": 8.42,
+  "c311": 7.33,
+  "c312": 6.69,
+  "c313": 8.18,
+  "c314": 8.4,
+  "c315": 10.13,
+  "c316": 7.25,
+  "c317": 7.01,
+  "c318": 10.55,
+  "c319": 9.06,
+  "c320": 8.93,
+  "c321": 8.87,
+  "c322": 9.94,
+  "c323": 8.53,
+  "c324": 8.88,
+  "c325": 7.81,
+  "c326": 10.16,
+  "c327": 7.45,
+  "c328": 7.42,
+  "c329": 9.05,
+  "c330": 8.19,
+  "c331": 6.45,
+  "c332": 8.14,
+  "c333": 5.38,
+  "c334": 8.13,
+  "c335": 9.49,
+  "c336": 8.03,
+  "c401": 9.33,
+  "c402": 8.21,
+  "c403": 8.89,
+  "c404": 8.02,
+  "c405": 8.75,
+  "c406": 9.64,
+  "c407": 7.17,
+  "c408": 8.21,
+  "c409": 8.11,
+  "c410": 11.04,
+  "c411": 9.12,
+  "c412": 12.21,
+  "c413": 12.48,
+  "c414": 7.93,
+  "c415": 8.91,
+  "c416": 10.77,
+  "c417": 11.38,
+  "c418": 6.77,
+  "c419": 8.29,
+  "c420": 6.76,
+  "c421": 9.29,
+  "c422": 9.73,
+  "c423": 6.17,
+  "c424": 10.53,
+  "c425": 7.49,
+  "c426": 8.75,
+  "c427": 8.69,
+  "c428": 7.88,
+  "c429": 11.65,
+  "c430": 7.65,
+  "c431": 10.43,
+  "c432": 10.21,
+  "c433": 9.13,
+  "c434": 8.64,
+  "c501": 9.54,
+  "c502": 6.54,
+  "c503": 9.25,
+  "c504": 9.57,
+  "c505": 8.47,
+  "c506": 9.25,
+  "c507": 7.21,
+  "c508": 10.37,
+  "c509": 8.38,
+  "c510": 8.5,
+  "c511": 7.4,
+  "c512": 8.37,
+  "c513": 8.18,
+  "c514": 9.41,
+  "c515": 9.33,
+  "c516": 9.68,
+  "c517": 9.24,
+  "c518": 8.51,
+  "c519": 7.64,
+  "c520": 8.21,
+  "c521": 8.98,
+  "c522": 7.85,
+  "c523": 8.89,
+  "c524": 8.77,
+  "c525": 9.17,
+  "c526": 10.76,
+  "c527": 8.73,
+  "c528": 8.45,
+  "c601": 9.01,
+  "c602": 7.07,
+  "c603": 7.09,
+  "c604": 7.57,
+  "c605": 9.49,
+  "c606": 8.49,
+  "c607": 8.85,
+  "c608": 9.79,
+  "c609": 8.42,
+  "c610": 8.29,
+  "c611": 7.17,
+  "c612": 6.05,
+  "c613": 7.97,
+  "c614": 9.25,
+  "c615": 6.61,
+  "c616": 8.94,
+  "c617": 8.37,
+  "c618": 8.57,
+  "c619": 7.48,
+  "c620": 8.81,
+  "c621": 7.97,
+  "c622": 7.92,
+  "c623": 9.09,
+  "c624": 11.57,
+  "c625": 7.02,
+  "c626": 11.23,
+  "c627": 7.25,
+  "c628": 10.18,
+  "c629": 8.91,
+  "c701": 8.53,
+  "c702": 7.54,
+  "c703": 6.45,
+  "c704": 10.85,
+  "c705": 9.81,
+  "c706": 7.96,
+  "c707": 9.62,
+  "c708": 6.37,
+  "c709": 9.25,
+  "c710": 8.05,
+  "c711": 8.13,
+  "c712": 10.21,
+  "c713": 9.33,
+  "c714": 6.71,
+  "c715": 9.57,
+  "c716": 9.81,
+  "c717": 8.85,
+  "c718": 5.63,
+  "c719": 8.05,
+  "c720": 8.91,
+  "c721": 10.53,
+  "c722": 9.1,
+  "c723": 10.69,
+  "c724": 10.75,
+  "c725": 9.8,
+  "c726": 8.77,
+  "ep01": 7.73,
+  "ep02": 9.97,
+  "ep03": 8.05,
+  "ep04": 9.48,
+  "ep05": 6.45,
+  "ep06": 7.69,
+  "ep07": 7.37,
+  "ep08": 10.17,
+  "ep09": 6.82,
+  "ep10": 7.45,
+  "ep11": 10.27,
+  "ep12": 8.63,
+  "ep13": 13.33,
+  "ep14": 10.21,
+  "ep15": 8.85,
+  "ep16": 7.55
+ },
+ "photo_by_file": {
+  "surfside/fb_c106.jpg": [
+   "c106"
+  ],
+  "surfside/fb_c119.jpg": [
+   "c119"
+  ],
+  "surfside/fb_c128.jpg": [
+   "c128"
+  ],
+  "surfside/fb_c204.jpg": [
+   "c204"
+  ],
+  "surfside/fb_c217.jpg": [
+   "c217"
+  ],
+  "surfside/fb_c223.jpg": [
+   "c223"
+  ],
+  "surfside/fb_c315.jpg": [
+   "c315"
+  ],
+  "surfside/fb_c321.jpg": [
+   "c321"
+  ],
+  "surfside/fb_c322.jpg": [
+   "c322"
+  ],
+  "surfside/fb_c324.jpg": [
+   "c324"
+  ],
+  "surfside/fb_c325.jpg": [
+   "c325"
+  ],
+  "surfside/fb_c326.jpg": [
+   "c326"
+  ],
+  "surfside/fb_c327.jpg": [
+   "c327"
+  ],
+  "surfside/fb_c328.jpg": [
+   "c328"
+  ],
+  "surfside/fb_c329.jpg": [
+   "c329"
+  ],
+  "surfside/fb_c331.jpg": [
+   "c331"
+  ],
+  "surfside/fb_c332.jpg": [
+   "c332"
+  ],
+  "surfside/fb_c333.jpg": [
+   "c333"
+  ],
+  "surfside/fb_c334.jpg": [
+   "c334"
+  ],
+  "surfside/fb_c419.jpg": [
+   "c419"
+  ],
+  "surfside/fb_c430.jpg": [
+   "c430"
+  ],
+  "surfside/fb_c431.jpg": [
+   "c431"
+  ],
+  "surfside/fb_c434.jpg": [
+   "c434"
+  ],
+  "surfside/fb_c505.jpg": [
+   "c505"
+  ],
+  "surfside/fb_c513.jpg": [
+   "c513"
+  ],
+  "surfside/fb_c519.jpg": [
+   "c519"
+  ],
+  "surfside/fb_c520.jpg": [
+   "c520"
+  ],
+  "surfside/fb_c521.jpg": [
+   "c521"
+  ],
+  "surfside/fb_c607.jpg": [
+   "c607"
+  ],
+  "surfside/fb_c628.jpg": [
+   "c628"
+  ],
+  "surfside/fb_c703.jpg": [
+   "c703"
+  ],
+  "surfside/fb_c709.jpg": [
+   "c709"
+  ],
+  "surfside/fb_c726.jpg": [
+   "c726"
+  ],
+  "surfside/fb_pr01.jpg": [
+   "pr01"
+  ],
+  "surfside/fb_pr02.jpg": [
+   "pr02"
+  ],
+  "surfside/fb_pr03.jpg": [
+   "pr03"
+  ],
+  "surfside/ss_b1_sign.jpg": [
+   "pr10",
+   "ep16"
+  ],
+  "surfside/ss_b2_87park.jpg": [
+   "c705"
+  ],
+  "surfside/tf_p003_model.jpg": [
+   "c101",
+   "c102",
+   "c103",
+   "c104",
+   "c602"
+  ],
+  "surfside/tf_p016_legend.jpg": [
+   "c406"
+  ],
+  "surfside/tf_p016_map.jpg": [
+   "c405"
+  ],
+  "surfside/tf_p016_q.jpg": [
+   "c404"
+  ],
+  "surfside/tf_p029_model.jpg": [
+   "c107",
+   "c503",
+   "c604",
+   "c625"
+  ],
+  "surfside/tf_p036_punch.jpg": [
+   "c301",
+   "c302",
+   "c316",
+   "c336"
+  ],
+  "surfside/tf_p048_deck.jpg": [
+   "c116",
+   "c317"
+  ],
+  "surfside/tf_p050_3d.jpg": [
+   "c109"
+  ],
+  "surfside/tf_p050_gate.jpg": [
+   "pr04",
+   "c110",
+   "c113"
+  ],
+  "surfside/tf_p052_gate.jpg": [
+   "c121",
+   "c123",
+   "c125"
+  ],
+  "surfside/tf_p057_3d.jpg": [
+   "c202",
+   "c203"
+  ],
+  "surfside/tf_p057_memo.jpg": [
+   "c205",
+   "c207",
+   "c211",
+   "c212"
+  ],
+  "surfside/tf_p058_3d.jpg": [
+   "c219"
+  ],
+  "surfside/tf_p058_note.jpg": [
+   "c220",
+   "c221"
+  ],
+  "surfside/tf_p062_summary.jpg": [
+   "c115",
+   "c117",
+   "c127"
+  ],
+  "surfside/tf_p065_garage.jpg": [
+   "c229",
+   "c528"
+  ],
+  "surfside/tf_p067_deflect.jpg": [
+   "c230",
+   "c231"
+  ],
+  "surfside/tf_p075_cover.jpg": [
+   "c409",
+   "c410"
+  ],
+  "surfside/tf_p076_bars.jpg": [
+   "c420",
+   "c421",
+   "c423",
+   "c424",
+   "c428"
+  ],
+  "surfside/tf_p084_salt.jpg": [
+   "c522"
+  ],
+  "surfside/tf_p086_causes.jpg": [
+   "c401",
+   "c402",
+   "c432",
+   "c433",
+   "c501",
+   "c502",
+   "c507",
+   "c527"
+  ],
+  "surfside/tf_p133_plan.jpg": [
+   "c620",
+   "c621",
+   "c622",
+   "c624",
+   "c629"
+  ],
+  "surfside/tf_p139_bars.jpg": [
+   "c609",
+   "c610",
+   "c611",
+   "c613",
+   "c617"
+  ],
+  "surfside/tf_p174_corr.jpg": [
+   "c511",
+   "c512",
+   "c518"
+  ],
+  "surfside/tf_p185_87park.jpg": [
+   "c711",
+   "c712",
+   "c713",
+   "c714",
+   "c715",
+   "c716",
+   "c718",
+   "c719"
+  ],
+  "surfside/tf_p191_closing.jpg": [
+   "ep01",
+   "ep02",
+   "ep03",
+   "ep04",
+   "ep05",
+   "ep07",
+   "ep09"
+  ]
+ },
+ "footage_use": {
+  "pr01": {
+   "clip": "ss_b1",
+   "start": 12.5,
+   "still": true,
+   "until": 14.0
+  },
+  "pr02": {
+   "clip": "ss_b1",
+   "start": 53.8,
+   "still": true
+  },
+  "pr03": {
+   "clip": "ss_b1",
+   "start": 15.0,
+   "rate": 0.5,
+   "until": 18.8
+  },
+  "c106": {
+   "clip": "ss_b2",
+   "start": 8.0,
+   "still": true
+  },
+  "c119": {
+   "clip": "ss_b2",
+   "start": 99.0,
+   "until": 108.0
+  },
+  "c128": {
+   "clip": "ss_b1",
+   "start": 115.0,
+   "rate": 0.53,
+   "until": 118.5
+  },
+  "c204": {
+   "clip": "ss_b2",
+   "start": 95.8,
+   "rate": 0.4,
+   "until": 98.8
+  },
+  "c217": {
+   "clip": "ss_b1",
+   "start": 74.0,
+   "rate": 0.5,
+   "until": 77.8
+  },
+  "c223": {
+   "clip": "ss_b1",
+   "start": 102.5,
+   "still": true
+  },
+  "c315": {
+   "clip": "ss_gif",
+   "start": 0.0,
+   "rate": 0.65,
+   "zoom": 1.4,
+   "xbias": 0.5,
+   "bias": 1.0,
+   "until": 6.7
+  },
+  "c321": {
+   "clip": "ss_b8",
+   "start": 10.0,
+   "rate": 0.6,
+   "until": 16.75
+  },
+  "c322": {
+   "clip": "ss_b8",
+   "start": 139.0,
+   "rate": 0.9,
+   "until": 148.25
+  },
+  "c324": {
+   "clip": "ss_b8",
+   "start": 188.0,
+   "until": 198.0
+  },
+  "c325": {
+   "clip": "ss_b6",
+   "start": 47.0,
+   "rate": 0.6,
+   "until": 51.75
+  },
+  "c326": {
+   "clip": "ss_b7",
+   "start": 24.0,
+   "until": 34.75,
+   "rate": 0.98
+  },
+  "c327": {
+   "clip": "ss_b8",
+   "start": 80.0,
+   "until": 88.0,
+   "rate": 1.0
+  },
+  "c328": {
+   "clip": "ss_b8",
+   "start": 64.0,
+   "rate": 0.8,
+   "until": 70.0
+  },
+  "c329": {
+   "clip": "ss_b8",
+   "start": 193.5,
+   "zoom": 1.35,
+   "xbias": 0.5,
+   "bias": 0.55,
+   "until": 202.5,
+   "rate": 0.98
+  },
+  "c331": {
+   "clip": "ss_b8",
+   "start": 121.0,
+   "until": 127.75,
+   "rate": 0.92
+  },
+  "c332": {
+   "clip": "ss_tl",
+   "start": 0.0,
+   "rate": 0.25,
+   "zoom": 1.25,
+   "xbias": 0.5,
+   "bias": 0.0,
+   "until": 6.8
+  },
+  "c333": {
+   "clip": "ss_tl",
+   "start": 2.2,
+   "rate": 0.25,
+   "zoom": 2.0,
+   "xbias": 0.45,
+   "bias": 0.2,
+   "until": 6.8
+  },
+  "c334": {
+   "clip": "ss_tl",
+   "start": 4.7,
+   "rate": 0.25,
+   "zoom": 1.5,
+   "xbias": 0.4,
+   "bias": 0.0,
+   "until": 6.8
+  },
+  "c419": {
+   "clip": "ss_b3",
+   "start": 40.0,
+   "rate": 0.6,
+   "until": 46.0
+  },
+  "c430": {
+   "clip": "ss_b5",
+   "start": 102.0,
+   "until": 109.0,
+   "rate": 0.55
+  },
+  "c431": {
+   "clip": "ss_b4",
+   "start": 108.0,
+   "until": 118.0,
+   "rate": 0.95
+  },
+  "c434": {
+   "clip": "ss_b2",
+   "start": 8.0,
+   "still": true
+  },
+  "c505": {
+   "clip": "ss_b2",
+   "start": 46.0,
+   "rate": 0.41,
+   "until": 49.5
+  },
+  "c513": {
+   "clip": "ss_b7",
+   "start": 42.0,
+   "rate": 0.5,
+   "until": 46.25
+  },
+  "c519": {
+   "clip": "ss_b5",
+   "start": 39.0,
+   "until": 46.5,
+   "rate": 0.98
+  },
+  "c520": {
+   "clip": "ss_b6",
+   "start": 116.0,
+   "until": 125.0,
+   "rate": 0.97
+  },
+  "c521": {
+   "clip": "ss_b5",
+   "start": 11.0,
+   "rate": 0.58,
+   "until": 16.3
+  },
+  "c607": {
+   "clip": "ss_b8",
+   "start": 32.0,
+   "rate": 0.64,
+   "until": 37.75
+  },
+  "c628": {
+   "clip": "ss_b1",
+   "start": 159.3,
+   "still": true,
+   "until": 160.0
+  },
+  "c703": {
+   "clip": "ss_b1",
+   "start": 198.0,
+   "until": 203.5,
+   "rate": 0.85
+  },
+  "c709": {
+   "clip": "ss_b1",
+   "start": 138.0,
+   "rate": 0.42,
+   "until": 143.0
+  },
+  "c726": {
+   "clip": "ss_b2",
+   "start": 110.0,
+   "rate": 0.37,
+   "until": 113.25
+  }
+ },
+ "footage_clips": {
+  "ss_b1": {
+   "entry": "1_ju6nndhb",
+   "sec": 250.1,
+   "w": 1920,
+   "h": 1014,
+   "credit": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #1（崩落現場）／パブリックドメイン",
+   "note": "崩落現場。0:07まで題名カード／3:24以降はインタビュー。顔の寄りが多い"
+  },
+  "ss_b2": {
+   "entry": "1_64zdekws",
+   "sec": 309.7,
+   "w": 4096,
+   "h": 2160,
+   "credit": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #2（空撮・現場）／パブリックドメイン",
+   "note": "0:08〜0:11 海岸線の空撮／0:12〜0:14 現場と 87 Park／1:39〜1:53 ドローン／1:54以降インタビュー"
+  },
+  "ss_b3": {
+   "entry": "1_h4yeyz2f",
+   "sec": 74.2,
+   "w": 1920,
+   "h": 1080,
+   "credit": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #3（証拠倉庫）／パブリックドメイン",
+   "note": "倉庫で部材と鉄筋を測る"
+  },
+  "ss_b4": {
+   "entry": "1_jvdq95ze",
+   "sec": 216.3,
+   "w": 1920,
+   "h": 1080,
+   "credit": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #4（部材の搬送）／パブリックドメイン",
+   "note": "部材の梱包・積み込み・トレーラーでの搬送"
+  },
+  "ss_b5": {
+   "entry": "1_ecar0b6h",
+   "sec": 333.4,
+   "w": 3840,
+   "h": 2160,
+   "credit": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #5（コア抜き・倉庫）／パブリックドメイン",
+   "note": "倉庫の床一面の部材／コア抜き／コアの記録"
+  },
+  "ss_b6": {
+   "entry": "1_zdyysoml",
+   "sec": 263.2,
+   "w": 3840,
+   "h": 2160,
+   "credit": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #6（コンクリートコアの試験）／パブリックドメイン",
+   "note": "圧縮試験・弾性係数試験"
+  },
+  "ss_b7": {
+   "entry": "1_glesd05g",
+   "sec": 337.0,
+   "w": 3840,
+   "h": 2160,
+   "credit": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #7（鉄筋の試験）／パブリックドメイン",
+   "note": "鉄筋の標本・引張試験機"
+  },
+  "ss_b8": {
+   "entry": "1_lebmphjw",
+   "sec": 207.0,
+   "w": 3840,
+   "h": 2160,
+   "credit": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #8（実物大試験・ミネソタ大学）／パブリックドメイン",
+   "note": "0:08まで表題カード。実物大レプリカ試験。2:08〜ワシントン大の試験"
+  },
+  "ss_tl": {
+   "entry": "1_gvpcaamy",
+   "sec": 6.8,
+   "w": 3840,
+   "h": 2160,
+   "credit": "出典：NIST（米国立標準技術研究所） 材料試験タイムラプス（スラブ・梁・柱の試験）／パブリックドメイン",
+   "note": "6.8秒。柱まわりのスラブが割れて外れる。⚠️ 右下に NIST の透かし（x0.63〜0.95・y0.84〜0.89）"
+  },
+  "ss_gif": {
+   "url": "https://www.nist.gov/sites/default/files/styles/2800_x_2800_limit/public/images/2026/06/22/PunchingShear_001.gif?itok=e2hzBAS5",
+   "sec": 17.0,
+   "w": 1920,
+   "h": 1080,
+   "credit": "出典：NIST（米国立標準技術研究所） 押し抜きせん断の動画図（2026年6月22日公表）／パブリックドメイン",
+   "note": "167コマ。力が柱の周りに集まり、ひびが回り込んで抜ける"
+  }
+ },
+ "screen_credit": {
+  "pr01": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #1（崩落現場）／パブリックドメイン（静止画）",
+  "pr02": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #1（崩落現場）／パブリックドメイン（静止画） ／ 出典：マイアミ・デイド郡の発表 2021-07-26",
+  "pr03": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #1（崩落現場）／パブリックドメイン",
+  "pr04": "出典：NIST 技術的知見（2026年6月22日公表） スライド50ページ／パブリックドメイン／切出",
+  "pr05": "",
+  "pr07": "",
+  "pr08": "",
+  "pr10": "出典：NIST 記録映像 B-Roll #1（建物の銘板）の1コマ／パブリックドメイン",
+  "c101": "出典：NIST 技術的知見（2026年6月22日公表） スライド3ページ／パブリックドメイン／切出",
+  "c102": "出典：NIST 技術的知見（2026年6月22日公表） スライド3ページ／パブリックドメイン／切出",
+  "c103": "出典：NIST 技術的知見（2026年6月22日公表） スライド3ページ／パブリックドメイン／切出",
+  "c104": "出典：NIST 技術的知見（2026年6月22日公表） スライド3ページ／パブリックドメイン／切出",
+  "c105": "",
+  "c106": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #2（空撮・現場）／パブリックドメイン（静止画）",
+  "c107": "出典：NIST 技術的知見（2026年6月22日公表） スライド29ページ／パブリックドメイン／切出",
+  "c108": "",
+  "c109": "出典：NIST 技術的知見（2026年6月22日公表） スライド50ページ／パブリックドメイン／切出",
+  "c110": "出典：NIST 技術的知見（2026年6月22日公表） スライド50ページ／パブリックドメイン／切出",
+  "c111": "",
+  "c112": "",
+  "c113": "出典：NIST 技術的知見（2026年6月22日公表） スライド50ページ／パブリックドメイン／切出",
+  "c114": "",
+  "c115": "出典：NIST 技術的知見（2026年6月22日公表） スライド62ページ／パブリックドメイン／切出",
+  "c116": "出典：NIST 技術的知見（2026年6月22日公表） スライド48ページ／パブリックドメイン／切出",
+  "c117": "出典：NIST 技術的知見（2026年6月22日公表） スライド62ページ／パブリックドメイン／切出",
+  "c118": "",
+  "c119": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #2（空撮・現場）／パブリックドメイン",
+  "c120": "",
+  "c121": "出典：NIST 技術的知見（2026年6月22日公表） スライド52ページ／パブリックドメイン／切出",
+  "c122": "",
+  "c123": "出典：NIST 技術的知見（2026年6月22日公表） スライド52ページ／パブリックドメイン／切出",
+  "c124": "",
+  "c125": "出典：NIST 技術的知見（2026年6月22日公表） スライド52ページ／パブリックドメイン／切出",
+  "c126": "",
+  "c127": "出典：NIST 技術的知見（2026年6月22日公表） スライド62ページ／パブリックドメイン／切出",
+  "c128": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #1（崩落現場）／パブリックドメイン",
+  "c129": "",
+  "c130": "",
+  "c131": "",
+  "c201": "",
+  "c202": "出典：NIST 技術的知見（2026年6月22日公表） スライド57ページ／パブリックドメイン／切出",
+  "c203": "出典：NIST 技術的知見（2026年6月22日公表） スライド57ページ／パブリックドメイン／切出",
+  "c204": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #2（空撮・現場）／パブリックドメイン",
+  "c205": "出典：NIST 技術的知見（2026年6月22日公表） スライド57ページ／パブリックドメイン／切出",
+  "c206": "",
+  "c207": "出典：NIST 技術的知見（2026年6月22日公表） スライド57ページ／パブリックドメイン／切出",
+  "c208": "",
+  "c209": "",
+  "c210": "",
+  "c211": "出典：NIST 技術的知見（2026年6月22日公表） スライド57ページ／パブリックドメイン／切出",
+  "c212": "出典：NIST 技術的知見（2026年6月22日公表） スライド57ページ／パブリックドメイン／切出",
+  "c213": "",
+  "c214": "",
+  "c215": "",
+  "c216": "",
+  "c217": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #1（崩落現場）／パブリックドメイン",
+  "c218": "",
+  "c219": "出典：NIST 技術的知見（2026年6月22日公表） スライド58ページ／パブリックドメイン／切出",
+  "c220": "出典：NIST 技術的知見（2026年6月22日公表） スライド58ページ／パブリックドメイン／切出",
+  "c221": "出典：NIST 技術的知見（2026年6月22日公表） スライド58ページ／パブリックドメイン／切出",
+  "c222": "",
+  "c223": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #1（崩落現場）／パブリックドメイン（静止画）",
+  "c224": "",
+  "c225": "",
+  "c226": "",
+  "c227": "",
+  "c228": "",
+  "c229": "出典：NIST 技術的知見（2026年6月22日公表） スライド65ページ／パブリックドメイン／切出",
+  "c230": "出典：NIST 技術的知見（2026年6月22日公表） スライド67ページ／パブリックドメイン／切出",
+  "c231": "出典：NIST 技術的知見（2026年6月22日公表） スライド67ページ／パブリックドメイン／切出",
+  "c232": "",
+  "c301": "出典：NIST 技術的知見（2026年6月22日公表） スライド36ページ／パブリックドメイン／切出",
+  "c302": "出典：NIST 技術的知見（2026年6月22日公表） スライド36ページ／パブリックドメイン／切出",
+  "c303": "",
+  "c304": "",
+  "c305": "",
+  "c306": "",
+  "c307": "",
+  "c308": "",
+  "c309": "",
+  "c310": "",
+  "c311": "",
+  "c312": "",
+  "c313": "",
+  "c314": "",
+  "c315": "出典：NIST（米国立標準技術研究所） 押し抜きせん断の動画図（2026年6月22日公表）／パブリックドメイン",
+  "c316": "出典：NIST 技術的知見（2026年6月22日公表） スライド36ページ／パブリックドメイン／切出",
+  "c317": "出典：NIST 技術的知見（2026年6月22日公表） スライド48ページ／パブリックドメイン／切出",
+  "c318": "",
+  "c319": "",
+  "c320": "",
+  "c321": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #8（実物大試験・ミネソタ大学）／パブリックドメイン",
+  "c322": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #8（実物大試験・ミネソタ大学）／パブリックドメイン",
+  "c323": "",
+  "c324": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #8（実物大試験・ミネソタ大学）／パブリックドメイン",
+  "c325": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #6（コンクリートコアの試験）／パブリックドメイン",
+  "c326": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #7（鉄筋の試験）／パブリックドメイン",
+  "c327": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #8（実物大試験・ミネソタ大学）／パブリックドメイン",
+  "c328": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #8（実物大試験・ミネソタ大学）／パブリックドメイン",
+  "c329": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #8（実物大試験・ミネソタ大学）／パブリックドメイン",
+  "c330": "",
+  "c331": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #8（実物大試験・ミネソタ大学）／パブリックドメイン",
+  "c332": "出典：NIST（米国立標準技術研究所） 材料試験タイムラプス（スラブ・梁・柱の試験）／パブリックドメイン",
+  "c333": "出典：NIST（米国立標準技術研究所） 材料試験タイムラプス（スラブ・梁・柱の試験）／パブリックドメイン",
+  "c334": "出典：NIST（米国立標準技術研究所） 材料試験タイムラプス（スラブ・梁・柱の試験）／パブリックドメイン",
+  "c335": "",
+  "c336": "出典：NIST 技術的知見（2026年6月22日公表） スライド36ページ／パブリックドメイン／切出",
+  "c401": "出典：NIST 技術的知見（2026年6月22日公表） スライド86ページ／パブリックドメイン／切出",
+  "c402": "出典：NIST 技術的知見（2026年6月22日公表） スライド86ページ／パブリックドメイン／切出",
+  "c403": "",
+  "c404": "出典：NIST 技術的知見（2026年6月22日公表） スライド16ページ／パブリックドメイン／切出",
+  "c405": "出典：NIST 技術的知見（2026年6月22日公表） スライド16ページ／パブリックドメイン／切出",
+  "c406": "出典：NIST 技術的知見（2026年6月22日公表） スライド16ページ／パブリックドメイン／切出",
+  "c407": "",
+  "c408": "",
+  "c409": "出典：NIST 技術的知見（2026年6月22日公表） スライド75ページ／パブリックドメイン／切出",
+  "c410": "出典：NIST 技術的知見（2026年6月22日公表） スライド75ページ／パブリックドメイン／切出",
+  "c411": "",
+  "c412": "",
+  "c413": "",
+  "c414": "",
+  "c415": "",
+  "c416": "",
+  "c417": "",
+  "c418": "",
+  "c419": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #3（証拠倉庫）／パブリックドメイン",
+  "c420": "出典：NIST 技術的知見（2026年6月22日公表） スライド76ページ／パブリックドメイン／切出",
+  "c421": "出典：NIST 技術的知見（2026年6月22日公表） スライド76ページ／パブリックドメイン／切出",
+  "c422": "",
+  "c423": "出典：NIST 技術的知見（2026年6月22日公表） スライド76ページ／パブリックドメイン／切出",
+  "c424": "出典：NIST 技術的知見（2026年6月22日公表） スライド76ページ／パブリックドメイン／切出",
+  "c425": "",
+  "c426": "",
+  "c427": "",
+  "c428": "出典：NIST 技術的知見（2026年6月22日公表） スライド76ページ／パブリックドメイン／切出",
+  "c429": "",
+  "c430": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #5（コア抜き・倉庫）／パブリックドメイン",
+  "c431": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #4（部材の搬送）／パブリックドメイン",
+  "c432": "出典：NIST 技術的知見（2026年6月22日公表） スライド86ページ／パブリックドメイン／切出",
+  "c433": "出典：NIST 技術的知見（2026年6月22日公表） スライド86ページ／パブリックドメイン／切出",
+  "c434": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #2（空撮・現場）／パブリックドメイン（静止画）",
+  "c501": "出典：NIST 技術的知見（2026年6月22日公表） スライド86ページ／パブリックドメイン／切出",
+  "c502": "出典：NIST 技術的知見（2026年6月22日公表） スライド86ページ／パブリックドメイン／切出",
+  "c503": "出典：NIST 技術的知見（2026年6月22日公表） スライド29ページ／パブリックドメイン／切出",
+  "c504": "",
+  "c505": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #2（空撮・現場）／パブリックドメイン",
+  "c506": "",
+  "c507": "出典：NIST 技術的知見（2026年6月22日公表） スライド86ページ／パブリックドメイン／切出",
+  "c508": "",
+  "c509": "",
+  "c510": "",
+  "c511": "出典：NIST 技術的知見（2026年6月22日公表） スライド174ページ／パブリックドメイン／切出",
+  "c512": "出典：NIST 技術的知見（2026年6月22日公表） スライド174ページ／パブリックドメイン／切出",
+  "c513": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #7（鉄筋の試験）／パブリックドメイン",
+  "c514": "",
+  "c515": "",
+  "c516": "",
+  "c517": "",
+  "c518": "出典：NIST 技術的知見（2026年6月22日公表） スライド174ページ／パブリックドメイン／切出",
+  "c519": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #5（コア抜き・倉庫）／パブリックドメイン",
+  "c520": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #6（コンクリートコアの試験）／パブリックドメイン",
+  "c521": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #5（コア抜き・倉庫）／パブリックドメイン",
+  "c522": "出典：NIST 技術的知見（2026年6月22日公表） スライド84ページ／パブリックドメイン／切出",
+  "c523": "",
+  "c524": "",
+  "c525": "",
+  "c526": "",
+  "c527": "出典：NIST 技術的知見（2026年6月22日公表） スライド86ページ／パブリックドメイン／切出",
+  "c528": "出典：NIST 技術的知見（2026年6月22日公表） スライド65ページ／パブリックドメイン／切出",
+  "c601": "",
+  "c602": "出典：NIST 技術的知見（2026年6月22日公表） スライド3ページ／パブリックドメイン／切出",
+  "c603": "",
+  "c604": "出典：NIST 技術的知見（2026年6月22日公表） スライド29ページ／パブリックドメイン／切出",
+  "c605": "",
+  "c606": "",
+  "c607": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #8（実物大試験・ミネソタ大学）／パブリックドメイン",
+  "c608": "",
+  "c609": "出典：NIST 技術的知見（2026年6月22日公表） スライド139ページ／パブリックドメイン／切出",
+  "c610": "出典：NIST 技術的知見（2026年6月22日公表） スライド139ページ／パブリックドメイン／切出",
+  "c611": "出典：NIST 技術的知見（2026年6月22日公表） スライド139ページ／パブリックドメイン／切出",
+  "c612": "",
+  "c613": "出典：NIST 技術的知見（2026年6月22日公表） スライド139ページ／パブリックドメイン／切出",
+  "c614": "",
+  "c615": "",
+  "c616": "",
+  "c617": "出典：NIST 技術的知見（2026年6月22日公表） スライド139ページ／パブリックドメイン／切出",
+  "c618": "",
+  "c619": "",
+  "c620": "出典：NIST 技術的知見（2026年6月22日公表） スライド133ページ／パブリックドメイン／切出",
+  "c621": "出典：NIST 技術的知見（2026年6月22日公表） スライド133ページ／パブリックドメイン／切出",
+  "c622": "出典：NIST 技術的知見（2026年6月22日公表） スライド133ページ／パブリックドメイン／切出",
+  "c623": "",
+  "c624": "出典：NIST 技術的知見（2026年6月22日公表） スライド133ページ／パブリックドメイン／切出",
+  "c625": "出典：NIST 技術的知見（2026年6月22日公表） スライド29ページ／パブリックドメイン／切出",
+  "c626": "",
+  "c627": "",
+  "c628": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #1（崩落現場）／パブリックドメイン（静止画）",
+  "c629": "出典：NIST 技術的知見（2026年6月22日公表） スライド133ページ／パブリックドメイン／切出",
+  "c701": "",
+  "c702": "",
+  "c703": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #1（崩落現場）／パブリックドメイン",
+  "c704": "",
+  "c705": "出典：NIST 記録映像 B-Roll #2（空撮）の1コマ／パブリックドメイン",
+  "c706": "",
+  "c707": "",
+  "c708": "",
+  "c709": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #1（崩落現場）／パブリックドメイン",
+  "c710": "",
+  "c711": "出典：NIST 技術的知見（2026年6月22日公表） スライド185ページ／パブリックドメイン／切出",
+  "c712": "出典：NIST 技術的知見（2026年6月22日公表） スライド185ページ／パブリックドメイン／切出",
+  "c713": "出典：NIST 技術的知見（2026年6月22日公表） スライド185ページ／パブリックドメイン／切出",
+  "c714": "出典：NIST 技術的知見（2026年6月22日公表） スライド185ページ／パブリックドメイン／切出",
+  "c715": "出典：NIST 技術的知見（2026年6月22日公表） スライド185ページ／パブリックドメイン／切出",
+  "c716": "出典：NIST 技術的知見（2026年6月22日公表） スライド185ページ／パブリックドメイン／切出",
+  "c717": "",
+  "c718": "出典：NIST 技術的知見（2026年6月22日公表） スライド185ページ／パブリックドメイン／切出",
+  "c719": "出典：NIST 技術的知見（2026年6月22日公表） スライド185ページ／パブリックドメイン／切出",
+  "c720": "",
+  "c721": "",
+  "c722": "",
+  "c723": "",
+  "c724": "",
+  "c725": "",
+  "c726": "出典：NIST（米国立標準技術研究所） 記録映像 B-Roll #2（空撮・現場）／パブリックドメイン",
+  "ep01": "出典：NIST 技術的知見（2026年6月22日公表） スライド191ページ／パブリックドメイン／切出",
+  "ep02": "出典：NIST 技術的知見（2026年6月22日公表） スライド191ページ／パブリックドメイン／切出",
+  "ep03": "出典：NIST 技術的知見（2026年6月22日公表） スライド191ページ／パブリックドメイン／切出",
+  "ep04": "出典：NIST 技術的知見（2026年6月22日公表） スライド191ページ／パブリックドメイン／切出",
+  "ep05": "出典：NIST 技術的知見（2026年6月22日公表） スライド191ページ／パブリックドメイン／切出",
+  "ep06": "",
+  "ep07": "出典：NIST 技術的知見（2026年6月22日公表） スライド191ページ／パブリックドメイン／切出",
+  "ep08": "",
+  "ep09": "出典：NIST 技術的知見（2026年6月22日公表） スライド191ページ／パブリックドメイン／切出",
+  "ep10": "",
+  "ep11": "",
+  "ep12": "",
+  "ep13": "",
+  "ep14": "",
+  "ep15": "",
+  "ep16": "出典：NIST 記録映像 B-Roll #1（建物の銘板）の1コマ／パブリックドメイン"
+ }
+}
