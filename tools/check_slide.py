@@ -479,8 +479,13 @@ def my_boxes(cid, jobs):
     `check_layout.boxes()` を借りる＝本番の `build_layers` の SVG から実測した箱。
     """
     import check_layout as CL
+    import scene_jiko as S
     out = []
-    for k in (f"{cid}_lab",) + tuple(f"{cid}_a{i}" for i in range(1, 9)):
+    keys = (f"{cid}_lab",) + tuple(f"{cid}_a{i}" for i in range(1, 9))
+    if cid.endswith(S.TAIL_KEY):
+        # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）の仮の鍵 → その板（見出し・副題・出典）は `<cid>_tlab`
+        keys = (f"{cid[:-len(S.TAIL_KEY)]}_tlab",)
+    for k in keys:
         if k in jobs:
             out.extend(CL.boxes(jobs[k], k))
     return out
@@ -726,9 +731,22 @@ def production_inputs():
     spec_map = dict(S.SPEC)
     photo_of = {c: v[1] for c, v in S.PHOTO_CUTS.items()}
     box_of = {c: v[0] for c, v in S.PHOTO_CUTS.items()}
+    # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻＝SPEC の tail）も**同じ物差しで測る**（ルール §5b-115⑥ 測られない頁を作らない）。
+    #    鍵は `<cid>~t`（scene_jiko.TAIL_KEY）＝台本の順（S.ORDER）に無い＝走査は `keys_of()` で ORDER のあとに足す
+    for k, ts in S.tail_specs().items():
+        spec_map[k] = ts
+        photo_of[k] = ts["photo"]
+        box_of[k] = S.photo_box(ts)
     # 動画のコマが出るカットはスライドが映らない＝見ない（still=True は写真が出るので見る）
-    skip = {c for c, u in F.USE.items() if not u.get("still")}
+    # 🆕 18本目 ⑤b-7c：映像の差し込み（頭＝head）のカットは本の写真・頁が出る＝見る
+    skip = {c for c, u in F.USE.items() if not u.get("still") and not u.get("head")}
     return spec_map, photo_of, box_of, skip
+
+
+def keys_of(photo_of):
+    """測るカットの並び＝台本の順（S.ORDER）＋差し込みの仮の鍵（`<cid>~t`）。🆕 18本目 ⑤b-7c"""
+    import scene_jiko as S
+    return list(S.ORDER) + [k for k in photo_of if k not in S.ORDER]
 
 
 def jobs_for(spec_map):
@@ -1379,7 +1397,9 @@ if __name__ == "__main__":
     if "--ocr" in sys.argv:
         # 🔴 本番が実際に使っている写真だけを OCR する（題材を替えても当たる）
         import scene_jiko as _S
-        files = sorted({HERE / "ref" / v[1] for v in _S.PHOTO_CUTS.values()})
+        # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻＝tail）の頁も読み置く（production_inputs の `<cid>~t` と同じ並び）
+        _, _po, _, _ = production_inputs()
+        files = sorted({HERE / "ref" / p for p in _po.values()})
         files = [f for f in files if f.exists()]
         data = run_ocr(files)
         OCR_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=1),

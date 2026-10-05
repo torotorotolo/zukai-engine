@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 sys.stdout.reconfigure(encoding="utf-8")
 
-from PIL import Image, ImageChops, ImageDraw
+from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 import scene_jiko as S
 import jiko_style as J
@@ -152,6 +152,18 @@ def foot_frame(cut, t):
             return None
         p = got[-1]
     return Image.open(p).convert("RGB")
+
+
+# 🆕 18本目 ⑤b-7c（2026-10-05）：額装の動く映像の地＝同じ絵を画面いっぱいに引き伸ばして強くぼかし、暗く落とす（映像方針 §8）。
+#    記録映画（720×480＝655×480）は全画面に引き伸ばすと粗い＝額に入れ、まわりの地だけを同じ絵のぼかしで埋める（動きが地にも出る）。
+#    1920 のままぼかすと1コマ約0.1秒＝192×108 に縮めてぼかしてから戻す。章の色に染め（tone）、GROUND_K だけ残して黒へ落とす
+GROUND_K = 0.42
+
+
+def ground_of(img, cut, meta):
+    sm = fit(img, (0, 0, 192, 108)).filter(ImageFilter.GaussianBlur(5))
+    g = tone(sm.resize((S.W, S.H), Image.BILINEAR), cut, meta).convert("RGB")
+    return Image.blend(Image.new("RGB", (S.W, S.H), (0, 0, 0)), g, GROUND_K).convert("RGBA")
 
 
 def stretch(src, levels):
@@ -430,7 +442,8 @@ def scene(cut, t, dur, lay, photos, meta):
         #    地に敷く9カットは静止画のまま寄るだけだった。
         #    ⚠️ 動くコマに寄り（ケンバーンズ）を重ねると手ブレに見えるので k=0。
         #    ⚠️ 切り方は**動画側の実測値**を使う（写真用の寄せでは焼き込みが残る）。
-        src = foot_frame(cut, t)
+        #    🆕 18本目 ⑤b-7c：映像の差し込み（頭）のコマは差し込みの側（intro_frame）だけが使う＝地の写真には使わない
+        src = None if meta[cut].get("fhead") else foot_frame(cut, t)
         if src is not None:
             ph = fit(src, S.PHOTO_FULL, 0.0, meta[cut].get("fbias", 0.5),
                      meta[cut].get("fxb", xb), meta[cut].get("fzm", zm))
@@ -448,7 +461,11 @@ def scene(cut, t, dur, lay, photos, meta):
         # ★動画を当てたカットは、そのコマを写真の代わりに使う
         #   ⚠️ 映像そのものが動いているので、寄り（ケンバーンズ）は**かけない**。
         #     動く絵に寄りを重ねると手ブレのように見える。
-        src = foot_frame(cut, t)
+        #   🆕 18本目 ⑤b-7c：映像の差し込み（頭）のコマは差し込みの側だけ（fhead）＝ここは本の写真・頁
+        src = None if meta[cut].get("fhead") else foot_frame(cut, t)
+        if meta[cut].get("fground") and box[3] < S.H:
+            # 🆕 18本目 ⑤b-7c：額装の記録映画＝地は同じ絵のぼかし（コマが無いときはひかえの静止画で）
+            fr = ground_of(src if src is not None else photos[cut], cut, meta)
         if src is not None:
             xb, zm = meta[cut].get("fxb", xb), meta[cut].get("fzm", zm)
             ph = fit(src, box, 0.0, meta[cut].get("fbias", bias), xb, zm)
@@ -515,7 +532,7 @@ def scene(cut, t, dur, lay, photos, meta):
 # 型が `Fig.moves` に**画素の座標**で渡したものを、1コマずつ PIL で描く（Chrome を毎コマ呼ばない）。
 # 動き出す時刻＝その段の行頭（`times`）。冒頭の写真があるカットは、写真が図へ入れ替わってから。
 # 小さな点のギザギザを消すため、動く部品の**外接の矩形だけ**を2倍で描いて縮める。
-INTRO_X = 0.6          # 冒頭の写真から図へ入れ替える秒
+INTRO_X = S.INTRO_X    # 冒頭の写真から図へ入れ替える秒（🆕 18本目 ⑤b-7c：値は scene_jiko に1か所＝footage の切り出しの長さと同じ）
 _SS = 2
 
 
@@ -1155,6 +1172,26 @@ def intro_frame(cut, t, lay, meta):
     it = meta[cut]["intro"]
     if it.get("illu"):
         return illu_frame(cut, t, lay, meta, it["illu"], f"{cut}_ilab")
+    if it.get("foot"):
+        # 🆕 18本目 ⑤b-7c：映像の差し込み（頭）＝動く映像のコマ（`footage.USE[cut]` の head＝out/jiko/foot/<cut>/）。
+        #    全画面（フリー素材 1920×1080）か額装（記録映画）＋地のぼかし。寄りは掛けない（動く絵に寄りを重ねない）。
+        #    コマが無ければひかえの静止画（foot_frame がログに出す＝黙って落ちない）
+        box = tuple(int(v) for v in it["box"])
+        src = foot_frame(cut, t)
+        if src is None:
+            if it["photo"] not in _INTRO_SRC:
+                _INTRO_SRC[it["photo"]] = load_photo(it["photo"], box)
+            src = _INTRO_SRC[it["photo"]]
+        m = meta[cut]
+        ph = fit(src, box, 0.0, m.get("fbias", 0.5), m.get("fxb", 0.5), m.get("fzm", 1.0))
+        keep = float(it.get("color", 0.0))
+        pal = J.palette(m.get("pal"))
+        ph = duotone(ph, pal["BG2"], pal["DUO_L"]) if keep <= 0.001 else Image.blend(
+            duotone(ph, pal["BG2"], pal["DUO_L"]), ph.convert("RGBA"), min(1.0, keep))
+        fr = ground_of(src, cut, meta) if not it.get("full") else lay[f"{cut}_ibg"].copy()
+        fr.paste(ph, (box[0], box[1]))
+        over(fr, lay[f"{cut}_ilab"], min(1.0, max(0.0, (t - 0.10) / 0.4)))
+        return fr
     if it.get("panel"):
         # 🆕 15本目 ⑤b-7：**額装の頁**の冒頭（c904＝1行目は頁 p46 → 2行目から地図）。地 `{cut}_ibg` の上の額の箱
         #    （scene_jiko が `photo_box` で出した）に頁をはめる。寄らない（頁の端の行を切らない＝§5b-108）・
@@ -1189,6 +1226,28 @@ def intro_frame(cut, t, lay, meta):
     return fr
 
 
+def tail_frame(cut, t, dur, lay, meta):
+    """🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）の1コマ。写真のカットと同じ置き方（全画面＝寄る・額装＝0.35 だけ寄る）。
+    見出しと出典は `{cut}_tlab`・地は `{cut}_tbg`。寄りは差し込みが出てから尺の終わりまで（k＝0→1＝門番 edges の刻みと同じ幾何）"""
+    tl = meta[cut]["tail"]
+    box = tuple(int(v) for v in tl["box"])
+    key = (tl["photo"], tuple(tl.get("trim") or ()), tuple(tl.get("levels") or ()), box)
+    if key not in _INTRO_SRC:
+        _INTRO_SRC[key] = load_photo(tl["photo"], box, tl.get("trim"), tl.get("levels"))
+    a = float(tl["sec"])
+    k = max(0.0, min(1.0, (t - a) / max(dur - a, 0.001)))
+    ph = fit(_INTRO_SRC[key], box, k * (1.0 if tl.get("full") else 0.35), float(tl.get("bias", 0.5)),
+             float(tl.get("xbias", 0.5)), float(tl.get("zoom", 1.0)))
+    keep = float(tl.get("color", 0.0))
+    pal = J.palette(meta[cut].get("pal"))
+    duo = duotone(ph, pal["BG2"], pal["DUO_L"])
+    ph = duo if keep <= 0.001 else Image.blend(duo, ph.convert("RGBA"), min(1.0, keep))
+    fr = lay[f"{cut}_tbg"].copy()
+    fr.paste(ph, (box[0], box[1]))
+    over(fr, lay[f"{cut}_tlab"])
+    return fr
+
+
 def compose(cut, t, dur, lay, photos, meta, subs=None, band=None):
     """1コマ。t と dur は**扉込み**のカットの時刻と尺（CUTS のまま渡す）。
 
@@ -1212,6 +1271,12 @@ def compose(cut, t, dur, lay, photos, meta, subs=None, band=None):
         pf = intro_frame(cut, t2, lay, meta)
         u = (t2 - float(it["sec"])) / INTRO_X
         fr = pf if u <= 0 else Image.blend(pf, fr, ease(u))
+    tl = m.get("tail")
+    if tl and t2 > float(tl["sec"]):
+        # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）＝k 行目を読み始める少し前から写真・頁へ重ねて入れ替える
+        tf = tail_frame(cut, t2, dur2, lay, meta)
+        u = (t2 - float(tl["sec"])) / INTRO_X
+        fr = tf if u >= 1 else Image.blend(fr, tf, ease(u))
     if m.get("flash") is not None:
         a = flash_alpha(t2 - float(m["flash"]))
         if a > 0.004:
@@ -1281,7 +1346,8 @@ def meta_of(idx):
                   "cam": (S.SPEC.get(cid) or {}).get("cam"),       # カメラの型
                   "moves": v.get("moves") or [],            # 動く部品（drift・trace）
                   "intro": v.get("intro"),                  # 冒頭の写真（c104）・14本目から冒頭の絵（intro の illu）
-                  "illu": v.get("illu")}                    # 🔴 14本目 ⑤b-2：案C の再現イラスト（全面・小さく戻す）
+                  "illu": v.get("illu"),                    # 🔴 14本目 ⑤b-2：案C の再現イラスト（全面・小さく戻す）
+                  "tail": v.get("tail")}                    # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）
         # ディゾルブ：**同じ章の、写真だけのカットどうし**（図解・扉つきのカットには掛けない）
         i = S.ORDER.index(cid)
         prev = S.ORDER[i - 1] if i > 0 else None
@@ -1304,7 +1370,9 @@ def meta_of(idx):
             #    `u["zoom"]` をそのまま使うと帯が画面に残る。1か所で効かせる
             m[cid].update(fxb=u.get("xbias", 0.5),
                           fzm=(_FO.zoom_of(cid, u) if _FO else u.get("zoom", 1.0)),
-                          fbias=u.get("bias", 0.5))
+                          fbias=u.get("bias", 0.5),
+                          # 🆕 18本目 ⑤b-7c：fhead＝コマは映像の差し込み（頭）だけが使う／fground＝額装の記録映画の地のぼかし
+                          fhead=bool(u.get("head")), fground=not u.get("head"))
     return m
 
 

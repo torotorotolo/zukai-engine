@@ -235,8 +235,11 @@ def run(full=False):
     import cuts                                                 # noqa: PLC0415
     rows = load_table()
     hits, softs, seen, claims = [], [], 0, 0
-    for cid in sorted(cuts.SPEC):
-        spec = cuts.SPEC[cid]
+    # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻＝SPEC の tail）の副題も表と照らす（鍵は `<cid>~t`＝測られない副題を作らない）
+    items = [(cid, cuts.SPEC[cid]) for cid in sorted(cuts.SPEC)]
+    items += [(f"{c}~t", {k: v for k, v in s["tail"].items() if k != "at"})
+              for c, s in sorted(cuts.SPEC.items()) if s.get("tail")]
+    for cid, spec in items:
         photo = spec.get("photo") or ""
         # 🔴🔴 2026-09-14（8本目 ⑤b-1）**この門番は題材を名指しで見ている。**
         #    `ep7/` しか見ないので、8本目の `ep8/` 74点には**1件も鳴らず、

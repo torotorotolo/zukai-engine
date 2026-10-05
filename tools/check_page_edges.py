@@ -108,7 +108,8 @@ def cut_rows(cid, spec, ocr, photo_of, box_of, sides=False, rects=None):
 
 def scan(spec_map, ocr, photo_of, box_of, skip, sides=False):
     rows = []
-    for cid in S.ORDER:
+    # 🆕 18本目 ⑤b-7c：台本の順＋写真・頁の差し込み（尻）の仮の鍵 `<cid>~t`（CS.keys_of）＝差し込んだ頁も測る
+    for cid in CS.keys_of(photo_of):
         if cid in skip or cid not in photo_of:
             continue
         rows += cut_rows(cid, spec_map.get(cid) or {}, ocr, photo_of, box_of, sides)
@@ -192,7 +193,7 @@ def main():
     # 🔴🔴 2026-09-25（13本目 ⑤c'）：**読み置きの無いカットを黙って飛ばしていた**（`cut_rows` が [] を返す）。
     #    13本目の `ocr_slides.json` は ⑤b-1 の3点だけ＝写真・頁45カットのうち **42カットを測らずに ✓** だった
     #    （c520 の頁 pg2046 も c311 の pg95 も）。→ 読み置きが無ければ止める（[[feedback-parsers-fail-closed]]）
-    missing = [cid for cid in S.ORDER if cid in photo_of and cid not in skip
+    missing = [cid for cid in CS.keys_of(photo_of) if cid in photo_of and cid not in skip
                and not ocr.get(Path(photo_of[cid]).name)]
     if missing:
         print(f"🔴 OCR の読み置きが無い写真・頁のカット {len(missing)} 件＝**測っていない**："
@@ -205,7 +206,7 @@ def main():
         print(f"  ・ 参考（画面 {r[4]}px＜{MIN_H_PX}px＝字として読めない・測らない）{r[0]}「{r[3][:30]}」{r[1]}")
     rows = [r for r in rows if r[4] >= MIN_H_PX]
     hard = [r for r in rows if r[1][:2] in ("窓上", "窓下")]
-    cuts = sorted({r[0] for r in rows}, key=S.ORDER.index)
+    cuts = sorted({r[0] for r in rows}, key=CS.keys_of(photo_of).index)
     print(f"■ 画面に出る辺が字の行を切っている（見えている {LO:.0%}〜{HI:.0%}）… {len(rows)} 行 ／ {len(cuts)} カット"
           f"{'（左右の辺も）' if sides else ''}")
     for cid in cuts:

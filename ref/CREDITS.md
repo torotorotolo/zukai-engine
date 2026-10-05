@@ -2077,7 +2077,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 - 🔴 289-T の英字の説明札・428-N の台紙と札は**切り落とした**（`qa_out/ep18_assets.py` の crop＝OCR の文字の箱の外で切る）。頁全体を見せる `page24`（c911＝角の黒い塗り）だけ札が残る
 - 🔴 人が写る写真（§B2-2）：就役式（1961-08-03）の左の座った観客（私人）は**切り落とした**（x 385 より左）。甲板の乗員と式台の造船所の人（公的な任務）は残る（原寸で顔 約10px）。進水（1960）の岸の人は全員が後ろ姿か横向き
 - 撮影年が書かれていない・割れる点（289-T の造船所の写真2点と謝辞の頁の航走写真・スカイラークの2点）は撮影年を「不明」にし、**副題に年を書かない**（門番 credits）
-- 記録映画のコマは画素が縦長（SAR 10:11）＝655×480 に直した。動く映像（記録映画）は ⑤b-7b で `clips.json` に足す
+- 記録映画のコマは画素が縦長（SAR 10:11）＝655×480 に直した。動く映像（記録映画）は §4（⑤b-7c で `clips.json`）
 - Commons の新しい8点は、落とす前に一覧（名前・大きさ）でカズヤくんの了承を取った（2026-10-04）＝取ったファイルは Commons の原本と SHA-1 が一致（`ref/ep18/img/fetched.json`＝git の外）
 
 ### 2. 頁（査問会の記録・証拠・上級の意見書・議会の本・国防総省の発表の紙）＝⑤b-7b（2026-10-05）
@@ -2108,9 +2108,9 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `debris_711302` | ca06 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「330-PSA-110-63 (USN 711302) (22171571340).jpg」　https://commons.wikimedia.org/wiki/File:330-PSA-110-63_(USN_711302)_(22171571340).jpg |
 | `bow_plating_t5` | ca13 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-5　https://catalog.archives.gov/id/138924735 |
 | `tracks_t41` | ca20 | 1964 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | NARA 138924735（289-T）「Photographs Taken During the Search for the USS Thresher」 289-T-41　https://catalog.archives.gov/id/138924735 |
-| `film_a` | c301 c601 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍の記録映画 | NARA 85185（RG 428）「USS THRESHER (SSN-593)」記録映画 1963年3月　https://catalog.archives.gov/id/85185 |
-| `film_b` | cb01 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍の記録映画 | NARA 85185（RG 428）「USS THRESHER (SSN-593)」記録映画 1963年3月　https://catalog.archives.gov/id/85185 |
-| `film_c` | c212 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍の記録映画 | NARA 85185（RG 428）「USS THRESHER (SSN-593)」記録映画 1963年3月　https://catalog.archives.gov/id/85185 |
+| `film_a` | （章ファイル） | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍の記録映画 | NARA 85185（RG 428）「USS THRESHER (SSN-593)」記録映画 1963年3月　https://catalog.archives.gov/id/85185 |
+| `film_b` | （章ファイル） | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍の記録映画 | NARA 85185（RG 428）「USS THRESHER (SSN-593)」記録映画 1963年3月　https://catalog.archives.gov/id/85185 |
+| `film_c` | （章ファイル） | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍の記録映画 | NARA 85185（RG 428）「USS THRESHER (SSN-593)」記録映画 1963年3月　https://catalog.archives.gov/id/85185 |
 | `skylark_front` | c304 c523 | 不明 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「USS Skylark (ASR-20).jpg」　https://commons.wikimedia.org/wiki/File:USS_Skylark_%28ASR-20%29.jpg |
 | `skylark_side` | c306 c511 c415 | 不明 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「USS Skylark (ASR-20) underway c1950.jpg」　https://commons.wikimedia.org/wiki/File:USS_Skylark_%28ASR-20%29_underway_c1950.jpg |
 | `door_711348` | ca10 | 1963 | PD（米連邦の職務著作 17 U.S.C. §105） | 米海軍 | Wikimedia Commons「330-PSA-191-63 (USN 711348) (22171493730).jpg」　https://commons.wikimedia.org/wiki/File:330-PSA-191-63_%28USN_711348%29_%2822171493730%29.jpg |
@@ -2158,3 +2158,21 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 - `files_hands_6549976`（c906）引き出しの記録のカードを手で繰る（顔は写らない）＝Pexels・Tima Miroshnichenko・投稿 2021-01-20・1920×1080・21.61秒・Pexels License・取った日 2026-10-05　https://www.pexels.com/video/looking-among-files-6549976/
 - `seabed_sand_11781634`（ca05）光のゆらぐ砂の海底（タイムラプス）＝Pexels・Markus Winkler・投稿 2022-04-11・1920×1080・45.93秒・Pexels License・取った日 2026-10-05　https://www.pexels.com/video/time-lapse-of-a-sandy-seabed-11781634/
 - `seabed_murky_33896777`（ca06）砂の動く海の底（濁った青緑）＝Pexels・JUN HO LEE・投稿 2025-09-14・1920×1080・15.6秒・Pexels License・取った日 2026-10-05　https://www.pexels.com/video/underwater-ocean-floor-with-sand-movement-33896777/
+
+### 4. 記録映画（動く映像）＝⑤b-7c（2026-10-05・取得は 10-04 カズヤくん了承＝丸ごとは保存しない）
+- NARA RG 428（海軍写真センター 428-NPC）の記録映画＝米海軍の職務著作＝PD（17 U.S.C. §105）。NARA の表示 Use: Undetermined（未判定＝制限ではない）。画面の出典＝「出典：米海軍の記録映画（NARA <naId>・パブリックドメイン）」
+- すべて 720×480・画素が縦長（SAR 10:11）＝655×480 に直して額装＋地のぼかし（映像方針 §8）。【映像あり】は付けない
+- 本番（Actions・Modal）は `tools/footage.py` が URL から使う区間だけ切り出す（落とさない＝`"range": true`）。ショットの境目は `ref/ep18/shots.json`（1秒刻み）・使う区間は `footage.USE`
+
+- NARA 85185「USS THRESHER (SSN-593)」カラーの航走（セイルの593・艦橋の乗員）・789秒　https://catalog.archives.gov/id/85185
+- NARA 83213「LAUNCHING OF USS THRESHER (SSN-593) Naval Shipyard, Portsmouth」1960年の進水（空から見た造船所と艦）・190秒　https://catalog.archives.gov/id/83213
+- NARA 83750「SEARCH FOR USS THRESHER (SSN-593)」捜索の海の艦（空から）・282秒　https://catalog.archives.gov/id/83750
+- NARA 83751「SEARCH FOR USS THRESHER (SSN-593)」捜索の艦（空から・艦番号179 ほか）・311秒　https://catalog.archives.gov/id/83751
+- NARA 83746「SEARCH FOR USS THRESHER (SSN-593) On Board USS ALLEGHENY (ATA-179)」アレゲニーの艦上の乗員と機器（乗用車の場面は使わない）・505秒　https://catalog.archives.gov/id/83746
+- NARA 83737「SEARCH FOR USS THRESHER (SSN-593) 250 Miles East of Cape Cod over Atlantic」哨戒機から見た捜索の海・515秒　https://catalog.archives.gov/id/83737
+- NARA 83759「SEARCH FOR USS THRESHER (SSN-593) Naval Shipyard, Boston, Mass」ボストンの造船所・艦番号422 の潜水艦（トロ）・178秒　https://catalog.archives.gov/id/83759
+- NARA 83795「THRESHER SEARCH 220 Miles East of Cape Cod at Sea」海の上の初代トリエステ・248秒　https://catalog.archives.gov/id/83795
+- NARA 83766「SEARCH FOR USS THRESHER (SSN-593) Boston Naval Shipyard」ボストンの造船所・194秒　https://catalog.archives.gov/id/83766
+- NARA 83757「SEARCH FOR USS THRESHER (SSN-593) TRIESTE Test Dive Boston, Mass. & at Sea」初代トリエステの試験潜航（1963-05-03・ボストンの東 約60マイル）・643秒　https://catalog.archives.gov/id/83757
+- NARA 83741「USS THRESHER (SSN-593) MEMORIALS」追悼（参列者の顔のショットは使わない）・575秒　https://catalog.archives.gov/id/83741
+- NARA 83740「THRESHER MEMORIAL SERVICE Portsmouth, N. H」ポーツマスの追悼の式（頭2秒は NARA のロゴ・顔の分かるショットは使わない）・328秒　https://catalog.archives.gov/id/83740

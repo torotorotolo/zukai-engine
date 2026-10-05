@@ -40,7 +40,8 @@ HERE = Path(__file__).parent
 #   （`ss.rg` は 7本目の RG237 専用の名前だった）。字面が違うので、
 #   この門番はまた「実写の欄が1つも見つからない」で exit 2 を出した。
 #   → **新しい書き方を足すたびに、ここも足す。**逆に、ここに無い書き方で書かない。
-FB = re.compile(r'(?:photo=ss\.fb\("(\w+)"\)|ss\.rg\(\s*"(\w+)"|ss\.vid\(\s*"(\w+)")')
+#   🆕 2026-10-05（18本目 ⑤b-7c）：映像の差し込み（頭）＝`intro=ss.head("c109")`（footage.USE の head=True）も拾う
+FB = re.compile(r'(?:photo=ss\.fb\("(\w+)"\)|ss\.rg\(\s*"(\w+)"|ss\.vid\(\s*"(\w+)"|ss\.head\(\s*"(\w+)")')
 
 
 def slots(cutdir=None):
@@ -55,7 +56,7 @@ def slots(cutdir=None):
         if f.name in ("__init__.py", "ss.py"):
             continue
         for m in FB.finditer(f.read_text(encoding="utf-8")):
-            out[m.group(1) or m.group(2) or m.group(3)] = f.name
+            out[m.group(1) or m.group(2) or m.group(3) or m.group(4)] = f.name
     return out
 
 
@@ -107,10 +108,10 @@ def selftest():
         print("🔴 0件＝読めていない"); ok = False
     tmp = Path(__file__).parent.parent / "out" / "jiko" / "_slots_selftest"
     tmp.mkdir(parents=True, exist_ok=True)
-    (tmp / "z.py").write_text('photo=ss.fb("zz01")\nphoto=ss.fb("zz02")\n',
+    (tmp / "z.py").write_text('photo=ss.fb("zz01")\nphoto=ss.fb("zz02")\nintro=ss.head("zz03")\n',
                               encoding="utf-8")
     got = slots(tmp)
-    if sorted(got) != ["zz01", "zz02"]:
+    if sorted(got) != ["zz01", "zz02", "zz03"]:
         print(f"🔴 拾い方が違う: {got}"); ok = False
     else:
         print("  当て木の章ファイル4欄を拾えた（ss.fb 2件＋ss.rg 2件）")

@@ -68,8 +68,10 @@ HERE = Path(__file__).parent.parent
 CLIP = HERE / "out" / "jiko" / "clip"
 FOOT = HERE / "out" / "jiko" / "foot"
 FPS = 30
+# 🔴 2026-10-05（18本目 ⑤b-7c）：名乗りから個人のメールを外した（外のサービスへ送らない＝記憶 feedback-no-email-in-tool-headers）。
+#    連絡先はリポの URL だけ（Wikimedia の「名乗れ」はこれで足りる＝429 は UA が空のときの話）
 UA = ("zukai-engine/1.0 (accident-documentary research; "
-      "https://github.com/torotorotolo/zukai-engine; konariri8@gmail.com)")
+      "https://github.com/torotorotolo/zukai-engine)")
 
 # ── 6本目：フランシス・スコット・キー橋 崩落（2024-03-26）の PD 動画 28本 ────────
 # 🔴 5本目 SL-1（NARA MoPix の記録映画2本）の CLIPS/USE/PILLAR/NOGO は git の `58cd823` にある。
@@ -267,9 +269,8 @@ def in_nogo(use=None, secs=None):
        ショットの途中から禁止の秒が始まる場合に構造上見えない（pr01 がその実例）。
     """
     if secs is None:
-        import scene_jiko as S
-        # 🔴 12本目から：映像が使うのは**扉を除いた中身の秒**（扉の2秒は映像を映さない）
-        secs = {c: s - S.card_of(c) for c, s in S.CUTS}
+        # 🔴 12本目から：映像が使うのは**扉を除いた中身の秒**（扉の2秒は映像を映さない）・🆕 18本目：頭の差し込みはその秒だけ
+        secs = secs_of()
     use = USE if use is None else use
     out = []
     for cid, u in use.items():
@@ -454,6 +455,49 @@ USE = {
     # 🔴 2026-09-30（15本目 リノ ⑤b-1）：**空にした**（§0b）。14本目の2欄（ca01・ca11）は git の `dc6ecf4`。
     #   15本目は動く映像0本（②③ 09-25 カズヤくん＝事故の動く映像は使わない・【映像あり】なし）＝ここは空のまま。
     #   ⚠️ 14本目の ca01・ca11 は15本目に無いID（15本目は9章＝c101〜c920）だが、次の回は同じIDがありうる＝残さない
+    # ══════════════════════════════════════════════════════════
+    # 🆕 2026-10-05（18本目 スレッシャー号のリメイク ⑤b-7c）：33欄＝記録映画22（カットまるごと21・頭の差し込み c102）＋フリー素材の
+    #   頭の差し込み11。台帳＝`ref/ep18/clips.json`（`python qa_out/ep18_assets.py clips`）・ショット＝`ref/ep18/shots.json`
+    #   （記録映画は1本につき網から1回だけ読み流した1秒1コマ・フリー素材は手元の mp4）。ショットは 640px にした見取り図（1ショット1コマ・
+    #   5枚）で中身を見て選んだ（scratchpad `pick18.py`）。秒と rate は機械で出した（scratchpad `use18.py`＝start＝頭 +0.2〈フリー素材は
+    #   1.0 以上〉・until＝終わり −1.0・rate＝(until−start)÷要る秒 を切り捨て）
+    #   ⚠️ 要る秒＝content_sec（扉を除く）・頭の差し込み（head=True）は scene_jiko.head_secs（k 行目の少し前＋入れ替えの秒）
+    #   ⚠️ 記録映画の撮影日は分からない（NARA の日付は公開の束の日付のことがある＝85185）＝副題に年を書かない（進水 83213 は1960年）
+    #   ⚠️ c621・cb14・cb19 は人が写る＝遠景だけ（追悼の参列者の顔の分かるショット・83746 の乗用車の場面は使わない）
+    #   ⚠️ ca09 は PLAN の 83766（ボストンの造船所）に赤白のトリエステの使える長さのショットが無い＝試験潜航の 83757 の別のショット
+    "c102": dict(clip="nara85185", start=462.2, until=468.0, rate=1.0, head=True),   # #62（462〜469秒・要 4.20秒）頭の1行：セイルの「593」の寄り（上に乗員）
+    "c202": dict(clip="nara85185", start=638.2, until=646.0, rate=0.84),   # #79（638〜647秒・要 9.26秒）波を立てて走る艦（セイルの593）
+    "c212": dict(clip="nara85185", start=144.2, until=157.0, rate=0.94),   # #27（144〜158秒・要 13.61秒）雲の下を走る艦・セイルの593
+    "c301": dict(clip="nara85185", start=164.2, until=171.0, rate=0.84),   # #29（164〜172秒・要 8.09秒）岸と建物を背に走る艦（セイルの593）
+    "c601": dict(clip="nara85185", start=92.2, until=98.0, rate=0.77),   # #19（92〜99秒・要 7.50秒）セイルの593 の寄り
+    "c607": dict(clip="nara85185", start=657.2, until=670.0, rate=1.0),   # #81（657〜671秒・要 12.38秒）正面から見たセイルと潜舵・艦首の波
+    "c701": dict(clip="nara85185", start=673.2, until=681.0, rate=1.0),   # #83（673〜682秒・要 6.70秒）波を立てて走る艦（セイルの593）
+    "cb01": dict(clip="nara85185", start=614.2, until=621.0, rate=1.0),   # #75（614〜622秒・要 6.73秒）セイルの上の乗員・艦首の波
+    "cb07": dict(clip="nara85185", start=422.2, until=430.0, rate=0.86),   # #55（422〜431秒・要 8.98秒）雲の下を走る艦・セイルの593
+    "c117": dict(clip="nara83213", start=130.2, until=149.0, rate=1.0),   # #8（130〜150秒・要 6.05秒）1960年の進水：造船所の水面の艦とタグボート（空から）
+    "c621": dict(clip="nara83213", start=118.2, until=129.0, rate=1.0),   # #7（118〜130秒・要 10.30秒）1960年の進水：造船所の建屋（空から）
+    "c506": dict(clip="nara83750", start=190.2, until=218.0, rate=1.0),   # #9（190〜219秒・要 6.09秒）捜索の海の艦（空から）
+    "c514": dict(clip="nara83751", start=42.2, until=53.0, rate=1.0),   # #5（42〜54秒・要 9.69秒）空から見た捜索の艦
+    "ca03": dict(clip="nara83751", start=216.2, until=229.0, rate=1.0),   # #22（216〜230秒・要 7.67秒）並んで進む2隻（空から）
+    "c515": dict(clip="nara83746", start=59.2, until=76.0, rate=1.0),   # #8（59〜77秒・要 8.58秒）アレゲニーの艦上で機器と海図に向かう乗員
+    "ca01": dict(clip="nara83737", start=455.2, until=470.0, rate=1.0),   # #67（455〜471秒・要 9.01秒）哨戒機から見た捜索の海の艦の航跡
+    "ca07": dict(clip="nara83759", start=140.2, until=149.0, rate=0.99),   # #20（140〜150秒・要 8.87秒）艦番号422 の潜水艦（セイル）
+    "ca08": dict(clip="nara83795", start=114.2, until=123.0, rate=1.0),   # #14（114〜124秒・要 6.57秒）近づく初代トリエステと甲板の乗員（後ろ姿）
+    "ca09": dict(clip="nara83757", start=494.2, until=511.0, rate=1.0),   # #77（494〜512秒・要 10.41秒）海の上の初代トリエステ（試験潜航）
+    "ca12": dict(clip="nara83757", start=154.2, until=163.0, rate=0.98),   # #24（154〜164秒・要 8.90秒）海の上の初代トリエステとヘリ（試験潜航）
+    "cb14": dict(clip="nara83741", start=448.2, until=459.0, rate=1.0),   # #61（448〜460秒・要 9.13秒）追悼の式の遠景（芝生と行進）
+    "cb19": dict(clip="nara83740", start=12.2, until=22.0, rate=0.99),   # #4（12〜23秒・要 9.87秒）追悼の式の日の門と建物（遠景）
+    "c109": dict(clip="docs_binders_7710340", start=2.5, until=12.0, rate=1.0, head=True),   # #1（2〜13秒・要 2.77秒）頭の1行
+    "c114": dict(clip="deep_rays_63427", start=2.5, until=19.0, rate=1.0, head=True),   # #1（2〜20秒・要 3.13秒）頭の1行
+    "c215": dict(clip="pier_blue_10354787", start=2.5, until=20.0, rate=1.0, head=True),   # #1（2〜21秒・要 2.81秒）頭の1行
+    "c220": dict(clip="pier_dark_11812247", start=1.0, until=59.0, rate=1.0, head=True),   # #0（0〜60秒・要 4.88秒）頭の1行
+    "c511": dict(clip="sea_dark_5668613", start=1.0, until=7.0, rate=1.0, head=True),   # #0（0〜8秒・要 5.00秒）頭の1行（1ショットに直した＝ep18_assets.SHOT_ONE）
+    "c805": dict(clip="deep_sun_48596", start=1.0, until=19.0, rate=1.0, head=True),   # #0（0〜20秒・要 2.96秒）頭の1行
+    "c812": dict(clip="deep_blue_32790667", start=1.0, until=14.0, rate=1.0, head=True),   # #0（0〜15秒・要 5.89秒）頭の1行
+    "c903": dict(clip="typewriter_33068304", start=10.5, until=31.0, rate=1.0, head=True),   # #3（10〜32秒・要 6.28秒）頭の1行
+    "c906": dict(clip="files_hands_6549976", start=3.5, until=13.0, rate=1.0, head=True),   # #1（3〜14秒・要 3.18秒）頭の1行
+    "ca05": dict(clip="seabed_sand_11781634", start=1.0, until=11.0, rate=1.0, head=True),   # #0（0〜12秒・要 5.95秒）頭の1行
+    "ca06": dict(clip="seabed_murky_33896777", start=1.0, until=15.0, rate=1.0, head=True),   # #0（0〜16秒・要 2.62秒）頭の1行
 }
 # ⚠️ 2026-09-23（12本目 ⑤c' 直しE）：ここにあった前の回の注（9.11 の c621・c712／6本目キー橋の「まだ決まっていない
 #    29欄」／5本目 SL-1 の「当てないと決めた」ph12・ph3）は、いまの USE と関係が無いので外した。
@@ -477,9 +521,8 @@ TOL = 0.10
 def overruns(use=None, secs=None):
     """(cid, 越えた秒, start, end, until) の一覧。**判定はここ1本**（本番も検算も通る）。"""
     if secs is None:
-        import scene_jiko as S
-        # 🔴 12本目から：扉の秒は映像の until に数えない（中身の秒だけ）
-        secs = {c: s - S.card_of(c) for c, s in S.CUTS}
+        # 🔴 12本目から：扉の秒は映像の until に数えない（中身の秒だけ）・🆕 18本目：頭の差し込みはその秒だけ
+        secs = secs_of()
     use = USE if use is None else use
     out = []
     for cid, u in use.items():
@@ -749,7 +792,7 @@ def selftest():
     def _dl_fail(_u, _d):
         raise IOError("（検算：網には出ない）")
 
-    def _vf_of(w, h, dispw, dl=_dl_fail):
+    def _vf_of(w, h, dispw, dl=_dl_fail, extra=None):
         seen = {}
 
         class _R:
@@ -769,7 +812,7 @@ def selftest():
             _MEDIA.clear()
             CLIPS["_st_sar"] = dict(url="http://example.invalid/s.mp4", sec=99.0,
                                     w=w, h=h, dispw=dispw, credit="（検算用）",
-                                    note="（検算用）", stream=True)
+                                    note="（検算用）", stream=True, **(extra or {}))
             _cut_stream("_st_sar_cut", dict(clip="_st_sar", start=1.0), 1.0)
         finally:
             subprocess.run = keep_run                      # type: ignore[assignment]
@@ -803,8 +846,34 @@ def selftest():
         _src_of(cmd_sq).startswith("http") and "-user_agent" in cmd_sq, True)
     print(f"     -vf（SAR 10:11）＝ {vf_sq}")
     print(f"     -vf（SAR 1:1 ）＝ {vf_11}")
+    # 🆕 18本目 ⑤b-7c：NARA の mp4（`"range": true`）は落とさずに URL のまま区間を読む（丸ごと保存しない＝(c) の了承）
+    _v, cmd_rg = _vf_of(720, 480, 655, dl=lambda _u, _d: 215_134_981, extra=dict(range=True))
+    chk("陽性対照：range の帯は丸ごと落とさず URL のまま ffmpeg に渡す", _src_of(cmd_rg).startswith("http"), True)
     import shutil as _sh
     _sh.rmtree(FOOT / "_st_sar_cut", ignore_errors=True)
+
+    # 🆕 18本目 ⑤b-7c：映像の差し込み（頭）＝切り出す長さは差し込みの秒・両側（USE の head ⇔ SPEC の intro foot）がそろう
+    chk("陽性対照：head=True の欄に SPEC の intro foot が無い＝片側だけ",
+        head_mismatch({"x01": dict(clip="t", head=True)}, {"x01": {}}) == (["x01"], []), True)
+    chk("陽性対照：SPEC の intro foot に USE の欄が無い＝片側だけ",
+        head_mismatch({}, {"x02": dict(intro=dict(foot=True))}) == ([], ["x02"]), True)
+    chk("陰性対照：両側がそろえば黙る",
+        any(head_mismatch({"x01": dict(clip="t", head=True)}, {"x01": dict(intro=dict(foot=True))})), False)
+    import scene_jiko as S
+    keep_cuts, keep_hs, keep_use2 = S.CUTS, S.head_secs, dict(USE)
+    try:
+        S.CUTS = [("x01", 6.0)]
+        S.head_secs = lambda _c: 2.5
+        globals()["USE"] = {"x01": dict(clip="t_clip", start=12.0, until=15.0, head=True)}
+        hs = secs_of()
+        chk("陽性対照：頭の差し込みの秒は差し込みの長さ（2.5秒・カットの尺 6.0秒でない）", hs.get("x01") == 2.5, True)
+        chk("陰性対照：頭の差し込み 12.0〜14.5秒はショットの終わり 15.0 を越えない",
+            bool(overruns(USE, hs)), False)
+        chk("陽性対照：同じ欄をカットまるごと（6.0秒）で数えると越える",
+            bool(overruns({"x01": dict(clip="t_clip", start=12.0, until=15.0)}, {"x01": 6.0})), True)
+    finally:
+        S.CUTS, S.head_secs = keep_cuts, keep_hs
+        globals()["USE"] = keep_use2
 
     now = missing_until(USE)
     n_sh = sum(len(v) for v in SHOTS.values())
@@ -875,7 +944,9 @@ def probe_media(url, timeout=45):
                 ar = (r.headers.get("Accept-Ranges") or "").lower()
             # 🔴 2026-09-23（12本目 ⑤b-2）：Commons の `.ogv`（Ogg Theora）は `application/ogg` で返る
             #    （RFC 5334 の Ogg の容れ物の型）。頁（text/html）ではないので通す。大きさと区間読みは下で見る
-            if not ct.startswith(("video/", "audio/", "application/octet-stream", "application/ogg")):
+            # 🆕 2026-10-05（18本目 ⑤b-7c）：Pixabay の CDN は mp4 を `binary/octet-stream` で返す（Pexels は video/mp4）＝通す
+            if not ct.startswith(("video/", "audio/", "application/octet-stream", "binary/octet-stream",
+                                  "application/ogg")):
                 why = f"Content-Type が `{ct or '空'}`＝動画でない（頁を渡している）"
             elif ln < 1_000_000:
                 why = f"Content-Length {ln} が小さすぎる＝媒体でない"
@@ -963,7 +1034,36 @@ def have(cid):
 
 
 def credit_of(cid):
-    return CLIPS[USE[cid]["clip"]]["credit"] if cid in USE else None
+    """カットまるごとの映像の出典。🆕 18本目 ⑤b-7c：映像の差し込み（頭＝head）の欄は None＝本の写真・頁の出典をそのまま出す
+    （差し込みの出典は差し込みの層 `{cid}_ilab` が出す＝scene_jiko.head_top）"""
+    u = USE.get(cid)
+    return CLIPS[u["clip"]]["credit"] if u and not u.get("head") else None
+
+
+def secs_of():
+    """{cid: 映像が要る秒}。🔴 12本目から：扉の秒は除く（中身の秒）。🆕 18本目 ⑤b-7c：映像の差し込み（頭＝head）の欄は
+    差し込みが画面に出る秒（scene_jiko.head_secs＝k 行目の少し前＋入れ替えの秒）＝カットの尺まで切り出さない・尻の照合もこの秒で"""
+    import scene_jiko as S
+    out = {c: s - S.card_of(c) for c, s in S.CUTS}
+    for cid, u in USE.items():
+        if u.get("head") and cid in out:
+            h = S.head_secs(cid)
+            if h is None:
+                raise SystemExit(f"🔴 {cid}: USE は head=True なのに SPEC に intro=dict(foot=True, …) が無い")
+            out[cid] = h
+    return out
+
+
+def head_mismatch(use=None, spec=None):
+    """🆕 18本目 ⑤b-7c：映像の差し込み（頭）の両側がそろっているか＝USE の head=True ⇔ SPEC の intro foot。
+    片方だけだと、映像が黙って地の写真に使われる（head の書き忘れ）か、差し込みが静止画に落ちる（USE の書き忘れ）"""
+    use = USE if use is None else use
+    if spec is None:
+        import scene_jiko as S
+        spec = S.SPEC
+    a = {c for c, u in use.items() if u.get("head")}
+    b = {c for c, s in spec.items() if ((s or {}).get("intro") or {}).get("foot")}
+    return sorted(a - b), sorted(b - a)
 
 
 def _cut_stream(cid, u, secs):
@@ -1001,7 +1101,10 @@ def _cut_stream(cid, u, secs):
     # 🔴 `media` を使う回は帯の秒に `at` を足す（[[feedback-fetch-failure-falls-back-to-a-still]]）
     url, off = media_of(u["clip"])
     ss = off + float(u["start"])
-    src = local_media(url)          # 🔴 http(s) は丸ごと落としてから切る（Ogg の 429＝local_media の注）
+    # 🔴 http(s) は丸ごと落としてから切る（Ogg の 429＝local_media の注）。
+    # 🆕 18本目 ⑤b-7c：`"range": true` の帯（NARA の mp4＝区間読みに対応・1本 100〜300MB）は落とさずに区間だけ読む
+    #    （(c) の了承＝丸ごとは保存しない・本番は区間だけ切り出す）
+    src = url if c.get("range") else local_media(url)
     for _ in (src,):
         for attempt in range(3):
             # ⚠️ `-an` … RG237 は **32本のうち28本に音声トラックがある**（②の実測）。
@@ -1024,15 +1127,26 @@ def _cut_stream(cid, u, secs):
 
 
 def fetch(check=False):
-    import scene_jiko as S
-    # 🔴 12本目から：切り出す長さも中身の秒（扉の2秒ぶん余計に切らない）
-    secs = {c: s - S.card_of(c) for c, s in S.CUTS}
+    # 🔴 12本目から：切り出す長さも中身の秒（扉の2秒ぶん余計に切らない）・🆕 18本目 ⑤b-7c：頭の差し込みは差し込みの秒だけ
+    secs = secs_of()
     missing = [c for c in USE if c not in secs]
     if missing:
         print(f"🔴 台本に無いカットに動画を割り当てている: {missing}")
         return 1
+    # 🆕 18本目 ⑤b-7c：exit 9 ＝ 映像の差し込み（頭）の片側だけ（USE の head=True ⇔ SPEC の intro foot）
+    only_use, only_spec = head_mismatch()
+    only_spec = [c for c in only_spec if c in secs]       # いまの台本（S.CUTS）のカットだけ（selftest は作り物の CUTS で回す）
+    if only_use or only_spec:
+        for c in only_use:
+            print(f"  🔴 {c}: USE は head=True なのに SPEC に intro=dict(foot=True, …) が無い")
+        for c in only_spec:
+            print(f"  🔴 {c}: SPEC に intro foot があるのに USE に head=True の欄が無い（差し込みが静止画に落ちる）")
+        print("🔴 exit 9 ＝ 映像の差し込み（頭）の両側をそろえる")
+        return 9
     stills = [c for c, u in USE.items() if u.get("still")]
-    print(f"■ 動画を当てるカット {len(USE) - len(stills)} 件（＋静止画で受ける {len(stills)} 件: {' '.join(stills)}）")
+    heads = [c for c, u in USE.items() if u.get("head")]
+    print(f"■ 動画を当てるカット {len(USE) - len(stills)} 件（うち頭の差し込み {len(heads)} 件・"
+          f"＋静止画で受ける {len(stills)} 件: {' '.join(stills)}）")
     for cid, u in USE.items():
         c = CLIPS[u["clip"]]
         if u.get("still"):
@@ -1041,7 +1155,7 @@ def fetch(check=False):
         rate = float(u.get("rate", 1.0))
         end = float(u["start"]) + secs[cid] * rate
         flag = "" if end <= float(c["sec"]) + 0.05 else "  🔴 動画の終端を越える"
-        print(f"  {cid}  尺{secs[cid]:5.2f}s  ← {u['clip']} {u['start']:.1f}〜{end:.1f}秒"
+        print(f"  {cid}  {'頭' if u.get('head') else '尺'}{secs[cid]:5.2f}s  ← {u['clip']} {u['start']:.1f}〜{end:.1f}秒"
               f"（{rate:.2f}倍速）{flag}")
     over, miss, out, nog, bars = check_until()
     # 🔴 exit 6 ＝ USE が使っているクリップのショット表が無い（2026-09-08・6本目②で追加）。

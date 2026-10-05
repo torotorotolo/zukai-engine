@@ -152,6 +152,9 @@ def main(only=None):
         # 🔴 12本目から：冒頭の写真の板（`_ilab`）は**図と同時には出ない**（写真→図へ入れ替え）。
         #    別の画面として束ねる（板の中どうしは今までどおり比べる）
         #    🆕 15本目 ⑤b-7：額装の頁の冒頭（c904）の地 `_ibg` も冒頭の画面
+        #    🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）の板 `_tlab`・地 `_tbg` も本の画と同時には出ない（重ねて入れ替える）＝別の画面
+        if k.endswith(("_tlab", "_tbg")):
+            return cid + "〔尻の写真〕"
         return cid + "〔冒頭の写真〕" if (k.endswith(("_ilab", "_ibg")) or k in intro_il) else cid
     for k, svg in jobs.items():
         if k in mini_il:

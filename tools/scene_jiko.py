@@ -1839,6 +1839,129 @@ def stage_times(cid, nstage, holds=None):
 SUB_MUTE = {}
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 18本目 ⑤b-7c（2026-10-05）：差し込み＝映像の差し込み（頭）・写真・頁の差し込み（尻）（映像方針 §22-2・§24・ルール 0b-45）
+# ══════════════════════════════════════════════════════════
+#  頭＝`intro=dict(foot=True, until=k, t=, s=, photo=<ひかえの静止画>)`：カットの頭の k 行だけ動く映像（記録映画・フリー素材）
+#      → 本物の画（写真・頁・図・絵）へ入れ替える。素材と秒は `footage.USE[cid]`（`head=True`）＝切り出す長さは `head_secs()`。
+#      映像の箱は素材の表示の幅（dispw）で決める＝1280以上は全画面・それ未満（記録映画）は額装＋地のぼかし（映像方針 §8）。
+#      フリー素材は左上に「イメージ」の札と出典の行（clips.json の credit＝「イメージ（フリー素材）：サイト名／撮影者」）だけ＝
+#      見出しを書かない（写っていない物を名乗らない）。記録映画は見出しと副題（写っているもの）を書く。
+#      ⚠️ 本の画の見出し・出典はその下で今までどおり出ている（`_lab`）＝差し込みが重なって隠すだけ
+#  尻＝`tail=dict(photo=, trim=, bias=, panel=, color=, t=, s=, at=k)`：k 行目を読み始める少し前から写真・頁へ入れ替える。
+#      見出し・副題・出典は写真のカットと同じ板（`full_top`）。🔴 **測られない頁を作らない**（ルール §5b-115⑥）＝門番 edges・
+#      blank・slide は `tail_specs()` の仮の鍵 `<cid>~t` も測る（`check_slide.production_inputs`）
+#  ⚠️ 15本目までの「冒頭の写真・頁（intro の photo）」「冒頭の絵（intro の illu）」は図のカットだけ（今までどおり）
+INTRO_X = 0.6          # 入れ替えの秒（build_jiko.INTRO_X はここを読む＝2か所に書かない）
+TAIL_KEY = "~t"
+
+
+def ins_sec(cid, k):
+    """k 行目（0 から）を読み始める少し前の秒＝入れ替えの始まり（冒頭の写真・絵の intro と同じ式）"""
+    rows = SUBS.get(cid, [])
+    if rows and not 0 < k < len(rows):
+        raise SystemExit(f"{cid}: 差し込みの行 {k} は 1〜{len(rows) - 1}（行の番号・0 は入れ替える前が無い）")
+    return round(max(0.5, (rows[k]["t"] + LEAD - 0.30) if rows else 1.0), 3)
+
+
+def head_secs(cid):
+    """映像の差し込み（頭）が画面に出る秒＝入れ替えの終わりまで（footage が切り出す長さ・until の照合）。無ければ None"""
+    it = (SPEC.get(cid) or {}).get("intro") or {}
+    if not it.get("foot"):
+        return None
+    return round(ins_sec(cid, int(it.get("until", 1))) + INTRO_X, 3)
+
+
+def foot_clip(cid):
+    """映像の差し込みの素材（footage.CLIPS の1件）と USE の欄。🔴 USE に head=True の欄が無ければ止める（fail closed）"""
+    import footage as FO
+    u = FO.USE.get(cid)
+    if not u or not u.get("head"):
+        raise SystemExit(f"{cid}: intro に foot（映像の差し込み）を書いたのに footage.USE に head=True の欄が無い")
+    return FO.CLIPS[u["clip"]], u
+
+
+def foot_box(cid):
+    """映像の差し込みの箱。素材の表示の幅（dispw）が1280以上＝全画面・それ未満（記録映画 720×480＝655×480）＝額装の箱（真ん中）"""
+    c, _ = foot_clip(cid)
+    sw, sh = int(c.get("dispw") or c["w"]), int(c["h"])
+    if sw >= 1280:
+        return PHOTO_FULL
+    z = min(PANEL_MAXW / sw, PANEL_MAXH / sh)
+    w, h = int(sw * z), int(sh * z)
+    return ((W - w) // 2, J.BAND_T + (PANEL_MAXH - h) // 2, w, h)
+
+
+def stock_chip():
+    """フリー素材の映像の左上の札「イメージ」（再現イラストの札と同じ形・同じ場所＝この事故の記録と取り違えさせない・§2-5c）"""
+    x, y, w, h = ILLU.CHIP
+    return (f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="6" fill="{ILLU.CHIP_BG}" fill-opacity="0.62" '
+            f'stroke="{ILLU.CHIP_FG}" stroke-width="2"/>'
+            f'<text x="{x + w / 2:.0f}" y="{y + 35}" font-family="Noto" font-size="28" fill="{ILLU.CHIP_FG}" '
+            f'text-anchor="middle">イメージ</text>')
+
+
+def head_top(cid, spec):
+    """映像の差し込み（頭）の上の層 `{cid}_ilab`：額の縁・「イメージ」の札か見出し・右上の章・出典。地は `{cid}_ibg`"""
+    c, _ = foot_clip(cid)
+    it = spec["intro"]
+    box = foot_box(cid)
+    g = []
+    if box != PHOTO_FULL:
+        x, y, w, h = box
+        g.append(f'<rect x="{x - 3}" y="{y - 3}" width="{w + 6}" height="{h + 6}" '
+                 f'fill="none" stroke="{J.LINE}" stroke-width="3"/>')
+    if c.get("stock"):
+        if it.get("t"):
+            raise SystemExit(f"{cid}: フリー素材の差し込みに見出し（t）は書かない（左上の「イメージ」と出典だけ＝写っていない物を名乗らない）")
+        g.append(stock_chip())
+    else:
+        if not it.get("t"):
+            raise SystemExit(f"{cid}: 記録映画の差し込みには見出し（t）と副題（s）が要る（写っているものを書く）")
+        g.append(J.title(it["t"], it.get("s", "")))
+    ch = chapter_of(cid)
+    if ch:
+        g.append(J.chapter(ch[0], NCH, ch[1]))
+    cr = c["credit"]
+    if box != PHOTO_FULL:
+        g.append(J.outlined(J.RIGHT, PANEL_CRED_Y, cr, J.LINE, 24, anchor="end", sw=5))
+    else:
+        cw = fm.width(cr, 24, "Noto")
+        g.append(J.tone(J.MG - 14, CRED_Y - 30, cw + 28, 42, J.BG, op=0.55))
+        g.append(J.outlined(J.MG, CRED_Y, cr, J.LINE, 24, sw=5))
+    return "".join(g)
+
+
+def tail_spec(cid):
+    """写真・頁の差し込み（尻）の SPEC（写真のカットと同じ形＝photo・trim・bias・panel・color・t・s）。無ければ None"""
+    tl = (SPEC.get(cid) or {}).get("tail")
+    if not tl:
+        return None
+    for k in ("photo", "t", "at"):
+        if k not in tl:
+            raise SystemExit(f"{cid}: tail に {k} が無い（写真・頁の差し込みは photo・t・at が要る）")
+    return {k: v for k, v in tl.items() if k != "at"}
+
+
+def tail_specs():
+    """門番が測る尻の差し込み {仮の鍵 `<cid>~t`: SPEC}（台本の順）"""
+    return {c + TAIL_KEY: tail_spec(c) for c in ORDER if tail_spec(c)}
+
+
+def _ins_layers(cid, spec, jobs):
+    """差し込みの層（頭＝`_ibg`・`_ilab`／尻＝`_tbg`・`_tlab`）。写真のカットにも図のカットにも効く"""
+    it = spec.get("intro") or {}
+    if it.get("foot"):
+        jobs[f"{cid}_ibg"] = full_bg()
+        jobs[f"{cid}_ilab"] = head_top(cid, spec)
+    elif it and not spec.get("fig"):
+        raise SystemExit(f"{cid}: 写真・頁のカットの intro は映像の差し込み（foot=True）だけ")
+    ts = tail_spec(cid)
+    if ts:
+        jobs[f"{cid}_tbg"] = full_bg()
+        jobs[f"{cid}_tlab"] = full_top(cid, ts)
+
+
 # ── 14本目 ⑤b-2（2026-09-28）：案C の再現イラスト ────────────────
 def _illu_layers(cid, scenes, jobs, n):
     """絵の部品を1つずつ層にする。🔴 名前は `<cid>_il<番号>`＝KEEP_COLOR（章の色に置き換えない）。部品に名前を書き戻す。"""
@@ -1887,6 +2010,7 @@ def build_layers(allow_missing=False):
             for i, a in enumerate(photo_ann(spec, cid)):
                 jobs[f"{cid}_a{i + 1}"] = a
             spans[cid] = (0, W)
+            _ins_layers(cid, spec, jobs)       # 🆕 18本目 ⑤b-7c：映像の差し込み（頭）・写真・頁の差し込み（尻）
             continue
         # ★写真を地に敷いたうえに図を重ねるカット（photo と fig を両方持つ）
         back = bool(spec.get("photo"))
@@ -1911,7 +2035,9 @@ def build_layers(allow_missing=False):
         if spec.get("intro"):
             if back:
                 raise SystemExit(f"{cid}: intro と photo（地に敷く）は同時に使えない")
-            if spec["intro"].get("illu"):
+            if spec["intro"].get("foot"):
+                pass                            # 🆕 18本目 ⑤b-7c：映像の差し込み（頭）＝下の _ins_layers（c102＝記録映画 → SA）
+            elif spec["intro"].get("illu"):
                 # 🔴 14本目 ⑤b-2：冒頭の1行だけ再現イラスト → 決め所へ画面ごと入れ替える（c102・§5b-74③）
                 isc = ILLU.scene(**spec["intro"]["illu"])
                 if any(t["texts"] for t in isc["tags"]):
@@ -1928,6 +2054,7 @@ def build_layers(allow_missing=False):
                     ip.update(panel=True, trim=spec["intro"].get("trim"))
                     jobs[f"{cid}_ibg"] = full_bg()
                 jobs[f"{cid}_ilab"] = full_top(cid, ip)
+        _ins_layers(cid, spec, jobs)           # 🆕 18本目 ⑤b-7c：頭の映像・尻の写真（c103＝SA → 写真 thr_t16）
         if not stages:
             # 段が無いと「描いている途中」が作れず、カットが丸ごと静止する。
             # 骨格を段に格上げして、カット全体をかけて描かせる。
@@ -1974,7 +2101,13 @@ def layer_index(allow_missing=False):
         # back  … **地に敷く**カットか（写真だけの実写カットと区別する）
         m = STAGE_META.get(cid, {})
         intro = s.get("intro")
-        if m.get("intro_illu"):
+        if intro and intro.get("foot"):
+            # 🆕 18本目 ⑤b-7c：映像の差し込み（頭）＝k 行目を読み始める少し前まで動く映像（build_jiko.intro_frame の foot）。
+            #    箱は素材の表示の幅で（全画面か額装）・ひかえの静止画（photo）はコマが無いときだけ
+            box = foot_box(cid)
+            intro = dict(intro, sec=ins_sec(cid, int(intro.get("until", 1))), box=[int(v) for v in box],
+                         full=box == PHOTO_FULL, stock=bool(foot_clip(cid)[0].get("stock")))
+        elif m.get("intro_illu"):
             # 🔴 14本目 ⑤b-2：冒頭の絵は**最後の行（決め所）を読み始める少し前**まで（build_jiko が INTRO_X 秒で重ねて入れ替える）。
             #    絵の段の時刻はこのカットの行から（絵は決め所と別の段の数を持つ）
             #    🔴 15本目 ⑤b-2：`intro=dict(illu=…, until=k)`＝k 行目（0 から）を読み始める少し前に入れ替える（c101 B→A・
@@ -1996,6 +2129,14 @@ def layer_index(allow_missing=False):
             box = photo_box(dict(s, photo=intro["photo"], panel=True, trim=intro.get("trim")))
             intro = dict(intro, sec=round(max(0.5, (rows[k]["t"] + LEAD - 0.30) if rows else 1.0), 3),
                          box=[int(v) for v in box])
+        # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）＝k 行目を読み始める少し前から（build_jiko.tail_frame）。箱は写真のカットと同じ計算
+        ts = tail_spec(cid)
+        tail = None
+        if ts:
+            tbox = photo_box(ts)
+            tail = dict(ts, sec=ins_sec(cid, int(s["tail"]["at"])), box=[int(v) for v in tbox], full=tbox == PHOTO_FULL,
+                        trim=ts.get("trim") or TRIM_BY_PHOTO.get(ts["photo"]),
+                        levels=ts.get("levels") or LEVELS_BY_PHOTO.get(ts["photo"]))
         idx[cid] = {"photo": bool(s.get("photo")), "back": bool(s.get("photo") and s.get("fig")),
                     "veil": float(s.get("veil", VEIL)), "span": spans[cid],
                     # 🔴 実写カット（fig の無いカット）にかける暗幕。**書いたカットだけ**
@@ -2004,7 +2145,8 @@ def layer_index(allow_missing=False):
                     "holds": m.get("holds") or [], "labk": m.get("labk"),
                     # 🔴 12本目から：動く部品と冒頭の写真（build_jiko.meta_of がそのまま運ぶ）
                     #    14本目 ⑤b-2 から：案C の再現イラスト（illu）と冒頭の絵（intro の illu）
-                    "moves": m.get("moves") or [], "intro": intro, "illu": m.get("illu")}
+                    "moves": m.get("moves") or [], "intro": intro, "illu": m.get("illu"),
+                    "tail": tail}                       # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）
     return idx, jobs
 
 

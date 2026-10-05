@@ -120,13 +120,15 @@ PICK = {
                         note='1963年 艦首の外板（初代トリエステの写真）。札の喫水の数字は絵では読めない'),
     'tracks_t41': L('thr_t41.jpg', 'ca20', 1964, T289 + ' 289-T-41', U289, 'NARA 289-T-41', crop=(190, 60, 1790, 960),
                     note='1964年 トリエステ2世が海の底に残した跡（捨てたおもりの黒い点・引きずった跡）'),
-    # ── 記録映画 85185 のコマ（静止画。⑤b-7b で動く映像に替える案＝カズヤくんの返事しだい）─────────────
-    'film_a': L('thr_film593_a.jpg', 'c301 c601', 1963, F85185, NARA + '85185', 'NARA 85185', sar=10 / 11,
-                note='記録映画のコマ（622秒）：浮上して走るスレッシャー・セイルの593（カラー）', who='米海軍の記録映画'),
-    'film_b': L('thr_film593_b.jpg', 'cb01', 1963, F85185, NARA + '85185', 'NARA 85185', sar=10 / 11,
-                note='記録映画のコマ（628秒）：セイルの上の乗員（公務）', who='米海軍の記録映画'),
-    'film_c': L('thr_film593_c.jpg', 'c212', 1963, F85185, NARA + '85185', 'NARA 85185', sar=10 / 11,
-                note='記録映画のコマ（631秒）：セイルの593', who='米海軍の記録映画'),
+    # ── 記録映画 85185 のコマ（静止画）＝✅ ⑤b-7c（10-05）に (b) の承認どおり c212 c301 c601 cb01 を同じ映画の動く映像に替えた
+    #    ＝いまはどのカットも使っていない（束には残す＝旧版から写した記録）。動く映像は §4（clips.json）・ひかえは fb_<カット>
+    'film_a': L('thr_film593_a.jpg', '', 1963, F85185, NARA + '85185', 'NARA 85185', sar=10 / 11,
+                note='記録映画のコマ（622秒）：浮上して走るスレッシャー・セイルの593（カラー）＝⑤b-7c で動く映像に替えた（使っていない）',
+                who='米海軍の記録映画'),
+    'film_b': L('thr_film593_b.jpg', '', 1963, F85185, NARA + '85185', 'NARA 85185', sar=10 / 11,
+                note='記録映画のコマ（628秒）：セイルの上の乗員（公務）＝⑤b-7c で動く映像に替えた（使っていない）', who='米海軍の記録映画'),
+    'film_c': L('thr_film593_c.jpg', '', 1963, F85185, NARA + '85185', 'NARA 85185', sar=10 / 11,
+                note='記録映画のコマ（631秒）：セイルの593＝⑤b-7c で動く映像に替えた（使っていない）', who='米海軍の記録映画'),
     # ── Commons の新しい8点（🔴 カズヤくんの了承のあとに fetch で取る）────────────────────
     'skylark_front': C('USS Skylark (ASR-20).jpg', 'c304 c523', None, None,
                        note='救難艦スカイラークの正面（網点の印刷・1950年代後半〜60年代＝撮影年は割れる）'),
@@ -607,8 +609,11 @@ def cmd_check():
     import cuts
     want = {c for c, p in cuts.PLAN.items() if p['kind'] == '写真'}
     have = {c for r in PICK.values() for c in r['cuts']}
-    print(f'PLAN の写真 {len(want)}カット・PICK が当てる {len(have)}カット・まだ当てていない {len(want - have)}: '
-          f"{' '.join(sorted(want - have))}")
+    # 🆕 ⑤b-7c：記録映画（カットまるごと＝footage.USE・head でない）のカットは動く映像が当たっている
+    import footage as FO
+    vids = {c for c, u in FO.USE.items() if not u.get('head')}
+    print(f'PLAN の写真 {len(want)}カット・PICK が当てる {len(have)}カット・記録映画（footage.USE）{len(want & vids)}カット・'
+          f"まだ当てていない {len(want - have - vids)}: {' '.join(sorted(want - have - vids))}")
     if have - want:
         print(f"🔴 PLAN で写真でないカットに当てている: {' '.join(sorted(have - want))}")
         bad += 1
@@ -677,6 +682,11 @@ def cmd_credits(write=False):
     pages = json.loads(PAGES_JSON.read_text(encoding='utf-8')) if PAGES_JSON.exists() else {}
     cj = {f'ep18/{n}.jpg': credit_line(n, r) for n, r in db.items()}
     cj.update({f'ep18/{k}.png': page_credit(int(k[2:])) for k in pages})
+    # 🆕 ⑤b-7c：記録映画のひかえの静止画（fb_<カット>）＝その映画の出典（コマが切り出せなかったときだけ出る）
+    sys.path.insert(0, str(HERE / 'tools'))
+    import footage as FO
+    cj.update({f'ep18/fb_{c}.jpg': FO.CLIPS[u['clip']]['credit'] for c, u in FO.USE.items()
+               if not FO.CLIPS[u['clip']].get('stock')})
     rows = [f"| `{n}` | {r.get('cut') or '（章ファイル）'} | {r['year'] or '不明'} | {GROUND} | {r['author']} | "
             f"{r['hold']}　{r.get('url', '')} |" for n, r in db.items()]
     rows += [f"| `{k}` | {' '.join(sorted(p.get('cuts', {}))) or '（c104＝⑤b-8）'} | {PAGE_DOC[p['doc']][0]} | "
@@ -707,7 +717,7 @@ def cmd_credits(write=False):
             '式台の造船所の人（公的な任務）は残る（原寸で顔 約10px）。進水（1960）の岸の人は全員が後ろ姿か横向き',
             '- 撮影年が書かれていない・割れる点（289-T の造船所の写真2点と謝辞の頁の航走写真・スカイラークの2点）は撮影年を「不明」にし、'
             '**副題に年を書かない**（門番 credits）',
-            '- 記録映画のコマは画素が縦長（SAR 10:11）＝655×480 に直した。動く映像（記録映画）は ⑤b-7b で `clips.json` に足す',
+            '- 記録映画のコマは画素が縦長（SAR 10:11）＝655×480 に直した。動く映像（記録映画）は §4（⑤b-7c で `clips.json`）',
             '- Commons の新しい8点は、落とす前に一覧（名前・大きさ）でカズヤくんの了承を取った（2026-10-04）＝取ったファイルは'
             ' Commons の原本と SHA-1 が一致（`ref/ep18/img/fetched.json`＝git の外）',
             '',
@@ -720,7 +730,7 @@ def cmd_credits(write=False):
             '濃淡だけ強める＝出典の行に「濃淡補正」',
             '- 名簿（認定4・R08 p.181）と名簿の終わり（p.184）の名前＝公務の乗員と、公務を果たすために乗っていた造船所・会社の人'
             '（認定6）＝実名の線（§B2-1）の内',
-            '', hdr, '|---|---|---|---|---|---|', *rows, '', *stock_md()])
+            '', hdr, '|---|---|---|---|---|---|', *rows, '', *stock_md(), *films_md()])
         if head in md:
             pre, rest = md.split(head, 1)
             nxt = rest.find('\n## ')
@@ -914,9 +924,153 @@ def cmd_stock(yes=False):
     return 1 if bad else 0
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-7c（2026-10-05）：動く映像＝記録映画12本（NARA RG 428）とフリー素材11本の台帳
+# ══════════════════════════════════════════════════════════
+# 記録映画は (c) の了承（10-04）＝**丸ごとは保存しない**：ショットの境目は1本につき網から1回だけ読み流して測り（1秒1コマ）、
+#   本番（Actions）は `footage.py` が URL から区間だけ切り出す（`"range": true`＝落とさない）。
+# 値は 2026-10-05 に NARA のカタログ API（`/proxy/records/search?naId=`）の objectUrl・HEAD（大きさ）・ffprobe（720×480・
+#   SAR 10:11・DAR 15:11・60p・progressive）で測った。権利＝米海軍の職務著作（海軍写真センター 428-NPC）＝PD。
+#   NARA の表示は Use: Undetermined（NARA が未判定という意味＝制限ではない・materials.md §1）
+MOPIX = 'https://catalog.archives.gov/medialz/mopix/428/NPC/'
+
+
+def Fm(npc, sec, size, title, what, year=None):
+    return dict(npc=npc, sec=sec, size=size, title=title, what=what, year=year)
+
+
+FILMS = {
+    '85185': Fm('36843', 789.38, 215134981, 'USS THRESHER (SSN-593)', 'カラーの航走（セイルの593・艦橋の乗員）'),
+    '83213': Fm('28682', 189.68, 51561325, 'LAUNCHING OF USS THRESHER (SSN-593) Naval Shipyard, Portsmouth',
+                '1960年の進水（空から見た造船所と艦）', 1960),
+    '83750': Fm('32793', 281.55, 76909073, 'SEARCH FOR USS THRESHER (SSN-593)', '捜索の海の艦（空から）', 1963),
+    '83751': Fm('32794', 310.72, 84771038, 'SEARCH FOR USS THRESHER (SSN-593)', '捜索の艦（空から・艦番号179 ほか）', 1963),
+    '83746': Fm('32786', 505.03, 137578490, 'SEARCH FOR USS THRESHER (SSN-593) On Board USS ALLEGHENY (ATA-179)',
+                'アレゲニーの艦上の乗員と機器（乗用車の場面は使わない）', 1963),
+    '83737': Fm('32762', 515.32, 140627185, 'SEARCH FOR USS THRESHER (SSN-593) 250 Miles East of Cape Cod over Atlantic',
+                '哨戒機から見た捜索の海', 1963),
+    '83759': Fm('32824', 178.08, 48405035, 'SEARCH FOR USS THRESHER (SSN-593) Naval Shipyard, Boston, Mass',
+                'ボストンの造船所・艦番号422 の潜水艦（トロ）', 1963),
+    '83795': Fm('32987', 248.48, 67851947, 'THRESHER SEARCH 220 Miles East of Cape Cod at Sea', '海の上の初代トリエステ', 1963),
+    '83766': Fm('32855', 194.0, 52555357, 'SEARCH FOR USS THRESHER (SSN-593) Boston Naval Shipyard', 'ボストンの造船所', 1963),
+    '83757': Fm('32803', 642.98, 175367398, 'SEARCH FOR USS THRESHER (SSN-593) TRIESTE Test Dive Boston, Mass. & at Sea',
+                '初代トリエステの試験潜航（1963-05-03・ボストンの東 約60マイル）', 1963),
+    '83741': Fm('32767', 574.73, 156798136, 'USS THRESHER (SSN-593) MEMORIALS', '追悼（参列者の顔のショットは使わない）', 1963),
+    '83740': Fm('32766', 327.67, 89347981, 'THRESHER MEMORIAL SERVICE Portsmouth, N. H',
+                'ポーツマスの追悼の式（頭2秒は NARA のロゴ・顔の分かるショットは使わない）', 1963),
+}
+FILM_CREDIT = '出典：米海軍の記録映画（NARA {na}・パブリックドメイン）'
+
+
+def cmd_clips():
+    """ref/ep18/clips.json（footage.CLIPS）＝記録映画12本（nara<naId>）＋フリー素材11本（stock.json の実測）"""
+    out = {}
+    for na, f in FILMS.items():
+        out[f'nara{na}'] = dict(url=NARA + na, media=MOPIX + f"428-npc-{f['npc']}.mp4", range=True,
+                                credit=FILM_CREDIT.format(na=na), src='nara', at=0.0, date=f['year'],
+                                what=f['what'], title=f['title'], w=720, h=480, fps=60.0, sar='10:11', dar='15:11',
+                                sec=f['sec'], size=f['size'], dispw=655, decoded=[655, 480])
+    led = json.loads((DEST / 'stock.json').read_text(encoding='utf-8'))
+    for n, r in led.items():
+        num, den = (int(x) for x in str(r['fps']).split('/'))
+        out[n] = dict(url=r['page'], media=r['url'], stock=True, file=f"ep18/{r['file']}", credit=r['credit'], src='stock',
+                      at=0.0, date=r['up'], what=r['what'], w=r['w'], h=r['h'], fps=round(num / den, 3), sar='1:1',
+                      sec=r['dur'], size=r['size'], md5=r['md5'], dispw=r['w'], decoded=[r['w'], r['h']],
+                      license=r['license'], license_url=r['license_url'], author=r['author'], site=r['site'])
+    p = DEST / 'clips.json'
+    p.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding='utf-8')
+    print(f'→ {p}（記録映画 {len(FILMS)}本・フリー素材 {len(led)}本）')
+    return 0
+
+
+# 🔴 境目の物差し（隣の1秒の見た目の差 ＞ 14）が動きの速い水面で「全部の秒が境目」になる素材＝1ショットに直す（根拠と目で確かめた事）。
+#    ⚠️ 表に足すのは、差が**全部**しきい値を超える（静かな秒が1つも無い＝切り替わりと見分けられない）うえ、境目の前後を目で見た素材だけ
+SHOT_ONE = {
+    'sea_dark_5668613': '1秒ごとの差が全部 24.8〜29.2＝波の速い動き・4秒の「境目」の前後 1.0／3.5／4.5／7.0秒を並べて同じ水面の続き'
+                        '（2026-10-05 ⑤b-7c に目で確かめた）',
+}
+
+
+def cmd_shots(probe):
+    """ref/ep18/shots.json（footage.SHOTS）。記録映画＝⑤b-7c に1本につき網から1回だけ読み流した1秒1コマから
+    `tools/shots.boundaries()`（同じ物差し）で出した境目（probe＝scratchpad の films/probe.json）・フリー素材＝手元の mp4 を
+    `tools/shots.shots_of()` で"""
+    sys.path.insert(0, str(HERE / 'tools'))
+    import shots
+    pr = json.loads(Path(probe).read_text(encoding='utf-8'))
+    out = {}
+    for na in FILMS:
+        v = pr[na]
+        out[f'nara{na}'] = dict(src=MOPIX + f"428-npc-{FILMS[na]['npc']}.mp4", dur=float(v['nframes']),
+                                how='1秒1コマを読み流して tools/shots.boundaries（2026-10-05・丸ごとは保存しない）',
+                                shots=v['shots'])
+    led = json.loads((DEST / 'stock.json').read_text(encoding='utf-8'))
+    for n, r in led.items():
+        sh, dur = shots.shots_of(str(DEST / r['file']))
+        how = ' 手元の mp4 を tools/shots.shots_of'
+        if n in SHOT_ONE:
+            sh = [dict(start=0.0, until=float(int(dur)), motion=max(s['motion'] for s in sh))]
+            how += f'＋1ショットに直した（{SHOT_ONE[n]}）'
+        out[n] = dict(src=r['file'], dur=round(dur, 2), how=how.strip(), shots=sh)
+        print(f'  {n}: {dur:.0f}秒・ショット {len(sh)}')
+    p = DEST / 'shots.json'
+    p.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding='utf-8')
+    print(f"→ {p}（{len(out)}本・ショット {sum(len(v['shots']) for v in out.values())}）")
+    return 0
+
+
+def cmd_fb():
+    """ひかえの静止画（コマが切り出せなかったときだけ出る絵）＝footage.USE の start の1コマ。
+    記録映画＝ref/ep18/fb_<カット>.jpg（URL から1コマ・SAR を直して 655×480）／フリー素材の頭＝ref/ep18/stock/fb_<カット>.jpg
+    （手元の mp4 から・幅1280）。🔴 名前に fb_ を付ける＝門番 credits は「動画の出典を借りる」として表と照らさない"""
+    import subprocess
+    sys.path.insert(0, str(HERE / 'tools'))
+    import footage as FO
+    bad = 0
+    for cid, u in FO.USE.items():
+        c = FO.CLIPS[u['clip']]
+        t = float(u['start'])
+        if c.get('stock'):
+            src, dst, vf, net = str(HERE / 'ref' / c['file']), DEST / 'stock' / f'fb_{cid}.jpg', 'scale=1280:-2', []
+        else:
+            src, dst, vf = c['media'], DEST / f'fb_{cid}.jpg', 'scale=iw*sar:ih,setsar=1'
+            net = ['-user_agent', UA, '-rw_timeout', '60000000']
+        for k in range(3):
+            r = subprocess.run(['ffmpeg', '-y', '-nostdin', '-v', 'error', *net, '-ss', f'{t:.2f}', '-i', src,
+                                '-frames:v', '1', '-vf', vf, '-q:v', '3', str(dst)], capture_output=True, text=True, timeout=600)
+            if r.returncode == 0 and dst.exists():
+                break
+            time.sleep(5 * (k + 1))
+        else:
+            print(f'🔴 {cid}: ひかえの静止画が作れない（{r.stderr[-160:]}）')
+            bad += 1
+            continue
+        print(f"✓ {cid:5} {u['clip']:22} {t:7.1f}秒 → {dst.relative_to(HERE).as_posix()}")
+    return 1 if bad else 0
+
+
+def films_md():
+    """ref/CREDITS.md の18本目の節の「4. 記録映画（動く映像）」（表にしない＝門番 credits の写真の表と混ぜない）"""
+    out = ['### 4. 記録映画（動く映像）＝⑤b-7c（2026-10-05・取得は 10-04 カズヤくん了承＝丸ごとは保存しない）',
+           '- NARA RG 428（海軍写真センター 428-NPC）の記録映画＝米海軍の職務著作＝PD（17 U.S.C. §105）。NARA の表示 Use: '
+           'Undetermined（未判定＝制限ではない）。画面の出典＝「出典：米海軍の記録映画（NARA <naId>・パブリックドメイン）」',
+           '- すべて 720×480・画素が縦長（SAR 10:11）＝655×480 に直して額装＋地のぼかし（映像方針 §8）。【映像あり】は付けない',
+           '- 本番（Actions・Modal）は `tools/footage.py` が URL から使う区間だけ切り出す（落とさない＝`"range": true`）。'
+           'ショットの境目は `ref/ep18/shots.json`（1秒刻み）・使う区間は `footage.USE`', '']
+    for na, f in FILMS.items():
+        out.append(f"- NARA {na}「{f['title']}」{f['what']}・{f['sec']:.0f}秒　{NARA + na}")
+    return out + ['']
+
+
 def main():
     a = sys.argv[1:] or ['check']
     cmd = a[0]
+    if cmd == 'clips':
+        return cmd_clips()
+    if cmd == 'shots':
+        return cmd_shots(a[1])
+    if cmd == 'fb':
+        return cmd_fb()
     if cmd == 'build':
         return cmd_build(set(a[1:]) or None)
     if cmd == 'check':

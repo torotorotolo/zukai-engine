@@ -42,6 +42,7 @@
   🆕 18本目 ⑤b-2（SA＝横から見た海・映像方針 18本目 §12・記録は門番の側の REC_DEPTH・REC_UP_MAX・REC_BOOM_*）：
   ⑤ 時計の札は分の小数まで読む（「9時18.1分」＝"9:18.1"・表に無い小数／小数の無い 9:18 は止める）
   ⑦ 混ざりの本物の側のつなぎ待ち（cuts.ss.ILLU_MIX_TODO）は束（ILLU_MIX_BUNDLE）ができるまで全面の絵でよい（参考の行）＝束ができたら止める
+    🆕 ⑤b-7c：本物の側＝頭の映像（intro foot）か尻の写真・頁（tail）をつないだら合格・つないだのに表に残る／種類が「再現イラスト」なら止める
   ⑫ 潜水艦の圧壊と破片（sub＝crush・destroy の部品）は表（ILLU_DESTROY_CUTS）のカットだけ
   ⑮ 潜水艦は記録の時刻 clk（読める形）つきで ILLU_SUB_UNTIL（例外 ILLU_SUB_EXC）まで・艦の絵を止めたカット（ILLU_SUB_STOP）より後に
      置かない・下がる／圧壊は例外のカットで「推定」の札と一緒に（段の途中の札は下がり始めより前）・艦首の上げは記録の上限まで・
@@ -1280,12 +1281,20 @@ def judge_cut(cid, spec, kind_of):
     n += 1
     if kind in NON_ILLU_KINDS and (has_full or has_mini or it):
         bad.append(f"⑦{cid}：画面の種類「{kind}」に再現イラストを置いた（写真・頁・決め所・文字の頁に絵を置かない）")
+    # 🆕 18本目 ⑤b-7c：本物の側＝頭の映像（intro foot＝footage.USE の head）か尻の写真・頁（tail）
+    real = bool((spec.get("intro") or {}).get("foot") or spec.get("tail"))
+    if kind == "再現イラスト" and real:
+        bad.append(f"⑦{cid}：全面の絵に本物の映像・写真を差し込んだのに画面の種類が「再現イラスト」＝「混ざり」に（PLAN）")
     if kind == "混ざり" and has_full:
         # 🆕 18本目 ⑤b-2：本物の側（映像・写真）のつなぎ待ちの表（cuts.ss.ILLU_MIX_TODO）のカットは、束ができるまで全面の絵でよい
         #   （参考の行を毎回出す）。束（ILLU_MIX_BUNDLE＝credits.json）ができたら、つないでいないカットは止める（忘れ防止）
         todo = (getattr(_ss(), "ILLU_MIX_TODO", None) or {}).get(cid)
         bundle = getattr(_ss(), "ILLU_MIX_BUNDLE", None)
-        if todo and not (bundle and Path(bundle).exists()):
+        if real and todo:
+            bad.append(f"⑦{cid}：本物の側をつないだのに cuts.ss.ILLU_MIX_TODO に残っている＝表から外す")
+        elif real:
+            pass                               # 🆕 ⑤b-7c：つないだ（c102＝頭の記録映画・c103＝尻の写真）
+        elif todo and not (bundle and Path(bundle).exists()):
             NOTES.append(f"⚠️ ⑦{cid}：混ざりの本物の側がつなぎ待ち（{todo}）＝いまは SA の段だけを全面の絵で焼く")
         elif todo:
             bad.append(f"⑦{cid}：束（{Path(bundle).name}）ができたのに混ざりの本物の側をつないでいない（{todo}）"
@@ -2001,9 +2010,11 @@ def selftest_ep18():
         nonlocal ok
         bad = [b for b in judge_cut(cid, dict(fig=("illu", kw)), {cid: kind})[0] if b.startswith(head)]
         ok &= _expect(f"🔴 18本目 陽性対照{head}：{name}", bad, head)
-    # 正しい側（本番の SPEC）
+    # 正しい側（本番の SPEC）。🆕 ⑤b-7c：差し込み（頭の映像 intro foot・尻の写真 tail）も本番の SPEC のまま渡す
     for c, kw in S.items():
-        bad = judge_cut(c, dict(fig=("illu", kw)), kinds)[0]
+        sp = cuts.SPEC.get(c) or {}
+        extra = {k: sp[k] for k in ("intro", "tail") if sp.get(k)}
+        bad = judge_cut(c, dict(fig=("illu", kw), **extra), kinds)[0]
         print(f"  {'OK' if not bad else '🔴 NG'} 18本目 正しい SA {c}: {'合格' if not bad else bad[0]}")
         ok &= not bad
     # ⑤ 時計：分の小数まで（9時18分・9時18.2分は表に無い）・秒の札・表が空なら全部止める
@@ -2107,6 +2118,18 @@ def selftest_ep18():
     finally:
         ss.ILLU_MIX_BUNDLE = keep
     run_cut("つなぎ待ちの表に無い混ざりの全面の絵", "x19", k405, "混ざり", "⑦")
+    # 🆕 ⑤b-7c：本物の側をつないだ（尻の写真）のに表に残る／つないだ絵の種類が「再現イラスト」のまま
+    keep_t = ss.ILLU_MIX_TODO
+    ss.ILLU_MIX_TODO = {"x20": "（検算用）"}
+    try:
+        bad = [b for b in judge_cut("x20", dict(fig=("illu", k405), tail=dict(photo="ep18/sail_t16.jpg", t="x", at=2)),
+                                    {"x20": "混ざり"})[0] if b.startswith("⑦")]
+    finally:
+        ss.ILLU_MIX_TODO = keep_t
+    ok &= _expect("🔴 18本目 陽性対照⑦：つないだのにつなぎ待ちの表に残る", bad, "⑦")
+    bad = [b for b in judge_cut("x21", dict(fig=("illu", k405), intro=dict(foot=True, until=1)),
+                                {"x21": "再現イラスト"})[0] if b.startswith("⑦")]
+    ok &= _expect("🔴 18本目 陽性対照⑦：頭に本物の映像を差し込んだのに種類が「再現イラスト」", bad, "⑦")
     # 型が止める形
     for name, kw in (("圧壊のあとに潜水艦を戻す", dict(k103, steps=k103["steps"][:2] + [dict(state=dict(sub="on"), rec="R08 p4185")])),
                      ("圧壊の無い場面に音の輪", dict(k405, steps=[dict(boom=1, rec="R08 p4185"), dict()])),

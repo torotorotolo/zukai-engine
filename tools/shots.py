@@ -56,7 +56,8 @@ MIN_CUTS = 20           # 🔴 20分超の記録映像でこれ未満なら「�
 # 🔴 2026-09-08（6本目②）: Commons（upload.wikimedia.org）は名乗らないと **429 Too Many Requests**。
 #    素の ffmpeg は 0コマを返すので「ショットが1本」ではなく**例外**になるが、
 #    URL を渡す道が塞がっていた。footage.py はもともと -user_agent を付けている（同じ値にする）。
-UA = "zukai-engine/1.0 (https://commons.wikimedia.org/; konariri8@gmail.com)"
+#    🔴 2026-10-05（18本目 ⑤b-7c）：個人のメールを外した（外のサービスへ送らない）＝footage.UA と同じ値
+UA = "zukai-engine/1.0 (accident-documentary research; https://github.com/torotorotolo/zukai-engine)"
 
 
 def signatures(path) -> np.ndarray:

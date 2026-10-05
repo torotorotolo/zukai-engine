@@ -20,6 +20,10 @@
   札（PLAN の種類）と絵（素材の置き場）で照らす＝素材がフリー素材（静止画の道が `<回>/stock/`・または `footage.USE` の映像が
   `ref/<回>/clips.json` で `"stock": true`）なら種類は「フリー素材」（図の地に敷いたなら「混ざり」か「図解」）でなければ E
   ＝「フリー素材を写真に数えた」を止める。逆に種類「フリー素材」なのに素材がこの事故の写真でも E。陽性対照 ⑧〜⑪（`--selftest`）
+■ 🆕 差し込み（2026-10-05 18本目 ⑤b-7c・映像方針 §22-2・§24）
+  映像の差し込み（頭＝SPEC の intro foot＋footage.USE の head=True）はカットの頭の k 行だけ＝**カットの種類は本の画のまま**
+  （写真・文字の頁）＝20%の数を動かさない（カットごと替えると写真 57→48＝19.8%＝20%を割る＝承認 (a) の理由）。`is_stock` は head の
+  欄を見ない・差し込みの数は `heads()` で別に並べる。全面の絵（illu）に頭の映像か尻の写真（tail）を差し込んだら「混ざり」。陽性対照 ⑬⑭
 ■ 🔴 回ごとの例外（2026-09-30 15本目 ⑤b-1）＝`EXCEPTIONS`
   15本目は決まり（§5b-79＝16本目の ④ から）の前に案B（文字だけ 59/192＝30.7%・続く最長5・3連続以上4か所）で承認ずみ
   （09-26 カズヤくん・映像方針 §11・ルール §A0b 0b-24）。**承認の数だけ**を許す＝文字だけは59まで・3カット以上続くのは承認の
@@ -58,7 +62,22 @@ def is_stock(cid, s, use=None, clips=None):
         import footage
         use, clips = footage.USE, footage.CLIPS
     u = use.get(cid)
-    return bool(u and (clips.get(u.get("clip")) or {}).get("stock"))
+    # 🆕 18本目 ⑤b-7c：映像の差し込み（頭＝head）はカットの頭の k 行だけ＝カットの絵は本の写真・頁のまま（20%の数はそのまま）。
+    #    差し込みは `heads()` で別に数えて並べる
+    return bool(u and not u.get("head") and (clips.get(u.get("clip")) or {}).get("stock"))
+
+
+def heads(order, spec, use=None, clips=None):
+    """🆕 18本目 ⑤b-7c：映像の差し込み（頭）のカット＝{"stock": [...], "film": [...]}（SPEC の intro foot と footage.USE の head）"""
+    if use is None or clips is None:
+        import footage
+        use, clips = footage.USE, footage.CLIPS
+    out = {"stock": [], "film": []}
+    for c in order:
+        if ((spec.get(c) or {}).get("intro") or {}).get("foot"):
+            u = use.get(c) or {}
+            out["stock" if (clips.get(u.get("clip")) or {}).get("stock") else "film"].append(c)
+    return out
 
 
 def pic_kinds(s, stock=False):
@@ -71,7 +90,8 @@ def pic_kinds(s, stock=False):
         if k == "panel":
             return {"パネル"}
         if k == "illu":
-            return {"再現イラスト"}
+            # 🆕 18本目 ⑤b-7c：全面の絵の頭に本物の映像（intro foot）・尻に本物の写真（tail）＝画面の中で絵と本物が入れ替わる
+            return {"混ざり"} if ((s.get("intro") or {}).get("foot") or s.get("tail")) else {"再現イラスト"}
         if k == "illu_pair":
             return {"混ざり"}
         if (s.get("intro") or {}).get("illu"):
@@ -291,6 +311,26 @@ def selftest():
     good12 = not E12a and any("混ざり" in e for e in E12b)
     ok &= good12
     print(f"  {'OK' if good12 else '🔴 NG'} ⑫ 混ざりのつなぎ待ち：表のカットは E にしない（{len(E12a)}件）・表が空なら E（{len(E12b)}件）")
+    # 🆕 18本目 ⑤b-7c：映像の差し込み（頭）と写真の差し込み（尻）
+    use13, clips13 = {ids8[0]: dict(clip="s1", head=True)}, {"s1": dict(stock=True)}
+    p13 = {c: dict(kind="図解") for c in ids8}
+    p13[ids8[0]] = dict(kind="写真")
+    sp13 = {ids8[0]: dict(photo="ep18/bow.jpg", intro=dict(foot=True, until=1))}
+    run("⑬a 写真のカットの頭にフリー素材を差し込む（head）＝種類は「写真」のまま", ids8, p13, sp13, False,
+        stock=lambda c, s: is_stock(c, s, use13, clips13))
+    run("⑬b 同じ素材をカットまるごと（head なし）にして種類「写真」＝フリー素材を写真に数えた", ids8, p13, sp13, True,
+        stock=lambda c, s: is_stock(c, s, {ids8[0]: dict(clip="s1")}, clips13))
+    p14 = {c: dict(kind="図解") for c in ids8}
+    p14[ids8[0]] = dict(kind="混ざり")
+    run("⑭a 全面の絵の尻に本物の写真（tail）＝混ざり", ids8, p14,
+        {ids8[0]: dict(fig=("illu", {}), tail=dict(photo="ep18/sail.jpg", t="x", at=2))}, False)
+    run("⑭b 全面の絵の頭に本物の映像（intro foot）＝混ざり", ids8, p14,
+        {ids8[0]: dict(fig=("illu", {}), intro=dict(foot=True, until=1))}, False)
+    run("⑭c 全面の絵だけで種類「混ざり」（つなぎ待ちの表なし）", ids8, p14, {ids8[0]: dict(fig=("illu", {}))}, True)
+    hd13 = heads(ids8, sp13, use13, clips13)
+    good13 = hd13 == {"stock": [ids8[0]], "film": []}
+    ok &= good13
+    print(f"  {'OK' if good13 else '🔴 NG'} ⑬c 差し込みの数：フリー素材 {len(hd13['stock'])}・記録映画 {len(hd13['film'])}（1・0 のはず）")
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 
@@ -320,6 +360,9 @@ def main():
     pr = st["photo"] / st["n"] if st["n"] else 0.0
     print(f"  ◆ 写真（この事故の写真・映像＝20%の数・【映像あり】）{st['photo']}/{st['n']}＝{pr * 100:.1f}%"
           f"・フリー素材 {st['stock']}（別に数える＝20%にも【映像あり】にも数えない・ルール §2-5c）")
+    hd = heads(list(SJ.ORDER), cuts.SPEC)
+    print(f"  ◆ 🆕 映像の差し込み（頭の k 行だけ＝カットの種類は本の画のまま）：フリー素材 {len(hd['stock'])}"
+          f"（{' '.join(hd['stock']) or 'なし'}）・記録映画 {len(hd['film'])}（{' '.join(hd['film']) or 'なし'}）")
     if "--ids" in sys.argv:
         for k in TEXT:
             print(f"  {k} {len(st['ids'][k])}: " + " ".join(st["ids"][k]))

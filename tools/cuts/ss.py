@@ -149,6 +149,21 @@ def fb(cid):
     return f"{EP}fb_{cid}.jpg"
 
 
+def vid(cid, **kw):
+    """🆕 18本目 ⑤b-7c：カットまるごとの動く映像（記録映画＝`footage.USE`）を1行で書く。箱はひかえの静止画の縦横比
+    （記録映画 655×480＝額装＋地のぼかし＝映像方針 §8）。副題は**選んだショットに写っているもの**（撮影日は分からない＝年を書かない）"""
+    return dict(photo=fb(cid), **kind(fb(cid)), **kw)
+
+
+def head(cid, until=1, **kw):
+    """🆕 18本目 ⑤b-7c：映像の差し込み（頭）の intro＝カットの頭の until 行だけ `footage.USE[cid]`（head=True）の映像。
+    ひかえの静止画＝記録映画は `fb_<cid>.jpg`・フリー素材は `stock/fb_<cid>.jpg`（`qa_out/<回>_assets.py fb`）。
+    フリー素材は見出しを書かない（左上の「イメージ」と出典だけ）・記録映画は t と s（写っているもの）を書く"""
+    import footage as _FO
+    stock = (_FO.CLIPS.get((_FO.USE.get(cid) or {}).get("clip")) or {}).get("stock")
+    return dict(foot=True, until=until, photo=f"{EP}stock/fb_{cid}.jpg" if stock else fb(cid), **kw)
+
+
 # ══════════════════════════════════════════════════════════
 #  🔴🔴 継承（ShareAlike）つきの点＝**額装だけ**（13本目・10本目の決めと同じ）
 # ══════════════════════════════════════════════════════════
@@ -223,6 +238,10 @@ def check_frame_only(spec):
         intro_ph = (s.get("intro") or {}).get("photo")
         if intro_ph in fo:
             bad.append(f"{cid}＝intro の {intro_ph}（{fo[intro_ph]}）: 冒頭の全画面は切る＝継承つきは使えない")
+        # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）は寄る（build_jiko.tail_frame）＝継承つきは使えない
+        tail_ph = (s.get("tail") or {}).get("photo")
+        if tail_ph in fo:
+            bad.append(f"{cid}＝tail の {tail_ph}（{fo[tail_ph]}）: 尻の差し込みは寄る（端を切る）＝継承つきは使えない")
         lic = fo.get(ph)
         if lic is None:
             continue
@@ -463,8 +482,8 @@ ILLU_BOOM_CUTS = ("c103",)
 # 🆕 18本目 ⑤b-2：混ざり（映像→絵・絵→写真）の**本物の側のつなぎ待ち**（門番 ⑦）。SA の段はこのチャットで作って焼く・本物の映像と
 #   写真は ⑤b-7 の束で足す＝それまで画面の種類「混ざり」のカットを全面の絵で書いてよい（⚠️ 参考の行を毎回出す）。
 #   🔴 束（`ref/ep18/credits.json`）ができたら、つないでいないカットは止まる（忘れ防止＝fail closed）。つないだら表から外す
-ILLU_MIX_TODO = {"c102": "1行目＝本物の記録映画 85185（額装＋地のぼかし・⑤b-7 で intro に）",
-                 "c103": "3行目＝本物の写真 thr_t16（1964年・海の底のセイル・⑤b-7 の束で）"}
+#   ✅ 2026-10-05（⑤b-7c）：c102（1行目＝記録映画 85185＝intro foot）・c103（3行目＝写真 thr_t16＝tail）をつないだ＝空に
+ILLU_MIX_TODO = {}
 ILLU_MIX_BUNDLE = REF / "credits.json"
 
 # 🔴 §0b：軸の型（`tools/axis.py`・14本目 ⑤b-5）の「割れる時刻の印」に添える出典の名（`rec=` の資料名 → 画面の名）。

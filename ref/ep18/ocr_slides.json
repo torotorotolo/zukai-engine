@@ -65,56 +65,152 @@
   ],
   "lines": []
  },
- "film_a.jpg": {
+ "fb_c117.jpg": {
   "size": [
-   655,
+   654,
    480
   ],
-  "lines": [
-   {
-    "box": [
-     313,
-     258,
-     326,
-     290
-    ],
-    "text": "3"
-   }
-  ]
+  "lines": []
  },
- "film_b.jpg": {
+ "fb_c202.jpg": {
   "size": [
-   655,
+   654,
    480
   ],
-  "lines": [
-   {
-    "box": [
-     243,
-     245,
-     304,
-     277
-    ],
-    "text": "531"
-   }
-  ]
+  "lines": []
  },
- "film_c.jpg": {
+ "fb_c212.jpg": {
   "size": [
-   655,
+   654,
    480
   ],
-  "lines": [
-   {
-    "box": [
-     266,
-     248,
-     331,
-     278
-    ],
-    "text": "593"
-   }
-  ]
+  "lines": []
+ },
+ "fb_c301.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_c506.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_c514.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_c515.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_c601.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_c607.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_c621.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_c701.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_ca01.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_ca03.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_ca07.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_ca08.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_ca09.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_ca12.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_cb01.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_cb07.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_cb14.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
+ },
+ "fb_cb19.jpg": {
+  "size": [
+   654,
+   480
+  ],
+  "lines": []
  },
  "fish_1104636.jpg": {
   "size": [
@@ -6072,6 +6168,383 @@
      2538
     ],
     "text": "16 8 2"
+   }
+  ]
+ },
+ "pg4220.png": {
+  "size": [
+   1707,
+   2800
+  ],
+  "lines": [
+   {
+    "box": [
+     334,
+     408,
+     480,
+     429
+    ],
+    "text": "Unclassified"
+   },
+   {
+    "box": [
+     581,
+     526,
+     1447,
+     552
+    ],
+    "text": ")peration or alignment which contributes most toward"
+   },
+   {
+    "box": [
+     581,
+     558,
+     1414,
+     587
+    ],
+    "text": "dependable operation under casualty conditions and"
+   },
+   {
+    "box": [
+     593,
+     593,
+     1125,
+     612
+    ],
+    "text": "ト { 0 ト m イ n イ mf 2 f 1 ood イ ” 0 0 f f00 -"
+   },
+   {
+    "box": [
+     514,
+     660,
+     1463,
+     690
+    ],
+    "text": "( 4 ) Addit10na1 manning of interior connunications syste 3"
+   },
+   {
+    "box": [
+     577,
+     696,
+     1399,
+     725
+    ],
+    "text": "and specific detail 0f personnel tO key isolation"
+   },
+   {
+    "box": [
+     576,
+     731,
+     689,
+     754
+    ],
+    "text": "valves ."
+   },
+   {
+    "box": [
+     327,
+     798,
+     1415,
+     827
+    ],
+    "text": "20. 、 That early consideration be given to the establishment of an"
+   },
+   {
+    "box": [
+     326,
+     832,
+     1513,
+     862
+    ],
+    "text": "organization, similar t0 that employed in Nava1 Aviat10n, the lnter-"
+   },
+   {
+    "box": [
+     326,
+     867,
+     1043,
+     896
+    ],
+    "text": "est Of safe submarine operating procedures."
+   },
+   {
+    "box": [
+     1083,
+     867,
+     1531,
+     896
+    ],
+    "text": "Such an organization 8h0 ld"
+   },
+   {
+    "box": [
+     325,
+     901,
+     1533,
+     930
+    ],
+    "text": "be responsible for the analysis of events and developments which pertain"
+   },
+   {
+    "box": [
+     328,
+     936,
+     1477,
+     964
+    ],
+    "text": "tO submarine safety and the timely dissemination Of 3 ch information."
+   },
+   {
+    "box": [
+     999,
+     1142,
+     1401,
+     1169
+    ],
+    "text": "Vice AdmiraI, U. S. Navy"
+   },
+   {
+    "box": [
+     999,
+     1108,
+     1283,
+     1132
+    ],
+    "text": "BERNARD L. AUSTIN"
+   },
+   {
+    "box": [
+     999,
+     1176,
+     1149,
+     1198
+    ],
+    "text": "President"
+   },
+   {
+    "box": [
+     999,
+     1312,
+     1301,
+     1335
+    ],
+    "text": "LAWRENCE R. DASPIT"
+   },
+   {
+    "box": [
+     999,
+     1346,
+     1312,
+     1373
+    ],
+    "text": "Rear Admiral, U. S."
+   },
+   {
+    "box": [
+     998,
+     1380,
+     1099,
+     1402
+    ],
+    "text": "Member"
+   },
+   {
+    "box": [
+     999,
+     1516,
+     1301,
+     1539
+    ],
+    "text": "WILLIAM C. HUSHING"
+   },
+   {
+    "box": [
+     1333,
+     1347,
+     1401,
+     1373
+    ],
+    "text": "Navy"
+   },
+   {
+    "box": [
+     1000,
+     1550,
+     1128,
+     1577
+    ],
+    "text": "Captain,"
+   },
+   {
+    "box": [
+     998,
+     1584,
+     1099,
+     1606
+    ],
+    "text": "Member"
+   },
+   {
+    "box": [
+     999,
+     1721,
+     1129,
+     1744
+    ],
+    "text": "JAMES B."
+   },
+   {
+    "box": [
+     1000,
+     1755,
+     1128,
+     1782
+    ],
+    "text": "Captain,"
+   },
+   {
+    "box": [
+     998,
+     1790,
+     1100,
+     1812
+    ],
+    "text": "Member"
+   },
+   {
+    "box": [
+     1150,
+     1550,
+     1318,
+     1577
+    ],
+    "text": "U. S. Navy"
+   },
+   {
+    "box": [
+     1185,
+     1721,
+     1250,
+     1743
+    ],
+    "text": "BORN"
+   },
+   {
+    "box": [
+     1150,
+     1756,
+     1318,
+     1782
+    ],
+    "text": "U. S. Navy"
+   },
+   {
+    "box": [
+     1017,
+     1926,
+     1235,
+     1948
+    ],
+    "text": "0 ー C. NASH"
+   },
+   {
+    "box": [
+     1001,
+     1959,
+     1318,
+     1986
+    ],
+    "text": "Captain, U. S. Navy"
+   },
+   {
+    "box": [
+     999,
+     1992,
+     1100,
+     2014
+    ],
+    "text": "Member"
+   },
+   {
+    "box": [
+     664,
+     2120,
+     732,
+     2145
+    ],
+    "text": "Navy"
+   },
+   {
+    "box": [
+     329,
+     2086,
+     614,
+     2109
+    ],
+    "text": "BERNARD L. AUSTIN"
+   },
+   {
+    "box": [
+     328,
+     2118,
+     642,
+     2145
+    ],
+    "text": "Vice Admira1, U. S."
+   },
+   {
+    "box": [
+     329,
+     2152,
+     479,
+     2174
+    ],
+    "text": "President"
+   },
+   {
+    "box": [
+     329,
+     2285,
+     480,
+     2306
+    ],
+    "text": "SAUL ,TZ"
+   },
+   {
+    "box": [
+     329,
+     2318,
+     649,
+     2345
+    ],
+    "text": "Captain, U. S. Navy"
+   },
+   {
+    "box": [
+     329,
+     2350,
+     682,
+     2374
+    ],
+    "text": "Counsel fO て the CO て t"
+   },
+   {
+    "box": [
+     838,
+     2480,
+     984,
+     2502
+    ],
+    "text": "Unclassified"
+   },
+   {
+    "box": [
+     848,
+     2554,
+     912,
+     2575
+    ],
+    "text": "1718"
    }
   ]
  },
