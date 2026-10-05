@@ -186,6 +186,147 @@ def sub(x, y, s, deg, tex_id, bow_right=True):
             f'<path d="{SUB}" fill="url(#{tex_id})"/></g>')
 
 
+# ── 🆕 2026-10-05 18本目 ⑥：圧壊した艦（B1 の右側＝サムネだけの「イメージ」）────────────
+#    カズヤくん「正常時のシルエットの右隣に右向き矢印、その先に圧壊した潜水艦のシルエット」
+#    ＋「圧壊した潜水艦は、あくまでイメージなので、よりショッキングで残酷なイメージが伝わるデザインに」。
+#    ＝本編（c103＝推定の札つき・壊れた順番も塊の数も描かない）の線は**サムネには当てない**（カズヤくんの指示が優先）。
+#    形の座標は SUB と同じ（艦首の先 u=0・艦尾 u=1000・胴の半径 56・上が負）。人は描かない。
+def _hull_r(u):
+    """SUB の胴の半径（艦首の丸み・まっすぐな胴・艦尾へ細る）。"""
+    if u <= 115:
+        return 56 * math.sqrt(max(0.0, 1 - ((115 - u) / 115) ** 2))
+    if u <= 600:
+        return 56.0
+    if u <= 988:
+        t = (u - 600) / 388
+        return 56 - 49 * (3 * t * t - 2 * t ** 3)
+    return 7.0
+
+
+def _tri(x):
+    f = x - math.floor(x)
+    return 1 - 2 * abs(f - 0.5)
+
+
+def _rot(pts, deg, cx, cy, dx=0.0, dy=0.0):
+    a = math.radians(deg)
+    c, s = math.cos(a), math.sin(a)
+    return [(cx + (x - cx) * c - (y - cy) * s + dx, cy + (x - cx) * s + (y - cy) * c + dy) for x, y in pts]
+
+
+def _d(pts):
+    return "M" + " L".join(f"{x:.1f},{y:.1f}" for x, y in pts) + " Z"
+
+
+def _edge(ua, ub, sign, dents, rng, step=40):
+    """胴の上（sign=-1）か下（+1）の縁＝**角ばった折れ線**（くしゃっと潰れた金属。細かい揺れは付けない）。
+    頂点は約 step ごと（艦首の丸みだけ細かく）＋へこみの両肩と底。dents＝[(u の中心, 幅, 深さの割合)]＝深いV字。"""
+    us = set(np.arange(ua, ub, step).tolist()) | {float(ub)}
+    us |= {u for u in np.arange(ua, min(ub, 120), 15).tolist()}
+    for c, w, _ in dents:
+        us |= {c - w / 2, c, c + w / 2}
+    us = sorted(u for u in us if ua <= u <= ub)
+    out = []
+    for i, u in enumerate(us):
+        r = max(_hull_r(u), 5.0)
+        k = 0.0 if (u < 120 or i in (0, len(us) - 1)) else rng.uniform(0.0, 0.20)     # ところどころ押しこまれる
+        for c, w, dk in dents:
+            if abs(u - c) <= w / 2:
+                k = max(k, dk * (1 - abs(u - c) / (w / 2)))
+        out.append((u, sign * r * (1 - k)))
+    return out
+
+
+def _piece(ua, ub, rng, dents_t, dents_b, cut_a, cut_b, squash=0.85):
+    """押しつぶされた胴の1切れ（ua〜ub・長さは squash 倍に縮める＝蛇腹に潰れた）。
+    返り値＝(輪郭, 裂け目の黒い空洞のリスト)。"""
+    top = _edge(ua, ub, -1, dents_t, rng)
+    bot = _edge(ua, ub, +1, dents_b, rng)
+    sq = lambda P: [(ua + (u - ua) * squash, y) for u, y in P]
+    top, bot = sq(top), sq(bot)
+
+    def tear(p0, p1, n=6):
+        """p0 → p1 を縦に裂いたギザギザ（両端の点は含めない）＝ちぎれた板の歯。"""
+        return [(p0[0] + (p1[0] - p0[0]) * k / n + (rng.uniform(16, 38) if k % 2 else -rng.uniform(16, 38)),
+                 p0[1] + (p1[1] - p0[1]) * k / n) for k in range(1, n)]
+
+    def hole(p0, p1, inward):
+        """裂けた口の中＝黒い空洞（口の内側に、上下の縁の 8 割の高さの半楕円＝開いた筒の中が見える）。"""
+        (u0, y0), (_, y1) = p0, p1
+        ym, hh = (y0 + y1) / 2, abs(y1 - y0) / 2 * 0.80
+        arc = [(u0 + inward * 62 * math.sin(t), ym + hh * math.cos(t)) for t in np.linspace(0, math.pi, 9)]
+        rim = [(u0 + inward * rng.uniform(-6, 14), ym + hh * math.cos(t)) for t in np.linspace(math.pi, 0, 7)]
+        return arc + rim
+
+    pts, holes = list(top), []
+    if cut_b:                                   # u の大きい側の端（上の縁の終わり → 下の縁の終わり）
+        pts += tear(top[-1], bot[-1])
+        holes.append(hole(top[-1], bot[-1], -1))
+    pts += bot[::-1]
+    if cut_a:                                   # u の小さい側の端（下の縁の始まり → 上の縁の始まり）
+        pts += tear(bot[0], top[0])
+        holes.append(hole(top[0], bot[0], +1))
+    return pts, holes
+
+
+def wreck18(seed=31):
+    """圧壊した艦の形（局所の座標）。押しつぶされて2つに裂けた胴（上下から深いV字のへこみ・蛇腹に縮む）・
+    折れて倒れかかったセイル・曲がった尾翼・裂け目の黒い空洞・飛び散る大きめの破片。
+    返り値＝(赤く塗る形のリスト, 黒く塗る形のリスト)。"""
+    rng = np.random.default_rng(seed)
+    # へこみ＝深いV字を上下に数か所（缶を握りつぶした形）。へこみの外の胴の太さは残す
+    fore, fore_h = _piece(0, 560, rng, [(140, 70, 0.55), (420, 80, 0.62), (520, 50, 0.45)],
+                          [(210, 80, 0.60), (330, 60, 0.50), (480, 70, 0.55)], False, True)
+    aft, aft_h = _piece(610, 1000, rng, [(680, 70, 0.60), (800, 60, 0.50)],
+                        [(650, 50, 0.45), (760, 80, 0.62), (880, 50, 0.40)], True, False)
+    # セイル＝大きいまま艦尾の側へ倒れかかり、上の縁がちぎれている（付け根は胴の上の縁・縮めた座標 197〜294）
+    sail = [(190, -44), (206, -120), (222, -150), (244, -140), (258, -160), (282, -146), (300, -152),
+            (306, -112), (300, -44)]
+    planes = [(160, -120), (230, -130), (300, -108), (298, -98), (230, -118), (162, -110)]
+    # 尾翼と推進器（後ろの切れは u 610〜1000 を 0.85 倍＝610〜942 に縮めた座標）
+    fins = [[(833, -12), (868, -90), (900, -82), (906, -6)], [(833, 12), (852, 94), (893, 106), (906, 8)],
+            [(940, -34), (954, -44), (958, 40), (942, 34)]]
+    # 両端が垂れる「Λ」に折れる：前の切れ（艦首）は u=476 の裂け目を軸に下へ・後ろの切れ（艦尾）も下へ。
+    #   裂け目のすき間＝約50（後ろの切れの頭 u=610 を 526 へ寄せる）
+    rf = lambda P: _rot(P, -12, 476, 0)
+    ra = lambda P: _rot(P, 28, 610, 0, dx=-84, dy=6)
+    red = [rf(fore), rf(sail), rf(planes), ra(aft)] + [ra(f) for f in fins]
+    black = [rf(h) for h in fore_h] + [ra(h) for h in aft_h]
+    # 飛び散る破片（裂け目のまわり＝大きめ・ぎざぎざの板）
+    for cx, cy, rr, n in ((490, -150, 34, 6), (540, 140, 40, 7), (440, 165, 24, 5), (580, -175, 26, 5),
+                          (410, -185, 18, 4), (630, 175, 22, 5), (495, -80, 20, 5), (545, 75, 16, 4),
+                          (380, 150, 14, 4), (660, -125, 16, 4)):
+        a0 = rng.uniform(0, 2 * math.pi)
+        red.append([(cx + rr * rng.uniform(0.45, 1.0) * math.cos(a0 + 2 * math.pi * k / n),
+                     cy + rr * rng.uniform(0.45, 1.0) * math.sin(a0 + 2 * math.pi * k / n)) for k in range(n)])
+    return red, black, (501.0, 3.0)          # 最後＝裂け目のすき間の真ん中（泡の出どころ）
+
+
+def wreck_svg(x_bow, y_mid, width, tex_id, max_s=0.40):
+    """圧壊した艦を置く。艦首を右に（SUB と同じ裏返し）・x_bow＝いちばん右の端・width＝左右の幅に収める。"""
+    shapes, black, (gu, gv) = wreck18()
+    xs = [p[0] for P in shapes for p in P]
+    ys = [p[1] for P in shapes for p in P]
+    s = min(max_s, width / (max(xs) - min(xs)))
+    X = x_bow + s * min(xs)                    # 裏返し＝global x = X − s·u（u の最小がいちばん右）
+    Y = y_mid - s * (min(ys) + max(ys)) / 2
+    tr = f'translate({X:.1f},{Y:.1f}) scale({-s:.4f},{s:.4f})'
+    d = " ".join(_d(P) for P in shapes)
+    dk = " ".join(_d(P) for P in black)
+    cx, cy = X - s * (min(xs) + max(xs)) / 2, y_mid
+    ring = "".join(f'<circle cx="{cx:.0f}" cy="{cy:.0f}" r="{r}" fill="none" stroke="#e8f4ff" stroke-width="{w}" '
+                   f'opacity="{o}" filter="url(#sh)"/>' for r, w, o in ((150, 7, 0.55), (215, 5, 0.32)))
+    # 裂け目から吹き出す泡（イメージ）
+    rng = np.random.default_rng(41)
+    gx, gy = X - s * gu, Y + s * gv
+    bub = "".join(f'<circle cx="{gx + rng.normal(0, 34):.0f}" cy="{gy - rng.uniform(14, 150):.0f}" '
+                  f'r="{rng.uniform(3, 11):.1f}" fill="#dff3ff" fill-opacity="0.16" stroke="#eaf7ff" '
+                  f'stroke-opacity="0.8" stroke-width="2"/>' for _ in range(16))
+    return (ring + f'<g transform="{tr}"><path d="{d}" fill="{SIL}" filter="url(#glow)" opacity="0.75"/>'
+            f'<path d="{d}" fill="url(#{tex_id})"/><path d="{dk}" fill="#0b0000"/></g>' + bub), \
+        (s, X - s * max(xs), x_bow)
+
+
 def block_arrow(x0, y0, x1, y1, shaft=34, head=92, headlen=96):
     """太い直線の矢印（DS844 で多い形）。(x0,y0)→(x1,y1) の先が矢じり。"""
     import math
@@ -239,11 +380,17 @@ def ep18_b1():
     """B1＝DS844 の型でいちばん多い組み合わせ＝断面図＋平らな赤の主役＋赤い矢印＋赤枠の実写＋極太明朝。
 
     🔴 18本目だけの線（映像方針 §15）＝**深さの数を幾何で漏らさない**：目盛り・海面は描かない
-       （艦と海底の距離から深さが読めないように）。艦は壊さない（圧壊の起き方は推定＝描かない）。
+       （艦と海底の距離から深さが読めないように）。
+    🆕 2026-10-05（⑥）カズヤくんの直し：「正常時のシルエットの右隣に右向き矢印、その先に圧壊した潜水艦のシルエット。
+       その他の写真や文字は同じ」＋「圧壊した潜水艦は、あくまでイメージなので、よりショッキングで残酷に」
+       ＝10-03 の「艦は壊さない」は外した（指示が優先）。元の絵は `ep18_B1_docu_v1.png`（md5 e34a39a0…）に残した。
+       赤枠の写真・上下の字・地（水と岩）は1画素も動かさない。
     """
     wat = uri(water())
     rk = uri(rock())
     sb_fill, sb_line = seabed_path()
+    wr, (ws, wl, wrx) = wreck_svg(884, 345, 385, "rt", max_s=0.52)
+    print(f"  圧壊の艦：倍率 {ws:.3f}・x {wl:.0f}〜{wrx:.0f}", flush=True)
     # 赤の質感（暗い斑）
     f = fractal(512, 160, 21, ((12, 1.0), (40, 0.6), (120, 0.4)))
     red_tex = colorize(f, (150, 6, 4), (236, 26, 16))
@@ -256,9 +403,10 @@ def ep18_b1():
     g = [f'<image href="{wat}" width="{W}" height="{H}"/>',
          f'<image href="{rk}" width="{W}" height="{H}" clip-path="url(#sbc)"/>',
          f'<path d="{sb_line}" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round"/>',
-         # 艦（艦首が右・艦首が上＝記録の「up angle」の向き。角度の数は言わない）
-         sub(800, 300, 0.70, -9, "rt"),
-         block_arrow(330, 168, 520, 268),
+         # 🆕 10-05：左＝正常な艦（水平・艦首が右）→ 右向きの矢印 → 右＝圧壊した艦（イメージ）
+         sub(330, 335, 0.30, 0, "rt"),
+         block_arrow(352, 335, 484, 335, shaft=30, head=82, headlen=62),
+         wr,
          inset(TJ.TH_SEA, 905, 172, 330, 330, cx=0.42, cy=0.52, zoom=2.4, contrast=1.2, color=1.0, bright=0.95),
          # ビネット
          '<radialGradient id="vg" cx="0.5" cy="0.48" r="0.78"><stop offset="0.55" stop-color="#000" stop-opacity="0"/>'

@@ -290,6 +290,41 @@ def cmd_public(args) -> int:
     return 0
 
 
+def cmd_private(args) -> int:
+    """🔴 公開中の動画を非公開に戻す（2026-10-05 追加・18本目＝リメイクの公開と同時に旧版 3本目を非公開にするため）。
+
+    ⚠️ `videos.update` は part を丸ごと置き換えるので、いまの status を読んでから書ける項目だけ差し替える
+       （消すと「子ども向け」などが既定に戻る）。`publishAt` は送らない＝予約が入っていたら外れる。
+    ⚠️ 題・説明・タグ・サムネには触らない（`part=status` だけ）。前後で読んで、公開設定だけが変わったことを確かめる。
+    ⚠️ **公開ずみの動画は直さない**（記憶 feedback-published-videos-are-not-revised）＝これは中身を直す操作ではない。
+       カズヤくんの GO があったときだけ回す。
+    """
+    yt = api()
+    r = yt.videos().list(part="status,snippet", id=args.video_id).execute()
+    if not r.get("items"):
+        raise SystemExit(f"動画が見つからない: {args.video_id}")
+    it = r["items"][0]
+    before = dict(it["status"])
+    print(f"題　　　: {it['snippet']['title'][:50]}…")
+    print(f"変更前　: {before.get('privacyStatus')}")
+    if before.get("privacyStatus") == "private":
+        print("✓ もう非公開（何もしない）")
+        return 0
+    WRITABLE = ("license", "embeddable", "publicStatsViewable", "selfDeclaredMadeForKids")
+    st = {k: v for k, v in before.items() if k in WRITABLE}
+    st["privacyStatus"] = "private"
+    yt.videos().update(part="status", body={"id": args.video_id, "status": st}).execute()
+    after = yt.videos().list(part="status", id=args.video_id).execute()["items"][0]["status"]
+    print(f"変更後　: {after.get('privacyStatus')}")
+    for k in ("license", "embeddable", "publicStatsViewable", "madeForKids"):
+        if before.get(k) != after.get(k):
+            raise SystemExit(f"🔴 {k} が変わってしまった: {before.get(k)} → {after.get(k)}")
+    if after.get("privacyStatus") != "private":
+        raise SystemExit("🔴 非公開になっていない")
+    print(f"✓ 非公開にした: https://studio.youtube.com/video/{args.video_id}/edit")
+    return 0
+
+
 def cmd_retitle(args) -> int:
     """🔴 タイトル・説明・タグだけを差し替える（2026-09-08 追加）。
 
@@ -384,6 +419,10 @@ def main() -> int:
     p.add_argument("video_id")
     p.add_argument("--force", action="store_true", help="処理未完でも公開する")
     p.set_defaults(fn=cmd_public)
+
+    p = sub.add_parser("private", help="公開中の動画を非公開に戻す（題・説明・サムネは触らない・GO のあとだけ）")
+    p.add_argument("video_id")
+    p.set_defaults(fn=cmd_private)
 
     p = sub.add_parser("retitle",
                        help="題・説明・タグをメタから貼り直す（予約は保つ）")

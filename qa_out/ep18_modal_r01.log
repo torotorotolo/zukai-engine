@@ -1,0 +1,496 @@
+✓ Initialized. View run at 
+https://modal.com/apps/torotorotolo/main/ap-einfJzBi5YOvLTkTimByaa
+✓ Created objects.
+├── 🔨 Created mount C:\Users\konar\Desktop\zukai-engine\modal_app.py
+├── 🔨 Created function full.
+├── 🔨 Created function qa.
+├── 🔨 Created function check.
+└── 🔨 Created function layer_hash.
+BGM … /assets/bgm.mp3 / 3.20 MB
+
+$ git clone --depth 1 https://github.com/torotorotolo/zukai-engine.git /work/zukai-engine
+Cloning into '/work/zukai-engine'...
+Updating files:  40% (1466/3580)
+[1AUpdating files:  41% (1468/3580)
+[1AUpdating files:  42% (1504/3580)
+[1AUpdating files:  43% (1540/3580)
+[1AUpdating files:  44% (1576/3580)
+[1AUpdating files:  45% (1611/3580)
+[1AUpdating files:  46% (1647/3580)
+[1AUpdating files:  47% (1683/3580)
+[1AUpdating files:  48% (1719/3580)
+[1AUpdating files:  49% (1755/3580)
+[1AUpdating files:  50% (1790/3580)
+[1AUpdating files:  51% (1826/3580)
+[1AUpdating files:  52% (1862/3580)
+[1AUpdating files:  53% (1898/3580)
+[1AUpdating files:  54% (1934/3580)
+[1AUpdating files:  55% (1969/3580)
+[1AUpdating files:  55% (1973/3580)
+[1AUpdating files:  56% (2005/3580)
+[1AUpdating files:  57% (2041/3580)
+[1AUpdating files:  58% (2077/3580)
+[1AUpdating files:  59% (2113/3580)
+[1AUpdating files:  60% (2148/3580)
+[1AUpdating files:  61% (2184/3580)
+[1AUpdating files:  62% (2220/3580)
+[1AUpdating files:  63% (2256/3580)
+[1AUpdating files:  64% (2292/3580)
+[1AUpdating files:  65% (2327/3580)
+[1AUpdating files:  66% (2363/3580)
+[1AUpdating files:  67% (2399/3580)
+[1AUpdating files:  68% (2435/3580)
+[1AUpdating files:  69% (2471/3580)
+[1AUpdating files:  70% (2506/3580)
+[1AUpdating files:  71% (2542/3580)
+[1AUpdating files:  72% (2578/3580)
+[1AUpdating files:  73% (2614/3580)
+[1AUpdating files:  74% (2650/3580)
+[1AUpdating files:  75% (2685/3580)
+[1AUpdating files:  75% (2710/3580)
+[1AUpdating files:  76% (2721/3580)
+[1AUpdating files:  77% (2757/3580)
+[1AUpdating files:  78% (2793/3580)
+[1AUpdating files:  79% (2829/3580)
+[1AUpdating files:  80% (2864/3580)
+[1AUpdating files:  81% (2900/3580)
+[1AUpdating files:  82% (2936/3580)
+[1AUpdating files:  83% (2972/3580)
+[1AUpdating files:  84% (3008/3580)
+[1AUpdating files:  85% (3043/3580)
+[1AUpdating files:  86% (3079/3580)
+[1AUpdating files:  87% (3115/3580)
+[1AUpdating files:  87% (3122/3580)
+[1AUpdating files:  88% (3151/3580)
+[1AUpdating files:  89% (3187/3580)
+[1AUpdating files:  90% (3222/3580)
+[1AUpdating files:  91% (3258/3580)
+[1AUpdating files:  92% (3294/3580)
+[1AUpdating files:  93% (3330/3580)
+[1AUpdating files:  94% (3366/3580)
+[1AUpdating files:  95% (3401/3580)
+[1AUpdating files:  96% (3437/3580)
+[1AUpdating files:  97% (3473/3580)
+[1AUpdating files:  98% (3509/3580)
+[1AUpdating files:  99% (3545/3580)
+[1AUpdating files: 100% (3580/3580)Updating files: 100% (3580/3580), done.
+  (46秒 / 終了コード 0)
+
+$ git fetch --depth 50 origin f8f92f260662dcfac56b1508ce34ed5d626ad2f0
+From https://github.com/torotorotolo/zukai-engine
+ * branch            f8f92f260662dcfac56b1508ce34ed5d626ad2f0 -> FETCH_HEAD
+  (4秒 / 終了コード 0)
+
+$ git checkout f8f92f260662dcfac56b1508ce34ed5d626ad2f0
+Note: switching to 'f8f92f260662dcfac56b1508ce34ed5d626ad2f0'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at f8f92f2 18本目⑤c': 疑いの決着と直し＝R3〜R7・字と線の近さ4件・W5・W7（qa_all 28/28）
+  (1秒 / 終了コード 0)
+
+$ git log --oneline -1
+f8f92f2 18本目⑤c': 疑いの決着と直し＝R3〜R7・字と線の近さ4件・W5・W7（qa_all 28/28）
+  (0秒 / 終了コード 0)
+
+$ python3 tools/scene_jiko.py --report
+カット 243 ／ 完成尺 2281.0秒 = 38分01.0秒
+字幕 603 枚
+実写 77 ／ ★写真を地に敷いた図解 0
+図の種類:
+   photo         77
+   boxes         72
+   axis          29
+   illu          25
+   quote         17
+   m18           10
+   qty            7
+   panel          5
+   ending         1
+
+⚠️ cuts/__init__.py が**中身ごと上書き**しているカット（0件）:
+   
+   章ファイルの fig / ann を直すときは、ここに載っていないか必ず見ること。
+
+🔴 章の名前（題材を替えたら必ず書き換える／11章）:
+   1/11  紙に残った知らせ
+   2/11  9か月の整備
+   3/11  4月10日の朝
+   4/11  9時13分から9時18分
+   5/11  救難艦の5時間
+   6/11  13.8パーセント
+   7/11  30秒
+   8/11  原因は決まっていない
+   9/11  伏せられた深さ
+   10/11  海の底の593
+   11/11  その後
+   ↑ これは**いま作っている動画の章名**か？ 前作のままなら止めて直す。
+   （上流が無いので push の検査は飛ばす）
+  (1秒 / 終了コード 0)
+
+$ python3 tools/check_layout.py
+── 画面から出ている文字（1069レイヤー） ──
+  ✓ 全部おさまっている
+
+── フォントに無い字（豆腐になる） ──
+  ✓ 無い字は無い
+
+── 小さい Dela に漢字の句が入っている ──
+  ✓ つぶれる大きさの Dela に漢字の句は無い
+
+── 同じカットで重なっている文字 ──
+  ✓ 重なりなし
+
+── 再現イラストの札どうしが触れる（すき間 6px 未満） ──
+  ✓ 触れている札は無い
+
+── 図形が文字を横切っている ──
+  ✓ 横切っている図形は無い
+
+✓ 机上の検算はすべて通った（画面外 0件・重なり 0件・札が触れる 0件・豆腐 0件・図形が横切る 0件／フォントは実測）
+  (33秒 / 終了コード 0)
+
+$ python3 tools/check_echo.py
+
+✓ 複写は無い（複写 0件・見出し/副題の同文 0件・見出しの近さ 6件）
+   （見出しの近さは --all で出る。0.80 未満は「話題を出す場所」として黙る）
+  (11秒 / 終了コード 0)
+
+$ python3 tools/audio_pack.py check
+台本 243 カット ／ audio/opus 243 本
+✓ 過不足なし
+✓ 全 0 本の尺が一致
+  (0秒 / 終了コード 0)
+
+$ python3 tools/audio_pack.py unpack
+✓ 243 カットを wav に戻した（既存 0 本はそのまま）
+  (62秒 / 終了コード 0)
+
+$ python3 tools/check_mask.py
+BGM「bgm.mp3」133秒を 1 回つないだ（継ぎ目 3秒の重ね）
+ドローンの寝床（80〜400Hz・いちばん膨らむ瞬間）= -47.5 dB
+行 603 ／ 🔴消える(<6.0dB) 0 ／ ⚠️弱い(6.0〜10.0dB) 0 ／ ✓聞こえる 603
+中央値 35.0 dB
+
+   余裕dB  カット     語尾（発話の最後 0.18 秒）
+   30.0   c209    …船所が念入りに調べ、整備の間に直す予定を立てた。
+   30.4   c509    …17分から連絡がとれない。最後の声は崩れていた。
+   30.4   cb21    …危ない知らせは、事故の前に、紙に書かれていた。
+   30.5   c402    …音を遠くから聞き取る、監視の仕組みを持っていた。
+   30.5   ca15    …この作業を発表した。6月から8月の3か月だった。
+   30.7   ca20    …は、5回の潜航で、計37時間を海の中で過ごした。
+   30.7   c417    …査問会にそう問われて、中尉はこう答えた。
+   30.7   ca02    …の点のまわりを、音で海の深さを測りながら探した。
+   30.7   c711    …み、浮き上がりが止められなくなるおそれがあった。
+   30.8   c714    …った同じ型の艦、ティノサで、空気の系統を試した。
+   30.8   c626    …員は、委員会の数字では14パーセントだと返した。
+   30.8   ca22    …ステ2世は、船体の一部の真上に着くことができた。
+   30.8   c817    …軍に宛てた手紙で、査問会とは違う筋書きを示した。
+   30.8   cb09    …事故の前に、紙に書かれていた。
+   30.9   c403    …潜水艦がタンクを吹いた音でありうる音があった。
+   30.9   c305    …の命令は秘密扱いで、スカイラークの命令は違った。
+   30.9   c616    …所の生産の責任者や、造船所の司令官も知っていた。
+   31.0   c109    …艦の艦長だった人が、記録を出すよう海軍を訴えた。
+   31.0   c313    …スカイラークは、救難室というものを積んでいた。
+   31.1   c219    …圧力に負けるなと助言し、艦長は負けないと答えた。
+   31.1   c319    …水中電話から聞こえる声と音だった。
+   31.1   c108    …事故を調べた記録は、長く機密だった。
+   31.1   c203    …との、点検と手直しのためだ。予定は6か月だった。
+   31.2   c609    …62年8月、海軍の艦船局は造船所に手紙を出した。
+   31.2   c301    …の朝、スレッシャーは、ポーツマスの造船所を出た。
+   31.2   c103    …乗っていた129人は、全員が亡くなりました。
+   31.2   ca01    …か月。3ダースを超える船と、数千の人が加わった。
+   31.2   cb22    …全員が、仕事のために乗っていた。
+   31.2   ca21    …はすべて、直径約370メートルの円の中にあった。
+   31.2   c207    …メートル（1,180から370フィート）だった。
+（悪い順に 30 行だけ表示。全部見るなら --all）
+  (8秒 / 終了コード 0)
+
+$ python3 tools/footage.py
+■ 動画を当てるカット 33 件（うち頭の差し込み 12 件・＋静止画で受ける 0 件: ）
+  c102  頭 4.20s  ← nara85185 465.2〜468.0秒（0.66倍速）
+  c202  尺 9.26s  ← nara85185 638.2〜646.0秒（0.84倍速）
+  c212  尺13.61s  ← nara85185 144.2〜157.0秒（0.94倍速）
+  c301  尺 8.09s  ← nara85185 164.2〜171.0秒（0.84倍速）
+  c601  尺 7.50s  ← nara85185 95.2〜100.8秒（0.75倍速）
+  c607  尺12.38s  ← nara85185 657.2〜669.6秒（1.00倍速）
+  c701  尺 6.70s  ← nara85185 673.2〜679.9秒（1.00倍速）
+  cb01  尺 6.73s  ← nara85185 614.2〜620.9秒（1.00倍速）
+  cb07  尺 8.98s  ← nara85185 422.2〜429.9秒（0.86倍速）
+  c117  尺 6.05s  ← nara83213 130.2〜136.2秒（1.00倍速）
+  c621  尺10.30s  ← nara83213 118.2〜128.5秒（1.00倍速）
+  c506  尺 6.09s  ← nara83750 190.2〜196.3秒（1.00倍速）
+  c514  尺 9.69s  ← nara83751 42.2〜51.9秒（1.00倍速）
+  ca03  尺 7.67s  ← nara83751 216.2〜223.9秒（1.00倍速）
+  c515  尺 8.58s  ← nara83746 59.2〜67.8秒（1.00倍速）
+  ca01  尺 9.01s  ← nara83737 455.2〜464.2秒（1.00倍速）
+  ca07  尺 8.87s  ← nara83759 140.2〜149.0秒（0.99倍速）
+  ca08  尺 6.57s  ← nara83795 114.2〜120.8秒（1.00倍速）
+  ca09  尺10.41s  ← nara83757 494.2〜504.6秒（1.00倍速）
+  ca12  尺 8.90s  ← nara83757 154.2〜162.9秒（0.98倍速）
+  cb14  尺 9.13s  ← nara83741 448.2〜457.3秒（1.00倍速）
+  cb19  尺 9.87s  ← nara83740 12.2〜22.0秒（0.99倍速）
+  c109  頭 2.77s  ← docs_binders_7710340 2.5〜5.3秒（1.00倍速）
+  c114  頭 3.13s  ← deep_rays_63427 2.5〜5.6秒（1.00倍速）
+  c215  頭 2.81s  ← pier_blue_10354787 2.5〜5.3秒（1.00倍速）
+  c220  頭 4.88s  ← pier_dark_11812247 1.0〜5.9秒（1.00倍速）
+  c511  頭 5.00s  ← sea_dark_5668613 1.0〜6.0秒（1.00倍速）
+  c805  頭 2.96s  ← deep_sun_48596 1.0〜4.0秒（1.00倍速）
+  c812  頭 5.89s  ← deep_blue_32790667 1.0〜6.9秒（1.00倍速）
+  c903  頭 6.28s  ← typewriter_33068304 10.5〜16.8秒（1.00倍速）
+  c906  頭 3.18s  ← files_hands_6549976 3.5〜6.7秒（1.00倍速）
+  ca05  頭 5.95s  ← seabed_sand_11781634 1.0〜7.0秒（1.00倍速）
+  ca06  頭 2.62s  ← seabed_murky_33896777 1.0〜3.6秒（1.00倍速）
+✓ 全 33 欄に until= があり、尻のはみ出しも ショットまたぎも無く、使ってはいけない秒にも掛かっておらず、素材の黒帯も残らない（実測ショット 627 本と照合）
+  c102: nara85185 の 465.2秒目から切り出す
+     → 128コマ（要 128）
+  c202: nara85185 の 638.2秒目から切り出す
+     → 280コマ（要 280）
+  c212: nara85185 の 144.2秒目から切り出す
+     → 410コマ（要 410）
+  c301: nara85185 の 164.2秒目から切り出す
+     → 245コマ（要 245）
+  c601: nara85185 の 95.2秒目から切り出す
+     → 227コマ（要 227）
+  c607: nara85185 の 657.2秒目から切り出す
+     → 373コマ（要 373）
+  c701: nara85185 の 673.2秒目から切り出す
+     → 203コマ（要 203）
+  cb01: nara85185 の 614.2秒目から切り出す
+     → 204コマ（要 204）
+  cb07: nara85185 の 422.2秒目から切り出す
+     → 271コマ（要 271）
+  c117: nara83213 の 130.2秒目から切り出す
+     → 184コマ（要 184）
+  c621: nara83213 の 118.2秒目から切り出す
+     → 311コマ（要 311）
+  c506: nara83750 の 190.2秒目から切り出す
+     → 185コマ（要 185）
+  c514: nara83751 の 42.2秒目から切り出す
+     → 293コマ（要 293）
+  ca03: nara83751 の 216.2秒目から切り出す
+     → 232コマ（要 232）
+  c515: nara83746 の 59.2秒目から切り出す
+     → 259コマ（要 259）
+  ca01: nara83737 の 455.2秒目から切り出す
+     → 272コマ（要 272）
+  ca07: nara83759 の 140.2秒目から切り出す
+     → 268コマ（要 268）
+  ca08: nara83795 の 114.2秒目から切り出す
+     → 199コマ（要 199）
+  ca09: nara83757 の 494.2秒目から切り出す
+     → 314コマ（要 314）
+  ca12: nara83757 の 154.2秒目から切り出す
+     → 269コマ（要 269）
+  cb14: nara83741 の 448.2秒目から切り出す
+     → 276コマ（要 276）
+  cb19: nara83740 の 12.2秒目から切り出す
+     → 298コマ（要 298）
+  c109: docs_binders_7710340 の 2.5秒目から切り出す
+     ✓ 媒体を手元に落とした（3.0MB・a6fe6dce1be6.mp4）
+     → 85コマ（要 85）
+  c114: deep_rays_63427 の 2.5秒目から切り出す
+     ✓ 媒体を手元に落とした（19.3MB・feceb6804c48.mp4）
+     → 96コマ（要 96）
+  c215: pier_blue_10354787 の 2.5秒目から切り出す
+     ✓ 媒体を手元に落とした（41.7MB・dec4a6cbdefd.mp4）
+     → 86コマ（要 86）
+  c220: pier_dark_11812247 の 1.0秒目から切り出す
+     ✓ 媒体を手元に落とした（42.0MB・1782844b89df.mp4）
+     → 149コマ（要 149）
+  c511: sea_dark_5668613 の 1.0秒目から切り出す
+     ✓ 媒体を手元に落とした（4.9MB・6dac87f624b9.mp4）
+     → 152コマ（要 152）
+  c805: deep_sun_48596 の 1.0秒目から切り出す
+     ✓ 媒体を手元に落とした（15.7MB・fc65385dd543.mp4）
+     → 91コマ（要 91）
+  c812: deep_blue_32790667 の 1.0秒目から切り出す
+     ✓ 媒体を手元に落とした（15.2MB・144b09e3286f.mp4）
+     → 179コマ（要 179）
+  c903: typewriter_33068304 の 10.5秒目から切り出す
+     ✓ 媒体を手元に落とした（36.6MB・d30b868a3733.mp4）
+     → 190コマ（要 190）
+  c906: files_hands_6549976 の 3.5秒目から切り出す
+     ✓ 媒体を手元に落とした（9.6MB・099178a08347.mp4）
+     → 97コマ（要 97）
+  ca05: seabed_sand_11781634 の 1.0秒目から切り出す
+     ✓ 媒体を手元に落とした（33.8MB・973d1727bce0.mp4）
+     → 181コマ（要 181）
+  ca06: seabed_murky_33896777 の 1.0秒目から切り出す
+     ✓ 媒体を手元に落とした（15.6MB・dd24103f9bed.mp4）
+     → 81コマ（要 81）
+✓ 切り出し完了 33/33 カット: c102、c202、c212、c301、c601、c607、c701、cb01、cb07、c117、c621、c506、c514、ca03、c515、ca01、ca07、ca08、ca09、ca12、cb14、cb19、c109、c114、c215、c220、c511、c805、c812、c903、c906、ca05、ca06
+  (49秒 / 終了コード 0)
+
+$ ZUKAI_WORKERS=8 python3 tools/scene_jiko.py --force
+書き出すレイヤー 1327 枚（並列 4）
+  50/1327
+  100/1327
+  150/1327
+  200/1327
+  250/1327
+  300/1327
+  350/1327
+  400/1327
+  450/1327
+  500/1327
+  550/1327
+  600/1327
+  650/1327
+  700/1327
+  750/1327
+  800/1327
+  850/1327
+  900/1327
+  950/1327
+  1000/1327
+  1050/1327
+  1100/1327
+  1150/1327
+  1200/1327
+  1250/1327
+  1300/1327
+done 1327
+  (800秒 / 終了コード 0)
+
+$ python3 tools/layer_hash.py
+レイヤー 1327 枚 ／ 合計 74.2 MB
+★全体の指紋  7cbfc052039b663d3f6f57f6444f9bceb12e5d52df506c4cc26f3c74ad75f207
+
+代表（ずれたときに場所を絞るため）
+  _empty           d0634a2abbcd31f0882b9e94ad72430c
+  c101_a1          4bb2eb4aa87e1845dd30acd7cb57532d
+  c101_a2          b00b13d97a78eee65ddd8b63c1f0669c
+  c109_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c109_ibg         d0634a2abbcd31f0882b9e94ad72430c
+  c201_bg          860e8e8b5d3e99af136877458628391c
+  c201_lab         ef730c50453a810bd08e9f685f902259
+  c211_a1          2a45477f0fb4c4b6f4d9e22bee81b98c
+  c211_a2          f03b0a92d92c945d9256c3f7567900af
+  c301_bg          d0634a2abbcd31f0882b9e94ad72430c
+  c301_lab         c95e1b125161d12975db89294ac26681
+  c311_a1          788ae0147bdf979a6575938ca2d7d440
+  c311_a2          12d0a00fc7c65df0bac81950498c6a3a
+  c401_a1          af75a0e31e0b04bd74353628732bd5c8
+  c401_a2          318c01ba3d1dd300b4c45fab3b7297ef
+  c412_a1          5239b9e6e1e408282613a0ede4ab25b8
+  c412_a2          ce461bfd2c5d39070827ae6b4afd7336
+  c501_a1          0baa5358d58223f8e2d691d48a1788cc
+  c501_a2          ff2b98b28ce2a32062502b11e5089d6d
+  c512_a1          788ae0147bdf979a6575938ca2d7d440
+  c512_a2          9f5bd1e589001c570e1b55a0ab6d0019
+  c601_bg          7da1dd042b656f7d203a0c95245d3302
+  c601_lab         dea5dc705791e9aedd920f33665a3b1c
+  c614_a1          addf75a1be7512604e235c1b09b54329
+  c614_a2          bbe3d461be0621fa9c7400f0242166cd
+  sub_c101         2b08c18a21e17b45164c5c643f1ca839
+  sub_c102         99367e2eb3b00c4416c3971c451de89b
+  sub_c103         57725938e4cad853e51da82ea62272cd
+
+⚠️ Actions と Modal で**★全体の指紋が一致すれば**、9巡の検品はそのまま生きている。
+  (73秒 / 終了コード 0)
+
+$ ZUKAI_WORKERS=8 python3 tools/build_jiko.py full
+図が動かない最長区間 = 4.41秒
+✓ 図が 5.0秒以上止まるカットは無い
+（参考）最長の字幕 = 5.86秒「1961年、スレッシャーの最初の試運転。出港は朝6時」 ／ 字幕の枚数 603
+検品画像 243 カット
+mp4 を 8 並列で焼く（243カット）
+  20/243  5380コマ
+  40/243  11409コマ
+  60/243  16846コマ
+  80/243  22232コマ
+  100/243  27598コマ
+  120/243  33384コマ
+  140/243  38917コマ
+  160/243  45058コマ
+  180/243  51015コマ
+  200/243  56493コマ
+  220/243  61780コマ
+  240/243  67664コマ
+  243/243  68430コマ
+wrote /work/zukai-engine/out/jiko/titan.mp4 2281.0 sec
+  (654秒 / 終了コード 0)
+
+$ ls -la /assets/ || true
+total 3131
+drwxr-xr-x 1 root root       7 Jan  1  1970 .
+drwxr-xr-x 4 root root      72 Oct  5 06:35 ..
+-rw-r--r-- 1 root root 3204163 Sep 20 23:26 bgm.mp3
+  (0秒 / 終了コード 0)
+
+$ python3 tools/audio_mix.py --bgm=music
+BGM「bgm.mp3」133秒を 18 回つないだ（継ぎ目 3秒の重ね）
+サイドチェイン：話している時間 96% ／ 最大 7.0dB 下げた
+  1周目：利得 +0.0dB → 実測 -12.7 LUFS ／ ピーク 0.970
+  2周目：利得 -2.3dB → 実測 -14.7 LUFS ／ ピーク 0.970
+  3周目：利得 -2.6dB → 実測 -15.0 LUFS ／ ピーク 0.970
+wrote /work/zukai-engine/out/jiko/mix.wav  2281.0秒  ピーク 0.970
+  (32秒 / 終了コード 0)
+
+$ ffmpeg -y -hide_banner -loglevel error -i out/jiko/titan.mp4 -i out/jiko/mix.wav -c:v copy -c:a aac -b:a 192k -shortest out/jiko/titan_audio.mp4
+  (66秒 / 終了コード 0)
+
+$ cp out/jiko/titan_audio.mp4 /vol/titan_audio-ep18-r01.mp4
+  (1秒 / 終了コード 0)
+
+$ ffprobe -v error -show_entries format=duration -of default=nw=1 /vol/titan_audio-ep18-r01.mp4
+duration=2281.000000
+  (0秒 / 終了コード 0)
+
+$ ls -la /vol/
+total 6932670
+drwxr-xr-x 1 root root       741 Oct  5 07:05 .
+drwxr-xr-x 4 root root        72 Oct  5 06:35 ..
+-rw-r--r-- 1 root root 148820698 Sep 20 22:47 titan_audio-ep10-r03.mp4
+-rw-r--r-- 1 root root 158714884 Sep 21 00:45 titan_audio-ep10-r04.mp4
+-rw-r--r-- 1 root root 151307126 Sep 21 02:53 titan_audio-ep10-r05.mp4
+-rw-r--r-- 1 root root 151362224 Sep 21 03:54 titan_audio-ep10-r06.mp4
+-rw-r--r-- 1 root root 189964855 Sep 22 07:58 titan_audio-ep11-r04.mp4
+-rw-r--r-- 1 root root 190246914 Sep 22 11:16 titan_audio-ep11-r05.mp4
+-rw-r--r-- 1 root root 291824115 Sep 23 23:14 titan_audio-ep12-r04.mp4
+-rw-r--r-- 1 root root 257241688 Sep 24 03:54 titan_audio-ep12-r05.mp4
+-rw-r--r-- 1 root root 257241111 Sep 24 04:38 titan_audio-ep12-r06.mp4
+-rw-r--r-- 1 root root 257251819 Sep 24 09:30 titan_audio-ep12-r07.mp4
+-rw-r--r-- 1 root root 159763234 Sep 25 12:57 titan_audio-ep13-r09.mp4
+-rw-r--r-- 1 root root 120025493 Sep 29 10:37 titan_audio-ep14-r01.mp4
+-rw-r--r-- 1 root root 124719250 Sep 29 14:25 titan_audio-ep14-r02.mp4
+-rw-r--r-- 1 root root 115904396 Sep 30 12:30 titan_audio-ep15-r01.mp4
+-rw-r--r-- 1 root root 118027575 Sep 30 14:03 titan_audio-ep15-r02.mp4
+-rw-r--r-- 1 root root 197478270 Oct  2 06:40 titan_audio-ep16-r01.mp4
+-rw-r--r-- 1 root root 267830844 Oct  5 07:05 titan_audio-ep18-r01.mp4
+-rw-r--r-- 1 root root 276059930 Sep 14 02:22 titan_audio-ep7-r03.mp4
+-rw-r--r-- 1 root root 275765238 Sep 14 11:24 titan_audio-ep7-r04.mp4
+-rw-r--r-- 1 root root 226651875 Sep 15 14:20 titan_audio-ep8-r01.mp4
+-rw-r--r-- 1 root root 226802671 Sep 16 02:51 titan_audio-ep8-r02.mp4
+-rw-r--r-- 1 root root 305455259 Sep 17 04:13 titan_audio-ep9-r03.mp4
+-rw-r--r-- 1 root root 305247998 Sep 17 14:30 titan_audio-ep9-r04.mp4
+-rw-r--r-- 1 root root 455907358 Sep 11 04:48 titan_audio-kb-r09.mp4
+-rw-r--r-- 1 root root 123761860 Aug  1 04:21 titan_audio-r11.mp4
+-rw-r--r-- 1 root root 123147684 Aug  1 11:39 titan_audio-r13.mp4
+-rw-r--r-- 1 root root 172258222 Aug  6 00:05 titan_audio-r14.mp4
+-rw-r--r-- 1 root root 172202839 Aug  6 13:11 titan_audio-r15.mp4
+-rw-r--r-- 1 root root 204664596 Aug 10 02:12 titan_audio-r28.mp4
+-rw-r--r-- 1 root root 155390866 Aug  2 09:33 titan_audio-r29.mp4
+-rw-r--r-- 1 root root 204252885 Aug 16 06:24 titan_audio-r30.mp4
+-rw-r--r-- 1 root root 413714501 Sep  7 23:04 titan_audio-sl1r03.mp4
+-rw-r--r-- 1 root root 300035704 Sep  6 08:31 titan_audio-ss.mp4
+  (0秒 / 終了コード 0)
+
+✓ 焼けた → modal volume get jiko-out titan_audio-ep18-r01.mp4 out/jiko/
+✓ App completed. View run at 
+https://modal.com/apps/torotorotolo/main/ap-einfJzBi5YOvLTkTimByaa
+modal_exit=0
