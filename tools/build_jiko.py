@@ -521,7 +521,15 @@ def scene(cut, t, dur, lay, photos, meta):
                 #    （check_motion は写真だけのカットを見ない）＝枠ごと寄せる作りは ⑤b-3 の宿題
                 kb = 0.0 if meta[cut].get("frame_only") else k * (0.35 if box[3] < S.H else 1.0)
                 ph = fit(src, box, kb, bias, xb, zm)
-        fr.paste(tone(ph, cut, meta), (box[0], box[1]))
+                if meta[cut].get("hl"):
+                    # 🆕 18本目 ⑤c'（c105＝映像方針 §1-3「1頁目に印」の抜け）：**本の頁の上の印**（hl）。尻・頁の冒頭と同じ
+                    #    `page_hl`・同じ幾何（`_fit_geom`＝この fit の寄り kb をそのまま）。切り口は本の写真と同じ PHOTO_TRIM
+                    ph = page_hl(tone(ph, cut, meta), src.size, S.PHOTO_TRIM.get(cut), box,
+                                 _fit_geom(src.size, box, kb, bias, xb, zm), meta[cut]["hl"], t)
+                    fr.paste(ph, (box[0], box[1]))
+                    ph = None
+        if ph is not None:
+            fr.paste(tone(ph, cut, meta), (box[0], box[1]))
         # 🔴 2026-09-07（5本目 SL-1）：**実写カットにも暗幕をかけられるようにした。**
         #    それまで暗幕は「写真を地にして図を重ねるカット」だけだった。
         #    5本目は**報告書の本文ページ**を写真として出すカットが 26 あり、
@@ -1414,6 +1422,7 @@ def meta_of(idx):
                   "cam": (S.SPEC.get(cid) or {}).get("cam"),       # カメラの型
                   "moves": v.get("moves") or [],            # 動く部品（drift・trace）
                   "intro": v.get("intro"),                  # 冒頭の写真（c104）・14本目から冒頭の絵（intro の illu）
+                  "hl": v.get("hl"),                        # 🆕 18本目 ⑤c'：本の頁の上の印（c105 の1頁目）＝秒は scene_jiko が直した
                   "illu": v.get("illu"),                    # 🔴 14本目 ⑤b-2：案C の再現イラスト（全面・小さく戻す）
                   "tail": v.get("tail")}                    # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）
         # ディゾルブ：**同じ章の、写真だけのカットどうし**（図解・扉つきのカットには掛けない）

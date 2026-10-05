@@ -2210,7 +2210,9 @@ def layer_index(allow_missing=False):
                     # 🔴 12本目から：動く部品と冒頭の写真（build_jiko.meta_of がそのまま運ぶ）
                     #    14本目 ⑤b-2 から：案C の再現イラスト（illu）と冒頭の絵（intro の illu）
                     "moves": m.get("moves") or [], "intro": intro, "illu": m.get("illu"),
-                    "tail": tail}                       # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）
+                    "tail": tail,                       # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）
+                    # 🆕 18本目 ⑤c'：本の頁の上の印（SPEC の hl＝本の写真の頁・c105 の1頁目）。尻・冒頭と同じ式で秒へ
+                    "hl": hl_times(cid, s.get("hl")) if s.get("hl") and s.get("photo") and not s.get("fig") else None}
     return idx, jobs
 
 

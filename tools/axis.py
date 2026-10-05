@@ -386,11 +386,14 @@ def _draw(A, it, row, dim):
     if k == "chips":          # 項目の札だけを後の段で出す（点は前の段で描いた）。i0＝前の段の札の下へ続ける（16本目 ⑤b-5）
         return _chips(A, x, it.get("chips") or [], col, ink, int(it.get("i0", 0))), rec
     anch = it["_anch"]
-    tx = x - OFF if anch == "start" else (x + OFF if anch == "end" else x)
+    # 🆕 18本目 ⑤c'：off＝札の端と自分の縦の線の間（既定 OFF）。1分差の2点（c312 の 9:09・9:10）は既定だと札の右端と隣の点の
+    #   縦の線が 5px＝触れて見えた → その部品だけ off=3（隣の線とのすき間 10px・札は自分の線の上に残る）
+    off = float(it.get("off", OFF))
+    tx = x - off if anch == "start" else (x + off if anch == "end" else x)
     if it["_row"]:
         # 🆕 ⑤b-5：札の横の広がり（門番 check_axis が、上の段へ伸びる別の点の縦の線と照らす）。⚠️ 門番 layout は層どうしの
         #   横切りしか見ない＝前のカットの点どうし（同じ基図の層）の貫きを素通りした（c408 の 1946年の線 × 1944年の札）
-        lo = x - OFF if anch == "start" else (x - it["_w"] + OFF if anch == "end" else x - it["_w"] / 2)
+        lo = x - off if anch == "start" else (x - it["_w"] + off if anch == "end" else x - it["_w"] / 2)
         rec["lx"] = (round(lo, 1), round(lo + it["_w"], 1))
     if k == "link":
         y0, y1 = A.ly[it["fr"]], A.ly[it["to"]]
@@ -435,7 +438,9 @@ def _chips(A, x, chips, col, ink, i0=0):
     g = []
     ay = A.ay
     for i, ch in enumerate(chips, start=i0):
-        cy = ay + 108 + 58 * i
+        # 🔴 18本目 ⑤c'：ay+108 は箱の上辺が2段の目盛りの年の字（「1962年」）の下端から 3.8px＝触れて見えた（c205 c615 cb05・
+        #   check_layout は字と箱の地の近さを見ない）→ +118（すき間 13.8px）
+        cy = ay + 118 + 58 * i
         w = F.fm.width(ch, 28, "Noto") + 36
         cx = min(max(x, F.BX0 + w / 2 + 4), F.BX1 - w / 2 - 4)
         g.append(F.line(x, ay + 60, x, cy - 22, J.LINE_DIM, 2, dash="4 6") if i == 0 else "")

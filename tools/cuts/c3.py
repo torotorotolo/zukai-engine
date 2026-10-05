@@ -158,9 +158,11 @@ SPEC = {
             steps=[dict(state=dict(sy=450.0, clk="9:09"), delay=0.3, dur=3.0, voice=1, ring_delay=1.2,
                         rec="R08 p4185（認定15：深さを変えながら針路と深さを報告）"),
                    dict(state=dict(sy=500.0), delay=0.2, dur=1.8, rec="R08 p4185（認定15：スカイラークはほぼ同じ位置）",
-                        tag=dict(t="ほぼ同じ位置", at="sk", off=(-60, -50), anchor="end")),
+                        tag=dict(t="ほぼ同じ位置", at="sk", off=(-170, -50), anchor="end")),
                    dict(state=dict(sy=540.0), delay=0.2, dur=2.0, rec="R08 p4185（認定15：潜水艦の位置を図に書いていない）",
-                        tag=dict(t="潜水艦の位置は図に書いていない", at="sk", off=(70, -30)))])),
+                        tag=dict(t="潜水艦の位置は図に書いていない", at="sk", off=(130, 150)))])),
+    # ⑤c' R4：(70, -30) は右上の章の札の赤い縦線・字（3.9px）とスカイラークの帆柱の線を横切った（幾何＝scratchpad geom18.py）
+    #   → 水面の下・スカイラークの右下へ。「ほぼ同じ位置」(-60, -50) も艦首の綱の線が字の箱を通った → 艦首の左へ
     ),
     # c313＝救難室（甲板の上）。🔴 下ろす動作は描かない（その日に起きていない＝記録に無い）。潜水艦なし
     "c313": dict(
@@ -217,7 +219,8 @@ SPEC = {
         t="9時10分まで", s="1963年4月10日",       # ⚠️ dup：「深い潜航」は 7:47 の札の写し
         fig=("axis", dict(ss.AX_MORN, past=[ss.ax("t0745"), ss.ax("t0747")], start=dict(cur="7:47"), steps=[
             dict(),
-            dict(add=[ss.ax("dive"), ss.ax("t0909")], cur="9:09"),
+            # ⑤c'：9:09 の札の右端と 9:10 の縦の線が 5px＝触れて見えた → このカットだけ札の寄せを 3px に（axis の off）
+            dict(add=[ss.ax("dive"), dict(ss.ax("t0909"), off=3)], cur="9:09"),
             dict(add=[ss.ax("t0910"), dict(k="chips", at="9:10", chips=["困っている様子は無い"], rec="R08 p4212")], cur="9:10")],
             note="時刻は現地（アメリカ東部）・深さの数は公開の記録でも塗られている", src=ss.src(["R08 p4185", "R08 p4212"]))),
     ),

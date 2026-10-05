@@ -1005,8 +1005,25 @@ SHOT_ONE = {
 #    物差しは「続けて差が大きい秒」を1つの境目に畳む（ディゾルブ用）＝3秒の短いショットが前後の切り替わりと一緒に畳まれる
 SHOT_SPLIT = {
     'nara85185': {465.0: '#62（462〜469秒）の中で切り替わる＝462〜464秒は遠くの艦・465秒から「593」のセイルの寄り（1秒1コマを並べて'
-                         '2026-10-05 ⑤b-7c に目で確かめた・試し焼き 37246867517 の c102 の頭が遠くの艦だった）'},
+                         '2026-10-05 ⑤b-7c に目で確かめた・試し焼き 37246867517 の c102 の頭が遠くの艦だった）',
+                  95.0: "⑤c' R7：#19（92〜99秒）の中で切り替わる＝〜94.5秒は正面から近づく艦・95.0秒から「593」のセイルの横からの寄り"
+                        "（84〜108秒を1秒2コマで並べて 2026-10-05 に目で確かめた・R2 の c601 の 0.25 が遠い艦・0.5 が切り替わりのコマ）",
+                  101.0: "⑤c' R7：寄りは 100.5秒まで・101秒からカメラが外れて海（同じ1秒2コマ）"},
 }
+# 🆕 ⑤c'：境目の物差しが**手前を横切る物**（カメラの船の竿・柱）を境目と読んだ所＝つなぐ（秒・根拠）。ショットは続いている
+SHOT_JOIN = {
+    'nara85185': {99.0: "⑤c' R7：96.5〜98.5秒に手前を竿が横切る・95.0〜100.5秒は同じ「593」のセイルの寄り（1秒2コマで目で確かめた）"},
+}
+
+
+def _join(shots, cuts):
+    out = []
+    for s in shots:
+        if out and any(abs(s['start'] - t) < 0.01 for t in cuts):
+            out[-1] = dict(out[-1], until=s['until'], motion=max(out[-1]['motion'], s['motion']))
+        else:
+            out.append(dict(s))
+    return out
 
 
 def _split(shots, cuts):
@@ -1032,6 +1049,9 @@ def cmd_shots(probe):
         v = pr[na]
         how = '1秒1コマを読み流して tools/shots.boundaries（2026-10-05・丸ごとは保存しない）'
         sh = v['shots']
+        if f'nara{na}' in SHOT_JOIN:                 # 🆕 ⑤c'：つないでから割る（つなぐ境目と割る境目は別の秒）
+            sh = _join(sh, SHOT_JOIN[f'nara{na}'])
+            how += '＋つないだ境目 ' + '・'.join(f'{t:.0f}秒（{w}）' for t, w in SHOT_JOIN[f'nara{na}'].items())
         if f'nara{na}' in SHOT_SPLIT:
             sp = SHOT_SPLIT[f'nara{na}']
             sh = _split(sh, sp)
