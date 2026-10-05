@@ -274,4 +274,19 @@ SPEC = {
             dict(add=[ss.fl("n_rumor"), ss.ce(["n_cause", "n_red"], "n_rumor"), dict(k="mark", at="n_rumor", t="？")])],
             src=ss.src(["IR18 p2006", "V1 p38", "AP p9901"]))),
     ),
+
+    # ── 🆕 ⑤b-8（2026-10-05）：決め所 c810・c815 ──
+    # c810（台本 §2 #11）。意見2（R08 p.204）「conjecture may be stretched too far and become accepted as fact」＝おそれ（may）を残した
+    "c810": dict(
+        t="意見の2番", s="混ぜ合わせる危うさ",
+        fig=("quote", dict(phrase="推測が、事実として通ってしまうおそれ",
+                           rows=ss.qrows("R08", "PDF 204頁", ("箇所", "意見2")), paper=True)),
+    ),
+    # c815（台本 §2 #12）。リッコーヴァー中将の声明の結び（J p.89＝1963年7月23日）「There is insufficient information to pin down what really
+    #   happened to the Thresher. I do not know.」。⚠️ 副題に「原子炉の」「1963年」を使わない（★・札と4字以上重なる）
+    "c815": dict(
+        t="中将の結び", s="議員への声明の最後",
+        fig=("quote", dict(phrase=["原子炉の責任者", "「何が起きたか分からない」"],
+                           rows=ss.qrows("J", "89頁", ("話した人", "リッコーヴァー中将")), paper=True)),
+    ),
 }

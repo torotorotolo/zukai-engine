@@ -231,4 +231,23 @@ SPEC = {
             dict(add=[dict(k="fill", f="挙げた例"), dict(k="fill", f="ほかに")])],
             note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4077"]))),
     ),
+
+    # ── 🆕 ⑤b-8（2026-10-05）：決め所 c210・パネル c214 ──
+    # c210 決め所（台本 §2 #2）。認定96（R08 p.196）「shock damage continued to be found during the entire post shakedown availability」
+    #   ＝第1回の写し（V1 p.49）は見た目の字が描けていない頁＝札は第8回の頁。⚠️ 見出しに「衝撃試験の」を使わない（★と5字重なる＝dup）
+    "c210": dict(
+        t="試験のあとの整備", s="査問会が認めたこと",       # ⚠️ 「9か月の」は章の名と4字重なる
+        fig=("quote", dict(phrase="衝撃試験の損傷は整備の間ずっと見つかった",
+                           rows=ss.qrows("R08", "PDF 196頁", ("箇所", "認定96")), paper=True)),
+    ),
+    # c214（6.96秒＝0〜3.26／3.75〜6.96）＝取扱説明書の行方（認定69＝R08 p.193「not approved by the Bureau of Ships; a temporary book
+    #   was provided. The finally approved version was not available to THRESHER even at the end of the post shakedown availability.」）。
+    #   1行目＝承認せず・仮の本／2行目＝承認版は届かず（c213 の書類の再現図の続き＝欄の英語は c213 に出した）
+    "c214": dict(
+        t="説明書の行方", s="艦に渡った本",
+        fig=("panel", dict(blocks=[dict(k="艦船局", t="承認しなかった", c=J.LINE),
+                                   dict(k="艦には", t="仮の本", c=J.AMBER),
+                                   dict(k="承認版", t="整備の終わりにも届かず", c=J.ALERT)],
+                           cols=3)),
+    ),
 }

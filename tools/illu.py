@@ -4700,7 +4700,14 @@ def _sa_note(st0, states):
 #      ca22＝左上の小さな地図（SC を縮めたもの・切り口の線・目の印＝mini）。切り替えの字は出さない（語りが同じ言葉を言う＝16本目の決め）
 SB_LAB, SC_LAB, SD_LAB = "上から見た海（北が上）", "上から見た海の底", "横から見た海の底"
 SB_VIEW = dict(wide=dict(c=(-67.05, 42.4), o=(960.0, 540.0), mpp=412.0),     # 証拠50 と同じ並び（メイン湾〜ノバスコシア）
-               near=dict(c=(-65.0, 41.75), o=(871.0, 431.0), mpp=23.0))      # 基準の点のまわり（待ち合わせ〜油の帯）
+               near=dict(c=(-65.0, 41.75), o=(871.0, 431.0), mpp=23.0),      # 基準の点のまわり（待ち合わせ〜油の帯）
+               # 🆕 ⑤b-8（ca02）：1963年の捜索の海域＝基準の点が真ん中・10マイル四方が枠（y 210〜892）に収まる縮尺
+               sq=dict(c=(-65.0, 41.75), o=(960.0, 551.0), mpp=35.0))
+# 🆕 ⑤b-8（ca02）：捜索の海域の四角（R08 p.65「a fathometer search in an area which was 10 miles by 10 miles centered at the point called
+#   datum」＝マイルの種類が書いていない＝法定マイル 16.09km と海里 18.52km の真ん中で描く＝門番 ⑱ は幅で照らす・広さの数は出さない）／
+#   測る線（R08 p.66「put a fathometer on every square yard of that area」＝向き・間隔・本数は記録に無い＝模式）
+SB_SQ = dict(m=10 * (1609.344 + 1852.0) / 2.0, rec="R08 p4065（10 miles by 10 miles centered at the point called datum）")
+SB_TRK = dict(n=8, rec="R08 p4066（put a fathometer on every square yard of that area）")
 SB_PTS = dict(meet=((-65.05, 41.0 + 46.0 / 60.0), "R08 p4185（認定11：41-46 North, 65-03 West）"),
               datum=((-65.0, 41.75), "R08 p4065（捜索の基準の点＝datum：65度西・41度45分北）"),
               loran=((-(64.0 + 59.0 / 60.0), 41.75), "R08 p4186（認定22d：9時21分の LORAN の位置 41-45N 64-59W）"))
@@ -4748,7 +4755,7 @@ def sb_sea_svg(view):
     g = [f'<defs><linearGradient id="sbSea{view}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f6079"/>'
          f'<stop offset="1" stop-color="#21475d"/></linearGradient></defs>',
          f'<rect x="0" y="0" width="{W}" height="{H}" fill="url(#sbSea{view})"/>']
-    step = 2.0 / 60.0 if view == "near" else 1.0
+    step = 2.0 / 60.0 if view in ("near", "sq") else 1.0
     lon0, lat0 = SB_VIEW[view]["c"]
     for k in range(-60, 61):
         x = sb_px((round(lon0 / step) * step + k * step, lat0), view)[0]
@@ -4853,22 +4860,30 @@ def _scene_SB(start, states, steps):
         raise ValueError("illu SB：広い図（寄る前）に近い図の点は置かない（縮尺が合わない）")
     if start["prev"] == "SA" and view != "near":
         raise ValueError("illu SB：prev は近い図（near）だけ")
+    # 🆕 ⑤b-8（ca02）：sq＝捜索の海域（基準の点・四角 sqr・測る線 trk だけ＝ほかの点は縮尺が違う）。四角と測る線は sq だけ
+    if view == "sq" and any(st[f] != "off" for st in allst for f in near_f if f != "datum"):
+        raise ValueError("illu SB：sq（捜索の海域）に置けるのは基準の点・四角・測る線だけ")
+    if view != "sq" and any(st[f] != "off" for st in allst for f in ("sqr", "trk")):
+        raise ValueError("illu SB：四角（sqr）と測る線（trk）は sq（捜索の海域）だけ")
+    if any(st["trk"] == "on" and st["sqr"] != "on" for st in allst):
+        raise ValueError("illu SB：測る線（trk）は四角（sqr）の中＝四角を先に")
     zi = next((i for i, st in enumerate(states) if st["zin"] == "on"), None)
     late = {zi: SB_T["late"]} if zi is not None else None
     near = view == "near" or zi is not None
+    vw = "sq" if view == "sq" else "near"           # 点を置く見え方（sq 以外は近い図）
     T = SB_T
 
     def P(w):
-        return sb_px(sb_ll(w), "near")
+        return sb_px(sb_ll(w), vw)
 
     def geo(what, xy, **kw):
-        return dict(kind="pt", what=what, xy=list(xy), mpp=SB_VIEW["near"]["mpp"], view="near", **kw)
+        return dict(kind="pt", what=what, xy=list(xy), mpp=SB_VIEW[vw]["mpp"], view=vw, **kw)
 
     def used(f, v=None):
         return any((st[f] != "off") if v is None else (st[f] == v) for st in allst)
     parts = []
-    if near:
-        parts.append(_part("sea", sb_sea_svg("near"), SB_REC["sea"]))
+    if near or view == "sq":
+        parts.append(_part("sea", sb_sea_svg(vw), SB_REC["sea"]))
     if view == "wide":
         mw, mn = sb_px(SB_PTS["meet"][0], "wide"), P("meet")
         keys = [dict(stage=0, delay=0.0, a=1.0)]
@@ -4877,6 +4892,26 @@ def _scene_SB(start, states, steps):
                              dx=mn[0] - mw[0], dy=mn[1] - mw[1]))
         parts.append(dict(_part("wide", sb_sea_svg("wide") + sb_land_svg() + sb_mark_svg(*mw), SB_PTS["meet"][1], mw, keys),
                           geo=dict(kind="pt", what="meet", xy=list(mw), view="wide", mpp=SB_VIEW["wide"]["mpp"])))
+    if used("sqr") or used("trk"):
+        # 🆕 ⑤b-8（ca02）：捜索の海域の四角（基準の点が真ん中・一辺＝SB_SQ）を頭から描く／その中を測る線（模式の往復）で埋める
+        c, hs = P("datum"), SB_SQ["m"] / SB_VIEW[vw]["mpp"] / 2.0
+        sq = [[c[0] - hs, c[1] - hs], [c[0] + hs, c[1] - hs], [c[0] + hs, c[1] + hs], [c[0] - hs, c[1] + hs], [c[0] - hs, c[1] - hs]]
+        if used("trk"):
+            n, mg = SB_TRK["n"], hs * 0.1
+            xs = [c[0] - hs + mg + (2 * hs - 2 * mg) * i / (n - 1) for i in range(n)]
+            path = []
+            for i, x in enumerate(xs):
+                ys = (c[1] - hs + mg, c[1] + hs - mg)
+                path += [[x, ys[i % 2]], [x, ys[1 - i % 2]]]
+            parts.append(dict(_part("trk", sa_line_svg(path, SB_COL["eye"], 2.4, "10 7"), SB_TRK["rec"],
+                                    keys=_flag_keys(start, states, steps, "trk", "on", dur=0.1, late=late)),
+                              kind="draw", path=path, go=_draw_go(start, states, steps, "trk", T["draw"] * 2.0, late),
+                              reveal=18, geo=dict(kind="trk", what="trk", path=path, mpp=SB_VIEW[vw]["mpp"])))
+        if used("sqr"):
+            parts.append(dict(_part("sqr", sa_line_svg(sq, SB_COL["mark"], 3.5), SB_SQ["rec"],
+                                    keys=_flag_keys(start, states, steps, "sqr", "on", dur=0.1, late=late)),
+                              kind="draw", path=sq, go=_draw_go(start, states, steps, "sqr", T["draw"], late),
+                              reveal=18, geo=dict(kind="sq", what="sqr", c=list(c), half=hs, mpp=SB_VIEW[vw]["mpp"], view=vw)))
     if used("datum"):
         d = P("datum")
         parts.append(dict(_part("datum", sb_datum_svg(*d), SB_PTS["datum"][1],
@@ -4932,16 +4967,26 @@ def _scene_SB(start, states, steps):
 
 
 def _sb_anchors(st):
+    vw = "sq" if st.get("view") == "sq" else "near"
+
     def P(w):
-        return sb_px(sb_ll(w), "near")
+        return sb_px(sb_ll(w), vw)
     t, m, lo, o = P("thr"), P("meet"), P("loran"), P("oil")
+    d = P("datum")
+    hs = SB_SQ["m"] / SB_VIEW[vw]["mpp"] / 2.0     # 🆕 ⑤b-8（ca02）：四角の上の辺の真ん中・右上の角
     return dict(meet=m, meet_w=sb_px(SB_PTS["meet"][0], "wide"), thr=t, sk=(m if st["skl"] == "meet" else lo), loran=lo, past=lo,
-                datum=P("datum"), oil=o, rcv=P("rcv"), mid_ts=((t[0] + m[0]) / 2.0, (t[1] + m[1]) / 2.0),
-                mid_se=((lo[0] + o[0]) / 2.0, (lo[1] + o[1]) / 2.0))
+                datum=d, oil=o, rcv=P("rcv"), mid_ts=((t[0] + m[0]) / 2.0, (t[1] + m[1]) / 2.0),
+                mid_se=((lo[0] + o[0]) / 2.0, (lo[1] + o[1]) / 2.0), sq_n=(d[0], d[1] - hs), sq_ne=(d[0] + hs, d[1] - hs))
 
 
 def _sb_note(st0, states):
     allst = [st0] + list(states)
+    if st0["view"] == "sq":
+        # 🆕 ⑤b-8（ca02）：艦の点は無い。四角の大きさはマイルの種類が無い＝幅の真ん中・測る線は模式
+        note = ["四角の大きさは記録の幅で描いた（マイルの種類が書いていない）"]     # 広さの数は出さない（PLAN）
+        if any(st["trk"] == "on" for st in allst):
+            note.append("測る線の向きと間隔は模式")
+        return "・".join(note)
     note = ["艦の点は位置だけ（向きと大きさは描かない）"]
     if st0["view"] == "wide":
         note.append("海岸線は Natural Earth")
@@ -5466,8 +5511,9 @@ FIELDS = {
     #   skl（スカイラークの点 off／meet＝7時45分の待ち合わせ／loran＝9時21分の測位／past＝9時17分の位置の点線の輪）・thr（7時45分の
     #   スレッシャーの点）・d31（約3.1km の線）・datum（捜索の基準の点）・oil（油の帯）・rcv（リカバリー）・se（南東へ十数キロの線）・
     #   prev（頭だけ：SA＝さっきの横から見た絵の目の印）。出来事 fix（位置を測った輪）
+    #   🆕 ⑤b-8（ca02）：view=sq（捜索の海域）・sqr（四角＝10マイル四方・基準の点が真ん中）・trk（測る線＝模式）
     "SB": dict(view="near", zin="off", skl="off", thr="off", d31="off", datum="off", oil="off", rcv="off", se="off", prev="off",
-               cam=1.0),
+               sqr="off", trk="off", cam=1.0),
     # 🆕 18本目 ⑤b-3：SC 上から見た海の底（1964年）。mk（目印900個＝数えない形）・mkx（目印1つの拡大＝模式）・circ（直径 約370m の円）・
     #   dia（直径の線）
     "SC": dict(view="floor", mk="off", mkx="off", circ="off", dia="off", cam=1.0),
@@ -5498,7 +5544,8 @@ CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONO
                rescue=("off", "deck", "down"), rope=ONOFF, uqc=ONOFF, map=("off", "base", "meet"),
                # 🆕 18本目 ⑤b-3：SB・SC・SD
                zin=ONOFF, skl=("off", "meet", "loran", "past"), thr=ONOFF, d31=ONOFF, datum=ONOFF, oil=ONOFF, rcv=ONOFF,
-               se=ONOFF, mk=ONOFF, mkx=ONOFF, circ=ONOFF, dia=ONOFF, tri=("down", "on"), mini=("off", "SC"))
+               se=ONOFF, mk=ONOFF, mkx=ONOFF, circ=ONOFF, dia=ONOFF, tri=("down", "on"), mini=("off", "SC"),
+               sqr=ONOFF, trk=ONOFF)          # 🆕 18本目 ⑤b-8：SB の捜索の海域（ca02）
 VIEWS = dict(B=("corridor", "cabin", "desk"), C=("helm", "console", "room"), D=("ship", "sea", "far", "heli", "rail"),
              RA=tuple(RA_VIEW), RB=("side", "rear"), RD=("tail",), RC=tuple(RC_VIEW), VA=tuple(VA_VIEW),
              VB=tuple(VB_VIEW), VC=tuple(VC_VIEW), VD=tuple(VD_VIEW), SA=("wide",), SB=tuple(SB_VIEW), SC=("floor",),
@@ -5519,7 +5566,8 @@ REC_FIELDS = ("heel", "wake", "boxes", "crowd", "mark", "bridge", "run", "far", 
               # 🆕 18本目 ⑤b-2：SA の潜水艦・深さの線・救難室・綱・水中電話の線（合図の map・switch と記録の時刻 clk は要らない）
               "sub", "tilt", "sy", "test", "redact", "seabed", "rescue", "rope", "uqc",
               # 🆕 18本目 ⑤b-3：SB の点と線・SC の目印と円・SD のトリエステ2世（合図の zin・prev・mini は要らない）
-              "skl", "thr", "d31", "datum", "oil", "rcv", "se", "mk", "mkx", "circ", "dia", "tri")
+              "skl", "thr", "d31", "datum", "oil", "rcv", "se", "mk", "mkx", "circ", "dia", "tri",
+              "sqr", "trk")    # 🆕 18本目 ⑤b-8：SB の捜索の海域の四角と測る線（ca02）
 # 段ごとの出来事（引き継がない・数で書く＝画面の文字の門番が文字として読まない）。pylon＝RB でパイロンが1本流れる
 #   🆕 18本目 ⑤b-2（SA）：voice（潜水艦→スカイラークの声）・broken（崩れた声）・call（スカイラークの呼びかけ）・ping（探知機）・
 #   boom（9時18.1分の大きく低い音の輪＝c103 だけ・門番 ⑰）・xsig（音の信号＝認定22・24）

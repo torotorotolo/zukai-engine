@@ -238,11 +238,21 @@ PAGE_CUTS = {
     # 認定4 の書き出しと名簿の頭（R08 p.181）
     #   ⚠️ 試し焼き 37217579198：右の列「STAFF, DEPUTY COMMANDER SUBMARINE FORCE, U.S.」が右の端で切れた＝横の範囲を広げる
     'cb22': (4181, ('rows', 'thatthefollowingpersons', 'smarzjohn', dict(cols=(0.08, 0.97)))),
+    # 🆕 ⑤b-8（10-05）：c104（冒頭の決め所）の頭の2行＝額装の頁の冒頭（intro の panel・`<cid>i`）と右から重なる2枚目（over・`<cid>o`）
+    #   1枚目＝査問会の意見1（V1 p.57）＝見出し OPINIONS から下（上の「Unclassified」の印は入れない）・印は in all probability と
+    #   flooding・engine room（映像方針 §1-3）。⚠️ V1 p.57 と R08 p.204 は同じ文＝暗い画素の平均が V1 41.3・R08 44.8（濃い方＝V1）・
+    #   1枚に並べて目でも同じ（scratchpad look_op1）
+    'c104i': (57, ('rows', 'opinions', 'compoundedby', dict(lo='opinions'))),
+    # 2枚目＝海軍長官の第7 endorsement の1頁目（IR18 p.1）＝右上の日付の印（文字の層は「MAR 1 9 1955」＝OCR の読み違い）から下・
+    #   印は日付と差出人（From: Secretary of the Navy）
+    'c104o': (2001, ('rows', 'mar191955', 'fromsecretaryofthenavy', dict(lo='mar191955'))),
 }
 # 切り口を持たずに焼く頁＝c104（決め所＝⑤b-8 の trace が頁と行の箱を自分で切る）：意見1（V1 p.57）・IR18 p.1（c109 と同じ）・p.5 段落11
 #   ⚠️ 意見1 は V1 p.57 と R08 p.204 で同じ文・どちらも意見1 の段落に塗りの印が無い（⑤b-7b に文字の層で確かめた）
 #      ＝見た目の字が濃い方を ⑤b-8 で選べるよう両方焼く（§9 の測り 0.052／0.058）
+#   ✅ ⑤b-8：V1 p.57（c104i）と IR18 p.1（c104o）に切り口を作った＝R08 p.204・IR18 p.5 は使わない（焼いた頁は残す）
 EXTRA_PAGES = (57, 4204, 2005)
+INS_CUT_SUFFIX = ('t', 'i', 'o')     # 差し込みの頁の切り口（尻＝t・額装の頁の冒頭＝i・重なる2枚目＝o）＝PLAN の頁のカットに数えない
 
 
 def pages_pick():
@@ -632,8 +642,8 @@ def cmd_check():
         print(f'🔴 切り口の無いカット: {sorted(set(PAGE_CUTS) - hav)}')
         bad += 1
     pwant = {c for c, p in cuts.PLAN.items() if p['kind'] in ('文字の頁', '図・写真の頁')}
-    pgot = {c for c in PAGE_CUTS if not c.endswith('t')}      # 〜t＝尻の差し込みの切り口（⑤b-7c）
-    print(f'PLAN の頁 {len(pwant)}カット・PAGE_CUTS {len(pgot)}カット（＋尻の差し込み {len(PAGE_CUTS) - len(pgot)}）'
+    pgot = {c for c in PAGE_CUTS if not c.endswith(INS_CUT_SUFFIX)}   # 〜t・〜i・〜o＝差し込みの頁の切り口（⑤b-7c・⑤b-8）
+    print(f'PLAN の頁 {len(pwant)}カット・PAGE_CUTS {len(pgot)}カット（＋差し込みの頁 {len(PAGE_CUTS) - len(pgot)}）'
           f"・まだ切っていない {len(pwant - pgot)}: {' '.join(sorted(pwant - pgot))}")
     if pgot - pwant:
         print(f"🔴 PLAN で頁でないカットに切り口: {' '.join(sorted(pgot - pwant))}")

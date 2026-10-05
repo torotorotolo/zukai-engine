@@ -325,4 +325,20 @@ SPEC = {
             # ⚠️ 試し焼き（原寸）：注と出典2つで字が約18画素まで縮んだ＝注を短く
             note="上と下は数え方が違う", src=ss.src(["R08 p4197", "J p8014", "J p8068"]))),
     ),
+
+    # ── 🆕 ⑤b-8（2026-10-05）：決め所 c619・c625 ──
+    # c619（台本 §2 #8）。認定108（R08 p.197）「… was made known … to anyone in the operational command line higher than the Commanding
+    #   Officer of THRESHER」。作戦の指揮系統は前の行。⚠️ 見出し・副題に「検査の結果」「査問会の」を使わない（★・札と4字以上重なる）
+    "c619": dict(
+        t="命令を出す側へ", s="作戦の指揮系統",
+        fig=("quote", dict(phrase="検査の結果は、艦長より上に伝わっていない",
+                           rows=ss.qrows("R08", "PDF 197頁", ("箇所", "認定108")), paper=True)),
+    ),
+    # c625（台本 §2 #9）。🔴 条件つき＝リッコーヴァー中将「If the quality of the joints so inspected was representative …, the ship had several
+    #   hundred substandard joints when she last went to sea.」（J p.68＝1963年7月23日の議会で、4月29日の査問会の証言を読み上げた）
+    "c625": dict(
+        t="見本から全体へ", s="中将が付けた条件",
+        fig=("quote", dict(phrase="見本と同じ質なら、基準未満の継手は数百",
+                           rows=ss.qrows("J", "68頁", ("話した人", "リッコーヴァー中将")), paper=True)),
+    ),
 }

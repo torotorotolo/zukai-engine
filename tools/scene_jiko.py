@@ -1854,6 +1854,25 @@ SUB_MUTE = {}
 #  ⚠️ 15本目までの「冒頭の写真・頁（intro の photo）」「冒頭の絵（intro の illu）」は図のカットだけ（今までどおり）
 INTRO_X = 0.6          # 入れ替えの秒（build_jiko.INTRO_X はここを読む＝2か所に書かない）
 TAIL_KEY = "~t"
+# 🆕 18本目 ⑤b-8（c104）：額装の頁の冒頭（intro の panel）と、2行目から右から重なる2枚目の頁（intro の over）も**同じ物差しで測る**
+#    ＝仮の鍵 `<cid>~i`（1枚目）・`<cid>~o`（2枚目）。板は `_ilab`・`_olab`（地は `_ibg` を共にする）。15本目 c904 の頁の冒頭は
+#    測っていなかった（ルール §5b-115⑥＝測られない頁を作らない）
+INTRO_KEY, OVER_KEY = "~i", "~o"
+INS_LAB = {TAIL_KEY: "_tlab", INTRO_KEY: "_ilab", OVER_KEY: "_olab"}
+
+
+def hl_times(cid, hls):
+    """🆕 18本目 ⑤b-8：頁の上の印（`hl=[(行, 始めの割合, 終わりの割合, (x0, y0, x1, y1)＝頁の割合), …]`）を、カットの中の秒へ。
+    行の声の始まり（行の t＋LEAD）から、その行の長さ（d）の割合で塗り始めと塗り終わり＝**語りと同時に走る**（映像方針 §1-3）。
+    割合は台本の行の字の位置で決める（例：34字の行の8〜24字目＝0.24〜0.71）。頁の割合は `pages.json` の頁の画素から（SPEC の注に根拠）"""
+    rows = SUBS.get(cid, [])
+    out = []
+    for k, f0, f1, r in hls or ():
+        if not rows or not 0 <= k < len(rows) or not 0.0 <= f0 < f1 <= 1.2 or len(r) != 4:
+            raise SystemExit(f"{cid}: 頁の上の印 {(k, f0, f1, r)} が読めない（行は 0〜{len(rows) - 1}・割合は 0≦始め＜終わり≦1.2）")
+        a, d = rows[k]["t"] + LEAD, rows[k]["d"]
+        out.append(dict(r=[float(v) for v in r], t0=round(a + f0 * d, 3), t1=round(a + f1 * d, 3)))
+    return out
 
 
 def ins_sec(cid, k):
@@ -1946,6 +1965,39 @@ def tail_spec(cid):
 def tail_specs():
     """門番が測る尻の差し込み {仮の鍵 `<cid>~t`: SPEC}（台本の順）"""
     return {c + TAIL_KEY: tail_spec(c) for c in ORDER if tail_spec(c)}
+
+
+def intro_page_specs(cid):
+    """🆕 18本目 ⑤b-8：額装の頁の冒頭（intro の panel）の1枚目 `<cid>~i` と、重なる2枚目（intro の over）`<cid>~o` の SPEC
+    （写真のカットと同じ形＝photo・trim・bias・panel・color・t・s）。見出し・副題は intro／over に書けば、無ければカットの t・s"""
+    spec = SPEC.get(cid) or {}
+    it = spec.get("intro") or {}
+    if not it.get("panel"):
+        return {}
+
+    def one(d):
+        s = {k: v for k, v in d.items() if k in ("photo", "trim", "bias", "color", "t", "s")}
+        s.setdefault("t", spec.get("t", ""))
+        s.setdefault("s", spec.get("s", ""))
+        return dict(s, panel=True)
+    out = {cid + INTRO_KEY: one(it)}
+    ov = it.get("over")
+    if ov:
+        for k in ("photo", "t", "at"):
+            if k not in ov:
+                raise SystemExit(f"{cid}: intro の over に {k} が無い（重なる2枚目の頁は photo・t・at が要る）")
+        if not 0 < int(ov["at"]) < int(it.get("until", 1)):
+            raise SystemExit(f"{cid}: intro の over の at={ov['at']} は 1〜{int(it.get('until', 1)) - 1}（頁の冒頭の中の行）")
+        out[cid + OVER_KEY] = one(ov)
+    return out
+
+
+def ins_specs():
+    """門番が測る差し込みの頁 {仮の鍵: SPEC}＝尻 `<cid>~t`・額装の頁の冒頭 `<cid>~i`・重なる2枚目 `<cid>~o`（台本の順）"""
+    out = dict(tail_specs())
+    for c in ORDER:
+        out.update(intro_page_specs(c))
+    return out
 
 
 def _ins_layers(cid, spec, jobs):
@@ -2051,8 +2103,13 @@ def build_layers(allow_missing=False):
                     # 🆕 15本目 ⑤b-7：**額装の頁**の冒頭（c904＝1行目は頁 p46 のまま → 2行目から地図＝映像方針 §4）。
                     #    全画面の頁は、ほかの文字の頁16カット（額装）と見た目がそろわず、実写の暗幕が頁の片側を暗くする
                     #    ＝地・額の縁・見出し・額の下の出典は実写の額装カットと同じ（`full_bg`・`full_top` の panel）
-                    ip.update(panel=True, trim=spec["intro"].get("trim"))
+                    #    🆕 18本目 ⑤b-8（c104）：見出し・副題は intro に書けばそれ（頁を名乗る＝決め所の見出しと別）・
+                    #    重なる2枚目（over）の板は `_olab`（地は `_ibg` を共にする）
+                    ips = intro_page_specs(cid)
+                    ip = dict(spec, **ips[cid + INTRO_KEY])
                     jobs[f"{cid}_ibg"] = full_bg()
+                    if cid + OVER_KEY in ips:
+                        jobs[f"{cid}_olab"] = full_top(cid, dict(spec, **ips[cid + OVER_KEY]))
                 jobs[f"{cid}_ilab"] = full_top(cid, ip)
         _ins_layers(cid, spec, jobs)           # 🆕 18本目 ⑤b-7c：頭の映像・尻の写真（c103＝SA → 写真 thr_t16）
         if not stages:
@@ -2128,13 +2185,20 @@ def layer_index(allow_missing=False):
                 raise SystemExit(f"{cid}: intro の until={k} は 1〜{len(rows) - 1}（行の番号・0 は入れ替える前が無い）")
             box = photo_box(dict(s, photo=intro["photo"], panel=True, trim=intro.get("trim")))
             intro = dict(intro, sec=round(max(0.5, (rows[k]["t"] + LEAD - 0.30) if rows else 1.0), 3),
-                         box=[int(v) for v in box])
+                         box=[int(v) for v in box], hl=hl_times(cid, intro.get("hl")))
+            if intro.get("over"):
+                # 🆕 18本目 ⑤b-8（c104）：2枚目の頁が at 行目を読み始める少し前から右から重なる（build_jiko.intro_frame）
+                ov = intro["over"]
+                obox = photo_box(dict(s, photo=ov["photo"], panel=True, trim=ov.get("trim")))
+                intro["over"] = dict(ov, sec=ins_sec(cid, int(ov["at"])), box=[int(v) for v in obox],
+                                     hl=hl_times(cid, ov.get("hl")))
         # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）＝k 行目を読み始める少し前から（build_jiko.tail_frame）。箱は写真のカットと同じ計算
         ts = tail_spec(cid)
         tail = None
         if ts:
             tbox = photo_box(ts)
             tail = dict(ts, sec=ins_sec(cid, int(s["tail"]["at"])), box=[int(v) for v in tbox], full=tbox == PHOTO_FULL,
+                        hl=hl_times(cid, ts.get("hl")),            # 🆕 18本目 ⑤b-8（c105）：尻の頁の上の印
                         trim=ts.get("trim") or TRIM_BY_PHOTO.get(ts["photo"]),
                         levels=ts.get("levels") or LEVELS_BY_PHOTO.get(ts["photo"]))
         idx[cid] = {"photo": bool(s.get("photo")), "back": bool(s.get("photo") and s.get("fig")),

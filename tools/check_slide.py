@@ -482,9 +482,11 @@ def my_boxes(cid, jobs):
     import scene_jiko as S
     out = []
     keys = (f"{cid}_lab",) + tuple(f"{cid}_a{i}" for i in range(1, 9))
-    if cid.endswith(S.TAIL_KEY):
-        # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）の仮の鍵 → その板（見出し・副題・出典）は `<cid>_tlab`
-        keys = (f"{cid[:-len(S.TAIL_KEY)]}_tlab",)
+    for suf, lab in S.INS_LAB.items():
+        if cid.endswith(suf):
+            # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）の仮の鍵 → その板（見出し・副題・出典）は `<cid>_tlab`
+            #    🆕 ⑤b-8：額装の頁の冒頭 `~i` → `_ilab`・重なる2枚目 `~o` → `_olab`
+            keys = (f"{cid[:-len(suf)]}{lab}",)
     for k in keys:
         if k in jobs:
             out.extend(CL.boxes(jobs[k], k))
@@ -733,7 +735,8 @@ def production_inputs():
     box_of = {c: v[0] for c, v in S.PHOTO_CUTS.items()}
     # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻＝SPEC の tail）も**同じ物差しで測る**（ルール §5b-115⑥ 測られない頁を作らない）。
     #    鍵は `<cid>~t`（scene_jiko.TAIL_KEY）＝台本の順（S.ORDER）に無い＝走査は `keys_of()` で ORDER のあとに足す
-    for k, ts in S.tail_specs().items():
+    #    🆕 ⑤b-8：額装の頁の冒頭（intro の panel＝`<cid>~i`）と重なる2枚目（`<cid>~o`）も（`S.ins_specs`）
+    for k, ts in S.ins_specs().items():
         spec_map[k] = ts
         photo_of[k] = ts["photo"]
         box_of[k] = S.photo_box(ts)

@@ -1201,6 +1201,14 @@ FLP = {
     "z_sound": dict(k="role", id="z_sound", t="監視の記録", y=520, pos=(130, 650), rec="R08 p4185"),
     "z_calc": dict(k="role", id="z_calc", t="仮定と計算", y=660, pos=(130, 650), rec="R08 p4212"),
     "z_plot": dict(k="role", id="z_plot", t="最もありうる筋書き", y=520, pos=(1180, 1760), rec=["R08 p4212", "R08 p4214"]),
+    # 🆕 ⑤b-8：c402 海の音の監視の仕組み（PLAN は地図＝場所は描かない模式 → 流れ図＝映像方針 §25・ルール §5b-116①）。V1 p.277（分析官の
+    #   証言「analysis of targets which are contacted by passive means by the hydrophone arrays at the fifteen monitoring stations within the
+    #   Oceanographic Systems Atlantic」「Analysis Officer for Commander Oceanographic Systems Atlantic in Norfolk」）・認定18（R08 p.185
+    #   「Commander Oceanographic Systems Atlantic obtained information that …」）
+    "m_arr": dict(k="role", id="m_arr", t="聴音機の列", y=470, pos=(100, 470), rec="V1 p277"),
+    "m_sta": dict(k="role", id="m_sta", t="15の監視所", y=470, pos=(560, 930), rec="V1 p277"),
+    "m_ana": dict(k="role", id="m_ana", t="司令部で分析", y=470, pos=(1020, 1390), rec=["V1 p277", "R08 p4185"]),
+    "m_inq": dict(k="role", id="m_inq", t="査問会の認定", y=470, pos=(1480, 1820), rec="R08 p4185"),
     # c616 決定を知っていた人（認定105「known to the management personnel of the Shipyard, including the Production Officer and the
     #   Commander」・認定106「a copy of this decision was furnished the Commanding Officer of THRESHER」＝R08 p.197）
     "k_prod": dict(k="role", id="k_prod", t="造船所の生産の責任者", y=360, pos=(1180, 1780), rec="R08 p4197"),
@@ -1301,3 +1309,26 @@ def cause(name, **kw):
 #    （値は1つも変えていない＝git の `b044b56`）。18本目で決め所の出どころの札を使うときは、その回の QDOC・QWHO・`qrows()` をここに足す。
 #    ⚠️ 教訓は移した注の側にある（札の値は全角12字ぶんで折れる・語の途中で折れない名前にする・決め所の言葉は台本の★の行と1字も違えない
 #       ＝fixture_ep16 の QDOC の上）
+# 🆕 2026-10-05（18本目 ⑤b-8）：18本目の資料の名（札の「記録」の欄）。名は語りの呼び名と REC_DOCS の画面の名にそろえ、`F.wrap(t, 12)` で
+#    折って確かめた（「海軍長官の意見書／（1965年）」「海軍研究所の報告／（1964年）」＝かっこの中で割れない・ほかは1行）。
+#    🔴 §0b（次の回は空に）：QDOC・QWHO。頁の欄＝PDF の頁（V1・R08・IR18＝「PDF 196頁」）・印刷の頁（J＝「68頁」）・頁の無い資料は None
+#    🔴 査問会の認定・意見の頁は**第8回の公開（R08 p.181〜220 の再録）**で書く＝第1回の写し（V1）の p.44・p.49 は見た目の字が描けて
+#       いない頁（台本 §2・映像方針 §9）＝札で指す頁は、視聴者が開いて読める版。証言は第1回（V1）の頁
+#    決め所17の原文照合（⑤b-8）＝台本 §2 の英語が通し頁ファイルのその頁に 17/17（a〜z0〜9 にそろえて一致率 1.00）・★の行＝台本 §2 の言葉
+#    （17/17）＝scratchpad `quotes18.py`。頁の画像での照合は④（台本 §0-5・17件）
+QDOC = {"V1": "査問会の記録（第1回公開）", "R08": "査問会の記録（第8回公開）", "IR18": "海軍長官の意見書（1965年）",
+        "J": "議会の公聴会（1963年）", "AP": "AP通信の記事（2021年）", "No.710-64": "国防総省の発表（1964年）",
+        "R17書": "海軍研究所の報告（1964年）"}
+QWHO = {}
+
+
+def qrows(doc, page, *extra):
+    """決め所の出どころの札の rows＝extra（(欄, 値) の組＝箇所・話した人・日付）＋記録＋著者＋頁。page は画面の頁の字（None＝頁の欄なし）"""
+    import jiko_style as J
+    rows = [(k, v, J.LINE) for k, v in extra]
+    rows.append(("記録", QDOC[doc], J.INK_W))
+    if doc in QWHO:
+        rows.append(("著者", QWHO[doc], J.LINE))
+    if page:
+        rows.append(("頁", page, J.TICK))
+    return rows

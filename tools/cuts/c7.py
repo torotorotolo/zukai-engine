@@ -298,4 +298,13 @@ SPEC = {
     # ── ✅ ⑤b-7c（2026-10-05）：記録映画（`footage.USE`＝カットまるごと・額装＋地のぼかし・撮影日は分からない＝年を書かない）──
     # c701（6.7秒・章の扉つき）＝主タンクの海水を圧縮空気で押し出して浮き上がる＝タンクを吹く。85185（#83＝波を立てて走る艦）
     "c701": ss.vid("c701", t="浮き上がる仕組み", s="海軍の記録映画　波を立てて走る艦"),
+
+    # ── 🆕 ⑤b-8（2026-10-05）：決め所 c715 ──
+    # 台本 §2 #10。認定50（R08 p.191）「Under a test required by the court, the strainers … were blocked and ruptured by the formation of ice
+    #   in about thirty seconds」。第1回の写し（V1 p.44）は見た目の字が描けていない頁＝札は第8回の頁。⚠️ 見出しに「30秒」（章の名）を使わない
+    "c715": dict(
+        t="ティノサの試験", s="同じ型の艦で",
+        fig=("quote", dict(phrase="試験では、こし器が氷で約30秒で破れた",
+                           rows=ss.qrows("R08", "PDF 191頁", ("箇所", "認定50")), paper=True)),
+    ),
 }

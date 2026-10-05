@@ -463,7 +463,7 @@ def measure(only=None, cut=None, kind=None, hist=False, verbose=False):
             # 🆕 18本目 ⑤b-7c：差し込みの板（頭の映像 `_ilab`・`_ibg`／尻の写真・頁 `_tlab`・`_tbg`）の額の縁は、中身が**合成のときに
             #    PIL で入る映像・写真**（build_jiko.intro_frame・tail_frame）＝SVG の中は空で当然（小さく戻す絵の枠と同じ扱い）。
             #    c102（頭の記録映画）・c103（尻の写真）で「枠の内側が空」と鳴った
-            if k.endswith(("_ilab", "_ibg", "_tlab", "_tbg")):
+            if k.endswith(("_ilab", "_ibg", "_tlab", "_tbg", "_olab")):     # 🆕 ⑤b-8：重なる2枚目の頁の板（c104）も
                 continue
             f, m, t, fl = parse(svg, k)
             frames_ += f

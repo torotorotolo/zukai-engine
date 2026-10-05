@@ -1024,6 +1024,8 @@ REC_SB = dict(meet=((-65.05, 41.0 + 46.0 / 60.0), "R08 p4185（認定11：41-46 
 REC_SB_TS = (147.0, 3400 * 0.9144, "R08 p4185（認定11：SKYLARK bore 147 True, 3400 yards from THRESHER）")
 # 認定31「about seven miles to the Southeast of SKYLARK's 0917R position」＝マイルの種類が書いていない＝法定マイルと海里の両方の幅
 REC_SB_OIL = (135.0, (7 * 1609.344, 7 * 1852.0), "R08 p4188（認定31）")
+# 🆕 ⑤b-8（ca02）：捜索の海域「10 miles by 10 miles centered at the point called datum」（R08 p.65）＝マイルの種類が書いていない＝幅
+REC_SB_SQ = ((10 * 1609.344, 10 * 1852.0), "R08 p4065（10 miles by 10 miles centered at the point called datum）")
 SB_POS_TOL, SB_BRG_TOL, SB_DIST_TOL, SB_OIL_BRG_TOL = 2.0, 1.5, 0.03, 11.25   # 画素・度・割合・16方位の幅の半分
 # 距離の札＝言ってよい言い方と、その札が指す線（約3.1km＝3,400ヤード・十数キロ＝7マイルのどちらでも合う幅＝台本 §9-1）
 SB_DIST_TAGS = (("約3.1km", "mid_ts"), ("十数キロ", "mid_se"))
@@ -1086,6 +1088,33 @@ def judge_sb(sc, where):
         if _dang(b, REC_SB_OIL[0]) > SB_OIL_BRG_TOL or not lo * (1 - SB_DIST_TOL) <= d <= hi * (1 + SB_DIST_TOL):
             bad.append(f"⑱{where}：油の帯が9時17分の位置から {b:.0f}度・{d:.0f}m（記録は南東＝{REC_SB_OIL[0]:.0f}±{SB_OIL_BRG_TOL}度・"
                        f"{lo:.0f}〜{hi:.0f}m＝{REC_SB_OIL[2]}）")
+    # 🆕 ⑤b-8（ca02）：捜索の海域の四角＝**描いた線の座標**で測る（型の SB_SQ を読まない）。真ん中が基準の点・一辺が10マイルの幅・
+    #   測る線（trk）は四角の中。縮尺は見え方の幾何（型の SB_VIEW＝記録ではない）
+    sqs = [p for p in sc["parts"] if (p.get("geo") or {}).get("kind") == "sq"]
+    for p in sqs:
+        n += 1
+        g = p["geo"]
+        xs, ys = [q[0] for q in p["path"]], [q[1] for q in p["path"]]
+        mpp_v = IL.SB_VIEW[g.get("view", "near")]["mpp"]
+        c = ((min(xs) + max(xs)) / 2.0, (min(ys) + max(ys)) / 2.0)
+        want = _sb_px(REC_SB["datum"][0], g.get("view", "near"))
+        w_m, h_m = (max(xs) - min(xs)) * mpp_v, (max(ys) - min(ys)) * mpp_v
+        lo, hi = REC_SB_SQ[0]
+        if math.hypot(c[0] - want[0], c[1] - want[1]) > SB_POS_TOL:
+            bad.append(f"⑱{where}：捜索の海域の四角の真ん中 {tuple(round(v) for v in c)} が基準の点 {tuple(round(v) for v in want)} でない"
+                       f"（{REC_SB_SQ[1]}）")
+        for nm, v in (("東西", w_m), ("南北", h_m)):
+            if not lo * (1 - SB_DIST_TOL) <= v <= hi * (1 + SB_DIST_TOL):
+                bad.append(f"⑱{where}：捜索の海域の四角の{nm}が {v:.0f}m（記録は10マイル＝{lo:.0f}〜{hi:.0f}m＝{REC_SB_SQ[1]}）")
+    for p in [p for p in sc["parts"] if (p.get("geo") or {}).get("kind") == "trk"]:
+        n += 1
+        if not sqs:
+            bad.append(f"⑱{where}：測る線（trk）があるのに捜索の海域の四角が無い")
+            continue
+        xs, ys = [q[0] for q in sqs[0]["path"]], [q[1] for q in sqs[0]["path"]]
+        out = [q for q in p["path"] if not (min(xs) <= q[0] <= max(xs) and min(ys) <= q[1] <= max(ys))]
+        if out:
+            bad.append(f"⑱{where}：測る線が捜索の海域の四角の外に出る（{tuple(round(v) for v in out[0])}）")
     want_ts = f"約{REC_SB_TS[1] / 1000.0:.1f}km"
     for i, t in enumerate(sc["tags"]):
         for txt, at in zip(t.get("texts") or [], (t.get("ats") or []) + [None] * len(t.get("texts") or [])):
@@ -2153,7 +2182,7 @@ def selftest_ep18_sbcd():
     import copy
     import cuts
     ok = True
-    C7 = ("c308", "c503", "c513", "c519", "ca19", "ca21", "ca22")
+    C7 = ("c308", "c503", "c513", "c519", "ca19", "ca21", "ca22", "ca02")    # 🆕 ⑤b-8：ca02（SB の捜索の海域）
     S = {c: copy.deepcopy(cuts.SPEC[c]["fig"][1]) for c in C7}
     kinds = {c: cuts.PLAN[c]["kind"] for c in S}
     for c, kw in S.items():
@@ -2202,6 +2231,13 @@ def selftest_ep18_sbcd():
     run("札に「約3.4km」", tag(S["c308"], 1, "約3.4km", "mid_ts"), "⑱")
     run("「十数キロ」の札が線を指していない", tag(S["c513"], 2, "南東へ 十数キロ", "datum"), "⑱")
     run("札に距離の数「約12km」", tag(S["c513"], 2, "約12km", "mid_se"), "⑱")
+    # 🆕 ⑤b-8（ca02）：捜索の海域の四角＝一辺を 15km（法定マイルの10マイルより短い）・基準の点からずらした型／広さの数の札
+    broken("捜索の海域の四角を一辺 15km で描く型（SB_SQ）", IL.SB_SQ, "m", 15000.0, S["ca02"], "⑱")
+    broken("捜索の海域の四角を一辺 20km で描く型（SB_SQ）", IL.SB_SQ, "m", 20000.0, S["ca02"], "⑱")
+    broken("基準の点を 65度05分西に置く型（SB_PTS）＝四角も動く", IL.SB_PTS, "datum", ((-65.0833, 41.75), "R08 p4065"), S["ca02"], "⑱")
+    run("札に広さの数「約17km」", tag(S["ca02"], 0, "一辺 約17km", "sq_n"), "⑱")
+    run("測る線が四角の外へ出る", S["ca02"], "⑱",
+        lambda sc: [p.update(path=[[q[0] + 600.0, q[1]] for q in p["path"]]) for p in sc["parts"] if p.get("id") == "trk"])
     zoom = copy.deepcopy(S["c503"])
     zoom["start"]["cam"] = 16.0
     run("上から見た海に寄りすぎ（cam 16＝1.44m／画素）", zoom, "⑧")

@@ -274,4 +274,19 @@ SPEC = {
             dict(add=dict(k="fill", f="関わり"))],
             note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4214"]))),
     ),
+
+    # ── 🆕 ⑤b-8（2026-10-05）：決め所 c505・c521 ──
+    # c505（台本 §2 #6）。認定23a（R08 p.186）「the answer was to the effect: "It is too early."」＝趣旨（前の行）
+    "c505": dict(
+        t="報告を出すか", s="作戦士官の問いへの答え",
+        fig=("quote", dict(phrase="救難艦の艦長「まだ早い」",
+                           rows=ss.qrows("R08", "PDF 186頁", ("箇所", "認定23a")), paper=True)),
+    ),
+    # c521（台本 §2 #7）。認定28b（R08 p.187）「This information had not previously been communicated to him or to anyone outside SKYLARK.」
+    #   ⚠️ 見出しに「伝わらなかった」を使わない（★と7字重なる＝dup）
+    "c521": dict(
+        t="少将が知ったとき", s="水中電話の記録を見て",
+        fig=("quote", dict(phrase="最後の交信は、救難艦の外へ伝わらなかった",
+                           rows=ss.qrows("R08", "PDF 187頁", ("箇所", "認定28b")), paper=True)),
+    ),
 }

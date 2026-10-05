@@ -248,4 +248,20 @@ SPEC = {
             dict(add=dict(k="fill", f="その艦"))],
             note="欄の字は原文のまま（記事の一部）・様式は再現・SUBSAFE＝サブセーフ", src=ss.src(["NAVSEA p9951"]))),
     ),
+
+    # ── 🆕 ⑤b-8（2026-10-05）：決め所 cb13・cb17 ──
+    # cb13（台本 §2 #16）。リッコーヴァー中将の声明（J p.79＝1963年7月23日）「should be considered a consequence of the philosophy of design,
+    #   construction, and inspection that has been permitted in our naval shipbuilding programs」＝「と見るべき」は前の行。
+    #   ⚠️ 切れ目は「検査の／考え方」（quote_lines は「建造／・検査」＝行頭に「・」）
+    "cb13": dict(
+        t="中将の見方", s="1つの故障より広いもの",
+        fig=("quote", dict(phrase=["喪失は、設計・建造・検査の", "考え方の結果"],
+                           rows=ss.qrows("J", "79頁", ("話した人", "リッコーヴァー中将")), paper=True)),
+    ),
+    # cb17（台本 §2 #17）。意見55（R08 p.216）「cannot be charged to neglect or dereliction on the part of any individual or group」
+    "cb17": dict(
+        t="責任の所在", s="意見の結び",
+        fig=("quote", dict(phrase="喪失の責任は、誰の怠慢にも帰せられない",
+                           rows=ss.qrows("R08", "PDF 216頁", ("箇所", "意見55")), paper=True)),
+    ),
 }

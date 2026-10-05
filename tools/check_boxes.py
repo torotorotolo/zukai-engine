@@ -94,6 +94,11 @@ REC_OTHER_ROLE = {    # 流れ図の「role」の箱＝役職でない言葉（�
     # cb04：J p.93（1964年7月1日「until all subsafe measures have been accomplished and certified by the Bureau of Ships in the case of
     #   each submarine」）
     "安全の改修を終える": {"J p8093"}, "艦船局が1隻ずつ認める": {"J p8093"}, "深さの制限が解ける": {"J p8093"},
+    # ── 🆕 2026-10-05（18本目 ⑤b-8）：c402 海の音の監視の仕組み（地図 → 流れ図＝場所の記録が無い）──
+    #   V1 p.277（分析官の証言「passive means by the hydrophone arrays at the fifteen monitoring stations within the Oceanographic
+    #   Systems Atlantic」「Analysis Officer for Commander Oceanographic Systems Atlantic in Norfolk」）・認定18（R08 p.185「Commander
+    #   Oceanographic Systems Atlantic obtained information that …」＝音の時刻）
+    "聴音機の列": {"V1 p277"}, "15の監視所": {"V1 p277"}, "司令部で分析": {"V1 p277", "R08 p4185"}, "査問会の認定": {"R08 p4185"},
 }
 REC_CRIME = {}
 REC_VERDICT = {}   # (役職, 罪名, 列) → (結果, 頁)
@@ -122,6 +127,9 @@ REC_CHIP = {          # 札（chip）の言葉 → 頁の集合
     "元は費用だけが根拠": {"J p8122"},                    # c916（It was originally just on the basis of cost.）
     "前に機密を解かれた文書": {"AP p9901"},               # c918（previously declassified documents）
     "それまで制限は続く": {"J p8093"},                    # cb04（will remain in effect until …）
+    # 🆕 ⑤b-8
+    "自分は音を出さない": {"V1 p277"},                    # c402（contacted by passive means）
+    "音の時刻": {"R08 p4185"},                            # c402（認定18＝監視の記録の時刻・時刻そのものは次のカットの語り）
 }
 # 書類の再現図（表題 → dict(fields・ends・values＝記録の文にある値だけ・rec＝頁の集合)）。🆕 18本目は欄の値に**原文の英語**をそのまま
 #   書く（日本語は字幕だけ＝ルール 0b-33）。🔴 査問会の「0913R」の形は画面に出さない（台本 §1-7）＝時刻は欄の名へ。

@@ -285,4 +285,30 @@ SPEC = {
             dict(add=[ss.fl("z_plot"), ss.ce(["z_voice", "z_sound", "z_calc"], "z_plot")])],
             src=ss.src(["R08 p4185", "R08 p4212", "R08 p4214"]))),
     ),
+
+    # ── 🆕 ⑤b-8（2026-10-05）：c402 流れ図（PLAN の地図＝場所は描かない模式）・決め所 c406・c417 ──
+    # c402（8.69秒＝0〜3.60／4.09〜8.69）＝海の音の監視の仕組み。🔴 PLAN は「地図（場所は描かない＝模式）」＝監視所の場所・聴音機の位置の
+    #   記録は資料に無い（V1 p.277 は「15の監視所」と数だけ）＝地図の型（drift）は宣言の無い地図になる（ルール §5b-116①）→ 流れ図
+    #   （映像方針 §25）。1行目＝聴音機の列 → 15の監視所 → 司令部で分析（札「自分は音を出さない」＝passive means）／2行目＝査問会の
+    #   認定（札「音の時刻」＝認定18。時刻そのもの 9:09.8・9:11・9:18.1 は次のカット c403 の語り＝描かない）
+    "c402": dict(
+        t="海の音の監視", s="大西洋の聴音の仕組み",
+        fig=("boxes", dict(view="flow", layout=ss.FL_EMPTY, steps=[
+            dict(add=[ss.fl("m_arr"), ss.fl("m_sta"), ss.fl("m_ana"), ss.ce("m_arr", "m_sta"), ss.ce("m_sta", "m_ana"),
+                      dict(k="chip", at="m_arr", t="自分は音を出さない", rec="V1 p277", dy=70)]),
+            dict(add=[ss.fl("m_inq"), ss.ce("m_ana", "m_inq"), dict(k="chip", at="m_inq", t="音の時刻", rec="R08 p4185", dy=70)])],
+            note="監視所の場所は描かない", src=ss.src(["V1 p277", "R08 p4185"]))),
+    ),
+    # c406 決め所（台本 §2 #4）。認定16（R08 p.185）「SKYLARK … words to the effect: "Experiencing minor difficulties. …"」＝趣旨（前の行）
+    "c406": dict(
+        t="最初の知らせ", s="記録簿に残った趣旨",
+        fig=("quote", dict(phrase=["潜水艦の声", "「軽微な問題が発生している」"],
+                           rows=ss.qrows("R08", "PDF 185頁", ("箇所", "認定16")), paper=True)),
+    ),
+    # c417 決め所（台本 §2 #5）。救難艦の航海士（中尉）の証言（V1 p.118＝記録 p.45）「a rather muted, dull thud.」。名前は語りだけ
+    "c417": dict(
+        t="中尉が聞いた音", s="査問会での問いと答え",
+        fig=("quote", dict(phrase="救難艦の航海士「くぐもった、鈍い音」",
+                           rows=ss.qrows("V1", "PDF 118頁", ("箇所", "航海士の証言")), paper=True)),
+    ),
 }

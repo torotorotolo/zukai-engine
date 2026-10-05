@@ -80,9 +80,43 @@ SPEC = {
         s="査問会の証拠111 の1頁目　艦名と差出人",
         photo=ss.page(1531), trim=ss.ptrim("c105"), bias=ss.pbias("c105"), panel=True, color=1.0,
         # 🆕 ⑤b-7c：3行目（「最も危険なのは、試験深度かその近くでの海水の浸水だ」）から同じ評価書の別紙の第5段落（X p.533＝切り口 c105t）
-        #   ＝写真・頁の差し込み（尻）。語りと同時に走る印は ⑤b-8 の trace（映像方針 §1-3）
+        #   ＝写真・頁の差し込み（尻）。✅ ⑤b-8：語りと同時に走る印（映像方針 §1-3）＝尻の頁の上の印 hl（build_jiko.page_hl）。
+        #   (行, 始めの割合, 終わりの割合, 頁の割合の箱)＝3行目 32字の「最も危険なのは」0〜7字目 → 原文1行目の the most dangerous
+        #   condition that exists in THRESHER／「試験深度かその近くでの海水の浸水だ」8〜24字目 → 2行目 is the danger of salt water
+        #   flooding while at or near test depth.（箱は頁の画像のインクの列で語に割って測った＝scratchpad hlbox.py・頁が出そろってから）
         tail=dict(t="前の艦長の評価書", s="査問会の証拠111 の別紙　第5段落", photo=ss.page(1533), trim=ss.ptrim("c105t"),
-                  bias=ss.pbias("c105t"), panel=True, color=1.0, at=2),
+                  bias=ss.pbias("c105t"), panel=True, color=1.0, at=2,
+                  hl=[(2, 0.08, 0.30, (0.3058, 0.6943, 0.8184, 0.7046)),
+                      (2, 0.32, 0.78, (0.1183, 0.7064, 0.7581, 0.7168))]),
+    ),
+    # ── 🆕 ⑤b-8（2026-10-05）：冒頭の決め所 c104（映像方針 §1-3）＝額装の頁の冒頭（intro の panel）→ 2行目で2枚目の頁が右から重なる
+    #   （intro の over）→ ★は決め所の画面（いまどおり）。秒は narration.json（1行目 0〜4.04・2行目 4.39〜7.60・★ 7.95〜9.88）
+    #   1枚目＝査問会の意見1（V1 p.57＝R08 p.204 と同じ文・字の濃い方）。印＝1行目 35字の「機関室の浸水」14〜20字目 → flooding と
+    #   in the engine room／「おそらく」21〜24字目 → in all probability
+    #   2枚目＝海軍長官の第7 endorsement の1頁目（IR18 p.1・c109 と同じ頁の上の段）。印＝2行目 26字の「約2年後」2〜5字目 → 右上の日付の印
+    #   （頁の画像は MAR 19 1965・文字の層は 1955 と読み違えている）／「海軍長官」7〜10字目 → From: Secretary of the Navy（頁が着く 0.6秒のあと）
+    #   ★＝IR18 p.1 段落3「Since the cause of THRESHER's loss has not been determined」（台本 §2 #1）＝2枚目の頁の下の段落
+    #   ⚠️ 見出し・副題は札（海軍長官の意見書）・★と4字以上重ねない（門番 dup）
+    "c104": dict(
+        t="2年後の結論", s="最後に出された文書から",
+        intro=dict(photo=ss.page(57), trim=ss.ptrim("c104i"), bias=ss.pbias("c104i"), panel=True, color=1.0, until=2,
+                   t="査問会の意見", s="意見の1番の書き出し",
+                   hl=[(0, 0.40, 0.50, (0.3685, 0.2557, 0.4452, 0.2657)),      # flooding
+                       (0, 0.50, 0.62, (0.3685, 0.2675, 0.5501, 0.2800)),      # in the engine room,
+                       (0, 0.62, 0.76, (0.5923, 0.2321, 0.7663, 0.2421))],     # in all probability
+                   over=dict(photo=ss.page(2001), trim=ss.ptrim("c104o"), bias=ss.pbias("c104o"), color=1.0, at=1,
+                             t="海軍長官の意見書", s="1頁目　日付の印と差出人",
+                             hl=[(1, 0.10, 0.30, (0.6620, 0.1221, 0.7868, 0.1366)),     # MAR 19 1965（日付の印）
+                                 (1, 0.32, 0.55, (0.1968, 0.2556, 0.4007, 0.2674))])),  # Secretary of the Navy
+        fig=("quote", dict(phrase="スレッシャーを失った原因は決まっていない",
+                           rows=ss.qrows("IR18", "PDF 1頁", ("箇所", "段落3")), paper=True)),
+    ),
+    # c113（3.38秒・1行）＝時刻と数の言い方（16本目 c114 の型）。原文のフィートは括弧（本編の言い方「約2,200メートル（7,200フィート）」）
+    "c113": dict(
+        t="時刻と数の言い方", s="数の読み方",          # ⚠️ wording：「この動画」は楽屋の言葉
+        fig=("panel", dict(blocks=[dict(k="時刻", t="現地の時刻", c=J.INST),
+                                   dict(k="深さ・長さ", t="メートル", v="原文の単位は括弧", c=J.LINE)],
+                           cols=2)),
     ),
     # c109（10.0秒）＝訴えと毎月の公開。海軍長官の第7の添え書き（上級の意見書・第18回の公開）の1頁目
     #   ✅ ⑤b-7c：頭の1行（聞き役の問い）はフリー素材の映像の差し込み（机に積んだ書類の綴じ込み・承認 10-04）

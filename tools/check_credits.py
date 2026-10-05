@@ -239,6 +239,9 @@ def run(full=False):
     items = [(cid, cuts.SPEC[cid]) for cid in sorted(cuts.SPEC)]
     items += [(f"{c}~t", {k: v for k, v in s["tail"].items() if k != "at"})
               for c, s in sorted(cuts.SPEC.items()) if s.get("tail")]
+    # 🆕 ⑤b-8：額装の頁の冒頭（`<cid>~i`）と重なる2枚目（`<cid>~o`）の副題も（c104＝意見1 の頁 → 海軍長官の意見書の頁）
+    import scene_jiko as S                                      # noqa: PLC0415
+    items += [(k, v) for k, v in S.ins_specs().items() if not k.endswith(S.TAIL_KEY)]
     for cid, spec in items:
         photo = spec.get("photo") or ""
         # 🔴🔴 2026-09-14（8本目 ⑤b-1）**この門番は題材を名指しで見ている。**

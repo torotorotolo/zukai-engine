@@ -21,8 +21,10 @@ PLAN = {
     "ca01": dict(kind='写真',
                plan='台本の画：実写 NARA 83737（1963年の捜索の記録映画・ケープコッドの東の海の艦）',
                src='J p.169（1964-02 の海軍長官の資料）'),
-    "ca02": dict(kind='図解',
-               plan='台本の画：図 地図 1963年の捜索の海域（基準の点〈北緯41度45分・西経65度〉を中心にした四角＝音で海の深さを測って探す・広さの数は出さない〈原文は 10 miles by 10 miles＝マイルの種類が書いていない〉）',
+    "ca02": dict(kind='再現イラスト',
+               plan='台本の画：図 地図 1963年の捜索の海域（基準の点〈北緯41度45分・西経65度〉を中心にした四角＝音で海の深さを測って探す・広さの数は出さない〈原文は 10 miles by 10 miles＝マイルの種類が書いていない〉）'
+                    '｜🆕 ⑤b-8（2026-10-05）：案C の置き場 SB（上から見た海）の見え方 sq＝種類を図解から再現イラストへ（地図の型 drift でなく、'
+                    '基準の点と同じ置き場で描く＝映像方針 §25）',
                src='R08 p.65〜66（アンドリュース大佐の証言）'),
     "ca03": dict(kind='写真',
                plan='台本の画：実写 NARA 83751（空からの捜索の記録映画・並んで進む艦）',
@@ -221,5 +223,36 @@ SPEC = {
             dict(add=[dict(k="fill", f="写すこと"), dict(k="fill", f="カメラの位置")]),
             dict(add=dict(k="fill", f="たとえ"))],
             note="欄の字は原文のまま・様式は再現・30 feet＝約9メートル・8500 feet＝約2,600メートル", src=ss.src(["R08 p4066"]))),
+    ),
+
+    # ── 🆕 ⑤b-8（2026-10-05）：ca02 案C SB の捜索の海域・決め所 ca16・ca23 ──
+    # ca02（6.67秒＝0〜3.59／4.08〜6.67）＝1963年の捜索の海域（R08 p.65「a fathometer search in an area which was 10 miles by 10 miles
+    #   centered at the point called datum, 65 degrees west and 41 degrees, 45 minutes north」・p.66「put a fathometer on every square yard」
+    #   「something on the order of 30 or 35 feet above the flat bottom」）。SB の見え方 sq（基準の点が真ん中・1画素35m）。四角の一辺は
+    #   マイルの種類が無い＝法定マイルと海里の真ん中（門番 ⑱ は幅で照らす）・広さの数は出さない。1行目＝四角を描く／2行目＝測る線（模式）
+    #   ⚠️ ca01（記録映画）の次＝向きの切り替えではない（向きの札だけ）
+    "ca02": dict(
+        fig=("illu", dict(
+            place="SB", start=dict(view="sq", datum="on"), rec="R08 p4065（捜索の基準の点＝datum）",
+            steps=[dict(state=dict(sqr="on"), delay=0.4, rec="R08 p4065（10 miles by 10 miles centered at the point called datum）",
+                        tag=[dict(t="基準の点", at="datum", off=(40, -40), keep=True),
+                             dict(t="1963年の捜索の海域", at="sq_n", off=(0, -26), anchor="middle", keep=True)]),
+                   dict(state=dict(trk="on"), delay=0.2, dur=2.4,
+                        rec="R08 p4066（put a fathometer on every square yard・above the flat bottom）",
+                        # ⚠️ layout：画面の下の真ん中は左下の出典の行に重なった＝四角の右（四角の右の辺 x≈1207）
+                        tag=dict(t="平らな底から出っぱった物を探す", xy=(1240, 600)))])),
+    ),
+    # ca16（台本 §2 #14）。国防総省の発表 No.710-64（1964-10-01）「utilizing the THRESHER loss area and the wreckage of the THRESHER as a target
+    #   for testing new or improved deep search and inspection ideas and equipment」（★は「考え」を略した）
+    "ca16": dict(
+        t="海と残骸の使い道", s="3か月の計画",
+        fig=("quote", dict(phrase="残骸は、新しい機器を試す標的に使われた",
+                           rows=ss.qrows("No.710-64", "1頁目", ("番号", "No.710-64")), paper=True)),
+    ),
+    # ca23（台本 §2 #15）。海軍研究所の報告の要旨（R17 p.97＝通し頁 p9802）「providing an opportunity for close inspection by human eyes」
+    "ca23": dict(
+        t="トリエステ2世が着いて", s="人が乗って近づいた",     # ⚠️ 「報告の要旨」は札の箇所と同じ字（dup）
+        fig=("quote", dict(phrase="残骸を、人の目で近くから見る機会",
+                           rows=ss.qrows("R17書", "PDF 97頁", ("箇所", "報告の要旨")), paper=True)),
     ),
 }

@@ -214,12 +214,50 @@ def fit(src, box, k=0.0, bias=0.5, xbias=0.5, zoom=1.0):
     画面外へ追い出すために使う。既定（0.5 / 1.0）は今までと同じ動き。
     """
     _, _, w, h = box
-    sw, sh = src.size
-    z = max(w / sw, h / sh) * zoom * (1.0 + 0.055 * k)
-    cw, ch = min(sw, w / z), min(sh, h / z)
-    l, t = (sw - cw) * xbias, (sh - ch) * bias
+    l, t, cw, ch = _fit_geom(src.size, box, k, bias, xbias, zoom)
     crop = src.crop((round(l), round(t), round(l + cw), round(t + ch)))
     return crop.resize((w, h), Image.LANCZOS)
+
+
+def _fit_geom(size, box, k=0.0, bias=0.5, xbias=0.5, zoom=1.0):
+    """`fit` の切り出しの幾何（左・上・幅・高さ＝読み込んだ写真の画素）。🆕 18本目 ⑤b-8：頁の上の印（hl）も同じ幾何で置く"""
+    _, _, w, h = box
+    sw, sh = size
+    z = max(w / sw, h / sh) * zoom * (1.0 + 0.055 * k)
+    cw, ch = min(sw, w / z), min(sh, h / z)
+    return (sw - cw) * xbias, (sh - ch) * bias, cw, ch
+
+
+def page_hl(ph, size, trim, box, geom, hls, t):
+    """🆕 18本目 ⑤b-8（c104・c105）：**頁の上の印**（蛍光ペン）＝語りと同時に左→右へ塗る。
+    ph＝箱にはめた頁（箱の大きさ）／size＝読み込んだ頁の大きさ／trim＝頁の切り口（頁の割合）／geom＝`_fit_geom`／
+    hls＝[dict(r=(x0, y0, x1, y1)＝**頁の割合**, t0, t1＝塗り始めと塗り終わりの秒)]。印の色と濃さは trace（`draw_moves` の hl）と同じ"""
+    if not hls:
+        return ph
+    tx0, ty0, tx1, ty1 = trim or (0.0, 0.0, 1.0, 1.0)
+    sw, sh = size
+    l, tp, cw, ch = geom
+    w, h = box[2], box[3]
+
+    def P(u, v):
+        return (((u - tx0) / (tx1 - tx0) * sw - l) * w / cw, ((v - ty0) / (ty1 - ty0) * sh - tp) * h / ch)
+    ov = Image.new("RGBA", ph.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(ov)
+    amber = _rgb(J.AMBER)
+    drew = False
+    for hl in hls:
+        k = (t - float(hl["t0"])) / max(0.05, float(hl["t1"]) - float(hl["t0"]))
+        if k <= 0:
+            continue
+        k = min(1.0, k)
+        (x0, y0), (x1, y1) = P(*hl["r"][:2]), P(*hl["r"][2:])
+        d.rectangle((x0 - 4, y0 - 2, x0 - 4 + (x1 - x0 + 8) * k, y1 + 2), fill=amber + (105,))
+        drew = True
+    if not drew:
+        return ph
+    ph = ph.convert("RGBA") if ph.mode != "RGBA" else ph.copy()
+    ph.alpha_composite(ov)
+    return ph
 
 
 def fade(layer, a):
@@ -1196,19 +1234,28 @@ def intro_frame(cut, t, lay, meta):
         # 🆕 15本目 ⑤b-7：**額装の頁**の冒頭（c904＝1行目は頁 p46 → 2行目から地図）。地 `{cut}_ibg` の上の額の箱
         #    （scene_jiko が `photo_box` で出した）に頁をはめる。寄らない（頁の端の行を切らない＝§5b-108）・
         #    色は intro の color（頁は原色 1.0＝ほかの文字の頁と同じ）
-        box = tuple(int(v) for v in it["box"])
-        key = (it["photo"], tuple(it.get("trim") or ()), box)
-        if key not in _INTRO_SRC:
-            _INTRO_SRC[key] = load_photo(it["photo"], box, it.get("trim"))
-        ph = fit(_INTRO_SRC[key], box).convert("RGBA")
-        keep = float(it.get("color", 1.0))
-        if keep < 0.999:
-            pal = J.palette(meta[cut].get("pal"))
-            ph = Image.blend(duotone(ph, pal["BG2"], pal["DUO_L"]), ph, max(0.0, keep))
         fr = lay[f"{cut}_ibg"].copy()
+        box, ph = _panel_page(it, meta[cut].get("pal"), t)
         fr.paste(ph, (box[0], box[1]))
-        if f"{cut}_ilab" in lay:
-            over(fr, lay[f"{cut}_ilab"], min(1.0, max(0.0, (t - 0.15) / 0.5)))
+        a_lab = min(1.0, max(0.0, (t - 0.15) / 0.5))
+        ov = it.get("over")
+        if ov and t > float(ov["sec"]):
+            # 🆕 18本目 ⑤b-8（c104）：2枚目の頁が**右から重なる**（INTRO_X 秒で画面の右の外から額の箱へ）。影を落として紙が上に載ると見せる。
+            #    見出しと出典の板は、紙が着いてから `_ilab` → `_olab` へ重ねて入れ替える（2つの頁の出典を同時に出さない）
+            u = ease(min(1.0, (t - float(ov["sec"])) / INTRO_X))
+            obox, oph = _panel_page(ov, meta[cut].get("pal"), t)
+            dx = round((S.W - obox[0]) * (1.0 - u))
+            x, y = obox[0] + dx, obox[1]
+            sh = Image.new("RGBA", (obox[2], obox[3]), (0, 0, 0, 120))
+            fr.alpha_composite(sh, (min(S.W - 1, x + 14), y + 14))
+            fr.paste(oph, (x, y))
+            ImageDraw.Draw(fr).rectangle((x - 3, y - 3, x + obox[2] + 2, y + obox[3] + 2), outline=_rgb(J.LINE), width=3)
+            b = min(1.0, max(0.0, (t - float(ov["sec"]) - INTRO_X) / 0.4))
+            a_lab *= 1.0 - b
+            if b > 0 and f"{cut}_olab" in lay:
+                over(fr, lay[f"{cut}_olab"], b)
+        if f"{cut}_ilab" in lay and a_lab > 0:
+            over(fr, lay[f"{cut}_ilab"], a_lab)
         return fr
     if it["photo"] not in _INTRO_SRC:
         _INTRO_SRC[it["photo"]] = load_photo(it["photo"], (0, 0, S.W, S.H))
@@ -1226,6 +1273,23 @@ def intro_frame(cut, t, lay, meta):
     return fr
 
 
+def _panel_page(it, pal_name, t):
+    """額装の頁の冒頭（intro の panel）と、重なる2枚目（over）の頁＝(箱, 箱にはめた頁)。寄らない（頁の端の行を切らない＝§5b-108）・
+    🆕 18本目 ⑤b-8：頁の上の印（hl＝scene_jiko が秒に直した）"""
+    box = tuple(int(v) for v in it["box"])
+    key = (it["photo"], tuple(it.get("trim") or ()), box)
+    if key not in _INTRO_SRC:
+        _INTRO_SRC[key] = load_photo(it["photo"], box, it.get("trim"))
+    src = _INTRO_SRC[key]
+    ph = fit(src, box).convert("RGBA")
+    keep = float(it.get("color", 1.0))
+    if keep < 0.999:
+        pal = J.palette(pal_name)
+        ph = Image.blend(duotone(ph, pal["BG2"], pal["DUO_L"]), ph, max(0.0, keep))
+    ph = page_hl(ph, src.size, it.get("trim"), box, _fit_geom(src.size, box), it.get("hl"), t)
+    return box, ph
+
+
 def tail_frame(cut, t, dur, lay, meta):
     """🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）の1コマ。写真のカットと同じ置き方（全画面＝寄る・額装＝0.35 だけ寄る）。
     見出しと出典は `{cut}_tlab`・地は `{cut}_tbg`。寄りは差し込みが出てから尺の終わりまで（k＝0→1＝門番 edges の刻みと同じ幾何）"""
@@ -1236,12 +1300,16 @@ def tail_frame(cut, t, dur, lay, meta):
         _INTRO_SRC[key] = load_photo(tl["photo"], box, tl.get("trim"), tl.get("levels"))
     a = float(tl["sec"])
     k = max(0.0, min(1.0, (t - a) / max(dur - a, 0.001)))
-    ph = fit(_INTRO_SRC[key], box, k * (1.0 if tl.get("full") else 0.35), float(tl.get("bias", 0.5)),
-             float(tl.get("xbias", 0.5)), float(tl.get("zoom", 1.0)))
+    src = _INTRO_SRC[key]
+    fa = (k * (1.0 if tl.get("full") else 0.35), float(tl.get("bias", 0.5)), float(tl.get("xbias", 0.5)),
+          float(tl.get("zoom", 1.0)))
+    ph = fit(src, box, *fa)
     keep = float(tl.get("color", 0.0))
     pal = J.palette(meta[cut].get("pal"))
     duo = duotone(ph, pal["BG2"], pal["DUO_L"])
     ph = duo if keep <= 0.001 else Image.blend(duo, ph.convert("RGBA"), min(1.0, keep))
+    # 🆕 18本目 ⑤b-8（c105）：尻の頁の上の印（語りと同時に走る＝映像方針 §1-3）。寄りの幾何は `fit` と同じ（`_fit_geom`）
+    ph = page_hl(ph, src.size, tl.get("trim"), box, _fit_geom(src.size, box, *fa), tl.get("hl"), t)
     fr = lay[f"{cut}_tbg"].copy()
     fr.paste(ph, (box[0], box[1]))
     over(fr, lay[f"{cut}_tlab"])

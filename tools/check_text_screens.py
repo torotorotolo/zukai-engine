@@ -86,7 +86,13 @@ def pic_kinds(s, stock=False):
     if fig:
         k = fig[0]
         if k == "quote":
-            return {"混ざり"} if s.get("intro") else {"決め所"}
+            it = s.get("intro") or {}
+            # 🆕 18本目 ⑤b-8：額装の頁の冒頭（頁＝`/pg`・重なる2枚目 over も頁）→ 決め所（c104）＝画面は頁と決め所だけ＝文字だけのまま。
+            #    冒頭の絵（14本目 c102）・写真なら今までどおり混ざり
+            pages = [it.get("photo")] + ([it["over"].get("photo")] if it.get("over") else [])
+            if it.get("panel") and all("/pg" in str(p or "") for p in pages):
+                return {"決め所"}
+            return {"混ざり"} if it else {"決め所"}
         if k == "panel":
             return {"パネル"}
         if k == "illu":
@@ -327,6 +333,16 @@ def selftest():
     run("⑭b 全面の絵の頭に本物の映像（intro foot）＝混ざり", ids8, p14,
         {ids8[0]: dict(fig=("illu", {}), intro=dict(foot=True, until=1))}, False)
     run("⑭c 全面の絵だけで種類「混ざり」（つなぎ待ちの表なし）", ids8, p14, {ids8[0]: dict(fig=("illu", {}))}, True)
+    # 🆕 18本目 ⑤b-8：額装の頁の冒頭（頁＝`/pg`・重なる2枚目も頁）→ 決め所＝文字だけのまま（c104）／冒頭が写真なら混ざり
+    p15 = {c: dict(kind="図解") for c in ids8}
+    p15[ids8[0]] = dict(kind="決め所")
+    q15 = dict(fig=("quote", {}), intro=dict(photo="ep18/pg57.png", panel=True, until=2,
+                                              over=dict(photo="ep18/pg2001.png", at=1)))
+    run("⑮a 頁の冒頭（2枚とも頁）→ 決め所＝種類「決め所」", ids8, p15, {ids8[0]: q15}, False)
+    run("⑮b 冒頭が写真（頁でない）→ 決め所で種類「決め所」＝混ざりを文字だけに数えた", ids8, p15,
+        {ids8[0]: dict(q15, intro=dict(q15["intro"], photo="ep18/sail_t16.jpg"))}, True)
+    run("⑮c 重なる2枚目が写真で種類「決め所」", ids8, p15,
+        {ids8[0]: dict(q15, intro=dict(q15["intro"], over=dict(photo="ep18/sail_t16.jpg", at=1)))}, True)
     hd13 = heads(ids8, sp13, use13, clips13)
     good13 = hd13 == {"stock": [ids8[0]], "film": []}
     ok &= good13
