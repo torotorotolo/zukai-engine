@@ -991,6 +991,25 @@ SHOT_ONE = {
 }
 
 
+# 🔴 境目の物差しが**短いショットをまとめてしまった**所＝割る（秒・根拠と目で確かめた事）。
+#    物差しは「続けて差が大きい秒」を1つの境目に畳む（ディゾルブ用）＝3秒の短いショットが前後の切り替わりと一緒に畳まれる
+SHOT_SPLIT = {
+    'nara85185': {465.0: '#62（462〜469秒）の中で切り替わる＝462〜464秒は遠くの艦・465秒から「593」のセイルの寄り（1秒1コマを並べて'
+                         '2026-10-05 ⑤b-7c に目で確かめた・試し焼き 37246867517 の c102 の頭が遠くの艦だった）'},
+}
+
+
+def _split(shots, cuts):
+    out = []
+    for s in shots:
+        inner = sorted(t for t in cuts if s['start'] < t < s['until'])
+        a = s['start']
+        for t in inner + [s['until']]:
+            out.append(dict(start=a, until=t, motion=s['motion']))
+            a = t
+    return out
+
+
 def cmd_shots(probe):
     """ref/ep18/shots.json（footage.SHOTS）。記録映画＝⑤b-7c に1本につき網から1回だけ読み流した1秒1コマから
     `tools/shots.boundaries()`（同じ物差し）で出した境目（probe＝scratchpad の films/probe.json）・フリー素材＝手元の mp4 を
@@ -1001,9 +1020,13 @@ def cmd_shots(probe):
     out = {}
     for na in FILMS:
         v = pr[na]
-        out[f'nara{na}'] = dict(src=MOPIX + f"428-npc-{FILMS[na]['npc']}.mp4", dur=float(v['nframes']),
-                                how='1秒1コマを読み流して tools/shots.boundaries（2026-10-05・丸ごとは保存しない）',
-                                shots=v['shots'])
+        how = '1秒1コマを読み流して tools/shots.boundaries（2026-10-05・丸ごとは保存しない）'
+        sh = v['shots']
+        if f'nara{na}' in SHOT_SPLIT:
+            sp = SHOT_SPLIT[f'nara{na}']
+            sh = _split(sh, sp)
+            how += '＋割った境目 ' + '・'.join(f'{t:.0f}秒（{w}）' for t, w in sp.items())
+        out[f'nara{na}'] = dict(src=MOPIX + f"428-npc-{FILMS[na]['npc']}.mp4", dur=float(v['nframes']), how=how, shots=sh)
     led = json.loads((DEST / 'stock.json').read_text(encoding='utf-8'))
     for n, r in led.items():
         sh, dur = shots.shots_of(str(DEST / r['file']))
@@ -1019,7 +1042,7 @@ def cmd_shots(probe):
     return 0
 
 
-def cmd_fb():
+def cmd_fb(only=None):
     """ひかえの静止画（コマが切り出せなかったときだけ出る絵）＝footage.USE の start の1コマ。
     記録映画＝ref/ep18/fb_<カット>.jpg（URL から1コマ・SAR を直して 655×480）／フリー素材の頭＝ref/ep18/stock/fb_<カット>.jpg
     （手元の mp4 から・幅1280）。🔴 名前に fb_ を付ける＝門番 credits は「動画の出典を借りる」として表と照らさない"""
@@ -1028,6 +1051,8 @@ def cmd_fb():
     import footage as FO
     bad = 0
     for cid, u in FO.USE.items():
+        if only and cid not in only:        # `fb c102` のようにカットを書けばそのカットだけ（ほかの md5 を動かさない）
+            continue
         c = FO.CLIPS[u['clip']]
         t = float(u['start'])
         if c.get('stock'):
@@ -1070,7 +1095,7 @@ def main():
     if cmd == 'shots':
         return cmd_shots(a[1])
     if cmd == 'fb':
-        return cmd_fb()
+        return cmd_fb(set(a[1:]) or None)
     if cmd == 'build':
         return cmd_build(set(a[1:]) or None)
     if cmd == 'check':

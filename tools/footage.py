@@ -465,7 +465,9 @@ USE = {
     #   ⚠️ 記録映画の撮影日は分からない（NARA の日付は公開の束の日付のことがある＝85185）＝副題に年を書かない（進水 83213 は1960年）
     #   ⚠️ c621・cb14・cb19 は人が写る＝遠景だけ（追悼の参列者の顔の分かるショット・83746 の乗用車の場面は使わない）
     #   ⚠️ ca09 は PLAN の 83766（ボストンの造船所）に赤白のトリエステの使える長さのショットが無い＝試験潜航の 83757 の別のショット
-    "c102": dict(clip="nara85185", start=462.2, until=468.0, rate=1.0, head=True),   # #62（462〜469秒・要 4.20秒）頭の1行：セイルの「593」の寄り（上に乗員）
+    #   ⚠️ ショットの番号は見取り図（割る前）の番号。試し焼き 37246867517 で c102 の頭が遠くの艦だった＝#62 は 465秒で切り替わる
+    #      2つのショット（ep18_assets.SHOT_SPLIT で割った）＝465秒からの寄りだけ（rate＝2.8÷4.2 を切り捨て 0.66＝少しゆっくり）
+    "c102": dict(clip="nara85185", start=465.2, until=468.0, rate=0.66, head=True),   # #62 の後半（465〜469秒・要 4.20秒）頭の1行：セイルの「593」の寄り（上に乗員）
     "c202": dict(clip="nara85185", start=638.2, until=646.0, rate=0.84),   # #79（638〜647秒・要 9.26秒）波を立てて走る艦（セイルの593）
     "c212": dict(clip="nara85185", start=144.2, until=157.0, rate=0.94),   # #27（144〜158秒・要 13.61秒）雲の下を走る艦・セイルの593
     "c301": dict(clip="nara85185", start=164.2, until=171.0, rate=0.84),   # #29（164〜172秒・要 8.09秒）岸と建物を背に走る艦（セイルの593）
@@ -494,8 +496,12 @@ USE = {
     "c511": dict(clip="sea_dark_5668613", start=1.0, until=7.0, rate=1.0, head=True),   # #0（0〜8秒・要 5.00秒）頭の1行（1ショットに直した＝ep18_assets.SHOT_ONE）
     "c805": dict(clip="deep_sun_48596", start=1.0, until=19.0, rate=1.0, head=True),   # #0（0〜20秒・要 2.96秒）頭の1行
     "c812": dict(clip="deep_blue_32790667", start=1.0, until=14.0, rate=1.0, head=True),   # #0（0〜15秒・要 5.89秒）頭の1行
-    "c903": dict(clip="typewriter_33068304", start=10.5, until=31.0, rate=1.0, head=True),   # #3（10〜32秒・要 6.28秒）頭の1行
-    "c906": dict(clip="files_hands_6549976", start=3.5, until=13.0, rate=1.0, head=True),   # #1（3〜14秒・要 3.18秒）頭の1行
+    #   🔴 試し焼き 37246867517：c903 の紙にドイツ語の字「Rosswell, die wahren Ereignisse」（ロズウェル事件＝UFO の陰謀論の題）が
+    #      読めた・c906 のカードにロシア語の字＝寄せて字の無い所だけ（c903＝左下の活字の籠・c906＝右上の手とカードの上）
+    "c903": dict(clip="typewriter_33068304", start=10.5, until=31.0, rate=1.0, head=True,
+                 zoom=1.8, bias=1.0, xbias=0.0),   # #3（10〜32秒・要 6.28秒）頭の1行＝活字の籠の寄り
+    "c906": dict(clip="files_hands_6549976", start=3.5, until=13.0, rate=1.0, head=True,
+                 zoom=1.6, bias=0.0, xbias=1.0),   # #1（3〜14秒・要 3.18秒）頭の1行＝手とカードの上
     "ca05": dict(clip="seabed_sand_11781634", start=1.0, until=11.0, rate=1.0, head=True),   # #0（0〜12秒・要 5.95秒）頭の1行
     "ca06": dict(clip="seabed_murky_33896777", start=1.0, until=15.0, rate=1.0, head=True),   # #0（0〜16秒・要 2.62秒）頭の1行
 }
