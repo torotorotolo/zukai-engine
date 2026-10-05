@@ -46,7 +46,7 @@ sys.stderr.reconfigure(encoding="utf-8")
 HERE = Path(__file__).parent.parent
 REF = HERE / "ref" / "keybridge"
 UA = ("zukai-engine/1.0 (accident-documentary research; "
-      "https://github.com/torotorotolo/zukai-engine; konariri8@gmail.com)")
+      "https://github.com/torotorotolo/zukai-engine)")
 
 # 🔴 MIR-25-40：**PDF ＝ 印字 ＋ 2**。ここ1か所だけに持たせる
 PDF_OFFSET = 2

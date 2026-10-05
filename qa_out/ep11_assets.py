@@ -50,7 +50,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='repla
 COMMONS = 'https://commons.wikimedia.org/w/api.php'
 NASA_SEARCH = 'https://images-api.nasa.gov/search'
 NASA_ASSET = 'https://images-api.nasa.gov/asset/'
-UA = 'zukai-engine/1.0 (accident-documentary research; contact: konariri8@gmail.com)'
+UA = 'zukai-engine/1.0 (accident-documentary research; https://github.com/torotorotolo/zukai-engine)'
 DEST = HERE / 'ref' / 'ep11'
 DB = DEST / 'assets.json'
 CLIPS_JSON = DEST / 'clips.json'

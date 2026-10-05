@@ -52,7 +52,7 @@ HERE = Path(__file__).resolve().parents[1]
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
 API = 'https://commons.wikimedia.org/w/api.php'
-UA = 'zukai-engine/1.0 (accident-documentary research; contact: konariri8@gmail.com)'
+UA = 'zukai-engine/1.0 (accident-documentary research; https://github.com/torotorotolo/zukai-engine)'
 DEST = HERE / 'ref' / 'ep10'
 DB = DEST / 'assets.json'
 SLOTS_JSON = DEST / 'slots_commons.json'

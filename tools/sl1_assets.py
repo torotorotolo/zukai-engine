@@ -35,7 +35,7 @@ sys.stdout.reconfigure(encoding="utf-8")
 HERE = Path(__file__).parent.parent
 REF = HERE / "ref" / "sl1"
 UA = ("zukai-engine/1.0 (accident-documentary research; "
-      "https://github.com/torotorotolo/zukai-engine; konariri8@gmail.com)")
+      "https://github.com/torotorotolo/zukai-engine)")
 
 # ── 報告書のページ ────────────────────────────────────────
 # (出力名, PDF名, PDFページ, 画面に出す印字ページ, 中身, 検算に使う語)

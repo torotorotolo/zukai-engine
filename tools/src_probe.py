@@ -51,7 +51,7 @@ from PIL import Image
 sys.stdout.reconfigure(encoding="utf-8")
 Image.MAX_IMAGE_PIXELS = None
 
-UA = "jiko-kensho/1.0 (research; konariri8@gmail.com)"
+UA = "zukai-engine/1.0 (accident-documentary research; https://github.com/torotorotolo/zukai-engine)"
 API = "https://commons.wikimedia.org/w/api.php"
 
 INK_DARK = 200      # check_blank.py と同じ（明度がこれ未満なら「インク」）

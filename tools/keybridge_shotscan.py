@@ -54,7 +54,8 @@ CELL = (960, 540)          # 顔の検出に使うので 5本目（640x360）よ
 # 🔴 顔検出の模型。opencv-python-headless 5.0 は Haar カスケードを同梱しない。
 #    無ければ `faces()` は**止まる**（0で埋めない＝[[feedback-parsers-fail-closed]]）。
 YUNET = HERE / "ref" / "models" / "face_detection_yunet_2023mar.onnx"
-UA = ("zukai-engine/1.0 (accident-documentary research; konariri8@gmail.com)")
+UA = ("zukai-engine/1.0 (accident-documentary research; "
+      "https://github.com/torotorotolo/zukai-engine)")
 
 SHOTS = json.loads(SHOTS_JSON.read_text(encoding="utf-8"))
 CLIPS = json.loads(CLIPS_JSON.read_text(encoding="utf-8"))

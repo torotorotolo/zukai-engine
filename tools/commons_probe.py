@@ -54,7 +54,7 @@ HERE = Path(__file__).parent.parent
 OUT_DIR = HERE / "analytics" / "materials"
 API = "https://commons.wikimedia.org/w/api.php"
 UA = ("zukai-engine/1.0 (accident-documentary research; "
-      "https://github.com/torotorotolo/zukai-engine; konariri8@gmail.com) python-requests")
+      "https://github.com/torotorotolo/zukai-engine) python-requests")
 
 FULLSCREEN_MIN_W = 1280   # 全画面に耐える幅（1本目〜3本目で使ってきた基準）
 MIN_BITDEPTH = 8          # 1ビット(2値)スキャンを外す

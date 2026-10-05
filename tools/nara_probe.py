@@ -47,7 +47,7 @@ HERE = Path(__file__).parent.parent
 OUT_DIR = HERE / "analytics" / "materials"
 URL = "https://catalog.archives.gov/proxy/records/search"
 UA = ("zukai-engine/1.0 (accident-documentary research; "
-      "https://github.com/torotorotolo/zukai-engine; konariri8@gmail.com)")
+      "https://github.com/torotorotolo/zukai-engine)")
 
 # 🔴 列挙。ここに無い値を渡すと HTML が返る（2026-09-04 実測）
 VALID_LIMITS = (1, 10, 20, 50, 100)

@@ -30,7 +30,7 @@ import json, sys, re, time, urllib.parse, urllib.request
 from collections import Counter, defaultdict
 
 API = 'https://commons.wikimedia.org/w/api.php'
-UA = 'zukai-engine/1.0 (theme research; contact: konariri8@gmail.com)'
+UA = 'zukai-engine/1.0 (accident-documentary research; https://github.com/torotorotolo/zukai-engine)'
 
 
 def q(params):

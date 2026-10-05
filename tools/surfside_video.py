@@ -41,7 +41,7 @@ sys.stderr.reconfigure(encoding="utf-8")
 HERE = Path(__file__).parent.parent
 OUT = HERE / "analytics" / "materials" / "surfside"
 UA = ("zukai-engine/1.0 (accident-documentary research; "
-      "https://github.com/torotorotolo/zukai-engine; konariri8@gmail.com)")
+      "https://github.com/torotorotolo/zukai-engine)")
 PAGE = ("https://www.nist.gov/disaster-and-failure-studies/"
         "champlain-towers-south-collapse/news-and-updates")
 PARTNER = "684682"          # NIST の Kaltura パートナーID（ページの embed から）

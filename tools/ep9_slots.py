@@ -18,7 +18,7 @@
 import json, re, sys, time, urllib.parse, urllib.request
 
 API = 'https://commons.wikimedia.org/w/api.php'
-UA = 'zukai-engine/1.0 (material research; contact: konariri8@gmail.com)'
+UA = 'zukai-engine/1.0 (accident-documentary research; https://github.com/torotorotolo/zukai-engine)'
 SA = re.compile(r'\bSA\b|share[- ]?alike|GFDL', re.I)
 
 # 欄 -> Commons のファイル名（File: は付けない）。②で一覧を1行ずつ読んで選んだもの

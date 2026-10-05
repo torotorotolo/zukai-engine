@@ -21,7 +21,7 @@ import json, re, sys, time, urllib.parse, urllib.request
 from collections import Counter
 
 API = 'https://commons.wikimedia.org/w/api.php'
-UA = 'zukai-engine/1.0 (material research; contact: konariri8@gmail.com)'
+UA = 'zukai-engine/1.0 (accident-documentary research; https://github.com/torotorotolo/zukai-engine)'
 
 # 継承（share-alike）＝動画全体に伝染する札。ここに当たったら使わない
 SA = re.compile(r'\bSA\b|share[- ]?alike|GFDL', re.I)
