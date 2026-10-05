@@ -91,7 +91,8 @@ NEWS_RE = re.compile(
     r"ニュース|NEWS|News|報道|新聞社|通信社|ABEMA|ウェザーニュース|"
     r"放送局|テレビ局|BIZ|CNN|BBC|Reuters|AFP)", re.I)
 # 自分のチャンネル
-OWN_HANDLE_RE = re.compile(r"仕事帰りの事故調査ノート|そのとき、何が起きたか")   # 2026-09-24 改名＝新旧の両方
+OWN_HANDLE_RE = re.compile(r"ゆっくり事故調査ノート|仕事帰りの事故調査ノート|そのとき、何が起きたか|"
+                           r"@jikochosa|@shigotogaeri")   # 2026-09-24・10-05 改名＝新旧の名前とハンドル
 
 # ── 除外：解説動画でないもの（総集編・ミーム・作業用）。**題名で見る**
 NOTDOC_RE = re.compile(

@@ -22,8 +22,9 @@
   - OAuth クライアントは zunda-5ch の client_secret.json を流用（同一Googleアカウント）
   - トークンは事故検証ch専用の `config/token_jiko.json` に分離
     → 初回だけブラウザ同意が要る。
-      **同意画面で必ず「仕事帰りの事故調査ノート」を選ぶこと。**
-      （2026-09-24 に「そのとき、何が起きたか」から改名。ハンドルは @shigotogaeri）
+      **同意画面で必ず「ゆっくり事故調査ノート」を選ぶこと。**
+      （2026-10-05 に「仕事帰りの事故調査ノート」から改名・ハンドルは @jikochosa（旧 @shigotogaeri）。
+       2026-09-24 にも「そのとき、何が起きたか」から改名している。チャンネルID UCb36M92_3zO76IFAm27UPiA は不変）
 """
 import argparse
 import json
@@ -50,8 +51,9 @@ MP4 = HERE / "out" / "jiko" / "titan_audio-r29.mp4"
 
 SCOPES = ["https://www.googleapis.com/auth/youtube"]
 CATEGORY_EDUCATION = "27"
-# 🔴 2026-09-24 改名（旧「そのとき、何が起きたか」）。名前が違えば cmd_up は止まる＝改名したらここも直す
-CHANNEL = "仕事帰りの事故調査ノート"
+# 🔴 名前が違えば cmd_up は止まる＝改名したらここも直す（2026-09-24「そのとき、何が起きたか」→「仕事帰りの事故調査ノート」・
+#    2026-10-05 →「ゆっくり事故調査ノート」@jikochosa＝カズヤくんが Studio で改名・API の who で確かめた）
+CHANNEL = "ゆっくり事故調査ノート"
 
 
 # ── 🔴 トークンを public リポジトリへ置いてしまわないための門番 ──────────

@@ -56,6 +56,10 @@ OUT = HERE / "out" / "brand"
 #    旧名は副題に残す（今の視聴者に同じチャンネルだと分かるように・説明文の1行目とそろえる）
 NAME = "仕事帰りの事故調査ノート"
 TAGLINE = "調査報告書と記録で「そのとき、何が起きたか」をたどる"
+# 🆕 2026-10-05 改名（カズヤくんが Studio で）＝「ゆっくり事故調査ノート」@jikochosa。バナーは `banner_v3()`（`--v3`）。
+#    上の NAME／TAGLINE は 09-24 の本番バナー（`banner()`）を焼き直せるように残す
+NAME3 = "ゆっくり事故調査ノート"
+NAME3_TOP, NAME3_MAIN = "ゆっくり", "事故調査ノート"     # 2段に分けて大きく（1段だとアイコンと並べて約73px＝今より小さい）
 
 # ── アイコン ──────────────────────────────────────────────
 IC = 800                      # YouTube の推奨は 800×800
@@ -291,6 +295,65 @@ def banner(note=False):
     return "".join(g)
 
 
+def banner_v3(D=300):
+    """🆕 2026-10-05（改名「ゆっくり事故調査ノート」@jikochosa）カズヤくん：
+       「現在のデザインの下部一行（調査報告書と記録で――）は削除。新チャンネル名とアイコンを大きく表記。
+        他デザインは旧ヘッダーと同じ」。
+
+    - 地（方眼・横切る時間軸・目盛り）・色・書体（Dela）・名前の下の赤い下線は `banner()` と同じ
+    - **アイコン**＝本番のアイコン（`out/brand/icon.png`＝YouTube に入っている物と同じ絵・10-05 に API で照合）を
+      円で切って左に置く（直径 D）。中心は時間軸の上＝アイコンの「時間軸の上の一点」と同じ語彙
+    - **名前は2段**（上「ゆっくり」・下「事故調査ノート」）。1段だとアイコンと並べて約73px＝09-24 の約84px より小さくなる。
+      時間軸は2段のあいだを通す（09-24 は名前と副題のあいだを通していた＝同じ関係）
+    - 右の「その一点」の印は外した（左のアイコンが同じ形・名前を大きくする幅を取るため）
+    🔴 文字とアイコンは**全端末で見える 1235×338 の中**（はみ出せば 🔴 を出す）
+    """
+    import fontmetrics as fm
+
+    g = [f'<rect width="{BN_W}" height="{BN_H}" fill="{J.BG}"/>',
+         grid(BN_W, BN_H, 64, 320, 0.8)]
+    ay = BN_H * 0.5
+    g.append(f'<path d="M0 {ay:.0f} H{BN_W}" stroke="{J.LINE_DIM}" stroke-width="5"/>')
+    for k in range(-9, 10):
+        x = BN_W / 2 + k * 104
+        g.append(f'<path d="M{x:.0f} {ay-16:.0f} V{ay+16:.0f}" '
+                 f'stroke="{J.LINE_DIM}" stroke-width="4"/>')
+
+    pad = 40
+    icx, icy, r = SAFE_X + pad + D / 2, ay, D / 2
+    ic = base64.b64encode((OUT / "icon.png").read_bytes()).decode()
+    g.append(f'<defs><clipPath id="icl"><circle cx="{icx:.0f}" cy="{icy:.0f}" r="{r:.0f}"/></clipPath></defs>')
+    g.append(f'<circle cx="{icx:.0f}" cy="{icy:.0f}" r="{r + 10:.0f}" fill="{J.BG}"/>')
+    g.append(f'<image href="data:image/png;base64,{ic}" x="{icx - r:.0f}" y="{icy - r:.0f}" '
+             f'width="{D}" height="{D}" clip-path="url(#icl)"/>')
+    g.append(f'<circle cx="{icx:.0f}" cy="{icy:.0f}" r="{r:.0f}" fill="none" stroke="{J.LINE_DIM}" '
+             f'stroke-width="4"/>')
+
+    tx = icx + r + 56
+    maxw = SAFE_X + SAFE_W - pad - tx
+    s2 = fm.fit(NAME3_MAIN, maxw, "Dela", cap=160, floor=60)
+    s1 = min(fm.fit(NAME3_TOP, maxw, "Dela", cap=160, floor=40), round(s2 * 0.62))
+    w2, w1 = fm.width(NAME3_MAIN, s2, "Dela"), fm.width(NAME3_TOP, s1, "Dela")
+    gap = 30                                     # 時間軸と字のすき間
+    y1 = ay - gap                                # 上の段のベースライン（字の下端≒ここ）
+    y2 = ay + gap + s2 * 0.86                    # 下の段のベースライン（字の上端≒ y2 − 0.86·s2）
+    ul = y2 + 26                                 # 赤い下線（09-24 は名前のベースラインの 36px 下）
+    g.append(f'<text x="{tx:.0f}" y="{y1:.0f}" font-family="Dela" font-size="{s1:.0f}" '
+             f'fill="{J.INK_W}">{NAME3_TOP}</text>')
+    g.append(f'<text x="{tx:.0f}" y="{y2:.0f}" font-family="Dela" font-size="{s2:.0f}" '
+             f'fill="{J.INK_W}">{NAME3_MAIN}</text>')
+    g.append(f'<path d="M{tx:.0f} {ul:.0f} h{w2:.0f}" stroke="{J.ALERT}" stroke-width="7"/>')
+
+    top, bot = y1 - s1 * 0.88, ul + 4
+    print(f"    v3：アイコン 直径{D}px（x {icx - r:.0f}〜{icx + r:.0f}）／上の段 {s1:.0f}px＝{w1:.0f}px・"
+          f"下の段 {s2:.0f}px＝{w2:.0f}px（使える幅 {maxw:.0f}px）／字の上端 {top:.0f}・下線 {ul:.0f}"
+          f"（安全領域 y {SAFE_Y}〜{SAFE_Y + SAFE_H}・x 〜{SAFE_X + SAFE_W}）", flush=True)
+    if tx + max(w1, w2) > SAFE_X + SAFE_W - pad + 1 or top < SAFE_Y or bot > SAFE_Y + SAFE_H \
+            or icy - r < SAFE_Y or icy + r > SAFE_Y + SAFE_H:
+        print("    🔴 名前かアイコンが安全領域（1235×338）からはみ出す", flush=True)
+    return "".join(g)
+
+
 # ══════════════════════════════════════════════════════════
 #  確認：小さくしても判別できるか
 # ══════════════════════════════════════════════════════════
@@ -356,6 +419,12 @@ def banner_crops(p, name="banner_crops"):
 
 def main():
     print("チャンネル素材を焼く", flush=True)
+    # 🆕 2026-10-05：`--v3` は改名「ゆっくり事故調査ノート」のバナーだけ（09-24 の本番 banner.png・アイコンは焼き直さない）
+    if "--v3" in sys.argv:
+        bn3 = bake("banner_v3", banner_v3(), BN_W, BN_H)
+        banner_crops(bn3, "banner_v3_crops")
+        print("→ out/brand/", flush=True)
+        return
     # 🔴 2026-09-24：`--banner-only` はアイコンを焼かない（改名でバナーだけ作り直した）
     paths = []
     if "--banner-only" not in sys.argv:

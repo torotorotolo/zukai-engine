@@ -1,0 +1,12 @@
+メタ: meta_ep18.json
+接続先: ゆっくり事故調査ノート（@jikochosa／動画3本）
+動画: titan_audio-ep18-r01.mp4（267.8 MB）
+題　: 事故の約5か月前、前の艦長は「最も危険なのは試験深度付近での浸水」と書いていた。調べた継手の13.8%が落ちても保温材は外されず、スレッシャー号129名喪失事故の真相【事故検証】【ゆっくり解説】
+非公開で上げる（予約はあとで `schedule`）
+  3%  6%  9%  12%  15%  18%  21%  25%  28%  31%  34%  37%  40%  43%  46%  50%  53%  56%  59%  62%  65%  68%  72%  75%  78%  81%  84%  87%  90%  93%  97%
+上がった: https://youtu.be/kyEmeO6EVus
+管理　　: https://studio.youtube.com/video/kyEmeO6EVus/edit
+サムネを貼った: ep18_A_rival.png
+
+次: python tools/upload_jiko.py status kyEmeO6EVus
+up_exit=0
