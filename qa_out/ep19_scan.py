@@ -32,6 +32,7 @@ import shots as SH  # noqa: E402
 SCAN = HERE / "out" / "jiko" / "foot" / "ep19_scan"
 SHOTS_JSON = HERE / "ref" / "ep19" / "shots.json"
 SEEN = HERE / "ref" / "ep19" / "v1_build" / "tools19" / "seen19.tsv"
+STOCK_JSON = HERE / "ref" / "stock" / "stock.json"
 OUT = Path(os.environ.get("SCAN19_OUT", r"C:\Users\konar\AppData\Local\Temp\claude\C--Users-konar-Documents-Obsidian-Vault\bf956a18-0a74-480b-8c62-9ded79d59f31\scratchpad\scan19"))
 KAL = "https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/{e}/format/url/protocol/https/flavorParamId/0"
 TILE = 640
@@ -45,8 +46,18 @@ def _font(sz):
     return ImageFont.load_default()
 
 
+def _src(clip):
+    """記録映像は走査の版・フリー素材（S#n）は棚の media"""
+    if clip.startswith("S#"):
+        for k, v in json.loads(STOCK_JSON.read_text(encoding="utf-8")).items():
+            if v.get("code19") == clip:
+                return STOCK_JSON.parent / "media" / f"{k}.mp4"
+        raise SystemExit(f"🔴 棚に {clip} が無い")
+    return SCAN / f"{clip}.mp4"
+
+
 def grab(clip, t):
-    p = subprocess.run(["ffmpeg", "-nostdin", "-v", "error", "-ss", f"{t:.2f}", "-i", str(SCAN / f"{clip}.mp4"),
+    p = subprocess.run(["ffmpeg", "-nostdin", "-v", "error", "-ss", f"{t:.2f}", "-i", str(_src(clip)),
                         "-frames:v", "1", "-vf", f"scale={TILE}:-2", "-f", "image2pipe", "-vcodec", "png", "-"],
                        capture_output=True)
     if p.returncode != 0 or not p.stdout:
@@ -145,6 +156,32 @@ def cmd_sec(clip, a, b, step=1.0):
     return 0
 
 
+def cmd_stock(code, a, b):
+    """フリー素材の使う区間を1秒1コマ（640px・2列×3行）で全部並べる＝字・顔・商標を探す（棚の ok_ranges の根拠）"""
+    ts, t = [], a
+    while t <= b + 1e-6:
+        ts.append(round(t, 2))
+        t += 1.0
+    for i in range(0, len(ts), COLS * ROWS):
+        part = ts[i:i + COLS * ROWS]
+        sheet(code, [(x, f"{code} {x:.1f}s") for x in part], f"stk_{code[2:]}_{part[0]:05.1f}",
+              f"フリー素材 {code} の {part[0]}〜{part[-1]}秒（1秒1コマ）")
+    return 0
+
+
+def cmd_fcrop(clip, t, x0, y0, x1, y1):
+    """映像の1コマを原寸で切り出す（座標は元の画素）＝シートの疑いを確かめる"""
+    OUT.mkdir(parents=True, exist_ok=True)
+    name = f"fc_{clip.replace('#', '')}_{t:05.1f}_{x0}_{y0}"
+    dst = OUT / f"{name}.jpg"
+    p = subprocess.run(["ffmpeg", "-nostdin", "-v", "error", "-y", "-ss", f"{t:.2f}", "-i", str(_src(clip)), "-frames:v", "1",
+                        "-vf", f"crop={x1 - x0}:{y1 - y0}:{x0}:{y0}", "-q:v", "2", str(dst)], capture_output=True)
+    if p.returncode != 0:
+        raise SystemExit(p.stderr.decode("utf-8", "replace")[:300])
+    _seen(dst, name, f"{clip} の {t}秒の原寸の切り出し ({x0},{y0})-({x1},{y1})（チャット6・⑤b-1 疑いの確かめ）")
+    return 0
+
+
 def cmd_fine(clip, a, b, fps=10):
     """窓の中を 1/fps 秒刻みで署名にし、隣どうしの距離の大きい順に出す（画像を見ずに境目の秒を詰める）。
     手持ちの B1 は 1秒刻みの境目が当てにならない（#4 の 30〜45秒の中に人の寄りとがれきの引きが混ざる）。"""
@@ -177,6 +214,10 @@ if __name__ == "__main__":
         sys.exit(cmd_photo(pos[1], int(opt.get("edge", 1600))))
     if pos[0] == "crop":
         sys.exit(cmd_crop(pos[1], *map(int, pos[2:6])))
+    if pos[0] == "fcrop":
+        sys.exit(cmd_fcrop(pos[1], float(pos[2]), *map(int, pos[3:7])))
+    if pos[0] == "stock":
+        sys.exit(cmd_stock(pos[1], float(pos[2]), float(pos[3])))
     if pos[0] == "fine":
         sys.exit(cmd_fine(pos[1], float(pos[2]), float(pos[3])))
     raise SystemExit(__doc__)

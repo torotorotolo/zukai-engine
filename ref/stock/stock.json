@@ -21,7 +21,14 @@
   "place": "",
   "era_note": "",
   "ok_ranges": [],
-  "ng_ranges": [],
+  "ng_ranges": [
+   {
+    "from": 1.0,
+    "to": 7.0,
+    "ep": 19,
+    "why": "🔴 ホテルの看板 PESTANA が画面の真ん中に出続ける＝商標（10-06 ⑤b-1）"
+   }
+  ],
   "used_in": [
    {
     "ep": 19,
@@ -55,7 +62,17 @@
   "what": "海岸の建物の空撮",
   "place": "",
   "era_note": "",
-  "ok_ranges": [],
+  "ok_ranges": [
+   {
+    "from": 1.0,
+    "to": 12.1,
+    "ep": 19,
+    "how": "1秒1コマ（640px・2列×3行）＋疑いは原寸（qa_out/ep19_scan.py stock / fcrop）",
+    "faces": 0,
+    "text": 0,
+    "note": "南のサウスポイント（マイアミビーチ）の空撮＝サーフサイドではない。浜の人と沖の船は点"
+   }
+  ],
   "ng_ranges": [],
   "used_in": [
    {
@@ -90,7 +107,16 @@
   "what": "波のある水面",
   "place": "",
   "era_note": "",
-  "ok_ranges": [],
+  "ok_ranges": [
+   {
+    "from": 1.0,
+    "to": 8.2,
+    "ep": 19,
+    "how": "1秒1コマ（640px・2列×3行）＋疑いは原寸（qa_out/ep19_scan.py stock / fcrop）",
+    "faces": 0,
+    "text": 0
+   }
+  ],
   "ng_ranges": [],
   "used_in": [
    {
@@ -125,7 +151,16 @@
   "what": "壁のひび",
   "place": "",
   "era_note": "",
-  "ok_ranges": [],
+  "ok_ranges": [
+   {
+    "from": 1.0,
+    "to": 9.4,
+    "ep": 19,
+    "how": "1秒1コマ（640px・2列×3行）＋疑いは原寸（qa_out/ep19_scan.py stock / fcrop）",
+    "faces": 0,
+    "text": 0
+   }
+  ],
   "ng_ranges": [],
   "used_in": [
    {
@@ -160,7 +195,16 @@
   "what": "錆びた金属の寄り",
   "place": "",
   "era_note": "",
-  "ok_ranges": [],
+  "ok_ranges": [
+   {
+    "from": 1.0,
+    "to": 10.7,
+    "ep": 19,
+    "how": "1秒1コマ（640px・2列×3行）＋疑いは原寸（qa_out/ep19_scan.py stock / fcrop）",
+    "faces": 0,
+    "text": 0
+   }
+  ],
   "ng_ranges": [],
   "used_in": [
    {
@@ -195,7 +239,17 @@
   "what": "溶接した金属の管に落ちる水",
   "place": "",
   "era_note": "",
-  "ok_ranges": [],
+  "ok_ranges": [
+   {
+    "from": 0.0,
+    "to": 9.98,
+    "ep": 19,
+    "how": "1秒1コマ（640px・2列×3行）＋疑いは原寸（qa_out/ep19_scan.py stock / fcrop）",
+    "faces": 0,
+    "text": 0,
+    "note": "素材の尺 9.98秒＝c519（11.2秒）は ×1.12 でゆっくり"
+   }
+  ],
   "ng_ranges": [],
   "used_in": [
    {
@@ -230,7 +284,16 @@
   "what": "古びたコンクリートの縁を流れ落ちる水",
   "place": "",
   "era_note": "",
-  "ok_ranges": [],
+  "ok_ranges": [
+   {
+    "from": 1.0,
+    "to": 9.9,
+    "ep": 19,
+    "how": "1秒1コマ（640px・2列×3行）＋疑いは原寸（qa_out/ep19_scan.py stock / fcrop）",
+    "faces": 0,
+    "text": 0
+   }
+  ],
   "ng_ranges": [],
   "used_in": [
    {
@@ -266,7 +329,14 @@
   "place": "",
   "era_note": "",
   "ok_ranges": [],
-  "ng_ranges": [],
+  "ng_ranges": [
+   {
+    "from": 1.0,
+    "to": 8.0,
+    "ep": 19,
+    "why": "🔴 右の紙＝ロシア語の売買契約書（ДОГОВОР КУПЛИ-ПРОДАЖИ・手書きの Минск）・真ん中の表＝.by のアドレスと個人事業主の名前＝原寸で読める（10-06 ⑤b-1）"
+   }
+  ],
   "used_in": [
    {
     "ep": 19,
@@ -300,7 +370,17 @@
   "what": "空の地下駐車場",
   "place": "",
   "era_note": "",
-  "ok_ranges": [],
+  "ok_ranges": [
+   {
+    "from": 1.0,
+    "to": 11.4,
+    "ep": 19,
+    "how": "1秒1コマ（640px・2列×3行）＋疑いは原寸（qa_out/ep19_scan.py stock / fcrop）",
+    "faces": 0,
+    "text": 0,
+    "note": "柱の区画の字「F」「D」だけ（意味のある語ではない）"
+   }
+  ],
   "ng_ranges": [],
   "used_in": [
    {
@@ -335,7 +415,17 @@
   "what": "建設のクレーンと基礎",
   "place": "",
   "era_note": "",
-  "ok_ranges": [],
+  "ok_ranges": [
+   {
+    "from": 1.0,
+    "to": 6.1,
+    "ep": 19,
+    "how": "1秒1コマ（640px・2列×3行）＋疑いは原寸（qa_out/ep19_scan.py stock / fcrop）",
+    "faces": 0,
+    "text": 1,
+    "note": "🔴 重機に LIEBHERR・946 の字（原寸で読める）＝左に寄せる (0,250)-(1650,1178)（元の画素・×1.16）で外す。0〜5.1秒なら右のホイールローダーも入らない"
+   }
+  ],
   "ng_ranges": [],
   "used_in": [
    {
@@ -400,7 +490,14 @@
   "place": "",
   "era_note": "",
   "ok_ranges": [],
-  "ng_ranges": [],
+  "ng_ranges": [
+   {
+    "from": 1.0,
+    "to": 8.0,
+    "ep": 19,
+    "why": "🔴 ファイルの背に herlitz の印と Q.file の字（原寸で読める）＝商標。動くのでぼかしも寄せも難しい（10-06 ⑤b-1）"
+   }
+  ],
   "claims": [],
   "used_in": [
    {
@@ -408,10 +505,16 @@
     "cid": "c109",
     "role": "頭の差し込み（⑤b-7c）",
     "key18": "docs_binders_7710340"
+   },
+   {
+    "ep": 19,
+    "cid": "c405",
+    "role": "本体（10-06 ⑤b-1 で S#16 の代わり）"
    }
   ],
   "credit": "イメージ（フリー素材）：Pexels／Kaboompics",
-  "fetched": "2026-10-05"
+  "fetched": "2026-10-05",
+  "code19": "S#41"
  },
  "pb_63427": {
   "site": "Pixabay",
@@ -680,7 +783,14 @@
   "place": "",
   "era_note": "",
   "ok_ranges": [],
-  "ng_ranges": [],
+  "ng_ranges": [
+   {
+    "from": 1.0,
+    "to": 8.0,
+    "ep": 19,
+    "why": "🔴 カードの見出しにロシア語（Документы на белорусском языке）と人名＝読める（10-06 ⑤b-1）"
+   }
+  ],
   "claims": [],
   "used_in": [
    {
@@ -691,7 +801,8 @@
    }
   ],
   "credit": "イメージ（フリー素材）：Pexels／Tima Miroshnichenko",
-  "fetched": "2026-10-05"
+  "fetched": "2026-10-05",
+  "code19": "S#42"
  },
  "px_11781634": {
   "site": "Pexels",

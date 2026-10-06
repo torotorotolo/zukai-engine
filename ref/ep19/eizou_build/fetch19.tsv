@@ -1,5 +1,5 @@
 code	class	used_in	file	url	dims	dur	mb	rights	credit	note
-B2	film	c101 c104 c104 c201 c213 c319 c406 c419 c820 cb01 cb15	b2_reel2.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_64zdekws/format/url/protocol/https/flavorParamId/0	4096x2160	309.8	684.9	A推定	出典：NIST（B-Roll #2）	2048x1080 の軽い版 116MB あり
+B2	film	c101 c104 c104 c201 c213 c319 c406 c419 c820 ca21 cb01 cb15 cc06	b2_reel2.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_64zdekws/format/url/protocol/https/flavorParamId/0	4096x2160	309.8	684.9	A推定	出典：NIST（B-Roll #2）	2048x1080 の軽い版 116MB あり
 B1	film	c102 c103 c202 c417 c621 c623 c705 c711 cb08 cb16 cc04 cc16	b1_reel1.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_ju6nndhb/format/url/protocol/https/flavorParamId/0	1920x1014	250.2	578.2	A推定（NIST が配る・撮影者の記載なし）	出典：NIST（B-Roll #1）	元の画質（flavor 0）。同じ幅で軽い版 113MB あり
 B5	film	c105 c106 c312 c718 c912 c922	b5_reel5.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_ecar0b6h/format/url/protocol/https/flavorParamId/0	3840x2160	333.4	616.6	A推定	出典：NIST（B-Roll #5）	—
 B7	film	c106 c301	b7_reel7.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_glesd05g/format/url/protocol/https/flavorParamId/0	3840x2160	337.0	1418.7	A推定	出典：NIST（B-Roll #7）	1920x1080 の軽い版 87MB あり（走査はこちらで足りる）
@@ -49,11 +49,10 @@ TL	film	ca08 cc23	tl_timelapse.mp4	https://cdnapisec.kaltura.com/p/684682/sp/684
 N#60	photo	ca09	n60_mast_after.jpg	https://www.nist.gov/sites/default/files/images/2025/04/10/NCST%20Investigation%20April25%20%2831%20of%2038%29.jpg	2800x1577	—	3.59	A	出典：NIST	【代わり】ca09（N#72 に「外へ曲がった鉄筋」が写らなければ）
 N#17	photo	ca13	n17_remaining.jpg	https://www.nist.gov/sites/default/files/images/2021/06/30/IMG_6362.JPG	2800x2100	—	3.43	A	出典：NIST	住戸の中が写る型＝決め⑤＝引きだけ（家具・写真・服が見分けられる住戸に寄せない）
 N#11	photo	ca19	n11_column_move.jpg	https://www.nist.gov/sites/default/files/images/2021/08/25/KAM_3753%20%28july7th%29.JPG	2800x1867	—	8.17	A	出典：NIST	—
-D	photo	ca21 cc01 cc06	d01〜d15_dhs.jpg（15点）	https://commons.wikimedia.org/wiki/Category:Surfside_condominium_building_collapse（File:DHS_Secretary_Alejandro_Mayorkas_Visits_Surfside_Condo_Collapse_Site_(…).jpg）	2500x1667〜1897	—	28.1	A（DHS）	出典：米国土安全保障省（DHS）	決め⑥（10-06）＝15点を全部落として、犠牲者の写真・遺族・花の寄りが写らない引きのコマだけ（ca21・cc01・cc06 は別のコマ）
 S#38	stock	cb02	pb_52888.mp4	https://pixabay.com/videos/construction-cranes-foundation-52888/	2720x1530	32	?	Pixabay Content License	イメージ／Pixabay・LadislavBur	クレーンの社名
 N#43	photo	cb04	n43_model.jpg	https://www.nist.gov/sites/default/files/images/2024/11/21/CNST%20CTS%20Update%20Dec.jpg	2800x1669	—	5.17	A	出典：L. Gerskovic/NIST	—
-S#4	stock	cc13	px_9431778.mp4	https://www.pexels.com/video/aerial-footage-of-buildings-near-a-shore-9431778/	2688x1512	12	?	Pexels License	イメージ／Pexels・Mikhail Nilov	事故の約2か月後の投稿＝跡地が写らないか
-S#1	stock	cc14	px_15204737.mp4	https://www.pexels.com/video/white-concrete-buildings-near-the-beach-15204737/	1920x1080	31	?	Pexels License	イメージ／Pexels・CAPTKHO kho	屋上・外壁の看板の字と跡地が写らないか
+D06	photo	cc01	d06_dhs.jpg	https://commons.wikimedia.org/wiki/File:DHS_Secretary_Alejandro_Mayorkas_Visits_Surfside_Condo_Collapse_Site_(51390531311).jpg	2500x1740	—	1.47	A（DHS）	出典：米国土安全保障省（DHS）	撤去の後の更地の引き＝cc01
+S#4	stock	cc13 cc14	px_9431778.mp4	https://www.pexels.com/video/aerial-footage-of-buildings-near-a-shore-9431778/	2688x1512	12	?	Pexels License	イメージ／Pexels・Mikhail Nilov	事故の約2か月後の投稿＝跡地が写らないか
 N#28	photo	cc21	n28_warehouse_column.jpg	https://www.nist.gov/sites/default/files/images/2023/05/31/image8.jpg	2800x2100	—	1.24	A	出典：NIST	—
 N#53	photo	cc27	n53_after_test.jpg	https://www.nist.gov/sites/default/files/images/2025/04/10/NCST%20Investigation%20April25%20%289%20of%2038%29.jpg	2800x1654	—	3.86	A	出典：NIST	—
 N#71	photo	（代わり）	n71_mast_test.jpg	https://www.nist.gov/sites/default/files/images/2025/06/23/NCST%20Investigation%20Update%20June%202025%20%283%20of%207%29.jpg	2800x1948	—	3.96	A	出典：NIST	【代わり】cc23（TL の別の秒が無ければ）
