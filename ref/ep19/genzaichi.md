@@ -225,3 +225,52 @@
 - 🆕🔴🔴 **決め⑩（カズヤくん）＝冒頭（c101〜c107）は実写映像**（18本目の冒頭の離脱率が非常に高い・**これからの回すべて**）：`eizou_build/assign19.tsv` の c101〜c106 を直した（再現イラスト2カット・NIST の3Dアニメ TR0163・年表の図をやめ、B1・B2・B5・B7 の実写に。c105 は頭の約4秒を実写・★は文字のまま。c107 のパネルの地を実写にするのは ⑤b で型が許せば）→ `make_list19.py`＝E0（実写 63→66＝27.8%・動く映像 34カット264秒→37カット295秒・取得の素材と大きさは変わらず）。門番が止めた4件＝区間の重なり3件（c705 の B1 50〜56・c820 の B2 46〜49.5・c912 の B5 102〜109）と「→」の書き方（`code_of` は「→」の後ろを記号として読む）→ 重なる所は ⑤b-1 の走査で別の秒。記録＝Vault 映像方針 §1「決め⑩」・ルール統合版 §4-16 末尾・§C-1 #72・記憶 `feedback-jiko-opening-flashy-but-faithful`
 - 引き継ぎ＝Vault `引き継ぎ-事故検証-19本目-20261006-チャット5-⑤a読みと合成`（§4 試写の要耳一覧＝本編の秒つき）
 - 🔴 次＝**チャット6（⑤b-1〜⑤b-8・エフォート高〈試験〉）**＝1通目 Vault `新チャット1通目-事故検証-19本目-チャット6-⑤b映像-20261006`。最初＝作業ツリーの commit 4つを本線へ（本線の18本目の wav 243本を `out/_削除待ち_<日付>/` へ移す → キャッシュ `audio/aq_cache/ep19/` を複写 → `aq_build --dry` → wav 238本の md5 を全数照合 → `audio_pack check`・本線で `audio_pack pack` は回さない）→ 冒頭 c101〜c107 の実写の区間を最初に選ぶ
+
+## チャット6（⑤b-1・エフォート高）— 圧縮1回目の前の現在地（2026-10-06・文脈30.6万）
+
+### ✅ 済んだこと
+- 移し替え：本線の18本目の wav 243本 → `out/_削除待ち_20261006/ep18_main_audio_wav/`（ハードリンク0・移す前後 md5 243/243）→ `git cherry-pick` で4つ（新しい番号 `6b81163`・`2e7ba58`・`0617153`・`b11797a`・重なり0・木は `104c0f0`＋本線の ref/ep19 5ファイルだけ違う）→ キャッシュ複写 1,062ファイル md5 全件一致 → `aq_build --dry`＝**wav 238/238 が作業ツリーと md5 まで同じ・narration.json 同じ**・364.5字/分・c105 39.0秒 → audio_pack check・check_aq_audio・check_subwrap・check_listener すべて ⑤a-2 と同じ（E0）
+- commit `2d627a2`（§0b その1）：`ref/ep19/make_plan19.py`（list19.tsv → PLAN 237・写真66＝27.8%・文字だけ31・続く最長2・フリー素材8＝映像方針と一致）・章ファイル12本（c1〜c9・ca・cb・**cc 新**）は SPEC 空・`CHAPTER_FILES` に cc・`scene_jiko.CHAPTERS`＝**c2〜cc の11章**（🔴 つかみ c1 は章の印なし＝台本の「第1章」が c2）・章の色（sepia／navy／mono／navy／night／navy／mono／navy／copper／mono／navy＝check_palette 合格・最小14.5）・🔴 `_card_heads` を音の側（aq_build：区切りが変わるたび扉）と同じ規則に直した＝扉11枚 c201〜cc01（前の規則だと c201 の扉が消えて音より2秒短くなる）
+- `cuts` の検算：PLAN 237・SPEC 1（ed01）・BROKEN {}
+
+### 🟡 未 commit（作業ツリーの変更・名指しで commit する）
+- `tools/aq_build.py`（VOICES ep19 のコメント＝⑤a-2 で確かめた値）・`tools/check_credits.py`（EP_PREFIX `ep19/`・SECTION「## サーフサイドのマンション崩壊のリメイク（2021-06-24・19本目）」）・`tools/check_blank.py`（ON_PURPOSE 空）・`tools/cuts/ep.py`（説明）・`tools/check_wording.py`（EP_TIMES＝116・117・118・121・122・2003＝字幕から機械で）・`tools/footage.py`（clips/shots を ref/ep19・USE の18本目33欄を外した）・`tools/scene_jiko.py`（`ep19_credit` と鎖の先頭）・`qa_out/ep19_assets.py`（新・取得の道具 scan／photos／stock）
+- 索引に積んだ削除（決め⑨）：`ref/ep18/stock/fb_*.jpg` 11枚の `git rm --cached`（手元に11枚残っている）
+- 🔴 係（Sonnet・1本）が裏で動いている：ss.py の後半と門番の記録の表 → `tools/fixture_ep18.py`（触るのは ss.py・fixture_ep18.py・check_*.py だけ・commit しない）。終わったら**自分の道具で違い0を確かめる**（見本の値＝`2d627a2` の値・消えた名はすべて見本にある・本番の表は空・apply→restore で戻る・陽性対照）
+- 🔴 取得が裏で動いている：`ep19_assets.py photos --yes`（写真47点 約135MB → `ref/ep19/photo/`・D は Commons の検索で15点）→ `scan --yes`（NIST の映像11本・flavorParamId 487091＝1080 の版・1,491MB → `out/jiko/foot/ep19_scan/`）・`stock --yes`（フリー素材11本 433MB → `ref/stock/media/`＋18本目の11本を複写・台帳 `ref/stock/stock.json`）。結果は scratchpad の `photo_get.txt`・`scan_get.txt`・`stock_get.txt`／各置き場の `fetched.json`
+
+- ✅（圧縮の前に終わった）取得は全部そろった：写真 **47/47**（`ref/ep19/photo/fetched.json`）・映像 **11/11**（1,491MB・B2 2048×1080・B1 1920×1014・PC 1768×1080・ほか 1920×1080）・棚 **22本**（19本目11＋18本目11・670.4MB）。⚠️ Commons は連絡先の無い名乗りを 429 で断り続けた＝名乗りを18本目と同じ（リポの URL・@ なし）に直して通った
+- 🔴 まだ裏＝係（`fixture_ep18`）だけ
+
+### 🔴 圧縮のあとでやること（⑤b-1 の続き）
+1. 係の報告を読み、照合の道具で確かめる → selftest・qa_all → 名指しで commit（§0b その2＋決め⑨）
+2. 取得の結果（md5 2回・大きさ）を確かめる。P1/P3 の建物（決め④）・TFV の TR0373/0377/0379 の出どころの札（©2021 なら使わない）
+3. 1秒1コマの走査：**冒頭 c101〜c107 を最初に**（B2 の空撮・B1・B5・B7）＝機械で境目（`tools/shots.boundaries`）→ 640px の見取り図で区間を選ぶ（画像は1区切り40枚・見た枚は `ref/ep19/v1_build/tools19/seen19.tsv`）→ `ref/ep19/clips.json`・`shots.json`・footage.USE
+4. 写真の原寸の全数（顔・字・住戸の中・追悼）・フリー素材の使う区間を焼いて字・顔・商標（棚の ok_ranges）
+5. push の前に `git fetch toro`・`git log --oneline toro/main..HEAD` で出ていく commit を確かめる・`git diff --cached --name-only | grep '^ref/stock/' | grep -v stock.json$` が空
+
+## チャット6 — 圧縮2回目の前の現在地（2026-10-06・この区切りで見た画像 31枚＝seen19.tsv 15〜45）
+
+### ✅ 済んだこと
+- 取得80ファイル（写真47・映像11・棚22）を md5 2回＋大きさで台帳と照合＝違い0
+- 係（fixture_ep18）を自分の道具（scratchpad `verify_fx18.py`）で確かめた：見本＝`2d627a2` の値（ss 112名・門番の表24個・違い0）・ss から消えた88名はすべて見本にある・本番の表は空・apply→restore で違い0・陽性対照で鳴る
+- 🔴 check_illu の selftest が本線で落ちていた（`KeyError: 'c101'`＝2d627a2 で章ファイルを空にした時から）→ `fixture_ep18.apply_cuts()` を足した＝18本目の章ファイルを git `b11797a` から一時フォルダに取り出し（ref・out などへ junction）、その処理の中だけ `cuts.PLAN`・`SPEC` を入れ替える（restore で 237／1 に戻ることを確かめた）→ check_illu selftest 通る（258行）・qa_all 23/28（落ちる5本＝cuts・chapters・edges・wrap・credits は SPEC が空・CREDITS.md の節が無いため＝⑤b-2 以降）
+- commit `275c4d5`（§0b その2＋小さな§0b 8ファイル＋ep19_assets.py＋ep19_scan.py＋shots.json＋stock.json＋決め⑨）。push していない
+- 走査の道具 `qa_out/ep19_scan.py`：probe（ショット表 `ref/ep19/shots.json`）・shots（ショットごとの見取り図）・sec（秒の窓）・fine（窓の中を0.1秒刻みで境目）。🔴 手持ちの B1 は1秒刻みの境目が当てにならない（#4 の中に人の寄りとがれきが混ざる）＝秒は fine と見取り図で決める。B2 #28（118〜283秒）は空撮でなく調査の責任者のインタビュー
+- 冒頭の秒（assign19.tsv・make_list19 E0）：c101 B2@7.3–11.1（空撮・×1.6）／c102 B1@33.7–37.6（がれきの山と残った西の部分・指さす腕が入る）／c103 B1@18.9–24.9／c104 B2@110.2–113.3＋尻 B2@92.6–95.9（95.8〜98.8 は3ショットにまたがっていた・99〜108 は c406）／c105 頭 B5@121.4–125.8（倉庫の調査員の引き）／c106 B7@41.5–46.2＋尻 B5@28.6–38.3（コア抜き）。c107 の地の空撮は⑤b の型で
+- TFV の出どころ：スライド133〜135（TR0371〜0380）はどれも右上「Source: NIST」＝©2021 なし → ca12 TFV@3481.3–3501.0・ca15 @3501.4–3525.1・ca17 @3525.5–3541.3（代わりは要らない）。©2021 の札は監視カメラのコマ（3446秒ほか＝決め②）
+- 決め④：**差し込まない**＝P1 の建物は入口の札が「CHAMPLAIN TOWERS East・8855 Collins Avenue」（東棟）・ナンバーも写る／P3 は南棟と分からず「Goodfreephotos.com」の透かし → c201 の尻を外した
+
+### 🟡 未 commit
+- `ref/ep19/eizou_build/assign19.tsv`・`list19.tsv`・`eizou_list19.md`（TFV 3行・c201）・`seen19.tsv`・この genzaichi
+
+### ⚠️ 走査で分かった素材の事情（あとの章で効く）
+- B2 の空撮は少ない＝7.1〜11.2・11.2〜14（cb01）・44〜52（デッキの上から人）・99〜110（c406）・110〜113.5（c104）。c201・c213・c319・c419 の「B2@⑤b-1」は取り合いになる＝B1 #14（198〜203.8・高い所から海と山＝c417）や静止画で受ける案を ⑤b で
+- B5 の #17（114〜120）は手袋の商標「Mechanix」＝使わない。B5 #12〜#15・#18〜#27 は作業員の顔が寄る（#18 は引き）
+
+### 🔴 圧縮のあとでやること（⑤b-1 の残り）
+1. 写真の原寸の全数（47点・顔・字・住戸の中〈決め⑤〉・追悼〈決め⑥・DHS 15点〉）＝画像は1区切り40枚まで
+2. フリー素材の使う区間を焼いて字・顔・商標（棚の ok_ranges を埋める）
+3. 区間が決まっていない残り（B1 7・B2 4・TFV 5〈c606 ca12済 ca15済 ca17済 cc29〉・B8 2・TL 2・B7 1〈c301〉・B5 1〈c718〉）の走査
+4. M1/M5（郡の消防の YouTube）＝道具を決めてから取得を聞く
+5. push の前の確かめ（上の5）→ ⑤b-2 置き場

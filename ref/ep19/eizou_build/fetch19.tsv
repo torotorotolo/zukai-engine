@@ -3,7 +3,6 @@ B2	film	c101 c104 c104 c201 c213 c319 c406 c419 c820 cb01	b2_reel2.mp4	https://c
 B1	film	c102 c103 c202 c417 c621 c623 c701 c705 c711 cb08 cb16 cc04 cc16	b1_reel1.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_ju6nndhb/format/url/protocol/https/flavorParamId/0	1920x1014	250.2	578.2	A推定（NIST が配る・撮影者の記載なし）	出典：NIST（B-Roll #1）	元の画質（flavor 0）。同じ幅で軽い版 113MB あり
 B5	film	c105 c106 c312 c718 c912 c922	b5_reel5.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_ecar0b6h/format/url/protocol/https/flavorParamId/0	3840x2160	333.4	616.6	A推定	出典：NIST（B-Roll #5）	—
 B7	film	c106 c301	b7_reel7.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_glesd05g/format/url/protocol/https/flavorParamId/0	3840x2160	337.0	1418.7	A推定	出典：NIST（B-Roll #7）	1920x1080 の軽い版 87MB あり（走査はこちらで足りる）
-P1	photo	c201	p1_panoramio_2012.jpg	https://commons.wikimedia.org/wiki/File:Surfside,_FL,_USA_-_panoramio.jpg	4000x3000	—	3.31	CC BY 3.0	出典：Gervacio Rosales（CC BY 3.0）	決め④（10-06）＝取得して建物が写るか見る・写れば c201 の3行目「崩れる前（2012年）」・浜の人は顔だけモザイク＝「改変」
 TF頁	page	c205 c206 c502 c504 c509 c515 c516 cb07	TFV の 1080 版のコマ（スライド）	TFV と同じ	1920x1080	—	—	A（©2021 の写真の部分は切る）	出典：NIST（技術的知見のスライド）	台本の「図 pN TF のスライドN」
 tf_p174_corr	page	c307	ref/surfside/tf_p174_corr.jpg	既出（旧版の控え＝読むだけ）	—	—	—	A	出典：NIST（技術的知見のスライド）	—
 S#9	stock	c308	px_7829491.mp4	https://www.pexels.com/video/close-up-video-of-a-rusty-metal-7829491/	3840x2160	30	?	Pexels License	イメージ／Pexels・Monstera Production	—
