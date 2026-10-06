@@ -430,8 +430,32 @@ def _uses():
         if ab is None:
             print(f"⚠️ {u['cid']} {u['code']}：区間が決まっていない＝USE に書けない")
             continue
-        out.append((u["cid"], u["code"], *ab, float(u["secs"]), u["role"] == "head"))
+        out.append((u["cid"], u["code"], *ab, _need(u["cid"], u["role"], float(u["secs"])), u["role"] == "head"))
     return out
+
+
+_INS = None
+
+
+def _need(cid, role, est):
+    """要る秒＝**焼く尺**（10-06 ⑤b-2：scene_jiko が19本目になった＝list19 の見込み〈÷365〉から取り直した。前後の間 0.35＋0.5 秒と
+    扉の分で見込みより長い＝c106 が 8.3秒はみ出した）。本体＝`footage.secs_of` と同じ式（尺−扉）。差し込みは scene_jiko の入れ替えの式
+    （`ins_sec`＋`INTRO_X`）：頭＝list19 の ins_k 行ぶん（`ss.head(until=k)`）／尻のあるカットの本体＝尻が入る行（ins_k 行目＝`at=k−1`）まで"""
+    global _INS
+    sys.path.insert(0, str(HERE / "tools"))
+    import scene_jiko as SJ
+    if _INS is None:
+        _INS = {r["cid"]: (r["ins_pos"], int(r["ins_k"])) for r in _list() if r.get("ins_pos") and r.get("ins_k")}
+    secs = dict(SJ.CUTS)
+    if cid not in secs:
+        print(f"⚠️ {cid}：scene_jiko の尺に無い＝見込みの {est:.2f}秒で書く")
+        return est
+    pos, k = _INS.get(cid, (None, 0))
+    if role == "head":
+        return round(SJ.ins_sec(cid, k) + SJ.INTRO_X, 3)
+    if pos == "tail":
+        return round(SJ.ins_sec(cid, k - 1) + SJ.INTRO_X, 3)
+    return round(secs[cid] - SJ.card_of(cid), 3)
 
 
 def cmd_clips():
@@ -479,9 +503,15 @@ def cmd_clips():
 # 🔴 1秒刻みの境目の物差し（tools/shots.boundaries）が実際の切り替わりとずれる所＝直す（秒・根拠と目で確かめた事）。
 #    move＝境目を実測の秒へ動かす（0.1秒刻みで見た）／join＝境目でない（同じ絵が続く）のでつなぐ
 SHOT_FIX = {
-    "B2": {"move": {11.0: (11.2, "c101：海岸線の空撮は 7.1〜11.2秒の1本（0.1秒刻みで実測・10-06 ⑤b-1）")}},
     "B7": {"move": {46.0: (46.4, "c106：錆びた鉄筋の標本は 46.4秒で切り替わる（0.1秒刻みで実測・10-06 ⑤b-1）")}},
     "TFV": {"move": {3525.0: (3525.3, "ca15：スライド134 は 3525.3秒で次のスライド（0.1秒刻みで実測・10-06 ⑤b-1）")}},
+    "B2": {"move": {11.0: (11.2, "c101：海岸線の空撮は 7.1〜11.2秒の1本（0.1秒刻みで実測・10-06 ⑤b-1）"),
+                    104.0: (99.0, "c406：99.0秒で空撮に切り替わり 109秒まで切れ目なし（fine 98〜109＝99.0秒だけ 43.9・ほかは 5.3 以下・10-06 ⑤b-2）")},
+           "split": {110.0: "c104：現場の引きの空撮は 110.0秒で切り替わる（⑤b-1 の 0.1秒刻みの実測・assign19 の c104）",
+                     113.5: "c104：113.5秒から表題のカード（⑤b-1 の実測・assign19 の c104）"}},
+    "B1": {"move": {55.0: (53.4, "c705：がれきの山の寄りは 53.4〜57.3秒の1本（fine 49〜67・1秒刻み B1_sec_050.50 を目で見た・10-06 ⑤b-2）")},
+           "split": {57.3: "c705：がれきの山の寄りは 57.3秒で次のショット（fine 53〜67＝55.4・10-06 ⑤b-2）"}},
+    "B5": {"join": {105.0: "c912：倉庫の部材のあいだは 100〜109.2秒の1本・104〜105秒はカメラが右へ振れただけ（1秒刻み B5_sec_102.00 を目で見た・10-06 ⑤b-2）"}},
     "px_8060076": {"join": {8.0: "S#46：0〜12秒はドローンが浜の上を引いていく1本（1秒1コマ stk_46_000・006 を目で見た・10-06）"}},
     "px_39933092": {"join": {2.0: "S#49：2〜3秒は黄色い筒が上から入ってくる動き＝同じ寄りの続き（1秒1コマ stk_49_000 を目で見た・10-06）"}},
 }
@@ -506,6 +536,13 @@ def cmd_shotfix():
                     del sh[i + 1]
                     print(f"{key} 境目 {t} をつないだ")
                     break
+        for t, why in fx.get("split", {}).items():
+            for i, s in enumerate(sh):
+                if s["start"] + 1e-6 < t < s["until"] - 1e-6:
+                    sh.insert(i + 1, {"start": t, "until": s["until"], "motion": s["motion"], "fixed": why})
+                    s["until"], s["fixed"] = t, why
+                    print(f"{key} {t} で割った")
+                    break
     SHOTS.write_text(json.dumps(sd, ensure_ascii=False, indent=1), encoding="utf-8")
     return 0
 
@@ -528,9 +565,12 @@ def cmd_use():
             rate = min(1.0, int(avail / need * 100) / 100)
         if sh and b > sh[0]["until"]:
             warn.append(f"{cid} {key}@{a}–{b} がショット {where} の外へ出る")
-        opt = (f", still=True, until={a + 1.0:.2f}" if rate < STILL_BELOW else f", until={b:.2f}, rate={rate}")
+        # 止め絵は区間の**真ん中のコマ**（10-06 ⑤b-2：区間の頭は手持ちのぶれ・ピント送りの途中のことがある＝c102 の33秒台）
+        #   cb01＝B2@12–14 → 13.0秒（⑤b-1 で決めたコマ ss_b2_87park と同じ）
+        s0 = round((a + b) / 2, 2) if rate < STILL_BELOW else a
+        opt = (f", still=True, until={min(b, s0 + 1.0):.2f}" if rate < STILL_BELOW else f", until={b:.2f}, rate={rate}")
         opt += ", head=True" if head else ""
-        lines.append(f'    "{cid}": dict(clip="{key}", start={a:.2f}{opt}),   # {where}・使える {avail:.2f}秒／要る {need:.2f}秒')
+        lines.append(f'    "{cid}": dict(clip="{key}", start={s0:.2f}{opt}),   # {where}・使える {avail:.2f}秒（{a:g}〜{b:g}）／要る {need:.2f}秒')
     txt = FOOTAGE.read_text(encoding="utf-8")
     m = re.search(r"(    # EP19_USE>>> ここから[^\n]*\n)(.*?)(    # EP19_USE>>> ここまで)", txt, re.S)
     if not m:
@@ -542,8 +582,108 @@ def cmd_use():
     return 0
 
 
+# 写真の束（`ref/ep19/<名>.jpg`＋台帳 `ref/ep19/assets.json`）。18本目の `ep18_assets.py build` の型。
+#   🔴 19本目は冒頭が実写＝映像のカット（`ss.vid`）を書いた時点で合成と門番が台帳を読む（`ss.frame_only_for`）＝⑤b-2 で作る。
+#   切り抜き CROP（元の画素の箱）は ⑤b-7a で写真ごとに決める（いまは決まっているものだけ）。束に入れるのは list19 で当てた写真だけ
+CROP = {
+    "D13": (1500, 0, 2500, 562),     # cc06：海沿いの高い建物＝上の右（assign19・⑤b-1）
+}
+MAXW = 3000
+LIC = {"A": "Public domain", "A（FEMA）": "Public domain", "A（DHS）": "Public domain",
+       "PD-FLGov の可能性": "Public domain", "CC BY 2.0": "CC BY 2.0", "CC BY 3.0": "CC BY 3.0"}
+
+
+def cmd_build(only=None):
+    from PIL import Image
+    Image.MAX_IMAGE_PIXELS = None
+    sys.path.insert(0, str(LIST.parent))
+    import make_list19 as ML
+    rows, _ = ML.build(ML.parse_daihon(ML.DAIHON), ML.read_tsv(ML.ASSIGN))
+    cuts = {}
+    for u in ML.uses_of(rows):
+        if ML.class_of(u["code"]) == "photo":
+            cuts.setdefault(u["code"], []).append(u["cid"])
+    src, fetched = _sources(), json.loads((PHOTO / "fetched.json").read_text(encoding="utf-8"))
+    db_path = HERE / "ref" / "ep19" / "assets.json"
+    db = json.loads(db_path.read_text(encoding="utf-8")) if db_path.exists() else {}
+    bad = 0
+    for code in sorted(cuts):
+        if only and code not in only:
+            continue
+        f = src.get(code)
+        fe = fetched.get(code)
+        if not f or not fe:
+            print(f"🔴 {code}: sources19 か fetched.json に行が無い")
+            bad += 1
+            continue
+        lic = LIC.get(f[7].strip())
+        if not lic:
+            print(f"🔴 {code}: 権利「{f[7]}」を台帳の言い方に直せない（LIC に足す）")
+            bad += 1
+            continue
+        sp = PHOTO / fe["file"]
+        if fe.get("sha1") and hashlib.sha1(sp.read_bytes()).hexdigest() != fe["sha1"]:
+            print(f"🔴 {code}: {sp.name} の SHA-1 が取得のときと違う（取り直す）")
+            bad += 1
+            continue
+        with Image.open(sp) as im0:
+            im = im0.convert("RGB")
+        w0, h0 = im.size
+        box = CROP.get(code) or (0, 0, w0, h0)
+        im = im.crop(box)
+        if im.width > MAXW:
+            im = im.resize((MAXW, round(im.height * MAXW / im.width)), Image.LANCZOS)
+        name = Path(fe["file"]).stem
+        out = HERE / "ref" / "ep19" / f"{name}.jpg"
+        im.save(out, quality=92)
+        db[name] = dict(code=code, file=sp.name, cut=" ".join(cuts[code]), credit=f[8], note=f[9] if len(f) > 9 else "",
+                        box=[round(box[0] / w0, 4), round(box[1] / h0, 4), round(box[2] / w0, 4), round(box[3] / h0, 4)],
+                        crop_px=list(box), w=im.width, h=im.height, md5=md5(out), src_md5=md5(sp),
+                        lic=lic, frame=False, ground=f[7].strip(), url=fe.get("page") or fe.get("url"))
+        print(f"✓ {code:10} {name:22} {im.width}x{im.height}  {' '.join(cuts[code])}  {lic}{'  切り=' + str(box) if code in CROP else ''}")
+    db_path.write_text(json.dumps(db, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"→ ref/ep19/assets.json（{len(db)}点）")
+    return 1 if bad else 0
+
+
+def cmd_fb(only=None):
+    """ひかえの静止画（映像のコマが切り出せなかったときだけ出る絵＝`cuts.ss.vid`・`ss.head` の photo）＝footage.USE の start の1コマ。
+    NIST の映像＝`ref/ep19/fb_<カット>.jpg`（走査の版 `out/jiko/foot/ep19_scan/<記号>.mp4` から＝秒は元の版と同じ・幅1920）
+    ／フリー素材＝`ref/ep19/stock/fb_<カット>.jpg`（棚の mp4 から）。🔴 フリー素材の控えは git に入れない（決め⑨・棚の設計 §2）
+    ＝Actions では無い＝⑤b-7 で Actions の上で作る道を足す。`fb c101 c102` のように書けばそのカットだけ（ほかの md5 を動かさない）"""
+    sys.path.insert(0, str(HERE / "tools"))
+    import footage as FO
+    clips = json.loads(CLIPS.read_text(encoding="utf-8"))
+    bad = 0
+    for cid, u in FO.USE.items():
+        if only and cid not in only:
+            continue
+        c = clips[u["clip"]]
+        if c.get("stock"):
+            src, dst = HERE / "ref" / c["file"], HERE / "ref" / "ep19" / "stock" / f"fb_{cid}.jpg"
+        else:
+            src, dst = SCAN / f"{u['clip']}.mp4", HERE / "ref" / "ep19" / f"fb_{cid}.jpg"
+        if not src.exists():
+            print(f"🔴 {cid}: 元の動画が手元に無い（{src.relative_to(HERE).as_posix()}）")
+            bad += 1
+            continue
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        r = subprocess.run(["ffmpeg", "-y", "-nostdin", "-v", "error", "-ss", f"{float(u['start']):.2f}", "-i", str(src),
+                            "-frames:v", "1", "-vf", "scale=1920:-2", "-q:v", "3", str(dst)], capture_output=True, text=True)
+        if r.returncode or not dst.exists():
+            print(f"🔴 {cid}: ひかえの静止画が作れない（{r.stderr[-160:]}）")
+            bad += 1
+            continue
+        print(f"✓ {cid:5} {u['clip']:14} {float(u['start']):7.1f}秒 → {dst.relative_to(HERE).as_posix()}")
+    return 1 if bad else 0
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
+    if a and a[0] == "fb":
+        sys.exit(cmd_fb(set(a[1:]) or None))
+    if a and a[0] == "build":
+        sys.exit(cmd_build(set(a[1:]) or None))
     yes = "--yes" in a
     if a and a[0] == "clips":
         sys.exit(cmd_clips())
