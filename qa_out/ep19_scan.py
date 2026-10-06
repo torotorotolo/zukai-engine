@@ -69,11 +69,48 @@ def sheet(clip, items, name, note):
     OUT.mkdir(parents=True, exist_ok=True)
     dst = OUT / f"{name}.jpg"
     canvas.save(dst, quality=88)
+    _seen(dst, name, note + "（チャット6・⑤b-1 走査）")
+
+
+def _seen(dst, name, note):
     lines = SEEN.read_text(encoding="utf-8").splitlines()
     n = sum(1 for ln in lines if ln and not ln.startswith("#")) + 1
     with SEEN.open("a", encoding="utf-8", newline="\n") as fh:
-        fh.write(f"{n}\t{name}\t{note}（チャット6・⑤b-1 走査）\n")
+        fh.write(f"{n}\t{name}\t{note}\n")
     print(f"{dst}  ＝見た枚 {n}")
+
+
+PHOTO = HERE / "ref" / "ep19" / "photo"
+
+
+def _photo(key):
+    v = json.loads((PHOTO / "fetched.json").read_text(encoding="utf-8"))[key]
+    return v["file"], Image.open(PHOTO / v["file"]).convert("RGB")
+
+
+def cmd_photo(key, edge=1600):
+    """写真の全体を長辺 edge に（読む側の上限に合わせる）。細部は crop で原寸を切り出す。"""
+    fn, im = _photo(key)
+    w, h = im.size
+    s = min(1.0, edge / max(w, h))
+    v = im.resize((round(w * s), round(h * s)), Image.LANCZOS)
+    OUT.mkdir(parents=True, exist_ok=True)
+    name = "ph_" + key.replace("#", "").replace(":", "")
+    dst = OUT / f"{name}.jpg"
+    v.save(dst, quality=90)
+    _seen(dst, name, f"{key} {fn} {w}x{h} の全体（長辺{v.size[0] if w >= h else v.size[1]}px）（チャット6・⑤b-1 写真の全数）")
+    return 0
+
+
+def cmd_crop(key, x0, y0, x1, y1):
+    """原寸の座標で切り出す（拡大しない）。"""
+    fn, im = _photo(key)
+    c = im.crop((x0, y0, x1, y1))
+    name = "phc_" + key.replace("#", "").replace(":", "") + f"_{x0}_{y0}"
+    dst = OUT / f"{name}.jpg"
+    c.save(dst, quality=92)
+    _seen(dst, name, f"{key} の原寸の切り出し ({x0},{y0})–({x1},{y1})（チャット6・⑤b-1 写真の全数）")
+    return 0
 
 
 def cmd_probe():
@@ -136,6 +173,10 @@ if __name__ == "__main__":
         sys.exit(cmd_shots(pos[1], int(opt.get("from", 0)), int(opt.get("n", 6))))
     if pos[0] == "sec":
         sys.exit(cmd_sec(pos[1], float(pos[2]), float(pos[3]), float(opt.get("step", 1))))
+    if pos[0] == "photo":
+        sys.exit(cmd_photo(pos[1], int(opt.get("edge", 1600))))
+    if pos[0] == "crop":
+        sys.exit(cmd_crop(pos[1], *map(int, pos[2:6])))
     if pos[0] == "fine":
         sys.exit(cmd_fine(pos[1], float(pos[2]), float(pos[3])))
     raise SystemExit(__doc__)
