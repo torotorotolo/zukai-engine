@@ -1,16 +1,19 @@
 code	class	used_in	file	url	dims	dur	mb	rights	credit	note
-B2	film	c101 c104 c104 c201 c213 c319 c406 c419 c820 ca21 cb01 cb15 cc06	b2_reel2.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_64zdekws/format/url/protocol/https/flavorParamId/0	4096x2160	309.8	684.9	A推定	出典：NIST（B-Roll #2）	2048x1080 の軽い版 116MB あり
-B1	film	c102 c103 c202 c417 c621 c623 c705 cb08 cb16 cc04 cc16	b1_reel1.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_ju6nndhb/format/url/protocol/https/flavorParamId/0	1920x1014	250.2	578.2	A推定（NIST が配る・撮影者の記載なし）	出典：NIST（B-Roll #1）	元の画質（flavor 0）。同じ幅で軽い版 113MB あり
+B2	film	c101 c104 c104 c213 c406 c820 cb01	b2_reel2.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_64zdekws/format/url/protocol/https/flavorParamId/0	4096x2160	309.8	684.9	A推定	出典：NIST（B-Roll #2）	2048x1080 の軽い版 116MB あり
+B1	film	c102 c103 c202 c417 c623 c705 cb16	b1_reel1.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_ju6nndhb/format/url/protocol/https/flavorParamId/0	1920x1014	250.2	578.2	A推定（NIST が配る・撮影者の記載なし）	出典：NIST（B-Roll #1）	元の画質（flavor 0）。同じ幅で軽い版 113MB あり
 B5	film	c105 c106 c312 c718 c912 c922	b5_reel5.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_ecar0b6h/format/url/protocol/https/flavorParamId/0	3840x2160	333.4	616.6	A推定	出典：NIST（B-Roll #5）	—
 B7	film	c106 c301	b7_reel7.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_glesd05g/format/url/protocol/https/flavorParamId/0	3840x2160	337.0	1418.7	A推定	出典：NIST（B-Roll #7）	1920x1080 の軽い版 87MB あり（走査はこちらで足りる）
+S#46	stock	c201	px_8060076.mp4	https://www.pexels.com/video/drone-footage-of-beach-in-the-city-8060076/	1920x1080	17	?	Pexels License	イメージ／Pexels・CAPTKHO kho	c201 の本体 0〜9.7秒（10-06 ⑤b-1 で足した）
 TF頁	page	c205 c206 c502 c504 c509 c515 c516 cb07	TFV の 1080 版のコマ（スライド）	TFV と同じ	1920x1080	—	—	A（©2021 の写真の部分は切る）	出典：NIST（技術的知見のスライド）	台本の「図 pN TF のスライドN」
 tf_p174_corr	page	c307	ref/surfside/tf_p174_corr.jpg	既出（旧版の控え＝読むだけ）	—	—	—	A	出典：NIST（技術的知見のスライド）	—
 S#9	stock	c308	px_7829491.mp4	https://www.pexels.com/video/close-up-video-of-a-rusty-metal-7829491/	3840x2160	30	?	Pexels License	イメージ／Pexels・Monstera Production	—
 資料の頁	page	c310 c402 c407 c410 cc02	ref/ep19/src/ の PDF（大陪審の報告・2018年の報告ほか）	既出	—	—	—	引用（公の記録）	出典：資料の名（台本 §2）	台本の「図 p30xx・p40xx …」＝文字の頁
 S#20	stock	c315	px_6028858.mp4	https://www.pexels.com/video/empty-parking-lot-6028858/	1920x1080	13	?	Pexels License	イメージ／Pexels・Артем Ковальчук	柱の番号・床の表示
 N#33	photo	c317	n33_coring.jpg	https://www.nist.gov/sites/default/files/images/2023/09/06/Coring%20and%20MOA%20tests%20%20%28Sep2023%29.jpg	2800x2100	—	5.44	A	出典：NIST	—
+N#12	photo	c319	n12_concrete.jpg	https://www.nist.gov/sites/default/files/images/2021/08/25/NIST%20team%20July1.jpg	3749x2160	—	5.34	A	出典：NIST	c319（10-06 ⑤b-1 で足した）
 S#44	stock	c405	px_8425719.mp4	https://www.pexels.com/video/business-people-looking-at-documents-8425719/	1920x1080	18	?	Pexels License	イメージ／Pexels・Kampus Production	c405 の本体 0〜7.7秒（10-06 ⑤b-1 で足した・紙はぼけて読めない）
 S#8	stock	c411	px_7830155.mp4	https://www.pexels.com/video/a-crack-on-the-wall-7830155/	3840x2160	28	?	Pexels License	イメージ／Pexels・Monstera Production	—
+N#10	photo	c419	n10_column_before.jpg	https://www.nist.gov/sites/default/files/images/2021/08/25/KAM_3717%28July6th%29.JPG	6720x4480	—	9.48	A	出典：NIST	c419（10-06 ⑤b-1 で足した）
 S#12	stock	c510	px_29880216.mp4	https://www.pexels.com/video/water-cascading-over-weathered-concrete-edge-29880216/	3840x2160	30	?	Pexels License	イメージ／Pexels・Aamir Somewhere	—
 S#11	stock	c519	px_5571839.mp4	https://www.pexels.com/video/water-dripping-on-welded-metal-pipes-5571839/	1920x1080	10	?	Pexels License	イメージ／Pexels・Monsieur Sylvain	—
 tf_p058_note	page	c520	ref/surfside/tf_p058_note.jpg	既出	—	—	—	A＋第三者（管財人の原図）	出典：NIST／原図：CTS Receiver	紙面の引用か付箋だけの切り直し
@@ -18,6 +21,7 @@ N#13	photo	c524	n13_laydown.jpg	https://www.nist.gov/sites/default/files/images/
 S#6	stock	c526	px_11287848.mp4	https://www.pexels.com/video/water-with-waves-11287848/	3840x2160	30	?	Pexels License	イメージ／Pexels・Şaban Karabeli	—
 TFV	anim	c606 c711 ca12 ca15 ca17 cc29	tfv_1080.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_vezbt9jw/format/url/protocol/https/flavorParamId/487091	1920x1080	4638	795.9	A（©2021 Used with permission の部分を除く）	出典：NIST（技術的知見の動画・2026年6月）	走査は 1080 版（796MB）。使う秒は元の 3840x2160 版（9,147.8MB・flavor 0）から footage.fetch で切り出す（丸ごとは落とさない）
 A01	page	c618	ref/ep19/src/nist_ncstac_2026-09_CTSupdate.pdf	既出（NCST 諮問委員会の資料・2026-09-23）	—	—	—	A（p.47・49〜51 のコマは © 2021 Used with permission）	出典：NIST（諮問委員会の資料）	決め②。紙面の引用だけ
+C4	photo	c621	c04_mdfr4.jpg	File:Surfside condominium collapse photo from Miami-Dade Fire Rescue 4.jpg	1024x768	—	0.14	PD-FLGov の可能性	出典：マイアミ・デイド郡消防（フロリダ州の公記録）	決め①・c621（10-06 ⑤b-1 で足した）・小さい＝額装
 N#18	photo	c701	n18_from_south.jpg	https://www.nist.gov/sites/default/files/images/2021/07/19/IMG_0122-%28Jonathan-070721%29.jpg	2800x2100	—	3.45	A	出典：NIST	住戸の中が写る型＝決め⑤＝引きだけ（家具・写真・服が見分けられる住戸に寄せない）
 C1	photo	c702	c01_mdfr1.jpg	https://commons.wikimedia.org/wiki/File:Surfside_condominium_collapse_photo_from_Miami-Dade_Fire_Rescue_1.jpg	1024x768	—	0.16	PD-FLGov の可能性	出典：マイアミ・デイド郡消防（フロリダ州の公記録）	【代わり】決め①＝使う（10-06）・c621・c701・c711 の代わり・小さい＝額装
 C6	photo	c703	c06_mdfr6.jpg	https://commons.wikimedia.org/wiki/File:Surfside_condominium_collapse_photo_from_Miami-Dade_Fire_Rescue_6.jpg	2048x1536	—	0.84	PD-FLGov の可能性	出典：マイアミ・デイド郡消防（フロリダ州の公記録）	決め①＝使う（10-06）・c703
@@ -49,10 +53,16 @@ TL	film	ca08	tl_timelapse.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200
 N#60	photo	ca09	n60_mast_after.jpg	https://www.nist.gov/sites/default/files/images/2025/04/10/NCST%20Investigation%20April25%20%2831%20of%2038%29.jpg	2800x1577	—	3.59	A	出典：NIST	【代わり】ca09（N#72 に「外へ曲がった鉄筋」が写らなければ）
 N#17	photo	ca13	n17_remaining.jpg	https://www.nist.gov/sites/default/files/images/2021/06/30/IMG_6362.JPG	2800x2100	—	3.43	A	出典：NIST	住戸の中が写る型＝決め⑤＝引きだけ（家具・写真・服が見分けられる住戸に寄せない）
 N#11	photo	ca19	n11_column_move.jpg	https://www.nist.gov/sites/default/files/images/2021/08/25/KAM_3753%20%28july7th%29.JPG	2800x1867	—	8.17	A	出典：NIST	—
+N#48	photo	ca21	n48_lidar_0714.jpg	https://www.nist.gov/sites/default/files/images/2025/02/04/Lidar_Data_from_Leica_C10_July-14-2021.jpg	3346x2068	—	7.69	A	出典：NIST	ca21（10-06 ⑤b-1 で足した）
 S#38	stock	cb02	pb_52888.mp4	https://pixabay.com/videos/construction-cranes-foundation-52888/	2720x1530	32	?	Pixabay Content License	イメージ／Pixabay・LadislavBur	クレーンの社名
 N#43	photo	cb04	n43_model.jpg	https://www.nist.gov/sites/default/files/images/2024/11/21/CNST%20CTS%20Update%20Dec.jpg	2800x1669	—	5.17	A	出典：L. Gerskovic/NIST	—
+S#48	stock	cb08	px_4693664.mp4	https://www.pexels.com/video/low-angle-view-of-condominiums-4693664/	1920x1080	24	?	Pexels License	イメージ／Pexels・Luis Quintero	cb08 の本体 0〜9.5秒（10-06 ⑤b-1 で足した）
+S#49	stock	cb15	px_39933092.mp4	https://www.pexels.com/video/construction-drilling-rig-in-action-at-worksite-39933092/	1920x1080	11	?	Pexels License	イメージ／Pexels・Sergei Starostin	cb15 の本体 0〜8.5秒（10-06 ⑤b-1 で足した）
 D06	photo	cc01	d06_dhs.jpg	https://commons.wikimedia.org/wiki/File:DHS_Secretary_Alejandro_Mayorkas_Visits_Surfside_Condo_Collapse_Site_(51390531311).jpg	2500x1740	—	1.47	A（DHS）	出典：米国土安全保障省（DHS）	撤去の後の更地の引き＝cc01
+S#45	stock	cc04	px_34587813.mp4	https://www.pexels.com/video/aerial-sunset-view-of-miami-beach-skyline-34587813/	1920x1080	14	?	Pexels License	イメージ／Pexels・Gene Telepov	cc04 の本体 0〜9.4秒（10-06 ⑤b-1 で足した）
+D13	photo	cc06	d13_dhs.jpg	File:DHS Secretary Alejandro Mayorkas Visits Surfside Condo Collapse Site (51390783308).jpg	2500x1897	—	2.02	A（DHS）	出典：米国土安全保障省（DHS）	cc06＝上の右の切り出しだけ（10-06 ⑤b-1）
 S#4	stock	cc13 cc14	px_9431778.mp4	https://www.pexels.com/video/aerial-footage-of-buildings-near-a-shore-9431778/	2688x1512	12	?	Pexels License	イメージ／Pexels・Mikhail Nilov	事故の約2か月後の投稿＝跡地が写らないか
+S#47	stock	cc16	px_15979038.mp4	https://www.pexels.com/video/a-pier-with-tall-buildings-in-the-background-15979038/	1920x1080	35	?	Pexels License	イメージ／Pexels・paashuu	cc16 の本体 0〜10.4秒（10-06 ⑤b-1 で足した）
 N#28	photo	cc21	n28_warehouse_column.jpg	https://www.nist.gov/sites/default/files/images/2023/05/31/image8.jpg	2800x2100	—	1.24	A	出典：NIST	—
 N#71	photo	cc23	n71_mast_test.jpg	https://www.nist.gov/sites/default/files/images/2025/06/23/NCST%20Investigation%20Update%20June%202025%20%283%20of%207%29.jpg	2800x1948	—	3.96	A	出典：NIST	【代わり】cc23（TL の別の秒が無ければ）
 N#53	photo	cc27	n53_after_test.jpg	https://www.nist.gov/sites/default/files/images/2025/04/10/NCST%20Investigation%20April25%20%289%20of%2038%29.jpg	2800x1654	—	3.86	A	出典：NIST	—

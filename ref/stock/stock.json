@@ -970,5 +970,230 @@
   "credit": "イメージ（フリー素材）：Pexels／Kampus Production",
   "fetched": "2026-10-06",
   "code19": "S#44"
+ },
+ "px_34587813": {
+  "site": "Pexels",
+  "page": "https://www.pexels.com/video/aerial-sunset-view-of-miami-beach-skyline-34587813/",
+  "media": "https://videos.pexels.com/video-files/34587813/14656889_1920_1080_30fps.mp4",
+  "rendition": "1920x1080",
+  "md5": "c0e01a52746d0b44c7b642479436610a",
+  "size": 9529006,
+  "w": 1920,
+  "h": 1080,
+  "fps": "29.97",
+  "sec": 14.08,
+  "title": "Aerial Sunset View of Miami Beach Skyline",
+  "author": "Gene Telepov",
+  "posted": "",
+  "license": "Pexels License",
+  "license_url": "https://www.pexels.com/license/",
+  "license_checked": "2026-10-06",
+  "ai": "Pexels は規約で生成AIの投稿を認めない（18本目 ⑤b-7b と同じ判断）",
+  "what": "Aerial Sunset View of Miami Beach Skyline",
+  "place": "",
+  "era_note": "",
+  "ok_ranges": [
+   {
+    "from": 0.0,
+    "to": 14.08,
+    "ep": 19,
+    "how": "1秒1コマ（640px・2列×3行・qa_out/ep19_scan.py stock）",
+    "faces": 0,
+    "text": 0,
+    "note": "夕方の海沿いの高層マンション（ハリウッド〜マイアミビーチの北）"
+   }
+  ],
+  "ng_ranges": [],
+  "claims": [],
+  "used_in": [
+   {
+    "ep": 19,
+    "cid": "cc04",
+    "role": "本体 0〜9.4秒（10-06 ⑤b-1・1秒1コマで字と顔なし）"
+   }
+  ],
+  "credit": "イメージ（フリー素材）：Pexels／Gene Telepov",
+  "fetched": "2026-10-06",
+  "code19": "S#45"
+ },
+ "px_8060076": {
+  "site": "Pexels",
+  "page": "https://www.pexels.com/video/drone-footage-of-beach-in-the-city-8060076/",
+  "media": "https://videos.pexels.com/video-files/8060076/8060076-hd_1920_1080_30fps.mp4",
+  "rendition": "1920x1080",
+  "md5": "95b1095358164a7681596d4f1eca719f",
+  "size": 12393291,
+  "w": 1920,
+  "h": 1080,
+  "fps": "30",
+  "sec": 17.09,
+  "title": "Drone Footage of Beach in the City",
+  "author": "CAPTKHO kho",
+  "posted": "",
+  "license": "Pexels License",
+  "license_url": "https://www.pexels.com/license/",
+  "license_checked": "2026-10-06",
+  "ai": "Pexels は規約で生成AIの投稿を認めない（18本目 ⑤b-7b と同じ判断）",
+  "what": "Drone Footage of Beach in the City",
+  "place": "",
+  "era_note": "",
+  "ok_ranges": [
+   {
+    "from": 0.0,
+    "to": 17.09,
+    "ep": 19,
+    "how": "1秒1コマ（640px・2列×3行・qa_out/ep19_scan.py stock）",
+    "faces": 0,
+    "text": 0,
+    "note": "マイアミビーチの浜と海沿いのホテル＝看板は⑤b-7 で原寸"
+   }
+  ],
+  "ng_ranges": [],
+  "claims": [],
+  "used_in": [
+   {
+    "ep": 19,
+    "cid": "c201",
+    "role": "本体 0〜9.7秒（10-06 ⑤b-1・1秒1コマで字と顔なし）"
+   }
+  ],
+  "credit": "イメージ（フリー素材）：Pexels／CAPTKHO kho",
+  "fetched": "2026-10-06",
+  "code19": "S#46"
+ },
+ "px_15979038": {
+  "site": "Pexels",
+  "page": "https://www.pexels.com/video/a-pier-with-tall-buildings-in-the-background-15979038/",
+  "media": "https://videos.pexels.com/video-files/15979038/15979038-hd_1920_1080_24fps.mp4",
+  "rendition": "1920x1080",
+  "md5": "6c7d9281187e4fe0a48166bc1562b72e",
+  "size": 24547466,
+  "w": 1920,
+  "h": 1080,
+  "fps": "24",
+  "sec": 34.7,
+  "title": "A pier with tall buildings in the background",
+  "author": "paashuu",
+  "posted": "",
+  "license": "Pexels License",
+  "license_url": "https://www.pexels.com/license/",
+  "license_checked": "2026-10-06",
+  "ai": "Pexels は規約で生成AIの投稿を認めない（18本目 ⑤b-7b と同じ判断）",
+  "what": "A pier with tall buildings in the background",
+  "place": "",
+  "era_note": "",
+  "ok_ranges": [
+   {
+    "from": 0.0,
+    "to": 34.7,
+    "ep": 19,
+    "how": "1秒1コマ（640px・2列×3行・qa_out/ep19_scan.py stock）",
+    "faces": 0,
+    "text": 0,
+    "note": "桟橋と海沿いの高層マンション（サニーアイルズビーチ）"
+   }
+  ],
+  "ng_ranges": [],
+  "claims": [],
+  "used_in": [
+   {
+    "ep": 19,
+    "cid": "cc16",
+    "role": "本体 0〜10.4秒（10-06 ⑤b-1・1秒1コマで字と顔なし）"
+   }
+  ],
+  "credit": "イメージ（フリー素材）：Pexels／paashuu",
+  "fetched": "2026-10-06",
+  "code19": "S#47"
+ },
+ "px_4693664": {
+  "site": "Pexels",
+  "page": "https://www.pexels.com/video/low-angle-view-of-condominiums-4693664/",
+  "media": "https://videos.pexels.com/video-files/4693664/4693664-hd_1920_1080_24fps.mp4",
+  "rendition": "1920x1080",
+  "md5": "77abbb951d002477078deac13537a891",
+  "size": 11417560,
+  "w": 1920,
+  "h": 1080,
+  "fps": "24",
+  "sec": 24.28,
+  "title": "Low Angle View Of Condominiums",
+  "author": "Luis Quintero",
+  "posted": "",
+  "license": "Pexels License",
+  "license_url": "https://www.pexels.com/license/",
+  "license_checked": "2026-10-06",
+  "ai": "Pexels は規約で生成AIの投稿を認めない（18本目 ⑤b-7b と同じ判断）",
+  "what": "Low Angle View Of Condominiums",
+  "place": "",
+  "era_note": "",
+  "ok_ranges": [
+   {
+    "from": 0.0,
+    "to": 24.28,
+    "ep": 19,
+    "how": "1秒1コマ（640px・2列×3行・qa_out/ep19_scan.py stock）",
+    "faces": 0,
+    "text": 0,
+    "note": "集合住宅を見上げる（フロリダではない）"
+   }
+  ],
+  "ng_ranges": [],
+  "claims": [],
+  "used_in": [
+   {
+    "ep": 19,
+    "cid": "cb08",
+    "role": "本体 0〜9.5秒（10-06 ⑤b-1・1秒1コマで字と顔なし）"
+   }
+  ],
+  "credit": "イメージ（フリー素材）：Pexels／Luis Quintero",
+  "fetched": "2026-10-06",
+  "code19": "S#48"
+ },
+ "px_39933092": {
+  "site": "Pexels",
+  "page": "https://www.pexels.com/video/construction-drilling-rig-in-action-at-worksite-39933092/",
+  "media": "https://videos.pexels.com/video-files/39933092/17040354_1920_1080_30fps.mp4",
+  "rendition": "1920x1080",
+  "md5": "6c39fde287437ad78af098ef68171c27",
+  "size": 6565452,
+  "w": 1920,
+  "h": 1080,
+  "fps": "30",
+  "sec": 11.41,
+  "title": "Construction Drilling Rig in Action at Worksite",
+  "author": "Sergei Starostin",
+  "posted": "",
+  "license": "Pexels License",
+  "license_url": "https://www.pexels.com/license/",
+  "license_checked": "2026-10-06",
+  "ai": "Pexels は規約で生成AIの投稿を認めない（18本目 ⑤b-7b と同じ判断）",
+  "what": "Construction Drilling Rig in Action at Worksite",
+  "place": "",
+  "era_note": "",
+  "ok_ranges": [
+   {
+    "from": 0.0,
+    "to": 11.41,
+    "ep": 19,
+    "how": "1秒1コマ（640px・2列×3行・qa_out/ep19_scan.py stock）",
+    "faces": 0,
+    "text": 0,
+    "note": "基礎の穴を掘る重機の筒の寄り・4秒〜右奥の板に白い数字（ぼけ）"
+   }
+  ],
+  "ng_ranges": [],
+  "claims": [],
+  "used_in": [
+   {
+    "ep": 19,
+    "cid": "cb15",
+    "role": "本体 0〜8.5秒（10-06 ⑤b-1・1秒1コマで字と顔なし）"
+   }
+  ],
+  "credit": "イメージ（フリー素材）：Pexels／Sergei Starostin",
+  "fetched": "2026-10-06",
+  "code19": "S#49"
  }
 }

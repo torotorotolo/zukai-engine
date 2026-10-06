@@ -12,13 +12,15 @@
    },
    {
     "start": 7.0,
-    "until": 11.0,
-    "motion": 2.14
+    "until": 11.2,
+    "motion": 2.14,
+    "fixed": "c101：海岸線の空撮は 7.1〜11.2秒の1本（0.1秒刻みで実測・10-06 ⑤b-1）"
    },
    {
-    "start": 11.0,
+    "start": 11.2,
     "until": 14.0,
-    "motion": 13.4
+    "motion": 13.4,
+    "fixed": "c101：海岸線の空撮は 7.1〜11.2秒の1本（0.1秒刻みで実測・10-06 ⑤b-1）"
    },
    {
     "start": 14.0,
@@ -591,13 +593,15 @@
    },
    {
     "start": 41.0,
-    "until": 46.0,
-    "motion": 9.07
+    "until": 46.4,
+    "motion": 9.07,
+    "fixed": "c106：錆びた鉄筋の標本は 46.4秒で切り替わる（0.1秒刻みで実測・10-06 ⑤b-1）"
    },
    {
-    "start": 46.0,
+    "start": 46.4,
     "until": 51.0,
-    "motion": 10.94
+    "motion": 10.94,
+    "fixed": "c106：錆びた鉄筋の標本は 46.4秒で切り替わる（0.1秒刻みで実測・10-06 ⑤b-1）"
    },
    {
     "start": 51.0,
@@ -1684,13 +1688,15 @@
    },
    {
     "start": 3501.0,
-    "until": 3525.0,
-    "motion": 0.12
+    "until": 3525.3,
+    "motion": 0.12,
+    "fixed": "ca15：スライド134 は 3525.3秒で次のスライド（0.1秒刻みで実測・10-06 ⑤b-1）"
    },
    {
-    "start": 3525.0,
+    "start": 3525.3,
     "until": 3542.0,
-    "motion": 0.06
+    "motion": 0.06,
+    "fixed": "ca15：スライド134 は 3525.3秒で次のスライド（0.1秒刻みで実測・10-06 ⑤b-1）"
    },
    {
     "start": 3542.0,
@@ -2454,6 +2460,220 @@
     "start": 0.0,
     "until": 7.0,
     "motion": 5.53
+   }
+  ]
+ },
+ "px_9431778": {
+  "src": "https://videos.pexels.com/video-files/9431778/9431778-uhd_2560_1440_24fps.mp4",
+  "scan": "ref/stock/media/px_9431778.mp4",
+  "dur": 12.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 12.0,
+    "motion": 7.85
+   }
+  ]
+ },
+ "px_5571839": {
+  "src": "https://videos.pexels.com/video-files/5571839/5571839-hd_1920_1080_24fps.mp4",
+  "scan": "ref/stock/media/px_5571839.mp4",
+  "dur": 10.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 0.67
+   }
+  ]
+ },
+ "px_29880216": {
+  "src": "https://videos.pexels.com/video-files/29880216/12828546_2560_1440_30fps.mp4",
+  "scan": "ref/stock/media/px_29880216.mp4",
+  "dur": 30.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 30.0,
+    "motion": 4.73
+   }
+  ]
+ },
+ "px_6028858": {
+  "src": "https://videos.pexels.com/video-files/6028858/6028858-hd_1920_1080_25fps.mp4",
+  "scan": "ref/stock/media/px_6028858.mp4",
+  "dur": 13.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 13.0,
+    "motion": 0.36
+   }
+  ]
+ },
+ "pb_52888": {
+  "src": "https://cdn.pixabay.com/video/2020/10/19/52888-471156118_large.mp4",
+  "scan": "ref/stock/media/pb_52888.mp4",
+  "dur": 32.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 20.0,
+    "motion": 17.54
+   },
+   {
+    "start": 20.0,
+    "until": 32.0,
+    "motion": 24.15
+   }
+  ]
+ },
+ "px_8425719": {
+  "src": "https://videos.pexels.com/video-files/8425719/8425719-hd_1920_1080_25fps.mp4",
+  "scan": "ref/stock/media/px_8425719.mp4",
+  "dur": 18.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 9.0,
+    "motion": 37.86
+   },
+   {
+    "start": 9.0,
+    "until": 18.0,
+    "motion": 43.21
+   }
+  ]
+ },
+ "px_34587813": {
+  "src": "https://videos.pexels.com/video-files/34587813/14656889_1920_1080_30fps.mp4",
+  "scan": "ref/stock/media/px_34587813.mp4",
+  "dur": 14.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 12.0,
+    "motion": 4.28
+   },
+   {
+    "start": 12.0,
+    "until": 14.0,
+    "motion": 7.48
+   }
+  ]
+ },
+ "px_8060076": {
+  "src": "https://videos.pexels.com/video-files/8060076/8060076-hd_1920_1080_30fps.mp4",
+  "scan": "ref/stock/media/px_8060076.mp4",
+  "dur": 17.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 17.0,
+    "motion": 37.43,
+    "fixed": "S#46：0〜12秒はドローンが浜の上を引いていく1本（1秒1コマ stk_46_000・006 を目で見た・10-06）"
+   }
+  ]
+ },
+ "px_15979038": {
+  "src": "https://videos.pexels.com/video-files/15979038/15979038-hd_1920_1080_24fps.mp4",
+  "scan": "ref/stock/media/px_15979038.mp4",
+  "dur": 35.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 24.0,
+    "motion": 3.52
+   },
+   {
+    "start": 24.0,
+    "until": 35.0,
+    "motion": 6.33
+   }
+  ]
+ },
+ "px_4693664": {
+  "src": "https://videos.pexels.com/video-files/4693664/4693664-hd_1920_1080_24fps.mp4",
+  "scan": "ref/stock/media/px_4693664.mp4",
+  "dur": 24.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 10.53
+   },
+   {
+    "start": 10.0,
+    "until": 14.0,
+    "motion": 14.55
+   },
+   {
+    "start": 14.0,
+    "until": 24.0,
+    "motion": 5.66
+   }
+  ]
+ },
+ "px_39933092": {
+  "src": "https://videos.pexels.com/video-files/39933092/17040354_1920_1080_30fps.mp4",
+  "scan": "ref/stock/media/px_39933092.mp4",
+  "dur": 11.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 11.0,
+    "motion": 12.48,
+    "fixed": "S#49：2〜3秒は黄色い筒が上から入ってくる動き＝同じ寄りの続き（1秒1コマ stk_49_000 を目で見た・10-06）"
+   }
+  ]
+ },
+ "px_11287848": {
+  "src": "https://videos.pexels.com/video-files/11287848/11287848-uhd_2560_1440_24fps.mp4",
+  "scan": "ref/stock/media/px_11287848.mp4",
+  "dur": 30.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 30.0,
+    "motion": 7.01
+   }
+  ]
+ },
+ "px_7830155": {
+  "src": "https://videos.pexels.com/video-files/7830155/7830155-uhd_2560_1440_30fps.mp4",
+  "scan": "ref/stock/media/px_7830155.mp4",
+  "dur": 28.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 28.0,
+    "motion": 0.9
+   }
+  ]
+ },
+ "px_7829491": {
+  "src": "https://videos.pexels.com/video-files/7829491/7829491-uhd_2560_1440_30fps.mp4",
+  "scan": "ref/stock/media/px_7829491.mp4",
+  "dur": 30.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 30.0,
+    "motion": 2.49
    }
   ]
  }

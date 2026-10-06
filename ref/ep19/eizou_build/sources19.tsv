@@ -77,3 +77,14 @@ tf_p050_3d	page	ref/surfside/tf_p050_3d.jpg	既出	—	—	—	A（右上の ©2
 A01	page	ref/ep19/src/nist_ncstac_2026-09_CTSupdate.pdf	既出（NCST 諮問委員会の資料・2026-09-23）	—	—	—	A（p.47・49〜51 のコマは © 2021 Used with permission）	出典：NIST（諮問委員会の資料）	決め②。紙面の引用だけ
 TF頁	page	TFV の 1080 版のコマ（スライド）	TFV と同じ	1920x1080	—	—	A（©2021 の写真の部分は切る）	出典：NIST（技術的知見のスライド）	台本の「図 pN TF のスライドN」
 資料の頁	page	ref/ep19/src/ の PDF（大陪審の報告・2018年の報告ほか）	既出	—	—	—	引用（公の記録）	出典：資料の名（台本 §2）	台本の「図 p30xx・p40xx …」＝文字の頁
+
+C4	photo	c04_mdfr4.jpg	File:Surfside condominium collapse photo from Miami-Dade Fire Rescue 4.jpg	1024x768	—	0.14	PD-FLGov の可能性	出典：マイアミ・デイド郡消防（フロリダ州の公記録）	決め①・c621（10-06 ⑤b-1 で足した）・小さい＝額装
+N#10	photo	n10_column_before.jpg	https://www.nist.gov/sites/default/files/images/2021/08/25/KAM_3717%28July6th%29.JPG	6720x4480	—	9.48	A	出典：NIST	c419（10-06 ⑤b-1 で足した）
+N#12	photo	n12_concrete.jpg	https://www.nist.gov/sites/default/files/images/2021/08/25/NIST%20team%20July1.jpg	3749x2160	—	5.34	A	出典：NIST	c319（10-06 ⑤b-1 で足した）
+N#48	photo	n48_lidar_0714.jpg	https://www.nist.gov/sites/default/files/images/2025/02/04/Lidar_Data_from_Leica_C10_July-14-2021.jpg	3346x2068	—	7.69	A	出典：NIST	ca21（10-06 ⑤b-1 で足した）
+D13	photo	d13_dhs.jpg	File:DHS Secretary Alejandro Mayorkas Visits Surfside Condo Collapse Site (51390783308).jpg	2500x1897	—	2.02	A（DHS）	出典：米国土安全保障省（DHS）	cc06＝上の右の切り出しだけ（10-06 ⑤b-1）
+S#45	stock	px_34587813.mp4	https://www.pexels.com/video/aerial-sunset-view-of-miami-beach-skyline-34587813/	1920x1080	14	?	Pexels License	イメージ／Pexels・Gene Telepov	cc04 の本体 0〜9.4秒（10-06 ⑤b-1 で足した）
+S#46	stock	px_8060076.mp4	https://www.pexels.com/video/drone-footage-of-beach-in-the-city-8060076/	1920x1080	17	?	Pexels License	イメージ／Pexels・CAPTKHO kho	c201 の本体 0〜9.7秒（10-06 ⑤b-1 で足した）
+S#47	stock	px_15979038.mp4	https://www.pexels.com/video/a-pier-with-tall-buildings-in-the-background-15979038/	1920x1080	35	?	Pexels License	イメージ／Pexels・paashuu	cc16 の本体 0〜10.4秒（10-06 ⑤b-1 で足した）
+S#48	stock	px_4693664.mp4	https://www.pexels.com/video/low-angle-view-of-condominiums-4693664/	1920x1080	24	?	Pexels License	イメージ／Pexels・Luis Quintero	cb08 の本体 0〜9.5秒（10-06 ⑤b-1 で足した）
+S#49	stock	px_39933092.mp4	https://www.pexels.com/video/construction-drilling-rig-in-action-at-worksite-39933092/	1920x1080	11	?	Pexels License	イメージ／Pexels・Sergei Starostin	cb15 の本体 0〜8.5秒（10-06 ⑤b-1 で足した）
