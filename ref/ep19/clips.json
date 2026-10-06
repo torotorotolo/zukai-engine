@@ -160,6 +160,52 @@
   "rights": "A推定（大学の撮影の可能性）",
   "scan": "out/jiko/foot/ep19_scan/B8.mp4"
  },
+ "GIF": {
+  "url": "https://www.nist.gov/disaster-and-failure-studies/champlain-towers-south-collapse/news-and-updates",
+  "media": "https://www.nist.gov/sites/default/files/images/2026/06/22/PunchingShear_001.gif",
+  "range": true,
+  "credit": "出典：NIST",
+  "src": "nist",
+  "at": 0.0,
+  "date": null,
+  "what": "既出（旧版）・10-07 ⑤b-7c：前の URL（styles/2800…）は 404＝元の GIF（17,825,691 バイト・167コマ・25fps・6",
+  "w": 1920,
+  "h": 1080,
+  "fps": 25.0,
+  "sar": "1:1",
+  "sec": 6.68,
+  "size": 17800000,
+  "dispw": 1920,
+  "decoded": [
+   1920,
+   1080
+  ],
+  "rights": "A",
+  "scan": "out/jiko/foot/ep19_scan/GIF.mp4"
+ },
+ "PC": {
+  "url": "https://www.nist.gov/disaster-and-failure-studies/champlain-towers-south-collapse/news-and-updates",
+  "media": "https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_sem63924/format/url/protocol/https/flavorParamId/0",
+  "range": true,
+  "credit": "出典：NIST（証拠の部材の点群）",
+  "src": "nist",
+  "at": 0.0,
+  "date": null,
+  "what": "1768x1080 の軽い版 23MB あり",
+  "w": 5344,
+  "h": 3264,
+  "fps": 30.0,
+  "sar": "1:1",
+  "sec": 46.8,
+  "size": 891200000,
+  "dispw": 5344,
+  "decoded": [
+   5344,
+   3264
+  ],
+  "rights": "A推定",
+  "scan": "out/jiko/foot/ep19_scan/PC.mp4"
+ },
  "px_5571839": {
   "url": "https://www.pexels.com/video/water-dripping-on-welded-metal-pipes-5571839/",
   "media": "https://videos.pexels.com/video-files/5571839/5571839-hd_1920_1080_24fps.mp4",
@@ -473,7 +519,7 @@
   "media": "https://videos.pexels.com/video-files/11287848/11287848-uhd_2560_1440_24fps.mp4",
   "stock": true,
   "file": "stock/media/px_11287848.mp4",
-  "credit": "イメージ（フリー素材）：Pexels／Şaban Karabeli",
+  "credit": "イメージ（フリー素材）：Pexels／Saban Karabeli",
   "src": "stock",
   "at": 0.0,
   "date": "2022-02-24",
@@ -597,5 +643,28 @@
   ],
   "rights": "A推定（大学の撮影の可能性）",
   "scan": "out/jiko/foot/ep19_scan/TL.mp4"
+ },
+ "TLS": {
+  "url": "https://www.nist.gov/disaster-and-failure-studies/champlain-towers-south-collapse/news-and-updates",
+  "media": "https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_zno86q01/format/url/protocol/https/flavorParamId/0",
+  "range": true,
+  "credit": "出典：NIST（据え付けのタイムラプス）",
+  "src": "nist",
+  "at": 0.0,
+  "date": null,
+  "what": "—",
+  "w": 3840,
+  "h": 2160,
+  "fps": 23.976,
+  "sar": "1:1",
+  "sec": 10.4,
+  "size": 42900000,
+  "dispw": 3840,
+  "decoded": [
+   3840,
+   2160
+  ],
+  "rights": "A推定（大学の撮影の可能性）",
+  "scan": "out/jiko/foot/ep19_scan/TLS.mp4"
  }
 }

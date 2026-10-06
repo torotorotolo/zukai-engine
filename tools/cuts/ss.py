@@ -188,6 +188,15 @@ def head(cid, until=1, **kw):
     return dict(foot=True, until=until, photo=f"{EP}stock/fb_{cid}.jpg" if stock else fb(cid), **kw)
 
 
+def tailv(cid, at, **kw):
+    """🆕 19本目 ⑤b-7c（2026-10-07）：映像の差し込み（尻）の tail＝カットの at 行目（0 から）を読み始める少し前から最後まで
+    `footage.USE["<cid>~t"]`（tail=True）の映像。ひかえの静止画＝`fb_<cid>~t.jpg`（`qa_out/<回>_assets.py fb`）。
+    記録映画は t と s（写っているもの）を書く・フリー素材は書かない（頭の映像と同じ板＝scene_jiko._foot_top）"""
+    import footage as _FO
+    stock = (_FO.CLIPS.get((_FO.USE.get(cid + "~t") or {}).get("clip")) or {}).get("stock")
+    return dict(foot=True, at=at, photo=f"{EP}stock/fb_{cid}~t.jpg" if stock else fb(cid + "~t"), **kw)
+
+
 # ══════════════════════════════════════════════════════════
 #  🔴🔴 継承（ShareAlike）つきの点＝**額装だけ**（13本目・10本目の決めと同じ）
 # ══════════════════════════════════════════════════════════
@@ -265,7 +274,14 @@ def check_frame_only(spec):
         # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）は寄る（build_jiko.tail_frame）＝継承つきは使えない
         tail_ph = (s.get("tail") or {}).get("photo")
         if tail_ph in fo:
-            bad.append(f"{cid}＝tail の {tail_ph}（{fo[tail_ph]}）: 尻の差し込みは寄る（端を切る）＝継承つきは使えない")
+            # 🆕 19本目 ⑤b-7c（2026-10-07）：`still=True`（寄らない＝build_jiko.tail_frame）・panel=True・color=1.0 で、切る・重ねる
+            #   書き方が無ければ額装の約束どおり（c618＝諮問委員会の資料 p.47・映像のコマは引用）。それ以外は今までどおり止める
+            tl = s["tail"]
+            tw = [k for k in _BREAKS_FRAME + ("zoom", "hl") if tl.get(k) is not None]
+            if not (tl.get("still") and tl.get("panel") and float(tl.get("color", 0.0)) == 1.0) or tw:
+                bad.append(f"{cid}＝tail の {tail_ph}（{fo[tail_ph]}）: 尻の差し込みは寄る（端を切る）＝額装だけの点は "
+                           f"still=True・panel=True・color=1.0 で切る書き方なしのときだけ{('（' + '・'.join(tw) + '）') if tw else ''}")
+            seen.setdefault(tail_ph, []).append(cid)
         lic = fo.get(ph)
         if lic is None:
             continue
@@ -498,8 +514,7 @@ ILLU_SUB_EXC = {}                           # 上の上限の例外＝{カット
 ILLU_SUB_STOP = None                        # 艦の絵を止めたカット（これより後に潜水艦を置かない）
 ILLU_BOOM_CUTS = ()                         # 音の輪（9時18.1分の型）を置いてよいカット（門番 ⑰）
 ILLU_MIX_TODO = {                           # 混ざりの本物の側のつなぎ待ち＝{カットID: 理由}（門番 ⑦）
-    "c618": "2行目からの尻の頁（NIST の資料 A01 p.47〜51・監視カメラのコマに NIST の印＝決め②）は ⑤b-7b",
-}
+}                                           # ✅ ⑤b-7c（10-07）：c618 の尻の頁（A01 p.47）をつないだ＝空
 ILLU_MIX_BUNDLE = REF / "credits.json"      # 束ができたか（混ざりのつなぎ待ちの終わり）を見るファイル
 
 # 🔴 2026-10-06（19本目 ⑤b-1）：空にした（18本目は割れる時刻・出典の名つきの点を使わなかった＝空のままの値＝`tools/fixture_ep18.py`）

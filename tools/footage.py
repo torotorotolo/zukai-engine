@@ -469,10 +469,12 @@ USE = {
     "c102": dict(clip="B1", start=35.65, still=True, until=36.65),   # #4（30〜45秒）・使える 3.90秒（33.7〜37.6）／要る 7.08秒
     "c103": dict(clip="B1", start=18.90, until=24.90, rate=0.83),   # #3（18〜30秒）・使える 6.00秒（18.9〜24.9）／要る 7.17秒
     "c104": dict(clip="B2", start=111.75, still=True, until=112.75),   # #27（110〜114秒）・使える 3.10秒（110.2〜113.3）／要る 5.90秒
-    "c105": dict(clip="B5", start=121.40, until=125.80, rate=0.91, head=True),   # #17（120〜129秒）・使える 4.40秒（121.4〜125.8）／要る 4.79秒
+    "c104~t": dict(clip="B2", start=92.60, until=95.90, rate=0.98, tail=True),   # #24（92〜96秒）・使える 3.30秒（92.6〜95.9）／要る 3.35秒
+    "c105": dict(clip="B5", start=121.40, until=125.80, rate=0.91, head=True),   # #16（120〜129秒）・使える 4.40秒（121.4〜125.8）／要る 4.79秒
     "c106": dict(clip="B7", start=41.50, until=46.20, rate=0.87),   # #6（41〜46秒）・使える 4.70秒（41.5〜46.2）／要る 5.38秒
+    "c106~t": dict(clip="B5", start=28.60, until=38.30, rate=1.0, tail=True),   # #4（28〜38秒）・使える 9.70秒（28.6〜38.3）／要る 8.45秒
     "c201": dict(clip="px_8060076", start=0.00, until=9.70, rate=0.96),   # #0（0〜17秒）・使える 9.70秒（0〜9.7）／要る 10.03秒
-    "c202": dict(clip="B1", start=7.20, until=9.90, rate=0.8, head=True),   # #1（7〜10秒）・使える 2.70秒（7.2〜9.9）／要る 3.37秒
+    "c202": dict(clip="B1", start=7.40, until=9.90, rate=0.74, head=True, zoom=1.68, xbias=0.02, bias=0.42),   # #1（7〜10秒）・使える 2.50秒（7.4〜9.9）／要る 3.37秒
     "c213": dict(clip="B2", start=44.00, until=51.90, rate=1.0),   # #10（44〜52秒）・使える 7.90秒（44〜51.9）／要る 7.30秒
     "c301": dict(clip="B7", start=94.20, until=104.00, rate=0.78),   # #17（94〜104秒）・使える 9.80秒（94.2〜104）／要る 12.47秒
     "c308": dict(clip="px_7829491", start=1.00, until=10.70, rate=0.9),   # #0（0〜30秒）・使える 9.70秒（1〜10.6986）／要る 10.76秒
@@ -489,21 +491,24 @@ USE = {
     "c623": dict(clip="B1", start=116.75, still=True, until=117.75),   # #11（114〜120秒）・使える 3.50秒（115〜118.5）／要る 6.24秒
     "c705": dict(clip="B1", start=53.50, until=57.20, rate=0.65),   # #6（53〜57秒）・使える 3.70秒（53.5〜57.2）／要る 5.67秒
     "c711": dict(clip="TFV", start=8.20, until=16.30, rate=0.96),   # #1（8〜28秒）・使える 8.10秒（8.2〜16.3）／要る 8.41秒
-    "c718": dict(clip="B5", start=56.20, until=61.00, rate=0.9),   # #8（56〜64秒）・使える 4.80秒（56.2〜61）／要る 5.30秒
+    "c718": dict(clip="B5", start=56.20, until=61.00, rate=0.9),   # #7（56〜64秒）・使える 4.80秒（56.2〜61）／要る 5.30秒
+    "c718~t": dict(clip="PC", start=0.00, until=6.00, rate=1.0, tail=True),   # #0（0〜25秒）・使える 6.00秒（0〜6）／要る 5.64秒
+    "c802": dict(clip="GIF", start=0.00, until=6.68, rate=0.91),   # #0（0〜7秒）・使える 6.68秒（0〜6.68）／要る 7.27秒
     "c808": dict(clip="B8", start=142.40, until=153.60, rate=1.0),   # #21（142〜154秒）・使える 11.20秒（142.4〜153.6）／要る 10.75秒
     "c809": dict(clip="B8", start=188.00, until=198.00, rate=1.0),   # #26（184〜204秒）・使える 10.00秒（188〜198）／要る 9.91秒
     "c810": dict(clip="B8", start=198.20, until=203.80, rate=1.0),   # #26（184〜204秒）・使える 5.60秒（198.2〜203.8）／要る 4.82秒
     "c820": dict(clip="B2", start=88.10, until=91.90, rate=0.61),   # #23（88〜92秒）・使える 3.80秒（88.1〜91.9）／要る 6.19秒
     "c901": dict(clip="B3", start=40.00, until=46.00, rate=0.67),   # #10（40〜46秒）・使える 6.00秒（40〜46）／要る 8.90秒
-    "c912": dict(clip="B5", start=102.00, until=109.00, rate=0.73),   # #14（100〜109秒）・使える 7.00秒（102〜109）／要る 9.52秒
+    "c912": dict(clip="B5", start=102.00, until=109.00, rate=0.73),   # #13（100〜109秒）・使える 7.00秒（102〜109）／要る 9.52秒
     "c920": dict(clip="B6", start=49.38, still=True, until=50.38),   # #10（46〜52秒）・使える 4.75秒（47〜51.75）／要る 9.05秒
-    "c922": dict(clip="B5", start=39.00, until=46.50, rate=0.81),   # #6（38〜50秒）・使える 7.50秒（39〜46.5）／要る 9.15秒
+    "c922": dict(clip="B5", start=39.00, until=46.50, rate=0.81),   # #5（38〜50秒）・使える 7.50秒（39〜46.5）／要る 9.15秒
+    "ca06": dict(clip="TLS", start=2.00, until=10.00, rate=1.0, zoom=1.23, xbias=1.0, bias=0.0),   # #0（0〜10秒）・使える 8.00秒（2〜10）／要る 6.86秒
     "ca08": dict(clip="TL", start=0.00, until=6.80, rate=0.98),   # #0（0〜7秒）・使える 6.80秒（0〜6.8）／要る 6.91秒
     "ca12": dict(clip="TFV", start=3481.30, until=3501.00, rate=1.0),   # #167（3481〜3501秒）・使える 19.70秒（3481.3〜3501）／要る 6.51秒
     "ca15": dict(clip="TFV", start=3501.40, until=3525.10, rate=1.0),   # #168（3501〜3525秒）・使える 23.70秒（3501.4〜3525.1）／要る 5.38秒
     "ca17": dict(clip="TFV", start=3525.50, until=3541.30, rate=1.0),   # #169（3525〜3542秒）・使える 15.80秒（3525.5〜3541.3）／要る 12.13秒
     "cb01": dict(clip="B2", start=13.00, still=True, until=14.00),   # #2（11〜14秒）・使える 2.00秒（12〜14）／要る 8.66秒
-    "cb02": dict(clip="pb_52888", start=1.00, until=6.10, rate=0.9, head=True),   # #0（0〜20秒）・使える 5.10秒（1〜6.09589）／要る 5.61秒
+    "cb02": dict(clip="pb_52888", start=1.00, until=6.10, rate=0.9, head=True, zoom=1.55, xbias=0.0, bias=0.49),   # #0（0〜20秒）・使える 5.10秒（1〜6.09589）／要る 5.61秒
     "cb08": dict(clip="px_4693664", start=0.00, until=9.50, rate=1.0),   # #0（0〜10秒）・使える 9.50秒（0〜9.5）／要る 9.01秒
     "cb15": dict(clip="px_39933092", start=0.00, until=8.50, rate=1.0),   # #0（0〜11秒）・使える 8.50秒（0〜8.5）／要る 7.57秒
     "cb16": dict(clip="B1", start=74.00, until=77.80, rate=0.82),   # #8（66〜85秒）・使える 3.80秒（74〜77.8）／要る 4.62秒
@@ -960,8 +965,11 @@ def probe_media(url, timeout=45):
             # 🔴 2026-09-23（12本目 ⑤b-2）：Commons の `.ogv`（Ogg Theora）は `application/ogg` で返る
             #    （RFC 5334 の Ogg の容れ物の型）。頁（text/html）ではないので通す。大きさと区間読みは下で見る
             # 🆕 2026-10-05（18本目 ⑤b-7c）：Pixabay の CDN は mp4 を `binary/octet-stream` で返す（Pexels は video/mp4）＝通す
-            if not ct.startswith(("video/", "audio/", "application/octet-stream", "binary/octet-stream",
-                                  "application/ogg")):
+            # 🆕 2026-10-07（19本目 ⑤b-7c）：NIST の動く図の GIF（c802・PunchingShear_001.gif）は `image/gif`＝動く絵の容れ物で
+            #    頁ではない＝URL が .gif で終わるときだけ通す（ffmpeg の gif の口で読む・17.8MB）
+            gif = ct == "image/gif" and url.lower().split("?")[0].endswith(".gif")
+            if not gif and not ct.startswith(("video/", "audio/", "application/octet-stream", "binary/octet-stream",
+                                              "application/ogg")):
                 why = f"Content-Type が `{ct or '空'}`＝動画でない（頁を渡している）"
             elif ln < 1_000_000:
                 why = f"Content-Length {ln} が小さすぎる＝媒体でない"
@@ -1052,7 +1060,7 @@ def credit_of(cid):
     """カットまるごとの映像の出典。🆕 18本目 ⑤b-7c：映像の差し込み（頭＝head）の欄は None＝本の写真・頁の出典をそのまま出す
     （差し込みの出典は差し込みの層 `{cid}_ilab` が出す＝scene_jiko.head_top）"""
     u = USE.get(cid)
-    return CLIPS[u["clip"]]["credit"] if u and not u.get("head") else None
+    return CLIPS[u["clip"]]["credit"] if u and not u.get("head") and not u.get("tail") else None
 
 
 def secs_of():
@@ -1066,6 +1074,17 @@ def secs_of():
             if h is None:
                 raise SystemExit(f"🔴 {cid}: USE は head=True なのに SPEC に intro=dict(foot=True, …) が無い")
             out[cid] = h
+        # 🆕 19本目 ⑤b-7c（2026-10-07）：尻の差し込み（映像・写真・頁）のあるカットの本体＝差し込みが入りきるまで
+        #   （ins_sec＋入れ替えの秒＝`qa_out/ep19_assets.py` の _need と同じ式）。尻のあとの秒まで数えるとショットの終わりを越える
+        tl = (S.SPEC.get(cid) or {}).get("tail")
+        if tl and not u.get("head") and cid in out:
+            out[cid] = round(S.ins_sec(cid, int(tl["at"])) + S.INTRO_X, 3)
+        # 🆕 19本目 ⑤b-7c（2026-10-07）：尻の映像の差し込み＝鍵 `<cid>~t`（tail=True）・秒は差し込みが出てから尺の終わりまで
+        if u.get("tail") and cid.endswith(S.TAIL_KEY) and cid[:-len(S.TAIL_KEY)] in out:
+            h = S.tail_secs(cid[:-len(S.TAIL_KEY)])
+            if h is None:
+                raise SystemExit(f"🔴 {cid}: USE は tail=True なのに SPEC に tail=dict(foot=True, …) が無い")
+            out[cid] = h
     return out
 
 
@@ -1078,6 +1097,9 @@ def head_mismatch(use=None, spec=None):
         spec = S.SPEC
     a = {c for c, u in use.items() if u.get("head")}
     b = {c for c, s in spec.items() if ((s or {}).get("intro") or {}).get("foot")}
+    # 🆕 19本目 ⑤b-7c：尻の映像も同じ（USE の `<cid>~t` tail=True ⇔ SPEC の tail foot）
+    a |= {c for c, u in use.items() if u.get("tail")}
+    b |= {c + "~t" for c, s in spec.items() if ((s or {}).get("tail") or {}).get("foot")}
     return sorted(a - b), sorted(b - a)
 
 

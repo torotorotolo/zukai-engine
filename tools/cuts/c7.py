@@ -158,7 +158,8 @@ SPEC = {
     "c717": dict(t="倉庫への運び出し", s="番号を書いて並べた床版と柱（2021年7月）",
                  photo=P("n20_police_escort"), **ss.kind(P("n20_police_escort"))),
     # c718＝2行目（点群のフライスルー PC）は尻の映像の差し込み＝⑤b-7c
-    "c718": ss.vid("c718", t="記録された証拠", s="倉庫の証拠（2023年）"),
+    "c718": ss.vid("c718", t="記録された証拠", s="倉庫の証拠（2023年）",
+                   tail=ss.tailv("c718", at=1, t="測った証拠の形", s="証拠の部材の点群（約17億点）")),
     "c720": dict(t="ここからは原因", s="空中写真を見る NIST の調査団",
                  photo=P("n44_aerial_photos"), **ss.kind(P("n44_aerial_photos"))),
 }

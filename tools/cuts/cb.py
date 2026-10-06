@@ -17,7 +17,7 @@ PLAN = {
     'cb01': dict(kind='写真',
                plan='B2@12–14（ss_b2_87park の秒）｜副題：南どなりの 87パーク と現場（2021年）｜権利：A推定｜注：札「言われていた話」・重機の CAT はもとから在る字。2秒の区間＝9.0秒は伸ばしすぎ＝13秒のコマ（ss_b2_87park）を静止画で受けるか、走査で 87パーク の写る別の秒',
                src='TR0454（`87 Park is an 18-story luxury condominium built just south of CTS and completed in 2019.`）'),
-    'cb02': dict(kind='図解',
+    'cb02': dict(kind='混ざり',       # ⑤b-7c の qa_all（textscreens E）：1行目が映像の差し込み（頭・フリー素材）＋図＝混ざり（c105 と同じ数え方）
                plan='模式図（台本のまま）｜差し込み（head）：1 S#38  5.1秒 S#38（基礎の工事の現場と重機）｜副題：イメージ｜札：イメージ（差し込み）｜権利：Pixabay Content License｜注：杭打ち機の素材は0本＝基礎の工事の重機',
                src='TR0455（`The northern boundary of the soil excavation for the construction of 87 Park was close to the southern boundary of CTS.`）・TR0456（`approximately 9 feet away from the south basement wall of CTS`）'),
     'cb03': dict(kind='図解',
@@ -72,8 +72,10 @@ SPEC = {
     # ── 🆕 ⑤b-4（2026-10-06）：模式図（`tools/mech19.py`・門番 check_mech の judge_m19）──
     # cb02（13.46秒＝0〜4.47／4.96〜8.73／9.22〜13.46）＝87パークの掘削と鋼の板（TR0455・0456・TF p9169）。
     #   🔴 頭に差し込み（S#38 基礎の工事の重機・5.1秒・「イメージ」）＝⑤b-7 で差し込みの層。図の1段目は差し込みの下に隠れる
+    #   ✅ ⑤b-7c：寄せ（USE の zoom 1.55・xbias 0・bias 0.49＝切り口 x 0〜1652・y 250〜1179）で重機の LIEBHERR の字（x 1877 より右）を外した
     "cb02": dict(
         t="となりの工事", s="鋼の板を打ち込んだ",
+        intro=ss.head("cb02"),
         fig=("m19", dict(view="excav",
                          steps=[dict(state=dict(pit="on"), delay=0.3, tag=dict(t="87パークの掘った所", at="pit", to="pit")),
                                 dict(state=dict(drive="on"), delay=0.3, tag=dict(t="鋼の板を揺らしながら打ち込む", at="pile", to="pile")),

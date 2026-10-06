@@ -41,7 +41,8 @@ HERE = Path(__file__).parent
 #   この門番はまた「実写の欄が1つも見つからない」で exit 2 を出した。
 #   → **新しい書き方を足すたびに、ここも足す。**逆に、ここに無い書き方で書かない。
 #   🆕 2026-10-05（18本目 ⑤b-7c）：映像の差し込み（頭）＝`intro=ss.head("c109")`（footage.USE の head=True）も拾う
-FB = re.compile(r'(?:photo=ss\.fb\("(\w+)"\)|ss\.rg\(\s*"(\w+)"|ss\.vid\(\s*"(\w+)"|ss\.head\(\s*"(\w+)")')
+#   🆕 2026-10-07（19本目 ⑤b-7c）：映像の差し込み（尻）＝`tail=ss.tailv("c104", …)`（footage.USE の鍵 `c104~t`・tail=True）
+FB = re.compile(r'(?:photo=ss\.fb\("(\w+)"\)|ss\.rg\(\s*"(\w+)"|ss\.vid\(\s*"(\w+)"|ss\.head\(\s*"(\w+)"|ss\.tailv\(\s*"(\w+)")')
 
 
 def slots(cutdir=None):
@@ -56,6 +57,9 @@ def slots(cutdir=None):
         if f.name in ("__init__.py", "ss.py"):
             continue
         for m in FB.finditer(f.read_text(encoding="utf-8")):
+            if m.group(5):
+                out[m.group(5) + "~t"] = f.name                 # 尻の映像の欄（scene_jiko.TAIL_KEY）
+                continue
             out[m.group(1) or m.group(2) or m.group(3) or m.group(4)] = f.name
     return out
 

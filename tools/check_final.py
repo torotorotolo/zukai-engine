@@ -62,7 +62,8 @@ def expected():
                for c in dur), len(dur)
 
 
-CH_RE = re.compile(r"^\s*#\s*─+\s*第(\d+)章[　\s]+(.+?)(?:（|\(|\s*─|$)")
+# 🆕 2026-10-07（19本目 ⑤b-7c）：台本の最後の章が「終章　その後」（番号なし）＝直前の章の次の番号として読む
+CH_RE = re.compile(r"^\s*#\s*─+\s*(?:第(\d+)章|(終)章)[　\s]+(.+?)(?:（|\(|\s*─|$)")
 
 
 def script_chapters():
@@ -76,8 +77,8 @@ def script_chapters():
     for ln in src.read_text(encoding="utf-8").splitlines():
         m = CH_RE.match(ln)
         if m:
-            n = int(m.group(1))
-            name = m.group(2).strip().rstrip("─ 　")
+            n = int(m.group(1)) if m.group(1) else max(out, default=0) + 1
+            name = m.group(3).strip().rstrip("─ 　")
             if n in out and out[n] != name:
                 raise SystemExit(f"🔴 台本に第{n}章の見出しが2通りある: "
                                  f"{out[n]!r} と {name!r}")

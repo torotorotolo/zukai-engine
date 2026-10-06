@@ -1242,5 +1242,34 @@
   "ground": "A",
   "url": "NIST 技術的知見の動画（2026年6月）",
   "blur": []
+ },
+ "ncst_p047": {
+  "code": "TF頁",
+  "file": "ep19/src/nist_ncstac_2026-09_CTSupdate.pdf#p47",
+  "cut": "c618",
+  "credit": "出典：NIST（諮問委員会の資料 2026年9月 p.47）・映像のコマ：© 2021 Used with permission",
+  "note": "諮問委員会の資料の頁を焼いた（⑤b-7c・決め②）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1920,
+   1080
+  ],
+  "w": 1920,
+  "h": 1080,
+  "md5": "7cfd36702f7f7e7d0149221d4f14b3d1",
+  "src_md5": "3de7e4dbd18dddec924e6fcb7d8bdeb1",
+  "lic": "Public domain（映像のコマは引用）",
+  "frame": true,
+  "ground": "A＋第三者（引用）",
+  "url": "NIST 諮問委員会（NCST Advisory Committee）2026年9月の資料",
+  "blur": [],
+  "year": 2021
  }
 }

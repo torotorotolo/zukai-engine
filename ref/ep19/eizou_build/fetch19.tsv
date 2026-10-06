@@ -34,7 +34,7 @@ N#19	photo	c716	n19_lidar.jpg	https://www.nist.gov/sites/default/files/images/20
 N#20	photo	c717	n20_police_escort.jpg	https://www.nist.gov/sites/default/files/images/2021/07/15/IMG_0428.JPG	2800x2100	—	5.72	A	出典：NIST	—
 PC	anim	c718	pc_flythrough.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_sem63924/format/url/protocol/https/flavorParamId/0	5344x3264	46.8	891.2	A推定	出典：NIST（証拠の部材の点群）	1768x1080 の軽い版 23MB あり
 N#44	photo	c720	n44_aerial_photos.jpg	https://www.nist.gov/sites/default/files/images/2024/11/21/CNST%20CTS%20Update%20Dec-2.jpg	2800x1473	—	4.93	A	出典：L. Gerskovic/NIST	—
-GIF	anim	c802	gif_punching_shear.gif	https://www.nist.gov/sites/default/files/styles/2800_x_2800_limit/public/images/2026/06/22/PunchingShear_001.gif	1920x1080	167コマ	?	A	出典：NIST	既出（旧版）
+GIF	anim	c802	gif_punching_shear.gif	https://www.nist.gov/sites/default/files/images/2026/06/22/PunchingShear_001.gif	1920x1080	6.68	17.8	A	出典：NIST	既出（旧版）・10-07 ⑤b-7c：前の URL（styles/2800…）は 404＝元の GIF（17,825,691 バイト・167コマ・25fps・6.68秒）
 B8	film	c808 c809 c810	b8_reel8.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_lebmphjw/format/url/protocol/https/flavorParamId/0	3840x2160	207.0	862.6	A推定（大学の撮影の可能性）	出典：NIST（B-Roll #8）	128秒の表題カードの後＝ワシントン大学・前＝ミネソタ大学
 tf_p084_salt	page	c811	ref/surfside/tf_p084_salt.jpg	既出	—	—	—	A	出典：NIST	—
 N#70	photo	c812	n70_slab_cracks.jpg	https://www.nist.gov/sites/default/files/images/2025/06/23/NCST%20Investigation%20Update%20June%202025%20%288%20of%207%29.jpg	2800x1608	—	3.39	A	出典：NIST	—

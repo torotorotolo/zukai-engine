@@ -765,7 +765,7 @@ def ep19_credit(name):
         return None
     # 🆕 ⑤b-2（2026-10-06）：映像のひかえの静止画（`ss.vid`・`ss.head` の fb_<カット>）＝その映像の1コマ＝出典は映像と同じ
     #   （footage.USE のクリップの credit）。コマを切り出していない手元・切り出しに失敗した焼きで、写真の表を引いて止まらないように
-    m = re.fullmatch(r"ep19/(?:stock/)?fb_(c[0-9a-f]{3})\.jpg", name)
+    m = re.fullmatch(r"ep19/(?:stock/)?fb_(c[0-9a-f]{3}(?:~t)?)\.jpg", name)     # ~t＝尻の映像（⑤b-7c）
     if m:
         import footage as _FO
         u = _FO.USE.get(m.group(1))
@@ -1904,6 +1904,9 @@ SUB_MUTE = {}
 #  尻＝`tail=dict(photo=, trim=, bias=, panel=, color=, t=, s=, at=k)`：k 行目を読み始める少し前から写真・頁へ入れ替える。
 #      見出し・副題・出典は写真のカットと同じ板（`full_top`）。🔴 **測られない頁を作らない**（ルール §5b-115⑥）＝門番 edges・
 #      blank・slide は `tail_specs()` の仮の鍵 `<cid>~t` も測る（`check_slide.production_inputs`）
+#  🆕 19本目 ⑤b-7c（2026-10-07）：尻の**映像**＝`tail=dict(foot=True, at=k, t=, s=, photo=<ひかえの静止画>)`（`ss.tailv`）。
+#      素材と秒は `footage.USE["<cid>~t"]`（`tail=True`）＝切り出す長さは `tail_secs()`（差し込みが出てから尺の終わりまで）。
+#      箱・板は頭の映像と同じ（`foot_box`・`_foot_top`）。寄りは掛けない（動く絵に寄りを重ねない）＝寄せは USE の zoom・xbias・bias
 #  ⚠️ 15本目までの「冒頭の写真・頁（intro の photo）」「冒頭の絵（intro の illu）」は図のカットだけ（今までどおり）
 INTRO_X = 0.6          # 入れ替えの秒（build_jiko.INTRO_X はここを読む＝2か所に書かない）
 TAIL_KEY = "~t"
@@ -1944,12 +1947,23 @@ def head_secs(cid):
     return round(ins_sec(cid, int(it.get("until", 1))) + INTRO_X, 3)
 
 
+def tail_secs(cid):
+    """🆕 19本目 ⑤b-7c：尻の映像の差し込みが画面に出る秒＝入れ替えの始まりからカットの中身の終わりまで。無ければ None"""
+    tl = (SPEC.get(cid) or {}).get("tail") or {}
+    if not tl.get("foot"):
+        return None
+    dur = dict(CUTS)[cid] - card_of(cid)
+    return round(dur - ins_sec(cid, int(tl["at"])), 3)
+
+
 def foot_clip(cid):
-    """映像の差し込みの素材（footage.CLIPS の1件）と USE の欄。🔴 USE に head=True の欄が無ければ止める（fail closed）"""
+    """映像の差し込みの素材（footage.CLIPS の1件）と USE の欄。🔴 USE に head=True の欄が無ければ止める（fail closed）。
+    🆕 19本目 ⑤b-7c：尻の映像は鍵 `<cid>~t`（TAIL_KEY）＝tail=True の欄"""
     import footage as FO
     u = FO.USE.get(cid)
-    if not u or not u.get("head"):
-        raise SystemExit(f"{cid}: intro に foot（映像の差し込み）を書いたのに footage.USE に head=True の欄が無い")
+    want = "tail" if cid.endswith(TAIL_KEY) else "head"
+    if not u or not u.get(want):
+        raise SystemExit(f"{cid}: 映像の差し込みを書いたのに footage.USE に {want}=True の欄が無い")
     return FO.CLIPS[u["clip"]], u
 
 
@@ -1975,9 +1989,13 @@ def stock_chip():
 
 def head_top(cid, spec):
     """映像の差し込み（頭）の上の層 `{cid}_ilab`：額の縁・「イメージ」の札か見出し・右上の章・出典。地は `{cid}_ibg`"""
-    c, _ = foot_clip(cid)
-    it = spec["intro"]
-    box = foot_box(cid)
+    return _foot_top(cid, cid, spec["intro"])
+
+
+def _foot_top(key, cid, it):
+    """映像の差し込みの板（頭＝鍵 cid・尻＝鍵 `<cid>~t`）。it＝intro か tail の dict（t・s）"""
+    c, _ = foot_clip(key)
+    box = foot_box(key)
     g = []
     if box != PHOTO_FULL:
         x, y, w, h = box
@@ -2064,7 +2082,8 @@ def _ins_layers(cid, spec, jobs):
     ts = tail_spec(cid)
     if ts:
         jobs[f"{cid}_tbg"] = full_bg()
-        jobs[f"{cid}_tlab"] = full_top(cid, ts)
+        # 🆕 19本目 ⑤b-7c：尻の映像（foot）＝頭の映像と同じ板（見出しと副題＝写っているもの・出典は映像の credit）
+        jobs[f"{cid}_tlab"] = _foot_top(cid + TAIL_KEY, cid, ts) if ts.get("foot") else full_top(cid, ts)
 
 
 # ── 14本目 ⑤b-2（2026-09-28）：案C の再現イラスト ────────────────
@@ -2248,7 +2267,11 @@ def layer_index(allow_missing=False):
         # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）＝k 行目を読み始める少し前から（build_jiko.tail_frame）。箱は写真のカットと同じ計算
         ts = tail_spec(cid)
         tail = None
-        if ts:
+        if ts and ts.get("foot"):
+            # 🆕 19本目 ⑤b-7c：尻の映像＝箱は素材の表示の幅で（頭の映像と同じ `foot_box`）・コマは out/jiko/foot/<cid>~t/
+            tbox = foot_box(cid + TAIL_KEY)
+            tail = dict(ts, sec=ins_sec(cid, int(s["tail"]["at"])), box=[int(v) for v in tbox], full=tbox == PHOTO_FULL)
+        elif ts:
             tbox = photo_box(ts)
             tail = dict(ts, sec=ins_sec(cid, int(s["tail"]["at"])), box=[int(v) for v in tbox], full=tbox == PHOTO_FULL,
                         hl=hl_times(cid, ts.get("hl")),            # 🆕 18本目 ⑤b-8（c105）：尻の頁の上の印

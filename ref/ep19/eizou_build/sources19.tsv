@@ -18,7 +18,7 @@ M1	film	m1_mdfr_1yr.mp4	https://www.youtube.com/watch?v=msJTZ7OVMbQ	1920x1080	23
 M5	film	m5_surfsidestrong.mp4	https://www.youtube.com/watch?v=6C10HR7JeB4	1920x1080	21	?	PD-FLGov の可能性	出典：マイアミ・デイド郡	決め①（10-06）＝同上。10-06 取得（out/jiko/foot/ep19_scan/M5.mp4・md5 93efbeb96a0466282507b96887e7647a）→ 中身＝ろうそくと郡の印に英語の追悼の文だけ＝❌ 使わない（決め⑥・字）
 TFV	anim	tfv_1080.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_vezbt9jw/format/url/protocol/https/flavorParamId/487091	1920x1080	4638	795.9	A（©2021 Used with permission の部分を除く）	出典：NIST（技術的知見の動画・2026年6月）	走査は 1080 版（796MB）。使う秒は元の 3840x2160 版（9,147.8MB・flavor 0）から footage.fetch で切り出す（丸ごとは落とさない）
 PC	anim	pc_flythrough.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_sem63924/format/url/protocol/https/flavorParamId/0	5344x3264	46.8	891.2	A推定	出典：NIST（証拠の部材の点群）	1768x1080 の軽い版 23MB あり
-GIF	anim	gif_punching_shear.gif	https://www.nist.gov/sites/default/files/styles/2800_x_2800_limit/public/images/2026/06/22/PunchingShear_001.gif	1920x1080	167コマ	?	A	出典：NIST	既出（旧版）
+GIF	anim	gif_punching_shear.gif	https://www.nist.gov/sites/default/files/images/2026/06/22/PunchingShear_001.gif	1920x1080	6.68	17.8	A	出典：NIST	既出（旧版）・10-07 ⑤b-7c：前の URL（styles/2800…）は 404＝元の GIF（17,825,691 バイト・167コマ・25fps・6.68秒）
 N#3	photo	n03_chloride.jpg	https://www.nist.gov/sites/default/files/images/2022/06/15/Ruthie%20Corzo.jpg	2738x2800	—	6.21	A	出典：NIST	縦横ほぼ同じ＝額装
 N#11	photo	n11_column_move.jpg	https://www.nist.gov/sites/default/files/images/2021/08/25/KAM_3753%20%28july7th%29.JPG	2800x1867	—	8.17	A	出典：NIST	—
 N#13	photo	n13_laydown.jpg	https://www.nist.gov/sites/default/files/images/2021/08/25/NIST%20team%20July2.jpg	2800x1477	—	3.72	A	出典：NIST	—

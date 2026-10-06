@@ -378,6 +378,19 @@ CLIPS = HERE / "ref" / "ep19" / "clips.json"
 SHOTS = HERE / "ref" / "ep19" / "shots.json"
 FOOTAGE = HERE / "tools" / "footage.py"
 STILL_BELOW = 0.6            # rate がこれを下回る欄は動画にせず止め絵（12本目の教訓＝footage.py の注）
+# 🆕 ⑤b-7c（2026-10-07）：映像の寄せ（USE の zoom・xbias・bias＝build_jiko の `fit`／`_fit_geom` の幾何）。箱は元の画素で、
+#   原寸の切り出し（`ep19_scan.py fcrop`・4コマの目盛り `grid`）で外す物の位置を測ってから決めた
+FRAME = {
+    # c202＝B1 1920×1014 → 全画面 1920×1080：切り口 x 17〜1090・y 172〜776（銘板 640〜1065×240〜512 が入る）。
+    #   左の作業員のヘルメットは x 1110 から・Ford の印は y 800 から（fc_B1_009.8_960_300／620_700）＝どちらも切り口の外
+    "c202": dict(zoom=1.68, xbias=0.02, bias=0.42),
+    # cb02＝pb_52888 2560×1440：切り口 x 0〜1652・y 250〜1179（genzaichi の (0,250)-(1650,1178)）。重機の LIEBHERR の字は
+    #   1〜6.1秒のどのコマでも x 1877 より右（4コマの目盛り grid_pb_52888_001.0）＝切り口の外
+    "cb02": dict(zoom=1.55, xbias=0.0, bias=0.49),
+    # ca06＝TLS 1920×1080：切り口 x 359〜1920・y 0〜878。高所作業車の社名「Genie GS-1930」（3.46秒から x 100〜330・y 860〜960）を
+    #   切り口の外へ（4コマの目盛り grid_TLS_000.0）。右下の NIST の印（y 900〜1000）も外れる
+    "ca06": dict(zoom=1.23, xbias=1.0, bias=0.0),
+}
 
 
 def _list():
@@ -412,9 +425,7 @@ def _uses():
     for u in ML.uses_of(rows):
         if ML.class_of(u["code"]) not in ("film", "anim", "stock"):
             continue
-        if u["role"] == "tail":
-            print(f"⚠️ {u['cid']} 尻の映像の差し込み {u['code']}@{u['rng']}：USE は1カット1欄＝⑤b-7 で差し込みの層として作る（ここには書かない）")
-            continue
+        # 🆕 ⑤b-7c（2026-10-07）：尻の映像の差し込みは USE の別の欄 `<cid>~t`（scene_jiko.TAIL_KEY）＝tail=True
         ab = _rng(u["rng"])
         if ab is None and u["code"] in stk:
             # フリー素材の区間は一覧でなく棚（stock.json）にある＝used_in の「a〜b秒」→ 無ければ ok_ranges の頭から要る秒ぶん
@@ -430,7 +441,7 @@ def _uses():
         if ab is None:
             print(f"⚠️ {u['cid']} {u['code']}：区間が決まっていない＝USE に書けない")
             continue
-        out.append((u["cid"], u["code"], *ab, _need(u["cid"], u["role"], float(u["secs"])), u["role"] == "head"))
+        out.append((u["cid"], u["code"], *ab, _need(u["cid"], u["role"], float(u["secs"])), u["role"]))
     return out
 
 
@@ -453,6 +464,9 @@ def _need(cid, role, est):
     pos, k = _INS.get(cid, (None, 0))
     if role == "head":
         return round(SJ.ins_sec(cid, k) + SJ.INTRO_X, 3)
+    if role == "tail":
+        # 🆕 ⑤b-7c：尻の映像＝差し込みが入る秒（ins_k 行目＝`at=k−1`）からカットの終わりまで（build_jiko.tail_frame の t−sec）
+        return round(secs[cid] - SJ.card_of(cid) - SJ.ins_sec(cid, k - 1), 3)
     if pos == "tail":
         return round(SJ.ins_sec(cid, k - 1) + SJ.INTRO_X, 3)
     return round(secs[cid] - SJ.card_of(cid), 3)
@@ -496,6 +510,12 @@ def cmd_clips():
             sd[k] = dict(src=v["media"], scan=f"ref/stock/media/{k}.mp4", dur=round(dur, 1),
                          how="1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）", shots=sh)
             print(f"  shots.json + {k}（{len(sh)} ショット）")
+        # 🆕 ⑤b-7c（2026-10-07）：NIST の素材で表に無いもの（c802 の GIF＝走査の版 GIF.mp4）も同じ物差しで足す
+        if not v.get("stock") and k not in sd and (SCAN / f"{k}.mp4").exists():
+            sh, dur = SH.shots_of(SCAN / f"{k}.mp4")
+            sd[k] = dict(src=v["media"], scan=f"out/jiko/foot/ep19_scan/{k}.mp4", dur=round(dur, 1),
+                         how="1秒1コマを tools/shots.boundaries（2026-10-07 ⑤b-7c）", shots=sh)
+            print(f"  shots.json + {k}（{len(sh)} ショット）")
     SHOTS.write_text(json.dumps(sd, ensure_ascii=False, indent=1), encoding="utf-8")
     return 0
 
@@ -511,7 +531,10 @@ SHOT_FIX = {
                      113.5: "c104：113.5秒から表題のカード（⑤b-1 の実測・assign19 の c104）"}},
     "B1": {"move": {55.0: (53.4, "c705：がれきの山の寄りは 53.4〜57.3秒の1本（fine 49〜67・1秒刻み B1_sec_050.50 を目で見た・10-06 ⑤b-2）")},
            "split": {57.3: "c705：がれきの山の寄りは 57.3秒で次のショット（fine 53〜67＝55.4・10-06 ⑤b-2）"}},
-    "B5": {"join": {105.0: "c912：倉庫の部材のあいだは 100〜109.2秒の1本・104〜105秒はカメラが右へ振れただけ（1秒刻み B5_sec_102.00 を目で見た・10-06 ⑤b-2）"}},
+    "B5": {"move": {28.0: (28.4, "c106 の尻：コンクリートのコア抜きの刃は 28.4秒から（fine 28〜39＝28.4秒 52.4・10-07 ⑤b-7c）"),
+                    38.0: (38.5, "c106 の尻：コア抜きは 38.5秒まで（fine 28〜39＝38.5秒 43.0・10-07 ⑤b-7c）")},
+           "join": {32.0: "c106 の尻：32.7秒の跳び（9.2）は人の足が動いただけ＝同じショット（4コマ grid_B5_032.3 を目で見た・10-07 ⑤b-7c）",
+                    105.0: "c912：倉庫の部材のあいだは 100〜109.2秒の1本・104〜105秒はカメラが右へ振れただけ（1秒刻み B5_sec_102.00 を目で見た・10-06 ⑤b-2）"}},
     "px_8060076": {"join": {8.0: "S#46：0〜12秒はドローンが浜の上を引いていく1本（1秒1コマ stk_46_000・006 を目で見た・10-06）"}},
     "px_39933092": {"join": {2.0: "S#49：2〜3秒は黄色い筒が上から入ってくる動き＝同じ寄りの続き（1秒1コマ stk_49_000 を目で見た・10-06）"}},
 }
@@ -553,7 +576,8 @@ def cmd_use():
     stk = _stock_by_code()
     sd = json.loads(SHOTS.read_text(encoding="utf-8"))
     lines, warn = [], []
-    for cid, code, a, b, need, head in _uses():
+    for cid0, code, a, b, need, role in _uses():
+        cid = cid0 + "~t" if role == "tail" else cid0          # 🆕 ⑤b-7c：尻の映像の差し込みの欄（scene_jiko.TAIL_KEY）
         key = stk[code][0] if code in stk else code
         avail = b - a
         rate = min(1.0, int(avail / need * 100) / 100)
@@ -569,7 +593,8 @@ def cmd_use():
         #   cb01＝B2@12–14 → 13.0秒（⑤b-1 で決めたコマ ss_b2_87park と同じ）
         s0 = round((a + b) / 2, 2) if rate < STILL_BELOW else a
         opt = (f", still=True, until={min(b, s0 + 1.0):.2f}" if rate < STILL_BELOW else f", until={b:.2f}, rate={rate}")
-        opt += ", head=True" if head else ""
+        opt += ", head=True" if role == "head" else ", tail=True" if role == "tail" else ""
+        opt += "".join(f", {k}={v}" for k, v in FRAME.get(cid, {}).items())
         lines.append(f'    "{cid}": dict(clip="{key}", start={s0:.2f}{opt}),   # {where}・使える {avail:.2f}秒（{a:g}〜{b:g}）／要る {need:.2f}秒')
     txt = FOOTAGE.read_text(encoding="utf-8")
     m = re.search(r"(    # EP19_USE>>> ここから[^\n]*\n)(.*?)(    # EP19_USE>>> ここまで)", txt, re.S)
@@ -741,8 +766,30 @@ def cmd_slides():
                      lic="Public domain" if not frame else "Public domain（下地の図は引用）", frame=frame,
                      ground="A" if not frame else "A＋第三者（引用）", url="NIST 技術的知見の動画（2026年6月）", blur=[])
         print(f"✓ {n:16} {w}x{h}  {cuts}{'  額装だけ（引用）' if frame else ''}")
+    # 🆕 ⑤b-7c（2026-10-07）：諮問委員会の資料（A01・文字の層あり）の頁を 1920×1080 に焼く。決め②＝崩落の瞬間は p.47〜51 の頁で引用
+    #   （動く映像は使わない・頁ごと・額装・無加工）。p.47＝南東の防犯カメラのコマ（1:22:19 AM・真ん中の部分が崩れ東の部分へ進む・
+    #   K〜P の柱の印は NIST）＝語りの「最初のコマ」（TR0317）そのものではない＝見出しで「最初のコマ」と名乗らない（c618）
+    import fitz
+    pdf_path = SRC / "nist_ncstac_2026-09_CTSupdate.pdf"
+    pdf = fitz.open(str(pdf_path))
+    for n, (pg, cuts, cr) in NCST_PAGES.items():
+        dst = HERE / "ref" / "ep19" / f"{n}.jpg"
+        pm = pdf[pg - 1].get_pixmap(matrix=fitz.Matrix(2, 2))         # 960×540 pt → 1920×1080
+        Image.frombytes("RGB", (pm.width, pm.height), pm.samples).save(dst, quality=92)
+        w, h = pm.width, pm.height
+        db[n] = dict(code="TF頁", file=f"ep19/src/{pdf_path.name}#p{pg}", cut=cuts, credit=cr,
+                     note="諮問委員会の資料の頁を焼いた（⑤b-7c・決め②）", box=[0.0, 0.0, 1.0, 1.0], crop_px=[0, 0, w, h], w=w, h=h,
+                     md5=md5(dst), src_md5=md5(pdf_path), lic="Public domain（映像のコマは引用）", frame=True,
+                     ground="A＋第三者（引用）", url="NIST 諮問委員会（NCST Advisory Committee）2026年9月の資料", blur=[],
+                     year=2021)          # 頁のコマの日付（左下「6/24/2021」）＝撮影の年
+        print(f"✓ {n:16} {w}x{h}  {cuts}  額装だけ（引用）")
     db_path.write_text(json.dumps(db, ensure_ascii=False, indent=1), encoding="utf-8")
     return 0
+
+
+NCST_PAGES = {   # 名: (頁, 使うカット, 出典の行)
+    "ncst_p047": (47, "c618", "出典：NIST（諮問委員会の資料 2026年9月 p.47）・映像のコマ：© 2021 Used with permission"),
+}
 
 
 #   資料の頁＝スキャンの PDF（文字の層 0字）＝頁を 200dpi の灰色に焼き、Windows の OCR の行で目印を探して切る。
@@ -895,6 +942,8 @@ def cmd_credits(write=False):
     for n, r in sorted(db.items()):
         cuts = r["cut"].split()
         ys = sorted({m.group(1) for c in cuts for m in re.finditer(r"(20\d\d)年", subs.get(c, ""))})
+        if r.get("year"):                 # 🆕 ⑤b-7c：台帳に年を持つ点（ncst_p047＝コマの日付 6/24/2021）は副題でなくそれ
+            ys = [str(r["year"])]
         if len(ys) > 1:
             raise SystemExit(f"🔴 {n}: 当てたカットの副題で年が割れる（{ys}）")
         cj[f"ep19/{n}.jpg"] = credit_line(r)

@@ -158,8 +158,9 @@ def screen_texts(sp):
     # 🔴 2026-09-29（14本目 ⑤b-5）：軸の型（axis）の画面に出ない欄＝記録の頁 rec（画面の出典は src が「PDF N頁」で出す・
     #    割れる時刻の印は rec から資料の名だけを組む＝axis.doc_names）・部品の種類 k・色の名 c・値 at／a／b／cur（画面には
     #    axis.label が「1994年4月1日」「8:52」の形で出す）・軸の範囲 span
+    #    🆕 19本目 ⑤b-7c：基準の時刻の記録の頁 ref_rec（check_axis が REC_AXIS と照らすだけ・axis.py は描かない）
     if f and f[0] == "axis":
-        skip = {"rec", "k", "c", "view", "span", "at", "a", "b", "start", "cur", "ticks", "anchor", "fmt"}
+        skip = {"rec", "k", "c", "view", "span", "at", "a", "b", "start", "cur", "ticks", "anchor", "fmt", "ref_rec"}
     # 🔴 2026-09-29（14本目 ⑤b-6）：量の型（qty）・箱の型（boxes）の画面に出ない欄＝記録の頁 rec・部品の種類 k・色の名 c・
     #    群の id g・値 v（棒の長さ＝数字は画面に書かない）・目盛り ticks（画面には数だけ）・並び order（区分の名と人数）・
     #    まとめ sets・親 parent・行 row／rows・列 col・置き場 x／y／pos・つながり fr／to・id・線の種類 style・層 layout の座標

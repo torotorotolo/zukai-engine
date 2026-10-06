@@ -327,23 +327,21 @@
    },
    {
     "start": 21.0,
-    "until": 28.0,
-    "motion": 1.9
+    "until": 28.4,
+    "motion": 1.9,
+    "fixed": "c106 の尻：コンクリートのコア抜きの刃は 28.4秒から（fine 28〜39＝28.4秒 52.4・10-07 ⑤b-7c）"
    },
    {
-    "start": 28.0,
-    "until": 32.0,
-    "motion": 5.75
+    "start": 28.4,
+    "until": 38.5,
+    "motion": 7.01,
+    "fixed": "c106 の尻：32.7秒の跳び（9.2）は人の足が動いただけ＝同じショット（4コマ grid_B5_032.3 を目で見た・10-07 ⑤b-7c）"
    },
    {
-    "start": 32.0,
-    "until": 38.0,
-    "motion": 7.01
-   },
-   {
-    "start": 38.0,
+    "start": 38.5,
     "until": 50.0,
-    "motion": 7.71
+    "motion": 7.71,
+    "fixed": "c106 の尻：コア抜きは 38.5秒まで（fine 28〜39＝38.5秒 43.0・10-07 ⑤b-7c）"
    },
    {
     "start": 50.0,
@@ -2692,6 +2690,19 @@
     "start": 0.0,
     "until": 30.0,
     "motion": 2.49
+   }
+  ]
+ },
+ "GIF": {
+  "src": "https://www.nist.gov/sites/default/files/images/2026/06/22/PunchingShear_001.gif",
+  "scan": "out/jiko/foot/ep19_scan/GIF.mp4",
+  "dur": 7.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-07 ⑤b-7c）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 7.0,
+    "motion": 3.88
    }
   ]
  }

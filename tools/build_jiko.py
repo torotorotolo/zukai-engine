@@ -1303,11 +1303,32 @@ def tail_frame(cut, t, dur, lay, meta):
     見出しと出典は `{cut}_tlab`・地は `{cut}_tbg`。寄りは差し込みが出てから尺の終わりまで（k＝0→1＝門番 edges の刻みと同じ幾何）"""
     tl = meta[cut]["tail"]
     box = tuple(int(v) for v in tl["box"])
+    if tl.get("foot"):
+        # 🆕 19本目 ⑤b-7c：尻の映像（`footage.USE["<cut>~t"]`＝out/jiko/foot/<cut>~t/）。頭の映像と同じ置き方＝寄りは掛けない・
+        #    寄せは USE の zoom・xbias・bias・額装なら地のぼかし。コマが無ければひかえの静止画（foot_frame がログに出す）
+        fkey = cut + S.TAIL_KEY
+        a = float(tl["sec"])
+        src = foot_frame(fkey, max(0.0, t - a))
+        if src is None:
+            if tl["photo"] not in _INTRO_SRC:
+                _INTRO_SRC[tl["photo"]] = load_photo(tl["photo"], box)
+            src = _INTRO_SRC[tl["photo"]]
+        u = _FOOT_USE.get(fkey) or {}
+        ph = fit(src, box, 0.0, u.get("bias", 0.5), u.get("xbias", 0.5), _FO.zoom_of(fkey, u) if _FO else u.get("zoom", 1.0))
+        keep = float(tl.get("color", 0.0))
+        pal = J.palette(meta[cut].get("pal"))
+        ph = duotone(ph, pal["BG2"], pal["DUO_L"]) if keep <= 0.001 else Image.blend(
+            duotone(ph, pal["BG2"], pal["DUO_L"]), ph.convert("RGBA"), min(1.0, keep))
+        fr = lay[f"{cut}_tbg"].copy() if tl.get("full") else ground_of(src, cut, meta)
+        fr.paste(ph, (box[0], box[1]))
+        over(fr, lay[f"{cut}_tlab"], min(1.0, max(0.0, (t - a - 0.10) / 0.4)))
+        return fr
     key = (tl["photo"], tuple(tl.get("trim") or ()), tuple(tl.get("levels") or ()), box)
     if key not in _INTRO_SRC:
         _INTRO_SRC[key] = load_photo(tl["photo"], box, tl.get("trim"), tl.get("levels"))
     a = float(tl["sec"])
-    k = max(0.0, min(1.0, (t - a) / max(dur - a, 0.001)))
+    # 🆕 19本目 ⑤b-7c：`still=True`＝寄らない（額装だけの点＝引用の頁・c618 の諮問委員会の資料 p.47＝cuts.ss.check_frame_only）
+    k = 0.0 if tl.get("still") else max(0.0, min(1.0, (t - a) / max(dur - a, 0.001)))
     src = _INTRO_SRC[key]
     fa = (k * (1.0 if tl.get("full") else 0.35), float(tl.get("bias", 0.5)), float(tl.get("xbias", 0.5)),
           float(tl.get("zoom", 1.0)))

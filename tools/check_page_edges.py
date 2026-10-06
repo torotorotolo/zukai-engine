@@ -60,6 +60,9 @@ def rects_of(sw, sh, box, spec):
     if spec.get("cam"):
         return CS.cam_rects(sw, sh, box, spec)
     b, xb, zm = (float(spec.get("bias", 0.5)), float(spec.get("xbias", 0.5)), float(spec.get("zoom", 1.0)))
+    if spec.get("still"):
+        # 🆕 19本目 ⑤b-7c：寄らない尻の頁（`still=True`＝build_jiko.tail_frame の k＝0・c618 の引用の頁）＝寄りの始めの1点だけ
+        return {0.0: CS.crop_rect(sw, sh, box, 0.0, b, xb, zm)}
     return {i / (K_STEPS - 1): CS.crop_rect(sw, sh, box, i / (K_STEPS - 1), b, xb, zm) for i in range(K_STEPS)}
 
 

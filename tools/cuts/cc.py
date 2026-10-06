@@ -55,7 +55,7 @@ PLAN = {
     'cc13': dict(kind='フリー素材',
                plan='S#4（夕方の海辺の高層の空撮・2021年9月の投稿）｜副題：イメージ｜札：イメージ｜権利：Pexels License｜注：🔁 台本は実写（B2）＝州の法律の話は海辺のマンション全体＝フリー素材に。跡地が写らないか⑤b-1',
                src='A14 p.1（`An act relating to building safety`）'),
-    'cc14': dict(kind='図解',
+    'cc14': dict(kind='混ざり',       # ⑤b-7c の qa_all（textscreens E）：1行目が映像の差し込み（頭・フリー素材）＋図＝混ざり（c105 と同じ数え方）
                plan='法律の要点（台本のまま）｜差し込み（head）：1 S#1  6.2秒 S#1（海辺の白いコンクリートの建物の空撮）｜副題：イメージ｜札：イメージ（差し込み）｜権利：Pexels License｜注：跡地・屋上の看板の字を⑤b-1で',
                src='A14 p.8（`three stories or more in height by December 31 of the year in which the building reaches 30 years of age`・`within 3 miles of a coastline`）・A14 p.9（`reaches 25 years of age`・`every 10 years thereafter`）'),
     'cc15': dict(kind='図解',
@@ -199,8 +199,10 @@ SPEC = {
             src=ss.src(["GJ p3024・p3025"]))),
     ),
     # cc14（9.75秒＝0〜4.67／5.16〜9.75）＝州の法律の節目の点検（A14 p.8〜9）。🔴 頭の6.2秒は S#1 の差し込み（⑤b-7）＝図は1行目の欄から出しておく
+    #   ✅ ⑤b-7c：頭の差し込み＝S#4（px_9431778）6.4〜12.0秒（cc13 と同じ素材の続き＝門番の ⚠️ はわざと・4コマで字と顔なし）
     "cc14": dict(
         t="点検の時期", s="2022年の法律",
+        intro=ss.head("cc14"),
         fig=("boxes", dict(view="form", form=ss.FORM_SB4M, steps=[
             dict(add=[dict(k="paper"), dict(k="fill", f="建物"), dict(k="fill", f="最初の点検")]),
             dict(add=[dict(k="fill", f="海岸から3マイル以内"), dict(k="fill", f="そのあと")])],

@@ -2223,6 +2223,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `n69_corroded_bars` | c813 | 2025 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2025/06/23/NCST%20Investigation%20Update%20June%202025%20%287%20of%207%29.jpg |
 | `n70_slab_cracks` | c812 | 2025 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2025/06/23/NCST%20Investigation%20Update%20June%202025%20%288%20of%207%29.jpg |
 | `n71_mast_test` | cc23 | 不明 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2025/06/23/NCST%20Investigation%20Update%20June%202025%20%283%20of%207%29.jpg |
+| `ncst_p047` | c618 | 2021 | Public domain（映像のコマは引用）（A＋第三者（引用）） | NIST（諮問委員会の資料 2026年9月 p.47）・映像のコマ：© 2021 Used with permission | NIST 諮問委員会（NCST Advisory Committee）2026年9月の資料 |
 | `tf_p003_model` | c205 c206 | 不明 | Public domain（A） | NIST（技術的知見の動画のスライド3） | NIST 技術的知見の動画（2026年6月） |
 | `tf_p050_3d` | c502 | 不明 | Public domain（A） | NIST（技術的知見の動画のスライド50） | NIST 技術的知見の動画（2026年6月） |
 | `tf_p050_gate` | c504 | 不明 | Public domain（A） | NIST（技術的知見の動画のスライド50・目撃談にもとづく絵） | NIST 技術的知見の動画（2026年6月） |
