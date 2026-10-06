@@ -326,3 +326,20 @@
 2. M1 は別の道（カズヤくんが自分のブラウザで落とす等）を聞くかどうか＝1. の案と一緒に
 3. `ref/ep19/clips.json`・footage.USE
 4. push の前の確かめ（`git fetch toro`・`git log --oneline toro/main..HEAD`・stock の媒体が入っていないか）→ ⑤b-2 置き場
+
+## チャット6 — 圧縮6回目の前の現在地＝⑤b-1 おわり（2026-10-06・この区切りで見た画像 20枚＝seen19.tsv 150〜169）
+
+### ✅ 済んだこと（commit `d713957`・**push ずみ**＝toro/main と同じ）
+- 残り10カット（＋cb01）を受けた（assign19・make_list19 E0・実写 61＝25.7%・区間の決まっていないカット 0）：
+  - 写真：c621＝C4（夕方の空撮・残った西の部分・額装）／c319＝N#12（🟡 Milwaukee・MSA を寄せて外す）／c419＝N#10（🟡 左上の重機の字）／ca21＝N#48（点群）／cc06＝D13 の上の右（額装）
+  - フリー素材（イメージ）：c201＝S#46（🟡 ホテルの看板を原寸）／cb08＝S#48／cb15＝S#49／cc04＝S#45／cc16＝S#47（Pexels・1秒1コマで字・顔なし・棚と sources19 に行）
+  - cb01＝B2 の13秒のコマを止め絵
+  - 外したもの：FEMA 6718327（背中の英字が全面）・C3（C2 と同じくマットレスと家具＝決め⑤）・C5（Commons 429・取っていない）・Google Earth（ウェブ版が場所の URL を受けず案内の頁へ戻す・画面なしの Chrome は描画が止まる）
+- `qa_out/ep19_assets.py` に `clips`（→ `ref/ep19/clips.json` 23本＋フリー素材のショットを shots.json へ）・`use`（→ footage.py の `EP19_USE>>>` の間に47欄＝止め絵4・頭の差し込み4。要る秒は make_list19 と同じ計算）・`shotfix`（境目の実測の直し5件＝理由つきの表 SHOT_FIX）
+- 走査の道具の残り：scratchpad `ge_cap.mjs`（Google Earth を CDP で撮る試し＝止まる・使わない）
+
+### 🔴 圧縮のあとでやること（⑤b-2 置き場と冒頭から）
+1. **c406（B2@99–108）・c705（B1@50–56）・c912（B5@102–109）**がショット表の境目をまたぐ＝`ep19_scan.py sec` で境目の前後を見て、同じ絵なら SHOT_FIX に join・別の絵なら区間を縮める→ `ep19_assets.py shotfix`→`use`
+2. 尻の映像の差し込み3件（c104 B2@92.6–95.9・c106 B5@28.6–38.3・c718 PC@0–6.0）は USE に書けない（1カット1欄）＝⑤b-7 で差し込みの層。c802 GIF・ca06 TLS は区間が未定
+3. `footage.py --check` は scene_jiko の SPEC が19本目になるまで止まる（c105 の intro foot が無い）＝⑤b-2 で SPEC を作ってから通す
+4. ⑤b-2 置き場（scene_jiko の19本目の SPEC・冒頭 c101〜c107 の実写＝決め⑩）
