@@ -12,6 +12,7 @@ import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
 
 P = ss.P
+from illu import A2_REC as A2R  # noqa: E402  🆕 ⑤b-3：A2 の部品の出典（描く側と同じ文）
 
 PLAN = {
     'c201': dict(kind='写真',
@@ -55,4 +56,18 @@ PLAN = {
                src='—（橋）'),
 }
 
-SPEC = {}
+SPEC = {
+    # ── 🆕 ⑤b-3（2026-10-06）：案C の置き場 A2（`tools/illu.py` の「19本目 ⑤b-3」の節）──
+    # c209＝南西の上から（TF p48 の3D の向き）。1行目（0〜3.07）：地上の駐車場（西）とプールデッキ（東）／
+    #   2行目（3.56〜7.59）：デッキの北の端と塔の真ん中・東の部分のつなぎ目（9.1 の線＝TR0059）。直前の c208 は上から見た模式図
+    "c209": dict(
+        fig=("illu", dict(
+            place="A2", start=dict(view="oblique"), rec="TR p1005（地上の階のプールデッキと駐車場の床・地下の上の柱）",
+            steps=[dict(state=dict(a2zone="both"), delay=0.4, rec=A2R["park"],
+                        tag=[dict(t="地上の駐車場", at="park", off=(-150, 80), anchor="end"),
+                             dict(t="プールデッキ", at="deck", off=(150, 60))]),
+                   dict(state=dict(a2join="on"), delay=0.4, rec=A2R["join"],
+                        # ⑤b-3 の下見：右の端（余白の線 1848）に寄りすぎた＝デッキの右の下（砂浜の上）へ
+                        tag=dict(t="デッキと塔のつなぎ目", at="join", off=(230, 150)))])),
+    ),
+}

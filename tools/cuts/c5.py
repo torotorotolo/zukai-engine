@@ -12,6 +12,7 @@ import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
 
 P = ss.P
+from illu import A2_REC as A2R, A3_REC as A3R  # noqa: E402  🆕 ⑤b-3：A2・A3 の部品の出典（描く側と同じ文）
 
 PLAN = {
     'c501': dict(kind='再現イラスト',
@@ -94,4 +95,67 @@ PLAN = {
                src='—（橋）'),
 }
 
-SPEC = {}
+SPEC = {
+    # ── 🆕 ⑤b-3（2026-10-06）：案C の置き場 A3（地下の駐車場・西を向いて見た断面）と A2（上から）──
+    #   A3 の左上にはいつも位置の小さな地図（切り口＝L の線・目の印＝西を向く）＝見る向きの合図（門番 ㉑）。人は描かない
+    # c501（10.49秒）＝1行目は聞き役の問い／2行目（2.04〜）：デッキの上のプランターの壁／3行目（6.81〜）：横に長いひびと角のずれ（TR0111・0112）
+    "c501": dict(
+        fig=("illu", dict(
+            place="A3", rec="TR p1107（崩れる約3週間前からの傷みの流れ）",
+            # ⑤b-3 の下見：プランターが画面の中で小さく、札が左上の小さな地図の下に隠れた＝2行目で寄る（札は寄る前の絵に置く＝一緒に寄る）
+            steps=[dict(),
+                   dict(state=dict(a3plant="on", cam=1.6), delay=2.6, dur=1.6, rec=A3R["planter"],
+                        tag=dict(t="プランターの壁", at="planter", off=(-60, -110), anchor="end")),
+                   dict(state=dict(a3crack="on"), delay=0.3, rec=A3R["crack"],
+                        tag=dict(t="ひびと角のずれ", at="crack", off=(40, 110)))],
+            camc=(760.0, 330.0))),
+    ),
+    # c503（7.43秒）＝目撃した人の話（TR0116）。1行目：デッキと地上の駐車場のあいだの門／2行目：門へ寄る
+    "c503": dict(
+        fig=("illu", dict(
+            place="A3", rec="TR p1116（目撃した人が NIST に話した）", assume="目撃した人の話にもとづく",
+            steps=[dict(state=dict(a3gate="on"), delay=0.8, rec=A3R["gate"],
+                        tag=dict(t="デッキと駐車場の門", at="gate", off=(100, -60))),
+                   dict(state=dict(cam=1.5), delay=0.2, dur=3.2)],
+            camc=(965.0, 320.0))),
+    ),
+    # c511（10.47秒）＝目撃した人の話（TR0132〜0134）。1行目：柱 L-13.1 を伝う水／2行目：柱のまわりの天井の高さの変化／
+    #   3行目：デッキの水がこの1本へ集まるよう（向きの矢印だけ）
+    "c511": dict(
+        fig=("illu", dict(
+            place="A3", rec="TR p1132（柱 L-13.1）", assume="目撃した人の話にもとづく",
+            steps=[dict(state=dict(a3water="on"), delay=0.3, rec=A3R["water"],
+                        tag=dict(t="柱を伝う水", at="col", off=(120, 40))),
+                   dict(state=dict(a3ceil="on"), delay=1.8, rec=A3R["ceil"],
+                        tag=dict(t="天井の高さの変化", at="ceil", off=(140, 90))),
+                   dict(state=dict(a3funnel="on"), delay=0.6, rec=A3R["water"],
+                        tag=dict(t="デッキの水", at="deck", off=(-60, -110), anchor="end"))])),
+    ),
+    # c512（7.13秒）＝同じ柱の 2020年11月の写真（TR0135）。水の筋（2021年6月）は出さない＝時が違う
+    "c512": dict(
+        fig=("illu", dict(
+            place="A3", rec="TR p1135（2020年11月の写真）",
+            steps=[dict(state=dict(a3stain="on"), delay=1.6, rec=A3R["stain"],
+                        tag=dict(t="変色と塗料の筋", at="stain", off=(140, -40))),
+                   dict(state=dict(cam=1.2), delay=0.2, dur=2.0)],
+            camc=(850.0, 560.0))),
+    ),
+    # c518（7.36秒）＝上から（A3 の横から → 上から＝切り替えの字）。目撃した人の話（TR0145・0146・0158）。
+    #   隙間の幅は札に出さない（「約10センチ」は c517 の決め所）
+    "c518": dict(
+        fig=("illu", dict(
+            place="A2", start=dict(switch="on"), rec="TR p1146（約11時間前の目撃が最後）", assume="目撃した人の話にもとづく",
+            steps=[dict(state=dict(a2plant="gap"), delay=1.2, rec=A2R["planter"],
+                        tag=dict(t="プランターと床の隙間", at="planter", off=(130, -130))),
+                   dict(state=dict(cam=1.2), delay=0.2, dur=2.6)],
+            camc=(975.0, 560.0))),
+    ),
+    # c525（8.99秒）＝6月23日の夜に止まっていた車（数と形は模式＝TR0162「何台か」）
+    "c525": dict(
+        fig=("illu", dict(
+            place="A3", rec="TR p1165（落ちた床があれば目に入ったはず）",
+            steps=[dict(state=dict(a3cars="on"), delay=1.2, rec=A3R["cars"],
+                        tag=dict(t="止まっていた車", at="cars", off=(80, -110))),
+                   dict(state=dict(cam=1.06), delay=0.2, dur=3.6)])),
+    ),
+}

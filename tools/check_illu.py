@@ -305,9 +305,17 @@ def judge_scene(sc, where, docs=None, pages=None, split=None, until=None, sec_ok
     # ⑧ 上から見た絵の縮尺
     #   🔴 ⑤b-3：小さく戻す絵（illu_pair の枠 box）は、全面の絵を枠の幅へ縮めて置く（build_jiko.illu_minis）＝画面の上の縮尺は
     #      scale × 1920 ÷ 枠の幅（本番と同じ幾何で測る。c109 問い3 を寄せて×を読めるようにした＝枠 560 で 1.5÷2.4×3.43＝2.1）
-    if "上から" in (sc.get("view") or ""):
+    #   🆕 19本目 ⑤b-3：縮尺を持たない模式の上から見た絵（表 cuts.ss.ILLU_TOP_NOSCALE＝置き場: 理由）は、縮尺の代わりに
+    #      「人が0（部品・people）」と左下の「模式」の断りを測る（決め⑤で人を描かない A2＝人が見える縮尺でも人のいない絵になる）
+    noscale = dict(getattr(_ss(), "ILLU_TOP_NOSCALE", None) or {})
+    if "上から" in (sc.get("view") or "") and sc["place"] in noscale:
         n += 1
-        eff = float(sc["scale"]) * (IL.W / float(sc["box"][2])) if sc.get("scale") and sc.get("box") else sc.get("scale")
+        if any(p.get("role") or p.get("kind") == "sprite" or p.get("crowd") for p in sc["parts"]) or sc.get("people") \
+                or "模式" not in (sc.get("src") or ""):
+            bad.append(f"⑧{where}：縮尺を持たない上から見た絵（{noscale[sc['place']]}）に人を置いた／左下に「模式」の断りが無い")
+    elif "上から" in (sc.get("view") or ""):
+        n += 1
+        eff =float(sc["scale"]) * (IL.W / float(sc["box"][2])) if sc.get("scale") and sc.get("box") else sc.get("scale")
         if not eff or float(eff) < 1.5:
             bad.append(f"⑧{where}：上から見た絵の画面の上の縮尺 {eff} メートル／画素（1.5 以上＝人が1画素に満たない縮尺だけ）")
     # 15本目 ⑤b-2：空の中の事故機（RB）は地面に触れて見えない（下見：90度前後の翼の下の先が地平線より下＝「翼が地面に触れた」絵
@@ -1235,8 +1243,9 @@ def judge_destroy(scs, cid, destroy=None):
     destroy = destroy if destroy is not None else tuple(getattr(_ss(), "ILLU_DESTROY_CUTS", None) or ())
     bad, n = [], 0
     for sc in scs:
-        if sc["place"] in ("SA", "A1"):
+        if sc["place"] in ("SA", "A1", "A2"):
             # 🆕 19本目 ⑤b-2：A1 の崩れ（真ん中・東・プールデッキ・がれき＝destroy の部品）も表のカットだけ
+            #   🆕 ⑤b-3：A2 の落ちた地上の駐車場・デッキの一部・沈んだ車も
             n += 1
             used = sorted({f for st in [sc["start"]] + sc["states"] for f, vs in DESTROY_SA.items() if st.get(f) in vs})
             used += [p["id"] for p in sc["parts"] if p.get("destroy") and p["id"] not in used]
@@ -1326,6 +1335,103 @@ def judge_a1(sc, where):
     return bad, n
 
 
+# 🆕 19本目 ⑤b-3：㉓ A2（プールデッキと地上の駐車場）・A3（地下の駐車場）の記録の並び＝門番の側に持つ（§5b-88）
+REC_A23 = dict(
+    park_side="west",          # TR p1176「地上の駐車場の東」に崩れが広がった＝駐車場は西・デッキは東
+    gate_row="13.1",           # TR p1123「K-13.1 の近くのプランターと門」
+    water_row="13.1",          # TR p1131・p1132「プランターの真東の柱 L-13.1」
+    rows_south_to_north=("15", "13.1", "11.1", "9.1"),
+    gate_near=60.0,            # A3：門はプランターの箱のすぐ北（画素）
+)
+
+
+def _people(sc):
+    return any(p.get("role") or p.get("kind") == "sprite" or p.get("crowd") for p in sc["parts"]) or bool(sc.get("people"))
+
+
+def judge_a23(sc, where):
+    """㉓ A2：駐車場は K の線の西・デッキは東（TR p1176）／つなぎ目は真ん中と東の部分だけ（TR p1059）／門は K の線の 13.1 の上
+    （TR p1123）／プランターは K と L のあいだ＝デッキの側（TR p1131）／落ちた範囲は各自の側の中だけ・「推定」の札／ロビーは塔の帯の中。
+    A3：右が北（柱の列が南→北＝左→右・塔は右の端）／水・天井・変色の印は柱 13.1（L-13.1）だけ／プランターはその柱の上・門はそのすぐ北／
+    左上に位置の小さな地図（A2）。どちらも人を置かない"""
+    if sc["place"] not in ("A2", "A3"):
+        return [], 0
+    bad, n = [], 0
+    G = {}
+    for p in sc["parts"]:
+        g = p.get("geo") or {}
+        if g.get("kind"):
+            G.setdefault(g["kind"], []).append((p, g))
+
+    def one(k):
+        v = G.get(k) or []
+        return v[0][1] if v else None
+    n += 1
+    if _people(sc):
+        bad.append(f"㉓{where}：{sc['place']} に人を置いた（人は描かない）")
+    if sc["place"] == "A2":
+        z, tw = one("a2zones"), one("a2tower")
+        n += 1
+        if not z or not tw or not (z["x0"] < z["K"] < z["x1"]) or REC_A23["park_side"] != "west":
+            bad.append(f"㉓{where}：駐車場とデッキの境（K の線）が描いた敷地の中に無い（駐車場は西・デッキは東＝TR p1176）")
+            return bad, n
+        j = one("a2join")
+        if j:
+            n += 1
+            if j["x0"] < tw["w1"] - 1 or j["x1"] < tw["m1"] + 1:
+                bad.append(f"㉓{where}：デッキのつなぎ目 x {j['x0']:.0f}〜{j['x1']:.0f}＝真ん中と東の部分（x {tw['w1']:.0f}〜）だけ"
+                           "（西の部分にはつながない＝TR p1059）")
+        gt = one("a2gate")
+        if gt:
+            n += 1
+            r = z["rows"][REC_A23["gate_row"]]
+            if abs(gt["x"] - z["K"]) > 1 or not (gt["y0"] <= r <= gt["y1"]):
+                bad.append(f"㉓{where}：門 x {gt['x']:.0f}・y {gt['y0']:.0f}〜{gt['y1']:.0f}＝K の線（x {z['K']:.0f}）の "
+                           f"{REC_A23['gate_row']}（y {r:.0f}）の上（TR p1123）")
+        pl = one("a2planter")
+        if pl:
+            n += 1
+            if not (pl["x0"] >= z["K"] and pl["x1"] <= pl["L"]):
+                bad.append(f"㉓{where}：プランター x {pl['x0']:.0f}〜{pl['x1']:.0f}＝K の東（デッキの側）・L の西（柱 L-13.1 は真東＝TR p1131）")
+        for p, h in G.get("a2hole") or []:
+            n += 1
+            x0, y0, x1, y1 = h["r"]
+            if (h["zone"] == "park" and x1 > z["K"] + 1) or (h["zone"] == "deck" and x0 < z["K"] - 1):
+                bad.append(f"㉓{where}：落ちた範囲（{h['zone']}）x {x0:.0f}〜{x1:.0f} が K の線（x {z['K']:.0f}）を越える")
+            if "推定" not in (sc.get("assume") or ""):
+                bad.append(f"㉓{where}：落ちた範囲を描いたのに「推定」の札が無い（範囲は記録に無い）")
+        lb = one("a2lobby")
+        if lb:
+            n += 1
+            if lb["y1"] > lb["ts"] + 1:
+                bad.append(f"㉓{where}：ロビー y {lb['y0']:.0f}〜{lb['y1']:.0f} が塔の南の面（y {lb['ts']:.0f}）より南（塔の1階の外）")
+        return bad, n
+    rw = one("a3rows")
+    n += 1
+    if not rw:
+        bad.append(f"㉓{where}：柱の列の部品が無い")
+        return bad, n
+    xs = [rw["rows"][k] for k in REC_A23["rows_south_to_north"]]
+    if xs != sorted(xs) or rw["tower"] < xs[-1] - 1:
+        bad.append(f"㉓{where}：柱の列 {dict(zip(REC_A23['rows_south_to_north'], xs))}・塔 x {rw['tower']:.0f}＝右が北（南→北が左→右・塔は右）")
+    cx = rw["rows"][REC_A23["water_row"]]
+    for p, h in G.get("a3mark") or []:
+        n += 1
+        if abs(h["x"] - cx) > 1:
+            bad.append(f"㉓{where}：{h['what']} の印 x {h['x']:.0f}＝柱 L-{REC_A23['water_row']}（x {cx:.0f}）だけ（TR p1131〜p1135）")
+    pl, gt = one("a3planter"), one("a3gate")
+    if pl:
+        n += 1
+        if not (pl["x0"] <= cx <= pl["x1"]):
+            bad.append(f"㉓{where}：プランターの箱 x {pl['x0']:.0f}〜{pl['x1']:.0f} が柱 L-13.1（x {cx:.0f}）の上に無い（柱はプランターの真東）")
+        if gt and not (0.0 <= gt["x0"] - pl["x1"] <= REC_A23["gate_near"]):
+            bad.append(f"㉓{where}：門 x {gt['x0']:.0f} がプランターの箱（x 〜{pl['x1']:.0f}）のすぐ北に無い（K-13.1 の近く＝TR p1123）")
+    n += 1
+    if (sc.get("inset") or {}).get("kind") != "A2":
+        bad.append(f"㉓{where}：A3 の左上に位置の小さな地図（上から見た敷地・切り口・目の印）が無い")
+    return bad, n
+
+
 def A1FH(P):
     """真ん中の部分の1階の高さ（部品の geo＝描いた幾何。型の定数は読まない）。部品が無ければ 1（＝落ちた量の比べに使わない）"""
     return float((P.get("mid") or {}).get("geo", {}).get("fh") or 1.0)
@@ -1340,6 +1446,9 @@ def judge_fig(kind, kw, where):
         bad += b
         n += m
         b, m = judge_a1(sc, f"{where}#{k + 1}")      # 🆕 19本目 ⑤b-2：㉒
+        bad += b
+        n += m
+        b, m = judge_a23(sc, f"{where}#{k + 1}")     # 🆕 19本目 ⑤b-3：㉓
         bad += b
         n += m
     n += 1
@@ -2423,9 +2532,64 @@ def selftest_a1():
     return ok
 
 
+def selftest_a23():
+    """🆕 19本目 ⑤b-3：㉓ A2・A3 と ⑧（縮尺を持たない上から見た絵）の物差しの検算。正しい場面が通り、壊した場面が落ちること"""
+    print("■ selftest A2・A3（19本目 ⑤b-3・㉓）")
+    import copy
+    ok = True
+    top = IL.scene("A2", [dict(state=dict(a2park="fall", a2plant="gap", a2gate="on", a2lobby="walk"), rec="TR p1170")],
+                   start=dict(a2cars="on", a2deck="part"), rec="TR p1170", assume="崩れた範囲は推定")
+    ob = IL.scene("A2", [dict(state=dict(a2zone="both", a2join="on"), rec="TR p1059")], start=dict(view="oblique"), rec="TR p1005")
+    a3 = IL.scene("A3", [dict(state=dict(a3water="on", a3ceil="on", a3funnel="on", a3gate="on", a3cars="on"), rec="TR p1132")],
+                  rec="TR p1132")
+    for nm, sc in (("A2 上から", top), ("A2 南西の上から", ob), ("A3", a3)):
+        b = judge_a23(sc, "selftest")[0] + [x for x in judge_scene(sc, "selftest")[0] if x.startswith("⑧")]
+        print(f"  {'OK' if not b else '🔴 NG'} 正しい {nm}: {'合格' if not b else '不合格'}（合格のはず）" + (f"  ← {b[0]}" if b else ""))
+        ok &= not b
+
+    def geo(sc, kind):
+        return next(p["geo"] for p in sc["parts"] if (p.get("geo") or {}).get("kind") == kind)
+    sc = copy.deepcopy(top)
+    geo(sc, "a2gate")["x"] += 80.0
+    ok &= _expect("陽性対照㉓：門を K の線から外す", judge_a23(sc, "x")[0], "㉓")
+    sc = copy.deepcopy(top)
+    geo(sc, "a2planter").update(x0=860.0, x1=910.0)
+    ok &= _expect("陽性対照㉓：プランターを駐車場の側（K の西）へ", judge_a23(sc, "x")[0], "㉓")
+    sc = copy.deepcopy(top)
+    next(p["geo"] for p in sc["parts"] if (p.get("geo") or {}).get("zone") == "park")["r"][2] = 1200.0
+    ok &= _expect("陽性対照㉓：駐車場の落ちた範囲をデッキへはみ出す", judge_a23(sc, "x")[0], "㉓")
+    sc = copy.deepcopy(top)
+    sc["assume"] = ""
+    ok &= _expect("陽性対照㉓：落ちた範囲に推定の札が無い", judge_a23(sc, "x")[0], "㉓")
+    sc = copy.deepcopy(top)
+    geo(sc, "a2lobby")["y1"] = 420.0
+    ok &= _expect("陽性対照㉓：ロビーを塔の外（南）へ", judge_a23(sc, "x")[0], "㉓")
+    sc = copy.deepcopy(ob)
+    geo(sc, "a2join")["x0"] = 460.0
+    ok &= _expect("陽性対照㉓：つなぎ目を西の部分まで延ばす", judge_a23(sc, "x")[0], "㉓")
+    sc = copy.deepcopy(a3)
+    for p in sc["parts"]:
+        if (p.get("geo") or {}).get("what") == "water":
+            p["geo"]["x"] = 1180.0
+    ok &= _expect("陽性対照㉓：水の筋を別の柱（11.1）に", judge_a23(sc, "x")[0], "㉓")
+    sc = copy.deepcopy(a3)
+    geo(sc, "a3rows")["rows"] = {"15": 1510.0, "13.1": 1180.0, "11.1": 850.0, "9.1": 520.0}
+    ok &= _expect("陽性対照㉓：左右を逆に（左が北）", judge_a23(sc, "x")[0], "㉓")
+    sc = copy.deepcopy(a3)
+    sc["inset"] = None
+    ok &= _expect("陽性対照㉓：A3 の位置の小さな地図を外す", judge_a23(sc, "x")[0], "㉓")
+    sc = copy.deepcopy(top)
+    sc["people"] = {"resident": (1, "TR p1200")}
+    ok &= _expect("陽性対照⑧：縮尺を持たない上から見た絵に人を置く", judge_scene(sc, "x")[0], "⑧")
+    b, _ = judge_destroy([top], "c999")
+    ok &= _expect("陽性対照⑫：表に無いカットで A2 の駐車場を落とす", b, "⑫")
+    return ok
+
+
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
     ok19 = selftest_a1()          # 🆕 19本目 ⑤b-2（本番の表のまま＝見本の差し込みより前）
+    ok19 = selftest_a23() and ok19     # 🆕 19本目 ⑤b-3
     # 🆕 2026-10-04（18本目 ⑤b-2）：先に18本目を検算する＝見本の差し込み（16・15・14本目）より前
     #    （2026-10-06〜：18本目も見本 fixture_ep18 の表＝selftest_ep18 が差し込んで・終わったら戻す）
     ok18 = selftest_ep18() and ok19

@@ -5605,6 +5605,964 @@ def _a1_note(st0, states):
     return "・".join(note)
 
 
+# ══════════════════════════════════════════════════════════
+#  19本目 ⑤b-3（2026-10-06）：A2 プールデッキと地上の駐車場（上から／南西の上から）・A3 地下の駐車場（西を向いて見た断面）
+# ══════════════════════════════════════════════════════════
+# 🔴 守りの線（構成 `ref/ep19/kousei.md` §4-3・映像方針 19本目 §1）：
+#    ・並び＝NIST の有限要素モデルの図（TF p9096＝発表のスライド82）：塔の1階の南の帯がロビーの床・その南に**西が地上の駐車場・東がプールデッキ**
+#      （TR p1176「地上の駐車場の東」）。プールとジャグジーはデッキの上（TR p1058）。塔は L の字＝西の部分が南へ延びる（TF p133）。
+#      デッキは**真ん中と東の部分**に 9.1 の線でつながる（TR p1059）＝西の部分にはつながない（門番 ㉓）
+#    ・門とプランターは **K-13.1** の近く（TR p1123）。門は駐車場とデッキのあいだ（＝K の線）・プランターはデッキの側。
+#      水が集まった柱 **L-13.1** はプランターの真東（TR p1131）＝A3（西を向いて見る）ではプランターの手前の同じ所
+#    ・寸法の数は描かない（NIST の図は寸法を出していない）＝配置と大きさは模式（左下の断り）。人は描かない（決め⑤の線）。車の数は記録に無い＝模式
+#    ・地上の駐車場が落ちた範囲・デッキの一部が落ちた範囲は記録に無い＝「崩れた範囲は推定」の札（ILLU_ASSUME）
+A2T = dict(x0=460.0, x1=1460.0, tn=190.0, ts=350.0, legx=640.0, legs=600.0, south=800.0, K=930.0, L=1010.0)
+A2_ROW = {"9.1": 350.0, "11.1": 460.0, "13.1": 570.0, "15": 680.0}
+A2_POOL = (1180.0, 470.0, 1400.0, 560.0)       # プール（デッキの上・位置は模式＝TF p9096 の右の札「Hot Tub & Pool」）
+A2_TUB = (1110.0, 515.0, 24.0)                 # ジャグジー
+A2_PLANTER = (950.0, 545.0, 1000.0, 595.0)     # プランターの箱（K と L のあいだ・13.1 の近く）
+A2_GATE = (540.0, 600.0)                       # 門（K の線の上の y の範囲）
+A2_HOLE_PARK = (640.0, 440.0, 930.0, 800.0)    # 地上の駐車場の落ちた範囲（推定・模式）
+A2_HOLE_DECK = (930.0, 640.0, 1460.0, 800.0)   # デッキの南の一部が落ちた範囲（推定・模式＝TR p1203 の「一部」）
+A2_CARS = ((690.0, 470.0), (760.0, 470.0), (830.0, 470.0))   # 地上の駐車場の車（数と位置は模式）
+A2_LOBBY = (640.0, 300.0, 930.0, 350.0)        # ロビーの床（塔の1階の南の帯・位置は概略＝TF p9096）
+A2_COL = dict(ground="#1c2226", street="#22282c", sand="#4d4a3e", sea="#173246", sea_ln="#2d5a78", park="#857f74",
+              deck="#7a8f99", slab_ln="#3b4449", pool="#2f6f8f", pool_ln="#9cc6da", hole="#0b0f12", hole_ln="#3b4043",
+              car="#a7b3bb", car_ln="#20272c", sunk="#4a5359", fence="#c9cfd2", planter="#9c9488", mark="#f2c14e",
+              lobby="#d8c48a", base="#141a1e", col="#6f787e")
+A2_T = dict(fall=2.2, line=0.5, sunk=1.6, walk=1.6)
+A2_LAB = dict(top="上から見た敷地（北が上）", oblique="南西の上から見た敷地")
+A2_REC = dict(
+    site="TR p1058（塔の南のプールデッキ・プールとジャグジー・下は地下）・TR p1005（デッキと駐車場の床を地下の柱が支える）",
+    tower="TR p1004（12階建て＋ペントハウス）・TR p1002（西の部分）",   # L の字は発表のスライド133 の平面図（コマの通し頁に無い）＝模式
+    park="TF p9096（デッキ・地上の駐車場・ロビーの床の並び）・TR p1176（地上の駐車場の東にデッキ）",
+    join="TR p1059（真ん中と東の部分が 9.1 の線でデッキにつながる）",
+    gate="TR p1116（デッキと地上の駐車場のあいだの門）・TR p1123（K-13.1 の近くのプランターと門）",
+    planter="TR p1145・TR p1146（プランターとデッキの床の隙間）・TR p1158",
+    park_fall="TR p1170（地上の駐車場が崩れ落ちていく・落ちた）・TR p1171（車が下へ傾いて）・TR p1173",
+    deck_part="TR p1203（デッキの一部が崩れ落ちた＝北から撮った映像）",
+    cars="TR p1171（地上の駐車場の車）・TR p1201（沈んだ車）",
+    lobby="TR p1200（ロビーを行き来する住民）・TR p1201（ロビーから地上の駐車場へ）・TF p9096（ロビーの床）")
+
+
+def _a2_switch_text(v):
+    return dict(on="上から見ると").get(v, "")
+
+
+def _a2_poly(pts, fill, ln, sw=3.0, extra=""):
+    d = "M " + " L ".join(f"{x:.1f} {y:.1f}" for x, y in pts) + " Z"
+    return f'<path d="{d}" fill="{fill}" stroke="{ln}" stroke-width="{sw}" stroke-linejoin="round"{extra}/>'
+
+
+def _a2_tower_fp():
+    """塔の足もと（上から）＝西（L の字）・真ん中・東。A1 と同じ x の境（西｜真ん中｜東）"""
+    T, X = A2T, A1_X
+    west = [(T["x0"], T["tn"]), (X["w1"], T["tn"]), (X["w1"], T["ts"]), (T["legx"], T["ts"]), (T["legx"], T["legs"]),
+            (T["x0"], T["legs"])]
+    mid = [(X["w1"], T["tn"]), (X["m1"], T["tn"]), (X["m1"], T["ts"]), (X["w1"], T["ts"])]
+    east = [(X["m1"], T["tn"]), (T["x1"], T["tn"]), (T["x1"], T["ts"]), (X["m1"], T["ts"])]
+    return west, mid, east
+
+
+def _a2_zone_fp():
+    T = A2T
+    park = [(T["legx"], T["ts"]), (T["K"], T["ts"]), (T["K"], T["south"]), (T["x0"], T["south"]), (T["x0"], T["legs"]),
+            (T["legx"], T["legs"])]
+    deck = [(T["K"], T["ts"]), (T["x1"], T["ts"]), (T["x1"], T["south"]), (T["K"], T["south"])]
+    return park, deck
+
+
+def _rect_pts(r):
+    x0, y0, x1, y1 = r
+    return [(x0, y0), (x1, y0), (x1, y1), (x0, y1)]
+
+
+# ── A2 上から（view＝top）──
+def a2t_bg_svg():
+    T = A2T
+    return (f'<rect x="0" y="0" width="{W}" height="{H}" fill="{A2_COL["ground"]}"/>'
+            f'<rect x="{T["x0"] - 150:.1f}" y="0" width="120" height="{H}" fill="{A2_COL["street"]}"/>'
+            f'<rect x="{T["x1"]:.1f}" y="0" width="150" height="{H}" fill="{A2_COL["sand"]}"/>'
+            f'<rect x="{T["x1"] + 150:.1f}" y="0" width="{W - T["x1"] - 150:.1f}" height="{H}" fill="{A2_COL["sea"]}"/>'
+            + "".join(f'<path d="M {T["x1"] + 190 + 70 * k:.1f} 0 L {T["x1"] + 190 + 70 * k:.1f} {H}" stroke="{A2_COL["sea_ln"]}" '
+                      'stroke-width="2" stroke-dasharray="18 26" opacity="0.6"/>' for k in range(4)))
+
+
+def a2t_tower_svg():
+    w, m, e = _a2_tower_fp()
+    g = [_a2_poly(w, A1_COL["west"], A1_COL["ln"]), _a2_poly(m, A1_COL["mid"], A1_COL["ln"]),
+         _a2_poly(e, A1_COL["east"], A1_COL["ln"])]
+    # 屋上の縁（内側の線）＝上から見た屋根であることの印
+    for pts in (w, m, e):
+        cx = sum(p[0] for p in pts) / len(pts)
+        cy = sum(p[1] for p in pts) / len(pts)
+        g.append(_a2_poly([(cx + (x - cx) * 0.9, cy + (y - cy) * 0.9) for x, y in pts], "none", A1_COL["bal"], 2.0,
+                          ' stroke-dasharray="10 6" opacity="0.7"'))
+    return "".join(g)
+
+
+def a2t_slab_svg():
+    park, deck = _a2_zone_fp()
+    T = A2T
+    x0, y0, x1, y1 = A2_POOL
+    tx, ty, tr = A2_TUB
+    g = [_a2_poly(park, A2_COL["park"], A2_COL["slab_ln"]), _a2_poly(deck, A2_COL["deck"], A2_COL["slab_ln"]),
+         f'<rect x="{x0:.1f}" y="{y0:.1f}" width="{x1 - x0:.1f}" height="{y1 - y0:.1f}" rx="10" fill="{A2_COL["pool"]}" '
+         f'stroke="{A2_COL["pool_ln"]}" stroke-width="3"/>',
+         f'<circle cx="{tx:.1f}" cy="{ty:.1f}" r="{tr:.1f}" fill="{A2_COL["pool"]}" stroke="{A2_COL["pool_ln"]}" stroke-width="3"/>']
+    # 駐車場の白線（模式）
+    for k in range(5):
+        x = T["legx"] + 30 + 60 * k
+        g.append(f'<path d="M {x:.1f} {A2_ROW["11.1"] - 10:.1f} L {x:.1f} {A2_ROW["11.1"] + 100:.1f}" stroke="#d9dde0" '
+                 'stroke-width="2" opacity="0.55"/>')
+    return "".join(g)
+
+
+def a2t_fence_svg():
+    """K の線の柵（駐車場とデッキのあいだ）と門（記録の物＝門）。門は柵の切れ目の扉"""
+    T = A2T
+    g0, g1 = A2_GATE
+    c = A2_COL["fence"]
+    return (f'<path d="M {T["K"]:.1f} {A2_ROW["11.1"]:.1f} L {T["K"]:.1f} {g0:.1f} M {T["K"]:.1f} {g1:.1f} L {T["K"]:.1f} '
+            f'{T["south"] - 10:.1f}" stroke="{c}" stroke-width="4" stroke-dasharray="3 5"/>'
+            f'<rect x="{T["K"] - 5:.1f}" y="{g0:.1f}" width="10" height="{g1 - g0:.1f}" fill="{c}" stroke="#10161b" stroke-width="2"/>')
+
+
+def a2t_planter_svg():
+    x0, y0, x1, y1 = A2_PLANTER
+    return (f'<rect x="{x0:.1f}" y="{y0:.1f}" width="{x1 - x0:.1f}" height="{y1 - y0:.1f}" fill="{A2_COL["planter"]}" '
+            'stroke="#3b3a36" stroke-width="3"/>'
+            f'<rect x="{x0 + 8:.1f}" y="{y0 + 8:.1f}" width="{x1 - x0 - 16:.1f}" height="{y1 - y0 - 16:.1f}" fill="#4a4a3a"/>'
+            f'<path d="M {x1:.1f} {y0 + 4:.1f} L {x1 + 80:.1f} {y0 + 4:.1f}" stroke="{A2_COL["planter"]}" stroke-width="8"/>')
+
+
+def a2t_mark_rect_svg(r, pad=8.0, dash=False):
+    x0, y0, x1, y1 = r
+    da = ' stroke-dasharray="12 7"' if dash else ""
+    return (f'<rect x="{x0 - pad:.1f}" y="{y0 - pad:.1f}" width="{x1 - x0 + 2 * pad:.1f}" height="{y1 - y0 + 2 * pad:.1f}" '
+            f'fill="none" stroke="#10161b" stroke-width="10" rx="4"/>'
+            f'<rect x="{x0 - pad:.1f}" y="{y0 - pad:.1f}" width="{x1 - x0 + 2 * pad:.1f}" height="{y1 - y0 + 2 * pad:.1f}" '
+            f'fill="none" stroke="{A2_COL["mark"]}" stroke-width="5" rx="4"{da}/>')
+
+
+def a2t_gap_svg():
+    """プランターと床の隙間（c518）＝箱のまわりの細い暗い縁＋琥珀の破線（幅は模式＝隙間の数は札に出さない）"""
+    x0, y0, x1, y1 = A2_PLANTER
+    return (f'<rect x="{x0 - 5:.1f}" y="{y0 - 5:.1f}" width="{x1 - x0 + 10:.1f}" height="{y1 - y0 + 10:.1f}" fill="none" '
+            f'stroke="{A2_COL["hole"]}" stroke-width="5"/>' + a2t_mark_rect_svg(A2_PLANTER, pad=14.0, dash=True))
+
+
+def a2t_hole_svg(r):
+    x0, y0, x1, y1 = r
+    g = [f'<rect x="{x0:.1f}" y="{y0:.1f}" width="{x1 - x0:.1f}" height="{y1 - y0:.1f}" fill="{A2_COL["hole"]}" '
+         f'stroke="{A2_COL["hole_ln"]}" stroke-width="3"/>']
+    # 落ちた床の割れ目（模式）
+    for k in range(3):
+        u = (k + 1) / 4.0
+        g.append(f'<path d="M {x0 + (x1 - x0) * u:.1f} {y0 + 6:.1f} L {x0 + (x1 - x0) * (u - 0.06):.1f} {(y0 + y1) / 2:.1f} '
+                 f'L {x0 + (x1 - x0) * (u + 0.04):.1f} {y1 - 6:.1f}" stroke="{A2_COL["hole_ln"]}" stroke-width="3" fill="none"/>')
+    return "".join(g)
+
+
+def _a2_car_top(x, y, rot=0.0, col=None, s=1.0):
+    col = col or A2_COL["car"]
+    w, h = 44.0 * s, 86.0 * s
+    return (f'<g transform="rotate({rot:.1f} {x:.1f} {y + h / 2:.1f})">'
+            f'<rect x="{x - w / 2:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" rx="10" fill="{col}" '
+            f'stroke="{A2_COL["car_ln"]}" stroke-width="3"/>'
+            f'<rect x="{x - w / 2 + 6:.1f}" y="{y + h * 0.28:.1f}" width="{w - 12:.1f}" height="{h * 0.36:.1f}" rx="5" '
+            f'fill="{A2_COL["car_ln"]}" opacity="0.75"/></g>')
+
+
+def a2t_cars_svg(sunk=False):
+    if not sunk:
+        return "".join(_a2_car_top(x, y) for x, y in A2_CARS)
+    # 沈んだ車＝傾いて沈み、暗く小さく見える（向きは模式）
+    return "".join(_a2_car_top(x, y + 6, rot, A2_COL["sunk"], 0.9) for (x, y), rot in zip(A2_CARS, (-9.0, 6.0, -4.0)))
+
+
+def a2t_lobby_svg():
+    x0, y0, x1, y1 = A2_LOBBY
+    return (f'<rect x="{x0:.1f}" y="{y0:.1f}" width="{x1 - x0:.1f}" height="{y1 - y0:.1f}" fill="{A2_COL["lobby"]}" '
+            'fill-opacity="0.35"/>' + a2t_mark_rect_svg(A2_LOBBY, pad=4.0))
+
+
+def a2t_walk_svg():
+    """ロビーから地上の駐車場へ出た人の向き（矢印だけ・人は描かない）"""
+    x0, y0, x1, y1 = A2_LOBBY
+    sx, sy = (x0 + x1) / 2.0 + 20, y1 + 6
+    ex, ey = A2_CARS[1][0] + 10, A2_CARS[1][1] - 18
+    c = A2_COL["mark"]
+    return (f'<path d="M {sx:.1f} {sy:.1f} L {ex:.1f} {ey:.1f}" stroke="#10161b" stroke-width="11" stroke-linecap="round" '
+            'stroke-dasharray="2 16"/>'
+            f'<path d="M {sx:.1f} {sy:.1f} L {ex:.1f} {ey:.1f}" stroke="{c}" stroke-width="6" stroke-linecap="round" '
+            'stroke-dasharray="2 16"/>'
+            f'<path d="M {ex:.1f} {ey + 6:.1f} L {ex - 13:.1f} {ey - 16:.1f} L {ex + 13:.1f} {ey - 16:.1f} Z" fill="{c}" '
+            'stroke="#10161b" stroke-width="2"/>')
+
+
+# ── A2 南西の上から（view＝oblique・c209＝TF p48 の3D の向き）──
+A2_OB = dict(kx=0.88, ox=120.0, sx=0.30, sy=0.40, y0=760.0, fh=32.0, base=70.0)
+
+
+def a2_ob(px, py, z=0.0):
+    """上から見た図の座標（px, py）と高さ z（画素）→ 南西の上から見た図の画面の座標（奥＝北ほど右上へ）"""
+    d = A2T["south"] - py
+    o = A2_OB
+    return (o["ox"] + px * o["kx"] + o["sx"] * d, o["y0"] - o["sy"] * d - z)
+
+
+def _ob_poly(pts, z, fill, ln, sw=3.0, extra=""):
+    return _a2_poly([a2_ob(x, y, z) for x, y in pts], fill, ln, sw, extra)
+
+
+def _ob_box(fp_front, py_back, ztop, col, west_face=True):
+    """箱（前の面＝南・上の面・西の面）。fp_front＝(x0, x1, py_front)"""
+    x0, x1, pf = fp_front
+    g = []
+    if west_face:
+        g.append(_a2_poly([a2_ob(x0, pf, 0), a2_ob(x0, py_back, 0), a2_ob(x0, py_back, ztop), a2_ob(x0, pf, ztop)],
+                          _shade(col, 0.78), A1_COL["ln"], 2.5))
+    g.append(_a2_poly([a2_ob(x0, pf, 0), a2_ob(x1, pf, 0), a2_ob(x1, pf, ztop), a2_ob(x0, pf, ztop)], col, A1_COL["ln"], 3.0))
+    # 各階の床の線と暗い窓（灯りは描かない）。いちばん上の段はペントハウス
+    fh = A2_OB["fh"]
+    nb = max(2, int(round((x1 - x0) / 60.0)))
+    for k in range(A1_NFL + 1):
+        za, zb = k * fh, (k + 1) * fh
+        if 0 < k < A1_NFL:
+            for b in range(nb):
+                u0, u1 = (b + 0.2) / nb, (b + 0.8) / nb
+                p0 = a2_ob(x0 + (x1 - x0) * u0, pf, zb - 6)
+                p1 = a2_ob(x0 + (x1 - x0) * u1, pf, za + 8)
+                g.append(f'<rect x="{p0[0]:.1f}" y="{p0[1]:.1f}" width="{p1[0] - p0[0]:.1f}" height="{p1[1] - p0[1]:.1f}" '
+                         f'fill="{A1_COL["win"]}"/>')
+        a, b = a2_ob(x0, pf, zb), a2_ob(x1, pf, zb)
+        g.append(f'<path d="M {a[0]:.1f} {a[1]:.1f} L {b[0]:.1f} {b[1]:.1f}" stroke="{A1_COL["ln"]}" stroke-width="2"/>')
+    return "".join(g)
+
+
+def _shade(col, k):
+    c = col.lstrip("#")
+    r, g_, b = (int(c[i:i + 2], 16) for i in (0, 2, 4))
+    return "#%02x%02x%02x" % tuple(max(0, min(255, int(v * k))) for v in (r, g_, b))
+
+
+def a2o_bg_svg():
+    T = A2T
+    g = [f'<rect x="0" y="0" width="{W}" height="{H}" fill="{A1_COL["sky0"]}"/>',
+         _ob_poly([(T["x0"] - 400, -400), (T["x1"], -400), (T["x1"], 1400), (T["x0"] - 400, 1400)], 0, A2_COL["ground"],
+                  A2_COL["ground"], 1.0),
+         _ob_poly([(T["x1"], -400), (T["x1"] + 150, -400), (T["x1"] + 150, 1400), (T["x1"], 1400)], 0, A2_COL["sand"],
+                  A2_COL["sand"], 1.0),
+         _ob_poly([(T["x1"] + 150, -400), (T["x1"] + 1400, -400), (T["x1"] + 1400, 1400), (T["x1"] + 150, 1400)], 0,
+                  A2_COL["sea"], A2_COL["sea"], 1.0)]
+    return "".join(g)
+
+
+def a2o_garage_svg():
+    """前（南）の切り口＝地下の駐車場（暗い中に柱の列＝模式）"""
+    T, b = A2T, A2_OB["base"]
+    p = [a2_ob(T["x0"], T["south"], 0), a2_ob(T["x1"], T["south"], 0), a2_ob(T["x1"], T["south"], -b),
+         a2_ob(T["x0"], T["south"], -b)]
+    g = [_a2_poly(p, A2_COL["base"], A2_COL["slab_ln"], 3.0)]
+    x = T["x0"] + 45.0
+    while x < T["x1"] - 20:
+        a, c = a2_ob(x, T["south"], -4), a2_ob(x, T["south"], -b + 2)
+        g.append(f'<rect x="{a[0] - 5:.1f}" y="{a[1]:.1f}" width="10" height="{c[1] - a[1]:.1f}" fill="{A2_COL["col"]}"/>')
+        x += 90.0
+    return "".join(g)
+
+
+def a2o_slab_svg():
+    park, deck = _a2_zone_fp()
+    x0, y0, x1, y1 = A2_POOL
+    return (_ob_poly(park, 0, A2_COL["park"], A2_COL["slab_ln"]) + _ob_poly(deck, 0, A2_COL["deck"], A2_COL["slab_ln"])
+            + _ob_poly(_rect_pts(A2_POOL), 0, A2_COL["pool"], A2_COL["pool_ln"]))
+
+
+def a2o_tower_svg():
+    """塔（西の部分の帯・真ん中・東）＝前の面は 9.1 の線（塔の南の面）。西の部分の南へ延びた所は別の箱（a2o_leg_svg）"""
+    T, X = A2T, A1_X
+    zt = (A1_NFL + 1) * A2_OB["fh"]
+    g = [_ob_poly([(T["x0"], T["tn"]), (T["x1"], T["tn"]), (T["x1"], T["ts"]), (T["x0"], T["ts"])], zt,
+                  _shade(A1_COL["mid"], 1.25), A1_COL["ln"]),
+         _ob_box((T["legx"], X["w1"], T["ts"]), T["tn"], zt, A1_COL["west"], west_face=False),
+         _ob_box((X["w1"], X["m1"], T["ts"]), T["tn"], zt, A1_COL["mid"], west_face=False),
+         _ob_box((X["m1"], T["x1"], T["ts"]), T["tn"], zt, A1_COL["east"], west_face=False)]
+    return "".join(g)
+
+
+def a2o_leg_svg():
+    T = A2T
+    zt = (A1_NFL + 1) * A2_OB["fh"]
+    return (_ob_box((T["x0"], T["legx"], T["legs"]), T["tn"], zt, A1_COL["west"])
+            + _ob_poly([(T["x0"], T["tn"]), (T["legx"], T["tn"]), (T["legx"], T["legs"]), (T["x0"], T["legs"])], zt,
+                       _shade(A1_COL["west"], 1.25), A1_COL["ln"]))
+
+
+def a2o_zone_svg(which):
+    park, deck = _a2_zone_fp()
+    pts = park if which == "park" else deck
+    q = [a2_ob(x, y, 0) for x, y in pts]
+    return (_a2_poly(q, "none", "#10161b", 10.0) + _a2_poly(q, A2_COL["mark"], A2_COL["mark"], 5.0, ' fill-opacity="0.16"'))
+
+
+def a2o_join_svg():
+    """デッキの北の端と塔の真ん中・東の部分のつなぎ目（9.1 の線）＝西の部分にはつながない（TR p1059）"""
+    X, T = A1_X, A2T
+    a, b = a2_ob(X["w1"], T["ts"], 0), a2_ob(T["x1"], T["ts"], 0)
+    return (f'<path d="M {a[0]:.1f} {a[1]:.1f} L {b[0]:.1f} {b[1]:.1f}" stroke="#10161b" stroke-width="15" stroke-linecap="round"/>'
+            f'<path d="M {a[0]:.1f} {a[1]:.1f} L {b[0]:.1f} {b[1]:.1f}" stroke="{A2_COL["mark"]}" stroke-width="9" '
+            'stroke-linecap="round"/>')
+
+
+def _a2_keys(start, states, steps, fn, dur, extra=0.0):
+    """欄が変わる段にだけ鍵を足す（fn＝状態 → 鍵の値の dict・値はいつも全部の欄をそろえる）"""
+    cur = fn(start)
+    ks = [dict(stage=0, delay=0.0, **cur)]
+    for i, (st, sp) in enumerate(zip(states, steps)):
+        v = fn(st)
+        if v != cur:
+            ks.append(dict(stage=i, delay=float(sp.get("delay", KEY_DELAY)) + extra, dur=float(sp.get("dur", dur)), **v))
+            cur = v
+    return ks
+
+
+def _switch_keys(T=None):
+    return [dict(stage=0, delay=0.0, a=1.0), dict(stage=0, delay=1.2, dur=0.35, a=0.0)]
+
+
+def _scene_A2(start, states, steps):
+    """A2＝プールデッキと地上の駐車場。view＝top（上から・北が上）／oblique（南西の上から＝c209）"""
+    allst = [start] + states
+    if any(st["view"] != start["view"] for st in states):
+        raise ValueError("illu A2：view は場面の頭（start）で1つだけ")
+    if any(st["switch"] != start["switch"] for st in states) or start["switch"] not in ("off", "on"):
+        raise ValueError("illu A2：switch（見る向きの合図）は場面の頭で off／on")
+    order = dict(on=0, fall=1, fell=2)
+    for a, b in zip(allst, allst[1:]):
+        if order[b["a2park"]] < order[a["a2park"]] or (a["a2deck"] == "part" and b["a2deck"] != "part"):
+            raise ValueError("illu A2：落ちた床（a2park・a2deck）を戻さない")
+    R = A2_REC
+    view = start["view"]
+
+    def used(f, v):
+        return any(st[f] == v for st in allst)
+    if view == "oblique":
+        if any(st["a2park"] != "on" or st["a2deck"] != "on" or st["a2gate"] != "off" or st["a2plant"] != "off"
+               or st["a2cars"] != "off" or st["a2lobby"] != "off" for st in allst):
+            raise ValueError("illu A2：oblique（南西の上から）は並びの絵だけ（落ちる・門・プランター・車・ロビーは top で）")
+        parts = [_part("bg", a2o_bg_svg(), R["site"]), _part("garage", a2o_garage_svg(), R["site"]),
+                 dict(_part("slab", a2o_slab_svg(), R["park"]),
+                      geo=dict(kind="a2zones", K=A2T["K"], x0=A2T["x0"], x1=A2T["x1"], rows=dict(A2_ROW))),
+                 dict(_part("tower", a2o_tower_svg(), R["tower"]), obj=dict(story=A1_NFL, penthouse=1),
+                      geo=dict(kind="a2tower", w1=A1_X["w1"], m1=A1_X["m1"])),
+                 _part("leg", a2o_leg_svg(), R["tower"])]
+        for z in ("park", "deck"):
+            if used("a2zone", z) or used("a2zone", "both"):
+                parts.append(_part(f"zone_{z}", a2o_zone_svg(z), R["park"],
+                                   keys=_a2_keys(start, states, steps, lambda st, z=z: dict(a=float(st["a2zone"] in (z, "both"))),
+                                                 A2_T["line"])))
+        if used("a2join", "on"):
+            parts.append(dict(_part("join", a2o_join_svg(), R["join"],
+                                    keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a2join"] == "on")), A2_T["line"])),
+                              geo=dict(kind="a2join", x0=A1_X["w1"], x1=A2T["x1"])))
+        return parts
+    if used("a2zone", "park") or used("a2zone", "deck") or used("a2zone", "both") or used("a2join", "on"):
+        raise ValueError("illu A2：a2zone・a2join は oblique（c209）の欄")
+    parts = [_part("bg", a2t_bg_svg(), R["site"]),
+             dict(_part("slab", a2t_slab_svg(), R["park"]),
+                  geo=dict(kind="a2zones", K=A2T["K"], x0=A2T["x0"], x1=A2T["x1"], rows=dict(A2_ROW))),
+             dict(_part("tower", a2t_tower_svg(), R["tower"]), geo=dict(kind="a2tower", w1=A1_X["w1"], m1=A1_X["m1"])),
+             dict(_part("fence", a2t_fence_svg(), R["gate"]), geo=dict(kind="a2gate", x=A2T["K"], y0=A2_GATE[0], y1=A2_GATE[1])),
+             dict(_part("planter", a2t_planter_svg(), R["planter"]),
+                  geo=dict(kind="a2planter", x0=A2_PLANTER[0], x1=A2_PLANTER[2], K=A2T["K"], L=A2T["L"]))]
+    if used("a2park", "fall") or used("a2park", "fell"):
+        parts.append(dict(_part("park_hole", a2t_hole_svg(A2_HOLE_PARK), R["park_fall"],
+                                keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a2park"] != "on")), A2_T["fall"])),
+                          destroy=True, geo=dict(kind="a2hole", zone="park", r=list(A2_HOLE_PARK))))
+    if used("a2deck", "part"):
+        parts.append(dict(_part("deck_hole", a2t_hole_svg(A2_HOLE_DECK), R["deck_part"],
+                                keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a2deck"] == "part")), A2_T["fall"])),
+                          destroy=True, geo=dict(kind="a2hole", zone="deck", r=list(A2_HOLE_DECK))))
+    if used("a2cars", "on"):
+        sunk0 = lambda st: st["a2cars"] == "on" and st["a2park"] != "on"     # noqa: E731
+        parts.append(_part("cars", a2t_cars_svg(), R["cars"],
+                           keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a2cars"] == "on" and not sunk0(st))),
+                                         A2_T["sunk"], 0.6)))
+        if any(sunk0(st) for st in allst):
+            parts.append(dict(_part("cars_sunk", a2t_cars_svg(sunk=True), R["park_fall"],
+                                    keys=_a2_keys(start, states, steps, lambda st: dict(a=float(sunk0(st))), A2_T["sunk"], 0.6)),
+                              destroy=True))
+    if used("a2gate", "on"):
+        parts.append(_part("gate_mark", a2t_mark_rect_svg((A2T["K"] - 5, A2_GATE[0], A2T["K"] + 5, A2_GATE[1]), pad=10.0),
+                           R["gate"], keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a2gate"] == "on")), A2_T["line"])))
+    if used("a2plant", "on"):
+        parts.append(_part("plant_mark", a2t_mark_rect_svg(A2_PLANTER, pad=10.0), R["planter"],
+                           keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a2plant"] == "on")), A2_T["line"])))
+    if used("a2plant", "gap"):
+        parts.append(dict(_part("gap", a2t_gap_svg(), R["planter"],
+                                keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a2plant"] == "gap")), A2_T["line"])),
+                          geo=dict(kind="a2gap", x0=A2_PLANTER[0], x1=A2_PLANTER[2])))
+    if used("a2lobby", "on") or used("a2lobby", "walk"):
+        parts.append(dict(_part("lobby", a2t_lobby_svg(), R["lobby"],
+                                keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a2lobby"] != "off")), A2_T["line"])),
+                          geo=dict(kind="a2lobby", y0=A2_LOBBY[1], y1=A2_LOBBY[3], ts=A2T["ts"])))
+    if used("a2lobby", "walk"):
+        parts.append(_part("walk", a2t_walk_svg(), R["lobby"],
+                           keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a2lobby"] == "walk")), A2_T["walk"])))
+    if start["switch"] == "on":
+        parts.append(dict(_part("switch", va_switch_svg(_a2_switch_text("on")), "", keys=_switch_keys()), signal=True))
+    return parts
+
+
+def _a2_anchors(st):
+    T = A2T
+    if st["view"] == "oblique":
+        return dict(park=a2_ob(760.0, 640.0), deck=a2_ob(1240.0, 690.0), join=a2_ob(1150.0, T["ts"]),
+                    garage=a2_ob(700.0, T["south"], -40.0))
+    cx = sum(x for x, _ in A2_CARS) / len(A2_CARS)
+    return dict(park=(785.0, 700.0), deck=(1200.0, 700.0), planter=((A2_PLANTER[0] + A2_PLANTER[2]) / 2.0, A2_PLANTER[1]),
+                gate=(T["K"], A2_GATE[0]), cars=(cx, A2_CARS[0][1]), hole=(785.0, 640.0),
+                lobby=((A2_LOBBY[0] + A2_LOBBY[2]) / 2.0, A2_LOBBY[1]), deck_hole=(1200.0, 720.0))
+
+
+def _a2_note(st0, states):
+    allst = [st0] + list(states)
+    note = ["配置と大きさは模式（NIST の図から）・人は描かない"]
+    if any(st["a2cars"] == "on" for st in allst):
+        note.append("車の数と形は模式")
+    if any(st["a2lobby"] != "off" for st in allst):
+        note.append("ロビーの位置は概略")
+    return "・".join(note)
+
+
+# ── A3 地下の駐車場（西を向いて見た断面・右が北）──
+A3G = dict(top=330.0, ceil=356.0, floor=800.0, wall=250.0, tower=1510.0, colw=38.0)
+A3_ROW = {"15": 520.0, "13.1": 850.0, "11.1": 1180.0, "9.1": 1510.0}
+# ⑤b-3 の門番 ㉓：箱が柱 L-13.1（x 850）の上から外れていた（860〜950）＝柱はプランターの真東＝西を向いて見ると同じ x
+A3_PLANTER = (800.0, 288.0, 900.0, 330.0)      # プランターの箱（K-13.1 の上・デッキの側）
+A3_PWALL = (660.0, 304.0, 800.0, 330.0)        # プランターの壁
+A3_GATE = (918.0, 1012.0)                      # 門（柵の切れ目の扉・x の範囲＝箱のすぐ北）
+A3_CARS = (565.0, 1225.0)                      # 止まった車の前の端の x（数と位置は模式）
+A3_CARIN = 895.0                               # 最後に入った車の止まる所（模式）
+A3_COL = dict(sky0="#0b1622", sky1="#1d3042", earth="#232a2e", slab="#8a949a", slab_ln="#454e54", dark="#12171b",
+              col="#717a80", col_ln="#2f363b", light="#e9e2c4", fence="#c9cfd2", planter="#9c9488", mark="#f2c14e",
+              water="#7cc4ea", stain="#8a6a3a", car="#7d8a93", car_ln="#1b2125", glass="#24303a")
+A3_T = dict(line=0.5, water=1.4, drive=2.6)
+A3_LAB = "西を向いて見た地下の駐車場（右が北）"
+A3_REC = dict(
+    garage="TR p1005（地下の柱の上にプールデッキと駐車場の床）・TR p1058",
+    tower="TR p1004（12階建て＋ペントハウス）",
+    gate="TR p1116（デッキと地上の駐車場のあいだの門）・TR p1123（K-13.1 の近く）",
+    planter="TR p1108（デッキの上のプランターの壁と箱）・TR p1123",
+    crack="TR p1111（横に長いひび）・TR p1112（角のずれ）",
+    water="TR p1131（プランターの真東の柱 L-13.1 に水）・TR p1132・TR p1134（デッキの水がこの柱に集まるよう）",
+    ceil="TR p1133（柱のまわりの天井の高さが変わった）",
+    stain="TR p1135（2020年11月の写真＝変色と塗料の筋）",
+    cars="TR p1162（その夜、何台かの車が入って止められた）",
+    carin="TR p1161（約9分前に最後の車が入った）・TR p1166（落ちた床はまだ誰も見ていない）")
+
+
+def a3_bg_svg():
+    G = A3G
+    return (f'<defs><linearGradient id="a3Sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{A3_COL["sky0"]}"/>'
+            f'<stop offset="1" stop-color="{A3_COL["sky1"]}"/></linearGradient></defs>'
+            f'<rect x="0" y="0" width="{W}" height="{G["top"]:.1f}" fill="url(#a3Sky)"/>'
+            f'<rect x="0" y="{G["top"]:.1f}" width="{W}" height="{H - G["top"]:.1f}" fill="{A3_COL["earth"]}"/>'
+            f'<rect x="{G["wall"]:.1f}" y="{G["ceil"]:.1f}" width="{W - G["wall"]:.1f}" height="{G["floor"] - G["ceil"]:.1f}" '
+            f'fill="{A3_COL["dark"]}"/>')
+
+
+def a3_struct_svg():
+    """南の壁・デッキの床（天井）・柱の列（9.1／11.1／13.1／15＝L の線の柱・間隔は模式）・天井の灯り"""
+    G = A3G
+    g = [f'<rect x="{G["wall"] - 16:.1f}" y="{G["top"] - 14:.1f}" width="28" height="{G["floor"] - G["top"] + 14:.1f}" '
+         f'fill="{A3_COL["slab"]}" stroke="{A3_COL["slab_ln"]}" stroke-width="3"/>',
+         f'<rect x="{G["wall"]:.1f}" y="{G["top"]:.1f}" width="{W - G["wall"]:.1f}" height="{G["ceil"] - G["top"]:.1f}" '
+         f'fill="{A3_COL["slab"]}" stroke="{A3_COL["slab_ln"]}" stroke-width="3"/>']
+    xs = list(A3_ROW.values()) + [1700.0, 1880.0]
+    for x in xs:
+        g.append(f'<rect x="{x - G["colw"] / 2:.1f}" y="{G["ceil"]:.1f}" width="{G["colw"]:.1f}" height="{G["floor"] - G["ceil"]:.1f}" '
+                 f'fill="{A3_COL["col"]}" stroke="{A3_COL["col_ln"]}" stroke-width="3"/>')
+    for a, b in zip(xs, xs[1:]):
+        m = (a + b) / 2.0
+        g.append(f'<ellipse cx="{m:.1f}" cy="{G["ceil"] + 40:.1f}" rx="120" ry="60" fill="{A3_COL["light"]}" opacity="0.06"/>'
+                 f'<rect x="{m - 26:.1f}" y="{G["ceil"]:.1f}" width="52" height="7" fill="{A3_COL["light"]}" opacity="0.85"/>')
+    g.append(f'<path d="M {G["wall"]:.1f} {G["floor"]:.1f} L {W} {G["floor"]:.1f}" stroke="{A3_COL["slab_ln"]}" stroke-width="5"/>')
+    return "".join(g)
+
+
+def a3_tower_svg():
+    """塔（右＝北）。デッキの床から上の数階だけ（上は画面の外）＝階の数を数えさせない（obj を持たない）"""
+    G = A3G
+    x0 = G["tower"] - 20
+    g = [f'<rect x="{x0:.1f}" y="-10" width="{W - x0 + 10:.1f}" height="{G["top"] + 10:.1f}" fill="{A1_COL["mid"]}" '
+         f'stroke="{A1_COL["ln"]}" stroke-width="3"/>']
+    fh = 44.0
+    y = G["top"]
+    while y > 0:
+        g.append(f'<path d="M {x0:.1f} {y:.1f} L {W} {y:.1f}" stroke="{A1_COL["ln"]}" stroke-width="2"/>')
+        for k in range(4):
+            wx = x0 + 30 + k * 100
+            g.append(f'<rect x="{wx:.1f}" y="{y - fh + 8:.1f}" width="60" height="{fh - 18:.1f}" fill="{A1_COL["win"]}"/>')
+        y -= fh
+    # ⑤b-3 の下見（c511）：右上の章の札が塔の窓に重なって読みにくい＝塔の上の端を空の色へぼかす（上は画面の外＝階の数を数えさせない）
+    g.append(f'<defs><linearGradient id="a3TwFade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{A3_COL["sky0"]}" '
+             f'stop-opacity="1"/><stop offset="0.55" stop-color="{A3_COL["sky0"]}" stop-opacity="0.9"/>'
+             f'<stop offset="1" stop-color="{A3_COL["sky0"]}" stop-opacity="0"/></linearGradient></defs>'
+             f'<rect x="{x0 - 4:.1f}" y="-10" width="{W - x0 + 14:.1f}" height="220" fill="url(#a3TwFade)"/>')
+    return "".join(g)
+
+
+def a3_fence_svg():
+    G = A3G
+    c = A3_COL["fence"]
+    g0, g1 = A3_GATE
+    x0, x1 = 300.0, G["tower"] - 40
+    bars = "".join(f'<path d="M {x:.1f} {G["top"] - 58:.1f} L {x:.1f} {G["top"]:.1f}" stroke="{c}" stroke-width="2" opacity="0.7"/>'
+                   for x in range(int(x0), int(x1), 16) if not (g0 - 4 <= x <= g1 + 4))
+    return (f'<path d="M {x0:.1f} {G["top"] - 60:.1f} L {g0:.1f} {G["top"] - 60:.1f} M {g1:.1f} {G["top"] - 60:.1f} L {x1:.1f} '
+            f'{G["top"] - 60:.1f}" stroke="{c}" stroke-width="4"/>' + bars
+            + f'<rect x="{g0:.1f}" y="{G["top"] - 64:.1f}" width="{g1 - g0:.1f}" height="62" fill="none" stroke="{c}" stroke-width="4"/>'
+            + "".join(f'<path d="M {x:.1f} {G["top"] - 62:.1f} L {x:.1f} {G["top"] - 2:.1f}" stroke="{c}" stroke-width="3"/>'
+                      for x in range(int(g0) + 12, int(g1), 14))
+            + f'<rect x="{g0 - 7:.1f}" y="{G["top"] - 70:.1f}" width="9" height="70" fill="{c}"/>'
+            f'<rect x="{g1 - 2:.1f}" y="{G["top"] - 70:.1f}" width="9" height="70" fill="{c}"/>')
+
+
+def a3_planter_svg():
+    bx0, by0, bx1, by1 = A3_PLANTER
+    wx0, wy0, wx1, wy1 = A3_PWALL
+    c = A3_COL["planter"]
+    return (f'<rect x="{wx0:.1f}" y="{wy0:.1f}" width="{wx1 - wx0:.1f}" height="{wy1 - wy0:.1f}" fill="{c}" stroke="#3b3a36" '
+            'stroke-width="3"/>'
+            f'<rect x="{bx0:.1f}" y="{by0:.1f}" width="{bx1 - bx0:.1f}" height="{by1 - by0:.1f}" fill="{c}" stroke="#3b3a36" '
+            'stroke-width="3"/>'
+            f'<path d="M {bx0 + 10:.1f} {by0:.1f} Q {(bx0 + bx1) / 2:.1f} {by0 - 30:.1f} {bx1 - 10:.1f} {by0:.1f} Z" fill="#33402e"/>')
+
+
+def a3_crack_svg():
+    """プランターの壁の横に長いひびと、壁と箱の角のずれ（ずれの幅は模式）"""
+    wx0, wy0, wx1, wy1 = A3_PWALL
+    c = A3_COL["mark"]
+    y = (wy0 + wy1) / 2.0
+    pts = " L ".join(f"{wx0 + 8 + (wx1 - wx0 - 16) * k / 8.0:.1f} {y + (3 if k % 2 else -3):.1f}" for k in range(9))
+    return (f'<path d="M {pts}" stroke="#10161b" stroke-width="7" fill="none"/>'
+            f'<path d="M {pts}" stroke="{c}" stroke-width="3.5" fill="none"/>'
+            f'<path d="M {wx1 - 2:.1f} {wy0 - 2:.1f} L {wx1 + 6:.1f} {wy0 - 10:.1f} L {wx1 + 6:.1f} {wy1 - 4:.1f}" stroke="{c}" '
+            'stroke-width="4" fill="none"/>')
+
+
+def a3_mark_svg(r, pad=8.0):
+    return a2t_mark_rect_svg(r, pad=pad)
+
+
+def a3_car_svg(x, col=None):
+    """横から見た車（前の端 x・床の上）。窓の中の人は描かない"""
+    G = A3G
+    col = col or A3_COL["car"]
+    y = G["floor"]
+    L = 210.0
+    return (f'<path d="M {x:.1f} {y - 18:.1f} L {x + 6:.1f} {y - 48:.1f} L {x + 50:.1f} {y - 54:.1f} L {x + 78:.1f} {y - 86:.1f} '
+            f'L {x + 150:.1f} {y - 86:.1f} L {x + 178:.1f} {y - 56:.1f} L {x + L:.1f} {y - 50:.1f} L {x + L:.1f} {y - 18:.1f} Z" '
+            f'fill="{col}" stroke="{A3_COL["car_ln"]}" stroke-width="3"/>'
+            f'<path d="M {x + 86:.1f} {y - 80:.1f} L {x + 144:.1f} {y - 80:.1f} L {x + 166:.1f} {y - 58:.1f} L {x + 70:.1f} {y - 58:.1f} Z" '
+            f'fill="{A3_COL["glass"]}"/>'
+            f'<circle cx="{x + 48:.1f}" cy="{y - 16:.1f}" r="16" fill="{A3_COL["car_ln"]}"/>'
+            f'<circle cx="{x + 166:.1f}" cy="{y - 16:.1f}" r="16" fill="{A3_COL["car_ln"]}"/>')
+
+
+def a3_cars_svg():
+    return "".join(a3_car_svg(x) for x in A3_CARS)
+
+
+def a3_carin_svg():
+    """最後に入った車（左から入って止まる＝dx で動かす）＋前の灯り"""
+    G = A3G
+    x = A3_CARIN
+    # ⑤b-3 の下見（c601）：灯りが車の後ろ（左）に出ていた＝左から右へ入る車の前は右
+    return (f'<path d="M {x + 214:.1f} {G["floor"] - 40:.1f} L {x + 330:.1f} {G["floor"] - 62:.1f} L {x + 330:.1f} {G["floor"] - 14:.1f} Z" '
+            f'fill="{A3_COL["light"]}" opacity="0.18"/>' + a3_car_svg(x, "#8f9ba3"))
+
+
+def _a3_colx():
+    return A3_ROW["13.1"]
+
+
+def a3_water_svg():
+    """柱 L-13.1 を伝う水の筋（4つの面＝見える面に3本）としずく・床の水たまり"""
+    G = A3G
+    x = _a3_colx()
+    c = A3_COL["water"]
+    g = []
+    for k, off in enumerate((-12.0, 0.0, 11.0)):
+        pts = " ".join(f"{x + off + 3.0 * math.sin(j * 0.9 + k):.1f},{G['ceil'] + 4 + j * 22:.1f}" for j in range(21))
+        g.append(f'<polyline points="{pts}" fill="none" stroke="{c}" stroke-width="4" opacity="0.9"/>')
+    for j, dx in enumerate((-40.0, 34.0, -22.0)):
+        g.append(f'<ellipse cx="{x + dx:.1f}" cy="{G["ceil"] + 30 + 60 * j:.1f}" rx="4" ry="7" fill="{c}" opacity="0.8"/>')
+    g.append(f'<ellipse cx="{x:.1f}" cy="{G["floor"] - 2:.1f}" rx="80" ry="9" fill="{c}" opacity="0.45"/>')
+    return "".join(g)
+
+
+def a3_ceil_svg():
+    """柱のまわりの天井の高さの変化（たわみの大きさは模式＝破線）"""
+    G = A3G
+    x = _a3_colx()
+    c = A3_COL["mark"]
+    return (f'<path d="M {x - 150:.1f} {G["ceil"] + 2:.1f} Q {x:.1f} {G["ceil"] + 34:.1f} {x + 150:.1f} {G["ceil"] + 2:.1f}" fill="none" '
+            'stroke="#10161b" stroke-width="9"/>'
+            f'<path d="M {x - 150:.1f} {G["ceil"] + 2:.1f} Q {x:.1f} {G["ceil"] + 34:.1f} {x + 150:.1f} {G["ceil"] + 2:.1f}" fill="none" '
+            f'stroke="{c}" stroke-width="5" stroke-dasharray="12 7"/>')
+
+
+def a3_funnel_svg():
+    """デッキの上の水が、この1本の柱へ集まるよう（向きの矢印だけ・模式）"""
+    G = A3G
+    x = _a3_colx()
+    c = A3_COL["water"]
+
+    def arr(x0, y0, x1, y1):
+        a = math.atan2(y1 - y0, x1 - x0)
+        hx, hy = x1 - 20 * math.cos(a), y1 - 20 * math.sin(a)
+        px, py = -math.sin(a) * 11, math.cos(a) * 11
+        return (f'<path d="M {x0:.1f} {y0:.1f} L {hx:.1f} {hy:.1f}" stroke="#10161b" stroke-width="11" stroke-linecap="round"/>'
+                f'<path d="M {x0:.1f} {y0:.1f} L {hx:.1f} {hy:.1f}" stroke="{c}" stroke-width="6" stroke-linecap="round"/>'
+                f'<path d="M {x1:.1f} {y1:.1f} L {hx + px:.1f} {hy + py:.1f} L {hx - px:.1f} {hy - py:.1f} Z" fill="{c}" '
+                'stroke="#10161b" stroke-width="2"/>')
+    return (arr(x - 260, G["top"] - 16, x - 40, G["top"] - 8) + arr(x + 260, G["top"] - 16, x + 40, G["top"] - 8)
+            + arr(x, G["ceil"] + 20, x, G["ceil"] + 200))
+
+
+def a3_stain_svg():
+    """2020年11月の写真の変色と塗料の筋（茶色の筋＝模式）"""
+    G = A3G
+    x = _a3_colx()
+    c = A3_COL["stain"]
+    g = []
+    for k, (off, ln) in enumerate(((-11.0, 300.0), (-2.0, 380.0), (9.0, 250.0), (14.0, 330.0))):
+        g.append(f'<path d="M {x + off:.1f} {G["ceil"] + 2:.1f} L {x + off + 2 * (k % 2):.1f} {G["ceil"] + ln:.1f}" '
+                 f'stroke="{c}" stroke-width="{5 if k % 2 else 3}" opacity="0.85"/>')
+    g.append(f'<rect x="{x - G["colw"] / 2 + 2:.1f}" y="{G["ceil"] + 2:.1f}" width="{G["colw"] - 4:.1f}" height="70" fill="{c}" '
+             'opacity="0.45"/>')
+    return "".join(g)
+
+
+def a3_inset_svg(y):
+    """左上の小さな地図（A3 の頭）＝上から見た敷地（A2 の top を縮めたもの）＋いまの断面の切り口（L の線・太い）＋目の印（西を向く）"""
+    x0, w = 72.0, 300.0
+    sx = w / (A2T["x1"] + 160 - (A2T["x0"] - 60))
+    ox = A2T["x0"] - 60
+
+    def p(px, py):
+        return (x0 + (px - ox) * sx, y + (py - A2T["tn"] + 30) * sx)
+    h = (A2T["south"] + 40 - A2T["tn"] + 30) * sx
+    wt, mt, et = _a2_tower_fp()
+    park, deck = _a2_zone_fp()
+
+    def poly(pts, fill):
+        return _a2_poly([p(*q) for q in pts], fill, "#10161b", 1.2)
+    a, b = p(A2T["L"], A2T["ts"] - 20), p(A2T["L"], A2T["south"] + 10)
+    ex, ey = p(A2T["L"] + 90, (A2T["ts"] + A2T["south"]) / 2.0)
+    c = A3_COL["mark"]
+    return (f'<rect x="{x0:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" fill="{A2_COL["ground"]}"/>'
+            + poly(park, A2_COL["park"]) + poly(deck, A2_COL["deck"]) + poly(wt, A1_COL["west"]) + poly(mt, A1_COL["mid"])
+            + poly(et, A1_COL["east"])
+            + f'<path d="M {a[0]:.1f} {a[1]:.1f} L {b[0]:.1f} {b[1]:.1f}" stroke="#10161b" stroke-width="7" stroke-linecap="round"/>'
+            f'<path d="M {a[0]:.1f} {a[1]:.1f} L {b[0]:.1f} {b[1]:.1f}" stroke="{c}" stroke-width="4" stroke-linecap="round"/>'
+            f'<circle cx="{ex:.1f}" cy="{ey:.1f}" r="5.5" fill="#f3f6f8" stroke="#10161b" stroke-width="2"/>'
+            f'<path d="M {ex - 6:.1f} {ey:.1f} L {ex - 24:.1f} {ey:.1f}" stroke="#10161b" stroke-width="5" stroke-linecap="round"/>'
+            f'<path d="M {ex - 6:.1f} {ey:.1f} L {ex - 24:.1f} {ey:.1f}" stroke="{c}" stroke-width="2.5" stroke-linecap="round"/>'
+            f'<path d="M {ex - 32:.1f} {ey:.1f} L {ex - 22:.1f} {ey - 7:.1f} L {ex - 22:.1f} {ey + 7:.1f} Z" fill="{c}" '
+            'stroke="#10161b" stroke-width="1.5"/>'
+            + _va_text(x0 + w - 8, y + 24, "北↑", size=20, anchor="end")
+            + f'<rect x="{x0:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" fill="none" stroke="#e3eaee" stroke-width="2"/>')
+
+
+def _scene_A3(start, states, steps):
+    """A3＝地下の駐車場（西を向いて見た断面・右が北）。デッキの上の柵・門・プランター、地下の柱の列、車"""
+    allst = [start] + states
+    if any(st["view"] != start["view"] for st in states):
+        raise ValueError("illu A3：view は場面の頭（start）で1つだけ")
+    for a, b in zip(allst, allst[1:]):
+        if a["a3carin"] == "in" and b["a3carin"] != "in":
+            raise ValueError("illu A3：入った車（a3carin＝in）を戻さない")
+    if any(st["a3water"] == "on" and st["a3stain"] == "on" for st in allst):
+        raise ValueError("illu A3：水の筋（2021年6月）と変色の筋（2020年11月の写真）は同じ段に置かない＝時が違う")
+
+    def used(f, v):
+        return any(st[f] == v for st in allst)
+    R = A3_REC
+    colx = _a3_colx()
+    parts = [_part("bg", a3_bg_svg(), R["garage"]),
+             dict(_part("struct", a3_struct_svg(), R["garage"]), geo=dict(kind="a3rows", rows=dict(A3_ROW), tower=A3G["tower"])),
+             _part("tower", a3_tower_svg(), R["tower"]),
+             dict(_part("fence", a3_fence_svg(), R["gate"]), geo=dict(kind="a3gate", x0=A3_GATE[0], x1=A3_GATE[1])),
+             dict(_part("planter", a3_planter_svg(), R["planter"]),
+                  geo=dict(kind="a3planter", x0=A3_PLANTER[0], x1=A3_PLANTER[2], wall=A3_PWALL[0]))]
+    if used("a3cars", "on"):
+        parts.append(_part("cars", a3_cars_svg(), R["cars"],
+                           keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a3cars"] == "on")), A3_T["line"])))
+    if used("a3carin", "in") or used("a3carin", "go"):
+        def car_k(st):
+            return dict(a=float(st["a3carin"] != "off"), dx=0.0 if st["a3carin"] == "in" else -A3_CARIN - 260.0)
+        parts.append(_part("carin", a3_carin_svg(), R["carin"], keys=_a2_keys(start, states, steps, car_k, A3_T["drive"])))
+    if used("a3gate", "on"):
+        parts.append(_part("gate_mark", a3_mark_svg((A3_GATE[0] - 7, A3G["top"] - 70, A3_GATE[1] + 7, A3G["top"])), R["gate"],
+                           keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a3gate"] == "on")), A3_T["line"])))
+    if used("a3plant", "on"):
+        parts.append(_part("plant_mark", a3_mark_svg((A3_PWALL[0], A3_PLANTER[1], A3_PLANTER[2], A3G["top"])), R["planter"],
+                           keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a3plant"] == "on")), A3_T["line"])))
+    if used("a3crack", "on"):
+        parts.append(_part("crack", a3_crack_svg(), R["crack"],
+                           keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a3crack"] == "on")), A3_T["line"])))
+    if used("a3water", "on"):
+        parts.append(dict(_part("water", a3_water_svg(), R["water"],
+                                keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a3water"] == "on")), A3_T["water"])),
+                          geo=dict(kind="a3mark", what="water", x=colx)))
+    if used("a3ceil", "on"):
+        parts.append(dict(_part("ceil", a3_ceil_svg(), R["ceil"],
+                                keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a3ceil"] == "on")), A3_T["line"])),
+                          geo=dict(kind="a3mark", what="ceil", x=colx)))
+    if used("a3funnel", "on"):
+        parts.append(dict(_part("funnel", a3_funnel_svg(), R["water"],
+                                keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a3funnel"] == "on")), A3_T["line"])),
+                          geo=dict(kind="a3mark", what="funnel", x=colx)))
+    if used("a3stain", "on"):
+        parts.append(dict(_part("stain", a3_stain_svg(), R["stain"],
+                                keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a3stain"] == "on")), A3_T["line"])),
+                          geo=dict(kind="a3mark", what="stain", x=colx)))
+    return parts
+
+
+def _a3_anchors(st):
+    G = A3G
+    x = _a3_colx()
+    return dict(col=(x + 20.0, G["ceil"] + 200.0), ceil=(x + 120.0, G["ceil"] + 16.0), deck=(x - 200.0, G["top"] - 20.0),
+                planter=((A3_PWALL[0] + A3_PLANTER[2]) / 2.0, A3_PLANTER[1] - 6.0), crack=((A3_PWALL[0] + A3_PWALL[2]) / 2.0, A3_PWALL[1]),
+                gate=((A3_GATE[0] + A3_GATE[1]) / 2.0, G["top"] - 70.0), cars=(A3_CARS[1] + 105.0, G["floor"] - 90.0),
+                carin=(A3_CARIN + 105.0, G["floor"] - 90.0), stain=(x + 20.0, G["ceil"] + 120.0))
+
+
+def _a3_note(st0, states):
+    allst = [st0] + list(states)
+    note = ["形は NIST の3D から・柱の数と間隔は模式・人は描かない"]
+    if any(st["a3cars"] == "on" or st["a3carin"] != "off" for st in allst):
+        note.append("車の数と形は模式")
+    if any(st["a3ceil"] == "on" for st in allst):
+        note.append("天井の下がりは大きく描いた")
+    return "・".join(note)
+
+
+# ── 19本目 ⑤b-3：A4 別の建物（cc10＝大陪審の報告 p.20 の10階建て・正面・名前は出さない）／A5 記念の光の柱（cc19＝町の発表 A13）──
+#   🔴 A4：10階建て（GJ p.20）だけを数で描く（戸数 156 は描かない）。赤い札は「危険」の印＝札の形と色は模式。人は描かない
+#   🔴 A5：13本（A13「The 13 Pillars of Light」）。柱の形・高さ・間隔は町の発表に無い＝模式（左下の断り）。柱の中の鉄筋とがれき＝
+#      A13「incorporate rebar and debris from the building within the columns」＝細い線だけ。手の絵＝案の崩れた建物の絵から替えた（A13）
+A4_GY, A4_FH, A4_NFL = 800.0, 46.0, 10
+A4_X = (660.0, 1260.0)
+A4_DOOR = (900.0, 1020.0)
+A4_COL = dict(sky0="#3b4a5c", sky1="#9aa8b4", ground="#4a4f52", wall="#b9b2a3", ln="#5d584f", win="#3e4a55", red="#d8332f",
+              mark="#f2c14e")
+A4_LAB = "別の建物（正面）"
+A4_REC = dict(bld="GJ p3023（10階建て・156戸の別の建物）", red="GJ p3023（危険の赤い札・すぐに退去の命令）")
+
+
+def a4_bg_svg():
+    return (f'<defs><linearGradient id="a4Sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{A4_COL["sky0"]}"/>'
+            f'<stop offset="1" stop-color="{A4_COL["sky1"]}"/></linearGradient></defs>'
+            f'<rect x="0" y="0" width="{W}" height="{A4_GY:.0f}" fill="url(#a4Sky)"/>'
+            f'<rect x="0" y="{A4_GY:.0f}" width="{W}" height="{H - A4_GY:.0f}" fill="{A4_COL["ground"]}"/>')
+
+
+def a4_bld_svg():
+    x0, x1 = A4_X
+    top = A4_GY - (A4_NFL + 0.3) * A4_FH
+    g = [f'<rect x="{x0:.1f}" y="{top:.1f}" width="{x1 - x0:.1f}" height="{A4_GY - top:.1f}" fill="{A4_COL["wall"]}" '
+         f'stroke="{A4_COL["ln"]}" stroke-width="3"/>']
+    nb = 8
+    bw = (x1 - x0) / nb
+    for k in range(A4_NFL):
+        y = A4_GY - (k + 1) * A4_FH
+        g.append(f'<path d="M {x0:.1f} {y + A4_FH:.1f} L {x1:.1f} {y + A4_FH:.1f}" stroke="{A4_COL["ln"]}" stroke-width="2"/>')
+        if k == 0:
+            continue
+        for b in range(nb):
+            g.append(f'<rect x="{x0 + b * bw + bw * 0.2:.1f}" y="{y + 9:.1f}" width="{bw * 0.6:.1f}" height="{A4_FH - 20:.1f}" '
+                     f'fill="{A4_COL["win"]}"/>')
+    d0, d1 = A4_DOOR
+    g.append(f'<rect x="{d0:.1f}" y="{A4_GY - A4_FH + 4:.1f}" width="{d1 - d0:.1f}" height="{A4_FH - 4:.1f}" fill="#2a3036" '
+             f'stroke="{A4_COL["ln"]}" stroke-width="3"/>')
+    # 傷み（ひび・剥がれ＝模式）：大陪審が「明らかに直す必要のある傷んだ所」を見た（GJ p.20）
+    for (cx, cy) in ((760, 420), (1150, 560), (980, 330)):
+        g.append(f'<path d="M {cx:.1f} {cy:.1f} l 14 18 l -6 16 l 12 20" stroke="#6e655a" stroke-width="3" fill="none"/>')
+    return "".join(g)
+
+
+def a4_red_svg():
+    d0, d1 = A4_DOOR
+    cx = (d0 + d1) / 2.0
+    y = A4_GY - A4_FH - 74
+    return (f'<rect x="{cx - 52:.1f}" y="{y:.1f}" width="104" height="66" rx="5" fill="{A4_COL["red"]}" stroke="#10161b" stroke-width="4"/>'
+            f'<path d="M {cx - 30:.1f} {y + 14:.1f} L {cx + 30:.1f} {y + 52:.1f} M {cx + 30:.1f} {y + 14:.1f} L {cx - 30:.1f} {y + 52:.1f}" '
+            'stroke="#f3f6f8" stroke-width="7" stroke-linecap="round"/>')
+
+
+def a4_out_svg():
+    """住民全員にすぐ出るよう命じた＝扉から外へ向く矢印だけ（人は描かない）"""
+    d0, d1 = A4_DOOR
+    y = A4_GY + 40
+    c = A4_COL["mark"]
+
+    def arr(x0, x1):
+        s = 1 if x1 > x0 else -1
+        return (f'<path d="M {x0:.1f} {y:.1f} L {x1 - 22 * s:.1f} {y:.1f}" stroke="#10161b" stroke-width="12" stroke-linecap="round"/>'
+                f'<path d="M {x0:.1f} {y:.1f} L {x1 - 22 * s:.1f} {y:.1f}" stroke="{c}" stroke-width="7" stroke-linecap="round"/>'
+                f'<path d="M {x1:.1f} {y:.1f} L {x1 - 26 * s:.1f} {y - 14:.1f} L {x1 - 26 * s:.1f} {y + 14:.1f} Z" fill="{c}" '
+                'stroke="#10161b" stroke-width="2"/>')
+    return arr(d0 - 10, d0 - 260) + arr(d1 + 10, d1 + 260)
+
+
+def _scene_A4(start, states, steps):
+    allst = [start] + states
+    R = A4_REC
+    parts = [_part("bg", a4_bg_svg(), R["bld"]),
+             dict(_part("bld", a4_bld_svg(), R["bld"]), obj=dict(story_other=A4_NFL))]
+    if any(st["a4red"] == "on" for st in allst):
+        parts.append(_part("red", a4_red_svg(), R["red"],
+                           keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a4red"] == "on")), 0.4)))
+        parts.append(_part("out", a4_out_svg(), R["red"],
+                           keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a4red"] == "on")), 0.8, 1.2)))
+    return parts
+
+
+def _a4_anchors(st):
+    d0, d1 = A4_DOOR
+    return dict(red=((d0 + d1) / 2.0 + 52.0, A4_GY - A4_FH - 40.0), bld=(A4_X[0], A4_GY - 6 * A4_FH))
+
+
+A5_GY = 760.0
+A5_N = 13
+A5_X = (330.0, 1470.0)
+A5_PH = 300.0
+A5_PANEL = (1560.0, 380.0, 1820.0, 600.0)
+A5_SWAP = 2.0                          # 案の絵 → 決まった絵へ替えるまでの秒（行の中）
+A5_COL = dict(sky0="#121a2b", sky1="#3c4a66", ground="#2b3036", path="#4b4f52", sea="#1d3a52", glow="#f6e7b8", core="#fff6dc",
+              rebar="#8a7f6a", panel="#0d1115", panel_ln="#e3eaee", mark="#f2c14e")
+A5_LAB = "88番通りの端の記念の場所（横から）"
+A5_REC = dict(site="A13 p5102（88番通りの端の公園・コリンズ通りの入口の近くから）",
+              pillar="A13 p5102（13本の光の柱・鉄筋とがれきを柱の中に）", hands="A13 p5102（崩れた建物の絵を手の絵に替えた）")
+
+
+def a5_bg_svg():
+    return (f'<defs><linearGradient id="a5Sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{A5_COL["sky0"]}"/>'
+            f'<stop offset="1" stop-color="{A5_COL["sky1"]}"/></linearGradient></defs>'
+            f'<rect x="0" y="0" width="{W}" height="{A5_GY:.0f}" fill="url(#a5Sky)"/>'
+            f'<rect x="0" y="{A5_GY:.0f}" width="{W}" height="{H - A5_GY:.0f}" fill="{A5_COL["ground"]}"/>'
+            f'<rect x="1520" y="{A5_GY - 30:.0f}" width="{W - 1520}" height="{H - A5_GY + 30:.0f}" fill="{A5_COL["sea"]}"/>'
+            f'<rect x="200" y="{A5_GY:.0f}" width="1320" height="22" fill="{A5_COL["path"]}"/>'
+            + _va_text(200, A5_GY + 70, "コリンズ通りの側", size=28) + _va_text(1840, A5_GY + 70, "海の側", size=28, anchor="end"))
+
+
+def _a5_px(i):
+    return A5_X[0] + (A5_X[1] - A5_X[0]) * i / (A5_N - 1)
+
+
+def a5_pillars_svg():
+    g = []
+    for i in range(A5_N):
+        x = _a5_px(i)
+        g.append(f'<ellipse cx="{x:.1f}" cy="{A5_GY - A5_PH / 2:.1f}" rx="46" ry="{A5_PH / 2 + 30:.1f}" fill="{A5_COL["glow"]}" opacity="0.13"/>'
+                 f'<rect x="{x - 18:.1f}" y="{A5_GY - A5_PH:.1f}" width="36" height="{A5_PH:.1f}" rx="6" fill="{A5_COL["glow"]}" '
+                 f'stroke="#c9b98c" stroke-width="2"/>'
+                 f'<rect x="{x - 8:.1f}" y="{A5_GY - A5_PH + 10:.1f}" width="16" height="{A5_PH - 20:.1f}" rx="4" fill="{A5_COL["core"]}"/>')
+    return "".join(g)
+
+
+def a5_rebar_svg():
+    """柱の中の鉄筋とがれき（細い線と小さな塊だけ＝模式）"""
+    g = []
+    for i in range(A5_N):
+        x = _a5_px(i)
+        g.append(f'<path d="M {x - 6:.1f} {A5_GY - 40:.1f} L {x + 4:.1f} {A5_GY - A5_PH + 60:.1f} M {x + 6:.1f} {A5_GY - 70:.1f} '
+                 f'L {x - 3:.1f} {A5_GY - A5_PH + 110:.1f}" stroke="{A5_COL["rebar"]}" stroke-width="2.5"/>'
+                 f'<rect x="{x - 9:.1f}" y="{A5_GY - 34:.1f}" width="18" height="12" fill="{A5_COL["rebar"]}"/>')
+    return "".join(g)
+
+
+def a5_panel_svg(what):
+    x0, y0, x1, y1 = A5_PANEL
+    cx, cy = (x0 + x1) / 2.0, (y0 + y1) / 2.0 + 10
+    g = []
+    if what == "frame":
+        return (f'<rect x="{x0:.1f}" y="{y0:.1f}" width="{x1 - x0:.1f}" height="{y1 - y0:.1f}" rx="8" fill="{A5_COL["panel"]}" '
+                f'fill-opacity="0.85" stroke="{A5_COL["panel_ln"]}" stroke-width="2.5"/>'
+                + _va_text(cx, y0 + 38, "記念の絵", size=24, anchor="middle"))
+    if what == "bld":
+        # 案の絵（崩れた建物）＝輪郭だけ・薄く
+        g.append(f'<path d="M {cx - 70:.1f} {cy + 70:.1f} L {cx - 70:.1f} {cy - 50:.1f} L {cx - 10:.1f} {cy - 50:.1f} L {cx - 10:.1f} '
+                 f'{cy + 10:.1f} L {cx + 20:.1f} {cy + 40:.1f} L {cx + 70:.1f} {cy + 30:.1f} L {cx + 70:.1f} {cy + 70:.1f} Z" '
+                 'fill="none" stroke="#8a949a" stroke-width="4" stroke-linejoin="round"/>')
+    else:
+        # 手の絵（並んだ2つの手のひら＝指4本と親指・模式）。⑤b-3 の下見：輪郭だけの曲線はカプセル2つに見えた＝指を描く
+        c, ln = A5_COL["glow"], "#10161b"
+        for s in (-1, 1):
+            px = cx + s * 46.0
+            g.append(f'<rect x="{px - 26:.1f}" y="{cy - 6:.1f}" width="52" height="62" rx="16" fill="{c}" stroke="{ln}" stroke-width="2.5"/>')
+            for k, (dx, h) in enumerate(((-18, 44), (-6, 54), (6, 52), (18, 42))):
+                g.append(f'<rect x="{px + dx - 5.5:.1f}" y="{cy - h + 4:.1f}" width="11" height="{h + 10:.1f}" rx="5.5" fill="{c}" '
+                         f'stroke="{ln}" stroke-width="2"/>')
+            tx = px - s * 26.0
+            g.append(f'<rect x="{tx - 6:.1f}" y="{cy + 2:.1f}" width="12" height="38" rx="6" fill="{c}" stroke="{ln}" stroke-width="2" '
+                     f'transform="rotate({-s * 40:.0f} {tx:.1f} {cy + 30:.1f})"/>')
+    return "".join(g)
+
+
+def _scene_A5(start, states, steps):
+    allst = [start] + states
+    R = A5_REC
+    parts = [_part("bg", a5_bg_svg(), R["site"])]
+    # 柱＝13本で1つの部品（数 obj を持つ＝門番 ③ が数える）。いっしょに灯る
+    on = _a2_keys(start, states, steps, lambda st: dict(a=float(st["a5pil"] == "on")), 2.0)
+    parts.append(dict(_part("pillars", a5_pillars_svg(), R["pillar"], keys=on), obj=dict(pillar=A5_N)))
+    if any(st["a5rebar"] == "on" for st in allst):
+        parts.append(_part("rebar", a5_rebar_svg(), R["pillar"],
+                           keys=_a2_keys(start, states, steps, lambda st: dict(a=float(st["a5rebar"] == "on")), 0.8)))
+    if any(st["a5panel"] != "off" for st in allst):
+        # off → hands の段は、案の絵を出してから A5_SWAP 秒で決まった絵へ替える（替えた＝前の絵が要る＝1つの行の中で2つ）
+        kb, kh = [dict(stage=0, delay=0.0, a=float(start["a5panel"] == "bld"))], [dict(stage=0, delay=0.0, a=float(start["a5panel"] == "hands"))]
+        prev = start
+        for i, (st, sp) in enumerate(zip(states, steps)):
+            dl = float(sp.get("delay", KEY_DELAY))
+            if st["a5panel"] != prev["a5panel"]:
+                if st["a5panel"] == "hands" and prev["a5panel"] == "off":
+                    kb += [dict(stage=i, delay=dl, dur=0.5, a=1.0), dict(stage=i, delay=dl + A5_SWAP, dur=0.6, a=0.0)]
+                    kh += [dict(stage=i, delay=dl + A5_SWAP, dur=0.8, a=1.0)]
+                else:
+                    kb.append(dict(stage=i, delay=dl, dur=0.6, a=float(st["a5panel"] == "bld")))
+                    kh.append(dict(stage=i, delay=dl, dur=0.8, a=float(st["a5panel"] == "hands")))
+            prev = st
+        # ⑤b-3 の layout：見出しを2つの部品で入れ替えると同じ位置の文字が重なる＝枠と見出しは1つの部品・入れ替えるのは絵だけ
+        kf = _a2_keys(start, states, steps, lambda st: dict(a=float(st["a5panel"] != "off")), 0.5)
+        parts.append(_part("panel", a5_panel_svg("frame"), R["hands"], keys=kf))
+        parts.append(_part("panel_bld", a5_panel_svg("bld"), R["hands"], keys=kb))
+        parts.append(_part("panel_hands", a5_panel_svg("hands"), R["hands"], keys=kh))
+    return parts
+
+
+def _a5_anchors(st):
+    x0, y0, x1, y1 = A5_PANEL
+    return dict(pillar=(_a5_px(0), A5_GY - A5_PH), mid=(_a5_px(6), A5_GY - A5_PH), panel=((x0 + x1) / 2.0, y0),
+                low=(_a5_px(3), A5_GY - 40.0))
+
+
+def _a4_note(st0, states):
+    return "建物の形は模式・名前は出さない・人は描かない"
+
+
+def _a5_note(st0, states):
+    return "柱の形・高さ・並びと絵は模式（町の発表の文から）・人は描かない"
+
+
 def tag_svg(x, y, t, to=None, anchor="start", col=None, cap=30):
     col = col or C["tag"]
     s = fm.fit(t, 620, "Noto", cap=cap, floor=20)
@@ -5666,6 +6624,8 @@ def overlay_svg(view, src, assume="", inset=None, timed=False):
         g.append(sa_inset_svg(inset["pt"], inset_top(view, assume)))
     elif inset and inset.get("kind") == "SC":
         g.append(sc_inset_svg(inset_top(view, assume)))   # 🆕 18本目 ⑤b-3：SD の頭（SC を縮めたもの）
+    elif inset and inset.get("kind") == "A2":
+        g.append(a3_inset_svg(inset_top(view, assume)))   # 🆕 19本目 ⑤b-3：A3 の頭（A2 の top を縮めたもの）
     elif inset:
         g.append(v_inset_svg(inset["cur"], inset.get("other"), y=inset_top(view, assume)))
     if src:
@@ -5793,6 +6753,20 @@ FIELDS = {
     #   a1east（東の部分 on／fall／fell）・a1sway（東の部分の西への揺れ＝画素・模式）・a1deck（プールデッキ on／fell）・
     #   a1low3（3階より下の柱の印）・a1flow（流れの矢印＝cc25）
     "A1": dict(view="south", a1mid="on", a1east="on", a1sway=0.0, a1deck="on", a1low3="off", a1flow="off", cam=1.0),
+    # 🆕 19本目 ⑤b-3：A2 プールデッキと地上の駐車場（上の「19本目 ⑤b-3」の節）。view＝top（上から）／oblique（南西の上から＝c209）。
+    #   a2zone（並びの印＝oblique）・a2join（デッキと塔のつなぎ目＝oblique）・a2park（地上の駐車場 on／fall／fell）・a2deck（on／part）・
+    #   a2gate（門の印）・a2plant（プランター on／gap＝床との隙間）・a2cars（車）・a2lobby（ロビー on／walk＝外へ出た向き）・switch（上から見ると）
+    "A2": dict(view="top", switch="off", a2zone="off", a2join="off", a2park="on", a2deck="on", a2gate="off", a2plant="off",
+               a2cars="off", a2lobby="off", cam=1.0),
+    # 🆕 19本目 ⑤b-3：A3 地下の駐車場（西を向いて見た断面・右が北）。a3gate・a3plant（印）・a3crack（プランターの壁のひび）・
+    #   a3water（柱 L-13.1 を伝う水）・a3ceil（天井の高さの変化）・a3funnel（デッキの水が集まる向き）・a3stain（変色の筋）・a3cars・
+    #   a3carin（最後の車 off／go＝左の外／in＝止まる）。左上に位置の小さな地図（いつも＝見る向きの合図）
+    "A3": dict(view="west", a3gate="off", a3plant="off", a3crack="off", a3water="off", a3ceil="off", a3funnel="off",
+               a3stain="off", a3cars="off", a3carin="off", cam=1.0),
+    # 🆕 19本目 ⑤b-3：A4 別の建物（正面・cc10）＝a4red（危険の赤い札と外へ向く矢印）／A5 記念の光の柱（cc19）＝a5pil（柱が灯る）・
+    #   a5rebar（柱の中の鉄筋とがれき）・a5panel（絵の案 bld → 決まった絵 hands）
+    "A4": dict(view="front", a4red="off", cam=1.0),
+    "A5": dict(view="side", a5pil="off", a5rebar="off", a5panel="off", cam=1.0),
 }
 ONOFF = ("off", "on")
 CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONOFF, crowd=ONOFF, bridge=ONOFF, run=ONOFF,
@@ -5821,11 +6795,18 @@ CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONO
                sqr=ONOFF, trk=ONOFF,          # 🆕 18本目 ⑤b-8：SB の捜索の海域（ca02）
                # 🆕 19本目 ⑤b-2：A1
                a1mid=("on", "drop", "fall", "fell"), a1east=("on", "fall", "fell"), a1deck=("on", "fell"),
-               a1low3=ONOFF, a1flow=ONOFF)
+               a1low3=ONOFF, a1flow=ONOFF,
+               # 🆕 19本目 ⑤b-3：A2・A3
+               a2zone=("off", "park", "deck", "both"), a2join=ONOFF, a2park=("on", "fall", "fell"), a2deck=("on", "part"),
+               a2gate=ONOFF, a2plant=("off", "on", "gap"), a2cars=ONOFF, a2lobby=("off", "on", "walk"),
+               a3gate=ONOFF, a3plant=ONOFF, a3crack=ONOFF, a3water=ONOFF, a3ceil=ONOFF, a3funnel=ONOFF, a3stain=ONOFF,
+               a3cars=ONOFF, a3carin=("off", "go", "in"),
+               a4red=ONOFF, a5pil=ONOFF, a5rebar=ONOFF, a5panel=("off", "bld", "hands"))
 VIEWS = dict(B=("corridor", "cabin", "desk"), C=("helm", "console", "room"), D=("ship", "sea", "far", "heli", "rail"),
              RA=tuple(RA_VIEW), RB=("side", "rear"), RD=("tail",), RC=tuple(RC_VIEW), VA=tuple(VA_VIEW),
              VB=tuple(VB_VIEW), VC=tuple(VC_VIEW), VD=tuple(VD_VIEW), SA=("wide",), SB=tuple(SB_VIEW), SC=("floor",),
-             SD=("side",), A1=("south",))
+             SD=("side",), A1=("south",), A2=("top", "oblique"), A3=("west",), A4=("front",),
+             A5=("side",))
 # 変える段には rec が要る（記録の事実を描く欄）。⑤b-3 で置き場 C・D・E の欄を足した（位置 bx とカメラ cam は要らない）
 #   15本目 ⑤b-2：RA の印・線・×・輪、RB の機首の上げ・傾き・補助翼（コースの破線 course と地面 ground は要らない）
 #   16本目 ⑤b-2：VA の時刻（夜明け）・塊・崩れた範囲・建物の面・トンネル・想定の帯・道・入口・印・水（合図の prev・nxt・switch は要らない）
@@ -5845,7 +6826,11 @@ REC_FIELDS = ("heel", "wake", "boxes", "crowd", "mark", "bridge", "run", "far", 
               "skl", "thr", "d31", "datum", "oil", "rcv", "se", "mk", "mkx", "circ", "dia", "tri",
               "sqr", "trk",    # 🆕 18本目 ⑤b-8：SB の捜索の海域の四角と測る線（ca02）
               # 🆕 19本目 ⑤b-2：A1 の崩れ・揺れ・プールデッキ・3階より下の印・流れの矢印
-              "a1mid", "a1east", "a1sway", "a1deck", "a1low3", "a1flow")
+              "a1mid", "a1east", "a1sway", "a1deck", "a1low3", "a1flow",
+              # 🆕 19本目 ⑤b-3：A2・A3（合図の switch は要らない）
+              "a2zone", "a2join", "a2park", "a2deck", "a2gate", "a2plant", "a2cars", "a2lobby",
+              "a3gate", "a3plant", "a3crack", "a3water", "a3ceil", "a3funnel", "a3stain", "a3cars", "a3carin",
+              "a4red", "a5pil", "a5rebar", "a5panel")
 # 段ごとの出来事（引き継がない・数で書く＝画面の文字の門番が文字として読まない）。pylon＝RB でパイロンが1本流れる
 #   🆕 18本目 ⑤b-2（SA）：voice（潜水艦→スカイラークの声）・broken（崩れた声）・call（スカイラークの呼びかけ）・ping（探知機）・
 #   boom（9時18.1分の大きく低い音の輪＝c103 だけ・門番 ⑰）・xsig（音の信号＝認定22・24）
@@ -5856,7 +6841,8 @@ VIEW = dict(A="船首の側から見た図", D="船首の側から見た図", B=
             RD="ピットの事故機（横から）")
 # 左下の出典のあとに添える断り（15本目）。16本目 VA は場面の中身で変わる（関数＝_va_note）
 NOTE = dict(RA="配置は概略・機体は拡大・点線は模式", RC="柵・幕・車の形と並びは模式・配置は概略", VA=_va_note,
-            VB=_vb_note, VC=_vc_note, VD=_vd_note, SA=_sa_note, SB=_sb_note, SC=_sc_note, SD=_sd_note, A1=_a1_note)
+            VB=_vb_note, VC=_vc_note, VD=_vd_note, SA=_sa_note, SB=_sb_note, SC=_sc_note, SD=_sd_note, A1=_a1_note, A2=_a2_note, A3=_a3_note,
+            A4=_a4_note, A5=_a5_note)
 SEC_VIEW = dict(VB=VB_VIEW, VC=VC_VIEW, VD=VD_VIEW)       # 断面と正面の目盛り（門番 ⑨〜⑪ が同じ式で読む）
 D_VIEW = dict(ship="船首の側から見た図", heli="船首の側から見た図", sea="123艇を横から見た図", far="123艇から見た図",
               rail="3階の左舷を横から見た図")
@@ -6261,6 +7247,14 @@ def _anchors(place, st):
         return _sa_anchors(st)
     if place == "A1":
         return _a1_anchors(st)
+    if place == "A2":
+        return _a2_anchors(st)
+    if place == "A3":
+        return _a3_anchors(st)
+    if place == "A4":
+        return _a4_anchors(st)
+    if place == "A5":
+        return _a5_anchors(st)
     if place == "SB":
         return _sb_anchors(st)
     if place == "SC":
@@ -6310,6 +7304,8 @@ def _camc(place, st0, states):
     last = states[-1] if states else st0
     if place == "A1":
         return (960.0, 560.0)
+    if place in ("A2", "A3", "A4", "A5"):
+        return (960.0, 540.0)
     if place == "RA":
         return (960.0, RA_Y0)
     if place == "VA":
@@ -6380,7 +7376,8 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
     parts = {"A": _scene_A, "B": _scene_B, "C": _scene_C, "D": _scene_D, "E": _scene_E,
              "RA": _scene_RA, "RB": _scene_RB, "RD": _scene_RD, "RC": _scene_RC,
              "VA": _scene_VA, "VB": _scene_VB, "VC": _scene_VC, "VD": _scene_VD, "SA": _scene_SA,
-             "SB": _scene_SB, "SC": _scene_SC, "SD": _scene_SD, "A1": _scene_A1}[place](st0, states, steps)
+             "SB": _scene_SB, "SC": _scene_SC, "SD": _scene_SD, "A1": _scene_A1,
+             "A2": _scene_A2, "A3": _scene_A3, "A4": _scene_A4, "A5": _scene_A5}[place](st0, states, steps)
     if assume_at is not None:
         # 🆕 18本目 ⑤b-2：段の途中で出す想定の札＝絵の層の部品（上の層の札と同じ形・同じ位置）。合図と同じく記録の物でない
         if not assume:
@@ -6454,6 +7451,8 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
         inset = dict(kind="SA", pt=st0["map"])          # 🆕 18本目 ⑤b-2：東海岸の小さな地図と点（overlay_svg）
     if place == "SD" and st0["mini"] != "off":
         inset = dict(kind="SC")                          # 🆕 18本目 ⑤b-3：SC を縮めた小さな地図・切り口の線・目の印（合図 #5）
+    if place == "A3":
+        inset = dict(kind="A2")                          # 🆕 19本目 ⑤b-3：上から見た敷地を縮めた地図・切り口（L の線）・目の印（西を向く）
     ruler = dict(SEC_VIEW[place][st0["view"]]) if place in SEC_VIEW else None
     return dict(place=place, view=label, at=at, people=dict(people or {}), scale=scale, rec=rec, objects=objects,
                 parts=parts, cam=cam, camc=list(camc or _camc(place, st0, states)), tags=tags, nstage=len(steps),
@@ -6474,6 +7473,12 @@ def _label(place, st0, states):
         return VA_LAB
     if place == "A1":
         return A1_LAB
+    if place == "A2":
+        return A2_LAB[st0["view"]]
+    if place == "A3":
+        return A3_LAB
+    if place in ("A4", "A5"):
+        return dict(A4=A4_LAB, A5=A5_LAB)[place]
     if place == "VB":
         return VB_LAB
     if place == "VC":

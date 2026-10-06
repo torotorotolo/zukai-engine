@@ -431,6 +431,9 @@ REC_DOCS = {                                # 出典の書き方「資料名 p�
     "TR": dict(range=(1001, 1489), name="NIST 技術的知見の動画の語り（2026年6月）", page=None, base=0),
     "AC": dict(range=(2001, 2082), name="NIST の諮問委員会の資料（2026年9月）", page="pdf", base=2000),
     "TF": dict(range=(9001, 9808), name="NIST 技術的知見の動画のスライド（2026年6月）", page=None, base=0),
+    # 🆕 ⑤b-3：大陪審の報告（GJ の PDF 頁 n → p(3000+n)・印字の頁＝PDF 頁−3）・町の発表（A13＝1頁）
+    "GJ": dict(range=(3001, 3043), name="マイアミ・デイド郡の大陪審の報告（2022年）", page="print", base=3003),
+    "A13": dict(range=(5102, 5102), name="サーフサイド町の発表（2026年8月13日）", page=None, base=0),
 }
 ILLU_SPLIT_TIMES = ()                       # 資料で割れる時刻＝画面に時計・時刻の札として出さない
 ILLU_CROWD_UNTIL = None                     # 乗客の群れを描いてよい場面の時刻の上限
@@ -440,12 +443,21 @@ ILLU_CLOCK_OK = ()                          # 札に出してよい時計の時�
 ILLU_COUNTS = {                             # 描いてよい数＝{部品の obj の名: (数, 出典)}（門番 check_illu ③）
     # 🆕 19本目 ⑤b-2：A1 の塔＝12階＋ペントハウス（TR0004「12 stories tall plus a penthouse」）
     "story": (12, "TR p1004"), "penthouse": (1, "TR p1004"),
+    # 🆕 ⑤b-3：A4 の別の建物＝10階建て（GJ p.20「a 10-story, 156-unit condominium building」）・A5 の光の柱＝13本（A13）
+    "story_other": (10, "GJ p3023"), "pillar": (13, "A13 p5102"),
 }
 _A1_ASSUME = "推定（NIST の見立て）"            # 🆕 19本目 ⑤b-2：NIST の読み（映像から・most likely）で描いた崩れ方
 ILLU_ASSUME = {c: _A1_ASSUME for c in ("c619", "c620", "ca01", "ca18", "cc25")}   # 想定の札を出すカット（門番 check_illu ④）
+# 🆕 19本目 ⑤b-3：A2・A3＝目撃した人の話だけが元の絵（門・柱の水・プランターの隙間）と、落ちた範囲が記録に無い絵（駐車場・デッキの一部）
+ILLU_ASSUME.update({c: "目撃した人の話にもとづく" for c in ("c503", "c511", "c518")})
+ILLU_ASSUME.update({c: "崩れた範囲は推定" for c in ("c604", "c609")})
 # 壊れる物の部品を描いてよいカット（門番 check_illu ⑫＝空なら全部止める）。🆕 19本目 ⑤b-2：A1 の崩れ（真ん中・東・プールデッキ）
-ILLU_DESTROY_CUTS = ("c618", "c619", "c620", "ca01", "ca18", "cc25")
-ILLU_SUB_UNTIL = None                       # 潜水艦の時刻の上限（門番 ⑮＝無ければ潜水艦を描いたカットは止まる）
+#   🆕 ⑤b-3：A2 の落ちた地上の駐車場・デッキの一部・沈んだ車（c604・c609）
+ILLU_DESTROY_CUTS = ("c618", "c619", "c620", "ca01", "ca18", "cc25", "c604", "c609")
+# 縮尺を持たない模式の上から見た絵の置き場＝{置き場: 理由}（門番 check_illu ⑧ は縮尺の代わりに「人が0・模式の断り」を測る）
+#   🆕 19本目 ⑤b-3：A2（NIST の図から並びだけを描いた敷地＝寸法の記録が無い・人は決め⑤で描かない）
+ILLU_TOP_NOSCALE = {"A2": "敷地の並びの模式・人は描かない（決め⑤）"}
+ILLU_SUB_UNTIL = None                      # 潜水艦の時刻の上限（門番 ⑮＝無ければ潜水艦を描いたカットは止まる）
 ILLU_SUB_EXC = {}                           # 上の上限の例外＝{カットID: 時刻}
 ILLU_SUB_STOP = None                        # 艦の絵を止めたカット（これより後に潜水艦を置かない）
 ILLU_BOOM_CUTS = ()                         # 音の輪（9時18.1分の型）を置いてよいカット（門番 ⑰）

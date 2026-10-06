@@ -13,6 +13,7 @@ import cuts.ss as ss  # noqa: F401
 
 P = ss.P
 from illu import A1_REC as IL_REC  # noqa: E402  🆕 ⑤b-2：A1 の部品の出典（描く側と同じ文）
+from illu import A4_REC as A4R, A5_REC as A5R  # noqa: E402  🆕 ⑤b-3：A4・A5
 
 PLAN = {
     'cc01': dict(kind='写真',
@@ -108,6 +109,25 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-3（2026-10-06）：A4 別の建物（cc10）・A5 記念の光の柱（cc19）＝`tools/illu.py` の「A4・A5」の節 ──
+    # cc10（4.14秒・1行）＝大陪審の報告 p.20：市は建物に危険の赤い札を貼り、住民全員にすぐ出るよう命じた（建物の名は出さない・人は描かない）
+    "cc10": dict(
+        fig=("illu", dict(
+            place="A4", rec="GJ p3023（別の建物＝10階建て）",
+            steps=[dict(state=dict(a4red="on"), delay=0.6, rec=A4R["red"],
+                        tag=dict(t="危険の赤い札", at="red", off=(90, -90)))])),
+    ),
+    # cc19（13.48秒）＝町の発表（A13）。1行目：13本の光の柱（柱の中に鉄筋とがれき）／2行目：案の崩れた建物の絵 → 手の絵／
+    #   3行目（費用・工事）：寄るだけ（費用の数は語りと字幕）
+    "cc19": dict(
+        fig=("illu", dict(
+            place="A5", rec="A13 p5102（町が8月に最終的に認めた記念の場所）",
+            steps=[dict(state=dict(a5pil="on", a5rebar="on"), delay=0.3, dur=2.0, rec=A5R["pillar"],
+                        tag=dict(t="鉄筋とがれきを中に", at="mid", off=(90, -120))),
+                   dict(state=dict(a5panel="hands"), delay=0.2, rec=A5R["hands"],
+                        tag=dict(t="手の絵", at="panel", off=(-40, -70), anchor="end", delay=2.4)),
+                   dict(state=dict(cam=1.05), delay=0.2, dur=4.0)])),
+    ),
     # ── 🆕 ⑤b-2（2026-10-06）：案C の置き場 A1（南から見た塔）＝まとめ（冒頭の問いへ戻す型）。秒は narration.json の実測（0〜4.25／4.74〜8.88）
     # cc25＝「推定」。1行目：プールデッキが崩れ → 流れの矢印（デッキ → 塔の下の継ぎ目 → 塔）→ 真ん中が落ち、1秒遅れて東（順番＝TR0093）／
     #   2行目：継ぎ目へ寄る（強さと鉄筋の組み方が足りなかった＝TR0475・0476）

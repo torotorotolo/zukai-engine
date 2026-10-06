@@ -13,6 +13,7 @@ import cuts.ss as ss  # noqa: F401
 
 P = ss.P
 from illu import A1_REC as IL_REC  # noqa: E402  🆕 ⑤b-2：A1 の部品の出典（描く側と同じ文＝2か所に書かない・illu は cuts を読まない＝循環しない）
+from illu import A2_REC as A2R, A3_REC as A3R  # noqa: E402  🆕 ⑤b-3：A2・A3
 
 PLAN = {
     'c601': dict(kind='再現イラスト',
@@ -87,6 +88,41 @@ PLAN = {
 }
 
 SPEC = {
+    # ── 🆕 ⑤b-3（2026-10-06）：A3（地下の駐車場）と A2（上から）──
+    # c601（8.92秒）＝1行目は聞き役の問い／2行目（2.69〜）：約9分前に最後の車が入る（TR0161・左の外から入って止まる＝模式）／
+    #   3行目：このとき落ちた床はまだ誰も見ていない（TR0166）＝落ちた床は描かない
+    "c601": dict(
+        fig=("illu", dict(
+            place="A3", start=dict(a3cars="on", a3carin="go"), rec="TR p1162（その夜、何台かの車が止められていた）",
+            steps=[dict(),
+                   dict(state=dict(a3carin="in"), delay=0.8, dur=2.6, rec=A3R["carin"],
+                        tag=dict(t="最後に入った車", at="carin", off=(60, -130))),
+                   dict(state=dict(cam=1.06), delay=0.2, dur=2.4)])),
+    ),
+    # c604（11.67秒）＝上から（直前の A3〈c601〉は横から＝切り替えの字）。「崩れた範囲は推定」（何人もの目撃・TR0170〜0174）。
+    #   1行目：地上の駐車場の床が落ちていく／2行目：落ちきって車が下へ傾く／3行目（音）：寄るだけ（音の印は描かない）
+    "c604": dict(
+        fig=("illu", dict(
+            place="A2", start=dict(switch="on", a2cars="on"), rec="TR p1170（約6分前・何人もの目撃）",
+            assume="崩れた範囲は推定",
+            steps=[dict(state=dict(a2park="fall"), delay=1.4, dur=2.2, rec=A2R["park_fall"],
+                        tag=dict(t="地上の駐車場", at="hole", off=(-260, 130), anchor="end")),
+                   dict(state=dict(a2park="fell"), delay=1.6, rec=A2R["cars"],
+                        tag=dict(t="傾いた車", at="cars", off=(-200, -60), anchor="end")),
+                   dict(state=dict(cam=1.08), delay=0.2, dur=3.0)],
+            camc=(785.0, 560.0))),
+    ),
+    # c609（7.30秒）＝上から。ロビー（塔の1階の南の帯・位置は概略＝TF p9096）と、外へ出て見に行った沈んだ車（TR0200・0201）。
+    #   デッキの南の一部もこのころ崩れていた（TR0203）＝落ちた範囲は推定の札
+    "c609": dict(
+        fig=("illu", dict(
+            place="A2", start=dict(a2cars="on", a2park="fell", a2deck="part"), rec="TR p1203（デッキの一部が崩れた映像）",
+            assume="崩れた範囲は推定",
+            steps=[dict(state=dict(a2lobby="on"), delay=0.8, rec=A2R["lobby"],
+                        tag=dict(t="ロビー（塔の1階）", at="lobby", off=(-40, -110), anchor="end")),
+                   dict(state=dict(a2lobby="walk"), delay=1.2, rec=A2R["lobby"],
+                        tag=dict(t="沈んだ車", at="cars", off=(-230, 70), anchor="end"))])),
+    ),
     # ── 🆕 ⑤b-2（2026-10-06）：案C の置き場 A1（南から見た塔・`tools/illu.py` の「19本目 ⑤b-2」の節）──
     #   人・窓の灯りは描かない。プールデッキは塔が崩れる数分前に崩れている（TR0330）＝この章の A1 は頭から a1deck="fell"。
     #   秒は narration.json の実測（c618 0〜4.29／4.78〜9.15・c619 0〜3.24／3.73〜7.84・c620 0〜4.79／5.28〜8.43／8.92〜11.60）
