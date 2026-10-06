@@ -1496,8 +1496,376 @@ def _selftest_m18(ok):
     return ok
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 19本目 ⑤b-4（2026-10-06）：模式図（m19＝`tools/mech19.py`・29の見え方）
+# ══════════════════════════════════════════════════════════
+# 🔴 記録の値は門番の側に持つ（§5b-88）。描く側の表（mech19.CAND・AROUND・CODE_DOTS・CORE・CV・RB_C・JO_TIES…）を書き換えると鳴る。
+#    位置の名（「K-13.1」）は NIST の発表のスライド（TF のコマ）から読んだ。厚さ・本数・割合は語り（TR）と諮問委員会の資料（AC）
+REC_M19 = dict(
+    cand=({"K-13.1", "L-13.1", "M-13.1", "K-15", "L-15", "M-15"}, "TF p9039（スライド48・TR0105＝six locations）"),
+    first2=({"K-13.1", "L-13.1"}, "TR p1106（K-13.1 and L-13.1 outlined in red）"),
+    around=({"I-12.1", "K-11.1", "L-11.1", "M-13.1", "K-15", "L-15"}, "TF p9052（スライド56＝丸い印の柱）"),
+    code_red=({"K-13.1", "L-13.1", "M-13.1", "G.1-15", "I-15", "K-15", "L-15", "M-15"}, "TF p9082（スライド74＝severe）"),
+    code_yel=({"N-13.1", "O-13.1", "O.1-13.1", "N-15"}, "TF p9082（スライド74＝moderate）"),
+    leak=(("M", "N"), ("11.1", "13.1"), "TF p9057（スライド58＝M と N のあいだ・11.1 の南の楕円）"),
+    water=("L-13.1", "TR p1132（grid point L-13.1）"), gate_col=("K", "TR p1123（K-13.1 の近くの門）"),
+    cam_move=({"L-8", "L-9.1"}, "TR p1344（L-9.1 and L-8）"), cam_still=({"M-8", "M-9.1"}, "TR p1344（columns on grid line M＝stationary）"),
+    cam_grid=(dict(L=640.0, M=710.0, **{"8": 352.0, "9.1": 420.0}), "TF p9134（スライド123 の平面＝1200px の縮小の座標）"),
+    hall=({"K", "L"}, {"I"}, "TR p1354（sag around grid lines K and L）・TF p9134（I は No movement）"),
+    core=((2.125, 1.375, 1.25), "TF p9090（スライド79＝2-1/8・1-3/8・1-1/4 in.）"),
+    cover=((0.75, 2.0), "TR p1221（3/4 of an inch・about 2 inches）"),
+    over=((4, 2), "TF p9085（スライド76＝only 2 rather than 4 top bars）"),
+    space=((1.20, 1.40), "TR p1229（about 20% to 40% wider）"),
+    strength=((6000.0, 4000.0), "AC p2065（Column 6000 psi・Floor 4000 psi）"),
+    clock={"1:18:18", "1:21:55", "1:22:04", "1:22:15"},
+    neutral=("#8fa3ad", "A06（沈みは見られない＝色を付けない）"),
+    # 推定で描く段＝{見え方: (欄, 値)}（front＝屋根が下がる・joint＝押しつぶれ）。その段までに「推定」の札
+    assume=dict(front=("roof", "down"), joint=("crush", "on")))
+NUM_M19 = re.compile(r"[0-9０-９]{1,2}[:：][0-9０-９]{2}(?:[:：][0-9０-９]{2})?|[0-9０-９][0-9０-９,.．]*")
+
+
+def _m19_order_ok(seq, need, have):
+    """need の欄が on になる段では、have の欄がすでに on（同じ段も可）。"""
+    return all(not (s.get(need[0]) == need[1]) or all(s.get(k) == v for k, v in have) for s in seq)
+
+
+def judge_m19(f):
+    """19本目 模式図：①状態の筋 ②形（f.mech["geo"]）を記録（REC_M19）で ③札の数・時刻・推定の札。"""
+    import mech19 as M
+    bad, n = [], 0
+    m = f.mech
+    g, view = m["geo"], m["view"]
+    seq = [m["start"]] + list(m["states"])
+    R = REC_M19
+    texts = list(m["tags"])
+    # ① 筋（先に起きることが先）
+    rules = dict(
+        punch=[(("drop", "on"), (("crack", "wide"),), "床が落ちるのは、ひびが開いて継ぎ目が強さを失ってから（TR0066）"),
+               (("hook", "on"), (("drop", "on"),), "フックの形の鉄筋が残るのは、落ちきってから（TR0072）"),
+               (("shear", "on"), (("drop", "on"),), "押し抜きの矢印は、床がずれたあと")],
+        water=[(("slope", "on"), (("strip", "on"),), "傾けたコンクリートは、全部はがしてから（MC18 p.7）"),
+               (("memb2", "on"), (("slope", "on"),), "防水を敷き直すのは、傾けたコンクリートの上"),
+               (("fix", "on"), (("strip", "on"),), "床を直すのは、はがしてから")],
+        edge=[(("pull", "on"), (("fall", "full"),), "継ぎ目を引きはがすのは、デッキが塔の南の面まで崩れてから（TR0330）"),
+              (("joint", "hurt"), (("pull", "on"),), "継ぎ目が傷むのは、梁と床が外れてから（TR0292）"),
+              (("joint", "crush"), (("pull", "on"),), "押しつぶれは、引きはがされて傷んだあと（TR0332）"),
+              (("drop", "on"), (("joint", "crush"),), "上の柱が下がるのは、継ぎ目が押しつぶされてから（TR0313）")],
+        joint=[(("buckle", "on"), (("bars", "on"), ("ties", "on")), "曲がる縦の鉄筋と、輪の形の鉄筋の無い高さを先に見せる"),
+               (("dense", "on"), (("bars", "on"),), "詰め込みは縦の鉄筋を見せてから")],
+        zoneb=[(("brk", "on"), (("mark", "on"),), "折れる所（①）と保つ所（②）の印を先に")],
+        excav=[(("drive", "on"), (("pit", "on"),), "鋼の板は掘る所の壁を支えるため"),
+               (("wave", "on"), (("drive", "on"),), "揺れは鋼の板を打ち込むときに出る（TR0456）"),
+               (("damp", "on"), (("wave", "on"),), "弱まるのは揺れが出てから"), (("dist", "on"), (("pit", "on"),), "距離は掘った所から")],
+        drip=[(("flow", "tap"), (("band", "on"),), "蛇口のような漏れ（約3時間前）は、しずく（約9時間前）の帯を見せてから")],
+        cover=[(("weak", "on"), (("dwg", "on"), ("real", "on")), "強さの比べは、図面と実際の両方を見せてから")],
+        rebar=[(("space", "on"), (("real", "on"),), "間隔の比べは、実際の鉄筋を見せてから")],
+        ruler=[(("short", "on"), (("rul", "on"),), "足りない量は物差しを見せてから"), (("gap", "on"), (("short", "on"),), ""),
+               (("limit", "on"), (("rul", "on"),), "")],
+        seq=[(("around", "on"), (("first", "on"), ("second", "on")), "まわりの柱へ重さが回るのは、2か所が壊れてから（TR0140）")],
+        cand=[(("red", "on"), (("cand", "on"),), "赤い枠は候補の中の2か所（TR0106）")],
+        ground=[(("none", "on"), (("cave", "on"),), "「空洞の跡なし」は、空洞の例を見せてから")])
+    for need, have, why in rules.get(view, []):
+        n += 1
+        if not _m19_order_ok(seq, need, have):
+            bad.append(f"① 筋：{need[0]}={need[1]} の段で {dict(have)} になっていない（{why}）")
+    # ② 形（記録で照らす）
+    if view == "cand":
+        n += 2
+        if g["cand"] and set(g["cand"]) != R["cand"][0]:
+            bad.append(f"② 候補の位置 {sorted(g['cand'])}（記録 {sorted(R['cand'][0])}＝{R['cand'][1]}）")
+        if g["red"] and set(g["red"]) != R["first2"][0]:
+            bad.append(f"② 赤い枠 {sorted(g['red'])}（記録 {sorted(R['first2'][0])}＝{R['first2'][1]}）")
+    if view == "seq":
+        n += 2
+        if not set(g["punched"]) <= R["first2"][0]:
+            bad.append(f"② 壊れた継ぎ目の印 {g['punched']}（記録 {sorted(R['first2'][0])}）")
+        if g["around"] and set(g["around"]) != R["around"][0]:
+            bad.append(f"② まわりの柱 {sorted(g['around'])}（記録 {sorted(R['around'][0])}＝{R['around'][1]}）")
+    if view == "code" and g["red"]:
+        n += 2
+        if set(g["red"]) != R["code_red"][0]:
+            bad.append(f"② ひどい不足の継ぎ目 {sorted(g['red'])}（記録 {sorted(R['code_red'][0])}＝{R['code_red'][1]}）")
+        if set(g["yel"]) != R["code_yel"][0]:
+            bad.append(f"② 中くらいの不足の継ぎ目 {sorted(g['yel'])}（記録 {sorted(R['code_yel'][0])}＝{R['code_yel'][1]}）")
+    if view == "dmg":
+        n += 3
+        (c0, c1), (r0, r1), why = R["leak"]
+        x, y = g["leak"]
+        if not (M.COLX[c0] < x < M.COLX[c1] and M.ROWY[r0] < y < M.ROWY[r1]):
+            bad.append(f"② 漏れの楕円が {c0} と {c1} のあいだ・{r0} と {r1} のあいだに無い（{x:.0f}, {y:.0f}＝{why}）")
+        wx, wy = g["water"]
+        c, r = R["water"][0].split("-")
+        if abs(wx - M.COLX[c]) > 1 or abs(wy - M.ROWY[r]) > 1:
+            bad.append(f"② 柱を伝う水の点が {R['water'][0]} に無い（{R['water'][1]}）")
+        if abs(g["gate"][0] - M.COLX[R["gate_col"][0]]) > 1:
+            bad.append(f"② 門の点が {R['gate_col'][0]} の線に無い（{R['gate_col'][1]}）")
+        bx = g["planter_box"]
+        px, py = g["planter"]
+        n += 1
+        if not (bx[0] - 2 <= px <= bx[2] + 2 and bx[1] - 2 <= py <= bx[3] + 2):
+            bad.append("② プランターの点がプランターの箱の上に無い")
+    if view == "sight" and g["vis"]:
+        n += 2
+        dx = [p[0] for p in g["deck"]]
+        dy = [p[1] for p in g["deck"]]
+        if any(not (min(dx) - 1 <= p[0] <= max(dx) + 1 and min(dy) - 1 <= p[1] <= max(dy) + 1) for p in g["vis"]):
+            bad.append("② 見えた範囲がプールデッキの外へ出ている（TF p9069＝デッキの上だけ）")
+
+        def area(P):
+            return abs(sum(P[i][0] * P[i - 1][1] - P[i - 1][0] * P[i][1] for i in range(len(P)))) / 2.0
+        fr = area(g["vis"]) / area(g["deck"])
+        if not 0.70 <= fr <= 0.97:
+            bad.append(f"② 見えた範囲がデッキの {fr * 100:.0f}%（TF p9069＝デッキのほとんど・北西の角は見えない＝70〜97%）")
+    if view == "planter" and g["boxes"]:
+        n += 2
+        y0, y1 = g["band"]
+        x0, x1 = g["deck_x"]
+        if any(not (y0 <= b[1] and b[3] <= y1 and x0 <= b[0] and b[2] <= x1) for b in g["boxes"]):
+            bad.append("② プランターの列がデッキの北の縁（塔の南の面と 11.1 のあいだ）に無い（TF p9088 の赤い点線）")
+        if m["states"] and m["states"][-1]["palm"] == "gone" and any(a > 0.01 for a in g["palm_after"]):
+            bad.append("② 抜いたヤシの木が残っている（TR0235＝2017年のハリケーンのあとに抜いた）")
+    if view == "cam" and g["move"]:
+        n += 3
+        gr = R["cam_grid"][0]
+        if abs(g["grid"]["L"] - gr["L"]) > 0.5 or abs(g["grid"]["M"] - gr["M"]) > 0.5:
+            bad.append(f"② 平面の L・M の線が NIST の図と違う（{g['grid']}＝{R['cam_grid'][1]}）")
+        if set(g["move"]) != R["cam_move"][0] or set(g["still"]) != R["cam_still"][0]:
+            bad.append(f"② 下がった柱 {g['move']}・動かない柱 {g['still']}（記録 {sorted(R['cam_move'][0])}／{sorted(R['cam_still'][0])}）")
+        if not (g["unit"][0] == gr["L"] and g["unit"][1] == gr["M"]):
+            bad.append("② 11 の列の部屋が L と M のあいだに無い（TR0336）")
+    if view == "hall":
+        mv, still, why = R["hall"]
+        n += 2
+        if any(abs(g["dy"][c]) > 0.01 for c in still):
+            bad.append(f"② 動かない所（{sorted(still)}）の床が下がっている（{why}）")
+        if any(s["sag"] == "on" for s in seq) and any(g["dy"][c] <= 0 for c in mv):
+            bad.append(f"② たわむ所（{sorted(mv)}）の床が下がっていない（{why}）")
+    if view == "flat" and g["joints"]:
+        n += 2
+        if g["beams"]:
+            bad.append("② フラットプレートに梁を描いた（TR0055＝床の板が柱に直に載る）")
+        if g["joints"] != g["n"]:
+            bad.append(f"② 継ぎ目の印 {g['joints']}／柱と床の交わり {g['n']}")
+    if view == "punch":
+        (tx, ty), (bx_, by_) = g["crack"]
+        n += 1
+        if not (abs(tx - g["col_face"]) > abs(bx_ - g["col_face"]) + 20 and ty < by_):
+            bad.append("② ひびが柱のまわりの斜めのひび（上の面で柱から離れ、下の面で柱に近い）になっていない（TR0065）")
+        if g["react"]:
+            n += 1
+            if not g["react"][0] > g["react"][1]:
+                bad.append("② 柱の矢印が上を向いていない（TR0064＝柱は上へ押し返す）")
+        if g["shear"]:
+            n += 1
+            if not g["shear"]["slab"][1] > g["shear"]["slab"][0]:
+                bad.append("② 床の矢印が下を向いていない（押し抜き＝柱は上・床は下へずれる）")
+    if view == "gspan":
+        n += 2
+        if any(abs(d) > 0.01 for r, d in g["dy"].items() if r != "13.1"):
+            bad.append(f"② 下がったのが K-13.1 の柱の所だけでない（{g['dy']}＝TR0139）")
+        if g["share_to"] and set(g["share_to"]) != {"15", "11.1"}:
+            bad.append(f"② 重さを渡す先が隣の柱でない（{g['share_to']}）")
+    if view == "core":
+        want, why = R["core"]
+        th = g["thick"]
+        n += 1
+        if th["top"]:
+            got = (th["topping"], th["tile"], th["top"])
+            k = got[0] / want[0]
+            if any(abs(gv / (wv * k) - 1.0) > 0.03 for gv, wv in zip(got, want)):
+                bad.append(f"② 重ねの厚さの比 {tuple(round(v / k, 3) for v in got)}（記録 {want}＝{why}）")
+    if view == "water":
+        n += 2
+        if abs(g["slab_y"][0] - g["slab_y"][1]) > 0.5:
+            bad.append("② 床の板が平らでない（MC18 p.7＝平らな床）")
+        if g["pond_with_slope"]:
+            bad.append("② 傾けたあとも水がたまっている")
+    if view == "edge":
+        n += 2
+        if abs(g["joint_x"] - g["row91"]) > 0.5:
+            bad.append("② 傷む継ぎ目が 9.1 の線の柱に無い（TR0292）")
+        if not (g["beam_x"][0] < g["beam_x"][1] <= g["row91"]):
+            bad.append("② 梁が 9.1 の線（塔の南の面）の南に無い（TR0288）")
+    if view == "joint":
+        f0, f1 = g["floor"]
+        n += 1
+        if any(f0 < y < f1 for y in g["ties"]):
+            bad.append(f"② 床の高さ（継ぎ目）に輪の形の鉄筋を描いた（{[y for y in g['ties'] if f0 < y < f1]}＝TR0297・AC p.71）")
+        if g["bar2"] is not None:
+            n += 1
+            want = R["strength"][0][1] / R["strength"][0][0]
+            if abs(g["bar2"] - want) > 0.01:
+                bad.append(f"② 床と柱の強さの棒の比 {g['bar2']:.3f}（記録 {want:.3f}＝{R['strength'][1]}）")
+
+        def rgb(h):
+            return tuple(int(h[i:i + 2], 16) for i in (1, 3, 5))
+        c, fl = rgb(g["colors"]["col"]), rgb(g["colors"]["floor"])
+        n += 1
+        if not (c[1] > c[0] + 20 and c[1] > c[2] + 20 and max(fl) - min(fl) < 20):
+            bad.append("② 柱は緑・床は灰色（NIST の図＝TF p9112）になっていない")
+    if view == "front" and g["heads_shown"]:
+        n += 1
+        if not g["head_top"] < g["roof_top"] - 10:
+            bad.append("② 柱の頭が屋根より上に突き出していない（TR0366）")
+    if view == "zoneb":
+        n += 2
+        if not (g["topbar_end"] - 5 <= g["brk"] <= g["topbar_end"] + 80 and g["brk"] > g["E"]):
+            bad.append(f"② 折れる所（①）が E の柱の東・上の鉄筋の途切れる辺りに無い（{g['brk']:.0f}・鉄筋の端 {g['topbar_end']:.0f}＝TR0384・TF p9144）")
+        if any(abs(r) > 0.01 for r in g["rot"]) and abs(g["pivot_x"] - g["brk"]) > 0.5:
+            bad.append("② 傾く床が ① で折れていない")
+    if view == "excav":
+        a = g["amps"]
+        n += 2
+        if not all(p[1] > q[1] for p, q in zip(a, a[1:])) or not all(p[0] < q[0] for p, q in zip(a, a[1:])):
+            bad.append(f"② 揺れが遠くへ行くほど小さくなっていない（{a}＝TR0461）")
+        if not (g["pile"] < min(g["walls"]) and max(g["walls"]) < a[1][0] and a[-1][0] < g["joint"]):
+            bad.append("② 壁が鋼の板と建物の中の揺れのあいだに無い・継ぎ目の手前で測っていない（TR0461）")
+    if view == "ground" and g["cave"]:
+        n += 1
+        x0, x1 = g["bld"]
+        if any(x0 <= p[0] <= x1 for p in g["cave"]):
+            bad.append("② 空洞の例を建物の下に描いた（A06＝建物の下に空洞の跡は無い）")
+    if view == "cover":
+        want, why = R["cover"]
+        n += 1
+        r = g["cover"]["real"] / g["cover"]["dwg"]
+        if abs(r / (want[1] / want[0]) - 1.0) > 0.03:
+            bad.append(f"② 鉄筋の上の厚さの比 {r:.2f}（記録 {want[1] / want[0]:.2f}＝{why}）")
+    if view == "ruler" and g["have"]:
+        n += 1
+        if any(h >= nd for h, nd in zip(g["have"], g["need"])):
+            bad.append("② 強さの棒が物差しの求める所に届いている（TR0214＝どちらにも足りない）")
+    if view == "rebar":
+        (wd, wr), why = R["over"]
+        lo, hi = R["space"][0]
+        n += 2
+        if g["over"]["dwg"] != wd or g["over"]["real"] != wr:
+            bad.append(f"② 柱の真上の鉄筋 図面 {g['over']['dwg']}本・実際 {g['over']['real']}本（記録 {wd}・{wr}＝{why}）")
+        k = g["space"]["real"] / g["space"]["dwg"]
+        if not lo <= k <= hi:
+            bad.append(f"② 間隔の比 {k:.2f}（記録 {lo}〜{hi}＝{R['space'][1]}）")
+    if view == "sat" and g["cells"]:
+        n += 1
+        if any(c.lower() != R["neutral"][0] for c in g["cells"]):
+            bad.append(f"② 沈みの色を付けた区画がある（{R['neutral'][1]}）")
+    # ③ 札の数・時刻・推定
+    said = [r.get("t", "") for r in m["rel"]]
+    for t in texts:
+        for mm in NUM_M19.finditer(t):
+            tok = mm.group(0)
+            n += 1
+            if not any(tok in s for s in said):
+                bad.append(f"③ 札「{t}」の数「{tok}」が rel（記録の値の宣言）に無い")
+            if (":" in tok or "：" in tok) and tok.replace("：", ":").count(":") >= 1:
+                full = tok.replace("：", ":")
+                if full.count(":") == 2 and full not in R["clock"]:
+                    bad.append(f"③ 札「{t}」の時刻「{tok}」が記録の時刻（{sorted(R['clock'])}）に無い")
+    fa, va = R["assume"].get(view, (None, None))
+    if fa and any(s.get(fa) == va for s in seq):
+        n += 1
+        if not any("推定" in t for t in texts):
+            bad.append("③ 推定で描いた段に「推定」の札が無い（NIST の見立て＝ルール §5b-10）")
+    for r in m["rel"]:
+        n += 1
+        if not r.get("src"):
+            bad.append(f"③ rel「{r.get('t')}」に出どころ（src）が無い")
+    return bad, n
+
+
+def _selftest_m19(ok):
+    """19本目 ⑤b-4：模式図の検算（正しい12・陽性対照＝描く側の表を壊す12＋筋と札6・型の見張り2）。"""
+    import mech19 as M
+    N = "模式"
+    good = dict(
+        cand=dict(view="cand", steps=[dict(state=dict(cand="on"), tag=dict(t="候補（6か所）", at="cand")),
+                                      dict(state=dict(red="on"), tag=dict(t="門とプランターのそば", at="k131"))],
+                  rel=[dict(t="6か所", src="TR p1105")], note=N),
+        seq=dict(view="seq", start=dict(first="on", second="on"), steps=[dict(state=dict(around="on"), tag=dict(t="まわり", at="around"))],
+                 note=N),
+        code=dict(view="code", steps=[dict(state=dict(dots="on", flex="on"), tag=dict(t="赤", at="red"))], note=N),
+        dmg=dict(view="dmg", steps=[dict(state=dict(leak="on", pts="on"), tag=dict(t="9時間前", at="leak"))],
+                 rel=[dict(t="9時間前", src="TR p1159")], note=N),
+        sight=dict(view="sight", steps=[dict(state=dict(vis="on"), tag=dict(t="見えた範囲", at="vis"))], note=N),
+        cam=dict(view="cam", steps=[dict(state=dict(unit="on", move="on"), tag=dict(t="1:22:04〜1:22:15", at="clock"))],
+                 rel=[dict(t="1:22:04・1:22:15", src="TR p1345")], note=N),
+        hall=dict(view="hall", steps=[dict(state=dict(ref="on", sag="on"), tag=dict(t="1:21:55", at="ref"))],
+                  rel=[dict(t="1:21:55", src="TR p1353")], note=N),
+        core=dict(view="core", steps=[dict(state=dict(new="on"), tag=dict(t="敷石", at="new"))], note=N),
+        cover=dict(view="cover", steps=[dict(state=dict(dwg="on", real="on"), tag=dict(t="図面", at="dwg"))], note=N),
+        rebar=dict(view="rebar", steps=[dict(state=dict(real="on", space="on"), tag=dict(t="間隔", at="space"))], note=N),
+        joint=dict(view="joint", start=dict(color="on", bars="on", ties="on"),
+                   steps=[dict(state=dict(crush="on", bar2="on"), tag=dict(t="押しつぶされた（推定）", at="crush"))], note=N),
+        excav=dict(view="excav", steps=[dict(state=dict(pit="on", drive="on", wave="on", damp="more"), tag=dict(t="揺れ", at="damp"))],
+                   note=N),
+        zoneb=dict(view="zoneb", steps=[dict(state=dict(mark="on", brk="on"), tag=dict(t="①", at="one"))], note=N),
+        ground=dict(view="ground", steps=[dict(state=dict(lime="on", cave="on", none="on"), tag=dict(t="例", at="cave"))], note=N),
+        front=dict(view="front", steps=[dict(state=dict(roof="down"), tag=dict(t="柱の頭（推定の模式）", at="heads"))], note=N))
+    for nm, kw in good.items():
+        bad, n = judge("m19", kw)
+        ok &= not bad
+        print(f"  {'OK' if not bad else '🔴 NG'} 19本目 正しい模式図（{nm}）: {'合格' if not bad else '🔴 ' + bad[0]}（{n}件）")
+    # 陽性対照（描く側の表を壊す＝筋は正しいのに絵が記録と食い違う）
+    for name, attr, val, key, kwk in (
+            ("候補の1つを N-13.1 に描く", "CAND", [("N", "13.1")] + M.CAND[1:], "候補の位置", "cand"),
+            ("まわりの柱を1つ M-11.1 に描く", "AROUND", M.AROUND[:-1] + [("M", "11.1")], "まわりの柱", "seq"),
+            ("ひどい不足の継ぎ目を1つ落とす", "CODE_DOTS", dict(M.CODE_DOTS, red=M.CODE_DOTS["red"][1:]), "ひどい不足", "code"),
+            ("漏れを K と L のあいだに描く", "LEAK", (970.0, 478.0, 55.0, 35.0), "漏れの楕円", "dmg"),
+            ("見えた範囲をデッキ全体にする", "VISIBLE", [(930.0, 350.0), (1460.0, 350.0), (1460.0, 800.0), (930.0, 800.0)], "見えた範囲が", "sight"),
+            ("11 の列を K と L のあいだに描く", "CAM_X", dict(M.CAM_X, L=580.0), "L・M の線", "cam"),
+            ("廊下の I の辺りもたわませる", "HA_SAG", (0.0, 8.0) + M.HA_SAG[2:], "動かない所", "hall"),
+            ("タイルの層を厚く描く", "CORE", dict(M.CORE, tile=2.0), "重ねの厚さ", "core"),
+            ("実際の厚さを 1.5インチで描く", "CV", dict(M.CV, real=1.5), "厚さの比", "cover"),
+            ("実際の間隔を 1.6倍で描く", "RB_C", dict(M.RB_C, k=1.6), "間隔の比", "rebar"),
+            ("継ぎ目の高さに輪の鉄筋を描く", "JO_TIES", M.JO_TIES + (555.0,), "床の高さ（継ぎ目）に輪", "joint"),
+            ("床の強さを 5000 で描く", "JO_STRENGTH", (6000.0, 5000.0), "強さの棒の比", "joint"),
+            ("揺れを壁の内で大きく描く", "EX_AMP", ((630.0, 10.0), (800.0, 26.0), (1300.0, 4.0)), "小さくなっていない", "excav"),
+            ("折れる所を E の柱の西に描く", "ZB", dict(M.ZB, brk=480.0), "折れる所（①）", "zoneb"),
+            ("空洞の例を建物の下に描く", "GR_CAVE", [(x - 700.0, y) for x, y in M.GR_CAVE], "建物の下", "ground"),
+            ("屋根を上へ動かす", "FR", dict(M.FR, drop=-60.0), "突き出していない", "front")):
+        keep = getattr(M, attr)
+        setattr(M, attr, val)
+        try:
+            bad, _ = judge("m19", good[kwk])
+        except Exception as e:                 # 壊した値で組めない＝その旨を出して落とす
+            bad = [f"組めない {e!r}"]
+        finally:
+            setattr(M, attr, keep)
+        g_ = any(key in b for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 19本目 陽性対照（画素）：{name}: {'不合格' if bad else '合格'}（不合格のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+    # 陽性対照（筋と札）
+    for name, kw, key in (
+            ("落ちる前にフックの鉄筋", dict(view="punch", steps=[dict(state=dict(hook="on"), tag=dict(t="x", at="hook"))], note=N), "① 筋"),
+            ("はがす前に傾けたコンクリート", dict(view="water", steps=[dict(state=dict(slope="on"), tag=dict(t="x", at="slope"))], note=N), "① 筋"),
+            ("打ち込む前に揺れ", dict(view="excav", steps=[dict(state=dict(pit="on", wave="on"), tag=dict(t="x", at="wave"))], note=N), "① 筋"),
+            ("押しつぶしに推定の札が無い", dict(view="joint", start=dict(color="on", bars="on", ties="on"),
+                                         steps=[dict(state=dict(crush="on"), tag=dict(t="押しつぶされた", at="crush"))], note=N), "推定"),
+            ("札の時刻が記録に無い（1:22:05）", dict(view="cam", steps=[dict(state=dict(unit="on"), tag=dict(t="1:22:05", at="clock"))],
+                                                 rel=[dict(t="1:22:05", src="x")], note=N), "記録の時刻"),
+            ("札の数が rel に無い", dict(view="cover", steps=[dict(state=dict(dwg="on"), tag=dict(t="約3センチ", at="dwg"))], note=N), "rel")):
+        bad, _ = judge("m19", kw)
+        g_ = any(key in b for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 19本目 陽性対照（筋と札）：{name}: {'不合格' if bad else '合格'}（不合格のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+    for nm, fn in (("押しつぶれを戻す", lambda: M.m19("edge", [dict(state=dict(fall="full", pull="on", joint="crush")),
+                                                             dict(state=dict(joint="hurt"))], note=N)),
+                   ("知らない欄", lambda: M.m19("site", [dict(state=dict(sea="on"))], note=N))):
+        try:
+            fn()
+            g_ = False
+        except ValueError:
+            g_ = True
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 19本目 型の見張り：{nm}: {'組めない（止まった）' if g_ else '🔴 組めた'}")
+    return ok
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
+    if kind == "m19":
+        return judge_m19(f)
     return (judge_latch(f) if kind == "latch" else judge_section(f) if kind == "section"
             else judge_lash(f) if kind == "lash" else judge_tail(f) if kind == "tail"
             else judge_mod(f) if kind == "mod" else judge_bolt(f) if kind == "bolt"
@@ -1832,6 +2200,7 @@ def selftest():
     ok = _selftest_vsec(ok)
     ok = _selftest_lv(ok)
     ok = _selftest_m18(ok)
+    ok = _selftest_m19(ok)
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 
@@ -1851,7 +2220,8 @@ def main():
     fixture_ep14.restore()       # 🔴 15本目 ⑤b-2：selftest で差し込んだ14本目の見本を本番の表に戻す（戻さないと14本目の表で本番を測る）
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items())
-               if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt", "vsec", "lv", "m18")}
+               if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt", "vsec", "lv", "m18",
+                                                   "m19")}
     if not targets:
         print("⚠️ latch・section・hull・lash・tail・mod・bolt のカットが0件（この回に仕組みの模式図が無いなら正しい。"
               "**0件を調べて合格**にしていないか確かめる）")

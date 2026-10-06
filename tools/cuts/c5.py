@@ -95,6 +95,8 @@ PLAN = {
                src='—（橋）'),
 }
 
+TR_SRC = "NIST の技術的知見の動画（2026年6月）"
+
 SPEC = {
     # ── 🆕 ⑤b-3（2026-10-06）：案C の置き場 A3（地下の駐車場・西を向いて見た断面）と A2（上から）──
     #   A3 の左上にはいつも位置の小さな地図（切り口＝L の線・目の印＝西を向く）＝見る向きの合図（門番 ㉑）。人は描かない
@@ -157,5 +159,80 @@ SPEC = {
             steps=[dict(state=dict(a3cars="on"), delay=1.2, rec=A3R["cars"],
                         tag=dict(t="止まっていた車", at="cars", off=(80, -110))),
                    dict(state=dict(cam=1.06), delay=0.2, dur=3.6)])),
+    ),
+    # ── 🆕 ⑤b-4（2026-10-06）：模式図（`tools/mech19.py`・門番 check_mech の judge_m19）。上から見た図は A2 の top と同じ並び ──
+    # c506（9.48秒＝0〜4.20／4.69〜9.48）＝壊れ始めの候補6か所（TR0105・TF p9039）・赤い枠＝最初の2か所（TR0106）・K-13.1 の余裕（TR0115）
+    "c506": dict(
+        t="壊れ始めの候補", s="プールデッキの継ぎ目",
+        fig=("m19", dict(view="cand",
+                         steps=[dict(state=dict(cand="on"), delay=0.3, tag=dict(t="候補（6か所）", at="cand")),
+                                dict(state=dict(red="on"), delay=0.3,
+                                     tag=dict(t="門とプランターのそば", d="余裕は最小の部類（計算）", at="k131", to="k131"))],
+                         rel=[dict(t="6か所", src="TR p1105（six locations in the pool deck）")],
+                         note="点の位置は NIST の図（赤い枠＝NIST が最初に壊れたとみる2か所）・敷地の形は模式",
+                         src=TR_SRC + "の語りとスライド")),
+    ),
+    # c507（8.42秒＝0〜4.91／5.40〜8.42）＝K-13.1 の継ぎ目（TR0123・0124・0452）。下がりは大きく描く（実際は数センチ）
+    "c507": dict(
+        t="最初の継ぎ目", s="最初に壊れた所",
+        fig=("m19", dict(view="gspan",
+                         steps=[dict(state=dict(crack="on", sag="on"), delay=0.4, tag=dict(t="K-13.1", d="6月の初め", at="k131", to="k131")),
+                                dict(tag=dict(t="押し抜きせん断（第7章）", at="punch"))],
+                         rel=[dict(t="K-13.1", src="TR p1123"), dict(t="6月の初め", src="TR p1452（early June）"),
+                              dict(t="第7章", src="台本 第2版の章立て")],
+                         note="下がりは大きく描いた模式（実際は数センチ）", src=TR_SRC + "の語り")),
+    ),
+    # c508（10.58秒＝0〜2.17／2.66〜6.60／7.09〜10.58）＝まわりの床が重さを隣の柱へ（TR0138〜0141）・1か2インチ（TR0139）
+    "c508": dict(
+        t="残った床", s="重さを隣の柱へ",
+        fig=("m19", dict(view="gspan", start=dict(crack="on", sag="on"),
+                         steps=[dict(tag=dict(t="床は落ちずに残った", at="ok")),
+                                dict(state=dict(share="on"), delay=0.3, tag=dict(t="隣の柱へ重さを渡す", at="share", to="adj")),
+                                dict(state=dict(dim="on"), delay=0.3, tag=dict(t="下がり 約2.5〜5センチ", d="NIST の見立て", at="dim", to="sag"))],
+                         rel=[dict(t="2.5か5センチ", src="TR p1139（likely 1 or 2 inches）")],
+                         note="下がりは大きく描いた模式（実際は約2.5か5センチ）", src=TR_SRC + "の語り")),
+    ),
+    # c513（8.18秒＝0〜3.12／3.61〜8.18）＝L-13.1（TR0136）・1か所目と2か所目（TR0452）
+    "c513": dict(
+        t="2か所目の継ぎ目", s="東どなりの柱",
+        fig=("m19", dict(view="seq", start=dict(first="on"),
+                         steps=[dict(state=dict(second="on"), delay=0.3, tag=dict(t="L-13.1", at="l131", to="l131")),
+                                dict(tag=[dict(t="1か所目：6月の初め", at="k131", to="k131"),
+                                          dict(t="2か所目：6月の中ごろ", at="l2", to="l131")])],
+                         rel=[dict(t="L-13.1", src="TR p1136"), dict(t="1か所目・2か所目", src="TR p1023"),
+                              dict(t="6月の初め・中ごろ", src="TR p1452（early June・mid-June）")],
+                         note="点の位置は NIST の図・敷地の形は模式", src=TR_SRC + "の語りとスライド")),
+    ),
+    # c514（9.51秒＝0〜2.25／2.74〜6.19／6.68〜9.51）＝まわりの継ぎ目（TR0140・0142・TF p9052 の灰色の範囲と丸い印の柱）
+    "c514": dict(
+        t="まわりの継ぎ目", s="どれも危うくなった",
+        fig=("m19", dict(view="seq", start=dict(first="on", second="on"),
+                         steps=[dict(state=dict(around="on"), delay=0.3, tag=dict(t="まわりの柱へ重さが回る", at="around", to="around")),
+                                dict(tag=dict(t="どれも前より危うい", at="next")),
+                                dict(tag=dict(t="次はどこでも（NIST）", at="two"))],
+                         note="灰色の範囲と丸い印の柱は NIST の図の形・敷地の形は模式", src=TR_SRC + "の語りとスライド")),
+    ),
+    # c521（6.89秒＝0〜3.18／3.67〜6.89）＝しずく → 蛇口（TR0155・0159・0160）
+    "c521": dict(
+        t="しずくから蛇口へ", s="ひびからの水",
+        fig=("m19", dict(view="drip",
+                         steps=[dict(state=dict(band="on"), delay=0.3, tag=dict(t="約9時間前", d="しずく", at="h9", to="drip")),
+                                dict(state=dict(flow="tap"), delay=0.3, tag=dict(t="約3時間前", d="蛇口のように", at="h3", to="drip"))],
+                         rel=[dict(t="約9時間前", src="TR p1159（nine hours before）"), dict(t="約3時間前", src="TR p1160（three hours before）")],
+                         note="ひびと水の量・柱の位置は模式", src=TR_SRC + "の語り")),
+    ),
+    # c522（5.42秒＝0〜3.41／3.90〜5.42）＝傷みの地図（TR0152・0156〜0160・TF p9057 の楕円・p9059 の点）
+    "c522": dict(
+        t="傷みの地図", s="何年も前からの漏れ",
+        fig=("m19", dict(view="dmg",
+                         steps=[dict(state=dict(leak="on"), delay=0.3, tag=dict(t="何年も漏れては直してきた所", at="leak", to="leak")),
+                                dict(state=dict(pts="on"), delay=0.1,
+                                     tag=[dict(t="3週間前・1週間前", d="門", at="gate", to="gate"),
+                                          dict(t="3週間前", d="プランター（17・11時間前に隙間）", at="planter", to="planter"),
+                                          dict(t="1週間前", d="柱を伝う水", at="water", to="water"),
+                                          dict(t="9時間前・3時間前", d="天井の漏れ", at="leak2", to="leak")])],
+                         rel=[dict(t="3週間前", src="TR p1156"), dict(t="1週間前", src="TR p1157（Two weeks later）"),
+                              dict(t="17・11時間前", src="TR p1158"), dict(t="9時間前", src="TR p1159"), dict(t="3時間前", src="TR p1160")],
+                         note="点の位置は NIST の図（漏れの楕円の大きさは模式）", src=TR_SRC + "の語りとスライド")),
     ),
 }

@@ -5088,3 +5088,11 @@ def lv(steps, **kw):
 def m18(view, steps, **kw):
     import mech18 as _m
     return _m.m18(view, steps, **kw)
+
+
+# ── ⑬ 19本目 ⑤b-4（2026-10-06）：模式図（上から見た敷地12種・横から見た断面と立面17種）＝`tools/mech19.py`
+#      （門番 check_mech の judge_m19）。上から見た敷地は案C の置き場 A2 の top と同じ並び ──
+#   `fig=("m19", dict(view=…, start=…, steps=[…], rel=[…], note="模式…", src=…))`
+def m19(view, steps, **kw):
+    import mech19 as _m
+    return _m.m19(view, steps, **kw)

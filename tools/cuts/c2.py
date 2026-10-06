@@ -56,7 +56,31 @@ PLAN = {
                src='—（橋）'),
 }
 
+TR_SRC = "NIST の技術的知見の動画（2026年6月）"
+
 SPEC = {
+    # ── 🆕 ⑤b-4（2026-10-06）：模式図（`tools/mech19.py`・門番 check_mech の judge_m19）──
+    # c207（9.33秒＝0〜2.07／2.56〜5.98／6.47〜9.33）＝フラットプレート（TR0054・0055）。柱と階の数は模式
+    "c207": dict(
+        t="梁の無い床", s="鉄筋コンクリートの造り",       # ⑤b-4 の echo：「フラットプレート」は語りそのまま＝見出しにしない
+        fig=("m19", dict(view="flat",
+                         steps=[dict(tag=dict(t="床の板と柱", at="name")),
+                                dict(state=dict(plate="on"), delay=0.3, tag=dict(t="床の板が柱に直に載る", at="plate", to="slab")),
+                                dict(state=dict(joint="on"), delay=0.3, tag=dict(t="床と柱の継ぎ目", at="joint", to="joint"))],
+                         note="柱と階の数・寸法は模式", src=TR_SRC + "の語り")),
+    ),
+    # c208（9.56秒＝0〜1.62／2.11〜6.24／6.74〜9.56）＝塔の南のデッキ・地上の駐車場・地下の柱（TR0058・TR0005）。並びは A2 の top と同じ
+    "c208": dict(
+        t="敷地の並び", s="塔の南の床",          # ⑤b-4 の dup：札「プールデッキ」と同じ語を見出しにしない
+        fig=("m19", dict(view="site",
+                         steps=[dict(tag=dict(t="塔（12階建て）", at="tower", to="tower")),
+                                dict(state=dict(zone="on", cols="on"), delay=0.3,
+                                     tag=[dict(t="プールデッキ", at="deck", to="deck"), dict(t="地上の駐車場", at="park", to="park"),
+                                          dict(t="下は地下の駐車場（柱）", at="cols", to="cols")]),
+                                dict(state=dict(pool="on"), delay=0.3, tag=dict(t="プールとジャグジー", at="pool", to="pool"))],
+                         rel=[dict(t="12階", src="TR p1004（12 stories tall plus a penthouse）")],
+                         note="位置と大きさは模式（並びは NIST の模型の図）", src=TR_SRC + "の語りとスライド")),
+    ),
     # ── 🆕 ⑤b-3（2026-10-06）：案C の置き場 A2（`tools/illu.py` の「19本目 ⑤b-3」の節）──
     # c209＝南西の上から（TF p48 の3D の向き）。1行目（0〜3.07）：地上の駐車場（西）とプールデッキ（東）／
     #   2行目（3.56〜7.59）：デッキの北の端と塔の真ん中・東の部分のつなぎ目（9.1 の線＝TR0059）。直前の c208 は上から見た模式図

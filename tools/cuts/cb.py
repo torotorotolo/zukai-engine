@@ -64,4 +64,64 @@ PLAN = {
                src='—（橋）'),
 }
 
-SPEC = {}
+TR_SRC = "NIST の技術的知見の動画（2026年6月）"
+EX_NOTE = "掘った所・壁・柱の位置と大きさは模式（揺れの大きさの比も模式）"
+A06_SRC = "NIST の発表（2025年6月）"
+
+SPEC = {
+    # ── 🆕 ⑤b-4（2026-10-06）：模式図（`tools/mech19.py`・門番 check_mech の judge_m19）──
+    # cb02（13.46秒＝0〜4.47／4.96〜8.73／9.22〜13.46）＝87パークの掘削と鋼の板（TR0455・0456・TF p9169）。
+    #   🔴 頭に差し込み（S#38 基礎の工事の重機・5.1秒・「イメージ」）＝⑤b-7 で差し込みの層。図の1段目は差し込みの下に隠れる
+    "cb02": dict(
+        t="となりの工事", s="鋼の板を打ち込んだ",
+        fig=("m19", dict(view="excav",
+                         steps=[dict(state=dict(pit="on"), delay=0.3, tag=dict(t="87パークの掘った所", at="pit", to="pit")),
+                                dict(state=dict(drive="on"), delay=0.3, tag=dict(t="鋼の板を揺らしながら打ち込む", at="pile", to="pile")),
+                                dict(state=dict(dist="on"), delay=0.3, tag=dict(t="約2.7メートル", d="（9フィート）", at="dist", to="dist"))],
+                         rel=[dict(t="87パーク", src="TR p1455（87 Park）"), dict(t="約2.7メートル", src="TR p1456（approximately 9 feet）"),
+                              dict(t="9フィート", src="TR p1456")],
+                         note=EX_NOTE, src=TR_SRC + "の語りとスライド")),
+    ),
+    # cb03（6.74秒＝0〜4.45／4.94〜6.74）＝揺れは中の人にも感じられた（TR0457）
+    "cb03": dict(
+        t="揺れへの心配", s="中の人も感じた",
+        fig=("m19", dict(view="excav", start=dict(pit="on", drive="on"),
+                         steps=[dict(state=dict(wave="on"), delay=0.3, tag=dict(t="揺れは建物の中にも伝わった", at="wave", to="wave"))],
+                         note=EX_NOTE, src=TR_SRC + "の語り")),
+    ),
+    # cb05（8.91秒＝0〜5.12／5.62〜8.92）＝揺れは壁で大きく弱まり、継ぎ目の手前でさらに小さく（TR0461・TF p9173）
+    "cb05": dict(
+        t="弱まる揺れ", s="揺れの伝わり方",
+        fig=("m19", dict(view="excav", start=dict(pit="on", drive="on", wave="on"),
+                         steps=[dict(state=dict(damp="on"), delay=0.3, tag=dict(t="壁で弱まる", at="damp")),
+                                dict(state=dict(damp="more"), delay=0.3, tag=dict(t="継ぎ目の手前でさらに小さく", at="joint"))],
+                         note=EX_NOTE, src=TR_SRC + "の語りとスライド")),
+    ),
+    # cb11（11.75秒＝0〜2.02／2.51〜7.19／7.68〜11.75）＝人工衛星のデータ＝沈みは無い（A06）
+    "cb11": dict(
+        t="地面の沈み", s="宇宙からの測定",
+        fig=("m19", dict(view="sat",
+                         steps=[dict(tag=dict(t="地面の下の空洞？", at="q")),
+                                dict(state=dict(sat="on"), delay=0.3, tag=dict(t="5年間：沈みは見られない", at="sat")),
+                                dict(state=dict(near="on"), delay=0.3, tag=dict(t="数日前：建物の近くも沈みなし", at="near", to="tower"))],
+                         rel=[dict(t="5年間", src="A06（in the five years before the partial collapse）")],
+                         note="人工衛星と区画は模式（沈みの色は無し＝どこも同じ色）", src=A06_SRC)),
+    ),
+    # cb12（9.93秒＝0〜4.44／4.93〜9.93）＝石灰岩と空洞（A06＝no evidence of karst）。例の空洞は建物の下に描かない（門番が照らす）
+    "cb12": dict(
+        t="石灰岩の地面", s="空洞の跡は無い",
+        fig=("m19", dict(view="ground",
+                         steps=[dict(state=dict(lime="on", cave="on"), delay=0.3,
+                                     tag=[dict(t="石灰岩", at="lime", to="lime"), dict(t="（例）水に溶けてできる空洞", at="cave", to="cave")]),
+                                dict(state=dict(none="on"), delay=0.3, tag=dict(t="建物の下：空洞の跡なし", d="むしろ、できにくい性質", at="none", to="none"))],
+                         note="地面の重なりとくいの数は模式（右の空洞は説明のための例）", src=A06_SRC)),
+    ),
+    # cb13（6.40秒＝0〜2.41／2.90〜6.40）＝くいと地下の床（A06）。札「くい：強さは足りていた（計算と試験）」＝台本の注（§0'）
+    "cb13": dict(
+        t="くいと地下の床", s="土台の確かめ",
+        fig=("m19", dict(view="ground", start=dict(lime="on"),
+                         steps=[dict(state=dict(pile="on"), delay=0.3, tag=dict(t="くい：強さは足りていた", d="（計算と試験）", at="pile", to="pile")),
+                                dict(state=dict(floor="on"), delay=0.3, tag=dict(t="地下の床：ひびや沈みは無い", at="floor", to="floor"))],
+                         note="地面の重なりとくいの数は模式", src=A06_SRC)),
+    ),
+}

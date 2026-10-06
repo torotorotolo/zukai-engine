@@ -73,4 +73,59 @@ PLAN = {
                src='—（橋）'),
 }
 
-SPEC = {}
+TR_SRC = "NIST の技術的知見の動画（2026年6月）"
+PL_NOTE = "プランターの数と大きさは模式（並びは NIST の空から見た写真の赤い点線）"
+
+SPEC = {
+    # ── 🆕 ⑤b-4（2026-10-06）：模式図（`tools/mech19.py`・門番 check_mech の judge_m19）──
+    # c303（9.40秒＝0〜4.30／4.79〜9.40）＝改修の重ね（TR0237〜0240・TF p9090 のコアの模式）。厚さは図の値の比（門番が照らす）
+    "c303": dict(
+        t="作り直したプールデッキ", s="膜・砂・敷石を足した",
+        fig=("m19", dict(view="core",
+                         steps=[dict(state=dict(new="on"), delay=0.3,
+                                     tag=[dict(t="敷石と砂（足した）", at="new", to="paver"),
+                                          dict(t="防水の膜（足した）", at="memb", to="memb"),
+                                          dict(t="元のタイル", d="多くははがした（コアには残る）", at="tile", to="tile")]),
+                                dict(state=dict(load="on"), delay=0.3, tag=dict(t="重さを足した", at="load"))],
+                         note="重ねの厚さは NIST の図の値の比（下の床の板の厚さは模式）", src=TR_SRC + "のスライド（コアの模式）")),
+    ),
+    # c304（7.71秒＝0〜3.59／4.08〜7.71）＝図面に無いプランター（TR0233〜0235・TF p9088）
+    "c304": dict(
+        t="植木の箱", s="図面との違い",
+        fig=("m19", dict(view="planter",
+                         steps=[dict(state=dict(box="on"), delay=0.3, tag=dict(t="図面に無い箱", at="box", to="planters")),
+                                dict(state=dict(palm="gone"), delay=1.6, tag=dict(t="ヤシの木は2017年のあとに抜いた", at="palm", to="palm"))],
+                         rel=[dict(t="2017年", src="TR p1235（removed following a hurricane in 2017）")],
+                         note=PL_NOTE, src=TR_SRC + "の語りとスライド")),
+    ),
+    # c305（8.85秒＝0〜1.99／2.48〜6.24／6.73〜8.85）＝余裕を削ったもの（TR0280）
+    "c305": dict(
+        t="足された重さ", s="プランターと改修の床",
+        fig=("m19", dict(view="planter", start=dict(box="on", palm="gone"),
+                         steps=[dict(tag=dict(t="図面に無い物", at="q")),
+                                dict(state=dict(weight="both"), delay=0.3,
+                                     tag=[dict(t="図面より重いプランター", at="wp", to="planters"),
+                                          dict(t="改修の砂と敷石", at="wd", to="deck")]),
+                                dict(tag=dict(t="「余裕」を削った", at="margin"))],
+                         note=PL_NOTE + "・重りの印は模式", src=TR_SRC + "の語り")),
+    ),
+    # c313（10.59秒＝0〜1.65／2.14〜6.14／6.63〜10.59）＝平らな床の上の防水（MC18 p.7）
+    "c313": dict(
+        t="防水の問題", s="水がたまる床",
+        fig=("m19", dict(view="water",
+                         steps=[dict(tag=dict(t="敷石の下に防水の膜", at="q", to="pond")),
+                                dict(state=dict(pond="on", level="on"), delay=0.3, tag=dict(t="床が平ら：水が流れない", at="flat", to="pond")),
+                                dict(tag=dict(t="図面の誤り（報告）", at="err"))],
+                         note="床と重ねの厚さ・水の量は模式", src="モラビトの調査の報告（2018年10月） p.7")),
+    ),
+    # c314（11.70秒＝0〜4.93／5.42〜8.62／9.11〜11.70）＝報告の直し方（MC18 p.7）
+    "c314": dict(
+        t="報告の直し方", s="全部はがして作り直す",
+        fig=("m19", dict(view="water", start=dict(pond="on"),       # ⑤b-4 の下見：水平器の印は傾けた床の矢印に近い＝c313 だけ
+                         steps=[dict(state=dict(strip="on", fix="on"), delay=0.4, tag=dict(t="全部はがして、床を直す", at="strip")),
+                                dict(state=dict(slope="on", memb2="on"), delay=0.3,
+                                     tag=dict(t="傾斜＋新しい防水", at="slope", to="memb2")),
+                                dict(tag=dict(t="高くつき、暮らしも乱す", at="cost"))],
+                         note="床と重ねの厚さ・傾きは模式", src="モラビトの調査の報告（2018年10月） p.7")),
+    ),
+}

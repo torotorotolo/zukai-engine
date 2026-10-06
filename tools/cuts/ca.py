@@ -80,6 +80,8 @@ PLAN = {
                src='—（橋）'),
 }
 
+TR_SRC = "NIST の技術的知見の動画（2026年6月）"
+
 SPEC = {
     # ── 🆕 ⑤b-2（2026-10-06）：案C の置き場 A1（南から見た塔）。秒は narration.json の実測
     #   （ca01 0〜2.84／3.33〜6.91／7.40〜9.45・ca18 0〜5.41／5.90〜8.80）
@@ -105,5 +107,75 @@ SPEC = {
                         tag=dict(t="12階が西へ約53cm", at="east12", off=(-40, -90), anchor="end")),
                    dict(state=dict(cam=1.05), delay=0.2, dur=2.6, rec="TR p1422（揺れが下の階の柱の耐えられる限りを超えた）",
                         tag=dict(t="下の階の柱", at="heap", off=(160, -190)))])),
+    ),
+    # ── 🆕 ⑤b-4（2026-10-06）：模式図（`tools/mech19.py`・門番 check_mech の judge_m19）──
+    # ca02（7.05秒＝0〜3.08／3.57〜7.05）＝崩れが塔との境へ・2本の梁 A（TR0287〜0289・TF p9111）
+    "ca02": dict(
+        t="崩れの北の端", s="2本の梁",
+        fig=("m19", dict(view="edge", start=dict(fall="part"),
+                         steps=[dict(state=dict(fall="full"), delay=0.3, tag=dict(t="塔との境（9.1 の線）", at="face", to="face")),
+                                dict(state=dict(beam="on"), delay=0.3, tag=dict(t="梁（K と L の線に1本ずつ）", at="beam", to="beam"))],
+                         rel=[dict(t="9.1", src="TR p1287（gridline 9.1）"), dict(t="1本ずつ", src="TR p1288（beams A at grid lines K and L）")],
+                         note="床の落ち方・梁の長さは NIST の図の形の模式", src=TR_SRC + "の語りとスライド")),
+    ),
+    # ca03（7.85秒＝0〜4.42／4.92〜7.85）＝梁と床が継ぎ目から引き抜く・13階分の重さ（TR0292・0293）
+    "ca03": dict(
+        t="引き抜かれた継ぎ目", s="上の13階分を支える所",
+        fig=("m19", dict(view="edge", start=dict(fall="full", beam="on"),
+                         steps=[dict(state=dict(pull="on", joint="hurt"), delay=0.3,
+                                     tag=dict(t="鉄筋ごと引き抜く", at="pull", to="joint")),
+                                dict(state=dict(load="on"), delay=0.3, tag=dict(t="上の13階分の重さ", at="load", to="face"))],
+                         rel=[dict(t="13階", src="TR p1293（13 stories of structure）")],
+                         note="床の落ち方・梁の長さは NIST の図の形の模式", src=TR_SRC + "の語りとスライド")),
+    ),
+    # ca04（10.70秒＝0〜1.85／2.34〜7.70／8.19〜10.70）＝床のコンクリートの設計の強さ（AC p.65＝柱 6000・床 4000 psi）
+    "ca04": dict(
+        t="継ぎ目の弱さ（1つ目）", s="床と柱の材料",
+        fig=("m19", dict(view="joint",
+                         steps=[dict(tag=dict(t="柱と床が交わる所", at="q", to="zone")),
+                                dict(state=dict(color="on"), delay=0.3,
+                                     tag=[dict(t="柱のコンクリート", at="col", to="col"),
+                                          dict(t="床のコンクリート", d="設計の強さが低い", at="floor", to="floor")]),
+                                dict(state=dict(bar2="on"), delay=0.3, tag=dict(t="柱の約3分の2", at="ratio"))],
+                         rel=[dict(t="3分の2", src="AC p2065（6000 psi・4000 psi）")],
+                         note="断面は NIST の図の形の模式（棒の長さは設計の強さの比）", src="NIST の諮問委員会の資料（2026年9月） p.65")),
+    ),
+    # ca05（12.78秒＝0〜5.34／5.83〜8.85／9.34〜12.78）＝輪の形の鉄筋が無い・縦の鉄筋の詰め込み（TR0297・AC p.71・p.64）
+    "ca05": dict(
+        t="継ぎ目の弱さ（2つ目）", s="鉄筋の組み方",
+        fig=("m19", dict(view="joint", start=dict(color="on"),
+                         steps=[dict(state=dict(bars="on", ties="on"), delay=0.3, tag=dict(t="継ぎ目に輪の形の鉄筋が無い", at="ties", to="zone")),
+                                dict(state=dict(buckle="on"), delay=0.3, tag=dict(t="縦の鉄筋が外へ曲がりやすい", at="buckle", to="bars")),
+                                dict(state=dict(dense="on"), delay=0.3, tag=dict(t="上限を超えて詰め込み", at="dense", to="bars"))],
+                         note="鉄筋の本数と曲がりは模式（輪の形の鉄筋が無い高さは NIST の図）",
+                         src="NIST の諮問委員会の資料（2026年9月） p.64・p.71")),
+    ),
+    # ca10（8.19秒＝0〜3.63／4.12〜8.19）＝あの夜も押しつぶされた（推定＝TR0312・0313）・今の決まりなら（AC p.73）
+    "ca10": dict(
+        t="あの夜の継ぎ目", s="試験と同じ壊れ方",
+        fig=("m19", dict(view="joint", start=dict(color="on", bars="on", ties="on"),
+                         steps=[dict(state=dict(crush="on"), delay=0.3, tag=dict(t="押しつぶされた（推定）", at="crush", to="zone")),
+                                dict(tag=dict(t="今の決まりなら良くなり得た", at="code"))],
+                         note="推定（NIST の見立て）・つぶれ方は模式", src="NIST の諮問委員会の資料（2026年9月） p.73")),
+    ),
+    # ca11（10.89秒＝0〜3.52／4.01〜8.27／8.76〜10.89）＝屋根が下がり柱の頭が突き出す（TR0362〜0368・TF p9137）
+    "ca11": dict(
+        t="南から北へ", s="屋根と柱の頭",
+        fig=("m19", dict(view="front",
+                         steps=[dict(state=dict(q="on"), delay=0.3, tag=dict(t="同時か、どちらが先かは不明", at="q", to="q")),
+                                dict(state=dict(roof="down"), delay=0.3, tag=dict(t="柱の頭（K-4・L-4）が突き出す", d="推定の模式", at="heads", to="heads")),
+                                dict(state=dict(dir="on"), delay=0.3, tag=dict(t="南→北", at="dir"))],
+                         rel=[dict(t="K-4・L-4", src="TR p1366（columns at grid points K-4 and L-4）")],
+                         note="推定（NIST の見立て）・塔の形と崩れ方は模式（映像そのものは出さない）", src=TR_SRC + "の語りとスライド")),
+    ),
+    # ca16（11.56秒＝0〜3.72／4.21〜7.99／8.48〜11.56）＝Zone B（TR0374・0375・0382〜0385・TF p9144）
+    "ca16": dict(
+        t="壁の無い境", s="崩れが止まった所",
+        fig=("m19", dict(view="zoneb",
+                         steps=[dict(state=dict(zone="on"), delay=0.3, tag=dict(t="壁が無く、床と柱が続く所", at="zone")),
+                                dict(state=dict(mark="on", brk="on"), delay=0.3,
+                                     tag=[dict(t="① 床の板が先に折れた", at="one", to="one"), dict(t="② 継ぎ目は保つ", at="two", to="two")]),
+                                dict(state=dict(bar="on"), delay=0.3, tag=dict(t="上の鉄筋が途切れる辺り", at="bar", to="bar"))],
+                         note="柱の間隔・鉄筋の長さ・傾きは NIST の図の形の模式", src=TR_SRC + "の語りとスライド")),
     ),
 }

@@ -85,4 +85,68 @@ PLAN = {
                src='—（橋）'),
 }
 
-SPEC = {}
+TR_SRC = "NIST の技術的知見の動画（2026年6月）"
+RU_NOTE = "物差しの長さと足りない量は模式（2つの物差しの厳しさは比べていない）"
+CV_NOTE = "厚さは記録の値の比で描いた（床の厚さと鉄筋の太さは模式）"
+
+SPEC = {
+    # ── 🆕 ⑤b-4（2026-10-06）：模式図（`tools/mech19.py`・門番 check_mech の judge_m19）──
+    # c902（11.50秒＝0〜3.14／3.63〜6.66／7.15〜11.50）＝2つの物差し（TR0213・0214）
+    "c902": dict(
+        t="設計の確かめ", s="基準は2つ",
+        fig=("m19", dict(view="ruler",
+                         steps=[dict(state=dict(rul="on"), delay=0.3,
+                                     tag=[dict(t="建てた当時の決まり", at="old", to="old"), dict(t="今の決まり", at="new", to="new")]),
+                                dict(tag=dict(t="デッキと駐車場の一部", at="have")),
+                                dict(state=dict(short="on"), delay=0.3, tag=dict(t="どちらにも足りない", at="short"))],
+                         note=RU_NOTE, src=TR_SRC + "の語り")),
+    ),
+    # c903（7.43秒＝0〜3.59／4.08〜7.43）＝強さが足りない所（TR0215・0216・TF p9082＝建てた当時の決まりで見た図）
+    "c903": dict(
+        t="強さが足りない所", s="建てた当時の決まりで見ると",
+        fig=("m19", dict(view="code",
+                         steps=[dict(state=dict(dots="on", flex="on"), delay=0.3,
+                                     tag=[dict(t="赤＝ひどい不足", at="red", to="red"), dict(t="黄＝中くらいの不足", at="yel", to="yel")]),
+                                dict(tag=dict(t="設計の時点で弱かった", at="orig"))],
+                         note="印の位置は NIST の図の形（継ぎ目は列と行の交点に寄せた模式）", src=TR_SRC + "のスライド（設計の確かめ）")),
+    ),
+    # c905（7.69秒＝0〜4.22／4.71〜7.69）＝決まりからの外れ・決まりの限界（TR0279）
+    "c905": dict(
+        t="弱さの理由", s="設計と基準",
+        fig=("m19", dict(view="ruler", start=dict(rul="on", short="on"),
+                         steps=[dict(state=dict(gap="on"), delay=0.3, tag=dict(t="設計の大きな外れ", at="gap", to="gap")),
+                                dict(state=dict(limit="on"), delay=0.3, tag=dict(t="決まりの限界", at="limit", to="limit"))],
+                         note=RU_NOTE, src=TR_SRC + "の語り")),
+    ),
+    # c907（8.49秒＝0〜4.34／4.83〜8.49）＝鉄筋の上のコンクリートの厚さ（TR0221＝図面 3/4 インチ・実際 約2インチ）
+    "c907": dict(
+        t="鉄筋の上の厚さ", s="図面と現場で違った",
+        fig=("m19", dict(view="cover",
+                         steps=[dict(state=dict(dwg="on"), delay=0.3, tag=dict(t="図面：約1.9センチ", d="（4分の3インチ）", at="dwg", to="dwg")),
+                                dict(state=dict(real="on"), delay=0.3, tag=dict(t="実際：約5センチ", d="（2インチ）", at="real", to="real"))],
+                         rel=[dict(t="1.9センチ", src="TR p1221（3/4 of an inch shown on the drawings）"),
+                              dict(t="4分の3", src="TR p1221（3/4 of an inch）"),
+                              dict(t="約5センチ（2インチ）", src="TR p1221（generally about 2 inches）")],
+                         note=CV_NOTE, src=TR_SRC + "の語り")),
+    ),
+    # c908（6.09秒＝0〜1.19／1.68〜6.09）＝ずれが強さを下げる（TR0222）
+    "c908": dict(
+        t="小さなずれ", s="床と継ぎ目への影響",
+        fig=("m19", dict(view="cover", start=dict(dwg="on", real="on"),
+                         steps=[dict(tag=dict(t="数センチの違い", at="diff")),
+                                dict(state=dict(weak="on"), delay=0.3, tag=dict(t="床と継ぎ目の強さが下がる", at="weak", to="weak"))],
+                         note=CV_NOTE + "・黄色の幅＝鉄筋から床の下の面まで", src=TR_SRC + "の語り")),
+    ),
+    # c911（13.70秒＝0〜5.20／5.69〜10.37／10.86〜13.70）＝柱の真上の本数（TF p9085＝4本でなく2本）・間隔 20〜40%（TR0229）・強さ（TR0230）
+    "c911": dict(
+        t="柱の真上の鉄筋", s="本数も間隔も図面と違った",
+        fig=("m19", dict(view="rebar",
+                         steps=[dict(state=dict(real="on", over="on"), delay=0.3,
+                                     tag=[dict(t="図面：真上に4本", at="dwg", to="dwg"), dict(t="実際の例：真上に2本", at="real", to="real")]),
+                                dict(state=dict(space="on"), delay=0.3, tag=dict(t="間隔：約20〜40%広い", at="space")),
+                                dict(state=dict(weak="on"), delay=0.3, tag=dict(t="強さ↓（床・継ぎ目）", at="weak", to="weak"))],
+                         rel=[dict(t="4本・2本", src="TF p9085（only 2 rather than 4 top bars）"),
+                              dict(t="20から40%", src="TR p1229（about 20% to 40% wider）")],
+                         note="鉄筋の本数（片側の向き）と間隔の比は記録の値・柱の大きさは模式", src=TR_SRC + "の語りとスライド")),
+    ),
+}

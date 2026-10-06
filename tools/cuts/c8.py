@@ -76,4 +76,58 @@ PLAN = {
                src='—（橋）'),
 }
 
-SPEC = {}
+TR_SRC = "NIST の技術的知見の動画（2026年6月）"
+PU_NOTE = "床の厚さ・柱の太さ・ひびの幅は模式"
+
+SPEC = {
+    # ── 🆕 ⑤b-4（2026-10-06）：模式図（`tools/mech19.py`・門番 check_mech の judge_m19）──
+    #   ⚠️ c802（NIST の押し抜きせん断の動く図＝GIF）は模式図ではない＝⑤b-7（映像と GIF の差し込み）で受ける
+    # c801（7.42秒＝0〜2.10／2.60〜7.42）＝床の重さは下・柱は上へ押し返す（TR0062〜0064）
+    "c801": dict(
+        t="押し抜きせん断", s="柱と床の板の継ぎ目",
+        fig=("m19", dict(view="punch",
+                         steps=[dict(tag=dict(t="柱", at="q", to="col")),
+                                dict(state=dict(load="on", react="on"), delay=0.3,
+                                     tag=[dict(t="重さで床は下へ", at="slab", to="slab"), dict(t="柱は上へ押し返す", at="react", to="react")])],
+                         note=PU_NOTE, src=TR_SRC + "の語りと図")),
+    ),
+    # c804（11.03秒＝0〜3.60／4.09〜7.39／7.88〜11.03）＝落ちきるとフックの形の鉄筋（TR0072）・はさみ・押し抜き（TR0020・0021）
+    "c804": dict(
+        t="落ちきったあと", s="はさみで切るように",
+        fig=("m19", dict(view="punch", start=dict(crack="wide"),
+                         steps=[dict(state=dict(drop="on", hook="on"), delay=0.3, dur=1.4,
+                                     tag=dict(t="柱の頭にフックの形の鉄筋", at="hook", to="hook")),
+                                dict(state=dict(scis="on"), delay=0.3, tag=dict(t="はさみ＝ずらして断ち切る", at="scis")),
+                                dict(state=dict(shear="on"), delay=0.3, tag=dict(t="柱が床をずらして押し抜く", at="shear"))],
+                         note=PU_NOTE, src=TR_SRC + "の語りと図")),
+    ),
+    # c805（9.02秒＝0〜4.24／4.73〜9.02）＝最初の2か所はまわりが支えた（TR0023・0067・0068・0075）・24通りの筋書き（TR0015）
+    "c805": dict(
+        t="支え合う継ぎ目", s="比べた筋書き",
+        fig=("m19", dict(view="seq", start=dict(first="on", second="on", around="on"),
+                         steps=[dict(tag=dict(t="まわりが支えて落ちず", at="around", to="around")),
+                                dict(tag=dict(t="筋書き 24通り", at="n24"))],
+                         rel=[dict(t="24通り", src="TR p1015（two dozen possible scenarios）")],
+                         note="点の位置と灰色の範囲は NIST の図の形・敷地の形は模式", src=TR_SRC + "の語りとスライド")),
+    ),
+    # c807（3.97秒＝1行）＝コンピュータの模型（TR0258・TF p9096＝駐車場・デッキ・1階のロビーの床の一部）
+    "c807": dict(
+        t="力の見積もり", s="網の目の模型",
+        fig=("m19", dict(view="model",
+                         steps=[dict(state=dict(calc="on"), delay=0.3,
+                                     tag=[dict(t="継ぎ目の1つずつ", at="calc", to="cols"),
+                                          dict(t="模型の範囲", d="駐車場・デッキ・ロビーの床の一部", at="nist")])],
+                         rel=[dict(t="1つずつ", src="TR p1258（at each of the connections）")],
+                         note="網の目と継ぎ目の印は模式（計算の値の色は描かない）", src=TR_SRC + "の語りとスライド")),
+    ),
+    # c814（10.49秒＝0〜2.73／3.22〜7.07／7.57〜10.49）＝ひびの幅の理論（TR0269〜0272）
+    "c814": dict(
+        t="ひびの幅の理論", s="押し抜きを見積もる",
+        fig=("m19", dict(view="punch", start=dict(load="on"),
+                         steps=[dict(state=dict(crack="on"), delay=0.3, tag=dict(t="柱のまわりの斜めのひび", at="crack", to="crack")),
+                                dict(state=dict(crack="wide", gauge="on"), delay=0.3,
+                                     tag=dict(t="ひびの幅が限界に届くと壊れる", at="wide", to="crack")),
+                                dict(tag=dict(t="欧州の基準の元の理論", at="code"))],
+                         note=PU_NOTE, src=TR_SRC + "の語り")),
+    ),
+}

@@ -76,4 +76,16 @@ PLAN = {
                src='—（橋）'),
 }
 
-SPEC = {}
+SPEC = {
+    # ── 🆕 ⑤b-4（2026-10-06）：模式図（`tools/mech19.py`・門番 check_mech の judge_m19）──
+    # c710（9.22秒＝0〜4.94／5.43〜9.22）＝不安定な残りの部分・がれきの山の見張り（B07 p.1・B02 p.2・B01 p.3）。人は描かない
+    "c710": dict(
+        t="不安定な残りの部分", s="がれきの山を見張る",
+        fig=("m19", dict(view="rubble",
+                         steps=[dict(state=dict(unst="on"), delay=0.3, tag=dict(t="残った西の部分（不安定）", at="bld", to="bld")),
+                                dict(state=dict(watch="on"), delay=0.3,
+                                     tag=dict(t="陸軍工兵隊が見張る", d="捜索の安全のため", at="watch", to="pile"))],
+                         note="建物とがれきの形・見張りの印は模式（人は描かない）",
+                         src="FEMA の発表（2021年7月17日） p.2・郡長のメモ（2023年10月26日） p.1・GAO の報告（2024年） p.3")),
+    ),
+}

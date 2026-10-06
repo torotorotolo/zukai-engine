@@ -73,4 +73,17 @@ PLAN = {
                src='—（橋）'),
 }
 
-SPEC = {}
+SPEC = {
+    # ── 🆕 ⑤b-4（2026-10-06）：模式図（`tools/mech19.py`・門番 check_mech の judge_m19）──
+    # c413（8.77秒＝0〜1.74／2.23〜4.98／5.47〜8.77）＝はがす範囲（GJ p.18「pull up almost the entire ground level of the lot」）
+    "c413": dict(
+        t="直す工事の広さ", s="地面の高さの床をほぼ全部",
+        fig=("m19", dict(view="dig",
+                         steps=[dict(state=dict(under="on"), delay=0.3, tag=dict(t="工事の多くは地面の下", at="under", to="cols")),
+                                dict(state=dict(strip="on"), delay=0.3, tag=dict(t="ほとんど全部はがす", at="strip", to="deck")),
+                                dict(state=dict(name="on"), delay=0.2,
+                                     tag=[dict(t="プールデッキ", at="deck", to="deck"), dict(t="入口の車道", at="drive", to="drive"),
+                                          dict(t="地上の駐車場", at="park", to="park")])],
+                         note="範囲の線は模式（入口の車道の位置は空から見た写真の形）", src="マイアミ・デイド郡の大陪審の報告（2022年） p.18")),
+    ),
+}

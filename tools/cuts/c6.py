@@ -87,6 +87,8 @@ PLAN = {
                src='—（橋）'),
 }
 
+TR_SRC = "NIST の技術的知見の動画（2026年6月）"
+
 SPEC = {
     # ── 🆕 ⑤b-3（2026-10-06）：A3（地下の駐車場）と A2（上から）──
     # c601（8.92秒）＝1行目は聞き役の問い／2行目（2.69〜）：約9分前に最後の車が入る（TR0161・左の外から入って止まる＝模式）／
@@ -157,5 +159,66 @@ SPEC = {
                    dict(state=dict(a1east="fall"), delay=0.4, rec=IL_REC["east_fall"],
                         tag=dict(t="下の階の柱", at="heap", off=(140, -200))),       # ⑤b-2 の echo：語りの複写にしない＝名詞だけ
                    dict(state=dict(cam=1.06), delay=0.2, dur=2.4)])),
+    ),
+    # ── 🆕 ⑤b-4（2026-10-06）：模式図（`tools/mech19.py`・門番 check_mech の judge_m19）──
+    # c607（5.89秒＝0〜3.61／4.10〜5.89）＝ロビーの風と音（TR0187・0188）・見えた範囲（TR0184〜0186・TF p9069 の緑）
+    "c607": dict(
+        t="ロビーの風と音", s="目撃の手がかり",
+        fig=("m19", dict(view="sight",
+                         steps=[dict(state=dict(vis="on", lobby="on"), delay=0.3,
+                                     tag=[dict(t="目撃した人に見えた範囲", at="vis", to="vis"), dict(t="ロビー：急な風", at="lobby", to="lobby")]),
+                                dict(state=dict(sound="on"), delay=0.3, tag=dict(t="大きな音", at="sound", to="lobby"))],
+                         note="見えた範囲は NIST の図の形（風と音の印は模式・人は描かない）", src=TR_SRC + "の語りとスライド")),
+    ),
+    # c610（8.32秒＝0〜4.19／4.68〜8.32）＝北から撮った動画の1コマ（TR0203〜0207）。映像そのものは出さない
+    "c610": dict(
+        t="北から撮った動画", s="1コマを鮮明に",
+        fig=("m19", dict(view="north",
+                         steps=[dict(state=dict(eye="on"), delay=0.3, tag=dict(t="1:18:18", d="北にいた人の動画（見た向きは模式）", at="eye", to="eye")),
+                                dict(state=dict(debris="on"), delay=0.3, tag=dict(t="駐車場の床：がれき", at="debris", to="debris"))],
+                         rel=[dict(t="1:18:18", src="TR p1204（1:18 and 18 seconds a.m.）")],
+                         note="撮った人の位置と見通しは模式（映像そのものは出さない）・落ちた範囲は推定", src=TR_SRC + "の語り")),
+    ),
+    # c611（9.25秒＝0〜1.90／2.39〜4.76／5.24〜9.25）＝デッキが塔の南の面まで崩れ・継ぎ目を2か所傷めた（TR0330・0089・TF p9111）
+    "c611": dict(
+        t="崩れの行き着いた所", s="デッキと塔の境",
+        fig=("m19", dict(view="edge",
+                         steps=[dict(tag=dict(t="塔の南の面（9.1 の線）", at="face", to="face")),
+                                dict(state=dict(fall="full"), delay=0.3, tag=dict(t="プールデッキが崩れ落ちた", at="deck", to="deck")),
+                                dict(state=dict(pull="on", joint="hurt"), delay=0.3,
+                                     tag=dict(t="継ぎ目を2か所", d="K と L の線（横からは重なる）", at="joint", to="joint"))],
+                         rel=[dict(t="9.1", src="TR p1287（gridline 9.1）"), dict(t="2か所", src="TR p1089（two critical structural connections）")],
+                         note="床の落ち方・梁の長さは NIST の図の形の模式", src=TR_SRC + "の語りとスライド")),
+    ),
+    # c612（8.68秒＝0〜3.25／3.75〜6.38／6.87〜8.68）＝継ぎ目が押しつぶされ柱が下がる（TR0312・0332・0333）
+    "c612": dict(
+        t="数分後の継ぎ目", s="塔の柱の足もと",
+        fig=("m19", dict(view="edge", start=dict(fall="full", pull="on", joint="hurt"),
+                         steps=[dict(state=dict(load="on"), delay=0.3, tag=dict(t="最初は支えた", at="hold")),
+                                dict(state=dict(joint="crush"), delay=0.3, tag=dict(t="ひび→押しつぶれ", at="crush", to="joint")),
+                                dict(state=dict(drop="on"), delay=0.3, tag=dict(t="上の柱が下がり始めた", at="drop", to="face"))],
+                         note="NIST の考え（模式）・下がりは大きく描いた", src=TR_SRC + "の語り")),
+    ),
+    # c613（9.00秒＝0〜3.81／4.30〜9.00）＝11 の列の部屋のカメラ（TR0335〜0345・TF p9127・p9134）。映像そのものは出さない
+    "c613": dict(
+        t="部屋の防犯カメラ", s="床の動きを測った",
+        fig=("m19", dict(view="cam",
+                         steps=[dict(state=dict(unit="on"), delay=0.3,
+                                     tag=dict(t="11 の列の部屋のカメラ", d="向きは北（位置は模式）", at="unit", to="eye")),
+                                dict(state=dict(move="on"), delay=0.3,
+                                     tag=dict(t="1:22:04〜1:22:15", d="L の線の柱の辺りが下がった", at="clock", to="l8"))],
+                         rel=[dict(t="11 の列", src="TR p1335（the 11 stack）"), dict(t="1:22:04", src="TR p1345"),
+                              dict(t="1:22:15", src="TR p1345")],
+                         note="部屋の位置は NIST の図（カメラの位置は模式・映像そのものは出さない）", src=TR_SRC + "の語りとスライド")),
+    ),
+    # c614（6.64秒＝0〜3.79／4.28〜6.64）＝上の階の廊下のカメラ（TR0349〜0356・TF p9134）。I は動かない（スライド123）
+    "c614": dict(
+        t="上の階の廊下のカメラ", s="床がたわみ始めた",
+        fig=("m19", dict(view="hall",
+                         steps=[dict(state=dict(ref="on"), delay=0.3, tag=dict(t="1:21:55 のコマ", d="白い線＝床の基準の線", at="ref", to="ref")),
+                                dict(state=dict(sag="on"), delay=0.3,
+                                     tag=[dict(t="床がたわむ（K と L の辺り）", at="sag", to="sag"), dict(t="I の辺りは動かない", at="still", to="i")])],
+                         rel=[dict(t="1:21:55", src="TR p1353（from 1:21:55 a.m.）")],
+                         note="廊下の長さ・柱の間隔・たわみの大きさは模式（映像そのものは出さない）", src=TR_SRC + "の語りとスライド")),
     ),
 }
