@@ -130,4 +130,46 @@ SPEC = {
                                 dict(tag=dict(t="欧州の基準の元の理論", at="code"))],
                          note=PU_NOTE, src=TR_SRC + "の語り")),
     ),
+    # ── 🆕 ⑤b-6（2026-10-06）：流れ図（箱の型）・2本の線（模式図 m19 の curve＝NIST のグラフの型・数は出さない）──
+    # c806（6.79秒＝0〜1.31 聞き役／1.80〜6.79）＝3つの道具（TR0256・TR0257）→ 継ぎ目にかかる力と強さ
+    "c806": dict(
+        t="確かめ方", s="NIST の3つの道具",
+        fig=("boxes", dict(view="flow", layout=ss.FL_EMPTY, steps=[
+            dict(),
+            dict(add=[ss.fl("t_fem"), ss.fl("t_lab"), ss.fl("t_csct"), ss.fl("t_eval"),
+                      ss.ce(["t_fem", "t_lab", "t_csct"], "t_eval")])],
+            src=ss.src(["TR p1256・p1257"]))),
+    ),
+    # c815（13.28秒＝0〜3.94／4.43〜7.93／8.42〜13.29）＝NIST のグラフの型（TR0272〜0276）。グラフ → 模式図（数・目盛りは出さない）。
+    #   1行目でひびの幅を決めるもの・2行目で青い線と赤い線・3行目で交わる所（交われば壊れると読む）
+    "c815": dict(
+        t="壊れるかの読み方", s="2本の線",
+        fig=("m19", dict(view="curve",
+                         steps=[dict(delay=0.3, tag=dict(t="ひびの幅＝床の厚さと傾きから", at="xaxis")),
+                                dict(state=dict(blue="on", red="mid"), delay=0.3,
+                                     # ⑤b-6 の下見：交わる赤い線（mid）は右の端が青い線より下＝札の高さを入れ替える（青の札が赤い線の端の隣に来た）
+                                     tag=[dict(t="継ぎ目にかかる力", at=(1520.0, 470.0, "start", 300.0), to="blue"),
+                                          dict(t="耐えられる限界", at=(1520.0, 640.0, "start", 300.0), to="red")]),
+                                dict(state=dict(cross="on"), delay=0.3, tag=dict(t="交わる所で壊れる", at="cross", to="cross"))],
+                         note="線の形は模式（NIST のグラフの型・数は出さない）", src=TR_SRC + "の語り")),
+    ),
+    # c816（6.39秒＝0〜4.27／4.76〜6.39）＝決まりどおりの継ぎ目（TR0073＝大きく離れる）。1行目で2本の線・2行目で余裕の矢印
+    "c816": dict(
+        t="決まりどおりなら", s="線は離れている",
+        fig=("m19", dict(view="curve",
+                         steps=[dict(state=dict(blue="on", red="high"), delay=0.3,
+                                     tag=[dict(t="かかる力", at="blue", to="blue"), dict(t="耐えられる限界", at="red", to="red")]),
+                                dict(state=dict(gap="on"), delay=0.3, tag=dict(t="余裕", at="gap", to="gap"))],
+                         note="線の形は模式（NIST のグラフの型・数は出さない）", src=TR_SRC + "の語り")),
+    ),
+    # c817（6.21秒＝0〜3.32／3.81〜6.21 聞き役）＝プールデッキの継ぎ目（TR0074＝壊れたとき余裕はゼロ）。1行目で2本の線が交わる・輪
+    "c817": dict(
+        t="実際の継ぎ目", s="壊れたとき",      # ⚠️ echo：「プールデッキの継ぎ目」は字幕の切り取り
+        fig=("m19", dict(view="curve",
+                         steps=[dict(state=dict(blue="on", red="touch", cross="on"), delay=0.3,
+                                     tag=[dict(t="かかる力", at="blue", to="blue"), dict(t="耐えられる限界", at="red", to="red"),
+                                          dict(t="余裕ゼロ", at="cross", to="cross")]),
+                                dict()],
+                         note="線の形は模式（NIST のグラフの型・数は出さない）", src=TR_SRC + "の語り")),
+    ),
 }

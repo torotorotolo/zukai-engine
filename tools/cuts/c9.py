@@ -170,4 +170,36 @@ SPEC = {
             dict(add=dict(k="chips", at="1981", chips=["人が住む前から"], rec="TR p1278", i0=1))],
             note="年だけの記録はその年の真ん中に置いた", src=ss.src(["TR p1005・p1278・p1281", "AC p2023", "A12 p5101"]))),
     ),
+    # ── 🆕 ⑤b-6（2026-10-06）：流れ図（箱の型）──
+    # c913（7.92秒＝0〜2.97 聞き役／3.46〜7.92）＝AC p.54 の形（原因と後押しの5つ → プールデッキの継ぎ目の壊れ）。2行目で5つを並べる。
+    #   数の比べ → 流れ図（大きさの数は記録に無い＝AC p.54 は「largest・pervasive」の言葉だけ）
+    "c913": dict(
+        t="5つの原因と後押し", s="NIST のまとめ",
+        fig=("boxes", dict(view="flow", layout=ss.FL_AC54, steps=[
+            dict(),
+            dict(add=[ss.fl("a_des"), ss.fl("a_dev"), ss.fl("a_pl"), ss.fl("a_fill"), ss.fl("a_deg"),
+                      ss.ce(["a_des", "a_dev", "a_pl", "a_fill", "a_deg"], "h_ac")])],
+            src=ss.src(["AC p2054", "TR p1277・p1279・p1280"]))),
+    ),
+    # c914（10.61秒＝0〜3.36／3.85〜6.84／7.33〜10.60）＝同じ形を語りの順に（1行目＝設計・図面・プランター／2行目＝砂と敷石・年月の傷み／
+    #   3行目＝いちばん大きいのは設計の強さの不足＝AC p.54「largest, pervasive」の札）。前のカットの箱に重ねて灯さない（字が二重になる）
+    "c914": dict(
+        t="5つの中身", s="いちばん大きいもの",
+        fig=("boxes", dict(view="flow", layout=ss.FL_AC54, steps=[
+            dict(add=[ss.fl("a_des"), ss.fl("a_dev"), ss.fl("a_pl")]),
+            dict(add=[ss.fl("a_fill"), ss.fl("a_deg"), ss.ce(["a_des", "a_dev", "a_pl", "a_fill", "a_deg"], "h_ac")]),
+            dict(add=dict(k="chip", at="a_des", t="最も大きく、広い範囲", rec="AC p2054", dy=32))],
+            src=ss.src(["AC p2054", "TR p1279・p1280"]))),
+    ),
+    # c921（11.69秒＝0〜3.32／3.81〜7.71／8.20〜11.70）＝AC p.61 の 1c。1行目で40年の点検とほめる札・2行目で建てたときの設計と工事（点線＋
+    #   「確かめる決まりが無い」の札）・3行目で傷みを見る（矢印）
+    "c921": dict(
+        t="点検の決まりの外", s="建てたときは見ない",      # ⚠️ dup：「NIST の指摘」は札と出典の行の写し
+        fig=("boxes", dict(view="flow", layout=ss.FL_EMPTY, steps=[
+            dict(add=[ss.fl("r_cert"), dict(k="chip", at="r_cert", t="ほめるべき仕組み（NIST）", rec="AC p2061", dy=60)]),
+            dict(add=[ss.fl("r_orig"), ss.ce("r_cert", "r_orig", style="leader"),
+                      dict(k="chip", at="r_orig", t="確かめる決まりが無い", rec="AC p2061", dy=60)]),
+            dict(add=[ss.fl("r_dmg"), ss.ce("r_cert", "r_dmg", lab="見る")])],
+            src=ss.src(["AC p2061", "MC18 p4001"]))),
+    ),
 }

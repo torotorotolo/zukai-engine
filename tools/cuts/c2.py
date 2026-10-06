@@ -105,4 +105,24 @@ SPEC = {
             # ⚠️ 門番 layout：断り＋6つの資料の出典は右の端（1848）を越えた＝断りを外し、出典は年の元（AC・議事録・TR）に絞る
             note="", src=ss.src(["AC p2023", "TR p1005・p1441", "MIN18 p4107"]))),
     ),
+    # ── 🆕 ⑤b-6（2026-10-06）：箱の型（流れ図・書類の再現図＝`tools/boxes.py`・門番 check_boxes）──
+    # c203（7.59秒＝0〜4.55／5.04〜7.59）＝この動画の資料（c202 の語り＝沈めた色）に、1行目で大陪審の報告を足す。
+    #   🔴 PLAN の「→」（資料の並び）は矢印にしない＝資料どうしに因果は無い（群で分けるだけ）
+    "c203": dict(
+        t="もう1つの手がかり", s="市民が調べる仕組み",
+        fig=("boxes", dict(view="flow", layout=ss.FL_DOCS,
+                           past=[dict(k="grp", t="国の研究所 NIST", x=130, y=360), ss.fl("d_vid"), ss.fl("d_tr"), ss.fl("d_ac"),
+                                 dict(k="grp", t="郡と町", x=1100, y=360), ss.fl("d_town")],
+                           steps=[dict(add=ss.fl("d_gj")), dict()],
+                           src=ss.src(["GJ p3004", "A16 p5801"]))),
+    ),
+    # c212（9.26秒＝0〜4.76／5.25〜9.26）＝紙2枚（別の書類を1枚に混ぜない）：議事録 p.7（期限）と大陪審の報告 p.18（何年も前に技術者を雇った）。
+    #   1行目で議事録・2行目で大陪審の報告
+    "c212": dict(
+        t="期限の前の準備", s="2つの記録",
+        fig=("boxes", dict(view="form", form=[ss.FORM_MIN40, ss.FORM_GJ18], steps=[
+            dict(add=[dict(k="paper", i=0), dict(k="fill", i=0, f="40年の点検")]),
+            dict(add=[dict(k="paper", i=1), dict(k="fill", i=1, f="管理組合"), dict(k="fill", i=1, f="始めた時期")])],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["MIN18 p4107", "GJ p3021"]))),
+    ),
 }

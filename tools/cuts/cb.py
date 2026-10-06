@@ -124,4 +124,32 @@ SPEC = {
                                 dict(state=dict(floor="on"), delay=0.3, tag=dict(t="地下の床：ひびや沈みは無い", at="floor", to="floor"))],
                          note="地面の重なりとくいの数は模式", src=A06_SRC)),
     ),
+    # ── 🆕 ⑤b-6（2026-10-06）：並べ図・流れ図（箱の型）。一覧 → 並べ図＝同じ形で並べるだけ（アイコンは描かない＝場面にしない）──
+    # cb09（6.89秒＝0〜3.34／3.83〜6.89）＝NIST が崩れに大きくは関わっていないとしたもの（TR0465）。2行目で前半の3つ
+    "cb09": dict(
+        t="関わりの小さいもの", s="NIST の見立て",
+        fig=("boxes", dict(view="row", slots=9, per=3, steps=[
+            dict(),
+            dict(add=[ss.cause("n_found"), ss.cause("n_sink"), ss.cause("n_storm")])],
+            src=ss.src(["TR p1465"]))),
+    ),
+    # cb10（6.52秒＝0〜2.52／3.01〜6.52）＝同じ並びの後半（1行目＝衝突・爆発・クレーン／2行目＝屋上の工事の重さ）
+    "cb10": dict(
+        t="外からの力と工事", s="これも大きくは関わらない",
+        fig=("boxes", dict(view="row", slots=9, per=3,
+                           # ⚠️ 門番 check_boxes：沈めた色で残すと箱の色がそろわない（並べ図はどれかを目立たせない）＝keep で同じ色のまま
+                           past=[ss.cause("n_found", keep=True), ss.cause("n_sink", keep=True), ss.cause("n_storm", keep=True)], steps=[
+            dict(add=[ss.cause("n_car"), ss.cause("n_blast"), ss.cause("n_crane")]),
+            dict(add=ss.cause("n_roof"))],
+            src=ss.src(["TR p1465"]))),
+    ),
+    # cb14（8.10秒＝0〜3.23 聞き役／3.72〜8.10）＝1行目で「大きくは関わっていない」の群（となりの工事の揺れ・地面・嵐ほか）・2行目で起こり
+    #   （TR0476＝余裕の少なさと傷み）。一覧 → 流れ図（2つの群に分ける）
+    "cb14": dict(
+        t="崩れの起こり", s="建物の中にあった",
+        fig=("boxes", dict(view="flow", layout=ss.FL_EMPTY, steps=[
+            dict(add=[dict(k="grp", t="大きくは関わっていない", x=1100, y=370), ss.fl("x_vib"), ss.fl("x_gnd"), ss.fl("x_ext")]),
+            dict(add=[dict(k="grp", t="起こり", x=110, y=370), ss.fl("o_mg"), ss.fl("o_deg")])],
+            src=ss.src(["TR p1454・p1465・p1476"]))),
+    ),
 }

@@ -4,7 +4,7 @@
 ■ 何か
   18本目の `mech18`（仕組みの模式図）と同じ作り＝「基図＋段の層（その行から出て残る）＋動く部品（段の鍵で動く）」。
   案C の再現イラスト（illu の置き場 A1〜A5）ではない＝「再現」の札は出さない。左上に見る向き・左下に「模式」と出典。人は描かない。
-  見え方（view）は29。上から見た敷地の図は **置き場 A2 の top と同じ並び**（`illu.A2T`・`A2_ROW`・`_a2_zone_fp`）を縮めて描く
+  見え方（view）は32（🆕 ⑤b-6 で margin・drop・curve を足した）。上から見た敷地の図は **置き場 A2 の top と同じ並び**（`illu.A2T`・`A2_ROW`・`_a2_zone_fp`）を縮めて描く
   （`tp()`）＝絵のカットと模式図のカットで、塔・デッキ・駐車場・門・プランターの位置が食い違わない。
 
 ■ 位置の元（NIST の発表のスライド＝TF のコマ。🔴 18本目の型と同じく、記録の値は門番 check_mech の REC_M19 が別に持つ＝§5b-88）
@@ -1380,6 +1380,121 @@ def rebar_stage(prev, st):
     return g
 
 
+# ── 🆕 ⑤b-6（2026-10-06）：margin（c306）＝余裕の考え方（TR0018「support much more load than they are expected to bear」・
+#    TR0470「the extra capacity … beyond the loads that are expected to be placed on it」）。数は出さない＝長さの大小だけ（模式）──
+MG = dict(x0=420.0, load=880.0, cap=1500.0, ycap=440.0, yload=640.0, h=56.0)
+
+
+def margin_base(st0):
+    return [_ground_bg(), F.line(MG["x0"], 380.0, MG["x0"], 760.0, COL["dim"], 3)]
+
+
+def margin_stage(prev, st):
+    g = []
+    if _on(prev, st, "cap"):
+        g.append(F.rect(MG["x0"], MG["ycap"], MG["cap"] - MG["x0"], MG["h"], COL["grn"], COL["dark"], 2, 4))
+    if _on(prev, st, "load"):
+        g.append(F.rect(MG["x0"], MG["yload"], MG["load"] - MG["x0"], MG["h"], COL["blue"], COL["dark"], 2, 4))
+    if _on(prev, st, "gap"):
+        # 余裕＝ふだんの重さの棒の端から、耐えられる重さの端まで（破線の枠＋縦の破線で2本の棒の端をつなぐ）
+        y = MG["yload"]
+        g.append(F.rect(MG["load"], y, MG["cap"] - MG["load"], MG["h"], "none", COL["mark"], 4, 4))
+        g.append(F.line(MG["cap"], MG["ycap"] + MG["h"] + 4, MG["cap"], y - 4, COL["mark"], 3, "8 6"))
+    return g
+
+
+# ── 🆕 ⑤b-6：drop（c615）＝11 の列の部屋の床の下がり（TR0340「a reference frame taken during the day before the collapse」・
+#    TR0344「the vertical drop of the slab near the columns L-9.1 and L-8 relative to … grid line M, which appear to have been stationary」・
+#    TR0347「The slab near column L-9.1 dropped more than the slab at L-8」）。横から見た2つの行（上＝9.1・下＝8）。下がりの大きさは模式
+DP = dict(xl=560.0, xm=1300.0, x0=430.0, x1=1430.0, rows={"9.1": 420.0, "8": 700.0}, drop={"9.1": 72.0, "8": 38.0}, col=100.0)
+
+
+def drop_floor(row, now):
+    """その行の床の線の両端（L の側, M の側）の y。now＝1:22:14 ごろの床（M の側は動かない）。"""
+    y = DP["rows"][row]
+    return (y + DP["drop"][row], y) if now else (y, y)
+
+
+def drop_base(st0):
+    g = [_ground_bg()]
+    for row, y in DP["rows"].items():
+        for c, x in (("L", DP["xl"]), ("M", DP["xm"])):
+            g.append(F.rect(x - 14, y - DP["col"], 28, DP["col"] * 2, COL["conc"], COL["conc_ln"], 2))
+            g.append(_t(x, y + DP["col"] + 34, f"{c}-{row}", 24, INK, "middle"))
+    return g
+
+
+def drop_stage(prev, st):
+    g = []
+    for row, y in DP["rows"].items():
+        if _on(prev, st, "ref"):
+            g.append(F.line(DP["x0"], y, DP["x1"], y, COL["white"], 4, "14 10"))
+        if _on(prev, st, "now"):
+            yl, ym = drop_floor(row, True)
+            k = (yl - ym) / (DP["xm"] - DP["xl"])
+            g.append(F.line(DP["x0"], yl + k * (DP["xl"] - DP["x0"]), DP["x1"], ym - k * (DP["x1"] - DP["xm"]), COL["org"], 7))
+            g.append(F.arrow(DP["xl"] - 60, y + 4, DP["xl"] - 60, yl - 4, COL["red"], 5, 16))
+    return g
+
+
+# ── 🆕 ⑤b-6：curve（c815・c816・c817）＝継ぎ目にかかる力（青）と耐えられる限界（赤）の2本の線（TR0273「the blue load rotation curve」・
+#    TR0275「the failure criterion shown in red」・TR0276「If … intersects …, failure is predicted」・TR0073「a large margin against failure」・
+#    TR0074「those margins against failure were zero at the time of failure」）。線の形は模式＝数・目盛りは出さない
+CV2 = dict(gx0=300.0, gx1=1480.0, gy0=330.0, gy1=800.0, ub=0.85, n=48)
+CURVE_RED = dict(high=(0.98, 0.12), mid=(0.95, 0.55), touch=(0.80, 0.25))     # 赤い線 f(u)＝a − b·u（見え方ごと・模式）
+
+
+def curve_xy(u, f):
+    return (CV2["gx0"] + (CV2["gx1"] - CV2["gx0"]) * u, CV2["gy1"] - (CV2["gy1"] - CV2["gy0"]) * f)
+
+
+def curve_blue(u):
+    return 0.62 * (1.0 - math.exp(-4.5 * u))
+
+
+def curve_red(mode, u):
+    a, b = CURVE_RED[mode]
+    return a - b * u
+
+
+def curve_cross(mode):
+    """青い線の範囲（0〜ub）で、赤い線と交わる u（無ければ None）。"""
+    prev = None
+    for i in range(CV2["n"] * 4 + 1):
+        u = CV2["ub"] * i / (CV2["n"] * 4)
+        d = curve_red(mode, u) - curve_blue(u)
+        if prev is not None and prev > 0 >= d:
+            return u
+        prev = d
+    return None
+
+
+def curve_base(st0):
+    x0, x1, y0, y1 = CV2["gx0"], CV2["gx1"], CV2["gy0"], CV2["gy1"]
+    return [_ground_bg(), F.line(x0, y0 - 20, x0, y1, COL["dim"], 4), F.line(x0, y1, x1 + 20, y1, COL["dim"], 4),
+            _t(x1 + 20, y1 + 44, "柱のまわりの床の傾き", 26, INK, "end"), _t(x0 - 16, y0 - 34, "力", 26, INK, "end")]
+
+
+def curve_stage(prev, st):
+    g = []
+    n, ub = CV2["n"], CV2["ub"]
+    if _on(prev, st, "blue"):
+        g.append(F.poly([curve_xy(ub * i / n, curve_blue(ub * i / n)) for i in range(n + 1)], "none", COL["blue"], 8))
+    if st["red"] != "off" and st["red"] != prev["red"]:
+        g.append(F.poly([curve_xy(i / n, curve_red(st["red"], i / n)) for i in range(n + 1)], "none", COL["red"], 8))
+    if _on(prev, st, "cross"):
+        u = curve_cross(st["red"]) if st["red"] != "off" else None
+        if u is not None:
+            X, Y = curve_xy(u, curve_blue(u))
+            g.append(_ring(X, Y, 30, COL["mark"], 6))
+    if _on(prev, st, "gap"):
+        u = ub
+        X, Yb = curve_xy(u, curve_blue(u))
+        _, Yr = curve_xy(u, curve_red(st["red"], u)) if st["red"] != "off" else (X, Yb)
+        g.append(F.arrow(X, Yb - 8, X, Yr + 10, COL["mark"], 5, 16) + F.arrow(X, Yr + 10, X, Yb - 8, COL["mark"], 5, 16))
+    return g
+
+
 # ══════════════════════════════════════════════════════════
 #  見え方の表
 # ══════════════════════════════════════════════════════════
@@ -1427,7 +1542,12 @@ VIEWS = dict(
     cover=dict(lab="床を縦に切った断面", fields=dict(dwg=ONOFF, real=ONOFF, weak=ONOFF), base=cover_base, stage=cover_stage),
     ruler=dict(lab="強さの物差し", fields=dict(rul=ONOFF, short=ONOFF, gap=ONOFF, limit=ONOFF), base=ruler_base, stage=ruler_stage),
     rebar=dict(lab="上から見た柱のまわりの上の鉄筋", fields=dict(real=ONOFF, over=ONOFF, space=ONOFF, weak=ONOFF), base=rebar_base,
-               stage=rebar_stage))
+               stage=rebar_stage),
+    # 🆕 ⑤b-6（2026-10-06）：余裕（c306）・床の下がり（c615）・2本の線（c815〜c817）
+    margin=dict(lab="余裕の考え方", fields=dict(cap=ONOFF, load=ONOFF, gap=ONOFF), base=margin_base, stage=margin_stage),
+    drop=dict(lab="横から見た11 の列の部屋の床（左が L・右が M）", fields=dict(ref=ONOFF, now=ONOFF), base=drop_base, stage=drop_stage),
+    curve=dict(lab="継ぎ目の力と限界の線", fields=dict(blue=ONOFF, red=("off", "high", "mid", "touch"), cross=ONOFF, gap=ONOFF),
+               base=curve_base, stage=curve_stage))
 START ={v: {k: vs[0] for k, vs in d["fields"].items()} for v, d in VIEWS.items()}
 # 戻さない欄（落ちた床は戻らない・抜いたヤシの木は戻らない・押しつぶれは戻らない）
 #   ⚠️ 欄の名は見え方ごと（flat の joint は on/off・edge の joint は ok→hurt→crush）＝見え方で分ける
@@ -1545,6 +1665,22 @@ def anchors(view, st):
     if view == "hall":
         return dict(ref=(HA["x0"] + 300, HA["ftop"]), sag=(HA_COL["K"] + 140, HA["ftop"] + 20), cam=HA["cam"],
                     i=(HA_COL["I"], HA["ftop"]))
+    if view == "margin":
+        return dict(cap=(MG["cap"], MG["ycap"] + MG["h"] / 2), load=(MG["load"], MG["yload"] + MG["h"] / 2),
+                    gap=((MG["load"] + MG["cap"]) / 2, MG["yload"] + MG["h"]))
+    if view == "drop":
+        y91, y8 = DP["rows"]["9.1"], DP["rows"]["8"]
+        return dict(ref=(DP["x1"] - 40, y91), l91=(DP["xl"] - 60, y91 + DP["drop"]["9.1"] / 2),
+                    m=(DP["xm"] + 14, y8 - 60), l8=(DP["xl"] - 60, y8 + DP["drop"]["8"] / 2))
+    if view == "curve":
+        ub = CV2["ub"]
+        out = dict(xaxis=(CV2["gx1"] - 260, CV2["gy1"]), blue=curve_xy(ub, curve_blue(ub)))
+        if st["red"] != "off":
+            out["red"] = curve_xy(1.0, curve_red(st["red"], 1.0))
+            u = curve_cross(st["red"])
+            out["cross"] = curve_xy(u, curve_blue(u)) if u is not None else out["blue"]
+            out["gap"] = (curve_xy(ub, 0)[0], (curve_xy(ub, curve_blue(ub))[1] + curve_xy(ub, curve_red(st["red"], ub))[1]) / 2)
+        return out
     return {}
 
 
@@ -1607,6 +1743,12 @@ TAG_AT = dict(
     rebar=dict(dwg=(340.0, 300.0, "start", 560.0), real=(1140.0, 300.0, "start", 560.0), space=(340.0, 830.0, "start", 760.0),
                weak=(1140.0, 830.0, "start", 640.0)),
     hall=dict(ref=(300.0, 790.0, "start", 640.0), sag=(1000.0, 560.0, "start", 720.0), still=(1000.0, 790.0, "start", 700.0)),
+    # 🆕 ⑤b-6：札は棒・床・線の通り道の外（棒の上・床の線の下の空き・グラフの右の外）
+    margin=dict(cap=(420.0, 420.0, "start", 1080.0), load=(420.0, 620.0, "start", 440.0), gap=(1000.0, 790.0, "start", 760.0)),
+    drop=dict(ref=(1480.0, 400.0, "start", 340.0), l91=(110.0, 300.0, "start", 760.0), l8=(110.0, 850.0, "start", 330.0),
+              m=(1480.0, 600.0, "start", 340.0)),
+    curve=dict(xaxis=(420.0, 296.0, "start", 1000.0), blue=(1520.0, 640.0, "start", 300.0), red=(1520.0, 420.0, "start", 300.0),
+               cross=(1520.0, 780.0, "start", 300.0), gap=(1520.0, 530.0, "start", 300.0)),
 )
 
 
@@ -1690,7 +1832,7 @@ KEY_FIELDS = ("pts", "rot", "alpha", "fill", "stroke", "glow", "dx", "dy")
 
 
 def m19(view, steps, start=None, rel=(), note="", src=""):
-    """19本目の模式図。view は VIEWS の29種。steps＝ナレーションの行ごとの段。"""
+    """19本目の模式図。view は VIEWS の32種。steps＝ナレーションの行ごとの段。"""
     if view not in VIEWS:
         raise ValueError(f"m19：知らない見え方 {view!r}（{tuple(VIEWS)}）")
     if "模式" not in note:
@@ -1846,4 +1988,21 @@ def geo_of(view, start, states):
         out["neutral"] = SAT_NEUTRAL
     elif view == "drip":
         out["flow"] = [s["flow"] for s in allst]
+    elif view == "margin":          # 🆕 ⑤b-6：棒の長さ（基準の線から）と余裕の枠の両端
+        out["cap"] = MG["cap"] - MG["x0"] if ever("cap") else None
+        out["load"] = MG["load"] - MG["x0"] if ever("load") else None
+        out["gap"] = [MG["load"] - MG["x0"], MG["cap"] - MG["x0"]] if ever("gap") else None
+    elif view == "drop":            # 🆕 ⑤b-6：行ごとの L の側と M の側の下がり（画素＝描く関数と同じ drop_floor）
+        out["drop"] = {r: [b - a for a, b in zip(drop_floor(r, False), drop_floor(r, True))] for r in DP["rows"]} if ever("now") else {}
+    elif view == "curve":           # 🆕 ⑤b-6：段ごとに、赤い線の型・青い線の範囲で交わる所・輪の位置・余裕の矢印
+        sts = []
+        for s in allst:
+            if s["blue"] != "on" or s["red"] == "off":
+                continue
+            u = curve_cross(s["red"])
+            ub = CV2["ub"]
+            gmin = min(curve_red(s["red"], ub * i / 200) - curve_blue(ub * i / 200) for i in range(201))
+            sts.append(dict(red=s["red"], cross=(curve_xy(u, curve_blue(u)) if u is not None else None), gmin=round(gmin, 3),
+                            ring=s["cross"] == "on", gap=s["gap"] == "on"))
+        out["st"] = sts
     return out

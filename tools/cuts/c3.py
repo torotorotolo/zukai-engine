@@ -147,4 +147,31 @@ SPEC = {
             dict(add=[ss.ax("y25"), ss.ax("fall"), ss.ax("survey", fmt="ym", t="報告")], cur="2018-10-08")],
             note="", src=ss.src(["TR p1441", "MC18 p4001", "A12 p5101"]))),
     ),
+    # ── 🆕 ⑤b-6（2026-10-06）：余裕の考え方（模式図 m19 の margin）・書類の再現図（箱の型）──
+    # c306（8.97秒＝0〜3.03／3.52〜6.55／7.05〜8.97 聞き役）＝余裕（TR0018・TR0470）。数の比べ → 模式図（数を出さない＝棒の型は値が要る）。
+    #   1行目で2本の棒・2行目で余裕の枠
+    "c306": dict(
+        t="余裕とは", s="2つの重さの差",
+        fig=("m19", dict(view="margin",
+                         steps=[dict(state=dict(cap="on", load="on"), delay=0.3,
+                                     tag=[dict(t="耐えられる重さ", at="cap"), dict(t="ふだんかかる重さ", at="load")]),
+                                dict(state=dict(gap="on"), delay=0.3, tag=dict(t="この差が余裕", at="gap", to="gap")),
+                                dict()],
+                         note="長さは模式（数は出さない）", src=TR_SRC + "の語り")),
+    ),
+    # c309（9.94秒＝0〜5.34／5.83〜9.94）＝調査の報告 p.1（日付・あて先・表題）と p.7（書いたこと＝2行目）。会社と人の名前は出さない
+    "c309": dict(
+        t="2018年の調査", s="報告書の表紙と中身",
+        fig=("boxes", dict(view="form", form=ss.FORM_MC18, steps=[
+            dict(add=dict(k="paper")),
+            dict(add=dict(k="fill", f="書いたこと"))],
+            note="欄の字は原文のまま・様式は再現・会社と人の名前は出さない", src=ss.src(["MC18 p4001・p4007"]))),
+    ),
+    # c316（4.61秒＝1行）＝見積もりの合計（EST18）。数の比べ → 書類の再現図（棒が1本しか無い＝18本目 c603 と同じ）・内わけは出さない（映像方針）
+    "c316": dict(
+        t="報告と一緒に出た額", s="合計だけを見る",      # ⚠️ dup：「2018年10月」は出典の行の写し
+        fig=("boxes", dict(view="form", form=ss.FORM_EST18, steps=[
+            dict(add=[dict(k="paper"), dict(k="fill", f="合計")])],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["EST18 p4318"]))),
+    ),
 }

@@ -1517,7 +1517,15 @@ REC_M19 = dict(
     over=((4, 2), "TF p9085（スライド76＝only 2 rather than 4 top bars）"),
     space=((1.20, 1.40), "TR p1229（about 20% to 40% wider）"),
     strength=((6000.0, 4000.0), "AC p2065（Column 6000 psi・Floor 4000 psi）"),
-    clock={"1:18:18", "1:21:55", "1:22:04", "1:22:15"},
+    clock={"1:18:18", "1:21:55", "1:22:04", "1:22:14", "1:22:15"},       # 🆕 ⑤b-6：1:22:14＝TR p1347・p1348（c615）
+    # 🆕 ⑤b-6（2026-10-06）：余裕（c306）・床の下がり（c615）・2本の線（c815〜c817）
+    margin=("TR p1018（support much more load than they are expected to bear）・TR p1470（extra capacity … beyond the loads）"),
+    drop_more=(("9.1", "8"), "TR p1347（The slab near column L-9.1 dropped more than the slab at L-8）"),
+    drop_still=("TR p1344（the columns on grid line M, which appear to have been stationary）"),
+    # 赤い線の型 →（交わるか, 出どころ）。high＝決まりどおりなら大きく離れる・mid＝説明の図（交われば壊れると読む）・touch＝余裕ゼロ
+    curve=dict(high=(False, "TR p1073（a large margin against failure）"), mid=(True, "TR p1276（intersects … failure is predicted）"),
+               touch=(True, "TR p1074（those margins against failure were zero at the time of failure）")),
+    curve_gap=0.15,             # high の「大きく離れる」＝青い線の範囲で、2本の線の差が軸の高さの15%以上（模式の下限）
     neutral=("#8fa3ad", "A06（沈みは見られない＝色を付けない）"),
     # 推定で描く段＝{見え方: (欄, 値)}（front＝屋根が下がる・joint＝押しつぶれ）。その段までに「推定」の札
     assume=dict(front=("roof", "down"), joint=("crush", "on")))
@@ -1563,6 +1571,11 @@ def judge_m19(f):
                (("limit", "on"), (("rul", "on"),), "")],
         seq=[(("around", "on"), (("first", "on"), ("second", "on")), "まわりの柱へ重さが回るのは、2か所が壊れてから（TR0140）")],
         cand=[(("red", "on"), (("cand", "on"),), "赤い枠は候補の中の2か所（TR0106）")],
+        # 🆕 ⑤b-6
+        margin=[(("gap", "on"), (("cap", "on"), ("load", "on")), "余裕は、耐えられる重さとふだんの重さの差（TR0470）＝2本を見せてから")],
+        drop=[(("now", "on"), (("ref", "on"),), "下がりは前日のコマ（基準の床）と比べた量（TR0340・TR0345）")],
+        curve=[(("cross", "on"), (("blue", "on"),), "交わる所は、かかる力の線を見せてから"),
+               (("gap", "on"), (("blue", "on"),), "余裕は、かかる力の線を見せてから")],
         ground=[(("none", "on"), (("cave", "on"),), "「空洞の跡なし」は、空洞の例を見せてから")])
     for need, have, why in rules.get(view, []):
         n += 1
@@ -1748,6 +1761,41 @@ def judge_m19(f):
         n += 1
         if any(c.lower() != R["neutral"][0] for c in g["cells"]):
             bad.append(f"② 沈みの色を付けた区画がある（{R['neutral'][1]}）")
+    # 🆕 ⑤b-6（2026-10-06）
+    if view == "margin":
+        if g["cap"] is not None and g["load"] is not None:
+            n += 1
+            if not g["load"] < g["cap"]:
+                bad.append(f"② ふだんの重さの棒 {g['load']:.0f} が耐えられる重さの棒 {g['cap']:.0f} 以上（{R['margin']}）")
+        if g["gap"] is not None:
+            n += 1
+            if [round(v) for v in g["gap"]] != [round(g["load"] or -1), round(g["cap"] or -1)]:
+                bad.append(f"② 余裕の枠 {g['gap']} が2本の棒の端（{g['load']}〜{g['cap']}）と合わない（余裕＝差・{R['margin']}）")
+    if view == "drop" and g["drop"]:
+        (a, b), why = R["drop_more"]
+        n += 3
+        if not g["drop"][a][0] > g["drop"][b][0] > 0:
+            bad.append(f"② L の側の下がり {a}＝{g['drop'][a][0]:.0f}・{b}＝{g['drop'][b][0]:.0f}（記録＝{a} がより大きい・どちらも下がる＝{why}）")
+        if any(abs(v[1]) > 0.5 for v in g["drop"].values()):
+            bad.append(f"② M の側も下がっている（{R['drop_still']}）")
+    if view == "curve":
+        for s in g["st"]:
+            want, why = R["curve"][s["red"]]
+            n += 1
+            if (s["cross"] is not None) != want:
+                bad.append(f"② 赤い線（{s['red']}）が青い線と{'交わらない' if want else '交わる'}（記録＝{'交わる' if want else '交わらない'}・{why}）")
+            if s["red"] == "high":
+                n += 1
+                if s["gmin"] < R["curve_gap"]:
+                    bad.append(f"② 決まりどおりの継ぎ目なのに2本の線の差が小さい（最小 {s['gmin']}・{R['curve_gap']} 以上＝{why}）")
+            if s["ring"]:
+                n += 1
+                if s["cross"] is None:
+                    bad.append("② 交わる所の輪を、交わらない線に描いた")
+            if s["gap"]:
+                n += 1
+                if s["cross"] is not None:
+                    bad.append(f"② 余裕の矢印を、交わる線（{s['red']}）に描いた＝余裕は無い（{R['curve']['touch'][1]}）")
     # ③ 札の数・時刻・推定
     said = [r.get("t", "") for r in m["rel"]]
     for t in texts:
@@ -1799,7 +1847,19 @@ def _selftest_m19(ok):
                    note=N),
         zoneb=dict(view="zoneb", steps=[dict(state=dict(mark="on", brk="on"), tag=dict(t="①", at="one"))], note=N),
         ground=dict(view="ground", steps=[dict(state=dict(lime="on", cave="on", none="on"), tag=dict(t="例", at="cave"))], note=N),
-        front=dict(view="front", steps=[dict(state=dict(roof="down"), tag=dict(t="柱の頭（推定の模式）", at="heads"))], note=N))
+        front=dict(view="front", steps=[dict(state=dict(roof="down"), tag=dict(t="柱の頭（推定の模式）", at="heads"))], note=N),
+        # 🆕 ⑤b-6（2026-10-06）
+        margin=dict(view="margin", steps=[dict(state=dict(cap="on", load="on"), tag=dict(t="耐えられる重さ", at="cap")),
+                                          dict(state=dict(gap="on"), tag=dict(t="余裕", at="gap", to="gap"))], note=N),
+        drop=dict(view="drop", steps=[dict(state=dict(ref="on"), tag=dict(t="前日のコマ", at="ref")),
+                                      dict(state=dict(now="on"), tag=dict(t="1:22:14 ごろ", at="l91"))],
+                  rel=[dict(t="1:22:14", src="TR p1348")], note=N),
+        curve_high=dict(view="curve", steps=[dict(state=dict(blue="on", red="high"), tag=dict(t="決まりどおり", at="red")),
+                                             dict(state=dict(gap="on"), tag=dict(t="余裕", at="gap"))], note=N),
+        curve_mid=dict(view="curve", steps=[dict(state=dict(blue="on", red="mid")), dict(state=dict(cross="on"), tag=dict(t="交わる", at="cross"))],
+                       note=N),
+        curve_touch=dict(view="curve", steps=[dict(state=dict(blue="on", red="touch", cross="on"), tag=dict(t="余裕ゼロ", at="cross"))],
+                         note=N))
     for nm, kw in good.items():
         bad, n = judge("m19", kw)
         ok &= not bad
@@ -1821,7 +1881,12 @@ def _selftest_m19(ok):
             ("揺れを壁の内で大きく描く", "EX_AMP", ((630.0, 10.0), (800.0, 26.0), (1300.0, 4.0)), "小さくなっていない", "excav"),
             ("折れる所を E の柱の西に描く", "ZB", dict(M.ZB, brk=480.0), "折れる所（①）", "zoneb"),
             ("空洞の例を建物の下に描く", "GR_CAVE", [(x - 700.0, y) for x, y in M.GR_CAVE], "建物の下", "ground"),
-            ("屋根を上へ動かす", "FR", dict(M.FR, drop=-60.0), "突き出していない", "front")):
+            ("屋根を上へ動かす", "FR", dict(M.FR, drop=-60.0), "突き出していない", "front"),
+            # 🆕 ⑤b-6
+            ("ふだんの重さの棒を長く描く", "MG", dict(M.MG, load=1600.0), "以上", "margin"),
+            ("L-8 の側を L-9.1 より下げる", "DP", dict(M.DP, drop={"9.1": 30.0, "8": 38.0}), "L の側の下がり", "drop"),
+            ("決まりどおりの赤い線を低く描く", "CURVE_RED", dict(M.CURVE_RED, high=(0.66, 0.12)), "交わる", "curve_high"),
+            ("余裕ゼロの赤い線を高く描く", "CURVE_RED", dict(M.CURVE_RED, touch=(0.95, 0.10)), "交わらない", "curve_touch")):
         keep = getattr(M, attr)
         setattr(M, attr, val)
         try:
@@ -1843,7 +1908,11 @@ def _selftest_m19(ok):
                                          steps=[dict(state=dict(crush="on"), tag=dict(t="押しつぶされた", at="crush"))], note=N), "推定"),
             ("札の時刻が記録に無い（1:22:05）", dict(view="cam", steps=[dict(state=dict(unit="on"), tag=dict(t="1:22:05", at="clock"))],
                                                  rel=[dict(t="1:22:05", src="x")], note=N), "記録の時刻"),
-            ("札の数が rel に無い", dict(view="cover", steps=[dict(state=dict(dwg="on"), tag=dict(t="約3センチ", at="dwg"))], note=N), "rel")):
+            ("札の数が rel に無い", dict(view="cover", steps=[dict(state=dict(dwg="on"), tag=dict(t="約3センチ", at="dwg"))], note=N), "rel"),
+            # 🆕 ⑤b-6
+            ("基準の床の前に下がり", dict(view="drop", steps=[dict(state=dict(now="on"), tag=dict(t="x", at="l91"))], note=N), "① 筋"),
+            ("交わる線に余裕の矢印", dict(view="curve", steps=[dict(state=dict(blue="on", red="touch", gap="on"), tag=dict(t="x", at="gap"))],
+                                       note=N), "余裕の矢印")):
         bad, _ = judge("m19", kw)
         g_ = any(key in b for b in bad)
         ok &= g_

@@ -432,8 +432,19 @@ REC_DOCS = {                                # 出典の書き方「資料名 p�
     "AC": dict(range=(2001, 2082), name="NIST の諮問委員会の資料（2026年9月）", page="pdf", base=2000),
     "TF": dict(range=(9001, 9808), name="NIST 技術的知見の動画のスライド（2026年6月）", page=None, base=0),
     # 🆕 ⑤b-3：大陪審の報告（GJ の PDF 頁 n → p(3000+n)・印字の頁＝PDF 頁−3）・町の発表（A13＝1頁）
-    "GJ": dict(range=(3001, 3043), name="マイアミ・デイド郡の大陪審の報告（2022年）", page="print", base=3003),
+    # 🔴 ⑤b-6（2026-10-06）：名の年を「（2022年）」から直した＝表紙 p3001「FILED December 15, 2021」・結び p3043「Date: December 15. 2021」・
+    #   州検事の声明 A16（2021年12月15日）・台本の語り「2021年12月に出た」と合わせる
+    "GJ": dict(range=(3001, 3043), name="マイアミ・デイド郡の大陪審の報告（2021年12月）", page="print", base=3003),
     "A13": dict(range=(5102, 5102), name="サーフサイド町の発表（2026年8月13日）", page=None, base=0),
+    # 🆕 ⑤b-6（2026-10-06）：書類・流れ図・数の比べ・地図の出典。見積もり（EST18＝町が公開した転送メールの PDF の18頁にある添付＝
+    #   🔴 その PDF は私人の情報を含む A09＝git の外・画面に頁を出さない＝見積もりの頁とずれる）・州の法律（A14＝PDF 頁）・郡の発表（B03）・
+    #   町の警察の会報（B05＝PDF 頁）・NIST の発表（A04）・州検事の声明（A16）
+    "EST18": dict(range=(4318, 4318), name="モラビトの見積もり（2018年10月）", page=None, base=0),
+    "A14": dict(range=(6001, 6088), name="フロリダ州の法律 SB 4-D（2022年）", page="pdf", base=6000),
+    "B03": dict(range=(5201, 5201), name="マイアミ・デイド郡の発表（2021年7月4日）", page=None, base=0),
+    "B05": dict(range=(5301, 5303), name="サーフサイド町の警察の会報（2021年7月8日）", page="pdf", base=5300),
+    "A04": dict(range=(5001, 5001), name="NIST の発表（2026年6月22日）", page=None, base=0),
+    "A16": dict(range=(5801, 5801), name="マイアミ・デイド郡の州検事の声明（2021年12月15日）", page=None, base=0),
     # 🆕 ⑤b-5（2026-10-06）：軸の型（年表・時間の帯）の出典。調査の報告（MC18＝町の写しの PDF 頁＝報告の頁）・議事録（MIN18＝町の写しの PDF 頁）・
     #   町の頁（A12）・NIST の発表（B08）・GAO（B01）・FEMA（B02）・裁判所（A17・A18・A19＝PDF 頁）。⚠️ A11（MIN18）・A17 の原文は git の外のまま
     "MC18": dict(range=(4001, 4009), name="モラビトの調査の報告（2018年10月）", page="print", base=4000),
@@ -526,6 +537,10 @@ AX_SEARCH = dict(view="date", span=("2021-06-20", "2021-07-26"),
 AX_NIST = dict(view="date", span=("2021-01", "2022-04"), ticks=("2021-01", "2021-04", "2021-07", "2021-10", "2022-01", "2022-04"))  # c719
 AX_CODE = dict(view="date", span=("1975", "2030"), ticks=("1980", "1990", "2000", "2010", "2020", "2030"))   # ca20 決まり
 AX_SALE = dict(view="date", span=("2022-05-10", "2022-08-10"), ticks=("2022-06", "2022-07", "2022-08"))     # cc20 土地の売却
+# 🆕 ⑤b-6（2026-10-06）：cc17 追悼の灯（毎年＝ともす6月24日・消す7月20日）。年は画面に出さない（点は lab=False・目盛りは日と月だけ）＝
+#   軸の中の年は捜索の年（2021年）を借りる。時刻は町の頁の2023〜2025年の記録（2022年は午後8時9分＝「このところは」の語りの外）
+AX_TORCH = dict(view="date", span=("2021-06-20", "2021-07-26"),          # ⚠️ 門番 layout：6月24日の目盛りの「6月」を点の線が貫いた＝目盛りを点からずらす
+                ticks=("2021-06-22", "2021-06-29", "2021-07-06", "2021-07-13", "2021-07-20"))
 SIGNS = ("約3週間前", "約1週間前", "約17時間前", "約9時間前", "約3時間前")                            # c523 の並び
 ALL_SIGNS = ("約3週間前", "約1週間前", "約17時間前", "約9時間前", "約9分前", "約6分前", "1:16:27", "1:17:49", "1:22:14")   # c622
 
@@ -578,6 +593,9 @@ AXI.update({
     "f624": dict(k="pt", at="2021-06-24", t="崩落", rec="A12 p5101", c="ALERT", anchor="start"),
     "last": dict(k="pt", at="2021-07-20", t="最後の1人", rec="A12 p5101", anchor="end"),
     "d26": dict(k="br", a="2021-06-24", b="2021-07-20", rec="A12 p5101"),
+    # 🆕 ⑤b-6：cc17 追悼の灯（A12「the symbolic remembrance torch lit at 1:22 am on June 24」「July 20th at 8:03 pm」）
+    "lit": dict(k="pt", at="2021-06-24", t="灯をともす（1:22）", rec="A12 p5101", lab=False, anchor="start"),
+    "out": dict(k="pt", at="2021-07-20", t="灯を消す（20:03）", rec="A12 p5101", lab=False, anchor="end"),
     "team": dict(k="pt", at="2021-06-25", t="6人を送る", rec="B02 p5702", anchor="end"),
     "ann": dict(k="pt", at="2021-06-30", t="調査を発表", rec=["B02 p5702", "B01 p5605"], anchor="start"),
     "evid": dict(k="pt", at="2022-01-28", t="証拠を NIST が預かる", rec="B08 p5005", anchor="end"),
@@ -651,8 +669,27 @@ def merge(*parts):
 # 🔴 2026-10-06（19本目 ⑤b-1・§0b）：18本目の棒の群 QG・棒 QB（c204・c207・c302・c315・c613・c614・c626）は `tools/fixture_ep18.py` へ
 #    移した（値は1つも変えていない＝git の `2d627a2`）＝ここも門番 check_qty の表も空。19本目の棒は ⑤b で、値と頁を
 #    ref/ep19/src/ep19_pages.txt に当てて入れる
-QG = {}
-QB = {}
+# 🆕 2026-10-06（19本目 ⑤b-6）：c408（工事の額）・c617（床の沈み）・ca07（柱にかけた重さ）。値と頁は ref/ep19/src/ep19_pages.txt で当てた＝
+#   門番 check_qty.REC_QTY と照らす（門番の側にも別に持つ＝§5b-88）。群の名と行の名には数字を書かない（数は字幕＝§5b-9）
+#   ・円は台本 §9 の式（1ドル≈109円＝2021年4月）・インチは×2.54・ポンドは×0.4536（棒は丸めない＝語りは「約」）
+#   ・「〜を超える」（1,400万ドル）は棒をその数まで＝注で断る
+#   ・🔴 ひざ・机・トラックは記録の値ではない＝棒にしない。目盛りに置いて注で「目安」と断る（c617＝目盛り 45・70／ca07＝20トンごと）
+QG = {
+    "cost": dict(id="cost", t="直す工事の額（億円）", ticks=(0, 5, 10, 15, 20)),
+    "unit": dict(id="unit", t="部屋ごとの額（万円）", ticks=(0, 300, 600, 900, 1200)),
+    "sink": dict(id="sink", t="床の沈み（センチ）", ticks=(0, 45, 70), rows=("少なく見て", "多く見て")),
+    "load": dict(id="load", t="柱にかけた重さ（トン）", ticks=tuple(range(0, 301, 20))),
+}
+QB = {
+    # c408：GJ p.18（p3021）「The proposed costs for building repairs were more than $14,000,000.」・MC18 p.1（p4001）「136-unit」
+    "c_all": dict(k="bar", g="cost", t="全体", v=14e6 * 109 / 1e8, rec="GJ p3021"),
+    "c_unit": dict(k="bar", g="unit", t="単純に割ると", v=14e6 * 109 / 136 / 1e4, rec=["GJ p3021", "MC18 p4001"], c="AMBER"),
+    # c617：TR0348（p1348）「The total drop near grid point L-9.1 from the day before the collapse to 1:22:14 a.m. was about 18-27 inches.」
+    "s_lo": dict(k="bar", g="sink", t="少なく見て", v=18 * 2.54, rec="TR p1348"),
+    "s_hi": dict(k="bar", g="sink", t="多く見て", v=27 * 2.54, rec="TR p1348", c="AMBER"),
+    # ca07：TR0302（p1302）「a vertical load of 650,000 pounds … representing the load in the column at the time of failure」
+    "l_col": dict(k="bar", g="load", t="試験の柱", v=650000 * 0.4536 / 1000, rec="TR p1302", c="AMBER"),
+}
 
 
 def qb(name, **kw):
@@ -701,10 +738,178 @@ def rud(name, **kw):
 #    紙の置き場 _P1〜_P4・_O1）と並べ図の項目 CAUSE は `tools/fixture_ep18.py` へ移した（値は1つも変えていない＝git の `2d627a2`）＝
 #    ここも門番 check_boxes の表も空（`cause()` は型の道具＝残す）。19本目の箱は ⑤b で足す
 #    （門番 check_boxes の REC_MECH・REC_OTHER_ROLE・REC_CHIP・REC_FORM・REC_CAUSE も、回の値を門番の側に別に持つ＝§5b-88）
-FLP = {}
+# 🆕 2026-10-06（19本目 ⑤b-6）：書類の再現図・流れ図・並べ図。🔴 欄の値は原文の英語のまま（日本語は字幕だけ＝ルール 0b-33）・
+#   欄の名は原文の文の言葉を日本語に・紙1枚に欄は4つまで（§5b-114⑤）・人の名前は出さない（議事録・手紙＝役職だけ）・
+#   次のカットの語りにある事は書かない（ルール 0b-40⑤）：c403 の「とても良い状態に見える」（c404 の決め所）・cc08 の7月2日の手紙（cc09）。
+#   値は ref/ep19/src/ep19_pages.txt の文字の層で当て、OCR が崩れた GJ は頁の画像の書き起こし（p9802・p9803）と照らした
+_P4 = (100, 1820, 270, 840)    # 欄4つの紙（図の本体 210〜892 の内・「再現」の札は 214〜258）
+_P3 = (100, 1820, 300, 760)
+_P2 = (100, 1820, 330, 690)
+# c212：議事録 p.7（MIN18 p4107＝p9805）「The 40 year certification for the building will be due in 2021.」／大陪審の報告 p.18（GJ p3021＝p9802）
+#   「the Champlain Towers condo board hired an engineer to start the 40-year recertification process years before it was due」（紙2枚＝別の書類）
+FORM_MIN40 = dict(title="理事会の議事録（2018年11月15日）", rec="MIN18 p4107", lw=150,
+                  fields=[dict(t="40年の点検", v="will be due in 2021", rec="MIN18 p4107", late=True)])
+FORM_GJ18 = dict(title="大陪審の報告", rec="GJ p3021", lw=150,
+                 fields=[dict(t="管理組合", v="hired an engineer", rec="GJ p3021", late=True),
+                         dict(t="始めた時期", v="years before it was due", rec="GJ p3021", late=True)])
+# c309：調査の報告 p.1（MC18 p4001）「October 8, 2018」「Treasurer」「Structural Field Survey Report」・p.7（MC18 p4007＝p9804）
+#   「the waterproofing below the Pool Deck & Entrance Drive」。🔴 会社と人の名前は出さない（あて先は役職だけ）
+FORM_MC18 = dict(title="建物の調査の報告", rec=["MC18 p4001", "MC18 p4007"], paper=_P4, lw=170,
+                 fields=[dict(t="日付", v="October 8, 2018", rec="MC18 p4001"),
+                         dict(t="あて先", v="Treasurer", rec="MC18 p4001"),
+                         dict(t="表題", v="Structural Field Survey Report", rec="MC18 p4001"),
+                         dict(t="書いたこと", v="the waterproofing below the Pool Deck & Entrance Drive", rec="MC18 p4007", late=True)])
+# c316：見積もり（EST18 p4318＝町が公開した転送メールの PDF の18頁の添付）「TOTAL SUMMARY OF REMEDIATION PROBABLE CONSTRUCTION COST
+#   $9,128,433.60」。内わけは出さない（映像方針）
+FORM_EST18 = dict(title="直す工事の見積もり", rec="EST18 p4318", paper=_P2, lw=150,
+                  fields=[dict(t="合計", v="$9,128,433.60", rec="EST18 p4318", late=True)])
+# c403：議事録 p.7（MIN18 p4107）「Structural engineer report was reviewed … although report was not in the format for the 40 year certification
+#   he determined the necessary data was collected」。「it appears the building is in very good shape」は次の c404 の決め所＝書かない
+FORM_MIN15 = dict(title="理事会の議事録（2018年11月15日）", rec="MIN18 p4107", paper=_P3, lw=150,
+                  fields=[dict(t="見たもの", v="Structural engineer report was reviewed", rec="MIN18 p4107"),
+                          dict(t="書式", v="report was not in the format for the 40 year certification", rec="MIN18 p4107", late=True),
+                          dict(t="判断", v="the necessary data was collected", rec="MIN18 p4107", late=True)])
+# c412：理事長の手紙（2021年4月）を大陪審の報告 p.18（GJ p3021）が引く「observable damage such as in the garage has gotten significantly worse
+#   since the initial inspection」「would begin to multiply exponentially over the years」。🔴 名前は出さない（理事長＝役職）
+FORM_LET21 = dict(title="理事長の手紙（2021年4月）", rec="GJ p3021", paper=_P2, lw=250,     # ⑤b-6 の下見：170 は欄の名が縮んだ
+                  fields=[dict(t="目に見える傷み", v="has gotten significantly worse since the initial inspection", rec="GJ p3021", late=True),
+                          dict(t="これから", v="would begin to multiply exponentially over the years", rec="GJ p3021", late=True)])
+# c712（地図 → 書類の再現図＝§5b-116①：場所の記録は半径だけ）：郡の発表（B03 p5201）「Between 10 p.m. on Sunday, July 4, 2021 and 3 a.m. on Monday,
+#   July 5」「a 300-foot radius around the center of the demolition」。屋内にいる区域（黄）は地図の画像だけ＝数の記録が無い＝書かない
+FORM_B03 = dict(title="郡の発表（2021年7月4日）", rec="B03 p5201", paper=_P2, lw=250,     # ⑤b-6 の下見：190 は欄の名が縮んだ
+                fields=[dict(t="取り壊し", v="Between 10 p.m. on Sunday, July 4, 2021 and 3 a.m. on Monday, July 5", rec="B03 p5201",
+                             late=True),
+                        dict(t="近づけない区域", v="a 300-foot radius around the center of the demolition", rec="B03 p5201", late=True)])
+# cc08（数の比べ → 書類の再現図＝棒にする量が無い）：大陪審の報告 p.20（GJ p3023＝p9803）「Crestview Towers is a 10-story, 156-unit condominium
+#   building.」「its 40-year recertification was due in 2012」「9 1/2 years overdue」（OCR は「9 %」＝頁の画像の書き起こし p9803 で読んだ）
+FORM_CREST = dict(title="大陪審の報告（ほかの建物の例）", rec="GJ p3023", paper=_P3, lw=200,     # ⑤b-6 の下見：150 は欄の名が縮んだ
+                  fields=[dict(t="建物", v="Crestview Towers is a 10-story, 156-unit condominium building.", rec="GJ p3023", late=True),
+                          dict(t="40年の点検", v="its 40-year recertification was due in 2012", rec="GJ p3023", late=True),
+                          dict(t="崩落のとき", v="9 1/2 years overdue", rec="GJ p3023", late=True)])
+# cc14：州の法律 SB 4-D（A14 p6008・p6009）「three stories or more in height」「reaches 30 years of age」「within 3 miles of a coastline … reaches
+#   25 years of age」「every 10 years thereafter」
+FORM_SB4M = dict(title="州の法律 SB 4-D（節目の点検）", rec=["A14 p6008", "A14 p6009"], paper=_P4, lw=340,     # ⑤b-6 の下見：230 は縮んだ
+                 fields=[dict(t="建物", v="three stories or more in height", rec="A14 p6008", late=True),
+                         dict(t="最初の点検", v="reaches 30 years of age", rec="A14 p6008", late=True),
+                         dict(t="海岸から3マイル以内", v="reaches 25 years of age", rec="A14 p6009", late=True),
+                         dict(t="そのあと", v="every 10 years thereafter", rec="A14 p6008", late=True)])
+# cc15：同じ法律（A14 p6037）「a. Roof.」「c. Floor.」「d. Foundation.」「h. Waterproofing and exterior painting.」「at least every 10 years」・
+#   （A14 p6035）「Effective December 31, 2024, the members of a unit-owner controlled association may not determine to provide no reserves or
+#   less reserves」
+FORM_SB4R = dict(title="州の法律 SB 4-D（直すお金の備え）", rec=["A14 p6035", "A14 p6037"], paper=_P3, lw=340,     # ⑤b-6 の下見：230 は縮んだ
+                 fields=[dict(t="調べるもの（一部）", v="Roof. … Floor. Foundation. … Waterproofing", rec="A14 p6037", late=True),
+                         dict(t="調べる間隔", v="at least every 10 years", rec="A14 p6037", late=True),
+                         dict(t="2024年12月31日から", v="may not determine to provide no reserves or less reserves", rec="A14 p6035",
+                              late=True)])
+# 流れ図（c203・c704・c806・c913・c914・c921・cb14・cc07・cc11・cc12・cc18）。箱の言葉は11字まで（門番 echo は12字から）・役職だけ（名前を出さない）・
+#   赤を使わない。言葉と頁は門番 check_boxes の REC_OTHER_ROLE・REC_MECH・REC_CHIP と照らす
+#   🔴 c704・cc07・cc18（地図 → 流れ図）＝資料に位置の値（距離・方角・座標）が無い＝§5b-116①（drift は門番 ③ を正直には通せない）
+FL_DOCS = dict(heads=[], kind="この動画の資料")
+FL_EMPTY = dict(heads=[])
+FL_AC54 = dict(heads=[dict(id="h_ac", t="継ぎ目の壊れ（プールデッキ）", kind="head", x=(1180, 1790), y=(500, 580), rec="AC p2054")])
+FL_AVE = dict(heads=[], kind="アベンチュラ市の決まり（2021年）")
+FLP = {
+    # c203：資料（c202 の語り）＝NIST の結果の動画（A04 p5001＝2026年6月22日・TR）・その文字起こし（TR）・諮問委員会の資料（AC p.1）・町が公開した記録
+    #   （A12）／大陪審の報告（GJ p.1＝p3004・出た日＝表紙 p3001「FILED December 15, 2021」と州検事の声明 A16。⚠️ 表紙 p3001 は印字の頁が無い
+#   ＝rec に書くと出典の行が「-2頁」になる）
+    "d_vid": dict(k="role", id="d_vid", t="結果の動画（2026年6月）", y=430, pos=(130, 820), rec=["A04 p5001", "TR p1001"]),
+    "d_tr": dict(k="role", id="d_tr", t="その文字起こし", y=550, pos=(130, 820), rec="TR p1001"),
+    "d_ac": dict(k="role", id="d_ac", t="諮問委員会の資料（2026年9月）", y=670, pos=(130, 820), rec="AC p2001"),
+    "d_town": dict(k="role", id="d_town", t="町が公開した記録", y=430, pos=(1100, 1790), rec="A12 p5101"),
+    "d_gj": dict(k="role", id="d_gj", t="大陪審の報告（2021年12月）", y=550, pos=(1100, 1790), rec=["GJ p3004", "A16 p5801"]),
+    # c704：町の警察の会報 p.2（B05 p5302）「The remainder of the condominium was evacuated and residents were escorted to the Surfside Community
+    #   Center which later become the Family Reunification Center.」
+    "e_res": dict(k="role", id="e_res", t="残った部分の住民", y=500, pos=(130, 700), rec="B05 p5302"),
+    "e_cc": dict(k="role", id="e_cc", t="コミュニティセンター", y=500, pos=(1100, 1790), rec="B05 p5302"),
+    # c806：TR0256「evaluated the demands on and capacity of the slab-column connections with three tools」・TR0257「finite element modeling;
+    #   laboratory tests of slab-column connections; critical shear crack theory」
+    "t_fem": dict(k="role", id="t_fem", t="コンピュータの模型", y=400, pos=(130, 700), rec="TR p1257"),
+    "t_lab": dict(k="role", id="t_lab", t="実物大の試験", y=540, pos=(130, 700), rec="TR p1257"),
+    "t_csct": dict(k="role", id="t_csct", t="ひびの理論", y=680, pos=(130, 700), rec="TR p1257"),
+    "t_eval": dict(k="role", id="t_eval", t="継ぎ目の力と強さ", y=540, pos=(1180, 1790), rec="TR p1256"),
+    # c913・c914：AC p.54（p2054）「Design understrength (largest, pervasive)」「Deviations in as-built construction from design documents and
+    #   standards (pervasive)」「Heavier, more extensive planters」「Added fill and paving」「Degradation over time」・TR0277〜0280
+    "a_des": dict(k="role", id="a_des", t="設計の強さの不足", y=330, pos=(110, 640), rec=["AC p2054", "TR p1279"]),
+    "a_dev": dict(k="role", id="a_dev", t="図面とのずれ", y=450, pos=(110, 640), rec=["AC p2054", "TR p1279"]),
+    "a_pl": dict(k="role", id="a_pl", t="重いプランター", y=560, pos=(110, 640), rec=["AC p2054", "TR p1280"]),
+    "a_fill": dict(k="role", id="a_fill", t="足した砂と敷石", y=670, pos=(110, 640), rec=["AC p2054", "TR p1280"]),
+    "a_deg": dict(k="role", id="a_deg", t="年月の傷み", y=780, pos=(110, 640), rec=["AC p2054", "TR p1280"]),
+    # c921：AC p.61（p2061）「The requirements for recertification of structures in Florida are laudable, but they contain no requirements for
+    #   establishing confidence in the original design and construction.」／40年の点検で見るもの＝調査の報告 p.1（MC18 p4001）「to understand
+    #   and document the extent of structural issues that require repair」
+    "r_cert": dict(k="role", id="r_cert", t="40年の点検（フロリダ）", y=470, pos=(110, 640), rec="AC p2061"),
+    "r_dmg": dict(k="role", id="r_dmg", t="傷みと直す所", y=470, pos=(1240, 1790), rec="MC18 p4001"),
+    "r_orig": dict(k="role", id="r_orig", t="建てたときの設計と工事", y=670, pos=(1240, 1790), rec="AC p2061"),
+    # cb14：TR0476「it was the low margins of safety and degradation that started the failure in the pool deck」／TR0454（87パークの揺れ）・
+    #   TR0465（基礎・陥没や沈み・嵐・衝突・爆発ほか）
+    "o_mg": dict(k="role", id="o_mg", t="継ぎ目の余裕の少なさ", y=450, pos=(110, 760), rec="TR p1476"),
+    "o_deg": dict(k="role", id="o_deg", t="傷み", y=570, pos=(110, 760), rec="TR p1476"),
+    "x_vib": dict(k="role", id="x_vib", t="となりの工事の揺れ", y=450, pos=(1100, 1790), rec="TR p1454"),
+    "x_gnd": dict(k="role", id="x_gnd", t="地面の沈みや空洞", y=570, pos=(1100, 1790), rec="TR p1465"),
+    "x_ext": dict(k="role", id="x_ext", t="嵐・衝突・爆発", y=690, pos=(1100, 1790), rec="TR p1465"),
+    # cc07：大陪審の報告 p.20（GJ p3023）「Following the collapse, the City of North Miami Beach … decided to conduct an audit of all buildings and
+    #   structures five stories or higher … due or past due for their 40-year recertification」
+    "n_col": dict(k="role", id="n_col", t="サーフサイドの崩落", y=520, pos=(110, 560), rec="GJ p3023"),
+    "n_nmb": dict(k="role", id="n_nmb", t="ノースマイアミビーチ市", y=520, pos=(700, 1180), rec="GJ p3023"),
+    "n_aud": dict(k="role", id="n_aud", t="5階以上の建物を調べる", y=520, pos=(1320, 1800), rec="GJ p3023"),
+    # cc11：大陪審の報告 p.20（GJ p3023＝監査・7月2日に報告が市へ・すぐに退去）・p.22（GJ p3025「no notification at all was provided to the
+    #   Local Building Official regarding Crestview Towers」）
+    "w_aud": dict(k="role", id="w_aud", t="市が遅れを調べる", y=690, pos=(110, 560), rec="GJ p3023"),
+    "w_rep": dict(k="role", id="w_rep", t="報告が市に届く", y=690, pos=(690, 1140), rec="GJ p3023"),
+    "w_out": dict(k="role", id="w_out", t="すぐに退去", y=690, pos=(1290, 1800), rec="GJ p3023"),
+    "w_old": dict(k="role", id="w_old", t="それまでの報告", y=420, pos=(110, 640), rec="GJ p3025"),
+    "w_city": dict(k="role", id="w_city", t="市の建築の担当", y=420, pos=(1290, 1800), rec="GJ p3025"),
+    # cc12：大陪審の報告 p.21〜22（GJ p3024「provide a copy of any engineering report … to the City within forty-eight hours of receiving such a
+    #   report」・p3025「Ordinance No. 2021-13」）
+    "v_eng": dict(k="role", id="v_eng", t="技師の報告", y=520, pos=(110, 560), rec="GJ p3024"),
+    "v_board": dict(k="role", id="v_board", t="管理組合", y=520, pos=(700, 1100), rec="GJ p3024"),
+    "v_city": dict(k="role", id="v_city", t="市", y=520, pos=(1420, 1800), rec="GJ p3024"),
+    # cc18：町の発表（A13 p5102）「At the Special Commission Meeting held on August 6, the Surfside Town Commission gave final approval」「the street
+    #   end park at 88 th Street」「For five years, the Committee worked in close partnership with victims’ families, survivors, first responders,
+    #   and residents」
+    "m_fam": dict(k="role", id="m_fam", t="家族", y=360, pos=(110, 500), rec="A13 p5102"),
+    "m_surv": dict(k="role", id="m_surv", t="生き残った人", y=480, pos=(110, 500), rec="A13 p5102"),
+    "m_resc": dict(k="role", id="m_resc", t="救助の人たち", y=600, pos=(110, 500), rec="A13 p5102"),
+    "m_res": dict(k="role", id="m_res", t="住民", y=720, pos=(110, 500), rec="A13 p5102"),
+    "m_com": dict(k="role", id="m_com", t="記念の委員会", y=540, pos=(680, 1120), rec="A13 p5102"),
+    "m_ok": dict(k="role", id="m_ok", t="町の議会の最終の承認", y=540, pos=(1300, 1800), rec="A13 p5102"),
+}
 
 
-CAUSE = {}
+def fl(name, **kw):
+    return dict(FLP[name], **kw)
+
+
+# 並べ図（cb09・cb10＝NIST が崩れに大きくは関わっていないとしたもの／cc05＝大陪審の勧告の6つのねらい／cc22＝勧告の題目の候補）
+CAUSE = {
+    # cb09・cb10：TR0465（p1465）「foundation failure, sinkholes or differential settlement, hurricanes and storm surge effects, impulsive loads such as
+    #   vehicle impact, explosion or items dropped from a crane, and accidental loads or overloads caused by the roof repair and roof anchor project」
+    "n_found": dict(k="item", t="基礎の壊れ", rec="TR p1465"),
+    "n_sink": dict(k="item", t="陥没や沈み", rec="TR p1465"),
+    "n_storm": dict(k="item", t="ハリケーンと高潮", rec="TR p1465"),
+    "n_car": dict(k="item", t="車の衝突", rec="TR p1465"),
+    "n_blast": dict(k="item", t="爆発", rec="TR p1465"),
+    "n_crane": dict(k="item", t="クレーンの落下物", rec="TR p1465"),
+    "n_roof": dict(k="item", t="屋上の工事の重さ", rec="TR p1465"),
+    # cc05：大陪審の報告 p.1（GJ p3004）「Our recommendations included below are designed to 1) improve the ability of governmental officials to timely
+    #   identify and address buildings … 2) highlight environmental issues in South Florida … 3) suggest ways to identify such deterioration, ameliorate
+    #   it … 4) … better compliance and timely submittals … 5) give building officials more authority/power … 6) … electronic posting and on-line
+    #   access」
+    "g_find": dict(k="item", t="役所が早く見つけて動く", rec="GJ p3004"),
+    "g_env": dict(k="item", t="南フロリダの環境と傷み", rec="GJ p3004"),
+    "g_fix": dict(k="item", t="傷みを見つけて直す", rec="GJ p3004"),
+    "g_due": dict(k="item", t="報告を期限どおりに", rec="GJ p3004"),
+    "g_power": dict(k="item", t="役所に強い力", rec="GJ p3004"),
+    "g_web": dict(k="item", t="住民がネットで読める", rec="GJ p3004"),
+    # cc22：諮問委員会の資料 p.17（AC p2017）「Quality of Design & Construction / Code Enforcement / Codes & Standards for New Buildings / Records
+    #   Retention Policies & Building Inspections / Assessment, Management & Maintenance of Existing Buildings / Education & Training」
+    "k_qual": dict(k="item", t="設計と工事の質", rec="AC p2017"),
+    "k_enf": dict(k="item", t="決まりを守らせる", rec="AC p2017"),
+    "k_new": dict(k="item", t="新しい建物の決まり", rec="AC p2017"),
+    "k_rec": dict(k="item", t="記録の保管と点検", rec="AC p2017"),
+    "k_old": dict(k="item", t="今ある建物の手入れ", rec="AC p2017"),
+    "k_edu": dict(k="item", t="教育と訓練", rec="AC p2017"),
+}
 
 
 def cause(name, **kw):

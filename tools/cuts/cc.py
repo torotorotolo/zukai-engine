@@ -153,4 +153,96 @@ SPEC = {
                  cur="2022-06-24")],
             note="", src=ss.src(["A18 p7102・p7104", "A17 p7015", "A19 p7201"]))),
     ),
+    # ── 🆕 ⑤b-6（2026-10-06）：並べ図・流れ図・書類の再現図（箱の型）・時間の帯（軸の型）──
+    #   🔴 cc07・cc18（地図 → 流れ図）＝資料に位置の値（距離・方角・座標）が無い＝ルール §5b-116①
+    # cc05（9.87秒＝0〜4.88／5.37〜9.87）＝大陪審の勧告の6つのねらい（GJ p.1）。一覧 → 並べ図。1行目で前の3つ・2行目で後の3つ
+    "cc05": dict(
+        t="勧告のねらい", s="大陪審の6つ",
+        fig=("boxes", dict(view="row", slots=6, per=3, steps=[
+            dict(add=[ss.cause("g_find"), ss.cause("g_env"), ss.cause("g_fix")]),
+            dict(add=[ss.cause("g_due"), ss.cause("g_power"), ss.cause("g_web")])],
+            src=ss.src(["GJ p3004"]))),
+    ),
+    # cc07（10.79秒＝0〜2.01 聞き役／2.50〜6.84／7.33〜10.79）＝2行目で崩落 → ノースマイアミビーチ市・3行目で監査（GJ p.20）
+    "cc07": dict(
+        t="まわりの町の動き", s="大陪審が書いた例",
+        fig=("boxes", dict(view="flow", layout=ss.FL_EMPTY, steps=[
+            dict(),
+            dict(add=[ss.fl("n_col"), ss.fl("n_nmb"), ss.ce("n_col", "n_nmb")]),
+            dict(add=[ss.fl("n_aud"), ss.ce("n_nmb", "n_aud"), dict(k="chip", at="n_aud", t="40年の点検の遅れ", rec="GJ p3023", dy=60)])],
+            src=ss.src(["GJ p3023"]))),
+    ),
+    # cc08（7.06秒＝0〜4.14／4.63〜7.06）＝数の比べ → 書類の再現図（棒にする量が無い＝大陪審の報告 p.20 の文）。1行目で建物・2行目で期限と遅れ。
+    #   7月2日の手紙と報告は次の cc09＝書かない
+    "cc08": dict(
+        t="見つかった建物", s="点検の遅れ",
+        fig=("boxes", dict(view="form", form=ss.FORM_CREST, steps=[
+            dict(add=[dict(k="paper"), dict(k="fill", f="建物")]),
+            dict(add=[dict(k="fill", f="40年の点検"), dict(k="fill", f="崩落のとき")])],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["GJ p3023"]))),
+    ),
+    # cc11（7.85秒＝0〜2.60 聞き役／3.09〜7.85）＝1行目で下の流れ（市の調べ → 報告が市へ → すぐに退去＝GJ p.20）・2行目で上の点線（それまでの
+    #   報告は市に知らされていない＝GJ p.22）
+    "cc11": dict(
+        t="届かなかった報告", s="大陪審の見方",
+        fig=("boxes", dict(view="flow", layout=ss.FL_EMPTY, steps=[
+            dict(add=[ss.fl("w_aud"), ss.fl("w_rep"), ss.fl("w_out"), ss.ce("w_aud", "w_rep"), ss.ce("w_rep", "w_out")]),
+            dict(add=[ss.fl("w_old"), ss.fl("w_city"), ss.ce("w_old", "w_city", style="leader", lab="知らされていない")])],
+            src=ss.src(["GJ p3023・p3025"]))),
+    ),
+    # cc12（8.21秒＝0〜4.71／5.20〜8.21）＝アベンチュラ市の決まり（GJ p.21〜22）。1行目で技師の報告 → 管理組合・2行目で市へ（48時間以内に写し）
+    "cc12": dict(
+        t="近くの市の新しい決まり", s="報告の写しを市へ",
+        fig=("boxes", dict(view="flow", layout=ss.FL_AVE, steps=[
+            dict(add=[ss.fl("v_eng"), ss.fl("v_board"), ss.ce("v_eng", "v_board")]),
+            dict(add=[ss.fl("v_city"), ss.ce("v_board", "v_city", lab="48時間以内に写し")])],
+            src=ss.src(["GJ p3024・p3025"]))),
+    ),
+    # cc14（9.75秒＝0〜4.67／5.16〜9.75）＝州の法律の節目の点検（A14 p.8〜9）。🔴 頭の6.2秒は S#1 の差し込み（⑤b-7）＝図は1行目の欄から出しておく
+    "cc14": dict(
+        t="点検の時期", s="2022年の法律",
+        fig=("boxes", dict(view="form", form=ss.FORM_SB4M, steps=[
+            dict(add=[dict(k="paper"), dict(k="fill", f="建物"), dict(k="fill", f="最初の点検")]),
+            dict(add=[dict(k="fill", f="海岸から3マイル以内"), dict(k="fill", f="そのあと")])],
+            note="欄の字は原文のまま・様式は再現・3マイル＝約4.8キロ", src=ss.src(["A14 p6008・p6009"]))),
+    ),
+    # cc15（12.47秒＝0〜5.11／5.60〜10.20／10.69〜12.47 聞き役）＝直すお金の備えの調べ（A14 p.35・p.37）。1行目で調べるものと間隔・2行目で2024年末から
+    "cc15": dict(
+        t="積み立ての決まり", s="10年ごとの調べ",
+        fig=("boxes", dict(view="form", form=ss.FORM_SB4R, steps=[
+            dict(add=[dict(k="paper"), dict(k="fill", f="調べるもの（一部）"), dict(k="fill", f="調べる間隔")]),
+            dict(add=dict(k="fill", f="2024年12月31日から")),
+            dict()],
+            note="欄の字は原文のまま・様式は再現", src=ss.src(["A14 p6035・p6037"]))),
+    ),
+    # cc17（11.72秒＝0〜4.61／5.10〜8.48／8.97〜11.72）＝追悼の灯（決め⑥＝実写の在庫が無い → 時間の帯）。1行目でともす日と消す日の点・
+    #   2行目でともす時刻の札・3行目で消す時刻の札。年は出さない（毎年）＝点は lab=False・目盛りは日と月だけ
+    "cc17": dict(
+        t="追悼の灯", s="毎年の6月と7月",
+        fig=("axis", dict(ss.AX_TORCH, steps=[
+            dict(add=[ss.ax("lit"), ss.ax("out")], cur="2021-07-20"),
+            dict(add=dict(k="chips", at="2021-06-24", chips=["崩れた時刻"], rec="A12 p5101")),
+            dict(add=dict(k="chips", at="2021-07-20", chips=["捜索の終わりの時刻"], rec="A12 p5101"))],
+            note="時刻は町の頁の2023〜2025年の記録", src=ss.src(["A12 p5101"]))),
+    ),
+    # cc18（12.53秒＝0〜5.47／5.96〜7.08／7.58〜12.54）＝記念の場所（A13）。1行目で最終の承認と場所の札・3行目で5年かけた委員会と家族ほか
+    #   （語りの3つ＝家族・生き残った人・救助の人たち。記録の4つ目「住民」は語りに無い＝描かない）
+    "cc18": dict(
+        t="記念の場所", s="現場のそばに",      # ⚠️ dup：「2026年8月6日」は出典の行の写し
+        fig=("boxes", dict(view="flow", layout=ss.FL_EMPTY, steps=[
+            dict(add=[ss.fl("m_ok"), dict(k="chip", at="m_ok", t="88番通りの端の公園", rec="A13 p5102", dy=60)]),
+            dict(),
+            dict(add=[ss.fl("m_fam"), ss.fl("m_surv"), ss.fl("m_resc"), ss.fl("m_com"),
+                      ss.ce(["m_fam", "m_surv", "m_resc"], "m_com"), ss.ce("m_com", "m_ok"),
+                      dict(k="chip", at="m_com", t="5年かけた形づくり", rec="A13 p5102", dy=60)])],
+            src=ss.src(["A13 p5102"]))),
+    ),
+    # cc22（7.77秒＝0〜4.64／5.13〜7.77）＝勧告の題目の候補（AC p.17）。一覧 → 並べ図。1行目で前の4つ・2行目で後の2つ
+    "cc22": dict(
+        t="これからの勧告", s="NIST の今の案",      # ⚠️ echo：「勧告の題目の候補」は字幕の切り取り
+        fig=("boxes", dict(view="row", slots=6, per=3, steps=[
+            dict(add=[ss.cause("k_qual"), ss.cause("k_enf"), ss.cause("k_new"), ss.cause("k_rec")]),
+            dict(add=[ss.cause("k_old"), ss.cause("k_edu")])],
+            src=ss.src(["AC p2017"]))),
+    ),
 }
