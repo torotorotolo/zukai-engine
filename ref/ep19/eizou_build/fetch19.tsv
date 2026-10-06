@@ -1,14 +1,13 @@
 code	class	used_in	file	url	dims	dur	mb	rights	credit	note
-B1	film	c103 c202 c417 c621 c623 c701 c705 c711 cb08 cb16 cc04 cc16	b1_reel1.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_ju6nndhb/format/url/protocol/https/flavorParamId/0	1920x1014	250.2	578.2	A推定（NIST が配る・撮影者の記載なし）	出典：NIST（B-Roll #1）	元の画質（flavor 0）。同じ幅で軽い版 113MB あり
-B2	film	c104 c201 c213 c319 c406 c419 c820 cb01	b2_reel2.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_64zdekws/format/url/protocol/https/flavorParamId/0	4096x2160	309.8	684.9	A推定	出典：NIST（B-Roll #2）	2048x1080 の軽い版 116MB あり
-TFV	anim	c104 c606 ca12 ca15 ca17 cc29	tfv_1080.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_vezbt9jw/format/url/protocol/https/flavorParamId/487091	1920x1080	4638	795.9	A（©2021 Used with permission の部分を除く）	出典：NIST（技術的知見の動画・2026年6月）	走査は 1080 版（796MB）。使う秒は元の 3840x2160 版（9,147.8MB・flavor 0）から footage.fetch で切り出す（丸ごとは落とさない）
+B2	film	c101 c104 c104 c201 c213 c319 c406 c419 c820 cb01	b2_reel2.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_64zdekws/format/url/protocol/https/flavorParamId/0	4096x2160	309.8	684.9	A推定	出典：NIST（B-Roll #2）	2048x1080 の軽い版 116MB あり
+B1	film	c102 c103 c202 c417 c621 c623 c701 c705 c711 cb08 cb16 cc04 cc16	b1_reel1.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_ju6nndhb/format/url/protocol/https/flavorParamId/0	1920x1014	250.2	578.2	A推定（NIST が配る・撮影者の記載なし）	出典：NIST（B-Roll #1）	元の画質（flavor 0）。同じ幅で軽い版 113MB あり
+B5	film	c105 c106 c312 c718 c912 c922	b5_reel5.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_ecar0b6h/format/url/protocol/https/flavorParamId/0	3840x2160	333.4	616.6	A推定	出典：NIST（B-Roll #5）	—
 B7	film	c106 c301	b7_reel7.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_glesd05g/format/url/protocol/https/flavorParamId/0	3840x2160	337.0	1418.7	A推定	出典：NIST（B-Roll #7）	1920x1080 の軽い版 87MB あり（走査はこちらで足りる）
 P1	photo	c201	p1_panoramio_2012.jpg	https://commons.wikimedia.org/wiki/File:Surfside,_FL,_USA_-_panoramio.jpg	4000x3000	—	3.31	CC BY 3.0	出典：Gervacio Rosales（CC BY 3.0）	決め④（10-06）＝取得して建物が写るか見る・写れば c201 の3行目「崩れる前（2012年）」・浜の人は顔だけモザイク＝「改変」
 TF頁	page	c205 c206 c502 c504 c509 c515 c516 cb07	TFV の 1080 版のコマ（スライド）	TFV と同じ	1920x1080	—	—	A（©2021 の写真の部分は切る）	出典：NIST（技術的知見のスライド）	台本の「図 pN TF のスライドN」
 tf_p174_corr	page	c307	ref/surfside/tf_p174_corr.jpg	既出（旧版の控え＝読むだけ）	—	—	—	A	出典：NIST（技術的知見のスライド）	—
 S#9	stock	c308	px_7829491.mp4	https://www.pexels.com/video/close-up-video-of-a-rusty-metal-7829491/	3840x2160	30	?	Pexels License	イメージ／Pexels・Monstera Production	—
 資料の頁	page	c310 c402 c407 c410 cc02	ref/ep19/src/ の PDF（大陪審の報告・2018年の報告ほか）	既出	—	—	—	引用（公の記録）	出典：資料の名（台本 §2）	台本の「図 p30xx・p40xx …」＝文字の頁
-B5	film	c312 c718 c912 c922	b5_reel5.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_ecar0b6h/format/url/protocol/https/flavorParamId/0	3840x2160	333.4	616.6	A推定	出典：NIST（B-Roll #5）	—
 S#20	stock	c315	px_6028858.mp4	https://www.pexels.com/video/empty-parking-lot-6028858/	1920x1080	13	?	Pexels License	イメージ／Pexels・Артем Ковальчук	柱の番号・床の表示
 N#33	photo	c317	n33_coring.jpg	https://www.nist.gov/sites/default/files/images/2023/09/06/Coring%20and%20MOA%20tests%20%20%28Sep2023%29.jpg	2800x2100	—	5.44	A	出典：NIST	—
 S#16	stock	c405	px_8478951.mp4	https://www.pexels.com/video/a-person-working-with-paperworks-8478951/	3840x2160	11	?	Pexels License	イメージ／Pexels・ArtHouse Studio	紙の字が読めない秒
@@ -18,6 +17,7 @@ S#11	stock	c519	px_5571839.mp4	https://www.pexels.com/video/water-dripping-on-we
 tf_p058_note	page	c520	ref/surfside/tf_p058_note.jpg	既出	—	—	—	A＋第三者（管財人の原図）	出典：NIST／原図：CTS Receiver	紙面の引用か付箋だけの切り直し
 N#13	photo	c524	n13_laydown.jpg	https://www.nist.gov/sites/default/files/images/2021/08/25/NIST%20team%20July2.jpg	2800x1477	—	3.72	A	出典：NIST	—
 S#6	stock	c526	px_11287848.mp4	https://www.pexels.com/video/water-with-waves-11287848/	3840x2160	30	?	Pexels License	イメージ／Pexels・Şaban Karabeli	—
+TFV	anim	c606 ca12 ca15 ca17 cc29	tfv_1080.mp4	https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_vezbt9jw/format/url/protocol/https/flavorParamId/487091	1920x1080	4638	795.9	A（©2021 Used with permission の部分を除く）	出典：NIST（技術的知見の動画・2026年6月）	走査は 1080 版（796MB）。使う秒は元の 3840x2160 版（9,147.8MB・flavor 0）から footage.fetch で切り出す（丸ごとは落とさない）
 A01	page	c618	ref/ep19/src/nist_ncstac_2026-09_CTSupdate.pdf	既出（NCST 諮問委員会の資料・2026-09-23）	—	—	—	A（p.47・49〜51 のコマは © 2021 Used with permission）	出典：NIST（諮問委員会の資料）	決め②。紙面の引用だけ
 N#18	photo	c702	n18_from_south.jpg	https://www.nist.gov/sites/default/files/images/2021/07/19/IMG_0122-%28Jonathan-070721%29.jpg	2800x2100	—	3.45	A	出典：NIST	住戸の中が写る型＝決め⑤＝引きだけ（家具・写真・服が見分けられる住戸に寄せない）
 C6	photo	c703	c06_mdfr6.jpg	https://commons.wikimedia.org/wiki/File:Surfside_condominium_collapse_photo_from_Miami-Dade_Fire_Rescue_6.jpg	2048x1536	—	0.84	PD-FLGov の可能性	出典：マイアミ・デイド郡消防（フロリダ州の公記録）	決め①＝使う（10-06）・c703
