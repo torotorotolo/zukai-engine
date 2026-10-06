@@ -1178,22 +1178,11 @@ def _selftest_lv(ok):
 # ══════════════════════════════════════════════════════════
 #  🆕 18本目 ⑤b-4（2026-10-04）：仕組みの模式図（m18＝`tools/mech18.py`）
 # ══════════════════════════════════════════════════════════
-# 🔴 記録＝門番の側（§5b-88＝型〈mech18 の CRIT_AVG・BANKS_N・JT・CONE_APEX ほか〉を読まない）。原文 ref/ep18/src/ep18_pages.txt で当てた
-#    （R08＝査問会の記録 第8回公開 p4001〜・X＝査問会の証拠 第9・10回公開 p1001〜・J＝議会の公聴会 印刷頁＋8000）。
-#    🔴 §0b（題材を替えるとき空にする場所）：19本目以降の ⑤b-1 で見本 `tools/fixture_ep18.py` へ移して空にする（18本目の型＝mech18 だけの表）
-REC_M18 = dict(
-    lands=(2, "X p1171（40% Average・25% Min. each land）・R08 p4197（認定103：either land）"),
-    avg=(40.0, "R08 p4197（認定103：40 per cent bond）"),
-    land=(25.0, "R08 p4197（認定103：25 per cent minimum, either land）"),
-    banks=(4, "R08 p4191（認定51：air banks 2, 3 and 4 … air bank #1）"),
-    cone=(0.25, "R08 p4190（認定49：conical mesh strainers）"),          # 先の高さ÷底の高さ の上限（円すい＝先がすぼまる）
-    clock={"9:11": "R08 p4185（認定18：ceased functioning in FAST mode at 0911R）"},
-    pct={"40%": "R08 p4197", "25%": "R08 p4197"},
-    # 語りに無い出来事（次のカットの語り）＝札に出さない語（ルール 0b-38③）
-    ng=dict(shock=("フィート", "メートル", "トン", "ポンド", "m"),          # 距離と重さは c207（数の比べ）
-            loop=("7.1", "電動機", "時速", "ノット"),                       # 7.1分・非常用の電動機は c720（時間の帯）
-            ice=("破",)),                                                   # 網が破れる（認定50）は c715 の決め所
-)
+# 🔴 2026-10-06（19本目 ⑤b-1・§0b）：18本目の記録（合格の割合・面の数・ボンベの数・円すい・時刻・札に出さない語）は selftest の見本
+#    `tools/fixture_ep18.py`（GATES["check_mech"]・値は1つも変えていない＝git の `2d627a2`）へ移した＝空。selftest は見本の表だけ差し込む
+#    （`fixture_ep18.apply(gate, tables_only=True)`）。19本目で仕組みの模式図 mech18 の型を使うときは、その回の記録の値をここに別に持つ（§5b-88）
+REC_M18 = dict(lands=(0, "記録の表が空（REC_M18）"), avg=(0.0, "記録の表が空（REC_M18）"), land=(0.0, "記録の表が空（REC_M18）"),
+                banks=(0, "記録の表が空（REC_M18）"), cone=(0.0, "記録の表が空（REC_M18）"), clock={}, pct={}, ng={})    # 空でも鍵は持つ（KeyError でなく「記録の表が空」と止める）
 NUM_M18 = re.compile(r"[0-9０-９]{1,2}[:：][0-9０-９]{2}|[0-9０-９][0-9０-９,.．]*\s*(?:%|％|m|メートル|フィート|トン|ポンド|秒|分|本|個|"
                      r"年|月|倍|キロ)?")
 
@@ -1528,6 +1517,10 @@ def selftest():
     #    見本 fixture_ep16 の表だけ差し込む（ss・GEO は触らない＝14本目の見本を壊さない）。main() が restore で戻す（LIFO＝16→15→14）
     import fixture_ep16
     fixture_ep16.apply(sys.modules[__name__], tables_only=True)
+    # 🔴 2026-10-06（19本目 ⑤b-1）：下の18本目の模式図（m18）の検算 `_selftest_m18` は REC_M18 を使う＝本番の表は19本目の空の器なので、
+    #    見本 fixture_ep18 の表だけ差し込む（ss・GEO は触らない＝14本目の見本を壊さない）。main() が restore で戻す（LIFO＝18→16→15→14）
+    import fixture_ep18
+    fixture_ep18.apply(sys.modules[__name__], tables_only=True)
     N = "模式図：テスト"
     ok = True
     closing = [dict(state=dict(hook="closed", motor="run"), tag=dict(t="フックが回る")),
@@ -1851,6 +1844,8 @@ def main():
     import fixture_ep14
     import fixture_ep15
     import fixture_ep16
+    import fixture_ep18
+    fixture_ep18.restore()       # 🔴 19本目 ⑤b-1：selftest で足した18本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep16.restore()       # 🔴 18本目 ⑤b-1：selftest で足した16本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep15.restore()       # 🔴 16本目 ⑤b-1：selftest で足した15本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep14.restore()       # 🔴 15本目 ⑤b-2：selftest で差し込んだ14本目の見本を本番の表に戻す（戻さないと14本目の表で本番を測る）

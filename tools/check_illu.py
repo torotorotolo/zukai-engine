@@ -786,17 +786,16 @@ def judge_sec(sc, where, crowd_ok=()):
 # ══════════════════════════════════════════════════════════
 #  🆕 18本目 ⑤b-2（2026-10-04）：SA 横から見た海の ⑮⑯⑰（Vault 映像方針 18本目 §12）
 # ══════════════════════════════════════════════════════════
-# 🔴 記録の値は門番の側に持つ（型の定数 SA_RESCUE_M・SA_ROPE_M・SA_SEABED_M・SA_UP を読まない＝§5b-88）。頁は ss.REC_DOCS の通し番号
-REC_DEPTH = dict(rescue=(260.0, "V1 p38（認定13：850フィート）"), rope=(2200.0, "V1 p183（7,200フィートの綱）"),
-                 seabed=(2600.0, "R08 p4185（認定14：約8,500フィート）"))
+# 🔴 2026-10-06（19本目 ⑤b-1・§0b）：18本目の記録の値（SA・SB・SC・SD の深さ・上げ・音の輪・点・円・目印・札の言い方 ＝下の REC_DEPTH〜REC_SD_ON と
+#    SB_DIST_TAGS・SC_NUMS）は selftest の見本 `tools/fixture_ep18.py`（GATES["check_illu"]・値は1つも変えていない＝git の `2d627a2`）へ移した＝空。
+#    selftest は `selftest_ep18()`・`selftest_ep18_sbcd()` が見本を差し込んで回す（落ちても終わっても `restore()` で本番の値へ戻す）。
+#    19本目で SA〜SD の型を使うときは、その回の記録の値をここに別に持つ（§5b-88）。空のあいだ、深さ・点・円・目印の段は「記録の表に無い」で
+#    止まる（fail closed）。許し（DEPTH_TOL・SB_*_TOL・SD_ON_TOL）・正規表現（DIST_NUM）・光の部品の名（SA_LIGHT）は型の側の定数＝残す
+REC_DEPTH = {}                       # 記録の深さ（縮尺どおりの段の主体と塗られた線）＝空なら SA の深さの段は「記録の表に無い」で止まる
 DEPTH_TOL = 0.03                     # 縮尺どおりの深さの許し（記録の値の 3%）
-REC_UP_MAX = (15.0, "R08 p4214（意見45 Case III：15° up angle＝頁の画像で確かめた）")
-REC_BOOM_CLK = ("9:18.1", "R08 p4185（認定18：0918.1R）")
-# 9時18.1分の段の札に要る言い方（認定18 と意見45 の言い方＝映像方針 §1-3・§12 ⑰）
-REC_BOOM_WORDS = (("内破でありうる", "認定18「of the type which could have been made by an implosion」"),
-                  ("大きく低い音", "認定18「high energy, low frequency noise」"),
-                  ("船体の圧壊", "意見45「the actual hull collapse occurred at 0918.1R」"),
-                  ("見立て", "意見45＝査問会の見立て（推定）"))
+REC_UP_MAX = (0.0, "記録の表が空（REC_UP_MAX）")     # 艦首の上げの上限（度）
+REC_BOOM_CLK = ("0:00", "記録の表が空（REC_BOOM_CLK）")   # 音の輪の時刻
+REC_BOOM_WORDS = ()             # 音の輪の段の札に要る言い方（空でも、音の輪は ILLU_BOOM_CUTS と REC_BOOM_CLK で止まる）
 SA_LIGHT = ("glow", "flash", "bubble", "fire", "flame", "light", "spark", "smoke")   # 光・泡・炎の部品（⑰＝記録に無い）
 SA_DEBRIS_MAX = 1.6                  # 破片が見える（濃さ 0.5 以上）長さの上限＝秒（数えられる前に暗がりへ＝⑮）
 DEPTH_NUM = re.compile(r"(\d+(?:\.\d+)?)\s*(m(?![²³2-3])|メートル|フィート|ft)")
@@ -1017,23 +1016,17 @@ def judge_sa_cut(scs, cid):
 # ══════════════════════════════════════════════════════════
 #  🆕 18本目 ⑤b-3（2026-10-04）：SB 上から見た海 ⑱・SC 上から見た海の底 ⑲・SD 横から見た海の底の捜索 ⑳・見る向きの合図 ㉑
 # ══════════════════════════════════════════════════════════
-# 🔴 記録の値は門番の側に持つ（型の SB_PTS・SB_TS・SB_OIL・SC_CIRCLE_M を読まない＝§5b-88）。頁は ss.REC_DOCS の通し番号
-REC_SB = dict(meet=((-65.05, 41.0 + 46.0 / 60.0), "R08 p4185（認定11：41-46 North, 65-03 West）"),
-              datum=((-65.0, 41.75), "R08 p4065（datum：65 degrees west and 41 degrees, 45 minutes north）"),
-              loran=((-(64.0 + 59.0 / 60.0), 41.75), "R08 p4186（認定22d：logged at 0921R as 41-45N 64-59W）"))
-REC_SB_TS = (147.0, 3400 * 0.9144, "R08 p4185（認定11：SKYLARK bore 147 True, 3400 yards from THRESHER）")
-# 認定31「about seven miles to the Southeast of SKYLARK's 0917R position」＝マイルの種類が書いていない＝法定マイルと海里の両方の幅
-REC_SB_OIL = (135.0, (7 * 1609.344, 7 * 1852.0), "R08 p4188（認定31）")
-# 🆕 ⑤b-8（ca02）：捜索の海域「10 miles by 10 miles centered at the point called datum」（R08 p.65）＝マイルの種類が書いていない＝幅
-REC_SB_SQ = ((10 * 1609.344, 10 * 1852.0), "R08 p4065（10 miles by 10 miles centered at the point called datum）")
+REC_SB = {}                        # 上から見た海の記録の点（空なら SB の点は「記録の表に無い」で止まる）
+REC_SB_TS = (0.0, 0.0, "記録の表が空（REC_SB_TS）")       # 方位・距離
+REC_SB_OIL = (0.0, (0.0, 0.0), "記録の表が空（REC_SB_OIL）")   # 方位・距離の幅
+REC_SB_SQ = ((0.0, 0.0), "記録の表が空（REC_SB_SQ）")     # 四角の1辺の幅
 SB_POS_TOL, SB_BRG_TOL, SB_DIST_TOL, SB_OIL_BRG_TOL = 2.0, 1.5, 0.03, 11.25   # 画素・度・割合・16方位の幅の半分
-# 距離の札＝言ってよい言い方と、その札が指す線（約3.1km＝3,400ヤード・十数キロ＝7マイルのどちらでも合う幅＝台本 §9-1）
-SB_DIST_TAGS = (("約3.1km", "mid_ts"), ("十数キロ", "mid_se"))
+SB_DIST_TAGS = ()                 # 距離の札＝言ってよい言い方と、その札が指す線（空なら距離の数は出せない）
 DIST_NUM = re.compile(r"(\d+(?:\.\d+)?)\s*(km|キロ|m(?![²³2-3])|メートル|マイル|ヤード|フィート)")
-REC_SC_CIRCLE = (400 * 0.9144, "R17書 p9802（a circle of diameter 400 yd）")
-REC_SC_MARKERS = (900, "No.710-64 p9801（900 markers）")
-SC_NUMS = {"900", "370", "5", "6", "710", "64"}      # SC の札に出してよい数（目印900・直径約370m・5つか6つ・発表 No.710-64）
-REC_SD_ON = "R17書 p9802（TRIESTE II … was able to locate on top of a portion of the THRESHER hull）"
+REC_SC_CIRCLE = (0.0, "記録の表が空（REC_SC_CIRCLE）")   # 円の直径
+REC_SC_MARKERS = (0, "記録の表が空（REC_SC_MARKERS）")   # 目印の数
+SC_NUMS = set()                       # SC の札に出してよい数（空なら数は出せない）
+REC_SD_ON = "記録の表が空（REC_SD_ON）"
 SD_ON_TOL = 3.0                                      # 船体の一部の真上に「着いた」＝球の下の端と船体の上のすき間（画素）
 
 
@@ -2011,9 +2004,27 @@ def _selftest_ep16_va(ss):
 
 
 def selftest_ep18():
-    """🆕 18本目 ⑤b-2（2026-10-04）：置き場 SA（横から見た海）の ⑤⑦⑫⑮⑯⑰ と ④（段の途中の想定の札）の検算＝**本番の表**
-    （cuts.ss の18本目の値）で回す。正しい側＝本番の章ファイルの SPEC そのもの（c101・c103・c106・c314・c318・c411・c502）。
-    🔴 陽性対照は**型の定数を壊す**形も入れる（SA_RESCUE_M・SA_ROPE_M・SA_BREAK1・SA_T＝§5b-88）"""
+    """🆕 18本目 ⑤b-2（2026-10-04）：置き場 SA（横から見た海）の ⑤⑦⑫⑮⑯⑰ と ④（段の途中の想定の札）の検算＝**見本 `fixture_ep18`
+    （18本目の表）を差し込んで**回す（SB〜SD の `selftest_ep18_sbcd` も、この差し込みの中で呼ぶ）。
+    ✅ 2026-10-06（19本目 ⑤b-1・§0b）：本番の表（cuts.ss の REC_DOCS・ILLU_*／この門番の REC_DEPTH〜REC_SD_ON・SB_DIST_TAGS・SC_NUMS）は
+       19本目の空の器にした＝18本目の値は `fixture_ep18`（15・16本目と同じ作り）。差し込んだら原文の頁の読み込み `_pages()`（lru_cache）を捨てて
+       18本目の原文を読み直し、戻したらまた捨てる＝落ちても終わっても `restore()` で本番の値へ戻す（try/finally）。本体は `_selftest_ep18`。
+    ⚠️ 見本が持つのは**表の値**だけ。正しい側の絵（c101・c103・c106・c314・c318・c411・c502 ほか）は**18本目の章ファイルの SPEC そのもの**を
+       `cuts.SPEC` から読む＝18本目の章ファイル（git の `b11797a` の `tools/cuts/c*.py`）が live のときだけ通る（本線は19本目の空の器なので
+       `KeyError: 'c101'` で落ちる＝19本目 ⑤b-1（1）で章ファイルを空にした時点から。見本の値のせいではない）"""
+    import fixture_ep18
+    fixture_ep18.apply(sys.modules[__name__])
+    fixture_ep18.apply_cuts()     # ✅ 2026-10-06 チャット6：18本目の章ファイル（git の b11797a）の PLAN・SPEC をこの処理の中だけ入れる
+    _pages.cache_clear()          # 🔴 原文の頁の読み込みは覚えている（lru_cache）＝本番の（空の）原文を捨てて18本目を読み直す
+    try:
+        return _selftest_ep18()
+    finally:
+        fixture_ep18.restore()
+        _pages.cache_clear()
+
+
+def _selftest_ep18():
+    """18本目の検算の本体（`fixture_ep18` を差し込んだ中で呼ぶ）。陽性対照は**型の定数を壊す**形も入れる（SA_RESCUE_M・SA_ROPE_M・SA_BREAK1・SA_T＝§5b-88）"""
     import copy
     import cuts
     ss = _ss()
@@ -2177,7 +2188,8 @@ def selftest_ep18():
 
 
 def selftest_ep18_sbcd():
-    """🆕 18本目 ⑤b-3（2026-10-04）：SB ⑱・SC ⑲・SD ⑳・合図 ㉑ の検算＝本番の表と本番の SPEC（c308・c503・c513・c519・ca19・ca21・ca22）。
+    """🆕 18本目 ⑤b-3（2026-10-04）：SB ⑱・SC ⑲・SD ⑳・合図 ㉑ の検算＝見本 fixture_ep18 の表（`selftest_ep18` の差し込みの中で呼ぶ）と
+    18本目の章ファイルの SPEC（c308・c503・c513・c519・ca19・ca21・ca22）。
     🔴 陽性対照は型の定数を壊す形も入れる（SB_TS・SB_OIL・SB_PTS・SC_CIRCLE_M・sc_marker_pts・sd_tri_on_y＝§5b-88）"""
     import copy
     import cuts
@@ -2301,7 +2313,8 @@ def selftest_ep18_sbcd():
 
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
-    # 🆕 2026-10-04（18本目 ⑤b-2）：先に18本目（本番の表）を検算する＝見本の差し込み（16・15・14本目）より前
+    # 🆕 2026-10-04（18本目 ⑤b-2）：先に18本目を検算する＝見本の差し込み（16・15・14本目）より前
+    #    （2026-10-06〜：18本目も見本 fixture_ep18 の表＝selftest_ep18 が差し込んで・終わったら戻す）
     ok18 = selftest_ep18()
     # 🔴 2026-10-01（16本目 ⑤b-2）：先に16本目を検算する（2026-10-04〜：16本目も見本 fixture_ep16 の表＝selftest_ep16 が差し込んで・
     #    終わったら戻す）

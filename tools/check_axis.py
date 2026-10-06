@@ -45,84 +45,21 @@ sys.stdout.reconfigure(encoding="utf-8")
 #        18本目の値は、軸の型を初めて使う ⑤b のチャットで、値と頁を ref/ep18/src/ep18_pages.txt で当てて入れる
 #        （空のあいだ、軸のカットは「記録に無い値」で止まる＝fail closed）
 # ══════════════════════════════════════════════════════════
-#     🆕 2026-10-04（18本目 スレッシャー号 ⑤b-5）：18本目の値を入れた（下）。原文＝ref/ep18/src/ep18_pages.txt（頁の番号は
+#     ✅ 2026-10-04（18本目 スレッシャー号 ⑤b-5）：18本目の値を入れた（2026-10-06 に下の4つは見本へ移した）。原文＝ref/ep18/src/ep18_pages.txt（頁の番号は
 #        cuts/ss.REC_DOCS の通し番号＝R08 p4185＝第8回公開の PDF 185頁ほか）。公開の23回だけは原文が表＝海軍の台帳 xlsx（第1〜17回）と
 #        公開の棚の更新日（第18〜23回＝2026-10-04 に棚の一覧で確かめた）＝rec は "台帳"・"棚"（頁なし）
-#        🔴 §0b：19本目以降の ⑤b-1 で、下の4つ（REC_AXIS・LANES_OK・REC_APPROX・REC_LANE）を見本 `tools/fixture_ep18.py` へ移して空に
-#        （selftest_ep18 は見本を差して回す形に直す＝fixture_ep16 と同じ）
+#        ✅ 2026-10-06（19本目 ⑤b-1・§0b）：REC_AXIS・LANES_OK・REC_APPROX・REC_LANE を見本 `tools/fixture_ep18.py` へ移して空にした
+#        （selftest_ep18 は見本を差して回す形に直した＝fixture_ep16 と同じ）
 # ══════════════════════════════════════════════════════════
-_V, _M = "水中電話の声", "監視の記録"
-REC_AXIS = {
-    # ── 4月10日の朝（c309・c312・c320）。R08 p4185＝認定10〜20・p4212＝意見45
-    "7:45": {"R08 p4185"},                  # 認定11「That at 0745R, 10 April 1963, SKYLARK was in the vicinity of Latitude 41-46 North」
-    "7:47": {"R08 p4185"},                  # 認定15「That at 0747R, THRESHER reported by underwater telephone that she was starting a deep dive」
-    "9:00": {"R08 p4185"},                  # 認定14「That the sea was calm, with a slight swell, at 0900R on 10 April. Wind was from 015 True at seven knots」
-    "9:09": {"R08 p4212"},                  # 意見45「It is known with reasonable certainty that at 0909R the THRESHER was at test depth」（V1 p65・IR18 p106 も同文）
-    "9:10": {"R08 p4212"},                  # 意見45「At about 0910R a message from THRESHER announced a course change to 090 T from 000 T and gave no indication of any difficulty」
-    "9:13": {"R08 p4185", "R08 p4212"},     # 認定16「until about 0913R, when THRESHER reported … "Experiencing minor difficulties"」・意見45「message at 0913R」
-    # ── 9時9分〜18分（第4章の2段の帯・c720）。認定18＝監視の記録（Commander Oceanographic Systems Atlantic）
-    "9:09.8": {"R08 p4185"},                # 認定18「two disturbances, one extending from 0909.8R to 0911.3R, the other from 0913.5R to 0914R,
-    "9:11.3": {"R08 p4185"},                #   which could have been made by the blowing of the ballast tanks」
-    "9:13.5": {"R08 p4185"},
-    "9:14": {"R08 p4185"},
-    "9:11": {"R08 p4185", "R08 p4212"},     # 認定18「main coolant pumps ceased functioning in "FAST mode" of operation at 0911R」・意見45（7.1 minutes between 0911R…）
-    "9:18.1": {"R08 p4185", "R08 p4212"},   # 認定18「noise disturbance of the type which could have been made by an implosion emanated from THRESHER at 0918.1R」
-    #                                         ・意見45「the actual hull collapse occurred at 0918.1R」（c720 の「押しつぶされる深さ」）
-    "9:15": {"R08 p4186"},                  # 認定22c「Asked THRESHER at about 0915R, "Are you in control?" and repeated this query」
-    "9:16": {"R08 p4185"},                  # 認定17「at about 0916R, SKYLARK heard a garbled transmission … "... test depth"」
-    "9:17": {"R08 p4185", "R08 p4186", "R08 p4187"},   # 認定17「An additional garbled transmission was received about 0917R」・認定24（電文「SINCE 0917R」）・
-    #                                         認定29「shortly after 0917R, when efforts to communicate with THRESHER had been unsuccessful, SKYLARK commenced an expanding」
-    # ── 救難艦の5時間とワシントン（第5章）。R08 p4186＝認定22〜24・p4187＝認定26〜29。D p9001＝Stierman 1964（付録の国防総省の発表 509-63 も同じ頁）
-    "9:40": {"R08 p4186"},                  # 認定23a「At about 0940R, when the Operations Officer had asked the Commanding Officer if he should send such a message」
-    "10:40": {"R08 p4186"},                 # 認定22f「At 1040R commenced dropping series of hand grenades」
-    "10:45": {"R08 p4186"},                 # 認定23「That at about 1045R, SKYLARK began preparation of a message」・23b
-    "12:45": {"R08 p4186"},                 # 認定23d「NBL receipted for the message at 1245R」（23c 無線の不調・alternate frequency）
-    "14:35": {"R08 p4187"},                 # 認定26「At 1435R he was advised of THRESHER's status」（大西洋の潜水艦部隊の司令官）
-    "15:40": {"D p9001"},                   # 「the Chief of Naval Operations learned at 3:40 p.m. that THRESHER might be in difficulty」・「at about 3:40」
-    "20:00": {"D p9001"},                   # 「At 8:00 p.m that night … "overdue and presumed missing."」・NO. 509-63「April 10, 1963, 8:00 p.m.」
-    # ── 年表（date）
-    "1963-04-10": {"R08 p4185"},            # 認定19「THRESHER was lost … at about 0918R on 10 April 1963」
-    "1963-04-11": {"IR18 p2067", "R08 p4188", "R08 p4181", "R08 p4196", "J p8018"},
-    #   IR18 p67「The Court met for the first time at 8:25 p.m. on Thursday, 11 April 1963」／認定34（11日 0530R 捜索の指揮が移る＝R08 p188）／
-    #   認定2・95（整備の完成の予定日の最後＝11 April）／J p18（ブロケット少将「it was received after the 11th of April」）
-    "1963-06-05": {"IR18 p2067", "R08 p4180"},  # IR18 p67「Before the Court closed on 5 June 1963, it heard 179 separate appearances」・R08 p180「The court closed at 0921, 5 June 1963」
-    "1962-07-16": {"R08 p4181", "R08 p4195"},   # 認定2「a post shakedown availability which extended from 16 July 1962 to 11 April 1963」・認定92「commenced on 16 July 1962」
-    "1963-01-18": {"R08 p4196"},            # 認定95「completion date was successively extended from 18 January to 15 February, to 28 February, to 30 March,
-    #                                         to 2 April, and finally to 11 April, because of work added and the under-estimation of the effects」
-    "1963-04-09": {"R08 p4181"},            # 認定2「departed Portsmouth Naval Shipyard, on the morning of 9 April 1963」
-    "1963-01": {"R08 p4196", "R08 p4203"},  # 認定96「loose condenser foundation bolts in January, 1963」・認定166a/b（艦長・副長 January, 1963）
-    "1963-03": {"R08 p4196"},               # 認定96「a misaligned torpedo ejection pump in March, 1963」
-    "1962-12": {"R08 p4203"},               # 認定166c「a change of THRESHER's Ship Superintendent in December, 1962」
-    "1962-11": {"R08 p4203"},               # 認定166d「a change of THRESHER's Assistant Ship Superintendent in November, 1962」
-    "1963-04-12": {"R08 p4187"},            # 認定28「on 12 April 1963」・28b「Rear Admiral Ramage interviewed Lieutenant (jg) Watson and examined the UQC log」
-    "1961-05": {"J p8067"},                 # J p67（リッコーヴァー中将）「a … silver-brazed joint in the trim system of the Thresher in May 1961」
-    "1962-11-29": {"R08 p4197"},            # 認定104「on 29 November 1962, the Quality Assurance Division … requested decision as to whether lagged joints
-    #                                         should be unlagged」・認定107「no further ultrasonic testing … after 29 November 1962」
-    "1962-12-04": {"R08 p4197"},            # 認定105「decision was made on 4 December 1962 not to unlag」
-    "1963-06-03": {"J p8097"},              # J p97「the Chief of the Bureau of Ships on June 3, 1963, directed the establishment within the Bureau of a
-    #                                         submarine safety program」
-    "1963-07-08": {"J p8098"},              # J p98「BuShips Instruction 5100.18 of July 8,1963」（語りは「7月には」＝札は年月まで）
-    "1964-02-18": {"J p8094"},              # J p94「On February 18, 1964, the Secretary of the Navy established the Submarine Safety Center at Groton」
-    # 公開の23回（c108・c907）。台帳＝navy_running_release_inventory.xlsx（B 列の Excel の日付）・棚＝閲覧室 THRESHER RELEASE の更新日
-    "2020-09-23": {"台帳"},                 # Interim Release 1（COI Volume 1＝認定・意見・勧告）
-    "2022-01-26": {"台帳"},                 # Interim Release 17（台帳の最後）
-    "2021-01-27": {"台帳"},                 # Interim Release 5「Sea-Based Airborne Anti-Submarine Warfare」（事故の記録ではない）
-    "2021-02-24": {"台帳"},                 # Interim Release 6（同上）
-    "2022-03-03": {"棚"},                   # Interim Release 18 の更新日 3/3/2022（台帳に無い）
-    "2023-05-02": {"棚"},                   # Interim Release 21・22・23 の更新日 5/2/2023（台帳に無い）
-    # ── 秒の帯（c717）。認定51＝R08 p4191
-    "0": {"R08 p4191"},                     # 認定51「in event of loss of electrical power … air banks 2, 3 and 4 would automatically be shut off and
-    "30": {"R08 p4191"},                    #   air bank #1 would be opened up slowly. It takes thirty seconds to get valves fully open again」
-}
-LANES_OK = {_V, _M}
-# 🆕 2026-10-04（18本目 ⑤b-5）：①**記録が about の時刻**（「ごろ」が要る＝札に「ごろ」が無ければ止める・about でない時刻に
-#    「ごろ」を付けても止める）②**2段の帯（tiers）の記録ごとの段**（値 → 段の名＝その値を拾った記録。違う段に置けば止める）。
-#    🔴 §0b：次の回は REC_AXIS・LANES_OK と一緒に空にする（空のあいだ、2段の帯の部品は「段の記録に無い値」で止まる＝fail closed）
-#    9:13 は意見45 が「at 0913R」＝「ごろ」なし（語りも「9時13分」）。9:17 は認定17 が about＝第5章の「9時17分のあと」も「ごろ」
-REC_APPROX = {"9:10", "9:15", "9:16", "9:17", "9:40", "10:45", "15:40"}
+# 🔴 2026-10-06（19本目 スレッシャー号→サーフサイド ⑤b-1・§0b）：18本目の表（REC_AXIS・LANES_OK・REC_APPROX・REC_LANE と、2段の帯の段の名 _V・_M）も
+#    **空にした**。selftest の見本 `tools/fixture_ep18.py`（GATES["check_axis"]・値は1つも変えていない＝git の `2d627a2`）。19本目の値は、軸の型を
+#    初めて使う ⑤b のチャットで、値と頁を ref/ep19/src/ep19_pages.txt で当てて入れる（空のあいだ、軸のカットは「記録に無い値」で止まる＝fail closed）。
+#    型の側（LANE_COL・tier_pierce・分の小数・「ごろ」・日の目盛り）は残す
+REC_AXIS = {}
+LANES_OK = set()
+REC_APPROX = set()      # 記録が about の時刻（「ごろ」が要る）
 LANE_COL = 20        # 🆕 18本目 ⑤b-5：2段の帯の札が軸の左端より左へ出てよい画素（段の名の列にかけない）
-REC_LANE = {"9:13": _V, "9:15": _V, "9:16": _V, "9:17": _V,
-            "9:09.8": _M, "9:11.3": _M, "9:11": _M, "9:13.5": _M, "9:14": _M, "9:18.1": _M}
+REC_LANE = {}             # 2段の帯の記録ごとの段（値 → 段の名）
 CH_PAD = 12          # 🆕 16本目 ⑤b-6b：札と右上の章の札（jiko_style.chapter）のあいだに要る画素
 
 
@@ -421,34 +358,33 @@ def selftest_ep15():
        ＝落ちても終わっても `restore()` で本番の値へ戻す（try/finally）。本体は `_selftest_ep15`"""
     import fixture_ep15
     fixture_ep15.apply(sys.modules[__name__])
-    keep = _quiet18()
     try:
         return _selftest_ep15()
     finally:
-        _loud18(keep)
         fixture_ep15.restore()
 
 
-def _quiet18():
-    """🆕 18本目 ⑤b-5：前の回の見本で回すあいだ、18本目の「ごろ」と段の表（REC_APPROX・REC_LANE）を空にする（見本に無い表）。"""
-    global REC_APPROX, REC_LANE
-    keep = (REC_APPROX, REC_LANE)
-    REC_APPROX, REC_LANE = set(), {}
-    return keep
-
-
-def _loud18(keep):
-    global REC_APPROX, REC_LANE
-    REC_APPROX, REC_LANE = keep
-
-
 def selftest_ep18():
-    """🆕 2026-10-04（18本目 ⑤b-5）：2段の帯（tiers）・分の小数・「ごろ」・日の目盛りの検算＝**本番の表（18本目）**で回す。
-    🔴 19本目以降の ⑤b-1 で表を見本 fixture_ep18 へ移したら、ここも見本を差して回す形に（fixture_ep16 と同じ）。
+    """🆕 2026-10-04（18本目 ⑤b-5）：2段の帯（tiers）・分の小数・「ごろ」・日の目盛りの検算＝**見本 `fixture_ep18`（18本目の表）を差し込んで**回す。
+    ✅ 2026-10-06（19本目 ⑤b-1・§0b）：本番の表（この門番の REC_AXIS・LANES_OK・REC_APPROX・REC_LANE）は19本目の空の器にした＝18本目の値は
+       `fixture_ep18.GATES["check_axis"]`（15・16本目と同じ作り）。ss の側（AXI・TV／TM ほか）と GEO も18本目の見本になる＝落ちても終わっても
+       `restore()` で本番の値へ戻す（try/finally）。本体は `_selftest_ep18`。
+       （18本目の「ごろ」と段の表を前の回の見本の検算のあいだだけ空にする `_quiet18`・`_loud18` は、本番の表が空になったので要らなくなった＝外した）"""
+    import fixture_ep18
+    fixture_ep18.apply(sys.modules[__name__])
+    try:
+        return _selftest_ep18()
+    finally:
+        fixture_ep18.restore()
+
+
+def _selftest_ep18():
+    """18本目の検算の本体（`fixture_ep18` を差し込んだ中で呼ぶ）。
     陽性対照＝筋（段・ごろ・表に無い値・貫き）と、型の定数を壊す形（分の小数を落とす・札の書き方・日の目盛り・段の上下）"""
     import axis as A
+    import fixture_ep18
     import jiko_style as J  # noqa: F401
-    V, M = _V, _M
+    V, M = fixture_ep18._V, fixture_ep18._M
     five = dict(view="tiers", span=("9:08", "9:20"), ticks=("9:08", "9:10", "9:12", "9:14", "9:16", "9:18", "9:20"), lanes=(V, M),
                 past=[dict(k="span", lane=M, a="9:09.8", b="9:11.3", t="吹いた音？", rec="R08 p4185"),
                       dict(k="pt", lane=V, at="9:13", t="声", rec="R08 p4185"),
@@ -606,7 +542,8 @@ def _selftest_ep15():
 
 
 def selftest():
-    # 🆕 2026-10-04（18本目 ⑤b-5）：先に18本目（本番の表）を検算する＝前の回の見本を差す前に
+    # 🆕 2026-10-04（18本目 ⑤b-5）：先に18本目を検算する＝前の回の見本を差す前に
+    #    （2026-10-06〜：18本目も見本 fixture_ep18 の表＝selftest_ep18 が差し込んで・終わったら戻す）
     ok = selftest_ep18()
     # 🔴 2026-09-30（15本目 ⑤b-2）：先に15本目の秒の帯を検算してから、14本目の見本に差し替える
     #    （2026-10-01〜：15本目も見本 fixture_ep15 の表＝selftest_ep15 が差し込んで・終わったら戻す）
@@ -614,9 +551,8 @@ def selftest():
     # 🔴 2026-09-30（15本目 ⑤b-1）：見本は14本目の実物（本番の表は回ごとに空にする＝§0b）＝この処理の中だけ14本目にする
     import fixture_ep14
     fixture_ep14.apply(sys.modules[__name__])
-    keep18 = _quiet18()
     import axis as A
-    ST = ("8:52", "8:58", "9:46", "9:48")
+    ST =("8:52", "8:58", "9:46", "9:48")
     night = dict(view="clock", span=("18:00", "翌10:00"), ticks=("18:00", "22:00", "翌2:00", "翌6:00", "翌10:00"),
                  steps=[dict(add=[dict(k="pt", at="18:30", t="出港", rec="海審 p1026"),
                                   dict(k="pt", at="翌9:10", t="着く", rec="海審 p1026")], cur="18:30"),
@@ -698,7 +634,6 @@ def selftest():
         good = True
     ok &= good
     print(f"  {'OK' if good else '🔴 NG'} 🔴 陽性対照：交信に言葉を書くと型が止まる: {'止まった' if good else '通った'}（止まるはず）")
-    _loud18(keep18)
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 

@@ -1,0 +1,2460 @@
+{
+ "B2": {
+  "src": "https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_64zdekws/format/url/protocol/https/flavorParamId/0",
+  "scan": "out/jiko/foot/ep19_scan/B2.mp4",
+  "dur": 310.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・走査の版＝flavorParamId 487091・秒は元の版と同じ）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 7.0,
+    "motion": 0.08
+   },
+   {
+    "start": 7.0,
+    "until": 11.0,
+    "motion": 2.14
+   },
+   {
+    "start": 11.0,
+    "until": 14.0,
+    "motion": 13.4
+   },
+   {
+    "start": 14.0,
+    "until": 19.0,
+    "motion": 18.17
+   },
+   {
+    "start": 19.0,
+    "until": 25.0,
+    "motion": 9.19
+   },
+   {
+    "start": 25.0,
+    "until": 28.0,
+    "motion": 10.6
+   },
+   {
+    "start": 28.0,
+    "until": 33.0,
+    "motion": 10.99
+   },
+   {
+    "start": 33.0,
+    "until": 38.0,
+    "motion": 16.35
+   },
+   {
+    "start": 38.0,
+    "until": 41.0,
+    "motion": 34.57
+   },
+   {
+    "start": 41.0,
+    "until": 44.0,
+    "motion": 10.35
+   },
+   {
+    "start": 44.0,
+    "until": 52.0,
+    "motion": 10.95
+   },
+   {
+    "start": 52.0,
+    "until": 56.0,
+    "motion": 18.28
+   },
+   {
+    "start": 56.0,
+    "until": 60.0,
+    "motion": 5.49
+   },
+   {
+    "start": 60.0,
+    "until": 62.0,
+    "motion": 8.56
+   },
+   {
+    "start": 62.0,
+    "until": 65.0,
+    "motion": 3.77
+   },
+   {
+    "start": 65.0,
+    "until": 67.0,
+    "motion": 9.29
+   },
+   {
+    "start": 67.0,
+    "until": 70.0,
+    "motion": 39.11
+   },
+   {
+    "start": 70.0,
+    "until": 74.0,
+    "motion": 15.53
+   },
+   {
+    "start": 74.0,
+    "until": 78.0,
+    "motion": 3.9
+   },
+   {
+    "start": 78.0,
+    "until": 80.0,
+    "motion": 9.05
+   },
+   {
+    "start": 80.0,
+    "until": 83.0,
+    "motion": 7.32
+   },
+   {
+    "start": 83.0,
+    "until": 86.0,
+    "motion": 20.39
+   },
+   {
+    "start": 86.0,
+    "until": 88.0,
+    "motion": 10.08
+   },
+   {
+    "start": 88.0,
+    "until": 92.0,
+    "motion": 2.92
+   },
+   {
+    "start": 92.0,
+    "until": 96.0,
+    "motion": 6.9
+   },
+   {
+    "start": 96.0,
+    "until": 104.0,
+    "motion": 20.78
+   },
+   {
+    "start": 104.0,
+    "until": 114.0,
+    "motion": 18.92
+   },
+   {
+    "start": 114.0,
+    "until": 118.0,
+    "motion": 0.04
+   },
+   {
+    "start": 118.0,
+    "until": 283.0,
+    "motion": 3.75
+   },
+   {
+    "start": 283.0,
+    "until": 310.0,
+    "motion": 6.72
+   }
+  ]
+ },
+ "B1": {
+  "src": "https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_ju6nndhb/format/url/protocol/https/flavorParamId/0",
+  "scan": "out/jiko/foot/ep19_scan/B1.mp4",
+  "dur": 250.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・走査の版＝flavorParamId 487091・秒は元の版と同じ）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 7.0,
+    "motion": 0.23
+   },
+   {
+    "start": 7.0,
+    "until": 10.0,
+    "motion": 2.81
+   },
+   {
+    "start": 10.0,
+    "until": 18.0,
+    "motion": 31.31
+   },
+   {
+    "start": 18.0,
+    "until": 30.0,
+    "motion": 39.0
+   },
+   {
+    "start": 30.0,
+    "until": 45.0,
+    "motion": 36.36
+   },
+   {
+    "start": 45.0,
+    "until": 55.0,
+    "motion": 53.98
+   },
+   {
+    "start": 55.0,
+    "until": 66.0,
+    "motion": 43.02
+   },
+   {
+    "start": 66.0,
+    "until": 85.0,
+    "motion": 33.47
+   },
+   {
+    "start": 85.0,
+    "until": 103.0,
+    "motion": 49.4
+   },
+   {
+    "start": 103.0,
+    "until": 114.0,
+    "motion": 24.67
+   },
+   {
+    "start": 114.0,
+    "until": 120.0,
+    "motion": 19.47
+   },
+   {
+    "start": 120.0,
+    "until": 140.0,
+    "motion": 42.14
+   },
+   {
+    "start": 140.0,
+    "until": 177.0,
+    "motion": 45.11
+   },
+   {
+    "start": 177.0,
+    "until": 197.0,
+    "motion": 53.01
+   },
+   {
+    "start": 197.0,
+    "until": 204.0,
+    "motion": 2.88
+   },
+   {
+    "start": 204.0,
+    "until": 215.0,
+    "motion": 30.05
+   },
+   {
+    "start": 215.0,
+    "until": 226.0,
+    "motion": 18.63
+   },
+   {
+    "start": 226.0,
+    "until": 230.0,
+    "motion": 15.48
+   },
+   {
+    "start": 230.0,
+    "until": 236.0,
+    "motion": 14.28
+   },
+   {
+    "start": 236.0,
+    "until": 240.0,
+    "motion": 16.08
+   },
+   {
+    "start": 240.0,
+    "until": 242.0,
+    "motion": 11.29
+   },
+   {
+    "start": 242.0,
+    "until": 248.0,
+    "motion": 12.88
+   },
+   {
+    "start": 248.0,
+    "until": 250.0,
+    "motion": 19.04
+   }
+  ]
+ },
+ "B5": {
+  "src": "https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_ecar0b6h/format/url/protocol/https/flavorParamId/0",
+  "scan": "out/jiko/foot/ep19_scan/B5.mp4",
+  "dur": 333.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・走査の版＝flavorParamId 487091・秒は元の版と同じ）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 0.01
+   },
+   {
+    "start": 10.0,
+    "until": 18.0,
+    "motion": 1.03
+   },
+   {
+    "start": 18.0,
+    "until": 21.0,
+    "motion": 9.52
+   },
+   {
+    "start": 21.0,
+    "until": 28.0,
+    "motion": 1.9
+   },
+   {
+    "start": 28.0,
+    "until": 32.0,
+    "motion": 5.75
+   },
+   {
+    "start": 32.0,
+    "until": 38.0,
+    "motion": 7.01
+   },
+   {
+    "start": 38.0,
+    "until": 50.0,
+    "motion": 7.71
+   },
+   {
+    "start": 50.0,
+    "until": 56.0,
+    "motion": 3.26
+   },
+   {
+    "start": 56.0,
+    "until": 64.0,
+    "motion": 5.9
+   },
+   {
+    "start": 64.0,
+    "until": 69.0,
+    "motion": 9.02
+   },
+   {
+    "start": 69.0,
+    "until": 82.0,
+    "motion": 18.46
+   },
+   {
+    "start": 82.0,
+    "until": 94.0,
+    "motion": 22.21
+   },
+   {
+    "start": 94.0,
+    "until": 98.0,
+    "motion": 8.04
+   },
+   {
+    "start": 98.0,
+    "until": 100.0,
+    "motion": 7.84
+   },
+   {
+    "start": 100.0,
+    "until": 105.0,
+    "motion": 10.62
+   },
+   {
+    "start": 105.0,
+    "until": 109.0,
+    "motion": 8.93
+   },
+   {
+    "start": 109.0,
+    "until": 114.0,
+    "motion": 0.01
+   },
+   {
+    "start": 114.0,
+    "until": 120.0,
+    "motion": 11.95
+   },
+   {
+    "start": 120.0,
+    "until": 129.0,
+    "motion": 4.03
+   },
+   {
+    "start": 129.0,
+    "until": 132.0,
+    "motion": 12.44
+   },
+   {
+    "start": 132.0,
+    "until": 134.0,
+    "motion": 11.21
+   },
+   {
+    "start": 134.0,
+    "until": 138.0,
+    "motion": 16.23
+   },
+   {
+    "start": 138.0,
+    "until": 144.0,
+    "motion": 5.75
+   },
+   {
+    "start": 144.0,
+    "until": 148.0,
+    "motion": 25.31
+   },
+   {
+    "start": 148.0,
+    "until": 151.0,
+    "motion": 22.5
+   },
+   {
+    "start": 151.0,
+    "until": 158.0,
+    "motion": 5.17
+   },
+   {
+    "start": 158.0,
+    "until": 161.0,
+    "motion": 9.62
+   },
+   {
+    "start": 161.0,
+    "until": 168.0,
+    "motion": 4.7
+   },
+   {
+    "start": 168.0,
+    "until": 174.0,
+    "motion": 9.52
+   },
+   {
+    "start": 174.0,
+    "until": 177.0,
+    "motion": 9.05
+   },
+   {
+    "start": 177.0,
+    "until": 183.0,
+    "motion": 7.81
+   },
+   {
+    "start": 183.0,
+    "until": 189.0,
+    "motion": 2.33
+   },
+   {
+    "start": 189.0,
+    "until": 198.0,
+    "motion": 4.57
+   },
+   {
+    "start": 198.0,
+    "until": 203.0,
+    "motion": 0.0
+   },
+   {
+    "start": 203.0,
+    "until": 214.0,
+    "motion": 10.41
+   },
+   {
+    "start": 214.0,
+    "until": 230.0,
+    "motion": 27.34
+   },
+   {
+    "start": 230.0,
+    "until": 240.0,
+    "motion": 26.86
+   },
+   {
+    "start": 240.0,
+    "until": 250.0,
+    "motion": 0.5
+   },
+   {
+    "start": 250.0,
+    "until": 255.0,
+    "motion": 0.0
+   },
+   {
+    "start": 255.0,
+    "until": 262.0,
+    "motion": 1.47
+   },
+   {
+    "start": 262.0,
+    "until": 269.0,
+    "motion": 4.14
+   },
+   {
+    "start": 269.0,
+    "until": 273.0,
+    "motion": 2.99
+   },
+   {
+    "start": 273.0,
+    "until": 275.0,
+    "motion": 13.97
+   },
+   {
+    "start": 275.0,
+    "until": 281.0,
+    "motion": 1.78
+   },
+   {
+    "start": 281.0,
+    "until": 286.0,
+    "motion": 8.66
+   },
+   {
+    "start": 286.0,
+    "until": 288.0,
+    "motion": 13.35
+   },
+   {
+    "start": 288.0,
+    "until": 294.0,
+    "motion": 5.87
+   },
+   {
+    "start": 294.0,
+    "until": 300.0,
+    "motion": 2.41
+   },
+   {
+    "start": 300.0,
+    "until": 305.0,
+    "motion": 13.23
+   },
+   {
+    "start": 305.0,
+    "until": 312.0,
+    "motion": 0.24
+   },
+   {
+    "start": 312.0,
+    "until": 319.0,
+    "motion": 1.28
+   },
+   {
+    "start": 319.0,
+    "until": 326.0,
+    "motion": 7.09
+   },
+   {
+    "start": 326.0,
+    "until": 333.0,
+    "motion": 6.15
+   }
+  ]
+ },
+ "B7": {
+  "src": "https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_glesd05g/format/url/protocol/https/flavorParamId/0",
+  "scan": "out/jiko/foot/ep19_scan/B7.mp4",
+  "dur": 337.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・走査の版＝flavorParamId 487091・秒は元の版と同じ）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 0.0
+   },
+   {
+    "start": 10.0,
+    "until": 16.0,
+    "motion": 8.27
+   },
+   {
+    "start": 16.0,
+    "until": 23.0,
+    "motion": 0.48
+   },
+   {
+    "start": 23.0,
+    "until": 28.0,
+    "motion": 0.39
+   },
+   {
+    "start": 28.0,
+    "until": 35.0,
+    "motion": 6.63
+   },
+   {
+    "start": 35.0,
+    "until": 41.0,
+    "motion": 0.01
+   },
+   {
+    "start": 41.0,
+    "until": 46.0,
+    "motion": 9.07
+   },
+   {
+    "start": 46.0,
+    "until": 51.0,
+    "motion": 10.94
+   },
+   {
+    "start": 51.0,
+    "until": 55.0,
+    "motion": 2.0
+   },
+   {
+    "start": 55.0,
+    "until": 60.0,
+    "motion": 3.43
+   },
+   {
+    "start": 60.0,
+    "until": 65.0,
+    "motion": 0.01
+   },
+   {
+    "start": 65.0,
+    "until": 69.0,
+    "motion": 12.27
+   },
+   {
+    "start": 69.0,
+    "until": 75.0,
+    "motion": 1.0
+   },
+   {
+    "start": 75.0,
+    "until": 81.0,
+    "motion": 35.81
+   },
+   {
+    "start": 81.0,
+    "until": 84.0,
+    "motion": 14.61
+   },
+   {
+    "start": 84.0,
+    "until": 89.0,
+    "motion": 4.24
+   },
+   {
+    "start": 89.0,
+    "until": 94.0,
+    "motion": 0.0
+   },
+   {
+    "start": 94.0,
+    "until": 104.0,
+    "motion": 5.52
+   },
+   {
+    "start": 104.0,
+    "until": 108.0,
+    "motion": 0.93
+   },
+   {
+    "start": 108.0,
+    "until": 114.0,
+    "motion": 11.47
+   },
+   {
+    "start": 114.0,
+    "until": 119.0,
+    "motion": 8.45
+   },
+   {
+    "start": 119.0,
+    "until": 126.0,
+    "motion": 0.0
+   },
+   {
+    "start": 126.0,
+    "until": 130.0,
+    "motion": 14.16
+   },
+   {
+    "start": 130.0,
+    "until": 132.0,
+    "motion": 5.0
+   },
+   {
+    "start": 132.0,
+    "until": 135.0,
+    "motion": 10.07
+   },
+   {
+    "start": 135.0,
+    "until": 140.0,
+    "motion": 0.44
+   },
+   {
+    "start": 140.0,
+    "until": 144.0,
+    "motion": 3.02
+   },
+   {
+    "start": 144.0,
+    "until": 150.0,
+    "motion": 4.4
+   },
+   {
+    "start": 150.0,
+    "until": 156.0,
+    "motion": 3.63
+   },
+   {
+    "start": 156.0,
+    "until": 164.0,
+    "motion": 10.39
+   },
+   {
+    "start": 164.0,
+    "until": 170.0,
+    "motion": 4.74
+   },
+   {
+    "start": 170.0,
+    "until": 175.0,
+    "motion": 6.41
+   },
+   {
+    "start": 175.0,
+    "until": 181.0,
+    "motion": 0.42
+   },
+   {
+    "start": 181.0,
+    "until": 189.0,
+    "motion": 0.41
+   },
+   {
+    "start": 189.0,
+    "until": 199.0,
+    "motion": 0.3
+   },
+   {
+    "start": 199.0,
+    "until": 206.0,
+    "motion": 3.75
+   },
+   {
+    "start": 206.0,
+    "until": 214.0,
+    "motion": 2.45
+   },
+   {
+    "start": 214.0,
+    "until": 226.0,
+    "motion": 2.84
+   },
+   {
+    "start": 226.0,
+    "until": 230.0,
+    "motion": 0.41
+   },
+   {
+    "start": 230.0,
+    "until": 234.0,
+    "motion": 5.19
+   },
+   {
+    "start": 234.0,
+    "until": 237.0,
+    "motion": 8.08
+   },
+   {
+    "start": 237.0,
+    "until": 244.0,
+    "motion": 7.67
+   },
+   {
+    "start": 244.0,
+    "until": 251.0,
+    "motion": 8.11
+   },
+   {
+    "start": 251.0,
+    "until": 258.0,
+    "motion": 0.01
+   },
+   {
+    "start": 258.0,
+    "until": 268.0,
+    "motion": 4.66
+   },
+   {
+    "start": 268.0,
+    "until": 274.0,
+    "motion": 3.47
+   },
+   {
+    "start": 274.0,
+    "until": 280.0,
+    "motion": 1.48
+   },
+   {
+    "start": 280.0,
+    "until": 288.0,
+    "motion": 0.64
+   },
+   {
+    "start": 288.0,
+    "until": 293.0,
+    "motion": 21.24
+   },
+   {
+    "start": 293.0,
+    "until": 303.0,
+    "motion": 3.15
+   },
+   {
+    "start": 303.0,
+    "until": 311.0,
+    "motion": 0.51
+   },
+   {
+    "start": 311.0,
+    "until": 316.0,
+    "motion": 0.0
+   },
+   {
+    "start": 316.0,
+    "until": 323.0,
+    "motion": 1.19
+   },
+   {
+    "start": 323.0,
+    "until": 332.0,
+    "motion": 0.99
+   },
+   {
+    "start": 332.0,
+    "until": 337.0,
+    "motion": 0.96
+   }
+  ]
+ },
+ "TFV": {
+  "src": "https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_vezbt9jw/format/url/protocol/https/flavorParamId/0",
+  "scan": "out/jiko/foot/ep19_scan/TFV.mp4",
+  "dur": 4639.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・走査の版＝flavorParamId 487091・秒は元の版と同じ）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 8.0,
+    "motion": 0.01
+   },
+   {
+    "start": 8.0,
+    "until": 28.0,
+    "motion": 4.13
+   },
+   {
+    "start": 28.0,
+    "until": 56.0,
+    "motion": 0.01
+   },
+   {
+    "start": 56.0,
+    "until": 64.0,
+    "motion": 2.02
+   },
+   {
+    "start": 64.0,
+    "until": 68.0,
+    "motion": 2.22
+   },
+   {
+    "start": 68.0,
+    "until": 71.0,
+    "motion": 4.92
+   },
+   {
+    "start": 71.0,
+    "until": 74.0,
+    "motion": 1.74
+   },
+   {
+    "start": 74.0,
+    "until": 79.0,
+    "motion": 1.85
+   },
+   {
+    "start": 79.0,
+    "until": 92.0,
+    "motion": 0.09
+   },
+   {
+    "start": 92.0,
+    "until": 103.0,
+    "motion": 4.44
+   },
+   {
+    "start": 103.0,
+    "until": 109.0,
+    "motion": 1.82
+   },
+   {
+    "start": 109.0,
+    "until": 115.0,
+    "motion": 6.61
+   },
+   {
+    "start": 115.0,
+    "until": 123.0,
+    "motion": 1.54
+   },
+   {
+    "start": 123.0,
+    "until": 129.0,
+    "motion": 4.0
+   },
+   {
+    "start": 129.0,
+    "until": 136.0,
+    "motion": 2.0
+   },
+   {
+    "start": 136.0,
+    "until": 144.0,
+    "motion": 4.43
+   },
+   {
+    "start": 144.0,
+    "until": 148.0,
+    "motion": 2.19
+   },
+   {
+    "start": 148.0,
+    "until": 150.0,
+    "motion": 11.14
+   },
+   {
+    "start": 150.0,
+    "until": 154.0,
+    "motion": 3.01
+   },
+   {
+    "start": 154.0,
+    "until": 159.0,
+    "motion": 3.71
+   },
+   {
+    "start": 159.0,
+    "until": 185.0,
+    "motion": 0.07
+   },
+   {
+    "start": 185.0,
+    "until": 194.0,
+    "motion": 2.72
+   },
+   {
+    "start": 194.0,
+    "until": 201.0,
+    "motion": 3.68
+   },
+   {
+    "start": 201.0,
+    "until": 232.0,
+    "motion": 0.51
+   },
+   {
+    "start": 232.0,
+    "until": 239.0,
+    "motion": 5.27
+   },
+   {
+    "start": 239.0,
+    "until": 248.0,
+    "motion": 2.66
+   },
+   {
+    "start": 248.0,
+    "until": 254.0,
+    "motion": 3.6
+   },
+   {
+    "start": 254.0,
+    "until": 262.0,
+    "motion": 3.27
+   },
+   {
+    "start": 262.0,
+    "until": 271.0,
+    "motion": 0.02
+   },
+   {
+    "start": 271.0,
+    "until": 284.0,
+    "motion": 0.03
+   },
+   {
+    "start": 284.0,
+    "until": 289.0,
+    "motion": 2.49
+   },
+   {
+    "start": 289.0,
+    "until": 332.0,
+    "motion": 0.02
+   },
+   {
+    "start": 332.0,
+    "until": 336.0,
+    "motion": 1.94
+   },
+   {
+    "start": 336.0,
+    "until": 343.0,
+    "motion": 1.96
+   },
+   {
+    "start": 343.0,
+    "until": 345.0,
+    "motion": 2.05
+   },
+   {
+    "start": 345.0,
+    "until": 352.0,
+    "motion": 0.03
+   },
+   {
+    "start": 352.0,
+    "until": 359.0,
+    "motion": 1.33
+   },
+   {
+    "start": 359.0,
+    "until": 367.0,
+    "motion": 2.32
+   },
+   {
+    "start": 367.0,
+    "until": 374.0,
+    "motion": 1.04
+   },
+   {
+    "start": 374.0,
+    "until": 427.0,
+    "motion": 4.91
+   },
+   {
+    "start": 427.0,
+    "until": 437.0,
+    "motion": 0.17
+   },
+   {
+    "start": 437.0,
+    "until": 453.0,
+    "motion": 0.13
+   },
+   {
+    "start": 453.0,
+    "until": 471.0,
+    "motion": 0.04
+   },
+   {
+    "start": 471.0,
+    "until": 486.0,
+    "motion": 2.02
+   },
+   {
+    "start": 486.0,
+    "until": 493.0,
+    "motion": 5.65
+   },
+   {
+    "start": 493.0,
+    "until": 499.0,
+    "motion": 0.09
+   },
+   {
+    "start": 499.0,
+    "until": 545.0,
+    "motion": 0.04
+   },
+   {
+    "start": 545.0,
+    "until": 552.0,
+    "motion": 0.04
+   },
+   {
+    "start": 552.0,
+    "until": 555.0,
+    "motion": 1.98
+   },
+   {
+    "start": 555.0,
+    "until": 641.0,
+    "motion": 0.04
+   },
+   {
+    "start": 641.0,
+    "until": 651.0,
+    "motion": 2.53
+   },
+   {
+    "start": 651.0,
+    "until": 659.0,
+    "motion": 5.12
+   },
+   {
+    "start": 659.0,
+    "until": 668.0,
+    "motion": 1.37
+   },
+   {
+    "start": 668.0,
+    "until": 710.0,
+    "motion": 0.0
+   },
+   {
+    "start": 710.0,
+    "until": 717.0,
+    "motion": 1.78
+   },
+   {
+    "start": 717.0,
+    "until": 737.0,
+    "motion": 0.3
+   },
+   {
+    "start": 737.0,
+    "until": 744.0,
+    "motion": 1.88
+   },
+   {
+    "start": 744.0,
+    "until": 754.0,
+    "motion": 4.31
+   },
+   {
+    "start": 754.0,
+    "until": 803.0,
+    "motion": 0.2
+   },
+   {
+    "start": 803.0,
+    "until": 831.0,
+    "motion": 0.07
+   },
+   {
+    "start": 831.0,
+    "until": 861.0,
+    "motion": 0.08
+   },
+   {
+    "start": 861.0,
+    "until": 871.0,
+    "motion": 3.77
+   },
+   {
+    "start": 871.0,
+    "until": 875.0,
+    "motion": 1.74
+   },
+   {
+    "start": 875.0,
+    "until": 880.0,
+    "motion": 0.04
+   },
+   {
+    "start": 880.0,
+    "until": 908.0,
+    "motion": 0.06
+   },
+   {
+    "start": 908.0,
+    "until": 929.0,
+    "motion": 0.04
+   },
+   {
+    "start": 929.0,
+    "until": 946.0,
+    "motion": 0.04
+   },
+   {
+    "start": 946.0,
+    "until": 954.0,
+    "motion": 1.52
+   },
+   {
+    "start": 954.0,
+    "until": 977.0,
+    "motion": 0.02
+   },
+   {
+    "start": 977.0,
+    "until": 981.0,
+    "motion": 0.18
+   },
+   {
+    "start": 981.0,
+    "until": 1009.0,
+    "motion": 0.06
+   },
+   {
+    "start": 1009.0,
+    "until": 1016.0,
+    "motion": 1.64
+   },
+   {
+    "start": 1016.0,
+    "until": 1086.0,
+    "motion": 0.01
+   },
+   {
+    "start": 1086.0,
+    "until": 1114.0,
+    "motion": 0.12
+   },
+   {
+    "start": 1114.0,
+    "until": 1127.0,
+    "motion": 0.06
+   },
+   {
+    "start": 1127.0,
+    "until": 1165.0,
+    "motion": 0.08
+   },
+   {
+    "start": 1165.0,
+    "until": 1173.0,
+    "motion": 0.27
+   },
+   {
+    "start": 1173.0,
+    "until": 1181.0,
+    "motion": 2.0
+   },
+   {
+    "start": 1181.0,
+    "until": 1185.0,
+    "motion": 4.2
+   },
+   {
+    "start": 1185.0,
+    "until": 1198.0,
+    "motion": 0.06
+   },
+   {
+    "start": 1198.0,
+    "until": 1219.0,
+    "motion": 0.07
+   },
+   {
+    "start": 1219.0,
+    "until": 1275.0,
+    "motion": 0.08
+   },
+   {
+    "start": 1275.0,
+    "until": 1281.0,
+    "motion": 1.67
+   },
+   {
+    "start": 1281.0,
+    "until": 1342.0,
+    "motion": 0.1
+   },
+   {
+    "start": 1342.0,
+    "until": 1400.0,
+    "motion": 0.01
+   },
+   {
+    "start": 1400.0,
+    "until": 1473.0,
+    "motion": 0.06
+   },
+   {
+    "start": 1473.0,
+    "until": 1518.0,
+    "motion": 0.09
+   },
+   {
+    "start": 1518.0,
+    "until": 1530.0,
+    "motion": 1.59
+   },
+   {
+    "start": 1530.0,
+    "until": 1583.0,
+    "motion": 0.18
+   },
+   {
+    "start": 1583.0,
+    "until": 1591.0,
+    "motion": 1.2
+   },
+   {
+    "start": 1591.0,
+    "until": 1601.0,
+    "motion": 3.58
+   },
+   {
+    "start": 1601.0,
+    "until": 1612.0,
+    "motion": 0.1
+   },
+   {
+    "start": 1612.0,
+    "until": 1672.0,
+    "motion": 0.44
+   },
+   {
+    "start": 1672.0,
+    "until": 1685.0,
+    "motion": 1.29
+   },
+   {
+    "start": 1685.0,
+    "until": 1735.0,
+    "motion": 0.12
+   },
+   {
+    "start": 1735.0,
+    "until": 1744.0,
+    "motion": 1.41
+   },
+   {
+    "start": 1744.0,
+    "until": 1822.0,
+    "motion": 0.01
+   },
+   {
+    "start": 1822.0,
+    "until": 1850.0,
+    "motion": 0.11
+   },
+   {
+    "start": 1850.0,
+    "until": 1864.0,
+    "motion": 0.1
+   },
+   {
+    "start": 1864.0,
+    "until": 1944.0,
+    "motion": 0.09
+   },
+   {
+    "start": 1944.0,
+    "until": 1954.0,
+    "motion": 1.47
+   },
+   {
+    "start": 1954.0,
+    "until": 1964.0,
+    "motion": 2.72
+   },
+   {
+    "start": 1964.0,
+    "until": 1968.0,
+    "motion": 1.17
+   },
+   {
+    "start": 1968.0,
+    "until": 2011.0,
+    "motion": 0.08
+   },
+   {
+    "start": 2011.0,
+    "until": 2018.0,
+    "motion": 1.45
+   },
+   {
+    "start": 2018.0,
+    "until": 2023.0,
+    "motion": 1.84
+   },
+   {
+    "start": 2023.0,
+    "until": 2029.0,
+    "motion": 0.12
+   },
+   {
+    "start": 2029.0,
+    "until": 2050.0,
+    "motion": 1.61
+   },
+   {
+    "start": 2050.0,
+    "until": 2097.0,
+    "motion": 0.03
+   },
+   {
+    "start": 2097.0,
+    "until": 2129.0,
+    "motion": 0.08
+   },
+   {
+    "start": 2129.0,
+    "until": 2173.0,
+    "motion": 0.05
+   },
+   {
+    "start": 2173.0,
+    "until": 2210.0,
+    "motion": 0.04
+   },
+   {
+    "start": 2210.0,
+    "until": 2239.0,
+    "motion": 0.09
+   },
+   {
+    "start": 2239.0,
+    "until": 2252.0,
+    "motion": 1.81
+   },
+   {
+    "start": 2252.0,
+    "until": 2279.0,
+    "motion": 0.02
+   },
+   {
+    "start": 2279.0,
+    "until": 2285.0,
+    "motion": 1.55
+   },
+   {
+    "start": 2285.0,
+    "until": 2287.0,
+    "motion": 2.92
+   },
+   {
+    "start": 2287.0,
+    "until": 2322.0,
+    "motion": 0.05
+   },
+   {
+    "start": 2322.0,
+    "until": 2328.0,
+    "motion": 1.06
+   },
+   {
+    "start": 2328.0,
+    "until": 2331.0,
+    "motion": 2.83
+   },
+   {
+    "start": 2331.0,
+    "until": 2356.0,
+    "motion": 1.68
+   },
+   {
+    "start": 2356.0,
+    "until": 2368.0,
+    "motion": 4.78
+   },
+   {
+    "start": 2368.0,
+    "until": 2387.0,
+    "motion": 1.33
+   },
+   {
+    "start": 2387.0,
+    "until": 2406.0,
+    "motion": 0.04
+   },
+   {
+    "start": 2406.0,
+    "until": 2430.0,
+    "motion": 0.0
+   },
+   {
+    "start": 2430.0,
+    "until": 2506.0,
+    "motion": 0.12
+   },
+   {
+    "start": 2506.0,
+    "until": 2534.0,
+    "motion": 0.14
+   },
+   {
+    "start": 2534.0,
+    "until": 2544.0,
+    "motion": 0.81
+   },
+   {
+    "start": 2544.0,
+    "until": 2550.0,
+    "motion": 3.64
+   },
+   {
+    "start": 2550.0,
+    "until": 2620.0,
+    "motion": 0.01
+   },
+   {
+    "start": 2620.0,
+    "until": 2631.0,
+    "motion": 1.06
+   },
+   {
+    "start": 2631.0,
+    "until": 2708.0,
+    "motion": 0.03
+   },
+   {
+    "start": 2708.0,
+    "until": 2713.0,
+    "motion": 0.18
+   },
+   {
+    "start": 2713.0,
+    "until": 2726.0,
+    "motion": 0.01
+   },
+   {
+    "start": 2726.0,
+    "until": 2729.0,
+    "motion": 1.31
+   },
+   {
+    "start": 2729.0,
+    "until": 2733.0,
+    "motion": 4.95
+   },
+   {
+    "start": 2733.0,
+    "until": 2743.0,
+    "motion": 0.05
+   },
+   {
+    "start": 2743.0,
+    "until": 2773.0,
+    "motion": 0.06
+   },
+   {
+    "start": 2773.0,
+    "until": 2815.0,
+    "motion": 0.04
+   },
+   {
+    "start": 2815.0,
+    "until": 2865.0,
+    "motion": 0.03
+   },
+   {
+    "start": 2865.0,
+    "until": 2868.0,
+    "motion": 4.16
+   },
+   {
+    "start": 2868.0,
+    "until": 2874.0,
+    "motion": 0.92
+   },
+   {
+    "start": 2874.0,
+    "until": 2910.0,
+    "motion": 0.01
+   },
+   {
+    "start": 2910.0,
+    "until": 2934.0,
+    "motion": 0.44
+   },
+   {
+    "start": 2934.0,
+    "until": 2948.0,
+    "motion": 0.05
+   },
+   {
+    "start": 2948.0,
+    "until": 2970.0,
+    "motion": 0.0
+   },
+   {
+    "start": 2970.0,
+    "until": 2977.0,
+    "motion": 0.03
+   },
+   {
+    "start": 2977.0,
+    "until": 2981.0,
+    "motion": 1.56
+   },
+   {
+    "start": 2981.0,
+    "until": 2985.0,
+    "motion": 3.34
+   },
+   {
+    "start": 2985.0,
+    "until": 2989.0,
+    "motion": 0.95
+   },
+   {
+    "start": 2989.0,
+    "until": 3034.0,
+    "motion": 0.12
+   },
+   {
+    "start": 3034.0,
+    "until": 3096.0,
+    "motion": 0.11
+   },
+   {
+    "start": 3096.0,
+    "until": 3154.0,
+    "motion": 0.05
+   },
+   {
+    "start": 3154.0,
+    "until": 3158.0,
+    "motion": 0.0
+   },
+   {
+    "start": 3158.0,
+    "until": 3166.0,
+    "motion": 0.0
+   },
+   {
+    "start": 3166.0,
+    "until": 3178.0,
+    "motion": 1.42
+   },
+   {
+    "start": 3178.0,
+    "until": 3203.0,
+    "motion": 0.03
+   },
+   {
+    "start": 3203.0,
+    "until": 3210.0,
+    "motion": 2.0
+   },
+   {
+    "start": 3210.0,
+    "until": 3309.0,
+    "motion": 0.03
+   },
+   {
+    "start": 3309.0,
+    "until": 3363.0,
+    "motion": 0.11
+   },
+   {
+    "start": 3363.0,
+    "until": 3394.0,
+    "motion": 0.03
+   },
+   {
+    "start": 3394.0,
+    "until": 3420.0,
+    "motion": 0.07
+   },
+   {
+    "start": 3420.0,
+    "until": 3425.0,
+    "motion": 1.96
+   },
+   {
+    "start": 3425.0,
+    "until": 3463.0,
+    "motion": 0.16
+   },
+   {
+    "start": 3463.0,
+    "until": 3468.0,
+    "motion": 2.46
+   },
+   {
+    "start": 3468.0,
+    "until": 3470.0,
+    "motion": 4.62
+   },
+   {
+    "start": 3470.0,
+    "until": 3481.0,
+    "motion": 0.04
+   },
+   {
+    "start": 3481.0,
+    "until": 3501.0,
+    "motion": 0.1
+   },
+   {
+    "start": 3501.0,
+    "until": 3525.0,
+    "motion": 0.12
+   },
+   {
+    "start": 3525.0,
+    "until": 3542.0,
+    "motion": 0.06
+   },
+   {
+    "start": 3542.0,
+    "until": 3590.0,
+    "motion": 0.02
+   },
+   {
+    "start": 3590.0,
+    "until": 3627.0,
+    "motion": 0.03
+   },
+   {
+    "start": 3627.0,
+    "until": 3641.0,
+    "motion": 0.04
+   },
+   {
+    "start": 3641.0,
+    "until": 3690.0,
+    "motion": 0.05
+   },
+   {
+    "start": 3690.0,
+    "until": 3695.0,
+    "motion": 0.04
+   },
+   {
+    "start": 3695.0,
+    "until": 3729.0,
+    "motion": 0.1
+   },
+   {
+    "start": 3729.0,
+    "until": 3773.0,
+    "motion": 0.1
+   },
+   {
+    "start": 3773.0,
+    "until": 3782.0,
+    "motion": 0.06
+   },
+   {
+    "start": 3782.0,
+    "until": 3794.0,
+    "motion": 0.05
+   },
+   {
+    "start": 3794.0,
+    "until": 3835.0,
+    "motion": 0.11
+   },
+   {
+    "start": 3835.0,
+    "until": 3857.0,
+    "motion": 0.1
+   },
+   {
+    "start": 3857.0,
+    "until": 3869.0,
+    "motion": 0.12
+   },
+   {
+    "start": 3869.0,
+    "until": 3895.0,
+    "motion": 0.1
+   },
+   {
+    "start": 3895.0,
+    "until": 3899.0,
+    "motion": 1.16
+   },
+   {
+    "start": 3899.0,
+    "until": 3931.0,
+    "motion": 0.09
+   },
+   {
+    "start": 3931.0,
+    "until": 3935.0,
+    "motion": 1.38
+   },
+   {
+    "start": 3935.0,
+    "until": 3939.0,
+    "motion": 1.77
+   },
+   {
+    "start": 3939.0,
+    "until": 3977.0,
+    "motion": 0.05
+   },
+   {
+    "start": 3977.0,
+    "until": 3983.0,
+    "motion": 0.18
+   },
+   {
+    "start": 3983.0,
+    "until": 3987.0,
+    "motion": 2.01
+   },
+   {
+    "start": 3987.0,
+    "until": 3992.0,
+    "motion": 4.74
+   },
+   {
+    "start": 3992.0,
+    "until": 4058.0,
+    "motion": 0.09
+   },
+   {
+    "start": 4058.0,
+    "until": 4063.0,
+    "motion": 3.09
+   },
+   {
+    "start": 4063.0,
+    "until": 4145.0,
+    "motion": 0.1
+   },
+   {
+    "start": 4145.0,
+    "until": 4151.0,
+    "motion": 2.45
+   },
+   {
+    "start": 4151.0,
+    "until": 4156.0,
+    "motion": 1.52
+   },
+   {
+    "start": 4156.0,
+    "until": 4158.0,
+    "motion": 3.29
+   },
+   {
+    "start": 4158.0,
+    "until": 4209.0,
+    "motion": 0.1
+   },
+   {
+    "start": 4209.0,
+    "until": 4218.0,
+    "motion": 0.07
+   },
+   {
+    "start": 4218.0,
+    "until": 4227.0,
+    "motion": 2.49
+   },
+   {
+    "start": 4227.0,
+    "until": 4281.0,
+    "motion": 0.15
+   },
+   {
+    "start": 4281.0,
+    "until": 4293.0,
+    "motion": 2.08
+   },
+   {
+    "start": 4293.0,
+    "until": 4314.0,
+    "motion": 2.71
+   },
+   {
+    "start": 4314.0,
+    "until": 4327.0,
+    "motion": 2.08
+   },
+   {
+    "start": 4327.0,
+    "until": 4373.0,
+    "motion": 0.07
+   },
+   {
+    "start": 4373.0,
+    "until": 4400.0,
+    "motion": 0.13
+   },
+   {
+    "start": 4400.0,
+    "until": 4407.0,
+    "motion": 0.08
+   },
+   {
+    "start": 4407.0,
+    "until": 4424.0,
+    "motion": 1.48
+   },
+   {
+    "start": 4424.0,
+    "until": 4442.0,
+    "motion": 2.36
+   },
+   {
+    "start": 4442.0,
+    "until": 4525.0,
+    "motion": 0.02
+   },
+   {
+    "start": 4525.0,
+    "until": 4565.0,
+    "motion": 0.09
+   },
+   {
+    "start": 4565.0,
+    "until": 4575.0,
+    "motion": 1.32
+   },
+   {
+    "start": 4575.0,
+    "until": 4592.0,
+    "motion": 1.08
+   },
+   {
+    "start": 4592.0,
+    "until": 4605.0,
+    "motion": 1.09
+   },
+   {
+    "start": 4605.0,
+    "until": 4614.0,
+    "motion": 2.23
+   },
+   {
+    "start": 4614.0,
+    "until": 4622.0,
+    "motion": 0.95
+   },
+   {
+    "start": 4622.0,
+    "until": 4630.0,
+    "motion": 1.05
+   },
+   {
+    "start": 4630.0,
+    "until": 4639.0,
+    "motion": 0.05
+   }
+  ]
+ },
+ "PC": {
+  "src": "https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_sem63924/format/url/protocol/https/flavorParamId/0",
+  "scan": "out/jiko/foot/ep19_scan/PC.mp4",
+  "dur": 47.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・走査の版＝flavorParamId 487091・秒は元の版と同じ）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 25.0,
+    "motion": 33.37
+   },
+   {
+    "start": 25.0,
+    "until": 47.0,
+    "motion": 30.18
+   }
+  ]
+ },
+ "B8": {
+  "src": "https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_lebmphjw/format/url/protocol/https/flavorParamId/0",
+  "scan": "out/jiko/foot/ep19_scan/B8.mp4",
+  "dur": 207.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・走査の版＝flavorParamId 487091・秒は元の版と同じ）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 0.0
+   },
+   {
+    "start": 10.0,
+    "until": 17.0,
+    "motion": 1.55
+   },
+   {
+    "start": 17.0,
+    "until": 22.0,
+    "motion": 6.37
+   },
+   {
+    "start": 22.0,
+    "until": 28.0,
+    "motion": 22.75
+   },
+   {
+    "start": 28.0,
+    "until": 38.0,
+    "motion": 2.49
+   },
+   {
+    "start": 38.0,
+    "until": 40.0,
+    "motion": 5.5
+   },
+   {
+    "start": 40.0,
+    "until": 43.0,
+    "motion": 10.28
+   },
+   {
+    "start": 43.0,
+    "until": 49.0,
+    "motion": 5.38
+   },
+   {
+    "start": 49.0,
+    "until": 52.0,
+    "motion": 12.8
+   },
+   {
+    "start": 52.0,
+    "until": 55.0,
+    "motion": 9.93
+   },
+   {
+    "start": 55.0,
+    "until": 62.0,
+    "motion": 12.3
+   },
+   {
+    "start": 62.0,
+    "until": 70.0,
+    "motion": 2.57
+   },
+   {
+    "start": 70.0,
+    "until": 79.0,
+    "motion": 1.14
+   },
+   {
+    "start": 79.0,
+    "until": 90.0,
+    "motion": 11.04
+   },
+   {
+    "start": 90.0,
+    "until": 100.0,
+    "motion": 4.86
+   },
+   {
+    "start": 100.0,
+    "until": 105.0,
+    "motion": 2.49
+   },
+   {
+    "start": 105.0,
+    "until": 115.0,
+    "motion": 3.93
+   },
+   {
+    "start": 115.0,
+    "until": 120.0,
+    "motion": 6.89
+   },
+   {
+    "start": 120.0,
+    "until": 128.0,
+    "motion": 4.35
+   },
+   {
+    "start": 128.0,
+    "until": 133.0,
+    "motion": 0.01
+   },
+   {
+    "start": 133.0,
+    "until": 142.0,
+    "motion": 13.49
+   },
+   {
+    "start": 142.0,
+    "until": 154.0,
+    "motion": 17.88
+   },
+   {
+    "start": 154.0,
+    "until": 164.0,
+    "motion": 24.91
+   },
+   {
+    "start": 164.0,
+    "until": 171.0,
+    "motion": 5.04
+   },
+   {
+    "start": 171.0,
+    "until": 177.0,
+    "motion": 10.3
+   },
+   {
+    "start": 177.0,
+    "until": 184.0,
+    "motion": 17.11
+   },
+   {
+    "start": 184.0,
+    "until": 204.0,
+    "motion": 9.56
+   },
+   {
+    "start": 204.0,
+    "until": 207.0,
+    "motion": 48.32
+   }
+  ]
+ },
+ "B3": {
+  "src": "https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_h4yeyz2f/format/url/protocol/https/flavorParamId/0",
+  "scan": "out/jiko/foot/ep19_scan/B3.mp4",
+  "dur": 74.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・走査の版＝flavorParamId 487091・秒は元の版と同じ）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 7.0,
+    "motion": 0.04
+   },
+   {
+    "start": 7.0,
+    "until": 9.0,
+    "motion": 0.77
+   },
+   {
+    "start": 9.0,
+    "until": 11.0,
+    "motion": 3.78
+   },
+   {
+    "start": 11.0,
+    "until": 14.0,
+    "motion": 23.1
+   },
+   {
+    "start": 14.0,
+    "until": 20.0,
+    "motion": 4.3
+   },
+   {
+    "start": 20.0,
+    "until": 23.0,
+    "motion": 22.28
+   },
+   {
+    "start": 23.0,
+    "until": 29.0,
+    "motion": 5.02
+   },
+   {
+    "start": 29.0,
+    "until": 34.0,
+    "motion": 30.08
+   },
+   {
+    "start": 34.0,
+    "until": 37.0,
+    "motion": 11.51
+   },
+   {
+    "start": 37.0,
+    "until": 40.0,
+    "motion": 29.48
+   },
+   {
+    "start": 40.0,
+    "until": 46.0,
+    "motion": 18.85
+   },
+   {
+    "start": 46.0,
+    "until": 49.0,
+    "motion": 17.95
+   },
+   {
+    "start": 49.0,
+    "until": 56.0,
+    "motion": 19.58
+   },
+   {
+    "start": 56.0,
+    "until": 65.0,
+    "motion": 19.91
+   },
+   {
+    "start": 65.0,
+    "until": 68.0,
+    "motion": 20.27
+   },
+   {
+    "start": 68.0,
+    "until": 72.0,
+    "motion": 15.99
+   },
+   {
+    "start": 72.0,
+    "until": 74.0,
+    "motion": 28.91
+   }
+  ]
+ },
+ "B6": {
+  "src": "https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_zdyysoml/format/url/protocol/https/flavorParamId/0",
+  "scan": "out/jiko/foot/ep19_scan/B6.mp4",
+  "dur": 263.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・走査の版＝flavorParamId 487091・秒は元の版と同じ）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 11.0,
+    "motion": 0.01
+   },
+   {
+    "start": 11.0,
+    "until": 14.0,
+    "motion": 11.68
+   },
+   {
+    "start": 14.0,
+    "until": 20.0,
+    "motion": 7.74
+   },
+   {
+    "start": 20.0,
+    "until": 25.0,
+    "motion": 5.83
+   },
+   {
+    "start": 25.0,
+    "until": 29.0,
+    "motion": 6.75
+   },
+   {
+    "start": 29.0,
+    "until": 31.0,
+    "motion": 10.85
+   },
+   {
+    "start": 31.0,
+    "until": 33.0,
+    "motion": 6.83
+   },
+   {
+    "start": 33.0,
+    "until": 37.0,
+    "motion": 3.9
+   },
+   {
+    "start": 37.0,
+    "until": 42.0,
+    "motion": 0.0
+   },
+   {
+    "start": 42.0,
+    "until": 46.0,
+    "motion": 6.09
+   },
+   {
+    "start": 46.0,
+    "until": 52.0,
+    "motion": 0.5
+   },
+   {
+    "start": 52.0,
+    "until": 56.0,
+    "motion": 4.55
+   },
+   {
+    "start": 56.0,
+    "until": 60.0,
+    "motion": 9.55
+   },
+   {
+    "start": 60.0,
+    "until": 66.0,
+    "motion": 0.01
+   },
+   {
+    "start": 66.0,
+    "until": 68.0,
+    "motion": 8.33
+   },
+   {
+    "start": 68.0,
+    "until": 74.0,
+    "motion": 37.69
+   },
+   {
+    "start": 74.0,
+    "until": 80.0,
+    "motion": 22.89
+   },
+   {
+    "start": 80.0,
+    "until": 88.0,
+    "motion": 12.57
+   },
+   {
+    "start": 88.0,
+    "until": 96.0,
+    "motion": 17.86
+   },
+   {
+    "start": 96.0,
+    "until": 104.0,
+    "motion": 16.61
+   },
+   {
+    "start": 104.0,
+    "until": 109.0,
+    "motion": 7.28
+   },
+   {
+    "start": 109.0,
+    "until": 116.0,
+    "motion": 3.28
+   },
+   {
+    "start": 116.0,
+    "until": 120.0,
+    "motion": 0.47
+   },
+   {
+    "start": 120.0,
+    "until": 128.0,
+    "motion": 1.44
+   },
+   {
+    "start": 128.0,
+    "until": 135.0,
+    "motion": 5.46
+   },
+   {
+    "start": 135.0,
+    "until": 140.0,
+    "motion": 7.25
+   },
+   {
+    "start": 140.0,
+    "until": 142.0,
+    "motion": 9.47
+   },
+   {
+    "start": 142.0,
+    "until": 150.0,
+    "motion": 6.25
+   },
+   {
+    "start": 150.0,
+    "until": 153.0,
+    "motion": 14.85
+   },
+   {
+    "start": 153.0,
+    "until": 163.0,
+    "motion": 18.39
+   },
+   {
+    "start": 163.0,
+    "until": 172.0,
+    "motion": 13.18
+   },
+   {
+    "start": 172.0,
+    "until": 179.0,
+    "motion": 7.02
+   },
+   {
+    "start": 179.0,
+    "until": 184.0,
+    "motion": 4.38
+   },
+   {
+    "start": 184.0,
+    "until": 190.0,
+    "motion": 0.01
+   },
+   {
+    "start": 190.0,
+    "until": 194.0,
+    "motion": 11.0
+   },
+   {
+    "start": 194.0,
+    "until": 200.0,
+    "motion": 32.21
+   },
+   {
+    "start": 200.0,
+    "until": 207.0,
+    "motion": 43.7
+   },
+   {
+    "start": 207.0,
+    "until": 214.0,
+    "motion": 12.48
+   },
+   {
+    "start": 214.0,
+    "until": 222.0,
+    "motion": 19.79
+   },
+   {
+    "start": 222.0,
+    "until": 236.0,
+    "motion": 19.1
+   },
+   {
+    "start": 236.0,
+    "until": 243.0,
+    "motion": 12.11
+   },
+   {
+    "start": 243.0,
+    "until": 245.0,
+    "motion": 13.26
+   },
+   {
+    "start": 245.0,
+    "until": 248.0,
+    "motion": 9.18
+   },
+   {
+    "start": 248.0,
+    "until": 253.0,
+    "motion": 3.49
+   },
+   {
+    "start": 253.0,
+    "until": 255.0,
+    "motion": 3.86
+   },
+   {
+    "start": 255.0,
+    "until": 263.0,
+    "motion": 4.95
+   }
+  ]
+ },
+ "TLS": {
+  "src": "https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_zno86q01/format/url/protocol/https/flavorParamId/0",
+  "scan": "out/jiko/foot/ep19_scan/TLS.mp4",
+  "dur": 10.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・走査の版＝flavorParamId 487091・秒は元の版と同じ）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 4.76
+   }
+  ]
+ },
+ "TL": {
+  "src": "https://cdnapisec.kaltura.com/p/684682/sp/68468200/playManifest/entryId/1_gvpcaamy/format/url/protocol/https/flavorParamId/0",
+  "scan": "out/jiko/foot/ep19_scan/TL.mp4",
+  "dur": 7.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・走査の版＝flavorParamId 487091・秒は元の版と同じ）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 7.0,
+    "motion": 5.53
+   }
+  ]
+ }
+}

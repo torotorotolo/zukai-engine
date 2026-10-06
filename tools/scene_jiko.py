@@ -747,6 +747,26 @@ def ep15_credit(name):
 
 
 # ══════════════════════════════════════════════════════════
+#  19本目（サーフサイドのマンション崩壊のリメイク）── `ref/ep19/`（2026-10-06 ⑤b-1）
+# ══════════════════════════════════════════════════════════
+#   ep19/<欄の名>.jpg … 写真（NIST・FEMA・郡の消防〈フロリダ州の公記録〉・CC BY・DHS）＝映像方針の一覧 §4（決め①〜⑥）
+#   ep19/pg<頁>.png   … NIST の報告書・資料の頁
+# 🔴 表はファイルから読む（ルール 0b-34①＝足し忘れると写真のカットが出典の行で止まる）。`ref/ep19/credits.json` は写真の束の
+#    チャットで書く（無いあいだは空＝当たらない）。⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）
+#    フリー素材の映像の出典は `footage.credit_of`（`ref/ep19/clips.json`・共通の棚 `ref/stock/stock.json` の `credit`）
+_EP19_CREDITS = HERE / "ref" / "ep19" / "credits.json"
+EP19_CREDIT = (json.loads(_EP19_CREDITS.read_text(encoding="utf-8"))
+               if _EP19_CREDITS.exists() else {})
+
+
+def ep19_credit(name):
+    """`ref/ep19/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if not name.startswith("ep19/"):
+        return None
+    return EP19_CREDIT.get(name)
+
+
+# ══════════════════════════════════════════════════════════
 #  18本目（スレッシャー号のリメイク）── `ref/ep18/`（2026-10-04 ⑤b-7a）
 # ══════════════════════════════════════════════════════════
 #   ep18/<欄の名>.jpg … 写真（すべて米海軍の職務著作＝PD：NARA 289-T・428-N・記録映画 85185 のコマ・Commons の PD US Navy）
@@ -990,7 +1010,7 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
+    cr = (ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
           or ep14_credit(spec["photo"])
           or ep13_credit(spec["photo"])
           or ep12_credit(spec["photo"])
