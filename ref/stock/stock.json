@@ -341,7 +341,7 @@
    {
     "ep": 19,
     "cid": "c405",
-    "role": "本体（⑤b-1 で区間を選ぶ）"
+    "role": "不採用（字が読める・10-06 ⑤b-1）"
    }
   ],
   "claims": [],
@@ -509,7 +509,7 @@
    {
     "ep": 19,
     "cid": "c405",
-    "role": "本体（10-06 ⑤b-1 で S#16 の代わり）"
+    "role": "不採用（字が読める・10-06 ⑤b-1）"
    }
   ],
   "credit": "イメージ（フリー素材）：Pexels／Kaboompics",
@@ -873,5 +873,102 @@
   ],
   "credit": "イメージ（フリー素材）：Pexels／JUN HO LEE",
   "fetched": "2026-10-05"
+ },
+ "px_9869820": {
+  "site": "Pexels",
+  "page": "https://www.pexels.com/video/close-up-on-mans-hands-holding-documents-on-table-9869820/",
+  "media": "https://videos.pexels.com/video-files/9869820/9869820-hd_2048_1080_25fps.mp4",
+  "rendition": "2048x1080",
+  "md5": "cd125e4b6de76de38a5911d3b87141f6",
+  "size": 4923825,
+  "w": 2048,
+  "h": 1080,
+  "fps": "25/1",
+  "sec": 7.72,
+  "title": "会議の机で書類をめくる手元（顔は写らない）",
+  "author": "Ron Lach",
+  "posted": "",
+  "license": "Pexels License",
+  "license_url": "https://www.pexels.com/license/",
+  "license_checked": "2026-10-06",
+  "ai": "Pexels は規約で生成AIの投稿を認めない（18本目 ⑤b-7b と同じ判断）",
+  "what": "会議の机で書類をめくる手元（顔は写らない）",
+  "place": "",
+  "era_note": "",
+  "ok_ranges": [
+   {
+    "from": 6.0,
+    "to": 7.72,
+    "ep": 19,
+    "how": "1秒1コマ＋7.0秒の原寸",
+    "faces": 0,
+    "text": 0,
+    "note": "紙が机に寝て字はぼけて読めない（6秒より前は不可）"
+   }
+  ],
+  "ng_ranges": [
+   {
+    "from": 0.0,
+    "to": 5.9,
+    "ep": 19,
+    "why": "🔴 2.0秒の原寸で英語の出生・死亡の届の用紙（Cause of death・MOTHER・FATHER）が読める＝会議の書類に見えない・死の語（10-06 ⑤b-1）"
+   }
+  ],
+  "claims": [],
+  "used_in": [
+   {
+    "ep": 19,
+    "cid": "c405",
+    "role": "候補→不採用（6秒より前は字が読める・使える区間が短い）"
+   }
+  ],
+  "credit": "イメージ（フリー素材）：Pexels／Ron Lach",
+  "fetched": "2026-10-06",
+  "code19": "S#43"
+ },
+ "px_8425719": {
+  "site": "Pexels",
+  "page": "https://www.pexels.com/video/business-people-looking-at-documents-8425719/",
+  "media": "https://videos.pexels.com/video-files/8425719/8425719-hd_1920_1080_25fps.mp4",
+  "rendition": "1920x1080",
+  "md5": "8b1b3adccf8daaa451447dccd1f85182",
+  "size": 8473310,
+  "w": 1920,
+  "h": 1080,
+  "fps": "25/1",
+  "sec": 18.13,
+  "title": "会議の机で書類に署名する手元（顔は写らない）",
+  "author": "Kampus Production",
+  "posted": "",
+  "license": "Pexels License",
+  "license_url": "https://www.pexels.com/license/",
+  "license_checked": "2026-10-06",
+  "ai": "Pexels は規約で生成AIの投稿を認めない（18本目 ⑤b-7b と同じ判断）",
+  "what": "会議の机で書類に署名する手元（顔は写らない）",
+  "place": "",
+  "era_note": "",
+  "ok_ranges": [
+   {
+    "from": 0.0,
+    "to": 8.0,
+    "ep": 19,
+    "how": "1秒1コマ（0〜11秒）＋1.0・6.0秒の原寸",
+    "faces": 0,
+    "text": 0,
+    "note": "スーツの2人の手元・紙は被写界深度の外でぼけて読めない・8秒から手前にガラスのコップがかぶる"
+   }
+  ],
+  "ng_ranges": [],
+  "claims": [],
+  "used_in": [
+   {
+    "ep": 19,
+    "cid": "c405",
+    "role": "本体 0〜7.7秒（S#16 の代わり・⑤b-1）"
+   }
+  ],
+  "credit": "イメージ（フリー素材）：Pexels／Kampus Production",
+  "fetched": "2026-10-06",
+  "code19": "S#44"
  }
 }
