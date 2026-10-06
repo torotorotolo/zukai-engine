@@ -178,4 +178,15 @@ SPEC = {
                                 dict(state=dict(bar="on"), delay=0.3, tag=dict(t="上の鉄筋が途切れる辺り", at="bar", to="bar"))],
                          note="柱の間隔・鉄筋の長さ・傾きは NIST の図の形の模式", src=TR_SRC + "の語りとスライド")),
     ),
+    # ── 🆕 ⑤b-5（2026-10-06）：年表（`tools/axis.py`・門番 check_axis）──
+    # ca20（11.26秒＝0〜3.17／3.66〜7.35／7.84〜11.26）＝AC p.76 の3つ（設計のころは連鎖を止める定め無し・1989年から鉄筋・ACI 318-25 でも
+    #   止めきれない建物がある）を1行ずつ。2025＝ACI 318-25（2025年の版）
+    "ca20": dict(
+        t="決まりの移り変わり", s="崩れの連鎖への備え",
+        fig=("axis", dict(ss.AX_CODE, steps=[
+            dict(add=ss.ax("cd79"), cur="1981"),
+            dict(add=ss.ax("cd89"), cur="1989"),
+            dict(add=[ss.ax("cd25"), dict(k="chips", at="2025", chips=["止めきれない建物もある"], rec="AC p2076")], cur="2025")],
+            note="年だけの記録はその年の真ん中に置いた・2025年は今の決まり（ACI 318-25）の版", src=ss.src(["AC p2023・p2075・p2076"]))),
+    ),
 }

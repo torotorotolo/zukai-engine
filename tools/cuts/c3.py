@@ -128,4 +128,23 @@ SPEC = {
                                 dict(tag=dict(t="高くつき、暮らしも乱す", at="cost"))],
                          note="床と重ねの厚さ・傾きは模式", src="モラビトの調査の報告（2018年10月） p.7")),
     ),
+    # ── 🆕 ⑤b-5（2026-10-06）：年表（`tools/axis.py`・門番 check_axis）──
+    # c302（7.03秒＝0〜3.63／4.12〜7.03）＝1行目「建てて15年たつころ」で 1981→1996 の括弧／2行目「プールデッキを大きく作り直す」で
+    #   1996〜97年の帯（TR0236「15 years after」・TR0441「in 1996 and '97」）
+    "c302": dict(
+        t="建てて15年", s="ひび・水漏れ・錆",
+        fig=("axis", dict(ss.AX_LIFE, past=[ss.ax("build"), ss.ax("done")], start=dict(cur="1981"), steps=[
+            dict(add=ss.ax("y15"), cur="1996"),
+            dict(add=ss.ax("rehab"), cur="1997")],
+            note="年だけの記録はその年の真ん中に置いた", src=ss.src(["TR p1005・p1236・p1441", "AC p2023"]))),
+    ),
+    # c318（7.02秒＝聞き役 0〜1.94／2.43〜7.02）＝2行目「25年以上前から見えていた錆が、2018年には報告書に」で 1996→崩落の括弧（TR0441
+    #   「more than 25 years before the collapse」）と報告の点。⚠️ 予定の一覧の「2018年11月」は報告と1か月差＝この軸では同じ点に重なる＝出さない
+    "c318": dict(
+        t="錆の年月", s="補修から報告書まで",      # ⚠️ echo：「25年以上前から」は字幕の切り取り
+        fig=("axis", dict(ss.AX_RUST, past=[ss.ax("rehab", t="補修と防水")], start=dict(cur="1997"), steps=[
+            dict(),
+            dict(add=[ss.ax("y25"), ss.ax("fall"), ss.ax("survey", fmt="ym", t="報告")], cur="2018-10-08")],
+            note="", src=ss.src(["TR p1441", "MC18 p4001", "A12 p5101"]))),
+    ),
 }

@@ -235,4 +235,14 @@ SPEC = {
                               dict(t="17・11時間前", src="TR p1158"), dict(t="9時間前", src="TR p1159"), dict(t="3時間前", src="TR p1160")],
                          note="点の位置は NIST の図（漏れの楕円の大きさは模式）", src=TR_SRC + "の語りとスライド")),
     ),
+    # ── 🆕 ⑤b-5（2026-10-06）：時間の並び（`tools/axis.py` の order・門番 check_axis）──
+    # c523（6.83秒＝0〜4.11／4.60〜6.83）＝1行目「門、プランター、柱を伝う水、床の隙間、天井の漏れ」で5つの合図を NIST のスライドと同じ
+    #   並び（約3週間前〜約3時間前・間隔は時間に比例しない）／2行目はそのまま
+    "c523": dict(
+        t="合図の並び", s="門から天井まで",      # ⚠️ dup：「最後の3週間」は右上の章の札と同じ
+        fig=("axis", dict(view="order", stops=ss.SIGNS, end="塔が崩れる", steps=[
+            dict(add=[ss.ax("s3w"), ss.ax("s1w"), ss.ax("s17h"), ss.ax("s9h"), ss.ax("s3h")], cur="約3時間前"),
+            dict()],
+            note=ss.ORDER_NOTE, src=ss.src(["TR p1156・p1157・p1158・p1159・p1160", "TF p9061"]))),
+    ),
 }

@@ -43,7 +43,7 @@ import re
 import jiko_style as J
 import titan_fig as F
 
-VIEWS = ("date", "clock", "lanes", "sec", "tiers")
+VIEWS = ("date", "clock", "lanes", "sec", "tiers", "order")
 # 🆕 2026-09-30（15本目 ⑤b-2）：sec＝秒の帯（値は "0.56"／"約9.1"＝崩れ始めからの秒・c312 の 0.56→1.3→4.6）。
 #    札は「0.56秒」。門番 check_axis は秒の読み方を自分で持つ（書いた桁の半分の幅＝"1.3"±0.05・"0.56"±0.005）
 # 🆕 2026-09-30（15本目 ⑤b-5・c218）：負の秒＝0 の時点より前（"約-8"＝横転の約8秒前）。札と目盛りは「約8秒前」「10秒前」
@@ -56,7 +56,16 @@ VIEWS = ("date", "clock", "lanes", "sec", "tiers")
 #   ② 分の小数（"9:18.1"＝9時18.1分）。札は「9時18.1分」（「9:18.1」は9時18分1秒に読める）
 #   ③ approx=True＝札の時刻に「ごろ」（記録が about の時刻＝門番 check_axis の REC_APPROX は「ごろ」が要る）
 #   ④ 日まである目盛り（"1963-04-12"）は「12日」（その月の最初の目盛りと1日には「4月」を添える）＝前は「4月」と出た
-TITLE = dict(date="年表", lanes="交信の帯", clock="時刻の帯", sec="時間の帯（秒）", tiers="時刻の帯")
+# 🆕 2026-10-06（19本目 ⑤b-5）：
+#   ① 秒まである時刻（"1:16:27"＝最初の緊急の電話）。札は「1:16:27」（画面の時刻の書き方）
+#   ② 基準からの「約○分前」（"約-7"＝基準 ref の約7分前・"約-9〜-8"＝約8〜9分前）。clock だけ・`ref="1:22"` が要る
+#      （NIST は「塔が崩れる約7分前」と書く＝時計の時刻ではない。基準＝町の頁の崩落の時刻 1:22）。札は「約7分前」「約8〜9分前」
+#   ③ order＝**時間の並び**（NIST のスライド p9061 の型＝約3週間前・約1週間前・約17時間前・約9時間前・約3時間前・数分前を同じ間隔で並べる）。
+#      `stops=(…)` に並べる値（「約3週間前」「約17時間前」「約9分前」「1:16:27」）・部品は点 pt と項目の札 chips だけ。
+#      🔴 間隔は時間に比例しない＝軸の線を点のあいだで切り、切れ目に2本の斜めの線（途切れの印）を描く・note に「間隔は時間に比例しない」
+#      （門番 check_axis が、並びが時間の順か・間隔が等しいか・途切れの印の数・断りの文字を見る）。end＝右の端の札（「塔が崩れる」）
+TITLE = dict(date="年表", lanes="交信の帯", clock="時刻の帯", sec="時間の帯（秒）", tiers="時刻の帯", order="時間の並び")
+REL = re.compile(r"約-(\d+(?:\.\d)?)(?:〜-(\d+(?:\.\d)?))?")   # 🆕 19本目：基準からの「約○分前」（clock）
 # 軸の左右（画素）。lanes は左に段の名を置くので左を空ける
 X0, X1 = F.BX0 + 110, F.BX1 - 110
 X0_LANES = F.BX0 + 250
@@ -64,6 +73,8 @@ AY = F.BY0 + 0.64 * F.BH                 # date・clock の軸の高さ（上に
 ROW_UP = (90, 244, 398)                  # 札の段（軸からの高さ。字の下端）
 CAP_TOP, CAP_T, CAP_D = 56, 40, 30       # 札の字の大きさ（時刻・項目名・出典の名）。13本目の timeline は 40／32
 #   ⚠️ 44／34／28 では項目が2〜4個のカットで軸の上が広く空いた（⑤b-5 の下見）
+BRK = 12                                 # 🆕 19本目：order の途切れの印の半幅（軸の線を切る幅の半分）
+SPAN_W = 380                             # 🆕 19本目：帯 span の札（軸の下）の幅の下限（前は 160＝短い帯の札が縮んだ）
 OFF = 8                                  # 左右に寄せた札（anchor start／end）の文字の端と縦の線の間（20 だと近い2点が同じ段に並べなかった）
 LANE_Y0, LANE_GAP = F.BY0 + 190, 130     # lanes の段（上から）
 MONTH0 = 1                               # 月の数え始め（🔴 門番の陽性対照がここを壊す）
@@ -107,11 +118,11 @@ def val(view, s):
         if not m:
             raise ValueError(f"axis：秒の書き方が違う {s!r}（0.56／約9.1／約-8）")
         return float(m[2]), "sec"
-    # 🆕 18本目 ⑤b-5：分の小数（"9:18.1"＝認定18 の 0918.1R）
-    m = re.fullmatch(r"(翌)?(\d{1,2}):(\d{2}(?:\.\d)?)", s)
-    if not m:
-        raise ValueError(f"axis：時刻の書き方が違う {s!r}（8:52／翌9:10／9:18.1）")
-    return (NEXT_DAY if m[1] else 0) + int(m[2]) * 60 + float(m[3]), "min"
+    # 🆕 18本目 ⑤b-5：分の小数（"9:18.1"＝認定18 の 0918.1R）／🆕 19本目 ⑤b-5：秒まで（"1:16:27"）
+    m = re.fullmatch(r"(翌)?(\d{1,2}):(\d{2}(?:\.\d)?)(?::(\d{2}))?", s)
+    if not m or (m[4] and "." in m[3]):
+        raise ValueError(f"axis：時刻の書き方が違う {s!r}（8:52／翌9:10／9:18.1／1:16:27）")
+    return (NEXT_DAY if m[1] else 0) + int(m[2]) * 60 + float(m[3]) + (int(m[4]) / 60 if m[4] else 0), "min"
 
 
 def label(view, s, fmt=""):
@@ -123,6 +134,12 @@ def label(view, s, fmt=""):
         return p[0] + "年" + (f"{int(p[1])}月" if len(p) > 1 else "") + (f"{int(p[2])}日" if len(p) > 2 else "")
     if view == "sec":
         return _sec_text(s)
+    if view == "order":
+        return s              # 🆕 19本目：並びの値は書いたまま（「約3週間前」「1:16:27」）
+    m = REL.fullmatch(s)
+    if m:                     # 🆕 19本目：基準からの「約○分前」（範囲は小さい方から「約8〜9分前」）
+        a, b = sorted([m[1], m[2] or m[1]], key=float)
+        return f"約{a}分前" if a == b else f"約{a}〜{b}分前"
     t = s.replace("翌", "")
     if "." in t:
         h, mi = t.split(":")
@@ -162,12 +179,20 @@ def _c(name, dflt):
 #  型の本体
 # ══════════════════════════════════════════════════════════
 class _Ax:
-    def __init__(self, view, span, lanes):
+    def __init__(self, view, span, lanes, ref=None, stops=()):
         self.view = view
-        self.a, _ = val(view, span[0])
-        self.b, _ = val(view, span[1])
+        self.stops = list(stops or [])
+        if view == "order":
+            # 🆕 19本目：並びは値の順に同じ間隔（点 i は区切り i の真ん中）。span は使わない
+            if len(self.stops) < 2 or len(set(self.stops)) != len(self.stops):
+                raise ValueError(f"axis：order の stops は2つ以上・重ならない値 {stops}")
+            self.a, self.b = 0.0, float(len(self.stops))
+        else:
+            self.a, _ = val(view, span[0])
+            self.b, _ = val(view, span[1])
         if self.b <= self.a:
             raise ValueError(f"axis：span が逆 {span}")
+        self.ref = val("clock", ref)[0] if ref else None
         self.x0 = X0_LANES if view == "lanes" else X0
         self.x1 = X1
         self.lanes = list(lanes or [])
@@ -190,6 +215,18 @@ class _Ax:
             self.top = AY - 20
 
     def x(self, s, item=False):
+        if self.view == "order":
+            if s not in self.stops:
+                raise ValueError(f"axis：{s} は order の stops {self.stops} に無い")
+            return self.x0 + (self.x1 - self.x0) * (self.stops.index(s) + 0.5) / len(self.stops)
+        m = REL.fullmatch(str(s).strip()) if self.view in ("clock", "lanes") else None
+        if m:
+            if self.ref is None:
+                raise ValueError(f"axis：「{s}」（約○分前）には基準 ref が要る")
+            v = self.ref - (float(m[1]) + float(m[2] or m[1])) / 2
+            if not (self.a - 1e-9 <= v <= self.b + 1e-9):
+                raise ValueError(f"axis：{s} が軸の範囲の外")
+            return self.x0 + (self.x1 - self.x0) * (v - self.a) / (self.b - self.a)
         v, pr = val(self.view, s)
         if item and pr == "year":
             v += 0.5          # 年だけの記録は年の真ん中に置く（目盛りはその年の頭＝1月に置くと「1月」と読める）
@@ -216,6 +253,26 @@ def _base(A, ticks, note, src):
         for nm, y in A.ly.items():
             g.append(F.line(A.x0, y, A.x1, y, J.LINE_DIM, 3, dash="10 10"))
             g.append(F.txtfit(F.BX0 + 8, y + 11, nm, A.x0 - F.BX0 - 30, cap=32, col=J.INK_W))
+    if A.view == "order":
+        # 🆕 19本目 ⑤b-5：並び＝軸の線を点のあいだで切り、切れ目に2本の斜めの線（途切れの印＝間隔は時間に比例しない）
+        n = len(A.stops)
+        step = (A.x1 - A.x0) / n
+        cuts = [A.x0 + step * i for i in range(1, n)]
+        edges = [A.x0] + cuts + [A.x1]
+        for i in range(n):
+            g.append(F.line(edges[i] + (0 if i == 0 else BRK), ay, edges[i + 1] - (0 if i == n - 1 else BRK), ay, J.LINE, 5))
+        for xc in cuts:
+            for dx in (-BRK + 3, BRK - 3):
+                g.append(F.line(xc + dx - 7, ay + 16, xc + dx + 7, ay - 16, J.LINE, 4))
+        g.append(F.arrow(A.x1 - 4, ay, A.x1 + 34, ay, J.LINE, 5))
+        for s in A.stops:
+            x = A.x(s)
+            g.append(F.line(x, ay - 12, x, ay + 12, J.LINE_DIM, 3))
+        if A.end:
+            g.append(F.txt(A.x1 + 34, ay + 48, A.end, 30, J.ALERT, "Noto", "end", ol=6))
+        g.append(F.txtfit(F.BX0, F.BY1 - 6, note + (f"　出典：{src}" if src else ""), F.BW, cap=26, col=J.TICK))
+        A.breaks = [round(x, 2) for x in cuts]
+        return g, []
     g.append(F.line(A.x0, ay, A.x1, ay, J.LINE, 5))
     g.append(F.arrow(A.x1 - 4, ay, A.x1 + 34, ay, J.LINE, 5))
     tk = []
@@ -374,7 +431,8 @@ def _draw(A, it, row, dim):
             y = A.ay
             g.append(F.rect(xa, y - 11, xb - xa, 22, col, op=0.45 if dim else 0.85))
             if it.get("t"):
-                g.append(F.txtfit((xa + xb) / 2, y + 118, it["t"], max(160, xb - xa + 120), cap=30, col=ink if dim else col,
+                # 🆕 19本目 ⑤b-5（下見）：数十年の年表の2年の帯は幅 160 に縮められ「設計の不足・図面とのずれ」が読めなかった＝SPAN_W まで許す
+                g.append(F.txtfit((xa + xb) / 2, y + 118, it["t"], max(SPAN_W, xb - xa + 120), cap=30, col=ink if dim else col,
                                   anchor="middle"))
         else:
             y = A.ay - 40
@@ -461,16 +519,25 @@ def _cursor(A, xs):
     return [ln, tri]
 
 
-def axis(view, steps, span, ticks=(), past=(), lanes=(), start=None, note="", src="", cur_on=True):
-    """軸の型。steps＝ナレーションの行ごとの段（上の「SPEC の書き方」）。"""
+def axis(view, steps, span=None, ticks=(), past=(), lanes=(), start=None, note="", src="", cur_on=True,
+         ref=None, ref_rec=None, stops=(), end=""):
+    """軸の型。steps＝ナレーションの行ごとの段（上の「SPEC の書き方」）。
+    🆕 19本目：ref／ref_rec＝「約○分前」の基準の時刻と記録の頁（clock）・stops／end＝並び（order）の値と右の端の札。"""
     if view not in VIEWS:
         raise ValueError(f"axis：知らない見え方 {view!r}（{VIEWS}）")
     if not src:
         raise ValueError("axis：src（出典）を書くこと（図解は出典必須）")
-    A = _Ax(view, span, lanes)
+    if view != "order" and not span:
+        raise ValueError("axis：span（軸の範囲）を書くこと")
+    if ref and not ref_rec:
+        raise ValueError("axis：基準 ref には記録の頁 ref_rec が要る")
+    A = _Ax(view, span, lanes, ref, stops)
+    A.end, A.breaks = end, []
     for it in list(past) + [x for st in steps for x in F._many(st.get("add"))]:
         if not it.get("rec"):
             raise ValueError(f"axis：rec（記録の頁）が無い部品 {it}")
+        if view == "order" and it["k"] not in ("pt", "chips"):
+            raise ValueError(f"axis：order に {it['k']} は置けない（点 pt と項目の札 chips だけ）")
         if it["k"] == "link" and (it.get("t") or it.get("chips")):
             raise ValueError("axis：交信 link に文字を書かない（私人の言葉を帯に書かない＝守りの線）")
         if it["k"] == "link" and view != "lanes":
@@ -516,6 +583,8 @@ def axis(view, steps, span, ticks=(), past=(), lanes=(), start=None, note="", sr
     anim = _cursor(A, xs) if cur_on else []
     f.moves = ([dict(kind="anim", stage=0, shapes=anim, box=F._mech_box(anim), delay=F.MECH_DELAY, dur=F.MECH_DUR)]
                if anim else [])
-    f.mech = dict(kind="axis", view=view, span=list(span), ticks=tk, parts=parts, lanes=dict(A.ly),
-                  cur=[round(x, 2) for x in xs], cur_on=cur_on, x0=A.x0, x1=A.x1)
+    f.mech = dict(kind="axis", view=view, span=list(span or []), ticks=tk, parts=parts, lanes=dict(A.ly),
+                  cur=[round(x, 2) for x in xs], cur_on=cur_on, x0=A.x0, x1=A.x1,
+                  ref=ref, ref_rec=ref_rec, stops=list(A.stops), stop_x=[round(A.x(s), 2) for s in A.stops],
+                  breaks=list(A.breaks), end=end, note=note)
     return f

@@ -86,4 +86,45 @@ SPEC = {
                                           dict(t="地上の駐車場", at="park", to="park")])],
                          note="範囲の線は模式（入口の車道の位置は空から見た写真の形）", src="マイアミ・デイド郡の大陪審の報告（2022年） p.18")),
     ),
+    # ── 🆕 ⑤b-5（2026-10-06）：時間の帯・年表（`tools/axis.py`・門番 check_axis）──
+    # c401（12.38秒＝聞き役 0〜1.54／2.04〜7.15／7.63〜12.38）＝この章の帯（予定の一覧＝報告・会議・手紙・崩落と「29か月」の括弧）。
+    #   1行目で報告と章の帯／2行目「2018年11月15日。管理組合が会議を開いた」で理事会／3行目で招かれた町の建築担当者の札
+    "c401": dict(
+        t="報告のあと", s="管理組合の動き",      # ⚠️ echo：「1か月あまりあと」は字幕の切り取り・dup：「2018年の秋」は出典の行の写し
+        fig=("axis", dict(ss.AX_REP, steps=[
+            dict(add=[ss.ax("rep", fmt="ym", anchor="end"), ss.ax("m29"), ss.ax("letter"), ss.ax("fall_d", fmt="ym")], cur="2018-10-08"),
+            dict(add=ss.ax("mtg"), cur="2018-11-15"),
+            dict(add=dict(k="chips", at="2018-11-15", chips=["町の担当者が出席"], rec="GJ p3020"))],
+            note="", src=ss.src(["MC18 p4001", "MIN18 p4106", "GJ p3020・p3021", "A12 p5101"]))),
+    ),
+    # c409（9.20秒＝聞き役 0〜2.23／2.72〜6.49／6.97〜9.20）＝2行目「報告から29か月あまりたった2021年4月」で括弧と手紙の点／
+    #   3行目「補修の工事は、何も始まっていなかった」で項目の札（GJ p.18「had not begun any repair work」）
+    "c409": dict(
+        t="始まらない工事", s="報告から2021年4月まで",
+        fig=("axis", dict(ss.AX_REP, past=[ss.ax("rep", fmt="ym", anchor="end"), ss.ax("mtg")], start=dict(cur="2018-11-15"), steps=[
+            dict(),
+            dict(add=[ss.ax("m29"), ss.ax("letter")], cur="2021-04"),
+            dict(add=dict(k="chips", at="2021-04", chips=["工事は手つかず"], rec="GJ p3021"))],
+            note="", src=ss.src(["MC18 p4001", "MIN18 p4106", "GJ p3020・p3021"]))),
+    ),
+    # c415（9.89秒＝聞き役 0〜2.19／2.68〜7.07／7.56〜9.89）＝2021年だけの帯。2行目「入札。それを開く会議が予定されていた」で会議の点
+    #   （GJ p.18 は「崩れる13日前」としか書かない＝日付の札を出さない）／3行目「その結末を」で13日の括弧と崩落（数は次の c416 の決め所＝出さない）
+    "c415": dict(
+        t="工事の手前", s="手紙から崩落まで",      # ⚠️ dup：「2021年」は目盛りの年と同じ
+        fig=("axis", dict(ss.AX_21, past=[ss.ax("letter")], start=dict(cur="2021-04"), steps=[
+            dict(),
+            dict(add=ss.ax("bid"), cur="2021-06-11"),
+            dict(add=[ss.ax("d13"), ss.ax("fall_d")], cur="2021-06-24")],
+            note="会議の日は「崩れる13日前」の記録から置いた", src=ss.src(["GJ p3021", "A12 p5101"]))),
+    ),
+    # c418（8.61秒＝0〜3.42／3.91〜8.61）＝大陪審の報告の題。この章の帯をまとめて並べる（予定の一覧＝報告→会議→手紙・29か月→入札の会議→13日後）
+    "c418": dict(
+        t="大陪審のまとめ", s="報告から崩落まで",
+        fig=("axis", dict(ss.AX_REP, steps=[
+            dict(add=[ss.ax("rep", fmt="ym", anchor="end"), ss.ax("mtg"), ss.ax("m29"), ss.ax("letter"), ss.ax("bid"),
+                      ss.ax("d13"), ss.ax("fall_d", fmt="ym", anchor="start")], cur="2021-06-24"),
+            dict()],
+            note="会議の日は「崩れる13日前」の記録から置いた",
+            src=ss.src(["MC18 p4001", "MIN18 p4106", "GJ p3020・p3021", "A12 p5101"]))),
+    ),
 }

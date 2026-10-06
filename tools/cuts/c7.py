@@ -88,4 +88,27 @@ SPEC = {
                          note="建物とがれきの形・見張りの印は模式（人は描かない）",
                          src="FEMA の発表（2021年7月17日） p.2・郡長のメモ（2023年10月26日） p.1・GAO の報告（2024年） p.3")),
     ),
+    # ── 🆕 ⑤b-5（2026-10-06）：時間の帯（`tools/axis.py`・門番 check_axis）──
+    # c714（10.76秒＝0〜5.10／5.59〜8.49／8.98〜10.77）＝1行目「最後の1人が見つかったのは7月20日…26日後」で点と括弧
+    #   （町の頁「8:03p.m., the exact time when the final person was recovered on July 20, 2021」）／2行目「98人、全員の身元」の札
+    #   （GJ p.1「recovered and identified remains for 98 known persons」）／3行目（聞き役）はそのまま。午後8時3分は字幕だけ
+    "c714": dict(
+        t="捜索の終わり", s="2021年6月〜7月",
+        fig=("axis", dict(ss.AX_SEARCH, past=[ss.ax("f624", keep=True)], start=dict(cur="2021-06-24"), steps=[
+            dict(add=[ss.ax("d26"), ss.ax("last")], cur="2021-07-20"),
+            dict(add=dict(k="chips", at="2021-07-20", chips=["98人全員の身元を確認"], rec=["A12 p5101", "GJ p3004"])),
+            dict()],
+            note=ss.TL_NOTE, src=ss.src(["A12 p5101", "GJ p3004"]))),
+    ),
+    # c719（12.92秒＝0〜3.54／4.03〜7.52／8.01〜12.92）＝1行目「崩れた次の日に、6人」（FEMA p.2）／2行目「6月30日、本格的な調査を
+    #   始めると発表」／3行目「建物の大事故を調べる法律による調査」で法律の名の札（GAO p.5）と、予定の一覧の「証拠を NIST が預かる」（B08）
+    "c719": dict(
+        t="調査の始まり", s="崩れた次の日から",      # ⚠️ dup：「NIST の調査」は出典の行と札に埋もれた
+        fig=("axis", dict(ss.AX_NIST, steps=[
+            dict(add=ss.ax("team"), cur="2021-06-25"),
+            dict(add=ss.ax("ann"), cur="2021-06-30"),
+            dict(add=[dict(k="chips", at="2021-06-30", chips=["建設安全チーム法による調査", "National Construction Safety Team Act"],
+                           rec="B01 p5605"), ss.ax("evid")], cur="2022-01-28")],
+            note="", src=ss.src(["B02 p5702", "B01 p5605", "B08 p5005"]))),
+    ),
 }

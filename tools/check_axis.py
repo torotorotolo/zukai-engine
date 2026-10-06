@@ -15,6 +15,9 @@
      `cuts/ss.ILLU_SPLIT_TIMES` の時刻の点（pt）は出典の名を添える（by=True）
   ④ 交信の帯：link に文字が無い・段の名は `LANES_OK` だけ（私人の言葉を帯に書かない）
   ⑤ カーソルは記録の値（その段までに描いた部品の x）か軸の左端にだけ止まる
+  ⑥ 🆕 19本目 ⑤b-5：秒まである時刻（±0.5秒）・基準からの「約○分前」（基準 ref も記録の表で照らす・札は「約7分前」）・
+     並び order（値が時間の順＝門番の読み方 ORDER_UNIT で基準からの秒へ／点が同じ間隔／途切れの印が点のあいだに1つずつ／
+     note に「間隔は時間に比例しない」）
 
 ■ 使い方
     python tools/check_axis.py              # 全カット
@@ -55,12 +58,66 @@ sys.stdout.reconfigure(encoding="utf-8")
 #    **空にした**。selftest の見本 `tools/fixture_ep18.py`（GATES["check_axis"]・値は1つも変えていない＝git の `2d627a2`）。19本目の値は、軸の型を
 #    初めて使う ⑤b のチャットで、値と頁を ref/ep19/src/ep19_pages.txt で当てて入れる（空のあいだ、軸のカットは「記録に無い値」で止まる＝fail closed）。
 #    型の側（LANE_COL・tier_pierce・分の小数・「ごろ」・日の目盛り）は残す
-REC_AXIS = {}
+# ✅ 2026-10-06（19本目 サーフサイド ⑤b-5）：19本目の値を入れた。原文＝ref/ep19/src/ep19_pages.txt（頁の番号は cuts/ss.REC_DOCS の通し番号＝
+#    TR p1NNN＝NIST の技術的知見の動画の語りの行 NNN・AC p20NN＝諮問委員会の資料の PDF 頁・GJ p30NN＝大陪審の報告の PDF 頁（印字の頁＋3）・
+#    MC18 p400N＝2018年10月の調査の報告・MIN18 p410N＝2018年11月15日の議事録の PDF 頁・A12 p5101＝町の頁・B01 p56NN＝GAO・B02 p57NN＝FEMA・
+#    B08 p5005＝NIST の発表 2024-11-21・A17 p70NN／A18 p71NN／A19 p72NN＝裁判所の命令と告知）。引いた原文は値の右の注
+REC_AXIS = {
+    # ── 建物の歩み（c210・c302・c318・c918・c919）
+    "1979": {"AC p2023"},                   # AC p.23 の年表「CTS Design & Construction 1979-1981」
+    "1981": {"AC p2023", "TR p1005", "GJ p3005", "TR p1278", "TR p1281"},   # 同「1979-1981」・TR0005「had stood … since 1981」・
+    #   GJ p.2「1981, making the 12-story condo 40 [year]s old」・TR0281「from the time construction was complete」・TR0278「before the building was even occupied」
+    "1996": {"TR p1441", "TR p1236"},       # TR0441「structural repairs and waterproofing were conducted in 1996 and '97」・TR0236「15 years after the building was constructed」（1981＋15）
+    "1997": {"TR p1441"},                   # 同「in 1996 and '97」
+    "2018-10-08": {"MC18 p4001", "MC18 p4007", "GJ p3020"},   # 調査の報告「October 8, 2018」・GJ p.17「as early as October 8, 2018」
+    "2021": {"MIN18 p4107", "GJ p3005"},    # 議事録 p.7「The 40 year certification for the building will be due in 2021」・GJ p.2 の40年の点検
+    "2021-06-24": {"A12 p5101", "GJ p3004"},   # 町の頁「the Champlain Towers South building collapse of June 24, 2021」・GJ p.1「June 24, 2021」
+    # ── 報告のあと（c401・c409・c415・c418）
+    "2018-11-15": {"MIN18 p4106", "GJ p3020"},  # 議事録「November 15, 2018 at 7:00 pm」・GJ p.17「a month later, on November 15, 2018」
+    "2021-04": {"GJ p3021"},                # GJ p.18「In April 2021, more than 29 months after the engineer's report was received」・「the April 2021 letter from the then Board president」
+    "2021-06-11": {"GJ p3021"},             # GJ p.18「Thirteen days after the Board was to hold a meeting to open the bids …, the building collapsed」（6月24日の13日前）
+    # ── 最後の3週間（c523・c622＝並び）。TR0156〜0160 のまとめ・TF p9061 のスライドの並べ方
+    "約3週間前": {"TR p1156", "TR p1016"},   # TR0156「approximately three weeks before the collapse」・TR0016「about three weeks before the collapse」
+    "約1週間前": {"TR p1157", "TR p1095"},   # TR0157「Two weeks later」（3週間前の2週間後）・TR0095「one week before the tower collapsed」
+    "約17時間前": {"TR p1158"},              # TR0158「Then 17 hours before and again 11 hours before the collapse」
+    "約9時間前": {"TR p1159"},               # TR0159「Then nine hours before the collapse, a water leak」
+    "約3時間前": {"TR p1160"},               # TR0160「just three hours before the tower collapsed」
+    "約9分前": {"TR p1161"},                 # TR0161「At approximately nine minutes before the tower collapsed, the last vehicle entered」
+    "約6分前": {"TR p1170"},                 # TR0170「At approximately six minutes prior to the tower collapsing」
+    "1:16:27": {"TR p1177"},                 # TR0177「at 1:16 and 27 seconds a.m.」（最初の 911 の電話）
+    "1:17:49": {"TR p1189"},                 # TR0189「at 1:17 and 49 seconds a.m.」（2回目の電話）
+    "1:22:14": {"TR p1347", "TR p1348"},     # TR0347「the rate of drop increased dramatically at about 1:22:14」
+    # ── 崩れる前の数分（c602・c603・c605・c608＝時刻の帯・基準 1:22 からの「約○分前」）
+    "1:22": {"A12 p5101"},                   # 町の頁＝崩落の時刻（台本 §1-5「the exact time of the collapse」）
+    "約-9": {"TR p1161"},                    # 上の「約9分前」と同じ（最後の車）
+    "約-9〜-8": {"TR p1167"},                # TR0167「approximately eight to nine minutes prior to the tower collapsing」（音）
+    "約-7": {"TR p1169"},                    # TR0169「Approximately seven minutes before the tower collapsed, the building's own fire alarm logged a trouble signal」
+    "約-6": {"TR p1170"},                    # 上の「約6分前」と同じ（地上の駐車場）
+    "約-5": {"TR p1181", "TR p1183"},        # TR0181「approximately five minutes prior」・TR0183「from south to north, one bay at a time」
+    "1:17:55": {"TR p1190"},                 # TR0190「a few seconds later at 1:17 and 55 seconds a.m.」（火災報知器の見張りの会社）
+    # ── 捜索と調査（c714・c719）
+    "2021-07-20": {"A12 p5101"},             # 町の頁「8:03p.m., the exact time when the final person was recovered on July 20, 2021」
+    "2021-06-25": {"B02 p5702", "B08 p5005"},   # FEMA「On June 25, NIST initially deployed a team of six scientists and engineers」・B08「arrived in Surfside on June 25, 2021」
+    "2021-06-30": {"B02 p5702", "B01 p5605", "B08 p5005"},   # FEMA「On June 30, the agency announced」・GAO「On June 30, 2021, NIST announced」
+    "2022-01-28": {"B08 p5005"},             # B08「when the evidence custody and control transferred to NIST on Jan. 28, 2022」
+    # ── 決まり（ca20）
+    "1989": {"AC p2075", "AC p2076"},        # AC p.75・76「Starting in 1989, versions of the building code for structural concrete required structural integrity reinforcement」
+    "2025": {"AC p2076"},                    # AC p.76「The current structural integrity provisions in ACI 318-25」（318-25＝2025年の版）
+    # ── 裁判所（cc20）
+    "2022-06-01": {"A18 p7104"},             # 売却を認める命令「DONE and ORDERED … on this 1st day of June, 2022」
+    "2022-06-24": {"A17 p7015"},             # 最終の命令「DONE and ORDERED … on this 24th day of June, 2022」
+    "2022-07-27": {"A19 p7201"},             # 売却の告知「he has concluded the sale」「Dated: July 27, 2022」
+}
 LANES_OK = set()
 REC_APPROX = set()      # 記録が about の時刻（「ごろ」が要る）
 LANE_COL = 20        # 🆕 18本目 ⑤b-5：2段の帯の札が軸の左端より左へ出てよい画素（段の名の列にかけない）
 REC_LANE = {}             # 2段の帯の記録ごとの段（値 → 段の名）
 CH_PAD = 12          # 🆕 16本目 ⑤b-6b：札と右上の章の札（jiko_style.chapter）のあいだに要る画素
+_REF = [None]        # 🆕 19本目 ⑤b-5：「約○分前」の基準（分）＝judge_fig が kw の ref を門番の読み方で読んで置く
+# 🆕 19本目 ⑤b-5：並び（order）の値を「基準からの秒」に読む（門番の側の読み方）。基準＝町の頁の崩落の時刻 1:22（A12）
+ORDER_UNIT = {"週間": 7 * 86400, "日": 86400, "時間": 3600, "分": 60}
+ORDER_REF_MIN = 82          # 1:22
+ORDER_NOTE = "間隔は時間に比例しない"     # 並びの note に要る断り
 
 
 def gv(view, s):
@@ -91,8 +148,21 @@ def gv(view, s):
             v = yr(a)
             return v - 0.6 / yl, v + 0.6 / yl
         return yr(a) - 1e-6, yr(b) + 1e-6
+    # 🆕 19本目 ⑤b-5：基準からの「約○分前」（"約-7"・"約-9〜-8"）＝門番の側の基準 _REF（judge_fig が kw の ref を自分で読んで置く）
+    r = re.fullmatch(r"約-(\d+)(?:〜-(\d+))?", s)
+    if r:
+        if _REF[0] is None:
+            raise ValueError(f"「{s}」（約○分前）なのに基準 ref が無い")
+        lo, hi = sorted([int(r[1]), int(r[2] or r[1])])
+        return _REF[0] - hi - 0.3, _REF[0] - lo + 0.3
     nxt = s.startswith("翌")
-    h, m = s.replace("翌", "").split(":")
+    parts = s.replace("翌", "").split(":")
+    if len(parts) == 3:
+        # 🆕 19本目 ⑤b-5：秒まで（"1:16:27"）＝±0.5秒
+        h, m, sec = (int(x) for x in parts)
+        v = (1440 if nxt else 0) + h * 60 + m + sec / 60
+        return v - 0.5 / 60, v + 0.5 / 60
+    h, m = parts
     if "." in m:
         # 🆕 18本目 ⑤b-5：分の小数（"9:18.1"）＝書いた桁の半分の幅（±0.05分）。整数の分は今までどおり ±0.3分
         whole, frac = m.split(".")
@@ -122,6 +192,12 @@ def _texts(view, s):
         return set(forms)
     if view == "sec":
         return {_sec_word(s)}
+    if view == "order":
+        return {s}            # 🆕 19本目：並びの値は書いたまま
+    r = re.fullmatch(r"約-(\d+)(?:〜-(\d+))?", s)
+    if r:                     # 🆕 19本目：「約7分前」・範囲は小さい方から「約8〜9分前」
+        lo, hi = sorted([int(r[1]), int(r[2] or r[1])])
+        return {f"約{lo}分前" if lo == hi else f"約{lo}〜{hi}分前"}
     t = s.replace("翌", "")
     if "." in t:
         # 🆕 18本目 ⑤b-5：分の小数は「9時18.1分」（「9:18.1」は9時18分1秒に読める）。分の頭の0は書かない（9:09.8→9時9.8分）
@@ -207,8 +283,21 @@ def judge_fig(kw, split_times=(), head=None):
     f = A.axis(**kw)
     m = f.mech
     view = m["view"]
-    vk = view if view in ("date", "sec") else "clock"
+    vk = view if view in ("date", "sec", "order") else "clock"
     bad, n = [], 0
+    # 🆕 19本目 ⑤b-5：「約○分前」の基準＝kw の ref を門番の読み方で読み、記録の表で照らす
+    _REF[0] = None
+    if kw.get("ref"):
+        n += 1
+        a_, b_ = gv("clock", kw["ref"])
+        _REF[0] = (a_ + b_) / 2
+        if kw["ref"] not in REC_AXIS or kw.get("ref_rec") not in REC_AXIS[kw["ref"]]:
+            bad.append(f"基準 {kw['ref']}（{kw.get('ref_rec')}）が記録の表 REC_AXIS と合わない")
+    if view == "order":
+        ob, on = _order_checks(m)
+        bad += ob
+        n += on
+        return _judge_parts(kw, m, view, vk, bad, n, None, split_times, head)
     tk = m["ticks"]
     if len(tk) < 2:
         return [f"目盛りが {len(tk)} 本（2本以上ないと画素から値へ戻せない）"], 1
@@ -231,6 +320,46 @@ def judge_fig(kw, split_times=(), head=None):
     def back(x):
         return (x - q) / p
 
+    return _judge_parts(kw, m, view, vk, bad, n, (back, p), split_times, head)
+
+
+def _order_checks(m):
+    """🆕 19本目 ⑤b-5：並び（order）の物差し＝①値が時間の順（門番の読み方で基準からの秒へ）②同じ間隔（点の x の差が等しく・
+    端は半分の間隔）③途切れの印が点のあいだに1つずつ ④note に「間隔は時間に比例しない」。"""
+    bad, n = [], 0
+    st, sx = m["stops"], m["stop_x"]
+    secs = []
+    for s in st:
+        n += 1
+        r = re.fullmatch(r"約(\d+)(週間|日|時間|分)前", s)
+        c = re.fullmatch(r"(\d{1,2}):(\d{2})(?::(\d{2}))?", s)
+        if r:
+            secs.append(-int(r[1]) * ORDER_UNIT[r[2]])
+        elif c:
+            secs.append((int(c[1]) * 60 + int(c[2]) - ORDER_REF_MIN) * 60 + int(c[3] or 0))
+        else:
+            bad.append(f"並びの値「{s}」が読めない（約N週間前／約N時間前／約N分前／1:16:27）")
+            return bad, n
+    n += 1
+    if any(b <= a for a, b in zip(secs, secs[1:])):
+        bad.append(f"並びが時間の順でない（{st}）")
+    n += 1
+    gaps = [b - a for a, b in zip(sx, sx[1:])]
+    if len(sx) < 2 or max(gaps) - min(gaps) > 0.6 or abs((sx[0] - m["x0"]) - gaps[0] / 2) > 0.6 \
+            or abs((m["x1"] - sx[-1]) - gaps[0] / 2) > 0.6:
+        bad.append(f"並びの点が同じ間隔でない（{sx}）")
+    n += 1
+    br = m.get("breaks") or []
+    if len(br) != len(st) - 1 or any(not (a < b < c) for a, b, c in zip(sx, br, sx[1:])):
+        bad.append(f"途切れの印が点のあいだに1つずつでない（印 {len(br)}・点 {len(st)}）＝間隔が時間に比例しない印")
+    n += 1
+    if ORDER_NOTE not in (m.get("note") or ""):
+        bad.append(f"並びの note に「{ORDER_NOTE}」が無い")
+    return bad, n
+
+
+def _judge_parts(kw, m, view, vk, bad, n, lin, split_times, head):
+    """部品ごとの照合と、札の位置の照合（judge_fig の後半）。lin＝(画素→値, 傾き)・order は None（点は並びの位置で照らす）。"""
     placed = [m["x0"]]
     splits = []
     for part in m["parts"]:
@@ -247,6 +376,15 @@ def judge_fig(kw, split_times=(), head=None):
                 bad.append(f"{s} は記録の表 REC_AXIS に無い（{part['k']}「{part.get('t', '')}」）")
             elif not any(r in REC_AXIS[s] for r in recs):
                 bad.append(f"{s} の rec {recs} が記録の頁 {sorted(REC_AXIS[s])} と合わない")
+            if lin is None:
+                # 🆕 19本目：並び＝値は stops の1つ・x はその点の位置（同じ間隔は _order_checks が見る）
+                if s not in m["stops"]:
+                    bad.append(f"{s} は並びの値 stops に無い")
+                elif abs(x - m["stop_x"][m["stops"].index(s)]) > 0.6:
+                    bad.append(f"{s} の画素 x={x} が並びの位置 {m['stop_x'][m['stops'].index(s)]} と違う")
+                placed.append(x)
+                continue
+            back, p = lin
             lo, hi = gv(vk, s)
             v = back(x)
             eps = 0.5 / abs(p)            # 画素は小数2桁に丸めて記録する＝0.5画素ぶんは丸めの誤差として許す
@@ -541,10 +679,94 @@ def _selftest_ep15():
     return ok
 
 
+def selftest_ep19():
+    """🆕 2026-10-06（19本目 ⑤b-5）：秒まである時刻・基準からの「約○分前」・並び（order）の検算＝本番の表（19本目の REC_AXIS）で回す。
+    正しい形が通り、記録・順・断り・型の幾何（約○分前の向き・秒・間隔・途切れの印・札の文字）を壊すと鳴ること。"""
+    import axis as A
+    ok = True
+    night = dict(view="clock", span=("1:11", "1:23"), ticks=("1:12", "1:14", "1:16", "1:18", "1:20", "1:22"),
+                 ref="1:22", ref_rec="A12 p5101",
+                 steps=[dict(add=dict(k="pt", at="約-7", t="信号", rec="TR p1169"), cur="約-7"),
+                        dict(add=dict(k="pt", at="1:16:27", t="電話", rec="TR p1177", anchor="start"), cur="1:16:27")],
+                 note="n", src="s")
+    signs = ("約3週間前", "約1週間前", "約17時間前", "約9時間前", "約3時間前")
+    order = dict(view="order", stops=signs, end="崩れる", note="間隔は時間に比例しない", src="s",
+                 steps=[dict(add=[dict(k="pt", at=s, t="合図", rec=r) for s, r in
+                                  zip(signs, ("TR p1156", "TR p1157", "TR p1158", "TR p1159", "TR p1160"))], cur="約3時間前")])
+
+    def mod(d, **kw):
+        return dict(d, **kw)
+    cases = [
+        ("正しい時刻の帯（約7分前・1:16:27・基準 1:22）", night, True),
+        ("正しい並び（約3週間前〜約3時間前）", order, True),
+        ("🔴 陽性対照：基準の頁が違う（TR p1001）", mod(night, ref_rec="TR p1001"), False),
+        ("🔴 陽性対照：約7分前の頁が違う（TR p1170）",
+         mod(night, steps=[dict(add=dict(k="pt", at="約-7", t="信号", rec="TR p1170"))]), False),
+        ("🔴 陽性対照：並びの順が逆（約17時間前を約1週間前の前に）",
+         mod(order, stops=("約3週間前", "約17時間前", "約1週間前", "約9時間前", "約3時間前")), False),
+        ("🔴 陽性対照：並びの断り「間隔は時間に比例しない」が無い", mod(order, note="NIST のスライドの並べ方"), False),
+    ]
+    for name, kw, want in cases:
+        bad, _ = judge_fig(kw)
+        got = not bad
+        ok &= got == want
+        print(f"  {'OK' if got == want else '🔴 NG'} {name}: {'合格' if got else '不合格'}"
+              f"（{'合格' if want else '不合格'}のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    # 🔴 型を壊す（§5b-88）：門番は値の読み方と並びの物差しを自分で持つ＝型だけが間違えても鳴ること
+    keep_x, keep_base, keep_label = A._Ax.x, A._base, A.label
+
+    def x_rel_shift(self, s, item=False):          # 「約○分前」を半分ずらして描く型
+        return keep_x(self, s, item) + (66 if A.REL.fullmatch(str(s)) and self.view == "clock" else 0)
+
+    def x_drop_sec(self, s, item=False):           # 秒を捨てて描く型（1:16:27 → 1:16）
+        return keep_x(self, s.rsplit(":", 1)[0] if self.view == "clock" and str(s).count(":") == 2 else s, item)
+
+    def x_uneven(self, s, item=False):             # 並びの1点だけ間隔をずらす型
+        v = keep_x(self, s, item)
+        return v + 40 if self.view == "order" and s == self.stops[1] else v
+
+    def base_no_break(Ax, *a):                     # 途切れの印を1つ描き忘れる型
+        r = keep_base(Ax, *a)
+        Ax.breaks = Ax.breaks[:-1]
+        return r
+    breaks = (("「約○分前」を半分ずらす型", "x", x_rel_shift, night), ("秒を捨てる型", "x", x_drop_sec, night),
+              ("並びの間隔をずらす型", "x", x_uneven, order), ("途切れの印を1つ描き忘れる型", "base", base_no_break, order),
+              ("「約7分前」を「約7分」と書く型", "label", lambda v, s, fmt="": keep_label(v, s, fmt).replace("分前", "分"), night))
+    for name, what, fn, kw in breaks:
+        if what == "x":
+            A._Ax.x = fn
+        elif what == "base":
+            A._base = fn
+        else:
+            A.label = fn
+        try:
+            bad, _ = judge_fig(kw)
+        except ValueError as e:
+            bad = [f"型が止まった：{e}"]
+        finally:
+            A._Ax.x, A._base, A.label = keep_x, keep_base, keep_label
+        good = bool(bad)
+        ok &= good
+        print(f"  {'OK' if good else '🔴 NG'} 🔴 陽性対照（型）：{name}: {'不合格' if bad else '合格'}（不合格のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+    for name, kw in (("基準 ref の無い「約○分前」", mod(night, ref=None, ref_rec=None)),
+                     ("並びに帯 span を置く", mod(order, steps=[dict(add=dict(k="span", a="約3週間前", b="約1週間前", rec="TR p1156"))]))):
+        try:
+            A.axis(**kw)
+            good = False
+        except ValueError:
+            good = True
+        ok &= good
+        print(f"  {'OK' if good else '🔴 NG'} 🔴 陽性対照：{name}で型が止まる: {'止まった' if good else '通った'}（止まるはず）")
+    return ok
+
+
 def selftest():
+    # 🆕 2026-10-06（19本目 ⑤b-5）：先に19本目（本番の表）を検算する＝前の回の見本を差す前に
+    ok = selftest_ep19()
     # 🆕 2026-10-04（18本目 ⑤b-5）：先に18本目を検算する＝前の回の見本を差す前に
     #    （2026-10-06〜：18本目も見本 fixture_ep18 の表＝selftest_ep18 が差し込んで・終わったら戻す）
-    ok = selftest_ep18()
+    ok &= selftest_ep18()
     # 🔴 2026-09-30（15本目 ⑤b-2）：先に15本目の秒の帯を検算してから、14本目の見本に差し替える
     #    （2026-10-01〜：15本目も見本 fixture_ep15 の表＝selftest_ep15 が差し込んで・終わったら戻す）
     ok &= selftest_ep15()

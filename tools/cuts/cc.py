@@ -141,4 +141,16 @@ SPEC = {
                    dict(state=dict(cam=1.08), delay=0.2, dur=3.2, rec="TR p1476",
                         tag=dict(t="継ぎ目の強さ・鉄筋", at="joint", off=(140, -150)))], camc="joint")),   # ⑤b-2 の echo：複写にしない
     ),
+    # ── 🆕 ⑤b-5（2026-10-06）：時間の帯（`tools/axis.py`・門番 check_axis）──
+    # cc20（13.78秒＝0〜5.02／5.51〜10.59／11.09〜13.78）＝1行目「2022年6月1日、土地を売ることを認めた」（売却の命令 p.4）／2行目「1億2,000万
+    #   ドル」の札（同 p.2）／3行目「和解が、最終的に認められた」で6月24日（最終の命令 p.15）と、予定の一覧の「売却を終えたと報告」（7月27日）
+    "cc20": dict(
+        t="裁判所の命令", s="崩落の翌年",
+        fig=("axis", dict(ss.AX_SALE, steps=[
+            dict(add=ss.ax("sale"), cur="2022-06-01"),
+            dict(add=dict(k="chips", at="2022-06-01", chips=["1億2,000万ドル"], rec="A18 p7104")),
+            dict(add=[ss.ax("final"), dict(k="chips", at="2022-06-24", chips=["崩落からちょうど1年"], rec="A17 p7015"), ss.ax("sold")],
+                 cur="2022-06-24")],
+            note="", src=ss.src(["A18 p7102・p7104", "A17 p7015", "A19 p7201"]))),
+    ),
 }

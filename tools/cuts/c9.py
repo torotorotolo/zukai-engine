@@ -149,4 +149,25 @@ SPEC = {
                               dict(t="20から40%", src="TR p1229（about 20% to 40% wider）")],
                          note="鉄筋の本数（片側の向き）と間隔の比は記録の値・柱の大きさは模式", src=TR_SRC + "の語りとスライド")),
     ),
+    # ── 🆕 ⑤b-5（2026-10-06）：年表（`tools/axis.py`・門番 check_axis）──
+    # c918（8.77秒＝0〜2.01／2.50〜6.18／6.67〜8.77）＝1行目「錆が、いちばんの原因だと思っていた」で崩落の点／2行目「設計の不足と、図面との
+    #   ずれ」で設計と建設の帯を赤に（TR0281「design understrength and deviations in the as-built construction」）／3行目「完成したときから」で完成
+    "c918": dict(
+        t="弱さの始まり", s="設計と建設のとき",      # ⚠️ echo：「余裕が足りなかった理由」は字幕の切り取り
+        fig=("axis", dict(ss.AX_LIFE, steps=[
+            dict(add=ss.ax("fall"), cur="2021-06-24"),
+            dict(add=ss.ax("build", t="設計の不足・図面とのずれ", c="ALERT", rec=["AC p2023", "TR p1281"]), cur="1979"),
+            dict(add=ss.ax("done", rec=["TR p1005", "TR p1281"]), cur="1981")],
+            note="年だけの記録はその年の真ん中に置いた", src=ss.src(["TR p1005・p1281", "AC p2023", "A12 p5101"]))),
+    ),
+    # c919（3.63秒＝1行）＝「人が住む前から組み込まれていた」（TR0278「baked in before the building was even occupied」）の札を完成の下に
+    "c919": dict(
+        t="弱さの始まり", s="NIST の言い方",
+        fig=("axis", dict(ss.AX_LIFE, past=[ss.ax("fall", keep=True),
+                                             ss.ax("build", t="設計の不足・図面とのずれ", c="ALERT", rec=["AC p2023", "TR p1281"], keep=True),
+                                             ss.ax("done", rec=["TR p1005", "TR p1281"], keep=True)], start=dict(cur="1981"), steps=[
+            # ⚠️ 下見：1段目（軸の下 +118）は赤い帯の札「設計の不足・図面とのずれ」と同じ高さで重なった＝2段目へ（i0=1）
+            dict(add=dict(k="chips", at="1981", chips=["人が住む前から"], rec="TR p1278", i0=1))],
+            note="年だけの記録はその年の真ん中に置いた", src=ss.src(["TR p1005・p1278・p1281", "AC p2023", "A12 p5101"]))),
+    ),
 }
