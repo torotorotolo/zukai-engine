@@ -12,6 +12,7 @@ import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
 
 P = ss.P
+from illu import A1_REC as IL_REC  # noqa: E402  🆕 ⑤b-2：A1 の部品の出典（描く側と同じ文）
 
 PLAN = {
     'ca01': dict(kind='再現イラスト',
@@ -79,4 +80,30 @@ PLAN = {
                src='—（橋）'),
 }
 
-SPEC = {}
+SPEC = {
+    # ── 🆕 ⑤b-2（2026-10-06）：案C の置き場 A1（南から見た塔）。秒は narration.json の実測
+    #   （ca01 0〜2.84／3.33〜6.91／7.40〜9.45・ca18 0〜5.41／5.90〜8.80）
+    # ca01＝「推定」。1行目（聞き役）：プールデッキが地下へ崩れる／2行目：塔の南の面の継ぎ目へ寄る（NIST の大事な問い＝広がらなければ）／3行目：そのまま
+    "ca01": dict(
+        fig=("illu", dict(
+            place="A1", rec="TR p1285・p1286（崩れが塔へ広がらなければ、惨事の部分は起きなかった）",
+            assume="推定（NIST の見立て）",
+            steps=[dict(state=dict(a1deck="fell"), delay=0.6, rec=IL_REC["deck_fell"],
+                        # ⑤b-2 の下見（cc25 と同じ形）：下へ出すと左下の出典の行（y884）に重なる＝塔の左の空へ
+                        tag=dict(t="プールデッキが崩れる", at="deck", off=(-470, -70), anchor="end")),
+                   dict(state=dict(cam=1.10), delay=0.2, dur=3.0, rec="TR p1286",
+                        tag=dict(t="塔の南の面の継ぎ目", at="joint", off=(120, -150))),
+                   dict(delay=0.2)], camc="joint")),
+    ),
+    # ca18＝「推定」。1行目：揺さぶられたあと、東の部分の12階が西へずれる（札は記録の値＝約53cm・揺れの幅は大きく描く＝左下の断り）／
+    #   2行目：下の階の柱の限りを超える（落ちるのは次のカットの語り＝ここでは落とさない）
+    "ca18": dict(
+        fig=("illu", dict(
+            place="A1", start=dict(a1deck="fell", a1mid="fell"), rec="TR p1417（真ん中の部分のほとんどが崩れた）",
+            assume="推定（NIST の見立て）",
+            steps=[dict(state=dict(a1sway=-32.0), delay=0.8, dur=1.6, rec=IL_REC["sway"],       # ⑤b-2 の下見：浮きを抑える（c620 と同じ）
+                        tag=dict(t="12階が西へ約53cm", at="east12", off=(-40, -90), anchor="end")),
+                   dict(state=dict(cam=1.05), delay=0.2, dur=2.6, rec="TR p1422（揺れが下の階の柱の耐えられる限りを超えた）",
+                        tag=dict(t="下の階の柱", at="heap", off=(160, -190)))])),
+    ),
+}

@@ -5336,6 +5336,275 @@ def sc_inset_svg(y):
             f'<rect x="{x0:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" fill="none" stroke="#e3eaee" stroke-width="2"/>')
 
 
+# ══════════════════════════════════════════════════════════
+#  19本目 ⑤b-2（2026-10-06）：A1 南から見た塔（チャンプレイン・タワーズ・サウス・2021-06-24 夜）
+# ══════════════════════════════════════════════════════════
+# 🔴 守りの線（構成 `ref/ep19/kousei.md` §4-3・映像方針 19本目 §1・決め⑤）：
+#    ・形のもと＝NIST の3D（TF p3・p29＝西・真ん中・東の3つの部分・プールデッキ・地下の駐車場）。12階＋ペントハウス（TR0004）。
+#      横幅の数はスライドの上が切れていて読めない＝寸法の札は出さない（縦横の比は TF p3 の見え方・模式）
+#    ・人・窓の灯り・車は描かない（夜の住戸の中を思わせる物を置かない＝決め⑤の線を絵にも）
+#    ・崩れの順番は NIST の読み（TR0091〜0093・TR0363・TR0400〜0424）：真ん中が南から北へ → 東が西へ揺れて下の階の柱が耐えきれず落ちる。
+#      🔴 西の部分は最後まで立ったまま（TR0002）＝部品を動かさない・消さない（門番 ㉑）
+#    ・屋上の線が「約2.5m（100インチ）＝ほぼ1階分」下がる（TR0403・c618）＝真ん中の部分を 2.54÷2.82（1階の高さ＝33.8m÷12）＝0.9階
+#    ・東の部分の12階のずれ「約53cm（21インチ）」（TR0421）は絵では見えない幅＝揺れは大きく描いて「模式」と断る（左下の断り）
+#    ・プールデッキの崩れた範囲＝TF p29（Collapsed／Did not collapse）の見え方＝西の部分の東半分の前から真ん中の部分の前まで
+A1_GY = 790.0                      # 地面（地上の階の床）の y
+A1_BASE = 848.0                    # 地下の駐車場の切り口の下の端（左下の出典 y884 より上）
+A1_FH = 40.0                       # 1階の高さ（画素）＝12階＋ペントハウス＝13段
+A1_NFL = 12                        # 12階（TR0004）
+A1_TOP = A1_GY - (A1_NFL + 1) * A1_FH       # 屋上（ペントハウスの上）の y＝270
+A1_X = dict(w0=460.0, w1=850.0, m1=1090.0, e1=1460.0)      # 西｜真ん中｜東の境（TF p3 の上の辺の割合 0.39／0.24／0.37）
+A1_DROP = A1_FH * 2.54 / (33.8 / 12.0)     # 屋上の線が下がった量（約2.5m＝0.9階・TR0403）
+A1_DECK = (300.0, 1620.0)          # プールデッキ（塔の前の板＝塔より左右に広い）
+A1_DECK_FALL = (700.0, 1090.0)     # 崩れた範囲（TF p29 の Collapsed）
+A1_COL = dict(sky0="#0b1622", sky1="#1d3042", west="#5f6a72", mid="#5b6b66", east="#5b6675", ln="#2a333a",
+              bal="#77838b", win="#262f36", ground="#2c3236", base="#171c20", deck="#8a949a", deck_ln="#454e54",
+              heap="#6b6f70", heap_ln="#3b4043", low3="#f2c14e", flow="#f2c14e", gap="#0b0f12")
+A1_T = dict(drop=0.5, fall=2.6, heap=1.8, sway=1.0, deck=0.9, line=0.5)
+A1_LAB = "南から見た塔（正面）"
+A1_REC = dict(
+    tower="TR p1004（12階建て＋ペントハウス）・TR p1001（真ん中と東の部分が崩れた）",
+    west="TR p1002（立ったまま残ったのは西の部分だけ）",
+    deck="TR p1005（地上のプールデッキと駐車場の床・地下の上の柱）",
+    deck_fell="TR p1330（プールデッキは塔が崩れる数分前に塔の南の面の縁まで崩れた）",
+    drop="TR p1317・p1318（南の面の防犯カメラ：崩れの最初のコマで K と L の近くの屋上の線が約100インチ＝ほぼ1階分下がった）",
+    low3="TR p1329（K と L の柱の壊れは3階より下）",
+    mid_fall="TR p1363（真ん中の部分は南から北へ柱の押し抜きで次々と）・TR p1417",
+    sway="TR p1091（真ん中の床が落ちて東の部分を引く＝揺れる）・TR p1406・TR p1407・TR p1421（12階が西へ約21インチ）",
+    east_fall="TR p1093（東の部分は西へ揺れ、下の階の柱が耐えきれず落ちる）・TR p1422・TR p1424",
+    flow="TR p1330（プールデッキ → 塔の南の面の継ぎ目の傷み）・TR p1363・TR p1093")
+
+
+def _a1_part_svg(x0, x1, col, stair=False):
+    """塔の1つの部分（南の面）。12階＋ペントハウス＝床の線13本・各階のバルコニーの帯と暗い窓（灯りは描かない）"""
+    g = [f'<rect x="{x0:.1f}" y="{A1_TOP:.1f}" width="{x1 - x0:.1f}" height="{A1_GY - A1_TOP:.1f}" fill="{col}" '
+         f'stroke="{A1_COL["ln"]}" stroke-width="3"/>']
+    n_bay = max(2, int(round((x1 - x0) / 64.0)))
+    bw = (x1 - x0) / n_bay
+    for k in range(A1_NFL + 1):
+        y = A1_GY - (k + 1) * A1_FH
+        if k < A1_NFL:          # 地上の階（k=0）はロビー＝バルコニーなし
+            if k > 0:
+                g.append(f'<rect x="{x0 + 4:.1f}" y="{y + A1_FH - 9:.1f}" width="{x1 - x0 - 8:.1f}" height="7" fill="{A1_COL["bal"]}"/>')
+            for b in range(n_bay):
+                wx = x0 + b * bw + bw * 0.18
+                g.append(f'<rect x="{wx:.1f}" y="{y + 8:.1f}" width="{bw * 0.64:.1f}" height="{A1_FH - 20:.1f}" fill="{A1_COL["win"]}"/>')
+        g.append(f'<path d="M {x0:.1f} {y + A1_FH:.1f} L {x1:.1f} {y + A1_FH:.1f}" stroke="{A1_COL["ln"]}" stroke-width="2"/>')
+    # ペントハウス（いちばん上の段）＝少し引っ込めた壁
+    g.append(f'<rect x="{x0 + 10:.1f}" y="{A1_TOP + 6:.1f}" width="{x1 - x0 - 20:.1f}" height="{A1_FH - 10:.1f}" '
+             f'fill="{A1_COL["win"]}" opacity="0.55"/>')
+    if stair:                   # 屋上の階段室（TF p3＝西と真ん中の境の上）
+        g.append(f'<rect x="{x1 - 70:.1f}" y="{A1_TOP - 46:.1f}" width="62" height="46" fill="{col}" stroke="{A1_COL["ln"]}" stroke-width="3"/>')
+    return "".join(g)
+
+
+def a1_sky_svg():
+    return (f'<defs><linearGradient id="a1Sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{A1_COL["sky0"]}"/>'
+            f'<stop offset="1" stop-color="{A1_COL["sky1"]}"/></linearGradient></defs>'
+            f'<rect x="0" y="0" width="{W}" height="{A1_GY:.0f}" fill="url(#a1Sky)"/>')
+
+
+def a1_ground_svg():
+    """地面と地下の駐車場の切り口（柱の列＝模式）"""
+    g = [f'<rect x="0" y="{A1_GY:.1f}" width="{W}" height="{H - A1_GY:.1f}" fill="{A1_COL["ground"]}"/>',
+         f'<rect x="{A1_DECK[0]:.1f}" y="{A1_GY + 8:.1f}" width="{A1_DECK[1] - A1_DECK[0]:.1f}" height="{A1_BASE - A1_GY - 8:.1f}" '
+         f'fill="{A1_COL["base"]}"/>']
+    x = A1_DECK[0] + 40.0
+    while x < A1_DECK[1] - 20:
+        g.append(f'<rect x="{x - 4:.1f}" y="{A1_GY + 8:.1f}" width="8" height="{A1_BASE - A1_GY - 8:.1f}" fill="{A1_COL["deck_ln"]}"/>')
+        x += 64.0
+    g.append(f'<path d="M {A1_DECK[0]:.1f} {A1_BASE:.1f} L {A1_DECK[1]:.1f} {A1_BASE:.1f}" stroke="{A1_COL["deck_ln"]}" stroke-width="4"/>')
+    return "".join(g)
+
+
+def a1_deck_svg(x0, x1):
+    """プールデッキの板（地面の高さ・塔の前）"""
+    return (f'<rect x="{x0:.1f}" y="{A1_GY - 4:.1f}" width="{x1 - x0:.1f}" height="12" fill="{A1_COL["deck"]}" '
+            f'stroke="{A1_COL["deck_ln"]}" stroke-width="2"/>')
+
+
+def a1_gap_svg():
+    """崩れたあとの穴（デッキの板の抜けた所）"""
+    x0, x1 = A1_DECK_FALL
+    return f'<rect x="{x0:.1f}" y="{A1_GY - 4:.1f}" width="{x1 - x0:.1f}" height="12" fill="{A1_COL["gap"]}"/>'
+
+
+def a1_deck_fallen_svg():
+    """地下へ落ちた板（傾いて地下の床に寄りかかる＝模式）"""
+    x0, x1 = A1_DECK_FALL
+    return (f'<path d="M {x0 + 6:.1f} {A1_BASE - 6:.1f} L {x1 - 6:.1f} {A1_GY + 22:.1f} L {x1 - 6:.1f} {A1_GY + 34:.1f} '
+            f'L {x0 + 6:.1f} {A1_BASE + 4:.1f} Z" fill="{A1_COL["deck"]}" stroke="{A1_COL["deck_ln"]}" stroke-width="2"/>')
+
+
+def a1_heap_svg(x0, x1, h):
+    """がれきの山（形は模式・塊の数を持たない＝ぎざぎざの輪郭だけ）"""
+    pts, n = [], 14
+    for i in range(n + 1):
+        u = i / n
+        bump = math.sin(u * math.pi) * h * (0.82 + 0.18 * math.sin(u * 23.0))
+        pts.append((x0 + (x1 - x0) * u, A1_GY - bump))
+    d = "M " + " L ".join(f"{x:.1f} {y:.1f}" for x, y in pts) + f" L {x1:.1f} {A1_GY + 4:.1f} L {x0:.1f} {A1_GY + 4:.1f} Z"
+    return f'<path d="{d}" fill="{A1_COL["heap"]}" stroke="{A1_COL["heap_ln"]}" stroke-width="3" stroke-linejoin="round"/>'
+
+
+def a1_low3_svg():
+    x0, x1 = A1_X["w1"], A1_X["m1"]
+    return (f'<rect x="{x0 + 3:.1f}" y="{A1_GY - 3 * A1_FH:.1f}" width="{x1 - x0 - 6:.1f}" height="{3 * A1_FH:.1f}" fill="none" '
+            f'stroke="{A1_COL["low3"]}" stroke-width="6" stroke-dasharray="14 8"/>')
+
+
+def a1_flow_svg():
+    """流れの矢印（cc25）：プールデッキ → 塔の南の面の継ぎ目 → 真ん中と東（NIST のまとめ TR0330・TR0363・TR0093）"""
+    c = A1_COL["flow"]
+    jx = (A1_X["w1"] + A1_X["m1"]) / 2.0
+
+    def arr(x0, y0, x1, y1):
+        a = math.atan2(y1 - y0, x1 - x0)
+        hx, hy = x1 - 24 * math.cos(a), y1 - 24 * math.sin(a)
+        px, py = -math.sin(a) * 13, math.cos(a) * 13
+        return (f'<path d="M {x0:.1f} {y0:.1f} L {hx:.1f} {hy:.1f}" stroke="#10161b" stroke-width="12" stroke-linecap="round"/>'
+                f'<path d="M {x0:.1f} {y0:.1f} L {hx:.1f} {hy:.1f}" stroke="{c}" stroke-width="7" stroke-linecap="round"/>'
+                f'<path d="M {x1:.1f} {y1:.1f} L {hx + px:.1f} {hy + py:.1f} L {hx - px:.1f} {hy - py:.1f} Z" fill="{c}" '
+                'stroke="#10161b" stroke-width="2"/>')
+    return (arr(A1_DECK_FALL[0] + 40, A1_GY + 30, jx - 20, A1_GY - 14)
+            + arr(jx, A1_GY - 30, jx, A1_GY - 6 * A1_FH)
+            + arr(jx + 30, A1_GY - 3 * A1_FH, (A1_X["m1"] + A1_X["e1"]) / 2.0, A1_GY - 3 * A1_FH))
+
+
+def _a1_timeline(start, states, steps):
+    """A1 の鍵。真ん中（mid）・東（east）は dy・dx・a をそろえて書く（欠けた欄は既定値に戻る）"""
+    T = A1_T
+
+    def k0(**kw):
+        return [dict(stage=0, delay=0.0, **kw)]
+
+    def mid_of(st):
+        return dict(a=float(st["a1mid"] in ("on", "drop")),
+                    dy={"on": 0.0, "drop": A1_DROP, "fall": A1_GY - A1_TOP, "fell": A1_GY - A1_TOP}[st["a1mid"]], dx=0.0)
+
+    def east_of(st):
+        # ⑤b-2 の下見：横に平行にずらすと「傾き」に見えない＝根元（地面の真ん中）を支点に回す。a1sway＝12階の高さでの西へのずれ（画素）
+        h12 = A1_GY - (A1_TOP + A1_FH)
+        return dict(a=float(st["a1east"] == "on"), dy=0.0 if st["a1east"] == "on" else A1_GY - A1_TOP, dx=0.0,
+                    rot=math.degrees(math.atan2(float(st["a1sway"]), h12)))
+    cm, ce = mid_of(start), east_of(start)
+    K = dict(mid=k0(**cm), east=k0(**ce),
+             heap_m=k0(a=float(start["a1mid"] == "fell"), dy=0.0), heap_e=k0(a=float(start["a1east"] == "fell"), dy=0.0),
+             deck=k0(a=float(start["a1deck"] == "on")), gap=k0(a=float(start["a1deck"] == "fell")),
+             fallen=k0(a=float(start["a1deck"] == "fell")), low3=k0(a=float(start["a1low3"] == "on")),
+             flow=k0(a=float(start["a1flow"] == "on")))
+    prev = start
+    for i, (st, sp) in enumerate(zip(states, steps)):
+        dl = float(sp.get("delay", KEY_DELAY))
+        nm = mid_of(st)
+        # ⑤b-2 の下見（cc25）：デッキが崩れる段で塔も落とすときは、流れの矢印が出てから真ん中を落とす（矢印が崩れたあとの空を指さない）
+        dm = dl + (1.6 if prev["a1deck"] != st["a1deck"] else 0.0)
+        if nm != cm:
+            if st["a1mid"] == "fall" and prev["a1mid"] != "fall":
+                # 南から北へ次々と＝下がりながら薄れ、足もとにがれきの山が育つ（形は模式）
+                K["mid"].append(dict(stage=i, delay=dm, dur=float(sp.get("dur", T["fall"])), **nm))
+                K["heap_m"] += [dict(stage=i, delay=dm + 0.4, dur=T["heap"], a=1.0, dy=0.0)]
+            elif st["a1mid"] == "fell":
+                K["mid"].append(dict(stage=i, delay=dl, dur=0.4, **nm))
+                K["heap_m"].append(dict(stage=i, delay=dl, dur=0.4, a=1.0, dy=0.0))
+            else:
+                K["mid"].append(dict(stage=i, delay=dl, dur=float(sp.get("dur", T["drop"])), **nm))
+            cm = nm
+        ne = east_of(st)
+        if ne != ce:
+            if st["a1east"] in ("fall", "fell") and prev["a1east"] == "on":
+                # 真ん中と同じ段で落とす（cc25 のまとめ）ときは東を 1.0秒遅らせる＝順番（TR0093）を絵でも崩さない
+                de = (dm + 1.0) if prev["a1mid"] in ("on", "drop") else dl
+                K["east"].append(dict(stage=i, delay=de, dur=float(sp.get("dur", T["fall"])), **ne))
+                K["heap_e"] += [dict(stage=i, delay=de + 0.4, dur=T["heap"], a=1.0, dy=0.0)]
+            else:
+                K["east"].append(dict(stage=i, delay=dl, dur=float(sp.get("dur", T["sway"])), **ne))
+            ce = ne
+        if prev["a1deck"] != st["a1deck"]:
+            K["deck"].append(dict(stage=i, delay=dl, dur=0.15, a=0.0))
+            K["gap"].append(dict(stage=i, delay=dl, dur=0.15, a=1.0))
+            K["fallen"].append(dict(stage=i, delay=dl, dur=T["deck"], a=1.0))
+        for f, nmk in (("a1low3", "low3"), ("a1flow", "flow")):
+            if prev[f] != st[f]:
+                K[nmk].append(dict(stage=i, delay=dl, dur=T["line"], a=float(st[f] == "on")))
+        prev = st
+    return K
+
+
+def _scene_A1(start, states, steps):
+    """A1＝南から見た塔（西・真ん中・東の3つの部分・プールデッキ・地下の駐車場の切り口）。"""
+    allst = [start] + states
+    if any(st["view"] != start["view"] for st in states):
+        raise ValueError("illu A1：view は場面の頭（start）で1つだけ")
+    order = dict(on=0, drop=1, fall=2, fell=3)
+    for a, b in zip(allst, allst[1:]):
+        if order[b["a1mid"]] < order[a["a1mid"]]:
+            raise ValueError("illu A1：真ん中の部分（a1mid）は on→drop→fall→fell の順にだけ進む（戻さない）")
+        if ("on", "fall", "fell").index(b["a1east"]) < ("on", "fall", "fell").index(a["a1east"]):
+            raise ValueError("illu A1：東の部分（a1east）は on→fall→fell の順にだけ進む")
+        if a["a1deck"] == "fell" and b["a1deck"] != "fell":
+            raise ValueError("illu A1：崩れたプールデッキ（a1deck＝fell）を戻さない")
+    for st in allst:
+        if not -60.0 <= float(st["a1sway"]) <= 0.0:
+            raise ValueError("illu A1：a1sway（東の部分の揺れ・画素）は -60〜0（西＝左だけ・模式）")
+        if st["a1east"] != "on" and order[st["a1mid"]] < 2:
+            raise ValueError("illu A1：東の部分は真ん中の部分が崩れてから落ちる（TR0093・TR0424）")
+
+    def used(f, v):
+        return any(st[f] == v for st in allst)
+    K = _a1_timeline(start, states, steps)
+    R = A1_REC
+    X = A1_X
+    parts = [_part("sky", a1_sky_svg(), R["tower"]), _part("ground", a1_ground_svg(), R["deck"])]
+    if used("a1deck", "fell"):
+        parts.append(dict(_part("deck_fallen", a1_deck_fallen_svg(), R["deck_fell"], keys=K["fallen"]), destroy=True))
+    parts.append(dict(_part("west", _a1_part_svg(X["w0"], X["w1"], A1_COL["west"], stair=True), R["west"]),
+                      obj=dict(story=A1_NFL, penthouse=1), geo=dict(kind="west", x0=X["w0"], x1=X["w1"])))
+    if any(st["a1mid"] != "fell" for st in allst):
+        parts.append(dict(_part("mid", _a1_part_svg(X["w1"], X["m1"], A1_COL["mid"]), R["tower"], keys=K["mid"]),
+                          destroy=any(st["a1mid"] != "on" for st in allst), geo=dict(kind="mid", fh=A1_FH)))
+    if any(st["a1east"] != "fell" for st in allst):
+        parts.append(dict(_part("east", _a1_part_svg(X["m1"], X["e1"], A1_COL["east"]), R["tower"],
+                                ((X["m1"] + X["e1"]) / 2.0, A1_GY), K["east"]),
+                          destroy=any(st["a1east"] != "on" for st in allst), geo=dict(kind="east")))
+    if used("a1mid", "fall") or used("a1mid", "fell"):
+        parts.append(dict(_part("heap_m", a1_heap_svg(X["w1"] - 10, X["m1"] + 30, 2.2 * A1_FH), R["mid_fall"],
+                                keys=K["heap_m"]), destroy=True))
+    if used("a1east", "fall") or used("a1east", "fell"):
+        parts.append(dict(_part("heap_e", a1_heap_svg(X["m1"] - 20, X["e1"] + 20, 2.0 * A1_FH), R["east_fall"],
+                                keys=K["heap_e"]), destroy=True))
+    parts.append(_part("deck", a1_deck_svg(*A1_DECK), R["deck"]))
+    if used("a1deck", "fell"):
+        parts.append(dict(_part("deck_gap", a1_gap_svg(), R["deck_fell"], keys=K["gap"]), destroy=True))
+    if used("a1low3", "on"):
+        parts.append(_part("low3", a1_low3_svg(), R["low3"], keys=K["low3"]))
+    if used("a1flow", "on"):
+        parts.append(_part("flow", a1_flow_svg(), R["flow"], keys=K["flow"]))
+    return parts
+
+
+def _a1_anchors(st):
+    mx = (A1_X["w1"] + A1_X["m1"]) / 2.0
+    ex = (A1_X["m1"] + A1_X["e1"]) / 2.0
+    dy = A1_DROP if st["a1mid"] == "drop" else 0.0
+    return dict(roof_mid=(mx, A1_TOP + dy), roof_west=((A1_X["w0"] + A1_X["w1"]) / 2.0, A1_TOP),
+                low3=(A1_X["m1"] - 20.0, A1_GY - 1.5 * A1_FH), mid=(mx, A1_GY - 7 * A1_FH),
+                mid_heap=(mx, A1_GY - 2.0 * A1_FH),      # ⑤b-2 の下見：崩れたあとの札は空でなく、がれきの山の上を指す
+                east12=(A1_X["e1"] + float(st["a1sway"]), A1_TOP + A1_FH * 1.5), east=(ex, A1_GY - 7 * A1_FH),
+                west=(A1_X["w0"] + 30.0, A1_GY - 9 * A1_FH), deck=((A1_DECK_FALL[0] + A1_DECK_FALL[1]) / 2.0, A1_GY + 24.0),
+                joint=(mx, A1_GY - 6.0), heap=(ex - 120.0, A1_GY - 2.0 * A1_FH))
+
+
+def _a1_note(st0, states):
+    allst = [st0] + list(states)
+    note = ["形は NIST の3D から・大きさと配置は模式・人と窓の灯りは描かない"]
+    if any(float(st["a1sway"]) != 0.0 for st in allst):
+        note.append("揺れの幅は大きく描いた（実際は12階で約53cm）")
+    if any(st["a1mid"] in ("fall", "fell") or st["a1east"] != "on" for st in allst):
+        note.append("崩れ方は NIST の読み（映像から）・がれきの形は模式")
+    return "・".join(note)
+
+
 def tag_svg(x, y, t, to=None, anchor="start", col=None, cap=30):
     col = col or C["tag"]
     s = fm.fit(t, 620, "Noto", cap=cap, floor=20)
@@ -5520,6 +5789,10 @@ FIELDS = {
     # 🆕 18本目 ⑤b-3：SD 横から見た海の底の捜索（1964年）。tri（トリエステ2世 down／on＝船体の一部の真上）・mini（頭だけ：左上の小さな地図
     #   SC＝切り口の線と目の印）。出来事 track（ミザーから音で位置を伝える弧）
     "SD": dict(view="side", tri="down", mini="off", cam=1.0),
+    # 🆕 19本目 ⑤b-2：A1 南から見た塔（上の「19本目 ⑤b-2」の節）。a1mid（真ん中の部分 on／drop＝屋上の線が約1階分下がる／fall／fell）・
+    #   a1east（東の部分 on／fall／fell）・a1sway（東の部分の西への揺れ＝画素・模式）・a1deck（プールデッキ on／fell）・
+    #   a1low3（3階より下の柱の印）・a1flow（流れの矢印＝cc25）
+    "A1": dict(view="south", a1mid="on", a1east="on", a1sway=0.0, a1deck="on", a1low3="off", a1flow="off", cam=1.0),
 }
 ONOFF = ("off", "on")
 CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONOFF, crowd=ONOFF, bridge=ONOFF, run=ONOFF,
@@ -5545,11 +5818,14 @@ CHOICES = dict(wake=("on", "off"), boxes=("off", "on", "fall", "fell"), mark=ONO
                # 🆕 18本目 ⑤b-3：SB・SC・SD
                zin=ONOFF, skl=("off", "meet", "loran", "past"), thr=ONOFF, d31=ONOFF, datum=ONOFF, oil=ONOFF, rcv=ONOFF,
                se=ONOFF, mk=ONOFF, mkx=ONOFF, circ=ONOFF, dia=ONOFF, tri=("down", "on"), mini=("off", "SC"),
-               sqr=ONOFF, trk=ONOFF)          # 🆕 18本目 ⑤b-8：SB の捜索の海域（ca02）
+               sqr=ONOFF, trk=ONOFF,          # 🆕 18本目 ⑤b-8：SB の捜索の海域（ca02）
+               # 🆕 19本目 ⑤b-2：A1
+               a1mid=("on", "drop", "fall", "fell"), a1east=("on", "fall", "fell"), a1deck=("on", "fell"),
+               a1low3=ONOFF, a1flow=ONOFF)
 VIEWS = dict(B=("corridor", "cabin", "desk"), C=("helm", "console", "room"), D=("ship", "sea", "far", "heli", "rail"),
              RA=tuple(RA_VIEW), RB=("side", "rear"), RD=("tail",), RC=tuple(RC_VIEW), VA=tuple(VA_VIEW),
              VB=tuple(VB_VIEW), VC=tuple(VC_VIEW), VD=tuple(VD_VIEW), SA=("wide",), SB=tuple(SB_VIEW), SC=("floor",),
-             SD=("side",))
+             SD=("side",), A1=("south",))
 # 変える段には rec が要る（記録の事実を描く欄）。⑤b-3 で置き場 C・D・E の欄を足した（位置 bx とカメラ cam は要らない）
 #   15本目 ⑤b-2：RA の印・線・×・輪、RB の機首の上げ・傾き・補助翼（コースの破線 course と地面 ground は要らない）
 #   16本目 ⑤b-2：VA の時刻（夜明け）・塊・崩れた範囲・建物の面・トンネル・想定の帯・道・入口・印・水（合図の prev・nxt・switch は要らない）
@@ -5567,7 +5843,9 @@ REC_FIELDS = ("heel", "wake", "boxes", "crowd", "mark", "bridge", "run", "far", 
               "sub", "tilt", "sy", "test", "redact", "seabed", "rescue", "rope", "uqc",
               # 🆕 18本目 ⑤b-3：SB の点と線・SC の目印と円・SD のトリエステ2世（合図の zin・prev・mini は要らない）
               "skl", "thr", "d31", "datum", "oil", "rcv", "se", "mk", "mkx", "circ", "dia", "tri",
-              "sqr", "trk")    # 🆕 18本目 ⑤b-8：SB の捜索の海域の四角と測る線（ca02）
+              "sqr", "trk",    # 🆕 18本目 ⑤b-8：SB の捜索の海域の四角と測る線（ca02）
+              # 🆕 19本目 ⑤b-2：A1 の崩れ・揺れ・プールデッキ・3階より下の印・流れの矢印
+              "a1mid", "a1east", "a1sway", "a1deck", "a1low3", "a1flow")
 # 段ごとの出来事（引き継がない・数で書く＝画面の文字の門番が文字として読まない）。pylon＝RB でパイロンが1本流れる
 #   🆕 18本目 ⑤b-2（SA）：voice（潜水艦→スカイラークの声）・broken（崩れた声）・call（スカイラークの呼びかけ）・ping（探知機）・
 #   boom（9時18.1分の大きく低い音の輪＝c103 だけ・門番 ⑰）・xsig（音の信号＝認定22・24）
@@ -5578,7 +5856,7 @@ VIEW = dict(A="船首の側から見た図", D="船首の側から見た図", B=
             RD="ピットの事故機（横から）")
 # 左下の出典のあとに添える断り（15本目）。16本目 VA は場面の中身で変わる（関数＝_va_note）
 NOTE = dict(RA="配置は概略・機体は拡大・点線は模式", RC="柵・幕・車の形と並びは模式・配置は概略", VA=_va_note,
-            VB=_vb_note, VC=_vc_note, VD=_vd_note, SA=_sa_note, SB=_sb_note, SC=_sc_note, SD=_sd_note)
+            VB=_vb_note, VC=_vc_note, VD=_vd_note, SA=_sa_note, SB=_sb_note, SC=_sc_note, SD=_sd_note, A1=_a1_note)
 SEC_VIEW = dict(VB=VB_VIEW, VC=VC_VIEW, VD=VD_VIEW)       # 断面と正面の目盛り（門番 ⑨〜⑪ が同じ式で読む）
 D_VIEW = dict(ship="船首の側から見た図", heli="船首の側から見た図", sea="123艇を横から見た図", far="123艇から見た図",
               rail="3階の左舷を横から見た図")
@@ -5981,6 +6259,8 @@ def _anchors(place, st):
         return _vd_anchors(st)
     if place == "SA":
         return _sa_anchors(st)
+    if place == "A1":
+        return _a1_anchors(st)
     if place == "SB":
         return _sb_anchors(st)
     if place == "SC":
@@ -6028,6 +6308,8 @@ def _anchors(place, st):
 def _camc(place, st0, states):
     """カメラ（cam）で寄る中心の既定。見え方ごとに主役の所へ。"""
     last = states[-1] if states else st0
+    if place == "A1":
+        return (960.0, 560.0)
     if place == "RA":
         return (960.0, RA_Y0)
     if place == "VA":
@@ -6098,7 +6380,7 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
     parts = {"A": _scene_A, "B": _scene_B, "C": _scene_C, "D": _scene_D, "E": _scene_E,
              "RA": _scene_RA, "RB": _scene_RB, "RD": _scene_RD, "RC": _scene_RC,
              "VA": _scene_VA, "VB": _scene_VB, "VC": _scene_VC, "VD": _scene_VD, "SA": _scene_SA,
-             "SB": _scene_SB, "SC": _scene_SC, "SD": _scene_SD}[place](st0, states, steps)
+             "SB": _scene_SB, "SC": _scene_SC, "SD": _scene_SD, "A1": _scene_A1}[place](st0, states, steps)
     if assume_at is not None:
         # 🆕 18本目 ⑤b-2：段の途中で出す想定の札＝絵の層の部品（上の層の札と同じ形・同じ位置）。合図と同じく記録の物でない
         if not assume:
@@ -6190,6 +6472,8 @@ def _label(place, st0, states):
         return RC_VIEW[st0["view"]]
     if place == "VA":
         return VA_LAB
+    if place == "A1":
+        return A1_LAB
     if place == "VB":
         return VB_LAB
     if place == "VC":

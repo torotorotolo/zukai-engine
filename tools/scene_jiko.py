@@ -763,6 +763,13 @@ def ep19_credit(name):
     """`ref/ep19/` の名前から出典表記を作る。当てはまらなければ None。"""
     if not name.startswith("ep19/"):
         return None
+    # 🆕 ⑤b-2（2026-10-06）：映像のひかえの静止画（`ss.vid`・`ss.head` の fb_<カット>）＝その映像の1コマ＝出典は映像と同じ
+    #   （footage.USE のクリップの credit）。コマを切り出していない手元・切り出しに失敗した焼きで、写真の表を引いて止まらないように
+    m = re.fullmatch(r"ep19/(?:stock/)?fb_(c[0-9a-f]{3})\.jpg", name)
+    if m:
+        import footage as _FO
+        u = _FO.USE.get(m.group(1))
+        return _FO.CLIPS[u["clip"]]["credit"] if u else None
     return EP19_CREDIT.get(name)
 
 

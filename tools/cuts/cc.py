@@ -12,6 +12,7 @@ import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
 
 P = ss.P
+from illu import A1_REC as IL_REC  # noqa: E402  🆕 ⑤b-2：A1 の部品の出典（描く側と同じ文）
 
 PLAN = {
     'cc01': dict(kind='写真',
@@ -106,4 +107,18 @@ PLAN = {
                src='—（§B3-7b）'),
 }
 
-SPEC = {}
+SPEC = {
+    # ── 🆕 ⑤b-2（2026-10-06）：案C の置き場 A1（南から見た塔）＝まとめ（冒頭の問いへ戻す型）。秒は narration.json の実測（0〜4.25／4.74〜8.88）
+    # cc25＝「推定」。1行目：プールデッキが崩れ → 流れの矢印（デッキ → 塔の下の継ぎ目 → 塔）→ 真ん中が落ち、1秒遅れて東（順番＝TR0093）／
+    #   2行目：継ぎ目へ寄る（強さと鉄筋の組み方が足りなかった＝TR0475・0476）
+    "cc25": dict(
+        fig=("illu", dict(
+            place="A1", rec="TR p1475・p1476（塔の部分的な崩れは、プールデッキと塔の継ぎ目の強さと鉄筋の組み方の不足による）",
+            assume="推定（NIST の見立て）",
+            steps=[dict(state=dict(a1deck="fell", a1flow="on", a1mid="fall", a1east="fall"), delay=0.3, rec=IL_REC["flow"],
+                        # ⑤b-2 の下見：札が左下の出典の行（y884）に重なった＝崩れたあとに空く右の空へ
+                        tag=dict(t="プールデッキ → 継ぎ目 → 塔", at="deck", off=(260, -260))),
+                   dict(state=dict(cam=1.08), delay=0.2, dur=3.2, rec="TR p1476",
+                        tag=dict(t="継ぎ目の強さ・鉄筋", at="joint", off=(140, -150)))], camc="joint")),   # ⑤b-2 の echo：複写にしない
+    ),
+}

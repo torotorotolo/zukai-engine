@@ -12,6 +12,7 @@ import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
 
 P = ss.P
+from illu import A1_REC as IL_REC  # noqa: E402  🆕 ⑤b-2：A1 の部品の出典（描く側と同じ文＝2か所に書かない・illu は cuts を読まない＝循環しない）
 
 PLAN = {
     'c601': dict(kind='再現イラスト',
@@ -65,7 +66,7 @@ PLAN = {
     'c617': dict(kind='図解',
                plan='図 数の比べ（46〜69センチ：大人のひざ〈約45センチ〉から学校の机〈約70センチ〉ほど）｜権利：自作',
                src='TR0347・§9'),
-    'c618': dict(kind='再現イラスト',
+    'c618': dict(kind='混ざり',       # ⑤b-2：2行目から尻の頁（A01 p.47〜51＝決め②）＝本物の側のつなぎ待ち（ss.ILLU_MIX_TODO・⑤b-7b）
                plan='A1 屋上の線が約1階分下がる｜差し込み（tail）：2 A01  5.4秒 A01 p.47〜51 の頁（監視カメラのコマに NIST が印）｜副題：NIST の資料の頁（映像のコマ＝© 2021 Used with permission）｜権利：紙面の引用｜注：決め②＝🅰：動く映像は使わない・頁ごと・額装・無加工・出典に「NIST の資料（映像のコマ © 2021 Used with permission）」',
                src='TR0314・TR0317・TR0318'),
     'c619': dict(kind='再現イラスト',
@@ -85,4 +86,40 @@ PLAN = {
                src='—（橋）'),
 }
 
-SPEC = {}
+SPEC = {
+    # ── 🆕 ⑤b-2（2026-10-06）：案C の置き場 A1（南から見た塔・`tools/illu.py` の「19本目 ⑤b-2」の節）──
+    #   人・窓の灯りは描かない。プールデッキは塔が崩れる数分前に崩れている（TR0330）＝この章の A1 は頭から a1deck="fell"。
+    #   秒は narration.json の実測（c618 0〜4.29／4.78〜9.15・c619 0〜3.24／3.73〜7.84・c620 0〜4.79／5.28〜8.43／8.92〜11.60）
+    # c618＝混ざり（1行目 A1 → 2行目から尻の頁 A01 p.47〜51＝⑤b-7b）。1行目の終わりで真ん中の部分の屋上の線が約1階分下がる
+    #   （TR0317・0318＝最初のコマ・K と L の近く）。2行目の札は尻の頁をつなぐまでの仮（つないだら頁の上の印で見せる）
+    "c618": dict(
+        fig=("illu", dict(
+            place="A1", start=dict(a1deck="fell"), rec="TR p1330（プールデッキは塔が崩れる数分前に崩れた）",
+            steps=[dict(state=dict(a1mid="drop"), delay=2.4, rec=IL_REC["drop"],
+                        tag=dict(t="屋上の線が下がる", at="roof_mid", off=(70, -60))),
+                   # ⑤b-2 の qa_all（layout）：1行目の札と同じ所で重なった＝下げて出す
+                   dict(rec=IL_REC["drop"], tag=dict(t="約2.5m（ほぼ1階分）", at="roof_mid", off=(70, 30), keep=True))])),
+    ),
+    # c619＝「推定」。1行目：3階より下の柱（K と L）の印／2行目：真ん中の部分が南から北へ（奥へ）次々と抜け落ちる
+    "c619": dict(
+        fig=("illu", dict(
+            place="A1", start=dict(a1deck="fell", a1mid="drop"), rec="TR p1330・TR p1318",
+            assume="推定（NIST の見立て）",
+            steps=[dict(state=dict(a1low3="on"), delay=0.5, rec=IL_REC["low3"],
+                        tag=dict(t="3階より下の柱", at="low3", off=(80, -40))),
+                   dict(state=dict(a1low3="off", a1mid="fall"), delay=0.3, rec=IL_REC["mid_fall"],
+                        tag=dict(t="南から北へ（奥へ）次々と", at="mid_heap", off=(-40, -330), anchor="end"))])),
+    ),
+    # c620＝「推定」。1行目：東の部分が西へ揺れる（揺れは大きく描く＝左下の断り）／2行目：下の階の柱が耐えきれず東も落ちる／3行目（聞き役）：そのまま
+    "c620": dict(
+        fig=("illu", dict(
+            place="A1", start=dict(a1deck="fell", a1mid="fell"), rec="TR p1417（真ん中の部分のほとんどが崩れた）",
+            assume="推定（NIST の見立て）",
+            # ⑤b-2 の下見：根元の真ん中で回す形＝角が浮く（40画素で約16画素）→ 30画素（浮き約11画素＝前のデッキの板に隠れる）
+            steps=[dict(state=dict(a1sway=-30.0), delay=0.6, dur=1.4, rec=IL_REC["sway"],
+                        tag=dict(t="西へ揺れる", at="east12", off=(-40, -90), anchor="end")),
+                   dict(state=dict(a1east="fall"), delay=0.4, rec=IL_REC["east_fall"],
+                        tag=dict(t="下の階の柱", at="heap", off=(140, -200))),       # ⑤b-2 の echo：語りの複写にしない＝名詞だけ
+                   dict(state=dict(cam=1.06), delay=0.2, dur=2.4)])),
+    ),
+}

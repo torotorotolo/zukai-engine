@@ -1235,7 +1235,8 @@ def judge_destroy(scs, cid, destroy=None):
     destroy = destroy if destroy is not None else tuple(getattr(_ss(), "ILLU_DESTROY_CUTS", None) or ())
     bad, n = [], 0
     for sc in scs:
-        if sc["place"] == "SA":
+        if sc["place"] in ("SA", "A1"):
+            # 🆕 19本目 ⑤b-2：A1 の崩れ（真ん中・東・プールデッキ・がれき＝destroy の部品）も表のカットだけ
             n += 1
             used = sorted({f for st in [sc["start"]] + sc["states"] for f, vs in DESTROY_SA.items() if st.get(f) in vs})
             used += [p["id"] for p in sc["parts"] if p.get("destroy") and p["id"] not in used]
@@ -1261,12 +1262,84 @@ def judge_destroy(scs, cid, destroy=None):
     return bad, n
 
 
+# 🆕 19本目 ⑤b-2：㉒ A1（南から見た塔）の記録の値＝門番の側に持つ（§5b-88＝型の定数を読まない）
+REC_A1 = dict(
+    story_m=33.8 / 12.0,      # TF p3「12 stories 110'-10" (33.8 m)」＝1階の高さ
+    drop_m=2.54,              # TR0318「about 100 inches or approximately one story height」
+    drop_tag="約2.5m",        # 札に出してよい言い方（台本 c618 と同じ）
+    drift_tag="約53cm",       # TR0421「the 12th floor has moved west about 21 inches」（台本 ca18）
+    sway_max=60.0,            # 揺れを大きく描く上限（画素・模式＝左下の断りと一緒に）
+)
+
+
+def judge_a1(sc, where):
+    """㉒ A1：西の部分は動かない・消えない（TR0002）／屋上の線の下がり＝2.54m÷1階の高さ（±12%）／東は真ん中が落ち始めてから落ちる
+    （TR0093・TR0424）／m と cm の札は記録の言い方だけ（約2.5m・約53cm）・cm の札は揺れの段に／揺れは左下の断りと一緒に／人を置かない"""
+    if sc["place"] != "A1":
+        return [], 0
+    bad, n = [], 0
+    P = {p["id"]: p for p in sc["parts"]}
+    n += 1
+    w = P.get("west")
+    if not w:
+        bad.append(f"㉒{where}：西の部分の部品が無い（立ったまま残った＝TR0002）")
+    else:
+        moved = any(abs(float(k.get(f, d)) - d) > 1e-6 for k in w.get("keys") or [] for f, d in
+                    (("a", 1.0), ("dx", 0.0), ("dy", 0.0), ("rot", 0.0), ("sc", 1.0)))
+        if moved or w.get("destroy") or w.get("kind") not in (None, "layer"):
+            bad.append(f"㉒{where}：西の部分が段で変わる（消える・動く）＝西の部分は立ったまま残った（TR0002）")
+    allst = [sc["start"]] + sc["states"]
+    if any(st["a1mid"] == "drop" for st in allst):
+        n += 1
+        m = P.get("mid")
+        fh = float((m or {}).get("geo", {}).get("fh") or 0.0)
+        dys = [float(k.get("dy", 0.0)) for k in (m or {}).get("keys") or [] if 0.0 < float(k.get("dy", 0.0)) < 3 * fh]
+        want = REC_A1["drop_m"] / REC_A1["story_m"]
+        if not fh or not dys or any(abs(d / fh - want) > 0.12 * want for d in dys):
+            bad.append(f"㉒{where}：屋上の線の下がり {[round(d / fh, 2) for d in dys] if fh else '?'} 階＝記録は "
+                       f"{want:.2f} 階（2.54m÷{REC_A1['story_m']:.2f}m・±12%）")
+    if any(st["a1east"] != "on" for st in allst):
+        n += 1
+        mk = [(int(k["stage"]), float(k.get("delay", 0.0))) for k in (P.get("mid") or {}).get("keys") or []
+              if float(k.get("dy", 0.0)) >= 3 * A1FH(P)]
+        ek = [(int(k["stage"]), float(k.get("delay", 0.0))) for k in (P.get("east") or {}).get("keys") or []
+              if float(k.get("dy", 0.0)) > 0.0]
+        mid_fell0 = sc["start"]["a1mid"] in ("fall", "fell")
+        if ek and not mid_fell0 and (not mk or min(ek) <= min(mk)):
+            bad.append(f"㉒{where}：東の部分が真ん中より先（同時）に落ち始める＝順番は真ん中→東（TR0093・TR0424）")
+    texts = [t for tg in sc["tags"] for t in tg["texts"]]
+    for i, tg in enumerate(sc["tags"]):
+        for t in tg["texts"]:
+            n += 1
+            for m_ in re.finditer(r"約?\d+(?:\.\d+)?\s*(m|cm)(?![a-zA-Z])", t):
+                ok = REC_A1["drop_tag"] if m_.group(1) == "m" else REC_A1["drift_tag"]
+                if m_.group(0).replace(" ", "") != ok:
+                    bad.append(f"㉒{where}：札「{t}」の {m_.group(0)}＝記録の言い方は「{ok}」だけ")
+                if m_.group(1) == "cm" and float(sc["states"][i]["a1sway"]) == 0.0:
+                    bad.append(f"㉒{where}：札「{t}」（12階のずれ）を揺れていない段に出した")
+    if any(float(st["a1sway"]) != 0.0 for st in allst):
+        n += 1
+        if any(abs(float(st["a1sway"])) > REC_A1["sway_max"] for st in allst) or "揺れの幅は大きく描いた" not in sc.get("src", ""):
+            bad.append(f"㉒{where}：揺れ（a1sway）は {REC_A1['sway_max']:g} 画素まで・左下に「揺れの幅は大きく描いた」の断り")
+    if any(p.get("role") or p.get("kind") == "sprite" or p.get("crowd") for p in sc["parts"]):
+        bad.append(f"㉒{where}：A1 に人を置いた（人は描かない）")
+    return bad, n
+
+
+def A1FH(P):
+    """真ん中の部分の1階の高さ（部品の geo＝描いた幾何。型の定数は読まない）。部品が無ければ 1（＝落ちた量の比べに使わない）"""
+    return float((P.get("mid") or {}).get("geo", {}).get("fh") or 1.0)
+
+
 def judge_fig(kind, kw, where):
     """型（illu・illu_pair）から場面と上の層を組み、①〜⑤⑧と④を測る。返り値＝(食い違い, 件数, 想定の札の一覧)。"""
     f = getattr(F, kind)(**kw)
     bad, n = [], 0
     for k, sc in enumerate(f.illu["scenes"]):
         b, m = judge_scene(sc, f"{where}#{k + 1}")
+        bad += b
+        n += m
+        b, m = judge_a1(sc, f"{where}#{k + 1}")      # 🆕 19本目 ⑤b-2：㉒
         bad += b
         n += m
     n += 1
@@ -2311,11 +2384,51 @@ def selftest_ep18_sbcd():
     return ok
 
 
+def selftest_a1():
+    """🆕 19本目 ⑤b-2：㉒ A1 の物差しの検算（本番の表＝19本目のまま）。正しい場面が通り、わざと壊した場面が落ちること"""
+    print("■ selftest A1（19本目 ⑤b-2・㉒）")
+    ok = True
+    good = IL.scene("A1", [dict(state=dict(a1mid="drop"), rec="TR p1318",
+                                tag=dict(t="約2.5m（ほぼ1階分）", at="roof_mid")),
+                           dict(state=dict(a1mid="fall"), rec="TR p1363"),
+                           dict(state=dict(a1sway=-40.0), rec="TR p1421", tag=dict(t="12階が西へ約53cm", at="east12")),
+                           dict(state=dict(a1east="fall"), rec="TR p1424")], rec="TR p1330")
+    b, _ = judge_a1(good, "selftest")
+    print(f"  {'OK' if not b else '🔴 NG'} 正しい A1（下がる→真ん中→揺れ→東）: {'合格' if not b else '不合格'}（合格のはず）"
+          + (f"  ← {b[0]}" if b else ""))
+    ok &= not b
+    # 陽性対照（描く側の型が拒むものは、組んだ部品を壊して門番だけで落ちるかを見る）
+    import copy
+    sc = copy.deepcopy(good)
+    next(p for p in sc["parts"] if p["id"] == "west")["keys"].append(dict(stage=1, delay=0.0, dy=40.0))
+    ok &= _expect("陽性対照㉒：西の部分を下げる", judge_a1(sc, "x")[0], "㉒")
+    sc = copy.deepcopy(good)
+    for k in next(p for p in sc["parts"] if p["id"] == "mid")["keys"]:
+        if 0.0 < float(k.get("dy", 0.0)) < 100.0:
+            k["dy"] = 80.0                      # 2階分＝記録（ほぼ1階分）を越える
+    ok &= _expect("陽性対照㉒：屋上の線を2階分下げる", judge_a1(sc, "x")[0], "㉒")
+    sc = copy.deepcopy(good)
+    sc["tags"][0]["texts"] = ["約3m（ほぼ1階分）"]
+    ok &= _expect("陽性対照㉒：札の数を記録と違う言い方に", judge_a1(sc, "x")[0], "㉒")
+    sc = copy.deepcopy(good)
+    for k in next(p for p in sc["parts"] if p["id"] == "east")["keys"]:
+        if float(k.get("dy", 0.0)) > 0.0:
+            k["stage"] = 0
+    ok &= _expect("陽性対照㉒：東を真ん中より先に落とす", judge_a1(sc, "x")[0], "㉒")
+    sc = copy.deepcopy(good)
+    sc["src"] = sc["src"].replace("揺れの幅は大きく描いた", "揺れ")
+    ok &= _expect("陽性対照㉒：揺れの断りを外す", judge_a1(sc, "x")[0], "㉒")
+    b, _ = judge_destroy([good], "c999")
+    ok &= _expect("陽性対照⑫：表に無いカットで A1 を崩す", b, "⑫")
+    return ok
+
+
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
+    ok19 = selftest_a1()          # 🆕 19本目 ⑤b-2（本番の表のまま＝見本の差し込みより前）
     # 🆕 2026-10-04（18本目 ⑤b-2）：先に18本目を検算する＝見本の差し込み（16・15・14本目）より前
     #    （2026-10-06〜：18本目も見本 fixture_ep18 の表＝selftest_ep18 が差し込んで・終わったら戻す）
-    ok18 = selftest_ep18()
+    ok18 = selftest_ep18() and ok19
     # 🔴 2026-10-01（16本目 ⑤b-2）：先に16本目を検算する（2026-10-04〜：16本目も見本 fixture_ep16 の表＝selftest_ep16 が差し込んで・
     #    終わったら戻す）
     ok16 = selftest_ep16() and ok18
