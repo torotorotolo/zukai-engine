@@ -111,6 +111,14 @@ def read_wav(p):
         return np.frombuffer(w.readframes(w.getnframes()), dtype="<i2"), w.getframerate(), w.getnchannels()
 
 
+def cache_meta_ok(meta, sent, lid, same):
+    """合成キャッシュの記録（json）が、いまの行の音として正しいか。same＝いまの台本で「送る文字列と声」が同じ行IDの集合。
+    🔴 19本目（2026-10-06）：同じ文・同じ声の行は合成キャッシュを1つ共有する（冒頭の問い c107-2・c107-3 を終わりの
+    cc26-1・cc28-1 で一字一句くり返す）＝記録の行IDは先に焼いた行になり、行IDの食い違いで E1 2件が鳴った（音は正しい）。
+    送った文字列が同じで、記録の行が same の中なら通す。文字列が違う・記録の行が same の外（前の版の残り）は今までどおり E1"""
+    return meta.get("sent") == sent and (meta.get("lid") == lid or meta.get("lid") in same)
+
+
 def judge(rows):
     """rows＝[(行ID, 話者, モーラ数, 数)] → (E, W, 参考)。話者は None＝語り・"q"＝聞き役。"""
     E, W = [], []
@@ -173,6 +181,12 @@ def collect():
     rows_by = {w: T.preset_row(n) for w, n in presets.items()}
     cache = T.CACHE / ES.SLUG
     out = []
+    import speaker
+    same = {}                          # (送る文字列, 声) → その組の行ID（同じ文・同じ声の行はキャッシュを共有する）
+    for cid, lines in narration.SCRIPT:
+        for i, t in enumerate(lines, 1):
+            lid = f"{cid}-{i}"
+            same.setdefault((T.sent_text(yomi[lid]), speaker.split(t)[0]), set()).add(lid)
 
     def synth(lid, who, body):
         sent = T.sent_text(yomi[lid])
@@ -180,7 +194,7 @@ def collect():
         if not p.exists():
             raise KeyError(lid)
         meta = json.loads(p.with_suffix(".json").read_text(encoding="utf-8"))
-        if meta.get("sent") != sent or meta.get("lid") != lid:
+        if not cache_meta_ok(meta, sent, lid, same.get((sent, who), ())):
             E.append(f"E1 {lid} キャッシュの記録が合わない（送った文字列・行ID）")
         x, fs, ch = read_wav(p)
         out.append((lid, who, n_moras(yomi[lid]), metrics(x, fs)))
@@ -277,10 +291,16 @@ def selftest():
     ok(any(w.startswith("W2 x") for w in W), "陽性対照：間が挟まった行（W2）が鳴らない")
     E, W, _ = judge([row(f"n{i}", None, 235) for i in range(20)] + [row(f"q{i}", "q", 308, amp=4000) for i in range(5)])
     ok(any(w.startswith("W1") for w in W), "陽性対照：音量の差（W1）が鳴らない")
+    # 合成キャッシュの記録（19本目：同じ文・同じ声の行はキャッシュを共有する）
+    m = {"sent": "#>ふたつめ。", "lid": "c107-2"}
+    ok(cache_meta_ok(m, "#>ふたつめ。", "c107-2", {"c107-2", "cc26-1"}), "陰性対照：記録の行そのもの")
+    ok(cache_meta_ok(m, "#>ふたつめ。", "cc26-1", {"c107-2", "cc26-1"}), "陰性対照：同じ文・同じ声の別の行（共有）")
+    ok(not cache_meta_ok(m, "#>ふたつめ。", "cc26-1", {"cc26-1"}), "陽性対照：記録の行が同じ文の組の外（前の版の残り）")
+    ok(not cache_meta_ok(m, "#>みっつめ。", "c107-2", {"c107-2"}), "陽性対照：送った文字列が違う")
     if fails:
         print("🔴 selftest:\n  " + "\n  ".join(fails))
         return 1
-    print("selftest: 全部合格（声の高さ・無音・音割れの物差し／陰性1・陽性8）")
+    print("selftest: 全部合格（声の高さ・無音・音割れの物差し／陰性1・陽性8／キャッシュの記録 陰性2・陽性2）")
     return 0
 
 
