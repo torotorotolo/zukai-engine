@@ -205,6 +205,13 @@ def main():
     for r in small:
         print(f"  ・ 参考（画面 {r[4]}px＜{MIN_H_PX}px＝字として読めない・測らない）{r[0]}「{r[3][:30]}」{r[1]}")
     rows = [r for r in rows if r[4] >= MIN_H_PX]
+    # 🆕 2026-10-06（19本目 ⑤b-7b）：**縦長の箱（幅が高さの半分未満）は横書きの行ではない**＝OCR が写真の模様を字と読んだ幻
+    #    （c701＝N#18 の建物の縦の筋「に 」 、 い」＝箱 11×39px）。本物の行は1字でも幅≒高さ（英字の行は幅が高さの数倍）。
+    #    黙って捨てず、上の「画面で小さい行」と同じく参考に出す（ON_PURPOSE の作法）
+    tall = [r for r in rows if (r[5][2] - r[5][0]) < 0.5 * (r[5][3] - r[5][1])]
+    for r in tall:
+        print(f"  ・ 参考（箱が縦長 {r[5][2] - r[5][0]}×{r[5][3] - r[5][1]}px＝横書きの行ではない・測らない）{r[0]}「{r[3][:30]}」{r[1]}")
+    rows = [r for r in rows if r not in tall]
     hard = [r for r in rows if r[1][:2] in ("窓上", "窓下")]
     cuts = sorted({r[0] for r in rows}, key=CS.keys_of(photo_of).index)
     print(f"■ 画面に出る辺が字の行を切っている（見えている {LO:.0%}〜{HI:.0%}）… {len(rows)} 行 ／ {len(cuts)} カット"

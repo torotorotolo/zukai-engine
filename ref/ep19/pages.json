@@ -1,0 +1,89 @@
+{
+ "pg4007": {
+  "doc": "MC18",
+  "pdf": "surfside_morabito_2018-10-08_structural_field_survey.pdf",
+  "pdf_page": 7,
+  "w": 1700,
+  "h": 2800,
+  "dpi": 200,
+  "md5": "ef5ad0f703ccd995d390efff0e28f27e",
+  "cuts": {
+   "c310": [
+    0.1101,
+    0.0455,
+    0.821,
+    0.1786
+   ]
+  },
+  "bias": {
+   "c310": 0.823
+  }
+ },
+ "pg3004": {
+  "doc": "GJ",
+  "pdf": "miamidade_grandjury_2021spring_report_redacted.pdf",
+  "pdf_page": 4,
+  "w": 1700,
+  "h": 2200,
+  "dpi": 200,
+  "md5": "50ed4d95d94903910a40bef29c11e3ce",
+  "cuts": {
+   "cc02": [
+    0.0937,
+    0.4875,
+    0.8828,
+    0.8288
+   ]
+  },
+  "bias": {
+   "cc02": 0.732
+  }
+ },
+ "pg3020": {
+  "doc": "GJ",
+  "pdf": "miamidade_grandjury_2021spring_report_redacted.pdf",
+  "pdf_page": 20,
+  "w": 1700,
+  "h": 2200,
+  "dpi": 200,
+  "md5": "2f42c50b611c299eb9991f5aeaf13b35",
+  "cuts": {
+   "c402": [
+    0.119,
+    0.4814,
+    0.8728,
+    0.813
+   ]
+  },
+  "bias": {
+   "c402": 0.324
+  }
+ },
+ "pg3021": {
+  "doc": "GJ",
+  "pdf": "miamidade_grandjury_2021spring_report_redacted.pdf",
+  "pdf_page": 21,
+  "w": 1700,
+  "h": 2200,
+  "dpi": 200,
+  "md5": "91d6e7cc916ea48715df5f9f12ad24d8",
+  "cuts": {
+   "c407": [
+    0.1166,
+    0.3641,
+    0.8693,
+    0.6986
+   ],
+   "c410": [
+    0.1184,
+    0.4507,
+    0.8699,
+    0.7751
+   ]
+  },
+  "bias": {
+   "c407": 0.823,
+   "c410": 0.781
+  }
+ }
+}

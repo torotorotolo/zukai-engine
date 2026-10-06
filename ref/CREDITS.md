@@ -2176,3 +2176,66 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 - NARA 83757「SEARCH FOR USS THRESHER (SSN-593) TRIESTE Test Dive Boston, Mass. & at Sea」初代トリエステの試験潜航（1963-05-03・ボストンの東 約60マイル）・643秒　https://catalog.archives.gov/id/83757
 - NARA 83741「USS THRESHER (SSN-593) MEMORIALS」追悼（参列者の顔のショットは使わない）・575秒　https://catalog.archives.gov/id/83741
 - NARA 83740「THRESHER MEMORIAL SERVICE Portsmouth, N. H」ポーツマスの追悼の式（頭2秒は NARA のロゴ・顔の分かるショットは使わない）・328秒　https://catalog.archives.gov/id/83740
+
+## サーフサイドのマンション崩壊のリメイク（2021-06-24・19本目）
+
+※2026-10-06（⑤b-7a）。`qa_out/ep19_assets.py credits --write` が書く（手で直さない）。旧版の節は上の「4本目：サーフサイド（Champlain Towers South・2021-06-24）」＝直さない（公開ずみ）。
+
+### 1. 写真（NIST・FEMA〈DVIDS〉・DHS＝米連邦の職務著作 PD／マイアミ・デイド郡消防＝フロリダ州の公記録／CC BY 2.0）
+- 🔴 **郡の消防の写真（Commons の PD-FLGov）は画面に「PD」と書かない**（決め①・10-06 カズヤくん）＝「マイアミ・デイド郡消防（フロリダ州の公記録）」
+- 🔴 CC BY-SA は使わない（決め③）。CC BY 2.0 の1点（Steve Jurvetson）は章の色のデュオトーン＝色の改変＝出典に「色調を変更」
+- 🔴 もとから在る大きな商標・社名・電話番号・顔の近い人（郡警察の鑑識）は束の中で**切り落とした**（`qa_out/ep19_assets.py` の CROP＝⑤b-1 の原寸で決めた箱）。車のナンバー1つは**モザイク**（PD の写真だけ・BLUR）
+- 🔴 人が写る写真（§B2-2）：救助隊・調査員は公務。住戸の中は引きだけ（決め⑤）・追悼の場は DHS の引きだけ（決め⑥）
+- 撮影年＝写真の説明（NIST・DVIDS・Commons）から映像方針で書いた副題の年。副題に年の無い写真は「不明」
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `c01_mdfr1` | c702 | 2021 | Public domain（PD-FLGov の可能性） | マイアミ・デイド郡消防（フロリダ州の公記録） | File:Surfside condominium collapse photo from Miami-Dade Fire Rescue 1.jpg |
+| `c04_mdfr4` | c621 | 2021 | Public domain（PD-FLGov の可能性） | マイアミ・デイド郡消防（フロリダ州の公記録） | File:Surfside condominium collapse photo from Miami-Dade Fire Rescue 4.jpg |
+| `c06_mdfr6` | c703 | 2021 | Public domain（PD-FLGov の可能性） | マイアミ・デイド郡消防（フロリダ州の公記録） | File:Surfside condominium collapse photo from Miami-Dade Fire Rescue 6.jpg　モザイク [[298, 774, 350, 802]] |
+| `c13_jurvetson` | c923 | 2021 | CC BY 2.0（CC BY 2.0） | Steve Jurvetson（CC BY 2.0） | File:Remains of the Collapsed Florida Surfside Condo (2021-10-04).jpg |
+| `d06_dhs` | cc01 | 2021 | Public domain（A（DHS）） | 米国土安全保障省（DHS） | File:DHS Secretary Alejandro Mayorkas Visits Surfside Condo Collapse Site (51390531311).jpg |
+| `d13_dhs` | cc06 | 2021 | Public domain（A（DHS）） | 米国土安全保障省（DHS） | File:DHS Secretary Alejandro Mayorkas Visits Surfside Condo Collapse Site (51390783308).jpg　切り出し [1500, 0, 2500, 562] |
+| `f6717685_debris` | c709 | 2021 | Public domain（A（FEMA）） | FEMA（DVIDS） | https://www.dvidshub.net/image/6717685/fema-assists-recovery-surfside-building-collapse |
+| `f6717686_debris` | c707 | 2021 | Public domain（A（FEMA）） | FEMA（DVIDS） | https://www.dvidshub.net/image/6717686/fema-assists-recovery-surfside-building-collapse　切り出し [325, 125, 2000, 1068] |
+| `f6723297_team` | c713 | 2021 | Public domain（A（FEMA）） | FEMA（DVIDS） | https://www.dvidshub.net/image/6723297/urban-search-and-rescue-teams-continue-support-surfside-building-collapse-recovery |
+| `f6723299_pa_tf1` | c708 | 2021 | Public domain（A（FEMA）） | FEMA（DVIDS） | https://www.dvidshub.net/image/6723299/urban-search-and-rescue-teams-continue-support-surfside-building-collapse-recovery |
+| `n03_chloride` | c916 | 2022 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2022/06/15/Ruthie%20Corzo.jpg |
+| `n10_column_before` | c419 | 2021 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2021/08/25/KAM_3717%28July6th%29.JPG　切り出し [252, 588, 5082, 4480] |
+| `n11_column_move` | ca19 | 2021 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2021/08/25/KAM_3753%20%28july7th%29.JPG　切り出し [1260, 630, 6720, 3700] |
+| `n12_concrete` | c319 | 2021 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2021/08/25/NIST%20team%20July1.jpg　切り出し [0, 300, 2900, 1931] |
+| `n13_laydown` | c524 | 2021 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2021/08/25/NIST%20team%20July2.jpg |
+| `n16_column_tag` | c715 | 2021 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2021/08/25/KAM_3691%28July6th%29.JPG　切り出し [0, 1386, 5124, 4267] |
+| `n17_remaining` | ca13 | 2021 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2021/06/30/IMG_6362.JPG　切り出し [0, 0, 4032, 2268] |
+| `n18_from_south` | c701 | 2021 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2021/07/19/IMG_0122-%28Jonathan-070721%29.jpg |
+| `n19_lidar` | c716 | 2021 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2021/07/15/Lidar%20and%20other%20instruments%20.jpg |
+| `n20_police_escort` | c717 | 2021 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2021/07/15/IMG_0428.JPG　切り出し [0, 1008, 3583, 3024] |
+| `n28_warehouse_column` | cc21 | 2023 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2023/05/31/image8.jpg |
+| `n33_coring` | c317 | 2023 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2023/09/06/Coring%20and%20MOA%20tests%20%20%28Sep2023%29.jpg　切り出し [0, 580, 4032, 2848] |
+| `n42_absorption` | c915 | 2024 | Public domain（A） | R. Eskalis/NIST | https://www.nist.gov/sites/default/files/images/2024/09/12/NCSTInvestigation_BrollReel07_v01.00_00_14_16.Still005.jpg |
+| `n43_model` | cb04 | 2023 | Public domain（A） | L. Gerskovic/NIST | https://www.nist.gov/sites/default/files/images/2024/11/21/CNST%20CTS%20Update%20Dec.jpg |
+| `n44_aerial_photos` | c720 | 不明 | Public domain（A） | L. Gerskovic/NIST | https://www.nist.gov/sites/default/files/images/2024/11/21/CNST%20CTS%20Update%20Dec-2.jpg |
+| `n48_lidar_0714` | ca21 | 2021 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2025/02/04/Lidar_Data_from_Leica_C10_July-14-2021.jpg |
+| `n53_after_test` | cc27 | 2025 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2025/04/10/NCST%20Investigation%20April25%20%289%20of%2038%29.jpg　切り出し [389, 137, 2972, 1591] |
+| `n60_mast_after` | ca09 | 2025 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2025/04/10/NCST%20Investigation%20April25%20%2831%20of%2038%29.jpg |
+| `n61_shear_uw` | c818 | 2025 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2025/04/10/NCST%20Investigation%20April25%20%2839%20of%204%29.jpg |
+| `n66_slab_section` | c812 | 2025 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2025/06/20/June%20CTS%20Update%20Concrete%20Slab.jpg |
+| `n69_corroded_bars` | c813 | 2025 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2025/06/23/NCST%20Investigation%20Update%20June%202025%20%287%20of%207%29.jpg |
+| `n70_slab_cracks` | c812 | 2025 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2025/06/23/NCST%20Investigation%20Update%20June%202025%20%288%20of%207%29.jpg |
+| `n71_mast_test` | cc23 | 不明 | Public domain（A） | NIST | https://www.nist.gov/sites/default/files/images/2025/06/23/NCST%20Investigation%20Update%20June%202025%20%283%20of%207%29.jpg |
+| `tf_p003_model` | c205 c206 | 不明 | Public domain（A） | NIST（技術的知見の動画のスライド3） | NIST 技術的知見の動画（2026年6月） |
+| `tf_p050_3d` | c502 | 不明 | Public domain（A） | NIST（技術的知見の動画のスライド50） | NIST 技術的知見の動画（2026年6月） |
+| `tf_p050_gate` | c504 | 不明 | Public domain（A） | NIST（技術的知見の動画のスライド50・目撃談にもとづく絵） | NIST 技術的知見の動画（2026年6月） |
+| `tf_p052_gate` | c509 | 不明 | Public domain（A） | NIST（技術的知見の動画のスライド52・目撃談にもとづく絵） | NIST 技術的知見の動画（2026年6月） |
+| `tf_p057_3d` | c515 | 不明 | Public domain（A） | NIST（技術的知見の動画のスライド57） | NIST 技術的知見の動画（2026年6月） |
+| `tf_p057_memo` | c516 | 不明 | Public domain（下地の図は引用）（A＋第三者（引用）） | NIST（技術的知見の動画のスライド57）・下地の図：管財人（CTS Receiver） | NIST 技術的知見の動画（2026年6月） |
+| `tf_p058_note` | c520 | 不明 | Public domain（下地の図は引用）（A＋第三者（引用）） | NIST（技術的知見の動画のスライド58）・下地の図：管財人（CTS Receiver） | NIST 技術的知見の動画（2026年6月） |
+| `tf_p075_cover` | c906 | 不明 | Public domain（A） | NIST（技術的知見の動画のスライド75） | NIST 技術的知見の動画（2026年6月） |
+| `tf_p076_bars` | c909 | 不明 | Public domain（下地の図は引用）（A＋第三者（引用）） | NIST（技術的知見の動画のスライド77）・図面：Town of Surfside | NIST 技術的知見の動画（2026年6月） |
+| `tf_p084_salt` | c811 | 不明 | Public domain（A） | NIST（技術的知見の動画のスライド84） | NIST 技術的知見の動画（2026年6月） |
+| `tf_p174_corr` | c307 | 不明 | Public domain（A） | NIST（技術的知見の動画のスライド174） | NIST 技術的知見の動画（2026年6月） |
+| `tf_p185_87park` | cb07 | 不明 | Public domain（A） | NIST（技術的知見の動画のスライド185） | NIST 技術的知見の動画（2026年6月） |
+| `pg3004` | cc02 | 2021 | フロリダ州の公記録（郡の州検事局が公開） | マイアミ・デイド郡の大陪審 | miamidade_grandjury_2021spring_report_redacted.pdf PDF 4頁 |
+| `pg3020` | c402 | 2021 | フロリダ州の公記録（郡の州検事局が公開） | マイアミ・デイド郡の大陪審 | miamidade_grandjury_2021spring_report_redacted.pdf PDF 20頁 |
+| `pg3021` | c407 c410 | 2021 | フロリダ州の公記録（郡の州検事局が公開） | マイアミ・デイド郡の大陪審 | miamidade_grandjury_2021spring_report_redacted.pdf PDF 21頁 |
+| `pg4007` | c310 | 2018 | サーフサイド町が公開した記録（フロリダ州の公記録） | モラビト社（構造技術者） | surfside_morabito_2018-10-08_structural_field_survey.pdf PDF 7頁 |

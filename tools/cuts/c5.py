@@ -245,4 +245,25 @@ SPEC = {
             dict()],
             note=ss.ORDER_NOTE, src=ss.src(["TR p1156・p1157・p1158・p1159・p1160", "TF p9061"]))),
     ),
+    # ── 🆕 ⑤b-7a（2026-10-06）：写真（調査員はスマホで撮る・顔はマスクで半分＝photo_check19）──
+    "c524": dict(t="削られた余裕", s="がれきと潰れた車を調べる NIST の調査員（2021年7月）",
+                 photo=P("n13_laydown"), **ss.kind(P("n13_laydown"))),
+    # ── 🆕 ⑤b-7b（2026-10-06）：NIST のスライド（色は変えない）。🔴 c516・c520 は下地が管財人の原図＝紙面の引用＝額装・無加工
+    #   （`assets.json` の frame＝`ss.check_frame_only` が切り出し・寄り・色を止める）
+    # フリー素材（イメージ）：c510＝古いコンクリートの縁を流れ落ちる水・c519＝錆の染みの配管に水がしたたる・c526＝夜の暗い海と波
+    "c510": ss.vid("c510"),
+    "c519": ss.vid("c519"),
+    "c526": ss.vid("c526"),
+    "c502": dict(t="傷みが見つかった場所", s="プランターと門の位置の図（約3週間前）",
+                 photo=P("tf_p050_3d"), panel=True, color=1.0),
+    "c504": dict(t="門の描き起こし", s="目撃談にもとづく NIST の門の絵",
+                 photo=P("tf_p050_gate"), panel=True, color=1.0),
+    "c509": dict(t="3段の門の絵", s="目撃談にもとづく NIST の門の絵（3段）",
+                 photo=P("tf_p052_gate"), panel=True, color=1.0),
+    "c515": dict(t="最後の日の合図", s="プランターの位置の図（約17時間前）",
+                 photo=P("tf_p057_3d"), panel=True, color=1.0),
+    "c516": dict(t="目撃した人の話", s="聞き取りの注記（縮尺は合っていない）",
+                 photo=P("tf_p057_memo"), panel=True, color=1.0),
+    "c520": dict(t="地下で見えた漏れ", s="付箋の注記と管財人の原図",
+                 photo=P("tf_p058_note"), panel=True, color=1.0),
 }

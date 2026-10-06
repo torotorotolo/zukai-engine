@@ -35,7 +35,7 @@ PLAN = {
     'cb07': dict(kind='図・写真の頁',
                plan='図 p185 TF のスライド185（札の文＝印字185）',
                src='TF p185（`too small to damage even the distressed connections`）'),
-    'cb08': dict(kind='写真',
+    'cb08': dict(kind='フリー素材',     # ⑤b-7b：⑤b-1 で S#48（フリー素材）に替えた＝list19 の種類「フリー」と合わせた
                plan='B1@⑤b-1（現場の近くの建物の列）｜副題：現場の近くの建物（2021年6〜7月）｜権利：A推定｜注：—',
                src='TR0463・TR0464'),
     'cb09': dict(kind='図解',
@@ -56,7 +56,7 @@ PLAN = {
     'cb14': dict(kind='図解',
                plan='図 一覧（崩れの起こり＝プールデッキの継ぎ目の余裕の少なさ／大きくは関わっていない＝となりの工事の揺れ・地面・嵐など）｜権利：自作',
                src='TR0476・TR0454・TR0465・TR0474'),
-    'cb15': dict(kind='写真',
+    'cb15': dict(kind='フリー素材',     # ⑤b-7b：⑤b-1 で S#49（フリー素材）に替えた＝list19 の種類「フリー」と合わせた
                plan='N#18 は c702 → N#24（ライダーの撮像を相談する連邦職員）か B2 の別の秒｜副題：—｜権利：A｜注：⑤b-1 で同じ絵を2回使わない',
                src='TR0454（`Things that most probably did not contribute significantly to the collapse include vibrations from the construction of 87 Park.`）'),
     'cb16': dict(kind='写真',
@@ -152,4 +152,16 @@ SPEC = {
             dict(add=[dict(k="grp", t="起こり", x=110, y=370), ss.fl("o_mg"), ss.fl("o_deg")])],
             src=ss.src(["TR p1454・p1465・p1476"]))),
     ),
+    # ── 🆕 ⑤b-7a（2026-10-06）：写真・映像 ──
+    # cb01＝B2 の13.0秒の止め絵（2秒の区間を9秒に伸ばさない）・札「言われていた話」・重機の CAT はもとから在る字
+    "cb01": ss.vid("cb01", t="となりの建物の工事", s="南どなりの 87パーク と現場（2021年）"),
+    "cb04": dict(t="揺れの計算", s="計算機モデルを見る調査団（2023年4月）",
+                 photo=P("n43_model"), **ss.kind(P("n43_model"))),
+    "cb16": ss.vid("cb16", t="その後", s="崩落の現場の床（2021年6〜7月）"),
+    # ── 🆕 ⑤b-7b（2026-10-06）：NIST のスライド185（色は変えない）──
+    # フリー素材（イメージ）：cb08＝集合住宅を見上げる・cb15＝基礎の穴を掘る重機の筒
+    "cb08": ss.vid("cb08"),
+    "cb15": ss.vid("cb15"),
+    "cb07": dict(t="計算した揺れ", s="87パークの工事の揺れの計算の図",
+                 photo=P("tf_p185_87park"), panel=True, color=1.0),
 }

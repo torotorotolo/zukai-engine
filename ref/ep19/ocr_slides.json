@@ -1,4 +1,158 @@
 {
+ "c01_mdfr1.jpg": {
+  "size": [
+   1024,
+   768
+  ],
+  "lines": []
+ },
+ "c04_mdfr4.jpg": {
+  "size": [
+   1024,
+   768
+  ],
+  "lines": []
+ },
+ "c06_mdfr6.jpg": {
+  "size": [
+   2048,
+   1536
+  ],
+  "lines": [
+   {
+    "box": [
+     749,
+     76,
+     902,
+     96
+    ],
+    "text": "ー 第 ■ ■ ト ■ 第"
+   },
+   {
+    "box": [
+     794,
+     273,
+     879,
+     285
+    ],
+    "text": "第 ド い こ 第 一 新 「"
+   },
+   {
+    "box": [
+     814,
+     1083,
+     851,
+     1270
+    ],
+    "text": ": 第 気"
+   },
+   {
+    "box": [
+     1029,
+     908,
+     1071,
+     971
+    ],
+    "text": "第 を"
+   },
+   {
+    "box": [
+     194,
+     1033,
+     339,
+     1065
+    ],
+    "text": "・ - を 磊 ツ ン ご"
+   }
+  ]
+ },
+ "c13_jurvetson.jpg": {
+  "size": [
+   3000,
+   1552
+  ],
+  "lines": [
+   {
+    "box": [
+     2329,
+     516,
+     2458,
+     537
+    ],
+    "text": "興 第 宀 .-"
+   }
+  ]
+ },
+ "d06_dhs.jpg": {
+  "size": [
+   2500,
+   1740
+  ],
+  "lines": []
+ },
+ "d13_dhs.jpg": {
+  "size": [
+   1000,
+   562
+  ],
+  "lines": []
+ },
+ "f6717685_debris.jpg": {
+  "size": [
+   2000,
+   1335
+  ],
+  "lines": []
+ },
+ "f6717686_debris.jpg": {
+  "size": [
+   1675,
+   943
+  ],
+  "lines": []
+ },
+ "f6723297_team.jpg": {
+  "size": [
+   2000,
+   1334
+  ],
+  "lines": [
+   {
+    "box": [
+     1569,
+     597,
+     1706,
+     723
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     1032,
+     407,
+     1058,
+     422
+    ],
+    "text": "MTM"
+   },
+   {
+    "box": [
+     1036,
+     962,
+     1065,
+     974
+    ],
+    "text": ". 51"
+   }
+  ]
+ },
+ "f6723299_pa_tf1.jpg": {
+  "size": [
+   2000,
+   1333
+  ],
+  "lines": []
+ },
  "fb_c101.jpg": {
   "size": [
    1920,
@@ -53,5 +207,4032 @@
    1080
   ],
   "lines": []
+ },
+ "fb_c213.jpg": {
+  "size": [
+   1920,
+   1012
+  ],
+  "lines": []
+ },
+ "fb_c301.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     648,
+     257,
+     662,
+     303
+    ],
+    "text": "当 ー"
+   }
+  ]
+ },
+ "fb_c312.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c406.jpg": {
+  "size": [
+   1920,
+   1012
+  ],
+  "lines": []
+ },
+ "fb_c417.jpg": {
+  "size": [
+   1920,
+   1014
+  ],
+  "lines": [
+   {
+    "box": [
+     5,
+     525,
+     120,
+     566
+    ],
+    "text": "ALPHA"
+   }
+  ]
+ },
+ "fb_c623.jpg": {
+  "size": [
+   1920,
+   1014
+  ],
+  "lines": []
+ },
+ "fb_c705.jpg": {
+  "size": [
+   1920,
+   1014
+  ],
+  "lines": []
+ },
+ "fb_c711.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     222,
+     489,
+     422,
+     519
+    ],
+    "text": "画 L. ー ■ ■ ■ ■"
+   },
+   {
+    "box": [
+     637,
+     1058,
+     749,
+     1080
+    ],
+    "text": "-7 参 」 1 ー"
+   }
+  ]
+ },
+ "fb_c718.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c808.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c809.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c810.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c820.jpg": {
+  "size": [
+   1920,
+   1012
+  ],
+  "lines": []
+ },
+ "fb_c901.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c912.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c920.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     628,
+     265,
+     743,
+     302
+    ],
+    "text": "・ ◆ ◆"
+   },
+   {
+    "box": [
+     627,
+     442,
+     784,
+     477
+    ],
+    "text": "》 ◆ ◆ ◆"
+   },
+   {
+    "box": [
+     638,
+     726,
+     816,
+     759
+    ],
+    "text": "◆ ◆ ◆ 、 学 ,"
+   },
+   {
+    "box": [
+     637,
+     749,
+     813,
+     825
+    ],
+    "text": "◆ ◆ を ◆ ."
+   }
+  ]
+ },
+ "fb_c922.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_ca08.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_ca12.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     33,
+     44,
+     65,
+     87
+    ],
+    "text": "4"
+   },
+   {
+    "box": [
+     142,
+     51,
+     966,
+     100
+    ],
+    "text": "Spread 0f FaiIure Through the Tower"
+   },
+   {
+    "box": [
+     1725,
+     161,
+     1850,
+     178
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     473,
+     421,
+     780,
+     453
+    ],
+    "text": "Extent ofCoIIapse | 一"
+   },
+   {
+    "box": [
+     450,
+     490,
+     761,
+     515
+    ],
+    "text": "Middle PartofTower"
+   },
+   {
+    "box": [
+     435,
+     576,
+     539,
+     600
+    ],
+    "text": "Zone A"
+   },
+   {
+    "box": [
+     825,
+     455,
+     1081,
+     486
+    ],
+    "text": "View, right phOtO"
+   },
+   {
+    "box": [
+     1569,
+     895,
+     1684,
+     920
+    ],
+    "text": "Slabs&"
+   },
+   {
+    "box": [
+     1557,
+     939,
+     1696,
+     964
+    ],
+    "text": "Columns"
+   },
+   {
+    "box": [
+     1822,
+     1029,
+     1856,
+     1046
+    ],
+    "text": "133"
+   }
+  ]
+ },
+ "fb_ca15.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     33,
+     44,
+     65,
+     87
+    ],
+    "text": "4"
+   },
+   {
+    "box": [
+     142,
+     51,
+     966,
+     100
+    ],
+    "text": "Spread 0f FaiIure Through the Tower"
+   },
+   {
+    "box": [
+     1651,
+     46,
+     1867,
+     104
+    ],
+    "text": "NISr"
+   },
+   {
+    "box": [
+     1725,
+     161,
+     1850,
+     178
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     435,
+     576,
+     539,
+     600
+    ],
+    "text": "Zone A"
+   },
+   {
+    "box": [
+     864,
+     239,
+     1772,
+     270
+    ],
+    "text": "The strength ofthe concrete wall prevented the failure from"
+   },
+   {
+    "box": [
+     1164,
+     282,
+     1474,
+     313
+    ],
+    "text": "spreading beyond it."
+   },
+   {
+    "box": [
+     977,
+     325,
+     1659,
+     356
+    ],
+    "text": "The f [ 00 「 slabs have torn awayfrom the wall."
+   },
+   {
+    "box": [
+     1255,
+     902,
+     1360,
+     922
+    ],
+    "text": "floorslab"
+   },
+   {
+    "box": [
+     1255,
+     667,
+     1360,
+     688
+    ],
+    "text": "floorslab"
+   },
+   {
+    "box": [
+     606,
+     580,
+     862,
+     611
+    ],
+    "text": "View, right phOtO"
+   },
+   {
+    "box": [
+     1255,
+     430,
+     1360,
+     450
+    ],
+    "text": "floorslab"
+   },
+   {
+    "box": [
+     1822,
+     1029,
+     1857,
+     1045
+    ],
+    "text": "134"
+   }
+  ]
+ },
+ "fb_ca17.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     33,
+     44,
+     65,
+     87
+    ],
+    "text": "4"
+   },
+   {
+    "box": [
+     142,
+     51,
+     966,
+     100
+    ],
+    "text": "Spread 0f FaiIure Through the Tower"
+   },
+   {
+    "box": [
+     551,
+     370,
+     807,
+     401
+    ],
+    "text": "View, right phOtO"
+   },
+   {
+    "box": [
+     1651,
+     46,
+     1867,
+     104
+    ],
+    "text": "NIST"
+   },
+   {
+    "box": [
+     1725,
+     161,
+     1850,
+     178
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     1822,
+     1029,
+     1856,
+     1046
+    ],
+    "text": "135"
+   }
+  ]
+ },
+ "fb_cb01.jpg": {
+  "size": [
+   1920,
+   1012
+  ],
+  "lines": []
+ },
+ "fb_cb16.jpg": {
+  "size": [
+   1920,
+   1014
+  ],
+  "lines": []
+ },
+ "fb_cc29.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "n03_chloride.jpg": {
+  "size": [
+   3000,
+   3067
+  ],
+  "lines": []
+ },
+ "n10_column_before.jpg": {
+  "size": [
+   3000,
+   2417
+  ],
+  "lines": []
+ },
+ "n11_column_move.jpg": {
+  "size": [
+   3000,
+   1687
+  ],
+  "lines": []
+ },
+ "n12_concrete.jpg": {
+  "size": [
+   2900,
+   1631
+  ],
+  "lines": []
+ },
+ "n13_laydown.jpg": {
+  "size": [
+   3000,
+   1582
+  ],
+  "lines": [
+   {
+    "box": [
+     1315,
+     647,
+     1403,
+     681
+    ],
+    "text": "NJtsr"
+   }
+  ]
+ },
+ "n16_column_tag.jpg": {
+  "size": [
+   3000,
+   1687
+  ],
+  "lines": []
+ },
+ "n17_remaining.jpg": {
+  "size": [
+   3000,
+   1688
+  ],
+  "lines": [
+   {
+    "box": [
+     680,
+     865,
+     808,
+     894
+    ],
+    "text": "-- ■ 第"
+   },
+   {
+    "box": [
+     364,
+     1160,
+     487,
+     1185
+    ],
+    "text": "気 い 、 い 驤"
+   }
+  ]
+ },
+ "n18_from_south.jpg": {
+  "size": [
+   3000,
+   2250
+  ],
+  "lines": [
+   {
+    "box": [
+     1498,
+     432,
+     1903,
+     448
+    ],
+    "text": "服 ー に ・ ー 0 悪 ー ・ ■ ー ー ー ■ に 第 ■"
+   },
+   {
+    "box": [
+     1210,
+     664,
+     1645,
+     699
+    ],
+    "text": "第 ⅱ ー 甬 ⅱ ー 要 ー ー 第 一 第 爿 第 爿 ■"
+   },
+   {
+    "box": [
+     1675,
+     1127,
+     2064,
+     1164
+    ],
+    "text": "・ を ン を 第 ら ・ 、 ル ー ラ 号 ま"
+   },
+   {
+    "box": [
+     339,
+     1203,
+     556,
+     1224
+    ],
+    "text": ", を み の を ~ 二"
+   },
+   {
+    "box": [
+     1845,
+     2197,
+     1856,
+     2236
+    ],
+    "text": "に 」 、 い"
+   },
+   {
+    "box": [
+     1723,
+     1799,
+     1745,
+     1949
+    ],
+    "text": "す 一 宀 、 ー を 簽 一 第"
+   },
+   {
+    "box": [
+     6,
+     773,
+     69,
+     995
+    ],
+    "text": "・ 一 ニ な"
+   },
+   {
+    "box": [
+     1697,
+     614,
+     1719,
+     705
+    ],
+    "text": "- 一 ー P 工 4"
+   },
+   {
+    "box": [
+     1645,
+     708,
+     1667,
+     780
+    ],
+    "text": "く エ d1V"
+   },
+   {
+    "box": [
+     2937,
+     963,
+     2971,
+     1076
+    ],
+    "text": "、 - → 一 盞 第"
+   },
+   {
+    "box": [
+     1550,
+     1183,
+     1606,
+     1198
+    ],
+    "text": "1 イ 壑 : を :"
+   }
+  ]
+ },
+ "n19_lidar.jpg": {
+  "size": [
+   3000,
+   2250
+  ],
+  "lines": [
+   {
+    "box": [
+     2665,
+     848,
+     2714,
+     1129
+    ],
+    "text": "- ふ ヨ ー"
+   }
+  ]
+ },
+ "n20_police_escort.jpg": {
+  "size": [
+   3000,
+   1688
+  ],
+  "lines": [
+   {
+    "box": [
+     611,
+     1540,
+     628,
+     1573
+    ],
+    "text": "し ペ"
+   }
+  ]
+ },
+ "n28_warehouse_column.jpg": {
+  "size": [
+   3000,
+   2250
+  ],
+  "lines": [
+   {
+    "box": [
+     2892,
+     444,
+     2970,
+     480
+    ],
+    "text": "当 ム QZ."
+   }
+  ]
+ },
+ "n33_coring.jpg": {
+  "size": [
+   3000,
+   1688
+  ],
+  "lines": [
+   {
+    "box": [
+     2046,
+     491,
+     2220,
+     516
+    ],
+    "text": "ミ . :. マ 、 0 い に を"
+   },
+   {
+    "box": [
+     1499,
+     1050,
+     1670,
+     1079
+    ],
+    "text": "・ ・ ミ を 攣"
+   }
+  ]
+ },
+ "n42_absorption.jpg": {
+  "size": [
+   3000,
+   1688
+  ],
+  "lines": []
+ },
+ "n43_model.jpg": {
+  "size": [
+   3000,
+   1788
+  ],
+  "lines": []
+ },
+ "n44_aerial_photos.jpg": {
+  "size": [
+   3000,
+   1578
+  ],
+  "lines": []
+ },
+ "n48_lidar_0714.jpg": {
+  "size": [
+   3000,
+   1854
+  ],
+  "lines": [
+   {
+    "box": [
+     2697,
+     476,
+     2927,
+     494
+    ],
+    "text": "い 隲 郵 第 新 物 , ! 、"
+   },
+   {
+    "box": [
+     2289,
+     539,
+     2325,
+     550
+    ],
+    "text": "蠱 、 1"
+   },
+   {
+    "box": [
+     2708,
+     576,
+     2784,
+     591
+    ],
+    "text": "顰 覊 ぐ 気 を ま"
+   },
+   {
+    "box": [
+     1375,
+     887,
+     1563,
+     981
+    ],
+    "text": "を を ツ ー"
+   },
+   {
+    "box": [
+     1080,
+     914,
+     1160,
+     933
+    ],
+    "text": "朝 . い い 顰 、"
+   },
+   {
+    "box": [
+     402,
+     947,
+     497,
+     1001
+    ],
+    "text": "を 第 :"
+   },
+   {
+    "box": [
+     113,
+     956,
+     277,
+     1003
+    ],
+    "text": "い 第"
+   },
+   {
+    "box": [
+     2216,
+     1165,
+     2361,
+     1189
+    ],
+    "text": "翆 ゞ い 4 : を い 囀"
+   },
+   {
+    "box": [
+     2794,
+     1278,
+     2941,
+     1309
+    ],
+    "text": ", 洋 ぐ を"
+   },
+   {
+    "box": [
+     1234,
+     1480,
+     1301,
+     1497
+    ],
+    "text": "- ン 一 ン"
+   },
+   {
+    "box": [
+     360,
+     1488,
+     574,
+     1525
+    ],
+    "text": "、 安 第 、 な 鞏"
+   },
+   {
+    "box": [
+     808,
+     1663,
+     931,
+     1678
+    ],
+    "text": "- 奴 者 し を つ い い"
+   },
+   {
+    "box": [
+     184,
+     1697,
+     310,
+     1720
+    ],
+    "text": "ヾ 1 三 市 詩"
+   },
+   {
+    "box": [
+     907,
+     915,
+     953,
+     924
+    ],
+    "text": "、 物 ・ い と"
+   }
+  ]
+ },
+ "n53_after_test.jpg": {
+  "size": [
+   2583,
+   1454
+  ],
+  "lines": []
+ },
+ "n60_mast_after.jpg": {
+  "size": [
+   3000,
+   1690
+  ],
+  "lines": [
+   {
+    "box": [
+     2423,
+     562,
+     2483,
+     584
+    ],
+    "text": "3 0 灯"
+   },
+   {
+    "box": [
+     46,
+     1591,
+     231,
+     1651
+    ],
+    "text": "Nl-srt"
+   },
+   {
+    "box": [
+     236,
+     1600,
+     422,
+     1613
+    ],
+    "text": "NATIONAL INSTITUTE OF"
+   },
+   {
+    "box": [
+     236,
+     1616,
+     478,
+     1629
+    ],
+    "text": "STANDARDS AND TECHNOLOGY"
+   },
+   {
+    "box": [
+     236,
+     1634,
+     466,
+     1646
+    ],
+    "text": "U.S. DEPARTMENTOF COMMERCE"
+   }
+  ]
+ },
+ "n61_shear_uw.jpg": {
+  "size": [
+   3000,
+   2259
+  ],
+  "lines": [
+   {
+    "box": [
+     171,
+     2021,
+     294,
+     2048
+    ],
+    "text": "NATIONALlNs"
+   },
+   {
+    "box": [
+     169,
+     2041,
+     448,
+     2083
+    ],
+    "text": "9TANDARDS AND TECHNOLOGY"
+   }
+  ]
+ },
+ "n66_slab_section.jpg": {
+  "size": [
+   1430,
+   804
+  ],
+  "lines": []
+ },
+ "n69_corroded_bars.jpg": {
+  "size": [
+   3000,
+   1831
+  ],
+  "lines": [
+   {
+    "box": [
+     224,
+     1704,
+     418,
+     1722
+    ],
+    "text": "NATIONALINSTITUTE OF"
+   },
+   {
+    "box": [
+     224,
+     1721,
+     476,
+     1741
+    ],
+    "text": "STANDARDSANDTECHNOLOGY"
+   },
+   {
+    "box": [
+     233,
+     1740,
+     463,
+     1758
+    ],
+    "text": ". S. DEPARTMENT COMMERCE"
+   }
+  ]
+ },
+ "n70_slab_cracks.jpg": {
+  "size": [
+   3000,
+   1722
+  ],
+  "lines": []
+ },
+ "n71_mast_test.jpg": {
+  "size": [
+   3000,
+   2088
+  ],
+  "lines": [
+   {
+    "box": [
+     299,
+     24,
+     344,
+     970
+    ],
+    "text": "0 9 第 》 4 人 旧 9 8 1"
+   },
+   {
+    "box": [
+     2096,
+     770,
+     2129,
+     943
+    ],
+    "text": "を 第 ( 。 ・ 0 ・ 0"
+   },
+   {
+    "box": [
+     1708,
+     1411,
+     1723,
+     1514
+    ],
+    "text": "。 : に 減 凵 、 ト"
+   },
+   {
+    "box": [
+     262,
+     1988,
+     468,
+     2002
+    ],
+    "text": "NATIONAL INSTITUTE OF"
+   },
+   {
+    "box": [
+     262,
+     2006,
+     530,
+     2020
+    ],
+    "text": "STANDARDSANDTECHNOLOGY"
+   },
+   {
+    "box": [
+     262,
+     2026,
+     518,
+     2039
+    ],
+    "text": "し S. DEPARTMENT OF COMMERCE"
+   }
+  ]
+ },
+ "pg3004.png": {
+  "size": [
+   1700,
+   2200
+  ],
+  "lines": [
+   {
+    "box": [
+     403,
+     197,
+     1264,
+     225
+    ],
+    "text": "THE SURFSIDE CONDO COLLAPSE TRAGEDY:"
+   },
+   {
+    "box": [
+     351,
+     263,
+     1317,
+     292
+    ],
+    "text": "RECOMMENDATIONS TO MAKE BUILDINGS SAFER"
+   },
+   {
+    "box": [
+     241,
+     390,
+     649,
+     419
+    ],
+    "text": "I. INTRODUCTION"
+   },
+   {
+    "box": [
+     290,
+     475,
+     1477,
+     507
+    ],
+    "text": "During the early moming hours of June 2 生 2021 , a significant poftion of the Champlain"
+   },
+   {
+    "box": [
+     191,
+     519,
+     1476,
+     551
+    ],
+    "text": "Towers South condommium building ⅲ Surfside, FIonda coll 叩 sed. \\%en po れ 10 Ⅱ s of the 12-"
+   },
+   {
+    "box": [
+     191,
+     563,
+     1476,
+     595
+    ],
+    "text": "stOI ツ 136- u ⅲ t residential building pancaked on itself scores 0fC011d0 unit owners, renters, visitors,"
+   },
+   {
+    "box": [
+     190,
+     607,
+     1468,
+     639
+    ],
+    "text": "workers. family and fnends were cmshed to death under tons of construction debris, furniture"
+   },
+   {
+    "box": [
+     190,
+     652,
+     1477,
+     684
+    ],
+    "text": "appliances, roofs and air conditioning units. Except for a 14-year-01d child, wh0 was discovered"
+   },
+   {
+    "box": [
+     190,
+     696,
+     1476,
+     729
+    ],
+    "text": "near the top Of the two-story ね 11 pile 0f rubble first responders were not successful in rescumg"
+   },
+   {
+    "box": [
+     190,
+     741,
+     1476,
+     773
+    ],
+    "text": "any survivors. They recovered and identified remains for 98 known persons whO died ⅲ this tragic"
+   },
+   {
+    "box": [
+     190,
+     785,
+     1475,
+     817
+    ],
+    "text": "event. Our commumty will forever be ⅲ debt to the first responders, both 10Ca1 and を om abroad,"
+   },
+   {
+    "box": [
+     190,
+     830,
+     1082,
+     862
+    ],
+    "text": "whO came tO search for survivors. We cannot let this happen again!"
+   },
+   {
+    "box": [
+     290,
+     896,
+     1474,
+     928
+    ],
+    "text": "As of the release ofthis Grand Jury report we still do not 朝 ow the cause ofthe collapse."
+   },
+   {
+    "box": [
+     190,
+     940,
+     1476,
+     972
+    ],
+    "text": "The NationaI lnstitute of Standards & TechnoIogy (NIST) along with many engineers, scientists"
+   },
+   {
+    "box": [
+     190,
+     985,
+     1476,
+     1016
+    ],
+    "text": "and other expefts are all involved in t1Ying tO discover the definitive answer as tO why the"
+   },
+   {
+    "box": [
+     190,
+     1029,
+     1318,
+     1061
+    ],
+    "text": "Champlam Towers South condominium building collapsed. That is not our task here."
+   },
+   {
+    "box": [
+     289,
+     1096,
+     1475,
+     1128
+    ],
+    "text": "lnstead, for our focus we decided tO 100k at the policies, procedures. protocols, systems"
+   },
+   {
+    "box": [
+     189,
+     1140,
+     1476,
+     1172
+    ],
+    "text": "and pracuces 0f many 0f the pa.lticipants involved ⅲ making sure that blllldmgs ⅲ our"
+   },
+   {
+    "box": [
+     189,
+     1185,
+     1475,
+     1217
+    ],
+    "text": "communities 田 ・ e designed and constructed in a safe manner, that residents Of those buildings"
+   },
+   {
+    "box": [
+     189,
+     1229,
+     1474,
+     1261
+    ],
+    "text": "effectuate tlmely and appropnate maintenance of their buildings SO that they remain safe and"
+   },
+   {
+    "box": [
+     188,
+     1273,
+     1473,
+     1306
+    ],
+    "text": "habitable, and offlcers and officials exercise appropriate oversight to ensure all of the above."
+   },
+   {
+    "box": [
+     188,
+     1318,
+     1474,
+     1350
+    ],
+    "text": "Unf01tunately, as to Champlain Towers South there were failings at every level and for a11 of the"
+   },
+   {
+    "box": [
+     188,
+     1362,
+     349,
+     1394
+    ],
+    "text": "participants."
+   },
+   {
+    "box": [
+     289,
+     1429,
+     1474,
+     1461
+    ],
+    "text": "Our investigation intO the policies, procedures, protocols. systems 田 ld practices revealed"
+   },
+   {
+    "box": [
+     187,
+     1473,
+     1474,
+     1504
+    ],
+    "text": "many troubling issues and raised several concerns. Our recommendations included belOW are"
+   },
+   {
+    "box": [
+     188,
+     1517,
+     1473,
+     1549
+    ],
+    "text": "designed t0 1 ) improve the ability 0f govemmental officials t0 timely identify and address"
+   },
+   {
+    "box": [
+     187,
+     1561,
+     1474,
+     1593
+    ],
+    "text": "buildings with major issues that may impact life safety concerns of their residents; 2 ) highlight"
+   },
+   {
+    "box": [
+     188,
+     1606,
+     1473,
+     1638
+    ],
+    "text": "environmental issues in South Florida which may be hastening the deterioration ofprimarily older"
+   },
+   {
+    "box": [
+     186,
+     1650,
+     1473,
+     1682
+    ],
+    "text": "buildings; 3 ) suggest ways tO identify such deterioratlon, ameliorate it or make modifications and"
+   },
+   {
+    "box": [
+     187,
+     1695,
+     1472,
+     1728
+    ],
+    "text": "improvements tO alleviate it; 4 ) propose revised procedures that should result in better ・ compliance"
+   },
+   {
+    "box": [
+     186,
+     1740,
+     1472,
+     1771
+    ],
+    "text": "and umely submittals 0f the 40 / 50 year recefiification repofts and documents; 5 ) give building"
+   },
+   {
+    "box": [
+     186,
+     1784,
+     1471,
+     1816
+    ],
+    "text": "officials more authority/power ⅲ their ability to take action against condo boards which fail to"
+   },
+   {
+    "box": [
+     186,
+     1828,
+     1472,
+     1860
+    ],
+    "text": "comply with the 40 / 50 year recertification process; and 6 ) for transparency purposes and so that"
+   },
+   {
+    "box": [
+     185,
+     1872,
+     1470,
+     1904
+    ],
+    "text": "residents can feel safe, require condO b0田 、 ds tO provide electronic posting and on-lme access tO"
+   },
+   {
+    "box": [
+     185,
+     1916,
+     1471,
+     1947
+    ],
+    "text": "building owners, authorized renters, and sublessees of a11 inspection repofts, permits. and code"
+   },
+   {
+    "box": [
+     185,
+     1959,
+     702,
+     1990
+    ],
+    "text": "violations issued against their building."
+   },
+   {
+    "box": [
+     823,
+     2033,
+     834,
+     2053
+    ],
+    "text": "1"
+   }
+  ]
+ },
+ "pg3020.png": {
+  "size": [
+   1700,
+   2200
+  ],
+  "lines": [
+   {
+    "box": [
+     312,
+     257,
+     1392,
+     297
+    ],
+    "text": "As れ 〃 ℃ go , we 側 川 川 d ″ 川 / / / language 加 the F / 0 靃 第 曜 e の the 召 〃 〃 ("
+   },
+   {
+    "box": [
+     220,
+     299,
+     1442,
+     335
+    ],
+    "text": "Co ? 夜 e イ ensure 店 0 れ licenseds(ructural e れ g 加 c 夜 ・ / ん 襯 市 れ ル ぉ / 40 / 5() ー"
+   },
+   {
+    "box": [
+     216,
+     353,
+     480,
+     384
+    ],
+    "text": "ア e 召 ド ド ecer 々 ca 〃 0 〃 &"
+   },
+   {
+    "box": [
+     335,
+     406,
+     1442,
+     441
+    ],
+    "text": "〃 e 閉 加 e we 7 ℃ CO 〃 ? 襯 夜 ? d 店 4 臾 観 / e イ mspecting の ? g ⅲ e の ・ 〃 Ⅲ have の ア の ・ 池 れ ce"
+   },
+   {
+    "box": [
+     220,
+     448,
+     1443,
+     488
+    ],
+    "text": "1 ⅵ 〃 肥 ⅵ g 〃 and CO ' な 〃 c / 可 川 〃 - buildings? 7 方 e 観 / ビ d ⅲ 、 汐 ec / 加 engineer 川 烱 / / 7 の , e"
+   },
+   {
+    "box": [
+     245,
+     491,
+     1441,
+     529
+    ],
+    "text": "F / 0 乃 / ⅵ 0 れ 記 E 〃 g 加 e の ・ 皙 〃 ce 〃 硼 イ 4 F / 0 訪 0 召 ″ 〃 イ ⅲ g ん 挈 / 0 ド ' 、 ゞ License."
+   },
+   {
+    "box": [
+     318,
+     554,
+     1449,
+     594
+    ],
+    "text": "Similarly, as the 40/50-year receftification inspection also includes determination of"
+   },
+   {
+    "box": [
+     222,
+     597,
+     1445,
+     635
+    ],
+    "text": "whether thc building 01 、 structure is electrically safe for the specified use f ( ) 1 ・ continued occupancy'"
+   },
+   {
+    "box": [
+     223,
+     639,
+     1447,
+     679
+    ],
+    "text": "we believe the person conducting the electrical inspection should also not 」 ust be connpetent' but"
+   },
+   {
+    "box": [
+     237,
+     682,
+     1446,
+     723
+    ],
+    "text": "qualified\" tO perfonn such inspections. lnformation on the County's website regarding the 4 ( ) -"
+   },
+   {
+    "box": [
+     224,
+     723,
+     1448,
+     766
+    ],
+    "text": "year receftification specifically states that the design professional must have proven qual ⅲ cations"
+   },
+   {
+    "box": [
+     224,
+     765,
+     1448,
+     808
+    ],
+    "text": "by training and expcrience in the specific technical fiel d covered in the inspection report (structural"
+   },
+   {
+    "box": [
+     225,
+     809,
+     1448,
+     848
+    ],
+    "text": "and/or electrical) as per the Miami-Dade county COde. 22 Consistent with that requil ℃ nlent' we"
+   },
+   {
+    "box": [
+     252,
+     851,
+     1450,
+     888
+    ],
+    "text": "CO 川 襯 の ? イ ″ ? 〃 肥 CO Ⅲ ? ′ 4 な e the 臾 観 / 盟 ⅲ 0 〃 ′ the 〃 e ( 川 co 〃 市 に / ⅲ g / / 牝 e/ectrical"
+   },
+   {
+    "box": [
+     226,
+     894,
+     1423,
+     934
+    ],
+    "text": "加 e じ 〃 0 〃 わ ア わ れ ア 0 ⅵ 月 g 4 ′ eq 〃 か e 襯 夜 な ( ″ sa / イ ⅲ s, 〃 e 亡 〃 0 〃 and じ 夜 ⅵ / 4 行 0 〃 be conducted の ,"
+   },
+   {
+    "box": [
+     226,
+     936,
+     1450,
+     975
+    ],
+    "text": "licensed electrical 夜 ? g ⅲ e 夜 ・ . The CitY Of Miami has included this requirement ⅲ a proposed"
+   },
+   {
+    "box": [
+     226,
+     978,
+     1450,
+     1015
+    ],
+    "text": "amendment t0 section 10-104 0fCh 叩 ter 10 ofthe CitY code' and we hope otherjurisdictions will"
+   },
+   {
+    "box": [
+     227,
+     1020,
+     1451,
+     1059
+    ],
+    "text": "follow this example. Raising the qualification standards for persons conducting these critically"
+   },
+   {
+    "box": [
+     359,
+     1063,
+     1378,
+     1102
+    ],
+    "text": "inspections will ceftainly incl ℃ ase the life safety ()ftenants' visitors and 1 ℃ sidents."
+   },
+   {
+    "box": [
+     276,
+     1155,
+     1209,
+     1187
+    ],
+    "text": "V. THE DANGER OF NEGLECTING ROUTINE REPAIR AND"
+   },
+   {
+    "box": [
+     371,
+     1202,
+     611,
+     1228
+    ],
+    "text": "MAINTENANCE"
+   },
+   {
+    "box": [
+     324,
+     1267,
+     1454,
+     1303
+    ],
+    "text": "Based on documents we reviewcd, it is clear that as early as ()ctober 8 , 2018 the Champlain"
+   },
+   {
+    "box": [
+     230,
+     1311,
+     1455,
+     1347
+    ],
+    "text": "south condO board was aware Of significant necessary repan?s and maintenance that had becn"
+   },
+   {
+    "box": [
+     230,
+     1353,
+     1454,
+     1393
+    ],
+    "text": "identified by the structural engineer, they hired t0 inspect the building. The suuctural engineer's"
+   },
+   {
+    "box": [
+     230,
+     1395,
+     1456,
+     1437
+    ],
+    "text": "report dated Oct0ber 8 , 2018 was prepared and submittcd tO the Cond0 Board Treasurer. The"
+   },
+   {
+    "box": [
+     230,
+     1437,
+     1455,
+     1475
+    ],
+    "text": "Board 0fDirectors for the Champlain Tower south condominium Associati011 lnc. held a Board"
+   },
+   {
+    "box": [
+     230,
+     1480,
+     1456,
+     1520
+    ],
+    "text": "meeting a month later, on Novembe1' 1 5 , 2018. The minutes from that Board meeting specifically"
+   },
+   {
+    "box": [
+     232,
+     1522,
+     1456,
+     1561
+    ],
+    "text": "shows that the \"40-year celtification\" and the 。 、 structural engineer repolt\" was discussed and \"was"
+   },
+   {
+    "box": [
+     231,
+     1564,
+     1457,
+     1604
+    ],
+    "text": "reviewed by chen Building ()fficial 0fTOW11 Of surfside 23 According to the minutes ofthat Board"
+   },
+   {
+    "box": [
+     232,
+     1606,
+     1457,
+     1647
+    ],
+    "text": "meeting, the Building Official 0f thc Town 0f surfside the necessary data was"
+   },
+   {
+    "box": [
+     233,
+     1648,
+     1458,
+     1687
+    ],
+    "text": "collected and it 叩 peat ・ s the building is ⅲ good sh 叩 e. \" Assuming the Board minutes"
+   },
+   {
+    "box": [
+     233,
+     1691,
+     1458,
+     1730
+    ],
+    "text": "accurately reflect the Building Official's commentS' notwithstanding his opinion and cotnments'"
+   },
+   {
+    "box": [
+     234,
+     1790,
+     720,
+     1819
+    ],
+    "text": "22 http: 〃 miamidade.elaws. us/code/coor/8-5/"
+   },
+   {
+    "box": [
+     234,
+     1821,
+     1165,
+     1853
+    ],
+    "text": "23 See Minutes 0f Champlain Towers south Board Meeting' November 15 , 2018."
+   },
+   {
+    "box": [
+     236,
+     1858,
+     1234,
+     1889
+    ],
+    "text": "https://www.townofsurfsidefl.gov/docs/default-source/default-document-librarv/town-clerk-"
+   },
+   {
+    "box": [
+     235,
+     1892,
+     1380,
+     1924
+    ],
+    "text": "documents/champlain-towers-south-public イ ecords/champlain-towers-south-board-meeting-november-15-"
+   },
+   {
+    "box": [
+     236,
+     1936,
+     330,
+     1959
+    ],
+    "text": "2018 、 pdf"
+   },
+   {
+    "box": [
+     836,
+     2011,
+     862,
+     2031
+    ],
+    "text": "17"
+   }
+  ]
+ },
+ "pg3021.png": {
+  "size": [
+   1700,
+   2200
+  ],
+  "lines": [
+   {
+    "box": [
+     219,
+     248,
+     1441,
+     285
+    ],
+    "text": "the enginccr's Structural Field survey Report clearly 1 ℃ veals that there were significant problcms"
+   },
+   {
+    "box": [
+     220,
+     290,
+     1443,
+     326
+    ],
+    "text": "with the integrity Of the building structure and the much-nccdcd extensive repa i rs had 110t yet"
+   },
+   {
+    "box": [
+     221,
+     332,
+     1443,
+     369
+    ],
+    "text": "begun. As a permit would have becn required tO the 1 ℃ pai1'S' this final fact should have"
+   },
+   {
+    "box": [
+     220,
+     374,
+     1443,
+     412
+    ],
+    "text": "been readily 叩 parent tO the Building ()fficialof the 0f Surfside and Others involved in the"
+   },
+   {
+    "box": [
+     221,
+     424,
+     460,
+     455
+    ],
+    "text": "permitting pocess."
+   },
+   {
+    "box": [
+     323,
+     481,
+     1444,
+     517
+    ],
+    "text": "l'he critical nature Of the repairs that needed tO bc done is revealed ⅲ the contenls Of the"
+   },
+   {
+    "box": [
+     222,
+     524,
+     1433,
+     563
+    ],
+    "text": "April 202 lletter fi?om the then Board president t0 the condO owners. ln part' the letter 1)1 ℃ vides:"
+   },
+   {
+    "box": [
+     401,
+     589,
+     1352,
+     620
+    ],
+    "text": "Because SO much Of the needed concrete/waterproofing work is"
+   },
+   {
+    "box": [
+     401,
+     632,
+     1352,
+     667
+    ],
+    "text": "underground, we must pull up almost the entire gl ℃ und level 0f the 10t t0"
+   },
+   {
+    "box": [
+     402,
+     674,
+     1354,
+     707
+    ],
+    "text": "access the area that requires repair … This includes the PO 引 declG the entire"
+   },
+   {
+    "box": [
+     402,
+     716,
+     1354,
+     751
+    ],
+    "text": "ent1Y dl ・ ive and ground level pal ・ king, side contractor parking and"
+   },
+   {
+    "box": [
+     402,
+     761,
+     666,
+     793
+    ],
+    "text": "planters/landsc 叩 ing."
+   },
+   {
+    "box": [
+     224,
+     821,
+     1448,
+     854
+    ],
+    "text": "The letter also noted that \"observable damage such as in the garage has gotten significantly worse"
+   },
+   {
+    "box": [
+     225,
+     863,
+     1448,
+     898
+    ],
+    "text": "since the initial inspection \"and\" that the concl ℃ te damage observed would begin tO multiply"
+   },
+   {
+    "box": [
+     225,
+     905,
+     1450,
+     943
+    ],
+    "text": "exponentially over the years. \" lfthat wasn't clear enough' for those not familiar with the lingo or"
+   },
+   {
+    "box": [
+     224,
+     952,
+     552,
+     983
+    ],
+    "text": "the sctence, she expl ai ned"
+   },
+   {
+    "box": [
+     416,
+     1011,
+     1450,
+     1046
+    ],
+    "text": "When you can visually see the concrete spalling ()I ・ acking) , that means thalthe"
+   },
+   {
+    "box": [
+     416,
+     1054,
+     1450,
+     1088
+    ],
+    "text": "rebar holding it togcther is rusting and detenorating beneath the surface. Th e"
+   },
+   {
+    "box": [
+     417,
+     1099,
+     918,
+     1128
+    ],
+    "text": "concretc deterioration iS accelerating."
+   },
+   {
+    "box": [
+     312,
+     1159,
+     1451,
+     1196
+    ],
+    "text": "TO put it mildly, the Boa1 ・ d president was saying, \"Houston' we have a problem. \" The"
+   },
+   {
+    "box": [
+     227,
+     1201,
+     1451,
+     1238
+    ],
+    "text": "findings 0f the Grand Ju1Y reveal that within a three-yem ・ pel ・ iOd 0f time beginning in 2 田 8 , the"
+   },
+   {
+    "box": [
+     228,
+     1244,
+     1451,
+     1281
+    ],
+    "text": "Champlain Towers condO board hired an engineer t() start the 40-year receffification process years"
+   },
+   {
+    "box": [
+     228,
+     1286,
+     1452,
+     1322
+    ],
+    "text": "bef01 ℃ it was due. That inspection report was timely completed' submitted t0 the Cond0 Board"
+   },
+   {
+    "box": [
+     228,
+     1328,
+     1377,
+     1363
+    ],
+    "text": "and ⅲ November 2018 , was PI ℃ vided t0 the CitY 0f Surfside's Local Building Official?"
+   },
+   {
+    "box": [
+     228,
+     1371,
+     1452,
+     1406
+    ],
+    "text": "contents 0f the engineer's repoff suggests that in the decades leading 叩 t0 the 40-year"
+   },
+   {
+    "box": [
+     228,
+     1413,
+     1413,
+     1448
+    ],
+    "text": "receltification , Champlain Towers failed t() repairs and maintenance"
+   },
+   {
+    "box": [
+     229,
+     1455,
+     1451,
+     1490
+    ],
+    "text": "on and around the property. The PI ℃ posed costs for building repairs were m01 ℃ than $ 14 , 000 , 000."
+   },
+   {
+    "box": [
+     229,
+     1498,
+     1453,
+     1534
+    ],
+    "text": "ln ApriI 2021 , more than 29 months a el ・ the engineer's reP01 ・ t was received' Champlain Towe1'S"
+   },
+   {
+    "box": [
+     229,
+     1539,
+     1454,
+     1575
+    ],
+    "text": "had not begun any repair work tO address the stmctul ・ al deficiencies identified ⅲ the nor"
+   },
+   {
+    "box": [
+     229,
+     1581,
+     1452,
+     1617
+    ],
+    "text": "had the City takcn any steps t0 address those structural deficiencies or the safety 0f the building."
+   },
+   {
+    "box": [
+     229,
+     1623,
+     1453,
+     1659
+    ],
+    "text": "Thi1teen days after the Board was t0 hOld a meeting t0 open the bids received from companies"
+   },
+   {
+    "box": [
+     230,
+     1666,
+     1453,
+     1701
+    ],
+    "text": "interested ⅲ making the repairs, the building collapsed. ThC1 ℃ was sufficient information'"
+   },
+   {
+    "box": [
+     230,
+     1708,
+     1454,
+     1746
+    ],
+    "text": "provided early enough tO put evewone on noticc Ofa problem? sadlY' none Ofthe"
+   },
+   {
+    "box": [
+     230,
+     1752,
+     918,
+     1788
+    ],
+    "text": "pafticipants acted quickly cnou gh t0 thi s tragedy."
+   },
+   {
+    "box": [
+     832,
+     1999,
+     859,
+     2019
+    ],
+    "text": "18"
+   }
+  ]
+ },
+ "pg4007.png": {
+  "size": [
+   1700,
+   2800
+  ],
+  "lines": [
+   {
+    "box": [
+     214,
+     146,
+     400,
+     171
+    ],
+    "text": "October 町 2018"
+   },
+   {
+    "box": [
+     308,
+     180,
+     772,
+     207
+    ],
+    "text": "ChampIain Tow 5 50 砒 わ Condominium"
+   },
+   {
+    "box": [
+     306,
+     216,
+     659,
+     242
+    ],
+    "text": "St ル は リ 「 F 厄 旧 5 リ Ⅳ ey Report"
+   },
+   {
+    "box": [
+     307,
+     252,
+     487,
+     273
+    ],
+    "text": "MCJob# 18217"
+   },
+   {
+    "box": [
+     215,
+     289,
+     290,
+     313
+    ],
+    "text": "Page 7"
+   },
+   {
+    "box": [
+     215,
+     361,
+     1291,
+     389
+    ],
+    "text": "observed t0 be beyond its usefullife and are in need 0f complete replacement. However, the"
+   },
+   {
+    "box": [
+     214,
+     396,
+     1339,
+     425
+    ],
+    "text": "waterproofing below the po 引 Deck & Entrance Drive as well as all 0fthe planter waterproofing is"
+   },
+   {
+    "box": [
+     215,
+     432,
+     1273,
+     461
+    ],
+    "text": "beyond it usefullife and therefore must all be completely removed and replaced. The failed"
+   },
+   {
+    "box": [
+     214,
+     467,
+     1370,
+     496
+    ],
+    "text": "waterproofing is causing ma 」 or structural damage tO the concrete structuralslab belOW these areas."
+   },
+   {
+    "box": [
+     216,
+     503,
+     1273,
+     531
+    ],
+    "text": "Failure tO replace the waterproofing in the near future will cause the extent Ofthe concrete"
+   },
+   {
+    "box": [
+     215,
+     538,
+     1361,
+     566
+    ],
+    "text": "deterioration tO expand exponentially. MC approach tO the repair Ofthis structure is different from"
+   },
+   {
+    "box": [
+     215,
+     573,
+     1330,
+     601
+    ],
+    "text": "what is specified in contract documents in numerous aspects, which are briefly described belOW."
+   },
+   {
+    "box": [
+     262,
+     617,
+     281,
+     632
+    ],
+    "text": "a."
+   },
+   {
+    "box": [
+     264,
+     786,
+     283,
+     808
+    ],
+    "text": "b."
+   },
+   {
+    "box": [
+     307,
+     607,
+     1328,
+     635
+    ],
+    "text": "The main issue with this building structure is that the entrance drive/pool deck / planter"
+   },
+   {
+    "box": [
+     308,
+     642,
+     1353,
+     671
+    ],
+    "text": "waterproofing is laid on a flat structure. Since the reinforced concrete slab is not sloped tO"
+   },
+   {
+    "box": [
+     309,
+     677,
+     1329,
+     704
+    ],
+    "text": "drain, the water sits on the waterproofing until it evaporates. This is a major error in the"
+   },
+   {
+    "box": [
+     310,
+     713,
+     1421,
+     741
+    ],
+    "text": "development 0f the originalcontract documents prepared by William M. Friedman & Associates"
+   },
+   {
+    "box": [
+     309,
+     749,
+     1167,
+     776
+    ],
+    "text": "Architects,lnc. and Breiterman 」 uradO & Associates, Consulting Engineers."
+   },
+   {
+    "box": [
+     310,
+     783,
+     1356,
+     812
+    ],
+    "text": "は is SO important tO note that the replacement 0f the existing deck waterproofing will be"
+   },
+   {
+    "box": [
+     310,
+     818,
+     1255,
+     847
+    ],
+    "text": "extremely expensive as removal Ofthe concrete topping slab tO gain access tO the"
+   },
+   {
+    "box": [
+     310,
+     853,
+     1382,
+     883
+    ],
+    "text": "waterproofing membrane will take time, be dis 「 uptive and create a major disturbance tO the"
+   },
+   {
+    "box": [
+     311,
+     889,
+     1421,
+     918
+    ],
+    "text": "occupants Of this condominium building. Please note that the installation Of deckwaterproofing"
+   },
+   {
+    "box": [
+     311,
+     925,
+     1040,
+     951
+    ],
+    "text": "on a flat structure is a systemic issue for this building structure."
+   },
+   {
+    "box": [
+     218,
+     958,
+     1360,
+     987
+    ],
+    "text": "MC correct repair approach includes removing all pavers, decorative concrete paving setting bedS'"
+   },
+   {
+    "box": [
+     218,
+     993,
+     1350,
+     1023
+    ],
+    "text": "concrete topping slab and waterproofing down tO the reinforced concrete structure; repairing the"
+   },
+   {
+    "box": [
+     218,
+     1028,
+     1407,
+     1056
+    ],
+    "text": "concrete structure as deemed necessary; pouring a sloped bonded concrete overlay that will be sloped"
+   },
+   {
+    "box": [
+     217,
+     1062,
+     1397,
+     1092
+    ],
+    "text": "tO drain; installing a new waterproofing memb 「 ane' protection board and drainage panels on the new"
+   },
+   {
+    "box": [
+     218,
+     1098,
+     1320,
+     1128
+    ],
+    "text": "sloped surface; and placing new pavers/decorative concrete slabs over a sand setting bed. New"
+   },
+   {
+    "box": [
+     218,
+     1133,
+     1410,
+     1160
+    ],
+    "text": "stainless-steel dual-level drains will be installed at all existing drain locations that will collect rain water"
+   },
+   {
+    "box": [
+     219,
+     1167,
+     1387,
+     1196
+    ],
+    "text": "at the surface Ofthe pavers and at the waterproofing level? This system will assure that all water that"
+   },
+   {
+    "box": [
+     220,
+     1202,
+     1349,
+     1232
+    ],
+    "text": "penetrates t0 the waterproofing layer will be able t0 flow freely t0 the deck drains' resulting in an"
+   },
+   {
+    "box": [
+     219,
+     1237,
+     1417,
+     1266
+    ],
+    "text": "extended life for the replacement waterproofing membrane. This system 引 SO provides extra protection"
+   },
+   {
+    "box": [
+     218,
+     1270,
+     1383,
+     1301
+    ],
+    "text": "for the existing reinforced concrete structure and allOWS future membrane repair/replacement tO be"
+   },
+   {
+    "box": [
+     220,
+     1306,
+     1327,
+     1336
+    ],
+    "text": "completed more economically. The repairs t0 all planters will be completed in a similar manner."
+   },
+   {
+    "box": [
+     218,
+     1376,
+     1349,
+     1404
+    ],
+    "text": "The condition 0f the Parking Garage levels was reviewed specifically noting any cracked or spalled"
+   },
+   {
+    "box": [
+     220,
+     1410,
+     1423,
+     1439
+    ],
+    "text": "conc 「 ete members, condition Ofthe concrete slabs and j0int sealant conditions. MC was able t0 identify"
+   },
+   {
+    "box": [
+     219,
+     1446,
+     1394,
+     1477
+    ],
+    "text": "the presence Of previous epoxy injections and patch repairs which were evaluated fO 「 their long-term"
+   },
+   {
+    "box": [
+     220,
+     1480,
+     1416,
+     1509
+    ],
+    "text": "effectiveness. MC'S review 0f the parking Garage revealed signs Of distress/fatigue as described below."
+   },
+   {
+    "box": [
+     266,
+     1550,
+     1351,
+     1579
+    ],
+    "text": "」 . Abundant cracking and spalling ofvarying degrees was observed in the concrete columns"
+   },
+   {
+    "box": [
+     315,
+     1585,
+     1397,
+     1614
+    ],
+    "text": "beams. and walls. Severalsizeable spalls were noted in b0th the topside 0f the entrance drive"
+   },
+   {
+    "box": [
+     316,
+     1620,
+     1379,
+     1650
+    ],
+    "text": "ramp and underside 0f the pool/entrance drive/planter slabS' which included instances with"
+   },
+   {
+    "box": [
+     315,
+     1656,
+     1351,
+     1685
+    ],
+    "text": "exposed, deteriorating rebar. Though some Of this damage is minor' most Ofthe concrete"
+   },
+   {
+    "box": [
+     316,
+     1690,
+     1389,
+     1719
+    ],
+    "text": "deterioration needs t0 be repaired in a timely fashion? AII cracking and spalling located in the"
+   },
+   {
+    "box": [
+     316,
+     1726,
+     1261,
+     1755
+    ],
+    "text": "parking garage shall be repaired in accordance with the recommendations 0f ICRI?"
+   }
+  ]
+ },
+ "fb_c201.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c308.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c315.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c405.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c411.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c510.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     234,
+     607,
+     247,
+     646
+    ],
+    "text": "え 、"
+   }
+  ]
+ },
+ "fb_c519.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_c526.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     361,
+     237,
+     438,
+     253
+    ],
+    "text": "・ 一 亠 き"
+   },
+   {
+    "box": [
+     999,
+     612,
+     1033,
+     624
+    ],
+    "text": "ア を -"
+   }
+  ]
+ },
+ "fb_cb08.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_cb15.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_cc04.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     1212,
+     814,
+     1223,
+     876
+    ],
+    "text": "ャ 第 を"
+   }
+  ]
+ },
+ "fb_cc13.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": []
+ },
+ "fb_cc16.jpg": {
+  "size": [
+   1920,
+   1080
+  ],
+  "lines": [
+   {
+    "box": [
+     1211,
+     140,
+     1230,
+     168
+    ],
+    "text": "4"
+   },
+   {
+    "box": [
+     1238,
+     474,
+     1373,
+     492
+    ],
+    "text": "簧 鬮 引 価 第 月 ヨ 要 、"
+   }
+  ]
+ },
+ "tf_p003_model.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     2493,
+     196,
+     2715,
+     272
+    ],
+    "text": "penthouse"
+   },
+   {
+    "box": [
+     2499,
+     489,
+     2578,
+     750
+    ],
+    "text": "〔 色 070 「 「"
+   },
+   {
+    "box": [
+     2451,
+     450,
+     2519,
+     655
+    ],
+    "text": "3 一 」 0 「"
+   },
+   {
+    "box": [
+     1814,
+     509,
+     2061,
+     547
+    ],
+    "text": "East Part of"
+   },
+   {
+    "box": [
+     1868,
+     575,
+     2002,
+     610
+    ],
+    "text": "Tower"
+   },
+   {
+    "box": [
+     1819,
+     634,
+     2052,
+     682
+    ],
+    "text": "(collapsed)"
+   },
+   {
+    "box": [
+     1440,
+     509,
+     1692,
+     547
+    ],
+    "text": "Middle Part"
+   },
+   {
+    "box": [
+     1471,
+     572,
+     1661,
+     610
+    ],
+    "text": "of Tower"
+   },
+   {
+    "box": [
+     1449,
+     634,
+     1681,
+     682
+    ],
+    "text": "(collapsed)"
+   },
+   {
+    "box": [
+     889,
+     509,
+     1159,
+     548
+    ],
+    "text": "West Part Of"
+   },
+   {
+    "box": [
+     956,
+     575,
+     1089,
+     610
+    ],
+    "text": "Tower"
+   },
+   {
+    "box": [
+     883,
+     631,
+     1163,
+     682
+    ],
+    "text": "(demolished)"
+   },
+   {
+    "box": [
+     2458,
+     861,
+     2668,
+     951
+    ],
+    "text": "8 0E0 の ~"
+   },
+   {
+    "box": [
+     840,
+     1164,
+     959,
+     1202
+    ],
+    "text": "North"
+   },
+   {
+    "box": [
+     1124,
+     1270,
+     1292,
+     1307
+    ],
+    "text": "HotTub"
+   },
+   {
+    "box": [
+     1268,
+     1350,
+     1319,
+     1385
+    ],
+    "text": "Po"
+   },
+   {
+    "box": [
+     1335,
+     1479,
+     1460,
+     1518
+    ],
+    "text": "Beach"
+   }
+  ]
+ },
+ "tf_p050_3d.jpg": {
+  "size": [
+   2016,
+   1285
+  ],
+  "lines": [
+   {
+    "box": [
+     137,
+     81,
+     386,
+     114
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     332,
+     271,
+     494,
+     322
+    ],
+    "text": "North"
+   },
+   {
+    "box": [
+     1638,
+     66,
+     1715,
+     93
+    ],
+    "text": "、 Ⅲ Ⅲ Ⅲ 膚"
+   },
+   {
+    "box": [
+     543,
+     927,
+     1285,
+     990
+    ],
+    "text": "~ 3 weeks before collapse"
+   }
+  ]
+ },
+ "tf_p050_gate.jpg": {
+  "size": [
+   1536,
+   842
+  ],
+  "lines": [
+   {
+    "box": [
+     1040,
+     168,
+     1339,
+     186
+    ],
+    "text": "1 MONTH BEFORE COLLAPSE"
+   },
+   {
+    "box": [
+     1032,
+     220,
+     1370,
+     247
+    ],
+    "text": "Ⅳ 0m1 引 卯 te 叩 pearance 田 ld"
+   },
+   {
+    "box": [
+     1031,
+     255,
+     1154,
+     281
+    ],
+    "text": "alignment."
+   },
+   {
+    "box": [
+     1004,
+     371,
+     1302,
+     390
+    ],
+    "text": "3WEEKSBEFORE COLLAPSE"
+   },
+   {
+    "box": [
+     998,
+     417,
+     1315,
+     443
+    ],
+    "text": "Less 肱 an 1 / 2 \" ve な i 〔 引 shift."
+   },
+   {
+    "box": [
+     992,
+     460,
+     1341,
+     481
+    ],
+    "text": "Gate dooris s れ に 々 田 ld 〔 田 川 0 亡"
+   },
+   {
+    "box": [
+     1027,
+     495,
+     1110,
+     521
+    ],
+    "text": "opened"
+   },
+   {
+    "box": [
+     527,
+     397,
+     580,
+     417
+    ],
+    "text": "《 1 ′ 2 ”"
+   },
+   {
+    "box": [
+     77,
+     705,
+     204,
+     753
+    ],
+    "text": "Nort"
+   },
+   {
+    "box": [
+     682,
+     774,
+     1401,
+     801
+    ],
+    "text": "SOLI 2 : NIST [artist nde 四 based on 2 リ ew 磨 less 0 〔 〔 ou 厩 引 ."
+   }
+  ]
+ },
+ "tf_p052_gate.jpg": {
+  "size": [
+   1536,
+   853
+  ],
+  "lines": [
+   {
+    "box": [
+     1040,
+     179,
+     1339,
+     197
+    ],
+    "text": "1 MONTH BEFORE COLLAPSE"
+   },
+   {
+    "box": [
+     1032,
+     232,
+     1370,
+     257
+    ],
+    "text": "NOI ・ mal te 叩 pearance 田 ld"
+   },
+   {
+    "box": [
+     1031,
+     266,
+     1154,
+     292
+    ],
+    "text": "alignment."
+   },
+   {
+    "box": [
+     1004,
+     383,
+     1302,
+     401
+    ],
+    "text": "3WEEKSBEFORE COLLAPSE"
+   },
+   {
+    "box": [
+     998,
+     428,
+     1315,
+     454
+    ],
+    "text": "Less 肱 an 1 / 2 \" ve な i 〔 引 shift."
+   },
+   {
+    "box": [
+     992,
+     471,
+     1341,
+     492
+    ],
+    "text": "Gate dooris st リ 〔 々 田 ld 〔 田 川 0 亡"
+   },
+   {
+    "box": [
+     1027,
+     506,
+     1110,
+     532
+    ],
+    "text": "opened"
+   },
+   {
+    "box": [
+     971,
+     591,
+     1254,
+     609
+    ],
+    "text": "IWEEKBEFORE COLLAPSE"
+   },
+   {
+    "box": [
+     961,
+     650,
+     1389,
+     676
+    ],
+    "text": "Approx. 1 \" vertical s わ れ 可 t p ⅲ 門 ."
+   },
+   {
+    "box": [
+     77,
+     716,
+     204,
+     764
+    ],
+    "text": "Nort"
+   },
+   {
+    "box": [
+     775,
+     785,
+     1401,
+     812
+    ],
+    "text": "NIST [artist rendering based on e リ ew 磨 less 0 〔 〔 ou 厩 引 ."
+   },
+   {
+    "box": [
+     682,
+     787,
+     765,
+     807
+    ],
+    "text": "SOLI 2 :"
+   }
+  ]
+ },
+ "tf_p057_3d.jpg": {
+  "size": [
+   2016,
+   1177
+  ],
+  "lines": [
+   {
+    "box": [
+     104,
+     85,
+     353,
+     118
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     332,
+     271,
+     494,
+     322
+    ],
+    "text": "North"
+   },
+   {
+    "box": [
+     1639,
+     82,
+     1717,
+     110
+    ],
+    "text": "、 Ⅲ Ⅲ 4 川 可"
+   },
+   {
+    "box": [
+     868,
+     100,
+     1189,
+     148
+    ],
+    "text": "当 Ⅷ 幽 ド 卩 」 川 Ⅷ 丨 Ⅷ"
+   },
+   {
+    "box": [
+     781,
+     140,
+     1463,
+     268
+    ],
+    "text": ") 庫 ロ な コ は"
+   },
+   {
+    "box": [
+     481,
+     961,
+     1328,
+     1030
+    ],
+    "text": "~ 17 hours before collapse"
+   }
+  ]
+ },
+ "tf_p057_memo.jpg": {
+  "size": [
+   1248,
+   810
+  ],
+  "lines": [
+   {
+    "box": [
+     618,
+     190,
+     638,
+     210
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     224,
+     203,
+     244,
+     224
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     416,
+     343,
+     818,
+     388
+    ],
+    "text": "00 ( eJ ー 論 0 。"
+   },
+   {
+    "box": [
+     415,
+     445,
+     571,
+     484
+    ],
+    "text": "0 石 4 ー の"
+   },
+   {
+    "box": [
+     1098,
+     433,
+     1122,
+     526
+    ],
+    "text": "BuiIding"
+   },
+   {
+    "box": [
+     631,
+     522,
+     652,
+     543
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     230,
+     558,
+     250,
+     578
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     780,
+     630,
+     828,
+     677
+    ],
+    "text": "ロ"
+   },
+   {
+    "box": [
+     412,
+     669,
+     605,
+     693
+    ],
+    "text": "po Deck Drains"
+   },
+   {
+    "box": [
+     414,
+     718,
+     576,
+     742
+    ],
+    "text": "PIanter Drains"
+   },
+   {
+    "box": [
+     352,
+     719,
+     377,
+     741
+    ],
+    "text": "0"
+   }
+  ]
+ },
+ "tf_p058_note.jpg": {
+  "size": [
+   1018,
+   583
+  ],
+  "lines": [
+   {
+    "box": [
+     434,
+     135,
+     665,
+     166
+    ],
+    "text": "Leak from the"
+   },
+   {
+    "box": [
+     457,
+     178,
+     642,
+     217
+    ],
+    "text": "ceiling. no 【"
+   },
+   {
+    "box": [
+     437,
+     222,
+     661,
+     260
+    ],
+    "text": "the pipe ・ 1 / 4"
+   },
+   {
+    "box": [
+     506,
+     308,
+     593,
+     339
+    ],
+    "text": "crack"
+   },
+   {
+    "box": [
+     469,
+     265,
+     631,
+     303
+    ],
+    "text": "inch deep"
+   },
+   {
+    "box": [
+     958,
+     273,
+     974,
+     305
+    ],
+    "text": "0"
+   }
+  ]
+ },
+ "tf_p075_cover.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     1603,
+     73,
+     3133,
+     154
+    ],
+    "text": "% in. cover as shown on design drawings"
+   },
+   {
+    "box": [
+     1771,
+     224,
+     2454,
+     289
+    ],
+    "text": "2 in. coveras built"
+   },
+   {
+    "box": [
+     63,
+     88,
+     406,
+     163
+    ],
+    "text": "As-BuiIt"
+   },
+   {
+    "box": [
+     66,
+     216,
+     535,
+     291
+    ],
+    "text": "Conditions"
+   },
+   {
+    "box": [
+     100,
+     1484,
+     307,
+     1512
+    ],
+    "text": "Source: NIST"
+   }
+  ]
+ },
+ "tf_p076_bars.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     1827,
+     61,
+     3083,
+     114
+    ],
+    "text": "The measured spacing of the top reinforcing bars in"
+   },
+   {
+    "box": [
+     1886,
+     126,
+     3029,
+     179
+    ],
+    "text": "the areas ofthe po deck slab specimens near"
+   },
+   {
+    "box": [
+     1838,
+     191,
+     3077,
+     244
+    ],
+    "text": "columns commonly ranges from about 20%t0 40%"
+   },
+   {
+    "box": [
+     1918,
+     256,
+     2994,
+     309
+    ],
+    "text": "widerthan required bythe structural design"
+   },
+   {
+    "box": [
+     1830,
+     321,
+     3086,
+     374
+    ],
+    "text": "drawings, resulting in less reinforcing in these areas"
+   },
+   {
+    "box": [
+     1979,
+     386,
+     2935,
+     439
+    ],
+    "text": "ofthe slab than required bythe design."
+   },
+   {
+    "box": [
+     17,
+     84,
+     1499,
+     137
+    ],
+    "text": "Typically, fewer than the specified number 0f top reinforcing"
+   },
+   {
+    "box": [
+     75,
+     149,
+     1444,
+     202
+    ],
+    "text": "bars are centered overthe column in the po deck slab."
+   },
+   {
+    "box": [
+     258,
+     243,
+     1298,
+     291
+    ],
+    "text": "丁 匸 A ク T 2 彡 殄 彡 戸 凵 、 ツ ロ M = . ぞ 物 凱 -"
+   },
+   {
+    "box": [
+     222,
+     292,
+     1238,
+     334
+    ],
+    "text": "44ALL 夛 崖 ~ 年 フ ク V 彡 〒 凵 三 し 凵 M ド ,"
+   },
+   {
+    "box": [
+     889,
+     373,
+     1001,
+     411
+    ],
+    "text": "E 十 1"
+   },
+   {
+    "box": [
+     1087,
+     594,
+     1569,
+     641
+    ],
+    "text": "From design drawings"
+   },
+   {
+    "box": [
+     483,
+     662,
+     522,
+     775
+    ],
+    "text": "守 靠 7J 一"
+   },
+   {
+    "box": [
+     2767,
+     754,
+     2957,
+     807
+    ],
+    "text": "slab top"
+   },
+   {
+    "box": [
+     2769,
+     819,
+     3112,
+     862
+    ],
+    "text": "reinforcement"
+   },
+   {
+    "box": [
+     2767,
+     896,
+     2946,
+     936
+    ],
+    "text": "spacmg"
+   },
+   {
+    "box": [
+     2533,
+     944,
+     2584,
+     953
+    ],
+    "text": "- 、 -0 バ ツ を"
+   },
+   {
+    "box": [
+     1031,
+     931,
+     1264,
+     984
+    ],
+    "text": "2 slab top"
+   },
+   {
+    "box": [
+     1032,
+     996,
+     1492,
+     1039
+    ],
+    "text": "reinforcement bars"
+   },
+   {
+    "box": [
+     980,
+     1115,
+     1562,
+     1161
+    ],
+    "text": "Example column specimen"
+   },
+   {
+    "box": [
+     977,
+     1178,
+     1405,
+     1217
+    ],
+    "text": "with section Of slab"
+   },
+   {
+    "box": [
+     974,
+     1241,
+     1805,
+     1294
+    ],
+    "text": "At this location, 0 司 y 2 ratherthan"
+   },
+   {
+    "box": [
+     974,
+     1306,
+     1806,
+     1359
+    ],
+    "text": "4top bars were centered overthe"
+   },
+   {
+    "box": [
+     976,
+     1370,
+     1588,
+     1413
+    ],
+    "text": "column in each direction."
+   },
+   {
+    "box": [
+     253,
+     1188,
+     486,
+     1241
+    ],
+    "text": "2 slabtop"
+   },
+   {
+    "box": [
+     144,
+     1253,
+     487,
+     1296
+    ],
+    "text": "reinforcement"
+   },
+   {
+    "box": [
+     388,
+     1317,
+     487,
+     1360
+    ],
+    "text": "bars"
+   },
+   {
+    "box": [
+     1234,
+     1506,
+     2357,
+     1542
+    ],
+    "text": "Source fO 「 photographs: NIST; Source fO 「 drawing: Town Of Surfside"
+   }
+  ]
+ },
+ "tf_p084_salt.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     333,
+     97,
+     1358,
+     185
+    ],
+    "text": "SaIt-Water Bath with Electrodes"
+   },
+   {
+    "box": [
+     2190,
+     160,
+     2593,
+     226
+    ],
+    "text": "End ofa Test"
+   },
+   {
+    "box": [
+     77,
+     1434,
+     285,
+     1468
+    ],
+    "text": "Source: NIST"
+   }
+  ]
+ },
+ "tf_p174_corr.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     2876,
+     38,
+     3083,
+     66
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     2030,
+     235,
+     2050,
+     249
+    ],
+    "text": "5 豸"
+   },
+   {
+    "box": [
+     2275,
+     1399,
+     2295,
+     1481
+    ],
+    "text": "ー 第 に を"
+   },
+   {
+    "box": [
+     2170,
+     1409,
+     2179,
+     1489
+    ],
+    "text": "ー ぐ ー 」 引 を"
+   },
+   {
+    "box": [
+     159,
+     136,
+     1374,
+     211
+    ],
+    "text": "Corrosion Of Reinforcement"
+   },
+   {
+    "box": [
+     136,
+     312,
+     1210,
+     382
+    ],
+    "text": "・ Most likely source of long-term"
+   },
+   {
+    "box": [
+     210,
+     380,
+     594,
+     449
+    ],
+    "text": "degradation"
+   },
+   {
+    "box": [
+     210,
+     487,
+     1232,
+     557
+    ],
+    "text": "Ongoing for more than 25 years"
+   },
+   {
+    "box": [
+     213,
+     594,
+     1459,
+     650
+    ],
+    "text": "NlST's investi ation assessed hundreds"
+   },
+   {
+    "box": [
+     210,
+     611,
+     1162,
+     731
+    ],
+    "text": "0f samples oeremforcing bars"
+   },
+   {
+    "box": [
+     2686,
+     611,
+     3090,
+     664
+    ],
+    "text": "lmages shown at"
+   },
+   {
+    "box": [
+     2752,
+     684,
+     3022,
+     737
+    ],
+    "text": "larger scale"
+   },
+   {
+    "box": [
+     2675,
+     756,
+     3099,
+     808
+    ],
+    "text": "earlier illustrating"
+   },
+   {
+    "box": [
+     2792,
+     841,
+     2981,
+     881
+    ],
+    "text": "range ln"
+   },
+   {
+    "box": [
+     2774,
+     912,
+     2998,
+     943
+    ],
+    "text": "corroslon"
+   },
+   {
+    "box": [
+     3037,
+     1485,
+     3095,
+     1512
+    ],
+    "text": "174"
+   }
+  ]
+ },
+ "tf_p185_87park.jpg": {
+  "size": [
+   3200,
+   1570
+  ],
+  "lines": [
+   {
+    "box": [
+     75,
+     60,
+     1469,
+     126
+    ],
+    "text": "Vibrations from 87 Park Construction"
+   },
+   {
+    "box": [
+     1799,
+     108,
+     2870,
+     154
+    ],
+    "text": "Soil-Structure lnteraction Evaluations"
+   },
+   {
+    "box": [
+     1981,
+     186,
+     2691,
+     238
+    ],
+    "text": "0f87 ParkSheet Pile Driving"
+   },
+   {
+    "box": [
+     2324,
+     396,
+     2389,
+     447
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     1248,
+     417,
+     1386,
+     455
+    ],
+    "text": "わ u 〃 d ⅲ 9"
+   },
+   {
+    "box": [
+     47,
+     417,
+     375,
+     450
+    ],
+    "text": "supe レ リ c u 尾 →"
+   },
+   {
+    "box": [
+     1271,
+     845,
+     1440,
+     875
+    ],
+    "text": "わ ase れ t"
+   },
+   {
+    "box": [
+     39,
+     893,
+     255,
+     923
+    ],
+    "text": "substructure"
+   },
+   {
+    "box": [
+     1753,
+     921,
+     3090,
+     965
+    ],
+    "text": "Vibrations were greatly reduced by the south basement and sheet"
+   },
+   {
+    "box": [
+     1756,
+     981,
+     3075,
+     1025
+    ],
+    "text": "pile wall 0f CTS, and they further decayed rapidly before reaching"
+   },
+   {
+    "box": [
+     1755,
+     1041,
+     2635,
+     1085
+    ],
+    "text": "critical parts Of the CTS po deck structure."
+   },
+   {
+    "box": [
+     1755,
+     1127,
+     3141,
+     1172
+    ],
+    "text": "Computed vibrations at critical slab-column connections Of CTS were"
+   },
+   {
+    "box": [
+     1753,
+     1187,
+     2839,
+     1232
+    ],
+    "text": "t00 small tO damage even the distressed connections."
+   },
+   {
+    "box": [
+     1754,
+     1274,
+     3069,
+     1319
+    ],
+    "text": "AnaIyses corroborate reports that people inside CTS tower would"
+   },
+   {
+    "box": [
+     1756,
+     1334,
+     3100,
+     1379
+    ],
+    "text": "have perceived these vibrations. Humans can sense vibrations that"
+   },
+   {
+    "box": [
+     1755,
+     1394,
+     2865,
+     1438
+    ],
+    "text": "are well below levels that would damage the structure."
+   },
+   {
+    "box": [
+     1270,
+     1173,
+     1414,
+     1203
+    ],
+    "text": "50 〃 イ 0 ( k"
+   },
+   {
+    "box": [
+     100,
+     1484,
+     307,
+     1512
+    ],
+    "text": "Source: NIST"
+   },
+   {
+    "box": [
+     3037,
+     1485,
+     3094,
+     1512
+    ],
+    "text": "185"
+   }
+  ]
  }
 }

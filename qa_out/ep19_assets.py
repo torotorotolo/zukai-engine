@@ -587,6 +587,20 @@ def cmd_use():
 #   切り抜き CROP（元の画素の箱）は ⑤b-7a で写真ごとに決める（いまは決まっているものだけ）。束に入れるのは list19 で当てた写真だけ
 CROP = {
     "D13": (1500, 0, 2500, 562),     # cc06：海沿いの高い建物＝上の右（assign19・⑤b-1）
+    # 🆕 ⑤b-7a（2026-10-06）：⑤b-1 の原寸で見て決めた箱（list19 の注）＝もとから在る大きな商標・社名・電話番号・顔の近い人を切り口の外へ
+    "N#33": (0, 580, 4032, 2848),    # c317：上の真ん中のドリルの商標（DEWALT）・右上のバケツの字
+    "N#12": (0, 300, 2900, 1931),    # c319：右の人のベストの「Milwaukee」・ヘルメットの「MSA」
+    "N#10": (252, 588, 5082, 4480),  # c419：左上の黄色い重機の字（上）・右奥の人の列（右）＝⑤b-7a で全体を見て決めた（縦横 1.24＝額装）
+    "F:6717686": (325, 125, 2000, 1068),   # c707：左の重機の「CAT 336E」
+    "N#16": (0, 1386, 5124, 4267),   # c715：上の赤いテントの「Milwaukee」・右の Hyundai
+    "N#20": (0, 1008, 3583, 3024),   # c717：奥のトラックの会社名と電話番号
+    "N#17": (0, 0, 4032, 2268),      # ca13：右下の郡警察の鑑識3人の顔が近い
+    "N#11": (1260, 630, 6720, 3700),  # ca19：左の重機の「CAT 980K」
+    "N#53": (389, 137, 2972, 1591),  # cc27：右の KOMATSU・左の GS-1930（壊れ方を寄せて見せる）
+}
+# 🆕 ⑤b-7a：切り口の中に残る読める字（車のナンバー）＝元の画素の箱をモザイク（PD の写真だけ＝§B2-2b の考え方。BY・BY-SA には当てない）
+BLUR = {
+    "C6": [(298, 774, 350, 802)],    # c703：灰色の車のナンバー（⑤b-1 の原寸）
 }
 MAXW = 3000
 LIC = {"A": "Public domain", "A（FEMA）": "Public domain", "A（DHS）": "Public domain",
@@ -629,6 +643,15 @@ def cmd_build(only=None):
         with Image.open(sp) as im0:
             im = im0.convert("RGB")
         w0, h0 = im.size
+        for bx in BLUR.get(code, ()):
+            if lic != "Public domain":
+                print(f"🔴 {code}: モザイクは PD の写真だけ（{lic}＝改変になる）")
+                bad += 1
+                continue
+            x0, y0, x1, y1 = bx[0] - 6, bx[1] - 6, bx[2] + 6, bx[3] + 6     # 縁の字の欠片も残さない
+            part = im.crop((x0, y0, x1, y1))
+            part = part.resize((max(1, (x1 - x0) // 10), max(1, (y1 - y0) // 10)), Image.BILINEAR)
+            im.paste(part.resize((x1 - x0, y1 - y0), Image.NEAREST), (x0, y0))
         box = CROP.get(code) or (0, 0, w0, h0)
         im = im.crop(box)
         if im.width > MAXW:
@@ -639,8 +662,10 @@ def cmd_build(only=None):
         db[name] = dict(code=code, file=sp.name, cut=" ".join(cuts[code]), credit=f[8], note=f[9] if len(f) > 9 else "",
                         box=[round(box[0] / w0, 4), round(box[1] / h0, 4), round(box[2] / w0, 4), round(box[3] / h0, 4)],
                         crop_px=list(box), w=im.width, h=im.height, md5=md5(out), src_md5=md5(sp),
-                        lic=lic, frame=False, ground=f[7].strip(), url=fe.get("page") or fe.get("url"))
-        print(f"✓ {code:10} {name:22} {im.width}x{im.height}  {' '.join(cuts[code])}  {lic}{'  切り=' + str(box) if code in CROP else ''}")
+                        lic=lic, frame=False, ground=f[7].strip(), url=fe.get("page") or fe.get("url"),
+                        blur=[list(b) for b in BLUR.get(code, ())])
+        print(f"✓ {code:10} {name:22} {im.width}x{im.height}  {' '.join(cuts[code])}  {lic}{'  切り=' + str(box) if code in CROP else ''}"
+              f"{'  モザイク=' + str(BLUR[code]) if code in BLUR else ''}")
     db_path.write_text(json.dumps(db, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"→ ref/ep19/assets.json（{len(db)}点）")
     return 1 if bad else 0
@@ -678,8 +703,261 @@ def cmd_fb(only=None):
     return 1 if bad else 0
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-7b（2026-10-06）：頁のカット＝NIST のスライドの切り抜き（旧版の束から写す）と、資料の頁（大陪審の報告・2018年の調査の報告）
+# ══════════════════════════════════════════════════════════
+#   スライド＝旧版（4本目）の `ref/surfside/tf_p*.jpg`（NIST の技術的知見の動画のスライド＝©2021 の写真は旧版で切り落とし済み・
+#   ⑤b-7b でシート2枚で見た）を `ref/ep19/` へ写す（`ref/surfside/` は読むだけ）。
+#   🔴 下地が他者の図面のスライド（管財人の原図＝p57・p58／町の図面＝p77）は**紙面の引用**＝額装・無加工・色を変えない（frame=True）
+SLIDES = {
+    # 名: (使うカット, 額装だけ, 出典の行)
+    "tf_p003_model": ("c205 c206", False, "出典：NIST（技術的知見の動画のスライド3）"),
+    "tf_p050_3d": ("c502", False, "出典：NIST（技術的知見の動画のスライド50）"),
+    "tf_p050_gate": ("c504", False, "出典：NIST（技術的知見の動画のスライド50・目撃談にもとづく絵）"),
+    "tf_p052_gate": ("c509", False, "出典：NIST（技術的知見の動画のスライド52・目撃談にもとづく絵）"),
+    "tf_p057_3d": ("c515", False, "出典：NIST（技術的知見の動画のスライド57）"),
+    "tf_p057_memo": ("c516", True, "出典：NIST（技術的知見の動画のスライド57）・下地の図：管財人（CTS Receiver）"),
+    "tf_p058_note": ("c520", True, "出典：NIST（技術的知見の動画のスライド58）・下地の図：管財人（CTS Receiver）"),
+    "tf_p084_salt": ("c811", False, "出典：NIST（技術的知見の動画のスライド84）"),
+    "tf_p075_cover": ("c906", False, "出典：NIST（技術的知見の動画のスライド75）"),
+    "tf_p076_bars": ("c909", True, "出典：NIST（技術的知見の動画のスライド77）・図面：Town of Surfside"),
+    "tf_p174_corr": ("c307", False, "出典：NIST（技術的知見の動画のスライド174）"),
+    "tf_p185_87park": ("cb07", False, "出典：NIST（技術的知見の動画のスライド185）"),
+}
+
+
+def cmd_slides():
+    import shutil
+    db_path = HERE / "ref" / "ep19" / "assets.json"
+    db = json.loads(db_path.read_text(encoding="utf-8"))
+    from PIL import Image
+    for n, (cuts, frame, cr) in SLIDES.items():
+        src, dst = HERE / "ref" / "surfside" / f"{n}.jpg", HERE / "ref" / "ep19" / f"{n}.jpg"
+        shutil.copyfile(src, dst)
+        with Image.open(dst) as im:
+            w, h = im.size
+        db[n] = dict(code="TF頁", file=f"surfside/{n}.jpg", cut=cuts, credit=cr, note="旧版の束から写した（⑤b-7b）",
+                     box=[0.0, 0.0, 1.0, 1.0], crop_px=[0, 0, w, h], w=w, h=h, md5=md5(dst), src_md5=md5(src),
+                     lic="Public domain" if not frame else "Public domain（下地の図は引用）", frame=frame,
+                     ground="A" if not frame else "A＋第三者（引用）", url="NIST 技術的知見の動画（2026年6月）", blur=[])
+        print(f"✓ {n:16} {w}x{h}  {cuts}{'  額装だけ（引用）' if frame else ''}")
+    db_path.write_text(json.dumps(db, ensure_ascii=False, indent=1), encoding="utf-8")
+    return 0
+
+
+#   資料の頁＝スキャンの PDF（文字の層 0字）＝頁を 200dpi の灰色に焼き、Windows の OCR の行で目印を探して切る。
+#   切り口の上下と寄りの縦の寄せ（bias）は 18本目の `_fit_cut`（寄りの縮みを上下のすき間で受ける）をそのまま使う
+SRC = HERE / "ref" / "ep19" / "src"
+PAGE_DOCS19 = {"GJ": (SRC / "miamidade_grandjury_2021spring_report_redacted.pdf", 3000),
+               "MC18": (SRC / "surfside_morabito_2018-10-08_structural_field_survey.pdf", 4000)}
+PAGE_DPI = 200
+# カット → (通し頁, 始めの目印, 終わりの目印, 追加)。目印＝OCR の行の字（a〜z・0〜9 だけにした字）への正規表現
+PAGE_CUTS = {
+    # 2018年の調査の報告 p.7＝防水が寿命を過ぎ、下の床版に大きな傷み（1段落目の頭の4行・🔴 a. の設計者の会社名は入れない）
+    "c310": (4007, r"observedt.bebeyond", r"slabbel.wtheseareas", dict(hi=r"failuret.replace")),   # OCR は to を「t0」と読む
+    # 大陪審の報告 p.17＝節 V の見出しから「遅くとも2018年10月8日には…知っていた」の文まで
+    "c402": (3020, r"thedangerofneglect", r"inspectthebuilding", {}),
+    # p.18＝「何十年も日ごろの補修と手入れをしてこなかった」〜「見積もりは1,400万ドル超」
+    "c407": (3021, r"decadesleading", r"posedcosts", {}),     # OCR は「The PI ℃ posed costs」と読む
+    # p.18＝「29か月たっても…町も何の手も打っていなかった」
+    "c410": (3021, r"29months", r"safety\w{0,4}thebuilding", {}),
+    # p.1＝「原因探しではなく仕組みを調べた」〜「どの段階でも、すべての関係者に落ち度」
+    "cc02": (3004, r"forourfocus", r"participants$", {}),
+}
+
+
+def _norm(s):
+    return re.sub(r"[^a-z0-9]", "", s.lower())
+
+
+def _ocr19():
+    p = HERE / "ref" / "ep19" / "ocr_slides.json"
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+
+
+def _anchor_line(lines, pat, pr, last=False):
+    joined, owner = "", []
+    for i, ln in enumerate(lines):
+        t = _norm(ln["text"])
+        joined += t
+        owner += [i] * len(t)
+    pat2 = pat.replace("$", "") if pat.endswith("$") else pat
+    ms = list(re.finditer(pat2, joined))
+    if pat.endswith("$"):        # 「…$」＝その語で終わる行（段落の終わり）
+        ms = [m for m in ms if m.end() == len(joined) or owner[m.end()] != owner[m.end() - 1]]
+    if len(ms) != 1:
+        raise SystemExit(f"🔴 p{pr}：目印「{pat}」が {len(ms)} か所＝1か所でないと切らない")
+    m = ms[0]
+    return owner[m.end() - 1] if last else owner[m.start()]
+
+
+def cmd_pages(only=None):
+    import fitz
+    import numpy as np
+    sys.path.insert(0, str(HERE / "qa_out"))
+    sys.path.insert(0, str(HERE / "tools"))
+    import ep18_assets as E18
+    import check_slide as CS
+    pj_path = HERE / "ref" / "ep19" / "pages.json"
+    pj = json.loads(pj_path.read_text(encoding="utf-8")) if pj_path.exists() else {}
+    want_pages = sorted({v[0] for v in PAGE_CUTS.values()})
+    ocr = _ocr19()
+    fresh = []
+    for pr in want_pages:
+        if only and pr not in only:
+            continue
+        doc = "GJ" if 3001 <= pr <= 3043 else "MC18"
+        fn, base = PAGE_DOCS19[doc]
+        out = HERE / "ref" / "ep19" / f"pg{pr}.png"
+        with fitz.open(fn) as d:
+            pix = d[pr - base - 1].get_pixmap(dpi=PAGE_DPI, colorspace=fitz.csGRAY)
+            pix.save(out)
+        if f"pg{pr}.png" not in ocr:
+            fresh.append(out)
+    if fresh:
+        got = CS.run_ocr(fresh)
+        ocr.update(got)
+        (HERE / "ref" / "ep19" / "ocr_slides.json").write_text(json.dumps(ocr, ensure_ascii=False, indent=1), encoding="utf-8")
+        print(f"OCR {len(got)}頁")
+    for pr in want_pages:
+        if only and pr not in only:
+            continue
+        doc = "GJ" if 3001 <= pr <= 3043 else "MC18"
+        out = HERE / "ref" / "ep19" / f"pg{pr}.png"
+        from PIL import Image
+        with Image.open(out) as im:
+            a = np.asarray(im.convert("L"))
+        Hp, Wp = a.shape
+        v = ocr[f"pg{pr}.png"]
+        lines = sorted([ln for ln in v["lines"] if ln["box"][3] - ln["box"][1] >= 10], key=lambda ln: (ln["box"][1] + ln["box"][3]) / 2)
+        core = [(ln["box"][1] / Hp + 0.07 * (ln["box"][3] - ln["box"][1]) / Hp, ln["box"][3] / Hp - 0.07 * (ln["box"][3] - ln["box"][1]) / Hp)
+                for ln in lines if E18.COLS[0] <= (ln["box"][0] + ln["box"][2]) / 2 / Wp < E18.COLS[1]]
+        bands = E18._occupied(E18._bands(a, *E18.COLS), core)
+
+        def band_of(i):
+            c = (lines[i]["box"][1] + lines[i]["box"][3]) / 2 / Hp
+            k = min(range(len(bands)), key=lambda j: abs((bands[j][0] + bands[j][1]) / 2 - c))
+            if not bands[k][0] - 0.012 <= c <= bands[k][1] + 0.012:
+                raise SystemExit(f"🔴 p{pr}：OCR の行（y {c:.4f}）に近い字の帯が無い")
+            return k
+        cuts, biases = {}, {}
+        for cid, (p2, a_from, a_to, opt) in PAGE_CUTS.items():
+            if p2 != pr:
+                continue
+            j0, j1 = band_of(_anchor_line(lines, a_from, pr)), band_of(_anchor_line(lines, a_to, pr, last=True))
+            lo, hi = 0, len(bands) - 1
+            if opt.get("hi"):
+                hi = band_of(_anchor_line(lines, opt["hi"], pr)) - 1
+            if opt.get("lo"):
+                lo = band_of(_anchor_line(lines, opt["lo"], pr))
+            x0, x1 = E18._ink_x(a, bands[max(lo, j0 - 4)][0], bands[min(hi, j1 + 4)][1], *E18.COLS)
+            pad = (10 * PAGE_DPI / 72) / Wp
+            x0, x1 = max(0.0, x0 - pad), min(1.0, x1 + pad)
+            want = (x1 - x0) * Wp / E18.PANEL_AR_T / Hp
+            j0, j1, top, bot, bias = E18._fit_cut(bands, j0, j1, lo, hi, 1 / Hp, want)
+            x0, x1 = E18._ink_x(a, top, bot, *E18.COLS)
+            x0, x1 = max(0.0, x0 - pad), min(1.0, x1 + pad)
+            box = [round(float(t), 4) for t in (x0, max(0.0, top), x1, min(1.0, bot))]
+            cuts[cid], biases[cid] = box, bias
+            print(f"✓ pg{pr} {cid}  trim={box}  帯 {j0}〜{j1}  bias={bias}  縦横比 {round((box[2] - box[0]) * Wp / ((box[3] - box[1]) * Hp), 2)}")
+        pj[f"pg{pr}"] = dict(doc=doc, pdf=PAGE_DOCS19[doc][0].name, pdf_page=pr - PAGE_DOCS19[doc][1], w=Wp, h=Hp, dpi=PAGE_DPI,
+                             md5=md5(out), cuts=cuts, bias=biases)
+    pj_path.write_text(json.dumps(pj, ensure_ascii=False, indent=1), encoding="utf-8")
+    return 0
+
+
+CREDITS_JSON = HERE / "ref" / "ep19" / "credits.json"
+CREDITS_MD = HERE / "ref" / "CREDITS.md"
+# 🔴 見出しは `check_credits.SECTION` と1字も違わない行（門番は**この回の節の中だけ**で表を探す＝§5b-82②）
+CREDITS_HEAD = "## サーフサイドのマンション崩壊のリメイク（2021-06-24・19本目）"
+_PD_SHOW = {"A": "パブリックドメイン", "A（FEMA）": "パブリックドメイン", "A（DHS）": "パブリックドメイン"}
+
+
+def credit_line(r):
+    """画面の出典。🔴 決め①＝郡の消防（PD-FLGov の可能性）は「PD」と書かない＝台帳の credit のまま。
+    CC BY は章の色のデュオトーン（色の置き換え）＝改変＝「色調を変更」を添える（BY の表示の条件）"""
+    c = r["credit"]
+    g = r["ground"]
+    if g in _PD_SHOW:
+        return c[:-1] + f"・{_PD_SHOW[g]}）" if c.endswith("）") else f"{c}（{_PD_SHOW[g]}）"
+    if r["lic"].startswith("CC BY"):
+        return c[:-1] + "・色調を変更）" if c.endswith("）") else f"{c}（{r['lic']}・色調を変更）"
+    return c
+
+
+def cmd_credits(write=False):
+    """`ref/ep19/credits.json`（画面の出典）と `ref/CREDITS.md` の19本目の節（§1 写真の表＝門番 check_credits が副題の年と照らす）。
+    撮影年＝その写真を当てたカットの list19 の副題の年（副題は映像方針で写真の説明から書いた＝NIST・DVIDS・Commons の説明）。
+    副題に年の無い写真は「不明」（副題も年を名乗らない）"""
+    db = json.loads((HERE / "ref" / "ep19" / "assets.json").read_text(encoding="utf-8"))
+    subs = {r["cid"]: r["sub"] for r in _list()}
+    cj, rows = {}, []
+    for n, r in sorted(db.items()):
+        cuts = r["cut"].split()
+        ys = sorted({m.group(1) for c in cuts for m in re.finditer(r"(20\d\d)年", subs.get(c, ""))})
+        if len(ys) > 1:
+            raise SystemExit(f"🔴 {n}: 当てたカットの副題で年が割れる（{ys}）")
+        cj[f"ep19/{n}.jpg"] = credit_line(r)
+        how = "・".join(x for x in [f"切り出し {r['crop_px']}" if r["box"] != [0.0, 0.0, 1.0, 1.0] else "",
+                                    f"モザイク {r['blur']}" if r.get("blur") else ""] if x)
+        rows.append(f"| `{n}` | {' '.join(cuts)} | {ys[0] if ys else '不明'} | {r['lic']}（{r['ground']}） | "
+                    f"{r['credit'].replace('出典：', '')} | {r['url']}{'　' + how if how else ''} |")
+    # 🆕 ⑤b-7b：資料の頁（pages.json）＝出典の行は資料の名と頁（`illu.rec_line`＝図のカットの出典と同じ書き方）
+    sys.path.insert(0, str(HERE / "tools"))
+    import illu
+    pj_path = HERE / "ref" / "ep19" / "pages.json"
+    pages = json.loads(pj_path.read_text(encoding="utf-8")) if pj_path.exists() else {}
+    PAGE_YEAR = {"GJ": 2021, "MC18": 2018}
+    PAGE_WHO = {"GJ": ("マイアミ・デイド郡の大陪審", "フロリダ州の公記録（郡の州検事局が公開）"),
+                "MC18": ("モラビト社（構造技術者）", "サーフサイド町が公開した記録（フロリダ州の公記録）")}
+    for k, p in sorted(pages.items()):
+        pr = int(k[2:])
+        line = illu.rec_line([f"{p['doc']} p{pr}"])
+        if not line:
+            raise SystemExit(f"🔴 p{pr} の出典の行が作れない（`cuts/ss.REC_DOCS` に資料が無い）")
+        cj[f"ep19/{k}.png"] = line                 # rec_line は「出典：」から始まる
+        rows.append(f"| `{k}` | {' '.join(sorted(p.get('cuts', {})))} | {PAGE_YEAR[p['doc']]} | {PAGE_WHO[p['doc']][1]} | "
+                    f"{PAGE_WHO[p['doc']][0]} | {p['pdf']} PDF {p['pdf_page']}頁 |")
+    for k, v in cj.items():
+        print(k, "|", v)
+    print(f"… 写真 {len(db)}点・頁 {len(pages)}枚")
+    if write:
+        CREDITS_JSON.write_text(json.dumps(cj, ensure_ascii=False, indent=1), encoding="utf-8")
+        md = CREDITS_MD.read_text(encoding="utf-8")
+        block = "\n".join([
+            CREDITS_HEAD, "",
+            "※2026-10-06（⑤b-7a）。`qa_out/ep19_assets.py credits --write` が書く（手で直さない）。旧版の節は上の"
+            "「4本目：サーフサイド（Champlain Towers South・2021-06-24）」＝直さない（公開ずみ）。",
+            "",
+            "### 1. 写真（NIST・FEMA〈DVIDS〉・DHS＝米連邦の職務著作 PD／マイアミ・デイド郡消防＝フロリダ州の公記録／CC BY 2.0）",
+            "- 🔴 **郡の消防の写真（Commons の PD-FLGov）は画面に「PD」と書かない**（決め①・10-06 カズヤくん）＝「マイアミ・デイド郡消防（フロリダ州の公記録）」",
+            "- 🔴 CC BY-SA は使わない（決め③）。CC BY 2.0 の1点（Steve Jurvetson）は章の色のデュオトーン＝色の改変＝出典に「色調を変更」",
+            "- 🔴 もとから在る大きな商標・社名・電話番号・顔の近い人（郡警察の鑑識）は束の中で**切り落とした**（`qa_out/ep19_assets.py` の CROP＝"
+            "⑤b-1 の原寸で決めた箱）。車のナンバー1つは**モザイク**（PD の写真だけ・BLUR）",
+            "- 🔴 人が写る写真（§B2-2）：救助隊・調査員は公務。住戸の中は引きだけ（決め⑤）・追悼の場は DHS の引きだけ（決め⑥）",
+            "- 撮影年＝写真の説明（NIST・DVIDS・Commons）から映像方針で書いた副題の年。副題に年の無い写真は「不明」",
+            "",
+            "| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |",
+            "|---|---|---|---|---|---|", *rows, ""])
+        if CREDITS_HEAD in md:
+            pre, rest = md.split(CREDITS_HEAD, 1)
+            nxt = rest.find("\n## ")
+            md = pre + block + (rest[nxt:] if nxt >= 0 else "")
+        else:
+            md = md.rstrip("\n") + "\n\n" + block
+        CREDITS_MD.write_text(md, encoding="utf-8")
+        print(f"→ {CREDITS_JSON.relative_to(HERE).as_posix()} ／ {CREDITS_MD.relative_to(HERE).as_posix()}")
+    return 0
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
+    if a and a[0] == "credits":
+        sys.exit(cmd_credits("--write" in a))
+    if a and a[0] == "slides":
+        sys.exit(cmd_slides())
+    if a and a[0] == "pages":
+        sys.exit(cmd_pages({int(x) for x in a[1:]} or None))
     if a and a[0] == "fb":
         sys.exit(cmd_fb(set(a[1:]) or None))
     if a and a[0] == "build":

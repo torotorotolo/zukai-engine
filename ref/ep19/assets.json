@@ -100,12 +100,20 @@
   ],
   "w": 2048,
   "h": 1536,
-  "md5": "32e9e9db96606f012290c46dc2bf42d3",
+  "md5": "27afaf7104e07839855c1e554fd448e6",
   "src_md5": "e29c2803e2d609d150006a9250f1ee9a",
   "lic": "Public domain",
   "frame": false,
   "ground": "PD-FLGov の可能性",
-  "url": "File:Surfside condominium collapse photo from Miami-Dade Fire Rescue 6.jpg"
+  "url": "File:Surfside condominium collapse photo from Miami-Dade Fire Rescue 6.jpg",
+  "blur": [
+   [
+    298,
+    774,
+    350,
+    802
+   ]
+  ]
  },
  "d06_dhs": {
   "code": "D06",
@@ -195,25 +203,26 @@
   "credit": "出典：FEMA（DVIDS）",
   "note": "頁の説明に撮影者の名があればそれも（12点にあり）。2000w の配信は引き伸ばし＝原寸は頁の大きさ",
   "box": [
-   0.0,
-   0.0,
+   0.1625,
+   0.0936,
    1.0,
-   1.0
+   0.8
   ],
   "crop_px": [
-   0,
-   0,
+   325,
+   125,
    2000,
-   1335
+   1068
   ],
-  "w": 2000,
-  "h": 1335,
-  "md5": "d389fe7fb2d89efb1f995b3efbf096b3",
+  "w": 1675,
+  "h": 943,
+  "md5": "0379eb73ec165d7cfd6196a686531df2",
   "src_md5": "6f07f41bb2856571bda1c26f80adff23",
   "lic": "Public domain",
   "frame": false,
   "ground": "A（FEMA）",
-  "url": "https://www.dvidshub.net/image/6717686/fema-assists-recovery-surfside-building-collapse"
+  "url": "https://www.dvidshub.net/image/6717686/fema-assists-recovery-surfside-building-collapse",
+  "blur": []
  },
  "f6723297_team": {
   "code": "F:6723297",
@@ -276,25 +285,26 @@
   "credit": "出典：NIST",
   "note": "c419（10-06 ⑤b-1 で足した）",
   "box": [
-   0.0,
-   0.0,
-   1.0,
+   0.0375,
+   0.1313,
+   0.7562,
    1.0
   ],
   "crop_px": [
-   0,
-   0,
-   6720,
+   252,
+   588,
+   5082,
    4480
   ],
   "w": 3000,
-  "h": 2000,
-  "md5": "0075c56c464f3d4e99e2b7d1111e664c",
+  "h": 2417,
+  "md5": "90d781e1952a296940cbd026cb2e8bc7",
   "src_md5": "20afb3ccffbe01aa3f2145673fa2c7b0",
   "lic": "Public domain",
   "frame": false,
   "ground": "A",
-  "url": "https://www.nist.gov/sites/default/files/images/2021/08/25/KAM_3717%28July6th%29.JPG"
+  "url": "https://www.nist.gov/sites/default/files/images/2021/08/25/KAM_3717%28July6th%29.JPG",
+  "blur": []
  },
  "n11_column_move": {
   "code": "N#11",
@@ -303,25 +313,26 @@
   "credit": "出典：NIST",
   "note": "—",
   "box": [
-   0.0,
-   0.0,
+   0.1875,
+   0.1406,
    1.0,
-   1.0
+   0.8259
   ],
   "crop_px": [
-   0,
-   0,
+   1260,
+   630,
    6720,
-   4480
+   3700
   ],
   "w": 3000,
-  "h": 2000,
-  "md5": "3a022adb01aae378896351f568a6db5c",
+  "h": 1687,
+  "md5": "717fca1684347b32f49a9f88b2cfe897",
   "src_md5": "065b0f7c2ef3fccfafc3d025d2c38e82",
   "lic": "Public domain",
   "frame": false,
   "ground": "A",
-  "url": "https://www.nist.gov/sites/default/files/images/2021/08/25/KAM_3753%20%28july7th%29.JPG"
+  "url": "https://www.nist.gov/sites/default/files/images/2021/08/25/KAM_3753%20%28july7th%29.JPG",
+  "blur": []
  },
  "n12_concrete": {
   "code": "N#12",
@@ -331,24 +342,25 @@
   "note": "c319（10-06 ⑤b-1 で足した）",
   "box": [
    0.0,
-   0.0,
-   1.0,
-   1.0
+   0.1389,
+   0.7735,
+   0.894
   ],
   "crop_px": [
    0,
-   0,
-   3749,
-   2160
+   300,
+   2900,
+   1931
   ],
-  "w": 3000,
-  "h": 1728,
-  "md5": "b4dd2373c41cb8c23a9268d2820c42a4",
+  "w": 2900,
+  "h": 1631,
+  "md5": "62110c0a7a058e883f9f9e376800446b",
   "src_md5": "d2110ce66d3b382a05b89e5d452ba4e1",
   "lic": "Public domain",
   "frame": false,
   "ground": "A",
-  "url": "https://www.nist.gov/sites/default/files/images/2021/08/25/NIST%20team%20July1.jpg"
+  "url": "https://www.nist.gov/sites/default/files/images/2021/08/25/NIST%20team%20July1.jpg",
+  "blur": []
  },
  "n13_laydown": {
   "code": "N#13",
@@ -385,24 +397,25 @@
   "note": "—",
   "box": [
    0.0,
-   0.0,
-   1.0,
-   1.0
+   0.3094,
+   0.7625,
+   0.9525
   ],
   "crop_px": [
    0,
-   0,
-   6720,
-   4480
+   1386,
+   5124,
+   4267
   ],
   "w": 3000,
-  "h": 2000,
-  "md5": "06cc3347269026adaef3c14352670fcf",
+  "h": 1687,
+  "md5": "f42855a12046db48d8c0b08a3dfb9352",
   "src_md5": "e351df06d2f963c81b634e1c9a37d226",
   "lic": "Public domain",
   "frame": false,
   "ground": "A",
-  "url": "https://www.nist.gov/sites/default/files/images/2021/08/25/KAM_3691%28July6th%29.JPG"
+  "url": "https://www.nist.gov/sites/default/files/images/2021/08/25/KAM_3691%28July6th%29.JPG",
+  "blur": []
  },
  "n17_remaining": {
   "code": "N#17",
@@ -414,22 +427,23 @@
    0.0,
    0.0,
    1.0,
-   1.0
+   0.75
   ],
   "crop_px": [
    0,
    0,
    4032,
-   3024
+   2268
   ],
   "w": 3000,
-  "h": 2250,
-  "md5": "d0ebf649b89d9b406d9422631278d1e4",
+  "h": 1688,
+  "md5": "ce9a3cf3dd9a538093ded887e168d4dd",
   "src_md5": "621b787813cd57e0efb985dc96715ec6",
   "lic": "Public domain",
   "frame": false,
   "ground": "A",
-  "url": "https://www.nist.gov/sites/default/files/images/2021/06/30/IMG_6362.JPG"
+  "url": "https://www.nist.gov/sites/default/files/images/2021/06/30/IMG_6362.JPG",
+  "blur": []
  },
  "n18_from_south": {
   "code": "N#18",
@@ -493,24 +507,25 @@
   "note": "—",
   "box": [
    0.0,
-   0.0,
-   1.0,
+   0.3333,
+   0.8886,
    1.0
   ],
   "crop_px": [
    0,
-   0,
-   4032,
+   1008,
+   3583,
    3024
   ],
   "w": 3000,
-  "h": 2250,
-  "md5": "3b87c77b16c32df06b03d7f3fe024bf8",
+  "h": 1688,
+  "md5": "bf66f7b161b6071cb500bff7aaf54dbb",
   "src_md5": "d9385f6fd21bb20a6bd76987c0ac58b6",
   "lic": "Public domain",
   "frame": false,
   "ground": "A",
-  "url": "https://www.nist.gov/sites/default/files/images/2021/07/15/IMG_0428.JPG"
+  "url": "https://www.nist.gov/sites/default/files/images/2021/07/15/IMG_0428.JPG",
+  "blur": []
  },
  "n28_warehouse_column": {
   "code": "N#28",
@@ -574,24 +589,25 @@
   "note": "—",
   "box": [
    0.0,
-   0.0,
+   0.1918,
    1.0,
-   1.0
+   0.9418
   ],
   "crop_px": [
    0,
-   0,
+   580,
    4032,
-   3024
+   2848
   ],
   "w": 3000,
-  "h": 2250,
-  "md5": "2950fe4191b1a32f0b7da10de2e1fecf",
+  "h": 1688,
+  "md5": "b83af96abe304877320eda28a2febbbe",
   "src_md5": "6cd8525ea5c717ebc60ec883c364c9ef",
   "lic": "Public domain",
   "frame": false,
   "ground": "A",
-  "url": "https://www.nist.gov/sites/default/files/images/2023/09/06/Coring%20and%20MOA%20tests%20%20%28Sep2023%29.jpg"
+  "url": "https://www.nist.gov/sites/default/files/images/2023/09/06/Coring%20and%20MOA%20tests%20%20%28Sep2023%29.jpg",
+  "blur": []
  },
  "n42_absorption": {
   "code": "N#42",
@@ -708,25 +724,26 @@
   "credit": "出典：NIST",
   "note": "—",
   "box": [
-   0.0,
-   0.0,
-   1.0,
-   1.0
+   0.1064,
+   0.0634,
+   0.8127,
+   0.7366
   ],
   "crop_px": [
-   0,
-   0,
-   3657,
-   2160
+   389,
+   137,
+   2972,
+   1591
   ],
-  "w": 3000,
-  "h": 1772,
-  "md5": "674447dfe94a89dacece09865a18c810",
+  "w": 2583,
+  "h": 1454,
+  "md5": "171a10afc51f3cd929a9134a70e28b08",
   "src_md5": "e29f1c7ddcd9d7d2baa10fa05e1056f8",
   "lic": "Public domain",
   "frame": false,
   "ground": "A",
-  "url": "https://www.nist.gov/sites/default/files/images/2025/04/10/NCST%20Investigation%20April25%20%289%20of%2038%29.jpg"
+  "url": "https://www.nist.gov/sites/default/files/images/2025/04/10/NCST%20Investigation%20April25%20%289%20of%2038%29.jpg",
+  "blur": []
  },
  "n60_mast_after": {
   "code": "N#60",
@@ -889,5 +906,341 @@
   "frame": false,
   "ground": "A",
   "url": "https://www.nist.gov/sites/default/files/images/2025/06/23/NCST%20Investigation%20Update%20June%202025%20%283%20of%207%29.jpg"
+ },
+ "tf_p003_model": {
+  "code": "TF頁",
+  "file": "surfside/tf_p003_model.jpg",
+  "cut": "c205 c206",
+  "credit": "出典：NIST（技術的知見の動画のスライド3）",
+  "note": "旧版の束から写した（⑤b-7b）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   3200,
+   1570
+  ],
+  "w": 3200,
+  "h": 1570,
+  "md5": "16eb88240fd58a4b323ee99342ce3f00",
+  "src_md5": "16eb88240fd58a4b323ee99342ce3f00",
+  "lic": "Public domain",
+  "frame": false,
+  "ground": "A",
+  "url": "NIST 技術的知見の動画（2026年6月）",
+  "blur": []
+ },
+ "tf_p050_3d": {
+  "code": "TF頁",
+  "file": "surfside/tf_p050_3d.jpg",
+  "cut": "c502",
+  "credit": "出典：NIST（技術的知見の動画のスライド50）",
+  "note": "旧版の束から写した（⑤b-7b）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   2016,
+   1285
+  ],
+  "w": 2016,
+  "h": 1285,
+  "md5": "3d538d0d14cb6f2d7769a7af1217e247",
+  "src_md5": "3d538d0d14cb6f2d7769a7af1217e247",
+  "lic": "Public domain",
+  "frame": false,
+  "ground": "A",
+  "url": "NIST 技術的知見の動画（2026年6月）",
+  "blur": []
+ },
+ "tf_p050_gate": {
+  "code": "TF頁",
+  "file": "surfside/tf_p050_gate.jpg",
+  "cut": "c504",
+  "credit": "出典：NIST（技術的知見の動画のスライド50・目撃談にもとづく絵）",
+  "note": "旧版の束から写した（⑤b-7b）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1536,
+   842
+  ],
+  "w": 1536,
+  "h": 842,
+  "md5": "f355c16148a4d3b9a0cab78a3ce6709d",
+  "src_md5": "f355c16148a4d3b9a0cab78a3ce6709d",
+  "lic": "Public domain",
+  "frame": false,
+  "ground": "A",
+  "url": "NIST 技術的知見の動画（2026年6月）",
+  "blur": []
+ },
+ "tf_p052_gate": {
+  "code": "TF頁",
+  "file": "surfside/tf_p052_gate.jpg",
+  "cut": "c509",
+  "credit": "出典：NIST（技術的知見の動画のスライド52・目撃談にもとづく絵）",
+  "note": "旧版の束から写した（⑤b-7b）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1536,
+   853
+  ],
+  "w": 1536,
+  "h": 853,
+  "md5": "0cb6efe8acbb2002f665703127b5ed62",
+  "src_md5": "0cb6efe8acbb2002f665703127b5ed62",
+  "lic": "Public domain",
+  "frame": false,
+  "ground": "A",
+  "url": "NIST 技術的知見の動画（2026年6月）",
+  "blur": []
+ },
+ "tf_p057_3d": {
+  "code": "TF頁",
+  "file": "surfside/tf_p057_3d.jpg",
+  "cut": "c515",
+  "credit": "出典：NIST（技術的知見の動画のスライド57）",
+  "note": "旧版の束から写した（⑤b-7b）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   2016,
+   1177
+  ],
+  "w": 2016,
+  "h": 1177,
+  "md5": "706807f6815a0b174bbc3c17b6c89bb4",
+  "src_md5": "706807f6815a0b174bbc3c17b6c89bb4",
+  "lic": "Public domain",
+  "frame": false,
+  "ground": "A",
+  "url": "NIST 技術的知見の動画（2026年6月）",
+  "blur": []
+ },
+ "tf_p057_memo": {
+  "code": "TF頁",
+  "file": "surfside/tf_p057_memo.jpg",
+  "cut": "c516",
+  "credit": "出典：NIST（技術的知見の動画のスライド57）・下地の図：管財人（CTS Receiver）",
+  "note": "旧版の束から写した（⑤b-7b）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1248,
+   810
+  ],
+  "w": 1248,
+  "h": 810,
+  "md5": "d9a87b755f00dc19bde3cd1fa861bdb9",
+  "src_md5": "d9a87b755f00dc19bde3cd1fa861bdb9",
+  "lic": "Public domain（下地の図は引用）",
+  "frame": true,
+  "ground": "A＋第三者（引用）",
+  "url": "NIST 技術的知見の動画（2026年6月）",
+  "blur": []
+ },
+ "tf_p058_note": {
+  "code": "TF頁",
+  "file": "surfside/tf_p058_note.jpg",
+  "cut": "c520",
+  "credit": "出典：NIST（技術的知見の動画のスライド58）・下地の図：管財人（CTS Receiver）",
+  "note": "旧版の束から写した（⑤b-7b）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1018,
+   583
+  ],
+  "w": 1018,
+  "h": 583,
+  "md5": "ebb9ad139ace406b45a0d503c751835c",
+  "src_md5": "ebb9ad139ace406b45a0d503c751835c",
+  "lic": "Public domain（下地の図は引用）",
+  "frame": true,
+  "ground": "A＋第三者（引用）",
+  "url": "NIST 技術的知見の動画（2026年6月）",
+  "blur": []
+ },
+ "tf_p084_salt": {
+  "code": "TF頁",
+  "file": "surfside/tf_p084_salt.jpg",
+  "cut": "c811",
+  "credit": "出典：NIST（技術的知見の動画のスライド84）",
+  "note": "旧版の束から写した（⑤b-7b）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   3200,
+   1570
+  ],
+  "w": 3200,
+  "h": 1570,
+  "md5": "32aa5aa0c892f1461c39d3e12f8e485f",
+  "src_md5": "32aa5aa0c892f1461c39d3e12f8e485f",
+  "lic": "Public domain",
+  "frame": false,
+  "ground": "A",
+  "url": "NIST 技術的知見の動画（2026年6月）",
+  "blur": []
+ },
+ "tf_p075_cover": {
+  "code": "TF頁",
+  "file": "surfside/tf_p075_cover.jpg",
+  "cut": "c906",
+  "credit": "出典：NIST（技術的知見の動画のスライド75）",
+  "note": "旧版の束から写した（⑤b-7b）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   3200,
+   1570
+  ],
+  "w": 3200,
+  "h": 1570,
+  "md5": "24383cbebc5014a7513ef3bcd658f321",
+  "src_md5": "24383cbebc5014a7513ef3bcd658f321",
+  "lic": "Public domain",
+  "frame": false,
+  "ground": "A",
+  "url": "NIST 技術的知見の動画（2026年6月）",
+  "blur": []
+ },
+ "tf_p076_bars": {
+  "code": "TF頁",
+  "file": "surfside/tf_p076_bars.jpg",
+  "cut": "c909",
+  "credit": "出典：NIST（技術的知見の動画のスライド77）・図面：Town of Surfside",
+  "note": "旧版の束から写した（⑤b-7b）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   3200,
+   1570
+  ],
+  "w": 3200,
+  "h": 1570,
+  "md5": "29c3cc9977623c319918baaee8405a05",
+  "src_md5": "29c3cc9977623c319918baaee8405a05",
+  "lic": "Public domain（下地の図は引用）",
+  "frame": true,
+  "ground": "A＋第三者（引用）",
+  "url": "NIST 技術的知見の動画（2026年6月）",
+  "blur": []
+ },
+ "tf_p174_corr": {
+  "code": "TF頁",
+  "file": "surfside/tf_p174_corr.jpg",
+  "cut": "c307",
+  "credit": "出典：NIST（技術的知見の動画のスライド174）",
+  "note": "旧版の束から写した（⑤b-7b）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   3200,
+   1570
+  ],
+  "w": 3200,
+  "h": 1570,
+  "md5": "132c9036aa62d93e56f8a71f7ecc86ac",
+  "src_md5": "132c9036aa62d93e56f8a71f7ecc86ac",
+  "lic": "Public domain",
+  "frame": false,
+  "ground": "A",
+  "url": "NIST 技術的知見の動画（2026年6月）",
+  "blur": []
+ },
+ "tf_p185_87park": {
+  "code": "TF頁",
+  "file": "surfside/tf_p185_87park.jpg",
+  "cut": "cb07",
+  "credit": "出典：NIST（技術的知見の動画のスライド185）",
+  "note": "旧版の束から写した（⑤b-7b）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   3200,
+   1570
+  ],
+  "w": 3200,
+  "h": 1570,
+  "md5": "88b585d7e2ea95a6476bd7ad8ab88910",
+  "src_md5": "88b585d7e2ea95a6476bd7ad8ab88910",
+  "lic": "Public domain",
+  "frame": false,
+  "ground": "A",
+  "url": "NIST 技術的知見の動画（2026年6月）",
+  "blur": []
  }
 }

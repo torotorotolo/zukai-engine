@@ -161,7 +161,21 @@ def fb(cid):
 
 def vid(cid, **kw):
     """🆕 18本目 ⑤b-7c：カットまるごとの動く映像（記録映画＝`footage.USE`）を1行で書く。箱はひかえの静止画の縦横比
-    （記録映画 655×480＝額装＋地のぼかし＝映像方針 §8）。副題は**選んだショットに写っているもの**（撮影日は分からない＝年を書かない）"""
+    （記録映画 655×480＝額装＋地のぼかし＝映像方針 §8）。副題は**選んだショットに写っているもの**（撮影日は分からない＝年を書かない）
+
+    🆕 19本目 ⑤b-7b（2026-10-06）：**カットまるごとのフリー素材**（clips.json の `"stock": true`）＝ひかえの静止画は
+    `<回>/stock/fb_<cid>.jpg`（🔴 git に入れない＝決め⑨。Actions では `footage.fetch` が切り出したコマの1枚目から作る）
+    ＝**ファイルを読まずに**箱を決める（読み込みの時点で無い＝import が落ちて門番も焼きも止まる）。幅は台帳の `dispw`（1280以上＝全画面）。
+    見出し・副題は書かない（左上の「イメージ」の札と出典だけ＝写っていない物を名乗らない・`scene_jiko.full_top`）"""
+    import footage as _FO
+    c = _FO.CLIPS.get((_FO.USE.get(cid) or {}).get("clip")) or {}
+    if c.get("stock"):
+        if kw.get("t") or kw.get("s"):
+            raise ValueError(f"{cid}: フリー素材のカットに見出し・副題は書かない（左上の「イメージ」と出典だけ）")
+        w, h = int(c.get("dispw") or c["w"]), int(c["h"])
+        if w < MIN_FULL_W or not PANEL_AR <= w / h <= WIDE_AR:
+            raise ValueError(f"{cid}: フリー素材 {w}×{h} は全画面の箱に合わない（台帳の dispw を確かめる）")
+        return dict(photo=f"{EP}stock/fb_{cid}.jpg", t="", s="", **kw)
     return dict(photo=fb(cid), **kind(fb(cid)), **kw)
 
 

@@ -1359,7 +1359,16 @@ def full_top(cid, spec):
         x, y, w, h = photo_box(spec)
         g.append(f'<rect x="{x - 3}" y="{y - 3}" width="{w + 6}" height="{h + 6}" '
                  f'fill="none" stroke="{J.LINE}" stroke-width="3"/>')
-    g.append(J.title(spec["t"], spec.get("s", "")))
+    # 🆕 19本目 ⑤b-7b（2026-10-06）：カットまるごとのフリー素材（`ss.vid` が stock の欄で t・s を空にする）＝見出しの代わりに
+    #   左上の「イメージ」の札（頭の差し込み `head_top` と同じ札・§2-5c＝この事故の記録と取り違えさせない）
+    import footage as _FO
+    _u = _FO.USE.get(cid) or {}
+    if not _u.get("head") and (_FO.CLIPS.get(_u.get("clip")) or {}).get("stock"):
+        if spec.get("t"):
+            raise SystemExit(f"{cid}: フリー素材のカットに見出し（t）は書かない（左上の「イメージ」と出典だけ）")
+        g.append(stock_chip())
+    else:
+        g.append(J.title(spec["t"], spec.get("s", "")))
     ch = chapter_of(cid)
     if ch:
         g.append(J.chapter(ch[0], NCH, ch[1]))

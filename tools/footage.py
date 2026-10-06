@@ -1288,6 +1288,17 @@ def fetch(check=False):
             bad += 1
     done = [c for c in USE if have(c)]
     print(f"✓ 切り出し完了 {len(done)}/{len(USE) - len(stills)} カット: {'、'.join(done) or 'なし'}")
+    # 🆕 19本目 ⑤b-7b（2026-10-06）：フリー素材のひかえの静止画（`ref/<回>/stock/fb_<cid>.jpg`）は git に入れない（決め⑨）＝
+    #    Actions・Modal の上には無い → **切り出したコマの1枚目から作る**（手元では `qa_out/ep19_assets.py fb` が棚の mp4 の
+    #    同じ秒から作る）。コマが無いカットは作らない＝合成が写真を開けずに止まる（黙って別の絵に落とさない）
+    import shutil
+    for cid, u in USE.items():
+        if CLIPS[u["clip"]].get("stock") and have(cid):
+            fbp = _CLIPS_JSON.parent / "stock" / f"fb_{cid}.jpg"
+            if not fbp.exists():
+                fbp.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(FOOT / cid / "00000.jpg", fbp)
+                print(f"  ✓ {cid}: フリー素材のひかえの静止画をコマの1枚目から作った（{fbp.relative_to(HERE).as_posix()}）")
     if bad:
         print(f"⚠️ {bad} カットは**静止画に落ちる**。パイプラインは止めない。")
     return 1 if bad else 0

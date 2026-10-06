@@ -108,7 +108,18 @@ def pic_kinds(s, stock=False):
     if photo:
         if stock:
             return {"フリー素材"}       # 18本目 ⑤b-1：この事故の写真（20%の数）と分ける
-        return {"文字の頁", "図・写真の頁"} if "/pg" in str(photo) else {"写真"}
+        if "/pg" in str(photo):
+            return {"文字の頁", "図・写真の頁"}
+        # 🆕 2026-10-06（19本目 ⑤b-7b）：NIST のスライドの切り抜き（束の台帳 assets.json の code「TF頁」＝資料の頁）も頁＝
+        #    写真（20%の数）に数えない。名前に `/pg` が無い（旧版の束の名を写した）ので、台帳の記録で見分ける（字面でなく記録）
+        try:
+            import cuts.ss as _ss
+            db = _ss._assets()
+        except Exception:                                    # noqa: BLE001
+            db = {}
+        if (db.get(str(photo).split("/", 1)[-1].rsplit(".", 1)[0]) or {}).get("code") == "TF頁":
+            return {"図・写真の頁"}
+        return {"写真"}
     return None
 
 

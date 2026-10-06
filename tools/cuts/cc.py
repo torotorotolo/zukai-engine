@@ -25,7 +25,7 @@ PLAN = {
     'cc03': dict(kind='決め所',
                plan='quote（決め所）｜権利：自作',
                src='GJ p.18（`There was sufficient information, provided early enough to put everyone on notice of a major problem.`）'),
-    'cc04': dict(kind='写真',
+    'cc04': dict(kind='フリー素材',     # ⑤b-7b：⑤b-1 で S#45（フリー素材）に替えた＝list19 の種類「フリー」と合わせた
                plan='B1@⑤b-1（現場の引き・残った西の部分＝決め⑤で引きの秒だけ）｜副題：崩落の現場（2021年6〜7月）｜権利：A推定｜注：—',
                src='GJ p.18（`none of the participants acted quickly enough to avert this tragedy`）・GJ p.1（`We cannot let this happen again!`）'),
     'cc05': dict(kind='図解',
@@ -61,7 +61,7 @@ PLAN = {
     'cc15': dict(kind='図解',
                plan='図 法律の要点（同じ・直すお金の備えの調べ＝10年ごと・2024年の終わりから積み立て無しは不可）｜権利：自作',
                src='A14 p.37（`structural integrity reserve study completed at least every 10 years`）・A14 p.35（`Effective December 31, 2024, the members of a unit-owner controlled association may not determine to provide no reserves or less reserves`）'),
-    'cc16': dict(kind='写真',
+    'cc16': dict(kind='フリー素材',     # ⑤b-7b：⑤b-1 で S#47（フリー素材）に替えた＝list19 の種類「フリー」と合わせた
                plan='B1@⑤b-1（現場の引き）｜副題：崩落の現場（2021年6〜7月）｜権利：A推定｜注：—',
                src='A14 p.9（`on or before July 1, 1992`・`before December 31, 2024`）・今の条文 553.899 (3)(b)（p9811・`proximity to salt water`）'),
     'cc17': dict(kind='図解',
@@ -245,4 +245,27 @@ SPEC = {
             dict(add=[ss.cause("k_old"), ss.cause("k_edu")])],
             src=ss.src(["AC p2017"]))),
     ),
+    # ── 🆕 ⑤b-7a（2026-10-06）：写真・映像（決め⑥＝DHS は引きだけ）──
+    "cc01": dict(t="崩れたあと", s="撤去の後の現場（2021年8月19日）",
+                 photo=P("d06_dhs"), **ss.kind(P("d06_dhs"))),
+    # cc06＝D13 の上の右だけ（束で切った・1000×562＝額装）
+    "cc06": dict(t="報告の結び", s="海沿いの高い建物（2021年8月19日）",
+                 photo=P("d13_dhs"), **ss.kind(P("d13_dhs"))),
+    "cc21": dict(t="続く NIST の調べ", s="新しい倉庫に並べた部材（2023年5月）",
+                 photo=P("n28_warehouse_column"), **ss.kind(P("n28_warehouse_column"))),
+    "cc23": dict(t="決まりの見直し", s="実物大の試験（ミネソタ大学）",
+                 photo=P("n71_mast_test"), **ss.kind(P("n71_mast_test"))),
+    # cc27＝束で寄せた（右の KOMATSU・左の GS-1930）
+    "cc27": dict(t="余裕を持たない建物", s="試験のあとの床と柱の標本（2025年）",
+                 photo=P("n53_after_test"), **ss.kind(P("n53_after_test"))),
+    # cc29＝NIST の動画の調査を率いた1人（公務・名前は出さない・前後の名の壁は使わない＝決め⑥）
+    #   ⚠️ dup：副題「NIST の技術的知見の動画（2026年6月）」は出典の行（動画の出典）の写し＝写っている人を書く
+    "cc29": ss.vid("cc29", t="最後の言葉", s="発表の最後に話す NIST の調査員"),
+    # ── 🆕 ⑤b-7b（2026-10-06）：大陪審の報告 p.1（はじめに＝「どの段階でも、すべての関係者に落ち度」）──
+    # フリー素材（イメージ）：cc04＝夕方の海沿いの高層の空撮・cc13＝夕方の海辺の高層の空撮・cc16＝桟橋と海沿いの高層
+    "cc04": ss.vid("cc04"),
+    "cc13": ss.vid("cc13"),
+    "cc16": ss.vid("cc16"),
+    "cc02": dict(t="大陪審の結論", s="はじめにの段落",
+                 photo=ss.page(3004), trim=ss.ptrim("cc02"), bias=ss.pbias("cc02"), panel=True, color=1.0),
 }
