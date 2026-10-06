@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
-"""第11章　その後 cb01–cb23（23カット）。18本目（スレッシャー号のリメイク）。
+"""第10章　疑われたもの cb01–cb16（16カット）。19本目（サーフサイドのマンション崩壊のリメイク）。
 
-■ 🔴 2026-10-04（⑤b-1）：16本目（バイオントダム災害）の中身を空にした＝git の `b044b56`（`git show b044b56:tools/cuts/cb.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep18/make_plan.py` で
-  台本 §4・承認ずみの映像方針（§1-3 冒頭・§3 置き場・§4 合図・§5 案C・§6 前置き・§8 記録映画・§9 頁の版・§11 替える画）から
-  機械で組んだ（手で写していない）。
+■ 🔴 2026-10-06（⑤b-1）：18本目（スレッシャー号）の中身を空にした＝git の `b11797a`（`git show b11797a:tools/cuts/cb.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep19/make_plan19.py` で
+  映像方針の一覧 `ref/ep19/eizou_build/list19.tsv`（承認ずみ・決め①〜⑩）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」と「フリー素材」を数える）。
-  種類＝写真／図・写真の頁／再現イラスト／図解／混ざり／文字の頁／パネル／決め所／フリー素材（ルール §5b-79・§2-5c）
-  記号＝【案C SA】横から見た海・【案C SB】上から見た海（北が上）・【案C SC】上から見た海の底・【案C SD】横から見た海の底の捜索（§3）・
-        【冒頭】（§1-3）・【混ざり】（§12 ⑦）
-  🆕 フリー素材の映像（映像方針 §17）＝⑤b-7 で替える場面を表にして承認 → その種類を「フリー素材」に（20% と【映像あり】に数えない）
+  ⚠️ plan の「⑤b-1」は1秒1コマの走査で区間を選ぶ所・秒（÷365 の見込み）は書き写さない＝narration.json の実測で組む。
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -18,251 +14,54 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    "cb01": dict(kind='写真',
-               plan='台本の画：実写 thr_film593_b（艦橋の乗員・記録映画 85185 のコマ）｜記録映画（映像方針 §8）：コマ _b＝c107 は並べ図へ（§6）＝cb01 だけ（額装＋地のぼかし・縦1.8倍まで・⑤b-7 で SAR を測る）',
-               src='認定159・意見4（R08 p.202・204）'),
-    "cb02": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 査問会の意見4（1隻ずつ見直すまで、深さの制限を続けるのが賢明）',
-               src='意見4（R08 p.204）'),
-    "cb03": dict(kind='図解',
-               plan='台本の画：図 年表 安全の計画の始まり（1963-06-03 艦船局の中に潜水艦の安全の計画／07-08 指示書／1963年 10の課題の作業班／1964-02-18 潜水艦安全センター／1964-07-01 記録に「サブセーフ」）',
-               src='J p.4（1963・10の課題）・J p.93・94・97・98'),
-    "cb04": dict(kind='図解',
-               plan='台本の画：図 流れ図 1隻ずつの認証（1964年7月に議会で説明された方針：安全の改修を終える → 艦船局が認める → 深さの制限が解ける）',
-               src='J p.93（1964-07-01 レイミッジ中将）'),
-    "cb05": dict(kind='図解',
-               plan='台本の画：図 年表（1964年2月18日 コネティカット州グロトンに潜水艦安全センター）',
-               src='J p.94'),
-    "cb06": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 査問会の勧告20（海軍航空にあるような組織を、早いうちに検討すること・潜水艦の安全にかかわる出来事を分析し、すぐに伝える）',
-               src='勧告20（R08 p.220）'),
-    "cb07": dict(kind='写真',
-               plan='台本の画：実写 thr_film593_c（記録映画 85185 のコマ・セイルの593）｜記録映画（映像方針 §8）：コマ _c＝c212 は残す・c318 は SA へ・c701・cb07 は 85185 の別のショット（動く映像）＝⑤b-7 で映像を通しで見て選ぶ（無ければ造船所の写真 thr_t14 などの PD の写真）（額装＋地のぼかし・縦1.8倍まで・⑤b-7 で SAR を測る）｜替える画（映像方針 §11）：いま＝実写 thr_film593_c → 85185 の別のショット・理由＝同じコマの重なり',
-               src='認定157（R08 p.202）'),
-    "cb08": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 査問会の意見42（潜水艦バーベルなどの事故の情報を、深く分析し、すぐに伝えていれば、スレッシャーを失った原因とみられる欠陥は減らせた）',
-               src='意見42（R08 p.212）'),
-    "cb09": dict(kind='写真',
-               plan='台本の画：実写 NH 97555（1963-04-15 スレッシャーを探す艦・738×586＝額装）',
-               src='認定102・104・108（R08 p.197）・認定91（R08 p.195）'),
-    "cb10": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 艦船局の副長の2つの言葉（1964年7月＝安全の取り組みの始まりはスレッシャーではない／振り返れば、艦船局の長も言ったとおり、潜水艦の設計で攻めと守りの力を速く遠くへ進めすぎ、安全が追いつかなかった）',
-               src='J p.95・97（1964-07-01 艦船局の副長の証言＝J p.174）'),
-    "cb11": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 深い海の救難（1964年4月 深海潜水システムの検討グループの勧告・それでも「船体がつぶれない深さで動けなくなっても、救えないことがある」）',
-               src='J p.94'),
-    "cb12": dict(kind='文字の頁',
-               plan='台本の画：図 p8079（JCAE 公聴会 1963-07-23 の頁＝リッコーヴァー中将の声明の、原因の見方を述べた所）｜頁の版（映像方針 §9）：J（議会の本）＝見える',
-               src='J p.79'),
-    "cb13": dict(kind='決め所',
-               plan='台本の画：quote（決め所）',
-               src='J p.79（リッコーヴァー中将の声明・1963-07-23）'),
-    "cb14": dict(kind='写真',
-               plan='台本の画：実写 NARA 83741（追悼の記録映画・壇上で敬礼する士官＝参列者の顔の分かるショットは使わない）',
-               src='J p.127（1964-07-01 リッコーヴァー中将）'),
-    "cb15": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 査問会の意見55 の前半（慣行・状態・基準の多くが、整備と安全な運用に必要な水準に届いていない）',
-               src='意見55（R08 p.216）'),
-    "cb16": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 意見55 の続き（この10年の急な変化と、速すぎる計画の中で生まれた・特定の人のせいにはできない・艦が失われなければ気づかれなかったものも多い）',
-               src='意見55（R08 p.216）'),
-    "cb17": dict(kind='決め所',
-               plan='台本の画：quote（決め所）',
-               src='意見55（V1 p.69・R08 p.216）'),
-    "cb18": dict(kind='図解',
-               plan='台本の画：図 流れ図 原因が分からない → すべてを調べ直す（設計・材料・運用）｜（⑤b-6b で替えた＝映像方針 §21）いま＝流れ図 → 書類の再現図（段落11「The fact that we have not been able to establish the cause, however, has had its beneficial effects.」）・理由＝「すべてを調べ直した（設計・材料・運用）」は次の cb19 の語り＝残るのは1つの文',
-               src='IR18 p.6（海軍長官ニッツェの第7 endorsement・1965-03-19）'),
-    "cb19": dict(kind='写真',
-               plan='台本の画：実写 NARA 83740（ポーツマスの追悼式の記録映画・遠景だけ＝顔の分かるショットは使わない）',
-               src='IR18 p.6'),
-    "cb20": dict(kind='図解',
-               plan='台本の画：図 数の比べ 潜水艦の事故（NAVSEA 2023 の数：第一次大戦の始まりから1963年まで＝戦争以外の事故で16隻／サブセーフを採り入れてから＝1隻〈スコーピオン・1968年・サブセーフの認証を受けていない・沈んだ理由は分かっていない〉）｜（⑤b-6b で替えた＝映像方針 §21）いま＝数の比べ → 書類の再現図（NAVSEA の記事の2つの文）・理由＝「16隻」は語りに無い＝比べる棒が1本しか無い',
-               src='NAVSEA（2023-04-06）'),
-    "cb21": dict(kind='文字の頁',
-               plan='台本の画：実写 thr_t1（アルバムの表紙・海に白抜きの「593」）｜頁の版（映像方針 §9）：証拠111＝X p.531・p.533＝見える（p.533 は原寸の切り出しで目でも確かめた）｜頁の版（映像方針 §9）：勧告20＝R08 p.220＝見える見込み＝⑤b-7 で原寸｜替える画（映像方針 §11）：いま＝実写 thr_t1 → 頁 証拠111 第5段落（c105 と同じ）→ 勧告20・理由＝物証を終章で回収（語りは変えない）｜🔴 証拠111 の第5段落（c105 と同じ段落）→ 勧告20（R08 p.220）＝物証を終章で回収（語りは変えない）',
-               src='認定91・104・108・157・意見42（R08 p.195〜212）・勧告20（R08 p.220）'),
-    "cb22": dict(kind='文字の頁',
-               plan='台本の画：図 p4181（認定4 乗っていた人の名簿の頁・第8回の再録＝読み上げない）｜頁の版（映像方針 §9）：名簿＝R08 p.181（〜184）＝見える＝V1 p.34・36・37 は見えない頁＝使わない（④の記録と一致）',
-               src='認定4〜6（R08 p.181〜184）'),
-    "cb23": dict(kind='写真',
-               plan='台本の画：実写 cm_USS_Thresher__SSN-593_（いちばん有名な航走写真）｜⚠️ 画の欄の注「c101 と同じ絵に戻す」は外した（c101 は SA の絵になった＝映像方針 §11）',
-               src='—'),
+    'cb01': dict(kind='写真',
+               plan='B2@12–14（ss_b2_87park の秒）｜副題：南どなりの 87パーク と現場（2021年）｜権利：A推定｜注：札「言われていた話」・重機の CAT はもとから在る字。2秒の区間＝9.0秒は伸ばしすぎ＝13秒のコマ（ss_b2_87park）を静止画で受けるか、走査で 87パーク の写る別の秒',
+               src='TR0454（`87 Park is an 18-story luxury condominium built just south of CTS and completed in 2019.`）'),
+    'cb02': dict(kind='図解',
+               plan='模式図（台本のまま）｜差し込み（head）：1 S#38  5.1秒 S#38（基礎の工事の現場と重機）｜副題：イメージ｜札：イメージ（差し込み）｜権利：Pixabay Content License｜注：杭打ち機の素材は0本＝基礎の工事の重機',
+               src='TR0455（`The northern boundary of the soil excavation for the construction of 87 Park was close to the southern boundary of CTS.`）・TR0456（`approximately 9 feet away from the south basement wall of CTS`）'),
+    'cb03': dict(kind='図解',
+               plan='図 模式図（同じ・揺れの波）｜権利：自作',
+               src='TR0457'),
+    'cb04': dict(kind='写真',
+               plan='N#43（建物の計算機モデルを見る調査団）｜副題：計算機モデルを見る調査団（2023年4月）｜権利：A｜注：—',
+               src='TR0460'),
+    'cb05': dict(kind='図解',
+               plan='図 模式図（揺れの矢印が、地下の壁と鋼の壁で小さくなり、継ぎ目へ届く前にさらに小さく）｜権利：自作',
+               src='TR0461'),
+    'cb06': dict(kind='決め所',
+               plan='quote（決め所）｜権利：自作',
+               src='TR0462（`Vibrations at the critical slab-column connections were too small to have caused structural damage.`）'),
+    'cb07': dict(kind='図・写真の頁',
+               plan='図 p185 TF のスライド185（札の文＝印字185）',
+               src='TF p185（`too small to damage even the distressed connections`）'),
+    'cb08': dict(kind='写真',
+               plan='B1@⑤b-1（現場の近くの建物の列）｜副題：現場の近くの建物（2021年6〜7月）｜権利：A推定｜注：—',
+               src='TR0463・TR0464'),
+    'cb09': dict(kind='図解',
+               plan='図 一覧（アイコン：基礎・陥没と沈み・ハリケーンと高潮・車の衝突・爆発・クレーンの落下物・屋上の工事＝TF p189 の形）｜権利：自作',
+               src='TR0465・TF p189'),
+    'cb10': dict(kind='図解',
+               plan='図 一覧（同じ・後半を光らせる）｜権利：自作',
+               src='TR0465（`accidental loads or overloads caused by the roof repair and roof anchor project ongoing at the time of the collapse`）'),
+    'cb11': dict(kind='図解',
+               plan='図 模式図【上から】人工衛星で地面の沈みを見る（5年分・沈みの色は無し）｜権利：自作',
+               src='A06（`None was seen in the area in the five years before the partial collapse, nor was localized sinking observed near the building in the days leading up to the tragedy.`）'),
+    'cb12': dict(kind='図解',
+               plan='図 模式図【横から】石灰岩の地面と空洞（水に溶けてできる空洞の説明＝この建物の下には無い）｜権利：自作',
+               src='A06（`no evidence of karst in the limestone on which the foundation sits`・`features that actually inhibit the formation of karst`）'),
+    'cb13': dict(kind='図解',
+               plan="模式図【横から】くいと地下の床（札「くい：強さは足りていた（計算と試験）」）｜副題：—｜権利：自作｜注：🔁 台本は実写（地下の床の写真は在庫に無い）＝§0' の「cb13 のくいを示す図か札」",
+               src='A06（`the foundation pile capacity shown on the design drawings was sufficient`・`the basement slab did not show any distress`）'),
+    'cb14': dict(kind='図解',
+               plan='図 一覧（崩れの起こり＝プールデッキの継ぎ目の余裕の少なさ／大きくは関わっていない＝となりの工事の揺れ・地面・嵐など）｜権利：自作',
+               src='TR0476・TR0454・TR0465・TR0474'),
+    'cb15': dict(kind='写真',
+               plan='N#18 は c702 → N#24（ライダーの撮像を相談する連邦職員）か B2 の別の秒｜副題：—｜権利：A｜注：⑤b-1 で同じ絵を2回使わない',
+               src='TR0454（`Things that most probably did not contribute significantly to the collapse include vibrations from the construction of 87 Park.`）'),
+    'cb16': dict(kind='写真',
+               plan='B1@74–77.8（鉄筋の出た床とコーン）｜副題：崩落の現場の床（2021年6〜7月）｜権利：A推定｜注：—',
+               src='—（橋）'),
 }
 
-SPEC = {
-    # ── 🆕 ⑤b-7b（2026-10-05）：頁（`qa_out/ep18_assets.py pages`＝切り口は pages.json の cuts・副題に年を書かない）──
-    # cb12（9.4秒）＝リッコーヴァー中将の声明「特定のろう付け・溶接・系統・部品の故障だけを原因と見るべきでない」（J p.79）
-    "cb12": dict(
-        t="原因の見方",
-        s="公聴会記録　声明の終わり近くの段",
-        photo=ss.page(8079), trim=ss.ptrim("cb12"), bias=ss.pbias("cb12"), panel=True, color=1.0,
-    ),
-    # cb21（7.0秒）＝証拠111 の別紙の第5段落（X p.533＝c105 の3行目と同じ所＝物証を終章で回収）
-    #   ✅ ⑤b-7c：2行目（「査問会は最後に、それを分析し、すぐに伝える組織の検討を勧めた」）から勧告20（R08 p.220・切り口 cb21t）
-    #   ＝写真・頁の差し込み（尻）
-    "cb21": dict(
-        t="前の艦長の警告",
-        s="査問会の証拠111 の別紙　第5段落",
-        photo=ss.page(1533), trim=ss.ptrim("cb21"), bias=ss.pbias("cb21"), panel=True, color=1.0,
-        tail=dict(t="最後の勧告", s="査問会の記録　勧告20 の段", photo=ss.page(4220), trim=ss.ptrim("cb21t"),
-                  bias=ss.pbias("cb21t"), panel=True, color=1.0, at=1),
-    ),
-    # cb22（7.9秒）＝認定4 の書き出しと名簿の頭（R08 p.181＝見える頁・V1 p.34・36・37 は見えない頁＝使わない）
-    "cb22": dict(
-        t="査問会の名簿",
-        s="認定4 の書き出しと名前の列",
-        photo=ss.page(4181), trim=ss.ptrim("cb22"), bias=ss.pbias("cb22"), panel=True, color=1.0,
-    ),
-    # ── 🆕 ⑤b-7a（2026-10-04）：写真の束（`qa_out/ep18_assets.py`・すべて米海軍の PD）──
-    # cb01（5.9秒）＝すべての潜水艦の深さを約150m までに制限。✅ ⑤b-7c：(b) コマ film_b → 記録映画 85185 の動く映像
-    #   （#75＝セイルの上の乗員＝公務・艦首の波）
-    #   ⑤c' W7：語りは「事故のあと」＝593 が走る映像は必ず事故の前（撮影日は分からない＝年でなく「事故の前」）
-    "cb01": ss.vid("cb01", t="深さの制限", s="海軍の記録映画（事故の前）　セイルの上の乗員"),
-    # ── ✅ ⑤b-7c（2026-10-05）：記録映画（`footage.USE`＝カットまるごと・額装＋地のぼかし）──
-    # cb07（9.0秒）＝潜水艦の安全だけを受け持つ組織は無かった。85185（#55＝雲の下を走る艦）
-    "cb07": ss.vid("cb07", t="安全を受け持つ組織", s="海軍の記録映画　雲の下を走る艦"),
-    # cb14（9.1秒）＝1964年、中将「多くの命を犠牲にして示された警告」。83741（追悼・#61＝芝生と行進の遠景＝顔は分からない）
-    "cb14": ss.vid("cb14", t="命で示された警告", s="追悼の記録映画　式の遠景"),
-    # cb19（9.9秒）＝分からないから全部を調べ直した。83740（ポーツマスの追悼の式の日・#4＝門と建物の遠景）
-    "cb19": ss.vid("cb19", t="全部を調べ直す", s="追悼の記録映画　門と建物"),
-    # cb09（8.3秒）＝情報は事故の前に紙に書かれていた。NH 97555（1963-04-15 沈んだあたりを回る海軍の艦・738×586）＝額装
-    "cb09": dict(
-        t="紙に書かれていた情報",
-        s="1963年4月15日　沈んだあたりを回る海軍の艦",
-        photo=P("search_ships_1963"), **ss.kind(P("search_ships_1963")),
-    ),
-    # cb23（9.1秒）＝最後の問い（コメント）。いちばん有名な航走写真（1961-07-24）を16:9 で全画面
-    "cb23": dict(
-        t="どこで防げたか",
-        s="1961年7月24日　海上のスレッシャー",
-        photo=P("underway_1961"), trim=(0.0, 0.2130, 1.0, 0.9323),
-    ),
-    # ── 🆕 ⑤b-5（2026-10-04）：年表（`tools/axis.py`・門番 check_axis）＝安全の計画（AX_SAFE＝1963年1月〜1964年5月）──
-    # cb03（12.34秒＝0〜5.83／6.32〜7.56／8.05〜12.34）＝1行目「1963年6月3日、艦船局は…安全の計画を作るよう命じた」（J p97）／2行目「7月には
-    #   指示書」（J p98＝BuShips Instruction 5100.18 of July 8, 1963＝語りは「7月」＝札は年月まで）／3行目「10の課題を受け持つ…作業班」（J p4
-    #   ＝日付の記録なし＝点にせず6月3日の点の下の札）。1964年2月（cb05）・サブセーフの名（cb04）は後のカットの語り＝描かない
-    "cb03": dict(
-        t="安全の計画", s="艦船局の取り組み",      # ⚠️ dup：「1963年」は目盛りの年と同じ字
-        fig=("axis", dict(ss.AX_SAFE, steps=[
-            dict(add=ss.ax("b0603"), cur="1963-06-03"),
-            dict(add=ss.ax("b07"), cur="1963-07-08"),
-            dict(add=dict(k="chips", at="1963-06-03", chips=["10の課題の作業班も"], rec=["J p8097", "J p8004"]))],
-            note="艦船局＝艦の設計と建造を受け持つ海軍の局", src=ss.src(["J p8004", "J p8097", "J p8098"]))),
-    ),
-    # cb05（7.95秒＝0〜4.08／4.57〜7.96）＝past＝6月3日・7月（cb03）→ 1行目「1964年2月には、潜水艦安全センター」（J p94「February 18, 1964
-    #   … at Groton」＝語りは「2月」＝札は年月まで）／2行目「安全の手引きや、事故の情報を集める取り組み」で項目の札
-    "cb05": dict(
-        t="安全の計画", s="1963〜1964年",
-        fig=("axis", dict(ss.AX_SAFE, past=[ss.ax("b0603"), ss.ax("b07")], start=dict(cur="1963-07-08"), steps=[
-            dict(add=ss.ax("b6402"), cur="1964-02-18"),
-            dict(add=dict(k="chips", at="1964-02-18", chips=["手引き・事故の情報"], rec="J p8094"))],    # ⚠️ echo＝語りの複写を短く
-            # ⚠️ dup：州の名「コネ**ティカット**」に制作用語「カット」が当たった＝州の名を書かない
-            note="センターはアメリカ東部の町グロトン", src=ss.src(["J p8094", "J p8097", "J p8098"]))),
-    ),
-    # ── 🆕 ⑤b-6b（2026-10-04）：箱の型（書類の再現図・流れ図＝check_boxes.REC_*）──
-    # cb02（5.39秒＝0〜2.97／3.46〜5.39）＝意見4（R08 p.204）
-    "cb02": dict(
-        t="深さの制限", s="1隻ずつ見直すまで",
-        fig=("boxes", dict(view="form", form=ss.FORM_O4, steps=[
-            dict(add=[dict(k="paper"), dict(k="fill", f="見直すまで")]),
-            dict(add=dict(k="fill", f="制限"))],
-            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4204"]))),
-    ),
-    # cb04（9.85秒＝0〜2.10／2.59〜7.46／7.95〜9.85 聞き役）＝1隻ずつの認め（流れ図・J p.93＝1964年7月1日・艦隊の運用の担当の中将の説明）。
-    #   見出しの箱「サブセーフ」は1行目（呼び名）から
-    "cb04": dict(
-        t="1隻ずつの認め", s="1964年の説明",
-        fig=("boxes", dict(view="flow", layout=ss.FL_SS, steps=[
-            dict(),
-            dict(add=[ss.fl("c_fix"), ss.fl("c_cert"), ss.fl("c_lift"), ss.ce("c_fix", "c_cert"), ss.ce("c_cert", "c_lift"),
-                      dict(k="chip", at="c_lift", t="それまで制限は続く", rec="J p8093", dy=60)]),
-            dict()],
-            note="艦船局＝艦の設計と建造を受け持つ海軍の局", src=ss.src(["J p8093"]))),
-    ),
-    # cb06（9.25秒＝0〜2.07／2.56〜7.45／7.93〜9.25）＝勧告20（R08 p.220＝最後の勧告）
-    "cb06": dict(
-        t="最後の勧告", s="潜水艦の安全の組織",
-        fig=("boxes", dict(view="form", form=ss.FORM_R20, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=[dict(k="fill", f="組織"), dict(k="fill", f="分析"), dict(k="fill", f="伝えること")]),
-            dict(add=dict(k="fill", f="検討"))],
-            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4220"]))),
-    ),
-    # cb08（9.72秒＝0〜1.51／2.00〜6.16／6.65〜9.72）＝意見42（R08 p.212）
-    "cb08": dict(
-        t="減らせた欠陥", s="意見の42番",
-        fig=("boxes", dict(view="form", form=ss.FORM_O42, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=[dict(k="fill", f="情報"), dict(k="fill", f="分析と伝達")]),
-            dict(add=[dict(k="fill", f="欠陥"), dict(k="fill", f="結果")])],
-            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4212"]))),
-    ),
-    # cb10（12.13秒＝0〜2.88／3.38〜6.86／7.35〜12.13）＝艦船局の副長の証言（J p.95・97）
-    "cb10": dict(
-        t="追いつかなかった安全", s="設計を急ぎすぎた",    # ⚠️ dup：「1964年の公聴会」は紙の表題・出典の行と同じ
-        fig=("boxes", dict(view="form", form=ss.FORM_CURTZE, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=dict(k="fill", f="始まり")),
-            dict(add=[dict(k="fill", f="振り返れば"), dict(k="fill", f="安全")])],
-            note="欄の字は原文のまま・様式は再現", src=ss.src(["J p8095", "J p8097"]))),
-    ),
-    # cb11（11.98秒＝0〜4.68／5.17〜9.16／9.65〜11.98 聞き役）＝艦隊の運用の担当の中将の証言（J p.94）。同じ頁の安全センター（cb05）は書かない
-    "cb11": dict(
-        t="深い海の救難", s="救難の限界",    # ⚠️ echo：「1964年の時点」は字幕の1行の切り取り
-        fig=("boxes", dict(view="form", form=ss.FORM_RAMAGE, steps=[
-            dict(add=[dict(k="paper"), dict(k="fill", f="4月の勧告")]),
-            dict(add=[dict(k="fill", f="動けなくなる所"), dict(k="fill", f="救難")]),
-            dict()],
-            note="欄の字は原文のまま・様式は再現・Deep Submergence＝深い海", src=ss.src(["J p8094"]))),
-    ),
-    # cb15（8.05秒＝0〜1.88／2.37〜4.88／5.37〜8.05）＝意見55 の前半（R08 p.216）
-    "cb15": dict(
-        t="最後の意見", s="意見の55番",
-        fig=("boxes", dict(view="form", form=ss.FORM_O55A, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=dict(k="fill", f="水準")),
-            dict(add=dict(k="fill", f="届いていないもの"))],
-            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4216"]))),
-    ),
-    # cb16（9.19秒＝0〜4.26／4.75〜9.19）＝意見55 の続き。🔴 責任の文（cannot be charged to neglect …）は次の cb17（決め所）＝書かない
-    "cb16": dict(
-        t="急な変化の中で", s="意見の55番（続き）",
-        fig=("boxes", dict(view="form", form=ss.FORM_O55B, steps=[
-            dict(add=[dict(k="paper"), dict(k="fill", f="急な変化"), dict(k="fill", f="計画")]),
-            dict(add=[dict(k="fill", f="誰のせいか"), dict(k="fill", f="気づかれなかったもの")])],
-            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4216"]))),
-    ),
-    # cb18（6.94秒＝0〜4.01／4.50〜6.94）＝海軍長官の最後の意見書（流れ図 → 書類の再現図＝映像方針 §21）。「すべてを調べ直した」は次の cb19
-    "cb18": dict(
-        t="思わぬ利点", s="原因が決まらないこと",    # ⚠️ dup：「良い面」は欄の名・「1965年の意見書」は紙の表題と同じ
-        fig=("boxes", dict(view="form", form=ss.FORM_NITZE2, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=[dict(k="fill", f="原因"), dict(k="fill", f="良い面")])],
-            note="欄の字は原文のまま・様式は再現", src=ss.src(["IR18 p2006"]))),
-    ),
-    # cb20（9.94秒＝0〜3.82／4.31〜7.02／7.51〜9.94）＝NAVSEA の記事（数の比べ → 書類の再現図＝映像方針 §21）。「16隻」は語りに無い＝書かない
-    "cb20": dict(
-        t="その後の潜水艦", s="2023年の記事",
-        fig=("boxes", dict(view="form", form=ss.FORM_NAVSEA, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=dict(k="fill", f="サブセーフのあと")),
-            dict(add=dict(k="fill", f="その艦"))],
-            note="欄の字は原文のまま（記事の一部）・様式は再現・SUBSAFE＝サブセーフ", src=ss.src(["NAVSEA p9951"]))),
-    ),
-
-    # ── 🆕 ⑤b-8（2026-10-05）：決め所 cb13・cb17 ──
-    # cb13（台本 §2 #16）。リッコーヴァー中将の声明（J p.79＝1963年7月23日）「should be considered a consequence of the philosophy of design,
-    #   construction, and inspection that has been permitted in our naval shipbuilding programs」＝「と見るべき」は前の行。
-    #   ⚠️ 切れ目は「検査の／考え方」（quote_lines は「建造／・検査」＝行頭に「・」）
-    "cb13": dict(
-        t="中将の見方", s="1つの故障より広いもの",
-        fig=("quote", dict(phrase=["喪失は、設計・建造・検査の", "考え方の結果"],
-                           rows=ss.qrows("J", "79頁", ("話した人", "リッコーヴァー中将")), paper=True)),
-    ),
-    # cb17（台本 §2 #17）。意見55（R08 p.216）「cannot be charged to neglect or dereliction on the part of any individual or group」
-    "cb17": dict(
-        t="責任の所在", s="意見の結び",
-        fig=("quote", dict(phrase="喪失の責任は、誰の怠慢にも帰せられない",
-                           rows=ss.qrows("R08", "PDF 216頁", ("箇所", "意見55")), paper=True)),
-    ),
-}
+SPEC = {}

@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
-"""第8章　原因は決まっていない c801–c823（23カット）。18本目（スレッシャー号のリメイク）。
+"""第7章　プールデッキから c801–c820（20カット）。19本目（サーフサイドのマンション崩壊のリメイク）。
 
-■ 🔴 2026-10-04（⑤b-1）：16本目（バイオントダム災害）の中身を空にした＝git の `b044b56`（`git show b044b56:tools/cuts/c8.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep18/make_plan.py` で
-  台本 §4・承認ずみの映像方針（§1-3 冒頭・§3 置き場・§4 合図・§5 案C・§6 前置き・§8 記録映画・§9 頁の版・§11 替える画）から
-  機械で組んだ（手で写していない）。
+■ 🔴 2026-10-06（⑤b-1）：18本目（スレッシャー号）の中身を空にした＝git の `b11797a`（`git show b11797a:tools/cuts/c8.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep19/make_plan19.py` で
+  映像方針の一覧 `ref/ep19/eizou_build/list19.tsv`（承認ずみ・決め①〜⑩）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」と「フリー素材」を数える）。
-  種類＝写真／図・写真の頁／再現イラスト／図解／混ざり／文字の頁／パネル／決め所／フリー素材（ルール §5b-79・§2-5c）
-  記号＝【案C SA】横から見た海・【案C SB】上から見た海（北が上）・【案C SC】上から見た海の底・【案C SD】横から見た海の底の捜索（§3）・
-        【冒頭】（§1-3）・【混ざり】（§12 ⑦）
-  🆕 フリー素材の映像（映像方針 §17）＝⑤b-7 で替える場面を表にして承認 → その種類を「フリー素材」に（20% と【映像あり】に数えない）
+  ⚠️ plan の「⑤b-1」は1秒1コマの走査で区間を選ぶ所・秒（÷365 の見込み）は書き写さない＝narration.json の実測で組む。
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -18,275 +14,66 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    "c801": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 査問会の意見1（おそらく次の4つ＝①機関室の約5〜13センチの穴からの浸水 ②電気が引き金の原子炉の自動停止 ③浸水と原子炉の停止への手順の不足 ④凍りやすく、量も速さも足りない空気の系統）｜（⑤b-6b・映像方針 §21）4つの中身は書かない＝次の c802・c803 の語り',
-               src='意見1（R08 p.204）'),
-    "c802": dict(kind='図解',
-               plan='台本の画：図 流れ図 意見1 の①②（機関室の浸水 → 電気が引き金の原子炉の自動停止）｜（⑤b-6b で替えた＝映像方針 §21）いま＝流れ図 → 書類の再現図（意見1 の a・b）・理由＝意見1 は1つの文（a の浸水が続き、b〜d が重なった＝compounded by）＝a→b の矢印は記録に無い因果',
-               src='意見1a・b（R08 p.204）'),
-    "c803": dict(kind='図解',
-               plan='台本の画：図 流れ図 意見1 の③④（手順の不足 → 凍りやすい空気の系統）｜（⑤b-6b で替えた＝映像方針 §21）いま＝流れ図 → 書類の再現図（意見1 の a〜d）・理由＝c→d の矢印は記録に無い因果',
-               src='意見1c・d（R08 p.204）'),
-    "c804": dict(kind='図解',
-               plan='台本の画：図 時間の帯 査問会の計算の1つ（9:09 試験深度 → 浸水 → 9:13 の直前に約230メートルまで上がる → 沈む）',
-               src='意見45（R08 p.212〜214）'),
-    "c805": dict(kind='写真',
-               plan='台本の画：実写 thr_t33（1964年・78番目の骨組みのあたりの船体・トリエステ2世／ミザーの写真・札は切る＝原因と結びつけない）',
-               src='意見45（R08 p.212）'),
-    "c806": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 査問会の意見5（浸水は次のどれからも起こりえた＝候補を並べる形）',
-               src='意見5（R08 p.204）'),
-    "c807": dict(kind='図解',
-               plan='台本の画：図 数の比べ 浸水のもとの6つの候補（銀ろう付けの継手の不良／見つからなかった衝撃の損傷／曲がるホースの故障／鋳物か配管の故障／船体の小さな破損／分からないもの）｜（⑤b-6b で替えた＝映像方針 §21）いま＝数の比べ → 並べ図（6つを2段に同じ形で）・理由＝比べる数が無い（候補の並び）',
-               src='意見5（R08 p.204）'),
-    "c808": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 よく語られる話と記録（「継手が割れて浸水」＝6つの候補の1つ）｜（⑤b-6b・映像方針 §21）意見5 の紙に「候補a＝継手」だけ。AP の「burst pipe」は海軍の見方として書かれた語＝語られ方の例に使わない',
-               src='意見5（R08 p.204）・語られ方の例＝AP（2021-08-02＝"likely caused by a burst pipe"・"known problems with the silver-brazed joints"）'),
-    "c809": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 査問会の意見2（事実と推測を混ぜるとき）',
-               src='意見2（R08 p.204）'),
-    "c810": dict(kind='決め所',
-               plan='台本の画：quote（決め所）',
-               src='意見2（V1 p.57）'),
-    "c811": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 査問会の意見49（正確な原因は分からないままかもしれない・それでも、ありうる多くの原因を深く調べる必要があるほどのことは分かっている）',
-               src='意見49（R08 p.215）'),
-    "c812": dict(kind='写真',
-               plan='台本の画：実写 thr_t29（1964年・78番目の骨組みのところで切れた船体を真上から・トリエステ2世の写真・札は切る）',
-               src='IR18 p.5〜6（海軍長官ニッツェの第7 endorsement・1965-03-19）'),
-    "c813": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 海軍長官の意見書の続き（設計の欠陥か・構造や機械の故障か・人の誤りか＝どれが始まりか分からない）',
-               src='IR18 p.6'),
-    "c814": dict(kind='文字の頁',
-               plan='台本の画：図 p8089（JCAE 公聴会 1963-07-23 の頁＝リッコーヴァー中将の声明の結び）｜頁の版（映像方針 §9）：J（議会の本）＝見える',
-               src='J p.89'),
-    "c815": dict(kind='決め所',
-               plan='台本の画：quote（決め所）',
-               src='J p.89（リッコーヴァー中将の声明・1963-07-23）'),
-    "c816": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 中将の声明の続き（ただ、設計・製造・検査に、直すべき弱点はあった）',
-               src='J p.89'),
-    "c817": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 元分析官の別の見方（2013年の書簡＝個人の推定・始まりは電気の系統の故障・押しつぶされるまで浸水は無かった）',
-               src='A-R（Rule 2013-04-10・iusscaa.org）'),
-    "c818": dict(kind='図解',
-               plan='台本の画：図 流れ図 ルール氏の推定（9:11 主な電気の系統の故障 → ポンプが止まる → 原子炉が止まる → 氷で吹き出せない・押しつぶされるまで浸水は無かった＝個人の推定）',
-               src='A-R（Rule 2013）'),
-    "c819": dict(kind='写真',
-               plan='台本の画：実写 thr_t23（1964年・艦尾のモザイク＝103番目の骨組みのあたりでつぶれた所・札は切る）',
-               src='A-R・意見1（R08 p.204）'),
-    "c820": dict(kind='図解',
-               plan='台本の画：図 数の比べ 3つの見方がそろって挙げる所＝空気の系統（語りの順：査問会の意見1d＝おそらく原因の1つ・量も速さも足りず凍りやすい系統／ルール氏＝氷で吹き出せなかった＝個人の推定／大西洋艦隊司令官の意見書＝凍りやすい系統はひどく不十分〈次の c821 で書類〉）｜（⑤b-6b で替えた＝映像方針 §21）いま＝数の比べ → 流れ図（3つの見方 → 空気の系統・札は査問会と元分析官だけ）・理由＝比べる数が無い',
-               src='意見1d（R08 p.204）・IR18 p.122・A-R'),
-    "c821": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 大西洋艦隊司令官の意見書（量も速さも足りず、凍りやすい空気の系統＝ひどく不十分・現役の艦で、すぐにこし器を外した）',
-               src='IR18 p.122（第1 endorsement・1963-06-12）'),
-    "c822": dict(kind='写真',
-               plan='台本の画：実写 thr_t30（1964年・78番目の骨組みで切れた所の前の上甲板・札は切る）',
-               src='R17 p.97（海軍研究所の報告の要旨）'),
-    "c823": dict(kind='図解',
-               plan='台本の画：図 流れ図 次の章へ（原因は決まっていない × 記録の一部は今も塗られている → 「隠しているのでは」という噂）',
-               src='—'),
+    'c801': dict(kind='図解',
+               plan='図 模式図【横から】柱と床の板（床の重さの矢印が下・柱の矢印が上＝TR0062〜0064 の図の型）｜権利：自作',
+               src='TR0062〜0064'),
+    'c802': dict(kind='図解',
+               plan='GIF（NIST の押し抜きせん断の動く図）｜副題：NIST のアニメーション｜権利：A｜注：🔁 台本は模式図。c801 の模式図の次',
+               src='TR0065・TR0066'),
+    'c803': dict(kind='決め所',
+               plan='quote（決め所）｜権利：自作',
+               src='TR0070（`It is as though the column punches through the slab.`）・TR0021・TR0069・TR0071'),
+    'c804': dict(kind='図解',
+               plan='図 模式図（はさみで紙を切る絵 → 柱が床をずらして押し抜く絵・柱の頭にフックの形の鉄筋が残る）｜権利：自作',
+               src='TR0072・TR0020・TR0021（用語の説明）'),
+    'c805': dict(kind='図解',
+               plan='図 模式図【上から】最初の2か所（K-13.1・L-13.1 の札・まわりの継ぎ目に色＝TR0095 の図の型）｜権利：自作',
+               src='TR0023・TR0075・TR0067・TR0068・TR0015（`We examined two dozen possible scenarios for where and how the failure started.`）'),
+    'c806': dict(kind='図解',
+               plan='図 流れ図（3つの道具：コンピュータの模型・実物大の試験・ひびの理論）｜権利：自作',
+               src='TR0257'),
+    'c807': dict(kind='図解',
+               plan='図 模式図【上から】コンピュータの模型（継ぎ目ごとの重さとたわみの色＝TR0258 の図の型）｜権利：自作',
+               src='TR0258'),
+    'c808': dict(kind='写真',
+               plan='B8@129〜（ワシントン大学の区間・⑤b-1）｜副題：実物大の試験（ワシントン大学）｜権利：A推定（撮影者の記載なし）｜注：128秒の表題カードの後だけ。2:08 より前はミネソタ大学＝使わない',
+               src='TR0260（`build and load-test to failure eight full-scale replicas`）・A06（`slab-column connection test at the University of Washington`）・TR0262（`built as faithfully as possible to replicate the conditions existing in CTS at the time of failure`）'),
+    'c809': dict(kind='写真',
+               plan='B8@188–198（真上から見た試験体の床・ワシントン大学）｜副題：試験体の床（ワシントン大学）｜権利：A推定｜注：梯子の商標 WERNER／LEANSAFE はもとから在る字',
+               src='TR0261（`10 foot, 6 inches square`）・TR0263・§9'),
+    'c810': dict(kind='写真',
+               plan='B8@⑤b-1（129〜187・199〜207 のうち油圧ジャッキの見える秒＝188〜198 は c809）｜副題：試験体と油圧ジャッキ（ワシントン大学）｜権利：A推定｜注：🔁 台本の型 fb_c327（80〜88秒）はミネソタ大学＝使わない',
+               src='TR0263（`loaded by eight hydraulic jacks arranged around the slab perimeter`）'),
+    'c811': dict(kind='図・写真の頁',
+               plan='tf_p084_salt（TF スライド84＝塩水の槽と電極）｜副題：NIST の技術的知見のスライド84｜権利：A｜注：🔁 台本の型 fb_c328（ミネソタ大学）→ スライド',
+               src='TR0266・TR0267'),
+    'c812': dict(kind='写真',
+               plan='N#70（床の上面のひび・ワシントン大学）｜差し込み（tail）：2 N#66  4.1秒 N#66（床を切った断面の斜めのひび・1430x804＝額装）｜副題：試験のあとの床（ワシントン大学・2025年）｜権利：A｜注：—',
+               src='TR0265・A06（`The cut reveals shear cracking and failure at the surface.`）'),
+    'c813': dict(kind='写真',
+               plan='N#69（わざと錆びさせた鉄筋の標本）｜副題：錆びさせた鉄筋の標本（ワシントン大学・2025年）｜権利：A｜注：—',
+               src='TR0268・TR0448（`moderate corrosion can significantly reduce the capacity of connections`）'),
+    'c814': dict(kind='図解',
+               plan='図 模式図【横から】ひびの幅（柱のまわりの斜めのひび・幅が限界に届くと壊れる＝TR0271 の図の型）｜権利：自作',
+               src='TR0269〜0272'),
+    'c815': dict(kind='図解',
+               plan='図 グラフ（青い線＝継ぎ目にかかる力・赤い線＝耐えられる限界・交わる所に印＝TR0273〜0276 の図の型）｜権利：自作',
+               src='TR0272〜0276'),
+    'c816': dict(kind='図解',
+               plan='図 数の比べ（決まりどおりの継ぎ目＝赤い線が青い線のずっと上・大きな余裕）｜権利：自作',
+               src='TR0073'),
+    'c817': dict(kind='図解',
+               plan='図 数の比べ（プールデッキの継ぎ目＝2本の線が重なる・余裕ゼロ）｜権利：自作',
+               src='TR0074（`those margins against failure were zero at the time of failure`）'),
+    'c818': dict(kind='写真',
+               plan='N#61（床と柱の継ぎ目のせん断破壊）｜副題：実物大の試験で壊れた継ぎ目（ワシントン大学・2025年）｜権利：A｜注：—',
+               src='TR0074・TR0474'),
+    'c819': dict(kind='決め所',
+               plan='quote（決め所）｜権利：自作',
+               src='TR0019（`In the case of Champlain Towers South, these margins against failure were too narrow from the start.`）'),
+    'c820': dict(kind='写真',
+               plan='B2@46–49.5（デッキの床面を歩く作業員・上から）｜副題：プールデッキの跡（崩落の後・2021年）｜権利：A推定｜注：顔は小さい（台帳）',
+               src='—（橋）'),
 }
 
-SPEC = {
-    # ── 🆕 ⑤b-7b（2026-10-05）：頁（`qa_out/ep18_assets.py pages`＝切り口は pages.json の cuts・副題に年を書かない）──
-    # c814（7.6秒）＝リッコーヴァー中将の声明のまとめ「本当に何が起きたかを突き止めるには情報が足りない」（J p.89）
-    "c814": dict(
-        t="リッコーヴァー中将の声明",
-        s="公聴会記録　見方のまとめの段",
-        photo=ss.page(8089), trim=ss.ptrim("c814"), bias=ss.pbias("c814"), panel=True, color=1.0,
-    ),
-    # ── 🆕 ⑤b-7a（2026-10-04）：写真の束（`qa_out/ep18_assets.py`・すべて米海軍の PD）。1964年の海の底の写真＝どこが最初に
-    #    壊れたかとは結びつけない（映像方針 §2・副題は写っている場所と年だけ）──
-    # c805（10.8秒）＝仮定と計算では正確な形は決められない。289-T-33（艦の後ろ寄りの外殻の継ぎ写真）＝額装で丸ごと
-    "c805": dict(
-        t="仮定にもとづく計算",
-        s="1964年　海の底の外殻の継ぎ写真",
-        photo=P("hull_aft_t33"), **ss.kind(P("hull_aft_t33")),
-        intro=ss.head("c805"),          # ✅ ⑤b-7c：頭の1行＝フリー素材（水の中から見上げた太陽）
-    ),
-    # c812（10.1秒）＝1965年、海軍長官は「原因は決められていない」。289-T-29（78番目の骨組みで切れた所・真上から）を16:9 で全画面
-    "c812": dict(
-        t="海軍長官の最後の意見書",
-        s="1964年　海の底で切れた船体（真上から）",
-        photo=P("break78_t29"), trim=(0.0, 0.1537, 1.0, 0.8463),
-        intro=ss.head("c812"),          # ✅ ⑤b-7c：頭の1行＝フリー素材（青い水の中に差す光の筋）
-    ),
-    # c819（6.6秒）＝記録からは決められない。289-T-23（艦尾の継ぎ写真）＝額装で丸ごと
-    "c819": dict(
-        t="決まらない壊れ方",
-        s="1964年　海の底の艦尾の継ぎ写真",
-        photo=P("tail_t23"), **ss.kind(P("tail_t23")),
-    ),
-    # c822（6.7秒）＝写真はどこが最初に壊れたかを教えない。289-T-30（切れた所の前の上甲板）＝額装
-    "c822": dict(
-        t="海の底の艦",
-        s="1964年　切れた所の前の上甲板",
-        photo=P("break78_top_t30"), **ss.kind(P("break78_top_t30")),
-    ),
-    # ── 🆕 ⑤b-5（2026-10-04）：時間の帯（`tools/axis.py`・門番 check_axis）──
-    # c804（10.83秒＝0〜3.16／3.65〜6.59／7.08〜10.83）＝査問会の計算の1つ（意見45 の Case III＝最もありうる近似）。1本の時刻の帯（AX_CALC）。
-    #   past＝9:09 の試験深度（意見45・c312 で出した）→ 1行目「計算機で何通りもの場合を試した」は描き足さない／2行目「最もありうる1つでは、
-    #   9時13分の直前」で 9:13 の点／3行目「約230メートル（750フィート）まで上がっていた」で項目の札。🔴 深さの数は札に書かない（守りの線＝
-    #   語りと字幕だけ）。PLAN の「浸水」「沈む」は語りに無い（浸水の時刻は Case II から1.5分早い＝計算の仮定）＝描かない
-    "c804": dict(
-        t="査問会の計算の1つ", s="最もありうる近似",
-        fig=("axis", dict(ss.AX_CALC, past=[ss.ax("k0909")], start=dict(cur="9:09"), steps=[
-            dict(),
-            dict(add=ss.ax("k0913"), cur="9:13"),
-            dict(add=dict(k="chips", at="9:13", chips=["直前には上がっていた（計算）"], rec="R08 p4212"))],
-            note="時刻は現地（アメリカ東部）・計算は仮定にもとづく（査問会）", src=ss.src(["R08 p4212"]))),
-    ),
-    # ── 🆕 ⑤b-6b（2026-10-04）：箱の型（書類の再現図・流れ図・並べ図＝check_boxes.REC_*）──
-    # c801（6.14秒＝0〜2.08／2.57〜6.14）＝意見1 の頭（4つの中身は c802・c803 の語り＝書かない）
-    "c801": dict(
-        t="査問会の答え", s="意見の1番",
-        fig=("boxes", dict(view="form", form=ss.FORM_O1, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=dict(k="fill", f="見立て"))],
-            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4204"]))),
-    ),
-    # c802（8.20秒＝0〜4.64／5.13〜8.20）＝意見1 の a・b（流れ図 → 書類の再現図＝a→b の因果は記録に無い・映像方針 §21）
-    "c802": dict(
-        t="4つのうち2つ", s="浸水と原子炉の停止",
-        fig=("boxes", dict(view="form", form=ss.FORM_O1A, steps=[
-            dict(add=[dict(k="paper"), dict(k="fill", f="1つ目")]),
-            dict(add=dict(k="fill", f="2つ目"))],
-            note='欄の字は原文のまま・様式は再現・2" と 5"＝約5と13センチ', src=ss.src(["R08 p4204"]))),
-    ),
-    # c803（9.92秒＝0〜3.61／4.10〜7.58／8.07〜9.92 聞き役）＝意見1 の c・d（a・b は前の c802 のまま）
-    "c803": dict(
-        t="残る2つ", s="手順と空気の系統",
-        fig=("boxes", dict(view="form", form=ss.FORM_O1B, steps=[
-            dict(add=[dict(k="paper"), dict(k="fill", f="3つ目")]),
-            dict(add=dict(k="fill", f="4つ目")),
-            dict()],
-            note="欄の字は原文のまま・様式は再現・a の浸水が続き、b〜d が重なった（compounded by）", src=ss.src(["R08 p4204"]))),
-    ),
-    # c806（6.87秒＝0〜1.58 聞き役／2.07〜3.78／4.27〜6.87）＝意見5 の頭（6つの候補は次の c807）
-    "c806": dict(
-        t="浸水のもと", s="意見の5番",
-        fig=("boxes", dict(view="form", form=ss.FORM_O5, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=dict(k="fill", f="浸水は")),
-            dict()],
-            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4204"]))),
-    ),
-    # c807（10.41秒＝0〜4.55／5.04〜10.41）＝6つの候補（数の比べ → 並べ図・2段＝映像方針 §21）。並べ図はどれかだけを灯せない＝1行目で全部
-    "c807": dict(
-        t="6つの候補", s="浸水のもと（意見5）",
-        fig=("boxes", dict(view="row", slots=6, per=3, steps=[
-            dict(add=[ss.cause("f_a"), ss.cause("f_b"), ss.cause("f_c"), ss.cause("f_d"), ss.cause("f_e"), ss.cause("f_f")]),
-            dict()],
-            note="査問会は1つに決めていない（a〜f の順）", src=ss.src(["R08 p4204"]))),
-    ),
-    # c808（8.21秒＝0〜2.07 聞き役／2.56〜4.64／5.13〜8.21）＝意見5 の紙に「候補a＝継手」（AP の語は使わない・映像方針 §21）
-    "c808": dict(
-        t="継手は候補の1つ", s="よく語られる話と記録",
-        fig=("boxes", dict(view="form", form=ss.FORM_O5A, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=dict(k="fill", f="候補a")),
-            dict()],
-            note="候補は a〜f の6つ（継手は a）", src=ss.src(["R08 p4204"]))),
-    ),
-    # c809（7.27秒＝0〜3.47／3.96〜7.27）＝意見2。中の句（推測が事実として通る）は次の c810（決め所）＝書かない
-    "c809": dict(
-        t="査問会の警告", s="意見の2番",
-        fig=("boxes", dict(view="form", form=ss.FORM_O2, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=[dict(k="fill", f="混ぜると"), dict(k="fill", f="狭まるもの")])],
-            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4204"]))),
-    ),
-    # c811（11.15秒＝0〜4.40／4.89〜9.05／9.54〜11.15 聞き役）＝意見49
-    "c811": dict(
-        t="分からないままでも", s="意見の49番",
-        fig=("boxes", dict(view="form", form=ss.FORM_O49, steps=[
-            dict(add=[dict(k="paper"), dict(k="fill", f="正確な原因")]),
-            dict(add=dict(k="fill", f="分かっていること")),
-            dict()],
-            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4215"]))),
-    ),
-    # c813（7.73秒＝0〜3.62／4.11〜7.73）＝海軍長官の最後の意見書の段落11（「原因は決められていない」は前の c812 の語り）
-    "c813": dict(
-        t="どれが始まりか", s="設計か、故障か、誤りか",    # ⚠️ dup：「1965年の意見書」は出典の行の資料名と同じ
-        fig=("boxes", dict(view="form", form=ss.FORM_NITZE, steps=[
-            dict(add=[dict(k="paper"), dict(k="fill", f="候補")]),
-            dict(add=[dict(k="fill", f="始まり"), dict(k="fill", f="分からない")])],
-            note="欄の字は原文のまま・様式は再現", src=ss.src(["IR18 p2006"]))),
-    ),
-    # c816（9.62秒＝0〜4.03／4.52〜7.23／7.72〜9.62 聞き役）＝声明の結びの (b)（前の c815 の (a)「I do not know」は書かない）
-    "c816": dict(
-        t="直すべき弱点", s="設計・製造・検査",    # ⚠️ dup：「原子炉の責任者の声明」は紙の表題と同じ
-        fig=("boxes", dict(view="form", form=ss.FORM_RICK89, steps=[
-            dict(add=[dict(k="paper"), dict(k="fill", f="分かっていること")]),
-            dict(add=dict(k="fill", f="どうするか")),
-            dict()],
-            note="欄の字は原文のまま・様式は再現", src=ss.src(["J p8089"]))),
-    ),
-    # c817（11.91秒＝0〜2.00／2.48〜7.37／7.86〜11.91）＝元分析官の書簡（A-R＝個人）。中身の筋書きは次の c818
-    "c817": dict(
-        t="別の見方", s="2013年の書簡",
-        fig=("boxes", dict(view="form", form=ss.FORM_RULE, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=dict(k="fill", f="書いた人")),
-            dict(add=[dict(k="fill", f="宛て先"), dict(k="fill", f="件名")])],
-            note="欄の字は原文のまま（書簡の一部）・様式は再現・SOSUS＝海の音の監視", src=ss.src(["A-R p9961"]))),
-    ),
-    # c818（10.45秒＝0〜3.83／4.32〜7.84／8.33〜10.45）＝元分析官の推定（流れ図・個人）。1行目で 9:11 の故障／2行目でポンプ → 原子炉と
-    #   札「圧壊の前に浸水なし」／3行目で始まりの違い（札「査問会の始まりは浸水」）
-    "c818": dict(
-        t="もう1つの筋書き", s="電気から始まる",    # ⚠️ dup：「個人の推定」は注の字と同じ
-        fig=("boxes", dict(view="flow", layout=ss.FL_RULE, steps=[
-            dict(add=ss.fl("r_elec")),
-            dict(add=[ss.fl("r_pump"), ss.fl("r_scram"), ss.ce("r_elec", "r_pump"), ss.ce("r_pump", "r_scram"),
-                      dict(k="chip", at="r_scram", t="圧壊の前に浸水なし", rec="A-R p9961", dy=70)]),
-            dict(add=dict(k="chip", at="r_elec", t="査問会の始まりは浸水", rec="R08 p4204", dy=70))],
-            note="元分析官の書簡（個人の推定）・時刻は現地", src=ss.src(["A-R p9961", "R08 p4204"]))),
-    ),
-    # c820（10.88秒＝0〜3.28／3.77〜8.10／8.59〜10.88）＝3つの見方 → 空気の系統（数の比べ → 流れ図＝映像方針 §21）。1行目で3つと矢印／
-    #   2行目で札（査問会）／3行目で札（元分析官＝推定）。艦隊司令官の言葉は次の c821
-    "c820": dict(
-        t="そろって挙げる所", s="3つの見方",
-        fig=("boxes", dict(view="flow", layout=ss.FL_EMPTY, steps=[
-            dict(add=[ss.fl("v_court"), ss.fl("v_cinc"), ss.fl("v_rule"), ss.fl("v_air"),
-                      ss.ce(["v_court", "v_cinc", "v_rule"], "v_air")]),
-            dict(add=dict(k="chip", at="v_court", t="おそらく原因の1つ", rec="R08 p4204", dy=50)),
-            dict(add=dict(k="chip", at="v_rule", t="氷で吹けなかった（推定）", rec="A-R p9961", dy=50))],
-            # ⚠️ 試し焼き（Actions 37201365970）の字の大きさ：注と出典3つで19画素まで縮んだ＝注を短く
-            note="凍ったと言うのは元分析官だけ（推定）", src=ss.src(["R08 p4204", "IR18 p2122", "A-R p9961"]))),
-    ),
-    # c821（8.99秒＝0〜3.84／4.33〜8.99）＝大西洋艦隊の司令官の意見書（IR18 p.122）
-    "c821": dict(
-        t="ひどく不十分", s="凍りやすい系統",     # ⚠️ echo：「1963年6月の意見書」は字幕の切り取り・dup：「空気の系統」は欄の名
-        fig=("boxes", dict(view="form", form=ss.FORM_CINC2, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=[dict(k="fill", f="空気の系統"), dict(k="fill", f="評価"), dict(k="fill", f="現役の艦")])],
-            note="大西洋艦隊の司令官が添えた・欄の字は原文のまま・strainers＝こし器",    # ⚠️ 長いと25画素に縮んだ
-            src=ss.src(["IR18 p2120", "IR18 p2122"]))),
-    ),
-    # c823（6.45秒＝0〜1.05／1.54〜3.80／4.29〜6.45）＝次の章へ（噂の中身は次の c901）
-    "c823": dict(
-        t="2つが重なると", s="決まらない原因と塗り",
-        fig=("boxes", dict(view="flow", layout=ss.FL_EMPTY, steps=[
-            dict(add=ss.fl("n_cause")),
-            dict(add=ss.fl("n_red")),
-            dict(add=[ss.fl("n_rumor"), ss.ce(["n_cause", "n_red"], "n_rumor"), dict(k="mark", at="n_rumor", t="？")])],
-            src=ss.src(["IR18 p2006", "V1 p38", "AP p9901"]))),
-    ),
-
-    # ── 🆕 ⑤b-8（2026-10-05）：決め所 c810・c815 ──
-    # c810（台本 §2 #11）。意見2（R08 p.204）「conjecture may be stretched too far and become accepted as fact」＝おそれ（may）を残した
-    "c810": dict(
-        t="意見の2番", s="混ぜ合わせる危うさ",
-        fig=("quote", dict(phrase="推測が、事実として通ってしまうおそれ",
-                           rows=ss.qrows("R08", "PDF 204頁", ("箇所", "意見2")), paper=True)),
-    ),
-    # c815（台本 §2 #12）。リッコーヴァー中将の声明の結び（J p.89＝1963年7月23日）「There is insufficient information to pin down what really
-    #   happened to the Thresher. I do not know.」。⚠️ 副題に「原子炉の」「1963年」を使わない（★・札と4字以上重なる）
-    "c815": dict(
-        t="中将の結び", s="議員への声明の最後",
-        fig=("quote", dict(phrase=["原子炉の責任者", "「何が起きたか分からない」"],
-                           rows=ss.qrows("J", "89頁", ("話した人", "リッコーヴァー中将")), paper=True)),
-    ),
-}
+SPEC = {}

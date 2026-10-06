@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
-"""第9章　伏せられた深さ c901–c920（20カット）。18本目（スレッシャー号のリメイク）。
+"""第8章　見えなかったもの c901–c923（23カット）。19本目（サーフサイドのマンション崩壊のリメイク）。
 
-■ 🔴 2026-10-04（⑤b-1）：16本目（バイオントダム災害）の中身を空にした＝git の `b044b56`（`git show b044b56:tools/cuts/c9.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep18/make_plan.py` で
-  台本 §4・承認ずみの映像方針（§1-3 冒頭・§3 置き場・§4 合図・§5 案C・§6 前置き・§8 記録映画・§9 頁の版・§11 替える画）から
-  機械で組んだ（手で写していない）。
+■ 🔴 2026-10-06（⑤b-1）：18本目（スレッシャー号）の中身を空にした＝git の `b11797a`（`git show b11797a:tools/cuts/c9.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep19/make_plan19.py` で
+  映像方針の一覧 `ref/ep19/eizou_build/list19.tsv`（承認ずみ・決め①〜⑩）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」と「フリー素材」を数える）。
-  種類＝写真／図・写真の頁／再現イラスト／図解／混ざり／文字の頁／パネル／決め所／フリー素材（ルール §5b-79・§2-5c）
-  記号＝【案C SA】横から見た海・【案C SB】上から見た海（北が上）・【案C SC】上から見た海の底・【案C SD】横から見た海の底の捜索（§3）・
-        【冒頭】（§1-3）・【混ざり】（§12 ⑦）
-  🆕 フリー素材の映像（映像方針 §17）＝⑤b-7 で替える場面を表にして承認 → その種類を「フリー素材」に（20% と【映像あり】に数えない）
+  ⚠️ plan の「⑤b-1」は1秒1コマの走査で区間を選ぶ所・秒（÷365 の見込み）は書き写さない＝narration.json の実測で組む。
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -18,240 +14,75 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    "c901": dict(kind='パネル',
-               plan='台本の画：panel 噂（「海軍は、何かを隠しているのではないか」＝噂の札・見た目を事実の画面と分ける）',
-               src='—'),
-    "c902": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 当時の海軍長官の書簡（1963-06-20・議会の原子力合同委員会の委員長へ・査問会の記録の機密の部分が許可なく漏れれば、原子力艦とポラリスの計画に重い影響）',
-               src='J p.146〜147（付録6）'),
-    "c903": dict(kind='文字の頁',
-               plan='台本の画：図 p8160（J p.160＝海軍長官が議会の公聴会の書き起こしを機密のままにした書簡〈1963-08-13〉の終わりと、議会の小委員長の書簡〈1963-08-19〉の「国民を真実から守るために機密を使うことは望まないはずだ」の所＝書類の再現図の3連続を解く・頁の写りは⑤bで原寸）｜頁の版（映像方針 §9）：J（議会の本）＝見える',
-               src='J p.159〜160（付録8）'),
-    "c904": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 海軍長官の返事（1963-08-29・公聴会はまだ終わらず、査問会の記録の審査も済んでいない＝今、公聴会の事実や推測を小出しに出すのは時期が悪い・潜水艦の戦力への見方を、国民と乗員の心の中で下げかねない）',
-               src='J p.164'),
-    "c905": dict(kind='文字の頁',
-               plan='台本の画：図 p8122（JCAE 公聴会 1964-07-01 の頁＝［機密部分は削除］の印が並ぶ）｜頁の版（映像方針 §9）：J（議会の本）＝見える',
-               src='J 全体（［Classified matter deleted］231・［Classified material deleted］7・綴りの崩れ［matted］1＝239か所・機械で数えた）・J p.93・p.124（証言の中の深さの数字の削除）・J 前付 p.3（WASHINGTON: 1965・For sale＝印刷されて出た）'),
-    "c906": dict(kind='写真',
-               plan='台本の画：実写 thr_t16（1964年・海の底のセイルの右舷に「593」の最初の2桁・札は切る）',
-               src='AP（2021-08-02＝"retired Capt. James Bryant, who sued for release of the documents under the Freedom of Information Act"・"himself the skipper of a Thresher-class submarine"）'),
-    "c907": dict(kind='図解',
-               plan='台本の画：図 年表 公開の23回（第1〜17回＝台帳の公開日 2020-09-23〜2022-01-26／第18〜23回＝公開の棚の日付 2022-03-03〜2023-05-02＝「棚の日付」と書き、公開日と書かない／第1回＝査問会の認定・意見・勧告）',
-               src='海軍の公開の台帳（navy_running_release_inventory.xlsx・第1〜17回）・公開の棚（THRESHER RELEASE・第18〜23回の更新日）・V1（第1回の中身）'),
-    "c908": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 塗りの札（b(1)＝国の安全／b(3) 10 USC 130＝法律で伏せてよいと決められた情報／b(6)＝個人の私生活〈例：認定4 の頁の軍の番号〉・記号は画だけで、語りでは読まない）',
-               src='V1 p.38（b(1)）・V1 p.54（b(3) 10 USC 130）・R08 p.169・p.181（b(6)）'),
-    "c909": dict(kind='文字の頁',
-               plan="台本の画：図 p38（第1回 認定15 の頁＝「この潜航の深さは……に決められていた」の後ろが b(1) で塗られている）｜頁の版（映像方針 §9）：V1 p.38（認定15〜19）＝見える＝R08 p.185 は認定13 の「850」と認定19 の位置が b(1) で塗られている＝V1 p.38 を使う（④'の申し送り G0-06）",
-               src='認定15（V1 p.38＝頁の頭に b(1)）'),
-    "c910": dict(kind='図・写真の頁',
-               plan='台本の画：図 p1135（第9・10回 捜索の海図＝地図の上の白い四角の塗り〈⑤bで原寸〉）｜頁の版（映像方針 §9）：X p.131・p.135（海図）＝p.135 は地が灰色の海図＝この物差しでは決まらない＝⑤b-7 で原寸',
-               src='X p.132・135'),
-    "c911": dict(kind='写真',
-               plan='台本の画：実写 thr_page24（289-T-24 のアルバムの頁全体・頁の角に黒い塗り）',
-               src='NARA 289-T（fileUnit 138924735）'),
-    "c912": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 訴えの結果（原告の言葉・AP の記事 2021-08-02）',
-               src='AP（2021-08-02・Military Times 掲載）'),
-    "c913": dict(kind='決め所',
-               plan='台本の画：quote（決め所）',
-               src='AP（2021-08-02）'),
-    "c914": dict(kind='写真',
-               plan='台本の画：実写 thr_t26（1964年・海の底の横舵と聴音器・札は切る）',
-               src='AP（2021-08-02）'),
-    "c915": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 リッコーヴァー中将の話（1964年・「魔法の数字」は、艦船局が「費用を大きく上げずにどこまで深くできるか」をざっと計算して出した）',
-               src='J p.122'),
-    "c916": dict(kind='図解',
-               plan='台本の画：図 流れ図 数字の生まれ（「費用を大きく上げずに、どこまで深くできるか」→ ざっと計算 → その先は費用が急に上がる／元は費用だけが根拠＝It was originally just on the basis of cost／本当の評価はまだ無い＝There has been no real evaluation made yet）',
-               src='J p.122'),
-    "c917": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 海軍の少将の答え（1964年・海軍作戦部の中の検討の結論＝行く深さは技術が許すところまで・その数字にも、ほかのどの深さにも、戦術の上の根拠は無い）',
-               src='J p.124（Wilkinson 少将）'),
-    "c918": dict(kind='図解',
-               plan='台本の画：図 数の比べ 試験深度の数（公開の記録＝塗られている／元分析官ルール氏の書簡＝約400メートル〈1,300フィート〉／海軍に詳しい分析家＝前に機密を解かれた文書による〈AP 2021〉・分析家の名は出さない）｜（⑤b-6b で替えた＝映像方針 §21）いま＝数の比べ → 流れ図（公開の記録 → 塗られている／書簡と記事 → 数が書かれている）・理由＝🔴 深さの数を絵に出さない（守りの線＝数は語りだけ）・棒にすると塗られた数を描くことになる',
-               src='A-R（Rule 2013）・AP（2021-08-02 の Friedman の言＝"previously declassified documents indicated it was 1,300 feet"）'),
-    "c919": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 9時17分ごろの言葉の読み方（査問会＝意味を書いていない／のちの読み方＝「試験深度より約270メートル深い」＝AP の記事・ルール氏）',
-               src='認定17（R08 p.185・V1 p.38）・AP・A-R'),
-    "c920": dict(kind='写真',
-               plan='台本の画：実写 thr_t24（1964年・海の底の上の舵の喫水の数字・札は切る）',
-               src='R17 p.97（海軍研究所の報告の要旨）'),
+    'c901': dict(kind='写真',
+               plan='B3@40–46（倉庫で部材の鉄筋を測る）｜副題：倉庫で証拠を測る（2022年）｜権利：A推定｜注：調査員の顔＝公務',
+               src='TR0213'),
+    'c902': dict(kind='図解',
+               plan='図 模式図 2つの物差し（建てた当時の決まり／今の決まり）｜権利：自作',
+               src='TR0213・TR0214'),
+    'c903': dict(kind='図解',
+               plan='図 模式図【上から】強さが足りない所（黄＝中くらい・赤＝ひどい＝TR0215〜0216 の図の型）｜権利：自作',
+               src='TR0215・TR0216'),
+    'c904': dict(kind='決め所',
+               plan='quote（決め所）｜権利：自作',
+               src='TR0219（`In some locations, the design provided less than half of the code-required strength.`）'),
+    'c905': dict(kind='図解',
+               plan='図 模式図 2つの物差し（同じ・当時の決まりの物差しにも欠けた所＝決まりの限界）｜権利：自作',
+               src="TR0279（`design understrength caused by severe and widespread deviations in the building's original structural design from the codes and standards of the day, but also some limitations in those codes and standards`）"),
+    'c906': dict(kind='図・写真の頁',
+               plan='tf_p075_cover（TF スライド75＝かぶり・床の断面の写真）｜副題：NIST の技術的知見のスライド75｜権利：A｜注：🔁 台本は実写（NIST の写真）→ 同じ中身のスライドに',
+               src='TR0220'),
+    'c907': dict(kind='図解',
+               plan='図 模式図【横から】鉄筋の上のコンクリートの厚さ（図面＝約1.9センチ〈4分の3インチ〉／実際＝約5センチ〈2インチ〉・上の鉄筋が下がる）｜権利：自作',
+               src='TR0221（`the cover was generally about 2 inches rather than 3/4 of an inch shown on the drawings`）'),
+    'c908': dict(kind='図解',
+               plan='図 模式図（同じ・ずれの分だけ強さが下がる矢印）｜権利：自作',
+               src='TR0222（`This deviation, while seemingly minor, significantly diminishes the strength`）'),
+    'c909': dict(kind='図・写真の頁',
+               plan='tf_p076_bars（印字は77）｜副題：NIST のスライド77（図面＝サーフサイド町）｜権利：A＋町の図面｜注：紙面の引用（頁ごと・額装・無加工・色を変えない・出典に「図面：Town of Surfside」）',
+               src='TR0223・TR0226・TR0227・TF p77'),
+    'c910': dict(kind='決め所',
+               plan='quote（決め所）｜権利：自作',
+               src='TR0228（`only two bars in each direction passed over the columns, half the number required`）・TF p77（`only 2 rather than 4 top bars were centered over the column in each direction`）'),
+    'c911': dict(kind='図解',
+               plan='図 模式図【上から】鉄筋の間隔（図面の間隔 → 実際は約20から40%広い・柱のまわりの本数が減る）｜権利：自作',
+               src='TR0224・TR0229（`about 20% to 40% wider than required by the structural design drawings`）・TR0230'),
+    'c912': dict(kind='写真',
+               plan='B5@102–109（倉庫の部材のあいだを歩く）｜副題：倉庫に並ぶ証拠（2023年）｜権利：A推定｜注：NIST のヘルメットに寄らない',
+               src='TR0231（`Records of whether these changes were approved by the design engineer or observed by inspectors in the field are not available.`）'),
+    'c913': dict(kind='図解',
+               plan='図 数の比べ（原因の5つ：設計の強さの不足〈いちばん大きい・広い〉・図面とのずれ〈広い〉・重いプランター・足した砂と敷石・年月の傷み＝AC p.54 の形）｜権利：自作',
+               src='AC p.54（`Design understrength (largest, pervasive)`）・TR0277〜0280'),
+    'c914': dict(kind='図解',
+               plan='図 数の比べ（同じ・5つを順に光らせる）｜権利：自作',
+               src='AC p.54・TR0280'),
+    'c915': dict(kind='写真',
+               plan='N#42（吸水の試験）｜副題：コンクリートの吸水の試験（2024年8月）｜権利：A｜注：—',
+               src='TR0280（`the most significant factor for which was likely corrosion of the reinforcement, exacerbated by porous concrete, concrete cracks that leaked, and ineffective waterproofing`）'),
+    'c916': dict(kind='写真',
+               plan='N#3（携帯の分析器で塩化物を測る）｜副題：塩化物を測る（2022年1月）｜権利：A｜注：縦横ほぼ同じ＝額装',
+               src='TR0042（`The final factor that brought the critically low margins of safety to the point of failure was most likely long-term degradation from corrosion.`）・TR0280・MC18 p.7'),
+    'c917': dict(kind='決め所',
+               plan='quote（決め所）｜権利：自作',
+               src='AC p.61（`Degradation was a comparatively small contributor to the strength and deformation capacity deficiencies responsible for the CTS failure.`）'),
+    'c918': dict(kind='図解',
+               plan='図 年表（1979〜81年 設計と建設＝赤い印「住む前から」 → 1981年 完成 → 2021年 崩落）｜権利：自作',
+               src='TR0281（`caused the bulk of the critically low margins against failure from the time construction was complete`）'),
+    'c919': dict(kind='図解',
+               plan='図 年表（同じ）｜権利：自作',
+               src='TR0278（`baked in before the building was even occupied`）'),
+    'c920': dict(kind='写真',
+               plan='B6@47–51.75（圧縮試験機の中のコア）｜副題：コンクリートのコアの試験（2024年）｜権利：A推定｜注：51.75 から顔の寄り＝until',
+               src='TR0441・TR0281'),
+    'c921': dict(kind='図解',
+               plan='図 流れ図（40年の再認証＝傷みを見る → 建てたときの設計と工事は確かめない＝AC p.61 の1c）｜権利：自作',
+               src='AC p.61（`The requirements for recertification of structures in Florida are laudable, but they contain no requirements for establishing confidence in the original design and construction.`）'),
+    'c922': dict(kind='写真',
+               plan='B5@39–46.5（コア抜きの刃と水）｜副題：コア抜き（2023年）｜権利：A推定｜注：絵が柔らかい（実効 約512px）＝別の秒も⑤b-1で',
+               src='TR0472（`Problems in its pool deck structure stemming from the time of original design and construction`）'),
+    'c923': dict(kind='写真',
+               plan='C13（跡地と抜けた鉄筋）｜副題：崩落の跡地（2021年10月4日）｜権利：CC BY 2.0（Steve Jurvetson）｜注：色や切り出しを変えたら「改変」の表示',
+               src='—（橋）'),
 }
 
-SPEC = {
-    # ── 🆕 ⑤b-7b（2026-10-05）：頁（`qa_out/ep18_assets.py pages`＝切り口は pages.json の cuts・副題に年を書かない）──
-    # c903（13.4秒）＝小委員長の書簡「国民を真実から守るために機密を使うことは望まないはずだ」「どこが機密かを示せ」（J p.160）
-    #   ✅ ⑤b-7c：頭の1行はフリー素材の映像の差し込み（古いタイプライターの活字の寄り・承認 10-04）
-    "c903": dict(
-        t="小委員長の書簡",
-        s="公聴会記録の付録　機密の扱いを問う手紙",
-        photo=ss.page(8160), trim=ss.ptrim("c903"), bias=ss.pbias("c903"), panel=True, color=1.0,
-        intro=ss.head("c903"),
-    ),
-    # c905（9.0秒）＝［classified matter deleted］が並ぶ所（リッコーヴァー中将の「魔法の数」の発言・J p.122）
-    "c905": dict(
-        t="削られた証言",
-        s="公聴会記録　削った所に入った印が並ぶ頁",
-        photo=ss.page(8122), trim=ss.ptrim("c905"), bias=ss.pbias("c905"), panel=True, color=1.0,
-    ),
-    # c909（5.1秒）＝認定15（V1 p.38）＝「この潜航の深さは」の後ろの b(1) の塗り
-    "c909": dict(
-        t="塗られた数字",
-        s="査問会の記録　認定15 の b(1) の印",
-        photo=ss.page(38), trim=ss.ptrim("c909"), bias=ss.pbias("c909"), panel=True, color=1.0,
-    ),
-    # c910（2.6秒）＝捜索の海図（第9・10回の公開・X p.135）の白い四角の塗り「(b)(1)」とまわり（地が灰色の海図）
-    #   切り口の中の明るさ＝紙 p50 185・線 p1〜p5 131〜170・塗りの四角 255＝線と紙の差が小さい＝濃淡補正 (118, 196)
-    #   （旧版3本目が同じ海図に当てた値＝2026-08-09 カズヤくん承認・出典の行に「濃淡補正」＝scene_jiko.credit_of）
-    "c910": dict(
-        t="海図の塗り",
-        s="第9・10回の公開の海図　白く塗られた四角",     # ⑤c' R5：「右下の四角」は元の海図での位置（切り口では真ん中）＝画面の中の位置を言わない
-        photo=ss.page(1135), trim=ss.ptrim("c910"), bias=ss.pbias("c910"), panel=True, color=1.0, levels=(118, 196),
-    ),
-    # ── 🆕 ⑤b-7a（2026-10-04）：写真の束（`qa_out/ep18_assets.py`・すべて米海軍の PD）──
-    # c906（11.7秒）＝AP 通信：元艦長が情報公開の法律で訴えた。289-T-16（海の底のセイル）を16:9 で全画面
-    #   ⚠️ 札は「593 の最初の2桁」と書くが、絵では数字は読めない（半分の大きさで見た）＝副題に数字を書かない
-    "c906": dict(
-        t="情報公開の訴え",
-        s="1964年　海の底のセイルの右の側面",
-        photo=P("sail_t16"), trim=(0.0, 0.1094, 1.0, 0.8898),
-        intro=ss.head("c906"),          # ✅ ⑤b-7c：頭の1行＝フリー素材（引き出しの記録のカードを手で繰る・顔は写らない）
-    ),
-    # c911（4.5秒）＝アルバムの頁の角が黒く塗られている。289-T-24 の頁全体（角の黒い塗り・右下の説明札もそのまま）＝額装
-    "c911": dict(
-        t="角を黒く塗った頁",
-        s="1964年　捜索の写真のアルバムの頁",
-        photo=P("page24"), **ss.kind(P("page24")),
-    ),
-    # c914（7.4秒）＝冷戦のなかで方針が技術に追いつかなかった（元艦長の見方）。289-T-26（右の横舵と聴音器）を16:9 で全画面
-    #   ⚠️ 試し焼き 37206148473：暗く横舵がほとんど見えない（切り口の中の明るさ p1 50・p99 171）＝濃淡補正 (55, 172)
-    #   （中身は足さない・出典の行に「濃淡補正」が出る＝scene_jiko.credit_of）
-    "c914": dict(
-        t="技術の速さと海軍の方針",
-        s="1964年　海の底の横舵と聴音器",
-        photo=P("stern_plane_t26"), trim=(0.0, 0.1802, 1.0, 0.8793), levels=(55, 172),
-    ),
-    # c920（6.8秒）＝それでも海の底には艦が残っている。289-T-24 の喫水の数字（札の上まで・横長＝額装）
-    "c920": dict(
-        t="海の底に残る艦",
-        s="1964年　上の舵の喫水の数字",
-        photo=P("rudder_t24"), **ss.kind(P("rudder_t24")),
-    ),
-    # ── 🆕 ⑤b-5（2026-10-04）：年表（`tools/axis.py`・門番 check_axis）──
-    # c907（8.78秒＝0〜5.10／5.59〜8.78）＝公開の23回（c108 と同じ軸 AX_REL）。1行目「最初の公開は、2020年9月。2023年5月までに、合わせて
-    #   23回」で第1回・帯2本・第23回／2行目「第1回には、査問会の認定と意見と勧告」で第1回の下に札（台帳の Contents＝COI Volume 1）。
-    #   ⚠️ 帯の札は短く（第1回の下の札と同じ高さで横に重なる）・第5・6回の断りは c108 で出した
-    "c907": dict(
-        t="公開された記録", s="2020〜2023年",
-        fig=("axis", dict(ss.AX_REL, steps=[
-            dict(add=[ss.ax("r01"), ss.ax("r1_17", t="第1〜17回"), ss.ax("r18_23"), ss.ax("r23")], cur="2023-05-02"),
-            dict(add=dict(k="chips", at="2020-09-23", chips=["認定・意見・勧告"], rec="台帳"), cur="2020-09-23")],
-            note="第1〜17回＝海軍の台帳の公開日／第18〜23回＝台帳に無い（公開の棚の更新日）",
-            src="海軍の公開の台帳（第1〜17回）・公開の棚 THRESHER RELEASE（第18〜23回）")),
-    ),
-    # ── 🆕 ⑤b-6b（2026-10-04）：箱の型（書類の再現図・流れ図＝check_boxes.REC_*）──
-    #   🔴 第9章は深さの数を絵に出さない（守りの線）＝公聴会の本の削除は「[classified matter deleted]」と刷られたまま・c918 は数を書かない
-    # c902（11.90秒＝0〜2.67／3.16〜8.22／8.71〜11.90）＝海軍長官の書簡（付録6＝J p.146〜147・1963年6月20日）
-    "c902": dict(
-        t="長く機密だった記録", s="漏れたときの影響",    # ⚠️ dup：「1963年6月の書簡」は紙の表題と70%同じ
-        fig=("boxes", dict(view="form", form=ss.FORM_KORTH1, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=[dict(k="fill", f="宛て先"), dict(k="fill", f="記録")]),
-            dict(add=dict(k="fill", f="漏れたら"))],
-            note="欄の字は原文のまま・様式は再現・宛て先＝合同委員会の委員長", src=ss.src(["J p8146", "J p8147"]))),    # ⚠️ 長いと25画素に縮んだ
-    ),
-    # c904（11.35秒＝0〜4.16／4.65〜9.28／9.77〜11.35 聞き役）＝海軍長官の返事（J p.164・1963年8月29日・宛て先は小委員長）
-    "c904": dict(
-        t="今は時期が悪い", s="小出しにしない理由",    # ⚠️ dup：「1963年8月の返事」は紙の表題と70%同じ
-        fig=("boxes", dict(view="form", form=ss.FORM_KORTH2, steps=[
-            dict(add=[dict(k="paper"), dict(k="fill", f="時期"), dict(k="fill", f="何を")]),
-            dict(add=[dict(k="fill", f="おそれ"), dict(k="fill", f="誰の心で")]),
-            dict()],
-            note="欄の字は原文のまま・様式は再現・your hearings＝議会の公聴会", src=ss.src(["J p8164"]))),
-    ),
-    # c908（10.06秒＝0〜4.08／4.57〜8.34／8.83〜10.06 聞き役）＝塗った理由を示す札（頁の画像の赤い字）。記号は画だけ（語りでは読まない）
-    "c908": dict(
-        t="3種類の札", s="記号の意味",    # ⚠️ dup：「塗った理由」は紙の表題の頭と同じ
-        fig=("boxes", dict(view="form", form=ss.FORM_CODES, steps=[
-            dict(add=dict(k="paper")),
-            dict(),
-            dict()],
-            note="記号は頁のまま（情報公開の法律の番号）", src=ss.src(["V1 p38", "V1 p54", "R08 p4181"]))),    # ⚠️ 長いと24画素に縮んだ
-    ),
-    # c912（7.09秒＝0〜1.67 聞き役／2.16〜4.13／4.62〜7.09）＝AP の記事。原告の言葉は次の c913（決め所）＝書かない・名前は語りだけ
-    "c912": dict(
-        t="公開を求めた人", s="情報公開の法律で",    # ⚠️ dup：「訴えた人」は欄の名・「2021年の記事」は紙の表題と同じ
-        fig=("boxes", dict(view="form", form=ss.FORM_AP, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=[dict(k="fill", f="訴えた人"), dict(k="fill", f="その人")]),
-            dict()],
-            note="欄の字は原文のまま（記事の一部）・様式は再現・Thresher-class＝スレッシャー級", src=ss.src(["AP p9901"]))),
-    ),
-    # c915（8.26秒＝0〜2.43／2.92〜5.97／6.46〜8.26）＝原子炉の責任者の証言（J p.122・1964年7月1日）。計算の中身は次の c916
-    "c915": dict(
-        t="魔法の数字", s="中将の話",    # ⚠️ echo：「1964年の公聴会」は字幕の1文の頭の切り取り
-        fig=("boxes", dict(view="form", form=ss.FORM_RICK122, steps=[
-            dict(add=dict(k="paper")),
-            dict(),
-            dict(add=dict(k="fill", f="話したこと"))],
-            note="欄の字は刷られたまま（数は削除の印）・様式は再現", src=ss.src(["J p8122"]))),
-    ),
-    # c916（11.16秒＝0〜3.88／4.37〜8.93／9.42〜11.16 聞き役）＝数字の生まれ（流れ図・J p.122）。「その先は費用が急に上がる」「本当の評価は
-    #   まだ無い」は語りに無い＝描かない
-    "c916": dict(
-        t="数字の生まれ", s="元は費用の計算",
-        fig=("boxes", dict(view="flow", layout=ss.FL_EMPTY, steps=[
-            dict(add=[ss.fl("q_ask"), dict(k="chip", at="q_ask", t="費用を増やさずに行ける深さ", rec="J p8122", dy=70)]),
-            dict(add=[ss.fl("q_calc"), ss.fl("q_num"), ss.ce("q_ask", "q_calc"), ss.ce("q_calc", "q_num"),
-                      dict(k="chip", at="q_num", t="元は費用だけが根拠", rec="J p8122", dy=70)]),
-            dict()],
-            note="原子炉の責任者の証言（1964年）・数は刷られていない", src=ss.src(["J p8122"]))),
-    ),
-    # c917（10.35秒＝0〜3.00／3.48〜8.26／8.75〜10.35 聞き役）＝潜水艦戦の部長（海軍の少将）の証言（J p.124）
-    "c917": dict(
-        t="根拠の無い深さ", s="海軍の中の検討",    # ⚠️ dup：「戦術の根拠」は欄の名と同じ
-        fig=("boxes", dict(view="form", form=ss.FORM_WILK, steps=[
-            dict(add=[dict(k="paper"), dict(k="fill", f="検討")]),
-            dict(add=[dict(k="fill", f="行く深さ"), dict(k="fill", f="戦術の根拠")]),
-            dict()],
-            note="欄の字は刷られたまま（数は削除の印）・様式は再現", src=ss.src(["J p8124"]))),
-    ),
-    # c918（12.27秒＝0〜1.91／2.40〜6.57／7.06〜12.27）＝試験深度の数（数の比べ → 流れ図＝映像方針 §21）。🔴 数は絵に出さない（語りだけ）。
-    #   1行目で公開の記録 → 塗られている／2行目で書簡 → 数が書かれている／3行目で記事と札「前に機密を解かれた文書」
-    "c918": dict(
-        t="何メートルだったか", s="記録と書簡と記事",
-        fig=("boxes", dict(view="flow", layout=ss.FL_DEPTH, steps=[
-            dict(add=[ss.fl("s_pub"), ss.fl("s_red"), ss.ce("s_pub", "s_red")]),
-            dict(add=[ss.fl("s_rule"), ss.fl("s_num"), ss.ce("s_rule", "s_num")]),
-            dict(add=[ss.fl("s_ap"), ss.ce("s_ap", "s_num"),
-                      dict(k="chip", at="s_ap", t="前に機密を解かれた文書", rec="AP p9901", dy=50)])],
-            note="深さは b(1) で塗られている", src=ss.src(["V1 p38", "A-R p9961", "AP p9901"]))),    # ⚠️ 長いと22画素に縮んだ
-    ),
-    # c919（8.43秒＝0〜1.84／2.33〜6.27／6.76〜8.43）＝紙2枚（認定17 と AP の記事＝別の書類）。査問会は意味を書いていない（意味の欄は作らない）
-    "c919": dict(
-        t="声の中の数", s="9:17ごろの声の読み方",    # ⚠️ echo：「ナイン・ハンドレッド」は字幕の1行の切り取り
-        fig=("boxes", dict(view="form", form=[ss.FORM_F17, ss.FORM_AP900], steps=[
-            dict(add=[dict(k="paper", i=0), dict(k="fill", i=0, f="9:17ごろの声")]),
-            dict(add=[dict(k="paper", i=1), dict(k="fill", i=1, f="読み方")]),
-            dict()],
-            note="査問会の認定17 は意味を書いていない", src=ss.src(["R08 p4185", "AP p9901"]))),
-    ),
-
-    # ── 🆕 ⑤b-8（2026-10-05）：パネル c901（噂）・決め所 c913 ──
-    # c901（4.91秒＝0〜1.98／2.47〜4.91）＝噂の札（4本目の型＝`k="噂"`・J.ALERT・注で記録の記述でないと断る）。見た目を事実の画面と分ける。
-    #   ⚠️ 札の言葉は字幕の丸写しにしない（門番 echo）＝「海軍は、何かを隠しているのではないか」→「海軍が何かを隠している」
-    "c901": dict(
-        t="言われてきたこと", s="記録の外の声",
-        fig=("panel", dict(blocks=[dict(k="噂", c=J.ALERT, t="海軍が何かを隠している")],
-                           note="査問会と議会の記録の記述ではない")),
-    ),
-    # c913（台本 §2 #13）。AP（2021-08-02・Military Times 掲載）「"There's no coverup. No smoking gun," he said.」＝報道の文字（頁は無い）。
-    #   名前は語りだけ（札は役割）。🔴 門番 check_script の煽り語「隠蔽」＝否定の引用での誤検知（台本 §0-1）
-    "c913": dict(
-        t="訴えた人の言葉", s="記録を読んだあとで",
-        fig=("quote", dict(phrase="原告「隠蔽は無い。決定的な証拠も無い」",
-                           rows=ss.qrows("AP", None, ("箇所", "記者への言葉")), paper=True)),
-    ),
-}
+SPEC = {}

@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
-"""第7章　30秒 c701–c723（23カット）。18本目（スレッシャー号のリメイク）。
+"""第6章　がれきの下で c701–c720（20カット）。19本目（サーフサイドのマンション崩壊のリメイク）。
 
-■ 🔴 2026-10-04（⑤b-1）：16本目（バイオントダム災害）の中身を空にした＝git の `b044b56`（`git show b044b56:tools/cuts/c7.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep18/make_plan.py` で
-  台本 §4・承認ずみの映像方針（§1-3 冒頭・§3 置き場・§4 合図・§5 案C・§6 前置き・§8 記録映画・§9 頁の版・§11 替える画）から
-  機械で組んだ（手で写していない）。
+■ 🔴 2026-10-06（⑤b-1）：18本目（スレッシャー号）の中身を空にした＝git の `b11797a`（`git show b11797a:tools/cuts/c7.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep19/make_plan19.py` で
+  映像方針の一覧 `ref/ep19/eizou_build/list19.tsv`（承認ずみ・決め①〜⑩）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」と「フリー素材」を数える）。
-  種類＝写真／図・写真の頁／再現イラスト／図解／混ざり／文字の頁／パネル／決め所／フリー素材（ルール §5b-79・§2-5c）
-  記号＝【案C SA】横から見た海・【案C SB】上から見た海（北が上）・【案C SC】上から見た海の底・【案C SD】横から見た海の底の捜索（§3）・
-        【冒頭】（§1-3）・【混ざり】（§12 ⑦）
-  🆕 フリー素材の映像（映像方針 §17）＝⑤b-7 で替える場面を表にして承認 → その種類を「フリー素材」に（20% と【映像あり】に数えない）
+  ⚠️ plan の「⑤b-1」は1秒1コマの走査で区間を選ぶ所・秒（÷365 の見込み）は書き写さない＝narration.json の実測で組む。
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -18,293 +14,66 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    "c701": dict(kind='写真',
-               plan='台本の画：実写 thr_film593_c（記録映画 85185 のコマ・セイルの593）｜記録映画（映像方針 §8）：コマ _c＝c212 は残す・c318 は SA へ・c701・cb07 は 85185 の別のショット（動く映像）＝⑤b-7 で映像を通しで見て選ぶ（無ければ造船所の写真 thr_t14 などの PD の写真）（額装＋地のぼかし・縦1.8倍まで・⑤b-7 で SAR を測る）｜替える画（映像方針 §11）：いま＝実写 thr_film593_c → 85185 の別のショット・理由＝同じコマの重なり',
-               src='J p.32（公刊時の注）'),
-    "c702": dict(kind='図解',
-               plan='台本の画：図 模式図 吹き出しの仕組み（【横から】空気のボンベ → 減圧弁・弁の中に円すい形の網のこし器 → 主タンク → 海水が出る）',
-               src='認定49（R08 p.190）・認定50（R08 p.191）・意見8c（R08 p.205）'),
-    "c703": dict(kind='図解',
-               plan='台本の画：図 数の比べ スキップジャックとスレッシャー（試験深度 約210メートル → 数は伏せ字／予備の浮力 ほぼ同じ／空気の量 ほぼ同じ／試験深度で吹ける量と速さ＝減った・数は伏せ字）｜（⑤b-6b で替えた＝映像方針 §21）いま＝数の比べ → 書類の再現図（認定46 の a・c＝「from 700 feet to b(1)」と空気の量）・理由＝スレッシャーの深さは塗られている＝比べる棒が1本しか無い',
-               src='認定46（R08 p.190）'),
-    "c704": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 認定46（試験深度で吹き出せる量も、速さも、前の型より減った＝数は塗られている）',
-               src='認定46（R08 p.190）'),
-    "c705": dict(kind='図解',
-               plan='台本の画：図 流れ図 深さと時間（深く潜るほど、浸水に手を打てる時間が縮む）',
-               src='認定47（R08 p.190）'),
-    "c706": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 艦船局の空気の決まり（潜望鏡深度で主タンクを2回吹ける・深さによる決まりは無い・氷で詰まるのを防ぐ決まりも無い・除湿器なし）',
-               src='認定48（R08 p.190）'),
-    "c707": dict(kind='図解',
-               plan='台本の画：図 模式図 空気が冷える（【横から】高い圧力の空気が弁を抜けて一気に広がる → 温度が氷点より下 → こし器に氷）',
-               src='J p.32（ブロケット少将）・認定48'),
-    "c708": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 艦船局の長の答え（凍るのは深さのせいではない・圧力の差のせい）',
-               src='J p.32（ブロケット少将の証言）'),
-    "c709": dict(kind='写真',
-               plan='台本の画：実写 nara_428-N-1057645（真正面の艦首・1961-07-24）',
-               src='R08 p.26（Zurcher 大佐の証言）・認定38（R08 p.189）'),
-    "c710": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 前夜の決め事（深い所では空気がどれだけ効くか疑わしい → 主冷却材ポンプは速い回し方に）',
-               src='R08 p.26'),
-    "c711": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 元設計部長の証言（深い所で主タンクを吹き切る試験 → 話し合いの末、賢明でないとして試さないと決まった・理由＝浮き上がりが止められなくなるおそれ）',
-               src='R08 p.33（ジャクソン大佐の証言）・J p.35・J p.38'),
-    "c712": dict(kind='文字の頁',
-               plan='台本の画：図 p8038（JCAE 公聴会 1963-06-27 の頁＝「一度も行われていない」のやりとり。注：同じ回の J p.37 で少将は、前の型では事故の前に吹き切った艦があったとも答えている＝深さは塗り）｜頁の版（映像方針 §9）：J（議会の本）＝見える',
-               src='J p.38・J p.37'),
-    "c713": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 リッコーヴァー中将の言葉（海軍は、潜れる深さが約120メートルの時代から、深くなっても吹き出しの決まりを基本的に変えていない）→ 議員「それはおかしい」→ 中将「おかしい」',
-               src='J p.83'),
-    "c714": dict(kind='図解',
-               plan='台本の画：図 模式図 ティノサの試験（岸壁の同じ型の艦・同じ高圧の空気の系統を吹いてみる）',
-               src='認定50（R08 p.191）・J p.32'),
-    "c715": dict(kind='決め所',
-               plan='台本の画：quote（決め所）',
-               src='認定50（R08 p.191・V1 p.44）＝査問会が求めた、ティノサでの試験'),
-    "c716": dict(kind='図解',
-               plan='台本の画：図 模式図 こし器の氷（ティノサの試験：網に氷がつく → 空気が止まる → 網が破れる）',
-               src='J p.32（公刊時の注）・J p.112'),
-    "c717": dict(kind='図解',
-               plan='台本の画：図 時間の帯 別の30秒（設計の仕組み：電気が落ちる → 4つのボンベのうち3つの弁が閉まる → 残る1つがゆっくり開く・開き切るまで30秒・吹けない時間 10〜50秒）',
-               src='認定51（R08 p.191）'),
-    "c718": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 査問会の意見38（弁が電気が切れると閉まる考え方は、試験深度では良くない・開いたままにすべき）',
-               src='意見38k（R08 p.211）'),
-    "c719": dict(kind='図解',
-               plan='台本の画：図 模式図 原子炉が止まった場合（9:11 ポンプは止まったか遅い回し方に落ちた → もし止まったなら原子炉が自動で止まる → 7.1分のあいだ、ふつうの推進は戻らない・非常用の電動機＝時速約9キロ）',
-               src='意見45（R08 p.212〜213）'),
-    "c720": dict(kind='図解',
-               plan='台本の画：図 時間の帯 7.1分（もし 9:11 にポンプが止まっていたなら：9:11 から 圧壊の深さまで＝ふつうの推進は戻らない／査問会はこの場合の可能性は高くないとした）',
-               src='意見45（R08 p.212〜213）'),
-    "c721": dict(kind='文字の頁',
-               plan='台本の画：図 p8112（JCAE 公聴会 1964-07-01 の頁＝「岸壁ででも目いっぱい吹いたか」「していないと思う」）｜頁の版（映像方針 §9）：J（議会の本）＝見える',
-               src='J p.111〜112'),
-    "c722": dict(kind='写真',
-               plan='台本の画：実写 thr_t37（1964年に海の底で撮られた空気のボンベ・上にカメラのそりの羅針＝原因とは結びつけない。⑤b：c701 の thr_film593_c と入れ替える案＝G4-17）',
-               src='J p.35・J p.112・IR18 p.122'),
-    "c723": dict(kind='図解',
-               plan='台本の画：図 書類の再現図 査問会の意見39（主タンクの高圧の吹き出しは、試験深度で吹き切る条件をまねて試す必要がある）',
-               src='意見39（R08 p.211）'),
+    'c701': dict(kind='写真',
+               plan='B1@100–104（がれきの山と重機の腕）｜副題：がれきの山（2021年6〜7月）｜権利：A推定｜注：×2.1＝走査で 99〜105 へ広げられるか・無ければ静止画で受ける。代わり＝C1（郡の消防・6月24日＝決め①で使う）',
+               src='B05 p.2（`06/24/2021 at 0120 hours`・`Officers responded to a call of a fire alarm and encountered a partially collapsed condominium building.`）'),
+    'c702': dict(kind='写真',
+               plan='N#18（南どなりのバルコニーから見た現場）｜副題：現場と残った西の部分（2021年7月）｜権利：A｜注：決め⑤＝🅰 引きだけ：⑤b-1 で原寸を見て、家具・写真・服が見分けられる住戸に寄せない（見分けられれば C1・C2 か B1 の引きに替える）',
+               src='B06 p.2（`rescuing residents from the part of the building still standing`・`Cherry pickers were used to go floor-by-floor to rescue residents still trapped on their balconies.`）'),
+    'c703': dict(kind='写真',
+               plan='C6（昼の地上からの全景・救助隊と犬）｜副題：崩れた現場の救助隊（2021年6月24日・郡の消防）｜権利：フロリダ州の公記録（PD-FLGov の可能性）｜注：決め①＝使う。出典の行は「PD」と書かず「マイアミ・デイド郡消防（フロリダ州の公記録）」。代わり＝F:6717686',
+               src="B04（`rescuing 37 occupants from the structure and rubble`・`the largest non-hurricane Search and Rescue mission in Florida's history`）"),
+    'c704': dict(kind='図解',
+               plan='図 地図【上から】町の中の位置（現場 → 町のコミュニティセンター・道の線だけ）｜権利：自作',
+               src='B05 p.2（`residents were escorted to the Surfside Community Center which later become the Family Reunification Center`）'),
+    'c705': dict(kind='写真',
+               plan='B1@50–56（がれきの山と捜索の列）｜副題：がれきの山と捜索の列（2021年6〜7月）｜権利：A推定｜注：隣家の屋根あり',
+               src='GJ p.1（`two-story tall pile of rubble`）'),
+    'c706': dict(kind='決め所',
+               plan='quote（決め所）｜権利：自作',
+               src='GJ p.1（`Except for a 14-year-old child, who was discovered near the top of the two-story tall pile of rubble, first responders were not successful in rescuing any survivors.`）'),
+    'c707': dict(kind='写真',
+               plan='F:6717686（都市捜索救助隊ががれきを除く）｜副題：国の都市捜索救助隊（2021年7月1日）｜権利：A（FEMA）｜注：—',
+               src='GJ p.1・B02 p.1（`Within hours of the building collapse, FEMA Urban Search & Rescue (US&R) placed multiple task forces on alert`・`On June 25, President Biden signed an Emergency Declaration authorizing federal assistance`）'),
+    'c708': dict(kind='写真',
+               plan='F:6723299（ペンシルベニア第1隊が12時間の交代に入る準備）｜副題：国の救助隊（2021年7月3日）｜権利：A（FEMA）｜注：決め③＝BY-SA は使わない＝差し込みなし。3行目「外国からも」に合う連邦の写真（DVIDS の外国の隊）があれば⑤b-1 で',
+               src='B02 p.1（`each with 70-80 members`・`Teams worked 12-hour shifts in a round-the-clock operation at the site.`）・B01 p.3・B06 p.8（`Israeli, Mexican`）'),
+    'c709': dict(kind='写真',
+               plan='F:6717685（がれきを除く隊員）｜副題：がれきを除く救助隊（2021年7月1日）｜権利：A（FEMA）｜注：—',
+               src='B02 p.1（`hand tools such as jack-hammers, metal and concrete saws, shovels and buckets to peel away multiple layers of rubble`）'),
+    'c710': dict(kind='図解',
+               plan='図 模式図【横から】がれきの山と残った西の部分（見張りの印＝陸軍工兵隊の構造の専門家）｜権利：自作',
+               src='B02 p.2（`monitored the rubble pile to ensure safety of search teams`）・B07 p.1（`the unstable remaining structure`）・B01 p.3（`monitor the rubble pile and standing structure`）'),
+    'c711': dict(kind='写真',
+               plan='B1@⑤b-1（残った西の部分が大きく写る秒＝138〜143 は使わない）｜副題：残った西の部分（2021年6〜7月）｜権利：A推定｜注：🔴 138〜143（fb_c709）は手前に「MIAMI DADE HOMICIDE」の字のシャツ・手持ちで歩くぼけ（実効 736）＝使わない（チャット4 で見た）。決め⑤＝引きの秒だけ。代わり＝C1・C2（郡の消防＝決め①で使う）か B1@159〜160（重機の銘 ALPI）',
+               src='B07 p.1（`authorized the controlled demolition of the remaining structure of the building to eliminate further risk to health and safety`）'),
+    'c712': dict(kind='図解',
+               plan='図 地図【上から】取り壊しの区域（爆破の区域＝半径約90メートル〈300フィート〉の赤・屋内にいる区域の黄＝B03 の地図の形）｜権利：自作',
+               src='B03（`Between 10 p.m. on Sunday, July 4, 2021 and 3 a.m. on Monday, July 5`・`a 300-foot radius around the center of the demolition`）'),
+    'c713': dict(kind='写真',
+               plan='F:6723297（交代の隊・⑤b-1 で昼か夜か）｜副題：救助の隊（2021年7月3日）｜権利：A（FEMA）｜注：副題は写っている時刻で（夜でなければ「夜の」と書かない）。候補 W1（大統領への説明の映像）',
+               src='B07 p.1（`searching for human remains to bring closure to grieving families`）・GJ p.1（`Our community will forever be in debt to the first responders, both local and from abroad`）'),
+    'c714': dict(kind='図解',
+               plan='図 時間の帯（6月24日 1:22 → 7月20日 20:03＝26日後）｜権利：自作',
+               src='A12（`July 20th at 8:03 pm marks the end of the heroic search and recovery efforts when the final person was recovered.`）・GJ p.1（`recovered and identified remains for 98 known persons`）・B04（`until every victim was identified`）'),
+    'c715': dict(kind='写真',
+               plan='N#16（柱に札）｜副題：証拠の柱に付けた札（2021年7月6日）｜権利：A｜注：—',
+               src='A07（`collected more than 200 building elements including columns, beams and pieces of concrete slab`）'),
+    'c716': dict(kind='写真',
+               plan='N#19（現場を走査するカメラとライダー）｜副題：現場を測る機械（2021年7月）｜権利：A｜注：—',
+               src='B02 p.2（`NIST has been conducting remote sensing of the debris pile to determine where pieces of evidence were located.`・`drones and LiDAR`）'),
+    'c717': dict(kind='写真',
+               plan='N#20（札を付けた部材を警察の護衛で保管所へ）｜副題：警察に守られて運ぶ部材（2021年7月）｜権利：A｜注：🔁 台本の型は B4（2023年の搬送）＝語りの「警察の車に守られて」と年が合う N#20 に',
+               src='A07（`transported by police escort to an offsite storage facility`）'),
+    'c718': dict(kind='写真',
+               plan='B5@11–16.3 は c312 で使う → B5@⑤b-1（倉庫の部材の別の秒）｜差し込み（tail）：2 PC  5.6秒 PC（倉庫の部材の点群のフライスルー）｜副題：倉庫の証拠（2023年）／点群（約17億点）｜権利：A推定｜注：—',
+               src='B08（`By the end of July 2021, all of the evidence was moved to secure locations, where it was carefully cataloged`・`1,700,569,894 points`）'),
+    'c719': dict(kind='図解',
+               plan='図 時間の帯（6月25日 NIST の6人が現地へ → 6月30日 本格的な調査を発表 → 2022年1月28日 証拠を NIST が預かる・札「建設安全チーム法（National Construction Safety Team Act）による調査」）｜権利：自作',
+               src='B02 p.2（`On June 25, NIST initially deployed a team of six scientists and engineers`・`On June 30, the agency announced it would support a full technical investigation.`）・B08（`transferred to NIST on Jan. 28, 2022`）・TR0467（`to determine the most likely technical cause or causes of the failure, to recommend specific improvements to building standards, codes and practices`）・B01 p.5（`On June 30, 2021, NIST announced that it was launching a full investigation under the authority of the National Construction Safety Team Act.`）'),
+    'c720': dict(kind='写真',
+               plan='N#44（現場の空中写真を見る調査団）｜副題：空中写真を見る NIST の調査団｜権利：A｜注：公務の人の顔は可',
+               src='—（橋）'),
 }
 
-SPEC = {
-    # ── 🆕 ⑤b-7b（2026-10-05）：頁（`qa_out/ep18_assets.py pages`＝切り口は pages.json の cuts・副題に年を書かない）──
-    # c712（8.3秒）＝議員「その深さで吹き切れるか……一度も行われていないと理解している」→「そのとおり」（J p.38）
-    #   ⚠️ 頁の最後の行（議員の次の発言「100 or 200 feet」）は入れない
-    "c712": dict(
-        t="吹き切る試験",
-        s="公聴会記録　議員の問いと海軍の答え",
-        photo=ss.page(8038), trim=ss.ptrim("c712"), bias=ss.pbias("c712"), panel=True, color=1.0,
-    ),
-    # c721（9.5秒）＝議員「岸壁ででも目いっぱい吹いたか」→ カーツ少将「分からない。していないと思う」（J p.112）
-    "c721": dict(
-        t="岸壁での試験",
-        s="公聴会記録　議員の問いと少将の答え",
-        photo=ss.page(8112), trim=ss.ptrim("c721"), bias=ss.pbias("c721"), panel=True, color=1.0,
-    ),
-    # ── 🆕 ⑤b-7a（2026-10-04）：写真の束（`qa_out/ep18_assets.py`・すべて米海軍の PD）──
-    # c709（9.3秒）＝1961年の最初の試運転・前の夜の話し合い。428-N（1961-07-24）の上側（セイルと艦首）を16:9 で全画面
-    #   ⚠️ 写真の日が最初の試運転の日かは記録に無い＝副題は写真の日だけ（c114 は同じ写真を額装で丸ごと）
-    "c709": dict(
-        t="最初の試運転",
-        s="1961年7月24日　海上のスレッシャー",
-        photo=P("bow_1961"), trim=(0.0, 0.2092, 1.0, 0.7130),
-    ),
-    # c722（8.9秒）＝こし器は外していなかったとみられる。289-T-37（1964年 海の底の空気のボンベ）＝額装（原因と結びつけない）
-    "c722": dict(
-        t="空気の系統のこし器",
-        s="1964年　海の底の空気のボンベ",
-        photo=P("bottle_t37"), **ss.kind(P("bottle_t37")),
-    ),
-    # ── 🆕 ⑤b-4（2026-10-04）：仕組みの模式図（`tools/mech18.py`・門番 check_mech の judge_m18）──
-    # c702（9.24秒＝0〜2.11／2.60〜6.08／6.57〜9.24）＝空気のボンベ4つ（認定51＝air banks 1〜4・c717 の「3つ／残る1つ」と同じ数）→
-    #   減圧弁 → 主タンク（海水を押し出す）／3行目で弁の中の円すい形の網のこし器（認定49）
-    "c702": dict(
-        t="吹き出しの仕組み", s="空気で海水を押し出す",
-        fig=("m18", dict(view="blow",
-                         steps=[dict(tag=dict(t="高い圧力の空気（ボンベ）", at="banks")),
-                                dict(state=dict(flow="on"), delay=0.3,
-                                     tag=[dict(t="減圧弁", at="valve"), dict(t="主タンク", at="tank")]),
-                                dict(state=dict(strainer="on"), delay=0.3, tag=dict(t="こし器（円すい形の網）", at="strainer"))],
-                         note="ボンベは4つ（記録）・弁と管とタンクの数・形・位置は模式",
-                         src="査問会の記録（第8回公開） PDF 190〜191頁（認定49・51）・205頁（意見8）")),
-    ),
-    # c707（8.79秒＝0〜4.13／4.31〜8.79）＝弁を抜けて一気に広がる → 温度が下がる（J p.32 ブロケット少将）→ こし器に氷（意見8c）／
-    #   水分を取る装置は無い（認定48「Dehydrators were not installed」＝点線の枠と×）
-    "c707": dict(
-        t="空気が冷える", s="こし器に氷がつく仕組み",
-        fig=("m18", dict(view="cold",
-                         steps=[dict(state=dict(expand="on"), delay=0.3,
-                                     tag=[dict(t="一気に広がる", at="out"), dict(t="温度が大きく下がる", at="therm")]),
-                                dict(state=dict(ice="on"), delay=0.3,
-                                     tag=[dict(t="氷", at="ice", to="ice"), dict(t="なし", at="dry", col=J.ALERT)])],
-                         note="弁とこし器の形・空気の点の数は模式（温度の数は描かない）",
-                         src="米議会 両院原子力合同委員会の公聴会記録 32頁／査問会の記録（第8回公開） PDF 190頁（認定48）・205頁（意見8）")),
-    ),
-    # c714（7.40秒＝0〜2.93／3.42〜7.40）＝同じ型のティノサ（造船所で仕上げ中）の岸壁での空気の系統の試験（J p.32 の注・認定50）
-    "c714": dict(
-        t="ティノサの試験", s="査問会が求めた試験",
-        fig=("m18", dict(view="tinosa",
-                         steps=[dict(tag=dict(t="事故のあと", at="when")),
-                                dict(state=dict(sys="on"), delay=0.3,
-                                     tag=[dict(t="ティノサ（同じ型）", at="sub"), dict(t="造船所で仕上げ中", at="quay"),
-                                          dict(t="空気の系統", at="sys")])],
-                         note="艦の形はスレッシャーの絵と同じ（同じ型）・岸壁と空気の系統は模式",
-                         src="米議会 両院原子力合同委員会の公聴会記録 32頁（注）／査問会の記録（第8回公開） PDF 191頁（認定50）")),
-    ),
-    # c716（8.56秒＝0〜3.59／4.08〜6.44／6.93〜8.56）＝網の形のこし器に氷 → タンクへの空気が止まる（J p.32・p.112 の注）。
-    #   ⚠️「網が破れる」（認定50）は c716 の語りに無い＝c715 の決め所で出る＝描かない（PLAN の「→ 網が破れる」を外した＝映像方針 §18）
-    "c716": dict(
-        t="こし器の氷", s="ティノサでの試験の結果",
-        fig=("m18", dict(view="ice",
-                         steps=[dict(state=dict(ice="on", flow="stop"), delay=0.3,
-                                     tag=[dict(t="氷", at="ice", to="ice"), dict(t="空気が止まる", at="stop")]),
-                                dict(tag=dict(t="公聴会の記録の注", at="doc")),
-                                dict(tag=dict(t="網", at="mesh", to="mesh"))],
-                         note="こし器と管の形・氷の量は模式",
-                         src="米議会 両院原子力合同委員会の公聴会記録 32・112頁（注）")),
-    ),
-    # c719（8.24秒＝0〜1.44 聞き役／1.93〜5.89／6.38〜8.24）＝c404 と同じ絵の続き。もし 9:11 にポンプが止まっていたなら原子炉は
-    #   自動で止まる（意見45＝仮定の札）。⚠️ 7.1分・非常用の電動機は次の c720（時間の帯）の語り＝描かない（PLAN から外した）
-    "c719": dict(
-        t="原子炉が止まった場合", s="査問会の仮定の計算",
-        fig=("m18", dict(view="loop", start=dict(pump="ask"),
-                         steps=[dict(tag=dict(t="9:11", at="clock", cap=40)),
-                                dict(state=dict(pump="stop", reactor="scram"), delay=0.4,
-                                     tag=[dict(t="止まった（仮定）", at="q2", to="pumpr"),
-                                          dict(t="原子炉は自動で止まる", at="core", to="core")]),
-                                dict(tag=dict(t="査問会の計算", at="r1", d="止まった場合（意見）"))],
-                         rel=[dict(t="9:11", src="R08 p4185（認定18）")],
-                         note="止まった場合は仮定の話（どちらだったかは記録から決められない）・形と位置は模式",
-                         src="査問会の記録（第8回公開） PDF 212頁（意見45）")),
-    ),
-    # ── 🆕 ⑤b-5（2026-10-04）：時間の帯（`tools/axis.py`・門番 check_axis）──
-    # c717（9.67秒＝0〜2.70／3.19〜5.77／6.26〜9.67）＝秒の帯（AX_AIR）。認定51（電気が落ちると2・3・4番のボンベが自動で閉まり、1番がゆっくり
-    #   開く・開き切るまで30秒）。1行目「別の30秒」で0〜30秒の括弧／2行目「弁の3つが自動で閉まり」で電気が落ちる点と札／3行目「残る1つが
-    #   ゆっくり開く。開き切るまで、30秒」で帯と開き切る点。PLAN の「吹けない時間 10〜50秒」は語りに無い＝描かない
-    "c717": dict(
-        t="別の30秒", s="電気が落ちたとき（設計）",
-        fig=("axis", dict(ss.AX_AIR, steps=[
-            dict(add=ss.ax("ebr"), cur="30"),
-            dict(add=[ss.ax("e0"), dict(k="chips", at="0", chips=["4つのうち3つの弁が閉まる"], rec="R08 p4191")], cur="0"),
-            dict(add=[ss.ax("eopen"), ss.ax("e30")], cur="30")],
-            note="高い圧力の空気のボンベの弁（スレッシャーの型の設計）", src=ss.src(["R08 p4191"]))),
-    ),
-    # c720（13.30秒＝0〜4.71／5.20〜8.66／9.14〜13.30）＝もし 9:11 にポンプが止まっていたら（意見45＝仮定の計算）。1本の時刻の帯（AX_CALC）。
-    #   1行目「9時11分から押しつぶされる深さまでの7.1分、ふつうの推進は戻らない」で 9:11（仮定）・帯・9時18.1分（意見45「the actual hull
-    #   collapse occurred at 0918.1R」）／2行目「非常用の電動機は、時速約9キロ」で札／3行目「可能性は高くない、とみた」で2つ目の札。
-    #   c719（模式図）が描かなかった「7.1分・電動機」をここで出す（映像方針 §18）
-    "c720": dict(
-        t="もし止まっていたら", s="査問会の計算（仮定）",
-        fig=("axis", dict(ss.AX_CALC, steps=[
-            dict(add=[ss.ax("h0911"), ss.ax("h_span"), ss.ax("h0918"),
-                      dict(k="chips", at="9:11", chips=["ふつうの推進は戻らない"], rec="R08 p4212")], cur="9:18.1"),
-            dict(add=dict(k="chips", at="9:11", chips=["非常用の電動機だけ（遅い）"], rec="R08 p4212", i0=1)),
-            dict(add=dict(k="chips", at="9:18.1", chips=["この場合の可能性は高くない（査問会）"], rec="R08 p4212"))],
-            note="時刻は現地（アメリカ東部）・止まったか遅い回し方かは記録から決められない", src=ss.src(["R08 p4212"]))),
-    ),
-    # ── 🆕 ⑤b-6b（2026-10-04）：箱の型（書類の再現図・流れ図＝check_boxes.REC_*）──
-    #   欄の値は原文の英語のまま（日本語は字幕だけ）・塗りは頁に見えるとおりの札の記号（b(1)・(b) (1)）・次のカットの語りは描かない
-    # c703（9.14秒＝0〜4.50／4.99〜9.14）＝認定46（数の比べ → 書類の再現図＝スレッシャーの深さは塗られている＝棒1本・映像方針 §21）。
-    #   1行目で比べた艦と試験深度（700 feet → b(1)）／2行目で空気の量（ほぼ同じ）
-    "c703": dict(
-        t="前の型と比べて", s="スキップジャックとの違い",
-        fig=("boxes", dict(view="form", form=ss.FORM_F46A, steps=[
-            dict(add=[dict(k="paper"), dict(k="fill", f="試験深度")]),
-            dict(add=dict(k="fill", f="空気"))],
-            note="欄の字は原文のまま・様式は再現・b(1)＝塗られた所の札", src=ss.src(["R08 p4190"]))),
-    ),
-    # c704（9.94秒＝0〜3.88／4.37〜7.34／7.83〜9.94 聞き役）＝認定46 d。1行目で量と速さ／2行目「数は塗られている」で d(1) の札の行
-    "c704": dict(
-        t="吹き出せる量と速さ", s="試験深度で減った",
-        fig=("boxes", dict(view="form", form=ss.FORM_F46D, steps=[
-            dict(add=[dict(k="paper"), dict(k="fill", f="吹き出せる量"), dict(k="fill", f="速さ")]),
-            dict(add=dict(k="fill", f="その数")),
-            dict()],
-            note="欄の字は原文のまま・様式は再現・(b) (1)＝塗られた所の札", src=ss.src(["R08 p4190"]))),
-    ),
-    # c705（7.08秒＝0〜4.15／4.64〜7.08）＝認定47（流れ図）。1行目で深さ → 時間／2行目で札「よく知られていない」
-    "c705": dict(
-        t="深さと時間", s="深いほど短い",      # ⚠️ dup：「査問会の認定47」は注の字と同じ
-        fig=("boxes", dict(view="flow", layout=ss.FL_EMPTY, steps=[
-            dict(add=[ss.fl("d_deep"), ss.fl("d_time"), ss.ce("d_deep", "d_time")]),
-            dict(add=dict(k="chip", at="d_time", t="よく知られていない", rec="R08 p4190", dy=70))],
-            note="浸水に手を打てる時間（査問会の認定47）", src=ss.src(["R08 p4190"]))),
-    ),
-    # c706（9.89秒＝0〜1.76 聞き役／2.25〜5.61／6.10〜9.89）＝認定48（文字の層が崩れている＝頁の画像で読んだ）。2行目で基準（潜望鏡深度で
-    #   2回）／3行目で深さと氷。除湿器は次の c707＝書かない
-    "c706": dict(
-        t="空気の決まり", s="海面のすぐ下で2回",
-        fig=("boxes", dict(view="form", form=ss.FORM_F48, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=dict(k="fill", f="基準")),
-            dict(add=[dict(k="fill", f="深さ"), dict(k="fill", f="氷")])],
-            note="欄の字は原文のまま・様式は再現・periscope depth＝海面のすぐ下の深さ", src=ss.src(["R08 p4190"]))),
-    ),
-    # c708（6.70秒＝0〜2.27／2.76〜6.70）＝艦船局の長の証言（J p.32・p.35）。2行目で2つの欄
-    "c708": dict(
-        t="凍る理由", s="深さか、圧力の差か",    # ⚠️ dup：「艦船局の長の説明」は紙の表題と75%同じ
-        fig=("boxes", dict(view="form", form=ss.FORM_BROCK, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=[dict(k="fill", f="深さ"), dict(k="fill", f="決め手")])],
-            note="欄の字は原文のまま・様式は再現", src=ss.src(["J p8032", "J p8035"]))),
-    ),
-    # c710（9.55秒＝0〜3.58／4.07〜5.76／6.25〜9.55）＝最初の試運転の前夜（R08 p.26）。1行目で話したこととポンプ／2行目で理由
-    "c710": dict(
-        t="前夜の決め事", s="最初の試運転の前",
-        fig=("boxes", dict(view="form", form=ss.FORM_ZUR, steps=[
-            dict(add=[dict(k="paper"), dict(k="fill", f="話したこと"), dict(k="fill", f="ポンプの回し方")]),
-            dict(add=dict(k="fill", f="理由")),
-            dict()],
-            note="欄の字は原文のまま・様式は再現・in high＝速い回し方", src=ss.src(["R08 p4026"]))),
-    ),
-    # c711（10.54秒＝0〜2.17 聞き役／2.65〜6.98／7.47〜10.54）＝元設計部長の証言（R08 p.33）。「一度も行われていない」は次の c712
-    "c711": dict(
-        t="試さなかった試験", s="深い所で吹き切る",
-        fig=("boxes", dict(view="form", form=ss.FORM_JACK, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=[dict(k="fill", f="話し合い"), dict(k="fill", f="決まったこと")]),
-            dict(add=[dict(k="fill", f="空気"), dict(k="fill", f="おそれ")])],
-            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4033"]))),
-    ),
-    # c713（12.95秒＝0〜4.68／5.17〜8.82／9.31〜12.95）＝議会の公聴会（J p.83）。中将の言葉と議員とのやりとり（役職だけ）
-    "c713": dict(
-        t="変わらなかった決まり", s="議会での中将と議員",
-        fig=("boxes", dict(view="form", form=ss.FORM_RICK83, steps=[
-            dict(add=[dict(k="paper"), dict(k="fill", f="いつから")]),
-            dict(add=dict(k="fill", f="決まり")),
-            dict(add=[dict(k="fill", f="議員"), dict(k="fill", f="中将")])],
-            note="欄の字は原文のまま・様式は再現・400-foot＝約120メートル", src=ss.src(["J p8083"]))),
-    ),
-    # c718（7.46秒＝0〜2.85／3.34〜7.46）＝意見38k（R08 p.211）
-    "c718": dict(
-        t="閉まる弁", s="電気が切れたとき",
-        fig=("boxes", dict(view="form", form=ss.FORM_O38, steps=[
-            dict(add=[dict(k="paper"), dict(k="fill", f="考え方")]),
-            dict(add=[dict(k="fill", f="試験深度で"), dict(k="fill", f="改め方")])],
-            note="欄の字は原文のまま・様式は再現・fail-closed＝電気が切れると閉まる", src=ss.src(["R08 p4211"]))),
-    ),
-    # c723（8.33秒＝0〜1.82／2.31〜6.21／6.70〜8.33 聞き役）＝意見39（R08 p.211）
-    "c723": dict(
-        t="査問会が求めた試験", s="試験深度をまねて",
-        fig=("boxes", dict(view="form", form=ss.FORM_O39, steps=[
-            dict(add=dict(k="paper")),
-            dict(add=[dict(k="fill", f="何を"), dict(k="fill", f="どう試すか")]),
-            dict()],
-            note="欄の字は原文のまま・様式は再現", src=ss.src(["R08 p4211"]))),
-    ),
-    # ── ✅ ⑤b-7c（2026-10-05）：記録映画（`footage.USE`＝カットまるごと・額装＋地のぼかし・撮影日は分からない＝年を書かない）──
-    # c701（6.7秒・章の扉つき）＝主タンクの海水を圧縮空気で押し出して浮き上がる＝タンクを吹く。85185（#83＝波を立てて走る艦）
-    "c701": ss.vid("c701", t="浮き上がる仕組み", s="海軍の記録映画　波を立てて走る艦"),
-
-    # ── 🆕 ⑤b-8（2026-10-05）：決め所 c715 ──
-    # 台本 §2 #10。認定50（R08 p.191）「Under a test required by the court, the strainers … were blocked and ruptured by the formation of ice
-    #   in about thirty seconds」。第1回の写し（V1 p.44）は見た目の字が描けていない頁＝札は第8回の頁。⚠️ 見出しに「30秒」（章の名）を使わない
-    "c715": dict(
-        t="ティノサの試験", s="同じ型の艦で",
-        fig=("quote", dict(phrase="試験では、こし器が氷で約30秒で破れた",
-                           rows=ss.qrows("R08", "PDF 191頁", ("箇所", "認定50")), paper=True)),
-    ),
-}
+SPEC = {}
