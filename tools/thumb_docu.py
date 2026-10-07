@@ -753,8 +753,85 @@ def ep15_b2():
     bake("ep15_B2_docu_photo", "".join(g), kasure_mask(), out=OUT15)
 
 
+# ── 19本目 サーフサイドのマンション崩壊のリメイク（2026-10-07・⑥）─────────────────────────────
+#    🔴 カズヤくん（10-07）：A＝旧版のまま（`thumb_jiko.surfside()` の `ss_b_face_bars`＝赤「98名犠牲 12階が数秒で」・
+#       黄「4本のはずが2本だった鉄筋」）・**B は B1 だけ**（「これは今後の動画においても同様」＝B2 は作らない）
+#    言葉は A と1字も変えない：赤 → 白「98名犠牲」＋赤「12階が数秒で」（主）／黄 → 白「4本のはずが」＋黄「2本だった鉄筋」
+#    絵＝本編の置き場 A1（南から見た塔・`illu.A1_*`＝TF p3 の3D・12階＋ペントハウス・西｜真ん中｜東の境）を縮めて使う
+OUT19 = HERE / "out" / "thumb" / "ep19-ab"
+TOP19 = [("4本のはずが", WHT, 98), ("2本だった鉄筋", YEL, 98)]
+BOT19 = [("98名犠牲", WHT, 82), ("12階が数秒で", RED, 136, 24)]
+EP19_PHOTO = TJ.SS_FACE        # NIST B-Roll #1 の 12.5秒：せん断した棟の断面（PD）＝A と同じ写真
+
+
+def ep19_b1():
+    """B1＝南から見た塔（本編 A1 の形）＋平らな赤の主役（立ったまま残った西の部分・崩れた真ん中と東のがれき）
+    ＋赤い矢印（落ちた12階＝白い点線の輪郭の中を下へ）＋赤枠の実写（A と同じ B-Roll #1 のコマ）。
+
+    🔴 本編に忠実に：西の部分は立ったまま（TR0002）・真ん中と東が崩れた（TR0001）・夜（午前1時22分＝夜空）。
+       人・窓の灯り・車は描かない（本編 A1 と同じ線）。がれきの山の高さと形は模式。
+    """
+    import illu as IL
+    s, X0, GY = 0.62, 70.0, 560.0
+    tx = lambda x: X0 + s * (x - IL.A1_X["w0"])
+    ty = lambda y: GY - s * (IL.A1_GY - y)
+    fh = IL.A1_FH * s
+    xw0, xw1, xe1, top = tx(IL.A1_X["w0"]), tx(IL.A1_X["w1"]), tx(IL.A1_X["e1"]), ty(IL.A1_TOP)
+    ex = (red_pattern("rt19") + kasure_mask() +
+          f'<clipPath id="gnd19"><rect x="0" y="{GY}" width="{W}" height="{H - GY}"/></clipPath>')
+    # 立ったまま残った西の部分（赤の平らな形）＋床の線13本＋暗い窓の列（灯りではない）＋屋上の階段室
+    #   右の辺＝崩れて切れた面（B-Roll のせん断した棟の断面＝右の差し込みの写真）＝ギザギザ＋垂れ下がった床（模式）
+    jag = [(xw1, top)] + [(xw1 - (9 if i % 2 else 2), top + (i + 0.5) * fh) for i in range(IL.A1_NFL + 1)] + [(xw1, GY)]
+    wpath = "M" + " L".join(f"{a:.1f},{b:.1f}" for a, b in [(xw0, top)] + jag + [(xw0, GY)]) + " Z"
+    hang = "".join(f'<path d="M{xw1 - 4:.1f},{GY - k * fh:.1f} L{xw1 + 10 + 4 * (k % 3):.1f},{GY - k * fh + 14 + 3 * (k % 2):.1f}" '
+                   f'stroke="url(#rt19)" stroke-width="6" stroke-linecap="round"/>' for k in (3, 6, 8, 11))
+    west = [f'<path d="{wpath}" fill="{SIL}" filter="url(#glow)" opacity="0.6"/>',
+            f'<path d="{wpath}" fill="url(#rt19)"/>', hang,
+            f'<rect x="{xw1 - 70 * s:.1f}" y="{top - 46 * s:.1f}" width="{62 * s:.1f}" height="{46 * s:.1f}" fill="url(#rt19)"/>']
+    n_bay = 4
+    bw = (xw1 - xw0) / n_bay
+    for k in range(IL.A1_NFL + 1):
+        y = GY - (k + 1) * fh
+        west.append(f'<path d="M{xw0:.1f},{y + fh:.1f} L{xw1 - 10:.1f},{y + fh:.1f}" stroke="#6e0000" stroke-width="2.5"/>')
+        if 0 < k < IL.A1_NFL:
+            for b in range(n_bay):
+                west.append(f'<rect x="{xw0 + b * bw + bw * 0.2:.1f}" y="{y + 5:.1f}" width="{bw * 0.6:.1f}" '
+                            f'height="{fh - 11:.1f}" fill="#5c0000"/>')
+    # 崩れた真ん中と東：元の輪郭（白い点線）＋がれきの山（模式）
+    #   左の辺は描かない（西の部分の切り口と重なって白い点がギザギザの間に見えた＝2巡目）
+    ghost = (f'<path d="M{xw1 + 4:.1f},{top:.1f} L{xe1:.1f},{top:.1f} L{xe1:.1f},{GY:.1f}" fill="none" '
+             f'stroke="#ffffff" stroke-width="4" stroke-dasharray="16 11" opacity="0.9"/>')
+    hx = [xw1 - 6, xw1 + 30, xw1 + 70, xw1 + 120, xw1 + 175, xw1 + 230, xw1 + 280, xw1 + 330, xe1 - 10, xe1 + 26]
+    hy = [GY - 3.6 * fh, GY - 2.7 * fh, GY - 3.3 * fh, GY - 2.4 * fh, GY - 3.0 * fh, GY - 2.2 * fh, GY - 2.8 * fh,
+          GY - 1.9 * fh, GY - 1.6 * fh, GY]
+    heap_pts = [(xw1 - 6, GY)] + list(zip(hx, hy)) + [(xe1 + 26, GY)]
+    heap = "M" + " L".join(f"{a:.1f},{b:.1f}" for a, b in heap_pts) + " Z"
+    slabs = "".join(f'<path d="M{a:.1f},{b:.1f} L{c:.1f},{d:.1f}" stroke="#6e0000" stroke-width="4"/>'
+                    for a, b, c, d in ((xw1 + 14, GY - 2.4 * fh, xw1 + 120, GY - 1.6 * fh),
+                                       (xw1 + 96, GY - 1.2 * fh, xw1 + 230, GY - 1.9 * fh),
+                                       (xw1 + 200, GY - 0.7 * fh, xe1 - 30, GY - 1.1 * fh),
+                                       (xw1 + 40, GY - 0.5 * fh, xw1 + 170, GY - 0.3 * fh)))
+    cx = (xw1 + xe1) / 2
+    g = [f'<image href="{night_sky(37)}" width="{W}" height="{H}"/>',
+         f'<image href="{uri(rock(seed=19))}" width="{W}" height="{H}" clip-path="url(#gnd19)"/>',
+         f'<path d="M0,{GY} L{W},{GY}" stroke="#ffffff" stroke-width="5"/>',
+         ghost, "".join(west),
+         f'<path d="{heap}" fill="{SIL}" filter="url(#glow)" opacity="0.6"/>',
+         f'<path d="{heap}" fill="url(#rt19)" stroke="#3a0000" stroke-width="3" stroke-linejoin="round"/>', slabs,
+         block_arrow(cx, top + 18, cx, GY - 3.0 * fh - 14),
+         inset(EP19_PHOTO, 860, 170, 360, 300, cx=0.40, cy=0.50, zoom=1.5, contrast=1.2, color=1.0, bright=0.95),
+         '<radialGradient id="vg" cx="0.5" cy="0.48" r="0.8"><stop offset="0.55" stop-color="#000" stop-opacity="0"/>'
+         '<stop offset="1" stop-color="#000" stop-opacity="0.55"/></radialGradient>'
+         f'<rect width="{W}" height="{H}" fill="url(#vg)"/>',
+         seg(TOP19, 40, 116, kasure="ks"),
+         seg(BOT19, 38, 689)]
+    bake("ep19_B1_docu", "".join(g), ex, out=OUT19)
+
+
 if __name__ == "__main__":
     only = [a for a in sys.argv if a.startswith("--only=")]
+    if "ep19" in sys.argv:
+        ep19_b1()
     keep = only[0].split("=", 1)[1].split(",") if only else ["a", "b1", "b2"]
     if "ep18" in sys.argv:
         if "a" in keep:

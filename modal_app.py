@@ -240,6 +240,14 @@ def full(note: str = "", ref: str = "main", workers: int = 8,
     clone(ref)
     env = f"ZUKAI_WORKERS={workers} "
 
+    # ⓪ ★実写「動画」を落として、必要なコマだけ切り出す（下の ③b から前へ移した＝Actions の render-jiko.yml と同じ順）。
+    #    🔴 2026-10-07（19本目 ⑥）：フリー素材のひかえの静止画（`ref/<回>/stock/fb_<cid>.jpg`）は git に入れない
+    #       （決め⑨）＝ここで切り出したコマの1枚目から作る（`footage.fetch`）。① の `--report` が先だと
+    #       「ref に実体が無い写真」で止まった（r01 の1回目・1秒で止まり焼いていない）。
+    #    🔴 動画はリポジトリに入れていないので、ここで URL から取る。
+    #    ⚠️ 取れなくても止めない。コマが無ければ build 側は**静止画に落ちる**（フリー素材はひかえが無い＝① で止まる）。
+    sh("python3 tools/footage.py", check=False)
+
     # ① 焼く前の机上検査（Actions と同じ3つ。ここで止まるならレンダする意味が無い）
     sh("python3 tools/scene_jiko.py --report")
     sh("python3 tools/check_layout.py", check=False)
@@ -256,10 +264,7 @@ def full(note: str = "", ref: str = "main", workers: int = 8,
     else:
         sh("python3 tools/check_mask.py", check=False)
 
-    # ③b ★実写「動画」を落として、必要なコマだけ切り出す（2026-08-01 追加）。
-    #     🔴 動画はリポジトリに入れていないので、ここで URL から取る。
-    #     ⚠️ 取れなくても止めない。コマが無ければ build 側は**静止画に落ちる**。
-    sh("python3 tools/footage.py", check=False)
+    # ③b 実写「動画」の切り出しは ⓪ へ移した（2026-10-07）
 
     # ④ レイヤー書き出し（SVG → PNG。Chrome headless）
     sh(env + "python3 tools/scene_jiko.py --force")
