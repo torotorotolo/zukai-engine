@@ -252,13 +252,7 @@
    }
   ],
   "ng_ranges": [],
-  "used_in": [
-   {
-    "ep": 19,
-    "cid": "c519",
-    "role": "本体（⑤b-1 で区間を選ぶ）"
-   }
-  ],
+  "used_in": [],
   "claims": [],
   "credit": "イメージ（フリー素材）：Pexels／Monsieur Sylvain",
   "fetched": "2026-10-06",
@@ -1196,5 +1190,89 @@
   "credit": "イメージ（フリー素材）：Pexels／Sergei Starostin",
   "fetched": "2026-10-06",
   "code19": "S#49"
+ },
+ "px_9721926": {
+  "site": "Pexels",
+  "page": "https://www.pexels.com/video/close-up-shot-of-water-dripping-from-rocks-9721926/",
+  "media": "https://videos.pexels.com/video-files/9721926/9721926-uhd_2732_1162_25fps.mp4",
+  "rendition": "2732x1162",
+  "md5": "3e84e2c60989057290f7e4ce8e4c6132",
+  "size": 6696717,
+  "w": 2732,
+  "h": 1162,
+  "fps": "25/1",
+  "sec": 10.0,
+  "title": "岩の張り出しから落ちるしずく",
+  "author": "KoolShooters",
+  "posted": "2021-09-29",
+  "license": "Pexels License",
+  "license_url": "https://www.pexels.com/license/",
+  "license_checked": "2026-10-07",
+  "ai": "Pexels は規約で生成AIの投稿を認めない（頁に AI の記載なし）",
+  "what": "岩の張り出しから落ちるしずく",
+  "place": "",
+  "era_note": "",
+  "ok_ranges": [
+   {
+    "from": 0.0,
+    "to": 10.0,
+    "ep": 19,
+    "how": "1秒1コマ（640px・2列×3行・qa_out/ep19_scan.py stock S#50）",
+    "faces": 0,
+    "text": 0,
+    "note": "0〜9.9秒は岩の張り出しからしずくが落ちる1本のショット（字・顔・商標なし・10-07 ⑤c'）。⚠️ 2.35:1＝全画面の箱（1.66〜1.98）に合わない＝使わない（c519 は px_4189573）"
+   }
+  ],
+  "ng_ranges": [],
+  "used_in": [],
+  "claims": [],
+  "credit": "イメージ（フリー素材）：Pexels／KoolShooters",
+  "fetched": "2026-10-07",
+  "code19": ""
+ },
+ "px_4189573": {
+  "site": "Pexels",
+  "page": "https://www.pexels.com/video/slow-motion-shot-of-a-water-droplet-falling-in-to-the-water-ponding-4189573/",
+  "media": "https://videos.pexels.com/video-files/4189573/4189573-hd_1280_720_30fps.mp4",
+  "rendition": "1280x720",
+  "md5": "2625223e7cded9b724aca346ea7e3a36",
+  "size": 9643124,
+  "w": 1280,
+  "h": 720,
+  "fps": "30/1",
+  "sec": 27.0,
+  "title": "水たまりに落ちるしずく（濡れたコンクリートの床）",
+  "author": "Христо Спасов",
+  "posted": "2020-04-19",
+  "license": "Pexels License",
+  "license_url": "https://www.pexels.com/license/",
+  "license_checked": "2026-10-07",
+  "ai": "Pexels は規約で生成AIの投稿を認めない（頁に AI の記載なし）",
+  "what": "水たまりに落ちるしずく（濡れたコンクリートの床）",
+  "place": "",
+  "era_note": "",
+  "ok_ranges": [
+   {
+    "from": 0.0,
+    "to": 12.0,
+    "ep": 19,
+    "how": "1秒1コマ（640px・2列×3行・qa_out/ep19_scan.py stock S#50）",
+    "faces": 0,
+    "text": 0,
+    "note": "0〜11秒は濡れたコンクリートの床の水たまりにしずくが落ちてはねる1本のショット（字・顔・商標なし・10-07 ⑤c'）"
+   }
+  ],
+  "ng_ranges": [],
+  "used_in": [
+   {
+    "ep": 19,
+    "cid": "c519",
+    "role": "本体 0〜11.6秒（10-07 ⑤c'・S#11 の配管から差し替え＝c520「配管ではなく」と逆だった）"
+   }
+  ],
+  "claims": [],
+  "credit": "イメージ（フリー素材）：Pexels／Христо Спасов",
+  "fetched": "2026-10-07",
+  "code19": "S#50"
  }
 }

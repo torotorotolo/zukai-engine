@@ -206,34 +206,6 @@
   "rights": "A推定",
   "scan": "out/jiko/foot/ep19_scan/PC.mp4"
  },
- "px_5571839": {
-  "url": "https://www.pexels.com/video/water-dripping-on-welded-metal-pipes-5571839/",
-  "media": "https://videos.pexels.com/video-files/5571839/5571839-hd_1920_1080_24fps.mp4",
-  "stock": true,
-  "file": "stock/media/px_5571839.mp4",
-  "credit": "イメージ（フリー素材）：Pexels／Monsieur Sylvain",
-  "src": "stock",
-  "at": 0.0,
-  "date": "2020-10-10",
-  "what": "溶接した金属の管に落ちる水",
-  "w": 1920,
-  "h": 1080,
-  "fps": 23.976023976023978,
-  "sar": "1:1",
-  "sec": 9.98,
-  "size": 6756160,
-  "md5": "5a7aa59bb3e0ab1cea8c0d3b34d0b34a",
-  "dispw": 1920,
-  "decoded": [
-   1920,
-   1080
-  ],
-  "license": "Pexels License",
-  "license_url": "https://www.pexels.com/license/",
-  "author": "Monsieur Sylvain",
-  "site": "Pexels",
-  "code19": "S#11"
- },
  "px_29880216": {
   "url": "https://www.pexels.com/video/water-cascading-over-weathered-concrete-edge-29880216/",
   "media": "https://videos.pexels.com/video-files/29880216/12828546_2560_1440_30fps.mp4",
@@ -513,6 +485,34 @@
   "author": "Sergei Starostin",
   "site": "Pexels",
   "code19": "S#49"
+ },
+ "px_4189573": {
+  "url": "https://www.pexels.com/video/slow-motion-shot-of-a-water-droplet-falling-in-to-the-water-ponding-4189573/",
+  "media": "https://videos.pexels.com/video-files/4189573/4189573-hd_1280_720_30fps.mp4",
+  "stock": true,
+  "file": "stock/media/px_4189573.mp4",
+  "credit": "イメージ（フリー素材）：Pexels／Христо Спасов",
+  "src": "stock",
+  "at": 0.0,
+  "date": "2020-04-19",
+  "what": "水たまりに落ちるしずく（濡れたコンクリートの床）",
+  "w": 1280,
+  "h": 720,
+  "fps": 30.0,
+  "sar": "1:1",
+  "sec": 27.0,
+  "size": 9643124,
+  "md5": "2625223e7cded9b724aca346ea7e3a36",
+  "dispw": 1280,
+  "decoded": [
+   1280,
+   720
+  ],
+  "license": "Pexels License",
+  "license_url": "https://www.pexels.com/license/",
+  "author": "Христо Спасов",
+  "site": "Pexels",
+  "code19": "S#50"
  },
  "px_11287848": {
   "url": "https://www.pexels.com/video/water-with-waves-11287848/",

@@ -131,7 +131,8 @@ SPEC = {
                    dict(state=dict(a3ceil="on"), delay=1.8, rec=A3R["ceil"],
                         tag=dict(t="天井の高さの変化", at="ceil", off=(140, 90))),
                    dict(state=dict(a3funnel="on"), delay=0.6, rec=A3R["water"],
-                        tag=dict(t="デッキの水", at="deck", off=(-60, -110), anchor="end"))])),
+                        # ⑤c'（10-07・原寸）：札の左上（x 432）が左上の「目撃した人の話にもとづく」の箱（〜449・〜182）の角に重なった＝右へ40
+                        tag=dict(t="デッキの水", at="deck", off=(-20, -110), anchor="end"))])),
     ),
     # c512（7.13秒）＝同じ柱の 2020年11月の写真（TR0135）。水の筋（2021年6月）は出さない＝時が違う
     "c512": dict(
@@ -188,7 +189,11 @@ SPEC = {
         fig=("m19", dict(view="gspan", start=dict(crack="on", sag="on"),
                          steps=[dict(tag=dict(t="床は落ちずに残った", at="ok")),
                                 dict(state=dict(share="on"), delay=0.3, tag=dict(t="隣の柱へ重さを渡す", at="share", to="adj")),
-                                dict(state=dict(dim="on"), delay=0.3, tag=dict(t="下がり 約2.5〜5センチ", d="NIST の見立て", at="dim", to="sag"))],
+                                # ⑤c'（10-07）：「〜」は幅に読める＝語り・欄外と同じ「か」（1 or 2 inches）。
+                                #    原寸：札（x 1000〜1351）の字が 11.1 の柱（1183〜1217）をまたいだ＝柱と柱のあいだは 306px しかない
+                                #    ＝主の字を数だけにし、「下がり」は小さい字へ・13.1 の柱（〜877）の右に置く
+                                dict(state=dict(dim="on"), delay=0.3,
+                                     tag=dict(t="約2.5か5センチ", d="下がり（NIST の見立て）", at=(905.0, 560.0, "start", 266.0), to="sag"))],
                          rel=[dict(t="2.5か5センチ", src="TR p1139（likely 1 or 2 inches）")],
                          note="下がりは大きく描いた模式（実際は約2.5か5センチ）", src=TR_SRC + "の語り")),
     ),
@@ -264,6 +269,8 @@ SPEC = {
                  photo=P("tf_p057_3d"), panel=True, color=1.0),
     "c516": dict(t="目撃した人の話", s="聞き取りの注記（縮尺は合っていない）",
                  photo=P("tf_p057_memo"), panel=True, color=1.0),
+    # ⑤c'（10-07）：上と左の端の写真の帯はスライド58 そのものの一部。下地の原図は引用＝額装（丸ごと・無加工）でしか使えない
+    #   （trim を足したら cuts/__init__ の額装の門番が止めた）＝据え置き
     "c520": dict(t="地下で見えた漏れ", s="付箋の注記と管財人の原図",
                  photo=P("tf_p058_note"), panel=True, color=1.0),
     # ── 🆕 ⑤b-8（2026-10-07）：決め所 ──

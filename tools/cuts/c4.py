@@ -124,7 +124,8 @@ SPEC = {
             dict(add=[ss.ax("rep", fmt="ym", anchor="end"), ss.ax("mtg"), ss.ax("m29"), ss.ax("letter"), ss.ax("bid"),
                       ss.ax("d13"), ss.ax("fall_d", fmt="ym", anchor="start")], cur="2021-06-24"),
             dict()],
-            note="会議の日は「崩れる13日前」の記録から置いた",
+            # ⑤c'（10-07）：資料が4つ＋注で出典の行が 16px に縮んだ＝注を短く（c415 は資料が2つ＝元の注のまま）
+            note="会議の日は記録の「13日前」",
             src=ss.src(["MC18 p4001", "MIN18 p4106", "GJ p3020・p3021", "A12 p5101"]))),
     ),
     # ── 🆕 ⑤b-6（2026-10-06）：書類の再現図（箱の型）・数の比べ（量の型 qty）──
@@ -165,7 +166,7 @@ SPEC = {
     "c411": ss.vid("c411"),
     "c402": dict(t="理事会が知っていたこと", s="節V の書き出しの段落",
                  photo=ss.page(3020), trim=ss.ptrim("c402"), bias=ss.pbias("c402"), panel=True, color=1.0),
-    "c407": dict(t="手入れの不足", s="技師の報告から読んだことの段落",
+    "c407": dict(t="手入れの不足", s="技術者の報告から読んだことの段落",     # ⑤c'：2018年の報告を書いた人は語りで「技術者」（c212・c308・c403）
                  photo=ss.page(3021), trim=ss.ptrim("c407"), bias=ss.pbias("c407"), panel=True, color=1.0),
     "c410": dict(t="動かなかった町", s="29か月の段落",
                  photo=ss.page(3021), trim=ss.ptrim("c410"), bias=ss.pbias("c410"), panel=True, color=1.0),

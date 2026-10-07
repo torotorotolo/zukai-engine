@@ -2705,5 +2705,33 @@
     "motion": 3.88
    }
   ]
+ },
+ "px_9721926": {
+  "src": "https://videos.pexels.com/video-files/9721926/9721926-uhd_2732_1162_25fps.mp4",
+  "scan": "ref/stock/media/px_9721926.mp4",
+  "dur": 10.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 10.17,
+    "fixed": "S#50：0〜9.9秒は岩の張り出しからしずくが落ちる1本＝2秒の跳びはしずくが落ちただけ（1秒1コマ stk_50_000・006 を目で見た・10-07 ⑤c'）"
+   }
+  ]
+ },
+ "px_4189573": {
+  "src": "https://videos.pexels.com/video-files/4189573/4189573-hd_1280_720_30fps.mp4",
+  "scan": "ref/stock/media/px_4189573.mp4",
+  "dur": 27.0,
+  "how": "1秒1コマを tools/shots.boundaries（2026-10-06 ⑤b-1・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 27.0,
+    "motion": 11.29,
+    "fixed": "S#50：0〜11秒は水たまりにしずくが落ちてはねる1本＝6秒の跳びは波紋が広がっただけ（1秒1コマ stk_50_000・006 を目で見た・10-07 ⑤c'）"
+   }
+  ]
  }
 }

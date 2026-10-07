@@ -104,7 +104,10 @@ SPEC = {
             place="A1", start=dict(a1deck="fell", a1mid="fell"), rec="TR p1417（真ん中の部分のほとんどが崩れた）",
             assume="推定（NIST の見立て）",
             steps=[dict(state=dict(a1sway=-32.0), delay=0.8, dur=1.6, rec=IL_REC["sway"],       # ⑤b-2 の下見：浮きを抑える（c620 と同じ）
-                        tag=dict(t="12階が西へ約53cm", at="east12", off=(-40, -90), anchor="end")),
+                        # ⑤c'（10-07）：「cm」はここだけ＝語りとほかの札の「センチ」にそろえた（門番 ㉒ も「センチ」を見る）。
+                        #   「12階が西へ約53センチ」は語り「12階が西へ約53センチ（21インチ）ずれた」の写し（echo）＝「cm」の綴りで
+                        #   門番を素通りしていただけ＝名詞の形に
+                        tag=dict(t="12階のずれ 約53センチ", at="east12", off=(-40, -90), anchor="end")),
                    dict(state=dict(cam=1.05), delay=0.2, dur=2.6, rec="TR p1422（揺れが下の階の柱の耐えられる限りを超えた）",
                         tag=dict(t="下の階の柱", at="heap", off=(160, -190)))])),
     ),
@@ -138,7 +141,8 @@ SPEC = {
                                           dict(t="床のコンクリート", d="設計の強さが低い", at="floor", to="floor")]),
                                 dict(state=dict(bar2="on"), delay=0.3, tag=dict(t="柱の約3分の2", at="ratio"))],
                          rel=[dict(t="3分の2", src="AC p2065（6000 psi・4000 psi）")],
-                         note="断面は NIST の図の形の模式（棒の長さは設計の強さの比）", src="NIST の諮問委員会の資料（2026年9月） p.65")),
+                         # ⑤c'（10-07）：頁の書き方を「PDF 65頁」（ss.src＝ほかの41か所と同じ）に
+                         note="断面は NIST の図の形の模式（棒の長さは設計の強さの比）", src=ss.src(["AC p2065"]))),
     ),
     # ca05（12.78秒＝0〜5.34／5.83〜8.85／9.34〜12.78）＝輪の形の鉄筋が無い・縦の鉄筋の詰め込み（TR0297・AC p.71・p.64）
     "ca05": dict(
@@ -148,7 +152,7 @@ SPEC = {
                                 dict(state=dict(buckle="on"), delay=0.3, tag=dict(t="縦の鉄筋が外へ曲がりやすい", at="buckle", to="bars")),
                                 dict(state=dict(dense="on"), delay=0.3, tag=dict(t="上限を超えて詰め込み", at="dense", to="bars"))],
                          note="鉄筋の本数と曲がりは模式（輪の形の鉄筋が無い高さは NIST の図）",
-                         src="NIST の諮問委員会の資料（2026年9月） p.64・p.71")),
+                         src=ss.src(["AC p2064・p2071"]))),
     ),
     # ca10（8.19秒＝0〜3.63／4.12〜8.19）＝あの夜も押しつぶされた（推定＝TR0312・0313）・今の決まりなら（AC p.73）
     "ca10": dict(
@@ -156,7 +160,7 @@ SPEC = {
         fig=("m19", dict(view="joint", start=dict(color="on", bars="on", ties="on"),
                          steps=[dict(state=dict(crush="on"), delay=0.3, tag=dict(t="押しつぶされた（推定）", at="crush", to="zone")),
                                 dict(tag=dict(t="今の決まりなら良くなり得た", at="code"))],
-                         note="推定（NIST の見立て）・つぶれ方は模式", src="NIST の諮問委員会の資料（2026年9月） p.73")),
+                         note="推定（NIST の見立て）・つぶれ方は模式", src=ss.src(["AC p2073"]))),
     ),
     # ca11（10.89秒＝0〜3.52／4.01〜8.27／8.76〜10.89）＝屋根が下がり柱の頭が突き出す（TR0362〜0368・TF p9137）
     "ca11": dict(

@@ -276,11 +276,16 @@ def _base(A, ticks, note, src):
     g.append(F.line(A.x0, ay, A.x1, ay, J.LINE, 5))
     g.append(F.arrow(A.x1 - 4, ay, A.x1 + 34, ay, J.LINE, 5))
     tk = []
+    prev = None
     for i, s in enumerate(ticks):
         x = A.x(s)
         lb, sub = _tick_lab(A.view, s)
-        if A.view == "date" and sub and not (i == 0 or lb in ("1月", "1日")):
-            sub = ""          # 月の目盛りの年は、最初と1月にだけ添える（日の目盛りの月は、最初と1日にだけ）
+        full = sub
+        # 🆕 19本目 ⑤c'（10-07）：月が替わった最初の目盛りにも添える。最初と1日だけだと、7月の目盛りが「6日・13日・20日」の cc17 で
+        #    「7月」がどこにも出ず、何月か分からなかった（1日の目盛りを持つ c714 は「1日 7月」）
+        if A.view == "date" and sub and not (i == 0 or lb in ("1月", "1日") or sub != prev):
+            sub = ""          # 月の目盛りの年は、最初と1月と年が替わった所にだけ添える（日の目盛りの月は、最初と1日と月が替わった所にだけ）
+        prev = full
         g.append(F.line(x, ay - 12, x, ay + 12, J.LINE_DIM, 3))
         g.append(F.txt(x, ay + 48, lb, 30, J.TICK, "Noto", "middle", ol=6))
         if sub:

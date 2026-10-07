@@ -452,10 +452,12 @@ def model_base(st0):
     park, deck = IL._a2_zone_fp()
     w, m, e = IL._a2_tower_fp()
     g = _top_bg() + [_tz(w, A1_COL["west"], op=0.5), _tz(m, A1_COL["mid"], op=0.5), _tz(e, A1_COL["east"], op=0.5)]
-    for z, c in ((park, COL["purple"]), (deck, COL["green"])):
+    # 🔴 ⑤c'（10-07）：紫・緑・薄紫（NIST のスライドの色）は凡例が無く、意味が画面に無かった（c807 は1行 4秒＝凡例を足す間が無い）
+    #    ＝同じ所を名前つきで見せた c208・c209（敷地の並び・A2 の色）と同じ色にそろえた（駐車場＝灰茶・デッキ＝灰青・ロビー＝薄茶）
+    for z, c in ((park, IL.A2_COL["park"]), (deck, IL.A2_COL["deck"])):
         g.append(_tz(z, c))
         g += _mesh([tp(*p) for p in z if True])
-    g.append(_trect(MODEL_LOBBY, COL["lav"], COL["dark"], 2))
+    g.append(_trect(MODEL_LOBBY, IL.A2_COL["lobby"], COL["dark"], 2))
     a, b = tp(MODEL_LOBBY[0], MODEL_LOBBY[1]), tp(MODEL_LOBBY[2], MODEL_LOBBY[3])
     g += _mesh([a, b])
     return g
@@ -970,6 +972,17 @@ def joint_parts(st):
         b = (24.0 if k in (0, 3) else 14.0) * out_ if bk else 0.0
         pts = [(x, JO["top"] + 6 + crush), (x, JO["f0"] + crush), (x + b, (JO["f0"] + JO["f1"]) / 2), (x, JO["f1"]), (x, JO["bot"] - 6)]
         out.append(_P(f"lbar{k}", "line", pts, stroke=COL["bar"], w=6, alpha=bars))
+    # 🔴 ⑤c'（10-07・原寸 ca10）：始めの状態で描く上の柱の輪の鉄筋（JO_TIES の上3本）と、押しつぶしのひびの赤い印（joint_stage）は
+    #    **動く部品（上の柱 colA・継ぎ目 jz）の下**に隠れていた＝ca10 の上の柱だけ輪の鉄筋が消え（ca05 にはある）、ひびも床の端の
+    #    切れ端しか見えず「押しつぶされた（推定）」が絵に出ていなかった＝どちらも部品として上に描く（柱と一緒に crush の分だけ下がる）
+    tie = 1.0 if st["ties"] == "on" else 0.0
+    for k, y in enumerate(JO_TIES[:3]):
+        out.append(_P(f"utie{k}", "line", [(c - h + 10, y + crush), (c + h - 10, y + crush)], stroke=COL["bar"], w=5, alpha=tie))
+    ck = 1.0 if crush else 0.0
+    out.append(_P("crk0", "line", [(c - h - 10, JO["f0"] + 46), (c - h + 30, JO["f0"] + 66), (c - h + 10, JO["f0"] + 90)],
+                  stroke=COL["red"], w=4, alpha=ck))
+    out.append(_P("crk1", "line", [(c + h + 10, JO["f0"] + 50), (c + h - 30, JO["f0"] + 74), (c + h - 8, JO["f0"] + 98)],
+                  stroke=COL["red"], w=4, alpha=ck))
     return out
 
 
@@ -1699,7 +1712,9 @@ TAG_AT = dict(
     dmg=dict(leak=(R_, 380.0, "start", 330.0), gate=(L_, 480.0, "start", 330.0), planter=(L_, 640.0, "start", 330.0),
              water=(R_, 600.0, "start", 330.0), leak2=(R_, 470.0, "start", 330.0)),
     sight=dict(vis=(R_, 600.0, "start", 330.0), lobby=(L_, 330.0, "start", 330.0), sound=(L_, 440.0, "start", 330.0)),
-    code=dict(red=(R_, 360.0, "start", 330.0), yel=(R_, 470.0, "start", 330.0), orig=(L_, 760.0, "start", 330.0)),
+    # ⑤c'（10-07・geom_gap）：赤の引き出し線が通りの番号「9.1」の右下を、黄の線が「11.1」の下の端（1.3px）をかすめた＝札を下げて
+    #    線を番号のあいだ（9.1 と 11.1・11.1 と 13.1）に通す
+    code=dict(red=(R_, 400.0, "start", 330.0), yel=(R_, 500.0, "start", 330.0), orig=(L_, 760.0, "start", 330.0)),
     model=dict(calc=(R_, 600.0, "start", 330.0), nist=(L_, 330.0, "start", 330.0)),
     cam=dict(unit=(1250.0, 420.0, "start", 560.0), clock=(1250.0, 560.0, "start", 560.0), l8=(1250.0, 700.0, "start", 560.0)),
     # layout：上だと引き出し線が「通り」の字を横切った＝eye を下げる
@@ -1729,7 +1744,8 @@ TAG_AT = dict(
     # 柱（330〜850）を横切らない＝E と H のあいだ（617〜1043）・D と E のあいだ（317〜583）に置く
     zoneb=dict(zone=(630.0, 380.0, "start", 400.0), one=(630.0, 455.0, "start", 400.0), two=(325.0, 455.0, "start", 250.0),
                bar=(630.0, 650.0, "start", 400.0)),
-    rubble=dict(bld=(760.0, 330.0, "start", 560.0), watch=(1100.0, 480.0, "start", 560.0)),
+    # ⑤c'（10-07・geom_gap）：小さい字「捜索の安全のため」（y 494〜514）の上を見張りの点線（y 約504〜519）が横切った＝札を上へ
+    rubble=dict(bld=(760.0, 330.0, "start", 560.0), watch=(1100.0, 430.0, "start", 560.0)),
     # 鋼の板と打つ機械（x 530〜590・y 240〜470）を横切らない
     excav=dict(pit=(110.0, 430.0, "start", 400.0), pile=(780.0, 330.0, "start", 640.0), dist=(780.0, 400.0, "start", 640.0),
                wave=(780.0, 330.0, "start", 640.0), damp=(780.0, 330.0, "start", 640.0), joint=(780.0, 400.0, "start", 640.0)),
@@ -1802,7 +1818,9 @@ def _stage_svgs(view, steps, start, states, cap=34):
             c = tg.get("cap", cap)
             if tg.get("to"):
                 tx, ty = an[tg["to"]] if isinstance(tg["to"], str) else tg["to"]
-                sy = y - round(c * 0.9) if ty < y - c else y + 8
+                # 🔴 ⑤c'（10-07・geom_gap）：下へ引く線は札のベースライン＋8 から出ていた＝小さい字（d）を貫いた
+                #    （c710「捜索の安全のため」の左の字）＝d があるときは d の下から引く
+                sy = y - round(c * 0.9) if ty < y - c else y + 8 + (round(c * 0.95) if tg.get("d") else 0)
                 sx = x if anchor == "start" else (x - mw / 2 if anchor == "middle" else x)
                 s.append(F.line(sx, sy, tx, ty, J.AMBER, 2))
             s.append(F.txtfit(x, y, tg["t"], mw, cap=c, col=tg.get("col", J.AMBER), anchor=anchor))

@@ -1276,7 +1276,7 @@ REC_A1 = dict(
     story_m=33.8 / 12.0,      # TF p3「12 stories 110'-10" (33.8 m)」＝1階の高さ
     drop_m=2.54,              # TR0318「about 100 inches or approximately one story height」
     drop_tag="約2.5m",        # 札に出してよい言い方（台本 c618 と同じ）
-    drift_tag="約53cm",       # TR0421「the 12th floor has moved west about 21 inches」（台本 ca18）
+    drift_tag="約53センチ",   # TR0421「the 12th floor has moved west about 21 inches」（台本 ca18）。⑤c'（10-07）：cm→センチ（語りとほかの札にそろえた）
     sway_max=60.0,            # 揺れを大きく描く上限（画素・模式＝左下の断りと一緒に）
 )
 
@@ -1320,11 +1320,12 @@ def judge_a1(sc, where):
     for i, tg in enumerate(sc["tags"]):
         for t in tg["texts"]:
             n += 1
-            for m_ in re.finditer(r"約?\d+(?:\.\d+)?\s*(m|cm)(?![a-zA-Z])", t):
+            # ⑤c'（10-07）：札を「センチ」に替えたので式にも「センチ」を足した（cm だけ探すと札の言い方を見なくなる＝門番をかわす綴り）
+            for m_ in re.finditer(r"約?\d+(?:\.\d+)?\s*(m|cm|センチ)(?![a-zA-Z])", t):
                 ok = REC_A1["drop_tag"] if m_.group(1) == "m" else REC_A1["drift_tag"]
                 if m_.group(0).replace(" ", "") != ok:
                     bad.append(f"㉒{where}：札「{t}」の {m_.group(0)}＝記録の言い方は「{ok}」だけ")
-                if m_.group(1) == "cm" and float(sc["states"][i]["a1sway"]) == 0.0:
+                if m_.group(1) in ("cm", "センチ") and float(sc["states"][i]["a1sway"]) == 0.0:
                     bad.append(f"㉒{where}：札「{t}」（12階のずれ）を揺れていない段に出した")
     if any(float(st["a1sway"]) != 0.0 for st in allst):
         n += 1
@@ -2500,7 +2501,7 @@ def selftest_a1():
     good = IL.scene("A1", [dict(state=dict(a1mid="drop"), rec="TR p1318",
                                 tag=dict(t="約2.5m（ほぼ1階分）", at="roof_mid")),
                            dict(state=dict(a1mid="fall"), rec="TR p1363"),
-                           dict(state=dict(a1sway=-40.0), rec="TR p1421", tag=dict(t="12階が西へ約53cm", at="east12")),
+                           dict(state=dict(a1sway=-40.0), rec="TR p1421", tag=dict(t="12階のずれ 約53センチ", at="east12")),
                            dict(state=dict(a1east="fall"), rec="TR p1424")], rec="TR p1330")
     b, _ = judge_a1(good, "selftest")
     print(f"  {'OK' if not b else '🔴 NG'} 正しい A1（下がる→真ん中→揺れ→東）: {'合格' if not b else '不合格'}（合格のはず）"

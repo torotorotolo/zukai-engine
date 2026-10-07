@@ -130,7 +130,8 @@ SPEC = {
                          steps=[dict(state=dict(crack="on"), delay=0.3, tag=dict(t="柱のまわりの斜めのひび", at="crack", to="crack")),
                                 dict(state=dict(crack="wide", gauge="on"), delay=0.3,
                                      tag=dict(t="ひびの幅が限界に届くと壊れる", at="wide", to="crack")),
-                                dict(tag=dict(t="欧州の基準の元の理論", at="code"))],
+                                # ⑤c'（10-07）：語り「ヨーロッパの決まりの…もとになった理論」にそろえた（画面の「基準」は c814・c902・c905 だけだった）
+                                dict(tag=dict(t="ヨーロッパの決まりのもとの理論", at="code"))],
                          note=PU_NOTE, src=TR_SRC + "の語り")),
     ),
     # ── 🆕 ⑤b-6（2026-10-06）：流れ図（箱の型）・2本の線（模式図 m19 の curve＝NIST のグラフの型・数は出さない）──

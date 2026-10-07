@@ -474,7 +474,7 @@ USE = {
     "c106": dict(clip="B7", start=41.50, until=46.20, rate=0.87),   # #6（41〜46秒）・使える 4.70秒（41.5〜46.2）／要る 5.38秒
     "c106~t": dict(clip="B5", start=28.60, until=38.30, rate=1.0, tail=True),   # #4（28〜38秒）・使える 9.70秒（28.6〜38.3）／要る 8.45秒
     "c201": dict(clip="px_8060076", start=0.00, until=9.70, rate=0.96),   # #0（0〜17秒）・使える 9.70秒（0〜9.7）／要る 10.03秒
-    "c202": dict(clip="B1", start=7.40, until=9.90, rate=0.74, head=True, zoom=1.68, xbias=0.02, bias=0.42),   # #1（7〜10秒）・使える 2.50秒（7.4〜9.9）／要る 3.37秒
+    "c202": dict(clip="B1", start=7.40, until=9.90, rate=0.74, head=True, zoom=1.68, xbias=0.02, bias=0.35),   # #1（7〜10秒）・使える 2.50秒（7.4〜9.9）／要る 3.37秒
     "c213": dict(clip="B2", start=44.00, until=51.90, rate=1.0),   # #10（44〜52秒）・使える 7.90秒（44〜51.9）／要る 7.30秒
     "c301": dict(clip="B7", start=94.20, until=104.00, rate=0.78),   # #17（94〜104秒）・使える 9.80秒（94.2〜104）／要る 12.47秒
     "c308": dict(clip="px_7829491", start=1.00, until=10.70, rate=0.9),   # #0（0〜30秒）・使える 9.70秒（1〜10.6986）／要る 10.76秒
@@ -485,7 +485,7 @@ USE = {
     "c411": dict(clip="px_7830155", start=1.00, until=9.38, rate=1.0),   # #0（0〜28秒）・使える 8.38秒（1〜9.38356）／要る 8.28秒
     "c417": dict(clip="B1", start=198.00, until=203.50, rate=0.63),   # #15（197〜204秒）・使える 5.50秒（198〜203.5）／要る 8.64秒
     "c510": dict(clip="px_29880216", start=1.00, until=9.88, rate=0.98),   # #0（0〜30秒）・使える 8.88秒（1〜9.87671）／要る 8.98秒
-    "c519": dict(clip="px_5571839", start=0.00, until=9.98, rate=0.86),   # #0（0〜10秒）・使える 9.98秒（0〜9.98）／要る 11.53秒
+    "c519": dict(clip="px_4189573", start=0.00, until=11.60, rate=1.0),   # #0（0〜27秒）・使える 11.60秒（0〜11.6）／要る 11.53秒
     "c526": dict(clip="px_11287848", start=1.00, until=8.20, rate=0.92),   # #0（0〜30秒）・使える 7.20秒（1〜8.2）／要る 7.82秒
     "c606": dict(clip="TFV", start=1870.00, until=1878.40, rate=1.0),   # #99（1864〜1944秒）・使える 8.40秒（1870〜1878.4）／要る 8.10秒
     "c623": dict(clip="B1", start=116.75, still=True, until=117.75),   # #11（114〜120秒）・使える 3.50秒（115〜118.5）／要る 6.24秒
@@ -973,8 +973,8 @@ def probe_media(url, timeout=45):
                 why = f"Content-Type が `{ct or '空'}`＝動画でない（頁を渡している）"
             elif ln < 1_000_000:
                 why = f"Content-Length {ln} が小さすぎる＝媒体でない"
-            elif "bytes" not in ar:
-                why = f"Accept-Ranges が `{ar or '空'}`＝区間だけ読めない"
+            elif "bytes" not in ar and not range_ok(url, timeout):
+                why = f"Accept-Ranges が `{ar or '空'}`＝区間だけ読めない（Range の GET も 206 を返さない）"
             else:
                 why = None
             return why, ln
@@ -983,6 +983,26 @@ def probe_media(url, timeout=45):
             if attempt == 0:
                 time.sleep(5)
     return why, ln
+
+
+def range_ok(url, timeout=45):
+    """見出しに `Accept-Ranges: bytes` が無いとき、`Range: bytes=0-1` の GET で **206 が返るか**を実際に試す（本文は2バイトだけ読む）。
+
+    🆕 2026-10-07（19本目 ⑤c'）：Kaltura（cdnapisec の playManifest → CDN）は **Actions の機械からの HEAD にだけ**
+       Accept-Ranges を付けなかった（焼き ep19_c1at が 02:50〜03:26 UTC の5回とも TL・TLS で止まった・手元の HEAD は `bytes`）。
+       見出しだけで「区間だけ読めない」と決めると、取れる映像を止める＝実際に区間を頼んで確かめる。
+       ⚠️ 媒体は `download_media` が1回の GET で丸ごと落とす＝ここは「区間を頼める媒体か」の確かめだけ。
+       ⚠️ 転送先へ飛ぶとき urllib は Range の見出しを持ち越す（落とすのは Content-* だけ）。
+       ⚠️ **外に出る口**＝`--selftest` は probe_media ごと差し替える（ここは呼ばれない）。
+    """
+    try:
+        rq = urllib.request.Request(url, headers={"User-Agent": UA, "Range": "bytes=0-1"})
+        with urllib.request.urlopen(rq, timeout=timeout) as r:
+            ok = r.status == 206 or (r.headers.get("Content-Range") or "").startswith("bytes 0-1/")
+            r.read(2)
+            return ok
+    except Exception:                                         # noqa: BLE001
+        return False
 
 
 _MEDIA = {}                     # URL → ffmpeg に渡す入力（1回の実行で同じ媒体を二度落とさない）

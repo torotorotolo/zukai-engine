@@ -5599,7 +5599,7 @@ def _a1_note(st0, states):
     allst = [st0] + list(states)
     note = ["形は NIST の3D から・大きさと配置は模式・人と窓の灯りは描かない"]
     if any(float(st["a1sway"]) != 0.0 for st in allst):
-        note.append("揺れの幅は大きく描いた（実際は12階で約53cm）")
+        note.append("揺れの幅は大きく描いた（実際は12階で約53センチ）")     # ⑤c'（10-07）：cm→センチ（語りとほかの札にそろえた）
     if any(st["a1mid"] in ("fall", "fell") or st["a1east"] != "on" for st in allst):
         note.append("崩れ方は NIST の読み（映像から）・がれきの形は模式")
     return "・".join(note)
@@ -6556,7 +6556,8 @@ def _a5_anchors(st):
 
 
 def _a4_note(st0, states):
-    return "建物の形は模式・名前は出さない・人は描かない"
+    # ⑤c'（10-07）：「名前は出さない」を外した＝直前の cc08 の語りが建物の名（クレストビュー・タワーズ）を出すので食い違って読めた
+    return "建物の形は模式・人は描かない"
 
 
 def _a5_note(st0, states):
@@ -6631,7 +6632,9 @@ def overlay_svg(view, src, assume="", inset=None, timed=False):
     if src:
         s = fm.fit(src, 1500, "Noto", cap=22, floor=15)
         lines = [src]
-        if fm.width(src, s) > SRC_W:
+        # 🆕 19本目 ⑤c'（10-07）：1行のまま 15〜16px まで縮んでいた（c620・ca18 15px・c609 16px＝ほかの出典の行は 22〜26px）
+        #   ＝18px を割るときも「／」で2行に割る
+        if fm.width(src, s) > SRC_W or (s < 18 and "／" in src):
             # 🆕 16本目 ⑤b-3：断面（VB・VC）の出典は資料と断りが多く、いちばん小さい字でも右の端（1848）を越えた（layout）
             #   ＝越えるときだけ「／」の切れ目で2行に（幅のそろう所で割る・語の途中で割らない）。1行で収まる回は前と同じ
             seg = src.split("／")

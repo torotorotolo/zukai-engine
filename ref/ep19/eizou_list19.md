@@ -155,7 +155,7 @@ tags: [project/jiko-kensho, ep19]
 | c516 | 11:25.5 +8.1 | 頁 | 図 p57 TF のスライド57（聞き取りの図と手書きの注記の画像・札「目撃した人の聞き取りの注記（縮尺は合っていない）」） |  |  |  |  | 「聞き取りから起こした図には、手書きの注記が添えら…」 |
 | c517 | 11:33.5 +7.1 | 決め所 | quote（決め所） |  |  | 自作 |  | 「注記の4インチは、約10センチ。はがきの短い辺く…」 |
 | c518 | 11:40.6 +8.5 | 再現イラスト | 図 再現イラスト A2 の地【上から】プランターと床の隙間の位置 |  |  | 自作 |  | 「隙間は、崩れる約11時間前にも、同じ広さのまま見…」 |
-| c519 | 11:49.2 +11.2 | フリー素材 | S#11（錆の染みの配管に水がしたたる） |  | イメージ | Pexels License | イメージ | 屋内の配管＝駐車場の天井ではない／「隙間のほかにも、何か起きていたの？約9時間前には…」 |
+| c519 | 11:49.2 +11.2 | フリー素材 | S#50（水たまりに落ちるしずく） |  | イメージ | Pexels License | イメージ | 10-07 ⑤c'：S#11（配管に水がしたたる）から差し替え＝次の c520 の付箋「配管ではなく、天井からの漏れ」と逆のことを絵で言っていた／「隙間のほかにも、何か起きていたの？約9時間前には…」 |
 | c520 | 12:00.3 +8.2 | 頁 | tf_p058_note（付箋） |  | NIST のスライド58（付箋は聞き取りの注記・下地は管財人の原図） | A＋第三者（原図） |  | 紙面の引用（頁ごと・額装・無加工・出典に CTS Receiver）か付箋だけに切り直す／「この話は、黄色い付箋の注記にまとめられている。「…」 |
 | c521 | 12:08.5 +8.1 | 図 | 図 模式図【横から】しずく → 蛇口（時間の帯：9時間前 → 3時間前） |  |  | 自作 |  | 「漏れは、だんだんひどくなった。崩れる約3時間前に…」 |
 | c522 | 12:16.6 +6.7 | 図 | 図 模式図【上から】傷みの地図（3週間前・1週間前・17時間前・11時間前・9時間前・3時間前の点） |  |  | 自作 |  | 「この漏れの辺りは、何年も前から、漏れては直してき…」 |
@@ -400,7 +400,7 @@ tags: [project/jiko-kensho, ep19]
 | S#8 | フリー素材 | c411 | px_7830155.mp4 | https://www.pexels.com/video/a-crack-on-the-wall-7830155/ | 3840x2160 | 28 | ? | Pexels License |
 | N#10 | 写真 | c419 | n10_column_before.jpg | https://www.nist.gov/sites/default/files/images/2021/08/25/KAM_3717%28July6th%29.JPG | 6720x4480 | — | 9.48 | A |
 | S#12 | フリー素材 | c510 | px_29880216.mp4 | https://www.pexels.com/video/water-cascading-over-weathered-concrete-edge-29880216/ | 3840x2160 | 30 | ? | Pexels License |
-| S#11 | フリー素材 | c519 | px_5571839.mp4 | https://www.pexels.com/video/water-dripping-on-welded-metal-pipes-5571839/ | 1920x1080 | 10 | ? | Pexels License |
+| S#50 | フリー素材 | c519 | px_4189573.mp4 | https://www.pexels.com/video/slow-motion-shot-of-a-water-droplet-falling-in-to-the-water-ponding-4189573/ | 1280x720 | 27 | 9.6 | Pexels License |
 | tf_p058_note | 頁 | c520 | ref/surfside/tf_p058_note.jpg | 既出 | — | — | — | A＋第三者（管財人の原図） |
 | N#13 | 写真 | c524 | n13_laydown.jpg | https://www.nist.gov/sites/default/files/images/2021/08/25/NIST%20team%20July2.jpg | 2800x1477 | — | 3.72 | A |
 | S#6 | フリー素材 | c526 | px_11287848.mp4 | https://www.pexels.com/video/water-with-waves-11287848/ | 3840x2160 | 30 | ? | Pexels License |
@@ -455,6 +455,6 @@ tags: [project/jiko-kensho, ep19]
 | P3 | 写真 | （代わり） | p3_panoramio_2013.jpg | https://commons.wikimedia.org/wiki/File:Looking-down-the-beach.jpg_-_panoramio.jpg | 2500x1667 | — | 0.98 | CC BY 3.0 |
 | S#27 | フリー素材 | （代わり） | px_9431584.mp4 | https://www.pexels.com/video/an-apartment-building-at-night-9431584/ | 1920x1080 | 11 | ? | Pexels License |
 
-- MB の合計（測れた物だけ・元の画質）：映像 5051・写真 117・NIST の動く図 1705／代わり 1.3（3 点）
+- MB の合計（測れた物だけ・元の画質）：映像 5051・写真 117・フリー素材 10・NIST の動く図 1705／代わり 1.3（3 点）
 - 軽い道（決め⑧）：1秒1コマの走査は幅1920前後の版（NIST の記録映像と点群 計 約625MB＋技術的知見の動画 796MB）・使う秒だけ元の画質から切り出す・写真とフリー素材（幅1920の版）を足して 約2GB
 

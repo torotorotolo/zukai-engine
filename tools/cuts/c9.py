@@ -93,7 +93,7 @@ SPEC = {
     # ── 🆕 ⑤b-4（2026-10-06）：模式図（`tools/mech19.py`・門番 check_mech の judge_m19）──
     # c902（11.50秒＝0〜3.14／3.63〜6.66／7.15〜11.50）＝2つの物差し（TR0213・0214）
     "c902": dict(
-        t="設計の確かめ", s="基準は2つ",
+        t="設計の確かめ", s="決まりは2つ",      # ⑤c'（10-07）：語りは全部「決まり」（「物差しは2つ」は語りの複写＝echo）
         fig=("m19", dict(view="ruler",
                          steps=[dict(state=dict(rul="on"), delay=0.3,
                                      tag=[dict(t="建てた当時の決まり", at="old", to="old"), dict(t="今の決まり", at="new", to="new")]),
@@ -112,9 +112,12 @@ SPEC = {
     ),
     # c905（7.69秒＝0〜4.22／4.71〜7.69）＝決まりからの外れ・決まりの限界（TR0279）
     "c905": dict(
-        t="弱さの理由", s="設計と基準",
+        t="弱さの理由", s="設計と決まり",      # ⑤c'（10-07）：語りの「決まり」にそろえた
         fig=("m19", dict(view="ruler", start=dict(rul="on", short="on"),
-                         steps=[dict(state=dict(gap="on"), delay=0.3, tag=dict(t="設計の大きな外れ", at="gap", to="gap")),
+                         # ⑤c'（10-07）：2本の物差しの札が c902 にしか無く、c905 では何の物差しか画面で分からなかった＝c902 と同じ札を1行目に
+                         steps=[dict(state=dict(gap="on"), delay=0.3,
+                                     tag=[dict(t="設計の大きな外れ", at="gap", to="gap"),
+                                          dict(t="建てた当時の決まり", at="old", to="old"), dict(t="今の決まり", at="new", to="new")]),
                                 dict(state=dict(limit="on"), delay=0.3, tag=dict(t="決まりの限界", at="limit", to="limit"))],
                          note=RU_NOTE, src=TR_SRC + "の語り")),
     ),
@@ -134,7 +137,10 @@ SPEC = {
         t="小さなずれ", s="床と継ぎ目への影響",
         fig=("m19", dict(view="cover", start=dict(dwg="on", real="on"),
                          steps=[dict(tag=dict(t="数センチの違い", at="diff")),
-                                dict(state=dict(weak="on"), delay=0.3, tag=dict(t="床と継ぎ目の強さが下がる", at="weak", to="weak"))],
+                                # ⑤c'（10-07・原寸）：左下の札から右上の矢印の根元（1780,470）へ引いた線が床の断面を斜めに横切り、ひびに見えた
+                                #    ＝札を矢印の真下（右寄せ・x 1392〜1800）へ・線は矢印の先（y 約640）へ短く
+                                dict(state=dict(weak="on"), delay=0.3,
+                                     tag=dict(t="床と継ぎ目の強さが下がる", at=(1800.0, 820.0, "end", 520.0), to=(1780.0, 652.0)))],
                          note=CV_NOTE + "・黄色の幅＝鉄筋から床の下の面まで", src=TR_SRC + "の語り")),
     ),
     # c911（13.70秒＝0〜5.20／5.69〜10.37／10.86〜13.70）＝柱の真上の本数（TF p9085＝4本でなく2本）・間隔 20〜40%（TR0229）・強さ（TR0230）
@@ -144,7 +150,10 @@ SPEC = {
                          steps=[dict(state=dict(real="on", over="on"), delay=0.3,
                                      tag=[dict(t="図面：真上に4本", at="dwg", to="dwg"), dict(t="実際の例：真上に2本", at="real", to="real")]),
                                 dict(state=dict(space="on"), delay=0.3, tag=dict(t="間隔：約20〜40%広い", at="space")),
-                                dict(state=dict(weak="on"), delay=0.3, tag=dict(t="強さ↓（床・継ぎ目）", at="weak", to="weak"))],
+                                # ⑤c'（10-07・原寸）：c908 と同じ＝左下の札から矢印の根元（1640,420）への線が鉄筋の格子を斜めに横切った
+                                #    ＝札を右下（右寄せ・格子の枠の下 約760 より下）へ・線は矢印の先（y 約620）へ
+                                dict(state=dict(weak="on"), delay=0.3,
+                                     tag=dict(t="強さ↓（床・継ぎ目）", at=(1848.0, 830.0, "end", 400.0), to=(1640.0, 632.0)))],
                          rel=[dict(t="4本・2本", src="TF p9085（only 2 rather than 4 top bars）"),
                               dict(t="20から40%", src="TR p1229（about 20% to 40% wider）")],
                          note="鉄筋の本数（片側の向き）と間隔の比は記録の値・柱の大きさは模式", src=TR_SRC + "の語りとスライド")),

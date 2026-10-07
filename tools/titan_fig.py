@@ -946,7 +946,11 @@ def quote(phrase, who="", when="", doc="", ctx="", to="", size=104, rows=None,
     px0 = card_x + card_w + 70
     pw = BX1 - px0
     g.append(txt(px0, BY0 + 150, "「", 120, J.ALERT_DIM, "Noto"))
-    g.append(txt(BX1 - 46, BY1 - 40, "」", 120, J.ALERT_DIM, "Noto", "end"))
+    # 🔴 2026-10-07（19本目 ⑤c'）：閉じかぎ「」」は骨格（g）でなく**決め所の段**に入れる。骨格は右端まで尺の 62% をかけてワイプで出る
+    #    ので、語りが引用1行だけのカット（c404 c416 c904 ca14＝尺 約5秒）では、かぎが**声が終わってから約0.7秒あと**に出ていた
+    #    （骨格の出そろい 3.3秒・段の出そろい 2.6秒）。検品画像（2.5秒）にも写らない。段に入れれば、どのカットでも
+    #    **最後の行を読み終えるのと同時に閉じる**（2行以上のカットは骨格が先に出そろっていた＝閉じるのが段の途中だった）
+    close_q = txt(BX1 - 46, BY1 - 40, "」", 120, J.ALERT_DIM, "Noto", "end")
     lines = quote_lines(phrase, 10) if isinstance(phrase, str) else list(phrase)
     # 決め所は**枠の縦を使い切る大きさ**にする。1行なら大きく、行数が増えたら詰める
     size = min(size, int((BH - 150) / max(1, len(lines)) / 1.34))
@@ -959,7 +963,7 @@ def quote(phrase, who="", when="", doc="", ctx="", to="", size=104, rows=None,
     # ⚠️ 行に分けても**1つの段にまとめる**（分けると時間差表示に戻る）
     block = "".join(txtfit(px0 + 78, top + i * lh, ln, pw - 130, cap=size,
                            col=J.INK_W)
-                    for i, ln in enumerate(lines))
+                    for i, ln in enumerate(lines)) + close_q
     # 骨格（出どころの札）は、決め所が出るまでのあいだ**ゆっくり描く**。
     # 既定の 0.30 だとカットの前半で描き終わり、そのあと画が止まる。
     return Fig("".join(g), [block],
@@ -1940,8 +1944,11 @@ def panel(blocks, lead="", note="", cols=3):
             #    → 1段のときだけ、罫を**中身の高さ**に合わせて中央へ置く。
             barh = h - 22 if n > 1 else min(h - 22, max(bs_all, 96) * 2.2)
             bary = y if n > 1 else y + h * 0.52 - barh * 0.55
+            # 🔴 2026-10-07（19本目 ⑤c'・cc30）：1段のとき**罫だけ枠の底（y+h-22）に残っていた**＝真ん中に寄せた行と色の縦線から
+            #    離れて浮いた線になった。複数段は「色の縦線の下の端＝罫」なので、1段も色の縦線の下の端に罫を引く
+            ry = y + h - 22 if n > 1 else bary + barh
             s = [rect(BX0, bary, 9, barh, c),
-                 line(BX0, y + h - 22, BX1, y + h - 22, J.LINE_DIM, 2)]
+                 line(BX0, ry, BX1, ry, J.LINE_DIM, 2)]
             if b.get("k"):
                 s.append(txt(BX0 + 34, y + h * 0.52, b["k"], ks, c, "Dela"))
             tx0 = BX0 + (kcol if b.get("k") else 34)

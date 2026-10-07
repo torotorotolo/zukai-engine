@@ -143,7 +143,8 @@ SPEC = {
             place="A1", start=dict(a1deck="fell"), rec="TR p1330（プールデッキは塔が崩れる数分前に崩れた）",
             steps=[dict(state=dict(a1mid="drop"), delay=2.4, rec=IL_REC["drop"],
                         tag=dict(t="屋上の線が下がる", at="roof_mid", off=(70, -60)))])),
-        tail=dict(t="崩れる真ん中の部分", s="防犯カメラのコマに NIST が柱の印（NIST の資料 p.47）",
+        # ⑤c'（10-07）：頁の書き方「p.47」→「47頁」（諮問委員会の資料は印字＝PDF の頁・c917 の札「61頁」と同じ）
+        tail=dict(t="崩れる真ん中の部分", s="防犯カメラのコマに NIST が柱の印（NIST の資料 47頁）",
                   photo=P("ncst_p047"), panel=True, color=1.0, still=True, at=1),
     ),
     # c619＝「推定」。1行目：3階より下の柱（K と L）の印／2行目：真ん中の部分が南から北へ（奥へ）次々と抜け落ちる

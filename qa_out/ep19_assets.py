@@ -253,8 +253,10 @@ def cmd_photos(yes):
 # 作者の欄（a[href^="/@"]）から読んだ。Pixabay は頁の HTML に AI の印（isAiGenerated・AI generated）が0件＝2020年10月の投稿。
 # Pexels は規約で生成AIの投稿を認めない（18本目 ⑤b-7b と同じ判断）。動画は git に入れない（`ref/*`）＝台帳 stock.json だけ名指しで commit
 STOCK = HERE / "ref" / "stock"
+SHELF_DIR = STOCK                    # ⑤c'：cmd_stock が使う棚のフォルダ（STOCK は 380行で stock.json に上書きされる）
 LIC = {"Pexels": ("Pexels License", "https://www.pexels.com/license/"),
        "Pixabay": ("Pixabay Content License", "https://pixabay.com/service/license-summary/")}
+SHELF_LIC = LIC                      # ⑤c'：cmd_stock が使う（LIC は 649行で写真の権利の表に上書きされる）
 
 
 def _s(code, site, page, media, author, posted, sec, w, h, what, cuts):
@@ -279,7 +281,12 @@ STOCK19 = {
                      "2021-05-08", 30, 3840, 2160, "錆びた金属の寄り", ["c308"]),
     "px_5571839": _s("S#11", "Pexels", "https://www.pexels.com/video/water-dripping-on-welded-metal-pipes-5571839/",
                      "https://videos.pexels.com/video-files/5571839/5571839-hd_1920_1080_24fps.mp4", "Monsieur Sylvain",
-                     "2020-10-10", 10, 1920, 1080, "溶接した金属の管に落ちる水", ["c519"]),
+                     "2020-10-10", 10, 1920, 1080, "溶接した金属の管に落ちる水", []),   # ⑤c'（10-07）：c519 から外した（次の c520「配管ではなく」と逆）
+    # 🆕 ⑤c'（10-07）：c519＝駐車場の天井のひびからのしずく（語り）＝配管の写らないしずく（濡れたコンクリートの床の水たまり・イメージ）。
+    #   ⚠️ 先に取った px_9721926（岩の張り出しのしずく）は 2.35:1＝全画面の箱（1.66〜1.98）に合わない（ss.vid が止めた）＝棚に残して使わない
+    "px_4189573": _s("S#50", "Pexels", "https://www.pexels.com/video/slow-motion-shot-of-a-water-droplet-falling-in-to-the-water-ponding-4189573/",
+                     "https://videos.pexels.com/video-files/4189573/4189573-hd_1280_720_30fps.mp4", "Христо Спасов",
+                     "2020-04-19", 27, 1280, 720, "水たまりに落ちるしずく（濡れたコンクリートの床）", ["c519"]),
     "px_29880216": _s("S#12", "Pexels", "https://www.pexels.com/video/water-cascading-over-weathered-concrete-edge-29880216/",
                       "https://videos.pexels.com/video-files/29880216/12828546_2560_1440_30fps.mp4", "Aamir Somewhere",
                       "2024-12-21", 30, 3840, 2160, "古びたコンクリートの縁を流れ落ちる水", ["c510"]),
@@ -311,6 +318,9 @@ def _ep18_shelf():
 
 
 def cmd_stock(yes):
+    # 🔴 ⑤c'（10-07）：下の `STOCK = …/stock.json`（380行）がこの関数の `STOCK`（棚のフォルダ）を上書きしていた＝`stock` が
+    #    mkdir で落ちた（⑤b-1 の S#46〜49 は別の道で足した）＝棚のフォルダは関数の中で名前を分ける
+    STOCK, LIC = SHELF_DIR, SHELF_LIC         # LIC も 649行で写真の権利の表に上書きされる
     STOCK.mkdir(parents=True, exist_ok=True)
     shelf_p = STOCK / "stock.json"
     shelf = json.loads(shelf_p.read_text(encoding="utf-8")) if shelf_p.exists() else {}
@@ -361,7 +371,9 @@ def cmd_stock(yes):
                  license=r["license"], license_url=r["license_url"], license_checked=r["fetched"],
                  ai=e.get("ai", "18本目 ⑤b-7b で確かめた（Pexels 規約・Pixabay の印なし）"), what=r["what"], place="", era_note="",
                  ok_ranges=e.get("ok_ranges", []), ng_ranges=e.get("ng_ranges", []), claims=e.get("claims", []),
-                 used_in=[dict(ep=18, cid=r["cut"], role="頭の差し込み（⑤b-7c）", key18=old)], credit=r["credit"],
+                 # 🔴 ⑤c'（10-07）：丸ごと書き直すと19本目の記録（px_7710340 の c405 不採用）が消えた＝ほかの回の欄は残す
+                 used_in=[dict(ep=18, cid=r["cut"], role="頭の差し込み（⑤b-7c）", key18=old)]
+                         + [u for u in e.get("used_in", []) if u.get("ep") != 18], credit=r["credit"],
                  fetched=r["fetched"])
         shelf[key] = e
         print(f"✓ {key} ← 18本目 {old}（md5 一致）")
@@ -383,7 +395,9 @@ STILL_BELOW = 0.6            # rate がこれを下回る欄は動画にせず�
 FRAME = {
     # c202＝B1 1920×1014 → 全画面 1920×1080：切り口 x 17〜1090・y 172〜776（銘板 640〜1065×240〜512 が入る）。
     #   左の作業員のヘルメットは x 1110 から・Ford の印は y 800 から（fc_B1_009.8_960_300／620_700）＝どちらも切り口の外
-    "c202": dict(zoom=1.68, xbias=0.02, bias=0.42),
+    #   🔴 ⑤c'（10-07・原寸 at_c202_010）：銘板の字の上の端（画面 y 約135）が右上の章の札（y 56〜158）の下に入った＝切り口を
+    #   上へ 28 画素（元の画素）＝y 144〜748（画面で約50px 下がる・Ford の印からは遠のく）
+    "c202": dict(zoom=1.68, xbias=0.02, bias=0.35),
     # cb02＝pb_52888 2560×1440：切り口 x 0〜1652・y 250〜1179（genzaichi の (0,250)-(1650,1178)）。重機の LIEBHERR の字は
     #   1〜6.1秒のどのコマでも x 1877 より右（4コマの目盛り grid_pb_52888_001.0）＝切り口の外
     "cb02": dict(zoom=1.55, xbias=0.0, bias=0.49),
@@ -545,6 +559,8 @@ SHOT_FIX = {
                     105.0: "c912：倉庫の部材のあいだは 100〜109.2秒の1本・104〜105秒はカメラが右へ振れただけ（1秒刻み B5_sec_102.00 を目で見た・10-06 ⑤b-2）"}},
     "px_8060076": {"join": {8.0: "S#46：0〜12秒はドローンが浜の上を引いていく1本（1秒1コマ stk_46_000・006 を目で見た・10-06）"}},
     "px_39933092": {"join": {2.0: "S#49：2〜3秒は黄色い筒が上から入ってくる動き＝同じ寄りの続き（1秒1コマ stk_49_000 を目で見た・10-06）"}},
+    "px_9721926": {"join": {2.0: "（不採用＝2.35:1）0〜9.9秒は岩の張り出しからしずくが落ちる1本＝2秒の跳びはしずくが落ちただけ（1秒1コマを目で見た・10-07 ⑤c'）"}},
+    "px_4189573": {"join": {6.0: "S#50：0〜11秒は水たまりにしずくが落ちてはねる1本＝6秒の跳びは波紋が広がっただけ（1秒1コマ stk_50_000・006 を目で見た・10-07 ⑤c'）"}},
 }
 
 
