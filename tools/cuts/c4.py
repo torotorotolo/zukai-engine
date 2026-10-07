@@ -179,8 +179,9 @@ SPEC = {
     ),
     # c414＝大陪審の報告 印字 p.18 の太字の1行「concrete deterioration is accelerating.」（2021年4月の理事長の手紙を引く・名前は出さない）
     "c414": dict(
-        t="理事長の手紙", s="部屋の持ち主たちへ",
-        fig=("quote", dict(phrase="理事長の手紙「劣化は加速している」",
+        t="悪くなる傷み", s="部屋の持ち主たちへの手紙",    # dup：決め所の1行目「理事長の手紙」と同じ見出しだった
+        # 最後の焼き（ep19_b8 シート3）：既定の折り方は「「劣化は｜加速している」」＝かぎ括弧の中で割れた
+        fig=("quote", dict(phrase=["理事長の手紙", "「劣化は加速している」"],
                            rows=ss.qrows("GJ", "18頁", ("書いた人", "管理組合の理事長"), ("日付", "2021年4月")), paper=True)),
     ),
     # c416＝同じ頁「Thirteen days after the Board was to hold a meeting to open the bids …, the building collapsed.」（予定の＝was to hold）
