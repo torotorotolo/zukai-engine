@@ -1820,7 +1820,10 @@ def _stage_svgs(view, steps, start, states, cap=34):
                 tx, ty = an[tg["to"]] if isinstance(tg["to"], str) else tg["to"]
                 # 🔴 ⑤c'（10-07・geom_gap）：下へ引く線は札のベースライン＋8 から出ていた＝小さい字（d）を貫いた
                 #    （c710「捜索の安全のため」の左の字）＝d があるときは d の下から引く
-                sy = y - round(c * 0.9) if ty < y - c else y + 8 + (round(c * 0.95) if tg.get("d") else 0)
+                #    ⚠️ 周2（10-07）：的が d より上（札とほぼ同じ高さ）だと d の下から上へ引いて d を貫いた（c303・c522）
+                #       ＝d の下から引くのは的が d のベースラインより下のときだけ（それ以外は見終わった版の線に戻る）
+                below_d = tg.get("d") and ty > y + round(c * 0.95)
+                sy = y - round(c * 0.9) if ty < y - c else y + 8 + (round(c * 0.95) if below_d else 0)
                 sx = x if anchor == "start" else (x - mw / 2 if anchor == "middle" else x)
                 s.append(F.line(sx, sy, tx, ty, J.AMBER, 2))
             s.append(F.txtfit(x, y, tg["t"], mw, cap=c, col=tg.get("col", J.AMBER), anchor=anchor))
