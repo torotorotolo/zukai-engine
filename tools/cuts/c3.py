@@ -193,4 +193,12 @@ SPEC = {
     #   次の決め所 c311 の英文（expand exponentially）は切り口の外（`qa_out/ep19_assets.py` の PAGE_CUTS）
     "c310": dict(t="防水と床版の傷み", s="寿命を過ぎた防水と下の床版の段落",
                  photo=ss.page(4007), trim=ss.ptrim("c310"), bias=ss.pbias("c310"), panel=True, color=1.0),
+    # ── 🆕 ⑤b-8（2026-10-07）：決め所 ──
+    # c311＝モラビトの報告 Page 7「The failed waterproofing is causing major structural damage to the concrete structural slab below
+    #   these areas.」（these areas＝the Pool Deck & Entrance Drive＝前の文）
+    "c311": dict(
+        t="2018年の調査", s="報告が書いた床の傷み",
+        fig=("quote", dict(phrase="報告「防水の不良で床に重大な構造の損傷」",
+                           rows=ss.qrows("MC18", "7頁", ("場所", "プールデッキと車道の下")), paper=True)),
+    ),
 }

@@ -220,4 +220,11 @@ SPEC = {
     # ── 🆕 ⑤b-7c（2026-10-07）：ミネソタ大学の据え付けのタイムラプス（TLS 2〜10秒・寄せ＝USE の zoom 1.23・xbias 1・bias 0
     #   ＝左下の高所作業車の社名を切り口の外へ）。🟡 ⑤c：奥の作業員（小さい）の顔を原寸で
     "ca06": ss.vid("ca06", t="実物大の試験体", s="試験体を据える（ミネソタ大学）"),
+    # ── 🆕 ⑤b-8（2026-10-07）：決め所 ──
+    # ca14＝TR0376「the strength of the concrete wall prevented the failure from spreading beyond it」（Zone A＝壁のある境）
+    "ca14": dict(
+        t="境 A", s="床と屋根がつながっていた壁",
+        fig=("quote", dict(phrase="コンクリートの壁が、崩れの広がりを止めた",
+                           rows=ss.qrows("TR", None, ("箇所", "発表の語り")), paper=True)),
+    ),
 }

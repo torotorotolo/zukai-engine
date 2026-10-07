@@ -192,4 +192,17 @@ SPEC = {
     # ── 🆕 ⑤b-7b（2026-10-06）：NIST のスライド（色は変えない）──
     "c811": dict(t="錆びさせる試験", s="塩水の槽と電極・試験の終わりの鉄筋",
                  photo=P("tf_p084_salt"), panel=True, color=1.0),
+    # ── 🆕 ⑤b-8（2026-10-07）：決め所 ──
+    # c803＝TR0070「It is as though the column punches through the slab.」（as though＝まるで）
+    "c803": dict(
+        t="継ぎ目の壊れ方", s="NIST のたとえ",
+        fig=("quote", dict(phrase="まるで柱が床を突き抜けたよう",
+                           rows=ss.qrows("TR", None, ("箇所", "発表の語り")), paper=True)),
+    ),
+    # c819＝TR0019「In the case of Champlain Towers South, these margins against failure were too narrow from the start.」
+    "c819": dict(
+        t="NIST のまとめ", s="建てた時からの弱さ",
+        fig=("quote", dict(phrase="壊れないための余裕は、最初から狭すぎた",
+                           rows=ss.qrows("TR", None, ("箇所", "発表の語り")), paper=True)),
+    ),
 }

@@ -166,4 +166,11 @@ SPEC = {
     "cb15": ss.vid("cb15"),
     "cb07": dict(t="計算した揺れ", s="87パークの工事の揺れの計算の図",
                  photo=P("tf_p185_87park"), panel=True, color=1.0),
+    # ── 🆕 ⑤b-8（2026-10-07）：決め所 ──
+    # cb06＝TR0462「Vibrations at the critical slab-column connections were too small to have caused structural damage.」
+    "cb06": dict(
+        t="揺れの答え", s="大事な継ぎ目での揺れ",
+        fig=("quote", dict(phrase="工事の揺れは継ぎ目を傷めるには小さすぎた",
+                           rows=ss.qrows("TR", None, ("箇所", "発表の語り")), paper=True)),
+    ),
 }

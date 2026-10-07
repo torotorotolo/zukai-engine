@@ -270,4 +270,38 @@ SPEC = {
     "cc16": ss.vid("cc16"),
     "cc02": dict(t="大陪審の結論", s="はじめにの段落",
                  photo=ss.page(3004), trim=ss.ptrim("cc02"), bias=ss.pbias("cc02"), panel=True, color=1.0),
+    # ── 🆕 ⑤b-8（2026-10-07）：画の無いカット＝決め所とパネル ──
+    # cc03＝大陪審の報告 印字 p.18「There was sufficient information, provided early enough to put everyone on notice of a major problem.」
+    "cc03": dict(
+        t="29か月の知らせ", s="知らせは届いていたか",
+        fig=("quote", dict(phrase="大陪審「十分な情報が、十分早く出ていた」",
+                           rows=ss.qrows("GJ", "18頁"), paper=True)),
+    ),
+    # cc09＝大陪審の報告 印字 p.20 が引く技師の手紙の1行「Structurally no (sic) safe for the specified use for continued occupancy.」
+    #   （no は not の誤記・技師の名前と会社は出さない）。市に届いたのは 2021-07-02
+    "cc09": dict(
+        t="別の建物の例", s="点検の報告が市に届いた",
+        fig=("quote", dict(phrase="別の建物を見た技師「住むのに安全でない」",
+                           rows=ss.qrows("GJ", "20頁", ("建物", "クレストビュー・タワーズ"), ("市に届いた日", "2021年7月2日")),
+                           paper=True)),
+    ),
+    # cc24・cc26・cc28＝3つの問い（c107 と同じ3つ）の答え合わせ。いまの問いだけ色・ほかは暗く。答えの短い言葉（v）は語りがその行で言う所だけ
+    "cc24": dict(t="3つの問い", s="1つ目の問い", fig=("panel", dict(blocks=[
+        dict(k="問い1", t="崩れた夜の出来事", c=J.INST),
+        dict(k="問い2", t="40年で崩れた理由", c=J.LINE_DIM),
+        dict(k="問い3", t="傷みを止められなかった理由", c=J.LINE_DIM)], cols=3))),
+    "cc26": dict(t="3つの問い", s="2つ目の問い", fig=("panel", dict(blocks=[
+        dict(k="問い1", t="崩れた夜の出来事", c=J.LINE_DIM),
+        dict(k="問い2", t="40年で崩れた理由", v="余裕が尽きた", c=J.AMBER),
+        dict(k="問い3", t="傷みを止められなかった理由", c=J.LINE_DIM)], cols=3))),
+    "cc28": dict(t="3つの問い", s="3つ目の問い", fig=("panel", dict(blocks=[
+        dict(k="問い1", t="崩れた夜の出来事", c=J.LINE_DIM),
+        dict(k="問い2", t="40年で崩れた理由", c=J.LINE_DIM),
+        dict(k="問い3", t="傷みを止められなかった理由", v="動くのが遅すぎた", c=J.ALERT)], cols=3))),
+    # cc30＝コメントの問い（13本目から・ed01 の直前）。誰でも気軽に答えられる形（§B3-7b）。「この動画」は画面に出さない
+    "cc30": dict(
+        t="点検のお知らせ", s="コメント欄で聞かせてください",
+        fig=("panel", dict(blocks=[dict(k="問い", t="読んだことはありますか", v="マンション・団地", c=J.AMBER)],
+                           cols=1)),
+    ),
 }

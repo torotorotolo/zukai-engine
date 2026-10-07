@@ -308,4 +308,12 @@ SPEC = {
     "c621": dict(t="崩れが止まった境", s="崩れた所と残った西の部分（2021年6月24日・郡の消防）",
                  photo=P("c04_mdfr4"), **ss.kind(P("c04_mdfr4"))),
     "c623": ss.vid("c623", t="捜索の始まり", s="がれきの上の捜索（2021年6〜7月）"),
+    # ── 🆕 ⑤b-8（2026-10-07）：決め所 ──
+    # c616＝TR0348「The total drop near grid point L-9.1 from the day before the collapse to 1:22:14 a.m. was about 18-27 inches.」
+    #   （18〜27インチ＝45.7〜68.6センチ）。語りの文字起こしは頁が無い＝頁の欄なし
+    "c616": dict(
+        t="床の沈み", s="傷んだ継ぎ目の近くの床",
+        fig=("quote", dict(phrase=["床は前日から", "約46から69センチ沈んだ"],    # 既定の折り方は「約46｜から69」で割れる
+                           rows=ss.qrows("TR", None, ("箇所", "発表の語り")), paper=True)),
+    ),
 }

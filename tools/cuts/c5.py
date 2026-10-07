@@ -266,4 +266,17 @@ SPEC = {
                  photo=P("tf_p057_memo"), panel=True, color=1.0),
     "c520": dict(t="地下で見えた漏れ", s="付箋の注記と管財人の原図",
                  photo=P("tf_p058_note"), panel=True, color=1.0),
+    # ── 🆕 ⑤b-8（2026-10-07）：決め所 ──
+    # c505＝スライド50 の絵の札「3 WEEKS BEFORE COLLAPSE」「Gate door is stuck and cannot be opened.」（目撃談にもとづく NIST の絵）
+    "c505": dict(
+        t="門の異変", s="目撃談にもとづく NIST の絵",
+        fig=("quote", dict(phrase="崩れる3週間前、門が引っかかり開かない",
+                           rows=ss.qrows("TR", "スライド50", ("箇所", "絵に添えた札")), paper=True)),
+    ),
+    # c517＝スライド57 の手書きの注記「Morning June 23 noticed in the floor area, a space or gap of 4inches」（4インチ＝10.16センチ）
+    "c517": dict(
+        t="床の隙間", s="目撃した人の話の図",      # dup：「…手書きの注記」は札の箇所と同じ言葉
+        fig=("quote", dict(phrase="6月23日の朝、床に約10センチの隙間",
+                           rows=ss.qrows("TR", "スライド57", ("箇所", "手書きの注記")), paper=True)),
+    ),
 }

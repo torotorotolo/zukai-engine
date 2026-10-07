@@ -169,4 +169,24 @@ SPEC = {
                  photo=ss.page(3021), trim=ss.ptrim("c407"), bias=ss.pbias("c407"), panel=True, color=1.0),
     "c410": dict(t="動かなかった町", s="29か月の段落",
                  photo=ss.page(3021), trim=ss.ptrim("c410"), bias=ss.pbias("c410"), panel=True, color=1.0),
+    # ── 🆕 ⑤b-8（2026-10-07）：決め所 ──
+    # c404＝2018-11-15 の会議の議事録 PDF p.7「it appears the building is in very good shape」（話したのは町の建築担当者・名前は出さない）。
+    #   大陪審は「議事録が正しいとすれば」の条件つきで扱う＝c406
+    "c404": dict(
+        t="会議の記録", s="招かれた町の担当者の判断",
+        fig=("quote", dict(phrase=["議事録「建物は、", "とても良い状態に見える」"],    # 既定の折り方は「とても｜良い」で割れる
+                           rows=ss.qrows("MIN18", "7頁", ("話した人", "町の建築担当者")), paper=True)),
+    ),
+    # c414＝大陪審の報告 印字 p.18 の太字の1行「concrete deterioration is accelerating.」（2021年4月の理事長の手紙を引く・名前は出さない）
+    "c414": dict(
+        t="理事長の手紙", s="部屋の持ち主たちへ",
+        fig=("quote", dict(phrase="理事長の手紙「劣化は加速している」",
+                           rows=ss.qrows("GJ", "18頁", ("書いた人", "管理組合の理事長"), ("日付", "2021年4月")), paper=True)),
+    ),
+    # c416＝同じ頁「Thirteen days after the Board was to hold a meeting to open the bids …, the building collapsed.」（予定の＝was to hold）
+    "c416": dict(
+        t="入札の会議", s="見積もりを開く予定の会議",
+        fig=("quote", dict(phrase="入札を開く予定の会議の13日後に崩れた",
+                           rows=ss.qrows("GJ", "18頁"), paper=True)),
+    ),
 }

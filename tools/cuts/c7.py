@@ -162,4 +162,12 @@ SPEC = {
                    tail=ss.tailv("c718", at=1, t="測った証拠の形", s="証拠の部材の点群（約17億点）")),
     "c720": dict(t="ここからは原因", s="空中写真を見る NIST の調査団",
                  photo=P("n44_aerial_photos"), **ss.kind(P("n44_aerial_photos"))),
+    # ── 🆕 ⑤b-8（2026-10-07）：決め所 ──
+    # c706＝大陪審の報告 印字 p.1「Except for a 14-year-old child, who was discovered near the top of the two-story tall pile of rubble,
+    #   first responders were not successful in rescuing any survivors.」
+    "c706": dict(
+        t="がれきの山", s="救い出された命",
+        fig=("quote", dict(phrase="がれきから救えたのは14歳の子ども1人",
+                           rows=ss.qrows("GJ", "1頁"), paper=True)),
+    ),
 }

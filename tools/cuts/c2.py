@@ -150,4 +150,19 @@ SPEC = {
     #   c206＝高さの札（12 stories 110'-10" (33.8 m)）と東の部分・屋上の階・地下の札
     "c206": dict(t="塔の高さ", s="高さの札と東の部分の図",
                  photo=P("tf_p003_model"), trim=(0.52, 0.06, 0.90, 0.62), panel=True, color=1.0),
+    # ── 🆕 ⑤b-8（2026-10-07）：画の無いカット＝パネルと決め所 ──
+    # c204＝長さと時刻の言い方（18本目 c113 の型）。「この動画」は楽屋の言葉＝画面に出さない
+    "c204": dict(
+        t="長さと時刻の言い方", s="数の読み方",
+        fig=("panel", dict(blocks=[dict(k="長さ", t="メートルとセンチ", v="原文の単位は括弧", c=J.LINE),
+                                   dict(k="時刻", t="現地の時刻", c=J.INST)],
+                           cols=2)),
+    ),
+    # c211＝大陪審の報告 印字 p.2（GJ p.2＝PDF p.5）「requirement for a 40-year building recertification followed another tragic
+    #   event」「crushing to death 7 DEA employees」
+    "c211": dict(
+        t="40年の点検の起こり", s="1974年の崩落",
+        fig=("quote", dict(phrase="40年の点検は、7人が亡くなった崩落の後",
+                           rows=ss.qrows("GJ", "2頁"), paper=True)),
+    ),
 }

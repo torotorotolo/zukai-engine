@@ -220,4 +220,24 @@ SPEC = {
                  photo=P("tf_p075_cover"), panel=True, color=1.0),
     "c909": dict(t="図面の指定と実際", s="町の図面と NIST の写真",
                  photo=P("tf_p076_bars"), panel=True, color=1.0),
+    # ── 🆕 ⑤b-8（2026-10-07）：決め所 ──
+    # c904＝TR0219「In some locations, the design provided less than half of the code-required strength.」（所があった＝In some locations）
+    "c904": dict(
+        t="設計の強さ", s="決まりの求める強さと比べて",
+        fig=("quote", dict(phrase="決まりの求める強さの半分も無い所があった",
+                           rows=ss.qrows("TR", None, ("箇所", "発表の語り")), paper=True)),
+    ),
+    # c910＝TR0228「only two bars in each direction passed over the columns, half the number required」（NIST が示した例の柱）
+    "c910": dict(
+        t="柱の真上の鉄筋", s="NIST が示した例の柱",
+        fig=("quote", dict(phrase="ある柱の真上の鉄筋は、4本でなく2本",
+                           rows=ss.qrows("TR", None, ("箇所", "発表の語り")), paper=True)),
+    ),
+    # c917＝諮問委員会の資料 p.61「Degradation was a comparatively small contributor to the strength and deformation capacity
+    #   deficiencies responsible for the CTS failure.」（原因の全部ではない＝最後のひと押しは c916）
+    "c917": dict(
+        t="傷みの分", s="傷みはどれだけ効いたか",      # echo：「強さの不足の内訳」は語りと同文
+        fig=("quote", dict(phrase="強さの不足のうち、傷みの分は比較的小さい",
+                           rows=ss.qrows("AC", "61頁"), paper=True)),
+    ),
 }
