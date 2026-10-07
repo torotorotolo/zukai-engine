@@ -252,3 +252,81 @@
 | 12 | `ja_06.pdf` p.6〜9 | （173〜） | 付図-37 の続きの紙が何か | §1-3 |
 | 13 | `ja_01.pdf` p.24・`ja_04.pdf` p.28 | 6・128 | 頁の下に印刷の頁番号（6・128）が刷られているか＝換算の最終確認 | §1-3 |
 | 14 | `ja_01.pdf` p.19 | 1 | 「多野群」か「多野郡」か（文字の層の誤字の見本・急がない） | §1-5 |
+
+→ 結果は §7（②③・2026-10-07）
+
+---
+
+## 7. ②③（2026-10-07・20本目チャット2）で人が原寸で見た頁と、OCR で読んだ頁
+
+- やり方：PyMuPDF で 130〜300dpi に書き出し、要る所だけ PIL で切り出して Claude が読んだ（このチャットで読んだ画像＝見本帳を含めて20枚・機械で数えた）。文字の層の無い頁は Windows 標準の OCR（`tools/ocr_win.ps1` を使うだけ）。🔴 **別添6 の頁は表が横倒し（90度）に刷られている**＝回さないと OCR は文字を逆さに読む（PIL の `rotate(270)` で正立）。⚠️ OCR の出力は呼ぶ側で UTF-8 にしないと文字化けする（`[Console]::OutputEncoding`）
+- 写し（`src/`＝git の外）：
+
+| ファイル | 中身 | 大きさ | md5 |
+|---|---|---:|---|
+| `ja_11_cvr_ocr300.tsv` | 別添6 全33頁（PDF p.45〜77）の OCR を行ごとに・行の高さから秒を出した（±1秒）＝列 `pdf_p printed min sec_est x0 text` | 46,593 | 94bd35888c8f8afe6e005ef5175cff2a |
+| `ja_11_cvr_ocr300_raw.txt` | 同じ OCR の生の出力（座標つき） | 60,875 | 808b9ef5475c30c885294cceb45c883e |
+| `ja_10_p16-19_ocr200.txt` | 別添3（p.271〜273）・別添4 の題（p.275） | 12,384 | 7097c0a3793a21b26265123c25db10e0 |
+| `ja_09_p15-18_ocr200.txt` | 別添1 本文（p.246〜249） | 17,737 | 0da54fa037ff878fbfafb62fb86a575b |
+| `ja_huroku_p1-8_ocr200.txt` | 付録の題・目次・付録1 の頭 | 26,501 | c976abe0434dc469a1581f092245845b |
+| `bouei60_autosub_2340-2550.txt` | 防衛庁記録の自動字幕（23:40〜25:50・materials.md §6-3） | 2,639 | af4b53d2de33b7fa455616ea3a49e03d |
+
+### 7-1. §6 の表と claims_check §3 の結果
+| # | 何を | 結果 |
+|---|---|---|
+| §6-1 | 4.2 原因の第1文 | 🔴 **印字は「飛行性の低下」**（文字の層と同じ）＝解説の「飛行性能」は解説の言い換え |
+| §6-4 | 付図-5（p.141） | 斜線の席（生存者の席とみられる印）＝**中央部3・左側1**（1つは最後の60列・ほかは54〜57列あたり）＝2.13.1「座席列番号54から60、左側及び中央部」と合う。最後の列は60。⚠️ 1ビットの小さな図＝列の番号までは読まない（推定） |
+| §6-5・A10 | 別添1 付図-3（p.252） | 左「修正措置で指示された継ぎ方」＝**継ぎ板1枚**が上側ドームと下側ドームにまたがる（「既存のリベット位置」2つ＋「新リベット列 元と同じリベットと間隔で打鋲せよ」・「1インチ」）／右「実際の継ぎ方」＝継ぎ板が短く、いちばん上の列は**別のフィラ**（詰め物）を挟む。🔴 **「1枚の板を切って2枚」の絵ではない**（報告書の言い方＝幅の狭い1枚＋フィラ1枚）。「上下各2列」の書き込みは図に無い |
+| §6-6 | 別添1 本文（p.246〜249） | OCR で読めた：修理は昭和53年6月17日〜7月11日（隔壁は6月24日〜7月1日）・ボーイングの技術員・検査員ら40数名の修理チーム／検査で L18 のエッジ・マージン不足 → 継ぎ板1枚を挟む指示／実際は「修理指示より幅の狭い1枚のスプライス・プレートと1枚のフィラ」→ 上半部と下半部のウエブ結合は「左側の第一ストラップと第3ストラップ間の2ベイ分」が1列／**継ぎ板とフィラは取り外した旧隔壁から製作**／作業は6月26日・27日に修理チームの検査員の検査を受けたが見い出せず／航空局の検査＝L18 の修理は作業記録による確認・7月12日合格／7月9日の気密試験で加える12psi の負荷は FAA の要件に無く行わず。⚠️ OCR＝引用は原寸の切り出しで。正誤表 p.247「規程→規定」の位置は未確認 |
+| §6-7・A2 | 別添6 CVR記録 | 🔴 **1頁＝1分**（p.311＝18:24 〜 p.343＝18:56・印刷＝PDF＋266・p.310 は凡例）。列＝「18時」「警報音等」「操縦室内音声収録用マイク」「副操縦士(右)席＝機長」「機長(左)席＝副操縦士」「航空機関士席」。全33頁を 300dpi で OCR＋要所7頁を原寸（§7-2）。「被弾」「撃」（衝撃音を除く）「ミサイル」「ファントム」「追尾」「オレンジ」「まずい」＝**OCR で0件**（⚠️ OCR の0件＝人の通しの目視ではない＝kousei.md §7・§11） |
+| §6-8 | 解説の下線（PDF p.31〜36） | 原寸で6行を照合＝**機械の検出と一致**（「ぞ」「エンジン？」「オールエンジン」「おい山だぞ」「はいどうぞ」「ピッチは」に下線／「これはだめかもわからんね」「ドーンと行こうや」に無し） |
+| §6-9 | 解説 図13（p.20） | 測位8点（① C-130 夜間 ② F-4EJ 夜間 ③ ④ V-107 夜間 ⑤ V-107 昼間 ⑥ HU-1B 昼間 ⑦ V-107 昼間 ⑧ V-107 夜間）・墜落位置・三国山・三国峠・扇平山・5km の目盛り。地は航空図（出どころの表記なし）＝案C で自前の地図に描き直す |
+| §6-10・A3 | 別添3（p.271〜273） | OCR＝**18:00〜18:20 の交信だけ**（離陸の前後）＝事故のあとの交信は別添6 の ACC・APC・YOK の列。7700・レーダーの表示の記述は無い |
+| §6-11 | 付録の目次 | OCR＝p.1「航空事故調査報告書付録（JA8119に関する試験研究資料）運輸省航空事故調査委員会」・p.2 目次（付録1〜12）・p.3〜 付録1 本文。別冊の頁（p.57・73・85・160）と PDF 頁の対応は未照合（A9 は未） |
+| §6-12 | 付図-37 の続きの紙 | 見ていない（急がない） |
+| §6-13 | 頁番号 | ✅ ja_04 p.28 の下に「128」・ja_01 p.24 の下に「6」が刷られている＝**換算は正しい** |
+| §6-14 | 多野郡 | ✅ ja_01 p.19 の題の印字は「多野郡」 |
+| A1 | 表-9 のスコーク77 | 別添6 の原本で確認＝機長 18:24:42・副操縦士 18:24:47（表-9 と一致） |
+| A4・A6〜A8 | 付図-23・表-5・解説 表5・表2 | 見ていない（④で要る所だけ） |
+| A5 | 付図-1（p.137） | ✅ 大月の旋回（18:41:59〜18:44:09）のあと東へ・18:47:17〜18:48:03 に青梅の北で左へ曲がり西北西へ＝「そこから北西へ」はずれ（K23）。点の時刻・高度・速度は付図に刷られている（案C S2 の正本） |
+
+### 7-2. 別添6 CVR記録の原本（原寸で見た所）
+（下線＝判読不確実の印。「〔下線〕」で書いた）
+
+| 頁（PDF） | 時刻 | 記録（原本の字） |
+|---|---|---|
+| p.311（45） | 18:24:12〜59 | 12 録音開始／警報音等の列に印（35〜37秒）／39 (CAP)なんか爆発したぞ〔「ぞ」に下線〕／42 (CAP)スコーク77／43〜44 (COP)ギアドア (CAP)ギアみて ギア (F/E)えっ／45〜 機長(左)席の列に (PUR)「酸素マスクをつけてください」×2「ベルトはベルトをしてください」／46 (CAP)エンジン？〔下線〕／47 (COP)スコーク77／48 (F/E)オールエンジン・・・〔下線〕／51 (COP)これみてくださいよ／55 (F/E)オールエンジン・・・〔下線〕／57 (COP)ハイドロプレッシャみませんか？／59 (CAP)なんか爆発したよ〔「よ」に下線〕 |
+| p.314（48） | 18:27:40〜56 | **47 (F/E)ハイドロプレッシャオールロス**／49 (COP)オールロスですか？／50 (CAP)いや ロック／51 (F/E)オールロス／52 (COP)オールロスね？ (F/E)はい／54 (COP)カンパニー えー… お願いします えー そうしてください／放送の列「緊急降下中 マスクをつけてください ベルトを締めてください タバコは消してください ただいま緊急降下中です Attention. Emergency…」 |
+| p.315（49） | 18:28:24〜41 | (PRA)Put the mask over the face. Fasten your seatbelt. This is an emergency（29・30秒＝正誤表で「Put out / your cigarettes.」）／31〜34 (ACC)JAPAN AIR 124, fly heading 090 radar vector to OSHIMA.（便名を「124」と送信）／**35 (CAP)But now uncontrol.**／39 (ACC)Uncontrol, roger understood. |
+| p.318（52） | 18:31:14〜27 | (ACC)Right, your position 72 miles to NAGOYA, yah, can you land to NAGOYA?／21〜25 (CAP)Ah, negative … request back to HANEDA.／26 (ACC)All right, ah… |
+| p.333（67） | 18:46:08〜36 | 09〜11 (ACC)JAPAN AIR 123 羽田にコンタクトしますか？／16 (CAP)このままでお願いします／20 (ACC)コンタクトしますか？／21 (CAP)こ、このままでお願いします／左席の列に (YOK)JAPAN AIR ONE TWENTY THREE … YOKOTA APPROACH on guard. If you hear me, squawk 5423.／27 (ACC)はい 了解しました スタンバイ お待ちください／**33 (CAP)これはだめかもわからんね（下線なし）** |
+| p.334（68） | 18:47:31〜50 | (ACC)…TOKYO APPROACH 119.7／34 (CAP)・・・オッケイ？ (COP)はい／36 (CAP)119.7 ど〔「ど」に下線〕 ラジャー／**39 (CAP)おい山だぞ〔下線〕 (F/E)はいどうぞ〔下線〕**／41 (CAP)ターンライト／43 (CAP)山だ (COP)はい／44 (CAP)コントロールとれみぎ ライトターン／左席の列に (STW)「赤ちゃんづれの方 … 座席の背に頭を ささえて … 赤ちゃんはしっかり抱いてください ベルトはしてますか」 |
+| p.337（71） | 18:50:03〜59 | 06 (COP)スピードがでてます スピードが／**09 (CAP)どーんといこうや（ひらがな・下線なし）**／**50 (CAP)パワーでピッチは〔「ピッチは」に下線〕コントロールしないとだめ**／52 (F/E)パワーコントロールでいいです パワーコントロールさしてください (CAP)はい／55 (COP)スピード 220ノット／57 (F/E)はい／58 (CAP)あたま下げるな 下がってるぞ (COP)はい |
+| p.342（76） | 18:55:00〜18 | 03 (COP)はいフラップ じゅう／05〜14 (APC)JAPAN AIR 123 日本語で申しあげます こちらのほうは アー アプローチ いつでもレディになっております なお 横田と調整して 横田ランディングもアベイラブルになっております／15 (CAP)あたま上げろ／16 (F/E)はい了解しました／17 (CAP)あたま上げろ／(APC)インテンション聞かせてください どおぞー |
+| p.343（77） | 18:56 | OCR だけ＝「PULL UP」（23）・「〔衝撃音〕」（26）＝原寸は見ていない |
+
+- 🔴 **legend #10 の訂正**：「一次資料の字は『ドーンと行こうや』」は**解説の表記**。報告書の別添6（原本）は「**どーんといこうや**」・**18:50:09**（解説は副操縦士の発言の行 50'06" に並べる）
+- 🔴 旧版の c116「ハイドロ・プレッシャ、オールロス」も原本と違う（原本は「ハイドロプレッシャオールロス」・解説は「ハイドロプ・レッシャ、オールロス」）
+- 報告書 2.1 の和文（「現在、操縦不能」「名古屋に着陸できるか。」「羽田へ帰ることを要求する。」「羽田も横田も受け入れ可能」）は、英語・日本語の原本の**訳と要約**＝台本で原本の語を出すときは頁を添える（kousei.md §6-1）
+- 報告書 2.1（p.6）「同機は、副操縦士の機長昇格訓練のため、機長が右操縦士席、副操縦士が左操縦士席に位置し」＝CVR の列の見出しと一致（2.5 p.15 の注に社内規定）
+
+---
+
+## 8. 旧版のあとに増えた物の当て直し（②・2026-10-07）
+
+- **国交大臣の会見 2026-08-25**（金子恭之大臣）＝原文をもう一度開いて §5 の引用と一致（WebFetch）。記者は「昨年８月の会見で、当時の中野国土交通大臣が『ボーイング社等の関係者に対して事実関係の確認を行っている』と発言」と前置き（🔴 2025-08 の会見録そのものは未確認）。大臣の答えの続き＝FAA とボーイングの件なので「こちらからお願いをしていますが、今慎重にその精査についての公表についても見守っている」
+- **産経の記事**（ITmedia ビジネスオンライン転載・2026-08-12 16:04 公開・3頁）＝①は1頁目だけ。②でアプリ内のブラウザで2〜3頁を開いた（要旨。記事の文は長く写さない）：
+  - ボーイングは2024年9月に自社サイトに開いた航空関係者向けの安全教育のコーナーで、継ぎ板を2枚にした理由を「構造上、設置が困難だったため切断した」という趣旨で公表していた。ボーイングとしての対外的な説明は初めてとみられ、産経は2025年8月に報じた。国交省も日航も把握していなかった内容で、それぞれ根拠の説明を求めた
+  - この記述は FAA の頁の内容を踏まえたもの（記事は、FAA は事故当時に日本側が聞けなかった情報をボーイングから聞き取っていたとみられる、と書く＝記事の見方）
+  - 日航によると、ボーイングから「FAA の頁の表現を引いて混乱を招いた点」について書面と対面で謝罪があった。ボーイングは誤解を避ける目的で記述を削除し、いまは FAA の頁へのリンクだけ
+  - 国交省によるとボーイングとのやりとりは続いているが正式な回答は無く、FAA にも説明を求めている
+  - 3頁：1988年5月13日の読売新聞の朝刊は、ボーイング側の話として「作業員が指示書を読み違えた」と報じていた＝削除された記述と食い違う（産経の見方）。産経が原因の詳細と過去の報道との整合を尋ねたが、具体的な説明は無かった。⚠️ 読売の記事は孫引き＝使うなら縮刷版の原文に当てる
+- **FAA「Lessons Learned」JA8119 の頁**（`https://www.faa.gov/lessons_learned/transport_airplane/accidents/JA8119`）＝WebFetch は 403 → アプリ内のブラウザで開き、畳まれた節（Accident Overview ほか13節）の文を読んだ。頁の下に「**Last updated: Wednesday, September 3, 2025**」。修理の文（米連邦の頁の原文）：
+  - "This rework design called for a single splice plate to be used to provide a continuous load path between the upper and lower halves of the bulkhead."
+  - "The deviation from the approved repair resulted in a single row of rivets transferring the load to the upper affected web plate instead of the two rows specified in the repair instruction drawing."
+  - 🔴 "During the bulkhead repair, difficulty in installation of a splice plate resulted in the Boeing repair crew dividing the plate and installing it in two pieces - a deviation from the repair instructions that, when complete, with sealant applied on both fore and aft surfaces, had the same appearance as a correctly installed splice plate."
+  - "The single (middle) rivet row became the origin of structural fatigue cracking."
+  - ⚠️ "The JAL structural inspection intervals were predicated on low altitude/short range flights (6.9 psi)." ＝報告書に当てていない（使わない）
+  - 図と写真の札（alt）：写真＝"Photo copyright Michel Gilliand - used with permission"（×）・"Witness photo of Japan Airlines flight 123 missing vertical tail section"（×＝写真-124 と同じ物の見込み）・"Photos of Japan Airlines Flight 123 Crash Site"・"Photos of flight 123 wreckage"（出どころの札なし＝×）／図＝"Diagram of a 747 Aft Pressure Bulkhead"・"Diagram of a 747 Aft Fuselage"・"Japan Airlines Flight 123 flight path"・"Diagram of correct repair compared to actual repair"・"Diagram showing the fracture line that propagated along the row of fasteners"・"Hydraulic System Schematic and Hydraulic Systems Functional Assignments"・"Stabilizer Jack Screw Installation Diagram"（ファイル名 `Boeing_StabilizerJackscrew.jpg`＝ボーイングの図の見込み）・"Graphic of the empennage structure that departed the airplane"・"Reconstruction diagrams from the accident report showing details of the structural failure"（＝報告書の付図＝PDL）・"Diagram of Japan Airlines Aft Pressure Bulkhead Repair"＝**どの図にも出どころの札が無い**（FAA の作図か元の図か分からない）＝🔴 **使わない推奨**（同じ中身は報告書の付図〈PDL〉で足りる）
+- **国交省の公表**＝2026-10-07 の検索でも見つからない
+- 🔴 **legend #2 の補足**：「1枚の板を2枚に切って使った」は報告書の文字に無い（①）が、**FAA の頁（"dividing the plate … in two pieces"・取り付けが困難だったため）とボーイングの削除された頁（「切断した」・産経の報道）にはある**＝通説の出どころは FAA の頁とみられる（推測）。台本は報告書の言い方（幅の狭い1枚＋フィラ1枚・旧隔壁から製作）で語り、FAA・ボーイングの説明は帰属つきで（kousei.md §6-2・§10）
