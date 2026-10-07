@@ -2518,7 +2518,9 @@ def report():
         print("   （git を確認できないので追跡の検査は飛ばす）")
     else:
         intree = set(head.split())
-        uncommitted = [n for n in used if f"ref/{n}" not in intree]
+        # 🆕 19本目 ⑤b-7c（2026-10-07）：フリー素材のひかえの静止画（`<回>/stock/fb_<cid>.jpg`）は git に入れない（決め⑨）＝
+        #    Actions・Modal の上で `footage.fetch` が切り出したコマの1枚目から作る（試し焼き try1 で 13件とも作られた）＝数えない
+        uncommitted = [n for n in used if f"ref/{n}" not in intree and "/stock/fb_" not in n]
         if uncommitted:
             print(f"🔴 **コミットされていない写真** {len(uncommitted)}件: {uncommitted}")
             print("   → `.gitignore` の許可制リストに `!ref/<名前>` を1行ずつ足して"
