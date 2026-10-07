@@ -1,0 +1,162 @@
+✓ Initialized. View run at 
+https://modal.com/apps/torotorotolo/main/ap-RptKI6Bjp7lfdoAhUwoH65
+✓ Created objects.
+├── 🔨 Created mount C:\Users\konar\Desktop\zukai-engine\modal_app.py
+├── 🔨 Created function full.
+├── 🔨 Created function qa.
+├── 🔨 Created function check.
+└── 🔨 Created function layer_hash.
+BGM … /assets/bgm.mp3 / 3.20 MB
+
+$ git clone --depth 1 https://github.com/torotorotolo/zukai-engine.git /work/zukai-engine
+Cloning into '/work/zukai-engine'...
+Updating files:  39% (1483/3760)
+[1AUpdating files:  40% (1504/3760)
+[1AUpdating files:  41% (1542/3760)
+[1AUpdating files:  42% (1580/3760)
+[1AUpdating files:  43% (1617/3760)
+[1AUpdating files:  44% (1655/3760)
+[1AUpdating files:  45% (1692/3760)
+[1AUpdating files:  46% (1730/3760)
+[1AUpdating files:  47% (1768/3760)
+[1AUpdating files:  48% (1805/3760)
+[1AUpdating files:  49% (1843/3760)
+[1AUpdating files:  50% (1880/3760)
+[1AUpdating files:  51% (1918/3760)
+[1AUpdating files:  52% (1956/3760)
+[1AUpdating files:  52% (1978/3760)
+[1AUpdating files:  53% (1993/3760)
+[1AUpdating files:  54% (2031/3760)
+[1AUpdating files:  55% (2068/3760)
+[1AUpdating files:  56% (2106/3760)
+[1AUpdating files:  57% (2144/3760)
+[1AUpdating files:  58% (2181/3760)
+[1AUpdating files:  59% (2219/3760)
+[1AUpdating files:  60% (2256/3760)
+[1AUpdating files:  61% (2294/3760)
+[1AUpdating files:  62% (2332/3760)
+[1AUpdating files:  63% (2369/3760)
+[1AUpdating files:  64% (2407/3760)
+[1AUpdating files:  65% (2444/3760)
+[1AUpdating files:  66% (2482/3760)
+[1AUpdating files:  67% (2520/3760)
+[1AUpdating files:  68% (2557/3760)
+[1AUpdating files:  69% (2595/3760)
+[1AUpdating files:  70% (2632/3760)
+[1AUpdating files:  71% (2670/3760)
+[1AUpdating files:  72% (2708/3760)
+[1AUpdating files:  73% (2745/3760)
+[1AUpdating files:  74% (2783/3760)
+[1AUpdating files:  74% (2803/3760)
+[1AUpdating files:  75% (2820/3760)
+[1AUpdating files:  76% (2858/3760)
+[1AUpdating files:  77% (2896/3760)
+[1AUpdating files:  78% (2933/3760)
+[1AUpdating files:  79% (2971/3760)
+[1AUpdating files:  80% (3008/3760)
+[1AUpdating files:  80% (3031/3760)
+[1AUpdating files:  81% (3046/3760)
+[1AUpdating files:  82% (3084/3760)
+[1AUpdating files:  83% (3121/3760)
+[1AUpdating files:  84% (3159/3760)
+[1AUpdating files:  85% (3196/3760)
+[1AUpdating files:  86% (3234/3760)
+[1AUpdating files:  87% (3272/3760)
+[1AUpdating files:  88% (3309/3760)
+[1AUpdating files:  89% (3347/3760)
+[1AUpdating files:  90% (3384/3760)
+[1AUpdating files:  91% (3422/3760)
+[1AUpdating files:  92% (3460/3760)
+[1AUpdating files:  93% (3497/3760)
+[1AUpdating files:  93% (3508/3760)
+[1AUpdating files:  94% (3535/3760)
+[1AUpdating files:  95% (3572/3760)
+[1AUpdating files:  96% (3610/3760)
+[1AUpdating files:  97% (3648/3760)
+[1AUpdating files:  98% (3685/3760)
+[1AUpdating files:  99% (3723/3760)
+[1AUpdating files: 100% (3760/3760)
+[1AUpdating files: 100% (3760/3760), done.
+  (48秒 / 終了コード 0)
+
+$ git fetch --depth 50 origin 0dcaa9c44c58215d5a797f373fecc33ac201eb20
+From https://github.com/torotorotolo/zukai-engine
+ * branch            0dcaa9c44c58215d5a797f373fecc33ac201eb20 -> FETCH_HEAD
+  (3秒 / 終了コード 0)
+
+$ git checkout 0dcaa9c44c58215d5a797f373fecc33ac201eb20
+Note: switching to '0dcaa9c44c58215d5a797f373fecc33ac201eb20'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 0dcaa9c 19本目 ⑥ の前の注意：札と線の近さ5か所（c303 c522 cb02 c418 c613）
+  (1秒 / 終了コード 0)
+
+$ git log --oneline -1
+0dcaa9c 19本目 ⑥ の前の注意：札と線の近さ5か所（c303 c522 cb02 c418 c613）
+  (0秒 / 終了コード 0)
+
+$ python3 tools/scene_jiko.py --report
+カット 238 ／ 完成尺 2227.9秒 = 37分07.9秒
+字幕 533 枚
+実写 95 ／ ★写真を地に敷いた図解 0
+図の種類:
+   photo         95
+   m19           51
+   boxes         24
+   axis          20
+   quote         19
+   illu          18
+   panel          7
+   qty            3
+   ending         1
+
+⚠️ cuts/__init__.py が**中身ごと上書き**しているカット（0件）:
+   
+   章ファイルの fig / ann を直すときは、ここに載っていないか必ず見ること。
+
+🔴 章の名前（題材を替えたら必ず書き換える／11章）:
+   1/11  海辺の12階建て
+   2/11  25年前から見えていた
+   3/11  29か月
+   4/11  最後の3週間
+   5/11  午前1時22分
+   6/11  がれきの下で
+   7/11  プールデッキから
+   8/11  見えなかったもの
+   9/11  塔へ渡り、西で止まった
+   10/11  疑われたもの
+   11/11  その後
+   ↑ これは**いま作っている動画の章名**か？ 前作のままなら止めて直す。
+🔴 ref に実体が無い写真: ['ep19/stock/fb_c201.jpg', 'ep19/stock/fb_c308.jpg', 'ep19/stock/fb_c315.jpg', 'ep19/stock/fb_c405.jpg', 'ep19/stock/fb_c411.jpg', 'ep19/stock/fb_c510.jpg', 'ep19/stock/fb_c519.jpg', 'ep19/stock/fb_c526.jpg', 'ep19/stock/fb_cb08.jpg', 'ep19/stock/fb_cb15.jpg', 'ep19/stock/fb_cc04.jpg', 'ep19/stock/fb_cc13.jpg', 'ep19/stock/fb_cc16.jpg']
+   （上流が無いので push の検査は飛ばす）
+  (1秒 / 終了コード 1)
+Traceback (most recent call last):
+  File "/pkg/modal/_runtime/container_io_manager.py", line 894, in handle_input_exception
+    yield
+  File "/pkg/modal/_container_entrypoint.py", line 187, in run_input_sync
+    values = io_context.call_function_sync()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/pkg/modal/_runtime/container_io_manager.py", line 215, in call_function_sync
+    expected_value_or_values = self.finalized_function.callable(*args, **kwargs)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/modal_app.py", line 244, in full
+    sh("python3 tools/scene_jiko.py --report")
+  File "/root/modal_app.py", line 171, in sh
+    raise SystemExit(f"🔴 失敗: {cmd}")
+SystemExit: 🔴 失敗: python3 tools/scene_jiko.py --report
+🔴 失敗: python3 tools/scene_jiko.py --report
+modal_exit=1

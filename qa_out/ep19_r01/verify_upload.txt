@@ -1,0 +1,15 @@
+C:\Users\konar\Desktop\zukai-engine\qa_out\ep19_r01\verify_upload.py:55: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  diff = sum(abs(x - y) for x, y in zip(a.getdata(), b.getdata())) / (64 * 36)
+✓ 題：92字
+✓ 説明：4282字
+✓ タグ（集合）：15件／設定 15件
+✓ カテゴリ：27
+✓ 言語：ja／音声 ja
+✓ 子ども向けでない：madeForKids=False
+✓ ライセンス・埋め込み：youtube・True
+✓ 尺：PT37M8S（設計 2,227.9秒）
+✓ 処理：succeeded
+✓ 予約：private・publishAt 2026-10-08T08:00:00Z（狙い 2026-10-08T08:00:00Z）
+✓ サムネ：縮小して平均の差 0.5（maxresdefault.jpg?sqp=CPDxmNYG&rs=AOn4CLBVvOyb_YgEULNNXqtyYsjuJeu-Cw）
+✓ 全項目一致
+verify_exit=0
