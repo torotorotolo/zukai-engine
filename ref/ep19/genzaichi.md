@@ -535,3 +535,33 @@
    （原寸は疑いだけ）→ 直して焼き直し（差分だけ）
 7. そのあと ⑤b-8 決め所18・パネル5（c204 cc24 cc26 cc28 cc30）と総仕上げ（最後の焼きに `at=`）
 8. 持ち越し：c105 の rows（⑤b-8）／⑤c で原寸＝c102・c912／🟡 試し焼きで原寸＝c201 のホテルの看板・c718 の奥の壁の字・c808 のフォークリフトの字
+
+## チャット6 — 圧縮13回目の前の現在地＝⑤b-7c おわり（2026-10-07・この区切りで見た画像 33枚＝seen19.tsv 259〜291）
+
+### ✅ 済んだこと（commit `3216383`・`cb563ad`＝push 済み・toro/main＝cb563ad。額装の直しは下の commit）
+- **頭の映像**（`ss.head`）：c202（B1 7.4〜9.9＝7.2秒までは黒・寄せ zoom 1.68／xbias 0.02／bias 0.42＝作業員の顔 x≥1110・Ford の印 y≥800 を外へ）・
+  cb02（pb_52888・zoom 1.55／bias 0.49＝LIEBHERR を外へ）・cc14（px_9431778 6.4〜12.0）。寄せは `qa_out/ep19_assets.py` の **FRAME** → `use` が USE に書く
+- 🆕 **尻の映像の差し込み（新しい型）**：USE の鍵 `<cid>~t`（tail=True）・SPEC は `tail=ss.tailv(cid, at=k, t=, s=)`・ひかえ `fb_<cid>~t.jpg`。
+  c104（B2 92.6〜95.9）・c106（B5 28.6〜38.3＝ショット 28.4〜38.5 の1本・SHOT_FIX）・c718（**PC 15〜21**＝try1 の所見：0〜6秒は倉庫の外壁と焼き込みの英語の字幕）。
+  道具：scene_jiko（tail_secs・foot_clip・_foot_top・layer_index）・build_jiko.tail_frame（foot）・footage（secs_of＝尻のあるカットの本体は差し込みが入りきるまで・head_mismatch・credit_of）・ep19_assets（_uses・_need・cmd_use）
+- **c618 の尻の頁**＝諮問委員会の資料（A01）p.47（`ncst_p047.jpg`＝`ep19_assets.py slides` の NCST_PAGES・額装・無加工・🆕 `still=True`＝寄らない＝check_frame_only が通す）。
+  見出し「崩れる真ん中の部分」（語りの「最初のコマ」そのものではない）・絵の2行目の札「約2.5m」は外した・ILLU_MIX_TODO＝空
+- **NIST の動く図**：c606＝TFV スライド71（題「Observations: ~4-5 min before tower collapse」＝語りと合う・「推定」の札なし）・
+  c802＝GIF（URL を直した＝`/sites/default/files/images/2026/06/22/PunchingShear_001.gif`・6.68秒 167コマ・字と © なし）・
+  ca06＝TLS 2〜10秒（寄せ zoom 1.23／xbias 1／bias 0＝高所作業車の社名 Genie を外へ）。PLAN の種類：c606・c802＝写真・cb02・cc14＝混ざり
+- **門番を新しい型へ**：slots（ss.tailv）・footage（image/gif を通す）・page_edges（still は k＝0 だけ）・chapters（「終章」）・wording（axis の ref_rec は画面に出ない）・
+  scene_jiko の「コミットされていない写真」（stock/fb_ は数えない＝決め⑨）。c526 の出典の Ş→S（stock.json の credit だけ・author は元の綴り）
+- **Actions の試し焼き**：try1（run 37547371308・切り出し 47/47）→ 640px のシート17枚で100カットを全数 → 所見3つ → try2（run 37549902750・1回目は Kaltura の
+  Accept-Ranges が一時的に空で止まった＝同じ run を rerun で通った）で差分を見た
+- 🔴 **try2 の所見で直したもの（commit 済み・まだ焼いていない）**：c606・ca12・ca15・ca17＝NIST のスライドの映像の題の帯（y 0〜145）が見出しと重なる。
+  全画面で寄せると柱の札（D〜M＝y 158〜222）が切れる＝**額装（ss.vid の panel=True）＋ USE の寄せ zoom 1.16／bias 1.0**（額の中で題の帯だけ外す）
+- 門番：qa_all は cuts（画の無い23カット＝⑤b-8）だけが赤の見込み（額装の直しのあとの周は下の commit で確かめた）
+
+### 🔴 圧縮のあとでやること（⑤b-8 決め所18・パネル5・総仕上げ）
+1. **画の無い23カット**：決め所 18（c211 c311 c404 c414 c416 c505 c517 c616 c706 c803 c819 c904 c910 c917 ca14 cb06 cc03 cc09）・
+   パネル 5（c204 cc24 cc26 cc28 cc30）。決め所は全件を原文と照らす（台本 §2 の表）・それだけ見て意味が通るまで
+2. **c105** の出どころの札（rows＝QDOC・qrows）と、決め所の改行「壊れ始めは崩れる約｜3週間前」（「約」と「3週間」が割れた＝try1 シート1）
+3. 門番を1本ずつ → qa_all（cuts も緑）→ commit → push → **最後の焼き1回（at= 付き）**＝c606・ca12・ca15・ca17（額装）・頭と尻の差し込み・決め所を見る
+4. 持ち越し：⑤c で原寸＝c102・c912・ca06（奥の作業員の顔）／🟡 原寸＝c201 のホテルの看板・c718 の奥の壁の字・c808 のフォークリフトの字
+5. チャット6 の終わりの記録一式（引き継ぎ・チャット7 の1通目＝エフォート**最大**を3か所・⑤c の終わりの決まり・状況整理の19本目の行・記憶・小学生向けまとめ・用語集・
+   使用量の表と `usage_by_chat.py 19`）
