@@ -85,7 +85,9 @@ SPEC = {
                          steps=[dict(state=dict(new="on"), delay=0.3,
                                      tag=[dict(t="敷石と砂（足した）", at="new", to="paver"),
                                           dict(t="防水の膜（足した）", at="memb", to="memb"),
-                                          dict(t="元のタイル", d="多くははがした（コアには残る）", at="tile", to="tile")]),
+                                          # ⑥ の前（10-07・周2の注意）：札（y 620）と的（タイルの層 760,588）がほぼ同じ高さ＝線が「タイル」の字の
+                                          #   下を貫いた（geom_gap 23点）→ 札を下げて的を札より上に（線は札の上から出る）
+                                          dict(t="元のタイル", d="多くははがした（コアには残る）", at=(300.0, 656.0, "start", 400.0), to="tile")]),
                                 dict(state=dict(load="on"), delay=0.3, tag=dict(t="重さを足した", at="load"))],
                          note="重ねの厚さは NIST の図の値の比（下の床の板の厚さは模式）", src=TR_SRC + "のスライド（コアの模式）")),
     ),

@@ -79,7 +79,8 @@ SPEC = {
         fig=("m19", dict(view="excav",
                          steps=[dict(state=dict(pit="on"), delay=0.3, tag=dict(t="87パークの掘った所", at="pit", to="pit")),
                                 dict(state=dict(drive="on"), delay=0.3, tag=dict(t="鋼の板を揺らしながら打ち込む", at="pile", to="pile")),
-                                dict(state=dict(dist="on"), delay=0.3, tag=dict(t="約2.7メートル", d="（9フィート）", at="dist", to="dist"))],
+                                # ⑥ の前（10-07・周2の注意）：「（9フィート）」の下 3px に基図の「この建物（北）」＝3行の札に読めた → 札を 16px 上へ
+                                dict(state=dict(dist="on"), delay=0.3, tag=dict(t="約2.7メートル", d="（9フィート）", at=(780.0, 384.0, "start", 640.0), to="dist"))],
                          rel=[dict(t="87パーク", src="TR p1455（87 Park）"), dict(t="約2.7メートル", src="TR p1456（approximately 9 feet）"),
                               dict(t="9フィート", src="TR p1456")],
                          note=EX_NOTE, src=TR_SRC + "の語りとスライド")),

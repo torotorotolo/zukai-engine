@@ -122,7 +122,9 @@ SPEC = {
         t="大陪審のまとめ", s="報告から崩落まで",
         fig=("axis", dict(ss.AX_REP, steps=[
             dict(add=[ss.ax("rep", fmt="ym", anchor="end"), ss.ax("mtg"), ss.ax("m29"), ss.ax("letter"), ss.ax("bid"),
-                      ss.ax("d13"), ss.ax("fall_d", fmt="ym", anchor="start")], cur="2021-06-24"),
+                      # ⑥ の前（10-07・周2の注意）：13日前の「入札を開く会議」の縦の線が「2021年6月」「崩落」の字から 5px＝崩落の札が黄色い線の
+                      #   札に見えた → off=3（18本目 c312 と同じ・隣の線とのすき間 10px・札は自分の赤い線の上に残る）
+                      ss.ax("d13"), ss.ax("fall_d", fmt="ym", anchor="start", off=3)], cur="2021-06-24"),
             dict()],
             # ⑤c'（10-07）：資料が4つ＋注で出典の行が 16px に縮んだ＝注を短く（c415 は資料が2つ＝元の注のまま）
             note="会議の日は記録の「13日前」",

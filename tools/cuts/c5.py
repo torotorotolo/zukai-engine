@@ -233,7 +233,9 @@ SPEC = {
                          steps=[dict(state=dict(leak="on"), delay=0.3, tag=dict(t="何年も漏れては直してきた所", at="leak", to="leak")),
                                 dict(state=dict(pts="on"), delay=0.1,
                                      tag=[dict(t="3週間前・1週間前", d="門", at="gate", to="gate"),
-                                          dict(t="3週間前", d="プランター（17・11時間前に隙間）", at="planter", to="planter"),
+                                          # ⑥ の前（10-07・周2の注意）：札（y 640）と的（972,620）がほぼ同じ高さ＝ほぼ水平の線が「3週間前」の下 1.1px を
+                                          #   沿った → 札を下げて線を札の上から（上へ上げると門の札の線が字に触れる）
+                                          dict(t="3週間前", d="プランター（17・11時間前に隙間）", at=(88.0, 700.0, "start", 330.0), to="planter"),
                                           dict(t="1週間前", d="柱を伝う水", at="water", to="water"),
                                           dict(t="9時間前・3時間前", d="天井の漏れ", at="leak2", to="leak")])],
                          rel=[dict(t="3週間前", src="TR p1156"), dict(t="1週間前", src="TR p1157（Two weeks later）"),
