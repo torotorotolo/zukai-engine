@@ -58,4 +58,12 @@ PLAN = {
                src='報告書 4.2 p.128（`同亀裂が点検整備で発見されなかったことも関与しているものと推定される`）'),
 }
 
-SPEC = {}
+from illu20 import S1_REC as S1R  # noqa: E402  🆕 ⑤b-3：置き場 S1 の部品の出典（描く側と同じ文）
+
+SPEC = {
+    # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1（`tools/illu20.py`・門番 check_illu ㉔）──
+    # c914（3行）＝継ぎ目に輪 →「あの日を迎えた」で 1985年8月12日 の札 →「あの日の機内に戻る」
+    "c914": dict(fig=("illu", dict(
+        place="S1", start=dict(s1bulk="on", s1ring="tail"), rec=S1R["bulk"],
+        steps=[dict(), dict(tag=dict(t="1985年8月12日", at="bulk", off=(-60, -200), anchor="end", keep=True)), dict()]))),
+}

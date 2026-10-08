@@ -79,4 +79,13 @@ PLAN = {
                src='—'),
 }
 
-SPEC = {}
+from illu20 import S2_REC as S2R  # noqa: E402  🆕 ⑤b-3：置き場 S2 の部品の出典（描く側と同じ文）
+
+SPEC = {
+    # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S2（`tools/illu20.py`・門番 check_illu ㉕）──
+    # ca21（3行）＝前の再現 ca05 → 上から＝合図（台本の画の欄の🔁）。経路を墜落地点まで（機の印なし・墜落の時刻の札なし）・
+    #   3行目「海に落ちた物はどうなったのか」で相模湾に輪（垂直尾翼の破片は相模湾から揚収＝p.13）
+    "ca21": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="end", s2plane="off", s2crash="on", switch="on"), rec=S2R["crash"],
+        steps=[dict(), dict(), dict(state=dict(s2ring="sagami"))]))),
+}

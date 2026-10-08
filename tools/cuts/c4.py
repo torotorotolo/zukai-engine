@@ -79,4 +79,75 @@ PLAN = {
                src='報告書 p.83（`縦揺れ角頭下げ42.2度、横揺れ角131.5度`・`ほとんど裏返しになったと考えられる`）・2.1 p.8（`標高約1,565メートル`・`推定墜落時刻は、18時56分ごろであった`）'),
 }
 
-SPEC = {}
+from illu20 import S2_REC as S2R, S3_REC as S3R  # noqa: E402  🆕 ⑤b-3：置き場 S2・S3 の部品の出典（描く側と同じ文）
+
+M = ss._S3_NOTE            # S3 の札「模式（記録のグラフではない）」（ss.ILLU_ASSUME と同じ言葉）
+
+SPEC = {
+    # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S2・S3（`tools/illu20.py`・門番 check_illu ㉕㉖）──
+    # c402（3行）＝6時46分（「羽田にコンタクトしますか？」＝言葉は画面に出さない）。語りが分まで＝札も分まで
+    "c402": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:44:09"), rec=S2R["trace"],
+        steps=[dict(state=dict(s2t="18:46:09"), rec=S2R["trace"], dur=1.6, tag=dict(t="18:46", at="plane", off=(70, -100))),
+               dict(), dict()]))),
+    # c404（2行）＝18:46:33（「これはだめかもわからんね」）→ 18:47:07（羽田への誘導の要請）
+    "c404": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:46:09"), rec=S2R["trace"],
+        steps=[dict(state=dict(s2t="18:46:33"), rec=S2R["trace"], dur=1.0, tag=dict(t="18:46:33", at="plane", off=(70, -100))),
+               # ⑤b-3 の門番 layout：1行目の札とすき間0（1つの札の塊に読める）＝左上へ
+               dict(state=dict(s2t="18:47:07"), rec=S2R["trace"], dur=1.0,
+                    tag=dict(t="18:47:07", at="plane", off=(-70, -100), anchor="end"))]))),
+    # c405（2行）＝18:47:39（「おい山だぞ」）
+    "c405": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:47:07"), rec=S2R["trace"],
+        steps=[dict(state=dict(s2t="18:47:39"), rec=S2R["trace"], dur=1.0, tag=dict(t="18:47:39", at="plane", off=(70, -100))),
+               dict()]))),
+    # c406（2行）＝同じ点の寄り（cam＝機の印のまわり）。言葉は画面に出さない
+    "c406": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:47:39"), rec=S2R["trace"], camc="plane",
+        steps=[dict(state=dict(s2t="18:47:44", cam=1.8), rec=S2R["trace"], dur=1.4), dict()]))),
+    # c407（2行）＝高さ 約2,100メートル → 奥多摩町の上で左へ（18:48:03＝付図-1）・西北西へ少しずつ上がる
+    "c407": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:47:44"), rec=S2R["trace"],
+        # ⑤b-3 の門番 echo：「高さ 約2,100メートル」は語りの写し＝12字未満の名札に
+        steps=[dict(tag=dict(t="約2,100メートル", at="plane", off=(70, -100))),
+               dict(state=dict(s2t="18:49:30"), rec=S2R["trace"], dur=2.4, tag=dict(t="奥多摩町", at="okutama", off=(80, 40)))]))),
+    # c410（2行）＝S3 の戻り（2つの揺れを並べる）。札なし（語りは報告書の言葉の引用）
+    "c410": dict(fig=("illu", dict(
+        place="S3", start=dict(view="both", s3wave="on", s3roll="on"), rec=S3R["wave"], assume=M,
+        steps=[dict(), dict()]))),
+    # c411（2行）＝S3 → 上から＝合図（㉑）。18:50:06（「スピードがでてます」）→ 18:50:09
+    "c411": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:49:30", switch="on"), rec=S2R["trace"],
+        steps=[dict(state=dict(s2t="18:50:06"), rec=S2R["trace"], dur=1.0, tag=dict(t="18:50:06", at="plane", off=(-60, -100), anchor="end")),
+               dict(state=dict(s2t="18:50:09"), rec=S2R["trace"], dur=0.6)]))),
+    # c413（3行）＝18:53 ごろ 高さ 約4,000メートル → 18:53:31（もう一度「操縦不能」）
+    "c413": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:50:09"), rec=S2R["trace"],
+        # ⑤b-3 の門番：echo＝「高さ 約4,000メートル」は語りの写し＝12字未満の名札に／layout＝2行目の札と重なった＝2行目は右上へ
+        steps=[dict(state=dict(s2t="18:53:03"), rec=S2R["trace"], dur=2.4, tag=dict(t="約4,000メートル", at="plane", off=(-60, -100), anchor="end")),
+               dict(state=dict(s2t="18:53:31"), rec=S2R["trace"], dur=0.8, tag=dict(t="18:53:31", at="plane", off=(60, -100))),
+               dict()]))),
+    # c414（2行）＝18:54（東京アプローチに切り替え）→ 羽田・熊谷と機を結ぶ線（距離の数は語りだけ＝線の長さは地図の上の本当の長さ）
+    "c414": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:53:31"), rec=S2R["trace"],
+        steps=[dict(state=dict(s2t="18:54:25"), rec=S2R["trace"], dur=0.8, tag=dict(t="18:54", at="plane", off=(-60, -100), anchor="end")),
+               dict(state=dict(s2lines="on", s2kum="on"), rec=S2R["kumagaya"],
+                    tag=dict(t="熊谷", at="kumagaya", off=(70, 10)))]))),
+    # c415（2行）＝18:55:05（「いつでもレディに」）→ 横田の点（「横田ランディングもアベイラブル」）
+    "c415": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:54:25"), rec=S2R["trace"],
+        steps=[dict(state=dict(s2t="18:55:05"), rec=S2R["trace"], dur=0.8, tag=dict(t="18:55:05", at="plane", off=(-60, -100), anchor="end")),
+               dict(state=dict(s2yok="on"), rec=S2R["yokota"], tag=dict(t="横田", at="yokota", off=(70, 10)))]))),
+    # c416（2行）＝聞き役「横田って？」→ 羽田と横田に輪（アメリカ軍の飛行場・どちらにも降りられる）
+    "c416": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:55:05", s2yok="on"), rec=S2R["yokota"],
+        steps=[dict(tag=dict(t="横田", at="yokota", off=(70, 10), keep=True)),
+               dict(state=dict(s2ring="both"), tag=dict(t="アメリカ軍の飛行場", at="yokota", off=(70, 60)))]))),
+    # c417（3行）＝18:55:16（「はい了解しました」）→ 扇平山・三国山の方へ（右へ傾き始めた）。墜落は描かない（c421 の語り）
+    "c417": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:55:05"), rec=S2R["trace"],
+        steps=[dict(state=dict(s2t="18:55:16"), rec=S2R["trace"], dur=0.8),
+               dict(state=dict(s2t="18:55:40"), rec=S2R["trace"], dur=1.6, tag=dict(t="三国山", at="mikuni", off=(90, 60))),
+               dict()]))),
+}

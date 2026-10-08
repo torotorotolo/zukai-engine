@@ -82,4 +82,68 @@ PLAN = {
                src='報告書 2.1 p.7（`その後の同機は東に向かって急速に降下をしながら飛行し`）・2.4.5 p.14（`事故機の推定飛行経路下から、5点の残骸が昭和61年7月2日までに回収された`）'),
 }
 
-SPEC = {}
+from illu20 import S1_REC as S1R, S2_REC as S2R, S3_REC as S3R  # noqa: E402  🆕 ⑤b-3：置き場 S1〜S3 の部品の出典（描く側と同じ文）
+
+M = ss._S3_NOTE            # S3 の札「模式（記録のグラフではない）」（ss.ILLU_ASSUME と同じ言葉）
+
+SPEC = {
+    # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1・S2・S3（`tools/illu20.py`・門番 check_illu ㉔㉕㉖）──
+    # S2＝付図-1 の経路と時刻の点（`ref/ep20/route20.json`）。時計の札は機の印を指す（㉕）・秒まで言う語りは秒まで、分だけの語りは分まで
+    # c301（2行）＝前の再現 c216（横から）→ 上から＝合図。1行目で 18:25:21（管制に伝えた）・2行目で羽田に輪（引き返したい）
+    "c301": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:24:35", switch="on"), rec=S2R["trace"],
+        # ⑤b-3 の門番 layout：左上の札が地名「駿河湾」と重なった＝右上へ
+        steps=[dict(state=dict(s2t="18:25:21"), rec=S2R["trace"], dur=1.2, tag=dict(t="18:25:21", at="plane", off=(60, -110))),
+               dict(state=dict(s2ring="haneda"))]))),
+    # c302（2行）＝伊豆半島を横切り駿河湾の上へ（付図-1 の 18:27:07＝西の海岸の上）
+    "c302": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:25:21"), rec=S2R["trace"],
+        steps=[dict(state=dict(s2t="18:27:07"), rec=S2R["trace"], dur=2.6), dict()]))),
+    # c303（2行）＝S2（上から）→ S3（横から）＝合図。フゴイド＝機首の上げ下げと高さの波（道の傾き＝本当の 15度 まで）
+    "c303": dict(fig=("illu", dict(
+        place="S3", start=dict(switch="on"), assume=M,
+        steps=[dict(state=dict(s3wave="on"), rec=S3R["wave"], tag=dict(t="高さと速さが波打つ", at="wave", off=(-30, -150), anchor="end")),
+               # ⑤b-3 の門番 layout：1行目の札と同じ所で重なった（段の入れ替わりの薄くなる間）＝波の下へ
+               dict(tag=dict(t="フゴイド", at="wave", off=(-30, 170), anchor="end"))]))),
+    # c304（2行）＝1行目で角の印（約15度）と速さの差・2行目で高さの差のかっこ（約1,200メートル）
+    "c304": dict(fig=("illu", dict(
+        place="S3", start=dict(s3wave="on"), rec=S3R["wave"], assume=M,
+        steps=[dict(state=dict(s3pitch="on"), rec=S3R["wave"],
+                    tag=[dict(t="上下に約15度", at="climb", off=(-150, -150), anchor="end"),
+                         dict(t="速さの差 時速約185キロ", at="wave", off=(-30, 170), anchor="end")]),
+               dict(state=dict(s3amp="on"), rec=S3R["wave"], tag=dict(t="高さの差 約1,200メートル", at="amp", off=(-40, -170), anchor="end"))]))),
+    # c305（2行）＝横から → 正面から＝合図。ダッチロール＝左右に約40度（角の印は本当の 40度）
+    "c305": dict(fig=("illu", dict(
+        place="S3", start=dict(view="front", s3roll="on", switch="on"), rec=S3R["roll"], assume=M,
+        # ⑤b-3 の門番 echo：1行目の札「左右に傾きながら機首を振る」は語りの写し＝外した（傾きは絵の動き・名は語り）
+        steps=[dict(), dict(tag=dict(t="左右に約40度", at="arc", off=(80, -40)))]))),
+    # c309（2行）＝S3（正面から）→ 上から＝合図。18:27:47（航空機関士「ハイドロプレッシャ オールロス」）
+    "c309": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:27:07", switch="on"), rec=S2R["trace"],
+        # ⑤b-3 の門番 layout：左上へ出した札の線が地名「駿河湾」を貫いた＝右上（伊豆半島の側）へ
+        steps=[dict(state=dict(s2t="18:27:47"), rec=S2R["trace"], dur=1.2, tag=dict(t="18:27:47", at="plane", off=(60, -110))),
+               dict()]))),
+    # c312（2行）＝上から → 横から＝合図。垂直尾翼と尾部胴体の欠けた機体＝「推定」の札（欠けた範囲は報告書も特定できない・p.107）
+    "c312": dict(fig=("illu", dict(
+        place="S1", start=dict(s1fin="lost", switch="on"), rec=S1R["lost"], assume="推定",
+        steps=[dict(tag=dict(t="欠けた垂直尾翼", at="fin", off=(-40, -190), anchor="end")), dict()]))),
+    # c313（2行）＝横から → 上から＝合図。18:28:35「But now uncontrol.」（駿河湾から焼津の北へ）
+    "c313": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:27:47", switch="on"), rec=S2R["trace"],
+        # ⑤b-3 の門番 layout：左上へ出した札の線が地名「駿河湾」を貫いた＝右上へ
+        steps=[dict(state=dict(s2t="18:28:35"), rec=S2R["trace"], dur=1.2, tag=dict(t="18:28:35", at="plane", off=(60, -110))),
+               dict()]))),
+    # c314（3行）＝18:31:14（名古屋に降りられるか）→ 名古屋空港への矢印（72海里＝約133キロ）→ 羽田に輪（羽田へ戻りたい）
+    "c314": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:28:35"), rec=S2R["trace"],
+        steps=[dict(state=dict(s2t="18:31:14"), rec=S2R["trace"], dur=1.6, tag=dict(t="18:31:14", at="plane", off=(60, -110))),
+               dict(state=dict(s2ngo="on"), rec=S2R["nagoya"], tag=dict(t="名古屋まで 約133キロ", at="nagoya_mid", off=(0, -60), anchor="middle")),
+               dict(state=dict(s2ring="haneda"))]))),
+    # c319（3行）＝聞き役の問い → 大月の上で右へほぼ1回転（18:40:30〜18:44:09＝付図-1）→ 高さの札
+    "c319": dict(fig=("illu", dict(
+        place="S2", start=dict(s2t="18:31:14"), rec=S2R["trace"],
+        steps=[dict(),
+               dict(state=dict(s2t="18:44:09"), rec=S2R["trace"], dur=3.4, tag=dict(t="大月", at="otsuki", off=(-120, 30), anchor="end")),
+               # ⑤b-3 の門番 echo：「高さ 約6,400→約5,200メートル」は語りの写し＝下がった先の高さだけ（12字未満の名札）
+               dict(tag=dict(t="約5,200メートル", at="plane", off=(60, -110)))]))),
+}

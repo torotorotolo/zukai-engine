@@ -94,4 +94,10 @@ PLAN = {
                src='—'),
 }
 
-SPEC = {}
+SPEC = {
+    # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1（`tools/illu20.py`・門番 check_illu ㉔）──
+    # c526（2行）＝前の再現 c513（S4・上から）→ 横から＝合図（台本の画の欄の🔁）。機体の後ろに輪（壁の名は c606 で出す）
+    "c526": dict(fig=("illu", dict(
+        place="S1", start=dict(switch="on"),
+        steps=[dict(state=dict(s1ring="tail"), tag=dict(t="機体の後ろ", at="tail", off=(-80, -190), anchor="end")), dict()]))),
+}

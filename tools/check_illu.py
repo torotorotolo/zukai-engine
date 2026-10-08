@@ -1243,9 +1243,10 @@ def judge_destroy(scs, cid, destroy=None):
     destroy = destroy if destroy is not None else tuple(getattr(_ss(), "ILLU_DESTROY_CUTS", None) or ())
     bad, n = [], 0
     for sc in scs:
-        if sc["place"] in ("SA", "A1", "A2"):
+        if sc["place"] in ("SA", "A1", "A2", "S1"):
             # 🆕 19本目 ⑤b-2：A1 の崩れ（真ん中・東・プールデッキ・がれき＝destroy の部品）も表のカットだけ
             #   🆕 ⑤b-3：A2 の落ちた地上の駐車場・デッキの一部・沈んだ車も
+            #   🆕 20本目 ⑤b-3：S1 の欠けた機体（垂直尾翼と尾部胴体）も
             n += 1
             used = sorted({f for st in [sc["start"]] + sc["states"] for f, vs in DESTROY_SA.items() if st.get(f) in vs})
             used += [p["id"] for p in sc["parts"] if p.get("destroy") and p["id"] not in used]
@@ -1433,6 +1434,273 @@ def judge_a23(sc, where):
     return bad, n
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 20本目 ⑤b-3（2026-10-08）：㉔ S1（横から見た機体）・㉕ S2（上から見た経路の地図）・㉖ S3（2つの揺れの模式）＝`tools/illu20.py`
+# ══════════════════════════════════════════════════════════
+# 🔴 記録の値は門番の側に持つ（§5b-88＝illu20 の定数を読まない）。経路と時刻の点は記録から読んだデータ `ref/ep20/route20.json`
+#    （付図-1 を Natural Earth の海岸線に重ねて読んだ値＝`ref/ep20/route20.py`）を読む（型の定数ではない）
+REC_S1 = dict(len_m=70.51, len_rec="報告書 p140（付図-4「231 FT 4 IN」）", bs_nose=90.0, bs_bulk=2360.0, bs_cone=2658.0,
+              bs_rec="報告書 p9（BS90〜・BS2658 以降のテールコーン）・p29（BS2360＝後部圧力隔壁の取付部）")
+REC_S2 = dict(
+    pts=dict(haneda=(139.780, 35.549), yokota=(139.348, 35.749), kumagaya=(139.388, 36.147), nagoya=(136.924, 35.255)),
+    crash=(138 + 41 / 60 + 49 / 3600, 35 + 59 / 60 + 54 / 3600),        # 報告書 p8「北緯35度59分54秒、東経138度41分49秒」
+    t0="18:12:00",                                                       # p6「18時12分滑走路15Lから離陸」
+    nagoya_km=72 * 1.852, nagoya_tol=0.06)                               # p7「名古屋空港から72海里の地点」
+REC_S3 = dict(pitch=15.0, roll=40.0, nums=("15度", "40度", "1,200メートル", "185キロ"),
+              rec="報告書 p113（縦揺れ角±約15度・速度変化約100ノット・高度変化約4,000フィート）・p114（横揺れ角±約40度）")
+S2_TOL, S1_TOL = 3.0, 2.0
+NUM_UNIT = re.compile(r"\d[\d,，]*(?:\.\d+)?\s*(?:度|メートル|キロ|km|m(?![a-z]))")
+CLOCK_TAG = re.compile(r"(\d{1,2}):(\d{2})(?::(\d{2}))?")
+
+
+def _no_people(sc):
+    return any(p.get("role") or p.get("kind") == "sprite" or p.get("crowd") for p in sc["parts"]) or bool(sc.get("people"))
+
+
+def judge_s1(sc, where):
+    """㉔ S1：全長＝付図-4 の 70.51m・後部圧力隔壁の x＝BS2360・欠けた形の切り口＝BS2658（テールコーン）・欠けた形は「推定」の札と一緒に・人を描かない"""
+    if sc["place"] != "S1":
+        return [], 0
+    bad, n = [], 1
+    P = {p["id"]: p for p in sc["parts"]}
+    body = next((p for p in sc["parts"] if (p.get("geo") or {}).get("kind") == "body"), None)
+    if not body:
+        return [f"㉔{where}：胴体の部品（geo の kind＝body）が無い"], n
+    g = body["geo"]
+    n += 1
+    if abs(float(g["len_m"]) - REC_S1["len_m"]) > 0.05:
+        bad.append(f"㉔{where}：全長 {g['len_m']:.2f}m＝記録は {REC_S1['len_m']}m（{REC_S1['len_rec']}）")
+    pxm = (float(g["tail_x"]) - float(g["nose_x"])) / REC_S1["len_m"]
+
+    def bx(bs):
+        return float(g["nose_x"]) + (bs - REC_S1["bs_nose"]) * 0.0254 * pxm
+    if "bulk" in P:
+        n += 1
+        x = float(P["bulk"]["geo"]["x"])
+        if abs(x - bx(REC_S1["bs_bulk"])) > S1_TOL:
+            bad.append(f"㉔{where}：後部圧力隔壁 x {x:.1f}＝記録の BS2360 は x {bx(REC_S1['bs_bulk']):.1f}（{REC_S1['bs_rec']}）")
+    lost = [p["id"] for p in sc["parts"] if p.get("destroy")]
+    if lost:
+        n += 1
+        if "推定" not in (sc.get("assume") or ""):
+            bad.append(f"㉔{where}：欠けた機体（{lost}）を描いたのに「推定」の札が無い（欠けた範囲は報告書も特定できない＝p.107）")
+        if g.get("cut_x") is None or abs(float(g["cut_x"]) - bx(REC_S1["bs_cone"])) > S1_TOL:
+            bad.append(f"㉔{where}：欠けた胴体の切り口 x {g.get('cut_x')}＝記録の BS2658（テールコーン）は x {bx(REC_S1['bs_cone']):.1f}")
+    elif g.get("cut_x") is not None:
+        bad.append(f"㉔{where}：胴体を切ったのに壊れる物の印（destroy）が無い")
+    if _no_people(sc):
+        bad.append(f"㉔{where}：S1 に人を置いた（人は描かない）")
+    if any((p.get("obj") or {}) for p in sc["parts"]):
+        bad.append(f"㉔{where}：S1 の部品が数（obj）を持つ（マスク・窓の数は模式＝数えない）")
+    return bad, n
+
+
+@lru_cache(maxsize=1)
+def _route20():
+    import json as _json
+    p = HERE / "ref" / "ep20" / "route20.json"
+    return _json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+
+
+def _sec20(t):
+    h, m, s = (int(v) for v in t.split(":"))
+    return h * 3600 + m * 60 + s
+
+
+def _s2_expect(trail_path, proj, t):
+    """門番の側の補間：時刻の点（route20.json）を経路の線の上へ順に当て、時刻のあいだは時間に比例。返り値＝画面の点"""
+    R = _route20()
+    pts = [tuple(p) for p in trail_path]
+    cum = [0.0]
+    for a, b in zip(pts, pts[1:]):
+        cum.append(cum[-1] + math.hypot(b[0] - a[0], b[1] - a[1]))
+    if t == "end":
+        return pts[-1]
+    ticks, i0 = [(_sec20(REC_S2["t0"]), 0.0)], 0
+    for tk in R["ticks"]:
+        q = proj(tk["lon"], tk["lat"])
+        best = None
+        for i in range(i0, min(len(pts) - 2, i0 + 30)):
+            a, b = pts[i], pts[i + 1]
+            vx, vy = b[0] - a[0], b[1] - a[1]
+            L2 = vx * vx + vy * vy or 1e-9
+            u = max(0.0, min(1.0, ((q[0] - a[0]) * vx + (q[1] - a[1]) * vy) / L2))
+            d = math.hypot(q[0] - a[0] - vx * u, q[1] - a[1] - vy * u)
+            if best is None or d < best[0]:
+                best = (d, cum[i] + math.sqrt(L2) * u, i)
+        ticks.append((_sec20(tk["t"]), best[1]))
+        i0 = best[2]
+    s_t = _sec20(t)
+    s = ticks[-1][1]
+    for (t0, s0), (t1, s1) in zip(ticks, ticks[1:]):
+        if t0 <= s_t <= t1:
+            s = s0 + (s1 - s0) * (s_t - t0) / (t1 - t0)
+            break
+    for (a, b), c0, c1 in zip(zip(pts, pts[1:]), cum, cum[1:]):
+        if s <= c1 + 1e-9:
+            f = (s - c0) / (c1 - c0) if c1 > c0 else 0.0
+            return (a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f)
+    return pts[-1]
+
+
+def _along(path, u):
+    segs = [math.hypot(q[0] - p[0], q[1] - p[1]) for p, q in zip(path, path[1:])]
+    s = max(0.0, min(1.0, u)) * sum(segs)
+    for (p, q), L in zip(zip(path, path[1:]), segs):
+        if s <= L and L > 0:
+            return (p[0] + (q[0] - p[0]) * s / L, p[1] + (q[1] - p[1]) * s / L)
+        s -= L
+    return tuple(path[-1])
+
+
+def judge_s2(sc, where):
+    """㉕ S2：経路の終わり＝墜落地点（p.8 の緯度経度）・付図-1 の時刻の点が経路の線の上（±3画素）・段の終わりの機の印＝その段の時刻の点
+    （門番の側の補間 ±3画素）・時計の札＝その段の時刻で機の印を指す・横田／熊谷／名古屋の点の位置・名古屋まで 72海里（±6%）・
+    縮尺の棒・墜落地点の印は墜落地点まで描いた段だけ・人を描かない"""
+    if sc["place"] != "S2":
+        return [], 0
+    bad, n = [], 1
+    R = _route20()
+    if R is None:
+        return [f"㉕{where}：ref/ep20/route20.json が無い（経路の記録）"], n
+    trail = next((p for p in sc["parts"] if p["id"] == "trail"), None)
+    pj = (trail or {}).get("geo", {}).get("proj")
+    if not trail or not pj:
+        return [f"㉕{where}：経路の部品（trail）か地図の平らにし方（geo の proj）が無い"], n
+
+    def proj(lon, lat):
+        return (pj["px"][0] + (lon - pj["c"][0]) * pj["kx"] * pj["s"], pj["px"][1] - (lat - pj["c"][1]) * pj["ky"] * pj["s"])
+    path = trail["path"]
+    n += 1
+    cx, cy = proj(*REC_S2["crash"])
+    if math.hypot(path[-1][0] - cx, path[-1][1] - cy) > S2_TOL:
+        bad.append(f"㉕{where}：経路の終わり {tuple(round(v) for v in path[-1])}＝墜落地点（p.8）は {round(cx)}, {round(cy)}")
+
+    def dist_to_path(q):
+        best = 1e9
+        for a, b in zip(path, path[1:]):
+            vx, vy = b[0] - a[0], b[1] - a[1]
+            L2 = vx * vx + vy * vy or 1e-9
+            u = max(0.0, min(1.0, ((q[0] - a[0]) * vx + (q[1] - a[1]) * vy) / L2))
+            best = min(best, math.hypot(q[0] - a[0] - vx * u, q[1] - a[1] - vy * u))
+        return best
+    for tk in R["ticks"]:
+        n += 1
+        d = dist_to_path(proj(tk["lon"], tk["lat"]))
+        if d > S2_TOL:
+            bad.append(f"㉕{where}：付図-1 の時刻の点 {tk['t']} が経路の線から {d:.1f}画素（{S2_TOL}画素まで）")
+    plane = next((p for p in sc["parts"] if p["id"] == "plane"), None)
+    sts = [sc["start"]] + list(sc["states"])
+    n += 1
+    if abs(pj["kx"] / (math.cos(math.radians(pj["lat0"])) * 111.32) - 1.0) > 0.005 or abs(pj["ky"] / 110.57 - 1.0) > 0.005:
+        bad.append(f"㉕{where}：地図の平らにし方の東西 {pj['kx']:.2f}・南北 {pj['ky']:.2f} km／度＝北緯{pj['lat0']}度では "
+                   f"{math.cos(math.radians(pj['lat0'])) * 111.32:.2f}・110.57")
+    if plane:
+        go = plane["go"]
+        for i, st in enumerate(sts):
+            if st["s2plane"] != "on" or st["s2t"] == "end":
+                continue
+            n += 1
+            # sts[i] の u＝頭（i＝0）は go[0]・段 i−1 の終わりは go[1:] のうち段が i−1 以下の最後の鍵（無ければ頭のまま）
+            ks = [k for k in go[1:] if k["stage"] <= i - 1] if i else []
+            u = float((ks[-1] if ks else go[0])["u"])
+            got = _along(path, u)
+            want = _s2_expect(path, proj, st["s2t"])
+            if math.hypot(got[0] - want[0], got[1] - want[1]) > S2_TOL:
+                bad.append(f"㉕{where}：段{i}の機の印 {tuple(round(v) for v in got)}＝時刻 {st['s2t']} の点は "
+                           f"{tuple(round(v) for v in want)}（付図-1 の時刻の点のあいだを時間に比例）")
+    for i, tg in enumerate(sc["tags"]):
+        st = sts[i + 1] if i + 1 < len(sts) else sts[-1]
+        for txt, at in zip(tg.get("texts") or [], tg.get("ats") or []):
+            for m in CLOCK_TAG.finditer(txt):
+                n += 1
+                if at != "plane":
+                    bad.append(f"㉕{where}：時計の札「{txt}」が機の印を指していない（at＝{at}）")
+                if st["s2t"] == "end":
+                    bad.append(f"㉕{where}：時計の札「{txt}」を墜落地点まで描いた段に出した（墜落の時刻は割れる）")
+                    continue
+                h, mi, se = st["s2t"].split(":")
+                if (int(m.group(1)), int(m.group(2))) != (int(h), int(mi)) or (m.group(3) and m.group(3) != se):
+                    bad.append(f"㉕{where}：段{i + 1}の時計の札「{txt}」＝機の印の時刻は {st['s2t']}")
+    for p in sc["parts"]:
+        g = p.get("geo") or {}
+        if g.get("kind") == "pt":
+            n += 1
+            want = proj(*REC_S2["pts"][g["name"]])
+            if math.hypot(g["xy"][0] - want[0], g["xy"][1] - want[1]) > S2_TOL:
+                bad.append(f"㉕{where}：{g['name']} の点 {tuple(round(v) for v in g['xy'])}＝記録の位置は {tuple(round(v) for v in want)}")
+        elif g.get("kind") == "nagoya":
+            n += 2
+            want = proj(*REC_S2["pts"]["nagoya"])
+            if math.hypot(g["to"][0] - want[0], g["to"][1] - want[1]) > S2_TOL:
+                bad.append(f"㉕{where}：名古屋空港の点 {tuple(round(v) for v in g['to'])}＝記録の位置は {tuple(round(v) for v in want)}")
+            km = math.hypot(g["to"][0] - g["at"][0], g["to"][1] - g["at"][1]) / pj["s"]
+            if abs(km / REC_S2["nagoya_km"] - 1.0) > REC_S2["nagoya_tol"]:
+                bad.append(f"㉕{where}：名古屋までの矢印 {km:.0f}km＝記録は72海里（{REC_S2['nagoya_km']:.0f}km・p.7）")
+        elif g.get("kind") == "lines":
+            n += 1
+            for nm, q in zip(("haneda", "kumagaya"), g["frm"]):
+                want = proj(*REC_S2["pts"][nm])
+                if math.hypot(q[0] - want[0], q[1] - want[1]) > S2_TOL:
+                    bad.append(f"㉕{where}：{nm} から結ぶ線の端 {tuple(round(v) for v in q)}＝記録の位置は {tuple(round(v) for v in want)}")
+        elif g.get("kind") == "scale":
+            n += 1
+            if abs(float(g["px"]) - float(g["km"]) * pj["s"]) > 0.5:
+                bad.append(f"㉕{where}：縮尺の棒 {g['px']}画素＝{g['km']}km は {float(g['km']) * pj['s']:.1f}画素")
+        elif g.get("kind") == "crash":
+            n += 1
+            if any(st["s2crash"] == "on" and st["s2t"] != "end" for st in sts):
+                bad.append(f"㉕{where}：墜落地点の印を、墜落地点まで描いていない段に出した")
+    if _no_people(sc):
+        bad.append(f"㉕{where}：S2 に人を置いた（人は描かない）")
+    return bad, n
+
+
+def judge_s3(sc, where):
+    """㉖ S3：「模式」の札・札の数は記録の値だけ（約15度・約40度・約1,200メートル・時速約185キロ）・角の印＝15度・40度（本当の角度）・
+    波の道の傾きの最大＝15度・高さのかっこ＝波の頂と谷・左右の傾きの鍵は ±40度 まで（届く）・人を描かない"""
+    if sc["place"] != "S3":
+        return [], 0
+    bad, n = [], 1
+    if "模式" not in (sc.get("assume") or ""):
+        bad.append(f"㉖{where}：揺れの模式に「模式」の札が無い（記録のグラフではない＝台本の画の欄）")
+    for tg in sc["tags"]:
+        for txt in tg.get("texts") or []:
+            for m in NUM_UNIT.finditer(txt):
+                n += 1
+                if m.group(0).replace(" ", "") not in REC_S3["nums"]:
+                    bad.append(f"㉖{where}：札「{txt}」の「{m.group(0)}」は記録の値でない（{REC_S3['nums']}＝{REC_S3['rec']}）")
+    for p in sc["parts"]:
+        g = p.get("geo") or {}
+        if g.get("kind") == "pitch":
+            n += 1
+            if abs(float(g["deg"]) - REC_S3["pitch"]) > 0.01:
+                bad.append(f"㉖{where}：機首の上げの角の印 {g['deg']}度＝記録は約15度")
+        elif g.get("kind") == "arc":
+            n += 1
+            if abs(float(g["deg"]) - REC_S3["roll"]) > 0.01:
+                bad.append(f"㉖{where}：傾きの角の印 {g['deg']}度＝記録は約40度")
+        elif g.get("kind") == "wave":
+            n += 1
+            slope = math.degrees(math.atan(float(g["amp"]) * 2 * math.pi / float(g["lam"])))
+            if abs(slope - REC_S3["pitch"]) > 0.3:
+                bad.append(f"㉖{where}：波の道の傾きの最大 {slope:.1f}度＝機首の上げの約15度（道の向きに機を回す）")
+        elif g.get("kind") == "amp":
+            n += 1
+            if abs(float(g["px"]) - float(g["wave_px"])) > 1.0:
+                bad.append(f"㉖{where}：高さのかっこ {g['px']:.0f}画素＝波の頂と谷の差は {g['wave_px']:.0f}画素")
+        elif g.get("kind") == "front":
+            n += 1
+            rots = [abs(float(k.get("rot", 0.0))) for k in p.get("keys") or []]
+            if rots and max(rots) > REC_S3["roll"] + 0.01:
+                bad.append(f"㉖{where}：左右の傾き {max(rots):.0f}度＝記録は約40度まで")
+            elif rots and max(rots) > 0 and abs(max(rots) - REC_S3["roll"]) > 0.01:
+                bad.append(f"㉖{where}：左右の傾き {max(rots):.0f}度＝記録の約40度に届かない")
+    if _no_people(sc):
+        bad.append(f"㉖{where}：S3 に人を置いた（人は描かない）")
+    return bad, n
+
+
 def A1FH(P):
     """真ん中の部分の1階の高さ（部品の geo＝描いた幾何。型の定数は読まない）。部品が無ければ 1（＝落ちた量の比べに使わない）"""
     return float((P.get("mid") or {}).get("geo", {}).get("fh") or 1.0)
@@ -1452,6 +1720,10 @@ def judge_fig(kind, kw, where):
         b, m = judge_a23(sc, f"{where}#{k + 1}")     # 🆕 19本目 ⑤b-3：㉓
         bad += b
         n += m
+        for jf in (judge_s1, judge_s2, judge_s3):      # 🆕 20本目 ⑤b-3：㉔㉕㉖
+            b, m = jf(sc, f"{where}#{k + 1}")
+            bad += b
+            n += m
     n += 1
     if f.illu.get("full"):
         asm = f.illu.get("assume", "")
@@ -2617,9 +2889,117 @@ def _selftest_a23():
     return ok
 
 
+def selftest_ep20():
+    """🆕 20本目 ⑤b-3（2026-10-08）：㉔ S1・㉕ S2・㉖ S3 の物差しの検算＝本番の表（20本目の ss）のまま回す。
+    正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。壊し方は場面（部品の geo・鍵・札・状態）をじかに変える
+    ＝型（illu20）の計算が狂ったときと同じ形の食い違いを作る"""
+    import copy
+    print("■ selftest S1・S2・S3（20本目 ⑤b-3・㉔㉕㉖）")
+    M = "模式（記録のグラフではない）"
+    ok = True
+
+    def judge(sc):
+        return judge_scene(sc, "x")[0] + judge_s1(sc, "x")[0] + judge_s2(sc, "x")[0] + judge_s3(sc, "x")[0]
+
+    def good(name, sc):
+        bad = judge(sc)
+        print(f"  {'OK' if not bad else '🔴 NG'} {name}: {'合格' if not bad else '不合格'}（合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+        return not bad
+
+    def broken(name, sc, head):
+        return _expect(name, judge(sc), head)
+    s1 = IL.scene("S1", [dict(state=dict(s1cab="on", s1bulk="on"), rec="報告書 p141"), dict(state=dict(s1ring="tail"))])
+    ok &= good("S1 横から見た機体（客室・隔壁・輪）", s1)
+    s1l = IL.scene("S1", [dict(), dict()], start=dict(s1fin="lost"), rec="報告書 p107", assume="推定")
+    ok &= good("S1 欠けた機体（推定の札）", s1l)
+    s2 = IL.scene("S2", [dict(state=dict(s2t="18:24:35"), rec="報告書 p137", tag=dict(t="18:24:35", at="plane")),
+                         dict(rings=2, rec="報告書 p6")], start=dict(switch="on"))
+    ok &= good("S2 経路の地図（18:24:35・音の輪）", s2)
+    s2b = IL.scene("S2", [dict(state=dict(s2yok="on", s2lines="on", s2kum="on"), rec="報告書 p7"),
+                          dict(state=dict(s2ngo="on"), rec="報告書 p7")], start=dict(s2t="18:31:14"), rec="報告書 p137")
+    ok &= good("S2 横田・熊谷・結ぶ線・名古屋の矢印", s2b)
+    s3 = IL.scene("S3", [dict(state=dict(s3wave="on", s3pitch="on"), rec="報告書 p113", tag=dict(t="上下に約15度", at="climb")),
+                         dict(state=dict(s3amp="on"), rec="報告書 p113", tag=dict(t="約1,200メートル", at="amp"))], assume=M)
+    ok &= good("S3 横から（波・角の印・高さのかっこ）", s3)
+    s3f = IL.scene("S3", [dict(tag=dict(t="左右に約40度", at="arc")), dict()], start=dict(view="front", s3roll="on"), rec="報告書 p114",
+                   assume=M)
+    ok &= good("S3 正面から（左右に約40度）", s3f)
+    # ── 陽性対照 ──
+    x = copy.deepcopy(s1)
+    next(p for p in x["parts"] if p["id"] == "bulk")["geo"]["x"] += 10
+    ok &= broken("陽性対照㉔：後部圧力隔壁を BS2360 から10画素ずらす", x, "㉔")
+    x = copy.deepcopy(s1)
+    next(p for p in x["parts"] if p["id"] == "body")["geo"]["len_m"] = 75.0
+    ok &= broken("陽性対照㉔：全長を付図-4 と違う値に", x, "㉔")
+    x = copy.deepcopy(s1l)
+    x["assume"] = ""
+    ok &= broken("陽性対照㉔：欠けた機体から推定の札を外す", x, "㉔")
+    x = copy.deepcopy(s1l)
+    next(p for p in x["parts"] if p["id"] == "body_lost")["geo"]["cut_x"] += 25
+    ok &= broken("陽性対照㉔：切り口を BS2658 からずらす", x, "㉔")
+    x = copy.deepcopy(s1)
+    x["parts"][2]["obj"] = dict(masks=40)
+    ok &= broken("陽性対照㉔：部品に数を持たせる", x, "㉔")
+    x = copy.deepcopy(s2)
+    x["tags"][0]["texts"] = ["18:25:21"]
+    ok &= broken("陽性対照㉕：時計の札を機の印の時刻と違えて", x, "㉕")
+    x = copy.deepcopy(s2)
+    x["tags"][0]["ats"] = ["boom"]
+    ok &= broken("陽性対照㉕：時計の札が機の印を指さない", x, "㉕")
+    x = copy.deepcopy(s2)
+    pl = next(p for p in x["parts"] if p["id"] == "plane")
+    pl["go"][1]["u"] = float(pl["go"][1]["u"]) + 0.03
+    ok &= broken("陽性対照㉕：機の印を時刻の点から進める", x, "㉕")
+    x = copy.deepcopy(s2)
+    tr = next(p for p in x["parts"] if p["id"] == "trail")
+    tr["path"] = [[a + 12.0, b] for a, b in tr["path"]]
+    ok &= broken("陽性対照㉕：経路の線を東へ12画素ずらす（時刻の点と墜落地点が外れる）", x, "㉕")
+    x = copy.deepcopy(s2b)
+    next(p for p in x["parts"] if p["id"] == "yokota")["geo"]["xy"][1] -= 9
+    ok &= broken("陽性対照㉕：横田の点を北へずらす", x, "㉕")
+    x = copy.deepcopy(s2b)
+    next(p for p in x["parts"] if p["id"] == "nagoya")["geo"]["to"][0] += 60
+    ok &= broken("陽性対照㉕：名古屋空港の点を東へ（72海里より短い矢印）", x, "㉕")
+    x = copy.deepcopy(s2b)
+    next(p for p in x["parts"] if p["id"] == "lines")["geo"]["frm"][0][0] -= 20
+    ok &= broken("陽性対照㉕：羽田から結ぶ線の端をずらす", x, "㉕")
+    x = copy.deepcopy(s2)
+    next(p for p in x["parts"] if p["id"] == "scale")["geo"]["px"] += 8
+    ok &= broken("陽性対照㉕：縮尺の棒の長さを違えて", x, "㉕")
+    x = copy.deepcopy(s2)
+    next(p for p in x["parts"] if p["id"] == "trail")["geo"]["proj"]["kx"] = 111.32
+    ok &= broken("陽性対照㉕：地図の東西の縮みを外す（緯度の cos を忘れる）", x, "㉕")
+    x = copy.deepcopy(s3)
+    x["tags"][0]["texts"] = ["上下に約20度"]
+    ok &= broken("陽性対照㉖：札の数を記録と違う値に", x, "㉖")
+    x = copy.deepcopy(s3)
+    x["assume"] = ""
+    ok &= broken("陽性対照㉖：模式の札を外す", x, "㉖")
+    x = copy.deepcopy(s3)
+    next(p for p in x["parts"] if p["id"] == "pitch")["geo"]["deg"] = 20.0
+    ok &= broken("陽性対照㉖：機首の上げの角の印を20度に", x, "㉖")
+    x = copy.deepcopy(s3)
+    next(p for p in x["parts"] if p["id"] == "wave")["geo"]["amp"] *= 1.4
+    ok &= broken("陽性対照㉖：波を高くする（道の傾き＝機首の上げが15度を越える）", x, "㉖")
+    x = copy.deepcopy(s3)
+    next(p for p in x["parts"] if p["id"] == "amp")["geo"]["px"] += 20
+    ok &= broken("陽性対照㉖：高さのかっこを波と違えて", x, "㉖")
+    x = copy.deepcopy(s3f)
+    fr = next(p for p in x["parts"] if p["id"] == "front")
+    fr["keys"][1]["rot"] = -48.0
+    ok &= broken("陽性対照㉖：左右の傾きを48度に", x, "㉖")
+    x = copy.deepcopy(s3f)
+    fr = next(p for p in x["parts"] if p["id"] == "front")
+    for k in fr["keys"]:
+        k["rot"] = float(k.get("rot", 0.0)) * 0.5
+    ok &= broken("陽性対照㉖：左右の傾きが40度に届かない（20度）", x, "㉖")
+    return ok
+
+
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
-    ok19 = selftest_a1()          # 🆕 19本目 ⑤b-2（2026-10-08〜：見本 fixture_ep19 の表＝selftest_a1 が差し込んで・終わったら戻す）
+    ok20 = selftest_ep20()        # 🆕 20本目 ⑤b-3（2026-10-08）：本番の表のまま＝見本の差し込みより前に
+    ok19 = selftest_a1() and ok20  # 🆕 19本目 ⑤b-2（2026-10-08〜：見本 fixture_ep19 の表＝selftest_a1 が差し込んで・終わったら戻す）
     ok19 = selftest_a23() and ok19     # 🆕 19本目 ⑤b-3
     # 🆕 2026-10-04（18本目 ⑤b-2）：先に18本目を検算する＝見本の差し込み（16・15・14本目）より前
     #    （2026-10-06〜：18本目も見本 fixture_ep18 の表＝selftest_ep18 が差し込んで・終わったら戻す）

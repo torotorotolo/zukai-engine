@@ -88,4 +88,16 @@ PLAN = {
                src='報告書 4.1.6.1 p.125・3.1.1 p.65（`電子顕微鏡による観察によって`）'),
 }
 
-SPEC = {}
+from illu20 import S1_REC as S1R  # noqa: E402  🆕 ⑤b-3：置き場 S1 の部品の出典（描く側と同じ文）
+
+SPEC = {
+    # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1（`tools/illu20.py`・門番 check_illu ㉔）──
+    # c606（3行）＝聞き役「お椀の形の、大きな壁」→ 後部圧力隔壁（BS2360）の弧 →「空気を詰めておく」で与圧の範囲（機首〜隔壁）の色
+    "c606": dict(fig=("illu", dict(
+        place="S1",
+        steps=[dict(state=dict(s1bulk="on"), rec=S1R["bulk"], tag=dict(t="後部圧力隔壁", at="bulk", off=(-60, -200), anchor="end", keep=True)),
+               # ⑤b-3 の門番 layout：3行目の札「与圧」が2行目の札と同じ所で重なった＝1つの札にまとめて3行目まで残す
+               dict(state=dict(s1press="on"), rec=S1R["press"],
+                    tag=dict(t="空気を詰めた客室（与圧）", at="cabin", off=(0, -170), anchor="middle", keep=True)),
+               dict()]))),
+}

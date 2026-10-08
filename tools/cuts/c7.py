@@ -12,6 +12,7 @@ import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
 
 P = ss.P
+from illu20 import S1_REC as S1R  # noqa: E402  🆕 ⑤b-3：置き場 S1 の部品の出典（描く側と同じ文）
 
 PLAN = {
     'c701': dict(kind='写真',
@@ -84,4 +85,10 @@ SPEC = {
     # c721（9.00秒）＝修理のあとの JA8119（1984年・伊丹・CC BY-SA 3.0）。🔴 額装・無加工・色そのまま・**額ごと左へ流す**（`ss.fm("l")`）
     "c721": dict(photo=P("j3_ja8119_itami_1984"), panel=True, color=1.0, fmove=ss.fm("l"),
                  t="飛び続けた機体", s="修理のあとの JA8119（1984年・伊丹）"),
+    # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1（`tools/illu20.py`・門番 check_illu ㉔）──
+    # c720（2行）＝後部圧力隔壁に輪・1978年の修理の札（L18 の継ぎ目＝そのときの修理）
+    "c720": dict(fig=("illu", dict(
+        place="S1", start=dict(s1bulk="on"), rec=S1R["bulk"],
+        steps=[dict(state=dict(s1ring="tail"), tag=dict(t="1978年", at="bulk", off=(-60, -200), anchor="end", keep=True)),
+               dict(tag=dict(t="そのときの修理", at="bulk", off=(-60, 200), anchor="end"))]))),
 }

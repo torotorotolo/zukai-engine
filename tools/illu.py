@@ -6847,6 +6847,9 @@ NOTE = dict(RA="配置は概略・機体は拡大・点線は模式", RC="柵・
             VB=_vb_note, VC=_vc_note, VD=_vd_note, SA=_sa_note, SB=_sb_note, SC=_sc_note, SD=_sd_note, A1=_a1_note, A2=_a2_note, A3=_a3_note,
             A4=_a4_note, A5=_a5_note)
 SEC_VIEW = dict(VB=VB_VIEW, VC=VC_VIEW, VD=VD_VIEW)       # 断面と正面の目盛り（門番 ⑨〜⑪ が同じ式で読む）
+# 🆕 20本目 ⑤b-3（2026-10-08）：回のファイルが足す置き場＝{置き場: dict(scene, anchors, camc, label, mpp〈上から見た絵の縮尺 m／画素〉)}。
+#   20本目の S1・S2・S3 は `tools/illu20.py`（このファイルの末尾で読み込む＝FIELDS・CHOICES・VIEWS・REC_FIELDS・NOTE にも足す）
+EXTRA = {}
 D_VIEW = dict(ship="船首の側から見た図", heli="船首の側から見た図", sea="123艇を横から見た図", far="123艇から見た図",
               rail="3階の左舷を横から見た図")
 ROLES = ("crew", "coast_guard", "control")                # 型紙（数えられる影）で置ける役割
@@ -7236,6 +7239,8 @@ def _scene_B(start, states, steps):
 def _anchors(place, st):
     """札の指し先（その段の終わりの状態で）。"""
     v = st.get("view")
+    if place in EXTRA:
+        return EXTRA[place]["anchors"](st)
     if place == "RA":
         return _ra_anchors(v)
     if place == "VA":
@@ -7305,6 +7310,8 @@ def _anchors(place, st):
 def _camc(place, st0, states):
     """カメラ（cam）で寄る中心の既定。見え方ごとに主役の所へ。"""
     last = states[-1] if states else st0
+    if place in EXTRA:
+        return EXTRA[place]["camc"](st0, states)
     if place == "A1":
         return (960.0, 560.0)
     if place in ("A2", "A3", "A4", "A5"):
@@ -7380,7 +7387,8 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
              "RA": _scene_RA, "RB": _scene_RB, "RD": _scene_RD, "RC": _scene_RC,
              "VA": _scene_VA, "VB": _scene_VB, "VC": _scene_VC, "VD": _scene_VD, "SA": _scene_SA,
              "SB": _scene_SB, "SC": _scene_SC, "SD": _scene_SD, "A1": _scene_A1,
-             "A2": _scene_A2, "A3": _scene_A3, "A4": _scene_A4, "A5": _scene_A5}[place](st0, states, steps)
+             "A2": _scene_A2, "A3": _scene_A3, "A4": _scene_A4, "A5": _scene_A5,
+             **{k: v["scene"] for k, v in EXTRA.items()}}[place](st0, states, steps)
     if assume_at is not None:
         # 🆕 18本目 ⑤b-2：段の途中で出す想定の札＝絵の層の部品（上の層の札と同じ形・同じ位置）。合図と同じく記録の物でない
         if not assume:
@@ -7411,6 +7419,10 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
         else:
             mpp = SC_MPP
         auto = mpp / max(float(k.get("z", 1.0)) for k in cam)
+        scale = min(float(scale), auto) if scale else auto
+    if place in EXTRA and EXTRA[place].get("mpp"):
+        # 🆕 20本目 ⑤b-3：回のファイルの上から見た絵（S2）も描く側が組む（門番 ⑧）
+        auto = float(EXTRA[place]["mpp"]) / max(float(k.get("z", 1.0)) for k in cam)
         scale = min(float(scale), auto) if scale else auto
     objects = {}
     for p in parts:
@@ -7466,6 +7478,8 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
 def _label(place, st0, states):
     """左上の見る向き。RB で見え方が段で入れ替わる場面は、出てくる順に「後ろから→横から見た図」（§5b-80 の合図）。
     ⚠️ ⑤b-2 の下見のあと：見え方の名を絵の層で2つ入れ替える形は、同じ位置の文字が重なる（check_layout）＝上の層の1行にした"""
+    if place in EXTRA:
+        return EXTRA[place]["label"](st0, states)
     if place == "D":
         return D_VIEW[st0["view"]]
     if place == "RA":
@@ -7562,3 +7576,7 @@ def illu_pair(blocks, lead=""):
     f = F.Fig("".join(lab), ["".join(s) or " " for s in stages], "", (0, W))
     f.illu = dict(full=False, scenes=scenes, view="", src=src)
     return f
+
+
+# 🆕 20本目 ⑤b-3（2026-10-08）：回の置き場（S1・S2・S3）を型の表へ足す（このファイルの全部が読まれたあと＝illu20 は illu を読む）
+import illu20  # noqa: E402,F401

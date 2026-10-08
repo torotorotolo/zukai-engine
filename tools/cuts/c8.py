@@ -94,4 +94,16 @@ PLAN = {
                src='報告書 4.1.5.2 p.124（`1列リベット結合部分を主として多数の疲労亀裂が発生進展していた`）・4.1.5.4 p.125（`疲労亀裂は発見されなかった`）・4.1.5.3 p.124（`この間の飛行で、今回の事故と関連があるとみられるような異常及び不具合はなかったものと考えられる`）'),
 }
 
-SPEC = {}
+from illu20 import S1_REC as S1R  # noqa: E402  🆕 ⑤b-3：置き場 S1 の部品の出典（描く側と同じ文）
+
+SPEC = {
+    # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1（`tools/illu20.py`・門番 check_illu ㉔）──
+    # c822（2行）＝尾部・修理の場所に輪（語りは設計の基準＝札は場所だけ）
+    "c822": dict(fig=("illu", dict(
+        place="S1", start=dict(s1bulk="on"), rec=S1R["bulk"],
+        steps=[dict(state=dict(s1ring="tail"), tag=dict(t="修理の場所", at="bulk", off=(-60, -200), anchor="end")), dict()]))),
+    # c823（2行）＝聞き役「基準だけでは、防ぎきれない」→ 修理を終えた JA8119 は定期便へ＝「修理から7年」の札
+    "c823": dict(fig=("illu", dict(
+        place="S1", start=dict(s1bulk="on", s1ring="tail"), rec=S1R["bulk"],
+        steps=[dict(), dict(tag=dict(t="修理から7年", at="bulk", off=(-60, -200), anchor="end"))]))),
+}

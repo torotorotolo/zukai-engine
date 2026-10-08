@@ -12,6 +12,7 @@ import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
 
 P = ss.P
+from illu20 import S1_REC as S1R, S2_REC as S2R  # noqa: E402  🆕 ⑤b-3：置き場 S1・S2 の部品の出典（描く側と同じ文）
 
 PLAN = {
     'c201': dict(kind='写真',
@@ -76,4 +77,26 @@ SPEC = {
     #   ss.check_frame_only は字面を見る）・**額ごと右へ流す**（`ss.fm("r")`＝絵は切らない）・扉の地に混ぜない（card_mix=0・§5b-110）
     "c201": dict(photo=P("j2_ja8119_haneda_19850303"), panel=True, color=1.0, card_mix=0, fmove=ss.fm("r"),
                  t="機体の来歴", s="事故機 JA8119（1985年3月・羽田）"),
+    # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1・S2（`tools/illu20.py`・門番 check_illu ㉔㉕）──
+    # c204（2行）＝横から見た機体。1行目（乗客509人）で客室・2行目（操縦室に3人、客室に12人）で操縦室を明るく。人は描かない
+    "c204": dict(fig=("illu", dict(
+        place="S1",
+        steps=[dict(state=dict(s1cab="on"), tag=dict(t="客室", at="cabin", off=(0, -170), anchor="middle", keep=True)),
+               dict(state=dict(s1ck="on"), tag=dict(t="操縦室", at="cockpit", off=(60, -160)))]))),
+    # c209（2行）＝前の再現 c204（横から）→ 上から＝合図。羽田の離陸（18:12）から 18:24:35 の点まで経路を描き、2行目で音の輪
+    "c209": dict(fig=("illu", dict(
+        place="S2", start=dict(switch="on"),
+        steps=[dict(state=dict(s2t="18:24:35"), rec=S2R["trace"], dur=3.0,
+                    tag=dict(t="18:24:35", at="plane", off=(70, -100), keep=True)),
+               dict(rings=2, rec=S2R["boom"])]))),
+    # c213（2行）＝上から → 横から＝合図。操縦室に輪（「なんか爆発したぞ」＝言葉は画面に出さない）
+    "c213": dict(fig=("illu", dict(
+        place="S1", start=dict(switch="on"),
+        steps=[dict(state=dict(s1ring="cockpit"), tag=dict(t="操縦室", at="cockpit", off=(150, -160))), dict()]))),
+    # c216（3行）＝客室の天井から酸素マスクが下りる（人は描かない）。客室へ寄る（cam）
+    "c216": dict(fig=("illu", dict(
+        place="S1", camc="masks",
+        steps=[dict(state=dict(s1mask="drop", cam=1.5), rec=S1R["masks"], dur=1.6,
+                    tag=dict(t="酸素マスク", at="masks", off=(0, -150), anchor="middle")),
+               dict(), dict()]))),
 }
