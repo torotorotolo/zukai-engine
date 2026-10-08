@@ -73,4 +73,16 @@ PLAN = {
                src='—'),
 }
 
-SPEC = {}
+from illu20 import S6_REC as S6R  # noqa: E402  🆕 ⑤b-4：置き場 S6 の部品の出典（描く側と同じ文）
+
+SPEC = {
+    # ── 🆕 ⑤b-4（2026-10-08）：再現イラスト S6（`tools/illu20.py`・門番 check_illu ㉙）──
+    # cc09（2行）＝前の再現 cb14（S7・上から）→ 横から＝合図（台本の画の欄の🔁）。指示と実際を左右に（作業の記録は無い＝札なし）
+    "cc09": dict(fig=("illu", dict(
+        place="S6", start=dict(view="both", switch="on"), rec=S6R["side"], steps=[dict(), dict()]))),
+    # cc17（3行）＝実際の継ぎ方の戻り：1列になった継ぎ目 → 7年かけて亀裂が伸びた（推定）→ 当時の点検では見つからなかった
+    "cc17": dict(fig=("illu", dict(
+        place="S6", start=dict(s6kind="real"), rec=S6R["real"],
+        steps=[dict(state=dict(s6row="on"), rec=S6R["real"], tag=dict(t="1列", at="rows", off=(160, 0))),
+               dict(tag=dict(t="ここに亀裂が伸びた", at="row2", off=(170, 150))), dict()]))),
+}

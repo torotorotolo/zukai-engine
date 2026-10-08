@@ -80,8 +80,15 @@ PLAN = {
 }
 
 from illu20 import S2_REC as S2R  # noqa: E402  🆕 ⑤b-3：置き場 S2 の部品の出典（描く側と同じ文）
+from illu20 import S5_REC as S5R  # noqa: E402  🆕 ⑤b-4：置き場 S5 の部品の出典
 
 SPEC = {
+    # ── 🆕 ⑤b-4（2026-10-08）：再現イラスト S5（機全体・門番 check_illu ㉘）──
+    # ca05（2行）＝壁に穴が開く（上の半分が後ろへ・空気が後ろへ）→ 操縦室を含む客室の気圧が数秒で外と同じに（与圧の色が消える）
+    "ca05": dict(fig=("illu", dict(
+        place="S5", start=dict(s5frame="all", s5press="on"), rec=S5R["bulk"], assume="推定",
+        steps=[dict(state=dict(s5bulk="open", s5air="on"), rec=S5R["open"]),
+               dict(state=dict(s5press="off"), rec=S5R["press"], tag=dict(t="数秒で外と同じ気圧に", at="cabin", off=(0, -190), anchor="middle"))]))),
     # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S2（`tools/illu20.py`・門番 check_illu ㉕）──
     # ca21（3行）＝前の再現 ca05 → 上から＝合図（台本の画の欄の🔁）。経路を墜落地点まで（機の印なし・墜落の時刻の札なし）・
     #   3行目「海に落ちた物はどうなったのか」で相模湾に輪（垂直尾翼の破片は相模湾から揚収＝p.13）

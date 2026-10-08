@@ -94,7 +94,44 @@ PLAN = {
                src='—'),
 }
 
+from illu20 import S4_REC as S4R  # noqa: E402  🆕 ⑤b-4：置き場 S4 の部品の出典（描く側と同じ文）
+
 SPEC = {
+    # ── 🆕 ⑤b-4（2026-10-08）：再現イラスト S4 夜の地図（`tools/illu20.py`・門番 check_illu ㉗）──
+    #   点と山＝解説 図13 を墜落地点からの km で読んだ `ref/ep20/night20.json`・時計の札は表3 の時刻（点を指す＝㉗）
+    # c501（2行）＝墜落地点・三国山・扇平山・三国峠の夜の地図 → 南南西 3〜4km に目撃した4人の位置（人は描かない）
+    "c501": dict(fig=("illu", dict(
+        place="S4", rec=S4R["map"],
+        steps=[dict(state=dict(s4wit="on"), rec=S4R["wit"]), dict()]))),
+    # c502（2行）＝同じ地図 → 山の陰から白い煙と光（墜落地点に光）
+    "c502": dict(fig=("illu", dict(
+        place="S4", start=dict(s4wit="on"), rec=S4R["wit"],
+        steps=[dict(state=dict(s4glow="on"), rec=S4R["glow"]), dict()]))),
+    # c504（2行）＝19:15 C-130 の点 → 横田の無線の目印（TACAN）から方位305度・35海里＝横田への線
+    "c504": dict(fig=("illu", dict(
+        place="S4", rec=S4R["map"],
+        steps=[dict(state=dict(s4n="1"), rec=S4R["pts"], tag=dict(t="19:15", at="p1", off=(-70, -60), anchor="end")),
+               dict(state=dict(s4yok="on"), rec=S4R["yok"], tag=dict(t="方位305度・約65キロ", at="yok_mid", off=(30, -80)))]))),
+    # c505（2行）＝19:21 戦闘機・20:42 ヘリの点（語りの時刻＝札）
+    "c505": dict(fig=("illu", dict(
+        place="S4", start=dict(s4n="1"), rec=S4R["pts"],
+        steps=[dict(state=dict(s4n="3"), rec=S4R["pts"],
+                    tag=[dict(t="19:21", at="p2", off=(60, -50)), dict(t="20:42", at="p3", off=(-60, -70), anchor="end")]),
+               dict()]))),
+    # c508（3行）＝夜の4つ目（1:00）とずれの輪 2・4・6km（表3 の誤差 2〜6km）→ 解説の言葉（画面に出さない）
+    "c508": dict(fig=("illu", dict(
+        place="S4", start=dict(s4n="3"), rec=S4R["pts"],
+        steps=[dict(state=dict(s4n="4", s4ring="on"), rec=S4R["ring"], tag=dict(t="1:00", at="p4", off=(70, 40))), dict(), dict()]))),
+    # c510（2行）＝夜の地図の戻り（4つの点・輪）→「夜通しの捜索」の札
+    "c510": dict(fig=("illu", dict(
+        place="S4", start=dict(s4n="4", s4ring="on"), rec=S4R["ring"],
+        steps=[dict(), dict(tag=dict(t="夜通しの捜索", at="crash", off=(90, -90)))]))),
+    # c513（2行）＝13日の朝（空が白む＝表3 の日出 4:55）。4:39 の点 → 5:00・5:33 の朝の点（墜落地点のすぐそば）
+    #   ⚠️ 語りの「5時37分ごろ 長野県警」は表3 に無い＝朝の点に時刻の札を付けない（5:33 と取り違えない）
+    "c513": dict(fig=("illu", dict(
+        place="S4", start=dict(s4n="4", s4ring="on"), rec=S4R["ring"],
+        steps=[dict(state=dict(s4dawn="on", s4m="1"), rec=S4R["dawn"], tag=dict(t="4:39", at="p5", off=(-60, -70), anchor="end")),
+               dict(state=dict(s4m="3"), rec=S4R["pts"])]))),
     # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1（`tools/illu20.py`・門番 check_illu ㉔）──
     # c526（2行）＝前の再現 c513（S4・上から）→ 横から＝合図（台本の画の欄の🔁）。機体の後ろに輪（壁の名は c606 で出す）
     "c526": dict(fig=("illu", dict(

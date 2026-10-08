@@ -58,4 +58,37 @@ PLAN = {
                src='—'),
 }
 
-SPEC = {}
+from illu20 import S7_REC as S7R  # noqa: E402  🆕 ⑤b-4：置き場 S7 の部品の出典（描く側と同じ文）
+
+SPEC = {
+    # ── 🆕 ⑤b-4（2026-10-08）：再現イラスト S7 相模湾の地図（`tools/illu20.py`・門番 check_illu ㉚）──
+    #   点と線＝`ref/ep20/sagami20.json`（付図-20・付図-21・解説 図15 から読んだ）
+    # cb02（2行）＝前の再現 ca21（S2・日本の地図）→ 相模湾＝合図（置き場が替わる＝㉑）。海の底を調べた区域（付図-21 の枠）
+    "cb02": dict(fig=("illu", dict(
+        place="S7", start=dict(switch="on"), rec=S7R["deb"],
+        steps=[dict(), dict(state=dict(s7area="on"), rec=S7R["area"], tag=dict(t="海の底を調べた区域", at="area_e", off=(90, 60)))]))),
+    # cb03（3行）＝聞き役の問い → 浮いていた破片の場所（付図-20）・海の流れ（図15）・さかのぼって計算した区域（図15 の楕円）
+    #   → 飛んだ道すじ（付図-21 の 244度）と、あの音がした地点（推定異常音発生点）
+    "cb03": dict(fig=("illu", dict(
+        place="S7", start=dict(s7area="on"), rec=S7R["area"],
+        steps=[dict(),
+               dict(state=dict(s7deb="on", s7cur="on", s7drop="on"), rec=S7R["drop"],
+                    tag=dict(t="浮いていた破片", at="deb", off=(80, -80))),
+               dict(state=dict(s7path="on", s7boom="on"), rec=S7R["path"], tag=dict(t="あの音がした地点", at="boom", off=(-60, 110), anchor="end"))]))),
+    # cb07（2行）＝付図-21 の窓：17か所を深海カメラで調べた → どこにも残骸なし（× の印）→ 泥・砂・岩場
+    "cb07": dict(fig=("illu", dict(
+        place="S7", start=dict(s7frame="area", s7area="on", s7pts="on", s7path="on", s7boom="on"), rec=S7R["pts"],
+        steps=[dict(state=dict(s7pts="none"), rec=S7R["none"], tag=dict(t="17か所とも残骸なし", at="pts", off=(70, -60))),
+               dict(tag=dict(t="泥・砂・岩場", at="area", off=(-150, 160), anchor="end"))]))),
+    # cb11（2行）＝海に落ちたとみられる物（解説 表5 の6つ＝形だけ）
+    "cb11": dict(fig=("illu", dict(
+        place="S7", start=dict(s7frame="area", s7area="on", s7pts="none"), rec=S7R["none"],
+        steps=[dict(state=dict(s7obj="on"), rec=S7R["obj"]), dict()]))),
+    # cb12（2行）＝重く丈夫な APU と方向舵を動かす装置は沈む（下向きの矢印）→ 軽い方向舵は流された部分がある（波の矢印）
+    "cb12": dict(fig=("illu", dict(
+        place="S7", start=dict(s7frame="area", s7area="on", s7pts="none", s7obj="on"), rec=S7R["obj"],
+        steps=[dict(state=dict(s7sink="heavy"), rec=S7R["sink"]), dict(state=dict(s7sink="all"), rec=S7R["sink"])]))),
+    # cb14（2行）＝相模湾の地図の戻り（調査区域の枠）
+    "cb14": dict(fig=("illu", dict(
+        place="S7", start=dict(s7area="on"), rec=S7R["area"], steps=[dict(), dict()]))),
+}

@@ -89,8 +89,37 @@ PLAN = {
 }
 
 from illu20 import S1_REC as S1R  # noqa: E402  🆕 ⑤b-3：置き場 S1 の部品の出典（描く側と同じ文）
+from illu20 import S5_REC as S5R  # noqa: E402  🆕 ⑤b-4：置き場 S5 の部品の出典
 
 SPEC = {
+    # ── 🆕 ⑤b-4（2026-10-08）：再現イラスト S5 尾部が壊れていく推定（`tools/illu20.py`・門番 check_illu ㉘）──
+    #   全部のカットに「推定」の札（ss.ILLU_ASSUME）・壊れる物の部品は ss.ILLU_DESTROY_CUTS のカットだけ（⑫）
+    # c616（2行）＝「報告書の推定」＝尾部の拡大・後部圧力隔壁の名 → 継ぎ目が破れる（裂け目）
+    "c616": dict(fig=("illu", dict(
+        place="S5", start=dict(s5press="on"), rec=S5R["bulk"], assume="推定",
+        steps=[dict(tag=dict(t="後部圧力隔壁", at="bulk", off=(-40, -330), anchor="end")),
+               dict(state=dict(s5bulk="tear"), rec=S5R["tear"])]))),
+    # c617（2行）＝上の半分が後ろへ吹き上げられて開く・穴の広さ 2〜3平方メートル（p.125）→ 聞き役の問い
+    "c617": dict(fig=("illu", dict(
+        place="S5", start=dict(s5press="on", s5bulk="tear"), rec=S5R["tear"], assume="推定",
+        steps=[dict(state=dict(s5bulk="open"), rec=S5R["open"], tag=dict(t="約2〜3平方メートル", at="hole", off=(40, -300))),
+               dict()]))),
+    # c618（2行）＝客室の空気が尾部へ流れ込み、尾部の圧力が上がる → APU 防火壁が壊れ、APU を含む尾部が外れる
+    "c618": dict(fig=("illu", dict(
+        place="S5", start=dict(s5press="on", s5bulk="open"), rec=S5R["open"], assume="推定",
+        steps=[dict(state=dict(s5air="on", s5tailp="on"), rec=S5R["air"]),
+               # ⑤b-4 の門番 layout：札を下（off 60, 150）に出すと画面の下へはみ出し、線が出典の行を貫いた＝右上の空へ
+               dict(state=dict(s5cone="off"), rec=S5R["cone"], tag=dict(t="APU の前の防火壁", at="fw", off=(270, -290)))]))),
+    # c619（2行）＝空気が垂直尾翼の中へ → 内側から壊す（亀裂）→ 聞き役
+    "c619": dict(fig=("illu", dict(
+        place="S5", start=dict(s5press="on", s5bulk="open", s5air="on", s5tailp="on", s5cone="off"), rec=S5R["cone"], assume="推定",
+        steps=[dict(state=dict(s5finair="on", s5fin="crack"), rec=S5R["fin"]), dict()]))),
+    # c621（2行）＝垂直尾翼が壊れ方向舵が外れる（尾翼の中の配管と装置も消える）→ 4系統の配管が全部切れる
+    "c621": dict(fig=("illu", dict(
+        place="S5", start=dict(s5press="on", s5bulk="open", s5tailp="on", s5cone="off", s5fin="crack", s5hyd="on"), rec=S5R["hyd"],
+        assume="推定",
+        steps=[dict(state=dict(s5fin="lost", s5rud="off"), rec=S5R["rud"]),
+               dict(state=dict(s5hyd="cut"), rec=S5R["rud"], tag=dict(t="油圧の配管 4系統", at="cut", off=(-80, -200), anchor="end"))]))),
     # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1（`tools/illu20.py`・門番 check_illu ㉔）──
     # c606（3行）＝聞き役「お椀の形の、大きな壁」→ 後部圧力隔壁（BS2360）の弧 →「空気を詰めておく」で与圧の範囲（機首〜隔壁）の色
     "c606": dict(fig=("illu", dict(

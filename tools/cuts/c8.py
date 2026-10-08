@@ -95,8 +95,33 @@ PLAN = {
 }
 
 from illu20 import S1_REC as S1R  # noqa: E402  🆕 ⑤b-3：置き場 S1 の部品の出典（描く側と同じ文）
+from illu20 import S6_REC as S6R  # noqa: E402  🆕 ⑤b-4：置き場 S6 の部品の出典
 
 SPEC = {
+    # ── 🆕 ⑤b-4（2026-10-08）：再現イラスト S6 後部圧力隔壁の継ぎ目（`tools/illu20.py`・門番 check_illu ㉙）──
+    #   断面＝別添1 付図-3 のとおり（付図に無い線は描き足さない）。「N列」の札は指す断面の列の数（㉙）
+    # c806（3行）＝前の再現 c720（S1・横から）→ 正面から＝合図（台本の画の欄の🔁）。隔壁の円 → L18 の継ぎ目（ほぼ全体）
+    "c806": dict(fig=("illu", dict(
+        place="S6", start=dict(view="front", switch="on"), rec=S6R["front"],
+        steps=[dict(), dict(state=dict(s6l18="on"), rec=S6R["l18"], tag=dict(t="L18 の継ぎ目", at="l18", off=(-40, -150), anchor="end")),
+               dict(tag=dict(t="余白が足りない", at="l18r", off=(40, 150)))]))),
+    # c809（2行）＝正面 → 横から（断面）＝合図。指示の継ぎ方：継ぎ板1枚が上と下の板にまたがる → 上の板を2列で留める
+    "c809": dict(fig=("illu", dict(
+        place="S6", start=dict(s6kind="plan", switch="on"), rec=S6R["plan"],
+        steps=[dict(state=dict(s6spl="on"), rec=S6R["plan"]),
+               dict(state=dict(s6row="on"), rec=S6R["plan"], tag=dict(t="2列で留まる", at="rows", off=(160, 0)))]))),
+    # c811（3行）＝実際の継ぎ方：幅の狭い継ぎ板とフィラ（違う板）→（左側の2ベイ分）→ 上の板を留めるのは1列だけ
+    "c811": dict(fig=("illu", dict(
+        place="S6", start=dict(s6kind="real"), rec=S6R["real"],
+        steps=[dict(state=dict(s6spl="on", s6fil="on"), rec=S6R["real"]), dict(),
+               dict(state=dict(s6row="on"), rec=S6R["real"], tag=dict(t="1列だけ", at="rows", off=(160, 0)))]))),
+    # c812（2行）＝左に指示・右に実際を並べる（付図-3 と同じ並び）。実際の継ぎ板とフィラは古い隔壁から作られた
+    "c812": dict(fig=("illu", dict(
+        place="S6", start=dict(view="both"), rec=S6R["side"],
+        steps=[dict(state=dict(s6spl="on", s6fil="on"), rec=S6R["made"]), dict()]))),
+    # c814（2行）＝実際の継ぎ方の戻り（理由は書かれていない＝札なし）
+    "c814": dict(fig=("illu", dict(
+        place="S6", start=dict(s6kind="real", s6row="on"), rec=S6R["real"], steps=[dict(), dict()]))),
     # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1（`tools/illu20.py`・門番 check_illu ㉔）──
     # c822（2行）＝尾部・修理の場所に輪（語りは設計の基準＝札は場所だけ）
     "c822": dict(fig=("illu", dict(
