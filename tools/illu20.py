@@ -140,9 +140,13 @@ S1_STAB = [(61.0, 1.85), (63.5, 2.45), (70.3, 2.75), (70.6, 2.35), (66.5, 1.9)]
 S1_WING = [(22.5, -1.5), (26.0, -1.15), (46.5, 0.15), (47.4, -0.2), (36.0, -2.35), (33.0, -2.65)]
 S1_ENG = [(21.4, 29.6, -3.55, 1.35), (31.9, 39.4, -2.45, 1.3)]           # 内側・外側の手前のエンジン（付図-4 の横の図の位置）
 S1_CABIN = (6.2, 56.6, -2.25, 2.55)                                       # 客室（明るくする範囲＝模式）
-S1_COCK = [(1.5, 2.0), (2.9, 2.95), (4.4, 3.95), (6.2, 4.75), (6.6, 2.0)]  # 操縦室（2階の前＝付図-12 の席の並び）
-S1_CEIL = 2.3                                                              # マスクが下がる天井の高さ（模式）
-S1_MASK_DROP = 0.9 * S1_K
+# 操縦室（2階の前＝付図-12 の席の並び）。⑤b-3 の試し焼き：細いくさび形に黄色の縁で機首の上の「帽子」に見えた＝胴体の上の線に
+#   沿って内側へ寄せた形を滑らかにし、縁は細く
+S1_COCK = [(2.2, 1.95), (3.3, 2.75), (4.6, 3.6), (6.3, 4.3), (7.8, 4.5), (7.8, 1.95)]
+S1_CEIL = 2.35                                                             # マスクが下がる天井の高さ（模式）
+# ⑤b-3 の試し焼き（c216）：0.9m 上から下ろすと、下りる途中の管と玉が胴体の上の線より外へはみ出した＝0.6m だけ下ろす
+#   （始め＝玉が天井・管の上の端 z 2.95 は胴体の上の線 3.35 の内側）
+S1_MASK_DROP = 0.6 * S1_K
 S1_LOST_FIN = [(58.8, 3.1), (61.4, 6.9), (62.2, 6.3), (62.9, 7.2), (63.6, 6.1), (64.3, 6.6), (64.8, 5.1), (64.4, 4.2),
                (64.9, 3.3), (64.6, 2.7)]                                   # 残った前の下の部分（模式＝範囲は特定できない）
 S1_T = dict(drop=1.4, show=0.6, ring=0.5, press=0.9)
@@ -226,19 +230,20 @@ def s1_cabin_svg():
 
 
 def s1_cockpit_svg():
-    return _path([P1(*p) for p in S1_COCK], C20["cabin"], C20["bulk"], 3.0, op=0.85)
+    pts = [P1(*p) for p in IL._smooth(S1_COCK, closed=True, per=5)]
+    return _path(pts, C20["cabin"], C20["bulk"], 2.0, op=0.75)
 
 
 def s1_masks_svg():
-    """天井から下がった酸素マスク（下がりきった形＝鍵で上から下ろす）。数と並びは模式"""
+    """天井から下がった酸素マスク（下がりきった形＝鍵で天井から下ろす）。数と並びは模式"""
     g = []
     x = 7.6
     yc = P1(0, S1_CEIL)[1]
     while x < 55.6:
         px = P1(x, 0)[0]
-        g.append(f'<path d="M {px:.1f} {yc - S1_MASK_DROP:.1f} L {px:.1f} {yc + 4:.1f}" stroke="{C20["mask_ln"]}" stroke-width="2"/>'
-                 f'<ellipse cx="{px:.1f}" cy="{yc + 9:.1f}" rx="6.5" ry="5.5" fill="{C20["mask"]}" stroke="{C20["mask_ln"]}" '
-                 'stroke-width="1.6"/>')
+        g.append(f'<path d="M {px:.1f} {yc:.1f} L {px:.1f} {yc + S1_MASK_DROP - 4:.1f}" stroke="{C20["mask_ln"]}" stroke-width="2"/>'
+                 f'<ellipse cx="{px:.1f}" cy="{yc + S1_MASK_DROP + 1:.1f}" rx="6.5" ry="5.5" fill="{C20["mask"]}" '
+                 f'stroke="{C20["mask_ln"]}" stroke-width="1.6"/>')
         x += 1.05
     return "".join(g)
 
@@ -293,8 +298,8 @@ def _scene_S1(start, states, steps):
         for i, (st, sp) in enumerate(zip(states, steps)):
             if st["s1mask"] != cur:
                 d = float(sp.get("delay", KEY_DELAY))
-                ks.append(dict(stage=i, delay=d, dur=0.25, a=1.0, dy=-S1_MASK_DROP))
-                ks.append(dict(stage=i, delay=d + 0.25, dur=float(sp.get("dur", S1_T["drop"])), a=1.0, dy=0.0))
+                ks.append(dict(stage=i, delay=d, dur=0.2, a=1.0, dy=-S1_MASK_DROP))
+                ks.append(dict(stage=i, delay=d + 0.2, dur=float(sp.get("dur", S1_T["drop"])), a=1.0, dy=0.0))
                 cur = st["s1mask"]
         parts.append(dict(_part("masks", s1_masks_svg(), R["masks"], keys=ks), geo=dict(kind="masks")))
     if any(st["s1ck"] == "on" for st in allst):
@@ -352,7 +357,8 @@ S2_PTS = dict(haneda=(139.780, 35.549), fuji=(138.727, 35.361), yokota=(139.348,
                       35.9983 - 2.5 * math.cos(math.radians(22.5)) / 110.57),
               sagami=(139.35, 35.12))
 # ⑤b-3 の門番 layout：「駿河湾」を湾の真ん中（東経138.63度）に置くと、駿河湾の上の機の印から出す札の線が貫いた＝湾の西へ寄せた
-S2_NAMES = (("伊豆半島", (138.96, 34.93)), ("駿河湾", (138.47, 34.94)), ("相模湾", (139.37, 35.12)), ("大島", (139.40, 34.665)))
+# ⑤b-3 の試し焼き：「大島」を島の南に置くと左下の出典の行のすぐ上に来た＝島の東へ
+S2_NAMES = (("伊豆半島", (138.96, 34.93)), ("駿河湾", (138.47, 34.94)), ("相模湾", (139.37, 35.12)), ("大島", (139.53, 34.765)))
 S2_SCALE_KM = 20.0
 S2_T = dict(trace=2.6, show=0.6, ring=0.5)
 S2_REC = dict(
@@ -637,6 +643,17 @@ def _s2_anchors(st):
     return a
 
 
+def _s2_mend(st0, states, steps):
+    """⑤b-3 の試し焼き（c209）：時計の札が段の頭（0.35秒）から出て、機の印がまだ進んでいるうちに先の点を指した＝時刻が進む段は
+    動きが終わってから札を出す（illu.scene の札の出る秒＝15本目 RB と同じ仕組み）"""
+    out, prev = {}, st0
+    for i, (st, sp) in enumerate(zip(states, steps)):
+        if st["s2t"] != prev["s2t"]:
+            out[i] = float(sp.get("delay", KEY_DELAY)) + float(sp.get("dur", S2_T["trace"]))
+        prev = st
+    return out
+
+
 def _s2_note(st0, states):
     return "海岸線は Natural Earth・経路と時刻の点は付図-1 から（位置は目安）・機の印は拡大"
 
@@ -647,7 +664,8 @@ def _s2_note(st0, states):
 S3_PITCH, S3_ROLL = 15.0, 40.0              # 3.2.6.2 p.113（縦揺れ角±約15度）・p.114（横揺れ角±約40度）
 S3_WAVE = dict(side=dict(x0=1790.0, x1=150.0, yc=500.0, lam=1400.0, ph=0.25),
                both=dict(x0=900.0, x1=110.0, yc=520.0, lam=700.0, ph=0.25))
-S3_FRONT = dict(front=dict(c=(960.0, 500.0), k=8.5), both=dict(c=(1420.0, 520.0), k=5.6))
+# ⑤b-3 の試し焼き（c305）：k 8.5 では翼・尾翼・水平尾翼が細い線ばかりで機に見えにくかった＝大きく（翼の幅 約660画素）・翼と尾翼を厚く
+S3_FRONT = dict(front=dict(c=(960.0, 520.0), k=11.0), both=dict(c=(1420.0, 500.0), k=7.0))
 S3_T = dict(go=3.4, show=0.6, swing=1.55)
 S3_REC = dict(
     sky="報告書 p6（顕著なフゴイド及びダッチロール運動が励起され）",
@@ -691,12 +709,12 @@ def _front_icon(c, k):
 
     def Q(y, z):
         return (cx + y * k, cy - z * k)
-    g = [_path([Q(-11.1, 3.6), Q(-0.6, 3.3), Q(-0.6, 3.9), Q(-11.1, 4.5)], C20["stab"], C20["body_ln"], 1.4),
-         _path([Q(11.1, 3.6), Q(0.6, 3.3), Q(0.6, 3.9), Q(11.1, 4.5)], C20["stab"], C20["body_ln"], 1.4),
-         _path([Q(-0.45, 3.0), Q(-0.25, 14.6), Q(0.25, 14.6), Q(0.45, 3.0)], C20["fin"], C20["body_ln"], 1.6)]
+    g = [_path([Q(-11.1, 3.5), Q(-0.6, 3.1), Q(-0.6, 4.0), Q(-11.1, 4.3)], C20["stab"], C20["body_ln"], 2.0, op=0.85),
+         _path([Q(11.1, 3.5), Q(0.6, 3.1), Q(0.6, 4.0), Q(11.1, 4.3)], C20["stab"], C20["body_ln"], 2.0, op=0.85),
+         _path([Q(-0.75, 2.8), Q(-0.35, 14.6), Q(0.35, 14.6), Q(0.75, 2.8)], C20["fin"], C20["body_ln"], 2.2)]
     for sg in (-1, 1):
-        g.append(_path([Q(sg * 2.6, -1.6), Q(sg * span, -1.6 + span * dih + 0.35), Q(sg * span, -1.6 + span * dih - 0.15),
-                        Q(sg * 2.6, -2.4)], C20["wing"], C20["body_ln"], 1.6))
+        g.append(_path([Q(sg * 2.6, -1.3), Q(sg * span, -1.6 + span * dih + 0.45), Q(sg * span, -1.6 + span * dih - 0.25),
+                        Q(sg * 2.6, -2.8)], C20["wing"], C20["body_ln"], 2.2))
         for y, dz in ((12.07, 2.53), (21.15, 0.94)):
             zc = -1.6 + y * dih - dz
             g.append(f'<circle cx="{Q(sg * y, 0)[0]:.1f}" cy="{Q(0, zc)[1]:.1f}" r="{1.3 * k:.1f}" fill="{C20["eng"]}" '
@@ -796,8 +814,9 @@ def _scene_S3(start, states, steps):
     R = S3_REC
     parts = [_part("sky", _sky_svg("s3Sky") + _clouds_svg(860.0, 5), R["sky"])]
     if v == "both":
-        parts.append(_part("labels", _text(505, 860, "フゴイド（横から）", 30) + _text(1420, 860, "ダッチロール（正面から）", 30)
-                           + f'<path d="M 960 230 L 960 820" stroke="{C20["route"]}" stroke-width="2" opacity="0.35"/>', R["sky"]))
+        # ⑤b-3 の試し焼き（c410）：名札を y 860 に置くと左下の出典の行（y 876）と重なった＝上へ
+        parts.append(_part("labels", _text(505, 760, "フゴイド（横から）", 30) + _text(1420, 760, "ダッチロール（正面から）", 30)
+                           + f'<path d="M 960 240 L 960 720" stroke="{C20["route"]}" stroke-width="2" opacity="0.35"/>', R["sky"]))
     if v in ("side", "both"):
         wv = s3_wave_pts(v)
         parts.append(dict(_part("wave", s3_wave_svg(v), R["wave"], keys=_akeys(start, states, steps, lambda st: st["s3wave"] == "on")),
@@ -873,7 +892,7 @@ def register():
     IL.EXTRA.update(
         S1=dict(scene=_scene_S1, anchors=_s1_anchors, camc=lambda st0, states: (960.0, 540.0), label=lambda st0, states: LAB["S1"]),
         S2=dict(scene=_scene_S2, anchors=_s2_anchors, camc=lambda st0, states: (960.0, 500.0), label=lambda st0, states: LAB["S2"],
-                mpp=1000.0 / S2_S),
+                mpp=1000.0 / S2_S, mend=_s2_mend),
         S3=dict(scene=_scene_S3, anchors=_s3_anchors, camc=lambda st0, states: (960.0, 520.0),
                 label=lambda st0, states: LAB["S3"][st0["view"]]))
 

@@ -100,9 +100,10 @@ SPEC = {
         place="S2", start=dict(s2t="18:25:21"), rec=S2R["trace"],
         steps=[dict(state=dict(s2t="18:27:07"), rec=S2R["trace"], dur=2.6), dict()]))),
     # c303（2行）＝S2（上から）→ S3（横から）＝合図。フゴイド＝機首の上げ下げと高さの波（道の傾き＝本当の 15度 まで）
+    # ⑤b-3 の試し焼き：頭（合図の「横から見ると」の間）が空だけだった＝波を頭から出す（機は1行目から進む）
     "c303": dict(fig=("illu", dict(
-        place="S3", start=dict(switch="on"), assume=M,
-        steps=[dict(state=dict(s3wave="on"), rec=S3R["wave"], tag=dict(t="高さと速さが波打つ", at="wave", off=(-30, -150), anchor="end")),
+        place="S3", start=dict(switch="on", s3wave="on"), rec=S3R["wave"], assume=M,
+        steps=[dict(tag=dict(t="高さと速さが波打つ", at="wave", off=(-30, -150), anchor="end")),
                # ⑤b-3 の門番 layout：1行目の札と同じ所で重なった（段の入れ替わりの薄くなる間）＝波の下へ
                dict(tag=dict(t="フゴイド", at="wave", off=(-30, 170), anchor="end"))]))),
     # c304（2行）＝1行目で角の印（約15度）と速さの差・2行目で高さの差のかっこ（約1,200メートル）
@@ -110,7 +111,8 @@ SPEC = {
         place="S3", start=dict(s3wave="on"), rec=S3R["wave"], assume=M,
         steps=[dict(state=dict(s3pitch="on"), rec=S3R["wave"],
                     tag=[dict(t="上下に約15度", at="climb", off=(-150, -150), anchor="end"),
-                         dict(t="速さの差 時速約185キロ", at="wave", off=(-30, 170), anchor="end")]),
+                         # ⑤b-3 の試し焼き：引き出し線の点が波の上の意味の無い所を指した＝線の無い札（速さは絵の上の1点ではない）
+                         dict(t="速さの差 時速約185キロ", xy=(1250, 690))]),
                dict(state=dict(s3amp="on"), rec=S3R["wave"], tag=dict(t="高さの差 約1,200メートル", at="amp", off=(-40, -170), anchor="end"))]))),
     # c305（2行）＝横から → 正面から＝合図。ダッチロール＝左右に約40度（角の印は本当の 40度）
     "c305": dict(fig=("illu", dict(

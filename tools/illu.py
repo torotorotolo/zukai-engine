@@ -7430,6 +7430,8 @@ def scene(place, steps, start=None, at=None, people=None, src=None, view=None, r
             objects[k] = objects.get(k, 0) + int(n)
     tags = []
     mend = _rb_motion_end(st0, states, steps) if place == "RB" else {}
+    if place in EXTRA and EXTRA[place].get("mend"):
+        mend = EXTRA[place]["mend"](st0, states, steps)     # 🆕 20本目 ⑤b-3：S2 の時計の札＝機の印が着いてから
     for i, (st, sp) in enumerate(zip(states, steps)):
         # 🔴 ⑤b-3：札の指し先は「段の終わりの状態」＝見え方の入れ替えや機首の上げ（一気に大きく動く）の段で札を 0.35秒に出すと、
         #    動く前の空を指す（試し焼き 36657377530 の c307：「17.3G」が水平の機体の先の空を指した）＝既定は動きが終わってから
