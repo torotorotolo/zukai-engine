@@ -1,0 +1,13 @@
+# 20本目 映像方針：了承②（2026-10-08）で取った素材（fetch20.py check の出力＝手で直さない）。置き場は git の外（ref/* は .gitignore）
+code	class	file	bytes	md5	md5_check	dims	exif_date	page_or_note
+BV	film	ref/ep20/src/bouei60/bouei60_full_399.mp4	213232591	9971ca79b12a5cd2f0b164793d22d5ca	md5 2回一致	1920x1080（器）・実効 約544px（中央値）・中身は4:3	—	https://www.youtube.com/watch?v=LKrLJc4R0X8
+J1	photo	ref/ep20/photo/j1_ja8119_chitose_1985.jpg	879869	aba0717e54ac948013343e410c272b4e	md5 2回一致	1600x1066	2021:08:13 22:33:38	https://commons.wikimedia.org/wiki/File:Japan_Airlines_-_Boeing_747SR_-_JA8119_-_Sapporo_Chitose.jpg
+J2	photo	ref/ep20/photo/j2_ja8119_haneda_19850303.jpg	1113146	2a69887c14c249430f8b1e89713161e2	md5 2回一致	2302x1409	2021:12:23 14:54:15	https://commons.wikimedia.org/wiki/File:BOEING_747SR-46,_JA8119_,_JAPAN_AIRLINES.jpg
+J3	photo	ref/ep20/photo/j3_ja8119_itami_1984.jpg	407666	f819c32c2e9425a9a58c5e56ac957734	md5 2回一致	2733x1677	2009:05:21 19:03:08	https://commons.wikimedia.org/wiki/File:Japan_Airlines_B747SR-46_(JA8119)_at_Itami_Airport_in_1984.jpg
+O1	photo	ref/ep20/photo/o1_osutaka_trailhead.jpg	852757	6c502f05cd4dd3e0003ec528fdbc9575	md5 2回一致	1600x1200	2009:08:14 08:01:52	https://commons.wikimedia.org/wiki/File:御巣鷹の尾根・昇魂之碑_新登山道入り口_-_panoramio.jpg
+O2	photo	ref/ep20/photo/o2_osutaka_stairs.jpg	803915	2ad5fa96a7c2fd61b604d7b070ab2bdc	md5 2回一致	1600x1200	2009:08:14 08:08:27	https://commons.wikimedia.org/wiki/File:2009年に作られた階段と手すり_-_panoramio.jpg
+O3	photo	ref/ep20/photo/o3_shokon_no_hi.jpg	871074	581fba81d1dc78b68add549ab2a48b5f	md5 2回一致	1600x1200	2009:08:14 08:23:47	https://commons.wikimedia.org/wiki/File:Narahara,_Ueno,_Tano_District,_Gunma_Prefecture_370-1617,_Japan_-_panoramio.jpg
+O4	photo	ref/ep20/photo/o4_sign_r299.jpg	855886	5c18da926ceec7f08280371be817f2d1	md5 2回一致	1600x1200	2009:08:14 07:23:11	https://commons.wikimedia.org/wiki/File:国道299号線_御巣鷹の尾根の標識_-_panoramio.jpg
+O5	photo	ref/ep20/photo/o5_sign_p124.jpg	962052	f481a6a8dc0bad8d5116840abbf2d1a7	md5 2回一致	1600x1200	2009:08:14 07:27:42	https://commons.wikimedia.org/wiki/File:県道124号線_御巣鷹の尾根の標識_-_panoramio.jpg
+O6	photo	ref/ep20/photo/o6_ireinosono.jpg	806284	ea5b0befcfc943b8bcf2bb011bd1374d	md5 2回一致	1600x1200	2009:08:14 07:16:06	https://commons.wikimedia.org/wiki/File:慰霊の園_慰霊塔_-_panoramio.jpg
+BV-audio	audio	ref/ep20/src/bouei60/bouei60_full_140.m4a	29141367	c78152a5d33deb31994a1f04c9c90b3e	md5 2回一致	—	—	語の確かめ用（動画の音は使わない）
