@@ -105,7 +105,8 @@ SPEC = {
     # c406（2行）＝同じ点の寄り（cam＝機の印のまわり）。言葉は画面に出さない
     "c406": dict(fig=("illu", dict(
         place="S2", start=dict(s2t="18:47:39"), rec=S2R["trace"], camc="plane",
-        steps=[dict(state=dict(s2t="18:47:44", cam=1.8), rec=S2R["trace"], dur=1.4), dict()]))),
+        # ⑤b-3 の2回目の焼き：1.8倍では大きくなった地名「相模湾」が左下の出典の行の裏に入った（y≈870）＝1.6倍（地名の下の端 y≈841）
+        steps=[dict(state=dict(s2t="18:47:44", cam=1.6), rec=S2R["trace"], dur=1.4), dict()]))),
     # c407（2行）＝高さ 約2,100メートル → 奥多摩町の上で左へ（18:48:03＝付図-1）・西北西へ少しずつ上がる
     "c407": dict(fig=("illu", dict(
         place="S2", start=dict(s2t="18:47:44"), rec=S2R["trace"],
