@@ -66,7 +66,8 @@ SPEC = {
     # cb02（2行）＝前の再現 ca21（S2・日本の地図）→ 相模湾＝合図（置き場が替わる＝㉑）。海の底を調べた区域（付図-21 の枠）
     "cb02": dict(fig=("illu", dict(
         place="S7", start=dict(switch="on"), rec=S7R["deb"],
-        steps=[dict(), dict(state=dict(s7area="on"), rec=S7R["area"], tag=dict(t="海の底を調べた区域", at="area_e", off=(90, 60)))]))),
+        # ⑤b-4 の試し焼き：札を右下（off 90, 60）に出すと「大島」の名に重なった＝右上の海へ
+        steps=[dict(), dict(state=dict(s7area="on"), rec=S7R["area"], tag=dict(t="海の底を調べた区域", at="area_e", off=(150, -130)))]))),
     # cb03（3行）＝聞き役の問い → 浮いていた破片の場所（付図-20）・海の流れ（図15）・さかのぼって計算した区域（図15 の楕円）
     #   → 飛んだ道すじ（付図-21 の 244度）と、あの音がした地点（推定異常音発生点）
     "cb03": dict(fig=("illu", dict(
@@ -79,7 +80,8 @@ SPEC = {
     "cb07": dict(fig=("illu", dict(
         place="S7", start=dict(s7frame="area", s7area="on", s7pts="on", s7path="on", s7boom="on"), rec=S7R["pts"],
         steps=[dict(state=dict(s7pts="none"), rec=S7R["none"], tag=dict(t="17か所とも残骸なし", at="pts", off=(70, -60))),
-               dict(tag=dict(t="泥・砂・岩場", at="area", off=(-150, 160), anchor="end"))]))),
+               # ⑤b-4 の試し焼き：枠の真ん中（area）を指すと線が × に刺さった＝東南の空いた所（area_mid）を右下から
+               dict(tag=dict(t="泥・砂・岩場", at="area_mid", off=(140, 120)))]))),
     # cb11（2行）＝海に落ちたとみられる物（解説 表5 の6つ＝形だけ）
     "cb11": dict(fig=("illu", dict(
         place="S7", start=dict(s7frame="area", s7area="on", s7pts="none"), rec=S7R["none"],

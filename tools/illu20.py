@@ -1512,8 +1512,16 @@ S6_LAYERS = dict(
 S6_ORDER = ("lower", "splice", "upper")      # 前（左）から
 S6_T = 0.18                         # 板の厚さ（インチ・付図-3 の見え方より厚く＝模式）
 # ⑤b-4 の門番 layout：上の題（「指示された継ぎ方」）が合図の札（y 40〜106）と重なった＝絵を下げて少し小さく
-S6_VIEW = dict(side=dict(k=130.0, cx=dict(plan=960.0, real=960.0), cy=500.0),
-               both=dict(k=125.0, cx=dict(plan=600.0, real=1320.0), cy=500.0))
+#   ⑤b-4 の試し焼き（c812・cc09）：並べた絵の右の題が章の札（右上）と重なった＝並べた絵はさらに下げ、板の端を 2.3インチで切る
+#   （下の端が出典の行に届かないように）
+S6_VIEW = dict(side=dict(k=130.0, cx=dict(plan=960.0, real=960.0), cy=500.0, edge=S6_EDGE),
+               both=dict(k=125.0, cx=dict(plan=600.0, real=1320.0), cy=545.0, edge=2.3))
+
+
+def _s6_layers(view, kind):
+    """その見え方で描く板の範囲（絵の端まで続く板は、見え方の端 edge で切る）"""
+    e = S6_VIEW[view]["edge"]
+    return {nm: (None if r is None else (max(-e, r[0]), min(e, r[1]))) for nm, r in S6_LAYERS[kind].items()}
 S6F_C, S6F_R = (960.0, 470.0), 330.0
 S6F_STRAPS = (0.93, 0.75, 0.56, 0.36)       # 第1〜第4ストラップの半径（円の半径に対する比・付図-32 の目読み）
 S6_TIT = dict(plan="指示された継ぎ方", real="実際の継ぎ方")
@@ -1541,7 +1549,7 @@ def _s6_y(view, kind, inch):
 def s6_stack_svg(view, kind):
     """断面（板とリベット）＋名前"""
     k, cx, cy, xs = _s6_geo(view, kind)
-    L = S6_LAYERS[kind]
+    L = _s6_layers(view, kind)
     w = S6_T * k
     col = dict(lower=C20["web_lo"], splice=C20["splice"], upper=C20["web_up"], filler=C20["filler"])
     g = []
@@ -1565,7 +1573,7 @@ def s6_stack_svg(view, kind):
                  f'fill="{C20["rivet"]}" stroke="#10161b" stroke-width="2.5"/>')
     big = view == "side"
     fs = 28 if big else 24
-    g.append(_text(cx, cy - S6_EDGE * k - 18, S6_TIT[kind], 32 if big else 28))
+    g.append(_text(cx, cy - S6_VIEW[view]["edge"] * k - 18, S6_TIT[kind], 32 if big else 28))
     # 名前（引き出し線つき）：上の板は右上・下の板は右下・継ぎ板は左・フィラは左上
     def lab(x0, y0, x1, y1, t, anc):
         return (f'<path d="M {x0:.1f} {y0:.1f} L {x1:.1f} {y1:.1f}" stroke="{C20["name"]}" stroke-width="2.2"/>'
@@ -1663,7 +1671,7 @@ def _scene_S6(start, states, steps):
         k, cx, cy, xs = _s6_geo(v, kd)
         parts.append(dict(_part(f"stack_{kd}", s6_stack_svg(v, kd), R[kd]),
                           geo=dict(kind="s6joint", which=kd, k=k, cy=cy, rows=list(S6_ROWS),
-                                   layers={nm: (list(r) if r else None) for nm, r in S6_LAYERS[kd].items()})))
+                                   layers={nm: (list(r) if r else None) for nm, r in _s6_layers(v, kd).items()})))
         # 並べた絵（both）の継ぎ板の印は実際の側だけ（c812「その継ぎ板とフィラは、取り外した古い隔壁から」）
         if any(st["s6spl"] == "on" for st in allst) and (v != "both" or kd == "real"):
             parts.append(_part(f"spl_{kd}", s6_glow_svg(v, kd, "splice"), R["made"] if kd == "real" else R[kd],
@@ -1720,7 +1728,8 @@ S7_VIEW = dict(bay=dict(k=7.6, c=(139.47, 34.97), px=(960.0, 480.0), lat0=35.0),
                area=dict(k=60.0, c=(139.071, 34.763), px=(760.0, 470.0), lat0=34.77))
 S7_SCALE = dict(bay=10.0, area=1.0)
 S7_PATH_KM = (50.0, 14.0)          # 推定飛行経路の線＝推定異常音発生点から東北東へ 50km・西南西へ 14km（図15 の線と同じく湾を横切る）
-S7_NAMES = dict(bay=(("相模湾", (139.40, 35.12)), ("伊豆半島", (138.98, 34.88)), ("大島", (139.53, 34.72)),
+# ⑤b-4 の試し焼き：「大島」を島の東に置くと海流の矢印（図15）と cb02 の札に重なった＝島の下へ
+S7_NAMES = dict(bay=(("相模湾", (139.40, 35.12)), ("伊豆半島", (138.98, 34.88)), ("大島", (139.40, 34.655)),
                      ("三浦半島", (139.66, 35.29)), ("房総半島", (139.98, 35.10))),
                 area=(("伊豆半島", (139.025, 34.795)), ("稲取", (139.052, 34.775))))
 S7_T = dict(show=0.6, cur=1.2)
@@ -1738,7 +1747,7 @@ S7_REC = dict(
 # 推定される落下物の6つ（解説 表5 の並び・名前は台本の言い方）。形は模式（表5 の寸法では描かない）
 S7_OBJ = (("apu", "APU"), ("act", "方向舵を動かす装置×2"), ("cone", "胴体の最後部"), ("box", "垂直尾翼の中央の箱"),
           ("rud_up", "上の方向舵"), ("rud_lo", "下の方向舵"))
-S7_PANEL = (1250.0, 150.0, 1890.0, 800.0)
+S7_PANEL = (1250.0, 178.0, 1890.0, 818.0)       # ⑤b-4 の試し焼き：上の縁が章の札（右上）に触れた＝下へ
 
 
 @lru_cache(maxsize=1)
@@ -1994,7 +2003,9 @@ def _s7_anchors(st):
     fr = st["s7frame"]
     d = s7_data()
     area = [P7(fr, *p) for p in d["near"]["area"]]
-    an = dict(area=(sum(p[0] for p in area) / len(area), sum(p[1] for p in area) / len(area)),
+    # area_mid＝枠の東南の空いた所（角の平均から南東の角 G へ 7割）＝⑤b-4 の試し焼き：真ん中（area）を指す札の線が調査地点の × に刺さった
+    ac = (sum(p[0] for p in area) / len(area), sum(p[1] for p in area) / len(area))
+    an = dict(area=ac, area_mid=(ac[0] + 0.7 * (area[6][0] - ac[0]), ac[1] + 0.7 * (area[6][1] - ac[1])),
               area_e=max(area, key=lambda p: p[0]), area_n=min(area, key=lambda p: p[1]),
               boom=P7(fr, *d["near"]["boom"]), drop=P7(fr, *d["fig15"]["ellipse"]["c"]))
     p0, p1 = s7_path_pts(fr)
