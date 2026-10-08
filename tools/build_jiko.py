@@ -528,12 +528,16 @@ def scene(cut, t, dur, lay, photos, meta):
         #     動く絵に寄りを重ねると手ブレのように見える。
         #   🆕 18本目 ⑤b-7c：映像の差し込み（頭）のコマは差し込みの側だけ（fhead）＝ここは本の写真・頁
         src = None if meta[cut].get("fhead") else foot_frame(cut, t)
-        if meta[cut].get("fground") and box[3] < S.H:
-            # 🆕 18本目 ⑤b-7c：額装の記録映画＝地は同じ絵のぼかし（コマが無いときはひかえの静止画で）
-            fr = ground_of(src if src is not None else photos[cut], cut, meta)
         if src is not None:
             xb, zm = meta[cut].get("fxb", xb), meta[cut].get("fzm", zm)
             ph = fit(src, box, 0.0, meta[cut].get("fbias", bias), xb, zm)
+        if meta[cut].get("fground") and box[3] < S.H:
+            # 🆕 18本目 ⑤b-7c：額装の記録映画＝地は同じ絵のぼかし（コマが無いときはひかえの静止画で）
+            # 🆕 20本目 ⑤b-2：地は**額の中身（同じ切り口 ph）**からぼかす＝器の黒帯（防衛庁記録は 1920×1080 の器に 4:3）を地に混ぜない
+            #    （試し焼き 37739768739 の c103・c104・c107 で額の左右の地が黒く濁った）。18本目の 655×480 は器＝中身なので見え方は同じ
+            fr = ground_of(ph if src is not None else photos[cut], cut, meta)
+        if src is not None:
+            pass
         else:
             src = photos[cut]
             cam = meta[cut].get("cam")
