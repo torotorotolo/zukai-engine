@@ -338,6 +338,29 @@ STAR_RE = re.compile(r'^★')
 #    判定は「こちらが盛ったか」であって単語そのものではない。
 HYPE = ['即死', '絶命', '闇', '隠蔽', '悲劇', '戦慄', '驚愕', '恐怖の']
 HYPE_ALLOW = {'衝撃': ['衝撃荷重']}
+# 🆕 2026-10-08（20本目⑤a-1）：**資料の字をそのまま「」で引いた煽り語**を回ごとに登録する。
+#    判定は「こちらが盛ったか」（上の注）＝報告書の字をそのまま引いた所は盛っていない。ただし
+#    **綴りを変えて鳴らなくしない**（記憶 feedback-dont-spell-around-a-gate）＝門番の側に、カット・語・引用の字面の3つで当てる。
+#    ① 回の名前（el_script.SLUG）で引く＝ほかの回には効かない
+#    ② 行の字が1字でも変われば当たらなくなり、今までどおり E に戻る（行を直したら登録も直す）
+#    ③ 同じ行の、引用の外にも同じ語があれば E（引用の中の回数と行の回数が同じときだけ通す）
+#    ④ 当たった所は消さずに「参考」で出す（なぜ止めないか＝出典と決めた日を表に出す）
+#    ⚠️ 書けるのは、カズヤくんが引用のまま使うと決めた所だけ（出典の頁と決めた日を書く）
+HYPE_QUOTE_OK = {
+    # 20本目 日本航空123便：c518-2「こう書いている。「即死若しくはそれに近い状況であった」」
+    #    承認①（2026-10-08 カズヤくん）＝引用のまま。原文＝事故調査報告書 2.13.3 p.25
+    #    「…生存者4名を除いた他の者は即死若しくはそれに近い状況であった。」
+    'ep20': [('c518', '即死', '「即死若しくはそれに近い状況であった」',
+              '報告書 2.13.3 p.25 の引用・承認① 2026-10-08')],
+}
+
+
+def hype_quote_ok(cid, word, text):
+    """この行の煽り語が登録ずみの引用（カット・語・引用の字面）に当たるなら、その出典の札を返す。無ければ None。"""
+    for c, w, q, why in HYPE_QUOTE_OK.get(_slug(), []):
+        if c == cid and w == word and q in text and text.count(word) == q.count(word):
+            return why
+    return None
 
 
 def clean(line):
@@ -439,7 +462,7 @@ def refcheck(tol=0.5):
 
 
 def report(cuts):
-    E, W = [], []
+    E, W, NOTE = [], [], []
     m = measure(cuts)
     n, chars = m['n'], m['chars']
     print('カット %d / 字幕行 %d / 本文 %d字 / 決め所 %d' % (n, len(m['lines']), chars, m['nq']))
@@ -537,7 +560,12 @@ def report(cuts):
             t = clean(l)
             for w in HYPE:
                 if w in t:
-                    E.append('E %s に煽り語「%s」: %s' % (cid, w, t))
+                    why = hype_quote_ok(cid, w, t)
+                    if why:
+                        NOTE.append('参考 %s の煽り語「%s」は資料の字の引用として登録ずみ（%s）＝止めない: %s'
+                                    % (cid, w, why, t))
+                    else:
+                        E.append('E %s に煽り語「%s」: %s' % (cid, w, t))
             for w, allow in HYPE_ALLOW.items():
                 if w in t and not any(a in t for a in allow):
                     W.append('W %s に「%s」。盛った語でないなら可（例: %s）: %s'
@@ -674,6 +702,8 @@ def report(cuts):
             W.append('W 決め所の空白が最大 %s。画面に大きな文字が出ない区間が長い' % fmt(max(gaps) * PER_CUT))
 
     print()
+    for x in NOTE:
+        print(x)
     for x in E:
         print('🔴 ' + x)
     for x in W:
@@ -865,6 +895,39 @@ def selftest():
     _ids = [(c, '', ['あ']) for c in ('pr01', 'c101', 'c201', 'ca01', 'cd08', 'ed01')]
     chk('🔴章の扉は ca〜cf も数える', n_cards(_ids), 3)                      # c1 c2 ca cd → 4章−1
     chk('9章までの回は旧式と同じ枚数', n_cards(_ids[:3]), 1)
+
+    # 🆕 2026-10-08（20本目⑤a-1）：煽り語の引用の登録（HYPE_QUOTE_OK）。⚠️ (E, W) の増分で見る
+    global HYPE_QUOTE_OK
+    keep_hq = HYPE_QUOTE_OK
+    q20 = '「即死若しくはそれに近い状況であった」'
+    hq_base = SAMPLE.replace('> さしすせそ', '> こう書いている。「あいうえおかきくけこ」')
+    be3, bw3 = report_counts(parse(hq_base))
+
+    def hq(line, reg):
+        global HYPE_QUOTE_OK
+        HYPE_QUOTE_OK = reg
+        e, w = report_counts(parse(SAMPLE.replace('> さしすせそ', '> ' + line)))
+        return e - be3, w - bw3
+
+    try:
+        me = {_slug(): [('c101', '即死', q20, '見本')]}
+        line = 'こう書いている。' + q20
+        chk('登録した引用は止めない', hq(line, me), (0, 0))
+        chk('🔴登録が無ければE（陽性対照）', hq(line, {}), (1, 0))
+        chk('🔴別のカットの登録ではE', hq(line, {_slug(): [('pr01', '即死', q20, '見本')]}), (1, 0))
+        chk('🔴別の回の登録ではE', hq(line, {'_別の回': [('c101', '即死', q20, '見本')]}), (1, 0))
+        chk('🔴引用の字が1字違えばE', hq('こう書いている。「即死若しくはそれに近い状況だった」', me), (1, 0))
+        chk('🔴引用の外にも同じ語があればE', hq('即死だった。こう書いている。' + q20, me), (1, 0))
+        HYPE_QUOTE_OK = me
+        buf, old = io.StringIO(), sys.stdout
+        sys.stdout = buf
+        try:
+            report(parse(SAMPLE.replace('> さしすせそ', '> ' + line)))
+        finally:
+            sys.stdout = old
+        chk('登録した引用は参考で出す', '参考 c101 の煽り語「即死」' in buf.getvalue(), True)
+    finally:
+        HYPE_QUOTE_OK = keep_hq
 
     print('selftest:', 'PASS' if ok else '🔴FAIL')
     return ok
