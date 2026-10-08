@@ -14,6 +14,7 @@
   E 写真と実写の割合が 20% 未満／文字だけの画面が3つ続く
   ⚠️ 同じショットを2つのカットで使う（区間は重ならない）／静止写真の動きが「寄る」に偏る（50%超）
 秒＝句読点なし÷365字/分（narr20.py と同じ数え方）＝⑤a の実測で取り直す。
+🆕 2026-10-08（⑤b-1）：audio/narration.json があれば秒はその実測（下の measured）・映像の倍率の分母は扉を除いた中身の秒。
 """
 import csv
 import os
@@ -77,6 +78,36 @@ def read_cuts():
     for r in rows:
         r['start'] = sec
         r['dur'] = r['n'] / 365 * 60
+        r['cont'] = r['dur']
+        sec += r['dur']
+    return measured(rows) or rows
+
+
+# 🆕 2026-10-08（⑤b-1）：⑤a-2 の音ができたので、秒は audio/narration.json の**実測**で組む（÷365 の見込みは音が無いときだけ）。
+#    カットの秒＝声の長さ＋前後の間（scene_jiko の LEAD 0.35・TAIL 0.50）＋章の頭は扉（CARD_SEC 2.0）＝scene_jiko._narration・
+#    aq_build の冒頭の秒と同じ式（c101＝9.1秒・c106 の終わり＝44.8秒・合計 2,187.872秒＝出荷する wav をつないだ長さ）。
+#    扉は区切り（c101 の形の2字目）が変わるたびに付く（最初の区切りには付けない＝scene_jiko._card_heads と同じ規則）。
+#    映像の倍率の分母は**扉を除いた中身の秒**（scene_jiko.content_sec＝映像が流れる秒）。
+NARR = os.path.join(REPO, 'audio', 'narration.json')
+LEAD, TAIL, CARD_SEC = 0.35, 0.50, 2.0
+
+
+def measured(rows):
+    if not os.path.exists(NARR):
+        return None
+    import json
+    dur = json.load(open(NARR, encoding='utf-8'))['durations']
+    if [r['cid'] for r in rows] != [c for c in dur if CUT.match('**%s**' % c) and c != 'ed01']:
+        raise SystemExit('🔴 narration.json のカットの並びが台本 §4 と違う（音を作り直したか確かめる）')
+    sec, prev, seen = 0.0, None, set()
+    for r in rows:
+        key = r['cid'][:2]
+        card = CARD_SEC if (prev is not None and key != prev and key not in seen) else 0.0
+        seen.add(key)
+        prev = key
+        r['start'] = sec
+        r['cont'] = dur[r['cid']] + LEAD + TAIL
+        r['dur'] = r['cont'] + card
         sec += r['dur']
     return rows
 
@@ -248,10 +279,10 @@ def main():
                         E.append('%s 区間がショット %s の遠景の外' % (c['cid'], hit[0]['shot']))
                 used_iv.append((x, y, c['cid']))
             c['src_sec'] = src
-            sp = src / c['dur'] if c['dur'] else 0
+            sp = src / c['cont'] if c['cont'] else 0
             c['speed'] = '%.2f' % sp
             if sp < MIN_SPEED:
-                E.append('%s 倍率 %.2f（素材 %.1f秒÷カット %.1f秒）＜ %.1f＝止め絵になる' % (c['cid'], sp, src, c['dur'], MIN_SPEED))
+                E.append('%s 倍率 %.2f（素材 %.1f秒÷カットの中身 %.1f秒）＜ %.1f＝止め絵になる' % (c['cid'], sp, src, c['cont'], MIN_SPEED))
             codes = ['BV']
         elif c['main'] and c['main'] not in ('?',):
             codes = [c['main']]
@@ -338,7 +369,8 @@ def main():
     L = ['---', 'title: 20本目 場面ごとの映像・写真の一覧（生成物）', 'created: 2026-10-08', 'tags: [project/jiko-kensho, ep20]', '---', '',
          '# 20本目 場面ごとの映像・写真の一覧（%dカット・映像方針）' % n, '',
          '> **生成物＝手で直さない**。作り方＝`python ref/ep20/eizou_build/make_list20.py`（入力＝台本 第2版 `daihon_v2.md` §4 の画の欄・当て方 `eizou_build/assign20.tsv`・出どころ `eizou_build/sources20.tsv`・防衛庁記録のショット `eizou_build/bv_shots20.tsv`）。直すのは assign20.tsv などの入力。',
-         '> 秒＝句読点なし÷365字/分（÷365 の見込み＝⑤a の実測で取り直す）。🔧＝assign20.tsv で台本の画の欄から変えたカット。報告書の写真・付図＝`ref/ja123/`（旧版の取り出し・長辺1200・ぼかし0.7）＝1ビット＝額装（横1200px 上限）・白黒のまま。色味は原本（10-07＝回の既定 keep=1.0）。', '',
+         ('> 秒＝`audio/narration.json` の**実測**（⑤a-2 の音・声の長さ＋前後の間 0.85秒＋章の頭の扉 2.0秒＝scene_jiko と同じ式）。映像の倍率＝素材の秒÷扉を除いたカットの中身の秒。'
+          if os.path.exists(NARR) else '> 秒＝句読点なし÷365字/分（÷365 の見込み＝⑤a の実測で取り直す）。') + '🔧＝assign20.tsv で台本の画の欄から変えたカット。報告書の写真・付図＝`ref/ja123/`（旧版の取り出し・長辺1200・ぼかし0.7）＝1ビット＝額装（横1200px 上限）・白黒のまま。色味は原本（10-07＝回の既定 keep=1.0）。', '',
          '## §0 数', '', '| 物差し | 値 | 決まり |', '|---|---|---|',
          '| 写真・実写（この事故） | **%d カット＝%.1f%%**（秒 %.0f＝%.1f%%）＝映像 %d・写真 %d | 20%%以上 %s |' % (
              len(photo), ratio * 100, sum(c['dur'] for c in photo), sum(c['dur'] for c in photo) / tot * 100, len(film), len(still), '✅' if ratio >= PHOTO_LO else '🔴'),
@@ -368,7 +400,9 @@ def main():
                 c['cid'], ' 🔧' if c['assigned'] else '', c['start'], c['start'] + c['dur'], c['dur'], c['kind'],
                 c['main'], '（%s倍）' % c['speed'] if c['speed'] else '', c['sub'], c['motion'], c['first'][:30]))
     L += ['', '- 冒頭の映像＝c103（上空から見た墜落現場）・c104（ヘリの遠景）・c107（まつゆきのボート）。写真＝c101（JA8119・全画面）・c102・c105・c108（報告書・額装）・c106（登山道）',
-          '- 秒は ÷365 の見込み（最初の見出し 59.3秒＝46秒の引きは c105〜c106）＝⑤a-2 の音で取り直す。映像の倍率も⑤a の秒で計算し直す', '']
+          ('- 秒は narration.json の実測（⑤b-1 で取り直した）＝冒頭の引き c106 の終わり %.1f秒（46秒より前）・最初の見出しの手前 c108 の終わり %.1f秒' % (
+              next(c['start'] + c['dur'] for c in cuts if c['cid'] == 'c106'), next(c['start'] + c['dur'] for c in cuts if c['cid'] == 'c108'))
+           if os.path.exists(NARR) else '- 秒は ÷365 の見込み（最初の見出し 59.3秒＝46秒の引きは c105〜c106）＝⑤a-2 の音で取り直す。映像の倍率も⑤a の秒で計算し直す'), '']
     L += ['## §2 防衛庁記録「昭和６０年防衛庁記録」のショット（23:51〜25:22・1秒1コマで全部見た）', '',
           '| ショット | 秒 | 写っているもの | 画面の字 | 使う | 理由 | 当てたカット |', '|---|---|---|---|---|---|---|']
     for s in shots:

@@ -1,234 +1,82 @@
 # -*- coding: utf-8 -*-
-"""第9章　塔へ渡り、西で止まった ca01–ca21（21カット）。19本目（サーフサイドのマンション崩壊のリメイク）。
+"""第9章　機内で何が起きたか ca01–ca21（21カット）。20本目（日本航空123便のリメイク）。
 
-■ 🔴 2026-10-06（⑤b-1）：18本目（スレッシャー号）の中身を空にした＝git の `b11797a`（`git show b11797a:tools/cuts/ca.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep19/make_plan19.py` で
-  映像方針の一覧 `ref/ep19/eizou_build/list19.tsv`（承認ずみ・決め①〜⑩）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
+■ 🔴 2026-10-08（⑤b-1）：19本目（サーフサイドのマンション崩壊のリメイク）の中身を空にした＝git の `0dcaa9c`（`git show 0dcaa9c:tools/cuts/ca.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep20/make_plan20.py` で
+  映像方針の一覧 `ref/ep20/eizou_build/list20.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
-     （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」と「フリー素材」を数える）。
-  ⚠️ plan の「⑤b-1」は1秒1コマの走査で区間を選ぶ所・秒（÷365 の見込み）は書き写さない＝narration.json の実測で組む。
+     （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
+  ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット（台本の画は元の予定）。
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
 
 P = ss.P
-from illu import A1_REC as IL_REC  # noqa: E402  🆕 ⑤b-2：A1 の部品の出典（描く側と同じ文）
 
 PLAN = {
-    'ca01': dict(kind='再現イラスト',
-               plan='図 再現イラスト A1【正面から】塔の南の面と崩れ落ちたプールデッキ（「推定」の札）｜札：推定｜権利：自作',
-               src='TR0285・TR0286（`if the pool deck and street-level parking slab collapse had not spread into the tower, the disastrous part of this failure would not have occurred`）'),
+    'ca01': dict(kind='写真',
+               plan='P98｜動き：寄る｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-98）／縮小・切出｜台本の画：実写 写真-98（p225・客室最後部の化粧室の天井部分の破片に付着する断熱材・額装・寄る）',
+               src='解説 p.i（`「圧力隔壁損壊による急減圧はなかったのではないか」`）'),
     'ca02': dict(kind='図解',
-               plan='図 模式図【横から】塔とプールデッキの境（2本の梁＝K と L の札・9.1 の線）｜権利：自作',
-               src='TR0287〜0289'),
+               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 急減圧（穴から空気が出て、客室の気圧の針が一気に下がる絵・人は描かない）',
+               src='解説 p.2（`客室高度が急上昇(機内与圧が急降下)している状況全てについて使用しています`）'),
     'ca03': dict(kind='図解',
-               plan='図 模式図（同じ・梁と床が外れ、継ぎ目から鉄筋とコンクリートを引き抜く）｜権利：自作',
-               src='TR0292・TR0293（`bearing the load of 13 stories of structure from the column above`）'),
-    'ca04': dict(kind='図解',
-               plan='図 模式図【横から】継ぎ目の断面（柱＝緑・床＝灰色＝AC p.65 の形）｜権利：自作',
-               src='TR0294〜0296・AC p.65（`Column concrete (green): Design compressive strength = 6000 psi`・`Floor concrete (grey): Design compressive strength = 4000 psi`）'),
-    'ca05': dict(kind='図解',
-               plan='図 模式図（同じ・柱の縦の鉄筋・輪の形の鉄筋が無い所＝AC p.71 の形）｜権利：自作',
-               src='TR0297・AC p.71（`The absence of column ties in the joint left the column longitudinal reinforcement unbraced against buckling.`）・AC p.64（`The concentration of longitudinal column reinforcement exceeded ACI 318 limits.`）'),
-    'ca06': dict(kind='写真',
-               plan='TLS（ミネソタ大学の据え付けのタイムラプス）｜副題：試験体を据える（ミネソタ大学）｜権利：A推定（大学の撮影の可能性）｜注：🔁 台本の型 fb_c607',
-               src='TR0298・TR0299・A06（`tested until failure at the University of Minnesota`）'),
+               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 疑問の3つの点（風・寒さ・酸素マスク＝絵の札だけ）',
+               src='解説 p.i（`客室内に猛烈な風が吹き抜けるはずであり、また、室温も低下するのに、生存者はそのようなことはなかったと証言している`・`急減圧があったならばパイロットは酸素マスクを付けるように訓練されているのに付けていないのはなぜか`）'),
+    'ca04': dict(kind='文字の頁',
+               plan='PG｜権利：PDL1.0（文字の頁）｜台本の画：図 p-i 解説 表紙と「はじめに」の頁（文字の頁＝2011年の解説を名指し）',
+               src='解説 p.i（`ご遺族の皆さまに対して、必ずしも十分な説明がなされていなかった`・`率直にお詫び申し上げます`・`航空事故調査報告書に新たな解析や原因の推定を加えるものではありません`）'),
+    'ca05': dict(kind='再現イラスト',
+               plan='S5｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S5【横から】の戻り（隔壁が開き、客室の気圧が下がる・推定の札）',
+               src='報告書 4.1.6.7 p.126（`操縦室を含む客室与圧は数秒間で大気圧まで減圧したものと推定される`）'),
+    'ca06': dict(kind='図解',
+               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 2つの機体の比べ（123便の 747 と 2009年の 737・穴の大きさを形で・数字は書かない）',
+               src='解説 p.2（`2009年7月13日、米国において35,000フィートを飛行中のサウスウエスト航空2294便(B737-3H4)において、客室の天井(座席20列目付近)に約0.135m2の穴が開き、急減圧が発生した`）'),
     'ca07': dict(kind='図解',
-               plan='図 数の比べ（約295トン＝20トンの大型トラック約15台分・式は§9）｜権利：自作',
-               src='TR0302（`a vertical load of 650,000 pounds`・`representing the load in the column at the time of failure`）・§9'),
-    'ca08': dict(kind='写真',
-               plan='TL（試験体の床が柱から外れるタイムラプス）｜副題：試験体が壊れる（ミネソタ大学）｜権利：A推定｜注：右下の NIST の透かしを切る',
-               src='TR0303・TR0306'),
-    'ca09': dict(kind='写真',
-               plan='N#72 か N#60（試験のあとの標本）か AC p.72 の頁｜副題：試験のあとの継ぎ目（ミネソタ大学・2025年）｜権利：A｜注：「外へ曲がった鉄筋」が写る物を⑤b-1で',
-               src='TR0307〜0309・AC p.72（`Buckled Steel Reinforcement`）'),
+               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 客室の断面（天井の穴と、離れた座席＝人は描かない）',
+               src='解説 p.2（`大きな破裂音を聞き、大きな風切り音がこれに続いた`・`耳の苦痛がほとんどないのに驚いた`・`何も飛ばされず、誰も穴に吸い込まれることはなかった`・`薄い霧を見たが5秒ほどで消滅した`）'),
+    'ca08': dict(kind='図解',
+               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式（同じ断面・穴の近くだけ速い流れの矢印）',
+               src='解説 p.3（`機内は必ずしも映画のような状態にはならず、穴から少し離れると客室内での風はそれほど激しく吹かず、寒さもあまり感じません`）'),
+    'ca09': dict(kind='図解',
+               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 穴から2メートル先の席の風（2009年の例・解説の試算＝人は描かない）',
+               src='解説 p.6（`非番の機長は開口部から2m離れた場所に着座していたとします`・`空気が開口部から音速340m/秒で流失したとしても、着座中の人は1.8m/秒の風しか受けないことになります`）'),
     'ca10': dict(kind='図解',
-               plan='図 模式図【横から】継ぎ目が押しつぶされ、柱が下がる（「推定」の札）｜札：推定｜権利：自作',
-               src='TR0312・TR0313・AC p.73（`If the requirements of the current edition of the building code for structural concrete, ACI 318-25, had been in effect and followed at the time of original design and construction of CTS, the performance of the joint could have been improved.`）'),
+               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 123便の客室（後ろの壁から前へ抜ける空気・座席のあたりは弱い）',
+               src='解説 p.7（`客室断面積を19.6m2とすると風速はほぼ10m/秒となる`・`座席付近ではこの値よりかなり小さくなる`）'),
     'ca11': dict(kind='図解',
-               plan='図 模式図【正面から】南から北へ崩れる塔の真ん中（屋根が下がり、柱の頭が突き出す＝TR0365〜0367 の画の型・「推定」の札）｜札：推定｜権利：自作',
-               src='TR0362・TR0363・TR0365〜0368'),
-    'ca12': dict(kind='写真',     # ⑤b-7b：絵は NIST の動画の区間（スライド133）＝ca15・ca17 と同じ数え方（list19 は「頁」だった＝門番 textscreens E）
-               plan='TFV@TR0371（止まった境＝ゾーン A・B の図・青い真ん中の部分と点線）｜副題：NIST の技術的知見のスライド（止まった境 A・B）｜権利：A（右の写真〈TR0373〉は出どころを確かめる＝©2021 なら切る）｜注：🔁 台本は実写（B2 の空撮）＝解体の後の空撮に境は写らない・B1 の残った棟は c621・c711・cc04 で足りなくなる→ NIST の図に',
-               src='TR0369〜0371'),
-    'ca13': dict(kind='写真',
-               plan='N#17（残った棟とせん断された断面）｜副題：残った西の部分の断面（2021年6月30日ごろ）｜権利：A｜注：決め⑤＝🅰 引きだけ：⑤b-1 で原寸を見て、家具・写真・服が見分けられる住戸に寄せない（見分けられれば C1・C2 か B1 の引きに替える）',
-               src='TR0372・TR0373'),
-    'ca14': dict(kind='決め所',
-               plan='quote（決め所）｜権利：自作',
-               src='TR0376（`the strength of the concrete wall prevented the failure from spreading beyond it`）'),
-    'ca15': dict(kind='写真',
-               plan='TFV@TR0377（TF の写真のコマ）｜副題：—｜権利：要確認｜注：⑤b-1 で出どころの札を読む。©2021 なら使わず B1@159〜160',
-               src='TR0377'),
+               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 秒速10メートルの風（100メートルを10秒で走る人の顔に当たる風）',
+               src='解説 p.8（`走るとすれば100mを10秒なので、オリンピックの100m走の選手の顔に当たる風になります`・`目は十分に開けることができるような風です`）'),
+    'ca12': dict(kind='図解',
+               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 温度の戻り方（線＝下がってから戻る・計算の点だけ・数字は書かない）',
+               src='解説 p.9（`室温は、概ね2分後には0°C、3分後には10°C、5分後には20°C程度まで回復するという計算結果が出ています`）'),
+    'ca13': dict(kind='図解',
+               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式（座席と天井は温かいまま・マスクが下りている絵＝人は描かない）',
+               src='解説 p.10（`座っている座席や天井も25°Cのままですし`・`酸素マスクが降りてきて、マスクを着用していた事態であり`・`生存した方々が温度の低下に気付かなかったとしても不思議ではないのではないでしょうか`）'),
+    'ca14': dict(kind='図解',
+               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 霧（気圧が急に下がると、空気の中の水分が霧になる）',
+               src='解説 p.9（`生存者の口述によれば、客室内に霧が発生したことがわかります(本文p73、3.1.4.1)`）・p.17（`急減圧がなかったとすると、なぜ霧が出たのかという疑問が解決できません`）'),
+    'ca15': dict(kind='図解',
+               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 2つの減圧の速さの比べ（123便の推定の幅と 2009年の例＝棒・数字は書かない・2009年の棒に「解説の概算」の札）',
+               src='解説 p.4（`事故機で発生した機内の現象は、この急減圧事例と似通った状況にあったと考えるのが妥当です。また、この状況は、生存者の証言とも一致しています`）'),
     'ca16': dict(kind='図解',
-               plan='図 模式図【横から】壁の無い境（床の板が先に折れる＝①／柱の継ぎ目の押し抜き＝②＝TR0384 の図の型）｜権利：自作',
-               src='TR0374・TR0375・TR0382〜0385'),
-    'ca17': dict(kind='写真',
-               plan='TFV@TR0379（TF の写真のコマ）｜副題：—｜権利：要確認｜注：同上。代わり＝tf_p139_bars（図）',
-               src='TR0379・TR0380・TR0385（`failure would occur at 1 before 2, and so the failure did not advance into the west part of the tower`）・TR0392'),
-    'ca18': dict(kind='再現イラスト',
-               plan='図 再現イラスト A1【正面から】東の部分が西へ傾く（12階が約53センチの札・「推定」の札）｜札：推定｜権利：自作',
-               src='TR0406・TR0413・TR0421（`the 12th floor has moved west about 21 inches`）・TR0422'),
-    'ca19': dict(kind='写真',
-               plan='N#11（がれきの山から柱を移す）｜副題：がれきから運び出す柱（2021年7月7日）｜権利：A｜注：TF の TR0427 の写真が使えればそちら',
-               src='TR0426〜0429'),
+               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 客室高度の警報の帯の戻り（c210 の絵・26秒の空白に印）',
+               src='報告書 3.1.9(2) p.88（`約1秒間鳴り、26秒間中断した後18時25分04秒に再び鳴りだし`）・解説 p.15（付録8-2 `その理由を明らかにすることはできなかった`）'),
+    'ca17': dict(kind='図解',
+               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式（同じ帯・「推論」の札）',
+               src='解説 p.15（`永年B747の技術に携わってきた`・`概略以下のような内容の説明がありました`）・p.16（`機器が常に正常であれば説明できない事象ではあっても、総合的に考えると、異常事態発生後、極めて早い時点で急激に客室高度が上昇した、とするのが最も無理がない推論と考えられます`）'),
+    'ca18': dict(kind='文字の頁',
+               plan='PG｜権利：PDL1.0（文字の頁）｜台本の画：図 p126 報告書 4.1.7 の頁（文字の頁）',
+               src='報告書 4.1.7.2 p.126（`運航乗務員は最後まで酸素マスクを着用しなかったものと推定されるが、その理由を明らかにすることはできなかった`）'),
+    'ca19': dict(kind='図解',
+               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 高さの線の戻り（約6,100メートルより上を飛んだ約18分を帯で）',
+               src='報告書 4.1.7.3 p.126（`20,000フィート以上の高度で激しいフゴイド運動、ダッチロール運動を行いながら約18分間飛行した`・`その理由を明らかにすることはできなかった`）'),
     'ca20': dict(kind='図解',
-               plan='図 年表（1979〜81年 設計＝連鎖を止める定め無し → 1989年 連鎖に強くする鉄筋の決まり → 2025年 今の決まり）｜権利：自作',
-               src='AC p.75・AC p.76（`did not include provisions to limit progressive collapse`・`Starting in 1989 ... required structural integrity reinforcement`・`limited in their ability to arrest progressive collapse in some structures`）・TR0396・TR0433'),
-    'ca21': dict(kind='写真',
-               plan='D（DHS の現場の写真・肖像の写らない引き）｜副題：撤去の後の現場（2021年8月19日）｜権利：A（DHS）｜注：決め⑥＝15点を全部取得し、犠牲者の写真・遺族・花の寄りが写らない引きだけ。代わり＝B2 の別の秒',
-               src='—（橋）'),
+               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式（操縦室の3つの席に「判断力」の札＝人は描かない）',
+               src='報告書 3.2.7.2(3) p.115（`低酸素症によってある程度低下していたと考えられる`）'),
+    'ca21': dict(kind='再現イラスト',
+               plan='S2｜見る向き：上から｜合図：🔁 横→上（前の再現 ca05）＝左上に見る向きの札・替わる瞬間に「上から見ると」｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】経路の地図の戻り（相模湾の方を指す）',
+               src='—'),
 }
 
-TR_SRC = "NIST の技術的知見の動画（2026年6月）"
-
-SPEC = {
-    # ── 🆕 ⑤b-2（2026-10-06）：案C の置き場 A1（南から見た塔）。秒は narration.json の実測
-    #   （ca01 0〜2.84／3.33〜6.91／7.40〜9.45・ca18 0〜5.41／5.90〜8.80）
-    # ca01＝「推定」。1行目（聞き役）：プールデッキが地下へ崩れる／2行目：塔の南の面の継ぎ目へ寄る（NIST の大事な問い＝広がらなければ）／3行目：そのまま
-    "ca01": dict(
-        fig=("illu", dict(
-            place="A1", rec="TR p1285・p1286（崩れが塔へ広がらなければ、惨事の部分は起きなかった）",
-            assume="推定（NIST の見立て）",
-            steps=[dict(state=dict(a1deck="fell"), delay=0.6, rec=IL_REC["deck_fell"],
-                        # ⑤b-2 の下見（cc25 と同じ形）：下へ出すと左下の出典の行（y884）に重なる＝塔の左の空へ
-                        tag=dict(t="プールデッキが崩れる", at="deck", off=(-470, -70), anchor="end")),
-                   dict(state=dict(cam=1.10), delay=0.2, dur=3.0, rec="TR p1286",
-                        tag=dict(t="塔の南の面の継ぎ目", at="joint", off=(120, -150))),
-                   dict(delay=0.2)], camc="joint")),
-    ),
-    # ca18＝「推定」。1行目：揺さぶられたあと、東の部分の12階が西へずれる（札は記録の値＝約53cm・揺れの幅は大きく描く＝左下の断り）／
-    #   2行目：下の階の柱の限りを超える（落ちるのは次のカットの語り＝ここでは落とさない）
-    "ca18": dict(
-        fig=("illu", dict(
-            place="A1", start=dict(a1deck="fell", a1mid="fell"), rec="TR p1417（真ん中の部分のほとんどが崩れた）",
-            assume="推定（NIST の見立て）",
-            steps=[dict(state=dict(a1sway=-32.0), delay=0.8, dur=1.6, rec=IL_REC["sway"],       # ⑤b-2 の下見：浮きを抑える（c620 と同じ）
-                        # ⑤c'（10-07）：「cm」はここだけ＝語りとほかの札の「センチ」にそろえた（門番 ㉒ も「センチ」を見る）。
-                        #   「12階が西へ約53センチ」は語り「12階が西へ約53センチ（21インチ）ずれた」の写し（echo）＝「cm」の綴りで
-                        #   門番を素通りしていただけ＝名詞の形に
-                        tag=dict(t="12階のずれ 約53センチ", at="east12", off=(-40, -90), anchor="end")),
-                   dict(state=dict(cam=1.05), delay=0.2, dur=2.6, rec="TR p1422（揺れが下の階の柱の耐えられる限りを超えた）",
-                        tag=dict(t="下の階の柱", at="heap", off=(160, -190)))])),
-    ),
-    # ── 🆕 ⑤b-4（2026-10-06）：模式図（`tools/mech19.py`・門番 check_mech の judge_m19）──
-    # ca02（7.05秒＝0〜3.08／3.57〜7.05）＝崩れが塔との境へ・2本の梁 A（TR0287〜0289・TF p9111）
-    "ca02": dict(
-        t="崩れの北の端", s="2本の梁",
-        fig=("m19", dict(view="edge", start=dict(fall="part"),
-                         steps=[dict(state=dict(fall="full"), delay=0.3, tag=dict(t="塔との境（9.1 の線）", at="face", to="face")),
-                                dict(state=dict(beam="on"), delay=0.3, tag=dict(t="梁（K と L の線に1本ずつ）", at="beam", to="beam"))],
-                         rel=[dict(t="9.1", src="TR p1287（gridline 9.1）"), dict(t="1本ずつ", src="TR p1288（beams A at grid lines K and L）")],
-                         note="床の落ち方・梁の長さは NIST の図の形の模式", src=TR_SRC + "の語りとスライド")),
-    ),
-    # ca03（7.85秒＝0〜4.42／4.92〜7.85）＝梁と床が継ぎ目から引き抜く・13階分の重さ（TR0292・0293）
-    "ca03": dict(
-        t="引き抜かれた継ぎ目", s="上の13階分を支える所",
-        fig=("m19", dict(view="edge", start=dict(fall="full", beam="on"),
-                         steps=[dict(state=dict(pull="on", joint="hurt"), delay=0.3,
-                                     tag=dict(t="鉄筋ごと引き抜く", at="pull", to="joint")),
-                                dict(state=dict(load="on"), delay=0.3, tag=dict(t="上の13階分の重さ", at="load", to="face"))],
-                         rel=[dict(t="13階", src="TR p1293（13 stories of structure）")],
-                         note="床の落ち方・梁の長さは NIST の図の形の模式", src=TR_SRC + "の語りとスライド")),
-    ),
-    # ca04（10.70秒＝0〜1.85／2.34〜7.70／8.19〜10.70）＝床のコンクリートの設計の強さ（AC p.65＝柱 6000・床 4000 psi）
-    "ca04": dict(
-        t="継ぎ目の弱さ（1つ目）", s="床と柱の材料",
-        fig=("m19", dict(view="joint",
-                         steps=[dict(tag=dict(t="柱と床が交わる所", at="q", to="zone")),
-                                dict(state=dict(color="on"), delay=0.3,
-                                     tag=[dict(t="柱のコンクリート", at="col", to="col"),
-                                          dict(t="床のコンクリート", d="設計の強さが低い", at="floor", to="floor")]),
-                                dict(state=dict(bar2="on"), delay=0.3, tag=dict(t="柱の約3分の2", at="ratio"))],
-                         rel=[dict(t="3分の2", src="AC p2065（6000 psi・4000 psi）")],
-                         # ⑤c'（10-07）：頁の書き方を「PDF 65頁」（ss.src＝ほかの41か所と同じ）に
-                         note="断面は NIST の図の形の模式（棒の長さは設計の強さの比）", src=ss.src(["AC p2065"]))),
-    ),
-    # ca05（12.78秒＝0〜5.34／5.83〜8.85／9.34〜12.78）＝輪の形の鉄筋が無い・縦の鉄筋の詰め込み（TR0297・AC p.71・p.64）
-    "ca05": dict(
-        t="継ぎ目の弱さ（2つ目）", s="鉄筋の組み方",
-        fig=("m19", dict(view="joint", start=dict(color="on"),
-                         steps=[dict(state=dict(bars="on", ties="on"), delay=0.3, tag=dict(t="継ぎ目に輪の形の鉄筋が無い", at="ties", to="zone")),
-                                dict(state=dict(buckle="on"), delay=0.3, tag=dict(t="縦の鉄筋が外へ曲がりやすい", at="buckle", to="bars")),
-                                dict(state=dict(dense="on"), delay=0.3, tag=dict(t="上限を超えて詰め込み", at="dense", to="bars"))],
-                         note="鉄筋の本数と曲がりは模式（輪の形の鉄筋が無い高さは NIST の図）",
-                         src=ss.src(["AC p2064・p2071"]))),
-    ),
-    # ca10（8.19秒＝0〜3.63／4.12〜8.19）＝あの夜も押しつぶされた（推定＝TR0312・0313）・今の決まりなら（AC p.73）
-    "ca10": dict(
-        t="あの夜の継ぎ目", s="試験と同じ壊れ方",
-        fig=("m19", dict(view="joint", start=dict(color="on", bars="on", ties="on"),
-                         steps=[dict(state=dict(crush="on"), delay=0.3, tag=dict(t="押しつぶされた（推定）", at="crush", to="zone")),
-                                dict(tag=dict(t="今の決まりなら良くなり得た", at="code"))],
-                         note="推定（NIST の見立て）・つぶれ方は模式", src=ss.src(["AC p2073"]))),
-    ),
-    # ca11（10.89秒＝0〜3.52／4.01〜8.27／8.76〜10.89）＝屋根が下がり柱の頭が突き出す（TR0362〜0368・TF p9137）
-    "ca11": dict(
-        t="南から北へ", s="屋根と柱の頭",
-        fig=("m19", dict(view="front",
-                         steps=[dict(state=dict(q="on"), delay=0.3, tag=dict(t="同時か、どちらが先かは不明", at="q", to="q")),
-                                dict(state=dict(roof="down"), delay=0.3, tag=dict(t="柱の頭（K-4・L-4）が突き出す", d="推定の模式", at="heads", to="heads")),
-                                dict(state=dict(dir="on"), delay=0.3, tag=dict(t="南→北", at="dir"))],
-                         rel=[dict(t="K-4・L-4", src="TR p1366（columns at grid points K-4 and L-4）")],
-                         note="推定（NIST の見立て）・塔の形と崩れ方は模式（映像そのものは出さない）", src=TR_SRC + "の語りとスライド")),
-    ),
-    # ca16（11.56秒＝0〜3.72／4.21〜7.99／8.48〜11.56）＝Zone B（TR0374・0375・0382〜0385・TF p9144）
-    "ca16": dict(
-        t="壁の無い境", s="崩れが止まった所",
-        fig=("m19", dict(view="zoneb",
-                         steps=[dict(state=dict(zone="on"), delay=0.3, tag=dict(t="壁が無く、床と柱が続く所", at="zone")),
-                                dict(state=dict(mark="on", brk="on"), delay=0.3,
-                                     tag=[dict(t="① 床の板が先に折れた", at="one", to="one"), dict(t="② 継ぎ目は保つ", at="two", to="two")]),
-                                dict(state=dict(bar="on"), delay=0.3, tag=dict(t="上の鉄筋が途切れる辺り", at="bar", to="bar"))],
-                         note="柱の間隔・鉄筋の長さ・傾きは NIST の図の形の模式", src=TR_SRC + "の語りとスライド")),
-    ),
-    # ── 🆕 ⑤b-5（2026-10-06）：年表（`tools/axis.py`・門番 check_axis）──
-    # ca20（11.26秒＝0〜3.17／3.66〜7.35／7.84〜11.26）＝AC p.76 の3つ（設計のころは連鎖を止める定め無し・1989年から鉄筋・ACI 318-25 でも
-    #   止めきれない建物がある）を1行ずつ。2025＝ACI 318-25（2025年の版）
-    "ca20": dict(
-        t="決まりの移り変わり", s="崩れの連鎖への備え",
-        fig=("axis", dict(ss.AX_CODE, steps=[
-            dict(add=ss.ax("cd79"), cur="1981"),
-            dict(add=ss.ax("cd89"), cur="1989"),
-            dict(add=[ss.ax("cd25"), dict(k="chips", at="2025", chips=["止めきれない建物もある"], rec="AC p2076")], cur="2025")],
-            note="年だけの記録はその年の真ん中に置いた・2025年は今の決まり（ACI 318-25）の版", src=ss.src(["AC p2023・p2075・p2076"]))),
-    ),
-    # ── 🆕 ⑤b-6（2026-10-06）：数の比べ（量の型 qty）──
-    # ca07（10.88秒＝0〜3.79／4.28〜8.54／9.03〜10.88 聞き役）＝試験の柱にかけた重さ（TR0302＝65万ポンド）。1行目で棒・2行目は目盛り（20トンごと＝
-    #   大型トラック1台の目安）で読む。🔴 トラックは記録の値ではない＝棒にしない
-    "ca07": dict(
-        t="試験でかけた重さ", s="崩れたときの柱の重さ",
-        fig=("qty", dict(view="bar", groups=[ss.QG["load"]], steps=[
-            dict(add=ss.qb("l_col")), dict(), dict()],
-            note="目盛りの1つ＝20トン＝大型トラック1台の目安・記録は65万ポンド", src=ss.src(["TR p1302"]))),
-    ),
-    # ── 🆕 ⑤b-7a（2026-10-06）：写真・映像 ──
-    # ca08＝右下の NIST の透かしを外す寄せ（⑤b-1 の走査＝元の画素 (0,0)-(1600,900)）＝⑤b-7a の下見で寄りの値を決める
-    #   1920→1600 の窓＝zoom 1.2・左上に寄せる（xbias 0・bias 0）
-    "ca08": ss.vid("ca08", t="引きはがす試験", s="試験体が壊れる（ミネソタ大学）", zoom=1.2, xbias=0.0, bias=0.0),
-    "ca09": dict(t="試験のあとの鉄筋", s="試験で壊れた床と梁の継ぎ目（ミネソタ大学・2025年1月）",
-                 photo=P("n60_mast_after"), **ss.kind(P("n60_mast_after"))),
-    # ca13＝束で下を切った（郡警察の鑑識3人の顔が近い）・決め⑤＝全体の引き
-    "ca13": dict(t="止まった理由の1つ", s="残った西の部分の断面（2021年6月30日ごろ）",
-                 photo=P("n17_remaining"), **ss.kind(P("n17_remaining"))),
-    # ca15・ca17＝NIST の動画の中のスライド（右上「Source: NIST」・©2021 の札なし＝⑤b-1 で読んだ）
-    "ca15": ss.vid("ca15", t="壁の手前で止まった崩れ", s="壁から外れた床の跡（NIST のスライド134）", panel=True),   # try2：額装
-    "ca17": ss.vid("ca17", t="床の裏の跡", s="鉄筋の抜けた筋（NIST のスライド135）", panel=True),   # try2：額装
-    # ca19＝束で左を切った（重機の「CAT 980K」）
-    "ca19": dict(t="東の部分の柱", s="がれきから運び出す柱（2021年7月7日）",
-                 photo=P("n11_column_move"), **ss.kind(P("n11_column_move"))),
-    "ca21": dict(t="ほかの説を調べる", s="現場を測った点群（2021年7月14日のデータ・NIST）",
-                 photo=P("n48_lidar_0714"), **ss.kind(P("n48_lidar_0714"))),
-    # ── 🆕 ⑤b-7b（2026-10-06）：NIST の動画の中のスライド133（止まった境 A・B の図と右の写真・右上「Source: NIST」）──
-    "ca12": ss.vid("ca12", t="2つの境", s="崩れが止まった境 A・B の図と写真", panel=True),   # try2：額装（題の帯は USE の寄せで外す）
-    # ── 🆕 ⑤b-7c（2026-10-07）：ミネソタ大学の据え付けのタイムラプス（TLS 2〜10秒・寄せ＝USE の zoom 1.23・xbias 1・bias 0
-    #   ＝左下の高所作業車の社名を切り口の外へ）。🟡 ⑤c：奥の作業員（小さい）の顔を原寸で
-    "ca06": ss.vid("ca06", t="実物大の試験体", s="試験体を据える（ミネソタ大学）"),
-    # ── 🆕 ⑤b-8（2026-10-07）：決め所 ──
-    # ca14＝TR0376「the strength of the concrete wall prevented the failure from spreading beyond it」（Zone A＝壁のある境）
-    "ca14": dict(
-        t="境 A", s="床と屋根がつながっていた壁",
-        fig=("quote", dict(phrase="コンクリートの壁が、崩れの広がりを止めた",
-                           rows=ss.qrows("TR", None, ("箇所", "発表の語り")), paper=True)),
-    ),
-}
+SPEC = {}
