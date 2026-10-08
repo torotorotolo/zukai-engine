@@ -56,116 +56,21 @@ REC_ROLE_PAGES = set()
 # 🔴 2026-10-06（19本目 ⑤b-1・§0b）：18本目の表（REC_OTHER_ROLE・REC_MECH・REC_CHIP・REC_FORM・REC_CAUSE＝流れ図・書類の再現図〈欄の値は原文の英語〉・
 #    並べ図）も**空にした**。selftest の見本 `tools/fixture_ep18.py`（GATES["check_boxes"]・値は1つも変えていない＝git の `2d627a2`）。19本目の箱を
 #    書くチャットで、言葉と頁を ref/ep19/src/ep19_pages.txt で当てて入れる（空のあいだ、箱のカットは「記録に無い言葉」で止まる＝fail closed）
-# 🆕 2026-10-06（19本目 ⑤b-6）：19本目の箱の言葉と頁（流れ図・書類の再現図・並べ図）。原文 ref/ep19/src/ep19_pages.txt で当てた
-#    （型の側 ss.FLP・FORM_*・CAUSE とは別に持つ）。OCR が崩れた大陪審の報告は頁の画像の書き起こし p9802・p9803 と照らした
-REC_OTHER_ROLE = {    # 流れ図の「role」の箱＝役職でない言葉（報告書の文の言葉）→ 頁の集合
-    # c203：NIST の結果の動画（A04＝2026-06-22・TR）・文字起こし（TR）・諮問委員会の資料（AC p.1）・町の記録（A12）・大陪審の報告（GJ の表紙
-    #   p3001「FILED December 15, 2021」・州検事の声明 A16）
-    "結果の動画（2026年6月）": {"A04 p5001", "TR p1001"}, "その文字起こし": {"TR p1001"},
-    "諮問委員会の資料（2026年9月）": {"AC p2001"}, "町が公開した記録": {"A12 p5101"},
-    "大陪審の報告（2021年12月）": {"GJ p3004", "A16 p5801"},
-    # c704：B05 p.2（p5302）「residents were escorted to the Surfside Community Center which later become the Family Reunification Center」
-    "残った部分の住民": {"B05 p5302"}, "コミュニティセンター": {"B05 p5302"},
-    # c806：TR0256（demands on and capacity of the slab-column connections with three tools）・TR0257（3つの道具）
-    "コンピュータの模型": {"TR p1257"}, "実物大の試験": {"TR p1257"}, "ひびの理論": {"TR p1257"}, "継ぎ目の力と強さ": {"TR p1256"},
-    # c913・c914：AC p.54（原因と後押しの5つ）・TR0279・TR0280
-    "設計の強さの不足": {"AC p2054", "TR p1279"}, "図面とのずれ": {"AC p2054", "TR p1279"}, "重いプランター": {"AC p2054", "TR p1280"},
-    "足した砂と敷石": {"AC p2054", "TR p1280"}, "年月の傷み": {"AC p2054", "TR p1280"},
-    # c921：AC p.61（the requirements for recertification … contain no requirements for establishing confidence in the original design and
-    #   construction）・40年の点検の調べ＝MC18 p.1（structural issues that require repair）
-    "40年の点検（フロリダ）": {"AC p2061"}, "傷みと直す所": {"MC18 p4001"}, "建てたときの設計と工事": {"AC p2061"},
-    # cb14：TR0476（low margins of safety and degradation that started the failure）・TR0454（87 Park の揺れ）・TR0465（基礎・沈み・嵐・衝突・爆発）
-    "継ぎ目の余裕の少なさ": {"TR p1476"}, "傷み": {"TR p1476"}, "となりの工事の揺れ": {"TR p1454"}, "地面の沈みや空洞": {"TR p1465"},
-    "嵐・衝突・爆発": {"TR p1465"},
-    # cc07：GJ p.20（p3023）＝ノースマイアミビーチ市の監査（five stories or higher・40-year recertification）
-    "サーフサイドの崩落": {"GJ p3023"}, "ノースマイアミビーチ市": {"GJ p3023"}, "5階以上の建物を調べる": {"GJ p3023"},
-    # cc11：GJ p.20（p3023＝監査・報告が市へ・すぐに退去）・p.22（p3025「no notification at all was provided to the Local Building Official」）
-    "市が遅れを調べる": {"GJ p3023"}, "報告が市に届く": {"GJ p3023"}, "すぐに退去": {"GJ p3023"}, "それまでの報告": {"GJ p3025"},
-    "市の建築の担当": {"GJ p3025"},
-    # cc12：GJ p.21（p3024「a copy of any engineering report … to the City within forty-eight hours」）
-    "技師の報告": {"GJ p3024"}, "管理組合": {"GJ p3024"}, "市": {"GJ p3024"},
-    # cc18：A13（p5102）final approval・88 th Street・families, survivors, first responders, and residents
-    "家族": {"A13 p5102"}, "生き残った人": {"A13 p5102"}, "救助の人たち": {"A13 p5102"}, "住民": {"A13 p5102"},
-    "記念の委員会": {"A13 p5102"}, "町の議会の最終の承認": {"A13 p5102"},
-}
+# 🔴 2026-10-08（20本目 日本航空123便のリメイク ⑤b-1・§0b）：19本目の表（REC_OTHER_ROLE・REC_MECH・REC_CHIP・REC_FORM・REC_CAUSE＝流れ図・書類の再現図〈欄の値は
+#    原文の英語〉・並べ図）も**空にした**。selftest の見本 `tools/fixture_ep19.py`（GATES["check_boxes"]・値は1つも変えていない＝git の `70c7e51`）。
+#    20本目の箱を書くチャットで、言葉と頁を ref/ep20/src/ep20_pages.txt で当てて入れる（空のあいだ、箱のカットは「記録に無い言葉」で止まる＝fail closed）。
+#    ⚠️ 19本目の箱の言葉と頁には、OCR が崩れた大陪審の報告を頁の画像の書き起こしと照らした注がある＝移した注の側（fixture_ep19 の REC_OTHER_ROLE の上）
+REC_OTHER_ROLE = {}   # 流れ図の「role」の箱＝役職でない言葉（報告書の文の言葉）→ 頁の集合
 REC_CRIME = {}
 REC_VERDICT = {}   # (役職, 罪名, 列) → (結果, 頁)
 REC_SENT = {}      # 役職 → (確定した刑, 頁)
 REC_SEATS = 0
 REC_UNANIMOUS = set()
 HEADS = set()
-REC_MECH = {          # 流れ図に出してよい言葉のうち、役職・罪名でないもの（仕組み・鎖・問いの箱と矢印の札）
-    # 🆕 19本目 ⑤b-6：左上の札（kind）・群の名（grp）・見出しの箱（heads）・矢印の札（lab）
-    "この動画の資料", "国の研究所 NIST", "郡と町",          # c203（c202 の語り・A04・A12・GJ）
-    "避難",                                               # c704（B05 p.2 evacuated）
-    "継ぎ目の壊れ（プールデッキ）",                         # c913・c914 の見出しの箱（AC p.54 Initial Failures in Pool Deck）
-    "見る",                                               # c921（MC18 p.1＝40年の点検の調べ）
-    "起こり", "大きくは関わっていない",                     # cb14（TR0476 started the failure・TR0454／TR0465 did not contribute significantly）
-    "知らされていない",                                     # cc11（GJ p.22 no notification at all）
-    "アベンチュラ市の決まり（2021年）", "48時間以内に写し",   # cc12（GJ p.21〜22＝Ordinance No. 2021-13・forty-eight hours）
-}
-REC_CHIP = {          # 札（chip）の言葉 → 頁の集合
-    "のちに家族の再会の場所": {"B05 p5302"},             # c704（later become the Family Reunification Center）
-    "最も大きく、広い範囲": {"AC p2054"},                 # c914（Design understrength (largest, pervasive)）
-    "ほめるべき仕組み（NIST）": {"AC p2061"},             # c921（are laudable）
-    "確かめる決まりが無い": {"AC p2061"},                 # c921（they contain no requirements for establishing confidence in the original …）
-    "40年の点検の遅れ": {"GJ p3023"},                     # cc07（due or past due for their 40-year recertification）
-    "88番通りの端の公園": {"A13 p5102"},                  # cc18（the street end park at 88 th Street）
-    "5年かけた形づくり": {"A13 p5102"},                   # cc18（For five years, the Committee worked …）
-}
-REC_FORM = {          # 書類の再現図（表題 → dict(fields・ends・values＝記録の文にある値だけ・rec＝頁の集合)）
-    # c212・c403：議事録 p.7（MIN18 p4107＝頁の画像の書き起こし p9805）。同じ表題の紙が2つのカットにある＝欄は合わせて持つ
-    "理事会の議事録（2018年11月15日）": dict(
-        fields={"40年の点検", "見たもの", "書式", "判断"}, ends=set(), rec={"MIN18 p4107"},
-        values={"40年の点検": "will be due in 2021", "見たもの": "Structural engineer report was reviewed",
-                "書式": "report was not in the format for the 40 year certification", "判断": "the necessary data was collected"}),
-    # c212：GJ p.18（p3021＝p9802「hired an engineer to start the 40-year recertification process years before it was due」）
-    "大陪審の報告": dict(fields={"管理組合", "始めた時期"}, ends=set(), rec={"GJ p3021"},
-                     values={"管理組合": "hired an engineer", "始めた時期": "years before it was due"}),
-    # c309：MC18 p.1（p4001）・p.7（p4007＝p9804）
-    "建物の調査の報告": dict(
-        fields={"日付", "あて先", "表題", "書いたこと"}, ends=set(), rec={"MC18 p4001", "MC18 p4007"},
-        values={"日付": "October 8, 2018", "あて先": "Treasurer", "表題": "Structural Field Survey Report",
-                "書いたこと": "the waterproofing below the Pool Deck & Entrance Drive"}),
-    # c316：見積もり（EST18 p4318「TOTAL SUMMARY OF REMEDIATION PROBABLE CONSTRUCTION COST $9,128,433.60」）
-    "直す工事の見積もり": dict(fields={"合計"}, ends=set(), rec={"EST18 p4318"}, values={"合計": "$9,128,433.60"}),
-    # c412：GJ p.18（p3021）が引く2021年4月の手紙
-    "理事長の手紙（2021年4月）": dict(
-        fields={"目に見える傷み", "これから"}, ends=set(), rec={"GJ p3021"},
-        values={"目に見える傷み": "has gotten significantly worse since the initial inspection",
-                "これから": "would begin to multiply exponentially over the years"}),
-    # c712：郡の発表（B03 p5201）
-    "郡の発表（2021年7月4日）": dict(
-        fields={"取り壊し", "近づけない区域"}, ends=set(), rec={"B03 p5201"},
-        values={"取り壊し": "Between 10 p.m. on Sunday, July 4, 2021 and 3 a.m. on Monday, July 5",
-                "近づけない区域": "a 300-foot radius around the center of the demolition"}),
-    # cc08：GJ p.20（p3023＝p9803「9 1/2 years overdue」）
-    "大陪審の報告（ほかの建物の例）": dict(
-        fields={"建物", "40年の点検", "崩落のとき"}, ends=set(), rec={"GJ p3023"},
-        values={"建物": "Crestview Towers is a 10-story, 156-unit condominium building.",
-                "40年の点検": "its 40-year recertification was due in 2012", "崩落のとき": "9 1/2 years overdue"}),
-    # cc14：SB 4-D（A14 p6008・p6009）
-    "州の法律 SB 4-D（節目の点検）": dict(
-        fields={"建物", "最初の点検", "海岸から3マイル以内", "そのあと"}, ends=set(), rec={"A14 p6008", "A14 p6009"},
-        values={"建物": "three stories or more in height", "最初の点検": "reaches 30 years of age",
-                "海岸から3マイル以内": "reaches 25 years of age", "そのあと": "every 10 years thereafter"}),
-    # cc15：SB 4-D（A14 p6037＝(g) a.〜i. と at least every 10 years・p6035＝Effective December 31, 2024 …）
-    "州の法律 SB 4-D（直すお金の備え）": dict(
-        fields={"調べるもの（一部）", "調べる間隔", "2024年12月31日から"}, ends=set(), rec={"A14 p6035", "A14 p6037"},
-        values={"調べるもの（一部）": "Roof. … Floor. Foundation. … Waterproofing", "調べる間隔": "at least every 10 years",
-                "2024年12月31日から": "may not determine to provide no reserves or less reserves"}),
-}
-REC_CAUSE = {         # 並べ図の項目 → 頁
-    # cb09・cb10：TR0465（did not contribute significantly）
-    "基礎の壊れ": {"TR p1465"}, "陥没や沈み": {"TR p1465"}, "ハリケーンと高潮": {"TR p1465"}, "車の衝突": {"TR p1465"},
-    "爆発": {"TR p1465"}, "クレーンの落下物": {"TR p1465"}, "屋上の工事の重さ": {"TR p1465"},
-    # cc05：GJ p.1（p3004＝勧告のねらい 1)〜6)）
-    "役所が早く見つけて動く": {"GJ p3004"}, "南フロリダの環境と傷み": {"GJ p3004"}, "傷みを見つけて直す": {"GJ p3004"},
-    "報告を期限どおりに": {"GJ p3004"}, "役所に強い力": {"GJ p3004"}, "住民がネットで読める": {"GJ p3004"},
-    # cc22：AC p.17（p2017＝Potential Topics of NCSTAR Recommendations）
-    "設計と工事の質": {"AC p2017"}, "決まりを守らせる": {"AC p2017"}, "新しい建物の決まり": {"AC p2017"},
-    "記録の保管と点検": {"AC p2017"}, "今ある建物の手入れ": {"AC p2017"}, "教育と訓練": {"AC p2017"},
-}
+REC_MECH = set()      # 流れ図に出してよい言葉のうち、役職・罪名でないもの（仕組み・鎖・問いの箱と矢印の札）
+REC_CHIP = {}         # 札（chip）の言葉 → 頁の集合
+REC_FORM = {}         # 書類の再現図（表題 → dict(fields・ends・values＝記録の文にある値だけ・rec＝頁の集合)）
+REC_CAUSE = {}        # 並べ図の項目 → 頁
 MARKS = {"？"}
 EXTRA = {"模式図"}
 

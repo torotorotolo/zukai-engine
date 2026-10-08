@@ -1499,36 +1499,13 @@ def _selftest_m18(ok):
 # ══════════════════════════════════════════════════════════
 #  🆕 19本目 ⑤b-4（2026-10-06）：模式図（m19＝`tools/mech19.py`・29の見え方）
 # ══════════════════════════════════════════════════════════
-# 🔴 記録の値は門番の側に持つ（§5b-88）。描く側の表（mech19.CAND・AROUND・CODE_DOTS・CORE・CV・RB_C・JO_TIES…）を書き換えると鳴る。
-#    位置の名（「K-13.1」）は NIST の発表のスライド（TF のコマ）から読んだ。厚さ・本数・割合は語り（TR）と諮問委員会の資料（AC）
-REC_M19 = dict(
-    cand=({"K-13.1", "L-13.1", "M-13.1", "K-15", "L-15", "M-15"}, "TF p9039（スライド48・TR0105＝six locations）"),
-    first2=({"K-13.1", "L-13.1"}, "TR p1106（K-13.1 and L-13.1 outlined in red）"),
-    around=({"I-12.1", "K-11.1", "L-11.1", "M-13.1", "K-15", "L-15"}, "TF p9052（スライド56＝丸い印の柱）"),
-    code_red=({"K-13.1", "L-13.1", "M-13.1", "G.1-15", "I-15", "K-15", "L-15", "M-15"}, "TF p9082（スライド74＝severe）"),
-    code_yel=({"N-13.1", "O-13.1", "O.1-13.1", "N-15"}, "TF p9082（スライド74＝moderate）"),
-    leak=(("M", "N"), ("11.1", "13.1"), "TF p9057（スライド58＝M と N のあいだ・11.1 の南の楕円）"),
-    water=("L-13.1", "TR p1132（grid point L-13.1）"), gate_col=("K", "TR p1123（K-13.1 の近くの門）"),
-    cam_move=({"L-8", "L-9.1"}, "TR p1344（L-9.1 and L-8）"), cam_still=({"M-8", "M-9.1"}, "TR p1344（columns on grid line M＝stationary）"),
-    cam_grid=(dict(L=640.0, M=710.0, **{"8": 352.0, "9.1": 420.0}), "TF p9134（スライド123 の平面＝1200px の縮小の座標）"),
-    hall=({"K", "L"}, {"I"}, "TR p1354（sag around grid lines K and L）・TF p9134（I は No movement）"),
-    core=((2.125, 1.375, 1.25), "TF p9090（スライド79＝2-1/8・1-3/8・1-1/4 in.）"),
-    cover=((0.75, 2.0), "TR p1221（3/4 of an inch・about 2 inches）"),
-    over=((4, 2), "TF p9085（スライド76＝only 2 rather than 4 top bars）"),
-    space=((1.20, 1.40), "TR p1229（about 20% to 40% wider）"),
-    strength=((6000.0, 4000.0), "AC p2065（Column 6000 psi・Floor 4000 psi）"),
-    clock={"1:18:18", "1:21:55", "1:22:04", "1:22:14", "1:22:15"},       # 🆕 ⑤b-6：1:22:14＝TR p1347・p1348（c615）
-    # 🆕 ⑤b-6（2026-10-06）：余裕（c306）・床の下がり（c615）・2本の線（c815〜c817）
-    margin=("TR p1018（support much more load than they are expected to bear）・TR p1470（extra capacity … beyond the loads）"),
-    drop_more=(("9.1", "8"), "TR p1347（The slab near column L-9.1 dropped more than the slab at L-8）"),
-    drop_still=("TR p1344（the columns on grid line M, which appear to have been stationary）"),
-    # 赤い線の型 →（交わるか, 出どころ）。high＝決まりどおりなら大きく離れる・mid＝説明の図（交われば壊れると読む）・touch＝余裕ゼロ
-    curve=dict(high=(False, "TR p1073（a large margin against failure）"), mid=(True, "TR p1276（intersects … failure is predicted）"),
-               touch=(True, "TR p1074（those margins against failure were zero at the time of failure）")),
-    curve_gap=0.15,             # high の「大きく離れる」＝青い線の範囲で、2本の線の差が軸の高さの15%以上（模式の下限）
-    neutral=("#8fa3ad", "A06（沈みは見られない＝色を付けない）"),
-    # 推定で描く段＝{見え方: (欄, 値)}（front＝屋根が下がる・joint＝押しつぶれ）。その段までに「推定」の札
-    assume=dict(front=("roof", "down"), joint=("crush", "on")))
+# 🔴 2026-10-08（20本目 ⑤b-1・§0b）：19本目の記録（候補の柱・まわりの柱・継ぎ目の不足の位置・漏れの楕円・柱の動き・重ねの厚さ・鉄筋の本数と間隔・
+#    強さ・札に出してよい時刻・余裕・赤い線の型・推定で描く段ほか）は selftest の見本 `tools/fixture_ep19.py`（GATES["check_mech"]・値は1つも
+#    変えていない＝git の `70c7e51`）へ移した＝空。selftest は見本の表だけ差し込む（`fixture_ep19.apply(gate, tables_only=True)`）。
+#    20本目で仕組みの模式図 mech19 の型を使うときは、その回の記録の値をここに別に持つ（§5b-88＝描く側の表 mech19.CAND・AROUND・CODE_DOTS・CORE・CV・RB_C・
+#    JO_TIES…を書き換えると鳴る）。空のあいだ、m19 のカットは `judge_m19` が「記録の表が空」で止める（fail closed＝KeyError にしない）。
+#    形の定数（`NUM_M19`＝札の数を拾う式・`_m19_order_ok`・`judge_m19` の筋の規則）は型の側＝残す
+REC_M19 = {}
 NUM_M19 = re.compile(r"[0-9０-９]{1,2}[:：][0-9０-９]{2}(?:[:：][0-9０-９]{2})?|[0-9０-９][0-9０-９,.．]*")
 
 
@@ -1545,6 +1522,8 @@ def judge_m19(f):
     g, view = m["geo"], m["view"]
     seq = [m["start"]] + list(m["states"])
     R = REC_M19
+    if not R:       # 🆕 20本目 ⑤b-1：記録の表が空のあいだは止める（KeyError で理由が見えなくならない＝fail closed）
+        return ["記録の表 REC_M19 が空（20本目の値を入れるまで、m19 のカットは止まる）"], 1
     texts = list(m["tags"])
     # ① 筋（先に起きることが先）
     rules = dict(
@@ -1958,6 +1937,10 @@ def selftest():
     #    見本 fixture_ep18 の表だけ差し込む（ss・GEO は触らない＝14本目の見本を壊さない）。main() が restore で戻す（LIFO＝18→16→15→14）
     import fixture_ep18
     fixture_ep18.apply(sys.modules[__name__], tables_only=True)
+    # 🔴 2026-10-08（20本目 ⑤b-1）：下の19本目の模式図（m19）の検算 `_selftest_m19` は REC_M19 を使う＝本番の表は20本目の空の器なので、
+    #    見本 fixture_ep19 の表だけ差し込む（ss・GEO は触らない＝14本目の見本を壊さない）。main() が restore で戻す（LIFO＝19→18→16→15→14）
+    import fixture_ep19
+    fixture_ep19.apply(sys.modules[__name__], tables_only=True)
     N = "模式図：テスト"
     ok = True
     closing = [dict(state=dict(hook="closed", motor="run"), tag=dict(t="フックが回る")),
@@ -2283,6 +2266,8 @@ def main():
     import fixture_ep15
     import fixture_ep16
     import fixture_ep18
+    import fixture_ep19
+    fixture_ep19.restore()       # 🔴 20本目 ⑤b-1：selftest で足した19本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep18.restore()       # 🔴 19本目 ⑤b-1：selftest で足した18本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep16.restore()       # 🔴 18本目 ⑤b-1：selftest で足した16本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep15.restore()       # 🔴 16本目 ⑤b-1：selftest で足した15本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）

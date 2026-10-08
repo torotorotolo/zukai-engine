@@ -1272,13 +1272,11 @@ def judge_destroy(scs, cid, destroy=None):
 
 
 # 🆕 19本目 ⑤b-2：㉒ A1（南から見た塔）の記録の値＝門番の側に持つ（§5b-88＝型の定数を読まない）
-REC_A1 = dict(
-    story_m=33.8 / 12.0,      # TF p3「12 stories 110'-10" (33.8 m)」＝1階の高さ
-    drop_m=2.54,              # TR0318「about 100 inches or approximately one story height」
-    drop_tag="約2.5m",        # 札に出してよい言い方（台本 c618 と同じ）
-    drift_tag="約53センチ",   # TR0421「the 12th floor has moved west about 21 inches」（台本 ca18）。⑤c'（10-07）：cm→センチ（語りとほかの札にそろえた）
-    sway_max=60.0,            # 揺れを大きく描く上限（画素・模式＝左下の断りと一緒に）
-)
+# 🔴 2026-10-08（20本目 ⑤b-1・§0b）：19本目の記録の値（1階の高さ・屋上の線の下がり・札に出してよい言い方〈約2.5m・約53センチ〉・揺れの上限）は
+#    selftest の見本 `tools/fixture_ep19.py`（GATES["check_illu"]・値は1つも変えていない＝git の `70c7e51`）へ移した＝空。selftest は
+#    `selftest_a1()` が見本を差し込んで回す（落ちても終わっても `restore()` で本番の値へ戻す）。20本目で A1 の型を使うときは、その回の記録の値を
+#    ここに別に持つ（§5b-88）。空のあいだ、A1 の場面は `judge_a1` が「記録の表が空」で止める（fail closed＝KeyError にしない）
+REC_A1 = {}
 
 
 def judge_a1(sc, where):
@@ -1286,6 +1284,8 @@ def judge_a1(sc, where):
     （TR0093・TR0424）／m と cm の札は記録の言い方だけ（約2.5m・約53cm）・cm の札は揺れの段に／揺れは左下の断りと一緒に／人を置かない"""
     if sc["place"] != "A1":
         return [], 0
+    if not REC_A1:      # 🆕 20本目 ⑤b-1：記録の表が空のあいだは止める（KeyError で理由が見えなくならない＝fail closed）
+        return [f"㉒{where}：記録の表 REC_A1 が空（20本目の値を入れるまで、A1 の場面は止まる）"], 1
     bad, n = [], 0
     P = {p["id"]: p for p in sc["parts"]}
     n += 1
@@ -1337,13 +1337,11 @@ def judge_a1(sc, where):
 
 
 # 🆕 19本目 ⑤b-3：㉓ A2（プールデッキと地上の駐車場）・A3（地下の駐車場）の記録の並び＝門番の側に持つ（§5b-88）
-REC_A23 = dict(
-    park_side="west",          # TR p1176「地上の駐車場の東」に崩れが広がった＝駐車場は西・デッキは東
-    gate_row="13.1",           # TR p1123「K-13.1 の近くのプランターと門」
-    water_row="13.1",          # TR p1131・p1132「プランターの真東の柱 L-13.1」
-    rows_south_to_north=("15", "13.1", "11.1", "9.1"),
-    gate_near=60.0,            # A3：門はプランターの箱のすぐ北（画素）
-)
+# 🔴 2026-10-08（20本目 ⑤b-1・§0b）：19本目の記録の並び（駐車場とデッキの側・門と水の筋の柱の列・柱の列の南→北の順・門とプランターの近さ）は
+#    selftest の見本 `tools/fixture_ep19.py`（GATES["check_illu"]・値は1つも変えていない＝git の `70c7e51`）へ移した＝空。selftest は
+#    `selftest_a23()` が見本を差し込んで回す。20本目で A2・A3 の型を使うときは、その回の記録の並びをここに別に持つ（§5b-88）。
+#    空のあいだ、A2・A3 の場面は `judge_a23` が「記録の表が空」で止める（fail closed）
+REC_A23 = {}
 
 
 def _people(sc):
@@ -1357,6 +1355,8 @@ def judge_a23(sc, where):
     左上に位置の小さな地図（A2）。どちらも人を置かない"""
     if sc["place"] not in ("A2", "A3"):
         return [], 0
+    if not REC_A23:     # 🆕 20本目 ⑤b-1：記録の表が空のあいだは止める（KeyError で理由が見えなくならない＝fail closed）
+        return [f"㉓{where}：記録の表 REC_A23 が空（20本目の並びを入れるまで、{sc['place']} の場面は止まる）"], 1
     bad, n = [], 0
     G = {}
     for p in sc["parts"]:
@@ -2495,7 +2495,23 @@ def selftest_ep18_sbcd():
 
 
 def selftest_a1():
-    """🆕 19本目 ⑤b-2：㉒ A1 の物差しの検算（本番の表＝19本目のまま）。正しい場面が通り、わざと壊した場面が落ちること"""
+    """🆕 19本目 ⑤b-2：㉒ A1 の物差しの検算＝**見本 `fixture_ep19`（19本目の表）を差し込んで**回す。正しい場面が通り、わざと壊した場面が落ちること。
+    ✅ 2026-10-08（20本目 ⑤b-1・§0b）：本番の表（cuts.ss の REC_DOCS・ILLU_*／この門番の REC_A1・REC_A23）は20本目の空の器にした＝19本目の値は
+       `fixture_ep19`（15・16・18本目と同じ作り）。差し込んだら原文の頁の読み込み `_pages()`（lru_cache）を捨てて19本目の原文を読み直し、
+       戻したらまた捨てる＝落ちても終わっても `restore()` で本番の値へ戻す（try/finally）。本体は `_selftest_a1`。
+       （この検算は章ファイルの SPEC を読まない＝場面を `IL.scene` で組む。18本目の `selftest_ep18` と違って `apply_cuts()` は要らない）"""
+    import fixture_ep19
+    fixture_ep19.apply(sys.modules[__name__])
+    _pages.cache_clear()          # 🔴 原文の頁の読み込みは覚えている（lru_cache）＝本番の（空の）原文を捨てて19本目を読み直す
+    try:
+        return _selftest_a1()
+    finally:
+        fixture_ep19.restore()
+        _pages.cache_clear()
+
+
+def _selftest_a1():
+    """19本目 A1 の検算の本体（`fixture_ep19` を差し込んだ中で呼ぶ）。"""
     print("■ selftest A1（19本目 ⑤b-2・㉒）")
     ok = True
     good = IL.scene("A1", [dict(state=dict(a1mid="drop"), rec="TR p1318",
@@ -2534,7 +2550,21 @@ def selftest_a1():
 
 
 def selftest_a23():
-    """🆕 19本目 ⑤b-3：㉓ A2・A3 と ⑧（縮尺を持たない上から見た絵）の物差しの検算。正しい場面が通り、壊した場面が落ちること"""
+    """🆕 19本目 ⑤b-3：㉓ A2・A3 と ⑧（縮尺を持たない上から見た絵）の物差しの検算＝**見本 `fixture_ep19`（19本目の表）を差し込んで**回す。
+    正しい場面が通り、壊した場面が落ちること。✅ 2026-10-08（20本目 ⑤b-1・§0b）：`selftest_a1` と同じ作り（本体は `_selftest_a23`）。
+    ⑧の「縮尺を持たない置き場」の表 ILLU_TOP_NOSCALE は ss の側＝見本が差し込む（本番は空）"""
+    import fixture_ep19
+    fixture_ep19.apply(sys.modules[__name__])
+    _pages.cache_clear()          # 🔴 原文の頁の読み込みは覚えている（lru_cache）＝本番の（空の）原文を捨てて19本目を読み直す
+    try:
+        return _selftest_a23()
+    finally:
+        fixture_ep19.restore()
+        _pages.cache_clear()
+
+
+def _selftest_a23():
+    """19本目 A2・A3 の検算の本体（`fixture_ep19` を差し込んだ中で呼ぶ）。"""
     print("■ selftest A2・A3（19本目 ⑤b-3・㉓）")
     import copy
     ok = True
@@ -2589,7 +2619,7 @@ def selftest_a23():
 
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
-    ok19 = selftest_a1()          # 🆕 19本目 ⑤b-2（本番の表のまま＝見本の差し込みより前）
+    ok19 = selftest_a1()          # 🆕 19本目 ⑤b-2（2026-10-08〜：見本 fixture_ep19 の表＝selftest_a1 が差し込んで・終わったら戻す）
     ok19 = selftest_a23() and ok19     # 🆕 19本目 ⑤b-3
     # 🆕 2026-10-04（18本目 ⑤b-2）：先に18本目を検算する＝見本の差し込み（16・15・14本目）より前
     #    （2026-10-06〜：18本目も見本 fixture_ep18 の表＝selftest_ep18 が差し込んで・終わったら戻す）

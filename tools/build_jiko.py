@@ -65,6 +65,30 @@ QA = OUT / "qa"
 # 🔴 2026-09-21（11本目 ⑤c-2）：**空にした**（§0b の10か所目）。10本目の `{"c810"}` は
 #    掲示板のモザイクを持ち上げるためのもので、11本目の c810 は別の絵。
 BOOST = set()
+# 🆕🔴 2026-10-08（20本目 ⑤b-1）：**写真・映像のコマの色味は原本のまま**（2026-10-07 カズヤくん＝20本目・17本目から・
+#    記憶 feedback-jiko-photos-original-color）＝**回の既定** `PHOTO_KEEP`（カットの SPEC・冒頭の差し込み intro・尻の差し込み
+#    tail に `color=` が無いときの keep）。全カットに color=1.0 を書かず、回の既定で切り替える（記憶の How to apply）。
+#    19本目までの回は 0.0（章の2色のデュオトーン＝12本目からの様式）のまま＝焼き直しても色は変わらない。
+#    ⚠️ 章の扉の地（card_frame）は今までどおり章の色に染める（扉は章の印＝写真を見せる画面ではない・門番 check_palette が
+#       隣の章と比べる「写真の中点」の色）＝Claude の推奨（カズヤくんが変えてよい）
+#    ⚠️ 額装だけの点（BY-SA・引用）は今までどおり SPEC に color=1.0 を明記する（`cuts.ss.check_frame_only` は SPEC の字面を見る）
+#    ⚠️ 報告書の写真は原本が白黒＝keep 1.0 でも白黒のまま（染めない灰色）。カットで染めたいときは SPEC に `color=0.0`
+#    ⚠️ 回の名は `el_script.SLUG`（回ごとの設定の正本）から引く
+PHOTO_KEEP_EP = {"ep17": 1.0, "ep20": 1.0}
+
+
+def _photo_keep_default():
+    import el_script
+    return PHOTO_KEEP_EP.get(el_script.SLUG, 0.0)
+
+
+PHOTO_KEEP = _photo_keep_default()
+
+
+def keep_of(d):
+    """写真・映像のコマの色の残し方（1.0＝原色・0.0＝章の色のデュオトーン）。`color=` が無ければ回の既定 PHOTO_KEEP。"""
+    v = (d or {}).get("color")
+    return PHOTO_KEEP if v is None else float(v or 0.0)
 # 段を「描き終える」までにかける時間。
 # 🔴 割合で決めると長いカットで破綻する。0.70 にしたら尺12秒のカットで
 #    3.8秒止まって「3秒以上の静止禁止」を割った（実測7カット）。
@@ -99,8 +123,9 @@ def duotone(im, dark, light, boost=False):
     return g.convert("RGB").point(lut).convert("RGBA")
 
 
-def tone(ph, cut, meta):
+def tone(ph, cut, meta, force_duo=False):
     """写真の色の扱い。既定はデュオトーン（図解から浮かせない）。
+    🆕 2026-10-08（20本目 ⑤b-1）：既定は回の既定 `PHOTO_KEEP`（20本目・17本目は原色 1.0）。`force_duo=True` は章の扉の地（章の色に染める）。
 
     🔴 2026-09-05（4本目）：**NIST のスライドは色に意味がある**
        （p16 の赤＝重い不足・黄＝中くらい／p75 の黄色い線＝鉄筋の深さ／p133 の青＝崩れた範囲／
@@ -109,7 +134,9 @@ def tone(ph, cut, meta):
        → カット側が `color=0.0〜1.0` を書くと、そのぶん原色を残す（残りはデュオトーン）。
        ⚠️ 全カットに色を残さない。実写と、色が意味を持たないスライドは今までどおり沈める。
     """
-    keep = float((meta.get(cut) or {}).get("color", 0.0) or 0.0)
+    keep = keep_of(meta.get(cut))      # 🆕 20本目 ⑤b-1：color が無ければ回の既定（PHOTO_KEEP）
+    if force_duo:
+        keep = 0.0
     # 🔴 12本目から：デュオトーンの2色は**その章の色**（jiko_style.PALETTES。navy＝今までと同じ2色）
     pal = J.palette((meta.get(cut) or {}).get("pal"))
     duo = duotone(ph, pal["BG2"], pal["DUO_L"], boost=cut in BOOST)
@@ -456,7 +483,7 @@ def card_frame(cut, t, off, lay, photos, meta):
     if cut in photos and mix > 0:
         ph = fit(photos[cut], (0, 0, S.W, S.H), 0.3 * t / max(off, 0.001),
                  S.PHOTO_CUTS[cut][2], *S.PHOTO_CROP[cut])
-        fr = Image.blend(fr, tone(ph, cut, meta), mix)
+        fr = Image.blend(fr, tone(ph, cut, meta, force_duo=True), mix)   # 扉の地は章の色（20本目 ⑤b-1・PHOTO_KEEP の注）
     over(fr, lay[f"card_{cut}"], min(1.0, max(0.0, (t - 0.20) / 0.45)))
     if t < FADE_BLACK:
         fr = Image.blend(_solid((0, 0, 0)), fr, ease(t / FADE_BLACK))
@@ -1230,7 +1257,7 @@ def intro_frame(cut, t, lay, meta):
             src = _INTRO_SRC[it["photo"]]
         m = meta[cut]
         ph = fit(src, box, 0.0, m.get("fbias", 0.5), m.get("fxb", 0.5), m.get("fzm", 1.0))
-        keep = float(it.get("color", 0.0))
+        keep = keep_of(it)
         pal = J.palette(m.get("pal"))
         ph = duotone(ph, pal["BG2"], pal["DUO_L"]) if keep <= 0.001 else Image.blend(
             duotone(ph, pal["BG2"], pal["DUO_L"]), ph.convert("RGBA"), min(1.0, keep))
@@ -1270,7 +1297,7 @@ def intro_frame(cut, t, lay, meta):
     k = t / max(float(it["sec"]) + INTRO_X, 0.001)
     ph = fit(_INTRO_SRC[it["photo"]], (0, 0, S.W, S.H), k * 0.6,
              it.get("bias", 0.5), it.get("xbias", 0.5), it.get("zoom", 1.0))
-    keep = float(it.get("color", 0.0))
+    keep = keep_of(it)
     pal = J.palette(meta[cut].get("pal"))
     fr = duotone(ph, pal["BG2"], pal["DUO_L"])
     if keep > 0.001:
@@ -1315,7 +1342,7 @@ def tail_frame(cut, t, dur, lay, meta):
             src = _INTRO_SRC[tl["photo"]]
         u = _FOOT_USE.get(fkey) or {}
         ph = fit(src, box, 0.0, u.get("bias", 0.5), u.get("xbias", 0.5), _FO.zoom_of(fkey, u) if _FO else u.get("zoom", 1.0))
-        keep = float(tl.get("color", 0.0))
+        keep = keep_of(tl)
         pal = J.palette(meta[cut].get("pal"))
         ph = duotone(ph, pal["BG2"], pal["DUO_L"]) if keep <= 0.001 else Image.blend(
             duotone(ph, pal["BG2"], pal["DUO_L"]), ph.convert("RGBA"), min(1.0, keep))
@@ -1333,7 +1360,7 @@ def tail_frame(cut, t, dur, lay, meta):
     fa = (k * (1.0 if tl.get("full") else 0.35), float(tl.get("bias", 0.5)), float(tl.get("xbias", 0.5)),
           float(tl.get("zoom", 1.0)))
     ph = fit(src, box, *fa)
-    keep = float(tl.get("color", 0.0))
+    keep = keep_of(tl)
     pal = J.palette(meta[cut].get("pal"))
     duo = duotone(ph, pal["BG2"], pal["DUO_L"])
     ph = duo if keep <= 0.001 else Image.blend(duo, ph.convert("RGBA"), min(1.0, keep))
@@ -1433,7 +1460,7 @@ def meta_of(idx):
                   #    → meta に入れて `_seg_worker` へ引数として渡す（2026-08-03）。
                   "mute": sorted(S.SUB_MUTE.get(cid) or []),
                   # ★色を残す割合（0＝デュオトーン／1＝原色）。`tone()` を見よ
-                  "color": float((S.SPEC.get(cid) or {}).get("color", 0.0)),
+                  "color": keep_of(S.SPEC.get(cid)),       # 🆕 20本目 ⑤b-1：書きが無ければ回の既定 PHOTO_KEEP
                   "times": S.stage_times(cid, v["stages"], v.get("holds")),
                   # 🔴 12本目から（§5b-17・§5b-33b）。子プロセスは親の変数を見ないので必ず meta で運ぶ
                   "pal": S.palette_of(cid),                 # 章の色

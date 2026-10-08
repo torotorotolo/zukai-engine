@@ -1,12 +1,21 @@
 # -*- coding: utf-8 -*-
-"""19本目（サーフサイドのマンション崩壊のリメイク・2021-06-24）の章ファイルが共通で使う小道具。
+"""20本目（日本航空123便のリメイク・1985-08-12）の章ファイルが共通で使う小道具。
 
+**19本目（サーフサイドのマンション崩壊のリメイク）の中身は git の `70c7e51`（この ss.py と門番の最後の版）と `0dcaa9c`（章ファイルの最後の版）にある**
+（`git show 70c7e51:tools/cuts/ss.py`）。
 **18本目（スレッシャー号のリメイク）の中身は git の `2d627a2`（章ファイルの空の器より前は `b11797a`）にある**
 （`git show b11797a:tools/cuts/ss.py`）。**16本目（バイオントダム災害）は git の `b044b56`**（`git show b044b56:tools/cuts/ss.py`）。
 15本目（リノ・エアレース2011）は `c646174`、14本目（セウォル号）は `dc6ecf4`、13本目（トルコ航空981便）は `b54ee4f`、
 12本目（キャッスル・ブラボー）は `3832147`、11本目（チャレンジャー号）は `61039d2`、10本目（三豊百貨店）は `46f11b3`、
 9本目（テネリフェ）は `e18b8f1`、8本目は `4c71bf0`、7本目は `ae30d49`。
 
+🔴 **⑤b-1（2026-10-08・20本目）で空にした**＝§0b（その2）。19本目の型の値（案C の出典の表 REC_DOCS・描いてよい数・想定の札・壊れる物のカット・
+縮尺を持たない上から見た絵・軸の型〈TL_NOTE・ORDER_NOTE・AX_*・SIGNS・ALL_SIGNS・AXI の項目〉・棒〈QG・QB〉・書類の再現図〈FORM_*＋紙の置き場 _P2〜_P4〉・
+流れ図〈FL_*・FLP・`fl()`〉・並べ図〈CAUSE〉・決め所の出どころの札〈QDOC・QWHO・QDATE_LB・`qrows()`〉）は、門番の selftest の見本
+`tools/fixture_ep19.py` へ移した（値は1つも変えていない＝git の `70c7e51` と同じ）。本番の ss は20本目の空の器（REF／EP＝ep20・
+REC_PAGES＝ep20_pages.txt）。型の道具（`tailv`・`vid`・`head`・`fb`・`ax`・`qb`・`pp`・`ct`・`ce`・`rud`・`cause`・`src`・`merge`・
+`check_frame_only`・`check_card_mix` ほか）と、束ごとに取り直す定数 `PANEL_AR`（19本目も 1.66 のまま）は残した。
+（以下は ⑤b-1・2026-10-06＝19本目のとき）
 🔴 **⑤b-1（2026-10-06・19本目）で空にした**＝§0b。18本目の型の値（案C の出典の表 REC_DOCS・時計と秒の札・描いてよい数・想定の札・
 壊れる物のカット・潜水艦の時刻 ILLU_SUB_*・音の輪・混ざりのつなぎ待ち・軸の型〈TV／TM・AX_*・AXI の項目〉・棒〈QG・QB〉・
 書類の再現図〈FORM_*・欄の値は原文の英語〉・流れ図〈FL_*・FLP・`fl()`〉・並べ図〈CAUSE〉・決め所の出どころの札〈QDOC・QWHO・`qrows()`〉）は、
@@ -17,7 +26,8 @@
 並べ図・決め所の出どころの札）は、門番の selftest の見本 `tools/fixture_ep16.py` へ移した（値は1つも変えていない＝git の
 `b044b56` と同じ）。15本目の型の値は `tools/fixture_ep15.py`（2026-10-01 に移した・git の `c646174`）、14本目の型の値は
 `tools/fixture_ep14.py`（2026-09-30 に移した・git の `dc6ecf4`）。18本目の束は写真の束のチャットで作る。
-🆕 下の「素材の名前」「人が写る点の扱い」は18本目の書きぶり（19本目の束を作る ⑤b-7 で、`ep18` を `ep19` に替えて書き直す）。
+🆕 下の「素材の名前」「人が写る点の扱い」は18本目の書きぶりのまま（19本目の ⑤b-7 では書き直さなかった＝20本目の束を作る ⑤b-7 で、
+`ep18` を `ep20` に替えて書き直す。19本目の束の扱いは git の `70c7e51` の `tools/scene_jiko.py`・`qa_out/ep19_assets.py`）。
 16本目の書きぶりは git の `b044b56`。
 
 ■ 素材の名前・■ 人が写る点の扱い（この回）
@@ -41,8 +51,8 @@ from functools import lru_cache
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parents[2]
-REF = HERE / "ref" / "ep19"
-EP = "ep19/"
+REF = HERE / "ref" / "ep20"
+EP = "ep20/"
 W, H = 1920, 1080
 
 # 画面の縦横比。これより縦長／横長の図は額装パネルに回す。
@@ -78,7 +88,9 @@ SCREEN_AR = W / H
 #    🔴 2026-10-06（19本目 ⑤b-1）：下の値 1.66 は**18本目の束の値のまま**（§0b で空にする値ではなく、束ごとに取り直す定数＝数なので空の器が
 #       作れない。16→18本目のときの 1.10 と同じ扱い）。⑤b-7 で19本目の束（`python qa_out/ep19_assets.py panel` の並び）で取り直す。
 #       それまで WIDE_AR も18本目の値（1.90）から導かれる。見本 `tools/fixture_ep18.py` には入れていない（16本目の見本も入れていない）
-PANEL_AR = 1.66                   # これ未満＝縦長すぎ（上下が切れる）
+#    🔴 2026-10-08（20本目 ⑤b-1）：下の値 1.66 は**今の値のまま**（git の `70c7e51` でも 1.66＝19本目の中で値は変わっていない）。§0b で空にする値ではなく、
+#       束ごとに取り直す定数＝⑤b-7 で20本目の束（`python qa_out/ep20_assets.py panel` の並び）で取り直す。見本 `tools/fixture_ep19.py` には入れていない
+PANEL_AR = 1.66                  # これ未満＝縦長すぎ（上下が切れる）
 WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝1.98。これ超＝横長すぎ
 
 # 報告書の頁から切る図の矩形（写真と頁の束のチャットで作る `ref/<回>/pages.json`＝15本目は `ref/ep15/pages.json`）。
@@ -450,74 +462,31 @@ def _clips():
 # ══════════════════════════════════════════════════════════
 #  案C の再現イラスト（`tools/illu.py`・門番 `check_illu`）── 14本目 ⑤b-2（2026-09-28）新設
 # ══════════════════════════════════════════════════════════
+# 🔴 2026-10-08（20本目 ⑤b-1・§0b）：19本目の値（出典の表 REC_DOCS＝TR・AC・TF・GJ ほか21資料・描いてよい数 ILLU_COUNTS・想定の札 ILLU_ASSUME／
+#    `_A1_ASSUME`・壊れる物のカット ILLU_DESTROY_CUTS・縮尺を持たない上から見た絵の置き場 ILLU_TOP_NOSCALE）は selftest の見本
+#    `tools/fixture_ep19.py` へ移した（値は1つも変えていない＝git の `70c7e51`）。20本目の値は、その型を初めて使う ⑤b のチャットで入れる
+#    （空のあいだ、その型を使うカットは門番・型が止まる＝fail closed）。頁の番号の書き方・資料の名の決め方・守りの線の理由（19本目の例）は
+#    移した注の側にある＝fixture_ep19 の REC_DOCS の注。`ILLU_TOP_NOSCALE` は19本目で足した表（門番 check_illu の ⑧が読む）＝空の器で残す
 # 🔴 2026-10-06（19本目 ⑤b-1・§0b）：18本目の値（出典の表 REC_DOCS・割れる時刻・時計と秒の札・描いてよい数・想定の札・壊れる物のカット・
 #    潜水艦の時刻・音の輪・混ざりのつなぎ待ち）は selftest の見本 `tools/fixture_ep18.py` へ移した（値は1つも変えていない＝git の
 #    `2d627a2`）。19本目の値は、その型を初めて使う ⑤b のチャットで入れる（空のあいだ、その型を使うカットは門番・型が止まる＝fail closed）。
 #    頁の番号の書き方・資料の名の決め方・守りの線の理由（18本目の例）は移した注の側にある＝fixture_ep18 の案C の節の上
-REC_PAGES = REF / "src" / "ep19_pages.txt"      # ④ の make_pages.py の出力（git の外＝手元だけ）
-REC_DOCS = {                                # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
-    # 🆕 19本目 ⑤b-2（2026-10-06）：通し頁は `ref/ep19/src/ep19_pages.txt`（④ の make_pages.py）＝TR の行 n → p(1000+n)・AC の PDF 頁 n →
-    #   p(2000+n)・TF のコマ・スライド → p9001〜。TR は行（頁ではない）・TF はスライド＝画面に頁を出さない（page=None）
-    "TR": dict(range=(1001, 1489), name="NIST 技術的知見の動画の語り（2026年6月）", page=None, base=0),
-    "AC": dict(range=(2001, 2082), name="NIST の諮問委員会の資料（2026年9月）", page="pdf", base=2000),
-    "TF": dict(range=(9001, 9808), name="NIST 技術的知見の動画のスライド（2026年6月）", page=None, base=0),
-    # 🆕 ⑤b-3：大陪審の報告（GJ の PDF 頁 n → p(3000+n)・印字の頁＝PDF 頁−3）・町の発表（A13＝1頁）
-    # 🔴 ⑤b-6（2026-10-06）：名の年を「（2022年）」から直した＝表紙 p3001「FILED December 15, 2021」・結び p3043「Date: December 15. 2021」・
-    #   州検事の声明 A16（2021年12月15日）・台本の語り「2021年12月に出た」と合わせる
-    "GJ": dict(range=(3001, 3043), name="マイアミ・デイド郡の大陪審の報告（2021年12月）", page="print", base=3003),
-    "A13": dict(range=(5102, 5102), name="サーフサイド町の発表（2026年8月13日）", page=None, base=0),
-    # 🆕 ⑤b-6（2026-10-06）：書類・流れ図・数の比べ・地図の出典。見積もり（EST18＝町が公開した転送メールの PDF の18頁にある添付＝
-    #   🔴 その PDF は私人の情報を含む A09＝git の外・画面に頁を出さない＝見積もりの頁とずれる）・州の法律（A14＝PDF 頁）・郡の発表（B03）・
-    #   町の警察の会報（B05＝PDF 頁）・NIST の発表（A04）・州検事の声明（A16）
-    "EST18": dict(range=(4318, 4318), name="モラビトの見積もり（2018年10月）", page=None, base=0),
-    "A14": dict(range=(6001, 6088), name="フロリダ州の法律 SB 4-D（2022年）", page="pdf", base=6000),
-    "B03": dict(range=(5201, 5201), name="マイアミ・デイド郡の発表（2021年7月4日）", page=None, base=0),
-    "B05": dict(range=(5301, 5303), name="サーフサイド町の警察の会報（2021年7月8日）", page="pdf", base=5300),
-    "A04": dict(range=(5001, 5001), name="NIST の発表（2026年6月22日）", page=None, base=0),
-    "A16": dict(range=(5801, 5801), name="マイアミ・デイド郡の州検事の声明（2021年12月15日）", page=None, base=0),
-    # 🆕 ⑤b-5（2026-10-06）：軸の型（年表・時間の帯）の出典。調査の報告（MC18＝町の写しの PDF 頁＝報告の頁）・議事録（MIN18＝町の写しの PDF 頁）・
-    #   町の頁（A12）・NIST の発表（B08）・GAO（B01）・FEMA（B02）・裁判所（A17・A18・A19＝PDF 頁）。⚠️ A11（MIN18）・A17 の原文は git の外のまま
-    "MC18": dict(range=(4001, 4009), name="モラビトの調査の報告（2018年10月）", page="print", base=4000),
-    "MIN18": dict(range=(4101, 4107), name="理事会の議事録（2018年11月15日）", page="pdf", base=4100),
-    "A12": dict(range=(5101, 5101), name="サーフサイド町の頁", page=None, base=0),
-    "B08": dict(range=(5005, 5005), name="NIST の発表（2024年11月21日）", page=None, base=0),
-    "B01": dict(range=(5601, 5617), name="米政府説明責任局（GAO）の報告（2024年2月）", page="pdf", base=5600),
-    "B02": dict(range=(5701, 5705), name="FEMA の発表（2021年7月）", page="pdf", base=5700),
-    # ⑤c'（10-07）：c710 の出典を手書き（「p.2」）から src() へ＝頁の書き方をほかの41か所の「PDF N頁」にそろえるために足した
-    #   名は短く（「マイアミ・デイド郡の」を付けると c710 の出典の行が 17px に縮んだ）
-    "B07": dict(range=(5501, 5506), name="郡長のメモ（2023年10月26日）", page="pdf", base=5500),
-    "A17": dict(range=(7001, 7024), name="裁判所の最終の命令（2022年6月24日）", page="pdf", base=7000),
-    "A18": dict(range=(7101, 7115), name="裁判所の売却を認める命令（2022年6月1日）", page="pdf", base=7100),
-    "A19": dict(range=(7201, 7202), name="管財人の売却の告知（2022年7月27日）", page="pdf", base=7200),
-}
+REC_PAGES = REF / "src" / "ep20_pages.txt"      # ④ の make_pages.py の出力（git の外＝手元だけ）
+REC_DOCS = {}                               # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
 ILLU_SPLIT_TIMES = ()                       # 資料で割れる時刻＝画面に時計・時刻の札として出さない
 ILLU_CROWD_UNTIL = None                     # 乗客の群れを描いてよい場面の時刻の上限
 ILLU_ROLES = dict(sprite=(), crowd=())      # 置いてよい役割（門番 check_illu ②）＝空の組なら、どの役割も置けない（fail closed）
 ILLU_SEC_OK = {}                            # 札に出してよい秒＝{秒: 出典}（門番 check_illu ⑤）
 ILLU_CLOCK_OK = ()                          # 札に出してよい時計の時刻（門番 check_illu ⑤）
-ILLU_COUNTS = {                             # 描いてよい数＝{部品の obj の名: (数, 出典)}（門番 check_illu ③）
-    # 🆕 19本目 ⑤b-2：A1 の塔＝12階＋ペントハウス（TR0004「12 stories tall plus a penthouse」）
-    "story": (12, "TR p1004"), "penthouse": (1, "TR p1004"),
-    # 🆕 ⑤b-3：A4 の別の建物＝10階建て（GJ p.20「a 10-story, 156-unit condominium building」）・A5 の光の柱＝13本（A13）
-    "story_other": (10, "GJ p3023"), "pillar": (13, "A13 p5102"),
-}
-_A1_ASSUME = "推定（NIST の見立て）"            # 🆕 19本目 ⑤b-2：NIST の読み（映像から・most likely）で描いた崩れ方
-ILLU_ASSUME = {c: _A1_ASSUME for c in ("c619", "c620", "ca01", "ca18", "cc25")}   # 想定の札を出すカット（門番 check_illu ④）
-# 🆕 19本目 ⑤b-3：A2・A3＝目撃した人の話だけが元の絵（門・柱の水・プランターの隙間）と、落ちた範囲が記録に無い絵（駐車場・デッキの一部）
-ILLU_ASSUME.update({c: "目撃した人の話にもとづく" for c in ("c503", "c511", "c518")})
-ILLU_ASSUME.update({c: "崩れた範囲は推定" for c in ("c604", "c609")})
-# 壊れる物の部品を描いてよいカット（門番 check_illu ⑫＝空なら全部止める）。🆕 19本目 ⑤b-2：A1 の崩れ（真ん中・東・プールデッキ）
-#   🆕 ⑤b-3：A2 の落ちた地上の駐車場・デッキの一部・沈んだ車（c604・c609）
-ILLU_DESTROY_CUTS = ("c618", "c619", "c620", "ca01", "ca18", "cc25", "c604", "c609")
-# 縮尺を持たない模式の上から見た絵の置き場＝{置き場: 理由}（門番 check_illu ⑧ は縮尺の代わりに「人が0・模式の断り」を測る）
-#   🆕 19本目 ⑤b-3：A2（NIST の図から並びだけを描いた敷地＝寸法の記録が無い・人は決め⑤で描かない）
-ILLU_TOP_NOSCALE = {"A2": "敷地の並びの模式・人は描かない（決め⑤）"}
+ILLU_COUNTS = {}                            # 描いてよい数＝{部品の obj の名: (数, 出典)}（門番 check_illu ③）
+ILLU_ASSUME = {}                            # 想定の札を出すカット＝{カットID: 札の言葉}（門番 check_illu ④）
+ILLU_DESTROY_CUTS = ()                      # 壊れる物の部品を描いてよいカット（門番 check_illu ⑫＝空なら全部止める）
+ILLU_TOP_NOSCALE = {}                       # 縮尺を持たない模式の上から見た絵の置き場＝{置き場: 理由}（門番 check_illu ⑧ は縮尺の代わりに「人が0・模式の断り」を測る）
 ILLU_SUB_UNTIL = None                      # 潜水艦の時刻の上限（門番 ⑮＝無ければ潜水艦を描いたカットは止まる）
 ILLU_SUB_EXC = {}                           # 上の上限の例外＝{カットID: 時刻}
 ILLU_SUB_STOP = None                        # 艦の絵を止めたカット（これより後に潜水艦を置かない）
 ILLU_BOOM_CUTS = ()                         # 音の輪（9時18.1分の型）を置いてよいカット（門番 ⑰）
-ILLU_MIX_TODO = {                           # 混ざりの本物の側のつなぎ待ち＝{カットID: 理由}（門番 ⑦）
-}                                           # ✅ ⑤b-7c（10-07）：c618 の尻の頁（A01 p.47）をつないだ＝空
+ILLU_MIX_TODO = {}                          # 混ざりの本物の側のつなぎ待ち＝{カットID: 理由}（門番 ⑦）
 ILLU_MIX_BUNDLE = REF / "credits.json"      # 束ができたか（混ざりのつなぎ待ちの終わり）を見るファイル
 
 # 🔴 2026-10-06（19本目 ⑤b-1）：空にした（18本目は割れる時刻・出典の名つきの点を使わなかった＝空のままの値＝`tools/fixture_ep18.py`）
@@ -547,101 +516,12 @@ def ax(name, **kw):
 #    git の `2d627a2`）。19本目の軸は ⑤b で `AX_<名> = dict(view, span, ticks)` を足し、`AXI.update({…})` に項目を足す。
 #    ⚠️ 軸の教訓（軸の左右の余白・札を線から逃がす・次のカットの語りにある時刻は描かない・下見で1つの言葉に読めた札）は移した注の側にある
 #       ＝fixture_ep18 の AX_*・AXI の上
-# 🆕 2026-10-06（19本目 ⑤b-5）：年表・時間の帯 19カット（c210 c302 c318 c401 c409 c415 c418 c523 c602 c603 c605 c608 c622 c714 c719 c918 c919
-#    ca20 cc20）。値と頁は ref/ep19/src/ep19_pages.txt で当てた＝門番の側の表（check_axis.REC_AXIS）と照らされる（§5b-88）。
-#    🔴 守りの線：記録にある年月日・時刻だけ・NIST の「約○分前」は時計の時刻に直さない（基準 1:22 からの位置に置き、札は「約7分前」）・
-#       最後の3週間（c523・c622）は NIST のスライド p9061 と同じ**並び**（間隔は時間に比例しない＝途切れの印と断り）・
-#       入札の会議（6月11日）は記録が「崩れる13日前」としか書かない＝日付の札を出さない（lab=False）
-TL_NOTE = "時刻は現地（アメリカ東部）"
-ORDER_NOTE = "間隔は時間に比例しない（NIST のスライドの並べ方）"
-AX_LIFE = dict(view="date", span=("1976", "2025"), ticks=("1980", "1990", "2000", "2010", "2020"))   # c210・c302・c918・c919 建物の歩み
-AX_RUST = dict(view="date", span=("1993", "2023"), ticks=("1995", "2000", "2005", "2010", "2015", "2020"))   # c318 25年以上
-#   ⚠️ 下見：左の端を 2018年7月にすると、左へ振った「2018年10月」の札が画面の左の外へ出た＝2017年10月から
-#   ⚠️ 門番 check_axis：c418 の崩落の札を左へ振ると3段目まで積み上がり右上の章の札に触れた＝右の端を2022年4月まで広げ、c418 は右へ振る
-AX_REP = dict(view="date", span=("2017-10", "2022-04"), ticks=("2018", "2019", "2020", "2021", "2022"))   # c401・c409・c418 報告のあと
-AX_21 = dict(view="date", span=("2021-03-10", "2021-07-10"), ticks=("2021-04", "2021-05", "2021-06", "2021-07"))   # c415 2021年
-AX_NIGHT = dict(view="clock", span=("1:11", "1:23"), ticks=("1:12", "1:14", "1:16", "1:18", "1:20", "1:22"),
-                ref="1:22", ref_rec="A12 p5101")                                                       # c602〜c608 最後の数分
-#   ⚠️ 門番 check_axis：AX_NIGHT に2回目の電話（1:17:49）と見張りの会社（1:17:55＝6秒差）まで並べると札が3段に収まらなかった＝c608 は3分の帯
-AX_CALL = dict(view="clock", span=("1:16", "1:19"), ticks=("1:16", "1:17", "1:18", "1:19"))           # c608 1時17分台
-AX_SEARCH = dict(view="date", span=("2021-06-20", "2021-07-26"),
-                 ticks=("2021-06-24", "2021-07-01", "2021-07-08", "2021-07-15", "2021-07-22"))       # c714 26日
-AX_NIST = dict(view="date", span=("2021-01", "2022-04"), ticks=("2021-01", "2021-04", "2021-07", "2021-10", "2022-01", "2022-04"))  # c719
-AX_CODE = dict(view="date", span=("1975", "2030"), ticks=("1980", "1990", "2000", "2010", "2020", "2030"))   # ca20 決まり
-AX_SALE = dict(view="date", span=("2022-05-10", "2022-08-10"), ticks=("2022-06", "2022-07", "2022-08"))     # cc20 土地の売却
-# 🆕 ⑤b-6（2026-10-06）：cc17 追悼の灯（毎年＝ともす6月24日・消す7月20日）。年は画面に出さない（点は lab=False・目盛りは日と月だけ）＝
-#   軸の中の年は捜索の年（2021年）を借りる。時刻は町の頁の2023〜2025年の記録（2022年は午後8時9分＝「このところは」の語りの外）
-AX_TORCH = dict(view="date", span=("2021-06-20", "2021-07-26"),          # ⚠️ 門番 layout：6月24日の目盛りの「6月」を点の線が貫いた＝目盛りを点からずらす
-                ticks=("2021-06-22", "2021-06-29", "2021-07-06", "2021-07-13", "2021-07-20"))
-SIGNS = ("約3週間前", "約1週間前", "約17時間前", "約9時間前", "約3時間前")                            # c523 の並び
-ALL_SIGNS = ("約3週間前", "約1週間前", "約17時間前", "約9時間前", "約9分前", "約6分前", "1:16:27", "1:17:49", "1:22:14")   # c622
-
-AXI.update({
-    # ── 建物の歩み
-    "build": dict(k="span", a="1979", b="1981", t="設計と建設", rec="AC p2023"),
-    "done": dict(k="pt", at="1981", t="完成", rec=["TR p1005", "AC p2023"]),
-    "y40": dict(k="br", a="1981", b="2021", rec=["MIN18 p4107", "GJ p3005"]),
-    # ⚠️ 下見：右へ振ると「40年の点検の期限」が画面の右の外へ出た＝左へ（2018年の札の上の段）
-    "due": dict(k="pt", at="2021", t="40年の点検の期限", rec=["MIN18 p4107", "GJ p3005"], anchor="end"),
-    # ⑤c'（10-07）：c302「大改修」・c318「補修と防水」と同じ工事＝呼び方を「大改修」にそろえた（TR0236 major rehabilitation・c302 の語り）
-    "fix": dict(k="span", a="1996", b="1997", t="大改修", rec="TR p1441"),
-    # ⚠️ 門番 check_axis：2018年（調査）と2021年（期限・崩落）は約90画素＝札を左右へ振る（真ん中だと2021年の線が2018年の札を貫いた）
-    "survey": dict(k="pt", at="2018-10-08", fmt="y", t="調査の報告", rec="MC18 p4001", anchor="end"),
-    # ⚠️ 門番 check_axis：括弧 br の rec は両端の値の記録に合うこと（片方の頁だけだと「1981 の rec が合わない」で止まった）
-    "y15": dict(k="br", a="1981", b="1996", rec=["TR p1236", "TR p1005"]),
-    "rehab": dict(k="span", a="1996", b="1997", t="大改修", rec=["TR p1236", "TR p1441"]),
-    "y25": dict(k="br", a="1996", b="2021-06-24", rec=["TR p1441", "A12 p5101"]),
-    # ⚠️ 下見：右へ振ると「2021年6月」が画面の右の外へ出た（c318・c918）＝左へ
-    "fall": dict(k="pt", at="2021-06-24", fmt="ym", t="崩落", rec="A12 p5101", c="ALERT", anchor="end"),
-    # ── 報告のあと（AX_REP・AX_21）
-    "rep": dict(k="pt", at="2018-10-08", t="調査の報告", rec=["MC18 p4001", "GJ p3020"], anchor="start"),
-    "mtg": dict(k="pt", at="2018-11-15", t="理事会", rec=["MIN18 p4106", "GJ p3020"], anchor="start"),
-    "m29": dict(k="br", a="2018-10-08", b="2021-04", rec=["GJ p3021", "GJ p3020"]),
-    "letter": dict(k="pt", at="2021-04", fmt="ym", t="理事長の手紙", rec="GJ p3021", anchor="end"),
-    "bid": dict(k="pt", at="2021-06-11", lab=False, t="入札を開く会議（予定）", rec="GJ p3021", anchor="end"),
-    "d13": dict(k="br", a="2021-06-11", b="2021-06-24", rec=["GJ p3021", "A12 p5101"]),
-    # ⚠️ 下見：右へ振ると「2021年6月24日」が画面の右の外へ出た＝左へ（AX_REP では年月まで＝c401・c418 の fmt="ym"）
-    "fall_d": dict(k="pt", at="2021-06-24", t="崩落", rec="A12 p5101", c="ALERT", anchor="end"),
-    # ── 最後の3週間（並び）
-    "s3w": dict(k="pt", at="約3週間前", t="門・プランター", rec="TR p1156"),
-    "s1w": dict(k="pt", at="約1週間前", t="門・柱の水", rec="TR p1157"),
-    "s17h": dict(k="pt", at="約17時間前", t="床の隙間", rec="TR p1158"),
-    "s9h": dict(k="pt", at="約9時間前", t="天井の漏れ", rec="TR p1159"),
-    "s3h": dict(k="pt", at="約3時間前", t="漏れが増す", rec="TR p1160"),
-    "s9m": dict(k="pt", at="約9分前", t="最後の車", rec="TR p1161"),
-    "s6m": dict(k="pt", at="約6分前", t="駐車場が落ちる", rec="TR p1170"),
-    "s1627": dict(k="pt", at="1:16:27", t="1回目の電話", rec="TR p1177"),
-    "s1749": dict(k="pt", at="1:17:49", t="2回目の電話", rec="TR p1189"),
-    "s2214": dict(k="pt", at="1:22:14", t="沈みが速まる", rec="TR p1347"),
-    # ── 最後の数分（AX_NIGHT・基準 1:22）
-    "n22": dict(k="pt", at="1:22", t="塔が崩れる", rec="A12 p5101", c="ALERT", anchor="end"),
-    "n9": dict(k="pt", at="約-9", t="最後の車", rec="TR p1161", anchor="end"),
-    "n89": dict(k="pt", at="約-9〜-8", t="気になる音", rec="TR p1167", anchor="start"),
-    "n7": dict(k="pt", at="約-7", t="トラブル信号", rec="TR p1169"),
-    "n6": dict(k="pt", at="約-6", t="地上の駐車場が落ちる", rec="TR p1170", anchor="end"),
-    "n1627": dict(k="pt", at="1:16:27", t="1回目の電話", rec="TR p1177", anchor="start"),
-    "n1749": dict(k="pt", at="1:17:49", t="2回目の電話", rec="TR p1189", anchor="end"),
-    "n1755": dict(k="pt", at="1:17:55", t="見張りの会社の電話", rec="TR p1190", anchor="start"),
-    # ── 捜索（AX_SEARCH）・調査（AX_NIST）
-    "f624": dict(k="pt", at="2021-06-24", t="崩落", rec="A12 p5101", c="ALERT", anchor="start"),
-    "last": dict(k="pt", at="2021-07-20", t="最後の1人", rec="A12 p5101", anchor="end"),
-    "d26": dict(k="br", a="2021-06-24", b="2021-07-20", rec="A12 p5101"),
-    # 🆕 ⑤b-6：cc17 追悼の灯（A12「the symbolic remembrance torch lit at 1:22 am on June 24」「July 20th at 8:03 pm」）
-    "lit": dict(k="pt", at="2021-06-24", t="灯をともす（1:22）", rec="A12 p5101", lab=False, anchor="start"),
-    "out": dict(k="pt", at="2021-07-20", t="灯を消す（20:03）", rec="A12 p5101", lab=False, anchor="end"),
-    "team": dict(k="pt", at="2021-06-25", t="6人を送る", rec="B02 p5702", anchor="end"),
-    "ann": dict(k="pt", at="2021-06-30", t="調査を発表", rec=["B02 p5702", "B01 p5605"], anchor="start"),
-    "evid": dict(k="pt", at="2022-01-28", t="証拠を NIST が預かる", rec="B08 p5005", anchor="end"),
-    # ── 決まり（AX_CODE）
-    "cd79": dict(k="span", a="1979", b="1981", t="設計：連鎖を止める定め無し", rec=["AC p2023", "AC p2076"], c="ALERT"),
-    "cd89": dict(k="pt", at="1989", t="連鎖に強くする鉄筋", rec="AC p2076"),
-    "cd25": dict(k="pt", at="2025", t="今の決まり", rec="AC p2076", anchor="end"),
-    # ── 土地の売却（AX_SALE）
-    "sale": dict(k="pt", at="2022-06-01", t="土地の売却を認める", rec="A18 p7104", anchor="end"),
-    "final": dict(k="pt", at="2022-06-24", t="和解の最終の命令", rec="A17 p7015", anchor="start"),
-    # ⚠️ 下見：右へ振ると「2022年7月27日」が画面の右の外へ出た＝左へ（6月24日の札の上の段）
-    "sold": dict(k="pt", at="2022-07-27", t="売却を終えたと報告", rec="A19 p7201", anchor="end"),
-})
+# 🔴 2026-10-08（20本目 ⑤b-1・§0b）：19本目の軸（TL_NOTE・ORDER_NOTE・AX_LIFE・AX_RUST・AX_REP・AX_21・AX_NIGHT・AX_CALL・AX_SEARCH・AX_NIST・
+#    AX_CODE・AX_SALE・AX_TORCH・SIGNS・ALL_SIGNS）と部品 AXI の19本目の項目は `tools/fixture_ep19.py` へ移した（値は1つも変えていない＝
+#    git の `70c7e51` と同じ）。20本目の軸は ⑤b で `AX_<名> = dict(view, span, ticks)` を足し、`AXI.update({…})` に項目を足す。
+#    ⚠️ 19本目の軸の教訓（下見で札が画面の外へ出た直し・「約○分前」は時計の時刻に直さない・並び order は間隔が時間に比例しない断りつき）は
+#       移した注の側にある＝fixture_ep19 の AX_*・AXI の上。並び order・基準 ref・秒まである時刻の物差しは門番 check_axis の型の側
+#       （`ORDER_UNIT`・`ORDER_NOTE`・`_order_checks`）に残した
 
 
 # ══════════════════════════════════════════════════════════
@@ -702,27 +582,13 @@ def merge(*parts):
 # 🔴 2026-10-06（19本目 ⑤b-1・§0b）：18本目の棒の群 QG・棒 QB（c204・c207・c302・c315・c613・c614・c626）は `tools/fixture_ep18.py` へ
 #    移した（値は1つも変えていない＝git の `2d627a2`）＝ここも門番 check_qty の表も空。19本目の棒は ⑤b で、値と頁を
 #    ref/ep19/src/ep19_pages.txt に当てて入れる
-# 🆕 2026-10-06（19本目 ⑤b-6）：c408（工事の額）・c617（床の沈み）・ca07（柱にかけた重さ）。値と頁は ref/ep19/src/ep19_pages.txt で当てた＝
-#   門番 check_qty.REC_QTY と照らす（門番の側にも別に持つ＝§5b-88）。群の名と行の名には数字を書かない（数は字幕＝§5b-9）
-#   ・円は台本 §9 の式（1ドル≈109円＝2021年4月）・インチは×2.54・ポンドは×0.4536（棒は丸めない＝語りは「約」）
-#   ・「〜を超える」（1,400万ドル）は棒をその数まで＝注で断る
-#   ・🔴 ひざ・机・トラックは記録の値ではない＝棒にしない。目盛りに置いて注で「目安」と断る（c617＝目盛り 45・70／ca07＝20トンごと）
-QG = {
-    "cost": dict(id="cost", t="直す工事の額（億円）", ticks=(0, 5, 10, 15, 20)),
-    "unit": dict(id="unit", t="部屋ごとの額（万円）", ticks=(0, 300, 600, 900, 1200)),
-    "sink": dict(id="sink", t="床の沈み（センチ）", ticks=(0, 45, 70), rows=("少なく見て", "多く見て")),
-    "load": dict(id="load", t="柱にかけた重さ（トン）", ticks=tuple(range(0, 301, 20))),
-}
-QB = {
-    # c408：GJ p.18（p3021）「The proposed costs for building repairs were more than $14,000,000.」・MC18 p.1（p4001）「136-unit」
-    "c_all": dict(k="bar", g="cost", t="全体", v=14e6 * 109 / 1e8, rec="GJ p3021"),
-    "c_unit": dict(k="bar", g="unit", t="単純に割ると", v=14e6 * 109 / 136 / 1e4, rec=["GJ p3021", "MC18 p4001"], c="AMBER"),
-    # c617：TR0348（p1348）「The total drop near grid point L-9.1 from the day before the collapse to 1:22:14 a.m. was about 18-27 inches.」
-    "s_lo": dict(k="bar", g="sink", t="少なく見て", v=18 * 2.54, rec="TR p1348"),
-    "s_hi": dict(k="bar", g="sink", t="多く見て", v=27 * 2.54, rec="TR p1348", c="AMBER"),
-    # ca07：TR0302（p1302）「a vertical load of 650,000 pounds … representing the load in the column at the time of failure」
-    "l_col": dict(k="bar", g="load", t="試験の柱", v=650000 * 0.4536 / 1000, rec="TR p1302", c="AMBER"),
-}
+# 🔴 2026-10-08（20本目 ⑤b-1・§0b）：19本目の棒の群 QG・棒 QB（c408 工事の額・c617 床の沈み・ca07 柱にかけた重さ）は `tools/fixture_ep19.py` へ
+#    移した（値は1つも変えていない＝git の `70c7e51` と同じ）＝ここも門番 check_qty の表も空。20本目の棒は ⑤b で、値と頁を
+#    ref/ep20/src/ep20_pages.txt に当てて入れる
+#    ⚠️ 棒の教訓（群の名と行の名には数字を書かない＝数は字幕・円は台本 §9 の式で換算・「〜を超える」は棒をその数まで＋注で断る・
+#       記録の値でない物は棒にせず目盛りに置いて「目安」と断る）は移した注の側にある＝fixture_ep19 の QG・QB の上
+QG = {}
+QB = {}
 
 
 def qb(name, **kw):
@@ -771,178 +637,16 @@ def rud(name, **kw):
 #    紙の置き場 _P1〜_P4・_O1）と並べ図の項目 CAUSE は `tools/fixture_ep18.py` へ移した（値は1つも変えていない＝git の `2d627a2`）＝
 #    ここも門番 check_boxes の表も空（`cause()` は型の道具＝残す）。19本目の箱は ⑤b で足す
 #    （門番 check_boxes の REC_MECH・REC_OTHER_ROLE・REC_CHIP・REC_FORM・REC_CAUSE も、回の値を門番の側に別に持つ＝§5b-88）
-# 🆕 2026-10-06（19本目 ⑤b-6）：書類の再現図・流れ図・並べ図。🔴 欄の値は原文の英語のまま（日本語は字幕だけ＝ルール 0b-33）・
-#   欄の名は原文の文の言葉を日本語に・紙1枚に欄は4つまで（§5b-114⑤）・人の名前は出さない（議事録・手紙＝役職だけ）・
-#   次のカットの語りにある事は書かない（ルール 0b-40⑤）：c403 の「とても良い状態に見える」（c404 の決め所）・cc08 の7月2日の手紙（cc09）。
-#   値は ref/ep19/src/ep19_pages.txt の文字の層で当て、OCR が崩れた GJ は頁の画像の書き起こし（p9802・p9803）と照らした
-_P4 = (100, 1820, 270, 840)    # 欄4つの紙（図の本体 210〜892 の内・「再現」の札は 214〜258）
-_P3 = (100, 1820, 300, 760)
-_P2 = (100, 1820, 330, 690)
-# c212：議事録 p.7（MIN18 p4107＝p9805）「The 40 year certification for the building will be due in 2021.」／大陪審の報告 p.18（GJ p3021＝p9802）
-#   「the Champlain Towers condo board hired an engineer to start the 40-year recertification process years before it was due」（紙2枚＝別の書類）
-FORM_MIN40 = dict(title="理事会の議事録（2018年11月15日）", rec="MIN18 p4107", lw=150,
-                  fields=[dict(t="40年の点検", v="will be due in 2021", rec="MIN18 p4107", late=True)])
-FORM_GJ18 = dict(title="大陪審の報告", rec="GJ p3021", lw=150,
-                 fields=[dict(t="管理組合", v="hired an engineer", rec="GJ p3021", late=True),
-                         dict(t="始めた時期", v="years before it was due", rec="GJ p3021", late=True)])
-# c309：調査の報告 p.1（MC18 p4001）「October 8, 2018」「Treasurer」「Structural Field Survey Report」・p.7（MC18 p4007＝p9804）
-#   「the waterproofing below the Pool Deck & Entrance Drive」。🔴 会社と人の名前は出さない（あて先は役職だけ）
-FORM_MC18 = dict(title="建物の調査の報告", rec=["MC18 p4001", "MC18 p4007"], paper=_P4, lw=170,
-                 fields=[dict(t="日付", v="October 8, 2018", rec="MC18 p4001"),
-                         dict(t="あて先", v="Treasurer", rec="MC18 p4001"),
-                         dict(t="表題", v="Structural Field Survey Report", rec="MC18 p4001"),
-                         dict(t="書いたこと", v="the waterproofing below the Pool Deck & Entrance Drive", rec="MC18 p4007", late=True)])
-# c316：見積もり（EST18 p4318＝町が公開した転送メールの PDF の18頁の添付）「TOTAL SUMMARY OF REMEDIATION PROBABLE CONSTRUCTION COST
-#   $9,128,433.60」。内わけは出さない（映像方針）
-FORM_EST18 = dict(title="直す工事の見積もり", rec="EST18 p4318", paper=_P2, lw=150,
-                  fields=[dict(t="合計", v="$9,128,433.60", rec="EST18 p4318", late=True)])
-# c403：議事録 p.7（MIN18 p4107）「Structural engineer report was reviewed … although report was not in the format for the 40 year certification
-#   he determined the necessary data was collected」。「it appears the building is in very good shape」は次の c404 の決め所＝書かない
-FORM_MIN15 = dict(title="理事会の議事録（2018年11月15日）", rec="MIN18 p4107", paper=_P3, lw=150,
-                  fields=[dict(t="見たもの", v="Structural engineer report was reviewed", rec="MIN18 p4107"),
-                          dict(t="書式", v="report was not in the format for the 40 year certification", rec="MIN18 p4107", late=True),
-                          dict(t="判断", v="the necessary data was collected", rec="MIN18 p4107", late=True)])
-# c412：理事長の手紙（2021年4月）を大陪審の報告 p.18（GJ p3021）が引く「observable damage such as in the garage has gotten significantly worse
-#   since the initial inspection」「would begin to multiply exponentially over the years」。🔴 名前は出さない（理事長＝役職）
-FORM_LET21 = dict(title="理事長の手紙（2021年4月）", rec="GJ p3021", paper=_P2, lw=250,     # ⑤b-6 の下見：170 は欄の名が縮んだ
-                  fields=[dict(t="目に見える傷み", v="has gotten significantly worse since the initial inspection", rec="GJ p3021", late=True),
-                          dict(t="これから", v="would begin to multiply exponentially over the years", rec="GJ p3021", late=True)])
-# c712（地図 → 書類の再現図＝§5b-116①：場所の記録は半径だけ）：郡の発表（B03 p5201）「Between 10 p.m. on Sunday, July 4, 2021 and 3 a.m. on Monday,
-#   July 5」「a 300-foot radius around the center of the demolition」。屋内にいる区域（黄）は地図の画像だけ＝数の記録が無い＝書かない
-FORM_B03 = dict(title="郡の発表（2021年7月4日）", rec="B03 p5201", paper=_P2, lw=250,     # ⑤b-6 の下見：190 は欄の名が縮んだ
-                fields=[dict(t="取り壊し", v="Between 10 p.m. on Sunday, July 4, 2021 and 3 a.m. on Monday, July 5", rec="B03 p5201",
-                             late=True),
-                        dict(t="近づけない区域", v="a 300-foot radius around the center of the demolition", rec="B03 p5201", late=True)])
-# cc08（数の比べ → 書類の再現図＝棒にする量が無い）：大陪審の報告 p.20（GJ p3023＝p9803）「Crestview Towers is a 10-story, 156-unit condominium
-#   building.」「its 40-year recertification was due in 2012」「9 1/2 years overdue」（OCR は「9 %」＝頁の画像の書き起こし p9803 で読んだ）
-FORM_CREST = dict(title="大陪審の報告（ほかの建物の例）", rec="GJ p3023", paper=_P3, lw=200,     # ⑤b-6 の下見：150 は欄の名が縮んだ
-                  fields=[dict(t="建物", v="Crestview Towers is a 10-story, 156-unit condominium building.", rec="GJ p3023", late=True),
-                          dict(t="40年の点検", v="its 40-year recertification was due in 2012", rec="GJ p3023", late=True),
-                          dict(t="崩落のとき", v="9 1/2 years overdue", rec="GJ p3023", late=True)])
-# cc14：州の法律 SB 4-D（A14 p6008・p6009）「three stories or more in height」「reaches 30 years of age」「within 3 miles of a coastline … reaches
-#   25 years of age」「every 10 years thereafter」
-FORM_SB4M = dict(title="州の法律 SB 4-D（節目の点検）", rec=["A14 p6008", "A14 p6009"], paper=_P4, lw=340,     # ⑤b-6 の下見：230 は縮んだ
-                 fields=[dict(t="建物", v="three stories or more in height", rec="A14 p6008", late=True),
-                         dict(t="最初の点検", v="reaches 30 years of age", rec="A14 p6008", late=True),
-                         dict(t="海岸から3マイル以内", v="reaches 25 years of age", rec="A14 p6009", late=True),
-                         dict(t="そのあと", v="every 10 years thereafter", rec="A14 p6008", late=True)])
-# cc15：同じ法律（A14 p6037）「a. Roof.」「c. Floor.」「d. Foundation.」「h. Waterproofing and exterior painting.」「at least every 10 years」・
-#   （A14 p6035）「Effective December 31, 2024, the members of a unit-owner controlled association may not determine to provide no reserves or
-#   less reserves」
-FORM_SB4R = dict(title="州の法律 SB 4-D（直すお金の備え）", rec=["A14 p6035", "A14 p6037"], paper=_P3, lw=340,     # ⑤b-6 の下見：230 は縮んだ
-                 fields=[dict(t="調べるもの（一部）", v="Roof. … Floor. Foundation. … Waterproofing", rec="A14 p6037", late=True),
-                         dict(t="調べる間隔", v="at least every 10 years", rec="A14 p6037", late=True),
-                         dict(t="2024年12月31日から", v="may not determine to provide no reserves or less reserves", rec="A14 p6035",
-                              late=True)])
-# 流れ図（c203・c704・c806・c913・c914・c921・cb14・cc07・cc11・cc12・cc18）。箱の言葉は11字まで（門番 echo は12字から）・役職だけ（名前を出さない）・
-#   赤を使わない。言葉と頁は門番 check_boxes の REC_OTHER_ROLE・REC_MECH・REC_CHIP と照らす
-#   🔴 c704・cc07・cc18（地図 → 流れ図）＝資料に位置の値（距離・方角・座標）が無い＝§5b-116①（drift は門番 ③ を正直には通せない）
-FL_DOCS = dict(heads=[], kind="この動画の資料")
-FL_EMPTY = dict(heads=[])
-FL_AC54 = dict(heads=[dict(id="h_ac", t="継ぎ目の壊れ（プールデッキ）", kind="head", x=(1180, 1790), y=(500, 580), rec="AC p2054")])
-FL_AVE = dict(heads=[], kind="アベンチュラ市の決まり（2021年）")
-FLP = {
-    # c203：資料（c202 の語り）＝NIST の結果の動画（A04 p5001＝2026年6月22日・TR）・その文字起こし（TR）・諮問委員会の資料（AC p.1）・町が公開した記録
-    #   （A12）／大陪審の報告（GJ p.1＝p3004・出た日＝表紙 p3001「FILED December 15, 2021」と州検事の声明 A16。⚠️ 表紙 p3001 は印字の頁が無い
-#   ＝rec に書くと出典の行が「-2頁」になる）
-    "d_vid": dict(k="role", id="d_vid", t="結果の動画（2026年6月）", y=430, pos=(130, 820), rec=["A04 p5001", "TR p1001"]),
-    "d_tr": dict(k="role", id="d_tr", t="その文字起こし", y=550, pos=(130, 820), rec="TR p1001"),
-    "d_ac": dict(k="role", id="d_ac", t="諮問委員会の資料（2026年9月）", y=670, pos=(130, 820), rec="AC p2001"),
-    "d_town": dict(k="role", id="d_town", t="町が公開した記録", y=430, pos=(1100, 1790), rec="A12 p5101"),
-    "d_gj": dict(k="role", id="d_gj", t="大陪審の報告（2021年12月）", y=550, pos=(1100, 1790), rec=["GJ p3004", "A16 p5801"]),
-    # c704：町の警察の会報 p.2（B05 p5302）「The remainder of the condominium was evacuated and residents were escorted to the Surfside Community
-    #   Center which later become the Family Reunification Center.」
-    "e_res": dict(k="role", id="e_res", t="残った部分の住民", y=500, pos=(130, 700), rec="B05 p5302"),
-    "e_cc": dict(k="role", id="e_cc", t="コミュニティセンター", y=500, pos=(1100, 1790), rec="B05 p5302"),
-    # c806：TR0256「evaluated the demands on and capacity of the slab-column connections with three tools」・TR0257「finite element modeling;
-    #   laboratory tests of slab-column connections; critical shear crack theory」
-    "t_fem": dict(k="role", id="t_fem", t="コンピュータの模型", y=400, pos=(130, 700), rec="TR p1257"),
-    "t_lab": dict(k="role", id="t_lab", t="実物大の試験", y=540, pos=(130, 700), rec="TR p1257"),
-    "t_csct": dict(k="role", id="t_csct", t="ひびの理論", y=680, pos=(130, 700), rec="TR p1257"),
-    "t_eval": dict(k="role", id="t_eval", t="継ぎ目の力と強さ", y=540, pos=(1180, 1790), rec="TR p1256"),
-    # c913・c914：AC p.54（p2054）「Design understrength (largest, pervasive)」「Deviations in as-built construction from design documents and
-    #   standards (pervasive)」「Heavier, more extensive planters」「Added fill and paving」「Degradation over time」・TR0277〜0280
-    "a_des": dict(k="role", id="a_des", t="設計の強さの不足", y=330, pos=(110, 640), rec=["AC p2054", "TR p1279"]),
-    "a_dev": dict(k="role", id="a_dev", t="図面とのずれ", y=450, pos=(110, 640), rec=["AC p2054", "TR p1279"]),
-    "a_pl": dict(k="role", id="a_pl", t="重いプランター", y=560, pos=(110, 640), rec=["AC p2054", "TR p1280"]),
-    "a_fill": dict(k="role", id="a_fill", t="足した砂と敷石", y=670, pos=(110, 640), rec=["AC p2054", "TR p1280"]),
-    "a_deg": dict(k="role", id="a_deg", t="年月の傷み", y=780, pos=(110, 640), rec=["AC p2054", "TR p1280"]),
-    # c921：AC p.61（p2061）「The requirements for recertification of structures in Florida are laudable, but they contain no requirements for
-    #   establishing confidence in the original design and construction.」／40年の点検で見るもの＝調査の報告 p.1（MC18 p4001）「to understand
-    #   and document the extent of structural issues that require repair」
-    "r_cert": dict(k="role", id="r_cert", t="40年の点検（フロリダ）", y=470, pos=(110, 640), rec="AC p2061"),
-    "r_dmg": dict(k="role", id="r_dmg", t="傷みと直す所", y=470, pos=(1240, 1790), rec="MC18 p4001"),
-    "r_orig": dict(k="role", id="r_orig", t="建てたときの設計と工事", y=670, pos=(1240, 1790), rec="AC p2061"),
-    # cb14：TR0476「it was the low margins of safety and degradation that started the failure in the pool deck」／TR0454（87パークの揺れ）・
-    #   TR0465（基礎・陥没や沈み・嵐・衝突・爆発ほか）
-    "o_mg": dict(k="role", id="o_mg", t="継ぎ目の余裕の少なさ", y=450, pos=(110, 760), rec="TR p1476"),
-    "o_deg": dict(k="role", id="o_deg", t="傷み", y=570, pos=(110, 760), rec="TR p1476"),
-    "x_vib": dict(k="role", id="x_vib", t="となりの工事の揺れ", y=450, pos=(1100, 1790), rec="TR p1454"),
-    "x_gnd": dict(k="role", id="x_gnd", t="地面の沈みや空洞", y=570, pos=(1100, 1790), rec="TR p1465"),
-    "x_ext": dict(k="role", id="x_ext", t="嵐・衝突・爆発", y=690, pos=(1100, 1790), rec="TR p1465"),
-    # cc07：大陪審の報告 p.20（GJ p3023）「Following the collapse, the City of North Miami Beach … decided to conduct an audit of all buildings and
-    #   structures five stories or higher … due or past due for their 40-year recertification」
-    "n_col": dict(k="role", id="n_col", t="サーフサイドの崩落", y=520, pos=(110, 560), rec="GJ p3023"),
-    "n_nmb": dict(k="role", id="n_nmb", t="ノースマイアミビーチ市", y=520, pos=(700, 1180), rec="GJ p3023"),
-    "n_aud": dict(k="role", id="n_aud", t="5階以上の建物を調べる", y=520, pos=(1320, 1800), rec="GJ p3023"),
-    # cc11：大陪審の報告 p.20（GJ p3023＝監査・7月2日に報告が市へ・すぐに退去）・p.22（GJ p3025「no notification at all was provided to the
-    #   Local Building Official regarding Crestview Towers」）
-    "w_aud": dict(k="role", id="w_aud", t="市が遅れを調べる", y=690, pos=(110, 560), rec="GJ p3023"),
-    "w_rep": dict(k="role", id="w_rep", t="報告が市に届く", y=690, pos=(690, 1140), rec="GJ p3023"),
-    "w_out": dict(k="role", id="w_out", t="すぐに退去", y=690, pos=(1290, 1800), rec="GJ p3023"),
-    "w_old": dict(k="role", id="w_old", t="それまでの報告", y=420, pos=(110, 640), rec="GJ p3025"),
-    "w_city": dict(k="role", id="w_city", t="市の建築の担当", y=420, pos=(1290, 1800), rec="GJ p3025"),
-    # cc12：大陪審の報告 p.21〜22（GJ p3024「provide a copy of any engineering report … to the City within forty-eight hours of receiving such a
-    #   report」・p3025「Ordinance No. 2021-13」）
-    "v_eng": dict(k="role", id="v_eng", t="技師の報告", y=520, pos=(110, 560), rec="GJ p3024"),
-    "v_board": dict(k="role", id="v_board", t="管理組合", y=520, pos=(700, 1100), rec="GJ p3024"),
-    "v_city": dict(k="role", id="v_city", t="市", y=520, pos=(1420, 1800), rec="GJ p3024"),
-    # cc18：町の発表（A13 p5102）「At the Special Commission Meeting held on August 6, the Surfside Town Commission gave final approval」「the street
-    #   end park at 88 th Street」「For five years, the Committee worked in close partnership with victims’ families, survivors, first responders,
-    #   and residents」
-    "m_fam": dict(k="role", id="m_fam", t="家族", y=360, pos=(110, 500), rec="A13 p5102"),
-    "m_surv": dict(k="role", id="m_surv", t="生き残った人", y=480, pos=(110, 500), rec="A13 p5102"),
-    "m_resc": dict(k="role", id="m_resc", t="救助の人たち", y=600, pos=(110, 500), rec="A13 p5102"),
-    "m_res": dict(k="role", id="m_res", t="住民", y=720, pos=(110, 500), rec="A13 p5102"),
-    "m_com": dict(k="role", id="m_com", t="記念の委員会", y=540, pos=(680, 1120), rec="A13 p5102"),
-    "m_ok": dict(k="role", id="m_ok", t="町の議会の最終の承認", y=540, pos=(1300, 1800), rec="A13 p5102"),
-}
+# 🔴 2026-10-08（20本目 ⑤b-1・§0b）：19本目の箱の型の表（書類の再現図 FORM_*＝欄の値は原文の英語・紙の置き場 _P2〜_P4・流れ図 FL_*・FLP と関数 `fl()`・
+#    並べ図の項目 CAUSE）は `tools/fixture_ep19.py` へ移した（値は1つも変えていない＝git の `70c7e51` と同じ）＝ここも門番 check_boxes の表も空
+#    （`cause()` は型の道具＝残す）。20本目の箱は ⑤b で足す（門番 check_boxes の REC_MECH・REC_OTHER_ROLE・REC_CHIP・REC_FORM・REC_CAUSE も、
+#    回の値を門番の側に別に持つ＝§5b-88）。
+#    ⚠️ 箱の教訓（欄の値は原文の言葉のまま・欄の名は原文の文の言葉を日本語に・紙1枚に欄は4つまで・人の名前は出さない・次のカットの語りにある事は
+#       書かない・欄の名が縮んだら lw を広げる・地図にする量が無いカットは書類の再現図か流れ図に替える）は移した注の側にある＝fixture_ep19 の FORM_*・FLP の上
+FLP = {}
 
 
-def fl(name, **kw):
-    return dict(FLP[name], **kw)
-
-
-# 並べ図（cb09・cb10＝NIST が崩れに大きくは関わっていないとしたもの／cc05＝大陪審の勧告の6つのねらい／cc22＝勧告の題目の候補）
-CAUSE = {
-    # cb09・cb10：TR0465（p1465）「foundation failure, sinkholes or differential settlement, hurricanes and storm surge effects, impulsive loads such as
-    #   vehicle impact, explosion or items dropped from a crane, and accidental loads or overloads caused by the roof repair and roof anchor project」
-    "n_found": dict(k="item", t="基礎の壊れ", rec="TR p1465"),
-    "n_sink": dict(k="item", t="陥没や沈み", rec="TR p1465"),
-    "n_storm": dict(k="item", t="ハリケーンと高潮", rec="TR p1465"),
-    "n_car": dict(k="item", t="車の衝突", rec="TR p1465"),
-    "n_blast": dict(k="item", t="爆発", rec="TR p1465"),
-    "n_crane": dict(k="item", t="クレーンの落下物", rec="TR p1465"),
-    "n_roof": dict(k="item", t="屋上の工事の重さ", rec="TR p1465"),
-    # cc05：大陪審の報告 p.1（GJ p3004）「Our recommendations included below are designed to 1) improve the ability of governmental officials to timely
-    #   identify and address buildings … 2) highlight environmental issues in South Florida … 3) suggest ways to identify such deterioration, ameliorate
-    #   it … 4) … better compliance and timely submittals … 5) give building officials more authority/power … 6) … electronic posting and on-line
-    #   access」
-    "g_find": dict(k="item", t="役所が早く見つけて動く", rec="GJ p3004"),
-    "g_env": dict(k="item", t="南フロリダの環境と傷み", rec="GJ p3004"),
-    "g_fix": dict(k="item", t="傷みを見つけて直す", rec="GJ p3004"),
-    "g_due": dict(k="item", t="報告を期限どおりに", rec="GJ p3004"),
-    "g_power": dict(k="item", t="役所に強い力", rec="GJ p3004"),
-    "g_web": dict(k="item", t="住民がネットで読める", rec="GJ p3004"),
-    # cc22：諮問委員会の資料 p.17（AC p2017）「Quality of Design & Construction / Code Enforcement / Codes & Standards for New Buildings / Records
-    #   Retention Policies & Building Inspections / Assessment, Management & Maintenance of Existing Buildings / Education & Training」
-    "k_qual": dict(k="item", t="設計と工事の質", rec="AC p2017"),
-    "k_enf": dict(k="item", t="決まりを守らせる", rec="AC p2017"),
-    "k_new": dict(k="item", t="新しい建物の決まり", rec="AC p2017"),
-    "k_rec": dict(k="item", t="記録の保管と点検", rec="AC p2017"),
-    "k_old": dict(k="item", t="今ある建物の手入れ", rec="AC p2017"),
-    "k_edu": dict(k="item", t="教育と訓練", rec="AC p2017"),
-}
+CAUSE = {}
 
 
 def cause(name, **kw):
@@ -963,34 +667,11 @@ def cause(name, **kw):
 # ══════════════════════════════════════════════════════════
 # 🔴 2026-10-06（19本目 ⑤b-1・§0b）：18本目の資料の名 QDOC・QWHO と関数 `qrows()` は `tools/fixture_ep18.py` へ移した（値は1つも変えて
 #    いない＝git の `2d627a2`）。19本目で決め所の出どころの札を使うときは、その回の QDOC・QWHO・`qrows()` をここに足す
-# 🆕 2026-10-07（19本目 ⑤b-8）：19本目の資料の名（札の「記録」の欄）と出た時（「公表」の欄）。
-#    ⚠️ 名と年月を1つの値にすると、札の幅（全角12字＝`titan_fig.wrap(t, 12)`）で**かっこの中で割れた**
-#       （「大陪審の報告（2021年｜12月）」「NIST｜の技術的知見の動画｜（2026年6月）」）＝名と年月を別の欄に分けた。
-#       名は出典の行（credits.json）・語りの呼び名にそろえた。NIST は「著者」の欄（QWHO）
-#    🔴 §0b（次の回は空に）：QDOC・QWHO。頁の欄＝大陪審の報告は**印字の頁**（PDF の頁＝印字＋3）・モラビトの報告は印字の「Page 7」・
-#       議事録は PDF の頁・諮問委員会の資料は印字＝PDF の頁・技術的知見の動画はスライドの番号（語りの文字起こしは頁が無い＝None）
-#    決め所19の原文照合（⑤b-8）＝台本 §2 の英語が通し頁ファイルのその頁に 19/19（a〜z0〜9 にそろえて照合・陰性対照＝別の頁では外れる）・
-#       ★の行＝台本 §2 の言葉＝SPEC の phrase（折った行をつないだもの）
-QDOC = {"GJ": ("大陪審の報告", "2021年12月"), "MC18": ("モラビトの調査の報告", "2018年10月8日"),
-        "MIN18": ("管理組合の会議の議事録", "2018年11月15日"),
-        "TR": ("技術的知見の動画", "2026年6月"), "AC": ("諮問委員会の資料", "2026年9月")}
-QWHO = {"TR": "NIST", "AC": "NIST"}
-# ⑤c'（10-07）：モラビトの報告は理事会の会計係に渡された私的な文書（c309 の語り）＝「公表」でなく「日付」（c311）
-QDATE_LB = {"MIN18": "会議", "MC18": "日付"}
-
-
-def qrows(doc, page, *extra):
-    """決め所の出どころの札の rows＝extra（(欄, 値) の組＝箇所・話した人・日付）＋記録＋著者＋公表＋頁。
-    page は画面の頁の字（None＝頁の欄なし）。欄は4つまで＝5つ目になる「公表」は落とす（札の高さ 612px に収める）"""
-    import jiko_style as J
-    name, when = QDOC[doc]
-    rows = [(k, v, J.LINE) for k, v in extra]
-    rows.append(("記録", name, J.INK_W))
-    if doc in QWHO:
-        rows.append(("著者", QWHO[doc], J.LINE))
-    if len(rows) + bool(page) < 4:
-        rows.append((QDATE_LB.get(doc, "公表"), when, J.LINE))
-    if page:
-        rows.append(("頁", page, J.TICK))
-    return rows
+# 🔴 2026-10-08（20本目 ⑤b-1・§0b）：19本目の資料の名 QDOC（名と出た時の組）・QWHO・QDATE_LB（「公表」の欄の言い換え）と関数 `qrows()` は
+#    `tools/fixture_ep19.py` へ移した（値は1つも変えていない＝git の `70c7e51` と同じ）。20本目で決め所の出どころの札を使うときは、その回の
+#    QDOC・QWHO（と、必要なら QDATE_LB）・`qrows()` をここに足す。
+#    ⚠️ 札の教訓（名と年月を1つの値にすると札の幅〈全角12字〉でかっこの中で割れた＝別の欄に分ける・欄は4つまで・決め所の言葉は台本の★の行と
+#       1字も違えない・原文照合）は移した注の側にある＝fixture_ep19 の QDOC の上
+QDOC = {}
+QWHO = {}
 

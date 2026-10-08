@@ -787,6 +787,32 @@ def ep19_credit(name):
 
 
 # ══════════════════════════════════════════════════════════
+#  20本目（日本航空123便のリメイク）── `ref/ep20/`（2026-10-08 ⑤b-1）
+# ══════════════════════════════════════════════════════════
+#   ep20/<欄の名>.jpg … 写真（報告書の写真〈PDL1.0〉・JA8119 の3点〈CC BY 2.0・BY-SA 2点〉・御巣鷹の尾根と慰霊の6点〈CC BY 3.0〉）
+#                        ＝映像方針の一覧 `ref/ep20/eizou_list20.md`（了承②）
+#   ep20/pg<頁>.png   … 事故調査報告書・解説の頁
+# 🔴 表はファイルから読む（ルール 0b-34①）。`ref/ep20/credits.json` は写真の束のチャットで書く（無いあいだは空＝当たらない）。
+#    ⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）。
+#    防衛庁記録（映像）の出典は `footage.credit_of`（`ref/ep20/clips.json` の `credit`）・映像のひかえの静止画 fb_ も同じ（19本目の型）
+_EP20_CREDITS = HERE / "ref" / "ep20" / "credits.json"
+EP20_CREDIT = (json.loads(_EP20_CREDITS.read_text(encoding="utf-8"))
+               if _EP20_CREDITS.exists() else {})
+
+
+def ep20_credit(name):
+    """`ref/ep20/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if not name.startswith("ep20/"):
+        return None
+    m = re.fullmatch(r"ep20/fb_(c[0-9a-f]{3}(?:~t)?)\.jpg", name)     # 映像のひかえの静止画＝出典は映像と同じ（19本目 ⑤b-2 の型）
+    if m:
+        import footage as _FO
+        u = _FO.USE.get(m.group(1))
+        return _FO.CLIPS[u["clip"]]["credit"] if u else None
+    return EP20_CREDIT.get(name)
+
+
+# ══════════════════════════════════════════════════════════
 #  18本目（スレッシャー号のリメイク）── `ref/ep18/`（2026-10-04 ⑤b-7a）
 # ══════════════════════════════════════════════════════════
 #   ep18/<欄の名>.jpg … 写真（すべて米海軍の職務著作＝PD：NARA 289-T・428-N・記録映画 85185 のコマ・Commons の PD US Navy）
@@ -1030,7 +1056,7 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
+    cr = (ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
           or ep14_credit(spec["photo"])
           or ep13_credit(spec["photo"])
           or ep12_credit(spec["photo"])

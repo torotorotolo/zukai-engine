@@ -58,65 +58,25 @@ sys.stdout.reconfigure(encoding="utf-8")
 #    **空にした**。selftest の見本 `tools/fixture_ep18.py`（GATES["check_axis"]・値は1つも変えていない＝git の `2d627a2`）。19本目の値は、軸の型を
 #    初めて使う ⑤b のチャットで、値と頁を ref/ep19/src/ep19_pages.txt で当てて入れる（空のあいだ、軸のカットは「記録に無い値」で止まる＝fail closed）。
 #    型の側（LANE_COL・tier_pierce・分の小数・「ごろ」・日の目盛り）は残す
-# ✅ 2026-10-06（19本目 サーフサイド ⑤b-5）：19本目の値を入れた。原文＝ref/ep19/src/ep19_pages.txt（頁の番号は cuts/ss.REC_DOCS の通し番号＝
-#    TR p1NNN＝NIST の技術的知見の動画の語りの行 NNN・AC p20NN＝諮問委員会の資料の PDF 頁・GJ p30NN＝大陪審の報告の PDF 頁（印字の頁＋3）・
-#    MC18 p400N＝2018年10月の調査の報告・MIN18 p410N＝2018年11月15日の議事録の PDF 頁・A12 p5101＝町の頁・B01 p56NN＝GAO・B02 p57NN＝FEMA・
-#    B08 p5005＝NIST の発表 2024-11-21・A17 p70NN／A18 p71NN／A19 p72NN＝裁判所の命令と告知）。引いた原文は値の右の注
-REC_AXIS = {
-    # ── 建物の歩み（c210・c302・c318・c918・c919）
-    "1979": {"AC p2023"},                   # AC p.23 の年表「CTS Design & Construction 1979-1981」
-    "1981": {"AC p2023", "TR p1005", "GJ p3005", "TR p1278", "TR p1281"},   # 同「1979-1981」・TR0005「had stood … since 1981」・
-    #   GJ p.2「1981, making the 12-story condo 40 [year]s old」・TR0281「from the time construction was complete」・TR0278「before the building was even occupied」
-    "1996": {"TR p1441", "TR p1236"},       # TR0441「structural repairs and waterproofing were conducted in 1996 and '97」・TR0236「15 years after the building was constructed」（1981＋15）
-    "1997": {"TR p1441"},                   # 同「in 1996 and '97」
-    "2018-10-08": {"MC18 p4001", "MC18 p4007", "GJ p3020"},   # 調査の報告「October 8, 2018」・GJ p.17「as early as October 8, 2018」
-    "2021": {"MIN18 p4107", "GJ p3005"},    # 議事録 p.7「The 40 year certification for the building will be due in 2021」・GJ p.2 の40年の点検
-    "2021-06-24": {"A12 p5101", "GJ p3004"},   # 町の頁「the Champlain Towers South building collapse of June 24, 2021」・GJ p.1「June 24, 2021」
-    # ── 報告のあと（c401・c409・c415・c418）
-    "2018-11-15": {"MIN18 p4106", "GJ p3020"},  # 議事録「November 15, 2018 at 7:00 pm」・GJ p.17「a month later, on November 15, 2018」
-    "2021-04": {"GJ p3021"},                # GJ p.18「In April 2021, more than 29 months after the engineer's report was received」・「the April 2021 letter from the then Board president」
-    "2021-06-11": {"GJ p3021"},             # GJ p.18「Thirteen days after the Board was to hold a meeting to open the bids …, the building collapsed」（6月24日の13日前）
-    # ── 最後の3週間（c523・c622＝並び）。TR0156〜0160 のまとめ・TF p9061 のスライドの並べ方
-    "約3週間前": {"TR p1156", "TR p1016"},   # TR0156「approximately three weeks before the collapse」・TR0016「about three weeks before the collapse」
-    "約1週間前": {"TR p1157", "TR p1095"},   # TR0157「Two weeks later」（3週間前の2週間後）・TR0095「one week before the tower collapsed」
-    "約17時間前": {"TR p1158"},              # TR0158「Then 17 hours before and again 11 hours before the collapse」
-    "約9時間前": {"TR p1159"},               # TR0159「Then nine hours before the collapse, a water leak」
-    "約3時間前": {"TR p1160"},               # TR0160「just three hours before the tower collapsed」
-    "約9分前": {"TR p1161"},                 # TR0161「At approximately nine minutes before the tower collapsed, the last vehicle entered」
-    "約6分前": {"TR p1170"},                 # TR0170「At approximately six minutes prior to the tower collapsing」
-    "1:16:27": {"TR p1177"},                 # TR0177「at 1:16 and 27 seconds a.m.」（最初の 911 の電話）
-    "1:17:49": {"TR p1189"},                 # TR0189「at 1:17 and 49 seconds a.m.」（2回目の電話）
-    "1:22:14": {"TR p1347", "TR p1348"},     # TR0347「the rate of drop increased dramatically at about 1:22:14」
-    # ── 崩れる前の数分（c602・c603・c605・c608＝時刻の帯・基準 1:22 からの「約○分前」）
-    "1:22": {"A12 p5101"},                   # 町の頁＝崩落の時刻（台本 §1-5「the exact time of the collapse」）
-    "約-9": {"TR p1161"},                    # 上の「約9分前」と同じ（最後の車）
-    "約-9〜-8": {"TR p1167"},                # TR0167「approximately eight to nine minutes prior to the tower collapsing」（音）
-    "約-7": {"TR p1169"},                    # TR0169「Approximately seven minutes before the tower collapsed, the building's own fire alarm logged a trouble signal」
-    "約-6": {"TR p1170"},                    # 上の「約6分前」と同じ（地上の駐車場）
-    "約-5": {"TR p1181", "TR p1183"},        # TR0181「approximately five minutes prior」・TR0183「from south to north, one bay at a time」
-    "1:17:55": {"TR p1190"},                 # TR0190「a few seconds later at 1:17 and 55 seconds a.m.」（火災報知器の見張りの会社）
-    # ── 捜索と調査（c714・c719）
-    "2021-07-20": {"A12 p5101"},             # 町の頁「8:03p.m., the exact time when the final person was recovered on July 20, 2021」
-    "2021-06-25": {"B02 p5702", "B08 p5005"},   # FEMA「On June 25, NIST initially deployed a team of six scientists and engineers」・B08「arrived in Surfside on June 25, 2021」
-    "2021-06-30": {"B02 p5702", "B01 p5605", "B08 p5005"},   # FEMA「On June 30, the agency announced」・GAO「On June 30, 2021, NIST announced」
-    "2022-01-28": {"B08 p5005"},             # B08「when the evidence custody and control transferred to NIST on Jan. 28, 2022」
-    # ── 決まり（ca20）
-    "1989": {"AC p2075", "AC p2076"},        # AC p.75・76「Starting in 1989, versions of the building code for structural concrete required structural integrity reinforcement」
-    "2025": {"AC p2076"},                    # AC p.76「The current structural integrity provisions in ACI 318-25」（318-25＝2025年の版）
-    # ── 裁判所（cc20）
-    "2022-06-01": {"A18 p7104"},             # 売却を認める命令「DONE and ORDERED … on this 1st day of June, 2022」
-    "2022-06-24": {"A17 p7015"},             # 最終の命令「DONE and ORDERED … on this 24th day of June, 2022」
-    "2022-07-27": {"A19 p7201"},             # 売却の告知「he has concluded the sale」「Dated: July 27, 2022」
-}
+# 🔴 2026-10-08（20本目 日本航空123便のリメイク ⑤b-1・§0b）：19本目の表（REC_AXIS＝建物の歩み・報告のあと・最後の3週間の並び・崩れる前の数分・捜索と調査・
+#    決まり・裁判所／並び order の基準 ORDER_REF_MIN）も**空にした**。selftest の見本 `tools/fixture_ep19.py`（GATES["check_axis"]・値は1つも
+#    変えていない＝git の `70c7e51`）。20本目の値は、軸の型を初めて使う ⑤b のチャットで、値と頁を ref/ep20/src/ep20_pages.txt で当てて入れる
+#    （空のあいだ、軸のカットは「記録に無い値」で止まる＝fail closed）。型の側（LANE_COL・tier_pierce・分の小数・「ごろ」・日の目盛り・
+#    秒まである時刻・基準 ref からの「約○分前」・並び order の物差し `ORDER_UNIT`・`ORDER_NOTE`・`_order_checks`）は残す。
+#    頁の番号の書き方（TR p1NNN＝語りの行 NNN ほか）と引いた原文は移した注の側にある＝fixture_ep19 の REC_AXIS の上
+REC_AXIS = {}
 LANES_OK = set()
 REC_APPROX = set()      # 記録が about の時刻（「ごろ」が要る）
 LANE_COL = 20        # 🆕 18本目 ⑤b-5：2段の帯の札が軸の左端より左へ出てよい画素（段の名の列にかけない）
 REC_LANE = {}             # 2段の帯の記録ごとの段（値 → 段の名）
 CH_PAD = 12          # 🆕 16本目 ⑤b-6b：札と右上の章の札（jiko_style.chapter）のあいだに要る画素
 _REF = [None]        # 🆕 19本目 ⑤b-5：「約○分前」の基準（分）＝judge_fig が kw の ref を門番の読み方で読んで置く
-# 🆕 19本目 ⑤b-5：並び（order）の値を「基準からの秒」に読む（門番の側の読み方）。基準＝町の頁の崩落の時刻 1:22（A12）
+# 🆕 19本目 ⑤b-5：並び（order）の値を「基準からの秒」に読む（門番の側の読み方＝型なので残す）
 ORDER_UNIT = {"週間": 7 * 86400, "日": 86400, "時間": 3600, "分": 60}
-ORDER_REF_MIN = 82          # 1:22
+# 🔴 2026-10-08（20本目 ⑤b-1・§0b）：並びの基準の時刻（分）は記録の値（19本目＝町の頁の崩落の時刻 1:22＝82・A12）＝見本 `tools/fixture_ep19.py`
+#    （GATES["check_axis"]）へ移して空（None）にした。20本目で時計の時刻を含む並び（"1:16:27" の形）を使うときは、その回の基準の分を入れる。
+#    空のあいだ、時計の時刻を含む並びは `_order_checks` が「基準が空」で止める（fail closed）。「約N週間前」「約N分前」だけの並びは基準を使わない
+ORDER_REF_MIN = None
 ORDER_NOTE = "間隔は時間に比例しない"     # 並びの note に要る断り
 
 
@@ -336,6 +296,9 @@ def _order_checks(m):
         if r:
             secs.append(-int(r[1]) * ORDER_UNIT[r[2]])
         elif c:
+            if ORDER_REF_MIN is None:      # 🆕 20本目 ⑤b-1：基準の表が空のあいだは止める（None を引き算して落ちない）
+                bad.append(f"並びの値「{s}」（時計の時刻）なのに基準の時刻 ORDER_REF_MIN が空（記録の表が空）")
+                return bad, n
             secs.append((int(c[1]) * 60 + int(c[2]) - ORDER_REF_MIN) * 60 + int(c[3] or 0))
         else:
             bad.append(f"並びの値「{s}」が読めない（約N週間前／約N時間前／約N分前／1:16:27）")
@@ -680,7 +643,20 @@ def _selftest_ep15():
 
 
 def selftest_ep19():
-    """🆕 2026-10-06（19本目 ⑤b-5）：秒まである時刻・基準からの「約○分前」・並び（order）の検算＝本番の表（19本目の REC_AXIS）で回す。
+    """🆕 2026-10-06（19本目 ⑤b-5）：秒まである時刻・基準からの「約○分前」・並び（order）の検算＝**見本 `fixture_ep19`（19本目の表）を差し込んで**回す。
+    ✅ 2026-10-08（20本目 ⑤b-1・§0b）：本番の表（この門番の REC_AXIS・ORDER_REF_MIN）は20本目の空の器にした＝19本目の値は
+       `fixture_ep19.GATES["check_axis"]`（15・16・18本目と同じ作り）。ss の側（REC_DOCS・AXI ほか）と GEO も19本目の見本になる＝落ちても終わっても
+       `restore()` で本番の値へ戻す（try/finally）。本体は `_selftest_ep19`。"""
+    import fixture_ep19
+    fixture_ep19.apply(sys.modules[__name__])
+    try:
+        return _selftest_ep19()
+    finally:
+        fixture_ep19.restore()
+
+
+def _selftest_ep19():
+    """19本目の検算の本体（`fixture_ep19` を差し込んだ中で呼ぶ）。
     正しい形が通り、記録・順・断り・型の幾何（約○分前の向き・秒・間隔・途切れの印・札の文字）を壊すと鳴ること。"""
     import axis as A
     ok = True
@@ -762,7 +738,8 @@ def selftest_ep19():
 
 
 def selftest():
-    # 🆕 2026-10-06（19本目 ⑤b-5）：先に19本目（本番の表）を検算する＝前の回の見本を差す前に
+    # 🆕 2026-10-06（19本目 ⑤b-5）：先に19本目を検算する＝前の回の見本を差す前に
+    #    （2026-10-08〜：19本目も見本 fixture_ep19 の表＝selftest_ep19 が差し込んで・終わったら戻す）
     ok = selftest_ep19()
     # 🆕 2026-10-04（18本目 ⑤b-5）：先に18本目を検算する＝前の回の見本を差す前に
     #    （2026-10-06〜：18本目も見本 fixture_ep18 の表＝selftest_ep18 が差し込んで・終わったら戻す）
