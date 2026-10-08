@@ -2240,3 +2240,101 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `pg3020` | c402 | 2021 | フロリダ州の公記録（郡の州検事局が公開） | マイアミ・デイド郡の大陪審 | miamidade_grandjury_2021spring_report_redacted.pdf PDF 20頁 |
 | `pg3021` | c407 c410 | 2021 | フロリダ州の公記録（郡の州検事局が公開） | マイアミ・デイド郡の大陪審 | miamidade_grandjury_2021spring_report_redacted.pdf PDF 21頁 |
 | `pg4007` | c310 | 2018 | サーフサイド町が公開した記録（フロリダ州の公記録） | モラビト社（構造技術者） | surfside_morabito_2018-10-08_structural_field_survey.pdf PDF 7頁 |
+
+## 日本航空123便のリメイク（1985-08-12・20本目）
+
+※2026-10-08（⑤b-2）。`qa_out/ep20_assets.py credits --write` が書く（手で直さない）。旧版の節は上の「日本航空123便（1985-08-12・JA8119）　※本番2本目」＝直さない（旧版は 10-05 に非公開）。
+
+### 0. 防衛庁記録（動く映像）
+- 防衛省・自衛隊『昭和60年防衛庁記録』（公式 YouTube modchannel・https://www.youtube.com/watch?v=LKrLJc4R0X8）＝頁の表示「クリエイティブ・コモンズ 著作権表示必須ライセンス」＝**CC BY 3.0**。焼くときの媒体は Wikimedia Commons の同じ映画（File:昭和６０年防衛庁記録.webm の 1080p 版）・手元の走査は YouTube の 1080p。
+- 使う区間＝c103（上空から見た墜落現場）・c104（ヘリの遠景）・c107（まつゆきのボートの前半）・c503（指揮所＋F-4〈昼の離陸〉）・c601（海の尾翼＋ボートの後半）＝`ref/ep20/eizou_build/bv_shots20.tsv`。改変＝切り出し（4:3 の中身だけ）・額装・再生速度・音なし
+- 🔴 使わない区間（`tools/footage.py` の NOGO）：新聞の切り抜き（第三者の著作物）・生存者の救出の寄り・担架と捜索・報道陣の顔
+
+### 1. 写真（報告書 62-2＝PDL1.0／JA8119 の3点＝CC BY 2.0・CC BY-SA 2.0・3.0／御巣鷹の尾根と慰霊の6点＝CC BY 3.0）
+- 報告書の写真・付図＝`ref/ja123/`（旧版の取り出し・縮小・ぼかし0.7・頁から切出）を束へ写した＝白黒のまま。PDL1.0 の条件＝出典と加工した旨（画面の出典「／縮小・切出」）
+- 🔴 **CC BY-SA の2点（J2・J3）は額装・無加工・色そのまま・上に重ねない・1点1カット**（`cuts/ss.check_frame_only`）。動きは額ごと（絵は切らない）
+- 🔴 **写真-124（c408）は地上の第三者の撮影＝引用**（額装・無加工・この1カットだけ・冒頭とサムネに使わない）
+- CC BY（J1・O1〜O6）は額・寄り・流しで端を切ることがある＝画面の出典に「改変：切出」。20本目は写真を原色で出す（色は変えない）
+- 撮影年＝映像方針で書いた副題の年（JA8119＝写真の題・daipresents の6点＝EXIF 2009-08-14 の朝）。副題に年の無い写真は「不明」
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `a1f001` | c803 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `a1f002` | c804 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `a1f003` | c808 c810 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `a1f004` | c821 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `a1p001` | c801 | 1978 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `a1p002` | c802 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `f001` | c208 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `f002` | c511 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `f004` | c202 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `f005` | c203 c217 c516 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `f008` | c311 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `f012` | c205 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `f013` | c524 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `f014` | c525 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `f019` | c420 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `f020` | c602 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `f021` | cb01 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `f027` | c409 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `f028` | c603 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `f032` | c623 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `f036` | c703 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `f037` | c718 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `j1_ja8119_chitose_1985` | c101 | 1985 | CC BY 2.0（Flickr の審査ずみ） | Dennis HKG（Flickr） | https://commons.wikimedia.org/wiki/File:Japan_Airlines_-_Boeing_747SR_-_JA8119_-_Sapporo_Chitose.jpg |
+| `j2_ja8119_haneda_19850303` | c201 | 1985 | CC BY-SA 2.0（Flickr の審査ずみ・VRTS の許諾確認） | Stuart Jessup（Flickr） | https://commons.wikimedia.org/wiki/File:BOEING_747SR-46,_JA8119_,_JAPAN_AIRLINES.jpg |
+| `j3_ja8119_itami_1984` | c721 | 1984 | CC BY-SA 3.0（GFDL 併記・自作） | Harcmac60（Wikimedia Commons） | https://commons.wikimedia.org/wiki/File:Japan_Airlines_B747SR-46_(JA8119)_at_Itami_Airport_in_1984.jpg |
+| `kz018` | cb06 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `o1_osutaka_trailhead` | c106 | 2009 | CC BY 3.0（Panoramio・信頼できる利用者の審査ずみ） | daipresents（Panoramio） | https://commons.wikimedia.org/wiki/File:御巣鷹の尾根・昇魂之碑_新登山道入り口_-_panoramio.jpg |
+| `o2_osutaka_stairs` | cc19 | 2009 | CC BY 3.0（Wikimedia Commons） | daipresents（Panoramio） | https://commons.wikimedia.org/wiki/File:2009年に作られた階段と手すり_-_panoramio.jpg |
+| `o3_shokon_no_hi` | cc05 | 2009 | CC BY 3.0（Wikimedia Commons） | daipresents（Panoramio） | https://commons.wikimedia.org/wiki/File:Narahara,_Ueno,_Tano_District,_Gunma_Prefecture_370-1617,_Japan_-_panoramio.jpg |
+| `o4_sign_r299` | cc01 | 2009 | CC BY 3.0（Wikimedia Commons） | daipresents（Panoramio） | https://commons.wikimedia.org/wiki/File:国道299号線_御巣鷹の尾根の標識_-_panoramio.jpg |
+| `o5_sign_p124` | cc16 | 2009 | CC BY 3.0（Wikimedia Commons） | daipresents（Panoramio） | https://commons.wikimedia.org/wiki/File:県道124号線_御巣鷹の尾根の標識_-_panoramio.jpg |
+| `o6_ireinosono` | cc08 | 2009 | CC BY 3.0（Wikimedia Commons） | daipresents（Panoramio） | https://commons.wikimedia.org/wiki/File:慰霊の園_慰霊塔_-_panoramio.jpg |
+| `p001` | c514 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p002` | c108 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p003` | c421 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p004` | c512 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p005` | c515 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p006` | c615 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p007` | c517 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p008` | c518 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p009` | c520 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p010` | c521 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p012` | c105 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p013` | c605 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p014` | c310 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p015` | c102 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p016` | c218 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p017` | c322 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p018` | c401 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p019` | c316 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p020` | c306 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p021` | c604 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p022` | c613 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p023` | c614 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p024` | c608 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p025` | c609 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p043` | c610 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p058` | c611 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p059` | c612 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p064` | c624 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p065` | c901 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p071` | c701 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p073` | c702 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p077` | c704 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p084` | c719 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p085` | c710 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p086` | c713 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p087` | c909 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p088` | c912 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p092` | c910 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p093` | c911 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p098` | ca01 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p109` | c706 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p110` | c707 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p115` | c709 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p116` | c715 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p119` | c717 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p123` | c716 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `p124` | c408 | 不明 | 引用（報告書の写真-124）（著作権法32条・第三者の写真） | 第三者（地上の撮影者・報告書に名前の表記なし） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |

@@ -537,7 +537,18 @@ def scene(cut, t, dur, lay, photos, meta):
         else:
             src = photos[cut]
             cam = meta[cut].get("cam")
-            if cam:
+            fmv = meta[cut].get("fmove")
+            if fmv:
+                # 🆕 20本目 ⑤b-2：**額ごと動かす**（`scene_jiko.fmove_at` の注）。絵は切らず（切ったあとの写真を丸ごと箱へ）・色はカットの
+                #    keep のまま（tone）・額の縁（3px・J.LINE）を動く箱に合わせて描く。額の中の寄り（k）・cam は使わない
+                bx, by, bw, bh = S.fmove_at(box, fmv, k)
+                X, Y = int(round(bx)), int(round(by))
+                Wd, Hd = max(1, int(round(bw))), max(1, int(round(bh)))
+                fr.paste(tone(src.resize((Wd, Hd), Image.LANCZOS), cut, meta), (X, Y))
+                ImageDraw.Draw(fr).rectangle((X - 4, Y - 4, X + Wd + 3, Y + Hd + 3), outline=_rgb(J.LINE) + (255,),
+                                             width=S.FRAME_SW)
+                ph = None
+            elif cam:
                 # 🔴 12本目から：カメラの型（パン・引き・2点移動）。寄り（k）は重ねない
                 cxb, cb, czm = cam_state(cam, k, bias, xb, zm)
                 ph = fit(src, box, 0.0, cb, cxb, czm)
@@ -1468,6 +1479,7 @@ def meta_of(idx):
                   "tail_black": S.chapter_tail(cid),        # 尻で暗転（次が扉）
                   "flash": (S.SPEC.get(cid) or {}).get("flash"),   # 閃光の秒（爆発の瞬間だけ）
                   "cam": (S.SPEC.get(cid) or {}).get("cam"),       # カメラの型
+                  "fmove": (S.SPEC.get(cid) or {}).get("fmove"),   # 🆕 20本目 ⑤b-2：額ごと動かす（scene_jiko.fmove_at）
                   "moves": v.get("moves") or [],            # 動く部品（drift・trace）
                   "intro": v.get("intro"),                  # 冒頭の写真（c104）・14本目から冒頭の絵（intro の illu）
                   "hl": v.get("hl"),                        # 🆕 18本目 ⑤c'：本の頁の上の印（c105 の1頁目）＝秒は scene_jiko が直した

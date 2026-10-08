@@ -1375,6 +1375,30 @@ def photo_box(spec):
     return (0, int(BAND_CY - h / 2), W, h)
 
 
+# 🆕 2026-10-08（20本目 ⑤b-2）：**額ごと動かす**（SPEC の `fmove`）＝絵は切らず色も変えず、**額の箱の位置と大きさだけ**を尺の中で
+#    動かす（映像方針 §5-3＝BY-SA の c201・c721 は額装・無加工・色そのまま・額ごと動かす／報告書の写真の「額ごと寄る」c102）。
+#    今までの作りは額装の写真を額の中で寄せる（`build_jiko.fit` の k＝端を約1.9% 切る）か、BY-SA なら止めていた（`meta_of` の frame_only）。
+#    書き方＝`fmove=dict(frm=(dx, dy, s), to=(dx, dy, s))`：dx・dy＝額の真ん中の基準の箱（`photo_box`）からのずれ（px）・
+#    s＝基準の箱に対する大きさ。緩急は `build_jiko.ease` と同じ余弦の半周。手で数を書かず `cuts/ss.fm("in"|"out"|"r"|"l"|"u"|"d")`。
+#    箱の各辺は緩急をかけた u の1次式＝いちばん外へ出るのは尺の頭か終わり＝門番 `check_fmove`（額の箱が画面の外・見出し・章の札・
+#    出典・字幕の帯にかからないか）は両端（と真ん中）で測れば足りる。額の縁（3px）は動く箱に合わせて `build_jiko` が毎コマ描く
+#    （`full_top` の rect は描かない）。⚠️ 額の中の寄り（k）・カメラ（cam）・頁の印（hl）とは一緒に書かない（門番が止める）
+FRAME_SW = 3            # 額の縁の太さ（下の `full_top` の rect と同じ）
+
+
+def fmove_at(box, fmv, u):
+    """額ごと動かすカットの、時刻 u（0〜1）の写真の箱 (x, y, w, h)＝実数。box＝基準の箱（photo_box）。"""
+    x, y, w, h = box
+    if not fmv:
+        return (float(x), float(y), float(w), float(h))
+    import math as _m
+    e = 0.5 - 0.5 * _m.cos(_m.pi * min(1.0, max(0.0, u)))
+    (dx0, dy0, s0), (dx1, dy1, s1) = fmv["frm"], fmv["to"]
+    dx, dy, s = dx0 + (dx1 - dx0) * e, dy0 + (dy1 - dy0) * e, s0 + (s1 - s0) * e
+    cx, cy = x + w / 2 + dx, y + h / 2 + dy
+    return (cx - w * s / 2, cy - h * s / 2, w * s, h * s)
+
+
 def full_bg():
     """全画面写真カットの地。**ここには何も置けない**（写真が全面で乗る）。"""
     return J.frame(W, H)
@@ -1392,9 +1416,10 @@ def full_top(cid, spec):
             g.append(J.scrim(1150, 0, W - 1150, H, "right", 0.62))
         else:
             g.append(J.scrim(0, 0, 770, H, "left", 0.62))
-    if spec.get("panel"):
+    if spec.get("panel") and not spec.get("fmove"):
         # ★額装の縁。**写真の外周1本だけ**。図解の罫と同じ色にして、
         #   「資料を1枚貼ってある」と読めるようにする（枠が無いと地に溶ける）。
+        #   🆕 20本目 ⑤b-2：額ごと動かすカット（fmove）の縁は動く箱に合わせて `build_jiko.scene` が毎コマ描く
         x, y, w, h = photo_box(spec)
         g.append(f'<rect x="{x - 3}" y="{y - 3}" width="{w + 6}" height="{h + 6}" '
                  f'fill="none" stroke="{J.LINE}" stroke-width="3"/>')

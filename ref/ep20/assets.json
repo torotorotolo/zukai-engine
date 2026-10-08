@@ -1,0 +1,2293 @@
+{
+ "a1f001": {
+  "code": "A1F1",
+  "file": "ref/ja123/a1f001.jpg",
+  "cut": "c803",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）別添1 付図-1／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   808
+  ],
+  "w": 1200,
+  "h": 808,
+  "md5": "c1b5c4364c6fc5319037ee368bb1af6d",
+  "src_md5": "c1b5c4364c6fc5319037ee368bb1af6d",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "a1f002": {
+  "code": "A1F2",
+  "file": "ref/ja123/a1f002.jpg",
+  "cut": "c804",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）別添1 付図-2／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   993,
+   1200
+  ],
+  "w": 993,
+  "h": 1200,
+  "md5": "4257daaf68200c9b7f6d8b53e82a4b58",
+  "src_md5": "4257daaf68200c9b7f6d8b53e82a4b58",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "a1f003": {
+  "code": "A1F3",
+  "file": "ref/ja123/a1f003.jpg",
+  "cut": "c808 c810",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）別添1 付図-3／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1071,
+   1200
+  ],
+  "w": 1071,
+  "h": 1200,
+  "md5": "902e3d883b0ffc51995dc11e1b187f67",
+  "src_md5": "902e3d883b0ffc51995dc11e1b187f67",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "a1f004": {
+  "code": "A1F4",
+  "file": "ref/ja123/a1f004.jpg",
+  "cut": "c821",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）別添1 付図-4／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   788
+  ],
+  "w": 1200,
+  "h": 788,
+  "md5": "0ef332f1e9ed60a2e298b607b7d5d630",
+  "src_md5": "0ef332f1e9ed60a2e298b607b7d5d630",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "a1p001": {
+  "code": "A1P1",
+  "file": "ref/ja123/a1p001.jpg",
+  "cut": "c801",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）別添1 写真-1／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   857,
+   1200
+  ],
+  "w": 857,
+  "h": 1200,
+  "md5": "155d7af2ae5b84b7052cc091686b7a6f",
+  "src_md5": "155d7af2ae5b84b7052cc091686b7a6f",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "a1p002": {
+  "code": "A1P2",
+  "file": "ref/ja123/a1p002.jpg",
+  "cut": "c802",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）別添1 写真-2／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   854
+  ],
+  "w": 1200,
+  "h": 854,
+  "md5": "68b5e99286155e11ff401547005df4b6",
+  "src_md5": "68b5e99286155e11ff401547005df4b6",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "f001": {
+  "code": "F1",
+  "file": "ref/ja123/f001.jpg",
+  "cut": "c208",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）付図-1／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   780
+  ],
+  "w": 1200,
+  "h": 780,
+  "md5": "35ad179857bee24fd15ebbf35b21558c",
+  "src_md5": "35ad179857bee24fd15ebbf35b21558c",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "f012": {
+  "code": "F12",
+  "file": "ref/ja123/f012.jpg",
+  "cut": "c205",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）付図-12／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   724
+  ],
+  "w": 1200,
+  "h": 724,
+  "md5": "f49e4f4cf4c86b5dc1800fd49f641ff0",
+  "src_md5": "f49e4f4cf4c86b5dc1800fd49f641ff0",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "f013": {
+  "code": "F13",
+  "file": "ref/ja123/f013.jpg",
+  "cut": "c524",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）付図-13／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   803
+  ],
+  "w": 1200,
+  "h": 803,
+  "md5": "a3393a703c0fec228291a7147666e06b",
+  "src_md5": "a3393a703c0fec228291a7147666e06b",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "f014": {
+  "code": "F14",
+  "file": "ref/ja123/f014.jpg",
+  "cut": "c525",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）付図-14／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   768
+  ],
+  "w": 1200,
+  "h": 768,
+  "md5": "dcd74f310fb01a0549fd80409a8671d0",
+  "src_md5": "dcd74f310fb01a0549fd80409a8671d0",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "f019": {
+  "code": "F19",
+  "file": "ref/ja123/f019.jpg",
+  "cut": "c420",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）付図-19／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   817
+  ],
+  "w": 1200,
+  "h": 817,
+  "md5": "684d9857a15798bfd845466a9ec23492",
+  "src_md5": "684d9857a15798bfd845466a9ec23492",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "f002": {
+  "code": "F2",
+  "file": "ref/ja123/f002.jpg",
+  "cut": "c511",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）付図-2／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   824
+  ],
+  "w": 1200,
+  "h": 824,
+  "md5": "cd99c04298c76670a2c26cbf6842b4ab",
+  "src_md5": "cd99c04298c76670a2c26cbf6842b4ab",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "f020": {
+  "code": "F20",
+  "file": "ref/ja123/f020.jpg",
+  "cut": "c602",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）付図-20／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   2480,
+   1605
+  ],
+  "w": 2480,
+  "h": 1605,
+  "md5": "066035850920dfbf5f30cca2f0aef3ef",
+  "src_md5": "066035850920dfbf5f30cca2f0aef3ef",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "f021": {
+  "code": "F21",
+  "file": "ref/ja123/f021.jpg",
+  "cut": "cb01",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）付図-21／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   982
+  ],
+  "w": 1200,
+  "h": 982,
+  "md5": "c948cac97d435db8a4f83efe92453799",
+  "src_md5": "c948cac97d435db8a4f83efe92453799",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "f027": {
+  "code": "F27",
+  "file": "ref/ja123/f027.jpg",
+  "cut": "c409",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）付図-27／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   937
+  ],
+  "w": 1200,
+  "h": 937,
+  "md5": "3819cc55c36fed81ab44a5185040a8bb",
+  "src_md5": "3819cc55c36fed81ab44a5185040a8bb",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "f028": {
+  "code": "F28",
+  "file": "ref/ja123/f028.jpg",
+  "cut": "c603",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）付図-28／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   851
+  ],
+  "w": 1200,
+  "h": 851,
+  "md5": "6f85db012bb705e7907a145ecc0eaa5c",
+  "src_md5": "6f85db012bb705e7907a145ecc0eaa5c",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "f032": {
+  "code": "F32",
+  "file": "ref/ja123/f032.jpg",
+  "cut": "c623",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）付図-32／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   730
+  ],
+  "w": 1200,
+  "h": 730,
+  "md5": "cf7403ab2bd95570a6feb37ea424aa3c",
+  "src_md5": "cf7403ab2bd95570a6feb37ea424aa3c",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "f036": {
+  "code": "F36",
+  "file": "ref/ja123/f036.jpg",
+  "cut": "c703",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）付図-36／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   764
+  ],
+  "w": 1200,
+  "h": 764,
+  "md5": "d791a02ef3e6e73859f4882ff6d4b872",
+  "src_md5": "d791a02ef3e6e73859f4882ff6d4b872",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "f037": {
+  "code": "F37",
+  "file": "ref/ja123/f037.jpg",
+  "cut": "c718",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）付図-37／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   1007
+  ],
+  "w": 1200,
+  "h": 1007,
+  "md5": "fa7440193604955a5761171ef8aa223f",
+  "src_md5": "fa7440193604955a5761171ef8aa223f",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "f004": {
+  "code": "F4",
+  "file": "ref/ja123/f004.jpg",
+  "cut": "c202",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）付図-4／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   900
+  ],
+  "w": 1200,
+  "h": 900,
+  "md5": "c47818bd215daa3923a37ae8cf3d005a",
+  "src_md5": "c47818bd215daa3923a37ae8cf3d005a",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "f005": {
+  "code": "F5",
+  "file": "ref/ja123/f005.jpg",
+  "cut": "c203 c217 c516",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）付図-5／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   2310,
+   1605
+  ],
+  "w": 2310,
+  "h": 1605,
+  "md5": "c5bb3efdf068ec1e98016550c5cf9b7a",
+  "src_md5": "c5bb3efdf068ec1e98016550c5cf9b7a",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "f008": {
+  "code": "F8",
+  "file": "ref/ja123/f008.jpg",
+  "cut": "c311",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）付図-8／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   841
+  ],
+  "w": 1200,
+  "h": 841,
+  "md5": "cc3c96ed9b59d8a1852069f0c4eeb21e",
+  "src_md5": "cc3c96ed9b59d8a1852069f0c4eeb21e",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "j1_ja8119_chitose_1985": {
+  "code": "J1",
+  "file": "ref/ep20/photo/j1_ja8119_chitose_1985.jpg",
+  "cut": "c101",
+  "credit": "出典：Dennis HKG（Flickr）／CC BY 2.0／改変：切出",
+  "who": "Dennis HKG（Flickr）",
+  "note": "撮影＝1985年・札幌千歳（題と説明）。説明「家族の旅行のアルバムで見つけた」＝撮った人の名は不明。機首の正面＝機体記号は写っていない（名乗りは題と説明）。ターミナルの窓ごし（窓枠の黒い線）。c101 とサムネの地（承認①）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1600,
+   1066
+  ],
+  "w": 1600,
+  "h": 1066,
+  "md5": "aba0717e54ac948013343e410c272b4e",
+  "src_md5": "aba0717e54ac948013343e410c272b4e",
+  "lic": "CC BY 2.0",
+  "frame": false,
+  "ground": "Flickr の審査ずみ",
+  "url": "https://commons.wikimedia.org/wiki/File:Japan_Airlines_-_Boeing_747SR_-_JA8119_-_Sapporo_Chitose.jpg",
+  "blur": []
+ },
+ "j2_ja8119_haneda_19850303": {
+  "code": "J2",
+  "file": "ref/ep20/photo/j2_ja8119_haneda_19850303.jpg",
+  "cut": "c201",
+  "credit": "出典：Stuart Jessup（Flickr）／CC BY-SA 2.0／改変なし",
+  "who": "Stuart Jessup（Flickr）",
+  "note": "1985-03-03・羽田（題）。後部胴体に JA8119 の字。🔴 BY-SA＝額装・無加工・色そのまま・上に重ねない・額ごと動かす。2.0 は違反を直しても権利が戻る定めなし＝1度で正しく",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   2302,
+   1409
+  ],
+  "w": 2302,
+  "h": 1409,
+  "md5": "2a69887c14c249430f8b1e89713161e2",
+  "src_md5": "2a69887c14c249430f8b1e89713161e2",
+  "lic": "CC BY-SA 2.0",
+  "frame": false,
+  "ground": "Flickr の審査ずみ・VRTS の許諾確認",
+  "url": "https://commons.wikimedia.org/wiki/File:BOEING_747SR-46,_JA8119_,_JAPAN_AIRLINES.jpg",
+  "blur": []
+ },
+ "j3_ja8119_itami_1984": {
+  "code": "J3",
+  "file": "ref/ep20/photo/j3_ja8119_itami_1984.jpg",
+  "cut": "c721",
+  "credit": "出典：Harcmac60（Wikimedia Commons）／CC BY-SA 3.0／改変なし",
+  "who": "Harcmac60（Wikimedia Commons）",
+  "note": "1984年の早春ごろ・伊丹に着陸（逆噴射）。後部胴体に JA8119 の字。🔴 BY-SA＝額装・無加工",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   2733,
+   1677
+  ],
+  "w": 2733,
+  "h": 1677,
+  "md5": "f819c32c2e9425a9a58c5e56ac957734",
+  "src_md5": "f819c32c2e9425a9a58c5e56ac957734",
+  "lic": "CC BY-SA 3.0",
+  "frame": false,
+  "ground": "GFDL 併記・自作",
+  "url": "https://commons.wikimedia.org/wiki/File:Japan_Airlines_B747SR-46_(JA8119)_at_Itami_Airport_in_1984.jpg",
+  "blur": []
+ },
+ "kz018": {
+  "code": "K-kz018",
+  "file": "ref/ja123/kz018.png",
+  "cut": "cb06",
+  "credit": "出典：運輸安全委員会 事故調査報告書についての解説（62-2 JA8119）図18／切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   888,
+   817
+  ],
+  "w": 888,
+  "h": 817,
+  "md5": "50abe95f8545ba330392225751ddd4be",
+  "src_md5": "e814f8e0fdd62612d7a6c910b910d3c9",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "o1_osutaka_trailhead": {
+  "code": "O1",
+  "file": "ref/ep20/photo/o1_osutaka_trailhead.jpg",
+  "cut": "c106",
+  "credit": "出典：daipresents（Panoramio）／CC BY 3.0／改変：切出",
+  "who": "daipresents（Panoramio）",
+  "note": "「御巣鷹の尾根・昇魂之碑 新登山道入り口」＝登山道の札・小さな祠・案内板。人なし（640px）。撮影＝EXIF 2009-08-14 08:01（daipresents の6点は同じ朝 7:16〜8:23・Panoramio の登録 2010-03-21）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1600,
+   1200
+  ],
+  "w": 1600,
+  "h": 1200,
+  "md5": "6c502f05cd4dd3e0003ec528fdbc9575",
+  "src_md5": "6c502f05cd4dd3e0003ec528fdbc9575",
+  "lic": "CC BY 3.0",
+  "frame": false,
+  "ground": "Panoramio・信頼できる利用者の審査ずみ",
+  "url": "https://commons.wikimedia.org/wiki/File:御巣鷹の尾根・昇魂之碑_新登山道入り口_-_panoramio.jpg",
+  "blur": []
+ },
+ "o2_osutaka_stairs": {
+  "code": "O2",
+  "file": "ref/ep20/photo/o2_osutaka_stairs.jpg",
+  "cut": "cc19",
+  "credit": "出典：daipresents（Panoramio）／CC BY 3.0／改変：切出",
+  "who": "daipresents（Panoramio）",
+  "note": "「2009年に作られた階段と手すり」＝尾根へ上る登山道。人なし（640px）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1600,
+   1200
+  ],
+  "w": 1600,
+  "h": 1200,
+  "md5": "2ad5fa96a7c2fd61b604d7b070ab2bdc",
+  "src_md5": "2ad5fa96a7c2fd61b604d7b070ab2bdc",
+  "lic": "CC BY 3.0",
+  "frame": false,
+  "ground": "Wikimedia Commons",
+  "url": "https://commons.wikimedia.org/wiki/File:2009年に作られた階段と手すり_-_panoramio.jpg",
+  "blur": []
+ },
+ "o3_shokon_no_hi": {
+  "code": "O3",
+  "file": "ref/ep20/photo/o3_shokon_no_hi.jpg",
+  "cut": "cc05",
+  "credit": "出典：daipresents（Panoramio）／CC BY 3.0／改変：切出",
+  "who": "daipresents（Panoramio）",
+  "note": "昇魂之碑（碑の字が読める）・鐘・花の並んだ階段・奥に観音像。Commons の分類「August 2009 in Gunma prefecture」。人なし（640px）＝BY-SA の昇魂之碑（nattou 2010・寄せ書きの札が並ぶ）の代わり",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1600,
+   1200
+  ],
+  "w": 1600,
+  "h": 1200,
+  "md5": "581fba81d1dc78b68add549ab2a48b5f",
+  "src_md5": "581fba81d1dc78b68add549ab2a48b5f",
+  "lic": "CC BY 3.0",
+  "frame": false,
+  "ground": "Wikimedia Commons",
+  "url": "https://commons.wikimedia.org/wiki/File:Narahara,_Ueno,_Tano_District,_Gunma_Prefecture_370-1617,_Japan_-_panoramio.jpg",
+  "blur": []
+ },
+ "o4_sign_r299": {
+  "code": "O4",
+  "file": "ref/ep20/photo/o4_sign_r299.jpg",
+  "cut": "cc01",
+  "credit": "出典：daipresents（Panoramio）／CC BY 3.0／改変：切出",
+  "who": "daipresents（Panoramio）",
+  "note": "国道299号の案内標識「← 御巣鷹の尾根 Osutaka no one」と山並み。人なし",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1600,
+   1200
+  ],
+  "w": 1600,
+  "h": 1200,
+  "md5": "5c18da926ceec7f08280371be817f2d1",
+  "src_md5": "5c18da926ceec7f08280371be817f2d1",
+  "lic": "CC BY 3.0",
+  "frame": false,
+  "ground": "Wikimedia Commons",
+  "url": "https://commons.wikimedia.org/wiki/File:国道299号線_御巣鷹の尾根の標識_-_panoramio.jpg",
+  "blur": []
+ },
+ "o5_sign_p124": {
+  "code": "O5",
+  "file": "ref/ep20/photo/o5_sign_p124.jpg",
+  "cut": "cc16",
+  "credit": "出典：daipresents（Panoramio）／CC BY 3.0／改変：切出",
+  "who": "daipresents（Panoramio）",
+  "note": "県道124号の案内標識「御巣鷹の尾根 Osutakanoone ←」。人なし",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1600,
+   1200
+  ],
+  "w": 1600,
+  "h": 1200,
+  "md5": "f481a6a8dc0bad8d5116840abbf2d1a7",
+  "src_md5": "f481a6a8dc0bad8d5116840abbf2d1a7",
+  "lic": "CC BY 3.0",
+  "frame": false,
+  "ground": "Wikimedia Commons",
+  "url": "https://commons.wikimedia.org/wiki/File:県道124号線_御巣鷹の尾根の標識_-_panoramio.jpg",
+  "blur": []
+ },
+ "o6_ireinosono": {
+  "code": "O6",
+  "file": "ref/ep20/photo/o6_ireinosono.jpg",
+  "cut": "cc08",
+  "credit": "出典：daipresents（Panoramio）／CC BY 3.0／改変：切出",
+  "who": "daipresents（Panoramio）",
+  "note": "群馬県上野村「慰霊の園」の慰霊塔（合掌の形の2本の柱）と花。人なし（640px）＝BY-SA の上野村の施設（Cubical quad 2013）の代わり。Commons の分類「Japan Airlines Flight 123 memorials」",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1600,
+   1200
+  ],
+  "w": 1600,
+  "h": 1200,
+  "md5": "ea5b0befcfc943b8bcf2bb011bd1374d",
+  "src_md5": "ea5b0befcfc943b8bcf2bb011bd1374d",
+  "lic": "CC BY 3.0",
+  "frame": false,
+  "ground": "Wikimedia Commons",
+  "url": "https://commons.wikimedia.org/wiki/File:慰霊の園_慰霊塔_-_panoramio.jpg",
+  "blur": []
+ },
+ "p001": {
+  "code": "P1",
+  "file": "ref/ja123/p001.jpg",
+  "cut": "c514",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-1／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   822,
+   1200
+  ],
+  "w": 822,
+  "h": 1200,
+  "md5": "00c2da0a838c9e596f748f984710f654",
+  "src_md5": "00c2da0a838c9e596f748f984710f654",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p010": {
+  "code": "P10",
+  "file": "ref/ja123/p010.jpg",
+  "cut": "c521",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-10／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   883,
+   1200
+  ],
+  "w": 883,
+  "h": 1200,
+  "md5": "b40cfa249fcff0796b58e61e2c180257",
+  "src_md5": "b40cfa249fcff0796b58e61e2c180257",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p109": {
+  "code": "P109",
+  "file": "ref/ja123/p109.jpg",
+  "cut": "c706",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-109／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   894
+  ],
+  "w": 1200,
+  "h": 894,
+  "md5": "ec03451f5c03fbfea27d9dfe9b4ea8ba",
+  "src_md5": "ec03451f5c03fbfea27d9dfe9b4ea8ba",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p110": {
+  "code": "P110",
+  "file": "ref/ja123/p110.jpg",
+  "cut": "c707",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-110／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   912
+  ],
+  "w": 1200,
+  "h": 912,
+  "md5": "b2ef9c032a1687c4b960fee13157e9aa",
+  "src_md5": "b2ef9c032a1687c4b960fee13157e9aa",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p115": {
+  "code": "P115",
+  "file": "ref/ja123/p115.jpg",
+  "cut": "c709",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-115／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   831
+  ],
+  "w": 1200,
+  "h": 831,
+  "md5": "4ab95feed256c61b80aa982377e5a384",
+  "src_md5": "4ab95feed256c61b80aa982377e5a384",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p116": {
+  "code": "P116",
+  "file": "ref/ja123/p116.jpg",
+  "cut": "c715",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-116／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   815
+  ],
+  "w": 1200,
+  "h": 815,
+  "md5": "684d04753985b63b17e0887c5bc622ea",
+  "src_md5": "684d04753985b63b17e0887c5bc622ea",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p119": {
+  "code": "P119",
+  "file": "ref/ja123/p119.jpg",
+  "cut": "c717",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-119／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   863
+  ],
+  "w": 1200,
+  "h": 863,
+  "md5": "9f1b616ac14e552dec2dca7579d5adac",
+  "src_md5": "9f1b616ac14e552dec2dca7579d5adac",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p012": {
+  "code": "P12",
+  "file": "ref/ja123/p012.jpg",
+  "cut": "c105",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-12／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   860
+  ],
+  "w": 1200,
+  "h": 860,
+  "md5": "26887cbc5cf395b1980281195eb5d742",
+  "src_md5": "26887cbc5cf395b1980281195eb5d742",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p123": {
+  "code": "P123",
+  "file": "ref/ja123/p123.jpg",
+  "cut": "c716",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-123／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   828
+  ],
+  "w": 1200,
+  "h": 828,
+  "md5": "7fd8f0f9967ff9361275cde0b39665cf",
+  "src_md5": "7fd8f0f9967ff9361275cde0b39665cf",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p124": {
+  "code": "P124",
+  "file": "ref/ja123/p124.jpg",
+  "cut": "c408",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-124／縮小（引用）",
+  "who": "第三者（地上の撮影者・報告書に名前の表記なし）",
+  "note": "地上の第三者の撮影（報告書に名前の表記なし）＝引用（額装・無加工・c408 だけ・冒頭とサムネに使わない）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   817
+  ],
+  "w": 1200,
+  "h": 817,
+  "md5": "28b2990eab63c3ab983989269a041c44",
+  "src_md5": "28b2990eab63c3ab983989269a041c44",
+  "lic": "引用（報告書の写真-124）",
+  "frame": true,
+  "ground": "著作権法32条・第三者の写真",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p013": {
+  "code": "P13",
+  "file": "ref/ja123/p013.jpg",
+  "cut": "c605",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-13／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   838
+  ],
+  "w": 1200,
+  "h": 838,
+  "md5": "2091f846b3e2489d5e0db831ff0b8d44",
+  "src_md5": "2091f846b3e2489d5e0db831ff0b8d44",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p014": {
+  "code": "P14",
+  "file": "ref/ja123/p014.jpg",
+  "cut": "c310",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-14／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   838
+  ],
+  "w": 1200,
+  "h": 838,
+  "md5": "a204fac33068b7d56c7f9f05fa6dc875",
+  "src_md5": "a204fac33068b7d56c7f9f05fa6dc875",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p015": {
+  "code": "P15",
+  "file": "ref/ja123/p015.jpg",
+  "cut": "c102",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-15／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   860
+  ],
+  "w": 1200,
+  "h": 860,
+  "md5": "3cc8ec11f54f55eb6bfa4dee8b007e24",
+  "src_md5": "3cc8ec11f54f55eb6bfa4dee8b007e24",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p016": {
+  "code": "P16",
+  "file": "ref/ja123/p016.jpg",
+  "cut": "c218",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-16／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   867
+  ],
+  "w": 1200,
+  "h": 867,
+  "md5": "1d79738c3477999b44caac3a73469a2f",
+  "src_md5": "1d79738c3477999b44caac3a73469a2f",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p017": {
+  "code": "P17",
+  "file": "ref/ja123/p017.jpg",
+  "cut": "c322",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-17／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   844,
+   1200
+  ],
+  "w": 844,
+  "h": 1200,
+  "md5": "86e0e0905524c6d7746a9c08e3ff0afe",
+  "src_md5": "86e0e0905524c6d7746a9c08e3ff0afe",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p018": {
+  "code": "P18",
+  "file": "ref/ja123/p018.jpg",
+  "cut": "c401",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-18／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   860
+  ],
+  "w": 1200,
+  "h": 860,
+  "md5": "e3ffc143b86aa5e95c1f24c94025059f",
+  "src_md5": "e3ffc143b86aa5e95c1f24c94025059f",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p019": {
+  "code": "P19",
+  "file": "ref/ja123/p019.jpg",
+  "cut": "c316",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-19／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   848,
+   1200
+  ],
+  "w": 848,
+  "h": 1200,
+  "md5": "aaae297bae84cbeeff3fb59543057c90",
+  "src_md5": "aaae297bae84cbeeff3fb59543057c90",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p002": {
+  "code": "P2",
+  "file": "ref/ja123/p002.jpg",
+  "cut": "c108",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-2／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   844,
+   1200
+  ],
+  "w": 844,
+  "h": 1200,
+  "md5": "6fe2f6276f7dec30d6b67daab8523a68",
+  "src_md5": "6fe2f6276f7dec30d6b67daab8523a68",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p020": {
+  "code": "P20",
+  "file": "ref/ja123/p020.jpg",
+  "cut": "c306",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-20／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   860
+  ],
+  "w": 1200,
+  "h": 860,
+  "md5": "273d352aa42340bae1a8e19556ea4b37",
+  "src_md5": "273d352aa42340bae1a8e19556ea4b37",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p021": {
+  "code": "P21",
+  "file": "ref/ja123/p021.jpg",
+  "cut": "c604",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-21／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   838
+  ],
+  "w": 1200,
+  "h": 838,
+  "md5": "1f5ba33e79f22f7419369a4f71a6ff67",
+  "src_md5": "1f5ba33e79f22f7419369a4f71a6ff67",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p022": {
+  "code": "P22",
+  "file": "ref/ja123/p022.jpg",
+  "cut": "c613",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-22／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   838
+  ],
+  "w": 1200,
+  "h": 838,
+  "md5": "6ac940003209bee97558d64f6e83dd27",
+  "src_md5": "6ac940003209bee97558d64f6e83dd27",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p023": {
+  "code": "P23",
+  "file": "ref/ja123/p023.jpg",
+  "cut": "c614",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-23／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   860
+  ],
+  "w": 1200,
+  "h": 860,
+  "md5": "bd3373616e91c4d8ac3dcc1d1f6d50fc",
+  "src_md5": "bd3373616e91c4d8ac3dcc1d1f6d50fc",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p024": {
+  "code": "P24",
+  "file": "ref/ja123/p024.jpg",
+  "cut": "c608",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-24／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   860
+  ],
+  "w": 1200,
+  "h": 860,
+  "md5": "ddea9378b94d59697e23f498d1c99ef6",
+  "src_md5": "ddea9378b94d59697e23f498d1c99ef6",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p025": {
+  "code": "P25",
+  "file": "ref/ja123/p025.jpg",
+  "cut": "c609",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-25／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   838
+  ],
+  "w": 1200,
+  "h": 838,
+  "md5": "c960fa3d1d3cbe6c6a159afce9bb34a1",
+  "src_md5": "c960fa3d1d3cbe6c6a159afce9bb34a1",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p003": {
+  "code": "P3",
+  "file": "ref/ja123/p003.jpg",
+  "cut": "c421",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-3／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   877,
+   1200
+  ],
+  "w": 877,
+  "h": 1200,
+  "md5": "cf26c22ecf00859be0a99fcdd03cb6e6",
+  "src_md5": "cf26c22ecf00859be0a99fcdd03cb6e6",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p004": {
+  "code": "P4",
+  "file": "ref/ja123/p004.jpg",
+  "cut": "c512",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-4／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   860,
+   1200
+  ],
+  "w": 860,
+  "h": 1200,
+  "md5": "900041c5beae51cb9bab7645f22146c8",
+  "src_md5": "900041c5beae51cb9bab7645f22146c8",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p043": {
+  "code": "P43",
+  "file": "ref/ja123/p043.jpg",
+  "cut": "c610",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-43／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   748
+  ],
+  "w": 1200,
+  "h": 748,
+  "md5": "6ed58e9fdd546bd0ecdf311a31639196",
+  "src_md5": "6ed58e9fdd546bd0ecdf311a31639196",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p005": {
+  "code": "P5",
+  "file": "ref/ja123/p005.jpg",
+  "cut": "c515",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-5／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   889
+  ],
+  "w": 1200,
+  "h": 889,
+  "md5": "18083fa49b1cd2d91cfdf3a9cb1d4e67",
+  "src_md5": "18083fa49b1cd2d91cfdf3a9cb1d4e67",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p058": {
+  "code": "P58",
+  "file": "ref/ja123/p058.jpg",
+  "cut": "c611",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-58／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   793
+  ],
+  "w": 1200,
+  "h": 793,
+  "md5": "3384236d0f8253d288d48308f7362411",
+  "src_md5": "3384236d0f8253d288d48308f7362411",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p059": {
+  "code": "P59",
+  "file": "ref/ja123/p059.jpg",
+  "cut": "c612",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-59／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   829
+  ],
+  "w": 1200,
+  "h": 829,
+  "md5": "610293d21b87246abd00240976ffa366",
+  "src_md5": "610293d21b87246abd00240976ffa366",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p006": {
+  "code": "P6",
+  "file": "ref/ja123/p006.jpg",
+  "cut": "c615",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-6／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   867
+  ],
+  "w": 1200,
+  "h": 867,
+  "md5": "ee7f76e251da95fd049f27530f1157f7",
+  "src_md5": "ee7f76e251da95fd049f27530f1157f7",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p064": {
+  "code": "P64",
+  "file": "ref/ja123/p064.jpg",
+  "cut": "c624",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-64／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   877,
+   1200
+  ],
+  "w": 877,
+  "h": 1200,
+  "md5": "0111943adf56d5f116cef12ff56c15f5",
+  "src_md5": "0111943adf56d5f116cef12ff56c15f5",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p065": {
+  "code": "P65",
+  "file": "ref/ja123/p065.jpg",
+  "cut": "c901",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-65／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   876
+  ],
+  "w": 1200,
+  "h": 876,
+  "md5": "e99b1fb8337880606fbbeb3f8aa653e5",
+  "src_md5": "e99b1fb8337880606fbbeb3f8aa653e5",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p007": {
+  "code": "P7",
+  "file": "ref/ja123/p007.jpg",
+  "cut": "c517",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-7／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   860
+  ],
+  "w": 1200,
+  "h": 860,
+  "md5": "a91778456eda5d6d1bbd6be3d6600078",
+  "src_md5": "a91778456eda5d6d1bbd6be3d6600078",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p071": {
+  "code": "P71",
+  "file": "ref/ja123/p071.jpg",
+  "cut": "c701",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-71／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   877
+  ],
+  "w": 1200,
+  "h": 877,
+  "md5": "e8331f628b885fb5c192d8464f7ed7fc",
+  "src_md5": "e8331f628b885fb5c192d8464f7ed7fc",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p073": {
+  "code": "P73",
+  "file": "ref/ja123/p073.jpg",
+  "cut": "c702",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-73／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   877
+  ],
+  "w": 1200,
+  "h": 877,
+  "md5": "e80a43b4c3545b9dd3c842f95a6aa78a",
+  "src_md5": "e80a43b4c3545b9dd3c842f95a6aa78a",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p077": {
+  "code": "P77",
+  "file": "ref/ja123/p077.jpg",
+  "cut": "c704",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-77／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   838
+  ],
+  "w": 1200,
+  "h": 838,
+  "md5": "be728ab40fa808ae514e8a4c8962dc7b",
+  "src_md5": "be728ab40fa808ae514e8a4c8962dc7b",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p008": {
+  "code": "P8",
+  "file": "ref/ja123/p008.jpg",
+  "cut": "c518",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-8／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   860
+  ],
+  "w": 1200,
+  "h": 860,
+  "md5": "41b9ab9227dd45c36af986ab73b7ddfd",
+  "src_md5": "41b9ab9227dd45c36af986ab73b7ddfd",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p084": {
+  "code": "P84",
+  "file": "ref/ja123/p084.jpg",
+  "cut": "c719",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-84／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   366
+  ],
+  "w": 1200,
+  "h": 366,
+  "md5": "faed3d7395168fd47db9bf7261e3bb9a",
+  "src_md5": "faed3d7395168fd47db9bf7261e3bb9a",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p085": {
+  "code": "P85",
+  "file": "ref/ja123/p085.jpg",
+  "cut": "c710",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-85／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   744
+  ],
+  "w": 1200,
+  "h": 744,
+  "md5": "adbc142da233f86d251e50b4ea88c2b9",
+  "src_md5": "adbc142da233f86d251e50b4ea88c2b9",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p086": {
+  "code": "P86",
+  "file": "ref/ja123/p086.jpg",
+  "cut": "c713",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-86／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   744
+  ],
+  "w": 1200,
+  "h": 744,
+  "md5": "6dfea4a272b999528d940b654e40fb46",
+  "src_md5": "6dfea4a272b999528d940b654e40fb46",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p087": {
+  "code": "P87",
+  "file": "ref/ja123/p087.jpg",
+  "cut": "c909",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-87／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   865
+  ],
+  "w": 1200,
+  "h": 865,
+  "md5": "eb1bc2259c0725eb72d758504d0367af",
+  "src_md5": "eb1bc2259c0725eb72d758504d0367af",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p088": {
+  "code": "P88",
+  "file": "ref/ja123/p088.jpg",
+  "cut": "c912",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-88／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   824
+  ],
+  "w": 1200,
+  "h": 824,
+  "md5": "c4765036147749a1c0572c811d319f15",
+  "src_md5": "c4765036147749a1c0572c811d319f15",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p009": {
+  "code": "P9",
+  "file": "ref/ja123/p009.jpg",
+  "cut": "c520",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-9／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   838
+  ],
+  "w": 1200,
+  "h": 838,
+  "md5": "e08a95c4cd6fecb90dcfdb1fa053625a",
+  "src_md5": "e08a95c4cd6fecb90dcfdb1fa053625a",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p092": {
+  "code": "P92",
+  "file": "ref/ja123/p092.jpg",
+  "cut": "c910",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-92／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   862,
+   1200
+  ],
+  "w": 862,
+  "h": 1200,
+  "md5": "da04f6069d4de8687606f10e956568db",
+  "src_md5": "da04f6069d4de8687606f10e956568db",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p093": {
+  "code": "P93",
+  "file": "ref/ja123/p093.jpg",
+  "cut": "c911",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-93／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   919,
+   1200
+  ],
+  "w": 919,
+  "h": 1200,
+  "md5": "fc47ff87fffd1f6d4ea4d39c7c5989cf",
+  "src_md5": "fc47ff87fffd1f6d4ea4d39c7c5989cf",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ },
+ "p098": {
+  "code": "P98",
+  "file": "ref/ja123/p098.jpg",
+  "cut": "ca01",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-98／縮小・切出",
+  "who": "運輸安全委員会（報告書 62-2・昭和62年）",
+  "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1200,
+   854
+  ],
+  "w": 1200,
+  "h": 854,
+  "md5": "d90bd76a56a93756465b889d9ff49f4b",
+  "src_md5": "d90bd76a56a93756465b889d9ff49f4b",
+  "lic": "PDL1.0",
+  "frame": false,
+  "ground": "運輸安全委員会 公共データ利用規約",
+  "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
+  "blur": []
+ }
+}
