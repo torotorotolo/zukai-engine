@@ -76,6 +76,100 @@ PLAN = {
 from illu20 import S6_REC as S6R  # noqa: E402  🆕 ⑤b-4：置き場 S6 の部品の出典（描く側と同じ文）
 
 SPEC = {
+    # ── 🆕 ⑤b-6b（2026-10-10）：模式図（`tools/mech20.py` の hyd の戻り・cover・faa・word・ans＝門番 check_mech の judge_m20）・
+    #    年表（axis＝check_axis）・並べ図（boxes＝check_boxes）。報告書 5.1（p129〜p133）・建議（前付け PDF6）・sources.md §8 ──
+    # cc02（3行）＝NTSB の勧告（A-85-133〜140＝8つ・1985年12月5日／13日＝p129）→ 尾翼の内部に急な圧力でも致命的に壊れない（ア）→
+    #   4系統あるすべての油圧系統が損傷しない（イ）。c308 の絵の戻り
+    "cc02": dict(
+        t="アメリカの勧告", s="NTSB（国家運輸安全委員会）",
+        fig=("m20", dict(view="hyd", start=dict(pipes="on"),
+                         steps=[dict(tag=dict(t="NTSB の8つの勧告", d="1985年12月", at="rec")),
+                                dict(state=dict(ask="on"), tag=dict(t="尾翼の中の急な圧力", at="tail", to="tail")),
+                                dict(state=dict(num="on"), tag=dict(t="4系統すべてが損傷しないように", at="all4", to="body4"))],
+                         rel=[dict(t="8つ（A-85-133〜A-85-140）", src="報告書 p129"), dict(t="1985年12月", src="報告書 p129（1985年12月5日・12月13日）"),
+                              dict(t="4系統", src="報告書 p129")],
+                         note="管の道すじは模式（ポンプはエンジンごと）", src=ss.src(["報告書 p129"]))),
+    ),
+    # cc03（2行）＝No.4 系統が垂直安定板へ入る上流にフューズ（p130 5.1.2(キ)・p131 5.1.3(イ)）→ 大量に漏れると流れを止め、昇降舵・補助翼・
+    #   スポイラの機能を確保できると考えられている（台本は「ヒューズ」）
+    "cc03": dict(
+        t="第4系統の部品", s="ボーイングの改修",
+        fig=("m20", dict(view="hyd", start=dict(pipes="on", num="on"),
+                         steps=[dict(state=dict(fuse="on"), tag=dict(t="ヒューズ", d="No.4 系統・垂直尾翼の手前", at="fuse", to="fuse")),
+                                # ⚠️ 門番 echo：「働きを残せる（考えられている）」は字幕の写し＝報告書の言葉（機能を確保できる）
+                                dict(state=dict(fuse="stop"), tag=dict(t="昇降舵・補助翼・スポイラ", d="機能を確保できる（考えられている）",
+                                                                      at="stop", to="ail"))],
+                         rel=[dict(t="No.4", src="報告書 p131")],
+                         note="管とヒューズの位置は模式", src=ss.src(["報告書 p130", "報告書 p131"]))),
+    ),
+    # cc04（3行）＝垂直尾翼の点検口にカバー（p130・p131）→ 強化型後部圧力隔壁（p131 5.1.3(オ)）→ 捜索救難の通信回線網・1986年8月7日の合同訓練（p133）
+    "cc04": dict(
+        t="尾翼と隔壁の対策", s="事故のあとの対策",
+        fig=("m20", dict(view="cover",
+                         steps=[dict(state=dict(cover="on"), tag=dict(t="点検口のカバー", at="cover", to="hole")),
+                                dict(state=dict(strong="on"), tag=dict(t="強化型の後部圧力隔壁", at="strong", to="bulk")),
+                                dict(tag=dict(t="捜索と救難の通信の網", d="1986年8月7日 合同訓練", at="net"))],
+                         rel=[dict(t="1986年8月7日", src="報告書 p133（昭和61年8月7日）")],
+                         note="点検口の位置と隔壁の線の太さは模式", src=ss.src(["報告書 p130", "報告書 p131", "報告書 p133"]))),
+    ),
+    # cc07（2行）＝建議の2つ（前付け PDF6）：乗組員の対応能力を高める方策 → 目視点検による亀裂の発見（言葉は建議の文の言葉）
+    "cc07": dict(
+        t="建議の2つ", s="1987年6月19日",
+        fig=("boxes", dict(view="row", slots=2, steps=[
+            dict(add=dict(k="item", t="乗組員の対応能力を高める方策", rec="建議 p6")),
+            dict(add=dict(k="item", t="目視点検による亀裂の発見", rec="建議 p6"))],
+            note="並びは建議の番号の順", src=ss.src(["建議 p6"])))),
+    # cc10（3行）＝アメリカの連邦航空局（FAA）は → 事故の教訓の頁に書いた → 継ぎ板の取り付けが難しく、板を分け、2つにして取り付けた（英語は原文のまま）
+    "cc10": dict(
+        t="アメリカ連邦航空局の頁", s="2025年の更新",
+        fig=("m20", dict(view="faa",
+                         steps=[dict(), dict(state=dict(body="on")), dict(state=dict(hl="on"))],
+                         note="頁の見た目は模式（文は原文のまま・続きは省いた）", src=ss.src(["FAA p1"]))),
+    ),
+    # cc11（2行）＝2024年9月からボーイングも自社サイトに同じ趣旨の説明 → 載せていた（産経新聞の報道）
+    "cc11": dict(
+        t="自社サイトの記述", s="報道から",
+        fig=("axis", dict(ss.AX_NEWS, steps=[
+            dict(add=ss.ax("boe24"), cur="2024-09"),
+            dict(add=ss.ax("pub"))],
+            note="日付は報道の月（日は書いていない）", src=ss.src(["産経 p1"])))),
+    # cc12（3行）＝2026年8月、記述の削除が分かる → 日本航空に謝罪（報道）→ 原因のくわしい説明は無い
+    "cc12": dict(
+        t="消えた説明", s="記事が伝えたこと",
+        fig=("axis", dict(ss.AX_NEWS, past=[ss.ax("boe24"), ss.ax("pub")], start=dict(cur="2024-09"), steps=[
+            dict(add=ss.ax("del26"), cur="2026-08"),
+            dict(), dict()],
+            note="日付は報道の月（日は書いていない）", src=ss.src(["産経 p1"])))),
+    # cc13（3行）＝聞き役 → 国土交通省は FAA とボーイングに問い合わせ・8月25日の会見 → 「準備ができ次第結果を公表したい」（言葉は画面に出さない）
+    "cc13": dict(
+        t="国の問い合わせ", s="会見で述べたこと",
+        fig=("axis", dict(ss.AX_NEWS, past=[ss.ax("boe24"), ss.ax("pub"), ss.ax("del26")], start=dict(cur="2026-08"), steps=[
+            dict(),
+            dict(add=ss.ax("min25"), cur="2026-08-25"),
+            dict()],
+            note="日付は会見と報道の記録", src=ss.src(["会見 p1", "産経 p1"])))),
+    # cc14（2行）＝2026年10月の時点で、その公表は見つかっていない（2026-10-08 の検索＝⑥で確かめ直す）→ 聞き役
+    "cc14": dict(
+        t="まだ出ていない公表", s="公表の確かめ（2026年10月8日）",
+        fig=("axis", dict(ss.AX_NEWS, past=[ss.ax("boe24"), ss.ax("pub"), ss.ax("del26"), ss.ax("min25")], start=dict(cur="2026-08-25"), steps=[
+            dict(add=ss.ax("now"), cur="2026-10"),
+            dict()],
+            note="右の端はこの動画を作った時点", src=ss.src(["検索 p1", "会見 p1"])))),
+    # cc15（2行）＝報告書は原因を「推定される」→ 断定できないが、ほぼ間違いない場合（解説 p26 の4つの言葉）
+    "cc15": dict(
+        t="原因の書き方", s="断定の度合い",
+        fig=("m20", dict(view="word",
+                         # ⚠️ 置き場の計算：右上の札から「推定される」へ引き出し線を引くと、矢印の上の端の「断定できる場合」を横切る＝札なし（枠だけ）
+                         steps=[dict(state=dict(pick="on")), dict(state=dict(mean="on"))],
+                         note="言葉は解説の4つ（並びは解説の順・矢印と枠は模式）", src=ss.src(["解説 p1026"]))),
+    ),
+    # cc18（2行）＝3つ目の問い：急減圧やミサイルの疑いには報告書と解説が答えた → 修理がなぜ誤ったかは公表を待つ（1つ目・2つ目は cc16・cc17）
+    "cc18": dict(
+        t="3つの問いの答え", s="冒頭の問いに戻る",
+        fig=("m20", dict(view="ans",
+                         steps=[dict(state=dict(q3a="on")), dict(state=dict(q3b="on"))],
+                         note="問いは冒頭の語りを短くした（札の形は模式）", src="")),
+    ),
     # ── 🆕 ⑤b-4（2026-10-08）：再現イラスト S6（`tools/illu20.py`・門番 check_illu ㉙）──
     # cc09（2行）＝前の再現 cb14（S7・上から）→ 横から＝合図（台本の画の欄の🔁）。指示と実際を左右に（作業の記録は無い＝札なし）
     "cc09": dict(fig=("illu", dict(

@@ -1969,7 +1969,38 @@ REC_M20 = dict(
     prob=dict(one=10.0, many=(14.0, 60.0), src="報告書 p100（10パーセント程度・14～60パーセント程度）"),
     two=dict(src="報告書 p105（隔壁が正規に製作されている場合、またその修理が適正に行われている場合には…妥当な点検方法）"),
     lav=dict(src="報告書 p103（客室最後部位置の化粧室・客室後部コートルーム）"),
-    assume=dict(hyd=("cut", "on"), thrust=("nose", "up"), rows=("bars", "on"), clen=("len", "on")))
+    # 🆕 ⑤b-6b（第9章〜終章）：解説 p2「客室の天井(座席20列目付近)に約0.135m2の穴」・p6「開口部から2m離れた場所に着座していたとします」・
+    #   p3「穴から少し離れると客室内での風はそれほど激しく吹かず」・p7「客室断面積を19.6m2とすると風速はほぼ10m/秒…風速は天井の上側で
+    #   大きく、座席付近ではこの値よりかなり小さくなる」（報告書 付録4 の引用）・p8「100mを10秒」・p9「概ね2分後には0°C、3分後には10°C、
+    #   5分後には20°C程度まで回復」「開口面積1.8m2を基準のケース」・p3 表2「B737-3H4…0.135m2…2.9秒」・p4「基準のケースでは約1.7秒…
+    #   緩やかな減圧時のケースでは約5.0秒」・p23（サイド・スキャン・ソナー）・p24「分解能…1.1m×1.3m」「5.5m×6.5m程度必要」・
+    #   p25「えい航高度 約1.5m・撮影幅 約1.5m」・p26「約25km2…4,500時間…1日6時間…750日」「認められる・推定される・考えられる・
+    #   可能性が考えられる」・報告書 p130「垂直尾翼点検孔へのカバー装着」・p131「No.4油圧系統が垂直安定板へ入る上流にフューズ」・
+    #   p126 4.1.7.3「20,000フィート以上の高度で…約18分間」・FAA の頁（sources.md §8＝2025年9月3日 更新の一文）
+    cab=dict(area=0.135, R=2.0, src="解説 p1002・p1006"),
+    flow=dict(src="解説 p1007（報告書 付録4＝天井の上側で大きく、座席付近ではかなり小さい）"),
+    run=dict(m=100.0, src="解説 p1008（100mを10秒）"),
+    temp=dict(pts=((2.0, 0.0), (3.0, 10.0), (5.0, 20.0)), src="解説 p1009（概ね2分後 0°C・3分後 10°C・5分後 20°C）"),
+    dect=dict(j123=(1.7, 5.0), b737=2.9, src="解説 p1003（表2）・p1004（1.7秒・5.0秒・約2.9秒）"),
+    holes=dict(j123=1.8, b737=0.135, src="解説 p1009（開口面積1.8m2を基準のケース）・p1002（約0.135m2）"),
+    dcam=dict(h=1.5, w=1.5, src="解説 p1025（えい航高度 約1.5m・撮影幅 約1.5m）"),
+    res=dict(cell=(1.1, 1.3), need=(5.5, 6.5), src="解説 p1024（分解能 1.1m×1.3m・5.5m×6.5m程度）"),
+    area=dict(km2=25.0, days=750.0, src="解説 p1026（約25km2・1日6時間・750日）"),
+    cover=dict(src="報告書 p130・p131（垂直尾翼点検孔へのカバー装着）"),
+    word=dict(rows=(("認められる", "断定できる場合"), ("推定される", "断定できないが、ほぼ間違いない場合"),
+                    ("考えられる", "可能性が高い場合"), ("可能性が考えられる", "可能性がある場合")), pick="推定される",
+              src="解説 p1026"),
+    faa=dict(sentence=("During the bulkhead repair, difficulty in installation of a splice plate resulted in the Boeing repair crew "
+                       "dividing the plate and installing it in two pieces - a deviation from the repair instructions that, when "
+                       "complete, with sealant applied on both fore and aft surfaces, had the same appearance as a correctly "
+                       "installed splice plate."),
+             hl="dividing the plate and installing it in two pieces", src="FAA の頁（2025年9月3日 更新・sources.md §8）"),
+    ans=dict(n=3, wait="公表を待つ"),
+    hyd_fuse=(4, 58.8, "報告書 p131（No.4油圧系統が垂直安定板へ入る上流にフューズ）・p140（付図-4＝垂直尾翼の根元）"),
+    alt_band=(20000.0, "報告書 p126（20,000フィート以上の高度で…約18分間飛行）"),
+    assume=dict(hyd=("cut", "on"), thrust=("nose", "up"), rows=("bars", "on"), clen=("len", "on")),
+    # 🆕 ⑤b-6b：報告書・解説が「考えられる」と書く段＝札に「考え」が要る（推定ではない）
+    think=dict(seats=("hyp", "on"), hyd=("fuse", "stop")))
 
 
 def _hms(s):
@@ -2046,6 +2077,28 @@ def judge_m20(f):
             need(s["q"] != "on" or s["many"] == "on", "① 筋：「？」は、確率の幅を見せてから")
         if view == "two":
             need(s["ok"] != "on" or s["pick"] == "on", "① 筋：妥当の印は、正しい作りの壁を示してから")
+        # 🆕 ⑤b-6b
+        if view == "cab":
+            need(s["flow"] == "off" or s["hole"] == "on", "① 筋：流れの矢印は、天井の穴を見せてから")
+            need(s["half"] != "on" or s["hole"] == "on", "① 筋：半球は、天井の穴を見せてから")
+            need(s["gauge"] != "lo" or s["hole"] == "on", "① 筋：気圧の針が下がるのは、穴が開いてから")
+            need(s["gauge"] == "off" or seq[0]["gauge"] != "off", "① 筋：気圧の計は頭（start）から出す（目盛りは基図）")
+        if view == "flow":
+            need(s["seat"] != "on" or s["air"] == "on", "① 筋：座席のあたりの弱い風は、客室の平均の風を見せてから")
+        if view == "sonar":
+            need(s["echo"] != "on" or s["beam"] == "on", "① 筋：跳ね返りは、扇の音を出してから")
+        if view == "res":
+            need(s["need"] != "on" or s["cell"] == "on", "① 筋：見分けられる大きさは、1つの点を見せてから")
+        if view == "area":
+            need(s["rep"] != "on" or s["day"] == "on", "① 筋：くり返しは、1日に写せる広さを見せてから")
+        if view == "word":
+            need(s["mean"] != "on" or s["pick"] == "on", "① 筋：言葉の意味は、原因の言葉を示してから")
+        if view == "faa":
+            need(s["hl"] != "on" or s["body"] == "on", "① 筋：句の印は、英文を見せてから")
+        if view == "ans":
+            need(s["q3b"] != "on" or s["q3a"] == "on", "① 筋：3つ目の残りは、答えのある方を見せてから")
+        if view == "hyd":
+            need(s["fuse"] == "off" or s["pipes"] == "on", "① 筋：フューズは、管を見せてから")
     # ② 形（記録で照らす）
     if view == "seats":
         names = g["names"]
@@ -2224,6 +2277,90 @@ def judge_m20(f):
     if view == "lav":
         (la, lb), (ca, cb) = g["lav"], g["coat"]
         need(lb < g["bulk"] and lb >= cb and la >= ca, f"② 化粧室が客室のいちばん後ろ（隔壁の前）に無い（{R['lav']['src']}）")
+    # 🆕 ⑤b-6b
+    if view == "cab":
+        C_ = R["cab"]
+        if g["hole_area"] is not None:
+            need(abs(g["hole_area"] - C_["area"]) / C_["area"] < 0.02, f"② 穴の面積 {g['hole_area']:.3f}m2（記録 約{C_['area']}m2＝{C_['src']}）")
+        if g["half"]:
+            need(abs(g["half"]["R"] - C_["R"]) < 0.01, f"② 半球の半径 {g['half']['R']:.2f}m（記録 {C_['R']}m＝{C_['src']}）")
+            need(abs(g["half"]["d"] - C_["R"]) < 0.05, f"② 印の席と穴の間 {g['half']['d']:.2f}m（記録 {C_['R']}m）")
+        if g["flow"] and g["flow"]["far"] is not None:
+            need(g["flow"]["near"] >= 3.0 * g["flow"]["far"],
+                 f"② 矢印の長さ：穴の近く {g['flow']['near']:.0f}・離れた所 {g['flow']['far']:.0f}（離れると弱い＝解説 p1003）")
+        if any(s["gauge"] == "lo" for s in seq):
+            need(g["needle"]["lo"] < g["needle"]["hi"], "② 気圧の針が下がる向きに動かない")
+    if view == "flow":
+        for nm, arr in (("up", g["up"]), ("seat", g["seat"])):
+            for a, b in arr:
+                need(b > a and b < g["bulk_x"], f"② 客室の風の矢印（{nm}）が後ろの壁へ向いていない・壁を越える（{R['flow']['src']}）")
+        if g["up"] and g["seat"]:
+            lu = sum(b - a for a, b in g["up"]) / len(g["up"])
+            ls = sum(b - a for a, b in g["seat"]) / len(g["seat"])
+            need(lu >= 2.0 * ls, f"② 座席のあたりの矢印 {ls:.1f}m が天井の近く {lu:.1f}m と比べて弱くない（{R['flow']['src']}）")
+    if view == "run":
+        need(abs(g["m"] - R["run"]["m"]) < 0.5, f"② 走路の長さ {g['m']:.1f}m（記録 {R['run']['m']}m＝{R['run']['src']}）")
+        need(all(d < 0 for d in g["wind_dx"]), "② 風の向きが走る向きの逆（顔に当たる向き）でない")
+    if view == "temp" and g["dots"]:
+        fx, fy = _fit(g["xt"]), _fit(g["yt"])
+        got = [(round(fx(x), 2), round(fy(y), 2)) for x, y in g["dots"]]
+        want = list(R["temp"]["pts"])
+        need(len(got) == len(want) and all(abs(a - c) < 0.05 and abs(b - d) < 0.3 for (a, b), (c, d) in zip(got, want)),
+             f"② 温度の点 {got}（記録 {want}＝{R['temp']['src']}）")
+    if view == "dect":
+        fx = _fit(g["xt"])
+        if g["j123"]:
+            got = tuple(round(fx(x), 2) for x in g["j123"])
+            need(all(abs(a - b) < 0.03 for a, b in zip(got, R["dect"]["j123"])),
+                 f"② 123便の幅 {got}秒（記録 {R['dect']['j123']}＝{R['dect']['src']}）")
+        if g["b737"] is not None:
+            need(abs(fx(g["b737"]) - R["dect"]["b737"]) < 0.03, f"② 2009年の例 {fx(g['b737']):.2f}秒（記録 約{R['dect']['b737']}＝{R['dect']['src']}）")
+    if view == "holes":
+        for nm, a in g["areas"].items():
+            need(abs(a - R["holes"][nm]) / R["holes"][nm] < 0.02, f"② 穴の面積（{nm}）{a:.3f}m2（記録 {R['holes'][nm]}＝{R['holes']['src']}）")
+    if view == "sonar" and g["fans"]:
+        (l0, l1), (r0, r1) = g["fans"]["l"], g["fans"]["r"]
+        need(abs(l0 - r0) < 0.5 and abs(l1 - r1) < 0.5, f"② 扇が左右で対称でない（左 {l0:.0f}〜{l1:.0f}度・右 {r0:.0f}〜{r1:.0f}度＝解説 p1023 図17）")
+    if view == "dcam":
+        if g["h"] is not None:
+            need(abs(g["h"] - R["dcam"]["h"]) < 0.02, f"② カメラの高さ {g['h']:.2f}m（記録 約{R['dcam']['h']}m＝{R['dcam']['src']}）")
+        if g["w"] is not None:
+            need(abs(g["w"] - R["dcam"]["w"]) < 0.02, f"② 写る幅 {g['w']:.2f}m（記録 約{R['dcam']['w']}m＝{R['dcam']['src']}）")
+    if view == "res":
+        need(all(abs(a - b) < 0.01 for a, b in zip(g["cell"], R["res"]["cell"])),
+             f"② 1つの点 {g['cell']}m（記録 {R['res']['cell']}＝{R['res']['src']}）")
+        if g["need"]:
+            need(all(abs(a - b) < 0.05 for a, b in zip(g["need"], R["res"]["need"])),
+                 f"② 見分けられる大きさ {tuple(round(v, 2) for v in g['need'])}m（記録 {R['res']['need']}＝{R['res']['src']}）")
+    if view == "area":
+        need(abs(g["km2"] - R["area"]["km2"]) < 0.1, f"② 区域の広さ {g['km2']:.1f}km2（記録 約{R['area']['km2']}＝{R['area']['src']}）")
+        if g["day_km2"]:
+            d_ = g["km2"] / g["day_km2"]
+            need(abs(d_ - R["area"]["days"]) / R["area"]["days"] < 0.01, f"② 区域÷1日の広さ＝{d_:.0f}日（記録 {R['area']['days']:.0f}日）")
+    if view == "cover":
+        a, b = g["fin"]
+        need(a <= g["hole_x"] <= b, f"② 点検口 {g['hole_x']}m が垂直尾翼の根元（{a}〜{b}m）に無い（{R['cover']['src']}）")
+        if g["air0"] is not None:
+            need(g["air0"] > g["bulk_x"], "② 尾翼へ向かう空気が隔壁の後ろから出ていない")
+    if view == "word":
+        need(tuple(g["rows"]) == R["word"]["rows"], f"② 言葉の使い分けが記録と違う（{R['word']['src']}・言い換えない・順も）")
+        if g["pick"]:
+            need(g["pick"] == R["word"]["pick"], f"② 原因の言葉 {g['pick']}（記録＝{R['word']['pick']}＝{R['word']['src']}）")
+    if view == "faa" and g["lines"]:
+        body = " ".join(g["lines"]).replace(" …", "").strip()
+        need(R["faa"]["sentence"].startswith(body), f"② 英文が FAA の頁の一文と違う（原文のまま＝{R['faa']['src']}）")
+        if g["hl"]:
+            need(" ".join(g["hl"]) == R["faa"]["hl"], f"② 印を付けた句 {g['hl']} が記録の句と違う")
+    if view == "ans":
+        need(len(g["q"]) == R["ans"]["n"], f"② 問いの数 {len(g['q'])}（冒頭の問いは {R['ans']['n']} つ）")
+        if g["wait"]:
+            need(g["wait"] == R["ans"]["wait"], f"② 3つ目の残りの札「{g['wait']}」（記録＝{R['ans']['wait']}）")
+    if view == "hyd" and g.get("fuse"):
+        no, x = g["fuse"]
+        want_no, fin0, why = R["hyd_fuse"]
+        need(no == want_no and x < fin0 and x < g["fin_x0"], f"② フューズ No.{no}・{x}m（記録＝No.{want_no} が垂直安定板の手前＝{why}）")
+    if view == "alt" and g.get("band") is not None:
+        need(abs(g["band"] - R["alt_band"][0]) < 1.0, f"② 帯の高さ {g['band']:.0f}フィート（記録 {R['alt_band'][0]:.0f}＝{R['alt_band'][1]}）")
     # ③ 札の数・時刻・推定
     said = [r.get("t", "") for r in m["rel"]]
     for t in texts:
@@ -2238,6 +2375,9 @@ def judge_m20(f):
     fa, va = R["assume"].get(view, (None, None))
     if fa and any(s.get(fa) == va for s in seq):
         need(any("推定" in t for t in texts), "③ 推定で描いた段に「推定」の札が無い（報告書の推定＝ルール §5b-10）")
+    fa, va = R["think"].get(view, (None, None))          # 🆕 ⑤b-6b：「考えられる」の段
+    if fa and any(s.get(fa) == va for s in seq):
+        need(any("考え" in t for t in texts), "③ 報告書が「考えられる」と書く段に「考え」の札が無い（言い切らない）")
     for r in m["rel"]:
         need(bool(r.get("src")), f"③ rel「{r.get('t')}」に出どころ（src）が無い")
     return bad, n
@@ -2280,7 +2420,32 @@ def _selftest_m20(ok):
                   note=N),
         prob=dict(view="prob", steps=[dict(state=dict(one="on")), dict(state=dict(many="on", q="on"))], note=N),
         two=dict(view="two", steps=[dict(state=dict(pick="on")), dict(state=dict(ok="on"))], note=N),
-        lav=dict(view="lav", steps=[dict(state=dict(lav="on")), dict(state=dict(coat="on", bend="on"))], note=N))
+        lav=dict(view="lav", steps=[dict(state=dict(lav="on")), dict(state=dict(coat="on", bend="on"))], note=N),
+        # 🆕 ⑤b-6b
+        cab_half=dict(view="cab", start=dict(gauge="hi"), steps=[dict(state=dict(hole="on", gauge="lo")), dict(state=dict(half="on"))],
+                      note=N),
+        cab_flow=dict(view="cab", steps=[dict(state=dict(hole="on")), dict(state=dict(flow="near")), dict(state=dict(flow="all"))], note=N),
+        cab_warm=dict(view="cab", steps=[dict(state=dict(warm="on", mask="on")), dict(state=dict(fog="on"))], note=N),
+        flow=dict(view="flow", steps=[dict(state=dict(air="on")), dict(state=dict(seat="on"))], note=N),
+        run=dict(view="run", steps=[dict(state=dict(wind="on")), dict(state=dict(eye="on"))], note=N),
+        temp=dict(view="temp", steps=[dict(state=dict(drop="on")), dict(state=dict(pts="on"))], note=N),
+        dect=dict(view="dect", steps=[dict(state=dict(j123="on")), dict(state=dict(b737="on"))], note=N),
+        holes=dict(view="holes", steps=[dict(state=dict(j123="on", b737="on"))], note=N),
+        sonar=dict(view="sonar", steps=[dict(state=dict(beam="on")), dict(state=dict(echo="on"))], note=N),
+        dcam=dict(view="dcam", steps=[dict(state=dict(h="on")), dict(state=dict(w="on"))], note=N),
+        rov=dict(view="rov", steps=[dict(state=dict(ask="on")), dict(state=dict(rov="on"))], note=N),
+        res=dict(view="res", steps=[dict(state=dict(cell="on")), dict(state=dict(need="on"))], note=N),
+        area=dict(view="area", steps=[dict(state=dict(day="on")), dict(state=dict(rep="on", nog="on", end="on"))], note=N),
+        cover=dict(view="cover", steps=[dict(state=dict(cover="on")), dict(state=dict(strong="on"))], note=N),
+        word=dict(view="word", steps=[dict(state=dict(pick="on")), dict(state=dict(mean="on"))], note=N),
+        faa=dict(view="faa", steps=[dict(state=dict(body="on")), dict(state=dict(hl="on"))], note=N),
+        ans=dict(view="ans", steps=[dict(state=dict(q3a="on")), dict(state=dict(q3b="on"))], note=N),
+        hyd_fuse=dict(view="hyd", start=dict(pipes="on"), steps=[dict(state=dict(fuse="on")),
+                                                                 dict(state=dict(fuse="stop"), tag=dict(t="働きを残せる（考えられている）", at="stop"))],
+                      note=N),
+        alt_band=dict(view="alt", start=dict(pts="all"), steps=[dict(state=dict(band="on"))], note=N),
+        seats_hyp=dict(view="seats", start=dict(left="cop", right="cap"),
+                       steps=[dict(state=dict(hyp="on"), tag=dict(t="判断力などがある程度低下", d="報告書の考え", at="judge"))], note=N))
     for nm, kw in good.items():
         bad, n = judge("m20", kw)
         ok &= not bad
@@ -2328,7 +2493,35 @@ def _selftest_m20(ok):
             ("少なくとも1つの幅を 14〜50 で描く", "PB_MANY", (14.0, 50.0), "幅", "prob"),
             ("1つの亀裂を 20 で描く", "PB_ONE", 20.0, "1つの亀裂の確率", "prob"),
             ("正しい作りの壁に亀裂を描く", "TW_CRACKS", dict(a=3, b=9), "亀裂の印", "two"),
-            ("化粧室を隔壁の後ろに描く", "LV", dict(M.LV, lav=(58.0, 60.5)), "化粧室", "lav")):
+            ("化粧室を隔壁の後ろに描く", "LV", dict(M.LV, lav=(58.0, 60.5)), "化粧室", "lav"),
+            # 🆕 ⑤b-6b（描く側が実際に使う表を壊す）
+            ("天井の穴を 0.4m2 で描く", "CB_HOLE_A", 0.4, "穴の面積", "cab_half"),
+            ("半球を半径1mで描く", "CB_R", 1.0, "半球の半径", "cab_half"),
+            ("離れた所の矢印を穴の近くと同じ長さに描く", "CB_FAR", 150.0, "矢印の長さ", "cab_flow"),
+            ("座席のあたりの矢印を天井の近くと同じ長さに描く", "FLW_SEAT", dict(M.FLW_SEAT, L=5.2), "座席のあたり", "flow"),
+            ("走路を 80m で描く", "RN_M", 80.0, "走路の長さ", "run"),
+            ("風を走る向きに描く", "RN_WIND_DX", 1.0, "風の向き", "run"),
+            ("3分後の点を 15度に描く", "TP_PTS", ((2.0, 0.0), (3.0, 15.0), (5.0, 20.0)), "温度の点", "temp"),
+            ("123便の幅を 1.7〜4秒で描く", "DT_J123", (1.7, 4.0), "123便の幅", "dect"),
+            ("2009年の例を 3.5秒で描く", "DT_B737", 3.5, "2009年の例", "dect"),
+            ("123便の穴を 1m2 で描く", "HL_A", dict(j123=1.0, b737=0.135), "穴の面積", "holes"),
+            ("右の扇だけ広く描く", "SN_ANG", (28.0, 80.0), "対称", "sonar"),
+            ("カメラを 3m の高さに描く", "DC_H", 3.0, "カメラの高さ", "dcam"),
+            ("写る幅を 3m で描く", "DC_W", 3.0, "写る幅", "dcam"),
+            ("1つの点を 1.5m で描く", "RS_CELL", (1.5, 1.3), "1つの点", "res"),
+            ("見分けられる大きさを4点で描く", "RS_N", 4, "見分けられる大きさ", "res"),
+            ("区域を 36km2 で描く", "AR_KM2", 36.0, "区域の広さ", "area"),
+            ("1日の広さを 500日ぶんで描く", "AR_DAYS", 500.0, "日", "area"),
+            ("点検口を隔壁の前に描く", "CV_HOLE", (55.0, 3.2), "点検口", "cover"),
+            ("言葉の順を入れ替える", "WD_ROWS", (M.WD_ROWS[1], M.WD_ROWS[0]) + tuple(M.WD_ROWS[2:]), "言葉の使い分け", "word"),
+            ("原因の言葉を「考えられる」の段にする", "WD_PICK", 2, "原因の言葉", "word"),
+            ("英文を言い換える", "FA_LINES", ("During the bulkhead repair, the splice plate was cut and",
+                                             "resulted in the Boeing repair crew dividing the plate and installing it",
+                                             "in two pieces …"), "英文", "faa"),
+            ("3つ目を「分かった」と書く", "AN_WAIT", "分かった", "残りの札", "ans"),
+            ("フューズを No.3 に描く", "HY_FUSE", (3, 56.0), "フューズ", "hyd_fuse"),
+            ("フューズを垂直尾翼の中に描く", "HY_FUSE", (4, 62.0), "フューズ", "hyd_fuse"),
+            ("帯を 18,000 フィートで描く", "AL_BAND", 18000.0, "帯の高さ", "alt_band")):
         keep = getattr(M, attr)
         setattr(M, attr, val)
         try:
@@ -2360,7 +2553,15 @@ def _selftest_m20(ok):
             ("くり返しの前にひびが伸びる", dict(view="fatigue", steps=[dict(state=dict(load="once", crack="on"))], note=N), "① 筋"),
             ("シール材の前に目", dict(view="seal", steps=[dict(state=dict(eye="on"))], note=N), "① 筋"),
             ("正しい壁を示す前に妥当の印", dict(view="two", steps=[dict(state=dict(ok="on"))], note=N), "① 筋"),
-            ("強さの棒に推定の札が無い", dict(view="rows", steps=[dict(state=dict(bars="on"), tag=dict(t="強さ", at="str"))], note=N), "推定")):
+            ("強さの棒に推定の札が無い", dict(view="rows", steps=[dict(state=dict(bars="on"), tag=dict(t="強さ", at="str"))], note=N), "推定"),
+            # 🆕 ⑤b-6b
+            ("穴の前に流れの矢印", dict(view="cab", steps=[dict(state=dict(flow="near"))], note=N), "① 筋"),
+            ("扇の前に跳ね返り", dict(view="sonar", steps=[dict(state=dict(echo="on"))], note=N), "① 筋"),
+            ("判断力の霞に「考え」の札が無い", dict(view="seats", steps=[dict(state=dict(hyp="on"), tag=dict(t="判断力が低下", at="judge"))],
+                                                note=N), "考え"),
+            ("フューズが流れを止める段に「考え」の札が無い",
+             dict(view="hyd", start=dict(pipes="on"), steps=[dict(state=dict(fuse="stop"), tag=dict(t="働きを残す", at="stop"))], note=N),
+             "考え")):
         bad, _ = judge("m20", kw)
         g_ = any(key in b for b in bad)
         ok &= g_

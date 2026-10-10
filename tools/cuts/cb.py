@@ -61,6 +61,65 @@ PLAN = {
 from illu20 import S7_REC as S7R  # noqa: E402  🆕 ⑤b-4：置き場 S7 の部品の出典（描く側と同じ文）
 
 SPEC = {
+    # ── 🆕 ⑤b-6b（2026-10-10）：模式図（`tools/mech20.py` の sonar・res・dcam・area・rov＝門番 check_mech の judge_m20）。数は解説 p23〜p26 の字 ──
+    # ⚠️ cb04 の台本の画の欄の「動き：引く」は模式図の型に無い（カメラは動かさない）＝PLAN の欄は残す（⑤c で決める）
+    # cb04（2行）＝サイド・スキャン・ソナー（解説 p23 図17）：船が引く装置から扇の形の音 → 跳ね返りを受けて写す
+    "cb04": dict(
+        t="音で写す装置", s="海の底の調べ方（1985年）",
+        fig=("m20", dict(view="sonar",
+                         steps=[dict(state=dict(beam="on"), tag=dict(t="ソナーの音（扇の形）", at="beam", to="fish")),
+                                dict(state=dict(echo="on"), tag=dict(t="跳ね返った音を受ける", at="echo", to="obj"))],
+                         note="形と角度は模式（解説の図17 を簡単に）", src=ss.src(["解説 p1023", "報告書 p13"]))),
+    ),
+    # cb05（2行）＝当時のソナーの1つの点（分解能 1.1m×1.3m）→ 見分けるには5点ほど＝約5.5メートル×6.5メートル（解説 p24）
+    "cb05": dict(
+        t="見分けられる大きさ", s="当時のソナー",
+        fig=("m20", dict(view="res",
+                         steps=[dict(state=dict(cell="on"), tag=dict(t="1つの点（分解能）", at="one", to="one")),
+                                dict(state=dict(need="on"), tag=[dict(t="約5.5メートル", at="w", to="w"), dict(t="約6.5メートル", at="h", to="h")])],
+                         rel=[dict(t="5.5m×6.5m（解説の字）", src="解説 p1024（5.5m×6.5m程度）"),
+                              dict(t="1つの点＝1.1メートル×1.3メートル", src="解説 p1024（分解能 1.1m×1.3m）")],
+                         note="格子は模式（1マス＝分解能の1つの点・1辺に5つ）", src=ss.src(["解説 p1024"]))),
+    ),
+    # cb08（3行）＝聞き役 → 海の底から約1.5メートルの所 → 幅約1.5メートルずつ写して、2ノット（時速約3.7キロ）で進む（解説 p25）
+    "cb08": dict(
+        t="深海カメラの写し方", s="えい航式深海カメラ",
+        fig=("m20", dict(view="dcam",
+                         steps=[dict(),
+                                dict(state=dict(h="on"), tag=dict(t="約1.5メートル", at="h", to="h")),
+                                dict(state=dict(w="on"), tag=[dict(t="幅 約1.5メートル", at="w", to="w"),
+                                                             dict(t="2ノット", d="時速約3.7キロ", at="spd", to="ship")])],
+                         rel=[dict(t="約1.5メートル", src="解説 p1025（えい航高度 約1.5m・撮影幅 約1.5m）"),
+                              dict(t="2ノット（時速約3.7キロ）", src="解説 p1025（えい航速度 約2kt）")],
+                         note="深さは縮めた（途切れの印）・形は模式", src=ss.src(["解説 p1024", "解説 p1025"]))),
+    ),
+    # cb09（3行）＝約25km2 を全部写すと約4,500時間 → 1日6時間なら750日・2年以上 → すき間を埋めるには数回くり返す（解説 p26 の試算）
+    "cb09": dict(
+        t="写しきるまでの日数", s="解説の試算",
+        fig=("m20", dict(view="area",
+                         steps=[dict(tag=[dict(t="調べた区域", d="約25平方キロ", at="a1", to="big"), dict(t="約4,500時間", d="全部写すと", at="a2")]),
+                                dict(state=dict(day="on"), tag=dict(t="1日6時間なら750日", d="2年以上", at="a3", to="day")),
+                                dict(state=dict(rep="on"), tag=dict(t="数回くり返す", d="すき間を埋めるには", at="a4"))],
+                         rel=[dict(t="約25平方キロ", src="解説 p1026（約25km2）"), dict(t="約4,500時間", src="解説 p1026"),
+                              dict(t="1日6時間なら750日", src="解説 p1026"), dict(t="2年以上", src="解説 p1026")],
+                         note="四角は面積の比だけ合わせた模式（撮影幅1.5メートル・2ノット）", src=ss.src(["解説 p1026"]))),
+    ),
+    # cb10（2行）＝見つかる保証は無く、費用に見合う発見も期待できない → 捜索はここで終わった（解説 p26）
+    "cb10": dict(
+        t="続けられなかった捜索", s="解説の見方",
+        fig=("m20", dict(view="area", start=dict(day="on"),
+                         steps=[dict(state=dict(nog="on"), tag=dict(t="見つかる保証は無い", d="解説", at="a2")),
+                                dict(state=dict(end="on"), tag=dict(t="捜索はここで終わった", at="a3"))],
+                         note="四角は面積の比だけ合わせた模式", src=ss.src(["解説 p1026"]))),
+    ),
+    # cb13（2行）＝聞き役（海の底は確かめきれていない）→ いまは遠隔操作の無人探査機（ROV）が一般的（解説 p25）
+    "cb13": dict(
+        t="海の底を調べる、いまの道具", s="遠隔操作で動かす探査機",
+        fig=("m20", dict(view="rov",
+                         steps=[dict(state=dict(ask="on")),
+                                dict(state=dict(rov="on"), tag=dict(t="遠隔操作無人探査機（ROV）", d="解説", at="rov", to="rov"))],
+                         note="形は模式（人は描かない）", src=ss.src(["解説 p1025"]))),
+    ),
     # ── 🆕 ⑤b-4（2026-10-08）：再現イラスト S7 相模湾の地図（`tools/illu20.py`・門番 check_illu ㉚）──
     #   点と線＝`ref/ep20/sagami20.json`（付図-20・付図-21・解説 図15 から読んだ）
     # cb02（2行）＝前の再現 ca21（S2・日本の地図）→ 相模湾＝合図（置き場が替わる＝㉑）。海の底を調べた区域（付図-21 の枠）

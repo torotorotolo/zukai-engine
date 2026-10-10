@@ -83,6 +83,160 @@ from illu20 import S2_REC as S2R  # noqa: E402  🆕 ⑤b-3：置き場 S2 の�
 from illu20 import S5_REC as S5R  # noqa: E402  🆕 ⑤b-4：置き場 S5 の部品の出典
 
 SPEC = {
+    # ── 🆕 ⑤b-6b（2026-10-10）：模式図（`tools/mech20.py` の cab・holes・flow・run・temp・dect と alt・seats の戻り＝門番 check_mech の judge_m20）・
+    #    時間の帯（axis＝門番 check_axis）・並べ図（boxes＝門番 check_boxes）。数と時刻は原文の字（解説＝`pg20.py page 解説 N`）──
+    # ca02（2行）＝聞き役の問い → 客室に詰めた空気が一気に抜け、気圧が急に下がる（解説 p2 の言葉の決め方）。2009年の例と同じ断面を使う
+    "ca02": dict(
+        t="急減圧", s="言葉の意味",
+        fig=("m20", dict(view="cab", start=dict(gauge="hi"),
+                         steps=[dict(),
+                                dict(state=dict(hole="on", flow="near", gauge="lo"),
+                                     tag=[dict(t="穴から空気が出る", at="top_r", to="hole"), dict(t="一気に下がる", at="gauge", to="gauge")])],
+                         note="客室の形と針の動きは模式", src=ss.src(["解説 p1002"]))),
+    ),
+    # ca03（3行）＝寄せられた疑問（解説 p.i「はじめに」）：猛烈な風・室温の低下 → 酸素マスク → 委員会に寄せられた（札は増やさない）
+    "ca03": dict(
+        t="寄せられた疑問", s="2011年の「はじめに」から",
+        fig=("boxes", dict(view="row", slots=3, steps=[
+            dict(add=[dict(k="item", t="猛烈な風", rec="解説はじめに p1"), dict(k="item", t="室温の低下", rec="解説はじめに p1")]),
+            dict(add=dict(k="item", t="酸素マスク", rec="解説はじめに p1")),
+            dict()],
+            note="並びは「はじめに」の文の順", src=ss.src(["解説はじめに p1"])))),
+    # ca06（3行）＝2009年の例（2009年7月13日・アメリカ）→ 高さ 約1万700メートル（35,000フィート）→ 天井の穴（約0.135m2・20列目付近）。
+    #   左に 123便の計算の基準の開口（1.8m2＝解説 p9）を同じ縮尺で（数字は書かない）
+    "ca06": dict(
+        t="2つの穴", s="穴の面積の比べ",
+        fig=("m20", dict(view="holes", start=dict(j123="on"),
+                         steps=[dict(tag=dict(t="2009年7月13日・アメリカ", at="when", to="when")),
+                                dict(),           # ⚠️ 門番 echo：高さの札（約1万700メートル）は字幕の写し＝語りに任せる
+                                dict(state=dict(b737="on"), tag=[dict(t="天井の穴（20列目付近）", at="b737", to="b737"),
+                                                                 dict(t="報告書の計算の基準", at="j123", to="j123")])],
+                         # ⚠️ 門番 echo：rel の文も語りと照らされる＝札に出す数だけを記録の書き方で
+                         rel=[dict(t="2009年7月13日", src="解説 p1002"), dict(t="20列目", src="解説 p1002（座席20列目付近）")],
+                         note="正方形は模式（面積だけ合わせた）", src=ss.src(["解説 p1002", "解説 p1009"]))),
+    ),
+    # ca07（2行）＝2009年の例の非番の機長の話（解説 p2）：大きな破裂音・耳の痛みはほとんど無い → 何も飛ばされない・薄い霧は5秒ほどで消えた
+    "ca07": dict(
+        t="非番の機長の話", s="2009年の例の客室",
+        fig=("m20", dict(view="cab",
+                         steps=[dict(state=dict(hole="on"), tag=[dict(t="大きな破裂音", at="top_r", to="hole"),
+                                                                dict(t="耳の痛みはほとんど無い", at="top_l")]),
+                                dict(state=dict(fog="on"), tag=[dict(t="何も飛ばされなかった", at="bot_l"),
+                                                                dict(t="薄い霧（5秒ほどで消えた）", at="bot_m", to="fog")])],
+                         rel=[dict(t="5秒ほど", src="解説 p1002（5秒ほどで消滅）")],
+                         note="客室の形と座席の並びは模式（人は描かない）", src=ss.src(["解説 p1002"]))),
+    ),
+    # ca08（3行）＝聞き役の問い → 穴のすぐ近くは猛烈に流れ出る → 少し離れると風はそれほど激しくない（解説 p3）
+    "ca08": dict(
+        t="穴の近くと、離れた所", s="2009年の例（解説）",
+        fig=("m20", dict(view="cab", start=dict(hole="on"),
+                         steps=[dict(),
+                                dict(state=dict(flow="near"), tag=dict(t="猛烈に流れ出る", at="top_r", to="near")),
+                                dict(state=dict(flow="all"), tag=dict(t="少し離れると、風は弱い", at="bot_m", to="far"))],
+                         note="矢印の長さは模式（速さの比ではない）", src=ss.src(["解説 p1003"]))),
+    ),
+    # ca09（2行）＝穴から音の速さ（340m/秒）で出ても → 2メートル先の席は 1.8m/秒ほど（解説 p6 の試算・半径2メートルの半球）
+    "ca09": dict(
+        t="2メートル先の風", s="2009年の例の試算",
+        fig=("m20", dict(view="cab", start=dict(hole="on", flow="near"),
+                         steps=[dict(tag=dict(t="秒速340メートル", d="音の速さ（解説の仮定）", at="top_r", to="near")),
+                                dict(state=dict(half="on"), tag=dict(t="秒速1.8メートルほど", d="穴から2メートル", at="bot_m", to="seat"))],
+                         rel=[dict(t="秒速340メートル", src="解説 p1006（音速340m/秒）"), dict(t="秒速1.8メートル", src="解説 p1006（1.8m/秒）"),
+                              dict(t="2メートル", src="解説 p1006（2m離れた場所）")],
+                         note="席と穴の位置は模式（半径2メートルの半球＝解説の仮定）", src=ss.src(["解説 p1006"]))),
+    ),
+    # ca10（2行）＝123便の客室の平均の風＝秒速約10メートル（報告書 付録4 の計算＝解説 p7）→ 座席のあたりはかなり小さい（同）
+    "ca10": dict(
+        t="後ろへ抜ける風", s="報告書の計算",
+        fig=("m20", dict(view="flow",
+                         steps=[dict(state=dict(air="on"), tag=dict(t="秒速約10メートル", d="客室の平均", at="air", to="air")),
+                                dict(state=dict(seat="on"), tag=dict(t="座席のあたり", d="かなり弱い", at="seat", to="seat"))],
+                         rel=[dict(t="秒速約10メートル", src="解説 p1007（ほぼ10m/秒＝報告書 付録4）")],
+                         note="矢印の長さと置き場は模式（風は後ろの壁の穴へ）", src=ss.src(["解説 p1007"]))),
+    ),
+    # ca11（2行）＝秒速10メートル＝100メートルを10秒で走る人の顔に当たる風 → 目は十分開けていられる（解説 p8 のたとえ）
+    "ca11": dict(
+        t="秒速10メートルの風", s="解説のたとえ",
+        fig=("m20", dict(view="run",
+                         steps=[dict(state=dict(wind="on"), tag=dict(t="100メートルを10秒", at="run", to="run")),
+                                dict(state=dict(eye="on"), tag=dict(t="目は十分開けていられる", at="eye", to="eye"))],
+                         rel=[dict(t="100メートルを10秒", src="解説 p1008")],
+                         note="走路の幅と矢印は模式（走る人は描かない）", src=ss.src(["解説 p1008"]))),
+    ),
+    # ca12（3行）＝聞き役 → 空気が急にふくらむと温度は下がる（矢印は模式）→ 2分で0度・3分で10度・5分で20度（解説 p9 の計算の点）
+    "ca12": dict(
+        t="冷えた客室", s="基準のケース",
+        fig=("m20", dict(view="temp",
+                         steps=[dict(),
+                                dict(state=dict(drop="on"), tag=dict(t="空気がふくらむと下がる", at="drop", to="drop")),
+                                dict(state=dict(pts="on"), tag=dict(t="計算の点", d="解説", at="pts", to="pts"))],
+                         note="点は解説の計算の値・下がる矢印は模式（下がった先の温度は描かない）", src=ss.src(["解説 p1009"]))),
+    ),
+    # ca13（2行）＝座席と天井は温かいまま（25°Cのまま）・酸素マスク → 気づかなくても不思議ではない（解説 p10）。123便の客室（穴なし）
+    "ca13": dict(
+        t="温かいままの座席と天井", s="123便の客室",
+        fig=("m20", dict(view="cab",
+                         steps=[dict(state=dict(warm="on", mask="on"), tag=[dict(t="座席や天井は温かいまま", at="top_l", to="warm"),
+                                                                           dict(t="酸素マスク", at="bot_l", to="mask")]),
+                                dict(tag=dict(t="不思議ではない", d="解説の見方", at="bot_m"))],
+                         note="客室の形は模式（人は描かない）", src=ss.src(["解説 p1010"]))),
+    ),
+    # ca14（2行）＝生存者の口述に霧（解説 p9＝報告書 p73）→ 急減圧が無かったなら霧の説明がつかない（解説 p17）＝断熱膨張
+    "ca14": dict(
+        t="客室の霧", s="生存者の口述",
+        fig=("m20", dict(view="cab",
+                         steps=[dict(state=dict(fog="on"), tag=dict(t="霧", d="口述", at="top_l", to="fog")),
+                                dict(tag=dict(t="空気がふくらんで冷え、霧に", d="解説（断熱膨張）", at="bot_m"))],
+                         note="霧の点は模式（数と大きさに意味は無い）", src=ss.src(["解説 p1009", "解説 p1017"]))),
+    ),
+    # ca15（3行）＝減圧の速さの比べ（解説 p3 表2・p4 図1）：123便＝報告書の計算の幅 1.7〜5秒 → 2009年の例 約2.9秒（解説の概算）→ 証言とも一致
+    "ca15": dict(
+        t="気圧が下がる速さ", s="2つの減圧の比べ",
+        fig=("m20", dict(view="dect",
+                         steps=[dict(state=dict(j123="on"), tag=dict(t="報告書の計算の幅", at="j123", to="j123")),
+                                dict(state=dict(b737="on"), tag=dict(t="解説の概算", at="b737", to="b737")),
+                                dict(tag=dict(t="生存者の証言とも一致（解説）", at="ok"))],
+                         note="秒は解説の表2と図1（棒の太さは模式）", src=ss.src(["解説 p1003", "解説 p1004"]))),
+    ),
+    # ca16（3行）＝聞き役 → 18:24:37 から約1秒・26秒止まって 18:25:04（報告書 p88＝c210 の帯）→ 止まった理由は明らかにできなかった（付録8-2＝解説 p15）
+    "ca16": dict(
+        t="止まった警報", s="操縦室の音声記録（CVR）",
+        fig=("axis", dict(ss.AX_ALARM, past=[ss.ax("boom")], start=dict(cur="18:24:35"), steps=[
+            dict(),
+            dict(add=[ss.ax("al1"), ss.ax("al_gap"), ss.ax("al2")], cur="18:25:04"),
+            dict(add=ss.ax("al_q"))],
+            note="鳴った長さと止まった間は報告書の時刻から", src=ss.src(["報告書 p88", "解説 p1015"]))),
+    ),
+    # ca17（3行）＝解説に載った元日本航空の技術者の説明（名は出さない）→ 機器の一時的な故障の可能性（p16）→ 最も無理がない推論＝ごく早い時点で
+    #   急減圧（p16）。点は異常事態の発生（18:24:35）に置き、時刻の札は出さない（推論に時刻は無い）
+    "ca17": dict(
+        t="解説が載せた説明", s="元日本航空の技術者",
+        fig=("axis", dict(ss.AX_ALARM, past=[ss.ax("al1"), ss.ax("al_gap"), ss.ax("al2")], start=dict(cur="18:25:04"), steps=[
+            dict(),
+            dict(add=ss.ax("al_f")),
+            dict(add=ss.ax("inf"))],
+            note="時刻は報告書・推論は解説の言葉", src=ss.src(["報告書 p88", "解説 p1015", "解説 p1016"]))),
+    ),
+    # ca19（2行）＝20,000フィート（約6,100メートル）より上を約18分（報告書 p126 4.1.7.3）→ 下りなかった理由は明らかにできなかった（同）
+    "ca19": dict(
+        t="高い所を飛んだ時間", s="18:24〜18:48 の飛行",
+        fig=("m20", dict(view="alt", start=dict(pts="all"),
+                         steps=[dict(state=dict(band="on"), tag=[dict(t="約6,100メートル", d="2万フィート", at="band", to="band"),
+                                                                dict(t="約18分", d="この高さより上を飛んだ", at="dur", to="dur")]),
+                                dict(tag=dict(t="報告書：理由は明らかでない", at="nowhy"))],
+                         rel=[dict(t="6,100＝20,000フィートの換算・2万", src="報告書 p126（20,000フィート以上）"),
+                              dict(t="約18分", src="報告書 p126（約18分間）")],
+                         note="点は付図-1 の時刻と高度の札だけ（点のあいだは描かない・帯の色は模式）",
+                         src=ss.src(["報告書 p126", "報告書 p137"]))),
+    ),
+    # ca20（2行）＝下りずマスクも着けず酸素が足りない（p115・p126）→ 乗員の判断力などはある程度低下（p115＝「考えられる」）
+    "ca20": dict(
+        t="3人の判断力", s="低酸素症の影響",
+        fig=("m20", dict(view="seats", start=dict(left="cop", right="cap"),
+                         steps=[dict(state=dict(hyp="on"), tag=dict(t="酸素が足りない", d="マスクを着けなかった（推定）", at="o2", to="left")),
+                                dict(tag=dict(t="判断力などがある程度低下", d="報告書の考え", at="judge", to="right"))],
+                         note="席の形は模式（霞は酸素の不足の印）", src=ss.src(["報告書 p115", "報告書 p126"]))),
+    ),
     # ── 🆕 ⑤b-4（2026-10-08）：再現イラスト S5（機全体・門番 check_illu ㉘）──
     # ca05（2行）＝壁に穴が開く（上の半分が後ろへ・空気が後ろへ）→ 操縦室を含む客室の気圧が数秒で外と同じに（与圧の色が消える）
     "ca05": dict(fig=("illu", dict(

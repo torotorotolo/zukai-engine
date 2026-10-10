@@ -35,6 +35,25 @@
   prob   … 見つける確率（1つ 10%程度・少なくとも1つ 14〜60%程度＝p100）＝幅は破線の枠                            c905・c906
   two    … 正しい作りと修理の壁／事故機の壁（p105（コ））                                                       c908
   lav    … 横から見た客室の後ろ：いちばん後ろの化粧室・コートルーム・1978年の変形の可能性（p103）              c913
+  🆕 ⑤b-6b（2026-10-10）＝第9章〜終章（機内の風と温度・相模湾の捜索・事故のあとの対策）：
+  cab    … 客室の縦の断面：天井の穴（2009年の例 0.135m2）・流れ（近く／離れた所）・半径2メートルの半球と印の席（解説 p6）・
+           温かい天井と座席・酸素マスク・霧・客室の気圧の計                                ca02・ca07・ca08・ca09・ca13・ca14
+  flow   … 123便の客室（横から）：平均 約10メートル/秒の風は後ろの壁へ・座席のあたりはかなり弱い（解説 p7＝報告書 付録4） ca10
+  run    … 100メートルを10秒の走路と、顔に当たる向きの風・目（解説 p8 のたとえ・人は描かない）                       ca11
+  temp   … 温度の戻り方（解説 p9 の計算の点 2分0度・3分10度・5分20度・下がる矢印は模式）                           ca12
+  dect   … 約3,000メートル相当になるまでの秒（123便＝1.7〜5秒の幅・2009年の例＝約2.9秒＝解説 p3・p4）              ca15
+  holes  … 穴の大きさ（同じ縮尺・123便の計算の基準 1.8m2／2009年の例 0.135m2）                                     ca06
+  sonar  … サイド・スキャン・ソナー（船が引く装置・扇の音・跳ね返り＝解説 p23）                                     cb04
+  res    … 見分けられる大きさ（分解能 1.1m×1.3m・5点＝5.5m×6.5m＝解説 p24）                                       cb05
+  dcam   … えい航式深海カメラ（高さ 約1.5m・幅 約1.5m・2kt＝解説 p25）                                             cb08
+  area   … 区域 約25km2 と1日（6時間）に写せる広さ（面積の比＝750日＝解説 p26）                                    cb09・cb10
+  rov    … 遠隔操作無人探査機（解説 p25・動く部品）                                                                cb13
+  cover  … 垂直尾翼の点検口のカバー・強化型の後部圧力隔壁（報告書 p130・p131）                                     cc04
+  word   … 報告書の言葉の使い分け（解説 p26 の4つ）・原因の段＝推定される                                          cc15
+  faa    … FAA の頁の一文（英語は原文のまま＝sources.md §8）                                                       cc10
+  ans    … 冒頭の3つの問いと答えの並び（3つ目の残り＝公表を待つ）                                                  cc18
+  ＋ 足した欄：hyd の fuse（cc03＝No.4 系統のフューズ p131）・alt の band（ca19＝20,000フィートより上の帯 p126）・
+     seats の hyp（ca20＝酸素の不足と判断力の低下 p115＝「考えられる」）
 
 ■ SPEC の書き方（mech19 と同じ）
   fig=("m20", dict(view=…, start=dict(…), steps=[dict(state=dict(…), tag=dict(t=…, at=…, to=…, d=…)), …],
@@ -61,7 +80,8 @@ COL = dict(body=C20["body"], body_ln=C20["body_ln"], wing=C20["wing"], eng=C20["
            cabin=C20["cabin"], dark="#10161b", seat="#7d8a95", seat_ln="#2a333a", panel="#3b4a56", win=C20["win"],
            radar="#8fd3e8", night0="#0b1220", night1="#16243a", slope="#26332d", slope_ln="#4c5d52", tree="#1b2621",
            light="#fff3c4", sea="#2d5a7a", sea_ln="#8fc3e0", mount="#6f7d72", mount_ln="#a9b8ad", bag="#e9d9a6",
-           bag_ln="#6b5a2c", white="#eef2f4", ghost="#5a656c", green="#5fbf8f", blue="#7fb8e6", dotc="#f6d77a")
+           bag_ln="#6b5a2c", white="#eef2f4", ghost="#5a656c", green="#5fbf8f", blue="#7fb8e6", dotc="#f6d77a",
+           air=C20["air"])                                # 🆕 ⑤b-6b：空気の流れの矢印（置き場 S5 の空気と同じ色）
 INK = "#e3eaee"
 L_X, R_X = F.BX0 + 40.0, 1270.0          # 札の左の列・右の列の x（図の左右の空き）
 
@@ -279,7 +299,7 @@ def seats_stage(prev, st):
     if _on(prev, st, "cert"):
         cx, cy = SE_SEAT["right"]
         g.append(F.circ(cx + 60, cy - 70, 22, COL["mark"], COL["dark"], 3) + F.txt(cx + 60, cy - 61, "認", 24, COL["dark"], anchor="middle"))
-    return g
+    return g + seats_hyp_stage(prev, st)             # 🆕 ⑤b-6b：酸素が足りない霞（ca20）
 
 
 # ══════════════════════════════════════════════════════════
@@ -404,7 +424,7 @@ def hyd_stage(prev, st):
         for s in (-1, 1):
             for j in range(3):
                 g.append(F.circ(cx + s * (54 + j * 14), cy + 14 + j * 16, 8 - j * 1.5, COL["hyd"], COL["dark"], 1.5))
-    return g
+    return g + hyd_fuse_stage(prev, st)              # 🆕 ⑤b-6b：フューズ（cc03）
 
 
 # ══════════════════════════════════════════════════════════
@@ -561,7 +581,7 @@ def alt_base(st0):
 
 
 def alt_stage(prev, st):
-    g = []
+    g = alt_band_stage(prev, st)                   # 🆕 ⑤b-6b：帯は点の下に
     span = st["span"]
     if st["pts"] != prev.get("pts"):
         had = {t for t, _ in al_points(span, prev.get("pts", "off"))}
@@ -1518,19 +1538,815 @@ def lav_stage(prev, st):
 
 
 # ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6b（2026-10-10）：第9章〜終章の模式（機内の風と温度・相模湾の捜索・事故のあとの対策）＝15の見え方
+#    ＋ 既存の3つに欄を足した（hyd の fuse・alt の band・seats の hyp）
+# ══════════════════════════════════════════════════════════
+#   出典＝解説（2011）p.i〜p.26・報告書 5.1（p129〜p133）・建議（報告書の前付け PDF6）・FAA の頁（sources.md §8）。
+#   🔴 数字は語りと字幕に任せる（目盛りの数字と、rel で宣言した札だけ）。記録の値（穴の面積・半球の半径・秒・温度の点・分解能・
+#      区域の広さ・カメラの高さと幅・言葉の使い分け・FAA の一文ほか）は門番 check_mech の REC_M20 の側（§5b-88）。人は描かない
+def _lcg(seed, n):
+    """決まった並びの乱数（霧の点・海の底の起伏＝焼くたびに同じ形）"""
+    out, s = [], seed
+    for _ in range(n):
+        s = (1103515245 * s + 12345) % 2147483648
+        out.append(s / 2147483648.0)
+    return out
+
+
+# ── cab（ca02・ca07・ca08・ca09・ca13・ca14）＝客室の縦の断面（機首が左）：天井の穴・座席・空気の流れ・半径2メートルの半球
+#    （解説 p6 の仮定＝非番の機長の席は穴から2メートル）・温かい天井と座席（p10）・酸素マスク・霧（p2・p9）・客室の気圧の計（ca02）──
+CB = dict(k=130.0, x0=120.0, x1=1500.0, skin=360.0, ceil=400.0, floor=673.0, bot=760.0)
+CB_HOLE_X = 1150.0
+CB_HOLE_A = 0.135                                   # 穴の面積（m2・2009年の例＝解説 p2）（🔴 陽性対照）
+CB_R = 2.0                                          # 半球の半径（m・解説 p6 の仮定）（同上）
+CB_SEAT_H = 1.15                                    # 座席の背の高さ（m・模式）
+CB_PITCH = 0.8                                      # 座席の前後の間（m・模式）
+CB_NEAR, CB_FAR = 150.0, 34.0                       # 穴の近く・離れた所の矢印の長さ（画素・模式）（🔴 陽性対照＝CB_FAR）
+CB_GAUGE = (1680.0, 540.0, 92.0)                    # 客室の気圧の計（x・y・半径）
+CB_NEEDLE = dict(hi=55.0, lo=-75.0)                 # 針の向き（度・12時から時計回り）＝高い・低い（模式）
+
+
+def cb_hole():
+    """穴（x0・x1・y）＝面積の平方根を断面の幅にした（模式）"""
+    w = math.sqrt(CB_HOLE_A) * CB["k"]
+    return CB_HOLE_X - w / 2, CB_HOLE_X + w / 2, CB["ceil"]
+
+
+def cb_seats():
+    """座席の背の x（印の席＝穴から CB_R メートルの所に背の上の端）と、印の席の点"""
+    k = CB["k"]
+    by = CB["floor"] - CB_SEAT_H * k
+    dy = by - CB["ceil"]
+    bx = CB_HOLE_X - math.sqrt(max((CB_R * k) ** 2 - dy * dy, 0.0))
+    xs = [bx + j * CB_PITCH * k for j in range(-12, 12)]
+    return [x for x in xs if CB["x0"] + 90 <= x <= CB["x1"] - 20], (bx, by)
+
+
+def _cb_seat(bx, fill, ln):
+    k, fl = CB["k"], CB["floor"]
+    top = fl - CB_SEAT_H * k
+    return (F.rect(bx - 74, fl - 0.47 * k, 80, 0.14 * k, fill, ln, 2, rx=6)
+            + F.rect(bx - 6, top, 18, fl - 0.33 * k - top, fill, ln, 2, rx=6)
+            + F.line(bx - 40, fl - 0.33 * k, bx - 40, fl, ln, 3))
+
+
+def cb_arrows(kind):
+    """穴へ向かう矢印（始まり・先）。near＝穴のすぐ下の速い流れ／far＝離れた所の弱い流れ"""
+    hx, hy = CB_HOLE_X, CB["ceil"]
+    out = []
+    if kind == "near":
+        for a in (-60, -30, 0, 30, 60):
+            dx, dy = math.sin(math.radians(a)), math.cos(math.radians(a))
+            r0 = 34.0
+            out.append(((hx + (r0 + CB_NEAR) * dx, hy + (r0 + CB_NEAR) * dy), (hx + r0 * dx, hy + r0 * dy)))
+    else:
+        for r in (330.0, 440.0):
+            for a in (-78, -52, -26, 0, 26, 52, 78):
+                dx, dy = math.sin(math.radians(a)), math.cos(math.radians(a))
+                x, y = hx + r * dx, hy + r * dy
+                if CB["x0"] + 30 < x < CB["x1"] - 30 and y < CB["floor"] - 14:
+                    out.append(((x, y), (x - CB_FAR * dx, y - CB_FAR * dy)))
+    return out
+
+
+def cb_fog():
+    rs = _lcg(20261010, 3 * 70)
+    out = []
+    for i in range(70):
+        x = CB["x0"] + 40 + (CB["x1"] - CB["x0"] - 80) * rs[3 * i]
+        y = CB["ceil"] + 16 + (CB["floor"] - CB["ceil"] - 40) * rs[3 * i + 1]
+        out.append((x, y, 9 + 9 * rs[3 * i + 2]))
+    return out
+
+
+def cab_parts(st):
+    cx, cy, r = CB_GAUGE
+    on = st["gauge"] != "off"
+    a = CB_NEEDLE["lo" if st["gauge"] == "lo" else "hi"]
+    return [_P("needle", "line", [(cx, cy), (cx, cy - r * 0.78)], stroke=COL["red"], w=7, pivot=[cx, cy], rot=a,
+               alpha=1.0 if on else 0.0)]
+
+
+def cab_base(st0):
+    k = CB
+    x0, x1 = k["x0"], k["x1"]
+    g = [F.rect(x0, k["skin"] - 8, x1 - x0, 8, COL["body"], None, None),
+         F.rect(x0, k["skin"], x1 - x0, k["ceil"] - k["skin"], "#4a5864", None, None),
+         F.rect(x0, k["ceil"], x1 - x0, k["floor"] - k["ceil"], "#1f2c36", None, None),
+         F.rect(x0, k["floor"], x1 - x0, k["bot"] - k["floor"], "#2a343c", None, None),
+         F.line(x0, k["skin"], x1, k["skin"], COL["body_ln"], 4), F.line(x0, k["ceil"], x1, k["ceil"], COL["body_ln"], 3),
+         F.line(x0, k["floor"], x1, k["floor"], COL["seat"], 5), F.line(x0, k["bot"], x1, k["bot"], COL["body_ln"], 4),
+         F.line(x0, k["skin"] - 8, x0, k["bot"], COL["ghost"], 3, "8 8"), F.line(x1, k["skin"] - 8, x1, k["bot"], COL["ghost"], 3, "8 8")]
+    xs, _ = cb_seats()
+    for bx in xs:                                  # 窓（模式）
+        g.append(F.rect(bx - 62, k["ceil"] + 62, 34, 52, COL["win"], COL["body_ln"], 2, rx=12, op=0.55))
+    for bx in xs:
+        g.append(_cb_seat(bx, COL["seat"], COL["seat_ln"]))
+    # ⚠️ 門番 layout：床の下の外（y bot+34）に置くと下の札（y 812）と重なった＝床下の帯の中へ
+    g.append(_t(x0 + 60, k["floor"] + 58, "前（機首）", 22, J.TICK))
+    g.append(F.arrow(x0 + 50, k["floor"] + 50, x0 + 14, k["floor"] + 50, J.TICK, 3, 10))
+    if st0["gauge"] != "off":
+        cx, cy, r = CB_GAUGE
+        g.append(F.circ(cx, cy, r, "#1b252d", COL["body_ln"], 4))
+        g.append(F.poly(_arc_pts(cx, cy, r - 14, -120, 120), "none", COL["ghost"], 4))
+        for a in (-120, -60, 0, 60, 120):
+            p, q = _arc_pts(cx, cy, r - 14, a, a, 1)[0], _arc_pts(cx, cy, r - 30, a, a, 1)[0]
+            g.append(F.line(*p, *q, COL["ghost"], 3))
+        g.append(_t(cx - r + 18, cy + r - 18, "低", 22, J.TICK, "middle") + _t(cx + r - 18, cy + r - 18, "高", 22, J.TICK, "middle"))
+        g.append(F.circ(cx, cy, 9, COL["white"]))
+        g.append(_t(cx, cy + r + 40, "客室の気圧", 26, INK, "middle"))
+    return g
+
+
+def cab_stage(prev, st):
+    k = CB
+    g = []
+    xs, (bx, by) = cb_seats()
+    if _on(prev, st, "warm"):
+        g.append(F.rect(k["x0"], k["skin"], k["x1"] - k["x0"], k["ceil"] - k["skin"], "#e39b4f", None, None, op=0.75))
+        for x in xs:
+            g.append(_cb_seat(x, "#e39b4f", COL["seat_ln"]))
+    if _on(prev, st, "hole"):
+        a, b, y = cb_hole()
+        g.append(F.rect(a, k["skin"] - 10, b - a, y - k["skin"] + 14, COL["night0"], COL["red"], 3))
+        g.append(_t((a + b) / 2, k["skin"] - 18, "外", 22, J.TICK, "middle"))
+    if _on(prev, st, "mask"):
+        for x in xs:
+            mx = x - 46
+            g.append(F.line(mx, k["ceil"], mx, k["ceil"] + 86, C20["mask_ln"], 2)
+                     + F.rect(mx - 14, k["ceil"] + 86, 28, 20, C20["mask"], C20["mask_ln"], 2, rx=8))
+    if _on(prev, st, "fog"):
+        for x, y, r in cb_fog():
+            g.append(F.circ(x, y, r, COL["white"], None, None, 0.30))
+    if st.get("flow") != prev.get("flow") and st.get("flow") in ("near", "all"):
+        if prev.get("flow") == "off":
+            for (p, q) in cb_arrows("near"):
+                g.append(F.arrow(*p, *q, COL["dark"], 14, 30) + F.arrow(*p, *q, COL["air"], 9, 26))
+        if st["flow"] == "all":
+            for (p, q) in cb_arrows("far"):
+                g.append(F.arrow(*p, *q, COL["air"], 3, 12))
+    if _on(prev, st, "half"):
+        r = CB_R * k["k"]
+        g.append(F.poly(_arc_pts(CB_HOLE_X, k["ceil"], r, 90, 270), "none", COL["mark"], 4, False, "14 10"))
+        g.append(_ring(bx, by, 26, COL["mark"]))
+        g.append(F.line(CB_HOLE_X, k["ceil"], bx, by, COL["mark"], 3, "6 8"))
+    return g
+
+
+# ── flow（ca10）＝123便の客室（横から・機首が左）：客室の空気は後ろの壁（後部圧力隔壁）の穴へ流れる。
+#    平均 約10メートル/秒（報告書 付録4＝解説 p7）・天井の上側で大きく、座席のあたりはかなり小さい（同）。矢印の長さは模式 ──
+FLW = (24.0, 110.0, 560.0)                          # K・機首の x・真ん中の y
+FLW_UP = dict(z=1.9, xs=(10.0, 19.0, 28.0, 37.0, 46.0), L=5.2, w=8)    # 天井の近くの矢印（m・模式）
+FLW_SEAT = dict(z=-0.55, xs=(12.0, 21.0, 30.0, 39.0, 48.0), L=1.6, w=3)  # 座席のあたり（同）（🔴 陽性対照＝L）
+FLW_CABIN = (6.0, -1.15, 2.6)                       # 客室の前の端・床・天井（m・模式）
+
+
+def flw_arrows(which):
+    K, X0, Y0 = FLW
+    d = FLW_UP if which == "up" else FLW_SEAT
+    return [tuple(side_pts(K, X0, Y0, [(x, d["z"]), (x + d["L"], d["z"])])) for x in d["xs"]]
+
+
+def flow_base(st0):
+    K, X0, Y0 = FLW
+    g = [F.poly(side_body(K, X0, Y0), COL["body"], COL["body_ln"], 2.5, True),
+         F.poly(side_pts(K, X0, Y0, I2.S1_WING), COL["wing"], COL["body_ln"], 2, True),
+         F.poly(side_pts(K, X0, Y0, I2.S1_STAB), COL["stab"], COL["body_ln"], 2, True),
+         F.poly(side_pts(K, X0, Y0, I2.S1_FIN), COL["fin"], COL["body_ln"], 2, True)]
+    for e in I2.S1_ENG:
+        g.append(F.poly(side_engine(K, X0, Y0, e), COL["eng"], COL["body_ln"], 2, True))
+    a, fl, ce = FLW_CABIN
+    g.append(F.poly(side_pts(K, X0, Y0, [(a, fl), (PR_BULK, fl), (PR_BULK, ce), (a, ce)]), COL["cabin"], None, None, True, None, 0.30))
+    q = side_pts(K, X0, Y0, pr_bulk_pts())
+    g.append(F.poly(q, "none", COL["dark"], 9) + F.poly(q, "none", COL["mark"], 5))
+    hx, hy = side_pts(K, X0, Y0, [(PR_BULK + 1.0, 1.6)])[0]
+    g.append(F.circ(hx, hy, 10, COL["night0"], COL["red"], 3))
+    return g
+
+
+def flow_stage(prev, st):
+    K, X0, Y0 = FLW
+    g = []
+    if _on(prev, st, "air"):
+        for p, q in flw_arrows("up"):
+            g.append(F.arrow(*p, *q, COL["dark"], FLW_UP["w"] + 5, 26) + F.arrow(*p, *q, COL["air"], FLW_UP["w"], 22))
+    if _on(prev, st, "seat"):
+        a, fl, _ = FLW_CABIN
+        g.append(F.poly(side_pts(K, X0, Y0, [(a, fl), (PR_BULK - 0.5, fl), (PR_BULK - 0.5, 0.25), (a, 0.25)]),
+                        "none", COL["mark"], 3, True, "10 8"))
+        for p, q in flw_arrows("seat"):
+            g.append(F.arrow(*p, *q, COL["air"], FLW_SEAT["w"], 12))
+    return g
+
+
+# ── run（ca11）＝秒速10メートル＝100メートルを10秒（解説 p8 のたとえ）。上から見た走路と、走る向きに向かってくる風の矢印・目。
+#    走る人は描かない ──
+RN = dict(x0=300.0, y=560.0, w=92.0, k=12.0)        # 走路の左の端・真ん中の y・幅・1メートルの画素
+RN_M = 100.0                                        # 走路の長さ（m）（🔴 陽性対照）
+RN_WIND_DX = -1.0                                   # 風の矢印の向き（走る向き＝右の逆）（同上）
+RN_EYE = (1690.0, 700.0)
+
+
+def rn_x1():
+    return RN["x0"] + RN_M * RN["k"]
+
+
+def rn_winds():
+    out = []
+    for y in (RN["y"] - 130.0, RN["y"] + 130.0):
+        for x in (520.0, 820.0, 1120.0, 1420.0):
+            out.append(((x, y), (x + RN_WIND_DX * 130.0, y)))
+    return out
+
+
+def run_base(st0):
+    x0, x1, y, w = RN["x0"], rn_x1(), RN["y"], RN["w"]
+    g = [F.rect(x0 - 40, y - w / 2 - 14, x1 - x0 + 80, w + 28, "#7a3f33", None, None),
+         F.line(x0 - 40, y - w / 2, x1 + 40, y - w / 2, COL["white"], 3), F.line(x0 - 40, y + w / 2, x1 + 40, y + w / 2, COL["white"], 3),
+         F.line(x0, y - w / 2, x0, y + w / 2, COL["white"], 6)]
+    for i in range(6):                             # ゴールの線（市松・模式）
+        for j in range(2):
+            g.append(F.rect(x1 - 8 + 8 * j, y - w / 2 + i * w / 6, 8, w / 6, COL["white"] if (i + j) % 2 else COL["dark"], None, None))
+    g.append(_t(x0, y + w / 2 + 44, "スタート", 24, J.TICK, "middle"))
+    g.append(_t(x1, y + w / 2 + 44, "ゴール", 24, J.TICK, "middle"))
+    g.append(F.arrow(x0 + 40, y, x0 + 190, y, COL["white"], 5, 18))
+    g.append(_t(x0 + 220, y + 9, "走る向き", 24, INK))
+    return g
+
+
+def run_stage(prev, st):
+    g = []
+    if _on(prev, st, "wind"):
+        for p, q in rn_winds():
+            g.append(F.arrow(*p, *q, COL["dark"], 11, 28) + F.arrow(*p, *q, COL["air"], 7, 24))
+        y = RN["y"] - RN["w"] / 2 - 40
+        g.append(_brk(RN["x0"], y, rn_x1(), y, COL["mark"], 4))
+    if _on(prev, st, "eye"):
+        x, y = RN_EYE
+        lid = [(x - 74, y), (x - 36, y - 34), (x, y - 42), (x + 36, y - 34), (x + 74, y), (x + 36, y + 34), (x, y + 42), (x - 36, y + 34)]
+        g.append(F.poly(lid, COL["white"], COL["dark"], 4, True) + F.circ(x, y, 26, "#5b8fb0", COL["dark"], 3) + F.circ(x, y, 11, COL["dark"]))
+    return g
+
+
+# ── temp（ca12）＝客室の温度の戻り方（解説 p9 の計算＝概ね2分後 0°C・3分後 10°C・5分後 20°C）。点は計算の値だけ・下がる矢印は模式
+#    （下がった先の温度は描かない）──
+TP = dict(x0=420.0, x1=1560.0, ya=780.0, yb=340.0, m=6.0, lo=-10.0, hi=30.0)
+TP_PTS = ((2.0, 0.0), (3.0, 10.0), (5.0, 20.0))     # （分, 度）（🔴 陽性対照）
+TP_XT = (0, 1, 2, 3, 4, 5, 6)
+TP_YT = (0, 10, 20, 30)
+
+
+def tp_xy(m, c):
+    return (TP["x0"] + (TP["x1"] - TP["x0"]) * m / TP["m"], TP["ya"] - (TP["ya"] - TP["yb"]) * (c - TP["lo"]) / (TP["hi"] - TP["lo"]))
+
+
+def temp_base(st0):
+    g = [F.line(TP["x0"], TP["yb"], TP["x0"], TP["ya"], COL["mount_ln"], 4), F.line(TP["x0"], TP["ya"], TP["x1"], TP["ya"], COL["mount_ln"], 4)]
+    for m in TP_XT:
+        x, _ = tp_xy(m, 0)
+        g.append(F.line(x, TP["ya"], x, TP["ya"] + 14, COL["mount_ln"], 3))
+        g.append(_t(x, TP["ya"] + 48, f"{m}分", 26, J.TICK, "middle"))
+    for c in TP_YT:
+        _, y = tp_xy(0, c)
+        g.append(F.line(TP["x0"] - 14, y, TP["x1"], y, COL["ghost"], 1.5, "4 8"))
+        g.append(_t(TP["x0"] - 22, y + 9, f"{c}度", 26, J.TICK, "end"))
+    return g
+
+
+def temp_stage(prev, st):
+    g = []
+    if _on(prev, st, "drop"):
+        a, b = tp_xy(0.06, 24.0), tp_xy(0.30, -6.0)
+        g.append(F.line(*a, *b, COL["blue"], 6, "14 10"))
+        g.append(F.arrow(b[0] - 0.01 * (b[0] - a[0]), b[1] - 0.01 * (b[1] - a[1]), *b, COL["blue"], 6, 26))
+    if _on(prev, st, "pts"):
+        for m, c in TP_PTS:
+            g.append(_dot(*tp_xy(m, c), 13, COL["mark"]))
+    return g
+
+
+# ── dect（ca15）＝客室の気圧が約3,000メートル相当（1万フィート）になるまでの秒数の比べ（解説 p3 表2・p4 図1）：
+#    123便＝報告書の計算の幅（1.7〜5秒＝破線の枠）・2009年の例＝解説の概算（約2.9秒＝棒）。目盛りの数字だけ書く ──
+DT = dict(x0=620.0, x1=1600.0, ax=740.0, max=6.0)
+DT_ROW = dict(j123=420.0, b737=590.0)
+DT_H = 76.0
+DT_J123 = (1.7, 5.0)                                # （🔴 陽性対照）
+DT_B737 = 2.9                                       # （同上）
+DT_TICKS = (0, 1, 2, 3, 4, 5, 6)
+
+
+def dt_x(v):
+    return DT["x0"] + (DT["x1"] - DT["x0"]) * v / DT["max"]
+
+
+def dect_base(st0):
+    g = [F.line(DT["x0"], DT["ax"], DT["x1"], DT["ax"], COL["mount_ln"], 4)]
+    for v in DT_TICKS:
+        x = dt_x(v)
+        g.append(F.line(x, DT["ax"], x, DT["ax"] + 14, COL["mount_ln"], 3))
+        g.append(F.line(x, DT_ROW["j123"] - 70, x, DT["ax"], COL["ghost"], 1.5, "4 8"))
+        g.append(_t(x, DT["ax"] + 50, f"{v}秒", 26, J.TICK, "middle"))
+    return g
+
+
+def dect_stage(prev, st):
+    g = []
+    if _on(prev, st, "j123"):
+        y = DT_ROW["j123"]
+        a, b = (dt_x(v) for v in DT_J123)
+        g.append(F.rect(a, y - DT_H / 2, b - a, DT_H, COL["mark"], None, None, op=0.25))
+        g.append(F.rect(a, y - DT_H / 2, b - a, DT_H, "none", COL["mark"], 5, dash="14 9"))
+        g.append(F.txtfit(DT["x0"] - 24, y + 12, "123便", 480, cap=34, col=INK, anchor="end"))
+    if _on(prev, st, "b737"):
+        y = DT_ROW["b737"]
+        g.append(F.rect(DT["x0"], y - DT_H / 2, dt_x(DT_B737) - DT["x0"], DT_H, COL["blue"], COL["dark"], 2))
+        g.append(F.txtfit(DT["x0"] - 24, y + 12, "2009年の例", 480, cap=34, col=INK, anchor="end"))
+    return g
+
+
+# ── holes（ca06）＝穴の大きさの比べ（同じ縮尺・1マス＝1メートル）：123便＝報告書の計算の基準の開口 1.8m2（解説 p9）・
+#    2009年の例＝約0.135m2（解説 p2）。正方形は模式（面積だけ合わせた）──
+HL = dict(k=170.0, c=dict(j123=(560.0, 590.0), b737=(1360.0, 590.0)), half=1.0)
+HL_A = dict(j123=1.8, b737=0.135)                   # （🔴 陽性対照）
+HL_TIT = dict(j123="123便（B747）", b737="2009年の例（B737-3H4）")
+
+
+def hl_sq(nm):
+    cx, cy = HL["c"][nm]
+    s = math.sqrt(HL_A[nm]) * HL["k"]
+    return cx - s / 2, cy - s / 2, s
+
+
+def holes_base(st0):
+    g = []
+    k, h = HL["k"], HL["half"]
+    for nm, (cx, cy) in HL["c"].items():
+        g.append(F.rect(cx - h * k, cy - h * k, 2 * h * k, 2 * h * k, "#1f2c36", COL["ghost"], 3))
+        for i in (-1, 0, 1):
+            g.append(F.line(cx + i * k, cy - h * k, cx + i * k, cy + h * k, COL["ghost"], 1.5, "4 8"))
+            g.append(F.line(cx - h * k, cy + i * k, cx + h * k, cy + i * k, COL["ghost"], 1.5, "4 8"))
+        g.append(F.txtfit(cx, cy - h * k - 26, HL_TIT[nm], 2 * h * k + 120, cap=32, col=INK, anchor="middle"))
+    return g
+
+
+def holes_stage(prev, st):
+    g = []
+    for nm in ("j123", "b737"):
+        if _on(prev, st, nm):
+            x, y, s = hl_sq(nm)
+            g.append(F.rect(x, y, s, s, COL["night0"], COL["mark"], 5))
+    return g
+
+
+# ── 海の断面（sonar・dcam・rov の基図）──
+SEA = dict(top=330.0, bed=790.0)
+
+
+def sea_bed_pts(y0=None):
+    y0 = SEA["bed"] if y0 is None else y0
+    rs = _lcg(85, 24)
+    pts = [(F.BX0 + 10 + (F.BX1 - F.BX0 - 20) * i / 23, y0 + 14 * (rs[i] - 0.5)) for i in range(24)]
+    return pts
+
+
+def _sea_base():
+    x0, x1 = F.BX0 + 10, F.BX1 - 10
+    bed = sea_bed_pts()
+    g = [F.rect(x0, SEA["top"], x1 - x0, SEA["bed"] + 40 - SEA["top"], COL["sea"], None, None, op=0.85),
+         F.poly(bed + [(x1, 850.0), (x0, 850.0)], "#4a4030", "#6e6046", 3, True)]
+    wave = [(x0 + 30 * i, SEA["top"] + (4 if i % 2 else -4)) for i in range(int((x1 - x0) / 30) + 1)]
+    g.append(F.poly(wave, "none", COL["sea_ln"], 3))
+    return g
+
+
+def _ship(x, y):
+    hull = [(x - 110, y - 26), (x + 120, y - 26), (x + 96, y + 10), (x - 96, y + 10)]
+    return (F.poly(hull, "#c9d3da", COL["dark"], 3, True) + F.rect(x - 40, y - 62, 80, 36, "#c9d3da", COL["dark"], 3, rx=4))
+
+
+# ── sonar（cb04）＝サイド・スキャン・ソナー（解説 p23 図17）：船が引く装置から、海底へ扇の形に音を出し、跳ね返りを受ける。
+#    進む向きに直角の断面（模式）──
+SN = dict(ship=(960.0, 330.0), fish=(960.0, 600.0))
+SN_ANG = (28.0, 72.0)                               # 扇の内と外の角度（真下からの度・模式）（🔴 陽性対照＝左右の対称）
+SN_ANG_L = (28.0, 72.0)
+SN_OBJ = (560.0, 778.0)
+
+
+def sn_fan(side):
+    fx, fy = SN["fish"]
+    a0, a1 = SN_ANG if side > 0 else SN_ANG_L
+    pts = [(fx, fy)]
+    for i in range(13):
+        a = math.radians(a0 + (a1 - a0) * i / 12)
+        pts.append((fx + side * (SEA["bed"] - fy) * math.tan(a), SEA["bed"]))
+    return pts
+
+
+def sonar_base(st0):
+    sx, sy = SN["ship"]
+    fx, fy = SN["fish"]
+    g = _sea_base() + [_ship(sx, sy), F.line(sx + 70, sy + 6, fx + 10, fy - 14, COL["white"], 3)]
+    g.append(F.poly([(fx - 46, fy - 12), (fx + 46, fy - 12), (fx + 58, fy), (fx + 46, fy + 12), (fx - 46, fy + 12)], COL["mark"], COL["dark"], 3, True))
+    g.append(F.poly([(SN_OBJ[0] - 30, SN_OBJ[1] + 6), (SN_OBJ[0] - 10, SN_OBJ[1] - 22), (SN_OBJ[0] + 28, SN_OBJ[1] - 14),
+                     (SN_OBJ[0] + 34, SN_OBJ[1] + 6)], "#2b2b2b", COL["dark"], 2, True))
+    return g
+
+
+def sonar_stage(prev, st):
+    g = []
+    if _on(prev, st, "beam"):
+        for s in (-1, 1):
+            g.append(F.poly(sn_fan(s), COL["radar"], None, None, True, None, 0.28))
+            g.append(F.poly(sn_fan(s), "none", COL["radar"], 3, True))
+    if _on(prev, st, "echo"):
+        fx, fy = SN["fish"]
+        ox, oy = SN_OBJ
+        for d in (-14, 14):
+            g.append(F.arrow(ox + d, oy - 30, fx - 50 + d * 0.3, fy + 18, COL["mark"], 5, 20))
+        g.append(_ring(ox, oy - 8, 44, COL["mark"]))
+    return g
+
+
+# ── dcam（cb08）＝えい航式深海カメラ（解説 p24・p25：えい航速度 約2kt・えい航高度 約1.5m・撮影幅 約1.5m）。
+#    横から（海の深さは縮めた＝途切れの印）と、右上に上から見た写る幅の帯 ──
+DC = dict(k=100.0, ship=(360.0, 330.0), sled=(1000.0, 640.0), inset=(1290.0, 380.0, 1820.0, 600.0))
+DC_H = 1.5                                          # カメラの高さ（m）（🔴 陽性対照）
+DC_W = 1.5                                          # 写る幅（m）（同上）
+
+
+def dc_sled_y():
+    return SEA["bed"] - DC_H * DC["k"]
+
+
+def dcam_base(st0):
+    sx, sy = DC["ship"]
+    cx = DC["sled"][0]
+    cy = dc_sled_y()
+    g = _sea_base() + [_ship(sx, sy), F.arrow(sx + 140, sy - 50, sx + 260, sy - 50, COL["white"], 5, 16)]
+    g.append(F.poly([(sx - 100, sy + 4), (640.0, 470.0)], "none", COL["white"], 3))
+    g.append(F.line(626, 450, 660, 470, COL["white"], 3) + F.line(640, 440, 674, 460, COL["white"], 3))   # 途切れの印（深さは縮めた）
+    g.append(F.poly([(660.0, 480.0), (cx - 60, cy - 40)], "none", COL["white"], 3))
+    g.append(F.rect(cx - 70, cy - 46, 140, 46, COL["mark"], COL["dark"], 3, rx=6))
+    g.append(F.circ(cx + 40, cy - 4, 10, COL["dark"]))
+    g.append(F.poly([(cx + 30, cy), (cx - 40, SEA["bed"] - 4), (cx + 110, SEA["bed"] - 4), (cx + 50, cy)], COL["light"], None, None, True, None, 0.30))
+    return g
+
+
+def dcam_stage(prev, st):
+    g = []
+    cx = DC["sled"][0]
+    cy = dc_sled_y()
+    if _on(prev, st, "h"):
+        x = cx + 170
+        g.append(F.line(x, cy, x, SEA["bed"], COL["mark"], 5) + F.line(x - 14, cy, x + 14, cy, COL["mark"], 5)
+                 + F.line(x - 14, SEA["bed"], x + 14, SEA["bed"], COL["mark"], 5))
+    if _on(prev, st, "w"):
+        x0, y0, x1, y1 = DC["inset"]
+        g.append(F.rect(x0, y0, x1 - x0, y1 - y0, "#3a3226", COL["white"], 3, rx=8))
+        ym = (y0 + y1) / 2
+        w = DC_W * DC["k"]
+        g.append(F.rect(x0 + 20, ym - w / 2, x1 - x0 - 40, w, COL["light"], COL["mark"], 3, op=0.45))
+        g.append(F.arrow(x1 - 160, ym, x1 - 40, ym, COL["white"], 5, 18))
+        g.append(_t(x0 + 12, y0 - 14, "上から見ると", 24, J.TICK))
+    return g
+
+
+# ── rov（cb13）＝遠隔操作無人探査機（解説 p25：遠隔操作で任意の地点へカメラを移動させて調査できる）。いまの道具・人は描かない ──
+RV = dict(ship=(520.0, 330.0), a=(640.0, 470.0), b=(1250.0, 690.0), tgt=(1380.0, 772.0))
+
+
+def _rov_pts(x, y):
+    return [(x - 64, y - 34), (x + 64, y - 34), (x + 64, y + 34), (x - 64, y + 34)]
+
+
+def rov_parts(st):
+    on = st["rov"] == "on"
+    x, y = RV["b"] if on else RV["a"]
+    dx, dy = x - RV["a"][0], y - RV["a"][1]
+    sx, sy = RV["ship"]
+    ax, ay = RV["a"]
+    return [_P("rv_tether", "line", [(sx + 60, sy + 6), (x - 40, y - 34)], stroke=COL["mark"], w=3, alpha=1.0 if on else 0.0),
+            _P("rv_light", "poly", [(ax + 60, ay + 10), (ax + 190, ay + 120), (ax + 110, ay + 150)], fill=COL["light"], stroke=None,
+               dx=dx, dy=dy, alpha=0.35 if on else 0.0),
+            _P("rv_body", "poly", _rov_pts(ax, ay), fill="#e0e6ea", stroke=COL["dark"], w=3, dx=dx, dy=dy, alpha=1.0 if on else 0.0),
+            _P("rv_thr", "poly", [(ax - 80, ay - 14), (ax - 64, ay - 14), (ax - 64, ay + 14), (ax - 80, ay + 14)], fill=COL["mark"],
+               stroke=COL["dark"], w=2, dx=dx, dy=dy, alpha=1.0 if on else 0.0)]
+
+
+def rov_base(st0):
+    tx, ty = RV["tgt"]
+    return _sea_base() + [_ship(*RV["ship"]),
+                          F.poly([(tx - 34, ty + 8), (tx - 12, ty - 20), (tx + 30, ty - 12), (tx + 38, ty + 8)], "#2b2b2b", COL["dark"], 2, True)]
+
+
+def rov_stage(prev, st):
+    g = []
+    if _on(prev, st, "ask"):
+        for x in (520.0, 900.0, 1600.0):
+            g.append(_t(x, SEA["bed"] - 30, "？", 64, COL["mark"], "middle"))
+    return g
+
+
+# ── res（cb05）＝見分けられる大きさ（解説 p24：分解能 1.1m×1.3m・判別には5点程度＝5.5m×6.5m 程度）。上から見た海底の格子（模式）──
+RS = dict(k=60.0, x0=420.0, y0=300.0, nx=15, ny=6)
+RS_CELL = (1.1, 1.3)                                # 1つの点（m）（🔴 陽性対照）
+RS_N = 5                                            # 1辺の点の数（同上）
+RS_ONE = (1, 4)                                     # 1つの点を示す升（列・行）
+RS_BLK = (5, 0)                                     # 見分けられる大きさの左上の升
+
+
+def rs_cell(c, r, n=1):
+    w, h = RS_CELL[0] * RS["k"], RS_CELL[1] * RS["k"]
+    return RS["x0"] + c * w, RS["y0"] + r * h, n * w, n * h
+
+
+def res_base(st0):
+    w, h = RS_CELL[0] * RS["k"], RS_CELL[1] * RS["k"]
+    x1, y1 = RS["x0"] + RS["nx"] * w, RS["y0"] + RS["ny"] * h
+    g = [F.rect(RS["x0"], RS["y0"], x1 - RS["x0"], y1 - RS["y0"], "#4a4030", None, None)]
+    for i in range(RS["nx"] + 1):
+        g.append(F.line(RS["x0"] + i * w, RS["y0"], RS["x0"] + i * w, y1, "#6e6046", 1.5))
+    for j in range(RS["ny"] + 1):
+        g.append(F.line(RS["x0"], RS["y0"] + j * h, x1, RS["y0"] + j * h, "#6e6046", 1.5))
+    return g
+
+
+def res_stage(prev, st):
+    g = []
+    if _on(prev, st, "cell"):
+        x, y, w, h = rs_cell(*RS_ONE)
+        g.append(F.rect(x, y, w, h, COL["mark"], COL["dark"], 3, op=0.85))
+    if _on(prev, st, "need"):
+        x, y, w, h = rs_cell(*RS_BLK, n=RS_N)
+        g.append(F.rect(x, y, w, h, COL["mark"], None, None, op=0.30) + F.rect(x, y, w, h, "none", COL["mark"], 6))
+        g.append(F.line(x, y + h + 26, x + w, y + h + 26, COL["mark"], 4) + F.line(x, y + h + 14, x, y + h + 38, COL["mark"], 4)
+                 + F.line(x + w, y + h + 14, x + w, y + h + 38, COL["mark"], 4))
+        g.append(F.line(x + w + 26, y, x + w + 26, y + h, COL["mark"], 4) + F.line(x + w + 14, y, x + w + 38, y, COL["mark"], 4)
+                 + F.line(x + w + 14, y + h, x + w + 38, y + h, COL["mark"], 4))
+    return g
+
+
+# ── area（cb09・cb10）＝調査区域の広さ（約25km2）と、カメラが1日（6時間）に写せる広さ（解説 p26：撮影幅1.5m・2kt で 4,500時間・
+#    1日6時間で750日）。面積の比だけ合わせた正方形（模式）──
+AR = dict(k=100.0, x0=380.0, y0=300.0)              # 1キロの画素・大きい四角の左上
+AR_KM2 = 25.0                                       # （🔴 陽性対照）
+AR_DAYS = 750.0                                     # （同上）
+
+
+def ar_big():
+    return math.sqrt(AR_KM2) * AR["k"]
+
+
+def ar_day():
+    return math.sqrt(AR_KM2 / AR_DAYS) * AR["k"]
+
+
+def area_base(st0):
+    s = ar_big()
+    return [F.rect(AR["x0"], AR["y0"], s, s, "#22445f", COL["sea_ln"], 4)]
+
+
+def area_stage(prev, st):
+    g = []
+    s, d = ar_big(), ar_day()
+    x0, y0 = AR["x0"], AR["y0"]
+    if _on(prev, st, "day"):
+        g.append(F.rect(x0 + 3, y0 + 3, d, d, COL["mark"], None, None))
+        g.append(_ring(x0 + 3 + d / 2, y0 + 3 + d / 2, 34, COL["mark"]))
+    if _on(prev, st, "rep"):
+        for k_, dash in ((0, "18 10"), (1, "6 10")):
+            pts = []
+            for i in range(9):
+                yy = y0 + 30 + i * (s - 60) / 8 + k_ * 14
+                pts += ([(x0 + 24, yy), (x0 + s - 24, yy)] if i % 2 == 0 else [(x0 + s - 24, yy), (x0 + 24, yy)])
+            g.append(F.poly(pts, "none", COL["light"], 2, False, dash))
+    if _on(prev, st, "nog"):
+        g.append(_t(x0 + s / 2, y0 + s / 2 + 40, "？", 140, COL["mark"], "middle"))
+    if _on(prev, st, "end"):
+        g.append(F.rect(x0, y0, s, s, COL["dark"], None, None, op=0.55))
+    return g
+
+
+# ── cover（cc04）＝事故のあとの対策（報告書 5.1）：垂直尾翼の点検口にカバー（p130 5.1.2(ア)・p131 5.1.3(ア)＝客室の空気が尾翼へ
+#    入り込まない）・強化型の後部圧力隔壁（p131 5.1.3(オ)）。横から見た尾部（機首が左）。点検口の位置は模式 ──
+CV = (30.0, 420.0 - 44.0 * 30.0, 738.0)             # K・機首の x（画面の外）・真ん中の y
+CV_HOLE = (60.4, 3.04)                              # 点検口（m・模式＝垂直尾翼の根元の前寄り）（🔴 陽性対照）
+CV_AIR = [(58.5, -0.4), (59.5, 1.2), (60.2, 2.6)]   # 隔壁の後ろから点検口へ向かう空気（m・模式）
+
+
+def cover_base(st0):
+    K, X0, Y0 = CV
+    g = [F.poly(side_body(K, X0, Y0, cut_front=PR_X0), "#26313b", COL["body_ln"], 3, True),
+         F.poly(side_pts(K, X0, Y0, I2.S1_FIN), "#33414d", COL["body_ln"], 3, True),
+         F.poly(side_pts(K, X0, Y0, I2.S1_STAB), "#33414d", COL["body_ln"], 2, True)]
+    x0 = X0 + PR_X0 * K
+    g.append(F.line(x0, Y0 - 3.6 * K, x0, Y0 + 3.6 * K, COL["ghost"], 3, "8 8"))
+    q = side_pts(K, X0, Y0, pr_bulk_pts())
+    g.append(F.poly(q, "none", COL["dark"], 9) + F.poly(q, "none", WEB["up"], 5))
+    hx, hy = side_pts(K, X0, Y0, [CV_HOLE])[0]
+    g.append(F.rect(hx - 0.7 * K, hy - 7, 1.4 * K, 14, COL["night0"], COL["ghost"], 2))
+    return g
+
+
+def cover_stage(prev, st):
+    K, X0, Y0 = CV
+    g = []
+    if _on(prev, st, "cover"):
+        pts = side_pts(K, X0, Y0, CV_AIR)
+        g.append(F.poly(pts, "none", COL["red"], 5, False, "12 8"))
+        g.append(F.arrow(*pts[-2], *pts[-1], COL["red"], 5, 20))
+        hx, hy = side_pts(K, X0, Y0, [CV_HOLE])[0]
+        g.append(F.rect(hx - 0.85 * K, hy - 12, 1.7 * K, 14, COL["mark"], COL["dark"], 3, rx=3))
+        g.append(F.line(hx - 24, hy - 44, hx + 24, hy - 4, COL["red"], 7) + F.line(hx - 24, hy - 4, hx + 24, hy - 44, COL["red"], 7))
+    if _on(prev, st, "strong"):
+        q = side_pts(K, X0, Y0, pr_bulk_pts())
+        g.append(F.poly(q, "none", COL["dark"], 18) + F.poly(q, "none", COL["green"], 11))
+    return g
+
+
+# ── word（cc15）＝報告書の言葉の使い分け（解説 p26 の4つ＝運輸安全委員会の報告書の冒頭の書き方）。この事故の原因は「推定される」──
+WD = dict(x0=300.0, x1=1560.0, wx=760.0, y0=330.0, dy=124.0, h=92.0)
+WD_ROWS =(("認められる", "断定できる場合"), ("推定される", "断定できないが、ほぼ間違いない場合"),
+           ("考えられる", "可能性が高い場合"), ("可能性が考えられる", "可能性がある場合"))   # （🔴 陽性対照）
+WD_PICK = 1                                         # この事故の原因の言葉の段（同上）
+
+
+def wd_row(i):
+    y = WD["y0"] + i * WD["dy"]
+    return y, y + WD["h"]
+
+
+#   ⚠️ 門番 echo：意味の文（「断定できないが、ほぼ間違いない場合」）を表で出すと、語りがそのまま読む＝字幕の写し（88%）。
+#      → 4つの言葉の段と、右に確かさの矢印（上の端＝1段目の意味・下の端＝4段目の意味）。原因の段の意味は語りに任せ、短い札だけ
+WD_AX = 900.0                                       # 確かさの矢印の x
+WD_MEAN = "ほぼ間違いない"                           # 原因の段の短い札（解説 p26 の字の一部）
+
+
+def word_base(st0):
+    g = []
+    for i, (w, m) in enumerate(WD_ROWS):
+        y0, y1 = wd_row(i)
+        g.append(F.rect(WD["x0"], y0, WD["wx"] - WD["x0"] - 30, y1 - y0, J.BG2, COL["ghost"], 3, rx=10))
+        g.append(F.txtfit((WD["x0"] + WD["wx"] - 30) / 2, (y0 + y1) / 2 + 13, f"「{w}」", WD["wx"] - WD["x0"] - 60, cap=36, col=INK,
+                          anchor="middle"))
+    ya, yb = wd_row(0)[0] + 10, wd_row(len(WD_ROWS) - 1)[1] - 10
+    g.append(F.arrow(WD_AX, yb, WD_AX, ya, COL["ghost"], 6, 22))
+    g.append(F.txtfit(WD_AX + 30, ya + 22, WD_ROWS[0][1], 620, cap=30, col=J.TICK))
+    g.append(F.txtfit(WD_AX + 30, yb - 4, WD_ROWS[-1][1], 620, cap=30, col=J.TICK))
+    return g
+
+
+def word_stage(prev, st):
+    g = []
+    y0, y1 = wd_row(WD_PICK)
+    if _on(prev, st, "pick"):
+        g.append(F.rect(WD["x0"] - 12, y0 - 12, WD["wx"] - WD["x0"] - 6, y1 - y0 + 24, "none", COL["mark"], 6, rx=14))
+    if _on(prev, st, "mean"):
+        ym = (y0 + y1) / 2
+        g.append(F.line(WD_AX - 22, ym, WD_AX + 22, ym, COL["mark"], 7))
+        g.append(F.txtfit(WD_AX + 30, ym + 11, WD_MEAN, 620, cap=32, col=COL["mark"]))
+    return g
+
+
+# ── faa（cc10）＝FAA の教訓の頁（Lessons Learned「JA8119」・2025年9月3日 更新）の一文＝英語は原文のまま（sources.md §8）。
+#    頁の見た目は模式（ロゴは描かない）──
+FA_PAGE = (300.0, 300.0, 1620.0, 780.0)
+FA_LINES = ("During the bulkhead repair, difficulty in installation of a splice plate",
+            "resulted in the Boeing repair crew dividing the plate and installing it",
+            "in two pieces …")                              # （🔴 陽性対照）
+FA_HL = ((1, "dividing the plate and installing it"), (2, "in two pieces"))   # 印を付ける句（行・文字）
+
+
+def faa_base(st0):
+    x0, y0, x1, y1 = FA_PAGE
+    return [F.rect(x0, y0, x1 - x0, y1 - y0, "#e9eef1", COL["ghost"], 3, rx=12),
+            F.rect(x0, y0, x1 - x0, 64, "#c9d3da", None, None),
+            F.txtfit(x0 + 30, y0 + 44, "Lessons Learned「JA8119」（FAA の頁・2025年9月3日 更新）", x1 - x0 - 60, cap=30, col="#2a333a")]
+
+
+def _fa_line_y(i):
+    return FA_PAGE[1] + 170 + i * 92
+
+
+def faa_stage(prev, st):
+    g = []
+    x0 = FA_PAGE[0] + 40
+    if _on(prev, st, "body"):
+        for i, s in enumerate(FA_LINES):
+            g.append(F.txt(x0, _fa_line_y(i), s, 40, "#1c242a", fam="Noto"))
+    if _on(prev, st, "hl"):
+        for i, ph in FA_HL:
+            s = FA_LINES[i]
+            a = F.fm.width(s[:s.index(ph)], 40, "Noto")
+            w = F.fm.width(ph, 40, "Noto")
+            g.append(F.line(x0 + a, _fa_line_y(i) + 12, x0 + a + w, _fa_line_y(i) + 12, "#d08a1e", 7))
+    return g
+
+
+# ── ans（cc18）＝冒頭の3つの問い（c107・c108 の語り）と答えの並び。3つ目の「修理がなぜ誤ったか」は公表を待つ ──
+AN = dict(xs=(400.0, 960.0, 1520.0), w=500.0, qy=(330.0, 470.0), ay=(530.0, 800.0))
+AN_Q = ("あの日の操縦室と客室", "壁が壊れた理由と、見つからなかった理由", "よく言われる疑問と、まだ分からないこと")
+AN_WAIT = "公表を待つ"                               # （🔴 陽性対照）
+
+
+def _check(x, y, col, s=1.0):
+    p = [(x - 26 * s, y), (x - 6 * s, y + 22 * s), (x + 30 * s, y - 24 * s)]
+    return F.poly(p, "none", COL["dark"], 14 * s) + F.poly(p, "none", col, 8 * s)
+
+
+def ans_base(st0):
+    g = []
+    for i, (cx, q) in enumerate(zip(AN["xs"], AN_Q)):
+        y0, y1 = AN["qy"]
+        g.append(F.rect(cx - AN["w"] / 2, y0, AN["w"], y1 - y0, J.BG2, COL["ghost"], 3, rx=10))
+        g.append(_t(cx, y0 + 46, f"{i + 1}つ目", 30, J.TICK, "middle"))
+        g.append(F.txtfit(cx, y0 + 104, q, AN["w"] - 30, cap=30, col=INK, anchor="middle"))
+        if i < 2:
+            g.append(_check(cx, (AN["ay"][0] + AN["ay"][1]) / 2 - 20, COL["green"], 1.6))
+    return g
+
+
+def ans_stage(prev, st):
+    g = []
+    cx = AN["xs"][2]
+    y0, y1 = AN["ay"]
+    if _on(prev, st, "q3a"):
+        g.append(F.rect(cx - AN["w"] / 2, y0, AN["w"], 110, J.BG2, COL["green"], 3, rx=10))
+        g.append(_check(cx - AN["w"] / 2 + 46, y0 + 56, COL["green"]))
+        g.append(F.txtfit(cx - AN["w"] / 2 + 90, y0 + 68, "急減圧・ミサイルの疑い", AN["w"] - 110, cap=30, col=INK))
+    if _on(prev, st, "q3b"):
+        yb = y0 + 140
+        g.append(F.rect(cx - AN["w"] / 2, yb, AN["w"], 110, J.BG2, COL["mark"], 3, rx=10))
+        g.append(F.txtfit(cx - AN["w"] / 2 + 30, yb + 46, "修理がなぜ誤ったか", AN["w"] - 60, cap=28, col=INK))
+        g.append(F.txtfit(cx - AN["w"] / 2 + 30, yb + 92, AN_WAIT, AN["w"] - 60, cap=32, col=COL["mark"]))
+    return g
+
+
+# ── 既存の見え方に足した欄（⑤b-6b）──
+# hyd の fuse（cc03）＝No.4 系統が垂直安定板へ入る上流のフューズ（報告書 p130〜131＝5.1.2(キ)・5.1.3(イ)）。位置は模式。
+#   stop＝油が大量に漏れたら流れを止める＝ヒューズより後ろの No.4 の管を沈め、尾翼の中に漏れの印（「考えられている」）
+HY_FUSE = (4, 56.0)                                 # （系統の番号, 機首からの m）（🔴 陽性対照）
+
+
+def hy_fuse_xy():
+    no, x = HY_FUSE
+    return HY.p(x, HY_OFF[no])
+
+
+def hyd_fuse_stage(prev, st):
+    g = []
+    no, x = HY_FUSE
+    if st.get("fuse") in ("on", "stop") and prev.get("fuse") == "off":
+        px, py = hy_fuse_xy()
+        g.append(F.rect(px - 13, py - 13, 26, 26, COL["mark"], COL["dark"], 3, rx=4))
+    if _on(prev, st, "fuse", "stop"):
+        o = HY_OFF[no]
+        g.append(F.poly(HY.ps([(x + 0.9, o), (61.0, o), (HY_TAIL, o * 0.4)]), "none", COL["dark"], 9)
+                 + F.poly(HY.ps([(x + 0.9, o), (61.0, o), (HY_TAIL, o * 0.4)]), "none", COL["hyd_dim"], 6))
+        cx, cy = HY.p(63.0, o * 0.7)
+        for j in range(3):
+            g.append(F.circ(cx + 18 + j * 12, cy + 10 + j * 14, 7 - j * 1.5, COL["hyd"], COL["dark"], 1.5))
+    return g
+
+
+# alt の band（ca19）＝20,000フィートより上の帯（報告書 p126 4.1.7.3「20,000フィート以上の高度で…約18分間飛行」・p115 も同じ）
+AL_BAND = 20000.0                                   # フィート（🔴 陽性対照）
+
+
+def alt_band_stage(prev, st):
+    g = []
+    if _on(prev, st, "band") and st["span"] == "cruise":
+        sp = AL_SPAN["cruise"]
+        y = al_xy("cruise", sp["t0"], AL_BAND * FT)[1]
+        g.append(F.rect(AL["x0"], AL["y0"], AL["x1"] - AL["x0"], y - AL["y0"], COL["mark"], None, None, op=0.14))
+        g.append(F.line(AL["x0"], y, AL["x1"], y, COL["mark"], 4, "14 9"))
+    return g
+
+
+# seats の hyp（ca20）＝酸素が足りず、判断力などがある程度低下（報告書 p115 3.2.7.2(3)・p127＝「考えられる」）。3つの席に霞（模式）
+def seats_hyp_stage(prev, st):
+    g = []
+    if _on(prev, st, "hyp"):
+        for (x, y) in (SE_SEAT["left"], SE_SEAT["right"], SE_FE):
+            g.append(F.rect(x - 70, y - 75, 140, 150, "#6f8fb3", None, None, op=0.42, rx=20))
+    return g
+
+
+# ══════════════════════════════════════════════════════════
 #  見え方の表
 # ══════════════════════════════════════════════════════════
 VIEWS = dict(
     seats=dict(lab="上から見た操縦室（前が上）", fields=dict(fe=ONOFF, left=("off", "usual", "cop"), right=("off", "cap"), ask=ONOFF,
-                                                       cert=ONOFF), base=seats_base, stage=seats_stage),
+                                                       cert=ONOFF, hyp=ONOFF), base=seats_base, stage=seats_stage),
     xpdr=dict(lab="管制のレーダーと機体", fields=dict(ask=ONOFF, reply=("off", "on", "emg")), base=xpdr_base, stage=xpdr_stage),
-    hyd=dict(lab="上から見た機体（機首が上）", fields=dict(surf=ONOFF, pipes=ONOFF, num=ONOFF, ask=ONOFF, cut=ONOFF),
+    hyd=dict(lab="上から見た機体（機首が上）", fields=dict(surf=ONOFF, pipes=ONOFF, num=ONOFF, ask=ONOFF, cut=ONOFF,
+                                                    fuse=("off", "on", "stop")),
              base=hyd_base, stage=hyd_stage, parts=hyd_parts),
     thrust=dict(lab="推力の矢印と機体の向き", fields=dict(lay=("both", "side"), pwr=("base", "up"), nose=("lvl", "up"), top=ONOFF,
                                                      diff=("off", "ask", "on"), yaw=ONOFF, wave=ONOFF),
                 base=thrust_base, stage=thrust_stage, parts=thrust_parts),
     alt=dict(lab="高さの記録の点", fields=dict(span=("cruise", "final"), pts=("off", "early", "all"), m1=ONOFF, m2=ONOFF, rate=ONOFF,
-                                          stop=ONOFF), base=alt_base, stage=alt_stage),
+                                          stop=ONOFF, band=ONOFF), base=alt_base, stage=alt_stage),
     gear=dict(lab="横から見た機体（機首が左）", fields=dict(gear=("up", "down"), flap=("up", "down"), voice=ONOFF), base=gear_base,
               stage=gear_stage, parts=gear_parts),
     radio=dict(lab="無線の相手", fields=dict(link=ONOFF, ask=ONOFF, stay=ONOFF), base=radio_base, stage=radio_stage, parts=radio_parts),
@@ -1555,16 +2371,36 @@ VIEWS = dict(
     clen=dict(lab="リベットの頭と亀裂（後ろから）", fields=dict(crack=ONOFF, len=ONOFF), base=clen_base, stage=clen_stage),
     prob=dict(lab="見つける確率の計算（報告書）", fields=dict(one=ONOFF, many=ONOFF, q=ONOFF), base=prob_base, stage=prob_stage),
     two=dict(lab="2つの場合（後ろから）", fields=dict(pick=ONOFF, ok=ONOFF), base=two_base, stage=two_stage),
-    lav=dict(lab="横から見た客室の後ろ（機首が左）", fields=dict(lav=ONOFF, coat=ONOFF, bend=ONOFF), base=lav_base, stage=lav_stage))
+    lav=dict(lab="横から見た客室の後ろ（機首が左）", fields=dict(lav=ONOFF, coat=ONOFF, bend=ONOFF), base=lav_base, stage=lav_stage),
+    # 🆕 ⑤b-6b：第9章〜終章
+    cab=dict(lab="客室の縦の断面（機首が左）", fields=dict(hole=ONOFF, flow=("off", "near", "all"), half=ONOFF, warm=ONOFF, mask=ONOFF,
+                                                    fog=ONOFF, gauge=("off", "hi", "lo")), base=cab_base, stage=cab_stage, parts=cab_parts),
+    flow=dict(lab="123便の客室（横から・機首が左）", fields=dict(air=ONOFF, seat=ONOFF), base=flow_base, stage=flow_stage),
+    run=dict(lab="上から見た走路", fields=dict(wind=ONOFF, eye=ONOFF), base=run_base, stage=run_stage),
+    temp=dict(lab="客室の温度の戻り方（解説の計算）", fields=dict(drop=ONOFF, pts=ONOFF), base=temp_base, stage=temp_stage),
+    dect=dict(lab="客室の気圧が約3,000メートル相当になるまでの秒数", fields=dict(j123=ONOFF, b737=ONOFF), base=dect_base,
+              stage=dect_stage),
+    holes=dict(lab="穴の大きさ（同じ縮尺・1マス＝1メートル）", fields=dict(j123=ONOFF, b737=ONOFF), base=holes_base, stage=holes_stage),
+    sonar=dict(lab="海の断面（船の進む向きに直角）", fields=dict(beam=ONOFF, echo=ONOFF), base=sonar_base, stage=sonar_stage),
+    dcam=dict(lab="海の断面（横から・深さは縮めた）", fields=dict(h=ONOFF, w=ONOFF), base=dcam_base, stage=dcam_stage),
+    rov=dict(lab="海の断面（横から）", fields=dict(ask=ONOFF, rov=ONOFF), base=rov_base, stage=rov_stage, parts=rov_parts),
+    res=dict(lab="上から見た海の底（1マス＝ソナーの1つの点）", fields=dict(cell=ONOFF, need=ONOFF), base=res_base, stage=res_stage),
+    area=dict(lab="調べた区域と、1日に写せる広さ（面積の比）", fields=dict(day=ONOFF, rep=ONOFF, nog=ONOFF, end=ONOFF), base=area_base,
+              stage=area_stage),
+    cover=dict(lab="横から見た尾部（機首が左）", fields=dict(cover=ONOFF, strong=ONOFF), base=cover_base, stage=cover_stage),
+    word=dict(lab="報告書の言葉の使い分け（解説から）", fields=dict(pick=ONOFF, mean=ONOFF), base=word_base, stage=word_stage),
+    faa=dict(lab="FAA の頁の一文（英語は原文のまま）", fields=dict(body=ONOFF, hl=ONOFF), base=faa_base, stage=faa_stage),
+    ans=dict(lab="冒頭の3つの問い", fields=dict(q3a=ONOFF, q3b=ONOFF), base=ans_base, stage=ans_stage))
 START = {v: {k: vs[0] for k, vs in d["fields"].items()} for v, d in VIEWS.items()}
 # 頭だけで決める欄（段で変えない）
 HEAD_ONLY = dict(thrust=("lay",), alt=("span",))
 # 戻さない欄（切れた管は戻らない・下ろした脚とフラップは戻らない・失敗は戻らない・伸びたひびは戻らない）
-ORDER = dict(hyd=dict(cut=ONOFF), gear=dict(gear=("up", "down"), flap=("up", "down")), hoist=dict(guide=("off", "on", "fail")),
-             xpdr=dict(reply=("off", "on", "emg")), alt=dict(pts=("off", "early", "all")),
-             fatigue=dict(load=("off", "once", "rep"), crack=ONOFF))
-# 左上の札に「模式」を付けない見え方（記録の値そのもの＝高さの記録の点・報告書の確率の計算）
-NOT_SCHEMATIC = ("alt", "prob")
+ORDER = dict(hyd=dict(cut=ONOFF, fuse=("off", "on", "stop")), gear=dict(gear=("up", "down"), flap=("up", "down")),
+             hoist=dict(guide=("off", "on", "fail")), xpdr=dict(reply=("off", "on", "emg")), alt=dict(pts=("off", "early", "all")),
+             fatigue=dict(load=("off", "once", "rep"), crack=ONOFF), cab=dict(flow=("off", "near", "all")))
+# 左上の札に「模式」を付けない見え方（記録の値そのもの＝高さの記録の点・報告書の確率の計算／🆕 ⑤b-6b：解説の温度の計算・秒の比べ・
+#   報告書の言葉の使い分け）
+NOT_SCHEMATIC = ("alt", "prob", "temp", "dect", "word")
 
 
 # ══════════════════════════════════════════════════════════
@@ -1572,17 +2408,21 @@ NOT_SCHEMATIC = ("alt", "prob")
 # ══════════════════════════════════════════════════════════
 TAG_AT = dict(
     seats=dict(fe=(1270.0, 700.0, "start", 520.0), hours=(1270.0, 330.0, "start", 520.0), usual=(L_X, 470.0, "start", 520.0),
-               day=(1270.0, 470.0, "start", 520.0), train=(L_X, 700.0, "start", 560.0), cert=(1270.0, 330.0, "start", 520.0)),
+               day=(1270.0, 470.0, "start", 520.0), train=(L_X, 700.0, "start", 560.0), cert=(1270.0, 330.0, "start", 520.0),
+               o2=(L_X, 330.0, "start", 560.0), judge=(1270.0, 470.0, "start", 560.0)),
     xpdr=dict(code=(560.0, 700.0, "start", 420.0), emg=(980.0, 420.0, "start", 400.0)),
     hyd=dict(surf=(R_X, 470.0, "start", 520.0), pipes=(L_X, 470.0, "start", 520.0), num=(L_X, 330.0, "start", 520.0),
-             tail=(R_X, 720.0, "start", 520.0), cut=(R_X, 720.0, "start", 560.0), fast=(R_X, 600.0, "start", 560.0)),
+             tail=(R_X, 720.0, "start", 520.0), cut=(R_X, 720.0, "start", 560.0), fast=(R_X, 600.0, "start", 560.0),
+             rec=(L_X, 330.0, "start", 560.0), all4=(L_X, 600.0, "start", 560.0), fuse=(R_X, 560.0, "start", 560.0),
+             stop=(R_X, 330.0, "start", 560.0)),
     thrust=dict(pwr=(F.BX0 + 30.0, 330.0, "start", 760.0), nose=(F.BX0 + 30.0, 790.0, "start", 760.0),
                 diff=(1000.0, 800.0, "start", 640.0), wave=(1000.0, 800.0, "start", 640.0), no=(1000.0, 850.0, "start", 820.0),
                 clock=(F.BX0 + 30.0, 330.0, "start", 760.0), side_nose=(F.BX0 + 30.0, 790.0, "start", 900.0)),
     # alt の m1・m2 は印の縦の線の右（右の端に近いと左）＝`_stage_svgs` が線の x から決める（y は下の帯＝点の無い高さ）
     # ⚠️ 試し焼き ep20_b5：y 760 だと札の下の小さな字（時刻）が横軸の線（y 790）に乗った＝735
     alt=dict(m1=(0.0, 735.0, "start", 420.0), m2=(0.0, 735.0, "start", 420.0), why=(520.0, 600.0, "start", 660.0),
-             rate=(1100.0, 420.0, "start", 520.0), stop=(1370.0, 660.0, "start", 460.0)),
+             rate=(1100.0, 420.0, "start", 520.0), stop=(1370.0, 660.0, "start", 460.0),
+             band=(420.0, 560.0, "start", 420.0), dur=(980.0, 600.0, "start", 420.0), nowhy=(980.0, 700.0, "start", 560.0)),
     gear=dict(gear=(560.0, 720.0, "start", 520.0), flap=(1060.0, 720.0, "start", 560.0), voice=(L_X, 330.0, "start", 560.0)),
     radio=dict(link=(L_X, 430.0, "start", 520.0), ask=(1290.0, 430.0, "start", 520.0), stay=(L_X, 560.0, "start", 520.0)),
     fix=dict(gps=(410.0, 430.0, "start", 520.0), dir=(1250.0, 840.0, "start", 300.0), dist=(1300.0, 430.0, "start", 520.0),
@@ -1606,7 +2446,26 @@ TAG_AT = dict(
     clen=dict(date=(F.BX0 + 30.0, 320.0, "start", 600.0), len=(1230.0, 470.0, "start", 560.0), vis=(1230.0, 640.0, "start", 560.0)),
     prob=dict(title=(F.BX0 + 30.0, 320.0, "start", 640.0), asm=(F.BX0 + 30.0, 320.0, "start", 640.0), q=(1350.0, 600.0, "start", 440.0)),
     two=dict(pick=(F.BX0 + 30.0, 840.0, "start", 600.0), ok=(770.0, 410.0, "start", 300.0)),
-    lav=dict(lav=(1150.0, 380.0, "start", 640.0), coat=(L_X, 380.0, "start", 560.0), bend=(1150.0, 800.0, "start", 640.0)))
+    lav=dict(lav=(1150.0, 380.0, "start", 640.0), coat=(L_X, 380.0, "start", 560.0), bend=(1150.0, 800.0, "start", 640.0)),
+    # 🆕 ⑤b-6b（札は段ごとに残る＝同じカットでは別の置き場を使う）
+    cab=dict(top_r=(1190.0, 318.0, "start", 620.0), top_l=(L_X, 318.0, "start", 760.0), bot_l=(L_X, 812.0, "start", 700.0),
+             bot_m=(860.0, 812.0, "start", 620.0), gauge=(1560.0, 812.0, "start", 280.0)),
+    flow=dict(air=(L_X, 330.0, "start", 900.0), seat=(L_X, 800.0, "start", 900.0)),
+    run=dict(run=(L_X, 330.0, "start", 640.0), eye=(1290.0, 820.0, "start", 520.0)),
+    temp=dict(drop=(480.0, 300.0, "start", 520.0), pts=(1590.0, 470.0, "start", 250.0)),
+    dect=dict(j123=(1180.0, 360.0, "start", 640.0), b737=(1130.0, 600.0, "start", 300.0), ok=(620.0, 840.0, "start", 900.0)),
+    holes=dict(when=(1130.0, 330.0, "start", 680.0), j123=(330.0, 812.0, "start", 680.0), b737=(1130.0, 812.0, "start", 680.0),
+               alt=(1560.0, 470.0, "start", 280.0)),
+    sonar=dict(beam=(1060.0, 520.0, "start", 600.0), echo=(L_X, 470.0, "start", 560.0)),
+    dcam=dict(h=(1200.0, 720.0, "start", 300.0), w=(1300.0, 650.0, "start", 520.0), spd=(660.0, 300.0, "start", 600.0)),
+    rov=dict(rov=(700.0, 300.0, "start", 760.0)),
+    res=dict(one=(1450.0, 330.0, "start", 390.0), w=(680.0, 830.0, "start", 400.0), h=(1450.0, 560.0, "start", 390.0)),
+    area=dict(a1=(950.0, 340.0, "start", 860.0), a2=(950.0, 470.0, "start", 860.0), a3=(950.0, 600.0, "start", 860.0),
+              a4=(950.0, 730.0, "start", 860.0)),
+    cover=dict(cover=(1290.0, 330.0, "start", 540.0), strong=(1290.0, 480.0, "start", 540.0), net=(1290.0, 640.0, "start", 540.0)),
+    word=dict(pick=(1180.0, 300.0, "start", 640.0)),
+    faa=dict(),
+    ans=dict())
 
 
 def anchors(view, st):
@@ -1621,8 +2480,10 @@ def anchors(view, st):
         ail = s["ail_out_r"]
         main1, br1 = hyd_path(1)
         fr, _ = _split_at(hyd_path(4)[0], HY_CUT)
+        fx, fy = hy_fuse_xy()
         return dict(ail=(sum(p[0] for p in ail) / 4, sum(p[1] for p in ail) / 4), pipe=HY.p(*br1[-1]),
-                    tail=(HY.p(64.0, 0)[0] + 62, HY.p(64.0, 0)[1]), cut=HY.p(*fr[-1]), eng1=HY.p(TOP_ENG_X[1][0] - 2.6, ENG_NO[1]))
+                    tail=(HY.p(64.0, 0)[0] + 62, HY.p(64.0, 0)[1]), cut=HY.p(*fr[-1]), eng1=HY.p(TOP_ENG_X[1][0] - 2.6, ENG_NO[1]),
+                    fuse=(fx + 16, fy), body4=HY.p(44.0, -3.4))
     if view == "thrust":
         K, X0, Y0, piv = th_side_geo(st)
         return dict(eng=(X0 + (I2.S1_ENG[0][0] - 6.0) * K, Y0 + 3.55 * K), nose=(X0 + 1.0 * K, Y0 - 1.5 * K),
@@ -1637,6 +2498,10 @@ def anchors(view, st):
         if span == "final":
             a, b = al_xy(span, ta, fa * FT), al_xy(span, tb, fb * FT)
             out["rate"] = ((a[0] + b[0]) / 2, (a[1] + b[1]) / 2)
+        if span == "cruise":                         # 🆕 ⑤b-6b：20,000フィートの線と、その上の帯
+            yb = al_xy(span, AL_SPAN[span]["t0"], AL_BAND * FT)[1]
+            out["band"] = (AL["x0"] + 60, yb + 4)
+            out["dur"] = (1000.0, (AL["y0"] + yb) / 2 + 10)
         return out
     if view == "gear":
         K, X0, Y0 = GE
@@ -1715,6 +2580,53 @@ def anchors(view, st):
             return side_pts(K, X0, Y0, [((a + b) / 2, LV["top"])])[0]
         lx, ly = top_mid("lav")
         return dict(lav=(lx, ly - 12), coat=top_mid("coat"), bend=side_pts(K, X0, Y0, [lav_tail()[-8]])[0])
+    # 🆕 ⑤b-6b
+    if view == "cab":
+        xs, (bx, by) = cb_seats()
+        a, b, y = cb_hole()
+        fp = cb_arrows("far")[1][0]                 # ⚠️ 置き場の計算：[2] は右の端の矢印＝下の札からの線が客室を横切る
+        return dict(hole=((a + b) / 2, y - 4), seat=(bx, by - 10), fog=(420.0, 560.0), far=fp, warm=(420.0, 380.0),
+                    mask=(xs[1] - 46, CB["ceil"] + 100), gauge=(CB_GAUGE[0], CB_GAUGE[1] + CB_GAUGE[2] + 56),
+                    near=(CB_HOLE_X + 70, CB["ceil"] + 120))
+    if view == "flow":
+        return dict(air=flw_arrows("up")[1][1], seat=flw_arrows("seat")[1][1])
+    if view == "run":
+        return dict(run=((RN["x0"] + rn_x1()) / 2, RN["y"] - RN["w"] / 2 - 48), eye=(RN_EYE[0], RN_EYE[1] + 46))
+    if view == "temp":
+        return dict(drop=tp_xy(0.2, 6.0), pts=tp_xy(*TP_PTS[-1]))
+    if view == "dect":
+        return dict(j123=(dt_x(DT_J123[1]), DT_ROW["j123"] - DT_H / 2), b737=(dt_x(DT_B737) + 6, DT_ROW["b737"]))
+    if view == "holes":
+        out = {}
+        for nm in ("j123", "b737"):
+            x, y, s = hl_sq(nm)
+            out[nm] = (x + s / 2, y + s + 4)
+        out["when"] = (HL["c"]["b737"][0], HL["c"]["b737"][1] - HL["half"] * HL["k"] - 60)
+        return out
+    if view == "sonar":
+        fx, fy = SN["fish"]
+        return dict(fish=(fx + 50, fy - 6), obj=(SN_OBJ[0], SN_OBJ[1] - 34))
+    if view == "dcam":
+        x0, y0, x1, y1 = DC["inset"]
+        return dict(h=(DC["sled"][0] + 186, (dc_sled_y() + SEA["bed"]) / 2), w=((x0 + x1) / 2, (y0 + y1) / 2 + DC_W * DC["k"] / 2),
+                    ship=(DC["ship"][0] + 260, DC["ship"][1] - 50))
+    if view == "rov":
+        return dict(rov=(RV["b"][0], RV["b"][1] - 40))
+    if view == "res":
+        x, y, w, h = rs_cell(*RS_ONE)
+        X, Y, W, H = rs_cell(*RS_BLK, n=RS_N)
+        return dict(one=(x + w, y + h / 2), w=(X + W / 2, Y + H + 26), h=(X + W + 26, Y + H / 2))
+    if view == "area":
+        s, d = ar_big(), ar_day()
+        return dict(big=(AR["x0"] + s, AR["y0"] + 10), day=(AR["x0"] + 3 + d / 2 + 34, AR["y0"] + 3 + d / 2),
+                    mid=(AR["x0"] + s, AR["y0"] + s / 2))
+    if view == "cover":
+        K, X0, Y0 = CV
+        return dict(hole=side_pts(K, X0, Y0, [(CV_HOLE[0] + 0.9, CV_HOLE[1] + 0.3)])[0],
+                    bulk=side_pts(K, X0, Y0, [(PR_BULK + 1.3, 0.2)])[0])
+    if view == "word":
+        y0, y1 = wd_row(WD_PICK)
+        return dict(pick=(WD["wx"] - 36, (y0 + y1) / 2))
     return {}
 
 
@@ -1806,7 +2718,7 @@ KEY_FIELDS = ("pts", "rot", "alpha", "fill", "stroke", "glow", "dx", "dy")
 
 
 def m20(view, steps, start=None, rel=(), note="", src=""):
-    """20本目の模式図。view は VIEWS の24種（⑤b-5 の12＋⑤b-6 の12）。steps＝ナレーションの行ごとの段。"""
+    """20本目の模式図。view は VIEWS の39種（⑤b-5 の12＋⑤b-6 の12＋⑤b-6b の15）。steps＝ナレーションの行ごとの段。"""
     if view not in VIEWS:
         raise ValueError(f"m20：知らない見え方 {view!r}（{tuple(VIEWS)}）")
     if "模式" not in note:
@@ -2004,4 +2916,79 @@ def geo_of(view, start, states):
         out["ok_on"] = "a" if ever("ok") or ever("pick") else None
     elif view == "lav":
         out["lav"], out["coat"], out["bulk"] = list(LV["lav"]), list(LV["coat"]), PR_BULK
+    # 🆕 ⑤b-6b（描く関数と同じ式）
+    elif view == "cab":
+        k = CB["k"]
+        a, b, _ = cb_hole()
+        out["hole_area"] = ((b - a) / k) ** 2 if ever("hole") else None
+        xs, (bx, by) = cb_seats()
+        out["half"] = dict(R=CB_R * k / k, d=math.hypot(bx - CB_HOLE_X, by - CB["ceil"]) / k) if ever("half") else None
+        if ever("flow", "near") or ever("flow", "all"):
+            def mean_len(kind):
+                ar = cb_arrows(kind)
+                return sum(math.hypot(q[0] - p[0], q[1] - p[1]) for p, q in ar) / len(ar)
+            out["flow"] = dict(near=mean_len("near"), far=mean_len("far") if ever("flow", "all") else None)
+        else:
+            out["flow"] = None
+        out["gauge"] = [s["gauge"] for s in allst]
+        out["needle"] = dict(CB_NEEDLE)
+    elif view == "flow":
+        K, X0, Y0 = FLW
+        def m_of(p):
+            return (p[0] - X0) / K
+        out["up"] = [(m_of(p), m_of(q)) for p, q in flw_arrows("up")] if ever("air") else []
+        out["seat"] = [(m_of(p), m_of(q)) for p, q in flw_arrows("seat")] if ever("seat") else []
+        out["bulk_x"] = PR_BULK
+    elif view == "run":
+        out["m"] = (rn_x1() - RN["x0"]) / RN["k"]
+        out["wind_dx"] = [q[0] - p[0] for p, q in rn_winds()] if ever("wind") else []
+    elif view == "temp":
+        out["xt"] = [(m, tp_xy(m, 0)[0]) for m in TP_XT]
+        out["yt"] = [(c, tp_xy(0, c)[1]) for c in TP_YT]
+        out["dots"] = [tp_xy(m, c) for m, c in TP_PTS] if ever("pts") else []
+    elif view == "dect":
+        out["xt"] = [(v, dt_x(v)) for v in DT_TICKS]
+        out["j123"] = [dt_x(v) for v in DT_J123] if ever("j123") else None
+        out["b737"] = dt_x(DT_B737) if ever("b737") else None
+    elif view == "holes":
+        out["areas"] = {nm: (hl_sq(nm)[2] / HL["k"]) ** 2 for nm in ("j123", "b737") if ever(nm)}
+    elif view == "sonar":
+        fx, fy = SN["fish"]
+        def angs(side):
+            p = sn_fan(side)
+            return tuple(math.degrees(math.atan2(abs(q[0] - fx), q[1] - fy)) for q in (p[1], p[-1]))
+        out["fans"] = dict(l=angs(-1), r=angs(1)) if ever("beam") else None
+    elif view == "dcam":
+        out["h"] = (SEA["bed"] - dc_sled_y()) / DC["k"] if ever("h") else None
+        out["w"] = DC_W * DC["k"] / DC["k"] if ever("w") else None
+    elif view == "rov":
+        out["people"] = 0
+    elif view == "res":
+        x, y, w, h = rs_cell(0, 0)
+        X, Y, W, H = rs_cell(*RS_BLK, n=RS_N)
+        out["cell"] = (w / RS["k"], h / RS["k"])
+        out["need"] = (W / RS["k"], H / RS["k"]) if ever("need") else None
+    elif view == "area":
+        k = AR["k"]
+        out["km2"] = (ar_big() / k) ** 2
+        out["day_km2"] = (ar_day() / k) ** 2 if ever("day") else None
+    elif view == "cover":
+        out["hole_x"] = CV_HOLE[0]
+        out["fin"] = (I2.S1_FIN[0][0], I2.S1_FIN[2][0])
+        out["air0"] = CV_AIR[0][0] if ever("cover") else None
+        out["bulk_x"] = PR_BULK
+    elif view == "word":
+        out["rows"] = tuple(WD_ROWS)
+        out["pick"] = WD_ROWS[WD_PICK][0] if ever("pick") else None
+    elif view == "faa":
+        out["lines"] = list(FA_LINES) if ever("body") else []
+        out["hl"] = [ph for _, ph in FA_HL] if ever("hl") else []
+    elif view == "ans":
+        out["q"] = list(AN_Q)
+        out["wait"] = AN_WAIT if ever("q3b") else None
+    if view == "hyd":
+        out["fuse"] = HY_FUSE if (ever("fuse") or ever("fuse", "stop")) else None
+        out["fin_x0"] = TOP_FIN[0][0]
+    if view == "alt":
+        out["band"] = AL_BAND if ever("band") else None
     return out
