@@ -91,4 +91,45 @@ SPEC = {
         place="S1", start=dict(s1bulk="on"), rec=S1R["bulk"],
         steps=[dict(state=dict(s1ring="tail"), tag=dict(t="1978年", at="bulk", off=(-60, -200), anchor="end", keep=True)),
                dict(tag=dict(t="そのときの修理", at="bulk", off=(-60, 200), anchor="end"))]))),
+    # ── 🆕 ⑤b-6（2026-10-10）：模式図 第6章（`tools/mech20.py` の ⑤b-6 の見え方・門番 check_mech の judge_m20）──
+    # c705（3行）＝小さな力 → くり返し受けると穴の縁からひびが少しずつ伸びる → 針金のたとえ（一般の仕組み・数字は書かない）
+    "c705": dict(
+        t="少しずつ伸びるひび", s="金属疲労のしくみ",
+        fig=("m20", dict(view="fatigue",
+                         steps=[dict(state=dict(load="once"), tag=dict(t="壊れない小さな力", at="once", to="arrow")),
+                                dict(state=dict(load="rep", crack="on"), tag=dict(t="穴の縁から伸びる", at="crack", to="tip")),
+                                dict(state=dict(wire="on"), tag=dict(t="針金のたとえ", at="wire", to="wire"))],
+                         note="形は模式（力の大きさとひびの長さは書かない）", src=ss.src(["報告書 p65"])))),
+    # c708（2行）＝亀裂が伸びるのに要した回数（推定 1万回程度）→ 修理のあとの飛行 12,319回（p105「ほぼ一致する」）。数字は書かない
+    "c708": dict(
+        t="2つの回数", s="計算と飛行の記録",
+        fig=("qty", dict(view="bar", groups=[ss.QG["cyc"]], steps=[
+            dict(add=ss.qb("cyc_need")),
+            dict(add=ss.qb("cyc_fly"))],
+            note="棒の長さは報告書の値（亀裂の側は推定の回数）", src=ss.src(["報告書 p105", "報告書 p18"])))),
+    # c711（2行）＝1列で留めた所の強さは本来の約70%（推定）→ 亀裂が生まれやすい（推定）。断面は付図-38(a)(b) を簡単にした模式
+    "c711": dict(
+        t="1列の所の強さ", s="L18 の継ぎ目の2つの留め方",
+        fig=("m20", dict(view="rows",
+                         steps=[dict(state=dict(bars="on"), tag=dict(t="強さ（推定）", at="str", to="bar")),
+                                dict(state=dict(crack="on"), tag=dict(t="亀裂が生まれやすい", d="推定", at="crack", to="crack"))],
+                         note="断面は付図-38 を簡単にした模式（板の重なりと列の数）・棒は本来の強さとの比", src=ss.src(["報告書 p124", "報告書 p174"])))),
+    # c712（3行）＝2列の線 → 1列の線（2倍強の速さ＝p65）→ 同じ長さまでの回数が半分ほど。線の形は模式・数字は書かない
+    "c712": dict(
+        t="亀裂が伸びる速さ", s="報告書の計算",
+        fig=("m20", dict(view="grow",
+                         steps=[dict(state=dict(two="on"), tag=dict(t="2列", at="two", col=J.LINE)),
+                                dict(state=dict(one="on"), tag=dict(t="1列", at="one", col=J.ALERT)),
+                                dict(state=dict(same="on"), tag=dict(t="同じ長さまで", at="same"))],
+                         rel=[dict(t="2列", src="報告書 p65（2列リベット）"), dict(t="1列", src="報告書 p65（1列リベット）")],
+                         note="線の形は模式（直線）・速さの比は計算（2倍強）", src=ss.src(["報告書 p65"])))),
+    # c714（2行）＝1ベイの中の亀裂なら耐える設計（p110）→ 1列の所（左の第1〜第3ストラップの間＝別添1 p248）で余裕が失われた（考え）
+    "c714": dict(
+        t="フェール・セーフ", s="一部が壊れても全体を保つ設計",
+        fig=("m20", dict(view="fs",
+                         steps=[dict(state=dict(bay="on"), tag=dict(t="1ベイの中の亀裂", d="設計で耐える", at="bay", to="bay")),
+                                dict(state=dict(one="on"), tag=dict(t="1列の所（2ベイ分）", d="報告書の考え", at="one", to="one"))],
+                         rel=[dict(t="1ベイ", src="報告書 p110（1ベイ・フェール・セーフ）"),
+                              dict(t="1列", src="報告書 p248（1列リベット結合）"), dict(t="2ベイ", src="報告書 p248（2ベイ分）")],
+                         note="形は付図-32・付図-36 から・亀裂の印の数は模式", src=ss.src(["報告書 p110", "報告書 p248"])))),
 }

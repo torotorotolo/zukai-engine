@@ -130,6 +130,10 @@ def label(view, s, fmt=""):
     fmt="ym"＝年月まで・"y"＝年だけ（語りの細かさに合わせる）。"""
     s = str(s).strip()
     if view == "date":
+        if fmt == "md" and s.count("-") == 2:
+            # 🆕 20本目 ⑤b-6：月日だけ（同じ年の中の近い日＝「6月26日」・語りの細かさ。年を書くと近い2点の長い札が重なる）
+            _, mo, d = s.split("-")
+            return f"{int(mo)}月{int(d)}日"
         p = s.split("-")[:{"ym": 2, "y": 1}.get(fmt, 3)]
         return p[0] + "年" + (f"{int(p[1])}月" if len(p) > 1 else "") + (f"{int(p[2])}日" if len(p) > 2 else "")
     if view == "sec":

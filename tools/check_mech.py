@@ -1949,7 +1949,27 @@ REC_M20 = dict(
     apt=dict(lons={"大阪国際空港": 135.44, "名古屋空港": 136.92, "東京国際空港": 139.78}, picked="東京国際空港",
              why=("空港の規模", "滑走路長", "その他の施設環境"), src="報告書 p117"),
     clock={"18:25:21", "18:50:50", "18:42:53", "18:44:43", "18:56:07", "18:56:17", "18:55:57", "18:46:09"},
-    assume=dict(hyd=("cut", "on"), thrust=("nose", "up")))
+    # 🆕 ⑤b-6（第6〜8章）：p44「上側ウエブの下端から2列目のリベット孔を縫って破断…付図―38(a)」・p45「第1から第3ストラップの間の、
+    #   ダブラ・プレートにより補強された部分の断面構造は、付図-38(b)」（上側ウエブの下端から1列目）・p102「この部分の強度は本来の強度の
+    #   70パーセント程度に低下」・p124（同）・p65「1列リベットの場合の疲労亀裂は2列リベットの場合と比較すると、2倍強の速さで進展する」・
+    #   別添1 p248「左側の第一ストラップと第3ストラップ間の2べイ分の結合が1列リベット結合」・p110「1ベイ・フェール・セーフ」・
+    #   別添1 p246「後部圧力隔壁については、下半部（コレクタ・リングを含む。）の交換」・p103「当該接続部分の縁がフィレット・シールで覆われている」・
+    #   p104「後部圧力隔壁後面全体の目視検査（G2レベル相当）」・p100「リベット孔両側平均で10ミリメートル（可視亀裂長さ8ミリメートル）」・
+    #   「1つの疲労亀裂の発見確率は、10パーセント程度」・「少なくとも1つを発見できる確率は14～60パーセント程度」・p105（コ）・p103（ウ）
+    #   「客室最後部位置の化粧室」「客室後部コートルーム」
+    fatigue=dict(src="報告書 p65（多数のリベット孔縁より疲労亀裂が発生）"),
+    rows=dict(n=dict(a=2, b=1), ratio=0.70, src="報告書 p44・p45（付図-38(a)(b)）・p102・p124（70パーセント程度に低下）"),
+    grow=dict(ratio=(2.0, 2.5), src="報告書 p65（2倍強の速さで進展）"),
+    fs=dict(one=(1, 3), src="報告書 p248（左側の第1ストラップと第3ストラップ間の2ベイ分）・p110（1ベイ・フェール・セーフ）"),
+    half=dict(new="lo", src="報告書 p246（後部圧力隔壁については、下半部…の交換）"),
+    edge=dict(src="報告書 p248（エッジ・マージンが構造修理マニュアルに記載された値より不足）"),
+    seal=dict(ends=("upper", "splice", "lower"), src="報告書 p103（接続部分の縁がフィレット・シールで覆われている）・p174（付図-38）"),
+    rear=dict(src="報告書 p104（後部圧力隔壁後面全体の目視検査）"),
+    clen=dict(ratio=0.8, src="報告書 p100（リベット孔両側平均で10ミリメートル（可視亀裂長さ8ミリメートル））"),
+    prob=dict(one=10.0, many=(14.0, 60.0), src="報告書 p100（10パーセント程度・14～60パーセント程度）"),
+    two=dict(src="報告書 p105（隔壁が正規に製作されている場合、またその修理が適正に行われている場合には…妥当な点検方法）"),
+    lav=dict(src="報告書 p103（客室最後部位置の化粧室・客室後部コートルーム）"),
+    assume=dict(hyd=("cut", "on"), thrust=("nose", "up"), rows=("bars", "on"), clen=("len", "on")))
 
 
 def _hms(s):
@@ -2008,6 +2028,24 @@ def judge_m20(f):
             need(s["swell"] != "on" or s["bags"] == "on", "① 筋：ふくらむのは、袋を見せてから")
         if view == "apt":
             need(all(s[k] != "on" for k in ("why", "ok")) or s["pick"] == "on", "① 筋：理由と見立ては、選んだ空港を見せてから")
+        # 🆕 ⑤b-6
+        if view == "fatigue":
+            need(s["crack"] != "on" or s["load"] == "rep", "① 筋：ひびが伸びるのは、くり返しの力のあと")
+        if view == "grow":
+            need(s["one"] != "on" or s["two"] == "on", "① 筋：1列の線は、比べる元の2列の線を見せてから")
+            need(s["same"] != "on" or s["one"] == "on", "① 筋：同じ長さの印は、2本の線を見せてから")
+        if view == "half":
+            need(s["join"] != "on" or s["half"] == "on", "① 筋：継ぎ目の印は、上と下を分けてから")
+        if view == "edge":
+            need(s["req"] != "on" or s["bad"] == "on", "① 筋：決まりの長さは、近すぎる穴を見せてから")
+        if view == "seal":
+            need(s["eye"] != "on" or s["seal"] == "on", "① 筋：目で見る印は、シール材を見せてから（p103）")
+        if view == "clen":
+            need(s["len"] != "on" or s["crack"] == "on", "① 筋：長さの括弧は、亀裂を見せてから")
+        if view == "prob":
+            need(s["q"] != "on" or s["many"] == "on", "① 筋：「？」は、確率の幅を見せてから")
+        if view == "two":
+            need(s["ok"] != "on" or s["pick"] == "on", "① 筋：妥当の印は、正しい作りの壁を示してから")
     # ② 形（記録で照らす）
     if view == "seats":
         names = g["names"]
@@ -2104,6 +2142,88 @@ def judge_m20(f):
             need(tuple(g["why"]) == A["why"], f"② 理由の言葉 {g['why']}（記録＝{A['why']}＝{A['src']}・言い換えない）")
         if g["picked"]:
             need(g["picked"] == A["picked"], f"② 選んだ空港 {g['picked']}（記録＝{A['picked']}＝{A['src']}）")
+    # 🆕 ⑤b-6
+    if view == "fatigue" and g["cracks"]:
+        hx, hy, hr = g["hole"]
+        for side, ((x0, y0), (x1, y1)) in g["cracks"].items():
+            need(abs(math.hypot(x0 - hx, y0 - hy) - hr) < 2.0, f"② ひび（{side}）の根元が穴の縁に無い（{R['fatigue']['src']}）")
+            ang = math.degrees(math.atan2(-(y1 - y0), x1 - x0)) % 180.0
+            need(abs(((ang - g["load_deg"]) % 180.0) - 90.0) < 5.0,
+                 f"② ひび（{side}）の向き {ang:.0f}度が引く力（{g['load_deg']:.0f}度）に直角でない")
+    if view == "rows":
+        W = R["rows"]
+        for k, want in W["n"].items():
+            need(g["rows"][k] == want, f"② {k} の列の数 {g['rows'][k]}（記録 {want}＝{W['src']}）")
+            a, b = g["lap"][k]
+            need(all(a < y < b for y in g["row_y"][k]), f"② {k} の列が板の重なりの外にある")
+        if g["bars"]:
+            r_ = g["bars"]["b"] / g["bars"]["a"]
+            need(abs(r_ - W["ratio"]) < 0.01, f"② 強さの棒の比 {r_:.2f}（記録 約{W['ratio']}＝{W['src']}）")
+    if view == "grow" and len(g["lines"]) == 2:
+        def _slope(ln):
+            (x0, y0), (x1, y1) = ln
+            return (y0 - y1) / (x1 - x0)
+        r_ = _slope(g["lines"]["one"]) / _slope(g["lines"]["two"])
+        lo_, hi_ = R["grow"]["ratio"]
+        need(lo_ < r_ <= hi_, f"② 1列と2列の速さの比 {r_:.2f}（記録＝2倍強＝{R['grow']['src']}）")
+        if g["hits"]:
+            q = (g["hits"]["one"] - g["x0"]) / (g["hits"]["two"] - g["x0"])
+            need(abs(q - 1 / r_) < 0.02, f"② 同じ長さに届くまでの比 {q:.2f} が速さの比の逆数 {1 / r_:.2f} と合わない")
+    if view == "fs":
+        cx, cy = g["c"]
+        S_ = g["straps"]
+        if g["one"]:
+            idx = []
+            for (x, y) in g["one"]:
+                rr = math.hypot(x - cx, y - cy) / g["R"]
+                j = min(range(len(S_)), key=lambda i: abs(S_[i] - rr))
+                need(abs(S_[j] - rr) < 0.005, f"② 1列の所の端（半径の比 {rr:.3f}）がストラップの上に無い")
+                need(x < cx, "② 1列の所が左側に無い（記録＝左側の L18）")
+                idx.append(j + 1)
+            need(sorted(idx) == sorted(R["fs"]["one"]), f"② 1列の所＝第{sorted(idx)}ストラップの間（記録＝第1と第3＝{R['fs']['src']}）")
+        if g["bay"]:
+            a, b = sorted(g["bay"])
+            edges = sorted([0.0] + S_ + [1.0])
+            need(any(e0 <= a and b <= e1 for e0, e1 in zip(edges, edges[1:])),
+                 f"② 1ベイの亀裂（{a}〜{b}）がストラップをまたいでいる（p110＝1ベイの中）")
+    if view == "half" and g["new"]:
+        z = g["lens_z"]
+        other = "up" if g["new"] == "lo" else "lo"
+        need(g["new"] == R["half"]["new"] and z[g["new"]][1] <= z[other][0] + 1e-6,
+             f"② 取り替えた側（{g['new']}）が下半分でない（{R['half']['src']}）")
+    if view == "edge" and any(s[2] == "on" for s in g["seq"]):
+        m_ = g["m"]
+        need(m_["bad"] < m_["req"] < m_["good"],
+             f"② 余白の長さ：近すぎる {m_['bad']:.0f}・決まり {m_['req']:.0f}・足りている {m_['good']:.0f}（近すぎる＜決まり＜足りている）")
+    if view == "seal":
+        for nm, (x, y) in g["beads"]:
+            need(abs(y - g["ends"][nm]) < 1.0, f"② シール材（{nm}）が板の端の縁に無い（{R['seal']['src']}）")
+        if g["beads"]:
+            need({nm for nm, _ in g["beads"]} == set(R["seal"]["ends"]), "② シール材の数が板の端と合わない")
+        if g["eye_x"] is not None:
+            need(g["eye_x"] > g["stack_x1"], "② 目が後ろの側（点検する後面）に無い（p104）")
+    if view == "rear" and g["all_r"] is not None:
+        need(abs(g["all_r"] - g["R"]) < 1.0, f"② 目で見る範囲が後面全体でない（半径 {g['all_r']:.0f}／{g['R']:.0f}＝{R['rear']['src']}）")
+    if view == "clen" and g["sides"]:
+        rs = [d["vis"] / d["total"] for d in g["sides"].values()]
+        for r_ in rs:
+            need(abs(r_ - R["clen"]["ratio"]) < 0.01, f"② 見える長さの比 {r_:.2f}（記録 {R['clen']['ratio']}＝{R['clen']['src']}）")
+        need(max(rs) - min(rs) < 1e-6, "② 穴の両側で長さが違う（記録＝両側の平均）")
+    if view == "prob":
+        fx = _fit(g["xt"])
+        if g["one"] is not None:
+            need(abs(fx(g["one"]) - R["prob"]["one"]) < 0.3,
+                 f"② 1つの亀裂の確率 {fx(g['one']):.1f}%（記録 {R['prob']['one']}%程度＝{R['prob']['src']}）")
+        if g["many"]:
+            got = tuple(round(fx(x), 1) for x in g["many"])
+            need(all(abs(a - b) < 0.3 for a, b in zip(got, R["prob"]["many"])),
+                 f"② 少なくとも1つの確率の幅 {got}（記録 {R['prob']['many']}＝{R['prob']['src']}）")
+    if view == "two":
+        need(g["cracks"]["a"] == 0 and g["cracks"]["b"] > 0,
+             f"② 亀裂の印：正しい作り {g['cracks']['a']}・事故機 {g['cracks']['b']}（{R['two']['src']}）")
+    if view == "lav":
+        (la, lb), (ca, cb) = g["lav"], g["coat"]
+        need(lb < g["bulk"] and lb >= cb and la >= ca, f"② 化粧室が客室のいちばん後ろ（隔壁の前）に無い（{R['lav']['src']}）")
     # ③ 札の数・時刻・推定
     said = [r.get("t", "") for r in m["rel"]]
     for t in texts:
@@ -2146,7 +2266,21 @@ def _selftest_m20(ok):
         fix=dict(view="fix", start=dict(ray="on"), steps=[dict(state=dict(zoom="on", pa="on", pd="on", heli="on"))], note=N),
         press=dict(view="press", steps=[dict(state=dict(press="on", push="on"))], note=N),
         bag=dict(view="bag", steps=[dict(state=dict(bags="on", swell="on"))], note=N),
-        apt=dict(view="apt", steps=[dict(state=dict(pick="on")), dict(state=dict(why="on")), dict(state=dict(ok="on"))], note=N))
+        apt=dict(view="apt", steps=[dict(state=dict(pick="on")), dict(state=dict(why="on")), dict(state=dict(ok="on"))], note=N),
+        # 🆕 ⑤b-6
+        fatigue=dict(view="fatigue", steps=[dict(state=dict(load="once")), dict(state=dict(load="rep", crack="on"))], note=N),
+        rows=dict(view="rows", steps=[dict(state=dict(bars="on"), tag=dict(t="強さ（推定）", at="str"))], note=N),
+        grow=dict(view="grow", steps=[dict(state=dict(two="on")), dict(state=dict(one="on")), dict(state=dict(same="on"))], note=N),
+        fs=dict(view="fs", steps=[dict(state=dict(bay="on")), dict(state=dict(one="on"))], note=N),
+        half=dict(view="half", steps=[dict(state=dict(half="on")), dict(state=dict(join="on"))], note=N),
+        edge=dict(view="edge", steps=[dict(state=dict(good="on")), dict(state=dict(bad="on")), dict(state=dict(req="on"))], note=N),
+        seal=dict(view="seal", steps=[dict(state=dict(seal="on")), dict(state=dict(eye="on"))], note=N),
+        rear=dict(view="rear", steps=[dict(state=dict(l18="on")), dict(state=dict(all="on"))], note=N),
+        clen=dict(view="clen", steps=[dict(state=dict(crack="on")), dict(state=dict(len="on"), tag=dict(t="亀裂の長さ（推定）", at="len"))],
+                  note=N),
+        prob=dict(view="prob", steps=[dict(state=dict(one="on")), dict(state=dict(many="on", q="on"))], note=N),
+        two=dict(view="two", steps=[dict(state=dict(pick="on")), dict(state=dict(ok="on"))], note=N),
+        lav=dict(view="lav", steps=[dict(state=dict(lav="on")), dict(state=dict(coat="on", bend="on"))], note=N))
     for nm, kw in good.items():
         bad, n = judge("m20", kw)
         ok &= not bad
@@ -2176,7 +2310,25 @@ def _selftest_m20(ok):
             ("隔壁を 55m に描く", "PR_BULK", 55.0, "隔壁の位置", "press"),
             ("山の上の袋をふくらませない", "BG_SWELL", 1.0001, "ふくらんでいない", "bag"),
             ("理由を「滑走路の長さ」と言い換える", "AP_WHY", ("空港の規模", "滑走路の長さ", "その他の施設環境"), "理由の言葉", "apt"),
-            ("名古屋を大阪の西に置く", "AP_PTS", dict(M.AP_PTS, nagoya=(300.0, "名古屋空港", 136.924)), "空港の並び", "apt")):
+            ("名古屋を大阪の西に置く", "AP_PTS", dict(M.AP_PTS, nagoya=(300.0, "名古屋空港", 136.924)), "空港の並び", "apt"),
+            # 🆕 ⑤b-6（描く側が実際に使う表を壊す）
+            ("ひびを穴の縁から離して描く", "FA_GAP", 30.0, "穴の縁", "fatigue"),
+            ("ひびを引く力と同じ向きに描く", "FA_DIR", 90.0, "直角でない", "fatigue"),
+            ("1列の所を2列で描く", "RW_ROWS", dict(a=(465.0, 525.0), b=(480.0, 510.0)), "列の数", "rows"),
+            ("1列の所の強さを 0.8 で描く", "RW_STR", dict(a=1.0, b=0.8), "強さの棒の比", "rows"),
+            ("速さの比を 1.6 で描く", "GR_RATIO", 1.6, "速さの比", "grow"),
+            ("1列の所を第1〜第4ストラップに描く", "FS_ONE", (0, 3), "1列の所", "fs"),
+            ("1ベイの亀裂がストラップをまたぐ", "FS_BAY_R", (0.70, 0.80), "1ベイの亀裂", "fs"),
+            ("上半分を新しい物の色で描く", "HF_NEW", "up", "下半分でない", "half"),
+            ("決まりを近すぎる穴より短く描く", "ED_REQ", 10.0, "余白の長さ", "edge"),
+            ("シール材を板の端から離して描く", "SL_BEAD_DY", 30.0, "シール材", "seal"),
+            ("目を客室の側に置く", "SL_EYE", (300.0, 610.0), "後ろの側", "seal"),
+            ("目で見る範囲を円の6割に描く", "RE_ALL", 0.6, "後面全体", "rear"),
+            ("見える長さを 7 にして描く", "CL_VIS", 7.0, "見える長さの比", "clen"),
+            ("少なくとも1つの幅を 14〜50 で描く", "PB_MANY", (14.0, 50.0), "幅", "prob"),
+            ("1つの亀裂を 20 で描く", "PB_ONE", 20.0, "1つの亀裂の確率", "prob"),
+            ("正しい作りの壁に亀裂を描く", "TW_CRACKS", dict(a=3, b=9), "亀裂の印", "two"),
+            ("化粧室を隔壁の後ろに描く", "LV", dict(M.LV, lav=(58.0, 60.5)), "化粧室", "lav")):
         keep = getattr(M, attr)
         setattr(M, attr, val)
         try:
@@ -2203,7 +2355,12 @@ def _selftest_m20(ok):
                                                   steps=[dict(state=dict(pts="all"), tag=dict(t="18:56:09", at="why"))],
                                                   rel=[dict(t="18:56:09", src="x")], note=N), "記録の時刻"),
             ("札の数が rel に無い", dict(view="press", steps=[dict(state=dict(press="on"), tag=dict(t="約7,300メートル", at="alt"))], note=N),
-             "rel")):
+             "rel"),
+            # 🆕 ⑤b-6
+            ("くり返しの前にひびが伸びる", dict(view="fatigue", steps=[dict(state=dict(load="once", crack="on"))], note=N), "① 筋"),
+            ("シール材の前に目", dict(view="seal", steps=[dict(state=dict(eye="on"))], note=N), "① 筋"),
+            ("正しい壁を示す前に妥当の印", dict(view="two", steps=[dict(state=dict(ok="on"))], note=N), "① 筋"),
+            ("強さの棒に推定の札が無い", dict(view="rows", steps=[dict(state=dict(bars="on"), tag=dict(t="強さ", at="str"))], note=N), "推定")):
         bad, _ = judge("m20", kw)
         g_ = any(key in b for b in bad)
         ok &= g_

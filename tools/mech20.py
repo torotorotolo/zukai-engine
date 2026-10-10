@@ -22,6 +22,19 @@
   hoist  … 夜の山の斜面とヘリコプター（人は描かない・照明の無い斜面＝解説 p20・p21）                          c509
   press  … 横から見た尾部の断面（後部圧力隔壁 BS2360＝p29・客室の与圧が後ろへ押す＝p125）                     c607
   bag    … 尾翼の中の気圧と、海の近くと山の上の袋（解説 p17）                                                c620
+  🆕 ⑤b-6（2026-10-10）＝第6〜8章（隔壁の継ぎ目・亀裂・点検）：
+  fatigue… 穴のあいた板・くり返し引く力・穴の縁から横へ伸びるひび（3つに分けて順に）・針金のたとえ                  c705
+  rows   … L18 の断面（付図-38(a)(b) を簡単に＝2列・1列）と強さの棒（本来＝1・約0.7＝p102・p124）            c711
+  grow   … 亀裂の伸び方（1列は2列の2倍強＝p65・線は直線の模式）と、同じ長さに届くまで                        c712
+  fs     … 隔壁を後ろから見た円（S6 の正面と同じ表）：1ベイの中の亀裂（p110）・1列の所＝左の第1〜第3ストラップ（別添1 p248） c714
+  half   … 横から見た尾部の断面：隔壁の上半分（元のまま）と下半分（取り替え＝別添1 p246）・継ぎ目                 c805
+  edge   … 板の縁とリベットの穴：余白・縁に近すぎる穴・手引きの決まり（長さは模式）                              c807
+  seal   … 継ぎ目の断面（実際の継ぎ方＝S6_LAYERS）と縁を覆うシール材（p103・付図-38）・後ろの側の目              c816
+  rear   … 隔壁を後ろから見た円：後面全体の目視検査・L18 は特別に指定されていない（p104）                        c902・c903
+  clen   … リベットの頭と亀裂：長さ（約10ミリ）と見える長さ（約8ミリ）の比（p100）                              c904
+  prob   … 見つける確率（1つ 10%程度・少なくとも1つ 14〜60%程度＝p100）＝幅は破線の枠                            c905・c906
+  two    … 正しい作りと修理の壁／事故機の壁（p105（コ））                                                       c908
+  lav    … 横から見た客室の後ろ：いちばん後ろの化粧室・コートルーム・1978年の変形の可能性（p103）              c913
 
 ■ SPEC の書き方（mech19 と同じ）
   fig=("m20", dict(view=…, start=dict(…), steps=[dict(state=dict(…), tag=dict(t=…, at=…, to=…, d=…)), …],
@@ -800,10 +813,11 @@ PR = (40.0, 430.0 - 44.0 * 40.0, 600.0)           # K・機首の x（画面の�
 PR_X0 = 44.0                                       # ここから後ろを描く（前は切る）
 PR_BULK = I2.S1_XB                                 # 後部圧力隔壁＝BS2360（p29）＝57.66m
 PR_ARROWS = (2.0, 0.8, -0.4, -1.6)                 # 押す矢印の高さ（m・模式）
+PR_Z = (3.05, -2.75)                               # 隔壁の弧の上の端・下の端（m・模式）＝🆕 ⑤b-6 で表に出した（値は同じ）
 
 
 def pr_bulk_pts():
-    zt, zb = 3.05, -2.75
+    zt, zb = PR_Z
     return [(PR_BULK + 1.25 * math.cos(math.radians(a)), (zt + zb) / 2 + (zt - zb) / 2 * math.sin(math.radians(a))) for a in range(-90, 91, 10)]
 
 
@@ -926,6 +940,575 @@ def apt_stage(prev, st):
 
 
 # ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-10）：第6〜8章の模式（隔壁の継ぎ目・亀裂・点検）＝12の見え方
+# ══════════════════════════════════════════════════════════
+# 形のもと＝付図-32・付図-36（隔壁の円・L18・ストラップ＝illu20 の S6 正面と同じ表 S6F_STRAPS）・付図-38(a)(b)（p174＝L18 の断面の
+#   2列と1列）・別添1 付図-3（実際の継ぎ方の板の並び＝illu20.S6_LAYERS）。🔴 数字は書かない（語りと字幕に任せる）。
+#   記録の値（列の数・強さの比・速さの比・ストラップの番号・確率・見える長さの比ほか）は門番 check_mech の REC_M20 の側
+WEB = dict(up=C20["web_up"], lo=C20["web_lo"], spl=C20["splice"], fil=C20["filler"], riv=C20["rivet"], seal="#e9d9a6",
+           seal_ln="#6b5a2c")
+
+
+def _eye(x, y, s=1.0, col=INK):
+    """目の印（点検で見る向き＝人は描かない）"""
+    n = 16
+    up = [(x - 46 * s + 92 * s * i / n, y - 26 * s * math.sin(math.pi * i / n)) for i in range(n + 1)]
+    lo = [(x + 46 * s - 92 * s * i / n, y + 26 * s * math.sin(math.pi * i / n)) for i in range(n + 1)]
+    return (F.poly(up + lo, COL["dark"], col, 4, True) + F.circ(x, y, 13 * s, col, None, None)
+            + F.circ(x, y, 5 * s, COL["dark"], None, None))
+
+
+def _brk(x0, y0, x1, y1, col, w=5, dash=None, tick=12):
+    """長さの括弧（両端に短い棒）"""
+    ang = math.atan2(y1 - y0, x1 - x0) + math.pi / 2
+    dx, dy = tick * math.cos(ang), tick * math.sin(ang)
+    return (F.line(x0, y0, x1, y1, col, w, dash) + F.line(x0 - dx, y0 - dy, x0 + dx, y0 + dy, col, w)
+            + F.line(x1 - dx, y1 - dy, x1 + dx, y1 + dy, col, w))
+
+
+def _zig(x0, y0, x1, y1, n=8, amp=7.0):
+    """ひびのぎざぎざの点"""
+    L = math.hypot(x1 - x0, y1 - y0) or 1.0
+    nx, ny = -(y1 - y0) / L, (x1 - x0) / L
+    return [(x0 + (x1 - x0) * i / n + (0 if i in (0, n) else (amp if i % 2 else -amp)) * nx,
+             y0 + (y1 - y0) * i / n + (0 if i in (0, n) else (amp if i % 2 else -amp)) * ny) for i in range(n + 1)]
+
+
+def _crack(pts, w=6):
+    return F.poly(pts, "none", COL["dark"], w + 5) + F.poly(pts, "none", COL["red"], w)
+
+
+def _disk(c, R):
+    """隔壁を後ろから見た円（付図-32・付図-36＝S6 の正面と同じ形）：上半分・下半分・36本の補強材（間隔は模式）・ストラップ（点線）"""
+    cx, cy = c
+    g = [F.poly(_arc_pts(cx, cy, R, -90, 90, 40), WEB["up"], None, None, True),
+         F.poly(_arc_pts(cx, cy, R, 90, 270, 40), WEB["lo"], None, None, True)]
+    for i in range(1, 36):
+        y = cy - R + i * 2 * R / 36.0
+        hw = math.sqrt(max(0.0, R * R - (y - cy) ** 2))
+        g.append(F.line(cx - hw, y, cx + hw, y, COL["body_ln"], 1.2, op=0.35))
+    for f_ in I2.S6F_STRAPS:
+        g.append(F.poly(_arc_pts(cx, cy, R * f_, 0, 360, 72), "none", COL["body_ln"], 1.6, True, "6 7", 0.5))
+    g.append(F.circ(cx, cy, R, "none", COL["dark"], 5))
+    g.append(F.circ(cx, cy, 16, COL["eng"], COL["dark"], 2.5))
+    return g
+
+
+# ── fatigue（c705）＝くり返しの力で、穴の縁からひびが少しずつ伸びる（一般の仕組み＝p65「リベット孔縁より疲労亀裂」・数字は書かない）──
+FA_PLATE = (330.0, 380.0, 1190.0, 760.0)
+FA_HOLE = (760.0, 570.0, 44.0)                     # 穴（x・y・半径）
+FA_LEN = dict(r=230.0, l=150.0)                    # 伸びきったひびの長さ（穴の縁から・画素・模式）
+FA_GAP = 0.0                                       # ひびの根元と穴の縁のあいだ（🔴 門番の陽性対照がここを壊す）
+FA_DIR = 0.0                                       # ひびの向き（度・0＝横）（同上）
+FA_LOAD = 90.0                                     # 引く力の向き（度・90＝縦）＝ひびは力に直角に伸びる
+FA_SEG, FA_LAG = 3, 0.7                            # ひびを3つに分け、0.7秒ずつ遅らせて伸ばす（少しずつ）
+FA_WIRE = [(1390.0, 320.0), (1545.0, 465.0), (1700.0, 320.0)]
+
+
+def fa_crack(side):
+    """ひび（根元＝穴の縁 → 先）。side＝"r"（右）・"l"（左）"""
+    x, y, r = FA_HOLE
+    s = 1.0 if side == "r" else -1.0
+    a = math.radians(FA_DIR)
+    x0, y0 = x + s * (r + FA_GAP) * math.cos(a), y - s * (r + FA_GAP) * math.sin(a)
+    L = FA_LEN[side]
+    return (x0, y0), (x0 + s * L * math.cos(a), y0 - s * L * math.sin(a))
+
+
+def fatigue_parts(st):
+    out = []
+    on = st["crack"] == "on"
+    for side in ("r", "l"):
+        (x0, y0), (x1, y1) = fa_crack(side)
+        for i in range(FA_SEG):
+            a = (x0 + (x1 - x0) * i / FA_SEG, y0 + (y1 - y0) * i / FA_SEG)
+            b = (x0 + (x1 - x0) * (i + 1) / FA_SEG, y0 + (y1 - y0) * (i + 1) / FA_SEG)
+            out.append(_P(f"cr{side}{i}", "line", [a, b if on else a], stroke=COL["red"], w=8, alpha=1.0 if on else 0.0,
+                          lag=FA_LAG * i))
+    return out
+
+
+def _fa_arrows(xs, w):
+    x0, y0, x1, y1 = FA_PLATE
+    a = math.radians(FA_LOAD)
+    dx, dy = math.cos(a), -math.sin(a)
+    g = []
+    for xx in xs:
+        g.append(F.arrow(xx, y0 - 8, xx + 72 * dx, y0 - 8 + 72 * dy, COL["mark"], w, 22))
+        g.append(F.arrow(xx, y1 + 8, xx - 72 * dx, y1 + 8 - 72 * dy, COL["mark"], w, 22))
+    return g
+
+
+def fatigue_base(st0):
+    x0, y0, x1, y1 = FA_PLATE
+    x, y, r = FA_HOLE
+    return [F.rect(x0, y0, x1 - x0, y1 - y0, WEB["lo"], COL["dark"], 4, rx=6), F.circ(x, y, r, COL["dark"], "#5a6670", 4)]
+
+
+def fatigue_stage(prev, st):
+    g = []
+    x = FA_HOLE[0]
+    if st["load"] != "off" and prev["load"] == "off":
+        g += _fa_arrows([x], 8)
+    if _on(prev, st, "load", "rep"):
+        g += _fa_arrows([x - 110, x + 110], 5)
+    if _on(prev, st, "wire"):
+        (ax, ay), (bx, by), (cx_, cy_) = FA_WIRE
+        ghost = [(ax - 60, ay + 70), (bx, by), (cx_ + 60, cy_ + 70)]
+        g.append(F.poly(ghost, "none", COL["ghost"], 6, False, "10 8"))
+        g.append(F.poly(FA_WIRE, "none", COL["dark"], 16) + F.poly(FA_WIRE, "none", "#c9d0d6", 10))
+        g.append(_crack(_zig(bx - 18, by - 4, bx + 18, by - 4, 4, 5.0), 5))
+        for (px, py), (qx, qy) in (((ax, ay), ghost[0]), ((cx_, cy_), ghost[2])):
+            g.append(F.arrow(px, py + 12, qx + 8, qy - 14, COL["mark"], 4, 16))
+    return g
+
+
+# ── rows（c711）＝L18 の継ぎ目の断面：2列で留めた所と1列で留めた所（付図-38(a)(b) を簡単に＝2枚の板の重なりと列の数だけ）・
+#    強さの棒（本来＝1・1列の所＝約0.7＝p102・p124）──
+RW_CX = dict(a=640.0, b=1280.0)
+RW_T = 26.0                                         # 板の厚さ（画素・強調）
+RW_TOP, RW_BOT = 290.0, 720.0
+RW_LAP = dict(a=(430.0, 560.0), b=(468.0, 522.0))   # 重なり（下の板の上の端・上の板の下の端）
+RW_ROWS = dict(a=(465.0, 525.0), b=(495.0,))        # リベットの列の高さ（🔴 門番の陽性対照がここを壊す）
+RW_STR = dict(a=1.0, b=0.70)                        # 強さ（本来＝1）（同上）
+RW_BAR = (800.0, 300.0)                             # 強さの棒の y・本来の長さ（画素）
+RW_TIT = dict(a="2列で留めた所", b="1列で留めた所")
+
+
+def rows_base(st0):
+    g = []
+    for k, cx in RW_CX.items():
+        lap0, lap1 = RW_LAP[k]
+        g.append(F.rect(cx, RW_TOP, RW_T, lap1 - RW_TOP, WEB["up"], COL["dark"], 3))            # 上の板（後ろの側）
+        g.append(F.rect(cx - RW_T, lap0, RW_T, RW_BOT - lap0, WEB["lo"], COL["dark"], 3))        # 下の板（客室の側）
+        for y in RW_ROWS[k]:
+            g.append(F.rect(cx - RW_T - 14, y - 7, 2 * RW_T + 28, 14, WEB["riv"], COL["dark"], 2))
+            g.append(F.rect(cx - RW_T - 24, y - 14, 10, 28, WEB["riv"], COL["dark"], 2, rx=3))
+            g.append(F.rect(cx + RW_T + 14, y - 14, 10, 28, WEB["riv"], COL["dark"], 2, rx=3))
+        g.append(F.txtfit(cx, RW_BOT + 44, RW_TIT[k], 420, cap=32, col=INK, anchor="middle"))
+    return g
+
+
+def rows_stage(prev, st):
+    g = []
+    if _on(prev, st, "bars"):
+        y, L = RW_BAR
+        for k, cx in RW_CX.items():
+            g.append(F.rect(cx - L / 2, y - 14, L, 28, "none", COL["ghost"], 3, dash="8 6"))
+            g.append(F.rect(cx - L / 2, y - 14, L * RW_STR[k], 28, COL["blue"] if k == "a" else COL["red"], COL["dark"], 2))
+    if _on(prev, st, "crack"):
+        cx, y = RW_CX["b"], RW_ROWS["b"][0]
+        g.append(_crack(_zig(cx - 4, y + 17, cx + RW_T + 4, y + 17, 4, 4.0), 5))
+    return g
+
+
+# ── grow（c712）＝亀裂の伸び方の比べ（1列は2列の2倍強の速さ＝p65）。線の形は模式（直線）・数字は書かない ──
+GR = dict(x0=330.0, y0=730.0, x1=1560.0, y1=320.0)
+GR_YT = 470.0                                       # 同じ長さ（模式）
+GR_X2 = 1400.0                                      # 2列の線が同じ長さに届く所
+GR_RATIO = 2.1                                      # 1列の速さ ÷ 2列の速さ（「2倍強」の模式の値）（🔴 門番の陽性対照がここを壊す）
+
+
+def gr_line(k):
+    x0, y0 = GR["x0"], GR["y0"]
+    s = (y0 - GR_YT) / (GR_X2 - x0) * (GR_RATIO if k == "one" else 1.0)
+    xe = min(GR["x1"], x0 + (y0 - GR["y1"]) / s)
+    return (x0, y0), (xe, y0 - s * (xe - x0))
+
+
+def gr_hit(k):
+    """その線が同じ長さ（GR_YT）に届く x"""
+    (x0, y0), (x1, y1) = gr_line(k)
+    return x0 + (y0 - GR_YT) * (x1 - x0) / (y0 - y1)
+
+
+def grow_base(st0):
+    x0, y0, x1, y1 = GR["x0"], GR["y0"], GR["x1"], GR["y1"]
+    return [F.arrow(x0, y0, x1 + 40, y0, COL["mount_ln"], 4, 20), F.arrow(x0, y0, x0, y1 - 30, COL["mount_ln"], 4, 20),
+            _t(x1 + 40, y0 + 46, "飛行の回数", 26, J.TICK, "end"), _t(x0 + 16, y1 - 6, "亀裂の長さ", 26, J.TICK)]
+
+
+def grow_stage(prev, st):
+    g = []
+    for k, col in (("two", COL["blue"]), ("one", COL["red"])):
+        if _on(prev, st, k):
+            a, b = gr_line(k)
+            g.append(F.line(*a, *b, COL["dark"], 13) + F.line(*a, *b, col, 8))
+    if _on(prev, st, "same"):
+        y0 = GR["y0"]
+        h1, h2 = gr_hit("one"), gr_hit("two")
+        g.append(F.line(GR["x0"], GR_YT, h2, GR_YT, COL["mark"], 3, "10 8"))
+        for h, col, dy in ((h1, COL["red"], 34), (h2, COL["blue"], 66)):
+            g.append(F.line(h, GR_YT, h, y0, col, 3, "6 6"))
+            g.append(_brk(GR["x0"], y0 + dy, h, y0 + dy, col, 5))
+    return g
+
+
+# ── fs（c714）＝1ベイ・フェール・セーフ（p110）と、1列の所（左側の第1〜第3ストラップの間の2ベイ分＝別添1 p248）──
+FS_C, FS_R = (760.0, 545.0), 290.0
+FS_BAY_R = (0.60, 0.71)                             # 1ベイの中の亀裂（右側の継ぎ目の上・円の半径の比）（🔴 陽性対照）
+FS_ONE = (0, 2)                                     # 1列の所＝S6F_STRAPS の番号（0 始まり）の間（同上）
+
+
+def fs_base(st0):
+    return _disk(FS_C, FS_R) + [_t(FS_C[0] - FS_R - 14, FS_C[1] + 9, "L18", 26, INK, "end")]
+
+
+def fs_stage(prev, st):
+    cx, cy = FS_C
+    g = []
+    if _on(prev, st, "bay"):
+        a, b = FS_BAY_R
+        lo = max([f_ for f_ in I2.S6F_STRAPS if f_ <= a], default=0.0)
+        hi = min([f_ for f_ in I2.S6F_STRAPS if f_ >= b], default=1.0)
+        for f_ in (lo, hi):
+            g.append(F.poly(_arc_pts(cx, cy, FS_R * f_, 70, 110, 12), "none", COL["green"], 6))
+        g.append(_crack(_zig(cx + FS_R * a, cy, cx + FS_R * b, cy, 6, 6.0), 5))
+    if _on(prev, st, "one"):
+        r0, r1 = (FS_R * I2.S6F_STRAPS[i] for i in FS_ONE)
+        g.append(F.line(cx - r0, cy, cx - r1, cy, COL["dark"], 16) + F.line(cx - r0, cy, cx - r1, cy, COL["mark"], 9))
+        n = 7
+        for i in range(n):
+            x = cx - r0 + (r0 - r1) * (i + 0.5) / n
+            g.append(_crack([(x - 4, cy - 15), (x + 3, cy - 5), (x - 3, cy + 5), (x + 4, cy + 15)], 3))
+    return g
+
+
+# ── half（c805）＝横から見た尾部の断面：後部圧力隔壁の上半分（元のまま）と下半分（1978年に取り替え＝別添1 p246）──
+HF_NEW = "lo"                                       # 取り替えた側（🔴 陽性対照）
+
+
+def hf_lens(which):
+    """隔壁（横から見た弧）と弦のあいだを上と下に分けた面（m）"""
+    zm = sum(PR_Z) / 2
+    arc = pr_bulk_pts()                              # 下（-90度）→ 上（+90度）
+    pts = [p for p in arc if (p[1] >= zm - 1e-9 if which == "up" else p[1] <= zm + 1e-9)]
+    return pts + [(PR_BULK, zm)]
+
+
+def _tail_cut_base(K, X0, Y0):
+    body = side_body(K, X0, Y0, cut_front=PR_X0)
+    x0 = X0 + PR_X0 * K
+    return [F.poly(body, "#26313b", COL["body_ln"], 3, True), F.line(x0, Y0 - 3.6 * K, x0, Y0 + 3.6 * K, COL["ghost"], 3, "8 8")]
+
+
+def half_base(st0):
+    K, X0, Y0 = PR
+    q = side_pts(K, X0, Y0, pr_bulk_pts())
+    return _tail_cut_base(K, X0, Y0) + [F.poly(q, "none", COL["dark"], 11) + F.poly(q, "none", WEB["up"], 6)]
+
+
+def half_stage(prev, st):
+    K, X0, Y0 = PR
+    g = []
+    if _on(prev, st, "name"):
+        g.append(F.poly(side_pts(K, X0, Y0, pr_bulk_pts()), "none", COL["mark"], 6))
+    if _on(prev, st, "half"):
+        for w in ("up", "lo"):
+            g.append(F.poly(side_pts(K, X0, Y0, hf_lens(w)), WEB["lo"] if w == HF_NEW else WEB["up"], COL["dark"], 3, True))
+    if _on(prev, st, "join"):
+        x, y = side_pts(K, X0, Y0, [(PR_BULK + 1.25, sum(PR_Z) / 2)])[0]
+        g.append(_ring(x, y, 26, COL["mark"]))
+    return g
+
+
+# ── edge（c807）＝穴と板の縁の余白（エッジ・マージン）。測る起点の線は描かない・数字は書かない ──
+ED_PLATE = (300.0, 470.0, 1560.0, 760.0)            # x0・縁の y・x1・下の y
+ED_R = 22.0
+ED_GOOD = (620.0, 600.0)                            # 余白の足りている穴
+ED_BAD = (1180.0, 522.0)                            # 縁に近すぎる穴
+ED_REQ = 70.0                                       # 手引きの決まり（模式の長さ・画素）（🔴 陽性対照）
+
+
+def ed_margin(h):
+    return h[1] - ED_R - ED_PLATE[1]
+
+
+def edge_base(st0):
+    x0, ye, x1, yb = ED_PLATE
+    return [F.rect(x0, ye, x1 - x0, yb - ye, WEB["lo"], None, None), F.line(x0, ye, x1, ye, COL["dark"], 6),
+            F.circ(*ED_GOOD, ED_R, COL["dark"], "#5a6670", 3), _t(x1 - 10, ye - 14, "板の縁", 24, J.TICK, "end")]
+
+
+def edge_stage(prev, st):
+    ye = ED_PLATE[1]
+    g = []
+    if _on(prev, st, "good"):
+        x, y = ED_GOOD
+        g.append(_brk(x + 50, y - ED_R, x + 50, ye, COL["mark"], 5))
+    if _on(prev, st, "bad"):
+        x, y = ED_BAD
+        g.append(F.circ(x, y, ED_R, COL["dark"], "#5a6670", 3))
+        g.append(_crack(_zig(x, y - ED_R, x + 6, ye, 4, 4.0), 4))
+    if _on(prev, st, "req"):
+        x, y = ED_BAD
+        g.append(_brk(x + 70, ye, x + 70, ye + ED_REQ, COL["green"], 5, "8 6"))
+    return g
+
+
+# ── seal（c816）＝継ぎ目の断面（実際の継ぎ方＝illu20.S6_LAYERS の板の並び）と、縁を覆うシール材（フィレット・シール＝p103・付図-38）──
+SL = dict(k=110.0, cx=700.0, cy=520.0, edge=2.3)
+SL_EYE = (1210.0, 610.0)
+SL_BEAD_DY = 0.0                                    # シールの位置のずれ（🔴 陽性対照）
+
+
+def sl_geo():
+    k, cx, cy = SL["k"], SL["cx"], SL["cy"]
+    w = I2.S6_T * k
+    xs = {nm: cx + (i - 1) * w for i, nm in enumerate(I2.S6_ORDER)}
+    e = SL["edge"]
+    L = {nm: (None if r is None else (max(-e, r[0]), min(e, r[1]))) for nm, r in I2.S6_LAYERS["real"].items()}
+    return k, cx, cy, w, xs, L
+
+
+def sl_beads():
+    """シールの三角（板の端と、となりの板の面の角）＝[(板の名, 角の点, 三角の3点)]"""
+    k, cx, cy, w, xs, L = sl_geo()
+    lg = 1.6 * w
+    out = []
+    ye = cy + L["upper"][1] * k + SL_BEAD_DY           # 上の板の下の端（後ろの側）
+    c = (xs["upper"] - w / 2, ye)
+    out.append(("upper", c, [(xs["upper"] + w / 2, ye), (c[0], ye + lg), c]))
+    ys = cy + L["splice"][1] * k + SL_BEAD_DY          # 継ぎ板の下の端（後ろの側）
+    c = (xs["splice"] - w / 2, ys)
+    out.append(("splice", c, [(xs["splice"] + w / 2, ys), (c[0], ys + lg), c]))
+    yl = cy + L["lower"][0] * k + SL_BEAD_DY           # 下の板の上の端（客室の側）
+    c = (xs["lower"] + w / 2, yl)
+    out.append(("lower", c, [(xs["lower"] - w / 2, yl), (c[0], yl - lg), c]))
+    return out
+
+
+def seal_base(st0):
+    k, cx, cy, w, xs, L = sl_geo()
+    col = dict(lower=WEB["lo"], splice=WEB["spl"], upper=WEB["up"], filler=WEB["fil"])
+    g = []
+    for nm in ("lower", "upper", "splice", "filler"):
+        rng = L[nm]
+        if not rng:
+            continue
+        x = xs["splice" if nm == "filler" else nm]
+        g.append(F.rect(x - w / 2, cy + rng[0] * k, w, (rng[1] - rng[0]) * k, col[nm], COL["dark"], 2.5))
+    xl, xr = xs["lower"] - w / 2, xs["upper"] + w / 2
+    for r in I2.S6_ROWS:
+        y = cy + r * k
+        g.append(F.rect(xl - 0.20 * k, y - 0.20 * k, 0.20 * k, 0.40 * k, WEB["riv"], COL["dark"], 2.5, rx=4))
+        g.append(F.rect(xl, y - 0.07 * k, xr - xl, 0.14 * k, WEB["riv"], COL["dark"], 1.5))
+        g.append(F.rect(xr, y - 0.19 * k, 0.12 * k, 0.38 * k, WEB["riv"], COL["dark"], 2.5, rx=4))
+    yb = cy + SL["edge"] * k + 40
+    g.append(_t(xl - 0.6 * k, yb, "客室の側", 24, J.TICK, "end"))
+    g.append(_t(xr + 0.6 * k, yb, "後ろの側", 24, J.TICK))
+    return g
+
+
+def seal_stage(prev, st):
+    g = []
+    if _on(prev, st, "seal"):
+        for nm, c, tri in sl_beads():
+            g.append(F.poly(tri, WEB["seal"], WEB["seal_ln"], 3, True))
+    if _on(prev, st, "eye"):
+        ex, ey = SL_EYE
+        g.append(_eye(ex, ey))
+        for nm, c, tri in sl_beads():
+            if nm in ("upper", "splice"):
+                g.append(F.line(ex - 52, ey, tri[0][0] + 6, (tri[0][1] + tri[1][1]) / 2, INK, 3, "10 8"))
+    return g
+
+
+# ── rear（c902・c903）＝隔壁を後ろから見た円：後面全体の目視検査（G2 レベル相当）・L18 は特別な点検箇所に指定されていない（p104）──
+RE_C, RE_R = (720.0, 545.0), 290.0
+RE_EYE = (1200.0, 560.0)
+RE_ALL = 1.0                                        # 目で見る範囲の半径の比（全体＝1）（🔴 陽性対照）
+
+
+def rear_base(st0):
+    return _disk(RE_C, RE_R) + [_t(RE_C[0] - RE_R - 14, RE_C[1] + 9, "L18", 26, INK, "end")]
+
+
+def rear_stage(prev, st):
+    cx, cy = RE_C
+    g = []
+    if _on(prev, st, "l18"):
+        g.append(F.line(cx - RE_R, cy, cx - 18, cy, COL["mark"], 5, "14 10"))
+    if _on(prev, st, "all"):
+        g.append(F.circ(cx, cy, RE_R * RE_ALL, COL["mark"], None, None, op=0.22))
+        ex, ey = RE_EYE
+        g.append(_eye(ex, ey))
+        for s in (-1, 1):
+            g.append(F.line(ex - 52, ey, cx + RE_R * 0.2, cy + s * RE_R * 0.96, INK, 2.5, "10 8"))
+    return g
+
+
+# ── clen（c904）＝リベットの頭と亀裂：穴の両側の平均の長さ（約10ミリ）と見える長さ（約8ミリ）＝p100（数字は書かない・比だけ）──
+#    隠れる所はリベットの頭で代表した（報告書＝頭とストラップで隠れる）
+CL_C = (760.0, 540.0)
+CL_HOLE = 80.0                                      # 穴の半径（画素・模式）
+CL_MM = 32.0                                        # 1ミリの画素（模式）
+CL_LEN, CL_VIS = 10.0, 8.0                          # 亀裂の長さ・見える長さ（ミリ）（🔴 陽性対照）
+CL_PLATE = (300.0, 360.0, 1200.0, 720.0)
+
+
+def cl_head():
+    """頭の半径＝穴の縁から、隠れる長さ（長さ − 見える長さ）ぶん外"""
+    return CL_HOLE + (CL_LEN - CL_VIS) * CL_MM
+
+
+def clen_base(st0):
+    x0, y0, x1, y1 = CL_PLATE
+    cx, cy = CL_C
+    return [F.rect(x0, y0, x1 - x0, y1 - y0, WEB["up"], COL["dark"], 3, rx=6),
+            F.circ(cx, cy, cl_head(), WEB["riv"], COL["dark"], 4), F.circ(cx, cy, cl_head() - 14, "none", "#7d8a95", 3),
+            F.poly(_arc_pts(cx, cy, CL_HOLE, 0, 360, 48), "none", INK, 2.5, True, "8 7", 0.8)]
+
+
+def clen_stage(prev, st):
+    cx, cy = CL_C
+    g = []
+    hd, L = cl_head(), CL_HOLE + CL_LEN * CL_MM
+    if _on(prev, st, "crack"):
+        for s in (-1, 1):
+            g.append(F.line(cx + s * CL_HOLE, cy, cx + s * hd, cy, COL["red"], 5, "8 6"))
+            g.append(_crack([(cx + s * hd, cy), (cx + s * L, cy)], 6))
+    if _on(prev, st, "len"):
+        g.append(_brk(cx + CL_HOLE, cy - 64, cx + L, cy - 64, COL["mark"], 5))
+        g.append(_brk(cx + hd, cy + 64, cx + L, cy + 64, COL["green"], 5))
+    return g
+
+
+# ── prob（c905・c906）＝見つける確率の計算（p100：1つの亀裂 10パーセント程度・少なくとも1つ 14〜60パーセント程度）。
+#    幅は破線の枠＝1つの値にしない。目盛りの数字だけ書く（記録の値そのもの＝左上に「模式」を付けない）──
+PB = dict(x0=620.0, x1=1600.0, ax=740.0)
+PB_ROW = dict(one=420.0, many=590.0)
+PB_H = 76.0
+PB_ONE = 10.0                                       # （🔴 陽性対照）
+PB_MANY = (14.0, 60.0)                              # （同上）
+PB_TICKS = (0, 20, 40, 60, 80, 100)
+
+
+def pb_x(v):
+    return PB["x0"] + (PB["x1"] - PB["x0"]) * v / 100.0
+
+
+def prob_base(st0):
+    g = [F.line(PB["x0"], PB["ax"], PB["x1"], PB["ax"], COL["mount_ln"], 4)]
+    for v in PB_TICKS:
+        x = pb_x(v)
+        g.append(F.line(x, PB["ax"], x, PB["ax"] + 14, COL["mount_ln"], 3))
+        g.append(F.line(x, PB_ROW["one"] - 70, x, PB["ax"], COL["ghost"], 1.5, "4 8"))
+        g.append(_t(x, PB["ax"] + 50, f"{v}%", 26, J.TICK, "middle"))
+    return g
+
+
+def prob_stage(prev, st):
+    g = []
+    if _on(prev, st, "one"):
+        y = PB_ROW["one"]
+        g.append(F.rect(PB["x0"], y - PB_H / 2, pb_x(PB_ONE) - PB["x0"], PB_H, COL["mark"], COL["dark"], 2))
+        g.append(F.txtfit(PB["x0"] - 24, y + 12, "1つの亀裂", 480, cap=34, col=INK, anchor="end"))
+    if _on(prev, st, "many"):
+        y = PB_ROW["many"]
+        a, b = (pb_x(v) for v in PB_MANY)
+        g.append(F.rect(a, y - PB_H / 2, b - a, PB_H, COL["mark"], None, None, op=0.25))
+        g.append(F.rect(a, y - PB_H / 2, b - a, PB_H, "none", COL["mark"], 5, dash="14 9"))
+        g.append(F.txtfit(PB["x0"] - 24, y + 12, "少なくとも1つ", 480, cap=34, col=INK, anchor="end"))
+    if _on(prev, st, "q"):
+        g.append(_t(pb_x(PB_MANY[1]) + 70, PB_ROW["many"] + 28, "？", 84, COL["red"], "middle"))
+    return g
+
+
+# ── two（c908）＝2つの場合の比べ（p105（コ）：正規に製作・適正な修理なら、C整備の時点で亀裂は多数できない＝妥当な点検方法）──
+TW_C = dict(a=(520.0, 560.0), b=(1240.0, 560.0))
+TW_R = 220.0
+TW_CRACKS = dict(a=0, b=9)                          # L18 の左側（第1〜第3ストラップの間）の亀裂の印の数（模式）（🔴 陽性対照）
+TW_TIT = dict(a="正しい作りと修理", b="事故機（誤った修理）")
+
+
+def two_base(st0):
+    g = []
+    for k, c in TW_C.items():
+        cx, cy = c
+        g += _disk(c, TW_R)
+        g.append(F.txtfit(cx, cy - TW_R - 30, TW_TIT[k], 520, cap=32, col=INK, anchor="middle"))
+        n = TW_CRACKS[k]
+        r0, r1 = TW_R * I2.S6F_STRAPS[0], TW_R * I2.S6F_STRAPS[2]
+        for i in range(n):
+            x = cx - r0 + (r0 - r1) * (i + 0.5) / n
+            g.append(_crack([(x - 3, cy - 12), (x + 2, cy - 4), (x - 2, cy + 4), (x + 3, cy + 12)], 3))
+    return g
+
+
+def tw_check():
+    cx, cy = TW_C["a"]
+    x, y = cx + TW_R * 0.78, cy - TW_R * 0.78
+    return [(x - 34, y), (x - 8, y + 28), (x + 44, y - 36)]
+
+
+def two_stage(prev, st):
+    cx, cy = TW_C["a"]
+    g = []
+    if _on(prev, st, "pick"):
+        g.append(_ring(cx, cy, TW_R + 10, COL["green"]))
+    if _on(prev, st, "ok"):
+        g.append(F.poly(tw_check(), "none", COL["dark"], 16) + F.poly(tw_check(), "none", COL["green"], 10))
+    return g
+
+
+# ── lav（c913）＝横から見た客室の後ろ：いちばん後ろの化粧室・後ろのコートルーム（p103）・1978年の事故の変形（可能性＝p103）。
+#    配置と変形の大きさは模式（変形は大きく描いた）──
+LV = dict(lav=(54.2, 56.9), coat=(50.6, 53.6), floor=-1.2, top=1.6)   # 前後（m）・床・天井（m）（🔴 陽性対照＝lav）
+LV_BEND = 1.6                                       # 変形の模式の角度（度）
+
+
+def lav_box(nm):
+    a, b = LV[nm]
+    return [(a, LV["floor"]), (b, LV["floor"]), (b, LV["top"]), (a, LV["top"])]
+
+
+def lav_tail():
+    """隔壁より後ろの胴体の輪郭を、隔壁の下の端のまわりに LV_BEND 度だけ下げた線（m）"""
+    up = [p for p in IL._smooth(I2.S1_UP, per=6) if p[0] >= PR_BULK]
+    lo = [p for p in IL._smooth(I2.S1_LO, per=6) if p[0] >= PR_BULK]
+    px, pz = PR_BULK, lo[0][1]
+    th = math.radians(-LV_BEND)
+    return [(px + (x - px) * math.cos(th) - (z - pz) * math.sin(th), pz + (x - px) * math.sin(th) + (z - pz) * math.cos(th))
+            for x, z in up + list(reversed(lo))]
+
+
+def lav_base(st0):
+    K, X0, Y0 = PR
+    q = side_pts(K, X0, Y0, pr_bulk_pts())
+    g = _tail_cut_base(K, X0, Y0) + [F.poly(q, "none", COL["dark"], 9) + F.poly(q, "none", WEB["up"], 5)]
+    fa, fb = side_pts(K, X0, Y0, [(PR_X0, LV["floor"]), (PR_BULK, LV["floor"])])
+    g.append(F.line(*fa, *fb, COL["seat"], 4))
+    for x in (45.0, 46.6, 48.2):                     # 座席の背（模式）
+        p = side_pts(K, X0, Y0, [(x, LV["floor"]), (x + 0.5, LV["floor"]), (x + 0.6, LV["floor"] + 1.3), (x + 0.3, LV["floor"] + 1.35)])
+        g.append(F.poly(p, COL["seat"], COL["seat_ln"], 2, True))
+    for nm in ("coat", "lav"):
+        g.append(F.poly(side_pts(K, X0, Y0, lav_box(nm)), "none", COL["ghost"], 3, True))
+    return g
+
+
+def lav_stage(prev, st):
+    K, X0, Y0 = PR
+    g = []
+    if _on(prev, st, "lav"):
+        p = side_pts(K, X0, Y0, lav_box("lav"))
+        g.append(F.poly(p, COL["cabin"], COL["dark"], 3, True))
+        (xa, ya), (xb, yb) = p[0], p[2]
+        g.append(F.rect(xa + 6, yb + 14, 22, ya - yb - 20, "#c9a27a", COL["dark"], 2))     # ドア（模式）
+        g.append(_ring((xa + xb) / 2, (ya + yb) / 2, 84, COL["mark"]))
+    if _on(prev, st, "coat"):
+        p = side_pts(K, X0, Y0, lav_box("coat"))
+        g.append(F.poly(p, "#3a4652", COL["dark"], 3, True))
+        (xa, ya) = p[0]
+        for i in range(3):
+            for j in range(2 if i < 2 else 1):
+                g.append(F.rect(xa + 10 + i * 36, ya - 32 - j * 30, 32, 28, COL["mark"], COL["dark"], 2))
+    if _on(prev, st, "bend"):
+        g.append(F.poly(side_pts(K, X0, Y0, lav_tail()), "none", COL["red"], 4, False, "12 9"))
+    return g
+
+
+# ══════════════════════════════════════════════════════════
 #  見え方の表
 # ══════════════════════════════════════════════════════════
 VIEWS = dict(
@@ -949,13 +1532,30 @@ VIEWS = dict(
     press=dict(lab="横から見た尾部の断面（機首が左）", fields=dict(press=ONOFF, push=ONOFF), base=press_base, stage=press_stage),
     bag=dict(lab="尾翼の中の気圧と袋のふくらみ", fields=dict(inner=ONOFF, bags=ONOFF, swell=ONOFF), base=bag_base, stage=bag_stage,
              parts=bag_parts),
-    apt=dict(lab="3つの空港（東西の順・間は模式）", fields=dict(pick=ONOFF, why=ONOFF, ok=ONOFF), base=apt_base, stage=apt_stage))
+    apt=dict(lab="3つの空港（東西の順・間は模式）", fields=dict(pick=ONOFF, why=ONOFF, ok=ONOFF), base=apt_base, stage=apt_stage),
+    # 🆕 ⑤b-6：第6〜8章
+    fatigue=dict(lab="穴のあいた金属の板", fields=dict(load=("off", "once", "rep"), crack=ONOFF, wire=ONOFF), base=fatigue_base,
+                 stage=fatigue_stage, parts=fatigue_parts),
+    rows=dict(lab="L18 の継ぎ目の断面（横から）", fields=dict(bars=ONOFF, crack=ONOFF), base=rows_base, stage=rows_stage),
+    grow=dict(lab="亀裂の伸び方の比べ", fields=dict(two=ONOFF, one=ONOFF, same=ONOFF), base=grow_base, stage=grow_stage),
+    fs=dict(lab="隔壁を後ろから見た図", fields=dict(bay=ONOFF, one=ONOFF), base=fs_base, stage=fs_stage),
+    half=dict(lab="横から見た尾部の断面（機首が左）", fields=dict(name=ONOFF, half=ONOFF, join=ONOFF), base=half_base, stage=half_stage),
+    edge=dict(lab="板の縁とリベットの穴", fields=dict(good=ONOFF, bad=ONOFF, req=ONOFF), base=edge_base, stage=edge_stage),
+    seal=dict(lab="継ぎ目の断面（横から）", fields=dict(seal=ONOFF, eye=ONOFF), base=seal_base, stage=seal_stage),
+    rear=dict(lab="隔壁を後ろから見た図", fields=dict(l18=ONOFF, all=ONOFF), base=rear_base, stage=rear_stage),
+    clen=dict(lab="リベットの頭と亀裂（後ろから）", fields=dict(crack=ONOFF, len=ONOFF), base=clen_base, stage=clen_stage),
+    prob=dict(lab="見つける確率の計算（報告書）", fields=dict(one=ONOFF, many=ONOFF, q=ONOFF), base=prob_base, stage=prob_stage),
+    two=dict(lab="2つの場合（後ろから）", fields=dict(pick=ONOFF, ok=ONOFF), base=two_base, stage=two_stage),
+    lav=dict(lab="横から見た客室の後ろ（機首が左）", fields=dict(lav=ONOFF, coat=ONOFF, bend=ONOFF), base=lav_base, stage=lav_stage))
 START = {v: {k: vs[0] for k, vs in d["fields"].items()} for v, d in VIEWS.items()}
 # 頭だけで決める欄（段で変えない）
 HEAD_ONLY = dict(thrust=("lay",), alt=("span",))
-# 戻さない欄（切れた管は戻らない・下ろした脚とフラップは戻らない・失敗は戻らない）
+# 戻さない欄（切れた管は戻らない・下ろした脚とフラップは戻らない・失敗は戻らない・伸びたひびは戻らない）
 ORDER = dict(hyd=dict(cut=ONOFF), gear=dict(gear=("up", "down"), flap=("up", "down")), hoist=dict(guide=("off", "on", "fail")),
-             xpdr=dict(reply=("off", "on", "emg")), alt=dict(pts=("off", "early", "all")))
+             xpdr=dict(reply=("off", "on", "emg")), alt=dict(pts=("off", "early", "all")),
+             fatigue=dict(load=("off", "once", "rep"), crack=ONOFF))
+# 左上の札に「模式」を付けない見え方（記録の値そのもの＝高さの記録の点・報告書の確率の計算）
+NOT_SCHEMATIC = ("alt", "prob")
 
 
 # ══════════════════════════════════════════════════════════
@@ -982,7 +1582,22 @@ TAG_AT = dict(
     press=dict(alt=(L_X, 330.0, "start", 560.0), cabin=(L_X, 820.0, "start", 560.0), bulk=(1330.0, 820.0, "start", 480.0),
                push=(1330.0, 330.0, "start", 480.0)),
     bag=dict(inner=(F.BX0 + 30.0, 330.0, "start", 700.0), sea=(880.0, 330.0, "start", 400.0), mt=(1360.0, 330.0, "start", 440.0)),
-    apt=dict(pick=(1060.0, 410.0, "start", 360.0), ok=(1060.0, 300.0, "start", 340.0), why=(L_X, 800.0, "start", 640.0)))
+    apt=dict(pick=(1060.0, 410.0, "start", 360.0), ok=(1060.0, 300.0, "start", 340.0), why=(L_X, 800.0, "start", 640.0)),
+    # 🆕 ⑤b-6
+    fatigue=dict(once=(800.0, 330.0, "start", 400.0), crack=(1230.0, 690.0, "start", 560.0), wire=(1390.0, 560.0, "start", 440.0)),
+    rows=dict(str=(F.BX0 + 30.0, 812.0, "start", 300.0), crack=(1480.0, 430.0, "start", 340.0)),
+    grow=dict(two=(1580.0, 440.0, "start", 240.0), one=(1150.0, 340.0, "start", 300.0), same=(GR["x0"] + 20.0, GR_YT - 20.0, "start", 360.0)),
+    fs=dict(bay=(1270.0, 420.0, "start", 560.0), one=(F.BX0 + 30.0, 800.0, "start", 560.0)),
+    half=dict(name=(L_X, 380.0, "start", 560.0), up=(1150.0, 380.0, "start", 600.0), lo=(1150.0, 800.0, "start", 600.0),
+              join=(L_X, 800.0, "start", 560.0)),
+    edge=dict(good=(700.0, 410.0, "start", 440.0), bad=(1250.0, 410.0, "start", 440.0), req=(1290.0, 830.0, "start", 520.0)),
+    seal=dict(seal=(1000.0, 360.0, "start", 600.0), eye=(1000.0, 780.0, "start", 640.0)),
+    rear=dict(l18=(F.BX0 + 30.0, 330.0, "start", 300.0), all=(1290.0, 760.0, "start", 520.0), margin=(1290.0, 330.0, "start", 520.0),
+              none=(1290.0, 430.0, "start", 520.0), corr=(F.BX0 + 30.0, 830.0, "start", 560.0)),
+    clen=dict(date=(F.BX0 + 30.0, 320.0, "start", 600.0), len=(1230.0, 470.0, "start", 560.0), vis=(1230.0, 640.0, "start", 560.0)),
+    prob=dict(title=(F.BX0 + 30.0, 320.0, "start", 640.0), asm=(F.BX0 + 30.0, 320.0, "start", 640.0), q=(1350.0, 600.0, "start", 440.0)),
+    two=dict(pick=(F.BX0 + 30.0, 840.0, "start", 600.0), ok=(770.0, 410.0, "start", 300.0)),
+    lav=dict(lav=(1150.0, 380.0, "start", 640.0), coat=(L_X, 380.0, "start", 560.0), bend=(1150.0, 800.0, "start", 640.0)))
 
 
 def anchors(view, st):
@@ -1042,6 +1657,54 @@ def anchors(view, st):
     if view == "apt":
         x = AP_PTS["haneda"][0]
         return dict(haneda=(x - 42, AP["y"] - 10), ok=(x - 34, AP["y"] - 126), why=(x - 172, AP["y"] + 160))
+    # 🆕 ⑤b-6
+    if view == "fatigue":
+        (tx, ty) = fa_crack("r")[1]
+        return dict(tip=(tx + 8, ty + 10), wire=(FA_WIRE[1][0], FA_WIRE[1][1] + 14), arrow=(FA_HOLE[0] + 12, FA_PLATE[1] - 50))
+    if view == "rows":
+        return dict(crack=(RW_CX["b"] + RW_T + 8, RW_ROWS["b"][0] + 17), bar=(RW_CX["a"] - RW_BAR[1] / 2 - 8, RW_BAR[0]))
+    if view == "grow":
+        return dict(two=gr_line("two")[1], one=gr_line("one")[1])
+    if view == "fs":
+        cx, cy = FS_C
+        s = I2.S6F_STRAPS
+        return dict(bay=(cx + FS_R * sum(FS_BAY_R) / 2, cy - 12), one=(cx - FS_R * (s[FS_ONE[0]] + s[FS_ONE[1]]) / 2, cy + 12))
+    if view == "half":
+        K, X0, Y0 = PR
+
+        def mid(pts):
+            q = side_pts(K, X0, Y0, pts)
+            return (sum(p[0] for p in q) / len(q), sum(p[1] for p in q) / len(q))
+        return dict(dome=side_pts(K, X0, Y0, [(PR_BULK + 0.3, PR_Z[0] - 0.4)])[0], up=mid(hf_lens("up")), lo=mid(hf_lens("lo")),
+                    join=side_pts(K, X0, Y0, [(PR_BULK + 1.25, sum(PR_Z) / 2)])[0])
+    if view == "edge":
+        ye = ED_PLATE[1]
+        return dict(good=(ED_GOOD[0] + 58, (ED_GOOD[1] - ED_R + ye) / 2), bad=(ED_BAD[0], ED_BAD[1] - ED_R - 4),
+                    req=(ED_BAD[0] + 78, ye + ED_REQ / 2))
+    if view == "seal":
+        tri = sl_beads()[0][2]
+        return dict(bead=(tri[0][0] + 6, tri[0][1] + 8), eye=(SL_EYE[0] - 20, SL_EYE[1] + 30))
+    if view == "rear":
+        cx, cy = RE_C
+        return dict(l18=(cx - RE_R * 0.6, cy - 8), joint=(cx - 30, cy), eye=(RE_EYE[0], RE_EYE[1] + 30),
+                    face=(cx + RE_R * 0.5, cy - RE_R * 0.5))
+    if view == "clen":
+        cx, cy = CL_C
+        hd, L = cl_head(), CL_HOLE + CL_LEN * CL_MM
+        return dict(len=(cx + (CL_HOLE + L) / 2, cy - 72), vis=(cx + (hd + L) / 2, cy + 72), crack=(cx + L, cy),
+                    lcrack=(cx - L + 10, cy - 8))
+    if view == "prob":
+        return dict(one=(pb_x(PB_ONE) + 6, PB_ROW["one"]), many=(pb_x(PB_MANY[1]) + 6, PB_ROW["many"]))
+    if view == "two":
+        cx, cy = TW_C["a"]
+        return dict(pick=(cx, cy + TW_R + 10), ok=tw_check()[1])
+    if view == "lav":
+        K, X0, Y0 = PR
+
+        def top_mid(nm):
+            a, b = LV[nm]
+            return side_pts(K, X0, Y0, [((a + b) / 2, LV["top"])])[0]
+        return dict(lav=top_mid("lav"), coat=top_mid("coat"), bend=side_pts(K, X0, Y0, [lav_tail()[-8]])[0])
     return {}
 
 
@@ -1133,7 +1796,7 @@ KEY_FIELDS = ("pts", "rot", "alpha", "fill", "stroke", "glow", "dx", "dy")
 
 
 def m20(view, steps, start=None, rel=(), note="", src=""):
-    """20本目の模式図。view は VIEWS の11種。steps＝ナレーションの行ごとの段。"""
+    """20本目の模式図。view は VIEWS の24種（⑤b-5 の12＋⑤b-6 の12）。steps＝ナレーションの行ごとの段。"""
     if view not in VIEWS:
         raise ValueError(f"m20：知らない見え方 {view!r}（{tuple(VIEWS)}）")
     if "模式" not in note:
@@ -1161,8 +1824,9 @@ def m20(view, steps, start=None, rel=(), note="", src=""):
     for sh in shapes:
         if not sh["anim"]:
             g.append(_static_part(sh))
-    # 高さの線（alt）は記録の点そのもの＝左上の札に「模式」を付けない（印の線と矢印が模式＝note で断る）
-    g.append(F.txtfit(F.BX0 + 8, F.BY0 + 34, VIEWS[view]["lab"] + ("" if view == "alt" else "・模式"), 1000, cap=28, col=J.TICK))
+    # 高さの線（alt）は記録の点そのもの＝左上の札に「模式」を付けない（印の線と矢印が模式＝note で断る）。🆕 ⑤b-6：確率の計算（prob）も
+    g.append(F.txtfit(F.BX0 + 8, F.BY0 + 34, VIEWS[view]["lab"] + ("" if view in NOT_SCHEMATIC else "・模式"), 1000, cap=28,
+                      col=J.TICK))
     g.append(F.txtfit(F.BX0, F.BY1 - 6, note + (f"　出典：{src}" if src else ""), F.BW, cap=26, col=J.TICK))
     stages, texts = _stage_svgs(view, steps, st0, states)
     f = F.Fig("".join(g), stages, "", (F.BX0, F.BX1))
@@ -1281,4 +1945,53 @@ def geo_of(view, start, states):
         out["lons"] = {nm: lon for k, (x, nm, lon) in AP_PTS.items()}
         out["why"] = list(AP_WHY) if ever("why") else []
         out["picked"] = AP_PTS["haneda"][1] if ever("pick") else None
+    # 🆕 ⑤b-6（描く関数と同じ式）
+    elif view == "fatigue":
+        out["hole"] = list(FA_HOLE)
+        out["load_deg"] = FA_LOAD
+        out["cracks"] = {s: fa_crack(s) for s in ("r", "l")} if ever("crack") else {}
+    elif view == "rows":
+        out["rows"] = {k: len(v) for k, v in RW_ROWS.items()}
+        out["lap"] = {k: list(v) for k, v in RW_LAP.items()}
+        out["row_y"] = {k: list(v) for k, v in RW_ROWS.items()}
+        out["bars"] = {k: RW_BAR[1] * RW_STR[k] for k in RW_CX} if ever("bars") else None
+    elif view == "grow":
+        out["x0"], out["y0"] = GR["x0"], GR["y0"]
+        out["lines"] = {k: gr_line(k) for k in ("two", "one") if ever(k)}
+        out["hits"] = {k: gr_hit(k) for k in ("two", "one")} if ever("same") else {}
+    elif view == "fs":
+        out["c"], out["R"], out["straps"] = list(FS_C), FS_R, list(I2.S6F_STRAPS)
+        out["bay"] = list(FS_BAY_R) if ever("bay") else None
+        if ever("one"):
+            r0, r1 = (FS_R * I2.S6F_STRAPS[i] for i in FS_ONE)
+            out["one"] = [(FS_C[0] - r0, FS_C[1]), (FS_C[0] - r1, FS_C[1])]
+        else:
+            out["one"] = None
+    elif view == "half":
+        out["new"] = HF_NEW if ever("half") else None
+        out["lens_z"] = {w: (min(p[1] for p in hf_lens(w)), max(p[1] for p in hf_lens(w))) for w in ("up", "lo")}
+    elif view == "edge":
+        out["m"] = dict(good=ed_margin(ED_GOOD), bad=ed_margin(ED_BAD), req=ED_REQ)
+        out["seq"] = [(s["good"], s["bad"], s["req"]) for s in allst]
+    elif view == "seal":
+        k, cx, cy, w, xs, L = sl_geo()
+        out["ends"] = dict(upper=cy + L["upper"][1] * k, splice=cy + L["splice"][1] * k, lower=cy + L["lower"][0] * k)
+        out["beads"] = [(nm, list(c)) for nm, c, tri in sl_beads()] if ever("seal") else []
+        out["eye_x"] = SL_EYE[0] if ever("eye") else None
+        out["stack_x1"] = xs["upper"] + w / 2
+    elif view == "rear":
+        out["R"] = RE_R
+        out["all_r"] = RE_R * RE_ALL if ever("all") else None
+    elif view == "clen":
+        hd, L = cl_head(), CL_HOLE + CL_LEN * CL_MM
+        out["sides"] = {s: dict(total=L - CL_HOLE, vis=L - hd) for s in (-1, 1)} if ever("crack") else {}
+    elif view == "prob":
+        out["xt"] = [(v, pb_x(v)) for v in PB_TICKS]
+        out["one"] = pb_x(PB_ONE) if ever("one") else None
+        out["many"] = [pb_x(v) for v in PB_MANY] if ever("many") else None
+    elif view == "two":
+        out["cracks"] = dict(TW_CRACKS)
+        out["ok_on"] = "a" if ever("ok") or ever("pick") else None
+    elif view == "lav":
+        out["lav"], out["coat"], out["bulk"] = list(LV["lav"]), list(LV["coat"]), PR_BULK
     return out

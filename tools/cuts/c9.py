@@ -66,4 +66,61 @@ SPEC = {
     "c914": dict(fig=("illu", dict(
         place="S1", start=dict(s1bulk="on", s1ring="tail"), rec=S1R["bulk"],
         steps=[dict(), dict(tag=dict(t="1985年8月12日", at="bulk", off=(-60, -200), anchor="end", keep=True)), dict()]))),
+    # ── 🆕 ⑤b-6（2026-10-10）：模式図 第8章（m20）──
+    # c902（2行）＝L18 のような継ぎ目は特別な点検箇所に指定されていない → 後面全体の目視検査（G2 レベル相当＝p104）
+    "c902": dict(
+        t="点検の範囲", s="C整備の目視検査",
+        fig=("m20", dict(view="rear",
+                         steps=[dict(state=dict(l18="on"), tag=dict(t="L18", d="特別な点検箇所ではない", at="l18", to="l18")),
+                                dict(state=dict(all="on"), tag=dict(t="後面全体の目視検査", at="all", to="eye"))],
+                         rel=[dict(t="L18", src="報告書 p104（L18接続部のようなウェブの接続部）")],
+                         note="形は付図-32・付図-36 から・補強材の間隔は模式", src=ss.src(["報告書 p104"])))),
+    # c903（3行）＝同じ絵：十分な強度余裕 → 危険な亀裂の事例が無い → だからこの方式（腐食を主とした目視検査＝p104 の考え）
+    "c903": dict(
+        t="この方式の理由", s="報告書の考え（3.2.2）",
+        fig=("m20", dict(view="rear", start=dict(l18="on", all="on"),
+                         steps=[dict(tag=dict(t="十分な強度余裕", at="margin", to="joint")),
+                                dict(tag=dict(t="危険な亀裂の事例なし", at="none")),
+                                dict(tag=dict(t="腐食を主とした目視検査", at="corr"))],
+                         note="形は付図-32・付図-36 から・補強材の間隔は模式", src=ss.src(["報告書 p104"])))),
+    # c904（2行）＝最後の C整備（1984年12月）のときの長い亀裂 → 穴の両側の平均の長さと見える長さ（比 8:10＝p100・推定）。数字は書かない
+    "c904": dict(
+        t="隠れる所と見える所", s="最後の C整備のとき",
+        fig=("m20", dict(view="clen",
+                         steps=[dict(state=dict(crack="on"), tag=dict(t="長い亀裂", d="1984年12月", at="date", to="lcrack")),
+                                dict(state=dict(len="on"), tag=[dict(t="亀裂の長さ（推定）", at="len", to="len"),
+                                                                dict(t="見える長さ", at="vis", to="vis", col=J.OK)])],
+                         rel=[dict(t="1984年12月", src="報告書 p100（昭和59年12月のNo.11C整備時）")],
+                         note="形は模式（隠れる所はリベットの頭で代表・長さの比は報告書の推定）", src=ss.src(["報告書 p100"])))),
+    # c905（3行）＝（聞き役）→ 見える長さ10ミリほどの亀裂1つを見つける確率 10%ほど → 少なくとも1つなら 14〜60%ほど（p100）。幅は破線の枠
+    "c905": dict(
+        t="見つかる見込み", s="最後の C整備の点検",
+        fig=("m20", dict(view="prob",
+                         steps=[dict(tag=dict(t="点検で見つける確率", d="報告書の計算", at="title")),
+                                dict(state=dict(one="on")),
+                                dict(state=dict(many="on"))],
+                         note="値は報告書の計算（どちらも「程度」）・幅は幅のまま・棒の太さは模式", src=ss.src(["報告書 p100"])))),
+    # c906（2行）＝同じ棒：仮定などに左右される（p100）→ その点検で見つけられたかは明らかにできなかった（p105）
+    "c906": dict(
+        t="計算の断り", s="前提と結論",
+        fig=("m20", dict(view="prob", start=dict(one="on", many="on"),
+                         steps=[dict(tag=dict(t="仮定による計算", at="asm")),
+                                dict(state=dict(q="on"), tag=dict(t="見つけられたか", at="q"))],
+                         note="値は報告書の計算（どちらも「程度」）・幅は幅のまま・棒の太さは模式", src=ss.src(["報告書 p100", "報告書 p105"])))),
+    # c908（2行）＝正しく作られ・正しく修理された壁なら（亀裂は多数できない）→ その点検は妥当（p105（コ）の考え）
+    "c908": dict(
+        t="点検が足りる場合", s="報告書の考え（3.2.2）",
+        fig=("m20", dict(view="two",
+                         steps=[dict(state=dict(pick="on"), tag=dict(t="亀裂は多数できない（考え）", at="pick", to="pick")),
+                                dict(state=dict(ok="on"), tag=dict(t="妥当な点検方法", at="ok", col=J.OK))],
+                         note="形は模式（亀裂の印の数は書かない）", src=ss.src(["報告書 p105"])))),
+    # c913（3行）＝いちばん後ろの化粧室のドアの不具合 → グアム便でコートルームに荷物（p103）→ 1978年の事故の変形が関わった可能性（否定できない）
+    "c913": dict(
+        t="化粧室のドア", s="1985年2月〜8月の報告",
+        fig=("m20", dict(view="lav",
+                         steps=[dict(state=dict(lav="on"), tag=dict(t="いちばん後ろの化粧室", d="ドアの不具合の報告", at="lav", to="lav")),
+                                dict(state=dict(coat="on"), tag=dict(t="コートルームの荷物", d="グアム便", at="coat", to="coat")),
+                                dict(state=dict(bend="on"), tag=dict(t="1978年の事故の変形", d="可能性は否定できない", at="bend", to="bend"))],
+                         rel=[dict(t="1978年", src="報告書 p103（昭和53年6月の事故によって機体後部に変形）")],
+                         note="配置と変形の大きさは模式（数は書かない）", src=ss.src(["報告書 p103"])))),
 }

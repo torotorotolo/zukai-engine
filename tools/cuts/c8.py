@@ -131,4 +131,88 @@ SPEC = {
     "c823": dict(fig=("illu", dict(
         place="S1", start=dict(s1bulk="on", s1ring="tail"), rec=S1R["bulk"],
         steps=[dict(), dict(tag=dict(t="修理から7年", at="bulk", off=(-60, -200), anchor="end"))]))),
+    # ── 🆕 ⑤b-6（2026-10-10）：模式図 第7章（m20・年表 axis・並べ図 boxes）──
+    # c805（3行）＝（聞き役）→ 下の半分を新しい物に・上の半分は元のまま（別添1 p246）→ 2つを継ぎ目でつなぐ（次の c806 で L18 の名）
+    "c805": dict(
+        t="取り替えた下半分", s="隔壁のどこを替えたか",
+        fig=("m20", dict(view="half",
+                         steps=[dict(state=dict(name="on"), tag=dict(t="後部圧力隔壁", at="name", to="dome")),
+                                dict(state=dict(half="on"), tag=[dict(t="上の半分（元のまま）", at="up", to="up"),
+                                                                 dict(t="下の半分（新しい物）", at="lo", to="lo")]),
+                                dict(state=dict(join="on"), tag=dict(t="上と下の継ぎ目", at="join", to="join"))],
+                         note="形は模式（隔壁の位置は BS2360）", src=ss.src(["報告書 p246", "報告書 p65"])))),
+    # c807（3行）＝（聞き役）余白 → 縁に近すぎる穴は壊れやすい → 手引きの決まり（長さは模式・測る起点の線は描かない）
+    "c807": dict(
+        t="穴と縁のあいだ", s="エッジ・マージン",
+        fig=("m20", dict(view="edge",
+                         steps=[dict(state=dict(good="on"), tag=dict(t="余白", at="good", to="good")),
+                                dict(state=dict(bad="on"), tag=dict(t="縁に近すぎる穴", at="bad", to="bad")),
+                                dict(state=dict(req="on"), tag=dict(t="手引きの決まり", at="req", to="req", col=J.OK))],
+                         note="形と長さは模式（数字は書かない）", src=ss.src(["報告書 p248"])))),
+    # c815（2行）＝羽田での修理（6月17日〜7月11日）の中の 6月26日の作業・6月27日の修理チームの検査（別添1 p247・p248）→ 見つけられなかった
+    "c815": dict(
+        t="作業と検査の日付", s="1978年6月〜7月（羽田）",
+        fig=("axis", dict(ss.AX_FIX78, steps=[
+            dict(add=[ss.ax("rep78"), ss.ax("w26"), ss.ax("i27")], cur="1978-06-27"),
+            dict()],
+            note="日付は報告書（別添1）の記録", src=ss.src(["報告書 p247", "報告書 p248"])))),
+    # c816（2行）＝継ぎ目の縁を覆うシール材（フィレット・シール＝p103）→ 後ろから目で見ても見つけられない（報告書の考え）
+    "c816": dict(
+        t="縁を覆うシール材", s="フィレット・シール",
+        fig=("m20", dict(view="seal",
+                         steps=[dict(state=dict(seal="on"), tag=dict(t="シール材", at="seal", to="bead")),
+                                dict(state=dict(eye="on"), tag=dict(t="目で見ても見えない", d="報告書の考え", at="eye", to="eye"))],
+                         note="断面は別添1 付図-3 の実際の継ぎ方・シール材は付図-38 から（模式・大きさは強調）",
+                         src=ss.src(["報告書 p103", "報告書 p174", "報告書 p252"])))),
+    # c817（2行）＝修理の検査（p102）：ボーイング社の検査員 → 日本航空の領収検査・航空局の検査（札は機関の名＝並べるだけ）
+    "c817": dict(
+        t="修理の3つの検査", s="報告書 3.2.2 から",
+        fig=("boxes", dict(view="row", slots=3, steps=[
+            dict(add=dict(k="item", t="ボーイング社の検査員", rec="報告書 p102")),
+            dict(add=[dict(k="item", t="日本航空の領収検査", rec="報告書 p102"), dict(k="item", t="航空局の検査", rec="報告書 p102")])],
+            note="並びの順に意味は無い", src=ss.src(["報告書 p102"])))),
+    # c818（3行）＝航空局の検査の中身（p103）：図面で修理の計画・作業記録で修理の過程 →（L18 は作業記録による確認）→ 外観・機能・飛行の試験
+    "c818": dict(
+        t="航空局が確かめたもの", s="修理改造検査（1978年）",
+        fig=("boxes", dict(view="row", slots=3, steps=[
+            dict(add=[dict(k="item", t="図面による修理計画の審査", rec="報告書 p103"),
+                      dict(k="item", t="作業記録による修理過程の審査", rec="報告書 p103")]),
+            dict(),
+            dict(add=dict(k="item", t="外観検査・機能試験・飛行試験", rec="報告書 p103"))],
+            note="並びの順に意味は無い", src=ss.src(["報告書 p103", "報告書 p249"])))),
+    # c819（2行）＝同じ帯の続き：飛行試験（7月10日・11日）・7月12日に合格（別添1 p249・p18）
+    "c819": dict(
+        t="合格の日", s="1978年7月（羽田）",
+        fig=("axis", dict(ss.AX_FIX78, past=[ss.ax("rep78"), ss.ax("w26"), ss.ax("i27")], start=dict(cur="1978-06-27"), steps=[
+            dict(add=[ss.ax("flt78"), ss.ax("ok78")], cur="1978-07-12"),
+            dict()],
+            note="日付は報告書（別添1）の記録", src=ss.src(["報告書 p249", "報告書 p18"])))),
+    # c820（2行）＝作業の管理（p102 指示・作業・p103（ケ）作業工程における検査）→ 一部に適切さに欠ける点（報告書の考え＝札にしない）
+    "c820": dict(
+        t="作業の管理", s="報告書の考え（3.2.2）",
+        fig=("boxes", dict(view="row", slots=3, steps=[
+            dict(add=[dict(k="item", t="指示", rec="報告書 p102"), dict(k="item", t="作業", rec="報告書 p102"),
+                      dict(k="item", t="検査", rec="報告書 p103")]),
+            dict()],
+            note="並びの順に意味は無い", src=ss.src(["報告書 p102", "報告書 p103"])))),
+    # c824（2行）＝C整備（約3,000時間ごと＝p18）：修理と同時の C整備（No.5C＝1978年7月・p104）→ 最後の C整備（1984年11月20日〜12月5日＝p18）
+    "c824": dict(
+        t="大がかりな点検", s="修理のあとの7年",
+        fig=("axis", dict(ss.AX_7Y, steps=[
+            dict(add=ss.ax("c5"), cur="1978-07"),
+            dict(add=ss.ax("c11"), cur="1984-12-05")],
+            note="C整備の日付は報告書にある2回だけ（間の回の日付は書いていない）", src=ss.src(["報告書 p18", "報告書 p104"])))),
+    # c825（1行）＝C整備は修理のあと6回・修理と同時のものも数えて7回（p125・p104）＝最初と最後のあいだの括弧（間の日付は記録に無い）
+    "c825": dict(
+        t="C整備の回数", s="修理のあとの7年",
+        fig=("axis", dict(ss.AX_7Y, past=[ss.ax("c5"), ss.ax("c11")], start=dict(cur="1984-12-05"), steps=[
+            dict(add=ss.ax("c_all"))],
+            note="C整備の日付は報告書にある2回だけ（間の回の日付は書いていない）", src=ss.src(["報告書 p104", "報告書 p125"])))),
+    # c826（2行）＝その7年のあいだ亀裂は見つからずに伸びた（修理のあとの飛行）→ 事故（1985年8月12日）
+    "c826": dict(
+        t="見つからなかった亀裂", s="1978年〜1985年",
+        fig=("axis", dict(ss.AX_7Y, past=[ss.ax("c5"), ss.ax("c11"), ss.ax("c_all")], start=dict(cur="1984-12-05"), steps=[
+            dict(add=ss.ax("fly7"), cur="1985-08-12"),
+            dict(add=ss.ax("acc85"))],
+            note="日付は報告書の記録", src=ss.src(["報告書 p18", "報告書 p124", "報告書 p125"])))),
 }
