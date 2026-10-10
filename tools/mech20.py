@@ -945,8 +945,9 @@ def apt_stage(prev, st):
 # 形のもと＝付図-32・付図-36（隔壁の円・L18・ストラップ＝illu20 の S6 正面と同じ表 S6F_STRAPS）・付図-38(a)(b)（p174＝L18 の断面の
 #   2列と1列）・別添1 付図-3（実際の継ぎ方の板の並び＝illu20.S6_LAYERS）。🔴 数字は書かない（語りと字幕に任せる）。
 #   記録の値（列の数・強さの比・速さの比・ストラップの番号・確率・見える長さの比ほか）は門番 check_mech の REC_M20 の側
-WEB = dict(up=C20["web_up"], lo=C20["web_lo"], spl=C20["splice"], fil=C20["filler"], riv=C20["rivet"], seal="#e9d9a6",
-           seal_ln="#6b5a2c")
+# ⚠️ 試し焼き ep20_b6：シール材を淡い黄（#e9d9a6）にしたら、となりの継ぎ板（黄）と見分けにくかった＝板に無い色（青緑）
+WEB = dict(up=C20["web_up"], lo=C20["web_lo"], spl=C20["splice"], fil=C20["filler"], riv=C20["rivet"], seal="#5fd0bd",
+           seal_ln="#123f38")
 
 
 def _eye(x, y, s=1.0, col=INK):
@@ -1066,10 +1067,11 @@ def fatigue_stage(prev, st):
 # ── rows（c711）＝L18 の継ぎ目の断面：2列で留めた所と1列で留めた所（付図-38(a)(b) を簡単に＝2枚の板の重なりと列の数だけ）・
 #    強さの棒（本来＝1・1列の所＝約0.7＝p102・p124）──
 RW_CX = dict(a=640.0, b=1280.0)
-RW_T = 26.0                                         # 板の厚さ（画素・強調）
-RW_TOP, RW_BOT = 290.0, 720.0
-RW_LAP = dict(a=(430.0, 560.0), b=(468.0, 522.0))   # 重なり（下の板の上の端・上の板の下の端）
-RW_ROWS = dict(a=(465.0, 525.0), b=(495.0,))        # リベットの列の高さ（🔴 門番の陽性対照がここを壊す）
+# ⚠️ 試し焼き ep20_b6：板の厚さ 26画素では断面が細い線に見えた（2列・1列は読めるが小さい）＝40画素・リベットも大きく
+RW_T = 40.0                                         # 板の厚さ（画素・強調）
+RW_TOP, RW_BOT = 280.0, 720.0
+RW_LAP = dict(a=(400.0, 590.0), b=(455.0, 545.0))   # 重なり（下の板の上の端・上の板の下の端）
+RW_ROWS = dict(a=(445.0, 545.0), b=(500.0,))        # リベットの列の高さ（🔴 門番の陽性対照がここを壊す）
 RW_STR = dict(a=1.0, b=0.70)                        # 強さ（本来＝1）（同上）
 RW_BAR = (800.0, 300.0)                             # 強さの棒の y・本来の長さ（画素）
 RW_TIT = dict(a="2列で留めた所", b="1列で留めた所")
@@ -1082,9 +1084,9 @@ def rows_base(st0):
         g.append(F.rect(cx, RW_TOP, RW_T, lap1 - RW_TOP, WEB["up"], COL["dark"], 3))            # 上の板（後ろの側）
         g.append(F.rect(cx - RW_T, lap0, RW_T, RW_BOT - lap0, WEB["lo"], COL["dark"], 3))        # 下の板（客室の側）
         for y in RW_ROWS[k]:
-            g.append(F.rect(cx - RW_T - 14, y - 7, 2 * RW_T + 28, 14, WEB["riv"], COL["dark"], 2))
-            g.append(F.rect(cx - RW_T - 24, y - 14, 10, 28, WEB["riv"], COL["dark"], 2, rx=3))
-            g.append(F.rect(cx + RW_T + 14, y - 14, 10, 28, WEB["riv"], COL["dark"], 2, rx=3))
+            g.append(F.rect(cx - RW_T - 18, y - 10, 2 * RW_T + 36, 20, WEB["riv"], COL["dark"], 2.5))
+            g.append(F.rect(cx - RW_T - 32, y - 20, 14, 40, WEB["riv"], COL["dark"], 2.5, rx=4))
+            g.append(F.rect(cx + RW_T + 18, y - 20, 14, 40, WEB["riv"], COL["dark"], 2.5, rx=4))
         g.append(F.txtfit(cx, RW_BOT + 44, RW_TIT[k], 420, cap=32, col=INK, anchor="middle"))
     return g
 
@@ -1098,7 +1100,7 @@ def rows_stage(prev, st):
             g.append(F.rect(cx - L / 2, y - 14, L * RW_STR[k], 28, COL["blue"] if k == "a" else COL["red"], COL["dark"], 2))
     if _on(prev, st, "crack"):
         cx, y = RW_CX["b"], RW_ROWS["b"][0]
-        g.append(_crack(_zig(cx - 4, y + 17, cx + RW_T + 4, y + 17, 4, 4.0), 5))
+        g.append(_crack(_zig(cx - 4, y + 22, cx + RW_T + 4, y + 22, 4, 5.0), 5))
     return g
 
 
@@ -1247,8 +1249,9 @@ def edge_stage(prev, st):
 
 
 # ── seal（c816）＝継ぎ目の断面（実際の継ぎ方＝illu20.S6_LAYERS の板の並び）と、縁を覆うシール材（フィレット・シール＝p103・付図-38）──
-SL = dict(k=110.0, cx=700.0, cy=520.0, edge=2.3)
-SL_EYE = (1210.0, 610.0)
+# ⚠️ 試し焼き ep20_b6：k=110 では板の厚さ約20画素＝シール材の三角が小さかった＝150（板の端は 1.9インチで切る＝継ぎ板の下の端 1.32 は入る）
+SL = dict(k=150.0, cx=700.0, cy=545.0, edge=1.9)
+SL_EYE = (1250.0, 660.0)
 SL_BEAD_DY = 0.0                                    # シールの位置のずれ（🔴 陽性対照）
 
 
@@ -1294,7 +1297,7 @@ def seal_base(st0):
         g.append(F.rect(xl - 0.20 * k, y - 0.20 * k, 0.20 * k, 0.40 * k, WEB["riv"], COL["dark"], 2.5, rx=4))
         g.append(F.rect(xl, y - 0.07 * k, xr - xl, 0.14 * k, WEB["riv"], COL["dark"], 1.5))
         g.append(F.rect(xr, y - 0.19 * k, 0.12 * k, 0.38 * k, WEB["riv"], COL["dark"], 2.5, rx=4))
-    yb = cy + SL["edge"] * k + 40
+    yb = cy - SL["edge"] * k - 14                      # 板の上の端の上（下に置くと出典の行に近い）
     g.append(_t(xl - 0.6 * k, yb, "客室の側", 24, J.TICK, "end"))
     g.append(_t(xr + 0.6 * k, yb, "後ろの側", 24, J.TICK))
     return g
@@ -1495,7 +1498,9 @@ def lav_stage(prev, st):
         g.append(F.poly(p, COL["cabin"], COL["dark"], 3, True))
         (xa, ya), (xb, yb) = p[0], p[2]
         g.append(F.rect(xa + 6, yb + 14, 22, ya - yb - 20, "#c9a27a", COL["dark"], 2))     # ドア（模式）
-        g.append(_ring((xa + xb) / 2, (ya + yb) / 2, 84, COL["mark"]))
+        # ⚠️ 試し焼き ep20_b6：輪（半径84）がとなりのコートルームの荷物に重なった＝箱のまわりの枠
+        g.append(F.rect(xa - 9, yb - 9, xb - xa + 18, ya - yb + 18, "none", COL["dark"], 10, rx=10)
+                 + F.rect(xa - 9, yb - 9, xb - xa + 18, ya - yb + 18, "none", COL["mark"], 5, rx=10))
     if _on(prev, st, "coat"):
         p = side_pts(K, X0, Y0, lav_box("coat"))
         g.append(F.poly(p, "#3a4652", COL["dark"], 3, True))
@@ -1662,7 +1667,7 @@ def anchors(view, st):
         (tx, ty) = fa_crack("r")[1]
         return dict(tip=(tx + 8, ty + 10), wire=(FA_WIRE[1][0], FA_WIRE[1][1] + 14), arrow=(FA_HOLE[0] + 12, FA_PLATE[1] - 50))
     if view == "rows":
-        return dict(crack=(RW_CX["b"] + RW_T + 8, RW_ROWS["b"][0] + 17), bar=(RW_CX["a"] - RW_BAR[1] / 2 - 8, RW_BAR[0]))
+        return dict(crack=(RW_CX["b"] + RW_T + 8, RW_ROWS["b"][0] + 22), bar=(RW_CX["a"] - RW_BAR[1] / 2 - 8, RW_BAR[0]))
     if view == "grow":
         return dict(two=gr_line("two")[1], one=gr_line("one")[1])
     if view == "fs":
@@ -1704,7 +1709,8 @@ def anchors(view, st):
         def top_mid(nm):
             a, b = LV[nm]
             return side_pts(K, X0, Y0, [((a + b) / 2, LV["top"])])[0]
-        return dict(lav=top_mid("lav"), coat=top_mid("coat"), bend=side_pts(K, X0, Y0, [lav_tail()[-8]])[0])
+        lx, ly = top_mid("lav")
+        return dict(lav=(lx, ly - 12), coat=top_mid("coat"), bend=side_pts(K, X0, Y0, [lav_tail()[-8]])[0])
     return {}
 
 
