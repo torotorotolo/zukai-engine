@@ -129,4 +129,34 @@ SPEC = {
                dict(state=dict(s1press="on"), rec=S1R["press"],
                     tag=dict(t="空気を詰めた客室（与圧）", at="cabin", off=(0, -170), anchor="middle", keep=True)),
                dict()]))),
+    # ── 🆕 ⑤b-5（2026-10-10）：模式図（`tools/mech20.py`・門番 check_mech の judge_m20）──
+    # c607（2行）＝約7,300メートル（24,000フィート＝p125）で客室は与圧 → 気圧の差が隔壁（BS2360）を後ろへ押す。数（8.66psi）は書かない
+    "c607": dict(
+        t="壁を押す力", s="客室と尾部の境",
+        # ⚠️ 門番 echo：「高度 約7,300メートル」の札は語りの写し（83%）＝高さは語りに任せる
+        fig=("m20", dict(view="press",
+                         steps=[dict(state=dict(press="on"), tag=dict(t="客室（与圧）", at="cabin", to="cabin")),
+                                dict(state=dict(push="on"), tag=[dict(t="気圧の差が押す", at="push", to="push"),
+                                                                dict(t="後部圧力隔壁", at="bulk", to="bulk")])],
+                         note="形は模式（隔壁の位置は BS2360）・数は書かない", src=ss.src(["報告書 p125", "報告書 p29"]))),
+    ),
+    # c620（2行）＝尾翼の中の気圧が上がる（解説 p17・報告書 p69）→ 海の近くと標高約2,500メートルの袋（解説 p17 のたとえ）
+    "c620": dict(
+        t="袋がふくらむ差", s="解説（2011年）のたとえ",
+        fig=("m20", dict(view="bag",
+                         steps=[dict(state=dict(inner="on"), tag=dict(t="尾翼の中の気圧が上がる", at="inner")),
+                                dict(state=dict(bags="on", swell="on"), tag=[dict(t="海の近く", at="sea", to="sea"),
+                                                                             dict(t="標高 約2,500メートル", at="mt", to="mt")])],
+                         rel=[dict(t="約2,500メートル", src="解説 p1017（海面と約2,500ｍの高度との気圧差）")],
+                         note="形と大きさは模式（ふくらみは向きだけ）", src=ss.src(["解説 p1017", "報告書 p69"]))),
+    ),
+    # c622（2行）＝ここまで数秒程度（4.1.6.6 p.126 の推定）→ 4系統とも切れる（4.1.6.5 p.126 の推定）＝c308 の絵の戻り
+    "c622": dict(
+        t="尾翼の中で切れた管", s="油圧の4系統",
+        fig=("m20", dict(view="hyd", start=dict(pipes="on", num="on"),
+                         steps=[dict(state=dict(ask="on"), tag=dict(t="数秒程度（推定）", at="fast", to="tail")),
+                                dict(state=dict(cut="on"), tag=dict(t="4系統とも切れる（推定）", at="cut", to="cut"))],
+                         rel=[dict(t="4系統", src="報告書 p126（4系統の方向舵操縦系統油圧配管もすべて破断したものと推定）")],
+                         note="切れた所と管の道すじは模式", src=ss.src(["報告書 p126", "報告書 p113"]))),
+    ),
 }

@@ -148,4 +148,73 @@ SPEC = {
                dict(state=dict(s2t="18:44:09"), rec=S2R["trace"], dur=3.4, tag=dict(t="大月", at="otsuki", off=(-120, 30), anchor="end")),
                # ⑤b-3 の門番 echo：「高さ 約6,400→約5,200メートル」は語りの写し＝下がった先の高さだけ（12字未満の名札）
                dict(tag=dict(t="約5,200メートル", at="plane", off=(60, -110)))]))),
+    # ── 🆕 ⑤b-5（2026-10-10）：模式図（`tools/mech20.py`・門番 check_mech の judge_m20）──
+    # c307（2行）＝舵（付図-8＝補助翼・フラップ・昇降舵・方向舵）→ 油圧の管（3.2.6.1 p.113）。🔴 管の色は置き場 S5 の配管と同じ紫（c308・c622 も）
+    "c307": dict(
+        t="舵と油圧", s="ボーイング747SR-100型",
+        fig=("m20", dict(view="hyd",
+                         steps=[dict(state=dict(surf="on"), tag=dict(t="舵", d="補助翼・昇降舵・方向舵ほか", at="surf", to="ail")),
+                                dict(state=dict(pipes="on"), tag=dict(t="油圧の管", at="pipes", to="pipe"))],
+                         note="機体の形は付図-4・舵の並びは付図-8 から（管の道すじは模式）",
+                         src=ss.src(["報告書 p140", "報告書 p144", "報告書 p113"]))),
+    ),
+    # c308（2行）＝4つの系統（3.2.5.3 p.112「配管を4系統とするような冗長性」・ポンプはエンジンごと＝p51）→ 聞き役の問い（尾翼に輪）
+    "c308": dict(
+        t="4つの系統", s="油圧の管（エンジンごとのポンプから）",
+        fig=("m20", dict(view="hyd", start=dict(pipes="on"),
+                         steps=[dict(state=dict(num="on"), tag=dict(t="4系統", at="num", to="eng1")),
+                                dict(state=dict(ask="on"), tag=dict(t="尾翼", at="tail", to="tail"))],
+                         rel=[dict(t="4系統", src="報告書 p112（配管を4系統）")],
+                         note="管の道すじは模式（ポンプはエンジンごと）",
+                         src=ss.src(["報告書 p112", "報告書 p51", "報告書 p140"]))),
+    ),
+    # c315（3行）＝3つの空港（東西の順）。🔴 報告書に滑走路の長さの数は無い（p117 は理由の言葉だけ）＝棒にしない・理由は p117 の字そのまま
+    #   （台本の画の欄「滑走路の長さの比べ＝数字は書かない」から替えた＝⑤b-5。地図は c314 の S2 と重なる＝並びの模式）
+    "c315": dict(
+        t="引き返す先", s="報告書の見立て（3.2.7.5）",
+        fig=("m20", dict(view="apt",
+                         steps=[dict(state=dict(pick="on"), tag=dict(t="羽田（東京国際空港）", at="pick", to="haneda")),
+                                dict(state=dict(why="on")),
+                                dict(state=dict(ok="on"), tag=dict(t="報告書の見立て", at="ok", to="ok"))],
+                         note="並びは東西の順（間は模式）・報告書に滑走路の長さの数は無い", src=ss.src(["報告書 p117"]))),
+    ),
+    # c317（2行）＝横から：推力を上げて機首を上げる（3.2.7.5(2) p.117 の推定）→ 上から：左右に差をつけたら？（聞き役の問い）
+    "c317": dict(
+        t="舵の代わり", s="舵の効かない機体（報告書の推定）",
+        fig=("m20", dict(view="thrust",
+                         steps=[dict(state=dict(pwr="up", nose="up"), tag=dict(t="機首の上げ下げ（推定）", at="pwr")),
+                                dict(state=dict(top="on", diff="ask"), tag=dict(t="左右に差をつけたら？", at="diff"))],
+                         note="形と角度は模式（推力の矢印の長さは強さの目安）", src=ss.src(["報告書 p117", "報告書 p140"]))),
+    ),
+    # c318（2行）＝左右の推力の差で向きを変えると揺れが強まる（3.2.6.2(2) p.114）→ 実質的に無理・試みた証拠なし（p114・p117）
+    "c318": dict(
+        t="左右の差で揺れる", s="左右のエンジン（3.2.6.2）",
+        fig=("m20", dict(view="thrust", start=dict(top="on", diff="on"),
+                         steps=[dict(state=dict(yaw="on", wave="on"), tag=dict(t="揺れ（ダッチロール）が強まる", at="wave")),
+                                dict(tag=dict(t="実質的に無理・試みた証拠なし", at="no"))],
+                         note="形と角度は模式（揺れの波は強まる向きだけ）", src=ss.src(["報告書 p114", "報告書 p117"]))),
+    ),
+    # c320（3行）＝高さの記録の点（付図-1 の時刻と高度の札だけ）。18:25:21 降下の要求（p115）→ 18:40 以降に下がり始める（p115）→ 報告書の見立て
+    "c320": dict(
+        t="すぐには下りなかった", s="18:24〜18:48 の飛行",
+        fig=("m20", dict(view="alt",
+                         steps=[dict(state=dict(pts="early", m1="on"), tag=dict(t="降下の要求", d="18:25:21", at="m1")),
+                                dict(state=dict(pts="all", m2="on"), tag=dict(t="下がり始める", d="18:40 以降", at="m2")),
+                                dict(tag=dict(t="原因探しと姿勢の保持に追われた（報告書の見立て）", at="why"))],
+                         rel=[dict(t="18:25:21", src="報告書 p115"), dict(t="18:40", src="報告書 p115")],
+                         note="点は付図-1 の時刻と高度の札だけ（点のあいだは描かない・印の線は模式）",
+                         src=ss.src(["報告書 p137", "報告書 p115"]))),
+    ),
+    # c321（2行）＝車輪とフラップ（電気の代わりの仕組み＝p113・p117・表-9 p90 の 18:40:22「ギヤダウンしました」）→ 声4回（p117）
+    "c321": dict(
+        t="電気で下ろす", s="車輪とフラップ（代わりの仕組み）",
+        fig=("m20", dict(view="gear",
+                         steps=[dict(state=dict(gear="down", flap="down"),
+                                     tag=[dict(t="車輪", d="18:40ごろ", at="gear", to="main"),
+                                          dict(t="フラップ", d="18:44 以降", at="flap", to="flap")]),
+                                dict(state=dict(voice="on"), tag=dict(t="声 4回", d="18:42:53〜18:44:43", at="voice", to="cockpit"))],
+                         rel=[dict(t="18:40・18:44・4回・18:42:53〜18:44:43", src="報告書 p90・p117")],
+                         note="形と角度は模式（脚は電気で下げる操作だけ・フラップは電動の代わりの系統）",
+                         src=ss.src(["報告書 p113", "報告書 p117", "報告書 p90"]))),
+    ),
 }

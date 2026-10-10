@@ -151,4 +151,43 @@ SPEC = {
         steps=[dict(state=dict(s2t="18:55:16"), rec=S2R["trace"], dur=0.8),
                dict(state=dict(s2t="18:55:40"), rec=S2R["trace"], dur=1.6, tag=dict(t="三国山", at="mikuni", off=(90, 60))),
                dict()]))),
+    # ── 🆕 ⑤b-5（2026-10-10）：模式図（`tools/mech20.py`・門番 check_mech の judge_m20）──
+    # c403（3行）＝無線の相手（別添6 p.333 18:46:09「羽田にコンタクトしますか？」・18:46:16「このままでお願いします」）。札は機関の名・記録の言葉
+    "c403": dict(
+        t="交信を続ける相手", s="18:46 の交信（別添6）",
+        fig=("m20", dict(view="radio",
+                         steps=[dict(state=dict(link="on"), tag=dict(t="いまの相手", at="link", to="link")),
+                                dict(state=dict(ask="on"), tag=dict(t="切り替える？", at="ask", to="ask")),
+                                dict(state=dict(stay="on"), tag=dict(t="切り替えない", at="stay", to="link"))],
+                         note="位置と線は模式（相手の名は記録の言葉）", src=ss.src(["報告書 p333", "報告書 p6"]))),
+    ),
+    # c412（2行）＝18:50:50 の機長の声（3.2.7.5(2) p.117）→ 推力で機首を上げ下げ（推定）。横の図だけ（上の図は c317・c318）
+    "c412": dict(
+        t="推力で機首を操る", s="推力での操縦（3.2.7.5）",
+        fig=("m20", dict(view="thrust", start=dict(lay="side"),
+                         steps=[dict(tag=dict(t="18:50:50", d="機長の声（CVR）", at="clock", to="cockpit")),
+                                dict(state=dict(pwr="up", nose="up"), tag=dict(t="機首の上げ下げ（推定）", at="side_nose"))],
+                         rel=[dict(t="18:50:50", src="報告書 p117")],
+                         note="形と角度は模式（推力の矢印の長さは強さの目安）", src=ss.src(["報告書 p117", "報告書 p140"]))),
+    ),
+    # c418（2行）＝最後の降下（p82：18:55:57ごろ 約10,000フィート・18:56:07 頭下げ約36度・降下率 平均15,000フィート/分＋付図-1 の 18:56:03）
+    "c418": dict(
+        t="最後の降下", s="墜落の直前の約30秒",
+        fig=("m20", dict(view="alt", start=dict(span="final"),
+                         steps=[dict(state=dict(pts="early", m1="on"), tag=dict(t="頭下げ 約36度", d="18:56:07", at="m1")),
+                                dict(state=dict(rate="on"), tag=dict(t="平均の降下率", at="rate", to="rate"))],
+                         rel=[dict(t="約36度", src="報告書 p82"), dict(t="18:56:07", src="報告書 p82")],
+                         note="点は報告書の本文と付図-1 の高度だけ（赤い線は平均の降下率・印の線は模式）",
+                         src=ss.src(["報告書 p82", "報告書 p137"]))),
+    ),
+    # c419（2行）＝18:56:17ごろ 約5,500フィート・地上接近警報（p82）→ 出力は最大近く（推定）・降下が止まる（p82）
+    "c419": dict(
+        t="警報と、止まった降下", s="墜落の直前の約30秒",
+        fig=("m20", dict(view="alt", start=dict(span="final", pts="early", m1="on", rate="on"),
+                         steps=[dict(state=dict(pts="all", m2="on"), tag=dict(t="地上接近警報", d="18:56:17", at="m2")),
+                                dict(state=dict(stop="on"), tag=dict(t="降下が止まる", d="出力は最大近く（推定）", at="stop"))],
+                         rel=[dict(t="18:56:17", src="報告書 p82")],
+                         note="点は報告書の本文と付図-1 の高度だけ（赤い線は平均の降下率・印の線と矢印は模式）",
+                         src=ss.src(["報告書 p82", "報告書 p137"]))),
+    ),
 }

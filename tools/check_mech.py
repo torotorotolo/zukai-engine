@@ -1910,8 +1910,322 @@ def _selftest_m19(ok):
     return ok
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 20本目 ⑤b-5（2026-10-10）：模式図（m20＝`tools/mech20.py`・11の見え方）
+# ══════════════════════════════════════════════════════════
+# 🔴 記録の値は門番の側に持つ（§5b-88＝描く側の表 mech20.TOP_ENG_Y・HY_CUT・AL_PTS・FX_PLANE・PR_BULK…を書き換えると鳴る）。
+#    頁＝`ref/ep20/src/ep20_pages.txt`（報告書＝印刷の頁・別添6 は p310〜343・解説＝1000＋頁）で当てた。
+#    🔴 §0b（題材を替えるとき）：21本目に入るときは、この表を見本 fixture へ移して空にする（m19 と同じ）
+FT = 0.3048
+REC_M20 = dict(
+    # 操縦室の席（p6「副操縦士の機長昇格訓練のため、機長が右操縦士席、副操縦士が左操縦士席に位置し」・p148 付図-12＝P4 機関士計器は右の壁）
+    seats=dict(day=("副操縦士", "機長"), usual_left="機長", src="報告書 p6・p148"),
+    xpdr_digits=(4, "報告書 p6（緊急コード番号7700）"),
+    # エンジンの横の位置（付図-4「有効エンジン・モーメントアーム」内側 Y_EI 12.07m・外側 Y_EO 21.15m）・左の2基＝No.1・No.2（p82）
+    eng_y=((12.07, 21.15), "報告書 p140（付図-4）"),
+    left_engines=({1, 2}, "報告書 p82（左側第1、第2エンジン・右側第3、第4エンジン）"),
+    hyd_n=(4, "報告書 p112（配管を4系統）"),
+    # 管が切れる所＝垂直尾翼の中（p113「垂直尾翼の損壊に伴う操縦系統油圧配管の切断」）＝後部圧力隔壁 BS2360（p29＝57.66m）より後ろ・
+    #   垂直尾翼の後縁の根元（付図-4 の横の図＝71.2m）より前
+    hyd_cut=((57.66, 71.2), "報告書 p113・p29・p140"),
+    cg_x=(31.75, "報告書 p140（付図-4「104 FT 2 IN」＝機首から 0.25 MAC まで）"),
+    # 高さの記録の点（時刻, フィート）＝cruise は付図-1 の時刻と高度の札（p137）・final は p82（18:55:57ごろ 約10,000フィート・
+    #   18:56:17ごろ 約5,500フィート）と付図-1（18:56:03 8,400）
+    alt=dict(cruise=[("18:24:12", 23400), ("18:24:35", 23900), ("18:25:18", 23900), ("18:27:07", 24400), ("18:28:36", 22100),
+                     ("18:31:08", 24900), ("18:34:53", 21400), ("18:38:06", 22400), ("18:40:30", 22400), ("18:41:59", 20900),
+                     ("18:43:05", 18600), ("18:44:09", 17000), ("18:45:48", 13500), ("18:47:17", 9000), ("18:48:03", 6800)],
+             final=[("18:55:57", 10000), ("18:56:03", 8400), ("18:56:17", 5500)]),
+    alt_src="報告書 p137（付図-1）・p82",
+    # 印の時刻＝18:25:21（p6・p115 降下の要求）・18:40（p115「実際に降下を始めたのは18時40分以降」）・18:56:07（p82 頭下げ約36度）・
+    #   18:56:17（p82 地上接近警報）
+    alt_marks=dict(cruise=dict(m1="18:25:21", m2="18:40:00"), final=dict(m1="18:56:07", m2="18:56:17")),
+    alt_rate=(15000.0, "報告書 p82（降下率は平均15,000フィート/分）"),
+    gear=(25.59, "報告書 p140（付図-4「83 FT 11.5 IN」＝前の脚から主脚まで）・p117（18時38分以降脚下げ・18時44分以降フラップ下げ）"),
+    radio=dict(names=dict(left="東京コントロール", right="羽田"), src="報告書 p6（東京管制区管制所＝東京コントロール）・p333（羽田にコンタクトしますか？）"),
+    fix=dict(plane=(5.0, 1.0), heli=(1.0, 0.1), ray=(305.0, 35.0), src="解説 p1018（方位は5度、距離は1マイル／方位1度、距離0.1マイル）・p1019（①）"),
+    bulk_x=(57.66, "報告書 p29（BS2360）"),
+    # 3つの空港（p117「目的地の大阪国際空港や予定飛行経路から比較的近い名古屋空港ではなく東京国際空港を選んだことは、空港の規模、
+    #   滑走路長及びその他の施設環境からみて妥当な選択」）・経度は一般の地図の値（東西の順を照らすだけ）
+    apt=dict(lons={"大阪国際空港": 135.44, "名古屋空港": 136.92, "東京国際空港": 139.78}, picked="東京国際空港",
+             why=("空港の規模", "滑走路長", "その他の施設環境"), src="報告書 p117"),
+    clock={"18:25:21", "18:50:50", "18:42:53", "18:44:43", "18:56:07", "18:56:17", "18:55:57", "18:46:09"},
+    assume=dict(hyd=("cut", "on"), thrust=("nose", "up")))
+
+
+def _hms(s):
+    p = [int(v) for v in s.split(":")] + [0, 0]
+    return p[0] * 3600 + p[1] * 60 + p[2]
+
+
+def _fit(pairs):
+    """[(値, 画素)] から 画素→値 の一次式"""
+    (v0, p0), (v1, p1) = pairs[0], pairs[-1]
+    return lambda p: v0 + (p - p0) * (v1 - v0) / (p1 - p0)
+
+
+def judge_m20(f):
+    """20本目 模式図：①状態の筋 ②形（f.mech["geo"]）を記録（REC_M20）で ③札の数・時刻・推定の札。"""
+    bad, n = [], 0
+    m = f.mech
+    g, view = m["geo"], m["view"]
+    seq = [m["start"]] + list(m["states"])
+    R = REC_M20
+    texts = list(m["tags"])
+
+    def need(cond, msg):
+        nonlocal n
+        n += 1
+        if not cond:
+            bad.append(msg)
+    # ① 筋（先に起きることが先）
+    for s in seq:
+        if view == "seats":
+            need(not (s["left"] == "cop") or s["right"] == "cap", "① 筋：左に副操縦士なら右に機長（同じ段で）＝報告書 p6")
+            need(s["cert"] != "on" or s["right"] == "cap", "① 筋：認定の印は、右の席の機長を見せてから（p14）")
+        if view == "xpdr":
+            need(s["reply"] == "off" or s["ask"] == "on", "① 筋：番号を返すのは、レーダーが問うてから")
+        if view == "hyd":
+            need(s["cut"] != "on" or s["pipes"] == "on", "① 筋：切れる管は、管を見せてから")
+            need(s["num"] != "on" or s["pipes"] == "on", "① 筋：系統の番号は、管を見せてから")
+        if view == "thrust":
+            need(s["nose"] != "up" or s["pwr"] == "up", "① 筋：機首が上がるのは、推力を上げてから（p117 の推定）")
+            need(s["yaw"] != "on" or s["diff"] in ("ask", "on"), "① 筋：向きが変わるのは、左右の推力に差をつけてから（p114）")
+        if view == "alt":
+            need(s["rate"] != "on" or s["pts"] != "off", "① 筋：降下率の線は、記録の点を見せてから")
+            need(s["stop"] != "on" or s["pts"] == "all", "① 筋：降下が止まる印は、最後の点を見せてから")
+        if view == "gear":
+            need(s["flap"] != "down" or s["gear"] == "down", "① 筋：フラップは脚のあと（18時38分以降脚・18時44分以降フラップ＝p117）")
+        if view == "radio":
+            need(s["ask"] != "on" or s["link"] == "on", "① 筋：切り替えの問いは、いまの相手を見せてから")
+            need(s["stay"] != "on" or s["ask"] == "on", "① 筋：「切り替えない」は、問いのあと（p333）")
+        if view == "fix":
+            need(s["zoom"] != "on" or s["ray"] == "on", "① 筋：寄りの窓は、方角と距離の線を見せてから")
+            need(all(s[k] != "on" for k in ("pa", "pd", "heli")) or s["zoom"] == "on", "① 筋：読み取りの幅は寄りの窓の中")
+            need(s["pd"] != "on" or s["pa"] == "on", "① 筋：距離の幅は、方位の幅を見せてから")
+        if view == "press":
+            need(s["push"] != "on" or s["press"] == "on", "① 筋：押す力は、客室の与圧を見せてから（p125）")
+        if view == "bag":
+            need(s["swell"] != "on" or s["bags"] == "on", "① 筋：ふくらむのは、袋を見せてから")
+        if view == "apt":
+            need(all(s[k] != "on" for k in ("why", "ok")) or s["pick"] == "on", "① 筋：理由と見立ては、選んだ空港を見せてから")
+    # ② 形（記録で照らす）
+    if view == "seats":
+        names = g["names"]
+        if any(s["left"] == "cop" for s in seq):
+            need(names["left"] == [R["seats"]["day"][0]] and names["right"] == [R["seats"]["day"][1]],
+                 f"② この日の席の名 左 {names['left']}・右 {names['right']}（記録＝左 {R['seats']['day'][0]}・右 {R['seats']['day'][1]}＝{R['seats']['src']}）")
+        if any(s["left"] == "usual" for s in seq):
+            need(names["left"] == [R["seats"]["usual_left"]], f"② ふつうの並びの左の席 {names['left']}（記録＝{R['seats']['usual_left']}）")
+        (lx, ly), (rx, ry) = g["pilots"]
+        fx, fy = g["fe"]
+        need(fx > (lx + rx) / 2 and fy > max(ly, ry) + 80 and g["p4_x"] > rx,
+             f"② 航空機関士の席が右の席の後ろ・計器が右の壁に無い（{fx:.0f}, {fy:.0f}＝付図-12 の P4）")
+    if view == "xpdr" and g["boxes"]:
+        need(g["boxes"] == R["xpdr_digits"][0], f"② 番号の枠 {g['boxes']} 桁（記録＝{R['xpdr_digits'][0]} 桁＝{R['xpdr_digits'][1]}）")
+    if view == "hyd":
+        (yi, yo), src = R["eng_y"]
+        for no, (px, py) in g["eng"].items():
+            y = (px - g["cx"]) / g["k"]
+            want = yi if no in (2, 3) else yo
+            need(abs(abs(y) - want) < 0.05, f"② エンジン No.{no} の横の位置 {abs(y):.2f}m（記録 {want}m＝{src}）")
+            need((y < 0) == (no in R["left_engines"][0]), f"② エンジン No.{no} の左右（記録＝左は {sorted(R['left_engines'][0])}＝{R['left_engines'][1]}）")
+        if g["pipes"]:
+            need(g["pipes"] == R["hyd_n"][0], f"② 管の数 {g['pipes']}（記録 {R['hyd_n'][0]}＝{R['hyd_n'][1]}）")
+            for no, (x, y) in g["starts"].items():
+                need(abs(abs(y) - (yi if no in (2, 3) else yo)) < 0.05, f"② 系統 {no} の管がエンジン No.{no} から出ていない（ポンプ＝p51）")
+        (a, b), why = R["hyd_cut"]
+        need(a < g["tail_x"] <= b, f"② 管の先 {g['tail_x']:.1f}m が尾翼の中に無い（{a}〜{b}m＝{why}）")
+        if g["cut_x"] is not None:
+            need(a < g["cut_x"] < b, f"② 管が切れる所 {g['cut_x']:.1f}m が垂直尾翼の中（{a}〜{b}m）に無い＝{why}")
+        if g["nums"]:
+            xs = [g["num_x"][no] for no in (1, 2, 3, 4)]
+            need(xs == sorted(xs), "② 系統の番号の並びが左から 1・2・3・4 でない")
+    if view == "thrust":
+        cg, why = R["cg_x"]
+        need(abs(g["cg_x"] - cg) < 0.05, f"② 回す中心 {g['cg_x']:.2f}m（記録 {cg}m＝{why}）")
+        if any(s["nose"] == "up" for s in seq):
+            need(g["nose_dy"] > 20, f"② 機首を上げた段の機首が上がっていない（機首の先と中心の高さの差 {g['nose_dy']:.0f} 画素）")
+        for s, (diff, yaw, L, ang) in zip(seq, g["yaw"]):
+            if diff != "off":
+                need(L[1] > L[4] and L[2] > L[3], f"② 左右の推力の差の矢印（左 {L[1]}・{L[2]}／右 {L[3]}・{L[4]}）＝左を強く")
+        if "nose_dx" in g and any(s["yaw"] == "on" for s in seq):
+            need(g["nose_dx"] > 10, f"② 左が強いのに機首が右へ向いていない（{g['nose_dx']:.0f} 画素）")
+        for no, y in g["top_eng_y"].items():
+            want = R["eng_y"][0][0] if no in (2, 3) else R["eng_y"][0][1]
+            need(abs(abs(y) - want) < 0.05 and (y < 0) == (no in R["left_engines"][0]), f"② 上から見たエンジン No.{no} の位置 {y}m")
+    if view == "alt":
+        span = g["span"]
+        tx, ya = _fit([( _hms(t), x) for t, x in g["xt"]]), _fit(g["yt"])
+        rec = R["alt"][span]
+        got = []
+        for x, y in g["dots"]:
+            t, mm = tx(x), ya(y)
+            hit = [r for r in rec if abs(_hms(r[0]) - t) < 1.0 and abs(r[1] * FT - mm) < 15.0]
+            need(bool(hit), f"② 点（{x:.0f}, {y:.0f}）＝{t:.0f}秒・{mm:.0f}m が記録の点に無い（{R['alt_src']}）")
+            got += hit
+        if seq[-1]["pts"] == "all":
+            need(len(set(got)) == len(rec), f"② 記録の点 {len(rec)} のうち {len(set(got))} しか描いていない（{R['alt_src']}）")
+        for k_, x in g["marks"].items():
+            want = _hms(R["alt_marks"][span][k_])
+            need(abs(tx(x) - want) < 1.0, f"② 印 {k_} の時刻 {tx(x):.0f}秒（記録 {R['alt_marks'][span][k_]}）")
+        if g.get("rate"):
+            (x0, y0), (x1, y1) = g["rate"]
+            rate = (ya(y0) - ya(y1)) / FT / ((tx(x1) - tx(x0)) / 60.0)
+            need(abs(rate - R["alt_rate"][0]) / R["alt_rate"][0] < 0.02, f"② 降下率の線 {rate:.0f} フィート/分（記録 {R['alt_rate']}）")
+    if view == "gear":
+        d, why = R["gear"]
+        need(abs(sum(g["main_x"]) / 2 - g["nose_x"] - d) < 0.6, f"② 前の脚と主脚の間 {sum(g['main_x']) / 2 - g['nose_x']:.2f}m（記録 {d}m＝{why}）")
+        need(g["lag"] > 0, "② フラップが脚と同時に動く（記録＝脚のあと＝p117）")
+    if view == "radio":
+        need(g["names"] == R["radio"]["names"], f"② 無線の相手の名 {g['names']}（記録 {R['radio']['names']}＝{R['radio']['src']}）")
+    if view == "fix":
+        F_ = R["fix"]
+        need(abs(g["brg"] - F_["ray"][0]) < 0.5 and abs(g["nm"] - F_["ray"][1]) < 0.3,
+             f"② 方角と距離の線 {g['brg']:.1f}°・{g['nm']:.1f}マイル（記録 {F_['ray']}＝{F_['src']}）")
+        for k_ in ("plane", "heli"):
+            if g[k_]:
+                w, dpt = F_[k_]
+                need(abs(g[k_]["width"] - w) < 0.05 * w and abs(g[k_]["depth"] - dpt) < 0.05 * dpt,
+                     f"② {k_} の扇 {g[k_]['width']:.2f}度・{g[k_]['depth']:.3f}マイル（記録 {w}度・{dpt}マイル＝{F_['src']}）")
+    if view == "hoist":
+        need(g["people"] == 0, "② 人を描いた（台本の画の欄＝人は描かない）")
+    if view == "press":
+        bx, why = R["bulk_x"]
+        need(abs(g["bulk_x"] - bx) < 0.05, f"② 隔壁の位置 {g['bulk_x']:.2f}m（記録 {bx}m＝{why}）")
+        for (a, b) in g["arrows"]:
+            need(a[0] < b[0] <= g["bulk_x"], "② 押す矢印が客室の側から後ろ（隔壁）へ向いていない")
+    if view == "bag" and g["ratio"] is not None:
+        need(g["ratio"] > 1.1, f"② 山の上の袋が海の近くの袋よりふくらんでいない（面積の比 {g['ratio']:.2f}＝解説 p1017）")
+    if view == "apt":
+        A = R["apt"]
+        want = sorted(A["lons"], key=lambda k: A["lons"][k])
+        need(g["order"] == want, f"② 空港の並び {g['order']}（記録＝西から {want}）")
+        if g["why"]:
+            need(tuple(g["why"]) == A["why"], f"② 理由の言葉 {g['why']}（記録＝{A['why']}＝{A['src']}・言い換えない）")
+        if g["picked"]:
+            need(g["picked"] == A["picked"], f"② 選んだ空港 {g['picked']}（記録＝{A['picked']}＝{A['src']}）")
+    # ③ 札の数・時刻・推定
+    said = [r.get("t", "") for r in m["rel"]]
+    for t in texts:
+        for mm in NUM_M19.finditer(t):
+            tok = mm.group(0)
+            need(any(tok in s for s in said), f"③ 札「{t}」の数「{tok}」が rel（記録の値の宣言）に無い")
+            full = tok.replace("：", ":")
+            if full.count(":") == 2:
+                need(full in R["clock"], f"③ 札「{t}」の時刻「{tok}」が記録の時刻（{sorted(R['clock'])}）に無い")
+    if view == "xpdr":
+        need(not any(re.search(r"7700|77", t) for t in texts), "③ 番号（7700）を画面に書いた（台本の画の欄＝番号は書かず「緊急」の札）")
+    fa, va = R["assume"].get(view, (None, None))
+    if fa and any(s.get(fa) == va for s in seq):
+        need(any("推定" in t for t in texts), "③ 推定で描いた段に「推定」の札が無い（報告書の推定＝ルール §5b-10）")
+    for r in m["rel"]:
+        need(bool(r.get("src")), f"③ rel「{r.get('t')}」に出どころ（src）が無い")
+    return bad, n
+
+
+def _selftest_m20(ok):
+    """20本目 ⑤b-5：模式図の検算（正しい場面・陽性対照＝描く側の表を壊す・筋と札）。"""
+    import mech20 as M
+    N = "模式"
+    good = dict(
+        seats=dict(view="seats", steps=[dict(state=dict(fe="on")), dict(state=dict(left="usual"))], note=N),
+        seats_day=dict(view="seats", steps=[dict(state=dict(left="cop", right="cap")), dict(state=dict(cert="on"))], note=N),
+        xpdr=dict(view="xpdr", steps=[dict(state=dict(ask="on", reply="on"), tag=dict(t="4桁の番号", at="code")),
+                                      dict(state=dict(reply="emg"), tag=dict(t="緊急", at="emg"))],
+                  rel=[dict(t="4桁", src="報告書 p6")], note=N),
+        hyd=dict(view="hyd", start=dict(pipes="on", num="on"), steps=[dict(state=dict(cut="on"), tag=dict(t="4系統とも切れる（推定）", at="cut"))],
+                 rel=[dict(t="4系統", src="報告書 p112")], note=N),
+        thrust=dict(view="thrust", steps=[dict(state=dict(pwr="up", nose="up"), tag=dict(t="機首の上げ下げ（推定）", at="pwr")),
+                                          dict(state=dict(top="on", diff="on", yaw="on"))], note=N),
+        alt=dict(view="alt", steps=[dict(state=dict(pts="early", m1="on")), dict(state=dict(pts="all", m2="on"))], note=N),
+        alt_final=dict(view="alt", start=dict(span="final"),
+                       steps=[dict(state=dict(pts="all", m1="on", rate="on"), tag=dict(t="18:56:07", at="m1"))],
+                       rel=[dict(t="18:56:07", src="報告書 p82")], note=N),
+        gear=dict(view="gear", steps=[dict(state=dict(gear="down", flap="down"))], note=N),
+        radio=dict(view="radio", steps=[dict(state=dict(link="on", ask="on")), dict(state=dict(stay="on"))], note=N),
+        fix=dict(view="fix", start=dict(ray="on"), steps=[dict(state=dict(zoom="on", pa="on", pd="on", heli="on"))], note=N),
+        press=dict(view="press", steps=[dict(state=dict(press="on", push="on"))], note=N),
+        bag=dict(view="bag", steps=[dict(state=dict(bags="on", swell="on"))], note=N),
+        apt=dict(view="apt", steps=[dict(state=dict(pick="on")), dict(state=dict(why="on")), dict(state=dict(ok="on"))], note=N))
+    for nm, kw in good.items():
+        bad, n = judge("m20", kw)
+        ok &= not bad
+        print(f"  {'OK' if not bad else '🔴 NG'} 20本目 正しい模式図（{nm}）: {'合格' if not bad else '🔴 ' + bad[0]}（{n}件）")
+    # 陽性対照（描く側の表を壊す＝筋は正しいのに絵が記録と食い違う）
+    for name, attr, val, key, kwk in (
+            ("内側のエンジンを 13m に描く", "ENG_NO", {1: -21.15, 2: -13.0, 3: 12.07, 4: 21.15}, "横の位置", "hyd"),
+            ("エンジンの番号を右から振る", "ENG_NO", {1: 21.15, 2: 12.07, 3: -12.07, 4: -21.15}, "左右", "hyd"),
+            ("管を隔壁の前で切る", "HY_CUT", 50.0, "切れる所", "hyd"),
+            ("この日の席を逆に書く", "SE_NAMES", dict(left=dict(usual="機長", cop="機長"), right=dict(cap="副操縦士")), "この日の席の名", "seats_day"),
+            ("機関士の席を左に描く", "SE_FE", (840.0, 705.0), "航空機関士の席", "seats"),
+            ("番号の枠を3桁に描く", "XP_DIGITS", 3, "番号の枠", "xpdr"),
+            ("機首を下げる向きに回す", "TH_PITCH", -7.0, "機首が上がっていない", "thrust"),
+            ("回す中心を機首から 40m に置く", "CG_X", 40.0, "回す中心", "thrust"),
+            ("右が強い差で描く", "TH_DIFF", dict(strong=2.0, weak=9.0), "左を強く", "thrust"),
+            ("付図-1 の点を1つ 1,000フィート高く描く", "AL_PTS",
+             dict(M.AL_PTS, cruise=[(t, ft + (1000 if t == "18:31:08" else 0)) for t, ft in M.AL_PTS["cruise"]]), "記録の点に無い", "alt"),
+            ("付図-1 の点を1つ落とす", "AL_PTS", dict(M.AL_PTS, cruise=M.AL_PTS["cruise"][:-1]), "しか描いていない", "alt"),
+            ("18:40 の印を 18:38 に描く", "AL_MARK", dict(M.AL_MARK, cruise=dict(m1="18:25:21", m2="18:38:00")), "印 m2", "alt"),
+            ("降下率の線を 12,000 で描く", "AL_RATE", 12000.0, "降下率の線", "alt_final"),
+            ("主脚を前の脚の 20m 後ろに描く", "GE_MAIN_X", (26.4, 27.9), "前の脚と主脚", "gear"),
+            ("フラップを脚と同時に動かす", "GE_FLAP_LAG", 0.0, "同時", "gear"),
+            ("相手の名を取り違える", "RA_NAMES", dict(left="東京アプローチ", right="羽田"), "無線の相手の名", "radio"),
+            ("方角を 300° で描く", "FX", dict(M.FX, brg=300.0), "方角と距離の線", "fix"),
+            ("飛行機の扇を 4度で描く", "FX_PLANE", (4.0, 1.0), "plane の扇", "fix"),
+            ("ヘリの扇を 0.2マイルで描く", "FX_HELI", (1.0, 0.2), "heli の扇", "fix"),
+            ("隔壁を 55m に描く", "PR_BULK", 55.0, "隔壁の位置", "press"),
+            ("山の上の袋をふくらませない", "BG_SWELL", 1.0001, "ふくらんでいない", "bag"),
+            ("理由を「滑走路の長さ」と言い換える", "AP_WHY", ("空港の規模", "滑走路の長さ", "その他の施設環境"), "理由の言葉", "apt"),
+            ("名古屋を大阪の西に置く", "AP_PTS", dict(M.AP_PTS, nagoya=(300.0, "名古屋空港", 136.924)), "空港の並び", "apt")):
+        keep = getattr(M, attr)
+        setattr(M, attr, val)
+        try:
+            bad, _ = judge("m20", good[kwk])
+        except Exception as e:                 # 壊した値で組めない＝その旨を出して落とす
+            bad = [f"組めない {e!r}"]
+        finally:
+            setattr(M, attr, keep)
+        g_ = any(key in b for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 20本目 陽性対照（画素）：{name}: {'不合格' if bad else '合格'}（不合格のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+    # 陽性対照（筋と札）
+    for name, kw, key in (
+            ("脚の前にフラップ", dict(view="gear", steps=[dict(state=dict(flap="down"))], note=N), "① 筋"),
+            ("与圧の前に押す力", dict(view="press", steps=[dict(state=dict(push="on"))], note=N), "① 筋"),
+            ("問いの前に「切り替えない」", dict(view="radio", steps=[dict(state=dict(link="on", stay="on"))], note=N), "① 筋"),
+            ("推力を上げずに機首が上がる", dict(view="thrust", steps=[dict(state=dict(nose="up"))], note=N), "① 筋"),
+            ("管が切れたのに推定の札が無い", dict(view="hyd", start=dict(pipes="on"), steps=[dict(state=dict(cut="on"), tag=dict(t="切れる", at="cut"))],
+                                              note=N), "推定"),
+            ("番号 7700 を画面に書く", dict(view="xpdr", steps=[dict(state=dict(ask="on", reply="emg"), tag=dict(t="7700", at="emg"))],
+                                          rel=[dict(t="7700", src="報告書 p6")], note=N), "番号（7700）"),
+            ("札の時刻が記録に無い（18:56:09）", dict(view="alt", start=dict(span="final"),
+                                                  steps=[dict(state=dict(pts="all"), tag=dict(t="18:56:09", at="why"))],
+                                                  rel=[dict(t="18:56:09", src="x")], note=N), "記録の時刻"),
+            ("札の数が rel に無い", dict(view="press", steps=[dict(state=dict(press="on"), tag=dict(t="約7,300メートル", at="alt"))], note=N),
+             "rel")):
+        bad, _ = judge("m20", kw)
+        g_ = any(key in b for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 20本目 陽性対照（筋と札）：{name}: {'不合格' if bad else '合格'}（不合格のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+    for nm, fn in (("切れた管を戻す", lambda: M.m20("hyd", [dict(state=dict(pipes="on", cut="on")), dict(state=dict(cut="off"))], note=N)),
+                   ("段で高さの線の範囲を変える", lambda: M.m20("alt", [dict(state=dict(span="final"))], note=N)),
+                   ("知らない欄", lambda: M.m20("seats", [dict(state=dict(door="on"))], note=N))):
+        try:
+            fn()
+            g_ = False
+        except ValueError:
+            g_ = True
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 20本目 型の見張り：{nm}: {'組めない（止まった）' if g_ else '🔴 組めた'}")
+    return ok
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
+    if kind == "m20":
+        return judge_m20(f)
     if kind == "m19":
         return judge_m19(f)
     return (judge_latch(f) if kind == "latch" else judge_section(f) if kind == "section"
@@ -2253,6 +2567,7 @@ def selftest():
     ok = _selftest_lv(ok)
     ok = _selftest_m18(ok)
     ok = _selftest_m19(ok)
+    ok = _selftest_m20(ok)
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 
@@ -2275,7 +2590,7 @@ def main():
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items())
                if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt", "vsec", "lv", "m18",
-                                                   "m19")}
+                                                   "m19", "m20")}
     if not targets:
         print("⚠️ latch・section・hull・lash・tail・mod・bolt のカットが0件（この回に仕組みの模式図が無いなら正しい。"
               "**0件を調べて合格**にしていないか確かめる）")

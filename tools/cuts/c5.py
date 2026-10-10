@@ -138,4 +138,65 @@ SPEC = {
     "c526": dict(fig=("illu", dict(
         place="S1", start=dict(switch="on"),
         steps=[dict(state=dict(s1ring="tail"), tag=dict(t="機体の後ろ", at="tail", off=(-80, -190), anchor="end")), dict()]))),
+    # ── 🆕 ⑤b-5（2026-10-10）：模式図（`tools/mech20.py`）・時間の帯（axis）・並べ図（boxes）・棒（qty）──
+    # c506（2行）＝GPS の無い時代（解説 p18）→ 無線の目印からの方角と距離（向きと長さは表3 の①＝横田TACAN から 305°・35マイルの例）
+    "c506": dict(
+        t="GPS の無い時代", s="夜の測位（解説）",
+        fig=("m20", dict(view="fix",
+                         steps=[dict(state=dict(gps="on"), tag=dict(t="GPS（当時なし）", at="gps", to="gps")),
+                                dict(state=dict(ray="on"), tag=[dict(t="方角", at="dir", to="arc"),
+                                                               dict(t="距離", d="無線の目印（TACAN）から", at="dist", to="ray")])],
+                         note="向きと長さは表3 の①（横田TACAN から 305°・35マイル＝約65キロ）の例・形は模式",
+                         src=ss.src(["解説 p1018", "解説 p1019"]))),
+    ),
+    # c507（3行）＝読み取りの幅（解説 p18：飛行機は方位5度・距離1マイル／ヘリは方位1度・距離0.1マイル）＝寄りの窓に同じ尺で
+    "c507": dict(
+        t="読み取りの幅", s="飛行機とヘリコプター（解説）",
+        fig=("m20", dict(view="fix", start=dict(ray="on"),
+                         steps=[dict(state=dict(zoom="on", pa="on"), tag=dict(t="飛行機：方位 5度", at="pa")),
+                                dict(state=dict(pd="on"), tag=dict(t="距離 1海里（約1.9キロ）", at="pd")),
+                                dict(state=dict(heli="on"), tag=dict(t="ヘリコプター", d="方位 1度・距離 0.1海里", at="heli", to="heli"))],
+                         rel=[dict(t="5度・1海里・約1.9キロ・1度・0.1海里", src="解説 p1018（方位は5度、距離は1マイル／方位1度、距離0.1マイル）")],
+                         note="扇は解説の精度を表3 の①（35マイル）の所に当てた寄り（形は模式）",
+                         src=ss.src(["解説 p1018", "解説 p1019"]))),
+    ),
+    # c509（3行）＝1:00 地上の県警を誘導・失敗（表3）→ 夜の吊り上げは2次災害の危険（解説 p20）→ 暗視装置は当時なし（解説 p21）。人は描かない
+    "c509": dict(
+        t="夜の吊り上げ", s="夜のヘリコプターの救助（解説）",
+        fig=("m20", dict(view="hoist",
+                         steps=[dict(state=dict(guide="fail"), tag=dict(t="地上の県警を誘導", d="1:00・うまくいかず", at="guide", to="guide")),
+                                dict(state=dict(hoist="on"), tag=dict(t="2次災害の危険", at="hoist", to="land", col=J.ALERT)),
+                                dict(state=dict(nvg="on"), tag=dict(t="暗視装置（当時なし）", at="nvg", to="heli"))],
+                         rel=[dict(t="1:00", src="解説 p1019（表3）"), dict(t="2次災害", src="解説 p1020")],
+                         note="山の形とヘリの形は模式（人は描かない）", src=ss.src(["解説 p1019", "解説 p1020", "解説 p1021"]))),
+    ),
+    # c519（3行）＝夜と昼の帯（解説 表3＝日没 18:40・日の出 4:55／p8 墜落 18:56ごろ＝割れる時刻は出典の名つき／p26 4:39 現場の確認／
+    #   p28 10:45ごろ 生存者の発見）
+    "c519": dict(
+        t="夜の山で探す", s="12日の夕方から13日の昼まで",
+        fig=("axis", dict(ss.AX_DAY20, steps=[
+            dict(add=[ss.ax("night"), ss.ax("sunset"), ss.ax("crash")], cur="18:56"),
+            dict(add=[ss.ax("found"), ss.ax("sunrise")], cur="翌4:39"),
+            dict(add=ss.ax("alive"), cur="翌10:45")],
+            note="時刻は報告書と解説の記録", src=ss.src(["解説 p1019", "報告書 p8", "報告書 p26", "報告書 p28"]))),
+    ),
+    # c522（3行）＝山へ入った組（2.14.2 p.28・2.14.1.7 p.27）。並べ図＝同じ形で並べるだけ（数は c523）
+    "c522": dict(
+        t="山へ入った組", s="8月13日の捜索・救難",
+        fig=("boxes", dict(view="row", slots=5, per=3, steps=[
+            dict(add=[dict(k="item", t="警察", rec="報告書 p28"), dict(k="item", t="自衛隊", rec="報告書 p28")]),
+            dict(add=[dict(k="item", t="上野村消防団", rec="報告書 p28"), dict(k="item", t="上野村猟友会", rec="報告書 p28"),
+                      dict(k="item", t="日本赤十字社の救護班", rec="報告書 p27")]),
+            dict()],
+            note="並びの順に意味は無い", src=ss.src(["報告書 p27", "報告書 p28"]))),
+    ),
+    # c523（3行）＝捜索に出た人（p26 警察 12日 約2,500名・13日 約3,500名／p27 防衛庁 12日 約1,000名・13日 約3,200名）。数字は書かない
+    "c523": dict(
+        t="捜索に出た人", s="警察と防衛庁（報告書 2.14.1）",
+        fig=("qty", dict(view="bar", groups=[ss.QG["pol"], ss.QG["jda"]], steps=[
+            dict(add=[ss.qb("pol12"), ss.qb("jda12")]),
+            dict(add=[ss.qb("pol13"), ss.qb("jda13")]),
+            dict()],
+            note="棒の長さは記録の人数（約）", src=ss.src(["報告書 p26", "報告書 p27"]))),
+    ),
 }

@@ -99,4 +99,60 @@ SPEC = {
         steps=[dict(state=dict(s1mask="drop", cam=1.5), rec=S1R["masks"], dur=1.6,
                     tag=dict(t="酸素マスク", at="masks", off=(0, -150), anchor="middle")),
                dict(), dict()]))),
+    # ── 🆕 ⑤b-5（2026-10-10）：模式図（`tools/mech20.py`・門番 check_mech の judge_m20）と時間の帯（axis・門番 check_axis）──
+    # c206（3行）＝操縦室の3つの席（付図-12：P1 機長席・P3 副操縦士席・P4 機関士の計器＝右の壁）。1行目で航空機関士の席・
+    #   2行目で機長の飛行時間（2.6.1 p.14「総飛行時間12,423時間41分」＝台本 §9 の丸め）・3行目でふつうの並び（左が機長）
+    "c206": dict(
+        t="3人の席", s="JA8119 の操縦室",
+        fig=("m20", dict(view="seats",
+                         steps=[dict(state=dict(fe="on"), tag=dict(t="航空機関士", at="fe", to="fe")),
+                                dict(tag=dict(t="約1万2,400時間", d="機長の総飛行時間", at="hours")),
+                                dict(state=dict(left="usual"), tag=dict(t="ふつうの並び", at="usual", to="left"))],
+                         rel=[dict(t="約1万2,400時間（12,423時間41分）", src="報告書 p14（総飛行時間12,423時間41分）")],
+                         note="席の大きさと形は模式（並びは付図-12 の計器の位置から）",
+                         src=ss.src(["報告書 p148", "報告書 p14"]))),
+    ),
+    # c207（3行）＝聞き役の問い（両方の席に「？」）→ この日の並び（左に副操縦士・右に機長＝2.1 p.6）→ 機長の認定（2.6.1 p.14）
+    "c207": dict(
+        t="この日の並び", s="JA8119 の操縦室（1985年8月12日）",
+        fig=("m20", dict(view="seats",
+                         steps=[dict(state=dict(ask="on")),
+                                dict(state=dict(left="cop", right="cap"), tag=dict(t="機長昇格訓練", at="train")),
+                                dict(state=dict(cert="on"), tag=dict(t="機長の認定", at="cert", to="right_top"))],
+                         note="席の形は模式（並びは付図-12 の計器の位置から）",
+                         src=ss.src(["報告書 p6", "報告書 p14", "報告書 p148"]))),
+    ),
+    # c210（2行）＝客室高度の警報（3.1.9(2) p.88＝18:24:37 から約1秒・26秒止まって 18:25:04 から）。前のカットのドーン（18:24:35）を沈めて続ける
+    "c210": dict(
+        t="客室の気圧の警報", s="操縦室の音声記録（CVR）",
+        fig=("axis", dict(ss.AX_ALARM, past=[ss.ax("boom")], start=dict(cur="18:24:35"), steps=[
+            dict(add=ss.ax("al1"), cur="18:24:38"),
+            dict(add=[ss.ax("al_gap"), ss.ax("al2")], cur="18:25:04")],
+            note="鳴った長さと止まった間は報告書の時刻から", src=ss.src(["報告書 p6", "報告書 p88"]))),
+    ),
+    # c212（2行）＝CVR に残っていた範囲（3.1.10.1 p.91＝18:24:12ごろ〜18:56:28ごろ・5.2.2 p.133＝約32分16秒・前は消去）→ ドーンの23秒前
+    "c212": dict(
+        t="録音が残っていた範囲", s="操縦室の音声記録（CVR）",
+        fig=("axis", dict(ss.AX_CVR, steps=[
+            dict(add=[ss.ax("cvr"), ss.ax("cvr0")], cur="18:24:12"),
+            dict(add=ss.ax("boom_s"), cur="18:24:35")],
+            note="時刻は報告書の記録", src=ss.src(["報告書 p91", "報告書 p133", "報告書 p6"]))),
+    ),
+    # c214（2行）＝別添6 p.311 の 18:24:42（機長）・18:24:47（副操縦士）＝言葉は画面に出さない
+    "c214": dict(
+        t="2人の声の時刻", s="操縦室の音声記録（CVR）",
+        fig=("axis", dict(ss.AX_SQ, past=[ss.ax("boom")], start=dict(cur="18:24:35"), steps=[
+            dict(add=[ss.ax("sq_cap"), ss.ax("sq_cop")], cur="18:24:47"),
+            dict()],
+            note="言葉は画面に出さない（時刻は別添6 の記録）", src=ss.src(["報告書 p311", "報告書 p6"]))),
+    ),
+    # c215（2行）＝トランスポンダ（2.1 p.6「スコーク77(ATCトランスポンダの緊急コード番号7700の意味)」）。番号は書かず「緊急」の札
+    "c215": dict(
+        t="番号を返す装置", s="ATC トランスポンダ",
+        fig=("m20", dict(view="xpdr",
+                         steps=[dict(state=dict(ask="on", reply="on"), tag=dict(t="4桁の番号", at="code", to="code")),
+                                dict(state=dict(reply="emg"), tag=dict(t="緊急", at="emg", col=J.ALERT))],
+                         rel=[dict(t="4桁", src="報告書 p6（緊急コード番号7700）")],
+                         note="形は模式（番号の中身は書かない）", src=ss.src(["報告書 p6"]))),
+    ),
 }

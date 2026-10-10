@@ -5103,3 +5103,12 @@ def m18(view, steps, **kw):
 def m19(view, steps, **kw):
     import mech19 as _m
     return _m.m19(view, steps, **kw)
+
+
+# ── ⑭ 20本目 ⑤b-5（2026-10-10）：模式図（操縦室の席・レーダーと番号・油圧の管・推力・高さの記録の点・車輪とフラップ・無線の相手・
+#      夜の測位と読み取りの幅・夜の山とヘリ・隔壁を押す力・袋のふくらみ＝11種）＝`tools/mech20.py`（門番 check_mech の judge_m20）。
+#      横から見た機体は案C の置き場 S1 の形（illu20）を縮めて使う ──
+#   `fig=("m20", dict(view=…, start=…, steps=[…], rel=[…], note="模式…", src=…))`
+def m20(view, steps, **kw):
+    import mech20 as _m
+    return _m.m20(view, steps, **kw)
