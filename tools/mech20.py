@@ -732,9 +732,12 @@ def fix_stage(prev, st):
         # ⚠️ 試し焼き ep20_b5：±7度では小さな機の印を長く横切った＝±3度
         g.append(F.poly(_arc_pts(sx, sy, FX["k"] * FX["nm"], FX["brg"] - 3, FX["brg"] + 3), "none", COL["radar"], 4))
         # ⚠️ 焼き直し ep20_b5fix の原寸：弧を ±3度にしても、読み取りの点に置いた小さな機の印を斜めに横切った＝機の印は光線の先へ
-        #    48画素ずらす（読み取りの点＝弧と光線の端・門番が測るのは fx_end）
+        #    48画素ずらした（読み取りの点＝弧と光線の端・門番が測るのは fx_end）
+        # ⚠️ 試し焼き ep20_b6 の原寸（c507）：光線の先（四角の左上）だと、寄りの窓から四角の左の角へ伸びる点線が機の印を通った＝
+        #    光線に直角の向き（左下）へ100画素（点線の下の線から18画素・弧の端 302度から横8・縦16画素あく。右上は夜の地の枠から
+        #    機首がはみ出す計算だった）。c506 も同じ置き場
         a = math.radians(FX["brg"])
-        T = Top(0.9, ex + 48 * math.sin(a), ey - 48 * math.cos(a) - 30)
+        T = Top(0.9, ex - 100 * math.cos(a), ey - 100 * math.sin(a) - 32)
         g += top_plane_svg(T)
     if _on(prev, st, "zoom"):
         x0, y0, x1, y1 = FX_ZOOM
@@ -1297,9 +1300,10 @@ def seal_base(st0):
         g.append(F.rect(xl - 0.20 * k, y - 0.20 * k, 0.20 * k, 0.40 * k, WEB["riv"], COL["dark"], 2.5, rx=4))
         g.append(F.rect(xl, y - 0.07 * k, xr - xl, 0.14 * k, WEB["riv"], COL["dark"], 1.5))
         g.append(F.rect(xr, y - 0.19 * k, 0.12 * k, 0.38 * k, WEB["riv"], COL["dark"], 2.5, rx=4))
-    yb = cy - SL["edge"] * k - 14                      # 板の上の端の上（下に置くと出典の行に近い）
-    g.append(_t(xl - 0.6 * k, yb, "客室の側", 24, J.TICK, "end"))
-    g.append(_t(xr + 0.6 * k, yb, "後ろの側", 24, J.TICK))
+    # ⚠️ 焼き直し ep20_b6fix：板の上の端の上に置くと、左の「客室の側」が左上の見え方の札のすぐ右に並び、続きの文に読めた＝
+    #    断面の横（リベットの頭の外）・列のあいだの高さ
+    g.append(_t(xl - 0.2 * k - 30, cy + 0.5 * k + 8, "客室の側", 24, J.TICK, "end"))
+    g.append(_t(xr + 0.12 * k + 30, cy - 0.5 * k + 8, "後ろの側", 24, J.TICK))
     return g
 
 
