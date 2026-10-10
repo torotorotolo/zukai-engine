@@ -383,13 +383,14 @@ def hyd_stage(prev, st):
         x, y = HY.p(64.0, 0.0)
         g.append(_ring(x, y, 62, COL["mark"]))
     if _on(prev, st, "cut"):
-        for no in (1, 2, 3, 4):
-            main, _ = hyd_path(no)
-            fr, _af = _split_at(main, HY_CUT)
-            cx, cy = HY.p(*fr[-1])
-            g.append(F.line(cx - 12, cy - 6, cx + 12, cy + 6, COL["red"], 5))
+        # ⚠️ 試し焼き ep20_b5：管ごとの小さな切れ目は胴体の幅（約53画素）の中で見えなかった＝4本をまとめて横切るぎざぎざと、
+        #    両側へこぼれる油の点（大きく）。位置は HY_CUT（門番が測る切れる所）
+        cx, cy = HY.p(HY_CUT, 0.0)
+        zz = [(cx - 44 + 11 * k, cy + (-9 if k % 2 else 9)) for k in range(9)]
+        g.append(F.poly(zz, "none", COL["dark"], 11) + F.poly(zz, "none", COL["red"], 6))
+        for s in (-1, 1):
             for j in range(3):
-                g.append(F.circ(cx + (j - 1) * 9, cy + 16 + j * 9, 4.5 - j, COL["hyd"], None, None, 0.9))
+                g.append(F.circ(cx + s * (54 + j * 14), cy + 14 + j * 16, 8 - j * 1.5, COL["hyd"], COL["dark"], 1.5))
     return g
 
 
@@ -582,9 +583,12 @@ GE_FLAP_DEG = 25.0                               # 下げた角度（模式）
 GE_FLAP_LAG = 1.8                                # フラップは脚のあと（18:38〜脚・18:44〜フラップ＝p117）＝段の中で遅れて動く
 
 
+GE_WHEEL = 0.8                                   # 車輪の半径（m・模式）＝⚠️ 試し焼き ep20_b5：0.55 では小さくて見えにくかった
+
+
 def _leg(x, K, X0, Y0):
     zb = -3.35
-    return side_pts(K, X0, Y0, [(x - 0.18, zb + 0.3), (x + 0.18, zb + 0.3), (x + 0.18, zb - GE_LEG), (x - 0.18, zb - GE_LEG)])
+    return side_pts(K, X0, Y0, [(x - 0.3, zb + 0.3), (x + 0.3, zb + 0.3), (x + 0.3, zb - GE_LEG), (x - 0.3, zb - GE_LEG)])
 
 
 def gear_parts(st):
@@ -596,7 +600,7 @@ def gear_parts(st):
     for i, x in enumerate((GE_NOSE_X,) + GE_MAIN_X):
         out.append(_P(f"leg{i}", "poly", _leg(x, K, X0, Y0), fill=COL["eng_dk"], stroke=COL["dark"], w=1.5, dy=dy, alpha=a))
         cx, cy = side_pts(K, X0, Y0, [(x, -3.35 - GE_LEG)])[0]
-        out.append(_P(f"whl{i}", "circle", c=[cx, cy], r=0.55 * K, fill="#2b3239", stroke=COL["mark"] if down else COL["dark"], w=3,
+        out.append(_P(f"whl{i}", "circle", c=[cx, cy], r=GE_WHEEL * K, fill="#2b3239", stroke=COL["mark"] if down else COL["dark"], w=4,
                       dy=dy, alpha=a))
     piv = side_pts(K, X0, Y0, [GE_FLAP_PIVOT])[0]
     out.append(_P("flap", "poly", side_pts(K, X0, Y0, GE_FLAP), fill=COL["mark"] if st["flap"] == "down" else COL["wing"],
@@ -712,7 +716,8 @@ def fix_stage(prev, st):
     if _on(prev, st, "ray"):
         g.append(F.line(sx, sy, ex, ey, COL["mark"], 5, "16 10"))
         g.append(F.poly(_arc_pts(sx, sy, 120, 360, FX["brg"]), "none", COL["mark"], 4))
-        g.append(F.poly(_arc_pts(sx, sy, FX["k"] * FX["nm"], FX["brg"] - 7, FX["brg"] + 7), "none", COL["radar"], 4))
+        # ⚠️ 試し焼き ep20_b5：±7度では小さな機の印を長く横切った＝±3度
+        g.append(F.poly(_arc_pts(sx, sy, FX["k"] * FX["nm"], FX["brg"] - 3, FX["brg"] + 3), "none", COL["radar"], 4))
         T = Top(0.9, ex, ey - 30)
         g += top_plane_svg(T)
     if _on(prev, st, "zoom"):
@@ -775,9 +780,14 @@ def hoist_stage(prev, st):
         g.append(F.poly([(lx + 70, ly - 120), (lx + 110, ly - 50), (lx + 30, ly - 50)], COL["red"], COL["dark"], 2, True))
         g.append(F.txt(lx + 70, ly - 60, "！", 34, COL["white"], anchor="middle"))
     if _on(prev, st, "nvg"):
-        g.append(F.circ(x - 40, y - 4, 16, "none", COL["radar"], 4) + F.circ(x - 4, y - 4, 16, "none", COL["radar"], 4)
-                 + F.line(x - 66, y - 30, x + 22, y + 22, COL["red"], 6))
+        # ⚠️ 試し焼き ep20_b5：ヘリの胴体の上に描くと、赤い斜線がヘリに「×」をつけたように見えた＝ヘリから離して札のそばに
+        gx, gy = HO_NVG
+        g.append(F.circ(gx - 20, gy, 16, "none", COL["radar"], 4) + F.circ(gx + 20, gy, 16, "none", COL["radar"], 4)
+                 + F.line(gx - 4, gy, gx + 4, gy, COL["radar"], 4) + F.line(gx - 46, gy - 30, gx + 46, gy + 30, COL["red"], 6))
     return g
+
+
+HO_NVG = (1290.0, 500.0)                          # 暗視装置の印（札「暗視装置（当時なし）」の下・ヘリの外）
 
 
 # ══════════════════════════════════════════════════════════
@@ -958,7 +968,8 @@ TAG_AT = dict(
                 diff=(1000.0, 800.0, "start", 640.0), wave=(1000.0, 800.0, "start", 640.0), no=(1000.0, 850.0, "start", 820.0),
                 clock=(F.BX0 + 30.0, 330.0, "start", 760.0), side_nose=(F.BX0 + 30.0, 790.0, "start", 900.0)),
     # alt の m1・m2 は印の縦の線の右（右の端に近いと左）＝`_stage_svgs` が線の x から決める（y は下の帯＝点の無い高さ）
-    alt=dict(m1=(0.0, 760.0, "start", 420.0), m2=(0.0, 760.0, "start", 420.0), why=(520.0, 600.0, "start", 660.0),
+    # ⚠️ 試し焼き ep20_b5：y 760 だと札の下の小さな字（時刻）が横軸の線（y 790）に乗った＝735
+    alt=dict(m1=(0.0, 735.0, "start", 420.0), m2=(0.0, 735.0, "start", 420.0), why=(520.0, 600.0, "start", 660.0),
              rate=(1100.0, 420.0, "start", 520.0), stop=(1370.0, 660.0, "start", 460.0)),
     gear=dict(gear=(560.0, 720.0, "start", 520.0), flap=(1060.0, 720.0, "start", 560.0), voice=(L_X, 330.0, "start", 560.0)),
     radio=dict(link=(L_X, 430.0, "start", 520.0), ask=(1290.0, 430.0, "start", 520.0), stay=(L_X, 560.0, "start", 520.0)),

@@ -166,7 +166,7 @@ SPEC = {
         fig=("m20", dict(view="hoist",
                          steps=[dict(state=dict(guide="fail"), tag=dict(t="地上の県警を誘導", d="1:00・うまくいかず", at="guide", to="guide")),
                                 dict(state=dict(hoist="on"), tag=dict(t="2次災害の危険", at="hoist", to="land", col=J.ALERT)),
-                                dict(state=dict(nvg="on"), tag=dict(t="暗視装置（当時なし）", at="nvg", to="heli"))],
+                                dict(state=dict(nvg="on"), tag=dict(t="暗視装置（当時なし）", at="nvg"))],
                          rel=[dict(t="1:00", src="解説 p1019（表3）"), dict(t="2次災害", src="解説 p1020")],
                          note="山の形とヘリの形は模式（人は描かない）", src=ss.src(["解説 p1019", "解説 p1020", "解説 p1021"]))),
     ),
