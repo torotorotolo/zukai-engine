@@ -718,7 +718,10 @@ def fix_stage(prev, st):
         g.append(F.poly(_arc_pts(sx, sy, 120, 360, FX["brg"]), "none", COL["mark"], 4))
         # ⚠️ 試し焼き ep20_b5：±7度では小さな機の印を長く横切った＝±3度
         g.append(F.poly(_arc_pts(sx, sy, FX["k"] * FX["nm"], FX["brg"] - 3, FX["brg"] + 3), "none", COL["radar"], 4))
-        T = Top(0.9, ex, ey - 30)
+        # ⚠️ 焼き直し ep20_b5fix の原寸：弧を ±3度にしても、読み取りの点に置いた小さな機の印を斜めに横切った＝機の印は光線の先へ
+        #    48画素ずらす（読み取りの点＝弧と光線の端・門番が測るのは fx_end）
+        a = math.radians(FX["brg"])
+        T = Top(0.9, ex + 48 * math.sin(a), ey - 48 * math.cos(a) - 30)
         g += top_plane_svg(T)
     if _on(prev, st, "zoom"):
         x0, y0, x1, y1 = FX_ZOOM
