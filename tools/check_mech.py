@@ -2351,6 +2351,8 @@ def judge_m20(f):
         need(R["faa"]["sentence"].startswith(body), f"② 英文が FAA の頁の一文と違う（原文のまま＝{R['faa']['src']}）")
         if g["hl"]:
             need(" ".join(g["hl"]) == R["faa"]["hl"], f"② 印を付けた句 {g['hl']} が記録の句と違う")
+        # 🆕 試し焼き ep20_b6b：英文の1行目が頁の枠からはみ出した（layout は頁の枠を見ない）
+        need(g["line_w"] <= g["page_w"], f"② 英文の行の幅 {g['line_w']:.0f} が頁の字の幅 {g['page_w']:.0f} からはみ出す")
     if view == "ans":
         need(len(g["q"]) == R["ans"]["n"], f"② 問いの数 {len(g['q'])}（冒頭の問いは {R['ans']['n']} つ）")
         if g["wait"]:
@@ -2516,8 +2518,11 @@ def _selftest_m20(ok):
             ("言葉の順を入れ替える", "WD_ROWS", (M.WD_ROWS[1], M.WD_ROWS[0]) + tuple(M.WD_ROWS[2:]), "言葉の使い分け", "word"),
             ("原因の言葉を「考えられる」の段にする", "WD_PICK", 2, "原因の言葉", "word"),
             ("英文を言い換える", "FA_LINES", ("During the bulkhead repair, the splice plate was cut and",
-                                             "resulted in the Boeing repair crew dividing the plate and installing it",
-                                             "in two pieces …"), "英文", "faa"),
+                                             "of a splice plate resulted in the Boeing repair crew",
+                                             "dividing the plate and installing it in two pieces …"), "英文", "faa"),
+            ("英文の1行目を長くして頁からはみ出す", "FA_LINES",
+             ("During the bulkhead repair, difficulty in installation of a splice plate resulted in", "the Boeing repair crew",
+              "dividing the plate and installing it in two pieces …"), "はみ出す", "faa"),
             ("3つ目を「分かった」と書く", "AN_WAIT", "分かった", "残りの札", "ans"),
             ("フューズを No.3 に描く", "HY_FUSE", (3, 56.0), "フューズ", "hyd_fuse"),
             ("フューズを垂直尾翼の中に描く", "HY_FUSE", (4, 62.0), "フューズ", "hyd_fuse"),

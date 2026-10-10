@@ -107,7 +107,8 @@ SPEC = {
     "ca06": dict(
         t="2つの穴", s="穴の面積の比べ",
         fig=("m20", dict(view="holes", start=dict(j123="on"),
-                         steps=[dict(tag=dict(t="2009年7月13日・アメリカ", at="when", to="when")),
+                         # ⚠️ 試し焼き ep20_b6b：札から右の題へ線を引くと、札の真下を走る下線に見えた＝線なし（右の題の真上に置く）
+                         steps=[dict(tag=dict(t="2009年7月13日・アメリカ", at="when")),
                                 dict(),           # ⚠️ 門番 echo：高さの札（約1万700メートル）は字幕の写し＝語りに任せる
                                 dict(state=dict(b737="on"), tag=[dict(t="天井の穴（20列目付近）", at="b737", to="b737"),
                                                                  dict(t="報告書の計算の基準", at="j123", to="j123")])],

@@ -2211,10 +2211,13 @@ def word_stage(prev, st):
 # ── faa（cc10）＝FAA の教訓の頁（Lessons Learned「JA8119」・2025年9月3日 更新）の一文＝英語は原文のまま（sources.md §8）。
 #    頁の見た目は模式（ロゴは描かない）──
 FA_PAGE = (300.0, 300.0, 1620.0, 780.0)
-FA_LINES = ("During the bulkhead repair, difficulty in installation of a splice plate",
-            "resulted in the Boeing repair crew dividing the plate and installing it",
-            "in two pieces …")                              # （🔴 陽性対照）
-FA_HL = ((1, "dividing the plate and installing it"), (2, "in two pieces"))   # 印を付ける句（行・文字）
+#   ⚠️ 試し焼き ep20_b6b：1行目を「…of a splice plate」まで（実測 1,332画素）にすると頁の枠（字の幅 1,240）の右からはみ出した＝
+#      3行に折り直し、印の句を1行に収めた。門番 check_mech が行の幅を頁の幅と照らす（geo の line_w）
+FA_LINES = ("During the bulkhead repair, difficulty in installation",
+            "of a splice plate resulted in the Boeing repair crew",
+            "dividing the plate and installing it in two pieces …")   # （🔴 陽性対照）
+FA_HL = ((2, "dividing the plate and installing it in two pieces"),)   # 印を付ける句（行・文字）
+FA_PAD = 40.0                                       # 頁の左右の余白（字の幅＝頁の幅−2×余白）
 
 
 def faa_base(st0):
@@ -2230,7 +2233,7 @@ def _fa_line_y(i):
 
 def faa_stage(prev, st):
     g = []
-    x0 = FA_PAGE[0] + 40
+    x0 = FA_PAGE[0] + FA_PAD
     if _on(prev, st, "body"):
         for i, s in enumerate(FA_LINES):
             g.append(F.txt(x0, _fa_line_y(i), s, 40, "#1c242a", fam="Noto"))
@@ -2458,8 +2461,10 @@ TAG_AT = dict(
                alt=(1560.0, 470.0, "start", 280.0)),
     sonar=dict(beam=(1060.0, 520.0, "start", 600.0), echo=(L_X, 470.0, "start", 560.0)),
     dcam=dict(h=(1200.0, 720.0, "start", 300.0), w=(1300.0, 650.0, "start", 520.0), spd=(660.0, 300.0, "start", 600.0)),
-    rov=dict(rov=(700.0, 300.0, "start", 760.0)),
-    res=dict(one=(1450.0, 330.0, "start", 390.0), w=(680.0, 830.0, "start", 400.0), h=(1450.0, 560.0, "start", 390.0)),
+    # ⚠️ 試し焼き ep20_b6b：rov の札を上（700, 300）に置くと、札の線が船からのケーブルとほぼ平行に並んだ＝探査機の右へ
+    rov=dict(rov=(1340.0, 600.0, "start", 480.0)),
+    # ⚠️ 試し焼き ep20_b6b：「1つの点」の札を右上に置くと、線が 5×5 の枠の上を斜めに横切った＝左下へ（升の下の端を指す）
+    res=dict(one=(L_X, 830.0, "start", 520.0), w=(680.0, 830.0, "start", 400.0), h=(1450.0, 560.0, "start", 390.0)),
     area=dict(a1=(950.0, 340.0, "start", 860.0), a2=(950.0, 470.0, "start", 860.0), a3=(950.0, 600.0, "start", 860.0),
               a4=(950.0, 730.0, "start", 860.0)),
     cover=dict(cover=(1290.0, 330.0, "start", 540.0), strong=(1290.0, 480.0, "start", 540.0), net=(1290.0, 640.0, "start", 540.0)),
@@ -2611,11 +2616,11 @@ def anchors(view, st):
         return dict(h=(DC["sled"][0] + 186, (dc_sled_y() + SEA["bed"]) / 2), w=((x0 + x1) / 2, (y0 + y1) / 2 + DC_W * DC["k"] / 2),
                     ship=(DC["ship"][0] + 260, DC["ship"][1] - 50))
     if view == "rov":
-        return dict(rov=(RV["b"][0], RV["b"][1] - 40))
+        return dict(rov=(RV["b"][0] + 64, RV["b"][1] - 34))
     if view == "res":
         x, y, w, h = rs_cell(*RS_ONE)
         X, Y, W, H = rs_cell(*RS_BLK, n=RS_N)
-        return dict(one=(x + w, y + h / 2), w=(X + W / 2, Y + H + 26), h=(X + W + 26, Y + H / 2))
+        return dict(one=(x + w / 2, y + h), w=(X + W / 2, Y + H + 26), h=(X + W + 26, Y + H / 2))
     if view == "area":
         s, d = ar_big(), ar_day()
         return dict(big=(AR["x0"] + s, AR["y0"] + 10), day=(AR["x0"] + 3 + d / 2 + 34, AR["y0"] + 3 + d / 2),
@@ -2983,6 +2988,8 @@ def geo_of(view, start, states):
     elif view == "faa":
         out["lines"] = list(FA_LINES) if ever("body") else []
         out["hl"] = [ph for _, ph in FA_HL] if ever("hl") else []
+        out["line_w"] = max(F.fm.width(s, 40, "Noto") for s in FA_LINES) if ever("body") else 0.0
+        out["page_w"] = FA_PAGE[2] - FA_PAGE[0] - 2 * FA_PAD
     elif view == "ans":
         out["q"] = list(AN_Q)
         out["wait"] = AN_WAIT if ever("q3b") else None
