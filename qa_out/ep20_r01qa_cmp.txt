@@ -1,0 +1,28 @@
+同じ名前 735 枚：md5 一致 710・違う 25／A だけ 7・B だけ 4
+🔴 contact_c3.jpg  差の画素 0.063%
+🔴 contact_c4.jpg  差の画素 0.004%
+🔴 contact_c5.jpg  差の画素 0.001%
+🔴 contact_c6.jpg  差の画素 0.015%
+🔴 contact_c7.jpg  差の画素 0.003%
+🔴 contact_c8.jpg  差の画素 0.018%
+🔴 contact_cb.jpg  差の画素 0.051%
+   cut_c308.jpg  差の画素 0.133%
+   cut_c315.jpg  差の画素 1.039%
+   cut_c417.jpg  差の画素 0.129%
+   cut_c507.jpg  差の画素 0.039%
+   cut_c621.jpg  差の画素 0.300%
+   cut_c711.jpg  差の画素 0.056%
+   cut_c806.jpg  差の画素 0.348%
+   cut_c816.jpg  差の画素 0.099%
+   cut_cb02.jpg  差の画素 0.110%
+   cut_cb03.jpg  差の画素 0.489%
+   cut_cb14.jpg  差の画素 0.110%
+   zoom_c308_本体-左.jpg  差の画素 0.429%
+   zoom_c315_本体-右.jpg  差の画素 1.976%
+   zoom_c315_本体-左.jpg  差の画素 1.372%
+   zoom_c315_見出しと章.jpg  差の画素 0.596%
+   zoom_cb14_本体-右.jpg  差の画素 0.000%
+   zoom_cb14_本体-左.jpg  差の画素 0.359%
+   zoom_cb14_見出しと章.jpg  差の画素 0.093%
+B だけ: ['at_c513_040.jpg', 'at_c617_050.jpg', 'at_c806_053.jpg', 'at_cb03_050.jpg']
+A だけ: ['at_c216_020.jpg', 'at_c309_045.jpg', 'at_c313_040.jpg', 'at_c314_030.jpg', 'at_c314_062.jpg', 'at_c417_062.jpg', 'at_cb07_040.jpg']
