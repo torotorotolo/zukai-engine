@@ -68,6 +68,26 @@ WHO = {"J1": "Dennis HKG（Flickr）", "J2": "Stuart Jessup（Flickr）", "J3": 
 LIC = {"J1": "CC BY 2.0", "J2": "CC BY-SA 2.0", "J3": "CC BY-SA 3.0", **{f"O{i}": "CC BY 3.0" for i in range(1, 7)}}
 
 
+# 🆕 ⑤b-7（2026-10-11）：顔だけモザイク（ルール §B2-2b・2026-09-30 カズヤくん「顔面のみのモザイク加工」＝PD・CC BY・報告書の PDL1.0
+#   は手直しを許す）。範囲＝束の画素 (x0, y0, x1, y1, 誰)＝⑤b-7 に4倍の拡大と10px の目盛りで読んだ（scratchpad `p014_face.jpg`）。
+#   写真-14（c310）＝回収した APU のダクトのそばの白いシャツの男性（制服が無く、公的な任務の人か写真から決められない）。左右の人は頭が
+#   枠の外＝かけない。元画像そのものを直す＝`cuts/ss.py` の NEEDS_MASK・`ref/ep20/masked.json`（check_photo_mask --record）
+MOSAIC_PX = {"p014": 10}        # 升の大きさ（束の画素）。顔の幅 約65px＝6〜7升＝見分けられない
+MASK = {
+    "p014": [(778, 45, 852, 145, "白いシャツの男性")],
+}
+
+
+def mosaic(im, boxes, n):
+    """顔の範囲だけを升目にする（縮めて NEAREST で戻す）＝16本目 `qa_out/ep16_assets.py` と同じ式"""
+    from PIL import Image
+    for x0, y0, x1, y1, _ in boxes:
+        reg = im.crop((x0, y0, x1, y1))
+        small = reg.resize((max(1, reg.width // n), max(1, reg.height // n)), Image.BOX)
+        im.paste(small.resize(reg.size, Image.NEAREST), (x0, y0))
+    return im
+
+
 def md5(p):
     h = hashlib.md5()
     with open(p, "rb") as f:
@@ -179,7 +199,10 @@ def cmd_build():
         with Image.open(sp) as im0:
             im = im0.convert("L")            # 白黒のまま（1ビットのスキャンの縮小＝灰色）。png の解説の図も jpg の束へ
             w, h = im.size
-            if sp.suffix == ".jpg":
+            if name in MASK:
+                mosaic(im, MASK[name], MOSAIC_PX[name]).save(dst, quality=94)     # 顔だけモザイク（上の MASK）
+                cr = cr.replace("／縮小・切出", "／縮小・切出・顔にモザイク")
+            elif sp.suffix == ".jpg":
                 shutil.copyfile(sp, dst)     # 写すだけ（再圧縮しない）
             else:
                 im.save(dst, quality=94)
@@ -191,7 +214,10 @@ def cmd_build():
                         lic="引用（報告書の写真-124）" if frame else "PDL1.0", frame=frame,
                         ground="著作権法32条・第三者の写真" if frame else "運輸安全委員会 公共データ利用規約",
                         url="https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html", blur=[])
-        print(f"✓ {code:7} {name:30} {w}x{h}  {' '.join(cuts)}  {db[name]['lic']}{'  額装だけ（引用）' if frame else ''}")
+        if name in MASK:
+            db[name]["mosaic"] = [list(b) for b in MASK[name]]
+        print(f"✓ {code:7} {name:30} {w}x{h}  {' '.join(cuts)}  {db[name]['lic']}{'  額装だけ（引用）' if frame else ''}"
+              f"{f'  顔のモザイク {len(MASK[name])}か所' if name in MASK else ''}")
     DB.write_text(json.dumps(db, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"→ ref/ep20/assets.json（{len(db)}点・額装だけ {sum(1 for r in db.values() if r['frame'] or 'SA' in r['lic'])}）")
     return 1 if bad else 0
@@ -261,6 +287,8 @@ def cmd_credits(write=False):
         "（画面の出典「／縮小・切出」）",
         "- 🔴 **CC BY-SA の2点（J2・J3）は額装・無加工・色そのまま・上に重ねない・1点1カット**（`cuts/ss.check_frame_only`）。動きは額ごと（絵は切らない）",
         "- 🔴 **写真-124（c408）は地上の第三者の撮影＝引用**（額装・無加工・この1カットだけ・冒頭とサムネに使わない）",
+        "- 🆕 写真-14（c310）の白いシャツの男性（制服が無く公的な任務の人か写真から決められない）は**顔だけモザイク**（2026-09-30 カズヤくん"
+        "「顔面のみのモザイク加工」＝PDL1.0 は手直しを許す・元画像を直す＝`cuts/ss.py` の NEEDS_MASK・`ref/ep20/masked.json`）＝画面の出典に「顔にモザイク」",
         "- CC BY（J1・O1〜O6）は額・寄り・流しで端を切ることがある＝画面の出典に「改変：切出」。20本目は写真を原色で出す（色は変えない）",
         "- 撮影年＝映像方針で書いた副題の年（JA8119＝写真の題・daipresents の6点＝EXIF 2009-08-14 の朝）。副題に年の無い写真は「不明」",
         "",
@@ -535,6 +563,9 @@ def cmd_clips():
     out = {"BV": dict(url=s["page"], media=s["media"], credit="出典：防衛省・自衛隊『昭和60年防衛庁記録』／CC BY 3.0／改変：切出・再生速度",
                       src="mod", at=0.0, date=None, what="昭和60年防衛庁記録（日航機の災害派遣の部分）", w=w, h=h, fps=29.97, sar="1:1",
                       sec=1801.8, size=730300000, dispw=w, decoded=[w, h], rights=s["rights"], scan=BV_LOCAL.relative_to(HERE).as_posix(),
+                      # 🆕 ⑤b-7：実効の幅（映像方針 §2＝周波数の崖で21コマ・中央値 544px）＝`scene_jiko.foot_box` が差し込み（頭・尻）を
+                      #   額装にする（器 1920 のままだと全画面＝試し焼き 38099274247 の c503 の尻が全画面で焼けた）
+                      effw=544,
                       note="器 1920x1080・中身は 4:3（x 258〜1657・⑤b-2 で使う区間のコマを測った）＝USE の zoom 1.02 で黒帯を画面の外へ")}
     CLIPS.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     print("→ ref/ep20/clips.json（BV）")

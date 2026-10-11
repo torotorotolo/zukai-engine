@@ -2035,7 +2035,13 @@ def foot_box(cid):
     """映像の差し込みの箱。素材の表示の幅（dispw）が1280以上＝全画面・それ未満（記録映画 720×480＝655×480）＝額装の箱（真ん中）"""
     c, _ = foot_clip(cid)
     sw, sh = int(c.get("dispw") or c["w"]), int(c["h"])
-    if sw >= 1280:
+    # 🆕 2026-10-11（20本目 ⑤b-7）：器は 1920×1080 でも中身が全画面に足りない素材（台帳の `effw`＝実効の幅が 1280 未満＝防衛庁記録の
+    #   4:3・約544px）は、**ひかえの静止画（黒帯を外した中身）の縦横比で額装**＝`cuts.ss.vid` の本体の映像と同じ見え方。
+    #   器の幅だけで決めると全画面になった（試し焼き 38099274247 の c503 の尻＝F-4EJ の離陸が全画面で焼けた）
+    if c.get("effw") and int(c["effw"]) < 1280:
+        import cuts.ss as _ss
+        sw, sh = _ss.size_of(_ss.fb(cid))
+    elif sw >= 1280:
         return PHOTO_FULL
     z = min(PANEL_MAXW / sw, PANEL_MAXH / sh)
     w, h = int(sw * z), int(sh * z)

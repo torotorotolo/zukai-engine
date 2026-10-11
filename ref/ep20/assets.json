@@ -1250,7 +1250,7 @@
   "code": "P14",
   "file": "ref/ja123/p014.jpg",
   "cut": "c310",
-  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-14／縮小・切出",
+  "credit": "出典：運輸安全委員会 航空事故調査報告書 62-2（JA8119）写真-14／縮小・切出・顔にモザイク",
   "who": "運輸安全委員会（報告書 62-2・昭和62年）",
   "note": "旧版の取り出し（縮小・ぼかし0.7・頁から切出＝ref/ja123/INDEX.md）",
   "box": [
@@ -1267,13 +1267,22 @@
   ],
   "w": 1200,
   "h": 838,
-  "md5": "a204fac33068b7d56c7f9f05fa6dc875",
+  "md5": "b14b53cadc5dc4f9c6c25c2cf66c033c",
   "src_md5": "a204fac33068b7d56c7f9f05fa6dc875",
   "lic": "PDL1.0",
   "frame": false,
   "ground": "運輸安全委員会 公共データ利用規約",
   "url": "https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html",
-  "blur": []
+  "blur": [],
+  "mosaic": [
+   [
+    778,
+    45,
+    852,
+    145,
+    "白いシャツの男性"
+   ]
+  ]
  },
  "p015": {
   "code": "P15",
