@@ -446,6 +446,9 @@ def _draw(A, it, row, dim):
         else:
             y = A.ay - 40
             g += [F.line(xa, y, xb, y, col, 4), F.line(xa, y - 14, xa, y + 14, col, 4), F.line(xb, y - 14, xb, y + 14, col, 4)]
+            if it.get("t"):
+                # 🆕 20本目 ⑤c'（c825）：括弧の札（2段の帯の br と同じ置き方＝括弧の上の真ん中）。既定は札なし＝今までと同じ
+                g.append(F.txtfit((xa + xb) / 2, y - 22, it["t"], max(200, xb - xa + 160), cap=30, col=ink, anchor="middle"))
         return "".join(g), rec
     x = A.x(it["at"], True)
     rec.update(at=it["at"], x=round(x, 2), top=it["_top"], d=it["_d"], row=row, c=it.get("c") or COL[k],

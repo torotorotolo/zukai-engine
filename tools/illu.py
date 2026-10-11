@@ -6569,9 +6569,12 @@ def tag_svg(x, y, t, to=None, anchor="start", col=None, cap=30):
     s = fm.fit(t, 620, "Noto", cap=cap, floor=20)
     g = []
     if to:
-        g.append(f'<path d="M {to[0]:.1f} {to[1]:.1f} L {x:.1f} {y - s * 0.35:.1f}" stroke="{C["ol"]}" '
+        # 🆕 20本目 ⑤c'：真ん中寄せ（middle）の札は線の先が字の真ん中（y−0.35s）＝字の中へ刺さった（c314「名古屋まで 約133キロ」の
+        #   語の間に線が見えた・geom_gap）＝middle だけ、指し先の側の字の端の外で止める（start／end は今までと同じ＝字の横の端）
+        ey = (y + s * 0.4 if to[1] > y else y - s * 1.15) if anchor == "middle" else y - s * 0.35
+        g.append(f'<path d="M {to[0]:.1f} {to[1]:.1f} L {x:.1f} {ey:.1f}" stroke="{C["ol"]}" '
                  f'stroke-width="6" fill="none" stroke-linecap="round"/>'
-                 f'<path d="M {to[0]:.1f} {to[1]:.1f} L {x:.1f} {y - s * 0.35:.1f}" stroke="{col}" stroke-width="2.5" fill="none"/>'
+                 f'<path d="M {to[0]:.1f} {to[1]:.1f} L {x:.1f} {ey:.1f}" stroke="{col}" stroke-width="2.5" fill="none"/>'
                  f'<circle cx="{to[0]:.1f}" cy="{to[1]:.1f}" r="5" fill="{col}" stroke="{C["ol"]}" stroke-width="2"/>')
     tx = x + (10 if anchor == "start" else -10 if anchor == "end" else 0)
     g.append(f'<text x="{tx:.1f}" y="{y:.1f}" font-family="Noto" font-size="{s}" fill="{col}" text-anchor="{anchor}" '

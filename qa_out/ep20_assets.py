@@ -78,6 +78,40 @@ MASK = {
 }
 
 
+# 🆕 ⑤c'（2026-10-11）：頁から切り直す点。旧版の取り出し（tools/extract_photos.py の clip_text）は、図の右上の題（文字の層）を避けて
+#   **右の辺を題の左まで詰めた**＝付図-28 の凡例「山中より回収した残骸」「海上より回収した残骸」と注が「した残」で切れていた
+#   （⑤c 原寸・OCR の箱が素材の右端 x=1200 に接する行＝全素材で f028 だけ）。→ 頁を同じ倍率で描き、題の3行（絵のインクの行の帯で
+#   求めた箱＝文字の層の座標は使わない）だけを白で消し、インクの外接で切る。縮小・ぼかしは旧版と同じ（長辺1200・0.7・quality 88）
+RECUT = {
+    "f028": dict(pdf="ref/ep20/src/ja_05.pdf", page=29, zoom=5.05,
+                 # 題「付図‐２８」「垂直尾翼損壊図（右側）」「（右側）」の3行・左の頁の番号（164）。2行目の頭「垂直尾」は x 2573 から
+                 # （その左 x 2308〜2456 の塊は図の帯の先＝消さない）＝インクの塊（scipy.ndimage.label）で読んだ箱
+                 blank=[(2506, 326, 3005, 386), (2566, 416, 3675, 490), (3082, 516, 3367, 572), (360, 1424, 424, 1520)]),
+}
+
+
+def recut(name, dst):
+    """RECUT の点を頁から切り直して dst へ（白黒）。返り値＝(w, h, 元の pdf の md5)"""
+    import fitz
+    import numpy as np
+    from PIL import Image, ImageDraw, ImageFilter
+    r = RECUT[name]
+    pdf = HERE / r["pdf"]
+    pg = fitz.open(pdf)[r["page"] - 1]
+    pg.set_rotation(0)
+    pm = pg.get_pixmap(matrix=fitz.Matrix(r["zoom"], r["zoom"]), colorspace=fitz.csGRAY)
+    im = Image.frombytes("L", (pm.width, pm.height), pm.samples)
+    dr = ImageDraw.Draw(im)
+    for b in r["blank"]:
+        dr.rectangle(b, fill=255)
+    ys, xs = np.where(np.asarray(im) < 128)
+    m = 12
+    im = im.crop((max(0, xs.min() - m), max(0, ys.min() - m), min(im.width, xs.max() + m + 1), min(im.height, ys.max() + m + 1)))
+    im.thumbnail((1200, 1200), Image.LANCZOS)
+    im.filter(ImageFilter.GaussianBlur(0.7)).save(dst, quality=88, optimize=True)
+    return im.width, im.height, md5(pdf)
+
+
 def mosaic(im, boxes, n):
     """顔の範囲だけを升目にする（縮めて NEAREST で戻す）＝16本目 `qa_out/ep16_assets.py` と同じ式"""
     from PIL import Image
@@ -191,6 +225,18 @@ def cmd_build():
             bad += 1
             continue
         name, sp, cr = ja
+        if name in RECUT:                    # 頁から切り直す（上の RECUT）
+            dst = EPD / f"{name}.jpg"
+            w, h, pmd5 = recut(name, dst)
+            r = RECUT[name]
+            db[name] = dict(code=code, file=f"{r['pdf']}#p{r['page']}", cut=" ".join(cuts), credit=cr,
+                            who="運輸安全委員会（報告書 62-2・昭和62年）",
+                            note="頁から切り直し（旧版の取り出しは凡例が右の辺で切れていた・題を外した・縮小・ぼかし0.7）",
+                            box=[0.0, 0.0, 1.0, 1.0], crop_px=[0, 0, w, h], w=w, h=h, md5=md5(dst), src_md5=pmd5,
+                            lic="PDL1.0", frame=False, ground="運輸安全委員会 公共データ利用規約",
+                            url="https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html", blur=[])
+            print(f"✓ {code:7} {name:30} {w}x{h}  {' '.join(cuts)}  PDL1.0  頁から切り直し")
+            continue
         if not sp.exists():
             print(f"🔴 {code}: {sp.relative_to(HERE).as_posix()} が無い")
             bad += 1

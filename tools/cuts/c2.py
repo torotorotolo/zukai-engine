@@ -87,7 +87,8 @@ SPEC = {
     "c209": dict(fig=("illu", dict(
         place="S2", start=dict(switch="on"),
         steps=[dict(state=dict(s2t="18:24:35"), rec=S2R["trace"], dur=3.0,
-                    tag=dict(t="18:24:35", at="plane", off=(70, -100), keep=True)),
+                    # 🆕 ⑤c'：off (70, -100) は札を経路の線が横切った（geom_gap）＝(50, -120)（線から 25px＝scratchpad place.py）
+                    tag=dict(t="18:24:35", at="plane", off=(50, -120), keep=True)),
                dict(rings=2, rec=S2R["boom"])]))),
     # c213（2行）＝上から → 横から＝合図。操縦室に輪（「なんか爆発したぞ」＝言葉は画面に出さない）
     "c213": dict(fig=("illu", dict(
@@ -116,7 +117,9 @@ SPEC = {
     "c207": dict(
         t="この日の並び", s="JA8119 の操縦室（1985年8月12日）",
         fig=("m20", dict(view="seats",
-                         steps=[dict(state=dict(ask="on")),
+                         # 🆕 ⑤c'：1段目の席の「？」が席の名の出たあとも残った（層は消せない・覆うと門番 layout が字の重なりと読む）
+                         #   ＝「？」は出さない（問いは聞き役の赤い字幕が言う＝減らす）
+                         steps=[dict(),
                                 dict(state=dict(left="cop", right="cap"), tag=dict(t="機長昇格訓練", at="train")),
                                 dict(state=dict(cert="on"), tag=dict(t="機長の認定", at="cert", to="right_top"))],
                          note="席の形は模式（並びは付図-12 の計器の位置から）",
@@ -189,5 +192,6 @@ SPEC.update({
     "c217": dict(photo=P("f005"), panel=True, **ss.pfk(P("f005"), 0.72, 0.39, 1.9), t="客室の後ろ半分",
                  s="JA8119 の座席の配置図（後ろ半分）"),
     # c218（6.26秒）＝写真-16（海上から回収された垂直尾翼の一部（2））＝ゆっくり引く
-    "c218": dict(photo=P("p016"), **ss.kind(P("p016")), cam="pull", t="見えない尾翼", s="相模湾で回収された垂直尾翼の一部（事故のあと）"),
+    #   🆕 ⑤c'：c102（写真-15）と副題が同じだった＝原寸の実見で書き分け（写真-15＝地面に置いた大きな破片・写真-16＝制服の4人が岸壁で広げた破片）
+    "c218": dict(photo=P("p016"), **ss.kind(P("p016")), cam="pull", t="見えない尾翼", s="相模湾で回収された垂直尾翼の一部（岸壁で広げた破片）"),
 })

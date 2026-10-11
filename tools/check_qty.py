@@ -155,9 +155,11 @@ def judge_bar(f, pal=None):
         for k, x in tx.items():
             n += 1
             s = tv.get(k, "")
-            if not re.fullmatch(r"\d+", s):
+            # 🆕 20本目 ⑤c'：1,000 以上はカンマ（qty.py の目盛り）＝カンマ区切りも数として読む（区切りの位置が3桁ごとでなければ数でない）
+            if not re.fullmatch(r"\d+|\d{1,3}(,\d{3})+", s):
                 bad.append(f"群「{title[gid]}」の目盛りの文字「{s}」が数でない")
                 continue
+            s = s.replace(",", "")
             pts.append((float(s), x))
         if len(pts) < 2:
             bad.append(f"群「{title[gid]}」の目盛りが {len(pts)} 本（2本以上ないと画素から値へ戻せない）")

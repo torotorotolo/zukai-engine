@@ -131,7 +131,9 @@ def _bar(groups, past, steps, note, src):
         for v in g["ticks"]:
             x = gx(g, v)
             lab.append(dq(F.line(x, g["_ay"] - 10, x, g["_ay"] + 10, ln, 3), f"tick|{gid}|{v}"))
-            lab.append(dq(F.txt(x, g["_ay"] + 40, str(v), 28, J.TICK, "Noto", "middle"), f"tlab|{gid}|{v}"))
+            # 🆕 20本目 ⑤c'：1,000 以上はカンマ（字幕の 12,319・3,500 とそろえる＝c523 c708 の「4000」「15000」）
+            lab.append(dq(F.txt(x, g["_ay"] + 40, f"{v:,}" if isinstance(v, int) else str(v), 28, J.TICK, "Noto", "middle"),
+                          f"tlab|{gid}|{v}"))
     rec_parts = []
 
     def draw(p, dim):

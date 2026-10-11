@@ -122,7 +122,8 @@ SPEC = {
         fig=("m20", dict(view="cab",
                          steps=[dict(state=dict(hole="on"), tag=[dict(t="大きな破裂音", at="top_r", to="hole"),
                                                                 dict(t="耳の痛みはほとんど無い", at="top_l")]),
-                                dict(state=dict(fog="on"), tag=[dict(t="何も飛ばされなかった", at="bot_l"),
+                                # 🆕 ⑤c'：霧の点が ca14（123便の霧）と同じ濃さ（70個・0.30）で札の「薄い霧」と合わなかった＝薄い霧（thin＝半分の数・半分の濃さ）
+                                dict(state=dict(fog="thin"), tag=[dict(t="何も飛ばされなかった", at="bot_l"),
                                                                 dict(t="薄い霧（5秒ほどで消えた）", at="bot_m", to="fog")])],
                          rel=[dict(t="5秒ほど", src="解説 p1002（5秒ほどで消滅）")],
                          note="客室の形と座席の並びは模式（人は描かない）", src=ss.src(["解説 p1002"]))),
@@ -233,7 +234,8 @@ SPEC = {
     # ca20（2行）＝下りずマスクも着けず酸素が足りない（p115・p126）→ 乗員の判断力などはある程度低下（p115＝「考えられる」）
     "ca20": dict(
         t="3人の判断力", s="低酸素症の影響",
-        fig=("m20", dict(view="seats", start=dict(left="cop", right="cap"),
+        # 🆕 ⑤c'：見出し「3人の判断力」に対し、名前の枠が左右の2席だけ（航空機関士の席は枠なし＝霞だけ）だった＝頭から航空機関士の席にも枠
+        fig=("m20", dict(view="seats", start=dict(left="cop", right="cap", fe="on"),
                          steps=[dict(state=dict(hyp="on"), tag=dict(t="酸素が足りない", d="マスクを着けなかった（推定）", at="o2", to="left")),
                                 dict(tag=dict(t="判断力などがある程度低下", d="報告書の考え", at="judge", to="right"))],
                          note="席の形は模式（霞は酸素の不足の印）", src=ss.src(["報告書 p115", "報告書 p126"]))),

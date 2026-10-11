@@ -864,9 +864,7 @@ def press_stage(prev, st):
         bulk = pr_bulk_pts()
         reg = [(PR_X0, up[0][1])] + up + [(PR_BULK, bulk[-1][1])] + list(reversed(bulk)) + [(PR_BULK, bulk[0][1])] + list(reversed(lo)) + [(PR_X0, lo[0][1])]
         g.append(F.poly(side_pts(K, X0, Y0, reg), COL["press"], None, None, True, None, 0.55))
-        for i in range(14):
-            x = 380 + 95 * i
-            g.append(F.circ(x, 300 + (i % 3) * 22, 3, COL["white"], None, None, 0.6))
+        # 🆕 ⑤c'（c607）：胴体の上の白い点14個（外の空気の印・札なし）は何の印か読めず、札「気圧の差が押す」にも 3px 重なった＝外した
     if _on(prev, st, "push"):
         for z in PR_ARROWS:
             a = side_pts(K, X0, Y0, [(PR_BULK - 4.2, z), (PR_BULK - 0.5, z)])
@@ -1675,9 +1673,11 @@ def cab_stage(prev, st):
             mx = x - 46
             g.append(F.line(mx, k["ceil"], mx, k["ceil"] + 86, C20["mask_ln"], 2)
                      + F.rect(mx - 14, k["ceil"] + 86, 28, 20, C20["mask"], C20["mask_ln"], 2, rx=8))
-    if _on(prev, st, "fog"):
-        for x, y, r in cb_fog():
-            g.append(F.circ(x, y, r, COL["white"], None, None, 0.30))
+    if st.get("fog") != prev.get("fog") and st.get("fog") in ("on", "thin"):
+        # 🆕 ⑤c'（ca07）：thin＝薄い霧（2009年の例・5秒ほどで消えた）＝半分の数・半分の濃さ（on＝123便の霧 ca14 のまま）
+        thin = st["fog"] == "thin"
+        for x, y, r in cb_fog()[::2 if thin else 1]:
+            g.append(F.circ(x, y, r, COL["white"], None, None, 0.15 if thin else 0.30))
     if st.get("flow") != prev.get("flow") and st.get("flow") in ("near", "all"):
         if prev.get("flow") == "off":
             for (p, q) in cb_arrows("near"):
@@ -2377,7 +2377,8 @@ VIEWS = dict(
     lav=dict(lab="横から見た客室の後ろ（機首が左）", fields=dict(lav=ONOFF, coat=ONOFF, bend=ONOFF), base=lav_base, stage=lav_stage),
     # 🆕 ⑤b-6b：第9章〜終章
     cab=dict(lab="客室の縦の断面（機首が左）", fields=dict(hole=ONOFF, flow=("off", "near", "all"), half=ONOFF, warm=ONOFF, mask=ONOFF,
-                                                    fog=ONOFF, gauge=("off", "hi", "lo")), base=cab_base, stage=cab_stage, parts=cab_parts),
+                                                    fog=("off", "on", "thin"), gauge=("off", "hi", "lo")), base=cab_base, stage=cab_stage,
+             parts=cab_parts),
     flow=dict(lab="123便の客室（横から・機首が左）", fields=dict(air=ONOFF, seat=ONOFF), base=flow_base, stage=flow_stage),
     run=dict(lab="上から見た走路", fields=dict(wind=ONOFF, eye=ONOFF), base=run_base, stage=run_stage),
     temp=dict(lab="客室の温度の戻り方（解説の計算）", fields=dict(drop=ONOFF, pts=ONOFF), base=temp_base, stage=temp_stage),
@@ -2436,7 +2437,8 @@ TAG_AT = dict(
     bag=dict(inner=(F.BX0 + 30.0, 330.0, "start", 700.0), sea=(880.0, 330.0, "start", 400.0), mt=(1360.0, 330.0, "start", 440.0)),
     apt=dict(pick=(1060.0, 410.0, "start", 360.0), ok=(1060.0, 300.0, "start", 340.0), why=(L_X, 800.0, "start", 640.0)),
     # 🆕 ⑤b-6
-    fatigue=dict(once=(800.0, 330.0, "start", 400.0), crack=(1230.0, 690.0, "start", 560.0), wire=(1390.0, 560.0, "start", 440.0)),
+    # 🆕 ⑤c'（c705）：once の札（x 800〜1072）に次の段の右の矢印（x 870・y 300〜372）が重なった（geom_gap）＝矢印の右へ
+    fatigue=dict(once=(905.0, 330.0, "start", 400.0), crack=(1230.0, 690.0, "start", 560.0), wire=(1390.0, 560.0, "start", 440.0)),
     rows=dict(str=(F.BX0 + 30.0, 812.0, "start", 300.0), crack=(1480.0, 430.0, "start", 340.0)),
     grow=dict(two=(1580.0, 440.0, "start", 240.0), one=(1150.0, 340.0, "start", 300.0), same=(GR["x0"] + 20.0, GR_YT - 20.0, "start", 360.0)),
     fs=dict(bay=(1270.0, 420.0, "start", 560.0), one=(F.BX0 + 30.0, 800.0, "start", 560.0)),
@@ -2460,7 +2462,8 @@ TAG_AT = dict(
     holes=dict(when=(1130.0, 330.0, "start", 680.0), j123=(330.0, 812.0, "start", 680.0), b737=(1130.0, 812.0, "start", 680.0),
                alt=(1560.0, 470.0, "start", 280.0)),
     sonar=dict(beam=(1060.0, 520.0, "start", 600.0), echo=(L_X, 470.0, "start", 560.0)),
-    dcam=dict(h=(1200.0, 720.0, "start", 300.0), w=(1300.0, 650.0, "start", 520.0), spd=(660.0, 300.0, "start", 600.0)),
+    # 🆕 ⑤c'（cb08）：spd の小さい字「時速約3.7キロ」（y 314〜334）が海面の線（y 約330）に重なった（geom_gap）＝38px 上へ
+    dcam=dict(h=(1200.0, 720.0, "start", 300.0), w=(1300.0, 650.0, "start", 520.0), spd=(660.0, 262.0, "start", 600.0)),
     # ⚠️ 試し焼き ep20_b6b：rov の札を上（700, 300）に置くと、札の線が船からのケーブルとほぼ平行に並んだ＝探査機の右へ
     rov=dict(rov=(1340.0, 600.0, "start", 480.0)),
     # ⚠️ 試し焼き ep20_b6b：「1つの点」の札を右上に置くと、線が 5×5 の枠の上を斜めに横切った＝左下へ（升の下の端を指す）

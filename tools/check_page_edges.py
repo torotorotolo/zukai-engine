@@ -57,7 +57,8 @@ MIN_H_PX = 10
 
 def rects_of(sw, sh, box, spec):
     """測る窓 {k: 窓}。`cam=` のカットは経路の3点（check_slide.cam_rects）、それ以外は寄りを K_STEPS 点に刻む。"""
-    if spec.get("cam"):
+    if spec.get("cam") or spec.get("fmove"):
+        # 🆕 20本目 ⑤c'：額ごと動かす（fmove）も check_slide.cam_rects へ＝絵を切らない（本番 build_jiko と同じ）
         return CS.cam_rects(sw, sh, box, spec)
     b, xb, zm = (float(spec.get("bias", 0.5)), float(spec.get("xbias", 0.5)), float(spec.get("zoom", 1.0)))
     if spec.get("still"):

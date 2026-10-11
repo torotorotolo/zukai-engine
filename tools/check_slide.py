@@ -466,6 +466,10 @@ def cam_rects(sw, sh, box, spec):
     b, xb, zm = (float(spec.get("bias", 0.5)), float(spec.get("xbias", 0.5)),
                  float(spec.get("zoom", 1.0)))
     cam = spec.get("cam")
+    if spec.get("fmove"):
+        # 🆕 20本目 ⑤c'：額ごと動かす（fmove）は絵を切らない＝本番 build_jiko は切ったあとの写真を丸ごと動く箱へ（寄り k・cam・zoom は使わない）。
+        #   ここが既定の寄り（k=1 で 1.9%）で窓を切って測っていた＝c821（付図-4 を額ごと寄るにした）の上の札を「切れている」と空振りした
+        return {k: crop_rect(sw, sh, box, 0.0, 0.5, 0.5, 1.0) for k in (0.0, 1.0)}
     if cam:
         import build_jiko as B
         return {u: crop_rect(sw, sh, box, 0.0, y, x, z)

@@ -96,7 +96,8 @@ SPEC = {
         steps=[dict(state=dict(s2t="18:46:33"), rec=S2R["trace"], dur=1.0, tag=dict(t="18:46:33", at="plane", off=(70, -100))),
                # ⑤b-3 の門番 layout：1行目の札とすき間0（1つの札の塊に読める）＝左上へ
                dict(state=dict(s2t="18:47:07"), rec=S2R["trace"], dur=1.0,
-                    tag=dict(t="18:47:07", at="plane", off=(-70, -100), anchor="end"))]))),
+                    # 🆕 ⑤c'：左上（off -70, -100）は札を経路の線が横切った（geom_gap・9点）＝機の右（70, 0）＝線から 55px・1行目の札から 60px
+                    tag=dict(t="18:47:07", at="plane", off=(70, 0)))]))),
     # c405（2行）＝18:47:39（「おい山だぞ」）
     "c405": dict(fig=("illu", dict(
         place="S2", start=dict(s2t="18:47:07"), rec=S2R["trace"],
@@ -144,12 +145,14 @@ SPEC = {
     "c416": dict(fig=("illu", dict(
         place="S2", start=dict(s2t="18:55:05", s2yok="on"), rec=S2R["yokota"],
         steps=[dict(tag=dict(t="横田", at="yokota", off=(70, 10), keep=True)),
-               dict(state=dict(s2ring="both"), tag=dict(t="アメリカ軍の飛行場", at="yokota", off=(70, 60)))]))),
+               # 🆕 ⑤c'：右下（off 70, 60）は札の下の端が羽田の輪の上の端に 2.9px（geom_gap）＝「横田」の上へ（横田の輪は x 1046〜1118）
+               dict(state=dict(s2ring="both"), tag=dict(t="アメリカ軍の飛行場", at="yokota", off=(70, -45)))]))),
     # c417（3行）＝18:55:16（「はい了解しました」）→ 扇平山・三国山の方へ（右へ傾き始めた）。墜落は描かない（c421 の語り）
     "c417": dict(fig=("illu", dict(
         place="S2", start=dict(s2t="18:55:05"), rec=S2R["trace"],
         steps=[dict(state=dict(s2t="18:55:16"), rec=S2R["trace"], dur=0.8),
-               dict(state=dict(s2t="18:55:40"), rec=S2R["trace"], dur=1.6, tag=dict(t="三国山", at="mikuni", off=(90, 60))),
+               # 🆕 ⑤c'：右下（off 90, 60）は札を経路の線が横切った（geom_gap・6点）＝山の印の左（-70, 0）＝線から 63px
+               dict(state=dict(s2t="18:55:40"), rec=S2R["trace"], dur=1.6, tag=dict(t="三国山", at="mikuni", off=(-70, 0), anchor="end")),
                dict()]))),
     # ── 🆕 ⑤b-5（2026-10-10）：模式図（`tools/mech20.py`・門番 check_mech の judge_m20）──
     # c403（3行）＝無線の相手（別添6 p.333 18:46:09「羽田にコンタクトしますか？」・18:46:16「このままでお願いします」）。札は機関の名・記録の言葉
@@ -195,7 +198,8 @@ SPEC = {
 # ── 🆕 ⑤b-7（2026-10-11）：写真・付図（書き方の約束は c2.py の ⑤b-7 の節）──
 SPEC.update({
     # c401（6.69秒）＝写真-18（残骸（2））＝左から右へ流す
-    "c401": dict(photo=P("p018"), **ss.kind(P("p018")), cam="pan_r", t="18:45:46 の送信", s="飛行経路の下で見つかった部品（事故のあと）"),
+    #   🆕 ⑤c'：c316（写真-19）と同じ物（シール・リテーナ）＝呼び方をそろえ、置かれた所で書き分け（写真-18＝模様の布の上・手で押さえる）
+    "c401": dict(photo=P("p018"), **ss.kind(P("p018")), cam="pan_r", t="18:45:46 の送信", s="飛行経路の下で見つかった部品（布の上の穴の並ぶ金具）"),
     # c408（9.04秒）＝写真-124（地上の第三者の撮影＝引用）。🔴 額装・無加工・寄らない（cam・fmove を書かない＝check_frame_only）。
     #   副題は出典の行（「写真-124／縮小（引用）」）と重ねない（門番 dup）＝一覧の副題の「（報告書 写真-124）」は出典の行が持つ
     "c408": dict(photo=P("p124"), panel=True, color=1.0, t="欠けた尾翼", s="18:50ごろ、奥多摩町の上空の123便"),
@@ -205,5 +209,6 @@ SPEC.update({
     "c420": dict(photo=P("f019"), **ss.kind(P("f019")), t="最後の尾根", s="一本から松から U字溝までの図",
                  cam={"from": ss.pf(P("f019"), 0.86, 0.60, 1.6), "to": ss.pf(P("f019"), 0.22, 0.18, 1.6)}),
     # c421（10.90秒）＝写真-3（U字溝・縦長）＝ゆっくり引く。焼き込みの札「垂直尾翼の一部」＝副題と食い違わない
-    "c421": dict(photo=P("p003"), **ss.kind(P("p003")), cam="pull", t="墜落の地点", s="U字溝（墜落のあと）"),
+    #   🆕 ⑤c'：副題「U字溝」と画面の焼き込みの大きな札「垂直尾翼の一部」が別の物を言っていた＝写っている2つを副題にそろえる
+    "c421": dict(photo=P("p003"), **ss.kind(P("p003")), cam="pull", t="墜落の地点", s="U字溝と垂直尾翼の一部（墜落のあと）"),
 })
