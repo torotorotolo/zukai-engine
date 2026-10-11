@@ -102,7 +102,9 @@ SPEC = {
     # c617（2行）＝上の半分が後ろへ吹き上げられて開く・穴の広さ 2〜3平方メートル（p.125）→ 聞き役の問い
     "c617": dict(fig=("illu", dict(
         place="S5", start=dict(s5press="on", s5bulk="tear"), rec=S5R["tear"], assume="推定",
-        steps=[dict(state=dict(s5bulk="open"), rec=S5R["open"], tag=dict(t="約2〜3平方メートル", at="hole", off=(40, -300))),
+        # 🆕 ⑥：off (40, -300) は札を垂直尾翼の外形の線が横切った（geom_gap・箱の中の点 7・1行目だけ＝静止画に写らない）
+        #   ＝尾翼の前の縁より左の空へ (-50, -370)＝尾翼の線から 22px（scratchpad place20.py）
+        steps=[dict(state=dict(s5bulk="open"), rec=S5R["open"], tag=dict(t="約2〜3平方メートル", at="hole", off=(-50, -370))),
                dict()]))),
     # c618（2行）＝客室の空気が尾部へ流れ込み、尾部の圧力が上がる → APU 防火壁が壊れ、APU を含む尾部が外れる
     "c618": dict(fig=("illu", dict(
@@ -119,7 +121,8 @@ SPEC = {
         place="S5", start=dict(s5press="on", s5bulk="open", s5tailp="on", s5cone="off", s5fin="crack", s5hyd="on"), rec=S5R["hyd"],
         assume="推定",
         steps=[dict(state=dict(s5fin="lost", s5rud="off"), rec=S5R["rud"]),
-               dict(state=dict(s5hyd="cut"), rec=S5R["rud"], tag=dict(t="油圧の配管 4系統", at="cut", off=(-80, -200), anchor="end"))]))),
+               # 🆕 ⑥：off (-80, -200) は札の角を尾翼の線がかすめた（geom_gap・箱の中の点 2）＝(-110, -210)＝線から 25px（scratchpad place20.py）
+               dict(state=dict(s5hyd="cut"), rec=S5R["rud"], tag=dict(t="油圧の配管 4系統", at="cut", off=(-110, -210), anchor="end"))]))),
     # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1（`tools/illu20.py`・門番 check_illu ㉔）──
     # c606（3行）＝聞き役「お椀の形の、大きな壁」→ 後部圧力隔壁（BS2360）の弧 →「空気を詰めておく」で与圧の範囲（機首〜隔壁）の色
     "c606": dict(fig=("illu", dict(

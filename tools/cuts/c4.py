@@ -152,7 +152,8 @@ SPEC = {
         place="S2", start=dict(s2t="18:55:05"), rec=S2R["trace"],
         steps=[dict(state=dict(s2t="18:55:16"), rec=S2R["trace"], dur=0.8),
                # 🆕 ⑤c'：右下（off 90, 60）は札を経路の線が横切った（geom_gap・6点）＝山の印の左（-70, 0）＝線から 63px
-               dict(state=dict(s2t="18:55:40"), rec=S2R["trace"], dur=1.6, tag=dict(t="三国山", at="mikuni", off=(-70, 0), anchor="end")),
+               # 🆕 ⑥：札は機の印が着いてから（mend）出て次の行で消える＝2行目が短く約0.6秒しか出なかった（⑤c' 周2）→ keep（c416 の「横田」と同じ）
+               dict(state=dict(s2t="18:55:40"), rec=S2R["trace"], dur=1.6, tag=dict(t="三国山", at="mikuni", off=(-70, 0), anchor="end", keep=True)),
                dict()]))),
     # ── 🆕 ⑤b-5（2026-10-10）：模式図（`tools/mech20.py`・門番 check_mech の judge_m20）──
     # c403（3行）＝無線の相手（別添6 p.333 18:46:09「羽田にコンタクトしますか？」・18:46:16「このままでお願いします」）。札は機関の名・記録の言葉

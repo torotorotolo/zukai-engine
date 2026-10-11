@@ -103,8 +103,11 @@ SPEC = {
     # c806（3行）＝前の再現 c720（S1・横から）→ 正面から＝合図（台本の画の欄の🔁）。隔壁の円 → L18 の継ぎ目（ほぼ全体）
     "c806": dict(fig=("illu", dict(
         place="S6", start=dict(view="front", switch="on"), rec=S6R["front"],
-        steps=[dict(), dict(state=dict(s6l18="on"), rec=S6R["l18"], tag=dict(t="L18 の継ぎ目", at="l18", off=(-40, -150), anchor="end")),
-               dict(tag=dict(t="余白が足りない", at="l18r", off=(40, 150)))]))),
+        # 🆕 ⑥：off (-40, -150) は札の右の端に隔壁の円・ストラップの輪・横の線が重なった（geom_gap・2行目だけ＝静止画に写らない）
+        #   ＝円の外の左上 (-110, -190)＝線から 25px（scratchpad place20.py）
+        steps=[dict(), dict(state=dict(s6l18="on"), rec=S6R["l18"], tag=dict(t="L18 の継ぎ目", at="l18", off=(-110, -190), anchor="end")),
+               # 🆕 ⑥：off (40, 150) は札に隔壁の円の縁と横の線が重なった（原寸＝縁取りで読めるが・geom_gap）＝円の外の右下 (110, 210)＝線から 23px
+               dict(tag=dict(t="余白が足りない", at="l18r", off=(110, 210)))]))),
     # c809（2行）＝正面 → 横から（断面）＝合図。指示の継ぎ方：継ぎ板1枚が上と下の板にまたがる → 上の板を2列で留める
     "c809": dict(fig=("illu", dict(
         place="S6", start=dict(s6kind="plan", switch="on"), rec=S6R["plan"],

@@ -111,7 +111,9 @@ SPEC = {
     "c711": dict(
         t="1列の所の強さ", s="L18 の継ぎ目の2つの留め方",
         fig=("m20", dict(view="rows",
-                         steps=[dict(state=dict(bars="on"), tag=dict(t="強さ（推定）", at="str", to="bar")),
+                         # 🆕 ⑥：左寄せ（at="str"）は引き出し線が字の左下から右の棒へ伸び、字の下の端を横切った（原寸・geom_gap 箱の中の点 23）
+                         #   ＝同じ位置の右寄せ（x 306）＝線は字の右の端から出る（_stage_svgs の sx）
+                         steps=[dict(state=dict(bars="on"), tag=dict(t="強さ（推定）", at=(306.0, 812.0, "end", 300.0), to="bar")),
                                 dict(state=dict(crack="on"), tag=dict(t="亀裂が生まれやすい", d="推定", at="crack", to="crack"))],
                          note="断面は付図-38 を簡単にした模式（板の重なりと列の数）・棒は本来の強さとの比", src=ss.src(["報告書 p124", "報告書 p174"])))),
     # c712（3行）＝2列の線 → 1列の線（2倍強の速さ＝p65）→ 同じ長さまでの回数が半分ほど。線の形は模式・数字は書かない

@@ -132,9 +132,15 @@ SPEC = {
     "cb03": dict(fig=("illu", dict(
         place="S7", start=dict(s7area="on"), rec=S7R["area"],
         steps=[dict(),
+               # 🆕 ⑥：off (80, -80) は札を陸（神奈川の海岸）の海岸線が横切った（geom_gap・箱の中の点 26・2行目だけ）＝同じ高さで左へ
+               #   箱 x 848〜1058（海岸線から 17.5px・scratchpad place_cb03.py）。左寄せ (-140, -80) は自分の線が字の左下の角をかすめた
+               #   （点が右下＝線が字の左の端へ向かう）＝真ん中寄せ（線の先は字の下の真ん中の外＝illu.tag_svg）で同じ箱 (-25, -80)。
+               #   ⚠️ 右下 (270, 30) は引き出し線が「三浦半島」を横切った（geom_gap 箱の中の点 21＝字の箱だけ測る道具の穴）
                dict(state=dict(s7deb="on", s7cur="on", s7drop="on"), rec=S7R["drop"],
-                    tag=dict(t="浮いていた破片", at="deb", off=(80, -80))),
-               dict(state=dict(s7path="on", s7boom="on"), rec=S7R["path"], tag=dict(t="あの音がした地点", at="boom", off=(-60, 110), anchor="end"))]))),
+                    tag=dict(t="浮いていた破片", at="deb", off=(-25, -80), anchor="middle")),
+               # 🆕 ⑥：off (-60, 110) は札の後ろを伊豆半島の先の海岸線が通った（原寸＝縁取りで読める・geom_gap 箱の中の点 29）＝左下
+               #   (-230, 140)＝海岸線から 21px（scratchpad place20.py・⑤c' の「稲取」と同じ型）
+               dict(state=dict(s7path="on", s7boom="on"), rec=S7R["path"], tag=dict(t="あの音がした地点", at="boom", off=(-230, 140), anchor="end"))]))),
     # cb07（2行）＝付図-21 の窓：17か所を深海カメラで調べた → どこにも残骸なし（× の印）→ 泥・砂・岩場
     "cb07": dict(fig=("illu", dict(
         place="S7", start=dict(s7frame="area", s7area="on", s7pts="on", s7path="on", s7boom="on"), rec=S7R["pts"],

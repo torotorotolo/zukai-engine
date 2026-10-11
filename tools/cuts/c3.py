@@ -168,7 +168,8 @@ SPEC = {
     "c308": dict(
         t="4つの系統", s="油圧の管（エンジンごとのポンプから）",
         fig=("m20", dict(view="hyd", start=dict(pipes="on"),
-                         steps=[dict(state=dict(num="on"), tag=dict(t="4系統", at="num", to="eng1")),
+                         # 🆕 ⑥：線の先（eng1＝丸の下の点 787, 508）が丸の中の「1」に刺さった（原寸・geom_gap）＝丸（中心 787, 500・半径 17）の外の縁で止める
+                         steps=[dict(state=dict(num="on"), tag=dict(t="4系統", at="num", to=(766.6, 495.1))),
                                 dict(state=dict(ask="on"), tag=dict(t="尾翼", at="tail", to="tail"))],
                          rel=[dict(t="4系統", src="報告書 p112（配管を4系統）")],
                          note="管の道すじは模式（ポンプはエンジンごと）",
@@ -181,7 +182,9 @@ SPEC = {
         fig=("m20", dict(view="apt",
                          steps=[dict(state=dict(pick="on"), tag=dict(t="羽田（東京国際空港）", at="pick", to="haneda")),
                                 dict(state=dict(why="on")),
-                                dict(state=dict(ok="on"), tag=dict(t="報告書の見立て", at="ok", to="ok"))],
+                                # 🆕 ⑥：左上（at="ok"）からの引き出し線が「羽田（東京国際空港）」の「港）」を横切った（原寸・geom_gap 箱の中の点 22）
+                                #   ＝チェックの印（x 1465〜1545・y 405〜471）の右に並べる（線なし・印から 15px）
+                                dict(state=dict(ok="on"), tag=dict(t="報告書の見立て", at=(1560.0, 450.0, "start", 280.0)))],
                          note="並びは東西の順（間は模式）・報告書に滑走路の長さの数は無い", src=ss.src(["報告書 p117"]))),
     ),
     # c317（2行）＝横から：推力を上げて機首を上げる（3.2.7.5(2) p.117 の推定）→ 上から：左右に差をつけたら？（聞き役の問い）

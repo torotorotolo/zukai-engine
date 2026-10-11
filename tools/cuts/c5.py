@@ -133,7 +133,9 @@ SPEC = {
     #   ⚠️ 語りの「5時37分ごろ 長野県警」は表3 に無い＝朝の点に時刻の札を付けない（5:33 と取り違えない）
     "c513": dict(fig=("illu", dict(
         place="S4", start=dict(s4n="4", s4ring="on"), rec=S4R["ring"],
-        steps=[dict(state=dict(s4dawn="on", s4m="1"), rec=S4R["dawn"], tag=dict(t="4:39", at="p5", off=(-60, -70), anchor="end")),
+        # 🆕 ⑥：off (-60, -70) は札を 4キロの輪が横切った（geom_gap・箱の中の点 4＝1行目だけ出る札＝⑤c の静止画に写らない）
+        #   ＝輪の内側（点 p5 と同じ側）へ (-10, -90)＝4キロの輪から 20px・引き出し線も輪を横切らない（scratchpad place20.py）
+        steps=[dict(state=dict(s4dawn="on", s4m="1"), rec=S4R["dawn"], tag=dict(t="4:39", at="p5", off=(-10, -90), anchor="end")),
                dict(state=dict(s4m="3"), rec=S4R["pts"])]))),
     # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1（`tools/illu20.py`・門番 check_illu ㉔）──
     # c526（2行）＝前の再現 c513（S4・上から）→ 横から＝合図（台本の画の欄の🔁）。機体の後ろに輪（壁の名は c606 で出す）

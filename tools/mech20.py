@@ -765,7 +765,9 @@ def fix_stage(prev, st):
         g.append(F.rect(ex - 22, ey - 22, 44, 44, "none", COL["radar"], 3))
         g.append(F.line(ex - 22, ey - 22, x1, y0 + 20, COL["radar"], 2, "6 8") + F.line(ex - 22, ey + 22, x1, y0 + 120, COL["radar"], 2, "6 8"))
         cx, cy = (x0 + x1) / 2, (y0 + y1) / 2 + 30
-        g.append(F.line(cx, y1 - 6, cx, y0 + 6, COL["mark"], 2, "10 8"))
+        # 🆕 20本目 ⑥：光線の点線を窓の下の端（y1−6）まで引くと、c507 の下の札「距離 1海里（約1.9キロ）」（幅 385＝点線の左右どちらにも
+        #   収まらない）を縦に横切った（原寸・geom_gap）＝札の上で止める（y1−70＝札の上の端から 16px）
+        g.append(F.line(cx, y1 - 70, cx, y0 + 6, COL["mark"], 2, "10 8"))
     if _on(prev, st, "pa"):
         x0, y0, x1, y1 = FX_ZOOM
         cx, cy = (x0 + x1) / 2, (y0 + y1) / 2 + 30
@@ -938,7 +940,8 @@ def apt_base(st0):
          _t(AP["x1"], AP["y"] + 44, "東", 24, J.TICK, "end")]
     for k, (x, nm, _lon) in AP_PTS.items():
         g.append(F.circ(x, AP["y"], 16, COL["radar"], COL["dark"], 3))
-        g.append(F.txtfit(x, AP["y"] + 64, nm, 360, cap=32, col=INK, anchor="middle"))
+        # 🆕 20本目 ⑥：y+64 は「東京国際空港」の上の端に羽田の輪（半径 40）の下の端が乗った（原寸・geom_gap）＝+80（輪から 10px・下の理由の箱から 19px）
+        g.append(F.txtfit(x, AP["y"] + 80, nm, 360, cap=32, col=INK, anchor="middle"))
     return g
 
 
@@ -1321,7 +1324,8 @@ def seal_base(st0):
     # ⚠️ 焼き直し ep20_b6fix：板の上の端の上に置くと、左の「客室の側」が左上の見え方の札のすぐ右に並び、続きの文に読めた＝
     #    断面の横（リベットの頭の外）・列のあいだの高さ
     g.append(_t(xl - 0.2 * k - 30, cy + 0.5 * k + 8, "客室の側", 24, J.TICK, "end"))
-    g.append(_t(xr + 0.12 * k + 30, cy - 0.5 * k + 8, "後ろの側", 24, J.TICK))
+    # 🆕 20本目 ⑥：c816 の「シール材」の引き出し線（1000, 368 → 746, 612）が「側」を横切った（原寸・geom_gap）＝50px 上（線から約35px・リベットの頭から 27px）
+    g.append(_t(xr + 0.12 * k + 30, cy - 0.5 * k + 8 - 50, "後ろの側", 24, J.TICK))
     return g
 
 
