@@ -466,6 +466,86 @@ SCENES.update({
 })
 
 
+# ── 🆕 20本目 日本航空123便のリメイク（2026-10-11・⑥）＝カズヤくん「サムネAの写真がイマイチ。事故の瞬間を象徴するような
+#    実写写真を OpenAI API で生成。生成前に案を出し、承認してから生成」。🔴 札は新規（ほかの回の札を流用しない＝ルール 6-55④）
+#    事実の芯（報告書）：18:24:35 ごろ・巡航高度 24,000 フィート（約7,300メートル）に達する直前・相模湾の上空・夕方（日没は約18:40）。
+#    垂直尾翼の大部分（上の部分と方向舵）と尾部の円すい（APU）が失われた＝火も煙も出ていない（構造の破壊）。機体は 747SR-100
+#    （短い2階・4発）・白い胴体の上・窓の帯の赤い線＝**文字・ロゴ・登録記号は描かせない**（字形が崩れる・鶴丸は尾翼ごと壊れる）
+LOOK_JAL = (
+    "A real PHOTOGRAPH, indistinguishable from documentary press photography, taken with a very long telephoto lens "
+    "from very far away. Natural evening daylight in August: a low sun from the side, warm but soft, slight "
+    "atmospheric haze, slightly desaturated colours, the fine natural grain of 1980s colour negative film, true "
+    "photographic depth of field. Physically accurate materials: painted aluminium skin, torn sheet metal, rivets. "
+)
+FRAME_JAL = (
+    "COMPOSITION, critical: 16:9 frame. The TOP 25% and the BOTTOM 26% will later be covered by two lines of very large "
+    "text, and the corners will be darkened. So the aircraft — described above — must sit in the MIDDLE HORIZONTAL "
+    "BAND, across most of the width, its nose pointing to the LEFT. Keep the top quarter as plain, empty, pale evening "
+    "sky, and the bottom quarter as plain, hazy, featureless sea far below, so that large lettering will read cleanly "
+    "over them. Keep the bottom-right corner dark. "
+)
+BAN_JAL = (
+    "No text, letters, numbers, words, signs, logos, airline names, registration markings, emblems, labels or "
+    "watermarks of any kind, in any language. No other aircraft. "
+)
+TAIL_JAL = (
+    "The result must look like a genuine photograph of the real event at that very instant — sudden, shocking and "
+    "real. It must NOT look like a render, a video game, a movie poster, a 3D visualisation or an illustration. No "
+    "lens flare, no cinematic colour grading, no fire, no smoke trail, no explosion fireball — the damage is purely "
+    "structural: metal tearing apart and pieces flying off. Scale must read correctly: a huge four-engine jumbo jet "
+    "seen from far away."
+)
+JAL_PLANE = (
+    "The aircraft: a Boeing 747 jumbo jet of the early 1980s — the 747SR version with the SHORT upper-deck hump "
+    "right behind the cockpit — four engines hanging under the swept wings, white upper fuselage, a thin red stripe "
+    "along the row of cabin windows, metal-grey lower fuselage, and no lettering or logos anywhere. "
+)
+SCENES.update({
+    "jal_a": {
+        "ep": "ep20",
+        "name": "尾翼がはじける瞬間（夕方・相模湾の上空・高い空で垂直尾翼の上の部分がちぎれて破片が後ろへ飛ぶ・機体はまっすぐ飛んでいる）",
+        "hypothesis": "事故の瞬間そのもの（c102「ドーン」）。何が壊れたか（尾翼）が 210px でも形で分かる。"
+                      "赤「生存者4人 全員が後ろの席」の「後ろ」と、壊れた後ろ（尾部）が絵の上で結びつく",
+        "look": LOOK_JAL, "frame": FRAME_JAL, "ban": BAN_JAL, "tail": TAIL_JAL,
+        "scene": (
+            "August 12, 1985, about 6:24 in the evening, high above the sea south-west of Tokyo (Sagami Bay), at "
+            "about 7,000 metres. " + JAL_PLANE +
+            "At this very instant the upper part of its tall vertical tail fin is breaking apart, torn away by air "
+            "pressure from inside the tail: large sheets of white-painted metal skin and pieces of the fin structure "
+            "are blasting off and tumbling away behind the aircraft, with a scatter of small debris, and the cone at "
+            "the very end of the fuselage is torn open. The rest of the aircraft is still intact and flying straight "
+            "and level. Seen exactly side-on from far away and slightly below, so that the whole aircraft runs "
+            "horizontally across the middle band of the frame and the breaking tail stands out clearly against the "
+            "sky. "
+        ),
+    },
+    "jal_b": {
+        "ep": "ep20",
+        "name": "尾翼を失って山の上を飛ぶ機体（夕暮れ・群馬の山並み・尾翼はぎざぎざの根元だけ）",
+        "hypothesis": "約30分の操縦できない飛行（c104）。尾翼の無い機影は旧版の写真-124 と同じ芯＝この事故だと分かる。"
+                      "ただし「瞬間」ではない＝A のほうが依頼に近い",
+        # 🆕 カズヤくん（10-11・案A の生成のあと）「案Bの画像も生成。当時の写真の質感を再現するような粗さで」＝質感だけ 1985年の写真に
+        "look": (
+            "A real PHOTOGRAPH taken in August 1985 from the ground, from very far away, with a long telephoto lens on "
+            "fast ISO 400 colour negative film, and scanned from the original print. It has the rough, imperfect look "
+            "of a real photograph of that time: heavy, coarse film grain everywhere, slightly soft focus and a little "
+            "haze from the great distance, low contrast, muted and slightly faded colours with a warm cast, faint dust "
+            "specks and slight unevenness in the print. Nothing is crisp or digital. "),
+        "frame": FRAME_JAL.replace("plain, hazy, featureless sea far below",
+                                                     "dark, featureless forested mountain ridges far below"),
+        "ban": BAN_JAL, "tail": TAIL_JAL,
+        "scene": (
+            "August 12, 1985, about 6:45 in the evening, over the steep, dark green forested mountains of Gunma, "
+            "Japan. " + JAL_PLANE +
+            "The aircraft has lost almost all of its vertical tail fin: only a short, jagged, torn stump of metal "
+            "remains above the rear fuselage, and the very end of the fuselage behind it is ragged and open. It is "
+            "flying low and slightly banked under a pale evening sky. Seen side-on from far away and slightly below, "
+            "so that the whole aircraft runs horizontally across the middle band of the frame. "
+        ),
+    },
+})
+
+
 def build(v):
     """🔴 質感（look）と締め（tail）は**場面ごとに差し替えられる**（2026-09-22 追加）。
 

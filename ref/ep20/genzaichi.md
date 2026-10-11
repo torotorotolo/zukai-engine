@@ -371,5 +371,13 @@
 - ⑥の前の注意の決着：c605 は据え置き（試写で見る）・c417 は札を keep・**geom_gap を全235カットで回した**（台帳 `qa_out/ep20_qa_look1.md` §9）→ 12カットを直した（m20 5・illu 6・S7 の地名1）→ qa_all 28/29 → commit `f0095bd`（push）
 - 焼き ep20_r01qa（Actions `38117437525`）：ep20_c5fix と735枚のうち710枚 md5 一致・違う25枚は直したカットだけ・sub_center ✓・原寸 r06 r07 で良い
 - 本レンダ r01（Modal `ap-AWuSGWy0oARKVmCJdWtQL9`・`--ref f0095bd6f822da47742aa11c6f577d5fb695df1b`・`--bgm music`）：★全体の指紋 `964a5813…3697e`＝Actions と一致・切り出し 6/6（3回とも）・⚠️ プリエンプション2回（3回とも `f0095bd`）・⚠️ Modal から Commons の媒体（730MB）を落とすのに約16分（Actions は32秒）
-- サムネ A（`thumb_jiko.ep20()`）・B1（`thumb_docu.ep20_b1()`）・概要欄の道具 `qa_out/ep20_meta.py`（用語19語 `ref/ep20/yougo.md`）＝commit `4dd45cc`（手元）
+- サムネ A（`thumb_jiko.ep20()`）・B1（`thumb_docu.ep20_b1()`）・概要欄の道具 `qa_out/ep20_meta.py`（用語19語 `ref/ep20/yougo.md`）＝commit `4dd45cc`
 - 試写の手引き＝Vault `Projects/事故検証-20本目-試写の手引き-20261011.md`
+- ✅ **試写 OK**（カズヤくん・10-11）。🆕 決め：**次の動画から写真は画面いっぱい**（方眼紙の地に額で置かない・20本目は今のまま＝記憶 feedback-jiko-photos-full-screen）
+- サムネ：カズヤくん「A の写真がイマイチ。事故の瞬間を象徴する実写写真を OpenAI API で生成（案を承認してから）」→ 案A「尾翼がはじける瞬間」を承認・生成（`gen_thumb_ai.py jal_a`）→「案B も当時の写真の質感の粗さで」→ 案B「尾翼を失って山の上を飛ぶ機体」を生成（`jal_b`）→「文字帯の間を飛行機で埋める」寄り → **公開のサムネ＝案B v3**（`out/thumb/ep20-ab/ep20_B_ai_v3.png`・md5 944f655e…）・A/B のもう1枚＝B1（10-07 の決め）。gpt-image-2.5-flare high 2枚＝約 $0.4
+- 概要欄＝`config/meta_ep20.json`（題 93字・説明 3,680字・タグ15・生成 AI の断り書き＝ルール 6-55⑦・B1 の写真の注）
+- **公開**＝`87-AJdfgvok`（GO「即時公開」→ 非公開で上げる → 処理 succeeded → public・10-11）。照合は公開の前と後で全項目一致（`qa_out/ep20_r01/verify_upload_pre.txt`・`verify_upload.txt`）
+
+### 残り（20本目）
+- サムネの A/B：公開のあとカズヤくんが Studio の「テストと比較」に B1（`out/thumb/ep20-ab/ep20_B1_docu.png`）を入れる
+- 片づけ：検品画像と本番の mp4 は `out/_削除待ち_20261011/` へ移した（消すのはカズヤくん）・作業ツリー ep20a5 は残す

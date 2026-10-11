@@ -1415,6 +1415,29 @@ def ep20():
         raise SystemExit(f"🔴 赤が {len(RED)}字（型は10〜14字・空白を含む）: {RED}")
     hero = photo(EP20_J1, cx=1.0, cy=0.24, zoom=2.05, contrast=1.15, color=1.0, bright=0.88)
     bake("ep20-ab/ep20_A", fx_type(hero, RED, YEL, "e_veil", yel_plain=True))
+    # 🆕 ⑥（10-11）試写のあとカズヤくん「サムネAの写真がイマイチ。事故の瞬間を象徴するような実写写真を OpenAI API で生成」
+    #    → 案A「尾翼がはじける瞬間」を承認 → `gen_thumb_ai.py jal_a`（1枚・約$0.2）。字と型は上と同じ（地だけ替える）。
+    #    生成の絵は色の調整ずみ＝強くかけない（16本目の AI の地と同じ値）
+    # 🆕 カズヤくん（10-11）「もう少し写真を拡大。上下の文字帯の間ギリギリを飛行機で埋めるように」＝元の絵の機体は
+    #    横 160（機首）〜約1,340（ちぎれた尾翼の先）・縦 264（尾翼の上）〜約600（エンジンの下）＝文字帯のあいだ（縦 約124〜512）に
+    #    機首から尾翼の先まで切らずに入るいちばん大きい寄り＝倍率 1.075（zoom 1.505・切り出し 横 152〜1343・縦 142〜812）。
+    #    前の版（寄りなし）は ep20_A_ai_v1.png（md5 ec9ab669…）
+    ai = photo("ep20/ai/ep20_jal_a_orig.png", cx=0.253, cy=0.420, zoom=1.505, contrast=1.06, color=1.02, bright=1.00)
+    bake("ep20-ab/ep20_A_ai", fx_type(ai, RED, YEL, "e_veil", yel_plain=True))
+    # 🆕 カズヤくん（10-11）「案Bの画像も生成。当時の写真の質感を再現するような粗さで」＝`gen_thumb_ai.py jal_b`（1枚・約$0.2）。
+    #    字と型は A と同じ（比べるため）。粗さを消さないよう強調は弱く
+    #    寄り＝A と同じ考え（文字帯のあいだに機体）。機体は 横 338〜1420・縦 358（尾翼の根元の上）〜592（エンジンの下）＝細長い
+    #    ＝機首と尾部を切らずに入る倍率 1.14（zoom 1.597・切り出し 横 318〜1440・縦 196〜827）。縦は帯の真ん中
+    b = photo("ep20/ai/ep20_jal_b_orig.png", cx=0.475, cy=0.520, zoom=1.597, contrast=1.04, color=1.0, bright=1.00)
+    bake("ep20-ab/ep20_A_ai_b", fx_type(b, RED, YEL, "e_veil", yel_plain=True))
+    # 🆕 カズヤくん（10-11）「飛行機をもっと拡大。文字帯の間を飛行機で埋めるように」＝左右は切れてよい・事故の目印は残す
+    #    A v3：倍率 1.155（尾翼の上 264→出力 124・エンジンの下 600→512）＝切り出し 横 232〜1340（ちぎれた尾翼の先まで残し、機首の先を少し切る）
+    #    B v3：倍率 1.5（機体の縦 234→351）＝切り出し 横 560〜1413（尾翼の根元まで残し、機首と操縦室を切る）・縦は帯の真ん中
+    a3 = photo("ep20/ai/ep20_jal_a_orig.png", cx=0.339, cy=0.407, zoom=1.617, contrast=1.06, color=1.02, bright=1.00)
+    bake("ep20-ab/ep20_A_ai_v3", fx_type(a3, RED, YEL, "e_veil", yel_plain=True))
+    #    ⚠️ 横 560〜1413 は尾翼の根元が右の端にかかった（「尾翼が無い」が伝わらない）＝右の端を 1440 へ（横 587〜1440・cx 0.625）
+    b3 = photo("ep20/ai/ep20_jal_b_orig.png", cx=0.625, cy=0.50, zoom=2.10, contrast=1.04, color=1.0, bright=1.00)
+    bake("ep20-ab/ep20_B_ai_v3", fx_type(b3, RED, YEL, "e_veil", yel_plain=True))
 
 
 if __name__ == "__main__":
