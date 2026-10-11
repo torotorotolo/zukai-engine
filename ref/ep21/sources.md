@@ -236,7 +236,53 @@
 - P200056T の逐語の全行（OCR の取りこぼしがある）
 - 乗員の名簿は係の手元の知識から作った（公的な名簿とは照合していない。33人全員が報告書の中に見つかった＝報告書とは合う）
 
+## 11. ②③（2026-10-11）で原寸で見た頁と、ウェブの宿題の答え
+
+> 21本目の2本目のチャット（②③）。**画像は親が自分で見た**（サブエージェントに読ませていない）。頁は PyMuPDF で 110〜200dpi に書き出し、要る所だけ PIL で切り出した（文字の層0の頁は Windows OCR の行の箱で位置を決めた）。写しと切り出しは scratchpad（git の外）。🔴 この節も私人と乗っ取った側の名前を書かない
+
+### 11-1. 人が原寸で見た頁（claims_check §4 の10件19頁＋この台帳 §9 の2件）
+
+| # | 頁 | 見た結果（原寸） | ①の記述との差 |
+|---|---|---|---|
+| 1 | NTSB 11便 PDF p1〜p2 | 離陸「runway 4R … at approximately 8:00 AM」／「At 8:13:29, while passing through 26,000 ft., Boston Center instructed flight 11 to turn 20 degrees to the right. The crew acknowledged」／「at 8:13:47 (point B), Boston Center instructed flight 11 to climb and maintain 35,000 ft. The crew never acknowledged」／「At 8:24:38 an unknown voice … “we have some planes just stay quiet and you'll be okay we are returning to the airport.”」／「At about 8:21 (point D) radar stations stop receiving transponder returns」／**「impacted the North tower at approximately 8:46:40 (point I)」** | 🔴 **訂正**：①（claims_check §3-1・§4 #1）の「NTSB 約8:?:40（OCR で分が欠ける）」＝**分は刷られている（8:46:40）**＝NTSB は委員会と同じ値。⚠️ 同じ頁の「the 1 hour and 47 minute duration of the flight」は離陸〜衝突（約47分）と合わない＝使わない |
+| 2 | NTSB 175便 PDF p2 | 「about 8:33 AM (B)」／「The final radio transmission … at 8:42 (D)」／**「at 8:47, when the aircraft changed beacon codes twice within a one-minute period (E)」**／「At approximately 8:51 … deviated from the assigned altitude」／「At 8:52, FAA's New York Center … attempted to contact the flight several times」／「reaching 33,500 feet」／**「impacted the south tower … at approximately 9:02:40 AM」** | 一致（①のとおり） |
+| 3 | NTSB 77便 PDF p2 | 「departed Washington Dulles at 8:20 AM」／「approximately 8:55(C), when the aircraft started a turn to the south. One minute later, radar stations stopped receiving transponder returns」／「At approximately 9:07 AM … leveled off at 25,000 feet … One minute later, the autopilot was disconnected for approximately 3 minutes … as low as 22,000 feet」／**「At approximately 9:29 AM, when the aircraft was approximately 35 miles west of the Pentagon, the autopilot was disconnected (F) as the aircraft leveled near 7000 feet」**／「At 9:34 AM … about 3.5 miles west-southwest of the Pentagon, and started a right 330-degree descending turn to the right. At the end of the turn, the aircraft was at about 2000 feet altitude and 4 miles southwest」／「accelerated to approximately 460 knots (530 miles per hour)」／**「The time of impact was 9:37:45 AM.」** | 一致。「9:08ごろの解除」＝原文は「9:07 の1分後・約3分」 |
+| 4 | NTSB 77便 PDF p4〜p7 | **p4＝図2「Altitude Profile」（FDR Pressure Altitude・横倒し）**：8:20 離陸→8:46ごろ 35,000ft→9:00ごろから降下→9:07ごろ約25,000ft（9:09ごろ約22,000ft まで揺れる）→9:22ごろから急な降下→9:29ごろ約7,000ft（F）→約6,800〜8,800ft で揺れ→**9:34ごろから約4分で地上へ**。p5＝地図（横倒し・OCR で「Pentagon」「Impact」）。**p6〜p7＝図ではなく管制の交信の表**（時刻と話し手の欄＝OCR で 8:19:20〜9:03 台） | 🔴 **訂正**：①の「p4〜p7＝図」→図は p4・p5 だけ。c418「最後の数分で一気に」＝線には出るが、9:22〜9:29 の降下も同じくらい急＝kousei §7 |
+| 5 | NTSB 93便 PDF p2 | 「departed Newark, NJ at 8:42 am」／「cruising altitude of 35,000 feet at about 9:02 am」／**「a brief descent of about 600 feet starting at 9:28 (C). The words “get out of here” and sounds of a struggle were recorded on the air traffic control radio」**／「CVR … began providing sounds from the cockpit at approximately 9:32」／**「At 9:34 (D) … begins a left turn to a Southeast heading of 120°」**／「maximum altitude of 41,000 feet for about 2 minutes … descending at about 9:39」／「stopped receiving transponder returns … at approximately 9:41」／「From approximately 10:00 to 10:02 there were four distinct control column inputs」／「impacted the ground at about 490 knots (563 mph) in a 40 degree nose-down, inverted attitude. **The time of impact was 10:03:11.**」 | 一致（OCR が落とした「left」を原寸で補った） |
+| 6 | NCSTAR 1 PDF p55（印字 p5） | 「The roof of WTC 1 was **1,368 ft above the Concourse Level**, 6 ft taller than WTC 2, and supported a **360 ft** tall antenna mast」／「a square, **about 210 ft** on a side」／「each floor was a square, about 206 ft on a side」 | 一致 |
+| 7 | NCSTAR 1 PDF p134（印字 p84） | 表6–1「Times for major events on September 11, 2001.」＝First Aircraft Strike **8:46:30**／Second **9:02:59**／Collapse of WTC 2 **9:58:59**／Collapse of WTC 1 **10:28:22**。崩壊の時刻は「建物全体が崩れ始めたのが最初に見えた時点」と定義 | 一致 |
+| 8 | NCSTAR 1-6 PDF p240（印字 p156）／PDF p79（印字 p.lxxv） | 表6–1「WTC 1 Timeline of Observed Structural and Fire Events.」1行目 Start Time **8:46:26**（Floors 93-99・Face N・Columns 109-152）／**Finding 24**「The time to collapse initiation was 102 minutes from the aircraft impact (**8:46:30** a.m. until 10:28:22 a.m.)」 | 一致（同じ巻の中で 8:46:26 と 8:46:30 が割れる） |
+| 9 | 委員会報告 PDF p50〜p51（印字 p32〜p33）の図表 | 11便：7:59 Takeoff・8:14 Last routine radio communication; likely takeover・8:19・8:21・8:23・**8:25 Boston Center aware of hijacking**・**8:38 Boston Center notifies NEADS**・8:46 NEADS scrambles Otis・8:46:40・8:53 Otis airborne・9:16・**9:21 Boston Center advises NEADS that AA 11 is airborne heading for Washington**・**9:24 NEADS scrambles Langley fighter jets in search of AA 11**／175便：8:14・8:42・8:42-8:46 Likely takeover・8:47・8:52・8:54・**8:55 New York Center suspects hijacking**・9:03:11・9:15・9:20／77便：8:20・8:51・8:51-8:54・8:54・8:56・**9:05 AA headquarters aware that Flight 77 is hijacked**・9:25 Herndon … nationwide ground stop・9:32・9:34・9:37:46・10:30／93便：8:42・**9:24 Flight 93 receives warning from UA**・9:27・9:28・9:34・9:36・9:41・9:57 Passenger revolt begins・10:03:11・10:07・10:15 | 🔴 **割れる**：77便の 9:05（図表）と本文 p9「Shortly before 9:10, suspecting …」。9:24（受信）は本文と合う。8:38 は本文の 8:37:52 の丸め |
+| 10 | 委員会報告 PDF p1〜p4 | p1＝「THE 9/11 COMMISSION REPORT」だけ（半扉）／p3＝扉「Final Report of the National Commission on Terrorist Attacks Upon the United States」「OFFICIAL GOVERNMENT EDITION」・販売の文・ISBN 0-16-072304-3／**p2・p4＝白紙**（画素の最小値255）。**刊行年はどこにも刷られていない**（前付け PDF p1〜p18 の文字の層でも「2004」0件） | 刊行日は govinfo の書誌 2004-07-22（§1-1）で言う |
+| 11 | P200056T（93便の CVR の逐語）PDF p7 | **「10:00:25 _In the cockpit. If we don't, we'll die._」**／「10:00:29 **Up, down. Up, down, in the** _cockpit._」／「10:00:33 **The** _cockpit._」／（10:00:37 の行は乗っ取った側の名前を含む＝写さない）／**「10:00:42 _Roll it._」**／「10:00:55 Unintelligible.」。頁の凡例（p1・OCR）「Bolded text = English translation from Arabic」 | 🔴 委員会 p14 の「Roll it!」＝この 10:00:42 の行。委員会の 10:00:26 は逐語の 10:00:25 と1秒違う。⚠️ 全9頁の通しは見ていない＝「Let's roll が逐語に無い」は p7 の範囲だけ |
+| 12 | NCSTAR 1 PDF p79（印字 p29） | 囲み「Structural steels do not need to melt to lose strength. Their melting points are **about 1,600 °C**, well above the 1,100 °C typical peak value」／本文「At temperatures of about 300 °C, steel loses about 20 percent of its yield strength」 | 一致（文字の層の「1 ,600」は層の崩れ） |
+
+- 見た画像＝10枚（NTSB 4本の本文4・77便の高度の図1・NIST 4頁の切り出しを1枚に・93便 p7・委員会の表紙と扉1・図表2）
+
+### 11-2. 旧版の言いすぎ・ずれ（claims_check §2）を委員会報告の文字の層で当て直した（②・自分で再現）
+- NFKC＋引用符をまっすぐ＋空白を1つに・行末ハイフンを消す／残すの2通りで文の単位で探した（scratchpad `chk4.py`）＝**§2 の20項目は①と同じ結論**
+- 足した頁：K025 の「1991」と「1993」＝**第1章 注91・注90（p457＝PDF p475）**（①は頁なし）／K045 の 8:29＝本文は「At 8:23 … Six minutes later, the air traffic control specialist in American's operations center contacted the FAA's Boston Air Traffic Control Center」（p5）＝**8:29 は計算**／K048 の 8:55＝「At about 8:55, the controller in charge notified a New York Center manager that she believed United 175 had also been hijacked.」（p22）／K027＝「reduced from its Cold War high of 26」（p16）・「only seven alert sites left」（p17）
+- 手順の3つの前提（kousei の c3 の芯）＝p18「the protocols in place on 9/11 for the FAA and NORAD to respond to a hijacking presumed that • the hijacked aircraft would be readily identifiable and would not attempt to disappear; • there would be time to address the problem through the appropriate FAA and NORAD chains of command; and • the hijacking would take the traditional form …」（①は未使用）
+
+### 11-3. ウェブの宿題の答え（legend #5・#26・§5 の置き場）
+| 何 | 答え | 出どころ（2026-10-11 に開いた） |
+|---|---|---|
+| **93便の機内からの電話の本数**（#26） | 「According to the FBI, **thirty-seven** phone calls were placed from on board Flight 93 between 9:28 … until the time of the crash at 10:03. **Thirty-five** of these calls were made on the Airfones located on the back of the seats in the last nine rows」・「Unless noted, the calls were made on Airfones」（＝残り2本は携帯）・「These phone records were entered as evidence during the sentencing trial of [被告] in 2006」 | 国立公園局（NPS）「Phone Calls from Flight 93」https://www.nps.gov/flni/learn/historyculture/phone-calls-from-flight-93.htm（Last updated: June 24, 2023）＝連邦の機関の頁（FBI の数を引く＝二次の公的な頁）。→ legend #26 は**崩れる**で確定 |
+| ムサウイ裁判の証拠の置き場（§5） | 旧の頁は404だが、**裁判所の頁は `coop.vaed.uscourts.gov` に移っている**＝P200055 の頁は開く（説明「Summary from Flight 93 depicting: the identity of pilots and flight attendants, seat assignments of passengers, and telephone calls from the flight」・中身は Flash の ZIP 27MB＝落としていない） | https://coop.vaed.uscourts.gov/moussaoui/exhibits/prosecution/flights/P200055.html |
+| **「Let's roll」の最初の出どころ**（#5） | 2001-09-17 の AP（Joann Loviglio）：乗客の1人が機内の電話で GTE の係員と13分話し、受話器を置いて回線が開いたままになったとき、係員が「Let's roll」を聞いた（乗客の妻が係員から聞いた話として）。**CVR の逐語にあるのは 10:00:42「Roll it.」**（§11-1 #11） | Seattle Times の AP の写し https://archive.seattletimes.com/archive/20010917/heroes17/last-words-from-victims-lets-roll （これより早い報道は見つけていない＝全数ではない）。⚠️ 係員の後年の話（「Are you guys ready? Okay. Let's roll」）は二次＝名前は出さない |
+| 委員会の聞き取りの記録（MFR） | Commons に NARA の写しの PDF がある（題「Memorandum for the Record (MFR) of …」＝NEADS の説明・ボストン・センターの訪問・運航管理者の聞き取りほか） | Commons のファイルの検索。④で要るときに頁を開く |
+| 「28ページ」（2016）・FBI の機密解除（2021〜22） | **調べていない**＝案A・案B とも範囲の外（「なぜ狙われたか」を扱わない） | — |
+
+### 11-4. 国防総省と運輸省の監察総監の2006年の報告（#20 の「わざと」）
+- **一次の頁は取れなかった**（運輸省の監察総監のサイト・国防総省の監察総監の置き場で見つからず、写しを載せたブログは Cloudflare で弾かれた＝403）
+- 当時の報道で言えること＝**運輸省の監察総監（代行）**：「We did not find evidence to conclude that FAA officials knowingly made false statements」・わざと省いた／誤りを知って直さなかった証拠も無い。ただし FAA の幹部3人が、委員会の問い（公式の時系列）への不正確な答えを直さなかった＝「administrative action」を勧めた（Air Force Magazine の Daily Report「DOT Agrees No Willful Deception」2006-09-07＝https://www.airandspaceforces.com/1140dot ）。報告の番号は CC-2006-085・2006-08-31（ブログの写しの見出し＝二次）
+- **国防総省の監察総監**：06-INTEL-12（2006-09-12）＝「不正確だったが、わざとではない」とした、と検索の要約にある（二次・本文は読めていない）
+- → 台本で言うなら「2006年、運輸省の監察総監は、FAA の職員がわざと偽った証拠は見つからないとした（当時の報道）」まで。言わないなら委員会報告 p34 の「incorrect」で足りる（kousei §11-3）
+
+### 11-5. ①の在庫の数の訂正（materials.md §7 に詳しく）
+- ①「撮影日 2001-09-11・幅1920以上・本当に A＝約470点」は、日付のカテゴリの下に**後年の追悼・行事の写真が混ざる**（2011年の記念館の名前の板・2023〜2024年の式典ほか）。説明に 9/11 の日付がある A は **240点**（ペンタゴン 143・大統領 39・WTC 14・ほか 44）＋日付の語の無い A 152＋議会図書館 251（C'）
+
 ## 関連
 
-- [legend_2026-10-11.md](legend_2026-10-11.md)／[claims_check_2026-10-11.md](claims_check_2026-10-11.md)／[old_script_inventory.md](old_script_inventory.md)／[materials.md](materials.md)
+- [legend_2026-10-11.md](legend_2026-10-11.md)／[claims_check_2026-10-11.md](claims_check_2026-10-11.md)／[old_script_inventory.md](old_script_inventory.md)／[materials.md](materials.md)／[kousei.md](kousei.md)（③の骨）
 - 20本目の同じ係の台帳＝[../ep20/sources.md](../ep20/sources.md)
