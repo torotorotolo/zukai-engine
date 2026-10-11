@@ -828,8 +828,65 @@ def ep19_b1():
     bake("ep19_B1_docu", "".join(g), ex, out=OUT19)
 
 
+# ── 20本目 日本航空123便のリメイク（2026-10-11・⑥）─────────────────────────────
+#    承認①（10-08）：A＝旧版（`thumb_jiko.ja123()`）の型で2点だけ直す（赤「生存者4人 全員が後ろの席」・地＝JA8119 の CC BY 2.0）・
+#       B は B1 だけ（10-07 の決め）。言葉は A と1字も変えない：赤 → 白「生存者4人」＋赤「全員が後ろの席」（主）／
+#       黄 → 白「日航123便」＋黄「26年後の解説」
+#    絵＝本編の S1（横から見た機体・`illu20.S1_*`＝付図-4 の形）を縮めて使う。垂直尾翼は S1_LOST_FIN（残った前の下の部分＝模式・
+#       範囲は特定できない）＋元の形を白い点線。白い弧＝後部圧力隔壁（BS2360）。赤い矢印＝客室の後ろ（生存者の座席列 54〜60 の
+#       あたり＝報告書 2.13.1・付図-5）。地＝夕方〜夜の空（墜落 18:56）と山の稜線（模式）。人は描かない
+OUT20 = HERE / "out" / "thumb" / "ep20-ab"
+TOP20 = [("日航123便", WHT, 96), ("26年後の解説", YEL, 96, 20)]
+BOT20 = [("生存者4人", WHT, 76), ("全員が後ろの席", RED, 118, 22)]
+
+
+def ep20_b1():
+    import illu as IL
+    import illu20 as I2
+    k, X0, CY = 11.0, 70.0, 410.0
+    P = lambda x, z: (X0 + x * k, CY - z * k)
+    pth = lambda pts, close=True: "M" + " L".join(f"{a:.1f},{b:.1f}" for a, b in pts) + (" Z" if close else "")
+    up, lo = IL._smooth(I2.S1_UP, per=6), IL._smooth(I2.S1_LO, per=6)
+    body = pth([P(*p) for p in up] + [P(*p) for p in reversed(lo)])
+    parts = [pth([P(*p) for p in I2.S1_WING]), pth([P(*p) for p in I2.S1_STAB]), pth([P(*p) for p in I2.S1_LOST_FIN])]
+    for x0, x1, zc, r in I2.S1_ENG:
+        parts.append(pth([P(x0, zc + r), P(x1 - 1.2, zc + r * 0.95), P(x1, zc + r * 0.45), P(x1, zc - r * 0.45),
+                          P(x1 - 1.2, zc - r * 0.95), P(x0, zc - r)]))
+    ghost = pth([P(*p) for p in I2.S1_FIN], close=False)
+    xb = I2.S1_XB
+    (bx0, by0), (bcx, bcy), (bx1, by1) = P(xb, 3.0), P(xb + 1.6, 0.4), P(xb, -2.2)
+    bulk = f'<path d="M{bx0:.1f},{by0:.1f} Q{bcx:.1f},{bcy:.1f} {bx1:.1f},{by1:.1f}" fill="none" stroke="#ffffff" stroke-width="5"/>'
+    ax = P(53.0, 0)[0]
+    ay = P(0, 3.35)[1]
+    # 山の稜線（模式）＝左から右へ波打つ。白い縁は ep18 の海底と同じ作り
+    ridge = [(0, 600), (90, 575), (170, 590), (260, 548), (340, 566), (430, 530), (520, 560), (610, 542), (700, 572),
+             (790, 538), (880, 556), (980, 520), (1080, 548), (1170, 528), (1280, 552)]
+    rfill = pth(ridge + [(1280, 720), (0, 720)])
+    rline = pth(ridge, close=False)
+    ex = (red_pattern("rt20") + kasure_mask() + f'<clipPath id="rg20"><path d="{rfill}"/></clipPath>')
+    red_parts = "".join(f'<path d="{d}" fill="url(#rt20)" stroke="#3a0000" stroke-width="3" stroke-linejoin="round"/>' for d in parts)
+    g = [f'<image href="{night_sky(41)}" width="{W}" height="{H}"/>',
+         f'<image href="{uri(rock(seed=23))}" width="{W}" height="{H}" clip-path="url(#rg20)"/>',
+         f'<path d="{rline}" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round"/>',
+         f'<path d="{ghost}" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="16 11" opacity="0.9"/>',
+         f'<path d="{body}" fill="{SIL}" filter="url(#glow)" opacity="0.6"/>',
+         red_parts,
+         f'<path d="{body}" fill="url(#rt20)" stroke="#3a0000" stroke-width="3" stroke-linejoin="round"/>',
+         bulk,
+         block_arrow(ax, 165, ax, ay - 12, shaft=30, head=82, headlen=62),
+         inset(TJ.EP20_J1, 900, 170, 340, 280, cx=0.80, cy=0.35, zoom=2.31, contrast=1.15, color=1.0, bright=0.90),
+         '<radialGradient id="vg" cx="0.5" cy="0.48" r="0.8"><stop offset="0.55" stop-color="#000" stop-opacity="0"/>'
+         '<stop offset="1" stop-color="#000" stop-opacity="0.55"/></radialGradient>'
+         f'<rect width="{W}" height="{H}" fill="url(#vg)"/>',
+         seg(TOP20, 40, 116, kasure="ks"),
+         seg(BOT20, 38, 689)]
+    bake("ep20_B1_docu", "".join(g), ex, out=OUT20)
+
+
 if __name__ == "__main__":
     only = [a for a in sys.argv if a.startswith("--only=")]
+    if "ep20" in sys.argv:
+        ep20_b1()
     if "ep19" in sys.argv:
         ep19_b1()
     keep = only[0].split("=", 1)[1].split(",") if only else ["a", "b1", "b2"]

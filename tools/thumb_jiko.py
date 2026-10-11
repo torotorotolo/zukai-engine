@@ -1394,9 +1394,34 @@ def ep16():
         bake(f"ep16_{nm}", fx_type(hero[nm.rsplit('_', 1)[1]], red, YEL, "e_veil", yel_plain=True))
 
 
+EP20_J1 = "ep20/j1_ja8119_chitose_1985.jpg"   # JA8119（1985年・千歳）Dennis HKG／CC BY 2.0（Commons curid 125485964）
+
+
+def ep20():
+    """20本目（日本航空123便のリメイク）のサムネ A＝**旧版（`ja123()`）の型で2点だけ直す**（承認① 2026-10-08 カズヤくん）。
+
+      赤「生存者4人 全員が後ろの席」（空白こみ13字）＝旧版の「全員が最後尾」は言いすぎ（報告書 2.13.1
+        「機体後部の座席列番号54から60、左側及び中央部」＝最後の列ではない）を直した
+      黄「日航123便 26年後の解説」（旧版のまま＝2011年7月の解説）
+      地＝旧版の写真-124（撮った人が委員会の外＝サムネでは引用の要件を満たせない）→ JA8119 の CC BY 2.0 の写真
+        （概要欄に撮影者・ライセンス・切り出しと文字を重ねたことを書く＝`qa_out/ep20_meta.py` の TAIL）
+    🔴 ⑥（10-11）：写真はターミナルの窓ごしで、真ん中に窓枠の縦の棒（x 約770〜830）・下に横の棒（y 約680）が写る
+       ＝機首（赤い帯）のある右側だけを切り出す（横 820〜1600・縦 150〜589＝zoom 2.05・cx 1.0・cy 0.24）。
+       型（赤と黄の位置・大きさ・e_veil・黄は単色）は旧版と1画素も変えない
+    """
+    RED = "生存者4人 全員が後ろの席"
+    YEL = "日航123便 26年後の解説"
+    if not 10 <= len(RED) <= 14:
+        raise SystemExit(f"🔴 赤が {len(RED)}字（型は10〜14字・空白を含む）: {RED}")
+    hero = photo(EP20_J1, cx=1.0, cy=0.24, zoom=2.05, contrast=1.15, color=1.0, bright=0.88)
+    bake("ep20-ab/ep20_A", fx_type(hero, RED, YEL, "e_veil", yel_plain=True))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep16" in sys.argv:
+    if "ep20" in sys.argv:
+        ep20()
+    elif "ep16" in sys.argv:
         ep16()
     elif "ep15-ai-zoom" in sys.argv:
         ep15_ai_zoom()
