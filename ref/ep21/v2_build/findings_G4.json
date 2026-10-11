@@ -1,0 +1,200 @@
+[
+  {
+    "id": "G4-001",
+    "cut": "c801",
+    "face": "C",
+    "sev": "🟡",
+    "what": "直前の c716 は 9:46（93便はワシントンまであと29分＝東へ戻っている）で終わる。そこへ聞き役が「そのとき、どこにいたの？」と聞くと 9:46 の位置を聞いたように聞こえ、答えの「8時42分に…飛び立った93便は、西へ向かっていた」（8:42 の話）と食い違う。時刻が戻ることを問いの側で示す。",
+    "evidence": "委員会報告 p10 'At 8:42, United Airlines Flight 93 took off from Newark (New Jersey) Liberty International Airport bound for San Francisco.' ／p29 'At 9:46 the Command Center updated FAA headquarters that United 93 was now \"twenty-nine minutes out of Washington, D.C.\"'（c716）",
+    "old": "最後の便は、そのとき、どこにいたの？",
+    "new": "最後の便は、どこから飛び立ったの？",
+    "why": "4'-15（問いには次の語りの行がそのまま答える）・時刻が前後して分かりにくい所"
+  },
+  {
+    "id": "G4-002",
+    "cut": "c803",
+    "face": "C",
+    "sev": "🟢",
+    "what": "警告を送り始めた時刻（9:19）が無く、c802 の「9時ごろ」に続けて聞くと 9時ごろから送ったように聞こえる。委員会は 9:19 を「ようやく」の意味で書いている（2機目の衝突から16分後）。",
+    "evidence": "委員会報告 p11 'United's first decisive action to notify its airborne aircraft to take defensive action did not come until 9:19, when a United flight dispatcher, [名前], took the initiative to begin transmitting warnings to his 16 transcontinental flights'",
+    "old": "ユナイテッド航空の運航管理の担当は、受け持つ便に、文字で警告を送り始めた。",
+    "new": "9時19分。ユナイテッドの運航管理の担当が、受け持つ便に、文字の警告を送り始めた。",
+    "why": "時刻の並び（9時ごろ→9:19→9:24）を耳で追えるように（41字）"
+  },
+  {
+    "id": "G4-003",
+    "cut": "c804",
+    "face": "C",
+    "sev": "🟡",
+    "what": "聞き役の「届いたなら、気をつけられたんじゃないの？」は乗員を責める含みがあり（聞き役に非難を言わせない）、次の c805（2分後、機長は戸惑ったように返した）はこの問いにそのまま答えていない。委員会も乗員が何をできたかは書いていない。c805 がそのまま答えになる問いに替える。",
+    "evidence": "委員会報告 p11 'At 9:24, [名前]'s warning to United 93 was received in the cockpit. Within two minutes, at 9:26, the pilot, [名前], responded with a note of puzzlement' ／'The hijackers attacked at 9:28.'",
+    "old": "届いたなら、気をつけられたんじゃないの？",
+    "new": "その警告に、操縦室は、どう応えたの？",
+    "why": "4'-15（非難・決めつけを言わせない／問いには次の語りがそのまま答える）"
+  },
+  {
+    "id": "G4-004",
+    "cut": "c807",
+    "face": "B",
+    "sev": "🟡",
+    "what": "「メーデー」と「ここから出ていけ」の声の主（機長か副操縦士）が語りに無い。乗っ取った側の声とも聞こえ、人の取り違えの恐れがある（誰が言った）。",
+    "evidence": "委員会報告 p11 'During the first broadcast, the captain or first officer could be heard declaring \"Mayday\" amid the sounds of a physical struggle in the cockpit. The second radio transmission, 35 seconds later, indicated that the fight was continuing. The captain or first officer could be heard shouting: \"Hey get out of here—get out of here—get out of here.\"'",
+    "old": "クリーブランドの管制センターの無線に、操縦室の音が入った。",
+    "new": "クリーブランドの管制センターの無線に、機長か副操縦士の声が入った。",
+    "why": "原文の帰属（the captain or first officer）を残す・33字"
+  },
+  {
+    "id": "G4-005",
+    "cut": "c808",
+    "face": "B",
+    "sev": "🟡",
+    "what": "「乗客に向けて放送し」と放送したことを言い切っている。原文は「放送した、または、しようとした」で、乗客に届いたかは分からない（9:39 の2回目は乗客に聞こえなかったらしい・無線とインターホンの使い方を知らずに無線へ流した可能性）。無線に流れたこと自体は p28 で確か。",
+    "evidence": "委員会報告 p12 'At 9:32, a hijacker, probably [名前], made or attempted to make the following announcement to the passengers of Flight 93' ／p28 'At 9:32, a third radio transmission came over the frequency: \"Keep remaining sitting. We have a bomb on board.\"' ／p12 'may have inadvertently broadcast the message because he did not know how to operate the radio and the intercom'",
+    "old": "9時32分。犯人の1人が、乗客に向けて放送し、その声が管制の無線に流れた。",
+    "new": "9時32分。犯人の1人が、乗客に向けて放送しようとした声が、管制の無線に流れた。",
+    "why": "留保 'made or attempted' を残す（claims_check K078 と同じ指摘）・40字"
+  },
+  {
+    "id": "G4-006",
+    "cut": "c809",
+    "face": "B",
+    "sev": "🟢",
+    "what": "自動操縦への指示は飛行の記録装置（FDR）で分かったことだが、語りに出どころが無い。CVR は c822 で「どうして分かるの」を受けて説明しているので、FDR も同じように一言で帰属を残すと揃う。",
+    "evidence": "委員会報告 p12 'The flight data recorder (also recovered) indicates that [名前] then instructed the plane's autopilot to turn the aircraft around and head east.'",
+    "old": "そのあと、93便の自動操縦に、向きを変えて東へ向かう指示が入った。",
+    "new": "飛行の記録装置によると、そのあと93便の自動操縦に、東へ向かう指示が入った。",
+    "why": "原文の 'indicates' の出どころを残す（任意）・38字"
+  },
+  {
+    "id": "G4-007",
+    "cut": "c812",
+    "face": "E",
+    "sev": "🟡",
+    "what": "「報せ」は §6 に無く、ゆっくり（AquesTalk）が「ほうせ」と読む恐れがある。台本の中でも「知らせ」と「報せ」が混ざっている（題・c105・c716 は「知らせ」）。第2章〜第8章にも「報せ」が多数ある（check_G4.md の末尾）＝親へ（通しで揃える）。",
+    "evidence": "台本 §6（読み間違えやすい語）に「報せ」が無い。ルール 4'-2 E の例に「報せ＝しらせ」",
+    "old": "93便の報せを渡すことも、無かった。",
+    "new": "93便の知らせを渡すことも、無かった。",
+    "why": "誤読の恐れ・表記の揺れ"
+  },
+  {
+    "id": "G4-008",
+    "cut": "c813",
+    "face": "B",
+    "sev": "🟡",
+    "what": "「管制の画面から、93便の札も消えた」で止めると、93便を見失ったように聞こえる（第5章の77便は一次レーダーでも見失った）。委員会は、クリーブランドの管制官が一次レーダーで点を見つけ、ほかの機の目撃と合わせて追い続けたと書く。c407・c421 で「札の無い点」を教えてあるので、その言い方で受ける。",
+    "evidence": "委員会報告 p29 'At 9:41, Cleveland Center lost United 93's transponder signal. The controller located it on primary radar, matched its position with visual sightings from other aircraft, and tracked the flight as it turned east, then south.' ／図表 p33 '9:41 Transponder is turned off'",
+    "old": "管制の画面から、93便の札も消えた。",
+    "new": "札は消えたが、管制官は、その点をレーダーで追い続けた。",
+    "why": "省略で意味が変わる（見失った↔追い続けた）・27字。出典の欄に図表 p33（turned off）と p29 を足すとよい"
+  },
+  {
+    "id": "G4-009",
+    "cut": "c813",
+    "face": "C",
+    "sev": "🟡",
+    "what": "c811 で 9:49 まで進んだあと、c813 で 9:41 に戻る（さらに c814 の電話は 9:30 から）。戻ることの合図が無いので、9:49 のあとにトランスポンダが切られたように聞こえる。",
+    "evidence": "委員会報告 p29 'At 9:41, Cleveland Center lost United 93's transponder signal.'（c811＝p29 'At 9:49, …'）",
+    "old": "9時41分ごろ、93便のトランスポンダも、切られた。",
+    "new": "その前の9時41分ごろ、93便のトランスポンダも、切られた。",
+    "why": "時刻が前後して分かりにくい所・30字"
+  },
+  {
+    "id": "G4-010",
+    "cut": "c814",
+    "face": "C",
+    "sev": "🟡",
+    "what": "c813（9:41）の後で「電話をかけ始めた」と言うと、9:41 以降に始まったように聞こえる。国立公園局の一覧では最初の電話は 9:30、委員会は 9:32 の放送のすぐ後（Shortly thereafter）から。時刻を足して背景の出来事だと分かる形にする。",
+    "evidence": "国立公園局 'According to the FBI, thirty-seven phone calls were placed from on board Flight 93 between 9:28 when the plane was hijacked until the time of the crash at 10:03.'（一覧の最初の行＝9:30）／委員会報告 p12 'Shortly thereafter, the passengers and flight crew began a series of calls from GTE airphones and cellular phones.'",
+    "old": "機内の乗客と乗員は、地上へ電話をかけ始めた。",
+    "new": "機内では、9時半ごろから、乗客と乗員が、地上へ電話をかけていた。",
+    "why": "③時刻の起点のずれ・32字"
+  },
+  {
+    "id": "G4-011",
+    "cut": "c815",
+    "face": "A",
+    "sev": "🟡",
+    "what": "1文目「多くは、最後の9列の座席の背に付いた電話だった」は c814 の3行目（35本は座席の背の電話）の繰り返し。聞き役の問い（携帯電話はつながらない？）への答えが2文目にずれている。携帯の2本を先に言い、座席の電話は c814 に無い「後ろの9列」だけ足す。",
+    "evidence": "国立公園局 'Thirty-five of these calls were made on the Airfones located on the back of the seats in the last nine rows of the plane.'・'Unless noted, the calls were made on Airfones.'・一覧 9:58 '[役職] used her cell phone to call her husband'・9:58 'Passenger [名前] used a cell phone to dial 911 and was connected for 70 seconds'",
+    "old": "多くは、最後の9列の座席の背に付いた電話だった。携帯電話は、残る2本だ。",
+    "new": "携帯電話からも、2本がつながっている。座席の背の電話は、後ろの9列にあった。",
+    "why": "c814 との重なりを除く・4'-15（問いにそのまま答える）・38字"
+  },
+  {
+    "id": "G4-012",
+    "cut": "c819",
+    "face": "B",
+    "sev": "🟢",
+    "what": "原文の 'loved ones' を「家族」に狭めている（電話の相手は友人・同僚も含む＝p13 'family, friends, colleagues'）。",
+    "evidence": "委員会報告 p13 'Several passengers had terminated phone calls with loved ones in order to join the revolt.'",
+    "old": "何人かは、家族との電話を切って、そこに加わった。",
+    "new": "何人かは、大切な人との電話を切って、そこに加わった。",
+    "why": "④上位語・下位語のずれ（任意）"
+  },
+  {
+    "id": "G4-013",
+    "cut": "c824",
+    "face": "B",
+    "sev": "🟡",
+    "what": "「17秒後」は逐語の 10:00:25 と 10:00:42 からの計算で、委員会の本文の 'Sixteen seconds later' と食い違う数を台本が新しく作っている。10:00:42 は逐語（原寸）と委員会（10:00:26＋16秒）の両方で一致するので、差の秒数を言わずに時刻だけ言えば食い違いが消える。c823 の 10:00:25 は逐語どおりでそのままでよい。",
+    "evidence": "P200056T p7（sources §11-1 #11・原寸）'10:00:25 In the cockpit. If we don't, we'll die.' '10:00:42 Roll it.' ／委員会報告 p14 'At 10:00:26, a passenger in the background said, \"In the cockpit. If we don't we'll die!\" Sixteen seconds later, a passenger yelled, \"Roll it!\"'",
+    "old": "17秒後の10時0分42秒には、「転がせ」と叫ぶ声。英語で「Roll it」だ。",
+    "new": "10時0分42秒には、「転がせ」と叫ぶ声。英語で「Roll it」だ。",
+    "why": "③時刻の差の起点が資料で割れる（§0-1 #7）。直すなら §1-5 の CVR の行と §9 の c824 の行も"
+  },
+  {
+    "id": "G4-014",
+    "cut": "c830",
+    "face": "E",
+    "sev": "🟢",
+    "what": "「阻まれた」（はばまれた）は §6 に無く、読みを確かめていない。原文 'defeated' は「敗れた」でも意味が通り、中学生にも分かりやすい。",
+    "evidence": "委員会報告 p14 'He was defeated by the alerted, unarmed passengers of United 93.'",
+    "old": "犯人は、事態を知らされた、武器を持たない乗客たちに、阻まれた。",
+    "new": "犯人は、事態を知らされた、武器を持たない乗客たちに、敗れた。",
+    "why": "誤読の恐れ（任意）・原文 'defeated' に近い"
+  },
+  {
+    "id": "G4-015",
+    "cut": "c832",
+    "face": "B",
+    "sev": "🔴",
+    "what": "「その言葉を最初に伝えたのは…AP 通信だ」は最上級の断定。sources §11-3 は「これより早い報道は見つけていない＝全数ではない」と書いており、言い切れない。AP の記事の中でも、係員が乗客の妻に電話したのは金曜（9/14）で、9/14〜9/16 にほかの媒体が先に書いた余地がある。「最初に」を落とし、確かめた事実（6日後の新聞に AP の記事として載った）だけにする。「最初」を言うなら親へ（web）。",
+    "evidence": "AP（Seattle Times の写し・Sep 17, 2001）'After receiving clearance from investigators, [名前] said, [名前] kept her promise Friday.'・'… declined comment yesterday.' ／sources §11-3「これより早い報道は見つけていない＝全数ではない」",
+    "old": "その言葉を最初に伝えたのは、事件の6日後の AP 通信だ。",
+    "new": "その言葉は、事件の6日後の新聞に、AP 通信の記事として載っている。",
+    "why": "報告書・資料に無い最上級（「最初に」）・34字"
+  },
+  {
+    "id": "G4-016",
+    "cut": "c832",
+    "face": "B",
+    "sev": "🟡",
+    "what": "「電話会社の係員が聞いた」とあるが、誰の言葉か（機内から電話をかけていた乗客の1人）が語りに無い（§0-1 #8 の帰属）。AP は、乗客が受話器を置いて回線が開いたままのときに係員がその言葉を聞いた、と乗客の妻の話として伝える。名前は出さずに役割で残す。",
+    "evidence": "AP（Seattle Times の写し）'[名前] dropped the phone after talking to [名前], leaving the line open. It was then that the operator heard his words: \"Let's roll.\"'・'placed a call on one of the Boeing 757's onboard telephones and spoke for 13 minutes with GTE operator [名前], said [名前]'s wife'",
+    "old": "機内からの電話を受けた電話会社の係員が聞いた、と伝えられた。",
+    "new": "電話をかけていた乗客がそう言うのを、電話会社の係員が聞いた、と伝えられた。",
+    "why": "人の帰属（誰が言った／誰が聞いた）を残す・36字"
+  },
+  {
+    "id": "G4-017",
+    "cut": "c832",
+    "face": "F",
+    "sev": "🟡",
+    "what": "画の札「書き起こしには無い」は不在の断定だが、逐語 P200056T は p7 しか原寸で見ていない（sources §11-1 #11 の⚠️）。OCR は崩れが多く、10:00:42 の 'Roll it.' 自体も字が出ない＝OCR の0件は「無い」の証拠にならない。OCR では 'roll' 0件・'lets' 0件、'let' は p5 'Let's go guys.'（話し手は OCR では分からない）と p6 'Let get e ??.'（崩れた1行）が出る。親へ（原寸）：全9頁を見て 'Let's roll' と言い換え（Let's go / Let's get …）が無いことを確かめる。確かめるまでは、札を確かめた事実の言い方にする。",
+    "evidence": "sources §11-1 #11 '⚠️ 全9頁の通しは見ていない＝「Let's roll が逐語に無い」は p7 の範囲だけ' ／sources §5 'OCR で「Let's roll」「roll」は0件（ただし上の取りこぼしがある＝「0件」は「無い」ではない）' ／pg21.py find（--in CVR）'roll' 0件・'let' 7件",
+    "old": "「Let's roll」の札に「書き起こしには無い」",
+    "new": "「Let's roll」の札に「電話の向こうで聞かれた言葉」",
+    "why": "「0件」は「無い」ではない。全9頁を原寸で見て無ければ元の札に戻してよい"
+  },
+  {
+    "id": "G4-018",
+    "cut": "c834",
+    "face": "B",
+    "sev": "🔴",
+    "what": "「委員会は、別の章で」とあるが、p45 は p14 と同じ第1章（'WE HAVE SOME PLANES'）の 1.3 節（p35〜46）。第2章は p47 から。引用の中身と 'may have'＝「かもしれない」は原文どおり。",
+    "evidence": "委員会報告 p45 柱 '\"WE HAVE SOME PLANES\" 45'・'We are sure that the nation owes a debt to the passengers of United 93. Their actions saved the lives of countless others, and may have saved either the Capitol or the White House from destruction.' ／p35 '1.3 NATIONAL CRISIS MANAGEMENT' ／p47 '2 THE FOUNDATION OF THE NEW TERRORISM'",
+    "old": "委員会は、別の章で、こうも書いている。国は、93便の乗客たちに恩がある。",
+    "new": "委員会は、同じ章の終わりで、こうも書いている。国は、93便の乗客たちに恩がある。",
+    "why": "事実の誤り（頁の章）・40字。「節」はゆっくりが「ふし」と読む恐れがあるので「章の終わり」にした"
+  }
+]

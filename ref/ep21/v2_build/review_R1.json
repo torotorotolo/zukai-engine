@@ -1,0 +1,145 @@
+[
+  {
+    "id": "R1-001",
+    "cut": "c425",
+    "face": "B",
+    "sev": "🟡",
+    "what": "G2-004 の差し替えで、聞き役のまとめ「ボストンは、手順の段を飛ばしてでも、急いだんだね。」に「そう。」と受けたすぐあとに、FAA 本部が護衛を頼まなかった事実が来る。続けて聞くと「本部が頼まなかったから、ボストンは段を飛ばした」と理由に聞こえる。原文は、本部は 8:32 に知って手順を始めたが護衛を頼まなかった（p19）と、ボストンが 8:34 に自分で軍を呼んだ（p20）を別々に書いているだけで、つないでいない。「一方」を入れて理由に聞こえないようにする。「FAA」は c311〜c312 で「FAA 本部」「本部から」と出ているので「本部」だけで通じる（字は −1）。",
+    "evidence": "委員会報告 p19 'At 8:32, the Command Center passed word of a possible hijacking to the Operations Center at FAA headquarters. ... FAA headquarters began to follow the hijack protocol but did not contact the NMCC to request a fighter escort.' ／ p20 'Boston Center did not follow the protocol in seeking military assistance through the prescribed chain of command' 'at 8:34, to contact the military through the FAA's Cape Cod facility'",
+    "old": "そう。段の上の FAA 本部は、国防総省の指揮所に、戦闘機の護衛を頼まなかった。",
+    "new": "そう。一方、段の上の本部は、国防総省の指揮所に、戦闘機の護衛を頼まなかった。",
+    "why": "原文で並べてあるだけの2つの事実が、受けの形で理由に聞こえる。「一方」で並びに戻す（字 −1）"
+  },
+  {
+    "id": "R1-002",
+    "cut": "c313",
+    "face": "C",
+    "sev": "🟡",
+    "what": "G0-012.3 で c312 の最後に足した聞き役の反応「ずいぶん、段が多いんだね。」を、次の語り（c313 の頭「戦闘機の役目は、…」）がまったく受けていない。c612 の反応には次の語り（誤った知らせだった）が、c712 の反応には「その一方で」が応えているのに、ここだけ聞き役の言葉が宙に浮く。c313 の頭を「そう。」で受ける形にする。「役目は…こと」を「戦闘機は…見守る」に変えて字を合わせる（字は −3）。役割の比率は、反応のまま・質問に変えないので動かない（質問 59%）。",
+    "evidence": "daihon_v2 c312『命令は NORAD の段を降りて、やっと戦闘機が動く。／Q: ずいぶん、段が多いんだね。』→ c313『戦闘機の役目は、乗っ取られた機の約8キロ（5マイル）後ろに付き、』／ roles.tsv c312＝反応 ／ 委員会報告 p18 'They assumed the fighter escort would be discreet, \"vectored to a position five miles directly behind the hijacked aircraft,\" where it could perform its mission to monitor the aircraft's flight path.'",
+    "old": "戦闘機の役目は、乗っ取られた機の約8キロ（5マイル）後ろに付き、\n> 目立たないように見守ること。",
+    "new": "そう。戦闘機は、乗っ取られた機の約8キロ（5マイル）後ろに付き、\n> 目立たないように見守る。",
+    "why": "聞き役の言葉を次の語りが受けない（4'-15 の型）。受けを入れても字は増やさない"
+  },
+  {
+    "id": "R1-003",
+    "cut": "c401",
+    "face": "C",
+    "sev": "🟡",
+    "what": "G2-017 で問いを「いつ、おかしくなったの？」にしたが、次の語りの行は「ボストンを飛び立った11便は、8時14分の少し前、高度…まで上がっていた。」のまま。「いつ？」の直後に「8時14分の少し前」が来るので、答え＝「8時14分の少し前におかしくなった」と聞こえる。ところが原文では、8:14 の少し前はまだ通信も飛び方も正常で、乗っ取りは「8時14分か、その少しあと」（c403）。問いにそのまま答え、しかも原文の all ... normal に沿う形にする（字は −1）。",
+    "evidence": "委員会報告 p4 'The plane took off at 7:59. Just before 8:14, it had climbed to 26,000 feet, not quite its initial assigned cruising altitude of 29,000 feet. All communications and flight profile data were normal.' ／ p4 'we believe the hijacking began at 8:14 or shortly thereafter'",
+    "old": "ボストンを飛び立った11便は、8時14分の少し前、",
+    "new": "8時14分の少し前まで、11便に、異常は無かった。",
+    "why": "問いに次の行がそのまま答える。「少し前」が異常の時刻に聞こえるのを防ぐ（2行目「高度約7,900メートル…まで上がっていた。」はそのまま続く）"
+  },
+  {
+    "id": "R1-004",
+    "cut": "c604",
+    "face": "A",
+    "sev": "🟡",
+    "what": "G3-018 で「ずっと」を原文の from the moment に合わせて「切られた時から」にしたが、何が切られたのかが抜けた。直前の聞き役が「レーダーが、壊れていたの？」なので、「FAA のレーダーは、切られた時から」は「レーダーが切られた」と聞こえる（切られたのはトランスポンダ）。c603 の「77便の点が、消えた」を受けて「点が消えたあとも」にすると、主語の取り違えが消え、「画面からは消えたのに、レーダーは捉えていた」という芯がはっきりする。「では」→「で」で字は増やさない。",
+    "evidence": "委員会報告 p25 'Radar reconstructions performed after 9/11 reveal that FAA radar equipment tracked the flight from the moment its transponder was turned off at 8:56. But for 8 minutes and 13 seconds, between 8:56 and 9:05, this primary radar information on American 77 was not displayed to controllers at Indianapolis Center.'",
+    "old": "あとの調べでは、FAA のレーダーは、切られた時から77便を捉えていた。",
+    "new": "あとの調べで、FAA のレーダーは、点が消えたあとも77便を捉えていた。",
+    "why": "縮めた結果、「切られた」の主語が直前の問いの「レーダー」に付いて聞こえる。中学生がはじめて聞いて取り違えない形に（字 ±0）"
+  },
+  {
+    "id": "R1-005",
+    "cut": "c711",
+    "face": "B",
+    "sev": "🟡",
+    "what": "G0-001 の並べ替えで、c711「管制は、この命令を見事にこなした。」の直前が c710 の「長官の『最後の命令』は、本人の証言として残っている。」になった。「この命令」がいちばん近い長官の命令を指して聞こえ、委員会の評価（great skill）を長官の命令に付け替えてしまう。原文で見事にこなしたとされる it は、スライニーの前例の無い命令。c710 でせっかく分けた帰属を崩さないよう、どちらの命令とも言わない「降ろす命令」にする。2行目の「あわせて」を外して字を合わせる（字は −3）。",
+    "evidence": "委員会報告 p29 'The Command Center's national operations manager, [スライニー], ordered all FAA facilities to instruct all aircraft to land at the nearest airport. This was an unprecedented order. The air traffic control system handled it with great skill, as about 4,500 commercial and general aviation aircraft soon landed without incident.' ／ 運輸長官の証言 'at approximately 9:45 a.m. ... I gave the FAA the final order'",
+    "old": "管制は、この命令を見事にこなした。\n> 旅客機と小型機、あわせて約4,500機が、まもなく、事故なく降りた。",
+    "new": "管制は、降ろす命令を見事にこなした。\n> 旅客機と小型機、約4,500機が、まもなく、事故なく降りた。",
+    "why": "並べ替えで「この」の指す先が長官の命令に移った。帰属を中立に戻す"
+  },
+  {
+    "id": "R1-006",
+    "cut": "c514",
+    "face": "E",
+    "sev": "🟡",
+    "what": "G2-001 で聞き役の行を消したとき、行そのものではなく中身だけを消したため、c514 の3行目に空の語りの行（『> 』＝山かっこと空白だけ）が残っている（第2版 517 行目）。第1版には無い。音声・字幕の書き出しで空の行・無音の字幕として拾われるおそれがあり、1カットの行数も3行に数えられる。",
+    "evidence": "daihon_v2.md 517 行目＝'> '（od で確認：'>' と空白1つだけ）。diff_v1_v2.md c514：'-> Q: 知らせと、ぶつかったのが、ほとんど同じだったんだ。' → '+> '",
+    "old": "ちょうど、南棟にぶつかったころだった。\n> ",
+    "new": "ちょうど、南棟にぶつかったころだった。",
+    "why": "消した行の抜け殻。書き出しの道具に空の行を渡さない"
+  },
+  {
+    "id": "R1-007",
+    "cut": "c302",
+    "face": "A",
+    "sev": "🟢",
+    "what": "G1-006 で FAA の説明「国の空の役所」を c213 に入れたため、10カット後の c302 で「空の交通を受け持つ国の役所、連邦航空局（FAA）」と、同じ説明をもう一度している（G1-006 は c302 を残してよいとしたが、聞く側には同じ説明が2回）。c302 は正式名称だけを残して説明を外すと、13字浮く（字の上限まで14字＝ほかの直しの字の手当てになる）。",
+    "evidence": "daihon_v2 c213『国の空の役所、FAA の理由は3つ。』／ c302『まず乗員。空の交通を受け持つ国の役所、連邦航空局（FAA）が認めた、』",
+    "old": "まず乗員。空の交通を受け持つ国の役所、連邦航空局（FAA）が認めた、",
+    "new": "まず乗員。連邦航空局（FAA）が認めた、",
+    "why": "同じ用語の説明が2回。正式名称は残す（字 −13）"
+  },
+  {
+    "id": "R1-008",
+    "cut": "c203",
+    "face": "B",
+    "sev": "🟢",
+    "what": "G1-002 で「選んだのは、燃料を多く積む長い便だ。旅客機を、大きなミサイルに変えるためだった。」と、便の選び方とミサイルの目的をつないだ。出典の欄の注1 p451 は「燃料を多く積む長い便を予約した」までで、なぜ選んだかは書いていない（同じ注は、保安の甘さは選ぶ理由に入っていない、という文脈の simply）。選んだ理由そのものは p245（長い便は燃料が満載だから選びたい、と計画役が話した）にある。語りは p4＋p245 で支えられるので語りは直さず、出典の欄に p245 を足す（名前は入れない字句で）。",
+    "evidence": "委員会報告 p245 '[名前] told [名前] he wanted to select planes departing on long flights because they would be full of fuel' ／ 注1 p451 'no evidence suggests that such issues entered into the terrorists' targeting: they simply booked heavily fueled east-to-west transcontinental flights' ／ p4 'turn them into large guided missiles, loaded with up to 11,400 gallons of jet fuel'",
+    "old": "・第1章 注1 p451（`they simply booked heavily fueled east-to-west transcontinental flights`）",
+    "new": "・第1章 注1 p451（`they simply booked heavily fueled east-to-west transcontinental flights`）・p245（`select planes departing on long flights because they would be full of fuel`）",
+    "why": "「燃料のために選んだ」の根拠を出典の欄に載せ、照合の網に入れる（語りの字は増えない）"
+  },
+  {
+    "id": "R1-009",
+    "cut": "c701",
+    "face": "A",
+    "sev": "🟢",
+    "what": "並べ替え（G0-001）と G3-001 の言い換えで、c701〜c702 の4行に「止める」が4回続く（離陸を止めた／離陸を止めるもので／止める前／離陸を止めるかを）。意味は合っているが、耳では同じ語の繰り返し。c701 の3行目を「止めたのは地上の機で」にすると、離陸の停止が飛んでいる機に及ばないこと（G3-001 の言えるところ）はそのまま、繰り返しが1つ減る（字は −2）。",
+    "evidence": "daihon_v2 c701『全米で離陸を止めた。／ただ、これは離陸を止めるもので、もう飛んでいる機は、そのままだ。』c702『止める前、コマンドセンターは FAA の本部に、離陸を止めるかを尋ねていた。』／ 委員会報告 p25 'the Command Center ordered one at 9:25'（nationwide ground stop）",
+    "old": "ただ、これは離陸を止めるもので、もう飛んでいる機は、そのままだ。",
+    "new": "ただ、止めたのは地上の機で、もう飛んでいる機は、そのままだ。",
+    "why": "同じ言い回しが近くで続く（字 −2）"
+  },
+  {
+    "id": "R1-010",
+    "cut": "c617",
+    "face": "A",
+    "sev": "🟢",
+    "what": "G3-005 で起点のずれ（そのとき＝9:36 に聞こえる）は正しく直ったが、c616 の「9時34分 → 数分後」の次に c617 の「9時34分」が来て、時刻が2分戻る。聞く側に「戻った」と分かるよう「同じ」を足す。字は2行目の「大きく」を外して合わせる（330度で大きさは伝わる・字は −1）。",
+    "evidence": "委員会報告 p9 'At 9:34, Ronald Reagan Washington National Airport advised the Secret Service of an unknown aircraft heading in the direction of the White House. American 77 was then 5 miles west-southwest of the Pentagon and began a 330-degree turn.' ／ daihon_v2 c616『数分後、「ホワイトハウスの南西約10キロ（6マイル）に、正体不明の機」。』",
+    "old": "9時34分、77便は、ペンタゴンの西南西、約8キロ（5マイル）にいた。\n> 時計回りに330度、大きく回りながら、降りていった。",
+    "new": "同じ9時34分、77便は、ペンタゴンの西南西、約8キロ（5マイル）にいた。\n> 時計回りに330度、回りながら、降りていった。",
+    "why": "時刻が前後するところに戻りの印を置く（字 −1）"
+  },
+  {
+    "id": "R1-011",
+    "cut": "c605",
+    "face": "A",
+    "sev": "🟢",
+    "what": "G3-002 で足した「その辺りのレーダーの弱さ」の「その辺り」が、どこを指すのか分からない（直前は c604 の「管制官の画面」とソフトの話）。原文は where American 77 was flying。「77便の辺り」にすると2行目が41字ちょうどになるので、1行目の「なもの」を外して字を合わせる（字は −1）。",
+    "evidence": "委員会報告 p25 'The reasons are technical, arising from the way the software processed radar information, as well as from poor primary radar coverage where American 77 was flying.'",
+    "old": "理由は技術的なもので、管制のソフトが、\n> レーダーの情報をどう扱うかと、その辺りのレーダーの弱さによる、と委員会は書く。",
+    "new": "理由は技術的で、管制のソフトが、\n> レーダーの情報をどう扱うかと、77便の辺りのレーダーの弱さによる、と委員会は書く。",
+    "why": "指す先の無い「その」。原文の限定（77便が飛んでいた所）を戻す"
+  },
+  {
+    "id": "R1-012",
+    "cut": "c515",
+    "face": "F",
+    "sev": "🟢",
+    "what": "G2-010 で画を「事件の前の世界貿易センター」にしたが、同じ欄に「北棟だけが燃える点が見つかればそれ」とあり、事件の前の写真か当日の写真かが決まっていない。しかも副題の指定（副題「…」／副題は絵を見て書く）が無い（ほかの実写のカットにはすべてある）。どちらの写真が来ても副題が絵と合うよう、「副題は絵を見て書く」を足す。",
+    "evidence": "daihon_v2 c515 見出し『実写 事件の前の世界貿易センター（D・別の点＝語りは 8:51〜9:02＝両棟が燃える写真は置かない。北棟だけが燃える点が見つかればそれ）』",
+    "old": "北棟だけが燃える点が見つかればそれ）",
+    "new": "北棟だけが燃える点が見つかればそれ＝副題は絵を見て書く）",
+    "why": "副題は写っているものに（副題の指定の抜け）"
+  },
+  {
+    "id": "R1-013",
+    "cut": "c425",
+    "face": "A",
+    "sev": "🟢",
+    "what": "c424 のまとめ（G2-002）「戦闘機は、間に合わなかったんだね。」と、c425 のまとめ（G0-005.3 で「つまり」と「？」を外した）「…急いだんだね。」が、続く2カットで同じ「〜んだね。」で終わる。c305 と同じ「〜んだ。」にして言い回しを変える（字は −1）。",
+    "evidence": "daihon_v2 c424『Q: 戦闘機は、間に合わなかったんだね。』／ c425『Q: ボストンは、手順の段を飛ばしてでも、急いだんだね。』",
+    "old": "Q: ボストンは、手順の段を飛ばしてでも、急いだんだね。",
+    "new": "Q: ボストンは、手順の段を飛ばしてでも、急いだんだ。",
+    "why": "同じ言い回しが近くで続く"
+  }
+]

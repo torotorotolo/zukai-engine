@@ -1,0 +1,178 @@
+[
+  {
+    "id": "G1-001",
+    "cut": "c313",
+    "face": "B",
+    "sev": "🔴",
+    "what": "原文 'The protocols did not contemplate an intercept' の intercept は、戦闘機が近づいて相手の機を確かめる（必要なら従わせる）こと。「迎え撃つ」は攻撃に聞こえ、訳の階層が上がっている。撃ち落とす命令の道は別にあった（p17）ので、「攻撃は手順に無かった」と聞こえるのは原文とずれる。c949・c953 も intercept＝「迎え撃つ」で訳しているので、言い方を通しで揃える（親へ）。",
+    "evidence": "委員会報告 p18 'The protocols did not contemplate an intercept. They assumed the fighter escort would be discreet, \"vectored to a position five miles directly behind the hijacked aircraft,\" where it could perform its mission to monitor the aircraft's flight path.' ／p17 'an order to shoot down a commercial aircraft would have to be issued by the National Command Authority'",
+    "old": "目立たないように見守ること。迎え撃つことは、手順に無かった。",
+    "new": "目立たないように見守ること。そばまで寄せて確かめることは、手順に無かった。",
+    "why": "intercept＝近づいて確かめること。攻撃ではない（4'-6 ④ 訳の階層）"
+  },
+  {
+    "id": "G1-002",
+    "cut": "c203",
+    "face": "C",
+    "sev": "🔴",
+    "what": "c202 の聞き役「わざわざ、遠くへ行く便を選んでいたの？」に、c203 の語りが答えていない（4'-15）。「長い便ほど燃料を多く積む」という因果も無く、中学生には燃料の数字が答えだと伝わらない。報告書は、燃料を多く積む東から西への長い便を予約した（注1）、計画役が「長い便は燃料が満タンだから選ぶ」と話した（p245）と書く。2行目「最大で約4万3,000リットル…を積んでいた」は積んでいた量で合っている（K023）のでそのまま。出典の欄に p451（第1章 注1）を足す。字は +5。",
+    "evidence": "委員会報告 p451（第1章 注1）'they simply booked heavily fueled east-to-west transcontinental flights of the large Boeing aircraft they trained to fly that were scheduled to take off at nearly the same time.' ／p245 '[名前] told [名前] he wanted to select planes departing on long flights because they would be full of fuel' ／p4 'turn them into large guided missiles, loaded with up to 11,400 gallons of jet fuel'",
+    "old": "報告書によると、犯人たちは、旅客機を大きなミサイルに変えるつもりだった。",
+    "new": "報告書によると、選んだのは、燃料を多く積む長い便。旅客機をミサイルにするためだ。",
+    "why": "問いには次の語りがそのまま答える（4'-15）。因果は注1・p245 にある"
+  },
+  {
+    "id": "G1-003",
+    "cut": "c308",
+    "face": "B",
+    "sev": "🟡",
+    "what": "原文は「協力し対決しない方針のもとでは、強化した扉があったとしても違いは小さかっただろう」という仮定（would have made）。語り「ほとんど違いは無かった」は過去の事実の断定に聞こえる。前提（従う方針）は聞き役の問い「従うのが決まりなら」が持っているので、語尾だけ直す。",
+    "evidence": "委員会報告 p85 'This prevailing Common Strategy of cooperation and nonconfrontation meant that even a hardened cockpit door would have made little difference in a hijacking.'",
+    "old": "そう。委員会も、扉が丈夫でも、ほとんど違いは無かった、と書いている。",
+    "new": "そう。委員会も、扉が丈夫でも、ほとんど違いは無かっただろう、と書いている。",
+    "why": "反実仮想を落とさない（4'-6 ⑤）"
+  },
+  {
+    "id": "G1-004",
+    "cut": "c304",
+    "face": "B",
+    "sev": "🟡",
+    "what": "原文は 'as one FAA official put it'＝名も役目も書かれていない FAA の一職員の言葉。「担当者」は乗っ取りの対策を受け持つ人の公式の言葉に聞こえ、重みが増す。",
+    "evidence": "委員会報告 p85 'The strategy operated on the fundamental assumption that hijackers issue negotiable demands (most often for asylum or the release of prisoners) and that, as one FAA official put it, \"suicide wasn't in the game plan\" of hijackers.'",
+    "old": "FAA の担当者の言葉では、「自殺は、乗っ取り犯の筋書きに入っていない」。",
+    "new": "FAA のある職員の言葉では、「自殺は、乗っ取り犯の筋書きに入っていない」。",
+    "why": "誰の言葉かを原文の範囲で（② 強める）"
+  },
+  {
+    "id": "G1-005",
+    "cut": "c306",
+    "face": "B",
+    "sev": "🟡",
+    "what": "原文の話し手は、操縦士の組合（Air Line Pilots Association）の保安委員会の委員長。「担当者」は役職がぼやけて弱い。",
+    "evidence": "委員会報告 p85 'As the chairman of the Security Committee of the Air Line Pilots Association observed when proposals were made in early 2001 to install reinforced cockpit doors in commercial aircraft, \"Even if you make a vault out of the door, ...\"'",
+    "old": "操縦士の組合の担当者は、こう話している。",
+    "new": "操縦士の組合の保安委員長は、こう話している。",
+    "why": "役職を原文どおりに（人の取り違えを防ぐ）"
+  },
+  {
+    "id": "G1-006",
+    "cut": "c213",
+    "face": "A",
+    "sev": "🟡",
+    "what": "FAA の初出が c213 で、説明（空の交通を受け持つ国の役所、連邦航空局）は c302 まで出ない。また3つの理由の1つ目が「危ない物とは考えていない。」の短文で始まり、理由の1つ目だと聞き取りにくい。中身は p84 の (1)〜(3) と合っている。c302 の説明はそのまま残してよい。",
+    "evidence": "委員会報告 p84 'The FAA's basis for this policy was (1) the agency did not consider such items to be menacing, (2) most local laws did not prohibit individuals from carrying such knives, and (3) such knives would have been difficult to detect unless the sensitivity of metal detectors had been greatly increased.'",
+    "old": "FAA は、その理由を3つ挙げていた。危ない物とは考えていない。",
+    "new": "国の空の役所、FAA の理由は3つ。まず、危ない物とは考えていない。",
+    "why": "専門語の初出に一言の説明・列挙の1つ目の印"
+  },
+  {
+    "id": "G1-007",
+    "cut": "c211",
+    "face": "B",
+    "sev": "🟡",
+    "what": "人数と回数は p3 と合っている（2人が1つ目と2つ目の探知機を両方鳴らし、2人とも手持ちの探知機で調べられて通過＝§0-1 #3）。ただ「調べられたうえで、通された」は検査がきちんと済んだように聞こえる。報告書は、映像を見た専門家の評価として、係員は2人とも鳴った原因を確かめていないと書く（章の結論「関門をすべて通り抜けた」の根拠）。",
+    "evidence": "委員会報告 p3 'We asked a screening expert to review the videotape of the hand-wanding, and he found the quality of the screener's work to have been \"marginal at best.\" The screener should have \"resolved\" what set off the alarm; and in the case of both [名前] and [名前], it was clear that he did not.'",
+    "old": "2人とも、手持ちの探知機で調べられたうえで、通された。",
+    "new": "2人とも、手持ちの探知機で調べられたが、鳴った物を確かめないまま通された。",
+    "why": "原文の評価（確かめていない）を落とさない"
+  },
+  {
+    "id": "G1-008",
+    "cut": "c319",
+    "face": "A",
+    "sev": "🟡",
+    "what": "原文 'was not recognized by NORAD' は「脅威として認めていなかった」。「見ていなかった」は、レーダーの画面を見る話が続く章なので「画面を見ていなかった（怠った）」とも聞こえ、強い。1行目（想定は海外から来る機だけ）は p352・p17 と合う（p352 の occasionally は落ちたが可）。なお p17 は、1990年代後半に航空機を武器に使うテロも脅威に挙がり演習もした（実際の情報に基づかない）と書く＝認められていなかったのは「国内で乗っ取り、誘導ミサイルに使う」組み合わせ。",
+    "evidence": "委員会報告 p17 'Exercise planners also assumed that the aircraft would originate from outside the United States ... The threat of terrorists hijacking commercial airliners within the United States—and using them as guided missiles—was not recognized by NORAD before 9/11.' ／p352 'Its planning scenarios occasionally considered the danger of hijacked aircraft being guided to American targets, but only aircraft that were coming from overseas.'",
+    "old": "国内の旅客機がミサイルにされる脅威を、NORAD は、見ていなかった。",
+    "new": "国内の旅客機がミサイルにされることを、NORAD は、脅威と考えていなかった。",
+    "why": "言い方の強さを原文に揃える（② 強める・聞き違い）"
+  },
+  {
+    "id": "G1-009",
+    "cut": "§6",
+    "face": "E",
+    "sev": "🟡",
+    "what": "「報せ」が台本に約20か所（c311 のほか、台本の 439・443・518・593・599 行など）あるのに §6 に無く、「ほうせ」と読まれる恐れ（「知らせ」とも混在）。「北棟・南棟」（c421・c428 から）も読みが決まっていない（「ほくとう」＝北東と聞こえる恐れ）。「空の保安」「空の交通」「北東部の空」（c216・c302・c104・c318）は「からの」と読まれる恐れ。「指揮所」（c312）は「しきしょ／しきじょ」が割れる。c104 の「北のビル」は冒頭の言い方としてそのままでよい。読みは ⑤a で確かめ、合わなければ「報せ」を「知らせ」に揃える案も。",
+    "evidence": "台本 §6 の漢字の行に 報せ・北棟・南棟・空・指揮所 が無い。台本 c311「報せは段を上がって FAA 本部へ」・c421「世界貿易センターの北棟にぶつかった」・c216「当時の空の保安の仕組みを」",
+    "old": "- 漢字：刃渡り（はわたり）",
+    "new": "- 漢字：報せ（しらせ）・北棟（きたとう）・南棟（みなみとう）・空の（そらの）・指揮所（しきしょ）・刃渡り（はわたり）",
+    "why": "⑤a の前に読みを決める（E 誤読）"
+  },
+  {
+    "id": "G1-010",
+    "cut": "c214",
+    "face": "B",
+    "sev": "🟢",
+    "what": "原文は「3つの便の乗客が、犯人が爆弾を持っていると言ったと伝えた」。「言った便もある」は4機のうち3機を少なく聞かせ、主語も「便」になっている。「おそらく偽物」の留保は残っていて合う。",
+    "evidence": "委員会報告 p13 'Passengers on three flights reported the hijackers' claim of having a bomb. The FBI told us they found no trace of explosives at the crash sites. ... we believe the bombs were probably fake.'",
+    "old": "目や喉を刺激するスプレー。爆弾があると言った便もあるが、",
+    "new": "目や喉を刺激するスプレー。3つの便で、犯人は爆弾があると言ったが、",
+    "why": "数を原文どおりに"
+  },
+  {
+    "id": "G1-011",
+    "cut": "c310",
+    "face": "B",
+    "sev": "🟢",
+    "what": "原文は「国際線の警備へ移動するときを除き、国内線には配置されていなかった」。移動のときは国内線に乗ることもあった＝「乗っていなかった」は少し言いすぎ。",
+    "evidence": "委員会報告 p85 'They were not deployed on U.S. domestic flights, except when in transit to provide security on international departures.'",
+    "old": "しかも、国内線には乗っていなかった。",
+    "new": "しかも、国内線の警備にはついていなかった。",
+    "why": "not deployed＝配置されていない"
+  },
+  {
+    "id": "G1-012",
+    "cut": "c318",
+    "face": "B",
+    "sev": "🟢",
+    "what": "原文は「待機の2か所を呼べた。待機でない基地は武装と乗員の手配に時間が要る」。「呼べたのは…4機だけ」は、ほかの基地は使えなかったと聞こえる（後の章で別の基地の機も出る）。",
+    "evidence": "委員会報告 p17 'That morning NEADS could call on two alert sites, each with one pair of ready fighters ... Other facilities, not on \"alert,\" would need time to arm the fighters and organize crews.'",
+    "old": "NEADS が呼べたのは、オーティスとラングレーの2か所、4機だけだった。",
+    "new": "NEADS がすぐ呼べたのは、オーティスとラングレーの2か所、4機だけだった。",
+    "why": "待機の機だけが「すぐ」使えた"
+  },
+  {
+    "id": "G1-013",
+    "cut": "c210",
+    "face": "B",
+    "sev": "🟢",
+    "what": "出典の欄の p4 の Argenbright は、ニューアーク（93便）の検査場だけの文。語り「検査を受け持っていたのは、航空会社が雇った警備の会社」は4か所すべての話で、合っている（ボストン＝11便は Globe・175便は Huntleigh、ダレス＝77便は Argenbright で責任の航空会社はユナイテッド）。出典の欄に p2・p3 を添える。",
+    "evidence": "委員会報告 p2 'The security checkpoints through which passengers ... gained access to the American 11 gate were operated by Globe Security under a contract with American Airlines. ... United Airlines, which had contracted with Huntleigh USA to perform the screening.' ／p3 'United Airlines, which was the responsible air carrier, had contracted out the work to Argenbright Security.' ／p4 'owned by United Airlines and operated under contract by Argenbright Security'",
+    "old": "委員会報告 p4（`operated under contract by Argenbright Security`）",
+    "new": "委員会報告 p2（`operated by Globe Security under a contract with American Airlines`・`contracted with Huntleigh USA to perform the screening`）・p3（`had contracted out the work to Argenbright Security`）・p4（`operated under contract by Argenbright Security`）",
+    "why": "出典が1か所ぶんだけ＝語りの範囲と揃える"
+  },
+  {
+    "id": "G1-014",
+    "cut": "c109",
+    "face": "B",
+    "sev": "🟢",
+    "what": "「無線も電話も録音され」の裏付けが出典の欄に無い（p20 はレーダーと NEADS の電話の逐語だけ）。スタッフ声明 p18 と委員会報告の注（p462）に録音の記述があり、語りは合っている。⚠️ 機内からの電話は一部だけ録音（注 p453）＝「全部」と言い換えないこと。",
+    "evidence": "スタッフ声明 p18 '...is reflected not just in taped conversations at NEADS, but in taped conversations at FAA centers, on chat logs compiled at NEADS, Continental Region headquarters, and NORAD, and in other records.' ／委員会報告 p462（注）'time codes automatically recorded in the ATC audiotapes for the FAA centers'",
+    "old": "委員会報告 p20（`Radar data show the Otis fighters were airborne at 8:53`）・p20（`NEADS: Is this real-world or exercise?`）",
+    "new": "委員会報告 p20（`Radar data show the Otis fighters were airborne at 8:53`）・p20（`NEADS: Is this real-world or exercise?`）・スタッフ声明 p18（`taped conversations at NEADS, but in taped conversations at FAA centers`）",
+    "why": "語りの「録音」の出典を欄に"
+  },
+  {
+    "id": "G1-015",
+    "cut": "c317",
+    "face": "F",
+    "sev": "🟢",
+    "what": "第2章の実写は c301 の1点だけ（1/20）。materials §7-4 の c3 の束にオーティスの F-15（2001年秋のニューヨーク上空の警戒・A）が2点あり、c301 で1点しか使っていない。「それぞれに2機ずつ」の語りに機体の写真が合う。数（26→7）は語りが言うので札は小さく。",
+    "evidence": "materials.md §7-4「c3 常識 | F-15（オーティスの102戦闘航空団・101戦闘飛行隊）の2001年秋のニューヨーク上空の警戒（2点＝A）| ✅ 尾翼「MA」「101FS」・1点は2001-11-06（VIRIN）」",
+    "old": "図 模式 待機の基地の数（冷戦の最大26か所から7か所への棒）",
+    "new": "実写 F-15 オーティス基地の2点目（A・2001年秋のニューヨーク上空の警戒・副題「オーティス基地のF-15（2001年秋）」・26→7 の数は小さな札）",
+    "why": "章の写真の割合（§0 の W）"
+  },
+  {
+    "id": "G1-016",
+    "cut": "§1-5",
+    "face": "B",
+    "sev": "🟢",
+    "what": "燃料の量は資料で割れる。委員会報告 p4 は「最大で11,400ガロン」、スタッフ声明 No.17 p4 は11便に「24,000ガロン」と書く。語りは委員会報告（後の資料）のままでよいが、割れる数として §1-5 に残しておく（照合のときの迷いを防ぐ）。",
+    "evidence": "委員会報告 p4 'loaded with up to 11,400 gallons of jet fuel' ／スタッフ声明 p4 'A Boeing 767, Flight 11 was bound for Los Angeles with 81 passengers, 11 crew, and 24,000 gallons of jet fuel.'",
+    "old": "| 犠牲者 | いま 2,977（c103・cc06） | 委員会 2,973（2004年7月・cc07） | 記念館・p311 |",
+    "new": "| 犠牲者 | いま 2,977（c103・cc06） | 委員会 2,973（2004年7月・cc07） | 記念館・p311 |\n| 燃料 | 最大で約4万3,000リットル（1万1,400ガロン）（c203） | スタッフ声明 No.17 は11便に 24,000ガロン（言わない） | p4・スタッフ声明 p4 |",
+    "why": "割れる数は1つに決めて表に残す（§1-5 の流儀）"
+  }
+]
