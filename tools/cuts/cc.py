@@ -180,3 +180,25 @@ SPEC = {
         steps=[dict(state=dict(s6row="on"), rec=S6R["real"], tag=dict(t="1列", at="rows", off=(160, 0))),
                dict(tag=dict(t="ここに亀裂が伸びた", at="row2", off=(170, 150))), dict()]))),
 }
+
+# ── 🆕 ⑤b-7（2026-10-11）：写真（CC BY 3.0・全画面）・文字の頁（書き方の約束は c2.py の ⑤b-7 の節）──
+#   ⚠️ 章の札「その後と、まだ分からないこと」＝見出しに「分からない」（5字）を入れない（門番 dup）
+SPEC.update({
+    # cc01（12.12秒）＝O4 道の標識（国道299号・2009年）＝ゆっくり寄る（全画面）
+    "cc01": dict(photo=P("o4_sign_r299"), **ss.kind(P("o4_sign_r299")), t="国が出した指示",
+                 s="御巣鷹の尾根を示す道の標識（国道299号・2009年）"),
+    # cc05（10.30秒）＝O3 昇魂之碑（2009年）＝下から上へ流す
+    "cc05": dict(photo=P("o3_shokon_no_hi"), **ss.kind(P("o3_shokon_no_hi")), cam="tilt_u", t="国への2つの文書",
+                 s="昇魂之碑（御巣鷹の尾根・2009年）"),
+    # cc06（10.89秒）＝勧告第1号（ja_01 の PDF 4頁）の 1．と 2．。1行目・2行目と同時に、それぞれの求めの句に印
+    "cc06": dict(photo=ss.page(3004), trim=ss.ptrim("cc06"), bias=ss.pbias("cc06"), panel=True, color=1.0, hl=ss.phl("cc06"),
+                 t="勧告第1号", s="修理と点検の2つの求め"),
+    # cc08（7.34秒）＝O6 慰霊の園（2009年）＝ゆっくり引く
+    "cc08": dict(photo=P("o6_ireinosono"), **ss.kind(P("o6_ireinosono")), cam="pull", t="継ぎ方の理由", s="慰霊の園（群馬県上野村・2009年）"),
+    # cc16（12.21秒）＝O5 道の標識（県道124号・2009年）＝左へ流す
+    "cc16": dict(photo=P("o5_sign_p124"), **ss.kind(P("o5_sign_p124")), cam="pan_l", t="最初の問いの答え",
+                 s="御巣鷹の尾根を示す道の標識（県道124号・2009年）"),
+    # cc19（5.04秒）＝O2 登山道（2009年）＝ゆっくり引く
+    "cc19": dict(photo=P("o2_osutaka_stairs"), **ss.kind(P("o2_osutaka_stairs")), cam="pull", t="あなたの感想",
+                 s="御巣鷹の尾根の登山道（2009年）"),
+})

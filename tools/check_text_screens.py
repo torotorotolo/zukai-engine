@@ -117,7 +117,13 @@ def pic_kinds(s, stock=False):
             db = _ss._assets()
         except Exception:                                    # noqa: BLE001
             db = {}
-        if (db.get(str(photo).split("/", 1)[-1].rsplit(".", 1)[0]) or {}).get("code") == "TF頁":
+        code = (db.get(str(photo).split("/", 1)[-1].rsplit(".", 1)[0]) or {}).get("code") or ""
+        if code == "TF頁":
+            return {"図・写真の頁"}
+        # 🆕 2026-10-11（20本目 ⑤b-7）：報告書の付図（F4・別添1 の A1F1）と解説の図（K-kz018）も資料の図＝写真（20%の数）に数えない。
+        #   台帳 assets.json の code（`qa_out/ep20_assets.py` の記号＝映像方針の一覧の素材の欄）で見分ける（名前の字面でなく記録）。
+        #   写真（P・A1P）は今までどおり写真
+        if re.fullmatch(r"(A1)?F\d+|K-k[zh]\d+", code):
             return {"図・写真の頁"}
         return {"写真"}
     return None

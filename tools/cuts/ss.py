@@ -122,6 +122,9 @@ BANDS = {k: v for k, v in PAGES.items() if v.get("fig_box")}
 #      git の `dc6ecf4`。残す教訓＝**私人の顔と名前は 640px のシートでは見えない**（原寸の切り出しで見つけた＝§5b-97）。
 #      切り出しで外したら、外した範囲を下の `PRIVATE_OUT` にも書く（門番 photomask が全カットの窓と照らす）
 TRIM: dict[str, tuple] = {
+    # 🆕 20本目 ⑤b-7（2026-10-11）：写真-9（No.3エンジン・c520 だけ）＝**左 18% を切る**（映像方針の一覧の注・materials.md §6-2＝
+    #   左端の白い形が人か物か決められない・p.181 を約400dpi の原寸から見た）。外した範囲は下の PRIVATE_OUT（門番 photomask）
+    f"{EP}p009.jpg": (0.18, 0.0, 1.0, 1.0),
 }
 TRIM.update({f"{EP}{k}.png": tuple(v["trim"]) for k, v in PAGES.items() if v.get("trim")})
 # 🔴 2026-09-30（15本目 ⑤b-6）：**頁の切り口はカットごと**（同じ頁を2カットで別の所を切る＝p15 c507・c611／p32 c105・c708／
@@ -151,6 +154,17 @@ def pbias(cid):
     if any("bias" in v for v in PAGES.values()):
         raise KeyError(f"{cid} の頁の寄せが無い（`qa_out/{EP[:-1]}_assets.py pages` をもう一度）")
     return 0.5
+
+
+# 🆕 2026-10-11（20本目 ⑤b-7）：**頁の上の印（hl）も `pages.json` から読む**（手で写さない）。`qa_out/ep20_assets.py pages` が、
+#    頁の句（文字の層）の行を頁の絵の字の帯に当てて箱を決め、字幕の句の位置から塗る割合を書く（`PAGE_HL`）
+def phl(cid):
+    """カットの頁の上の印＝[(字幕の行, 始めの割合, 終わりの割合, (x0, y0, x1, y1)＝頁の割合), …]。無ければ止める"""
+    for v in PAGES.values():
+        h = (v.get("hl") or {}).get(cid)
+        if h:
+            return [(int(k), float(f0), float(f1), tuple(float(x) for x in r)) for k, f0, f1, r in h]
+    raise KeyError(f"{cid} の頁の上の印が無い（`qa_out/{EP[:-1]}_assets.py` の PAGE_HL に足して pages）")
 
 
 def page(pr):
@@ -379,6 +393,9 @@ NEEDS_MASK: dict[str, str] = {}
 #    🔴 2026-09-30（15本目 ⑤b-1）：14本目の2点（光化門 2018 の板・救命胴衣の列 2017 の奥の人）を外した＝git の `dc6ecf4`。
 #       15本目は観客（私人）が写る写真が多い（事故の日の BY-SA・courtesy の頁）＝外す範囲は写真の束で原寸で見て書く
 PRIVATE_OUT: dict[str, list] = {
+    # 🆕 20本目 ⑤b-7：写真-9 の左端の白い形（x 0〜0.175・下見の目盛りのシートで y 0.25〜0.75）＝人か物か決められない＝窓に入れない
+    #   （⚠️ 960px の下見で範囲を測った＝⑤c で切ったあとの絵を原寸で見る）
+    f"{EP}p009.jpg": [(0.0, 0.25, 0.175, 0.75, "左端の白い形（人か物か決められない＝映像方針・materials.md §6-2）")],
 }
 
 
@@ -452,6 +469,20 @@ def focus(name, fx, fy, zoom=1.0, box=(W, H)):
                 bias=round(min(1.0, max(0.0, yb)), 3), zoom=zoom)
 
 
+def pf(name, fx, fy, zoom):
+    """🆕 20本目 ⑤b-7：**額装の写真**の中の点 (fx, fy)（切ったあとの絵の割合）を窓の真ん中に置く寄せ＝(xbias, bias, zoom)。
+    `cam={"from": ss.pf(…), "to": ss.pf(…)}`（2点・順に寄る）に書く。箱＝絵の縦横比（額装の箱は絵の縦横比のまま＝`focus` の既定の
+    箱 1920×1080 で測ると、16:9 でない絵は窓の高さを取り違える）"""
+    f = focus(name, fx, fy, zoom, box=trimmed_size(name))
+    return (f["xbias"], f["bias"], f["zoom"])
+
+
+def pfk(name, fx, fy, zoom):
+    """`pf` の dict 版＝SPEC に `**ss.pfk(…)`（cam を書かない＝既定のわずかな寄りのまま、窓の真ん中を (fx, fy) に置く）"""
+    x, b, z = pf(name, fx, fy, zoom)
+    return dict(xbias=x, bias=b, zoom=z)
+
+
 # ══════════════════════════════════════════════════════════
 #  動く映像（14本目＝米海軍の捜索の映像 PD・⑤b で決める。13本目は0本・12本目は2本）
 # ══════════════════════════════════════════════════════════
@@ -505,6 +536,8 @@ REC_DOCS = {                                # 出典の書き方「資料名 p�
     # 🆕 ⑤b-6b：頁の番号を出さない資料（解説の「はじめに」p.i・記事・会見・FAA の頁・検索）と、報告書の前付けの建議（ja_01 の PDF6）
     "解説はじめに": dict(range=(1, 1), name="運輸安全委員会の解説（2011年）「はじめに」", page=None, base=0),
     "建議": dict(range=(6, 6), name="航空事故調査報告書（1987年）の建議", page="pdf", base=0),
+    # 🆕 ⑤b-7：勧告第1号（ja_01 の PDF 3〜4頁＝前付け）＝文字の頁 cc06（`qa_out/ep20_assets.py` の PAGE_SRC 3004＝「勧告 p4」）
+    "勧告": dict(range=(3, 4), name="航空事故調査報告書（1987年）の勧告", page="pdf", base=0),
     "FAA": dict(range=(1, 1), name="FAA「Lessons Learned」JA8119（2025年9月3日 更新）", page=None, base=0),
     "産経": dict(range=(1, 3), name="産経新聞（2026年8月12日・ITmedia ビジネスオンライン転載）", page=None, base=0),
     "会見": dict(range=(1, 1), name="国土交通大臣の会見（2026年8月25日）", page=None, base=0),

@@ -2338,3 +2338,9 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `p119` | c717 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
 | `p123` | c716 | 不明 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会（報告書 62-2・昭和62年） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
 | `p124` | c408 | 不明 | 引用（報告書の写真-124）（著作権法32条・第三者の写真） | 第三者（地上の撮影者・報告書に名前の表記なし） | https://jtsb.mlit.go.jp/jtsb/aircraft/download/bunkatsu.html |
+| `pg102` | c813 | 1987 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会 | ja_04.pdf PDF 2頁 |
+| `pg125` | c907 | 1987 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会 | ja_04.pdf PDF 25頁 |
+| `pg126` | ca18 | 1987 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会 | ja_04.pdf PDF 26頁 |
+| `pg2001` | ca04 | 2011 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会 | jtsb_kaisetsu.pdf PDF 1頁 |
+| `pg3004` | cc06 | 1987 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会 | ja_01.pdf PDF 4頁 |
+| `pg311` | c211 | 1987 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会 | ja_11.pdf PDF 45頁 |

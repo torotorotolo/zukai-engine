@@ -223,6 +223,19 @@ def cmd_credits(write=False):
             raise SystemExit(f"🔴 {n}: 当てたカットの副題で年が割れる（{ys}）")
         cj[f"ep20/{n}.jpg"] = r["credit"]
         rows.append(f"| `{n}` | {' '.join(cuts)} | {ys[0] if ys else '不明'} | {r['lic']}（{r['ground']}） | {r['who']} | {r['url']} |")
+    # 🆕 ⑤b-7：文字の頁（pages.json）＝出典の行は資料の名と頁（`illu.rec_line`＝図のカットの出典と同じ書き方・`ss.REC_DOCS`）
+    sys.path.insert(0, str(HERE / "tools"))
+    import illu
+    pages = json.loads(PAGES_JSON.read_text(encoding="utf-8")) if PAGES_JSON.exists() else {}
+    PAGE_YEAR = {"報告書": 1987, "勧告": 1987, "解説はじめに": 2011}
+    for k, p in sorted(pages.items()):
+        line = illu.rec_line([p["rec"]])
+        if not line:
+            raise SystemExit(f"🔴 {k} の出典の行が作れない（`cuts/ss.REC_DOCS` に資料が無い）")
+        cj[f"ep20/{k}.png"] = line + "／切出"
+        doc = p["rec"].split()[0]
+        rows.append(f"| `{k}` | {' '.join(sorted(p.get('cuts', {})))} | {PAGE_YEAR[doc]} | PDL1.0（運輸安全委員会 公共データ利用規約） | "
+                    f"運輸安全委員会 | {p['pdf']} PDF {p['pdf_page']}頁 |")
     for k, v in cj.items():
         print(k, "|", v)
     print(f"… 写真 {len(db)}点")
@@ -261,6 +274,233 @@ def cmd_credits(write=False):
         md = md.rstrip("\n") + "\n\n" + block
     CREDITS_MD.write_text(md, encoding="utf-8")
     print(f"→ {CREDITS_JSON.relative_to(HERE).as_posix()} ／ {CREDITS_MD.relative_to(HERE).as_posix()}")
+    return 0
+
+
+# ── 文字の頁（⑤b-7・2026-10-11）──────────────────────────────
+#   頁の画像 ref/ep20/pg<N>.png（灰色・200dpi）と切り口・寄りの縦の寄せ・頁の上の印 ref/ep20/pages.json（`ss.page`・`ss.ptrim`・
+#   `ss.pbias`・`ss.phl`）。切り口の上下と bias は 18本目の `_fit_cut`（寄りの縮みを上下のすき間で受ける）をそのまま使う。
+#   🔴 報告書の頁は「スキャンの絵＋OCR の文字の層」（ArialMT・見えない字）＝文字の層の座標は絵とずれることがある
+#      （記憶 feedback-ocr-text-layer-is-not-the-picture）＝**目印の行は文字の層で探し、縦の位置は頁の絵の字の帯（インク）に当てる**
+#      （行の中心から 0.012 以内に帯が無ければ止める）。印の横の位置は、行の文字の層の左右の端を、その帯のインクの左右の端へ
+#      線形に写す（ずれを行ごとに打ち消す）。解説（2011年）は本物の字（文字の層＝絵）
+#   頁の番号（`ss.page(N)` の N）＝報告書は印刷の頁・解説の「はじめに」p.i は 2001・勧告第1号（ja_01 の PDF 4頁）は 3004
+#   （どれも `cuts.ss.REC_DOCS` の書き方「資料 p頁」＝出典の行）
+PAGES_JSON = EPD / "pages.json"
+PAGE_DPI = 200
+PANEL_AR_T = 1120 / 648        # 額の最大の箱（`scene_jiko.PANEL_MAXW × PANEL_MAXH`）の縦横比＝18本目と同じ目標
+COLS = (0.08, 0.95)            # 字を探す横の範囲（頁の幅の割合）。報告書の頁の字は x 0.11〜0.90
+PAGE_SRC = {    # 頁 → (PDF, PDF の頁, 出典の書き方, 回す角度＝PIL の rotate の度・反時計回り)
+    102: ("ja_04.pdf", 2, "報告書 p102", 0),
+    125: ("ja_04.pdf", 25, "報告書 p125", 0),
+    126: ("ja_04.pdf", 26, "報告書 p126", 0),
+    311: ("ja_11.pdf", 45, "報告書 p311", None),     # 別添6 CVR 記録の最初の頁＝横倒しの表（文字の層なし）。向きは PAGE_ROT311
+    2001: ("jtsb_kaisetsu.pdf", 1, "解説はじめに p1", 0),
+    3004: ("ja_01.pdf", 4, "勧告 p4", 0),
+}
+PAGE_ROT311 = 270              # 🔴 頁の絵で決めた向き（⑤b-7 の確かめのシート：90 では字が逆さま＝270＝時計回りに90度）
+# カット → (頁, 始めの目印, 終わりの目印)。目印＝文字の層の行の字を空白を除いてつないだ並びへの部分一致（1か所だけ・行をまたいでよい）。
+#   None＝頁の字のある所まるごと（c211＝CVR の表・言葉の行には寄らない＝額ごと寄る）
+PAGE_CUTS = {
+    "c211": (311, None, None),
+    # p102＝3.2.2(1)(オ)「実際の修正作業では…なお、このような作業が行われたという記録はない。」（台本 c813 の引用）
+    "c813": (102, "（オ）実際の修正作業では", "このような作業が行われたという記録はない。"),
+    # p125＝4.1.5.4 の後半「しかしながら…点検方法に十分とはいえない点があったためと考えられる。」（c907 の引用）
+    "c907": (125, "しかしながら、今回の場合のように", "えない点があったためと考えられる。"),
+    # p126＝4.1.7.2「…運航乗務員は最後まで酸素マスクを着用しなかったものと推定されるが、その理由を明らかにすることはできなかった。」
+    #   ⚠️ 「その理由を明らかにすることはできなかった。」は 4.1.7.3 にもある＝終わりの目印は「推定されるが、」から
+    "ca18": (126, "4.1.7.2", "推定されるが、その理由を明らかにすることはできなかった。"),
+    # 解説 p.i＝題と「はじめに」の頭〜おわびの文（ca04＝2011年の解説を名指し・おわびのうえで）
+    "ca04": (2001, "日本航空123便の御巣鷹山墜落事故に係る", "率直にお詫び申し上げます。"),
+    # 勧告第1号（PDF 4頁）＝1．と 2．（cc06 の語り＝1つ目・2つ目）。3．は語りに無い＝入れない
+    "cc06": (3004, "1．航空事故による損傷", "継続監視するよう、指導の徹底を図ること。"),
+}
+# 頁の上の印（蛍光ペン＝語りと同時に塗る）：カット → [(頁の上の句, 字幕の行, 字幕の中の句)]。句はどちらも原文の字のまま
+#   （頁の句＝文字の層の並び・空白を除く／字幕の句＝narration.json の字幕の行）。塗る秒＝字幕の句の位置の割合（`scene_jiko.hl_times`）
+PAGE_HL = {
+    "c813": [("このような作業が行われたという記録はない", 1, "このような作業が行われたという記録はない")],
+    "c907": [("点検方法に十分とはいえない点があったため", 1, "点検方法に十分とはいえない点があったため")],
+    #   「《」より前＝当てるための手がかり（塗らない）。「明らかにすることはできなかった」は 4.1.7.3 にもある
+    "ca18": [("運航乗務員は最後まで酸素マスクを着用しなかったものと推定される", 1, "乗員は最後まで酸素マスクを着けなかったと推定している"),
+             ("推定されるが、その理由を《明らかにすることはできなかった", 2, "明らかにすることはできなかった")],
+    "ca04": [("ご遺族の皆さまに対して、必ずしも十分な説明がなされていなかった", 1, "遺族への説明が足りなかった"),
+             ("率直にお詫び申し上げます", 1, "おわびした")],
+    "cc06": [("修理作業の計画及び作業管理を、状況に応じ特に慎重に", 0, "計画と管理を状況に応じ特に慎重に"),
+             ("その部位について特別の点検項目を設け継続監視するよう", 1, "特別な点検の項目を設けて、見守り続ける")],
+}
+
+
+def _norm_ja(s):
+    return re.sub(r"[\s　•]", "", s)
+
+
+def _rows_ja(page):
+    """文字の層の行＝[dict(t＝空白を除いた字, y0, y1, x0, x1, ch＝[(字, x0, x1)])]（頁の割合・上から）。同じ高さの行はまとめる"""
+    H, W = page.rect.height, page.rect.width
+    segs = []
+    for b in page.get_text("rawdict")["blocks"]:
+        if b.get("type") != 0:
+            continue
+        for ln in b["lines"]:
+            ch = [(c["c"], c["bbox"][0] / W, c["bbox"][2] / W) for s in ln["spans"] for c in s["chars"] if _norm_ja(c["c"])]
+            if ch:
+                x0, y0, x1, y1 = ln["bbox"]
+                segs.append(dict(y0=y0 / H, y1=y1 / H, ch=ch))
+    segs.sort(key=lambda s: (s["y0"] + s["y1"]) / 2)
+    rows = []
+    for s in segs:
+        c = (s["y0"] + s["y1"]) / 2
+        if rows and abs(c - (rows[-1]["y0"] + rows[-1]["y1"]) / 2) < 0.45 * (s["y1"] - s["y0"]):
+            r = rows[-1]
+            r["ch"] += s["ch"]
+            r["y0"], r["y1"] = min(r["y0"], s["y0"]), max(r["y1"], s["y1"])
+        else:
+            rows.append(dict(y0=s["y0"], y1=s["y1"], ch=list(s["ch"])))
+    for r in rows:
+        r["ch"].sort(key=lambda c: c[1])
+        r["t"] = "".join(c[0] for c in r["ch"])
+        r["x0"], r["x1"] = r["ch"][0][1], r["ch"][-1][2]
+    return rows
+
+
+def _find_ja(rows, anchor, pr):
+    """句の最初と最後の字の (行, 行の中の字の番号)。1か所でなければ止める（黙って別の所を切らない）"""
+    joined, owner = "", []
+    for i, r in enumerate(rows):
+        joined += r["t"]
+        owner += [(i, k) for k in range(len(r["t"]))]
+    a = _norm_ja(anchor)
+    ks = [m.start() for m in re.finditer(re.escape(a), joined)]
+    if len(ks) != 1:
+        raise SystemExit(f"🔴 p{pr}：句「{anchor}」が {len(ks)} か所＝1か所でないと切らない")
+    return owner[ks[0]], owner[ks[0] + len(a) - 1]
+
+
+def _band_of(bands, r, pr):
+    c = (r["y0"] + r["y1"]) / 2
+    k = min(range(len(bands)), key=lambda i: abs((bands[i][0] + bands[i][1]) / 2 - c))
+    if not bands[k][0] - 0.012 <= c <= bands[k][1] + 0.012:
+        raise SystemExit(f"🔴 p{pr}：文字の層の行（y {c:.4f}）に近い字の帯が無い（文字の層が絵とずれている？）")
+    return k
+
+
+def _page_img(pr):
+    """頁を灰色 200dpi に焼いて (np 配列, 頁の幅 pt) を返す（p311 は正立させる）"""
+    import fitz
+    import numpy as np
+    from PIL import Image
+    fn, pno, _, rot = PAGE_SRC[pr]
+    with fitz.open(EPD / "src" / fn) as d:
+        pg = d[pno - 1]
+        pix = pg.get_pixmap(dpi=PAGE_DPI, colorspace=fitz.csGRAY)
+        im = Image.frombytes("L", (pix.width, pix.height), pix.samples)
+        wpt, hpt = pg.rect.width, pg.rect.height
+    if rot is None:
+        im = im.rotate(PAGE_ROT311, expand=True)
+        wpt = hpt
+    return im, np.asarray(im), wpt
+
+
+def cmd_pages(only=None):
+    """`pages` は全頁。`pages 102` のように頁を書けばその頁だけ焼き直す。印（hl）は字幕（narration.json）の句の位置から"""
+    import fitz
+    sys.path.insert(0, str(HERE / "qa_out"))
+    import ep18_assets as E18
+    subs = json.loads((HERE / "audio" / "narration.json").read_text(encoding="utf-8"))["subtitles"]
+    pj = json.loads(PAGES_JSON.read_text(encoding="utf-8")) if PAGES_JSON.exists() else {}
+    for pr, (fn, pno, rec, rot) in PAGE_SRC.items():
+        if only and pr not in only:
+            continue
+        out = EPD / f"pg{pr}.png"
+        im, a, wpt = _page_img(pr)
+        im.save(out)
+        Hp, Wp = a.shape
+        cuts, biases, hls = {}, {}, {}
+        for cid, (p2, a_from, a_to) in PAGE_CUTS.items():
+            if p2 != pr:
+                continue
+            if a_from is None:
+                # 頁の字のある所まるごと（表）＝インクの外枠＋12pt。寄らない（額ごと寄る）ので bias は 0.5
+                bands = E18._bands(a, 0.03, 0.97)
+                top, bot = bands[0][0] - E18.END_PAD, bands[-1][1] + E18.END_PAD
+                x0, x1 = E18._ink_x(a, top, bot, 0.03, 0.97)
+                pad = 12 / wpt
+                box = [round(float(v), 4) for v in (max(0.0, x0 - pad), max(0.0, top), min(1.0, x1 + pad), min(1.0, bot))]
+                cuts[cid], biases[cid] = box, 0.5
+                print(f"✓ pg{pr} {cid}  trim={box}  頁まるごと（帯 {len(bands)}）")
+                continue
+            with fitz.open(EPD / "src" / fn) as d:
+                rows = _rows_ja(d[pno - 1])
+                scan = bool(d[pno - 1].get_images())    # スキャンの絵がある頁＝文字の層は OCR（見えない字）
+            # 字のある範囲＝インクの帯＋文字の層の行の芯（上下 7% ずつ縮めた箱＝18本目の OCR の行と同じ扱い）。
+            #   ⚠️ インクの帯だけだと、字の少ない短い行（p102「録はない。」＝5字）は帯が細く取れた（y 0.4882〜0.4925＝9画素・
+            #   横の投影がしきい値に届かない）＝印の箱も薄くなった（⑤b-7 の1回目）。
+            #   芯を足す前に、文字の層の行の中心と、いちばん近いインクの帯の中心の差を測って出す（0.006＝行間の約1/4 を超えたら止める）。
+            #   測るのは15字以上の行だけ（短い行はインクの帯そのものが取れず、となりの行の帯と比べてしまう＝p102 で 0.0235＝1行ぶん）
+            ink = E18._bands(a, *COLS)
+            core = [(r["y0"] + 0.07 * (r["y1"] - r["y0"]), r["y1"] - 0.07 * (r["y1"] - r["y0"])) for r in rows
+                    if COLS[0] <= (r["x0"] + r["x1"]) / 2 < COLS[1]]
+            offs = [min(abs((b[0] + b[1]) / 2 - (r["y0"] + r["y1"]) / 2) for b in ink) for r in rows
+                    if len(r["t"]) >= 15 and COLS[0] <= (r["x0"] + r["x1"]) / 2 < COLS[1]]
+            print(f"  pg{pr} {cid}：文字の層の行 {len(core)}・インクの帯の中心との差 最大 {max(offs):.4f}・中央 {sorted(offs)[len(offs) // 2]:.4f}")
+            if max(offs) > 0.006:
+                raise SystemExit(f"🔴 p{pr}：文字の層の行が頁の絵の字の帯とずれている（最大 {max(offs):.4f}）＝芯を足さない")
+            bands = E18._occupied(ink, core)
+            (r0, _), _ = _find_ja(rows, a_from, pr)
+            _, (r1, _) = _find_ja(rows, a_to, pr)
+            j0, j1 = _band_of(bands, rows[r0], pr), _band_of(bands, rows[r1], pr)
+            x0, x1 = E18._ink_x(a, bands[max(0, j0 - 4)][0], bands[min(len(bands) - 1, j1 + 4)][1], *COLS)
+            x0, x1 = max(0.0, x0 - 10 / wpt), min(1.0, x1 + 10 / wpt)
+            want = (x1 - x0) * Wp / PANEL_AR_T / Hp
+            j0, j1, top, bot, bias = E18._fit_cut(bands, j0, j1, 0, len(bands) - 1, 1 / Hp, want)
+            x0, x1 = E18._ink_x(a, top, bot, *COLS)
+            x0, x1 = max(0.0, x0 - 10 / wpt), min(1.0, x1 + 10 / wpt)
+            box = [round(float(v), 4) for v in (x0, max(0.0, top), x1, min(1.0, bot))]
+            cuts[cid], biases[cid] = box, bias
+            print(f"✓ pg{pr} {cid}  trim={box}  帯 {j0}〜{j1}  bias={bias}  縦横比 {round((box[2] - box[0]) * Wp / ((box[3] - box[1]) * Hp), 2)}")
+            # 頁の上の印＝句の行ごとの箱（縦＝その行のインクの帯・横＝文字の層の字の位置を帯のインクの左右の端へ写す）
+            out_hl = []
+            for ph, k, sp in PAGE_HL.get(cid, []):
+                (ra, ka), (rb, kb) = _find_ja(rows, ph.replace("《", ""), pr)
+                if "《" in ph:              # 手がかりの字のぶんだけ、塗り始めを後ろへ送る
+                    for _ in range(len(_norm_ja(ph.split("《")[0]))):
+                        ka += 1
+                        if ka >= len(rows[ra]["t"]):
+                            ra, ka = ra + 1, 0
+                line = subs[cid][k]["text"]
+                m = line.find(sp)
+                if m < 0:
+                    raise SystemExit(f"🔴 {cid}：字幕の {k} 行目に句「{sp}」が無い（{line}）")
+                f0, f1 = m / len(line), (m + len(sp)) / len(line)
+                segs = [(r, ka if r == ra else 0, kb if r == rb else len(rows[r]["t"]) - 1) for r in range(ra, rb + 1)]
+                n_all = sum(e - s + 1 for _, s, e in segs)
+                acc = 0
+                for r, s, e in segs:
+                    b = bands[_band_of(bands, rows[r], pr)]
+                    ix0, ix1 = E18._ink_x(a, b[0], b[1], *COLS)
+                    tx0, tx1 = rows[r]["x0"], rows[r]["x1"]
+                    if not scan:
+                        # 本物の字の頁（解説）＝文字の層が絵そのもの＝写さない（写すと「申し上げます」の「す」が半分外れた＝⑤b-7）
+                        ix0, ix1 = tx0, tx1
+                    sx = (ix1 - ix0) / max(1e-6, tx1 - tx0)
+                    cx0 = ix0 + (rows[r]["ch"][s][1] - tx0) * sx
+                    cx1 = ix0 + (rows[r]["ch"][e][2] - tx0) * sx
+                    g0 = f0 + (f1 - f0) * acc / n_all
+                    acc += e - s + 1
+                    g1 = f0 + (f1 - f0) * acc / n_all
+                    if not (box[1] <= b[0] and b[1] <= box[3]):
+                        raise SystemExit(f"🔴 {cid}：印の行（y {b[0]:.4f}〜{b[1]:.4f}）が切り口の外")
+                    out_hl.append([k, round(g0, 3), round(g1, 3), [round(float(cx0), 4), round(float(b[0]), 4),
+                                                                   round(float(cx1), 4), round(float(b[1]), 4)]])
+            if out_hl:
+                hls[cid] = out_hl
+                for h in out_hl:
+                    print(f"    印 {h}")
+        pj[f"pg{pr}"] = dict(rec=rec, pdf=fn, pdf_page=pno, rot=(PAGE_ROT311 if rot is None else rot), w=Wp, h=Hp, dpi=PAGE_DPI,
+                             md5=md5(out), cuts=cuts, bias=biases, hl=hls)
+        print(f"  pg{pr}  {fn} PDF {pno}頁  {Wp}x{Hp}")
+    PAGES_JSON.write_text(json.dumps(pj, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"→ {PAGES_JSON.relative_to(HERE).as_posix()}（{len(pj)}頁）")
     return 0
 
 
@@ -311,11 +551,25 @@ FB_BOX = (272, 11, 1648, 1069)
 FB_W = 1024
 
 
+# 🆕 ⑤b-7（2026-10-11）：区間が2つのカット＝尻の映像の差し込み（`ss.tailv`・鍵 `<cid>~t`）に分ける。
+#   カット → (差し込む行 at, 頭の区間, 尻の区間)。頭＝at 行目を読み始める少し前＋入れ替えの秒まで・尻＝そこから尺の終わりまで
+#   （`scene_jiko.ins_sec`・`INTRO_X`＝footage.secs_of と同じ式）。
+#   c503＝A（指揮所・4.3秒）→ B（F-4EJ の昼の離陸・2.0秒しかない＝尻の要る秒 約4.4秒に 0.4倍＝止め絵になる＝STILL_BELOW）。
+#   c601＝🔴 一覧の順（E→F の後半）を**入れ替えた**：E（浮かぶ板 2.5秒）を頭にすると要る約4.6秒に 0.54倍＝止め絵。F の後半（ボートが
+#   板を押さえる 5.6秒）を頭（1〜2行目＝「引き揚げられた」）・E を尻（3行目＝垂直尾翼の前の縁の上半分）にすると両方とも動く（0.75・0.85倍）。
+#   副題は写っているものだけ（映画の板が「最初の破片」かは分からない＝言わない＝映像方針）
+SPLIT = {
+    "c503": (1, (1431.95, 1436.35), (1436.45, 1438.35)),
+    "c601": (2, (1501.40, 1507.10), (1492.15, 1494.60)),
+}
+
+
 def cmd_use():
     """footage.USE の20本目の欄。rate＝使える秒÷要る秒（切り捨て・1.0まで）・0.6未満は止め絵。要る秒＝footage.secs_of（尺−扉）。
-    ⚠️ 区間が2つのカット（c503＝A＋B・c601＝E＋F の後半）は1欄に書けない＝⑤b-7 で尻の映像の差し込み（`<cid>~t`）に分ける＝ここでは書かない"""
+    区間が2つのカット（c503・c601）は上の SPLIT で頭と尻（`<cid>~t`）の2欄に分ける"""
     sys.path.insert(0, str(HERE / "tools"))
     import footage as FO
+    import scene_jiko as S
     secs = FO.secs_of()
     sd = json.loads(SHOTS.read_text(encoding="utf-8"))["BV"]["shots"]
     lines, skip = [], []
@@ -324,7 +578,21 @@ def cmd_use():
         if not rg:
             continue
         if len(rg) > 1:
-            skip.append(r["cid"])
+            if r["cid"] not in SPLIT:
+                skip.append(r["cid"])
+                continue
+            at, ha, ta = SPLIT[r["cid"]]
+            head_need = S.ins_sec(r["cid"], at) + S.INTRO_X
+            dur = dict(S.CUTS)[r["cid"]] - S.card_of(r["cid"])
+            for key, (a, b), need, tail in ((r["cid"], ha, head_need, False), (r["cid"] + S.TAIL_KEY, ta, dur - S.ins_sec(r["cid"], at), True)):
+                avail = b - a
+                rate = min(1.0, int(avail / need * 100) / 100)
+                sh = [s for s in sd if s["start"] <= a < s["until"]]
+                where = f"ショット {sh[0]['shot']}（{sh[0]['start']:.2f}〜{sh[0]['until']:.2f}秒）" if sh else "ショット表の外"
+                s0 = round((a + b) / 2, 2) if rate < STILL_BELOW else a
+                opt = (f", still=True, until={min(b, s0 + 1.0):.2f}" if rate < STILL_BELOW else f", until={b:.2f}, rate={rate}")
+                lines.append(f'    "{key}": dict(clip="BV", start={s0:.2f}{opt}, zoom={BV_ZOOM}{", tail=True" if tail else ""}),   '
+                             f'# {where}・使える {avail:.2f}秒（{a:g}〜{b:g}）／要る {need:.2f}秒（{"尻" if tail else "頭"}・{at}行目で入れ替え）')
             continue
         a, b = rg[0]
         need = float(secs[r["cid"]])
@@ -380,6 +648,8 @@ if __name__ == "__main__":
         sys.exit(cmd_credits("--write" in a))
     if a and a[0] == "fb":
         sys.exit(cmd_fb(set(a[1:]) or None))
+    if a and a[0] == "pages":
+        sys.exit(cmd_pages({int(x) for x in a[1:]} or None))
     if a and a[0] in cmds:
         sys.exit(cmds[a[0]]())
     print(__doc__)

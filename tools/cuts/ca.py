@@ -251,3 +251,16 @@ SPEC = {
         place="S2", start=dict(s2t="end", s2plane="off", s2crash="on", switch="on"), rec=S2R["crash"],
         steps=[dict(), dict(), dict(state=dict(s2ring="sagami"))]))),
 }
+
+# ── 🆕 ⑤b-7（2026-10-11）：写真・文字の頁（書き方の約束は c2.py の ⑤b-7 の節）──
+#   ⚠️ ca04 の見出し・副題に「2011年」「「はじめに」」を入れない＝出典の行「運輸安全委員会の解説（2011年）「はじめに」」と重なる（門番 dup）
+SPEC.update({
+    # ca01（4.90秒）＝写真-98（客室最後部の化粧室の天井部分の破片に付着する断熱材）＝寄る
+    "ca01": dict(photo=P("p098"), **ss.kind(P("p098")), t="1つの疑問", s="客室の最後部の化粧室の天井の破片"),
+    # ca04（9.63秒）＝解説（2011年）p.i の題と「はじめに」の頭〜おわびの文。2行目と同時におわびの句に印
+    "ca04": dict(photo=ss.page(2001), trim=ss.ptrim("ca04"), bias=ss.pbias("ca04"), panel=True, color=1.0, hl=ss.phl("ca04"),
+                 t="解説の冒頭", s="題と冒頭の頁"),
+    # ca18（9.43秒）＝報告書 p126（4.1.7）。2行目・3行目と同時に、推定の句と「明らかにすることはできなかった」（4.1.7.2）に印
+    "ca18": dict(photo=ss.page(126), trim=ss.ptrim("ca18"), bias=ss.pbias("ca18"), panel=True, color=1.0, hl=ss.phl("ca18"),
+                 t="報告書の推定", s="運航乗務員の対応（4.1.7）"),
+})
