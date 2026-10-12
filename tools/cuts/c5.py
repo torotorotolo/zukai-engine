@@ -102,8 +102,9 @@ SPEC.update({
     "c503": dict(
         t="始まった時間", s="175便の機内（前の座席と操縦室の扉）",
         fig=("m21", dict(view="cabin", start=dict(zoom="front"),
-                         steps=[dict(tag=dict(t="8:42〜8:46 のあいだ", d="委員会の記録", at="start")),
-                                dict(tag=dict(t="8:47 番号が1分で2回変わる", at="how"))],
+                         # 🔧 試し焼き：先の出来事を右・後の出来事を左に置くと、左から読んで時間が逆になった＝左に 8:42〜8:46・右に 8:47
+                         steps=[dict(tag=dict(t="8:42〜8:46 のあいだ", d="委員会の記録", at="how")),
+                                dict(tag=dict(t="8:47 番号が1分で2回変わる", at="start"))],
                          rel=[dict(t="8:42〜8:46", src="委員会報告 p7"), dict(t="8:47", src="委員会報告 p7"), dict(t="1分で2回", src="委員会報告 p7")],
                          note="人は描かない・座席の並びは模式", src=ss.src(["委員会報告 p7", "NTSB 175便 p3002"]))),
     ),
@@ -188,7 +189,7 @@ SPEC.update({
         fig=("m21", dict(view="ne", start=dict(bases="on"),
                          steps=[dict(state=dict(f15="on"), tag=dict(t="8:53 F-15 が飛び立つ", at="f15")),
                                 dict(tag=dict(t="沖の軍の空域", at="w105")),
-                                dict(state=dict(mnh="on"), tag=dict(t="マンハッタンの方へ", at="w2"))],
+                                dict(state=dict(mnh="on"))],     # 🔧 試し焼き：札「マンハッタンの方へ」は右の海に離れて浮いた＝矢印と語りだけ
                          rel=[dict(t="8:53", src="委員会報告 p20"), dict(t="F-15", src="委員会報告 p20")],
                          note="陸の形は Natural Earth・空域の位置と線は模式", src=ss.src(["委員会報告 p20", "委員会報告 p23"]))),
     ),
