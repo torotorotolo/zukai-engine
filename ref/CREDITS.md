@@ -2436,6 +2436,8 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `pg4003` | c602 | 2002 | PD（米連邦の職務） | NTSB | ntsb_flight_path_study_AA77.pdf PDF 3頁（200dpi・灰色・270度回して正立） |
 | `pg4004` | c618 | 2002 | PD（米連邦の職務） | NTSB | ntsb_flight_path_study_AA77.pdf PDF 4頁（200dpi・灰色・270度回して正立） |
 | `pg4005` | c617 | 2002 | PD（米連邦の職務） | NTSB | ntsb_flight_path_study_AA77.pdf PDF 5頁（200dpi・灰色・270度回して正立） |
+| `pg5003` | c802 c809 | 2002 | PD（米連邦の職務） | NTSB | ntsb_flight_path_study_UA93.pdf PDF 3頁（200dpi・灰色・270度回して正立） |
+| `pg5004` | c806 | 2002 | PD（米連邦の職務） | NTSB | ntsb_flight_path_study_UA93.pdf PDF 4頁（200dpi・灰色・270度回して正立） |
 | `pgr11` | c408 | 2001 | PD（米連邦の職務） | 米連邦航空局（FAA） | `out/ep7_shotscan/3-AWA-716-WTC1__s01.png`（38.0秒のコマ・上下の黒い帯 y 0〜48・430〜を切った） |
 
 ### 2. 頁（米連邦の資料＝PD・`qa_out/ep21_assets.py pages`・切り口は `ref/ep21/pages.json`）
@@ -2449,4 +2451,6 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `pg4003.png` | c602 | 77便の飛行経路（Figure 1・点 A〜F） | ntsb_flight_path_study_AA77.pdf PDF 3頁（200dpi・灰色・270度回して正立） |
 | `pg4004.png` | c618 | 77便の高度（Figure 2・飛行の記録装置の気圧高度） | ntsb_flight_path_study_AA77.pdf PDF 4頁（200dpi・灰色・270度回して正立） |
 | `pg4005.png` | c617 | ワシントンの辺りの経路（Figure 3・地形の地図の上） | ntsb_flight_path_study_AA77.pdf PDF 5頁（200dpi・灰色・270度回して正立） |
+| `pg5003.png` | c802 c809 | 93便のレーダーの航跡（Figure 1・点 A〜I と時刻） | ntsb_flight_path_study_UA93.pdf PDF 3頁（200dpi・灰色・270度回して正立） |
+| `pg5004.png` | c806 | 93便の高度（Figure 2・点 A〜I） | ntsb_flight_path_study_UA93.pdf PDF 4頁（200dpi・灰色・270度回して正立） |
 | `pgr11.png` | c408 | 11便の航跡の再生（FAA・3-AWA-716-WTC1 の 38.0秒） | `out/ep7_shotscan/3-AWA-716-WTC1__s01.png`（38.0秒のコマ・上下の黒い帯 y 0〜48・430〜を切った） |

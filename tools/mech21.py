@@ -33,6 +33,20 @@
   desk    … コマンドセンターの運用の部屋（上から・卓の並び）＝人は描かない                                         c704
   radio・call・phone・chain … 相手を選ぶ頭の欄（ctr＝ニューヨーク・センター／pair／to＝事務所・家族／who＝ny・reg＝地域の管理職）
   scope   … ＋番号の変化（code）・点（blip＝消える）・2機（two）・記録に残っていた点（ghost）・空港の管制の画面（who＝app・fast）
+  🆕 ⑤b-5（第7〜8章）で足した見え方と欄
+  acars   … 運航管理から受け持つ16便への文字の警告（send）・93便に届く（recv93）・返信（reply）＝文は画面に出さない        c803〜c805
+  ground  … 機内の電話と地上の3つの箱（家族・航空会社・当局）・行く線（calls）・機内に伝わる（back）                  c816
+  roll    … 正面から見た機の傾き（tilt＝level・left・right＝部品が回る）・左右の矢印（rock）・止まる（calm）             c820・c825
+  wall    … 操縦室の扉の内と外（押さえる＝block・記録装置＝rec・扉ごしの音＝noise・「？」＝q・下へ＝down）           c821・c822・c831
+  cvr     … 操縦室の音声の記録の帯と印（v1・v2・push・down・hl2）・地上で聞かれた言葉の出どころ（ap・phone）＝言葉は出さない
+                                                                                         c823・c824・c826・c832・c833
+  cmd     … 撃墜の許可の流れ（副大統領→NORAD→NEADS→戦闘機・lit・文字の連絡＝msg・×・2つの命令の札 cap／plt・≠）        c909〜c912
+  need    … 撃ち落とすのに要る3つ（見つけて追う・撃つ許可・命令を渡す）・灯す（hl）・×                                 c918・c919
+  ne      … ＋93便の線（r93）・シャンクスビル（shk）・首都への予測の線（proj）・3つの印（hits）                     c835・c907
+  dc      … ＋議事堂とホワイトハウスの輪（tgt）                                                                     c834
+  sky     … 首都の上を回る2組の戦闘機（ラングレー＝o1・アンドルーズの州兵＝o2・基地の箱＝adw）                          c916
+  cabin   … ＋機の型（頭の欄 plane＝757）・後ろの9列の電話（fones・rear9）・地上へ（calls）・決（vote）・前へ（rush）  c814〜c818
+  radio・chain・call … クリーブランド・センター（ctr／who＝cle）・本部の「？」（hqq）・副大統領と大統領（pair＝vp・nolog）
 
 ■ SPEC の書き方（mech20 と同じ）
   fig=("m21", dict(view=…, start=dict(…), steps=[dict(state=dict(…), tag=dict(t=…, at=…, to=…, d=…)), …],
@@ -171,10 +185,14 @@ MAP_PTS = dict(bos=(42.3656, -71.0096), ewr=(40.6925, -74.1687), iad=(38.9531, -
                sfo=(37.6189, -122.3750), rome=(43.2338, -75.4070), otis=(41.6584, -70.5214), langley=(37.0829, -76.3605),
                nyc=(40.7128, -74.0060), dc=(38.9072, -77.0369), boston=(42.3601, -71.0589),
                herndon=(38.9696, -77.3861), bal=(39.2904, -76.6122),
-               wh=(38.8977, -77.0365), pent=(38.8719, -77.0563), dca=(38.8512, -77.0402))
+               wh=(38.8977, -77.0365), pent=(38.8719, -77.0563), dca=(38.8512, -77.0402),
+               # 🆕 ⑤b-5：シャンクスビル（93便の墜落の地＝委員会報告 p30「125 miles from Washington」＝門番が距離を照らす）・
+               #   連邦議会の議事堂（p14「the Capitol」）・アンドルーズ空軍基地（p44「Andrews Air Force Base in Maryland」）
+               shk=(40.0514, -78.9044), cap=(38.8899, -77.0091), adw=(38.8108, -76.8669))
 MAP_NAMES = dict(bos="ボストン", ewr="ニューアーク", iad="ワシントン・ダレス", lax="ロサンゼルス", sfo="サンフランシスコ",
                  rome="ローム（NEADS）", otis="オーティス", langley="ラングレー", nyc="ニューヨーク", dc="ワシントン", boston="ボストン",
-                 herndon="ハーンドン（バージニア州）", bal="ボルチモア", wh="ホワイトハウス", pent="ペンタゴン", dca="レーガン・ナショナル空港")
+                 herndon="ハーンドン（バージニア州）", bal="ボルチモア", wh="ホワイトハウス", pent="ペンタゴン", dca="レーガン・ナショナル空港",
+                 shk="シャンクスビル", cap="連邦議会の議事堂", adw="アンドルーズ基地")
 # 4便（出発 → 行き先）＝委員会報告 p4・p7・p8・p10
 ROUTES = (("11便・175便", "bos", "lax"), ("77便", "iad", "lax"), ("93便", "ewr", "sfo"))
 US_LAB = dict(bos=(1470.0, 445.0), ewr=(1470.0, 492.0), iad=(1470.0, 539.0), lax=(430.0, 650.0), sfo=(430.0, 560.0))
@@ -332,6 +350,10 @@ NE_LANG_E = (37.08, -72.4)                       # ラングレーの戦闘機�
 # 77便（委員会報告 p24・p25＝NTSB 77便 図1 の C〜D の辺りを一般の地図で読んだ見当＝模式）：西へ→南へ曲がる→画面から消える→東へ→9:05 に東で戻る
 R77 = dict(bend=(38.95, -80.0), turn=(38.62, -82.70), lost=(38.62, -82.70), reapp=(38.50, -81.50), east=(38.70, -79.60))
 R77_LOOK = ((38.62, -85.3), (37.30, -84.6))       # 管制官が探した西と南西（p25「looked to the west and southwest」）
+# 🆕 ⑤b-5（c835・c907）：93便（委員会報告 p11・p12＝NTSB 93便 図1 の見当＝模式）：ニューアークから西へ → オハイオの上で向きを変える → 東へ戻って
+#   シャンクスビル。予測の線＝シャンクスビルから首都へ（p41「its projected path to Washington」）
+R93 = dict(w=(41.15, -77.8), turn=(41.35, -81.7))
+NE_SHK_LAB = (702.0, 546.0, "start")             # シャンクスビルの札（93便の線が左上から来る＝右に置く・下を予測の線が通る）
 
 
 def ne_base(st0):
@@ -414,6 +436,23 @@ def ne_stage(prev, st):
         s += [F.circ(*r["reapp"], 22, "none", J.BG, 9), F.circ(*r["reapp"], 22, "none", J.AMBER, 5), F.circ(*r["reapp"], 8, J.AMBER)]
     if _on(prev, st, "turn"):
         s.append(F.circ(*r["turn"], 36, "none", J.AMBER, 4))
+    # 🆕 ⑤b-5
+    (sx, sy), (dx, dy) = G.px(*MAP_PTS["shk"]), G.px(*MAP_PTS["dc"])
+    if _on(prev, st, "r93"):
+        e, w9, t9 = G.px(*MAP_PTS["ewr"]), G.px(*R93["w"]), G.px(*R93["turn"])
+        s.append(F.poly([e, w9, t9], "none", J.AMBER, 5, dash="12 9"))                         # 西へ（来た道）
+        s.append(_arrow(t9[0] + 4, t9[1] + 6, sx - 12, sy - 8, J.AMBER, 6, 24))               # 東へ引き返す
+    if _on(prev, st, "shk"):
+        s += [F.circ(sx, sy, 20, "none", J.BG, 9), F.circ(sx, sy, 20, "none", J.ALERT, 5), F.circ(sx, sy, 8, J.ALERT)]
+        lx, ly, an = NE_SHK_LAB
+        s.append(F.txtfit(lx, ly, MAP_NAMES["shk"], 300, cap=28, col=INK, anchor=an, ol=6))
+    if _on(prev, st, "proj"):
+        # ⚠️ geom_gap：シャンクスビルから首都へ真っすぐ引くと「ワシントン」の札（左・end）を横切った＝札の上を東へ回ってから下りる
+        s.append(F.poly([(sx + 16, sy + 4), (dx - 6, sy + 12)], "none", J.TICK, 5, dash="6 9"))
+        s.append(_arrow(dx - 6, sy + 12, dx - 3, dy - 12, J.TICK, 5, 22, dash="6 9"))
+    if _on(prev, st, "hits"):
+        nx, ny = G.px(*MAP_PTS["nyc"])
+        s += [_xmark(nx - 14, ny, 14, w=6), _xmark(nx + 14, ny, 14, w=6), _xmark(dx, dy, 14, w=6)]
     return s
 
 
@@ -427,6 +466,8 @@ MI_KM = 1.609344
 DC_T77 = ((38.80, -77.29), (38.835, -77.17))      # 77便の線（西から・模式＝NTSB 77便 図3 の向きの見当）
 DC_C130 = ((38.875, -77.29), (38.90, -77.22))     # 軍の輸送機の線（模式＝委員会報告 p25 は「離陸したばかり」とだけ）。⚠️ 始まりを (38.92, …) にすると札に破線がかかった
 #   🔧 試し焼き：(38.79, -76.98)→(38.86, -77.11) は線がレーガン空港の点のそばを通り、札の引き出し線がペンタゴンの点を横切った＝北西（77便の線の上）へ
+# 🆕 ⑤b-5：議事堂の札（基図の3つの札とは別＝その欄の段で出す＝c834）
+DC_LAB2 = dict(cap=(1130.0, 560.0, "start"))
 
 
 def dc_unk(G):
@@ -465,6 +506,61 @@ def dc_stage(prev, st):
     if _on(prev, st, "follow"):
         (cx, cy), (tx, ty) = G.px(*DC_C130[1]), G.px(*DC_T77[1])
         s.append(_arrow(cx + 6, cy + 24, tx - 14, ty - 18, J.TICK, 4, 18, dash="8 8"))      # 輸送機から77便の線の先へ（追う）
+    # 🆕 ⑤b-5（c834・c916）
+    if _on(prev, st, "tgt"):
+        for k in ("cap", "wh"):
+            x, y = G.px(*MAP_PTS[k])
+            s += [F.circ(x, y, 26, "none", J.BG, 9), F.circ(x, y, 26, "none", J.AMBER, 5)]
+        x, y = G.px(*MAP_PTS["cap"])
+        lx, ly, an = DC_LAB2["cap"]
+        s += [F.circ(x, y, 9, INK, J.BG, 3), F.line(x + 12, y + 8, lx - 8, ly - 10, J.LINE, 2),
+              F.txtfit(lx, ly, MAP_NAMES["cap"], 420, cap=28, col=INK, anchor=an, ol=6)]
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5 sky（c916）＝首都の上を回る2組の戦闘機（ラングレー＝NORAD の指揮・アンドルーズの州兵＝委員会報告 p44）。
+#     🔧 ワシントンの地図（dc）に輪を重ねると、ホワイトハウス・ペンタゴン・レーガン空港の札と点のどれかに必ずかかった（座標で計算）＝
+#        地図をやめて、輪と出どころの箱だけの模式に
+# ══════════════════════════════════════════════════════════
+SK = dict(c=(960.0, 590.0), r1=150.0, r2=240.0, lang=(330.0, 470.0), adw=(1590.0, 780.0), bw=420.0, bh=110.0)
+#   ⚠️ 門番 layout：r1 130 と札「首都ワシントン」（7字）は、輪の線が字を縦に貫いた＝輪を広げ・札を「ワシントン」に
+
+
+def _ring(cx, cy, r, col, sw=4, dash="12 10"):
+    """回る向きの矢じりつきの弧（下の 60度を開ける）。
+    ⚠️ 門番 layout は「字の幅の中に、字より上の点と下の点の両方がある線」を「縦に貫く」と数える＝閉じた輪は中の札を囲むだけで鳴った
+       （c916「ワシントン」）。下を開けた弧は、回っている向きも見える"""
+    pts = [(cx + r * math.cos(math.radians(a)), cy + r * math.sin(math.radians(a))) for a in range(120, 421, 6)]
+    (x1, y1), (x2, y2) = pts[-2], pts[-1]
+    return F.poly(pts[:-1], "none", col, sw, dash=dash) + _arrow(x1, y1, x2, y2, col, sw, 22)
+
+
+def sky_base(st0):
+    cx, cy = SK["c"]
+    # ⚠️ 門番 layout：輪の中の札（「首都ワシントン」「ワシントン」）は、輪の上下・左右の点で「貫く」と数えられた＝札を置かない
+    #    （首都は左上の見え方の名と真ん中の建物で示す）
+    return [_building(cx, cy, 170, 100, J.LINE)]
+
+
+def sky_stage(prev, st):
+    s = []
+    cx, cy = SK["c"]
+    if _on(prev, st, "o1"):
+        s.append(_ring(cx, cy, SK["r1"], J.AMBER))
+        s.append(_plane_top(cx, cy - SK["r1"], 56, col=J.AMBER, fighter=True))
+        x, y = SK["lang"]
+        s.append(_box(x, y, SK["bw"], SK["bh"], "ラングレー基地の戦闘機", J.AMBER, cap=28, t2="NORAD の指揮"))
+        a = math.radians(200)
+        s.append(F.line(x + SK["bw"] / 2 + 6, y, cx + SK["r1"] * math.cos(a) - 6, cy + SK["r1"] * math.sin(a), J.AMBER, 3, dash="8 8"))
+    if _on(prev, st, "o2"):
+        s.append(_ring(cx, cy, SK["r2"], J.INST))
+        s.append(_plane_top(cx + SK["r2"] * 0.71, cy - SK["r2"] * 0.71, 56, col=J.INST, fighter=True))
+    if _on(prev, st, "adw"):
+        x, y = SK["adw"]
+        s.append(_box(x, y, SK["bw"], SK["bh"], "アンドルーズ基地の州兵", J.INST, cap=30))   # ⚠️ 門番 echo：2行目「シークレットサービスの話から」は語りの写し
+        a = math.radians(35)
+        s.append(_arrow(x - SK["bw"] / 2 - 6, y - 20, cx + (SK["r2"] + 10) * math.cos(a), cy + (SK["r2"] + 10) * math.sin(a), J.INST, 5, 22))
     return s
 
 
@@ -740,7 +836,8 @@ CH_ORDER = ("ctl", "sup", "hq", "nmcc", "osd", "norad", "ftr")
 CH_XY = dict(ctl=(230.0, 700.0), sup=(470.0, 605.0), hq=(710.0, 510.0), nmcc=(950.0, 415.0), osd=(1190.0, 320.0),
              norad=(1430.0, 430.0), ftr=(1650.0, 540.0))
 CH_W, CH_H = 300.0, 64.0
-CH_NAMES = dict(ctl=dict(gen="管制官", bos="ボストン・センター", ny="ニューヨーク・センター"), sup="上司", hq="FAA の本部", nmcc="国防総省の指揮所",
+CH_NAMES = dict(ctl=dict(gen="管制官", bos="ボストン・センター", ny="ニューヨーク・センター", cle="クリーブランド・センター"),   # 🆕 ⑤b-5 cle＝c811・c812
+                sup="上司", hq="FAA の本部", nmcc="国防総省の指揮所",
                 osd="国防長官の許し", norad="NORAD", ftr="戦闘機")
 CH_SIDE = dict(cape=(560.0, 815.0), mil=(960.0, 815.0), ac=(330.0, 410.0), reg=(330.0, 410.0))
 CH_SIDE_W = dict(cape=360.0, mil=300.0, ac=420.0, reg=360.0)
@@ -809,6 +906,9 @@ def chain_stage(prev, st):
     if _on(prev, st, "ac", "x"):
         x, y = CH_SIDE["ac"]
         s.append(_xmark(x + CH_SIDE_W["ac"] / 2 - 10, y - (CH_H + 40) / 2 + 4, 24))
+    if _on(prev, st, "hqq"):                        # 🆕 ⑤b-5 c811：軍に頼むかを本部で決めるよう促す（委員会報告 p29）＝本部から先の矢印に「？」
+        x1, y1, x2, y2 = _edge("hq", "nmcc")
+        s.append(_qmark((x1 + x2) / 2 - 86, (y1 + y2) / 2 - 37, 56))   # ⚠️ geom_gap：-56 は国防総省の指揮所の箱に触れた
     if _on(prev, st, "hqx"):
         x1, y1, x2, y2 = _edge("hq", "nmcc")
         s.append(_xmark((x1 + x2) / 2, (y1 + y2) / 2, 28))
@@ -909,10 +1009,47 @@ CB_LEN, CB_W = 48.0, 5.0                      # 機の長さ・胴の幅（m・�
 CB_DOOR = 4.2                                  # 操縦室の扉（機首から m・模式）
 CB_ROWS = (6.0, 44.0, 0.86)                    # 座席の列の始め・終わり・間隔（m・模式）
 CB_SEATS = (2, 3, 2)                           # 横の並び（ボーイング767 の普通席の形＝模式）
+# 🆕 ⑤b-5（c814・c815・c817・c818）：93便＝ボーイング757（委員会報告 p10「the Boeing 757's takeoff」・p454「Boeing 757 single-aisle
+#   aircraft」）＝普通席 3-3・列の間隔は模式。
+#   座席の背の電話＝後ろの9列（国立公園局「in the last nine rows of the plane」）＝門番が数える
+CB757 = dict(seats=(3, 3), rows=(5.5, 42.0, 1.12))
+CB_REAR = 9
 
 
 def cb_x(zoom, m):
     return CB[zoom]["X0"] + CB[zoom]["K"] * m
+
+
+def cb_spec(plane):
+    return (CB_SEATS, CB_ROWS) if plane == "767" else (CB757["seats"], CB757["rows"])
+
+
+def cb_seats(z, plane):
+    """座席の矩形 [(列の番号, x, y, 幅, 高さ)]（画面に収まる列だけ）。"""
+    K = CB[z]["K"]
+    seats, (a, b, p) = cb_spec(plane)
+    n = int((b - a) / p) + 1
+    w = 0.42 * p
+    col_w = CB_W / (sum(seats) + 2)
+    out = []
+    for r in range(n):
+        x = cb_x(z, a + r * p)
+        if x > F.BX1 - 40:
+            break
+        yy = -CB_W / 2 + col_w * 0.5
+        for gi, k in enumerate(seats):
+            for _ in range(k):
+                out.append((r, x, CB_Y + yy * K, w * K, col_w * 0.8 * K))
+                yy += col_w
+            yy += col_w * 0.5 if gi < len(seats) - 1 else 0
+    return out
+
+
+def cb_rear(z, plane):
+    """後ろの CB_REAR 列の座席（電話のある列）。"""
+    ss = cb_seats(z, plane)
+    last = max(r for r, *_ in ss)
+    return [q for q in ss if q[0] > last - CB_REAR]
 
 
 def cabin_base(st0):
@@ -926,21 +1063,9 @@ def cabin_base(st0):
     dx = cb_x(z, CB_DOOR)
     g.append(F.line(dx, CB_Y - hw, dx, CB_Y + hw, J.AMBER if z == "front" else J.LINE, 6))
     g.append(F.txtfit((x0 + dx) / 2 + 10, CB_Y - hw - 22, "操縦室", 300, cap=28, col=J.TICK, anchor="middle"))
-    a, b, p = CB_ROWS
-    n = int((b - a) / p) + 1
-    seat = 0.42 * p
-    col_w = CB_W / (sum(CB_SEATS) + 2)
-    for r in range(n):
-        m = a + r * p
-        x = cb_x(z, m)
-        if x > F.BX1 - 40:
-            break
-        yy = -CB_W / 2 + col_w * 0.5
-        for gi, k in enumerate(CB_SEATS):
-            for _ in range(k):
-                g.append(F.rect(x, CB_Y + yy * K, seat * K, col_w * 0.8 * K, COL["seat"]))
-                yy += col_w
-            yy += col_w * 0.5 if gi < len(CB_SEATS) - 1 else 0
+    a, b, p = cb_spec(st0["plane"])[1]
+    for _, x, y, w, h in cb_seats(z, st0["plane"]):
+        g.append(F.rect(x, y, w, h, COL["seat"]))
     g.append(F.txtfit(cb_x(z, (a + min(b, (F.BX1 - CB[z]["X0"]) / K)) / 2), CB_Y + hw + 44, "客室（座席）", 400, cap=28, col=J.TICK,
                       anchor="middle"))
     return g
@@ -951,6 +1076,25 @@ def cabin_stage(prev, st):
     z = st["zoom"]
     K = CB[z]["K"]
     hw = CB_W / 2 * K
+    rear = cb_rear(z, st["plane"])
+    rx0 = min(x for _, x, *_ in rear)
+    rx1 = max(x + w for _, x, _, w, _ in rear)
+    if _on(prev, st, "fones"):
+        for _, x, y, w, h in rear:
+            s.append(F.rect(x + w - 3, y + 2, 6, h - 4, J.AMBER))
+    if _on(prev, st, "calls"):
+        for k in range(3):
+            xa = rx0 + (rx1 - rx0) * (0.2 + 0.3 * k)
+            s.append(_arrow(xa, CB_Y + hw + 6, xa + 40, CB_Y + hw + 150, J.AMBER, 4, 18, dash="12 8"))
+    if _on(prev, st, "rear9"):
+        s.append(F.rect(rx0 - 10, CB_Y - hw + 6, rx1 - rx0 + 20, 2 * hw - 12, "none", J.AMBER, 6, rx=10, dash="14 10"))
+    if _on(prev, st, "vote"):
+        bx, by = (rx0 + rx1) / 2, CB_Y - hw - 70
+        s += [F.rect(bx - 40, by - 30, 80, 60, J.BG2, J.AMBER, 5, rx=6), F.line(bx - 18, by - 30, bx + 18, by - 30, J.BG2, 7),
+              _check(bx, by + 4, 18, J.AMBER)]
+    if _on(prev, st, "rush"):
+        ay = CB_Y + (-CB_W / 2 + CB_W / (sum(cb_spec(st["plane"])[0]) + 2) * 3.5) * K          # 通路（左右の座席のあいだ）
+        s.append(_arrow(rx0 - 20, ay, cb_x(z, CB_DOOR) + 30, ay, J.ALERT, 10, 36))
     if _on(prev, st, "legend"):
         x, y = 1180.0, 330.0
         s.append(F.rect(x, y - 24, 36, 36, "none", J.AMBER, 5, rx=6, dash="8 6"))
@@ -1005,7 +1149,8 @@ def phone_stage(prev, st):
 #  radio（c409〜c411）＝管制の無線（ボストン・センター ↔ 11便）
 # ══════════════════════════════════════════════════════════
 RD = dict(x0=980.0, y0=420.0, L=760.0, ctr=(420.0, 740.0))
-RD_CTR = dict(bos="ボストン・センター（管制）", ny="ニューヨーク・センター（管制）")   # 🆕 ⑤b-4：地上の側（頭の欄 ctr）＝c502
+RD_CTR = dict(bos="ボストン・センター（管制）", ny="ニューヨーク・センター（管制）",   # 🆕 ⑤b-4：地上の側（頭の欄 ctr）＝c502
+              cle="クリーブランド・センター（管制）")                                  # 🆕 ⑤b-5：c807・c808（委員会報告 p11・p28）
 
 
 def rd_geo():
@@ -1050,13 +1195,19 @@ def radio_stage(prev, st):
 CA = dict(left=(420.0, 640.0), right=(1500.0, 640.0), y=560.0)
 # 🆕 ⑤b-4：電話の両端（頭の欄 pair）＝c510 はニューヨーク・センター → ハーンドンのコマンドセンター（どちらも FAA＝軍の色にしない）
 CA_PAIR = dict(bos=("ボストン・センター（FAA）", "NEADS（軍の北東部の防空）", J.INST),
-               ny=("航空路の管制（ニューヨーク）", "コマンドセンター（ハーンドン）", J.LINE))   # ⚠️ 門番 echo：「ニューヨーク・センター（FAA）」は語りの写し
+               ny=("航空路の管制（ニューヨーク）", "コマンドセンター（ハーンドン）", J.LINE),   # ⚠️ 門番 echo：「ニューヨーク・センター（FAA）」は語りの写し
+               vp=("副大統領（ホワイトハウスの地下）", "大統領（大統領専用機）", J.LINE))      # 🆕 ⑤b-5 c915（右は機の絵）
 
 
 def call_base(st0):
     (lx, ly), (rx, ry) = CA["left"], CA["right"]
     tl, tr, cr = CA_PAIR[st0["pair"]]
-    return [F.line(F.BX0 + 40, 850, F.BX1 - 40, 850, J.LINE_DIM, 3), _building(lx, ly, 260, 150, J.LINE), _building(rx, ry, 260, 150, cr),
+    if st0["pair"] == "vp":
+        svg, _, _, _ = _plane_side(rx - 230, ry + 20, 460)
+        right = svg
+    else:
+        right = _building(rx, ry, 260, 150, cr)
+    return [F.line(F.BX0 + 40, 850, F.BX1 - 40, 850, J.LINE_DIM, 3), _building(lx, ly, 260, 150, J.LINE), right,
             F.txtfit(lx, ly + 120, tl, 520, cap=28, col=J.TICK, anchor="middle"),
             F.txtfit(rx, ry + 120, tr, 560, cap=28, col=J.TICK, anchor="middle")]
 
@@ -1069,6 +1220,9 @@ def call_stage(prev, st):
     if _on(prev, st, "link"):
         s.append(F.line(xa, y, xb, y, J.AMBER, 6))
         s += [F.circ(xa, y, 10, J.AMBER), F.circ(xb, y, 10, J.AMBER)]
+    if _on(prev, st, "nolog"):                      # 🆕 ⑤b-5 c915：記録の見つからない電話（委員会報告 p41）＝破線と「？」
+        s.append(F.line(xa, y, xb, y, J.TICK, 5, dash="14 12"))
+        s += [F.circ(xa, y, 9, J.TICK), F.circ(xb, y, 9, J.TICK), _qmark((xa + xb) / 2, y + 80, 64, J.TICK)]   # 線の下（上は札の場所 time）
     if _on(prev, st, "talk", "ask"):
         s.append(_arrow(xa + 120, y - 40, xb - 220, y - 40, J.AMBER, 6, 26))
     if _on(prev, st, "talk", "back"):
@@ -1160,6 +1314,337 @@ def scope_stage(prev, st):
 
 
 # ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5 acars（c803〜c805）＝ユナイテッドの運航管理から受け持つ便へ文字の警告（委員会報告 p11）。人は描かない
+#     🔴 警告の文と返信の文（記録の言葉）は画面に出さない＝語りと字幕だけ
+# ══════════════════════════════════════════════════════════
+AC = dict(ctr=(420.0, 620.0), bw=270.0, bh=160.0, xs=(1150.0, 1340.0, 1530.0, 1720.0), ys=(370.0, 510.0, 650.0, 790.0), L=100.0)
+AC_N = 16                                          # 受け持つ便の数（委員会報告 p11「his 16 transcontinental flights」）＝門番が数える
+AC_93 = 0                                          # 93便の並びの番号（左上＝模式）
+#   ⚠️ geom_gap：左の列の2段目（4）だと、札「93便」が届いた印の輪（r 66）と下の段の機に挟まれて重なった＝左上へ・札は機の上
+
+
+def ac_planes():
+    return [(x, y) for y in AC["ys"] for x in AC["xs"]][:AC_N]
+
+
+def acars_base(st0):
+    cx, cy = AC["ctr"]
+    g = [_building(cx, cy, AC["bw"], AC["bh"], J.LINE),
+         F.txtfit(cx, cy + AC["bh"] / 2 + 46, "ユナイテッドの運航管理", 600, cap=30, col=J.TICK, anchor="middle"),
+         F.txtfit(sum(AC["xs"][::3]) / 2, 300.0, "受け持つ便", 500, cap=28, col=J.TICK, anchor="middle")]
+    for i, (x, y) in enumerate(ac_planes()):
+        g.append(_plane_top(x, y, AC["L"], col=(COL["body"] if i == AC_93 else COL["metal"])))
+    x, y = ac_planes()[AC_93]
+    g.append(F.txtfit(x, y - 72, "93便", 200, cap=26, col=INK, anchor="middle"))
+    return g
+
+
+def acars_stage(prev, st):
+    s = []
+    cx, cy = AC["ctr"]
+    ox, oy = cx + AC["bw"] / 2 + 6, cy - 20
+    if _on(prev, st, "send"):
+        for x, y in ac_planes():
+            s.append(F.line(ox, oy, x - AC["L"] / 2 - 8, y, J.AMBER, 3, dash="12 8"))
+        s.append(F.circ(ox, oy, 10, J.AMBER))
+    x9, y9 = ac_planes()[AC_93]
+    if _on(prev, st, "recv93"):
+        s += [F.circ(x9, y9, 58, "none", J.BG, 10), F.circ(x9, y9, 58, "none", J.AMBER, 6)]
+    if _on(prev, st, "reply"):
+        s.append(_arrow(x9 - 64, y9 + 26, ox + 8, oy + 52, J.INST, 6, 26))
+        s.append(_qmark(x9 - 150, y9 - 50, 52, J.INST))     # ⚠️ geom_gap：矢印の中ほどの下に置くと、送る線の束に重なった＝線の上の空き
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5 ground（c816）＝機内の電話と地上の3つの箱（家族・航空会社・当局＝映像方針の画の欄）。人は描かない
+# ══════════════════════════════════════════════════════════
+GR = dict(x0=170.0, y0=520.0, L=620.0, x=1430.0, ys=(370.0, 560.0, 750.0), w=420.0, h=110.0)
+GR_T = ("家族", "航空会社", "当局")
+
+
+def gr_cab():
+    _, _, cab, _ = _plane_side(GR["x0"], GR["y0"], GR["L"])
+    return cab
+
+
+def ground_base(st0):
+    svg, _, _, _ = _plane_side(GR["x0"], GR["y0"], GR["L"])
+    g = [svg]
+    for y, t in zip(GR["ys"], GR_T):
+        g.append(_box(GR["x"], y, GR["w"], GR["h"], t, J.LINE, cap=34))
+    return g
+
+
+def ground_stage(prev, st):
+    s = []
+    cx, cy = gr_cab()
+    xl = GR["x"] - GR["w"] / 2 - 12
+    if _on(prev, st, "calls"):
+        for y in GR["ys"]:
+            s.append(F.line(cx, cy, xl, y - 14, J.AMBER, 4, dash="14 9"))
+        s.append(F.circ(cx, cy, 11, J.AMBER))
+    if _on(prev, st, "back"):
+        for y in GR["ys"]:
+            s.append(_arrow(xl - 4, y + 22, cx + 40, cy + 34, J.INST, 4, 18))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5 roll（c820・c825）＝正面から見た機の傾き（左右に大きく傾ける→止まる）。人は描かない
+# ══════════════════════════════════════════════════════════
+RL = dict(c=(960.0, 590.0), r=60.0, span=520.0, eng=230.0, er=32.0, fin=150.0)
+RL_TILT = dict(level=0.0, left=-26.0, right=26.0)   # 画面の角度（度・時計回りが正＝右の翼が下がる）＝模式
+
+
+def roll_parts(st):
+    cx, cy = RL["c"]
+    r, sp = RL["r"], RL["span"]
+    rot = RL_TILT[st["tilt"]]
+    piv = [cx, cy]
+    body = [(cx + r * math.cos(2 * math.pi * i / 28), cy + r * math.sin(2 * math.pi * i / 28)) for i in range(28)]
+    wing = [(cx - sp, cy - 6), (cx - 40, cy + 14), (cx + 40, cy + 14), (cx + sp, cy - 6), (cx + sp, cy + 8), (cx + 40, cy + 32),
+            (cx - 40, cy + 32), (cx - sp, cy + 8)]
+    stab = [(cx - 180, cy - 34), (cx + 180, cy - 34), (cx + 180, cy - 24), (cx - 180, cy - 24)]
+    fin = [(cx - 9, cy - r + 6), (cx - 4, cy - r - RL["fin"]), (cx + 4, cy - r - RL["fin"]), (cx + 9, cy - r + 6)]
+
+    def eng(x0):
+        return [(x0 + RL["er"] * math.cos(2 * math.pi * i / 16), cy + 52 + RL["er"] * math.sin(2 * math.pi * i / 16)) for i in range(16)]
+    kw = dict(pivot=piv, rot=rot)
+    return [_P("stab", "poly", stab, fill=COL["metal"], stroke=COL["body_ln"], w=2, **kw),
+            _P("fin", "poly", fin, fill=COL["body"], stroke=COL["body_ln"], w=3, **kw),
+            _P("wing", "poly", wing, fill=COL["metal"], stroke=COL["body_ln"], w=3, **kw),
+            _P("eng_l", "poly", eng(cx - RL["eng"]), fill=COL["panel"], stroke=COL["body_ln"], w=3, **kw),
+            _P("eng_r", "poly", eng(cx + RL["eng"]), fill=COL["panel"], stroke=COL["body_ln"], w=3, **kw),
+            _P("body", "poly", body, fill=COL["body"], stroke=COL["body_ln"], w=3, **kw)]
+
+
+def roll_base(st0):
+    cx, cy = RL["c"]
+    return [F.line(cx - 640, cy, cx + 640, cy, J.LINE_DIM, 2, dash="10 12")]
+
+
+def _arc_arrow(cx, cy, r, a0, a1, col, sw=6):
+    pts = [(cx + r * math.cos(math.radians(a0 + (a1 - a0) * i / 16)), cy + r * math.sin(math.radians(a0 + (a1 - a0) * i / 16)))
+           for i in range(17)]
+    (x1, y1), (x2, y2) = pts[-2], pts[-1]
+    return F.poly(pts[:-1], "none", col, sw) + _arrow(x1, y1, x2, y2, col, sw, 26)
+
+
+def roll_stage(prev, st):
+    s = []
+    cx, cy = RL["c"]
+    if _on(prev, st, "rock"):
+        s.append(_arc_arrow(cx, cy, 300, -112, -150, J.AMBER))
+        s.append(_arc_arrow(cx, cy, 300, -68, -30, J.AMBER))
+    if _on(prev, st, "calm"):
+        s.append(F.line(cx - 600, cy + 120, cx + 600, cy + 120, COL["green"], 5))
+        s.append(_check(cx + 640, cy + 112, 22))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5 wall（c821・c822・c831）＝操縦室の扉の内と外（横から見た断面・左が操縦室）。人は描かない
+#     🔴 操縦室の音声の記録（CVR）の言葉は画面に出さない＝語りと字幕だけ
+# ══════════════════════════════════════════════════════════
+WL = dict(ck=(170.0, 320.0, 940.0, 820.0), cab=(980.0, 320.0, 1750.0, 820.0), door=(940.0, 320.0, 980.0, 820.0), rec=(420.0, 700.0),
+          src=(1460.0, 600.0))
+
+
+def wall_base(st0):
+    x0, y0, x1, y1 = WL["ck"]
+    c0, _, c1, _ = WL["cab"]
+    d0, _, d1, _ = WL["door"]
+    return [F.rect(x0, y0, x1 - x0, y1 - y0, COL["dark"], J.LINE_DIM, 3, rx=8), F.rect(c0, y0, c1 - c0, y1 - y0, J.BG2, J.LINE_DIM, 3, rx=8),
+            F.rect(d0, y0, d1 - d0, y1 - y0, COL["door"], COL["door_ln"], 4),
+            F.txtfit((x0 + x1) / 2, y0 + 60, "操縦室", 400, cap=34, col=J.TICK, anchor="middle"),
+            F.txtfit((c0 + c1) / 2, y0 + 60, "客室", 400, cap=34, col=J.TICK, anchor="middle")]
+
+
+def _arcs(cx, cy, rs, ang, half, col, sw, dash=None):
+    g = []
+    for r in rs:
+        pts = [(cx + r * math.cos(math.radians(ang + a)), cy + r * math.sin(math.radians(ang + a))) for a in range(-half, half + 1, 5)]
+        g.append(F.poly(pts, "none", col, sw, dash=dash))
+    return "".join(g)
+
+
+def wall_stage(prev, st):
+    s = []
+    d0, y0, d1, y1 = WL["door"]
+    rx, ry = WL["rec"]
+    sx, sy = WL["src"]
+    if _on(prev, st, "block"):
+        s.append(F.rect(d0 - 34, 470.0, 26, 250, J.AMBER, COL["dark"], 2, rx=4))
+        s.append(_arrow(d0 - 200, 595.0, d0 - 44, 595.0, J.AMBER, 7, 26))
+    if _on(prev, st, "rec"):
+        s.append(F.rect(rx - 110, ry - 40, 220, 80, COL["panel"], J.DOC, 4, rx=10))
+        s += [F.circ(rx - 45, ry, 22, "none", J.DOC, 4), F.circ(rx + 45, ry, 22, "none", J.DOC, 4),
+              F.line(rx - 45, ry + 22, rx + 45, ry + 22, J.DOC, 3)]
+    if _on(prev, st, "noise"):
+        s.append(_arcs(sx, sy, (330.0, 360.0, 390.0), 180, 30, J.AMBER, 7))                    # 客室の側の反撃の音（大きい）
+        s.append(_arcs(sx, sy, (560.0, 600.0), 180, 22, J.TICK, 4, dash="10 10"))               # 扉の向こう（操縦室の側）＝こもった音
+        s.append(F.line(sx - 640, sy + 40, rx + 120, ry - 20, J.TICK, 3, dash="8 8"))           # 記録装置へ
+    if _on(prev, st, "q"):
+        s.append(_qmark((d0 + d1) / 2 + 70, 440.0, 72))
+    if _on(prev, st, "down"):
+        s.append(_arrow(760.0, 420.0, 620.0, 560.0, J.ALERT, 9, 34))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5 cvr（c823・c824・c826・c832・c833）＝操縦室の音声の記録（最後の数分の音の帯＝波の形と印の位置は模式）と、
+#     地上で聞かれた言葉の出どころ（機内の電話 → 電話会社の係員 → AP 通信の記事）。
+#     🔴 録音の言葉・電話の言葉そのものは画面に出さない（印と出どころの名だけ）。印の時刻も画面に出さない（字幕だけ）
+# ══════════════════════════════════════════════════════════
+CV = dict(x0=300.0, y0=600.0, x1=1620.0, y1=700.0, m1=1150.0, m2=1300.0, md=1540.0, push=(1080.0, 1620.0),
+          ph=(470.0, 390.0), op=(960.0, 390.0), ap=(1450.0, 390.0), bw=360.0, bh=86.0)
+
+
+def cv_bars():
+    n = 110
+    out = []
+    for i in range(n):
+        x = CV["x0"] + 16 + i * (CV["x1"] - CV["x0"] - 32) / (n - 1)
+        u = i / (n - 1)
+        a = 0.22 + 0.18 * abs(math.sin(i * 1.7)) + (0.42 * abs(math.sin(i * 0.9 + 1.3)) if u > 0.6 else 0.0)
+        out.append((x, min(a, 0.95)))
+    return out
+
+
+def cvr_base(st0):
+    x0, y0, x1, y1 = CV["x0"], CV["y0"], CV["x1"], CV["y1"]
+    yc, hh = (y0 + y1) / 2, (y1 - y0) / 2 - 8
+    g = [F.rect(x0, y0, x1 - x0, y1 - y0, COL["scope"], COL["scope_ln"], 3, rx=10)]
+    for x, a in cv_bars():
+        g.append(F.line(x, yc - hh * a, x, yc + hh * a, COL["green"], 4))
+    g.append(F.txtfit(x0, y1 + 48, "記録の最後の数分（波の形は模式）", 760, cap=26, col=J.TICK))
+    return g
+
+
+def _cv_mark(x, col):
+    return F.line(x, CV["y0"] - 34, x, CV["y1"] + 6, col, 5) + F.circ(x, CV["y0"] - 40, 10, col)
+
+
+def cvr_stage(prev, st):
+    s = []
+    if _on(prev, st, "v1"):
+        s.append(_cv_mark(CV["m1"], J.AMBER))
+    if _on(prev, st, "v2"):
+        s.append(_cv_mark(CV["m2"], J.AMBER))
+    if _on(prev, st, "push"):
+        a, b = CV["push"]
+        y = CV["y1"] + 16
+        s += [F.line(a, y, b, y, J.AMBER, 4), F.line(a, y - 12, a, y + 4, J.AMBER, 4), F.line(b, y - 12, b, y + 4, J.AMBER, 4)]
+    if _on(prev, st, "down"):
+        s.append(_cv_mark(CV["md"], J.ALERT))
+        s.append(_arrow(CV["md"], CV["y1"] + 26, CV["md"], CV["y1"] + 92, J.ALERT, 7, 26))
+    if _on(prev, st, "hl2"):
+        s += [F.circ(CV["m2"], CV["y0"] - 40, 28, "none", J.BG, 9), F.circ(CV["m2"], CV["y0"] - 40, 28, "none", J.AMBER, 5)]
+    w, h = CV["bw"], CV["bh"]
+    if _on(prev, st, "ap"):
+        s.append(_box(*CV["ap"], w, h, "AP 通信の記事", J.DOC, cap=32))
+    if _on(prev, st, "phone"):
+        (px, py), (ox, oy), (ax, ay) = CV["ph"], CV["op"], CV["ap"]
+        s.append(_box(px, py, w, h, "機内の電話", J.LINE, cap=32))
+        s.append(_box(ox, oy, w, h, "電話会社の係員", J.LINE, cap=32))
+        s.append(_arrow(px + w / 2 + 8, py, ox - w / 2 - 10, oy, J.AMBER, 5, 22, dash="12 8"))
+        s.append(_arrow(ox + w / 2 + 8, oy, ax - w / 2 - 10, ay, J.DOC, 5, 22))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5 cmd（c909〜c912）＝撃墜の許可の流れ（副大統領 → NORAD → NEADS → 戦闘機＝委員会報告 p42・p43）
+# ══════════════════════════════════════════════════════════
+CM = dict(y=580.0, xs=(330.0, 790.0, 1250.0, 1660.0), w=330.0, h=110.0, cap=(560.0, 345.0), plt=(1440.0, 345.0), cw=600.0, ch=110.0)
+CM_T = (("副大統領", "（ホワイトハウスの地下）"), ("NORAD", ""), ("NEADS", ""), ("戦闘機", "（首都の上）"))
+CM_LIT = tuple(str(i) for i in range(len(CM_T) + 1))
+
+
+def _cm_edge(i):
+    return CM["xs"][i] + CM["w"] / 2 + 8, CM["xs"][i + 1] - CM["w"] / 2 - 10
+
+
+def cmd_base(st0):
+    g = []
+    y = CM["y"]
+    for i in range(len(CM_T) - 1):
+        a, b = _cm_edge(i)
+        g.append(_arrow(a, y, b, y, J.LINE_DIM, 5, 20))
+    for i, (t, t2) in enumerate(CM_T):
+        col = J.LINE if i == 0 else J.INST
+        g.append(_box(CM["xs"][i], y, CM["w"], CM["h"], t, col, cap=32, t2=(t2 or None)))
+    return g
+
+
+def cmd_parts(st):
+    n = int(st["lit"])
+    y, w, h = CM["y"], CM["w"], CM["h"]
+    out = []
+    for i, x in enumerate(CM["xs"]):
+        out.append(_P(f"hl{i}", "poly", [(x - w / 2 - 8, y - h / 2 - 8), (x + w / 2 + 8, y - h / 2 - 8), (x + w / 2 + 8, y + h / 2 + 8),
+                                        (x - w / 2 - 8, y + h / 2 + 8)], fill=None, stroke=J.AMBER, w=6, alpha=(1.0 if i < n else 0.0)))
+    for i in range(len(CM_T) - 1):
+        a, b = _cm_edge(i)
+        out.append(_P(f"ar{i}", "line", [(a, y), (b, y)], stroke=J.AMBER, w=6, head=20, alpha=(1.0 if i + 1 < n else 0.0)))
+    return out
+
+
+def cmd_stage(prev, st):
+    s = []
+    y = CM["y"]
+    if _on(prev, st, "msg"):
+        a, b = _cm_edge(1)
+        mx, my = (a + b) / 2, y - 58
+        s += [F.rect(mx - 34, my - 22, 68, 44, J.BG2, J.DOC, 4, rx=4), F.poly([(mx - 34, my - 22), (mx, my + 4), (mx + 34, my - 22)], "none", J.DOC, 4)]
+    if _on(prev, st, "x"):
+        a, b = _cm_edge(2)
+        s.append(_xmark((a + b) / 2, y, 30))
+    if _on(prev, st, "cap"):
+        x, yy = CM["cap"]
+        s.append(_box(x, yy, CM["cw"], CM["ch"], "首都の側が思っていた命令", J.LINE, cap=30, t2="撃ち落とせ"))
+        s.append(F.line(CM["xs"][0], yy + CM["ch"] / 2 + 4, CM["xs"][0], y - CM["h"] / 2 - 12, J.LINE, 3, dash="8 8"))
+    if _on(prev, st, "plt"):
+        x, yy = CM["plt"]
+        s.append(_box(x, yy, CM["cw"], CM["ch"], "操縦士に届いた命令", J.AMBER, cap=30, t2="機の種類と尾翼の番号"))
+        s.append(F.line(CM["xs"][3], yy + CM["ch"] / 2 + 4, CM["xs"][3], y - CM["h"] / 2 - 12, J.AMBER, 3, dash="8 8"))
+    if _on(prev, st, "neq"):
+        s.append(F.txt((CM["cap"][0] + CM["plt"][0]) / 2, CM["cap"][1] + 24, "≠", 72, J.ALERT, "Noto", "middle", ol=6))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5 need（c918・c919）＝撃ち落とすのに要る3つ（委員会報告 p45「to locate the flight, receive authorization to shoot it
+#     down, and communicate the order to the pilots」）
+# ══════════════════════════════════════════════════════════
+ND = dict(y=580.0, xs=(400.0, 960.0, 1520.0), w=460.0, h=170.0)
+ND_T = ("93便を見つけて追う", "撃つ許可を得る", "操縦士に命令を渡す")
+
+
+def need_base(st0):
+    g = []
+    for i, t in enumerate(ND_T):
+        x, y = ND["xs"][i], ND["y"]
+        g.append(_box(x, y, ND["w"], ND["h"], t, J.LINE, cap=34))
+        g.append(F.circ(x, y - ND["h"] / 2 - 56, 34, J.BG2, J.LINE, 4))
+        g.append(F.txt(x, y - ND["h"] / 2 - 42, str(i + 1), 40, J.INK_W, "Noto", "middle"))
+        if i:
+            g.append(_arrow(ND["xs"][i - 1] + ND["w"] / 2 + 8, y, x - ND["w"] / 2 - 10, y, J.LINE_DIM, 5, 20))
+    return g
+
+
+def need_stage(prev, st):
+    s = []
+    for i, x in enumerate(ND["xs"]):
+        y = ND["y"]
+        if _on(prev, st, "hl"):
+            s.append(F.rect(x - ND["w"] / 2 - 10, y - ND["h"] / 2 - 10, ND["w"] + 20, ND["h"] + 20, "none", J.AMBER, 6, rx=14))
+        if _on(prev, st, "x"):
+            s.append(_xmark(x + ND["w"] / 2 - 8, y - ND["h"] / 2 + 8, 30, J.ALERT, 11))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
 #  見え方の表・札の置き場・線の先
 # ══════════════════════════════════════════════════════════
 VIEWS = dict(
@@ -1168,8 +1653,23 @@ VIEWS = dict(
                                                     order=("off", "one", "two")), base=us_base, stage=us_stage, parts=us_parts),
     ne=dict(lab="アメリカ北東部の地図（北が上）", fields=dict(neads=ONOFF, bases=ONOFF, sea=ONOFF, dom=ONOFF, scr=ONOFF, f15=ONOFF, mnh=ONOFF,
                                                           call=ONOFF, x11=ONOFF, lang=ONOFF, r77=("off", "west", "east"), look=ONOFF,
-                                                          reapp=ONOFF, turn=ONOFF), base=ne_base, stage=ne_stage),
-    dc=dict(lab="ワシントンの辺りの地図（北が上）", fields=dict(unk=ONOFF, t77=ONOFF, c130=ONOFF, follow=ONOFF), base=dc_base, stage=dc_stage),
+                                                          reapp=ONOFF, turn=ONOFF, r93=ONOFF, shk=ONOFF, proj=ONOFF, hits=ONOFF),
+            base=ne_base, stage=ne_stage),
+    dc=dict(lab="ワシントンの辺りの地図（北が上）", fields=dict(unk=ONOFF, t77=ONOFF, c130=ONOFF, follow=ONOFF, tgt=ONOFF), base=dc_base,
+            stage=dc_stage),
+    sky=dict(lab="首都の上を回る戦闘機", fields=dict(o1=ONOFF, o2=ONOFF, adw=ONOFF), base=sky_base, stage=sky_stage),
+    # 🆕 ⑤b-5
+    acars=dict(lab="運航管理から操縦室への文字の連絡", fields=dict(send=ONOFF, recv93=ONOFF, reply=ONOFF), base=acars_base, stage=acars_stage),
+    ground=dict(lab="機内の電話と地上（横から）", fields=dict(calls=ONOFF, back=ONOFF), base=ground_base, stage=ground_stage),
+    roll=dict(lab="正面から見た機", fields=dict(tilt=tuple(RL_TILT), rock=ONOFF, calm=ONOFF), base=roll_base, stage=roll_stage,
+              parts=roll_parts),
+    wall=dict(lab="操縦室の扉の内と外（横から）", fields=dict(block=ONOFF, rec=ONOFF, noise=ONOFF, q=ONOFF, down=ONOFF), base=wall_base,
+              stage=wall_stage),
+    cvr=dict(lab="操縦室の音声の記録と、地上で聞かれた言葉", fields=dict(v1=ONOFF, v2=ONOFF, push=ONOFF, down=ONOFF, hl2=ONOFF, ap=ONOFF,
+                                                                phone=ONOFF), base=cvr_base, stage=cvr_stage),
+    cmd=dict(lab="撃墜の許可の流れ", fields=dict(lit=CM_LIT, msg=ONOFF, x=ONOFF, cap=ONOFF, plt=ONOFF, neq=ONOFF), base=cmd_base,
+             stage=cmd_stage, parts=cmd_parts),
+    need=dict(lab="撃ち落とすのに要ること", fields=dict(hl=ONOFF, x=ONOFF), base=need_base, stage=need_stage),
     soft=dict(lab="レーダーの情報が画面に出るまで", fields=dict(rec=ONOFF, cut=ONOFF, weak=ONOFF), base=soft_base, stage=soft_stage),
     desk=dict(lab="コマンドセンターの運用の部屋（上から）", fields=dict(lead=ONOFF), base=desk_base, stage=desk_stage),
     gate=dict(lab="保安検査の流れ（横から）", fields=dict(ring=ONOFF, wand=ONOFF, pass_=ONOFF), base=gate_base, stage=gate_stage),
@@ -1180,28 +1680,38 @@ VIEWS = dict(
                                                 comply=ONOFF), base=door_base, stage=door_stage, parts=door_parts),
     old=dict(lab="昔ながらの乗っ取り（手引きの想定）", fields=dict(b1=ONOFF, b2=ONOFF, b3=ONOFF, chips=ONOFF, long=ONOFF, b4=ONOFF),
              base=old_base, stage=old_stage),
-    chain=dict(lab="乗っ取りが分かったときの手順の段", fields=dict(who=("gen", "bos", "ny"), lit=LIT, norad=ONOFF, short=ONOFF, cape=ONOFF,
-                                                         ac=("off", "on", "x"), hqx=ONOFF, esc=ONOFF, reg=("off", "on", "x")),
+    chain=dict(lab="乗っ取りが分かったときの手順の段", fields=dict(who=("gen", "bos", "ny", "cle"), lit=LIT, norad=ONOFF, short=ONOFF,
+                                                         cape=ONOFF, ac=("off", "on", "x"), hqq=ONOFF, hqx=ONOFF, esc=ONOFF,
+                                                         reg=("off", "on", "x")),
                base=chain_base, stage=chain_stage, parts=chain_parts),
     escort=dict(lab="上から見た2機（進む向きが右）", fields=dict(fighter=ONOFF, dim=ONOFF, near=ONOFF), base=escort_base, stage=escort_stage),
     premise=dict(lab="手順の3つの前提", fields=dict(p1=ONOFF, p2=ONOFF, p3=ONOFF, x1=ONOFF), base=premise_base, stage=premise_stage,
                  parts=premise_parts),
-    cabin=dict(lab="上から見た機内（機首が左）", fields=dict(zoom=("all", "front"), legend=ONOFF, doorq=ONOFF), base=cabin_base,
+    cabin=dict(lab="上から見た機内（機首が左）", fields=dict(zoom=("all", "front"), plane=("767", "757"), legend=ONOFF, doorq=ONOFF,
+                                                         fones=ONOFF, calls=ONOFF, rear9=ONOFF, vote=ONOFF, rush=ONOFF), base=cabin_base,
                stage=cabin_stage),
     phone=dict(lab="機内の電話と地上（横から）", fields=dict(to=tuple(PH_TO), call=ONOFF, ckq=ONOFF, dur=ONOFF, train=("off", "on", "x")),
                base=phone_base, stage=phone_stage),
     radio=dict(lab="管制の無線（横から）", fields=dict(ctr=tuple(RD_CTR), v1=ONOFF, pa=ONOFF, garble=ONOFF, v2=ONOFF, know=ONOFF),
                base=radio_base, stage=radio_stage),
-    call=dict(lab="電話の線", fields=dict(pair=tuple(CA_PAIR), link=ONOFF, talk=("off", "ask", "back"), drill=ONOFF), base=call_base,
-              stage=call_stage),
+    call=dict(lab="電話の線", fields=dict(pair=tuple(CA_PAIR), link=ONOFF, talk=("off", "ask", "back"), drill=ONOFF, nolog=ONOFF),
+              base=call_base, stage=call_stage),
     scope=dict(lab="レーダーの画面", fields=dict(who=("faa", "neads", "app"), block=ONOFF, dots=ONOFF, search=SC_STEP, code=ONOFF,
                                               blip=("on", "off"), two=ONOFF, ghost=ONOFF, fast=ONOFF), base=scope_base,
                stage=scope_stage, parts=scope_parts),
 )
 START = dict(us=dict(east="off", west="off", routes="off", air="off", herndon="off", stop="off", aa="off", fly="off", land="off", order="off"),
              ne=dict(neads="off", bases="off", sea="off", dom="off", scr="off", f15="off", mnh="off", call="off", x11="off", lang="off",
-                     r77="off", look="off", reapp="off", turn="off"),
-             dc=dict(unk="off", t77="off", c130="off", follow="off"),
+                     r77="off", look="off", reapp="off", turn="off", r93="off", shk="off", proj="off", hits="off"),
+             dc=dict(unk="off", t77="off", c130="off", follow="off", tgt="off"),
+             sky=dict(o1="off", o2="off", adw="off"),
+             acars=dict(send="off", recv93="off", reply="off"),
+             ground=dict(calls="off", back="off"),
+             roll=dict(tilt="level", rock="off", calm="off"),
+             wall=dict(block="off", rec="off", noise="off", q="off", down="off"),
+             cvr=dict(v1="off", v2="off", push="off", down="off", hl2="off", ap="off", phone="off"),
+             cmd=dict(lit="0", msg="off", x="off", cap="off", plt="off", neq="off"),
+             need=dict(hl="off", x="off"),
              soft=dict(rec="off", cut="off", weak="off"),
              desk=dict(lead="off"),
              gate=dict(ring="off", wand="off", pass_="off"),
@@ -1209,19 +1719,20 @@ START = dict(us=dict(east="off", west="off", routes="off", air="off", herndon="o
              tools=dict(knife="off", spray="off", bomb="off", fake="off"),
              door=dict(lock="off", vault="off", door="closed", loose="off", comply="off"),
              old=dict(b1="off", b2="off", b3="off", chips="off", long="off", b4="off"),
-             chain=dict(who="gen", lit="0", norad="off", short="off", cape="off", ac="off", hqx="off", esc="off", reg="off"),
+             chain=dict(who="gen", lit="0", norad="off", short="off", cape="off", ac="off", hqq="off", hqx="off", esc="off", reg="off"),
              escort=dict(fighter="off", dim="off", near="off"),
              premise=dict(p1="off", p2="off", p3="off", x1="off"),
-             cabin=dict(zoom="all", legend="off", doorq="off"),
+             cabin=dict(zoom="all", plane="767", legend="off", doorq="off", fones="off", calls="off", rear9="off", vote="off", rush="off"),
              phone=dict(to="res", call="off", ckq="off", dur="off", train="off"),
              radio=dict(ctr="bos", v1="off", pa="off", garble="off", v2="off", know="off"),
-             call=dict(pair="bos", link="off", talk="off", drill="off"),
+             call=dict(pair="bos", link="off", talk="off", drill="off", nolog="off"),
              scope=dict(who="faa", block="off", dots="off", search="off", code="off", blip="on", two="off", ghost="off", fast="off"))
-HEAD_ONLY = dict(chain=("who",), cabin=("zoom",), scope=("who",), phone=("to",), radio=("ctr",), call=("pair",))
+HEAD_ONLY = dict(chain=("who",), cabin=("zoom", "plane"), scope=("who",), phone=("to",), radio=("ctr",), call=("pair",))
 # 戻さない欄（消えた札は戻らない・×は戻らない・開いた扉は閉じない・灯した段は消えない・消えた点は戻らない・降りた機は戻らない）
 ORDER = dict(door=dict(lock=("off", "on", "open"), door=("closed", "open")), chain=dict(lit=LIT, ac=("off", "on", "x"), reg=("off", "on", "x")),
              phone=dict(train=("off", "on", "x")), call=dict(talk=("off", "ask", "back")), scope=dict(search=SC_STEP, blip=("on", "off")),
-             us=dict(land=("off", "arrow", "down"), aa=("off", "ne", "all"), order=("off", "one", "two")), ne=dict(r77=("off", "west", "east")))
+             us=dict(land=("off", "arrow", "down"), aa=("off", "ne", "all"), order=("off", "one", "two")), ne=dict(r77=("off", "west", "east")),
+             cmd=dict(lit=CM_LIT))
 NOT_SCHEMATIC = ()
 
 TAG_AT = dict(
@@ -1241,9 +1752,23 @@ TAG_AT = dict(
             lang=(1080.0, 820.0, "start", 560.0), r77=(ML_X, 330.0, "start", 540.0), look=(ML_X, 430.0, "start", 540.0),
             reapp=(600.0, 800.0, "start", 560.0), turn=(440.0, 775.0, "start", 440.0),     # ⚠️ geom_gap：左の端（x 112）からだと引き出し線が地図を斜めに横切った
             w105=(1013.0, 672.0, "start", 420.0),                                         # 沖の空域の箱（y 571〜617）のすぐ下＝引き出し線なし
-            w1=(1300.0, 600.0, "start", 520.0), w2=(1300.0, 680.0, "start", 520.0), w3=(1300.0, 760.0, "start", 520.0)),
+            w1=(1300.0, 600.0, "start", 520.0), w2=(1300.0, 680.0, "start", 520.0), w3=(1300.0, 760.0, "start", 520.0),
+            r93=(ML_X, 330.0, "start", 540.0), proj=(ML_X, 430.0, "start", 540.0), hits=(1300.0, 330.0, "start", 520.0)),   # 🆕 ⑤b-5
     dc=dict(time=(ML_X, 330.0, "start", 540.0), unk=(780.0, 790.0, "end", 600.0), c130=(560.0, 430.0, "end", 420.0),   # 🔧 輸送機の左上
-            follow=(ML_X, 330.0, "start", 540.0)),
+            follow=(ML_X, 330.0, "start", 540.0), o2=(ML_X, 430.0, "start", 540.0)),
+    # 🆕 ⑤b-5
+    sky=dict(a=(L_X, 330.0, "start", 700.0), b=(1250.0, 330.0, "start", 560.0)),
+    acars=dict(time=(L_X, 330.0, "start", 760.0), t2=(L_X, 420.0, "start", 700.0)),
+    ground=dict(a=(L_X, 330.0, "start", 640.0), b=(L_X, 790.0, "start", 800.0)),
+    roll=dict(a=(L_X, 330.0, "start", 640.0), b=(1300.0, 330.0, "start", 520.0)),
+    wall=dict(ck=(200.0, 470.0, "start", 600.0), cab=(1020.0, 470.0, "start", 700.0), low=(200.0, 790.0, "start", 640.0),
+              cablow=(1020.0, 790.0, "start", 700.0)),
+    cvr=dict(m1=(1110.0, 530.0, "end", 560.0), m2=(1340.0, 530.0, "start", 300.0), pt=(1080.0, 790.0, "start", 480.0),
+             md=(1600.0, 840.0, "end", 300.0), phd=(715.0, 480.0, "middle", 620.0), apd=(1450.0, 480.0, "middle", 330.0),
+             low=(L_X, 800.0, "start", 900.0)),
+    cmd=dict(low1=(L_X, 760.0, "start", 820.0), low2=(1000.0, 760.0, "start", 800.0), msg=(1020.0, 470.0, "middle", 520.0),
+             xt=(1455.0, 700.0, "middle", 420.0)),
+    need=dict(l=(L_X, 330.0, "start", 640.0), r=(1300.0, 330.0, "start", 520.0), low=(L_X, 800.0, "start", 900.0)),
     soft=dict(rec=(L_X, 330.0, "start", 700.0), cut=(1200.0, 330.0, "start", 600.0), weak=(L_X, 780.0, "start", 760.0)),
     desk=dict(lead=(1180.0, 790.0, "start", 600.0)),
     # ⚠️ sea を (1300, 800) に置くと海の外から来る2本目の矢印の始まり（x 1506・y 797）に字が乗る＝上へ
@@ -1260,7 +1785,9 @@ TAG_AT = dict(
     escort=dict(dim=(830.0, 820.0, "middle", 520.0), near=(1250.0, 300.0, "end", 520.0)),     # ⚠️ geom_gap：x 1400 の注の行が主翼の先に触れた
     premise=dict(x1=(L_X, 760.0, "start", 760.0)),
     cabin=dict(n33=(L_X, 330.0, "start", 640.0), none=(1240.0, 430.0, "start", 560.0), start=(1180.0, 300.0, "start", 620.0),
-               how=(620.0, 300.0, "start", 520.0)),          # front の胴は y 410〜710＝札は上の段（y 300）
+               how=(620.0, 300.0, "start", 520.0),           # front の胴は y 410〜710＝札は上の段（y 300）
+               a=(L_X, 330.0, "start", 760.0), b=(L_X, 410.0, "start", 760.0), r=(1000.0, 330.0, "start", 600.0),   # 🆕 ⑤b-5（757）
+               low=(L_X, 800.0, "start", 900.0)),
     phone=dict(time=(L_X, 330.0, "start", 520.0), dur=(1284.0, 724.0, "middle", 300.0), train=(L_X, 330.0, "start", 640.0),
                out=(1300.0, 600.0, "start", 520.0)),
     radio=dict(time=(L_X, 330.0, "start", 520.0), pa=(1330.0, 640.0, "start", 500.0), garble=(L_X, 330.0, "start", 520.0),
@@ -1300,6 +1827,11 @@ def anchors(view, st):
         return dict(door=(cb_x(z, CB_DOOR), CB_Y - CB_W / 2 * CB[z]["K"] - 10))
     if view == "chain":
         return {k: (CH_XY[k][0], CH_XY[k][1] - CH_H / 2) for k in CH_ORDER}
+    if view == "cvr":
+        return {k: (CV[k], CV["y0"] - 40) for k in ("m1", "m2", "md")}
+    if view == "acars":
+        x, y = ac_planes()[AC_93]
+        return dict(p93=(x - 66, y))
     return {}
 
 
@@ -1389,7 +1921,7 @@ KEY_FIELDS = ("pts", "rot", "alpha", "fill", "stroke", "glow", "dx", "dy")
 
 
 def m21(view, steps, start=None, rel=(), note="", src=""):
-    """21本目の模式図。view は VIEWS の15種。steps＝ナレーションの行ごとの段。"""
+    """21本目の模式図。view は VIEWS の25種。steps＝ナレーションの行ごとの段。"""
     if view not in VIEWS:
         raise ValueError(f"m21：知らない見え方 {view!r}（{tuple(VIEWS)}）")
     if "模式" not in note:
@@ -1452,6 +1984,7 @@ def geo_of(view, start, states):
             out["r77"] = {k: G.px(*v) for k, v in R77.items()}                 # 🆕 ⑤b-4：77便の線の画素（西へ→東で戻る）
             out["lang_e"] = G.px(*NE_LANG_E)                                   # ラングレーの戦闘機が向かった先
             out["w105"] = G.px(*NE_W105)                                       # 沖の軍の空域
+            out["r93"] = {k: G.px(*v) for k, v in R93.items()}                 # 🆕 ⑤b-5：93便の線（西へ→向きを変えた所）
         else:
             out["unk"] = dc_unk(G)                                             # 🆕 ⑤b-4：正体不明の機（門番は画素から距離と方位を測る）
     elif view == "gate":
@@ -1472,5 +2005,14 @@ def geo_of(view, start, states):
     elif view == "premise":
         out["boxes"] = [" ".join(t) for t in PM_T]
     elif view == "cabin":
-        out["seats"] = list(CB_SEATS)
+        out["seats"] = list(cb_spec(start["plane"])[0])
+        out["plane"] = start["plane"]
+        out["rear"] = len({r for r, *_ in cb_rear(start["zoom"], start["plane"])})     # 🆕 ⑤b-5：電話のある列の数（印を付ける列）
+    elif view == "acars":
+        out["planes"] = len(ac_planes())                                   # 🆕 ⑤b-5：受け持つ便の数
+    elif view == "cmd":
+        out["order"] = [t for t, _ in CM_T]
+        out["xs"] = list(CM["xs"])
+    elif view == "need":
+        out["boxes"] = list(ND_T)
     return out

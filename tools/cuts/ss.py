@@ -671,6 +671,32 @@ AXI.update({
     "news42": dict(k="pt", at="9:42", t="報道で知る", rec="委員会報告 p29", c="INST", anchor="end"),
     "upd93": dict(k="pt", at="9:46", t="93便の位置を本部へ", rec="委員会報告 p29", c="INST", anchor="start"),
 })
+# 🆕 2026-10-12（21本目 ⑤b-5）：第7〜8章。AX_93＝93便の寄り（9:20〜10:08＝c810・c819・c830）・AX_ORD＝撃墜の許可（10:00〜10:36＝c901・c902・
+#   c917）・AX_ALL＝その朝の4機と命令（7:50〜10:40＝c921）。原文（委員会報告の文字の層）：p11「The hijackers attacked at 9:28」・p28「By 9:34, word of
+#   the hijacking had reached FAA headquarters」・p13「At 9:57, the passenger assault began」・p30「United 93 crashed in Pennsylvania at 10:03:11」
+#   （割れる時刻＝by=True・p30「some dispute」）「NEADS first received a call about United 93 … at 10:07」・p31「The time of notification of the
+#   crash of United 93 was 10:15」・p41「At some time between 10:10 and 10:15, a military aide told the Vice President … authorized」・
+#   p42「at 10:31, General Larry Arnold instructed his staff to broadcast」・p45「Shootdown authority was first communicated to NEADS at 10:31」・
+#   p8「At 9:03:11, United Airlines Flight 175 struck the South Tower」・p10「At 9:37:46, American Airlines Flight 77 crashed into the Pentagon」
+#   ⚠️ 「35分」（9:28→10:03:11＝35分11秒）と「約4分」（10:03:11→10:07＝3分49秒）は台本の語り＝括弧の札（数字は語りと同じ）
+AX_93 = dict(view="clock", span=("9:20", "10:08"), ticks=("9:20", "9:30", "9:40", "9:50", "10:00"))
+AX_ORD = dict(view="clock", span=("9:45", "10:36"), ticks=("9:50", "10:00", "10:10", "10:20", "10:30"))   # ⚠️ 門番 layout：左の端 10:00 だと 10:03:11 の札（左へ振る）が画面の外へ出た
+AX_ALL = dict(view="clock", span=("7:50", "10:50"), ticks=("8:00", "8:30", "9:00", "9:30", "10:00", "10:30"))   # 右の端＝10:31 の札を右へ振る余白
+AXI.update({
+    "hq93": dict(k="pt", at="9:34", t="FAA の本部へ伝わる", rec="委員会報告 p28", c="INST", anchor="start"),
+    "as57": dict(k="pt", at="9:57", t="乗客の反撃", rec="委員会報告 p13", c="ALERT", anchor="end"),
+    "crash93": dict(k="pt", at="10:03:11", t="墜落", rec="委員会報告 p30", c="ALERT", by=True, anchor="end"),
+    "min35": dict(k="br", a="9:28", b="10:03:11", t="35分", rec=["委員会報告 p11", "委員会報告 p30"]),
+    "neads93": dict(k="pt", at="10:07", t="NEADS へ", rec="委員会報告 p30", c="INST", anchor="start"),
+    "gap4": dict(k="br", a="10:03:11", b="10:07", t="約4分", rec="委員会報告 p30"),
+    "rpt15": dict(k="pt", at="10:15", t="墜落の知らせ", rec="委員会報告 p31", c="INST", anchor="start"),
+    "auth": dict(k="span", a="10:10", b="10:15", t="副大統領の許可", rec="委員会報告 p41", c="AMBER"),
+    "neads31": dict(k="pt", at="10:31", t="NEADS に許可", rec=["委員会報告 p42", "委員会報告 p45"], c="INST", anchor="end"),
+    # ⚠️ 門番 axis（⑤b-5 c921）：右へ振ると 10:03:11 の縦の線が 9:37:46 の札を貫いた・10:31 の札が3段目へ上がって右上の章の札に触れた＝
+    #    出典の名つきの札は幅が広い＝4機と命令を重ねる帯は全部「左へ」（左から順に段へ振られる作り＝後の点の縦の線が前の札を通らない）
+    "hit175": dict(k="pt", at="9:03:11", t="南棟", rec="委員会報告 p8", c="ALERT", by=True, anchor="end"),
+    "hit77": dict(k="pt", at="9:37:46", t="ペンタゴン", rec="委員会報告 p10", c="ALERT", by=True, anchor="end"),
+})
 
 
 def ax(name, **kw):

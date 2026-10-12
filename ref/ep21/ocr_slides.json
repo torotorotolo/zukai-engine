@@ -1326,6 +1326,481 @@
    }
   ]
  },
+ "pg5003.png": {
+  "size": [
+   2175,
+   1700
+  ],
+  "lines": [
+   {
+    "box": [
+     622,
+     153,
+     1603,
+     208
+    ],
+    "text": "Figure 1 . UA-93 RadarGround Track"
+   },
+   {
+    "box": [
+     770,
+     283,
+     1541,
+     310
+    ],
+    "text": "A - U A し 9 3 ね ke s 0 ff 行 0 m N ewa rk , N 」 at 0 84 2 E D T."
+   },
+   {
+    "box": [
+     772,
+     318,
+     1580,
+     347
+    ],
+    "text": "B -UAL 93 levels offatassigned altitude 0f35 , 000 ft?"
+   },
+   {
+    "box": [
+     772,
+     352,
+     1862,
+     383
+    ],
+    "text": "C - 600 footdeviationfrom assignedaltitude (assumed takeover POint. )"
+   },
+   {
+    "box": [
+     773,
+     391,
+     1706,
+     420
+    ],
+    "text": "D -Starts climb t041 , 000 feet,thenturns towards Southeast?"
+   },
+   {
+    "box": [
+     773,
+     428,
+     1823,
+     457
+    ],
+    "text": "E -Atmaxaltitude 0f41 , 000 feet; xponder returns cease 2min?later."
+   },
+   {
+    "box": [
+     773,
+     467,
+     1260,
+     495
+    ],
+    "text": "F -Briefinterruption in descent."
+   },
+   {
+    "box": [
+     772,
+     501,
+     1615,
+     531
+    ],
+    "text": "G -Rapid controlwheelinputs; aircraftstarts climbing."
+   },
+   {
+    "box": [
+     773,
+     538,
+     1527,
+     566
+    ],
+    "text": "H -Aircraft noses down and starts rapid descent?"
+   },
+   {
+    "box": [
+     791,
+     572,
+     1781,
+     603
+    ],
+    "text": "-Aircraftaircraftimpactsthe ground invertedandat high speed?"
+   },
+   {
+    "box": [
+     557,
+     320,
+     584,
+     682
+    ],
+    "text": "5u も 」 00a > 0 」 0 て S"
+   },
+   {
+    "box": [
+     522,
+     482,
+     545,
+     683
+    ],
+    "text": "【 く 9 ← 9 【 60"
+   },
+   {
+    "box": [
+     649,
+     594,
+     683,
+     786
+    ],
+    "text": "く 8 6 0"
+   },
+   {
+    "box": [
+     1904,
+     767,
+     1926,
+     812
+    ],
+    "text": "対 あ"
+   },
+   {
+    "box": [
+     1441,
+     701,
+     1464,
+     823
+    ],
+    "text": "WV 96"
+   },
+   {
+    "box": [
+     909,
+     864,
+     931,
+     961
+    ],
+    "text": "く 69 】 6"
+   },
+   {
+    "box": [
+     886,
+     1003,
+     923,
+     1045
+    ],
+    "text": "G"
+   },
+   {
+    "box": [
+     959,
+     1007,
+     990,
+     1047
+    ],
+    "text": "H"
+   },
+   {
+    "box": [
+     1031,
+     1005,
+     1214,
+     1027
+    ],
+    "text": "1 0 : 0 3 : 1 1 A M"
+   }
+  ]
+ },
+ "pg5004.png": {
+  "size": [
+   2175,
+   1700
+  ],
+  "lines": [
+   {
+    "box": [
+     561,
+     158,
+     1349,
+     214
+    ],
+    "text": "Figure 2. UA-93 Altitude profile"
+   },
+   {
+    "box": [
+     155,
+     233,
+     239,
+     255
+    ],
+    "text": "45000"
+   },
+   {
+    "box": [
+     156,
+     363,
+     240,
+     386
+    ],
+    "text": "40000"
+   },
+   {
+    "box": [
+     158,
+     495,
+     242,
+     517
+    ],
+    "text": "35000"
+   },
+   {
+    "box": [
+     1135,
+     598,
+     1151,
+     614
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     1135,
+     618,
+     1151,
+     633
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     1131,
+     730,
+     1152,
+     750
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     1136,
+     770,
+     1152,
+     787
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     1132,
+     1059,
+     1155,
+     1075
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     555,
+     1127,
+     1175,
+     1150
+    ],
+    "text": "A -UAL93takesofffrom Newark, NJ at0842 EDT."
+   },
+   {
+    "box": [
+     557,
+     1157,
+     1207,
+     1182
+    ],
+    "text": "B -UAL931evelsoffatassigned 引 titudeof35 , 000 化"
+   },
+   {
+    "box": [
+     556,
+     1185,
+     1432,
+     1211
+    ],
+    "text": "C - 600 footdeviation om assignedaltitude(assumed takeoverpoint. )"
+   },
+   {
+    "box": [
+     557,
+     1215,
+     1305,
+     1240
+    ],
+    "text": "D -Startsclimbt041,OOOfeet,thenturns towards Southeast?"
+   },
+   {
+    "box": [
+     558,
+     1244,
+     1401,
+     1269
+    ],
+    "text": "E -AtmaxaItitude of41,OOOfeet;xponderreturns cease 2 min?later?"
+   },
+   {
+    "box": [
+     558,
+     1275,
+     948,
+     1299
+    ],
+    "text": "F - Brief interruption ⅲ descent."
+   },
+   {
+    "box": [
+     557,
+     1303,
+     1234,
+     1330
+    ],
+    "text": "G -Rapid controlwheelinputs; aircraftstartscllmbing?"
+   },
+   {
+    "box": [
+     558,
+     1333,
+     1161,
+     1356
+    ],
+    "text": "H -Aircraft nosesdown and starts rapid descent."
+   },
+   {
+    "box": [
+     572,
+     1361,
+     1365,
+     1387
+    ],
+    "text": "-Aircraftaircraftimpacts theground inverted and athigh speed."
+   },
+   {
+    "box": [
+     159,
+     627,
+     243,
+     649
+    ],
+    "text": "30000"
+   },
+   {
+    "box": [
+     160,
+     760,
+     244,
+     782
+    ],
+    "text": "25000"
+   },
+   {
+    "box": [
+     195,
+     891,
+     211,
+     913
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     99,
+     845,
+     125,
+     957
+    ],
+    "text": "矼 ℃ 三 三 Y"
+   },
+   {
+    "box": [
+     164,
+     1023,
+     247,
+     1046
+    ],
+    "text": "15000"
+   },
+   {
+    "box": [
+     165,
+     1156,
+     248,
+     1179
+    ],
+    "text": "10000"
+   },
+   {
+    "box": [
+     181,
+     1287,
+     249,
+     1310
+    ],
+    "text": "5000"
+   },
+   {
+    "box": [
+     1608,
+     1386,
+     1625,
+     1422
+    ],
+    "text": "1"
+   },
+   {
+    "box": [
+     237,
+     1419,
+     251,
+     1441
+    ],
+    "text": "0"
+   },
+   {
+    "box": [
+     1489,
+     1484,
+     1728,
+     1504
+    ],
+    "text": "10 : 00 : 00 10 : 10 : 00"
+   },
+   {
+    "box": [
+     376,
+     1486,
+     1418,
+     1510
+    ],
+    "text": "08 : 40 : OO 08 : 50 : 00 09:00:00 09 : 10 : 00 09 : 20 : 00 09 : 30 : 00 09 : 40 : 09 : 50 :"
+   },
+   {
+    "box": [
+     238,
+     1493,
+     337,
+     1511
+    ],
+    "text": "08:30:00"
+   },
+   {
+    "box": [
+     616,
+     1526,
+     1344,
+     1558
+    ],
+    "text": "Eastern DayIightTime, HH:MM:SS ( = UTC - 4 Hours)"
+   },
+   {
+    "box": [
+     969,
+     1570,
+     983,
+     1594
+    ],
+    "text": "4"
+   }
+  ]
+ },
  "pgr11.png": {
   "size": [
    654,

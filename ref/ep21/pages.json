@@ -136,5 +136,58 @@
    "c617": 0.5
   },
   "from": "ntsb_flight_path_study_AA77.pdf PDF 5頁（200dpi・灰色・270度回して正立）"
+ },
+ "pg5003": {
+  "rec": "NTSB 93便 p5003",
+  "what": "93便のレーダーの航跡（Figure 1・点 A〜I と時刻）",
+  "src": "src/ntsb_flight_path_study_UA93.pdf",
+  "at": 3,
+  "rot": 270,
+  "w": 2175,
+  "h": 1700,
+  "md5": "6d968faefc2b3c664ddf8d47f9cedb88",
+  "src_md5": "5104f92c0a71210e6481a4d9b01a0858",
+  "cuts": {
+   "c802": [
+    0.09,
+    0.07,
+    0.91,
+    0.92
+   ],
+   "c809": [
+    0.09,
+    0.13,
+    0.91,
+    0.66
+   ]
+  },
+  "bias": {
+   "c802": 0.5,
+   "c809": 0.5
+  },
+  "from": "ntsb_flight_path_study_UA93.pdf PDF 3頁（200dpi・灰色・270度回して正立）"
+ },
+ "pg5004": {
+  "rec": "NTSB 93便 p5004",
+  "what": "93便の高度（Figure 2・点 A〜I）",
+  "src": "src/ntsb_flight_path_study_UA93.pdf",
+  "at": 4,
+  "rot": 270,
+  "w": 2175,
+  "h": 1700,
+  "md5": "c5f4f92f52fe1dbee9ef5b06548bb431",
+  "src_md5": "5104f92c0a71210e6481a4d9b01a0858",
+  "cuts": {
+   "c806": [
+    0.04,
+    0.08,
+    0.82,
+    0.92
+   ]
+  },
+  "bias": {
+   "c806": 0.5
+  },
+  "from": "ntsb_flight_path_study_UA93.pdf PDF 4頁（200dpi・灰色・270度回して正立）"
  }
 }

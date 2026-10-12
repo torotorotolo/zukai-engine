@@ -2535,8 +2535,13 @@ REC_M21 = dict(
              sfo=(37.6189, -122.3750), rome=(43.2338, -75.4070), otis=(41.6584, -70.5214), langley=(37.0829, -76.3605),
              nyc=(40.7128, -74.0060), dc=(38.9072, -77.0369), boston=(42.3601, -71.0589),
              herndon=(38.9696, -77.3861), bal=(39.2904, -76.6122),
-             wh=(38.8977, -77.0365), pent=(38.8719, -77.0563), dca=(38.8512, -77.0402)),
+             wh=(38.8977, -77.0365), pent=(38.8719, -77.0563), dca=(38.8512, -77.0402),
+             shk=(40.0514, -78.9044), cap=(38.8899, -77.0091), adw=(38.8108, -76.8669)),
     unk_mi=6.0, unk_brg=(202.5, 247.5),
+    # 🆕 ⑤b-5：p30「United 93 crashed in Pennsylvania at 10:03:11, 125 miles from Washington, D.C.」（±10マイル＝街の点は一般の座標）・
+    #   p11「his 16 transcontinental flights」・p42 の流れ（副大統領→NORAD→NEADS→戦闘機）・p45 の3つ（locate・authorization・communicate）・
+    #   国立公園局「in the last nine rows of the plane」
+    shk_mi=125.0, acars=16, cmd=("副大統領", "NORAD", "NEADS", "戦闘機"), need=3, rear=9,
     routes={("bos", "lax"), ("iad", "lax"), ("ewr", "sfo")},
     flights=dict(bos={"11便", "175便"}, iad={"77便"}, ewr={"93便"}),
     bases={"otis", "langley"}, neads="rome",
@@ -2547,7 +2552,11 @@ REC_M21 = dict(
     premise=3,
     clock={"8:14", "8:19", "8:21", "8:24:38", "8:34", "8:37:52", "8:46", "8:53",
            "8:42", "8:47", "8:51", "8:52", "8:55", "8:58", "9:01", "9:02", "9:03", "8:54", "8:56", "9:05", "9:21", "9:24", "9:30",
-           "9:32", "9:34", "9:25", "9:00", "9:10", "9:42", "9:46"},
+           "9:32", "9:34", "9:25", "9:00", "9:10", "9:42", "9:46",
+           # 🆕 ⑤b-5：p11 9:19・9:23・9:24・9:26・9:28・p29 9:41・9:49・p13 9:57・9:58:57・p14 10:01（about＝「ごろ」）・p30 10:07・p31 10:15・
+           #   p42 10:31・p44 10:45・p45 10:10
+           "9:19", "9:23", "9:24", "9:26", "9:28", "9:41", "9:49", "9:57", "9:58:57", "10:01", "10:07", "10:15", "10:31", "10:45",
+           "10:10"},
     src="委員会報告",
 )
 # 筋（先に起きることが先）＝(見え方, 欄, 値, 前に要る欄, 前に要る値の集合, 言葉)
@@ -2594,6 +2603,22 @@ _M21_NEED = (
     ("dc", "follow", "on", "c130", {"on"}, "追う矢印は、輸送機を見せてから"),
     ("dc", "follow", "on", "t77", {"on"}, "追う矢印は、77便の線を見せてから"),
     ("soft", "cut", "on", "rec", {"on"}, "画面に出ないのは、レーダーが捉えてから（p25）"),
+    # 🆕 ⑤b-5
+    ("acars", "recv93", "on", "send", {"on"}, "93便に届くのは、警告を送り始めてから（p11 9:19→9:24）"),
+    ("acars", "reply", "on", "recv93", {"on"}, "返信は、93便に届いてから（p11 9:24→9:26）"),
+    ("ground", "back", "on", "calls", {"on"}, "機内に伝わるのは、電話の線を見せてから"),
+    ("cvr", "v2", "on", "v1", {"on"}, "2つ目の叫びは、1つ目の声のあと（p14）"),
+    ("cvr", "hl2", "on", "v2", {"on"}, "書き起こしの印は、2つ目の叫びを見せてから"),
+    ("cmd", "plt", "on", "cap", {"on"}, "操縦士の側の札は、首都の側の札と並べて"),
+    ("cmd", "neq", "on", "plt", {"on"}, "食い違いの印は、2つの札を見せてから"),
+    ("need", "x", "on", "hl", {"on"}, "×は、3つを見せてから"),
+    ("ne", "proj", "on", "r93", {"on"}, "首都への予測の線は、実際の93便の線を見せてから（p41）"),
+    ("ne", "proj", "on", "shk", {"on"}, "首都への予測の線は、墜ちた所を見せてから（p41）"),
+    ("sky", "adw", "on", "o2", {"on"}, "アンドルーズ基地は、2組目の戦闘機を見せてから"),
+    ("sky", "o2", "on", "o1", {"on"}, "2組目の戦闘機は、ラングレーの戦闘機を見せてから（p44「another set」）"),
+    ("cabin", "rear9", "on", "fones", {"on"}, "後ろの9列の枠は、座席の背の電話を見せてから"),
+    ("cabin", "rush", "on", "vote", {"on"}, "前へ向かうのは、決をとってから（p13）"),
+    ("roll", "calm", "on", "tilt", {"level"}, "揺さぶりが止まった印は、機が水平に戻ってから（p14）"),
 )
 NUM_M21 = re.compile(r"[0-9０-９]{1,2}[:：][0-9０-９]{2}(?:[:：][0-9０-９]{2})?|[0-9０-９][0-9０-９,.．]*")
 
@@ -2633,6 +2658,12 @@ def judge_m21(f):
     if view == "chain":
         for s in seq:
             need(s.get("reg", "off") == "off" or int(s["lit"]) >= 2, "① 筋：地域の管理職への矢印は、上司まで灯してから（p22）")
+            need(s.get("hqq", "off") == "off" or int(s["lit"]) >= 3, "① 筋：本部の「？」は、本部まで灯してから（p29）")
+    if view == "cmd":       # 🆕 ⑤b-5
+        for s in seq:
+            need(s["msg"] == "off" or int(s["lit"]) >= 3, "① 筋：文字の連絡は、NEADS まで灯してから（p42）")
+            need(s["x"] == "off" or int(s["lit"]) >= 3, "① 筋：NEADS から先の×は、NEADS まで灯してから（p43）")
+            need(s["x"] == "off" or int(s["lit"]) <= 3, "① 筋：戦闘機まで灯したのに×がある（p43＝NEADS は下へ流していない）")
     if view == "scope":
         for s in seq:
             need(s["who"] == "faa" or s["block"] == "off", "① 筋：便名と高度の札は管制の画面だけ（NEADS の画面は札の無い点）")
@@ -2674,6 +2705,15 @@ def judge_m21(f):
         need(ex > lx + 100 and abs(ey - ly) < 0.2 * (ex - lx), f"② ラングレーの戦闘機の線が東の海へ向いていない（{R['src']} p27「east over the ocean」）")
         need(by < ly - 50, "② 命令の向き（ボルチモア）がラングレーの北に無い（p27「north toward the Baltimore area」）")
         need(g["w105"][0] > P["nyc"][0] and g["w105"][1] > P["nyc"][1], "② 軍の空域がニューヨークの南東（ロングアイランドの沖）に無い（p20）")
+        # 🆕 ⑤b-5：シャンクスビルと首都の距離（p30「125 miles」）・93便が向きを変えた所はシャンクスビルより西（p12「turn the aircraft around
+        #   and head east」）・ニューアークより西
+        px_lon, px_lat, latc = g["k"]
+        (sx, sy), (dx_, dy_) = P["shk"], P["dc"]
+        mi = math.hypot((sx - dx_) / px_lon * 111.32 * math.cos(math.radians(latc)), (sy - dy_) / px_lat * 110.57) / 1.609344
+        need(abs(mi - R["shk_mi"]) < 10, f"② シャンクスビルと首都の距離 {mi:.0f}マイル（記録 {R['shk_mi']:g}マイル＝{R['src']} p30）")
+        r9 = g["r93"]
+        need(r9["turn"][0] < sx - 100 and r9["turn"][0] < P["ewr"][0] - 100,
+             "② 93便が向きを変えた所が、シャンクスビルとニューアークより西に無い（p12「head east」）")
     if view == "dc":
         (wx, wy), (ux, uy) = g["pts"]["wh"], g["unk"]
         px_lon, px_lat, latc = g["k"]
@@ -2700,6 +2740,17 @@ def judge_m21(f):
         need(g["fighter_x"] < g["plane_x"], "② 戦闘機が乗っ取られた機の後ろ（進む向きの反対＝左）に無い")
     if view == "premise":
         need(len(g["boxes"]) == R["premise"], f"② 前提の数 {len(g['boxes'])}（記録 {R['premise']}＝{R['src']} p18）")
+    # 🆕 ⑤b-5
+    if view == "acars":
+        need(g["planes"] == R["acars"], f"② 受け持つ便の数 {g['planes']}機（記録 {R['acars']}機＝{R['src']} p11）")
+    if view == "cmd":
+        need(tuple(g["order"]) == R["cmd"], f"② 許可の連絡の順 {g['order']}（記録＝{R['src']} p42）")
+        need(all(a < b for a, b in zip(g["xs"], g["xs"][1:])), "② 許可の連絡の箱が左から右へ並んでいない")
+    if view == "need":
+        need(len(g["boxes"]) == R["need"], f"② 撃ち落とすのに要ることの数 {len(g['boxes'])}（記録 {R['need']}＝{R['src']} p45）")
+    if view == "cabin" and g.get("plane") == "757":
+        need(g["rear"] == R["rear"], f"② 座席の背の電話の列 {g['rear']}列（記録＝後ろの{R['rear']}列＝国立公園局）")
+        need(tuple(g["seats"]) == (3, 3), f"② ボーイング757 の横の並び {g['seats']}（3-3）")
     # ③ 札の数・時刻
     said = [r.get("t", "") for r in m["rel"]]
     for t in texts:
@@ -2735,6 +2786,19 @@ def _selftest_m21(ok):
         ne2=dict(view="ne", steps=[dict(state=dict(r77="west", lang="on", f15="on")), dict(state=dict(r77="east", reapp="on"))], note=N),
         dc=dict(view="dc", steps=[dict(state=dict(unk="on"), tag=dict(t="約10キロ（6マイル）", at="unk", to="unk"))],
                 rel=[dict(t="約10キロ（6マイル）", src="委員会報告 p34")], note=N),
+        # 🆕 ⑤b-5
+        acars=dict(view="acars", steps=[dict(state=dict(send="on"), tag=dict(t="9:19", at="time")), dict(state=dict(recv93="on")),
+                                        dict(state=dict(reply="on"))], rel=[dict(t="9:19", src="委員会報告 p11")], note=N),
+        cmd=dict(view="cmd", steps=[dict(state=dict(lit="3", msg="on")), dict(state=dict(x="on", cap="on", plt="on", neq="on"))], note=N),
+        need=dict(view="need", steps=[dict(state=dict(hl="on")), dict(state=dict(x="on"))], note=N),
+        cab757=dict(view="cabin", start=dict(plane="757"), steps=[dict(state=dict(fones="on", rear9="on", vote="on", rush="on"))], note=N),
+        ne3=dict(view="ne", steps=[dict(state=dict(r93="on", shk="on")), dict(state=dict(proj="on", hits="on"))], note=N),
+        dc2=dict(view="dc", steps=[dict(state=dict(tgt="on"))], note=N),
+        sky=dict(view="sky", steps=[dict(state=dict(o1="on")), dict(state=dict(o2="on", adw="on"))], note=N),
+        cvr=dict(view="cvr", steps=[dict(state=dict(v1="on")), dict(state=dict(v2="on", hl2="on", ap="on", phone="on"))], note=N),
+        roll=dict(view="roll", steps=[dict(state=dict(tilt="left", rock="on")), dict(state=dict(tilt="level", calm="on"))], note=N),
+        wall=dict(view="wall", steps=[dict(state=dict(block="on", rec="on", noise="on", q="on", down="on"))], note=N),
+        ground=dict(view="ground", steps=[dict(state=dict(calls="on")), dict(state=dict(back="on"))], note=N),
     )
     for nm, kw in good.items():
         bad, n = judge("m21", kw)
@@ -2757,7 +2821,14 @@ def _selftest_m21(ok):
             ("軍の空域をニューヨークの北に置く", "NE_W105", (41.6, -73.0), "軍の空域", "ne2"),
             ("正体不明の機を5マイルに描く", "DC_UNK_MI", 5.0, "マイル", "dc"),
             ("正体不明の機を南東に描く", "DC_UNK_BRG", 135.0, "方位", "dc"),
-            ("空の機を、近い空港でない方へ降ろす", "FLY", ((0, -1.6, 0.0),) + M.FLY[1:], "いちばん近い空港", "us2")):
+            ("空の機を、近い空港でない方へ降ろす", "FLY", ((0, -1.6, 0.0),) + M.FLY[1:], "いちばん近い空港", "us2"),
+            # 🆕 ⑤b-5
+            ("受け持つ便を15機にする", "AC_N", 15, "受け持つ便の数", "acars"),
+            ("許可の流れの NORAD と NEADS を入れ替える", "CM_T", (M.CM_T[0], M.CM_T[2], M.CM_T[1], M.CM_T[3]), "許可の連絡の順", "cmd"),
+            ("要ることを2つにする", "ND_T", M.ND_T[:2], "要ることの数", "need"),
+            ("電話の列を8列で描く", "CB_REAR", 8, "座席の背の電話の列", "cab757"),
+            ("シャンクスビルを1.5度西に描く", "MAP_PTS", dict(M.MAP_PTS, shk=(40.0514, -80.4044)), "マイル", "ne3"),
+            ("93便が向きを変えた所を東に描く", "R93", dict(M.R93, turn=(40.6, -76.0)), "向きを変えた所", "ne3")):
         keep = getattr(M, attr)
         setattr(M, attr, val)
         try:
@@ -2783,7 +2854,15 @@ def _selftest_m21(ok):
             ("東へ速く動く点を航空路の画面に", dict(view="scope", steps=[dict(state=dict(fast="on"))], note=N), "① 筋"),
             ("東への線の前に戻る点", dict(view="ne", steps=[dict(state=dict(r77="west", reapp="on"))], note=N), "① 筋"),
             ("空の機を見せずに降りる矢印", dict(view="us", steps=[dict(state=dict(air="on", land="arrow"))], note=N), "① 筋"),
-            ("点が消えたのに札が残る", dict(view="scope", start=dict(block="on"), steps=[dict(state=dict(blip="off"))], note=N), "① 筋")):
+            ("点が消えたのに札が残る", dict(view="scope", start=dict(block="on"), steps=[dict(state=dict(blip="off"))], note=N), "① 筋"),
+            # 🆕 ⑤b-5
+            ("警告を送る前に93便に届く", dict(view="acars", steps=[dict(state=dict(recv93="on"))], note=N), "① 筋"),
+            ("灯す前に NEADS から先へ×", dict(view="cmd", steps=[dict(state=dict(x="on"))], note=N), "① 筋"),
+            ("実際の93便の線の前に予測の線", dict(view="ne", steps=[dict(state=dict(shk="on", proj="on"))], note=N), "① 筋"),
+            ("1つ目の声の前に2つ目の叫び", dict(view="cvr", steps=[dict(state=dict(v2="on"))], note=N), "① 筋"),
+            ("傾いたまま「止まった」印", dict(view="roll", steps=[dict(state=dict(tilt="right", calm="on"))], note=N), "① 筋"),
+            ("札の時刻が記録に無い（9:27）", dict(view="acars", steps=[dict(tag=dict(t="9:27", at="time"))], rel=[dict(t="9:27", src="x")],
+                                         note=N), "記録の時刻")):
         bad, _ = judge("m21", kw)
         g_ = any(key in b for b in bad)
         ok &= g_
@@ -2794,7 +2873,10 @@ def _selftest_m21(ok):
                    ("知らない欄", lambda: M.m21("gate", [dict(state=dict(door="on"))], note=N)),
                    ("消えた点を戻す", lambda: M.m21("scope", [dict(state=dict(blip="off")), dict(state=dict(blip="on"))], note=N)),
                    ("降りた機を空へ戻す", lambda: M.m21("us", [dict(state=dict(fly="on", land="down")), dict(state=dict(land="arrow"))], note=N)),
-                   ("段で電話の相手を変える", lambda: M.m21("phone", [dict(state=dict(to="family"))], note=N))):
+                   ("段で電話の相手を変える", lambda: M.m21("phone", [dict(state=dict(to="family"))], note=N)),
+                   # 🆕 ⑤b-5
+                   ("段で機の型を変える", lambda: M.m21("cabin", [dict(state=dict(plane="757"))], note=N)),
+                   ("灯した許可の流れを戻す", lambda: M.m21("cmd", [dict(state=dict(lit="3")), dict(state=dict(lit="1"))], note=N))):
         try:
             fn()
             g_ = False
