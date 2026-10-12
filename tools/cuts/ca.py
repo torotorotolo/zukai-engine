@@ -178,7 +178,7 @@ SPEC.update({
         t="93便の音声", s="墜落まで録られた音",
         fig=("m21", dict(view="fdr", start=dict(st="all"),
                          steps=[dict(state=dict(hl93="on"), tag=dict(t="最後の31分の音", at="low")),
-                                dict(tag=dict(t="書き起こしたのは", d="NTSB と FBI", at="low2"))],
+                                dict(tag=dict(t="書き起こし：NTSB・FBI", at="low2"))],   # 🔧 試し焼き（原寸）：d の「NTSB と FBI」は 21px の灰色＝要の情報が弱い
                          rel=[dict(t="最後の31分", src="委員会報告 p456")], note=_FN, src=ss.src(["委員会報告 p456"]))),
     ),
     # ca15（3行）＝問い → 2行目で読めた記録に印 → 3行目で報告書と裁判の証拠へ（p462・CVR の逐語＝P200056T）
