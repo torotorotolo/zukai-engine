@@ -27,7 +27,7 @@ PLAN = {
                plan='AA11｜副題：11便の機体（2001年4月）｜動き：額装・止め（寄り0）｜権利：F（CC BY-SA 3.0＝額装・無加工・寄り0）｜出典の行：（作者と許諾の表示は頁の通りに＝fetch21_meta.tsv）｜注：BY-SA 3.0＝額装・無加工（「写真は画面いっぱい」の例外）。登録記号 N334AA が写る｜台本の画：実写 AA11 N334AA（11便の機体の事件の前の写真・CC BY-SA 3.0・額装・無加工＝副題「11便の機体（事件の前）」）',
                src='委員会報告 p4（`Eighty-one passengers boarded the flight with them (including the five terrorists)`・`The plane took off at 7:59`・`It carried its full capacity of nine flight attendants`）'),
     'c205': dict(kind='写真',
-               plan='TG99｜区間 214.0〜224.8秒｜倍率 1.00（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜副題：事件の前の世界貿易センター（1999年・屋上の展望台から）｜動き：額装・等速｜権利：F（CC BY-SA 3.0＋GFDL＝額装・無加工・速さも変えない）｜出典の行：（作者と許諾の表示は頁の通りに＝fetch21_meta.tsv）｜注：BY-SA 3.0＝額装・無加工・速さを変えない。もう一方の塔の屋上→港（自由の女神）。人は写らない（1秒1コマ）。⑤b-1：等速の約束＝区間をカットの実測の秒（10.751秒＝声＋前後の間）に合わせて 223.5→224.75 へ（ショット6＝173.4〜253.5 の中・伸ばした分は 224.0・224.7秒を原寸で見た＝港の遠景だけ）。台本の「720×576・額装・無加工」のまま｜台本の画：実写 Torri Gemelle（事件の前の世界貿易センター・1999年・CC BY-SA・720×576・額装・無加工＝副題「事件の前の世界貿易センター（1999年）」）',
+               plan='TG99｜区間 214.0〜224.8秒｜倍率 1.00（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜副題：世界貿易センターの屋上から見た港（1999年）｜動き：額装・等速｜権利：F（CC BY-SA 3.0＋GFDL＝額装・無加工・速さも変えない）｜出典の行：（作者と許諾の表示は頁の通りに＝fetch21_meta.tsv）｜注：BY-SA 3.0＝額装・無加工・速さを変えない。もう一方の塔の屋上→港（自由の女神）。人は写らない（1秒1コマ）。⑤b-1：等速の約束＝区間をカットの実測の秒（10.751秒＝声＋前後の間）に合わせて 223.5→224.75 へ（ショット6＝173.4〜253.5 の中・伸ばした分は 224.0・224.7秒を原寸で見た＝港の遠景だけ）。台本の「720×576・額装・無加工」のまま。⑤b-7：試し焼き 38321787179 で副題「事件の前の世界貿易センター（1999年・屋上の展望台から）」と写っているもの（展望台から見た港）が合わない＝写っているものに｜台本の画：実写 Torri Gemelle（事件の前の世界貿易センター・1999年・CC BY-SA・720×576・額装・無加工＝副題「事件の前の世界貿易センター（1999年）」）',
                src='委員会報告 p7（`Fifty-six passengers boarded the flight`・`departed Logan Airport at 8:14`）'),
     'c206': dict(kind='写真',
                plan='DULLES｜副題：ワシントン・ダレス空港（1985年）｜動き：左へ流す｜権利：A（米海軍の職務）｜出典の行：米海軍（PH1 David C. Maclean）｜台本の画：実写 dulles（ワシントン・ダレス空港・1985年・A・全画面・左へ流す＝副題「ワシントン・ダレス空港（1985年）」）',
@@ -42,7 +42,7 @@ PLAN = {
                plan='B767｜副題：イメージ（2012年のアメリカン航空の767）｜動き：右へ流す｜権利：F（CC BY 2.0）｜出典の行：Valentin Hintikka（CC BY 2.0）｜注：20%に数えない｜台本の画：イメージ b767_takeoff（2012年のアメリカン航空の767・フリー素材＝副題「イメージ」）',
                src='委員会報告 p4（`The 19 men were aboard four transcontinental flights`）'),
     'c210': dict(kind='フリー素材',
-               plan='SEC70｜副題：イメージ（1970年の空港）｜動き：上へ流す｜権利：F（CC BY）｜出典の行：Orange County Archives（CC BY）｜注：縦長・私人の顔だけモザイク（CC BY）・20%に数えない｜台本の画：イメージ security_pre（1970年の空港の保安検査・CC BY・私人の顔だけモザイク＝副題「イメージ（1970年の空港）」）',
+               plan='SEC70｜副題：イメージ（1970年の空港）｜動き：上へ流す｜権利：F（CC BY）｜出典の行：Orange County Archives（CC BY）｜注：縦長・20%に数えない。⑤b-7：2倍で測った＝写っているのは制服の郡の保安係1人だけ（公務）＝モザイク不要｜台本の画：イメージ security_pre（1970年の空港の保安検査・CC BY・私人の顔だけモザイク＝副題「イメージ（1970年の空港）」）',
                src='委員会報告 p2（`operated by Globe Security under a contract with American Airlines`・`contracted with Huntleigh USA to perform the screening`）・p3（`had contracted out the work to Argenbright Security`）・p4（`operated under contract by Argenbright Security`）・p2（`calibrated to detect items with at least the metal content of a .22-caliber handgun`）'),
     'c211': dict(kind='図解',
                plan='台本の画：図 模式 保安検査の流れ（探知機の門・手持ちの探知機・通過＝人は影だけ）',
@@ -60,7 +60,7 @@ PLAN = {
                plan='台本の画：図 模式 操縦室の扉（閉めて鍵＝当時の決まり）',
                src='委員会報告 p85（`required air crews to keep the cockpit door closed and locked in flight`・`This requirement was not always observed or vigorously enforced`）'),
     'c216': dict(kind='写真',
-               plan='APRON｜副題：ローガン空港の駐機場（1969年）｜動き：左へ流す｜権利：D（米議会図書館蔵／知られた制限なし）｜出典の行：Balthazar Korab（米議会図書館蔵）｜台本の画：実写 logan_apron（ローガン空港の駐機場・1969年・D＝米議会図書館蔵／知られた制限なし・全画面・ゆっくり引く＝副題「ローガン空港（1969年）」）',
+               plan='APRON｜副題：ローガン空港のターミナル（1969年）｜動き：左へ流す｜権利：D（米議会図書館蔵／知られた制限なし）｜出典の行：Balthazar Korab（米議会図書館蔵）｜注：⑤b-7：試し焼き 38321787179 で写っているのはターミナルの建物（EASTERN の字）＝副題を写っているものに（元は「駐機場」）｜台本の画：実写 logan_apron（ローガン空港の駐機場・1969年・D＝米議会図書館蔵／知られた制限なし・全画面・ゆっくり引く＝副題「ローガン空港（1969年）」）',
                src='委員会報告 p4（`By 8:00 A.M. on the morning of Tuesday, September 11, 2001, they had defeated all the security layers`）'),
     'c217': dict(kind='図解',
                plan='台本の画：図 模式 時間の帯（8:00 の線）',
@@ -156,8 +156,9 @@ SPEC.update({
     "c203": dict(photo=_LOG, **ss.mv(_LOG, "in", 0.5, 0.55, lo=1.06), side="none", t="長い便を選ぶ", s="ボストンのローガン空港（1973年）"),
     # c204（13.3秒）＝11便の機体 N334AA（CC BY-SA 3.0＝額装・無加工・色そのまま・寄り0・止め＝ss.check_frame_only）
     "c204": dict(photo=P("n334aa_2001_04"), panel=True, color=1.0, t="1機目", s="11便の機体（2001年4月）"),
-    # c205（9.9秒）＝1999年の塔（CC BY-SA 3.0 の映像 TG99＝額装・等速・地は無地＝USE の plain=True・寄り 1.0）
-    "c205": ss.vid("c205", color=1.0, t="2機目", s="事件の前の世界貿易センター（1999年・屋上の展望台から）"),
+    # c205（9.9秒）＝1999年の塔の屋上の展望台から見た港（CC BY-SA 3.0 の映像 TG99＝額装・等速・地は無地＝USE の plain=True・寄り 1.0）。
+    #   副題は写っているもの（試し焼き 38321787179：「事件の前の世界貿易センター」では塔が写っていると読める＝写るのは港）
+    "c205": ss.vid("c205", color=1.0, t="2機目", s="世界貿易センターの屋上から見た港（1999年）"),
     # c206（10.5秒）＝ダレス空港（1985年・米海軍）・左へ流す
     "c206": dict(photo=_DUL, **ss.mv(_DUL, "l"), side="none", t="3機目", s="ワシントン・ダレス空港（1985年）"),
     # c207（9.6秒）＝93便の機体 N591UA（CC BY 2.0・幅 1690）・ゆっくり引く
@@ -168,6 +169,7 @@ SPEC.update({
     #   不要＝⑤b-7 に2倍で測った・qa_out/ep21_assets.py の HOLD の注）。縦長は全画面で上へ流す（了承② 決め4）＝足もとから顔へ（顔が見出しの暗幕に
     #   沈まない 0.1 まで）。kind() は額装を返す（縦長）＝panel を書かない
     "c210": dict(photo=_SEC, **ss.mv(_SEC, "u", span=(0.1, 0.55)), side="none", t="保安検査", s="イメージ（1970年の空港）"),
-    # c216（6.8秒）＝ローガン空港の駐機場（Korab のスライド＝四辺の縁 1.4〜2.0%）・左へ流す
-    "c216": dict(photo=_APR, **ss.mv(_APR, "l"), side="none", t="通り抜けた", s="ローガン空港の駐機場（1969年）"),
+    # c216（6.8秒）＝ローガン空港のターミナル（Korab のスライド＝四辺の縁 1.4〜2.0%・EASTERN の字の建物＝試し焼き 38321787179 で副題を
+    #   「駐機場」から写っているものに）・左へ流す
+    "c216": dict(photo=_APR, **ss.mv(_APR, "l"), side="none", t="通り抜けた", s="ローガン空港のターミナル（1969年）"),
 })
