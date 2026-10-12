@@ -637,7 +637,7 @@ AXI.update({
     "hj11": dict(k="pt", at="8:14", t="乗っ取りの始まり（委員会の見立て）", rec="委員会報告 p4", anchor="end"),
     "xpdr11": dict(k="pt", at="8:21", t="トランスポンダが切られる", rec="委員会報告 p18", anchor="end"),
     "voice11": dict(k="pt", at="8:24:38", t="管制の無線に声", rec="委員会報告 p19", anchor="start"),
-    "aware11": dict(k="pt", at="8:25", t="ボストン・センターが乗っ取りを知る", rec=["図表 p32", "委員会報告 p19"], c="INST", anchor="start"),
+    "aware11": dict(k="pt", at="8:25", t="ボストン・センターが知る", rec=["図表 p32", "委員会報告 p19"], c="INST", anchor="start"),
     "chain11": dict(k="span", a="8:25", b="8:32", t="FAA の上の段へ", rec="委員会報告 p19", c="INST"),
     "neads11": dict(k="pt", at="8:37:52", t="NEADS に知らせが届く", rec="委員会報告 p20", c="INST", anchor="end"),
     "scr11": dict(k="pt", at="8:46", t="発進の命令", rec="委員会報告 p20"),
@@ -650,7 +650,7 @@ AXI.update({
     "cs_all": dict(k="br", a="1960", b="2001-09-11", t="数十年の積み重ね", rec=["委員会報告 p85", "委員会報告 p1"]),
     "last86": dict(k="pt", at="1986", t="最後のテロの乗っ取り", rec="委員会報告 p85", anchor="end"),
     "quiet86": dict(k="span", a="1986", b="2001-09-11", t="起きていない", rec=["委員会報告 p85", "委員会報告 p1"], c="LINE"),
-    "day911": dict(k="pt", at="2001-09-11", t="この朝", rec="委員会報告 p1", c="ALERT", anchor="end"),
+    "day911": dict(k="pt", at="2001-09-11", t="この朝", rec="委員会報告 p1", c="ALERT", anchor="start", fmt="y"),   # ⚠️ 試し焼き：左へ振ると「1986年」の札と横に並んで1つの札に読めた
 })
 
 

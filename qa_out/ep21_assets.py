@@ -425,12 +425,12 @@ def cmd_pages(only=None):
             frm = f"{Path(src).name} PDF {at}頁（{PAGE_DPI}dpi・灰色・{rot}度回して正立）"
             src_md5 = md5(EPD / src)
         else:
-            im = Image.open(HERE / src).convert("L")
+            im = Image.open(HERE / src).convert("RGB")            # 🔴 色は元のまま（試し焼き ep21_b3 は灰色にしていた＝航跡の緑と青が消えた）
             im = im.crop((0, RG_BAND[0], im.width, RG_BAND[1]))
             frm = f"`{src}`（{at}秒のコマ・上下の黒い帯 y 0〜{RG_BAND[0]}・{RG_BAND[1]}〜を切った）"
             src_md5 = md5(HERE / src)
         im.save(out)
-        a = np.asarray(im)
+        a = np.asarray(im.convert("L"))
         Hp, Wp = a.shape
         cuts, biases = {}, {}
         for cid, (p2, box) in PAGE_CUTS.items():

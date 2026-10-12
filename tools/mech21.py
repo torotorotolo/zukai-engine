@@ -322,9 +322,9 @@ def gate_stage(prev, st):
     if _on(prev, st, "wand"):
         wx, wy = GT["wand"]
         s.append(F.rect(wx - 26, wy - 98, 52, 216, "none", J.AMBER, 5, rx=18))
-    if _on(prev, st, "pass"):
+    if _on(prev, st, "pass_"):        # 🔴 試し焼き ep21_b3：欄の名を "pass" で見ていた＝通過の矢印が出なかった
         y = GT["floor"] - 60
-        s.append(_arrow(GT["arch"][1] + GT["aw"] / 2 + 10, y, GT["exit"][1], y, J.AMBER, 7, 28))
+        s.append(_arrow(GT["arch"][-1] + GT["aw"] / 2 + 10, y, GT["exit"][1], y, J.AMBER, 7, 28))
         s.append(F.txtfit((GT["exit"][0] + GT["exit"][1]) / 2, y - 40, "通過", 300, cap=36, col=J.AMBER, anchor="middle"))
     return s
 
@@ -428,23 +428,31 @@ def door_base(st0):
 
 
 def door_parts(st):
+    """扉の板と、板に付いた物（金庫の枠・輪・鍵）。開くと板ごと蝶番の側（左）へ縮む＝付いた物も同じ式で縮める
+    （⚠️ 試し焼き ep21_b3：輪と鍵を薄めて消す作りだと、開いた所に半ば消えた輪と鍵が浮いて残った＝c307 の最後のコマ）"""
     dx0, dy0, dx1, dy1 = DR["door"]
-    w = (dx1 - dx0) * (DR_OPEN if st["door"] == "open" else 1.0)
+    k = DR_OPEN if st["door"] == "open" else 1.0
     sk = 26.0 if st["door"] == "open" else 0.0
-    panel = [(dx0, dy0), (dx0 + w, dy0 + sk), (dx0 + w, dy1 - sk), (dx0, dy1)]
+    w0 = dx1 - dx0
+
+    def P(x, y):
+        u = (x - dx0) / w0                                  # 蝶番からの割合（0＝蝶番・1＝取っ手の側）
+        return (dx0 + (x - dx0) * k, y + sk * u * (1 if y < (dy0 + dy1) / 2 else -1))
+    panel = [P(dx0, dy0), P(dx1, dy0), P(dx1, dy1), P(dx0, dy1)]
+    vault = [P(dx0 + 10, dy0 + 10), P(dx1 - 10, dy0 + 10), P(dx1 - 10, dy1 - 10), P(dx0 + 10, dy1 - 10)]
+    cx, cy = (dx0 + dx1) / 2, (dy0 + dy1) / 2
+    wheel = [P(cx + 54 * math.cos(2 * math.pi * i / 24), cy + 54 * math.sin(2 * math.pi * i / 24)) for i in range(24)]
     lx, ly = DR["lock"]
-    vis = 1.0 if st["lock"] in ("on", "open") else 0.0
     up = -18.0 if st["lock"] == "open" else 0.0
-    lk_a = vis * (1.0 if st["door"] != "open" else 0.0)
+    lk_a = 1.0 if st["lock"] in ("on", "open") else 0.0
+    va = 1.0 if st["vault"] == "on" else 0.0
     return [_P("panel", "poly", panel, fill=COL["door"], stroke=COL["door_ln"], w=4),
-            _P("vault", "poly", [(dx0 + 10, dy0 + 10), (dx1 - 10, dy0 + 10), (dx1 - 10, dy1 - 10), (dx0 + 10, dy1 - 10)],
-               fill=None, stroke=J.LINE, w=14, alpha=(1.0 if st["vault"] == "on" and st["door"] != "open" else 0.0)),
-            _P("wheel", "circle", c=((dx0 + dx1) / 2, (dy0 + dy1) / 2), r=54, fill=None, stroke=J.LINE, w=10,
-               alpha=(1.0 if st["vault"] == "on" and st["door"] != "open" else 0.0)),
-            _P("lk_body", "poly", [(lx - 30, ly), (lx + 30, ly), (lx + 30, ly + 50), (lx - 30, ly + 50)], fill=J.AMBER, stroke=COL["dark"],
-               w=3, alpha=lk_a),
-            _P("lk_shk", "line", [(lx - 18, ly), (lx - 18, ly - 26), (lx + 18, ly - 26), (lx + 18, ly - 8)],
-               stroke=J.AMBER, w=8, alpha=lk_a, dy=up)]
+            _P("vault", "poly", vault, fill=None, stroke=J.LINE, w=14, alpha=va),
+            _P("wheel", "poly", wheel, fill=None, stroke=J.LINE, w=10, alpha=va),
+            _P("lk_body", "poly", [P(lx - 30, ly), P(lx + 30, ly), P(lx + 30, ly + 50), P(lx - 30, ly + 50)], fill=J.AMBER,
+               stroke=COL["dark"], w=3, alpha=lk_a),
+            _P("lk_shk", "line", [P(lx - 18, ly + up), P(lx - 18, ly - 26 + up), P(lx + 18, ly - 26 + up), P(lx + 18, ly - 8 + up)],
+               stroke=J.AMBER, w=8, alpha=lk_a)]
 
 
 def door_stage(prev, st):
@@ -583,7 +591,7 @@ def chain_stage(prev, st):
 # ══════════════════════════════════════════════════════════
 #  escort（c313）＝乗っ取られた機と後ろの戦闘機（上から・進む向きが右）
 # ══════════════════════════════════════════════════════════
-ES = dict(plane=(1330.0, 560.0), fighter=(470.0, 560.0), near=(1330.0, 380.0), Lp=420.0, Lf=150.0)
+ES = dict(plane=(1330.0, 560.0), fighter=(470.0, 560.0), near=(1500.0, 420.0), Lp=420.0, Lf=150.0)   # ⚠️ 試し焼き：near (1330, 380) は主翼に重なった
 ES_MILES = 5                                       # 委員会報告 p18「five miles directly behind the hijacked aircraft」
 ES_KM = round(ES_MILES * 1.609344)                  # ＝8（台本 §9）
 
@@ -606,8 +614,8 @@ def escort_stage(prev, st):
         s += [F.line(xa, y, xb, y, J.AMBER, 4), F.line(xa, y - 16, xa, y + 16, J.AMBER, 4), F.line(xb, y - 16, xb, y + 16, J.AMBER, 4)]
     if _on(prev, st, "near"):
         x, y = ES["near"]
-        s.append(_plane_top(x - 30, y, ES["Lf"], col=J.TICK, fighter=True, dash="10 8"))
-        s.append(_xmark(x - 30, y, 34))
+        s.append(_plane_top(x, y, ES["Lf"], col=J.TICK, fighter=True, dash="10 8"))
+        s.append(_xmark(x, y, 34))
     return s
 
 
@@ -789,7 +797,7 @@ def radio_stage(prev, st):
     if _on(prev, st, "v2"):
         s.append(_waves(ax - 30, ay + 20, ang, 3, 110))
     if _on(prev, st, "know"):
-        s.append(F.rect(cx - 140, cy - 90, 280, 180, "none", J.AMBER, 6, rx=12))
+        s.append(F.rect(cx - 140, cy - 95, 280, 150, "none", J.AMBER, 6, rx=12))      # ⚠️ 試し焼き：下の辺が建物の札に重なった
     return s
 
 
@@ -947,7 +955,7 @@ TAG_AT = dict(
     old=dict(chips=(L_X, 330.0, "start", 640.0), why=(1240.0, 560.0, "start", 560.0), none=(1560.0, 798.0, "start", 280.0)),
     chain=dict(tl=(L_X, 300.0, "start", 520.0), br=(1300.0, 780.0, "start", 520.0), cape=(L_X, 830.0, "start", 110.0),
                hqx=(L_X, 330.0, "start", 520.0), ac=(620.0, 330.0, "start", 400.0)),     # ⚠️ ac の幅 520 だと国防長官の箱（x 1040〜）にかかる
-    escort=dict(dim=(830.0, 820.0, "middle", 520.0), near=(1200.0, 300.0, "end", 560.0)),
+    escort=dict(dim=(830.0, 820.0, "middle", 520.0), near=(1250.0, 300.0, "end", 520.0)),     # ⚠️ geom_gap：x 1400 の注の行が主翼の先に触れた
     premise=dict(x1=(L_X, 760.0, "start", 760.0)),
     cabin=dict(n33=(L_X, 330.0, "start", 640.0), none=(1240.0, 430.0, "start", 560.0), start=(1180.0, 300.0, "start", 620.0),
                how=(620.0, 300.0, "start", 520.0)),          # front の胴は y 410〜710＝札は上の段（y 300）
