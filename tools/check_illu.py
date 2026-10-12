@@ -1439,15 +1439,17 @@ def judge_a23(sc, where):
 # ══════════════════════════════════════════════════════════
 # 🔴 記録の値は門番の側に持つ（§5b-88＝illu20 の定数を読まない）。経路と時刻の点は記録から読んだデータ `ref/ep20/route20.json`
 #    （付図-1 を Natural Earth の海岸線に重ねて読んだ値＝`ref/ep20/route20.py`）を読む（型の定数ではない）
-REC_S1 = dict(len_m=70.51, len_rec="報告書 p140（付図-4「231 FT 4 IN」）", bs_nose=90.0, bs_bulk=2360.0, bs_cone=2658.0,
-              bs_rec="報告書 p9（BS90〜・BS2658 以降のテールコーン）・p29（BS2360＝後部圧力隔壁の取付部）")
-REC_S2 = dict(
-    pts=dict(haneda=(139.780, 35.549), yokota=(139.348, 35.749), kumagaya=(139.388, 36.147), nagoya=(136.924, 35.255)),
-    crash=(138 + 41 / 60 + 49 / 3600, 35 + 59 / 60 + 54 / 3600),        # 報告書 p8「北緯35度59分54秒、東経138度41分49秒」
-    t0="18:12:00",                                                       # p6「18時12分滑走路15Lから離陸」
-    nagoya_km=72 * 1.852, nagoya_tol=0.06)                               # p7「名古屋空港から72海里の地点」
-REC_S3 = dict(pitch=15.0, roll=40.0, nums=("15度", "40度", "1,200メートル", "185キロ"),
-              rec="報告書 p113（縦揺れ角±約15度・速度変化約100ノット・高度変化約4,000フィート）・p114（横揺れ角±約40度）")
+# 🔴 2026-10-12（21本目 ⑤b-1・§0b）：20本目の記録の値（REC_S1＝全長・BS・REC_S2＝地点の緯度経度・墜落地点・離陸の時刻・72海里・REC_S3＝揺れの角と札の数・
+#    REC_S4〜REC_S7＝夜の地図・尾部の推定・隔壁の継ぎ目・相模湾の地図）は selftest の見本 `tools/fixture_ep20.py`（GATES["check_illu"]・値は1つも
+#    変えていない＝git の `cbf40ec`）へ移した＝空。selftest は `selftest_ep20()`／`selftest_ep20b()` が見本を差し込んで回す（落ちても終わっても `restore()` で
+#    本番の値へ戻す）。21本目で S1〜S7 の型を使うときは、その回の記録の値をここに別に持つ（§5b-88）。空のあいだ、S1〜S7 の場面は `judge_s1`〜`judge_s7` が
+#    「記録の表が空」で止める（fail closed＝KeyError にしない。REC_A1・REC_A23・REC_M19 に足した入口と同じ形）。型の側（`S1_TOL`・`S2_TOL`・`NUM_UNIT`・
+#    `CLOCK_TAG`・`S5_AREA`・`S6_ROW`・`S7_PLACES`・`judge_s1`〜`judge_s7` と `_route20()`・`_sec20()`・`_s2_expect()`・`_along()`・`_geos()`・`_s4_km()`・
+#    `_s4_tacan()`・`_tag_items()`・`_s6_join()`・`_pip()` ほか）は残す。`_route20()` は `ref/ep20/route20.json`（付図-1 の時刻の点＝記録から読んだデータ）を
+#    じかに読む＝`_map16()` が `ref/ep16` の json を読むのと同じ扱い
+REC_S1 = {}
+REC_S2 = {}
+REC_S3 = {}
 S2_TOL, S1_TOL = 3.0, 2.0
 NUM_UNIT = re.compile(r"\d[\d,，]*(?:\.\d+)?\s*(?:度|メートル|キロ|km|m(?![a-z]))")
 CLOCK_TAG = re.compile(r"(\d{1,2}):(\d{2})(?::(\d{2}))?")
@@ -1461,6 +1463,8 @@ def judge_s1(sc, where):
     """㉔ S1：全長＝付図-4 の 70.51m・後部圧力隔壁の x＝BS2360・欠けた形の切り口＝BS2658（テールコーン）・欠けた形は「推定」の札と一緒に・人を描かない"""
     if sc["place"] != "S1":
         return [], 0
+    if not REC_S1:      # 🆕 21本目 ⑤b-1：記録の表が空のあいだは止める（KeyError で理由が見えなくならない＝fail closed）
+        return [f"㉔{where}：記録の表 REC_S1 が空（21本目の値を入れるまで、S1 の場面は止まる）"], 1
     bad, n = [], 1
     P = {p["id"]: p for p in sc["parts"]}
     body = next((p for p in sc["parts"] if (p.get("geo") or {}).get("kind") == "body"), None)
@@ -1559,6 +1563,8 @@ def judge_s2(sc, where):
     縮尺の棒・墜落地点の印は墜落地点まで描いた段だけ・人を描かない"""
     if sc["place"] != "S2":
         return [], 0
+    if not REC_S2:      # 🆕 21本目 ⑤b-1：記録の表が空のあいだは止める（KeyError で理由が見えなくならない＝fail closed）
+        return [f"㉕{where}：記録の表 REC_S2 が空（21本目の値を入れるまで、S2 の場面は止まる）"], 1
     bad, n = [], 1
     R = _route20()
     if R is None:
@@ -1661,6 +1667,8 @@ def judge_s3(sc, where):
     波の道の傾きの最大＝15度・高さのかっこ＝波の頂と谷・左右の傾きの鍵は ±40度 まで（届く）・人を描かない"""
     if sc["place"] != "S3":
         return [], 0
+    if not REC_S3:      # 🆕 21本目 ⑤b-1：記録の表が空のあいだは止める（KeyError で理由が見えなくならない＝fail closed）
+        return [f"㉖{where}：記録の表 REC_S3 が空（21本目の値を入れるまで、S3 の場面は止まる）"], 1
     bad, n = [], 1
     if "模式" not in (sc.get("assume") or ""):
         bad.append(f"㉖{where}：揺れの模式に「模式」の札が無い（記録のグラフではない＝台本の画の欄）")
@@ -1705,33 +1713,13 @@ def judge_s3(sc, where):
 #  🆕 20本目 ⑤b-4（2026-10-08）：㉗ S4（夜の地図）・㉘ S5（尾部が壊れていく推定）・㉙ S6（隔壁の継ぎ目）・㉚ S7（相模湾の地図）
 # ══════════════════════════════════════════════════════════
 # 🔴 記録の値は門番の側に持つ（§5b-88＝illu20 の定数・night20.json・sagami20.json を読まない）
-REC_S4 = dict(
-    crash=(138 + 41 / 60 + 49 / 3600, 35 + 59 / 60 + 54 / 3600),        # 報告書 p8
-    fig_crash=(448.8, 827.8), fig_km=105.0,                              # 解説 図13 の拡大図（墜落位置の◎・目盛り 0〜5km＝103〜628画素）
-    # 点 n：(時刻＝表3, 図13 の画素, 誤差 km＝表3)
-    pts={1: ("19:15", (648.6, 567.7), 3.0), 2: ("19:21", (918.2, 1276.6), 6.0), 3: ("20:42", (198.5, 1134.2), 4.0),
-         4: ("1:00", (378.5, 1057.5), 2.0), 5: ("4:39", (173.0, 1028.0), 3.0), 6: ("5:00", (492.9, 887.4), 1.0),
-         7: ("5:33", (506.9, 720.6), 1.0)},
-    le=(6,), err_tol=0.6,                                                # ⑥ は表3「1km 以下」
-    peaks=dict(mikuni=(639.8, 1006.2), ougi=(168.6, 1133.3), touge=(640.0, 1069.0)),
-    mikuni_km=2.5,                                                       # 報告書 p8「三国山の北北西約2.5キロメートル」（距離だけ照らす）
-    wit=(202.5, 3.0, 4.0),                                               # 報告書 p7「墜落地点の南南西3～4キロメートル」
-    # 表3 の TACAN の方位（磁方位）と距離（海里）＝図13 の点と照らす（偏差は西へ 7度・横田と入間の TACAN は飛行場の点）
-    tacan=dict(st=dict(yok=(139.348, 35.749), iru=(139.410, 35.842)), var=7.0, tol=1.4,
-               pts={1: ("yok", 305.0, 35.0), 2: ("yok", 300.0, 32.0), 3: ("yok", 299.0, 35.5), 4: ("iru", 291.0, 36.3)}),
-    rings=(2.0, 4.0, 6.0),
-    nums=("305度", "65キロ", "35海里", "2キロ", "3キロ", "4キロ", "6キロ"),
-    rec="解説 p1019（表3）・p1020（図13）・報告書 p7・p8・p25")
-REC_S5 = dict(bs_nose=90.0, bs_bulk=2360.0, bs_fw=2658.0, hyd=4, rud=2, area=("2〜3",),
-              rec="報告書 p29（BS2360・BS2658）・p112（配管を4系統）・p125（開口面積は2~3平方メートル程度）・解説 p1025（表5 上方・下方方向舵）")
-REC_S6 = dict(
-    # 付図-3（p.252）の板の重なり（インチ・下が正・列の間＝1インチ）。None＝絵の端まで続く
-    layers=dict(plan=dict(lower=(-0.50, None), splice=(-1.34, 1.32), upper=(None, 0.34), filler=None),
-                real=dict(lower=(-0.58, None), splice=(-0.55, 1.32), upper=(None, 0.39), filler=(-1.32, -0.61))),
-    tol=0.08, rows=(-1.0, 0.0, 1.0), join=dict(plan=2, real=1), l18_tol=0.1, n_stiff=36,
-    rec="報告書 p252（別添1 付図-3）・p248（2列リベットで結合されるべきものが…1列リベット結合）・p168（付図-32）")
-REC_S7 = dict(n_deb=28, n_pts=17, n_obj=6, n_area=8, bearing=244.0, brg_tol=1.5, nums=("17か所",),
-              rec="報告書 p156（付図-20 ①〜㉘）・p157（付図-21 調査区域・①〜⑰・推定飛行経路244度）・解説 p1025（表5 の6つ）")
+# 🔴 2026-10-12（21本目 ⑤b-1・§0b）：REC_S4〜REC_S7（夜の地図・尾部が壊れていく推定・隔壁の継ぎ目・相模湾の地図の記録の値）も `tools/fixture_ep20.py`
+#    （GATES["check_illu"]・値は1つも変えていない＝git の `cbf40ec`）へ移した＝空（REC_S1〜REC_S3 の上の注と同じ）。空のあいだ、S4〜S7 の場面は
+#    `judge_s4`〜`judge_s7` が「記録の表が空」で止める（fail closed）
+REC_S4 = {}
+REC_S5 = {}
+REC_S6 = {}
+REC_S7 = {}
 S5_AREA = re.compile(r"(\d+(?:\s*[〜~]\s*\d+)?)\s*平方メートル")
 S6_ROW = re.compile(r"(\d+)\s*列")
 S7_PLACES = re.compile(r"(\d+)\s*か所")
@@ -1769,6 +1757,8 @@ def judge_s4(sc, where):
     目撃者＝南南西 3〜4km・ずれの輪＝2・4・6km・横田への線の向き・点を指す時計の札＝その点の時刻・札の数は記録の値だけ・人を描かない"""
     if sc["place"] != "S4":
         return [], 0
+    if not REC_S4:      # 🆕 21本目 ⑤b-1：記録の表が空のあいだは止める（KeyError で理由が見えなくならない＝fail closed）
+        return [f"㉗{where}：記録の表 REC_S4 が空（21本目の値を入れるまで、S4 の場面は止まる）"], 1
     bad, n = [], 1
     cr = _geos(sc, "s4crash")
     if not cr:
@@ -1857,6 +1847,8 @@ def judge_s5(sc, where):
     穴の広さの札＝2〜3平方メートルだけ・人を描かない"""
     if sc["place"] != "S5":
         return [], 0
+    if not REC_S5:      # 🆕 21本目 ⑤b-1：記録の表が空のあいだは止める（KeyError で理由が見えなくならない＝fail closed）
+        return [f"㉘{where}：記録の表 REC_S5 が空（21本目の値を入れるまで、S5 の場面は止まる）"], 1
     bad, n = [], 1
     bd = _geos(sc, "s5body")
     if not bd:
@@ -1908,6 +1900,8 @@ def judge_s6(sc, where):
     フィラは実際の側だけ・列の印＝留める列・「N列」の札＝その断面の列の数・正面＝L18 は円の真ん中の高さ・補強材 36本・人を描かない"""
     if sc["place"] != "S6":
         return [], 0
+    if not REC_S6:      # 🆕 21本目 ⑤b-1：記録の表が空のあいだは止める（KeyError で理由が見えなくならない＝fail closed）
+        return [f"㉙{where}：記録の表 REC_S6 が空（21本目の値を入れるまで、S6 の場面は止まる）"], 1
     bad, n = [], 1
     joins = {}
     for p in _geos(sc, "s6joint"):
@@ -1968,6 +1962,8 @@ def judge_s7(sc, where):
     （±1.5度）・推定異常音発生点＝経路の線の上（3画素）で調査区域の中・縮尺の棒・「N か所」の札＝17・人を描かない"""
     if sc["place"] != "S7":
         return [], 0
+    if not REC_S7:      # 🆕 21本目 ⑤b-1：記録の表が空のあいだは止める（KeyError で理由が見えなくならない＝fail closed）
+        return [f"㉚{where}：記録の表 REC_S7 が空（21本目の値を入れるまで、S7 の場面は止まる）"], 1
     bad, n = [], 1
     mp = _geos(sc, "s7map")
     if not mp:
@@ -3204,8 +3200,24 @@ def _selftest_a23():
 
 
 def selftest_ep20():
-    """🆕 20本目 ⑤b-3（2026-10-08）：㉔ S1・㉕ S2・㉖ S3 の物差しの検算＝本番の表（20本目の ss）のまま回す。
-    正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。壊し方は場面（部品の geo・鍵・札・状態）をじかに変える
+    """🆕 20本目 ⑤b-3（2026-10-08）：㉔ S1・㉕ S2・㉖ S3 の物差しの検算＝**見本 `fixture_ep20`（20本目の表）を差し込んで**回す。
+    正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。
+    ✅ 2026-10-12（21本目 ⑤b-1・§0b）：本番の表（cuts.ss の REC_DOCS・ILLU_*・AXI ほか／この門番の REC_S1〜REC_S7）は21本目の空の器にした＝20本目の値は
+       `fixture_ep20`（15・16・18・19本目と同じ作り）。差し込んだら原文の頁の読み込み `_pages()`（lru_cache）を捨てて20本目の原文を読み直し、
+       戻したらまた捨てる＝落ちても終わっても `restore()` で本番の値へ戻す（try/finally）。本体は `_selftest_ep20`。
+       （この検算は章ファイルの SPEC を読まない＝場面を `IL.scene` で組む。`apply_cuts()` は要らない）"""
+    import fixture_ep20
+    fixture_ep20.apply(sys.modules[__name__])
+    _pages.cache_clear()          # 🔴 原文の頁の読み込みは覚えている（lru_cache）＝本番の（空の）原文を捨てて20本目を読み直す
+    try:
+        return _selftest_ep20()
+    finally:
+        fixture_ep20.restore()
+        _pages.cache_clear()
+
+
+def _selftest_ep20():
+    """20本目 S1・S2・S3 の検算の本体（`fixture_ep20` を差し込んだ中で呼ぶ）。壊し方は場面（部品の geo・鍵・札・状態）をじかに変える
     ＝型（illu20）の計算が狂ったときと同じ形の食い違いを作る"""
     import copy
     print("■ selftest S1・S2・S3（20本目 ⑤b-3・㉔㉕㉖）")
@@ -3307,11 +3319,25 @@ def selftest_ep20():
     for k in fr["keys"]:
         k["rot"] = float(k.get("rot", 0.0)) * 0.5
     ok &= broken("陽性対照㉖：左右の傾きが40度に届かない（20度）", x, "㉖")
-    return ok & selftest_ep20b()
+    return ok & _selftest_ep20b()
 
 
 def selftest_ep20b():
-    """🆕 20本目 ⑤b-4（2026-10-08）：㉗ S4・㉘ S5・㉙ S6・㉚ S7 の物差しの検算（本番の表のまま）。正しい場面が通り、陽性対照が落ちること"""
+    """🆕 20本目 ⑤b-4（2026-10-08）：㉗ S4・㉘ S5・㉙ S6・㉚ S7 の物差しの検算＝**見本 `fixture_ep20`（20本目の表）を差し込んで**回す。
+    正しい場面が通り、陽性対照が落ちること。✅ 2026-10-12（21本目 ⑤b-1・§0b）：`selftest_ep20` と同じ作り（本体は `_selftest_ep20b`。
+    `selftest_ep20` は本体 `_selftest_ep20` の最後で `_selftest_ep20b` を呼ぶ＝差し込みを二重にしない）"""
+    import fixture_ep20
+    fixture_ep20.apply(sys.modules[__name__])
+    _pages.cache_clear()          # 🔴 原文の頁の読み込みは覚えている（lru_cache）＝本番の（空の）原文を捨てて20本目を読み直す
+    try:
+        return _selftest_ep20b()
+    finally:
+        fixture_ep20.restore()
+        _pages.cache_clear()
+
+
+def _selftest_ep20b():
+    """20本目 S4〜S7 の検算の本体（`fixture_ep20` を差し込んだ中で呼ぶ）"""
     import copy
     print("■ selftest S4〜S7（20本目 ⑤b-4・㉗㉘㉙㉚）")
     ok = True
@@ -3416,7 +3442,7 @@ def selftest_ep20b():
 
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
-    ok20 = selftest_ep20()        # 🆕 20本目 ⑤b-3（2026-10-08）：本番の表のまま＝見本の差し込みより前に
+    ok20 = selftest_ep20()        # 🆕 20本目 ⑤b-3（2026-10-08）。2026-10-12〜：20本目も見本 fixture_ep20 の表＝selftest_ep20 が差し込んで・終わったら戻す
     ok19 = selftest_a1() and ok20  # 🆕 19本目 ⑤b-2（2026-10-08〜：見本 fixture_ep19 の表＝selftest_a1 が差し込んで・終わったら戻す）
     ok19 = selftest_a23() and ok19     # 🆕 19本目 ⑤b-3
     # 🆕 2026-10-04（18本目 ⑤b-2）：先に18本目を検算する＝見本の差し込み（16・15・14本目）より前

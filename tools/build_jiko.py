@@ -74,7 +74,9 @@ BOOST = set()
 #    ⚠️ 額装だけの点（BY-SA・引用）は今までどおり SPEC に color=1.0 を明記する（`cuts.ss.check_frame_only` は SPEC の字面を見る）
 #    ⚠️ 報告書の写真は原本が白黒＝keep 1.0 でも白黒のまま（染めない灰色）。カットで染めたいときは SPEC に `color=0.0`
 #    ⚠️ 回の名は `el_script.SLUG`（回ごとの設定の正本）から引く
-PHOTO_KEEP_EP = {"ep17": 1.0, "ep20": 1.0}
+#    🔴 2026-10-12（21本目 ⑤b-1）：21本目も原色（記憶 feedback-jiko-photos-original-color＝20本目・17本目から全回）＝"ep21" を足した
+#       （無いと 0.0＝章の色に黙って染まる）。⑤b-1 で `python -c "import build_jiko; print(build_jiko.PHOTO_KEEP)"` が 1.0 を確かめた
+PHOTO_KEEP_EP = {"ep17": 1.0, "ep20": 1.0, "ep21": 1.0}
 
 
 def _photo_keep_default():

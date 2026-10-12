@@ -29,10 +29,13 @@
    （同じ形の audio/narration.json を出す）、読みの網は `tools/el_*.py`。
    ⚠️ 上の kana/build/YOMI/FORBIDDEN は AivisSpeech 用＝4本目以降は呼ばない（AivisSpeech は読みを返すが
    ElevenLabs は返さないので、④かなログ照合の層は作れない。代わりの網は el_script.py の冒頭に書いた）。
-   🔴 **いまの SCRIPT ＝ 20本目 日本航空123便のリメイク・台本第2版 §4**（2026-10-08 ⑤a-1・作業ツリー zukai-engine-ep20a5・
-      ⑤b-1 で本線へ merge `70c7e51`）。リポの `ref/ep20/daihon_v2.md`（md5 fd23cdab…）から `ref/ep20/script_copy.py` で機械で写した
-      （**234カット／531行（聞き役62）／決め所0**＋末尾の ed01）。19本目に戻すなら git の `0dcaa9c` の SCRIPT。
-      ⚠️ この注は ⑤a-1 の差し替え（`f12f370`）で書き直されていなかった＝⑤b-1 で直した。
+   🔴 **いまの SCRIPT ＝ 21本目 9.11 米国同時多発テロのリメイク・台本第2版 §4**（2026-10-12 ⑤a-1・作業ツリー zukai-engine-ep21a5＝
+      `5fca364`・⑤b-1 で本線へ merge `cbf40ec`）。リポの `ref/ep21/daihon_v2.md`（md5 23f69794…〈LF〉）から `ref/ep21/script_copy.py` で
+      機械で写した（**237カット／530行（聞き役64）／15,012字（印を除く）／決め所0**＋末尾の ed01）。20本目に戻すなら git の `f0095bd` の SCRIPT。
+      ⚠️ この注は ⑤a-1 の差し替えで書き直されていなかった（20本目と同じ形）＝⑤b-1 の grep で見つけて直した。
+   （旧）20本目 日本航空123便のリメイク・台本第2版 §4（2026-10-08 ⑤a-1・作業ツリー zukai-engine-ep20a5・⑤b-1 で本線へ merge `70c7e51`）。
+      リポの `ref/ep20/daihon_v2.md`（md5 fd23cdab…）から `ref/ep20/script_copy.py` で機械で写した（**234カット／531行（聞き役62）／決め所0**
+      ＋末尾の ed01）。19本目に戻すなら git の `0dcaa9c` の SCRIPT。
    （旧）19本目 サーフサイドのマンション崩落（リメイク）・台本第2版 §4（2026-10-06 ⑤a-1・作業ツリー zukai-engine-ep19a5）。
       リポの `ref/ep19/daihon_v2.md` から `ref/ep19/script_copy.py` で機械で写した（**237カット／530行（聞き役68）／15,070字（印を除く）／決め所19**
       ＋末尾の ed01）。18本目（`ref/ep18/script_copy.py`・242／600／15,382）に戻すなら git の `f4fe7d9` の SCRIPT。
