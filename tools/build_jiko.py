@@ -1515,7 +1515,9 @@ def meta_of(idx):
                           fzm=(_FO.zoom_of(cid, u) if _FO else u.get("zoom", 1.0)),
                           fbias=u.get("bias", 0.5),
                           # 🆕 18本目 ⑤b-7c：fhead＝コマは映像の差し込み（頭）だけが使う／fground＝額装の記録映画の地のぼかし
-                          fhead=bool(u.get("head")), fground=not u.get("head"))
+                          # 🆕 21本目 ⑤b-2：USE の plain=True＝地のぼかしを作らない（BY-SA の映像＝c205 の1999年の塔は無加工・
+                          #    上に重ねない＝同じ絵から地を作らず、カットの地の色のまま＝映像方針 了承② 決め4「TG99 は無地」）
+                          fhead=bool(u.get("head")), fground=not u.get("head") and not u.get("plain"))
     return m
 
 

@@ -1,0 +1,802 @@
+{
+ "DV42": {
+  "src": "https://www.dvidshub.net/video/122342",
+  "scan": "ref/ep21/src/film/dv122342_pentagon_0911_p1.mp4",
+  "dur": 532.5,
+  "how": "映像方針（10-12）：ffmpeg の scene 0.30＋1ショット1コマの見本帳・使う区間は1秒1コマ（shots21.tsv）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 0.0,
+    "shot": 1
+   },
+   {
+    "start": 4.0,
+    "until": 15.98,
+    "motion": 0.0,
+    "shot": 2
+   },
+   {
+    "start": 15.98,
+    "until": 87.39,
+    "motion": 0.0,
+    "shot": 3
+   },
+   {
+    "start": 87.39,
+    "until": 156.56,
+    "motion": 0.0,
+    "shot": 4
+   },
+   {
+    "start": 156.56,
+    "until": 191.79,
+    "motion": 0.0,
+    "shot": 5
+   },
+   {
+    "start": 191.79,
+    "until": 261.39,
+    "motion": 0.0,
+    "shot": 6
+   },
+   {
+    "start": 261.39,
+    "until": 288.29,
+    "motion": 0.0,
+    "shot": 7
+   },
+   {
+    "start": 288.29,
+    "until": 319.05,
+    "motion": 0.0,
+    "shot": 8
+   },
+   {
+    "start": 319.05,
+    "until": 348.75,
+    "motion": 0.0,
+    "shot": 9
+   },
+   {
+    "start": 348.75,
+    "until": 377.91,
+    "motion": 0.0,
+    "shot": 10
+   },
+   {
+    "start": 377.91,
+    "until": 394.46,
+    "motion": 0.0,
+    "shot": 11
+   },
+   {
+    "start": 394.46,
+    "until": 417.42,
+    "motion": 0.0,
+    "shot": 12
+   },
+   {
+    "start": 417.42,
+    "until": 443.11,
+    "motion": 0.0,
+    "shot": 13
+   },
+   {
+    "start": 443.11,
+    "until": 451.72,
+    "motion": 0.0,
+    "shot": 14
+   },
+   {
+    "start": 451.72,
+    "until": 483.15,
+    "motion": 0.0,
+    "shot": 15
+   },
+   {
+    "start": 483.15,
+    "until": 489.76,
+    "motion": 0.0,
+    "shot": 16
+   },
+   {
+    "start": 489.76,
+    "until": 502.97,
+    "motion": 0.0,
+    "shot": 17
+   },
+   {
+    "start": 502.97,
+    "until": 509.58,
+    "motion": 0.0,
+    "shot": 18
+   },
+   {
+    "start": 509.58,
+    "until": 522.32,
+    "motion": 0.0,
+    "shot": 19
+   },
+   {
+    "start": 522.32,
+    "until": 532.5,
+    "motion": 0.0,
+    "shot": 20
+   }
+  ]
+ },
+ "DV43": {
+  "src": "https://www.dvidshub.net/video/122343",
+  "scan": "ref/ep21/src/film/dv122343_pentagon_0911_p2.mp4",
+  "dur": 580.8,
+  "how": "映像方針（10-12）：ffmpeg の scene 0.30＋1ショット1コマの見本帳・使う区間は1秒1コマ（shots21.tsv）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 27.49,
+    "motion": 0.0,
+    "shot": 1
+   },
+   {
+    "start": 27.49,
+    "until": 34.57,
+    "motion": 0.0,
+    "shot": 2
+   },
+   {
+    "start": 34.57,
+    "until": 45.98,
+    "motion": 0.0,
+    "shot": 3
+   },
+   {
+    "start": 45.98,
+    "until": 57.52,
+    "motion": 0.0,
+    "shot": 4
+   },
+   {
+    "start": 57.52,
+    "until": 85.02,
+    "motion": 0.0,
+    "shot": 5
+   },
+   {
+    "start": 85.02,
+    "until": 98.3,
+    "motion": 0.0,
+    "shot": 6
+   },
+   {
+    "start": 98.3,
+    "until": 147.95,
+    "motion": 0.0,
+    "shot": 7
+   },
+   {
+    "start": 147.95,
+    "until": 169.64,
+    "motion": 0.0,
+    "shot": 8
+   },
+   {
+    "start": 169.64,
+    "until": 194.19,
+    "motion": 0.0,
+    "shot": 9
+   },
+   {
+    "start": 194.19,
+    "until": 215.75,
+    "motion": 0.0,
+    "shot": 10
+   },
+   {
+    "start": 215.75,
+    "until": 253.59,
+    "motion": 0.0,
+    "shot": 11
+   },
+   {
+    "start": 253.59,
+    "until": 254.12,
+    "motion": 0.0,
+    "shot": 12
+   },
+   {
+    "start": 254.12,
+    "until": 268.27,
+    "motion": 0.0,
+    "shot": 13
+   },
+   {
+    "start": 268.27,
+    "until": 279.68,
+    "motion": 0.0,
+    "shot": 14
+   },
+   {
+    "start": 279.68,
+    "until": 296.16,
+    "motion": 0.0,
+    "shot": 15
+   },
+   {
+    "start": 296.16,
+    "until": 320.79,
+    "motion": 0.0,
+    "shot": 16
+   },
+   {
+    "start": 320.79,
+    "until": 345.55,
+    "motion": 0.0,
+    "shot": 17
+   },
+   {
+    "start": 345.55,
+    "until": 371.57,
+    "motion": 0.0,
+    "shot": 18
+   },
+   {
+    "start": 371.57,
+    "until": 398.6,
+    "motion": 0.0,
+    "shot": 19
+   },
+   {
+    "start": 398.6,
+    "until": 423.82,
+    "motion": 0.0,
+    "shot": 20
+   },
+   {
+    "start": 423.82,
+    "until": 459.13,
+    "motion": 0.0,
+    "shot": 21
+   },
+   {
+    "start": 459.13,
+    "until": 477.81,
+    "motion": 0.0,
+    "shot": 22
+   },
+   {
+    "start": 477.81,
+    "until": 493.09,
+    "motion": 0.0,
+    "shot": 23
+   },
+   {
+    "start": 493.13,
+    "until": 511.38,
+    "motion": 0.0,
+    "shot": 24
+   },
+   {
+    "start": 511.38,
+    "until": 538.6,
+    "motion": 0.0,
+    "shot": 25
+   },
+   {
+    "start": 538.6,
+    "until": 553.22,
+    "motion": 0.0,
+    "shot": 26
+   },
+   {
+    "start": 553.22,
+    "until": 580.8,
+    "motion": 0.0,
+    "shot": 27
+   }
+  ]
+ },
+ "DV47": {
+  "src": "https://www.dvidshub.net/video/122347",
+  "scan": "ref/ep21/src/film/dv122347_pentagon_0914_aerial.mp4",
+  "dur": 144.4,
+  "how": "映像方針（10-12）：ffmpeg の scene 0.30＋1ショット1コマの見本帳・使う区間は1秒1コマ（shots21.tsv）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 0.0,
+    "shot": 1
+   },
+   {
+    "start": 4.0,
+    "until": 144.36,
+    "motion": 0.0,
+    "shot": 2
+   }
+  ]
+ },
+ "W606": {
+  "src": "https://commons.wikimedia.org/wiki/File:(2021-0031-F)_WHTV_606_20010911_Arrival,_Departure_and_OTRs_Trip_to_Florida_and_Louisiana.webm",
+  "scan": "ref/ep21/src/film/whtv606_20010911_barksdale.webm",
+  "dur": 893.3,
+  "how": "映像方針（10-12）：ffmpeg の scene 0.30＋1ショット1コマの見本帳・使う区間は1秒1コマ（shots21.tsv）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 24.86,
+    "motion": 0.0,
+    "shot": 1
+   },
+   {
+    "start": 24.86,
+    "until": 47.95,
+    "motion": 0.0,
+    "shot": 2
+   },
+   {
+    "start": 47.95,
+    "until": 55.16,
+    "motion": 0.0,
+    "shot": 3
+   },
+   {
+    "start": 55.16,
+    "until": 63.83,
+    "motion": 0.0,
+    "shot": 4
+   },
+   {
+    "start": 63.83,
+    "until": 186.09,
+    "motion": 0.0,
+    "shot": 5
+   },
+   {
+    "start": 186.09,
+    "until": 215.28,
+    "motion": 0.0,
+    "shot": 6
+   },
+   {
+    "start": 215.28,
+    "until": 224.79,
+    "motion": 0.0,
+    "shot": 7
+   },
+   {
+    "start": 224.79,
+    "until": 228.13,
+    "motion": 0.0,
+    "shot": 8
+   },
+   {
+    "start": 228.4,
+    "until": 229.43,
+    "motion": 0.0,
+    "shot": 9
+   },
+   {
+    "start": 229.43,
+    "until": 237.67,
+    "motion": 0.0,
+    "shot": 10
+   },
+   {
+    "start": 237.7,
+    "until": 241.54,
+    "motion": 0.0,
+    "shot": 11
+   },
+   {
+    "start": 241.54,
+    "until": 274.98,
+    "motion": 0.0,
+    "shot": 12
+   },
+   {
+    "start": 274.98,
+    "until": 302.6,
+    "motion": 0.0,
+    "shot": 13
+   },
+   {
+    "start": 302.6,
+    "until": 315.42,
+    "motion": 0.0,
+    "shot": 14
+   },
+   {
+    "start": 316.42,
+    "until": 323.32,
+    "motion": 0.0,
+    "shot": 15
+   },
+   {
+    "start": 323.32,
+    "until": 328.13,
+    "motion": 0.0,
+    "shot": 16
+   },
+   {
+    "start": 328.13,
+    "until": 337.6,
+    "motion": 0.0,
+    "shot": 17
+   },
+   {
+    "start": 337.6,
+    "until": 341.57,
+    "motion": 0.0,
+    "shot": 18
+   },
+   {
+    "start": 341.77,
+    "until": 348.81,
+    "motion": 0.0,
+    "shot": 19
+   },
+   {
+    "start": 348.81,
+    "until": 349.62,
+    "motion": 0.0,
+    "shot": 20
+   },
+   {
+    "start": 349.62,
+    "until": 350.12,
+    "motion": 0.0,
+    "shot": 21
+   },
+   {
+    "start": 350.12,
+    "until": 351.88,
+    "motion": 0.0,
+    "shot": 22
+   },
+   {
+    "start": 351.88,
+    "until": 363.16,
+    "motion": 0.0,
+    "shot": 23
+   },
+   {
+    "start": 363.16,
+    "until": 370.54,
+    "motion": 0.0,
+    "shot": 24
+   },
+   {
+    "start": 370.54,
+    "until": 373.51,
+    "motion": 0.0,
+    "shot": 25
+   },
+   {
+    "start": 373.51,
+    "until": 381.45,
+    "motion": 0.0,
+    "shot": 26
+   },
+   {
+    "start": 381.65,
+    "until": 388.65,
+    "motion": 0.0,
+    "shot": 27
+   },
+   {
+    "start": 388.65,
+    "until": 396.2,
+    "motion": 0.0,
+    "shot": 28
+   },
+   {
+    "start": 396.2,
+    "until": 412.41,
+    "motion": 0.0,
+    "shot": 29
+   },
+   {
+    "start": 412.41,
+    "until": 427.63,
+    "motion": 0.0,
+    "shot": 30
+   },
+   {
+    "start": 427.63,
+    "until": 428.66,
+    "motion": 0.0,
+    "shot": 31
+   },
+   {
+    "start": 428.66,
+    "until": 434.94,
+    "motion": 0.0,
+    "shot": 32
+   },
+   {
+    "start": 434.94,
+    "until": 453.29,
+    "motion": 0.0,
+    "shot": 33
+   },
+   {
+    "start": 453.29,
+    "until": 456.16,
+    "motion": 0.0,
+    "shot": 34
+   },
+   {
+    "start": 456.29,
+    "until": 456.59,
+    "motion": 0.0,
+    "shot": 35
+   },
+   {
+    "start": 456.66,
+    "until": 457.79,
+    "motion": 0.0,
+    "shot": 36
+   },
+   {
+    "start": 458.56,
+    "until": 458.93,
+    "motion": 0.0,
+    "shot": 37
+   },
+   {
+    "start": 458.93,
+    "until": 462.1,
+    "motion": 0.0,
+    "shot": 38
+   },
+   {
+    "start": 462.1,
+    "until": 463.9,
+    "motion": 0.0,
+    "shot": 39
+   },
+   {
+    "start": 463.9,
+    "until": 475.77,
+    "motion": 0.0,
+    "shot": 40
+   },
+   {
+    "start": 475.77,
+    "until": 588.62,
+    "motion": 0.0,
+    "shot": 41
+   },
+   {
+    "start": 588.62,
+    "until": 867.57,
+    "motion": 0.0,
+    "shot": 42
+   },
+   {
+    "start": 867.57,
+    "until": 888.32,
+    "motion": 0.0,
+    "shot": 43
+   },
+   {
+    "start": 888.32,
+    "until": 893.35,
+    "motion": 0.0,
+    "shot": 44
+   }
+  ]
+ },
+ "W1501": {
+  "src": "https://www.youtube.com/watch?v=CAaOJiSqWkw",
+  "scan": "ref/ep21/src/film/whtv1501_20010911_crowd.mp4",
+  "dur": 691.2,
+  "how": "映像方針（10-12）：ffmpeg の scene 0.30＋1ショット1コマの見本帳・使う区間は1秒1コマ（shots21.tsv）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.97,
+    "motion": 0.0,
+    "shot": 1
+   },
+   {
+    "start": 4.97,
+    "until": 14.91,
+    "motion": 0.0,
+    "shot": 2
+   },
+   {
+    "start": 14.91,
+    "until": 58.16,
+    "motion": 0.0,
+    "shot": 3
+   },
+   {
+    "start": 58.16,
+    "until": 75.58,
+    "motion": 0.0,
+    "shot": 4
+   },
+   {
+    "start": 75.58,
+    "until": 90.12,
+    "motion": 0.0,
+    "shot": 5
+   },
+   {
+    "start": 90.12,
+    "until": 111.81,
+    "motion": 0.0,
+    "shot": 6
+   },
+   {
+    "start": 111.81,
+    "until": 235.47,
+    "motion": 0.0,
+    "shot": 7
+   },
+   {
+    "start": 235.47,
+    "until": 278.31,
+    "motion": 0.0,
+    "shot": 8
+   },
+   {
+    "start": 278.31,
+    "until": 299.13,
+    "motion": 0.0,
+    "shot": 9
+   },
+   {
+    "start": 299.13,
+    "until": 336.64,
+    "motion": 0.0,
+    "shot": 10
+   },
+   {
+    "start": 336.64,
+    "until": 358.59,
+    "motion": 0.0,
+    "shot": 11
+   },
+   {
+    "start": 358.59,
+    "until": 378.28,
+    "motion": 0.0,
+    "shot": 12
+   },
+   {
+    "start": 378.28,
+    "until": 393.96,
+    "motion": 0.0,
+    "shot": 13
+   },
+   {
+    "start": 393.96,
+    "until": 417.72,
+    "motion": 0.0,
+    "shot": 14
+   },
+   {
+    "start": 417.72,
+    "until": 484.45,
+    "motion": 0.0,
+    "shot": 15
+   },
+   {
+    "start": 484.48,
+    "until": 518.28,
+    "motion": 0.0,
+    "shot": 16
+   },
+   {
+    "start": 518.28,
+    "until": 539.24,
+    "motion": 0.0,
+    "shot": 17
+   },
+   {
+    "start": 539.24,
+    "until": 594.36,
+    "motion": 0.0,
+    "shot": 18
+   },
+   {
+    "start": 594.39,
+    "until": 637.34,
+    "motion": 0.0,
+    "shot": 19
+   },
+   {
+    "start": 637.34,
+    "until": 640.94,
+    "motion": 0.0,
+    "shot": 20
+   },
+   {
+    "start": 640.94,
+    "until": 667.9,
+    "motion": 0.0,
+    "shot": 21
+   },
+   {
+    "start": 667.9,
+    "until": 686.15,
+    "motion": 0.0,
+    "shot": 22
+   },
+   {
+    "start": 686.15,
+    "until": 691.19,
+    "motion": 0.0,
+    "shot": 23
+   }
+  ]
+ },
+ "TG99": {
+  "src": "https://commons.wikimedia.org/wiki/File:Torri_Gemelle_-_WTC_-_New_York_-_Sept_99.ogv",
+  "scan": "ref/ep21/src/film/torri_gemelle_1999.ogv",
+  "dur": 293.3,
+  "how": "映像方針（10-12）：ffmpeg の scene 0.30＋1ショット1コマの見本帳・使う区間は1秒1コマ（shots21.tsv）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 26.16,
+    "motion": 0.0,
+    "shot": 1
+   },
+   {
+    "start": 26.16,
+    "until": 81.72,
+    "motion": 0.0,
+    "shot": 2
+   },
+   {
+    "start": 81.72,
+    "until": 138.48,
+    "motion": 0.0,
+    "shot": 3
+   },
+   {
+    "start": 138.48,
+    "until": 167.76,
+    "motion": 0.0,
+    "shot": 4
+   },
+   {
+    "start": 167.76,
+    "until": 173.4,
+    "motion": 0.0,
+    "shot": 5
+   },
+   {
+    "start": 173.4,
+    "until": 253.48,
+    "motion": 0.0,
+    "shot": 6
+   },
+   {
+    "start": 253.48,
+    "until": 293.32,
+    "motion": 0.0,
+    "shot": 7
+   }
+  ]
+ },
+ "W593": {
+  "src": "https://commons.wikimedia.org/wiki/File:Address_to_Nation_on_Terrorist_Attacks_-_NARA_-_6171390.ogv",
+  "scan": "ref/ep21/src/film/whtv593_20010911_address.ogv",
+  "dur": 282.0,
+  "how": "映像方針（10-12）：ffmpeg の scene 0.30＋1ショット1コマの見本帳・使う区間は1秒1コマ（shots21.tsv）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 281.96,
+    "motion": 0.0,
+    "shot": 1
+   }
+  ]
+ }
+}

@@ -11,6 +11,10 @@
       ワークフローの中で URL から取り、コマを切り出して使う。
       落とした mp4     … out/jiko/clip/<name>.mp4   （gitignore・落とす方式のときだけ）
       切り出したコマ    … out/jiko/foot/<cid>/00000.jpg …（gitignore）
+   🆕 2026-10-12（21本目 ⑤b-2）：**例外は1本だけ**＝WHTV 1501（ホワイトハウスの近くの通り・c106）。大統領図書館の YouTube にしか無く
+      （Commons・archive.org を語で引いて0件）、Actions・Modal の機械は網から取れない＝**使う区間の12秒（4.65MB・音なし）だけ**を
+      `ref/ep21/clip/` に切り出してリポに入れた（`qa_out/ep21_assets.py clip1501`・md5 は clips.json＝`fetch --check` の exit 7 が照らす）。
+      大きさの約束（wav 163MB の教訓）の趣旨の内。丸ごとの元ファイル（79.6MB）は git の外のまま
 
 ■ 🔴 **落とさずに、使う区間だけを URL から直接切り出す**
    4本目（NIST の Kaltura 配信）は1本 600MB〜2GB あり、全部落とすと C: にも Actions にも入らなかった。
@@ -137,6 +141,8 @@ UA = ("zukai-engine/1.0 (accident-documentary research; "
 #          手元のファイル〉・NARA 6171390・1999年の塔〈BY-SA＝額装・等速〉）・手元は `ref/ep21/src/film/`（git の外）・ショットは
 #          `ref/ep21/eizou_build/shots21.tsv`（映像方針で scene＋1秒1コマ）。`ref/ep21/clips.json`・`shots.json` は束のチャットで作る
 #          （無いあいだ CLIPS は空＝`unknown_clip()` が止める）。⚠️ Commons の映像の原本は HEAD でも 429 が出た＝焼く前に HEAD・切り出しの数を数える
+#       🆕 2026-10-12（21本目 ⑤b-2）：`ref/ep21/clips.json`・`shots.json` を作った（`qa_out/ep21_assets.py clips`・`shots`）。WHTV 1501 の media は
+#          リポの中の切り出し（上の「置き場所の約束」の例外・`media_of` の注）。DVIDS の3本は SAR 131:128＝`dispw` 655（exit 8 が見る）
 _CLIPS_JSON = HERE / "ref" / "ep21" / "clips.json"
 CLIPS = json.loads(_CLIPS_JSON.read_text(encoding="utf-8")) if _CLIPS_JSON.exists() else {}
 
@@ -281,6 +287,12 @@ NOGO = {
     #    21本目の「使わない」窓は Vault `事故検証-21本目-映像方針-20261012` §2（DV42 7:27 ヘリと担架・8:26 担架で運ばれる人／
     #    DV43 1:11・4:33・4:47・6:25・6:51 担架の板・助けられる人／W606 2:04 記者の寄り）＝束のチャットで clips.json の鍵が決まったら
     #    ショットの境目（`ref/ep21/eizou_build/shots21.tsv`）で秒にしてここへ書く
+    # 🆕 2026-10-12（21本目 ⑤b-2）：上の窓を**その秒を含むショットまるごと**にして書いた（`python qa_out/ep21_assets.py nogo`＝手で書かない）
+    # EP21_NOGO>>> ここから（手で書かない）
+    "DV42": [(443.11, 451.72, "映像方針 §2 の 7:27＝ヘリと担架（ショット 14）"), (502.97, 509.58, "映像方針 §2 の 8:26＝担架で運ばれる人（ショット 18）")],
+    "DV43": [(57.52, 85.02, "映像方針 §2 の 1:11＝担架の板・助けられる人（ショット 5）"), (268.27, 279.68, "映像方針 §2 の 4:33＝担架の板・助けられる人（ショット 14）"), (279.68, 296.16, "映像方針 §2 の 4:47＝担架の板・助けられる人（ショット 15）"), (371.57, 398.60, "映像方針 §2 の 6:25＝担架の板・助けられる人（ショット 19）"), (398.60, 423.82, "映像方針 §2 の 6:51＝担架の板・助けられる人（ショット 20）")],
+    "W606": [(63.83, 186.09, "映像方針 §2 の 2:04＝記者の寄り（ショット 5）")],
+    # EP21_NOGO>>> ここまで
 }
 
 
@@ -495,6 +507,13 @@ USE = {
     #   cb01・cc10 の11カット＝区間と倍率は `ref/ep21/eizou_build/list21.tsv`（narration.json の実測の秒で ⑤b-1 に取り直した・どれも 0.6 以上
     #   ＝c101 0.62 が最小）。欄は写真・映像の束のチャットで道具から書き出す（手で書かない）＝下の印のあいだ
     # EP21_USE>>> ここから（手で書かない）
+    "c101": dict(clip="DV42", start=130.00, until=134.00, rate=0.61, zoom=1.03),   # ショット 4（87.39〜156.56秒）・使える 4.00秒（130〜134）／要る 6.50秒
+    "c104": dict(clip="DV43", start=9.00, until=17.00, rate=1.0, zoom=1.03),   # ショット 1（0.00〜27.49秒）・使える 8.00秒（9〜17）／要る 7.30秒
+    "c105": dict(clip="DV42", start=332.00, until=335.00, rate=0.89, zoom=1.03),   # ショット 9（319.05〜348.75秒）・使える 3.00秒（332〜335）／要る 3.36秒
+    "c106": dict(clip="W1501", start=382.00, until=390.00, rate=1.0, zoom=1.02),   # ショット 13（378.28〜393.96秒）・使える 8.00秒（382〜390）／要る 7.45秒
+    "c107": dict(clip="W606", start=499.00, until=506.00, rate=1.0, zoom=1.025, xbias=0.14),   # ショット 41（475.77〜588.62秒）・使える 7.00秒（499〜506）／要る 5.67秒
+    "c108": dict(clip="DV47", start=79.00, until=85.00, rate=0.73, zoom=1.03),   # ショット 2（4.00〜144.36秒）・使える 6.00秒（79〜85）／要る 8.12秒
+    "c109": dict(clip="DV43", start=484.00, until=490.00, rate=1.0, zoom=1.03),   # ショット 23（477.81〜493.09秒）・使える 6.00秒（484〜490）／要る 5.66秒
     # EP21_USE>>> ここまで
 }
 # ⚠️ 2026-09-23（12本目 ⑤c' 直しE）：ここにあった前の回の注（9.11 の c621・c712／6本目キー橋の「まだ決まっていない
@@ -746,6 +765,25 @@ def selftest():
             fx8b["t_clip"] = dict(fx8["t_clip"], dispw=640)
             globals()["CLIPS"] = fx8b
             rc8b = fetch(check=True)
+            # 🆕 21本目 ⑤b-2：リポの中の切り出し（media が道）＝有って md5 が台帳と同じなら 0／md5 が違う・無いなら 7。
+            #    読む秒は start − local_from（もとの秒の物差しのまま）。⚠️ 一時のファイルは OS の一時の場所（本番の道に触れない）
+            import tempfile
+            with tempfile.TemporaryDirectory() as td:
+                lp = Path(td) / "t_local.mp4"
+                lp.write_bytes(b"x" * 2048)
+                lmd5 = hashlib.md5(lp.read_bytes()).hexdigest()
+                fxl = dict(keep_clips_fx)
+                fxl["t_clip"] = dict(keep_clips_fx["t_clip"], media=str(lp), local_from=10.0, md5=lmd5)
+                globals()["CLIPS"] = fxl
+                rcl0 = fetch(check=True)
+                offl = media_of("t_clip")[1]
+                fxl["t_clip"] = dict(fxl["t_clip"], md5="0" * 32)
+                rcl7 = fetch(check=True)
+                fxl["t_clip"] = dict(fxl["t_clip"], media=str(Path(td) / "nai.mp4"), md5=lmd5)
+                rcl7b = fetch(check=True)
+                fxl["t_clip"] = dict(fxl["t_clip"], media=str(lp), md5=None)
+                rcl7c = fetch(check=True)
+            chk("陽性対照：リポの中の切り出しは読む秒を local_from だけ前へ（start 12 − 10＝2）", abs(offl + 10.0) < 1e-9, True)
             globals()["CLIPS"] = keep_clips_fx
         finally:
             S.CUTS = keep_cuts
@@ -758,7 +796,11 @@ def selftest():
                                ("媒体が引けない", rc7, 7),
                                ("url が /details/ の頁", rc7d, 7),
                                ("SAR 8:9 なのに dispw が無い", rc8, 8),
-                               ("陰性対照：dispw を足せば黙る", rc8b, 0)):
+                               ("陰性対照：dispw を足せば黙る", rc8b, 0),
+                               ("リポの中の切り出し（有る・md5 が台帳と同じ）", rcl0, 0),
+                               ("リポの中の切り出しの md5 が台帳と違う", rcl7, 7),
+                               ("リポの中の切り出しが無い", rcl7b, 7),
+                               ("リポの中の切り出しの md5 が台帳に無い", rcl7c, 7)):
             ok.append(rc == want)
             print(f"  {'✓' if rc == want else '🔴'} {name} → `fetch --check` exit {rc}（期待 {want}）")
     finally:
@@ -908,6 +950,12 @@ def media_of(name):
        URL を入れると `True` を URL として ffmpeg に渡すことになる。
     """
     c = CLIPS[name]
+    if c.get("media") and not str(c["media"]).startswith(("http://", "https://")):
+        # 🆕 2026-10-12（21本目 ⑤b-2）：**リポの中の短い切り出し**（WHTV 1501＝大統領図書館の YouTube にしか無い＝Actions・Modal は網から
+        #    取れない）。`media` はリポの根からの道・`local_from`＝そのファイルの頭が**もとの何秒か**（USE の start はもとの秒のまま＝
+        #    shots.json と同じ物差し）。読む秒＝start − local_from。中身の照合は `fetch --check` の exit 7（有る・md5 が台帳と同じ）
+        p = Path(c["media"])
+        return str(p if p.is_absolute() else HERE / p), float(c.get("at") or 0.0) - float(c.get("local_from") or 0.0)
     if c.get("media"):
         return c["media"], float(c.get("at") or 0.0)
     u = c.get("url")
@@ -961,6 +1009,23 @@ def probe_media(url, timeout=45):
             if attempt == 0:
                 time.sleep(5)
     return why, ln
+
+
+def probe_local(path, want_md5):
+    """🆕 2026-10-12（21本目 ⑤b-2）：リポの中の切り出し（`media` が道）が**有って・台帳の md5 と同じ**か。`(why, 大きさ)`。
+    ⚠️ md5 が台帳に無い欄は止める（fail closed＝別のファイルに差し替わっても気づけない）"""
+    p = Path(path)
+    if not p.exists():
+        return f"リポの中の切り出し `{p.name}` が無い（`git add -f` し忘れ？）", 0
+    if not want_md5:
+        return "台帳（clips.json）に md5 が無い＝中身を照らせない（fail closed）", 0
+    h = hashlib.md5()
+    with open(p, "rb") as f:
+        for b in iter(lambda: f.read(1 << 20), b""):
+            h.update(b)
+    if h.hexdigest() != want_md5:
+        return f"`{p.name}` の md5 {h.hexdigest()[:12]}… が台帳 {str(want_md5)[:12]}… と違う", p.stat().st_size
+    return None, p.stat().st_size
 
 
 def range_ok(url, timeout=45):
@@ -1246,6 +1311,14 @@ def fetch(check=False):
                 mu, off = media_of(clip)
             except Exception as e:                            # noqa: BLE001
                 bad_url.append((clip, f"{type(e).__name__}: {e}"))
+                continue
+            if not str(mu).startswith(("http://", "https://")):
+                why, ln = probe_local(mu, CLIPS[clip].get("md5"))
+                if why:
+                    bad_url.append((clip, why))
+                else:
+                    print(f"  ✓ {clip}: リポの中の切り出しが台帳の md5 と同じ（{ln / 1e6:.1f}MB・もとの"
+                          f"{float(CLIPS[clip].get('local_from') or 0):.1f}秒〜）")
                 continue
             why, ln = probe_media(mu)
             if why:

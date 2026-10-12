@@ -2345,3 +2345,89 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `pg2001` | ca04 | 2011 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会 | jtsb_kaisetsu.pdf PDF 1頁 |
 | `pg3004` | cc06 | 1987 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会 | ja_01.pdf PDF 4頁 |
 | `pg311` | c211 | 1987 | PDL1.0（運輸安全委員会 公共データ利用規約） | 運輸安全委員会 | ja_11.pdf PDF 45頁 |
+
+## 9.11 米国同時多発テロのリメイク（2001-09-11・21本目）
+
+※2026-10-12（⑤b-2）。`qa_out/ep21_assets.py credits --write` が書く（手で直さない）。旧版の節は上の「9.11 米国同時多発テロ（2001-09-11・7本目）」＝直さない（旧版は 10-05 に非公開）。
+
+### 0. 動く映像（7本・音はすべて使わない＝`-an`）
+- DVIDS 122342／122343／122347＝米空軍（第11通信隊・第1戦闘カメラ隊ほか）の職務＝PD（DVIDS の表示「PUBLIC DOMAIN」）。640×480・画素は正方形でない（SAR 131:128＝表示の幅 655）＝4:3 の額装＋地のぼかし・左右の黒い縁を寄り 1.03 で外す
+- WHTV 606・1501＝ホワイトハウス通信局（WHCA＝国防総省の機関）の職務＝PD（ジョージ・W・ブッシュ大統領図書館）。606 は Commons の webm（854×474・16:9＝全画面・右端のレンズの縁の影を寄せで外す）。🔴 **1501 は大統領図書館の YouTube にしか無い**＝使う区間（もとの380〜392秒）だけを `ref/ep21/clip/` に切り出してリポに入れた（Actions・Modal は網から取れない・md5 は clips.json）
+- NARA 6171390（大統領の夜の演説・cb01）＝WHCA の職務＝PD（use=Unrestricted）。16:9＝全画面
+- 🔴 **1999年の塔（TG99・c205）は CC BY-SA 3.0＋GFDL（Zaqq72）**＝額装・無加工・寄り0・等速・地は無地（`plain=True`）・音なし・1点1カット
+- 🔴 使わない窓（`tools/footage.py` の NOGO＝映像方針 §2）：担架と運ばれる人・助けられる人・記者の寄り＝その秒を含むショットまるごと
+
+| 記号 | 使うカット | 画面の出典 | 権利 | 出どころ |
+|---|---|---|---|---|
+| `DV42` | c101 c105 | 出典：米空軍（DVIDS 122342・パブリックドメイン） | A（米空軍 第11通信隊の職務・DVIDS「PUBLIC DOMAIN」） | https://www.dvidshub.net/video/122342 |
+| `DV43` | c104 c109 | 出典：米空軍（DVIDS 122343・パブリックドメイン） | A（米空軍の職務・DVIDS「PUBLIC DOMAIN」） | https://www.dvidshub.net/video/122343 |
+| `DV47` | c108 cc10 | 出典：米空軍（DVIDS 122347・パブリックドメイン） | A（米空軍 第1戦闘カメラ隊の職務・DVIDS「PUBLIC DOMAIN」） | https://www.dvidshub.net/video/122347 |
+| `W606` | c107 c713 | 出典：ジョージ・W・ブッシュ大統領図書館（WHTV 606・パブリックドメイン） | A（ホワイトハウス通信局 WHCA＝国防総省の機関の職務・大統領図書館「public domain」） | https://commons.wikimedia.org/wiki/File:(2021-0031-F)_WHTV_606_20010911_Arrival,_Departure_and_OTRs_Trip_to_Florida_and_Louisiana.webm |
+| `W1501` | c106 | 出典：ジョージ・W・ブッシュ大統領図書館（WHTV 1501・パブリックドメイン） | A（WHCA の職務・大統領図書館「Records of White House Evacuation on September 11, 2001」） | https://www.youtube.com/watch?v=CAaOJiSqWkw |
+| `W593` | cb01 | 出典：ジョージ・W・ブッシュ大統領図書館（NARA 6171390・パブリックドメイン） | A（WHCA の職務・NARA 6171390・use=Unrestricted） | https://commons.wikimedia.org/wiki/File:Address_to_Nation_on_Terrorist_Attacks_-_NARA_-_6171390.ogv |
+| `TG99` | c205 | 出典：Zaqq72（Wikimedia Commons）／CC BY-SA 3.0／改変なし | F（CC BY-SA 3.0＋GFDL＝額装・無加工・速さも変えない） | https://commons.wikimedia.org/wiki/File:Torri_Gemelle_-_WTC_-_New_York_-_Sept_99.ogv |
+
+### 1. 写真（米連邦の職務〈A〉・議会図書館の撮影者不詳〈C'＝撮影者が権利を放棄〉・知られた制限なし〈D〉・CC BY／BY-SA／CC0）
+- 束＝`ref/ep21/photo/`（git の外）の長辺を幅 2400／高さ 1350 まで縮めただけ（色・切り口はそのまま＝原色）。
+- 🔴 **D（米議会図書館の「知られた制限なし」）は PD の宣言ではない**＝画面は「米議会図書館蔵／知られた制限なし」（§2-12b）
+- 🔴 **CC BY-SA の写真（AA11＝c204）は額装・無加工・色そのまま・上に重ねない・寄り0・1点1カット**（`cuts/ss.check_frame_only`）
+- CC BY は額・寄り・流しで端を切ることがある＝画面の出典に「改変：切出」
+- 🔴 **イメージ（この事件の物でない写真）**＝`ep21/stock/` の名・画面の左上に「イメージ」・20% に数えない。顔だけモザイクの3点（SEC70・SHANK15・TSA20）は ⑤b-7 で範囲を決めてから束に入れる（いまは保留）
+- 撮影年＝Commons の頁の日付（上げた日・公開の日・不明のものは出どころの説明から＝`qa_out/ep21_assets.py` の YEAR_FIX）。副題の「当日」は 2001年として照らした
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `df_sd_02_09094` | c621 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米空軍（TSgt Jim Varhegyi） | https://commons.wikimedia.org/wiki/File:DF-SD-02-09094.JPEG |
+| `dm_sd_02_03925` | c622 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米海兵隊（Cpl J. Ingersoll） | https://commons.wikimedia.org/wiki/File:DM-SD-02-03925.JPEG |
+| `dn_sd_03_08938` | cc01 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米海軍（PH2 Robert Houlihan） | https://commons.wikimedia.org/wiki/File:DN-SD-03-08938.JPEG |
+| `dn_sd_03_11447` | c624 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米海軍（PH2 Jim Watson） | https://commons.wikimedia.org/wiki/File:DN-SD-03-11447.JPEG |
+| `dod_pentagon_visit_0912` | cb03 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米国防総省 | https://commons.wikimedia.org/wiki/File:George_W._Bush_visits_Pentagon_9-12-01.jpg |
+| `dulles_1985` | c206 | 1985 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米海軍（PH1 David C. Maclean） | https://commons.wikimedia.org/wiki/File:Aerial_view_of_Dulles_Airport,_June_1985.JPEG |
+| `ewr_gate17_flag_2006` | c801 | 2006 | PD（自主宣言）（C） | Tshevlin | https://commons.wikimedia.org/wiki/File:Ewr_flag.jpg |
+| `f15_102fw_nyc_2001` | c418 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米空軍 | https://commons.wikimedia.org/wiki/File:102d_FW_F-15_over_NYC_2001.jpg |
+| `f15_otis_nyc_2001_11` | c301 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米空軍 | https://commons.wikimedia.org/wiki/File:F-15A_Eagle_of_the_101st_Fighter_Squadron_flying_over_New_York_City_after_September_11,_2001.jpg |
+| `f16c_nj_ang_2001_10` | c908 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米空軍（MSgt Don Taggart） | https://commons.wikimedia.org/wiki/File:F-16C_NJ_ANG_in_flight_Oct_2001.jpg |
+| `faa_artcc` | c402 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米連邦航空局（FAA） | https://commons.wikimedia.org/wiki/File:AirTraffic-8.jpg |
+| `fema_3894_0914` | cb15 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | FEMA（Andrea Booher） | https://commons.wikimedia.org/wiki/File:FEMA_-_3894_-_Photograph_by_Andrea_Booher_taken_on_09-14-2001_in_New_York.jpg |
+| `fema_3905_0914` | cb04 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | FEMA（SFC Thomas R. Roberts） | https://commons.wikimedia.org/wiki/File:FEMA_-_3905_-_Photograph_by_SFC_Thomas_R._Roberts_taken_on_09-14-2001_in_New_York.jpg |
+| `flight93_memorial_aerial_2024_05` | c828 | 2024 | PD（CC0）（C） | Designism | https://commons.wikimedia.org/wiki/File:Flight_93_National_Memorial_aerial_20241223_(5).jpg |
+| `flight93_memorial_aerial_2024_12` | cb18 | 2024 | PD（CC0）（C） | Designism | https://commons.wikimedia.org/wiki/File:Flight_93_National_Memorial_aerial_20241223_(12).jpg |
+| `lc_a05_a01` | c513 | 2001 | PD（撮影者が権利を放棄）（C'） | 撮影者不詳（米議会図書館蔵・撮影者が権利と名前の表示を放棄） | https://commons.wikimedia.org/wiki/File:September_11th_terrorist_attack_on_the_World_Trade_Center_LCCN2002717279_LC-A05-A01.tif |
+| `lc_a05_a03` | c514 | 2001 | PD（撮影者が権利を放棄）（C'） | 撮影者不詳（米議会図書館蔵・撮影者が権利と名前の表示を放棄） | https://commons.wikimedia.org/wiki/File:September_11th_terrorist_attack_on_the_World_Trade_Center_LCCN2002717279_LC-A05-A03.tif |
+| `lc_a05_a05` | c701 | 2001 | PD（撮影者が権利を放棄）（C'） | 撮影者不詳（米議会図書館蔵・撮影者が権利と名前の表示を放棄） | https://commons.wikimedia.org/wiki/File:September_11th_terrorist_attack_on_the_World_Trade_Center_LCCN2002717279_LC-A05-A05.tif |
+| `lc_a05_a06` | c519 | 2001 | PD（撮影者が権利を放棄）（C'） | 撮影者不詳（米議会図書館蔵・撮影者が権利と名前の表示を放棄） | https://commons.wikimedia.org/wiki/File:September_11th_terrorist_attack_on_the_World_Trade_Center_LCCN2002717279_LC-A05-A06.tif |
+| `lc_a05_a09` | c609 | 2001 | PD（撮影者が権利を放棄）（C'） | 撮影者不詳（米議会図書館蔵・撮影者が権利と名前の表示を放棄） | https://commons.wikimedia.org/wiki/File:September_11th_terrorist_attack_on_the_World_Trade_Center_LCCN2002717279_LC-A05-A09.tif |
+| `lc_a05_a10` | c706 | 2001 | PD（撮影者が権利を放棄）（C'） | 撮影者不詳（米議会図書館蔵・撮影者が権利と名前の表示を放棄） | https://commons.wikimedia.org/wiki/File:September_11th_terrorist_attack_on_the_World_Trade_Center_LCCN2002717279_LC-A05-A10.tif |
+| `lc_a05_a17` | c102 | 2001 | PD（撮影者が権利を放棄）（C'） | 撮影者不詳（米議会図書館蔵・撮影者が権利と名前の表示を放棄） | https://commons.wikimedia.org/wiki/File:September_11th_terrorist_attack_on_the_World_Trade_Center_LCCN2002717279_LC-A05-A17.tif |
+| `lc_a05_b20` | cc06 | 2001 | PD（撮影者が権利を放棄）（C'） | 撮影者不詳（米議会図書館蔵・撮影者が権利と名前の表示を放棄） | https://commons.wikimedia.org/wiki/File:September_11th_terrorist_attack_on_the_World_Trade_Center_LCCN2002717279_LC-A05-B20.tif |
+| `loc_item210` | cc03 | 2001 | PD（撮影者が権利を放棄）（C'） | 撮影者不詳（米議会図書館蔵・撮影者が権利と名前の表示を放棄） | https://commons.wikimedia.org/wiki/File:LOC_unattributed_Ground_Zero_photos,_September_11,_2001_-_item_210.jpg |
+| `logan_1973` | c203 | 1973 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米環境保護庁 DOCUMERICA（NARA 548428） | https://commons.wikimedia.org/wiki/File:LOGAN_AIRPORT-CONTROL_TOWER_AND_RUNWAYS_SEEN_FROM_16TH_FLOOR_OBSERVATION_DECK_-_NARA_-_548428.jpg |
+| `logan_apron_1969` | c216 | 1969 | 米議会図書館蔵／知られた制限なし（D） | Balthazar Korab | https://commons.wikimedia.org/wiki/File:Eastern_Air_Lines_terminal_at_Logan_Airport,_1969.jpg |
+| `manhattan_2001_07` | c201 | 2001 | PD（自主宣言）（C＋D） | Carol M. Highsmith | https://commons.wikimedia.org/wiki/File:World_Trade_Center_towers,_New_York,_LCCN2015645969.jpg |
+| `n334aa_2001_04` | c204 | 2001 | CC BY-SA 3.0（F） | Ken Fielding | https://commons.wikimedia.org/wiki/File:N334AA_B767-223ER_American_MAN_08APR01_(6839074488).jpg |
+| `n591ua_1999` | c207 | 1999 | CC BY 2.0（F） | simon butler | https://commons.wikimedia.org/wiki/File:N591UA_United_Airlines_B757-222_at_John_Wayne_Airport,_1999.jpg |
+| `nasa_iss003_e_5388` | c103 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | NASA | https://commons.wikimedia.org/wiki/File:Manhattan_smoke_plume_on_September_11,_2001_from_International_Space_Station_(ISS003-E-5388).jpg |
+| `pen_010911_m_ci426_007` | cc02 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米海兵隊（Cpl J. Ingersoll） | https://commons.wikimedia.org/wiki/File:View_of_the_Pentagon_from_the_Navy_Annex_minutes_after_a_hijacked_jetliner_crashed_into_building_at_approximately_0930_on_September_11,_2001_010911-M-CI426-007.jpg |
+| `pen_010911_m_ci426_009` | c620 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米海兵隊（Cpl J. Ingersoll） | https://commons.wikimedia.org/wiki/File:View_of_the_Pentagon_from_the_Navy_Annex_minutes_after_a_hijacked_jetliner_crashed_into_building_at_approximately_0930_on_September_11,_2001_010911-M-CI426-009.jpg |
+| `pen_010911_m_ci426_012` | cc05 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米海兵隊（Cpl J. Ingersoll） | https://commons.wikimedia.org/wiki/File:The_Pentagon_in_flames_moments_after_a_hijacked_jetliner_crashed_into_building_at_approximately_0930_on_September_11,_2001_010911-M-CI426-012.jpg |
+| `pen_010911_m_ci426_021` | c623 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米海兵隊（Cpl J. Ingersoll） | https://commons.wikimedia.org/wiki/File:The_Pentagon_in_flames_moments_after_a_hijacked_jetliner_crashed_into_building_at_approximately_0930_on_September_11,_2001_010911-M-CI426-021.jpg |
+| `pen_010911_n_1993r_015` | c705 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米海軍 | https://commons.wikimedia.org/wiki/File:Smoke_rising_over_the_Pentagon_on_Sep._11.jpg |
+| `pen_010911_n_pu293_077` | ca09 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米海軍 | https://commons.wikimedia.org/wiki/File:A_nighttime_view_of_the_Pentagon_Building_showing_smoke_rising_from_the_building_after_the_September_11,_2001_attacks_010911-N-PU293-077.jpg |
+| `pentagon_1998` | c601 | 1998 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米国防総省（MSgt Ken Hammond, USAF） | https://commons.wikimedia.org/wiki/File:The_Pentagon_US_Department_of_Defense_building.jpg |
+| `pentagon_aerial_2023` | cb17 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米国防総省 | https://commons.wikimedia.org/wiki/File:An_aerial_view_of_the_Pentagon,_Washington,_D.C.,_May_15,_2023_230515-D-PM193-1762C.jpg |
+| `shanksville_2015b` | c829 | 2015 | CC BY 3.0（F） | Ron Shawley | https://commons.wikimedia.org/wiki/File:Flight_93_Memorial_-_panoramio_(20).jpg |
+| `cockpit_door_2015` | cb08 | 2015 | CC BY 2.0 de（F）・イメージ | Mattes | https://commons.wikimedia.org/wiki/File:Puerto_Rico_—_A_320_JetBlue_—_Open_cockpit_door_during_boarding.jpg |
+| `n352aa_2012` | c209 | 2012 | CC BY 2.0（F）・イメージ | Valentin Hintikka | https://commons.wikimedia.org/wiki/File:N352AA_(15113637598).jpg |
+| `wh_af1_phone` | c712 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | Eric Draper（Courtesy George W. Bush Presidential Library） | https://commons.wikimedia.org/wiki/File:President_George_W._Bush_Talks_on_the_Telephone_aboard_Air_Force_One.jpg |
+| `wh_af1_window` | c914 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | Eric Draper（Courtesy George W. Bush Presidential Library） | https://commons.wikimedia.org/wiki/File:President_George_W._Bush_aboard_Air_Force_One.jpg |
+| `wh_booker_tv` | c518 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | Eric Draper（Courtesy George W. Bush Presidential Library） | https://commons.wikimedia.org/wiki/File:President_George_W._Bush_watches_Television_Coverage_of_Terrorist_Attacks.jpg |
+| `wh_nsc_night` | c913 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | Eric Draper（Courtesy George W. Bush Presidential Library） | https://commons.wikimedia.org/wiki/File:After_addressing_the_nation,_President_George_W._Bush_meets_with_his_National_Security_Council.jpg |
+| `wh_offutt_vtc` | c920 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | Eric Draper（Courtesy George W. Bush Presidential Library） | https://commons.wikimedia.org/wiki/File:President_George_W._Bush_Teleconference_at_Offutt_Air_Force_Base.jpg |
+| `wh_peoc_lynne` | c906 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | Courtesy George W. Bush Presidential Library（NARA） | https://commons.wikimedia.org/wiki/File:Vice_President_Cheney_with_Lynne_Cheney_in_the_President's_Emergency_Operations_Center_(PEOC)_-_DPLA_-_9c6475003a2ce1cd0dc7a2cc60b7275b.jpg |
+| `wh_peoc_lynne_rice` | c905 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | Courtesy George W. Bush Presidential Library（NARA） | https://commons.wikimedia.org/wiki/File:Vice_President_Cheney_with_Lynne_Cheney_and_Condoleezza_Rice_in_the_President's_Emergency_Operations_Center_(PEOC)_-_DPLA_-_4fe01881026e81b415376664eee65939.jpg |
+| `wh_peoc_rice` | c904 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | Courtesy George W. Bush Presidential Library（NARA） | https://commons.wikimedia.org/wiki/File:Vice_President_Cheney_with_National_Security_Advisor_Condoleezza_Rice_in_the_President's_Emergency_Operations_Center_(PEOC)_-_DPLA_-_d03f9c358c94caa6814e92d038b734f2.jpg |
+| `wtc_1971` | c515 | 1971 | 米議会図書館蔵／知られた制限なし（D） | Thomas J. O'Halloran | https://commons.wikimedia.org/wiki/File:View_of_the_New_World_Trade_Center,_1971.jpg |
+| `wtc_base_1976` | c422 | 1976 | 米議会図書館蔵／知られた制限なし（D） | Balthazar Korab | https://commons.wikimedia.org/wiki/File:World_Trade_Center_Exterior_Entrance_arches_with_Sphere_at_Plaza_Fountain_sculpture_-_LCCN2021638448.jpg |
+| `wtc_far_1976` | c421 | 1976 | 米議会図書館蔵／知られた制限なし（D） | Balthazar Korab | https://commons.wikimedia.org/wiki/File:World_Trade_Center,_New_York._Exterior._Twilight_view_from_harbor_-_LCCN2021636615.jpg |
+| `wtc_night_1976` | ca11 | 1976 | 米議会図書館蔵／知られた制限なし（D） | Balthazar Korab | https://commons.wikimedia.org/wiki/File:World_Trade_Center,_New_York._Exterior._Night_view_-_LCCN2021636612.jpg |
+| `wtc_south_1976` | c501 | 1976 | 米議会図書館蔵／知られた制限なし（D） | Balthazar Korab | https://commons.wikimedia.org/wiki/File:World_Trade_Center,_New_York._Exterior._View_from_plaza_-_LCCN2020714989.jpg |

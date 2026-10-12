@@ -99,6 +99,7 @@ CREDITS = HERE / "ref" / "CREDITS.md"
 #       ⚠️ 写真の束のチャットで `ref/CREDITS.md` にこの行で始まる節を足すまで止まる（fail closed＝正しい）。
 #       21本目＝映像7本（DVIDS 3・WHTV 606／1501・NARA・1999年の塔〈BY-SA〉）・写真57点（米連邦・議会図書館〈撮影者不詳〉・CC BY／BY-SA）・
 #       イメージ4点（この事件の物でない写真＝c209・c210・cb06・cb08）＝同じ節に「イメージ」と出典・ライセンス・取った日
+#    🆕 2026-10-12（21本目 ⑤b-2）：節を `qa_out/ep21_assets.py credits --write` で足した。副題の「当日」も年の主張に（下の EVENT_YEAR＝回ごとに替える）
 EP_PREFIX = "ep21/"
 SECTION = "## 9.11 米国同時多発テロのリメイク（2001-09-11・21本目）"
 HEADER = "| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |"
@@ -116,6 +117,11 @@ CLAIM_DAY = re.compile(r"(1[89]\d\d|20\d\d)年\d{1,2}月\d{1,2}日")
 #    （c606「1973年・ロンドン」×表の撮影年「不明」を通していた）。→ 年だけ・年と月も「その年の写真」として比べる。
 #    ⚠️ 日まである形・「撮影」「ごろ」「以前」が続く形は上の網の受け持ち（二重に数えない＝後ろに数字も続かない）
 CLAIM_BARE = re.compile(r"(1[89]\d\d|20\d\d)年(?:\d{1,2}月)?(?!\d|撮影|ごろ|以前)")
+# 🆕 2026-10-12（21本目 ⑤b-2）：副題の「当日」＝事件の日の主張。21本目の副題は「当日のマンハッタン」「宇宙から見たニューヨークの煙（当日）」の
+#    ように**年を書かない**＝上の網はどれも当たらず「年の主張を1件も比べていない」（exit 2）のまま測れなかった。→ 事件の年と照らす。
+#    🔴 **EVENT_YEAR は回ごとに替える定数**（§0b・EP_PREFIX・SECTION と一緒に）。「前日」「翌日」は拾わない（当日だけ）
+EVENT_YEAR = 2001
+CLAIM_TOUJITSU = "当日"
 
 # ④ 目で決めるために並べる語。原題の側にこれが出たら副題と並べて出す
 PLACE = re.compile(
@@ -182,6 +188,12 @@ def judge(sub, row):
     hard, soft = [], []
     y = row["year"]
     n = sum(len(p.findall(sub)) for p in (CLAIM_YEAR, CLAIM_SOFT, CLAIM_DAY, CLAIM_BARE)) + sub.count(CLAIM_PRE)
+    if CLAIM_TOUJITSU in sub:
+        n += 1
+        if y is None:
+            hard.append(f"副題が「{CLAIM_TOUJITSU}」（{EVENT_YEAR}年の事件の日）と名乗るのに、表の撮影年が**不明**")
+        elif y != EVENT_YEAR:
+            hard.append(f"副題「{CLAIM_TOUJITSU}」（{EVENT_YEAR}年の事件の日）に対し、表の撮影年は **{y}**")
     for b in CLAIM_BARE.finditer(sub):
         if y is None:
             hard.append(f"副題が「{b.group(0)}」と名乗るのに、表の撮影年が**不明**")
@@ -379,6 +391,16 @@ def selftest():
     chk("陽性対照⑳：直したあと・『押し寄せた水』『水の模型』『年寄り』『青年』は鳴らない",
         all(wording(s, {}) == [] for s in ("事故の前の絵はがき　南の岸の道とダム", "押し寄せた水の跡",
                                            "水の模型の実験場", "年寄りの家", "青年団の碑")))
+    # ── 2026-10-12（21本目 ⑤b-2）：「当日」＝事件の年（EVENT_YEAR）の主張
+    r01 = dict(r24, year=EVENT_YEAR)
+    chk(f"陽性対照㉑：『当日のマンハッタン』×表{EVENT_YEAR} → 鳴らない・主張を1件と数える",
+        judge("当日のマンハッタン", r01)[0] == [] and judge("当日のマンハッタン", r01)[2] == 1)
+    chk("陽性対照㉒：『宇宙から見たニューヨークの煙（当日）』×表1976 → 鳴る",
+        len(judge("宇宙から見たニューヨークの煙（当日）", dict(r24, year=1976))[0]) == 1)
+    chk("陽性対照㉓：『当日の午後、ルイジアナ州の空軍基地』×表が不明 → 鳴る",
+        len(judge("当日の午後、ルイジアナ州の空軍基地", dict(r24, year=None))[0]) == 1)
+    chk("陽性対照㉔：『翌日の現場』は当日の網に入らない（主張0件）",
+        judge("翌日の現場", r01)[2] == 0)
     print(f"\n{'✓ 物差しは通った' if ok else '🔴 物差しが壊れている'}")
     return 0 if ok else 2
 
