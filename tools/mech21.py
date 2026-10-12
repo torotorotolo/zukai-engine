@@ -1928,7 +1928,7 @@ KEY_FIELDS = ("pts", "rot", "alpha", "fill", "stroke", "glow", "dx", "dy")
 
 
 def m21(view, steps, start=None, rel=(), note="", src=""):
-    """21本目の模式図。view は VIEWS の25種。steps＝ナレーションの行ごとの段。"""
+    """21本目の模式図。view は VIEWS の26種。steps＝ナレーションの行ごとの段。"""
     if view not in VIEWS:
         raise ValueError(f"m21：知らない見え方 {view!r}（{tuple(VIEWS)}）")
     if "模式" not in note:
