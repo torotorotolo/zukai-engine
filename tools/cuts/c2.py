@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""第1章　その日の123便 c201–c218（18カット）。20本目（日本航空123便のリメイク）。
+"""第1章　その朝、4つの便 c201–c217（17カット）。21本目（9.11 米国同時多発テロのリメイク）。
 
-■ 🔴 2026-10-08（⑤b-1）：19本目（サーフサイドのマンション崩壊のリメイク）の中身を空にした＝git の `0dcaa9c`（`git show 0dcaa9c:tools/cuts/c2.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep20/make_plan20.py` で
-  映像方針の一覧 `ref/ep20/eizou_build/list20.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
+■ 🔴 2026-10-12（⑤b-1）：20本目（日本航空123便のリメイク）の中身を空にした＝git の `f0095bd`（`git show f0095bd:tools/cuts/c2.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep21/make_plan21.py` で
+  映像方針の一覧 `ref/ep21/eizou_build/list21.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット（台本の画は元の予定）。
@@ -12,186 +12,59 @@ import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
 
 P = ss.P
-from illu20 import S1_REC as S1R, S2_REC as S2R  # noqa: E402  🆕 ⑤b-3：置き場 S1・S2 の部品の出典（描く側と同じ文）
 
 PLAN = {
     'c201': dict(kind='写真',
-               plan='🔧 J2｜副題：事故機 JA8119（1985年3月・羽田）｜動き：額ごと右へ流す｜権利：CC BY-SA 2.0（Flickr の審査ずみ・VRTS の許諾確認）｜出典の行：Stuart Jessup（Flickr）／CC BY-SA 2.0／改変なし｜注：🔴 BY-SA 2.0＝額装・無加工。章の頭＝扉の地に混ぜない（card_mix=0・§5b-110）｜台本の画（🔧映像方針で替えた＝元の予定）：実写 JA8119 のカラー写真（1985年3月・CC BY-SA 2.0・額装・額ごと右へ流す＝副題「事故機 JA8119（1985年3月）」）',
-               src='報告書 表紙 PDF p.1（`ボーイング式747SR―100型JA8119`）・2.7.1(3)(5) p.18（`製造年月日昭和49年1月30日`・`総飛行時間25,030時間18分`）'),
-    'c202': dict(kind='図・写真の頁',
-               plan='F4｜動き：順に寄る｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 付図-4）／縮小・切出｜台本の画：図 p140 付図-4 三面図（横・上・正面の配置を順に寄る・額装）',
-               src='—'),
-    'c203': dict(kind='図・写真の頁',
-               plan='F5｜動き：前から後ろへ流す｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 付図-5）／縮小・切出｜台本の画：図 p141 付図-5 胴体ステーション及び座席配置図（額装・前から後ろへ流す）',
-               src='報告書 2.1 p.6（`同社定期503便、504便、363便、366便として`・`366便(福岡-東京)として17時12分に東京国際空港に着陸`）'),
-    'c204': dict(kind='再現イラスト',
-               plan='S1｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S1【横から】機体を横から見た図（後部圧力隔壁・垂直尾翼・APU の位置＝付図-4・付図-7 から・人は描かない）',
-               src='報告書 1.1 p.1（`乗客509名(幼児12名を含む。)及び乗組員15名、計524名`）・2.6.1〜2.6.2 p.14〜17（運航乗務員3名・客室乗務員 A〜L の12名）'),
-    'c205': dict(kind='図・写真の頁',
-               plan='F12｜動き：流す｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 付図-12）／縮小・切出｜台本の画：図 p148 付図-12 操縦室パネル配置図（額装・左の席から右の席へ流す）',
-               src='報告書 2.1 p.6'),
-    'c206': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 操縦室の3つの席（左席・右席・後ろの航空機関士席＝付図-12 から）',
-               src='報告書 2.6.1 p.14（`総飛行時間12,423時間41分`）'),
-    'c207': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 操縦室の3つの席（左席に「副操縦士」・右席に「機長」の札）',
-               src='報告書 2.1 p.6（`副操縦士の機長昇格訓練のため、機長が右操縦士席、副操縦士が左操縦士席に位置し`）・2.6.1 p.14（`副操縦士に左席で操縦を行わせ得る機長の認定`）・3.2.7.5(3) p.117'),
-    'c208': dict(kind='図・写真の頁',
-               plan='F1｜動き：寄る｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 付図-1）／縮小・切出｜台本の画：図 p137 付図-1 JA8119飛行経路略図（地図・羽田から伊豆へ寄る・額装）',
-               src='報告書 2.1 p.6（`18時12分滑走路15Lから離陸`・`巡航高度24,000フィート`・`予定所要時間は54分`）'),
-    'c209': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜合図：🔁 横→上（前の再現 c204）＝左上に見る向きの札・替わる瞬間に「上から見ると」｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】経路の地図（羽田から伊豆半島の東の海岸へ・18:24:35 の点＝付図-1 の時刻と高度・海岸線は Natural Earth）',
-               src='報告書 2.1 p.6（`巡航高度24,000フィートに到達する直前、伊豆半島南部の東岸上空に差し掛かるころ`）'),
-    'c210': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 客室高度の警報の帯（18:24:37 から約1秒・26秒止まって 18:25:04 から＝音の札だけ）',
-               src='報告書 3.1.9(2) p.88（`18時24分37秒から約1秒間鳴り、26秒間中断した後18時25分04秒に再び鳴りだし`）・3.1.9(4) p.91（`約10,000フィートになったことを示す客室高度警報音`）'),
-    'c211': dict(kind='文字の頁',
-               plan='PG｜権利：PDL1.0（文字の頁）｜台本の画：図 p311 別添6 CVR記録の最初の頁（文字の頁・横倒しの表を正立させて額装・言葉の行には寄らない）',
-               src='報告書 2.11 p.24（`解読し得た音声の記録を「別添6CVR記録」として添付する`）'),
+               plan='MAN01｜副題：事件の前のマンハッタン（2001年7月）｜動き：右へ流す｜権利：C＋D（Highsmith の献呈・米議会図書館蔵／知られた制限なし）｜出典の行：Carol M. Highsmith（米議会図書館蔵）｜台本の画：実写 manhattan_pre（事件の2か月前のマンハッタン・2001年7月・C＋D＝米議会図書館蔵／知られた制限なし・全画面・右へ流す＝副題「事件の前のマンハッタン（2001年7月）」）',
+               src='委員会報告 p1（`nearly cloudless`）'),
+    'c202': dict(kind='図解',
+               plan='台本の画：図 模式 4便の経路の地図（出発の3つの空港と行き先の2つの街＝NTSB の4本の経路の図をなぞる・東から西へ線が伸びる）',
+               src='委員会報告 p4（`four transcontinental flights`）'),
+    'c203': dict(kind='写真',
+               plan='LOGAN｜副題：ボストンのローガン空港（1973年）｜動き：ゆっくり寄る｜権利：A（EPA DOCUMERICA・NARA 548428）｜出典の行：米環境保護庁 DOCUMERICA（NARA 548428）｜台本の画：実写 logan（ボストンのローガン空港・1973年・EPA DOCUMERICA・A・全画面・ゆっくり寄る＝副題「ボストンのローガン空港（1973年）」）',
+               src='委員会報告 p4（`turn them into large guided missiles, loaded with up to 11,400 gallons of jet fuel`）・第1章 注1 p451（`they simply booked heavily fueled east-to-west transcontinental flights`）・p245（`select planes departing on long flights because they would be full of fuel`）'),
+    'c204': dict(kind='写真',
+               plan='AA11｜副題：11便の機体（2001年4月）｜動き：額装・止め（寄り0）｜権利：F（CC BY-SA 3.0＝額装・無加工・寄り0）｜出典の行：（作者と許諾の表示は頁の通りに＝fetch21_meta.tsv）｜注：BY-SA 3.0＝額装・無加工（「写真は画面いっぱい」の例外）。登録記号 N334AA が写る｜台本の画：実写 AA11 N334AA（11便の機体の事件の前の写真・CC BY-SA 3.0・額装・無加工＝副題「11便の機体（事件の前）」）',
+               src='委員会報告 p4（`Eighty-one passengers boarded the flight with them (including the five terrorists)`・`The plane took off at 7:59`・`It carried its full capacity of nine flight attendants`）'),
+    'c205': dict(kind='写真',
+               plan='TG99｜区間 214.0〜224.8秒｜倍率 1.00（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜副題：事件の前の世界貿易センター（1999年・屋上の展望台から）｜動き：額装・等速｜権利：F（CC BY-SA 3.0＋GFDL＝額装・無加工・速さも変えない）｜出典の行：（作者と許諾の表示は頁の通りに＝fetch21_meta.tsv）｜注：BY-SA 3.0＝額装・無加工・速さを変えない。もう一方の塔の屋上→港（自由の女神）。人は写らない（1秒1コマ）。⑤b-1：等速の約束＝区間をカットの実測の秒（10.751秒＝声＋前後の間）に合わせて 223.5→224.75 へ（ショット6＝173.4〜253.5 の中・伸ばした分は 224.0・224.7秒を原寸で見た＝港の遠景だけ）。台本の「720×576・額装・無加工」のまま｜台本の画：実写 Torri Gemelle（事件の前の世界貿易センター・1999年・CC BY-SA・720×576・額装・無加工＝副題「事件の前の世界貿易センター（1999年）」）',
+               src='委員会報告 p7（`Fifty-six passengers boarded the flight`・`departed Logan Airport at 8:14`）'),
+    'c206': dict(kind='写真',
+               plan='DULLES｜副題：ワシントン・ダレス空港（1985年）｜動き：左へ流す｜権利：A（米海軍の職務）｜出典の行：米海軍（PH1 David C. Maclean）｜台本の画：実写 dulles（ワシントン・ダレス空港・1985年・A・全画面・左へ流す＝副題「ワシントン・ダレス空港（1985年）」）',
+               src='委員会報告 p8（`the flight carried 58 passengers`・`took off at 8:20`・`There were four flight attendants`）'),
+    'c207': dict(kind='写真',
+               plan='UA93｜副題：93便の機体（1999年）｜動き：ゆっくり引く｜権利：F（CC BY 2.0）｜出典の行：（作者と許諾の表示は頁の通りに＝fetch21_meta.tsv）｜注：CC BY 2.0・幅1690｜台本の画：実写 UA93 N591UA（93便の機体の事件の前の写真・CC BY 2.0・全画面・ゆっくり寄る＝副題「93便の機体（事件の前）」）',
+               src='委員会報告 p10（`At 8:42, United Airlines Flight 93 took off from Newark`・`Thirty-seven passengers, including the hijackers, boarded the plane`・`there were five flight attendants`）'),
+    'c208': dict(kind='図解',
+               plan='台本の画：図 模式 時間の帯（4機の離陸＝7:59・8:14・8:20・8:42＝この回の芯の帯の始まり）',
+               src='委員会報告 p10（`Three of the flights had actually taken off within 10 to 15 minutes of their planned departure times`・`the flight was running more than 25 minutes late`）'),
+    'c209': dict(kind='フリー素材',
+               plan='B767｜副題：イメージ（2012年のアメリカン航空の767）｜動き：右へ流す｜権利：F（CC BY 2.0）｜出典の行：Valentin Hintikka（CC BY 2.0）｜注：20%に数えない｜台本の画：イメージ b767_takeoff（2012年のアメリカン航空の767・フリー素材＝副題「イメージ」）',
+               src='委員会報告 p4（`The 19 men were aboard four transcontinental flights`）'),
+    'c210': dict(kind='フリー素材',
+               plan='SEC70｜副題：イメージ（1970年の空港）｜動き：上へ流す｜権利：F（CC BY）｜出典の行：Orange County Archives（CC BY）｜注：縦長・私人の顔だけモザイク（CC BY）・20%に数えない｜台本の画：イメージ security_pre（1970年の空港の保安検査・CC BY・私人の顔だけモザイク＝副題「イメージ（1970年の空港）」）',
+               src='委員会報告 p2（`operated by Globe Security under a contract with American Airlines`・`contracted with Huntleigh USA to perform the screening`）・p3（`had contracted out the work to Argenbright Security`）・p4（`operated under contract by Argenbright Security`）・p2（`calibrated to detect items with at least the metal content of a .22-caliber handgun`）'),
+    'c211': dict(kind='図解',
+               plan='台本の画：図 模式 保安検査の流れ（探知機の門・手持ちの探知機・通過＝人は影だけ）',
+               src='委員会報告 p3（`set it off, a screener wanded him. He passed this inspection`・`set off the alarms for both the first and second metal detectors and was then hand-wanded before being passed`・`it was clear that he did not`）'),
     'c212': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 CVR の時間の帯（18:24:12ごろ 録音の始まり・18:24:35 の音・18:56:28ごろ 終わり）',
-               src='報告書 5.2.2 p.133（`約32分16秒の音声が記録されていたが、既に消去`）・3.1.10.1 p.91（`18時24分12秒ごろから18時56分28秒ごろまで`）'),
-    'c213': dict(kind='再現イラスト',
-               plan='S1｜見る向き：横から｜合図：🔁 上→横（前の再現 c209）＝左上に見る向きの札・替わる瞬間に「横から見ると」｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S1【横から】の戻り（機体の横の図・操縦室に印だけ・人は描かない）',
-               src='別添6 p.311（18:24:39 `(CAP)なんか爆発したぞ`＝「ぞ」に下線）・別添6 凡例 p.310（下線＝判読不確実）・解説 p.27（`下線は判読不確実`）'),
+               plan='台本の画：図 模式 刃渡りの物差し（10センチの線と刃物の影・人は描かない）',
+               src='委員会報告 p84（`knives with blades under 4 inches long`・`explicitly permitted them`）'),
+    'c213': dict(kind='図解',
+               plan='台本の画：図 模式 同じ物差し（3つの理由の札）',
+               src='委員会報告 p84（`the agency did not consider such items to be menacing`・`most local laws did not prohibit individuals from carrying such knives`・`such knives would have been difficult to detect unless the sensitivity of metal detectors had been greatly increased`）'),
     'c214': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 CVR の時間の帯の寄り（18:24:42・18:24:47 の2つの点＝言葉は画面に出さない）',
-               src='別添6 p.311（18:24:42 `(CAP)スコーク77`・18:24:47 `(COP)スコーク77`）・報告書 表-9 p.90'),
+               plan='台本の画：図 模式 機内からの電話が伝えた道具（刃物・スプレー・「爆弾」の札に「おそらく偽物」）',
+               src="委員会報告 p7（`They used knives`）・p5（`I think there's Mace`）・p13（`we believe the bombs were probably fake`）"),
     'c215': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 トランスポンダ（機体からレーダーへ番号を返す絵・番号は画面に書かず「緊急」の札）',
-               src='報告書 2.1 p.6（`スコーク77(ATCトランスポンダの緊急コード番号7700の意味)`）'),
-    'c216': dict(kind='再現イラスト',
-               plan='S1｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S1【横から】客室の天井から酸素マスクが下りる（人は描かない）',
-               src='報告書 3.1.9(4) p.91（`客室内の酸素マスクが落下するとともにPRAが開始された`）・2.12 p.24（`客室乗務員による酸素マスクの着用とその使用方法等についての乗客への指導が遅滞なく実施された`）'),
-    'c217': dict(kind='図・写真の頁',
-               plan='F5｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 付図-5）／縮小・切出｜台本の画：図 p141 付図-5 座席配置図の後ろ半分（客室乗務員の席の配置・額装の寄り）',
-               src='別添6 p.311（18:24:45〜 PUR＝パーサーの放送 `酸素マスクをつけてください`）・報告書 3.1.9(4) p.91（`18時24分44秒ごろに機内放送が開始されたものと推定される`）・解説 p.iv（`自動的に酸素マスクが落下し、PRAが放送される`）'),
-    'c218': dict(kind='写真',
-               plan='🔧 P16｜副題：相模湾で回収された垂直尾翼の一部（事故のあと）｜動き：ゆっくり引く｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-16）／縮小・切出｜注：動きの割り振り（10-07＝寄るだけにしない・左右・上下・引き・2点を混ぜる）＝ここから下は動きだけを上書き｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-16（p184・海上から回収された垂直尾翼の一部（2）・額装・寄る＝副題「相模湾で回収された垂直尾翼の一部（事故のあと）」）',
-               src='報告書 3.2.7.1 p.114（`この時点ではどこにどのような異常が生じたかについては知ることはできなかったものと推定される`）'),
+               plan='台本の画：図 模式 操縦室の扉（閉めて鍵＝当時の決まり）',
+               src='委員会報告 p85（`required air crews to keep the cockpit door closed and locked in flight`・`This requirement was not always observed or vigorously enforced`）'),
+    'c216': dict(kind='写真',
+               plan='APRON｜副題：ローガン空港の駐機場（1969年）｜動き：左へ流す｜権利：D（米議会図書館蔵／知られた制限なし）｜出典の行：Balthazar Korab（米議会図書館蔵）｜台本の画：実写 logan_apron（ローガン空港の駐機場・1969年・D＝米議会図書館蔵／知られた制限なし・全画面・ゆっくり引く＝副題「ローガン空港（1969年）」）',
+               src='委員会報告 p4（`By 8:00 A.M. on the morning of Tuesday, September 11, 2001, they had defeated all the security layers`）'),
+    'c217': dict(kind='図解',
+               plan='台本の画：図 模式 時間の帯（8:00 の線）',
+               src='—'),
 }
 
-SPEC = {
-    # ── 🆕 ⑤b-2（2026-10-08）：BY-SA の額ごと動かす型を冒頭と一緒に焼いて確かめる（残りのカットは ⑤b-3 以降）──
-    # c201（11.61秒・第1章の頭＝扉つき）＝JA8119（1985-03-03・羽田・CC BY-SA 2.0）。🔴 額装・無加工・色そのまま（color=1.0 を明記＝
-    #   ss.check_frame_only は字面を見る）・**額ごと右へ流す**（`ss.fm("r")`＝絵は切らない）・扉の地に混ぜない（card_mix=0・§5b-110）
-    "c201": dict(photo=P("j2_ja8119_haneda_19850303"), panel=True, color=1.0, card_mix=0, fmove=ss.fm("r"),
-                 t="機体の来歴", s="事故機 JA8119（1985年3月・羽田）"),
-    # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1・S2（`tools/illu20.py`・門番 check_illu ㉔㉕）──
-    # c204（2行）＝横から見た機体。1行目（乗客509人）で客室・2行目（操縦室に3人、客室に12人）で操縦室を明るく。人は描かない
-    "c204": dict(fig=("illu", dict(
-        place="S1",
-        steps=[dict(state=dict(s1cab="on"), tag=dict(t="客室", at="cabin", off=(0, -170), anchor="middle", keep=True)),
-               dict(state=dict(s1ck="on"), tag=dict(t="操縦室", at="cockpit", off=(60, -160)))]))),
-    # c209（2行）＝前の再現 c204（横から）→ 上から＝合図。羽田の離陸（18:12）から 18:24:35 の点まで経路を描き、2行目で音の輪
-    "c209": dict(fig=("illu", dict(
-        place="S2", start=dict(switch="on"),
-        steps=[dict(state=dict(s2t="18:24:35"), rec=S2R["trace"], dur=3.0,
-                    # 🆕 ⑤c'：off (70, -100) は札を経路の線が横切った（geom_gap）＝(50, -120)（線から 25px＝scratchpad place.py）
-                    tag=dict(t="18:24:35", at="plane", off=(50, -120), keep=True)),
-               dict(rings=2, rec=S2R["boom"])]))),
-    # c213（2行）＝上から → 横から＝合図。操縦室に輪（「なんか爆発したぞ」＝言葉は画面に出さない）
-    "c213": dict(fig=("illu", dict(
-        place="S1", start=dict(switch="on"),
-        steps=[dict(state=dict(s1ring="cockpit"), tag=dict(t="操縦室", at="cockpit", off=(150, -160))), dict()]))),
-    # c216（3行）＝客室の天井から酸素マスクが下りる（人は描かない）。客室へ寄る（cam）
-    "c216": dict(fig=("illu", dict(
-        place="S1", camc="masks",
-        steps=[dict(state=dict(s1mask="drop", cam=1.5), rec=S1R["masks"], dur=1.6,
-                    tag=dict(t="酸素マスク", at="masks", off=(0, -150), anchor="middle")),
-               dict(), dict()]))),
-    # ── 🆕 ⑤b-5（2026-10-10）：模式図（`tools/mech20.py`・門番 check_mech の judge_m20）と時間の帯（axis・門番 check_axis）──
-    # c206（3行）＝操縦室の3つの席（付図-12：P1 機長席・P3 副操縦士席・P4 機関士の計器＝右の壁）。1行目で航空機関士の席・
-    #   2行目で機長の飛行時間（2.6.1 p.14「総飛行時間12,423時間41分」＝台本 §9 の丸め）・3行目でふつうの並び（左が機長）
-    "c206": dict(
-        t="3人の席", s="JA8119 の操縦室",
-        fig=("m20", dict(view="seats",
-                         steps=[dict(state=dict(fe="on"), tag=dict(t="航空機関士", at="fe", to="fe")),
-                                dict(tag=dict(t="約1万2,400時間", d="機長の総飛行時間", at="hours")),
-                                dict(state=dict(left="usual"), tag=dict(t="ふつうの並び", at="usual", to="left"))],
-                         rel=[dict(t="約1万2,400時間（12,423時間41分）", src="報告書 p14（総飛行時間12,423時間41分）")],
-                         note="席の大きさと形は模式（並びは付図-12 の計器の位置から）",
-                         src=ss.src(["報告書 p148", "報告書 p14"]))),
-    ),
-    # c207（3行）＝聞き役の問い（両方の席に「？」）→ この日の並び（左に副操縦士・右に機長＝2.1 p.6）→ 機長の認定（2.6.1 p.14）
-    "c207": dict(
-        t="この日の並び", s="JA8119 の操縦室（1985年8月12日）",
-        fig=("m20", dict(view="seats",
-                         # 🆕 ⑤c'：1段目の席の「？」が席の名の出たあとも残った（層は消せない・覆うと門番 layout が字の重なりと読む）
-                         #   ＝「？」は出さない（問いは聞き役の赤い字幕が言う＝減らす）
-                         steps=[dict(),
-                                dict(state=dict(left="cop", right="cap"), tag=dict(t="機長昇格訓練", at="train")),
-                                dict(state=dict(cert="on"), tag=dict(t="機長の認定", at="cert", to="right_top"))],
-                         note="席の形は模式（並びは付図-12 の計器の位置から）",
-                         src=ss.src(["報告書 p6", "報告書 p14", "報告書 p148"]))),
-    ),
-    # c210（2行）＝客室高度の警報（3.1.9(2) p.88＝18:24:37 から約1秒・26秒止まって 18:25:04 から）。前のカットのドーン（18:24:35）を沈めて続ける
-    "c210": dict(
-        t="客室の気圧の警報", s="操縦室の音声記録（CVR）",
-        fig=("axis", dict(ss.AX_ALARM, past=[ss.ax("boom")], start=dict(cur="18:24:35"), steps=[
-            dict(add=ss.ax("al1"), cur="18:24:38"),
-            dict(add=[ss.ax("al_gap"), ss.ax("al2")], cur="18:25:04")],
-            note="鳴った長さと止まった間は報告書の時刻から", src=ss.src(["報告書 p6", "報告書 p88"]))),
-    ),
-    # c212（2行）＝CVR に残っていた範囲（3.1.10.1 p.91＝18:24:12ごろ〜18:56:28ごろ・5.2.2 p.133＝約32分16秒・前は消去）→ ドーンの23秒前
-    "c212": dict(
-        t="録音が残っていた範囲", s="操縦室の音声記録（CVR）",
-        fig=("axis", dict(ss.AX_CVR, steps=[
-            dict(add=[ss.ax("cvr"), ss.ax("cvr0")], cur="18:24:12"),
-            dict(add=ss.ax("boom_s"), cur="18:24:35")],
-            note="時刻は報告書の記録", src=ss.src(["報告書 p91", "報告書 p133", "報告書 p6"]))),
-    ),
-    # c214（2行）＝別添6 p.311 の 18:24:42（機長）・18:24:47（副操縦士）＝言葉は画面に出さない
-    "c214": dict(
-        t="2人の声の時刻", s="操縦室の音声記録（CVR）",
-        fig=("axis", dict(ss.AX_SQ, past=[ss.ax("boom")], start=dict(cur="18:24:35"), steps=[
-            dict(add=[ss.ax("sq_cap"), ss.ax("sq_cop")], cur="18:24:47"),
-            dict()],
-            note="言葉は画面に出さない（時刻は別添6 の記録）", src=ss.src(["報告書 p311", "報告書 p6"]))),
-    ),
-    # c215（2行）＝トランスポンダ（2.1 p.6「スコーク77(ATCトランスポンダの緊急コード番号7700の意味)」）。番号は書かず「緊急」の札
-    "c215": dict(
-        t="番号を返す装置", s="ATC トランスポンダ",
-        fig=("m20", dict(view="xpdr",
-                         steps=[dict(state=dict(ask="on", reply="on"), tag=dict(t="4桁の番号", at="code", to="code")),
-                                dict(state=dict(reply="emg"), tag=dict(t="緊急", at="emg", col=J.ALERT))],
-                         rel=[dict(t="4桁", src="報告書 p6（緊急コード番号7700）")],
-                         note="形は模式（番号の中身は書かない）", src=ss.src(["報告書 p6"]))),
-    ),
-}
-
-# ══════════════════════════════════════════════════════════
-#  🆕 ⑤b-7（2026-10-11）：写真・付図・文字の頁（束＝`qa_out/ep20_assets.py`・頁＝`ref/ep20/pages.json`）
-# ══════════════════════════════════════════════════════════
-#   動き＝PLAN（映像方針の一覧）の「動き」：寄る＝既定（額装は尺の終わりまでに少しだけ寄る）・引く＝cam "pull"・流す＝cam "pan_r"／"pan_l"／
-#   "tilt_u"／"tilt_d"・順に寄る／2点＝cam の from・to（`ss.pf`＝額装の絵の中の点を窓の真ん中に）・ある所へ寄る＝`ss.pfk`（既定の寄りのまま
-#   窓の真ん中を決める）。点は ⑤b-7 の目盛りの下見シート（960px・0.1 刻み）で測った。
-#   報告書の写真・付図は幅 1200 以下＝額装（`ss.kind`）。⚠️ 付図-5（2310px）・付図-20（2480px）は kind が全画面を返す＝ほかの報告書の図と
-#   そろえて panel=True を明記（1ビットのスキャン＝全画面にしない＝2本目の決め）。文字の頁＝`ss.page`・`ss.ptrim`・`ss.pbias`・印 `ss.phl`。
-#   副題＝写っているもの（報告書の写真の題から）。見出しは12字までの名札（語りの文の頭・尻を写さない＝門番 echo）。
-#   ⚠️ 見出し・副題に章の札の題と4字以上同じ並びを入れない（第1章「その日の123便」＝「123便」で4字）・出典の行とも（門番 dup）
-SPEC.update({
-    # c202（9.04秒）＝付図-4 三面図。横から見た図（右下）→ 正面から見た図（左）へ順に寄る（上から見た図の翼の上を通る）。
-    #   門番 edges（窓の下の辺が寸法の札を切る）で頭 1.8→1.6倍・終わり 縦 0.62→0.68 に（scratchpad の探し方＝元の値から近い順）
-    "c202": dict(photo=P("f004"), **ss.kind(P("f004")), t="747SR の形", s="ボーイング747SR-100型の三面図（横・上・正面）",
-                 cam={"from": ss.pf(P("f004"), 0.62, 0.86, 1.6), "to": ss.pf(P("f004"), 0.16, 0.68, 1.8)}),
-    # c203（8.32秒）＝付図-5 座席の配置図（機首が左）。前（左）から後ろ（右）へ流す（主の階の座席の段 縦 0.30〜0.46 に 2.0倍で寄ったまま）。
-    #   門番 edges で頭の縦 0.39→0.37
-    "c203": dict(photo=P("f005"), panel=True, t="客室の並び", s="JA8119 の座席の配置図",
-                 cam={"from": ss.pf(P("f005"), 0.25, 0.37, 2.0), "to": ss.pf(P("f005"), 0.75, 0.39, 2.0)}),
-    # c205（5.22秒）＝付図-12 操縦室パネル配置図＝左の席から右の席へ流す（門番 edges で流す高さ bias 0.5→0.55）
-    "c205": dict(photo=P("f012"), **ss.kind(P("f012")), cam="pan_r", bias=0.55, t="操縦室の計器", s="JA8119 の操縦室の計器の配置"),
-    # c208（8.56秒）＝付図-1 飛行経路略図。羽田（右上・横 0.72 縦 0.32）→ 伊豆半島の東の海（横 0.56 縦 0.74＝窓 1.8倍の中に
-    #   「異常事態発生推定位置」の印 横 0.53 縦 0.80 が入る）へ
-    "c208": dict(photo=P("f001"), **ss.kind(P("f001")), t="飛んだ道すじ", s="羽田から墜落までの経路の略図",
-                 cam={"from": ss.pf(P("f001"), 0.72, 0.32, 1.8), "to": ss.pf(P("f001"), 0.56, 0.74, 1.8)}),
-    # c211（7.08秒）＝別添6 CVR 記録の最初の頁（p311・横倒しの表を正立＝pages.json の rot 270）。言葉の行には寄らない＝額ごと寄る
-    "c211": dict(photo=ss.page(311), trim=ss.ptrim("c211"), bias=ss.pbias("c211"), panel=True, color=1.0, fmove=ss.fm("in"),
-                 t="録音の書き起こし", s="CVR 記録の最初の頁（18時24分）"),
-    # c217（11.60秒）＝付図-5 の後ろ半分（座席の段の右半分に 1.9倍で寄せた窓・既定のわずかな寄り）
-    "c217": dict(photo=P("f005"), panel=True, **ss.pfk(P("f005"), 0.72, 0.39, 1.9), t="客室の後ろ半分",
-                 s="JA8119 の座席の配置図（後ろ半分）"),
-    # c218（6.26秒）＝写真-16（海上から回収された垂直尾翼の一部（2））＝ゆっくり引く
-    #   🆕 ⑤c'：c102（写真-15）と副題が同じだった＝原寸の実見で書き分け（写真-15＝地面に置いた大きな破片・写真-16＝制服の4人が岸壁で広げた破片）
-    "c218": dict(photo=P("p016"), **ss.kind(P("p016")), cam="pull", t="見えない尾翼", s="相模湾で回収された垂直尾翼の一部（岸壁で広げた破片）"),
-})
+SPEC = {}

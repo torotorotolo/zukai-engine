@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""第9章　機内で何が起きたか ca01–ca21（21カット）。20本目（日本航空123便のリメイク）。
+"""第9章　「9分」は、どう分かったか ca01–ca20（20カット）。21本目（9.11 米国同時多発テロのリメイク）。
 
-■ 🔴 2026-10-08（⑤b-1）：19本目（サーフサイドのマンション崩壊のリメイク）の中身を空にした＝git の `0dcaa9c`（`git show 0dcaa9c:tools/cuts/ca.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep20/make_plan20.py` で
-  映像方針の一覧 `ref/ep20/eizou_build/list20.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
+■ 🔴 2026-10-12（⑤b-1）：20本目（日本航空123便のリメイク）の中身を空にした＝git の `f0095bd`（`git show f0095bd:tools/cuts/ca.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep21/make_plan21.py` で
+  映像方針の一覧 `ref/ep21/eizou_build/list21.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット（台本の画は元の予定）。
@@ -14,255 +14,66 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'ca01': dict(kind='写真',
-               plan='P98｜動き：寄る｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-98）／縮小・切出｜台本の画：実写 写真-98（p225・客室最後部の化粧室の天井部分の破片に付着する断熱材・額装・寄る）',
-               src='解説 p.i（`「圧力隔壁損壊による急減圧はなかったのではないか」`）'),
-    'ca02': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 急減圧（穴から空気が出て、客室の気圧の針が一気に下がる絵・人は描かない）',
-               src='解説 p.2（`客室高度が急上昇(機内与圧が急降下)している状況全てについて使用しています`）'),
+    'ca01': dict(kind='図解',
+               plan='台本の画：図 模式 委員会の調べの数（文書の山・話を聞いた人・国の数の札）',
+               src='委員会報告 p.xv（`Public Law 107-306, November 27, 2002`・`we have reviewed more than 2.5 million pages of documents and interviewed more than 1,200 individuals in ten countries`）'),
+    'ca02': dict(kind='図・写真の頁',
+               plan='台本の画：図 RG237（FAA のレーダー再生の画面の収録・委員会が使った記録のひとつ）',
+               src='委員会報告 p457（`Times assigned to audio transmissions were derived by the Commission from files provided by the FAA and the Northeast Air Defense Sector (NEADS) based on audio time stamps`）'),
     'ca03': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 疑問の3つの点（風・寒さ・酸素マスク＝絵の札だけ）',
-               src='解説 p.i（`客室内に猛烈な風が吹き抜けるはずであり、また、室温も低下するのに、生存者はそのようなことはなかったと証言している`・`急減圧があったならばパイロットは酸素マスクを付けるように訓練されているのに付けていないのはなぜか`）'),
-    'ca04': dict(kind='文字の頁',
-               plan='PG｜権利：PDL1.0（文字の頁）｜台本の画：図 p-i 解説 表紙と「はじめに」の頁（文字の頁＝2011年の解説を名指し）',
-               src='解説 p.i（`ご遺族の皆さまに対して、必ずしも十分な説明がなされていなかった`・`率直にお詫び申し上げます`・`航空事故調査報告書に新たな解析や原因の推定を加えるものではありません`）'),
-    'ca05': dict(kind='再現イラスト',
-               plan='S5｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S5【横から】の戻り（隔壁が開き、客室の気圧が下がる・推定の札）',
-               src='報告書 4.1.6.7 p.126（`操縦室を含む客室与圧は数秒間で大気圧まで減圧したものと推定される`）'),
+               plan='台本の画：図 模式 時間の帯（2003年5月の証言の3つの札）',
+               src='委員会報告 p34（`In public testimony before this Commission in May 2003, NORAD officials stated that at 9:16, NEADS received hijack notification of United 93 from the FAA`）'),
+    'ca04': dict(kind='図解',
+               plan='台本の画：図 模式 同じ帯（9:16 の札に×・93便の乗っ取りは 9:28）',
+               src='委員会報告 p34（`This statement was incorrect. There was no hijack to report at 9:16. United 93 was proceeding normally at that time`）'),
+    'ca05': dict(kind='図解',
+               plan='台本の画：図 模式 同じ帯（9:24 の札に×）',
+               src='委員会報告 p34（`NORAD officials stated that at 9:24, NEADS received notification of the hijacking of American 77`・`NEADS never received notice that American 77 was hijacked`）'),
     'ca06': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 2つの機体の比べ（123便の 747 と 2009年の 737・穴の大きさを形で・数字は書かない）',
-               src='解説 p.2（`2009年7月13日、米国において35,000フィートを飛行中のサウスウエスト航空2294便(B737-3H4)において、客室の天井(座席20列目付近)に約0.135m2の穴が開き、急減圧が発生した`）'),
+               plan='台本の画：図 模式 同じ帯（ラングレー機の線＝実は11便の誤報で飛んだ）',
+               src='委員会報告 p34（`The inaccurate accounts created the impression that the Langley scramble was a logical response to an actual hijacked aircraft`）'),
     'ca07': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 客室の断面（天井の穴と、離れた座席＝人は描かない）',
-               src='解説 p.2（`大きな破裂音を聞き、大きな風切り音がこれに続いた`・`耳の苦痛がほとんどないのに驚いた`・`何も飛ばされず、誰も穴に吸い込まれることはなかった`・`薄い霧を見たが5秒ほどで消滅した`）'),
+               plan='台本の画：図 模式 同じ帯（「14分」の札に×）',
+               src='委員会報告 p34（`Thus the military did not have 14 minutes to respond to American 77, as testimony to the Commission in May 2003 suggested`）'),
     'ca08': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式（同じ断面・穴の近くだけ速い流れの矢印）',
-               src='解説 p.3（`機内は必ずしも映画のような状態にはならず、穴から少し離れると客室内での風はそれほど激しく吹かず、寒さもあまり感じません`）'),
-    'ca09': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 穴から2メートル先の席の風（2009年の例・解説の試算＝人は描かない）',
-               src='解説 p.6（`非番の機長は開口部から2m離れた場所に着座していたとします`・`空気が開口部から音速340m/秒で流失したとしても、着座中の人は1.8m/秒の風しか受けないことになります`）'),
+               plan='台本の画：図 模式 同じ帯（「間に合ったように見えた」の札）',
+               src='委員会報告 p34（`More than the actual events, inaccurate government accounts of those events made it appear that the military was notified in time to respond to two of the hijackings`）'),
+    'ca09': dict(kind='写真',
+               plan='P049｜副題：当日の夜のペンタゴン｜動き：右へ流す｜権利：A（米海軍の職務）｜出典の行：米海軍｜台本の画：実写 当日のペンタゴン（米軍の写真・A・別の点＝副題は絵を見て書く）',
+               src='運輸省の監察総監の報告 CC-2006-085 p1（`did not investigate whether the inaccurate statements were knowingly false`・`referred to the Department of Defense (DOD) and Department of Transportation (DOT) Inspectors General`）'),
     'ca10': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 123便の客室（後ろの壁から前へ抜ける空気・座席のあたりは弱い）',
-               src='解説 p.7（`客室断面積を19.6m2とすると風速はほぼ10m/秒となる`・`座席付近ではこの値よりかなり小さくなる`）'),
-    'ca11': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 秒速10メートルの風（100メートルを10秒で走る人の顔に当たる風）',
-               src='解説 p.8（`走るとすれば100mを10秒なので、オリンピックの100m走の選手の顔に当たる風になります`・`目は十分に開けることができるような風です`）'),
+               plan='台本の画：図 模式 同じ帯（「誤り」の札から「監察総監」の札へ矢印）',
+               src='運輸省の監察総監の報告 CC-2006-085 p2（`We did not find evidence to conclude that FAA officials knowingly made false`）・p3（`consider appropriate administrative action for the two current executives who did not act to correct the record with the Commission`）'),
+    'ca11': dict(kind='写真',
+               plan='🔧 WTC76N｜副題：事件の前の世界貿易センター（1976年）｜動き：上へ流す｜権利：D（米議会図書館蔵／知られた制限なし）｜出典の行：Balthazar Korab（米議会図書館蔵）｜注：🔧 語りが8:46の時刻＝両棟が燃える写真を置かない。夕暮れ・縦長｜台本の画（🔧映像方針で替えた＝元の予定）：実写 当日の世界貿易センター（A・別の点＝副題は絵を見て書く）',
+               src='委員会報告 p7（`At 8:46:40`）・NIST NCSTAR 1 表6-1 印字 p84（`8:46:30`）・NCSTAR 1-6 表6-1 印字 p156（`8:46:26`）'),
     'ca12': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 温度の戻り方（線＝下がってから戻る・計算の点だけ・数字は書かない）',
-               src='解説 p.9（`室温は、概ね2分後には0°C、3分後には10°C、5分後には20°C程度まで回復するという計算結果が出ています`）'),
+               plan='台本の画：図 模式 同じ3つの値の帯（どれも数秒の幅に並ぶ）',
+               src='委員会報告 p454 注39（`Flight Path Study`）・NTSB 11便（`impacted the North tower at approximately 8:46:40`）・NIST（`established from the time stamps in the September 11 telecasts`）'),
     'ca13': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式（座席と天井は温かいまま・マスクが下りている絵＝人は描かない）',
-               src='解説 p.10（`座っている座席や天井も25°Cのままですし`・`酸素マスクが降りてきて、マスクを着用していた事態であり`・`生存した方々が温度の低下に気付かなかったとしても不思議ではないのではないでしょうか`）'),
+               plan='台本の画：図 模式 記録装置の表（4機それぞれの、操縦室の音声と飛行の記録）',
+               src='委員会報告 p456（`The CVRs and FDRs from American 11 and United 175 were not found, and the CVR from American Flight 77 was badly burned and not recoverable`）・p12（`The flight data recorder (also recovered)`）・NTSB 77便 図2（`FDR Pressure Altitude`＝sources §11-1 #4）'),
     'ca14': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 霧（気圧が急に下がると、空気の中の水分が霧になる）',
-               src='解説 p.9（`生存者の口述によれば、客室内に霧が発生したことがわかります(本文p73、3.1.4.1)`）・p.17（`急減圧がなかったとすると、なぜ霧が出たのかという疑問が解決できません`）'),
+               plan='台本の画：図 模式 同じ表（93便の音声の記録装置に印）',
+               src="委員会報告 p456（`United 93's cockpit voice recorder recorded the last 31 minutes of sounds from the cockpit`・`A transcript of the CVR recording was prepared by the NTSB and the FBI`）"),
     'ca15': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 2つの減圧の速さの比べ（123便の推定の幅と 2009年の例＝棒・数字は書かない・2009年の棒に「解説の概算」の札）',
-               src='解説 p.4（`事故機で発生した機内の現象は、この急減圧事例と似通った状況にあったと考えるのが妥当です。また、この状況は、生存者の証言とも一致しています`）'),
+               plan='台本の画：図 模式 同じ表',
+               src='委員会報告 p462（`Commission analysis of FDR, CVR, radar, and impact data`）・sources §5（P200056T＝93便の CVR の逐語・裁判の証拠として公開）'),
     'ca16': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 客室高度の警報の帯の戻り（c210 の絵・26秒の空白に印）',
-               src='報告書 3.1.9(2) p.88（`約1秒間鳴り、26秒間中断した後18時25分04秒に再び鳴りだし`）・解説 p.15（付録8-2 `その理由を明らかにすることはできなかった`）'),
+               plan='台本の画：図 模式 時間の帯（9:21 の誤報の札＝出どころ不明）',
+               src='委員会報告 p26（`We have been unable to identify the source of this mistaken FAA information`）'),
     'ca17': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式（同じ帯・「推論」の札）',
-               src='解説 p.15（`永年B747の技術に携わってきた`・`概略以下のような内容の説明がありました`）・p.16（`機器が常に正常であれば説明できない事象ではあっても、総合的に考えると、異常事態発生後、極めて早い時点で急激に客室高度が上昇した、とするのが最も無理がない推論と考えられます`）'),
+               plan='台本の画：図 模式 同じ帯',
+               src='—'),
     'ca18': dict(kind='文字の頁',
-               plan='PG｜権利：PDL1.0（文字の頁）｜台本の画：図 p126 報告書 4.1.7 の頁（文字の頁）',
-               src='報告書 4.1.7.2 p.126（`運航乗務員は最後まで酸素マスクを着用しなかったものと推定されるが、その理由を明らかにすることはできなかった`）'),
+               plan='台本の画：図 p34（文字の頁・2003年の証言の誤りを書いた段落を寄る）',
+               src='委員会報告 p34（`This statement was incorrect`）'),
     'ca19': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 高さの線の戻り（約6,100メートルより上を飛んだ約18分を帯で）',
-               src='報告書 4.1.7.3 p.126（`20,000フィート以上の高度で激しいフゴイド運動、ダッチロール運動を行いながら約18分間飛行した`・`その理由を明らかにすることはできなかった`）'),
+               plan='台本の画：図 模式 時間の帯（4機と、軍に届いた知らせの印をすべて重ねる）',
+               src="委員会報告 p31（`the NEADS air defenders had nine minutes' notice on the first hijacked plane, no advance notice on the second, no advance notice on the third, and no advance notice on the fourth`）"),
     'ca20': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式（操縦室の3つの席に「判断力」の札＝人は描かない）',
-               src='報告書 3.2.7.2(3) p.115（`低酸素症によってある程度低下していたと考えられる`）'),
-    'ca21': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜合図：🔁 横→上（前の再現 ca05）＝左上に見る向きの札・替わる瞬間に「上から見ると」｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】経路の地図の戻り（相模湾の方を指す）',
+               plan='台本の画：図 模式 同じ帯（11月の法律の札へつながる）',
                src='—'),
 }
 
-from illu20 import S2_REC as S2R  # noqa: E402  🆕 ⑤b-3：置き場 S2 の部品の出典（描く側と同じ文）
-from illu20 import S5_REC as S5R  # noqa: E402  🆕 ⑤b-4：置き場 S5 の部品の出典
-
-SPEC = {
-    # ── 🆕 ⑤b-6b（2026-10-10）：模式図（`tools/mech20.py` の cab・holes・flow・run・temp・dect と alt・seats の戻り＝門番 check_mech の judge_m20）・
-    #    時間の帯（axis＝門番 check_axis）・並べ図（boxes＝門番 check_boxes）。数と時刻は原文の字（解説＝`pg20.py page 解説 N`）──
-    # ca02（2行）＝聞き役の問い → 客室に詰めた空気が一気に抜け、気圧が急に下がる（解説 p2 の言葉の決め方）。2009年の例と同じ断面を使う
-    "ca02": dict(
-        t="急減圧", s="言葉の意味",
-        fig=("m20", dict(view="cab", start=dict(gauge="hi"),
-                         steps=[dict(),
-                                dict(state=dict(hole="on", flow="near", gauge="lo"),
-                                     tag=[dict(t="穴から空気が出る", at="top_r", to="hole"), dict(t="一気に下がる", at="gauge", to="gauge")])],
-                         note="客室の形と針の動きは模式", src=ss.src(["解説 p1002"]))),
-    ),
-    # ca03（3行）＝寄せられた疑問（解説 p.i「はじめに」）：猛烈な風・室温の低下 → 酸素マスク → 委員会に寄せられた（札は増やさない）
-    "ca03": dict(
-        t="寄せられた疑問", s="2011年の「はじめに」から",
-        fig=("boxes", dict(view="row", slots=3, steps=[
-            dict(add=[dict(k="item", t="猛烈な風", rec="解説はじめに p1"), dict(k="item", t="室温の低下", rec="解説はじめに p1")]),
-            dict(add=dict(k="item", t="酸素マスク", rec="解説はじめに p1")),
-            dict()],
-            note="並びは「はじめに」の文の順", src=ss.src(["解説はじめに p1"])))),
-    # ca06（3行）＝2009年の例（2009年7月13日・アメリカ）→ 高さ 約1万700メートル（35,000フィート）→ 天井の穴（約0.135m2・20列目付近）。
-    #   左に 123便の計算の基準の開口（1.8m2＝解説 p9）を同じ縮尺で（数字は書かない）
-    "ca06": dict(
-        t="2つの穴", s="穴の面積の比べ",
-        fig=("m20", dict(view="holes", start=dict(j123="on"),
-                         # ⚠️ 試し焼き ep20_b6b：札から右の題へ線を引くと、札の真下を走る下線に見えた＝線なし（右の題の真上に置く）
-                         steps=[dict(tag=dict(t="2009年7月13日・アメリカ", at="when")),
-                                dict(),           # ⚠️ 門番 echo：高さの札（約1万700メートル）は字幕の写し＝語りに任せる
-                                dict(state=dict(b737="on"), tag=[dict(t="天井の穴（20列目付近）", at="b737", to="b737"),
-                                                                 dict(t="報告書の計算の基準", at="j123", to="j123")])],
-                         # ⚠️ 門番 echo：rel の文も語りと照らされる＝札に出す数だけを記録の書き方で
-                         rel=[dict(t="2009年7月13日", src="解説 p1002"), dict(t="20列目", src="解説 p1002（座席20列目付近）")],
-                         note="正方形は模式（面積だけ合わせた）", src=ss.src(["解説 p1002", "解説 p1009"]))),
-    ),
-    # ca07（2行）＝2009年の例の非番の機長の話（解説 p2）：大きな破裂音・耳の痛みはほとんど無い → 何も飛ばされない・薄い霧は5秒ほどで消えた
-    "ca07": dict(
-        t="非番の機長の話", s="2009年の例の客室",
-        fig=("m20", dict(view="cab",
-                         steps=[dict(state=dict(hole="on"), tag=[dict(t="大きな破裂音", at="top_r", to="hole"),
-                                                                dict(t="耳の痛みはほとんど無い", at="top_l")]),
-                                # 🆕 ⑤c'：霧の点が ca14（123便の霧）と同じ濃さ（70個・0.30）で札の「薄い霧」と合わなかった＝薄い霧（thin＝半分の数・半分の濃さ）
-                                dict(state=dict(fog="thin"), tag=[dict(t="何も飛ばされなかった", at="bot_l"),
-                                                                dict(t="薄い霧（5秒ほどで消えた）", at="bot_m", to="fog")])],
-                         rel=[dict(t="5秒ほど", src="解説 p1002（5秒ほどで消滅）")],
-                         note="客室の形と座席の並びは模式（人は描かない）", src=ss.src(["解説 p1002"]))),
-    ),
-    # ca08（3行）＝聞き役の問い → 穴のすぐ近くは猛烈に流れ出る → 少し離れると風はそれほど激しくない（解説 p3）
-    "ca08": dict(
-        t="穴の近くと、離れた所", s="2009年の例（解説）",
-        fig=("m20", dict(view="cab", start=dict(hole="on"),
-                         steps=[dict(),
-                                dict(state=dict(flow="near"), tag=dict(t="猛烈に流れ出る", at="top_r", to="near")),
-                                dict(state=dict(flow="all"), tag=dict(t="少し離れると、風は弱い", at="bot_m", to="far"))],
-                         note="矢印の長さは模式（速さの比ではない）", src=ss.src(["解説 p1003"]))),
-    ),
-    # ca09（2行）＝穴から音の速さ（340m/秒）で出ても → 2メートル先の席は 1.8m/秒ほど（解説 p6 の試算・半径2メートルの半球）
-    "ca09": dict(
-        t="2メートル先の風", s="2009年の例の試算",
-        fig=("m20", dict(view="cab", start=dict(hole="on", flow="near"),
-                         steps=[dict(tag=dict(t="秒速340メートル", d="音の速さ（解説の仮定）", at="top_r", to="near")),
-                                dict(state=dict(half="on"), tag=dict(t="秒速1.8メートルほど", d="穴から2メートル", at="bot_m", to="seat"))],
-                         rel=[dict(t="秒速340メートル", src="解説 p1006（音速340m/秒）"), dict(t="秒速1.8メートル", src="解説 p1006（1.8m/秒）"),
-                              dict(t="2メートル", src="解説 p1006（2m離れた場所）")],
-                         note="席と穴の位置は模式（半径2メートルの半球＝解説の仮定）", src=ss.src(["解説 p1006"]))),
-    ),
-    # ca10（2行）＝123便の客室の平均の風＝秒速約10メートル（報告書 付録4 の計算＝解説 p7）→ 座席のあたりはかなり小さい（同）
-    "ca10": dict(
-        t="後ろへ抜ける風", s="報告書の計算",
-        fig=("m20", dict(view="flow",
-                         steps=[dict(state=dict(air="on"), tag=dict(t="秒速約10メートル", d="客室の平均", at="air", to="air")),
-                                dict(state=dict(seat="on"), tag=dict(t="座席のあたり", d="かなり弱い", at="seat", to="seat"))],
-                         rel=[dict(t="秒速約10メートル", src="解説 p1007（ほぼ10m/秒＝報告書 付録4）")],
-                         note="矢印の長さと置き場は模式（風は後ろの壁の穴へ）", src=ss.src(["解説 p1007"]))),
-    ),
-    # ca11（2行）＝秒速10メートル＝100メートルを10秒で走る人の顔に当たる風 → 目は十分開けていられる（解説 p8 のたとえ）
-    "ca11": dict(
-        t="秒速10メートルの風", s="解説のたとえ",
-        fig=("m20", dict(view="run",
-                         steps=[dict(state=dict(wind="on"), tag=dict(t="100メートルを10秒", at="run", to="run")),
-                                dict(state=dict(eye="on"), tag=dict(t="目は十分開けていられる", at="eye", to="eye"))],
-                         rel=[dict(t="100メートルを10秒", src="解説 p1008")],
-                         note="走路の幅と矢印は模式（走る人は描かない）", src=ss.src(["解説 p1008"]))),
-    ),
-    # ca12（3行）＝聞き役 → 空気が急にふくらむと温度は下がる（矢印は模式）→ 2分で0度・3分で10度・5分で20度（解説 p9 の計算の点）
-    "ca12": dict(
-        t="冷えた客室", s="基準のケース",
-        fig=("m20", dict(view="temp",
-                         steps=[dict(),
-                                dict(state=dict(drop="on"), tag=dict(t="空気がふくらむと下がる", at="drop", to="drop")),
-                                dict(state=dict(pts="on"), tag=dict(t="計算の点", d="解説", at="pts", to="pts"))],
-                         note="点は解説の計算の値・下がる矢印は模式（下がった先の温度は描かない）", src=ss.src(["解説 p1009"]))),
-    ),
-    # ca13（2行）＝座席と天井は温かいまま（25°Cのまま）・酸素マスク → 気づかなくても不思議ではない（解説 p10）。123便の客室（穴なし）
-    "ca13": dict(
-        t="温かいままの座席と天井", s="123便の客室",
-        fig=("m20", dict(view="cab",
-                         steps=[dict(state=dict(warm="on", mask="on"), tag=[dict(t="座席や天井は温かいまま", at="top_l", to="warm"),
-                                                                           dict(t="酸素マスク", at="bot_l", to="mask")]),
-                                dict(tag=dict(t="不思議ではない", d="解説の見方", at="bot_m"))],
-                         note="客室の形は模式（人は描かない）", src=ss.src(["解説 p1010"]))),
-    ),
-    # ca14（2行）＝生存者の口述に霧（解説 p9＝報告書 p73）→ 急減圧が無かったなら霧の説明がつかない（解説 p17）＝断熱膨張
-    "ca14": dict(
-        t="客室の霧", s="生存者の口述",
-        fig=("m20", dict(view="cab",
-                         steps=[dict(state=dict(fog="on"), tag=dict(t="霧", d="口述", at="top_l", to="fog")),
-                                dict(tag=dict(t="空気がふくらんで冷え、霧に", d="解説（断熱膨張）", at="bot_m"))],
-                         note="霧の点は模式（数と大きさに意味は無い）", src=ss.src(["解説 p1009", "解説 p1017"]))),
-    ),
-    # ca15（3行）＝減圧の速さの比べ（解説 p3 表2・p4 図1）：123便＝報告書の計算の幅 1.7〜5秒 → 2009年の例 約2.9秒（解説の概算）→ 証言とも一致
-    "ca15": dict(
-        t="気圧が下がる速さ", s="2つの減圧の比べ",
-        fig=("m20", dict(view="dect",
-                         steps=[dict(state=dict(j123="on"), tag=dict(t="報告書の計算の幅", at="j123", to="j123")),
-                                dict(state=dict(b737="on"), tag=dict(t="解説の概算", at="b737", to="b737")),
-                                dict(tag=dict(t="生存者の証言とも一致（解説）", at="ok"))],
-                         note="秒は解説の表2と図1（棒の太さは模式）", src=ss.src(["解説 p1003", "解説 p1004"]))),
-    ),
-    # ca16（3行）＝聞き役 → 18:24:37 から約1秒・26秒止まって 18:25:04（報告書 p88＝c210 の帯）→ 止まった理由は明らかにできなかった（付録8-2＝解説 p15）
-    "ca16": dict(
-        t="止まった警報", s="操縦室の音声記録（CVR）",
-        fig=("axis", dict(ss.AX_ALARM, past=[ss.ax("boom")], start=dict(cur="18:24:35"), steps=[
-            dict(),
-            dict(add=[ss.ax("al1"), ss.ax("al_gap"), ss.ax("al2")], cur="18:25:04"),
-            dict(add=ss.ax("al_q"))],
-            note="鳴った長さと止まった間は報告書の時刻から", src=ss.src(["報告書 p88", "解説 p1015"]))),
-    ),
-    # ca17（3行）＝解説に載った元日本航空の技術者の説明（名は出さない）→ 機器の一時的な故障の可能性（p16）→ 最も無理がない推論＝ごく早い時点で
-    #   急減圧（p16）。点は異常事態の発生（18:24:35）に置き、時刻の札は出さない（推論に時刻は無い）
-    "ca17": dict(
-        t="解説が載せた説明", s="元日本航空の技術者",
-        fig=("axis", dict(ss.AX_ALARM, past=[ss.ax("al1"), ss.ax("al_gap"), ss.ax("al2")], start=dict(cur="18:25:04"), steps=[
-            dict(),
-            dict(add=ss.ax("al_f")),
-            dict(add=ss.ax("inf"))],
-            note="時刻は報告書・推論は解説の言葉", src=ss.src(["報告書 p88", "解説 p1015", "解説 p1016"]))),
-    ),
-    # ca19（2行）＝20,000フィート（約6,100メートル）より上を約18分（報告書 p126 4.1.7.3）→ 下りなかった理由は明らかにできなかった（同）
-    "ca19": dict(
-        t="高い所を飛んだ時間", s="18:24〜18:48 の飛行",
-        fig=("m20", dict(view="alt", start=dict(pts="all"),
-                         steps=[dict(state=dict(band="on"), tag=[dict(t="約6,100メートル", d="2万フィート", at="band", to="band"),
-                                                                dict(t="約18分", d="この高さより上を飛んだ", at="dur", to="dur")]),
-                                dict(tag=dict(t="報告書：理由は明らかでない", at="nowhy"))],
-                         rel=[dict(t="6,100＝20,000フィートの換算・2万", src="報告書 p126（20,000フィート以上）"),
-                              dict(t="約18分", src="報告書 p126（約18分間）")],
-                         note="点は付図-1 の時刻と高度の札だけ（点のあいだは描かない・帯の色は模式）",
-                         src=ss.src(["報告書 p126", "報告書 p137"]))),
-    ),
-    # ca20（2行）＝下りずマスクも着けず酸素が足りない（p115・p126）→ 乗員の判断力などはある程度低下（p115＝「考えられる」）
-    "ca20": dict(
-        t="3人の判断力", s="低酸素症の影響",
-        # 🆕 ⑤c'：見出し「3人の判断力」に対し、名前の枠が左右の2席だけ（航空機関士の席は枠なし＝霞だけ）だった＝頭から航空機関士の席にも枠
-        fig=("m20", dict(view="seats", start=dict(left="cop", right="cap", fe="on"),
-                         steps=[dict(state=dict(hyp="on"), tag=dict(t="酸素が足りない", d="マスクを着けなかった（推定）", at="o2", to="left")),
-                                dict(tag=dict(t="判断力などがある程度低下", d="報告書の考え", at="judge", to="right"))],
-                         note="席の形は模式（霞は酸素の不足の印）", src=ss.src(["報告書 p115", "報告書 p126"]))),
-    ),
-    # ── 🆕 ⑤b-4（2026-10-08）：再現イラスト S5（機全体・門番 check_illu ㉘）──
-    # ca05（2行）＝壁に穴が開く（上の半分が後ろへ・空気が後ろへ）→ 操縦室を含む客室の気圧が数秒で外と同じに（与圧の色が消える）
-    "ca05": dict(fig=("illu", dict(
-        place="S5", start=dict(s5frame="all", s5press="on"), rec=S5R["bulk"], assume="推定",
-        steps=[dict(state=dict(s5bulk="open", s5air="on"), rec=S5R["open"]),
-               dict(state=dict(s5press="off"), rec=S5R["press"], tag=dict(t="数秒で外と同じ気圧に", at="cabin", off=(0, -190), anchor="middle"))]))),
-    # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S2（`tools/illu20.py`・門番 check_illu ㉕）──
-    # ca21（3行）＝前の再現 ca05 → 上から＝合図（台本の画の欄の🔁）。経路を墜落地点まで（機の印なし・墜落の時刻の札なし）・
-    #   3行目「海に落ちた物はどうなったのか」で相模湾に輪（垂直尾翼の破片は相模湾から揚収＝p.13）
-    "ca21": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="end", s2plane="off", s2crash="on", switch="on"), rec=S2R["crash"],
-        steps=[dict(), dict(), dict(state=dict(s2ring="sagami"))]))),
-}
-
-# ── 🆕 ⑤b-7（2026-10-11）：写真・文字の頁（書き方の約束は c2.py の ⑤b-7 の節）──
-#   ⚠️ ca04 の見出し・副題に「2011年」「「はじめに」」を入れない＝出典の行「運輸安全委員会の解説（2011年）「はじめに」」と重なる（門番 dup）
-SPEC.update({
-    # ca01（4.90秒）＝写真-98（客室最後部の化粧室の天井部分の破片に付着する断熱材）＝寄る
-    "ca01": dict(photo=P("p098"), **ss.kind(P("p098")), t="1つの疑問", s="客室の最後部の化粧室の天井の破片"),
-    # ca04（9.63秒）＝解説（2011年）p.i の題と「はじめに」の頭〜おわびの文。2行目と同時におわびの句に印
-    "ca04": dict(photo=ss.page(2001), trim=ss.ptrim("ca04"), bias=ss.pbias("ca04"), panel=True, color=1.0, hl=ss.phl("ca04"),
-                 t="解説の冒頭", s="題と冒頭の頁"),
-    # ca18（9.43秒）＝報告書 p126（4.1.7）。2行目・3行目と同時に、推定の句と「明らかにすることはできなかった」（4.1.7.2）に印
-    "ca18": dict(photo=ss.page(126), trim=ss.ptrim("ca18"), bias=ss.pbias("ca18"), panel=True, color=1.0, hl=ss.phl("ca18"),
-                 t="報告書の推定", s="運航乗務員の対応（4.1.7）"),
-})
+SPEC = {}

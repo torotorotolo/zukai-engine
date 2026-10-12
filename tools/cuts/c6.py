@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""第5章　後ろで壊れたもの c601–c624（24カット）。20本目（日本航空123便のリメイク）。
+"""第5章　3機目　画面から消えた点 c601–c624（24カット）。21本目（9.11 米国同時多発テロのリメイク）。
 
-■ 🔴 2026-10-08（⑤b-1）：19本目（サーフサイドのマンション崩壊のリメイク）の中身を空にした＝git の `0dcaa9c`（`git show 0dcaa9c:tools/cuts/c6.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep20/make_plan20.py` で
-  映像方針の一覧 `ref/ep20/eizou_build/list20.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
+■ 🔴 2026-10-12（⑤b-1）：20本目（日本航空123便のリメイク）の中身を空にした＝git の `f0095bd`（`git show f0095bd:tools/cuts/c6.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep21/make_plan21.py` で
+  映像方針の一覧 `ref/ep21/eizou_build/list21.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット（台本の画は元の予定）。
@@ -15,195 +15,77 @@ P = ss.P
 
 PLAN = {
     'c601': dict(kind='写真',
-               plan='🔧 BV@1492.2-1494.5+BV@1501.4-1507.0｜倍率 0.75（素材の秒÷扉を除いた中身の秒＝narration.json の実測）｜副題：相模湾に浮かぶ垂直尾翼の一部と、引き揚げるボート（事故のあと）｜動き：映像（額装＋地のぼかし）｜権利：CC BY 3.0（YouTube の頁の表示「クリエイティブ・コモンズ 著作権表示必須ライセンス」＝防衛省・自衛隊 公式 modchannel）｜出典の行：防衛省・自衛隊『昭和60年防衛庁記録』（CC BY 3.0）https://www.youtube.com/watch?v=LKrLJc4R0X8 ／ 切り出し・額装・音なし｜注：ショット E＋F の後半＝7.9秒を8.7秒に（0.91倍）。🔴 映画の板が「最初の破片（13日 18:55ごろ）」かは分からない＝副題で言わない｜台本の画（🔧映像方針で替えた＝元の予定）：実写 防衛庁記録 24:59〜25:05（相模湾・護衛艦まつゆきの甲板の垂直尾翼の一部＝副題「相模湾で見つかった垂直尾翼の一部（事故のあと）」）',
-               src='報告書 2.4.4.1 p.13（`最初に発見されたものは「3垂直安定板前縁の上半部」、揚収日時は昭和60年8月13日18時55分ごろ`）・防衛庁の記録映画（`まつゆき`＝映像方針で音を確かめる）'),
+               plan='PENT98｜副題：事件の前のペンタゴン（1998年）｜動き：ゆっくり寄る｜権利：A（国防総省の職務）｜出典の行：米国防総省（MSgt Ken Hammond, USAF）｜台本の画：実写 pentagon_ext_pre（事件の前のペンタゴン・1998年・A・全画面・ゆっくり寄る＝副題「事件の前のペンタゴン（1998年）」）',
+               src='委員会報告 p8（`At 8:51, American 77 transmitted its last routine radio communication`）'),
     'c602': dict(kind='図・写真の頁',
-               plan='F20｜動き：点を順に寄る｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 付図-20）／縮小・切出｜台本の画：図 p156 付図-20 相模湾等の浮遊残骸揚収場所図（地図・額装・点を順に寄る）',
-               src='報告書 2.4.4.1 p.13（`垂直尾翼のハニカム破片を主とする総数53個の浮遊残骸が揚収された`）'),
+               plan='見る向き：上から｜注：NTSB 77便の経路｜台本の画：図 NTSB 77便の経路（PDF p5 の地図をなぞる・南へ曲がり、東へ戻る線）',
+               src='委員会報告 p8（`The hijacking began between 8:51 and 8:54`）・p24（`American 77 began deviating from its flight plan at 8:54, with a slight turn toward the south`）'),
     'c603': dict(kind='図・写真の頁',
-               plan='F28｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 付図-28）／縮小・切出｜台本の画：図 p164 付図-28 垂直尾翼損壊図（右側）（山中より回収・海上より回収の塗り分けの配置・額装）',
-               src='報告書 4.1.6.4 p.125（`垂直尾翼の破壊が始まった`）'),
-    'c604': dict(kind='写真',
-               plan='P21｜動き：左から右へ流す｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-21）／縮小・切出｜台本の画：実写 写真-21（p187・後部胴体復元（左側）・額装・左から右へ流す）',
-               src='報告書 2.15.1.5 p.35'),
-    'c605': dict(kind='写真',
-               plan='🔧 P13｜動き：ゆっくり引く｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-13）／縮小・切出｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-13（p183・回収された圧力隔壁（2）・額装・ゆっくり寄る）',
-               src='報告書 2.15.1.5 p.35（`端部の直径約4,560ミリメートル`・`半球状のもの`・`18枚のウエブ(扇状板)をドーム状に並べ`）'),
-    'c606': dict(kind='再現イラスト',
-               plan='S1｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S1【横から】（隔壁の位置・空気を詰めた客室の範囲を色で・人は描かない）',
-               src='—'),
-    'c607': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 隔壁を押す力（客室側から後ろへ押す矢印・数字は書かない）',
-               src='報告書 4.1.6.1 p.125（`高度約24,000フィートまで上昇した際に、与圧された客室圧力と外気圧との差圧は約8.66psiとなった`）'),
-    'c608': dict(kind='写真',
-               plan='P24｜動き：下から上へ流す｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-24）／縮小・切出｜台本の画：実写 写真-24（p188・後部圧力隔壁復元・額装・下から上へ流す）',
-               src='報告書 2.15.1.5(3) p.37・4.1.6.2 p.125（`後部圧力隔壁の上半部のウェブの一部が客室与圧空気圧によって後方に吹き上げられ開口した`）'),
+               plan='台本の画：図 RG237（インディアナポリス・センターのレーダー再生の画面・77便の札が消える所）',
+               src='委員会報告 p25（`its transponder was turned off at 8:56`）'),
+    'c604': dict(kind='図・写真の頁',
+               plan='台本の画：図 RG237（同じ画面・点の無いまま時計が進む）',
+               src='委員会報告 p25（`FAA radar equipment tracked the flight from the moment its transponder was turned off at 8:56`・`for 8 minutes and 13 seconds, between 8:56 and 9:05, this primary radar information on American 77 was not displayed to controllers at Indianapolis Center`）'),
+    'c605': dict(kind='図解',
+               plan='台本の画：図 模式 レーダーの重ね方（一次レーダーの点・札・画面＝人は描かない）',
+               src='委員会報告 p25（`The reasons are technical, arising from the way the software processed radar information`）'),
+    'c606': dict(kind='図・写真の頁',
+               plan='見る向き：上から｜台本の画：図 NTSB 77便の経路（同じ地図・管制官が西と南西を見る矢印と、東へ向かう線）',
+               src="委員会報告 p25（`looked to the west and southwest along the flight's projected path, not east`）"),
+    'c607': dict(kind='図・写真の頁',
+               plan='台本の画：図 RG237（9:05 に東で点が戻る所）',
+               src='委員会報告 p25（`reemerged as a primary target on Indianapolis Center radar scopes at 9:05, east of its last known position`・`controllers had either stopped looking for the aircraft because they thought it had crashed or were looking toward the west`）'),
+    'c608': dict(kind='図解',
+               plan='台本の画：図 模式 同じ地図（西を見る矢印と、東へ伸びる線を並べる）',
+               src='委員会報告 p25（`Indianapolis Center never saw Flight 77 turn around`）'),
     'c609': dict(kind='写真',
-               plan='P25｜動き：寄る｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-25）／縮小・切出｜台本の画：実写 写真-25（p189・プレッシャ・リリーフ・ドア（地上で開状態）・額装・寄る）',
-               src='報告書 2.16.5 p.60（`加圧空気を機外に放出し、構造部材の破壊を防ぐ機能も有している`）・p.61（`開方向へオーバ・スウイングしたことにより発生したものとみられる変形があった`）'),
-    'c610': dict(kind='写真',
-               plan='🔧 P43｜動き：2点（孔のまわりの断熱材を順に）｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-43）／縮小・切出｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-43（p198・BS2638 胴体外板のファスナ孔より吹き出したとみられる断熱材・額装・寄る）',
-               src='報告書 2.16.1 p.58（`後部圧力隔壁より後方の非与圧区域に広く付着していた`・`胴体内側より吹き出したとみられる断熱材の付着があった`）'),
-    'c611': dict(kind='写真',
-               plan='🔧 P58｜動き：上から下へ流す｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-58）／縮小・切出｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-58（p205・垂直尾翼右側外板の黒色付着物（1）・額装・寄る）',
-               src='報告書 2.16.2.1 p.58（`ストリンガとの結合リベット頭の縁よりすじ状に吹き出したものとみられる黒色の付着物`・`主成分は、アルミニウム合金粉末であることが判明した。さらに作動液、グリース及び砂じんも混入していた`）'),
-    'c612': dict(kind='写真',
-               plan='🔧 P59｜動き：左へ流す｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-59）／縮小・切出｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-59（p206・垂直尾翼右側外板の黒色付着物（2）・額装・横に流す）',
-               src='報告書 2.15.1.3(3)(ウ) p.35（`外側の方向に進行したとみられる状態であった`）・解説 p.17（`破壊が外板の内側から外側の方向に進行したことを示している`）'),
-    'c613': dict(kind='写真',
-               plan='P22｜動き：右から左へ流す｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-22）／縮小・切出｜台本の画：実写 写真-22（p187・後部胴体復元（右側）・額装・右から左へ流す）',
-               src='解説 p.i（`「自衛隊のミサイルが当たって墜落した」という主張`）・報告書 2.16.7 p.63（`試料約160点について、火薬、爆発物等の含有の有無について調査した`）'),
-    'c614': dict(kind='写真',
-               plan='🔧 P23｜動き：下から上へ流す｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-23）／縮小・切出｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-23（p188・垂直尾翼展開・額装・ゆっくり寄る）',
-               src='報告書 2.16.7 p.63（`いずれの試料からもアンモニウム、塩素等(無機物)及びニトログリセリン、トリニトロトルエン(有機物)の成分は検出されず、また各残骸の破損状態から爆風を受けた形跡等は認められなかった`）'),
-    'c615': dict(kind='写真',
-               plan='🔧 P6｜副題：水平尾翼（墜落地点の東 約510メートル）｜動き：ゆっくり寄る｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-6）／縮小・切出｜注：✅ 原寸（p.179 約415dpi）で見た＝人なし・「赤い物」と見間違える物なし（白黒・木立の中の白い構造）。東は報告書 2.4.3.11 p.13「墜落地点から東約510メートルの地点に、水平尾翼がほぼ一体となって落下していた（写真-6参照）」｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-6（p179・水平尾翼・額装・ゆっくり寄る＝副題「水平尾翼の残骸（墜落現場の東）」＝「赤い物」がどの破片かは画で示さない）',
-               src='解説 p.17（`根拠になった尾翼の残骸付近の赤い物体は、主翼の一部であることが確認されており`・`ミサイルを疑う根拠は何もありません`）'),
-    'c616': dict(kind='再現イラスト',
-               plan='S5｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S5【横から】隔壁の継ぎ目が破れる（「推定」の札・人は描かない）',
-               src='報告書 4.1.6.1 p.125（`L18接続部は一気に全面破断したものと推定される`）'),
-    'c617': dict(kind='再現イラスト',
-               plan='S5｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S5【横から】壁が開き客室の空気が後ろへ流れる（推定の札）',
-               src='報告書 4.1.6.2 p.125（`開口面積は2~3平方メートル程度と推定される`）'),
-    'c618': dict(kind='再現イラスト',
-               plan='S5｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S5【横から】尾部の圧力が上がり APU のある尾部が外れる（推定の札）',
-               src='報告書 4.1.6.3 p.125（`APU防火壁が破壊されその後方に位置するAPU本体を含む胴体尾部構造の一部の破壊・脱落が生じたものと推定される`）'),
-    'c619': dict(kind='再現イラスト',
-               plan='S5｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S5【横から】空気が垂直尾翼の中へ入り内側から壊す（推定の札）',
-               src='報告書 4.1.6.4 p.125（`垂直尾翼内に流れ込み、垂直尾翼の内部圧力が上昇し`）'),
-    'c620': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 気圧の差（海の近くと標高約2,500メートル・袋がふくらむ絵）',
-               src='解説 p.17（`その内圧が、約4psi上昇すると垂直尾翼は破壊し得ると考えられる`・`約4psiは、約0.27気圧、海面と約2,500mの高度との気圧差です`・`スナック菓子を持って上がると、袋はパンパンに膨れる`）'),
-    'c621': dict(kind='再現イラスト',
-               plan='S5｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S5【横から】方向舵が外れ、油圧の配管が切れる（推定の札）',
-               src='報告書 4.1.6.5 p.126（`方向舵は脱落し、また4系統の方向舵操縦系統油圧配管もすべて破断したものと推定される`）'),
-    'c622': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 油圧の4系統（尾翼の所で4本とも切れる・c308 の絵の戻り）',
-               src='報告書 4.1.6.6 p.126（`数秒程度の短時間のうちに進行したものと推定される`）'),
-    'c623': dict(kind='図・写真の頁',
-               plan='F32｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 付図-32）／縮小・切出｜台本の画：図 p168 付図-32 後部圧力隔壁損壊図（破れた線の配置・額装）',
-               src='報告書 4.1.6.1 p.125（`ベイ2の部分は疲労亀裂の進展により残留強度が著しく低下していたので`）'),
+               plan="LCA09｜副題：当日の世界貿易センター（ミッドタウンから見た煙）｜動き：右へ流す｜権利：C'（撮影者不詳・権利を放棄）｜出典の行：米議会図書館蔵（撮影者不詳）｜注：9:10 の語り｜台本の画：実写 当日の世界貿易センター（A・別の点・両棟が燃える時刻の点だけ・全画面・左へ流す＝副題は絵を見て書く）",
+               src='委員会報告 p9（`Shortly before 9:10, suspecting that American 77 had been hijacked, American headquarters concluded that the second aircraft to hit the World Trade Center might have been Flight 77`）・p455（`There is no evidence to indicate that the FAA recognized Flight 77 as a hijacking until it crashed into the Pentagon`）'),
+    'c610': dict(kind='図解',
+               plan='台本の画：図 模式 機内の電話から地上への線（人は描かない）',
+               src='委員会報告 p9（`the hijackers had knives and box cutters`・`they had put all the passengers in the back of the plane`）'),
+    'c611': dict(kind='図解',
+               plan='台本の画：図 模式 北東部の地図（ボストン・センターから NEADS への電話・「9:21 ボストン・センター→NEADS」の札＝電話の言葉は字幕だけ）',
+               src="委員会報告 p26（`I just had a report that American 11 is still in the air, and it's on its way towards`）"),
+    'c612': dict(kind='図解',
+               plan='台本の画：図 模式 同じ地図（北棟に×・11便の札）',
+               src='委員会報告 p26（`We have been unable to identify the source of this mistaken FAA information`）'),
+    'c613': dict(kind='図解',
+               plan='台本の画：図 模式 ラングレーから東の海へ伸びる線',
+               src='委員会報告 p27（`That order was processed and transmitted to Langley Air Force Base at 9:24`・`Radar data show the Langley fighters airborne at 9:30`・`not headed north toward the Baltimore area as instructed, but east over the ocean`）'),
+    'c614': dict(kind='図解',
+               plan='台本の画：図 模式 同じ線（3つの理由の札＝目標の場所が無い・決まった飛び方の型・読み違え）',
+               src="委員会報告 p27（`The Langley fighters were heading east, not north, for three reasons`・`this order did not include a distance to the target or the target's location`）"),
+    'c615': dict(kind='図・写真の頁',
+               plan='台本の画：図 RG237（ダレスのレーダー再生・東へ速く動く点）',
+               src="委員会報告 p25（`observed a primary radar target tracking eastbound at a high rate of speed`・`The aircraft's identity or type was unknown`）"),
+    'c616': dict(kind='図解',
+               plan='台本の画：図 模式 ワシントンの地図（ホワイトハウス・ペンタゴン・レーガン空港・点の動き）',
+               src='委員会報告 p27（`it had come by chance`）・p34（`It was notified at 9:34 that American 77 was lost`・`an unknown plane was 6 miles southwest of the White House`）'),
+    'c617': dict(kind='図・写真の頁',
+               plan='見る向き：上から｜台本の画：図 NTSB 77便の経路（ペンタゴンの西南西で時計回りに大きく回る線）',
+               src='委員会報告 p9（`American 77 was then 5 miles west-southwest of the Pentagon and began a 330-degree turn`）'),
+    'c618': dict(kind='図・写真の頁',
+               plan='見る向き：横から｜合図：🔁 上から→横から（前の図 c617）＝左上に見る向きの札・替わる瞬間に「横から見ると」｜注：NTSB 77便 図2（高度）｜台本の画：図 NTSB 77便 図2（PDF p4・飛行の記録装置の高度を、点を結んで順に描く）',
+               src='委員会報告 p9（`descending through 2,200 feet, pointed toward the Pentagon and downtown Washington`）・NTSB 77便（`Altitude Profile`）'),
+    'c619': dict(kind='図解',
+               plan='見る向き：上から｜合図：🔁 横から→上から（前の図 c618）＝左上に見る向きの札・替わる瞬間に「上から見ると」｜注：ワシントン上空の地図として描く｜台本の画：図 模式 ワシントン上空（低く飛ぶ軍の輸送機 C-130H と77便の線）',
+               src='委員会報告 p25（`vectored an unarmed National Guard C-130H cargo aircraft`）・p26（`identified it as a Boeing 757`）'),
+    'c620': dict(kind='写真',
+               plan='P009｜副題：当日のペンタゴン（海軍別館から見た煙）｜動き：ゆっくり寄る｜権利：A（米海兵隊の職務）｜出典の行：米海兵隊（Cpl J. Ingersoll）｜注：衝突の数分後（説明）。遠くの人は原寸でも顔が分からない｜台本の画：実写 当日のペンタゴン（米軍の写真・A・Commons の説明に当日の日付・煙の上がる遠景・全画面・ゆっくり寄る＝副題は絵を見て書く）',
+               src='委員会報告 p10（`At 9:37:46, American Airlines Flight 77 crashed into the Pentagon, traveling at approximately 530 miles per hour`）'),
+    'c621': dict(kind='写真',
+               plan='P000｜副題：当日のペンタゴン｜動き：左へ流す｜権利：A（米空軍の職務）｜出典の行：米空軍（TSgt Jim Varhegyi）｜注：②③で見た｜台本の画：実写 DF-SD-02-09094（米空軍・当日・放水と救急車・軍人と消防・A・全画面・左へ流す＝副題「当日のペンタゴン」）',
+               src='委員会報告 p26（`at 9:38, seconds after impact, reported to the control tower`・`looks like that aircraft crashed into the Pentagon sir`）'),
+    'c622': dict(kind='写真',
+               plan='P032｜副題：当日のペンタゴン（煙が晴れたあとの西側）｜動き：下へ流す｜権利：A（米海兵隊の職務）｜出典の行：米海兵隊（Cpl J. Ingersoll）｜注：原寸の中央2か所＝壊れた内部と配線だけ（遺体なし）｜台本の画：実写 pentagon_west_day（DM-SD-02-03925・米海兵隊・煙が晴れたあとの建物の内側の環・A・全画面・使う窓だけ原寸で見る＝副題「当日のペンタゴン」）',
+               src='記念館（`184 people were killed at the Pentagon`）・委員会報告 p552 注188（`attack killed 184 nonterrorists`）'),
+    'c623': dict(kind='写真',
+               plan='P012｜副題：当日のペンタゴン（炎と放水）｜動き：右へ流す｜権利：A（米海兵隊の職務）｜出典の行：米海兵隊（Cpl J. Ingersoll）｜注：原寸＝消防隊（公務）・負傷者なし｜台本の画：実写 当日のペンタゴン（米軍の写真・A・別の点・衝突のすぐ後の煙＝副題は絵を見て書く）',
+               src='委員会報告 p27（`The Langley fighters were about 150 miles away`）'),
     'c624': dict(kind='写真',
-               plan='🔧 P64｜動き：ゆっくり引く｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-64）／縮小・切出｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-64（p208・後部圧力隔壁パート1（与圧側）・額装・寄る）',
-               src='報告書 4.1.6.1 p.125・3.1.1 p.65（`電子顕微鏡による観察によって`）'),
+               plan='P076｜副題：当日の夕方のペンタゴン｜動き：ゆっくり引く｜権利：A（米海軍の職務）｜出典の行：米海軍（PH2 Jim Watson）｜注：②③で見た｜台本の画：実写 DN-SD-03-11447（米海軍・夕方の西側と消防車・崩れた外の環・A・全画面・右へ流す＝副題「当日の夕方のペンタゴン」）',
+               src='委員会報告 p26（`identified it as a Boeing 757`）・注154 p461（`Commission analysis of FDR`）・NTSB 77便 図2（`FDR Pressure Altitude`）'),
 }
 
-from illu20 import S1_REC as S1R  # noqa: E402  🆕 ⑤b-3：置き場 S1 の部品の出典（描く側と同じ文）
-from illu20 import S5_REC as S5R  # noqa: E402  🆕 ⑤b-4：置き場 S5 の部品の出典
-
-SPEC = {
-    # ── 🆕 ⑤b-4（2026-10-08）：再現イラスト S5 尾部が壊れていく推定（`tools/illu20.py`・門番 check_illu ㉘）──
-    #   全部のカットに「推定」の札（ss.ILLU_ASSUME）・壊れる物の部品は ss.ILLU_DESTROY_CUTS のカットだけ（⑫）
-    # c616（2行）＝「報告書の推定」＝尾部の拡大・後部圧力隔壁の名 → 継ぎ目が破れる（裂け目）
-    "c616": dict(fig=("illu", dict(
-        place="S5", start=dict(s5press="on"), rec=S5R["bulk"], assume="推定",
-        steps=[dict(tag=dict(t="後部圧力隔壁", at="bulk", off=(-40, -330), anchor="end")),
-               dict(state=dict(s5bulk="tear"), rec=S5R["tear"])]))),
-    # c617（2行）＝上の半分が後ろへ吹き上げられて開く・穴の広さ 2〜3平方メートル（p.125）→ 聞き役の問い
-    "c617": dict(fig=("illu", dict(
-        place="S5", start=dict(s5press="on", s5bulk="tear"), rec=S5R["tear"], assume="推定",
-        # 🆕 ⑥：off (40, -300) は札を垂直尾翼の外形の線が横切った（geom_gap・箱の中の点 7・1行目だけ＝静止画に写らない）
-        #   ＝尾翼の前の縁より左の空へ (-50, -370)＝尾翼の線から 22px（scratchpad place20.py）
-        steps=[dict(state=dict(s5bulk="open"), rec=S5R["open"], tag=dict(t="約2〜3平方メートル", at="hole", off=(-50, -370))),
-               dict()]))),
-    # c618（2行）＝客室の空気が尾部へ流れ込み、尾部の圧力が上がる → APU 防火壁が壊れ、APU を含む尾部が外れる
-    "c618": dict(fig=("illu", dict(
-        place="S5", start=dict(s5press="on", s5bulk="open"), rec=S5R["open"], assume="推定",
-        steps=[dict(state=dict(s5air="on", s5tailp="on"), rec=S5R["air"]),
-               # ⑤b-4 の門番 layout：札を下（off 60, 150）に出すと画面の下へはみ出し、線が出典の行を貫いた＝右上の空へ
-               dict(state=dict(s5cone="off"), rec=S5R["cone"], tag=dict(t="APU の前の防火壁", at="fw", off=(270, -290)))]))),
-    # c619（2行）＝空気が垂直尾翼の中へ → 内側から壊す（亀裂）→ 聞き役
-    "c619": dict(fig=("illu", dict(
-        place="S5", start=dict(s5press="on", s5bulk="open", s5air="on", s5tailp="on", s5cone="off"), rec=S5R["cone"], assume="推定",
-        steps=[dict(state=dict(s5finair="on", s5fin="crack"), rec=S5R["fin"]), dict()]))),
-    # c621（2行）＝垂直尾翼が壊れ方向舵が外れる（尾翼の中の配管と装置も消える）→ 4系統の配管が全部切れる
-    "c621": dict(fig=("illu", dict(
-        place="S5", start=dict(s5press="on", s5bulk="open", s5tailp="on", s5cone="off", s5fin="crack", s5hyd="on"), rec=S5R["hyd"],
-        assume="推定",
-        steps=[dict(state=dict(s5fin="lost", s5rud="off"), rec=S5R["rud"]),
-               # 🆕 ⑥：off (-80, -200) は札の角を尾翼の線がかすめた（geom_gap・箱の中の点 2）＝(-110, -210)＝線から 25px（scratchpad place20.py）
-               dict(state=dict(s5hyd="cut"), rec=S5R["rud"], tag=dict(t="油圧の配管 4系統", at="cut", off=(-110, -210), anchor="end"))]))),
-    # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1（`tools/illu20.py`・門番 check_illu ㉔）──
-    # c606（3行）＝聞き役「お椀の形の、大きな壁」→ 後部圧力隔壁（BS2360）の弧 →「空気を詰めておく」で与圧の範囲（機首〜隔壁）の色
-    "c606": dict(fig=("illu", dict(
-        place="S1",
-        steps=[dict(state=dict(s1bulk="on"), rec=S1R["bulk"], tag=dict(t="後部圧力隔壁", at="bulk", off=(-60, -200), anchor="end", keep=True)),
-               # ⑤b-3 の門番 layout：3行目の札「与圧」が2行目の札と同じ所で重なった＝1つの札にまとめて3行目まで残す
-               dict(state=dict(s1press="on"), rec=S1R["press"],
-                    tag=dict(t="空気を詰めた客室（与圧）", at="cabin", off=(0, -170), anchor="middle", keep=True)),
-               dict()]))),
-    # ── 🆕 ⑤b-5（2026-10-10）：模式図（`tools/mech20.py`・門番 check_mech の judge_m20）──
-    # c607（2行）＝約7,300メートル（24,000フィート＝p125）で客室は与圧 → 気圧の差が隔壁（BS2360）を後ろへ押す。数（8.66psi）は書かない
-    "c607": dict(
-        t="壁を押す力", s="客室と尾部の境",
-        # ⚠️ 門番 echo：「高度 約7,300メートル」の札は語りの写し（83%）＝高さは語りに任せる
-        fig=("m20", dict(view="press",
-                         steps=[dict(state=dict(press="on"), tag=dict(t="客室（与圧）", at="cabin", to="cabin")),
-                                dict(state=dict(push="on"), tag=[dict(t="気圧の差が押す", at="push", to="push"),
-                                                                dict(t="後部圧力隔壁", at="bulk", to="bulk")])],
-                         note="形は模式（隔壁の位置は BS2360）・数は書かない", src=ss.src(["報告書 p125", "報告書 p29"]))),
-    ),
-    # c620（2行）＝尾翼の中の気圧が上がる（解説 p17・報告書 p69）→ 海の近くと標高約2,500メートルの袋（解説 p17 のたとえ）
-    "c620": dict(
-        t="袋がふくらむ差", s="解説（2011年）のたとえ",
-        fig=("m20", dict(view="bag",
-                         steps=[dict(state=dict(inner="on"), tag=dict(t="尾翼の中の気圧が上がる", at="inner")),
-                                dict(state=dict(bags="on", swell="on"), tag=[dict(t="海の近く", at="sea", to="sea"),
-                                                                             dict(t="標高 約2,500メートル", at="mt", to="mt")])],
-                         rel=[dict(t="約2,500メートル", src="解説 p1017（海面と約2,500ｍの高度との気圧差）")],
-                         note="形と大きさは模式（ふくらみは向きだけ）", src=ss.src(["解説 p1017", "報告書 p69"]))),
-    ),
-    # c622（2行）＝ここまで数秒程度（4.1.6.6 p.126 の推定）→ 4系統とも切れる（4.1.6.5 p.126 の推定）＝c308 の絵の戻り
-    "c622": dict(
-        t="尾翼の中で切れた管", s="油圧の4系統",
-        fig=("m20", dict(view="hyd", start=dict(pipes="on", num="on"),
-                         steps=[dict(state=dict(ask="on"), tag=dict(t="数秒程度（推定）", at="fast", to="tail")),
-                                dict(state=dict(cut="on"), tag=dict(t="4系統とも切れる（推定）", at="cut", to="cut"))],
-                         rel=[dict(t="4系統", src="報告書 p126（4系統の方向舵操縦系統油圧配管もすべて破断したものと推定）")],
-                         note="切れた所と管の道すじは模式", src=ss.src(["報告書 p126", "報告書 p113"]))),
-    ),
-}
-
-# ── 🆕 ⑤b-7（2026-10-11）：写真・付図・映像の差し込み（書き方の約束は c2.py の ⑤b-7 の節）──
-SPEC.update({
-    # c601（9.69秒）＝🔴 防衛庁記録 F の後半（ボートの隊員が浮かぶ板を押さえる）→ 3行目から尻の映像 E（浮かぶ板）。一覧の順（E→F）を
-    #   入れ替えた＝E を頭にすると 0.54倍の止め絵になる（`qa_out/ep20_assets.py` の SPLIT）。映画の板が「最初の破片」かは分からない＝言わない
-    "c601": ss.vid("c601", t="海からの手がかり", s="浮かぶ板を押さえる護衛艦「まつゆき」のボート（相模湾・事故のあと）",
-                   tail=ss.tailv("c601", at=2, t="浮かんでいた板", s="相模湾に浮かぶ垂直尾翼の一部（事故のあと）")),
-    # c602（7.53秒）＝付図-20 相模湾等の浮遊残骸揚収場所図（2480px＝panel を明記）。地図の点（三浦半島の沖・横 0.43）→ 右の品名の表
-    #   （横 0.84＝「垂直尾翼ハニカム破片」の行が並ぶ＝語りの2行目）へ流す。⚠️ 地図の上だけで寄ると海の白でインク 2〜3%＝門番 blank の
-    #   下限 4% に届かなかった（小田原の沖→三浦半島の沖の案）
-    "c602": dict(photo=P("f020"), panel=True, t="53個の破片", s="浮いていた破片を引き揚げた場所と品名",
-                 cam={"from": ss.pf(P("f020"), 0.43, 0.42, 1.4), "to": ss.pf(P("f020"), 0.84, 0.49, 1.6)}),
-    # c603（6.16秒）＝付図-28 垂直尾翼損壊図（右側）（山中より回収・海上より回収の塗り分け）
-    "c603": dict(photo=P("f028"), **ss.kind(P("f028")), t="山と海の破片", s="垂直尾翼の壊れ方（右側から見た図）"),
-    # c604（6.36秒）＝写真-21（後部胴体復元（左側））＝左から右へ流す
-    "c604": dict(photo=P("p021"), **ss.kind(P("p021")), cam="pan_r", t="組み直した胴体", s="復元した後部胴体（左側）"),
-    # c605（13.00秒）＝写真-13（回収された圧力隔壁（2））＝ゆっくり引く
-    #   🆕 ⑤c'：c105（写真-12）と副題が同じだった＝報告書の写真の題（写真-13＝客室〈与圧〉側）で書き分け。⚠️ 語りの「お椀の形・4本の輪」は
-    #   この写真（墜落現場のつぶれた破片）では見えない（放射状の筋は見える）＝形は次の c606（横から）と c608（組み直した隔壁）＝据え置き（台帳 §3）
-    "c605": dict(photo=P("p013"), **ss.kind(P("p013")), cam="pull", t="隔壁の作り", s="回収された後部圧力隔壁（客室の側・墜落現場）"),
-    # c608（7.37秒）＝写真-24（後部圧力隔壁復元）＝下から上へ流す
-    "c608": dict(photo=P("p024"), **ss.kind(P("p024")), cam="tilt_u", t="めくれた上半分", s="組み直した後部圧力隔壁"),
-    # c609（7.32秒）＝写真-25（プレッシャ・リリーフ・ドア（地上で開状態））＝寄る
-    "c609": dict(photo=P("p025"), **ss.kind(P("p025")), t="尾部の扉", s="プレッシャ・リリーフ・ドア（地上で開いた状態）"),
-    # c610（10.10秒）＝写真-43（胴体外板のファスナ孔より吹き出したとみられる断熱材）。2つの矢印（左上 横 0.36 縦 0.33 → 下 横 0.50 縦 0.48）を順に
-    "c610": dict(photo=P("p043"), **ss.kind(P("p043")), t="吹き出した断熱材", s="外板の穴のまわりの断熱材",
-                 cam={"from": ss.pf(P("p043"), 0.36, 0.33, 1.9), "to": ss.pf(P("p043"), 0.50, 0.48, 1.9)}),
-    # c611（9.73秒）＝写真-58（垂直尾翼右側外板の黒色付着物（1））＝上から下へ流す
-    "c611": dict(photo=P("p058"), **ss.kind(P("p058")), cam="tilt_d", t="すじ状の跡", s="垂直尾翼の右側の外板"),
-    # c612（7.44秒）＝写真-59（同（2））＝左へ流す
-    "c612": dict(photo=P("p059"), **ss.kind(P("p059")), cam="pan_l", t="外へ向かう割れ", s="垂直尾翼の右側の外板の付着物"),
-    # c613（7.01秒）＝写真-22（後部胴体復元（右側））＝右から左へ流す
-    "c613": dict(photo=P("p022"), **ss.kind(P("p022")), cam="pan_l", t="ある説の確かめ", s="復元した後部胴体（右側）"),
-    # c614（5.54秒）＝写真-23（垂直尾翼展開）＝下から上へ流す
-    "c614": dict(photo=P("p023"), **ss.kind(P("p023")), cam="tilt_u", t="調べた結果", s="広げて並べた垂直尾翼"),
-    # c615（8.31秒）＝写真-6（水平尾翼・墜落地点の東 約510メートル＝報告書 2.4.3.11 p.13）＝ゆっくり寄る
-    "c615": dict(photo=P("p006"), **ss.kind(P("p006")), t="赤い物の正体", s="水平尾翼（墜落地点の東 約510メートル）"),
-    # c623（7.24秒）＝付図-32 後部圧力隔壁損壊図
-    "c623": dict(photo=P("f032"), **ss.kind(P("f032")), t="破れた線", s="後部圧力隔壁の壊れ方の図"),
-    # c624（4.72秒）＝写真-64（後部圧力隔壁パート1（与圧側）・縦長）＝ゆっくり引く
-    #   🆕 ⑤c'：c702（写真-73）と副題が同じだった＝報告書の写真の題の「パート」の番号で書き分け（64＝パート1・73＝パート5・71＝パート3・
-    #   65＝パート1＝c624 と c901 は同じ破片の表と裏）。破片には手書きの「カ-3」と丸の番号が見える（原寸）
-    "c624": dict(photo=P("p064"), **ss.kind(P("p064")), cam="pull", t="壁に残る傷", s="後部圧力隔壁の一部（パート1・客室の側）"),
-})
+SPEC = {}

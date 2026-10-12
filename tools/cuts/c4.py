@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""第3章　山へ c401–c421（21カット）。20本目（日本航空123便のリメイク）。
+"""第3章　1機目　応答しない11便 c401–c426（26カット）。21本目（9.11 米国同時多発テロのリメイク）。
 
-■ 🔴 2026-10-08（⑤b-1）：19本目（サーフサイドのマンション崩壊のリメイク）の中身を空にした＝git の `0dcaa9c`（`git show 0dcaa9c:tools/cuts/c4.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep20/make_plan20.py` で
-  映像方針の一覧 `ref/ep20/eizou_build/list20.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
+■ 🔴 2026-10-12（⑤b-1）：20本目（日本航空123便のリメイク）の中身を空にした＝git の `f0095bd`（`git show f0095bd:tools/cuts/c4.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep21/make_plan21.py` で
+  映像方針の一覧 `ref/ep21/eizou_build/list21.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット（台本の画は元の予定）。
@@ -14,202 +14,84 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'c401': dict(kind='写真',
-               plan='🔧 P18｜副題：飛行経路の下で見つかった部品（事故のあと）｜動き：左から右へ流す｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-18）／縮小・切出｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-18（p185・飛行経路下から回収された残骸（2）・額装・横に流す＝副題「飛行経路の下で見つかった部品（事故のあと）」）',
-               src='報告書 2.1 p.7（`18時45分46秒「操縦不能」との送信`）'),
-    'c402': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】（東京の西・18:46 の点）',
-               src='別添6 p.333（18:46:09〜11 `(ACC)JAPAN AIR 123 羽田にコンタクトしますか？`・16 `(CAP)このままでお願いします`・21 `(CAP)こ、このままでお願いします`）'),
+    'c401': dict(kind='図・写真の頁',
+               plan='見る向き：上から｜注：NTSB 11便の経路｜台本の画：図 NTSB 11便の経路（PDF p3 の経路図をなぞる・ボストンから西へ、南へ折れてニューヨークへ）',
+               src='委員会報告 p4（`Just before 8:14, it had climbed to 26,000 feet`）'),
+    'c402': dict(kind='写真',
+               plan='ARTCC｜副題：航空路管制センター（別のセンター・年は不明）｜動き：ゆっくり寄る｜権利：A（FAA の職務）｜出典の行：米連邦航空局（FAA）｜注：管制官＝職務｜台本の画：実写 artcc_screen_pre（FAA の航空路管制センターの卓・A・全画面・ゆっくり寄る＝副題「航空路管制センター（別のセンター・年は不明）」）',
+               src='NTSB 11便（`At 8:13:29`・`The crew acknowledged`・`The crew never acknowledged`）'),
     'c403': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 無線の切り替え（東京コントロールと羽田の管制＝札は機関の名）',
-               src='別添6 p.333（18:46:09 `羽田にコンタクトしますか？`・18:46:16 `このままでお願いします`）'),
-    'c404': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】（18:46:33・18:47:07 の点）',
-               src='別添6 p.333（18:46:33 `(CAP)これはだめかもわからんね`＝下線なし）・報告書 2.1 p.7（`18時47分07秒同機から羽田へのレーダ誘導の要請`）'),
-    'c405': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】（18:47:39 の点）',
-               src='別添6 p.334（18:47:39 `(CAP)おい山だぞ`＝下線＝判読不確実）'),
-    'c406': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】（同じ点の寄り）',
-               src='別添6 p.334（41 `(CAP)ターンライト`・43 `(CAP)山だ`・44 `(CAP)コントロールとれみぎ`）'),
-    'c407': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】（奥多摩の上・18:48 に左へ西北西）',
-               src='報告書 2.1 p.7（`18時48分ごろ、高度約7,000フィートで同機は東京都西多摩郡奥多摩町付近上空から左へ変針し西北西に向かって徐々に上昇しながら飛行`）'),
-    'c408': dict(kind='写真',
-               plan='🔧 P124｜副題：18:50ごろ 奥多摩町の上空（報告書 写真-124）｜動き：額装のまま寄らない（引用）｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-124）／縮小・切出｜注：🔴 第三者の写真（地上の撮影者・名前の表記なし）＝引用の要件：額装・無加工・出典・この1カットだけ（語りが写真そのものを解説＝主従）。冒頭とサムネに使わない｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-124（p241・奥多摩町上空を飛行中の事故機・地上から撮影・撮影者は不明＝引用＝額装・無加工・出典つき＝副題「18:50ごろ 奥多摩町の上空（報告書 写真-124）」）',
-               src='報告書 3.1.12.1 p.98（`12日18時50分ごろ、事故機が東京都西多摩郡奥多摩町上空を飛行中に地上で撮影された写真`・`少なくとも55パーセント以上欠損していたものと推定される`）'),
-    'c409': dict(kind='図・写真の頁',
-               plan='F27｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 付図-27）／縮小・切出｜台本の画：図 p163 付図-27 垂直尾翼損壊図（左側）（欠けた部分の配置・額装）',
-               src='報告書 3.2.6.2(3) p.114（`同機は不安定な飛行の継続は可能であったが、機長の意図どおり飛行させることは困難`）'),
-    'c410': dict(kind='再現イラスト',
-               plan='S3｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S3 の戻り（2つの揺れの模式）',
-               src='報告書 3.2.6.2(3) p.114（`このような状況についての経験のない機長が安全に着陸・着水することはほとんど不可能な状態であったと考えられる`）'),
-    'c411': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】（18:50 の点）',
-               src='別添6 p.337（18:50:06 `(COP)スピードがでてます スピードが`・18:50:09 `(CAP)どーんといこうや`＝下線なし）'),
+               plan='台本の画：図 模式 11便の機内（前の座席と操縦室の扉＝人は描かない）',
+               src='委員会報告 p4（`we believe the hijacking began at 8:14 or shortly thereafter`）・p5（`We do not know exactly how the hijackers gained access to the cockpit`）'),
+    'c404': dict(kind='図解',
+               plan='台本の画：図 模式 機内の電話から地上への線（人は描かない）',
+               src="委員会報告 p5（`The cockpit is not answering, somebody's stabbed in business class`・`I think we're getting hijacked`）"),
+    'c405': dict(kind='図解',
+               plan='台本の画：図 模式 同じ線（電話の時間の帯＝約25分）',
+               src='委員会報告 p5（`The emergency call lasted approximately 25 minutes`・`calmly and professionally relayed information`）'),
+    'c406': dict(kind='図解',
+               plan='台本の画：図 模式 同じ線（機内から操縦室への線に×）',
+               src='委員会報告 p5（`took action outside the scope of their training, which emphasized that in a hijacking, they were to communicate with the cockpit crew`）'),
+    'c407': dict(kind='図・写真の頁',
+               plan='台本の画：図 RG237（ボストン・センターのレーダー再生の画面・11便の札が消える所・FAA・Unrestricted）',
+               src='NTSB 11便（`At about 8:21`）・委員会報告 p18（`At 8:21, American 11 turned off its transponder, immediately degrading the information available about the aircraft`）'),
+    'c408': dict(kind='図・写真の頁',
+               plan='台本の画：図 RG237（同じ画面・札の無い点）',
+               src='委員会報告 p18（`The controller told his supervisor that he thought something was seriously wrong with the plane, although neither suspected a hijacking`）'),
+    'c409': dict(kind='図解',
+               plan='台本の画：図 模式 管制の無線（ボストン・センターと11便を結ぶ線）',
+               src="委員会報告 p19（`We have some planes. Just stay quiet, and you'll be okay. We are returning to the airport`）"),
+    'c410': dict(kind='図解',
+               plan='台本の画：図 模式 同じ線（機内の放送と管制の無線の切り替え）',
+               src='委員会報告 p6（`inadvertently broadcast their message over the air traffic control channel instead of the cabin public-address channel`）・p19（`The controller only heard something unintelligible`）'),
+    'c411': dict(kind='図解',
+               plan='台本の画：図 模式 同じ線（2つ目の声）',
+               src='委員会報告 p19（`Nobody move`・`The controller told us that he then knew it was a hijacking`）'),
     'c412': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 エンジンの力で機首を操る（推力の矢印と機首の上下）',
-               src='報告書 3.2.7.5(2) p.117（`18時50分50秒に「パワーでピッチはコントロールしないとだめ」という機長の声が記録されていることから、運航乗務員は異常事態発生後エンジン推力制御によりピッチコントロールを試みたものと推定される`）'),
-    'c413': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】（18:53 の点・高さの札）',
-               src='報告書 2.1 p.7（`18時53分ごろ高度約13,000フィートに達した後再び降下を始め18時53分31秒「操縦不能」を再度送信`）'),
-    'c414': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】（羽田・熊谷と現在地を結ぶ線）',
-               src='報告書 2.1 p.7（`18時54分19秒`・`東京進入管制所(以下「東京アプローチ」という。)に交信を切り換えた`・`羽田の北西55海里、熊谷の西25海里の地点`）'),
-    'c415': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】（横田の位置の札）',
-               src='別添6 p.342（18:55:05〜14 `(APC)…いつでもレディになっております なお 横田と調整して 横田ランディングもアベイラブルになっております`）・報告書 2.1 p.7（`18時55分05秒羽田も横田も受け入れ可能である旨を送信`）'),
-    'c416': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】（羽田と横田の2つの印）',
-               src='報告書 2.1 p.7（`羽田も横田も受け入れ可能`）'),
-    'c417': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】（扇平山・三国山の方へ）',
-               src='別添6 p.342（18:55:16 `(F/E)はい了解しました`）・解説 p.31（時系列の表＝`フラップ角が10ユニット、右横揺れ角が増大し右旋回が始まる`）'),
-    'c418': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 最後の降下の高さの線（記録の点だけ・18:55:57 から）',
-               src='報告書 p.82（`18時56分07秒には機首は頭下げ約36度に達し、降下率は平均15,000フィート/分、一時的には18,000フィート/分以上になった`）'),
+               plan='台本の画：図 模式 時間の帯（11便＝8:25 ボストン・センターが知る）',
+               src='図表 p32（`Boston Center aware of hijacking`）・委員会報告 p19（`Between 8:25 and 8:32, in accordance with the FAA protocol, Boston Center managers started notifying their chain of command`）'),
+    'c413': dict(kind='図解',
+               plan='台本の画：図 模式 手順の段（上へ伸びる矢印と、横から軍へ伸びる矢印）',
+               src="委員会報告 p20（`Boston Center did not follow the protocol in seeking military assistance through the prescribed chain of command`・`at 8:34, to contact the military through the FAA's Cape Cod facility`）"),
+    'c414': dict(kind='図解',
+               plan='台本の画：図 模式 同じ（アトランティックシティの昔の基地に×）',
+               src='委員会報告 p20（`The center also tried to contact a former alert site in Atlantic City, unaware it had been phased out`）'),
+    'c415': dict(kind='図解',
+               plan='台本の画：図 模式 電話の線（ボストン・センターから NEADS へ・8:37:52）',
+               src='委員会報告 p20（`At 8:37:52, Boston Center reached NEADS. This was the first notification received by the military`）'),
+    'c416': dict(kind='図解',
+               plan='台本の画：図 模式 同じ線（やりとりは字幕だけ・画面に大きく出さない）',
+               src='委員会報告 p20（`We have a hijacked aircraft headed towards New York`・`Is this real-world or exercise?`・`No, this is not an exercise, not a test`）'),
+    'c417': dict(kind='図解',
+               plan='台本の画：図 模式 同じ線（演習の予定表の札＝旧ソ連の爆撃機の想定）',
+               src='委員会報告 p458（`Vigilant Guardian`・`if anything, expedited`）'),
+    'c418': dict(kind='写真',
+               plan='F15B｜副題：オーティス基地のF-15（2001年秋）｜動き：左へ流す｜権利：A（米空軍の職務）｜出典の行：米空軍｜注：幅1126＝全画面で1.7倍に引き伸ばす（柔らかい）｜台本の画：実写 F-15 オーティス基地（別の点・2001年秋のニューヨーク上空の警戒・102戦闘航空団・A・全画面・左へ流す＝副題「オーティス基地のF-15（2001年秋）」）',
+               src='委員会報告 p20（`NEADS ordered to battle stations the two F-15 alert aircraft at Otis Air Force Base in Falmouth, Massachusetts, 153 miles away from New York City`）'),
     'c419': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 同じ線の続き（降下が止まる所に「警報」の札）',
-               src='報告書 p.82（`地上接近警報が作動していた(CVR記録)`・`エンジン出力は最大近くまで上げられた`・`降下が止まり`）・解説 p.31（時系列の表＝`GPWS「Sinkrate,whoopwhooppullup...」`）'),
-    'c420': dict(kind='図・写真の頁',
-               plan='F19｜動き：流す｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 付図-19）／縮小・切出｜台本の画：図 p155 付図-19 一本から松からU字溝にかけての状況（地図・額装・配置に沿って流す）',
-               src='報告書 p.82（`18時56分23秒過ぎ`・`右主翼の一部が一本から松付近の木々を切断し`・`その約3秒後`・`U字溝への最初の接触`）・2.1 p.8（`標高約1,530メートル`・`標高約1,610メートル`）・2.3 p.8（`仮称U字溝`）・2.5 p.14（`から松林の樹木約3,300本が倒壊し、切損し、又は焼損した`）'),
+               plan='台本の画：図 模式 北東部の地図（オーティスからの線・行き先に「？」）',
+               src="委員会報告 p20（`scrambled at 8:46 from Otis Air Force Base`・`I don't know where I'm scrambling these guys to. I need a direction, a destination`）"),
+    'c420': dict(kind='図解',
+               plan='台本の画：図 模式 レーダーの画面（札の無い点を探す）',
+               src='委員会報告 p20（`NEADS personnel spent the next minutes searching their radar scopes for the primary radar return`）'),
     'c421': dict(kind='写真',
-               plan='🔧 P3｜副題：U字溝（墜落のあと）｜動き：ゆっくり引く｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-3）／縮小・切出｜注：⚠️ 写真に焼き込みの札「垂直尾翼の一部」＝副題「U字溝」と食い違わせない｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-3（p178・U字溝・空撮・写真に「垂直尾翼の一部」の札が焼き込み＝副題「U字溝（墜落のあと）」）',
-               src='報告書 p.83（`縦揺れ角頭下げ42.2度、横揺れ角131.5度`・`ほとんど裏返しになったと考えられる`）・2.1 p.8（`標高約1,565メートル`・`推定墜落時刻は、18時56分ごろであった`）'),
+               plan='WTCFAR｜副題：事件の前の世界貿易センター（1976年）｜動き：上へ流す｜権利：D（米議会図書館蔵／知られた制限なし）｜出典の行：Balthazar Korab（米議会図書館蔵）｜注：縦長＝全画面で上下を切る｜台本の画：実写 wtc_far（事件の前の世界貿易センター・1976年・D＝米議会図書館蔵／知られた制限なし・縦長＝全画面で上下を切る・ゆっくり上へ＝副題「事件の前の世界貿易センター（1976年）」）',
+               src='委員会報告 p7（`At 8:46:40, American 11 crashed into the North Tower of the World Trade Center in New York City`）'),
+    'c422': dict(kind='写真',
+               plan='WTCBASE｜副題：事件の前の世界貿易センター（1976年）｜動き：下へ流す｜権利：D（米議会図書館蔵／知られた制限なし）｜出典の行：Balthazar Korab（米議会図書館蔵）｜注：縦長｜台本の画：実写 wtc_base（事件の前の世界貿易センター・1976年・D・縦長＝全画面で上下を切る・ゆっくり寄る＝副題「事件の前の世界貿易センター（1976年）」）',
+               src='委員会報告 p278（`Both towers had 110 stories, were about 1,350 feet high`・`up to 50,000 office workers occupied the towers`）'),
+    'c423': dict(kind='図解',
+               plan='台本の画：図 模式 時間の帯（8:37:52 から 8:46:40 まで＝9分の帯・8:53 に離陸の印）',
+               src="委員会報告 p20（`Radar data show the Otis fighters were airborne at 8:53`）・p21（`That nine minutes' notice before impact was the most the military would receive of any of the four hijackings`）"),
+    'c424': dict(kind='図解',
+               plan='台本の画：図 模式 同じ帯（NEADS のレーダーの画面を小さく重ねる）',
+               src='委員会報告 p20（`while NEADS personnel were still trying to locate the flight, word reached them that a plane had hit the World Trade Center`）'),
+    'c425': dict(kind='図解',
+               plan='台本の画：図 模式 手順の段（ボストン・センターから上へ伸びる段と、軍への近道）',
+               src='委員会報告 p19（`did not contact the NMCC to request a fighter escort`）'),
+    'c426': dict(kind='図解',
+               plan='台本の画：図 模式 3つの前提の箱（1つ目の「姿を消そうとはしない」に×）',
+               src='委員会報告 p31（`had never handled a hijacked aircraft that attempted to disappear`）'),
 }
 
-from illu20 import S2_REC as S2R, S3_REC as S3R  # noqa: E402  🆕 ⑤b-3：置き場 S2・S3 の部品の出典（描く側と同じ文）
-
-M = ss._S3_NOTE            # S3 の札「模式（記録のグラフではない）」（ss.ILLU_ASSUME と同じ言葉）
-
-SPEC = {
-    # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S2・S3（`tools/illu20.py`・門番 check_illu ㉕㉖）──
-    # c402（3行）＝6時46分（「羽田にコンタクトしますか？」＝言葉は画面に出さない）。語りが分まで＝札も分まで
-    "c402": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:44:09"), rec=S2R["trace"],
-        steps=[dict(state=dict(s2t="18:46:09"), rec=S2R["trace"], dur=1.6, tag=dict(t="18:46", at="plane", off=(70, -100))),
-               dict(), dict()]))),
-    # c404（2行）＝18:46:33（「これはだめかもわからんね」）→ 18:47:07（羽田への誘導の要請）
-    "c404": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:46:09"), rec=S2R["trace"],
-        steps=[dict(state=dict(s2t="18:46:33"), rec=S2R["trace"], dur=1.0, tag=dict(t="18:46:33", at="plane", off=(70, -100))),
-               # ⑤b-3 の門番 layout：1行目の札とすき間0（1つの札の塊に読める）＝左上へ
-               dict(state=dict(s2t="18:47:07"), rec=S2R["trace"], dur=1.0,
-                    # 🆕 ⑤c'：左上（off -70, -100）は札を経路の線が横切った（geom_gap・9点）＝機の右（70, 0）＝線から 55px・1行目の札から 60px
-                    tag=dict(t="18:47:07", at="plane", off=(70, 0)))]))),
-    # c405（2行）＝18:47:39（「おい山だぞ」）
-    "c405": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:47:07"), rec=S2R["trace"],
-        steps=[dict(state=dict(s2t="18:47:39"), rec=S2R["trace"], dur=1.0, tag=dict(t="18:47:39", at="plane", off=(70, -100))),
-               dict()]))),
-    # c406（2行）＝同じ点の寄り（cam＝機の印のまわり）。言葉は画面に出さない
-    "c406": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:47:39"), rec=S2R["trace"], camc="plane",
-        # ⑤b-3 の2回目の焼き：1.8倍では大きくなった地名「相模湾」が左下の出典の行の裏に入った（y≈870）＝1.6倍（地名の下の端 y≈841）
-        steps=[dict(state=dict(s2t="18:47:44", cam=1.6), rec=S2R["trace"], dur=1.4), dict()]))),
-    # c407（2行）＝高さ 約2,100メートル → 奥多摩町の上で左へ（18:48:03＝付図-1）・西北西へ少しずつ上がる
-    "c407": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:47:44"), rec=S2R["trace"],
-        # ⑤b-3 の門番 echo：「高さ 約2,100メートル」は語りの写し＝12字未満の名札に
-        steps=[dict(tag=dict(t="約2,100メートル", at="plane", off=(70, -100))),
-               dict(state=dict(s2t="18:49:30"), rec=S2R["trace"], dur=2.4, tag=dict(t="奥多摩町", at="okutama", off=(80, 40)))]))),
-    # c410（2行）＝S3 の戻り（2つの揺れを並べる）。札なし（語りは報告書の言葉の引用）
-    "c410": dict(fig=("illu", dict(
-        place="S3", start=dict(view="both", s3wave="on", s3roll="on"), rec=S3R["wave"], assume=M,
-        steps=[dict(), dict()]))),
-    # c411（2行）＝S3 → 上から＝合図（㉑）。18:50:06（「スピードがでてます」）→ 18:50:09
-    "c411": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:49:30", switch="on"), rec=S2R["trace"],
-        steps=[dict(state=dict(s2t="18:50:06"), rec=S2R["trace"], dur=1.0, tag=dict(t="18:50:06", at="plane", off=(-60, -100), anchor="end")),
-               dict(state=dict(s2t="18:50:09"), rec=S2R["trace"], dur=0.6)]))),
-    # c413（3行）＝18:53 ごろ 高さ 約4,000メートル → 18:53:31（もう一度「操縦不能」）
-    "c413": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:50:09"), rec=S2R["trace"],
-        # ⑤b-3 の門番：echo＝「高さ 約4,000メートル」は語りの写し＝12字未満の名札に／layout＝2行目の札と重なった＝2行目は右上へ
-        steps=[dict(state=dict(s2t="18:53:03"), rec=S2R["trace"], dur=2.4, tag=dict(t="約4,000メートル", at="plane", off=(-60, -100), anchor="end")),
-               dict(state=dict(s2t="18:53:31"), rec=S2R["trace"], dur=0.8, tag=dict(t="18:53:31", at="plane", off=(60, -100))),
-               dict()]))),
-    # c414（2行）＝18:54（東京アプローチに切り替え）→ 羽田・熊谷と機を結ぶ線（距離の数は語りだけ＝線の長さは地図の上の本当の長さ）
-    "c414": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:53:31"), rec=S2R["trace"],
-        steps=[dict(state=dict(s2t="18:54:25"), rec=S2R["trace"], dur=0.8, tag=dict(t="18:54", at="plane", off=(-60, -100), anchor="end")),
-               dict(state=dict(s2lines="on", s2kum="on"), rec=S2R["kumagaya"],
-                    tag=dict(t="熊谷", at="kumagaya", off=(70, 10)))]))),
-    # c415（2行）＝18:55:05（「いつでもレディに」）→ 横田の点（「横田ランディングもアベイラブル」）
-    "c415": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:54:25"), rec=S2R["trace"],
-        steps=[dict(state=dict(s2t="18:55:05"), rec=S2R["trace"], dur=0.8, tag=dict(t="18:55:05", at="plane", off=(-60, -100), anchor="end")),
-               dict(state=dict(s2yok="on"), rec=S2R["yokota"], tag=dict(t="横田", at="yokota", off=(70, 10)))]))),
-    # c416（2行）＝聞き役「横田って？」→ 羽田と横田に輪（アメリカ軍の飛行場・どちらにも降りられる）
-    "c416": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:55:05", s2yok="on"), rec=S2R["yokota"],
-        steps=[dict(tag=dict(t="横田", at="yokota", off=(70, 10), keep=True)),
-               # 🆕 ⑤c'：右下（off 70, 60）は札の下の端が羽田の輪の上の端に 2.9px（geom_gap）＝「横田」の上へ（横田の輪は x 1046〜1118）
-               dict(state=dict(s2ring="both"), tag=dict(t="アメリカ軍の飛行場", at="yokota", off=(70, -45)))]))),
-    # c417（3行）＝18:55:16（「はい了解しました」）→ 扇平山・三国山の方へ（右へ傾き始めた）。墜落は描かない（c421 の語り）
-    "c417": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:55:05"), rec=S2R["trace"],
-        steps=[dict(state=dict(s2t="18:55:16"), rec=S2R["trace"], dur=0.8),
-               # 🆕 ⑤c'：右下（off 90, 60）は札を経路の線が横切った（geom_gap・6点）＝山の印の左（-70, 0）＝線から 63px
-               # 🆕 ⑥：札は機の印が着いてから（mend）出て次の行で消える＝2行目が短く約0.6秒しか出なかった（⑤c' 周2）→ keep（c416 の「横田」と同じ）
-               dict(state=dict(s2t="18:55:40"), rec=S2R["trace"], dur=1.6, tag=dict(t="三国山", at="mikuni", off=(-70, 0), anchor="end", keep=True)),
-               dict()]))),
-    # ── 🆕 ⑤b-5（2026-10-10）：模式図（`tools/mech20.py`・門番 check_mech の judge_m20）──
-    # c403（3行）＝無線の相手（別添6 p.333 18:46:09「羽田にコンタクトしますか？」・18:46:16「このままでお願いします」）。札は機関の名・記録の言葉
-    "c403": dict(
-        t="交信を続ける相手", s="18:46 の交信（別添6）",
-        fig=("m20", dict(view="radio",
-                         steps=[dict(state=dict(link="on"), tag=dict(t="いまの相手", at="link", to="link")),
-                                dict(state=dict(ask="on"), tag=dict(t="切り替える？", at="ask", to="ask")),
-                                dict(state=dict(stay="on"), tag=dict(t="切り替えない", at="stay", to="link"))],
-                         note="位置と線は模式（相手の名は記録の言葉）", src=ss.src(["報告書 p333", "報告書 p6"]))),
-    ),
-    # c412（2行）＝18:50:50 の機長の声（3.2.7.5(2) p.117）→ 推力で機首を上げ下げ（推定）。横の図だけ（上の図は c317・c318）
-    "c412": dict(
-        t="推力で機首を操る", s="推力での操縦（3.2.7.5）",
-        fig=("m20", dict(view="thrust", start=dict(lay="side"),
-                         steps=[dict(tag=dict(t="18:50:50", d="機長の声（CVR）", at="clock", to="cockpit")),
-                                dict(state=dict(pwr="up", nose="up"), tag=dict(t="機首の上げ下げ（推定）", at="side_nose"))],
-                         rel=[dict(t="18:50:50", src="報告書 p117")],
-                         note="形と角度は模式（推力の矢印の長さは強さの目安）", src=ss.src(["報告書 p117", "報告書 p140"]))),
-    ),
-    # c418（2行）＝最後の降下（p82：18:55:57ごろ 約10,000フィート・18:56:07 頭下げ約36度・降下率 平均15,000フィート/分＋付図-1 の 18:56:03）
-    "c418": dict(
-        t="最後の降下", s="墜落の直前の約30秒",
-        fig=("m20", dict(view="alt", start=dict(span="final"),
-                         steps=[dict(state=dict(pts="early", m1="on"), tag=dict(t="頭下げ 約36度", d="18:56:07", at="m1")),
-                                dict(state=dict(rate="on"), tag=dict(t="平均の降下率", at="rate", to="rate"))],
-                         rel=[dict(t="約36度", src="報告書 p82"), dict(t="18:56:07", src="報告書 p82")],
-                         note="点は報告書の本文と付図-1 の高度だけ（赤い線は平均の降下率・印の線は模式）",
-                         src=ss.src(["報告書 p82", "報告書 p137"]))),
-    ),
-    # c419（2行）＝18:56:17ごろ 約5,500フィート・地上接近警報（p82）→ 出力は最大近く（推定）・降下が止まる（p82）
-    "c419": dict(
-        t="警報と、止まった降下", s="墜落の直前の約30秒",
-        fig=("m20", dict(view="alt", start=dict(span="final", pts="early", m1="on", rate="on"),
-                         steps=[dict(state=dict(pts="all", m2="on"), tag=dict(t="地上接近警報", d="18:56:17", at="m2")),
-                                dict(state=dict(stop="on"), tag=dict(t="降下が止まる", d="出力は最大近く（推定）", at="stop"))],
-                         rel=[dict(t="18:56:17", src="報告書 p82")],
-                         note="点は報告書の本文と付図-1 の高度だけ（赤い線は平均の降下率・印の線と矢印は模式）",
-                         src=ss.src(["報告書 p82", "報告書 p137"]))),
-    ),
-}
-
-# ── 🆕 ⑤b-7（2026-10-11）：写真・付図（書き方の約束は c2.py の ⑤b-7 の節）──
-SPEC.update({
-    # c401（6.69秒）＝写真-18（残骸（2））＝左から右へ流す
-    #   🆕 ⑤c'：c316（写真-19）と同じ物（シール・リテーナ）＝呼び方をそろえ、置かれた所で書き分け（写真-18＝模様の布の上・手で押さえる）
-    "c401": dict(photo=P("p018"), **ss.kind(P("p018")), cam="pan_r", t="18:45:46 の送信", s="飛行経路の下で見つかった部品（布の上の穴の並ぶ金具）"),
-    # c408（9.04秒）＝写真-124（地上の第三者の撮影＝引用）。🔴 額装・無加工・寄らない（cam・fmove を書かない＝check_frame_only）。
-    #   副題は出典の行（「写真-124／縮小（引用）」）と重ねない（門番 dup）＝一覧の副題の「（報告書 写真-124）」は出典の行が持つ
-    "c408": dict(photo=P("p124"), panel=True, color=1.0, t="欠けた尾翼", s="18:50ごろ、奥多摩町の上空の123便"),
-    # c409（7.29秒）＝付図-27 垂直尾翼損壊図（左側）
-    "c409": dict(photo=P("f027"), **ss.kind(P("f027")), t="尾翼の左側", s="垂直尾翼の壊れ方（左側から見た図）"),
-    # c420（15.55秒）＝付図-19。一本から松（右・横 0.86 縦 0.60）→ U字溝（左上・横 0.22 縦 0.18）へ流す（門番 edges で頭の縦 0.62→0.60）
-    "c420": dict(photo=P("f019"), **ss.kind(P("f019")), t="最後の尾根", s="一本から松から U字溝までの図",
-                 cam={"from": ss.pf(P("f019"), 0.86, 0.60, 1.6), "to": ss.pf(P("f019"), 0.22, 0.18, 1.6)}),
-    # c421（10.90秒）＝写真-3（U字溝・縦長）＝ゆっくり引く。焼き込みの札「垂直尾翼の一部」＝副題と食い違わない
-    #   🆕 ⑤c'：副題「U字溝」と画面の焼き込みの大きな札「垂直尾翼の一部」が別の物を言っていた＝写っている2つを副題にそろえる
-    "c421": dict(photo=P("p003"), **ss.kind(P("p003")), cam="pull", t="墜落の地点", s="U字溝と垂直尾翼の一部（墜落のあと）"),
-})
+SPEC = {}

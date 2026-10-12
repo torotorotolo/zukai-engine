@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""第7章　1978年の修理 c801–c826（26カット）。20本目（日本航空123便のリメイク）。
+"""第7章　4機目　93便の35分 c801–c835（35カット）。21本目（9.11 米国同時多発テロのリメイク）。
 
-■ 🔴 2026-10-08（⑤b-1）：19本目（サーフサイドのマンション崩壊のリメイク）の中身を空にした＝git の `0dcaa9c`（`git show 0dcaa9c:tools/cuts/c8.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep20/make_plan20.py` で
-  映像方針の一覧 `ref/ep20/eizou_build/list20.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
+■ 🔴 2026-10-12（⑤b-1）：20本目（日本航空123便のリメイク）の中身を空にした＝git の `f0095bd`（`git show f0095bd:tools/cuts/c8.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep21/make_plan21.py` で
+  映像方針の一覧 `ref/ep21/eizou_build/list21.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット（台本の画は元の予定）。
@@ -15,243 +15,110 @@ P = ss.P
 
 PLAN = {
     'c801': dict(kind='写真',
-               plan='A1P1｜副題：1978年6月の損傷（尾部の下面）｜動き：下から寄る｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 別添1 写真-1）／縮小・切出｜台本の画：実写 別添1 写真-1「尾部胴体下面」（p254・1978年の損傷・額装・下から寄る＝副題「1978年6月の損傷（尾部の下面）」）',
-               src='報告書 2.7.1(6) p.18（`昭和53年6月2日、同機は大阪国際空港に着陸の際、後部胴体を滑走路に接触し、機体が中破した`）'),
-    'c802': dict(kind='写真',
-               plan='🔧 A1P2｜動き：右から左へ流す｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 別添1 写真-2）／縮小・切出｜台本の画（🔧映像方針で替えた＝元の予定）：実写 別添1 写真-2「APU 防火壁の下部」（p254・1978年の損傷・額装・横に流す）',
-               src='報告書 2.7.1(6) p.18（`後部胴体を滑走路に接触し`）・解説 p.1（`昭和53年の尻もち事故`）'),
-    'c803': dict(kind='図・写真の頁',
-               plan='A1F1｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 別添1 付図-1）／縮小・切出｜台本の画：図 p250 別添1 付図-1 昭和53年6月の事故による損壊部位（1）（損傷の配置・額装）',
-               src='報告書 2.7.1(6) p.18（`昭和53年6月7日から14日まで大阪国際空港において日航により仮修理が行われた後、同機は東京国際空港に空輸された`・`本修理はボーイング社に委託され`）'),
-    'c804': dict(kind='図・写真の頁',
-               plan='A1F2｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 別添1 付図-2）／縮小・切出｜台本の画：図 p251 別添1 付図-2 昭和53年6月の事故による損壊部位（2）（主脚の図の配置・額装）',
-               src='別添1 本文 p.247（`修理作業は、ボーイング社から派遣された技術員、検査員、その他を含む40数名の修理チームによって行われた`・`修理作業は、昭和53年6月17日~7月11日の間に行われた`）＝原寸で確認'),
+               plan='EWR｜副題：ニューアーク空港の93便の搭乗口（2006年）｜動き：上へ流す｜権利：C（PD-self＝撮影者の献呈）｜出典の行：Tshevlin（パブリックドメイン）｜注：17番搭乗口の上の旗｜台本の画：実写 ニューアーク空港の93便の搭乗口の記念の旗（後年・C・全画面・ゆっくり寄る＝副題「現在のニューアーク空港・93便の搭乗口」）',
+               src="委員会報告 p10（`As United 93 left Newark, the flight's crew members were unaware of the hijacking of American 11`）"),
+    'c802': dict(kind='図・写真の頁',
+               plan='見る向き：上から｜注：NTSB 93便の経路｜台本の画：図 NTSB 93便の経路（PDF p3 の地図をなぞる・ニューアークから西へ）',
+               src='委員会報告 p10（`Around 9:00, the FAA, American, and United were facing the staggering realization of apparent multiple hijackings`）'),
+    'c803': dict(kind='図解',
+               plan='台本の画：図 模式 操縦室の画面に届く文字の連絡（人は描かない）',
+               src='委員会報告 p11（`Beware any cockpit intrusion`）'),
+    'c804': dict(kind='図解',
+               plan='台本の画：図 模式 同じ（93便の画面に届く＝9:24）',
+               src='委員会報告 p11（`warning to United 93 was received in the cockpit`）'),
     'c805': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 隔壁の上半分（元のまま）と下半分（新しい物）を色で分ける（付図-36 の形から）',
-               src='報告書 3.1.1.1 p.65（`同接続部において新旧の圧力隔壁構成品を結合したものである`）・別添1 本文 p.248（`後部圧力隔壁下半部の左側のL18接続部`）'),
-    'c806': dict(kind='再現イラスト',
-               plan='S6｜見る向き：正面から｜合図：🔁 横→正面（前の再現 c720）＝左上に見る向きの札・替わる瞬間に「正面から見ると」｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S6【正面から】隔壁の上半分と下半分の継ぎ目（L18 の位置に印・人は描かない）',
-               src='別添1 本文 p.248（`L18接続部のほぼ全域にわたって、リベット孔回りのエッジ・マージンが構造修理マニュアルに記載された値より不足するという不具合が見い出された`）＝原寸で確認'),
+               plan='台本の画：図 模式 同じ（返信の文字＝字幕だけ）',
+               src='委員会報告 p11（`responded with a note of puzzlement`・`confirm latest mssg plz`）'),
+    'c806': dict(kind='図・写真の頁',
+               plan='見る向き：横から｜合図：🔁 上から→横から（前の図 c802）＝左上に見る向きの札・替わる瞬間に「横から見ると」｜注：NTSB 93便の高度｜台本の画：図 NTSB 93便の高度（9:28 の小さな降下の印）',
+               src='委員会報告 p11（`The hijackers attacked at 9:28`・`While traveling 35,000 feet above eastern Ohio, United 93 suddenly dropped 700 feet`）・NTSB 93便（`a brief descent of about 600 feet starting at 9:28`）'),
     'c807': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 穴と板の縁の余白（エッジ・マージン＝穴と板の縁のあいだ・測る起点の線は描かない）',
-               src='—'),
-    'c808': dict(kind='図・写真の頁',
-               plan='A1F3｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 別添1 付図-3）／縮小・切出｜台本の画：図 p252 別添1 付図-3 左「修正措置で指示された継ぎ方」（断面の配置・額装）',
-               src='別添1 本文 p.248（`別添1の付図-3左側に示すようにエッジ・マージンの不足するウエブの合わせ面に、1枚のスプライス・プレートをはさむという修正処置が修理チーム技術員から指示された`）＝原寸で確認・報告書 3.2.2(1)(エ) p.102（`この指示は適切なものであったと考えられる`）'),
-    'c809': dict(kind='再現イラスト',
-               plan='🔧 S6｜見る向き：横から｜合図：🔁 正面→横（前の再現 c806）＝左上に見る向きの札・替わる瞬間に「横から見ると」｜権利：自作（形のもと＝報告書の付図）｜注：✅ 付図-3 左（p.252 を原寸で）＝継ぎ板（スプライス・プレート）1枚が3列にかかる＝「既存のリベット位置」2列＋「新リベット列」（1インチ下・元と同じリベットと間隔）。上下の向き＝上が上側ドーム・矢印「前方」｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現イラスト S6【横から】指示の継ぎ方（継ぎ板1枚が上と下の板にまたがる・2列のリベット）',
-               src='別添1 付図-3 p.252（左＝継ぎ板1枚が上側と下側にまたがる＝sources.md §7-1）'),
-    'c810': dict(kind='図・写真の頁',
-               plan='A1F3｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 別添1 付図-3）／縮小・切出｜台本の画：図 p252 別添1 付図-3 右「実際の継ぎ方」（断面の配置・額装）',
-               src='別添1 本文 p.248（`1枚のスプライス・プレートのかわりに修理指示より幅の狭い1枚のスプライス・プレートと1枚のフィラが用いられ`）＝原寸で確認・報告書 3.2.2(1)(オ) p.102'),
-    'c811': dict(kind='再現イラスト',
-               plan='🔧 S6｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜注：✅ 付図-3 右＝継ぎ板は下の2列だけにかかり、いちばん上の列は別の詰め物（フィラ）＝上の板と継ぎ板をつなぐのは1列。「左側の2ベイ分」（別添1 本文）。付図に無い線（板の端の位置など）は描き足さない｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現イラスト S6【横から】実際の継ぎ方（幅の狭い継ぎ板とフィラ・左側の2ベイ分は1列だけで留まる＝付図-3 を原寸で見て描く）',
-               src='別添1 本文 p.248（`2列リベットで結合されるべきものが左側の第1ストラップと第3ストラップ間の2ベイ分の結合が1列リベット結合という結果となった`）＝原寸で確認'),
-    'c812': dict(kind='再現イラスト',
-               plan='S6｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S6【横から】（指示と実際を左右に並べる）',
-               src='別添1 本文 p.248（`このスプライス・プレート及びフィラは、取り外した旧隔壁から製作された`）＝原寸で確認'),
-    'c813': dict(kind='文字の頁',
-               plan='PG｜動き：寄る｜権利：PDL1.0（文字の頁）｜台本の画：図 p102 報告書 3.2.2 の頁（文字の頁・「記録はない」の段落へ寄る）',
-               src='報告書 3.2.2(1)(オ) p.102（`なお、このような作業が行われたという記録はない`）'),
-    'c814': dict(kind='再現イラスト',
-               plan='S6｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S6【横から】の戻り（実際の継ぎ方）',
-               src='報告書 3.2.2(1)(オ) p.102'),
+               plan='台本の画：図 模式 管制の無線（クリーブランド・センターと93便を結ぶ線）',
+               src='委員会報告 p11（`could be heard declaring "Mayday" amid the sounds of a physical struggle in the cockpit`・`Hey get out of here`）'),
+    'c808': dict(kind='図解',
+               plan='台本の画：図 模式 同じ（機内の放送が無線に流れる線）',
+               src='委員会報告 p12（`made or attempted to make the following announcement to the passengers`・`We have a bomb on board`）・p28（`At 9:32, a third radio transmission came over the frequency`）・p13（`we believe the bombs were probably fake`）'),
+    'c809': dict(kind='図・写真の頁',
+               plan='見る向き：上から｜合図：🔁 横から→上から（前の図 c806）＝左上に見る向きの札・替わる瞬間に「上から見ると」｜台本の画：図 NTSB 93便の経路（オハイオの上で向きを変え、東へ戻る線）',
+               src="委員会報告 p12（`instructed the plane's autopilot to turn the aircraft around and head east`）"),
+    'c810': dict(kind='図解',
+               plan='台本の画：図 模式 時間の帯（93便＝9:28 乗っ取り・9:34 FAA 本部へ）',
+               src='委員会報告 p28（`By 9:34, word of the hijacking had reached FAA headquarters`）'),
+    'c811': dict(kind='図解',
+               plan='台本の画：図 模式 手順の段（FAA 本部から国防総省への矢印が途中で止まる）',
+               src='委員会報告 p29（`At 9:49, 13 minutes after Cleveland Center had asked about getting military help, the Command Center suggested that someone at headquarters should decide whether to request military assistance`）'),
+    'c812': dict(kind='図解',
+               plan='台本の画：図 模式 同じ（矢印に×）',
+               src='委員会報告 p30（`no one from FAA headquarters requested military assistance regarding United 93. Nor did any manager at FAA headquarters pass any of the information it had about United 93 to the military`）'),
+    'c813': dict(kind='図解',
+               plan='台本の画：図 模式 時間の帯（9:41 トランスポンダの印）',
+               src='NTSB 93便（`stopped receiving transponder returns`）・委員会報告 p29（`The controller located it on primary radar`・`tracked the flight as it turned east, then south`）'),
+    'c814': dict(kind='図解',
+               plan='台本の画：図 模式 機内の座席（後ろの席と座席の背の電話＝人は描かない）',
+               src='国立公園局（`thirty-seven phone calls were placed from on board Flight 93`・`Thirty-five of these calls were made on the Airfones located on the back of the seats in the last nine rows of the plane`）'),
     'c815': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 修理の日付の帯（6月17日から7月11日・6月26日の作業・6月27日の検査・7月12日の合格）',
-               src='別添1 本文 p.248（`この作業は6月26日に行われ、6月27日に修理チーム検査員の検査を受けたが、検査員は上記の結果を見い出すことはできなかった`）＝原寸で確認'),
+               plan='台本の画：図 模式 同じ（後ろの9列に印）',
+               src='国立公園局（`Unless noted, the calls were made on Airfones`・`used her cell phone to call`・`used a cell phone to dial 911 and was connected for 70 seconds`）'),
     'c816': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 継ぎ目の断面（縁がシール材で覆われる）',
-               src='報告書 3.2.2(1)(ク) p.103（`当該接続部分の縁がフィレット・シールで覆われているために、前述した指示とは異なる作業結果を目視検査で発見することは不可能であったと考えられる`）'),
+               plan='台本の画：図 模式 地上の側（家族・航空会社・当局の3つの箱）',
+               src="委員会報告 p13（`During at least five of the passengers' phone calls, information was shared about the attacks that had occurred earlier that morning at the World Trade Center`）"),
     'c817': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 3つの検査（修理チームの検査員・日本航空の受け取りの検査・航空局の検査＝札は機関の名）',
-               src='報告書 3.2.2(1)(キ) p.102（`ボーイング社の検査員により米国連邦航空局の承認を受けたボーイング社の規定に従って行われた`・`日航は`・`領収検査を行った`）'),
+               plan='台本の画：図 模式 機内の座席（話し合いの印）',
+               src='委員会報告 p13（`Five calls described the intent of passengers and surviving crew members to revolt against the hijackers`・`According to one call, they voted on whether to rush the terrorists in an attempt to retake the plane`）'),
     'c818': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 3つの検査の続き（航空局の検査の中身＝図面と作業記録と飛行試験）',
-               src='別添1 本文 p.249（`後部圧力隔壁のL18接続部の修理については、修理作業後他の修理部分と同様に作業完了についての作業記録による確認が行われた`）＝原寸で確認・報告書 4.1.3.5 p.124（`修理作業の際の検査及び修理後の検査では、前記の不適切な作業部分を目視検査で見い出すことはできなかった`）'),
+               plan='台本の画：図 模式 同じ',
+               src='委員会報告 p13（`They decided, and acted`）'),
     'c819': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 同じ帯の続き（7月12日に印）',
-               src='別添1 本文 p.249（`7月12日合格と判定された`）＝原寸で確認・報告書 2.7.1(6) p.18（`昭和53年7月12日、同検査に合格した`）'),
+               plan='台本の画：図 模式 時間の帯（9:57 反撃）',
+               src='委員会報告 p13（`At 9:57, the passenger assault began`・`Several passengers had terminated phone calls with loved ones in order to join the revolt`）'),
     'c820': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 作業の管理の流れ（指示・作業・検査の3つの箱＝札だけ）',
-               src='報告書 3.2.2(1)(ケ) p.103（`今回の修理作業では、作業工程における検査を含む作業管理方法の一部に適切さに欠ける点があったと考えられる`）'),
-    'c821': dict(kind='図・写真の頁',
-               plan='A1F4｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 別添1 付図-4）／縮小・切出｜台本の画：図 p253 別添1 付図-4 ウェブのオイル・キャン処置（へこみの配置・額装）',
-               src='報告書 3.2.2(1)(カ) p.102（`修理された後部圧力隔壁のウェブには、6箇所のオイル・キャン(へこみ)が発見された`）'),
-    'c822': dict(kind='再現イラスト',
-               plan='S1｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S1【横から】の戻り（尾部・修理の場所に印）',
-               src='報告書 4.1.4 p.124（`ほとんどあり得ないような事態、あるいは不適切な作業等によって生じるような事態に対してまでも耐空性を保証するものではないと考えられる`）'),
-    'c823': dict(kind='再現イラスト',
-               plan='S1｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S1【横から】（尾部の継ぎ目に印・7年の札）',
-               src='—'),
+               plan='台本の画：図 模式 機の向き（左右に傾く記号＝人は描かない）',
+               src='委員会報告 p13（`immediately began to roll the airplane to the left and right, attempting to knock the passengers off balance`・`But the assault was sustained`）'),
+    'c821': dict(kind='図解',
+               plan='台本の画：図 模式 操縦室の扉（扉の内と外＝人は描かない）',
+               src='委員会報告 p13（`told another hijacker in the cockpit to block the door`）'),
+    'c822': dict(kind='図解',
+               plan='台本の画：図 模式 同じ扉（扉の外からの音の波）',
+               src='委員会報告 p13（`The cockpit voice recorder captured the sounds of the passenger assault muffled by the intervening cockpit door`）'),
+    'c823': dict(kind='図解',
+               plan='台本の画：図 模式 操縦室の音声の時刻の帯（10:00:25・10:00:42＝字幕だけ・画面に大きく出さない）',
+               src="CVR p7（`In the cockpit. If we don't, we'll die.`）・委員会報告 p14（`a passenger in the background said`）"),
     'c824': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 7年の年表（1978年7月から1985年8月・C整備の点だけ）',
-               src='報告書 2.7.1(5) p.18（`A整備とは飛行時間250時間ごとの整備をいい、C整備とは3,000時間ごとの整備をいう`）'),
+               plan='台本の画：図 模式 同じ帯',
+               src='CVR p7（`Roll it.`）・委員会報告 p14（`Sixteen seconds later, a passenger yelled, "Roll it!"`）'),
     'c825': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 同じ年表（点検の点を順に光らせる）',
-               src='報告書 4.1.5.4 p.125（`6回のC整備`）・3.2.2(2)(キ) p.104（`C整備(No.5C)を含めて、今回の事故発生までに7回のC整備が行われた`）'),
+               plan='台本の画：図 模式 機の向き（傾きが止まる記号）',
+               src='委員会報告 p14（`stopped the violent maneuvers at about 10:01:00`）'),
     'c826': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 同じ年表の終わり（1985年8月12日の印）',
-               src='報告書 4.1.5.2 p.124（`1列リベット結合部分を主として多数の疲労亀裂が発生進展していた`）・4.1.5.4 p.125（`疲労亀裂は発見されなかった`）・4.1.5.3 p.124（`この間の飛行で、今回の事故と関連があるとみられるような異常及び不具合はなかったものと考えられる`）'),
+               plan='台本の画：図 模式 同じ帯（10:02 前後）',
+               src='委員会報告 p14（`The hijackers remained at the controls but must have judged that the passengers were only seconds from overcoming them`・`The airplane headed down`）'),
+    'c827': dict(kind='写真',
+               plan='SHANK15｜副題：現在の93便の墜落現場（追悼の場・2015年）｜動き：ゆっくり引く｜権利：F（CC BY 3.0）｜出典の行：Ron Shawley（CC BY 3.0）｜注：来訪者は顔だけモザイク（CC BY）｜台本の画：実写 shanksville_day（ペンシルベニア州シャンクスビルの93便の追悼の場・2015年・F・全画面・来訪者は顔だけモザイク・ゆっくり引く＝副題「現在の93便の墜落現場（追悼の場）」）',
+               src="委員会報告 p30（`United 93 crashed in Pennsylvania at 10:03:11, 125 miles from Washington, D.C.`）・p14（`about 20 minutes' flying time from Washington, D.C.`）"),
+    'c828': dict(kind='写真',
+               plan='MEM24A｜副題：現在の93便の墜落現場（追悼の場・2024年の空撮）｜動き：右へ流す｜権利：C（CC0）｜出典の行：Designism（CC0）｜注：CC0｜台本の画：実写 93便の追悼の場（別の点・後年・全画面・右へ流す＝副題「現在の93便の墜落現場（追悼の場）」）',
+               src='記念館（`40 people were killed on Flight 93`）'),
+    'c829': dict(kind='写真',
+               plan='MEM15｜副題：現在の93便の追悼の場（2015年）｜動き：左へ流す｜権利：F（CC BY 3.0）｜出典の行：Ron Shawley（CC BY 3.0）｜注：名前の壁は写らない｜台本の画：実写 93便の追悼の場（別の点・後年・名前の壁は写さない＝副題「現在の93便の追悼の場」）',
+               src='委員会報告 p14（`symbols of the American Republic, the Capitol or the White House`）'),
+    'c830': dict(kind='図解',
+               plan='台本の画：図 模式 時間の帯（9:28 から 10:03 まで＝35分）',
+               src='委員会報告 p14（`He was defeated by the alerted, unarmed passengers of United 93`）'),
+    'c831': dict(kind='図解',
+               plan='台本の画：図 模式 同じ帯',
+               src='—'),
+    'c832': dict(kind='図解',
+               plan="台本の画：図 模式 操縦室の音声の時刻の帯（「Let's roll」の札に「電話の向こうで聞かれた言葉」）",
+               src="AP（`Let's roll`・`leaving the line open. It was then that the operator heard his words`）"),
+    'c833': dict(kind='図解',
+               plan='台本の画：図 模式 同じ帯',
+               src='CVR p7（`Roll it.`）'),
+    'c834': dict(kind='図解',
+               plan='台本の画：図 模式 同じ帯',
+               src='委員会報告 p45（`We are sure that the nation owes a debt to the passengers of United 93`・`Their actions saved the lives of countless others, and may have saved either the Capitol or the White House from destruction`）'),
+    'c835': dict(kind='図解',
+               plan='台本の画：図 模式 4機の行き先の地図（3つの印と、野原の印）',
+               src='—'),
 }
 
-from illu20 import S1_REC as S1R  # noqa: E402  🆕 ⑤b-3：置き場 S1 の部品の出典（描く側と同じ文）
-from illu20 import S6_REC as S6R  # noqa: E402  🆕 ⑤b-4：置き場 S6 の部品の出典
-
-SPEC = {
-    # ── 🆕 ⑤b-4（2026-10-08）：再現イラスト S6 後部圧力隔壁の継ぎ目（`tools/illu20.py`・門番 check_illu ㉙）──
-    #   断面＝別添1 付図-3 のとおり（付図に無い線は描き足さない）。「N列」の札は指す断面の列の数（㉙）
-    # c806（3行）＝前の再現 c720（S1・横から）→ 正面から＝合図（台本の画の欄の🔁）。隔壁の円 → L18 の継ぎ目（ほぼ全体）
-    "c806": dict(fig=("illu", dict(
-        place="S6", start=dict(view="front", switch="on"), rec=S6R["front"],
-        # 🆕 ⑥：off (-40, -150) は札の右の端に隔壁の円・ストラップの輪・横の線が重なった（geom_gap・2行目だけ＝静止画に写らない）
-        #   ＝円の外の左上 (-110, -190)＝線から 25px（scratchpad place20.py）
-        steps=[dict(), dict(state=dict(s6l18="on"), rec=S6R["l18"], tag=dict(t="L18 の継ぎ目", at="l18", off=(-110, -190), anchor="end")),
-               # 🆕 ⑥：off (40, 150) は札に隔壁の円の縁と横の線が重なった（原寸＝縁取りで読めるが・geom_gap）＝円の外の右下 (110, 210)＝線から 23px
-               dict(tag=dict(t="余白が足りない", at="l18r", off=(110, 210)))]))),
-    # c809（2行）＝正面 → 横から（断面）＝合図。指示の継ぎ方：継ぎ板1枚が上と下の板にまたがる → 上の板を2列で留める
-    "c809": dict(fig=("illu", dict(
-        place="S6", start=dict(s6kind="plan", switch="on"), rec=S6R["plan"],
-        steps=[dict(state=dict(s6spl="on"), rec=S6R["plan"]),
-               dict(state=dict(s6row="on"), rec=S6R["plan"], tag=dict(t="2列で留まる", at="rows", off=(160, 0)))]))),
-    # c811（3行）＝実際の継ぎ方：幅の狭い継ぎ板とフィラ（違う板）→（左側の2ベイ分）→ 上の板を留めるのは1列だけ
-    "c811": dict(fig=("illu", dict(
-        place="S6", start=dict(s6kind="real"), rec=S6R["real"],
-        steps=[dict(state=dict(s6spl="on", s6fil="on"), rec=S6R["real"]), dict(),
-               dict(state=dict(s6row="on"), rec=S6R["real"], tag=dict(t="1列だけ", at="rows", off=(160, 0)))]))),
-    # c812（2行）＝左に指示・右に実際を並べる（付図-3 と同じ並び）。実際の継ぎ板とフィラは古い隔壁から作られた
-    "c812": dict(fig=("illu", dict(
-        place="S6", start=dict(view="both"), rec=S6R["side"],
-        steps=[dict(state=dict(s6spl="on", s6fil="on"), rec=S6R["made"]), dict()]))),
-    # c814（2行）＝実際の継ぎ方の戻り（理由は書かれていない＝札なし）
-    "c814": dict(fig=("illu", dict(
-        place="S6", start=dict(s6kind="real", s6row="on"), rec=S6R["real"], steps=[dict(), dict()]))),
-    # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1（`tools/illu20.py`・門番 check_illu ㉔）──
-    # c822（2行）＝尾部・修理の場所に輪（語りは設計の基準＝札は場所だけ）
-    "c822": dict(fig=("illu", dict(
-        place="S1", start=dict(s1bulk="on"), rec=S1R["bulk"],
-        steps=[dict(state=dict(s1ring="tail"), tag=dict(t="修理の場所", at="bulk", off=(-60, -200), anchor="end")), dict()]))),
-    # c823（2行）＝聞き役「基準だけでは、防ぎきれない」→ 修理を終えた JA8119 は定期便へ＝「修理から7年」の札
-    "c823": dict(fig=("illu", dict(
-        place="S1", start=dict(s1bulk="on", s1ring="tail"), rec=S1R["bulk"],
-        steps=[dict(), dict(tag=dict(t="修理から7年", at="bulk", off=(-60, -200), anchor="end"))]))),
-    # ── 🆕 ⑤b-6（2026-10-10）：模式図 第7章（m20・年表 axis・並べ図 boxes）──
-    # c805（3行）＝（聞き役）→ 下の半分を新しい物に・上の半分は元のまま（別添1 p246）→ 2つを継ぎ目でつなぐ（次の c806 で L18 の名）
-    "c805": dict(
-        t="取り替えた下半分", s="隔壁のどこを替えたか",
-        fig=("m20", dict(view="half",
-                         steps=[dict(state=dict(name="on"), tag=dict(t="後部圧力隔壁", at="name", to="dome")),
-                                dict(state=dict(half="on"), tag=[dict(t="上の半分（元のまま）", at="up", to="up"),
-                                                                 dict(t="下の半分（新しい物）", at="lo", to="lo")]),
-                                dict(state=dict(join="on"), tag=dict(t="上と下の継ぎ目", at="join", to="join"))],
-                         note="形は模式（隔壁の位置は BS2360）", src=ss.src(["報告書 p246", "報告書 p65"])))),
-    # c807（3行）＝（聞き役）余白 → 縁に近すぎる穴は壊れやすい → 手引きの決まり（長さは模式・測る起点の線は描かない）
-    "c807": dict(
-        t="穴と縁のあいだ", s="エッジ・マージン",
-        fig=("m20", dict(view="edge",
-                         steps=[dict(state=dict(good="on"), tag=dict(t="余白", at="good", to="good")),
-                                dict(state=dict(bad="on"), tag=dict(t="縁に近すぎる穴", at="bad", to="bad")),
-                                dict(state=dict(req="on"), tag=dict(t="手引きの決まり", at="req", to="req", col=J.OK))],
-                         note="形と長さは模式（数字は書かない）", src=ss.src(["報告書 p248"])))),
-    # c815（2行）＝羽田での修理（6月17日〜7月11日）の中の 6月26日の作業・6月27日の修理チームの検査（別添1 p247・p248）→ 見つけられなかった
-    "c815": dict(
-        t="作業と検査の日付", s="1978年6月〜7月（羽田）",
-        fig=("axis", dict(ss.AX_FIX78, steps=[
-            dict(add=[ss.ax("rep78"), ss.ax("w26"), ss.ax("i27")], cur="1978-06-27"),
-            dict()],
-            note="日付は報告書（別添1）の記録", src=ss.src(["報告書 p247", "報告書 p248"])))),
-    # c816（2行）＝継ぎ目の縁を覆うシール材（フィレット・シール＝p103）→ 後ろから目で見ても見つけられない（報告書の考え）
-    "c816": dict(
-        t="縁を覆うシール材", s="フィレット・シール",
-        fig=("m20", dict(view="seal",
-                         steps=[dict(state=dict(seal="on"), tag=dict(t="シール材", at="seal", to="bead")),
-                                dict(state=dict(eye="on"), tag=dict(t="目で見ても見えない", d="報告書の考え", at="eye", to="eye"))],
-                         note="断面は別添1 付図-3 の実際の継ぎ方・シール材は付図-38 から（模式・大きさは強調）",
-                         src=ss.src(["報告書 p103", "報告書 p174", "報告書 p252"])))),
-    # c817（2行）＝修理の検査（p102）：ボーイング社の検査員 → 日本航空の領収検査・航空局の検査（札は機関の名＝並べるだけ）
-    "c817": dict(
-        t="修理の3つの検査", s="報告書 3.2.2 から",
-        fig=("boxes", dict(view="row", slots=3, steps=[
-            dict(add=dict(k="item", t="ボーイング社の検査員", rec="報告書 p102")),
-            # ⑤c'（2026-10-11）：「領収検査」は語り（受け取りの検査）と言い方が割れるが据え置き＝箱の型は画面の言葉が報告書の言葉（門番 boxes の
-            #   REC_CAUSE・p102「領収検査」）・語りの言い方にすると写し（門番 echo）＝画面は報告書の語、語りが同時に言い換える組み立て
-            dict(add=[dict(k="item", t="日本航空の領収検査", rec="報告書 p102"), dict(k="item", t="航空局の検査", rec="報告書 p102")])],
-            note="並びの順に意味は無い", src=ss.src(["報告書 p102"])))),
-    # c818（3行）＝航空局の検査の中身（p103）：図面で修理の計画・作業記録で修理の過程 →（L18 は作業記録による確認）→ 外観・機能・飛行の試験
-    "c818": dict(
-        t="航空局が確かめたもの", s="修理改造検査（1978年）",
-        fig=("boxes", dict(view="row", slots=3, steps=[
-            dict(add=[dict(k="item", t="図面による修理計画の審査", rec="報告書 p103"),
-                      dict(k="item", t="作業記録による修理過程の審査", rec="報告書 p103")]),
-            dict(),
-            dict(add=dict(k="item", t="外観検査・機能試験・飛行試験", rec="報告書 p103"))],
-            note="並びの順に意味は無い", src=ss.src(["報告書 p103", "報告書 p249"])))),
-    # c819（2行）＝同じ帯の続き：飛行試験（7月10日・11日）・7月12日に合格（別添1 p249・p18）
-    "c819": dict(
-        t="合格の日", s="1978年7月（羽田）",
-        fig=("axis", dict(ss.AX_FIX78, past=[ss.ax("rep78"), ss.ax("w26"), ss.ax("i27")], start=dict(cur="1978-06-27"), steps=[
-            dict(add=[ss.ax("flt78"), ss.ax("ok78")], cur="1978-07-12"),
-            dict()],
-            note="日付は報告書（別添1）の記録", src=ss.src(["報告書 p249", "報告書 p18"])))),
-    # c820（2行）＝作業の管理（p102 指示・作業・p103（ケ）作業工程における検査）→ 一部に適切さに欠ける点（報告書の考え＝札にしない）
-    "c820": dict(
-        t="作業の管理", s="報告書の考え（3.2.2）",
-        fig=("boxes", dict(view="row", slots=3, steps=[
-            dict(add=[dict(k="item", t="指示", rec="報告書 p102"), dict(k="item", t="作業", rec="報告書 p102"),
-                      dict(k="item", t="検査", rec="報告書 p103")]),
-            dict()],
-            note="並びの順に意味は無い", src=ss.src(["報告書 p102", "報告書 p103"])))),
-    # c824（2行）＝C整備（約3,000時間ごと＝p18）：修理と同時の C整備（No.5C＝1978年7月・p104）→ 最後の C整備（1984年11月20日〜12月5日＝p18）
-    "c824": dict(
-        t="大がかりな点検", s="修理のあとの7年",
-        fig=("axis", dict(ss.AX_7Y, steps=[
-            dict(add=ss.ax("c5"), cur="1978-07"),
-            dict(add=ss.ax("c11"), cur="1984-12-05")],
-            note="C整備の日付は報告書にある2回だけ（間の回の日付は書いていない）", src=ss.src(["報告書 p18", "報告書 p104"])))),
-    # c825（1行）＝C整備は修理のあと6回・修理と同時のものも数えて7回（p125・p104）＝最初と最後のあいだの括弧（間の日付は記録に無い）
-    "c825": dict(
-        t="C整備の回数", s="修理のあとの7年",
-        fig=("axis", dict(ss.AX_7Y, past=[ss.ax("c5"), ss.ax("c11")], start=dict(cur="1984-12-05"), steps=[
-            dict(add=ss.ax("c_all"))],
-            note="C整備の日付は報告書にある2回だけ（間の回の日付は書いていない）", src=ss.src(["報告書 p104", "報告書 p125"])))),
-    # c826（2行）＝その7年のあいだ亀裂は見つからずに伸びた（修理のあとの飛行）→ 事故（1985年8月12日）
-    "c826": dict(
-        t="見つからなかった亀裂", s="1978年〜1985年",
-        fig=("axis", dict(ss.AX_7Y, past=[ss.ax("c5"), ss.ax("c11"), ss.ax("c_all")], start=dict(cur="1984-12-05"), steps=[
-            dict(add=ss.ax("fly7"), cur="1985-08-12"),
-            dict(add=ss.ax("acc85"))],
-            note="日付は報告書の記録", src=ss.src(["報告書 p18", "報告書 p124", "報告書 p125"])))),
-}
-
-# ── 🆕 ⑤b-7（2026-10-11）：写真・付図・文字の頁（書き方の約束は c2.py の ⑤b-7 の節）──
-#   ⚠️ 章の札「1978年の修理」＝見出し・副題に「1978年」（5字）を入れない（門番 dup）＝一覧の副題「1978年6月の損傷（尾部の下面）」も
-#      「6月の事故」と書く（年は章の札が出している）
-SPEC.update({
-    # c801（10.06秒）＝別添1 写真-1「尾部胴体下面」（縦長）＝下から寄る
-    "c801": dict(photo=P("a1p001"), **ss.kind(P("a1p001")), t="大阪での事故", s="尾部の下面の損傷（6月の事故）",
-                 cam={"from": ss.pf(P("a1p001"), 0.50, 0.85, 1.25), "to": ss.pf(P("a1p001"), 0.50, 0.45, 1.5)}),
-    # c802（6.75秒）＝別添1 写真-2「APU 防火壁の下部」＝右から左へ流す
-    "c802": dict(photo=P("a1p002"), **ss.kind(P("a1p002")), cam="pan_l", t="壊れた尾部", s="APU 防火壁の下部の損傷（6月の事故）"),
-    # c803（8.19秒）＝別添1 付図-1 昭和53年6月の事故による損壊部位（1）
-    "c803": dict(photo=P("a1f001"), **ss.kind(P("a1f001")), t="損傷の範囲", s="6月の事故で壊れた所（1枚目の図）"),
-    # c804（8.12秒）＝別添1 付図-2 同（2）（縦長）
-    "c804": dict(photo=P("a1f002"), **ss.kind(P("a1f002")), t="羽田での作業", s="6月の事故で壊れた所（2枚目の図）"),
-    # c808（9.18秒）＝別添1 付図-3 の左「修正措置で指示された継ぎ方」（横 0.10〜0.45）に寄せた窓。
-    #   試し焼き 38099274247 では 1.7倍＝窓の右の辺が札「フィレット・シール」を切った＝左右の辺も測って（edges --sides と同じ関数）1.4倍
-    "c808": dict(photo=P("a1f003"), **ss.kind(P("a1f003")), **ss.pfk(P("a1f003"), 0.28, 0.45, 1.4), t="指示された継ぎ方",
-                 s="隔壁の継ぎ目の断面（図の左）"),
-    # c810（7.40秒）＝同じ付図-3 の右「実際の継ぎ方」（横 0.55〜0.85）。同じ理由で 1.7→1.4倍（左の辺が札を切った）
-    #   🆕 ⑤c'：1.4倍・(0.75, 0.45) の窓（横 0.29〜1.0・縦 0.09〜0.81）に左の図の指示の注「新リベット列 元と同じリベットと間隔で打鋲せよ」
-    #   （横 0.33〜0.64・縦 0.676〜0.721＝OCR）が入っていた（原寸）。寄りの窓では「札を切らない・注を入れない・インク率 4%（門番 blank）」を
-    #   同時に満たせない（真ん中の札「スプライス・プレート」は横 0.386 から＝窓の左の辺が1字目を切る）＝切り口で注と左の図を落として額装
-    #   （横 0.305〜1.0・縦 0〜0.665＝左の題「…指示された継ぎ方」は 0.296 まで・注は 0.676 から＝どちらも外）
-    "c810": dict(photo=P("a1f003"), **ss.kind(P("a1f003")), trim=(0.305, 0.0, 1.0, 0.665), t="実際の継ぎ方",
-                 s="隔壁の継ぎ目の断面（図の右）"),
-    # c813（6.14秒）＝報告書 p102（3.2.2(1)(オ)）。2行目の引用「このような作業が行われたという記録はない」と同時に印（pages.json の hl）
-    "c813": dict(photo=ss.page(102), trim=ss.ptrim("c813"), bias=ss.pbias("c813"), panel=True, color=1.0, hl=ss.phl("c813"),
-                 t="報告書の一文", s="修理の作業についての記述（3.2.2）"),
-    # c821（8.29秒）＝別添1 付図-4 ウェブのオイル・キャン処置（1.2倍に寄せた窓＝門番 edges で上の辺が札「ごく僅かなへこみ」を切らない）
-    #   🆕 ⑤c'：1.2倍の窓は左右の辺が札（「へこみ 0.08〜0.09"」「ごく僅か 8"×6"」「補強用ストラップ」ほか＝横 0.007〜0.99）を切っていた（原寸）。
-    #   この頁は札が上の端（縦 0.003）から下の端（0.994）まであり、窓を寄せるとどこかが切れる＝額ごと寄る（絵は切らない・c102 と同じ型）
-    "c821": dict(photo=P("a1f004"), **ss.kind(P("a1f004")), fmove=ss.fm("in"), t="オイル・キャン",
-                 s="隔壁の板のへこみの直し方"),
-})
+SPEC = {}

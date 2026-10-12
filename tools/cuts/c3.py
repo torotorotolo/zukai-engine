@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""第2章　操縦できない c301–c322（22カット）。20本目（日本航空123便のリメイク）。
+"""第2章　乗っ取りの「常識」 c301–c320（20カット）。21本目（9.11 米国同時多発テロのリメイク）。
 
-■ 🔴 2026-10-08（⑤b-1）：19本目（サーフサイドのマンション崩壊のリメイク）の中身を空にした＝git の `0dcaa9c`（`git show 0dcaa9c:tools/cuts/c3.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep20/make_plan20.py` で
-  映像方針の一覧 `ref/ep20/eizou_build/list20.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
+■ 🔴 2026-10-12（⑤b-1）：20本目（日本航空123便のリメイク）の中身を空にした＝git の `f0095bd`（`git show f0095bd:tools/cuts/c3.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep21/make_plan21.py` で
+  映像方針の一覧 `ref/ep21/eizou_build/list21.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット（台本の画は元の予定）。
@@ -14,234 +14,66 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'c301': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜合図：🔁 横→上（前の再現 c216）＝左上に見る向きの札・替わる瞬間に「上から見ると」｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】経路の地図（伊豆半島の東・18:25:21 の点）',
-               src='報告書 2.1 p.6（`18時25分21秒東京コントロールに対し異常事態が発生したため22,000フィートに降下し`・`羽田(東京国際空港)に引き返す`）'),
-    'c302': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】（伊豆半島を横切り駿河湾へ）',
-               src='報告書 2.1 p.6（`伊豆半島を横切り駿河湾上に出た`・`顕著なフゴイド及びダッチロール運動が励起され`）'),
-    'c303': dict(kind='再現イラスト',
-               plan='S3｜見る向き：横から｜合図：🔁 上→横（前の再現 c302）＝左上に見る向きの札・替わる瞬間に「横から見ると」｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S3【横から】フゴイドの模式（機首が上下し高さと速さが波打つ＝「記録のグラフではない模式」の札）',
-               src='報告書 3.2.6.2(1) p.113（`フゴイド運動`）'),
-    'c304': dict(kind='再現イラスト',
-               plan='S3｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S3【横から】（波の振れ幅の札）',
-               src='報告書 3.2.6.2(1) p.113（`縦揺れ角±約15度、垂直加速度±約0.3G、速度変化約100ノット、高度変化約4,000フィートにも及んだ場合もあった`）'),
-    'c305': dict(kind='再現イラスト',
-               plan='S3｜見る向き：正面から｜合図：🔁 横→正面（前の再現 c304）＝左上に見る向きの札・替わる瞬間に「正面から見ると」｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S3【正面から】ダッチロールの模式（左右に傾きながら機首を振る＝模式の札）',
-               src='報告書 3.2.6.2(2) p.113〜114（`横揺れ角±約40度`）'),
-    'c306': dict(kind='写真',
-               plan='🔧 P20｜副題：飛行経路の下で見つかった部品（事故のあと）｜動き：右へ流す｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-20）／縮小・切出｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-20（p186・飛行経路下から回収された残骸（4）・額装・横に流す＝副題「飛行経路の下で見つかった部品（事故のあと）」）',
-               src='報告書 2.1 p.6（`その後強弱に変化しながらも墜落直前まで続いた`）'),
+    'c301': dict(kind='写真',
+               plan='F15A｜副題：ニューヨーク上空を警戒するオーティス基地のF-15（2001年11月）｜動き：右へ流す｜権利：A（米空軍の職務）｜出典の行：米空軍｜台本の画：実写 F-15 オーティス基地（102戦闘航空団 101戦闘飛行隊・尾翼「MA」・A・VIRIN で 2001-11-06・全画面・右へ流す＝副題「オーティス基地のF-15（2001年11月）」）',
+               src='—'),
+    'c302': dict(kind='図解',
+               plan='台本の画：図 模式 乗員の手引きの年表（1960年代から2001年まで）',
+               src='委員会報告 p85（`The FAA-approved "Common Strategy" had been elaborated over decades of experience with scores of hijackings, beginning in the 1960s`）'),
+    'c303': dict(kind='図解',
+               plan='台本の画：図 模式 昔ながらの乗っ取り（要求・着陸・あとは警察と軍の3つの箱）',
+               src='委員会報告 p85（`accommodate their demands, get the plane to land safely, and then let law enforcement or the military handle the situation`・`the longer a hijacking persisted, the more likely it was to end peacefully`）'),
+    'c304': dict(kind='図解',
+               plan='台本の画：図 模式 同じ箱（「要求」に亡命・仲間の釈放の札）',
+               src="委員会報告 p85（`hijackers issue negotiable demands (most often for asylum or the release of prisoners)`・`suicide wasn't in the game plan`）"),
+    'c305': dict(kind='図解',
+               plan='台本の画：図 模式 同じ箱（「暴力が起きたら」の箱だけ空白）',
+               src='委員会報告 p85（`FAA training material provided no guidance for flight crews should violence occur`）'),
+    'c306': dict(kind='図解',
+               plan='台本の画：図 模式 操縦室の扉（金庫の扉の絵記号）',
+               src='委員会報告 p85（`proposals were made in early 2001 to install reinforced cockpit doors`）'),
     'c307': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 油圧の系統（翼と尾翼の舵へ管が伸びる＝付図-8 から）',
-               src='報告書 3.2.6.1 p.113'),
+               plan='台本の画：図 模式 同じ扉（鍵が外れる）',
+               src="委員会報告 p85（`Even if you make a vault out of the door, if they have a noose around my flight attendant's neck, I'm going to open the door`）"),
     'c308': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 油圧の系統（4本の管を色で分け、尾翼のあたりで切れる）',
-               src='報告書 3.2.5.3(1) p.112（`冗長性を考慮した設計`）・4.1.6.5 p.126'),
-    'c309': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜合図：🔁 正面→上（前の再現 c305）＝左上に見る向きの札・替わる瞬間に「上から見ると」｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】（駿河湾の上・18:27:47 の点）',
-               src='別添6 p.314（18:27:47 `(F/E)ハイドロプレッシャオールロス`）'),
-    'c310': dict(kind='写真',
-               plan='P14｜副題：相模湾で回収された部品（事故のあと）｜動き：寄る｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-14）／縮小・切出｜台本の画：実写 写真-14（p183・海上から回収された APU 空気取り入れダクト・額装・寄る＝副題「相模湾で回収された部品（事故のあと）」）',
-               src='別添6 p.314（18:27:49 `(COP)オールロスですか？`・18:27:51 `(F/E)オールロス`）'),
-    'c311': dict(kind='図・写真の頁',
-               plan='F8｜動き：順に寄る｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 付図-8）／縮小・切出｜台本の画：図 p144 付図-8 動翼・フラップの名称（額装・方向舵、昇降舵、補助翼の配置の順に寄る）',
-               src='報告書 3.2.6.1 p.113（`方向舵による操縦機能は異常事態発生後直ちに失われた`・`昇降舵による操縦機能は異常事態発生後直ちに`・`補助翼・スポイラによる操縦機能はその1.0~1.5分後に失われた`）'),
-    'c312': dict(kind='再現イラスト',
-               plan='S1｜見る向き：横から｜合図：🔁 上→横（前の再現 c309）＝左上に見る向きの札・替わる瞬間に「横から見ると」｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S1【横から】の戻り（垂直尾翼の欠けた機体＝推定の札・人は描かない）',
-               src='報告書 3.2.7.4(4) p.117（`操縦を断念することなく`・`最後まで同機に発生した過大なダッチロール運動、フゴイド運動を抑制しようとして行われたものであると考えられる`）'),
-    'c313': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜合図：🔁 横→上（前の再現 c312）＝左上に見る向きの札・替わる瞬間に「上から見ると」｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】（駿河湾から焼津の北へ・18:28:35 の点）',
-               src='別添6 p.315（18:28:35 `(CAP)But now uncontrol.`）・報告書 2.1 p.7（`18時28分35秒同機から「現在、操縦不能」との回答`）'),
-    'c314': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】（焼津の北で北へ向きを変える・18:31 の点・名古屋の方角の札）',
-               src='別添6 p.318（18:31:14 `can you land to NAGOYA?`・18:31:21 `(CAP)Ah, negative`・`request back to HANEDA.`）・報告書 2.1 p.7（`名古屋に着陸できるか。`・`羽田へ帰ることを要求する。`）'),
+               plan='台本の画：図 模式 同じ扉と箱（「要求に従う」の矢印）',
+               src='委員会報告 p85（`even a hardened cockpit door would have made little difference in a hijacking`）'),
+    'c309': dict(kind='図解',
+               plan='台本の画：図 模式 年表（1986年の印から2001年まで）',
+               src='委員会報告 p85（`no terrorist had hijacked a U.S. commercial aircraft anywhere in the world since 1986`）'),
+    'c310': dict(kind='図解',
+               plan='台本の画：図 模式 機内の座席（保安官の席に印が無い）',
+               src='委員会報告 p85（`only 33 armed and trained federal air marshals as of 9/11`・`They were not deployed on U.S. domestic flights`）'),
+    'c311': dict(kind='図解',
+               plan='台本の画：図 模式 手順の段（管制官→上司→FAA 本部→国防総省の指揮所→国防長官の許し→NORAD→戦闘機）',
+               src='委員会報告 p17（`Controllers would notify their supervisors, who in turn would inform management all the way up to FAA headquarters in Washington`）'),
+    'c312': dict(kind='図解',
+               plan='台本の画：図 模式 同じ段（下の段へ光が進む）',
+               src="委員会報告 p18（`to contact the Pentagon's National Military Command Center`・`seek approval from the Office of the Secretary of Defense`・`transmitted down NORAD's chain of command`）"),
+    'c313': dict(kind='図解',
+               plan='台本の画：図 模式 乗っ取られた機と後ろの戦闘機（約8キロの間隔）',
+               src='委員会報告 p18（`five miles directly behind the hijacked aircraft`・`The protocols did not contemplate an intercept`）'),
+    'c314': dict(kind='図解',
+               plan='台本の画：図 模式 同じ（段と後ろの戦闘機を1枚に）',
+               src='—'),
     'c315': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 3つの空港（羽田・名古屋・大阪の位置と滑走路の長さの比べ＝数字は書かない）',
-               src='報告書 3.2.7.5(1) p.117（`東京国際空港を選んだことは、空港の規模、滑走路長及びその他の施設環境からみて妥当な選択と考えられる`）'),
-    'c316': dict(kind='写真',
-               plan='🔧 P19｜副題：飛行経路の下で見つかった部品（事故のあと）｜動き：左へ流す｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-19）／縮小・切出｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-19（p186・飛行経路下から回収された残骸（3）・額装・寄る＝副題「飛行経路の下で見つかった部品（事故のあと）」＝見つかった場所は画で示さない）',
-               src='報告書 2.1 p.7（`18時35分ごろ、同機は富士山の西方約35キロメートル`・`右へ変針して東へ`・`18時38分ごろ、富士山の北北西約7キロメートル付近から左へ変針して北東に向かって`）'),
+               plan='台本の画：図 模式 3つの前提の箱（1つ目に印＝すぐに見分けがつき、姿を消そうとはしない）',
+               src='委員会報告 p18（`the hijacked aircraft would be readily identifiable and would not attempt to disappear`）'),
+    'c316': dict(kind='図解',
+               plan='台本の画：図 模式 3つの前提の箱（2つ目と3つ目に印）',
+               src='委員会報告 p18（`there would be time to address the problem through the appropriate FAA and NORAD chains of command`・`the hijacking would take the traditional form`）'),
     'c317': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 エンジン4基と推力（左右のエンジンの強弱の矢印＝付図-9 から）',
-               src='報告書 3.2.7.5(2) p.117（`エンジン推力制御によりピッチコントロールを試みたものと推定される`）'),
+               plan='台本の画：図 模式 待機の基地の数（冷戦の最大26か所から7か所への棒）',
+               src='委員会報告 p16（`reduced from its Cold War high of 26`）・p17（`only seven alert sites left in the United States, each with two fighter aircraft on alert`）'),
     'c318': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式（左右の推力の差で揺れが強まる矢印）',
-               src='報告書 3.2.6.2(2) p.114（`左右エンジンの推力に差を生じさせて同機の方向制御を行うことは、ダッチロール運動を励起する等の望ましくない傾向を伴うため実質的には不可能と考えられる`）・3.2.7.5(2) p.117（`それが試みられた明らかな証拠は見当たらない`）'),
-    'c319': dict(kind='再現イラスト',
-               plan='S2｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S2【上から】（大月の上で右へほぼ1回転・18:41から約3分）',
-               src='報告書 2.1 p.7（`18時41分ごろ山梨県大月市付近の高度約21,000フィートから、約3分間でほぼ360度右へ変針するとともに高度約17,000フィートまで降下`）'),
+               plan='台本の画：図 模式 北東部の地図（NEADS のあるローム・オーティス・ラングレー・ニューヨーク・ワシントン）',
+               src='委員会報告 p17（`Northeast Air Defense Sector (also known as NEADS), which is based in Rome, New York`・`NEADS could call on two alert sites, each with one pair of ready fighters`）'),
+    'c319': dict(kind='図解',
+               plan='台本の画：図 模式 同じ地図（海の外から来る矢印だけ）',
+               src='委員会報告 p352（`only aircraft that were coming from overseas`）・p17（`was not recognized by NORAD before 9/11`）'),
     'c320': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 高さの線（記録の点だけ・18:40 を過ぎて下がり始める）',
-               src='報告書 3.2.7.2(2) p.115（`同機が実際に降下を始めたのは18時40分以降である`）'),
-    'c321': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 車輪とフラップ（電気の予備の仕組みで動かす＝付図-8 の配置から）',
-               src='報告書 3.2.7.4(3) p.117（`18時38分以降脚下げについての会話が、次いで、18時44分以降にはフラップ下げについての会話`・`油圧系統不作動時の代替手段である電動操作`）・3.2.7.4(5) p.117（`18時42分53秒から18時44分43秒にかけて、「おもたい」という運航乗務員の声が前後4回`）・3.2.7.2(2) p.115（`飛行姿勢の安定のための操作に専念しており`）・表-9 p.90（18:40:22 `ギヤダウンしました`）'),
-    'c322': dict(kind='写真',
-               plan='🔧 P17｜副題：飛行経路の下で見つかった部品（事故のあと）｜動き：上から下へ流す｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-17）／縮小・切出｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-17（p185・飛行経路下から回収された残骸（1）・額装・寄る＝副題「飛行経路の下で見つかった部品（事故のあと）」）',
-               src='報告書 2.1 p.7（`その後の同機は東に向かって急速に降下をしながら飛行し`）・2.4.5 p.14（`事故機の推定飛行経路下から、5点の残骸が昭和61年7月2日までに回収された`）'),
+               plan='台本の画：図 模式 時間の帯（7:59 から先が空白のまま伸びる）',
+               src='委員会報告 p18（`unsuited in every respect`）'),
 }
 
-from illu20 import S1_REC as S1R, S2_REC as S2R, S3_REC as S3R  # noqa: E402  🆕 ⑤b-3：置き場 S1〜S3 の部品の出典（描く側と同じ文）
-
-M = ss._S3_NOTE            # S3 の札「模式（記録のグラフではない）」（ss.ILLU_ASSUME と同じ言葉）
-
-SPEC = {
-    # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1・S2・S3（`tools/illu20.py`・門番 check_illu ㉔㉕㉖）──
-    # S2＝付図-1 の経路と時刻の点（`ref/ep20/route20.json`）。時計の札は機の印を指す（㉕）・秒まで言う語りは秒まで、分だけの語りは分まで
-    # c301（2行）＝前の再現 c216（横から）→ 上から＝合図。1行目で 18:25:21（管制に伝えた）・2行目で羽田に輪（引き返したい）
-    "c301": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:24:35", switch="on"), rec=S2R["trace"],
-        # ⑤b-3 の門番 layout：左上の札が地名「駿河湾」と重なった＝右上へ
-        steps=[dict(state=dict(s2t="18:25:21"), rec=S2R["trace"], dur=1.2, tag=dict(t="18:25:21", at="plane", off=(60, -110))),
-               dict(state=dict(s2ring="haneda"))]))),
-    # c302（2行）＝伊豆半島を横切り駿河湾の上へ（付図-1 の 18:27:07＝西の海岸の上）
-    "c302": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:25:21"), rec=S2R["trace"],
-        steps=[dict(state=dict(s2t="18:27:07"), rec=S2R["trace"], dur=2.6), dict()]))),
-    # c303（2行）＝S2（上から）→ S3（横から）＝合図。フゴイド＝機首の上げ下げと高さの波（道の傾き＝本当の 15度 まで）
-    # ⑤b-3 の試し焼き：頭（合図の「横から見ると」の間）が空だけだった＝波を頭から出す（機は1行目から進む）
-    "c303": dict(fig=("illu", dict(
-        place="S3", start=dict(switch="on", s3wave="on"), rec=S3R["wave"], assume=M,
-        steps=[dict(tag=dict(t="高さと速さが波打つ", at="wave", off=(-30, -150), anchor="end")),
-               # ⑤b-3 の門番 layout：1行目の札と同じ所で重なった（段の入れ替わりの薄くなる間）＝波の下へ
-               dict(tag=dict(t="フゴイド", at="wave", off=(-30, 170), anchor="end"))]))),
-    # c304（2行）＝1行目で角の印（約15度）と速さの差・2行目で高さの差のかっこ（約1,200メートル）
-    "c304": dict(fig=("illu", dict(
-        place="S3", start=dict(s3wave="on"), rec=S3R["wave"], assume=M,
-        steps=[dict(state=dict(s3pitch="on"), rec=S3R["wave"],
-                    tag=[dict(t="上下に約15度", at="climb", off=(-150, -150), anchor="end"),
-                         # ⑤b-3 の試し焼き：引き出し線の点が波の上の意味の無い所を指した＝線の無い札（速さは絵の上の1点ではない）
-                         dict(t="速さの差 時速約185キロ", xy=(1250, 690))]),
-               dict(state=dict(s3amp="on"), rec=S3R["wave"], tag=dict(t="高さの差 約1,200メートル", at="amp", off=(-40, -170), anchor="end"))]))),
-    # c305（2行）＝横から → 正面から＝合図。ダッチロール＝左右に約40度（角の印は本当の 40度）
-    "c305": dict(fig=("illu", dict(
-        place="S3", start=dict(view="front", s3roll="on", switch="on"), rec=S3R["roll"], assume=M,
-        # ⑤b-3 の門番 echo：1行目の札「左右に傾きながら機首を振る」は語りの写し＝外した（傾きは絵の動き・名は語り）
-        steps=[dict(), dict(tag=dict(t="左右に約40度", at="arc", off=(80, -40)))]))),
-    # c309（2行）＝S3（正面から）→ 上から＝合図。18:27:47（航空機関士「ハイドロプレッシャ オールロス」）
-    "c309": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:27:07", switch="on"), rec=S2R["trace"],
-        # ⑤b-3 の門番 layout：左上へ出した札の線が地名「駿河湾」を貫いた＝右上（伊豆半島の側）へ
-        # 🆕 ⑤c'：右上（off 60, -110）は札を海岸線が横切った（geom_gap・12点）＝真左（-180, 0）＝線から 32px（「駿河湾」は湾の口へ移した）
-        steps=[dict(state=dict(s2t="18:27:47"), rec=S2R["trace"], dur=1.2,
-                    tag=dict(t="18:27:47", at="plane", off=(-180, 0), anchor="end")),
-               dict()]))),
-    # c312（2行）＝上から → 横から＝合図。垂直尾翼と尾部胴体の欠けた機体＝「推定」の札（欠けた範囲は報告書も特定できない・p.107）
-    "c312": dict(fig=("illu", dict(
-        place="S1", start=dict(s1fin="lost", switch="on"), rec=S1R["lost"], assume="推定",
-        steps=[dict(tag=dict(t="欠けた垂直尾翼", at="fin", off=(-40, -190), anchor="end")), dict()]))),
-    # c313（2行）＝横から → 上から＝合図。18:28:35「But now uncontrol.」（駿河湾から焼津の北へ）
-    "c313": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:27:47", switch="on"), rec=S2R["trace"],
-        # ⑤b-3 の門番 layout：左上へ出した札の線が地名「駿河湾」を貫いた＝右上へ
-        # 🆕 ⑤c'：右上は札を海岸線が横切った（geom_gap・7点）＝真左（-150, 0）＝線から 45px
-        steps=[dict(state=dict(s2t="18:28:35"), rec=S2R["trace"], dur=1.2,
-                    tag=dict(t="18:28:35", at="plane", off=(-150, 0), anchor="end")),
-               dict()]))),
-    # c314（3行）＝18:31:14（名古屋に降りられるか）→ 名古屋空港への矢印（72海里＝約133キロ）→ 羽田に輪（羽田へ戻りたい）
-    "c314": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:28:35"), rec=S2R["trace"],
-        # 🆕 ⑤c'：右上（off 60, -110）は札と海岸線が 0.9px（geom_gap）＝左下（-50, 40）右寄せ＝線から 34px
-        steps=[dict(state=dict(s2t="18:31:14"), rec=S2R["trace"], dur=1.6,
-                    tag=dict(t="18:31:14", at="plane", off=(-50, 40), anchor="end")),
-               dict(state=dict(s2ngo="on"), rec=S2R["nagoya"], tag=dict(t="名古屋まで 約133キロ", at="nagoya_mid", off=(0, -60), anchor="middle")),
-               dict(state=dict(s2ring="haneda"))]))),
-    # c319（3行）＝聞き役の問い → 大月の上で右へほぼ1回転（18:40:30〜18:44:09＝付図-1）→ 高さの札
-    "c319": dict(fig=("illu", dict(
-        place="S2", start=dict(s2t="18:31:14"), rec=S2R["trace"],
-        steps=[dict(),
-               dict(state=dict(s2t="18:44:09"), rec=S2R["trace"], dur=3.4, tag=dict(t="大月", at="otsuki", off=(-120, 30), anchor="end")),
-               # ⑤b-3 の門番 echo：「高さ 約6,400→約5,200メートル」は語りの写し＝下がった先の高さだけ（12字未満の名札）
-               dict(tag=dict(t="約5,200メートル", at="plane", off=(60, -110)))]))),
-    # ── 🆕 ⑤b-5（2026-10-10）：模式図（`tools/mech20.py`・門番 check_mech の judge_m20）──
-    # c307（2行）＝舵（付図-8＝補助翼・フラップ・昇降舵・方向舵）→ 油圧の管（3.2.6.1 p.113）。🔴 管の色は置き場 S5 の配管と同じ紫（c308・c622 も）
-    "c307": dict(
-        t="舵と油圧", s="ボーイング747SR-100型",
-        fig=("m20", dict(view="hyd",
-                         steps=[dict(state=dict(surf="on"), tag=dict(t="舵", d="補助翼・昇降舵・方向舵ほか", at="surf", to="ail")),
-                                dict(state=dict(pipes="on"), tag=dict(t="油圧の管", at="pipes", to="pipe"))],
-                         note="機体の形は付図-4・舵の並びは付図-8 から（管の道すじは模式）",
-                         src=ss.src(["報告書 p140", "報告書 p144", "報告書 p113"]))),
-    ),
-    # c308（2行）＝4つの系統（3.2.5.3 p.112「配管を4系統とするような冗長性」・ポンプはエンジンごと＝p51）→ 聞き役の問い（尾翼に輪）
-    "c308": dict(
-        t="4つの系統", s="油圧の管（エンジンごとのポンプから）",
-        fig=("m20", dict(view="hyd", start=dict(pipes="on"),
-                         # 🆕 ⑥：線の先（eng1＝丸の下の点 787, 508）が丸の中の「1」に刺さった（原寸・geom_gap）＝丸（中心 787, 500・半径 17）の外の縁で止める
-                         steps=[dict(state=dict(num="on"), tag=dict(t="4系統", at="num", to=(766.6, 495.1))),
-                                dict(state=dict(ask="on"), tag=dict(t="尾翼", at="tail", to="tail"))],
-                         rel=[dict(t="4系統", src="報告書 p112（配管を4系統）")],
-                         note="管の道すじは模式（ポンプはエンジンごと）",
-                         src=ss.src(["報告書 p112", "報告書 p51", "報告書 p140"]))),
-    ),
-    # c315（3行）＝3つの空港（東西の順）。🔴 報告書に滑走路の長さの数は無い（p117 は理由の言葉だけ）＝棒にしない・理由は p117 の字そのまま
-    #   （台本の画の欄「滑走路の長さの比べ＝数字は書かない」から替えた＝⑤b-5。地図は c314 の S2 と重なる＝並びの模式）
-    "c315": dict(
-        t="引き返す先", s="報告書の見立て（3.2.7.5）",
-        fig=("m20", dict(view="apt",
-                         steps=[dict(state=dict(pick="on"), tag=dict(t="羽田（東京国際空港）", at="pick", to="haneda")),
-                                dict(state=dict(why="on")),
-                                # 🆕 ⑥：左上（at="ok"）からの引き出し線が「羽田（東京国際空港）」の「港）」を横切った（原寸・geom_gap 箱の中の点 22）
-                                #   ＝チェックの印（x 1465〜1545・y 405〜471）の右に並べる（線なし・印から 15px）
-                                dict(state=dict(ok="on"), tag=dict(t="報告書の見立て", at=(1560.0, 450.0, "start", 280.0)))],
-                         note="並びは東西の順（間は模式）・報告書に滑走路の長さの数は無い", src=ss.src(["報告書 p117"]))),
-    ),
-    # c317（2行）＝横から：推力を上げて機首を上げる（3.2.7.5(2) p.117 の推定）→ 上から：左右に差をつけたら？（聞き役の問い）
-    "c317": dict(
-        t="舵の代わり", s="舵の効かない機体（報告書の推定）",
-        fig=("m20", dict(view="thrust",
-                         steps=[dict(state=dict(pwr="up", nose="up"), tag=dict(t="機首の上げ下げ（推定）", at="pwr")),
-                                dict(state=dict(top="on", diff="ask"), tag=dict(t="左右に差をつけたら？", at="diff"))],
-                         note="形と角度は模式（推力の矢印の長さは強さの目安）", src=ss.src(["報告書 p117", "報告書 p140"]))),
-    ),
-    # c318（2行）＝左右の推力の差で向きを変えると揺れが強まる（3.2.6.2(2) p.114）→ 実質的に無理・試みた証拠なし（p114・p117）
-    "c318": dict(
-        t="左右の差で揺れる", s="左右のエンジン（3.2.6.2）",
-        fig=("m20", dict(view="thrust", start=dict(top="on", diff="on"),
-                         steps=[dict(state=dict(yaw="on", wave="on"), tag=dict(t="揺れ（ダッチロール）が強まる", at="wave")),
-                                dict(tag=dict(t="実質的に無理・試みた証拠なし", at="no"))],
-                         note="形と角度は模式（揺れの波は強まる向きだけ）", src=ss.src(["報告書 p114", "報告書 p117"]))),
-    ),
-    # c320（3行）＝高さの記録の点（付図-1 の時刻と高度の札だけ）。18:25:21 降下の要求（p115）→ 18:40 以降に下がり始める（p115）→ 報告書の見立て
-    "c320": dict(
-        t="すぐには下りなかった", s="18:24〜18:48 の飛行",
-        fig=("m20", dict(view="alt",
-                         steps=[dict(state=dict(pts="early", m1="on"), tag=dict(t="降下の要求", d="18:25:21", at="m1")),
-                                dict(state=dict(pts="all", m2="on"), tag=dict(t="下がり始める", d="18:40 以降", at="m2")),
-                                dict(tag=dict(t="原因探しと姿勢の保持に追われた（報告書の見立て）", at="why"))],
-                         rel=[dict(t="18:25:21", src="報告書 p115"), dict(t="18:40", src="報告書 p115")],
-                         note="点は付図-1 の時刻と高度の札だけ（点のあいだは描かない・印の線は模式）",
-                         src=ss.src(["報告書 p137", "報告書 p115"]))),
-    ),
-    # c321（2行）＝車輪とフラップ（電気の代わりの仕組み＝p113・p117・表-9 p90 の 18:40:22「ギヤダウンしました」）→ 声4回（p117）
-    "c321": dict(
-        t="電気で下ろす", s="車輪とフラップ（代わりの仕組み）",
-        fig=("m20", dict(view="gear",
-                         steps=[dict(state=dict(gear="down", flap="down"),
-                                     tag=[dict(t="車輪", d="18:40ごろ", at="gear", to="main"),
-                                          dict(t="フラップ", d="18:44 以降", at="flap", to="flap")]),
-                                dict(state=dict(voice="on"), tag=dict(t="声 4回", d="18:42:53〜18:44:43", at="voice", to="cockpit"))],
-                         rel=[dict(t="18:40・18:44・4回・18:42:53〜18:44:43", src="報告書 p90・p117")],
-                         note="形と角度は模式（脚は電気で下げる操作だけ・フラップは電動の代わりの系統）",
-                         src=ss.src(["報告書 p113", "報告書 p117", "報告書 p90"]))),
-    ),
-}
-
-# ── 🆕 ⑤b-7（2026-10-11）：写真・付図（書き方の約束は c2.py の ⑤b-7 の節）──
-SPEC.update({
-    # c306（6.57秒）＝写真-20（飛行経路下から回収された残骸（4））＝右へ流す
-    #   🆕 ⑤c'：写真-17〜20 の4カット（c306・c316・c322・c401）は副題が同じだった＝原寸の実見の違いで書き分け（報告書の題＝17 トルク・
-    #   ボックスの一部・18／19 シール・リテーナの一部・20 写真-17 につながるストリンガの一部。18 と 19 は同じ物＝呼び方をそろえる）
-    "c306": dict(photo=P("p020"), **ss.kind(P("p020")), cam="pan_r", t="続いた揺れ", s="飛行経路の下で見つかった部品（札の付いた破片）"),
-    # c310（6.35秒）＝写真-14（海上から回収された APU 空気取り入れダクト）＝寄る
-    "c310": dict(photo=P("p014"), **ss.kind(P("p014")), t="操縦室のやりとり", s="相模湾で回収された部品（事故のあと）"),
-    # c311（9.37秒）＝付図-8 動翼・フラップの名称。左上の図の尾（方向舵・昇降舵の札）→ 右下の図の主翼の後ろの縁（補助翼の札）へ順に寄る
-    "c311": dict(photo=P("f008"), **ss.kind(P("f008")), t="3つの舵の位置", s="動翼とフラップの名前",
-                 # 🆕 ⑤c'：終わりの窓（横 0.33〜0.83）の右の辺が「外側フラップ」（横 0.802〜0.860＝OCR）を切っていた（原寸）→ 横 0.62＝窓 0.37〜0.87
-                 cam={"from": ss.pf(P("f008"), 0.42, 0.10, 2.2), "to": ss.pf(P("f008"), 0.62, 0.72, 2.0)}),
-    # c316（11.19秒）＝写真-19（残骸（3）・縦長）＝左へ流す。見つかった場所は画で示さない（一覧の注）
-    "c316": dict(photo=P("p019"), **ss.kind(P("p019")), cam="pan_l", t="変わる向き", s="飛行経路の下で見つかった部品（地面に置いた穴の並ぶ金具）"),
-    # c322（8.18秒）＝写真-17（残骸（1）・縦長）＝上から下へ流す
-    "c322": dict(photo=P("p017"), **ss.kind(P("p017")), cam="tilt_d", t="経路の下の5点", s="飛行経路の下で見つかった部品（白く長い破片）"),
-})
+SPEC = {}

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""第8章　7年間 c901–c914（14カット）。20本目（日本航空123便のリメイク）。
+"""第8章　届かなかった命令 c901–c921（21カット）。21本目（9.11 米国同時多発テロのリメイク）。
 
-■ 🔴 2026-10-08（⑤b-1）：19本目（サーフサイドのマンション崩壊のリメイク）の中身を空にした＝git の `0dcaa9c`（`git show 0dcaa9c:tools/cuts/c9.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep20/make_plan20.py` で
-  映像方針の一覧 `ref/ep20/eizou_build/list20.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
+■ 🔴 2026-10-12（⑤b-1）：20本目（日本航空123便のリメイク）の中身を空にした＝git の `f0095bd`（`git show f0095bd:tools/cuts/c9.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep21/make_plan21.py` で
+  映像方針の一覧 `ref/ep21/eizou_build/list21.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット（台本の画は元の予定）。
@@ -14,134 +14,69 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'c901': dict(kind='写真',
-               plan='🔧 P65｜動き：ゆっくり引く｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-65）／縮小・切出｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-65（p209・後部圧力隔壁パート1（非与圧側）＝点検で見る後ろの面・額装・寄る）',
-               src='報告書 4.1.5.1 p.124（`同機の飛行時間は約16,196時間、飛行回数(着陸回数)は12,319回であった`）'),
+    'c901': dict(kind='図解',
+               plan='台本の画：図 模式 時間の帯（93便＝10:03:11 墜落・10:07 NEADS が知る）',
+               src='委員会報告 p30（`NEADS first received a call about United 93 from the military liaison at Cleveland Center at 10:07`）'),
     'c902': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 隔壁の後ろの面（全体を目で見る点検の範囲・L18 は特に指定されていない）',
-               src='報告書 3.2.2(2)(カ) p.104（`隔壁のL18接続部のようなウェブの接続部は特別な点検箇所としては指定されておらず、後部圧力隔壁後面全体の目視検査(G2レベル相当)のなかで行われた`）'),
+               plan='台本の画：図 模式 同じ帯（10:15 墜落の報せ）',
+               src='委員会報告 p30（`NEADS was never able to locate United 93 on radar because it was already in the ground`）・p31（`The time of notification of the crash of United 93 was 10:15`）'),
     'c903': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式（同じ絵・747 の継ぎ目の強さの余裕の札）',
-               src='報告書 3.2.2(2)(カ) p.104（`ウェブ接続部には十分な強度余裕があり、また同型機の運航においてこの部分に危険な亀裂等の不具合が発見された事例がない等から`）'),
-    'c904': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 亀裂の長さ（穴の両側の平均で約10ミリ・見える長さ約8ミリ＝長さを線で・数字は書かない）',
-               src='報告書 3.1.12.3(1) p.100（`昭和59年12月のNo.11C整備時`・`リベット孔両側平均で10ミリメートル(可視亀裂長さ8ミリメートル,*1)程度のものであったと推定される`）'),
-    'c905': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 数の比べ（幅の棒＝見つける確率の幅を破線の枠で・1つの値にしない）',
-               src='報告書 3.1.12.3(2) p.100（`可視亀裂長さ10ミリメートル程度の1つの疲労亀裂の発見確率は、10パーセント程度と計算された`・`少なくとも1つを発見できる確率は14~60パーセント程度と計算された`）'),
-    'c906': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式（同じ棒・「仮定」の札）',
-               src='報告書 3.2.2(2)(ケ) p.105（`C整備時にとられた点検方法ではL18接続部の疲労亀裂の発見が可能か否かについて明らかにできなかった`）・3.1.12.3(2) p.100（`この検討結果を用いて疲労亀裂の発見の可能性を論じる場合には、(ア)に記した仮定及び亀裂発見に関与するその他の要因の影響について考慮する必要がある`）'),
-    'c907': dict(kind='文字の頁',
-               plan='PG｜権利：PDL1.0（文字の頁）｜台本の画：図 p125 報告書 4.1.5.4 の頁（文字の頁）',
-               src='報告書 4.1.5.4 p.125（`点検方法に十分とはいえない点があったためと考えられる`）'),
-    'c908': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 2つの場合の比べ（正しく修理した壁＝その点検で足りる・誤った修理の壁＝足りない）',
-               src='報告書 3.2.2(2)(コ) p.105（`隔壁が正規に製作されている場合、またその修理が適正に行われている場合には`・`妥当な点検方法であると考えられる`）'),
-    'c909': dict(kind='写真',
-               plan='🔧 P87｜動き：左から右へ流す（No.21 から No.24 へ）｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-87）／縮小・切出｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-87（p220・L18接続部リベット No.21 から No.24 付近のヤニの付着・額装・寄る）',
-               src='報告書 3.2.2(2)(ク) p.104（`後部圧力隔壁L18接続部のウェブの合わせ面に付着していた煙草のヤニは、リベットNo.21~78に散在していた`）'),
-    'c910': dict(kind='写真',
-               plan='P92｜動き：寄る｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-92）／縮小・切出｜台本の画：実写 写真-92（p222・L18接続部リベット No.41 付近のヤニの吹き出し・額装・寄る）',
-               src='報告書 3.2.2(2)(ク) p.104（`No.41及びNo.50付近の下側ウェブとスプライス・プレートの間の2箇所では非与圧側へヤニが吹き出していた`・`R18接続部には煙草のヤニの付着は認められなかった`）'),
-    'c911': dict(kind='写真',
-               plan='🔧 P93｜動き：右へ流す｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-93）／縮小・切出｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-93（p223・L18接続部リベット No.50 付近のヤニの吹き出し・額装・横に流す）',
-               src='報告書 3.2.2(2)(ク) p.104（`L18接続部の修理結果がヤニの付着及び吹き出しに関与したものと考えられる`）'),
-    'c912': dict(kind='写真',
-               plan='🔧 P88｜動き：2点（No.39 と No.45 を順に）｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 写真-88）／縮小・切出｜台本の画（🔧映像方針で替えた＝元の予定）：実写 写真-88（p220・L18接続部リベット No.39 から No.45 付近のヤニの付着・額装・寄る）',
-               src='報告書 3.2.2(2)(ク) p.104（`ウェブの合わせ面に付着していたヤニは表面からは発見できなかったものと認められる`・`非与圧側へのヤニの吹き出しが前回のC整備(No.11C)の際にあったか否かについては明らかにすることはできなかった`）'),
-    'c913': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 化粧室のドアの不具合の報告（1985年2月から8月・いちばん後ろの化粧室に印＝数字は書かない）',
-               src='報告書 3.2.2(2)(ウ) p.103（`昭和60年2月~8月の間に化粧室ドアの不具合が33件報告されており、そのうち28件は客室最後部位置の化粧室`・`主として客室後部コートルームに大量の物資を搭載するというグアム便の特殊事情によるものであると考えられ`・`これがこれらの化粧室ドア不具合に関与していた可能性を完全には否定することはできない`）'),
-    'c914': dict(kind='再現イラスト',
-               plan='S1｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S1【横から】の戻り（1985年8月12日・継ぎ目に印）',
-               src='報告書 4.2 p.128（`同亀裂が点検整備で発見されなかったことも関与しているものと推定される`）'),
+               plan='台本の画：図 模式 同じ帯（「撃墜」の札に×）',
+               src='委員会報告 p31（`The NEADS air defenders never located the flight or followed it on their radar scopes. The flight had already crashed by the time they learned it was hijacked`）'),
+    'c904': dict(kind='写真',
+               plan='WH904｜副題：ホワイトハウスの地下の危機管理室｜動き：ゆっくり寄る｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Courtesy George W. Bush Presidential Library（NARA）｜注：副大統領と国家安全保障担当の補佐官（公職だけ）。日付は副題に書かない｜台本の画：実写 PEOC の写真（ホワイトハウスの地下の危機管理室の副大統領と政府の人たち・NARA・A・撮影の日時は NARA の目録で確かめるまで言わない・全画面・ゆっくり寄る＝副題「ホワイトハウスの地下の危機管理室」（日付は NARA の目録で確かめてから足す））',
+               src='委員会報告 p40（`the Vice President arrived in the room shortly before 10:00, perhaps at 9:58`）'),
+    'c905': dict(kind='写真',
+               plan='WH905｜副題：ホワイトハウスの地下の危機管理室｜動き：右へ流す｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Courtesy George W. Bush Presidential Library（NARA）｜注：副大統領の妻が写る＝✅ 了承②（2026-10-12）そのまま・名前は出さない｜台本の画：実写 PEOC の写真（別の点・同じ断り＝副題「ホワイトハウスの地下の危機管理室」（日付は NARA の目録で確かめてから足す））',
+               src='委員会報告 p41（`At some time between 10:10 and 10:15, a military aide told the Vice President and others that the aircraft was 80 miles out`・`The Vice President authorized fighter aircraft to engage the inbound plane`）'),
+    'c906': dict(kind='写真',
+               plan='WH906｜副題：ホワイトハウスの地下の危機管理室｜動き：ゆっくり引く｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Courtesy George W. Bush Presidential Library（NARA）｜注：副大統領の妻が大きく写る＝✅ 了承②（2026-10-12）そのまま・名前は出さない｜台本の画：実写 PEOC の写真（別の点・同じ断り＝副題「ホワイトハウスの地下の危機管理室」（日付は NARA の目録で確かめてから足す））',
+               src='委員会報告 p41（`quick and decisive`）'),
+    'c907': dict(kind='図解',
+               plan='台本の画：図 模式 ワシントンへ伸びる予測の点線（実際の93便はペンシルベニアで止まっている）',
+               src='委員会報告 p41（`The FAA may have been tracking the progress of United 93 on a display that showed its projected path to Washington, not its actual radar return`・`the Secret Service was relying on projections and was not aware the plane was already down in Pennsylvania`）'),
+    'c908': dict(kind='写真',
+               plan='F16NJ｜副題：上空を警戒するF-16（2001年10月・ニュージャージー州兵）｜動き：右へ流す｜権利：A（米空軍の職務）｜出典の行：米空軍（MSgt Don Taggart）｜注：「首都の上空」は書かない｜台本の画：実写 fighter_dc（首都の上空を警戒する F-16C・2001年10月7日・ニュージャージー州兵＝首都の部隊ではない・A・全画面・右へ流す＝副題「上空を警戒する F-16（2001年10月・ニュージャージー州兵）」）',
+               src='委員会報告 p31（`he explicitly instructed the Langley fighters`）・p45（`At 10:10, the pilots over Washington were emphatically told, "negative clearance to shoot."`）'),
+    'c909': dict(kind='図解',
+               plan='台本の画：図 模式 NORAD の連絡の箱（副大統領から NORAD、NEADS、戦闘機へ）',
+               src='委員会報告 p42（`Vice president has cleared to us to intercept tracks of interest and shoot them down if they do not respond`・`NEADS personnel first learned of the shootdown order from this message`）'),
+    'c910': dict(kind='図解',
+               plan='台本の画：図 模式 同じ箱（NEADS から戦闘機への矢印に×）',
+               src='委員会報告 p43（`The NEADS commander told us he did not pass along the order because he was unaware of its ramifications`・`they did not pass the order to the fighters circling Washington and New York because they were unsure how the pilots would, or should, proceed with this guidance`）'),
+    'c911': dict(kind='図解',
+               plan='台本の画：図 模式 同じ箱（首都の側の「撃ち落とせ」の札と、操縦士の側の「種類と尾翼の番号を確かめよ」の札）',
+               src='委員会報告 p43（`while leaders in Washington believed that the fighters above them had been instructed to "take out" hostile aircraft, the only orders actually conveyed to the pilots were to "ID type and tail."`）'),
+    'c912': dict(kind='図解',
+               plan='台本の画：図 模式 同じ箱',
+               src='—'),
+    'c913': dict(kind='写真',
+               plan='WH913｜副題：当日の夜、国家安全保障会議に出る大統領｜動き：ゆっくり寄る｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Eric Draper（Courtesy George W. Bush Presidential Library）｜注：副大統領がいるかは絵で決められない＝副題に書かない｜台本の画：実写 当日の夜の大統領と副大統領（ホワイトハウスの写真係・A・全画面・ゆっくり引く＝副題「当日の夜のホワイトハウス」）',
+               src="委員会報告 p44（`The Vice President was mistaken in his belief that shootdown authorization had been passed to the pilots flying at NORAD's direction`）"),
+    'c914': dict(kind='写真',
+               plan='WH914｜副題：当日、大統領専用機の機内｜動き：左へ流す｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Eric Draper（Courtesy George W. Bush Presidential Library）｜注：窓の外の護衛の F-16 を見る大統領と側近＝電話は写らない｜台本の画：実写 大統領専用機の機内の大統領（電話の写っていない点）（別の点・ホワイトハウスの写真係・A・撮影の時刻は書かない＝副題「当日、大統領専用機の機内」）',
+               src='委員会報告 p40（`The Vice President stated that he called the President to discuss the rules of engagement`・`The President said he remembered such a conversation`）・p41（`He told us he based this authorization on his earlier conversation with the President`）'),
+    'c915': dict(kind='図解',
+               plan='台本の画：図 模式 同じ（電話の線に「記録なし」の札）',
+               src='委員会報告 p41（`there is no documentary evidence for this call, but the relevant sources are incomplete`）'),
+    'c916': dict(kind='図解',
+               plan='台本の画：図 模式 首都の上の2組の戦闘機（ラングレーと、アンドルーズの州兵）',
+               src='委員会報告 p44（`By 10:45 there was, however, another set of fighters circling Washington that had entirely different rules of engagement`・`launched out of Andrews Air Force Base in Maryland in response to information passed to them by the Secret Service`・`the decision to shoot rests in the cockpit`）'),
+    'c917': dict(kind='図解',
+               plan='台本の画：図 模式 時間の帯（10:03:11 墜落・10:10 から 10:15 許可・10:31 NEADS へ）',
+               src='—'),
+    'c918': dict(kind='図解',
+               plan='台本の画：図 模式 同じ帯',
+               src='委員会報告 p45（`NORAD officials have maintained that they would have intercepted and shot down United 93. We are not so sure.`）'),
+    'c919': dict(kind='図解',
+               plan='台本の画：図 模式 同じ帯（見つける・追う・命令を渡す、の3つの箱が空白）',
+               src='委員会報告 p45（`to locate the flight, receive authorization to shoot it down, and communicate the order to the pilots`・`did not know where United 93 was located, and did not have shootdown authorization`）'),
+    'c920': dict(kind='写真',
+               plan='WH920｜副題：当日の午後、ネブラスカ州の空軍基地（画面越しの会議）｜動き：ゆっくり寄る｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Eric Draper（Courtesy George W. Bush Presidential Library）｜台本の画：実写 オファット空軍基地での会議（ホワイトハウスの写真係・当日の午後・A・全画面＝副題「当日の午後、ネブラスカ州の空軍基地」）',
+               src='委員会報告 p326（`Air Force One arrived at Offutt at 2:50 P.M.`・`At about 3:15, President Bush met with his principal advisers through a secure video teleconference`）'),
+    'c921': dict(kind='図解',
+               plan='台本の画：図 模式 時間の帯（その朝の4機と命令の時刻をすべて重ねる）',
+               src='—'),
 }
 
-from illu20 import S1_REC as S1R  # noqa: E402  🆕 ⑤b-3：置き場 S1 の部品の出典（描く側と同じ文）
-
-SPEC = {
-    # ── 🆕 ⑤b-3（2026-10-08）：再現イラスト S1（`tools/illu20.py`・門番 check_illu ㉔）──
-    # c914（3行）＝継ぎ目に輪 →「あの日を迎えた」で 1985年8月12日 の札 →「あの日の機内に戻る」
-    "c914": dict(fig=("illu", dict(
-        place="S1", start=dict(s1bulk="on", s1ring="tail"), rec=S1R["bulk"],
-        steps=[dict(), dict(tag=dict(t="1985年8月12日", at="bulk", off=(-60, -200), anchor="end", keep=True)), dict()]))),
-    # ── 🆕 ⑤b-6（2026-10-10）：模式図 第8章（m20）──
-    # c902（2行）＝L18 のような継ぎ目は特別な点検箇所に指定されていない → 後面全体の目視検査（G2 レベル相当＝p104）
-    "c902": dict(
-        t="点検の範囲", s="C整備の目視検査",
-        fig=("m20", dict(view="rear",
-                         steps=[dict(state=dict(l18="on"), tag=dict(t="L18", d="特別な点検箇所ではない", at="l18", to="l18")),
-                                dict(state=dict(all="on"), tag=dict(t="後面全体の目視検査", at="all", to="eye"))],
-                         rel=[dict(t="L18", src="報告書 p104（L18接続部のようなウェブの接続部）")],
-                         note="形は付図-32・付図-36 から・補強材の間隔は模式", src=ss.src(["報告書 p104"])))),
-    # c903（3行）＝同じ絵：十分な強度余裕 → 危険な亀裂の事例が無い → だからこの方式（腐食を主とした目視検査＝p104 の考え）
-    "c903": dict(
-        t="この方式の理由", s="報告書の考え（3.2.2）",
-        fig=("m20", dict(view="rear", start=dict(l18="on", all="on"),
-                         steps=[dict(tag=dict(t="十分な強度余裕", at="margin", to="joint")),
-                                dict(tag=dict(t="危険な亀裂の事例なし", at="none")),
-                                dict(tag=dict(t="腐食を主とした目視検査", at="corr"))],
-                         note="形は付図-32・付図-36 から・補強材の間隔は模式", src=ss.src(["報告書 p104"])))),
-    # c904（2行）＝最後の C整備（1984年12月）のときの長い亀裂 → 穴の両側の平均の長さと見える長さ（比 8:10＝p100・推定）。数字は書かない
-    "c904": dict(
-        t="隠れる所と見える所", s="最後の C整備のとき",
-        fig=("m20", dict(view="clen",
-                         steps=[dict(state=dict(crack="on"), tag=dict(t="長い亀裂", d="1984年12月", at="date", to="lcrack")),
-                                dict(state=dict(len="on"), tag=[dict(t="亀裂の長さ（推定）", at="len", to="len"),
-                                                                dict(t="見える長さ", at="vis", to="vis", col=J.OK)])],
-                         rel=[dict(t="1984年12月", src="報告書 p100（昭和59年12月のNo.11C整備時）")],
-                         note="形は模式（隠れる所はリベットの頭で代表・長さの比は報告書の推定）", src=ss.src(["報告書 p100"])))),
-    # c905（3行）＝（聞き役）→ 見える長さ10ミリほどの亀裂1つを見つける確率 10%ほど → 少なくとも1つなら 14〜60%ほど（p100）。幅は破線の枠
-    "c905": dict(
-        t="見つかる見込み", s="最後の C整備の点検",
-        fig=("m20", dict(view="prob",
-                         steps=[dict(tag=dict(t="点検で見つける確率", d="報告書の計算", at="title")),
-                                dict(state=dict(one="on")),
-                                dict(state=dict(many="on"))],
-                         note="値は報告書の計算（どちらも「程度」）・幅は幅のまま・棒の太さは模式", src=ss.src(["報告書 p100"])))),
-    # c906（2行）＝同じ棒：仮定などに左右される（p100）→ その点検で見つけられたかは明らかにできなかった（p105）
-    "c906": dict(
-        t="計算の断り", s="前提と結論",
-        fig=("m20", dict(view="prob", start=dict(one="on", many="on"),
-                         steps=[dict(tag=dict(t="仮定による計算", at="asm")),
-                                dict(state=dict(q="on"), tag=dict(t="見つけられたか", at="q"))],
-                         note="値は報告書の計算（どちらも「程度」）・幅は幅のまま・棒の太さは模式", src=ss.src(["報告書 p100", "報告書 p105"])))),
-    # c908（2行）＝正しく作られ・正しく修理された壁なら（亀裂は多数できない）→ その点検は妥当（p105（コ）の考え）
-    "c908": dict(
-        t="点検が足りる場合", s="報告書の考え（3.2.2）",
-        fig=("m20", dict(view="two",
-                         steps=[dict(state=dict(pick="on"), tag=dict(t="亀裂は多数できない（考え）", at="pick", to="pick")),
-                                dict(state=dict(ok="on"), tag=dict(t="妥当な点検方法", at="ok", col=J.OK))],
-                         note="形は模式（亀裂の印の数は書かない）", src=ss.src(["報告書 p105"])))),
-    # c913（3行）＝いちばん後ろの化粧室のドアの不具合 → グアム便でコートルームに荷物（p103）→ 1978年の事故の変形が関わった可能性（否定できない）
-    "c913": dict(
-        t="化粧室のドア", s="1985年2月〜8月の報告",
-        fig=("m20", dict(view="lav",
-                         steps=[dict(state=dict(lav="on"), tag=dict(t="いちばん後ろの化粧室", d="ドアの不具合の報告", at="lav", to="lav")),
-                                dict(state=dict(coat="on"), tag=dict(t="コートルームの荷物", d="グアム便", at="coat", to="coat")),
-                                dict(state=dict(bend="on"), tag=dict(t="1978年の事故の変形", d="可能性は否定できない", at="bend", to="bend"))],
-                         rel=[dict(t="1978年", src="報告書 p103（昭和53年6月の事故によって機体後部に変形）")],
-                         note="配置と変形の大きさは模式（数は書かない）", src=ss.src(["報告書 p103"])))),
-}
-
-# ── 🆕 ⑤b-7（2026-10-11）：写真・文字の頁（書き方の約束は c2.py の ⑤b-7 の節）──
-SPEC.update({
-    # c901（8.56秒）＝写真-65（後部圧力隔壁パート1（非与圧側）＝点検で見る後ろの面）＝ゆっくり引く
-    #   🆕 ⑤c'：c701（写真-71）と副題が同じだった＝報告書の写真の題の「パート」の番号で書き分け（c624 の写真-64 と同じ破片の裏）
-    "c901": dict(photo=P("p065"), **ss.kind(P("p065")), cam="pull", t="点検で見る面", s="後部圧力隔壁の一部（パート1・尾部の側）"),
-    # c907（6.79秒）＝報告書 p125（4.1.5.4）。2行目の引用「点検方法に十分とはいえない点があったため」と同時に印
-    "c907": dict(photo=ss.page(125), trim=ss.ptrim("c907"), bias=ss.pbias("c907"), panel=True, color=1.0, hl=ss.phl("c907"),
-                 t="点検の結論", s="点検についての記述（4.1.5.4）"),
-    # c909（6.23秒）＝写真-87（L18接続部 No.21〜No.24 付近のヤニ）。🔴 写真は No.24 が左（横 0.22）・No.21 が右（横 0.53）＝
-    #   一覧の「左から右へ（No.21 から No.24 へ）」は絵と向きが逆＝絵を正本に No.21 → No.24（右から左）へ
-    "c909": dict(photo=P("p087"), **ss.kind(P("p087")), t="合わせ目の跡", s="L18 接続部の No.21〜24 付近のヤニ",
-                 cam={"from": ss.pf(P("p087"), 0.55, 0.32, 1.6), "to": ss.pf(P("p087"), 0.22, 0.32, 1.6)}),
-    # c910（6.49秒）＝写真-92（No.41 付近のヤニの吹き出し・縦長）＝寄る
-    "c910": dict(photo=P("p092"), **ss.kind(P("p092")), t="吹き出したヤニ", s="L18 接続部の No.41 付近"),
-    # c911（7.08秒）＝写真-93（No.50 付近のヤニの吹き出し・縦長）＝右へ流す
-    "c911": dict(photo=P("p093"), **ss.kind(P("p093")), cam="pan_r", t="修理とヤニ", s="L18 接続部の No.50 付近"),
-    # c912（10.47秒）＝写真-88（No.39〜No.45 付近のヤニ）。札 No.39（横 0.33）→ No.45（横 0.88）を順に（下の焼き込みの札は窓の外）
-    "c912": dict(photo=P("p088"), **ss.kind(P("p088")), t="表から見えない所", s="L18 接続部の No.39〜45 付近のヤニ",
-                 cam={"from": ss.pf(P("p088"), 0.33, 0.30, 2.0), "to": ss.pf(P("p088"), 0.88, 0.30, 2.0)}),
-})
+SPEC = {}

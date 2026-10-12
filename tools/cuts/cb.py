@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""第10章　相模湾 cb01–cb14（14カット）。20本目（日本航空123便のリメイク）。
+"""第10章　その後の空 cb01–cb19（19カット）。21本目（9.11 米国同時多発テロのリメイク）。
 
-■ 🔴 2026-10-08（⑤b-1）：19本目（サーフサイドのマンション崩壊のリメイク）の中身を空にした＝git の `0dcaa9c`（`git show 0dcaa9c:tools/cuts/cb.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep20/make_plan20.py` で
-  映像方針の一覧 `ref/ep20/eizou_build/list20.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
+■ 🔴 2026-10-12（⑤b-1）：20本目（日本航空123便のリメイク）の中身を空にした＝git の `f0095bd`（`git show f0095bd:tools/cuts/cb.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep21/make_plan21.py` で
+  映像方針の一覧 `ref/ep21/eizou_build/list21.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット（台本の画は元の予定）。
@@ -14,157 +14,63 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'cb01': dict(kind='図・写真の頁',
-               plan='F21｜動き：寄る｜権利：PDL1.0｜出典の行：運輸安全委員会（報告書 付図-21）／縮小・切出｜台本の画：図 p157 付図-21 相模湾海底調査区域（地図・額装・区域に寄る）',
-               src='報告書 2.4.4.1 p.13（`総数53個の浮遊残骸`）・解説 p.25（`事故機に異常が発生した直後に相模湾に落下したと推定される同機の残骸`）'),
-    'cb02': dict(kind='再現イラスト',
-               plan='S7｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S7【上から】相模湾の地図（調査区域の枠・浮遊残骸の揚収場所の点＝付図-20・21 から）',
-               src='報告書 2.4.4.2 p.13（`昭和60年11月1日から11月20日までの間に、海上保安庁の測量船及び海洋科学技術センターの海中作業実験船により`）'),
-    'cb03': dict(kind='再現イラスト',
-               plan='S7｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S7【上から】（海の流れの矢印・推定落下区域）',
-               src='解説 p.21〜22（`発見された残骸の漂流物`・`海流観測`・`逆漂流計算を実施した結果`・`DFDR及びCVRの情報(飛行経路、異常音発生地点)`）'),
-    'cb04': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 サイド・スキャン・ソナー（船が引く装置から海底へ扇形の音）',
-               src='解説 p.23（`光が通りにくい海中において、遠くまで届く音響を利用して海底の状況をカメラで写したように見ることができる装置です`）・報告書 2.4.4.2 p.13'),
+    'cb01': dict(kind='写真',
+               plan='W593｜区間 26.0〜34.0秒｜倍率 1.01（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜副題：当日の夜、ホワイトハウスでの演説｜動き：映像｜権利：A（WHCA の職務・NARA 6171390・use=Unrestricted）｜出典の行：Courtesy George W. Bush Presidential Library（NARA 6171390）｜注：大統領だけ・音は使わない｜台本の画：実写 当日の夜の演説（NARA 6171390・WHCA・A・720×486＝全画面・大統領だけ＝副題「当日の夜、ホワイトハウスでの演説」）',
+               src='委員会報告 p326（`At 8:30 that evening, President Bush addressed the nation from the White House`）'),
+    'cb02': dict(kind='図解',
+               plan='台本の画：図 模式 全米の地図（9月13日・空港の点が戻り始める）',
+               src='委員会報告 p327（`On the morning of September 13, the national airspace reopened for use by airports that met newly improvised security standards`）・p556（`effective 11:00 A.M. on September 13, 2001`）'),
+    'cb03': dict(kind='写真',
+               plan='🔧 DOD912｜副題：9月12日のペンタゴン（国防長官と現場を回る大統領）｜動き：左へ流す｜権利：A（国防総省の職務）｜出典の行：米国防総省｜注：🔧 WHTV 600（30分の未編集テープ）→ 国防総省の写真｜台本の画（🔧映像方針で替えた＝元の予定）：実写 WHTV 600 ペンタゴンを訪れる大統領（9月12日・WHCA・A・SD＝全画面＝副題「9月12日のペンタゴン」）',
+               src='materials.md §1-2（WHTV 600＝9/12 のペンタゴン視察・未編集 30:29＝目録の説明。中身の秒は映像方針で）・委員会報告 p559 注61（`On the evening of September 12, the President was at the Pentagon`）'),
+    'cb04': dict(kind='写真',
+               plan='🔧 FEMA3905｜副題：9月14日の世界貿易センターの跡（救助の人たちに話す大統領）｜動き：ゆっくり寄る｜権利：A（米陸軍・FEMA の職務）｜出典の行：FEMA（SFC Thomas R. Roberts）｜注：🔧 WHTV 609 → FEMA の写真。消防士と作業員＝捜索の任務｜台本の画（🔧映像方針で替えた＝元の予定）：実写 WHTV 609 世界貿易センターの跡を訪れる大統領（9月14日・WHCA・A・消防と救助の人の顔＝職務・全画面＝副題「9月14日の世界貿易センターの跡」）',
+               src='materials.md §1-2（WHTV 609・610／NARA 6171391＝9/14 の大統領と消防・警察・救助＝目録の説明。中身の秒は映像方針で）'),
     'cb05': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 見分けられる大きさ（当時のソナーで約5.5メートル×6.5メートルの四角）',
-               src='解説 p.24（`実際の物体を判別するためには、5点程度は必要と言われています`・`事故当時、サイド・スキャン・ソナーで探知できる物体の大きさは5.5m×6.5m程度必要でした`）'),
-    'cb06': dict(kind='図・写真の頁',
-               plan='K-kz018｜権利：PDL1.0｜出典の行：運輸安全委員会（2011年の解説）｜台本の画：図 p24 解説 図18 えい航式深海カメラの航跡（地図・額装）',
-               src='報告書 2.4.4.2 p.13〜14（`17箇所`・`えい航式深海カメラにより撮影された写真及びビデオテープ記録による調査`）'),
-    'cb07': dict(kind='再現イラスト',
-               plan='S7｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S7【上から】（17か所の点に「なし」の札）',
-               src='報告書 2.4.4.2 p.13（`同機の残骸の一部とみられるものは発見されなかった`）・解説 p.22（`この調査区域の海底の底質は、泥、砂、岩場等が混在している場所です`）'),
-    'cb08': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 深海カメラ（海底の上約1.5メートルを、幅約1.5メートルずつ写して進む）',
-               src='解説 p.25（文字の層は「えい..航」＝`航速度約2kt`・`航高度約1.5m`・`撮影幅約1.5m`）'),
+               plan='台本の画：図 模式 年表（2001年11月の法律の印）',
+               src='委員会報告 p391（`In November 2001, Congress passed and the President signed the Aviation and Transportation Security Act. This act created the Transportation Security Administration (TSA)`）・法律（`November 19, 2001`）'),
+    'cb06': dict(kind='フリー素材',
+               plan='TSA20｜副題：イメージ（2020年の空港の保安検査）｜動き：右へ流す｜権利：F（CC BY 2.0）｜出典の行：Tony Webster（CC BY 2.0）｜注：20%に数えない・顔の分かる客は顔だけモザイク｜台本の画：イメージ 現在の空港の保安検査（後年・フリー素材＝副題「イメージ（現在の空港）」）',
+               src='法律（`the screening shall take place before boarding and shall be carried out by a Federal Government employee`・`except as otherwise provided in section 44919 or 44920`）・委員会報告 p2（`under a contract with American Airlines`）・p3（`had contracted out the work`）'),
+    'cb07': dict(kind='図解',
+               plan='台本の画：図 模式 年表（2001年11月の法律から1年の帯）',
+               src='法律（`Not later than 1 year after the date of enactment of this Act, the Under Secretary of Transportation for Security shall deploy at all airports in the United States where screening is required`）'),
+    'cb08': dict(kind='フリー素材',
+               plan='DOOR15｜副題：イメージ（2015年の旅客機の操縦室の扉）｜動き：下へ流す｜権利：F（CC BY 2.0 de）｜出典の行：Mattes（CC BY 2.0 de）｜注：20%に数えない・縦長｜台本の画：イメージ 現在の旅客機の操縦室の扉（後年・フリー素材＝副題「イメージ」）',
+               src='法律（`requiring the strengthening of the flight deck door and locks`・`to ensure that the door cannot be forced open from the passenger compartment`）'),
     'cb09': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 数の比べ（調査区域の広さと、カメラが1日に写せる広さ＝面積の形で・数字は書かない）',
-               src='解説 p.26（`約25km2である調査区域を撮影幅1.5m、速力2ktで試算してみると、4,500時間かかることになります`・`1日6時間調査したとしても750日、2年以上かかることになります`）'),
+               plan='台本の画：図 模式 操縦室の扉（当時＝閉めて鍵の決まり・守られないこともあった→強い扉）',
+               src='法律（`requiring that such flight deck doors remain locked while any such aircraft is in flight`）・委員会報告 p85（`required air crews to keep the cockpit door closed and locked in flight`・`This requirement was not always observed or vigorously enforced`）'),
     'cb10': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式（同じ絵・「保証なし」の札）',
-               src='解説 p.26（`確実に残骸を発見できるという保証はなく、発見できたとしても原因究明の観点からコストに見合うほどの残骸の発見は期待できず、これ以上、更なる捜索を行うことができなかったものでした`）'),
-    'cb11': dict(kind='再現イラスト',
-               plan='S7｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S7【上から】（推定される落下物の6つの絵＝形だけ）',
-               src='解説 p.25 表5（`APU`・`アクチュエータ×2`・`胴体最後部`・`トーション・ボックス`・`上方方向舵`・`下方方向舵`）'),
-    'cb12': dict(kind='再現イラスト',
-               plan='S7｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S7（重い物は沈み、軽い物は流れる矢印）',
-               src='解説 p.25（`APUとアクチュエータは、重い材質で強固なものであり、分散せずに沈んでいる可能性は大きいでしょう`・`海底に沈まずに漂流した部分がある可能性が大きいでしょう`）'),
+               plan='台本の画：図 模式 同じ',
+               src='委員会報告 p85（`even a hardened cockpit door would have made little difference in a hijacking`）'),
+    'cb11': dict(kind='図解',
+               plan='台本の画：図 模式 年表（2002年11月の法律・国土安全保障省の印）',
+               src='委員会報告 p391（`which is now part of the Homeland Security Department`・`In November 2002, both the Homeland Security Act and the Maritime Transportation Security Act followed`）'),
+    'cb12': dict(kind='図解',
+               plan='台本の画：図 模式 年表（2002年11月 委員会・2004年7月 報告）',
+               src='委員会報告 p.xv（`the Congress and the President created the National Commission on Terrorist Attacks Upon the United States`・`we held 19 days of hearings`）'),
     'cb13': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 遠隔操作の無人探査機（いまの道具・人は描かない）',
-               src='解説 p.25（`遠隔操作で任意の地点へカメラを移動させて調査することができるROV(RemoteOperatedVehicle;遠隔操作無人探査機)が一般的に、使用されるようになりました`）'),
-    'cb14': dict(kind='再現イラスト',
-               plan='S7｜見る向き：上から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S7【上から】相模湾の地図の戻り（調査区域の枠）',
+               plan='台本の画：図 模式 委員会の勧告の箱（乗ってはいけない人の名簿・爆発物の検査）',
+               src='委員会報告 p393（`Improved use of "no-fly" and "automatic selectee" lists should not be delayed`）'),
+    'cb14': dict(kind='図解',
+               plan='台本の画：図 模式 同じ箱（爆発物の検査に印）',
+               src='委員会報告 p393（`The TSA and the Congress must give priority attention to improving the ability of screening checkpoints to detect explosives on passengers`）'),
+    'cb15': dict(kind='写真',
+               plan='🔧 FEMA3894｜副題：9月14日の世界貿易センターの跡｜動き：上へ流す｜権利：A（FEMA の職務）｜出典の行：FEMA（Andrea Booher）｜注：🔧 WHTV 610 → FEMA の写真（人は小さい）｜台本の画（🔧映像方針で替えた＝元の予定）：実写 WHTV 610 世界貿易センターの跡（9月14日・WHCA・NARA 6171391・A・消防と救助の人の顔＝職務・全画面＝副題「9月14日の世界貿易センターの跡」）',
+               src='—'),
+    'cb16': dict(kind='図解',
+               plan='台本の画：図 模式 2つの調べの箱（委員会＝空の側／NIST＝建物の側）',
+               src='NIST（`Final Report on the Collapse of the World Trade Center Towers`）'),
+    'cb17': dict(kind='写真',
+               plan='🔧 PENT23｜副題：2023年のペンタゴン（空撮）｜動き：ゆっくり引く｜権利：A（国防総省の職務）｜出典の行：米国防総省｜注：🔧 ✅ 了承②（2026-10-12）＝2025年の中庭（無人機の展示が画面の大半）から替えた・語りの年も 2023年に（decide21.py R2-026 → make21.py）｜台本の画（🔧映像方針で替えた＝元の予定）：実写 pentagon_court_pre（ペンタゴンの中庭・2025年7月・A・全画面・ゆっくり寄る＝副題「ペンタゴンの中庭（2025年）」。中庭に無人機の展示が写る＝映像方針で原寸を見て、締めに合わなければ別の点）',
+               src='—'),
+    'cb18': dict(kind='写真',
+               plan='MEM24B｜副題：現在の93便の追悼の場（2024年の空撮）｜動き：ゆっくり寄る｜権利：C（CC0）｜出典の行：Designism（CC0）｜注：CC0｜台本の画：実写 93便の追悼の場（別の点・後年・全画面＝副題「現在の93便の追悼の場」）',
+               src='国立公園局（`Flight 93 National Memorial`）'),
+    'cb19': dict(kind='図解',
+               plan='台本の画：図 模式 時間の帯（あの朝の4機）',
                src='—'),
 }
 
-from illu20 import S7_REC as S7R  # noqa: E402  🆕 ⑤b-4：置き場 S7 の部品の出典（描く側と同じ文）
-
-SPEC = {
-    # ── 🆕 ⑤b-6b（2026-10-10）：模式図（`tools/mech20.py` の sonar・res・dcam・area・rov＝門番 check_mech の judge_m20）。数は解説 p23〜p26 の字 ──
-    # 🆕 ⑤c'（2026-10-11）：cb04 の PLAN の「動き：引く」は模式図の型に無い（カメラは動かさない）＝PLAN から外した（台本の画の欄は元のまま）
-    # cb04（2行）＝サイド・スキャン・ソナー（解説 p23 図17）：船が引く装置から扇の形の音 → 跳ね返りを受けて写す
-    "cb04": dict(
-        t="音で写す装置", s="海の底の調べ方（1985年）",
-        fig=("m20", dict(view="sonar",
-                         steps=[dict(state=dict(beam="on"), tag=dict(t="ソナーの音（扇の形）", at="beam", to="fish")),
-                                dict(state=dict(echo="on"), tag=dict(t="跳ね返った音を受ける", at="echo", to="obj"))],
-                         note="形と角度は模式（解説の図17 を簡単に）", src=ss.src(["解説 p1023", "報告書 p13"]))),
-    ),
-    # cb05（2行）＝当時のソナーの1つの点（分解能 1.1m×1.3m）→ 見分けるには5点ほど＝約5.5メートル×6.5メートル（解説 p24）
-    "cb05": dict(
-        t="見分けられる大きさ", s="当時のソナー",
-        fig=("m20", dict(view="res",
-                         steps=[dict(state=dict(cell="on"), tag=dict(t="1つの点（分解能）", at="one", to="one")),
-                                dict(state=dict(need="on"), tag=[dict(t="約5.5メートル", at="w", to="w"), dict(t="約6.5メートル", at="h", to="h")])],
-                         rel=[dict(t="5.5m×6.5m（解説の字）", src="解説 p1024（5.5m×6.5m程度）"),
-                              dict(t="1つの点＝1.1メートル×1.3メートル", src="解説 p1024（分解能 1.1m×1.3m）")],
-                         note="格子は模式（1マス＝分解能の1つの点・1辺に5つ）", src=ss.src(["解説 p1024"]))),
-    ),
-    # cb08（3行）＝聞き役 → 海の底から約1.5メートルの所 → 幅約1.5メートルずつ写して、2ノット（時速約3.7キロ）で進む（解説 p25）
-    "cb08": dict(
-        t="深海カメラの写し方", s="えい航式深海カメラ",
-        fig=("m20", dict(view="dcam",
-                         steps=[dict(),
-                                dict(state=dict(h="on"), tag=dict(t="約1.5メートル", at="h", to="h")),
-                                dict(state=dict(w="on"), tag=[dict(t="幅 約1.5メートル", at="w", to="w"),
-                                                             dict(t="2ノット", d="時速約3.7キロ", at="spd", to="ship")])],
-                         rel=[dict(t="約1.5メートル", src="解説 p1025（えい航高度 約1.5m・撮影幅 約1.5m）"),
-                              dict(t="2ノット（時速約3.7キロ）", src="解説 p1025（えい航速度 約2kt）")],
-                         note="深さは縮めた（途切れの印）・形は模式", src=ss.src(["解説 p1024", "解説 p1025"]))),
-    ),
-    # cb09（3行）＝約25km2 を全部写すと約4,500時間 → 1日6時間なら750日・2年以上 → すき間を埋めるには数回くり返す（解説 p26 の試算）
-    "cb09": dict(
-        t="写しきるまでの日数", s="解説の試算",
-        fig=("m20", dict(view="area",
-                         steps=[dict(tag=[dict(t="調べた区域", d="約25平方キロ", at="a1", to="big"), dict(t="約4,500時間", d="全部写すと", at="a2")]),
-                                dict(state=dict(day="on"), tag=dict(t="1日6時間なら750日", d="2年以上", at="a3", to="day")),
-                                dict(state=dict(rep="on"), tag=dict(t="数回くり返す", d="すき間を埋めるには", at="a4"))],
-                         rel=[dict(t="約25平方キロ", src="解説 p1026（約25km2）"), dict(t="約4,500時間", src="解説 p1026"),
-                              dict(t="1日6時間なら750日", src="解説 p1026"), dict(t="2年以上", src="解説 p1026")],
-                         note="四角は面積の比だけ合わせた模式（撮影幅1.5メートル・2ノット）", src=ss.src(["解説 p1026"]))),
-    ),
-    # cb10（2行）＝見つかる保証は無く、費用に見合う発見も期待できない → 捜索はここで終わった（解説 p26）
-    "cb10": dict(
-        t="続けられなかった捜索", s="解説の見方",
-        fig=("m20", dict(view="area", start=dict(day="on"),
-                         steps=[dict(state=dict(nog="on"), tag=dict(t="見つかる保証は無い", d="解説", at="a2")),
-                                dict(state=dict(end="on"), tag=dict(t="捜索はここで終わった", at="a3"))],
-                         note="四角は面積の比だけ合わせた模式", src=ss.src(["解説 p1026"]))),
-    ),
-    # cb13（2行）＝聞き役（海の底は確かめきれていない）→ いまは遠隔操作の無人探査機（ROV）が一般的（解説 p25）
-    "cb13": dict(
-        t="海の底を調べる、いまの道具", s="遠隔操作で動かす探査機",
-        fig=("m20", dict(view="rov",
-                         steps=[dict(state=dict(ask="on")),
-                                dict(state=dict(rov="on"), tag=dict(t="遠隔操作無人探査機（ROV）", d="解説", at="rov", to="rov"))],
-                         note="形は模式（人は描かない）", src=ss.src(["解説 p1025"]))),
-    ),
-    # ── 🆕 ⑤b-4（2026-10-08）：再現イラスト S7 相模湾の地図（`tools/illu20.py`・門番 check_illu ㉚）──
-    #   点と線＝`ref/ep20/sagami20.json`（付図-20・付図-21・解説 図15 から読んだ）
-    # cb02（2行）＝前の再現 ca21（S2・日本の地図）→ 相模湾＝合図（置き場が替わる＝㉑）。海の底を調べた区域（付図-21 の枠）
-    "cb02": dict(fig=("illu", dict(
-        place="S7", start=dict(switch="on"), rec=S7R["deb"],
-        # ⑤b-4 の試し焼き：札を右下（off 90, 60）に出すと「大島」の名に重なった＝右上の海へ
-        steps=[dict(), dict(state=dict(s7area="on"), rec=S7R["area"], tag=dict(t="海の底を調べた区域", at="area_e", off=(150, -130)))]))),
-    # cb03（3行）＝聞き役の問い → 浮いていた破片の場所（付図-20）・海の流れ（図15）・さかのぼって計算した区域（図15 の楕円）
-    #   → 飛んだ道すじ（付図-21 の 244度）と、あの音がした地点（推定異常音発生点）
-    "cb03": dict(fig=("illu", dict(
-        place="S7", start=dict(s7area="on"), rec=S7R["area"],
-        steps=[dict(),
-               # 🆕 ⑥：off (80, -80) は札を陸（神奈川の海岸）の海岸線が横切った（geom_gap・箱の中の点 26・2行目だけ）＝同じ高さで左へ
-               #   箱 x 848〜1058（海岸線から 17.5px・scratchpad place_cb03.py）。左寄せ (-140, -80) は自分の線が字の左下の角をかすめた
-               #   （点が右下＝線が字の左の端へ向かう）＝真ん中寄せ（線の先は字の下の真ん中の外＝illu.tag_svg）で同じ箱 (-25, -80)。
-               #   ⚠️ 右下 (270, 30) は引き出し線が「三浦半島」を横切った（geom_gap 箱の中の点 21＝字の箱だけ測る道具の穴）
-               dict(state=dict(s7deb="on", s7cur="on", s7drop="on"), rec=S7R["drop"],
-                    tag=dict(t="浮いていた破片", at="deb", off=(-25, -80), anchor="middle")),
-               # 🆕 ⑥：off (-60, 110) は札の後ろを伊豆半島の先の海岸線が通った（原寸＝縁取りで読める・geom_gap 箱の中の点 29）＝左下
-               #   (-230, 140)＝海岸線から 21px（scratchpad place20.py・⑤c' の「稲取」と同じ型）
-               dict(state=dict(s7path="on", s7boom="on"), rec=S7R["path"], tag=dict(t="あの音がした地点", at="boom", off=(-230, 140), anchor="end"))]))),
-    # cb07（2行）＝付図-21 の窓：17か所を深海カメラで調べた → どこにも残骸なし（× の印）→ 泥・砂・岩場
-    "cb07": dict(fig=("illu", dict(
-        place="S7", start=dict(s7frame="area", s7area="on", s7pts="on", s7path="on", s7boom="on"), rec=S7R["pts"],
-        # 🆕 ⑤c'：右上（off 70, -60）は札が調査地点の印に重なった（geom_gap・7点）＝左上（-50, -100）右寄せ＝線から 39px・字から 51px
-        steps=[dict(state=dict(s7pts="none"), rec=S7R["none"], tag=dict(t="17か所とも残骸なし", at="pts", off=(-50, -100), anchor="end")),
-               # ⑤b-4 の試し焼き：枠の真ん中（area）を指すと線が × に刺さった＝東南の空いた所（area_mid）を右下から
-               dict(tag=dict(t="泥・砂・岩場", at="area_mid", off=(140, 120)))]))),
-    # cb11（2行）＝海に落ちたとみられる物（解説 表5 の6つ＝形だけ）
-    "cb11": dict(fig=("illu", dict(
-        place="S7", start=dict(s7frame="area", s7area="on", s7pts="none"), rec=S7R["none"],
-        steps=[dict(state=dict(s7obj="on"), rec=S7R["obj"]), dict()]))),
-    # cb12（2行）＝重く丈夫な APU と方向舵を動かす装置は沈む（下向きの矢印）→ 軽い方向舵は流された部分がある（波の矢印）
-    "cb12": dict(fig=("illu", dict(
-        place="S7", start=dict(s7frame="area", s7area="on", s7pts="none", s7obj="on"), rec=S7R["obj"],
-        steps=[dict(state=dict(s7sink="heavy"), rec=S7R["sink"]), dict(state=dict(s7sink="all"), rec=S7R["sink"])]))),
-    # cb14（2行）＝相模湾の地図の戻り（調査区域の枠）
-    "cb14": dict(fig=("illu", dict(
-        place="S7", start=dict(s7area="on"), rec=S7R["area"], steps=[dict(), dict()]))),
-}
-
-# ── 🆕 ⑤b-7（2026-10-11）：付図・解説の図（書き方の約束は c2.py の ⑤b-7 の節）──
-SPEC.update({
-    # cb01（8.42秒）＝付図-21 相模湾海底調査区域。調査区域の枠の真ん中（横 0.55 縦 0.55）に寄せた窓（門番 edges で 1.1→1.05倍）
-    "cb01": dict(photo=P("f021"), **ss.kind(P("f021")), **ss.pfk(P("f021"), 0.55, 0.55, 1.05), t="海の底の調査", s="海底を調べた区域の図"),
-    # cb06（5.80秒）＝解説の図18 えい航式深海カメラの航跡
-    "cb06": dict(photo=P("kz018"), **ss.kind(P("kz018")), t="カメラでの確かめ", s="深海カメラの航跡"),
-})
+SPEC = {}

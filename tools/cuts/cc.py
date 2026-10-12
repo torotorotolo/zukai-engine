@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""終章　その後と、まだ分からないこと cc01–cc19（19カット）。20本目（日本航空123便のリメイク）。
+"""終章　あの朝、持ち場にいた人たち cc01–cc10（10カット）。21本目（9.11 米国同時多発テロのリメイク）。
 
-■ 🔴 2026-10-08（⑤b-1）：19本目（サーフサイドのマンション崩壊のリメイク）の中身を空にした＝git の `0dcaa9c`（`git show 0dcaa9c:tools/cuts/cc.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep20/make_plan20.py` で
-  映像方針の一覧 `ref/ep20/eizou_build/list20.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
+■ 🔴 2026-10-12（⑤b-1）：20本目（日本航空123便のリメイク）の中身を空にした＝git の `f0095bd`（`git show f0095bd:tools/cuts/cc.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep21/make_plan21.py` で
+  映像方針の一覧 `ref/ep21/eizou_build/list21.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット（台本の画は元の予定）。
@@ -15,190 +15,35 @@ P = ss.P
 
 PLAN = {
     'cc01': dict(kind='写真',
-               plan='🔧 O4｜副題：御巣鷹の尾根を示す道の標識（国道299号・2009年）｜動き：ゆっくり寄る｜権利：CC BY 3.0｜出典の行：daipresents（Panoramio）／CC BY 3.0／切り出し｜注：台本の「現在の御巣鷹の尾根」→ 写真の年で断る｜台本の画（🔧映像方針で替えた＝元の予定）：実写 現在の御巣鷹の尾根（Commons・CC BY 3.0・別の点＝副題「現在の墜落現場の尾根」・ゆっくり寄る）',
-               src='報告書 5.1.4(ア) p.132（`垂直安定板及び方向舵の一斉点検の指示(耐空性改善通報TCD-2483-85,昭和60年8月15日)`）・5.1.4(イ) p.132（`胴体与圧室後部構造の一斉点検の指示(耐空性改善通報TCD-2483-1-85,昭和60年8月17日)`）'),
-    'cc02': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 油圧の4系統（c308 の絵の戻り）',
-               src='報告書 5.1.1 p.129（`勧告番号A-85-133,1985年12月5日`・`4系統あるすべての油圧系統が損傷しないように設計変更及び改修を行うこと`・`勧告番号A-85-140,1985年12月13日`）'),
-    'cc03': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 油圧の4系統とヒューズ（第4系統の尾翼の手前に部品の印）',
-               src='報告書 5.1.2(キ) p.130〜131（`No.4油圧系統が垂直安定板へ入る上流にフューズを装着することにより、昇降舵、補助翼及びスポイラの機能を確保できると考えられている`）・5.1.3(イ) p.131'),
+               plan='P109｜副題：当日の夜のペンタゴン（崩れた西側）｜動き：ゆっくり寄る｜権利：A（米海軍の職務）｜出典の行：米海軍（PH2 Robert Houlihan）｜注：語りは NEADS・FAA の人＝人の写らない点｜台本の画：実写 当日のペンタゴン（米軍の写真・A・救助にあたる隊員・別の点＝副題は「当日のペンタゴンの救助」のように写っている人を書き、語りの NEADS・FAA の人と取り違えさせない。合わなければ人の写らない点か図）',
+               src='委員会報告 p31（`We do not believe that the true picture of that morning reflects discredit on the operational personnel at NEADS or FAA facilities`）'),
+    'cc02': dict(kind='写真',
+               plan='P084｜副題：当日のペンタゴン（海軍別館から見た煙）｜動き：左へ流す｜権利：A（米海兵隊の職務）｜出典の行：米海兵隊（Cpl J. Ingersoll）｜注：語りは NEADS の将校＝人のほぼ写らない点｜台本の画：実写 当日のペンタゴン（米軍の写真・A・別の点＝副題は絵を見て書く）',
+               src='委員会報告 p31（`NEADS commanders and officers actively sought out information, and made the best judgments they could on the basis of what they knew`）'),
+    'cc03': dict(kind='写真',
+               plan="LC210｜副題：当日の世界貿易センターの跡（第7ビルの足元の消防士）｜動き：2点を順に寄る｜権利：C'（撮影者不詳・権利を放棄）｜出典の行：米議会図書館蔵（撮影者不詳）｜注：消防の犠牲の語り＝消防士（公務）｜台本の画：実写 当日の世界貿易センター（A・別の点・消防の人の顔＝職務＝副題は絵を見て書く）",
+               src='委員会報告 p311（`The FDNY suffered 343 fatalities`・`the largest loss of life of any emergency response agency in history`・`The PAPD suffered 37 fatalities`・`The NYPD suffered 23 fatalities`）'),
     'cc04': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 垂直尾翼の点検口にカバー（空気が入り込まない）',
-               src='報告書 5.1.3(ア) p.131（`垂直尾翼点検孔へのカバー装着`）・5.1.3(オ) p.131（`強化型後部圧力隔壁を取り付けた`）・5.1.4(ク) p.133（`救難調整本部の置かれている東京空港事務所の施設及び関係機関相互の通信回線網を整備する`・`昭和61年8月7日、運輸省航空局と関係機関との合同訓練を実施した`）'),
+               plan='台本の画：図 模式 時間の帯（4機と、軍に届いた知らせの印）',
+               src='委員会報告 p45（`NORAD and the FAA were unprepared for the type of attacks launched against the United States on September 11, 2001`・`an unprecedented challenge they had never before encountered and had never trained to meet`）'),
     'cc05': dict(kind='写真',
-               plan='🔧 O3｜副題：昇魂之碑（御巣鷹の尾根・2009年）｜動き：下から上へ流す｜権利：CC BY 3.0｜出典の行：daipresents（Panoramio）／CC BY 3.0／切り出し｜注：CC BY 3.0（BY-SA の nattou 2010 の写真の代わり＝寄せ書きの札が写らない・額装の縛りなし）｜台本の画（🔧映像方針で替えた＝元の予定）：実写 昇魂之碑（Commons・CC BY-SA・額装・無加工＝副題「昇魂之碑（現在）」）',
-               src='報告書 表紙 PDF p.1（`昭和62年6月19日`）・勧告第1号（PDF p.3）・建議第6号（PDF p.5）'),
-    'cc06': dict(kind='文字の頁',
-               plan='PG｜権利：PDL1.0（文字の頁）｜台本の画：図 p4 勧告第1号の頁（文字の頁・PDF の頁＝前付け）',
-               src='勧告第1号（PDF p.4）（`修理作業の計画及び作業管理を、状況に応じ特に慎重に行うよう`・`その部位について特別の点検項目を設け継続監視するよう`）'),
+               plan='🔧 P043｜副題：当日のペンタゴン（炎と救急車）｜動き：右へ流す｜権利：A（米海兵隊の職務）｜出典の行：米海兵隊（Cpl J. Ingersoll）｜注：🔧 DVIDS の別の窓 → 写真（運転席の人の方へ寄らない）｜台本の画（🔧映像方針で替えた＝元の予定）：実写 DVIDS 122342（別の窓・隊員と消防＝副題「当日のペンタゴン」）',
+               src="委員会報告 p31（`the NEADS air defenders had nine minutes' notice on the first hijacked plane`）"),
+    'cc06': dict(kind='写真',
+               plan="LCB20｜副題：当日のマンハッタン｜動き：左へ流す｜権利：C'（撮影者不詳・権利を放棄）｜出典の行：米議会図書館蔵（撮影者不詳）｜注：遠くの通行人は顔の分からない遠景｜台本の画：実写 議会図書館 LC-B20（車内から見た通りと煙の柱・C'＝米議会図書館蔵（撮影者不詳）・遠くの人は顔の分からない遠景だけ・全画面＝副題「当日のマンハッタン」）",
+               src='記念館（`The attacks killed 2,977 people from 90 nations: 2,753 people were killed in New York; 184 people were killed at the Pentagon; and 40 people were killed on Flight 93`）'),
     'cc07': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 建議の2つ（乗員の対応力・目で見る点検で見つけられる亀裂＝絵の札だけ）',
-               src='建議第6号（PDF p.6）（`緊急又は異常な事態における乗組員の対応能力を高めるための方策を検討すること`・`目視点検による亀裂の発見に関し検討すること`）'),
-    'cc08': dict(kind='写真',
-               plan='🔧 O6｜副題：慰霊の園（群馬県上野村・2009年）｜動き：ゆっくり引く｜権利：CC BY 3.0｜出典の行：daipresents（Panoramio）／CC BY 3.0／切り出し｜注：CC BY 3.0（BY-SA の Cubical quad 2013 の代わり）｜台本の画（🔧映像方針で替えた＝元の予定）：実写 上野村の慰霊の施設（Commons・CC BY-SA・額装・無加工＝副題「上野村の慰霊の施設（現在）」）',
-               src='—'),
-    'cc09': dict(kind='再現イラスト',
-               plan='S6｜見る向き：横から｜合図：🔁 上→横（前の再現 cb14）＝左上に見る向きの札・替わる瞬間に「横から見ると」｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S6【横から】の戻り（指示と実際を左右に）',
-               src='報告書 3.2.2(1)(オ) p.102（`このような作業が行われたという記録はない`）'),
-    'cc10': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 書類の再現図（FAA の頁の英文の一文＝原文の英語のまま・出典の札）',
-               src='FAA Lessons Learned「JA8119」（頁の更新 2025-09-03）（`difficulty in installation of a splice plate resulted in the Boeing repair crew dividing the plate and installing it in two pieces`）'),
-    'cc11': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 年表（2024年9月 ボーイングの頁・2026年8月 削除と謝罪・2026年8月25日 大臣の会見）',
-               src='産経新聞（2026-08-12・ITmedia ビジネスオンライン転載）＝sources.md §8'),
-    'cc12': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式（同じ年表・2026年8月に印）',
-               src='産経新聞（2026-08-12）＝sources.md §8（`混乱を招いた`・削除は誤解を避ける目的・原因の詳細の説明は無い）'),
-    'cc13': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式（同じ年表・2026年8月25日に印）',
-               src='国土交通大臣の会見 2026-08-25（`航空局から米国連邦航空局及びボーイング社に対して、事実関係等の問合せを行ってきました`・`準備ができ次第結果を公表したいと考えています`）'),
-    'cc14': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式（同じ年表の右端＝「公表を待つ」の札）',
-               src='2026-10-08 の検索（国交省の公表は見つからない＝sources.md §8・⑥で確かめ直す）'),
-    'cc15': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 報告書の言葉の使い分け（認められる・推定される・考えられる・可能性＝4段の札）',
-               src='解説 p.26（`断定できないが、ほぼ間違いない場合・・・「推定される」`・`本事故の場合の原因については、「推定される」を使用しているため、断定できないが、ほぼ間違いない場合にあたります`）'),
-    'cc16': dict(kind='写真',
-               plan='🔧 O5｜副題：御巣鷹の尾根を示す道の標識（県道124号・2009年）｜動き：左へ流す｜権利：CC BY 3.0｜出典の行：daipresents（Panoramio）／CC BY 3.0／切り出し｜注：—｜台本の画（🔧映像方針で替えた＝元の予定）：実写 現在の御巣鷹の尾根（Commons・CC BY 3.0・別の点＝副題「現在の墜落現場の尾根」・横に流す）',
-               src='報告書 3.2.7.4(4) p.117・2.12 p.24'),
-    'cc17': dict(kind='再現イラスト',
-               plan='S6｜見る向き：横から｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 再現イラスト S6【横から】の戻り（実際の継ぎ方）',
-               src='報告書 4.2 p.128'),
-    'cc18': dict(kind='図解',
-               plan='模式｜権利：自作（形のもと＝報告書の付図）｜台本の画：図 模式 3つの問いの答えの並び（札だけ・3つ目は「公表を待つ」）',
-               src='—'),
-    'cc19': dict(kind='写真',
-               plan='🔧 O2｜副題：御巣鷹の尾根の登山道（2009年）｜動き：ゆっくり引く｜権利：CC BY 3.0｜出典の行：daipresents（Panoramio）／CC BY 3.0／切り出し｜注：「2009年に作られた階段と手すり」（題）＝副題に階段の年は入れない｜台本の画（🔧映像方針で替えた＝元の予定）：実写 現在の御巣鷹の尾根（Commons・CC BY 3.0・別の点・登山道＝副題「現在の墜落現場の尾根」・ゆっくり引く）',
+               plan='台本の画：図 模式 数の帯（2,973＝2004年7月の委員会・2,977＝いまの数）',
+               src='委員会報告 p311（`the nation suffered the largest loss of life—2,973—on its soil as a result of hostile attack in its history`）'),
+    'cc08': dict(kind='図解',
+               plan='台本の画：図 模式 同じ帯（2026年8月の札）',
+               src='検視局（`announced the identification of a previously unknown victim of the September 11, 2001 terror attacks on the World Trade Center using the breakthrough technique of forensic investigative genetic genealogy`）'),
+    'cc09': dict(kind='図解',
+               plan='台本の画：図 模式 委員会報告の表紙の絵と「米政府の印刷局のサイト」の札',
+               src='sources §1（govinfo の PDF＝200・md5 が手元と同じ・2026-10-11。⑥の時点でもう一度開く）'),
+    'cc10': dict(kind='写真',
+               plan='DV47｜区間 15.0〜21.0秒｜倍率 0.90（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜副題：9月14日のペンタゴン（空撮）｜動き：映像｜権利：A（米空軍 第1戦闘カメラ隊の職務・DVIDS「PUBLIC DOMAIN」）｜出典の行：米空軍（DVIDS 122347）｜注：中庭の真上を回る（0.81倍・1秒1コマ）｜台本の画：実写 DVIDS 122347「Noble Eagle, Sep 14」空撮（別の窓・PD・SD＝全画面・ゆっくり引く＝副題「9月14日のペンタゴン（空撮）」）',
                src='—'),
 }
 
-from illu20 import S6_REC as S6R  # noqa: E402  🆕 ⑤b-4：置き場 S6 の部品の出典（描く側と同じ文）
-
-SPEC = {
-    # ── 🆕 ⑤b-6b（2026-10-10）：模式図（`tools/mech20.py` の hyd の戻り・cover・faa・word・ans＝門番 check_mech の judge_m20）・
-    #    年表（axis＝check_axis）・並べ図（boxes＝check_boxes）。報告書 5.1（p129〜p133）・建議（前付け PDF6）・sources.md §8 ──
-    # cc02（3行）＝NTSB の勧告（A-85-133〜140＝8つ・1985年12月5日／13日＝p129）→ 尾翼の内部に急な圧力でも致命的に壊れない（ア）→
-    #   4系統あるすべての油圧系統が損傷しない（イ）。c308 の絵の戻り
-    "cc02": dict(
-        t="アメリカの勧告", s="NTSB（国家運輸安全委員会）",
-        fig=("m20", dict(view="hyd", start=dict(pipes="on"),
-                         steps=[dict(tag=dict(t="NTSB の8つの勧告", d="1985年12月", at="rec")),
-                                dict(state=dict(ask="on"), tag=dict(t="尾翼の中の急な圧力", at="tail", to="tail")),
-                                dict(state=dict(num="on"), tag=dict(t="4系統すべてが損傷しないように", at="all4", to="body4"))],
-                         rel=[dict(t="8つ（A-85-133〜A-85-140）", src="報告書 p129"), dict(t="1985年12月", src="報告書 p129（1985年12月5日・12月13日）"),
-                              dict(t="4系統", src="報告書 p129")],
-                         note="管の道すじは模式（ポンプはエンジンごと）", src=ss.src(["報告書 p129"]))),
-    ),
-    # cc03（2行）＝No.4 系統が垂直安定板へ入る上流にフューズ（p130 5.1.2(キ)・p131 5.1.3(イ)）→ 大量に漏れると流れを止め、昇降舵・補助翼・
-    #   スポイラの機能を確保できると考えられている（台本は「ヒューズ」）
-    "cc03": dict(
-        t="第4系統の部品", s="ボーイングの改修",
-        fig=("m20", dict(view="hyd", start=dict(pipes="on", num="on"),
-                         steps=[dict(state=dict(fuse="on"), tag=dict(t="ヒューズ", d="No.4 系統・垂直尾翼の手前", at="fuse", to="fuse")),
-                                # ⚠️ 門番 echo：「働きを残せる（考えられている）」は字幕の写し＝報告書の言葉（機能を確保できる）
-                                dict(state=dict(fuse="stop"), tag=dict(t="昇降舵・補助翼・スポイラ", d="機能を確保できる（考えられている）",
-                                                                      at="stop", to="ail"))],
-                         rel=[dict(t="No.4", src="報告書 p131")],
-                         note="管とヒューズの位置は模式", src=ss.src(["報告書 p130", "報告書 p131"]))),
-    ),
-    # cc04（3行）＝垂直尾翼の点検口にカバー（p130・p131）→ 強化型後部圧力隔壁（p131 5.1.3(オ)）→ 捜索救難の通信回線網・1986年8月7日の合同訓練（p133）
-    "cc04": dict(
-        t="尾翼と隔壁の対策", s="事故のあとの対策",
-        fig=("m20", dict(view="cover",
-                         steps=[dict(state=dict(cover="on"), tag=dict(t="点検口のカバー", at="cover", to="hole")),
-                                dict(state=dict(strong="on"), tag=dict(t="強化型の後部圧力隔壁", at="strong", to="bulk")),
-                                dict(tag=dict(t="捜索と救難の通信の網", d="1986年8月7日 合同訓練", at="net"))],
-                         rel=[dict(t="1986年8月7日", src="報告書 p133（昭和61年8月7日）")],
-                         note="点検口の位置と隔壁の線の太さは模式", src=ss.src(["報告書 p130", "報告書 p131", "報告書 p133"]))),
-    ),
-    # cc07（2行）＝建議の2つ（前付け PDF6）：乗組員の対応能力を高める方策 → 目視点検による亀裂の発見（言葉は建議の文の言葉）
-    "cc07": dict(
-        t="建議の2つ", s="1987年6月19日",
-        fig=("boxes", dict(view="row", slots=2, steps=[
-            dict(add=dict(k="item", t="乗組員の対応能力を高める方策", rec="建議 p6")),
-            dict(add=dict(k="item", t="目視点検による亀裂の発見", rec="建議 p6"))],
-            note="並びは建議の番号の順", src=ss.src(["建議 p6"])))),
-    # cc10（3行）＝アメリカの連邦航空局（FAA）は → 事故の教訓の頁に書いた → 継ぎ板の取り付けが難しく、板を分け、2つにして取り付けた（英語は原文のまま）
-    "cc10": dict(
-        t="アメリカ連邦航空局の頁", s="2025年の更新",
-        fig=("m20", dict(view="faa",
-                         steps=[dict(), dict(state=dict(body="on")), dict(state=dict(hl="on"))],
-                         note="頁の見た目は模式（文は原文のまま・続きは省いた）", src=ss.src(["FAA p1"]))),
-    ),
-    # cc11（2行）＝2024年9月からボーイングも自社サイトに同じ趣旨の説明 → 載せていた（産経新聞の報道）
-    "cc11": dict(
-        t="自社サイトの記述", s="報道から",
-        fig=("axis", dict(ss.AX_NEWS, steps=[
-            dict(add=ss.ax("boe24"), cur="2024-09"),
-            dict(add=ss.ax("pub"))],
-            note="日付は報道の月（日は書いていない）", src=ss.src(["産経 p1"])))),
-    # cc12（3行）＝2026年8月、記述の削除が分かる → 日本航空に謝罪（報道）→ 原因のくわしい説明は無い
-    "cc12": dict(
-        t="消えた説明", s="記事が伝えたこと",
-        fig=("axis", dict(ss.AX_NEWS, past=[ss.ax("boe24"), ss.ax("pub")], start=dict(cur="2024-09"), steps=[
-            dict(add=ss.ax("del26"), cur="2026-08"),
-            dict(), dict()],
-            note="日付は報道の月（日は書いていない）", src=ss.src(["産経 p1"])))),
-    # cc13（3行）＝聞き役 → 国土交通省は FAA とボーイングに問い合わせ・8月25日の会見 → 「準備ができ次第結果を公表したい」（言葉は画面に出さない）
-    "cc13": dict(
-        t="国の問い合わせ", s="会見で述べたこと",
-        fig=("axis", dict(ss.AX_NEWS, past=[ss.ax("boe24"), ss.ax("pub"), ss.ax("del26")], start=dict(cur="2026-08"), steps=[
-            dict(),
-            dict(add=ss.ax("min25"), cur="2026-08-25"),
-            dict()],
-            note="日付は会見と報道の記録", src=ss.src(["会見 p1", "産経 p1"])))),
-    # cc14（2行）＝2026年10月の時点で、その公表は見つかっていない（2026-10-08 の検索＝⑥で確かめ直す）→ 聞き役
-    "cc14": dict(
-        t="まだ出ていない公表", s="公表の確かめ（2026年10月8日）",
-        fig=("axis", dict(ss.AX_NEWS, past=[ss.ax("boe24"), ss.ax("pub"), ss.ax("del26"), ss.ax("min25")], start=dict(cur="2026-08-25"), steps=[
-            dict(add=ss.ax("now"), cur="2026-10"),
-            dict()],
-            note="右の端はこの動画を作った時点", src=ss.src(["検索 p1", "会見 p1"])))),
-    # cc15（2行）＝報告書は原因を「推定される」→ 断定できないが、ほぼ間違いない場合（解説 p26 の4つの言葉）
-    "cc15": dict(
-        t="原因の書き方", s="断定の度合い",
-        fig=("m20", dict(view="word",
-                         # ⚠️ 置き場の計算：右上の札から「推定される」へ引き出し線を引くと、矢印の上の端の「断定できる場合」を横切る＝札なし（枠だけ）
-                         steps=[dict(state=dict(pick="on")), dict(state=dict(mean="on"))],
-                         note="言葉は解説の4つ（並びは解説の順・矢印と枠は模式）", src=ss.src(["解説 p1026"]))),
-    ),
-    # cc18（2行）＝3つ目の問い：急減圧やミサイルの疑いには報告書と解説が答えた → 修理がなぜ誤ったかは公表を待つ（1つ目・2つ目は cc16・cc17）
-    "cc18": dict(
-        t="3つの問いの答え", s="冒頭の問いに戻る",
-        fig=("m20", dict(view="ans",
-                         steps=[dict(state=dict(q3a="on")), dict(state=dict(q3b="on"))],
-                         note="問いは冒頭の語りを短くした（札の形は模式）", src="")),
-    ),
-    # ── 🆕 ⑤b-4（2026-10-08）：再現イラスト S6（`tools/illu20.py`・門番 check_illu ㉙）──
-    # cc09（2行）＝前の再現 cb14（S7・上から）→ 横から＝合図（台本の画の欄の🔁）。指示と実際を左右に（作業の記録は無い＝札なし）
-    "cc09": dict(fig=("illu", dict(
-        place="S6", start=dict(view="both", switch="on"), rec=S6R["side"], steps=[dict(), dict()]))),
-    # cc17（3行）＝実際の継ぎ方の戻り：1列になった継ぎ目 → 7年かけて亀裂が伸びた（推定）→ 当時の点検では見つからなかった
-    "cc17": dict(fig=("illu", dict(
-        place="S6", start=dict(s6kind="real"), rec=S6R["real"],
-        steps=[dict(state=dict(s6row="on"), rec=S6R["real"], tag=dict(t="1列", at="rows", off=(160, 0))),
-               dict(tag=dict(t="ここに亀裂が伸びた", at="row2", off=(170, 150))), dict()]))),
-}
-
-# ── 🆕 ⑤b-7（2026-10-11）：写真（CC BY 3.0・全画面）・文字の頁（書き方の約束は c2.py の ⑤b-7 の節）──
-#   ⚠️ 章の札「その後と、まだ分からないこと」＝見出しに「分からない」（5字）を入れない（門番 dup）
-SPEC.update({
-    # cc01（12.12秒）＝O4 道の標識（国道299号・2009年）＝ゆっくり寄る（全画面）
-    "cc01": dict(photo=P("o4_sign_r299"), **ss.kind(P("o4_sign_r299")), t="国が出した指示",
-                 s="御巣鷹の尾根を示す道の標識（国道299号・2009年）"),
-    # cc05（10.30秒）＝O3 昇魂之碑（2009年）＝下から上へ流す
-    "cc05": dict(photo=P("o3_shokon_no_hi"), **ss.kind(P("o3_shokon_no_hi")), cam="tilt_u", t="国への2つの文書",
-                 s="昇魂之碑（御巣鷹の尾根・2009年）"),
-    # cc06（10.89秒）＝勧告第1号（ja_01 の PDF 4頁）の 1．と 2．。1行目・2行目と同時に、それぞれの求めの句に印
-    "cc06": dict(photo=ss.page(3004), trim=ss.ptrim("cc06"), bias=ss.pbias("cc06"), panel=True, color=1.0, hl=ss.phl("cc06"),
-                 t="勧告第1号", s="修理と点検の2つの求め"),
-    # cc08（7.34秒）＝O6 慰霊の園（2009年）＝ゆっくり引く
-    "cc08": dict(photo=P("o6_ireinosono"), **ss.kind(P("o6_ireinosono")), cam="pull", t="継ぎ方の理由", s="慰霊の園（群馬県上野村・2009年）"),
-    # cc16（12.21秒）＝O5 道の標識（県道124号・2009年）＝左へ流す
-    "cc16": dict(photo=P("o5_sign_p124"), **ss.kind(P("o5_sign_p124")), cam="pan_l", t="最初の問いの答え",
-                 s="御巣鷹の尾根を示す道の標識（県道124号・2009年）"),
-    # cc19（5.04秒）＝O2 登山道（2009年）＝ゆっくり引く
-    "cc19": dict(photo=P("o2_osutaka_stairs"), **ss.kind(P("o2_osutaka_stairs")), cam="pull", t="あなたの感想",
-                 s="御巣鷹の尾根の登山道（2009年）"),
-})
+SPEC = {}
