@@ -1151,6 +1151,7 @@ def page(inner, w=W, h=H, css=None):
 # 🔴 大きさは**回ごとの設定** el_script.SUB_SIZE（14本目から 56px＝ルール §5a-15b。無い回は 38）。
 #    門番 check_subwrap もこの値で折る（描く大きさと測る大きさが1か所から出る）。フチは大きさに比例＝38px で 7・56px で 10
 SUB_Y, SUB_H = 900, 180
+SUB_RETRY = 3       # 🆕 21本目 ⑤b-7：字幕の層の書き出しの欠けを描き直す回数の上限（render_all・tools/sub_layer_check.py）
 
 
 def _episode_sub_size(default=38):
@@ -2524,6 +2525,31 @@ def render_all(force=False, only=None, jobs_workers=4):
 
     with ThreadPoolExecutor(max_workers=jobs_workers) as ex:
         list(ex.map(one, todo))
+    # 🆕 2026-10-13（21本目 ⑤b-7）：**字幕の層の書き出しの欠け**を書き出した直後に測り、欠けた層だけ描き直す（`tools/sub_layer_check.py`）。
+    #    Chrome はまれに描画の区画の境目（x≈768）から右の字を描かずに PNG を返す（20本目 c107・21本目 c108＝焼くたびに起こりうる）。
+    #    それまでは焼いたあとの絵を qa_out/sub_center.py で拾うだけ＝⑥（Modal の本編）では見る人がいない。今回書いた層だけでなく、
+    #    指紋が同じで飛ばした層（前に欠けたまま控えた層）も測る。SUB_RETRY 回描き直しても欠ければ止める（黙って欠けた字幕で焼かない）
+    import sub_layer_check as SLC
+    subjobs = {t[0]: t for t in todo if t[0].startswith("sub_")}
+    for cid, rows in SUBS.items():
+        k = f"sub_{cid}"
+        if k not in subjobs and (OUT / f"{k}.png").exists() and not (only and not cid.startswith(only)):
+            subjobs[k] = (k, sub_strip(rows), OUT / f"{k}.png", W, SUB_H * len(rows))
+    for attempt in range(SUB_RETRY + 1):
+        bad = {k: SLC.defects(t[2], SUB_H) for k, t in subjobs.items() if t[2].exists()}
+        bad = {k: d for k, d in bad.items() if d}
+        if not bad:
+            print(f"✓ 字幕の層 {len(subjobs)} 枚に書き出しの欠けなし（tools/sub_layer_check.py）", flush=True)
+            break
+        print(f"⚠️ 字幕の層の書き出しの欠け {len(bad)} 枚（{attempt + 1}回目）: "
+              + "／".join(f"{k} {d[0]}" for k, d in list(bad.items())[:6]), flush=True)
+        if attempt == SUB_RETRY:
+            raise SystemExit(f"🔴 字幕の層 {len(bad)} 枚が {SUB_RETRY} 回描き直しても欠けている（{' '.join(bad)}）＝焼かない")
+        for k in bad:
+            (OUT / f"{k}.png").unlink()
+            one(subjobs[k])
+            fresh[k] = fp(k, subjobs[k][1])
+        subjobs = {k: subjobs[k] for k in bad}
     # 焼けた層だけ指紋を控える（PNG が出来ていない層は控えない＝次も焼き直す）
     seen.update({k: v for k, v in fresh.items() if (OUT / f"{k}.png").exists()})
     hp.write_text(json.dumps(seen, ensure_ascii=False, indent=0), encoding="utf-8")

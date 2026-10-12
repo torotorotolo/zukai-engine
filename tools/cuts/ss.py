@@ -311,13 +311,20 @@ def frame_only_for(spec):
 _BREAKS_FRAME = ("trim", "veil", "vignette", "focus", "xbias", "bias", "ann", "mark", "blur", "cam", "intro")
 
 
-def check_frame_only(spec):
+def check_frame_only(spec, use=None):
     """継承つきの点を、切る・色を変える・重ねる型に渡しているカット／2回使っているカットを挙げる（空なら合格）。
 
     ⚠️ `intro=dict(photo=…)`（冒頭の秒だけ写真を全画面）も**全画面＝切る**ので、継承つきの点を渡したら止める。
     ⚠️ 写真を1点も当てていなければ照合する点が無い＝台帳を読まずに合格（`frame_only_for`）。
+    🆕 2026-10-13（21本目 ⑤b-7）：額装だけの点を**映像のひかえ**として当てたカット（c205＝1999年の塔・BY-SA）は、焼く絵は映像＝
+       `footage.USE` の欄も見る（寄り zoom 1.0・等速 rate 1.0・地を作らない plain=True・寄せ・止め絵・差し込みなし）。⑤b-2 の宿題
+       「check_frame_only は SPEC しか見ない」（規則を書いたら門番も）。use＝selftest が渡す表（本番は footage.USE）
     """
     fo = frame_only_for(spec)
+    if use is None and fo:
+        import footage as _FO
+        use = _FO.USE
+    use = use or {}
     bad, seen = [], {}
     for cid, s in sorted(spec.items()):
         ph = s.get("photo")
@@ -346,6 +353,15 @@ def check_frame_only(spec):
             why.append(f"zoom={s.get('zoom')}（1.0 以外は切る）")
         if float(s.get("color") or 0.0) < 1.0:
             why.append(f"color={s.get('color')}（1.0 未満はデュオトーンで色を置き換える＝改変）")
+        u = use.get(cid)
+        if u:
+            if float(u.get("zoom", 1.0)) != 1.0:
+                why.append(f"映像の zoom={u.get('zoom')}（1.0 以外は切る）")
+            if float(u.get("rate", 1.0)) != 1.0 or u.get("still"):
+                why.append(f"映像の rate={u.get('rate')}{'・止め絵' if u.get('still') else ''}（速さを変えない＝等速）")
+            if not u.get("plain"):
+                why.append("映像の plain=True が無い（地のぼかしを作る＝色と切り口を変えた絵を重ねる）")
+            why += [f"映像の {k}={u[k]}（寄せ・差し込みは切る）" for k in ("xbias", "bias", "head", "tail") if u.get(k)]
         if why:
             bad.append(f"{cid}＝{ph}（{lic}）: " + "・".join(why))
     for ph, cids in sorted(seen.items()):
@@ -368,6 +384,39 @@ def fm(kind, px=FM_PX, s=FM_S):
     return {"in": dict(frm=(0, 0, s), to=(0, 0, 1.0)), "out": dict(frm=(0, 0, 1.0), to=(0, 0, s)),
             "r": dict(frm=(-px, 0, 1.0), to=(px, 0, 1.0)), "l": dict(frm=(px, 0, 1.0), to=(-px, 0, 1.0)),
             "u": dict(frm=(0, v, s), to=(0, -v, s)), "d": dict(frm=(0, -v, s), to=(0, v, s))}[kind]
+
+
+# 🆕 2026-10-13（21本目 ⑤b-7）：**全画面の静止写真の動き**＝PLAN の「動き」の語 → `cam`（2点移動＝build_jiko.cam_ends の dict の形）。
+#    額装の写真は `fm`（額ごと動かす）・映像は `vid`。プリセットの "pan_r" は寄り 1.22 で寄せ 0→1＝端まで振り切る（スライドの台紙の黒い縁が入る・
+#    寄りすぎ）＝冒頭 c102 の手書きの値（寄り 1.12・寄せ 0.2→0.8）を型にした。縁のある写真は下の SLIDE_MOUNT・門番 tools/check_photo_edge.py
+MV_Z = 1.12         # 流す（r・l）・2点（two）の寄り
+MV_IN = 1.15        # 寄る・引く（in・out）の寄った側
+
+
+def mv(name, how, fx=0.5, fy=0.5, z=None, lo=1.0, span=(0.2, 0.8), to=None):
+    """SPEC に `**ss.mv(P(名), "r")` と書く＝dict(cam=…)。how：
+      r 右へ流す・l 左へ流す＝寄り z（既定 MV_Z）・横の寄せ span[0]→span[1]（l は逆）・縦は fy を真ん中に
+      u 上へ流す・d 下へ流す＝寄り z（既定 lo）・縦の寄せ span[1]→span[0]（u）／span[0]→span[1]（d）・横は fx を真ん中に
+      in ゆっくり寄る・out ゆっくり引く＝寄り lo で絵の真ん中 ↔ 寄り z（既定 MV_IN）で (fx, fy) を真ん中
+        （引いた側も (fx, fy) に寄せると、寄り lo が 1.0 を超える台紙の縁のある写真で窓が端に張り付く＝門番 photo_edge の c513・⑤b-7）
+      two 2点を順に寄る＝寄り z（既定 MV_Z）で (fx, fy) → to=(fx2, fy2)
+    lo＝いちばん引いた側の寄り（スライドの台紙の縁がある写真は 1.06 ほど＝門番 photo_edge が測る）。(fx, fy) は切ったあとの絵の割合"""
+    if how in ("r", "l"):
+        f = focus(name, 0.5, fy, z or MV_Z)
+        a, b = (span[0], f["bias"], f["zoom"]), (span[1], f["bias"], f["zoom"])
+        return dict(cam={"from": a, "to": b} if how == "r" else {"from": b, "to": a})
+    if how in ("u", "d"):
+        f = focus(name, fx, 0.5, z or lo)
+        a, b = (f["xbias"], span[1], f["zoom"]), (f["xbias"], span[0], f["zoom"])
+        return dict(cam={"from": a, "to": b} if how == "u" else {"from": b, "to": a})
+    if how in ("in", "out"):
+        f0, f1 = focus(name, 0.5, 0.5, lo), focus(name, fx, fy, z or MV_IN)
+        a, b = (f0["xbias"], f0["bias"], f0["zoom"]), (f1["xbias"], f1["bias"], f1["zoom"])
+        return dict(cam={"from": a, "to": b} if how == "in" else {"from": b, "to": a})
+    if how == "two":
+        f0, f1 = focus(name, fx, fy, z or MV_Z), focus(name, to[0], to[1], z or MV_Z)
+        return dict(cam={"from": (f0["xbias"], f0["bias"], f0["zoom"]), "to": (f1["xbias"], f1["bias"], f1["zoom"])})
+    raise ValueError(f"mv: 動きの語 {how!r} が無い（r・l・u・d・in・out・two）")
 
 
 def check_card_mix(spec, heads, fo=None):
@@ -406,7 +455,29 @@ NG_PHOTOS: dict[str, str] = {}
 #       私人か写真では決められない＝顔だけモザイク）を外した＝git の `b044b56`（範囲は `qa_out/ep16_assets.py` の MASK）。
 #    🔴 2026-10-12（21本目 ⑤b-1）：20本目の1点（`ep20/p014.jpg`＝写真-14・c310 の白いシャツの男性の顔〈制服が無く公的な任務の人か写真から決められない〉＝
 #       顔だけモザイク）を外した＝git の `f0095bd`（範囲は `qa_out/ep20_assets.py` の MASK・記録は `ref/ep20/masked.json`）
+#    🔴 2026-10-13（21本目 ⑤b-7）：保留していた顔だけモザイクの3点（SEC70・SHANK15・TSA20）は2倍に拡大して測った＝**私人の分かる顔は0**
+#       （制服の保安係＝公務・追悼の場の来訪者の顔 約4px の遠景・TSA20 は手前の列の客を束の段階で切り落とした＝`qa_out/ep21_assets.py` の CROP の注）
+#       ＝ここは空のまま（門番 photomask の「0件」は調べた結果）
 NEEDS_MASK: dict[str, str] = {}
+
+# 🆕 2026-10-13（21本目 ⑤b-7）：**スライドの台紙の黒い縁がある写真**（名 → 何か）。全画面で流す・寄る窓が縁に入らないかを門番
+#    `tools/check_photo_edge.py` が測る（縁の幅は**絵から毎回測る**＝ここには書かない）。夜空など縁でない暗い所の写真は入れない。
+#    額装の写真は縁ごと見せる＝門番は見ない。⑤b-7 に束の全57点の四辺の暗い帯を測り（scratchpad `borders.py`）、構図の下見で絵を見て分けた
+SLIDE_MOUNT: dict[str, str] = {
+    **{P(f"lc_a05_{k}"): "議会図書館 LC-A05 のスライドの走査（四隅の丸い台紙）" for k in ("a01", "a03", "a05", "a06", "a09", "a10", "a17", "b20")},
+    P("loc_item210"): "議会図書館 item 210 のスライドの走査（左と下に台紙・右の暗がりは絵）",
+    P("logan_1973"): "EPA DOCUMERICA のスライドの走査（四隅の丸い台紙）",
+    P("logan_apron_1969"): "Korab のスライドの走査（四辺の暗い縁）",
+}
+
+# 🆕 2026-10-13（21本目 ⑤b-7）：**原寸で見て字でないと決めた OCR の範囲**（OCR の読み置きのファイル名 → [((x0, y0, x1, y1)＝束の画素, 何か)]）。
+#    `check_slide.load_ocr` がこの中に真ん中のある行を外す（外した行は「文字行と見なさなかった」の表に理由つきで出る）。
+#    宣言が何の行にも当たらなければ止める（読み置きの取り直し・写真の差し替えで古くなった宣言を残さない）。§0b＝回を替えるとき空にする
+#    ⑤b-7：門番 edges（c421・cb18）・slide G-13（cb18）が鳴った行を原寸の2倍で見た（scratchpad `ocr_suspects.jpg`）＝窓の明かりの列と雪の上の木立
+OCR_NOT_TEXT: dict[str, list] = {
+    "wtc_far_1976.jpg": [((440, 800, 715, 1940), "左の塔の壁面の窓の明かりの列"), ((980, 800, 1260, 1940), "右の塔の壁面の窓の明かりの列")],
+    "flight93_memorial_aerial_2024_12.jpg": [((780, 700, 1850, 1780), "追悼の場のまわりの雪の上の木立")],
+}
 
 # 🔴 2026-09-29（14本目 ⑤b-7a）：**切り出し（`TRIM`）で外した私人の範囲**（元画像の割合 x0,y0,x1,y1・何か）。
 #    門番 photomask が「その写真を使う全カットの窓（`trim` か `TRIM`・冒頭の写真は切らない＝全体）がこの範囲に

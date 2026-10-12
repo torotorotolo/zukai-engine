@@ -325,9 +325,14 @@ def main(only=None, show_all=False):
                       f"      字幕「{j[2]}」と {j[0]:.0%}（{j[1]}）")
 
         # ── 従来：レイヤーの <text>（折り返しの断片も含む） 対 字幕の行 ──
+        # 🆕 2026-10-13（21本目 ⑤b-7）：**右上の章の札（章の名＝台本で承認ずみ・その章の全カットに同じ字で出る）は図の文字として比べない**。
+        #    終章の名「あの朝、持ち場にいた人たち」は終章の頭の語り（cc03「あの朝、持ち場にいたのは、…」）から採った名＝cc03 が画を持った
+        #    ⑤b-7 で初めて 75% で鳴った。外すのは章の名と字が丸ごと同じ文字列だけ（図・札の写しは今までどおり鳴る）
+        chap = S.chapter_of(cid)
+        chap_n = norm(chap[1]) if chap else ""
         for layer, t in bycut[cid]:
             n = norm(t)
-            if n in said or len(n) < MINLEN or DATAISH.match(t) or KATAKANA.fullmatch(n):
+            if n in said or len(n) < MINLEN or DATAISH.match(t) or KATAKANA.fullmatch(n) or (chap_n and n == chap_n):
                 continue
             # 折り返された断片も見出し扱いにする（para が行を割るため）
             is_ex = any(n in h or h in n for h in ex)

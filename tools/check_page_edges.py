@@ -191,6 +191,15 @@ def main():
     if not selftest(spec_map, ocr, photo_of, box_of, skip):
         print("🔴 対照が外れた＝物差しか OCR の読み置きが変わった。本番に当てずに止める")
         return 2
+    # 🆕 2026-10-13（21本目 ⑤b-7）：「字でない」と決めた範囲（cuts/ss.OCR_NOT_TEXT＝check_slide.drop_not_text）の対照＝合成の読み置きで
+    #    範囲の中の行だけを外し、外の行は残し、何にも当たらない宣言は「古い」として返すこと
+    _fake = {"z.jpg": {"size": [100, 100], "lines": [dict(box=[10, 10, 30, 14], text="a"), dict(box=[60, 60, 90, 64], text="b")]}}
+    _stale = CS.drop_not_text(_fake, {"z.jpg": [((0, 0, 50, 50), "対照"), ((0, 80, 10, 90), "当たらない宣言")]})
+    CS._DROPPED[:] = [d for d in CS._DROPPED if d[0] != "z.jpg"]      # 対照の行を外した行の表に残さない
+    if [ln["text"] for ln in _fake["z.jpg"]["lines"]] != ["b"] or len(_stale) != 1:
+        print(f"🔴 「字でない」範囲の対照が外れた（残った行 {_fake['z.jpg']['lines']}・古い宣言 {_stale}）")
+        return 2
+    print("  ✓ 「字でない」範囲（ss.OCR_NOT_TEXT）は範囲の中の行だけを外し、当たらない宣言を古いとして返す")
     if "--selftest" in sys.argv:
         print("✓ 物差しは正しい")
         return 0

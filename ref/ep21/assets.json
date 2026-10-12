@@ -1279,6 +1279,102 @@
   "year": 1998,
   "stock": false
  },
+ "stock/security_1970": {
+  "code": "SEC70",
+  "file": "ref/ep21/photo/security_1970.jpg",
+  "cut": "c210",
+  "credit": "出典：Orange County Archives／CC BY 2.0／改変：切出",
+  "who": "Orange County Archives",
+  "note": "イメージ（1970年の空港）・私人の顔だけモザイク・縦長",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   1920,
+   2802
+  ],
+  "w": 1920,
+  "h": 2802,
+  "md5": "8488753384c07d24c9f7f916fd0d0e05",
+  "src_md5": "8488753384c07d24c9f7f916fd0d0e05",
+  "lic": "CC BY 2.0",
+  "frame": false,
+  "ground": "F（CC BY）",
+  "url": "https://commons.wikimedia.org/wiki/File:Orange_County_Airport,_security_officer,_Sept._1970.jpg",
+  "blur": [],
+  "how": "写すだけ",
+  "year": 1970,
+  "stock": true
+ },
+ "shanksville_2015a": {
+  "code": "SHANK15",
+  "file": "ref/ep21/photo/shanksville_2015a.jpg",
+  "cut": "c827",
+  "credit": "出典：Ron Shawley／CC BY 3.0／改変：切出",
+  "who": "Ron Shawley",
+  "note": "93便の追悼の場（2015年）・来訪者は顔だけモザイク",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "crop_px": [
+   0,
+   0,
+   2400,
+   1600
+  ],
+  "w": 2400,
+  "h": 1600,
+  "md5": "aceab723442d5525b0c5f3e785131fbd",
+  "src_md5": "4fa74dbfaa87b899c4e0ed79398a8853",
+  "lic": "CC BY 3.0",
+  "frame": false,
+  "ground": "F（CC BY 3.0）",
+  "url": "https://commons.wikimedia.org/wiki/File:Flight_93_Memorial_-_panoramio_(1).jpg",
+  "blur": [],
+  "how": "縮小 3840x2560→2400x1600",
+  "year": 2015,
+  "stock": false
+ },
+ "stock/tsa_checkpoint_2020": {
+  "code": "TSA20",
+  "file": "ref/ep21/photo/tsa_checkpoint_2020.jpg",
+  "cut": "cb06",
+  "credit": "出典：Tony Webster／CC BY 2.0／改変：切出",
+  "who": "Tony Webster",
+  "note": "イメージ（2020年・ニューオーリンズ空港の保安検査）・顔の分かる客は顔だけモザイク（⑤b で原寸）",
+  "box": [
+   0.0,
+   0.0,
+   1.0,
+   0.5556
+  ],
+  "crop_px": [
+   0,
+   0,
+   2400,
+   1000
+  ],
+  "w": 2400,
+  "h": 1000,
+  "md5": "38cbffb9a9f4fc1f1df288b3e517e252",
+  "src_md5": "7a931e20793f7131dba156b84f1a9d40",
+  "lic": "CC BY 2.0",
+  "frame": false,
+  "ground": "F（CC BY 2.0）",
+  "url": "https://commons.wikimedia.org/wiki/File:TSA_Security_Checkpoint_at_Airport.jpg",
+  "blur": [],
+  "how": "縮小 3840x2880→2400x1800・切出 0,0,2400,1000（手前の列の客を外す）",
+  "year": 2020,
+  "stock": true
+ },
  "n591ua_1999": {
   "code": "UA93",
   "file": "ref/ep21/photo/n591ua_1999.jpg",

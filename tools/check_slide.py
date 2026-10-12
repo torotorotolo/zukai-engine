@@ -297,6 +297,32 @@ def line_is_text(box, size):
     return h > 0 and (y1 - y0) / h <= LINE_H_MAX
 
 
+def drop_not_text(data, decl):
+    """🆕 2026-10-13（21本目 ⑤b-7）：**原寸で見て字でないと決めた範囲**（`cuts/ss.OCR_NOT_TEXT`＝{ファイル名: [((x0, y0, x1, y1), 何か)]}・
+    元の画像の画素）の中に真ん中がある OCR の行を外す（_DROPPED に理由つきで残す）。返り値＝何の行にも当たらなかった宣言（古い宣言＝止める）。
+    c421 の塔の窓の明かりの列・cb18 の雪の上の木立を OCR が「字」と読み、門番 edges・slide G-13 が鳴った（⑤b-7 に原寸の2倍で見た）。
+    窓の寄せを変えて門番をかわすのは筋が違う（[[feedback-dont-spell-around-a-gate]]）＝見た証拠を表に書いて外す"""
+    stale = []
+    for name, items in decl.items():
+        v = data.get(name)
+        for box, why in items:
+            hit = 0
+            if v:
+                keep = []
+                for ln in v["lines"]:
+                    x0, y0, x1, y1 = ln["box"]
+                    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+                    if box[0] <= cx <= box[2] and box[1] <= cy <= box[3]:
+                        hit += 1
+                        _DROPPED.append((name, x1 - x0, y1 - y0, (y1 - y0) / v["size"][1], f"{ln['text']}（字でない＝{why}）"))
+                    else:
+                        keep.append(ln)
+                v["lines"] = keep
+            if not hit:
+                stale.append(f"{name} {box}（{why}）")
+    return stale
+
+
 def load_ocr():
     if not OCR_JSON.exists():
         raise SystemExit(f"🔴 {OCR_JSON.name} が無い。先に `python tools/check_slide.py --ocr`")
@@ -316,6 +342,11 @@ def load_ocr():
                 _DROPPED.append((name, x1 - x0, y1 - y0,
                                  (y1 - y0) / v["size"][1], ln["text"]))
         v["lines"] = keep
+    import cuts.ss as _ss
+    stale = drop_not_text(data, getattr(_ss, "OCR_NOT_TEXT", {}))
+    if stale:
+        raise SystemExit("🔴 cuts/ss.OCR_NOT_TEXT の宣言が OCR の行に1つも当たらない（読み置きを取り直した・写真を替えた＝宣言が古い）："
+                         + "／".join(stale))
     return data
 
 

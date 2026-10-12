@@ -2372,7 +2372,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 - 🔴 **D（米議会図書館の「知られた制限なし」）は PD の宣言ではない**＝画面は「米議会図書館蔵／知られた制限なし」（§2-12b）
 - 🔴 **CC BY-SA の写真（AA11＝c204）は額装・無加工・色そのまま・上に重ねない・寄り0・1点1カット**（`cuts/ss.check_frame_only`）
 - CC BY は額・寄り・流しで端を切ることがある＝画面の出典に「改変：切出」
-- 🔴 **イメージ（この事件の物でない写真）**＝`ep21/stock/` の名・画面の左上に「イメージ」・20% に数えない。顔だけモザイクの3点（SEC70・SHANK15・TSA20）は ⑤b-7 で範囲を決めてから束に入れる（いまは保留）
+- 🔴 **イメージ（この事件の物でない写真）**＝`ep21/stock/` の名・画面の左上に「イメージ」・20% に数えない。顔だけモザイクの保留3点（SEC70・SHANK15・TSA20）は ⑤b-7 で2倍に拡大して測った＝私人の分かる顔は0（SEC70＝制服の保安係1人＝公務・SHANK15＝来訪者の顔 約4px の遠景）。🔴 TSA20 は手前の列の客（顔 30〜40px）を束の段階で切り落とした（縦の上 1000px だけ＝「改変：切出」）
 - 撮影年＝Commons の頁の日付（上げた日・公開の日・不明のものは出どころの説明から＝`qa_out/ep21_assets.py` の YEAR_FIX）。副題の「当日」は 2001年として照らした
 
 | 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
@@ -2415,9 +2415,12 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `pen_010911_n_pu293_077` | ca09 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米海軍 | https://commons.wikimedia.org/wiki/File:A_nighttime_view_of_the_Pentagon_Building_showing_smoke_rising_from_the_building_after_the_September_11,_2001_attacks_010911-N-PU293-077.jpg |
 | `pentagon_1998` | c601 | 1998 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米国防総省（MSgt Ken Hammond, USAF） | https://commons.wikimedia.org/wiki/File:The_Pentagon_US_Department_of_Defense_building.jpg |
 | `pentagon_aerial_2023` | cb17 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米国防総省 | https://commons.wikimedia.org/wiki/File:An_aerial_view_of_the_Pentagon,_Washington,_D.C.,_May_15,_2023_230515-D-PM193-1762C.jpg |
+| `shanksville_2015a` | c827 | 2015 | CC BY 3.0（F） | Ron Shawley | https://commons.wikimedia.org/wiki/File:Flight_93_Memorial_-_panoramio_(1).jpg |
 | `shanksville_2015b` | c829 | 2015 | CC BY 3.0（F） | Ron Shawley | https://commons.wikimedia.org/wiki/File:Flight_93_Memorial_-_panoramio_(20).jpg |
 | `cockpit_door_2015` | cb08 | 2015 | CC BY 2.0 de（F）・イメージ | Mattes | https://commons.wikimedia.org/wiki/File:Puerto_Rico_—_A_320_JetBlue_—_Open_cockpit_door_during_boarding.jpg |
 | `n352aa_2012` | c209 | 2012 | CC BY 2.0（F）・イメージ | Valentin Hintikka | https://commons.wikimedia.org/wiki/File:N352AA_(15113637598).jpg |
+| `security_1970` | c210 | 1970 | CC BY 2.0（F）・イメージ | Orange County Archives | https://commons.wikimedia.org/wiki/File:Orange_County_Airport,_security_officer,_Sept._1970.jpg |
+| `tsa_checkpoint_2020` | cb06 | 2020 | CC BY 2.0（F）・イメージ | Tony Webster | https://commons.wikimedia.org/wiki/File:TSA_Security_Checkpoint_at_Airport.jpg |
 | `wh_af1_phone` | c712 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | Eric Draper（Courtesy George W. Bush Presidential Library） | https://commons.wikimedia.org/wiki/File:President_George_W._Bush_Talks_on_the_Telephone_aboard_Air_Force_One.jpg |
 | `wh_af1_window` | c914 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | Eric Draper（Courtesy George W. Bush Presidential Library） | https://commons.wikimedia.org/wiki/File:President_George_W._Bush_aboard_Air_Force_One.jpg |
 | `wh_booker_tv` | c518 | 2001 | PD（米連邦の職務・17 U.S.C. §105）（A） | Eric Draper（Courtesy George W. Bush Presidential Library） | https://commons.wikimedia.org/wiki/File:President_George_W._Bush_watches_Television_Coverage_of_Terrorist_Attacks.jpg |

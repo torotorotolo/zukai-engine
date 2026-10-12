@@ -121,6 +121,22 @@ def selftest():
         print("  当て木の章ファイル4欄を拾えた（ss.fb 2件＋ss.rg 2件）")
     (tmp / "z.py").unlink()
     tmp.rmdir()
+    # 🆕 2026-10-13（21本目 ⑤b-7）：額装だけの点（BY-SA）を映像のひかえに当てたカットは、`footage.USE` の欄も額装の網（cuts/ss.check_frame_only）が見る
+    #    ＝寄り 1.0・等速・plain=True 以外を止める（⑤b-2 の宿題）。この回の束に額装だけの映像のひかえが無ければ見ない
+    import cuts.ss as ss
+    fo = [n for n in ss.frame_only() if "/fb_" in n]
+    if fo:
+        cid = fo[0].rsplit("fb_", 1)[1].split(".")[0]
+        spec = {cid: dict(photo=fo[0], panel=True, color=1.0)}
+        good = {cid: dict(clip="X", start=0.0, until=1.0, rate=1.0, zoom=1.0, plain=True)}
+        bad = {cid: dict(clip="X", start=0.0, until=1.0, rate=0.9, zoom=1.03)}
+        g, b = ss.check_frame_only(spec, use=good), ss.check_frame_only(spec, use=bad)
+        if g:
+            print(f"🔴 陰性対照：額装だけの映像（{cid}）を寄り 1.0・等速・plain で使って鳴った：{g}"); ok = False
+        elif not (len(b) == 1 and all(w in b[0] for w in ("zoom", "rate", "plain"))):
+            print(f"🔴 陽性対照：額装だけの映像（{cid}）を寄り 1.03・0.9倍・地のぼかしで使って鳴らない：{b}"); ok = False
+        else:
+            print(f"  額装だけの映像（{cid}）：寄り・倍率・地を変えると鳴り、変えなければ鳴らない（cuts/ss.check_frame_only）")
     print("✓ selftest 通過" if ok else "🔴 selftest 失敗")
     return ok
 

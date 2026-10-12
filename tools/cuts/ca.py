@@ -45,7 +45,7 @@ PLAN = {
                plan='🔧 ⑤b-6 模式 箱の図（委員会の報告書→国防総省と運輸省の監察総監→運輸省の2つの答え）＝2006年の報告は時刻の帯に載らない｜台本の画：図 模式 同じ帯（「誤り」の札から「監察総監」の札へ矢印）',
                src='運輸省の監察総監の報告 CC-2006-085 p2（`We did not find evidence to conclude that FAA officials knowingly made false`）・p3（`consider appropriate administrative action for the two current executives who did not act to correct the record with the Commission`）'),
     'ca11': dict(kind='写真',
-               plan='🔧 WTC76N｜副題：事件の前の世界貿易センター（1976年）｜動き：上へ流す｜権利：D（米議会図書館蔵／知られた制限なし）｜出典の行：Balthazar Korab（米議会図書館蔵）｜注：🔧 語りが8:46の時刻＝両棟が燃える写真を置かない。夕暮れ・縦長｜台本の画（🔧映像方針で替えた＝元の予定）：実写 当日の世界貿易センター（A・別の点＝副題は絵を見て書く）',
+               plan='🔧 WTC76N｜副題：事件の前の世界貿易センター（1976年・夕暮れ）｜動き：上へ流す｜権利：D（米議会図書館蔵／知られた制限なし）｜出典の行：Balthazar Korab（米議会図書館蔵）｜注：🔧 語りが8:46の時刻＝両棟が燃える写真を置かない。夕暮れ・縦長。⑤b-7：副題を写っているものに（題 Night view・金色に照らされた2つの塔）｜台本の画（🔧映像方針で替えた＝元の予定）：実写 当日の世界貿易センター（A・別の点＝副題は絵を見て書く）',
                src='委員会報告 p7（`At 8:46:40`）・NIST NCSTAR 1 表6-1 印字 p84（`8:46:30`）・NCSTAR 1-6 表6-1 印字 p156（`8:46:26`）'),
     'ca12': dict(kind='図解',
                plan='台本の画：図 模式 同じ3つの値の帯（どれも数秒の幅に並ぶ）',
@@ -221,4 +221,16 @@ SPEC.update({
         fig=("axis", dict(ss.AX_AFTER, steps=[dict(add=_ax("day911", anchor="end"), cur="2001-09-11")],
                           note="年月は記録の値", src=ss.src(["委員会報告 p1"]))),
     ),
+})
+
+# ── 🆕 ⑤b-7（2026-10-13）：写真（PLAN＝映像方針の一覧・了承②／書き方は c2.py の ⑤b-7 の注）──
+_P049 = P("pen_010911_n_pu293_077")
+_WNIT = P("wtc_night_1976")
+SPEC.update({
+    # ca09（11.6秒）＝夜のペンタゴンの煙（米海軍・奥に議事堂の丸屋根＝説明）・右へ流す
+    "ca09": dict(photo=_P049, **ss.mv(_P049, "r"), side="none", t="監察総監へ", s="当日の夜のペンタゴン"),
+    # ca11（11.9秒）＝金色に照らされた夕暮れの2つの塔（Korab・1976年・縦長 1920×2908）。🔧 語りが 8:46 の時刻＝燃える写真を置かない。
+    #   上へ流す（暗い街並み→塔の上の方）
+    "ca11": dict(photo=_WNIT, **ss.mv(_WNIT, "u", span=(0.05, 0.65)), side="none", t="食い違う記録",
+                 s="事件の前の世界貿易センター（1976年・夕暮れ）"),
 })

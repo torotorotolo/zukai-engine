@@ -1,0 +1,151 @@
+# -*- coding: utf-8 -*-
+"""check_photo_edge.py — 全画面の写真の窓が、**スライドの台紙の黒い縁**に入っていないか（2026-10-13 新設・21本目 ⑤b-7）。
+
+■ なぜ要るか
+  議会図書館のスライド（LC-A05 のロール・item 210）・EPA DOCUMERICA・Korab のスライドの走査は、四辺に台紙の黒い縁がある
+  （21本目の束で 下 0.6〜3.7%・左右 0〜1.6%）。全画面で「流す」「寄る」と、寄せの端（xbias・bias が 0 か 1）や寄り 1.0 で縁が画面に入る。
+  冒頭 c102 は手で避けた（寄り 1.12・寄せ 0.2→0.8＝`cuts/c1.py` の注「pan_r は寄せ 0→1＝端の黒い縁が入る」）が、**門番が無かった**。
+  ⑤b-7 で同じ型の写真が11カットに増えた（流す・寄る・2点）。門番 blank は紙の図の空の窓、slide は焼き込みの文字＝どちらも縁を見ない。
+  → [[feedback-rules-need-gates]]
+
+■ 測るもの（fail closed）
+  1. 縁のある写真＝`cuts/ss.py` の SLIDE_MOUNT。縁の幅は**絵から毎回測る**（定数に書かない＝束を作り直しても腐らない）：
+     辺から EDGE_CAP 以内で、辺の中ほど 60% の帯の輝度の 80 パーセンタイルが EDGE_DARK 未満の行（列）のうち、いちばん内側までの幅。
+     ⚠️ 作った日に一度、「辺から続く暗い行」で測って**外した**：暗いビル街（LC-A10 の下 38%）・cc03 の暗がり（右 56%）まで縁に数え、
+        陰性対照の c102 が鳴った。台紙は一様に真っ黒（95 パーセンタイル 8〜22・幅は最大 4% 未満）・絵の暗がりは 27 以上＝辺から 5% までに限る
+        （辺の1列目が明るい写真＝LC-A03 の右があるので「続く」でなく「いちばん内側」）→ [[feedback-verify-your-own-instrument]]
+  2. その写真を当てた**全画面**のカットの窓を、本番の切り方（`check_slide.cam_rects`＝cam の3点・cam が無ければ既定の寄りの2点）で出し、
+     4辺それぞれ「縁の幅＋GUARD」より内側か。
+  ⚠️ 見ないもの：額装（panel）・額ごと動かす（fmove）の写真＝台紙ごと見せる。映像（`footage.USE` の欄）。SLIDE_MOUNT に無い写真の暗い所（夜空など）。
+
+■ 使い方
+    python tools/check_photo_edge.py
+    python tools/check_photo_edge.py --selftest    # 陽性対照（c102 の写真をプリセットの pan_r＝寄せ 0→1 で流すと鳴る）・陰性対照（c102 の本番）
+"""
+from __future__ import annotations
+
+import sys
+from functools import lru_cache
+from pathlib import Path
+
+import numpy as np
+from PIL import Image
+
+HERE = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(HERE / "tools"))
+sys.stdout.reconfigure(encoding="utf-8")
+
+EDGE_DARK = 32      # 縁の行（列）＝帯の輝度の 80 パーセンタイルがこれ未満（台紙は 8〜23・暗いビル街は 38 以上＝⑤b-7 の実測）
+EDGE_CAP = 0.05     # 縁を探す深さ（画像の割合）＝台紙の幅は 21本目の束で最大 4% 未満。これより内の暗がりは絵
+GUARD = 0.003       # 縁の幅に足す余白（画像の割合）
+MIN_EDGE = 0.012    # 名簿の写真の縁の下限＝暗さで測れない辺がある（LC-A01・A05・B20 の上・A01・A05・A06 の左＝台紙が緑がかって明るい）
+
+
+@lru_cache(maxsize=None)
+def margins(name):
+    """写真（`ref/` から見た名）の四辺の縁の幅（画像の割合）＝dict(l, t, r, b)。読めなければ例外（fail closed）"""
+    a = np.asarray(Image.open(HERE / "ref" / name).convert("L"), dtype=np.float32)
+    h, w = a.shape
+    y0, y1, x0, x1 = int(h * .2), int(h * .8), int(w * .2), int(w * .8)
+    rows = np.percentile(a[:, x0:x1], 80, axis=1)
+    cols = np.percentile(a[y0:y1, :], 80, axis=0)
+
+    def run(seq):
+        n = int(len(seq) * EDGE_CAP)
+        dark = [i for i in range(n) if seq[i] < EDGE_DARK]
+        return dark[-1] + 1 if dark else 0
+    return dict(t=run(rows) / h, b=run(rows[::-1]) / h, l=run(cols) / w, r=run(cols[::-1]) / w)
+
+
+def window_fracs(r, sw, sh):
+    """check_slide.crop_rect の窓 → 4辺の内側への距離（画像の割合）"""
+    return dict(l=r["left"] / sw, t=r["top"] / sh, r=1 - (r["left"] + r["cw"]) / sw, b=1 - (r["top"] + r["ch"]) / sh)
+
+
+def check(spec=None, mount=None, use=None):
+    """(所見の一覧, exit)。spec・mount・use を渡さなければ本番（cuts.SPEC・ss.SLIDE_MOUNT・footage.USE）"""
+    import check_slide as CS
+    import cuts.ss as ss
+    if spec is None:
+        import cuts
+        spec = cuts.SPEC
+    mount = ss.SLIDE_MOUNT if mount is None else mount
+    if use is None:
+        import footage
+        use = footage.USE
+    if not mount:
+        return ["🔴 SLIDE_MOUNT が空（縁のある写真の名簿が読めていない＝fail closed）"], 2
+    import scene_jiko as S
+    out, bad, seen = [], 0, 0
+    for name in sorted(mount):
+        if not (HERE / "ref" / name).exists():
+            out.append(f"🔴 {name}: 名簿にあるが ref/ に無い")
+            bad += 1
+    for cid, s in spec.items():
+        name = s.get("photo")
+        if name not in mount or s.get("panel") or s.get("fmove") or cid in use:
+            continue
+        m = margins(name)
+        sw, sh = ss.trimmed_size(name)
+        box = S.photo_box(s)
+        rects = CS.cam_rects(sw, sh, box, s)
+        seen += 1
+        worst = []
+        for k, r in rects.items():
+            f = window_fracs(r, sw, sh)
+            for side in "ltrb":
+                need = max(m[side], MIN_EDGE) + GUARD
+                if f[side] + 1e-6 < need:
+                    worst.append(f"{'頭中尻'[int(k * 2)] if s.get('cam') else ('寄る前' if k == 0 else '寄ったあと')}の{'左上右下'['ltrb'.index(side)]}"
+                                 f"（窓の内側 {f[side] * 100:.1f}%＜縁 {m[side] * 100:.1f}%＋{GUARD * 100:.1f}）")
+        if worst:
+            out.append(f"🔴 {cid}: {name} の窓が台紙の縁に入る＝{'・'.join(worst[:4])}{'…' if len(worst) > 4 else ''}"
+                       "（寄りを上げるか寄せを端から離す＝ss.mv の lo・span）")
+            bad += 1
+    if seen == 0:
+        out.append("🔴 縁のある写真を当てた全画面のカットが0＝この検査は何も見ていない（名簿か SPEC の読み違い）")
+        bad += 1
+    else:
+        out.append(f"{'✓' if not bad else '🔴'} 縁のある写真の全画面カット {seen}件を測った（名簿 {len(mount)}点）")
+    return out, (2 if bad else 0)
+
+
+def selftest():
+    import cuts
+    import cuts.ss as ss
+    ok = True
+
+    def chk(label, cond):
+        nonlocal ok
+        print(f"{'✓' if cond else '🔴'} {label}")
+        ok &= bool(cond)
+    base = cuts.SPEC.get("c102")
+    chk("見本 c102 が SPEC にある（冒頭の LC-A17）", bool(base) and base.get("photo") == ss.P("lc_a05_a17"))
+    m = margins(ss.P("lc_a05_a17"))
+    chk(f"物差し：LC-A17 の下の縁が 1.5% 以上（測った値 {m['b'] * 100:.1f}%＝⑤b-7 の borders.py は 2.5%）", m["b"] >= 0.015)
+    m10 = margins(ss.P("lc_a05_a10"))
+    chk(f"物差し：LC-A10 の下の暗いビル街を縁に数えない（測った値 {m10['b'] * 100:.1f}%＜{EDGE_CAP * 100:.0f}%・作った日の物差しは 38%）",
+        0.01 <= m10["b"] < EDGE_CAP)
+    pos = dict(base, cam="pan_r")
+    out, code = check({"c102": pos}, use={})
+    chk("陽性対照：c102 の写真をプリセットの pan_r（寄せ 0→1・寄り 1.22）で流すと鳴る", code == 2 and any("c102" in o for o in out))
+    out, code = check({"c102": base}, use={})
+    chk("陰性対照：c102 の本番（寄り 1.12・寄せ 0.2→0.8）は鳴らない", code == 0)
+    out, code = check({"c102": dict(base, cam=None)}, use={})
+    chk("陽性対照：c102 の写真を寄り 1.0 の既定の寄り（cam なし）で出すと鳴る（左右の縁が入る）", code == 2)
+    out, code = check({}, use={})
+    chk("陽性対照：測る対象が0件なら鳴る（空の SPEC で合格を出さない）", code == 2)
+    return 0 if ok else 2
+
+
+def main():
+    if "--selftest" in sys.argv:
+        return selftest()
+    out, code = check()
+    for o in out:
+        print(o)
+    return code
+
+
+if __name__ == "__main__":
+    sys.exit(main())

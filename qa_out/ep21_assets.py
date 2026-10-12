@@ -19,8 +19,8 @@
 🔴 束の写真は長辺を縮めるだけ（色・切り口はそのまま）＝幅 2400（寄る 1.25倍で 1920 を 1:1 で埋める）か高さ 1350 の大きい方まで。それ以下は写すだけ
    （再圧縮しない）。元の 57点は 513MB＝そのまま git に入れない（.git は 1.7GB）。
 🔴 額装だけの点＝BY-SA の2点（AA11＝c204 の写真・TG99＝c205 の映像のひかえ fb_c205）＝`frame=True`（`ss.frame_only`）。
-🔴 保留（束に入れない）＝顔だけモザイクの3点（SEC70＝c210・SHANK15＝c827・TSA20＝cb06）＝⑤b-7 で原寸2倍＋10px の目盛りで顔の範囲を
-   決めてから MASK に書いて入れる（了承② 決め3）。私人の顔を素のままリポに積まない。縦横比だけは panel に数える。
+🔴 保留していた顔だけモザイクの3点（SEC70＝c210・SHANK15＝c827・TSA20＝cb06）は ⑤b-7（2026-10-13）に2倍＋10px の目盛りで測って束に入れた
+   ＝私人の分かる顔は0（下の HOLD・CROP の注）。TSA20 は手前の列の客を束の段階で切り落とす（私人の近い顔をリポに積まない）。
 ⚠️ NTSB の図（8）・RG237 の画面（11）・文字の頁（ca18）は素材の欄が空＝頁のチャット（⑤b-3〜）で `pages` を足す。
 """
 import csv
@@ -55,9 +55,17 @@ EVENT_YEAR = 2001            # 副題の「当日」「9月14日」＝この年�
 BUNDLE_W, BUNDLE_H = 2400, 1350        # 束の写真の大きさの上限（どちらかに届くまで縮める）
 JPEG_Q = 90
 STOCK = {"B767", "SEC70", "TSA20", "DOOR15"}          # イメージ＝この事件の物でない写真（`ep21/stock/`＝check_text_screens.is_stock）
-HOLD = {"SEC70": "c210 の1970年の空港の保安係と客（私人の顔だけモザイク）",
-        "SHANK15": "c827 の93便の追悼の場の来訪者（顔だけモザイク）",
-        "TSA20": "cb06 の保安検査の客（原寸で顔が分かるときだけモザイク）"}
+HOLD = {}   # 🆕 ⑤b-7（2026-10-13）：保留の3点を束に入れた（下の CROP の注）
+# 🆕 ⑤b-7（2026-10-13）：顔だけモザイクの保留3点は、束と同じ大きさに縮めた絵を 100px の目盛りの全体図と2倍＋10px の目盛りの切り出しで測った
+#   （scratchpad `mask_view.py`）。了承② 決め3「私人の顔だけモザイク」を当てる顔は**0**になった＝MASK・NEEDS_MASK・masked.json は空のまま。
+#   ・SEC70（c210・1920×2802＝写すだけ）：写っているのは制服の郡の保安係1人だけ（袖の章「ORANGE COUNTY SECURITY OFFICER」・客は0人）
+#     ＝公的な任務の人の顔は使ってよい（記憶 feedback-jiko-photo-people-policy）＝かけない
+#   ・SHANK15（c827・2400×1600）：来訪者は右端の遠く（x 2180〜2345・y 545〜600）に6〜7人・背丈 約25px・顔 約4px＝顔の分からない遠景
+#     （同じ回の c106 の通行人と同じ扱い）＝かけない
+#   ・TSA20（cb06・2400×1800）：手前の列の客（y 1100 から下・顔 30〜40px）は顔が分かる＝**束の段階で切り落とす**（下の CROP＝縦 0〜1000 だけ残す
+#     ＝私人の近い顔をリポに入れない）。残る中景の人は顔 約8〜11px＝顔の分からない遠景・青い制服は保安検査の職員（公務）＝かけない
+#     ⚠️ ⑤c で焼いた絵を原寸で見て、顔が分かる人がいれば MASK（20本目の形）に足す
+CROP = {"TSA20": (0, 0, 2400, 1000)}     # 束の画素（縮めたあと）で切る (x0, y0, x1, y1)
 
 # ── 画面の出典（PD は「パブリックドメイン」と書ける A・C・C'／D は PD の宣言ではない＝「知られた制限なし」＝CREDITS.md §2-12b）──
 #   CC BY（継承なし）は額・寄り・流しで端を切る＝「改変：切出」をこちらで書く（`scene_jiko.credit_of` は「改変」の無い CC BY に
@@ -207,10 +215,18 @@ def cmd_build():
         name = name_of(code, s)
         dst = EPD / f"{name}.jpg"
         dst.parent.mkdir(parents=True, exist_ok=True)
+        box = [0.0, 0.0, 1.0, 1.0]
         with Image.open(sp) as im:
             w0, h0 = im.size
             k = min(1.0, max(BUNDLE_W / w0, BUNDLE_H / h0))
-            if k < 1.0:
+            if code in CROP:
+                w, h = round(w0 * k), round(h0 * k)
+                x0, y0, x1, y1 = CROP[code]
+                im.convert("RGB").resize((w, h), Image.LANCZOS).crop(CROP[code]).save(dst, quality=JPEG_Q, optimize=True)
+                how = f"縮小 {w0}x{h0}→{w}x{h}・切出 {x0},{y0},{x1},{y1}（手前の列の客を外す）"
+                box = [round(x0 / w, 4), round(y0 / h, 4), round(x1 / w, 4), round(y1 / h, 4)]
+                w, h = x1 - x0, y1 - y0
+            elif k < 1.0:
                 w, h = round(w0 * k), round(h0 * k)
                 im.convert("RGB").resize((w, h), Image.LANCZOS).save(dst, quality=JPEG_Q, optimize=True)
                 how = f"縮小 {w0}x{h0}→{w}x{h}"
@@ -230,7 +246,7 @@ def cmd_build():
             lic = (_meta_of(s) or {}).get("lic") or lic
         frame = "SA" in lic
         db[name] = dict(code=code, file=s["file"], cut=" ".join(cuts), credit=cr, who=who, note=s["note"][:200],
-                        box=[0.0, 0.0, 1.0, 1.0], crop_px=[0, 0, w, h], w=w, h=h, md5=md5(dst), src_md5=f["md5"],
+                        box=box, crop_px=[0, 0, w, h], w=w, h=h, md5=md5(dst), src_md5=f["md5"],
                         lic=lic, frame=frame, ground=s["rights"], url=s["page"], blur=[], how=how,
                         year=_year_of(code, s), stock=code in STOCK)
         print(f"✓ {code:8} {name:40} {w}x{h}  {' '.join(cuts):10} {lic}{'  額装だけ' if frame else ''}  {how}")
@@ -368,7 +384,8 @@ def cmd_credits(write=False):
         "- 🔴 **CC BY-SA の写真（AA11＝c204）は額装・無加工・色そのまま・上に重ねない・寄り0・1点1カット**（`cuts/ss.check_frame_only`）",
         "- CC BY は額・寄り・流しで端を切ることがある＝画面の出典に「改変：切出」",
         "- 🔴 **イメージ（この事件の物でない写真）**＝`ep21/stock/` の名・画面の左上に「イメージ」・20% に数えない。"
-        "顔だけモザイクの3点（SEC70・SHANK15・TSA20）は ⑤b-7 で範囲を決めてから束に入れる（いまは保留）",
+        "顔だけモザイクの保留3点（SEC70・SHANK15・TSA20）は ⑤b-7 で2倍に拡大して測った＝私人の分かる顔は0（SEC70＝制服の保安係1人＝公務・"
+        "SHANK15＝来訪者の顔 約4px の遠景）。🔴 TSA20 は手前の列の客（顔 30〜40px）を束の段階で切り落とした（縦の上 1000px だけ＝「改変：切出」）",
         "- 撮影年＝Commons の頁の日付（上げた日・公開の日・不明のものは出どころの説明から＝`qa_out/ep21_assets.py` の YEAR_FIX）。"
         "副題の「当日」は 2001年として照らした",
         "",
