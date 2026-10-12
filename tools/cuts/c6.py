@@ -17,23 +17,27 @@ PLAN = {
     'c601': dict(kind='写真',
                plan='PENT98｜副題：事件の前のペンタゴン（1998年）｜動き：ゆっくり寄る｜権利：A（国防総省の職務）｜出典の行：米国防総省（MSgt Ken Hammond, USAF）｜台本の画：実写 pentagon_ext_pre（事件の前のペンタゴン・1998年・A・全画面・ゆっくり寄る＝副題「事件の前のペンタゴン（1998年）」）',
                src='委員会報告 p8（`At 8:51, American 77 transmitted its last routine radio communication`）'),
+    # 🔧 ⑤b-4（2026-10-12）：台本の画の欄の「PDF p5」は中身から見て p3（図1＝全体の経路）。p5 は図3（ワシントンの辺り＝c617）
     'c602': dict(kind='図・写真の頁',
-               plan='見る向き：上から｜注：NTSB 77便の経路｜台本の画：図 NTSB 77便の経路（PDF p5 の地図をなぞる・南へ曲がり、東へ戻る線）',
+               plan='見る向き：上から｜注：NTSB 77便の経路（🔧 PDF p3 の図1）｜台本の画：図 NTSB 77便の経路（PDF p5 の地図をなぞる・南へ曲がり、東へ戻る線）',
                src='委員会報告 p8（`The hijacking began between 8:51 and 8:54`）・p24（`American 77 began deviating from its flight plan at 8:54, with a slight turn toward the south`）'),
-    'c603': dict(kind='図・写真の頁',
-               plan='台本の画：図 RG237（インディアナポリス・センターのレーダー再生の画面・77便の札が消える所）',
+    # 🔧 ⑤b-4：c603・c604・c607・c615 は図・写真の頁 → 図解。RG237 の77便の動画（1-AWA-716-Pentagon）は描き終えた航跡の地図だけで、
+    #   札も「点が消える・戻る」も写っていない。213番台（Pentagon_more2）は NORAD の立体のアニメーション（「AA 77」の札つき＝c615「正体も
+    #   分からない」と食い違う）＝レーダーの画面の模式図（mech21 scope）で見せる。c606 は NTSB の頁 → 北東部の地図の模式（77便の線と探した向き）
+    'c603': dict(kind='図解',
+               plan='🔧 模式 レーダーの画面（札が消え、点も消える）｜台本の画：図 RG237（インディアナポリス・センターのレーダー再生の画面・77便の札が消える所）',
                src='委員会報告 p25（`its transponder was turned off at 8:56`）'),
-    'c604': dict(kind='図・写真の頁',
-               plan='台本の画：図 RG237（同じ画面・点の無いまま時計が進む）',
+    'c604': dict(kind='図解',
+               plan='🔧 模式 レーダーの画面（点の無いまま・記録に残っていた点）｜台本の画：図 RG237（同じ画面・点の無いまま時計が進む）',
                src='委員会報告 p25（`FAA radar equipment tracked the flight from the moment its transponder was turned off at 8:56`・`for 8 minutes and 13 seconds, between 8:56 and 9:05, this primary radar information on American 77 was not displayed to controllers at Indianapolis Center`）'),
     'c605': dict(kind='図解',
                plan='台本の画：図 模式 レーダーの重ね方（一次レーダーの点・札・画面＝人は描かない）',
                src='委員会報告 p25（`The reasons are technical, arising from the way the software processed radar information`）'),
-    'c606': dict(kind='図・写真の頁',
-               plan='見る向き：上から｜台本の画：図 NTSB 77便の経路（同じ地図・管制官が西と南西を見る矢印と、東へ向かう線）',
+    'c606': dict(kind='図解',
+               plan='見る向き：上から｜🔧 模式 北東部の地図（77便の線・西と南西を見る矢印・東への線）｜台本の画：図 NTSB 77便の経路（同じ地図・管制官が西と南西を見る矢印と、東へ向かう線）',
                src="委員会報告 p25（`looked to the west and southwest along the flight's projected path, not east`）"),
-    'c607': dict(kind='図・写真の頁',
-               plan='台本の画：図 RG237（9:05 に東で点が戻る所）',
+    'c607': dict(kind='図解',
+               plan='見る向き：上から｜🔧 模式 北東部の地図（9:05 に東で点が戻る）｜台本の画：図 RG237（9:05 に東で点が戻る所）',
                src='委員会報告 p25（`reemerged as a primary target on Indianapolis Center radar scopes at 9:05, east of its last known position`・`controllers had either stopped looking for the aircraft because they thought it had crashed or were looking toward the west`）'),
     'c608': dict(kind='図解',
                plan='台本の画：図 模式 同じ地図（西を見る矢印と、東へ伸びる線を並べる）',
@@ -56,8 +60,8 @@ PLAN = {
     'c614': dict(kind='図解',
                plan='台本の画：図 模式 同じ線（3つの理由の札＝目標の場所が無い・決まった飛び方の型・読み違え）',
                src="委員会報告 p27（`The Langley fighters were heading east, not north, for three reasons`・`this order did not include a distance to the target or the target's location`）"),
-    'c615': dict(kind='図・写真の頁',
-               plan='台本の画：図 RG237（ダレスのレーダー再生・東へ速く動く点）',
+    'c615': dict(kind='図解',
+               plan='🔧 模式 空港の管制のレーダーの画面（東へ速く動く札の無い点）｜台本の画：図 RG237（ダレスのレーダー再生・東へ速く動く点）',
                src="委員会報告 p25（`observed a primary radar target tracking eastbound at a high rate of speed`・`The aircraft's identity or type was unknown`）"),
     'c616': dict(kind='図解',
                plan='台本の画：図 模式 ワシントンの地図（ホワイトハウス・ペンタゴン・レーガン空港・点の動き）',
@@ -89,3 +93,134 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-12）：図解 第5章（15カット）＋頁3（c602・c617・c618＝NTSB 77便の図1〜3）
+# ══════════════════════════════════════════════════════════
+#   🔴 章の札「3機目　画面から消えた点」と4字以上同じ並び（「画面から消」ほか）を見出し・副題に入れない（門番 dup）。人は描かない・
+#      無線と電話の逐語は画面に出さない。見る向き：c617（上から）→ c618（横から＝副題の頭「横から見ると」）→ c619（上から＝副題の頭「上から見ると」）
+_W = "陸の形は Natural Earth・77便の線と矢印は模式（NTSB 77便の図1の見当）"
+SPEC.update({
+    # c602（8.1秒）＝NTSB 77便の飛行経路の調べ PDF 3頁（Figure 1・横倒しのスキャンを正立）。南へ曲がって東へ戻る線（点 C・D）
+    "c602": dict(photo=ss.page(4003), trim=ss.ptrim("c602"), bias=ss.pbias("c602"), panel=True, color=1.0, fmove=ss.fm("in"),
+                 t="77便の経路", s="NTSB の飛行経路の調べ（2002年）の図1"),
+    # c603（3行）＝🔧 管制のレーダーの画面（模式）。8:56 札が消える → インディアナポリス・センター → 3行目で点も消える（p24・p25）
+    "c603": dict(
+        t="消えた札と点", s="77便を見守っていた管制の画面",
+        fig=("m21", dict(view="scope", start=dict(block="on"),
+                         steps=[dict(state=dict(block="off"), tag=dict(t="8:56", at="time")),
+                                dict(tag=dict(t="インディアナポリス・センター", at="block")),
+                                dict(state=dict(blip="off"), tag=dict(t="点も消える", at="dot", to="blip"))],
+                         rel=[dict(t="8:56", src="委員会報告 p25")], note="画面の形と点は模式（記録の画面ではない）",
+                         src=ss.src(["委員会報告 p24", "委員会報告 p25"]))),
+    ),
+    # c604（3行）＝🔧 同じ画面（点の無いまま）。2行目で記録に残っていた点（あとの調べ）→ 3行目で 8分13秒（p25）
+    "c604": dict(
+        t="出なかった点", s="インディアナポリス・センターの画面",
+        fig=("m21", dict(view="scope", start=dict(block="off", blip="off"),
+                         steps=[dict(), dict(state=dict(ghost="on"), tag=dict(t="レーダーの記録には残る", d="あとの調べ", at="ghost")),
+                                dict(tag=dict(t="画面に出ない：8分13秒", at="low"))],
+                         rel=[dict(t="8分13秒", src="委員会報告 p25")], note="画面の形と点は模式（記録の画面ではない）",
+                         src=ss.src(["委員会報告 p25"]))),
+    ),
+    # c605（2行）＝レーダーの情報が画面に出るまで。管制のソフトの扱いで画面に出ない → 2行目でその辺りのレーダーの弱さ（p25）
+    "c605": dict(
+        t="技術の理由", s="レーダーと画面のあいだ",
+        fig=("m21", dict(view="soft", steps=[dict(state=dict(rec="on", cut="on"), tag=dict(t="ソフトの扱いで出ない", at="cut")),
+                                             dict(state=dict(weak="on"), tag=dict(t="77便の辺りはレーダーが弱い", at="weak"))],
+                         rel=[dict(t="77便", src="委員会報告 p25")], note="箱の並びは模式（言葉は委員会報告から）", src=ss.src(["委員会報告 p25"]))),
+    ),
+    # c606（2行）＝北東部の地図（77便の線＝西へ→消えた所）。管制官が探した西と南西 → 2行目で東への線（p25）
+    "c606": dict(
+        t="逆の向き", s="インディアナポリス・センターの捜索",
+        fig=("m21", dict(view="ne", start=dict(r77="west"),
+                         steps=[dict(state=dict(look="on"), tag=dict(t="管制官が探した向き", at="look")),
+                                dict(state=dict(r77="east"), tag=dict(t="77便は東へ", at="reapp"))],
+                         rel=[dict(t="77便", src="委員会報告 p25")], note=_W, src=ss.src(["委員会報告 p25"]))),
+    ),
+    # c607（2行）＝同じ地図。9:05 東で点が戻る（p25）→ 2行目で管制官は西を見ていた
+    "c607": dict(
+        t="戻った点", s="東の方で画面に出た77便",
+        fig=("m21", dict(view="ne", start=dict(r77="east", look="on"),
+                         steps=[dict(state=dict(reapp="on"), tag=dict(t="9:05", at="reapp", to="r77_reapp")),
+                                dict(tag=dict(t="管制官は西を見ていた", at="look"))],
+                         rel=[dict(t="9:05", src="委員会報告 p25")], note=_W, src=ss.src(["委員会報告 p25"]))),
+    ),
+    # c608（3行）＝同じ地図。2行目で向きを変えた所（画面に出ないあいだ）
+    "c608": dict(
+        t="見ていない旋回", s="77便が向きを変えた所",
+        fig=("m21", dict(view="ne", start=dict(r77="east", look="on", reapp="on"),
+                         steps=[dict(), dict(state=dict(turn="on"), tag=dict(t="ここで向きを変えた", at="turn", to="r77_turn")), dict()],
+                         note=_W, src=ss.src(["委員会報告 p25"]))),
+    ),
+    # c610（2行）＝機内の電話から地上の家族へ（p9）。言葉は語りと字幕だけ
+    "c610": dict(
+        t="家族への電話", s="77便の機内から地上へ",
+        fig=("m21", dict(view="phone", start=dict(to="family"),
+                         steps=[dict(state=dict(call="on"), tag=dict(t="乗客の1人から", at="time")), dict()],
+                         rel=[dict(t="1人", src="委員会報告 p9")], note="人は描かない・機と線は模式", src=ss.src(["委員会報告 p9"]))),
+    ),
+    # c611（3行）＝北東部の地図。2行目でボストン・センター → NEADS の電話（9:21・p26）。言葉は字幕だけ
+    "c611": dict(
+        t="別の知らせ", s="ボストン・センターから NEADS への電話",
+        fig=("m21", dict(view="ne", start=dict(neads="on"),
+                         steps=[dict(), dict(state=dict(call="on"), tag=dict(t="9:21", at="call")), dict()],
+                         rel=[dict(t="9:21", src="委員会報告 p26")], note="陸の形は Natural Earth・線は模式", src=ss.src(["委員会報告 p26"]))),
+    ),
+    # c612（3行）＝同じ地図。2行目でニューヨークに×（11便はもう北棟へ）→ 3行目で出どころは分からない（p26）
+    "c612": dict(
+        t="誤った知らせ", s="NEADS に届いた11便の話",
+        fig=("m21", dict(view="ne", start=dict(neads="on", call="on"),
+                         steps=[dict(), dict(state=dict(x11="on"), tag=dict(t="11便：30分以上前に北棟へ", at="x11", to="nyc")),
+                                dict(tag=dict(t="出どころは分からない", at="src"))],
+                         rel=[dict(t="11便", src="委員会報告 p7"), dict(t="30分以上前", src="委員会報告 p7・p26（8:46:40 から 9:21）")],
+                         note="陸の形は Natural Earth・線は模式", src=ss.src(["委員会報告 p7", "委員会報告 p26"]))),
+    ),
+    # c613（2行）＝同じ地図。9:24 ラングレーへ命令 → 2行目で 9:30 東の海へ（命令の向きは北＝ボルチモアの方・p27）
+    "c613": dict(
+        t="東へ出た戦闘機", s="ラングレー基地からの発進",
+        fig=("m21", dict(view="ne", start=dict(bases="on"),
+                         steps=[dict(tag=dict(t="9:24 ラングレーへ命令", at="lang_t")),
+                                dict(state=dict(lang="on"), tag=dict(t="9:30 東の海の上へ", at="lang"))],
+                         rel=[dict(t="9:24", src="委員会報告 p27"), dict(t="9:30", src="委員会報告 p27")],
+                         note="陸の形は Natural Earth・線は向きの模式", src=ss.src(["委員会報告 p27"]))),
+    ),
+    # c614（2行）＝同じ線。2行目で3つの理由（p27）
+    "c614": dict(
+        t="3つの理由", s="戦闘機が東へ向かったわけ",
+        fig=("m21", dict(view="ne", start=dict(bases="on", lang="on"),
+                         steps=[dict(), dict(tag=[dict(t="① 行き先と距離の指示なし", at="w1"), dict(t="② 東へ出る決まった飛び方", at="w2"),
+                                                  dict(t="③ それを命令より先と思う", at="w3")])],
+                         note="陸の形は Natural Earth・線は向きの模式", src=ss.src(["委員会報告 p27"]))),
+    ),
+    # c615（2行）＝🔧 空港の管制のレーダーの画面（模式）。9:32 東へ速く動く札の無い点 → 2行目で正体の分からない点（p25）
+    "c615": dict(
+        t="速い点", s="ダレス空港の管制官が見た点",
+        fig=("m21", dict(view="scope", start=dict(who="app"),
+                         steps=[dict(state=dict(fast="on"), tag=dict(t="9:32", at="time")), dict(tag=dict(t="正体の分からない点", at="dot"))],
+                         rel=[dict(t="9:32", src="委員会報告 p25")], note="画面の形と点は模式（記録の画面ではない）",
+                         src=ss.src(["委員会報告 p25"]))),
+    ),
+    # c616（2行）＝ワシントンの辺りの地図。9:34 NEADS が77便を見失ったと知る → 2行目でホワイトハウスの南西 約10キロ（6マイル）に正体不明の機（p34）
+    "c616": dict(
+        t="首都の近くに", s="ホワイトハウスの南西に現れた機",
+        fig=("m21", dict(view="dc", steps=[dict(tag=dict(t="9:34 NEADS が知る", at="time")),
+                                           dict(state=dict(unk="on"), tag=dict(t="約10キロ（6マイル）", d="正体不明の機", at="unk", to="unk"))],
+                         rel=[dict(t="9:34", src="委員会報告 p27"), dict(t="約10キロ（6マイル）", src="委員会報告 p34")],
+                         note="地点は一般の座標・川は描かない（模式）", src=ss.src(["委員会報告 p27", "委員会報告 p34"]))),
+    ),
+    # c617（8.7秒）＝NTSB 77便の飛行経路の調べ PDF 5頁（Figure 3・ワシントンの辺り＝330度の旋回）。上から
+    "c617": dict(photo=ss.page(4005), trim=ss.ptrim("c617"), bias=ss.pbias("c617"), panel=True, color=1.0, fmove=ss.fm("in"),
+                 t="最後の旋回", s="NTSB の飛行経路の調べ（2002年）の図3"),
+    # c618（11.8秒）＝NTSB 77便 PDF 4頁（Figure 2・飛行の記録装置の気圧高度）。🔁 上から→横から＝副題の頭「横から見ると」
+    "c618": dict(photo=ss.page(4004), trim=ss.ptrim("c618"), bias=ss.pbias("c618"), panel=True, color=1.0, fmove=ss.fm("in"),
+                 t="高度の記録", s="横から見ると：NTSB の調べの図2"),
+    # c619（2行）＝🔁 横から→上から（副題の頭「上から見ると」）。軍の輸送機 → 2行目で追って見分ける（p25・p26）
+    "c619": dict(
+        t="輸送機の目", s="上から見ると：ワシントンの辺りの空",
+        fig=("m21", dict(view="dc", steps=[dict(state=dict(t77="on", c130="on"), tag=dict(t="軍の輸送機 C-130H", at="c130", to="c130")),
+                                           dict(state=dict(follow="on"), tag=dict(t="ボーイング757と見分ける", at="follow"))],
+                         rel=[dict(t="C-130H", src="委員会報告 p25"), dict(t="757", src="委員会報告 p26")],
+                         note="地点は一般の座標・線は模式", src=ss.src(["委員会報告 p25", "委員会報告 p26"]))),
+    ),
+})

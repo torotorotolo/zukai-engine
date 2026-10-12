@@ -62,6 +62,10 @@ REC_QTY = {}          # (群の項目名＝画面の文字, 行の名＝画面�
 #    United States」（印字の頁・GPO の PDF＝印字＋18 の文字の層で当てた）
 REC_QTY.update({("待機の基地の数（か所）", "冷戦のころの最大"): (26, {"委員会報告 p16"}),
                 ("待機の基地の数（か所）", "事件の朝"): (7, {"委員会報告 p17"})})
+# 🆕 2026-10-12（21本目 ⑤b-4）：c516＝委員会報告 p455（第1章の注）「Flight 11 was a hijacking 11 minutes after it was taken over; Flight 175, 9 minutes after」
+#    行の名＝北棟の便（11便＝p7「crashed into the North Tower」）・南棟の便（175便＝p8「struck the South Tower」）
+REC_QTY.update({("乗っ取りから FAA が知るまで（分）", "北棟の便"): (11, {"委員会報告 p455"}),
+                ("乗っ取りから FAA が知るまで（分）", "南棟の便"): (9, {"委員会報告 p455"})})
 REC_GHOST = {}        # 「後」の行に「前」の長さを薄く残す棒
 REC_GRID = {}         # マス目（項目名 → n・ok・ng・頁）
 REC_PEOPLE = {}       # 人の形（14本目 c204〜c206 だけの例外＝§C-1 #59）

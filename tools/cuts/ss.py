@@ -652,6 +652,25 @@ AXI.update({
     "quiet86": dict(k="span", a="1986", b="2001-09-11", t="起きていない", rec=["委員会報告 p85", "委員会報告 p1"], c="LINE"),
     "day911": dict(k="pt", at="2001-09-11", t="この朝", rec="委員会報告 p1", c="ALERT", anchor="start", fmt="y"),   # ⚠️ 試し焼き：左へ振ると「1986年」の札と横に並んで1つの札に読めた
 })
+# 🆕 2026-10-12（21本目 ⑤b-4）：第4〜6章。AX_175＝175便の寄り（8:40〜9:06＝c507）。原文（委員会報告の文字の層）：p7「at 8:47, when the aircraft
+#   changed beacon codes twice within a minute」・p21「At 8:51, the controller noticed the transponder change from United 175」・p22「controller at 8:53,
+#   saying that "we may have a hijack"」「At about 8:55, the controller in charge notified a New York Center manager」（about＝「ごろ」）・p23「came in a phone
+#   call from New York Center to NEADS at 9:03」・p24「Two minutes later [8:54＋2], it disappeared completely from radar」・p25「transponder was turned off at
+#   8:56」・p11「The hijackers attacked at 9:28」・p29「At 9:42, the Command Center learned from news reports」「At 9:46 the Command Center updated FAA
+#   headquarters that United 93」。⚠️ 記録の言葉（「乗っ取りかもしれない」ほか）は札にしない＝項目名だけ
+AX_175 = dict(view="clock", span=("8:40", "9:06"), ticks=("8:40", "8:45", "8:50", "8:55", "9:00", "9:05"))
+AXI.update({
+    "code175": dict(k="pt", at="8:47", t="番号が変わる", rec="委員会報告 p7", anchor="end"),
+    "see175": dict(k="pt", at="8:51", t="管制官が気づく", rec="委員会報告 p21", anchor="end"),
+    "may175": dict(k="pt", at="8:53", t="乗っ取りを疑う", rec="委員会報告 p22", anchor="end"),   # ⚠️ 門番 axis：右へ振ると 8:55 の縦の線が札を貫いた
+    "mgr175": dict(k="pt", at="8:55", t="上司へ伝える", rec="委員会報告 p22", c="INST", anchor="start", approx=True),
+    "mil11": dict(k="pt", at="8:37:52", t="11便：軍へ", rec="委員会報告 p20", c="INST", anchor="end"),
+    "mil175": dict(k="pt", at="9:03", t="175便：軍へ", rec="委員会報告 p23", c="INST", anchor="start"),
+    "off77": dict(k="pt", at="8:56", t="77便：画面から消える", rec=["委員会報告 p24", "委員会報告 p25"], anchor="end"),
+    "hj93": dict(k="pt", at="9:28", t="93便の乗っ取り", rec="委員会報告 p11", c="ALERT", anchor="end"),
+    "news42": dict(k="pt", at="9:42", t="報道で知る", rec="委員会報告 p29", c="INST", anchor="end"),
+    "upd93": dict(k="pt", at="9:46", t="93便の位置を本部へ", rec="委員会報告 p29", c="INST", anchor="start"),
+})
 
 
 def ax(name, **kw):
@@ -758,6 +777,14 @@ QG.update({"alert": dict(id="alert", t="待機の基地の数（か所）", tick
 QB.update({
     "alert_cw": dict(k="bar", g="alert", t="冷戦のころの最大", v=26, rec="委員会報告 p16", c="TICK"),
     "alert_911": dict(k="bar", g="alert", t="事件の朝", v=7, rec="委員会報告 p17", c="AMBER"),
+})
+# 🆕 2026-10-12（21本目 ⑤b-4）：c516 乗っ取りから FAA が知る（強く疑う）まで（委員会報告 p455「Flight 11 was a hijacking 11 minutes after it was taken over;
+#   Flight 175, 9 minutes after」）。時刻の帯にしない＝175便の乗っ取りの始まりは「8:42〜8:46 のあいだ」で点が決まらない
+#   ⚠️ 門番 qty：行の名に数字（「11便」「175便」）を書かない＝便は「北棟の便」（11便＝p7）・「南棟の便」（175便＝p8）と呼ぶ
+QG.update({"faa": dict(id="faa", t="乗っ取りから FAA が知るまで（分）", ticks=(0, 5, 10, 15), rows=("北棟の便", "南棟の便"))})
+QB.update({
+    "faa11": dict(k="bar", g="faa", t="北棟の便", v=11, rec="委員会報告 p455", c="TICK"),
+    "faa175": dict(k="bar", g="faa", t="南棟の便", v=9, rec="委員会報告 p455", c="AMBER"),
 })
 
 

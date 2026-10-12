@@ -44,5 +44,97 @@
    "c408": 0.5
   },
   "from": "`out/ep7_shotscan/3-AWA-716-WTC1__s01.png`（38.0秒のコマ・上下の黒い帯 y 0〜48・430〜を切った）"
+ },
+ "pg3003": {
+  "rec": "NTSB 175便 p3003",
+  "what": "175便のレーダーの航跡（Figure 1・点 A〜G）",
+  "src": "src/ntsb_flight_path_study_UA175.pdf",
+  "at": 3,
+  "rot": 270,
+  "w": 2175,
+  "h": 1700,
+  "md5": "1d09e66444d90aebb090851cbd7eafae",
+  "src_md5": "351483d0430f69253e305843160c76e7",
+  "cuts": {
+   "c506": [
+    0.17,
+    0.1,
+    0.82,
+    0.79
+   ]
+  },
+  "bias": {
+   "c506": 0.5
+  },
+  "from": "ntsb_flight_path_study_UA175.pdf PDF 3頁（200dpi・灰色・270度回して正立）"
+ },
+ "pg4003": {
+  "rec": "NTSB 77便 p4003",
+  "what": "77便の飛行経路（Figure 1・点 A〜F）",
+  "src": "src/ntsb_flight_path_study_AA77.pdf",
+  "at": 3,
+  "rot": 270,
+  "w": 2173,
+  "h": 1700,
+  "md5": "3f08662752c87339396f8d41020a42f7",
+  "src_md5": "6e0b180f545ca120f51e18a9a2c994ac",
+  "cuts": {
+   "c602": [
+    0.23,
+    0.1,
+    0.86,
+    0.775
+   ]
+  },
+  "bias": {
+   "c602": 0.5
+  },
+  "from": "ntsb_flight_path_study_AA77.pdf PDF 3頁（200dpi・灰色・270度回して正立）"
+ },
+ "pg4004": {
+  "rec": "NTSB 77便 p4004",
+  "what": "77便の高度（Figure 2・飛行の記録装置の気圧高度）",
+  "src": "src/ntsb_flight_path_study_AA77.pdf",
+  "at": 4,
+  "rot": 270,
+  "w": 2177,
+  "h": 1700,
+  "md5": "3b337470201e7ab8011e18f1cfb19d3d",
+  "src_md5": "6e0b180f545ca120f51e18a9a2c994ac",
+  "cuts": {
+   "c618": [
+    0.12,
+    0.1,
+    0.82,
+    0.9
+   ]
+  },
+  "bias": {
+   "c618": 0.5
+  },
+  "from": "ntsb_flight_path_study_AA77.pdf PDF 4頁（200dpi・灰色・270度回して正立）"
+ },
+ "pg4005": {
+  "rec": "NTSB 77便 p4005",
+  "what": "ワシントンの辺りの経路（Figure 3・地形の地図の上）",
+  "src": "src/ntsb_flight_path_study_AA77.pdf",
+  "at": 5,
+  "rot": 270,
+  "w": 2175,
+  "h": 1700,
+  "md5": "4689d4e9088caa0812cd224a0179a286",
+  "src_md5": "6e0b180f545ca120f51e18a9a2c994ac",
+  "cuts": {
+   "c617": [
+    0.16,
+    0.1,
+    0.82,
+    0.87
+   ]
+  },
+  "bias": {
+   "c617": 0.5
+  },
+  "from": "ntsb_flight_path_study_AA77.pdf PDF 5頁（200dpi・灰色・270度回して正立）"
  }
 }
