@@ -1455,6 +1455,13 @@ def full_top(cid, spec):
         g = [J.scrim(0, 0, W, SCRIM_TOP, "top", 0.80)]
         if side == "right":
             g.append(J.scrim(1150, 0, W - 1150, H, "right", 0.62))
+        elif side == "none":
+            # 🆕 2026-10-12（21本目 ⑤b-2）：**注記の無い全画面カットは横の暗幕を敷かない**（`side="none"`）。右の暗幕は x 1150 から右端へ
+            #    最大 62% 暗くする＝試し焼き 38202142392 で c102 の燃える塔・c107 の大統領専用機の尾翼が暗幕の下に沈み、明るい滑走路の上では
+            #    かすみの帯に見えた（元の映像を同じ切り口で伸ばした絵との差 38〜92＝右 30% だけ）。上の暗幕（見出し・副題）は残す。
+            #    注記（ann）は暗幕の上に置く型＝書いたら止める（暗幕なしの注記は写真に沈む＝敷く側を side で選ぶ）
+            if spec.get("ann"):
+                raise SystemExit(f"{cid}: side='none'（横の暗幕なし）に注記 ann を書いた＝暗幕を敷く側を side（right／left）で選ぶ")
         else:
             g.append(J.scrim(0, 0, 770, H, "left", 0.62))
     if spec.get("panel") and not spec.get("fmove"):
