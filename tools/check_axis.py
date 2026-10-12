@@ -71,8 +71,22 @@ sys.stdout.reconfigure(encoding="utf-8")
 #    頁の番号の書き方（報告書＝印刷の頁・別添6 は p310〜343・解説＝1000＋印刷の頁）と引いた原文・OCR で読んだ別添1 の頁・月だけの記録は月の値で置く注は
 #    移した注の側にある＝fixture_ep20 の REC_AXIS の上
 REC_AXIS = {}
+# 🆕 2026-10-12（21本目 ⑤b-3）：第1〜3章の時間の帯と年表。頁＝委員会報告の印字の頁（GPO の PDF＝印字＋18・文字の層 `ref/ep21/src/core_raw/
+#    GPO-911REPORT.pages.jsonl` で当てた）・図表 p32＝同じ報告書の図（②が原寸で読んだ写し＝`ref/ep21/sources.md` §11-1）。引いた原文：
+#    p4「The plane took off at 7:59」「By 8:00 A.M. … they had defeated all the security layers」「the hijacking began at 8:14 or shortly thereafter」・
+#    p7「departed Logan Airport at 8:14」「At 8:46:40, American 11 crashed into the North Tower」・p8「took off at 8:20」・p10「At 8:42, United Airlines
+#    Flight 93 took off」・p18「At 8:21, American 11 turned off its transponder」・p19「At 8:24:38」「Between 8:25 and 8:32」・図表 p32「Boston Center
+#    aware of hijacking」（8:25）・p20「At 8:37:52, Boston Center reached NEADS」「scrambled at 8:46」「airborne at 8:53」・p21「That nine minutes'
+#    notice」・p85「beginning in the 1960s」（年代＝1960〜1969 の帯）「since 1986」・p1「Tuesday, September 11, 2001」
+REC_AXIS.update({"7:59": {"委員会報告 p4"}, "8:00": {"委員会報告 p4"}, "8:14": {"委員会報告 p4", "委員会報告 p7"}, "8:20": {"委員会報告 p8"},
+                 "8:42": {"委員会報告 p10"}, "8:21": {"委員会報告 p18"}, "8:24:38": {"委員会報告 p19"},
+                 "8:25": {"図表 p32", "委員会報告 p19"}, "8:32": {"委員会報告 p19"},
+                 "8:37:52": {"委員会報告 p20", "委員会報告 p21"}, "8:46": {"委員会報告 p20"}, "8:53": {"委員会報告 p20"},
+                 "8:46:40": {"委員会報告 p7", "委員会報告 p21"},
+                 "1960": {"委員会報告 p85"}, "1969": {"委員会報告 p85"}, "1986": {"委員会報告 p85"},
+                 "2001-09-11": {"委員会報告 p1", "委員会報告 p85"}})
 LANES_OK = set()
-REC_APPROX = set()      # 記録が about の時刻（「ごろ」が要る）
+REC_APPROX = set()      # 記録が about の時刻（「ごろ」が要る）＝21本目の第1〜3章は委員会報告の値をそのまま（about の時刻を帯に置いていない）
 LANE_COL = 20        # 🆕 18本目 ⑤b-5：2段の帯の札が軸の左端より左へ出てよい画素（段の名の列にかけない）
 REC_LANE = {}             # 2段の帯の記録ごとの段（値 → 段の名）
 CH_PAD = 12          # 🆕 16本目 ⑤b-6b：札と右上の章の札（jiko_style.chapter）のあいだに要る画素

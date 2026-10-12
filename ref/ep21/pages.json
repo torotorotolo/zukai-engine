@@ -1,0 +1,48 @@
+{
+ "pg2003": {
+  "rec": "NTSB 11便 p2003",
+  "what": "11便のレーダーの航跡（Figure 1・点 A〜I と時刻）",
+  "src": "src/ntsb_flight_path_study_AA11.pdf",
+  "at": 3,
+  "rot": 270,
+  "w": 2176,
+  "h": 1700,
+  "md5": "5810260f89fe476dc8aabb198f1c01ce",
+  "src_md5": "406580b71c290ec8007eec621fc9981f",
+  "cuts": {
+   "c401": [
+    0.1517,
+    0.1059,
+    0.9122,
+    0.9176
+   ]
+  },
+  "bias": {
+   "c401": 0.5
+  },
+  "from": "ntsb_flight_path_study_AA11.pdf PDF 3頁（200dpi・灰色・270度回して正立）"
+ },
+ "pgr11": {
+  "rec": "RG237 p1",
+  "what": "11便の航跡の再生（FAA・3-AWA-716-WTC1 の 38.0秒）",
+  "src": "out/ep7_shotscan/3-AWA-716-WTC1__s01.png",
+  "at": 38.0,
+  "rot": 0,
+  "w": 654,
+  "h": 382,
+  "md5": "bc072998b8493310203f322a006db795",
+  "src_md5": "4c66de4ba22760d93a281a97df105371",
+  "cuts": {
+   "c408": [
+    0.0,
+    0.0,
+    1.0,
+    1.0
+   ]
+  },
+  "bias": {
+   "c408": 0.5
+  },
+  "from": "`out/ep7_shotscan/3-AWA-716-WTC1__s01.png`（38.0秒のコマ・上下の黒い帯 y 0〜48・430〜を切った）"
+ }
+}

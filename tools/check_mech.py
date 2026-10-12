@@ -2511,8 +2511,228 @@ def _selftest_m20(ok):
     return ok
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 21本目 ⑤b-3（2026-10-12）：模式図（m21＝`tools/mech21.py`・15の見え方）
+# ══════════════════════════════════════════════════════════
+# 🔴 記録の値は門番の側に持つ（§5b-88＝描く側の表 mech21.MAP_PTS・ROUTES・NE_BASES・GT・BL_LIMIT_IN・CH_ORDER・ES_MILES・PM_T を書き換えると鳴る）。
+#    頁＝委員会報告の印字の頁（GPO の PDF＝印字＋18 の文字の層で当てた）。引いた原文：
+#    p4「nonstop service from Boston to Los Angeles」（11便）・p7「scheduled to depart for Los Angeles」（175便＝p2 の「also bound for Los Angeles」と
+#    p7「departed Logan Airport」＝ボストン）・p8「from Washington Dulles for Los Angeles」・p10「took off from Newark … bound for San Francisco」・
+#    p17「NEADS, which is based in Rome, New York」「NEADS could call on two alert sites … Otis Air National Guard Base in Cape Cod, Massachusetts, and
+#    Langley Air Force Base in Hampton, Virginia」・p3「set off the alarms for both the first and second metal detectors and was then hand-wanded」・
+#    p84「knives with blades under 4 inches long」・p17〜18 の手順（管制官→上司→FAA の本部→国防総省の指揮所→国防長官の許し→NORAD の段→戦闘機）・
+#    p18「five miles directly behind the hijacked aircraft」（5マイル＝約8キロ＝台本 §9）・p18 の3つの前提。
+#    🔴 空港・基地・街の緯度経度は報告書の値ではない（一般の座標＝Wikidata と同じ桁）＝図の札に「模式」・ここでは描く側の表の写し違いを見る（±0.05度）。
+#    札に出してよい時刻（記録の時刻）＝p4 8:14・p5 8:19・p18 8:21・p19 8:24:38・p20 8:34・8:37:52・8:46・8:53
+REC_M21 = dict(
+    pts=dict(bos=(42.3656, -71.0096), ewr=(40.6925, -74.1687), iad=(38.9531, -77.4565), lax=(33.9425, -118.4081),
+             sfo=(37.6189, -122.3750), rome=(43.2338, -75.4070), otis=(41.6584, -70.5214), langley=(37.0829, -76.3605),
+             nyc=(40.7128, -74.0060), dc=(38.9072, -77.0369), boston=(42.3601, -71.0589)),
+    routes={("bos", "lax"), ("iad", "lax"), ("ewr", "sfo")},
+    flights=dict(bos={"11便", "175便"}, iad={"77便"}, ewr={"93便"}),
+    bases={"otis", "langley"}, neads="rome",
+    arches=2,
+    limit_in=4.0,
+    chain=("管制官", "上司", "FAA の本部", "国防総省の指揮所", "国防長官の許し", "NORAD", "戦闘機"),
+    escort=(5, 8),
+    premise=3,
+    clock={"8:14", "8:19", "8:21", "8:24:38", "8:34", "8:37:52", "8:46", "8:53"},
+    src="委員会報告",
+)
+# 筋（先に起きることが先）＝(見え方, 欄, 値, 前に要る欄, 前に要る値の集合, 言葉)
+_M21_NEED = (
+    ("us", "routes", "on", "east", {"on"}, "4便の線は、出発の空港を見せてから"),
+    ("us", "routes", "on", "west", {"on"}, "4便の線は、行き先の街を見せてから"),
+    ("gate", "wand", "on", "ring", {"on"}, "手持ちの探知機は、門が鳴ってから（p3）"),
+    ("gate", "pass_", "on", "wand", {"on"}, "通過は、手持ちの探知機のあと（p3）"),
+    ("blade", "ok", "on", "limit", {"on"}, "持ち込めた印は、4インチの線を見せてから"),
+    ("blade", "r2", "on", "r1", {"on"}, "理由の2つ目は1つ目のあと"),
+    ("blade", "r3", "on", "r2", {"on"}, "理由の3つ目は2つ目のあと"),
+    ("tools", "fake", "on", "bomb", {"on"}, "「おそらく偽物」は「爆弾」を見せてから（p13）"),
+    ("door", "door", "open", "lock", {"open"}, "扉が開くのは、鍵が外れてから"),
+    ("door", "comply", "on", "door", {"open"}, "「要求に従う」の矢印は、扉が開いてから"),
+    ("door", "loose", "on", "lock", {"on", "open"}, "「守られていない」は、鍵の決まりを見せてから"),
+    ("old", "b2", "on", "b1", {"on"}, "着陸の箱は、要求の箱のあと"),
+    ("old", "b3", "on", "b2", {"on"}, "警察や軍の箱は、着陸の箱のあと"),
+    ("old", "chips", "on", "b1", {"on"}, "要求の中身は、要求の箱を見せてから"),
+    ("old", "long", "on", "b3", {"on"}, "「長引くほど」は、3つの箱を見せてから"),
+    ("chain", "cape", "on", "short", {"on"}, "ケープコッドの施設は、近道の線の上"),
+    ("escort", "dim", "on", "fighter", {"on"}, "間隔の線は、戦闘機を見せてから"),
+    ("escort", "near", "on", "fighter", {"on"}, "「そばに寄せない」は、後ろの戦闘機を見せてから"),
+    ("premise", "x1", "on", "p1", {"on"}, "1つ目の×は、1つ目を見せてから"),
+    ("phone", "dur", "on", "call", {"on"}, "約25分は、電話の線を見せてから"),
+    ("phone", "train", "on", "call", {"on"}, "訓練の線は、電話の線を見せてから"),
+    ("radio", "garble", "on", "v1", {"on"}, "聞き取れないのは、声のあと"),
+    ("radio", "v2", "on", "v1", {"on"}, "2つ目の声は、1つ目のあと"),
+    ("radio", "know", "on", "v2", {"on"}, "乗っ取りと分かるのは、2つ目の声のあと（p19）"),
+    ("call", "talk", "ask", "link", {"on"}, "行き来は、電話の線がつながってから"),
+    ("call", "drill", "on", "link", {"on"}, "演習の札は、電話の線を見せてから"),
+    ("scope", "search", "s1", "dots", {"on"}, "探す輪は、札の無い点を見せてから"),
+)
+NUM_M21 = re.compile(r"[0-9０-９]{1,2}[:：][0-9０-９]{2}(?:[:：][0-9０-９]{2})?|[0-9０-９][0-9０-９,.．]*")
+
+
+def judge_m21(f):
+    """21本目 模式図：①状態の筋 ②形（f.mech["geo"]）を記録（REC_M21）で ③札の数・時刻。"""
+    bad, n = [], 0
+    m = f.mech
+    g, view = m["geo"], m["view"]
+    seq = [m["start"]] + list(m["states"])
+    R = REC_M21
+    if not R:
+        return ["記録の表 REC_M21 が空"], 1
+    texts = list(m["tags"])
+
+    def need(cond, msg):
+        nonlocal n
+        n += 1
+        if not cond:
+            bad.append(msg)
+    # ① 筋
+    for v, fl, val, pre, ok_vals, msg in _M21_NEED:
+        if v != view:
+            continue
+        for s in seq:
+            if fl == "talk":
+                hit = s.get(fl) in ("ask", "back")
+            elif fl == "search":
+                hit = s.get(fl) not in (None, "off")
+            else:
+                hit = s.get(fl) == val
+            if hit:
+                need(s.get(pre) in ok_vals, f"① 筋：{msg}")
+    if view == "chain":
+        for s in seq:
+            need(s["hqx"] != "on" or int(s["lit"]) >= 3, "① 筋：本部の×は、本部まで灯してから")
+    if view == "scope":
+        for s in seq:
+            need(s["who"] == "faa" or s["block"] == "off", "① 筋：便名と高度の札は管制の画面だけ（NEADS の画面は札の無い点）")
+            need(s["who"] == "neads" or (s["dots"] == "off" and s["search"] == "off"), "① 筋：札の無い点を探すのは NEADS の画面")
+    # ② 形（記録）
+    if view in ("us", "ne"):
+        need(g["coast"] > 0, "② 陸の輪郭が無い（Natural Earth の切り出し ref/ep21/coast_ne50m.json）")
+        for k, (la, lo) in g["back"].items():
+            want = R["pts"].get(k)
+            need(want is not None and abs(la - want[0]) < 0.05 and abs(lo - want[1]) < 0.05,
+                 f"② 地点 {k} の位置（画素から {la:.3f}, {lo:.3f}）が記録の座標 {want} と違う")
+        px_lon, px_lat, latc = g["k"]
+        kx, ky = px_lon / (111.32 * math.cos(math.radians(latc))), px_lat / 110.57      # 1km あたりの画素（門番の側の式）
+        need(abs(kx - ky) / ky < 0.02, f"② 東西と南北の縮尺がそろっていない（1km＝{kx:.4f}／{ky:.4f} 画素）")
+    if view == "us":
+        need(set(g["routes"]) == R["routes"], f"② 4便の出発と行き先 {sorted(g['routes'])} が記録（{R['src']} p4・p7・p8・p10）と違う")
+        for k, want in R["flights"].items():
+            got = set(re.split(r"[・、]", g["flights"].get(k, "")))
+            need(got == want, f"② {k} の便 {sorted(got)} が記録 {sorted(want)} と違う")
+        xs = g["pts"]
+        need(min(xs[k][0] for k in ("bos", "ewr", "iad")) > max(xs[k][0] for k in ("lax", "sfo")), "② 出発の空港が行き先の街より東に無い")
+    if view == "ne":
+        need(set(g["bases"]) == R["bases"], f"② 待機の2か所 {g['bases']} が記録（{R['src']} p17＝オーティス・ラングレー）と違う")
+        need(g["neads"] == R["neads"], f"② NEADS の場所 {g['neads']}（記録＝ローム＝{R['src']} p17）")
+    if view == "gate":
+        need(g["arches"] == R["arches"], f"② 鳴った探知機の門 {g['arches']}台（記録 {R['arches']}台＝{R['src']} p3）")
+    if view == "blade":
+        cm = (g["limit_x"] - g["zero_x"]) / g["px_cm"]
+        need(abs(cm - R["limit_in"] * 2.54) < 0.02, f"② 4インチの線 {cm:.2f}センチ（記録 {R['limit_in']}インチ＝{R['limit_in'] * 2.54:.2f}センチ＝{R['src']} p84）")
+        need(g["blade_end_x"] < g["limit_x"], "② 刃物の刃が4インチの線を越えている（持ち込めた＝4インチ未満）")
+    if view == "chain":
+        need(tuple(g["order"]) == R["chain"], f"② 手順の段の順 {g['order']}（記録＝{R['src']} p17・p18）")
+        ys = [y for _, y in g["xy"]]
+        top = ys.index(min(ys))
+        need(g["order"][top] == "国防長官の許し" and all(a > b for a, b in zip(ys[:top], ys[1:top + 1]))
+             and all(a < b for a, b in zip(ys[top:], ys[top + 1:])), "② 段が「国防長官の許し」まで上がって NORAD から下りる形になっていない")
+    if view == "escort":
+        need((g["miles"], g["km"]) == R["escort"], f"② 間隔 {g['miles']}マイル・{g['km']}キロ（記録 {R['escort']}＝{R['src']} p18）")
+        need(g["fighter_x"] < g["plane_x"], "② 戦闘機が乗っ取られた機の後ろ（進む向きの反対＝左）に無い")
+    if view == "premise":
+        need(len(g["boxes"]) == R["premise"], f"② 前提の数 {len(g['boxes'])}（記録 {R['premise']}＝{R['src']} p18）")
+    # ③ 札の数・時刻
+    said = [r.get("t", "") for r in m["rel"]]
+    for t in texts:
+        for mm in NUM_M21.finditer(t):
+            tok = mm.group(0)
+            need(any(tok in s for s in said), f"③ 札「{t}」の数「{tok}」が rel（記録の値の宣言）に無い")
+            full = tok.replace("：", ":")
+            if ":" in full:
+                need(full in R["clock"], f"③ 札「{t}」の時刻「{tok}」が記録の時刻（{sorted(R['clock'])}）に無い")
+    for r in m["rel"]:
+        need(bool(r.get("src")), f"③ rel「{r.get('t')}」に出どころ（src）が無い")
+    return bad, n
+
+
+def _selftest_m21(ok):
+    """21本目 ⑤b-3：模式図の検算（正しい場面・陽性対照＝描く側の表を壊す・筋と札）。"""
+    import mech21 as M
+    N = "模式"
+    good = dict(
+        us=dict(view="us", steps=[dict(state=dict(east="on")), dict(state=dict(west="on", routes="on"))], note=N),
+        ne=dict(view="ne", steps=[dict(state=dict(neads="on", bases="on"))], note=N),
+        gate=dict(view="gate", steps=[dict(state=dict(ring="on")), dict(state=dict(wand="on", pass_="on"))], note=N),
+        blade=dict(view="blade", steps=[dict(state=dict(limit="on", ok="on"), tag=dict(t="4インチ未満", at="ok"))],
+                   rel=[dict(t="4インチ", src="委員会報告 p84")], note=N),
+        chain=dict(view="chain", steps=[dict(state=dict(lit="3")), dict(state=dict(lit="7", hqx="on"))], note=N),
+        escort=dict(view="escort", steps=[dict(state=dict(fighter="on", dim="on"), tag=dict(t="約8キロ（5マイル）", at="dim"))],
+                    rel=[dict(t="約8キロ（5マイル）", src="委員会報告 p18")], note=N),
+        premise=dict(view="premise", steps=[dict(state=dict(p1="on")), dict(state=dict(x1="on"))], note=N),
+        scope=dict(view="scope", start=dict(block="on"), steps=[dict(tag=dict(t="8:21", at="time"))], rel=[dict(t="8:21", src="委員会報告 p18")],
+                   note=N),
+    )
+    for nm, kw in good.items():
+        bad, n = judge("m21", kw)
+        g_ = not bad
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 21本目 正しい場面：{nm}（{n}件）" + (f"  ← {bad[0]}" if bad else ""))
+    for name, attr, val, key, kwk in (
+            ("ボストンの空港を2度北に描く", "MAP_PTS", dict(M.MAP_PTS, bos=(44.3656, -71.0096)), "地点 bos", "us"),
+            ("93便をロサンゼルスへ結ぶ", "ROUTES", (("11便・175便", "bos", "lax"), ("77便", "iad", "lax"), ("93便", "ewr", "lax")),
+             "出発と行き先", "us"),
+            ("待機の基地をニューヨークにする", "NE_BASES", ("otis", "nyc"), "待機の2か所", "ne"),
+            ("探知機の門を1台にする", "GT", dict(M.GT, arch=(560.0,)), "探知機の門", "gate"),
+            ("4インチを4.5インチで描く", "BL_LIMIT_IN", 4.5, "4インチの線", "blade"),
+            ("段の順を入れ替える", "CH_ORDER", ("ctl", "hq", "sup", "nmcc", "osd", "norad", "ftr"), "段の順", "chain"),
+            ("間隔を4マイルにする", "ES_MILES", 4, "間隔", "escort"),
+            ("前提を2つにする", "PM_T", M.PM_T[:2], "前提の数", "premise")):
+        keep = getattr(M, attr)
+        setattr(M, attr, val)
+        try:
+            bad, _ = judge("m21", good[kwk])
+        except Exception as e:                 # 壊した値で組めない＝その旨を出して落とす
+            bad = [f"組めない {e!r}"]
+        finally:
+            setattr(M, attr, keep)
+        g_ = any(key in b for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 21本目 陽性対照（画素）：{name}: {'不合格' if bad else '合格'}（不合格のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+    for name, kw, key in (
+            ("近道の線の前にケープコッド", dict(view="chain", steps=[dict(state=dict(cape="on"))], note=N), "① 筋"),
+            ("爆弾の前に「偽物」", dict(view="tools", steps=[dict(state=dict(fake="on"))], note=N), "① 筋"),
+            ("1つ目の声の前に「聞き取れない」", dict(view="radio", steps=[dict(state=dict(garble="on"))], note=N), "① 筋"),
+            ("NEADS の画面に便名の札", dict(view="scope", start=dict(who="neads", block="on"), steps=[dict()], note=N), "① 筋"),
+            ("札の時刻が記録に無い（8:22）", dict(view="scope", steps=[dict(tag=dict(t="8:22", at="time"))], rel=[dict(t="8:22", src="x")], note=N),
+             "記録の時刻"),
+            ("札の数が rel に無い", dict(view="cabin", steps=[dict(tag=dict(t="全米で33人", at="n33"))], note=N), "rel")):
+        bad, _ = judge("m21", kw)
+        g_ = any(key in b for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 21本目 陽性対照（筋と札）：{name}: {'不合格' if bad else '合格'}（不合格のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+    for nm, fn in (("開いた扉を閉じる", lambda: M.m21("door", [dict(state=dict(lock="open", door="open")), dict(state=dict(door="closed"))], note=N)),
+                   ("段で画面の持ち主を変える", lambda: M.m21("scope", [dict(state=dict(who="neads"))], note=N)),
+                   ("知らない欄", lambda: M.m21("gate", [dict(state=dict(door="on"))], note=N))):
+        try:
+            fn()
+            g_ = False
+        except ValueError:
+            g_ = True
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 21本目 型の見張り：{nm}: {'組めない（止まった）' if g_ else '🔴 組めた'}")
+    return ok
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
+    if kind == "m21":
+        return judge_m21(f)
     if kind == "m20":
         return judge_m20(f)
     if kind == "m19":
@@ -2861,6 +3081,7 @@ def selftest():
     ok = _selftest_m18(ok)
     ok = _selftest_m19(ok)
     ok = _selftest_m20(ok)
+    ok = _selftest_m21(ok)
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 
@@ -2885,7 +3106,7 @@ def main():
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items())
                if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt", "vsec", "lv", "m18",
-                                                   "m19", "m20")}
+                                                   "m19", "m20", "m21")}
     if not targets:
         print("⚠️ latch・section・hull・lash・tail・mod・bolt のカットが0件（この回に仕組みの模式図が無いなら正しい。"
               "**0件を調べて合格**にしていないか確かめる）")

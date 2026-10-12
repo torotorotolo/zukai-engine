@@ -5112,3 +5112,12 @@ def m19(view, steps, **kw):
 def m20(view, steps, **kw):
     import mech20 as _m
     return _m.m20(view, steps, **kw)
+
+
+# ── ⑮ 21本目 ⑤b-3（2026-10-12）：模式図（地図2・保安検査・刃渡り・道具・操縦室の扉・昔ながらの乗っ取り・手順の段・後ろの戦闘機・
+#      3つの前提・機内・電話・無線・電話の線・レーダーの画面＝15種）＝`tools/mech21.py`（門番 check_mech の judge_m21）。
+#      地図の陸は Natural Earth（`ref/ep21/coast_ne50m.json`）。🔴 人は描かない・記録の言葉は画面に出さない ──
+#   `fig=("m21", dict(view=…, start=…, steps=[…], rel=[…], note="模式…", src=…))`
+def m21(view, steps, **kw):
+    import mech21 as _m
+    return _m.m21(view, steps, **kw)

@@ -553,8 +553,36 @@ def _clips():
 #    移した注の側にある＝fixture_ep20 の REC_DOCS の注。ILLU_CROWD_UNTIL・ILLU_ROLES・ILLU_SEC_OK・ILLU_COUNTS・ILLU_TOP_NOSCALE・ILLU_SUB_*・ILLU_BOOM_CUTS・
 #    ILLU_MIX_TODO は20本目も空のままだった表＝空の器で残す（見本の側も20本目の状態＝空として持つ）
 REC_PAGES = REF / "src" / "ep21_pages.txt"      # ④ の make_pages.py の出力（git の外＝手元だけ）。まだ無い＝その型を初めて使う ⑤b のチャットで作る
-REC_DOCS = {}                               # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
-ILLU_SPLIT_TIMES = ()                       # 資料で割れる時刻＝画面に時計・時刻の札として出さない
+# 🆕 2026-10-12（21本目 ⑤b-3）：21本目の資料の表（台本 第2版の出典の欄の書き方＝`v2_build/quotes21v2.py` の札の名）。
+#    頁の番号＝**通し番号**（1つの番号の並びに資料を並べる＝`ref/ep21/make_pages21.py` が同じ番号で `REC_PAGES` を書く）：
+#      委員会報告＝印字の頁そのまま（GPO の PDF＝印字＋18）・図表＝同じ報告書の p32〜33 の図（文字の層なし＝②が原寸で読んだ写し）・
+#      スタッフ声明 No.17＝1000＋PDF の頁・NTSB の飛行経路の調べ＝11便 2000＋／175便 3000＋／77便 4000＋／93便 5000＋（PDF の頁・スキャン）・
+#      93便の CVR の逐語（P200056T）＝6000＋・NIST NCSTAR 1＝7000＋（PDF の頁）・運輸長官の証言（写し）＝8001・ウェブの写し（頁なし）＝p1・
+#      RG237＝FAA のレーダーの再生の動画（頁なし＝p1）
+#    画面の出典の行＝`illu.rec_line`（印字＝「20頁」・pdf＝「PDF 3頁」・None＝名だけ）。⚠️ 台本の頁（「NTSB 11便」は頁なし）は SPEC で通し番号に直して書く
+REC_DOCS = {                                # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
+    "委員会報告": dict(range=(1, 567), name="9.11委員会報告書（2004年）", page="print", base=0),
+    "図表": dict(range=(32, 33), name="9.11委員会報告書（2004年）の図", page="print", base=0),
+    "スタッフ声明": dict(range=(1001, 1029), name="9.11委員会 スタッフ声明 第17号（2004年）", page="pdf", base=1000),
+    "NTSB 11便": dict(range=(2001, 2006), name="NTSB 11便の飛行経路の調べ（2002年）", page="pdf", base=2000),
+    "NTSB 175便": dict(range=(3001, 3007), name="NTSB 175便の飛行経路の調べ（2002年）", page="pdf", base=3000),
+    "NTSB 77便": dict(range=(4001, 4007), name="NTSB 77便の飛行経路の調べ（2002年）", page="pdf", base=4000),
+    "NTSB 93便": dict(range=(5001, 5007), name="NTSB 93便の飛行経路の調べ（2002年）", page="pdf", base=5000),
+    "CVR": dict(range=(6001, 6009), name="93便の操縦室の音声記録の逐語（裁判の証拠 P200056T）", page="pdf", base=6000),
+    "NIST": dict(range=(7001, 7302), name="NIST NCSTAR 1（2005年）", page="pdf", base=7000),
+    "運輸長官の証言": dict(range=(8001, 8001), name="運輸長官の証言（2003年5月23日・9.11委員会の公聴会）", page=None, base=0),
+    "国立公園局": dict(range=(1, 1), name="米国立公園局（93便の国立記念碑）", page=None, base=0),
+    "AP": dict(range=(1, 1), name="AP通信（2001年9月17日）", page=None, base=0),
+    "法律": dict(range=(1, 1), name="米国の法律 107-71（2001年）", page=None, base=0),
+    "検視局": dict(range=(1, 1), name="ニューヨーク市の検視局", page=None, base=0),
+    "記念館": dict(range=(1, 1), name="9.11記念館", page=None, base=0),
+    "運輸省の監察総監の報告": dict(range=(1, 1), name="米運輸省の監察総監の報告 CC-2006-085（2006年）", page=None, base=0),
+    "RG237": dict(range=(1, 1), name="米連邦航空局のレーダーの再生（米国立公文書館 RG237）", page=None, base=0),
+}
+# 🆕 21本目 ⑤b-3：資料で割れる時刻（台本 §1-5＝委員会報告の値を語り、NIST・NTSB の値は言わない）＝時間の帯の点に出典の名（by=True）を添える
+#    （門番 check_axis ③）。1機目 8:46:40（NIST 8:46:30）・2機目 9:03:11（NTSB 約9:02:40・NIST 9:02:59）・77便 9:37:46（NTSB 9:37:45）・
+#    93便 10:03:11（委員会も some dispute）
+ILLU_SPLIT_TIMES = ("8:46:40", "9:03:11", "9:37:46", "10:03:11")   # 資料で割れる時刻＝画面に時計・時刻の札として出さない
 ILLU_CROWD_UNTIL = None                     # 乗客の群れを描いてよい場面の時刻の上限
 ILLU_ROLES = dict(sprite=(), crowd=())      # 置いてよい役割（門番 check_illu ②）＝空の組なら、どの役割も置けない（fail closed）
 ILLU_SEC_OK = {}                            # 札に出してよい秒＝{秒: 出典}（門番 check_illu ⑤）
@@ -582,6 +610,48 @@ AXIS_DOCS = {}
 
 # 部品（記録の頁つき。値と頁は門番 check_axis の REC_AXIS と照らされる）。t は項目名だけ（§5b-9）
 AXI = {}
+
+# 🆕 2026-10-12（21本目 ⑤b-3）：時間の帯の型（第3〜8章で使い回す）＝時刻はアメリカ東部の夏の時間・画面は「8:46」の形（check_wording.EP_TIMES）。
+#   AX_MORN＝その朝の全体（7:50〜10:10＝4機の離陸から93便の墜落 10:03:11 まで）＝この回の芯の帯（c208・c217・c320〜）。
+#   AX_11＝11便の寄り（8:10〜9:00）＝c412・c423。⚠️ 右の端は右上の章の札を避けて、最後の点より少し先まで（20本目の教訓）
+#   値と頁は委員会報告の文字の層（`ref/ep21/src/core_raw/GPO-911REPORT.pages.jsonl`＝印字＋18）で当てた＝門番の側の表（check_axis.REC_AXIS）と照らされる。
+#   🔴 1機目の衝突 8:46:40 は割れる時刻（ILLU_SPLIT_TIMES）＝点に出典の名（by=True）
+#   ⚠️ 門番 axis（⑤b-3）：AX_MORN は1分＝約11画素＝8:14 と 8:20 の札が重なり、縦の線が隣の札を貫いた＝175便は左へ・77便は右へ振る。
+#      past で沈めるだけの点は札を出さない（`ss.ax("dep175", t="", lab=False)`＝点だけ）
+AX_MORN = dict(view="clock", span=("7:50", "10:10"), ticks=("8:00", "8:30", "9:00", "9:30", "10:00"))
+AX_11 = dict(view="clock", span=("8:10", "9:00"), ticks=("8:10", "8:20", "8:30", "8:40", "8:50", "9:00"))
+#   AX_HIST＝乗っ取りの「常識」の年表（c302・c309）。「1960年代から」は年代＝1960〜1969 の帯（日付を足さない）
+AX_HIST = dict(view="date", span=("1958", "2006"), ticks=("1960", "1970", "1980", "1990", "2000"))
+AXI.update({
+    # 第1章（AX_MORN）：p4「The plane took off at 7:59」・p7「departed Logan Airport at 8:14」・p8「took off at 8:20」・p10「At 8:42, United Airlines
+    #   Flight 93 took off」・p4「By 8:00 A.M. … they had defeated all the security layers」
+    "dep11": dict(k="pt", at="7:59", t="11便", rec="委員会報告 p4", anchor="end"),
+    "gate8": dict(k="pt", at="8:00", t="保安の関門を通り抜ける", rec="委員会報告 p4", c="INST", anchor="start"),
+    "dep175": dict(k="pt", at="8:14", t="175便", rec="委員会報告 p7", anchor="end"),
+    "dep77": dict(k="pt", at="8:20", t="77便", rec="委員会報告 p8", anchor="start"),
+    "dep93": dict(k="pt", at="8:42", t="93便", rec="委員会報告 p10"),
+    # 第3章（AX_11）：p4「we believe the hijacking began at 8:14 or shortly thereafter」・p18「At 8:21, American 11 turned off its transponder」・
+    #   p19「At 8:24:38, the following transmission」・図表 p32「Boston Center aware of hijacking」（8:25）・p19「Between 8:25 and 8:32 …
+    #   Boston Center managers started notifying their chain of command」・p20「At 8:37:52, Boston Center reached NEADS」・「scrambled at 8:46」・
+    #   「airborne at 8:53」・p7「At 8:46:40, American 11 crashed into the North Tower」・p21「That nine minutes' notice before impact」
+    "hj11": dict(k="pt", at="8:14", t="乗っ取りの始まり（委員会の見立て）", rec="委員会報告 p4", anchor="end"),
+    "xpdr11": dict(k="pt", at="8:21", t="トランスポンダが切られる", rec="委員会報告 p18", anchor="end"),
+    "voice11": dict(k="pt", at="8:24:38", t="管制の無線に声", rec="委員会報告 p19", anchor="start"),
+    "aware11": dict(k="pt", at="8:25", t="ボストン・センターが乗っ取りを知る", rec=["図表 p32", "委員会報告 p19"], c="INST", anchor="start"),
+    "chain11": dict(k="span", a="8:25", b="8:32", t="FAA の上の段へ", rec="委員会報告 p19", c="INST"),
+    "neads11": dict(k="pt", at="8:37:52", t="NEADS に知らせが届く", rec="委員会報告 p20", c="INST", anchor="end"),
+    "scr11": dict(k="pt", at="8:46", t="発進の命令", rec="委員会報告 p20"),
+    "hit11": dict(k="pt", at="8:46:40", t="北棟", rec="委員会報告 p7", c="ALERT", by=True, anchor="end"),
+    "air11": dict(k="pt", at="8:53", t="F-15 が飛び立つ", rec="委員会報告 p20", anchor="start"),
+    "nine11": dict(k="br", a="8:37:52", b="8:46:40", t="9分", rec=["委員会報告 p20", "委員会報告 p21", "委員会報告 p7"]),
+    # 第2章（AX_HIST）：p85「elaborated over decades of experience with scores of hijackings, beginning in the 1960s」・
+    #   「no terrorist had hijacked a U.S. commercial aircraft anywhere in the world since 1986」・p1「Tuesday, September 11, 2001」
+    "cs60": dict(k="span", a="1960", b="1969", t="1960年代", rec="委員会報告 p85", c="INST"),
+    "cs_all": dict(k="br", a="1960", b="2001-09-11", t="数十年の積み重ね", rec=["委員会報告 p85", "委員会報告 p1"]),
+    "last86": dict(k="pt", at="1986", t="最後のテロの乗っ取り", rec="委員会報告 p85", anchor="end"),
+    "quiet86": dict(k="span", a="1986", b="2001-09-11", t="起きていない", rec=["委員会報告 p85", "委員会報告 p1"], c="LINE"),
+    "day911": dict(k="pt", at="2001-09-11", t="この朝", rec="委員会報告 p1", c="ALERT", anchor="end"),
+})
 
 
 def ax(name, **kw):
@@ -682,6 +752,13 @@ def merge(*parts):
 #       fixture_ep20 の QG・QB の注
 QG = {}
 QB = {}
+# 🆕 2026-10-12（21本目 ⑤b-3）：c317 すぐ飛び立てる待機の基地（委員会報告 p16「reduced from its Cold War high of 26」・p17「only seven alert sites left
+#   in the United States, each with two fighter aircraft on alert」）。🔴 数字は画面に書かない（目盛りだけ）・行の名に日付の数字を書かない
+QG.update({"alert": dict(id="alert", t="待機の基地の数（か所）", ticks=(0, 10, 20, 30), rows=("冷戦のころの最大", "事件の朝"))})
+QB.update({
+    "alert_cw": dict(k="bar", g="alert", t="冷戦のころの最大", v=26, rec="委員会報告 p16", c="TICK"),
+    "alert_911": dict(k="bar", g="alert", t="事件の朝", v=7, rec="委員会報告 p17", c="AMBER"),
+})
 
 
 def qb(name, **kw):

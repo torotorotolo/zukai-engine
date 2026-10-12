@@ -58,6 +58,10 @@ sys.stdout.reconfigure(encoding="utf-8")
 #    21本目の棒を書くチャットで、値と頁を ref/ep21/src/ep21_pages.txt で当てて入れる（空のあいだ、量のカットは「記録に無い値」で止まる＝fail closed）。
 #    数字は画面に書かない（目盛りだけ）・行の名に日付の数字を書かない・「1万回程度」は推定＝行の名に「（推定）」の注は移した注の側にある＝fixture_ep20 の REC_QTY
 REC_QTY = {}          # (群の項目名＝画面の文字, 行の名＝画面の文字) → (値, 頁)
+# 🆕 2026-10-12（21本目 ⑤b-3）：c317 待機の基地＝委員会報告 p16「reduced from its Cold War high of 26」・p17「only seven alert sites left in the
+#    United States」（印字の頁・GPO の PDF＝印字＋18 の文字の層で当てた）
+REC_QTY.update({("待機の基地の数（か所）", "冷戦のころの最大"): (26, {"委員会報告 p16"}),
+                ("待機の基地の数（か所）", "事件の朝"): (7, {"委員会報告 p17"})})
 REC_GHOST = {}        # 「後」の行に「前」の長さを薄く残す棒
 REC_GRID = {}         # マス目（項目名 → n・ok・ng・頁）
 REC_PEOPLE = {}       # 人の形（14本目 c204〜c206 だけの例外＝§C-1 #59）

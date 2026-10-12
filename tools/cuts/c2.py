@@ -68,3 +68,73 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-3（2026-10-12）：図解 第1章（8カット）＝模式図 `tools/mech21.py`（門番 check_mech の judge_m21）・時間の帯（axis・門番 check_axis）
+# ══════════════════════════════════════════════════════════
+#   🔴 人は描かない・記録の言葉（電話の逐語）は画面に出さない（語りと字幕だけ）。見出しは7字以内の名札・副題は図の中身（章の札
+#      「その朝、4つの便」と4字以上同じ並びを入れない＝門番 dup）。時刻はアメリカ東部の夏の時間・画面は「8:46」の形
+SPEC.update({
+    # c202（3行）＝北アメリカの陸（Natural Earth）と出発の3つの空港 → 2行目で行き先の2つの街と線。線は出発と行き先を結んだだけ（実際の経路ではない）
+    "c202": dict(
+        t="大陸の横断", s="出発の3つの空港と、行き先の2つの街",
+        fig=("m21", dict(view="us", steps=[dict(state=dict(east="on")), dict(state=dict(west="on", routes="on")), dict()],
+                         note="陸の形は Natural Earth（国境なし）・線は出発と行き先を結んだだけ（実際の経路ではない）・地点は緯度経度から＝模式",
+                         src=ss.src(["委員会報告 p4", "委員会報告 p7", "委員会報告 p8", "委員会報告 p10"]))),
+    ),
+    # c208（3行）＝この回の芯の帯（AX_MORN 7:50〜10:10）の始まり。1行目で3機（7:59・8:14・8:20）・2行目で93便（8:42）
+    "c208": dict(
+        t="離陸の時刻", s="4機が飛び立った順（アメリカ東部の夏の時間）",
+        fig=("axis", dict(ss.AX_MORN, steps=[
+            dict(add=[ss.ax("dep11"), ss.ax("dep175"), ss.ax("dep77")], cur="8:20"),
+            dict(add=ss.ax("dep93"), cur="8:42"), dict()],
+            note="時刻は委員会報告の記録", src=ss.src(["委員会報告 p4", "委員会報告 p7", "委員会報告 p8", "委員会報告 p10"]))),
+    ),
+    # c211（2行）＝ダレス空港の保安検査（77便の2人）。1行目で探知機の門が2台とも鳴る・2行目で手持ちの探知機と通過（人は描かない）
+    "c211": dict(
+        t="鳴った探知機", s="ワシントン・ダレス空港の保安検査（77便）",
+        fig=("m21", dict(view="gate", steps=[dict(state=dict(ring="on"), tag=dict(t="2台とも鳴る", at="ring")),
+                                             dict(state=dict(wand="on", pass_="on"), tag=dict(t="鳴った物は確かめず", at="pass_"))],
+                         rel=[dict(t="2台", src="委員会報告 p3")], note="人は描かない・門と探知機の形は模式",
+                         src=ss.src(["委員会報告 p3"]))),
+    ),
+    # c212（3行）＝刃渡りの物差し（目盛りはセンチ・4インチ＝10.16センチの線）。2行目で線・3行目で「持ち込めた」
+    "c212": dict(
+        t="刃物の決まり", s="当時の保安検査（2001年9月まで）",
+        fig=("m21", dict(view="blade", steps=[dict(), dict(state=dict(limit="on")),
+                                              dict(state=dict(ok="on"), tag=dict(t="持ち込めた", d="航空会社の検査の手引き", at="ok"))],
+                         rel=[dict(t="4インチ（10.16センチ）", src="委員会報告 p84")], note="刃物の形は模式（長さは物差しの目盛りどおり）",
+                         src=ss.src(["委員会報告 p84"]))),
+    ),
+    # c213（3行）＝同じ物差しに FAA の3つの理由（p84）。⚠️ 3つ目は語りの写しにしない（門番 echo）＝「感度を大きく上げる必要」
+    "c213": dict(
+        t="3つの理由", s="FAA が挙げた理由",
+        fig=("m21", dict(view="blade", start=dict(limit="on", ok="on"),
+                         steps=[dict(state=dict(r1="on"), tag=dict(t="危ない物と見なさない", at="r1")),
+                                dict(state=dict(r2="on"), tag=dict(t="多くの地域で持ち歩ける", at="r2")),
+                                dict(state=dict(r3="on"), tag=dict(t="探知機の感度を大きく上げる必要", at="r3"))],
+                         note="刃物の形は模式", src=ss.src(["委員会報告 p84"]))),
+    ),
+    # c214（3行）＝機内からの電話が伝えた道具（刃物・スプレー・「爆弾がある」）→ 3行目で「おそらく偽物」（委員会の見立て）
+    "c214": dict(
+        t="伝えられた道具", s="客室乗務員と乗客の通報",
+        fig=("m21", dict(view="tools", steps=[dict(state=dict(knife="on")), dict(state=dict(spray="on", bomb="on")),
+                                              dict(state=dict(fake="on"), tag=dict(t="委員会の見立て", at="fake"))],
+                         note="形は模式（爆弾は犯人が「ある」と言っただけ）", src=ss.src(["委員会報告 p5", "委員会報告 p7", "委員会報告 p13"]))),
+    ),
+    # c215（2行）＝操縦室の扉（客室の側から）。1行目で鍵・2行目で「守られていないことも」
+    "c215": dict(
+        t="扉の決まり", s="2001年9月11日より前の決まり",
+        fig=("m21", dict(view="door", steps=[dict(state=dict(lock="on"), tag=dict(t="飛行中は閉めて鍵", at="rule", to="lock")),
+                                             dict(state=dict(loose="on"), tag=dict(t="いつも守られてはいない", at="loose"))],
+                         note="扉の形は模式", src=ss.src(["委員会報告 p85"]))),
+    ),
+    # c217（3行）＝芯の帯に 8:00（19人が保安の関門を通り抜けていた＝p4）。4機の離陸は沈めて続ける（11便のほかは点だけ＝札が重なる）
+    "c217": dict(
+        t="朝8時の時点", s="保安の関門と4機の離陸",
+        fig=("axis", dict(ss.AX_MORN, past=[ss.ax("dep11")] + [ss.ax(k, t="", lab=False) for k in ("dep175", "dep77", "dep93")],
+                          start=dict(cur="7:59"),
+                          steps=[dict(add=ss.ax("gate8"), cur="8:00"), dict(), dict()],
+                          note="時刻は委員会報告の記録", src=ss.src(["委員会報告 p4", "委員会報告 p7", "委員会報告 p8", "委員会報告 p10"]))),
+    ),
+})

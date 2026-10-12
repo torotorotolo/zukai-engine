@@ -2431,3 +2431,14 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `wtc_far_1976` | c421 | 1976 | 米議会図書館蔵／知られた制限なし（D） | Balthazar Korab | https://commons.wikimedia.org/wiki/File:World_Trade_Center,_New_York._Exterior._Twilight_view_from_harbor_-_LCCN2021636615.jpg |
 | `wtc_night_1976` | ca11 | 1976 | 米議会図書館蔵／知られた制限なし（D） | Balthazar Korab | https://commons.wikimedia.org/wiki/File:World_Trade_Center,_New_York._Exterior._Night_view_-_LCCN2021636612.jpg |
 | `wtc_south_1976` | c501 | 1976 | 米議会図書館蔵／知られた制限なし（D） | Balthazar Korab | https://commons.wikimedia.org/wiki/File:World_Trade_Center,_New_York._Exterior._View_from_plaza_-_LCCN2020714989.jpg |
+| `pg2003` | c401 | 2002 | PD（米連邦の職務） | NTSB | ntsb_flight_path_study_AA11.pdf PDF 3頁（200dpi・灰色・270度回して正立） |
+| `pgr11` | c408 | 2001 | PD（米連邦の職務） | 米連邦航空局（FAA） | `out/ep7_shotscan/3-AWA-716-WTC1__s01.png`（38.0秒のコマ・上下の黒い帯 y 0〜48・430〜を切った） |
+
+### 2. 頁（米連邦の資料＝PD・`qa_out/ep21_assets.py pages`・切り口は `ref/ep21/pages.json`）
+- NTSB の飛行経路の調べ（2002年・スキャン）＝PDF の頁を 200dpi の灰色に焼いて正立（横倒しの図）・図の範囲で切る。
+- RG237＝米連邦航空局のレーダーの再生の動画（NARA）の1コマ＝7本目の見本帳の静止画（`out/ep7_shotscan/`・表示の幅に直したもの）の上下の黒い帯を切る。
+
+| 頁 | 使うカット | 中身 | 元 |
+|---|---|---|---|
+| `pg2003.png` | c401 | 11便のレーダーの航跡（Figure 1・点 A〜I と時刻） | ntsb_flight_path_study_AA11.pdf PDF 3頁（200dpi・灰色・270度回して正立） |
+| `pgr11.png` | c408 | 11便の航跡の再生（FAA・3-AWA-716-WTC1 の 38.0秒） | `out/ep7_shotscan/3-AWA-716-WTC1__s01.png`（38.0秒のコマ・上下の黒い帯 y 0〜48・430〜を切った） |

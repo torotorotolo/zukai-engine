@@ -12,6 +12,7 @@
   python qa_out/ep21_assets.py nogo              # tools/footage.py の EP21_NOGO（映像方針 §2 の「使わない」窓＝その秒を含むショットまるごと）
   python qa_out/ep21_assets.py fb [c101 …]       # 映像のひかえの静止画 ref/ep21/fb_<cid>.jpg（手元の元ファイルの1コマ・焼くときと同じ切り口）
   python qa_out/ep21_assets.py use               # tools/footage.py の EP21_USE（🔴 章ファイルに `ss.vid` を書いたカットだけ＝門番 slots は両側を見る）
+  python qa_out/ep21_assets.py pages [2003 r11]  # 🆕 ⑤b-3：頁 ref/ep21/pg<鍵>.png＋ref/ep21/pages.json（NTSB の図・RG237 の1コマ＝名は pg で始める）
 
 入力＝映像方針の一覧 `ref/ep21/eizou_build/list21.tsv`（生成物・秒は narration.json の実測）・出どころ `sources21.tsv`・取得の記録 `fetch21.tsv`・
 ショット `shots21.tsv`。写真の元は `ref/ep21/photo/`（git の外・原本8＋Commons の標準の縮小版49）。
@@ -312,9 +313,27 @@ def cmd_credits(write=False):
         gk = re.match(r"C'|C＋D|[A-F]", r["ground"]).group(0)
         rows.append(f"| `{Path(n).name}` | {' '.join(cuts)} | {y if y else '不明'} | {r['lic']}（{gk}）{'・イメージ' if r['stock'] else ''} "
                     f"| {who} | {r['url']} |")
+    # 🆕 ⑤b-3：頁（pages.json）＝出典の行は資料の名と頁（`illu.rec_line`＝図のカットの出典と同じ書き方・`ss.REC_DOCS`）＋PD・切出
+    n_photo = len(cj)
+    pg_rows = []
+    if PAGES_JSON.exists():
+        sys.path.insert(0, str(HERE / "tools"))
+        import illu
+        # 頁の年＝資料の年（NTSB の調べ 2002年2月19日）・RG237＝記録の日（2001-09-11＝7本目の clips.json の date）。
+        #   🔴 §8 の表（写真と同じ表）に入れる＝門番 check_credits が副題の年と照らす（頁を表の外に置くと fail closed）
+        PAGE_YEAR = {"NTSB 11便": 2002, "RG237": 2001}
+        for k, p in sorted(json.loads(PAGES_JSON.read_text(encoding="utf-8")).items()):
+            line = illu.rec_line([p["rec"]])
+            if not line:
+                raise SystemExit(f"🔴 {k} の出典の行が作れない（`cuts/ss.REC_DOCS` に資料が無い）")
+            cj[f"ep21/{k}.png"] = line + "／パブリックドメイン・切出"
+            doc = p["rec"].rsplit(" p", 1)[0]
+            rows.append(f"| `{k}` | {' '.join(sorted(p['cuts']))} | {PAGE_YEAR[doc]} | PD（米連邦の職務） | "
+                        f"{'NTSB' if doc.startswith('NTSB') else '米連邦航空局（FAA）'} | {p['from']} |")
+            pg_rows.append(f"| `{k}.png` | {' '.join(sorted(p['cuts']))} | {p['what']} | {p['from']} |")
     for k, v in cj.items():
         print(k, "|", v)
-    print(f"… 写真 {len(cj)}点{'' if not bad else f'・🔴 食い違い {bad}'}")
+    print(f"… 写真 {n_photo}点・頁 {len(cj) - n_photo}{'' if not bad else f'・🔴 食い違い {bad}'}")
     if bad:
         return 1
     if not write:
@@ -352,7 +371,13 @@ def cmd_credits(write=False):
         "副題の「当日」は 2001年として照らした",
         "",
         "| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |",
-        "|---|---|---|---|---|---|", *rows, ""])
+        "|---|---|---|---|---|---|", *rows, "",
+        "### 2. 頁（米連邦の資料＝PD・`qa_out/ep21_assets.py pages`・切り口は `ref/ep21/pages.json`）",
+        "- NTSB の飛行経路の調べ（2002年・スキャン）＝PDF の頁を 200dpi の灰色に焼いて正立（横倒しの図）・図の範囲で切る。",
+        "- RG237＝米連邦航空局のレーダーの再生の動画（NARA）の1コマ＝7本目の見本帳の静止画（`out/ep7_shotscan/`・表示の幅に直したもの）の上下の黒い帯を切る。",
+        "",
+        "| 頁 | 使うカット | 中身 | 元 |",
+        "|---|---|---|---|", *pg_rows, ""])
     if CREDITS_HEAD in md:
         pre, rest = md.split(CREDITS_HEAD, 1)
         nxt = rest.find("\n## ")
@@ -361,6 +386,66 @@ def cmd_credits(write=False):
         md = md.rstrip("\n") + "\n\n" + block
     CREDITS_MD.write_text(md, encoding="utf-8")
     print(f"→ {CREDITS_JSON.relative_to(HERE).as_posix()} ／ {CREDITS_MD.relative_to(HERE).as_posix()}")
+    return 0
+
+
+# ── 頁（NTSB の飛行経路の調べ・RG237 のレーダーの再生の1コマ）＝⑤b-3 ─────────────
+#   頁の画像 ref/ep21/pg<鍵>.png（灰色）と切り口・寄りの縦の寄せ ref/ep21/pages.json（`ss.page`・`ss.ptrim`・`ss.pbias`）。
+#   🔴 名前は `pg` で始める＝門番 check_text_screens.pic_kinds が「図・写真の頁」に数える（写真の 20% に数えない）。
+#   鍵＝ss.REC_DOCS の通し番号（NTSB 11便 PDF 3頁＝2003）・RG237 は r<便>（頁の番号が無い）
+PAGES_JSON = EPD / "pages.json"
+PAGE_DPI = 200
+PAGE_SRC = {    # 鍵 → (元, 頁かコマ, 出典の書き方, 回す角度＝PIL の rotate の度・反時計回り, 中身)
+    # NTSB 11便 PDF 3頁＝Figure 1. AA-11 Radar Ground Track（横倒しのスキャン）。🔴 向きは頁の絵で決めた（90 では逆さま＝270）
+    2003: ("src/ntsb_flight_path_study_AA11.pdf", 3, "NTSB 11便 p2003", 270, "11便のレーダーの航跡（Figure 1・点 A〜I と時刻）"),
+    # RG237（naId 7597957「3-AWA-716-WTC1」）の 38.0秒＝5〜71秒は動かない航跡の地図（7本目の SHOTS_INDEX §0）。上下の黒い帯（y 0〜48・430〜480）を切る
+    "r11": ("out/ep7_shotscan/3-AWA-716-WTC1__s01.png", 38.0, "RG237 p1", 0, "11便の航跡の再生（FAA・3-AWA-716-WTC1 の 38.0秒）"),
+}
+# カット → (頁, 切り口〈割合 x0,y0,x1,y1・None＝絵まるごと〉)。c401＝図の題（Figure 1）から枠の下の辺まで・頁番号「3」と余白を落とす
+#   （⑤b-3 の目盛り入りの縮小〈1/3・50px おき〉で測った：題 y 195〜255・枠 x 345〜1965・y 290〜1551・頁番号 y 約1575）
+PAGE_CUTS = {"c401": (2003, [0.1517, 0.1059, 0.9122, 0.9176]), "c408": ("r11", None)}
+RG_BAND = (48, 430)                                           # RG237 の絵の縦の範囲（見本帳の静止画 654×480 の y＝黒い帯の外）
+
+
+def cmd_pages(only=None):
+    """`pages` は全頁。頁の画像・切り口・寄せを焼いて pages.json へ"""
+    import fitz
+    import numpy as np
+    from PIL import Image
+    pj = json.loads(PAGES_JSON.read_text(encoding="utf-8")) if PAGES_JSON.exists() else {}
+    for pr, (src, at, rec, rot, what) in PAGE_SRC.items():
+        if only and str(pr) not in only:
+            continue
+        out = EPD / f"pg{pr}.png"
+        if str(src).endswith(".pdf"):
+            with fitz.open(EPD / src) as d:
+                pix = d[int(at) - 1].get_pixmap(dpi=PAGE_DPI, colorspace=fitz.csGRAY)
+                im = Image.frombytes("L", (pix.width, pix.height), pix.samples)
+            im = im.rotate(rot, expand=True) if rot else im
+            frm = f"{Path(src).name} PDF {at}頁（{PAGE_DPI}dpi・灰色・{rot}度回して正立）"
+            src_md5 = md5(EPD / src)
+        else:
+            im = Image.open(HERE / src).convert("L")
+            im = im.crop((0, RG_BAND[0], im.width, RG_BAND[1]))
+            frm = f"`{src}`（{at}秒のコマ・上下の黒い帯 y 0〜{RG_BAND[0]}・{RG_BAND[1]}〜を切った）"
+            src_md5 = md5(HERE / src)
+        im.save(out)
+        a = np.asarray(im)
+        Hp, Wp = a.shape
+        cuts, biases = {}, {}
+        for cid, (p2, box) in PAGE_CUTS.items():
+            if p2 != pr:
+                continue
+            if box is None:
+                box = [0.0, 0.0, 1.0, 1.0]
+            cuts[cid] = [round(float(v), 4) for v in box]
+            biases[cid] = 0.5
+            print(f"✓ pg{pr} {cid}  trim={cuts[cid]}  縦横比 {round((box[2] - box[0]) * Wp / ((box[3] - box[1]) * Hp), 2)}")
+        pj[f"pg{pr}"] = dict(rec=rec, what=what, src=str(src), at=at, rot=rot, w=Wp, h=Hp, md5=md5(out), src_md5=src_md5, cuts=cuts,
+                             bias=biases, **{"from": frm})
+        print(f"  pg{pr}  {frm}  {Wp}x{Hp}")
+    PAGES_JSON.write_text(json.dumps(pj, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"→ {PAGES_JSON.relative_to(HERE).as_posix()}（{len(pj)}頁）")
     return 0
 
 
@@ -613,6 +698,8 @@ if __name__ == "__main__":
         sys.exit(cmd_credits("--write" in a))
     if a and a[0] == "fb":
         sys.exit(cmd_fb(set(a[1:]) or None))
+    if a and a[0] == "pages":
+        sys.exit(cmd_pages(set(a[1:]) or None))
     if a and a[0] in cmds:
         sys.exit(cmds[a[0]]())
     print(__doc__)

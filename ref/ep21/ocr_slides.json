@@ -61,5 +61,254 @@
    1594
   ],
   "lines": []
+ },
+ "pg2003.png": {
+  "size": [
+   2176,
+   1700
+  ],
+  "lines": [
+   {
+    "box": [
+     887,
+     195,
+     1570,
+     245
+    ],
+    "text": "AA-II RadarGround Track"
+   },
+   {
+    "box": [
+     653,
+     208,
+     866,
+     259
+    ],
+    "text": "Figure 1 ."
+   },
+   {
+    "box": [
+     663,
+     366,
+     782,
+     390
+    ],
+    "text": "0 8 : 26 : 3 0"
+   },
+   {
+    "box": [
+     549,
+     510,
+     574,
+     549
+    ],
+    "text": "F"
+   },
+   {
+    "box": [
+     616,
+     516,
+     734,
+     539
+    ],
+    "text": "0 8 : 29 : 3 0"
+   },
+   {
+    "box": [
+     904,
+     520,
+     925,
+     642
+    ],
+    "text": "00 べ あ 0"
+   },
+   {
+    "box": [
+     1617,
+     537,
+     1668,
+     575
+    ],
+    "text": "A ,"
+   },
+   {
+    "box": [
+     1152,
+     627,
+     1174,
+     751
+    ],
+    "text": "099 20"
+   },
+   {
+    "box": [
+     1498,
+     589,
+     1616,
+     612
+    ],
+    "text": "08 : 0 0 : 00"
+   },
+   {
+    "box": [
+     744,
+     982,
+     862,
+     1005
+    ],
+    "text": "08 : 37 30"
+   },
+   {
+    "box": [
+     1073,
+     1147,
+     1632,
+     1174
+    ],
+    "text": "A. AAII takesofffrom BOSton. MAat0800EDT?"
+   },
+   {
+    "box": [
+     1075,
+     1174,
+     1755,
+     1203
+    ],
+    "text": "B. Assumed takeoverpoint;lastnormaltransmission iscrew"
+   },
+   {
+    "box": [
+     1103,
+     1202,
+     1804,
+     1233
+    ],
+    "text": "acknowIedgingATC inst 「 uctiontoturn 20 degreesto the 「 ight?"
+   },
+   {
+    "box": [
+     1075,
+     1243,
+     1089,
+     1260
+    ],
+    "text": "C"
+   },
+   {
+    "box": [
+     1107,
+     1236,
+     1453,
+     1260
+    ],
+    "text": "AA 11 v 引 SO at29 , OOOfeet."
+   },
+   {
+    "box": [
+     1076,
+     1258,
+     1797,
+     1288
+    ],
+    "text": "D. Radarstationsstop receiving transponderreturnsfrom AA 11"
+   },
+   {
+    "box": [
+     1112,
+     1290,
+     1609,
+     1319
+    ],
+    "text": "primary radar indicates climb t0 30 00 feet."
+   },
+   {
+    "box": [
+     1077,
+     1320,
+     1495,
+     1346
+    ],
+    "text": "E. AA 1 1 turns 「 t towards the south."
+   },
+   {
+    "box": [
+     1077,
+     1343,
+     1874,
+     1375
+    ],
+    "text": "F. AA 11 turnslefttowardsthesouth-southeast. Two minuteslate 「 . the"
+   },
+   {
+    "box": [
+     1112,
+     1376,
+     1550,
+     1406
+    ],
+    "text": "airplane descends back tO 29 , 000 feet."
+   },
+   {
+    "box": [
+     1077,
+     1400,
+     1874,
+     1431
+    ],
+    "text": "G. AA 1 1 turns right towards the south and starts 3.200 ft/min descent."
+   },
+   {
+    "box": [
+     1078,
+     1428,
+     1871,
+     1460
+    ],
+    "text": "H. AA 11 turnsrighttowardssouth-southwest, on finalcourse fO 「 WTC"
+   },
+   {
+    "box": [
+     1078,
+     1458,
+     1786,
+     1490
+    ],
+    "text": "l. AA 11 impactsnorthtowerofWTC at approximately8:46:40."
+   },
+   {
+    "box": [
+     714,
+     1351,
+     817,
+     1373
+    ],
+    "text": "8 : 46 : 40"
+   },
+   {
+    "box": [
+     676,
+     1498,
+     685,
+     1535
+    ],
+    "text": "7"
+   },
+   {
+    "box": [
+     1094,
+     1565,
+     1107,
+     1588
+    ],
+    "text": "3"
+   }
+  ]
+ },
+ "pgr11.png": {
+  "size": [
+   654,
+   382
+  ],
+  "lines": []
  }
 }
