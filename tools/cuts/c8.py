@@ -353,7 +353,7 @@ SPEC.update({
     # c835（2行）＝北東部の地図。3つの印（北棟・南棟・ペンタゴン）→ 2行目でシャンクスビル（93便だけ届かず）
     "c835": dict(
         t="届いたのは3機", s="4機の行き先",
-        fig=("m21", dict(view="ne",
+        fig=("m21", dict(view="ne", start=dict(dclab="se"),    # 🔧 試し焼き（原寸）：左の「ワシントン」の札がシャンクスビルの輪の名に読めた
                          steps=[dict(state=dict(hits="on"), tag=dict(t="世界貿易センターとペンタゴン", at="w3")),   # ⚠️ geom_gap：hits は陸の輪郭に乗った＝海の上
                                 dict(state=dict(shk="on"), tag=dict(t="93便だけ届かず", at="proj"))],
                          rel=[dict(t="93便", src="委員会報告 p30")], note="陸の形は Natural Earth・印の位置は一般の座標（模式）",

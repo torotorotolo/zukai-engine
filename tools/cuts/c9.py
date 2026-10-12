@@ -115,7 +115,7 @@ SPEC.update({
     # c907（2行）＝北東部の地図。実際の93便（シャンクスビルで止まる）→ 2行目で首都への予測の線（p41）
     "c907": dict(
         t="実際と予測", s="シークレットサービスの見方",   # ⚠️ 門番 dup：「予測の線」は注（93便の線と予測の線は模式）の語
-        fig=("m21", dict(view="ne",
+        fig=("m21", dict(view="ne", start=dict(dclab="se"),    # 🔧 試し焼き（原寸）：左の「ワシントン」の札がシャンクスビルの輪の名に読めた
                          steps=[dict(state=dict(r93="on", shk="on"), tag=dict(t="実際の93便", at="r93")),
                                 dict(state=dict(proj="on"), tag=dict(t="首都への予測", at="proj"))],
                          rel=[dict(t="93便", src="委員会報告 p30")],

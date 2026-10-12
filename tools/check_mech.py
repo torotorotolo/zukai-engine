@@ -2876,6 +2876,7 @@ def _selftest_m21(ok):
                    ("段で電話の相手を変える", lambda: M.m21("phone", [dict(state=dict(to="family"))], note=N)),
                    # 🆕 ⑤b-5
                    ("段で機の型を変える", lambda: M.m21("cabin", [dict(state=dict(plane="757"))], note=N)),
+                   ("段で首都の札の位置を変える", lambda: M.m21("ne", [dict(state=dict(dclab="se"))], note=N)),
                    ("灯した許可の流れを戻す", lambda: M.m21("cmd", [dict(state=dict(lit="3")), dict(state=dict(lit="1"))], note=N))):
         try:
             fn()

@@ -354,13 +354,19 @@ R77_LOOK = ((38.62, -85.3), (37.30, -84.6))       # 管制官が探した西と�
 #   シャンクスビル。予測の線＝シャンクスビルから首都へ（p41「its projected path to Washington」）
 R93 = dict(w=(41.15, -77.8), turn=(41.35, -81.7))
 NE_SHK_LAB = (702.0, 546.0, "start")             # シャンクスビルの札（93便の線が左上から来る＝右に置く・下を予測の線が通る）
+# 🔧 ⑤b-5 試し焼き 38259942112（原寸）：基図の「ワシントン」の札（左・end＝NE_LAB）がシャンクスビルの輪の真下に来て、輪が「ワシントン」と
+#   読めた＝93便を描く地図（c835・c907）は頭の欄 dclab="se" で首都の点の右下に置く（第3〜5章の地図の札は動かさない＝線を避けて決めた位置）
+NE_LAB_SE = (750.0, 684.0, "end")
+#   ⚠️ geom_gap：首都の点の右下 (800, 676) はチェサピーク湾の海岸線（28点）に乗った＝海岸線の点が箱の 6px 内に0・首都の点まで 32px・
+#      シャンクスビルの輪まで 99px の置き場を座標で探した（元の札は輪まで約40px）。名は「se」のまま（首都の点の南の下）
+NE_HIT_DX = 19.0                                 # ニューヨークの2つの×の左右のずれ（±14 は重なって1つに見えた）
 
 
 def ne_base(st0):
     g, G = map_base("ne")
     for k in ("nyc", "dc", "boston"):
         x, y = G.px(*MAP_PTS[k])
-        lx, ly, an = NE_LAB[k]
+        lx, ly, an = NE_LAB_SE if (k == "dc" and st0.get("dclab") == "se") else NE_LAB[k]
         g.append(F.circ(x, y, 7, J.LINE, J.BG, 2))
         g.append(F.txtfit(lx, ly, MAP_NAMES[k], 360, cap=26, col=J.TICK, anchor=an, ol=6))
     return g
@@ -452,7 +458,7 @@ def ne_stage(prev, st):
         s.append(_arrow(dx - 6, sy + 12, dx - 3, dy - 12, J.TICK, 5, 22, dash="6 9"))
     if _on(prev, st, "hits"):
         nx, ny = G.px(*MAP_PTS["nyc"])
-        s += [_xmark(nx - 14, ny, 14, w=6), _xmark(nx + 14, ny, 14, w=6), _xmark(dx, dy, 14, w=6)]
+        s += [_xmark(nx - NE_HIT_DX, ny, 14, w=6), _xmark(nx + NE_HIT_DX, ny, 14, w=6), _xmark(dx, dy, 14, w=6)]
     return s
 
 
@@ -1653,7 +1659,8 @@ VIEWS = dict(
                                                     order=("off", "one", "two")), base=us_base, stage=us_stage, parts=us_parts),
     ne=dict(lab="アメリカ北東部の地図（北が上）", fields=dict(neads=ONOFF, bases=ONOFF, sea=ONOFF, dom=ONOFF, scr=ONOFF, f15=ONOFF, mnh=ONOFF,
                                                           call=ONOFF, x11=ONOFF, lang=ONOFF, r77=("off", "west", "east"), look=ONOFF,
-                                                          reapp=ONOFF, turn=ONOFF, r93=ONOFF, shk=ONOFF, proj=ONOFF, hits=ONOFF),
+                                                          reapp=ONOFF, turn=ONOFF, r93=ONOFF, shk=ONOFF, proj=ONOFF, hits=ONOFF,
+                                                          dclab=("w", "se")),
             base=ne_base, stage=ne_stage),
     dc=dict(lab="ワシントンの辺りの地図（北が上）", fields=dict(unk=ONOFF, t77=ONOFF, c130=ONOFF, follow=ONOFF, tgt=ONOFF), base=dc_base,
             stage=dc_stage),
@@ -1702,7 +1709,7 @@ VIEWS = dict(
 )
 START = dict(us=dict(east="off", west="off", routes="off", air="off", herndon="off", stop="off", aa="off", fly="off", land="off", order="off"),
              ne=dict(neads="off", bases="off", sea="off", dom="off", scr="off", f15="off", mnh="off", call="off", x11="off", lang="off",
-                     r77="off", look="off", reapp="off", turn="off", r93="off", shk="off", proj="off", hits="off"),
+                     r77="off", look="off", reapp="off", turn="off", r93="off", shk="off", proj="off", hits="off", dclab="w"),
              dc=dict(unk="off", t77="off", c130="off", follow="off", tgt="off"),
              sky=dict(o1="off", o2="off", adw="off"),
              acars=dict(send="off", recv93="off", reply="off"),
@@ -1727,7 +1734,7 @@ START = dict(us=dict(east="off", west="off", routes="off", air="off", herndon="o
              radio=dict(ctr="bos", v1="off", pa="off", garble="off", v2="off", know="off"),
              call=dict(pair="bos", link="off", talk="off", drill="off", nolog="off"),
              scope=dict(who="faa", block="off", dots="off", search="off", code="off", blip="on", two="off", ghost="off", fast="off"))
-HEAD_ONLY = dict(chain=("who",), cabin=("zoom", "plane"), scope=("who",), phone=("to",), radio=("ctr",), call=("pair",))
+HEAD_ONLY = dict(chain=("who",), cabin=("zoom", "plane"), scope=("who",), phone=("to",), radio=("ctr",), call=("pair",), ne=("dclab",))
 # 戻さない欄（消えた札は戻らない・×は戻らない・開いた扉は閉じない・灯した段は消えない・消えた点は戻らない・降りた機は戻らない）
 ORDER = dict(door=dict(lock=("off", "on", "open"), door=("closed", "open")), chain=dict(lit=LIT, ac=("off", "on", "x"), reg=("off", "on", "x")),
              phone=dict(train=("off", "on", "x")), call=dict(talk=("off", "ask", "back")), scope=dict(search=SC_STEP, blip=("on", "off")),
