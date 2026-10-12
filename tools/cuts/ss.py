@@ -578,6 +578,11 @@ REC_DOCS = {                                # 出典の書き方「資料名 p�
     "記念館": dict(range=(1, 1), name="9.11記念館", page=None, base=0),
     "運輸省の監察総監の報告": dict(range=(1, 1), name="米運輸省の監察総監の報告 CC-2006-085（2006年）", page=None, base=0),
     "RG237": dict(range=(1, 1), name="米連邦航空局のレーダーの再生（米国立公文書館 RG237）", page=None, base=0),
+    # 🆕 2026-10-13（⑤b-6）：NIST NCSTAR 1-6（表6-1＝PDF 240頁・ca12 の 8:46:26）・委員会報告の序文（p.xv＝GPO の PDF 15頁＝ローマ数字の頁は
+    #   「p数字」で書けない＝PDF の頁で）・govinfo の書誌（報告書の刊行日 2004-07-22＝sources §1-1）
+    "NIST 1-6": dict(range=(9001, 9500), name="NIST NCSTAR 1-6（2005年）", page="pdf", base=9000),
+    "委員会報告の序文": dict(range=(13, 18), name="9.11委員会報告書（2004年）の序文", page="pdf", base=0),
+    "govinfo": dict(range=(1, 1), name="米政府印刷局 govinfo の書誌", page=None, base=0),
 }
 # 🆕 21本目 ⑤b-3：資料で割れる時刻（台本 §1-5＝委員会報告の値を語り、NIST・NTSB の値は言わない）＝時間の帯の点に出典の名（by=True）を添える
 #    （門番 check_axis ③）。1機目 8:46:40（NIST 8:46:30）・2機目 9:03:11（NTSB 約9:02:40・NIST 9:02:59）・77便 9:37:46（NTSB 9:37:45）・
@@ -600,6 +605,8 @@ ILLU_MIX_BUNDLE = REF / "credits.json"      # 束ができたか（混ざりの�
 
 # 🔴 2026-10-06（19本目 ⑤b-1）：空にした（18本目は割れる時刻・出典の名つきの点を使わなかった＝空のままの値＝`tools/fixture_ep18.py`）
 AXIS_DOCS = {}
+# 🆕 2026-10-13（21本目 ⑤b-6）：ca12 の割れる時刻の札＝NIST の2つの巻を見分ける（どちらも「NIST」と出すと同じ資料に読める）
+AXIS_DOCS.update({"NIST": "NIST（本編）", "NIST 1-6": "NIST（別冊）"})
 
 # 軸（カットをまたいで同じ軸を使う＝前のカットの点を past で沈めて続ける）。回ごとに `AX_<名> = dict(view, span, ticks)` を足す
 # 🔴 2026-10-04（18本目 ⑤b-1）：16本目の軸（AX_DAY・AX_EVE＝10月9日の時刻の帯／AX_ANS・AX_ENEL・AX_PERMIT・AX_Y3・AX_EXP・AX_MERLIN・
@@ -696,6 +703,51 @@ AXI.update({
     #    出典の名つきの札は幅が広い＝4機と命令を重ねる帯は全部「左へ」（左から順に段へ振られる作り＝後の点の縦の線が前の札を通らない）
     "hit175": dict(k="pt", at="9:03:11", t="南棟", rec="委員会報告 p8", c="ALERT", by=True, anchor="end"),
     "hit77": dict(k="pt", at="9:37:46", t="ペンタゴン", rec="委員会報告 p10", c="ALERT", by=True, anchor="end"),
+})
+# 🆕 2026-10-13（21本目 ⑤b-6）：第9章〜終章。原文は門番 check_axis の REC_AXIS の上（p26・p27・p34・NIST 表6-1・法律・序文・govinfo）。
+#   AX_TESTI＝2段の帯（上＝2003年5月の公聴会の証言・下＝委員会が記録で当てた時刻）＝ca03〜ca08・ca16・ca17。
+#     ×の印（x=True・札なし）は証言の 9:16・9:24 だけ（門番 REC_WRONG）。「14分」（9:24→9:37:46＝13分46秒）は括弧の札＝語りの数字
+#     ⚠️ 上の段の札は「93便の知らせ」の長さまで（「93便の乗っ取りの知らせ」380px は 9:24 の札と同じ段に並べず、9:24 の縦の線が貫いた＝門番 axis）
+#     ⚠️ 下の段の札は左右に振る（9:21 は左・9:23 は左の2段目・9:28 は右・9:36 は左の2段目・9:37:46 は右）＝縦の線が同じ段の札を貫かない
+#   AX_HIT1＝1機目の衝突の3つの値（8:46:20〜8:46:50）＝ca12。割れる時刻の印（split）＝出典の名だけ・どれが正しいとは描かない
+#   AX_AFTER＝その後の年表（2001年1月〜2004年12月）＝ca20・cb05・cb07・cb11・cb12。⚠️ 左の端を 2001年7月にすると「この朝」の札
+#     （左へ振る＝右の「空の保安の法律」の札と並べるため）が画面の外へ出る
+AX_TESTI = dict(view="tiers", span=("9:12", "9:42"), ticks=("9:15", "9:20", "9:25", "9:30", "9:35", "9:40"),
+                lanes=("2003年の証言", "委員会の記録"))
+AX_HIT1 = dict(view="clock", span=("8:46:20", "8:46:50"), ticks=("8:46:20", "8:46:35", "8:46:50"))
+#   ⚠️ geom_gap：目盛りを 8:46:30・8:46:40 に置くと、割れる時刻の印（軸の下へ 22px 伸びる）が目盛りの字に 3.4px＝15秒おきの目盛りに
+AX_AFTER = dict(view="date", span=("2001-01", "2004-12"), ticks=("2001", "2002", "2003", "2004"))
+_TS, _TR = "2003年の証言", "委員会の記録"
+AXI.update({
+    "t916": dict(k="pt", at="9:16", t="93便の知らせ", rec="委員会報告 p34", c="INST", lane=_TS, anchor="start"),
+    "t916x": dict(k="pt", at="9:16", rec="委員会報告 p34", c="INST", lane=_TS, lab=False, x=True),
+    "t924": dict(k="pt", at="9:24", t="77便の知らせ", rec="委員会報告 p34", c="INST", lane=_TS, anchor="start"),
+    "t924x": dict(k="pt", at="9:24", rec="委員会報告 p34", c="INST", lane=_TS, lab=False, x=True),
+    "r921": dict(k="pt", at="9:21", t="11便の誤報", rec="委員会報告 p26", c="ALERT", lane=_TR, anchor="end"),
+    "r921q": dict(k="pt", at="9:21", t="誤報の出どころは不明", rec="委員会報告 p26", c="ALERT", lane=_TR, anchor="end"),
+    "r923": dict(k="pt", at="9:23", t="ラングレーへ発進の命令", rec="委員会報告 p27", lane=_TR, anchor="end"),
+    "r928": dict(k="pt", at="9:28", t="93便の乗っ取り", rec="委員会報告 p11", c="ALERT", lane=_TR, anchor="start"),
+    "r936": dict(k="pt", at="9:36", t="首都へ向かう不明の機", rec="委員会報告 p27", c="INST", lane=_TR, anchor="end"),
+    "r946": dict(k="pt", at="9:37:46", t="ペンタゴン", rec="委員会報告 p10", c="ALERT", lane=_TR, by=True, anchor="start"),
+    "s936": dict(k="span", a="9:36", b="9:37:46", rec=["委員会報告 p27", "委員会報告 p10"], c="ALERT", lane=_TR),
+    "b14": dict(k="br", a="9:24", b="9:37:46", t="証言のとおりなら14分", rec=["委員会報告 p34", "委員会報告 p10"]),
+    # ca12（AX_HIT1）：割れる時刻の印3つ＋どこから出た値か（項目の札）
+    "sp840": dict(k="split", at="8:46:40", rec="委員会報告 p7"),
+    "sp830": dict(k="split", at="8:46:30", rec="NIST p7134"),
+    "sp826": dict(k="split", at="8:46:26", rec="NIST 1-6 p9240", anchor="end"),
+    "ch840": dict(k="chips", at="8:46:40", chips=["飛んだ道の調べ（NTSB）から"], rec=["委員会報告 p7", "委員会報告 p454"]),
+    "ch830": dict(k="chips", at="8:46:30", chips=["テレビの時刻表示から"], rec="NIST p7134"),
+    # ca19・cc04（AX_ALL）：前もっての知らせが無かった3機（p31「no advance notice on the second … third … fourth」）
+    "nn175": dict(k="chips", at="9:03:11", chips=["知らせ無し"], rec=["委員会報告 p8", "委員会報告 p31"]),
+    "nn77": dict(k="chips", at="9:37:46", chips=["知らせ無し"], rec=["委員会報告 p10", "委員会報告 p31"]),
+    "nn93": dict(k="chips", at="10:03:11", chips=["知らせ無し"], rec=["委員会報告 p30", "委員会報告 p31"]),
+    "fly": dict(k="span", a="8:37:52", b="10:31", t="その場で組み立てた守り", rec=["委員会報告 p20", "委員会報告 p45"], c="AMBER"),
+    # 年表（AX_AFTER）。⚠️ 語りの細かさ＝「2001年11月」「2002年11月」「2004年7月」＝札は年月まで（fmt="ym"）
+    "law01": dict(k="pt", at="2001-11-19", t="空の保安の法律", rec="法律 p1", fmt="ym", anchor="start"),
+    "law01y": dict(k="span", a="2001-11-19", b="2002-11-19", t="1年のうちに全空港へ", rec="法律 p1", c="INST"),
+    "dhs02": dict(k="pt", at="2002-11", t="国土安全保障省の法律", rec="委員会報告 p391", fmt="ym", anchor="end"),
+    "com02": dict(k="pt", at="2002-11-27", t="9.11委員会ができる", rec="委員会報告の序文 p15", fmt="ym", c="INST", anchor="start"),
+    "rep04": dict(k="pt", at="2004-07-22", t="委員会の報告書", rec="govinfo p1", fmt="ym", c="INST", anchor="end"),
 })
 
 

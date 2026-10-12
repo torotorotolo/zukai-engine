@@ -64,7 +64,12 @@ VIEWS = ("date", "clock", "lanes", "sec", "tiers", "order")
 #      `stops=(…)` に並べる値（「約3週間前」「約17時間前」「約9分前」「1:16:27」）・部品は点 pt と項目の札 chips だけ。
 #      🔴 間隔は時間に比例しない＝軸の線を点のあいだで切り、切れ目に2本の斜めの線（途切れの印）を描く・note に「間隔は時間に比例しない」
 #      （門番 check_axis が、並びが時間の順か・間隔が等しいか・途切れの印の数・断りの文字を見る）。end＝右の端の札（「塔が崩れる」）
+# 🆕 2026-10-13（21本目 ⑤b-6）：x=True＝点に×の印を重ねる（2003年の証言の時刻＝委員会が「誤り」とした値＝ca04・ca05）。
+#   札は持たない部品にして（lab=False・t なし）、前の段の点の上に後の段で重ねる。門番 check_axis が、×は記録が誤りとした値
+#   （REC_WRONG）だけかを照らす
 TITLE = dict(date="年表", lanes="交信の帯", clock="時刻の帯", sec="時間の帯（秒）", tiers="時刻の帯", order="時間の並び")
+XR = 12                                  # 🆕 21本目 ⑤b-6：×の印の半幅（点の円 r 9 に重ねる）。⚠️ geom_gap：18 だと2段の帯の1段目の札
+#                                          （段の線の 24px 上が字の下の端）と 2.9px＝触れて見えた
 REL = re.compile(r"約-(\d+(?:\.\d)?)(?:〜-(\d+(?:\.\d)?))?")   # 🆕 19本目：基準からの「約○分前」（clock）
 # 軸の左右（画素）。lanes は左に段の名を置くので左を空ける
 X0, X1 = F.BX0 + 110, F.BX1 - 110
@@ -177,6 +182,13 @@ def doc_names(rec):
 def _c(name, dflt):
     nm = name or dflt
     return nm if nm.startswith("#") else getattr(J, nm)
+
+
+def _xm(x, y, dim=False):
+    """🆕 21本目 ⑤b-6：点に重ねる×（地の色で縁取り＝下の線から浮かせる）。前のカットの点（dim）は沈んだ色"""
+    c = J.LINE_DIM if dim else J.ALERT
+    return "".join(F.line(x - XR * sx, y - XR, x + XR * sx, y + XR, col, w)
+                   for col, w in ((J.BG, 11), (c, 6)) for sx in (1, -1))
 
 
 # ══════════════════════════════════════════════════════════
@@ -399,8 +411,10 @@ def _draw_tier(A, it, row, dim):
         x = A.x(it["at"], True)
         y = A.ly[it["lane"]]
         rec.update(at=it["at"], x=round(x, 2), top=it["_top"], d=it["_d"], row=row, c=it.get("c") or COL[k],
-                   big=bool(it.get("big")), by=bool(it.get("by")), chips=[], approx=bool(it.get("approx")))
+                   big=bool(it.get("big")), by=bool(it.get("by")), chips=[], approx=bool(it.get("approx")), xm=bool(it.get("x")))
         g.append(F.circ(x, y, 12 if it.get("big") else 9, col))
+        if it.get("x"):
+            g.append(_xm(x, y, dim))
     if not it["_row"]:
         return "".join(g), rec
     anch = it["_anch"]
@@ -452,7 +466,7 @@ def _draw(A, it, row, dim):
         return "".join(g), rec
     x = A.x(it["at"], True)
     rec.update(at=it["at"], x=round(x, 2), top=it["_top"], d=it["_d"], row=row, c=it.get("c") or COL[k],
-               big=bool(it.get("big")), by=bool(it.get("by")), chips=[] if dim else list(it.get("chips") or []))
+               big=bool(it.get("big")), by=bool(it.get("by")), chips=[] if dim else list(it.get("chips") or []), xm=bool(it.get("x")))
     if k == "chips":          # 項目の札だけを後の段で出す（点は前の段で描いた）。i0＝前の段の札の下へ続ける（16本目 ⑤b-5）
         return _chips(A, x, it.get("chips") or [], col, ink, int(it.get("i0", 0))), rec
     anch = it["_anch"]
@@ -495,6 +509,8 @@ def _draw(A, it, row, dim):
     g.append(F.line(x, ay - 10, x, ty + 10, col, 3 if k == "split" else 4))
     if k == "pt":
         g.append(F.circ(x, ay, 12 if it.get("big") else 9, col))
+        if it.get("x"):
+            g.append(_xm(x, ay, dim))
     else:
         g.append(F.line(x, ay - 22, x, ay + 22, col, 6))
     if not dim:               # 前のカットの点（past）は項目の札を出さない（隣の点の札と重なる）

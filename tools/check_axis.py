@@ -95,10 +95,29 @@ REC_AXIS.update({"9:34": {"委員会報告 p28"}, "9:57": {"委員会報告 p13"
                  "10:15": {"委員会報告 p31", "委員会報告 p41"}, "10:10": {"委員会報告 p41"},   # 10:15＝墜落の知らせ（p31）と許可の帯の終わり（p41）
                  "10:31": {"委員会報告 p42", "委員会報告 p45"},
                  "9:03:11": {"委員会報告 p8"}, "9:37:46": {"委員会報告 p10"}})
-LANES_OK = set()
+# 🆕 2026-10-13（21本目 ⑤b-6）：第9章〜終章。引いた原文（委員会報告の文字の層・印字＋18）：
+#    p34「NORAD officials stated that at 9:16, NEADS received hijack notification of United 93 … This statement was incorrect」
+#    「at 9:24, NEADS received notification of the hijacking of American 77 … also incorrect」・p26「At 9:21, NEADS received a report from the FAA」
+#    （11便がまだ飛んでいる＝誤報）・p27「the crew commander issued the order at 9:23」（ラングレーへ発進）「At 9:36, the FAA's Boston Center called
+#    NEADS and relayed the discovery about an unidentified aircraft closing in on Washington」。
+#    1機目の衝突の割れる時刻＝NIST NCSTAR 1 表6-1（PDF 134頁＝印字 p84）「8:46:30」・NCSTAR 1-6 表6-1（PDF 240頁＝印字 p156）「8:46:26」
+#    （ref/ep21/sources.md §11-2 #7・#8）。年表＝法律 107-71「November 19, 2001」・その「Not later than 1 year after the date of enactment」
+#    （＝2002-11-19・期限の日は法律の日から数えた値）・p391「In November 2002, both the Homeland Security Act …」（月まで）・序文（PDF 15頁＝p.xv）
+#    「Public Law 107-306, November 27, 2002」・govinfo の書誌 dateIssued 2004-07-22（sources §1-1）
+REC_AXIS.update({"9:16": {"委員会報告 p34"}, "9:24": {"委員会報告 p34"}, "9:21": {"委員会報告 p26"}, "9:23": {"委員会報告 p27"},
+                 "9:36": {"委員会報告 p27"},
+                 "8:46:30": {"NIST p7134"}, "8:46:26": {"NIST 1-6 p9240"},
+                 "2001-11-19": {"法律 p1"}, "2002-11-19": {"法律 p1"}, "2002-11": {"委員会報告 p391"},
+                 "2002-11-27": {"委員会報告の序文 p15"}, "2004-07-22": {"govinfo p1"}})
+LANES_OK = {"2003年の証言", "委員会の記録"}     # 🆕 21本目 ⑤b-6：2段の帯（ca03〜ca08・ca16・ca17）の段の名
 REC_APPROX = {"8:55"}   # 記録が about の時刻（「ごろ」が要る）＝p22「At about 8:55」（第1〜3章は about の時刻を帯に置いていない）
 LANE_COL = 20        # 🆕 18本目 ⑤b-5：2段の帯の札が軸の左端より左へ出てよい画素（段の名の列にかけない）
 REC_LANE = {}             # 2段の帯の記録ごとの段（値 → 段の名）
+# 🆕 21本目 ⑤b-6：上の段＝2003年5月の公聴会の証言（p34）・下の段＝委員会が記録で当てた時刻（p10・p11・p26・p27）
+REC_LANE.update({"9:16": "2003年の証言", "9:24": "2003年の証言",
+                 "9:21": "委員会の記録", "9:23": "委員会の記録", "9:28": "委員会の記録", "9:36": "委員会の記録", "9:37:46": "委員会の記録"})
+# 🆕 21本目 ⑤b-6：×の印（axis の x=True）を置いてよい値＝記録が「誤り」とした値と、その頁（p34「This statement was incorrect」「also incorrect」）
+REC_WRONG = {"9:16": {"委員会報告 p34"}, "9:24": {"委員会報告 p34"}}
 CH_PAD = 12          # 🆕 16本目 ⑤b-6b：札と右上の章の札（jiko_style.chapter）のあいだに要る画素
 _REF = [None]        # 🆕 19本目 ⑤b-5：「約○分前」の基準（分）＝judge_fig が kw の ref を門番の読み方で読んで置く
 # 🆕 19本目 ⑤b-5：並び（order）の値を「基準からの秒」に読む（門番の側の読み方＝型なので残す）
@@ -390,6 +409,11 @@ def _judge_parts(kw, m, view, vk, bad, n, lin, split_times, head):
                 n += 1
                 if REC_LANE.get(s) != part.get("lane"):
                     bad.append(f"{s} を段「{part.get('lane')}」に置いた（記録の段は「{REC_LANE.get(s, '表に無い')}」）")
+        if part.get("xm"):
+            # 🆕 21本目 ⑤b-6：×の印は、記録が誤りとした値だけ（その頁で）
+            n += 1
+            if part["at"] not in REC_WRONG or not any(r in REC_WRONG[part["at"]] for r in recs):
+                bad.append(f"{part['at']} に×の印（記録が誤りとした値 REC_WRONG {sorted(REC_WRONG)} でない／頁が違う）")
         if part.get("top"):
             n += 1
             if part["top"] not in _want_texts(vk, part["at"]):
@@ -824,6 +848,10 @@ def selftest():
         ("🔴 陽性対照：カーソルが記録の無い所（9:20）に止まる",
          mod(lanes, steps=[dict(add=dict(k="link", at="9:13", fr="近くの船", to="セウォル号", rec="判決 p13"), cur="9:20")]),
          False),
+        # 🆕 21本目 ⑤b-6：×の印は記録が誤りとした値だけ（REC_WRONG＝21本目の 9:16・9:24）。18:30 は誤りとされていない
+        ("🔴 陽性対照：誤りとされていない 18:30 に×",
+         mod(night, steps=[dict(add=[dict(k="pt", at="18:30", t="出港", rec="海審 p1026"),
+                                     dict(k="pt", at="18:30", rec="海審 p1026", lab=False, x=True)], cur="18:30")]), False),
     ]
     for name, kw, want in cases:
         bad, _ = judge_fig(kw, ST)

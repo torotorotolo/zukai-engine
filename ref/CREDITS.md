@@ -2433,24 +2433,29 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `wtc_south_1976` | c501 | 1976 | 米議会図書館蔵／知られた制限なし（D） | Balthazar Korab | https://commons.wikimedia.org/wiki/File:World_Trade_Center,_New_York._Exterior._View_from_plaza_-_LCCN2020714989.jpg |
 | `pg2003` | c401 | 2002 | PD（米連邦の職務） | NTSB | ntsb_flight_path_study_AA11.pdf PDF 3頁（200dpi・灰色・270度回して正立） |
 | `pg3003` | c506 | 2002 | PD（米連邦の職務） | NTSB | ntsb_flight_path_study_UA175.pdf PDF 3頁（200dpi・灰色・270度回して正立） |
+| `pg34` | ca18 | 2004 | PD（米連邦の職務） | 9.11委員会（米連邦の調査委員会） | GPO-911REPORT.pdf PDF 52頁（200dpi・灰色・0度回して正立） |
 | `pg4003` | c602 | 2002 | PD（米連邦の職務） | NTSB | ntsb_flight_path_study_AA77.pdf PDF 3頁（200dpi・灰色・270度回して正立） |
 | `pg4004` | c618 | 2002 | PD（米連邦の職務） | NTSB | ntsb_flight_path_study_AA77.pdf PDF 4頁（200dpi・灰色・270度回して正立） |
 | `pg4005` | c617 | 2002 | PD（米連邦の職務） | NTSB | ntsb_flight_path_study_AA77.pdf PDF 5頁（200dpi・灰色・270度回して正立） |
 | `pg5003` | c802 c809 | 2002 | PD（米連邦の職務） | NTSB | ntsb_flight_path_study_UA93.pdf PDF 3頁（200dpi・灰色・270度回して正立） |
 | `pg5004` | c806 | 2002 | PD（米連邦の職務） | NTSB | ntsb_flight_path_study_UA93.pdf PDF 4頁（200dpi・灰色・270度回して正立） |
 | `pgr11` | c408 | 2001 | PD（米連邦の職務） | 米連邦航空局（FAA） | `out/ep7_shotscan/3-AWA-716-WTC1__s01.png`（38.0秒のコマ・上下の黒い帯 y 0〜48・430〜を切った） |
+| `pgr4` | ca02 | 2001 | PD（米連邦の職務） | 米連邦航空局（FAA） | `out/ep7_shotscan/5-AWA-716-All-4-AC__s01.png`（37.5秒のコマ・上下の黒い帯 y 0〜48・430〜を切った） |
 
 ### 2. 頁（米連邦の資料＝PD・`qa_out/ep21_assets.py pages`・切り口は `ref/ep21/pages.json`）
 - NTSB の飛行経路の調べ（2002年・スキャン）＝PDF の頁を 200dpi の灰色に焼いて正立（横倒しの図）・図の範囲で切る。
 - RG237＝米連邦航空局のレーダーの再生の動画（NARA）の1コマ＝7本目の見本帳の静止画（`out/ep7_shotscan/`・表示の幅に直したもの）の上下の黒い帯を切る。
+- 委員会報告の文字の頁（GPO の PDF・本物の字）＝PDF の頁を 200dpi の灰色に焼いて、語りの段を含む行で切る（頁の上の印は文字の層の句の位置）。
 
 | 頁 | 使うカット | 中身 | 元 |
 |---|---|---|---|
 | `pg2003.png` | c401 | 11便のレーダーの航跡（Figure 1・点 A〜I と時刻） | ntsb_flight_path_study_AA11.pdf PDF 3頁（200dpi・灰色・270度回して正立） |
 | `pg3003.png` | c506 | 175便のレーダーの航跡（Figure 1・点 A〜G） | ntsb_flight_path_study_UA175.pdf PDF 3頁（200dpi・灰色・270度回して正立） |
+| `pg34.png` | ca18 | 委員会報告 p34（2003年5月の証言の誤りを書いた段） | GPO-911REPORT.pdf PDF 52頁（200dpi・灰色・0度回して正立） |
 | `pg4003.png` | c602 | 77便の飛行経路（Figure 1・点 A〜F） | ntsb_flight_path_study_AA77.pdf PDF 3頁（200dpi・灰色・270度回して正立） |
 | `pg4004.png` | c618 | 77便の高度（Figure 2・飛行の記録装置の気圧高度） | ntsb_flight_path_study_AA77.pdf PDF 4頁（200dpi・灰色・270度回して正立） |
 | `pg4005.png` | c617 | ワシントンの辺りの経路（Figure 3・地形の地図の上） | ntsb_flight_path_study_AA77.pdf PDF 5頁（200dpi・灰色・270度回して正立） |
 | `pg5003.png` | c802 c809 | 93便のレーダーの航跡（Figure 1・点 A〜I と時刻） | ntsb_flight_path_study_UA93.pdf PDF 3頁（200dpi・灰色・270度回して正立） |
 | `pg5004.png` | c806 | 93便の高度（Figure 2・点 A〜I） | ntsb_flight_path_study_UA93.pdf PDF 4頁（200dpi・灰色・270度回して正立） |
 | `pgr11.png` | c408 | 11便の航跡の再生（FAA・3-AWA-716-WTC1 の 38.0秒） | `out/ep7_shotscan/3-AWA-716-WTC1__s01.png`（38.0秒のコマ・上下の黒い帯 y 0〜48・430〜を切った） |
+| `pgr4.png` | ca02 | 4機の航跡の再生（FAA・5-AWA-716-All-4-AC の 37.5秒） | `out/ep7_shotscan/5-AWA-716-All-4-AC__s01.png`（37.5秒のコマ・上下の黒い帯 y 0〜48・430〜を切った） |

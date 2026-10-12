@@ -47,6 +47,16 @@
   sky     … 首都の上を回る2組の戦闘機（ラングレー＝o1・アンドルーズの州兵＝o2・基地の箱＝adw）                          c916
   cabin   … ＋機の型（頭の欄 plane＝757）・後ろの9列の電話（fones・rear9）・地上へ（calls）・決（vote）・前へ（rush）  c814〜c818
   radio・chain・call … クリーブランド・センター（ctr／who＝cle）・本部の「？」（hqq）・副大統領と大統領（pair＝vp・nolog）
+  🆕 ⑤b-6（第9章〜終章）で足した見え方と欄（＝見え方は33種）
+  probe   … 委員会の調べの規模（法律で設置＝law・文書・話を聞いた人・国のカード＝n）                                   ca01
+  ig      … 「誤り」の問いの行き先（委員会→国防総省と運輸省の監察総監・運輸省＝dot・結果 r1・r2）                     ca10
+  fdr     … 4機の記録装置の表（読めた＝st ok → 全部＝all・93便の音声＝hl93・読めた所＝okhl・報告書へ＝use・裁判＝court）  ca13〜ca15
+  recom   … 報告書の勧告の箱（名簿＝c1・爆発物＝c2・印＝hl2）                                                   cb13・cb14
+  two     … 2つの調べ（委員会＝空の側・NIST＝建物の側・空の側に印＝hl・何を知ったか＝k）                              cb16
+  toll    … 犠牲者の数（委員会の数＝old・いまの数＝now・差＝diff・検視局の発表＝me）                                cc07・cc08
+  cover   … 報告書の表紙（模式）と印刷局のサイト（web）                                                          cc09
+  us      … ＋9月13日に開いた空港（reopen＝点は模式・全部ではない）                                                cb02
+  ⚠️ 札の字は12字未満に分ける（門番 echo＝語りの1文と12字以上で重なると「写し」）
 
 ■ SPEC の書き方（mech20 と同じ）
   fig=("m21", dict(view=…, start=dict(…), steps=[dict(state=dict(…), tag=dict(t=…, at=…, to=…, d=…)), …],
@@ -209,6 +219,9 @@ FLY = ((0, 0.9, 1.3), (2, 1.2, 1.4), (3, -1.0, -1.0), (4, 1.3, 0.6), (5, -1.0, 1
        (9, 1.3, -1.6), (10, -1.1, -1.9), (11, -1.2, -1.6), (12, 1.2, 1.8), (13, -1.2, 1.5), (14, 1.2, 1.3), (15, 1.0, -1.8),
        (16, 1.2, 1.6), (17, -1.3, -1.6), (18, 1.5, -1.3), (19, -1.0, 1.4), (20, -1.2, -1.0), (23, 0.9, -1.6), (21, -1.1, 0.4))
 US_ORDER = dict(one=(1665.0, 420.0, "降ろす命令"), two=(1665.0, 640.0, "最後の命令"))   # 命令の札（右の海の上・時刻は空白＝字幕だけ）
+# 🆕 ⑤b-6（cb02）：9月13日に開いた空港（p327「reopened for use by airports that met newly improvised security standards」）。
+#   どの空港が先に開いたかは記録で当てていない＝点は模式（半分ほど）。🔴 全部を開いた形にしない（門番＝基準を満たした空港から）
+AIR_OPEN = (0, 2, 3, 5, 8, 9, 11, 13, 15, 17, 18, 21, 23)
 US_ORDER_W, US_ORDER_H = 270.0, 110.0
 
 
@@ -320,6 +333,10 @@ def us_stage(prev, st):
         if st.get("order") in (("one", "two") if k == "one" else ("two",)) and prev.get("order") not in (("one", "two") if k == "one" else ("two",)):
             x, y, t = US_ORDER[k]
             s.append(_box(x, y, US_ORDER_W, US_ORDER_H, t, J.DOC, cap=30, t2="時刻：――"))
+    if _on(prev, st, "reopen"):
+        for i in AIR_OPEN:
+            x, y = G.px(*AIR_PTS[i])
+            s.append(F.rect(x - 9, y - 9, 18, 18, COL["green"], J.BG, 2))
     return s
 
 
@@ -1651,12 +1668,315 @@ def need_stage(prev, st):
 
 
 # ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（第9章〜終章）。🔴 札の字は12字未満に分けて書く（門番 echo＝語りの1文と12字以上で重なると「写し」）
+# ══════════════════════════════════════════════════════════
+# probe（ca01）＝委員会の調べの規模（序文 PDF 15頁＝p.xv「Public Law 107-306, November 27, 2002」「more than 2.5 million pages of documents
+#   and interviewed more than 1,200 individuals in ten countries」）。人は描かない＝話を聞いたのは吹き出しの形
+PB = dict(top=(960.0, 360.0), tw=560.0, th=110.0, law=(960.0, 470.0), lw=520.0, lh=64.0, y=700.0, xs=(420.0, 960.0, 1500.0),
+          w=460.0, h=230.0)
+PB_LAW = "2002年11月の法律で設置"
+PB_CARDS = (("読んだ文書", "250万頁を超える"), ("話を聞いた人", "1,200人を超える"), ("話を聞いた国", "10か国"))
+
+
+def _icon(kind, cx, cy, col=None):
+    """カードの絵（文書の山・吹き出し・地球）＝人は描かない。"""
+    c = col or J.LINE
+    if kind == 0:
+        return "".join(F.rect(cx - 34 + 9 * i, cy - 40 + 7 * i, 68, 80, J.BG2, c, 3, rx=3) for i in range(3)) + "".join(
+            F.line(cx - 10, cy - 14 + 12 * j, cx + 40, cy - 14 + 12 * j, c, 3) for j in range(4))
+    if kind == 1:
+        return (F.rect(cx - 56, cy - 38, 112, 66, J.BG2, c, 4, rx=18) + F.poly([(cx - 26, cy + 26), (cx - 40, cy + 48), (cx - 4, cy + 28)], J.BG2, c, 4)
+                + "".join(F.circ(cx - 26 + 26 * i, cy - 5, 7, c) for i in range(3)))
+    g = [F.circ(cx, cy, 44, J.BG2, c, 4), F.line(cx - 44, cy, cx + 44, cy, c, 3)]
+    for k in (0.45, 0.85):
+        g.append(F.poly([(cx + 44 * k * math.cos(math.radians(a)), cy + 44 * math.sin(math.radians(a))) for a in range(0, 361, 15)],
+                        "none", c, 3))
+    return "".join(g)
+
+
+def probe_base(st0):
+    x, y = PB["top"]
+    return [_box(x, y, PB["tw"], PB["th"], "国の調査委員会", J.INST, cap=36, t2="（9.11委員会）")]
+
+
+def probe_stage(prev, st):
+    s = []
+    if _on(prev, st, "law"):
+        x, y = PB["law"]
+        s.append(_box(x, y, PB["lw"], PB["lh"], PB_LAW, J.DOC, cap=30))
+    if _on(prev, st, "n"):
+        x0, y0 = PB["top"]
+        for i, (x, (a, b)) in enumerate(zip(PB["xs"], PB_CARDS)):
+            y, w, h = PB["y"], PB["w"], PB["h"]
+            s.append(F.line(x0 + (x - x0) * 0.35, y0 + PB["th"] / 2 + (90 if st["law"] == "on" else 6), x, y - h / 2 - 8, J.LINE_DIM, 3,
+                            dash="8 8"))
+            s.append(F.rect(x - w / 2, y - h / 2, w, h, J.BG2, J.LINE, 4, rx=12))
+            s.append(_icon(i, x, y - 62))       # ⚠️ geom_gap：y−50 だと文書の山の下の端と字「読んだ文書」が 4.4px
+            s.append(F.txtfit(x, y + 34, a, w - 30, cap=30, col=INK, anchor="middle"))
+            s.append(F.txtfit(x, y + 84, b, w - 30, cap=38, col=J.AMBER, anchor="middle"))
+    return s
+
+
+# ig（ca10）＝誤りの問いの行き先（運輸省の監察総監の報告 CC-2006-085 p1「referred to the Department of Defense (DOD) and Department of
+#   Transportation (DOT) Inspectors General」・p2「We did not find evidence to conclude that FAA officials knowingly made false」・p3「consider
+#   appropriate administrative action for the two current executives」）
+IG = dict(src=(380.0, 560.0), sw=440.0, sh=150.0, x=1010.0, ys=(390.0, 720.0), w=400.0, h=110.0, rx=1560.0, rys=(610.0, 785.0),
+          rw=500.0, rh=120.0)   # ⚠️ geom_gap：2つ目の答えの箱を y 800 に置くと下の注の行と 3.6px
+IG_T = dict(src=("委員会の報告書", "証言を「誤り」とした"), dod="国防総省の監察総監", dot="運輸省の監察総監",
+            r1=("FAA の職員が", "わざと偽った証拠は無い"), r2=("正さなかった幹部2人", "処分の検討を求める"))
+
+
+def ig_base(st0):
+    (sx, sy), x = IG["src"], IG["x"]
+    g = [_box(sx, sy, IG["sw"], IG["sh"], IG_T["src"][0], J.LINE, cap=34, t2=IG_T["src"][1])]
+    for y, t in zip(IG["ys"], (IG_T["dod"], IG_T["dot"])):
+        g.append(_arrow(sx + IG["sw"] / 2 + 8, sy + (y - sy) * 0.25, x - IG["w"] / 2 - 12, y, J.LINE_DIM, 5, 20))
+        g.append(_box(x, y, IG["w"], IG["h"], t, J.INST, cap=32))
+    return g
+
+
+def ig_stage(prev, st):
+    s = []
+    x, y = IG["x"], IG["ys"][1]
+    if _on(prev, st, "dot"):
+        s.append(F.rect(x - IG["w"] / 2 - 10, y - IG["h"] / 2 - 10, IG["w"] + 20, IG["h"] + 20, "none", J.AMBER, 6, rx=14))
+    for k, ry in (("r1", IG["rys"][0]), ("r2", IG["rys"][1])):
+        if _on(prev, st, k):
+            s.append(_arrow(x + IG["w"] / 2 + 14, y + (ry - y) * 0.3, IG["rx"] - IG["rw"] / 2 - 10, ry, J.AMBER, 5, 20))
+            s.append(_box(IG["rx"], ry, IG["rw"], IG["rh"], IG_T[k][0], J.AMBER, cap=30, t2=IG_T[k][1]))
+    return s
+
+
+# fdr（ca13〜ca15）＝4機の記録装置（委員会報告 p456「The CVRs and FDRs from American 11 and United 175 were not found, and the CVR from
+#   American Flight 77 was badly burned and not recoverable」・93便の2つと77便の FDR は読めた＝p456・p12・NTSB 77便 図2）
+FD = dict(lab_x=330.0, cols=(720.0, 1150.0), cw=400.0, y_head=300.0, ys=(395.0, 490.0, 585.0, 680.0), rh=80.0, box_x=1610.0, bw=380.0,
+          use_y=585.0, court=(720.0, 800.0), cbw=560.0, bh=110.0, cbh=70.0)
+#   ⚠️ geom_gap（ca15）：読めた箱ごとに右の箱へ線を引くと、左の列（93便の音声）からの線が右の列の字「読めた」を貫いた＝
+#      報告書へは表の右の辺から1本の矢印・裁判の証拠は93便の音声の箱の真下へ
+FD_ROWS = ("11便", "175便", "77便", "93便")
+FD_COLS = (("音声の記録装置", "（操縦室の音）"), ("飛行の記録装置", "（飛び方の数値）"))
+FD_ST = {"11便": ("none", "none"), "175便": ("none", "none"), "77便": ("burn", "ok"), "93便": ("ok", "ok")}
+FD_WORD = dict(ok="読めた", none="見つからず", burn="ひどく焼けた")
+
+
+def _fd_cell(i, j):
+    return FD["cols"][j], FD["ys"][i]
+
+
+def fdr_base(st0):
+    g = []
+    x0, x1 = FD["lab_x"] - 110, FD["cols"][1] + FD["cw"] / 2
+    for j, (a, b) in enumerate(FD_COLS):
+        x = FD["cols"][j]
+        g.append(F.txtfit(x, FD["y_head"] - 6, a, FD["cw"] - 20, cap=32, col=INK, anchor="middle"))
+        g.append(F.txtfit(x, FD["y_head"] + 28, b, FD["cw"] - 20, cap=24, col=J.TICK, anchor="middle"))
+    for i, nm in enumerate(FD_ROWS):
+        y = FD["ys"][i]
+        g.append(F.line(x0, y - FD["rh"] / 2 - 6, x1, y - FD["rh"] / 2 - 6, J.LINE_DIM, 2))
+        g.append(F.txtfit(FD["lab_x"], y + 12, nm, 200, cap=36, col=INK, anchor="middle"))
+        for j in range(2):
+            x, _ = _fd_cell(i, j)
+            g.append(F.rect(x - FD["cw"] / 2 + 10, y - FD["rh"] / 2 + 4, FD["cw"] - 20, FD["rh"] - 8, "none", J.LINE_DIM, 2, rx=8))
+    return g
+
+
+def _fd_mark(i, j):
+    x, y = _fd_cell(i, j)
+    st = FD_ST[FD_ROWS[i]][j]
+    w = FD_WORD[st]
+    if st == "ok":
+        m = _check(x - 120, y, 20)
+        col = COL["green"]
+    elif st == "burn":
+        m = _xmark(x - 120, y, 20, J.ALERT, 8)
+        col = J.ALERT
+    else:
+        m = F.line(x - 142, y, x - 98, y, J.TICK, 7)
+        col = J.TICK
+    return m + F.txtfit(x - 80, y + 11, w, 240, cap=32, col=col, anchor="start")
+
+
+def fdr_stage(prev, st):
+    s = []
+    lv = ("off", "ok", "all")
+    a, b = lv.index(prev.get("st", "off")), lv.index(st["st"])
+    for i, nm in enumerate(FD_ROWS):
+        for j in range(2):
+            ok = FD_ST[nm][j] == "ok"
+            if (ok and a < 1 <= b) or (not ok and a < 2 <= b):
+                s.append(_fd_mark(i, j))
+    if _on(prev, st, "hl93"):
+        x, y = _fd_cell(3, 0)
+        s.append(F.rect(x - FD["cw"] / 2 + 2, y - FD["rh"] / 2 - 4, FD["cw"] - 4, FD["rh"] + 8, "none", J.AMBER, 6, rx=12))
+    if _on(prev, st, "okhl"):
+        for i, nm in enumerate(FD_ROWS):
+            for j in range(2):
+                if FD_ST[nm][j] == "ok" and not (i == 3 and j == 0 and st["hl93"] == "on"):
+                    x, y = _fd_cell(i, j)
+                    s.append(F.rect(x - FD["cw"] / 2 + 2, y - FD["rh"] / 2 - 4, FD["cw"] - 4, FD["rh"] + 8, "none", J.AMBER, 4, rx=12))
+    if _on(prev, st, "use"):
+        bx, by = FD["box_x"], FD["use_y"]
+        s.append(_box(bx, by, FD["bw"], FD["bh"], "委員会の報告書", J.INST, cap=32, t2="に使われた"))
+        s.append(_arrow(FD["cols"][1] + FD["cw"] / 2 + 8, by, bx - FD["bw"] / 2 - 10, by, J.INST, 6, 22))
+    if _on(prev, st, "court"):
+        (bx, by), x, y = FD["court"], *_fd_cell(3, 0)
+        s.append(_box(bx, by, FD["cbw"], FD["cbh"], "裁判の証拠（書き起こしも公開）", J.AMBER, cap=28))
+        s.append(_arrow(x, y + FD["rh"] / 2 + 4, x, by - FD["cbh"] / 2 - 8, J.AMBER, 5, 18))
+    return s
+
+
+# recom（cb13・cb14）＝委員会の勧告（委員会報告 p393「Improved use of "no-fly" and "automatic selectee" lists should not be delayed」・
+#   「give priority attention to improving the ability of screening checkpoints to detect explosives on passengers」）
+RC = dict(head=(960.0, 350.0), hw=760.0, hh=90.0, y=620.0, xs=(560.0, 1360.0), w=700.0, h=220.0)
+RC_HEAD = "委員会の勧告（空の保安・抜粋）"
+RC_T = (("乗せない人の名簿を", "もっと生かす"), ("身に着けた爆発物を", "見つける力を高める"))
+
+
+def recom_base(st0):
+    x, y = RC["head"]
+    g = [_box(x, y, RC["hw"], RC["hh"], RC_HEAD, J.INST, cap=34)]
+    for cx in RC["xs"]:
+        g.append(F.rect(cx - RC["w"] / 2, RC["y"] - RC["h"] / 2, RC["w"], RC["h"], "none", J.LINE_DIM, 3, rx=14, dash="10 10"))
+    return g
+
+
+def recom_stage(prev, st):
+    s = []
+    for k, cx, (a, b) in zip(("c1", "c2"), RC["xs"], RC_T):
+        if _on(prev, st, k):
+            s.append(F.line(RC["head"][0] + (cx - RC["head"][0]) * 0.4, RC["head"][1] + RC["hh"] / 2 + 6, cx, RC["y"] - RC["h"] / 2 - 8,
+                            J.LINE_DIM, 3))
+            s.append(_box(cx, RC["y"], RC["w"], RC["h"], a, J.LINE, cap=38, t2=b))
+    if _on(prev, st, "hl2"):
+        cx = RC["xs"][1]
+        s.append(F.rect(cx - RC["w"] / 2 - 12, RC["y"] - RC["h"] / 2 - 12, RC["w"] + 24, RC["h"] + 24, "none", J.AMBER, 6, rx=18))
+    return s
+
+
+# two（cb16）＝2つの調べ（委員会＝空の側・NIST＝建物の側〈NIST「Final Report on the Collapse of the World Trade Center Towers」〉）
+TW = dict(y=570.0, xs=(560.0, 1360.0), w=700.0, h=330.0)
+TW_T = (("9.11委員会", "空の側"), ("NIST", "建物の側"))
+TW_K = ("何を知ったか", "何を知らなかったか")
+
+
+def two_base(st0):
+    g = []
+    for cx, (a, b) in zip(TW["xs"], TW_T):
+        y = TW["y"]
+        g.append(F.rect(cx - TW["w"] / 2, y - TW["h"] / 2, TW["w"], TW["h"], J.BG2, J.LINE, 4, rx=14))
+        g.append(F.txtfit(cx, y - TW["h"] / 2 + 70, a, TW["w"] - 40, cap=40, col=INK, anchor="middle"))
+        g.append(F.txtfit(cx, y - TW["h"] / 2 + 130, b, TW["w"] - 40, cap=34, col=J.TICK, anchor="middle"))
+    g.append(F.txtfit(TW["xs"][1], TW["y"] + 70, "（この動画では扱わない）", TW["w"] - 40, cap=28, col=J.TICK, anchor="middle"))
+    return g
+
+
+def two_stage(prev, st):
+    s = []
+    cx, y = TW["xs"][0], TW["y"]
+    if _on(prev, st, "hl"):
+        s.append(F.rect(cx - TW["w"] / 2 - 12, y - TW["h"] / 2 - 12, TW["w"] + 24, TW["h"] + 24, "none", J.AMBER, 6, rx=18))
+    if _on(prev, st, "k"):
+        for i, t in enumerate(TW_K):
+            yy = y + 40 + 66 * i
+            s.append(F.rect(cx - 250, yy - 26, 500, 52, "none", J.AMBER, 3, rx=10))
+            s.append(F.txtfit(cx, yy + 11, t, 470, cap=30, col=INK, anchor="middle"))
+    return s
+
+
+# toll（cc07・cc08）＝犠牲者の数（委員会報告 p311「the largest loss of life—2,973—」・記念館「The attacks killed 2,977 people」・検視局の発表）。
+#   🔴 4人の差を「新しく分かった人」に結びつけない（検視局の発表は身元の確認＝数の増えではない）＝下の箱は線でつながない
+TO = dict(y=500.0, xs=(500.0, 1420.0), w=640.0, h=250.0, me=(960.0, 780.0), mw=1180.0, mh=130.0)
+TO_T = (("委員会の数", "（2004年7月）", "2,973人"), ("いまの数", "（9.11記念館）", "2,977人"))
+TO_DIFF = "4人の差"
+TO_ME = ("2026年8月", "ニューヨーク市の検視局", "犠牲者1人の身元を新たに確認")
+
+
+def _to_box(i):
+    cx, y = TO["xs"][i], TO["y"]
+    a, b, n = TO_T[i]
+    return (F.rect(cx - TO["w"] / 2, y - TO["h"] / 2, TO["w"], TO["h"], J.BG2, J.LINE, 4, rx=14)
+            + F.txtfit(cx, y - 52, a, TO["w"] - 40, cap=36, col=INK, anchor="middle")
+            + F.txtfit(cx, y - 8, b, TO["w"] - 40, cap=28, col=J.TICK, anchor="middle")
+            + F.txtfit(cx, y + 86, n, TO["w"] - 40, cap=72, col=J.AMBER, anchor="middle", fam="Dela"))
+
+
+def toll_base(st0):
+    return []
+
+
+def toll_stage(prev, st):
+    s = []
+    for i, k in enumerate(("old", "now")):
+        if _on(prev, st, k):
+            s.append(_to_box(i))
+    if _on(prev, st, "diff"):
+        y = TO["y"]
+        a, b = TO["xs"][0] + TO["w"] / 2 + 12, TO["xs"][1] - TO["w"] / 2 - 14
+        s.append(_arrow(a, y, b, y, J.LINE, 5, 22))
+        s.append(F.txtfit((a + b) / 2, y - 22, TO_DIFF, b - a - 10, cap=34, col=INK, anchor="middle"))
+    mx, my = TO["me"]
+    if st["me"] != prev.get("me", "off") and st["me"] in ("on", "full"):
+        if prev.get("me", "off") == "off":
+            s.append(F.rect(mx - TO["mw"] / 2, my - TO["mh"] / 2, TO["mw"], TO["mh"], J.BG2, J.DOC, 4, rx=14))
+            s.append(F.txtfit(mx - TO["mw"] / 2 + 30, my - 14, TO_ME[0], 260, cap=34, col=J.DOC, anchor="start", fam="Dela"))
+            s.append(F.txtfit(mx - TO["mw"] / 2 + 300, my - 14, TO_ME[1], 560, cap=34, col=INK, anchor="start"))
+        if st["me"] == "full":
+            s.append(F.txtfit(mx - TO["mw"] / 2 + 300, my + 40, TO_ME[2], 820, cap=32, col=J.AMBER, anchor="start"))
+    return s
+
+
+# cover（cc09）＝報告書（表紙の絵は模式）と米政府の印刷局のサイト（sources §1＝govinfo の PDF が 200・md5 が手元と同じ）
+CO = dict(book=(600.0, 570.0), bw=360.0, bh=460.0, web=(1340.0, 560.0), ww=720.0, wh=400.0)
+
+
+def cover_base(st0):
+    x, y = CO["book"]
+    w, h = CO["bw"], CO["bh"]
+    g = [F.rect(x - w / 2 + 14, y - h / 2 + 14, w, h, COL["dark"], None, rx=6),
+         F.rect(x - w / 2, y - h / 2, w, h, INK, COL["body_ln"], 3, rx=6)]
+    for i, t in enumerate(("THE 9/11", "COMMISSION", "REPORT")):
+        g.append(F.txtfit(x, y - 110 + 62 * i, t, w - 50, cap=46, col=COL["dark"], anchor="middle"))
+    g.append(F.line(x - w / 2 + 40, y + 110, x + w / 2 - 40, y + 110, COL["body_ln"], 3))
+    g.append(F.txtfit(x, y + h / 2 + 50, "委員会の報告書（2004年）", 460, cap=30, col=INK, anchor="middle"))
+    return g
+
+
+def cover_stage(prev, st):
+    s = []
+    if _on(prev, st, "web"):
+        x, y = CO["web"]
+        w, h = CO["ww"], CO["wh"]
+        x0, y0 = x - w / 2, y - h / 2
+        s.append(F.rect(x0, y0, w, h, J.BG2, J.LINE, 4, rx=12))
+        s.append(F.rect(x0, y0, w, 58, COL["panel"], None, rx=12))
+        s.append("".join(F.circ(x0 + 32 + 26 * i, y0 + 29, 8, J.LINE_DIM) for i in range(3)))
+        s.append(F.rect(x0 + 130, y0 + 12, w - 160, 34, J.BG, J.LINE_DIM, 2, rx=8))
+        s.append(F.txtfit(x0 + 146, y0 + 38, "govinfo.gov", w - 200, cap=26, col=INK, anchor="start"))
+        s.append(F.rect(x - 70, y0 + 100, 140, 170, INK, COL["body_ln"], 3, rx=4))
+        s.append(F.txtfit(x, y0 + 200, "PDF", 120, cap=40, col=J.ALERT, anchor="middle", fam="Dela"))
+        s.append(F.txtfit(x, y0 + 330, "誰でも読める", w - 60, cap=36, col=J.AMBER, anchor="middle"))
+        s.append(F.txtfit(x, y + h / 2 + 50, "米政府の印刷局のサイト", w, cap=30, col=INK, anchor="middle"))
+        bx, by = CO["book"]
+        s.append(_arrow(bx + CO["bw"] / 2 + 30, by, x0 - 16, by, J.AMBER, 6, 24))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
 #  見え方の表・札の置き場・線の先
 # ══════════════════════════════════════════════════════════
 VIEWS = dict(
     us=dict(lab="北アメリカの地図（北が上）", fields=dict(east=ONOFF, west=ONOFF, routes=ONOFF, air=ONOFF, herndon=ONOFF, stop=ONOFF,
                                                     aa=("off", "ne", "all"), fly=ONOFF, land=("off", "arrow", "down"),
-                                                    order=("off", "one", "two")), base=us_base, stage=us_stage, parts=us_parts),
+                                                    order=("off", "one", "two"), reopen=ONOFF), base=us_base, stage=us_stage, parts=us_parts),
+    # 🆕 ⑤b-6
+    probe=dict(lab="調べの数", fields=dict(law=ONOFF, n=ONOFF), base=probe_base, stage=probe_stage),
+    ig=dict(lab="「誤り」の問いの行き先", fields=dict(dot=ONOFF, r1=ONOFF, r2=ONOFF), base=ig_base, stage=ig_stage),
+    fdr=dict(lab="4機の記録装置", fields=dict(st=("off", "ok", "all"), hl93=ONOFF, okhl=ONOFF, use=ONOFF, court=ONOFF), base=fdr_base,
+             stage=fdr_stage),
+    recom=dict(lab="勧告の箱", fields=dict(c1=ONOFF, c2=ONOFF, hl2=ONOFF), base=recom_base, stage=recom_stage),
+    two=dict(lab="調べた機関と範囲", fields=dict(hl=ONOFF, k=ONOFF), base=two_base, stage=two_stage),
+    toll=dict(lab="犠牲者の数", fields=dict(old=ONOFF, now=ONOFF, diff=ONOFF, me=("off", "on", "full")), base=toll_base, stage=toll_stage),
+    cover=dict(lab="報告書と印刷局のサイト", fields=dict(web=ONOFF), base=cover_base, stage=cover_stage),
     ne=dict(lab="アメリカ北東部の地図（北が上）", fields=dict(neads=ONOFF, bases=ONOFF, sea=ONOFF, dom=ONOFF, scr=ONOFF, f15=ONOFF, mnh=ONOFF,
                                                           call=ONOFF, x11=ONOFF, lang=ONOFF, r77=("off", "west", "east"), look=ONOFF,
                                                           reapp=ONOFF, turn=ONOFF, r93=ONOFF, shk=ONOFF, proj=ONOFF, hits=ONOFF,
@@ -1707,7 +2027,11 @@ VIEWS = dict(
                                               blip=("on", "off"), two=ONOFF, ghost=ONOFF, fast=ONOFF), base=scope_base,
                stage=scope_stage, parts=scope_parts),
 )
-START = dict(us=dict(east="off", west="off", routes="off", air="off", herndon="off", stop="off", aa="off", fly="off", land="off", order="off"),
+START = dict(us=dict(east="off", west="off", routes="off", air="off", herndon="off", stop="off", aa="off", fly="off", land="off", order="off",
+                     reopen="off"),
+             probe=dict(law="off", n="off"), ig=dict(dot="off", r1="off", r2="off"),
+             fdr=dict(st="off", hl93="off", okhl="off", use="off", court="off"), recom=dict(c1="off", c2="off", hl2="off"),
+             two=dict(hl="off", k="off"), toll=dict(old="off", now="off", diff="off", me="off"), cover=dict(web="off"),
              ne=dict(neads="off", bases="off", sea="off", dom="off", scr="off", f15="off", mnh="off", call="off", x11="off", lang="off",
                      r77="off", look="off", reapp="off", turn="off", r93="off", shk="off", proj="off", hits="off", dclab="w"),
              dc=dict(unk="off", t77="off", c130="off", follow="off", tgt="off"),
@@ -1739,7 +2063,7 @@ HEAD_ONLY = dict(chain=("who",), cabin=("zoom", "plane"), scope=("who",), phone=
 ORDER = dict(door=dict(lock=("off", "on", "open"), door=("closed", "open")), chain=dict(lit=LIT, ac=("off", "on", "x"), reg=("off", "on", "x")),
              phone=dict(train=("off", "on", "x")), call=dict(talk=("off", "ask", "back")), scope=dict(search=SC_STEP, blip=("on", "off")),
              us=dict(land=("off", "arrow", "down"), aa=("off", "ne", "all"), order=("off", "one", "two")), ne=dict(r77=("off", "west", "east")),
-             cmd=dict(lit=CM_LIT))
+             cmd=dict(lit=CM_LIT), fdr=dict(st=("off", "ok", "all")), toll=dict(me=("off", "on", "full")))
 NOT_SCHEMATIC = ()
 
 TAG_AT = dict(
@@ -1776,6 +2100,12 @@ TAG_AT = dict(
     cmd=dict(low1=(L_X, 760.0, "start", 820.0), low2=(1000.0, 760.0, "start", 800.0), msg=(1020.0, 470.0, "middle", 520.0),
              xt=(1455.0, 700.0, "middle", 420.0)),
     need=dict(l=(L_X, 330.0, "start", 640.0), r=(1300.0, 330.0, "start", 520.0), low=(L_X, 800.0, "start", 900.0)),
+    # 🆕 ⑤b-6
+    ig=dict(yr=(810.0, 830.0, "start", 440.0)),                                    # 運輸省の箱（印こみ y 655〜785）の下。⚠️ y 860 は注の行に 0.5px
+    fdr=dict(low=(L_X, 800.0, "start", 760.0), low2=(900.0, 800.0, "start", 560.0)),   # 表の下の端 y 720
+    recom=dict(under2=(1360.0, 820.0, "middle", 600.0)),   # ⚠️ 門番 wording：置き場の名「p2」は頁の書き方に読める                               # 2つ目の箱（y 510〜730）の下
+    two=dict(top=(560.0, 330.0, "middle", 660.0)),                                 # 左の箱（y 405〜735）の上
+    probe=dict(), toll=dict(), cover=dict(),
     soft=dict(rec=(L_X, 330.0, "start", 700.0), cut=(1200.0, 330.0, "start", 600.0), weak=(L_X, 780.0, "start", 760.0)),
     desk=dict(lead=(1180.0, 790.0, "start", 600.0)),
     # ⚠️ sea を (1300, 800) に置くと海の外から来る2本目の矢印の始まり（x 1506・y 797）に字が乗る＝上へ
@@ -1928,7 +2258,7 @@ KEY_FIELDS = ("pts", "rot", "alpha", "fill", "stroke", "glow", "dx", "dy")
 
 
 def m21(view, steps, start=None, rel=(), note="", src=""):
-    """21本目の模式図。view は VIEWS の26種。steps＝ナレーションの行ごとの段。"""
+    """21本目の模式図。view は VIEWS の33種。steps＝ナレーションの行ごとの段。"""
     if view not in VIEWS:
         raise ValueError(f"m21：知らない見え方 {view!r}（{tuple(VIEWS)}）")
     if "模式" not in note:
@@ -2022,4 +2352,22 @@ def geo_of(view, start, states):
         out["xs"] = list(CM["xs"])
     elif view == "need":
         out["boxes"] = list(ND_T)
+    # 🆕 ⑤b-6（門番は字を自分で読む＝数・名・状態を記録 REC_M21 と照らす）
+    if view == "us":
+        out["open"] = list(AIR_OPEN)
+        out["n_air"] = len(AIR_PTS)
+    elif view == "probe":
+        out["law"] = PB_LAW
+        out["cards"] = [b for _, b in PB_CARDS]
+    elif view == "ig":
+        out["igs"] = (IG_T["dod"], IG_T["dot"])
+        out["r2"] = "".join(IG_T["r2"])
+    elif view == "fdr":
+        out["table"] = {k: tuple(v) for k, v in FD_ST.items()}
+        out["rows"] = list(FD_ROWS)
+    elif view == "toll":
+        out["nums"] = [n for _, _, n in TO_T]
+        out["when"] = [b for _, b, _ in TO_T]
+        out["diff"] = TO_DIFF
+        out["me"] = list(TO_ME)
     return out

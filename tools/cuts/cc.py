@@ -33,10 +33,10 @@ PLAN = {
                plan="LCB20｜副題：当日のマンハッタン｜動き：左へ流す｜権利：C'（撮影者不詳・権利を放棄）｜出典の行：米議会図書館蔵（撮影者不詳）｜注：遠くの通行人は顔の分からない遠景｜台本の画：実写 議会図書館 LC-B20（車内から見た通りと煙の柱・C'＝米議会図書館蔵（撮影者不詳）・遠くの人は顔の分からない遠景だけ・全画面＝副題「当日のマンハッタン」）",
                src='記念館（`The attacks killed 2,977 people from 90 nations: 2,753 people were killed in New York; 184 people were killed at the Pentagon; and 40 people were killed on Flight 93`）'),
     'cc07': dict(kind='図解',
-               plan='台本の画：図 模式 数の帯（2,973＝2004年7月の委員会・2,977＝いまの数）',
+               plan='🔧 ⑤b-6 模式 2つの数の箱と差の矢印（「いまの数」は日付を持たない＝帯に置けない）｜台本の画：図 模式 数の帯（2,973＝2004年7月の委員会・2,977＝いまの数）',
                src='委員会報告 p311（`the nation suffered the largest loss of life—2,973—on its soil as a result of hostile attack in its history`）'),
     'cc08': dict(kind='図解',
-               plan='台本の画：図 模式 同じ帯（2026年8月の札）',
+               plan='🔧 ⑤b-6 模式 同じ箱の下に2026年8月の検視局の発表の箱（数の差とは線でつながない＝身元の確認は数の増えではない）｜台本の画：図 模式 同じ帯（2026年8月の札）',
                src='検視局（`announced the identification of a previously unknown victim of the September 11, 2001 terror attacks on the World Trade Center using the breakthrough technique of forensic investigative genetic genealogy`）'),
     'cc09': dict(kind='図解',
                plan='台本の画：図 模式 委員会報告の表紙の絵と「米政府の印刷局のサイト」の札',
@@ -47,3 +47,41 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-13）：図解 終章（4カット）
+# ══════════════════════════════════════════════════════════
+#   🔴 章の札「あの朝、持ち場にいた人たち」と4字以上同じ並びを見出し・副題に入れない（門番 dup）。人は描かない。
+#      犠牲者の数は語りの数と同じ（委員会 2,973＝p311・いま 2,977＝記念館）。検視局の発表を数の差に結びつけない
+_ax = ss.ax
+_TO = "箱は模式（数は委員会報告と記念館の記録）"
+SPEC.update({
+    # cc04（3行）＝その朝の4機と軍への知らせ（ca19 の続き）→ 2行目で「その場で組み立てた守り」（8:37:52〜10:31・p45）→ 3行目（問い）
+    "cc04": dict(
+        t="その場の守り", s="4機と軍への知らせの時刻",
+        fig=("axis", dict(ss.AX_ALL, past=[_ax("neads11"), _ax("nine11"), _ax("hit11"), _ax("hit175"), _ax("hit77"), _ax("crash93")],
+                          start=dict(cur="10:03:11"),
+                          steps=[dict(), dict(add=_ax("fly"), cur="10:31"), dict()],
+                          note="時刻は委員会報告の記録（衝突と墜落の時刻は資料で割れる＝委員会報告の値）",
+                          src=ss.src(["委員会報告 p20", "委員会報告 p42", "委員会報告 p45"]))),
+    ),
+    # cc07（2行）＝🔧 2つの数の箱。いまの数（前のカットの語り）→ 委員会の数（2004年7月・p311）→ 2行目で差
+    "cc07": dict(
+        t="数の違い", s="2つの時点の数",
+        fig=("m21", dict(view="toll", start=dict(now="on"), steps=[dict(state=dict(old="on")), dict(state=dict(diff="on"))],
+                         note=_TO, src=ss.src(["委員会報告 p311", "記念館 p1"]))),
+    ),
+    # cc08（2行）＝🔧 下に2026年8月の検視局の発表の箱 → 2行目で中身（数の差とは線でつながない）
+    "cc08": dict(
+        t="身元の確認", s="25年目の発表",
+        fig=("m21", dict(view="toll", start=dict(old="on", now="on", diff="on"),
+                         steps=[dict(state=dict(me="on")), dict(state=dict(me="full"))],
+                         note=_TO, src=ss.src(["委員会報告 p311", "記念館 p1", "検視局 p1"]))),
+    ),
+    # cc09（1行）＝報告書（表紙の絵は模式）と米政府の印刷局のサイト
+    "cc09": dict(
+        t="いまも読める", s="報告書の公開",
+        fig=("m21", dict(view="cover", steps=[dict(state=dict(web="on"))], note="表紙の絵とサイトの画面は模式",
+                         src=ss.src(["govinfo p1"]))),
+    ),
+})

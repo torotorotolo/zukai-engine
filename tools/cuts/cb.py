@@ -74,3 +74,98 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-13）：図解 第10章（11カット）
+# ══════════════════════════════════════════════════════════
+#   🔴 章の札「その後の空」と4字以上同じ並びを見出し・副題に入れない（門番 dup）。人は描かない。
+#   年表 AX_AFTER（2001年1月〜2004年12月）＝cb05・cb07・cb11・cb12（ca20 から続く）。「この朝」は左へ振る（右の法律の札と同じ段に並べる）
+_ax = ss.ax
+_YN = "年月は記録の値"
+_DR = "扉は模式（決まりは法律と委員会報告）"
+SPEC.update({
+    # cb02（2行）＝全米の地図。止めた空港（輪）→ 9月13日 午前11時（p556）→ 2行目で基準を満たした空港から開く（p327）
+    "cb02": dict(
+        t="空が開く", s="新しい保安の基準と空港",
+        fig=("m21", dict(view="us", start=dict(air="on", stop="on"),
+                         steps=[dict(tag=dict(t="9月13日 午前11時", at="top")),
+                                dict(state=dict(reopen="on"), tag=dict(t="基準を満たした空港", at="top2"))],   # ⚠️ geom_gap：「…空港から」は右の端がミネアポリスの輪に 4.4px
+                         rel=[dict(t="9月13日 午前11時", src="委員会報告 p556")],
+                         note="空港の点と、開いた空港は模式（どの空港が先かは描かない）", src=ss.src(["委員会報告 p327", "委員会報告 p556"]))),
+    ),
+    # cb05（2行）＝年表。2001年11月の法律（p391・法律）→ 2行目で運輸保安庁ができる
+    "cb05": dict(
+        t="法律と役所", s="法律でできた国の役所",
+        fig=("axis", dict(ss.AX_AFTER, past=[_ax("day911", anchor="end")], start=dict(cur="2001-09-11"),
+                          steps=[dict(add=_ax("law01"), cur="2001-11-19"),
+                                 dict(add=dict(k="chips", at="2001-11-19", chips=["運輸保安庁（TSA）ができる"], rec="法律 p1"))],
+                          note=_YN, src=ss.src(["法律 p1", "委員会報告 p391"]))),
+    ),
+    # cb07（2行）＝法律から1年の帯（期限＝法律の日から1年）→ 2行目（字幕だけ）
+    "cb07": dict(
+        t="1年の期限", s="国の検査員を置く期限",
+        fig=("axis", dict(ss.AX_AFTER, past=[_ax("day911", anchor="end"), _ax("law01")], start=dict(cur="2001-11-19"),
+                          steps=[dict(add=_ax("law01y"), cur="2002-11-19"), dict()],
+                          note=_YN, src=ss.src(["法律 p1"]))),
+    ),
+    # cb09（2行）＝操縦室の扉。飛ぶあいだは鍵（法律）→ 2行目で事件の前も同じ決まり・守られないことも（p85）
+    "cb09": dict(
+        t="鍵の決まり", s="飛行中の扉の決まり",
+        fig=("m21", dict(view="door", steps=[dict(state=dict(lock="on"), tag=dict(t="飛ぶあいだは鍵をかけたまま", at="rule")),
+                                             dict(state=dict(loose="on"), tag=dict(t="事件の前：守られないことも", at="loose"))],
+                         note=_DR, src=ss.src(["法律 p1", "委員会報告 p85"]))),
+    ),
+    # cb10（3行）＝問い（丈夫な扉）→ 2行目で「要求に従う」＝扉が開く → 3行目で委員会の見方（p85）
+    "cb10": dict(
+        t="扉の強さ", s="従うやり方が続くなら",
+        fig=("m21", dict(view="door", start=dict(lock="on"),
+                         steps=[dict(state=dict(vault="on"), tag=dict(t="丈夫な扉", at="vault")),
+                                dict(state=dict(lock="open", door="open", comply="on")),
+                                dict(tag=dict(t="違いはほとんど無い", d="委員会の見方", at="loose"))],
+                         note=_DR, src=ss.src(["委員会報告 p85"]))),
+    ),
+    # cb11（2行）＝年表。2002年11月の国土安全保障省の法律（p391）→ 2行目で運輸保安庁もその一部に
+    "cb11": dict(
+        t="新しい省", s="運輸保安庁の行き先",
+        fig=("axis", dict(ss.AX_AFTER, past=[_ax("day911", anchor="end"), _ax("law01"), _ax("law01y", t="")], start=dict(cur="2001-11-19"),
+                          steps=[dict(add=_ax("dhs02"), cur="2002-11"),
+                                 dict(add=dict(k="chips", at="2002-11", chips=["運輸保安庁もその一部に"], rec="委員会報告 p391"))],
+                          note=_YN, src=ss.src(["委員会報告 p391"]))),
+    ),
+    # cb12（3行）＝年表。2002年11月 委員会（序文）→ 2004年7月 報告書（govinfo）→ 3行目で「この動画の主な資料」
+    "cb12": dict(
+        t="調べた委員会", s="委員会の設置と報告書",
+        fig=("axis", dict(ss.AX_AFTER, past=[_ax("day911", anchor="end"), _ax("law01"), _ax("law01y", t=""), _ax("dhs02")],
+                          start=dict(cur="2002-11"),
+                          steps=[dict(add=_ax("com02"), cur="2002-11-27"), dict(add=_ax("rep04"), cur="2004-07-22"),
+                                 dict(add=dict(k="chips", at="2004-07-22", chips=["この動画の主な資料"], rec="govinfo p1"))],
+                          note=_YN, src=ss.src(["委員会報告の序文 p15", "govinfo p1"]))),
+    ),
+    # cb13（2行）＝勧告の箱。前置き → 2行目で名簿の勧告（p393）
+    "cb13": dict(
+        t="報告書の勧告", s="名簿の使い方と爆発物の検査",
+        fig=("m21", dict(view="recom", steps=[dict(), dict(state=dict(c1="on"))], note="箱の並びは模式（勧告は委員会報告の記録）",
+                         src=ss.src(["委員会報告 p393"]))),
+    ),
+    # cb14（2行）＝爆発物の勧告（p393）→ 2行目で「優先して」
+    "cb14": dict(
+        t="爆発物", s="乗客の身の回りの検査",
+        fig=("m21", dict(view="recom", start=dict(c1="on"),
+                         steps=[dict(state=dict(c2="on")), dict(state=dict(hl2="on"), tag=dict(t="優先して", at="under2"))],
+                         note="箱の並びは模式（勧告は委員会報告の記録）", src=ss.src(["委員会報告 p393"]))),
+    ),
+    # cb16（2行）＝2つの調べ。空の側に印（この動画で追った側）→ 2行目で何を知り、何を知らなかったか
+    "cb16": dict(
+        t="2つの調べ", s="管制と軍の記録と建物の調べ",
+        fig=("m21", dict(view="two", steps=[dict(state=dict(hl="on"), tag=dict(t="この動画で追った側", at="top")),
+                                            dict(state=dict(k="on"))],
+                         note="箱は模式", src=ss.src(["NIST p7001", "委員会報告 p1"]))),
+    ),
+    # cb19（2行）＝その朝の4機（衝突と墜落）→ 2行目（字幕だけ）
+    "cb19": dict(
+        t="あの朝の4機", s="衝突と墜落の時刻",
+        fig=("axis", dict(ss.AX_ALL, steps=[dict(add=[_ax("hit11"), _ax("hit175"), _ax("hit77"), _ax("crash93")], cur="10:03:11"), dict()],
+                          note="時刻は委員会報告の記録（資料で割れる時刻＝委員会報告の値）",   # ⚠️ 門番 dup：副題の「衝突と墜落の時刻」を注に書かない
+                          src=ss.src(["委員会報告 p7", "委員会報告 p8", "委員会報告 p10", "委員会報告 p30"]))),
+    ),
+})

@@ -321,7 +321,9 @@ def cmd_credits(write=False):
         import illu
         # 頁の年＝資料の年（NTSB の調べ 2002年2月19日）・RG237＝記録の日（2001-09-11＝7本目の clips.json の date）。
         #   🔴 §8 の表（写真と同じ表）に入れる＝門番 check_credits が副題の年と照らす（頁を表の外に置くと fail closed）
-        PAGE_YEAR = {"NTSB 11便": 2002, "NTSB 175便": 2002, "NTSB 77便": 2002, "NTSB 93便": 2002, "RG237": 2001}   # 4便の調べはどれも 2002-02-19（93便＝⑤b-5 で使う）
+        PAGE_YEAR = {"NTSB 11便": 2002, "NTSB 175便": 2002, "NTSB 77便": 2002, "NTSB 93便": 2002, "RG237": 2001,   # 4便の調べはどれも 2002-02-19（93便＝⑤b-5 で使う）
+                     "委員会報告": 2004}                     # 🆕 ⑤b-6：委員会報告の文字の頁（ca18）＝govinfo の書誌 2004-07-22
+        PAGE_WHO = {"RG237": "米連邦航空局（FAA）", "委員会報告": "9.11委員会（米連邦の調査委員会）"}   # NTSB で始まる資料は NTSB
         for k, p in sorted(json.loads(PAGES_JSON.read_text(encoding="utf-8")).items()):
             line = illu.rec_line([p["rec"]])
             if not line:
@@ -329,7 +331,7 @@ def cmd_credits(write=False):
             cj[f"ep21/{k}.png"] = line + "／パブリックドメイン・切出"
             doc = p["rec"].rsplit(" p", 1)[0]
             rows.append(f"| `{k}` | {' '.join(sorted(p['cuts']))} | {PAGE_YEAR[doc]} | PD（米連邦の職務） | "
-                        f"{'NTSB' if doc.startswith('NTSB') else '米連邦航空局（FAA）'} | {p['from']} |")
+                        f"{'NTSB' if doc.startswith('NTSB') else PAGE_WHO[doc]} | {p['from']} |")
             pg_rows.append(f"| `{k}.png` | {' '.join(sorted(p['cuts']))} | {p['what']} | {p['from']} |")
     for k, v in cj.items():
         print(k, "|", v)
@@ -375,6 +377,7 @@ def cmd_credits(write=False):
         "### 2. 頁（米連邦の資料＝PD・`qa_out/ep21_assets.py pages`・切り口は `ref/ep21/pages.json`）",
         "- NTSB の飛行経路の調べ（2002年・スキャン）＝PDF の頁を 200dpi の灰色に焼いて正立（横倒しの図）・図の範囲で切る。",
         "- RG237＝米連邦航空局のレーダーの再生の動画（NARA）の1コマ＝7本目の見本帳の静止画（`out/ep7_shotscan/`・表示の幅に直したもの）の上下の黒い帯を切る。",
+        "- 委員会報告の文字の頁（GPO の PDF・本物の字）＝PDF の頁を 200dpi の灰色に焼いて、語りの段を含む行で切る（頁の上の印は文字の層の句の位置）。",
         "",
         "| 頁 | 使うカット | 中身 | 元 |",
         "|---|---|---|---|", *pg_rows, ""])
@@ -410,7 +413,19 @@ PAGE_SRC = {    # 鍵 → (元, 頁かコマ, 出典の書き方, 回す角度�
     #   RG237 の 2-AWA-716-Pittsburgh（s01）は描き終えた航跡の地図だけ（台本の場面は写っていない＝PLAN でも使っていない）
     5003: ("src/ntsb_flight_path_study_UA93.pdf", 3, "NTSB 93便 p5003", 270, "93便のレーダーの航跡（Figure 1・点 A〜I と時刻）"),
     5004: ("src/ntsb_flight_path_study_UA93.pdf", 4, "NTSB 93便 p5004", 270, "93便の高度（Figure 2・点 A〜I）"),
+    # 🆕 ⑤b-6：RG237（naId 7599334「5-AWA-716-All-4-AC」）の 37.5秒＝5〜70秒は動かない4機の航跡の地図（7本目の SHOTS_INDEX §0）＝ca02。
+    #   ⚠️ 候補5つ（All-4-AC・213-new_overview2・714-ny_best・ZID-819・852-terrain）を1枚のシートで見た：時刻の表示が読める画面は無い。
+    #   213・714 は NORAD の立体の再生（右下に STK の社名の透かし）＝使わない／ZID-819 は録画ソフトの「Unregistered」の透かし＝使わない
+    "r4": ("out/ep7_shotscan/5-AWA-716-All-4-AC__s01.png", 37.5, "RG237 p1", 0, "4機の航跡の再生（FAA・5-AWA-716-All-4-AC の 37.5秒）"),
+    # 🆕 ⑤b-6：委員会報告 p34（GPO の PDF 52頁＝印字＋18・本物の字の頁）＝ca18 の文字の頁。切り口と印は TEXT_CUTS・TEXT_HL から組む
+    34: ("src/GPO-911REPORT.pdf", 52, "委員会報告 p34", 0, "委員会報告 p34（2003年5月の証言の誤りを書いた段）"),
 }
+# 🆕 ⑤b-6：文字の頁の切り口＝カット → (頁, 始めの句, 終わりの句)。句は頁の文字の層（本物の字＝絵と同じ座標）で探す（1か所だけ）。
+#   切り口は2つの句の行を含む段の上下に、額の縦横比（PANEL_AR）まで行を足す。横は字の列の左右の端＋10pt
+TEXT_CUTS = {"ca18": (34, "In public testimony before this Commission in May 2003", "United 93 was proceeding normally at that time.")}
+# 頁の上の印＝カット → [(頁の句, 字幕の行, 字幕の中の句)]。塗る秒＝字幕の句の位置の割合（20本目の PAGE_HL と同じ形＝`ss.phl`）
+TEXT_HL = {"ca18": [("This statement was incorrect.", 0, "記録で正した")]}
+PANEL_AR = 1120 / 648        # 額の最大の箱の縦横比（`scene_jiko.PANEL_MAXW × PANEL_MAXH`＝20本目の PANEL_AR_T と同じ）
 # カット → (頁, 切り口〈割合 x0,y0,x1,y1・None＝絵まるごと〉)。c401＝図の題（Figure 1）から枠の下の辺まで・頁番号「3」と余白を落とす
 #   （⑤b-3 の目盛り入りの縮小〈1/3・50px おき〉で測った：題 y 195〜255・枠 x 345〜1965・y 290〜1551・頁番号 y 約1575）
 #   🆕 ⑤b-4（目盛り入りの縮小〈1/3・5% おき〉で測った）：c506＝図の題から地図の下の端まで（図の名「Figure 1」は地図から 0.1 離れる＝落とす）・
@@ -423,8 +438,60 @@ PAGE_CUTS = {"c401": (2003, [0.1517, 0.1059, 0.9122, 0.9176]), "c408": ("r11", N
              #   c809＝同じ図1 の枠の中の上 2/3（凡例の箱 y 0.15〜0.36 と縦書きの時刻の札 y 0.18〜0.40 を切らない＝向きを変えた所 E の辺りが
              #   左に入る横長）。⚠️ 向きを変えた所だけに寄せると、凡例か縦書きの札が途中で切れる（どの切り方でも）／c806＝図2 の題から時間の軸の名まで
              "c802": (5003, [0.09, 0.07, 0.91, 0.92]), "c809": (5003, [0.09, 0.13, 0.91, 0.66]),
-             "c806": (5004, [0.04, 0.08, 0.82, 0.92])}
+             "c806": (5004, [0.04, 0.08, 0.82, 0.92]),
+             "ca02": ("r4", None)}       # 🆕 ⑤b-6：絵まるごと（額ごと寄る）
 RG_BAND = (48, 430)                                           # RG237 の絵の縦の範囲（見本帳の静止画 654×480 の y＝黒い帯の外）
+
+
+def _text_cut(page, img, cid, a_from, a_to):
+    """🆕 ⑤b-6：文字の頁（本物の字）の切り口と頁の上の印。img＝焼いた頁の灰色の配列（行のすき間を絵で探す）。
+    戻り＝(切り口〈頁の割合〉, 印 [[字幕の行, 始め, 終わり, 箱], …])"""
+    W, H = page.rect.width, page.rect.height
+    flat = re.sub(r"\s+", " ", page.get_text())
+    for ph in (a_from, a_to, *[p for p, _, _ in TEXT_HL.get(cid, [])]):
+        if flat.count(ph) != 1:
+            raise SystemExit(f"🔴 {cid}：句「{ph}」が頁に {flat.count(ph)} か所＝1か所でないと切らない")
+    lines = sorted({(round(ln["bbox"][1], 1), round(ln["bbox"][3], 1), ln["bbox"][0], ln["bbox"][2])
+                    for b in page.get_text("dict")["blocks"] if b.get("type") == 0 for ln in b["lines"]
+                    if 0.08 * H < ln["bbox"][1] and ln["bbox"][3] < 0.97 * H})
+    x0, x1 = min(l_[2] for l_ in lines) - 10, max(l_[3] for l_ in lines) + 10
+    ya = min(r.y0 for r in page.search_for(a_from))
+    yb = max(r.y1 for r in page.search_for(a_to))
+    want = (x1 - x0) / PANEL_AR
+    mid = (ya + yb) / 2
+    top, bot = min(ya - 4, mid - want / 2), max(yb + 4, mid + want / 2)
+    # 行の途中で切らない＝上と下を、頁の絵の「インクの無い横の列」へ寄せる（内へ）。
+    #   ⚠️ 文字の層の行の箱で隙間を探すと、注の番号（上付きの「175」ほか）が別の行に数えられ、下の辺が行の字を 10〜13% 切った
+    #      （門番 edges・ca18 を2回）＝絵のインクで決める
+    Hp, Wp = img.shape
+    c0, c1 = int(x0 / W * Wp), int(x1 / W * Wp)
+    blank = (img[:, c0:c1] < 160).sum(axis=1) == 0
+    t_px, b_px = int(top / H * Hp), int(bot / H * Hp)
+    ya_px, yb_px = int(ya / H * Hp), int(yb / H * Hp)
+    t_px = next((r for r in range(t_px, ya_px) if blank[r]), ya_px - 2)
+    b_px = next((r for r in range(b_px, yb_px, -1) if blank[r]), yb_px + 2)
+    top, bot = t_px / Hp * H, b_px / Hp * H
+    box = [round(max(0.0, x0 / W), 4), round(max(0.0, top / H), 4), round(min(1.0, x1 / W), 4), round(min(1.0, bot / H), 4)]
+    subs = json.loads((HERE / "audio" / "narration.json").read_text(encoding="utf-8"))["subtitles"]
+    hl = []
+    for ph, k, sp in TEXT_HL.get(cid, []):
+        line = subs[cid][k]["text"]
+        m = line.find(sp)
+        if m < 0:
+            raise SystemExit(f"🔴 {cid}：字幕の {k} 行目に句「{sp}」が無い（{line}）")
+        f0, f1 = m / len(line), (m + len(sp)) / len(line)
+        rs = page.search_for(ph)
+        tot = sum(r.x1 - r.x0 for r in rs)
+        acc = 0.0
+        for r in rs:
+            g0 = f0 + (f1 - f0) * acc / tot
+            acc += r.x1 - r.x0
+            g1 = f0 + (f1 - f0) * acc / tot
+            if not (top <= r.y0 and r.y1 <= bot):
+                raise SystemExit(f"🔴 {cid}：印の行（y {r.y0:.1f}〜{r.y1:.1f}）が切り口の外")
+            hl.append([k, round(g0, 3), round(g1, 3), [round(r.x0 / W, 4), round(r.y0 / H, 4), round(r.x1 / W, 4), round(r.y1 / H, 4)]])
+    print(f"✓ {cid}  trim={box}  縦横比 {round((box[2] - box[0]) * W / ((box[3] - box[1]) * H), 2)}（額 {PANEL_AR:.2f}）  印 {hl}")
+    return box, hl
 
 
 def cmd_pages(only=None):
@@ -461,8 +528,17 @@ def cmd_pages(only=None):
             cuts[cid] = [round(float(v), 4) for v in box]
             biases[cid] = 0.5
             print(f"✓ pg{pr} {cid}  trim={cuts[cid]}  縦横比 {round((box[2] - box[0]) * Wp / ((box[3] - box[1]) * Hp), 2)}")
+        hls = {}
+        for cid, (p2, a_from, a_to) in TEXT_CUTS.items():      # 🆕 ⑤b-6：文字の頁（句で切る・印つき）
+            if p2 != pr:
+                continue
+            with fitz.open(EPD / src) as d:
+                cuts[cid], h_ = _text_cut(d[int(at) - 1], a, cid, a_from, a_to)
+            biases[cid] = 0.5
+            if h_:
+                hls[cid] = h_
         pj[f"pg{pr}"] = dict(rec=rec, what=what, src=str(src), at=at, rot=rot, w=Wp, h=Hp, md5=md5(out), src_md5=src_md5, cuts=cuts,
-                             bias=biases, **{"from": frm})
+                             bias=biases, **({"hl": hls} if hls else {}), **{"from": frm})
         print(f"  pg{pr}  {frm}  {Wp}x{Hp}")
     PAGES_JSON.write_text(json.dumps(pj, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"→ {PAGES_JSON.relative_to(HERE).as_posix()}（{len(pj)}頁）")

@@ -2558,6 +2558,14 @@ REC_M21 = dict(
            "9:19", "9:23", "9:24", "9:26", "9:28", "9:41", "9:49", "9:57", "9:58:57", "10:01", "10:07", "10:15", "10:31", "10:45",
            "10:10"},
     src="委員会報告",
+    # 🆕 ⑤b-6：序文（PDF 15頁＝p.xv）「Public Law 107-306, November 27, 2002」「more than 2.5 million pages of documents and interviewed more than
+    #   1,200 individuals in ten countries」・運輸省の監察総監の報告 CC-2006-085 p1「referred to the Department of Defense (DOD) and Department of
+    #   Transportation (DOT) Inspectors General」p3「the two current executives」・p456 の記録装置（11便と175便は見つからず・77便の音声は焼けて
+    #   読めない・93便の2つと77便の飛行の記録は読めた＝p12・NTSB 77便 図2）・p311「2,973」・記念館「2,977」
+    probe=dict(law="2002年11月", pages="250万", people="1,200", countries="10"),
+    igs=("国防総省の監察総監", "運輸省の監察総監"), ig_execs=2,
+    fdr={"11便": ("none", "none"), "175便": ("none", "none"), "77便": ("burn", "ok"), "93便": ("ok", "ok")},
+    toll=(2973, 2977), toll_when=("2004年7月", "記念館"),
 )
 # 筋（先に起きることが先）＝(見え方, 欄, 値, 前に要る欄, 前に要る値の集合, 言葉)
 _M21_NEED = (
@@ -2619,6 +2627,19 @@ _M21_NEED = (
     ("cabin", "rear9", "on", "fones", {"on"}, "後ろの9列の枠は、座席の背の電話を見せてから"),
     ("cabin", "rush", "on", "vote", {"on"}, "前へ向かうのは、決をとってから（p13）"),
     ("roll", "calm", "on", "tilt", {"level"}, "揺さぶりが止まった印は、機が水平に戻ってから（p14）"),
+    # 🆕 ⑤b-6
+    ("us", "reopen", "on", "stop", {"on"}, "空がふたたび開くのは、離陸を止めたあと（p327）"),
+    ("us", "reopen", "on", "air", {"on"}, "開いた空港は、空港の点を見せてから"),
+    ("ig", "r1", "on", "dot", {"on"}, "運輸省の監察総監の答えは、運輸省の箱を見せてから"),
+    ("ig", "r2", "on", "r1", {"on"}, "幹部2人の処分は、1つ目の答えのあと（CC-2006-085 p2→p3）"),
+    ("fdr", "hl93", "on", "st", {"ok", "all"}, "93便の音声の印は、読めた記録装置を見せてから"),
+    ("fdr", "okhl", "on", "st", {"ok", "all"}, "読めた所の印は、読めた記録装置を見せてから"),
+    ("fdr", "use", "on", "st", {"ok", "all"}, "報告書への線は、読めた記録装置を見せてから"),
+    ("fdr", "court", "on", "st", {"ok", "all"}, "裁判の証拠は、読めた記録装置を見せてから"),
+    ("recom", "hl2", "on", "c2", {"on"}, "爆発物の勧告の印は、その箱を見せてから"),
+    ("two", "k", "on", "hl", {"on"}, "「何を知ったか」は、空の側に印を付けてから"),
+    ("toll", "diff", "on", "old", {"on"}, "数の差は、委員会の数を見せてから"),
+    ("toll", "diff", "on", "now", {"on"}, "数の差は、いまの数を見せてから"),
 )
 NUM_M21 = re.compile(r"[0-9０-９]{1,2}[:：][0-9０-９]{2}(?:[:：][0-9０-９]{2})?|[0-9０-９][0-9０-９,.．]*")
 
@@ -2751,6 +2772,29 @@ def judge_m21(f):
     if view == "cabin" and g.get("plane") == "757":
         need(g["rear"] == R["rear"], f"② 座席の背の電話の列 {g['rear']}列（記録＝後ろの{R['rear']}列＝国立公園局）")
         need(tuple(g["seats"]) == (3, 3), f"② ボーイング757 の横の並び {g['seats']}（3-3）")
+    # 🆕 ⑤b-6
+    if view == "us" and any(s.get("reopen") == "on" for s in seq):
+        need(0 < len(g["open"]) < g["n_air"], f"② 9月13日に開いた空港 {len(g['open'])}／{g['n_air']}（記録＝基準を満たした空港から＝全部ではない・p327）")
+    if view == "probe":
+        P_ = R["probe"]
+        need(g["law"].startswith(P_["law"]), f"② 委員会をつくった法律の月「{g['law']}」（記録 {P_['law']}＝序文）")
+        c = g["cards"]
+        need(len(c) == 3 and c[0].startswith(P_["pages"]) and c[1].startswith(P_["people"]) and c[2].startswith(P_["countries"]),
+             f"② 調べの数 {c}（記録＝文書 {P_['pages']}頁・{P_['people']}人・{P_['countries']}か国＝序文）")
+        need(all("超える" in t for t in c[:2]), "② 文書と人の数に「超える」が無い（記録＝more than）")
+    if view == "ig":
+        need(tuple(g["igs"]) == R["igs"], f"② 引き継いだ先 {g['igs']}（記録＝国防総省と運輸省の監察総監＝CC-2006-085 p1）")
+        m_ = re.search(r"幹部(\d+)人", g["r2"])
+        need(bool(m_) and int(m_.group(1)) == R["ig_execs"], f"② 処分を求めた幹部の数「{g['r2']}」（記録 {R['ig_execs']}人＝CC-2006-085 p3）")
+    if view == "fdr":
+        need(g["table"] == R["fdr"], f"② 記録装置の表 {g['table']} が記録（{R['src']} p456）と違う")
+        need(tuple(g["rows"]) == tuple(R["fdr"]), f"② 便の並び {g['rows']}")
+    if view == "toll":
+        nums = [int(re.sub(r"\D", "", t)) for t in g["nums"]]
+        need(tuple(nums) == R["toll"], f"② 犠牲者の数 {nums}（記録＝委員会 {R['toll'][0]}＝p311・いま {R['toll'][1]}＝記念館）")
+        need(R["toll_when"][0] in g["when"][0] and R["toll_when"][1] in g["when"][1], f"② 数の時点と出どころ {g['when']}")
+        d_ = re.search(r"(\d+)人", g["diff"])
+        need(bool(d_) and int(d_.group(1)) == R["toll"][1] - R["toll"][0], f"② 差の札「{g['diff']}」（記録の差 {R['toll'][1] - R['toll'][0]}人）")
     # ③ 札の数・時刻
     said = [r.get("t", "") for r in m["rel"]]
     for t in texts:
@@ -2799,6 +2843,16 @@ def _selftest_m21(ok):
         roll=dict(view="roll", steps=[dict(state=dict(tilt="left", rock="on")), dict(state=dict(tilt="level", calm="on"))], note=N),
         wall=dict(view="wall", steps=[dict(state=dict(block="on", rec="on", noise="on", q="on", down="on"))], note=N),
         ground=dict(view="ground", steps=[dict(state=dict(calls="on")), dict(state=dict(back="on"))], note=N),
+        # 🆕 ⑤b-6
+        us3=dict(view="us", start=dict(air="on", stop="on"), steps=[dict(state=dict(reopen="on"))], note=N),
+        probe=dict(view="probe", steps=[dict(state=dict(law="on")), dict(state=dict(n="on"))], note=N),
+        ig=dict(view="ig", steps=[dict(state=dict(dot="on")), dict(state=dict(r1="on")), dict(state=dict(r2="on"))], note=N),
+        fdr=dict(view="fdr", steps=[dict(state=dict(st="ok")), dict(state=dict(st="all", hl93="on", okhl="on", use="on", court="on"))],
+                 note=N),
+        recom=dict(view="recom", steps=[dict(state=dict(c1="on")), dict(state=dict(c2="on", hl2="on"))], note=N),
+        two=dict(view="two", steps=[dict(state=dict(hl="on")), dict(state=dict(k="on"))], note=N),
+        toll=dict(view="toll", start=dict(now="on"), steps=[dict(state=dict(old="on")), dict(state=dict(diff="on", me="full"))], note=N),
+        cover=dict(view="cover", steps=[dict(state=dict(web="on"))], note=N),
     )
     for nm, kw in good.items():
         bad, n = judge("m21", kw)
@@ -2828,7 +2882,15 @@ def _selftest_m21(ok):
             ("要ることを2つにする", "ND_T", M.ND_T[:2], "要ることの数", "need"),
             ("電話の列を8列で描く", "CB_REAR", 8, "座席の背の電話の列", "cab757"),
             ("シャンクスビルを1.5度西に描く", "MAP_PTS", dict(M.MAP_PTS, shk=(40.0514, -80.4044)), "マイル", "ne3"),
-            ("93便が向きを変えた所を東に描く", "R93", dict(M.R93, turn=(40.6, -76.0)), "向きを変えた所", "ne3")):
+            ("93便が向きを変えた所を東に描く", "R93", dict(M.R93, turn=(40.6, -76.0)), "向きを変えた所", "ne3"),
+            # 🆕 ⑤b-6
+            ("9月13日に全部の空港を開く", "AIR_OPEN", tuple(range(len(M.AIR_PTS))), "開いた空港", "us3"),
+            ("文書を25万頁と書く", "PB_CARDS", (("読んだ文書", "25万頁を超える"),) + M.PB_CARDS[1:], "調べの数", "probe"),
+            ("話を聞いた人の「超える」を落とす", "PB_CARDS", (M.PB_CARDS[0], ("話を聞いた人", "1,200人")) + M.PB_CARDS[2:], "超える", "probe"),
+            ("処分を求めた幹部を3人と書く", "IG_T", dict(M.IG_T, r2=("正さなかった幹部3人", "処分の検討を求める")), "幹部の数", "ig"),
+            ("77便の音声を「読めた」にする", "FD_ST", dict(M.FD_ST, **{"77便": ("ok", "ok")}), "記録装置の表", "fdr"),
+            ("委員会の数を2,977人と書く", "TO_T", (("委員会の数", "（2004年7月）", "2,977人"),) + M.TO_T[1:], "犠牲者の数", "toll"),
+            ("差を3人と書く", "TO_DIFF", "3人の差", "差の札", "toll")):
         keep = getattr(M, attr)
         setattr(M, attr, val)
         try:
@@ -2862,7 +2924,12 @@ def _selftest_m21(ok):
             ("1つ目の声の前に2つ目の叫び", dict(view="cvr", steps=[dict(state=dict(v2="on"))], note=N), "① 筋"),
             ("傾いたまま「止まった」印", dict(view="roll", steps=[dict(state=dict(tilt="right", calm="on"))], note=N), "① 筋"),
             ("札の時刻が記録に無い（9:27）", dict(view="acars", steps=[dict(tag=dict(t="9:27", at="time"))], rel=[dict(t="9:27", src="x")],
-                                         note=N), "記録の時刻")):
+                                         note=N), "記録の時刻"),
+            # 🆕 ⑤b-6
+            ("離陸を止めずに空港が開く", dict(view="us", start=dict(air="on"), steps=[dict(state=dict(reopen="on"))], note=N), "① 筋"),
+            ("運輸省の箱の前に答え", dict(view="ig", steps=[dict(state=dict(r1="on"))], note=N), "① 筋"),
+            ("読めた装置を見せずに裁判の証拠", dict(view="fdr", steps=[dict(state=dict(court="on"))], note=N), "① 筋"),
+            ("委員会の数を見せずに差", dict(view="toll", start=dict(now="on"), steps=[dict(state=dict(diff="on"))], note=N), "① 筋")):
         bad, _ = judge("m21", kw)
         g_ = any(key in b for b in bad)
         ok &= g_
@@ -2877,7 +2944,10 @@ def _selftest_m21(ok):
                    # 🆕 ⑤b-5
                    ("段で機の型を変える", lambda: M.m21("cabin", [dict(state=dict(plane="757"))], note=N)),
                    ("段で首都の札の位置を変える", lambda: M.m21("ne", [dict(state=dict(dclab="se"))], note=N)),
-                   ("灯した許可の流れを戻す", lambda: M.m21("cmd", [dict(state=dict(lit="3")), dict(state=dict(lit="1"))], note=N))):
+                   ("灯した許可の流れを戻す", lambda: M.m21("cmd", [dict(state=dict(lit="3")), dict(state=dict(lit="1"))], note=N)),
+                   # 🆕 ⑤b-6
+                   ("記録装置の表を戻す", lambda: M.m21("fdr", [dict(state=dict(st="all")), dict(state=dict(st="ok"))], note=N)),
+                   ("検視局の箱を戻す", lambda: M.m21("toll", [dict(state=dict(me="full")), dict(state=dict(me="on"))], note=N))):
         try:
             fn()
             g_ = False

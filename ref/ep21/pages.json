@@ -189,5 +189,66 @@
    "c806": 0.5
   },
   "from": "ntsb_flight_path_study_UA93.pdf PDF 4頁（200dpi・灰色・270度回して正立）"
+ },
+ "pgr4": {
+  "rec": "RG237 p1",
+  "what": "4機の航跡の再生（FAA・5-AWA-716-All-4-AC の 37.5秒）",
+  "src": "out/ep7_shotscan/5-AWA-716-All-4-AC__s01.png",
+  "at": 37.5,
+  "rot": 0,
+  "w": 654,
+  "h": 382,
+  "md5": "0be26fc6622feedfca6b0b8352d3fa32",
+  "src_md5": "d85dc3edaf9d1573a65ace13e7dab81b",
+  "cuts": {
+   "ca02": [
+    0.0,
+    0.0,
+    1.0,
+    1.0
+   ]
+  },
+  "bias": {
+   "ca02": 0.5
+  },
+  "from": "`out/ep7_shotscan/5-AWA-716-All-4-AC__s01.png`（37.5秒のコマ・上下の黒い帯 y 0〜48・430〜を切った）"
+ },
+ "pg34": {
+  "rec": "委員会報告 p34",
+  "what": "委員会報告 p34（2003年5月の証言の誤りを書いた段）",
+  "src": "src/GPO-911REPORT.pdf",
+  "at": 52,
+  "rot": 0,
+  "w": 1100,
+  "h": 1700,
+  "md5": "6bf9be179685955424d199c669ca70ef",
+  "src_md5": "ae44f1ee61cc49d2ef8c4df3cd065e8c",
+  "cuts": {
+   "ca18": [
+    0.0749,
+    0.1212,
+    0.9207,
+    0.4182
+   ]
+  },
+  "bias": {
+   "ca18": 0.5
+  },
+  "hl": {
+   "ca18": [
+    [
+     0,
+     0.727,
+     0.909,
+     [
+      0.2206,
+      0.2702,
+      0.5136,
+      0.287
+     ]
+    ]
+   ]
+  },
+  "from": "GPO-911REPORT.pdf PDF 52頁（200dpi・灰色・0度回して正立）"
  }
 }
