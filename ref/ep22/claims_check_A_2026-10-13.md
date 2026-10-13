@@ -1,5 +1,7 @@
 # 旧版タイタン号の主張照合 係A（プロローグ〜第3章）2026-10-13
 
+> 🆕 ②③（2026-10-14）：§2 の重い物は3冊の文字の層で自分で引き直した＝同じ結論（`sources.md` §10-2・`kousei.md` §7）。写真の札は `materials.md` §8-2（c301・c307・c323 も取り違え）
+
 - 対象：`ref/ep22/src/old/old_script_224e259.md` のプロローグ・第1章・第2章・第3章（105カット）＋ `tools_cuts_pr.py`／`c1`／`c2`／`c3` の図の値
 - 一次資料：USCG MBI 報告（`uscg_mbi_pages.txt`・2025-08-04）／NTSB MIR-25-36（`ntsb_mir2536_pages.txt`・2025-10-02）
 - 出典の書き方：USCG は「PDF p.N〈印字 p.X〉」（印字＝PDF−8）。NTSB は PDF の頁だけ（印字の自動の読みが粗いため）
