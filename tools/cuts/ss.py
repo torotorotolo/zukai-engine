@@ -867,7 +867,13 @@ def ax(name, **kw):
 def src(recs):
     """出典の行（「出典：」を除く）。recs＝「海審 p1016・p1017」のような台本の頁の書き方（文字列か list）。"""
     import illu
-    return illu.rec_line(recs if isinstance(recs, (list, tuple)) else [recs]).replace("出典：", "", 1)
+    recs = recs if isinstance(recs, (list, tuple)) else [recs]
+    # 🆕 ⑤c'（2026-10-13・21本目）：頁の無い書き方（"AP"・"国立公園局"・"運輸長官の証言"）は parse_rec が拾わず、出典の行から黙って落ちた
+    #   （c709・c814・c815・c832 が空・c710 は証言が欠けた）＝頁の無い資料も「名 p1」（REC_DOCS の range）で書く。拾えない rec は止める
+    bad = [r for r in recs if not illu.parse_rec(r)]
+    if bad:
+        raise ValueError(f"ss.src：{bad} から資料と頁が読めない＝出典の行から落ちる（頁の無い資料は「名 p1」・運輸長官の証言は「p8001」＝REC_DOCS の range）")
+    return illu.rec_line(recs).replace("出典：", "", 1)
 
 
 # 🔴 2026-09-30（15本目 ⑤b-1）：14本目の注（HULL_NOTE）・地図の点（MAP_*・ROUTE）・地図の関数 `sewol_map()`・2つの問いを

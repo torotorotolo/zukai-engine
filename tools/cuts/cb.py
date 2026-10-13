@@ -30,7 +30,7 @@ PLAN = {
                plan='台本の画：図 模式 年表（2001年11月の法律の印）',
                src='委員会報告 p391（`In November 2001, Congress passed and the President signed the Aviation and Transportation Security Act. This act created the Transportation Security Administration (TSA)`）・法律（`November 19, 2001`）'),
     'cb06': dict(kind='フリー素材',
-               plan='TSA20｜副題：イメージ（2020年の空港の保安検査場）｜動き：右へ流す｜権利：F（CC BY 2.0）｜出典の行：Tony Webster（CC BY 2.0）｜注：20%に数えない。⑤b-7：手前の列の客（顔 30〜40px）は束の段階で切り落とした（中景は顔 約8〜11px）。試し焼き 38321787179 で検査の機械が字幕の帯の下に隠れた＝寄り 1.2・下寄せ・副題「保安検査場」に｜台本の画：イメージ 現在の空港の保安検査（後年・フリー素材＝副題「イメージ（現在の空港）」）',
+               plan='TSA20｜副題：イメージ（2020年の空港のターミナル）｜動き：右へ流す｜権利：F（CC BY 2.0）｜出典の行：Tony Webster（CC BY 2.0）｜注：20%に数えない。⑤b-7：手前の列の客（顔 30〜40px）は束の段階で切り落とした（中景は顔 約8〜11px）。試し焼き 38321787179 で検査の機械が字幕の帯の下に隠れた＝寄り 1.2・下寄せ・副題「保安検査場」に｜台本の画：イメージ 現在の空港の保安検査（後年・フリー素材＝副題「イメージ（現在の空港）」）',
                src='法律（`the screening shall take place before boarding and shall be carried out by a Federal Government employee`・`except as otherwise provided in section 44919 or 44920`）・委員会報告 p2（`under a contract with American Airlines`）・p3（`had contracted out the work`）'),
     'cb07': dict(kind='図解',
                plan='台本の画：図 模式 年表（2001年11月の法律から1年の帯）',
@@ -191,8 +191,10 @@ SPEC.update({
     #   qa_out/ep21_assets.py の CROP）・中景の人は顔 約8〜11px の遠景・青い制服は職員（公務）。
     #   試し焼き 38321787179：寄り 1.0 では検査の機械（束の y 780〜1000）が字幕の帯の下に隠れ、天井と窓だけが見えた＝寄り 1.2・下寄せ（bias 1.0）で
     #   検査場を帯の上へ（画面の顔は 10〜14px＝⑤c で原寸）・寄せ 0.3→0.8（約60px/秒）・副題「保安検査場」
+    #   🔧 ⑤c'（10-13・原寸）：寄り 1.2・下寄せでも検査の机は左下に小さく、終わりは出典の札の下＝画面の大半は窓と駐機場
+    #   ＝副題を写っているもの（ターミナル）に（記憶 feedback-subtitle-must-match-what-is-visible）
     "cb06": dict(photo=_TSA, **ss.mv(_TSA, "r", fy=1.0, z=1.2, span=(0.3, 0.8)), side="none", t="国の検査員",
-                 s="イメージ（2020年の空港の保安検査場）"),
+                 s="イメージ（2020年の空港のターミナル）"),
     # cb08（7.3秒）＝イメージ（2015年の旅客機の操縦室の扉・CC BY 2.0 de・縦長 1920×2560）。下へ流す（扉は中ほど＝寄せ 0.25→0.6）
     "cb08": dict(photo=_DOOR, **ss.mv(_DOOR, "d", span=(0.25, 0.6)), side="none", t="扉の強化", s="イメージ（2015年の旅客機の操縦室の扉）"),
     # cb15（8.4秒）＝9月14日の世界貿易センターの跡（FEMA・がれきと傾いた外壁・重機・人は小さい）・上へ流す

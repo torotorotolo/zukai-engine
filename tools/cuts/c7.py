@@ -48,10 +48,10 @@ PLAN = {
                plan='台本の画：図 模式 全米の地図（点が減っていく・数の札「約4,500機」）',
                src='委員会報告 p29（`The air traffic control system handled it with great skill, as about 4,500 commercial and general aviation aircraft soon landed without incident`）'),
     'c712': dict(kind='写真',
-               plan='WH712｜副題：当日、大統領専用機の機内｜動き：ゆっくり寄る｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Eric Draper（Courtesy George W. Bush Presidential Library）｜注：電話をする大統領（サラソタからの飛行中＝説明）・撮影の時刻は書かない｜台本の画：実写 大統領専用機の機内で電話をする大統領（ホワイトハウスの写真係・A・全画面・ゆっくり寄る・撮影の時刻は書かない＝副題「当日、大統領専用機の機内」）',
+               plan='WH712｜副題：当日、大統領専用機の機内（電話をする大統領）｜動き：ゆっくり寄る｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Eric Draper（Courtesy George W. Bush Presidential Library）｜注：電話をする大統領（サラソタからの飛行中＝説明）・撮影の時刻は書かない｜台本の画：実写 大統領専用機の機内で電話をする大統領（ホワイトハウスの写真係・A・全画面・ゆっくり寄る・撮影の時刻は書かない＝副題「当日、大統領専用機の機内」）',
                src='委員会報告 p39（`Air Force One departed at about 9:54 without any fixed destination`）'),
     'c713': dict(kind='写真',
-               plan='🔧 W606｜区間 195.5〜200.5秒｜倍率 1.13（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜副題：当日、ルイジアナ州の空軍基地に着いた専用機｜動き：映像｜権利：A（ホワイトハウス通信局 WHCA＝国防総省の機関の職務・大統領図書館「public domain」）｜出典の行：Courtesy George W. Bush Presidential Library（WHTV 606）｜注：🔧 写真（手前に記者）→ WHTV 606 の到着の区間（タラップを降りる人・196〜200秒を1秒おき）＝モザイク不要｜台本の画（🔧映像方針で替えた＝元の予定）：実写 バークスデール空軍基地の大統領（ホワイトハウスの写真係・A・手前の記者は顔だけモザイク・全画面＝副題「当日、ルイジアナ州の空軍基地」）',
+               plan='🔧 W606｜区間 556.0〜561.0秒｜倍率 1.13（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜副題：当日、ルイジアナ州の空軍基地の専用機｜動き：映像｜権利：A（ホワイトハウス通信局 WHCA＝国防総省の機関の職務・大統領図書館「public domain」）｜出典の行：Courtesy George W. Bush Presidential Library（WHTV 606）｜注：🔧 ⑤c\'（10-13 カズヤくん「区間を替える」）：到着の区間 195.5〜200.5 は手前の男性の顔 約140px → ショット41 の後ろから見た専用機（556〜563 は人なし・c107 とは別の眺め）・出発の前の地上＝副題に「着いた」と書かない｜台本の画（🔧映像方針で替えた＝元の予定）：実写 バークスデール空軍基地の大統領（ホワイトハウスの写真係・A・手前の記者は顔だけモザイク・全画面＝副題「当日、ルイジアナ州の空軍基地」）',
                src='委員会報告 p325（`Air Force One flew to Barksdale Air Force Base in Louisiana`）'),
     'c714': dict(kind='図解',
                plan='台本の画：図 模式 全米の地図（点が空港へ降りきる）',
@@ -110,19 +110,21 @@ SPEC.update({
                          steps=[dict(state=dict(order="one")), dict(tag=dict(t="時刻の記載なし", at="b1"))],
                          note=_U, src=ss.src(["委員会報告 p29"]))),
     ),
-    # c709（2行）＝同じ地図。もう1つの命令の札（運輸長官の証言＝時刻と言葉は字幕だけ）
+    # c709（2行）＝同じ地図。もう1つの命令の札（運輸長官の証言＝言葉は字幕だけ）
+    #   🔧 ⑤c'（10-13）：札の「時刻：――」が語り「9時45分ごろ」と食い違って読めた＝2つ目の札は「9:45ごろ」（mech21.US_ORDER_T2）・
+    #   札は時刻を読む2行目で出す。出典の行が空だった（"運輸長官の証言" に頁が無く parse_rec が拾わなかった）＝「p8001」
     "c709": dict(
         t="もう1つの命令", s="のちの公聴会での証言",
         fig=("m21", dict(view="us", start=dict(air="on", fly="on", land="arrow", order="one"),
-                         steps=[dict(state=dict(order="two")), dict()],
-                         note=_U, src=ss.src(["運輸長官の証言"]))),
+                         steps=[dict(), dict(state=dict(order="two"))],
+                         rel=[dict(t="9:45", src="運輸長官の証言 p8001")], note=_U, src=ss.src(["運輸長官の証言 p8001"]))),
     ),
     # c710（3行）＝同じ地図。2行目で「報告書」→ 3行目で「本人の証言」
     "c710": dict(
         t="誰の命令か", s="2つの命令の札",
         fig=("m21", dict(view="us", start=dict(air="on", fly="on", land="arrow", order="two"),
                          steps=[dict(), dict(tag=dict(t="報告書", at="b1")), dict(tag=dict(t="本人の証言", at="b2"))],
-                         note=_U, src=ss.src(["委員会報告 p29", "運輸長官の証言"]))),
+                         rel=[dict(t="9:45", src="運輸長官の証言 p8001")], note=_U, src=ss.src(["委員会報告 p29", "運輸長官の証言 p8001"]))),
     ),
     # c711（2行）＝同じ地図。空の機が空港へ降りきる → 2行目で約4,500機（p29）
     "c711": dict(
@@ -168,8 +170,9 @@ SPEC.update({
     "c706": dict(photo=_A10, **ss.mv(_A10, "out", 0.5, 0.5, lo=1.06), side="none", t="全機に着陸を",
                  s="当日の世界貿易センター（塔から横へ流れる煙）"),
     # c712（9.1秒）＝専用機の機内で電話をする大統領（写真係 Draper・撮影の時刻は書かない）。大統領へゆっくり寄る（横 0.6・縦 0.45）
-    "c712": dict(photo=_AF1, **ss.mv(_AF1, "in", 0.6, 0.45, z=1.2), side="none", t="行き先なし", s="当日、大統領専用機の機内"),
-    # c713（3.6秒）＝WHTV 606 の到着の区間（195.5〜200.5秒・タラップを降りる人）・16:9＝全画面・右端のレンズの縁の影は寄せで外す
-    #   （qa_out/ep21_assets.py の GEOM_CUT＝寄り 1.05・寄せ 0.05＝⑤c で原寸）
-    "c713": ss.vid("c713", side="none", t="バークスデール", s="当日、ルイジアナ州の空軍基地に着いた専用機"),
+    "c712": dict(photo=_AF1, **ss.mv(_AF1, "in", 0.6, 0.45, z=1.2), side="none", t="行き先なし", s="当日、大統領専用機の機内（電話をする大統領）"),   # ⑤c'：c914 と書き分け
+    # c713（3.6秒）＝WHTV 606 のショット41 の後ろから見た専用機（556〜561秒・人なし）・16:9＝全画面・寄り 1.02（qa_out/ep21_assets.py の GEOM_CUT）
+    #   🔧 ⑤c'（10-13 カズヤくん「区間を替える」）：到着の区間 195.5〜200.5 は手前の背広・眼鏡の男性の顔 約140px が全部に写った。
+    #   新しい区間は出発の前の地上＝副題に「着いた」と書かない。c107（499〜506＝横から・空軍兵3人）とは別の眺め
+    "c713": ss.vid("c713", side="none", t="バークスデール", s="当日、ルイジアナ州の空軍基地の専用機"),
 })

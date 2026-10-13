@@ -27,10 +27,10 @@ PLAN = {
                plan='WH904｜副題：危機管理室の副大統領と国家安全保障担当の補佐官｜動き：ゆっくり寄る｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Courtesy George W. Bush Presidential Library（NARA）｜注：副大統領と国家安全保障担当の補佐官（公職だけ）。日付は副題に書かない。⑤b-7：門番 echo＝副題「ホワイトハウスの地下の危機管理室」が語りの1文の写し＝写っている人に｜台本の画：実写 PEOC の写真（ホワイトハウスの地下の危機管理室の副大統領と政府の人たち・NARA・A・撮影の日時は NARA の目録で確かめるまで言わない・全画面・ゆっくり寄る＝副題「ホワイトハウスの地下の危機管理室」（日付は NARA の目録で確かめてから足す））',
                src='委員会報告 p40（`the Vice President arrived in the room shortly before 10:00, perhaps at 9:58`）'),
     'c905': dict(kind='写真',
-               plan='WH905｜副題：ホワイトハウスの地下の危機管理室｜動き：右へ流す｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Courtesy George W. Bush Presidential Library（NARA）｜注：副大統領の妻が写る＝✅ 了承②（2026-10-12）そのまま・名前は出さない｜台本の画：実写 PEOC の写真（別の点・同じ断り＝副題「ホワイトハウスの地下の危機管理室」（日付は NARA の目録で確かめてから足す））',
+               plan='WH905｜副題：危機管理室の副大統領と妻（並んで座る）｜動き：右へ流す｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Courtesy George W. Bush Presidential Library（NARA）｜注：副大統領の妻が写る＝✅ 了承②（2026-10-12）そのまま・名前は出さない｜台本の画：実写 PEOC の写真（別の点・同じ断り＝副題「ホワイトハウスの地下の危機管理室」（日付は NARA の目録で確かめてから足す））',
                src='委員会報告 p41（`At some time between 10:10 and 10:15, a military aide told the Vice President and others that the aircraft was 80 miles out`・`The Vice President authorized fighter aircraft to engage the inbound plane`）'),
     'c906': dict(kind='写真',
-               plan='WH906｜副題：ホワイトハウスの地下の危機管理室｜動き：ゆっくり引く｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Courtesy George W. Bush Presidential Library（NARA）｜注：副大統領の妻が大きく写る＝✅ 了承②（2026-10-12）そのまま・名前は出さない｜台本の画：実写 PEOC の写真（別の点・同じ断り＝副題「ホワイトハウスの地下の危機管理室」（日付は NARA の目録で確かめてから足す））',
+               plan='WH906｜副題：危機管理室の副大統領と妻（顔を近づけて話す）｜動き：ゆっくり引く｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Courtesy George W. Bush Presidential Library（NARA）｜注：副大統領の妻が大きく写る＝✅ 了承②（2026-10-12）そのまま・名前は出さない｜台本の画：実写 PEOC の写真（別の点・同じ断り＝副題「ホワイトハウスの地下の危機管理室」（日付は NARA の目録で確かめてから足す））',
                src='委員会報告 p41（`quick and decisive`）'),
     'c907': dict(kind='図解',
                plan='台本の画：図 模式 ワシントンへ伸びる予測の点線（実際の93便はペンシルベニアで止まっている）',
@@ -54,7 +54,7 @@ PLAN = {
                plan='WH913｜副題：当日の夜、国家安全保障会議に出る大統領｜動き：ゆっくり寄る｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Eric Draper（Courtesy George W. Bush Presidential Library）｜注：副大統領がいるかは絵で決められない＝副題に書かない｜台本の画：実写 当日の夜の大統領と副大統領（ホワイトハウスの写真係・A・全画面・ゆっくり引く＝副題「当日の夜のホワイトハウス」）',
                src="委員会報告 p44（`The Vice President was mistaken in his belief that shootdown authorization had been passed to the pilots flying at NORAD's direction`）"),
     'c914': dict(kind='写真',
-               plan='WH914｜副題：当日、大統領専用機の機内｜動き：左へ流す｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Eric Draper（Courtesy George W. Bush Presidential Library）｜注：窓の外の護衛の F-16 を見る大統領と側近＝電話は写らない｜台本の画：実写 大統領専用機の機内の大統領（電話の写っていない点）（別の点・ホワイトハウスの写真係・A・撮影の時刻は書かない＝副題「当日、大統領専用機の機内」）',
+               plan='WH914｜副題：当日、大統領専用機の機内（窓の外を見る大統領と側近）｜動き：左へ流す｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Eric Draper（Courtesy George W. Bush Presidential Library）｜注：窓の外の護衛の F-16 を見る大統領と側近＝電話は写らない｜台本の画：実写 大統領専用機の機内の大統領（電話の写っていない点）（別の点・ホワイトハウスの写真係・A・撮影の時刻は書かない＝副題「当日、大統領専用機の機内」）',
                src='委員会報告 p40（`The Vice President stated that he called the President to discuss the rules of engagement`・`The President said he remembered such a conversation`）・p41（`He told us he based this authorization on his earlier conversation with the President`）'),
     'c915': dict(kind='図解',
                plan='台本の画：図 模式 同じ（電話の線に「記録なし」の札）',
@@ -117,7 +117,7 @@ SPEC.update({
         t="実際と予測", s="シークレットサービスの見方",   # ⚠️ 門番 dup：「予測の線」は注（93便の線と予測の線は模式）の語
         fig=("m21", dict(view="ne", start=dict(dclab="se"),    # 🔧 試し焼き（原寸）：左の「ワシントン」の札がシャンクスビルの輪の名に読めた
                          steps=[dict(state=dict(r93="on", shk="on"), tag=dict(t="実際の93便", at="r93")),
-                                dict(state=dict(proj="on"), tag=dict(t="首都への予測", at="proj"))],
+                                dict(state=dict(proj="on"), tag=dict(t="首都への予測", at="proj", col=J.TICK))],   # ⑤c'：札が橙のまま・予測の線は J.TICK＝線と同じ色に
                          rel=[dict(t="93便", src="委員会報告 p30")],
                          note="陸の形は Natural Earth・93便の線と予測の線は模式（NTSB 93便の図1の見当）",
                          src=ss.src(["委員会報告 p41", "委員会報告 p30"]))),
@@ -217,16 +217,16 @@ SPEC.update({
     "c904": dict(photo=_PE1, **ss.mv(_PE1, "in", 0.62, 0.45), side="none", t="許可はどこで",
                  s="危機管理室の副大統領と国家安全保障担当の補佐官"),
     # c905（10.2秒）＝危機管理室の副大統領（別の点）・右へ流す
-    "c905": dict(photo=_PE2, **ss.mv(_PE2, "r"), side="none", t="交戦の許可", s="ホワイトハウスの地下の危機管理室"),
+    "c905": dict(photo=_PE2, **ss.mv(_PE2, "r"), side="none", t="交戦の許可", s="危機管理室の副大統領と妻（並んで座る）"),   # ⑤c'：c906 と同じ副題だった＝c904 の呼び方にそろえて書き分け
     # c906（4.6秒）＝危機管理室の副大統領（別の点）・ゆっくり引く
-    "c906": dict(photo=_PE3, **ss.mv(_PE3, "out"), side="none", t="素早い判断", s="ホワイトハウスの地下の危機管理室"),
+    "c906": dict(photo=_PE3, **ss.mv(_PE3, "out"), side="none", t="素早い判断", s="危機管理室の副大統領と妻（顔を近づけて話す）"),   # ⑤c'：c905 と書き分け（「寄せ」は作り手の言葉＝門番 credits）
     # c908（9.0秒）＝上空を警戒する F-16C（2001年10月・ニュージャージー州兵＝首都の部隊ではない＝「首都の上空」は書かない）・右へ流す
     "c908": dict(photo=_F16, **ss.mv(_F16, "r"), side="none", t="首都の上の指示",
                  s="上空を警戒するF-16（2001年10月・ニュージャージー州兵）"),
     # c913（10.9秒）＝夜の国家安全保障会議の机（写真係）。机の奥へゆっくり寄る（横 0.5・縦 0.35）
     "c913": dict(photo=_NSC, **ss.mv(_NSC, "in", 0.5, 0.35), side="none", t="思い違い", s="当日の夜、国家安全保障会議に出る大統領"),
     # c914（9.5秒）＝専用機の窓の外の護衛の F-16 を見る大統領と側近（電話は写らない）・左へ流す
-    "c914": dict(photo=_WIN, **ss.mv(_WIN, "l"), side="none", t="大統領との電話", s="当日、大統領専用機の機内"),
+    "c914": dict(photo=_WIN, **ss.mv(_WIN, "l"), side="none", t="大統領との電話", s="当日、大統領専用機の機内（窓の外を見る大統領と側近）"),   # ⑤c'：c712 と書き分け
     # c920（6.6秒）＝オファット基地の画面越しの会議（写真係・午後）。大統領の席へゆっくり寄る（横 0.43・縦 0.38）
     "c920": dict(photo=_OFF, **ss.mv(_OFF, "in", 0.43, 0.38, z=1.2), side="none", t="午後の会議",
                  s="当日の午後、ネブラスカ州の空軍基地（画面越しの会議）"),

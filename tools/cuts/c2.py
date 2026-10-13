@@ -132,7 +132,7 @@ SPEC.update({
     # c217（3行）＝芯の帯に 8:00（19人が保安の関門を通り抜けていた＝p4）。4機の離陸は沈めて続ける（11便のほかは点だけ＝札が重なる）
     "c217": dict(
         t="朝8時の時点", s="保安の関門と4機の離陸",
-        fig=("axis", dict(ss.AX_MORN, past=[ss.ax("dep11")] + [ss.ax(k, t="", lab=False) for k in ("dep175", "dep77", "dep93")],
+        fig=("axis", dict(ss.AX_MORN, past=[ss.ax("dep11", off=3)] + [ss.ax(k, t="", lab=False) for k in ("dep175", "dep77", "dep93")],   # ⑤c'：geom_gap＝札の右端と 8:00 の縦の線が 3px＝off=3（18本目 c312 の型）
                           start=dict(cur="7:59"),
                           steps=[dict(add=ss.ax("gate8"), cur="8:00"), dict(), dict()],
                           note="時刻は委員会報告の記録", src=ss.src(["委員会報告 p4", "委員会報告 p7", "委員会報告 p8", "委員会報告 p10"]))),
@@ -171,5 +171,6 @@ SPEC.update({
     "c210": dict(photo=_SEC, **ss.mv(_SEC, "u", span=(0.1, 0.55)), side="none", t="保安検査", s="イメージ（1970年の空港）"),
     # c216（6.8秒）＝ローガン空港のターミナル（Korab のスライド＝四辺の縁 1.4〜2.0%・EASTERN の字の建物＝試し焼き 38321787179 で副題を
     #   「駐機場」から写っているものに）・左へ流す
-    "c216": dict(photo=_APR, **ss.mv(_APR, "l"), side="none", t="通り抜けた", s="ローガン空港のターミナル（1969年）"),
+    #   🔧 ⑤c'（10-13・原寸）：終わりで街灯の白い球が右上の章の札の下端に接した＝縦の寄せ 0.42（絵が約50px 下がる・縦の遊び 631px）
+    "c216": dict(photo=_APR, **ss.mv(_APR, "l", fy=0.42), side="none", t="通り抜けた", s="ローガン空港のターミナル（1969年）"),
 })

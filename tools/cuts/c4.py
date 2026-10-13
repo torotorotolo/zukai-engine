@@ -86,7 +86,7 @@ PLAN = {
                plan='台本の画：図 模式 時間の帯（8:37:52 から 8:46:40 まで＝9分の帯・8:53 に離陸の印）',
                src="委員会報告 p20（`Radar data show the Otis fighters were airborne at 8:53`）・p21（`That nine minutes' notice before impact was the most the military would receive of any of the four hijackings`）"),
     'c424': dict(kind='図解',
-               plan='台本の画：図 模式 同じ帯（NEADS のレーダーの画面を小さく重ねる）',
+               plan='🔧 ⑤b-3 模式 NEADS のレーダーの画面（探し続ける3段→ぶつかったという知らせの札）＝SPEC の view="scope"（⑤c\' に記録だけ直した）｜台本の画：図 模式 同じ帯（NEADS のレーダーの画面を小さく重ねる）',
                src='委員会報告 p20（`while NEADS personnel were still trying to locate the flight, word reached them that a plane had hit the World Trade Center`）'),
     'c425': dict(kind='図解',
                plan='台本の画：図 模式 手順の段（ボストン・センターから上へ伸びる段と、軍への近道）',
@@ -106,7 +106,7 @@ SPEC = {}
 SPEC.update({
     # c401（12.9秒）＝NTSB 11便の飛行経路の調べ PDF 3頁（Figure 1・横倒しのスキャンを正立）。図の題から枠まで・額ごと寄る
     "c401": dict(photo=ss.page(2003), trim=ss.ptrim("c401"), bias=ss.pbias("c401"), panel=True, color=1.0, fmove=ss.fm("in"),
-                 t="11便の航跡", s="NTSB の飛行経路の調べ（2002年）の図1"),
+                 t="11便の航跡", s="NTSB の飛行経路の調べの図1（11便）"),   # ⑤c'：4便の図1が同じ名だった＝便を足す（年は出典の行）
     # c403（2行）＝11便の機内（前の部分・操縦室の扉）。1行目で始まりの時刻（委員会の見立て）・2行目で扉に「？」
     "c403": dict(
         t="始まりの時刻", s="11便の機内（前の座席と操縦室の扉）",
@@ -131,7 +131,7 @@ SPEC.update({
     # c406（2行）＝訓練の線（操縦室と連絡）→ 2行目で×と「地上へ伝え続けた」（訓練の外）
     "c406": dict(
         t="訓練の外", s="乗っ取りのときの訓練",
-        fig=("m21", dict(view="phone", start=dict(call="on", dur="on"),
+        fig=("m21", dict(view="phone", start=dict(call="on"),      # ⑤c'：c405 の「約25分」の括り線が札なしで残った＝持ち越さない
                          steps=[dict(state=dict(train="on"), tag=dict(t="訓練：操縦室と連絡", at="train")),
                                 dict(state=dict(train="x"), tag=dict(t="地上へ伝え続けた", at="out"))],
                          note="人は描かない・機と線は模式", src=ss.src(["委員会報告 p5"]))),
@@ -203,7 +203,7 @@ SPEC.update({
     "c416": dict(
         t="聞き返し", s="NEADS とボストン・センターのやりとり",
         fig=("m21", dict(view="call", start=dict(link="on"), steps=[dict(state=dict(talk="ask")), dict(state=dict(talk="back"))],
-                         note="人は描かない・建物の形は模式（言葉の引用は画面に出さない）", src=ss.src(["委員会報告 p20"]))),
+                         note="人は描かない・建物の形は模式", src=ss.src(["委員会報告 p20"]))),   # ⑤c'：注の括弧は字幕の引用と矛盾して読めた＝外した
     ),
     # c417（3行）＝その朝の演習の予定（旧ソ連の爆撃機の想定）→ 3行目で委員会の見立て（対応はむしろ早まった＝p458）
     "c417": dict(

@@ -586,7 +586,7 @@ GEOM = {
     "W593": dict(full=True, zoom=1.0),
     "TG99": dict(full=False, zoom=1.0, plain=True),
 }
-GEOM_CUT = {"c713": dict(full=True, zoom=1.05, xbias=0.05)}      # ⚠️ c713 の影は区間で幅が変わる＝⑤b-7 で原寸
+GEOM_CUT = {"c713": dict(full=True, zoom=1.02, xbias=0.5)}      # ⚠️ c713 の影は区間で幅が変わる＝⑤c'（10-13）に区間を 556〜561 へ替えた＝四辺 1〜2px・レンズの影なし（1秒おきに測った）＝真ん中・寄り 1.02
 FB_W = 1024                     # 額装の映像のひかえの幅（1280 未満＝`ss.kind` が額装を返す）
 # 映像方針 §2 の「使わない」窓（mm:ss）＝その秒を含むショットまるごとを NOGO に
 NOGO_AT = {"DV42": [("7:27", "ヘリと担架"), ("8:26", "担架で運ばれる人")],

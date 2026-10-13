@@ -214,6 +214,18 @@ def check(spec=None, broken=None, want=None, stock=None):
     if unmeasured:
         out.append(f"⚠️ 縦横比を測れなかった {len(unmeasured)}件: {unmeasured[:8]}"
                    + ("…" if len(unmeasured) > 8 else ""))
+
+    # 5. 🆕 2026-10-13（21本目 ⑤c'）：図の出典の行が空でないか。`ss.src(["AP"])` のように頁の無い名は `illu.parse_rec` が拾わず
+    #    **空の文字列**を返し、出典の行の無い図が焼けた（c709・c814・c815・c832＝⑤c の目視で拾えたのは c832 だけ）。
+    #    m21 の中では止めない（check_mech の見本は src なしで呼ぶ）＝本番の SPEC をここで全部見る。src の欄の無い図（見本）は見ない
+    empty = sorted(c for c, s in spec.items()
+                   if isinstance(s.get("fig"), tuple) and len(s["fig"]) > 1 and isinstance(s["fig"][1], dict)
+                   and "src" in s["fig"][1] and not str(s["fig"][1]["src"]).strip())
+    if empty:
+        out.append(f"🔴 図の出典の行が空 {len(empty)}件: {empty[:12]}＝頁の無い資料は「名 p1」で書く（ss.src）")
+        code = max(code, 2)
+    else:
+        out.append(f"✓ 図の出典の行は全部ある（{sum(1 for s in spec.values() if isinstance(s.get('fig'), tuple))}図）")
     return out, code
 
 
@@ -280,6 +292,11 @@ def selftest():
     short = {c_: v for c_, v in list(good.items())[:3]}
     _o, c = check(spec=short, broken={}, want=want)
     chk("陽性対照：台本より画が少なければ止まる", c == 2)
+
+    # 🆕 21本目 ⑤c'：図の出典の行が空なら止まる（src の欄はあるが空＝頁の無い名を ss.src に渡した型）
+    nosrc = dict(good, a4=dict(fig=("m21", dict(view="us", src=""))))
+    _o, c = check(spec=nosrc, broken={}, want=want)
+    chk("陽性対照：図の出典の行が空なら止まる", c == 2 and any("出典の行が空" in r_ for r_ in _o))
 
     # 🔴 写真映像の下限（2026-09-23〜：20%以上・上限なし・下回っても⚠️だけ）。
     #    旧の検算「写真25%は止まる」は、新方針では**通るのが正しい**（2026-09-24 に作り直した）。

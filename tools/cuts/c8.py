@@ -136,7 +136,7 @@ _AC = "人は描かない・便の並びは模式（便の数は委員会報告�
 SPEC.update({
     # c802（6.2秒）＝NTSB 93便の飛行経路の調べ PDF 3頁（Figure 1・横倒しのスキャンを正立）。ニューアーク（A）から西へ
     "c802": dict(photo=ss.page(5003), trim=ss.ptrim("c802"), bias=ss.pbias("c802"), panel=True, color=1.0, fmove=ss.fm("in"),
-                 t="西への航跡", s="NTSB の飛行経路の調べ（2002年）の図1"),
+                 t="西への航跡", s="NTSB の飛行経路の調べの図1（93便）"),   # ⑤c'：4便の図1が同じ名だった＝便を足す（年は出典の行）
     # c803（2行）＝運航管理から受け持つ16便へ文字の警告（9:19・p11）。2行目＝警告の文（字幕だけ）
     "c803": dict(
         t="文字の警告", s="9時19分に始めた連絡",
@@ -162,7 +162,7 @@ SPEC.update({
     ),
     # c806（10.3秒）＝NTSB 93便 PDF 4頁（Figure 2・高度）。🔁 上から→横から＝副題の頭「横から見ると」。点 C＝9:28 の小さな降下
     "c806": dict(photo=ss.page(5004), trim=ss.ptrim("c806"), bias=ss.pbias("c806"), panel=True, color=1.0, fmove=ss.fm("in"),
-                 t="小さな降下", s="横から見ると：NTSB の調べの図2"),
+                 t="小さな降下", s="横から見ると：NTSB の飛行経路の調べの図2（93便）"),   # ⑤c'：c618 と同じ名だった＝便を足す
     # c807（2行）＝クリーブランド・センターの無線。9:28 1つ目の無線 → 2つ目の無線（p11）。言葉は字幕だけ
     "c807": dict(
         t="2つの無線", s="クリーブランドに届いた声",
@@ -183,7 +183,7 @@ SPEC.update({
     ),
     # c809（9.0秒）＝NTSB 93便 PDF 3頁（Figure 1）の枠の中（向きを変えた E の辺りが左）。🔁 横から→上から＝副題の頭「上から見ると」
     "c809": dict(photo=ss.page(5003), trim=ss.ptrim("c809"), bias=ss.pbias("c809"), panel=True, color=1.0, fmove=ss.fm("l"),
-                 t="引き返す線", s="上から見ると：NTSB の調べの図1（左が向きを変えた所）"),
+                 t="引き返す線", s="上から見ると：NTSB の飛行経路の調べの図1（93便・左が向きを変えた所）"),   # ⑤c'：同じ図 pg5003 の c802 と呼び方をそろえた
     # c810（2行）＝時間の帯（93便の寄り）。9:28 乗っ取り → 9:34 FAA の本部へ（p28）→ 2行目＝問い
     "c810": dict(
         t="本部へ届く", s="FAA の中の知らせ",
@@ -221,14 +221,14 @@ SPEC.update({
         fig=("m21", dict(view="cabin", start=dict(plane="757"),
                          steps=[dict(state=dict(calls="on"), tag=dict(t="機内から地上へ", at="a")), dict(tag=dict(t="37本（FBI）", at="b")),
                                 dict(state=dict(fones="on"), tag=dict(t="35本：座席の背の電話", at="r"))],
-                         rel=[dict(t="37本", src="国立公園局"), dict(t="35本", src="国立公園局")], note=_CB, src=ss.src(["国立公園局"]))),
+                         rel=[dict(t="37本", src="国立公園局"), dict(t="35本", src="国立公園局")], note=_CB, src=ss.src(["国立公園局 p1"]))),   # ⑤c'：出典の行が空だった＝「p1」
     ),
     # c815（2行）＝問い → 2行目で携帯電話2本・後ろの9列の枠
     "c815": dict(
         t="つながった電話", s="座席の背の電話の場所",
         fig=("m21", dict(view="cabin", start=dict(plane="757", calls="on", fones="on"),
                          steps=[dict(), dict(state=dict(rear9="on"), tag=[dict(t="携帯電話：2本", at="a"), dict(t="後ろの9列", at="r")])],
-                         rel=[dict(t="2本", src="国立公園局"), dict(t="9列", src="国立公園局")], note=_CB, src=ss.src(["国立公園局"]))),
+                         rel=[dict(t="2本", src="国立公園局"), dict(t="9列", src="国立公園局")], note=_CB, src=ss.src(["国立公園局 p1"]))),   # ⑤c'：出典の行が空だった＝「p1」
     ),
     # c816（2行）＝機内の電話と地上の3つの箱。少なくとも5本で世界貿易センターのこと → 2行目で機内に伝わる（p13）
     "c816": dict(
@@ -333,7 +333,7 @@ SPEC.update({
         fig=("m21", dict(view="cvr", start=dict(v1="on", v2="on"),
                          steps=[dict(), dict(state=dict(ap="on"), tag=dict(t="事件の6日後", at="apd")),
                                 dict(state=dict(phone="on"), tag=dict(t="電話の向こうで聞かれた言葉", at="phd"))],
-                         rel=[dict(t="6日後", src="AP")], note=_CV, src=ss.src(["AP"]))),
+                         rel=[dict(t="6日後", src="AP")], note=_CV, src=ss.src(["AP p1"]))),   # ⑤c'：出典の行が空だった（⑤c の c832）＝「p1」
     ),
     # c833（1行）＝録音の帯の2つ目の叫びの印に輪（書き起こしにある言葉＝字幕だけ）
     "c833": dict(

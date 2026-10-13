@@ -87,7 +87,7 @@ SPEC.update({
     # c302（2行）＝年表（1958〜2006）。2行目で 1960年代の帯と、9.11 までの括弧（数十年の経験＝p85）
     "c302": dict(
         t="乗員の手引き", s="FAA が認めたやり方",
-        fig=("axis", dict(ss.AX_HIST, steps=[dict(), dict(add=[ss.ax("cs60"), ss.ax("cs_all")])],
+        fig=("axis", dict(ss.AX_HIST, steps=[dict(), dict(add=[ss.ax("cs60"), ss.ax("cs_all")])], cur_on=False,   # ⑤c'：既定のカーソルが軸の左端（1958）に赤く立ち、何を指すか分からなかった
                           note="年は委員会報告の記録（1960年代＝年代の帯）", src=ss.src(["委員会報告 p85", "委員会報告 p1"]))),
     ),
     # c303（2行）＝昔ながらのやり方の3つの箱（要求をのむ→無事に着陸→警察や軍）。2行目で3つ目と「長引くほど」
@@ -123,7 +123,7 @@ SPEC.update({
         t="委員長の言葉", s="操縦士の組合の保安委員長",
         fig=("m21", dict(view="door", start=dict(lock="on", vault="on"),
                          steps=[dict(), dict(state=dict(lock="open", door="open"))],
-                         note="扉の形は模式（言葉の引用は画面に出さない）", src=ss.src(["委員会報告 p85"]))),
+                         note="扉の形は模式", src=ss.src(["委員会報告 p85"]))),   # ⑤c'：注の「（言葉の引用は画面に出さない）」は字幕の引用と矛盾して読めた＝外した（⑤b-5 の決めは「札にしない」）
     ),
     # c308（2行）＝要求に従う決まりなら、扉が丈夫でも違いはほとんど無い（委員会＝p85）
     "c308": dict(
@@ -136,7 +136,7 @@ SPEC.update({
     "c309": dict(
         t="テロの空白", s="アメリカの旅客機の事件",
         fig=("axis", dict(ss.AX_HIST, past=[ss.ax("cs60"), ss.ax("cs_all", t="")],      # ⚠️ geom_gap：括弧の札が1986年の札に触れた＝沈めた括弧は札なし
-                          steps=[dict(add=ss.ax("day911")), dict(add=[ss.ax("last86"), ss.ax("quiet86")])],
+                          steps=[dict(add=ss.ax("day911")), dict(add=[ss.ax("last86"), ss.ax("quiet86")])], cur_on=False,   # ⑤c'：c302 と同じ
                           note="年は委員会報告の記録", src=ss.src(["委員会報告 p85", "委員会報告 p1"]))),
     ),
     # c310（3行）＝上から見た客室（座席の並びは模式）。2行目で全米で33人・3行目で保安官の席の印が無い（国内線に配置なし）
@@ -207,7 +207,7 @@ SPEC.update({
     ),
     # c320（2行）＝芯の帯（7:59 の11便だけ・その先は空白のまま＝台本の画の欄）。⚠️ カーソルは記録の点の上だけ（門番 axis）＝7:59 のまま
     "c320": dict(
-        t="合わない手順", s="手順と、その朝の出来事",
+        t="合わない手順", s="最初の離陸と、その先の空白",   # ⑤c'：「手順と、…」の手順が絵に無かった＝写っている帯の名に
         fig=("axis", dict(ss.AX_MORN, past=[ss.ax("dep11")], start=dict(cur="7:59"), steps=[dict(), dict()],
                           note="時刻は委員会報告の記録", src=ss.src(["委員会報告 p4", "委員会報告 p18"]))),
     ),
@@ -217,6 +217,8 @@ SPEC.update({
 _F15A = P("f15_otis_nyc_2001_11")
 SPEC.update({
     # c301（6.9秒・章の頭）＝ニューヨーク上空を警戒するオーティス基地の F-15（2001年11月・米空軍）・右へ流す
-    "c301": dict(photo=_F15A, **ss.mv(_F15A, "r"), side="none", t="動き方の前提",
+    #   🔧 ⑤c'（10-13・原寸）：扉 c300card の地に混ぜたこの写真の尾翼の「MA」が、題「乗っ取りの「常識」」のすぐ右に並び題の続きに読めた
+    #   ＝扉の地は方眼だけ（card_mix=0＝15本目からの形・カットの絵は変わらない）
+    "c301": dict(photo=_F15A, **ss.mv(_F15A, "r"), side="none", t="動き方の前提", card_mix=0,
                  s="ニューヨーク上空を警戒するオーティス基地のF-15（2001年11月）"),
 })
