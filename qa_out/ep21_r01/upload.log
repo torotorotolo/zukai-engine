@@ -1,0 +1,11 @@
+メタ: meta_ep21.json
+接続先: ゆっくり事故調査ノート（@jikochosa／動画6本）
+動画: titan_audio-ep21-r01.mp4（331.4 MB）
+題　: 軍が1機目の乗っ取りを知らされたのは衝突9分前。残る3機は墜ちるまで知らされなかった。2,977人が亡くなった9.11アメリカ同時多発テロの真相【事故検証】【ゆっくり解説】
+非公開で上げる（予約はあとで `schedule`）
+  2%  5%  7%  10%  12%  15%  17%  20%  22%  25%  27%  30%  32%  35%  37%  40%  43%  45%  48%  50%  53%  55%  58%  60%  63%  65%  68%  70%  73%  75%  78%  80%  83%  86%  88%  91%  93%  96%  98%
+上がった: https://youtu.be/rxIz2f3gqmA
+管理　　: https://studio.youtube.com/video/rxIz2f3gqmA/edit
+サムネを貼った: ep21_H.png
+
+次: python tools/upload_jiko.py status rxIz2f3gqmA

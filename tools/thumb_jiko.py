@@ -50,7 +50,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 sys.stdout.reconfigure(encoding="utf-8")
 
-from PIL import Image, ImageEnhance
+from PIL import Image, ImageEnhance, ImageFilter
 
 import render
 
@@ -1440,16 +1440,18 @@ def ep20():
     bake("ep20-ab/ep20_B_ai_v3", fx_type(b3, RED, YEL, "e_veil", yel_plain=True))
 
 
-# ── 21本目（9.11 のリメイク）：A／B テストの3枚（2026-10-12 カズヤくん）─────────────
-#   A（旧版の型）＋E2（型抜きの9分）＋案3・黄（白黒に赤1点・下1行を黄）・**地は3枚とも a09**・最初に上げるのは A。
-#   言葉は承認①（台本第2版 §1-2）のまま3枚とも1字も変えない。B1 は21本目は作らない。
-#   見本＝Vault `Resources/事故検証-サムネ海外競合5ch-20261012/samples.py` の `swap9()`（10-12・scratchpad で焼いた）＝
-#   `out/thumb/ep21-new/サムネテスト/ep21_A9.png`（703b67ad…）・`ep21-new/ep21_E2_9.png`（2a789ed7…）・`ep21_N3y_9.png`（aaa672f9…）。
-#   ⑥（10-13）で値を1つも変えずにここへ移した＝焼いたら見本と画素で比べる。正本＝Vault `事故検証-サムネ新型-海外競合5chの実測-20261012` §6・§7
+# ── 21本目（9.11 のリメイク）：公開のサムネと A／B テストの3枚（2026-10-13 カズヤくんの最終）──────────
+#   🔴 **H（「9.11」の型抜き・1枚目＝公開のサムネ）＋A（旧版の型・2枚目）＋E2（型抜きの9分・3枚目）・地は3枚とも a01**
+#     （カズヤくん 10-13「H型を1枚目、Aを2枚目、Bを3枚目として投稿」＝Vault `引き継ぎ-事故検証-サムネ刷新の調べ-20261012` §0・
+#      ⑥の試写のあと「サムネイルは添付画像（H）を設定。他のテスト用の2枚は私が後で設定」）。テストへの登録はカズヤくん（Studio）。
+#   ⚠️ 10-12 の決め（A・E2・案3・黄＝地 a09・`swap9()`）は使わない＝`out/thumb/ep21-ab/_a09_10-12の決め_使わない/`（A 703b67ad…・
+#     E2 2a789ed7…・案3・黄 aaa672f9…）。
+#   言葉は承認①（台本第2版 §1-2）のまま1字も変えない。見本＝Vault `Resources/事故検証-サムネ海外競合5ch-20261012/samples.py` の
+#   `a()`・`e2_knock()`・`h_knock911()`＝`out/thumb/ep21-new/サムネテスト/`（ep21_H_knock911 176cd349…・ep21_A d9f4ee94…・
+#   ep21_E2_knock 9d4c94ce…）。⑥（10-13）で値を1つも変えずにここへ移した＝焼いたら見本と md5 で比べる。
 EP21_RED = "2,977人犠牲 猶予は9分"       # 承認①（10-12）の赤＝ref/ep21/daihon_v2.md §1-2
 EP21_YEL = "9.11同時多発テロの真相"      # 同じく黄
-EP21_SRC = "ep21/photo/lc_a05_a09.jpg"   # 米議会図書館蔵 LC-A05-A09（撮影者不詳・撮影者が権利を放棄）＝両棟が燃える所に寄った画
-EP21_TRIM = (0.025, 0.02, 0.975, 0.965)  # スライドの黒い縁（角の丸み）を先に切る
+EP21_A01 = "ep7/wtc_smoke_day.jpg"       # 米議会図書館蔵 LC-A05-A01（撮影者不詳・撮影者が権利を放棄）＝旧版7本目の地・両棟が燃える
 EP21_HOT = "#d8101c"                     # 新しい型の赤（A の臙脂 #c30a08 より明るい）
 EP21_GRAD = ('<linearGradient id="bt" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#000" stop-opacity="0.78"/>'
              '<stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>'
@@ -1457,9 +1459,9 @@ EP21_GRAD = ('<linearGradient id="bt" x1="0" y1="1" x2="0" y2="0"><stop offset="
              '<stop offset="0.62" stop-color="#000" stop-opacity="0"/></linearGradient>')
 
 
-def ep21_photo(zoom, cx, cy, contrast=1.15, color=1.08, bright=0.98):
-    """a09 を縁を切ってから寄る（切った後 3648×2490 で両棟 x≈1771〜2145・アンテナの先 y≈870）。"""
-    return photo(EP21_SRC, cy=cy, cx=cx, zoom=zoom, contrast=contrast, color=color, bright=bright, trim=EP21_TRIM)
+def ep21_tower(contrast=1.30, color=1.20, bright=0.95):
+    """a01 の両棟に約2.4倍で寄る（塔 ≈ x753〜1088・y155〜490）＝見本の `crop24()`。H と E2 の地。"""
+    return photo(EP21_A01, cy=0.6, cx=1.0, zoom=2.4, contrast=contrast, color=color, bright=bright)
 
 
 def _ep21_jpeg(im):
@@ -1470,11 +1472,6 @@ def _ep21_jpeg(im):
 
 def _ep21_open(uri):
     return Image.open(io.BytesIO(base64.b64decode(uri.split(",", 1)[1])))
-
-
-def ep21_gray(uri, contrast=1.22):
-    """白黒（案3・黄の地）。"""
-    return _ep21_jpeg(ImageEnhance.Contrast(_ep21_open(uri).convert("L")).enhance(contrast).convert("RGB"))
 
 
 def ep21_dim_gray(uri, bright=0.62, contrast=1.10):
@@ -1494,14 +1491,29 @@ def ep21_name_line(fill, big=140, small=100, y=692):
             f'<tspan font-size="{small}">{EP21_YEL[4:]}</tspan></text>')
 
 
-def ep21_e2(vivid, dim):
+def ep21_v1_ground():
+    """見やすさの版 v1 の地（10-13 公開のあと・カズヤくん「「9.11」という文字が少し読みにくい。コントラストを強めるなど、効果的な方法を
+    あなたが選択して視認性を向上」）。見立て＝字の中（カラーの写真・青と灰）と字の外（暗い白黒）の明るさが近く、赤い縁は細くて
+    灰の地との明暗の差が小さい＝字の形が地に溶ける。4案（いま／v1 地を暗く・字を明るく・赤を太く／v2 ＋白い輪／v3 ＋影）を
+    横640px と 210px で並べ、Claude は v2 を推した → カズヤくん「v2 はポップな印象を持つので v1 で」＝**v1**（H も E2 も）。
+      ① 地（字の外）＝白黒の明るさ 0.62→0.40・ガウスぼかし 2px（字の外の模様を静かに）
+      ② 字の中＝コントラスト 1.30→1.35・彩度 1.20→1.30・明るさ 0.95→1.10
+      ③ 赤い縁＝太く（H 18→30・E2 16→27＝同じ 5/3 倍）は呼ぶ側で
+    返り値＝(字の中の写真, 字の外の写真)"""
+    vivid = ep21_tower(contrast=1.35, color=1.30, bright=1.10)
+    im = ImageEnhance.Contrast(_ep21_open(ep21_tower(contrast=1.15, color=1.0, bright=1.0)).convert("L")).enhance(1.10)
+    dim = _ep21_jpeg(ImageEnhance.Brightness(im).enhance(0.40).filter(ImageFilter.GaussianBlur(2.0)).convert("RGB"))
+    return vivid, dim
+
+
+def ep21_e2(vivid, dim, red_sw=16):
     """E2「型抜きの9分」：全面に暗い白黒・巨大な「9分」（470px 級・右寄せ x470）の中だけカラー・左に白の字・下に黄。"""
     t = '<text x="470" y="527" font-family="NSB" font-size="470"'
     return (f'<defs>{EP21_GRAD}<mask id="km" maskUnits="userSpaceOnUse" x="0" y="0" width="{W}" height="{H}">'
             f'<rect x="0" y="0" width="{W}" height="{H}" fill="#000"/>{t} fill="#fff">9分</text></mask></defs>'
             f'{ep21_img(dim)}'
             f'<rect x="0" y="470" width="{W}" height="250" fill="url(#bt)"/>'
-            f'{t} fill="{EP21_HOT}" stroke="{EP21_HOT}" stroke-width="16" stroke-linejoin="round">9分</text>'
+            f'{t} fill="{EP21_HOT}" stroke="{EP21_HOT}" stroke-width="{red_sw}" stroke-linejoin="round">9分</text>'
             f'<image href="{vivid}" x="0" y="0" width="{W}" height="{H}" preserveAspectRatio="xMidYMid slice" mask="url(#km)"/>'
             '<text x="40" y="112" font-family="NSB" font-size="100" fill="#fff" stroke="#000" stroke-width="14" '
             'stroke-linejoin="round" paint-order="stroke fill">2,977人</text>'
@@ -1512,30 +1524,42 @@ def ep21_e2(vivid, dim):
             f'{ep21_name_line("#fbfb0e")}')
 
 
-def ep21_n3y(base):
-    """案3・黄「白黒に赤1点」：写真は白黒・赤は決めの数「9分」だけ・下の1行だけ A の黄。"""
-    return (f'<defs>{EP21_GRAD}</defs>{ep21_img(base)}'
-            f'<rect x="0" y="0" width="{W}" height="{H}" fill="url(#lg)"/>'
+def ep21_h(fs=520, x=96, base=548, vivid=None, dim=None, red_sw=18):
+    """H「9.11 の型抜き」：巨大な「9.11」の字の中だけカラーの写真・外は暗い白黒の写真・赤いフチ。
+    上に「2,977人犠牲 猶予は9分」（9分は赤）・下に黄の「同時多発テロの真相」＝黄の言葉を「9.11」と残りに割っただけ。
+    🔴 2026-10-13（⑥の試写のあと）カズヤくんが**公開のサムネに選んだ**（添付の画像＝見本 `ep21-new/サムネテスト/ep21_H_knock911.png`
+       md5 176cd349… と画素の差 平均1.5＝webp の圧縮ぶん）。地は旧版の地 a01（両棟に約2.4倍＝`ep21_tower()`）。
+       10-12 の Claude の所見（両棟は「11」のすき間に落ちる）を知ったうえでの決め"""
+    vivid = vivid or ep21_tower()
+    dim = dim or ep21_dim_gray(ep21_tower(contrast=1.15, color=1.0, bright=1.0))
+    t = f'<text x="{x}" y="{base}" font-family="NSB" font-size="{fs}"'
+    return (f'<defs>{EP21_GRAD}<mask id="km" maskUnits="userSpaceOnUse" x="0" y="0" width="{W}" height="{H}">'
+            f'<rect x="0" y="0" width="{W}" height="{H}" fill="#000"/>{t} fill="#fff">{EP21_YEL[:4]}</text></mask></defs>'
+            f'{ep21_img(dim)}'
             f'<rect x="0" y="470" width="{W}" height="250" fill="url(#bt)"/>'
-            f'<text x="44" y="112" font-family="NSB" font-size="100" fill="#fff" stroke="#000" stroke-width="14" '
-            f'stroke-linejoin="round" paint-order="stroke fill">2,977人犠牲</text>'
-            f'<text x="38" y="300" font-family="NSB" font-size="150" fill="#fff" stroke="#000" stroke-width="16" '
-            f'stroke-linejoin="round" paint-order="stroke fill">猶予は<tspan fill="{EP21_HOT}">9分</tspan></text>'
-            f'{ep21_name_line("#fbfb0e")}')
+            f'{t} fill="{EP21_HOT}" stroke="{EP21_HOT}" stroke-width="{red_sw}" stroke-linejoin="round">{EP21_YEL[:4]}</text>'
+            f'<image href="{vivid}" x="0" y="0" width="{W}" height="{H}" preserveAspectRatio="xMidYMid slice" mask="url(#km)"/>'
+            '<text x="40" y="104" font-family="NSB" font-size="96" fill="#fff" stroke="#000" stroke-width="14" '
+            f'stroke-linejoin="round" paint-order="stroke fill">2,977人犠牲 猶予は<tspan fill="{EP21_HOT}">9分</tspan></text>'
+            '<text x="40" y="692" font-family="NSB" font-size="112" fill="#fbfb0e" stroke="#000" stroke-width="16" '
+            f'stroke-linejoin="round" paint-order="stroke fill">{EP21_YEL[4:]}</text>')
 
 
 def ep21():
-    """21本目のサムネ3枚（A・E2・案3・黄）＝`out/thumb/ep21-ab/`。値は見本の `swap9()` と同じ（1つも変えていない）。"""
+    """21本目のサムネ3枚＝`out/thumb/ep21-ab/`（10-13 の最終・地は3枚とも a01）。値は見本と同じ（1つも変えていない）。
+    1枚目 H＝公開のサムネ（API で貼った）／2枚目 A・3枚目 E2＝カズヤくんが Studio の「テストと比較」に入れる"""
     if not 10 <= len(EP21_RED) <= 14:
         raise SystemExit(f"🔴 赤が {len(EP21_RED)}字（型は10〜14字・空白を含む）: {EP21_RED}")
-    # A：旧版の型（fx_type e_veil・黄は素）。1.6倍・左端から＝両棟 x≈994〜1204・アンテナ y≈170
-    bake("ep21-ab/ep21_A", fx_type(ep21_photo(1.6, 0.0, 0.469, contrast=1.18, color=1.0, bright=1.0),
-                                    EP21_RED, EP21_YEL, "e_veil", yel_plain=True))
-    # E2：1.5倍・左端から＝両棟 x≈932〜1129（「分」x≈752〜1222 の中）・アンテナ y≈150
-    bake("ep21-ab/ep21_E2", ep21_e2(vivid=ep21_photo(1.5, 0.0, 0.521, contrast=1.30, color=1.20, bright=0.95),
-                                    dim=ep21_dim_gray(ep21_photo(1.5, 0.0, 0.521, contrast=1.15, color=1.0, bright=1.0))))
-    # 案3・黄：1.6倍・左端から＝両棟 x≈994〜1204（字 x≈38〜730 の右）・アンテナ y≈130
-    bake("ep21-ab/ep21_N3y", ep21_n3y(ep21_gray(ep21_photo(1.6, 0.0, 0.528, contrast=1.10, color=1.05, bright=0.95))))
+    bake("ep21-ab/ep21_1_H", ep21_h())
+    # A：旧版7本目の型（fx_type e_veil・黄は素）・地 a01 は真ん中（見本 `a()`）
+    bake("ep21-ab/ep21_2_A", fx_type(photo(EP21_A01, cy=0.50, cx=0.50, contrast=1.18, color=1.10, bright=0.92),
+                                      EP21_RED, EP21_YEL, "e_veil", yel_plain=True))
+    # E2：両棟に約2.4倍（「分」の中に塔・見本 `e2_knock()` の既定）
+    bake("ep21-ab/ep21_3_E2", ep21_e2(vivid=ep21_tower(), dim=ep21_dim_gray(ep21_tower(contrast=1.15, color=1.0, bright=1.0))))
+    # 見やすさの版 v1（10-13 公開のあと・カズヤくん「v2 はポップな印象を持つので v1 で」）＝公開のサムネは 1_H_v1 に差し替えた
+    vivid, dim = ep21_v1_ground()
+    bake("ep21-ab/ep21_1_H_v1", ep21_h(vivid=vivid, dim=dim, red_sw=30))
+    bake("ep21-ab/ep21_3_E2_v1", ep21_e2(vivid=vivid, dim=dim, red_sw=27))
 
 
 if __name__ == "__main__":
