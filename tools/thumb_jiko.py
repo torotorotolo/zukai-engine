@@ -1562,9 +1562,94 @@ def ep21():
     bake("ep21-ab/ep21_3_E2_v1", ep21_e2(vivid=vivid, dim=dim, red_sw=27))
 
 
+# ── H 型（大きな語の型抜き）の一般形（2026-10-13・21本目の H から）─────────────────────
+#   大きな語（その事故を象徴する語＝黄の1行の頭）の字の中だけカラーの写真・外は暗い白黒の写真・赤い縁。上の1行は白に要の数だけ赤・
+#   下に黄の1行（残り）。元＝Vault `Resources/事故検証-サムネ海外競合5ch-20261012/samples.py` の `h_type()`（10-13・別のチャット）。
+#   🔴 **見やすさの標準＝v1**（10-13 カズヤくん：21本目の「9.11」が少し読みにくい → 4案を 640px・210px で比べて v1・
+#      白い輪の v2 は「ポップな印象」で使わない・「サムネHの型のルールを今回加えた修正に合わせて更新」）
+#      地（字の外）＝白黒・明るさ 0.40・ガウスぼかし 2px（字の外の模様を静かにして字の形を浮かせる）
+#      字の中＝その回の元の調整から コントラスト +0.05・彩度 +0.10・明るさ +0.15（21本目 1.30/1.20/0.95 → 1.35/1.30/1.10）
+#      赤い縁＝大きな語の字の大きさ × 30/520（≒5.8%＝21本目 520px で 30・E2 470px で 27）
+H_DIM_BRIGHT, H_DIM_BLUR = 0.40, 2.0
+H_VIVID_ADD = (0.05, 0.10, 0.15)      # (コントラスト, 彩度, 明るさ) に足す
+H_RIM = 30 / 520
+
+
+def h_adv(text, size, font="NotoSansJP-Black.woff2"):
+    """フォントの送り幅（advance）から、字の列の幅を px で出す（fontTools）。"""
+    from fontTools.ttLib import TTFont
+    f = h_adv.__dict__.setdefault(font, TTFont(str(FONTS / font)))
+    cmap, hmtx, upm = f.getBestCmap(), f["hmtx"], f["head"].unitsPerEm
+    return sum(hmtx[cmap[ord(c)]][0] for c in text) * size / upm
+
+
+def h_ground(src, vivid_adj, dim_src_contrast=1.0, dim_contrast=1.10, v1=True, dim_bright_v0=0.62, **crop):
+    """(字の中, 字の外) の data URI。vivid_adj＝その回の元の字の中の (コントラスト, 彩度, 明るさ)。
+    v1=True で標準（字の中に H_VIVID_ADD を足す・外は明るさ 0.40＋ぼかし）。v1=False は元の作り（照合用）。"""
+    c, s, b = vivid_adj
+    if v1:
+        c, s, b = c + H_VIVID_ADD[0], s + H_VIVID_ADD[1], b + H_VIVID_ADD[2]
+    vivid = photo(src, contrast=c, color=s, bright=b, **crop)
+    im = ImageEnhance.Contrast(_ep21_open(photo(src, contrast=dim_src_contrast, color=1.0, bright=1.0, **crop))
+                               .convert("L")).enhance(dim_contrast)
+    im = ImageEnhance.Brightness(im).enhance(H_DIM_BRIGHT if v1 else dim_bright_v0)
+    if v1:
+        im = im.filter(ImageFilter.GaussianBlur(H_DIM_BLUR))
+    return vivid, _ep21_jpeg(im.convert("RGB"))
+
+
+def h_type(vivid, dim, giant, gfs, gx, gbase, top_parts, bottom, small=None, top_fs=96, bot_fs=112, rim=None):
+    """H 型の本体。giant＝型抜きの大きな語・top_parts＝上の1行 [(文字, 色)]・bottom＝下の黄の1行・
+    small＝(文字, x, 基線y, 大きさ) 黄の小さな添え字。rim＝赤い縁（None なら標準＝字の大きさ × H_RIM）"""
+    rim = round(gfs * H_RIM) if rim is None else rim
+    t = f'<text x="{gx}" y="{gbase}" font-family="NSB" font-size="{gfs}"'
+    top = "".join(f'<tspan fill="{c}">{s}</tspan>' for s, c in top_parts)
+    sm = ""
+    if small:
+        s, sx, sy, sfs = small
+        sm = (f'<text x="{sx}" y="{sy}" font-family="NSB" font-size="{sfs}" fill="#fbfb0e" stroke="#000" '
+              f'stroke-width="14" stroke-linejoin="round" paint-order="stroke fill">{s}</text>')
+    return (f'<defs>{EP21_GRAD}<mask id="km" maskUnits="userSpaceOnUse" x="0" y="0" width="{W}" height="{H}">'
+            f'<rect x="0" y="0" width="{W}" height="{H}" fill="#000"/>{t} fill="#fff">{giant}</text></mask></defs>'
+            f'{ep21_img(dim)}'
+            f'<rect x="0" y="470" width="{W}" height="250" fill="url(#bt)"/>'
+            f'{t} fill="{EP21_HOT}" stroke="{EP21_HOT}" stroke-width="{rim}" stroke-linejoin="round">{giant}</text>'
+            f'<image href="{vivid}" x="0" y="0" width="{W}" height="{H}" preserveAspectRatio="xMidYMid slice" mask="url(#km)"/>'
+            f'<text x="40" y="104" font-family="NSB" font-size="{top_fs}" fill="#fff" stroke="#000" stroke-width="14" '
+            f'stroke-linejoin="round" paint-order="stroke fill">{top}</text>{sm}'
+            f'<text x="40" y="692" font-family="NSB" font-size="{bot_fs}" fill="#fbfb0e" stroke="#000" stroke-width="16" '
+            f'stroke-linejoin="round" paint-order="stroke fill">{bottom}</text>')
+
+
+def ep20_h(v1=True):
+    """20本目（日航123便）の H 型（10-13 別のチャットで作り、カズヤくんが Studio で貼った物を、10-13 に v1 の標準で直す）。
+    言葉はいま貼ってある物から1字も変えない（赤「生存者4人 全員が最後尾」・黄「日航」小＋「123便」最大＋「26年後の解説」）。
+    地は2通り＝生成 AI 案A（`ep20/ai/ep20_jal_a_orig.png`）／報告書の写真-124（`ja123/p124.jpg`）。
+    🔴 写真-124 は**撮った人が委員会の外＝第三者の写真＝サムネに使わない決まり**（記憶 feedback-gov-report-photo-may-be-third-party）。
+       10-13 21:55 の時点で YouTube に貼られていたのは写真-124 の版（`ep20_H_w2_p124.png`・画素の差 1.26）＝カズヤくんに確かめる
+    v1=False は元の作り（`ep20_H_w2.png` 3dd34a5c…・`ep20_H_w2_p124.png` 71d77597… と md5 で照合する用）"""
+    top = [("生存者", "#ffffff"), ("4人", EP21_HOT), (" 全員が最後尾", "#ffffff")]
+    g2 = round(1200 / h_adv("123便", 1) * 1180 / 1160)
+    kw = dict(giant="123便", gfs=g2, gx=14, gbase=570, top_parts=top, bottom="26年後の解説", small=("日航", 42, 226, 108))
+    rim = None if v1 else 18
+    ai = dict(cx=0.215, cy=0.118, zoom=1.4)
+    viv, dim = h_ground("ep20/ai/ep20_jal_a_orig.png", (1.15, 1.20, 1.05), dim_src_contrast=1.0, dim_contrast=1.15,
+                        v1=v1, dim_bright_v0=0.45, **ai)
+    bake("ep20-ab/ep20_H_ai_v1" if v1 else "ep20-ab/_chk_ep20_H_w2", h_type(viv, dim, rim=rim, **kw))
+    p = dict(cy=0.50, zoom=1.25)
+    viv, dim = h_ground("ja123/p124.jpg", (1.30, 1.0, 0.95), dim_src_contrast=1.0, dim_contrast=1.10,
+                        v1=v1, dim_bright_v0=0.62, **p)
+    bake("ep20-ab/ep20_H_p124_v1" if v1 else "ep20-ab/_chk_ep20_H_w2_p124", h_type(viv, dim, rim=rim, **kw))
+    print("123便の字の大きさ", g2, "赤い縁", round(g2 * H_RIM) if v1 else 18)
+
+
 if __name__ == "__main__":
     import sys
-    if "ep21" in sys.argv:
+    if "ep20-h-check" in sys.argv:
+        ep20_h(v1=False)
+    elif "ep20-h" in sys.argv:
+        ep20_h()
+    elif "ep21" in sys.argv:
         ep21()
     elif "ep20" in sys.argv:
         ep20()
