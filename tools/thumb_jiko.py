@@ -1440,9 +1440,109 @@ def ep20():
     bake("ep20-ab/ep20_B_ai_v3", fx_type(b3, RED, YEL, "e_veil", yel_plain=True))
 
 
+# ── 21本目（9.11 のリメイク）：A／B テストの3枚（2026-10-12 カズヤくん）─────────────
+#   A（旧版の型）＋E2（型抜きの9分）＋案3・黄（白黒に赤1点・下1行を黄）・**地は3枚とも a09**・最初に上げるのは A。
+#   言葉は承認①（台本第2版 §1-2）のまま3枚とも1字も変えない。B1 は21本目は作らない。
+#   見本＝Vault `Resources/事故検証-サムネ海外競合5ch-20261012/samples.py` の `swap9()`（10-12・scratchpad で焼いた）＝
+#   `out/thumb/ep21-new/サムネテスト/ep21_A9.png`（703b67ad…）・`ep21-new/ep21_E2_9.png`（2a789ed7…）・`ep21_N3y_9.png`（aaa672f9…）。
+#   ⑥（10-13）で値を1つも変えずにここへ移した＝焼いたら見本と画素で比べる。正本＝Vault `事故検証-サムネ新型-海外競合5chの実測-20261012` §6・§7
+EP21_RED = "2,977人犠牲 猶予は9分"       # 承認①（10-12）の赤＝ref/ep21/daihon_v2.md §1-2
+EP21_YEL = "9.11同時多発テロの真相"      # 同じく黄
+EP21_SRC = "ep21/photo/lc_a05_a09.jpg"   # 米議会図書館蔵 LC-A05-A09（撮影者不詳・撮影者が権利を放棄）＝両棟が燃える所に寄った画
+EP21_TRIM = (0.025, 0.02, 0.975, 0.965)  # スライドの黒い縁（角の丸み）を先に切る
+EP21_HOT = "#d8101c"                     # 新しい型の赤（A の臙脂 #c30a08 より明るい）
+EP21_GRAD = ('<linearGradient id="bt" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#000" stop-opacity="0.78"/>'
+             '<stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>'
+             '<linearGradient id="lg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity="0.72"/>'
+             '<stop offset="0.62" stop-color="#000" stop-opacity="0"/></linearGradient>')
+
+
+def ep21_photo(zoom, cx, cy, contrast=1.15, color=1.08, bright=0.98):
+    """a09 を縁を切ってから寄る（切った後 3648×2490 で両棟 x≈1771〜2145・アンテナの先 y≈870）。"""
+    return photo(EP21_SRC, cy=cy, cx=cx, zoom=zoom, contrast=contrast, color=color, bright=bright, trim=EP21_TRIM)
+
+
+def _ep21_jpeg(im):
+    buf = io.BytesIO()
+    im.convert("RGB").save(buf, "JPEG", quality=92)
+    return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
+
+
+def _ep21_open(uri):
+    return Image.open(io.BytesIO(base64.b64decode(uri.split(",", 1)[1])))
+
+
+def ep21_gray(uri, contrast=1.22):
+    """白黒（案3・黄の地）。"""
+    return _ep21_jpeg(ImageEnhance.Contrast(_ep21_open(uri).convert("L")).enhance(contrast).convert("RGB"))
+
+
+def ep21_dim_gray(uri, bright=0.62, contrast=1.10):
+    """暗い白黒（E2 の「9分」の外）。"""
+    im = ImageEnhance.Contrast(_ep21_open(uri).convert("L")).enhance(contrast)
+    return _ep21_jpeg(ImageEnhance.Brightness(im).enhance(bright).convert("RGB"))
+
+
+def ep21_img(uri):
+    return f'<image href="{uri}" x="0" y="0" width="{W}" height="{H}" preserveAspectRatio="xMidYMid slice"/>'
+
+
+def ep21_name_line(fill, big=140, small=100, y=692):
+    """下の行（事件名）。「9.11」だけ大きく（210px で約22px）。黒フチ 16。"""
+    return (f'<text x="36" y="{y}" font-family="NSB" fill="{fill}" stroke="#000" stroke-width="16" '
+            f'stroke-linejoin="round" paint-order="stroke fill"><tspan font-size="{big}">{EP21_YEL[:4]}</tspan>'
+            f'<tspan font-size="{small}">{EP21_YEL[4:]}</tspan></text>')
+
+
+def ep21_e2(vivid, dim):
+    """E2「型抜きの9分」：全面に暗い白黒・巨大な「9分」（470px 級・右寄せ x470）の中だけカラー・左に白の字・下に黄。"""
+    t = '<text x="470" y="527" font-family="NSB" font-size="470"'
+    return (f'<defs>{EP21_GRAD}<mask id="km" maskUnits="userSpaceOnUse" x="0" y="0" width="{W}" height="{H}">'
+            f'<rect x="0" y="0" width="{W}" height="{H}" fill="#000"/>{t} fill="#fff">9分</text></mask></defs>'
+            f'{ep21_img(dim)}'
+            f'<rect x="0" y="470" width="{W}" height="250" fill="url(#bt)"/>'
+            f'{t} fill="{EP21_HOT}" stroke="{EP21_HOT}" stroke-width="16" stroke-linejoin="round">9分</text>'
+            f'<image href="{vivid}" x="0" y="0" width="{W}" height="{H}" preserveAspectRatio="xMidYMid slice" mask="url(#km)"/>'
+            '<text x="40" y="112" font-family="NSB" font-size="100" fill="#fff" stroke="#000" stroke-width="14" '
+            'stroke-linejoin="round" paint-order="stroke fill">2,977人</text>'
+            '<text x="40" y="228" font-family="NSB" font-size="100" fill="#fff" stroke="#000" stroke-width="14" '
+            'stroke-linejoin="round" paint-order="stroke fill">犠牲</text>'
+            '<text x="40" y="366" font-family="NSB" font-size="112" fill="#fff" stroke="#000" stroke-width="15" '
+            'stroke-linejoin="round" paint-order="stroke fill">猶予は</text>'
+            f'{ep21_name_line("#fbfb0e")}')
+
+
+def ep21_n3y(base):
+    """案3・黄「白黒に赤1点」：写真は白黒・赤は決めの数「9分」だけ・下の1行だけ A の黄。"""
+    return (f'<defs>{EP21_GRAD}</defs>{ep21_img(base)}'
+            f'<rect x="0" y="0" width="{W}" height="{H}" fill="url(#lg)"/>'
+            f'<rect x="0" y="470" width="{W}" height="250" fill="url(#bt)"/>'
+            f'<text x="44" y="112" font-family="NSB" font-size="100" fill="#fff" stroke="#000" stroke-width="14" '
+            f'stroke-linejoin="round" paint-order="stroke fill">2,977人犠牲</text>'
+            f'<text x="38" y="300" font-family="NSB" font-size="150" fill="#fff" stroke="#000" stroke-width="16" '
+            f'stroke-linejoin="round" paint-order="stroke fill">猶予は<tspan fill="{EP21_HOT}">9分</tspan></text>'
+            f'{ep21_name_line("#fbfb0e")}')
+
+
+def ep21():
+    """21本目のサムネ3枚（A・E2・案3・黄）＝`out/thumb/ep21-ab/`。値は見本の `swap9()` と同じ（1つも変えていない）。"""
+    if not 10 <= len(EP21_RED) <= 14:
+        raise SystemExit(f"🔴 赤が {len(EP21_RED)}字（型は10〜14字・空白を含む）: {EP21_RED}")
+    # A：旧版の型（fx_type e_veil・黄は素）。1.6倍・左端から＝両棟 x≈994〜1204・アンテナ y≈170
+    bake("ep21-ab/ep21_A", fx_type(ep21_photo(1.6, 0.0, 0.469, contrast=1.18, color=1.0, bright=1.0),
+                                    EP21_RED, EP21_YEL, "e_veil", yel_plain=True))
+    # E2：1.5倍・左端から＝両棟 x≈932〜1129（「分」x≈752〜1222 の中）・アンテナ y≈150
+    bake("ep21-ab/ep21_E2", ep21_e2(vivid=ep21_photo(1.5, 0.0, 0.521, contrast=1.30, color=1.20, bright=0.95),
+                                    dim=ep21_dim_gray(ep21_photo(1.5, 0.0, 0.521, contrast=1.15, color=1.0, bright=1.0))))
+    # 案3・黄：1.6倍・左端から＝両棟 x≈994〜1204（字 x≈38〜730 の右）・アンテナ y≈130
+    bake("ep21-ab/ep21_N3y", ep21_n3y(ep21_gray(ep21_photo(1.6, 0.0, 0.528, contrast=1.10, color=1.05, bright=0.95))))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep20" in sys.argv:
+    if "ep21" in sys.argv:
+        ep21()
+    elif "ep20" in sys.argv:
         ep20()
     elif "ep16" in sys.argv:
         ep16()
