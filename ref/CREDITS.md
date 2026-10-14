@@ -2462,3 +2462,81 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `pg5004.png` | c806 | 93便の高度（Figure 2・点 A〜I） | ntsb_flight_path_study_UA93.pdf PDF 4頁（200dpi・灰色・270度回して正立） |
 | `pgr11.png` | c408 | 11便の航跡の再生（FAA・3-AWA-716-WTC1 の 38.0秒） | `out/ep7_shotscan/3-AWA-716-WTC1__s01.png`（38.0秒のコマ・上下の黒い帯 y 0〜48・430〜を切った） |
 | `pgr4.png` | ca02 | 4機の航跡の再生（FAA・5-AWA-716-All-4-AC の 37.5秒） | `out/ep7_shotscan/5-AWA-716-All-4-AC__s01.png`（37.5秒のコマ・上下の黒い帯 y 0〜48・430〜を切った） |
+
+## タイタン号のリメイク（2023-06-18・22本目）
+
+※2026-10-14（⑤b-2）。`qa_out/ep22_assets.py credits --write` が書く（手で直さない）。旧版の節は上の「タイタン号（本番1本目）」＝直さない（旧版は 10-13 に非公開を確かめた・ROV の映像を PD と書いていた誤りは旧版の節に残る）。
+🔴 撮影者の名前（私人）はこの表に書かない（映像方針＝公開のリポに置かない）＝名前が要る3点（C218＝CC BY-SA・N08／N10＝第三者の個人）は画面の出典の行に `{撮影者:<記号>}` の印で書き、名前は git の外（`ref/ep22/src/credits_private.tsv`）。
+
+### 0. 動く映像（9本・音はすべて使わない＝`-an`）
+- 🔴 **ROV の映像2本（R04＝尾部・R07＝前と後ろのドーム）は第三者（Pelagic Research Services の ROV「Odysseus」・2023-06-22）**＝米沿岸警備隊と米運輸安全委員会が NTSB のドケットで公開した物の引用。**額装・等速（rate 1.0）・寄り 1.0・無加工・地は無地（`plain=True`）・焼き込み（深さ・日付）は残す・サムネに使わない**（了承② 決め3）。旧版はパブリックドメインと誤って書いていた
+- DVIDS 888022／887734／887597／887852／888248＝米沿岸警備隊の職員の職務＝PD。888012／888011＝米空軍州兵 第106救難航空団の職務（連邦の任務の扱いが弱い所＝DVIDS の表示に従う）。記者会見は使う区間＋前後10秒だけを手元に置き（`ref/ep22/src/film/<記号>/clips/`・git の外）、焼くときは媒体の URL から区間だけ読む（`range`）
+- 使わない窓（`tools/footage.py` の NOGO）：887734 の机の上の顔写真入りの身分証（その秒を含むショットまるごと）
+
+| 記号 | 使うカット | 画面の出典 | 権利 | 出どころ |
+|---|---|---|---|---|
+| `R04` | c101 c108 c517 cd01 | 出典：Pelagic Research Services の ROV 映像（米沿岸警備隊・米運輸安全委員会が公開） | 第三者（Pelagic Research Services の ROV「Odysseus」・2023-06-22。米沿岸警備隊と米運輸安全委員会が公開） | https://data.ntsb.gov/Docket/?NTSBNumber=DCA23FM036 |
+| `R07` | c104 c105 c522 c523 c601 c602 c609 cd08 | 出典：Pelagic Research Services の ROV 映像（米沿岸警備隊・米運輸安全委員会が公開） | 第三者（Pelagic Research Services の ROV「Odysseus」・2023-06-22。米沿岸警備隊と米運輸安全委員会が公開） | https://data.ntsb.gov/Docket/?NTSBNumber=DCA23FM036 |
+| `U022` | c102 c106 c109 c519 | 出典：米沿岸警備隊（DVIDS 888022・パブリックドメイン） | A（米沿岸警備隊の職員の職務・DVIDS） | https://www.dvidshub.net/video/888022 |
+| `U734` | c107 c508 | 出典：米沿岸警備隊（DVIDS 887734・パブリックドメイン） | A（米沿岸警備隊の職員の職務・DVIDS） | https://www.dvidshub.net/video/887734 |
+| `U597` | c513 | 出典：米沿岸警備隊（DVIDS 887597・パブリックドメイン） | A（米沿岸警備隊の職員の職務・DVIDS） | https://www.dvidshub.net/video/887597 |
+| `U852` | c512 | 出典：米沿岸警備隊（DVIDS 887852・パブリックドメイン） | A（米沿岸警備隊の職員の職務・DVIDS） | https://www.dvidshub.net/video/887852 |
+| `U248` | cc12 | 出典：米沿岸警備隊（DVIDS 888248・パブリックドメイン） | A（米沿岸警備隊の職員の職務・DVIDS） | https://www.dvidshub.net/video/888248 |
+| `U012` | c103 | 出典：米空軍州兵 第106救難航空団（DVIDS 888012・パブリックドメイン） | A（米空軍州兵＝第106救難航空団の職務・連邦の任務の扱いが弱い所） | https://www.dvidshub.net/video/888012 |
+| `U011` | c516 | 出典：米空軍州兵 第106救難航空団（DVIDS 888011・パブリックドメイン） | A（米空軍州兵＝第106救難航空団の職務・連邦の任務の扱いが弱い所） | https://www.dvidshub.net/video/888011 |
+
+### 1. 写真と報告書の図（米連邦の職務〈A〉・第三者〈引用〉・CC BY-SA・共同）
+- 束＝`ref/ep22/photo/`（git の外）の長辺を幅 2400／高さ 1350 まで縮めただけ（色・切り口はそのまま）。報告書の図（PDF の埋め込みの PNG）は JPEG に直しただけ。🔴 EXIF の向きの札は絵に当てた（D367＝1つ目の船体は縦長）・色の札が Display P3 の2点（D342・D367）は sRGB に写した（見た目の色はそのまま）。組み写真の片側だけを使う NTSB 図16・17・18 は白いすき間で割った（`_l`・`_r`・`_t`・`_b`＝割り目は機械で探した）
+- 🔴 **額装だけ（了承② 決め3）**＝第三者（NTSB 図8・図10＝個人の撮影）・共同（タイタニックの船首＝NOAA と連邦の外の機関）・CC BY-SA 4.0（ホライゾン・アークティック）＝無加工・色そのまま・上に重ねない・寄り0・1点1カット（`cuts/ss.check_frame_only`）・サムネに使わない
+- 報告書の図の撮った機関＝米沿岸警備隊の海難調査委員会（MBI）・FBI（図157・159・270）・米運輸安全委員会の研究所（図255・NTSB の図13〜18・24-011）
+- 研究所の報告 24-011 の頁まるごとの画像（図15・21・48）は紙面の引用＝図と説明の行まで切るのは ⑤b-4
+- 撮影年＝報告書の図の説明・EXIF・Commons の頁（`qa_out/ep22_assets.py` の YEAR＝出どころつき）。分からない点は「不明」＝副題に年を書かない
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `commons_horizon_arctic_2022_02` | c218 | 2022 | CC BY-SA 4.0（BY-SA） | （撮影者の名前は git の外＝`ref/ep22/src/credits_private.tsv`・画面の出典の行に出す） | https://commons.wikimedia.org/wiki/File:2022-08-21_02_HORIZON_ARCTIC_-_IMO_9732838.jpg |
+| `commons_titanic_wreck_bow` | c201 | 2004 | PD（Commons の表示）・共同＝額装（共同） | NOAA/Institute for Exploration/University of Rhode Island（2004年） | https://commons.wikimedia.org/wiki/File:Titanic_wreck_bow.jpg |
+| `commons_uscg_mbi_8668382` | cc01 | 2024 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊（DVIDS 8668382） | https://commons.wikimedia.org/wiki/File:U_S_Coast_Guard_Marine_Board_of_Investigation_(8668382).jpg |
+| `dvids7875444_hc130_cockpit` | c510 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊（DVIDS 7875444） | https://www.dvidshub.net/image/7875444 |
+| `dvids7875448_sea_from_aircraft` | c511 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊（DVIDS 7875448） | https://www.dvidshub.net/image/7875448 |
+| `dvids7875471_hc130_hangar` | c509 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊（DVIDS 7875471） | https://www.dvidshub.net/image/7875471 |
+| `dvids9057342_deck_survey` | c603 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊（DVIDS 9057342） | https://www.dvidshub.net/image/9057342 |
+| `dvids9057367_first_hull` | c814 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊（DVIDS 9057367） | https://www.dvidshub.net/image/9057367 |
+| `lab24011_p37_fig15` | c612 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会 研究所の報告 24-011 図15 | pdf:ref/ep22/src/materials_raw/ntsb_docket_pdf/lab24011.pdf:37:0 |
+| `lab24011_p44_fig21` | c614 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会 研究所の報告 24-011 図21 | pdf:ref/ep22/src/materials_raw/ntsb_docket_pdf/lab24011.pdf:44:0 |
+| `lab24011_p47_fig22` | c613 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会 研究所の報告 24-011 図22 | pdf:ref/ep22/src/materials_raw/ntsb_docket_pdf/lab24011.pdf:47:0 |
+| `lab24011_p53_fig28` | c916 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会 研究所の報告 24-011 図28 | pdf:ref/ep22/src/materials_raw/ntsb_docket_pdf/lab24011.pdf:53:0 |
+| `lab24011_p67_fig39` | c819 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会 研究所の報告 24-011 図39 | pdf:ref/ep22/src/materials_raw/ntsb_docket_pdf/lab24011.pdf:67:0 |
+| `lab24011_p71_fig43b` | cd07 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会 研究所の報告 24-011 図43 | pdf:ref/ep22/src/materials_raw/ntsb_docket_pdf/lab24011.pdf:71:1 |
+| `lab24011_p73_fig45a` | cc04 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会 研究所の報告 24-011 図45 | pdf:ref/ep22/src/materials_raw/ntsb_docket_pdf/lab24011.pdf:73:0 |
+| `lab24011_p75_fig47b` | c605 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会 研究所の報告 24-011 図47 | pdf:ref/ep22/src/materials_raw/ntsb_docket_pdf/lab24011.pdf:75:1 |
+| `lab24011_p76_fig48` | c616 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会 研究所の報告 24-011 図48 | pdf:ref/ep22/src/materials_raw/ntsb_docket_pdf/lab24011.pdf:76:0 |
+| `mbi_fig003_polar_prince` | c301 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図3 | pdf:ref/ep22/src/uscg_titan_mbi.pdf:14:0 |
+| `mbi_fig005_lars` | c305 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図5 | pdf:ref/ep22/src/uscg_titan_mbi.pdf:16:0 |
+| `mbi_fig018_log_0000` | c307 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図18 | pdf:ref/ep22/src/uscg_titan_mbi.pdf:23:2 |
+| `mbi_fig021_hangar` | c308 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図21 | pdf:ref/ep22/src/uscg_titan_mbi.pdf:25:0 |
+| `mbi_fig024_small_boats` | c309 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図24 | pdf:ref/ep22/src/uscg_titan_mbi.pdf:27:0 |
+| `mbi_fig031_bridge_office` | c405 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図31 | pdf:ref/ep22/src/uscg_titan_mbi.pdf:32:0 |
+| `mbi_fig037_log_0600` | c417 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図37 | pdf:ref/ep22/src/uscg_titan_mbi.pdf:38:1 |
+| `mbi_fig065_cyclops_controller` | c217 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図65 | pdf:ref/ep22/src/uscg_titan_mbi.pdf:103:0 |
+| `mbi_fig109_lars_dock` | cb07 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図109 | pdf:ref/ep22/src/uscg_titan_mbi.pdf:142:0 |
+| `mbi_fig112_ballast_valve` | cb12 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図112 | pdf:ref/ep22/src/uscg_titan_mbi.pdf:144:0 |
+| `mbi_fig115_air_regulator` | cb15 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図115 | pdf:ref/ep22/src/uscg_titan_mbi.pdf:145:1 |
+| `mbi_fig157_aft_segment` | c607 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図157（FBI） | pdf:ref/ep22/src/uscg_titan_mbi.pdf:188:0 |
+| `mbi_fig159_fwd_segment` | c606 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図159（FBI） | pdf:ref/ep22/src/uscg_titan_mbi.pdf:189:0 |
+| `mbi_fig255_layers` | c906 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図255（米運輸安全委員会） | pdf:ref/ep22/src/uscg_titan_mbi.pdf:276:0 |
+| `mbi_fig268_adhesive` | c608 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図268 | pdf:ref/ep22/src/uscg_titan_mbi.pdf:292:0 |
+| `mbi_fig270_viewport_ring` | c604 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図270（FBI） | pdf:ref/ep22/src/uscg_titan_mbi.pdf:294:0 |
+| `ntsb_fig08_launch_2022` | ca03 | 2022 | 引用（第三者の撮影・報告書の図）（第三者） | （撮影者の名前は git の外＝`ref/ep22/src/credits_private.tsv`・画面の出典の行に出す） | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:34:0 |
+| `ntsb_fig10_lars_tipped` | cb11 | 2023 | 引用（第三者の撮影・報告書の図）（第三者） | （撮影者の名前は git の外＝`ref/ep22/src/credits_private.tsv`・画面の出典の行に出す） | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:38:1+0 |
+| `ntsb_fig13_recovered_piece` | c611 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会の報告書 図13 | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:41:0 |
+| `ntsb_fig14_faces` | c618 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会の報告書 図14 | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:42:0 |
+| `ntsb_fig15_end_piece` | c911 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会の報告書 図15 | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:42:1 |
+| `ntsb_fig16_wrinkle_b` | c909 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会の報告書 図16 | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:43:0 |
+| `ntsb_fig16_wrinkle_t` | c914 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会の報告書 図16 | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:43:0 |
+| `ntsb_fig17_layers_b` | c913 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会の報告書 図17 | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:44:0 |
+| `ntsb_fig18_delam_l` | c803 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会の報告書 図18 | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:45:0 |
+| `ntsb_fig18_delam_r` | c904 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会の報告書 図18 | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:45:0 |
+
+### 2. 地図の衛星写真（Google マップ・束に入れない）
+- G01〜G06＝Google マップの衛星写真（⑤b-1 に撮った・`ref/ep22/photo/gmap_g0*.png`＝git の外）。Google の地理の指針（教育の動画は許可不要・収益化も可）に従い、**絵の下の帰属の行（地図データ ©2026 Google・画像 ©提供元）とロゴを映す間ずっと残す**・色を変えない・動かさない・点と線と札は描き足してよい。🔴 公開のリポに画像を置かない＝焼き方は ⑤b-3（地図の型）で決める

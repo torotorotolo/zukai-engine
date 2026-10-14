@@ -125,6 +125,11 @@ def pic_kinds(s, stock=False):
         #   写真（P・A1P）は今までどおり写真
         if re.fullmatch(r"(A1)?F\d+|K-k[zh]\d+", code):
             return {"図・写真の頁"}
+        # 🆕 2026-10-14（22本目 ⑤b-2）：NTSB の報告書のグラフ（図21＝潜航ごとのひずみ・ca17〜ca18／図19＝深さの記録）も資料の図＝写真に数えない。
+        #   束にするなら記号は N19・N21（`qa_out/ep22_assets.py`＝sources22 の記号の形）。NTSB の写真（N08〜N18＝回収片・台）は写真のまま。
+        #   頁（`pg` の名）で作るなら上の `/pg` で図・写真の頁になる
+        if re.fullmatch(r"N(19|21)", code):
+            return {"図・写真の頁"}
         return {"写真"}
     return None
 

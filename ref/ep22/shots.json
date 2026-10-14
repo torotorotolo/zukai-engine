@@ -1,0 +1,287 @@
+{
+ "R04": {
+  "src": "https://data.ntsb.gov/Docket/?NTSBNumber=DCA23FM036",
+  "scan": "ref/ep22/src/film/rov04_tailcone_ntsb.mp4",
+  "how": "映像方針（10-14）：ffmpeg の scene の境目（helpers/shots22.py）・使う区間は1秒1コマで見た（shots22.tsv）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 60.69,
+    "motion": 0.0,
+    "shot": 1
+   }
+  ]
+ },
+ "R07": {
+  "src": "https://data.ntsb.gov/Docket/?NTSBNumber=DCA23FM036",
+  "scan": "ref/ep22/src/film/rov07_domes_ntsb.mp4",
+  "how": "映像方針（10-14）：ffmpeg の scene の境目（helpers/shots22.py）・使う区間は1秒1コマで見た（shots22.tsv）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 107.35,
+    "motion": 0.0,
+    "shot": 1
+   }
+  ]
+ },
+ "U022": {
+  "src": "https://www.dvidshub.net/video/888022",
+  "scan": "ref/ep22/src/film/dvids888022/clips/",
+  "how": "映像方針（10-14）：ffmpeg の scene の境目（helpers/shots22.py）・使う区間は1秒1コマで見た（shots22.tsv）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 12.78,
+    "motion": 0.0,
+    "shot": 1
+   },
+   {
+    "start": 12.78,
+    "until": 1079.0,
+    "motion": 0.0,
+    "shot": 2
+   }
+  ]
+ },
+ "U734": {
+  "src": "https://www.dvidshub.net/video/887734",
+  "scan": "ref/ep22/src/film/dvids887734_command_center_0620.mp4",
+  "how": "映像方針（10-14）：ffmpeg の scene の境目（helpers/shots22.py）・使う区間は1秒1コマで見た（shots22.tsv）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.54,
+    "motion": 0.0,
+    "shot": 1
+   },
+   {
+    "start": 4.54,
+    "until": 9.81,
+    "motion": 0.0,
+    "shot": 2
+   },
+   {
+    "start": 9.81,
+    "until": 15.58,
+    "motion": 0.0,
+    "shot": 3
+   },
+   {
+    "start": 15.58,
+    "until": 21.09,
+    "motion": 0.0,
+    "shot": 4
+   },
+   {
+    "start": 21.09,
+    "until": 28.53,
+    "motion": 0.0,
+    "shot": 5
+   },
+   {
+    "start": 28.53,
+    "until": 33.77,
+    "motion": 0.0,
+    "shot": 6
+   },
+   {
+    "start": 33.77,
+    "until": 40.61,
+    "motion": 0.0,
+    "shot": 7
+   },
+   {
+    "start": 40.61,
+    "until": 47.68,
+    "motion": 0.0,
+    "shot": 8
+   },
+   {
+    "start": 47.68,
+    "until": 53.99,
+    "motion": 0.0,
+    "shot": 9
+   },
+   {
+    "start": 53.99,
+    "until": 66.83,
+    "motion": 0.0,
+    "shot": 10
+   },
+   {
+    "start": 66.83,
+    "until": 74.91,
+    "motion": 0.0,
+    "shot": 11
+   },
+   {
+    "start": 74.91,
+    "until": 82.25,
+    "motion": 0.0,
+    "shot": 12
+   },
+   {
+    "start": 82.25,
+    "until": 92.29,
+    "motion": 0.0,
+    "shot": 13
+   },
+   {
+    "start": 92.29,
+    "until": 97.0,
+    "motion": 0.0,
+    "shot": 14
+   },
+   {
+    "start": 97.0,
+    "until": 98.0,
+    "motion": 0.0,
+    "shot": 15
+   }
+  ]
+ },
+ "U012": {
+  "src": "https://www.dvidshub.net/video/888012",
+  "scan": "ref/ep22/src/film/dvids888012/clips/",
+  "how": "映像方針（10-14）：ffmpeg の scene の境目（helpers/shots22.py）・使う区間は1秒1コマで見た（shots22.tsv）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 2.74,
+    "motion": 0.0,
+    "shot": 1
+   },
+   {
+    "start": 2.74,
+    "until": 23.89,
+    "motion": 0.0,
+    "shot": 2
+   },
+   {
+    "start": 23.89,
+    "until": 75.78,
+    "motion": 0.0,
+    "shot": 3
+   },
+   {
+    "start": 75.78,
+    "until": 167.5,
+    "motion": 0.0,
+    "shot": 4
+   },
+   {
+    "start": 167.5,
+    "until": 216.0,
+    "motion": 0.0,
+    "shot": 5
+   }
+  ]
+ },
+ "U011": {
+  "src": "https://www.dvidshub.net/video/888011",
+  "scan": "ref/ep22/src/film/dvids888011/clips/",
+  "how": "映像方針（10-14）：ffmpeg の scene の境目（helpers/shots22.py）・使う区間は1秒1コマで見た（shots22.tsv）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 7.47,
+    "motion": 0.0,
+    "shot": 1
+   },
+   {
+    "start": 7.47,
+    "until": 64.46,
+    "motion": 0.0,
+    "shot": 2
+   },
+   {
+    "start": 64.46,
+    "until": 68.74,
+    "motion": 0.0,
+    "shot": 3
+   },
+   {
+    "start": 68.74,
+    "until": 103.84,
+    "motion": 0.0,
+    "shot": 4
+   },
+   {
+    "start": 103.84,
+    "until": 122.59,
+    "motion": 0.0,
+    "shot": 5
+   },
+   {
+    "start": 122.59,
+    "until": 154.85,
+    "motion": 0.0,
+    "shot": 6
+   },
+   {
+    "start": 154.85,
+    "until": 170.47,
+    "motion": 0.0,
+    "shot": 7
+   },
+   {
+    "start": 170.47,
+    "until": 187.0,
+    "motion": 0.0,
+    "shot": 8
+   }
+  ]
+ },
+ "U597": {
+  "src": "https://www.dvidshub.net/video/887597",
+  "scan": "ref/ep22/src/film/dvids887597/clips/",
+  "how": "映像方針（10-14）：ffmpeg の scene の境目（helpers/shots22.py）・使う区間は1秒1コマで見た（shots22.tsv）",
+  "shots": [
+   {
+    "start": 520.0,
+    "until": 520.55,
+    "motion": 0.0,
+    "shot": 1
+   },
+   {
+    "start": 520.55,
+    "until": 560.0,
+    "motion": 0.0,
+    "shot": 2
+   }
+  ]
+ },
+ "U852": {
+  "src": "https://www.dvidshub.net/video/887852",
+  "scan": "ref/ep22/src/film/dvids887852/clips/",
+  "how": "映像方針（10-14）：ffmpeg の scene の境目（helpers/shots22.py）・使う区間は1秒1コマで見た（shots22.tsv）",
+  "shots": [
+   {
+    "start": 480.0,
+    "until": 515.0,
+    "motion": 0.0,
+    "shot": 1
+   }
+  ]
+ },
+ "U248": {
+  "src": "https://www.dvidshub.net/video/888248",
+  "scan": "ref/ep22/src/film/dvids888248/clips/",
+  "how": "映像方針（10-14）：ffmpeg の scene の境目（helpers/shots22.py）・使う区間は1秒1コマで見た（shots22.tsv）",
+  "shots": [
+   {
+    "start": 520.0,
+    "until": 520.55,
+    "motion": 0.0,
+    "shot": 1
+   },
+   {
+    "start": 520.55,
+    "until": 560.0,
+    "motion": 0.0,
+    "shot": 2
+   }
+  ]
+ }
+}

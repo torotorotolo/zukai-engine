@@ -17,6 +17,9 @@
   2. その写真を当てた**全画面**のカットの窓を、本番の切り方（`check_slide.cam_rects`＝cam の3点・cam が無ければ既定の寄りの2点）で出し、
      4辺それぞれ「縁の幅＋GUARD」より内側か。
   ⚠️ 見ないもの：額装（panel）・額ごと動かす（fmove）の写真＝台紙ごと見せる。映像（`footage.USE` の欄）。SLIDE_MOUNT に無い写真の暗い所（夜空など）。
+  3. 🆕 2026-10-14（22本目 ⑤b-2）：**SLIDE_MOUNT が空の回**（スライドの走査が無い回）＝束の全点の四辺を同じ物差しで測り、MIN_EDGE 以上の暗い帯が
+     ある点が `ss.SLIDE_NOT_MOUNT`（暗いが台紙でないと絵と数で決めた点・理由つき）に全部あれば ✓。載っていない点・束に無い名は止める。
+     両方とも空なら今までどおり「名簿が読めていない」で止める（21本目 ⑤b-1 の宿題＝「無い」を名簿の注で言える形）
 
 ■ 使い方
     python tools/check_photo_edge.py
@@ -62,19 +65,53 @@ def window_fracs(r, sw, sh):
     return dict(l=r["left"] / sw, t=r["top"] / sh, r=1 - (r["left"] + r["cw"]) / sw, b=1 - (r["top"] + r["ch"]) / sh)
 
 
-def check(spec=None, mount=None, use=None):
-    """(所見の一覧, exit)。spec・mount・use を渡さなければ本番（cuts.SPEC・ss.SLIDE_MOUNT・footage.USE）"""
+def sweep(not_mount, db=None):
+    """🆕 2026-10-14（22本目 ⑤b-2）：名簿 SLIDE_MOUNT が空の回＝「台紙の縁のある写真は無い」の確かめ。束（`ss._assets()`）の全点の四辺を
+    margins で測り、MIN_EDGE 以上の暗い帯がある点が SLIDE_NOT_MOUNT（暗いが台紙でないと見て決めた点）に全部あるか。(所見, 悪い数)
+    ⚠️ 束が空・読めないなら止める（0点を「縁は無い」にしない）。名簿に載っていて束に無い名も止める（古い名簿）"""
+    import cuts.ss as ss
+    db = ss._assets() if db is None else db
+    if not db:
+        return ["🔴 束（assets.json）が空＝何も測っていない（fail closed）"], 1
+    out, bad, dark = [], 0, 0
+    names = {ss.P(n) for n in db if not n.startswith("fb_")}        # 映像のひかえ（fb_）は見ない＝映像は門番の外（上の「見ないもの」）
+    for name in sorted(names):
+        m = margins(name)
+        if max(m.values()) < MIN_EDGE:
+            continue
+        dark += 1
+        if name not in not_mount:
+            out.append(f"🔴 {name}: 四辺に暗い帯（左 {m['l'] * 100:.1f}%・上 {m['t'] * 100:.1f}%・右 {m['r'] * 100:.1f}%・下 {m['b'] * 100:.1f}%）"
+                       "があるのに、台紙の縁か（SLIDE_MOUNT）写真の中身か（SLIDE_NOT_MOUNT）を決めていない＝絵を見て名簿に書く")
+            bad += 1
+    for name in sorted(set(not_mount) - names):
+        out.append(f"🔴 {name}: SLIDE_NOT_MOUNT にあるが束に無い（古い名簿）")
+        bad += 1
+    if not bad:
+        out.append(f"✓ 台紙の縁のある写真は0点（SLIDE_MOUNT は空）＝束 {len(names)}点を測り、暗い帯のある {dark}点はどれも写真の中身と"
+                   "決めてある（SLIDE_NOT_MOUNT）")
+    return out, bad
+
+
+def check(spec=None, mount=None, use=None, not_mount=None, db=None):
+    """(所見の一覧, exit)。spec・mount・use・not_mount を渡さなければ本番（cuts.SPEC・ss.SLIDE_MOUNT・footage.USE・ss.SLIDE_NOT_MOUNT）"""
     import check_slide as CS
     import cuts.ss as ss
     if spec is None:
         import cuts
         spec = cuts.SPEC
     mount = ss.SLIDE_MOUNT if mount is None else mount
+    not_mount = getattr(ss, "SLIDE_NOT_MOUNT", {}) if not_mount is None else not_mount
     if use is None:
         import footage
         use = footage.USE
     if not mount:
-        return ["🔴 SLIDE_MOUNT が空（縁のある写真の名簿が読めていない＝fail closed）"], 2
+        # 🆕 2026-10-14（22本目 ⑤b-2）：名簿が空でも「暗い帯のある点を全部見て、台紙でないと決めた」なら、この回に縁のある写真は無いと言える
+        if not not_mount:
+            return ["🔴 SLIDE_MOUNT が空（縁のある写真の名簿が読めていない＝fail closed）。台紙の縁のある写真が無い回なら、"
+                    "暗い帯のある点を ss.SLIDE_NOT_MOUNT に理由つきで書く（`qa_out/<回>_assets.py edges`）"], 2
+        out, bad = sweep(not_mount, db)
+        return out, (2 if bad else 0)
     import scene_jiko as S
     out, bad, seen = [], 0, 0
     for name in sorted(mount):
@@ -115,6 +152,7 @@ def selftest():
     ＝見本の ss の表（SLIDE_MOUNT ほか）と21本目の章ファイル（apply_cuts＝git の `35fab37`）を差して回し、最後に restore（LIFO）"""
     import fixture_ep21
     import cuts.ss as ss
+    ok_none = _selftest_none()          # 🆕 22本目 ⑤b-2：名簿が空の回の確かめ（本番の束のまま＝見本を差す前に）
     # 写真の権利の台帳（`ss._assets()`＝`ss.REF / "assets.json"`・起動時に1回読んで覚える）も21本目へ向ける＝見本の SPEC の写真の
     # 額装の網（frame_only）が21本目の台帳で引ける。REF・EP は束の道＝見本の SS_NAMES に入れない名なので、ここで差して戻す
     keep = (ss.REF, ss.EP)
@@ -123,7 +161,8 @@ def selftest():
     fixture_ep21.apply()
     fixture_ep21.apply_cuts()
     try:
-        return _selftest()
+        rc = _selftest()
+        return rc if ok_none else 2
     finally:
         fixture_ep21.restore()
         ss.REF, ss.EP = keep
@@ -158,6 +197,33 @@ def _selftest():
     out, code = check({}, use={})
     chk("陽性対照：測る対象が0件なら鳴る（空の SPEC で合格を出さない）", code == 2)
     return 0 if ok else 2
+
+
+def _selftest_none():
+    """🆕 2026-10-14（22本目 ⑤b-2）：名簿が空の回（SLIDE_MOUNT={}）の確かめ＝本番の束（22本目）と ss.SLIDE_NOT_MOUNT で回す"""
+    import cuts.ss as ss
+    ok = True
+
+    def chk(label, cond):
+        nonlocal ok
+        print(f"{'✓' if cond else '🔴'} {label}")
+        ok &= bool(cond)
+    nm = dict(ss.SLIDE_NOT_MOUNT)
+    if not nm:
+        print("・本番の SLIDE_NOT_MOUNT が空＝名簿が空の回の確かめは見本が無い（飛ばす）")
+        return True
+    out, code = check({}, mount={}, use={}, not_mount=nm)
+    chk(f"陰性対照：本番（SLIDE_MOUNT 空・暗い帯の {len(nm)}点を決めてある）は通る", code == 0)
+    drop = sorted(nm)[0]
+    out, code = check({}, mount={}, use={}, not_mount={k: v for k, v in nm.items() if k != drop})
+    chk(f"陽性対照：暗い帯のある {drop} を名簿から外すと鳴る（見ていない点を通さない）", code == 2 and any(drop in o for o in out))
+    out, code = check({}, mount={}, use={}, not_mount=dict(nm, **{f"{ss.EP}no_such_photo.jpg": "古い名"}))
+    chk("陽性対照：束に無い名が名簿に残ると鳴る（古い名簿）", code == 2)
+    out, code = check({}, mount={}, use={}, not_mount={})
+    chk("陽性対照：SLIDE_MOUNT も SLIDE_NOT_MOUNT も空なら鳴る（fail closed）", code == 2)
+    out, code = check({}, mount={}, use={}, not_mount=nm, db={})
+    chk("陽性対照：束が空なら鳴る（0点を「縁は無い」にしない）", code == 2)
+    return ok
 
 
 def main():
