@@ -1,0 +1,233 @@
+[
+ {
+  "id": "G3-001",
+  "cut": "c606",
+  "face": "B",
+  "sev": "🔴",
+  "what": "「3つの調べの見方は、炭素繊維の筒と、その継ぎ目のあたりで重なる」＝継ぎ目（筒とチタンの輪を貼った接着の継ぎ目）を挙げるのは米沿岸警備隊だけ。カナダは「炭素繊維の筒がいちばん可能性が高い（特定はできない）」、NTSB は「筒の局所座屈」で、どちらも継ぎ目を言わない。3冊が重なるのは「窓ではなく、炭素繊維の筒の側」まで（§0-2 の注と同じ）。あわせて「3つ」と言うのに出典の欄は TSB と USCG の2冊だけ＝NTSB の片を足す。直すと、次の c607「筒とチタンの輪をつないでいた接着剤」へも自然につながる。",
+  "evidence": "TSB §2.1「suggested that the pressure hull’s carbon fibre cylinder was the likeliest point of failure」／USCG p.269〈261〉「the most likely initiating event to the tragedy was a loss of structural integrity of the carbon fiber or glue joint within the TITAN’s cylindrical pressure hull」・p.293〈285〉「An MBI examination of the TITAN’s debris supports a scenario involving a failure of a forward adhesive joint.」／NTSB p.61「The postcasualty condition of the Titan pressure vessel was consistent with a local buckling failure.」",
+  "old": "TSB §2.1（`suggested that the pressure hull’s carbon fibre cylinder was the likeliest point of failure`）・USCG p.269〈261〉（`a loss of structural integrity of the carbon fiber or glue joint within the TITAN’s cylindrical pressure hull`）\n> Q: じゃあ、どこが壊れたの？\n> 3つの調べの見方は、炭素繊維の筒と、その継ぎ目のあたりで重なる。\n> 壊れ始めた一点までは、決めきれていない。",
+  "new": "TSB §2.1（`suggested that the pressure hull’s carbon fibre cylinder was the likeliest point of failure`）・USCG p.269〈261〉（`a loss of structural integrity of the carbon fiber or glue joint within the TITAN’s cylindrical pressure hull`）・NTSB p.61（`The postcasualty condition of the Titan pressure vessel was consistent with a local buckling failure.`）\n> Q: じゃあ、どこが壊れたの？\n> 3つの調べは、炭素繊維の筒の側を指す。アメリカ沿岸警備隊は、\n> チタンの輪との継ぎ目も挙げる。壊れ始めた一点までは、決めきれていない。",
+  "parent": "第5章の字数の差し引き（G3 の案を全部入れて）は check_G3.md の末尾。米沿岸警備隊の表記（米／アメリカ）は台本の中で混ざる＝親が全体で揃えるなら、この行も合わせる。"
+ },
+ {
+  "id": "G3-002",
+  "cut": "c604",
+  "face": "C",
+  "sev": "🟡",
+  "what": "「窓は、外へ押し出されたとみられている」のすぐ後に c605「窓は壊れていなかったとみる」が来て、中学生には矛盾に聞こえる（親の出発点）。原文は、窓は「爆縮のときに」外へ押し出された（壊れた結果であって、原因ではない）と書く＝USCG p.281〈273〉・p.293〈285〉。この「爆縮のとき」が語りに無い。出典の欄は TSB §1.6 だけ＝「爆縮のとき」の片を足す。",
+  "evidence": "USCG p.293〈285〉「The viewport’s retaining ring was recovered bent outward with its 16 bolts sheared off, which indicates that the viewport was ejected outward during the implosion.」／USCG p.281〈273〉「indicating that the acrylic window was likely pushed outward and ejected during the implosion」／TSB §1.6「indicated the viewport had blown outward. The viewport was not found.」",
+  "old": "TSB §1.6（`the retaining ring for the viewport was deformed in a manner that indicated the viewport had blown outward. The viewport was not found.`）\n> Q: 窓が割れて、壊れたんじゃないの？\n> よく、そう語られる。窓そのものは見つかっていない。だが押さえの輪は外へ曲がり、\n> 窓は、外へ押し出されたとみられている。",
+  "new": "TSB §1.6（`the retaining ring for the viewport was deformed in a manner that indicated the viewport had blown outward. The viewport was not found.`）・USCG p.293〈285〉（`the viewport was ejected outward during the implosion`）\n> Q: 窓が割れて、壊れたんじゃないの？\n> よく、そう語られる。窓そのものは見つかっていない。だが押さえの輪は外へ曲がり、\n> 窓は爆縮のとき、外へ押し出されたとみられている。",
+  "parent": ""
+ },
+ {
+  "id": "G3-003",
+  "cut": "c605",
+  "face": "C",
+  "sev": "🟡",
+  "what": "c604→c605 が矛盾に聞こえる所の理由の字（親の出発点）。TSB §2.1 は理由を書かず「輪の曲がり方は、窓が壊れていなかったことを示唆した（suggested）」まで＝壊れ始めの点を決める段落の中の文で、意味は「窓が先に壊れたのではない」。理由を書くのは USCG p.280〈272〉が引く公聴会の技術者の証言＝「窓が壊れるなら内向きがいちばんありそうで、そのときは破片が残骸に見つかっていただろう」。語りの「窓は壊れていなかった」は「押し出された」と並ぶと逆に聞こえる＝「窓が先に壊れたのではない」に言い換え（とみる＝suggested は残す）、証言を米沿岸警備隊の引用として足す。米沿岸警備隊の2つの理由のうち「破片が無い」は証言と c604「窓そのものは見つかっていない」で伝わる。「殻の残りが窓から壊れた形と合わない」は字数で落とす（今の「筒の残り」も原文は hull remnants＝殻で、筒に限っていない）。",
+  "evidence": "TSB §2.1「the manner in which the retaining ring was deformed suggested that the viewport had not failed」／USCG p.280〈272〉「it is unlikely that the acrylic window itself caused the implosion, as no acrylic remnants were recovered from the debris and the damaged hull remnants are not consistent with a failure originating from the window. According to MBI testimony provided by the Principal Engineer with …, the most probable failure mode for the acrylic window would have been inward. In such a scenario, fragments of acrylic would likely have been found in the debris.」",
+  "old": "TSB §2.1（`the manner in which the retaining ring was deformed suggested that the viewport had not failed`）・USCG p.280〈272〉（`it is unlikely that the acrylic window itself caused the implosion`）\n> カナダの調べは、窓は壊れていなかったとみる。アメリカ沿岸警備隊も、\n> 窓の破片が残骸に無く、筒の残りも窓から壊れた形と合わないとして、\n> 窓が原因だった見込みは低い、とした。",
+  "new": "TSB §2.1（`the manner in which the retaining ring was deformed suggested that the viewport had not failed`）・USCG p.280〈272〉（`it is unlikely that the acrylic window itself caused the implosion`）・USCG p.280〈272〉（`the most probable failure mode for the acrylic window would have been inward. In such a scenario, fragments of acrylic would likely have been found in the debris.`）\n> カナダの調べは、輪の曲がり方から、窓が先に壊れたのではない、とみる。\n> アメリカ沿岸警備隊も、窓が原因の見込みは低いとした。窓から壊れたなら、\n> 内へ割れて破片が残っていただろう、という技術者の証言も引いている。",
+  "parent": "「窓が先に壊れたのではない」は TSB の had not failed を文脈で言い換えた（G3 の読み）。字どおり「壊れていなかった」を残すなら、c604 に「爆縮のとき」を入れ、この行の後に証言を足すだけでも矛盾はかなり減る＝どちらにするか。"
+ },
+ {
+  "id": "G3-004",
+  "cut": "c612",
+  "face": "E",
+  "sev": "🟡",
+  "what": "「その表の接着の面」の「表」は、ひょう／おもてで読みが割れる（音声合成が「ひょう」と読む恐れ）。中学生には、どの面か（表＝どちら側か）も分からない。原文は「回収した1枚目の層の破片の上（外側）の接着」＝2枚目の層と貼り合わせていた面（NTSB p.44）。外側に緑の接着フィルム（NTSB p.41）。",
+  "evidence": "NTSB p.44「The examination determined that the adhesive on the top of the recovered layer 1 piece had likely failed before the casualty」「The adhesive regions were rubbed flat」／NTSB p.41「The outer surface of the recovered piece of the cylinder was coated by green film adhesive」",
+  "old": "> その表の接着の面は、こすれて、平らになっていた。",
+  "new": "> 破片の外側の接着の面は、こすれて、平らになっていた。",
+  "parent": ""
+ },
+ {
+  "id": "G3-005",
+  "cut": "c719",
+  "face": "A",
+  "sev": "🟡",
+  "what": "「報酬を受け取る以上、肩書きを変えるだけでは済まない」は、誰がお金を受け取り、誰の肩書きかが語りに無く、中学生には社員自身の給料の話に聞こえる。原文の懸念は「会社が、お金を払う客を『ミッション・スペシャリスト』と呼んで受け入れるやり方」（NTSB p.47）＝受け取るのは会社・肩書きは客の呼び名。語は c2（「ミッション・スペシャリストって、何？」）で出ている＝それを受けて1句足す。「のちに辞めた」の片が出典の欄に無い（同じ頁）。",
+  "evidence": "NTSB p.47「stated that he expressed concern to the director of quality and logistics about OceanGate’s business model—specifically, the company accepting paying clients as “mission specialists.” The technician stated to the CEO, “… you can’t just change the title of a person when you’re receiving compensation.”」「The technician resigned following this conversation, citing concerns for “the legality of how it [OceanGate] was operating.”」",
+  "old": "NTSB p.47（`who had previous experience as an engineer/machinery technician in the US Coast Guard`）・p.47（`you can’t just change the title of a person when you’re receiving compensation.”`）\n> 社内にも、声はあった。沿岸警備隊で技術者だった社員は、\n> 報酬を受け取る以上、肩書きを変えるだけでは済まない、と CEO に伝え、\n> のちに辞めた。",
+  "new": "NTSB p.47（`who had previous experience as an engineer/machinery technician in the US Coast Guard`）・p.47（`the company accepting paying clients as “mission specialists.”`）・p.47（`you can’t just change the title of a person when you’re receiving compensation.”`）・p.47（`The technician resigned following this conversation`）\n> 社内にも、声はあった。沿岸警備隊で技術者だった社員は、\n> 客をミッション・スペシャリストと呼ぶのを案じ、CEO にこう言った。\n> 「お金を受け取る以上、肩書きを変えるだけでは済まない」。のちに辞めた。",
+  "parent": "辞めた理由（会社のやり方が法に合うかへの懸念）は字数で入れていない＝要るなら「法に合うかを案じて、のちに辞めた」(+9)。字の訳を字幕に出すなら、画の英字は原文の「…」から始まる（NTSB の引用の頭）。"
+ },
+ {
+  "id": "G3-006",
+  "cut": "c714",
+  "face": "C",
+  "sev": "🟡",
+  "what": "「船級」は、台本の語りでは c714 の聞き役の問いが初出（それより前の語りに0回＝grep）＝聞き役が、まだ誰も言っていない語を聞いている。問いの前に1行で語を出す。1カット3行（m22 は聞き役の行も数える）に収めるため、答えを1行に詰める（「定期の検査」は画の札と出典の欄に残る）。あわせて「工事に立ち会い」は NTSB の字では「造る前と途中に図面と書類を見る」「大事な試験に立ち会う」＝立ち会うのは試験。",
+  "evidence": "NTSB p.22「The classification process involves reviewing plans and documentation before and during construction to ensure they meet applicable classification standards in place at the time, witnessing critical testing, and surveying the vessel. Upon completion of the process, the classification society issues a certificate of classification for the vessel.」",
+  "old": "> Q: 船級って、何？\n> 国とは別の団体が、設計を見て工事に立ち会い、試験を確かめる仕組みだ。\n> 合格すると証明書が出て、そのあとも定期の検査が要る。",
+  "new": "> 船には、「船級」という仕組みがある。\n> Q: 船級って、何？\n> 国とは別の団体が、設計や工事を確かめ、試験に立ち会って証明書を出す仕組みだ。",
+  "parent": "§8 の用語集「船級…設計を見て工事に立ち会い、試験を確かめて」も同じ言い方（担当の外＝1300行）。揃えるか。"
+ },
+ {
+  "id": "G3-007",
+  "cut": "c712",
+  "face": "B",
+  "sev": "🟡",
+  "what": "「出資者などへの手紙」＝原文は stakeholders（関係者）。出資者とは書いていない（USCG・TSB とも to stakeholders）。",
+  "evidence": "USCG p.111〈103〉「Following the failed test, the CEO (…) released a letter to OceanGate’s stakeholders on December 23, 2015」／TSB §1.12.1「On 23 December 2015, OceanGate sent a letter to stakeholders reporting on the one-third scale model test.」",
+  "old": "> CEO は、出資者などへの手紙に書いた。",
+  "new": "> CEO は、会社の関係者への手紙に書いた。",
+  "parent": ""
+ },
+ {
+  "id": "G3-008",
+  "cut": "c710",
+  "face": "A",
+  "sev": "🟡",
+  "what": "「理論の模型」の「模型」は、すぐ後の c711・c713 の「3分の1の大きさの模型」（実際に作った縮尺の模型）と同じ語で、中学生には同じ物に聞こえる。原文の theoretical models は計算の上のモデル＝実物の模型ではない。中身（形も繊維の向きも完全と仮定・NTSB p.63）は合っている。",
+  "evidence": "NTSB p.63「these analyses were based on theoretical models of composite structures that assumed perfect geometry and fiber orientation, rather than the actual carbon fiber composite pressure vessel built by OceanGate」／p.62「OceanGate performed stress analysis on a carbon fiber composite pressure vessel, with all results (both v1」〜p.63「and v2 designs)」",
+  "old": "> ただ、この計算は、形も繊維の向きも完全な、理論の模型の上の値だった。",
+  "new": "> ただ、この計算は、形も繊維の向きも完全だとした、理屈の上の値だった。",
+  "parent": "画の欄の「理論の模型」の札も「理屈の上の計算」に揃えるか。2行目「実物で確かめるべきだった」は To rely on the models（模型に頼るなら）の条件を落としているが、意味は変わらない＝OK とした。"
+ },
+ {
+  "id": "G3-009",
+  "cut": "c706",
+  "face": "A",
+  "sev": "🟡",
+  "what": "「外部の会社が設計書をまとめた。会社の望みは」＝「会社」が2つ続き、望みが外部の会社のものに聞こえる。望んだのはオーシャンゲート（TSB「OceanGate wanted」）。台本はオーシャンゲートの名を c204 で出している。",
+  "evidence": "TSB §1.12.1「On 25 June 2015, this company produced a design document that showed that OceanGate wanted a submersible made primarily of carbon fibre rated up to 6000 m」",
+  "old": "> 2015年6月、外部の会社が設計書をまとめた。会社の望みは、",
+  "new": "> 2015年6月、外部の会社が設計書をまとめた。オーシャンゲートの望みは、",
+  "parent": ""
+ },
+ {
+  "id": "G3-010",
+  "cut": "c703",
+  "face": "D",
+  "sev": "🟡",
+  "what": "語りの「人の入る殻は球の形だ」の片が出典の欄に無い（欄は「鋼かチタン」まで）。同じ文の続きにある（親の問いの答え＝TSB §1.13・§2.1）。語りの強さ（ふつう＝typically）は合っている。「知られていない」も、脚注53 は is not aware（カナダの知る限り）だが TSB §1.23.1 が「There was no precedent」と言い切る＝OK。",
+  "evidence": "TSB §1.13「submersibles used for deep-ocean diving are typically constructed of steel or titanium,54 and the pressure hull for human occupancy is typically spherical in shape because this is the best shape for resisting external pressure and allowing even distribution of stresses.」／TSB §1.23.1「There was no precedent for diving a human-occupied carbon fibre submersible to the deep ocean」",
+  "old": "TSB §1.13（`submersibles used for deep-ocean diving are typically constructed of steel or titanium,`）・TSB 脚注53（`With the exception of the Titan, the TSB is not aware of any other carbon-fibre pressure hulls for human occupancy used for deep-ocean diving.`）",
+  "new": "TSB §1.13（`submersibles used for deep-ocean diving are typically constructed of steel or titanium,`…`and the pressure hull for human occupancy is typically spherical in shape`）・TSB 脚注53（`With the exception of the Titan, the TSB is not aware of any other carbon-fibre pressure hulls for human occupancy used for deep-ocean diving.`）",
+  "parent": ""
+ },
+ {
+  "id": "G3-011",
+  "cut": "c701",
+  "face": "C",
+  "sev": "🟢",
+  "what": "聞き役の「〜よね」の確かめに、語りが「使っている。」（能動）で受け、問いの「使われてる」とかみ合わない。ほかの受けと同じく「そう、」で受ける。原文は widely used＝「広く」。",
+  "evidence": "TSB §1.13「Carbon fibre is widely used in commercial aviation because of its high strength, low weight, and ability to be moulded.」",
+  "old": "> 使っている。強くて軽く、形も作りやすいからだ。",
+  "new": "> そう、広く使われている。強くて軽く、形も作りやすいからだ。",
+  "parent": "§0-1-12 の問いの言い方（「炭素繊維って、飛行機にも使われてるよね。」）は、c619 の橋からの反応として自然＝そのままでよい（G3 の判断）。"
+ },
+ {
+  "id": "G3-012",
+  "cut": "c619",
+  "face": "C",
+  "sev": "🟢",
+  "what": "「作られたときから」の根拠＝NTSB は「筒を作るときに切り落とした端」を調べて、剥離の起きた2つの面にだけ長い空隙を見つけた（p.42・p.59）＝語りは原文どおり。ただし出典の欄に「作るときに切り落とした」の片が無い＝p.42 を足す。橋の「この筒が生まれたころ」は事故の筒（2つ目・2021年に作った＝NTSB p.58）を指すが、第6章は2013〜16年の炭素繊維の筒という考えと1つ目の設計の話＝時期がずれる。",
+  "evidence": "NTSB p.42「We also examined end pieces that had been trimmed from the v2 full-scale cylinder during the construction/production process」／NTSB p.59「Examination of the trimmed end pieces revealed that these adhesive interfaces contained long extended voids while the other two adhesive interfaces (…) did not.」／NTSB p.58「OceanGate constructed the v2 full-scale Titan pressure vessel in 2021」",
+  "old": "NTSB p.59（`these adhesive interfaces contained long extended voids`）\n> 剥離の起きた2つの面には、作られたときから、長い空隙が並んでいた。\n> では、層は、いつ、なぜはがれたのか。話は、この筒が生まれたころにさかのぼる。",
+  "new": "NTSB p.59（`these adhesive interfaces contained long extended voids`）・NTSB p.42（`end pieces that had been trimmed from the v2 full-scale cylinder during the construction/production process`）\n> 剥離の起きた2つの面には、作られたときから、長い空隙が並んでいた。\n> では、層は、いつ、なぜはがれたのか。話は、炭素繊維の筒が選ばれたころにさかのぼる。",
+  "parent": ""
+ },
+ {
+  "id": "G3-013",
+  "cut": "c715",
+  "face": "D",
+  "sev": "🟢",
+  "what": "「CEO は、時間がかかりすぎると判断し」の片が出典の欄に無い（NTSB p.23 にある＝親の問いの答え・NTSB の地の文）。「2018年に、あきらめた」の主語は原文では会社（OceanGate abandoned）＝語りは CEO が主語のまま続く。「会社は初め、船級を取るつもりだった」は NTSB では元社員の言（According to former OceanGate personnel）だが、TSB §1.26.3.1 が2016年からの DNV との相談を事実として書く＝帰属なしで OK。",
+  "evidence": "NTSB p.23「However, the OceanGate CEO ultimately decided classing the Titan would take too long」「In 2018, OceanGate abandoned classing efforts.」／TSB §1.26.3.1「Beginning in 2016, OceanGate engaged DNV in discussions about class certification for another submersible that OceanGate had purchased, the Cyclops 1, as well as class certification for the 1st construction of the Titan」",
+  "old": "NTSB p.22（`the company planned to class the submersible through Lloyd’s Register or DNV.`）・NTSB p.23（`In 2018, OceanGate abandoned classing efforts.`）\n> 会社は初め、船級を取るつもりだった。だが CEO は、時間がかかりすぎると判断し、\n> 2018年に、あきらめた。",
+  "new": "NTSB p.22（`the company planned to class the submersible through Lloyd’s Register or DNV.`）・NTSB p.23（`the OceanGate CEO ultimately decided classing the Titan would take too long`…`In 2018, OceanGate abandoned classing efforts.`）\n> 会社は初め、船級を取るつもりだった。だが CEO は、時間がかかりすぎると判断し、\n> 2018年に、会社はあきらめた。",
+  "parent": ""
+ },
+ {
+  "id": "G3-014",
+  "cut": "c711",
+  "face": "D",
+  "sev": "🟢",
+  "what": "「2015年12月」の出どころ＝TSB §1.12.1 の前の文（In December 2015）。USCG p.111〈103〉も December 21, 2015。出典の欄に無いので足す（親の問いの答え）。",
+  "evidence": "TSB §1.12.1「In December 2015, OceanGate conducted a pressure test on this one-third scale model at the UW-APL (Figure 8). One of the carbon fibre end domes failed at pressures equivalent to depths of around 3000 m.」／USCG p.111〈103〉「The first scale test was conducted on December 21, 2015」",
+  "old": "TSB §1.12.1（`One of the carbon fibre end domes failed at pressures equivalent to depths of around 3000 m.`）",
+  "new": "TSB §1.12.1（`In December 2015, OceanGate conducted a pressure test on this one-third scale model at the UW-APL`…`One of the carbon fibre end domes failed at pressures equivalent to depths of around 3000 m.`）",
+  "parent": ""
+ },
+ {
+  "id": "G3-015",
+  "cut": "c601",
+  "face": "D",
+  "sev": "🟢",
+  "what": "語りの「筒の破片が散らばっていた」の片が出典の欄に無い（NTSB p.39）。原文は「筒の真ん中か前の方のものとみられる（likely）殻の破片」＝語りの言い方で足りる。",
+  "evidence": "NTSB p.39「Other pressure vessel fragments, likely from the middle or forward portion of the cylinder, were scattered about the ocean floor.」",
+  "old": "NTSB p.20（`including the tail cone and both titanium domes`）・NTSB p.38（`ROVs discovered the wreckage about 330 meters (1,083 feet) east-northeast of the Titanic’s bow.`）",
+  "new": "NTSB p.20（`including the tail cone and both titanium domes`）・NTSB p.38（`ROVs discovered the wreckage about 330 meters (1,083 feet) east-northeast of the Titanic’s bow.`）・NTSB p.39（`Other pressure vessel fragments, likely from the middle or forward portion of the cylinder, were scattered about the ocean floor.`）",
+  "parent": ""
+ },
+ {
+  "id": "G3-016",
+  "cut": "c603",
+  "face": "B",
+  "sev": "🟢",
+  "what": "「残骸は引き揚げられ」＝原文は一部（some of the debris）。次の行で「全部ではない」と言うので大きなずれではないが、1行目だけ聞くと全部に聞こえる。",
+  "evidence": "TSB §1.6「the U.S. Coast Guard, with the help of the U.S. Navy, was able to recover some of the debris. The U.S. Coast Guard returned to the site in September 2023 and recovered additional debris. Not all of the debris was recovered.」",
+  "old": "> 残骸は引き揚げられ、9月には、もう一度回収が行われた。",
+  "new": "> 残骸の一部が引き揚げられ、9月には、もう一度回収が行われた。",
+  "parent": ""
+ },
+ {
+  "id": "G3-017",
+  "cut": "c610",
+  "face": "B",
+  "sev": "🟢",
+  "what": "「分かれ目は、主に2か所だった」の「主に」は原文に無い（NTSB は剥離を2つと書く）。ほかにもあったように聞こえる。",
+  "evidence": "NTSB p.59「identified two delaminations between the five 1-inch-thick layers」／NTSB p.40「One delamination was between layers 1 and 2 and the other was between layers 3 and 4.」",
+  "old": "> 貼り合わせた面が離れることで、剥離という。分かれ目は、主に2か所だった。",
+  "new": "> 貼り合わせた面が離れることで、剥離という。分かれ目は、2か所だった。",
+  "parent": ""
+ },
+ {
+  "id": "G3-018",
+  "cut": "c613",
+  "face": "B",
+  "sev": "🟢",
+  "what": "「粉が詰まっていた」＝原文は collecting in the voids（空隙にたまっていた）。「詰まっていた」は空隙が粉でふさがったように聞こえる（研究所の報告も「一部の空隙を埋めていた」＝some）。",
+  "evidence": "NTSB p.44「The adhesive regions were rubbed flat and adhesive wear debris was found collecting in the voids.」",
+  "old": "> 接着剤の中の小さなすき間、空隙には、こすれて出た粉が詰まっていた。",
+  "new": "> 接着剤の中の小さなすき間、空隙には、こすれて出た粉がたまっていた。",
+  "parent": ""
+ },
+ {
+  "id": "G3-019",
+  "cut": "c709",
+  "face": "A",
+  "sev": "🟢",
+  "what": "「応力の解析」の「応力」は用語集（§8）に無く、中学生には分からない＝「強さの計算」で足りる（次の c710 も「この計算」で受ける）。親の問い（何の設計の値か）＝NTSB p.24〜25「2015年、炭素繊維の筒の設計（a carbon fiber cylinder design）の応力解析」で、寸法も設計の深さも書いていない。設計書（c706・c708）の 6,000m×2.19≈13,140・×2.21≈13,260 と合う（G3 の計算）が、同じ解析だと書いた字は3冊に無い＝語りは「外部の会社の」まで（今のまま）でよい。",
+  "evidence": "NTSB p.24「OceanGate hired Spencer Composites in 2015 to complete a stress analysis for a carbon fiber cylinder」／p.25「design; the analysis indicated an implosion depth about 13,200 meters (43,307 feet).」",
+  "old": "> 外部の会社の応力の解析では、壊れる深さは約1万3,200メートル。",
+  "new": "> 外部の会社の強さの計算では、壊れる深さは約1万3,200メートル。",
+  "parent": "§9 に c709 の式が無い＝「c709｜タイタニックの3倍あまり｜13,200÷3,800≈3.47（会社の記録の3,840なら3.44）」を足す。「3倍あまり」は3.5近い＝「3倍半ほど」の方が近いかは親が決める。"
+ },
+ {
+  "id": "G3-020",
+  "cut": "c708",
+  "face": "A",
+  "sev": "🟢",
+  "what": "「2.19と2.21」の2つの数の違い（組むドームがチタンか炭素繊維か）が語りに無い＝中学生には、なぜ数が2つあるのか分からない。",
+  "evidence": "TSB §1.12.1「The document provided a design for a carbon fibre cylinder that had a safety factor of 2.19 with grade 5 titanium end domes and a safety factor of 2.21 with carbon fibre end domes.」",
+  "old": "> 設計書の筒の安全率は、2.19と2.21。",
+  "new": "> 設計書の筒の安全率は、組むドームにより、2.19と2.21。",
+  "parent": "+8字＝第6章の字数が苦しければ見送ってよい（画の棒の札で出せる）。"
+ },
+ {
+  "id": "G3-021",
+  "cut": "c609",
+  "face": "D",
+  "sev": "🟢",
+  "what": "語りは「海の底の映像を見ると」（NTSB p.40＝ROV の映像から＝語りは原文どおり）だが、画は DVIDS 9057369＝9月の回収のあとに並べた炭素繊維の破片（海の底ではない）。耳は海の底・目は回収した破片＝食い違う。",
+  "evidence": "NTSB p.40「Examination of the wreckage from ROV video footage showed the pressure vessel had fragmented into multiple pieces.」「Investigators could see that the carbon fiber composite cylinder had delaminated into multiple layers nearly around the entire circumference」",
+  "old": "> 海の底の映像を見ると、炭素繊維の筒は、ほぼぐるりと一周、",
+  "new": "",
+  "parent": "画を ROV の区間（第三者＝額装・冒頭や c601・c602 と別の区間）に替えるか、語りを「残骸を見ると」に替えて回収した破片の画のままにするか（映像方針で。G3 は画像を開いていない）。"
+ }
+]

@@ -1,0 +1,1832 @@
+[
+{
+"id": "G7-007",
+"cut": "c101",
+"old": "> 2023年6月22日。北大西洋の、深さ約3,800メートルの海の底。\n> 無人の探査機のカメラが、潜水艇の尾部をとらえた。",
+"new": "> 2023年6月22日。北大西洋、タイタニックの眠る深さ約3,800メートル。\n> 海の底で、無人の探査機のカメラが、潜水艇の尾部をとらえた。",
+"why": "タイタニックを冒頭で1語出す（c106 を受ける）。1行41字に収めるため2行に組み直した（C）"
+},
+{
+"id": "G0-015",
+"cut": "c106",
+"old": "> Q: 大きな音がしたのに、また潜ったの？",
+"new": "> Q: 大きな音がしたのに、また潜ったんだ。",
+"why": "聞き役の質問の割合（63%）を下げるため、冒頭の驚きを反応にした（答えの「その夏のうちに3回」はそのまま続く）"
+},
+{
+"id": "G1-020",
+"cut": "c106",
+"old": "NTSB p.36（`The Titan completed three additional dives following dive 80`）",
+"new": "NTSB p.36（`The Titan completed three additional dives following dive 80`）・NTSB p.36（`the submersible reached 3,840 meters (12,598 feet) on dives 81 and 82`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G1-001",
+"cut": "c107",
+"old": "> この潜水艇は、海の底で、何が壊れたのか。\n> なぜ、潜り続けたのか。そして、誰が止められたのか。",
+"new": "> この潜水艇は、深い海の中で、何が壊れたのか。\n> なぜ、潜り続けたのか。そして、誰なら止められたのか。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G7-008",
+"cut": "c109",
+"old": "> まずは、この潜水艇が、何をしに潜っていたのかから見ていく。",
+"new": "> この潜水艇は、客を乗せて、タイタニックを見に行っていた。",
+"why": "何をしに潜っていたかを橋で先に言う（係の案）を、冒頭の秒のために1文にした（C）"
+},
+{
+"id": "G1-026",
+"cut": "c202",
+"old": "> そこでは、海の水の重さが、すさまじい力でのしかかる。",
+"new": "> そこでは、水の重さがのしかかる。",
+"why": "係の案どおり（G0 が原文に引き直した）（字数：1回目の試し組みで上限を444字超えた＝足しの言い添えを戻した）（A）"
+},
+{
+"id": "G1-002",
+"cut": "c205",
+"old": "> 母船で運ばれ、海に降ろされてから潜る、小さな潜水艇だ。",
+"new": "> 母船に運ばれて現場まで行き、そこから潜る、小さな潜水艇だ。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G1-025",
+"cut": "c206",
+"old": "TSB（`The Titan’s pressure hull consisted of a carbon fibre cylinder that was capped at either end by titanium domes.`）",
+"new": "TSB §1.10.1（`The Titan’s pressure hull consisted of a carbon fibre cylinder that was capped at either end by titanium domes.`）・§1.2.1（`Two hemispherical domes made of titanium were fitted to either end of the cylinder.`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G1-003",
+"cut": "c207",
+"old": "> 小さな会社で、人事やお金から潜水艇の設計まで、CEO がほとんどを率いていた。",
+"new": "> 小さな会社で、CEO が主に率い、人事やお金から設計まで、すべてに関わった。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G1-004",
+"cut": "c207",
+"old": "TSB §1.3（`the Titan’s pilot, who was OceanGate’s chief executive officer (CEO)`）・§1.23.1（`As a small company, OceanGate was led primarily by the CEO.`）",
+"new": "TSB §1.3（`the Titan’s pilot, who was OceanGate’s chief executive officer (CEO)`）・§1.9.1（`had piloted it on numerous previous dives, including dives to the Titanic in 2021 and 2022`）・§1.23.1（`As a small company, OceanGate was led primarily by the CEO.`）・§1.23.1（`The CEO was integrated into all aspects of the company, including human resources, finance, operations, and submersible design and construction.`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G7-078",
+"cut": "c207",
+"old": "> CEO の〈CEOの名前〉だ。潜水艇の操縦も、自分でしていた。",
+"new": "> 会社のトップ、CEO の〈CEOの名前〉だ。潜水艇の操縦も、自分でしていた。",
+"why": "CEO の初出に一言（会社のトップ）。G1-003 の行（3行目）とは別の行（A）"
+},
+{
+"id": "R1-010",
+"cut": "c207",
+"old": "> 小さな会社で、CEO が主に率い、人事やお金から設計まで、すべてに関わった。",
+"new": "> 小さな会社を、CEO が主に率い、人事やお金から設計まで、すべてに関わった。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）",
+"order": 99
+},
+{
+"id": "G1-005",
+"cut": "c208",
+"old": "> 2023年の初めの社員は15人。",
+"new": "> 2023年の潜航の季節の初め、社員は15人。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G1-006",
+"cut": "c208",
+"old": "同じ表4（2023年の初めの社員の数「15」の札を足す）",
+"new": "同じ表4（2023年の潜航の季節の初めの社員の数「15」の札を足す）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G1-007",
+"cut": "c211",
+"old": "> Q: ミッション・スペシャリストって、何？\n> 会社が、お金を払う客をそう呼んだ。米沿岸警備隊の委員会は、\n> 料金を払う乗客だと隠すための呼び方だった、とみている。",
+"new": "> Q: お客さんは、会社から何と呼ばれていたの？\n> ミッション・スペシャリスト。米沿岸警備隊の委員会は、\n> 料金を払う乗客だと隠すための呼び方だった、とみている。",
+"why": "問いを呼び名を聞く形に（係の案）。語の訳「任務の専門家」は外した（字数：1回目の試し組みで上限を444字超えた＝足しの言い添えを戻した）（C）"
+},
+{
+"id": "G1-008",
+"cut": "c211",
+"old": "NTSB p.15（`OceanGate referred to its clients as “mission specialists.”`）・USCG p.317〈309〉（`to conceal that their mission specialists were actually paying passengers`）",
+"new": "NTSB p.15（`OceanGate referred to its clients as “mission specialists.”`）・USCG p.300〈292〉（`reclassifying their passengers as “mission specialists” to conceal their illegal passenger operations`）・USCG p.317〈309〉（`to conceal that their mission specialists were actually paying passengers`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G1-009",
+"cut": "c213",
+"old": "> そのうち、タイタニックの深さまで届いたのは13回だった。\n> Q: けっこう、行けていたんだ。",
+"new": "> そのうち、タイタニックの深さまで届いたのは、13回だけだった。\n> Q: 毎回、行けたわけじゃないんだ。",
+"why": "NTSB p.14＝attempted numerous dives … but only successfully completed 13＝「だけ」を語りに置き、聞き役は数を言わない反応に。c214 の「ただ」は G0-001 で外した（C）"
+},
+{
+"id": "R1-004",
+"cut": "c213",
+"old": "> そのうち、タイタニックの深さまで届いたのは、13回だけだった。",
+"new": "> そのうち、タイタニックの深さまで届いたのは、13回だった。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）",
+"order": 99
+},
+{
+"id": "G0-001",
+"cut": "c214",
+"old": "> ただ、表の備考の欄には、不具合が並ぶ。",
+"new": "> 表の備考の欄には、不具合も並ぶ。",
+"why": "c213 の聞き役を「毎回、行けたわけじゃないんだ」にしたので、c214 の頭の「ただ」は逆接にならない＝外して「不具合も並ぶ」"
+},
+{
+"id": "G1-027",
+"cut": "c214",
+"old": "> 1行目は、回収のときに前のドームが外れて落ちた、という記録だ。",
+"new": "> 1行目は、回収のときに前のドームが外れて落ちた記録だ。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G1-010",
+"cut": "c215",
+"old": "> 電池が切れて台に戻れず、人を乗せたまま海面で一晩を過ごし、\n> 潜航が27時間に及んだ回もあった。",
+"new": "> 電池が切れ、海も荒れて台に固定できず、\n> 人を乗せたまま海面で一晩を過ごし、潜航が27時間に及んだ回もあった。",
+"why": "電池と荒れた海の2つの理由（NTSB p.36）。「潜水艇を載せる」は字数で外した（台は c304・c305 で説明）（字数：2回目の試し組みでも上限を67字超えた）（B）"
+},
+{
+"id": "G1-011",
+"cut": "c216",
+"old": "> 推進器の故障、重りの不具合、通信の不具合。カナダの報告書は、\n> 会社が主に、やってみて直すやり方で運航していた、と書いている。\n> Q: トラブル、多すぎない？",
+"new": "> 推進器の故障、重りの不具合、通信の不具合。\n> Q: トラブル、多すぎない？\n> カナダの報告書は、会社が主に、やってみて直すやり方で運航していた、と書いている。",
+"why": "係の案どおり（G0 が原文に引き直した）（C）"
+},
+{
+"id": "G1-012",
+"cut": "c217",
+"old": "> 報告書は、手で持つ無線のコントローラーと書き、どれも原因とはしていない。\n> この写真は、会社の前の潜水艇の物だ。",
+"new": "> 報告書は、手で持つ無線のコントローラーとだけ書き、原因ともしていない。\n> 写真は、会社の前の潜水艇の物で、こちらはゲーム機用だ。",
+"why": "係の案（報告書は手で持つ無線のとだけ書く・写真の物はゲーム機用）を詰めた（B）"
+},
+{
+"id": "G1-013",
+"cut": "c217",
+"old": "TSB §1.10.5（`The pilot operated the thrusters using a handheld wireless controller`）・USCG p.103〈95〉（`Photo of the Logitech PlayStation controller inside CYCLOPS I taken by the MBI`）",
+"new": "TSB §1.10.5（`The pilot operated the thrusters using a handheld wireless controller`）・NTSB p.11（`a wireless, battery-operated controller that communicated with control software`）・USCG p.103〈95〉（`the CYCLOPS I being operated with a PlayStation® controller`）・USCG p.103〈95〉（`Photo of the Logitech PlayStation controller inside CYCLOPS I taken by the MBI`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "R1-011",
+"cut": "c217",
+"old": "> 報告書は、手で持つ無線のコントローラーとだけ書き、原因ともしていない。",
+"new": "> 報告書は、手で持つ無線のコントローラーとだけ書き、原因とはしていない。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）",
+"order": 99
+},
+{
+"id": "G1-014",
+"cut": "c218",
+"old": "> 2021年と2022年の遠征では、別の会社の船を母船にしていた。",
+"new": "> 2021年と2022年の遠征では、別の船を借りて、母船にしていた。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G1-015",
+"cut": "c219",
+"old": "> ニューファンドランドのセントジョンズから、約685キロ先の現場へ向かった。",
+"new": "> ニューファンドランドのセントジョンズから、約700〜800キロ先の現場へ向かった。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G1-016",
+"cut": "c301",
+"old": "> カナダの船籍の、全長約67メートルの貨物船だ。",
+"new": "> カナダの船籍の、全長70メートル近い貨物船だ。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G1-021",
+"cut": "c311",
+"old": "TSB §1.2.1（`The forward dome could be bolted and unbolted from outside the submersible to provide access to the cabin; this was the only way that people could enter and exit the submersible.`）",
+"new": "TSB §1.2.1（`The forward dome could be bolted and unbolted from outside the submersible to provide access to the cabin; this was the only way that people could enter and exit the submersible.`）・TSB §2.5（`could not egress on the surface without the Titan first being reattached to the LARS and the forward dome being unbolted by people outside the submersible`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G1-022",
+"cut": "c312",
+"old": "TSB §1.3.1（`At this point, the Titan crew and passengers were sealed inside the cabin, and the submersible was using its internal life support system.`）",
+"new": "TSB §1.3.1（`At this point, the Titan crew and passengers were sealed inside the cabin, and the submersible was using its internal life support system.`）・TSB §1.2.1（`The cabin had an internal life support system that consisted of oxygen tanks`）・§1.2.1（`CO2 scrubbing capability for the same occupancy`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G7-012",
+"cut": "c312",
+"old": "> この時から5人は艇の中に閉じられ、酸素を足し、\n> 吐いた息の二酸化炭素を取る、艇の中の仕組みで息をすることになった。",
+"new": "> この時から5人は、閉じた潜水艇の中で、酸素を足し、\n> 吐いた息の二酸化炭素を取る、生命維持の仕組みで息をすることになった。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G0-013",
+"cut": "c313",
+"old": "> 8時59分、会社の人たちは全員、予定どおり5分だけ作業を止め、\n> ここまでの進み具合と安全を考えた。",
+"new": "> 8時59分、会社の人たちは予定どおり5分だけ作業を止め、進み具合と安全を考えた。",
+"why": "字数：1文に詰めた（「全員」「ここまでの」を外す）"
+},
+{
+"id": "G1-023",
+"cut": "c314",
+"old": "TSB §1.3.1（`By 0905, the LARS and the Titan were submerged.`）・§1.3.1（`At 0914, divers detached the Titan from the LARS, and the Titan began its descent.`）",
+"new": "TSB §1.3.1（`At 0904, OceanGate divers began to fill the LARS’s ballast tanks with water to submerge it.`）・§1.3.1（`By 0905, the LARS and the Titan were submerged.`）・§1.3.1（`At 0914, divers detached the Titan from the LARS, and the Titan began its descent.`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G1-017",
+"cut": "c315",
+"old": "> 10メートルより深く潜るのも、この年はこれが初めてだった。",
+"new": "> 10メートルより深く潜るのも、これが初めてだった。",
+"why": "「この年」を1回に（2つ目の文は「これが初めて」で同じ年を受ける）（A）"
+},
+{
+"id": "G1-024",
+"cut": "c317",
+"old": "TSB 付録A（`I hsvr trscking`）・付録A（`descendingb thru 235`）・TSB §1.3.2（`The Titan crew then transmitted a message stating that they were descending through 235 m.`）",
+"new": "TSB 付録A（`I hsvr trscking`）・付録A（`descendingb thru 235`）・TSB §1.3.2（`The Titan crew then transmitted a message stating that they were descending through 235 m.`）・TSB §1.3.2（`The surface support team sent a message back stating that they had tracking of the submersible.`）・USCG p.32〈24〉（`the POLAR PRINCE communicated to the TITAN that they have tracking`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G1-018",
+"cut": "c319",
+"old": "> 9時28分、母船は「画面で、毎分33メートルで降りているのが見える」と送った。",
+"new": "> 9時28分、母船は、毎分33メートルで降りているのが画面で見える、と送った。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G7-014",
+"cut": "c319",
+"old": "> Q: ここまでは、順調そうだね。",
+"new": "> Q: 降りるのは、順調そうだね。",
+"why": "係の案どおり（G0 が原文に引き直した）（C）"
+},
+{
+"id": "G2-010",
+"cut": "c401",
+"old": "（10:11:55〜10:15:39 の4行・欄の値は英字のまま＝",
+"new": "（10:11:55〜10:15:39 のうち4行＝10:12 の4行は除く・欄の値は英字のまま＝",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G7-015",
+"cut": "c401",
+"old": "> Q: そのあとも、やりとりは続いていたの？\n> 続いていた。10時11分、潜水艇は「通信の装置が、しばらく止まっていた」と返し、",
+"new": "> Q: 返事は、また来たの？\n> 来た。10時11分、潜水艇から、通信の装置がしばらく止まっていた、と知らせがあり、",
+"why": "係の案どおり（G0 が原文に引き直した）（C）"
+},
+{
+"id": "G0-016",
+"cut": "c402",
+"old": "> タイタニックの眠る海の底までは、あと1,500メートルほどだ。",
+"new": "> 海の底までは、あと1,500メートルほどだ。",
+"why": "字数：「タイタニックの眠る」は c101・c201 で言っている"
+},
+{
+"id": "G7-016",
+"cut": "c402",
+"old": "> このとき潜水艇は、深さ2,200メートルあたりを降りていた。",
+"new": "> このとき潜水艇は、深さ2,300メートル近くを降りていた。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G2-001",
+"cut": "c404",
+"old": "> 一方、潜水艇の知らせた信号の強さは、文字を送るには十分だった。",
+"new": "> 米沿岸警備隊によると、信号の強さは、文字を送るにはふつう十分とされる値だった。",
+"why": "generally considered＝「ふつう十分とされる」と米沿岸警備隊の帰属。1行に詰めた（B）"
+},
+{
+"id": "G2-011",
+"cut": "c404",
+"old": "付録A の表（10:29:12〜10:31:55 の5行）",
+"new": "付録A の表（10:29:12〜10:31:55 の6行）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G2-012",
+"cut": "c405",
+"old": "副題「母船の船橋の事務室（通信班の持ち場）」",
+"new": "副題「母船の船橋の事務室（通信班の持ち場・事故のあとに委員会が撮影）」",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G2-004",
+"cut": "c410",
+"old": "> カナダの調べは、海の底まではまだ約500メートルあり、いつもより早かったとして、\n> その理由は分からない、と書いている。",
+"new": "> カナダの調べは、海の底まではまだ約500メートルあり、いつもより早いとする。\n> 速さを緩めようとしたとみられるが、理由は分からない、とする。",
+"why": "カナダの調べも目的（速さを緩める）は同じ見方＝係の案を詰めた（B）"
+},
+{
+"id": "G2-005",
+"cut": "c410",
+"old": "NTSB p.17（`which was a standard procedure at this depth to slow its descent`）・TSB §1.3.2",
+"new": "NTSB p.17（`which was a standard procedure at this depth to slow its descent`）・USCG p.6〈vi〉（`As the TITAN approached the ocean floor, it followed standard procedure by releasing ballast weights to slow its descent.`）・TSB §1.3.2",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "R1-012",
+"cut": "c410",
+"old": "> 速さを緩めようとしたとみられるが、理由は分からない、とする。",
+"new": "> 速さを緩めようとしたとみられるが、理由は分からない、と書く。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）",
+"order": 99
+},
+{
+"id": "G2-006",
+"cut": "c411",
+"old": "> 米沿岸警備隊によると、その7秒後の10時47分9秒ごろ、",
+"new": "> 米沿岸警備隊によると、文を送った7秒後の10時47分9秒ごろ、",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G2-009",
+"cut": "c413",
+"old": "USCG p.6〈vi〉（`which the investigation later correlated to the TITAN’s implosion`）・TSB §1.3.2（`At 1047:26.903, when the submersible was at 3350 m, a message appeared on the surface support team’s computer`）",
+"new": "TSB §1.3.2（`At 1047:26.903, when the submersible was at 3350 m, a message appeared on the surface support team’s computer`）・§2.1（`The pressure hull’s structural failure happened 5.397 seconds after the text message about dropping the 2 weights appeared`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G7-018",
+"cut": "c413",
+"old": "> 文が画面に出たのは10時47分26.9秒。壊れたのは、その5.397秒後だ。",
+"new": "> 文が画面に出たのは10時47分26.9秒。壊れたのは、その約5.4秒後だ。",
+"why": "係の案どおり（G0 が原文に引き直した）（E）"
+},
+{
+"id": "G2-008",
+"cut": "c414",
+"old": "> 母船にあったビデオカメラに、通信のパソコンの画面と、\n> 船体に響いた「ドン」という音が、録られていたからだ。",
+"new": "> カナダの調べが秒まで言えるのは、母船のビデオカメラに、パソコンの画面と、\n> 母船に響いた「ドン」という音が、録られていたからだ。",
+"why": "G7-019 と1つに（何の理由か・母船に響いた音）。詰めた（A）"
+},
+{
+"id": "G2-007",
+"cut": "c415",
+"old": "> 母船が受け取った時刻も、2つの調べで合っている。違うのは、壊れた時刻だけだ。",
+"new": "> 母船が受け取った時刻も、米沿岸警備隊とカナダで合っている。違うのは、壊れた時刻だ。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G7-020",
+"cut": "c415",
+"old": "> Q: 送ったのは、どっちでも壊れる前なんだね。",
+"new": "> Q: 届いたのが壊れる前か後かは、調べで違うんだね。",
+"why": "係の案どおり（G0 が原文に引き直した）（C）"
+},
+{
+"id": "G7-002",
+"cut": "c419",
+"old": "> 残っているのは、時刻と深さの記録だけだ。",
+"new": "> 残っているのは、時刻と深さ、そして音の記録だ。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G2-013",
+"cut": "c501",
+"old": "NTSB p.17（`first assumed there was an issue with the acoustic communications equipment`）",
+"new": "NTSB p.17（`first assumed there was an issue with the acoustic communications equipment`…`sent two to three messages every minute`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G7-021",
+"cut": "c501",
+"old": "> 呼んでいない。母船にいた会社の担当は、まず通信の装置の不具合を疑った。",
+"new": "> すぐには呼ばなかった。母船にいた会社の担当は、まず通信の装置の不具合を疑った。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G2-024",
+"cut": "c504",
+"old": "> 18時までの海面の捜索で、手がかりは何も見つからなかった。",
+"new": "> 18時までの捜索で、手がかりは見つからなかった。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G2-014",
+"cut": "c505",
+"old": "TSB §1.3.3（`At 1855, the master of the Polar Prince called the Joint Rescue and Coordination Centre (JRCC) in Halifax`）",
+"new": "TSB §1.3.3（`At 1855, the master of the Polar Prince called the Joint Rescue and Coordination Centre (JRCC) in Halifax`…`JRCC transferred the call to the Rescue Coordination Centre (RCC) in Boston`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G7-022",
+"cut": "c505",
+"old": "> 18時55分の電話から、ボストンのアメリカ沿岸警備隊へとつながっていった。",
+"new": "> 18時55分の電話から、ボストンの米沿岸警備隊へとつながっていった。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G2-015",
+"cut": "c507",
+"old": "TSB §2.6（`did not follow the maritime best practice of notifying SAR authorities as soon as possible`）",
+"new": "TSB §2.6（`the master’s authority in the loss of communication emergency with the Titan was unclear`）・§2.6（`Without a bridging document`）・§2.6（`missed communications protocol ended up taking precedence even though it did not follow the maritime best practice of notifying SAR authorities as soon as possible once the potential need for help developed`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G7-023",
+"cut": "c508",
+"old": "> Q: 会社の手順のほうが、先になっていたんだね。\n> そう。知らせを受けたアメリカ沿岸警備隊は、この日の潜航を知らなかった。",
+"new": "> Q: 外に知らせるより、会社の手順を先にしたんだね。\n> そう。知らせを受けた米沿岸警備隊は、この日の潜航を知らなかった。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G7-024",
+"cut": "c509",
+"old": "> 22時、沿岸警備隊の輸送機がニューファンドランドから飛び立ち、",
+"new": "> 22時、米沿岸警備隊の輸送機がニューファンドランドから飛び立ち、",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G2-018",
+"cut": "c512",
+"old": "> 米沿岸警備隊によると、爆縮は、最初に助けを求める連絡より前に起きていた。",
+"new": "> 米沿岸警備隊によると、爆縮は、最初に助けを求める連絡より前に起きていた。\n> 音が報じられたころ、5人はもう亡くなっていた。",
+"why": "係の案どおり（G0 が原文に引き直した）（C）"
+},
+{
+"id": "G2-019",
+"cut": "c513",
+"old": "> 限界の3,000メートルより約1,000メートル深く潜らせて、壊れた。",
+"new": "> 限界の3,000メートルより1,000メートル近く深く潜らせて、壊れた。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G2-021",
+"cut": "c514",
+"old": "USCG p.41〈33〉（`emergency transportation of a Pelagic® Odysseus ROV from Buffalo, NY`）・NTSB p.20（`flew the ROV Odysseus on a C-130 to Newfoundland and Labrador`）",
+"new": "NTSB p.18（`which was capable of reaching 19,685 feet (6,000 meters). (The Odysseus was in Buffalo, New York, at the time.)`）・USCG p.41〈33〉（`emergency transportation of a Pelagic® Odysseus ROV from Buffalo, NY`）・NTSB p.20（`flew the ROV Odysseus on a C-130 to Newfoundland and Labrador, where it was loaded aboard the Horizon Arctic`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G0-020",
+"cut": "c515",
+"old": "> 6月22日、2つの船が、現場の上にそろった。",
+"new": "> 6月22日、バッファローの ROV を積んだ船と、フランスの船が、現場にそろった。",
+"why": "G7-028 の「その ROV を積んだ船」の「その」が、同じカットの1行目（フランスの ROV）を指して聞こえる＝バッファローの ROV と言う（G0 の通し読み）＝文は当て直しの係の案（R1-005・現場にそろった）"
+},
+{
+"id": "G2-022",
+"cut": "c520",
+"old": "> 海面に浮いても、外からボルトを外さないと出られなかった。\n> Q: 中からは、出られない作りだったんだね。",
+"new": "> 海面に浮いても、台に戻し、外からボルトを外さないと出られなかった。\n> Q: 浮いてきても、すぐには出られなかったんだね。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G2-023",
+"cut": "c522",
+"old": "> アメリカの運輸安全委員会は、国の指針どおりに備えていれば、",
+"new": "> アメリカの運輸安全委員会は、会社が国の指針どおりに救助の備えをしていれば、",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G0-M01",
+"cut": "c522",
+"old": "> アメリカの運輸安全委員会は、会社が国の指針どおりに救助の備えをしていれば、",
+"new": "> 米運輸安全委員会は、会社が国の指針どおりに救助の備えをしていれば、",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "G7-030",
+"cut": "c523",
+"old": "> 残る問いは、海の底の残骸が答えている。",
+"new": "> 最初の問いには、海の底の残骸が答えている。",
+"why": "係の案どおり（G0 が原文に引き直した）（C）"
+},
+{
+"id": "G3-015",
+"cut": "c601",
+"old": "NTSB p.20（`including the tail cone and both titanium domes`）・NTSB p.38（`ROVs discovered the wreckage about 330 meters (1,083 feet) east-northeast of the Titanic’s bow.`）",
+"new": "NTSB p.20（`including the tail cone and both titanium domes`）・NTSB p.38（`ROVs discovered the wreckage about 330 meters (1,083 feet) east-northeast of the Titanic’s bow.`）・NTSB p.39（`Other pressure vessel fragments, likely from the middle or forward portion of the cylinder, were scattered about the ocean floor.`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G3-016",
+"cut": "c603",
+"old": "> 残骸は引き揚げられ、9月には、もう一度回収が行われた。",
+"new": "> 残骸の一部が引き揚げられ、9月には、もう一度回収が行われた。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G3-002",
+"cut": "c604",
+"old": "TSB §1.6（`the retaining ring for the viewport was deformed in a manner that indicated the viewport had blown outward. The viewport was not found.`）\n> Q: 窓が割れて、壊れたんじゃないの？\n> よく、そう語られる。窓そのものは見つかっていない。だが押さえの輪は外へ曲がり、\n> 窓は、外へ押し出されたとみられている。",
+"new": "TSB §1.6（`the retaining ring for the viewport was deformed in a manner that indicated the viewport had blown outward. The viewport was not found.`）・USCG p.293〈285〉（`the viewport was ejected outward during the implosion`）\n> Q: 窓が割れて、壊れたんじゃないの？\n> よく、そう語られる。窓そのものは見つかっていない。だが押さえの輪は外へ曲がり、\n> 窓は爆縮のとき、外へ押し出されたとみられている。",
+"why": "係の案どおり（G0 が原文に引き直した）（C）"
+},
+{
+"id": "G3-003",
+"cut": "c605",
+"old": "> カナダの調べは、窓は壊れていなかったとみる。アメリカ沿岸警備隊も、\n> 窓の破片が残骸に無く、筒の残りも窓から壊れた形と合わないとして、\n> 窓が原因だった見込みは低い、とした。",
+"new": "> カナダの調べは、輪の曲がり方から、窓が先に壊れたのではない、とみる。\n> 米沿岸警備隊も、窓が原因の見込みは低いとした。窓から壊れたなら、\n> 内へ割れて破片が残っていただろう、という証言も引く。",
+"why": "係の案（窓が先に壊れたのではない・技術者の証言）を詰め、呼び名を米沿岸警備隊に（C）"
+},
+{
+"id": "R1-008",
+"cut": "c605",
+"old": "・USCG p.280〈272〉（`it is unlikely that the acrylic window itself caused the implosion`）",
+"new": "・USCG p.280〈272〉（`it is unlikely that the acrylic window itself caused the implosion`）・p.280〈272〉（`the most probable failure mode for the acrylic window would have been inward. In such a scenario, fragments of acrylic would likely have been found in the debris.`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）",
+"order": 99
+},
+{
+"id": "G3-001",
+"cut": "c606",
+"old": "TSB §2.1（`suggested that the pressure hull’s carbon fibre cylinder was the likeliest point of failure`）・USCG p.269〈261〉（`a loss of structural integrity of the carbon fiber or glue joint within the TITAN’s cylindrical pressure hull`）\n> Q: じゃあ、どこが壊れたの？\n> 3つの調べの見方は、炭素繊維の筒と、その継ぎ目のあたりで重なる。\n> 壊れ始めた一点までは、決めきれていない。",
+"new": "TSB §2.1（`suggested that the pressure hull’s carbon fibre cylinder was the likeliest point of failure`）・USCG p.269〈261〉（`a loss of structural integrity of the carbon fiber or glue joint within the TITAN’s cylindrical pressure hull`）・NTSB p.61（`The postcasualty condition of the Titan pressure vessel was consistent with a local buckling failure.`）\n> Q: じゃあ、どこが壊れたの？\n> 3つの調べは、炭素繊維の筒の側を指す。米沿岸警備隊は、\n> チタンの輪との継ぎ目も挙げる。壊れ始めた一点までは、決めきれていない。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G7-033",
+"cut": "c608",
+"old": "> こすれたような見た目で、内側の層が前から一部離れていた印かもしれない、\n> とアメリカ沿岸警備隊は書く。",
+"new": "> こすれたような見た目で、内側の層がすでに一部離れていた印かもしれない、\n> と米沿岸警備隊は書く。",
+"why": "係の案どおり（G0 が原文に引き直した）（E）"
+},
+{
+"id": "G3-017",
+"cut": "c610",
+"old": "> 貼り合わせた面が離れることで、剥離という。分かれ目は、主に2か所だった。",
+"new": "> 貼り合わせた面が離れることで、剥離という。分かれ目は、2か所だった。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G0-M02",
+"cut": "c611",
+"old": "> アメリカの運輸安全委員会の研究所は、回収した破片の1枚を調べた。",
+"new": "> 米運輸安全委員会の研究所は、回収した破片の1枚を調べた。",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "G7-035",
+"cut": "c612",
+"old": "> その表の接着の面は、こすれて、平らになっていた。",
+"new": "> 破片に残った接着剤の面は、こすれて、平らになっていた。",
+"why": "係の案どおり（G0 が原文に引き直した）（E）"
+},
+{
+"id": "G3-018",
+"cut": "c613",
+"old": "> 接着剤の中の小さなすき間、空隙には、こすれて出た粉が詰まっていた。",
+"new": "> 接着剤の中の小さなすき間、空隙には、こすれて出た粉がたまっていた。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G7-036",
+"cut": "c614",
+"old": "> そう。1枚目と2枚目の層が、別々に縦に動かないと、\n> この粉はできない、とアメリカ沿岸警備隊は書いている。",
+"new": "> そう。1枚目と2枚目の層が、別々に長さの向きに動かないと、\n> この粉はできない、と米沿岸警備隊は書いている。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G7-037",
+"cut": "c618",
+"old": "> アメリカの運輸安全委員会は、前からの剥離と、そのあと加わった傷が、",
+"new": "> アメリカの運輸安全委員会は、爆縮の前からの剥離と、そのあと加わった傷が、",
+"why": "係の案どおり（G0 が原文に引き直した）（E）"
+},
+{
+"id": "G0-M03",
+"cut": "c618",
+"old": "> アメリカの運輸安全委員会は、爆縮の前からの剥離と、そのあと加わった傷が、",
+"new": "> 米運輸安全委員会は、爆縮の前からの剥離と、そのあと加わった傷が、",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "G3-012",
+"cut": "c619",
+"old": "NTSB p.59（`these adhesive interfaces contained long extended voids`）\n> 剥離の起きた2つの面には、作られたときから、長い空隙が並んでいた。\n> では、層は、いつ、なぜはがれたのか。話は、この筒が生まれたころにさかのぼる。",
+"new": "NTSB p.59（`these adhesive interfaces contained long extended voids`）・NTSB p.42（`end pieces that had been trimmed from the v2 full-scale cylinder during the construction/production process`）\n> 剥離の起きた2つの面には、作られたときから、長い空隙が並んでいた。\n> では、層は、いつ、なぜはがれたのか。話は、炭素繊維の筒が選ばれたころにさかのぼる。",
+"why": "係の案どおり（出典の欄＋橋を「炭素繊維の筒が選ばれたころ」に＝第6章は2015年の材料選びから始まる）（C）"
+},
+{
+"id": "G3-011",
+"cut": "c701",
+"old": "> 使っている。強くて軽く、形も作りやすいからだ。",
+"new": "> 広く使われている。強くて軽く、形も作りやすいからだ。",
+"why": "聞き役（反応）のあとなので「そう、」は付けず、widely used の「広く」を足す（C）"
+},
+{
+"id": "G3-010",
+"cut": "c703",
+"old": "TSB §1.13（`submersibles used for deep-ocean diving are typically constructed of steel or titanium,`）・TSB 脚注53（`With the exception of the Titan, the TSB is not aware of any other carbon-fibre pressure hulls for human occupancy used for deep-ocean diving.`）",
+"new": "TSB §1.13（`submersibles used for deep-ocean diving are typically constructed of steel or titanium,`…`and the pressure hull for human occupancy is typically spherical in shape`）・TSB 脚注53（`With the exception of the Titan, the TSB is not aware of any other carbon-fibre pressure hulls for human occupancy used for deep-ocean diving.`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G7-039",
+"cut": "c703",
+"old": "> 人が乗る深海用の炭素繊維の殻は、タイタンのほかに知られていない。",
+"new": "> カナダの調べが知る限り、人が乗る深海用の炭素繊維の殻は、タイタンのほかに無い。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G3-009",
+"cut": "c706",
+"old": "> 2015年6月、外部の会社が設計書をまとめた。会社の望みは、",
+"new": "> 2015年6月、外部の会社が設計書をまとめた。オーシャンゲートの望みは、",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G7-040",
+"cut": "c708",
+"old": "> 当時の会社は、アメリカの機械学会の規格の、最低1.5に拠っていた。",
+"new": "> 当時の会社は、アメリカの機械学会の規格の、最低1.5に従っていた。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G3-019",
+"cut": "c709",
+"old": "> 外部の会社の応力の解析では、壊れる深さは約1万3,200メートル。",
+"new": "> 外部の会社の強さの計算では、壊れる深さは約1万3,200メートル。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G3-008",
+"cut": "c710",
+"old": "> ただ、この計算は、形も繊維の向きも完全な、理論の模型の上の値だった。",
+"new": "> ただ、この計算は、形も繊維の向きも完全だとした、理屈の上の値だった。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G0-M04",
+"cut": "c710",
+"old": "> 実物で確かめるべきだった、とアメリカの運輸安全委員会は書く。",
+"new": "> 実物で確かめるべきだった、と米運輸安全委員会は書く。",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "G3-014",
+"cut": "c711",
+"old": "TSB §1.12.1（`One of the carbon fibre end domes failed at pressures equivalent to depths of around 3000 m.`）",
+"new": "TSB §1.12.1（`In December 2015, OceanGate conducted a pressure test on this one-third scale model at the UW-APL`…`One of the carbon fibre end domes failed at pressures equivalent to depths of around 3000 m.`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G3-007",
+"cut": "c712",
+"old": "> CEO は、出資者などへの手紙に書いた。",
+"new": "> CEO は、会社の関係者への手紙に書いた。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G7-043",
+"cut": "c713",
+"old": "> 模型の試験はそのあとも重ねたが、目標の4,500メートルには届かなかった。",
+"new": "> 模型の試験はそのあとも重ねたが、運航で目指した4,500メートルには届かなかった。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G7-044",
+"cut": "c714",
+"old": "> Q: 船級って、何？\n> 国とは別の団体が、設計を見て工事に立ち会い、試験を確かめる仕組みだ。\n> 合格すると証明書が出て、そのあとも定期の検査が要る。",
+"new": "> Q: 船の安全は、外の誰かが確かめないの？\n> 船級という仕組みがある。船級協会という民間の団体が、設計や工事を確かめ、\n> 試験に立ち会って、証明書を出す。",
+"why": "問いを中身で聞く形は採り、立ち会うのは試験（NTSB p.22）。定期の検査は画の札へ（字数：2回目の試し組みでも上限を67字超えた）（C）"
+},
+{
+"id": "G3-013",
+"cut": "c715",
+"old": "NTSB p.22（`the company planned to class the submersible through Lloyd’s Register or DNV.`）・NTSB p.23（`In 2018, OceanGate abandoned classing efforts.`）\n> 会社は初め、船級を取るつもりだった。だが CEO は、時間がかかりすぎると判断し、\n> 2018年に、あきらめた。",
+"new": "NTSB p.22（`the company planned to class the submersible through Lloyd’s Register or DNV.`）・NTSB p.23（`the OceanGate CEO ultimately decided classing the Titan would take too long`…`In 2018, OceanGate abandoned classing efforts.`）\n> 会社は初め、船級を取るつもりだった。だが CEO は、時間がかかりすぎると判断し、\n> 2018年に、会社はあきらめた。",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G0-M05",
+"cut": "c717",
+"old": "> アメリカの運輸安全委員会は、そう書く。",
+"new": "> 米運輸安全委員会は、そう書く。",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "G3-005.1",
+"cut": "c719",
+"old": "NTSB p.47（`who had previous experience as an engineer/machinery technician in the US Coast Guard`）・p.47（`you can’t just change the title of a person when you’re receiving compensation.”`）",
+"new": "NTSB p.47（`who had previous experience as an engineer/machinery technician in the US Coast Guard`）・p.47（`the company accepting paying clients as “mission specialists.”`）・p.47（`you can’t just change the title of a person when you’re receiving compensation.”`）・p.47（`The technician resigned following this conversation`）",
+"why": "出典の欄は係の案。語りは G7-045 の言い方（料金を取って人を乗せる以上、呼び名を変えるだけでは）（A）"
+},
+{
+"id": "G3-005.2",
+"cut": "c719",
+"old": "> 報酬を受け取る以上、肩書きを変えるだけでは済まない、と CEO に伝え、",
+"new": "> 料金を取って人を乗せる以上、呼び名を変えるだけでは済まない、と CEO に伝え、",
+"why": "出典の欄は係の案。語りは G7-045 の言い方（料金を取って人を乗せる以上、呼び名を変えるだけでは）（A）"
+},
+{
+"id": "R1-013",
+"cut": "c719",
+"old": "> 社内にも、声はあった。沿岸警備隊で技術者だった社員は、",
+"new": "> 社内にも、声はあった。米沿岸警備隊で技術者だった社員は、",
+"why": "呼び名をそろえる。「元技術者の社員」は硬い＝「米沿岸警備隊で技術者だった社員」（A）",
+"order": 99
+},
+{
+"id": "G4-001",
+"cut": "c802",
+"old": "> そのころ、運航を受け持つ運航部長が、船体を点検した。",
+"new": "> そのころ、運航部長が、潜水艇を点検した。",
+"why": "点検の相手は潜水艇（TSB・USCG）。「運航を受け持つ」は字数で外した（字数：2回目の試し組みでも上限を67字超えた）（B）"
+},
+{
+"id": "G0-M06",
+"cut": "c803",
+"old": "> 事故のあと、アメリカの運輸安全委員会も、1つ目の船体の切り落とした端を調べた。",
+"new": "> 事故のあと、米運輸安全委員会も、1つ目の船体の切り落とした端を調べた。",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "G4-026",
+"cut": "c804",
+"old": "> 報告は、筒と接着の線を全部点検して確かめ、その結果を、",
+"new": "> 報告は、筒とチタンの輪の接着の線を全部点検して確かめ、その結果を、",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "R1-003",
+"cut": "c804",
+"old": "> 報告は、筒とチタンの輪の接着の線を全部点検して確かめ、その結果を、",
+"new": "> 報告は、筒と、チタンの輪との接着の線を全部点検して確かめ、その結果を、",
+"why": "係の案どおり（G0 が原文に引き直した）（B）",
+"order": 99
+},
+{
+"id": "G7-047",
+"cut": "c807",
+"old": "> Q: 安全のことを言ったのに、辞めさせられたの？",
+"new": "> Q: 辞めさせられた人は、黙っていたの？",
+"why": "係の案どおり（G0 が原文に引き直した）（C）"
+},
+{
+"id": "G4-002",
+"cut": "c808",
+"old": "> 元運航部長は、船員を守る法律にもとづき、労働安全衛生局に申し立てた。",
+"new": "> 元運航部長は、安全を訴えたための解任だとして、労働安全衛生局に申し立てた。",
+"why": "係の案どおり（G0 が原文に引き直した）（C）"
+},
+{
+"id": "G4-003",
+"cut": "c809",
+"old": "> Q: 安全を心配した人が、会社を去ったんだね。",
+"new": "> Q: 安全を心配した人が、会社を追われたんだね。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G0-012",
+"cut": "c811",
+"old": "> 届き方は調べによって違うが、その中身は、CEO に伝わっていた。",
+"new": "> その中身は、CEO に伝わっていた。",
+"why": "字数：届き方の割れ（口頭か手紙か）は台本で言わない＝「届き方は調べによって違うが」を外した"
+},
+{
+"id": "G4-004",
+"cut": "c814",
+"old": "> Q: ひびが入った船体は、どうなったの？\n> 2019年、筒に亀裂が見つかった。調べると、亀裂は、\n> 表面の下の剥離から始まっていた。",
+"new": "> Q: 音がした船体は、どうなったの？\n> 2019年、筒に亀裂が見つかった。調べると、亀裂は、\n> 表面の下の剥離から始まっていたとみられた。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G4-005",
+"cut": "c815",
+"old": "・p.26（`The director of engineering stated that he would not sign off on the planned 2019 expedition.`）",
+"new": "・p.26（`The director of engineering stated that he would not sign off on the planned 2019 expedition.`）・USCG p.161〈153〉（`However, the Director of Engineering refused`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G4-006",
+"cut": "c816",
+"old": "・NTSB p.26（`The planned 2019 expedition to the Titanic wreck site was cancelled.`）",
+"new": "・NTSB p.26（`The planned 2019 expedition to the Titanic wreck site was cancelled.`）・USCG p.164〈156〉（`The letter, nor any other separate correspondence, disclosed that there was a crack found`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G4-007",
+"cut": "c818",
+"old": "> 10月、亀裂のある船体をメリーランドの施設で加圧すると、亀裂と剥離が増えた。\n> 11月、会社は船体の等級を4,000メートルから3,000メートルに下げた。",
+"new": "> 10月、亀裂のある船体を加圧する試験のあと、亀裂と剥離がさらに見つかった。\n> 11月、会社は潜ってよい深さを、4,000メートルから3,000メートルに下げた。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "R1-001",
+"cut": "c818",
+"old": "> 11月、会社は潜ってよい深さを、4,000メートルから3,000メートルに下げた。",
+"new": "> 11月、会社は、この船体で潜るのを2,000メートルまでとした。",
+"why": "🔴 G0 が TSB §1.12.1 で確かめた＝depth rating を3,000m に下げ、2,000m より深く潜らない了解。「潜ってよい深さ」を3,000m にすると原文の2,000m とぶつかる＝了解の方を語りで言う（格付けの数は画の帯の札へ）（B）",
+"order": 99
+},
+{
+"id": "G4-008",
+"cut": "c819",
+"old": "NTSB p.45（`trimmed end piece of first full-scale Titan pressure vessel`）",
+"new": "NTSB p.62（`after the failure of the v1 full-scale pressure vessel, OceanGate used different materials (pre-preg carbon fiber) and manufacturing methods`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G4-010.1",
+"cut": "c902",
+"old": "> テープは、日本の東レのアメリカの会社の物で、2020年に買っている。",
+"new": "> 1つ目の筒の糸は三菱ケミカル系、2つ目のテープは東レの米国の会社の物だ。",
+"why": "噂がどちらの船体の話でも閉じられるよう、両方の材料の出どころを言う（USCG p.118〈110〉・p.174〈166〉）。「日本の」は3冊の字ではない＝外した（B）"
+},
+{
+"id": "G4-010.2",
+"cut": "c902",
+"old": "USCG p.174〈166〉（`The specific pre-preg system used was Toray Composite Materials America’s P2362W-19L`）",
+"new": "USCG p.118〈110〉（`The carbon fiber material used for the first TITAN hull was standard-modulus Grafil 37-800`）・p.174〈166〉（`The specific pre-preg system used was Toray Composite Materials America’s P2362W-19L`）",
+"why": "噂がどちらの船体の話でも閉じられるよう、両方の材料の出どころを言う（USCG p.118〈110〉・p.174〈166〉）。「日本の」は3冊の字ではない＝外した（B）"
+},
+{
+"id": "G4-011",
+"cut": "c903",
+"old": "> この材料で作った3分の1の模型は、2020年の試験で、壊れたか、壊れる寸前だった。",
+"new": "> この材料の3分の1の模型2つは、2020年の試験で、壊れたか、壊れる寸前だった。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G4-012",
+"cut": "c904",
+"old": "> 原因は、炭素繊維の層の一部にできた、波のようなうねりと見られた。",
+"new": "> 会社と解析の請負は、原因を、層の一部にできた、波のようなうねりと見た。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "R1-014",
+"cut": "c904",
+"old": "> 会社と解析の請負は、原因を、層の一部にできた、波のようなうねりと見た。",
+"new": "> オーシャンゲートと解析の会社は、原因を、層の一部にできた、波のようなうねりと見た。",
+"why": "「請負」は硬い。「会社と、解析の会社」は会社が2度続く＝オーシャンゲートの名で分ける（A）",
+"order": 99
+},
+{
+"id": "G4-028",
+"cut": "c907",
+"old": "> カナダの調べでは、この作り方を強く求めたのは、作り手の会社だった。",
+"new": "> カナダの調べでは、この作り方は、作り手の会社が強く求めた。",
+"why": "係の案どおり（G0 が原文に引き直した）（C）"
+},
+{
+"id": "G4-013",
+"cut": "c908",
+"old": "NTSB p.62（`OceanGate did not build or test any new sub-scale models using the co-bonding process`）",
+"new": "NTSB p.28（`between November 2020 and January 2021.`）・NTSB p.62（`OceanGate did not build or test any new sub-scale models using the co-bonding process`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G4-014",
+"cut": "c909",
+"old": "§1.12.2（`Grinding down the carbon fibre severed some of the fibres and introduced defects on the surface.`）",
+"new": "§1.12.2（`Grinding down the carbon fibre severed some of the fibres and introduced defects on the surface.`）・§1.12.2（`Grinding did not mitigate ply waviness below the outer surface of each layer of the cylinder.`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G4-015",
+"cut": "c910",
+"old": "> どこまで削ったのか、記録は残っていない。",
+"new": "> どこまで削ったのか、記録されていない。",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G4-029",
+"cut": "c911",
+"old": "> 筒は両端に余りをつけて作り、あとで切り落とした。\n> 事故のあと、アメリカの運輸安全委員会は、その端材を調べた。",
+"new": "> 事故のあと、アメリカの運輸安全委員会は、筒の両端の余りを切り落とした端材を調べた。",
+"why": "係の案どおり（G0 が原文に引き直した）（C）"
+},
+{
+"id": "G0-M07",
+"cut": "c911",
+"old": "> 事故のあと、アメリカの運輸安全委員会は、筒の両端の余りを切り落とした端材を調べた。",
+"new": "> 事故のあと、米運輸安全委員会は、筒の両端の余りを切り落とした端材を調べた。",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "G4-016",
+"cut": "c913",
+"old": "> 1枚目と2枚目、3枚目と4枚目のあいだ。海の底で、はがれていた面だ。",
+"new": "> 1枚目と2枚目の層、3枚目と4枚目の層のあいだ。回収した破片で、はがれていた面だ。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "R1-002",
+"cut": "c913",
+"old": "> 1枚目と2枚目の層、3枚目と4枚目の層のあいだ。回収した破片で、はがれていた面だ。",
+"new": "> 1枚目と2枚目の層、3枚目と4枚目の層のあいだ。残骸の映像で、はがれていた面だ。",
+"why": "🔴 G0 が NTSB p.40 で確かめた（2つの剥離は残骸で見た＝investigators could see・Piece A〜D）（B）",
+"order": 99
+},
+{
+"id": "G4-017",
+"cut": "c914",
+"old": "> そう。アメリカの運輸安全委員会は、この作り方は、しわを無くしきれず、\n> ほかの異常も持ち込んだ、とまとめている。",
+"new": "> そう。アメリカの運輸安全委員会は、この作り方は、しわやうねりを無くしきれず、\n> ほかの異常も持ち込んだ、とみている。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G0-M08",
+"cut": "c914",
+"old": "> そう。アメリカの運輸安全委員会は、この作り方は、しわやうねりを無くしきれず、",
+"new": "> そう。米運輸安全委員会は、この作り方は、しわやうねりを無くしきれず、",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "G0-017",
+"cut": "c915",
+"old": "> カナダの運輸安全委員会の研究所も、2つ目の筒の端材を手に入れ、\n> 18の試料に切って、試験した。",
+"new": "> カナダの研究所も、2つ目の筒の端材を、18の試料に切って試験した。",
+"why": "字数：1文に詰めた（c920 の「カナダの研究所」と同じ呼び方）"
+},
+{
+"id": "G4-018",
+"cut": "c916",
+"old": "副題「端面に見える層のうねり（研究所）」",
+"new": "副題「端面に見える層のうねり（アメリカの運輸安全委員会の研究所）」",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "R1-009",
+"cut": "c916",
+"old": "（アメリカの運輸安全委員会の研究所）",
+"new": "（米運輸安全委員会の研究所）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）",
+"order": 99
+},
+{
+"id": "G4-009.1",
+"cut": "c917",
+"old": "> 試料から計算した安全率は、長さの向きで3.05。必要な1.25を、十分に上回った。\n> ところが周りの向きは、1.11。必要な1.25に、届いていなかった。",
+"new": "> 2020年、会社は安全率の基準を、国際規格に合わせて1.25にしていた。\n> 試料から計算した安全率は、長さの向きで3.05。十分に上回った。\n> ところが周りの向きは、1.11。1.25に、届いていなかった。",
+"why": "c901 に足すと1カット4行＝1.25 の出どころ（2020年に会社が ISO に合わせた・TSB §1.12.2）は c917 の頭に置いた。c708 の「最低1.5」（2015年）と時期で分かれる（C）"
+},
+{
+"id": "G4-009.2",
+"cut": "c917",
+"old": "TSB §1.15（`as evidenced by the calculated safety factor of 3.05, which was greater than the required 1.25.`）",
+"new": "TSB §1.12.2（`OceanGate also changed its safety factor to 1.25`）・§1.15（`as evidenced by the calculated safety factor of 3.05, which was greater than the required 1.25.`）",
+"why": "c901 に足すと1カット4行＝1.25 の出どころ（2020年に会社が ISO に合わせた・TSB §1.12.2）は c917 の頭に置いた。c708 の「最低1.5」（2015年）と時期で分かれる（C）"
+},
+{
+"id": "G4-019",
+"cut": "c918",
+"old": "> いつも100キロを載せる棚なら、125キロまで耐えるように作る、という決まりだ。",
+"new": "> いつも100キロを載せる棚なら、125キロまで耐えるように作る、という基準だ。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G7-054",
+"cut": "c918",
+"old": "> この筒の周りの向きは、111キロまでしか耐えない計算になる。",
+"new": "> この筒の周りの向きは、111キロまで。余裕は、基準の半分も無い計算だ。",
+"why": "G4-019（決まり→基準）にそろえて「基準の半分も無い」（C）"
+},
+{
+"id": "R1-006",
+"cut": "c918",
+"old": "> この筒の周りの向きは、111キロまで。余裕は、基準の半分も無い計算だ。",
+"new": "> この筒の周りの向きは、111キロまで。余裕は、求める分の半分も無い計算だ。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）",
+"order": 99
+},
+{
+"id": "R1-007",
+"cut": "c918",
+"old": "決まりは125キロまで耐える",
+"new": "基準は125キロまで耐える",
+"why": "係の案どおり（G0 が原文に引き直した）（D）",
+"order": 99
+},
+{
+"id": "G7-055",
+"cut": "c919",
+"old": "> それより深い圧力に、くり返しさらされるのは、安全ではなかった。",
+"new": "> それより深い圧力に、加圧試験も含めてくり返しさらされるのは、安全ではなかった。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G0-003",
+"cut": "c920",
+"old": "図 棒 疲れの寿命（アメリカの研究所の試料で、",
+"new": "図 棒 疲れの寿命（米運輸安全委が試した試料でカナダの研究所が計算、",
+"why": "画の欄の「アメリカの研究所の試料で」も、語り（G4-020）にそろえて誰の試料で誰が計算したかを書く"
+},
+{
+"id": "G4-020",
+"cut": "c920",
+"old": "> アメリカの研究所の試料では、いちばん強い物なら耐えた見込みだが、\n> いちばん弱い物なら、事故の潜航までに、くり返しで壊れるまでの寿命の、\n> 82%を超えて使っていた可能性があるという。",
+"new": "> カナダの研究所は、アメリカの運輸安全委員会が試した試料でも計算した。\n> いちばん強い物なら耐えた見込み。いちばん弱い物なら、事故の潜航までに、\n> くり返しで壊れるまでの寿命の、82%を超えて使っていた可能性がある。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G0-M09",
+"cut": "c920",
+"old": "> カナダの研究所は、アメリカの運輸安全委員会が試した試料でも計算した。",
+"new": "> カナダの研究所は、米運輸安全委員会が試した試料でも計算した。",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "G4-025",
+"cut": "c921",
+"old": "NTSB p.58（`marginally greater than the 3,840-meter (12,598-foot) dive depth required to reach the Titanic.`）",
+"new": "TSB §1.15（`the Titan had 4 successful pressure tests at the Deep Ocean Test Facility`）・NTSB p.58（`marginally greater than the 3,840-meter (12,598-foot) dive depth required to reach the Titanic.`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G4-027",
+"cut": "c921",
+"old": "> 2021年2月から3月、完成した船体は、4,000メートル前後の加圧を4回受け、",
+"new": "> 2021年2月から3月、船体は、4,000メートル前後の加圧を4回受け、",
+"why": "係の案どおり（G0 が原文に引き直した）（C）"
+},
+{
+"id": "G4-021",
+"cut": "c922",
+"old": "> 会社は、傷は音の監視の装置で、その場で見つけられる、と説明していた。",
+"new": "> くり返しの計算を聞かれた会社は、傷は音の監視でその場で分かる、と答えていた。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G0-004",
+"cut": "c923",
+"old": "NTSB p.30（`an acrylic window certified to 1,000 meters (3,281 feet).`）",
+"new": "NTSB p.30（`an acrylic window certified to 1,000 meters (3,281 feet).`）・TSB §1.12.1（`only a fraction of what OceanGate required for dives to the Titanic`）・§1.12.2（`The new viewport from Germany was installed in this construction`）",
+"why": "G4-022 の語り（タイタニックに遠く及ばない・窓は取り替えた）の出どころを出典の欄に足す（TSB §1.12.1・§1.12.2）"
+},
+{
+"id": "G4-022",
+"cut": "c923",
+"old": "> 前のドームの窓も、心配された所だ。最初の窓の等級は、約650メートル。\n> アメリカの運輸安全委員会は、1,000メートルまでの認証と書く。\n> 事故のときの窓が何だったかは、調べによって見方が分かれる。",
+"new": "> 前のドームの窓も心配された。最初の窓が認められた深さは約650メートルで、\n> タイタニックに遠く及ばない。米運輸安全委員会は1,000メートルと書く。\n> 事故のときの窓が何だったかは、調べによって見方が分かれる。",
+"why": "係の案（タイタニックに遠く及ばない）を採り、「窓は取り替えた」は出典の欄（G0-004）に置いて語りは詰めた（A）"
+},
+{
+"id": "G5-002",
+"cut": "ca01",
+"old": "USCG p.235〈227〉（`While 7 of the 13 dives reached the TITANIC depth of 3840 m`）",
+"new": "USCG p.235〈227〉（`While 7 of the 13 dives reached the TITANIC depth of 3840 m`）・TSB 脚注75（`Dives without people on board are not included.`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G7-058",
+"cut": "ca01",
+"old": "> Q: その夏、何があったの？",
+"new": "> Q: 次の年の夏には、何があったの？",
+"why": "問い「次の年の夏には」で年が伝わる＝語りの「2022年の夏、」は足さない（字数：1回目の試し組みで上限を444字超えた＝足しの言い添えを戻した）（C）"
+},
+{
+"id": "R2-023",
+"cut": "ca02",
+"old": "> カナダの調べの付録によると、7月3日、潜水艇はタイタニックの船首の左側にぶつかり、",
+"new": "> カナダの調べによると、7月3日、潜水艇はタイタニックの船首の左側にぶつかり、",
+"why": "係の案どおり（G0 が原文に引き直した）（A）",
+"order": 99
+},
+{
+"id": "G5-003",
+"cut": "ca03",
+"old": "> 傷みの量は分からないが、カナダの調べは、これも傷みの出どころの候補に挙げる。\n> そして7月15日。タイタニックの中を近くで見ようと降りた潜水艇は、\n> その階段に、引っかかった。",
+"new": "> そう。傷んだかは分からないが、カナダの調べは、これも傷みの出どころの候補に挙げる。\n> そして7月15日、米沿岸警備隊によると、潜水艇はタイタニックの中を見ようと降り、\n> その階段に、引っかかった。",
+"why": "係の案（傷んだかは分からない・米沿岸警備隊の帰属・「そう。」で受ける）。途中の行の終わりを読点にした（B）"
+},
+{
+"id": "R2-009",
+"cut": "ca03",
+"old": "> そして7月15日、米沿岸警備隊によると、潜水艇はタイタニックの中を見ようと降り、",
+"new": "> そして7月15日、米沿岸警備隊によると、潜水艇はタイタニックの中をのぞこうと降り、",
+"why": "係の案どおり（G0 が原文に引き直した）（A）",
+"order": 99
+},
+{
+"id": "G5-004",
+"cut": "ca04",
+"old": "> 米沿岸警備隊によると、事故としての報告は、出されなかった。",
+"new": "> 事故としての報告は、出されなかった。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G7-059",
+"cut": "ca06",
+"old": "> Q: 音を記録する装置も、付いていたの？\n> 付いていた。船体の中の音を拾うセンサーが8つ、ひずみを測る計器が16。",
+"new": "> Q: 音の監視の装置って、どんな物？\n> 船体の中の音を拾うセンサーが8つと、ひずみを測る計器が16。",
+"why": "係の案どおり（G0 が原文に引き直した）（C）"
+},
+{
+"id": "G5-006",
+"cut": "ca07",
+"old": "> 米沿岸警備隊の記録では、15時26分45秒、装置は大きな音の山をとらえた。",
+"new": "> 米沿岸警備隊の分析では、15時26分45秒、装置は大きな音の山をとらえた。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G7-060",
+"cut": "ca08",
+"old": "> 15時15分から30分ごろのあいだ、と幅で書いている。",
+"new": "> 15時15分から15時30分ごろのあいだ、と幅で書いている。",
+"why": "係の案どおり（G0 が原文に引き直した）（E）"
+},
+{
+"id": "G0-M10",
+"cut": "ca08",
+"old": "> 音は、15時17分ごろから増え始めていた。アメリカの運輸安全委員会は、",
+"new": "> 音は、15時17分ごろから増え始めていた。米運輸安全委員会は、",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "R2-022",
+"cut": "ca08",
+"old": "> 15時15分から15時30分ごろのあいだ、と幅で書いている。",
+"new": "> 15時15分から15時30分ごろのあいだ、と幅で書く。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）",
+"order": 99
+},
+{
+"id": "G0-019",
+"cut": "ca09",
+"old": "> 社員と客にも、船体が金属の受け台の中でずれた、と伝えられた。",
+"new": "> 社員と客にも、そう伝えられた。",
+"why": "字数：1行目と同じ中身（ずれた音）の言い直し＝「そう伝えられた」に詰めた（出典の欄の NTSB p.36 は残す）"
+},
+{
+"id": "G5-007",
+"cut": "ca10",
+"old": "USCG p.290〈282〉（`no effort was made to remove the TITAN’s insert or take the submersible temporarily out of service for a more detailed assessment.`）",
+"new": "USCG p.289〈281〉（`a cursory external examination of the TITAN was conducted following the loud bang with no visible damage identified.`）・USCG p.290〈282〉（`no effort was made to remove the TITAN’s insert or take the submersible temporarily out of service for a more detailed assessment.`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G7-061",
+"cut": "ca11",
+"old": "> アメリカの運輸安全委員会によると、CEO はデータを見たうえで、技術部長に言った。\n> 「もう一度潜って、どうなるか見よう」。",
+"new": "> アメリカの運輸安全委員会によると、CEO はデータを見たうえで、\n> 当時の技術部長に言った。「もう一度潜って、どうなるか見よう」。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G0-M11",
+"cut": "ca11",
+"old": "> アメリカの運輸安全委員会によると、CEO はデータを見たうえで、",
+"new": "> 米運輸安全委員会によると、CEO はデータを見たうえで、",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "G5-008",
+"cut": "ca13",
+"old": "> Q: データはあっても、読める人がいなかったんだね。",
+"new": "> Q: その場には、データを読める人がいなかったんだね。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G5-009",
+"cut": "ca14",
+"old": "> そう。4日後の7月19日、次の潜航。22日の潜航も、タイタニックの深さまで。",
+"new": "> そう。4日後の7月19日と、22日の潜航は、どちらもタイタニックの深さまで。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G5-010",
+"cut": "ca14",
+"old": "NTSB p.36（`the submersible reached 3,840 meters (12,598 feet) on dives 81 and 82 and 2,954 meters (9,692 feet) on the final dive of the expedition.`）",
+"new": "NTSB p.36（`the submersible reached 3,840 meters (12,598 feet) on dives 81 and 82 and 2,954 meters (9,692 feet) on the final dive of the expedition.`）・NTSB p.51（`The last of these dives (dive 83) took place on July 23, 2022, but at a different dive location`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G0-014",
+"cut": "ca15",
+"old": "> 19日の潜航では、推進器の向きの割り当てが逆になった。\n> 操縦士はコントローラーを逆さに持って、そのまま続けた。",
+"new": "> 19日は推進器の操作が逆になり、操縦士はコントローラーを逆さに持って続けた。",
+"why": "字数：1文に詰めた"
+},
+{
+"id": "G5-011",
+"cut": "ca15",
+"old": "USCG p.235〈227〉（`The pilot overcame the malfunctioning thrusters by turning the controller around and operating the controls in reverse.`）",
+"new": "USCG p.235〈227〉（`The pilot overcame the malfunctioning thrusters by turning the controller around and operating the controls in reverse.`）・USCG p.311〈303〉（`the dive proceeded after the pilot compensated for the failures instead of ascending for repairs in a controlled environment.`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G7-062",
+"cut": "ca16",
+"old": "> 会社は、ひずみを時刻に沿って並べて見ていた。これでは潜航どうしを比べにくい、\n> とアメリカの運輸安全委員会は書く。",
+"new": "> 会社は、ひずみを時刻に沿って並べて見ていた。\n> アメリカの運輸安全委員会によると、これでは潜航どうしを比べにくい。",
+"why": "係の案どおり（G0 が原文に引き直した）（C）"
+},
+{
+"id": "G0-M12",
+"cut": "ca16",
+"old": "> アメリカの運輸安全委員会によると、これでは潜航どうしを比べにくい。",
+"new": "> 米運輸安全委員会によると、これでは潜航どうしを比べにくい。",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "G7-063",
+"cut": "ca17",
+"old": "> 事故のあと、同じデータを深さに沿って並べ直すと、80回目までは、",
+"new": "> 事故のあと、同じデータを深さに沿って並べ直すと、7月15日の80回目までは、",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "R2-007",
+"cut": "ca17",
+"old": "> 事故のあと、同じデータを深さに沿って並べ直すと、7月15日の80回目までは、",
+"new": "> 事故のあと、同じデータを深さに沿って並べ直すと、あの音の潜航までは、",
+"why": "係の案どおり（G0 が原文に引き直した）（A）",
+"order": 99
+},
+{
+"id": "G5-012",
+"cut": "ca18",
+"old": "NTSB p.53（`During dive 81, the first dive after the audible event, the strain response at low depth was non-linear.`）",
+"new": "NTSB p.53（`During dive 81, the first dive after the audible event, the strain response at low depth was non-linear.`）・NTSB p.59 脚注42（`The strain response at greater depths remained linear, similar to previous dives`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G5-013",
+"cut": "ca19",
+"old": "> 層と層がはがれたときに、よく合う形だという。その計器は筒の前の端にあり、\n> 傷みは前の端まで届いていた、とアメリカの運輸安全委員会は書く。",
+"new": "> アメリカの運輸安全委員会によると、層がはがれると、浅い所では層が別々に動き、\n> 深い所ではまとまって動く。計器は筒の前の端にあり、傷みはそこまで届いていた。",
+"why": "なぜ浅い所だけか（NTSB p.59）を足し、1カット3行に収めた（C）"
+},
+{
+"id": "G0-M13",
+"cut": "ca19",
+"old": "> アメリカの運輸安全委員会によると、層がはがれると、浅い所では層が別々に動き、",
+"new": "> 米運輸安全委員会によると、層がはがれると、浅い所では層が別々に動き、",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "R2-002",
+"cut": "ca19",
+"old": "> 米運輸安全委員会によると、層がはがれると、浅い所では層が別々に動き、",
+"new": "> 層のはがれとよく合う、と米運輸安全委員会は書く。はがれた層は浅い所で別々に動き、",
+"why": "係の案どおり（G0 が原文に引き直した）（more consistent with を戻す・R2-022・R2-023 で埋める）（B）",
+"order": 99
+},
+{
+"id": "G5-014",
+"cut": "ca20",
+"old": "> 前の年の夏は全体より21%大きく、2022年7月19日は98%大きかった。",
+"new": "> 2021年8月の潜航は全体より21%、2022年7月19日は98%大きかった。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "R2-006",
+"cut": "ca20",
+"old": "> 2021年8月の潜航は全体より21%、2022年7月19日は98%大きかった。",
+"new": "> 2021年8月5日の潜航は全体より21%、2022年7月19日は98%大きかった。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）",
+"order": 99
+},
+{
+"id": "G5-015",
+"cut": "ca21",
+"old": "USCG p.289〈281〉（`strongly suggests that the carbon fiber hull sustained irreversible damage at the end of Dive 80.`）",
+"new": "USCG p.289〈281〉（`strongly suggests that the carbon fiber hull sustained irreversible damage at the end of Dive 80.`）・USCG p.289〈281〉（`It is likely that the loud bang heard on the surface during Dive 80 was the result of a sudden delamination occurring between layers 1 and 2`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G5-016",
+"cut": "ca22",
+"old": "> カナダの調べは、きちんと調べなかったので、あの音が線の曲がりのきっかけかは、\n> 決められない、とした。",
+"new": "> カナダの調べは、会社が音のあと船体をきちんと調べなかったので、\n> あの音が線の曲がりのきっかけかは、決められない、とした。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "R2-005",
+"cut": "ca22",
+"old": "> Q: きっかけかどうかは、まだ決まっていないんだね。",
+"new": "> Q: 会社が調べなかったから、決められないんだね。",
+"why": "係の案どおり（G0 が原文に引き直した）（C）",
+"order": 99
+},
+{
+"id": "G5-017",
+"cut": "ca25",
+"old": "> 警告の基準は、作り方の違う1つ目の船体と、模型の音から決めていた。\n> あの音のあとも、警告を出す形の音は出ず、最初の傷みに気づけなかった。",
+"new": "> アメリカの運輸安全委員会によると、警告の基準は、作り方の違う1つ目の船体と、\n> 模型の音から決めていた。大きな音の山も警告の形にならず、傷みに気づけなかった。",
+"why": "帰属を足すと1カット4行＝2行に詰め、G7-064（とらえたのに警告が出ない、の矛盾）も同じ行で解いた（B）"
+},
+{
+"id": "G5-018",
+"cut": "ca25",
+"old": "NTSB p.31（`The warning levels were based on the acoustic activity of the v1 pressure vessel`）",
+"new": "NTSB p.31（`The warning levels were based on the acoustic activity of the v1 pressure vessel`）・NTSB p.64（`the v1 full-scale pressure vessel and sub-scale models were manufactured using a different method`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G0-M14",
+"cut": "ca25",
+"old": "> アメリカの運輸安全委員会によると、警告の基準は、作り方の違う1つ目の船体と、",
+"new": "> 米運輸安全委員会によると、警告の基準は、作り方の違う1つ目の船体と、",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "R2-001",
+"cut": "ca25",
+"old": "> 模型の音から決めていた。大きな音の山も警告の形にならず、傷みに気づけなかった。",
+"new": "> 模型の音で決めた。音のあとの潜航でも警告の形にならず、最初の傷みに気づけなかった。",
+"why": "🔴 G0 が NTSB p.65 で確かめた（the dives that followed dive 80 … never produced the type of … alert・initial damage）（B）",
+"order": 99
+},
+{
+"id": "G5-019",
+"cut": "ca26",
+"old": "> そう。米沿岸警備隊は、あの音は、すべての潜航を止める赤信号だったはずだ、と書く。",
+"new": "> そう。米沿岸警備隊は、あの音の記録は、\n> すべての潜航を止める赤信号だったはずだ、と書く。",
+"why": "赤信号の主語は音の記録（USCG）。詰めた（B）"
+},
+{
+"id": "R2-008",
+"cut": "ca26",
+"old": "> そう。米沿岸警備隊は、あの音の記録は、",
+"new": "> そう。米沿岸警備隊は、あの音とひずみの記録は、",
+"why": "係の案どおり（G0 が原文に引き直した）（B）",
+"order": 99
+},
+{
+"id": "G0-005",
+"cut": "§",
+"old": "| 現場までの距離（D3） | 約685キロ（米2機関の370海里） |",
+"new": "| 現場までの距離（D3） | 約700〜800キロ（④'で幅に＝米2機関の370海里＝約685キロと TSB の約425海里＝約787キロ・c219） |",
+"why": "§1-5 の D3（現場までの距離）を、語りの幅（約700〜800キロ＝G1-015）に合わせる"
+},
+{
+"id": "G0-006",
+"cut": "§",
+"old": "| c219・c304 | 約685キロ | 370海里（USCG p.5〈v〉・NTSB p.1）×1.852＝685.2km。⚠️ TSB は「約425海里」（D3）＝台本は米2機関の値 |",
+"new": "| c219 | 約700〜800キロ | 370海里（USCG p.5〈v〉・NTSB p.1）×1.852＝685.2km／425海里（TSB）×1.852＝787.1km＝④'で幅に（G1-015）。画の札も幅か、帰属つきの2つの値で |",
+"why": "§9 の c219 の行を幅の言い方に合わせる（c304 の語りに距離は無い）"
+},
+{
+"id": "G0-007",
+"cut": "§",
+"old": "| c205・c301 | 全長6.7メートル／約67メートル | 22ft×0.3048＝6.71m（NTSB p.19 脚注13 も 6.7m）／220ft×0.3048＝67.1m |",
+"new": "| c205・c301 | 全長6.7メートル／全長70メートル近い | 22ft×0.3048＝6.71m（NTSB p.19 脚注13 も 6.7m）／220ft×0.3048＝67.1m（NTSB）・TSB 表1 は 69.07m＝どちらも「70メートル近い」（④'・G1-016） |",
+"why": "§9 の c205・c301 の行を「70メートル近い」（G1-016）に合わせる"
+},
+{
+"id": "G0-008",
+"cut": "§",
+"old": "| 5.397秒 | ごてんさんきゅうなな びょう | c413 |",
+"new": "| 約5.4秒 | やく ごてんよん びょう（④'で 5.397 から丸めた） | c413 |",
+"why": "§6 の読みを c413 の「約5.4秒」（G7-018）に合わせる"
+},
+{
+"id": "G0-009",
+"cut": "§",
+"old": "- 船級（せんきゅう）…国とは別の団体が、船の設計を見て工事に立ち会い、試験を確かめて証明する仕組み",
+"new": "- 船級（せんきゅう）…国とは別の民間の団体（船級協会）が、船の設計や工事を確かめ、大事な試験に立ち会って証明する仕組み",
+"why": "§8 の用語集の船級を c714 の言い方（NTSB p.22＝立ち会うのは試験）に合わせる（G3-006 の親へ）"
+},
+{
+"id": "G0-010",
+"cut": "§",
+"old": "| 母船の乗客（TSB） | 乗客に数えられる人が24人・決まりの上限は12人（c302・c303） | 「観光客24人」ではない（カナダの法の定義＝会社の人も客もその家族も） | TSB §1.20.1.1・§1.20.1.2 |",
+"new": "| 母船の乗客（TSB） | 乗客に数えられる人が24人・決まりの上限は12人（c302・c303） | 「観光客24人」ではない（カナダの法の定義＝会社の人も客もその家族も） | TSB §1.20.1.1・§1.20.1.2 |\n| 母船の長さ（🆕④'） | 70メートル近い（c301） | NTSB 220フィート＝67.2m／TSB 表1 69.07m | NTSB p.14・TSB 表1 |",
+"why": "§1-5 に母船の長さの割れ（G1-016）を足す"
+},
+{
+"id": "G0-023",
+"cut": "§",
+"old": "### 1-1. 題（§B4・🆕 10-13 の型＝〈一目で事件が分かる語〉＋インパクトのある1句。〈事件名〉の真相【事故検証】【ゆっくり解説】）",
+"new": "### 1-1. 題（§B4・🆕 10-13 の型＝〈一目で事件が分かる語〉＋インパクトのある1句。〈事件名〉の真相【事故検証】【ゆっくり解説】）\n- 🆕 **承認①（2026-10-14・④'のチャット）＝保留。最有力は A（70字）**（カズヤくん）。④'が推した「事故の11か月前」（73字）は選ばれなかった＝⑥でアップロードの前にもう一度決める",
+"why": "承認①の記録（題）"
+},
+{
+"id": "G0-024",
+"cut": "§",
+"old": "### 1-2. サムネの赤（§B5＝「犠牲N人＋核心」・空白こみ10〜14字・「死亡」は使わない）",
+"new": "### 1-2. サムネの赤（§B5＝「犠牲N人＋核心」・空白こみ10〜14字・「死亡」は使わない）\n- ✅ **承認①（2026-10-14）＝A「犠牲5人 異音の4日後も潜航」**（カズヤくん・④の推奨どおり）",
+"why": "承認①の記録（サムネの赤）"
+},
+{
+"id": "G0-025",
+"cut": "§",
+"old": "### 1-3. コメントの問い（§B3-7b＝誰でも気軽に答えられる・責める相手を作らない・です・ます・3行以内＋🆕 10-13「あなたは」から）",
+"new": "### 1-3. コメントの問い（§B3-7b＝誰でも気軽に答えられる・責める相手を作らない・です・ます・3行以内＋🆕 10-13「あなたは」から）\n- ✅ **承認①（2026-10-14）＝C「あなたは、もし乗れるとしたら、深い海の底を自分の目で見てみたいですか。よければ、コメントで教えてください。」**（カズヤくん・下の④の注を見たうえで C）＝cd09 に入れた（④'）",
+"why": "承認①の記録（問い）"
+},
+{
+"id": "G4-024",
+"cut": "§",
+"old": "| c105 | 4日後 | 2022-07-15→07-19（TSB §2.1.1 の字「4 days before the subsequent dive on 19 July 2022」） |",
+"new": "| c105 | 4日後 | 2022-07-15→07-19（TSB §2.1.1 の字「4 days before the subsequent dive on 19 July 2022」） |\n| c918 | 100キロ・125キロ・111キロ | 安全率＝壊れる荷÷ふだんの荷（c707＝NTSB p.24 脚注21 の深さの比を荷に置き換えた）。100×1.25＝125・100×1.11＝111（TSB §1.15 の 1.25・1.11）。何メートルでの値かは §1.15 に無い＝たとえに深さを足さない |",
+"why": "係の案どおり（G0 が原文に引き直した）（§9 に c918 の行）（D）"
+},
+{
+"id": "G6-013",
+"cut": "§",
+"old": "c9＝TSB §1.15。⚠️ 安全率は本編の後半＝題で引いて冒頭で回収できない",
+"new": "c9＝TSB §1.15。⚠️ 安全率は本編の後半＝題で引いて冒頭で回収できない。⚠️「決まりの1.25」は言い過ぎ（TSB の字は required・1.25 は会社が ISO に合わせた値＝TSB §1.12.2）＝使うなら「必要な1.25」（c917 と同じ）。1.11 は周りの向きだけ・試料が実物を代表するならの前提つき（TSB §1.15）",
+"why": "係の案どおり（G0 が原文に引き直した）（§1-1 の題 B の注意書き）（B）"
+},
+{
+"id": "G6-014",
+"cut": "§",
+"old": "## 9. 換算と計算（式）\n\n## 9. 換算と計算（式）",
+"new": "## 9. 換算と計算（式）",
+"why": "係の案どおり（G0 が原文に引き直した）（§9 の見出しの重なり）（D）"
+},
+{
+"id": "G6-015",
+"cut": "§",
+"old": "| c105 | 4日後 | 2022-07-15→07-19（TSB §2.1.1 の字「4 days before the subsequent dive on 19 July 2022」） |",
+"new": "| c105 | 4日後 | 2022-07-15→07-19（TSB §2.1.1 の字「4 days before the subsequent dive on 19 July 2022」） |\n| cb10 | 5,000キロを超えた（画の札 約5,400km） | 2,900NM×1.852＝5,370.8km（USCG p.294〈286〉 more than 2,900 NM＝2023年の遠征の季節）。「〜を超えた」は more than と向きが合う |",
+"why": "係の案どおり（G0 が原文に引き直した）（§9 に cb10 の行）（D）"
+},
+{
+"id": "R2-018",
+"cut": "§",
+"old": "| cb10 | 5,000キロを超えた（画の札 約5,400km） |",
+"new": "| cb10 | 画の札だけ＝約5,400km（語りの「5,000キロを超えた」は④'で外した＝G5-026） |",
+"why": "係の案どおり（G0 が原文に引き直した）（D）",
+"order": 99
+},
+{
+"id": "R2-019",
+"cut": "§",
+"old": "| cb04 | 摂氏マイナス0.5度 |",
+"new": "| cb04 | マイナス0.5度（④'で「摂氏」を外した＝G5-021） |",
+"why": "係の案どおり（G0 が原文に引き直した）（D）",
+"order": 99
+},
+{
+"id": "R2-020",
+"cut": "§",
+"old": "| NTSB 220フィート＝67.2m／TSB 表1 69.07m | NTSB p.14・TSB 表1 |",
+"new": "| NTSB 220フィート（p.14）＝67.1m・表E-2 は 220.4ft＝67.2m／TSB 表1 69.07m | NTSB p.14・p.85・TSB 表1（§1.1） |",
+"why": "係の案どおり（G0 が原文に引き直した）（D）",
+"order": 99
+},
+{
+"id": "R2-021",
+"cut": "§",
+"old": "| CEO | シーイーオー | 全体 |",
+"new": "| CEO | シーイーオー | 全体 |\n| 米運輸安全委員会・米沿岸警備隊 | べい うんゆあんぜんいいんかい・べい えんがんけいびたい（「こめ」と読ませない） | 全体（④'で呼び名をそろえた＝G0-M） |",
+"why": "係の案どおり（G0 が原文に引き直した）（⑤a の読みで「べい」）（E）",
+"order": 99
+},
+{
+"id": "G5-020",
+"cut": "cb02",
+"old": "> 前の冬は、本社のある町へ運び、屋内に置いていた。\n> この冬、潜水艇は、覆いも無いまま外にあった。",
+"new": "> 前の冬は、アメリカへ運び戻していた。この冬は、覆いも無いまま外にあった。",
+"why": "G7-065（同じ事実の4回目）と1つにした＝前の冬と、この冬を1行で比べる（B）"
+},
+{
+"id": "G5-021",
+"cut": "cb04",
+"old": "> セントジョンズの冬は、最高気温の平均でも、摂氏マイナス0.5度。",
+"new": "> この冬、12月から2月のセントジョンズは、最高気温の平均でもマイナス0.5度。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G5-022",
+"cut": "cb05",
+"old": "> アメリカの運輸安全委員会とカナダの調べは、可能性までとする。",
+"new": "> アメリカの運輸安全委員会もカナダの調べも、外での傷みは「あり得る」までだ。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G0-M15",
+"cut": "cb05",
+"old": "> アメリカの運輸安全委員会もカナダの調べも、外での傷みは「あり得る」までだ。",
+"new": "> 米運輸安全委員会もカナダの調べも、外での傷みは「あり得る」までだ。",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "G5-023",
+"cut": "cb07",
+"old": "> だが、できなかった、と当時の技術部長は証言している。会社のお金は苦しく、\n> 2022年と2023年には、社員が給料の後払いを頼まれていた。",
+"new": "> だが、できなかった、と当時の技術部長は証言している。",
+"why": "係の案どおり（G0 が原文に引き直した）（字数：1回目の試し組みで上限を444字超えた＝足しの言い添えを戻した）（C）"
+},
+{
+"id": "R2-016",
+"cut": "cb07",
+"old": "・TSB §1.23（`at certain times in 2022 and 2023, OceanGate employees were asked to volunteer to defer their pay because of issues with company finances.`）",
+"new": "",
+"why": "語りを外した片を欄から外す（G5-023 の対）（D）",
+"order": 99
+},
+{
+"id": "G5-024",
+"cut": "cb08",
+"old": "> 技術の責任者の席は、空いたままだった。",
+"new": "> 技術の責任者の席は、正式には空いたままだった。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G0-011",
+"cut": "cb09",
+"old": "> 後ろに引いて運ばれた。乗客の数の決まりを超えるための、\n> 免除の申し込みも、出されていなかった。",
+"new": "> 後ろに引いて運ばれた。",
+"why": "字数：免除の申し込みの1文（TSB だけの事実・G5-025）は、台に載せて引いた話の途中で話題が跳ぶ（G7-067）＝外した。カナダの監督の穴は cc07"
+},
+{
+"id": "R2-017",
+"cut": "cb09",
+"old": "・TSB §1.20.1.2（`there had been no application for an MTRB exemption submitted for the charter with OceanGate.`）",
+"new": "",
+"why": "語りを外した片を欄から外す（G0-011 の対）（D）",
+"order": 99
+},
+{
+"id": "G5-026",
+"cut": "cb10",
+"old": "> その年、潜水艇が引かれていた時間は、合わせて約950時間。\n> 道のりは、5,000キロを超えた。",
+"new": "> その年、潜水艇が母船の綱につながれていた時間は、合わせて約950時間。",
+"why": "約950時間は引かれていた＋綱でつながれていた時間の合計（TSB）。道のり（USCG）の1文は字数で外した（画の棒に残す）（字数：2回目の試し組みでも上限を67字超えた）（B）"
+},
+{
+"id": "R2-013",
+"cut": "cb10",
+"old": "> その年、潜水艇が母船の綱につながれていた時間は、合わせて約950時間。",
+"new": "> その年、母船の綱につながれていた時間は、合わせて約950時間。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）",
+"order": 99
+},
+{
+"id": "G0-018",
+"cut": "cb11",
+"old": "> 波の高さは、最大3.35メートルあった。",
+"new": "> 波は、最大3.35メートルあった。",
+"why": "字数"
+},
+{
+"id": "R2-012",
+"cut": "cb11",
+"old": "> 波は、最大3.35メートルあった。",
+"new": "> 波の高さの目安は、最大3.35メートルあった。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）",
+"order": 99
+},
+{
+"id": "G5-027",
+"cut": "cb12",
+"old": "> カナダの調べでは、港へ戻る途中でも、もう一度沈んでいる。\n> Q: 運ぶだけで、そんなことになるんだ。",
+"new": "> カナダの調べでは、港へ戻る途中でも、もう一度、半ば沈んでいる。\n> Q: 運んでいるだけで、沈みかけたんだね。",
+"why": "係の案どおり（G0 が原文に引き直した）（C）"
+},
+{
+"id": "G5-028",
+"cut": "cb12",
+"old": "④' と映像方針で使うか確かめる＝副題「引かれて傾いた台（2023年5月）」",
+"new": "④' と映像方針で使うか確かめる＝副題「傾いた台（2023年5月20日と27日）」＝NTSB 図10 の凡例の日付・5月24日に半ば沈んだ場面ではない＝語りの5月24日と並べない（引かれて揺れた cb11 へ移す案）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "R2-014",
+"cut": "cb12",
+"old": "> カナダの調べでは、港へ戻る途中でも、もう一度、半ば沈んでいる。",
+"new": "> カナダの調べでは、港へ戻る途中でも、半ば沈んでいる。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）",
+"order": 99
+},
+{
+"id": "G5-029",
+"cut": "cb13",
+"old": "> 引かれたことの影響も、見方が分かれる。米沿岸警備隊は、さらに弱った可能性が高い。\n> カナダの調べは、引いただけでは原因にならないが、\n> すでにあった傷を広げたかもしれない、とする。",
+"new": "> そう。引かれたことの影響も、見方が分かれる。米沿岸警備隊は、\n> 船体がさらに弱った可能性が高い、とみる。カナダの調べは、引いただけでは、\n> 原因になった見込みは低いが、すでにあった傷を広げたかもしれない、とする。",
+"why": "係の案（not likely・主語と述語）。途中の行の終わりを読点にした（B）"
+},
+{
+"id": "G5-030",
+"cut": "cb14",
+"old": "NTSB p.14（`None of the dives exceeded 33 feet (10 meters) depth.`）",
+"new": "NTSB p.14（`None of the dives exceeded 33 feet (10 meters) depth.`）・USCG p.256〈248〉（`10 m dives were dives which did not leave the LARS platform.`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G5-031",
+"cut": "cb15",
+"old": "> 6月の3回目は、台の操作を誤り、潜水艇は波で約45分、台に打ちつけられた。\n> 米沿岸警備隊によると、そのあと船体を点検した記録は無い。",
+"new": "> 米沿岸警備隊によると、3回目の潜航では、台の浮き沈みの調整を誤り、\n> 潜水艇は波で約45分、台に打ちつけられた。そのあと船体を点検した記録は無い。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G7-069.1",
+"cut": "cb17",
+"old": "> 6月18日の潜航の計画で、危険度の点数は35。\n> 会社の決まりでは、48を超えると「ストライク」とされていた。",
+"new": "> 6月18日の潜航の計画で、危険度の点数は35。会社の決まりでは、\n> 48を超えると「ストライク」が1つ付き、3つたまると、その日の潜航をやめる。",
+"why": "ストライクの意味（USCG p.78〈70〉＝3つでその日の潜航をやめる）を足す。35が線の下なのは数で分かる＝言わない（字数：1回目の試し組みで上限を444字超えた＝足しの言い添えを戻した）（A）"
+},
+{
+"id": "G7-069.2",
+"cut": "cb17",
+"old": "The risk assessment for the occurrence dive (Figure 16) had a risk index of 35.`）",
+"new": "The risk assessment for the occurrence dive (Figure 16) had a risk index of 35.`）・USCG p.78〈70〉（`If there was a total of three or more “strikes” encountered during a dive evolution, the Mission Director was required to cancel the day’s dive operation.`）",
+"why": "ストライクの意味（USCG p.78〈70〉＝3つでその日の潜航をやめる）を足す。35が線の下なのは数で分かる＝言わない（字数：1回目の試し組みで上限を444字超えた＝足しの言い添えを戻した）（A）"
+},
+{
+"id": "G5-033",
+"cut": "cb18",
+"old": "> アメリカの運輸安全委員会は、2022年の最後の深い潜航のあと、",
+"new": "> アメリカの運輸安全委員会は、2022年7月22日の潜航のあと、",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G0-M16",
+"cut": "cb18",
+"old": "> アメリカの運輸安全委員会は、2022年7月22日の潜航のあと、",
+"new": "> 米運輸安全委員会は、2022年7月22日の潜航のあと、",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "G5-034",
+"cut": "cb19",
+"old": "> そして6月18日。それは、この年初めて台を離れ、深く潜る潜航だった。\n> Q: 船体を確かめないまま、その日を迎えたんだね。",
+"new": "> そして6月18日。それは、この年、人が乗って初めて台を離れ、深く潜る潜航だった。\n> Q: 船体をよく確かめないまま、その日を迎えたんだね。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G5-035",
+"cut": "cb19",
+"old": "USCG p.295〈287〉（`Dive 88 was the first dive to leave the LARS platform for the TITANIC Survey Expedition 2023`）",
+"new": "USCG p.295〈287〉（`Dive 88 was the first dive to leave the LARS platform for the TITANIC Survey Expedition 2023`）・NTSB p.16（`It was the first dive of the 2023 expedition to descend below 33 feet (10 meters).`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G6-008",
+"cut": "cc03",
+"old": "> 解雇と、その圧力で、安全の懸念を言いにくくした職場も、その1つだ。",
+"new": "> 幹部の解雇と、解雇の脅しで、安全の懸念を言いにくくした職場も、その1つだ。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G0-M17",
+"cut": "cc04",
+"old": "> Q: アメリカの運輸安全委員会は、どう書いたの？",
+"new": "> Q: 米運輸安全委員会は、どう書いたの？",
+"order": 90,
+"why": "呼び名をそろえる（米運輸安全委員会・米沿岸警備隊＝初出の c102・c203 だけアメリカ）"
+},
+{
+"id": "G6-003",
+"cut": "cc05",
+"old": "> 寄与したのは、指針や規則が、会社に業界の基準を守らせるには足りなかったこと。\n> そして、監視の記録の読み違いだ。",
+"new": "> 原因を後押ししたのは、会社に業界の基準を守らせる規則や指針が、足りなかったこと。\n> そして、会社が監視の記録を読み違えたことだ。",
+"why": "「寄与」を言い換え、2行目は主語（会社）だけ足した（係の短い案）（A）"
+},
+{
+"id": "G0-021",
+"cut": "cc08",
+"old": "TSB §4.2（`The investigation identified safety deficiencies that led the Board to issue the following 6 recommendations.`）",
+"new": "TSB §4.2（`The investigation identified safety deficiencies that led the Board to issue the following 6 recommendations.`）・TSB の勧告のページ（rec-m2602・m2604〜m2607＝Date of the latest response: N/A・Not Yet Assessed／m2603 は頁なし＝2026-10-14 に見た・3冊の外・記録は src/new/tsb_rec/）",
+"why": "「勧告のページにまだ載っていない」は3冊の外（G0 がアプリ内のブラウザで見た）＝出典の欄に注（R2-004 の親へ）"
+},
+{
+"id": "G6-004",
+"cut": "cc08",
+"old": "> その答えは、2026年10月の時点で、まだ公表されていない。\n> Q: まだ、途中なんだね。",
+"new": "> 運輸省の返事は、2026年10月の時点で、勧告のページにまだ載っていない。",
+"why": "聞き役を外し cc10 に移す（G6-004 と G6-005 は対）。返事の状態は G0 が TSB の勧告の頁で確かめた（2026-10-14・M26-02・04〜07 は N/A・M26-03 は頁なし）＝「勧告のページにまだ載っていない」と出どころを言う（「委員会のページ」はどの委員会か分からない＝G0 の通し読み）（C）"
+},
+{
+"id": "G6-016",
+"cut": "cc09",
+"old": "NTSB p.73（`the company was unaware of its actual strength and durability`）",
+"new": "NTSB p.73（`the company was unaware of its actual strength and durability`）・TSB §2.1（`suggested that the pressure hull’s carbon fibre cylinder was the likeliest point of failure.`）・TSB §3.1（`OceanGate did not know for how long the pressure hull would remain safe`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G6-005",
+"cut": "cc10",
+"old": "> 分かれるのは、2022年の音の重みと、最後の数秒の順番だ。",
+"new": "> Q: 分かれる所は？\n> ある。2022年の音をどれだけ重く見るかと、最後の数秒の順番だ。",
+"why": "聞き役を cc08 から移す（G6-004 と対）（C）"
+},
+{
+"id": "G6-017",
+"cut": "cc10",
+"old": "最後の数秒の順番を明るく） ／ TSB §1.10.10.1（`so it cannot be determined whether this event precipitated the non-linear readings on 19 July 2022.`）",
+"new": "最後の数秒の順番を明るく） ／ USCG p.289〈281〉（`strongly suggests that the carbon fiber hull sustained irreversible damage at the end of Dive 80.`）・NTSB p.73（`The Titan pressure vessel likely sustained damage after it surfaced at the end of dive 80`）・TSB §1.10.10.1（`so it cannot be determined whether this event precipitated the non-linear readings on 19 July 2022.`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "R2-010",
+"cut": "cc10",
+"old": "> ある。2022年の音をどれだけ重く見るかと、最後の数秒の順番だ。",
+"new": "> 2022年の音をどれだけ重く見るかと、最後の数秒の順番だ。",
+"why": "係の案どおり（G0 が原文に引き直した）（C）",
+"order": 99
+},
+{
+"id": "G6-006",
+"cut": "cc11",
+"old": "> Q: 止められたのは、まず会社自身だったってこと？",
+"new": "> Q: 止めることができたのは、まず会社自身だったってこと？",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G6-018",
+"cut": "cc11",
+"old": "TSB §3.2（`Canada’s approach to regulatory oversight of vessels enabled the Titan to operate without any independent verification to identify safety deficiencies,`）",
+"new": "NTSB p.74（`Contributing were US and international voluntary guidance and US small passenger vessel regulations`）・USCG p.8〈viii〉（`the lack of comprehensive and effective regulations for the oversight and operation of manned submersibles`）・TSB §3.2（`Canada’s approach to regulatory oversight of vessels enabled the Titan to operate without any independent verification to identify safety deficiencies,`）・TSB §3.2（`These factors may or may not have been causal or contributing to the occurrence`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G7-073",
+"cut": "cc13",
+"old": "> 社員が仕返しを恐れずに懸念を言え、早さより安全を先にしていれば、",
+"new": "> 社員が仕返しを恐れずに懸念を言える場をつくり、早さより安全を先にしていれば、",
+"why": "係の案どおり（G0 が原文に引き直した）（E）"
+},
+{
+"id": "G7-074",
+"cut": "cd01",
+"old": "> Q: 最初の問いの答えは、出たの？",
+"new": "> Q: はじめに立てた問いの答えは、出たの？",
+"why": "係の案どおり（G0 が原文に引き直した）（A）"
+},
+{
+"id": "G6-002",
+"cut": "cd02",
+"old": "> 窓ではなく、船体の炭素繊維の側だ。層は爆縮の前からはがれ、\n> 潜るたびの傷で弱って、押しつぶされたとみられる。",
+"new": "> 窓ではなく、船体の炭素繊維の側だ。層の一部は爆縮の前からはがれ、\n> 傷が重なって弱り、押しつぶされたとみられる。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G6-019",
+"cut": "cd03",
+"old": "USCG p.289〈281〉（`a cursory external examination of the TITAN was conducted following the loud bang with no visible damage identified.`）",
+"new": "USCG p.289〈281〉（`a cursory external examination of the TITAN was conducted following the loud bang with no visible damage identified.`）・NTSB p.74（`Also contributing was OceanGate’s flawed analysis of their pressure vessel monitoring system data`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G7-075",
+"cut": "cd03",
+"old": "> 次に、なぜ潜り続けたのか。2022年の音のあと、会社は外から軽く見ただけで、\n> 記録も読み違え、予定どおり潜った。",
+"new": "> 次に、なぜ潜り続けたのか。2022年の音のあと、CEO は調べは要らないと指示し、\n> 記録を読み解ける人もいないまま、外から軽く見ただけで、予定どおり潜った。",
+"why": "「なぜ」に届くよう、調べは要らないとした指示と読み解ける人の不在を足した（USCG p.290）。詰めた（C）"
+},
+{
+"id": "R2-003",
+"cut": "cd03",
+"old": "> 記録を読み解ける人もいないまま、外から軽く見ただけで、予定どおり潜った。",
+"new": "> その場に記録を読み解ける人もいないまま、外から軽く見ただけで、予定どおり潜った。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）",
+"order": 99
+},
+{
+"id": "R2-015",
+"cut": "cd03",
+"old": "・NTSB p.74（`Also contributing was OceanGate’s flawed analysis of their pressure vessel monitoring system data`）",
+"new": "・USCG p.290〈282〉（`directed that no further investigation or assessments were necessary`）・USCG p.290〈282〉（`neither the Director of Engineering nor anyone else onboard with the authority to assess the submersible’s safety possessed the necessary engineering expertise to interpret the strain gauge data`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）",
+"order": 99
+},
+{
+"id": "G6-001",
+"cut": "cd04",
+"old": "> そして、誰が止められたのか。3つの報告書が先に挙げるのは、会社自身だ。\n> 止めようとした人もいたが、懸念を言った人は、会社を去った。\n> 外から止める仕組みが働かなかったことは、その次に書かれている。",
+"new": "> そして、誰なら止められたのか。3つの報告書が主な原因に挙げるのは、会社自身だ。\n> 安全の懸念を言った社員の中には、辞めた人も、辞めさせられた人もいた。\n> 外から止める仕組みが働かなかったことは、主な原因の次に置かれている。",
+"why": "係の案に「誰なら止められたのか」（G7-005）。1行41字に詰めた（B）"
+},
+{
+"id": "G6-020",
+"cut": "cd04",
+"old": "TSB §1.23.1（`some OceanGate employees with expertise in specific areas left the company or were dismissed after raising safety-related concerns`）",
+"new": "NTSB p.74（`the probable cause of the hull failure and implosion of the submersible Titan was OceanGate’s inadequate engineering process,`）・TSB §3.1（`These are the factors that were found to have caused or contributed to the occurrence.`）・TSB §1.23.1（`some OceanGate employees with expertise in specific areas left the company or were dismissed after raising safety-related concerns`）",
+"why": "係の案どおり（G0 が原文に引き直した）（D）"
+},
+{
+"id": "G7-076",
+"cut": "cd06",
+"old": "> 危なさは少しずつ増えるので、気づかれにくい、とも書く。",
+"new": "> 安全なやり方からのずれは少しずつ進むので、気づかれにくい、とも書く。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "R2-011",
+"cut": "cd06",
+"old": "> 安全なやり方からのずれは少しずつ進むので、気づかれにくい、とも書く。",
+"new": "> 安全なやり方からのずれは少しずつで、気づかれにくい、とも書く。",
+"why": "係の案どおり（G0 が原文に引き直した）（A）",
+"order": 99
+},
+{
+"id": "G6-011",
+"cut": "cd07",
+"old": "> この事故は強く思い出させる、と結んでいる。",
+"new": "> この事故は強く思い出させる、と書いている。",
+"why": "係の案どおり（G0 が原文に引き直した）（B）"
+},
+{
+"id": "G0-022",
+"cut": "cd09",
+"old": "> あなたは、この事故のことを、この動画を見る前から知っていましたか。",
+"new": "> あなたは、もし乗れるとしたら、深い海の底を自分の目で見てみたいですか。",
+"why": "承認①（カズヤくん）＝コメントの問いは C（④の注「軽く聞こえる恐れ」を見たうえで）"
+}
+]

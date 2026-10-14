@@ -1,0 +1,156 @@
+[
+  {
+    "id": "R1-001",
+    "cut": "c818",
+    "face": "B",
+    "sev": "🔴",
+    "what": "「潜ってよい深さを、4,000→3,000メートルに下げた」は、④'（G4-007）が depth rating を「潜ってよい深さ」と置いたもの。だが同じ文の原文は、格付けを3,000mに下げたうえで「2,000mより深くは潜らない了解」とした、と書く。3,000mを「潜ってよい深さ」と言うと、原文の2,000mとぶつかる（第1版の「等級」＝格付けのほうが原文に近かった）。",
+    "evidence": "TSB §1.12.1「On 18 November, the Titan’s depth rating was reduced by OceanGate’s director of system integration and marine operations from 4000 m to 3000 m with an understanding not to dive below 2000 m.」",
+    "old": "> 11月、会社は潜ってよい深さを、4,000メートルから3,000メートルに下げた。",
+    "new": "> 11月、会社は船体の格付けを、4,000メートルから3,000メートルに下げた。",
+    "parent": "案は句読点なし−1字・1行40字。「格付け」でよいか（G4-007 の②は「等級」が硬いという所見）。2,000mの了解まで語りで言うなら「> 11月、会社は、潜るのを2,000メートルまでとした。」（約−11字・3,000mの格付けは画の帯の札へ）。両方を1行に入れると46字で入らない。"
+  },
+  {
+    "id": "R1-002",
+    "cut": "c913",
+    "face": "B",
+    "sev": "🔴",
+    "what": "「回収した破片で、はがれていた面だ」は、④'（G4-016）が「海の底で」を言い換えたもの。だが2つの剥離（1・2層目／3・4層目のあいだ）を見つけたのは ROV の映像（NTSB p.40）。回収した破片で見たのは1枚目の層の破片（1・2層目のあいだ）だけで、3・4層目のあいだを回収した破片で見たという字は無い＝見つけた場を狭めた。c609 も「海の底の映像を見ると」と言っている。",
+    "evidence": "NTSB p.40「Examination of the wreckage from ROV video footage showed the pressure vessel had fragmented into multiple pieces. … One delamination was between layers 1 and 2 and the other was between layers 3 and 4.」／NTSB p.59「The NTSB’s postcasualty examination of the Titan wreckage and review of ROV wreckage survey footage identified two delaminations」・「The piece from the first layer examined by the NTSB showed evidence of rubbing」",
+    "old": "> 1枚目と2枚目の層、3枚目と4枚目の層のあいだ。回収した破片で、はがれていた面だ。",
+    "new": "> 1枚目と2枚目の層、3枚目と4枚目の層のあいだ。残骸の映像で、はがれていた面だ。",
+    "parent": "−1字・1行40字。G7-052（「海の底で」は海の底ではがれたように聞こえる）も避けられる。「海の底の残骸で」（±0字）でもよい。"
+  },
+  {
+    "id": "R1-003",
+    "cut": "c804",
+    "face": "B",
+    "sev": "🟡",
+    "what": "「筒とチタンの輪の接着の線を全部点検」は、耳では「（筒とチタンの輪）の接着の線」＝接着の線だけの点検に聞こえやすい。原文は「筒そのもの」と「筒とチタンの輪のあいだの接着の線」の2つを全部点検＝点検の範囲が狭く聞こえる（G4-026 は何と何の接着かを足したが、筒が点検の相手から落ちて聞こえる）。画の札は「筒と接着の線を全部点検」のまま。",
+    "evidence": "TSB §1.12.1「The report noted that a full inspection of the cylinder and the bond lines between the cylinder and the titanium rings was needed to verify their integrity.」",
+    "old": "> 報告は、筒とチタンの輪の接着の線を全部点検して確かめ、その結果を、",
+    "new": "> 報告は、筒と、チタンの輪との接着の線を全部点検して確かめ、その結果を、",
+    "parent": "+1字（同じ第7章の R1-001 の−1字で埋まる）。"
+  },
+  {
+    "id": "R1-004",
+    "cut": "c213",
+    "face": "B",
+    "sev": "🟡",
+    "what": "「13回だけ」の「だけ」は NTSB の only（2021・2022年にタイタニックへ何度も試みて、届いたのは13回）から来たが、台本の母数は c212 の27回（付録Bの全行＝カナダの海の試しの潜航や別の場所を含む）。付録Bの目的の欄では27回のうち12回が試し・別の場所で、タイタニックを目指した15回のうち12回は届いている。27回の「うち13回だけ」は、届かなかった回を実際より多く聞かせる（母数のすり替え）。",
+    "evidence": "NTSB p.14「During the 2021 and 2022 expeditions, the Titan attempted numerous dives to the Titanic wreck but only successfully completed 13 dives to the wreck.」／TSB 付録B（goal の欄：Test 8・Titanic 15・Cameron Canyon 1・Hydrographic feature 1・Southeast of Cape Race 1・Northeast of the Gully 1＝27。3840 は Titanic の12行＋Test の1行＝13）",
+    "old": "> そのうち、タイタニックの深さまで届いたのは、13回だけだった。",
+    "new": "> そのうち、タイタニックの深さまで届いたのは、13回だった。",
+    "parent": "−2字。聞き役「毎回、行けたわけじゃないんだ」は残してよい（目指した15回のうち3回は届いていない＝付録B）。「だけ」を残すなら、NTSB の帰属と母数（2021・2022年に試みた回）を言う形になり字が増える。"
+  },
+  {
+    "id": "R1-005",
+    "cut": "c515",
+    "face": "C",
+    "sev": "🟡",
+    "what": "「その ROV を積んだ船」の「その ROV」は、すぐ前の行の「6,000メートル級の ROV」（フランスの船の物）を指して聞こえ、「その ROV を積んだ船と、フランスの船」が同じ船を2度言ったように聞こえる。言いたいのは c514 のバッファローの ROV を積んだ船。c514 は船に積んだことを言っていない。",
+    "evidence": "NTSB p.20「flew the ROV Odysseus on a C-130 to Newfoundland and Labrador, where it was loaded aboard the Horizon Arctic … On June 22, both the Atalante (with the Victor 6000) and the Horizon Arctic (with the Odysseus) were in position over the site.」",
+    "old": "> 6月22日、その ROV を積んだ船と、フランスの船が、現場の上にそろった。",
+    "new": "> 6月22日、バッファローの ROV を積んだ船と、フランスの船が、現場にそろった。",
+    "parent": "+3字（「現場の上に」→「現場に」込み）。同じ第4章で削るなら c515 の1行目「> フランスの調査船も、…」→「> フランスの船も、…」（−2字）。"
+  },
+  {
+    "id": "R1-006",
+    "cut": "c918",
+    "face": "A",
+    "sev": "🟡",
+    "what": "「余裕は、基準の半分も無い」の「基準」は、直前の行で「125キロまで耐えるように作る」を指すので、「125キロの半分（約62キロ）も無い」と聞こえうる（111キロは62キロより多い＝食い違って聞こえる）。言いたいのは、求める余裕25キロに対して11キロ。画の札も125と111を並べるので、画を見ながらだと取り違えやすい。",
+    "evidence": "TSB §1.15「the calculated safety factor was 1.11, which did not meet the required safety factor of 1.25.」（余裕 0.11÷0.25＝44%）",
+    "old": "> この筒の周りの向きは、111キロまで。余裕は、基準の半分も無い計算だ。",
+    "new": "> この筒の周りの向きは、111キロまで。余裕は、求める分の半分も無い計算だ。",
+    "parent": "+2字。同じ第8章で削るなら c911「筒の両端の余りを切り落とした端材」→「筒の両端を切り落とした端材」（−3字・NTSB p.42 trimmed end pieces のまま）。数で言うなら「余裕は11キロで、求める25キロの半分も無い。」（+4字）。"
+  },
+  {
+    "id": "R1-007",
+    "cut": "c918",
+    "face": "D",
+    "sev": "🟢",
+    "what": "画の欄の札「決まりは125キロまで耐える」が、語り（G4-019 で「決まり」→「基準」）とそろっていない。",
+    "evidence": "daihon_v2.md c918 の語り「…125キロまで耐えるように作る、という基準だ。」",
+    "old": "決まりは125キロまで耐える",
+    "new": "基準は125キロまで耐える",
+    "parent": "画の欄だけ（字数に入らない）。"
+  },
+  {
+    "id": "R1-008",
+    "cut": "c605",
+    "face": "D",
+    "sev": "🟢",
+    "what": "語りに足した「窓から壊れたなら、内へ割れて破片が残っていただろう、という証言」の片が、出典の欄に無い（欄の USCG は it is unlikely… の1片だけ）。",
+    "evidence": "USCG p.280〈272〉「the most probable failure mode for the acrylic window would have been inward. In such a scenario, fragments of acrylic would likely have been found in the debris.」",
+    "old": "・USCG p.280〈272〉（`it is unlikely that the acrylic window itself caused the implosion`）",
+    "new": "・USCG p.280〈272〉（`it is unlikely that the acrylic window itself caused the implosion`）・p.280〈272〉（`the most probable failure mode for the acrylic window would have been inward. In such a scenario, fragments of acrylic would likely have been found in the debris.`）",
+    "parent": "出典の欄だけ（字数に入らない）。片は pg22.py の find で USCG p.280〈272〉に1件当たる字で書いた。"
+  },
+  {
+    "id": "R1-009",
+    "cut": "c916",
+    "face": "D",
+    "sev": "🟢",
+    "what": "副題の「（アメリカの運輸安全委員会の研究所）」が、呼び名をそろえた語り（G0-M01〜M09＝初出の c102・c203 だけアメリカ）と違う。画面に出る字なので、語りの「米運輸安全委員会」とそろえる。",
+    "evidence": "diff_v1_v2.md G0-M01〜M09（呼び名をそろえる）／daihon_v2.md c911・c914 の語り「米運輸安全委員会」",
+    "old": "（アメリカの運輸安全委員会の研究所）",
+    "new": "（米運輸安全委員会の研究所）",
+    "parent": "画の欄だけ。"
+  },
+  {
+    "id": "R1-010",
+    "cut": "c207",
+    "face": "A",
+    "sev": "🟢",
+    "what": "「小さな会社で、CEO が主に率い、」は、率いる相手（会社）が文に無く、日本語として座りが悪い（G7-078 の「ほとんどを率いていた」の不自然さが形を変えて残った）。",
+    "evidence": "TSB §1.23.1「As a small company, OceanGate was led primarily by the CEO.」",
+    "old": "> 小さな会社で、CEO が主に率い、人事やお金から設計まで、すべてに関わった。",
+    "new": "> 小さな会社を、CEO が主に率い、人事やお金から設計まで、すべてに関わった。",
+    "parent": "±0字。"
+  },
+  {
+    "id": "R1-011",
+    "cut": "c217",
+    "face": "A",
+    "sev": "🟢",
+    "what": "「原因ともしていない」の「も」が何に添うのか分からない（第1版の「どれも原因とはしていない」の「も」が残った形）。",
+    "evidence": "TSB §1.10.5「The pilot operated the thrusters using a handheld wireless controller」／NTSB p.11（同じ書き方）＝どちらも原因に結び付けていない",
+    "old": "> 報告書は、手で持つ無線のコントローラーとだけ書き、原因ともしていない。",
+    "new": "> 報告書は、手で持つ無線のコントローラーとだけ書き、原因とはしていない。",
+    "parent": "±0字。"
+  },
+  {
+    "id": "R1-012",
+    "cut": "c410",
+    "face": "A",
+    "sev": "🟢",
+    "what": "「…いつもより早いとする。」「…理由は分からない、とする。」と、2行続けて「とする。」で終わる。耳でくどい。",
+    "evidence": "TSB §2.1「Dropping the 2 weights earlier than normal suggests that the Titan crew was attempting to slow the submersible’s descent, but the reason for this is unknown.」（中身は原文どおり）",
+    "old": "> 速さを緩めようとしたとみられるが、理由は分からない、とする。",
+    "new": "> 速さを緩めようとしたとみられるが、理由は分からない、と書く。",
+    "parent": "±0字。"
+  },
+  {
+    "id": "R1-013",
+    "cut": "c719",
+    "face": "A",
+    "sev": "🟢",
+    "what": "「沿岸警備隊で技術者だった社員」だけ、呼び名が「米沿岸警備隊」にそろっていない。第4章でカナダの救難の機関も出たあとなので、どこの沿岸警備隊かが耳で決まらない。",
+    "evidence": "NTSB p.47「who had previous experience as an engineer/machinery technician in the US Coast Guard」",
+    "old": "> 社内にも、声はあった。沿岸警備隊で技術者だった社員は、",
+    "new": "> 社内にも、声はあった。米沿岸警備隊の元技術者の社員は、",
+    "parent": "±0字。言い方が硬ければ「米沿岸警備隊で技術者だった社員は、」（+1字）。"
+  },
+  {
+    "id": "R1-014",
+    "cut": "c904",
+    "face": "A",
+    "sev": "🟢",
+    "what": "「解析の請負」の「請負」は中学生に硬い語で、耳で「うけおい」と聞いても意味がつかみにくい。",
+    "evidence": "TSB §1.12.2「OceanGate and its structural analysis contractor conducted a post-failure inspection and analysis and identified that ply waviness in localized areas in the carbon fibre cylinder was the cause of each failure.」",
+    "old": "> 会社と解析の請負は、原因を、層の一部にできた、波のようなうねりと見た。",
+    "new": "> 会社と、解析の会社は、原因を、層の一部にできた、波のようなうねりと見た。",
+    "parent": "±0字。「会社」が2度続くのが気になるなら「オーシャンゲートと解析の会社は、」（+5字）。"
+  }
+]

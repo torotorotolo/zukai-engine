@@ -1,0 +1,222 @@
+[
+  {
+    "id": "G6-001",
+    "cut": "cd04",
+    "face": "B",
+    "sev": "🔴",
+    "what": "「懸念を言った人は、会社を去った」は TSB §1.23.1 を2つの向きで変えている。①「some（一部の社員）」を「懸念を言った人は」と全員に広げた。②「were dismissed（解任された）」を「去った」に丸め、自分から辞めたように聞こえる（2018年の運航部長・2021年の技術部長は解任＝同じ節）。あわせて「3つの報告書が先に挙げる」は何を先に挙げるのかが曖昧（原文で言えるのは「主な原因＝推定原因・主な要因・原因と寄与の所見の主語が会社」まで）、「その次に書かれている」は「次の頁・次の節」とも聞こえる。",
+    "evidence": "TSB §1.23.1 `some OceanGate employees with expertise in specific areas left the company or were dismissed after raising safety-related concerns or expressing differing perspectives from the CEO.` ／ `The former director of operations was dismissed in 2018 after raising safety concerns.` ／ `In 2021, the director of engineering was dismissed after he had disagreements with the CEO`。NTSB p.74 `the probable cause … was OceanGate’s inadequate engineering process,` → `Contributing were US and international voluntary guidance …`。USCG p.7〈vii〉 主な要因8＝主語は全部会社か船体・規則は p.8〈viii〉の Other contributing（結論 6.1.1 では12の要因の最後＝6.1.1.12 `likely contributed to Mr. [名前]’s decision`）。TSB §3.1 原因と寄与5＝会社と船体／カナダの監督は §3.2 危険の所見（`may or may not have been causal or contributing to the occurrence`）",
+    "old": "> そして、誰が止められたのか。3つの報告書が先に挙げるのは、会社自身だ。\n> 止めようとした人もいたが、懸念を言った人は、会社を去った。\n> 外から止める仕組みが働かなかったことは、その次に書かれている。",
+    "new": "> そして、誰が止められたのか。3つの報告書が主な原因に挙げるのは、会社自身のことだ。\n> 安全の懸念を言った社員の中には、辞めた人も、辞めさせられた人もいた。\n> 外から止める仕組みが働かなかったことは、主な原因の次に置かれている。",
+    "parent": "「止めようとした人もいた」を残したいなら（c8 の運航部長・技術部長の話を受ける）、2行目を「中で止めようとした人もいた。だが、辞めさせられた人もいる。」の形に（ただし TSB の字は raising concerns／differing perspectives＝「止めようとした」は台本の読み）。「誰が止められたのか」の「止められた」は受け身にも聞こえる＝c107・cc11・cd04 をそろえるかは G6-006 の parent"
+  },
+  {
+    "id": "G6-002",
+    "cut": "cd02",
+    "face": "B",
+    "sev": "🟡",
+    "what": "「潜るたびの傷で弱って」はカナダ（TSB §3.1＝likely・each dive cycle）の見方。米国家運輸安全委員会は「80回目の浮上の後の剥離の傷に、82回目のあとの出どころの分からない傷が加わった」と特定の出来事で書く＝3冊の重なりは「傷が重なって弱った」まで。cd02 は帰属なしの「答え」なので、重なりの言い方にそろえる案。また「層は爆縮の前からはがれ」は、爆縮の前からはがれていたと言えるのは1・2層目（と3・4層目の可能性）だけ（§0-2 の c616 の注）＝「層の一部は」。",
+    "evidence": "NTSB p.74 `sustained delamination damage that was subsequently exacerbated by additional damage of unknown origin` ／ NTSB p.73 所見1 `likely sustained damage after it surfaced at the end of dive 80`・所見2 `After dive 82, the Titan sustained additional damage—of unknown origin—` ／ TSB §3.1 `likely led the cylinder to fail progressively with damage accumulating during each dive cycle until it imploded` ／ USCG p.289〈281〉 `an abrupt delamination between the TITAN’s first and second carbon fiber layers, with a possible secondary delamination between layers three and four.` ／ NTSB p.59 `The piece from the first layer … indicating that the delamination existed before the implosion.`",
+    "old": "> 窓ではなく、船体の炭素繊維の側だ。層は爆縮の前からはがれ、\n> 潜るたびの傷で弱って、押しつぶされたとみられる。",
+    "new": "> 窓ではなく、船体の炭素繊維の側だ。層の一部は爆縮の前からはがれ、\n> 傷が重なって弱り、押しつぶされたとみられる。",
+    "parent": ""
+  },
+  {
+    "id": "G6-003",
+    "cut": "cc05",
+    "face": "A",
+    "sev": "🟡",
+    "what": "「寄与したのは」は中学生に通じにくい（m22 も「言わない語」で拾っている）。2行目「監視の記録の読み違いだ」は主語（会社）が落ち、直前の「指針や規則」と並ぶので、役所の側の読み違いにも聞こえる。原文は「会社の」解析の誤りで、その結果「傷んだ船を使い続けた」まで書く（cd03 の回収にもつながる）。",
+    "evidence": "NTSB p.74 `Contributing were US and international voluntary guidance and US small passenger vessel regulations that were insufficient to ensure OceanGate adhered to established industry standards. Also contributing was OceanGate’s flawed analysis of their pressure vessel monitoring system data, which led to their continued operation of a damaged pressure vessel.`",
+    "old": "> 寄与したのは、指針や規則が、会社に業界の基準を守らせるには足りなかったこと。\n> そして、監視の記録の読み違いだ。",
+    "new": "> 原因を後押ししたのは、会社に業界の基準を守らせる規則や指針が、足りなかったこと。\n> そして、会社が監視の記録を読み違え、傷んだ船を使い続けたことだ。",
+    "parent": "画の欄の札「推定原因の『寄与』」も「後押し」にそろえるか（画面の字と語りの語）。字数を抑えるなら2行目は「そして、会社が監視の記録を読み違えたことだ。」でも主語の問題は解ける"
+  },
+  {
+    "id": "G6-004",
+    "cut": "cc08",
+    "face": "C",
+    "sev": "🟡",
+    "what": "「その答えは」の「答え」は、cc01「3つの調べが、それぞれの答えを出した」・cc09「答えは、どれも同じなの？」と同じ語で、調べの結論のことに聞こえる（ここは運輸省の、勧告への返事）。聞き役「まだ、途中なんだね。」は調べそのものが途中とも聞こえる。さらに次の cc09 も聞き役の行で始まるので、まとめ（〜んだね）を「そう。」で受ける語りが無い（聞き役が2行続く）。",
+    "evidence": "TSB §4.2 `The investigation identified safety deficiencies that led the Board to issue the following 6 recommendations.`（宛先は6つとも `the Department of Transport`）。返事の状態は3冊の外（sources.md §7・カード g6 cc-43）",
+    "old": "> その答えは、2026年10月の時点で、まだ公表されていない。\n> Q: まだ、途中なんだね。",
+    "new": "> 運輸省の返事は、2026年10月の時点で、まだ公表されていない。",
+    "parent": "聞き役を1つ外す代わりに cc10 に1つ足す（G6-005 と対＝聞き役の数は変わらない）。cc08 の反応を残すなら、別案＝cc09 の聞き役を語り「そう。では、3つの答えは、どれも同じなのか。」に直す。2026年10月の時点の確かめ（ウェブ）は親"
+  },
+  {
+    "id": "G6-005",
+    "cut": "cc10",
+    "face": "C",
+    "sev": "🟡",
+    "what": "「2022年の音の重み」は中学生には何の重みか分かりにくい（音をどれだけ重く見るか＝強く示す／可能性が高い／決められない）。「分かれるのは」は割れがこの2つだけに聞こえる（ほかにも文字の遅れ・窓の扱いなどの割れ＝§1-5）。cc08 の聞き役を外す（G6-004）なら、ここに問いを置くと cc09「重なる所」→ cc10「分かれる所」の橋がはっきりする。",
+    "evidence": "USCG p.289〈281〉 `strongly suggests that the carbon fiber hull sustained irreversible damage at the end of Dive 80.` ／ NTSB p.73 所見1 `The Titan pressure vessel likely sustained damage after it surfaced at the end of dive 80` ／ TSB §2.1.1（§1.10.10.1 も同じ文） `so it cannot be determined whether this event precipitated the non-linear readings on 19 July 2022.`",
+    "old": "> 分かれるのは、2022年の音の重みと、最後の数秒の順番だ。",
+    "new": "> Q: 分かれる所は？\n> ある。2022年の音をどれだけ重く見るかと、最後の数秒の順番だ。",
+    "parent": "G6-004 と対（片方だけ当てると聞き役の数が変わる）。割れがこの2つだけに聞こえる点は、字数に余裕があれば「ある。大きくは、」（+5字）"
+  },
+  {
+    "id": "G6-006",
+    "cut": "cc11",
+    "face": "A",
+    "sev": "🟡",
+    "what": "聞き役「止められたのは、まず会社自身だったってこと？」の「止められた」は、「止めることができた（可能）」と「止められた側（受け身）」の2つに聞こえる。受け身に取ると「会社自身が止めさせられた」で意味が逆になる。",
+    "evidence": "USCG p.307〈299〉 `Had OceanGate adhered to the safety standards outlined in its own HSE Manual … this tragedy would likely have been averted`（会社が止めることができた、の向き）",
+    "old": "> Q: 止められたのは、まず会社自身だったってこと？",
+    "new": "> Q: 止めることができたのは、まず会社自身だったってこと？",
+    "parent": "c107「そして、誰が止められたのか。」・cd04「そして、誰が止められたのか。」も同じ曖昧さ＝3か所そろえて「誰が止めることができたのか」にするか（c107 は G6 の外・cd04 は G6-001 の new に入っている）"
+  },
+  {
+    "id": "G6-007",
+    "cut": "cc04",
+    "face": "D",
+    "sev": "🟡",
+    "what": "語りは米国家運輸安全委員会（NTSB）の推定原因（聞き役も「アメリカの運輸安全委員会は、どう書いたの？」）なのに、画は米沿岸警備隊の公聴会前の記者会見。副題は写っているものと合っているが、聞く人には「NTSB の発表の場」に見える恐れがある。NTSB がこの記者会見に出たかは3冊の字では確かめられない（NTSB p.77 は公聴会に加わったとだけ書く）。",
+    "evidence": "NTSB p.74 推定原因（語りの出どころ）／NTSB p.77 `NTSB investigators also participated in the Coast Guard Marine Board of Investigation hearings in September 2024.`（記者会見のことは書かない）",
+    "old": "実写 米沿岸警備隊の記者会見（2024-09-15・公聴会の前・A・登壇は公的な任務の人＝副題「公聴会の前の記者会見（2024年9月）」）",
+    "new": "",
+    "parent": "映像方針で、NTSB の側の画（NTSB 研究所の写真・NTSB の図など）か、cc05 と同じ「推定原因」の再現図へ替えるか。替えないなら副題で「米沿岸警備隊の」と明示"
+  },
+  {
+    "id": "G6-008",
+    "cut": "cc03",
+    "face": "A",
+    "sev": "🟢",
+    "what": "「解雇と、その圧力で」の「その圧力」が何の圧力か分かりにくい。原文は「幹部の解雇」と「解雇されるという脅し」の2つ。",
+    "evidence": "USCG p.7〈vii〉 主な要因7 `OceanGate’s toxic workplace environment which used firings of senior staff members and the looming threat of being fired to dissuade employees and contractors from expressing safety concerns,`",
+    "old": "> 解雇と、その圧力で、安全の懸念を言いにくくした職場も、その1つだ。",
+    "new": "> 幹部の解雇と、解雇の脅しで、安全の懸念を言いにくくした職場も、その1つだ。",
+    "parent": ""
+  },
+  {
+    "id": "G6-009",
+    "cut": "cc02",
+    "face": "A",
+    "sev": "🟢",
+    "what": "1行目「主な原因」（要旨の primary causal factor＝単数）のすぐあとに「主な要因8つ」（p.7〈vii〉の primary causal factors＝複数）が来ると、中学生には「1つなのか8つなのか」が分かりにくい。「確立された手順」は原文 engineering protocols の「技術の」が落ち、安全の手順一般に聞こえる。",
+    "evidence": "USCG p.5〈v〉 `found that OceanGate’s failure to follow established engineering protocols for safety, testing, and maintenance of their submersible, was the primary causal factor.` ／ USCG p.7〈vii〉 `The primary causal factors that directly contributed to the casualty include:`",
+    "old": "> 主な原因は、会社が、安全と試験と整備について、確立された手順に従わなかったこと。\n> 挙げた主な要因8つは、どれも会社と船体のことだ。",
+    "new": "> 主な原因は、会社が、安全と試験と整備の、確立された技術の手順に従わなかったこと。\n> その中身として挙げた主な要因8つは、どれも会社と船体のことだ。",
+    "parent": "字数が章の幅（±40字）に近づいたら、この案は見送ってよい（事実のずれではない）"
+  },
+  {
+    "id": "G6-010",
+    "cut": "cd06",
+    "face": "B",
+    "sev": "🟢",
+    "what": "原文で「少しずつ起きるので見つけにくい」の主語は drift（安全の線から少しずつ外れていくこと）で、危なさ（risk levels）はそのあいだに増えていくもの。台本は主語を「危なさ」にすり替えている。意味は近いが、TSB の筋（外れ方が少しずつ→見つけにくい→危なさが増えても気づかれないことがある）に合わせる案。",
+    "evidence": "TSB §1.30.2 `because this drift occurs gradually, it is not easily identifiable and may go unnoticed as risk levels grow over time.`",
+    "old": "> 危なさは少しずつ増えるので、気づかれにくい、とも書く。",
+    "new": "> 少しずつ安全から離れていくので、危なさが増えても気づかれにくい、とも書く。",
+    "parent": ""
+  },
+  {
+    "id": "G6-011",
+    "cut": "cd07",
+    "face": "B",
+    "sev": "🟡",
+    "what": "「と結んでいる」は、報告書の最後の言葉に聞こえる。原文は §5.12（分析の1節）の「In conclusion」の段落の最後の1文で、そのあとに §5.13 以降の分析・§6 結論・§8 勧告が続く。",
+    "evidence": "USCG p.307〈299〉 `In conclusion, OceanGate’s failure to prioritize safety …` → `This tragedy serves as a stark reminder of the critical importance of prioritizing safety in high-risk operations and the devastating consequences when it is disregarded.` のすぐ後に `5.13. Undermining Authority and Overriding Established Hierarchy.`",
+    "old": "> この事故は強く思い出させる、と結んでいる。",
+    "new": "> この事故は強く思い出させる、と書いている。",
+    "parent": ""
+  },
+  {
+    "id": "G6-012",
+    "cut": "cc01",
+    "face": "A",
+    "sev": "🟢",
+    "what": "§0-1-9 の記録。「preventable tragedy」を「防ぐことができた事故」と訳した。事実と強さ（is considered to be＝と考えられる）は合っている。cc12（this tragedy）・cd07（This tragedy）も「この事故」で、3か所の訳がそろっている。「悲劇」と原文どおり読むのは §B2-4 の考え方（報告書の語は原文どおり・直前に「報告書は〜と書く」）に合うが、門番の煽り語の一覧に当たる。「書き出す」は要旨（EXECUTIVE SUMMARY）の1文目なので合う。",
+    "evidence": "USCG p.5〈v〉 EXECUTIVE SUMMARY の1文目 `Five people died when the commercial submersible TITAN imploded on June 18, 2023, in what is considered to be a preventable tragedy.`",
+    "old": "> 米沿岸警備隊の委員会の報告は、防ぐことができた事故と考えられる、と書き出す。",
+    "new": "",
+    "parent": "G6 の推し＝「事故」のまま（3か所の訳がそろう・門番の登録が要らない・事実は変わらない）。原文どおり「悲劇」にするなら cc12・cd07 も同じ語にそろえ、HYPE_QUOTE_OK の登録が要る"
+  },
+  {
+    "id": "G6-013",
+    "cut": "§1-1 題B",
+    "face": "B",
+    "sev": "🟡",
+    "what": "題 B「決まりの1.25」は本編（c917「必要な1.25」）より強い。TSB の字は required で、1.25 は会社が ISO の安全率に合わせて決めた値（TSB §1.12.2）＝法の決まりではない。1.11 は周りの向きだけで、「試料が実物の性質を代表するなら」の前提つき。題 B の注意書きにこの2つが無い。",
+    "evidence": "TSB §1.15 `the calculated safety factor was 1.11, which did not meet the required safety factor of 1.25.` ／ `Assuming that the test results from the samples are representative of the properties of the carbon fibre cylinder used in the Titan,` ／ TSB §1.12.2 `OceanGate also changed its safety factor to 1.25, which aligned with the safety factor established by the International Organization for Standardization (ISO).`",
+    "old": "c9＝TSB §1.15。⚠️ 安全率は本編の後半＝題で引いて冒頭で回収できない",
+    "new": "c9＝TSB §1.15。⚠️ 安全率は本編の後半＝題で引いて冒頭で回収できない。⚠️「決まりの1.25」は言い過ぎ（TSB の字は required・1.25 は会社が ISO に合わせた値＝TSB §1.12.2）＝使うなら「必要な1.25」（c917 と同じ）。1.11 は周りの向きだけ・試料が実物を代表するならの前提つき（TSB §1.15）",
+    "parent": "題 B・サムネ B を承認①の表に残すなら、題の字も「決まりの」→「必要な」に"
+  },
+  {
+    "id": "G6-014",
+    "cut": "§9",
+    "face": "D",
+    "sev": "🟢",
+    "what": "§9 の見出し「## 9. 換算と計算（式）」が2回続いている（書き損じ）。",
+    "evidence": "daihon_v1.md 1307・1309 行",
+    "old": "## 9. 換算と計算（式）\n\n## 9. 換算と計算（式）",
+    "new": "## 9. 換算と計算（式）",
+    "parent": ""
+  },
+  {
+    "id": "G6-015",
+    "cut": "§9",
+    "face": "D",
+    "sev": "🟢",
+    "what": "§9 に cb10 の換算（2,900海里→km）の行が無い。画の欄は「2,900海里あまり＝約5,400km」、語りは「5,000キロを超えた」。検算＝2,900×1.852＝5,370.8km（画の約5,400km・語りの「5,000キロを超えた」とも合う＝more than と向きも合う）。年は USCG の字で2023年の遠征の季節。",
+    "evidence": "USCG p.294〈286〉 `During the 2023 expedition season, the submersible was towed behind the POLAR PRINCE for a total distance of more than 2,900 NM.`",
+    "old": "| c105 | 4日後 | 2022-07-15→07-19（TSB §2.1.1 の字「4 days before the subsequent dive on 19 July 2022」） |",
+    "new": "| c105 | 4日後 | 2022-07-15→07-19（TSB §2.1.1 の字「4 days before the subsequent dive on 19 July 2022」） |\n| cb10 | 5,000キロを超えた（画の札 約5,400km） | 2,900NM×1.852＝5,370.8km（USCG p.294〈286〉 more than 2,900 NM＝2023年の遠征の季節）。「〜を超えた」は more than と向きが合う |",
+    "parent": ""
+  },
+  {
+    "id": "G6-016",
+    "cut": "cc09",
+    "face": "D",
+    "sev": "🟢",
+    "what": "語りは「重なる所」（3冊の一致）を言うのに、出典の欄は USCG と NTSB だけでカナダの片が無い。また USCG の結論 6.1.1 の壊れた場所は「前のドームとチタンの輪の接着の所」か「前の端に近い炭素繊維の船体」の2候補で、「炭素繊維の側」は要旨 p.7〈vii〉（carbon fiber hull）で支えられる＝§0-2 の決めのとおりで台本の語りは直さない。",
+    "evidence": "TSB §2.1 `suggested that the pressure hull’s carbon fibre cylinder was the likeliest point of failure.` ／ TSB §3.1 `OceanGate did not know for how long the pressure hull would remain safe` ／ USCG p.7〈vii〉 `the loss of structural integrity of the TITAN’s carbon fiber hull.`",
+    "old": "NTSB p.73（`the company was unaware of its actual strength and durability`）",
+    "new": "NTSB p.73（`the company was unaware of its actual strength and durability`）・TSB §2.1（`suggested that the pressure hull’s carbon fibre cylinder was the likeliest point of failure.`）・TSB §3.1（`OceanGate did not know for how long the pressure hull would remain safe`）",
+    "parent": ""
+  },
+  {
+    "id": "G6-017",
+    "cut": "cc10",
+    "face": "D",
+    "sev": "🟢",
+    "what": "「分かれる」と言うのに、出典の欄はカナダの「決められない」だけ。米2機関の「強く示す」「可能性が高い」の片を添えると、割れが欄で見える。",
+    "evidence": "USCG p.289〈281〉 `strongly suggests that the carbon fiber hull sustained irreversible damage at the end of Dive 80.` ／ NTSB p.73 所見1 `The Titan pressure vessel likely sustained damage after it surfaced at the end of dive 80`",
+    "old": "最後の数秒の順番を明るく） ／ TSB §1.10.10.1（`so it cannot be determined whether this event precipitated the non-linear readings on 19 July 2022.`）",
+    "new": "最後の数秒の順番を明るく） ／ USCG p.289〈281〉（`strongly suggests that the carbon fiber hull sustained irreversible damage at the end of Dive 80.`）・NTSB p.73（`The Titan pressure vessel likely sustained damage after it surfaced at the end of dive 80`）・TSB §1.10.10.1（`so it cannot be determined whether this event precipitated the non-linear readings on 19 July 2022.`）",
+    "parent": ""
+  },
+  {
+    "id": "G6-018",
+    "cut": "cc11",
+    "face": "D",
+    "sev": "🟢",
+    "what": "「3つとも書く・どの調べも主な原因にはしていない」と言うのに、出典の欄はカナダの1片だけ。米2機関の片と、カナダの危険の所見の定義（原因だったとは限らない）を添える案。なお USCG の結論 6.1.1 は規則の不足を12の要因の最後（6.1.1.12＝CEO の判断に likely 寄与）に置く＝要旨の「その他の寄与要因」と数え方が違うが、主な原因（primary）ではない点は同じ。",
+    "evidence": "NTSB p.74 `Contributing were US and international voluntary guidance and US small passenger vessel regulations` ／ USCG p.8〈viii〉 `the lack of comprehensive and effective regulations for the oversight and operation of manned submersibles` ／ USCG p.329〈321〉 6.1.1.12 `likely contributed to Mr. [名前]’s decision to proceed completely outside of the existing regulatory framework.` ／ TSB §3.2 `These factors may or may not have been causal or contributing to the occurrence`",
+    "old": "TSB §3.2（`Canada’s approach to regulatory oversight of vessels enabled the Titan to operate without any independent verification to identify safety deficiencies,`）",
+    "new": "NTSB p.74（`Contributing were US and international voluntary guidance and US small passenger vessel regulations`）・USCG p.8〈viii〉（`the lack of comprehensive and effective regulations for the oversight and operation of manned submersibles`）・TSB §3.2（`Canada’s approach to regulatory oversight of vessels enabled the Titan to operate without any independent verification to identify safety deficiencies,`）・TSB §3.2（`These factors may or may not have been causal or contributing to the occurrence`）",
+    "parent": "画の欄の札「米沿岸警備隊＝その他の要因」は要旨（p.7〈vii〉〜p.8〈viii〉）の分け方。結論 6.1.1 の12の要因の最後とも書けるが、札は要旨のままでよい（G6 の読み）"
+  },
+  {
+    "id": "G6-019",
+    "cut": "cd03",
+    "face": "D",
+    "sev": "🟢",
+    "what": "語り「記録も読み違え」の出どころが出典の欄に無い（欄は USCG の2片＝赤信号・外から軽く見ただけ）。",
+    "evidence": "NTSB p.74 `Also contributing was OceanGate’s flawed analysis of their pressure vessel monitoring system data, which led to their continued operation of a damaged pressure vessel.` ／ USCG p.290〈282〉 `yet their method of analyzing strain using elapsed time as a variable failed to reveal this critical shift.`",
+    "old": "USCG p.289〈281〉（`a cursory external examination of the TITAN was conducted following the loud bang with no visible damage identified.`）",
+    "new": "USCG p.289〈281〉（`a cursory external examination of the TITAN was conducted following the loud bang with no visible damage identified.`）・NTSB p.74（`Also contributing was OceanGate’s flawed analysis of their pressure vessel monitoring system data`）",
+    "parent": ""
+  },
+  {
+    "id": "G6-020",
+    "cut": "cd04",
+    "face": "D",
+    "sev": "🟢",
+    "what": "語り「3つの報告書が（主な原因に）挙げるのは、会社自身」の出どころのうち、NTSB の推定原因と TSB の原因と寄与の所見が出典の欄に無い（欄は USCG p.307・TSB §1.23.1・NTSB p.70）。",
+    "evidence": "NTSB p.74 `the probable cause of the hull failure and implosion of the submersible Titan was OceanGate’s inadequate engineering process,` ／ TSB §3.1 `These are the factors that were found to have caused or contributed to the occurrence.`",
+    "old": "TSB §1.23.1（`some OceanGate employees with expertise in specific areas left the company or were dismissed after raising safety-related concerns`）",
+    "new": "NTSB p.74（`the probable cause of the hull failure and implosion of the submersible Titan was OceanGate’s inadequate engineering process,`）・TSB §3.1（`These are the factors that were found to have caused or contributed to the occurrence.`）・TSB §1.23.1（`some OceanGate employees with expertise in specific areas left the company or were dismissed after raising safety-related concerns`）",
+    "parent": ""
+  }
+]

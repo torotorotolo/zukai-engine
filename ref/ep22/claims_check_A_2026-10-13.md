@@ -237,7 +237,7 @@
 | c227 | 語り・図 | 沿岸警備隊にいた元技術者がCEOに「対価を受け取っている以上、肩書きを変えるだけでは済まない」 | 一致 | "“… you can’t just change the title of a person when you’re receiving compensation.”" | NTSB PDF p.47 | — |
 | c227 | 見出し | **外部の**技術者が警告していた | ずれ | "A former operations technician (hired in 2017), who had previous experience as an engineer/machinery technician in the US Coast Guard" | NTSB PDF p.47 | 外部でなく社員（2017年採用の運航技術者）。「社内の技術者が」 |
 | c228 | 語り・副題・図 | のちの会話でCEOは「沿岸警備隊が問題になるなら議員を1人買って消す」と言ったという | 一致 | "“if the [US] Coast Guard became a problem … he would buy himself a congressman and make it go away.”" | NTSB PDF p.47／USCG PDF p.299〈291〉・p.306〈298〉 | — |
-| c228 | 見出し | 制度そのものを軽んじていた | 一致（解釈） | "Mr. Rush’s response demonstrates that he was aware that his operations were outside regulatory compliance." | USCG PDF p.299〈291〉 | USCG の評価は「規則の外と分かっていた」 |
+| c228 | 見出し | 制度そのものを軽んじていた | 一致（解釈） | "[CEO]’s response demonstrates that he was aware that his operations were outside regulatory compliance." | USCG PDF p.299〈291〉 | USCG の評価は「規則の外と分かっていた」 |
 | c229 | 語り・見出し・副題・図 | 技術者は会社の運営の合法性への懸念から辞めた | 一致 | "The technician resigned following this conversation, citing concerns for “the legality of how it [OceanGate] was operating.”" | NTSB PDF p.47 | — |
 | c230 | 語り・見出し・副題・図 | 州の登録・国の船舶登録・どこかの国の検査、どれも無し | 一致 | "The Titan was not registered in any US state, documented by the US National Vessel Documentation Center, nor inspected by any flag state." | NTSB PDF p.21／USCG PDF p.58〈50〉・p.11〈3〉 | — |
 | c230 | 図の注 | 出どころ：沿岸警備隊 **海難審判部** 報告書 | ずれ（名称） | "Report of the Marine Board of Investigation" | USCG PDF p.1 | 「海難調査委員会」。中身の帰属（USCG p.5・p.58）は正しい |
@@ -264,7 +264,7 @@
 | c310 | 語り・見出し・副題・図 | 2018年1月、海洋運用部長がCEOと役員に品質検査の報告書 | 一致 | "In January 2018, OceanGate’s director of marine operations submitted a “quality control inspection report” ... to the CEO and other OceanGate directors." | NTSB PDF p.47／USCG PDF p.146〈138〉（1月18日） | — |
 | c311 | 語り・見出し・副題・図 | 削り落とした円筒の端に、はっきり見える剥離と空隙 | 一致 | "“very visible signs of delamination and porosity” in the machined-off ends of the v1 carbon fiber cylinder" | NTSB PDF p.47 | — |
 | c313 | 語り・図 | 1月19日の会話をCEO自身が録音していた | 一致 | "The meeting lasted two hours and four minutes and was audio recorded by the CEO." | USCG PDF p.149〈141〉／NTSB PDF p.48 | — |
-| c313 | 見出し・副題・図 | **2人は**話していた（部長とCEO） | ずれ（軽）・§4 | "met with Mr. Rush, the Director of Engineering, a Human Resources representative, and the COO, for a two-hour meeting" | USCG PDF p.149〈141〉／NTSB PDF p.48 は2人の会話として書く | 「2人」は NTSB の書き方。USCG では5人の会合 |
+| c313 | 見出し・副題・図 | **2人は**話していた（部長とCEO） | ずれ（軽）・§4 | "met with [CEO], the Director of Engineering, a Human Resources representative, and the COO, for a two-hour meeting" | USCG PDF p.149〈141〉／NTSB PDF p.48 は2人の会話として書く | 「2人」は NTSB の書き方。USCG では5人の会合 |
 | c314 | 語り・図 | CEO「設計に、あなたが信頼を**置いていない**のは明らか」 | 言いすぎ（軽） | "“it’s clear that there is not a lot of confidence on your part in the engineering that went into this vessel”" | NTSB PDF p.48 | 「あまり信頼していない」 |
 | c314 | 語り・見出し | 他の船での経験から、ごく基本の部分で安全を心配している | 一致 | "your experience in other vessels gives you serious concerns about the safety of [the Titan] from the very fundamental level" | NTSB PDF p.48 | — |
 | c315 | 語り・見出し・副題・図 | 4日後の1月23日に解雇 | 一致 | "On January 23, 2018, OceanGate terminated the director of marine operation’s employment." | NTSB PDF p.48／USCG PDF p.149〈141〉 | — |

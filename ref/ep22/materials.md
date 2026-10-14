@@ -267,12 +267,12 @@ archive.org の `uscg-titan-submersible-hearings`（USCG の公開資料を**個
 
 | 素材 | 誰 | 権利 | 確かさ |
 |---|---|---|---|
-| MBI 図251「Inside of TITAN during Dive 87 incident … **Mr. Rush is sitting against the back wall** …」 | CEO（ダイブ87＝事故の前の潜航） | 第三者（Former OceanGate mission specialist） | 凡例に明記 |
+| MBI 図251「Inside of TITAN during Dive 87 incident … **[CEO] is sitting against the back wall** …」 | CEO（ダイブ87＝事故の前の潜航） | 第三者（Former OceanGate mission specialist） | 凡例に明記 |
 | MBI 図26「Small boat STEWIE transporting **mission specialists to the LARS for Dive 88**」 | ダイブ88（事故の潜航）の乗員 | 第三者（OceanGate） | **写っている見込み**（目視していない） |
 | MBI 図27「TITAN atop LARS moments before commencement of Dive 88」 | 不明 | 第三者（OceanGate） | 要目視 |
 | OceanGate の映像（MBI 4.6.8.4.1「OceanGate videos showed mission specialists for Dive 88 signing the liability waiver」） | ダイブ88 の乗員 | 第三者 | 公開は未確認 |
-| Commons「Stockton Rush.png」「Stockton Rush (cropped).png」「… (cropped 2).png」 | CEO（2015） | CC BY 3.0（OceanGate の YouTube） | 札どおりなら使える種類 |
-| Commons「Richard S. Rush 1984.jpg」（533×685） | CEO（プリンストン大の卒業アルバム） | PD（**PD US no notice**＝1989年より前に著作権表示なしで発行。A〜D のどれでもない別の根拠） | |
+| Commons「〈CEOの名前〉.png」「〈CEOの名前〉 (cropped).png」「… (cropped 2).png」 | CEO（2015） | CC BY 3.0（OceanGate の YouTube） | 札どおりなら使える種類 |
+| Commons「〈CEOの名前の頭文字つき〉 1984.jpg」（533×685・ファイル名は Vault の引き継ぎ §8 の控えから） | CEO（プリンストン大の卒業アルバム） | PD（**PD US no notice**＝1989年より前に著作権表示なしで発行。A〜D のどれでもない別の根拠） | |
 | Commons の5人の分類 | タイタニックの専門家＝署名の画像だけ／客3人＝**分類が無いか空（0点）** | ― | |
 
 **遺族・私人**：
@@ -298,7 +298,7 @@ archive.org の `uscg-titan-submersible-hearings`（USCG の公開資料を**個
 | **爆縮と見られる音（遠方）** | **NOAA の係留式受動音響記録器**（約900マイル先）の記録 23.7秒（DVIDS 951839・Commons では「NOAA-NPS Noise Reference Recording」） | 公開（2025-02-07）・"NOAA, which approved its use in the investigation and public release" | **A**（NOAA） |
 | **最後の文字のやりとり** | 文字の記録（音声ではない）＝NTSB ドケット「EXTRACT OF EVOLOGICS CHAT」（8頁）／TSB 報告 付録 A の逐語の記録／MBI の再現アニメ（USCG 補助隊） | 公開 | 記録の文言は事実。再現アニメは補助隊＋CC BY 4.0 の模型 |
 | **捜索中の「叩く音」（2023-06-20〜21）** | カナダの P-3（CP-140）のソノブイが拾ったと報道。USCG は後に事故と関係ないと説明（報道） | **MBI・NTSB の文字の層に記述なし**（banging／knocking／tapping＝捜索の文脈で0件）・**公開の録音は見つからない** | ― |
-| CEO の声 | Commons「Stockton Rush voice.ogg」「… (Enhanced).wav」（2015 の OceanGate 動画から） | 公開 | CC BY 3.0（札） |
+| CEO の声 | Commons「〈CEOの名前〉 voice.ogg」「… (Enhanced).wav」（2015 の OceanGate 動画から） | 公開 | CC BY 3.0（札） |
 
 ---
 
