@@ -17,6 +17,12 @@
    → その間の **13**。陽性対照が鳴らなければ物差しが壊れている＝exit 1（[[feedback-verify-your-own-instrument]]）。
    ⚠️ 最初は 20 と置いたが、根拠が無く（見本で明らかに違うセピアと青緑まで落ちた）、上の3点で決め直した。
    測るのは写真の中点だけ（図の線の色の差は参考に出す）。
+  5. 🆕 2026-10-14（22本目 ⑤b-1）：**役の色**（`jiko_style.ROLE`＝米沿岸警備隊・会社・母船ほか＝「図に色を多く」）。
+     ①使う章の色の地（BG・BG2）すべての上で文字の比 4.5 以上 ②紺の7色（PAL_TOKENS）と同じ値でない（同じ値は remap で章の色に
+     置き換わる＝役の色が消える）③意味の色（ALERT・AMBER・DOC と別名でない OK・INST）・ほかの役・使う章の線と目盛りと主図形
+     （LINE・TICK・INK_W）から ΔE（CIE76・色そのもの）ROLE_DE_MIN 以上 ④別名（ROLE_ALIAS）は値が本当に同じか。
+     ROLE_DE_MIN 25＝check_color の「別の意味の色」の下限（同じ物差し）。陽性対照＝見本の母船 #7fc8e8 と紺の LINE（12.0）・
+     見本の会社 #f0903c と AMBER（24.0）が鳴ること。⚠️ 潜水艇の白 sub と INK_W は同じ白の扱い（照合から外す）
 """
 import sys
 from pathlib import Path
@@ -70,6 +76,17 @@ def de(duo_a, duo_b):
     return sum((p - q) ** 2 for p, q in zip(a, b)) ** 0.5
 
 
+ROLE_DE_MIN = 25.0        # 役の色どうし・意味の色・章の線との差の下限（check_color.DE_MIN と同じ物差し）
+ROLE_CONTROLS = [("見本の母船", "#7fc8e8", J.PALETTES["navy"]["LINE"], "紺の章の線 LINE と 12.0"),
+                 ("見本の会社", "#f0903c", J.AMBER, "黄 AMBER と 24.0")]
+
+
+def de1(a, b):
+    """色そのものの差（CIE76）。章の色の差（de＝写真の中点）とは別"""
+    la, lb = lab(rgb(a)), lab(rgb(b))
+    return sum((p - q) ** 2 for p, q in zip(la, lb)) ** 0.5
+
+
 def duo_of(name):
     p = J.palette(name)
     return p["BG2"], p["DUO_L"]
@@ -121,6 +138,32 @@ def main():
             continue
         v = de(duo_of(p1), duo_of(p2))
         say(v >= DE_MIN, f"{n1}章 {p1} → {n2}章 {p2}：ΔE {v:.1f}")
+    # 5. 役の色（22本目から）
+    role = getattr(J, "ROLE", {})
+    if role:
+        print(f"\n■ 役の色（文字 {TEXT_MIN} 以上・ΔE {ROLE_DE_MIN} 以上・紺の7色と別の値）")
+        for nm, c, ref, want in ROLE_CONTROLS:
+            v = de1(c, ref)
+            say(v < ROLE_DE_MIN, f"陽性対照：{nm}（{c}）と {ref} の差 ΔE {v:.1f} は ROLE_DE_MIN {ROLE_DE_MIN} 未満で鳴る（{want}）")
+        alias = getattr(J, "ROLE_ALIAS", {})
+        tok = {J.PALETTES["navy"][k].lower(): k for k in J.PAL_TOKENS}
+        for k, c in role.items():
+            if k in alias:
+                say(c.lower() == getattr(J, alias[k]).lower(), f"役 {k}＝{alias[k]} の別名（値が同じ {c}）")
+                continue
+            low = [f"{pn} {min(ratio(c, J.palette(pn)['BG']), ratio(c, J.palette(pn)['BG2'])):.2f}"
+                   for pn in used if min(ratio(c, J.palette(pn)["BG"]), ratio(c, J.palette(pn)["BG2"])) < TEXT_MIN]
+            say(not low, f"役 {k} {c}：どの章の地でも文字の比 {TEXT_MIN} 以上（足りない {low}）")
+            say(c.lower() not in tok, f"役 {k} {c}：紺の7色と別の値（同じ＝{tok.get(c.lower())}）")
+            ref = {n: getattr(J, n) for n in ("ALERT", "AMBER", "DOC", "OK", "INST")}
+            ref.update({f"役 {o}": v for o, v in role.items() if o != k and o not in alias})
+            # ⚠️ 潜水艇の白 sub は主図形の白 INK_W と同じ役＝章の線・目盛り・INK_W とは照らさない（INK_W と章の線の差は
+            #    白黒 18.3・セピア 21.4 で、公開した回もこの組で描いてきた＝同じ白を別の基準で止めない。2026-10-14 実測）
+            for pn in ([] if k == "sub" else used):
+                for t in ("LINE", "TICK", "INK_W"):
+                    ref[f"{pn}.{t}"] = J.palette(pn)[t]
+            near = sorted((de1(c, v), n) for n, v in ref.items())[:1]
+            say(near[0][0] >= ROLE_DE_MIN, f"役 {k} {c}：いちばん近い色 {near[0][1]} と ΔE {near[0][0]:.1f}")
     print(f"\n{'🔴 ' + str(len(bad)) + '件' if bad else '✓ 章の色 すべて合格'}")
     return 1 if bad else 0
 
