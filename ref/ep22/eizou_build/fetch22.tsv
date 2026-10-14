@@ -1,0 +1,58 @@
+# 22本目 映像方針：取った素材（fetch22.py check の出力＝手で直さない）。置き場は git の外（ref/* は .gitignore）。clips/ は使う区間＋前後10秒＝名前の t<始め>_<終わり> が元の映像の秒
+code	class	file	bytes	md5	md5_check	dims	dur	exif_date	page
+R04	film	ref/ep22/src/film/rov04_tailcone_ntsb.mp4	64361286	2cc767726a4d94b9ca92cdef70ff7431	md5 2回一致	1920x1080	60.69	—	https://data.ntsb.gov/Docket/?NTSBNumber=DCA23FM036
+R07	film	ref/ep22/src/film/rov07_domes_ntsb.mp4	89833780	90702588849ff49a3f2acdc413a6626f	md5 2回一致	1920x1080	107.35	—	https://data.ntsb.gov/Docket/?NTSBNumber=DCA23FM036
+U022	film	ref/ep22/src/film/dvids888022/clips/t0234.234_0267.500.mp4	30764426	072ae7d22529bbdb7f67fdf7a95609b6	md5 2回一致	1920x1080	33.42	—	https://www.dvidshub.net/video/888022
+U022	film	ref/ep22/src/film/dvids888022/clips/t0330.330_0359.500.mp4	28637012	88f1be3a4e1145921c9c1cda17c142e6	md5 2回一致	1920x1080	29.34	—	https://www.dvidshub.net/video/888022
+U022	film	ref/ep22/src/film/dvids888022/clips/t0454.454_0487.500.mp4	32071970	b571ee57edda4def0e4269887209d358	md5 2回一致	1920x1080	33.22	—	https://www.dvidshub.net/video/888022
+U022	film	ref/ep22/src/film/dvids888022/clips/t0890.890_0916.100.mp4	23616286	a8e96032889f23f16dabceceef70b329	md5 2回一致	1920x1080	25.38	—	https://www.dvidshub.net/video/888022
+U734	film	ref/ep22/src/film/dvids887734_command_center_0620.mp4	120963998	d7ee50e779e9a47e378fa134e423ed0b	md5 2回一致	2720x1530	97.23	—	https://www.dvidshub.net/video/887734
+U012	film	ref/ep22/src/film/dvids888012/clips/t0166.166_0202.200.mp4	45722714	263522a3dde6958b66357b98dff52a0d	md5 2回一致	1920x1080	36.18	—	https://www.dvidshub.net/video/888012
+U011	film	ref/ep22/src/film/dvids888011/clips/t0124.591_0152.200.mp4	39820445	f502ead1e32b21412f1b4ef665890dee	md5 2回一致	1920x1080	32.51	—	https://www.dvidshub.net/video/888011
+U597	film	ref/ep22/src/film/dvids887597/clips/t0516.516_0557.500.mp4	34611217	71923c5e38d9a3966ea8e48d28cc9605	md5 2回一致	1920x1080	41.07	—	https://www.dvidshub.net/video/887597
+U852	film	ref/ep22/src/film/dvids887852/clips/t0482.482_0511.000.mp4	12209280	5f7927939c65d8f21e02b155f80e6a5a	md5 2回一致	1280x720	28.68	—	https://www.dvidshub.net/video/887852
+U248	film	ref/ep22/src/film/dvids888248/clips/t0516.516_0555.000.mp4	11447292	a03dcd4116f102d649541af15dc864f4	md5 2回一致	1280x720	38.57	—	https://www.dvidshub.net/video/888248
+D444	photo	ref/ep22/photo/dvids7875444_hc130_cockpit.jpg	6662842	5b027eea9a130db57723be55e6488394	md5 2回一致	4032x3024	—	2023:06:22 06:29:35	https://www.dvidshub.net/image/7875444
+D448	photo	ref/ep22/photo/dvids7875448_sea_from_aircraft.jpg	486776	e4def93f8462ba84df1721fa0961d06d	md5 2回一致	1600x1200	—	（EXIF に日付なし）	https://www.dvidshub.net/image/7875448
+D471	photo	ref/ep22/photo/dvids7875471_hc130_hangar.jpg	6280674	287193ee66b2891381bde6b822e7e85f	md5 2回一致	4032x3024	—	2023:06:22 06:29:35	https://www.dvidshub.net/image/7875471
+D342	photo	ref/ep22/photo/dvids9057342_deck_survey.jpg	9050730	71a0a926f3988a9f7a0cbc7f20adec40	md5 2回一致	3024x4032	—	2023:09:30 04:02:38	https://www.dvidshub.net/image/9057342
+D367	photo	ref/ep22/photo/dvids9057367_first_hull.jpg	4912094	542e7f6ba39466d5765bc45c2e33142f	md5 2回一致	4032x3024	—	（EXIF に日付なし）	https://www.dvidshub.net/image/9057367
+C201	photo	ref/ep22/photo/commons_titanic_wreck_bow.jpg	1843041	ce098812b572e500e647197ad4be4bfe	md5 2回一致	1480x1036	—	2007:07:25 11:06:36	https://commons.wikimedia.org/wiki/File:Titanic_wreck_bow.jpg
+C218	photo	ref/ep22/photo/commons_horizon_arctic_2022_02.jpg	1562106	c254fcaf36b8cb34dbbc6c3b226a3be5	md5 2回一致	3840x2555	—	（EXIF に日付なし）	https://commons.wikimedia.org/wiki/File:2022-08-21_02_HORIZON_ARCTIC_-_IMO_9732838.jpg
+C1cc	photo	ref/ep22/photo/commons_uscg_mbi_8668382.jpg	1335962	3971952aa1cfcdf08f191bf9122e5305	md5 2回一致	3840x2563	—	（EXIF に日付なし）	https://commons.wikimedia.org/wiki/File:U_S_Coast_Guard_Marine_Board_of_Investigation_(8668382).jpg
+M03	fig	ref/ep22/photo/mbi_fig003_polar_prince.png	943795	6b8b597bbfdb62f7f99f8e478eae9c46	md5 2回一致	1202x563	—	（EXIF に日付なし）	—
+M05	fig	ref/ep22/photo/mbi_fig005_lars.png	1045488	4cc3b70cef460a05a57197f99e82cf04	md5 2回一致	1195x601	—	（EXIF に日付なし）	—
+M18	fig	ref/ep22/photo/mbi_fig018_log_0000.png	293620	9cd62301fa375f4bab1d118af72c5063	md5 2回一致	1099x246	—	（EXIF に日付なし）	—
+M21	fig	ref/ep22/photo/mbi_fig021_hangar.png	551019	9d6440bb94fa513c997682e312a4384f	md5 2回一致	776x446	—	（EXIF に日付なし）	—
+M24	fig	ref/ep22/photo/mbi_fig024_small_boats.png	605830	b9609519ed3488f825f92e2580f5120a	md5 2回一致	780x475	—	（EXIF に日付なし）	—
+M31	fig	ref/ep22/photo/mbi_fig031_bridge_office.png	1005027	e8f2eeae801a065fc1742cf29ca816b1	md5 2回一致	1143x561	—	（EXIF に日付なし）	—
+M37	fig	ref/ep22/photo/mbi_fig037_log_0600.png	216616	565b7848d246352c2711edfc9799a3c8	md5 2回一致	1002x203	—	（EXIF に日付なし）	—
+M65	fig	ref/ep22/photo/mbi_fig065_cyclops_controller.png	1373941	6bf158c14395ab57138e2f34adb35195	md5 2回一致	1200x732	—	（EXIF に日付なし）	—
+M109	fig	ref/ep22/photo/mbi_fig109_lars_dock.png	1164063	393f73f7153bbdc0a467df8cdc32db3a	md5 2回一致	1221x724	—	（EXIF に日付なし）	—
+M112	fig	ref/ep22/photo/mbi_fig112_ballast_valve.png	573689	368805d0e4ca08ba3f458c351a142d96	md5 2回一致	828x437	—	（EXIF に日付なし）	—
+M115	fig	ref/ep22/photo/mbi_fig115_air_regulator.png	1113079	811f3a8120c30fbc6829f7fbf9645f95	md5 2回一致	960x817	—	（EXIF に日付なし）	—
+M157	fig	ref/ep22/photo/mbi_fig157_aft_segment.png	886418	dd989df1b0c0e9f3b367d1303ea74fdf	md5 2回一致	1333x680	—	（EXIF に日付なし）	—
+M159	fig	ref/ep22/photo/mbi_fig159_fwd_segment.png	1414445	698e6cee7cb06202e081172ac6bb1c7d	md5 2回一致	1159x848	—	（EXIF に日付なし）	—
+M255	fig	ref/ep22/photo/mbi_fig255_layers.png	491861	ceea2456a220d46be67658b54ecf967c	md5 2回一致	814x546	—	（EXIF に日付なし）	—
+M268	fig	ref/ep22/photo/mbi_fig268_adhesive.png	607060	29ef68ac2f89f07d8f87fe7df4da6601	md5 2回一致	675x841	—	（EXIF に日付なし）	—
+M270	fig	ref/ep22/photo/mbi_fig270_viewport_ring.png	524880	5b33a9e6a85357629bb17f86c7aa7397	md5 2回一致	556x651	—	（EXIF に日付なし）	—
+N08	fig	ref/ep22/photo/ntsb_fig08_launch_2022.png	804396	45a29f92e2893e930cb8c48c40306e19	md5 2回一致	986x717	—	（EXIF に日付なし）	—
+N09	fig	ref/ep22/photo/ntsb_fig09_parking.png	424834	b857f8f2a9f44ffdfbffab60cf4e2a00	md5 2回一致	980x545	—	（EXIF に日付なし）	—
+N10	fig	ref/ep22/photo/ntsb_fig10_lars_tipped.png	830110	0eee74f69ca427494cc5ca690f3c2376	md5 2回一致	978x640	—	（EXIF に日付なし）	—
+N10	fig	ref/ep22/photo/ntsb_fig10_lars_tipped_1.png	482101	df7122c696984dd014ad23d2d2c9ec0e	md5 2回一致	481x640	—	（EXIF に日付なし）	—
+N10	fig	ref/ep22/photo/ntsb_fig10_lars_tipped_2.png	330420	9574617cbac5c19637554e1d61232438	md5 2回一致	481x640	—	（EXIF に日付なし）	—
+N13	fig	ref/ep22/photo/ntsb_fig13_recovered_piece.png	2032972	7308777c5bb66a1b6083efcce9713858	md5 2回一致	1609x1490	—	（EXIF に日付なし）	—
+N14	fig	ref/ep22/photo/ntsb_fig14_faces.png	1572458	b8f738200cf32b636fe2d8407beade73	md5 2回一致	1830x1149	—	（EXIF に日付なし）	—
+N15	fig	ref/ep22/photo/ntsb_fig15_end_piece.png	686790	3b82138db5c172189d5530037e17cf46	md5 2回一致	1320x516	—	（EXIF に日付なし）	—
+N16	fig	ref/ep22/photo/ntsb_fig16_wrinkle.png	1325967	6e0d4052114478ba615c0e41e5c261f9	md5 2回一致	1051x1583	—	（EXIF に日付なし）	—
+N17	fig	ref/ep22/photo/ntsb_fig17_layers.png	768650	e824134e37f9c4bc5f36f321cf51c8f2	md5 2回一致	1431x626	—	（EXIF に日付なし）	—
+N18	fig	ref/ep22/photo/ntsb_fig18_delam.png	1043250	f6f3af3df4536a1a1e0053a44796eea4	md5 2回一致	1950x627	—	（EXIF に日付なし）	—
+L15	fig	ref/ep22/photo/lab24011_p37_fig15.png	1791765	317b54469fac31665fa626365c0419e6	md5 2回一致	1224x1584	—	（EXIF に日付なし）	—
+L21	fig	ref/ep22/photo/lab24011_p44_fig21.png	1336393	761bea3d12ac55a4566c5baaac04301d	md5 2回一致	1224x1584	—	（EXIF に日付なし）	—
+L22	fig	ref/ep22/photo/lab24011_p47_fig22.png	4174952	cc50f7f289c35b9d4b4562a819758d33	md5 2回一致	1320x1621	—	（EXIF に日付なし）	—
+L28	fig	ref/ep22/photo/lab24011_p53_fig28.png	990622	dc68984f7058d48b2a6335b5a893644a	md5 2回一致	1320x880	—	（EXIF に日付なし）	—
+L39	fig	ref/ep22/photo/lab24011_p67_fig39.png	1371371	9d5adf6c7f5f05887273ca40c9a8d25f	md5 2回一致	1430x1593	—	（EXIF に日付なし）	—
+L43b	fig	ref/ep22/photo/lab24011_p71_fig43b.png	1084874	ec3cba05d6fb951c2a61f27a6cc0b1c0	md5 2回一致	1320x880	—	（EXIF に日付なし）	—
+L45a	fig	ref/ep22/photo/lab24011_p73_fig45a.png	1098914	af691c3315378890ef4f81d0214f51e4	md5 2回一致	1320x880	—	（EXIF に日付なし）	—
+L47b	fig	ref/ep22/photo/lab24011_p75_fig47b.png	845336	1d7da511bc1097e7afb501a24fd73244	md5 2回一致	1320x880	—	（EXIF に日付なし）	—
+L48	fig	ref/ep22/photo/lab24011_p76_fig48.png	1615170	d92f84542427cc3e8b413ff6ab7092b1	md5 2回一致	1224x1584	—	（EXIF に日付なし）	—
