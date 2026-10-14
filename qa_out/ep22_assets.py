@@ -387,6 +387,27 @@ def cmd_edges():
 
 
 # ── 画面の出典と CREDITS.md の節 ─────────────────────────────
+def _sat_credit():
+    """🆕 ⑤b-3：地図のカット（衛星写真）の画面の出典の行（`cuts/ss.SAT_CREDIT`＝表は1か所）。"""
+    sys.path.insert(0, str(HERE / "tools"))
+    import cuts.ss as ss
+    return ss.SAT_CREDIT
+
+
+def _sat_rows():
+    """🆕 ⑤b-3：CREDITS.md の「2. 地図の衛星写真」の表＝`cuts/ss.SAT` と、どのカットが使うか（SPEC の sat）。"""
+    sys.path.insert(0, str(HERE / "tools"))
+    import cuts
+    import cuts.ss as ss
+    use = {}
+    for cid, s in sorted(cuts.SPEC.items()):
+        if s.get("sat"):
+            use.setdefault(s["sat"]["code"], []).append(cid)
+    return [f"| `{k}` | {' '.join(use.get(k, [])) or '—'} | {v['ll'][0]}, {v['ll'][1]}・{v['z']} | `{v['md5']}` |"
+            for k, v in ss.SAT.items()]
+
+
+
 CLIP_CREDIT = {
     "R04": "出典：Pelagic Research Services の ROV 映像（米沿岸警備隊・米運輸安全委員会が公開）",
     "R07": "出典：Pelagic Research Services の ROV 映像（米沿岸警備隊・米運輸安全委員会が公開）",
@@ -464,10 +485,14 @@ def cmd_credits(write=False):
         "| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |",
         "|---|---|---|---|---|---|", *rows, "",
         "### 2. 地図の衛星写真（Google マップ・束に入れない）",
-        "- G01〜G06＝Google マップの衛星写真（⑤b-1 に撮った・`ref/ep22/photo/gmap_g0*.png`＝git の外）。Google の地理の指針（教育の動画は許可不要・"
-        "収益化も可）に従い、**絵の下の帰属の行（地図データ ©2026 Google・画像 ©提供元）とロゴを映す間ずっと残す**・色を変えない・動かさない・"
-        "点と線と札は描き足してよい。🔴 公開のリポに画像を置かない＝焼き方は ⑤b-3（地図の型）で決める",
-        ""])
+        "- G01〜G06＝Google マップの衛星写真（⑤b-1 に撮った・G06 は ⑤b-3 で撮り直し・`ref/ep22/photo/gmap_g0*.png`＝git の外）。Google の地理の指針"
+        "（教育の動画は許可不要・収益化も可）に従い、**絵の下の帰属の行（地図データ ©2026 Google・画像 ©提供元）とロゴを映す間ずっと残す**・色を変えない・"
+        "動かさない・点と線と札は描き足してよい（地図の型 `tools/satmap.py`・門番 `tools/check_sat.py`）",
+        "- 🔴 公開のリポに画像を置かない＝Modal の保管庫 `jiko-assets` の `ref/ep22/photo/`（`modal_app.pull_private`）・地図のカットの検品画像は Modal の qa"
+        "（Actions は理由を出して飛ばす）。画面の出典の行＝「" + _sat_credit() + "」（額の下）",
+        "",
+        "| 記号 | 使うカット | 中心（緯度, 経度）・ズーム | md5 |",
+        "|---|---|---|---|", *_sat_rows(), ""])
     if CREDITS_HEAD in md:
         pre, rest = md.split(CREDITS_HEAD, 1)
         nxt = rest.find("\n## ")

@@ -105,6 +105,10 @@ def pic_kinds(s, stock=False):
         if (s.get("intro") or {}).get("photo"):
             return {"混ざり"}          # 15本目 ⑤b-7：冒頭の写真・頁 → 図解（c904＝頁 p46 → 地図）
         return {"混ざり", "図解"} if photo else {"図解"}
+    if photo and s.get("sat"):
+        # 🆕 2026-10-14（22本目 ⑤b-3）：地図のカット（衛星写真の額装＋点・線・札の描き足し＝satmap）＝地図＝図解（映像方針の種類「地図」・
+        #   了承②で「実写」に数えない＝写真 20% の数に入れない）。衛星写真は今の写真＝この事故の写真ではない
+        return {"図解"}
     if photo:
         if stock:
             return {"フリー素材"}       # 18本目 ⑤b-1：この事故の写真（20%の数）と分ける

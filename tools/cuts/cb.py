@@ -75,3 +75,20 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ── 🆕 ⑤b-3（2026-10-14）：地図のカット（衛星写真＋描き足し＝`tools/satmap.py`・c2.py の注）──
+SPEC.update({
+    # cb01（3行）＝1行目は聞き役の問い（描き足しなし）・2行目で A. Harvey の基地のあたりを囲む（USCG 4.35.2・NTSB 図9）。
+    #   🔴 NTSB 図9（空からの駐車場・×の印）と衛星写真 G06 は特徴点の照合が取れなかった＝駐車場の中の位置は描かない（基地のあたり＝住所から）
+    "cb01": dict(**ss.sat("G06", note="囲みは基地の住所のあたり（一般の座標・駐車場の中の位置は描かない）", steps=[
+        [],
+        [dict(k="area", at="harvey", r=160, role="company", t="A. ハーヴィーの基地", lab=(0, 128, "middle"))]]),
+        t="冬の置き場", s="セントジョンズの港（現在の衛星写真）"),
+    # cb09（2行）＝母船の後ろに台ごと引く（船と台の印は模式・線は2点を結んだだけ）
+    "cb09": dict(**ss.sat("G02", note="セントジョンズは一般の座標・×は最後に受けた位置・線と船の印は模式（実際の航路ではない）", steps=[
+        [dict(k="line", path=("stjohns", "site"), role="ship"),
+         dict(k="icon", what="ship", on=("stjohns", "site", 0.5), role="ship", tow=True, t="母船", lab=(34, -8, "start")),
+         dict(k="x", at="site")],
+        [dict(k="icon", what="ship", on=("stjohns", "site", 0.5), role="ship", tow=True, t="台（タイタン）", lab=(-60, 40, "end"))]]),
+        t="引いて運ぶ", s="セントジョンズから現場へ（現在の衛星写真）"),
+})

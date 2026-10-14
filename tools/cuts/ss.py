@@ -668,6 +668,49 @@ def _clips():
 #    （空のあいだ、その型を使うカットは門番・型が止まる＝fail closed）。頁の番号の書き方（通し番号・印字の頁と PDF の頁・頁の無い資料は「名 p1」）・資料の名の決め方・
 #    割れる時刻の扱いは移した注の側にある＝fixture_ep21 の REC_DOCS の注。ILLU_CROWD_UNTIL・ILLU_ROLES・ILLU_SEC_OK・ILLU_CLOCK_OK・ILLU_COUNTS・ILLU_ASSUME・
 #    ILLU_DESTROY_CUTS・ILLU_TOP_NOSCALE・ILLU_SUB_*・ILLU_BOOM_CUTS・ILLU_MIX_TODO は21本目も空のままだった表＝空の器で残す（見本の側も21本目の状態＝空として持つ）
+# ══════════════════════════════════════════════════════════
+#  🆕 2026-10-14（22本目 ⑤b-3）：地図の型「衛星写真＋描き足し」（`tools/satmap.py`・門番 `tools/check_sat.py`）＝§0b（回を替えたら空にする）
+# ══════════════════════════════════════════════════════════
+#   SAT＝撮った衛星写真（`ref/ep22/eizou_build/helpers/gshot22.py`・中心 ll とズーム z は sources22.tsv の media と同じ）。
+#     🔴 写真そのものは公開リポに置かない（git の外・Modal の保管庫 `jiko-assets` の `ref/ep22/photo/`＝`modal_app.pull_private`）。
+#        ここに置けるのは md5 だけ＝門番が手元の絵と照らす（撮り直したら md5 と描き足しの座標を見直す）。
+#     🔴 Actions は保管庫を読めない＝地図のカットは理由を出して飛ばす（`build_jiko.drop_missing_sat`）・検品画像は Modal の `qa`。
+#     G06 は ⑤b-3 で撮り直した（⑤b-1 の中心 47.563,-52.705・ズーム16 は A. Harvey の基地が画の上の端の外＝2回撮って `gseam22.py`
+#     ＝1回目に y 973 の継ぎ目〈A 25.5／B 0.0〉→ 2回目を採った）
+#   GEO＝描き足しに使う場所。src＝報告書でその場所の名が出る所・how＝座標の出どころ（「報告書の値」か「一般の座標」）。
+#     🔴 確かめていない場所に点を置かない（門番）。×は報告書の座標の場所だけ・一般の座標を使ったカットは断りに「一般の座標」
+SAT_CREDIT = "地図：Google マップの衛星写真（帰属は地図の右下）"
+SAT = {
+    "G01": dict(file=f"{EP}photo/gmap_g01_north_america.png", ll=(45.0, -87.0), z=4, md5="70ff2619fdbaf91c3b1c5651b82d7c8e", credit=SAT_CREDIT),
+    "G02": dict(file=f"{EP}photo/gmap_g02_newfoundland_site.png", ll=(44.6, -51.3), z=6, md5="4c9a76312ec1bb0053611ec20add3068", credit=SAT_CREDIT),
+    "G03": dict(file=f"{EP}photo/gmap_g03_buffalo_newfoundland.png", ll=(45.5, -65.8), z=5, md5="57eb70a4722acc83aa5653315a0171ec", credit=SAT_CREDIT),
+    "G04": dict(file=f"{EP}photo/gmap_g04_north_atlantic.png", ll=(45.0, -47.0), z=5, md5="67507f0134ae97af6abac1dcafc49299", credit=SAT_CREDIT),
+    "G05": dict(file=f"{EP}photo/gmap_g05_bahamas.png", ll=(25.0, -77.0), z=7, md5="35b8c66417c27d9d68155c244a7d0337", credit=SAT_CREDIT),
+    "G06": dict(file=f"{EP}photo/gmap_g06_stjohns_pier14.png", ll=(47.5675, -52.7010), z=17, md5="2ac970d434b7b1a7c735a8f334926ab7", credit=SAT_CREDIT),
+}
+GEO = {
+    "everett": dict(ll=(47.979, -122.202), src="TSB §1.23（`OceanGate was headquartered in Everett, Washington`）", how="一般の座標（市の中心）"),
+    "stjohns": dict(ll=(47.5615, -52.7126), src="TSB §1.3.1（`the Polar Prince departed St. John’s`）", how="一般の座標（港）"),
+    "site": dict(ll=(41 + 44.06 / 60, -(49 + 56.54 / 60)), src="USCG p.6〈vi〉（`41° 44.06’ North; 49° 56.54’West`＝最後の位置）",
+                 how="報告書の値（最後に受けた位置）"),
+    "buffalo": dict(ll=(42.886, -78.878), src="NTSB p.18（`The Odysseus was in Buffalo, New York, at the time.`）", how="一般の座標（市の中心）"),
+    "marsh": dict(ll=(26.541, -77.063), src="USCG p.152〈144〉（`OceanGate took their operation to Marsh Harbour, Bahamas to conduct test dives`）",
+                  how="一般の座標（町）"),
+    # 47回目の潜航（2019年4月17日）の海＝「リトルハーバー〈26.326, -76.999〉の沖 約10マイル・大西洋」＝東へ約16キロ（模式）
+    "abaco47": dict(ll=(26.326, -76.838), src="USCG p.157〈149〉（`approximately 10 miles off Little Harbour, Great Abaco, in the Atlantic Ocean`）",
+                    how="一般の座標（リトルハーバー）から東へ約16キロ（模式）"),
+    # A. Harvey の基地（Pier 14・71 Water St.＝会社の頁）。NTSB 図9 と衛星写真は特徴点の照合が取れなかった（⑤b-3・SIFT の inlier 13 以下）
+    #   ＝駐車場の中の位置（図9 の×）は描かず、基地のあたりを囲む（中心＝G06 の画素 (930, 270)＝住所の点 (803, 281) と岸の舗装の間）
+    "harvey": dict(ll=(47.5688, -52.70121), src="USCG p.236〈228〉（`demobilized at the A Harvey Marine Base in St. John’s` ・`placed in the parking lot of the facility`）・NTSB p.36〈28〉 図9",
+                   how="一般の座標（基地の住所 Pier 14・71 Water St. のあたり＝会社の頁）"),
+}
+
+
+def sat(code, steps, note="", **kw):
+    """🆕 22本目 ⑤b-3：地図のカット（衛星写真の額装＋描き足し）の SPEC の頭。t・s は呼ぶ側で（副題に「現在の衛星写真」＝門番）。"""
+    return dict(photo=SAT[code]["file"], panel=True, pw=1152, color=1.0, sat=dict(code=code, steps=steps, note=note), **kw)
+
+
 REC_PAGES = REF / "src" / "ep22_pages.txt"      # ④ の make_pages.py の出力（git の外＝手元だけ）。まだ無い＝その型を初めて使う ⑤b のチャットで作る
 REC_DOCS = {}                               # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
 ILLU_SPLIT_TIMES = ()                       # 資料で割れる時刻＝画面に時計・時刻の札として出さない

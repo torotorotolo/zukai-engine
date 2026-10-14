@@ -87,3 +87,22 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ── 🆕 ⑤b-3（2026-10-14）：地図のカット（衛星写真＋描き足し＝`tools/satmap.py`・c2.py の注）──
+SPEC.update({
+    # c514（2行）＝1行目でバッファローの ROV・2行目で米空軍の輸送機（C-130＝NTSB p.20）でニューファンドランドへ（線は2点を結んだだけ）
+    "c514": dict(**ss.sat("G03", note="地点は一般の座標・線は2点を結んだだけ（実際の飛行の経路ではない）", steps=[
+        [dict(k="pt", at="buffalo", c="INK_W", t="ROV の置き場", lab=(20, -34, "start"))],
+        [dict(k="line", path=("buffalo", "stjohns"), c="INK_W", dash=True),
+         dict(k="icon", what="plane", on=("buffalo", "stjohns", 0.55), c="INK_W", t="米空軍の輸送機", lab=(0, -40, "middle")),
+         dict(k="pt", at="stjohns", c="INK_W", t="ニューファンドランド", lab=(-18, -24, "end"))]]),
+        t="ROVの空輸", s="バッファローからニューファンドランドへ（現在の衛星写真）"),
+    # c515（2行）＝1行目でフランスの調査船（「大西洋の中ほどから」＝向きだけの矢印）・2行目でバッファローの ROV を積んだ船と現場にそろう（6月22日）
+    "c515": dict(**ss.sat("G04", note="×は最後に受けた位置・矢印は「大西洋の中ほどから」の向きだけ・港は一般の座標", steps=[
+        [dict(k="arrow", fr=(42.68, -32.35), to="site", dir=True, src="USCG p.42〈34〉（`responded from mid-ocean`）",
+              c="INK_W", t="フランスの調査船", lab=(0, -30, "middle")),
+         dict(k="x", at="site")],
+        [dict(k="line", path=("stjohns", "site"), c="INK_W", dash=True, t="ROV を積んだ船", lab=(-24, 0, "end")),
+         dict(k="txt", at="site", t="6月22日にそろう", lab=(0, 56, "middle"))]]),
+        t="2つのROV", s="北大西洋（現在の衛星写真）"),
+})

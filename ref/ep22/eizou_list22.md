@@ -449,7 +449,7 @@ tags: [project/jiko-kensho, ep22]
 | G03 | c514 | gshot（⑤b-1＝helpers/gshot22.py・倍率1.5で撮る） | `ref/ep22/photo/gmap_g03_buffalo_newfoundland.png` | 1920x1080 | — | Google マップの衛星写真 | 撮った絵の右下の帰属の行のまま（地図データ ©2026 Google・画像 ©提供元） |
 | G04 | c515 | gshot（⑤b-1＝helpers/gshot22.py・倍率1.5で撮る） | `ref/ep22/photo/gmap_g04_north_atlantic.png` | 1920x1080 | — | Google マップの衛星写真 | 撮った絵の右下の帰属の行のまま（地図データ ©2026 Google・画像 ©提供元） |
 | G05 | c812・c813 | gshot（⑤b-1＝helpers/gshot22.py・倍率1.5で撮る） | `ref/ep22/photo/gmap_g05_bahamas.png` | 1920x1080 | — | Google マップの衛星写真 | 撮った絵の右下の帰属の行のまま（地図データ ©2026 Google・画像 ©提供元） |
-| G06 | cb01 | gshot（⑤b-1＝helpers/gshot22.py・倍率1.5で撮る） | `ref/ep22/photo/gmap_g06_stjohns_harbour.png` | 1920x1080 | — | Google マップの衛星写真 | 撮った絵の右下の帰属の行のまま（地図データ ©2026 Google・画像 ©提供元） |
+| G06 | cb01 | gshot（⑤b-3 で撮り直し＝中心を A. Harvey の基地〈Pier 14・71 Water St.〉へ・ズーム17。⑤b-1 の中心 47.563,-52.705・ズーム16 は基地が画の上の端の外＝`gmap_g06_stjohns_harbour.png` は使わない） | `ref/ep22/photo/gmap_g06_stjohns_pier14.png` | 1920x1080 | — | Google マップの衛星写真 | 撮った絵の右下の帰属の行のまま（地図データ ©2026 Google・画像 ©提供元） |
 
 ## §5 門番
 

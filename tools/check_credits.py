@@ -289,6 +289,10 @@ def run(full=False):
                 f"   `EP_PREFIX` と `CLAIM_DAY` を差し替える（fail closed）")
         if not photo.startswith(EP_PREFIX) or "/fb_" in photo:
             continue                      # 実写のひかえは動画の出典を借りる＝別の門番
+        if spec.get("sat"):
+            # 🆕 2026-10-14（22本目 ⑤b-3）：地図のカット（Google マップの衛星写真＝束の外・§8 の表に入れない）＝出典は地図の中の帰属の行と
+            #   `cuts/ss.SAT` の credit（CREDITS.md の節の「2. 地図の衛星写真」）・副題は「現在の衛星写真」＝年を名乗らない＝門番 check_sat
+            continue
         seen += 1
         slot = Path(photo).stem
         row = rows.get(slot)

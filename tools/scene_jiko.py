@@ -834,6 +834,10 @@ def ep22_credit(name):
     """`ref/ep22/` の名前から出典表記を作る。当てはまらなければ None。"""
     if not name.startswith("ep22/"):
         return None
+    if name.startswith("ep22/photo/gmap_"):
+        # 🆕 ⑤b-3：衛星写真（地図のカット）＝出典の行は表 `cuts/ss.SAT` の credit（帰属の行そのものは地図の右下に残す＝Google の決まり）
+        import cuts.ss as _ss
+        return next((v["credit"] for v in getattr(_ss, "SAT", {}).values() if v["file"] == name), None)
     m = re.fullmatch(r"ep22/(?:stock/)?fb_(c[0-9a-f]{3}(?:~t)?)\.jpg", name)     # 映像のひかえの静止画＝出典は映像と同じ（19本目 ⑤b-2 の型）
     if m:
         import footage as _FO
@@ -1423,6 +1427,11 @@ def photo_box(spec):
        ぼやけたうえに写真の意味（層が並んでいる様子）が消える。
        帯なら原寸に近い倍率で、横方向の情報を全部見せられる。
     """
+    if spec.get("sat"):
+        # 🆕 22本目 ⑤b-3：地図のカット（衛星写真）＝箱は `satmap.box()`（描き足しと門番が同じ幾何）。🔴 ファイルを開かない
+        #    （Actions は Modal の保管庫を読めない＝衛星写真が無い。層は焼けて、合成で理由を出して飛ばす＝build_jiko.drop_missing_sat）
+        import satmap as _SM
+        return _SM.box()
     if spec.get("panel"):
         from PIL import Image
         with Image.open(HERE / "ref" / spec["photo"]) as im:
@@ -2293,7 +2302,14 @@ def build_layers(allow_missing=False):
             # 実写カット（写真だけ。注記は暗幕とフチで写真の上に載せる）
             jobs[f"{cid}_bg"] = full_bg()
             jobs[f"{cid}_lab"] = full_top(cid, spec)
-            for i, a in enumerate(photo_ann(spec, cid)):
+            anns = photo_ann(spec, cid)
+            if spec.get("sat"):
+                # 🆕 22本目 ⑤b-3：地図のカット＝描き足し（点・線・札）を段ごとの層に（実写の注記と同じくフェードで出る）
+                if anns:
+                    raise SystemExit(f"{cid}: 地図のカット（sat）に注記 ann は書けない（札は sat の部品で）")
+                import satmap as _SM
+                anns = _SM.layers(spec)
+            for i, a in enumerate(anns):
                 jobs[f"{cid}_a{i + 1}"] = a
             spans[cid] = (0, W)
             _ins_layers(cid, spec, jobs)       # 🆕 18本目 ⑤b-7c：映像の差し込み（頭）・写真・頁の差し込み（尻）

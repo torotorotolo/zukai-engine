@@ -75,3 +75,34 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ── 🆕 ⑤b-3（2026-10-14）：地図のカット（衛星写真＋描き足し＝`tools/satmap.py`・c2.py の注）──
+SPEC.update({
+    # c304（2行）＝1行目で 6月16日にセントジョンズを出る・2行目で台を後ろに引く母船（印は模式）と 6月18日に着く現場
+    "c304": dict(**ss.sat("G02", note="セントジョンズは一般の座標・×は最後に受けた位置・線と船の印は模式（実際の航路ではない）", steps=[
+        [dict(k="pt", at="stjohns", role="ship", t="6月16日に出る", lab=(60, -30, "start"))],
+        [dict(k="line", path=("stjohns", "site"), role="ship"),
+         dict(k="icon", what="ship", on=("stjohns", "site", 0.42), role="ship", tow=True),
+         dict(k="x", at="site", t="6月18日に着く", lab=(24, 12, "start"))]]),
+        t="出港", s="母船が向かった海（現在の衛星写真）"),
+})
+
+# ── 🆕 ⑤b-3（2026-10-14）：写真のカット（映像方針の一覧＝了承②・副題は焼いた絵を原寸で見てから最終に）──
+#   報告書の図（MBI）＝幅 1280 未満は kind() が額装＝映像方針で「全面」の図（幅 1000 以上＝c301・c305）は panel を書かずに全面
+_PP = P("mbi_fig003_polar_prince")
+_LARS = P("mbi_fig005_lars")
+_LOG0 = P("mbi_fig018_log_0000")
+_HANG = P("mbi_fig021_hangar")
+_BOAT = P("mbi_fig024_small_boats")
+SPEC.update({
+    # c301（8.2秒）＝聞き役の問い＋答え。母船ポーラープリンス（MBI 図3＝6月25日にセントジョンズへ戻ったとき）・幅 1202＝全面は 1.6倍・右へ
+    "c301": dict(photo=_PP, **ss.mv(_PP, "r"), side="none", t="古い貨物船", s="母船ポーラープリンス（事故の後の6月25日に撮影）"),
+    # c305（6.0秒）＝潜水艇を出し入れする台（MBI 図5・事故の後）・幅 1195＝全面・寄る
+    "c305": dict(photo=_LARS, **ss.mv(_LARS, "in"), side="none", t="沈む台", s="潜水艇を出し入れする台（事故の後に撮影）"),
+    # c307（11.2秒）＝母船の航海日誌（MBI 図18＝1099×246 の細長い頁・黒い塗りは MBI）・額ごと右へ（細長い頁を左から右へ）
+    "c307": dict(photo=_LOG0, panel=True, fmove=ss.fm("r"), t="潜航の計画", s="母船の航海日誌（6月18日の早朝）"),
+    # c308（7.4秒）＝聞き役の反応つき。説明が行われた母船の格納庫（MBI 図21＝2枚組・黄の丸は MBI・幅 776）・額ごと左へ
+    "c308": dict(photo=_HANG, panel=True, fmove=ss.fm("l"), t="重さを量る", s="説明が行われた母船の格納庫（事故の後に撮影）"),
+    # c309（6.8秒）＝母船の小舟（MBI 図24・黄の丸は MBI・幅 780）・額ごと寄る
+    "c309": dict(photo=_BOAT, panel=True, fmove=ss.fm("in"), t="台へ移る", s="母船の小舟（事故の後に撮影）"),
+})

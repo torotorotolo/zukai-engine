@@ -316,16 +316,21 @@ def full(note: str = "", ref: str = "main", workers: int = 8,
 # ── 検品画像だけ（Actions が詰まっているときの逃げ道） ──────────
 @app.function(image=image, cpu=CPU, memory=MEM, timeout=HOURS * 3600,
               volumes={VOL: vol, ASSETS: assets})
-def qa(note: str = "", ref: str = "main", zoom: str = ""):
+def qa(note: str = "", ref: str = "main", zoom: str = "", partial: bool = False, at: str = "", only: str = ""):
     """検品画像を焼く。**ふだんは Actions で回す**（規約上こちらは白なので）。
-    🆕 22本目 ⑤b-2：衛星写真（公開リポに置けない）を使う地図のカットはここで焼く＝保管庫を差して pull_private"""
+    🆕 22本目 ⑤b-2：衛星写真（公開リポに置けない）を使う地図のカットはここで焼く＝保管庫を差して pull_private
+    🆕 22本目 ⑤b-3：章を作っている途中の試し焼き＝`--partial`（SPEC の無いカットを飛ばす）・`--only=c204,c219`（撮るカットを絞る）・
+       `--at=c204:0.2/0.6`（途中のコマ）＝Actions の render-jiko.yml と同じ意味。
+       例：modal run modal_app.py::qa --note ep22_b3_map --ref <40桁> --partial --only=c204,c219"""
     clone(ref)
     pull_private()
-    sh("python3 tools/scene_jiko.py --report")
+    sh("python3 tools/scene_jiko.py --report", check=not partial)
     sh("python3 tools/check_layout.py", check=False)
     sh("python3 tools/footage.py", check=False)      # ★実写動画のコマ
     sh("python3 tools/scene_jiko.py --force")
-    sh(f"python3 tools/build_jiko.py qa{(' --zoom=' + zoom) if zoom else ''}")
+    args = "qa" + (" --partial" if partial else "") + (f" --zoom={zoom}" if zoom else "")
+    args += (f" --at={at}" if at else "") + (f" --only={only}" if only else "")
+    sh(f"python3 tools/build_jiko.py {args}")
     sh("python3 tools/check_space.py out/jiko/qa", check=False)
     sh("python3 tools/build_jiko.py shrink")
     name = f"qa{('-' + note) if note else ''}"

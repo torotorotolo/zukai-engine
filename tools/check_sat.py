@@ -1,0 +1,110 @@
+# -*- coding: utf-8 -*-
+"""check_sat.py — 地図のカット（衛星写真＋描き足し＝`tools/satmap.py`）の門番（2026-10-14 新設・22本目 ⑤b-3）。
+
+  python tools/check_sat.py            # SPEC の地図のカットを照らす（qa_all）
+  python tools/check_sat.py --selftest # 陽性対照（わざと壊した SPEC と表で鳴るか）
+
+照らすこと（中身は `satmap.check`）：
+  ① 額の書き方＝panel・pw・color 1.0・寄り／カメラ／注記／切り出しなし・副題に「現在の衛星写真」（Google の決まり＝色を変えない・動かさない）
+  ② 衛星写真の md5＝表 `cuts/ss.SAT` と手元の絵（撮り直した絵に古い座標の描き足しを重ねない）・表の欄
+  ③ 場所の表 `cuts/ss.GEO`＝出典（報告書で名が出る所）と座標の出どころ。🔴 確かめていない場所に点を置かない・×は報告書の座標だけ・
+     一般の座標を使ったら額の下の断りに「一般の座標」
+  ④ 描き足しの墨（描く関数と同じ箱）が額の内側・**ロゴと帰属の行の箱に入らない**（Google の決まり）・操作の部品の箱にも重ねない
+  ⑤ 額の下の断り（左）と出典の行（右）が重ならない
+"""
+from __future__ import annotations
+
+import copy
+import sys
+from pathlib import Path
+
+sys.stdout.reconfigure(encoding="utf-8")
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import satmap as M  # noqa: E402
+
+
+def main():
+    import cuts
+    bad, n, ne = M.check(cuts.SPEC)
+    print(f"■ 地図のカット（衛星写真）{n} カット・部品 {ne}")
+    for code, s in sorted(__import__("cuts.ss", fromlist=["SAT"]).SAT.items()):
+        print(f"  {code}：{s['file']}（{'手元に在る' if M.have(code) else '🔴 手元に無い'}）")
+    for b in bad:
+        print("  🔴 " + b)
+    if not bad:
+        print(f"  ✓ {n} カット・部品 {ne}：額の書き方・md5・場所の表・墨の位置（額の内側・ロゴと帰属の行の外）・断りと出典の行")
+    return 1 if bad else (1 if n == 0 else 0)
+
+
+def selftest():
+    import cuts
+    import cuts.ss as ss
+    base = {c: s for c, s in cuts.SPEC.items() if s.get("sat")}
+    if not base:
+        print("🔴 地図のカットが SPEC に無い＝陽性対照が作れない")
+        return 1
+    cid = sorted(base)[0]
+    ok = True
+
+    def expect(name, spec, want, sat=None, geo=None):
+        nonlocal ok
+        s0, g0 = ss.SAT, ss.GEO
+        try:
+            if sat is not None:
+                ss.SAT = sat
+            if geo is not None:
+                ss.GEO = geo
+            bad, _, _ = M.check(spec)
+        finally:
+            ss.SAT, ss.GEO = s0, g0
+        hit = [b for b in bad if want in b]
+        print(f"  {'✓' if hit else '🔴'} 陽性対照：{name} → {'鳴った：' + hit[0] if hit else '鳴らない'}")
+        ok &= bool(hit)
+
+    clean, _, _ = M.check(base)
+    print(f"  {'✓' if not clean else '🔴'} 陰性：本番の地図のカット {len(base)} は 0件（{len(clean)}件）")
+    ok &= not clean
+    s = copy.deepcopy(base)
+    s[cid]["color"] = 0.5
+    expect("色を変える（color 0.5）", s, "color=0.5")
+    s = copy.deepcopy(base)
+    s[cid]["zoom"] = 1.1
+    expect("寄る（zoom）", s, "zoom は書けない")
+    s = copy.deepcopy(base)
+    s[cid]["s"] = "北アメリカ"
+    expect("副題に「現在の衛星写真」が無い", s, "現在の衛星写真")
+    s = copy.deepcopy(base)
+    s[cid]["sat"]["steps"][0].append(dict(k="pt", at="nowhere", t="どこか"))
+    expect("表に無い場所", s, "GEO に無い")
+    s = copy.deepcopy(base)
+    s[cid]["sat"]["steps"][0].append(dict(k="x", at="stjohns"))
+    expect("一般の座標に×", s, "×は報告書の座標の場所だけ")
+    # 帰属の行の箱（右下）に札を置く＝撮った絵の (1500, 1062) の場所を作って札を左下へ
+    sat = ss.SAT[base[cid]["sat"]["code"]]
+    geo = dict(ss.GEO, _attrib=dict(ll=M.igeo(sat, 1500, 1062), src="陽性対照", how="報告書の値"))
+    s = copy.deepcopy(base)
+    s[cid]["sat"]["steps"][0].append(dict(k="pt", at="_attrib", t="帰属の上"))
+    expect("帰属の行に重なる点と札", s, "attrib の箱", geo=geo)
+    geo = dict(ss.GEO, _logo=dict(ll=M.igeo(sat, 960, 1040), src="陽性対照", how="報告書の値"))
+    s = copy.deepcopy(base)
+    s[cid]["sat"]["steps"][0].append(dict(k="pt", at="_logo"))
+    expect("ロゴに重なる点", s, "logo の箱", geo=geo)
+    s = copy.deepcopy(base)
+    s[cid]["sat"]["steps"][0].append(dict(k="pt", at="site", t="とても長い札がこの額の右の端をはみ出して外へ出る", lab=(18, -16, "start")))
+    expect("額の外へ出る札", s, "額の内側")
+    s = copy.deepcopy(base)
+    s[cid]["sat"]["note"] = "断りを消した"
+    expect("一般の座標の断りが無い", s, "一般の座標")
+    sat2 = copy.deepcopy(ss.SAT)
+    sat2[base[cid]["sat"]["code"]]["md5"] = "0" * 32
+    if M.have(base[cid]["sat"]["code"]):
+        expect("md5 が表と違う", base, "md5", sat=sat2)
+    else:
+        print("  ・md5 の陽性対照は手元に衛星写真が無いので飛ばした（Actions）")
+    print(f"■ selftest {'合格' if ok else '🔴 不合格'}")
+    return 0 if ok else 1
+
+
+if __name__ == "__main__":
+    sys.exit(selftest() if "--selftest" in sys.argv else main())

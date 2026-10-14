@@ -564,7 +564,7 @@ def scene(cut, t, dur, lay, photos, meta):
                 # 🔴 13本目 ⑤b-2：継承つき（BY-SA）の額装の写真は**寄らない**（寄り＝写真の端を切る＝翻案の灰色。
                 #    額装でも 0.35 の寄りで尺の終わりに約1.9% 切っていた）。⚠️ 代わりに写真は止まる
                 #    （check_motion は写真だけのカットを見ない）＝枠ごと寄せる作りは ⑤b-3 の宿題
-                kb = 0.0 if meta[cut].get("frame_only") else k * (0.35 if box[3] < S.H else 1.0)
+                kb = 0.0 if meta[cut].get("frame_only") or meta[cut].get("still") else k * (0.35 if box[3] < S.H else 1.0)
                 ph = fit(src, box, kb, bias, xb, zm)
                 if meta[cut].get("hl"):
                     # 🆕 18本目 ⑤c'（c105＝映像方針 §1-3「1頁目に印」の抜け）：**本の頁の上の印**（hl）。尻・頁の冒頭と同じ
@@ -1502,6 +1502,8 @@ def meta_of(idx):
         #       ここで落ちて試し焼きが止まった）。1点でも当てたら今までどおり台帳が必須
         fo = S._cuts_ss.frame_only_for(S.SPEC) if hasattr(S._cuts_ss, "frame_only_for") else {}
         m[cid]["frame_only"] = (S.SPEC.get(cid) or {}).get("photo") in fo
+        # 🆕 22本目 ⑤b-3：地図のカット（衛星写真＝satmap）は**寄らない**（地図を動かさない＝Google の決まり・描き足しの点が地図とずれない）
+        m[cid]["still"] = bool((S.SPEC.get(cid) or {}).get("sat"))
         if (prev and solo and prev in idx and idx[prev]["photo"] and not idx[prev]["back"]
                 and prev[:2] == cid[:2] and not S.card_of(cid)
                 and not m[cid]["frame_only"] and (S.SPEC.get(prev) or {}).get("photo") not in fo):
@@ -1905,11 +1907,43 @@ def shrink_stills(q=88):
     print(f"検品画像 {n} 枚を JPEG に詰め直した", flush=True)
 
 
+def drop_missing_sat(idx, mode):
+    """🆕 22本目 ⑤b-3（2026-10-14）：地図のカット（衛星写真＝`satmap`）の絵が手元に無いときの扱い。
+
+    衛星写真は公開リポに置かない（Google の画像）＝Modal の保管庫 `jiko-assets` の `ref/…`（`modal_app.pull_private`）。
+    🔴 Actions は保管庫を読めない＝検品（qa）では**理由を出して飛ばす**（黙って別の絵に落とさない・地図の検品画像は Modal の qa）。
+    🔴 本編（full）では止める（地図の抜けた本編を作らない＝fail closed）。手元に在れば md5 を表（`cuts/ss.SAT`）と照らす
+    （撮り直した絵に古い描き足しの座標を重ねない）。"""
+    import satmap as _SM
+    out, skipped = dict(idx), []
+    for cid, s in S.SPEC.items():
+        if cid not in idx or not s.get("sat"):
+            continue
+        code = s["sat"]["code"]
+        p = S.HERE / "ref" / _SM.file_of(code)
+        if p.exists():
+            got, want = _SM.md5_of(p), S._cuts_ss.SAT[code]["md5"]
+            if got != want:
+                raise SystemExit(f"🔴 {cid}: 衛星写真 {p.name} の md5 {got} が表 {want} と違う（撮り直したら表と描き足しを見直す）")
+            continue
+        if mode == "full":
+            raise SystemExit(f"🔴 {cid}: 衛星写真 ref/{_SM.file_of(code)} が無い＝本編は焼かない（Modal は保管庫を差して pull_private）")
+        skipped.append(cid)
+        out.pop(cid)
+    for cid in skipped:
+        print(f"⏭ {cid}: 衛星写真 ref/{_SM.file_of(S.SPEC[cid]['sat']['code'])} が無い＝飛ばす（Actions は Modal の保管庫を読めない）"
+              f"＝地図のカットは `modal run modal_app.py::qa --partial --only=…` で焼く", flush=True)
+    if skipped:
+        print(f"⏭ 地図のカット {len(skipped)} を飛ばした（{'・'.join(skipped)}）", flush=True)
+    return out
+
+
 if __name__ == "__main__":
     mode = "qa"
     zooms = None
     ladder = None
     at = None
+    only = None
     for a in sys.argv[1:]:
         if a in ("qa", "full", "shrink", "veil"):
             mode = a
@@ -1917,6 +1951,9 @@ if __name__ == "__main__":
             zooms = set(a.split("=", 1)[1].split(","))
         elif a.startswith("--cuts="):
             ladder = a.split("=", 1)[1].split(",")
+        elif a.startswith("--only=") and a.split("=", 1)[1].strip():
+            # 🆕 22本目 ⑤b-3：検品画像を撮るカットを絞る（Modal の qa で地図のカットだけ＝例 --only=c204,c219）
+            only = {c.strip() for c in a.split("=", 1)[1].split(",") if c.strip()}
         elif a.startswith("--at=") and a.split("=", 1)[1].strip():
             # 例 --at=c109:0.25/0.6/0.95,c305:0.5 ＝カットごとに「本体の尺の割合」を / で並べる
             at = {}
@@ -1927,6 +1964,16 @@ if __name__ == "__main__":
         shrink_stills()
         sys.exit(0)
     idx, _ = S.layer_index(allow_missing="--partial" in sys.argv)
+    idx = drop_missing_sat(idx, mode)
+    if only:
+        if mode == "full":
+            raise SystemExit("--only は qa だけ（本編は全カット）")
+        miss = sorted(only - set(idx))
+        if miss:
+            raise SystemExit(f"--only のカット {miss} が焼ける一覧に無い（SPEC が無い・衛星写真が無い）")
+        idx = {c: v for c, v in idx.items() if c in only}
+    if at:
+        at = {c: v for c, v in at.items() if c in idx}      # 飛ばした地図のカット・--only の外は撮らない
     meta = meta_of(idx)
     if mode == "veil":
         veil_ladder(idx, meta, ladder)

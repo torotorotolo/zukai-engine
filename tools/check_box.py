@@ -478,6 +478,13 @@ def measure(only=None, cut=None, kind=None, hist=False, verbose=False):
         frames_ = [f_ for f_ in frames_
                    if not any(abs(f_[0] - bx) <= 8 and abs(f_[1] - by) <= 8 and abs(f_[2] - bw) <= 16
                               and abs(f_[3] - bh) <= 16 for bx, by, bw, bh in minis)]
+        # 🆕 2026-10-14（22本目 ⑤b-3）：地図のカット（衛星写真＝satmap）の額の縁も、中身は**合成のときに PIL で入る衛星写真**＝SVG の中は
+        #    描き足しの札だけで空いて当然（札が枠の中にあるので「入れ物」に数えられて鳴った＝9カット）。額の位置は satmap.box() が持つ
+        if (S.SPEC.get(cid) or {}).get("sat"):
+            import satmap as _SM
+            sx, sy, sw_, sh_ = _SM.box()
+            frames_ = [f_ for f_ in frames_ if not (abs(f_[0] - sx) <= 8 and abs(f_[1] - sy) <= 8
+                                                    and abs(f_[2] - sw_) <= 16 and abs(f_[3] - sh_) <= 16)]
         if not frames_:
             continue
         for bi, fr in enumerate(frames_):
