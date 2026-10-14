@@ -212,7 +212,7 @@ SPEC.update({
     "c418": dict(
         t="最後の深さ", s="線が止まった所",
         fig=("m22", dict(view="depth", start=dict(upto="b", gap="on", sea="on"),
-                         steps=[dict(state=dict(upto="c", stop="on"), tag=dict(t="約3,350メートル", at="d33")),
+                         steps=[dict(state=dict(upto="c", stop="on"), tag=dict(t="約3,350メートル", at="d33", to="10:47:08")),   # 🔧 試し焼き：点から遠い＝引き出し線
                                 dict()],   # ⚠️ 門番 echo：「1平方センチに約340キロ」の札は語りの写し（言い換えても数と単位で鳴る）＝字幕に任せる
                          rel=[dict(t="約3,350メートル", src="TSB §1.3.2（3350 m）・USCG p35（3,346.28 m）")],
                          note=_N_DP, src=ss.src(["USCG p35", "TSB §1.3.2", "TSB §1.7"]))),

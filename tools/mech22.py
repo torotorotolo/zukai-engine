@@ -92,14 +92,18 @@ def titan_svg(G, col=None, hull=None, dim=False, frame=True, win=True):
 
 
 def titan_poly(G):
-    """動く部品の外形（筒と両端のドーム＋尾部を多角形で）＝段で上下に動くカット（lars_side・drop）。"""
+    """動く部品の外形＝(耐圧殻〈筒と両端のドーム〉, 尾部)の2つの多角形（lars_side）。
+    🔧 ⑤b-3b の試し焼き：1つの多角形で尾部の下の縁を直線にしたら靴の形に見えた＝線画（titan_svg）と同じ曲線を点で取る"""
     L, R, dm, cy = G["L"], G["R"], G["dm"], G["cy"]
     xc0, xc1, xt = G["xc0"], G["xc1"], G["xt"]
-    pts = [(xc0 - dm * math.cos(a), cy - R * math.sin(a)) for a in [math.pi / 2 - k * math.pi / 12 for k in range(13)]]
-    pts = list(reversed(pts))
-    hull = [(xc0, cy - R), (xc1, cy - R), (xt, cy - R * 0.96), (xt - L * 0.04, cy - R * 0.2), (xc1 + L * 0.06, cy + R),
-            (xc0, cy + R)] + pts[::-1][1:-1]
-    return hull
+    fore = [(xc0 - dm * math.sin(math.pi * k / 16), cy - R * math.cos(math.pi * k / 16)) for k in range(17)]     # 上→前→下
+    aft = [(xc1 + dm * math.sin(math.pi * k / 16), cy + R * math.cos(math.pi * k / 16)) for k in range(17)]      # 下→後ろ→上
+    hull = fore + aft
+    p0, c1, c2, p3 = (xt, cy - R * 0.96), (xt - L * 0.11, cy + R * 0.12), (xc1 + L * 0.16, cy + R), (xc1 + L * 0.02, cy + R)
+    bez = [tuple((1 - u) ** 3 * a + 3 * (1 - u) ** 2 * u * b + 3 * (1 - u) * u ** 2 * c + u ** 3 * d for a, b, c, d in zip(p0, c1, c2, p3))
+           for u in [k / 12 for k in range(13)]]
+    tail = [(xc1, cy - R)] + bez
+    return hull, tail
 
 
 # ══════════════════════════════════════════════════════════
@@ -561,7 +565,9 @@ def lars_side_parts(st):
     out = [_P("pontoon", "poly", [(x0, t), (x1, t), (x1 + 40, t + h / 2), (x1, t + h), (x0, t + h)], fill=J.BG2, stroke=COC, w=5, dy=dy_l),
            _P("water", "poly", [(x0 + 30, t + h * 0.5), (x1 - 30, t + h * 0.5), (x1 - 30, t + h - 10), (x0 + 30, t + h - 10)],
               fill="#2c6f9a", stroke=None, w=0, dy=dy_l, alpha=0.85 if st["fill"] == "on" else 0.0),
-           _P("sub", "poly", titan_poly(G), fill=J.BG, stroke=SUBC, w=5, dy=dy_s)]
+           ]
+    hull, tail = titan_poly(G)
+    out += [_P("sub_tail", "poly", tail, fill=J.BG2, stroke=J.LINE, w=4, dy=dy_s), _P("sub", "poly", hull, fill=J.BG, stroke=SUBC, w=5, dy=dy_s)]
     return out
 
 
@@ -645,7 +651,8 @@ def sonar_base(st0):
     (tx, ty), (sx, sy) = SN["tr"], SN["sub"]
     g.append(F.line(tx, SN["sea"] + 30, tx, ty - 16, SHIPC, 3) + F.rect(tx - 16, ty - 16, 32, 32, J.BG2, SHIPC, 4, rx=6))
     g.append(titan_svg(titan_geo(sx, sy, 420.0), frame=False))
-    g.append(_tline(1080.0, SN["sea"] - 30, "母船", 32, SHIPC, "start", 200))   # ⚠️ geom_gap：船の上は左上の見え方の札と船橋に触れた
+    # ⚠️ geom_gap：船の上は左上の見え方の札と船橋に触れた／🔧 試し焼き：船の右（x 1080）は「電波は水の中を通りにくい」の札の真下で1つの札に読めた＝船首の左
+    g.append(_tline(480.0, SN["sea"] - 24, "母船", 32, SHIPC, "end", 200))
     g.append(_tline(sx, sy - 90, "潜水艇", 32, SUBC, "middle", 200))
     return g
 
@@ -733,10 +740,8 @@ def _ch_rows(key):
 
 
 def chat_base(st0):
-    g = [_tline(CH["xl"] - 160, 300.0, "潜水艇", 30, SUBC, "start", 200), _tline(CH["xr"] + 150, 300.0, "母船", 30, SHIPC, "end", 200)]
-    if st0["set"] == "last":
-        g.append(F.line(CH["xl"] - 160, 312.0, CH["xl"] + 400, 312.0, J.LINE_DIM, 2))
-    return g
+    # 🔧 試し焼き：c408 だけ「潜水艇」の下に用の無い線を引いていた＝外した
+    return [_tline(CH["xl"] - 160, 300.0, "潜水艇", 30, SUBC, "start", 200), _tline(CH["xr"] + 150, 300.0, "母船", 30, SHIPC, "end", 200)]
 
 
 def _bubble(row, y, cap):
