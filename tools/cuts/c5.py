@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-"""第4章　2機目　気づいていた管制官 c501–c520（20カット）。21本目（9.11 米国同時多発テロのリメイク）。
+"""第4章　96時間 c501–c523（23カット）。22本目（タイタン号のリメイク）。
 
-■ 🔴 2026-10-12（⑤b-1）：20本目（日本航空123便のリメイク）の中身を空にした＝git の `f0095bd`（`git show f0095bd:tools/cuts/c5.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep21/make_plan21.py` で
-  映像方針の一覧 `ref/ep21/eizou_build/list21.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
+■ 🔴 2026-10-14（⑤b-1）：21本目（9.11 米国同時多発テロのリメイク）の中身を空にした＝git の `35fab37`（`git show 35fab37:tools/cuts/c5.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep22/make_plan22.py` で
+  映像方針の一覧 `ref/ep22/eizou_build/list22.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典から
+  機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット（台本の画は元の予定）。
@@ -14,219 +15,75 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'c501': dict(kind='写真',
-               plan='WTCSOUTH｜副題：事件の前の世界貿易センター（1976年・広場から見上げる）｜動き：上へ流す｜権利：D（米議会図書館蔵／知られた制限なし）｜出典の行：Balthazar Korab（米議会図書館蔵）｜注：縦長。⑤b-7：副題を写っているものに（題 View from plaza）｜台本の画：実写 wtc_south（事件の前の世界貿易センター・1976年・D・縦長＝全画面で上下を切る・右へ流す＝副題「事件の前の世界貿易センター（1976年）」）',
-               src="委員会報告 p21（`At approximately 8:42, shortly after entering New York Center's airspace, the pilot of United 175 broke in`）"),
+    'c501': dict(kind='図解',
+               plan='🔧 注：🔧 実写→帯（語りは「母船にいた会社の担当」＝米沿岸警備隊の指令センターの映像を出すと取り違える）｜新しい画（映像方針）：図 帯 母船から送り続けた文（1分に2〜3回の水色の印が並ぶ・潜水艇の返事の段は空のまま）＝c316 の模式の続き｜台本の画（🔧映像方針で替えた＝元の予定）：実写 指令センターの B-roll（DVIDS 887734・2023-06-20・c107 と別の区間・A＝副題「米沿岸警備隊の指令センター（6月20日）」）',
+               src='NTSB p.17（`first assumed there was an issue with the acoustic communications equipment`…`sent two to three messages every minute`）・USCG p.39〈31〉（`None of the messages were answered and the TITAN’s location was never reacquired by the POLAR PRINCE.`）'),
     'c502': dict(kind='図解',
-               plan='台本の画：図 模式 管制の無線（ニューヨーク・センターと175便を結ぶ線）',
-               src='委員会報告 p7（`a "suspicious transmission" overheard from another plane (which turned out to have been Flight 11) just after takeoff`・`This was United 175\'s last communication with the ground`）'),
+               plan='台本の画：図 帯 会社の手順の流れ（途絶→1時間＋浮上にかかる時間→社内へ連絡→さらに3時間の海面の捜索→外へ・札「事情によっては短くしてよい」）',
+               src='USCG p.39〈31〉（`Internal contacts and backup personnel will be called following 1 hour of no communications plus required surface time`）・p.39〈31〉（`An additional 3 hours of local surface search will be done before contacting outside emergency personnel unless circumstances merit a shorter delay.`）'),
     'c503': dict(kind='図解',
-               plan='台本の画：図 模式 175便の機内（前の座席と操縦室の扉＝人は描かない）',
-               src='委員会報告 p7（`The hijackers attacked sometime between 8:42 and 8:46`）・NTSB 175便（`at 8:47, when the aircraft changed beacon codes twice within a one-minute period`）'),
-    # 🔧 ⑤b-4（2026-10-12）：c504・c509・c512 は図・写真の頁 → 図解。RG237 の175便の動画（4-AWA-716-WTC2）は描き終えた航跡の地図だけで、
-    #   札も番号の変化も写っておらず、線はマンハッタンまで届いていない（7本目の見本帳の代表コマを見た）。213番台（ny_best）は NORAD の立体の
-    #   アニメーション＝レーダーの画面ではなく、塔へ入る線（衝突の瞬間）が写る＝使わない。→ レーダーの画面の模式図（mech21 scope）で見せる
+               plan='台本の画：図 帯 6月18日の午後の時刻の帯（15:00 浮上の見込み・海面の捜索を始める）',
+               src='TSB §1.3.3（`the estimated resurfacing time was approximately 3 hours and 13 minutes (at 1500)`）・§1.3.3（`At 1500, with no communication from the Titan, the Polar Prince commenced the 3-hour surface search.`）'),
     'c504': dict(kind='図解',
-               plan='🔧 模式 レーダーの画面（札の番号が変わる）｜台本の画：図 RG237（ニューヨーク・センターのレーダー再生の画面・175便の札の番号が変わる所）',
-               src='委員会報告 p21（`The New York Center controller and manager were unaware that American 11 had already crashed`・`At 8:51, the controller noticed the transponder change from United 175 and tried to contact the aircraft. There was no response`）'),
+               plan='台本の画：図 帯 同じ帯（16:34 陸の班へ電話・18:00 手がかりなし）',
+               src='TSB §1.3.3（`At 1634, as the surface search was ongoing, the master of the Polar Prince called the Horizon Maritime Services Ltd. shore-based emergency team`）・§1.3.3（`By 1800, the surface search had found no signs of the submersible.`）'),
     'c505': dict(kind='図解',
-               plan='台本の画：図 模式 機内の電話から地上への線（人は描かない）',
-               src='委員会報告 p7（`a male flight attendant called a United office in San Francisco`・`both pilots had been killed, a flight attendant had been stabbed`）・p8（`the hijackers were probably flying the plane`）'),
-    # 🔧 ⑤b-4：c506 は RG237 → NTSB 175便の飛行経路の調べ PDF 3頁の図1（175便が南西へ進んでから北東のニューヨークへ向きを変えた航跡＝頁のまま）
-    'c506': dict(kind='図・写真の頁',
-               plan='🔧 NTSB 175便 図1（航跡が向きを変える）｜台本の画：図 RG237（同じ画面・175便の点が向きを変える）',
-               src='委員会報告 p22（`saying that "we may have a hijack" and that he could not find the aircraft`）'),
+               plan='台本の画：図 帯 同じ帯（18:27 電話が切れた・18:55 カナダの救難調整センターへ→ボストンへ）',
+               src='USCG p.39〈31〉（`I called the Joint Rescue Coordination Centre (JRCC) Halifax by sat phone but communications with JRCC were shortly thereafter cut-off.`）・TSB §1.3.3（`At 1855, the master of the Polar Prince called the Joint Rescue and Coordination Centre (JRCC) in Halifax`…`JRCC transferred the call to the Rescue Coordination Centre (RCC) in Boston`）'),
+    'c506': dict(kind='図解',
+               plan='台本の画：図 帯 同じ帯（10:47 から 18:55 までを1本の矢印に・「8時間8分」の札）',
+               src='TSB §2.5（`This was 8 hours and 8 minutes after communication and tracking had been lost`）'),
     'c507': dict(kind='図解',
-               plan='台本の画：図 模式 時間の帯（175便＝8:53「乗っ取りかもしれない」・8:55 上司へ）',
-               src='委員会報告 p22（`At about 8:55, the controller in charge notified a New York Center manager that she believed United 175 had also been hijacked`）'),
-    'c508': dict(kind='図解',
-               plan='台本の画：図 模式 手順の段（ニューヨーク・センターの上司から地域の管理職へ＝扉が閉じている）',
-               src='委員会報告 p22（`The manager tried to notify the regional managers and was told that they were discussing a hijacked aircraft (presumably American 11) and refused to be disturbed`）'),
-    'c509': dict(kind='図解',
-               plan='🔧 模式 レーダーの画面（2機の「？」）｜台本の画：図 RG237（同じ画面）',
-               src='委員会報告 p22（`we might have a hijack over here, two of them`）'),
-    'c510': dict(kind='図解',
-               plan='台本の画：図 模式 電話の線（ニューヨーク・センターからハーンドンのコマンドセンターへ）',
-               src="委員会報告 p22（`Between 9:01 and 9:02, a manager from New York Center told the Command Center in Herndon`・`We have several situations going on here. It's escalating big, big time. We need to get the military involved with us`）"),
-    'c511': dict(kind='図解',
-               plan='台本の画：図 模式 北アメリカの地図（バージニア州ハーンドンの印）',
-               src='委員会報告 p14（`Command Center, located in Herndon`）・p16（`Virginia, which oversees daily traffic flow within the entire airspace system`）'),
-    'c512': dict(kind='図解',
-               plan='🔧 模式 レーダーの画面（点が途切れる）｜台本の画：図 RG237（175便の点がマンハッタンの南部の上で途切れる）',
-               src='委員会報告 p22（`Heads up man, it looks like another one coming in`・`the radar data terminated over Lower Manhattan`）'),
+               plan='台本の画：図 模式 母船の上の2つの組（会社の潜航の班と、船の会社の船長＝取り決めの書類が無い・船長の権限がはっきりしない）',
+               src='TSB §2.5（`the situation with the Titan initially appeared to be a communication and tracking loss, and so the surface support team followed the missed communications protocol.`）・TSB §2.6（`the master’s authority in the loss of communication emergency with the Titan was unclear`）・§2.6（`Without a bridging document`）・§2.6（`missed communications protocol ended up taking precedence even though it did not follow the maritime best practice of notifying SAR authorities as soon as possible once the potential need for help developed`）'),
+    'c508': dict(kind='写真',
+               plan='🔧 U734｜区間 54.2〜66.6秒｜倍率 1.15（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜見せ方：全面｜副題：米沿岸警備隊の指令センター（6月20日）｜動き：映像｜権利：A（米沿岸警備隊の職員の職務・DVIDS）｜出典の行：米沿岸警備隊（DVIDS 887734）｜注：🔧 素材を替えた（記者会見 887718 → 指令センター＝語り「知らせを受けた米沿岸警備隊は」）・眼鏡の隊員の席（ショット10）｜台本の画（🔧映像方針で替えた＝元の予定）：実写 USCG の記者会見（DVIDS 887718・2023-06-20・A＝副題「6月20日の記者会見（米沿岸警備隊）」）',
+               src='USCG p.40〈32〉（`The United States Coast Guard First District was not aware of the TITAN’s TITANIC Expedition dive operations on this date`）・p.40〈32〉（`entered the distress phase`）'),
+    'c509': dict(kind='写真',
+               plan='🔧 D471｜見せ方：全面｜副題：捜索に加わった米沿岸警備隊の輸送機｜動き：右へ｜権利：A（米沿岸警備隊の職員の職務・DVIDS）｜出典の行：米沿岸警備隊（DVIDS 7875471）｜注：🔧 素材を替えた（888011＝米空軍州兵の機体 → 米沿岸警備隊の HC-130＝語り「米沿岸警備隊の輸送機が飛び立ち」）。格納庫の写真＝飛ぶ所ではない＝副題に日時を書かない｜台本の画（🔧映像方針で替えた＝元の予定）：実写 HC-130J の B-roll（DVIDS 888011・2023-06-21・第106救難航空団・A＝副題「捜索に加わった米軍の輸送機（6月21日）」）',
+               src='NTSB p.19（`At 2200, a US Coast Guard C-130 Hercules`）・p.19（`At 2325, the C-130 arrived on scene and began conducting an overflight air search.`）'),
+    'c510': dict(kind='写真',
+               plan='D444｜見せ方：全面｜副題：捜索中の米沿岸警備隊の輸送機の操縦席（6月21日）｜動き：上へ｜権利：A（米沿岸警備隊の職員の職務・DVIDS）｜出典の行：米沿岸警備隊（DVIDS 7875444）｜注：背中だけ・顔は写らない｜台本の画：実写 DVIDS 7875444 HC-130 の操縦席（2023-06-21・背中だけ・顔は写らない・A＝副題「捜索中の輸送機の操縦席（6月21日）」）',
+               src='TSB §1.3.3（`In total, the SAR response involved 11 vessels and 4 aircraft, which searched approximately 12 000 square nautical miles of ocean.`）'),
+    'c511': dict(kind='写真',
+               plan='D448｜見せ方：全面｜副題：捜索の機内から見た海（6月21日）｜動き：右へ｜権利：A（米沿岸警備隊の職員の職務・DVIDS）｜出典の行：米沿岸警備隊（DVIDS 7875448）｜注：原本が487KB＝幅は取ってから測る（小さければ額装）｜台本の画：実写 DVIDS 7875448 機内から見た海と船（2023-06-21・A＝副題「捜索の機内から見た海（6月21日）」）',
+               src='USCG p.40〈32〉（`later to be joined by P-3 aircraft with sonobuoys`）'),
+    'c512': dict(kind='写真',
+               plan='U852｜区間 493.5〜501.0秒｜倍率 0.74（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜見せ方：全面｜副題：6月21日の記者会見（米沿岸警備隊）｜動き：映像｜権利：A（米沿岸警備隊の職員の職務・DVIDS）｜出典の行：米沿岸警備隊（DVIDS 887852）｜注：第1管区の担当の大佐・器も実効も1280・倍率0.69（502秒からカメラが動く＝その前）｜台本の画：実写 USCG の記者会見（DVIDS 887852・2023-06-21・器 1280・A＝副題「6月21日の記者会見（米沿岸警備隊）」）',
+               src='USCG p.325〈317〉（`due to the instantaneous implosion occurring prior to the initial distress call`）'),
     'c513': dict(kind='写真',
-               plan="LCA01｜副題：燃える世界貿易センター（当日）｜動き：ゆっくり寄る｜権利：C'（撮影者不詳・権利を放棄）｜出典の行：米議会図書館蔵（撮影者不詳）｜注：旧版の wtc_smoke_day の原本（議会図書館 A01）＝両棟が燃える（②③）・サムネの地｜台本の画：実写 wtc_smoke_day（LC-A05-A01・エンパイア・ステート・ビルの向こうで燃える両棟・C'＝米議会図書館蔵（撮影者不詳）・全画面・ゆっくり寄る＝副題「燃える世界貿易センター（当日）」）",
-               src='委員会報告 p8（`At 9:03:11, United Airlines Flight 175 struck the South Tower of the World Trade Center`）'),
-    'c514': dict(kind='写真',
-               plan="LCA03｜副題：当日の世界貿易センターの煙（ミッドタウンのビルの向こう）｜動き：左へ流す｜権利：C'（撮影者不詳・権利を放棄）｜出典の行：米議会図書館蔵（撮影者不詳）｜注：9:03 の語り。塔は重なる角度＝「両棟」と副題に書かない。⑤b-7：副題を写っているものに（同じ副題が5カット＝c514・c519・c609・c701・c706・構図の下見 plan_lc）｜台本の画：実写 当日の世界貿易センター（A・Commons の説明に当日の日付がある14点から選ぶ・全画面・左へ流す＝副題は絵を見て書く）",
-               src='委員会報告 p23（`came in a phone call from New York Center to NEADS at 9:03`・`The notice came at about the time the plane was hitting the South Tower`）'),
-    'c515': dict(kind='写真',
-               plan="WTC71｜副題：事件の前の世界貿易センター（1971年）｜動き：上へ流す｜権利：D（U.S. News & World Report の写真＝米議会図書館へ譲渡）｜出典の行：Thomas J. O'Halloran（米議会図書館蔵）｜注：9:03 より前の語り＝北棟だけが燃える写真は見つからない（議会図書館の A ロールは A02〜A10 が崩壊前・2本が重なる角度で原寸でも決められない）。白黒・縦長｜台本の画：実写 事件の前の世界貿易センター（D・別の点＝語りは 8:51〜9:02＝両棟が燃える写真は置かない。北棟だけが燃える点が見つかればそれ＝副題は絵を見て書く）",
-               src='委員会報告 p22（`refused to be disturbed`・`Between 9:01 and 9:02, a manager from New York Center told the Command Center`）・p23（`came in a phone call from New York Center to NEADS at 9:03`）'),
-    'c516': dict(kind='図解',
-               plan='台本の画：図 模式 時間の帯（11便と175便を並べる・FAA が知った印＝乗っ取りから11分後と9分後）',
-               src='委員会報告 p455（`The FAA knew or strongly suspected that Flight 11 was a hijacking 11 minutes after it was taken over; Flight 175, 9 minutes after it was taken over`）'),
-    'c517': dict(kind='図解',
-               plan='台本の画：図 模式 北東部の地図（ロングアイランドの沖の軍の空域・F-15の線）',
-               src='委員会報告 p20（`Lacking a target, they were vectored toward military-controlled airspace off the Long Island coast`）・p23（`decided against holding the fighters in military airspace away from Manhattan`）'),
-    'c518': dict(kind='写真',
-               plan='WH518｜副題：当日の朝、フロリダ州の小学校（報道を見る大統領）｜動き：2点を順に寄る｜権利：A（ホワイトハウスの写真係の職務）｜出典の行：Eric Draper（Courtesy George W. Bush Presidential Library）｜注：説明＝教室で175便の衝突の報道を見る（時刻の記載なし）。子どもは写らない。WHTV 598 の耳打ちの秒には差し替えない（子どもの顔が多い）｜台本の画：実写 小学校の部屋のテレビに映る燃える両棟（ホワイトハウスの写真係・説明「9:10ごろ」・A の見込み＝権利の札は映像方針で確かめる・子どもが写るなら顔だけモザイク・全画面＝副題「フロリダ州の小学校（当日）」）',
-               src='委員会報告 p38（`The President was seated in a classroom when, at 9:05`・`A second plane hit the second tower. America is under attack`）'),
+               plan='U597｜区間 535.0〜547.5秒｜倍率 1.07（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜見せ方：全面｜副題：6月19日の記者会見（米沿岸警備隊）｜動き：映像｜権利：A（米沿岸警備隊の職員の職務・DVIDS）｜出典の行：米沿岸警備隊（DVIDS 887597）｜注：司令官の寄り（動かないカメラ）｜台本の画：実写 USCG の記者会見（DVIDS 887597・2023-06-19・A＝副題「6月19日の記者会見（米沿岸警備隊）」）',
+               src='NTSB p.20（`with two ROVs capable of reaching 9,843 feet (3,000 meters)`）・p.20（`they dove the ROV beyond its rated depth, almost another 3,281 feet (1,000 meters); the ROV was destroyed in the process.`）'),
+    'c514': dict(kind='図解',
+               plan='🔧 G03｜注：🔧 実写→衛星写真の地図（格納庫の HC-130 は別の機体・了承②）｜新しい画（映像方針）：図 地図 衛星写真 G03（バッファロー→ニューファンドランド）＋線と輸送機の印・「6,000mまで潜れるROV」の札｜台本の画（🔧映像方針で替えた＝元の予定）：実写 DVIDS 7875471 格納庫の HC-130（A＝副題「捜索に出た米沿岸警備隊の輸送機」）',
+               src='NTSB p.18（`which was capable of reaching 19,685 feet (6,000 meters). (The Odysseus was in Buffalo, New York, at the time.)`）・USCG p.41〈33〉（`emergency transportation of a Pelagic® Odysseus ROV from Buffalo, NY`）・NTSB p.20（`flew the ROV Odysseus on a C-130 to Newfoundland and Labrador, where it was loaded aboard the Horizon Arctic`）'),
+    'c515': dict(kind='図解',
+               plan='🔧 G04｜注：🔧 自作の地図→衛星写真（了承②）｜新しい画（映像方針）：図 地図 衛星写真 G04（北大西洋）＋セントジョンズ・現場の点・フランスの調査船が向かってきた向きの矢印だけ｜台本の画（🔧映像方針で替えた＝元の予定）：図 地図 北大西洋（セントジョンズ・現場・フランスの調査船が向かってきた向き＝矢印だけ）',
+               src='USCG p.42〈34〉（`The French research vessel ATALANTE responded from mid-ocean, carrying the 6,000-meter-capable ROV VICTOR 6000.`）・NTSB p.20（`On June 22, both the Atalante (with the Victor 6000) and the Horizon Arctic (with the Odysseus) were in position over the site.`）'),
+    'c516': dict(kind='写真',
+               plan='🔧 U011｜区間 136.0〜142.2秒｜倍率 0.96（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜見せ方：全面｜副題：捜索に向かう米空軍州兵の隊員（6月21日）｜動き：映像｜権利：A（米空軍州兵＝第106救難航空団の職務・連邦の任務の扱いが弱い所）｜出典の行：米空軍州兵 第106救難航空団（DVIDS 888011）｜注：🔧 素材を替えた（888012 の別の区間 → 888011＝隊員が機体へ歩く＝語り「支度を数日で」）・後ろ姿｜台本の画（🔧映像方針で替えた＝元の予定）：実写 HC-130J の B-roll（DVIDS 888012・c103 と別の区間・A）',
+               src='USCG p.41〈33〉（`what would typically take two weeks—mobilizing an ROV, modifying a vessel, and assembling a crew—was achieved in days.`）'),
+    'c517': dict(kind='写真',
+               plan='R04｜区間 18.52〜28.61秒｜倍率 1.00（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜見せ方：額装（第三者）｜副題：海の底で見つかった尾部（6月22日）｜動き：映像（等速）｜権利：第三者（Pelagic Research Services の ROV「Odysseus」・2023-06-22。米沿岸警備隊と米運輸安全委員会が公開）｜出典の行：映像：Pelagic Research Services（米沿岸警備隊・米運輸安全委員会 公開）｜注：尾部に近づく（26秒に照明が少し変わる＝目立たない・1秒1コマで見た）｜台本の画：実写 ROV「尾部」（04 の中ほど・c101・c108 と別の区間・第三者＝引用・額装＝副題「6月22日、海の底で見つかった尾部」）',
+               src='USCG p.7〈vii〉（`On June 22, 2023, at approximately 9:40 a.m.`）・TSB §1.3.3（`At approximately 1040, the ROV discovered the Titan’s forward dome and tail piece on the seabed.`）'),
+    'c518': dict(kind='図解',
+               plan='台本の画：図 帯 96時間の帯（6/18 08:24 ドームを閉めた→6/22 08:24＝96時間→05:40 ROV を降ろす〈93時間16分〉→10:40ごろ 発見〈98時間16分〉＝カナダの調べの値）',
+               src='TSB §1.2.1（`enough oxygen to last approximately 96 hours based on an occupancy of 5 people`）・TSB §2.5（`98 hours and 16 minutes after life support had been started on the Titan`）'),
     'c519': dict(kind='写真',
-               plan="LCA06｜副題：当日のマンハッタン（エンパイア・ステート・ビルと煙）｜動き：ゆっくり引く｜権利：C'（撮影者不詳・権利を放棄）｜出典の行：米議会図書館蔵（撮影者不詳）｜注：⑤b-7：副題を写っているものに（左にエンパイア・ステート・ビル・中ほどから右へ煙）｜台本の画：実写 当日の世界貿易センター（A・別の点＝副題は絵を見て書く）",
-               src='委員会報告 p35（`nearly everyone in the White House told us, they immediately knew it was not an accident`）'),
+               plan='U022｜区間 468.0〜477.5秒｜倍率 0.98（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜見せ方：全面｜副題：6月22日の記者会見（米沿岸警備隊）｜動き：映像｜権利：A（米沿岸警備隊の職員の職務・DVIDS）｜出典の行：米沿岸警備隊（DVIDS 888022）｜注：米海軍の引き揚げの職員が身ぶりで話す（公的な任務）｜台本の画：実写 USCG の記者会見「残骸の発見」（DVIDS 888022・c102・c106・c109 と別の区間・A）',
+               src='TSB §2.5（`neither the actual response nor any other response would have changed the outcome given that the Titan’s crew and passengers were fatally injured at the time of the implosion`）'),
     'c520': dict(kind='図解',
-               plan='台本の画：図 模式 時間の帯（11便と175便＝軍に届いた時刻の印）',
+               plan='見る向き：横から｜台本の画：図 線 タイタンの線画（前のドームを明るく＝外から留めるボルトの位置の札・ハッチなし）',
+               src='TSB §2.5（`Other aspects of the Titan’s design and operations may also have hindered a rescue.`）・§2.5（`the Titan did not have a hatch so its crew and passengers could not egress on the surface without the Titan first being reattached to the LARS`）'),
+    'c521': dict(kind='図解',
+               plan='台本の画：図 模式 救助の備え（「水の中の位置を知る手段」「ROV の会社との契約」の2つの欄が空）',
+               src='TSB §2.5（`OceanGate also did not have a means of determining where the Titan was underwater if the tracking and communication systems on the submersible were not functioning.`）・§2.5（`When conducting diving operations, OceanGate also did not have any contracts in place with these ROV operators.`）'),
+    'c522': dict(kind='写真',
+               plan='R07｜区間 2.0〜9.72秒｜倍率 1.00（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜見せ方：額装（第三者）｜副題：海の底に残った前のドーム（6月22日）｜動き：映像（等速）｜権利：第三者（Pelagic Research Services の ROV「Odysseus」・2023-06-22。米沿岸警備隊と米運輸安全委員会が公開）｜出典の行：映像：Pelagic Research Services（米沿岸警備隊・米運輸安全委員会 公開）｜注：散らばった破片→遠くに前のドーム｜台本の画：実写 ROV「前のドーム」（07・c104 と別の区間・第三者＝引用・額装）',
+               src='NTSB p.66（`they likely would have had emergency response assets standing by and the Titan likely would have been found sooner`）'),
+    'c523': dict(kind='写真',
+               plan='R07｜区間 54.25〜60.0秒｜倍率 1.00（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜見せ方：額装（第三者）｜副題：残骸が詰まった後ろのドーム（6月22日）｜動き：映像（等速）｜権利：第三者（Pelagic Research Services の ROV「Odysseus」・2023-06-22。米沿岸警備隊と米運輸安全委員会が公開）｜出典の行：映像：Pelagic Research Services（米沿岸警備隊・米運輸安全委員会 公開）｜注：→ 次の章の扉（頭の c601 が ROV＝扉の地は方眼だけ）｜台本の画：実写 ROV「後ろのドーム」（07・c105 と別の区間・第三者＝引用・額装）→ 次の章の扉',
                src='—'),
 }
 
 SPEC = {}
-
-# ══════════════════════════════════════════════════════════
-#  🆕 ⑤b-4（2026-10-12）：図解 第4章（13カット）＋頁1（c506 NTSB 175便の図1）
-# ══════════════════════════════════════════════════════════
-#   🔴 章の札「2機目　気づいていた管制官」と4字以上同じ並びを見出し・副題に入れない（門番 dup）。人は描かない・無線と電話の逐語は
-#      画面に出さない（語りと字幕だけ）。時刻は委員会報告の文字の層で当てた（門番 check_mech の REC_M21・check_axis の REC_AXIS）
-SPEC.update({
-    # c502（3行）＝管制の無線（ニューヨーク・センターと175便）。8:42 の交信 → 聞いた声は11便から → 地上との最後の交信（p7）
-    "c502": dict(
-        t="175便の無線", s="ニューヨーク・センターの受け持ちで",
-        fig=("m21", dict(view="radio", start=dict(ctr="ny"),
-                         steps=[dict(state=dict(v1="on"), tag=dict(t="8:42", at="time")),
-                                dict(tag=dict(t="聞いた声は11便から", at="v2")),
-                                dict(tag=dict(t="地上との最後の交信", at=(112.0, 530.0, "start", 460.0)))],
-                         rel=[dict(t="8:42", src="委員会報告 p7"), dict(t="11便", src="委員会報告 p7")],
-                         note="人は描かない・機と線は模式", src=ss.src(["委員会報告 p7", "委員会報告 p21"]))),
-    ),
-    # c503（2行）＝175便の機内（前の部分）。乗っ取りの始まり 8:42〜8:46（p7）→ 8:47 番号が1分で2回（p7）
-    "c503": dict(
-        t="始まった時間", s="175便の機内（前の座席と操縦室の扉）",
-        fig=("m21", dict(view="cabin", start=dict(zoom="front"),
-                         # 🔧 試し焼き：先の出来事を右・後の出来事を左に置くと、左から読んで時間が逆になった＝左に 8:42〜8:46・右に 8:47
-                         steps=[dict(tag=dict(t="8:42〜8:46 のあいだ", d="委員会の記録", at="how")),
-                                dict(tag=dict(t="8:47 番号が1分で2回変わる", at="start"))],
-                         rel=[dict(t="8:42〜8:46", src="委員会報告 p7"), dict(t="8:47", src="委員会報告 p7"), dict(t="1分で2回", src="委員会報告 p7")],
-                         note="人は描かない・座席の並びは模式", src=ss.src(["委員会報告 p7", "NTSB 175便 p3002"]))),
-    ),
-    # c504（2行）＝🔧 管制のレーダーの画面（模式）。11便を探す → 8:51 札の番号の変化に気づく（p21）
-    "c504": dict(
-        t="番号の変化", s="ニューヨーク・センターの管制官が見ていた点",
-        fig=("m21", dict(view="scope", start=dict(block="on"),
-                         steps=[dict(tag=dict(t="11便を探し続ける", at="time")),
-                                dict(state=dict(code="on"), tag=dict(t="8:51 管制官が気づく", d="呼びかけに応答なし", at="block", to="block"))],
-                         rel=[dict(t="11便", src="委員会報告 p21"), dict(t="8:51", src="委員会報告 p21")],
-                         note="画面の形と札は模式（記録の画面ではない）", src=ss.src(["委員会報告 p21"]))),
-    ),
-    # c505（2行）＝機内の電話から航空会社の事務所へ（8:52・p7）→ 2行目で操縦室に「？」（言葉は語りと字幕だけ）
-    "c505": dict(
-        t="事務所への電話", s="175便の客室乗務員の電話",
-        fig=("m21", dict(view="phone", start=dict(to="office"),
-                         steps=[dict(state=dict(call="on"), tag=dict(t="8:52", at="time")),
-                                dict(state=dict(ckq="on"), tag=dict(t="操縦は乗っ取った側の手に", at="out"))],   # ⚠️ 門番 echo：「犯人が操縦している見込み」は字幕の写し
-                         rel=[dict(t="8:52", src="委員会報告 p7")], note="人は描かない・機と線は模式", src=ss.src(["委員会報告 p7", "委員会報告 p8"]))),
-    ),
-    # c506（7.2秒）＝🔧 NTSB 175便の飛行経路の調べ PDF 3頁（Figure 1・横倒しのスキャンを正立）。南西へ進んで北東へ向きを変えた航跡
-    "c506": dict(photo=ss.page(3003), trim=ss.ptrim("c506"), bias=ss.pbias("c506"), panel=True, color=1.0, fmove=ss.fm("in"),
-                 t="向きを変えた機", s="NTSB の飛行経路の調べの図1（175便）"),   # ⑤c'：4便の図1が同じ名だった＝便を足す（年は出典の行）
-    # c507（3行）＝175便の帯（AX_175）。8:51 気づく（沈める）→ 8:53 乗っ取りを疑う → 8:55ごろ 上司へ（p22）。
-    #   ⚠️ 8:47 の点（番号が変わる）は置かない＝c503・c504 で語りずみ・置くと 8:51 の縦の線が札を貫いた（門番 axis）
-    "c507": dict(
-        t="伝わった疑い", s="175便をめぐる地上の動き（アメリカ東部の夏の時間）",
-        fig=("axis", dict(ss.AX_175, past=[ss.ax("see175")], start=dict(cur="8:51"),
-                          steps=[dict(add=ss.ax("may175"), cur="8:53"), dict(add=ss.ax("mgr175"), cur="8:55"), dict()],
-                          note="時刻は委員会報告の記録", src=ss.src(["委員会報告 p7", "委員会報告 p21", "委員会報告 p22"]))),
-    ),
-    # c508（3行）＝手順の段（ニューヨーク・センター）。上司 → 地域の管理職へ → 11便の話し合いの最中 → 取り次ぎを断る（p22）
-    "c508": dict(
-        t="断られた知らせ", s="ニューヨーク・センターの上司の動き",
-        fig=("m21", dict(view="chain", start=dict(who="ny"),
-                         steps=[dict(state=dict(lit="2", reg="on")), dict(tag=dict(t="11便の話し合いの最中", at="tl")),
-                                dict(state=dict(reg="x"), tag=dict(t="取り次ぎを断る", at="reg"))],
-                         rel=[dict(t="11便", src="委員会報告 p22")], note="段の形は模式", src=ss.src(["委員会報告 p22"]))),
-    ),
-    # c509（2行）＝🔧 同じ画面（模式）。8:58 → 2行目で2つの点に「？」（言葉は語りと字幕だけ）
-    "c509": dict(
-        t="2機の乗っ取り", s="175便を探す管制官の画面",
-        fig=("m21", dict(view="scope", start=dict(block="on", code="on"),
-                         steps=[dict(tag=dict(t="8:58", at="time")), dict(state=dict(two="on"))],
-                         rel=[dict(t="8:58", src="委員会報告 p22")], note="画面の形と点は模式（記録の画面ではない）",
-                         src=ss.src(["委員会報告 p22"]))),
-    ),
-    # c510（3行）＝電話の線（ニューヨーク・センター → ハーンドンのコマンドセンター・9:01〜9:02・p22）。やりとりは字幕だけ
-    "c510": dict(
-        t="軍の助けを", s="管制の現場から全米の司令塔へ",
-        fig=("m21", dict(view="call", start=dict(pair="ny"),
-                         steps=[dict(state=dict(link="on"), tag=dict(t="9:01〜9:02", at="time")), dict(state=dict(talk="ask")), dict()],
-                         rel=[dict(t="9:01〜9:02", src="委員会報告 p22")], note="人は描かない・建物の形は模式",   # ⑤c'：注の括弧を外した（c416 と同じ）
-                         src=ss.src(["委員会報告 p22"]))),
-    ),
-    # c511（3行）＝北アメリカの地図。2行目で全米の空港の点 → 3行目でハーンドン（p14・p16）
-    "c511": dict(
-        t="空の司令塔", s="コマンドセンターの場所",
-        fig=("m21", dict(view="us", steps=[dict(), dict(state=dict(air="on")),
-                                           dict(state=dict(herndon="on"), tag=dict(t="ハーンドン", d="バージニア州", at="herndon", to="herndon"))],
-                         note="陸の形は Natural Earth・空港の点は大きな空港の一般の座標（模式）",
-                         src=ss.src(["委員会報告 p14", "委員会報告 p16"]))),
-    ),
-    # c512（2行）＝🔧 同じ画面（模式）。9:02 → 2行目で点と札が途切れる（p22「the radar data terminated over Lower Manhattan」）
-    "c512": dict(
-        t="途切れた点", s="175便を追っていた画面",
-        fig=("m21", dict(view="scope", start=dict(block="on", code="on"),
-                         steps=[dict(tag=dict(t="9:02", at="time")),
-                                dict(state=dict(block="off", blip="off", code="off"), tag=dict(t="点と札が途切れる", at="dot", to="blip"))],
-                         rel=[dict(t="9:02", src="委員会報告 p22")], note="画面の形と点は模式（記録の画面ではない）",
-                         src=ss.src(["委員会報告 p22"]))),
-    ),
-    # c516（2行）＝棒（乗っ取りから FAA が知る・強く疑うまで＝11分・9分＝委員会報告 p455）。数字は画面に書かない（目盛りだけ）
-    "c516": dict(
-        t="気づくまで", s="FAA が乗っ取りと知った早さ",
-        fig=("qty", dict(view="bar", groups=[ss.QG["faa"]], steps=[dict(add=ss.qb("faa11")), dict(add=ss.qb("faa175"))],
-                         note="分は委員会報告の注の記録", src=ss.src(["委員会報告 p455"]))),
-    ),
-    # c517（3行）＝北東部の地図。8:53 F-15 → ロングアイランドの沖の軍の空域 → 2機目のあと、マンハッタンの方へ（p20・p23）
-    "c517": dict(
-        t="待たせた戦闘機", s="オーティスの F-15 の行き先",
-        fig=("m21", dict(view="ne", start=dict(bases="on"),
-                         steps=[dict(state=dict(f15="on"), tag=dict(t="8:53 F-15 が飛び立つ", at="f15")),
-                                dict(tag=dict(t="沖の軍の空域", at="w105")),
-                                dict(state=dict(mnh="on"))],     # 🔧 試し焼き：札「マンハッタンの方へ」は右の海に離れて浮いた＝矢印と語りだけ
-                         rel=[dict(t="8:53", src="委員会報告 p20"), dict(t="F-15", src="委員会報告 p20")],
-                         note="陸の形は Natural Earth・空域の位置と線は模式", src=ss.src(["委員会報告 p20", "委員会報告 p23"]))),
-    ),
-    # c520（2行）＝その朝の帯（AX_MORN）。軍に届いた時刻（11便 8:37:52・175便 9:03）→ 2行目で77便が画面から消えた 8:56
-    "c520": dict(
-        t="遅れた知らせ", s="軍に届いた時刻と3機目",
-        fig=("axis", dict(ss.AX_MORN, start=dict(cur="8:37:52"),
-                          steps=[dict(add=[ss.ax("mil11"), ss.ax("mil175")], cur="9:03"), dict(add=ss.ax("off77"))],
-                          note="時刻は委員会報告の記録", src=ss.src(["委員会報告 p20", "委員会報告 p23", "委員会報告 p24", "委員会報告 p25"]))),
-    ),
-})
-
-# ── 🆕 ⑤b-7（2026-10-13）：写真（PLAN＝映像方針の一覧・了承②／書き方は c2.py の ⑤b-7 の注）──
-#   ⚠️ 議会図書館の A05 のロール（当日の煙）は同じ副題が5カットにあった＝⑤b-7 に構図の下見で写っているものに書き分けた（assign21.tsv）。
-#      塔が重なる角度の点に「両棟」と書かない
-_WSOU = P("wtc_south_1976")
-_A01 = P("lc_a05_a01")
-_A03 = P("lc_a05_a03")
-_W71 = P("wtc_1971")
-_BOOK = P("wh_booker_tv")
-_A06 = P("lc_a05_a06")
-SPEC.update({
-    # c501（11.5秒・章の頭）＝広場から見上げる塔（Korab・1976年・縦長）。上へ流す（広場→塔）。広場の人は小さな遠景（顔 約8px）
-    "c501": dict(photo=_WSOU, **ss.mv(_WSOU, "u", span=(0.2, 0.8)), side="none", t="175便の位置",
-                 s="事件の前の世界貿易センター（1976年・広場から見上げる）"),
-    # c513（6.9秒）＝エンパイア・ステート・ビルの向こうで燃える塔（議会図書館 A01＝台紙の縁）。塔の煙へ寄る（横 0.57・縦 0.5）
-    "c513": dict(photo=_A01, **ss.mv(_A01, "in", 0.57, 0.5, z=1.3, lo=1.06), side="none", t="南棟へ", s="燃える世界貿易センター（当日）"),
-    # c514（6.8秒）＝ミッドタウンのビルの向こうの煙（A03＝塔は右・重なる角度）・左へ流す
-    "c514": dict(photo=_A03, **ss.mv(_A03, "l"), side="none", t="最初の電話",
-                 s="当日の世界貿易センターの煙（ミッドタウンのビルの向こう）"),
-    # c515（11.4秒）＝1971年の塔（O'Halloran・白黒・縦長 1920×2902）。上へ流す
-    "c515": dict(photo=_W71, **ss.mv(_W71, "u", span=(0.25, 0.75)), side="none", t="届くまでの段",
-                 s="事件の前の世界貿易センター（1971年）"),
-    # c518（11.0秒）＝小学校の部屋で報道を見る大統領（写真係 Draper）。2点を順に＝テレビの画面（横 0.33・縦 0.33）→ 机とまわりの人（0.55・0.45）
-    "c518": dict(photo=_BOOK, **ss.mv(_BOOK, "two", 0.33, 0.33, z=1.3, to=(0.55, 0.45)), side="none", t="耳もとの知らせ",
-                 s="当日の朝、フロリダ州の小学校（報道を見る大統領）"),
-    # c519（6.6秒）＝左にエンパイア・ステート・ビル・中ほどから右へ煙（A06＝台紙の縁）・ゆっくり引く
-    "c519": dict(photo=_A06, **ss.mv(_A06, "out", 0.5, 0.45, lo=1.06), side="none", t="事故ではない",
-                 s="当日のマンハッタン（エンパイア・ステート・ビルと煙）"),
-})

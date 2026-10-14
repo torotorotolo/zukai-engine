@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-"""終章　あの朝、持ち場にいた人たち cc01–cc10（10カット）。21本目（9.11 米国同時多発テロのリメイク）。
+"""第11章　3つの報告書が出した答え cc01–cc13（13カット）。22本目（タイタン号のリメイク）。
 
-■ 🔴 2026-10-12（⑤b-1）：20本目（日本航空123便のリメイク）の中身を空にした＝git の `f0095bd`（`git show f0095bd:tools/cuts/cc.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep21/make_plan21.py` で
-  映像方針の一覧 `ref/ep21/eizou_build/list21.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
+■ 🔴 2026-10-14（⑤b-1）：21本目（9.11 米国同時多発テロのリメイク）の中身を空にした＝git の `35fab37`（`git show 35fab37:tools/cuts/cc.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep22/make_plan22.py` で
+  映像方針の一覧 `ref/ep22/eizou_build/list22.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典から
+  機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット（台本の画は元の予定）。
@@ -15,97 +16,44 @@ P = ss.P
 
 PLAN = {
     'cc01': dict(kind='写真',
-               plan='P109｜副題：当日の夜のペンタゴン（崩れた西側）｜動き：ゆっくり寄る｜権利：A（米海軍の職務）｜出典の行：米海軍（PH2 Robert Houlihan）｜注：語りは NEADS・FAA の人＝人の写らない点｜台本の画：実写 当日のペンタゴン（米軍の写真・A・救助にあたる隊員・別の点＝副題は「当日のペンタゴンの救助」のように写っている人を書き、語りの NEADS・FAA の人と取り違えさせない。合わなければ人の写らない点か図）',
-               src='委員会報告 p31（`We do not believe that the true picture of that morning reflects discredit on the operational personnel at NEADS or FAA facilities`）'),
-    'cc02': dict(kind='写真',
-               plan='P084｜副題：当日のペンタゴン（海軍別館から見た建物と煙）｜動き：左へ流す｜権利：A（米海兵隊の職務）｜出典の行：米海兵隊（Cpl J. Ingersoll）｜注：語りは NEADS の将校＝人のほぼ写らない点｜台本の画：実写 当日のペンタゴン（米軍の写真・A・別の点＝副題は絵を見て書く）',
-               src='委員会報告 p31（`NEADS commanders and officers actively sought out information, and made the best judgments they could on the basis of what they knew`）'),
-    'cc03': dict(kind='写真',
-               plan="LC210｜副題：当日の世界貿易センターの跡（第7ビルの足元の消防士）｜動き：2点を順に寄る｜権利：C'（撮影者不詳・権利を放棄）｜出典の行：米議会図書館蔵（撮影者不詳）｜注：消防の犠牲の語り＝消防士（公務）｜台本の画：実写 当日の世界貿易センター（A・別の点・消防の人の顔＝職務＝副題は絵を見て書く）",
-               src='委員会報告 p311（`The FDNY suffered 343 fatalities`・`the largest loss of life of any emergency response agency in history`・`The PAPD suffered 37 fatalities`・`The NYPD suffered 23 fatalities`）'),
-    'cc04': dict(kind='図解',
-               plan='台本の画：図 模式 時間の帯（4機と、軍に届いた知らせの印）',
-               src='委員会報告 p45（`NORAD and the FAA were unprepared for the type of attacks launched against the United States on September 11, 2001`・`an unprecedented challenge they had never before encountered and had never trained to meet`）'),
-    'cc05': dict(kind='写真',
-               plan='🔧 P043｜副題：当日のペンタゴン（標識ごしの炎と煙）｜動き：右へ流す｜権利：A（米海兵隊の職務）｜出典の行：米海兵隊（Cpl J. Ingersoll）｜注：🔧 DVIDS の別の窓 → 写真（運転席の人の方へ寄らない）。⑤b-7：試し焼き 38321787179 で救急車は字幕の帯の下＝副題を写っているものに｜台本の画（🔧映像方針で替えた＝元の予定）：実写 DVIDS 122342（別の窓・隊員と消防＝副題「当日のペンタゴン」）',
-               src="委員会報告 p31（`the NEADS air defenders had nine minutes' notice on the first hijacked plane`）"),
-    'cc06': dict(kind='写真',
-               plan="LCB20｜副題：当日のマンハッタン（通りから見た煙）｜動き：左へ流す｜権利：C'（撮影者不詳・権利を放棄）｜出典の行：米議会図書館蔵（撮影者不詳）｜注：遠くの通行人は顔の分からない遠景｜台本の画：実写 議会図書館 LC-B20（車内から見た通りと煙の柱・C'＝米議会図書館蔵（撮影者不詳）・遠くの人は顔の分からない遠景だけ・全画面＝副題「当日のマンハッタン」）",
-               src='記念館（`The attacks killed 2,977 people from 90 nations: 2,753 people were killed in New York; 184 people were killed at the Pentagon; and 40 people were killed on Flight 93`）'),
+               plan='🔧 C1cc｜見せ方：全面｜副題：海難調査委員会の委員たち（2024年9月・公聴会のあと）｜動き：寄る｜権利：A（米沿岸警備隊の職員の職務・DVIDS 8668382 の写し）｜出典の行：米沿岸警備隊（DVIDS 8668382）｜注：🔧 素材を替えた（公聴会の配信〈9日分から委員だけの区間を探す〉→ 委員の集合写真＝A・公的な任務）｜台本の画（🔧映像方針で替えた＝元の予定）：実写 米沿岸警備隊の海難調査委員会の公聴会（2024年9月・USCG の公式の配信・委員会の職員だけが写る区間・A＝副題「海難調査委員会の公聴会（2024年9月）」）',
+               src='USCG p.5〈v〉（`in what is considered to be a preventable tragedy.`）'),
+    'cc02': dict(kind='図解',
+               plan='🔧 注：🔧 再現→模式（§0-3）｜新しい画（映像方針）：図 模式 3冊の色分けの3列（米沿岸警備隊＝青の列を明るく・主な要因8つを短い札で＝主語は「会社」と「船体」）｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 主な要因8つ（USCG p.7 の8項目の要点の札＝主語は全部「会社」か「船体」・欄の英字は小さく）',
+               src='USCG p.5〈v〉（`OceanGate’s failure to follow established engineering protocols for safety, testing, and maintenance of their submersible, was the primary causal factor.`）・USCG p.7〈vii〉（`The primary causal factors that directly contributed to the casualty include:`）'),
+    'cc03': dict(kind='図解',
+               plan='🔧 注：🔧 再現→模式（§0-3）｜新しい画（映像方針）：図 模式 同じ3列（青の列の7つ目＝職場の文化を明るく・その他の要因＝規則の足りなさ）｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 同じ札（7つ目＝職場の文化・その他の寄与要因の4つ目＝規則の足りなさ）',
+               src='USCG p.7〈vii〉（`used firings of senior staff members and the looming threat of being fired`）・USCG p.8〈viii〉（`the lack of comprehensive and effective regulations for the oversight and operation of manned submersibles`）'),
+    'cc04': dict(kind='写真',
+               plan='🔧 L45a｜見せ方：全面｜副題：後ろの輪に残った接着剤（米運輸安全委員会の研究所）｜動き：寄る｜権利：A（NTSB の研究所）｜出典の行：米運輸安全委員会 研究所の報告 24-011 図45｜注：🔧 素材を替えた（2024-09-15 の米沿岸警備隊の記者会見 → 米運輸安全委員会の研究所の写真＝語り「米運輸安全委員会は、どう書いたの？」）。c608 と同じ物＝呼び方をそろえる｜台本の画（🔧映像方針で替えた＝元の予定）：実写 米沿岸警備隊の記者会見（2024-09-15・公聴会の前・A・登壇は公的な任務の人＝副題「公聴会の前の記者会見（2024年9月）」）',
+               src='NTSB p.74（`the probable cause of the hull failure and implosion of the submersible Titan was OceanGate’s inadequate engineering process,`）・NTSB p.74（`which failed to establish the actual strength and durability of the Titan pressure vessel`）'),
+    'cc05': dict(kind='図解',
+               plan='🔧 注：🔧 再現→模式（§0-3）｜新しい画（映像方針）：図 模式 同じ3列（米運輸安全委員会＝緑の列を明るく・推定原因と寄与2つ）｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 推定原因の「寄与」（指針と規則が足りなかった・監視の記録の読み違い）',
+               src='NTSB p.74（`Contributing were US and international voluntary guidance and US small passenger vessel regulations that were insufficient to ensure OceanGate adhered to established industry standards.`）・p.74（`Also contributing was OceanGate’s flawed analysis of their pressure vessel monitoring system data`）'),
+    'cc06': dict(kind='図解',
+               plan='🔧 注：🔧 再現→模式（§0-3）｜新しい画（映像方針）：図 模式 同じ3列（カナダの調べ＝紫の列を明るく・原因と寄与）｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 TSB の所見（原因と寄与5＝会社と船体の札）',
+               src='TSB §3.1（`The as-built properties of the Titan’s carbon fibre cylinder were never validated to ensure they met the theoretical values used in the design process,`）・§3.1（`likely led the cylinder to fail progressively with damage accumulating during each dive cycle until it imploded`）'),
     'cc07': dict(kind='図解',
-               plan='🔧 ⑤b-6 模式 2つの数の箱と差の矢印（「いまの数」は日付を持たない＝帯に置けない）｜台本の画：図 模式 数の帯（2,973＝2004年7月の委員会・2,977＝いまの数）',
-               src='委員会報告 p311（`the nation suffered the largest loss of life—2,973—on its soil as a result of hostile attack in its history`）'),
+               plan='台本の画：図 再現 TSB の要点（運輸省は登録が無いと知らなかった・ほかの役所の情報が届かなかった）',
+               src='TSB §4.2.1（`TC was unaware that the Titan was not registered with any flag state.`）・TSB §1.28.5（`In this occurrence, both DFO and the CBSA had information about the Titan that TC was not aware of.`）'),
     'cc08': dict(kind='図解',
-               plan='🔧 ⑤b-6 模式 同じ箱の下に2026年8月の検視局の発表の箱（数の差とは線でつながない＝身元の確認は数の増えではない）｜台本の画：図 模式 同じ帯（2026年8月の札）',
-               src='検視局（`announced the identification of a previously unknown victim of the September 11, 2001 terror attacks on the World Trade Center using the breakthrough technique of forensic investigative genetic genealogy`）'),
+               plan='台本の画：図 再現 TSB の勧告6つ（宛先は6つともカナダ運輸省・番号 M26-02〜07）',
+               src='TSB §4.2（`The investigation identified safety deficiencies that led the Board to issue the following 6 recommendations.`）・TSB の勧告のページ（rec-m2602・m2604〜m2607＝Date of the latest response: N/A・Not Yet Assessed／m2603 は頁なし＝2026-10-14 に見た・3冊の外・記録は src/new/tsb_rec/）'),
     'cc09': dict(kind='図解',
-               plan='台本の画：図 模式 委員会報告の表紙の絵と「米政府の印刷局のサイト」の札',
-               src='sources §1（govinfo の PDF＝200・md5 が手元と同じ・2026-10-11。⑥の時点でもう一度開く）'),
-    'cc10': dict(kind='写真',
-               plan='DV47｜区間 15.0〜21.0秒｜倍率 0.90（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜副題：9月14日のペンタゴン（空撮・建物の中庭）｜動き：映像｜権利：A（米空軍 第1戦闘カメラ隊の職務・DVIDS「PUBLIC DOMAIN」）｜出典の行：米空軍（DVIDS 122347）｜注：中庭の真上を回る（0.81倍・1秒1コマ）｜台本の画：実写 DVIDS 122347「Noble Eagle, Sep 14」空撮（別の窓・PD・SD＝全画面・ゆっくり引く＝副題「9月14日のペンタゴン（空撮）」）',
-               src='—'),
+               plan='台本の画：図 帯 3つの答えの並べ（重なる所＝窓でなく船体の炭素繊維の側・強さと寿命を確かめず・監視の読み方）',
+               src='USCG p.325〈317〉（`the probable failure point of the hull was either the adhesive joint between the TITAN’s forward dome and the titanium segment or the carbon fiber hull near the forward end of the TITAN.`）・NTSB p.73（`the company was unaware of its actual strength and durability`）・TSB §2.1（`suggested that the pressure hull’s carbon fibre cylinder was the likeliest point of failure.`）・TSB §3.1（`OceanGate did not know for how long the pressure hull would remain safe`）'),
+    'cc10': dict(kind='図解',
+               plan='台本の画：図 帯 同じ並べ（分かれる所＝2022年の音の重み・最後の数秒の順番を明るく）',
+               src='USCG p.289〈281〉（`strongly suggests that the carbon fiber hull sustained irreversible damage at the end of Dive 80.`）・NTSB p.73（`The Titan pressure vessel likely sustained damage after it surfaced at the end of dive 80`）・TSB §1.10.10.1（`so it cannot be determined whether this event precipitated the non-linear readings on 19 July 2022.`）'),
+    'cc11': dict(kind='図解',
+               plan='🔧 注：🔧 再現→模式（§0-3）｜新しい画（映像方針）：図 模式 同じ3列（3列それぞれに「監督の穴」の札＝主な原因の次の段に置く）｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 規則と監督の穴の重み（米運輸安全委＝寄与／米沿岸警備隊＝その他の要因／カナダ＝危険の所見）',
+               src='NTSB p.74（`Contributing were US and international voluntary guidance and US small passenger vessel regulations`）・USCG p.8〈viii〉（`the lack of comprehensive and effective regulations for the oversight and operation of manned submersibles`）・TSB §3.2（`Canada’s approach to regulatory oversight of vessels enabled the Titan to operate without any independent verification to identify safety deficiencies,`）・TSB §3.2（`These factors may or may not have been causal or contributing to the occurrence`）'),
+    'cc12': dict(kind='写真',
+               plan='U248｜区間 535.0〜545.0秒｜倍率 1.08（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜見せ方：全面｜副題：海難調査委員会を開く記者会見（2023年6月25日）｜動き：映像｜権利：A（米沿岸警備隊の職員の職務・DVIDS）｜出典の行：米沿岸警備隊（DVIDS 888248）｜注：のちの委員長（調査の責任者の大佐）が話す・器も実効も1280｜台本の画：実写 米沿岸警備隊の記者会見（DVIDS 888248・2023-06-25・海難調査委員会を開くと発表・器 1280・A＝副題「海難調査委員会を開く記者会見（2023年6月25日）」）',
+               src='USCG p.307〈299〉（`Had OceanGate adhered to the safety standards outlined in its own HSE Manual and fostered a culture of transparency and accountability, this tragedy would likely have been averted`）'),
+    'cc13': dict(kind='図解',
+               plan='台本の画：図 再現 同じ節の一節（英字＋訳は字幕）',
+               src='USCG p.307〈299〉（`Encouraging employees to voice concerns without fear of retaliation and prioritizing safety over expediency could have prevented the sequence of events that led to the disaster.`）'),
 }
 
 SPEC = {}
-
-# ══════════════════════════════════════════════════════════
-#  🆕 ⑤b-6（2026-10-13）：図解 終章（4カット）
-# ══════════════════════════════════════════════════════════
-#   🔴 章の札「あの朝、持ち場にいた人たち」と4字以上同じ並びを見出し・副題に入れない（門番 dup）。人は描かない。
-#      犠牲者の数は語りの数と同じ（委員会 2,973＝p311・いま 2,977＝記念館）。検視局の発表を数の差に結びつけない
-_ax = ss.ax
-_TO = "箱は模式（数は委員会報告と記念館の記録）"
-SPEC.update({
-    # cc04（3行）＝その朝の4機と軍への知らせ（ca19 の続き）→ 2行目で「その場で組み立てた守り」（8:37:52〜10:31・p45）→ 3行目（問い）
-    "cc04": dict(
-        t="その場の守り", s="4機と軍への知らせの時刻",
-        fig=("axis", dict(ss.AX_ALL, past=[_ax("neads11"), _ax("nine11"), _ax("hit11"), _ax("hit175"), _ax("hit77"), _ax("crash93")],
-                          start=dict(cur="10:03:11"),
-                          steps=[dict(), dict(add=_ax("fly"), cur="10:31"), dict()],
-                          note="時刻は委員会報告の記録（衝突と墜落の時刻は資料で割れる＝委員会報告の値）",
-                          src=ss.src(["委員会報告 p20", "委員会報告 p42", "委員会報告 p45"]))),
-    ),
-    # cc07（2行）＝🔧 2つの数の箱。いまの数（前のカットの語り）→ 委員会の数（2004年7月・p311）→ 2行目で差
-    "cc07": dict(
-        t="数の違い", s="2つの時点の数",
-        fig=("m21", dict(view="toll", start=dict(now="on"), steps=[dict(state=dict(old="on")), dict(state=dict(diff="on"))],
-                         note=_TO, src=ss.src(["委員会報告 p311", "記念館 p1"]))),
-    ),
-    # cc08（2行）＝🔧 下に2026年8月の検視局の発表の箱 → 2行目で中身（数の差とは線でつながない）
-    "cc08": dict(
-        t="身元の確認", s="25年目の発表",
-        fig=("m21", dict(view="toll", start=dict(old="on", now="on", diff="on"),
-                         steps=[dict(state=dict(me="on")), dict(state=dict(me="full"))],
-                         note=_TO, src=ss.src(["委員会報告 p311", "記念館 p1", "検視局 p1"]))),
-    ),
-    # cc09（1行）＝報告書（表紙の絵は模式）と米政府の印刷局のサイト
-    "cc09": dict(
-        t="いまも読める", s="報告書の公開",
-        fig=("m21", dict(view="cover", steps=[dict(state=dict(web="on"))], note="表紙の絵とサイトの画面は模式",
-                         src=ss.src(["govinfo p1"]))),
-    ),
-})
-
-# ── 🆕 ⑤b-7（2026-10-13）：写真と映像（PLAN＝映像方針の一覧・了承②／書き方は c2.py の ⑤b-7 の注）──
-_P109 = P("dn_sd_03_08938")
-_P084 = P("pen_010911_m_ci426_007")
-_L210 = P("loc_item210")
-_P043 = P("pen_010911_m_ci426_012")
-_B20 = P("lc_a05_b20")
-SPEC.update({
-    # cc01（6.8秒・章の頭）＝夜の崩れた西側（米海軍・人は写らない＝語りの NEADS・FAA の人と取り違えさせない）・ゆっくり寄る
-    "cc01": dict(photo=_P109, **ss.mv(_P109, "in", 0.55, 0.5), side="none", t="委員会の見方", s="当日の夜のペンタゴン（崩れた西側）"),
-    # cc02（6.0秒）＝海軍別館から見た煙（米海兵隊・人はほぼ写らない）・左へ流す
-    "cc02": dict(photo=_P084, **ss.mv(_P084, "l"), side="none", t="できる限りを", s="当日のペンタゴン（海軍別館から見た建物と煙）"),   # ⑤c'：c620 と書き分け
-    # cc03（15.2秒）＝燃える第7ビルの足元の消防士（議会図書館 item 210＝左と下に台紙・右の 5% まで暗がり）。2点を順に＝上の燃えるビル
-    #   （横 0.45・縦 0.4）→ 右下の消防士（0.53・0.62＝原寸で横 0.56〜0.74・縦 0.59〜0.97・横向きで顔は見えない＝公務）
-    "cc03": dict(photo=_L210, **ss.mv(_L210, "two", 0.45, 0.4, z=1.2, to=(0.53, 0.62)), side="none", t="消防の343人",
-                 s="当日の世界貿易センターの跡（第7ビルの足元の消防士）"),
-    # cc05（9.4秒）＝高速道路の標識ごしの炎と煙（米海兵隊）。🔴 運転席の人の方へ寄らない＝寄りは流す 1.12 だけ・右へ流す。
-    #   救急車は字幕の帯の下（試し焼き 38321787179）＝副題を写っているものに
-    "cc05": dict(photo=_P043, **ss.mv(_P043, "r"), side="none", t="9分前だけ", s="当日のペンタゴン（標識ごしの炎と煙）"),
-    # cc06（8.5秒）＝車内から見た通りと煙の柱（議会図書館 B20＝台紙の縁・遠くの通行人は顔の分からない遠景）・左へ流す
-    "cc06": dict(photo=_B20, **ss.mv(_B20, "l"), side="none", t="2,977人", s="当日のマンハッタン（通りから見た煙）"),   # ⑤c'：c102 と書き分け
-    # cc10（5.8秒）＝DVIDS 122347 の空撮（9月14日・中庭の真上を回る・4:3＝額装＋地のぼかし）
-    "cc10": ss.vid("cc10", t="問いかけ", s="9月14日のペンタゴン（空撮・建物の中庭）"),   # ⑤c'：c108 と書き分け
-})

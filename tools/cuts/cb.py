@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-"""第10章　その後の空 cb01–cb19（19カット）。21本目（9.11 米国同時多発テロのリメイク）。
+"""第10章　最後の冬と2023年 cb01–cb19（19カット）。22本目（タイタン号のリメイク）。
 
-■ 🔴 2026-10-12（⑤b-1）：20本目（日本航空123便のリメイク）の中身を空にした＝git の `f0095bd`（`git show f0095bd:tools/cuts/cb.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep21/make_plan21.py` で
-  映像方針の一覧 `ref/ep21/eizou_build/list21.tsv`（了承②ずみ・E 0）と台本 第2版 §4 の出典から機械で組んだ（手で写していない）。
+■ 🔴 2026-10-14（⑤b-1）：21本目（9.11 米国同時多発テロのリメイク）の中身を空にした＝git の `35fab37`（`git show 35fab37:tools/cuts/cb.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep22/make_plan22.py` で
+  映像方針の一覧 `ref/ep22/eizou_build/list22.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典から
+  機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット（台本の画は元の予定）。
@@ -14,193 +15,63 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'cb01': dict(kind='写真',
-               plan='W593｜区間 26.0〜34.0秒｜倍率 1.01（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜副題：当日の夜、ホワイトハウスでの演説｜動き：映像｜権利：A（WHCA の職務・NARA 6171390・use=Unrestricted）｜出典の行：Courtesy George W. Bush Presidential Library（NARA 6171390）｜注：大統領だけ・音は使わない｜台本の画：実写 当日の夜の演説（NARA 6171390・WHCA・A・720×486＝全画面・大統領だけ＝副題「当日の夜、ホワイトハウスでの演説」）',
-               src='委員会報告 p326（`At 8:30 that evening, President Bush addressed the nation from the White House`）'),
+    'cb01': dict(kind='図解',
+               plan='🔧 G06｜注：🔧 実写→衛星写真の地図（NTSB 図9 は地図会社の透かしの見込み＝使わない・了承②）｜新しい画（映像方針）：図 地図 衛星写真 G06（セントジョンズ港の寄り）＋タイタンと2つのコンテナを置いた屋外の駐車場に印（NTSB 図9 の形を当てる）・副題「現在の衛星写真」｜台本の画（🔧映像方針で替えた＝元の予定）：実写 NTSB 図9 港の基地の屋外の駐車場に置かれたタイタンと台（MIR p.36 の図・撮影は基地の会社＝第三者＝額装・改変なし・サムネに使わない＝副題「屋外に置かれたタイタン（2022年の秋から冬）」）',
+               src='TSB §1.22（`OceanGate opted to keep the Titan and the LARS in St. John’s because OceanGate did not have enough money to transport them back to Everett.`）・NTSB p.36（`It was left in a parking lot, outside, uncovered (see figure 9).`）'),
     'cb02': dict(kind='図解',
-               plan='台本の画：図 模式 全米の地図（9月13日・空港の点が戻り始める）',
-               src='委員会報告 p327（`On the morning of September 13, the national airspace reopened for use by airports that met newly improvised security standards`）・p556（`effective 11:00 A.M. on September 13, 2001`）'),
-    'cb03': dict(kind='写真',
-               plan='🔧 DOD912｜副題：9月12日のペンタゴン（国防長官と現場を回る大統領）｜動き：左へ流す｜権利：A（国防総省の職務）｜出典の行：米国防総省｜注：🔧 WHTV 600（30分の未編集テープ）→ 国防総省の写真｜台本の画（🔧映像方針で替えた＝元の予定）：実写 WHTV 600 ペンタゴンを訪れる大統領（9月12日・WHCA・A・SD＝全画面＝副題「9月12日のペンタゴン」）',
-               src='materials.md §1-2（WHTV 600＝9/12 のペンタゴン視察・未編集 30:29＝目録の説明。中身の秒は映像方針で）・委員会報告 p559 注61（`On the evening of September 12, the President was at the Pentagon`）'),
-    'cb04': dict(kind='写真',
-               plan='🔧 FEMA3905｜副題：9月14日の世界貿易センターの跡（救助の人たちに話す大統領）｜動き：ゆっくり寄る｜権利：A（米陸軍・FEMA の職務）｜出典の行：FEMA（SFC Thomas R. Roberts）｜注：🔧 WHTV 609 → FEMA の写真。消防士と作業員＝捜索の任務｜台本の画（🔧映像方針で替えた＝元の予定）：実写 WHTV 609 世界貿易センターの跡を訪れる大統領（9月14日・WHCA・A・消防と救助の人の顔＝職務・全画面＝副題「9月14日の世界貿易センターの跡」）',
-               src='materials.md §1-2（WHTV 609・610／NARA 6171391＝9/14 の大統領と消防・警察・救助＝目録の説明。中身の秒は映像方針で）'),
+               plan='台本の画：図 再現 覆いの見積もり（基地からのメール・会社の返事なし）',
+               src='USCG p.237〈229〉（`they had not received approval to proceed, so the tarp was not purchased.`）・NTSB p.35（`OceanGate shipped the Titan and LARS to Everett, where they were stowed indoors at an OceanGate facility during the winter season.`）'),
+    'cb03': dict(kind='図解',
+               plan='台本の画：図 帯 屋外の期間（2022年7月26日〜2023年2月6日＝195日）',
+               src='USCG p.236〈228〉（`On July 26, 2022, the TITAN, the LARS, and associated equipment were demobilized at the A Harvey Marine Base in St. John’s, Canada.`）・USCG p.238〈230〉（`unprotected from the elements until February 6, 2023.`）'),
+    'cb04': dict(kind='図解',
+               plan='🔧 注：🔧 §0-3（TSB は「°」だけ＝摂氏は推測）｜新しい画（映像方針）：図 棒 セントジョンズの冬の気温（12月〜2月・最高気温の平均 −0.5°・最低気温の平均 −5.5°＝カナダの調べの書き方のまま「°」＝℃ と書かない）｜台本の画（🔧映像方針で替えた＝元の予定）：図 棒 セントジョンズの冬の気温（2022年12月〜2023年2月の最高気温の平均 −0.5℃・最低気温の平均 −5.5℃＝カナダの調べの値）',
+               src='TSB §1.22（`The average high temperature in St. John’s between December 2022 and February 2023 was -0.5° and the average low was -5.5°.`）・§1.22（`experiences snow, strong winds, freezing rain, and hail.`）'),
     'cb05': dict(kind='図解',
-               plan='台本の画：図 模式 年表（2001年11月の法律の印）',
-               src='委員会報告 p391（`In November 2001, Congress passed and the President signed the Aviation and Transportation Security Act. This act created the Transportation Security Administration (TSA)`）・法律（`November 19, 2001`）'),
-    'cb06': dict(kind='フリー素材',
-               plan='TSA20｜副題：イメージ（2020年の空港のターミナル）｜動き：右へ流す｜権利：F（CC BY 2.0）｜出典の行：Tony Webster（CC BY 2.0）｜注：20%に数えない。⑤b-7：手前の列の客（顔 30〜40px）は束の段階で切り落とした（中景は顔 約8〜11px）。試し焼き 38321787179 で検査の機械が字幕の帯の下に隠れた＝寄り 1.2・下寄せ・副題「保安検査場」に｜台本の画：イメージ 現在の空港の保安検査（後年・フリー素材＝副題「イメージ（現在の空港）」）',
-               src='法律（`the screening shall take place before boarding and shall be carried out by a Federal Government employee`・`except as otherwise provided in section 44919 or 44920`）・委員会報告 p2（`under a contract with American Airlines`）・p3（`had contracted out the work`）'),
-    'cb07': dict(kind='図解',
-               plan='台本の画：図 模式 年表（2001年11月の法律から1年の帯）',
-               src='法律（`Not later than 1 year after the date of enactment of this Act, the Under Secretary of Transportation for Security shall deploy at all airports in the United States where screening is required`）'),
-    'cb08': dict(kind='フリー素材',
-               plan='DOOR15｜副題：イメージ（2015年の旅客機の操縦室の扉）｜動き：下へ流す｜権利：F（CC BY 2.0 de）｜出典の行：Mattes（CC BY 2.0 de）｜注：20%に数えない・縦長｜台本の画：イメージ 現在の旅客機の操縦室の扉（後年・フリー素材＝副題「イメージ」）',
-               src='法律（`requiring the strengthening of the flight deck door and locks`・`to ensure that the door cannot be forced open from the passenger compartment`）'),
+               plan='台本の画：図 模式 水が入って凍る（船体のすき間の水が氷になってふくらむ・溶けて縮む・くり返す）',
+               src='NTSB p.60（`If water had penetrated any part of the pressure vessel and frozen, the expansion that occurs due to the phase change to ice could have caused additional damage.`）・TSB §2.1.3（`The investigation could not conclusively quantify the extent of damage, if any, from these other sources`）'),
+    'cb06': dict(kind='図解',
+               plan='台本の画：図 再現 米沿岸警備隊の主たる要因の8つ目（英字＋訳は字幕）',
+               src='USCG p.328〈320〉（`compromised the TITAN’s hull integrity.`）・USCG p.7〈vii〉（`OceanGate’s failure to conduct preventative maintenance on the TITAN’s hull or protect it from the elements during the extended offseason layup period`）'),
+    'cb07': dict(kind='写真',
+               plan='M109｜見せ方：全面｜副題：潜水艇を載せる台（事故の後に撮影）｜動き：左へ｜権利：A（MBI が撮影）｜出典の行：米沿岸警備隊 海難調査委員会の報告書 図109｜注：c305 の図5 と同じ場面の別の写真＝呼び方をそろえる（台）｜台本の画：実写 MBI 図109 岸壁の台（LARS）と白い浮き（USCG 報告 p.142・2023-06-25 撮影・c305 の図5 と同じ場面の別の写真・A＝副題「潜水艇を載せる台（事故の後に撮影）」）',
+               src='USCG p.238〈230〉（`what we really wanted to do was bring the sub back, at least, to Everett and pull the insert and look at`）'),
+    'cb08': dict(kind='図解',
+               plan='🔧 注：🔧 再現→模式（§0-3）｜新しい画（映像方針）：図 模式 2023年の組織の図（技術部長の席＝空の点線の箱に「未定（TBD）」）＝c207 と同じ形｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 2023年の計画書の人の欄（技術部長＝「TBD」）',
+               src='USCG p.246〈238〉（`OceanGate’s Director of Engineering position for the expedition was listed as To Be Determined (TBD).`）・TSB §1.23.1（`there was no one formally in the position of director of engineering for the remainder of the 2023 season.`）'),
     'cb09': dict(kind='図解',
-               plan='台本の画：図 模式 操縦室の扉（当時＝閉めて鍵の決まり・守られないこともあった→強い扉）',
-               src='法律（`requiring that such flight deck doors remain locked while any such aircraft is in flight`）・委員会報告 p85（`required air crews to keep the cockpit door closed and locked in flight`・`This requirement was not always observed or vigorously enforced`）'),
+               plan='🔧 G02｜注：🔧 自作の地図→衛星写真（了承②）｜新しい画（映像方針）：図 地図 衛星写真 G02＋母船の後ろに台ごと引く線（水色の線の後ろに台の印）｜台本の画（🔧映像方針で替えた＝元の予定）：図 地図 セントジョンズから現場まで（母船の後ろに台ごと引く線）',
+               src='TSB §1.20.2（`because the Polar Prince did not have equipment to lift the Titan and the LARS on and off the deck.`）・USCG p.246〈238〉（`the LARS and TITAN had to be towed behind the POLAR PRINCE for the entirety of each 2023 TITANIC mission.`）'),
     'cb10': dict(kind='図解',
-               plan='台本の画：図 模式 同じ',
-               src='委員会報告 p85（`even a hardened cockpit door would have made little difference in a hijacking`）'),
-    'cb11': dict(kind='図解',
-               plan='台本の画：図 模式 年表（2002年11月の法律・国土安全保障省の印）',
-               src='委員会報告 p391（`which is now part of the Homeland Security Department`・`In November 2002, both the Homeland Security Act and the Maritime Transportation Security Act followed`）'),
-    'cb12': dict(kind='図解',
-               plan='台本の画：図 模式 年表（2002年11月 委員会・2004年7月 報告）',
-               src='委員会報告 p.xv（`the Congress and the President created the National Commission on Terrorist Attacks Upon the United States`・`we held 19 days of hearings`）'),
+               plan='台本の画：図 棒 引かれていた時間（約950時間＝カナダの調べ）と道のり（2,900海里あまり＝約5,400km＝米沿岸警備隊）',
+               src='TSB §1.20.2.2（`towed by or tethered to, via a towline, the Polar Prince in the North Atlantic for approximately 950 hours in the 2023 season.`）・USCG p.294〈286〉（`towed behind the POLAR PRINCE for a total distance of more than 2,900 NM.`）'),
+    'cb11': dict(kind='写真',
+               plan='🔧 N10｜見せ方：額装（第三者）｜副題：傾いた台（2023年5月20日と27日）｜動き：額ごと右へ｜権利：第三者（個人の撮影・米運輸安全委員会の報告書の図）｜出典の行：（撮影者＝src/credits_private.tsv）／米運輸安全委員会の報告書 図10｜注：🔧 cb12 から移した（NTSB 図10 の凡例の日付＝5月20日・27日＝語りの5月24日の横に置かない）。縦長2枚を1つの額に｜台本の画（🔧映像方針で替えた＝元の予定）：実写 MBI 図112 台の注水弁（黄の丸＝MBI・USCG 報告 p.144・A＝副題「台の注水弁（事故の後に撮影）」）',
+               src='TSB §1.20.2.2（`were subjected to considerably higher accelerations than those recommended by DNV`）・§1.20.2.2（`The Titan was also towed through significant wave heights of up to 3.35 m on the LARS`）'),
+    'cb12': dict(kind='写真',
+               plan="🔧 M112｜見せ方：額装（報告書の図）｜副題：台の浮き沈みを決める弁（事故の後に撮影）｜動き：額ごと引く｜権利：A（MBI が撮影）｜出典の行：米沿岸警備隊 海難調査委員会の報告書 図112｜注：🔧 cb11 から移した（語り「半ば沈んだ」＝台の浮き沈みの弁）・黄の丸は MBI｜台本の画（🔧映像方針で替えた＝元の予定）：実写 NTSB 図10 傾いた台（撮影は個人＝第三者＝額装・改変なし・④' と映像方針で使うか確かめる＝副題「傾いた台（2023年5月20日と27日）」＝NTSB 図10 の凡例の日付・5月24日に半ば沈んだ場面ではない＝語りの5月24日と並べない（引かれて揺れた cb11 へ移す案））",
+               src='TSB §1.21.1（`On the morning of 24 May, while en route to the wreck site, the LARS and the Titan partially submerged while under tow.`）・§1.21.1（`The Titan and the LARS partially submerged again on the return to St. John’s.`）'),
     'cb13': dict(kind='図解',
-               plan='台本の画：図 模式 委員会の勧告の箱（乗ってはいけない人の名簿・爆発物の検査）',
-               src='委員会報告 p393（`Improved use of "no-fly" and "automatic selectee" lists should not be delayed`）'),
+               plan='台本の画：図 帯 3つの見方（引かれたことの影響＝米沿岸警備隊「さらに弱った可能性が高い」／米運輸安全委「影響は分からない」／カナダ「引いただけでは原因でない・すでにあった傷を広げたかもしれない」）',
+               src='USCG p.295〈287〉（`subjected the TITAN to repeated impact damage that further weakened its structural integrity of its hull.`）・NTSB p.60（`their actual effects are unknown.`）・TSB §2.1.3（`towing the Titan and submerging it while under tow may have exacerbated existing damage.`）'),
     'cb14': dict(kind='図解',
-               plan='台本の画：図 模式 同じ箱（爆発物の検査に印）',
-               src='委員会報告 p393（`The TSA and the Congress must give priority attention to improving the ability of screening checkpoints to detect explosives on passengers`）'),
+               plan='🔧 注：🔧 再現→棒（§0-3）｜新しい画（映像方針）：図 棒 2023年の人が乗った潜航3回の深さ（10m の短い棒3本）と、タイタニックの深さ約3,800m の破線｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 TSB 付録B の2023年の4行（10・10・10・3346）',
+               src='TSB §1.21.4（`The dive was aborted at a depth of 10 m. The Titan did not disconnect from the LARS on this dive.`）・NTSB p.14（`None of the dives exceeded 33 feet (10 meters) depth.`）・USCG p.256〈248〉（`10 m dives were dives which did not leave the LARS platform.`）'),
     'cb15': dict(kind='写真',
-               plan='🔧 FEMA3894｜副題：9月14日の世界貿易センターの跡｜動き：上へ流す｜権利：A（FEMA の職務）｜出典の行：FEMA（Andrea Booher）｜注：🔧 WHTV 610 → FEMA の写真（人は小さい）｜台本の画（🔧映像方針で替えた＝元の予定）：実写 WHTV 610 世界貿易センターの跡（9月14日・WHCA・NARA 6171391・A・消防と救助の人の顔＝職務・全画面＝副題「9月14日の世界貿易センターの跡」）',
-               src='—'),
+               plan='M115｜見せ方：全面｜副題：台を浮かせる空気の装置（事故の後に撮影）｜動き：上へ｜権利：A（MBI が撮影）｜出典の行：米沿岸警備隊 海難調査委員会の報告書 図115｜台本の画：実写 MBI 図115 台を浮かせる空気の装置（黄と赤の浮き袋・USCG 報告 p.145・A＝副題「台を浮かせる空気の装置（事故の後に撮影）」）',
+               src='USCG p.295〈287〉（`repeatedly slammed against the LARS platform for approximately 45-minutes by passing ocean swells`）・p.295〈287〉（`There is no evidence that OceanGate conducted a post-incident hull inspection or incident report`）'),
     'cb16': dict(kind='図解',
-               plan='台本の画：図 模式 2つの調べの箱（委員会＝空の側／NIST＝建物の側）',
-               src='NIST（`Final Report on the Collapse of the World Trade Center Towers`）'),
-    'cb17': dict(kind='写真',
-               plan='🔧 PENT23｜副題：2023年のペンタゴン（空撮）｜動き：ゆっくり引く｜権利：A（国防総省の職務）｜出典の行：米国防総省｜注：🔧 ✅ 了承②（2026-10-12）＝2025年の中庭（無人機の展示が画面の大半）から替えた・語りの年も 2023年に（decide21.py R2-026 → make21.py）｜台本の画（🔧映像方針で替えた＝元の予定）：実写 pentagon_court_pre（ペンタゴンの中庭・2025年7月・A・全画面・ゆっくり寄る＝副題「ペンタゴンの中庭（2025年）」。中庭に無人機の展示が写る＝映像方針で原寸を見て、締めに合わなければ別の点）',
-               src='—'),
-    'cb18': dict(kind='写真',
-               plan='MEM24B｜副題：現在の93便の追悼の場（2024年の空撮）｜動き：ゆっくり寄る｜権利：C（CC0）｜出典の行：Designism（CC0）｜注：CC0｜台本の画：実写 93便の追悼の場（別の点・後年・全画面＝副題「現在の93便の追悼の場」）',
-               src='国立公園局（`Flight 93 National Memorial`）'),
+               plan='🔧 注：🔧 再現→帯（§0-3）｜新しい画（映像方針）：図 帯 監視装置の記録（2022年＝記録あり＝青の帯／2023年＝記録なし＝灰の空白）｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 監視装置の記録の有無（2022年＝あり／2023年＝なし）',
+               src='USCG p.139〈131〉（`No real-time monitoring data was available to the MBI from Expedition 2023 (Dives 84-88).`）・TSB §1.10.9（`There was no data available for the 2023 season.`）'),
+    'cb17': dict(kind='図解',
+               plan='🔧 注：🔧 再現→模式（§0-3）｜新しい画（映像方針）：図 模式 危険度の点数の目盛り（この日の35＝黄の点・48の線＝「ストライク」・3つで中止の札）｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 危険度の点数（事故の回＝35・「48を超えるとストライク」の決まり＝TSB 図16 は使わず数だけ）',
+               src='TSB §1.17.12.1（`The mission director checklist specified that a risk index of greater than 48 was considered to be a strike. The risk assessment for the occurrence dive (Figure 16) had a risk index of 35.`）・USCG p.78〈70〉（`If there was a total of three or more “strikes” encountered during a dive evolution, the Mission Director was required to cancel the day’s dive operation.`）'),
+    'cb18': dict(kind='図解',
+               plan='台本の画：図 再現 NTSB の所見2（英字＋訳は字幕）',
+               src='NTSB p.73（`After dive 82, the Titan sustained additional damage—of unknown origin—that further deteriorated and weakened the pressure vessel to a point where it could not survive a dive to the depth of the Titanic.`）'),
     'cb19': dict(kind='図解',
-               plan='台本の画：図 模式 時間の帯（あの朝の4機）',
-               src='—'),
+               plan='台本の画：図 帯 2023年6月18日（この年初めて台を離れて深く潜る潜航）',
+               src='USCG p.295〈287〉（`Dive 88 was the first dive to leave the LARS platform for the TITANIC Survey Expedition 2023`）・NTSB p.16（`It was the first dive of the 2023 expedition to descend below 33 feet (10 meters).`）'),
 }
 
 SPEC = {}
-
-# ══════════════════════════════════════════════════════════
-#  🆕 ⑤b-6（2026-10-13）：図解 第10章（11カット）
-# ══════════════════════════════════════════════════════════
-#   🔴 章の札「その後の空」と4字以上同じ並びを見出し・副題に入れない（門番 dup）。人は描かない。
-#   年表 AX_AFTER（2001年1月〜2004年12月）＝cb05・cb07・cb11・cb12（ca20 から続く）。「この朝」は左へ振る（右の法律の札と同じ段に並べる）
-_ax = ss.ax
-_YN = "年月は記録の値"
-_DR = "扉は模式（決まりは法律と委員会報告）"
-SPEC.update({
-    # cb02（2行）＝全米の地図。止めた空港（輪）→ 9月13日 午前11時（p556）→ 2行目で基準を満たした空港から開く（p327）
-    "cb02": dict(
-        t="空が開く", s="新しい保安の基準と空港",
-        fig=("m21", dict(view="us", start=dict(air="on", stop="on"),
-                         steps=[dict(tag=dict(t="9月13日 午前11時", at="top")),
-                                dict(state=dict(reopen="on"), tag=dict(t="基準を満たした空港", at="top2"))],   # ⚠️ geom_gap：「…空港から」は右の端がミネアポリスの輪に 4.4px
-                         rel=[dict(t="9月13日 午前11時", src="委員会報告 p556")],
-                         note="空港の点と、開いた空港は模式（どの空港が先かは描かない）", src=ss.src(["委員会報告 p327", "委員会報告 p556"]))),
-    ),
-    # cb05（2行）＝年表。2001年11月の法律（p391・法律）→ 2行目で運輸保安庁ができる
-    "cb05": dict(
-        t="法律と役所", s="法律でできた国の役所",
-        fig=("axis", dict(ss.AX_AFTER, past=[_ax("day911", anchor="end")], start=dict(cur="2001-09-11"),
-                          steps=[dict(add=_ax("law01"), cur="2001-11-19"),
-                                 dict(add=dict(k="chips", at="2001-11-19", chips=["運輸保安庁（TSA）ができる"], rec="法律 p1"))],
-                          note=_YN, src=ss.src(["法律 p1", "委員会報告 p391"]))),
-    ),
-    # cb07（2行）＝法律から1年の帯（期限＝法律の日から1年）→ 2行目（字幕だけ）
-    "cb07": dict(
-        t="1年の期限", s="国の検査員を置く期限",
-        fig=("axis", dict(ss.AX_AFTER, past=[_ax("day911", anchor="end"), _ax("law01")], start=dict(cur="2001-11-19"),
-                          steps=[dict(add=_ax("law01y"), cur="2002-11-19"), dict()],
-                          note=_YN, src=ss.src(["法律 p1"]))),
-    ),
-    # cb09（2行）＝操縦室の扉。飛ぶあいだは鍵（法律）→ 2行目で事件の前も同じ決まり・守られないことも（p85）
-    "cb09": dict(
-        t="鍵の決まり", s="飛行中の扉の決まり",
-        fig=("m21", dict(view="door", steps=[dict(state=dict(lock="on"), tag=dict(t="飛ぶあいだは鍵をかけたまま", at="rule")),
-                                             dict(state=dict(loose="on"), tag=dict(t="事件の前：守られないことも", at="loose"))],
-                         note=_DR, src=ss.src(["法律 p1", "委員会報告 p85"]))),
-    ),
-    # cb10（3行）＝問い（丈夫な扉）→ 2行目で「要求に従う」＝扉が開く → 3行目で委員会の見方（p85）
-    "cb10": dict(
-        t="扉の強さ", s="従うやり方が続くなら",
-        fig=("m21", dict(view="door", start=dict(lock="on"),
-                         steps=[dict(state=dict(vault="on"), tag=dict(t="丈夫な扉", at="vault")),
-                                dict(state=dict(lock="open", door="open", comply="on")),
-                                dict(tag=dict(t="違いはほとんど無い", d="委員会の見方", at="loose"))],
-                         note=_DR, src=ss.src(["委員会報告 p85"]))),
-    ),
-    # cb11（2行）＝年表。2002年11月の国土安全保障省の法律（p391）→ 2行目で運輸保安庁もその一部に
-    "cb11": dict(
-        t="新しい省", s="運輸保安庁の行き先",
-        fig=("axis", dict(ss.AX_AFTER, past=[_ax("day911", anchor="end"), _ax("law01"), _ax("law01y", t="")], start=dict(cur="2001-11-19"),
-                          steps=[dict(add=_ax("dhs02"), cur="2002-11"),
-                                 dict(add=dict(k="chips", at="2002-11", chips=["運輸保安庁もその一部に"], rec="委員会報告 p391"))],
-                          note=_YN, src=ss.src(["委員会報告 p391"]))),
-    ),
-    # cb12（3行）＝年表。2002年11月 委員会（序文）→ 2004年7月 報告書（govinfo）→ 3行目で「この動画の主な資料」
-    "cb12": dict(
-        t="調べた委員会", s="委員会の設置と報告書",
-        fig=("axis", dict(ss.AX_AFTER, past=[_ax("day911", anchor="end"), _ax("law01"), _ax("law01y", t=""), _ax("dhs02")],
-                          start=dict(cur="2002-11"),
-                          steps=[dict(add=_ax("com02"), cur="2002-11-27"), dict(add=_ax("rep04"), cur="2004-07-22"),
-                                 dict(add=dict(k="chips", at="2004-07-22", chips=["この動画の主な資料"], rec="govinfo p1"))],
-                          note=_YN, src=ss.src(["委員会報告の序文 p15", "govinfo p1"]))),
-    ),
-    # cb13（2行）＝勧告の箱。前置き → 2行目で名簿の勧告（p393）
-    "cb13": dict(
-        t="報告書の勧告", s="名簿の使い方と爆発物の検査",
-        fig=("m21", dict(view="recom", steps=[dict(), dict(state=dict(c1="on"))], note="箱の並びは模式（勧告は委員会報告の記録）",
-                         src=ss.src(["委員会報告 p393"]))),
-    ),
-    # cb14（2行）＝爆発物の勧告（p393）→ 2行目で「優先して」
-    "cb14": dict(
-        t="爆発物", s="乗客の身の回りの検査",
-        fig=("m21", dict(view="recom", start=dict(c1="on"),
-                         steps=[dict(state=dict(c2="on")), dict(state=dict(hl2="on"), tag=dict(t="優先して", at="under2"))],
-                         note="箱の並びは模式（勧告は委員会報告の記録）", src=ss.src(["委員会報告 p393"]))),
-    ),
-    # cb16（2行）＝2つの調べ。空の側に印（この動画で追った側）→ 2行目で何を知り、何を知らなかったか
-    "cb16": dict(
-        t="2つの調べ", s="管制と軍の記録と建物の調べ",
-        fig=("m21", dict(view="two", steps=[dict(state=dict(hl="on"), tag=dict(t="この動画で追った側", at="top")),
-                                            dict(state=dict(k="on"))],
-                         note="箱は模式", src=ss.src(["NIST p7001", "委員会報告 p1"]))),
-    ),
-    # cb19（2行）＝その朝の4機（衝突と墜落）→ 2行目（字幕だけ）
-    "cb19": dict(
-        t="あの朝の4機", s="衝突と墜落の時刻",
-        fig=("axis", dict(ss.AX_ALL, steps=[dict(add=[_ax("hit11"), _ax("hit175"), _ax("hit77"), _ax("crash93")], cur="10:03:11"), dict()],
-                          note="時刻は委員会報告の記録（資料で割れる時刻＝委員会報告の値）",   # ⚠️ 門番 dup：副題の「衝突と墜落の時刻」を注に書かない
-                          src=ss.src(["委員会報告 p7", "委員会報告 p8", "委員会報告 p10", "委員会報告 p30"]))),
-    ),
-})
-
-# ── 🆕 ⑤b-7（2026-10-13）：写真・イメージ・映像（PLAN＝映像方針の一覧・了承②／書き方は c2.py の ⑤b-7 の注）──
-_D912 = P("dod_pentagon_visit_0912")
-_F05 = P("fema_3905_0914")
-_TSA = P("stock/tsa_checkpoint_2020")
-_DOOR = P("stock/cockpit_door_2015")
-_F94 = P("fema_3894_0914")
-_P23 = P("pentagon_aerial_2023")
-_M24B = P("flight93_memorial_aerial_2024_12")
-SPEC.update({
-    # cb01（7.1秒・章の頭）＝当日の夜の演説（NARA 6171390・WHCA・16:9＝全画面・大統領だけ・音は使わない）
-    "cb01": ss.vid("cb01", side="none", t="夜の演説", s="当日の夜、ホワイトハウスでの演説"),
-    # cb03（3.4秒）＝9月12日、国防長官と現場を回る大統領（国防総省）。右の2人から左へ短く流す（寄せ 0.9→0.5）
-    "cb03": dict(photo=_D912, **ss.mv(_D912, "l", span=(0.5, 0.9)), side="none", t="12日の訪問",
-                 s="9月12日のペンタゴン（国防長官と現場を回る大統領）"),
-    # cb04（3.4秒）＝9月14日、拡声器で救助の人たちに話す大統領（FEMA・消防士と作業員＝捜索の任務）。大統領へゆっくり寄る
-    "cb04": dict(photo=_F05, **ss.mv(_F05, "in", 0.45, 0.45, z=1.12), side="none", t="14日の訪問",
-                 s="9月14日の世界貿易センターの跡（救助の人たちに話す大統領）"),
-    # cb06（9.7秒）＝イメージ（2020年の空港の保安検査・CC BY 2.0）。🔴 手前の列の客（顔 30〜40px）は束の段階で切り落とした（2400×1000＝
-    #   qa_out/ep21_assets.py の CROP）・中景の人は顔 約8〜11px の遠景・青い制服は職員（公務）。
-    #   試し焼き 38321787179：寄り 1.0 では検査の機械（束の y 780〜1000）が字幕の帯の下に隠れ、天井と窓だけが見えた＝寄り 1.2・下寄せ（bias 1.0）で
-    #   検査場を帯の上へ（画面の顔は 10〜14px＝⑤c で原寸）・寄せ 0.3→0.8（約60px/秒）・副題「保安検査場」
-    #   🔧 ⑤c'（10-13・原寸）：寄り 1.2・下寄せでも検査の机は左下に小さく、終わりは出典の札の下＝画面の大半は窓と駐機場
-    #   ＝副題を写っているもの（ターミナル）に（記憶 feedback-subtitle-must-match-what-is-visible）
-    "cb06": dict(photo=_TSA, **ss.mv(_TSA, "r", fy=1.0, z=1.2, span=(0.3, 0.8)), side="none", t="国の検査員",
-                 s="イメージ（2020年の空港のターミナル）"),
-    # cb08（7.3秒）＝イメージ（2015年の旅客機の操縦室の扉・CC BY 2.0 de・縦長 1920×2560）。下へ流す（扉は中ほど＝寄せ 0.25→0.6）
-    "cb08": dict(photo=_DOOR, **ss.mv(_DOOR, "d", span=(0.25, 0.6)), side="none", t="扉の強化", s="イメージ（2015年の旅客機の操縦室の扉）"),
-    # cb15（8.4秒）＝9月14日の世界貿易センターの跡（FEMA・がれきと傾いた外壁・重機・人は小さい）・上へ流す
-    "cb15": dict(photo=_F94, **ss.mv(_F94, "u"), side="none", t="建物の調べ", s="9月14日の世界貿易センターの跡"),
-    # cb17（2.1秒）＝2023年5月のペンタゴンの空撮（国防総省）・ゆっくり引く
-    "cb17": dict(photo=_P23, **ss.mv(_P23, "out"), side="none", t="いまの姿", s="2023年のペンタゴン（空撮）"),
-    # cb18（7.2秒）＝93便の追悼の場の空撮（2024年12月・CC0）。輪の形の場へゆっくり寄る（横 0.45・縦 0.5）
-    "cb18": dict(photo=_M24B, **ss.mv(_M24B, "in", 0.45, 0.5), side="none", t="国立公園局", s="現在の93便の追悼の場（2024年の空撮）"),
-})

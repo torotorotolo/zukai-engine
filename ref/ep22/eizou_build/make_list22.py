@@ -183,7 +183,7 @@ def main():
                 continue
             x, y = float(m.group(2)), float(m.group(3))
             c['src_sec'] = y - x
-            c['window'] = '%.1f〜%.1f' % (x, y)
+            c['window'] = '%s〜%s' % (m.group(2), m.group(3))   # ⑤b-1：assign22 の数字のまま（小数1桁に丸めると等速の区間が崩れる）
             if shots.get(code):
                 hit = [sh for sh in shots[code] if sh[0] - 0.05 <= x and y <= sh[1] + 0.05]
                 if not hit:
