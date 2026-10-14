@@ -57,15 +57,11 @@ sys.stdout.reconfigure(encoding="utf-8")
 #    修理後の飛行〉）も**空にした**。selftest の見本 `tools/fixture_ep20.py`（GATES["check_qty"]・値は1つも変えていない＝git の `cbf40ec`）。
 #    21本目の棒を書くチャットで、値と頁を ref/ep21/src/ep21_pages.txt で当てて入れる（空のあいだ、量のカットは「記録に無い値」で止まる＝fail closed）。
 #    数字は画面に書かない（目盛りだけ）・行の名に日付の数字を書かない・「1万回程度」は推定＝行の名に「（推定）」の注は移した注の側にある＝fixture_ep20 の REC_QTY
+# 🔴 2026-10-14（22本目 タイタン号のリメイク ⑤b-1・§0b）：21本目の表（棒＝すぐ飛び立てる待機の基地の数〈冷戦のころの最大・事件の朝〉・乗っ取りから FAA が知るまでの分〈北棟の便・南棟の便〉）も
+#    **空にした**。selftest の見本 `tools/fixture_ep21.py`（GATES["check_qty"]・値は1つも変えていない＝git の `35fab37`）。22本目の棒を書くチャットで、値と頁を
+#    ref/ep22/src/ep22_pages.txt で当てて入れる（空のあいだ、量のカットは「記録に無い値」で止まる＝fail closed）。
+#    数字は画面に書かない（目盛りだけ）・行の名に日付の数字を書かない・行の名に便の数字を書かない〈「北棟の便」「南棟の便」と呼ぶ〉・印字の頁と PDF の頁の書き方の注は移した注の側にある＝fixture_ep21 の REC_QTY
 REC_QTY = {}          # (群の項目名＝画面の文字, 行の名＝画面の文字) → (値, 頁)
-# 🆕 2026-10-12（21本目 ⑤b-3）：c317 待機の基地＝委員会報告 p16「reduced from its Cold War high of 26」・p17「only seven alert sites left in the
-#    United States」（印字の頁・GPO の PDF＝印字＋18 の文字の層で当てた）
-REC_QTY.update({("待機の基地の数（か所）", "冷戦のころの最大"): (26, {"委員会報告 p16"}),
-                ("待機の基地の数（か所）", "事件の朝"): (7, {"委員会報告 p17"})})
-# 🆕 2026-10-12（21本目 ⑤b-4）：c516＝委員会報告 p455（第1章の注）「Flight 11 was a hijacking 11 minutes after it was taken over; Flight 175, 9 minutes after」
-#    行の名＝北棟の便（11便＝p7「crashed into the North Tower」）・南棟の便（175便＝p8「struck the South Tower」）
-REC_QTY.update({("乗っ取りから FAA が知るまで（分）", "北棟の便"): (11, {"委員会報告 p455"}),
-                ("乗っ取りから FAA が知るまで（分）", "南棟の便"): (9, {"委員会報告 p455"})})
 REC_GHOST = {}        # 「後」の行に「前」の長さを薄く残す棒
 REC_GRID = {}         # マス目（項目名 → n・ok・ng・頁）
 REC_PEOPLE = {}       # 人の形（14本目 c204〜c206 だけの例外＝§C-1 #59）
@@ -404,7 +400,65 @@ def _selftest_ep18():
     return ok
 
 
+def selftest_ep21():
+    """🆕 2026-10-14（22本目 ⑤b-1・§0b）：21本目の棒（REC_QTY と ss.QG／QB＝待機の基地・乗っ取りから FAA が知るまで）の検算＝**見本 `fixture_ep21`（21本目の表）を差し込んで**回す。
+    本番の表（この門番の REC_QTY）は22本目の空の器にした＝21本目の値は `fixture_ep21.GATES["check_qty"]`（15・16・18・19・20本目と同じ作り）。ss の側（QG・QB）と GEO も
+    21本目の見本になる＝落ちても終わっても `restore()` で本番の値へ戻す（try/finally）。本体は `_selftest_ep21`"""
+    import fixture_ep21
+    fixture_ep21.apply(sys.modules[__name__])
+    try:
+        return _selftest_ep21()
+    finally:
+        fixture_ep21.restore()
+
+
+def _selftest_ep21():
+    """21本目の検算の本体（`fixture_ep21` を差し込んだ中で呼ぶ）。陽性対照＝値の食い違い・頁違い・行の名が記録に無い・行の名に便の数字・語りの丸め・棒を1割長く描く（型を壊す）"""
+    import titan_fig as F
+    from cuts import ss
+    QG, qb = ss.QG, ss.qb
+    ok = True
+    alert = dict(view="bar", groups=[QG["alert"]], steps=[dict(add=[qb("alert_cw"), qb("alert_911")])], src="s")
+    faa = dict(view="bar", groups=[QG["faa"]], steps=[dict(add=[qb("faa11"), qb("faa175")])], src="s")
+
+    def run(name, cid, kw, want):
+        nonlocal ok
+        try:
+            bad, _ = judge(cid, kw, None)
+        except ValueError as e:
+            bad = [f"型が止まった：{e}"]
+        got = not bad
+        ok &= got == want
+        print(f"  {'OK' if got == want else '🔴 NG'} 21本目 {name}: {'合格' if got else '不合格'}（{'合格' if want else '不合格'}のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+
+    run("正しい待機の基地（c317＝冷戦のころの最大 26・事件の朝 7）", "c317", alert, True)
+    run("正しい乗っ取りから FAA が知るまで（c516＝北棟の便 11分・南棟の便 9分）", "c516", faa, True)
+    run("🔴 陽性対照：待機の基地の値が違う（27）", "c317",
+        dict(alert, steps=[dict(add=[qb("alert_cw", v=27), qb("alert_911")])]), False)
+    run("🔴 陽性対照：棒の頁が違う（委員会報告 p18）", "c317",
+        dict(alert, steps=[dict(add=[qb("alert_cw", rec="委員会報告 p18"), qb("alert_911")])]), False)
+    run("🔴 陽性対照：行の名が記録に無い（冷戦のころ）", "c317",
+        dict(alert, steps=[dict(add=[qb("alert_cw", t="冷戦のころ"), qb("alert_911")])]), False)
+    run("🔴 陽性対照：行の名に便の数字（11便）", "c516",
+        dict(faa, steps=[dict(add=[qb("faa11", t="11便"), qb("faa175")])]), False)
+    run("🔴 陽性対照：語りの丸め（11分を10分）で描く", "c516",
+        dict(faa, steps=[dict(add=[qb("faa11", v=10), qb("faa175")])]), False)
+    rect0 = F.rect
+    F.rect = lambda x, y, w, h, *a, **k: rect0(x, y, w * 1.1, h, *a, **k)
+    try:
+        bad, _ = judge("c317", alert, None)
+    finally:
+        F.rect = rect0
+    ok &= bool(bad)
+    print(f"  {'OK' if bad else '🔴 NG'} 🔴 21本目 陽性対照（型を壊す）：棒を1割長く描く（F.rect）: {'不合格' if bad else '合格'}（不合格のはず）"
+          + (f"  ← {bad[0]}" if bad else ""))
+    return ok
+
+
 def selftest():
+    # 🆕 2026-10-14（22本目 ⑤b-1）：先に21本目を検算する（見本 fixture_ep21 の表＝selftest_ep21 が差し込んで・終わったら戻す）
+    ok21 = selftest_ep21()
     # 🆕 2026-10-04（18本目 ⑤b-6a）：先に18本目を検算する（14本目の見本の差し込みより前）
     #    （2026-10-06〜：18本目も見本 fixture_ep18 の表＝selftest_ep18 が差し込んで・終わったら戻す）
     ok18 = selftest_ep18()
@@ -492,7 +546,7 @@ def selftest():
     broken("マス目の単位の札を消す（KIND_GRID）", Q, "KIND_GRID", "", "c515", grid)
     slots0 = Q.slots
     broken("並びから1人落とす（slots）", Q, "slots", lambda order, cols=Q.PCOLS: slots0(order, cols)[:-1], "c204", ppl)
-    ok = ok and ok18
+    ok = ok and ok18 and ok21
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 

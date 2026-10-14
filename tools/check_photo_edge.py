@@ -111,6 +111,26 @@ def check(spec=None, mount=None, use=None):
 
 
 def selftest():
+    """🔴 2026-10-14（22本目 ⑤b-1・§0b）：21本目の実物（c102＝LC-A17・ss.SLIDE_MOUNT）は本番から見本 `tools/fixture_ep21.py` へ移した
+    ＝見本の ss の表（SLIDE_MOUNT ほか）と21本目の章ファイル（apply_cuts＝git の `35fab37`）を差して回し、最後に restore（LIFO）"""
+    import fixture_ep21
+    import cuts.ss as ss
+    # 写真の権利の台帳（`ss._assets()`＝`ss.REF / "assets.json"`・起動時に1回読んで覚える）も21本目へ向ける＝見本の SPEC の写真の
+    # 額装の網（frame_only）が21本目の台帳で引ける。REF・EP は束の道＝見本の SS_NAMES に入れない名なので、ここで差して戻す
+    keep = (ss.REF, ss.EP)
+    ss.REF, ss.EP = fixture_ep21.REF, "ep21/"
+    ss._assets.cache_clear()
+    fixture_ep21.apply()
+    fixture_ep21.apply_cuts()
+    try:
+        return _selftest()
+    finally:
+        fixture_ep21.restore()
+        ss.REF, ss.EP = keep
+        ss._assets.cache_clear()
+
+
+def _selftest():
     import cuts
     import cuts.ss as ss
     ok = True
@@ -119,11 +139,13 @@ def selftest():
         nonlocal ok
         print(f"{'✓' if cond else '🔴'} {label}")
         ok &= bool(cond)
+    a17, a10 = "ep21/lc_a05_a17.jpg", "ep21/lc_a05_a10.jpg"     # 21本目の束の名（見本＝ss.P は今の回の名を作る）
     base = cuts.SPEC.get("c102")
-    chk("見本 c102 が SPEC にある（冒頭の LC-A17）", bool(base) and base.get("photo") == ss.P("lc_a05_a17"))
-    m = margins(ss.P("lc_a05_a17"))
+    chk("見本 c102 が SPEC にある（冒頭の LC-A17）", bool(base) and base.get("photo") == a17)
+    chk("見本の名簿 SLIDE_MOUNT に LC-A17 がある（fixture_ep21）", a17 in ss.SLIDE_MOUNT)
+    m = margins(a17)
     chk(f"物差し：LC-A17 の下の縁が 1.5% 以上（測った値 {m['b'] * 100:.1f}%＝⑤b-7 の borders.py は 2.5%）", m["b"] >= 0.015)
-    m10 = margins(ss.P("lc_a05_a10"))
+    m10 = margins(a10)
     chk(f"物差し：LC-A10 の下の暗いビル街を縁に数えない（測った値 {m10['b'] * 100:.1f}%＜{EDGE_CAP * 100:.0f}%・作った日の物差しは 38%）",
         0.01 <= m10["b"] < EDGE_CAP)
     pos = dict(base, cam="pan_r")

@@ -2514,59 +2514,20 @@ def _selftest_m20(ok):
 # ══════════════════════════════════════════════════════════
 #  🆕 21本目 ⑤b-3（2026-10-12）：模式図（m21＝`tools/mech21.py`・15の見え方）
 # ══════════════════════════════════════════════════════════
-# 🔴 記録の値は門番の側に持つ（§5b-88＝描く側の表 mech21.MAP_PTS・ROUTES・NE_BASES・GT・BL_LIMIT_IN・CH_ORDER・ES_MILES・PM_T を書き換えると鳴る）。
-#    頁＝委員会報告の印字の頁（GPO の PDF＝印字＋18 の文字の層で当てた）。引いた原文：
-#    p4「nonstop service from Boston to Los Angeles」（11便）・p7「scheduled to depart for Los Angeles」（175便＝p2 の「also bound for Los Angeles」と
-#    p7「departed Logan Airport」＝ボストン）・p8「from Washington Dulles for Los Angeles」・p10「took off from Newark … bound for San Francisco」・
-#    p17「NEADS, which is based in Rome, New York」「NEADS could call on two alert sites … Otis Air National Guard Base in Cape Cod, Massachusetts, and
-#    Langley Air Force Base in Hampton, Virginia」・p3「set off the alarms for both the first and second metal detectors and was then hand-wanded」・
-#    p84「knives with blades under 4 inches long」・p17〜18 の手順（管制官→上司→FAA の本部→国防総省の指揮所→国防長官の許し→NORAD の段→戦闘機）・
-#    p18「five miles directly behind the hijacked aircraft」（5マイル＝約8キロ＝台本 §9）・p18 の3つの前提。
-#    🔴 空港・基地・街の緯度経度は報告書の値ではない（一般の座標＝Wikidata と同じ桁）＝図の札に「模式」・ここでは描く側の表の写し違いを見る（±0.05度）。
-#    札に出してよい時刻（記録の時刻）＝p4 8:14・p5 8:19・p18 8:21・p19 8:24:38・p20 8:34・8:37:52・8:46・8:53
-#    🆕 ⑤b-4（第4〜6章）：札の時刻＝p7 8:42・8:46・8:47・p8 8:51・p21 8:51・p7 8:52・p22 8:53・8:55（about）・8:58・9:01・9:02・p23 9:03・p24 8:54・
-#    p25 8:56・9:05・9:25・9:32・p26 9:21・p27 9:24・9:30・9:34・p9 9:00・p10 9:05〜9:10・p29 9:42・9:46。地点＝ハーンドン（p14「Command Center,
-#    located in Herndon」）・ボルチモア（p27「north toward the Baltimore area」）・ホワイトハウス・ペンタゴン・レーガン空港（一般の座標）。
-#    形の記録＝p34「an unknown plane was 6 miles southwest of the White House」・p25「reemerged … at 9:05, east of its last known position」・
-#    p27「not headed north toward the Baltimore area as instructed, but east over the ocean」・p29「land at the nearest airport」・
-#    p20「military-controlled airspace off the Long Island coast」
-REC_M21 = dict(
-    pts=dict(bos=(42.3656, -71.0096), ewr=(40.6925, -74.1687), iad=(38.9531, -77.4565), lax=(33.9425, -118.4081),
-             sfo=(37.6189, -122.3750), rome=(43.2338, -75.4070), otis=(41.6584, -70.5214), langley=(37.0829, -76.3605),
-             nyc=(40.7128, -74.0060), dc=(38.9072, -77.0369), boston=(42.3601, -71.0589),
-             herndon=(38.9696, -77.3861), bal=(39.2904, -76.6122),
-             wh=(38.8977, -77.0365), pent=(38.8719, -77.0563), dca=(38.8512, -77.0402),
-             shk=(40.0514, -78.9044), cap=(38.8899, -77.0091), adw=(38.8108, -76.8669)),
-    unk_mi=6.0, unk_brg=(202.5, 247.5),
-    # 🆕 ⑤b-5：p30「United 93 crashed in Pennsylvania at 10:03:11, 125 miles from Washington, D.C.」（±10マイル＝街の点は一般の座標）・
-    #   p11「his 16 transcontinental flights」・p42 の流れ（副大統領→NORAD→NEADS→戦闘機）・p45 の3つ（locate・authorization・communicate）・
-    #   国立公園局「in the last nine rows of the plane」
-    shk_mi=125.0, acars=16, cmd=("副大統領", "NORAD", "NEADS", "戦闘機"), need=3, rear=9,
-    routes={("bos", "lax"), ("iad", "lax"), ("ewr", "sfo")},
-    flights=dict(bos={"11便", "175便"}, iad={"77便"}, ewr={"93便"}),
-    bases={"otis", "langley"}, neads="rome",
-    arches=2,
-    limit_in=4.0,
-    chain=("管制官", "上司", "FAA の本部", "国防総省の指揮所", "国防長官の許し", "NORAD", "戦闘機"),
-    escort=(5, 8),
-    premise=3,
-    clock={"8:14", "8:19", "8:21", "8:24:38", "8:34", "8:37:52", "8:46", "8:53",
-           "8:42", "8:47", "8:51", "8:52", "8:55", "8:58", "9:01", "9:02", "9:03", "8:54", "8:56", "9:05", "9:21", "9:24", "9:30",
-           "9:32", "9:34", "9:25", "9:00", "9:10", "9:42", "9:46",
-           # 🆕 ⑤b-5：p11 9:19・9:23・9:24・9:26・9:28・p29 9:41・9:49・p13 9:57・9:58:57・p14 10:01（about＝「ごろ」）・p30 10:07・p31 10:15・
-           #   p42 10:31・p44 10:45・p45 10:10
-           "9:19", "9:23", "9:24", "9:26", "9:28", "9:41", "9:49", "9:57", "9:58:57", "10:01", "10:07", "10:15", "10:31", "10:45",
-           "10:10"},
-    src="委員会報告",
-    # 🆕 ⑤b-6：序文（PDF 15頁＝p.xv）「Public Law 107-306, November 27, 2002」「more than 2.5 million pages of documents and interviewed more than
-    #   1,200 individuals in ten countries」・運輸省の監察総監の報告 CC-2006-085 p1「referred to the Department of Defense (DOD) and Department of
-    #   Transportation (DOT) Inspectors General」p3「the two current executives」・p456 の記録装置（11便と175便は見つからず・77便の音声は焼けて
-    #   読めない・93便の2つと77便の飛行の記録は読めた＝p12・NTSB 77便 図2）・p311「2,973」・記念館「2,977」
-    probe=dict(law="2002年11月", pages="250万", people="1,200", countries="10"),
-    igs=("国防総省の監察総監", "運輸省の監察総監"), ig_execs=2,
-    fdr={"11便": ("none", "none"), "175便": ("none", "none"), "77便": ("burn", "ok"), "93便": ("ok", "ok")},
-    toll=(2973, 2977), toll_when=("2004年7月", "記念館"),
-)
+# 🔴 2026-10-14（22本目 ⑤b-1・§0b）：21本目の記録 REC_M21 の全項目（空港・基地・街の緯度経度 pts〈ボストン・ニューアーク・ダレス・ロサンゼルス・サンフランシスコ・ローム・オーティス・
+#    ラングレー・ニューヨーク・首都・ハーンドン・ボルチモア・ホワイトハウス・ペンタゴン・レーガン・シャンクスビル・議事堂・アンドルーズ〉・正体不明の機の距離と方位・
+#    シャンクスビルと首都の距離・受け持つ便の数・許可の連絡の順・撃ち落とすのに要ること・後ろの列・4便の出発と行き先と便の名・待機の2か所と NEADS・鳴った探知機の門・
+#    4インチ・手順の段の順・間隔・前提の数・札に出してよい時刻・序文の調べの数・引き継いだ監察総監・記録装置の表・犠牲者の数と時点）は selftest の見本 `tools/fixture_ep21.py`
+#    （GATES["check_mech"]・値は1つも変えていない＝git の `35fab37`）へ移した＝空。selftest は見本の表だけ差し込む（`fixture_ep21.apply(gate, tables_only=True)`）。
+#    22本目で模式図 mech21 の型を使うときは、その回の記録の値をここに別に持つ（§5b-88＝描く側の表 mech21.MAP_PTS・ROUTES・NE_BASES・GT・BL_LIMIT_IN・CH_ORDER・ES_MILES・PM_T…を
+#    書き換えると鳴る）。頁の番号の書き方（委員会報告＝印字の頁〈GPO の PDF＝印字＋18〉・序文は PDF の頁）と引いた原文は移した注の側にある＝fixture_ep21 の REC_M21 の注。
+#    空のあいだ、m21 のカットは `judge_m21` が「記録の表が空」で止まる（fail closed＝KeyError にしない）。
+#    ⚠️ **本番に残したもの（見本に入れていない）＝`_M21_NEED`（「先に起きることが先」の筋の表）と `NUM_M21`（札の数と時刻を拾う正規表現）**。判断の理由：
+#       `_M21_NEED` は mech21 の見え方〈view〉と欄の名の約束（扉が開くのは鍵が外れてから・返信は届いてから・揺さぶりが止まるのは水平に戻ってから…）を並べた表で、
+#       記録の値（時刻・数・座標・頁の照合）を1つも持たない＝型の側の規則。20本目の `judge_m20` の ① 筋が本番のコードにそのまま残っているのと同じ扱い
+#       （筋は図の型の規則＝22本目も同じ見え方を使えば同じ約束が要る）。メッセージに入っている頁（p3・p13・p25 など）は理由の注で、照合には使っていない。
+#       値を持つ表になったら（例：筋の中に時刻や数を並べ始めたら）、その行は見本へ移す。22本目で見え方を足すときは、その見え方の筋をこの表に足す
+REC_M21 = {}
 # 筋（先に起きることが先）＝(見え方, 欄, 値, 前に要る欄, 前に要る値の集合, 言葉)
 _M21_NEED = (
     ("us", "routes", "on", "east", {"on"}, "4便の線は、出発の空港を見せてから"),
@@ -2651,8 +2612,8 @@ def judge_m21(f):
     g, view = m["geo"], m["view"]
     seq = [m["start"]] + list(m["states"])
     R = REC_M21
-    if not R:
-        return ["記録の表 REC_M21 が空"], 1
+    if not R:       # 🆕 22本目 ⑤b-1：記録の表が空のあいだは止める（KeyError で理由が見えなくならない＝fail closed。judge_m20 と同じ）
+        return ["記録の表 REC_M21 が空（22本目の値を入れるまで、m21 のカットは止まる）"], 1
     texts = list(m["tags"])
 
     def need(cond, msg):
@@ -2997,6 +2958,10 @@ def selftest():
     #    見本 fixture_ep20 の表だけ差し込む（ss・GEO は触らない＝14本目の見本を壊さない）。main() が restore で戻す（LIFO＝20→19→18→16→15→14）
     import fixture_ep20
     fixture_ep20.apply(sys.modules[__name__], tables_only=True)
+    # 🔴 2026-10-14（22本目 ⑤b-1）：下の21本目の模式図（m21）の検算 `_selftest_m21` は REC_M21 を使う＝本番の表は22本目の空の器なので、
+    #    見本 fixture_ep21 の表だけ差し込む（ss・GEO は触らない＝14本目の見本を壊さない）。main() が restore で戻す（LIFO＝21→20→19→18→16→15→14）
+    import fixture_ep21
+    fixture_ep21.apply(sys.modules[__name__], tables_only=True)
     N = "模式図：テスト"
     ok = True
     closing = [dict(state=dict(hook="closed", motor="run"), tag=dict(t="フックが回る")),
@@ -3326,6 +3291,8 @@ def main():
     import fixture_ep18
     import fixture_ep19
     import fixture_ep20
+    import fixture_ep21
+    fixture_ep21.restore()       # 🔴 22本目 ⑤b-1：selftest で足した21本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep20.restore()       # 🔴 21本目 ⑤b-1：selftest で足した20本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep19.restore()       # 🔴 20本目 ⑤b-1：selftest で足した19本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep18.restore()       # 🔴 19本目 ⑤b-1：selftest で足した18本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）

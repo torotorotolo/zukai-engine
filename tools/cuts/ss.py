@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-"""21本目（米国同時多発テロ〈9.11〉のリメイク・2001-09-11）の章ファイルが共通で使う小道具。
+"""22本目（タイタン号のリメイク）の章ファイルが共通で使う小道具。
 
+**21本目（米国同時多発テロ〈9.11〉のリメイク・2001-09-11）の中身は git の `35fab37`（この ss.py・門番・章ファイルの最後の版）にある**
+（`git show 35fab37:tools/cuts/ss.py`）。
 **20本目（日本航空123便のリメイク）の中身は git の `cbf40ec`（この ss.py と門番の最後の版）と `f0095bd`（章ファイルの最後の版）にある**
 （`git show cbf40ec:tools/cuts/ss.py`）。
 **19本目（サーフサイドのマンション崩壊のリメイク）の中身は git の `70c7e51`（ss.py と門番の最後の版）と `0dcaa9c`（章ファイルの最後の版）にある**
@@ -11,6 +13,18 @@
 12本目（キャッスル・ブラボー）は `3832147`、11本目（チャレンジャー号）は `61039d2`、10本目（三豊百貨店）は `46f11b3`、
 9本目（テネリフェ）は `e18b8f1`、8本目は `4c71bf0`、7本目は `ae30d49`。
 
+🔴 **⑤b-1（2026-10-14・22本目）で空にした**＝§0b（その2）。21本目の型の値（案C の出典の表 REC_DOCS〈委員会報告・図表・スタッフ声明・NTSB 11便／175便／77便／93便・
+CVR・NIST・運輸長官の証言・国立公園局・AP・法律・検視局・記念館・運輸省の監察総監の報告・RG237・NIST 1-6・委員会報告の序文・govinfo の20資料〉・割れる時刻 ILLU_SPLIT_TIMES
+〈8:46:40・9:03:11・9:37:46・10:03:11〉・軸の型〈AXIS_DOCS＝NIST の2つの巻の名・AX_MORN・AX_11・AX_HIST・AX_175・AX_93・AX_ORD・AX_ALL・AX_TESTI・AX_HIT1・AX_AFTER・
+AXI の項目〉・棒〈QG＝alert・faa／QB＝alert_cw・alert_911・faa11・faa175〉・原寸で見て字でないと決めた OCR の範囲 OCR_NOT_TEXT）は、門番の selftest の見本
+`tools/fixture_ep21.py` へ移した（値は1つも変えていない＝git の `35fab37` と同じ）。本番の ss は22本目の空の器（REF／EP＝ep22・REC_PAGES＝ep22_pages.txt＝まだ無い。
+その型を初めて使う ⑤b のチャットで作る）。型の道具（`tailv`・`vid`・`head`・`fb`・`ax`・`qb`・`pp`・`ct`・`ce`・`rud`・`cause`・`src`〈頁の無い書き方を止める拡張つき〉・`merge`・
+`phl`・`pf`・`pfk`・`fm`・`mv`・`MV_Z`・`MV_IN`・`check_frame_only`〈映像の欄 use を見る拡張つき〉・`check_card_mix` ほか）と、束ごとに取り直す定数 `PANEL_AR`（21本目の値
+1.02 のまま）は残した。
+⚠️ 写真の束の定数 `SLIDE_MOUNT`（スライドの台紙の縁がある写真の名簿＝21本目の束の名〈`P("lc_a05_a01")` ほか〉に結んだ定数）は**今の値のまま残した**（見本に入れていない・
+このチャットでは判断しない）。EP が ep22 になったので鍵は `ep22/…` の名に変わっている＝22本目の束のチャットで名簿を作り直す。それまで門番 check_photo_edge は
+「名簿にあるが ref/ に無い」で止まる（黙って21本目の名簿で測らない）。`NEEDS_MASK`・`PRIVATE_OUT`・`TRIM` の頁の切り口は21本目も空（`TRIM` の頁の切り口は `pages.json` から読む）。
+（以下は ⑤b-1・2026-10-12＝21本目のとき）
 🔴 **⑤b-1（2026-10-12・21本目）で空にした**＝§0b（その2）。20本目の型の値（案C の出典の表 REC_DOCS〈報告書・解説・解説はじめに・建議・勧告・FAA・産経・
 会見・検索〉・割れる時刻 ILLU_SPLIT_TIMES・札に出してよい時計の時刻 ILLU_CLOCK_OK・想定の札 ILLU_ASSUME／`_S3_NOTE`・壊れる物のカット ILLU_DESTROY_CUTS・
 軸の型〈AX_ALARM・AX_CVR・AX_SQ・AX_DAY20・AX_FIX78・AX_7Y・AX_NEWS・AXI の項目〉・棒〈QG＝pol・jda・cyc／QB＝pol12・pol13・jda12・jda13・cyc_need・
@@ -38,7 +52,8 @@ REC_PAGES＝ep20_pages.txt）。型の道具（`tailv`・`vid`・`head`・`fb`�
 並べ図・決め所の出どころの札）は、門番の selftest の見本 `tools/fixture_ep16.py` へ移した（値は1つも変えていない＝git の
 `b044b56` と同じ）。15本目の型の値は `tools/fixture_ep15.py`（2026-10-01 に移した・git の `c646174`）、14本目の型の値は
 `tools/fixture_ep14.py`（2026-09-30 に移した・git の `dc6ecf4`）。18本目の束は写真の束のチャットで作る。
-🆕 下の「素材の名前」「人が写る点の扱い」は **21本目の束のチャットで書き直す**（20本目の書きぶりは git の `cbf40ec`＝`git show cbf40ec:tools/cuts/ss.py`・
+🆕 下の「素材の名前」「人が写る点の扱い」は21本目の束の書きぶりのまま（git の `35fab37`）＝**22本目の束のチャットで書き直す**。
+（以下は 2026-10-12＝21本目のとき）下の「素材の名前」「人が写る点の扱い」は **21本目の束のチャットで書き直す**（20本目の書きぶりは git の `cbf40ec`＝`git show cbf40ec:tools/cuts/ss.py`・
 18本目は `70c7e51`・16本目は `b044b56`。20本目の束の扱いは `cbf40ec` の `qa_out/ep20_assets.py`・`tools/footage.py`）。
 
 ■ 素材の名前・■ 人が写る点の扱い（この回）
@@ -62,8 +77,8 @@ from functools import lru_cache
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parents[2]
-REF = HERE / "ref" / "ep21"
-EP = "ep21/"
+REF = HERE / "ref" / "ep22"
+EP = "ep22/"
 W, H = 1920, 1080
 
 # 画面の縦横比。これより縦長／横長の図は額装パネルに回す。
@@ -118,6 +133,9 @@ SCREEN_AR = W / H
 #          切って縦に流す」＝⑤b-7 で章ファイルに panel を書かず cam（tilt）を明記する（kind() はファイルの縦横比だけを見る）
 #       ⚠️ 映像のひかえ（fb_<cid>）は額装＝幅 1024（4:3）・全画面＝1920×1080（16:9 の WHTV 606・NARA 6171390）＝`qa_out/ep21_assets.py fb`
 #       ⚠️ WIDE_AR＝3.10 になる（いちばん横長は stock/n352aa_2012 の 1.778）
+#    🔴 2026-10-14（22本目 ⑤b-1）：下の値 1.02 は**21本目の束の値のまま**（§0b で空にする値ではなく、束ごとに取り直す定数＝数なので空の器が
+#       作れない。16→18本目のときの 1.10 と同じ扱い）。⑤b-7 で22本目の束（`python qa_out/ep22_assets.py panel` の並び）で取り直す。
+#       それまで WIDE_AR も21本目の値（3.10）から導かれる。見本 `tools/fixture_ep21.py` には入れていない（16・18・19・20本目の見本も入れていない）
 PANEL_AR = 1.02                  # これ未満＝縦長すぎ（上下が切れる）
 WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝3.10（21本目の値から）。これ超＝横長すぎ
 
@@ -463,20 +481,22 @@ NEEDS_MASK: dict[str, str] = {}
 # 🆕 2026-10-13（21本目 ⑤b-7）：**スライドの台紙の黒い縁がある写真**（名 → 何か）。全画面で流す・寄る窓が縁に入らないかを門番
 #    `tools/check_photo_edge.py` が測る（縁の幅は**絵から毎回測る**＝ここには書かない）。夜空など縁でない暗い所の写真は入れない。
 #    額装の写真は縁ごと見せる＝門番は見ない。⑤b-7 に束の全57点の四辺の暗い帯を測り（scratchpad `borders.py`）、構図の下見で絵を見て分けた
-SLIDE_MOUNT: dict[str, str] = {
-    **{P(f"lc_a05_{k}"): "議会図書館 LC-A05 のスライドの走査（四隅の丸い台紙）" for k in ("a01", "a03", "a05", "a06", "a09", "a10", "a17", "b20")},
-    P("loc_item210"): "議会図書館 item 210 のスライドの走査（左と下に台紙・右の暗がりは絵）",
-    P("logan_1973"): "EPA DOCUMERICA のスライドの走査（四隅の丸い台紙）",
-    P("logan_apron_1969"): "Korab のスライドの走査（四辺の暗い縁）",
-}
+#    🔴 2026-10-14（22本目 ⑤b-1）：この名簿は**21本目の束の名**（LC-A05・loc_item210・logan_1973・logan_apron_1969）に結んだ定数＝今の値のまま残した（見本 `tools/fixture_ep21.py` には
+#       入れていない）。EP が ep22 になったので鍵は `ep22/…` の名に変わっている＝`ref/` に無い名は門番 check_photo_edge が「名簿にあるが ref/ に無い」で止める。
+#       22本目の束のチャットで名簿を作り直す（回を替えるとき空にする場所＝§0b）
+#    🔴 2026-10-14（22本目 ⑤b-1・親の決め）：上の「今の値のまま残した」をやめ、**空にした**（§0b）。21本目の8＋3点は見本 `tools/fixture_ep21.py`
+#       の SLIDE_MOUNT（`ep21/` の名を文字で書いた・説明は1字も変えていない＝git の `35fab37`）。check_photo_edge の selftest は見本を差して
+#       21本目の c102（LC-A17）で回す。⚠️ 空のあいだ門番 check_photo_edge は「SLIDE_MOUNT が空」で止まる（fail closed）＝22本目の束の
+#       チャットで、台紙の縁がある写真があれば名簿を書く（無い回なら「無い」を名簿の注で言う形に門番を直す＝⑤b-2 の宿題）
+SLIDE_MOUNT: dict[str, str] = {}
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**原寸で見て字でないと決めた OCR の範囲**（OCR の読み置きのファイル名 → [((x0, y0, x1, y1)＝束の画素, 何か)]）。
 #    `check_slide.load_ocr` がこの中に真ん中のある行を外す（外した行は「文字行と見なさなかった」の表に理由つきで出る）。
 #    宣言が何の行にも当たらなければ止める（読み置きの取り直し・写真の差し替えで古くなった宣言を残さない）。§0b＝回を替えるとき空にする
-#    ⑤b-7：門番 edges（c421・cb18）・slide G-13（cb18）が鳴った行を原寸の2倍で見た（scratchpad `ocr_suspects.jpg`）＝窓の明かりの列と雪の上の木立
+#    🔴 2026-10-14（22本目 ⑤b-1・§0b）：21本目の2点（`wtc_far_1976.jpg` の左右の塔の壁面の窓の明かりの列・`flight93_memorial_aerial_2024_12.jpg` の
+#       追悼の場のまわりの雪の上の木立＝⑤b-7 に門番 edges〈c421・cb18〉・slide G-13〈cb18〉が鳴った行を原寸の2倍で見て決めた）は selftest の見本
+#       `tools/fixture_ep21.py` へ移した（値は1つも変えていない＝git の `35fab37`）。22本目で字でない範囲を決めたら、ここに足す
 OCR_NOT_TEXT: dict[str, list] = {
-    "wtc_far_1976.jpg": [((440, 800, 715, 1940), "左の塔の壁面の窓の明かりの列"), ((980, 800, 1260, 1940), "右の塔の壁面の窓の明かりの列")],
-    "flight93_memorial_aerial_2024_12.jpg": [((780, 700, 1850, 1780), "追悼の場のまわりの雪の上の木立")],
 }
 
 # 🔴 2026-09-29（14本目 ⑤b-7a）：**切り出し（`TRIM`）で外した私人の範囲**（元画像の割合 x0,y0,x1,y1・何か）。
@@ -623,42 +643,15 @@ def _clips():
 #    （空のあいだ、その型を使うカットは門番・型が止まる＝fail closed）。頁の番号の書き方・資料の名の決め方・守りの線の理由（20本目の例）は
 #    移した注の側にある＝fixture_ep20 の REC_DOCS の注。ILLU_CROWD_UNTIL・ILLU_ROLES・ILLU_SEC_OK・ILLU_COUNTS・ILLU_TOP_NOSCALE・ILLU_SUB_*・ILLU_BOOM_CUTS・
 #    ILLU_MIX_TODO は20本目も空のままだった表＝空の器で残す（見本の側も20本目の状態＝空として持つ）
-REC_PAGES = REF / "src" / "ep21_pages.txt"      # ④ の make_pages.py の出力（git の外＝手元だけ）。まだ無い＝その型を初めて使う ⑤b のチャットで作る
-# 🆕 2026-10-12（21本目 ⑤b-3）：21本目の資料の表（台本 第2版の出典の欄の書き方＝`v2_build/quotes21v2.py` の札の名）。
-#    頁の番号＝**通し番号**（1つの番号の並びに資料を並べる＝`ref/ep21/make_pages21.py` が同じ番号で `REC_PAGES` を書く）：
-#      委員会報告＝印字の頁そのまま（GPO の PDF＝印字＋18）・図表＝同じ報告書の p32〜33 の図（文字の層なし＝②が原寸で読んだ写し）・
-#      スタッフ声明 No.17＝1000＋PDF の頁・NTSB の飛行経路の調べ＝11便 2000＋／175便 3000＋／77便 4000＋／93便 5000＋（PDF の頁・スキャン）・
-#      93便の CVR の逐語（P200056T）＝6000＋・NIST NCSTAR 1＝7000＋（PDF の頁）・運輸長官の証言（写し）＝8001・ウェブの写し（頁なし）＝p1・
-#      RG237＝FAA のレーダーの再生の動画（頁なし＝p1）
-#    画面の出典の行＝`illu.rec_line`（印字＝「20頁」・pdf＝「PDF 3頁」・None＝名だけ）。⚠️ 台本の頁（「NTSB 11便」は頁なし）は SPEC で通し番号に直して書く
-REC_DOCS = {                                # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
-    "委員会報告": dict(range=(1, 567), name="9.11委員会報告書（2004年）", page="print", base=0),
-    "図表": dict(range=(32, 33), name="9.11委員会報告書（2004年）の図", page="print", base=0),
-    "スタッフ声明": dict(range=(1001, 1029), name="9.11委員会 スタッフ声明 第17号（2004年）", page="pdf", base=1000),
-    "NTSB 11便": dict(range=(2001, 2006), name="NTSB 11便の飛行経路の調べ（2002年）", page="pdf", base=2000),
-    "NTSB 175便": dict(range=(3001, 3007), name="NTSB 175便の飛行経路の調べ（2002年）", page="pdf", base=3000),
-    "NTSB 77便": dict(range=(4001, 4007), name="NTSB 77便の飛行経路の調べ（2002年）", page="pdf", base=4000),
-    "NTSB 93便": dict(range=(5001, 5007), name="NTSB 93便の飛行経路の調べ（2002年）", page="pdf", base=5000),
-    "CVR": dict(range=(6001, 6009), name="93便の操縦室の音声記録の逐語（裁判の証拠 P200056T）", page="pdf", base=6000),
-    "NIST": dict(range=(7001, 7302), name="NIST NCSTAR 1（2005年）", page="pdf", base=7000),
-    "運輸長官の証言": dict(range=(8001, 8001), name="運輸長官の証言（2003年5月23日・9.11委員会の公聴会）", page=None, base=0),
-    "国立公園局": dict(range=(1, 1), name="米国立公園局（93便の国立記念碑）", page=None, base=0),
-    "AP": dict(range=(1, 1), name="AP通信（2001年9月17日）", page=None, base=0),
-    "法律": dict(range=(1, 1), name="米国の法律 107-71（2001年）", page=None, base=0),
-    "検視局": dict(range=(1, 1), name="ニューヨーク市の検視局", page=None, base=0),
-    "記念館": dict(range=(1, 1), name="9.11記念館", page=None, base=0),
-    "運輸省の監察総監の報告": dict(range=(1, 1), name="米運輸省の監察総監の報告 CC-2006-085（2006年）", page=None, base=0),
-    "RG237": dict(range=(1, 1), name="米連邦航空局のレーダーの再生（米国立公文書館 RG237）", page=None, base=0),
-    # 🆕 2026-10-13（⑤b-6）：NIST NCSTAR 1-6（表6-1＝PDF 240頁・ca12 の 8:46:26）・委員会報告の序文（p.xv＝GPO の PDF 15頁＝ローマ数字の頁は
-    #   「p数字」で書けない＝PDF の頁で）・govinfo の書誌（報告書の刊行日 2004-07-22＝sources §1-1）
-    "NIST 1-6": dict(range=(9001, 9500), name="NIST NCSTAR 1-6（2005年）", page="pdf", base=9000),
-    "委員会報告の序文": dict(range=(13, 18), name="9.11委員会報告書（2004年）の序文", page="pdf", base=0),
-    "govinfo": dict(range=(1, 1), name="米政府印刷局 govinfo の書誌", page=None, base=0),
-}
-# 🆕 21本目 ⑤b-3：資料で割れる時刻（台本 §1-5＝委員会報告の値を語り、NIST・NTSB の値は言わない）＝時間の帯の点に出典の名（by=True）を添える
-#    （門番 check_axis ③）。1機目 8:46:40（NIST 8:46:30）・2機目 9:03:11（NTSB 約9:02:40・NIST 9:02:59）・77便 9:37:46（NTSB 9:37:45）・
-#    93便 10:03:11（委員会も some dispute）
-ILLU_SPLIT_TIMES = ("8:46:40", "9:03:11", "9:37:46", "10:03:11")   # 資料で割れる時刻＝画面に時計・時刻の札として出さない
+# 🔴 2026-10-14（22本目 ⑤b-1・§0b）：21本目の値（出典の表 REC_DOCS＝委員会報告・図表・スタッフ声明・NTSB 11便／175便／77便／93便・CVR・NIST・運輸長官の証言・
+#    国立公園局・AP・法律・検視局・記念館・運輸省の監察総監の報告・RG237・NIST 1-6・委員会報告の序文・govinfo の20資料・割れる時刻 ILLU_SPLIT_TIMES＝8:46:40・9:03:11・
+#    9:37:46・10:03:11）は selftest の見本 `tools/fixture_ep21.py` へ移した（値は1つも変えていない＝git の `35fab37`）。22本目の値は、その型を初めて使う ⑤b のチャットで入れる
+#    （空のあいだ、その型を使うカットは門番・型が止まる＝fail closed）。頁の番号の書き方（通し番号・印字の頁と PDF の頁・頁の無い資料は「名 p1」）・資料の名の決め方・
+#    割れる時刻の扱いは移した注の側にある＝fixture_ep21 の REC_DOCS の注。ILLU_CROWD_UNTIL・ILLU_ROLES・ILLU_SEC_OK・ILLU_CLOCK_OK・ILLU_COUNTS・ILLU_ASSUME・
+#    ILLU_DESTROY_CUTS・ILLU_TOP_NOSCALE・ILLU_SUB_*・ILLU_BOOM_CUTS・ILLU_MIX_TODO は21本目も空のままだった表＝空の器で残す（見本の側も21本目の状態＝空として持つ）
+REC_PAGES = REF / "src" / "ep22_pages.txt"      # ④ の make_pages.py の出力（git の外＝手元だけ）。まだ無い＝その型を初めて使う ⑤b のチャットで作る
+REC_DOCS = {}                               # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
+ILLU_SPLIT_TIMES = ()                       # 資料で割れる時刻＝画面に時計・時刻の札として出さない
 ILLU_CROWD_UNTIL = None                     # 乗客の群れを描いてよい場面の時刻の上限
 ILLU_ROLES = dict(sprite=(), crowd=())      # 置いてよい役割（門番 check_illu ②）＝空の組なら、どの役割も置けない（fail closed）
 ILLU_SEC_OK = {}                            # 札に出してよい秒＝{秒: 出典}（門番 check_illu ⑤）
@@ -675,9 +668,9 @@ ILLU_MIX_TODO = {}                          # 混ざりの本物の側のつな�
 ILLU_MIX_BUNDLE = REF / "credits.json"      # 束ができたか（混ざりのつなぎ待ちの終わり）を見るファイル
 
 # 🔴 2026-10-06（19本目 ⑤b-1）：空にした（18本目は割れる時刻・出典の名つきの点を使わなかった＝空のままの値＝`tools/fixture_ep18.py`）
+# 🔴 2026-10-14（22本目 ⑤b-1・§0b）：21本目は NIST の2つの巻の名（`{"NIST": "NIST（本編）", "NIST 1-6": "NIST（別冊）"}`＝ca12 の割れる時刻の札で2つの巻を見分ける）を
+#    入れた→ `tools/fixture_ep21.py` へ移して空にした（値は1つも変えていない＝git の `35fab37`）
 AXIS_DOCS = {}
-# 🆕 2026-10-13（21本目 ⑤b-6）：ca12 の割れる時刻の札＝NIST の2つの巻を見分ける（どちらも「NIST」と出すと同じ資料に読める）
-AXIS_DOCS.update({"NIST": "NIST（本編）", "NIST 1-6": "NIST（別冊）"})
 
 # 軸（カットをまたいで同じ軸を使う＝前のカットの点を past で沈めて続ける）。回ごとに `AX_<名> = dict(view, span, ticks)` を足す
 # 🔴 2026-10-04（18本目 ⑤b-1）：16本目の軸（AX_DAY・AX_EVE＝10月9日の時刻の帯／AX_ANS・AX_ENEL・AX_PERMIT・AX_Y3・AX_EXP・AX_MERLIN・
@@ -688,138 +681,6 @@ AXIS_DOCS.update({"NIST": "NIST（本編）", "NIST 1-6": "NIST（別冊）"})
 
 # 部品（記録の頁つき。値と頁は門番 check_axis の REC_AXIS と照らされる）。t は項目名だけ（§5b-9）
 AXI = {}
-
-# 🆕 2026-10-12（21本目 ⑤b-3）：時間の帯の型（第3〜8章で使い回す）＝時刻はアメリカ東部の夏の時間・画面は「8:46」の形（check_wording.EP_TIMES）。
-#   AX_MORN＝その朝の全体（7:50〜10:10＝4機の離陸から93便の墜落 10:03:11 まで）＝この回の芯の帯（c208・c217・c320〜）。
-#   AX_11＝11便の寄り（8:10〜9:00）＝c412・c423。⚠️ 右の端は右上の章の札を避けて、最後の点より少し先まで（20本目の教訓）
-#   値と頁は委員会報告の文字の層（`ref/ep21/src/core_raw/GPO-911REPORT.pages.jsonl`＝印字＋18）で当てた＝門番の側の表（check_axis.REC_AXIS）と照らされる。
-#   🔴 1機目の衝突 8:46:40 は割れる時刻（ILLU_SPLIT_TIMES）＝点に出典の名（by=True）
-#   ⚠️ 門番 axis（⑤b-3）：AX_MORN は1分＝約11画素＝8:14 と 8:20 の札が重なり、縦の線が隣の札を貫いた＝175便は左へ・77便は右へ振る。
-#      past で沈めるだけの点は札を出さない（`ss.ax("dep175", t="", lab=False)`＝点だけ）
-AX_MORN = dict(view="clock", span=("7:50", "10:10"), ticks=("8:00", "8:30", "9:00", "9:30", "10:00"))
-AX_11 = dict(view="clock", span=("8:10", "9:00"), ticks=("8:10", "8:20", "8:30", "8:40", "8:50", "9:00"))
-#   AX_HIST＝乗っ取りの「常識」の年表（c302・c309）。「1960年代から」は年代＝1960〜1969 の帯（日付を足さない）
-AX_HIST = dict(view="date", span=("1958", "2006"), ticks=("1960", "1970", "1980", "1990", "2000"))
-AXI.update({
-    # 第1章（AX_MORN）：p4「The plane took off at 7:59」・p7「departed Logan Airport at 8:14」・p8「took off at 8:20」・p10「At 8:42, United Airlines
-    #   Flight 93 took off」・p4「By 8:00 A.M. … they had defeated all the security layers」
-    "dep11": dict(k="pt", at="7:59", t="11便", rec="委員会報告 p4", anchor="end"),
-    "gate8": dict(k="pt", at="8:00", t="保安の関門を通り抜ける", rec="委員会報告 p4", c="INST", anchor="start"),
-    "dep175": dict(k="pt", at="8:14", t="175便", rec="委員会報告 p7", anchor="end"),
-    "dep77": dict(k="pt", at="8:20", t="77便", rec="委員会報告 p8", anchor="start"),
-    "dep93": dict(k="pt", at="8:42", t="93便", rec="委員会報告 p10"),
-    # 第3章（AX_11）：p4「we believe the hijacking began at 8:14 or shortly thereafter」・p18「At 8:21, American 11 turned off its transponder」・
-    #   p19「At 8:24:38, the following transmission」・図表 p32「Boston Center aware of hijacking」（8:25）・p19「Between 8:25 and 8:32 …
-    #   Boston Center managers started notifying their chain of command」・p20「At 8:37:52, Boston Center reached NEADS」・「scrambled at 8:46」・
-    #   「airborne at 8:53」・p7「At 8:46:40, American 11 crashed into the North Tower」・p21「That nine minutes' notice before impact」
-    "hj11": dict(k="pt", at="8:14", t="乗っ取りの始まり（委員会の見立て）", rec="委員会報告 p4", anchor="end"),
-    "xpdr11": dict(k="pt", at="8:21", t="トランスポンダが切られる", rec="委員会報告 p18", anchor="end"),
-    "voice11": dict(k="pt", at="8:24:38", t="管制の無線に声", rec="委員会報告 p19", anchor="start"),
-    "aware11": dict(k="pt", at="8:25", t="ボストン・センターが知る", rec=["図表 p32", "委員会報告 p19"], c="INST", anchor="start"),
-    "chain11": dict(k="span", a="8:25", b="8:32", t="FAA の上の段へ", rec="委員会報告 p19", c="INST"),
-    "neads11": dict(k="pt", at="8:37:52", t="NEADS に知らせが届く", rec="委員会報告 p20", c="INST", anchor="end"),
-    "scr11": dict(k="pt", at="8:46", t="発進の命令", rec="委員会報告 p20"),
-    "hit11": dict(k="pt", at="8:46:40", t="北棟", rec="委員会報告 p7", c="ALERT", by=True, anchor="end"),
-    "air11": dict(k="pt", at="8:53", t="F-15 が飛び立つ", rec="委員会報告 p20", anchor="start"),
-    "nine11": dict(k="br", a="8:37:52", b="8:46:40", t="9分", rec=["委員会報告 p20", "委員会報告 p21", "委員会報告 p7"]),
-    # 第2章（AX_HIST）：p85「elaborated over decades of experience with scores of hijackings, beginning in the 1960s」・
-    #   「no terrorist had hijacked a U.S. commercial aircraft anywhere in the world since 1986」・p1「Tuesday, September 11, 2001」
-    "cs60": dict(k="span", a="1960", b="1969", t="1960年代", rec="委員会報告 p85", c="INST"),
-    "cs_all": dict(k="br", a="1960", b="2001-09-11", t="数十年の積み重ね", rec=["委員会報告 p85", "委員会報告 p1"]),
-    "last86": dict(k="pt", at="1986", t="最後のテロの乗っ取り", rec="委員会報告 p85", anchor="end"),
-    "quiet86": dict(k="span", a="1986", b="2001-09-11", t="起きていない", rec=["委員会報告 p85", "委員会報告 p1"], c="LINE"),
-    "day911": dict(k="pt", at="2001-09-11", t="この朝", rec="委員会報告 p1", c="ALERT", anchor="start", fmt="y"),   # ⚠️ 試し焼き：左へ振ると「1986年」の札と横に並んで1つの札に読めた
-})
-# 🆕 2026-10-12（21本目 ⑤b-4）：第4〜6章。AX_175＝175便の寄り（8:40〜9:06＝c507）。原文（委員会報告の文字の層）：p7「at 8:47, when the aircraft
-#   changed beacon codes twice within a minute」・p21「At 8:51, the controller noticed the transponder change from United 175」・p22「controller at 8:53,
-#   saying that "we may have a hijack"」「At about 8:55, the controller in charge notified a New York Center manager」（about＝「ごろ」）・p23「came in a phone
-#   call from New York Center to NEADS at 9:03」・p24「Two minutes later [8:54＋2], it disappeared completely from radar」・p25「transponder was turned off at
-#   8:56」・p11「The hijackers attacked at 9:28」・p29「At 9:42, the Command Center learned from news reports」「At 9:46 the Command Center updated FAA
-#   headquarters that United 93」。⚠️ 記録の言葉（「乗っ取りかもしれない」ほか）は札にしない＝項目名だけ
-AX_175 = dict(view="clock", span=("8:40", "9:06"), ticks=("8:40", "8:45", "8:50", "8:55", "9:00", "9:05"))
-AXI.update({
-    "code175": dict(k="pt", at="8:47", t="番号が変わる", rec="委員会報告 p7", anchor="end"),
-    "see175": dict(k="pt", at="8:51", t="管制官が気づく", rec="委員会報告 p21", anchor="end"),
-    "may175": dict(k="pt", at="8:53", t="乗っ取りを疑う", rec="委員会報告 p22", anchor="end"),   # ⚠️ 門番 axis：右へ振ると 8:55 の縦の線が札を貫いた
-    "mgr175": dict(k="pt", at="8:55", t="上司へ伝える", rec="委員会報告 p22", c="INST", anchor="start", approx=True),
-    "mil11": dict(k="pt", at="8:37:52", t="11便：軍へ", rec="委員会報告 p20", c="INST", anchor="end"),
-    "mil175": dict(k="pt", at="9:03", t="175便：軍へ", rec="委員会報告 p23", c="INST", anchor="start"),
-    "off77": dict(k="pt", at="8:56", t="77便：画面から消える", rec=["委員会報告 p24", "委員会報告 p25"], anchor="end"),
-    "hj93": dict(k="pt", at="9:28", t="93便の乗っ取り", rec="委員会報告 p11", c="ALERT", anchor="end"),
-    "news42": dict(k="pt", at="9:42", t="報道で知る", rec="委員会報告 p29", c="INST", anchor="end"),
-    "upd93": dict(k="pt", at="9:46", t="93便の位置を本部へ", rec="委員会報告 p29", c="INST", anchor="start"),
-})
-# 🆕 2026-10-12（21本目 ⑤b-5）：第7〜8章。AX_93＝93便の寄り（9:20〜10:08＝c810・c819・c830）・AX_ORD＝撃墜の許可（10:00〜10:36＝c901・c902・
-#   c917）・AX_ALL＝その朝の4機と命令（7:50〜10:40＝c921）。原文（委員会報告の文字の層）：p11「The hijackers attacked at 9:28」・p28「By 9:34, word of
-#   the hijacking had reached FAA headquarters」・p13「At 9:57, the passenger assault began」・p30「United 93 crashed in Pennsylvania at 10:03:11」
-#   （割れる時刻＝by=True・p30「some dispute」）「NEADS first received a call about United 93 … at 10:07」・p31「The time of notification of the
-#   crash of United 93 was 10:15」・p41「At some time between 10:10 and 10:15, a military aide told the Vice President … authorized」・
-#   p42「at 10:31, General Larry Arnold instructed his staff to broadcast」・p45「Shootdown authority was first communicated to NEADS at 10:31」・
-#   p8「At 9:03:11, United Airlines Flight 175 struck the South Tower」・p10「At 9:37:46, American Airlines Flight 77 crashed into the Pentagon」
-#   ⚠️ 「35分」（9:28→10:03:11＝35分11秒）と「約4分」（10:03:11→10:07＝3分49秒）は台本の語り＝括弧の札（数字は語りと同じ）
-AX_93 = dict(view="clock", span=("9:20", "10:08"), ticks=("9:20", "9:30", "9:40", "9:50", "10:00"))
-AX_ORD = dict(view="clock", span=("9:45", "10:36"), ticks=("9:50", "10:00", "10:10", "10:20", "10:30"))   # ⚠️ 門番 layout：左の端 10:00 だと 10:03:11 の札（左へ振る）が画面の外へ出た
-AX_ALL = dict(view="clock", span=("7:50", "10:50"), ticks=("8:00", "8:30", "9:00", "9:30", "10:00", "10:30"))   # 右の端＝10:31 の札を右へ振る余白
-AXI.update({
-    "hq93": dict(k="pt", at="9:34", t="FAA の本部へ伝わる", rec="委員会報告 p28", c="INST", anchor="start"),
-    "as57": dict(k="pt", at="9:57", t="乗客の反撃", rec="委員会報告 p13", c="ALERT", anchor="end"),
-    "crash93": dict(k="pt", at="10:03:11", t="墜落", rec="委員会報告 p30", c="ALERT", by=True, anchor="end"),
-    "min35": dict(k="br", a="9:28", b="10:03:11", t="35分", rec=["委員会報告 p11", "委員会報告 p30"]),
-    "neads93": dict(k="pt", at="10:07", t="NEADS へ", rec="委員会報告 p30", c="INST", anchor="start"),
-    "gap4": dict(k="br", a="10:03:11", b="10:07", t="約4分", rec="委員会報告 p30"),
-    "rpt15": dict(k="pt", at="10:15", t="墜落の知らせ", rec="委員会報告 p31", c="INST", anchor="start"),
-    "auth": dict(k="span", a="10:10", b="10:15", t="副大統領の許可", rec="委員会報告 p41", c="AMBER"),
-    "neads31": dict(k="pt", at="10:31", t="NEADS に許可", rec=["委員会報告 p42", "委員会報告 p45"], c="INST", anchor="end"),
-    # ⚠️ 門番 axis（⑤b-5 c921）：右へ振ると 10:03:11 の縦の線が 9:37:46 の札を貫いた・10:31 の札が3段目へ上がって右上の章の札に触れた＝
-    #    出典の名つきの札は幅が広い＝4機と命令を重ねる帯は全部「左へ」（左から順に段へ振られる作り＝後の点の縦の線が前の札を通らない）
-    "hit175": dict(k="pt", at="9:03:11", t="南棟", rec="委員会報告 p8", c="ALERT", by=True, anchor="end"),
-    "hit77": dict(k="pt", at="9:37:46", t="ペンタゴン", rec="委員会報告 p10", c="ALERT", by=True, anchor="end"),
-})
-# 🆕 2026-10-13（21本目 ⑤b-6）：第9章〜終章。原文は門番 check_axis の REC_AXIS の上（p26・p27・p34・NIST 表6-1・法律・序文・govinfo）。
-#   AX_TESTI＝2段の帯（上＝2003年5月の公聴会の証言・下＝委員会が記録で当てた時刻）＝ca03〜ca08・ca16・ca17。
-#     ×の印（x=True・札なし）は証言の 9:16・9:24 だけ（門番 REC_WRONG）。「14分」（9:24→9:37:46＝13分46秒）は括弧の札＝語りの数字
-#     ⚠️ 上の段の札は「93便の知らせ」の長さまで（「93便の乗っ取りの知らせ」380px は 9:24 の札と同じ段に並べず、9:24 の縦の線が貫いた＝門番 axis）
-#     ⚠️ 下の段の札は左右に振る（9:21 は左・9:23 は左の2段目・9:28 は右・9:36 は左の2段目・9:37:46 は右）＝縦の線が同じ段の札を貫かない
-#   AX_HIT1＝1機目の衝突の3つの値（8:46:20〜8:46:50）＝ca12。割れる時刻の印（split）＝出典の名だけ・どれが正しいとは描かない
-#   AX_AFTER＝その後の年表（2001年1月〜2004年12月）＝ca20・cb05・cb07・cb11・cb12。⚠️ 左の端を 2001年7月にすると「この朝」の札
-#     （左へ振る＝右の「空の保安の法律」の札と並べるため）が画面の外へ出る
-AX_TESTI = dict(view="tiers", span=("9:12", "9:42"), ticks=("9:15", "9:20", "9:25", "9:30", "9:35", "9:40"),
-                lanes=("2003年の証言", "委員会の記録"))
-AX_HIT1 = dict(view="clock", span=("8:46:20", "8:46:50"), ticks=("8:46:20", "8:46:35", "8:46:50"))
-#   ⚠️ geom_gap：目盛りを 8:46:30・8:46:40 に置くと、割れる時刻の印（軸の下へ 22px 伸びる）が目盛りの字に 3.4px＝15秒おきの目盛りに
-AX_AFTER = dict(view="date", span=("2001-01", "2004-12"), ticks=("2001", "2002", "2003", "2004"))
-_TS, _TR = "2003年の証言", "委員会の記録"
-AXI.update({
-    "t916": dict(k="pt", at="9:16", t="93便の知らせ", rec="委員会報告 p34", c="INST", lane=_TS, anchor="start"),
-    "t916x": dict(k="pt", at="9:16", rec="委員会報告 p34", c="INST", lane=_TS, lab=False, x=True),
-    "t924": dict(k="pt", at="9:24", t="77便の知らせ", rec="委員会報告 p34", c="INST", lane=_TS, anchor="start"),
-    "t924x": dict(k="pt", at="9:24", rec="委員会報告 p34", c="INST", lane=_TS, lab=False, x=True),
-    "r921": dict(k="pt", at="9:21", t="11便の誤報", rec="委員会報告 p26", c="ALERT", lane=_TR, anchor="end"),
-    "r921q": dict(k="pt", at="9:21", t="誤報の出どころは不明", rec="委員会報告 p26", c="ALERT", lane=_TR, anchor="end"),
-    "r923": dict(k="pt", at="9:23", t="ラングレーへ発進の命令", rec="委員会報告 p27", lane=_TR, anchor="end"),
-    "r928": dict(k="pt", at="9:28", t="93便の乗っ取り", rec="委員会報告 p11", c="ALERT", lane=_TR, anchor="start"),
-    "r936": dict(k="pt", at="9:36", t="首都へ向かう不明の機", rec="委員会報告 p27", c="INST", lane=_TR, anchor="end"),
-    "r946": dict(k="pt", at="9:37:46", t="ペンタゴン", rec="委員会報告 p10", c="ALERT", lane=_TR, by=True, anchor="start"),
-    "s936": dict(k="span", a="9:36", b="9:37:46", rec=["委員会報告 p27", "委員会報告 p10"], c="ALERT", lane=_TR),
-    "b14": dict(k="br", a="9:24", b="9:37:46", t="証言のとおりなら14分", rec=["委員会報告 p34", "委員会報告 p10"]),
-    # ca12（AX_HIT1）：割れる時刻の印3つ＋どこから出た値か（項目の札）
-    "sp840": dict(k="split", at="8:46:40", rec="委員会報告 p7"),
-    "sp830": dict(k="split", at="8:46:30", rec="NIST p7134"),
-    "sp826": dict(k="split", at="8:46:26", rec="NIST 1-6 p9240", anchor="end"),
-    "ch840": dict(k="chips", at="8:46:40", chips=["飛んだ道の調べ（NTSB）から"], rec=["委員会報告 p7", "委員会報告 p454"]),
-    "ch830": dict(k="chips", at="8:46:30", chips=["テレビの時刻表示から"], rec="NIST p7134"),
-    # ca19・cc04（AX_ALL）：前もっての知らせが無かった3機（p31「no advance notice on the second … third … fourth」）
-    "nn175": dict(k="chips", at="9:03:11", chips=["知らせ無し"], rec=["委員会報告 p8", "委員会報告 p31"]),
-    "nn77": dict(k="chips", at="9:37:46", chips=["知らせ無し"], rec=["委員会報告 p10", "委員会報告 p31"]),
-    "nn93": dict(k="chips", at="10:03:11", chips=["知らせ無し"], rec=["委員会報告 p30", "委員会報告 p31"]),
-    "fly": dict(k="span", a="8:37:52", b="10:31", t="その場で組み立てた守り", rec=["委員会報告 p20", "委員会報告 p45"], c="AMBER"),
-    # 年表（AX_AFTER）。⚠️ 語りの細かさ＝「2001年11月」「2002年11月」「2004年7月」＝札は年月まで（fmt="ym"）
-    "law01": dict(k="pt", at="2001-11-19", t="空の保安の法律", rec="法律 p1", fmt="ym", anchor="start"),
-    "law01y": dict(k="span", a="2001-11-19", b="2002-11-19", t="1年のうちに全空港へ", rec="法律 p1", c="INST"),
-    "dhs02": dict(k="pt", at="2002-11", t="国土安全保障省の法律", rec="委員会報告 p391", fmt="ym", anchor="end"),
-    "com02": dict(k="pt", at="2002-11-27", t="9.11委員会ができる", rec="委員会報告の序文 p15", fmt="ym", c="INST", anchor="start"),
-    "rep04": dict(k="pt", at="2004-07-22", t="委員会の報告書", rec="govinfo p1", fmt="ym", c="INST", anchor="end"),
-})
 
 
 def ax(name, **kw):
@@ -848,6 +709,13 @@ def ax(name, **kw):
 #    ⚠️ 20本目の軸の教訓（左の端を 18:00 にすると左へ振った札が画面の外へ出た・近い日は年を省いた札 fmt="md"・割れる時刻 18:56 の点は出典の名＋「ごろ」・
 #       月だけの記録は月の値で置く〈日を足さない〉・右の端を延ばして右上の章の札を避ける・点と同じ所に置くと縦の線が札を貫く）は移した注の側にある
 #       ＝fixture_ep20 の AX_*・AXI の上
+# 🔴 2026-10-14（22本目 ⑤b-1・§0b）：21本目の軸（AX_MORN・AX_11・AX_HIST・AX_175・AX_93・AX_ORD・AX_ALL＝時間の帯と年表／AX_TESTI＝2段の帯／AX_HIT1＝1機目の衝突の3つの値／
+#    AX_AFTER＝その後の年表）と部品 AXI の21本目の項目（67項目＝dep11〜dep93・hj11〜nine11・cs60〜day911・code175〜upd93・hq93〜hit77・t916〜rep04 ほか）は
+#    `tools/fixture_ep21.py` へ移した（値は1つも変えていない＝git の `35fab37` と同じ）。22本目の軸は ⑤b で `AX_<名> = dict(view, span, ticks)` を足し、
+#    `AXI.update({…})` に項目を足す。
+#    ⚠️ 21本目の軸の教訓（1分約11画素の帯は札が重なる＝左右に振り分ける・past で沈めるだけの点は札を出さない〈`ss.ax("dep175", t="", lab=False)`〉・右の端を右上の章の札を避けて
+#       延ばす・左の端は左へ振った札が画面の外へ出ない所に・目盛りを割れる時刻の印〈軸の下へ 22px 伸びる〉に合わせない〈geom_gap〉・近い点は同じ所に置くと縦の線が札を貫く・
+#       ×の印〈x=True・札なし〉は記録が「誤り」とした値だけ〈REC_WRONG〉・年表の札は語りの細かさ〈fmt="ym"〉）は移した注の側にある＝fixture_ep21 の AX_*・AXI の上
 
 
 # ══════════════════════════════════════════════════════════
@@ -924,23 +792,13 @@ def merge(*parts):
 #       記録の値でない物は棒にせず目盛りに置いて「目安」と断る）は移した注の側にある＝fixture_ep19 の QG・QB の上。20本目の棒の教訓
 #       （数字は画面に書かない〈目盛りだけ〉・行の名に日付の数字を書かない・「1万回程度」は推定＝行の名に「（推定）」・群は同じ尺にして比べる）は
 #       fixture_ep20 の QG・QB の注
+# 🔴 2026-10-14（22本目 ⑤b-1・§0b）：21本目の棒の群 QG（alert・faa）・棒 QB（alert_cw・alert_911・faa11・faa175＝c317 すぐ飛び立てる待機の基地・
+#    c516 乗っ取りから FAA が知るまで）は `tools/fixture_ep21.py` へ移した（値は1つも変えていない＝git の `35fab37` と同じ）＝ここも門番 check_qty の表も空。
+#    22本目の棒は ⑤b で、値と頁を ref/ep22/src/ep22_pages.txt に当てて入れる
+#    ⚠️ 21本目の棒の教訓（数字は画面に書かない〈目盛りだけ〉・行の名に日付の数字を書かない・行の名に便の数字を書かない〈「北棟の便」「南棟の便」と呼ぶ〉・
+#       時刻の帯にしない点は棒にする）は移した注の側にある＝fixture_ep21 の QG・QB の注
 QG = {}
 QB = {}
-# 🆕 2026-10-12（21本目 ⑤b-3）：c317 すぐ飛び立てる待機の基地（委員会報告 p16「reduced from its Cold War high of 26」・p17「only seven alert sites left
-#   in the United States, each with two fighter aircraft on alert」）。🔴 数字は画面に書かない（目盛りだけ）・行の名に日付の数字を書かない
-QG.update({"alert": dict(id="alert", t="待機の基地の数（か所）", ticks=(0, 10, 20, 30), rows=("冷戦のころの最大", "事件の朝"))})
-QB.update({
-    "alert_cw": dict(k="bar", g="alert", t="冷戦のころの最大", v=26, rec="委員会報告 p16", c="TICK"),
-    "alert_911": dict(k="bar", g="alert", t="事件の朝", v=7, rec="委員会報告 p17", c="AMBER"),
-})
-# 🆕 2026-10-12（21本目 ⑤b-4）：c516 乗っ取りから FAA が知る（強く疑う）まで（委員会報告 p455「Flight 11 was a hijacking 11 minutes after it was taken over;
-#   Flight 175, 9 minutes after」）。時刻の帯にしない＝175便の乗っ取りの始まりは「8:42〜8:46 のあいだ」で点が決まらない
-#   ⚠️ 門番 qty：行の名に数字（「11便」「175便」）を書かない＝便は「北棟の便」（11便＝p7）・「南棟の便」（175便＝p8）と呼ぶ
-QG.update({"faa": dict(id="faa", t="乗っ取りから FAA が知るまで（分）", ticks=(0, 5, 10, 15), rows=("北棟の便", "南棟の便"))})
-QB.update({
-    "faa11": dict(k="bar", g="faa", t="北棟の便", v=11, rec="委員会報告 p455", c="TICK"),
-    "faa175": dict(k="bar", g="faa", t="南棟の便", v=9, rec="委員会報告 p455", c="AMBER"),
-})
 
 
 def qb(name, **kw):

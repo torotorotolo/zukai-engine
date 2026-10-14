@@ -70,55 +70,21 @@ sys.stdout.reconfigure(encoding="utf-8")
 #    ref/ep21/src/ep21_pages.txt で当てて入れる（空のあいだ、軸のカットは「記録に無い値」で止まる＝fail closed）。
 #    頁の番号の書き方（報告書＝印刷の頁・別添6 は p310〜343・解説＝1000＋印刷の頁）と引いた原文・OCR で読んだ別添1 の頁・月だけの記録は月の値で置く注は
 #    移した注の側にある＝fixture_ep20 の REC_AXIS の上
+# 🔴 2026-10-14（22本目 タイタン号のリメイク ⑤b-1・§0b）：21本目の表（REC_AXIS＝第1〜3章の時間の帯と年表〈4機の離陸・11便の寄り・乗っ取りの常識の年表〉・第4〜6章〈175便の寄り〉・
+#    第7〜8章〈93便の寄り・撃墜の許可・その朝の4機と命令〉・第9章〜終章〈2段の帯の証言と記録・1機目の衝突の3つの値・その後の年表〉／LANES_OK＝2段の帯の段の名 2つ／
+#    REC_APPROX＝記録が about の時刻 1つ／REC_LANE＝2段の帯の記録ごとの段 7つ／REC_WRONG＝×の印を置いてよい値 2つ）も**空にした**。selftest の見本 `tools/fixture_ep21.py`
+#    （GATES["check_axis"]・値は1つも変えていない＝git の `35fab37`）。22本目の値は、軸の型を初めて使う ⑤b のチャットで、値と頁を ref/ep22/src/ep22_pages.txt で当てて入れる
+#    （空のあいだ、軸のカットは「記録に無い値」で止まる＝fail closed。×の印は REC_WRONG が空なら全部止まる）。型の側（LANE_COL・CH_PAD・tier_pierce・分の小数・「ごろ」・日の目盛り・
+#    秒まである時刻・基準 ref からの「約○分前」・並び order の物差し・REC_WRONG を読む×の印の判定）は残す。
+#    頁の番号の書き方（委員会報告＝印字の頁・図表・NIST＝7000＋PDF の頁・法律ほか頁の無い資料は「名 p1」）と引いた原文・about の時刻・2段の帯の段の名・×の印を置いてよい値は
+#    移した注の側にある＝fixture_ep21 の REC_AXIS の上
 REC_AXIS = {}
-# 🆕 2026-10-12（21本目 ⑤b-3）：第1〜3章の時間の帯と年表。頁＝委員会報告の印字の頁（GPO の PDF＝印字＋18・文字の層 `ref/ep21/src/core_raw/
-#    GPO-911REPORT.pages.jsonl` で当てた）・図表 p32＝同じ報告書の図（②が原寸で読んだ写し＝`ref/ep21/sources.md` §11-1）。引いた原文：
-#    p4「The plane took off at 7:59」「By 8:00 A.M. … they had defeated all the security layers」「the hijacking began at 8:14 or shortly thereafter」・
-#    p7「departed Logan Airport at 8:14」「At 8:46:40, American 11 crashed into the North Tower」・p8「took off at 8:20」・p10「At 8:42, United Airlines
-#    Flight 93 took off」・p18「At 8:21, American 11 turned off its transponder」・p19「At 8:24:38」「Between 8:25 and 8:32」・図表 p32「Boston Center
-#    aware of hijacking」（8:25）・p20「At 8:37:52, Boston Center reached NEADS」「scrambled at 8:46」「airborne at 8:53」・p21「That nine minutes'
-#    notice」・p85「beginning in the 1960s」（年代＝1960〜1969 の帯）「since 1986」・p1「Tuesday, September 11, 2001」
-REC_AXIS.update({"7:59": {"委員会報告 p4"}, "8:00": {"委員会報告 p4"}, "8:14": {"委員会報告 p4", "委員会報告 p7"}, "8:20": {"委員会報告 p8"},
-                 "8:42": {"委員会報告 p10"}, "8:21": {"委員会報告 p18"}, "8:24:38": {"委員会報告 p19"},
-                 "8:25": {"図表 p32", "委員会報告 p19"}, "8:32": {"委員会報告 p19"},
-                 "8:37:52": {"委員会報告 p20", "委員会報告 p21"}, "8:46": {"委員会報告 p20"}, "8:53": {"委員会報告 p20"},
-                 "8:46:40": {"委員会報告 p7", "委員会報告 p21"},
-                 "1960": {"委員会報告 p85"}, "1969": {"委員会報告 p85"}, "1986": {"委員会報告 p85"},
-                 "2001-09-11": {"委員会報告 p1", "委員会報告 p85"}})
-# 🆕 2026-10-12（21本目 ⑤b-4）：第4〜6章（引いた原文は cuts/ss.py の AX_175 の上）。8:55 は about＝「ごろ」
-#    ⚠️ 8:53 は第3章の F-15 の離陸（p20）と同じ時刻＝頁を足す（置き換えると c423 が落ちた）
-REC_AXIS.update({"8:47": {"委員会報告 p7"}, "8:51": {"委員会報告 p21"}, "8:53": {"委員会報告 p20", "委員会報告 p22"}, "8:55": {"委員会報告 p22"},
-                 "9:03": {"委員会報告 p23"}, "8:56": {"委員会報告 p24", "委員会報告 p25"}, "9:28": {"委員会報告 p11"},
-                 "9:42": {"委員会報告 p29"}, "9:46": {"委員会報告 p29"}})
-# 🆕 2026-10-12（21本目 ⑤b-5）：第7〜8章（引いた原文は cuts/ss.py の AX_93 の上）。⚠️ 同じ鍵が無いことを先に見た（9:28 は p11 のまま＝足すだけ）
-REC_AXIS.update({"9:34": {"委員会報告 p28"}, "9:57": {"委員会報告 p13"}, "10:03:11": {"委員会報告 p30"}, "10:07": {"委員会報告 p30"},
-                 "10:15": {"委員会報告 p31", "委員会報告 p41"}, "10:10": {"委員会報告 p41"},   # 10:15＝墜落の知らせ（p31）と許可の帯の終わり（p41）
-                 "10:31": {"委員会報告 p42", "委員会報告 p45"},
-                 "9:03:11": {"委員会報告 p8"}, "9:37:46": {"委員会報告 p10"}})
-# 🆕 2026-10-13（21本目 ⑤b-6）：第9章〜終章。引いた原文（委員会報告の文字の層・印字＋18）：
-#    p34「NORAD officials stated that at 9:16, NEADS received hijack notification of United 93 … This statement was incorrect」
-#    「at 9:24, NEADS received notification of the hijacking of American 77 … also incorrect」・p26「At 9:21, NEADS received a report from the FAA」
-#    （11便がまだ飛んでいる＝誤報）・p27「the crew commander issued the order at 9:23」（ラングレーへ発進）「At 9:36, the FAA's Boston Center called
-#    NEADS and relayed the discovery about an unidentified aircraft closing in on Washington」。
-#    1機目の衝突の割れる時刻＝NIST NCSTAR 1 表6-1（PDF 134頁＝印字 p84）「8:46:30」・NCSTAR 1-6 表6-1（PDF 240頁＝印字 p156）「8:46:26」
-#    （ref/ep21/sources.md §11-2 #7・#8）。年表＝法律 107-71「November 19, 2001」・その「Not later than 1 year after the date of enactment」
-#    （＝2002-11-19・期限の日は法律の日から数えた値）・p391「In November 2002, both the Homeland Security Act …」（月まで）・序文（PDF 15頁＝p.xv）
-#    「Public Law 107-306, November 27, 2002」・govinfo の書誌 dateIssued 2004-07-22（sources §1-1）
-REC_AXIS.update({"9:16": {"委員会報告 p34"}, "9:24": {"委員会報告 p34"}, "9:21": {"委員会報告 p26"}, "9:23": {"委員会報告 p27"},
-                 "9:36": {"委員会報告 p27"},
-                 "8:46:30": {"NIST p7134"}, "8:46:26": {"NIST 1-6 p9240"},
-                 "2001-11-19": {"法律 p1"}, "2002-11-19": {"法律 p1"}, "2002-11": {"委員会報告 p391"},
-                 "2002-11-27": {"委員会報告の序文 p15"}, "2004-07-22": {"govinfo p1"}})
-LANES_OK = {"2003年の証言", "委員会の記録"}     # 🆕 21本目 ⑤b-6：2段の帯（ca03〜ca08・ca16・ca17）の段の名
-REC_APPROX = {"8:55"}   # 記録が about の時刻（「ごろ」が要る）＝p22「At about 8:55」（第1〜3章は about の時刻を帯に置いていない）
+LANES_OK = set()
+REC_APPROX = set()      # 記録が about の時刻（「ごろ」が要る）
 LANE_COL = 20        # 🆕 18本目 ⑤b-5：2段の帯の札が軸の左端より左へ出てよい画素（段の名の列にかけない）
 REC_LANE = {}             # 2段の帯の記録ごとの段（値 → 段の名）
-# 🆕 21本目 ⑤b-6：上の段＝2003年5月の公聴会の証言（p34）・下の段＝委員会が記録で当てた時刻（p10・p11・p26・p27）
-REC_LANE.update({"9:16": "2003年の証言", "9:24": "2003年の証言",
-                 "9:21": "委員会の記録", "9:23": "委員会の記録", "9:28": "委員会の記録", "9:36": "委員会の記録", "9:37:46": "委員会の記録"})
-# 🆕 21本目 ⑤b-6：×の印（axis の x=True）を置いてよい値＝記録が「誤り」とした値と、その頁（p34「This statement was incorrect」「also incorrect」）
-REC_WRONG = {"9:16": {"委員会報告 p34"}, "9:24": {"委員会報告 p34"}}
-CH_PAD = 12          # 🆕 16本目 ⑤b-6b：札と右上の章の札（jiko_style.chapter）のあいだに要る画素
+REC_WRONG = {}            # 🆕 21本目 ⑤b-6：×の印（axis の x=True）を置いてよい値 → 頁の集合（記録が「誤り」とした値と、その頁）
+CH_PAD = 12         # 🆕 16本目 ⑤b-6b：札と右上の章の札（jiko_style.chapter）のあいだに要る画素
 _REF = [None]        # 🆕 19本目 ⑤b-5：「約○分前」の基準（分）＝judge_fig が kw の ref を門番の読み方で読んで置く
 # 🆕 19本目 ⑤b-5：並び（order）の値を「基準からの秒」に読む（門番の側の読み方＝型なので残す）
 ORDER_UNIT = {"週間": 7 * 86400, "日": 86400, "時間": 3600, "分": 60}
@@ -792,10 +758,82 @@ def _selftest_ep19():
     return ok
 
 
+def selftest_ep21():
+    """🆕 2026-10-14（22本目 ⑤b-1・§0b）：21本目の2段の帯・×の印・割れる時刻・「ごろ」の検算＝**見本 `fixture_ep21`（21本目の表）を差し込んで**回す。
+    本番の表（この門番の REC_AXIS・LANES_OK・REC_APPROX・REC_LANE・REC_WRONG）は22本目の空の器にした＝21本目の値は `fixture_ep21.GATES["check_axis"]`
+    （15・16・18・19本目と同じ作り）。ss の側（AXI・AX_*・AXIS_DOCS・ILLU_SPLIT_TIMES ほか）と GEO も21本目の見本になる＝落ちても終わっても
+    `restore()` で本番の値へ戻す（try/finally）。本体は `_selftest_ep21`。
+    （×の印を置いてよい値 REC_WRONG の陽性対照は、本番の REC_WRONG が空になると「表に何があっても鳴る」だけになる＝正しい×が通る側もここで見る）"""
+    import fixture_ep21
+    fixture_ep21.apply(sys.modules[__name__])
+    try:
+        return _selftest_ep21()
+    finally:
+        fixture_ep21.restore()
+
+
+def _selftest_ep21():
+    """21本目の検算の本体（`fixture_ep21` を差し込んだ中で呼ぶ）。
+    正しい形（2段の帯の証言と記録・×の印・割れる時刻の出典の名と3つの値・about の「ごろ」）が通り、記録・段・×の印を置く値・「ごろ」・出典の名を壊すと鳴ること。"""
+    from cuts import ss
+    ok = True
+    ST = tuple(ss.ILLU_SPLIT_TIMES)
+    ax, TS, TR = ss.ax, "2003年の証言", "委員会の記録"
+    two = dict(ss.AX_TESTI, past=[ax("t916")], start=dict(cur="9:16"),
+               steps=[dict(add=ax("t916x")), dict(add=ax("r928"), cur="9:28")], note="n", src="s")
+    hit1 = dict(ss.AX_HIT1, steps=[dict(add=[ax("sp840"), ax("sp830"), ax("sp826")], cur="8:46:40"),
+                                    dict(add=[ax("ch840"), ax("ch830")])], note="n", src="s")
+    mgr = dict(ss.AX_175, steps=[dict(add=ax("may175"), cur="8:53"), dict(add=ax("mgr175"), cur="8:55")], note="n", src="s")
+    crash = dict(ss.AX_93, steps=[dict(add=[ax("as57"), ax("crash93")], cur="10:03:11"), dict(add=ax("neads93"), cur="10:07")],
+                 note="n", src="s")
+
+    def mod(d, **kw):
+        return dict(d, **kw)
+    cases = [
+        ("21本目 正しい2段の帯（9:16 の証言に×・9:28 の記録＝ca04 の型）", two, True, None),
+        ("21本目 正しい割れる時刻の3つの値（8:46:40・8:46:30・8:46:26＝ca12 の型）", hit1, True, None),
+        ("21本目 正しい「ごろ」（8:55 は about）", mgr, True, None),
+        ("21本目 正しい割れる時刻 10:03:11 の出典の名（by=True）", crash, True, None),
+        ("🔴 21本目 陽性対照：誤りとされていない 9:21 に×（REC_WRONG は 9:16・9:24 だけ）",
+         mod(two, steps=[dict(add=[ax("r921"), dict(ax("r921"), t="", lab=False, x=True)], cur="9:21")]), False, "×の印"),
+        ("🔴 21本目 陽性対照：9:16 の証言を「委員会の記録」の段に置く", mod(two, past=[ax("t916", lane=TR)]), False, "段"),
+        ("🔴 21本目 陽性対照：8:55（about）の札に「ごろ」が無い",
+         mod(mgr, steps=[dict(add=ax("may175"), cur="8:53"), dict(add=ax("mgr175", approx=False), cur="8:55")]), False, "ごろ"),
+        ("🔴 21本目 陽性対照：割れる時刻 10:03:11 の点に出典の名が無い",
+         mod(crash, steps=[dict(add=[ax("as57"), ax("crash93", by=False)], cur="10:03:11")]), False, "出典の名"),
+        ("🔴 21本目 陽性対照：記録に無い時刻 9:50 を置く",
+         mod(crash, steps=[dict(add=[ax("as57"), ax("crash93"), dict(k="pt", at="9:50", t="何か", rec="委員会報告 p30")])]), False, "REC_AXIS"),
+    ]
+    for name, kw, want, key in cases:
+        try:
+            bad, _ = judge_fig(kw, ST)
+        except ValueError as e:
+            bad = [f"型が止まった：{e}"]
+        got = not bad if key is None else any(key in b for b in bad)
+        ok &= got
+        print(f"  {'OK' if got else '🔴 NG'} {name}: {'合格' if not bad else '不合格'}（{'合格' if want else '不合格'}のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+    # 🔴 表を空にすると鳴る（門番が×の印の許しを本当に REC_WRONG から読んでいる＝書き込みの固定値で通していない）
+    me = sys.modules[__name__]
+    keep = me.REC_WRONG
+    me.REC_WRONG = {}
+    try:
+        bad, _ = judge_fig(two, ST)
+    finally:
+        me.REC_WRONG = keep
+    good = any("×の印" in b for b in bad)
+    ok &= good
+    print(f"  {'OK' if good else '🔴 NG'} 🔴 21本目 陽性対照（表）：REC_WRONG を空にすると正しい×の印も止まる: {'不合格' if bad else '合格'}（不合格のはず）"
+          + (f"  ← {bad[0]}" if bad else ""))
+    return ok
+
+
 def selftest():
+    # 🆕 2026-10-14（22本目 ⑤b-1）：先に21本目を検算する＝前の回の見本を差す前に（見本 fixture_ep21 の表＝selftest_ep21 が差し込んで・終わったら戻す）
+    ok = selftest_ep21()
     # 🆕 2026-10-06（19本目 ⑤b-5）：先に19本目を検算する＝前の回の見本を差す前に
     #    （2026-10-08〜：19本目も見本 fixture_ep19 の表＝selftest_ep19 が差し込んで・終わったら戻す）
-    ok = selftest_ep19()
+    ok &= selftest_ep19()
     # 🆕 2026-10-04（18本目 ⑤b-5）：先に18本目を検算する＝前の回の見本を差す前に
     #    （2026-10-06〜：18本目も見本 fixture_ep18 の表＝selftest_ep18 が差し込んで・終わったら戻す）
     ok &= selftest_ep18()
@@ -848,7 +886,8 @@ def selftest():
         ("🔴 陽性対照：カーソルが記録の無い所（9:20）に止まる",
          mod(lanes, steps=[dict(add=dict(k="link", at="9:13", fr="近くの船", to="セウォル号", rec="判決 p13"), cur="9:20")]),
          False),
-        # 🆕 21本目 ⑤b-6：×の印は記録が誤りとした値だけ（REC_WRONG＝21本目の 9:16・9:24）。18:30 は誤りとされていない
+        # 🆕 21本目 ⑤b-6：×の印は記録が誤りとした値だけ（REC_WRONG）。18:30 は誤りとされていない
+        #    （🔴 22本目 ⑤b-1：本番の REC_WRONG は空の器＝この陽性対照は表の中身によらず鳴る。×の印が通る側の検算は `selftest_ep21`）
         ("🔴 陽性対照：誤りとされていない 18:30 に×",
          mod(night, steps=[dict(add=[dict(k="pt", at="18:30", t="出港", rec="海審 p1026"),
                                      dict(k="pt", at="18:30", rec="海審 p1026", lab=False, x=True)], cur="18:30")]), False),

@@ -124,7 +124,14 @@ def selftest():
     # 🆕 2026-10-13（21本目 ⑤b-7）：額装だけの点（BY-SA）を映像のひかえに当てたカットは、`footage.USE` の欄も額装の網（cuts/ss.check_frame_only）が見る
     #    ＝寄り 1.0・等速・plain=True 以外を止める（⑤b-2 の宿題）。この回の束に額装だけの映像のひかえが無ければ見ない
     import cuts.ss as ss
-    fo = [n for n in ss.frame_only() if "/fb_" in n]
+    # 🔴 2026-10-14（22本目 ⑤b-1）：回を替えた直後は**この回の束（`ref/<回>/assets.json`）がまだ無い**＝`ss.frame_only()` が止まる
+    #    （fail closed＝本番の照合では正しい）。selftest のこの対照は「この回の束の中の額装だけの映像」で作る作りなので、束が無いうちは
+    #    理由を出して見ない（束のチャットで assets.json を作れば戻る）。⚠️ 束があるのに額装だけの映像が0点なら、今までどおり黙って見ない
+    if not (ss.REF / "assets.json").exists():
+        print(f"  額装だけの映像の対照：この回の束 {ss.REF.name}/assets.json がまだ無い＝見ない（束のチャットで戻る）")
+        fo = []
+    else:
+        fo = [n for n in ss.frame_only() if "/fb_" in n]
     if fo:
         cid = fo[0].rsplit("fb_", 1)[1].split(".")[0]
         spec = {cid: dict(photo=fo[0], panel=True, color=1.0)}
