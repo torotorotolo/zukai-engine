@@ -22,8 +22,9 @@
 🔴 組み写真の片側だけを使う図（NTSB 図16 上下・図17 下・図18 左右）は**束の段階で割る**（ルール 0b-43①＝カットごとの trim でなく束で）＝
    名は `<元の名>_l`・`_r`・`_t`・`_b`。割り目は絵の白か黒の帯（行・列の全部の画素が白か黒）を機械で探す（無ければ止める）。
 🔴 地図の衛星写真（G01〜G06＝Google の画像）は**束に入れない**（公開リポに置かない＝映像方針）＝焼き方は ⑤b-3 で決める。
-🔴 撮影者の名前が要る3点（C218＝BY-SA・N08／N10＝第三者の個人）は名前を**リポに書かない**（映像方針の sources22 の注）＝
-   画面の出典の行は印 `{撮影者:<記号>}` で書き、名前は git の外の `ref/ep22/src/credits_private.tsv` にだけある（差し込み方は ⑤b-3 で決める）。
+🔴 撮影者の名前が要る3点（C218＝BY-SA・N08／N10＝第三者の個人）は ✅ **2026-10-14 カズヤくん「リポに書く」**（⑤b-2 で相談＝推奨どおり）。
+   名前を画面に出すこと自体が使う条件（BY-SA の表示・引用の出どころ）・同じ3人の名前は旧版の CREDITS.md の節（2026-07-30）に既にある＝下の NAMES。
+   映像方針の sources22.tsv の「名前はここに書かない」の注はその表のことのまま（名前の正本は NAMES・出どころは原文で確かめた）。
 ⚠️ 研究所の報告 24-011 の頁の画像（L15・L21・L48＝1224×1584 の頁まるごと）は「紙面の引用」＝図と説明の行まで切るのは ⑤b-4（c6）。
    それまで束は頁まるごと（`QUOTE_PAGE`）＝PANEL_AR の並びには数えない（切ると縦横比が変わる）。
 """
@@ -62,7 +63,12 @@ PART = {"左": "l", "右": "r", "上": "t", "下": "b"}      # list22 の part �
 WHITE = 235                  # 組み写真の割り目＝この明るさ以上の画素だけの列（行）
 BLACK = 20                   # または、この明るさ以下の画素だけの列（行）＝黒い帯の割り目（NTSB 図17）
 QUOTE_PAGE = {"L15", "L21", "L48"}     # 頁まるごとの画像（紙面の引用）＝⑤b-4 で図と説明の行まで切る
-PRIVATE_TOKEN = "{撮影者:%s}"          # 画面の出典の行の名前の印（名前は git の外）
+# 画面の出典の行に出す名前（✅ 10-14 カズヤくん「リポに書く」）＝記号 → (名前, 原文で確かめた所)
+NAMES = {
+    "C218": ("Gordon Leggett", "Commons の頁の作者（Own work・CC BY-SA 4.0・fetch22.py が API で取った値）"),
+    "N08": ("Garry Comber", "NTSB MIR-25-36 図8 の説明「(Source: Garry Comber)」（`src/ntsb_mir2536_pages.txt`）"),
+    "N10": ("Steven Taragel", "NTSB MIR-25-36 図10 の説明「(Source: Steven Taragel)」（同）"),
+}
 FRAME_RIGHTS = ("第三者", "共同", "BY-SA")   # 額装だけ（了承② 決め3＝第三者・共同・BY-SA は額装・改変なし）
 
 # 撮影年（副題の年の主張と照らす＝check_credits）。出どころ：DVIDS の EXIF・報告書の図の説明（USCG の MBI＝`src/uscg_mbi_pages.txt`）・
@@ -172,9 +178,10 @@ def screen_credit(code, s):
         m = re.search(r"米運輸安全委員会の報告書 図(\d+)$", cr)
         if not m:
             raise SystemExit(f"🔴 {code}: 第三者の出典の行が作れない（credit「{cr}」）")
-        return f"出典：米運輸安全委員会の報告書 図{m.group(1)}（撮影：{PRIVATE_TOKEN % code}）"
+        # 報告書の注は「Source:」＝撮った人と言い切らない（「写真：」）
+        return f"出典：米運輸安全委員会の報告書 図{m.group(1)}（写真：{NAMES[code][0]}）"
     if r.startswith("BY-SA"):
-        return f"出典：{PRIVATE_TOKEN % code}（Wikimedia Commons）／CC BY-SA 4.0／改変なし"
+        return f"出典：{NAMES[code][0]}（Wikimedia Commons）／CC BY-SA 4.0／改変なし"
     if r.startswith("共同"):
         return "出典：NOAA／Institute for Exploration／ロードアイランド大学"
     raise SystemExit(f"🔴 {code}: 権利の記号が読めない（{r}）")
@@ -311,13 +318,12 @@ def cmd_build():
         r = s["rights"]
         frame = frame_of(r)
         cr = screen_credit(code, s)
-        who = (s["credit"] if r.startswith("A") or r.startswith("共同") else
-               "（撮影者の名前は git の外＝`ref/ep22/src/credits_private.tsv`・画面の出典の行に出す）")
+        who = s["credit"] if r.startswith("A") or r.startswith("共同") else f"{NAMES[code][0]}（{NAMES[code][1]}）"
         db[name] = dict(code=code, part=part, file=s["file"], cut=" ".join(cuts), credit=cr, who=who, note=s["note"][:200],
                         box=box, crop_px=[0, 0, w, h], w=w, h=h, md5=md5(dst), src_md5=f["md5"],
                         lic=lic_of(r), frame=frame, ground=r, url=s["page"] if s["page"] not in ("—", "") else s["get"],
                         blur=[], how="・".join(notes), year=y, year_why=ywhy, stock=False,
-                        quote_page=code in QUOTE_PAGE, private_name=PRIVATE_TOKEN % code in cr)
+                        quote_page=code in QUOTE_PAGE, named=code in NAMES)
         print(f"✓ {code:5} {name:36} {w}x{h}  {' '.join(cuts):10} {lic_of(r)}{'  額装だけ' if frame else ''}  {'・'.join(notes)}")
     # 🔴 ROV の映像（第三者＝引用）のひかえの静止画も額装だけ（fb_<cid> を `ss.vid` が写真として当てる＝`ss.check_frame_only` が SPEC と
     #    footage.USE の欄〈寄り 1.0・等速・plain〉を見る）＝21本目の fb_c205（BY-SA の映像）と同じ形。出典の行は映像の台帳（CLIP_CREDIT）
@@ -336,12 +342,12 @@ def cmd_build():
                                     crop_px=[0, 0, w, h], w=w, h=h, md5=md5(fbp), src_md5=_fetch_row(r["code"], s["file"])["md5"],
                                     lic="引用（第三者の映像）", frame=True, ground=s["rights"], url=s["page"], blur=[],
                                     how="映像の1コマ（`fb`）", year=2023, year_why="ROV の潜航 2023-06-22", stock=False,
-                                    quote_page=False, private_name=False)
+                                    quote_page=False, named=False)
         print(f"✓ {r['code']:5} fb_{r['cid']:33} {w}x{h}  {r['cid']:10} 引用（第三者の映像）  額装だけ")
     DB.write_text(json.dumps(db, ensure_ascii=False, indent=1), encoding="utf-8")
     tot = sum((EPD / f"{n}.jpg").stat().st_size for n in db)
     print(f"→ ref/ep22/assets.json（{len(db)}点・額装だけ {sum(1 for r in db.values() if r['frame'])}・頁まるごと "
-          f"{sum(1 for r in db.values() if r['quote_page'])}・名前の印 {sum(1 for r in db.values() if r['private_name'])}・"
+          f"{sum(1 for r in db.values() if r['quote_page'])}・名前を出す点 {sum(1 for r in db.values() if r['named'])}・"
           f"束の大きさ {tot / 1e6:.1f}MB）")
     return 1 if bad else 0
 
@@ -431,8 +437,8 @@ def cmd_credits(write=False):
         CREDITS_HEAD, "",
         "※2026-10-14（⑤b-2）。`qa_out/ep22_assets.py credits --write` が書く（手で直さない）。旧版の節は上の"
         "「タイタン号（本番1本目）」＝直さない（旧版は 10-13 に非公開を確かめた・ROV の映像を PD と書いていた誤りは旧版の節に残る）。",
-        "🔴 撮影者の名前（私人）はこの表に書かない（映像方針＝公開のリポに置かない）＝名前が要る3点（C218＝CC BY-SA・N08／N10＝第三者の個人）は"
-        "画面の出典の行に `{撮影者:<記号>}` の印で書き、名前は git の外（`ref/ep22/src/credits_private.tsv`）。",
+        "名前が要る3点（C218＝CC BY-SA の撮影者・N08／N10＝NTSB の報告書の図の写真の出どころの個人）は画面の出典の行に名前を出す"
+        "（✅ 2026-10-14 カズヤくん「リポに書く」＝名前を出すこと自体が使う条件・同じ3人の名前は旧版の節にもある）。",
         "",
         "### 0. 動く映像（9本・音はすべて使わない＝`-an`）",
         "- 🔴 **ROV の映像2本（R04＝尾部・R07＝前と後ろのドーム）は第三者（Pelagic Research Services の ROV「Odysseus」・2023-06-22）**＝"

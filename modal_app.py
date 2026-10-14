@@ -198,6 +198,20 @@ def clone(ref):
     sh("git log --oneline -1")
 
 
+# 🆕 2026-10-14（22本目 ⑤b-2・カズヤくん「Modal の保管庫」）：**公開リポに置けない素材**（Google マップの衛星写真＝地図のカット）も
+#    BGM と同じ保管庫に置き、clone のあとにリポの同じ道へ写す。保管庫の `ref/…` ＝リポの `ref/…`（道をそろえる）。
+#      modal volume put jiko-assets ref/ep22/photo/gmap_g01_north_america.png ref/ep22/photo/gmap_g01_north_america.png
+#      modal volume ls jiko-assets ref/ep22/photo          … 入っているか確認（入れたら get で取り戻して md5 を照らす）
+#    ⚠️ Actions（render-jiko.yml）は保管庫を読めない＝衛星写真を使う地図のカットの検品画像は Modal の `qa` で焼く（カズヤくん了承・10-14）。
+#    ⚠️ 写すのは保管庫の `ref/` の下だけ（bgm.mp3 は今までどおり /assets から直に読む）
+def pull_private():
+    src = f"{ASSETS}/ref"
+    if not os.path.isdir(src):
+        print("・保管庫に ref/ が無い（公開リポに置けない素材は無い）", flush=True)
+        return
+    sh(f"cp -rv {src}/. {WORK}/ref/")
+
+
 # ── ★本編mp4を焼く ────────────────────────────────────────
 @app.function(image=image, cpu=CPU, memory=MEM, timeout=HOURS * 3600,
               volumes={VOL: vol, ASSETS: assets})
@@ -238,6 +252,7 @@ def full(note: str = "", ref: str = "main", workers: int = 8,
     mix_mode = "auto" if (bgm == "music" and allow_drone) else bgm
 
     clone(ref)
+    pull_private()                  # 🆕 22本目 ⑤b-2：公開リポに置けない素材（衛星写真）を保管庫からリポの道へ
     env = f"ZUKAI_WORKERS={workers} "
 
     # ⓪ ★実写「動画」を落として、必要なコマだけ切り出す（下の ③b から前へ移した＝Actions の render-jiko.yml と同じ順）。
@@ -300,10 +315,12 @@ def full(note: str = "", ref: str = "main", workers: int = 8,
 
 # ── 検品画像だけ（Actions が詰まっているときの逃げ道） ──────────
 @app.function(image=image, cpu=CPU, memory=MEM, timeout=HOURS * 3600,
-              volumes={VOL: vol})
+              volumes={VOL: vol, ASSETS: assets})
 def qa(note: str = "", ref: str = "main", zoom: str = ""):
-    """検品画像を焼く。**ふだんは Actions で回す**（規約上こちらは白なので）。"""
+    """検品画像を焼く。**ふだんは Actions で回す**（規約上こちらは白なので）。
+    🆕 22本目 ⑤b-2：衛星写真（公開リポに置けない）を使う地図のカットはここで焼く＝保管庫を差して pull_private"""
     clone(ref)
+    pull_private()
     sh("python3 tools/scene_jiko.py --report")
     sh("python3 tools/check_layout.py", check=False)
     sh("python3 tools/footage.py", check=False)      # ★実写動画のコマ

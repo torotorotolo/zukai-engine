@@ -33,7 +33,7 @@
   "year_why": "DVIDS 8668382＝2024-09-27（Commons の写し）",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "commons_titanic_wreck_bow": {
   "code": "C201",
@@ -69,15 +69,15 @@
   "year_why": "Commons の説明：2004年6月の調査（EXIF の 2007-07-25 は加工の日）",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "commons_horizon_arctic_2022_02": {
   "code": "C218",
   "part": "",
   "file": "ref/ep22/photo/commons_horizon_arctic_2022_02.jpg",
   "cut": "c218",
-  "credit": "出典：{撮影者:C218}（Wikimedia Commons）／CC BY-SA 4.0／改変なし",
-  "who": "（撮影者の名前は git の外＝`ref/ep22/src/credits_private.tsv`・画面の出典の行に出す）",
+  "credit": "出典：Gordon Leggett（Wikimedia Commons）／CC BY-SA 4.0／改変なし",
+  "who": "Gordon Leggett（Commons の頁の作者（Own work・CC BY-SA 4.0・fetch22.py が API で取った値））",
   "note": "2022-08-21 ポートオーバスク（ニューファンドランド）の港を出るホライゾン・アークティック（横から・船の全体）。01 は船尾に橙の物が写る＝02 を採った",
   "box": [
    0.0,
@@ -105,7 +105,7 @@
   "year_why": "Commons の頁の日付 2022-08-21（EXIF なし）",
   "stock": false,
   "quote_page": false,
-  "private_name": true
+  "named": true
  },
  "dvids9057342_deck_survey": {
   "code": "D342",
@@ -141,7 +141,7 @@
   "year_why": "EXIF 2023-09-30（回収船の甲板）",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "dvids9057367_first_hull": {
   "code": "D367",
@@ -177,7 +177,7 @@
   "year_why": "sources22 の注：撮影 2023-08-02（MBI 図132 と同じ場面）・DVIDS の撮影日の欄 05.29.2019 は亀裂の日",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "dvids7875444_hc130_cockpit": {
   "code": "D444",
@@ -213,7 +213,7 @@
   "year_why": "EXIF 2023-06-22・DVIDS の捜索の写真（6月21日）",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "dvids7875448_sea_from_aircraft": {
   "code": "D448",
@@ -249,7 +249,7 @@
   "year_why": "sources22 の注 2023-06-21（機内から見た海）",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "dvids7875471_hc130_hangar": {
   "code": "D471",
@@ -285,7 +285,7 @@
   "year_why": "EXIF 2023-06-22",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "lab24011_p37_fig15": {
   "code": "L15",
@@ -321,7 +321,7 @@
   "year_why": "研究所の報告 24-011（写真の日の記載なし）",
   "stock": false,
   "quote_page": true,
-  "private_name": false
+  "named": false
  },
  "lab24011_p44_fig21": {
   "code": "L21",
@@ -357,7 +357,7 @@
   "year_why": "同",
   "stock": false,
   "quote_page": true,
-  "private_name": false
+  "named": false
  },
  "lab24011_p47_fig22": {
   "code": "L22",
@@ -393,7 +393,7 @@
   "year_why": "同",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "lab24011_p53_fig28": {
   "code": "L28",
@@ -429,7 +429,7 @@
   "year_why": "同",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "lab24011_p67_fig39": {
   "code": "L39",
@@ -465,7 +465,7 @@
   "year_why": "同",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "lab24011_p71_fig43b": {
   "code": "L43b",
@@ -501,7 +501,7 @@
   "year_why": "同",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "lab24011_p73_fig45a": {
   "code": "L45a",
@@ -537,7 +537,7 @@
   "year_why": "同",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "lab24011_p75_fig47b": {
   "code": "L47b",
@@ -573,7 +573,7 @@
   "year_why": "同",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "lab24011_p76_fig48": {
   "code": "L48",
@@ -609,7 +609,7 @@
   "year_why": "同",
   "stock": false,
   "quote_page": true,
-  "private_name": false
+  "named": false
  },
  "mbi_fig003_polar_prince": {
   "code": "M03",
@@ -645,7 +645,7 @@
   "year_why": "MBI 図3 の説明 June 25, 2023",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "mbi_fig005_lars": {
   "code": "M05",
@@ -681,7 +681,7 @@
   "year_why": "MBI 図5 の説明 June 25, 2023",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "mbi_fig109_lars_dock": {
   "code": "M109",
@@ -717,7 +717,7 @@
   "year_why": "MBI 図109 の説明 June 25, 2023",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "mbi_fig112_ballast_valve": {
   "code": "M112",
@@ -753,7 +753,7 @@
   "year_why": "MBI 図112 の説明 June 25, 2023",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "mbi_fig115_air_regulator": {
   "code": "M115",
@@ -789,7 +789,7 @@
   "year_why": "MBI 図115 の説明 June 25, 2023",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "mbi_fig157_aft_segment": {
   "code": "M157",
@@ -825,7 +825,7 @@
   "year_why": "MBI 図157 の説明 July 5, 2023（FBI）",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "mbi_fig159_fwd_segment": {
   "code": "M159",
@@ -861,7 +861,7 @@
   "year_why": "MBI 図159 の説明 July 5, 2023（FBI）",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "mbi_fig018_log_0000": {
   "code": "M18",
@@ -897,7 +897,7 @@
   "year_why": "MBI 図18＝航海日誌の頁の写真（撮った日の記載なし）",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "mbi_fig021_hangar": {
   "code": "M21",
@@ -933,7 +933,7 @@
   "year_why": "MBI 図21 の説明 Source: USCG, June 25, 2023",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "mbi_fig024_small_boats": {
   "code": "M24",
@@ -969,7 +969,7 @@
   "year_why": "sources22 の注 2023-06-23",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "mbi_fig255_layers": {
   "code": "M255",
@@ -1005,7 +1005,7 @@
   "year_why": "MBI 図255＝NTSB の研究所（日の記載なし）",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "mbi_fig268_adhesive": {
   "code": "M268",
@@ -1041,7 +1041,7 @@
   "year_why": "MBI 図268（日の記載なし）",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "mbi_fig270_viewport_ring": {
   "code": "M270",
@@ -1077,7 +1077,7 @@
   "year_why": "MBI 図270＝post-accident（日の記載なし）",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "mbi_fig031_bridge_office": {
   "code": "M31",
@@ -1113,7 +1113,7 @@
   "year_why": "sources22 の注 2023-06-25",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "mbi_fig037_log_0600": {
   "code": "M37",
@@ -1149,7 +1149,7 @@
   "year_why": "MBI 図37＝post-casualty（日の記載なし）",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "mbi_fig065_cyclops_controller": {
   "code": "M65",
@@ -1185,15 +1185,15 @@
   "year_why": "MBI 図65 の説明 October 26, 2023（フォートメーコンの保管場所）",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "ntsb_fig08_launch_2022": {
   "code": "N08",
   "part": "",
   "file": "ref/ep22/photo/ntsb_fig08_launch_2022.png",
   "cut": "ca03",
-  "credit": "出典：米運輸安全委員会の報告書 図8（撮影：{撮影者:N08}）",
-  "who": "（撮影者の名前は git の外＝`ref/ep22/src/credits_private.tsv`・画面の出典の行に出す）",
+  "credit": "出典：米運輸安全委員会の報告書 図8（写真：Garry Comber）",
+  "who": "Garry Comber（NTSB MIR-25-36 図8 の説明「(Source: Garry Comber)」（`src/ntsb_mir2536_pages.txt`））",
   "note": "2022年、アークティック・ホライゾンの船尾から台ごと降ろされるタイタン",
   "box": [
    0.0,
@@ -1221,15 +1221,15 @@
   "year_why": "NTSB 図8 の説明 in 2022",
   "stock": false,
   "quote_page": false,
-  "private_name": true
+  "named": true
  },
  "ntsb_fig10_lars_tipped": {
   "code": "N10",
   "part": "",
   "file": "ref/ep22/photo/ntsb_fig10_lars_tipped.png",
   "cut": "cb11",
-  "credit": "出典：米運輸安全委員会の報告書 図10（撮影：{撮影者:N10}）",
-  "who": "（撮影者の名前は git の外＝`ref/ep22/src/credits_private.tsv`・画面の出典の行に出す）",
+  "credit": "出典：米運輸安全委員会の報告書 図10（写真：Steven Taragel）",
+  "who": "Steven Taragel（NTSB MIR-25-36 図10 の説明「(Source: Steven Taragel)」（同））",
   "note": "左＝画像1（x 72〜295・町並み＝5/20 セントジョンズを出るとき右舷の後ろが沈む）・右＝画像0（x 315〜540・森の岸＝5/27 ウィットレス湾で後ろが沈む）＝PDF の埋め込みの順と左右が逆＝get の 1+0 の順で並べる",
   "box": [
    0.0,
@@ -1257,7 +1257,7 @@
   "year_why": "NTSB 図10＝2023年の遠征（5月20日と27日・sources22 の注）",
   "stock": false,
   "quote_page": false,
-  "private_name": true
+  "named": true
  },
  "ntsb_fig13_recovered_piece": {
   "code": "N13",
@@ -1293,7 +1293,7 @@
   "year_why": "NTSB の研究所（日の記載なし）",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "ntsb_fig14_faces": {
   "code": "N14",
@@ -1329,7 +1329,7 @@
   "year_why": "同",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "ntsb_fig15_end_piece": {
   "code": "N15",
@@ -1365,7 +1365,7 @@
   "year_why": "同",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "ntsb_fig16_wrinkle_b": {
   "code": "N16",
@@ -1401,7 +1401,7 @@
   "year_why": "同",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "ntsb_fig16_wrinkle_t": {
   "code": "N16",
@@ -1437,7 +1437,7 @@
   "year_why": "同",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "ntsb_fig17_layers_b": {
   "code": "N17",
@@ -1473,7 +1473,7 @@
   "year_why": "同",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "ntsb_fig18_delam_l": {
   "code": "N18",
@@ -1509,7 +1509,7 @@
   "year_why": "同（左は1つ目の船体・右は2020年の模型の端材＝写真の日の記載なし）",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "ntsb_fig18_delam_r": {
   "code": "N18",
@@ -1545,7 +1545,7 @@
   "year_why": "同（左は1つ目の船体・右は2020年の模型の端材＝写真の日の記載なし）",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "fb_c101": {
   "code": "R04",
@@ -1581,7 +1581,7 @@
   "year_why": "ROV の潜航 2023-06-22",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "fb_c104": {
   "code": "R07",
@@ -1617,7 +1617,7 @@
   "year_why": "ROV の潜航 2023-06-22",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "fb_c105": {
   "code": "R07",
@@ -1653,7 +1653,7 @@
   "year_why": "ROV の潜航 2023-06-22",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "fb_c108": {
   "code": "R04",
@@ -1689,7 +1689,7 @@
   "year_why": "ROV の潜航 2023-06-22",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "fb_c517": {
   "code": "R04",
@@ -1725,7 +1725,7 @@
   "year_why": "ROV の潜航 2023-06-22",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "fb_c522": {
   "code": "R07",
@@ -1761,7 +1761,7 @@
   "year_why": "ROV の潜航 2023-06-22",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "fb_c523": {
   "code": "R07",
@@ -1797,7 +1797,7 @@
   "year_why": "ROV の潜航 2023-06-22",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "fb_c601": {
   "code": "R07",
@@ -1833,7 +1833,7 @@
   "year_why": "ROV の潜航 2023-06-22",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "fb_c602": {
   "code": "R07",
@@ -1869,7 +1869,7 @@
   "year_why": "ROV の潜航 2023-06-22",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "fb_c609": {
   "code": "R07",
@@ -1905,7 +1905,7 @@
   "year_why": "ROV の潜航 2023-06-22",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "fb_cd01": {
   "code": "R04",
@@ -1941,7 +1941,7 @@
   "year_why": "ROV の潜航 2023-06-22",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  },
  "fb_cd08": {
   "code": "R07",
@@ -1977,6 +1977,6 @@
   "year_why": "ROV の潜航 2023-06-22",
   "stock": false,
   "quote_page": false,
-  "private_name": false
+  "named": false
  }
 }

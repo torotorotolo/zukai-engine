@@ -2466,7 +2466,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 ## タイタン号のリメイク（2023-06-18・22本目）
 
 ※2026-10-14（⑤b-2）。`qa_out/ep22_assets.py credits --write` が書く（手で直さない）。旧版の節は上の「タイタン号（本番1本目）」＝直さない（旧版は 10-13 に非公開を確かめた・ROV の映像を PD と書いていた誤りは旧版の節に残る）。
-🔴 撮影者の名前（私人）はこの表に書かない（映像方針＝公開のリポに置かない）＝名前が要る3点（C218＝CC BY-SA・N08／N10＝第三者の個人）は画面の出典の行に `{撮影者:<記号>}` の印で書き、名前は git の外（`ref/ep22/src/credits_private.tsv`）。
+名前が要る3点（C218＝CC BY-SA の撮影者・N08／N10＝NTSB の報告書の図の写真の出どころの個人）は画面の出典の行に名前を出す（✅ 2026-10-14 カズヤくん「リポに書く」＝名前を出すこと自体が使う条件・同じ3人の名前は旧版の節にもある）。
 
 ### 0. 動く映像（9本・音はすべて使わない＝`-an`）
 - 🔴 **ROV の映像2本（R04＝尾部・R07＝前と後ろのドーム）は第三者（Pelagic Research Services の ROV「Odysseus」・2023-06-22）**＝米沿岸警備隊と米運輸安全委員会が NTSB のドケットで公開した物の引用。**額装・等速（rate 1.0）・寄り 1.0・無加工・地は無地（`plain=True`）・焼き込み（深さ・日付）は残す・サムネに使わない**（了承② 決め3）。旧版はパブリックドメインと誤って書いていた
@@ -2494,7 +2494,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 
 | 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
 |---|---|---|---|---|---|
-| `commons_horizon_arctic_2022_02` | c218 | 2022 | CC BY-SA 4.0（BY-SA） | （撮影者の名前は git の外＝`ref/ep22/src/credits_private.tsv`・画面の出典の行に出す） | https://commons.wikimedia.org/wiki/File:2022-08-21_02_HORIZON_ARCTIC_-_IMO_9732838.jpg |
+| `commons_horizon_arctic_2022_02` | c218 | 2022 | CC BY-SA 4.0（BY-SA） | Gordon Leggett（Commons の頁の作者（Own work・CC BY-SA 4.0・fetch22.py が API で取った値）） | https://commons.wikimedia.org/wiki/File:2022-08-21_02_HORIZON_ARCTIC_-_IMO_9732838.jpg |
 | `commons_titanic_wreck_bow` | c201 | 2004 | PD（Commons の表示）・共同＝額装（共同） | NOAA/Institute for Exploration/University of Rhode Island（2004年） | https://commons.wikimedia.org/wiki/File:Titanic_wreck_bow.jpg |
 | `commons_uscg_mbi_8668382` | cc01 | 2024 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊（DVIDS 8668382） | https://commons.wikimedia.org/wiki/File:U_S_Coast_Guard_Marine_Board_of_Investigation_(8668382).jpg |
 | `dvids7875444_hc130_cockpit` | c510 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊（DVIDS 7875444） | https://www.dvidshub.net/image/7875444 |
@@ -2527,8 +2527,8 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `mbi_fig255_layers` | c906 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図255（米運輸安全委員会） | pdf:ref/ep22/src/uscg_titan_mbi.pdf:276:0 |
 | `mbi_fig268_adhesive` | c608 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図268 | pdf:ref/ep22/src/uscg_titan_mbi.pdf:292:0 |
 | `mbi_fig270_viewport_ring` | c604 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊 海難調査委員会の報告書 図270（FBI） | pdf:ref/ep22/src/uscg_titan_mbi.pdf:294:0 |
-| `ntsb_fig08_launch_2022` | ca03 | 2022 | 引用（第三者の撮影・報告書の図）（第三者） | （撮影者の名前は git の外＝`ref/ep22/src/credits_private.tsv`・画面の出典の行に出す） | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:34:0 |
-| `ntsb_fig10_lars_tipped` | cb11 | 2023 | 引用（第三者の撮影・報告書の図）（第三者） | （撮影者の名前は git の外＝`ref/ep22/src/credits_private.tsv`・画面の出典の行に出す） | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:38:1+0 |
+| `ntsb_fig08_launch_2022` | ca03 | 2022 | 引用（第三者の撮影・報告書の図）（第三者） | Garry Comber（NTSB MIR-25-36 図8 の説明「(Source: Garry Comber)」（`src/ntsb_mir2536_pages.txt`）） | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:34:0 |
+| `ntsb_fig10_lars_tipped` | cb11 | 2023 | 引用（第三者の撮影・報告書の図）（第三者） | Steven Taragel（NTSB MIR-25-36 図10 の説明「(Source: Steven Taragel)」（同）） | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:38:1+0 |
 | `ntsb_fig13_recovered_piece` | c611 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会の報告書 図13 | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:41:0 |
 | `ntsb_fig14_faces` | c618 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会の報告書 図14 | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:42:0 |
 | `ntsb_fig15_end_piece` | c911 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会の報告書 図15 | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:42:1 |
