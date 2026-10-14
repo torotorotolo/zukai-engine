@@ -8,8 +8,10 @@
   ① 台本の md ＝ `ref/ep22/daihon_v2.md`（第2版・10-14 承認①＝`228653e`・md5 f391543f…〈LF〉）
   ② 期待値（236カット／540行／14,904字／決め所0・聞き役67＝⑤a-1 の頭で check_script を自分で回した値。字は印を除く）
   最後のカット cd09 の問いは承認ずみ（10-14 承認①＝C「あなたは、もし乗れるとしたら、深い海の底を自分の目で見てみたいですか。」）
-  🔴 c207 の〈CEOの名前〉は**置き場のまま写す**（リポは公開＝名前を書かない・台本 §0 の注）。名前の読みは git の外で確かめ、
-     SCRIPT に入れる仕組みは ⑤a-2 の前にカズヤくんと決める（ref/ep22/genzaichi.md「チャット6」）
+  🔴 c207 の〈CEOの名前〉は、写すときに**名前に置き換える**（2026-10-14 ⑤a-1 カズヤくん「リポに名前を入れる」＝名前は SCRIPT
+     〈声と字幕〉と読み一覧にだけ。台本 md と設計図は置き場のまま）。置き換えの表は tools/el_script.py の MD_SUBS（md と SCRIPT の
+     突き合わせ md_vs_script と同じ表）＝ここでは import せず、ファイルの字から ast で読む（写す前の SCRIPT で el_script を
+     読み込まない）。字は md の14,904＋3＝14,907
 以下は14本目の注のまま:
   ③ 🔴 **聞き役の印 `Q: ` を付けたまま写す**（話者の正本は SCRIPT。外すのは使う側が tools/speaker.py を通して）。
      `check_script.clean()` は 14本目⑤aから印も外すので、そのまま写すと**話者が消える**＝印だけ付け直す
@@ -32,7 +34,27 @@ import speaker  # noqa: E402
 
 MD = ROOT / "ref" / "ep22" / "daihon_v2.md"
 NARR = ROOT / "tools" / "narration.py"
-WANT = {"cuts": 236, "lines": 540, "chars": 14904, "quotes": 0, "q_lines": 67}
+WANT = {"cuts": 236, "lines": 540, "chars": 14907, "quotes": 0, "q_lines": 67}   # 字＝md 14,904＋名前の置き換え +3
+
+
+def md_subs(slug="ep22"):
+    """tools/el_script.py の MD_SUBS[slug]（md の置き場 → SCRIPT の語）を、import せずにファイルの字から読む。"""
+    import ast
+    tree = ast.parse((ROOT / "tools" / "el_script.py").read_text(encoding="utf-8"))
+    for node in tree.body:
+        if isinstance(node, ast.Assign) and any(getattr(t, "id", None) == "MD_SUBS" for t in node.targets):
+            return ast.literal_eval(node.value).get(slug, {})
+    raise SystemExit("🔴 tools/el_script.py に MD_SUBS が無い（置き場を名前に置き換えられない）")
+
+
+SUBS = md_subs()
+assert SUBS, "🔴 MD_SUBS['ep22'] が空"
+
+
+def sub(t):
+    for a, b in SUBS.items():
+        t = t.replace(a, b)
+    return t
 TAIL = ("ed01",)            # el_script.COMMON_TAIL と同じ（el_script は narration を import するのでここでは読まない）
 TAIL_MARK = "    # ── 共通エンディング"
 
@@ -59,9 +81,13 @@ def from_md():
             heads[m.group(1)] = pending
             pending = None
     nq = sum(1 for _, _, ls in cuts if any(CSC.STAR_RE.match(l) for l in ls))
-    # 🔴 聞き役の行だけ印を付け直す（clean は★・**・印を外す）
-    out = [(cid, pic, [(speaker.Q_MARK if speaker.is_q(l) else "") + CSC.clean(l) for l in ls])
+    # 🔴 聞き役の行だけ印を付け直す（clean は★・**・印を外す）・置き場を名前に（SUBS）
+    out = [(cid, pic, [(speaker.Q_MARK if speaker.is_q(l) else "") + sub(CSC.clean(l)) for l in ls])
            for cid, pic, ls in cuts]
+    # 置き場は台本に1回ずつ（〈CEOの名前〉＝c207 の1回）＝多くても少なくても止める
+    for a in SUBS:
+        n = sum(CSC.clean(l).count(a) for _, _, ls in cuts for l in ls)
+        assert n == 1, f"🔴 置き場「{a}」が台本に {n}回（1回のはず）"
     return out, heads, nq
 
 

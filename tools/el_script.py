@@ -212,9 +212,18 @@ EXPECT = {
     #    出所＝⑤a-1 の頭で check_script.py を自分で回した出力「カット 236 / 字幕行 540 / 本文 14904字 / 決め所 0」
     #    ＝E 1件（尺 47分58秒＝ElevenLabs の定数のままの既知の誤り・ルール §5a-28b）／W 7件（尺の3通りの開き・cb04「0.5度」
     #    〈④'で「摂氏」を外した＝台本 §9〉・章 c2・c4・c7・c8・ca の写真の割合＝映像方針で決めた〈図のまま〉）。
-    #    字は印 `Q: ` を除く・行は聞き役67行を含む。⚠️ c207 の〈CEOの名前〉（8字）は置き場のまま数えた
-    "ep22":     {"cuts": 236, "lines": 540, "chars": 14904, "quotes": 0, "why": "タイタン号 リメイク 台本第2版",
+    #    字は印 `Q: ` を除く・行は聞き役67行を含む。
+    #    🔴 字＝14,907＝md の14,904（c207 の置き場〈CEOの名前〉8字）を、下の MD_SUBS で名前（11字）に置き換えた SCRIPT の字（+3）
+    "ep22":     {"cuts": 236, "lines": 540, "chars": 14907, "quotes": 0, "why": "タイタン号 リメイク 台本第2版",
                  "md": str(ROOT / "ref" / "ep22" / "daihon_v2.md")},
+}
+# 🔴 **台本の md の置き場を、SCRIPT の語に読み替える表**（回ごと・2026-10-14 22本目⑤a-1 新設）。
+#    22本目の台本 md は、名前を書かずに〈CEOの名前〉と置いた（リポは公開・④'の決め）。⑤a-1 でカズヤくんが決めた（10-14）＝
+#    「名前は SCRIPT（＝声と字幕）と読み一覧にだけ入れる。台本 md と設計図は置き場のまま」。
+#    md_vs_script（md と SCRIPT の1行ずつの突き合わせ）と ref/ep22/script_copy.py（md → SCRIPT の写し）がここを読む。
+#    ⚠️ 題材を替えるとき、前の回の行はそのままでよい（SLUG ごとに引く＝ほかの回には効かない）。無い回は今までどおり
+MD_SUBS = {
+    "ep22": {"〈CEOの名前〉": "ストックトン・ラッシュ"},
 }
 # 🔴🔴 **全回で共通の末尾**（2026-09-21・⑤a 新設）。`narration.SCRIPT` には入るが、
 #    **Vault の台本 md には無い**（④ が書くものではなく、⑥ で足した全回共通の資産だから）。
@@ -298,7 +307,15 @@ def md_vs_script():
     # 🔴 2026-09-25（14本目⑤a）: **話者も突き合わせる**（聞き役の印 `Q: `＝tools/speaker.py）。
     #    clean() は印も外すので、文だけ比べると「md は聞き役・.py は語り」の食い違いが黙って通る。
     #    印の無い回は話者がどちらも None＝結果は1文字も変わらない
-    md = [(cid, speaker.is_q(t), CSC.clean(t)) for cid, _, ls in CSC.parse(p.read_text(encoding="utf-8")) for t in ls]
+    # 🔴 2026-10-14（22本目⑤a-1）: md の置き場を SCRIPT の語に読み替えてから比べる（MD_SUBS・無い回は1文字も変わらない）
+    subs = MD_SUBS.get(SLUG, {})
+
+    def _sub(t):
+        for a, b in subs.items():
+            t = t.replace(a, b)
+        return t
+
+    md = [(cid, speaker.is_q(t), _sub(CSC.clean(t))) for cid, _, ls in CSC.parse(p.read_text(encoding="utf-8")) for t in ls]
     py = [(l.cid, speaker.is_q(l.text), speaker.bare(l.text))
           for l in lines() if l.cid not in COMMON_TAIL]   # 🔴 共通の末尾は md に無い
     bad = []
