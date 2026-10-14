@@ -9,6 +9,15 @@
 🔴 倍率1.5（CSS の 1280×720 → 1920×1080）で撮る＝右下の帰属の行の字を1.5倍に（Google の決まり＝行は動かせない・読める大きさ）。
    描き足し（点・線・札）は絵に焼かず、本番の描き手で重ねる（Google の決まり＝描き足しは可・色を変えない・地図そのものを大きく変えない）。
    左上の「マップで開く」・右下の全画面の印は Google の操作の部品＝⑤b で題や札の帯で隠してよいか確かめる（帰属の行は隠さない）。
+🆕 2026-10-14（⑤b-1 で6画を撮った）：
+   ①倍率1.5 のままだと瓦の境目に細い明るい線（間隔 384px の格子）が出た → 倍率2で撮って 0.75 倍に縮める（下の CAP_DPR）
+   ②それでも**読み込みの途中に撮れた継ぎ目**が1本出ることがある（G03 の右下・G05 の左下）＝撮るたびに場所が変わる
+     → **2回撮って `gseam22.py <A> <B>` で比べ、線の無い方を採る**（陽性対照あり）。最終の md5 は Vault の ⑤b-1 の引き継ぎ
+   ③決め（Claude の推奨・了承②の範囲）：地名は消さない（埋め込みは地名なしを選べない・消すのは地図を大きく変える）／
+     「マップで開く」・左下のレイヤーの小窓・右下の全画面の印は Google の操作の部品＝題や札の帯・小さな板でその箱だけ隠してよい／
+     🔴 **Google のロゴ（中央下 y≈1040）と帰属の行（右下 y≈1068）は隠さない＝字幕の真っ黒な帯（y 900 より下）の下に入れない**
+     ＝地図は額装で縮め、帯より上に置く（地図の型を作る ⑤b で）
+   ④⚠️ G06（セントジョンズ港・ズーム16）は店・施設の印と名前が多い＝cb01 の印（NTSB 図9 の駐車場）と重なるなら中心・ズームを替えて撮り直す
 """
 import base64
 import csv
@@ -28,7 +37,11 @@ EP = os.path.dirname(HERE)
 REPO = os.path.dirname(os.path.dirname(EP))
 CHROME = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
 PORT = 9333
-CW, CH, DPR = 1280, 720, 1.5
+CW, CH, DPR = 1280, 720, 1.5     # DPR＝出来上がりの絵の CSS 1px あたりの画素（1920×1080）
+# 🆕 2026-10-14（⑤b-1）：**倍率1.5 のまま撮ると瓦（256px）の境目に細い明るい線が出た**（G01〜G04 を原寸で見た＝間隔 384px の
+#    縦横の直線・海の上で目立つ＝地図の目盛り線に見える）。端数の倍率で瓦の位置が画素の途中に来るため。→ **整数の倍率2で撮り
+#    （2560×1440）、0.75 倍に縮めて 1920×1080 にする**（写る範囲・帰属の行の字の大きさは倍率1.5 と同じ）。縮めるのは PIL の LANCZOS
+CAP_DPR = 2
 
 
 def gmaps():
@@ -135,13 +148,18 @@ def shot(codes=None):
                     pass
                 time.sleep(0.5)
             s = ws(page['webSocketDebuggerUrl'])
-            call(s, 1, 'Emulation.setDeviceMetricsOverride', {'width': CW, 'height': CH, 'deviceScaleFactor': DPR, 'mobile': False})
+            call(s, 1, 'Emulation.setDeviceMetricsOverride', {'width': CW, 'height': CH, 'deviceScaleFactor': CAP_DPR, 'mobile': False})
             call(s, 2, 'Page.reload')
             time.sleep(15)
             m = call(s, 3, 'Page.captureScreenshot', {'format': 'png'})
             dst = os.path.join(REPO, r['file'])
             os.makedirs(os.path.dirname(dst), exist_ok=True)
-            open(dst, 'wb').write(base64.b64decode(m['result']['data']))
+            import io
+            from PIL import Image
+            im = Image.open(io.BytesIO(base64.b64decode(m['result']['data']))).convert('RGB')
+            if im.size != (CW * CAP_DPR, CH * CAP_DPR):
+                raise RuntimeError('撮れた絵の大きさ %s が %dx%d でない' % (im.size, CW * CAP_DPR, CH * CAP_DPR))
+            im.resize((round(CW * DPR), round(CH * DPR)), Image.LANCZOS).save(dst)
             print('%s → %s（%d bytes）＝絵を原寸で見て、地図が読み込まれたか・帰属の行があるかを確かめる' % (code, r['file'], os.path.getsize(dst)))
         except Exception as e:
             print('%s 🔴 撮れない：%s' % (code, e))
