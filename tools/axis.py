@@ -124,10 +124,11 @@ def val(view, s):
             raise ValueError(f"axis：秒の書き方が違う {s!r}（0.56／約9.1／約-8）")
         return float(m[2]), "sec"
     # 🆕 18本目 ⑤b-5：分の小数（"9:18.1"＝認定18 の 0918.1R）／🆕 19本目 ⑤b-5：秒まで（"1:16:27"）
-    m = re.fullmatch(r"(翌)?(\d{1,2}):(\d{2}(?:\.\d)?)(?::(\d{2}))?", s)
+    # 🆕 22本目 ⑤b-3b：秒の小数（"10:47:26.9"＝カナダの調べの 1047:26.903）
+    m = re.fullmatch(r"(翌)?(\d{1,2}):(\d{2}(?:\.\d)?)(?::(\d{2}(?:\.\d{1,3})?))?", s)
     if not m or (m[4] and "." in m[3]):
-        raise ValueError(f"axis：時刻の書き方が違う {s!r}（8:52／翌9:10／9:18.1／1:16:27）")
-    return (NEXT_DAY if m[1] else 0) + int(m[2]) * 60 + float(m[3]) + (int(m[4]) / 60 if m[4] else 0), "min"
+        raise ValueError(f"axis：時刻の書き方が違う {s!r}（8:52／翌9:10／9:18.1／1:16:27／10:47:26.9）")
+    return (NEXT_DAY if m[1] else 0) + int(m[2]) * 60 + float(m[3]) + (float(m[4]) / 60 if m[4] else 0), "min"
 
 
 def label(view, s, fmt=""):
@@ -150,7 +151,7 @@ def label(view, s, fmt=""):
         a, b = sorted([m[1], m[2] or m[1]], key=float)
         return f"約{a}分前" if a == b else f"約{a}〜{b}分前"
     t = s.replace("翌", "")
-    if "." in t:
+    if "." in t and t.count(":") == 1:       # 分の小数だけ（秒の小数「10:47:26.9」は書いたまま＝22本目）
         h, mi = t.split(":")
         return f"{int(h)}時{float(mi):g}分"
     return t
@@ -398,7 +399,7 @@ def _draw_tier(A, it, row, dim):
         return "".join(g), rec
     if k in ("span", "br"):
         xa, xb = A.x(it["a"], True), A.x(it["b"], True)
-        rec.update(a=it["a"], b=it["b"], xa=round(xa, 2), xb=round(xb, 2))
+        rec.update(a=it["a"], b=it["b"], xa=round(xa, 2), xb=round(xb, 2), c=it.get("c") or COL[k])   # c＝🆕 22本目（門番の役の色）
         if k == "br":
             y = A.ay - 40
             g += [F.line(xa, y, xb, y, col, 4), F.line(xa, y - 14, xa, y + 14, col, 4), F.line(xb, y - 14, xb, y + 14, col, 4)]
@@ -449,7 +450,7 @@ def _draw(A, it, row, dim):
     rec = dict(k=k, rec=it.get("rec"), dim=dim, t=it.get("t", ""))
     if k in ("span", "br"):
         xa, xb = A.x(it["a"], True), A.x(it["b"], True)
-        rec.update(a=it["a"], b=it["b"], xa=round(xa, 2), xb=round(xb, 2))
+        rec.update(a=it["a"], b=it["b"], xa=round(xa, 2), xb=round(xb, 2), c=it.get("c") or COL[k])   # c＝🆕 22本目（門番の役の色）
         if k == "span":
             y = A.ay
             g.append(F.rect(xa, y - 11, xb - xa, 22, col, op=0.45 if dim else 0.85))

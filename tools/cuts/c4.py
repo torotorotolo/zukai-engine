@@ -86,3 +86,143 @@ SPEC.update({
     #   🔧 ⑤b-3 の試し焼き：c307 と同じく頁が小さかった＝pw=1560
     "c417": dict(photo=_LOG6, panel=True, pw=1560, fmove=ss.fm("r"), t="航海日誌", s="母船の航海日誌（事故の後に委員会が撮影）"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-3b（2026-10-14）：図解 第3章（17カット）＝模式図 `tools/mech22.py`・時間の帯（axis＝1段と2段）
+# ══════════════════════════════════════════════════════════
+#   🔴 色は役の色（潜水艇＝白・母船＝水色・米沿岸警備隊＝青・米運輸安全委員会＝緑・カナダ＝紫・壊れた＝赤）。章の札「10時47分」と同じ並びを
+#      見出し・副題に入れない（門番 dup）。交信の文は付録A の打ち間違いのまま（訳は字幕）。past で沈めるだけの点は札なし
+_N_CHAT = "時刻と文はカナダの報告書の付録A（打ち間違いのまま）"     # ⚠️ 門番 dup：「字幕」は制作の用語
+_N_DP = "点のあいだは直線（模式）"
+_P1047 = [ss.ax("snd", t="", lab=False), ss.ax("ping", t="", lab=False), ss.ax("imp", t="", lab=False)]
+_N_TWO = "2段とも同じ時計（ニューファンドランドの夏時間）・「ごろ」は記録の about"
+SPEC.update({
+    # c401（3行）＝🔧 付録A の吹き出し（10:11:55〜10:15:39 の4行）。2行目で1つ目・3行目で残り3つ
+    "c401": dict(
+        t="戻った通信", s="潜水艇からの知らせ",
+        fig=("m22", dict(view="chat", start=dict(set="restore"), steps=[dict(), dict(state=dict(n="1")), dict(state=dict(n="4"))],
+                         note=_N_CHAT, src=ss.src(["TSB §付録A", "TSB §1.3.2"]))),
+    ),
+    # c402（2行）＝深さの線（10:11〜10:15 2,203→2,289m）・海の底（約3,800m）まで あと約1,500メートル
+    "c402": dict(
+        t="底までの距離", s="深さの記録",
+        fig=("m22", dict(view="depth", start=dict(upto="a", gap="on"),
+                         steps=[dict(state=dict(upto="b"), tag=dict(t="約2,300メートル", at="d23")),
+                                dict(state=dict(sea="on", left="on"), tag=dict(t="海の底までの残り", at="left"))],   # ⚠️ 門番 echo：数の札（約1,500メートル）は語りの写し＝括弧の長さで見せる
+                         rel=[dict(t="約2,300メートル", src="USCG p34")],
+                         note=_N_DP, src=ss.src(["USCG p34", "TSB §1.3"]))),
+    ),
+    # c403（2行）＝🔁 横から→上から（副題）。潜水艇の知らせ＝東南東（白）・母船の画面＝東北東（水色）→ 母船が船首の真上へ
+    "c403": dict(
+        t="船首への位置", s="上から見ると",
+        fig=("m22", dict(view="bow", steps=[dict(state=dict(ese="on", ene="on"),
+                                                 tag=[dict(t="潜水艇の知らせ：東南東", at="ese", col=J.SUB), dict(t="母船の画面：東北東", at="ene", col=J.SHIP)]),
+                                            dict(state=dict(plan="on"), tag=dict(t="母船が船首の真上へ", at="plan", col=J.SHIP))],
+                         note="船首の形と距離は模式（方角は付録Aの文）", src=ss.src(["TSB §付録A", "USCG p34"]))),
+    ),
+    # c404（2行）＝同じ図。潜水艇の点が送るたびに跳ぶ → 信号の強さはふつう十分（米沿岸警備隊の青）
+    "c404": dict(
+        t="跳ぶ位置", s="母船の画面",
+        fig=("m22", dict(view="bow", start=dict(ese="on", ene="on", plan="on"),
+                         steps=[dict(state=dict(jump="on"), tag=dict(t="送るたびに位置が跳ぶ", at="jump", col=J.SHIP)),
+                                dict(tag=dict(t="信号の強さはふつう十分", d="米沿岸警備隊の見方", at="sig", col=J.USCG))],
+                         note="船首の形と跳び方は模式", src=ss.src(["TSB §付録A", "USCG p34"]))),
+    ),
+    # c406（2行）＝🔧 付録A の吹き出し（10:36:50〜10:40:56 の8行・打ち間違いのまま）。1行目で7つ・2行目で潜水艇の答え
+    "c406": dict(
+        t="採水器の話", s="母船の頼みと答え",
+        fig=("m22", dict(view="chat", start=dict(set="niskin"), steps=[dict(state=dict(n="7")), dict(state=dict(n="8"))],
+                         note=_N_CHAT, src=ss.src(["TSB §付録A", "USCG p34"]))),
+    ),
+    # c407（2行）＝🔧 時間の帯（10:40〜10:51）。10:41:07 母船「了解」・10:42:01 潜水艇「a」→ 5分あまり途切れる
+    "c407": dict(
+        t="止まったやりとり", s="最後の「a」のあと",
+        fig=("axis", dict(ss.AX_END, steps=[dict(add=[ss.ax("nisk"), ss.ax("a42")], cur="10:42:01"),
+                                            dict(add=[ss.ax("quiet"), ss.ax("q5")])],
+                          note="時刻と文はカナダの報告書の付録A", src=ss.src(["TSB §付録A"]))),
+    ),
+    # c408（2行）＝🔧 最後の文の吹き出し（付録A 10:47:26＝画面に出た時刻）と、米沿岸警備隊の青の札「10:47:02ごろ 送った」・深さ3,341メートル
+    "c408": dict(
+        t="最後の文", s="短い1文",
+        fig=("m22", dict(view="chat", start=dict(set="last"),
+                         steps=[dict(state=dict(uscg="on")), dict(state=dict(n="1"), tag=dict(t="深さ3,341メートル", at="dep", col=J.USCG))],
+                         rel=[dict(t="10:47:02", src="USCG p35"), dict(t="3,341メートル", src="USCG p35")],
+                         note="吹き出しの時刻は母船の画面に出た時刻（付録A）", src=ss.src(["USCG p35", "TSB §付録A"]))),
+    ),
+    # c409（2行）＝🔁 上から→横から（副題）。重りの使い方（降りる→落として緩める→落として浮く・数と場所は描かない）
+    "c409": dict(
+        t="重りの役目", s="横から見ると",
+        fig=("m22", dict(view="drop", steps=[dict(), dict(state=dict(slow="on", rise="on"))],
+                         note="重りの数と場所は描いていない（模式）", src=ss.src(["USCG p35"]))),
+    ),
+    # c410（3行）＝2段の札（上＝米国の2つの調べ＝青と緑／下＝カナダの調べ＝紫）
+    "c410": dict(
+        t="分かれる見方", s="重りを落とした時",
+        fig=("m22", dict(view="two", steps=[dict(state=dict(us="on")), dict(state=dict(ca="on")), dict(state=dict(why="on"))],
+                         note="札は3つの報告書の要点（模式）", src=ss.src(["NTSB p1017", "USCG p6", "TSB §1.3.2", "TSB §2.1"]))),
+    ),
+    # c411（2行）＝時間の帯（秒・米沿岸警備隊）。10:47:02ごろ 文を送る・10:47:08ごろ 最後の位置を送る → 10:47:09ごろ 壊れる（赤）
+    "c411": dict(
+        t="爆縮", s="最後の数秒",
+        fig=("axis", dict(ss.AX_1047, steps=[dict(add=[ss.ax("snd"), ss.ax("ping")], cur="10:47:08"),
+                                             dict(add=[ss.ax("imp")], cur="10:47:09")],
+                          note="「ごろ」は記録の about（米沿岸警備隊）", src=ss.src(["USCG p35"]))),
+    ),
+    # c412（3行）＝同じ帯（past＝送る・位置・壊れる）。10:47:11「バン」の音 → 10:47:26 文が届く（母船）
+    "c412": dict(
+        t="母船に届いた文", s="通信の班が聞いた音",
+        fig=("axis", dict(ss.AX_1047, past=_P1047, start=dict(cur="10:47:09"),
+                          steps=[dict(add=[ss.ax("bang")], cur="10:47:11"), dict(add=[ss.ax("recv")], cur="10:47:26"), dict()],
+                          note="時刻は米沿岸警備隊の記録", src=ss.src(["USCG p35", "USCG p36"]))),
+    ),
+    # c413（3行）＝2段の帯（上＝米沿岸警備隊・下＝カナダ）。上の段の3つ → 下の段を明るく → 画面に出た 10:47:26.9・壊れた 10:47:32.3・約5.4秒
+    "c413": dict(
+        t="分かれる時刻", s="2つの調べ",
+        fig=("axis", dict(ss.AX_TWO, cur_on=False,
+                          steps=[dict(add=[ss.ax("u02"), ss.ax("u09"), ss.ax("u26")]), dict(add=[ss.ax("lane_c")]),
+                                 dict(add=[ss.ax("c269"), ss.ax("c323"), ss.ax("c54")])],
+                          note=_N_TWO, src=ss.src(["USCG p35", "USCG p36", "TSB §1.3.2", "TSB §2.1"]))),
+    ),
+    # c414（2行）＝同じ帯（past＝上の段と下の段の壊れた）。ビデオカメラに画面（10:47:26.9）→ 船体に音（10:47:34.5）
+    "c414": dict(
+        t="秒まで分かる理由", s="画面と音の記録",
+        fig=("axis", dict(ss.AX_TWO, cur_on=False,
+                          past=[ss.ax("u02", t="", lab=False), ss.ax("u09", t="", lab=False), ss.ax("u26", t="", lab=False),
+                                ss.ax("c323", t="", lab=False)],
+                          steps=[dict(add=[ss.ax("c269"), ss.ax("lane_c")]), dict(add=[ss.ax("c345")])],
+                          note="画面と音はビデオの記録（カナダの報告書 脚注19）", src=ss.src(["TSB §1.3.2", "TSB §脚注19"]))),
+    ),
+    # c415（3行）＝同じ帯。送った（上）・画面に出た（下）は壊れる前 → 受けた時刻は合う・壊れた時刻だけ離れる
+    "c415": dict(
+        t="違うのは1つ", s="壊れた時刻",
+        fig=("axis", dict(ss.AX_TWO, cur_on=False,
+                          steps=[dict(add=[ss.ax("u02"), ss.ax("c269"), ss.ax("u09"), ss.ax("c323")]), dict(add=[ss.ax("u26")]), dict()],
+                          note=_N_TWO, src=ss.src(["USCG p35", "USCG p36", "USCG p37", "TSB §1.3.2"]))),
+    ),
+    # c416（2行）＝時間の帯（10:40〜10:51・past＝付録A の2つと途切れ）。10:48「受け取った」と返す → 10:49「追跡を失った」・返事なし
+    "c416": dict(
+        t="返事の無い文", s="母船から潜水艇へ",
+        fig=("axis", dict(ss.AX_END, past=[ss.ax("nisk", t="", lab=False), ss.ax("a42", t="", lab=False), ss.ax("quiet", t="")],
+                          start=dict(cur="10:42:01"),
+                          steps=[dict(add=[ss.ax("ack48")], cur="10:48"),
+                                 dict(add=[ss.ax("lost49"), dict(k="chips", at="10:49", chips=["どちらも返事なし"], rec="NTSB p1017")], cur="10:49")],
+                          note="時刻は米運輸安全委員会の報告書", src=ss.src(["NTSB p1017", "TSB §付録A"]))),
+    ),
+    # c418（2行）＝深さの線（10:40:50ごろ 3,149m・10:47:02 3,341m・10:47:08 3,346m で止まる）→ 1平方センチに約340キロ（カナダの計算）
+    "c418": dict(
+        t="最後の深さ", s="線が止まった所",
+        fig=("m22", dict(view="depth", start=dict(upto="b", gap="on", sea="on"),
+                         steps=[dict(state=dict(upto="c", stop="on"), tag=dict(t="約3,350メートル", at="d33")),
+                                dict()],   # ⚠️ 門番 echo：「1平方センチに約340キロ」の札は語りの写し（言い換えても数と単位で鳴る）＝字幕に任せる
+                         rel=[dict(t="約3,350メートル", src="TSB §1.3.2（3350 m）・USCG p35（3,346.28 m）")],
+                         note=_N_DP, src=ss.src(["USCG p35", "TSB §1.3.2", "TSB §1.7"]))),
+    ),
+    # c419（3行）＝同じ線の止まった点に寄る（z=end）。見た人も映像も無い → 残るのは時刻・深さ・音の記録
+    "c419": dict(
+        t="残った記録", s="時刻と深さと音",
+        fig=("m22", dict(view="depth", start=dict(z="end", upto="c", gap="on", sea="on", stop="on"),
+                         steps=[dict(), dict(tag=dict(t="見た人も映像も無い", at="none")),
+                                dict(tag=dict(t="残るのは時刻・深さ・音の記録", at="rec", col=J.INK_W))],
+                         note=_N_DP, src=ss.src(["USCG p269", "USCG p35"]))),
+    ),
+})

@@ -61,12 +61,27 @@ sys.stdout.reconfigure(encoding="utf-8")
 #    **空にした**。selftest の見本 `tools/fixture_ep21.py`（GATES["check_qty"]・値は1つも変えていない＝git の `35fab37`）。22本目の棒を書くチャットで、値と頁を
 #    ref/ep22/src/ep22_pages.txt で当てて入れる（空のあいだ、量のカットは「記録に無い値」で止まる＝fail closed）。
 #    数字は画面に書かない（目盛りだけ）・行の名に日付の数字を書かない・行の名に便の数字を書かない〈「北棟の便」「南棟の便」と呼ぶ〉・印字の頁と PDF の頁の書き方の注は移した注の側にある＝fixture_ep21 の REC_QTY
-REC_QTY = {}          # (群の項目名＝画面の文字, 行の名＝画面の文字) → (値, 頁)
+# ✅ 2026-10-14（22本目 ⑤b-3b）：22本目の値を入れた（頁は cuts/ss.REC_DOCS の通し番号）。
+#    c210 参加費＝USCG p64「rising from $105,129 in 2021 to $250,000 for both 2022 and 2023」（万ドル＝10.5129・25・25）・TSB §1.23「up to 250 000」
+#    c302 乗客＝TSB §1.20.1.2「it was permitted to carry up to 12 passengers」「on the occurrence voyage, it was carrying 24 passengers」
+#    c303 人の形＝TSB §1.3.1「There were 41 people on board the Polar Prince in total: 24 people associated with OceanGate and 17 Polar Prince crew members」
+#      （乗客に数える＝§1.20.1.1「OceanGate passengers, who consisted of the Titan passengers and their family members」）
+#    🆕 役の色（REC_QTY_ROLE・REC_PEOPLE_ROLE）＝描いた棒・凡例の色の値が役の色（jiko_style.ROLE）か（会社＝橙・母船＝水色）
+REC_QTY = {          # (群の項目名＝画面の文字, 行の名＝画面の文字) → (値, 頁)
+    ("参加費（万ドル）", "2021年"): (10.5129, {"USCG p64"}),
+    ("参加費（万ドル）", "2022年"): (25.0, {"USCG p64"}),
+    ("参加費（万ドル）", "2023年"): (25.0, {"USCG p64", "TSB §1.23"}),
+    ("乗客として乗る人（人）", "貨物船の決まりの上限"): (12.0, {"TSB §1.20.1.2"}),
+    ("乗客として乗る人（人）", "この航海"): (24.0, {"TSB §1.20.1.2"}),
+}
+REC_QTY_ROLE = {("参加費（万ドル）", "2021年"): "company", ("参加費（万ドル）", "2022年"): "company",
+                ("参加費（万ドル）", "2023年"): "company", ("乗客として乗る人（人）", "この航海"): "company"}
 REC_GHOST = {}        # 「後」の行に「前」の長さを薄く残す棒
 REC_GRID = {}         # マス目（項目名 → n・ok・ng・頁）
-REC_PEOPLE = {}       # 人の形（14本目 c204〜c206 だけの例外＝§C-1 #59）
-REC_PEOPLE_PAGES = set()
-PEOPLE_CUTS = set()   # 🔴 ルール §C-1 #59（型の側の ss.PEOPLE_CUTS とは別に持つ）＝15本目は人の形を使わない
+REC_PEOPLE = {"乗っていた人": 41, "乗客に数える人（会社の関係）": 24, "母船の乗組員": 17}   # 人の形（§C-1 #59 の例外＝22本目は c303 だけ）
+REC_PEOPLE_PAGES = {"TSB §1.3.1", "TSB §1.20.1.1"}
+REC_PEOPLE_ROLE = {"乗客に数える人（会社の関係）": "company", "母船の乗組員": "ship"}
+PEOPLE_CUTS = {"c303"}   # 🔴 ルール §C-1 #59（型の側の ss.PEOPLE_CUTS とは別に持つ）＝22本目は c303 だけ（母船に乗っていた41人の内わけ）
 UNIT_PEOPLE, UNIT_GRID = "1つ＝1人", "1マス＝1項目"
 DEATH = ("亡", "犠牲", "死", "行方", "遺体", "不明")
 TOL_PX = 1.2          # 棒の端（rect は整数画素に丸めて書かれる＝x と幅で ±0.5 ずつ）
@@ -199,6 +214,13 @@ def judge_bar(f, pal=None):
         p = parts.get((kq[1], kq[2], kq[0]))
         if not p or not (_recs(p["rec"]) & pages):
             bad.append(f"「{tt}／{lab}」の rec {p and p['rec']} が記録の頁 {sorted(pages)} と合わない")
+        # 🆕 22本目 ⑤b-3b：役の色（描いた棒の線の色の値＝役の色の値。役の色は章の色に置き換わらない）
+        role = REC_QTY_ROLE.get((tt, lab)) if kq[0] == "bar" else None
+        if role:
+            n += 1
+            want = J.ROLE[role].lower()
+            if e["a"].get("stroke", "").lower() != want:
+                bad.append(f"「{tt}／{lab}」の棒の色 {e['a'].get('stroke')} が役の色 {role}＝{want} でない")
     bad += _digits_ok(svg)
     return bad, n
 
@@ -306,6 +328,10 @@ def judge_people(f, cid, pal=None):
                 continue
             got = {i for i, v in col.items() if v == c}
             label_state[t] = (c, got)
+            if t in REC_PEOPLE_ROLE:      # 🆕 22本目 ⑤b-3b：凡例の色＝役の色（会社＝橙・母船＝水色）
+                n += 1
+                if c != J.ROLE[REC_PEOPLE_ROLE[t]].lower():
+                    bad.append(f"段{j + 1}：凡例「{t}」の色 {c} が役の色 {REC_PEOPLE_ROLE[t]}＝{J.ROLE[REC_PEOPLE_ROLE[t]]} でない")
             if len(got) != REC_PEOPLE[t]:
                 bad.append(f"段{j + 1}：凡例「{t}」の色の形が {len(got)} 個（記録 {REC_PEOPLE[t]}）")
             p = next((q for q in lits if q["who"] == nm), None)

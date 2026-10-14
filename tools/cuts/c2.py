@@ -113,3 +113,116 @@ SPEC.update({
     # c218（4.4秒）＝ホライゾン・アークティック（CC BY-SA 4.0＝額装・無加工・寄り0）・額ごと寄る
     "c218": dict(photo=_HAR, panel=True, color=1.0, fmove=ss.fm("in"), t="前の年の母船", s="2021・22年の遠征の母船（写真は2022年）"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-3b（2026-10-14）：図解 第1章（14カット）＝模式図 `tools/mech22.py`（fig=("m22", …)）・棒（qty）
+# ══════════════════════════════════════════════════════════
+#   🔴 色は役の色（会社＝橙・潜水艇＝白・米沿岸警備隊＝青・米運輸安全委員会＝緑・カナダ＝紫）。章の札「タイタニックへの観光潜航」と4字以上同じ並びを
+#      見出し・副題に入れない（門番 dup）。CEO の名前は画面に出さない（語りだけ）。段の数＝語りの行の数
+#   🔧 c213〜c216：映像方針の「帯」（2021年の年表）→ **点の並び（dives）**＝付録B を読むと「電池が切れて27時間」は 2022-06-20・推進器と通信は
+#      2022年にも並ぶ＝2021〜22年の日付の軸では夏ごとに点が固まって読めない。点の色は映像方針の「海の青」→ **潜水艇の白**（青は米沿岸警備隊の役の色と取り違える）
+_N_TT = "形は NTSB 図3 の比（模式）"
+SPEC.update({
+    # c202（2行）＝深さの物差し（逆さの富士山とタイタニックの深さ）→ 水の重さ → 1円玉と乗用車（約1.2トン＝台本 §9 の式＝5,554.5 psi × 1円玉の面積）
+    "c202": dict(
+        t="水圧", s="深い海の底で",          # ⚠️ 門番 dup：「水の重さ」は図の札・「約3,800メートル」は図の札の写し
+        fig=("m22", dict(view="fuji", steps=[dict(state=dict(press="on")),
+                                             dict(state=dict(coin="on"), tag=dict(t="約1.2トン", at="t"))],
+                         rel=[dict(t="約1.2トン", src="NTSB p1010（5,554.5 psi×1円玉の面積＝台本 §9）")],
+                         note="富士山は国土地理院の値・形と1円玉の大きさは模式", src=ss.src(["NTSB p1010", "TSB §1.3"]))),
+    ),
+    # c203（3行）＝3つの報告書の表紙（題と年月だけ）。2行目で米国の2つ・3行目でカナダ
+    "c203": dict(
+        t="3つの報告書", s="調べた3つの機関",          # ⚠️ 門番 wording：「この動画」は楽屋の言葉
+        fig=("m22", dict(view="reports", steps=[dict(), dict(state=dict(r1="on", r2="on")), dict(state=dict(r3="on"))],
+                         note="表紙は模式（題と年月だけ）", src=ss.src(["USCG p5", "NTSB p1076", "TSB §4.2.4"]))),
+    ),
+    # c205（2行）＝横から見たタイタン（NTSB 図3 の比）・全長6.7メートル・5人まで
+    "c205": dict(
+        t="潜水艇タイタン", s="横から見た形",
+        fig=("m22", dict(view="side", steps=[dict(state=dict(dim="on"), tag=dict(t="5人まで", at="cap")), dict()],
+                         rel=[dict(t="5人", src="TSB §1.2.1"), dict(t="6.7メートル", src="NTSB p1010（22-foot）")],
+                         note=_N_TT, src=ss.src(["NTSB p1010", "NTSB p1012", "TSB §1.2.1"]))),
+    ),
+    # c206（2行）＝人が乗る部分（炭素繊維の筒と両端のチタンのドーム＝耐圧殻）
+    "c206": dict(
+        t="人が乗る部分", s="2つの材料",
+        fig=("m22", dict(view="side", steps=[dict(state=dict(hull="on", mat="on")), dict(tag=dict(t="耐圧殻", at="tag", to="hull"))],
+                         note=_N_TT, src=ss.src(["TSB §1.10.1", "TSB §1.2.1"]))),
+    ),
+    # c207（3行）＝2023年の上級の8つの職の席（TSB 表4＝空席は技術部長だけ）。2行目で CEO の席・3行目で CEO から全部へ
+    "c207": dict(
+        t="会社の顔ぶれ", s="事故のときの会社",          # ⚠️ 門番 dup：「2023年の上級の職」は図の札の写し
+        fig=("m22", dict(view="org", steps=[dict(state=dict(seats="on")), dict(state=dict(ceo="on"), tag=dict(t="操縦も自分で", at="ra")),
+                                            dict(state=dict(all="on"), tag=dict(t="すべてに関わる", at="rb"))],
+                         note="席の並びは模式（職と空席はカナダの報告書の表4）", src=ss.src(["TSB §1.23", "TSB §1.9.1", "TSB §1.23.1"]))),
+    ),
+    # c208（3行）＝同じ席＋社員の印15（数は黄）・「実験的」・前例が無い
+    "c208": dict(
+        t="小さな会社", s="2023年の季節の初め",
+        fig=("m22", dict(view="org", start=dict(seats="on", ceo="on", all="on"),
+                         steps=[dict(state=dict(staff="on")), dict(tag=dict(t="実験的", at="ra")), dict(tag=dict(t="それまで例が無い", at="rb"))],
+                         note="席の並びは模式（社員の印は1つ＝1人）", src=ss.src(["TSB §1.23", "TSB §1.23.1"]))),
+    ),
+    # c209（3行）＝同意書の要点（米沿岸警備隊の報告書の箇条＝英字のまま）・「death」の数え 9
+    "c209": dict(
+        t="同意書", s="参加の前の署名",
+        fig=("m22", dict(view="paper", start=dict(doc="waiver"),
+                         steps=[dict(), dict(state=dict(hl1="on", hl2="on")), dict(state=dict(n9="on"))],
+                         note="句は米沿岸警備隊の報告書の要点（英字のまま・模式）", src=ss.src(["USCG p71"]))),
+    ),
+    # c210（3行）＝参加費の棒（2021年 105,129ドル → 2022年・2023年 25万ドル）。円は左下の注（1ドル140円）
+    "c210": dict(
+        t="参加費", s="1人あたり",
+        fig=("qty", dict(view="bar", groups=[ss.QG["fee"]],
+                         steps=[dict(), dict(add=[ss.qb("fee21"), ss.qb("fee22"), ss.qb("fee23")]), dict()],
+                         note="円の換算は1ドル＝140円", src=ss.src(["USCG p64", "TSB §1.23"]))),   # ⚠️ 門番 echo：円の額は字幕の写し
+    ),
+    # c211（3行）＝計画書の一節（NTSB 脚注8 が引く英字）・呼び名・米沿岸警備隊の見立て（青）
+    "c211": dict(
+        t="客の呼び名", s="会社の計画書",
+        fig=("m22", dict(view="paper", start=dict(doc="plan"),
+                         steps=[dict(), dict(state=dict(hl1="on", name="on")), dict(state=dict(uscg="on"))],
+                         note="一節は米運輸安全委員会の報告書の脚注8 の引用（英字のまま・模式）",
+                         src=ss.src(["NTSB p1015", "USCG p300", "USCG p317"]))),
+    ),
+    # c212（2行）＝付録B の表（27行・英字のまま）。2行目で年のまとまりと「27回」
+    "c212": dict(
+        t="潜航の記録", s="人が乗った潜航",
+        fig=("m22", dict(view="table", steps=[dict(), dict(state=dict(yr="on"), tag=dict(t="27回", at="n27"))],
+                         rel=[dict(t="27回", src="TSB §付録B")],
+                         note="表はカナダの報告書の付録B（英字は原文のまま）", src=ss.src(["TSB §付録B"]))),
+    ),
+    # c213（2行）＝🔧 点の並び（1回＝1点）。届いた13回を潜水艇の白
+    "c213": dict(
+        t="届いた回数", s="27回のうち",
+        fig=("m22", dict(view="dives", steps=[dict(state=dict(reach="on"), tag=dict(t="13回", at="t")), dict()],
+                         rel=[dict(t="13回", src="NTSB p1014")],
+                         note="点の並びは模式（届いた＝付録Bの深さ3,840メートルの行）", src=ss.src(["TSB §付録B", "NTSB p1014"]))),
+    ),
+    # c214（3行）＝🔧 同じ点＋1つ目の赤の輪（回収のときに前のドームが外れた）→ ボルトを18本に
+    "c214": dict(
+        t="備考の欄", s="不具合の記録",
+        fig=("m22", dict(view="dives", start=dict(reach="on"),
+                         steps=[dict(), dict(state=dict(dome="on"), tag=dict(t="前のドームが落ちた（回収のとき）", at="low")),
+                                dict(tag=dict(t="ボルトを18本に", at="low2"))],
+                         rel=[dict(t="18本", src="TSB §脚注39")],
+                         note="点の並びは模式（赤の輪＝付録Bの備考）", src=ss.src(["TSB §付録B", "TSB §脚注39"]))),
+    ),
+    # c215（2行）＝🔧 同じ点＋電池が切れた回（2022-06-20・27時間）
+    "c215": dict(
+        t="海の上で一晩", s="潜航が長引いた回",
+        fig=("m22", dict(view="dives", start=dict(reach="on", dome="on"),
+                         steps=[dict(state=dict(batt="on"), tag=dict(t="電池が切れた", at="low")), dict(tag=dict(t="27時間", at="low2"))],
+                         rel=[dict(t="27時間", src="TSB §付録B")],
+                         note="点の並びは模式（赤の輪＝付録Bの備考）", src=ss.src(["TSB §付録B", "NTSB p1036"]))),
+    ),
+    # c216（3行）＝🔧 同じ点＋推進器・重り・通信の赤の輪 → カナダの報告書の言葉（紫）
+    "c216": dict(
+        t="不具合の数々", s="潜航ごとの不具合",
+        fig=("m22", dict(view="dives", start=dict(reach="on", dome="on", batt="on"),
+                         steps=[dict(state=dict(thr="on", wt="on", com="on")), dict(),
+                                dict(tag=dict(t="やってみて直すやり方", d="カナダの報告書の見方", at="low", col=J.INST))],
+                         note="点の並びは模式（赤の輪＝付録Bの備考）", src=ss.src(["TSB §付録B", "TSB §1.23.1"]))),
+    ),
+})

@@ -5121,3 +5121,12 @@ def m20(view, steps, **kw):
 def m21(view, steps, **kw):
     import mech21 as _m
     return _m.m21(view, steps, **kw)
+
+
+# ── ⑯ 22本目 ⑤b-3b（2026-10-14）：模式図（深さの比べ・3つの報告書・横から見たタイタン・職の席・書類の要点・付録Bの表・潜航の点・台と艇〈上・横〉・
+#      重り・音の通信・2つの装置・付録Aの吹き出し・深さの線・船首のまわり・2段の札＝17種）＝`tools/mech22.py`（門番 check_mech の judge_m22）。
+#      🔴 色は役の色（jiko_style.ROLE）・交信の文は打ち間違いのまま ──
+#   `fig=("m22", dict(view=…, start=…, steps=[…], rel=[…], note="模式…", src=…))`
+def m22(view, steps, **kw):
+    import mech22 as _m
+    return _m.m22(view, steps, **kw)

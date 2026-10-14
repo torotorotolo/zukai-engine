@@ -65,7 +65,8 @@ DOC_DIM = "#6e5c42"       # その沈めた版（比 2.09）
 USCG = "#4f9be0"          # 米沿岸警備隊（捜索の指揮・調査委員会 MBI）
 COMPANY = "#f78b3e"       # 会社（オーシャンゲート）
 SHIP = "#7efcfa"          # 母船（ポーラー・プリンス）
-ROLE = dict(uscg=USCG, ntsb=OK, tsb=INST, company=COMPANY, ship=SHIP, sub="#f4f6f8")
+SUB = "#f4f6f8"            # 潜水艇（タイタン）＝🆕 ⑤b-3b：型が `c="SUB"` で引ける名（値は ⑤b-1 の ROLE の sub と同じ）
+ROLE = dict(uscg=USCG, ntsb=OK, tsb=INST, company=COMPANY, ship=SHIP, sub=SUB)
 ROLE_ALIAS = {"ntsb": "OK", "tsb": "INST"}   # 意味の色と同じ値の役（ΔE の照合から外す・門番が値の一致を確かめる）
 # ── 色の使い分け（226カットで守る）─────────────────────────
 #   INK_W  主図形（船体・断面）      LINE   技術線・物

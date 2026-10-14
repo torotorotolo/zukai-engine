@@ -78,12 +78,44 @@ sys.stdout.reconfigure(encoding="utf-8")
 #    秒まである時刻・基準 ref からの「約○分前」・並び order の物差し・REC_WRONG を読む×の印の判定）は残す。
 #    頁の番号の書き方（委員会報告＝印字の頁・図表・NIST＝7000＋PDF の頁・法律ほか頁の無い資料は「名 p1」）と引いた原文・about の時刻・2段の帯の段の名・×の印を置いてよい値は
 #    移した注の側にある＝fixture_ep21 の REC_AXIS の上
-REC_AXIS = {}
-LANES_OK = set()
-REC_APPROX = set()      # 記録が about の時刻（「ごろ」が要る）
+# ✅ 2026-10-14（22本目 ⑤b-3b）：22本目の値を入れた。原文＝ref/ep22/src/ep22_pages.txt（頁の番号は cuts/ss.REC_DOCS の通し番号＝USCG p35＝PDF 35頁・
+#    NTSB p1017＝PDF 17頁・TSB §1.3.1＝節）。時刻はニューファンドランドの夏時間（TSB 脚注13）。
+#    TSB §1.3.1「arrived … at 0400 on 18 June」「At 0534 … briefing」「At 0545 … weighed」「From 0600 to 0800 … RIBs」「by 0820」「At 0824 … closed the Titan’s forward dome」
+#      「At 0859 … a scheduled 5-minute pause」「At 0904 … fill the LARS’s ballast tanks」
+#    TSB 付録A「10:41:07.2 SST ack no niskin」「10:42:01.4 T a」「10:47:26.9 T dropped two wts」／NTSB p.17「At 1048 … acknowledge」「At 1049 … “lost tracking”」
+#    USCG p35「At approximately 10:47:02 a.m.」「At approximately 10:47:08 a.m. … final ping」「At approximately 10:47:09 a.m. … catastrophic implosion」
+#      「At 10:47:11 a.m. … “bang”」「At 10:47:26 a.m. … received a message」（p36「This was the last message」）・p37「At 10:47:32 a.m., the POLAR PRINCE received the ping」
+#    TSB §1.3.2「At 1047:26.903 … a message appeared」「At 1047:32.066 … the last automated position update」「the sound was generated at 1047:32.3」
+#      「At 1047:34.522, a loud sound … reverberated through the hull」・§2.1「5.397 seconds after the text message … appeared」
+#    ⚠️ 秒の小数は画面に1桁（32.066→「10:47:32.1」・34.522→「10:47:34.5」）＝門番の幅（書いた桁の半分 ±0.05秒）に原文の値が入る
+_TU, _TC = "米沿岸警備隊の調べ", "カナダの調べ"
+REC_AXIS = {
+    "4:00": {"TSB §1.3.1"}, "5:34": {"TSB §1.3.1"}, "5:45": {"TSB §1.3.1"}, "6:00": {"TSB §1.3.1"}, "8:00": {"TSB §1.3.1"},
+    "8:20": {"TSB §1.3.1"}, "8:24": {"TSB §1.3.1"}, "8:59": {"TSB §1.3.1"}, "9:04": {"TSB §1.3.1"},
+    "10:41:07": {"TSB §付録A"}, "10:42:01": {"TSB §付録A"}, "10:47:26.9": {"TSB §付録A", "TSB §1.3.2", "TSB §2.1"},
+    "10:48": {"NTSB p1017"}, "10:49": {"NTSB p1017"},
+    "10:47:02": {"USCG p35"}, "10:47:08": {"USCG p35"}, "10:47:09": {"USCG p35"}, "10:47:11": {"USCG p35"},
+    "10:47:26": {"USCG p35", "USCG p36"}, "10:47:32": {"USCG p37"},
+    "10:47:32.1": {"TSB §1.3.2"}, "10:47:32.3": {"TSB §1.3.2", "TSB §2.1"}, "10:47:34.5": {"TSB §1.3.2"},
+}
+LANES_OK = {_TU, _TC}
+REC_APPROX = {"10:47:02", "10:47:08", "10:47:09"}      # 記録が about の時刻（「ごろ」が要る）＝USCG p35 の approximately
 LANE_COL = 20        # 🆕 18本目 ⑤b-5：2段の帯の札が軸の左端より左へ出てよい画素（段の名の列にかけない）
-REC_LANE = {}             # 2段の帯の記録ごとの段（値 → 段の名）
+REC_LANE = {"10:47:02": _TU, "10:47:08": _TU, "10:47:09": _TU, "10:47:11": _TU, "10:47:26": _TU, "10:47:32": _TU,
+            "10:47:26.9": _TC, "10:47:32.1": _TC, "10:47:32.3": _TC, "10:47:34.5": _TC}   # 2段の帯の記録ごとの段（値 → 段の名）
 REC_WRONG = {}            # 🆕 21本目 ⑤b-6：×の印（axis の x=True）を置いてよい値 → 頁の集合（記録が「誤り」とした値と、その頁）
+# 🆕 2026-10-14（22本目 ⑤b-3b）：**役の色**（記憶 feedback-jiko-diagrams-more-color・`jiko_style.ROLE`）。型の側の色（AXI の c）と別に、門番の側で
+#    「その値はだれの動きか」を持つ＝描いた部品の色の値が役の色の値と同じか照らす（[[feedback-settings-may-not-reach-the-picture]]＝設定でなく描いた値）。
+#    REC_ROLE＝1段の帯（clock）の値 → 役（ROLE の名か意味の色の名）・帯 span は「始め〜終わり」の鍵。LANE_ROLE＝2段の帯の段 → 役（段の点は段の調べの色）・
+#    TIER_ALERT＝2段の帯で赤（壊れた）にしてよい値。表に無い値は本番（main）で止める（selftest の前の回の見本は表を持たない＝照らさない）
+REC_ROLE = {
+    "4:00": "ship", "5:34": "company", "5:45": "company", "6:00〜8:00": "company", "8:20": "sub", "8:24": "sub", "8:59": "company",
+    "10:41:07": "ship", "10:42:01": "sub", "10:42:01〜10:47:26.9": "LINE", "10:48": "ship", "10:49": "ship",
+    "10:47:02": "sub", "10:47:08": "sub", "10:47:09": "ALERT", "10:47:11": "ship", "10:47:26": "ship",
+}
+LANE_ROLE = {_TU: "uscg", _TC: "tsb"}
+TIER_ALERT = {"10:47:09", "10:47:32.3"}
+_ROLE_ON = [False]        # 本番（main）だけ「役の表に無い値」を止める
 CH_PAD = 12         # 🆕 16本目 ⑤b-6b：札と右上の章の札（jiko_style.chapter）のあいだに要る画素
 _REF = [None]        # 🆕 19本目 ⑤b-5：「約○分前」の基準（分）＝judge_fig が kw の ref を門番の読み方で読んで置く
 # 🆕 19本目 ⑤b-5：並び（order）の値を「基準からの秒」に読む（門番の側の読み方＝型なので残す）
@@ -133,10 +165,12 @@ def gv(view, s):
     nxt = s.startswith("翌")
     parts = s.replace("翌", "").split(":")
     if len(parts) == 3:
-        # 🆕 19本目 ⑤b-5：秒まで（"1:16:27"）＝±0.5秒
-        h, m, sec = (int(x) for x in parts)
+        # 🆕 19本目 ⑤b-5：秒まで（"1:16:27"）＝±0.5秒／🆕 22本目 ⑤b-3b：秒の小数（"10:47:26.9"）＝書いた桁の半分（±0.05秒）
+        h, m = int(parts[0]), int(parts[1])
+        sec = float(parts[2])
+        tol = 0.5 * 10 ** -len(parts[2].split(".")[1]) if "." in parts[2] else 0.5
         v = (1440 if nxt else 0) + h * 60 + m + sec / 60
-        return v - 0.5 / 60, v + 0.5 / 60
+        return v - tol / 60, v + tol / 60
     h, m = parts
     if "." in m:
         # 🆕 18本目 ⑤b-5：分の小数（"9:18.1"）＝書いた桁の半分の幅（±0.05分）。整数の分は今までどおり ±0.3分
@@ -175,8 +209,9 @@ def _texts(view, s):
         lo, hi = sorted([int(r[1]), int(r[2] or r[1])])
         return {f"約{lo}分前" if lo == hi else f"約{lo}〜{hi}分前"}
     t = s.replace("翌", "")
-    if "." in t:
+    if "." in t and t.count(":") == 1:
         # 🆕 18本目 ⑤b-5：分の小数は「9時18.1分」（「9:18.1」は9時18分1秒に読める）。分の頭の0は書かない（9:09.8→9時9.8分）
+        #   🆕 22本目 ⑤b-3b：秒の小数（「10:47:26.9」＝コロン2つ）は書いたまま（下の return）
         h, m = t.split(":")
         return {f"{int(h)}時{m.lstrip('0') if not m.startswith('0.') else m}分"}
     return {t}
@@ -375,6 +410,11 @@ def _judge_parts(kw, m, view, vk, bad, n, lin, split_times, head):
                 n += 1
                 if REC_LANE.get(s) != part.get("lane"):
                     bad.append(f"{s} を段「{part.get('lane')}」に置いた（記録の段は「{REC_LANE.get(s, '表に無い')}」）")
+        # 🆕 22本目 ⑤b-3b：役の色（門番の側の表 REC_ROLE・LANE_ROLE と、描いた部品の色の値）
+        if part["k"] in ("pt", "span") and not part.get("dim"):
+            rb, rn = _role_check(view, part)
+            bad += rb
+            n += rn
         if part.get("xm"):
             # 🆕 21本目 ⑤b-6：×の印は、記録が誤りとした値だけ（その頁で）
             n += 1
@@ -463,6 +503,29 @@ def _judge_parts(kw, m, view, vk, bad, n, lin, split_times, head):
             if not any(abs(x - y) < 0.6 for y in placed):
                 bad.append(f"カーソル（段{i}）x={x} が記録の値に止まっていない")
     return bad, n
+
+
+def _hex(name):
+    """色の名（ROLE の名・jiko_style の名・#値）→ 値（小文字）。"""
+    import jiko_style as J
+    nm = str(name or "")
+    v = nm if nm.startswith("#") else (J.ROLE.get(nm) or getattr(J, nm, None))
+    return (v or "").lower()
+
+
+def _role_check(view, part):
+    """🆕 22本目 ⑤b-3b：部品の色が役の色か。1段の帯＝値（帯は「始め〜終わり」）の役・2段の帯＝段の役（壊れた値だけ赤）。"""
+    key = part["at"] if "at" in part else f"{part.get('a')}〜{part.get('b')}"
+    if view == "tiers":
+        want = "ALERT" if key in TIER_ALERT else LANE_ROLE.get(part.get("lane"))
+    else:
+        want = REC_ROLE.get(key)
+    if want is None:
+        return ([f"{key} の役の色が門番の表（REC_ROLE／LANE_ROLE）に無い"] if _ROLE_ON[0] else []), (1 if _ROLE_ON[0] else 0)
+    got = _hex(part.get("c"))
+    if got != _hex(want):
+        return [f"{key}（{part.get('t') or part['k']}）の色 {part.get('c')}＝{got} が役の色 {want}＝{_hex(want)} でない"], 1
+    return [], 1
 
 
 def _split_times():
@@ -828,9 +891,31 @@ def _selftest_ep21():
     return ok
 
 
+def selftest_ep22():
+    """🆕 22本目 ⑤b-3b：役の色の検算（本番の表＝前の回の見本を差す前に回す）。正しい帯は通り、色を取り替えると鳴る。"""
+    import cuts.ss as ss
+    ok = True
+    one = dict(ss.AX_1047, steps=[dict(add=[ss.ax("snd"), ss.ax("ping"), ss.ax("imp")], cur="10:47:09")], note="n", src="s")
+    two = dict(ss.AX_TWO, steps=[dict(add=[ss.ax("u02"), ss.ax("c269"), ss.ax("c323")], cur="10:47:32.3")], note="n", src="s")
+    cases = [("正しい1段の帯（送る＝潜水艇・壊れる＝赤）", one, True),
+             ("正しい2段の帯（下の段＝カナダの紫・壊れた＝赤）", two, True),
+             ("🔴 陽性対照：潜水艇が送った点を会社の色", dict(one, steps=[dict(add=[ss.ax("snd", c="COMPANY")])]), False),
+             ("🔴 陽性対照：カナダの段の点を米沿岸警備隊の青", dict(two, steps=[dict(add=[ss.ax("c269", c="USCG")])]), False),
+             ("🔴 陽性対照：壊れた点を赤でなく段の色", dict(two, steps=[dict(add=[ss.ax("c323", c="INST")])]), False)]
+    for name, kw, want in cases:
+        bad, _ = judge_fig(kw, ())
+        got = not bad
+        ok &= got == want
+        print(f"  {'OK' if got == want else '🔴 NG'} 22本目 {name}: {'合格' if got else '不合格'}（{'合格' if want else '不合格'}のはず）"
+              + (f"  ← {bad[0]}" if bad else ""))
+    return ok
+
+
 def selftest():
+    # 🆕 2026-10-14（22本目 ⑤b-3b）：本番の表（22本目）の役の色を、前の回の見本を差す前に検算する
+    ok = selftest_ep22()
     # 🆕 2026-10-14（22本目 ⑤b-1）：先に21本目を検算する＝前の回の見本を差す前に（見本 fixture_ep21 の表＝selftest_ep21 が差し込んで・終わったら戻す）
-    ok = selftest_ep21()
+    ok &= selftest_ep21()
     # 🆕 2026-10-06（19本目 ⑤b-5）：先に19本目を検算する＝前の回の見本を差す前に
     #    （2026-10-08〜：19本目も見本 fixture_ep19 の表＝selftest_ep19 が差し込んで・終わったら戻す）
     ok &= selftest_ep19()
@@ -950,6 +1035,7 @@ def main():
         return 0
     st = _split_times()
     bad_all, n_all = 0, 0
+    _ROLE_ON[0] = True        # 🆕 22本目 ⑤b-3b：本番は役の表に無い値を止める
     for cid, (_, kw) in targets.items():
         bad, n = judge_fig(kw, st, head=heads[cid])
         n_all += n

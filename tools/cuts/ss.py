@@ -711,8 +711,16 @@ def sat(code, steps, note="", **kw):
     return dict(photo=SAT[code]["file"], panel=True, pw=1152, color=1.0, sat=dict(code=code, steps=steps, note=note), **kw)
 
 
-REC_PAGES = REF / "src" / "ep22_pages.txt"      # ④ の make_pages.py の出力（git の外＝手元だけ）。まだ無い＝その型を初めて使う ⑤b のチャットで作る
-REC_DOCS = {}                               # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
+REC_PAGES = REF / "src" / "ep22_pages.txt"      # `ref/ep22/make_pages22.py` の出力（git の外＝手元だけ・⑤b-3b で作った）
+# 🆕 2026-10-14（22本目 ⑤b-3b）：22本目の資料の表＝3つの報告書。頁の番号＝**通し番号**（`ref/ep22/make_pages22.py` が同じ番号で REC_PAGES を書く）：
+#    USCG＝米沿岸警備隊 海難調査委員会の報告書の PDF の頁（台本の「USCG p.71〈63〉」→「USCG p71」）・NTSB＝1000＋PDF の頁（「NTSB p.36〈28〉」→「NTSB p1036」）・
+#    TSB＝カナダ運輸安全委員会の報告書（ウェブの頁＝頁なし）＝**節**で書く（「TSB §1.3.1」「TSB §付録B」「TSB §脚注13」＝`illu.sec_num`・page="sec"）。
+#    画面の出典の行＝`illu.rec_line`（pdf＝「PDF 71頁」・sec＝「1.3.1節」「付録B」）。⚠️「NTSB」は「TSB」を含む＝parse_rec は長い名から当てる
+REC_DOCS = {                                # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
+    "USCG": dict(range=(1, 335), name="米沿岸警備隊 海難調査委員会の報告書（2025年）", page="pdf", base=0),
+    "NTSB": dict(range=(1001, 1087), name="米運輸安全委員会の報告書（2025年）", page="pdf", base=1000),
+    "TSB": dict(range=(100_000_000, 999_999_999), name="カナダ運輸安全委員会の報告書（2026年）", page="sec", base=0),
+}
 ILLU_SPLIT_TIMES = ()                       # 資料で割れる時刻＝画面に時計・時刻の札として出さない
 ILLU_CROWD_UNTIL = None                     # 乗客の群れを描いてよい場面の時刻の上限
 ILLU_ROLES = dict(sprite=(), crowd=())      # 置いてよい役割（門番 check_illu ②）＝空の組なら、どの役割も置けない（fail closed）
@@ -743,6 +751,67 @@ AXIS_DOCS = {}
 
 # 部品（記録の頁つき。値と頁は門番 check_axis の REC_AXIS と照らされる）。t は項目名だけ（§5b-9）
 AXI = {}
+
+# 🆕 2026-10-14（22本目 ⑤b-3b）：第2〜3章の時間の帯。時刻は**ニューファンドランドの夏時間**（TSB 脚注13＝協定世界時−2.5時間・米国の2つの報告書も同じ時計）。
+#   色＝**役の色**（だれがしたか＝母船 SHIP・会社 COMPANY・潜水艇 SUB・壊れた＝ALERT）／2段の帯は段＝調べの色（米沿岸警備隊 USCG・カナダ INST）。
+#   門番 check_axis が記録の表（REC_AXIS・REC_ROLE・LANE_ROLE）で値・頁・色を照らす（§5b-88＝ここを書き換えると鳴る）
+#   AX_MORN22＝6月18日の朝（c306・c312・c313）。原文 TSB §1.3.1「arrived … at 0400 on 18 June」「At 0534, OceanGate held a briefing」「At 0545, the 5 people
+#     boarding the Titan … were weighed」「From 0600 to 0800, OceanGate used rigid inflatable boats」「All 5 people were on board the Titan by 0820」
+#     「At 0824 … closed the Titan’s forward dome … using its internal life support system」「At 0859 … a scheduled 5-minute pause」「At 0904 … fill the LARS’s ballast tanks」
+#     ⚠️ 9:04 は次のカット（c314）の語りの時刻＝括弧の端だけ（札を出さない）。past で沈めるだけの点は札なし（`lab=False, t=""`＝21本目の教訓）
+AX_MORN22 = dict(view="clock", span=("3:30", "9:40"), ticks=("4:00", "5:00", "6:00", "7:00", "8:00", "9:00"))
+#   AX_END＝10時40分〜51分（c407・c416）。原文 TSB 付録A「10:41:07.2 SST ack no niskin」「10:42:01.4 T a」「10:47:26.9 T dropped two wts」・
+#     NTSB p.17（p1017）「At 1048, the Polar Prince sent a message back to acknowledge」「At 1049, the Polar Prince sent the Titan a “lost tracking” message but received no response」
+#     ⚠️ 門番 layout：左の端 10:40 だと 10:41:07 の札（左へ振る）が枠の外へ出た＝10:39:30
+AX_END = dict(view="clock", span=("10:39:30", "10:51"), ticks=("10:40", "10:42", "10:44", "10:46", "10:48", "10:50"))
+#   AX_1047＝10時47分の秒（c411・c412）＝米沿岸警備隊の記録。原文 USCG p35「At approximately 10:47:02 a.m., the TITAN sent a message」
+#     「At approximately 10:47:08 a.m., the TITAN transmitted its final ping」「At approximately 10:47:09 a.m., the TITAN submersible suffered a catastrophic implosion」
+#     「At 10:47:11 a.m. … heard a sound described … as a “bang”」「At 10:47:26 a.m. … received a message from the TITAN」（approximately の3つは「ごろ」＝REC_APPROX）
+AX_1047 = dict(view="clock", span=("10:46:50", "10:47:34"), ticks=("10:47:00", "10:47:10", "10:47:20", "10:47:30"))
+#   AX_TWO＝2段の帯（c413〜c415）＝上の段 米沿岸警備隊（USCG p35〜p37）・下の段 カナダの調べ（TSB §1.3.2「At 1047:26.903 … a message appeared」
+#     「At 1047:32.066, … received the last automated position update」「it was calculated that the sound was generated at 1047:32.3」「At 1047:34.522, a loud sound
+#     … reverberated through the hull of the Polar Prince」・§2.1「5.397 seconds after the text message … appeared」）。🆕 秒の小数（axis の clock＝「10:47:26.9」）。
+#     ⚠️ 32.066・34.522 は画面に小数1桁（「10:47:32.1」「10:47:34.5」）＝門番の幅は書いた桁の半分（±0.05秒）に原文の値が入る
+_TU, _TC = "米沿岸警備隊の調べ", "カナダの調べ"
+#     ⚠️ 門番 axis：左の端 10:46:58 だと 10:47:02 の札（左へ振る）が段の名の列にかかった＝10:46:50
+AX_TWO = dict(view="tiers", span=("10:46:50", "10:47:38"), ticks=("10:47:00", "10:47:10", "10:47:20", "10:47:30"), lanes=(_TU, _TC))
+AXI.update({
+    # 朝（AX_MORN22）
+    "arr18": dict(k="pt", at="4:00", t="母船が現場に着く", rec="TSB §1.3.1", c="SHIP"),
+    "brief": dict(k="pt", at="5:34", t="潜航の説明", rec="TSB §1.3.1", c="COMPANY", anchor="end"),
+    "weigh": dict(k="pt", at="5:45", t="重さを量る", rec="TSB §1.3.1", c="COMPANY", anchor="start"),
+    "rib": dict(k="span", a="6:00", b="8:00", t="小舟で台へ", rec="TSB §1.3.1", c="COMPANY"),
+    "aboard": dict(k="pt", at="8:20", t="5人が乗り終える", rec="TSB §1.3.1", c="SUB", anchor="end"),
+    "seal": dict(k="pt", at="8:24", t="艇の中の生命維持へ", rec="TSB §1.3.1", c="SUB", anchor="start"),
+    "pause": dict(k="pt", at="8:59", t="作業を止めて確かめる", rec="TSB §1.3.1", c="COMPANY", anchor="end"),
+    "p5": dict(k="br", a="8:59", b="9:04", t="", rec="TSB §1.3.1"),   # ⚠️ geom_gap：括弧の札「5分」が 8:59 の札と縦の線に触れた＝札なし（5分は副題と語り）
+    # 10時40分〜51分（AX_END）
+    "nisk": dict(k="pt", at="10:41:07", t="母船「了解」", rec="TSB §付録A", c="SHIP", anchor="end"),
+    "a42": dict(k="pt", at="10:42:01", t="潜水艇「a」", rec="TSB §付録A", c="SUB", anchor="start"),
+    "quiet": dict(k="span", a="10:42:01", b="10:47:26.9", t="文字のやりとりが途切れる", rec="TSB §付録A", c="LINE"),
+    "q5": dict(k="br", a="10:42:01", b="10:47:26.9", t="5分あまり", rec="TSB §付録A"),
+    "ack48": dict(k="pt", at="10:48", t="「受け取った」と返す", rec="NTSB p1017", c="SHIP", anchor="end"),
+    "lost49": dict(k="pt", at="10:49", t="「追跡を失った」", rec="NTSB p1017", c="SHIP", anchor="start"),
+    # 10時47分の秒（AX_1047）
+    "snd": dict(k="pt", at="10:47:02", t="文を送る", rec="USCG p35", c="SUB", approx=True, anchor="end"),
+    "ping": dict(k="pt", at="10:47:08", t="最後の位置を送る", rec="USCG p35", c="SUB", approx=True, anchor="end"),
+    "imp": dict(k="pt", at="10:47:09", t="壊れる", rec="USCG p35", c="ALERT", approx=True, big=True, anchor="start"),
+    "bang": dict(k="pt", at="10:47:11", t="「バン」の音", rec="USCG p35", c="SHIP", anchor="start"),
+    "recv": dict(k="pt", at="10:47:26", t="文が届く", rec=["USCG p35", "USCG p36"], c="SHIP", anchor="start"),
+    # 2段の帯（AX_TWO）
+    "u02": dict(k="pt", at="10:47:02", t="送った", rec="USCG p35", c="USCG", lane=_TU, approx=True, anchor="end"),
+    "u09": dict(k="pt", at="10:47:09", t="壊れた", rec="USCG p35", c="ALERT", lane=_TU, approx=True, big=True, anchor="start"),
+    "u26": dict(k="pt", at="10:47:26", t="文が届いた", rec=["USCG p35", "USCG p36"], c="USCG", lane=_TU, anchor="end"),
+    "u32": dict(k="pt", at="10:47:32", t="最後の位置が届いた", rec="USCG p37", c="USCG", lane=_TU, anchor="start"),
+    "c269": dict(k="pt", at="10:47:26.9", t="画面に出た", rec="TSB §1.3.2", c="INST", lane=_TC, anchor="end"),
+    "c321": dict(k="pt", at="10:47:32.1", t="最後の位置", rec="TSB §1.3.2", c="INST", lane=_TC, anchor="end"),
+    # ⚠️ 門番 layout：右へ振ると右の端（x 1848）の外へ出た＝左へ（10:47:26.9 の札と重なる分は上の段へ振られる）
+    "c323": dict(k="pt", at="10:47:32.3", t="壊れた", rec=["TSB §1.3.2", "TSB §2.1"], c="ALERT", lane=_TC, big=True, anchor="end"),
+    "c345": dict(k="pt", at="10:47:34.5", t="船体に音", rec="TSB §1.3.2", c="INST", lane=_TC, anchor="end"),
+    "c54": dict(k="br", a="10:47:26.9", b="10:47:32.3", t="約5.4秒", rec="TSB §2.1"),
+    "lane_c": dict(k="lane", lane=_TC, rec="TSB §1.3.2", c="INST"),
+    "lane_u": dict(k="lane", lane=_TU, rec="USCG p35", c="USCG"),
+})
 
 
 def ax(name, **kw):
@@ -861,6 +930,22 @@ def merge(*parts):
 #       時刻の帯にしない点は棒にする）は移した注の側にある＝fixture_ep21 の QG・QB の注
 QG = {}
 QB = {}
+# 🆕 2026-10-14（22本目 ⑤b-3b）：c210 参加費（USCG p64「rising from $105,129 in 2021 to $250,000 for both 2022 and 2023」・TSB §1.23「the cost for
+#   1 passenger to join was up to 250 000 U.S. dollars」）＝万ドルの目盛り・行の名は年だけ（日付の行＝同じ色でよい・check_qty の DATE_ROW）。色＝会社
+#   ⚠️ 門番 qty：群の名に数字を書かない（「1人の」は副題へ）
+QG.update({"fee": dict(id="fee", t="参加費（万ドル）", ticks=(0, 10, 20, 30), rows=("2021年", "2022年", "2023年"))})
+QB.update({
+    "fee21": dict(k="bar", g="fee", t="2021年", v=10.5129, rec="USCG p64", c="COMPANY"),
+    "fee22": dict(k="bar", g="fee", t="2022年", v=25, rec="USCG p64", c="COMPANY"),
+    "fee23": dict(k="bar", g="fee", t="2023年", v=25, rec=["USCG p64", "TSB §1.23"], c="COMPANY"),
+})
+# 🆕 22本目 ⑤b-3b：c302 乗客として乗せられる人（TSB §1.20.1.2「it was permitted to carry up to 12 passengers」「on the occurrence voyage, it was carrying
+#   24 passengers」）。上限＝目安の灰・この航海＝会社の色（乗客に数える24人は会社の関係の人＝c303 と同じ色）
+QG.update({"pax": dict(id="pax", t="乗客として乗る人（人）", ticks=(0, 10, 20, 30), rows=("貨物船の決まりの上限", "この航海"))})
+QB.update({
+    "pax_lim": dict(k="bar", g="pax", t="貨物船の決まりの上限", v=12, rec="TSB §1.20.1.2", c="TICK"),
+    "pax_now": dict(k="bar", g="pax", t="この航海", v=24, rec="TSB §1.20.1.2", c="COMPANY"),
+})
 
 
 def qb(name, **kw):
@@ -869,10 +954,12 @@ def qb(name, **kw):
 
 # 人の形（1つ＝1人）＝**14本目 c204〜c206 だけの例外**（ルール §C-1 #59・亡くなった方の数には使わない）。
 #   15本目は使わない＝空のまま（門番 check_qty が PEOPLE_CUTS の外の人の形を止める）
-PEOPLE_ORDER = ()
+# 🆕 2026-10-14（22本目 ⑤b-3b）：c303 だけ（映像方針 了承②「会社の関係24＝橙・乗組員17＝水色の人の印」）＝母船に乗っていた41人（TSB §1.3.1「There were 41 people
+#   on board the Polar Prince in total: 24 people associated with OceanGate and 17 Polar Prince crew members」）。🔴 亡くなった方を分けない・後の章で戻して灰色にしない
+PEOPLE_ORDER = (("乗客に数える人（会社の関係）", 24), ("母船の乗組員", 17))
 PEOPLE_SETS = {}
-PEOPLE_REC = {}
-PEOPLE_CUTS = ()     # 🔴 門番 check_qty がこの外の人の形を止める（亡くなった方の数に使わない）
+PEOPLE_REC = {"乗客に数える人（会社の関係）": ["TSB §1.3.1", "TSB §1.20.1.1"], "母船の乗組員": "TSB §1.3.1"}
+PEOPLE_CUTS = ("c303",)     # 🔴 門番 check_qty がこの外の人の形を止める（亡くなった方の数に使わない）
 
 
 def pp(who, c, parent=None):

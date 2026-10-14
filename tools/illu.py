@@ -6659,16 +6659,53 @@ def _docs():
         return {}
 
 
+# 🆕 2026-10-14（22本目 ⑤b-3b）：頁の無い資料を**節**で書く（カナダ運輸安全委員会の報告書 M23A0169＝ウェブの頁）。
+#   書き方＝「TSB §1.3.1」「TSB §付録B」「TSB §脚注13」（REC_DOCS の page="sec" の資料だけ）。番号は節の数字を100進の5桁に詰めた数
+#   （1.3.1＝1_03_01_00_00＝103010000・付録B＝902000000・脚注13＝800000013）＝表なしで節へ戻せる。出典の行は「1.3.1節」「付録B」「脚注13」。
+#   原文の頁ファイル（REC_PAGES）も同じ番号で節を割る（`ref/ep22/make_pages22.py`）
+SEC_TOKEN = re.compile(r"§\s*(\d+(?:\.\d+)*|付録[A-Z]|脚注\d+)")
+
+
+def sec_num(label):
+    """節の名（"1.3.1"・"付録B"・"脚注13"）→ 番号。"""
+    s = str(label).strip().lstrip("§").strip()
+    if s.startswith("付録"):
+        return 900_000_000 + (ord(s[2]) - 64) * 1_000_000
+    if s.startswith("脚注"):
+        return 800_000_000 + int(s[2:])
+    lv = [int(x) for x in s.split(".")]
+    if not 1 <= len(lv) <= 5 or any(not 0 <= x < 100 for x in lv) or not 1 <= lv[0] <= 7:
+        raise ValueError(f"sec_num：節の番号が読めない {label!r}（1〜5段・各段 0〜99・頭は 1〜7）")
+    return sum(x * 100 ** (4 - i) for i, x in enumerate(lv))
+
+
+def sec_label(n):
+    """番号 → 出典の行の節の書き方（「1.3.1節」「付録B」「脚注13」）。"""
+    n = int(n)
+    if n >= 900_000_000:
+        return "付録" + chr(64 + (n - 900_000_000) // 1_000_000)
+    if n >= 800_000_000:
+        return f"脚注{n - 800_000_000}"
+    lv = [(n // 100 ** (4 - i)) % 100 for i in range(5)]
+    while len(lv) > 2 and lv[-1] == 0:
+        lv.pop()
+    return ".".join(map(str, lv)) + "節"
+
+
 def parse_rec(r, docs=None):
-    """「判決 p11・p18（…）／海審 p1057」→ [("判決", [11, 18]), ("海審", [1057])]。資料名は長い名前から当てる。"""
+    """「判決 p11・p18（…）／海審 p1057」→ [("判決", [11, 18]), ("海審", [1057])]。資料名は長い名前から当てる。
+    🆕 22本目：page="sec" の資料は「TSB §1.3.1」の形（節の番号＝`sec_num`）"""
     docs = docs if docs is not None else _docs()
     names = sorted(docs, key=len, reverse=True) or ["判決", "海審"]
     s = str(r or "")
-    hits = list(re.finditer("(" + "|".join(map(re.escape, names)) + r")\s*p\d", s))
+    hits = list(re.finditer("(" + "|".join(map(re.escape, names)) + r")\s*(?:p\d|§)", s))
     out = []
     for k, m in enumerate(hits):
         # その資料名から次の資料名までの「p頁」を全部（括弧の注釈をまたいで「・p18」と続く書き方も拾う）
         seg = s[m.start(1) + len(m.group(1)): hits[k + 1].start() if k + 1 < len(hits) else len(s)]
+        if (docs.get(m.group(1)) or {}).get("page") == "sec":
+            out.append((m.group(1), [sec_num(x) for x in SEC_TOKEN.findall(seg)]))
+            continue
         out.append((m.group(1), [int(x) for x in re.findall(r"(?<![0-9A-Za-z])p(\d+)", seg)]))
     return out
 
@@ -6691,6 +6728,8 @@ def rec_line(recs, docs=None):
             pg = "PDF " + "・".join(str(p - d.get("base", 0)) for p in ps) + "頁"
         elif d.get("page") == "print":
             pg = "・".join(str(p - d.get("base", 0)) for p in ps) + "頁"
+        elif d.get("page") == "sec":          # 🆕 22本目：節（「1.3.1節・付録A」）
+            pg = "・".join(sec_label(p) for p in ps)
         else:
             pg = ""
         parts.append(f"{d.get('name', doc)} {pg}".strip())

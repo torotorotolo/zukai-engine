@@ -259,8 +259,9 @@ def _who(who, order, sets):
     raise ValueError(f"qty：人の形の区分 {who!r} が order にも sets にも無い")
 
 
-def _people(order, sets, past, steps, note, src):
-    sl = slots(order)
+def _people(order, sets, past, steps, note, src, cols=0):
+    # 🆕 22本目 ⑤b-3b：cols＝1行の人数（既定 PCOLS＝476人の並び）。41人（c303）は 34 だと2行の小さな形＝cols=12 で4行
+    sl = slots(order, cols or PCOLS)
     lab = [_kind(UNIT)]
     lab += [f'<path data-p="{i}" d="{person(cx, top, cw, ch)}" fill="{_c(DIM, DIM)}"/>'
             for i, (_, cx, top, cw, ch) in enumerate(sl)]
@@ -313,4 +314,4 @@ def qty(view, steps, groups=(), past=(), n=0, title="", cols=0, order=(), sets=N
         return _bar(groups, past, steps, note, src)
     if view == "grid":
         return _grid(n, title, steps, cols, note, src, past)
-    return _people(order, sets, past, steps, note, src)
+    return _people(order, sets, past, steps, note, src, cols)

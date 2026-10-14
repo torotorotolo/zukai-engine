@@ -107,3 +107,114 @@ SPEC.update({
     # c309（6.8秒）＝母船の小舟（MBI 図24・黄の丸は MBI・幅 780）・額ごと寄る
     "c309": dict(photo=_BOAT, panel=True, fmove=ss.fm("in"), t="台へ移る", s="母船の小舟（事故の後に撮影）"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-3b（2026-10-14）：図解 第2章（13カット）＝時間の帯（axis）・棒と人の形（qty）・模式図 `tools/mech22.py`
+# ══════════════════════════════════════════════════════════
+#   🔴 色は役の色（母船＝水色・会社＝橙・潜水艇＝白）。章の札「6月18日の朝」と4字以上同じ並びを見出し・副題に入れない（門番 dup）。
+#      時刻はニューファンドランドの夏時間（c306 の注）。past で沈めるだけの点は札なし（21本目の教訓）
+_N_MORN = "時刻はニューファンドランドの夏時間（協定世界時の2.5時間遅れ）"
+_MORN_PAST = [ss.ax("arr18", t="", lab=False), ss.ax("brief", t="", lab=False), ss.ax("weigh", t="", lab=False), ss.ax("rib", t=""),
+              ss.ax("aboard", t="", lab=False)]
+_N_CHAT = "英文は原文どおり（カナダの調べの付録A）"     # ⚠️ 門番 dup：「字幕」は制作の用語／echo：「打ち間違いのまま」は c317 の語りの写し
+SPEC.update({
+    # c302（2行）＝乗客の数の棒（貨物船の決まりの上限12人 → この航海24人）
+    "c302": dict(
+        t="乗客の数", s="母船に乗った人",
+        fig=("qty", dict(view="bar", groups=[ss.QG["pax"]], steps=[dict(add=[ss.qb("pax_lim")]), dict(add=[ss.qb("pax_now")])],
+                         note="人数はカナダの報告書", src=ss.src(["TSB §1.20.1.2"]))),
+    ),
+    # c303（2行）＝人の形（1つ＝1人・41人）。1行目で乗客に数える会社の関係24人（橙）・2行目で母船の乗組員17人（水色）
+    "c303": dict(
+        t="乗っていた人", s="母船の全員",
+        fig=("qty", dict(view="people", order=ss.PEOPLE_ORDER, sets=ss.PEOPLE_SETS, cols=12,
+                         steps=[dict(add=[ss.pp("乗客に数える人（会社の関係）", "COMPANY")]), dict(add=[ss.pp("母船の乗組員", "SHIP")])],
+                         note="人数はカナダの報告書（乗客に数える人＝乗組員でない人）", src=ss.src(["TSB §1.3.1", "TSB §1.20.1.1"]))),
+    ),
+    # c306（2行）＝時間の帯（3:30〜9:40）。2行目で母船が現場に着く（4:00）
+    "c306": dict(
+        t="時刻の決まり", s="現地の夏の時間",
+        fig=("axis", dict(ss.AX_MORN22, steps=[dict(), dict(add=[ss.ax("arr18")], cur="4:00")],
+                          note=_N_MORN, src=ss.src(["TSB §脚注13", "TSB §1.3.1"]))),
+    ),
+    # c310（2行）＝上から見た台と艇（NTSB 図4 の比）。8:20 乗り終える（潜水艇）→ 8:24 前のドームを閉めてボルトで締める（会社）
+    "c310": dict(
+        t="乗り込み", s="台の上の潜水艇",
+        fig=("m22", dict(view="lars_top", steps=[dict(tag=dict(t="8:20 5人が乗り終える", at="t1", col=J.SUB)),
+                                                 dict(state=dict(close="on"), tag=dict(t="8:24 会社の人が閉じる", at="t2", col=J.COMPANY))],   # ⚠️ 門番 echo
+                         rel=[dict(t="8:20", src="TSB §1.3.1"), dict(t="8:24", src="TSB §1.3.1"), dict(t="5人", src="TSB §1.3.1")],
+                         note="形は NTSB 図4 の上の線画の比（模式）", src=ss.src(["NTSB p1013", "TSB §1.3.1"]))),
+    ),
+    # c311（3行）＝🔁 上から→横から（合図の札）。2行目で前のドームのボルト18本（外から）・3行目で出入りはここだけ
+    "c311": dict(
+        t="出入りの道", s="前のドーム",
+        fig=("m22", dict(view="side", steps=[dict(tag=dict(t="横から見ると", at="cap", col=J.TICK)),
+                                             dict(state=dict(bolts="on"), tag=dict(t="外からボルトで締める", at="tag", col=J.COMPANY)),
+                                             dict(state=dict(only="on"), tag=dict(t="出入りはここだけ", at="only", col=J.COMPANY))],
+                         note="形は NTSB 図3 の比（模式）", src=ss.src(["TSB §1.2.1", "TSB §2.5", "TSB §脚注39"]))),
+    ),
+    # c312（2行）＝同じ帯（past＝4:00〜8:20 を沈めて）。8:24 艇の中の生命維持へ（潜水艇）→ 酸素を足す・二酸化炭素を取る
+    "c312": dict(
+        t="閉じた艇の中", s="閉じた後の空気",
+        fig=("axis", dict(ss.AX_MORN22, past=_MORN_PAST, start=dict(cur="8:20"),
+                          steps=[dict(add=[ss.ax("seal")], cur="8:24"),
+                                 dict(add=[dict(k="chips", at="8:24", chips=["酸素を足す", "二酸化炭素を取る"], rec=["TSB §1.3.1", "TSB §1.2.1"])])],
+                          note=_N_MORN, src=ss.src(["TSB §1.3.1", "TSB §1.2.1"]))),
+    ),
+    # c313（1行）＝同じ帯。8:59 作業を止めて確かめる（会社）・5分の括弧（9:04 は次のカットの語り＝札なし）
+    "c313": dict(
+        t="一時停止", s="予定どおりの5分",
+        fig=("axis", dict(ss.AX_MORN22, past=_MORN_PAST + [ss.ax("seal", t="", lab=False)], start=dict(cur="8:24"),
+                          steps=[dict(add=[ss.ax("pause"), ss.ax("p5")], cur="8:59")],
+                          note=_N_MORN, src=ss.src(["TSB §1.3.1"]))),
+    ),
+    # c314（2行）＝横から見た台が沈む（9:04 水を入れる・9:05 台ごと水面の下 → 9:14 切り離す）
+    "c314": dict(
+        t="台ごと沈める", s="降下の始まり",
+        fig=("m22", dict(view="lars_side", steps=[dict(state=dict(fill="on", lvl="under"),
+                                                       tag=[dict(t="9:04 水を入れる", at="t1", col=J.COMPANY),
+                                                            dict(t="9:05 台ごと水面の下へ", at="t2", col=J.COMPANY)]),
+                                                  dict(state=dict(det="on"), tag=dict(t="9:14 切り離す", at="t3", col=J.COMPANY))],
+                         rel=[dict(t="9:04", src="TSB §1.3.1"), dict(t="9:05", src="TSB §1.3.1"), dict(t="9:14", src="TSB §1.3.1")],
+                         note="形と深さは模式", src=ss.src(["TSB §1.3.1", "TSB §1.2.1.1"]))),
+    ),
+    # c315（3行）＝重りで沈む（下向きの矢印だけ）・この年の初めて・10メートルより深いのも初めて
+    "c315": dict(
+        t="重りで沈む", s="動力を使わない降下",
+        fig=("m22", dict(view="sink", steps=[dict(state=dict(fall="on"), tag=dict(t="重りの重さで沈む", at="r")),
+                                             dict(tag=dict(t="この年のタイタニックへは初めて", at="r2", col=J.SUB)),
+                                             dict(tag=dict(t="10メートルより深いのも初めて", at="r3", col=J.SUB))],
+                         rel=[dict(t="10メートル", src="NTSB p1016")],
+                         note="形は NTSB 図3 の比（模式）", src=ss.src(["USCG p6", "TSB §1.3", "NTSB p1016"]))),
+    ),
+    # c316（3行）＝音で文字を送る（母船の下の送受信機と艇のあいだの音の波）・電波は水を通りにくい・声の装置は無い
+    "c316": dict(
+        t="海の中の通信", s="音で文字を送る",
+        fig=("m22", dict(view="sonar", steps=[dict(), dict(state=dict(sound="on", radio="on"),
+                                                           tag=[dict(t="電波は水の中を通りにくい", at="radio"), dict(t="音の波で短い文字", at="sound")]),
+                                              dict(state=dict(voice="on"), tag=dict(t="声の装置は無い", at="voice"))],
+                         note="形と距離は模式", src=ss.src(["USCG p32", "USCG p30"]))),
+    ),
+    # c317（2行）＝🔧 付録A の最初の4行の吹き出し（潜水艇＝左の白・母船＝右の水色・打ち間違いのまま）
+    "c317": dict(
+        t="降りる間の文", s="最初の4つの文",
+        fig=("m22", dict(view="chat", start=dict(set="descent"), steps=[dict(state=dict(n="2")), dict(state=dict(n="4"))],
+                         note=_N_CHAT, src=ss.src(["TSB §付録A", "TSB §1.3.2"]))),
+    ),
+    # c318（2行）＝🔧 2つの通信の箱（1つ目＝動く水色／2つ目＝灰に「動いていない」の赤）・理由は分かっていない（カナダの報告書）
+    "c318": dict(
+        t="2つの装置", s="潜水艇からの知らせ",
+        fig=("m22", dict(view="comms", steps=[dict(state=dict(dead="on"), tag=dict(t="9:23", at="t")),
+                                              dict(tag=dict(t="理由は分かっていない", d="カナダの報告書", at="why", col=J.INST))],
+                         rel=[dict(t="9:23", src="TSB §1.3.2")],
+                         note="装置の形は模式", src=ss.src(["TSB §1.3.2", "TSB §脚注16"]))),
+    ),
+    # c319（3行）＝深さの線（9:19 235m・9:23 436m・9:31 680m）・毎分33メートル → 9:53〜10:10 返事が来ない
+    "c319": dict(
+        t="降りる速さ", s="9時台の降下",
+        fig=("m22", dict(view="depth", steps=[dict(state=dict(upto="a"), tag=dict(t="毎分33メートル", at="rate")), dict(),
+                                              dict(state=dict(gap="on"), tag=dict(t="返事が来ない", at="gap"))],
+                         rel=[dict(t="毎分33メートル", src="TSB §1.3.2")],
+                         note="点のあいだは直線（模式）", src=ss.src(["TSB §1.3.2", "USCG p32"]))),
+    ),
+})
