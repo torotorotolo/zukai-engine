@@ -812,6 +812,50 @@ AXI.update({
     "lane_c": dict(k="lane", lane=_TC, rec="TSB §1.3.2", c="INST"),
     "lane_u": dict(k="lane", lane=_TU, rec="USCG p35", c="USCG"),
 })
+# 🆕 2026-10-15（22本目 ⑤b-4）：第4・6・7章の帯（門番 check_axis の REC_AXIS・REC_ROLE が値・頁・役の色を照らす）
+#   AX_PM22＝6月18日の昼から夜（c503〜c506）。原文 USCG p38「as of approximately 10:47 a.m., there was a loss of communication」・
+#     TSB §1.3.3「the estimated resurfacing time was approximately 3 hours and 13 minutes (at 1500)」「At 1500 … commenced the 3-hour surface search」
+#     「At 1634 … the master of the Polar Prince called the Horizon Maritime Services Ltd. shore-based emergency team」「By 1800, the surface search had found no signs」
+#     「At 1855, the master of the Polar Prince called the Joint Rescue and Coordination Centre (JRCC) in Halifax」・USCG p39（船長の陳述「At (6:27 p.m.) … communications
+#     with JRCC were shortly thereafter cut-off」）・TSB §2.5「8 hours and 8 minutes after communication and tracking had been lost」
+AX_PM22 = dict(view="clock", span=("10:20", "19:30"), ticks=("11:00", "13:00", "15:00", "17:00", "19:00"))
+#   AX_CLASS＝船級（c715）。NTSB p1022「when he was hired in 2016, the company planned to class the submersible」・p1023「In 2018, OceanGate abandoned classing efforts」
+AX_CLASS = dict(view="date", span=("2015-06-01", "2019-06-01"), ticks=("2016", "2017", "2018", "2019"))
+#   AX_Y18＝2018年（c807〜c809）。USCG p149「On January 23, 2018, OceanGate fired the Director of Marine Operations」「filed a retaliation complaint with … (OSHA) on
+#     February 6, 2018」・p150「OceanGate filed a lawsuit against him on June 25, 2018」・p151「On December 13, 2018 … withdrew his SPA complaint」・
+#     TSB §1.12.1「because he held different opinions from the CEO on the safety of the Titan」・NTSB p1048「“like Swiss cheese”」
+AX_Y18 = dict(view="date", span=("2017-12-10", "2019-01-10"), ticks=("2018-01-01", "2018-04-01", "2018-07-01", "2018-10-01", "2019-01-01"))
+#   AX_Y19＝2019年（c817・c818）。USCG p164「On July 26, 2019, OceanGate fired the Director of Engineering」・TSB §1.12.1「On 15 October, the Titan was tested in the
+#     Deep Ocean Test Facility」「Following that test, further cracks and delamination were found」「On 18 November, the Titan’s depth rating was reduced … not to dive
+#     below 2000 m」「This carbon fibre cylinder was not subsequently used for any more dives」。札は語りの細かさ（年月＝fmt="ym"）
+AX_Y19 = dict(view="date", span=("2019-05-20", "2019-12-31"), ticks=("2019-06-01", "2019-07-01", "2019-08-01", "2019-09-01", "2019-10-01", "2019-11-01", "2019-12-01"))
+AXI.update({
+    # 6月18日の昼から夜（AX_PM22）
+    "lost47": dict(k="pt", at="10:47", t="連絡と追跡が途絶える", rec="USCG p38", c="LINE", approx=True, anchor="start"),
+    "surf15": dict(k="pt", at="15:00", t="浮上の見込み", rec="TSB §1.3.3", c="COMPANY", anchor="end"),
+    "srch": dict(k="span", a="15:00", b="18:00", t="海面の捜索", rec="TSB §1.3.3", c="SHIP"),
+    "call1634": dict(k="pt", at="16:34", t="陸の班へ電話", rec="TSB §1.3.3", c="SHIP"),
+    "none18": dict(k="pt", at="18:00", t="手がかりなし", rec="TSB §1.3.3", c="SHIP", anchor="end"),
+    "cut1827": dict(k="pt", at="18:27", t="電話がすぐ切れる", rec="USCG p39", c="SHIP", anchor="end"),
+    "rcc1855": dict(k="pt", at="18:55", t="救難の当局へ", rec="TSB §1.3.3", c="SHIP", anchor="end"),
+    "b88": dict(k="br", a="10:47", b="18:55", t="8時間8分", rec="TSB §2.5"),
+    # 船級（AX_CLASS）
+    "cls16": dict(k="pt", at="2016", t="船級を取るつもり", rec="NTSB p1022", c="COMPANY", fmt="y"),
+    "cls18": dict(k="pt", at="2018", t="船級をあきらめる", rec="NTSB p1023", c="COMPANY", fmt="y"),
+    # 2018年（AX_Y18）＝元運航部長の動きは LINE（会社の外の1人＝役の色を持たない）
+    "fire18": dict(k="pt", at="2018-01-23", t="運航部長を解任", rec="USCG p149", c="COMPANY", fmt="md", anchor="start"),
+    "why18": dict(k="chips", at="2018-01-23", chips=["安全の考えの違い"], rec="TSB §1.12.1"),
+    "osha18": dict(k="pt", at="2018-02-06", t="労働安全衛生局へ", rec="USCG p149", c="LINE", fmt="md", anchor="start"),
+    "swiss": dict(k="chips", at="2018-02-06", chips=["“like Swiss cheese”"], rec="NTSB p1048"),
+    "sue18": dict(k="pt", at="2018-06-25", t="会社が訴える", rec="USCG p150", c="COMPANY", fmt="md"),
+    "wd18": dict(k="pt", at="2018-12-13", t="申し立てを取り下げ", rec="USCG p151", c="LINE", fmt="md", anchor="end"),
+    # 2019年（AX_Y19）
+    "fire19": dict(k="pt", at="2019-07-26", t="技術部長を解任", rec="USCG p164", c="COMPANY", fmt="ym"),
+    "test19": dict(k="pt", at="2019-10-15", t="加圧の試験", rec="TSB §1.12.1", c="COMPANY", fmt="ym", anchor="end"),
+    "crk19": dict(k="chips", at="2019-10-15", chips=["亀裂と剥離"], rec="TSB §1.12.1"),   # ⚠️ geom_gap：「…がさらに」だと11月の項目の札と重なった
+    "der19": dict(k="pt", at="2019-11-18", t="潜る深さを下げる", rec="TSB §1.12.1", c="COMPANY", fmt="ym", anchor="start"),
+    "last19": dict(k="chips", at="2019-11-18", chips=["それきり潜らず"], rec="TSB §1.12.1"),
+})
 
 
 def ax(name, **kw):
@@ -945,6 +989,28 @@ QG.update({"pax": dict(id="pax", t="乗客として乗る人（人）", ticks=(0
 QB.update({
     "pax_lim": dict(k="bar", g="pax", t="貨物船の決まりの上限", v=12, rec="TSB §1.20.1.2", c="TICK"),
     "pax_now": dict(k="bar", g="pax", t="この航海", v=24, rec="TSB §1.20.1.2", c="COMPANY"),
+})
+
+
+# 🆕 2026-10-15（22本目 ⑤b-4）：c518 生命維持を始めてからの時間（TSB §1.2.1「enough oxygen to last approximately 96 hours based on an occupancy of 5 people」・
+#   §2.5「located the Titan debris 98 hours and 16 minutes after life support had been started on the Titan, which exceeded the 96 hours」）。
+#   目盛りは24時間ごと（1日）。色＝酸素は潜水艇・見つかるまでの時間はカナダの調べの値（語り「カナダの調べで」）
+#   ⚠️ 門番 echo：群の名「生命維持を始めてから（時間）」は語り「生命維持を始めてから98時間16分後」の写し
+QG.update({"o2": dict(id="o2", t="生命維持の開始からの時間", ticks=(0, 24, 48, 72, 96, 120), rows=("酸素の目安", "見つかるまで"))})
+QB.update({
+    "o2_lim": dict(k="bar", g="o2", t="酸素の目安", v=96, rec=["TSB §1.2.1", "TSB §2.5"], c="SUB"),
+    "o2_find": dict(k="bar", g="o2", t="見つかるまで", v=98 + 16 / 60, rec="TSB §2.5", c="INST"),
+})
+# 🆕 22本目 ⑤b-4：c708 設計書の安全率（TSB §1.12.1「had a safety factor of 2.19 with grade 5 titanium end domes and a safety factor of 2.21 with carbon fibre end
+#   domes」「OceanGate had a goal of 2.25 for the safety factor」・脚注45「that required a minimum safety factor of 1.5」）。行の名に数字を書かない
+QG.update({"sf": dict(id="sf", t="安全率（倍）", ticks=(0, 1, 2, 3), rows=("チタンのドームのとき", "炭素繊維のドームのとき", "会社の目標", "規格の最低"))})
+QB.update({
+    "sf_ti": dict(k="bar", g="sf", t="チタンのドームのとき", v=2.19, rec="TSB §1.12.1", c="COMPANY"),
+    # ⚠️ 門番 qty ⑪：同じ群の棒は色を ΔE 25 以上離す（4本とも会社の橙だと鳴った）＝チタン 橙・炭素繊維 黄（ΔE 29）・目標 白・最低 灰
+    #    （第6章は白黒＝灰 TICK が #aca69a に置き換わる＝書類の色 DOC とは ΔE 21 で鳴った・白 INK_W とは 27）
+    "sf_cf": dict(k="bar", g="sf", t="炭素繊維のドームのとき", v=2.21, rec="TSB §1.12.1", c="AMBER"),
+    "sf_goal": dict(k="bar", g="sf", t="会社の目標", v=2.25, rec="TSB §1.12.1", c="INK_W"),
+    "sf_min": dict(k="bar", g="sf", t="規格の最低", v=1.5, rec="TSB §脚注45", c="TICK"),
 })
 
 

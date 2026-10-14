@@ -75,3 +75,149 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-15）：図解 第6章（19カット）＝模式図 `tools/mech22.py`・時間の帯（axis）・棒（qty）
+# ══════════════════════════════════════════════════════════
+#   🔴 章の札「炭素繊維の筒」と4字以上同じ並びを見出し・副題に入れない（門番 dup）。人の言葉は輪郭（顔は描かない）＋吹き出しの英字（訳は字幕）。
+#      CEO の名前は画面に出さない（語りだけ）。色＝役の色（会社＝橙・米沿岸警備隊＝青・米運輸安全委員会＝緑・カナダ＝紫）
+#   🔧 c706・c709・c713：映像方針の「棒」→ **深さの物差し（ruler・縦・縮尺どおり）**＝目標の深さ・壊れる深さの計算・運航の目標は「線」で、
+#      タイタニック（約3,800m）と同じ縦の尺で比べる。c706 の安全率の目標 2.25 は札（棒は c708）。c713 の模型の深さは3冊で割れる＝描かない（札だけ）
+_N_SAY = "人の形は模式（顔は描かない）"
+SPEC.update({
+    # c701（2行）＝聞き役の問い→横から見たタイタン（炭素繊維の筒・チタンのドーム）＋「強い・軽い・形を作りやすい」
+    "c701": dict(
+        t="強くて軽い材料", s="広く使われる材料",          # ⚠️ 門番 dup：「炭素繊維の…」は章の札の写し
+        fig=("m22", dict(view="side", steps=[dict(state=dict(mat="on")), dict(tag=dict(t="強い・軽い・形を作りやすい", at="low"))],
+                         note="形は NTSB 図3 の比（模式）", src=ss.src(["TSB §1.13"]))),
+    ),
+    # c702（3行）＝引っ張り（旅客機の胴体＝中から外へ）→押しつぶし（深い海の殻＝外から中へ）・確かな実績が無い→米沿岸警備隊の見方（青）
+    "c702": dict(
+        t="押される殻", s="空の上と海の底",          # ⚠️ 門番 dup：「力の向き」は図の左上の札の写し
+        fig=("m22", dict(view="tc", steps=[dict(state=dict(air="on")), dict(state=dict(sea="on"), tag=dict(t="確かな実績が無い", at="r1")),
+                                           dict(tag=dict(t="一般に弱いとされる", d="米沿岸警備隊の見方", at="r2", col=J.USCG))],
+                         note="矢印は力の向きの模式", src=ss.src(["USCG p274"]))),
+    ),
+    # c703（2行）＝ふつうの深海の潜水艇（鋼かチタンの球）→タイタン（炭素繊維の筒）・ほかに例が無い（カナダ）
+    "c703": dict(
+        t="殻の形", s="球と筒",
+        fig=("m22", dict(view="shell", steps=[dict(state=dict(left="on")),
+                                              dict(state=dict(right="on"), tag=dict(t="ほかに例が無い", d="カナダの調べ", at="r2", col=J.INST))],
+                         note="形と大きさは模式", src=ss.src(["TSB §1.13", "TSB §脚注53"]))),
+    ),
+    # c704（3行）＝同じ並べ図。聞き役の問い→軽い（運ぶ・降ろす仕組みが安い）・筒の形（中が広い）→会社の主な理由（カナダ）
+    "c704": dict(
+        t="選んだわけ", s="軽さと広さ",
+        fig=("m22", dict(view="shell", start=dict(left="on", right="on"),
+                         steps=[dict(), dict(tag=[dict(t="軽い＝運ぶ・降ろす仕組みが安い", at="r1"), dict(t="筒の形＝中が広い", at="r2")]),
+                                dict(tag=dict(t="会社の主な理由", d="カナダの調べの見方", at="r3", col=J.INST))],
+                         note="形と大きさは模式", src=ss.src(["TSB §1.13"]))),
+    ),
+    # c705（2行）＝🔧 人の言葉（元運航部長の話＝CEO の考え）の吹き出し「better in compression than tension」→米沿岸警備隊の見方と逆（青）
+    "c705": dict(
+        t="逆の向き", s="元部長が伝えた考え",          # ⚠️ 門番 dup：「報告書が引く言葉」は note の写し
+        fig=("m22", dict(view="say", start=dict(set="comp"),
+                         steps=[dict(state=dict(n="1")), dict(tag=dict(t="米沿岸警備隊の見方と逆", at="r", col=J.USCG))],
+                         note=_N_SAY + "・英字は米運輸安全委員会の報告書が引く言葉", src=ss.src(["NTSB p1025", "USCG p274"]))),
+    ),
+    # c706（2行）＝🔧 深さの物差し（0〜7,000m）。外部の会社の設計書→会社の望み 6,000m（橙の線）・安全率の目標 2.25（札）
+    "c706": dict(
+        t="設計の目標", s="2015年6月の書類",
+        fig=("m22", dict(view="ruler", start=dict(z="near"),
+                         steps=[dict(tag=dict(t="外部の会社の設計書", at="doc", col=J.INK_W)),
+                                dict(state=dict(goal="on"), tag=dict(t="安全率の目標 2.25", at="sf"))],
+                         rel=[dict(t="2.25", src="TSB §1.12.1")],
+                         note="深さは縮尺どおり（タイタニックは約3,800メートル）", src=ss.src(["TSB §1.12.1", "TSB §1.3"]))),
+    ),
+    # c707（3行）＝安全率のしくみ（潜ってよい深さと壊れる深さの棒・長さは模式）。聞き役の問い→何倍か→1より大きいほど余裕
+    "c707": dict(
+        t="安全率", s="余裕の大きさ",
+        fig=("m22", dict(view="sf", steps=[dict(), dict(state=dict(bars="on", ratio="on"), tag=dict(t="何倍か", at="r1")),
+                                           dict(state=dict(spare="on"), tag=dict(t="余裕", at="r2"))],
+                         note="棒の長さは模式（値ではない）", src=ss.src(["NTSB p1024"]))),
+    ),
+    # c708（2行）＝棒（安全率）。設計書の2つの計算（2.19・2.21）と会社の目標（2.25）→規格の最低（1.5）
+    "c708": dict(
+        t="設計書の安全率", s="2015年の計算",
+        fig=("qty", dict(view="bar", groups=[ss.QG["sf"]],
+                         steps=[dict(add=[ss.qb("sf_ti"), ss.qb("sf_cf"), ss.qb("sf_goal")]), dict(add=[ss.qb("sf_min")])],
+                         note="規格＝米国の機械学会の規格", src=ss.src(["TSB §1.12.1", "TSB §脚注45"]))),
+    ),
+    # c709（2行）＝🔧 深さの物差し（0〜14,000m）。壊れる深さの計算 約1万3,200m（橙）→タイタニックの深さの箱3つ＝3倍あまり
+    "c709": dict(
+        t="計算の上の深さ", s="深さを並べると",          # ⚠️ 門番 dup：「縮尺どおり」は図の左上の札と note の写し
+        fig=("m22", dict(view="ruler", start=dict(z="far", goal="on"),
+                         steps=[dict(state=dict(fail="on")), dict(state=dict(ratio="on"), tag=dict(t="3倍あまり", at="dl"))],
+                         rel=[dict(t="3倍あまり", src="NTSB p1025（13,200メートル）・TSB §1.3（3800 m）")],
+                         note="深さは縮尺どおり（点線の箱1つ＝タイタニックの深さ）", src=ss.src(["NTSB p1025", "TSB §1.3"]))),
+    ),
+    # c710（2行）＝米運輸安全委員会の一節（理論の模型・完全な形と繊維の向き）→実物で確かめるべきだった
+    "c710": dict(
+        t="理屈の上の値", s="実物で確かめる前",
+        fig=("m22", dict(view="paper", start=dict(doc="model"), steps=[dict(state=dict(hl1="on", hl2="on")), dict(state=dict(hl3="on"))],
+                         note="一節は米運輸安全委員会の報告書（英字のまま・模式）", src=ss.src(["NTSB p1063"]))),
+    ),
+    # c711（2行）＝3分の1の模型（炭素繊維の筒とドーム）に外から圧→ドームの1つが約3,000メートル相当の圧で壊れた
+    "c711": dict(
+        t="模型の試験", s="2015年12月",
+        fig=("m22", dict(view="model", steps=[dict(state=dict(press="on"), tag=dict(t="外から圧をかける", at="r1")),
+                                              dict(state=dict(fail="on"), tag=dict(t="ドームの1つが壊れた", d="約3,000メートル", at="r2", col=J.ALERT))],   # ⚠️ 門番 echo：「…相当の圧」まで書くと語りの写し＝数と単位だけ
+                         rel=[dict(t="1つ", src="TSB §1.12.1"), dict(t="約3,000メートル", src="TSB §1.12.1")],
+                         note="どちらのドームかは描き分けていない（模式）", src=ss.src(["TSB §1.12.1"]))),
+    ),
+    # c712（2行）＝🔧 人の言葉（CEO の手紙）。2行目で吹き出し（筒には傷が無い・筒の形はよく分かっている）
+    "c712": dict(
+        t="CEO の手紙", s="筒への自信",
+        fig=("m22", dict(view="say", start=dict(set="letter"), steps=[dict(), dict(state=dict(n="1"))],
+                         note=_N_SAY + "・英字は米沿岸警備隊の報告書が引く手紙", src=ss.src(["USCG p111"]))),
+    ),
+    # c713（2行）＝🔧 深さの物差し（0〜7,000m）。運航の目標 4,500m（橙の線）・模型の試験は届かず→模型の筒にも剥離（CEO の話）
+    "c713": dict(
+        t="届かない模型", s="目指した深さ",
+        fig=("m22", dict(view="ruler", start=dict(z="near"),
+                         steps=[dict(state=dict(op="on"), tag=dict(t="模型の試験は届かず", at="low2")),
+                                dict(tag=dict(t="模型の筒にも剥離", d="CEO の話（米運輸安全委員会の報告書）", at="low", col=J.ALERT))],
+                         note="模型の回ごとの深さは報告書で割れる＝描いていない（模式）", src=ss.src(["USCG p114", "NTSB p1025"]))),
+    ),
+    # c714（3行）＝船級のしくみ。聞き役の問い→船級協会（民間の団体）が設計・工事を確かめる→試験に立ち会い、証明書
+    "c714": dict(
+        t="船級", s="外から確かめる人",
+        fig=("m22", dict(view="klass", steps=[dict(tag=dict(t="確かめるのは？", at="q")), dict(state=dict(soc="on", design="on")),
+                                              dict(state=dict(test="on", cert="on"))],
+                         note="流れは要点（模式）", src=ss.src(["NTSB p1022"]))),
+    ),
+    # c715（2行）＝年表（2016年 船級を取るつもり→2018年 あきらめる）
+    "c715": dict(
+        t="あきらめた船級", s="CEO の判断",
+        fig=("axis", dict(ss.AX_CLASS, steps=[dict(add=[ss.ax("cls16")], cur="2016"), dict(add=[ss.ax("cls18")], cur="2018")],
+                          note="年は米運輸安全委員会の報告書（元社員の話）", src=ss.src(["NTSB p1022", "NTSB p1023"]))),
+    ),
+    # c716（3行）＝会社のブログの題「Why Isn’t Titan Classed?」→一節（船級だけでは安全に足りない）→聞き役
+    "c716": dict(
+        t="ブログの題", s="会社の言い分",
+        fig=("m22", dict(view="paper", start=dict(doc="blog"), steps=[dict(state=dict(hl1="on")), dict(state=dict(hl2="on")), dict()],
+                         note="題と一節は会社のブログ（英字のまま・カナダと米運輸安全委員会の報告書が引く・模式）",
+                         src=ss.src(["TSB §1.26.3.1", "NTSB p1024"]))),
+    ),
+    # c717（3行）＝米運輸安全委員会の注17（新しい技術を確かめる道→旅客の船に「実験的」の区分は無い）→米運輸安全委員会（緑）
+    "c717": dict(
+        t="新しい技術の道", s="旅客の船の決まり",
+        fig=("m22", dict(view="paper", start=dict(doc="fn17"),
+                         steps=[dict(state=dict(hl1="on")), dict(state=dict(hl2="on", hl3="on")),
+                                dict(tag=dict(t="米運輸安全委員会の注", at="r3", col=J.OK))],
+                         note="一節は米運輸安全委員会の報告書の脚注17（英字のまま・模式）", src=ss.src(["NTSB p1023"]))),
+    ),
+    # c718（3行）＝🔧 人の言葉（CEO・テレビの取材）。2行目で1つ目の吹き出し・3行目で2つ目
+    "c718": dict(
+        t="規則を破った", s="2021年の取材",
+        fig=("m22", dict(view="say", start=dict(set="tv"), steps=[dict(), dict(state=dict(n="1")), dict(state=dict(n="2"))],
+                         note=_N_SAY + "・英字は米沿岸警備隊の報告書が引くテレビの取材", src=ss.src(["USCG p301"]))),
+    ),
+    # c719（3行）＝社員の言葉（料金を払う客を「ミッション・スペシャリスト」と呼ぶ→呼び名を変えるだけでは済まない）→辞職
+    "c719": dict(
+        t="社内の声", s="呼び名への懸念",
+        fig=("m22", dict(view="paper", start=dict(doc="emp"),
+                         steps=[dict(state=dict(hl1="on")), dict(state=dict(hl2="on", hl3="on")), dict(tag=dict(t="話のあと辞職", at="r3", col=J.INK_W))],
+                         note="言葉は米運輸安全委員会の報告書が引く社員の言葉（英字のまま・模式）", src=ss.src(["NTSB p1047"]))),
+    ),
+})

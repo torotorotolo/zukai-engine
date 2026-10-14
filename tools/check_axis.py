@@ -97,9 +97,20 @@ REC_AXIS = {
     "10:47:02": {"USCG p35"}, "10:47:08": {"USCG p35"}, "10:47:09": {"USCG p35"}, "10:47:11": {"USCG p35"},
     "10:47:26": {"USCG p35", "USCG p36"}, "10:47:32": {"USCG p37"},
     "10:47:32.1": {"TSB §1.3.2"}, "10:47:32.3": {"TSB §1.3.2", "TSB §2.1"}, "10:47:34.5": {"TSB §1.3.2"},
+    # 🆕 2026-10-15（22本目 ⑤b-4）：USCG p38「as of approximately 10:47 a.m., there was a loss of communication」・TSB §1.3.3「(at 1500)」「At 1500 … commenced the
+    #   3-hour surface search」「At 1634, … called the Horizon Maritime Services Ltd. shore-based emergency team」「By 1800, the surface search had found no signs」
+    #   「At 1855, the master … called the Joint Rescue and Coordination Centre」・USCG p39「At (6:27 p.m.) … cut-off」・TSB §2.5「8 hours and 8 minutes」
+    "10:47": {"USCG p38", "TSB §2.5"}, "15:00": {"TSB §1.3.3"}, "16:34": {"TSB §1.3.3"}, "18:00": {"TSB §1.3.3"}, "18:27": {"USCG p39"},
+    "18:55": {"TSB §1.3.3", "TSB §2.5"},
+    #   NTSB p1022「when he was hired in 2016, the company planned to class」・p1023「In 2018, OceanGate abandoned classing efforts」
+    "2016": {"NTSB p1022"}, "2018": {"NTSB p1023"},
+    #   USCG p149「On January 23, 2018, OceanGate fired」「on February 6, 2018」・p150「on June 25, 2018」・p151「On December 13, 2018」・TSB §1.12.1・NTSB p1048
+    "2018-01-23": {"USCG p149", "TSB §1.12.1"}, "2018-02-06": {"USCG p149", "NTSB p1048"}, "2018-06-25": {"USCG p150"}, "2018-12-13": {"USCG p151"},
+    #   USCG p164「On July 26, 2019, OceanGate fired the Director of Engineering」・TSB §1.12.1「On 15 October」「On 18 November」
+    "2019-07-26": {"USCG p164"}, "2019-10-15": {"TSB §1.12.1"}, "2019-11-18": {"TSB §1.12.1"},
 }
 LANES_OK = {_TU, _TC}
-REC_APPROX = {"10:47:02", "10:47:08", "10:47:09"}      # 記録が about の時刻（「ごろ」が要る）＝USCG p35 の approximately
+REC_APPROX = {"10:47:02", "10:47:08", "10:47:09", "10:47"}      # 記録が about の時刻（「ごろ」が要る）＝USCG p35・p38 の approximately
 LANE_COL = 20        # 🆕 18本目 ⑤b-5：2段の帯の札が軸の左端より左へ出てよい画素（段の名の列にかけない）
 REC_LANE = {"10:47:02": _TU, "10:47:08": _TU, "10:47:09": _TU, "10:47:11": _TU, "10:47:26": _TU, "10:47:32": _TU,
             "10:47:26.9": _TC, "10:47:32.1": _TC, "10:47:32.3": _TC, "10:47:34.5": _TC}   # 2段の帯の記録ごとの段（値 → 段の名）
@@ -112,6 +123,10 @@ REC_ROLE = {
     "4:00": "ship", "5:34": "company", "5:45": "company", "6:00〜8:00": "company", "8:20": "sub", "8:24": "sub", "8:59": "company",
     "10:41:07": "ship", "10:42:01": "sub", "10:42:01〜10:47:26.9": "LINE", "10:48": "ship", "10:49": "ship",
     "10:47:02": "sub", "10:47:08": "sub", "10:47:09": "ALERT", "10:47:11": "ship", "10:47:26": "ship",
+    # 🆕 2026-10-15（22本目 ⑤b-4）：途絶＝だれの動きでもない（LINE）・浮上の見込み＝会社の手順・捜索と電話＝母船（船長）／会社の決め＝会社・元運航部長＝LINE
+    "10:47": "LINE", "15:00": "company", "15:00〜18:00": "ship", "16:34": "ship", "18:00": "ship", "18:27": "ship", "18:55": "ship",
+    "2016": "company", "2018": "company", "2018-01-23": "company", "2018-02-06": "LINE", "2018-06-25": "company", "2018-12-13": "LINE",
+    "2019-07-26": "company", "2019-10-15": "company", "2019-11-18": "company",
 }
 LANE_ROLE = {_TU: "uscg", _TC: "tsb"}
 TIER_ALERT = {"10:47:09", "10:47:32.3"}

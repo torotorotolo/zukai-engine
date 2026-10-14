@@ -108,3 +108,90 @@ SPEC.update({
          dict(k="txt", at="site", t="6月22日にそろう", lab=(0, 56, "middle"))]]),
         t="2つのROV", s="北大西洋（現在の衛星写真）"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-15）：図解 第4章（10カット）＝模式図 `tools/mech22.py`・時間の帯（axis）・棒（qty）
+# ══════════════════════════════════════════════════════════
+#   🔴 色は役の色（母船＝水色・会社＝橙・潜水艇＝白・米沿岸警備隊＝青・カナダ＝紫）。章の札「96時間」と同じ並びを見出し・副題に入れない（門番 dup）。
+#      段の数＝語りの行の数。帯の past で沈めるだけの点は札なし（`t="", lab=False`）
+#   🔧 c518：映像方針の「帯」（6/18 08:24→6/22）→ **棒**（生命維持を始めてからの時間＝酸素の目安 96 と見つかるまで 98時間16分）＝4日にまたがる時刻の帯では
+#      2時間16分の差が読めない・語りは2つの長さの比べ（目盛りは24時間ごと）
+_N_PM = "時刻はカナダの報告書（電話が切れた時刻は米沿岸警備隊の報告書の船長の陳述）"
+_PM_PAST = [ss.ax("lost47", t="", lab=False), ss.ax("surf15", t="", lab=False)]
+SPEC.update({
+    # c501（3行）＝聞き役の問い→会社の担当はまず通信の装置を疑う→母船の文の印（1分に2〜3回）・潜水艇の段は返事なし
+    "c501": dict(
+        t="すぐには呼ばない", s="母船の画面から送った文",
+        fig=("m22", dict(view="send", steps=[dict(), dict(tag=dict(t="まず通信の装置を疑う", at="doubt", col=J.COMPANY)),
+                                             dict(state=dict(send="on", none="on"))],
+                         note="印の数と間隔は模式（記録は1分に2〜3回の文＝米運輸安全委員会の報告書）", src=ss.src(["NTSB p1017", "USCG p39"]))),
+    ),
+    # c502（3行）＝会社の手順（待つ→3時間 海面を探す→外へ）→「事情によっては縮めてよい」
+    "c502": dict(
+        t="待ってから探す", s="途絶えたときの決まり",
+        fig=("m22", dict(view="proto", steps=[dict(state=dict(wait="on")), dict(state=dict(search="on", out="on"), tag=dict(t="3時間", at="t3")),
+                                              dict(tag=dict(t="事情によっては短く", at="cut", col=J.COMPANY))],
+                         rel=[dict(t="3時間", src="USCG p39")],
+                         note="流れは会社の手順の要点（模式）", src=ss.src(["USCG p39", "TSB §1.3.3"]))),
+    ),
+    # c503（2行）＝時間の帯（10:47ごろ 途絶→15:00 浮上の見込み→15:00〜18:00 海面の捜索）
+    "c503": dict(
+        t="午後3時", s="浮かんでこない艇",
+        fig=("axis", dict(ss.AX_PM22, past=[ss.ax("lost47")], start=dict(cur="10:47"),
+                          steps=[dict(add=[ss.ax("surf15")], cur="15:00"), dict(add=[ss.ax("srch")])],
+                          note=_N_PM, src=ss.src(["TSB §1.3.3", "USCG p38"]))),
+    ),
+    # c504（2行）＝同じ帯。16:34 船長が陸の班へ電話→18:00 手がかりなし
+    "c504": dict(
+        t="陸への電話", s="母船の船長の動き",
+        fig=("axis", dict(ss.AX_PM22, past=_PM_PAST + [ss.ax("srch")], start=dict(cur="15:00"),
+                          steps=[dict(add=[ss.ax("call1634")], cur="16:34"), dict(add=[ss.ax("none18")], cur="18:00")],
+                          note=_N_PM, src=ss.src(["TSB §1.3.3"]))),
+    ),
+    # c505（2行）＝同じ帯。18:27 救難調整センターへの電話がすぐ切れる（船長の陳述）→18:55 の電話からボストンへ
+    "c505": dict(
+        t="ボストンへ", s="救難調整センターへの電話",
+        fig=("axis", dict(ss.AX_PM22, past=_PM_PAST + [ss.ax("srch", t=""), ss.ax("call1634", t="", lab=False), ss.ax("none18", t="", lab=False)],
+                          start=dict(cur="18:00"),
+                          steps=[dict(add=[ss.ax("cut1827")], cur="18:27"), dict(add=[ss.ax("rcc1855")], cur="18:55")],
+                          note=_N_PM, src=ss.src(["USCG p39", "TSB §1.3.3"]))),
+    ),
+    # c506（2行）＝同じ帯。10:47ごろ から 18:55 までの括弧「8時間8分」（カナダの調べ）→聞き役の問い
+    "c506": dict(
+        t="長い待ち", s="途絶えてから外に知らせるまで",
+        #   ⚠️ geom_gap：15:00 の点の縦の線が括弧の札「8時間8分」（括弧の真ん中＝14:51 のあたり）を貫いた＝15:00 の点は沈めない
+        fig=("axis", dict(ss.AX_PM22, past=[ss.ax("srch", t=""), ss.ax("call1634", t="", lab=False),
+                                            ss.ax("none18", t="", lab=False), ss.ax("cut1827", t="", lab=False)],
+                          start=dict(cur="18:27"),
+                          steps=[dict(add=[ss.ax("lost47"), ss.ax("rcc1855"), ss.ax("b88")], cur="18:55"), dict()],
+                          note="時刻と長さはカナダの報告書（途絶の時刻は米沿岸警備隊の報告書）", src=ss.src(["TSB §2.5", "TSB §1.3.3", "USCG p38"]))),
+    ),
+    # c507（3行）＝同じ手順＋「見えたのは通信の途絶」→ 海の上のならい（できるだけ早く救難の当局へ）→ 沿っていない（カナダ）
+    "c507": dict(
+        t="沿わない手順", s="初めの見立て",
+        fig=("m22", dict(view="proto", start=dict(wait="on", search="on", out="on"),
+                         steps=[dict(tag=dict(t="見えたのは通信の途絶", at="look")), dict(state=dict(best="on")),
+                                dict(tag=dict(t="沿っていない", d="カナダの調べ", at="bad", col=J.INST))],
+                         note="流れは要点（模式）", src=ss.src(["TSB §2.5", "TSB §2.6"]))),
+    ),
+    # c518（3行）＝🔧 棒（生命維持を始めてからの時間）。酸素の目安 96時間（潜水艇）→見つかるまで 98時間16分（カナダの調べ）→聞き役
+    "c518": dict(
+        t="過ぎた目安", s="見つかったとき",
+        fig=("qty", dict(view="bar", groups=[ss.QG["o2"]],
+                         steps=[dict(add=[ss.qb("o2_lim")]), dict(add=[ss.qb("o2_find")]), dict()],
+                         note="酸素の目安は乗っていた人数のときの値（カナダの報告書）", src=ss.src(["TSB §1.2.1", "TSB §2.5"]))),
+    ),
+    # c520（3行）＝横から見たタイタン。ハッチは無い（前のドームのボルト）→台に戻して外からボルトを外す→聞き役
+    "c520": dict(
+        t="出られない艇", s="前のドーム",
+        fig=("m22", dict(view="side", steps=[dict(state=dict(bolts="on"), tag=dict(t="ハッチは無い", at="tag")),
+                                             dict(state=dict(only="on"), tag=dict(t="台に戻して外から開ける", at="only")), dict()],   # ⚠️ 門番 echo：「台に戻し外からボルトを外す」は語りの写し
+                         note="形は NTSB 図3 の比（模式）", src=ss.src(["TSB §2.5", "TSB §脚注39"]))),
+    ),
+    # c521（2行）＝救助の備えの2つの欄が空（水の中の位置を知る手段・ROV の会社との救助の契約）
+    "c521": dict(
+        t="無かった備え", s="捜索と救助の前に",
+        fig=("m22", dict(view="none", start=dict(set="rescue"), steps=[dict(state=dict(n="1")), dict(state=dict(n="2"))],
+                         note="欄は要点（模式）", src=ss.src(["TSB §2.5"]))),
+    ),
+})

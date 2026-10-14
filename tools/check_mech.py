@@ -2969,7 +2969,20 @@ REC_M22 = dict(
     side=dict(len_ft=22.0, len_m=6.7, seats=5, bolts=18),
     org=dict(n=8, vacant={"技術部長"}, first="CEO", staff=15),
     paper=dict(waiver=["experimental submersible vessel", "not been certified by any regulatory body"],
-               plan=["guests who help fund OceanGate expeditions"], death=9),
+               plan=["guests who help fund OceanGate expeditions"], death=9,
+               # 🆕 ⑤b-4（2026-10-15）：NTSB p1063・TSB §1.26.3.1＋NTSB p1024（ブログの引用）・NTSB p1023（脚注17）・NTSB p1047・TSB §1.12.1（点検の報告）・
+               #   NTSB p1023＋TSB §1.12.1（業界の委員会の手紙）。英字は原文のまま（行の切れ目だけ入れた）
+               model=["theoretical models of composite structures", "that assumed perfect geometry and fiber orientation",
+                      "should have validated them through physical testing"],
+               blog=["Why Isn’t Titan Classed?", "by itself, classing is not sufficient to ensure safety"],
+               fn17=["a path for owners to prove seaworthiness of new technology", "no “experimental” design endorsement",
+                     "for vessels carrying passengers or cargo"],
+               emp=["paying clients as “mission specialists.”", "you can’t just change the title of a person", "when you’re receiving compensation."],
+               qa18=["visible voids and delaminations", "end segments that had been cut off", "a full inspection of the cylinder and the bond lines",
+                     "before any dives were conducted with people on board"],
+               mts=["unanimous concern regarding the development of ‘TITAN’", "the current “experimental” approach adopted by OceanGate",
+                    "could result in negative outcomes (from minor to catastrophic)", "a prototype testing program that was reviewed",
+                    "and witnessed by a classification society"]),
     appb=_TW_ROWS, deep="3840", n_deep=13, years={"2021": 10, "2022": 13, "2023": 4},
     marks=dict(dome={"2021-06-30"}, batt={"2022-06-20"}, thr={"2021-07-03", "2022-07-19", "2022-07-22"},
                wt={"2021-07-09", "2021-07-19", "2021-07-24"}, com={"2022-07-14"}),
@@ -2988,6 +3001,35 @@ REC_M22 = dict(
     bow=dict(ese=112.5, ene=67.5),
     two=dict(seabed=500),
     clock={"8:20", "8:24", "9:04", "9:05", "9:14", "9:23", "10:47:02"},
+    # 🆕 ⑤b-4（2026-10-15）：第4〜7章。原文＝ref/ep22/src/ep22_pages.txt（頁は cuts/ss.REC_DOCS の通し番号）
+    #   send＝NTSB p1017「sent two to three messages every minute」（印の間隔は模式＝この幅の中なら通す）
+    send=dict(lo=2.0, hi=3.0),
+    #   proto＝USCG p39「Internal contacts and backup personnel will be called following 1 hour of no communications plus required surface time」
+    #     「An additional 3 hours of local surface search will be done before contacting outside emergency personnel」・TSB §1.3.3（at 1500・3-hour surface search）
+    proto=("連絡が途絶える", "浮き上がるのを待つ", "近くの海面を探す", "外に知らせる"), proto_role=("LINE", "company", "company", "company"),
+    #   none＝TSB §2.5「did not have a means of determining where the Titan was underwater」「did not have any contracts in place with these ROV operators」／
+    #     USCG p162「OceanGate did not make any external notifications」・p164「The letter, nor any other separate correspondence, disclosed that there was a crack found」
+    none=dict(rescue=("水の中の位置を知る手段", "ROV の会社との救助の契約"), told=("客", "当局", "船級協会")),
+    #   say＝NTSB p1025・USCG p111・USCG p301・NTSB p1048（報告書が引く英字のまま・行の切れ目だけ入れた）・色＝話した人の役
+    say=dict(comp=("LINE", (("“better in compression than tension”",),)),
+             letter=("company", (("there was no damage to the main cylindrical section,", "which is the critical part and a shape",
+                                  "that is far better understood"),)),
+             tv=("company", (("I’d like to be remembered as an innovator.",), ("I’ve broken some rules to make this.",))),
+             rec=("company", (("there is not a lot of confidence on your part", "in the engineering that went into this vessel"),))),
+    #   layers＝NTSB p1059「the five 1-inch-thick layers」・p1040「between layers 1 and 2 and the other was between layers 3 and 4」・
+    #     p1041「layer 1, the innermost co- bonded layer」・p1059「these adhesive interfaces contained long extended voids」
+    layers=dict(n=5, inch=1.0, sep={(1, 2), (3, 4)}, void={(1, 2), (3, 4)}),
+    #   ruler＝TSB §1.3「approximately 3800 m」・TSB §1.12.1「rated up to 6000 m」「a goal of 2.25 for the safety factor」・
+    #     USCG p114「the 4,500 m (14,764 feet) that was the target max pressure depth」・NTSB p1025「an implosion depth about 13,200 meters」
+    ruler=dict(titanic=3800.0, goal=6000.0, op=4500.0, fail=13200.0, sf=2.25),
+    model=dict(dome_m=3000.0),                 # TSB §1.12.1「failed at pressures equivalent to depths of around 3000 m」
+    #   klass＝NTSB p1022「reviewing plans and documentation before and during construction … witnessing critical testing」
+    klass=("設計を確かめる", "工事を確かめる", "試験に立ち会う"),
+    meet=("CEO", "運航部長", "社員", "社員", "社員"),     # TSB §1.12.1「the CEO, the director of operations, and 3 other OceanGate employees」
+    crack=3,                                    # TSB §1.12.1「3 interior cracks on the forward port side of the cylinder」
+    shell=dict(left="鋼かチタンの球", right="炭素繊維の筒"),   # TSB §1.13「typically constructed of steel or titanium」「typically spherical」
+    #   tc＝USCG p274「where the material is primarily under tension」（旅客機の胴体＝中から外へ押す）・「less effective」（深い海の殻＝外から押しつぶす）
+    tc={"旅客機の胴体": True, "深い海の殻": False},         # 矢印が外向きか
 )
 _M22_NEED = (
     ("fuji", "coin", "on", "press", {"on"}, "1円玉と乗用車は、水の重さを見せてから"),
@@ -3003,6 +3045,20 @@ _M22_NEED = (
     ("depth", "stop", "on", "upto", {"c"}, "止まった印は、最後の点まで描いてから"),
     ("bow", "jump", "on", "ese", {"on"}, "跳ぶ点は、潜水艇の知らせの点を見せてから"),
     ("two", "why", "on", "ca", {"on"}, "「理由は分からない」は、カナダの段を見せてから"),
+    # 🆕 ⑤b-4（2026-10-15）
+    ("send", "none", "on", "send", {"on"}, "「返事なし」は、母船の文を見せてから"),
+    ("proto", "search", "on", "wait", {"on"}, "海面を探すのは、浮き上がるのを待ってから"),
+    ("proto", "out", "on", "search", {"on"}, "外に知らせるのは、海面を探してから"),
+    ("proto", "best", "on", "out", {"on"}, "海の上のならいは、会社の手順を見せてから"),
+    ("layers", "rub", "on", "sep", {"on"}, "こすれた跡は、剥離の面を見せてから"),
+    ("layers", "void", "on", "sep", {"on"}, "空隙は、剥離の面を見せてから"),
+    ("buckle", "press", "on", "split", {"on"}, "押されて曲がるのは、薄い2枚に分かれてから"),
+    ("ruler", "ratio", "on", "fail", {"on"}, "何倍かの箱は、壊れる深さを見せてから"),
+    ("sf", "ratio", "on", "bars", {"on"}, "何倍かは、棒を見せてから"),
+    ("sf", "spare", "on", "ratio", {"on"}, "余裕は、何倍かを見せてから"),
+    ("model", "fail", "on", "press", {"on"}, "ドームが壊れるのは、圧をかけてから"),
+    ("klass", "design", "on", "soc", {"on"}, "確かめる中身は、船級協会を見せてから"),
+    ("klass", "cert", "on", "test", {"on"}, "証明書は、試験に立ち会ってから"),
 )
 NUM_M22 = re.compile(r"[0-9０-９]{1,2}[:：][0-9０-９]{2}(?:[:：][0-9０-９]{2})?|[0-9０-９][0-9０-９,.．]*")
 
@@ -3105,6 +3161,81 @@ def judge_m22(f):
              f"② 海の底までの残り「{g['ca'][0]}」（記録 約{R['two']['seabed']}メートル＝TSB §1.3.2）")
     if view == "lars_side":
         need(g["top"] + g["under"] > g["sea"], "② 沈んだ台が水面の下に無い")
+    # 🆕 ⑤b-4（2026-10-15）：第4〜7章
+    def rc(r):
+        return J.ROLE[r] if r in J.ROLE else getattr(J, r)
+    if view == "side" and any(s.get("crack") == "on" for s in seq):
+        need(len(g["cracks"]) == R["crack"], f"② 亀裂の数 {len(g['cracks'])}（記録 {R['crack']}＝TSB §1.12.1）")
+        need(all(g["cyl"][0] <= x <= (g["cyl"][0] + g["cyl"][1]) / 2 for x, _ in g["cracks"]), "② 亀裂が筒の前の半分に無い（記録＝forward）")
+    if view == "send":
+        rate = g["n"] / g["minutes"]
+        need(R["send"]["lo"] <= rate <= R["send"]["hi"], f"② 文の印 1分に{rate:.1f}回（記録 1分に2〜3回＝NTSB p17）")
+        d = [b - a for a, b in zip(g["xs"], g["xs"][1:])]
+        need(max(d) - min(d) < 0.5, "② 文の印の間隔がそろっていない（模式＝同じ間隔）")
+    if view == "proto":
+        need(tuple(t for t, _ in g["boxes"]) == R["proto"], f"② 手順の箱 {[t for t, _ in g['boxes']]} が記録（USCG p39）と違う")
+        need(all(c.lower() == rc(r).lower() for (_, c), r in zip(g["boxes"], R["proto_role"])), "② 手順の箱の色が役の色（会社＝橙）でない")
+    if view == "none":
+        need(tuple(g["items"]) == R["none"][g["set"]], f"② 欄 {g['items']} が記録と違う")
+    if view == "say":
+        role, bub = R["say"][g["set"]]
+        need(tuple(tuple(b) for b in g["bubbles"]) == bub, f"② 吹き出しの英字 {g['set']} が記録（報告書が引く言葉）と違う")
+        need(g["col"].lower() == rc(role).lower(), f"② 人の形の色が役の色（{role}）でない")
+    if view == "layers":
+        Rl = R["layers"]
+        need(g["n"] == Rl["n"], f"② 層の数 {g['n']}（記録 {Rl['n']}枚＝NTSB p59）")
+        need(set(g["sep"]) == Rl["sep"], f"② 剥離の面 {g['sep']}（記録 1と2・3と4＝NTSB p40）")
+        need(set(g["void"]) == Rl["void"], f"② 空隙の面 {g['void']}（記録＝NTSB p59）")
+        need(g["inner_y"] > g["outer_y"], "② 層1（いちばん内側＝NTSB p41）が下（内側）に無い")
+        for t in texts:
+            mm = re.search(r"約([0-9.]+)センチ", t)
+            if mm:
+                need(abs(float(mm.group(1)) - Rl["inch"] * 2.54) <= 0.05, f"② 札「{t}」が記録（1インチ＝2.54センチ）と違う")
+    if view == "buckle":
+        for r in g["rows"]:
+            if r["split"] == "on":
+                need(abs(r["th_out"] - g["th"] / 2) < 0.5 and r["gap"] > 0, "② 分かれた板が厚い1枚の半分の厚さになっていない（NTSB p61）")
+            if r["press"] == "on":
+                need(r["bow"] > 0 and g["inner_down"], "② 押された板が内側へ曲がっていない")
+    if view == "tc":
+        for side, (head, outward, (cx, cy), arrows) in g["sides"].items():
+            want = R["tc"].get(head)
+            for x1, y1, x2, y2 in arrows:
+                need(want is not None and (math.hypot(x2 - cx, y2 - cy) > math.hypot(x1 - cx, y1 - cy)) == want,
+                     f"② {head} の矢印の向きが記録と逆（引っ張りは中から外・深い海の殻は外から中＝USCG p274）")
+    if view == "shell":
+        need(g["left"][1] == R["shell"]["left"] and g["right"][1] == R["shell"]["right"], "② 殻の材料と形が記録（TSB §1.13）と違う")
+    if view == "ruler":
+        Rr = R["ruler"]
+        px_m = (g["y1"] - g["y0"]) / g["dmax"]
+        need(abs((g["titanic"][1] - g["y0"]) / px_m - Rr["titanic"]) < 1, f"② タイタニックの深さが記録 {Rr['titanic']:g}m と違う")
+        for k, (mv, y) in g["marks"].items():
+            if any(s.get(k) == "on" for s in seq):
+                got = (y - g["y0"]) / px_m
+                need(abs(got - Rr[k]) < 1, f"② 物差しの {k} が画素から {got:.0f}m（記録 {Rr[k]:g}m）")
+                need(g["cols"][k].lower() == J.ROLE["company"].lower(), f"② 物差しの {k} の色が会社の役の色でない")
+        if any(s.get("ratio") == "on" for s in seq):
+            need(g["ratio_n"] * Rr["titanic"] <= Rr["fail"] < (g["ratio_n"] + 1) * Rr["titanic"], "② 「何倍」の箱の数が記録の比と合わない")
+            for t in texts:
+                mm = re.search(r"([0-9]+)倍", t)
+                if mm:
+                    need(int(mm.group(1)) == g["ratio_n"], f"② 札「{t}」が箱の数と違う")
+        for t in texts:
+            if "安全率" in t:
+                mm = re.search(r"([0-9]+\.[0-9]+)", t)
+                need(bool(mm) and abs(float(mm.group(1)) - Rr["sf"]) < 1e-9, f"② 札「{t}」が安全率の目標（記録 {Rr['sf']}）と違う")
+    if view == "sf":
+        need(g["k"] > 1, "② 壊れる深さが潜ってよい深さより浅い（安全率は1より大きい）")
+    if view == "model":
+        need(abs(g["dome_m"] - R["model"]["dome_m"]) < 1e-6, "② ドームが壊れた深さが記録と違う")
+        for t in texts:
+            mm = re.search(r"約([0-9,]+)メートル", t)
+            if mm:
+                need(abs(float(mm.group(1).replace(",", "")) - R["model"]["dome_m"]) < 1e-6, f"② 札「{t}」が記録（約3,000メートル＝TSB §1.12.1）と違う")
+    if view == "klass":
+        need(tuple(g["chk"]) == R["klass"], f"② 船級の確かめの中身 {g['chk']} が記録（NTSB p22）と違う")
+    if view == "meet":
+        need(tuple(g["seats"]) == R["meet"], f"② 会合の席 {g['seats']}（記録＝CEO・運航部長・社員3人＝TSB §1.12.1）")
     said = [r.get("t", "") for r in m["rel"]]
     for t in texts:
         for mm in NUM_M22.finditer(t):
@@ -3137,6 +3268,27 @@ def _selftest_m22(ok):
         bow=dict(view="bow", steps=[dict(state=dict(ese="on", ene="on")), dict(state=dict(jump="on"))], note=N),
         two=dict(view="two", steps=[dict(state=dict(us="on", ca="on")), dict(state=dict(why="on"))], note=N),
         lars=dict(view="lars_side", steps=[dict(state=dict(fill="on", lvl="under")), dict(state=dict(det="on"))], note=N),
+        # 🆕 ⑤b-4（2026-10-15）
+        crack=dict(view="side", steps=[dict(state=dict(crack="on"))], note=N),
+        send=dict(view="send", steps=[dict(state=dict(send="on")), dict(state=dict(none="on"))], note=N),
+        proto=dict(view="proto", steps=[dict(state=dict(wait="on")), dict(state=dict(search="on", out="on")), dict(state=dict(best="on"))], note=N),
+        none=dict(view="none", start=dict(set="told"), steps=[dict(state=dict(n="3"))], note=N),
+        say=dict(view="say", start=dict(set="tv"), steps=[dict(state=dict(n="1")), dict(state=dict(n="2"))], note=N),
+        layers=dict(view="layers", steps=[dict(state=dict(sep="on"), tag=dict(t="約2.5センチ", at="th")), dict(state=dict(void="on", rub="on"))],
+                    rel=[dict(t="約2.5センチ", src="NTSB p1059")], note=N),
+        buckle=dict(view="buckle", steps=[dict(state=dict(split="on")), dict(state=dict(press="on"))], note=N),
+        tc=dict(view="tc", steps=[dict(state=dict(air="on", sea="on"))], note=N),
+        shell=dict(view="shell", steps=[dict(state=dict(left="on", right="on"))], note=N),
+        ruler=dict(view="ruler", start=dict(z="far", goal="on"),
+                   steps=[dict(state=dict(fail="on")), dict(state=dict(ratio="on"), tag=dict(t="3倍あまり", at="dl"))],
+                   rel=[dict(t="3倍あまり", src="NTSB p1025")], note=N),
+        ruler_sf=dict(view="ruler", steps=[dict(state=dict(goal="on"), tag=dict(t="安全率の目標 2.25", at="sf"))],
+                      rel=[dict(t="2.25", src="TSB §1.12.1")], note=N),
+        model=dict(view="model", steps=[dict(state=dict(press="on")), dict(state=dict(fail="on"), tag=dict(t="ドーム", d="約3,000メートル相当", at="r2"))],
+                   rel=[dict(t="約3,000メートル", src="TSB §1.12.1")], note=N),
+        klass=dict(view="klass", steps=[dict(state=dict(soc="on", design="on")), dict(state=dict(test="on", cert="on"))], note=N),
+        meet=dict(view="meet", steps=[dict(state=dict(rec="on"))], note=N),
+        paper_mts=dict(view="paper", start=dict(doc="mts"), steps=[dict(state=dict(hl1="on", hl5="on"))], note=N),
     )
     for nm, kw in good.items():
         bad, n = judge("m22", kw)
@@ -3158,7 +3310,20 @@ def _selftest_m22(ok):
              "吹き出しの文", "chat"),
             ("436メートルを463メートルで描く", "DEPTH", M.DEPTH[:1] + (("9:23", 463.0, "a"),) + M.DEPTH[2:], "深さの点", "depth"),
             ("東南東を南東にする", "BW_DIR", dict(M.BW_DIR, ese=135.0), "方位", "bow"),
-            ("海の底まで600メートルと書く", "TW_CA", ("海の底まで約600メートル",) + M.TW_CA[1:], "海の底までの残り", "two")):
+            ("海の底まで600メートルと書く", "TW_CA", ("海の底まで約600メートル",) + M.TW_CA[1:], "海の底までの残り", "two"),
+            # 🆕 ⑤b-4（2026-10-15）
+            ("亀裂を2つで描く", "SD_CRACK", 2, "亀裂の数", "crack"),
+            ("文の印を1分に4回にする", "SE_N", 40, "文の印", "send"),
+            ("手順の箱の順を入れ替える", "PR_T", (M.PR_T[0], M.PR_T[2], M.PR_T[1], M.PR_T[3]), "手順の箱", "proto"),
+            ("知らせた先に「家族」を足す", "NO", dict(M.NO, told=dict(M.NO["told"], items=("客", "当局", "船級協会", "家族"))), "欄", "none"),
+            ("吹き出しの英字を言い換える", "SAY", dict(M.SAY, tv=dict(M.SAY["tv"], bubbles=(("I want to be remembered as an innovator.",),) + M.SAY["tv"]["bubbles"][1:])),
+             "吹き出しの英字", "say"),
+            ("剥離を2と3のあいだにする", "LY_SEP", ((1, 2), (2, 3)), "剥離の面", "layers"),
+            ("壊れる深さの計算を12,000メートルにする", "RL_M", dict(M.RL_M, fail=(12000.0,) + M.RL_M["fail"][1:]), "物差しの fail", "ruler"),
+            ("ドームの壊れた深さを3,500メートルにする", "MD_DOME_M", 3500.0, "ドームが壊れた", "model"),
+            ("船級の確かめに「検査」を足す", "KL_CHK", M.KL_CHK + ("検査をする",), "船級", "klass"),
+            ("会合を社員4人にする", "MT_SEATS", M.MT_SEATS + (("社員", 1300.0, 440.0),), "会合の席", "meet"),
+            ("押しつぶしの矢印を外向きにする", "TC_SIDE", (M.TC_SIDE[0], M.TC_SIDE[1][:4] + (True,)), "矢印の向き", "tc")):
         keep = getattr(M, attr)
         setattr(M, attr, val)
         try:
@@ -3178,7 +3343,12 @@ def _selftest_m22(ok):
             ("最後の点の前に止まった印", dict(view="depth", steps=[dict(state=dict(upto="b", stop="on"))], note=N), "① 筋"),
             ("札の時刻が記録に無い（8:25）", dict(view="lars_top", steps=[dict(tag=dict(t="8:25 閉める", at="t1"))], rel=[dict(t="8:25", src="x")],
                                           note=N), "記録の時刻"),
-            ("札の数が rel に無い", dict(view="dives", steps=[dict(tag=dict(t="13回", at="t"))], note=N), "rel")):
+            ("札の数が rel に無い", dict(view="dives", steps=[dict(tag=dict(t="13回", at="t"))], note=N), "rel"),
+            # 🆕 ⑤b-4（2026-10-15）
+            ("分かれる前に押されて曲がる", dict(view="buckle", steps=[dict(state=dict(press="on"))], note=N), "① 筋"),
+            ("海面を探す前に外に知らせる", dict(view="proto", steps=[dict(state=dict(wait="on", out="on"))], note=N), "① 筋"),
+            ("層の厚さを約3センチと書く", dict(view="layers", steps=[dict(tag=dict(t="約3センチ", at="th"))], rel=[dict(t="約3センチ", src="x")], note=N),
+             "1インチ")):
         bad, _ = judge("m22", kw)
         g_ = any(key in b for b in bad)
         ok &= g_

@@ -26,6 +26,22 @@
   depth   … 深さの線（記録の点だけ＝あいだは直線＝模式）・返事の無い間・海の底・止まった点・寄り                       c319・c402・c418・c419
   bow     … 上から見たタイタニックの船首と、潜水艇の知らせ（東南東）・母船の画面（東北東）・跳ぶ位置                          c403・c404
   two     … 2段の札（上＝米国の2つの調べ／下＝カナダの調べ）                                                               c410
+  🆕 ⑤b-4（2026-10-15）：第4〜7章（台本 第2版 §4 の画の欄と映像方針の一覧＝了承②）
+  send    … 母船が送り続けた文（印の間隔は模式＝1分に2.5回）と、返事の無い潜水艇の段                                         c501
+  proto   … 会社の手順の流れ（途絶→待つ→海面を探す→外へ）と「海の上のならい」の段                                         c502・c507
+  none    … 欄が空（×）＝救助の備え2つ／亀裂を知らせた先3つ                                                                c521・c816
+  layers  … 筒の壁の断面（5枚の層・1＝いちばん内側）・剥離の面（1と2・3と4）・空隙・こすれ                                    c610・c615・c619
+  buckle  … 厚い1枚が薄い2枚に分かれ、外から押されて内へ曲がる（動く部品）                                                  c617
+  tc      … 引っ張り（旅客機の胴体＝中から外へ）と押しつぶし（深い海の殻＝外から中へ）                                       c702
+  shell   … ふつうの深海の潜水艇（鋼かチタンの球）とタイタン（炭素繊維の筒）の並べ図                                         c703・c704
+  say     … 人の言葉＝輪郭（顔は描かない）＋吹き出しの英字（報告書が引くまま・訳は字幕）                                     c705・c712・c718・c806
+  ruler   … 深さの物差し（縦・縮尺どおり）＝会社の望み・壊れる深さの計算・運航の目標・タイタニック                           c706・c709・c713
+  sf      … 安全率のしくみ（潜ってよい深さと壊れる深さの棒・長さは模式）                                                     c707
+  model   … 3分の1の模型（炭素繊維の筒とドーム）・外からの圧・壊れたドーム                                                 c711
+  klass   … 船級のしくみ（持ち主→船級協会が確かめる→証明書）                                                               c714
+  wind    … 筒の作り方（糸が樹脂の槽をくぐって回る芯に巻きつく）                                                           c801
+  meet    … 2018年1月19日の会合の席（CEO・運航部長・社員3人）と録音の印                                                     c805
+  side（🆕 crack＝前の左舷の内側の亀裂3つ）c520・c701・c815／paper（🆕 書類6枚）c710・c716・c717・c719・c802・c804・c810・c811
 
 ■ SPEC の書き方（mech21 と同じ）
   fig=("m22", dict(view=…, start=dict(…), steps=[dict(state=dict(…), tag=dict(t=…, at=…, to=…, d=…)), …],
@@ -208,10 +224,16 @@ SD = dict(cx=930.0, cy=520.0, L=1260.0)
 SD_LEN_M = 6.7                    # 全長（NTSB p.10「22-foot-long」＝6.7m）
 SD_SEATS = 5                      # 乗れる人の数（TSB §1.2.1「up to 5 people」）
 SD_BOLTS = 18                     # 前のドームを留めるボルト（TSB 脚注39「OceanGate began using 18 securing bolts」）
+SD_CRACK = 3                      # 🆕 ⑤b-4：1つ目の船体の筒の内側の亀裂（TSB §1.12.1「3 interior cracks on the forward port side of the cylinder」）
 
 
 def sd_geo():
     return titan_geo(SD["cx"], SD["cy"], SD["L"])
+
+
+def sd_cracks(G):
+    """🆕 ⑤b-4（c815）：筒の前寄りの亀裂の位置（機首が左＝見えているのは左舷）。位置と形は模式・数は記録"""
+    return [(G["xc0"] + (G["xc1"] - G["xc0"]) * (0.12 + 0.10 * k), G["cy"] - G["R"] * (0.42 - 0.38 * k)) for k in range(SD_CRACK)]
 
 
 def _bolts(G, n):
@@ -256,6 +278,9 @@ def side_stage(prev, st):
     if _on(prev, st, "only"):
         x, cy = G["xh0"], G["cy"]
         s.append(_arrow(x - 230, cy, x - 24, cy, COC, 7, 26) + _arrow(x - 40, cy + 34, x - 230, cy + 34, COC, 7, 26))
+    if _on(prev, st, "crack"):
+        for x, y in sd_cracks(G):
+            s.append(F.poly([(x - 34, y - 4), (x - 16, y + 10), (x, y - 10), (x + 16, y + 8), (x + 34, y - 6)], "none", J.ALERT, 6))
     return s
 
 
@@ -330,36 +355,61 @@ def org_stage(prev, st):
 PP = dict(x0=250.0, x1=1180.0, y0=290.0, y1=850.0)
 PP_DOC = dict(
     waiver=dict(head="参加の同意書（要点）", lines=("experimental submersible vessel", "not been certified by any regulatory body")),
-    plan=dict(head="2023年の計画書（一節）", lines=("guests who help fund OceanGate expeditions",)))
+    plan=dict(head="2023年の計画書（一節）", lines=("guests who help fund OceanGate expeditions",)),
+    # 🆕 ⑤b-4（2026-10-15）：第6〜7章の6枚（句は報告書の英字のまま・頁は門番 check_mech の REC_M22 が持つ）。w＝紙の幅（既定 930）
+    model=dict(head="米運輸安全委員会の見方（一節）", lines=("theoretical models of composite structures", "that assumed perfect geometry and fiber orientation",
+                                                       "should have validated them through physical testing"), w=1060.0),
+    blog=dict(head="会社のブログ（2019年2月）", lines=("Why Isn’t Titan Classed?", "by itself, classing is not sufficient to ensure safety"), w=1060.0),
+    fn17=dict(head="米運輸安全委員会の注（一節）", lines=("a path for owners to prove seaworthiness of new technology", "no “experimental” design endorsement",
+                                                   "for vessels carrying passengers or cargo"), w=1060.0),
+    emp=dict(head="社員の言葉（米運輸安全委員会の報告書が引く）", lines=("paying clients as “mission specialists.”", "you can’t just change the title of a person",
+                                                          "when you’re receiving compensation."), w=1060.0),
+    qa18=dict(head="品質点検の報告（2018年1月18日・要点）", lines=("visible voids and delaminations", "end segments that had been cut off",
+                                                         "a full inspection of the cylinder and the bond lines", "before any dives were conducted with people on board"),
+              w=1060.0),
+    mts=dict(head="業界の委員会の手紙の案（要点）", lines=("unanimous concern regarding the development of ‘TITAN’", "the current “experimental” approach adopted by OceanGate",
+                                                 "could result in negative outcomes (from minor to catastrophic)", "a prototype testing program that was reviewed",
+                                                 "and witnessed by a classification society"), w=1060.0))
 PP_DEATH = 9                      # 同意書の「death」（USCG p71「The liability waiver mentions death 9 times」）
 
 
-def _pp_line_y(i):
-    return PP["y0"] + 230 + i * 150
+def _pp_line_y(i, n=2):
+    """句の行の y。2行までは ⑤b-3b の並び（c209・c211）のまま・3行からは行の間を詰める（紙の下の端 850 の内）。"""
+    if n <= 2:
+        return PP["y0"] + 230 + i * 150
+    return PP["y0"] + 160 + i * min(110.0, (PP["y1"] - PP["y0"] - 220.0) / (n - 1))
+
+
+def _pp_x1(d):
+    return PP["x0"] + d.get("w", PP["x1"] - PP["x0"])
 
 
 def paper_base(st0):
     d = PP_DOC[st0["doc"]]
-    g = [F.rect(PP["x0"], PP["y0"], PP["x1"] - PP["x0"], PP["y1"] - PP["y0"], J.BG2, J.LINE, 4, rx=6),
-         _tline(PP["x0"] + 40, PP["y0"] + 66, d["head"], 38, INK, "start", 820)]
+    n, x1 = len(d["lines"]), _pp_x1(d)
+    g = [F.rect(PP["x0"], PP["y0"], x1 - PP["x0"], PP["y1"] - PP["y0"], J.BG2, J.LINE, 4, rx=6),
+         _tline(PP["x0"] + 40, PP["y0"] + 66, d["head"], 38, INK, "start", x1 - PP["x0"] - 80)]
     for k in range(9):
         y = PP["y0"] + 130 + k * 72
-        if any(abs(y - _pp_line_y(i) + 10) < 40 for i in range(len(d["lines"]))):
+        if any(abs(y - _pp_line_y(i, n) + 10) < 40 for i in range(n)) or (n > 2 and y < _pp_line_y(n - 1, n) + 40):
+            continue   # 🆕 ⑤b-4：3行からは句のあいだに飾りの線を引かない（字に触れる）
+        if y > PP["y1"] - 30:
             continue
-        g.append(F.line(PP["x0"] + 40, y, PP["x1"] - 40 - (k % 3) * 90, y, J.LINE_DIM, 6))
+        g.append(F.line(PP["x0"] + 40, y, x1 - 40 - (k % 3) * 90, y, J.LINE_DIM, 6))
     for i, t in enumerate(d["lines"]):
-        g.append(_tline(PP["x0"] + 40, _pp_line_y(i), t, 34, INK, "start", PP["x1"] - PP["x0"] - 80))
+        g.append(_tline(PP["x0"] + 40, _pp_line_y(i, n), t, 34, INK, "start", x1 - PP["x0"] - 80))
     return g
 
 
 def paper_stage(prev, st):
     d = PP_DOC[st["doc"]]
+    n, x1 = len(d["lines"]), _pp_x1(d)
     s = []
     for i, t in enumerate(d["lines"]):
         if _on(prev, st, f"hl{i + 1}"):
             # ⚠️ 門番 layout：字を描き直さない＝句の下に黄の線を引くだけ
-            y = _pp_line_y(i)
-            w = min(F.fm.width(t, 34), PP["x1"] - PP["x0"] - 80)
+            y = _pp_line_y(i, n)
+            w = min(F.fm.width(t, 34), x1 - PP["x0"] - 80)
             s.append(F.rect(PP["x0"] + 36, y + 12, w + 8, 8, J.AMBER, rx=3))
     if _on(prev, st, "n9"):
         x0, y0 = 1320.0, 420.0
@@ -958,16 +1008,520 @@ def two_stage(prev, st):
 
 
 # ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-15）：第4〜7章の見え方（記録の値は門番 check_mech の REC_M22 が別に持つ）
+# ══════════════════════════════════════════════════════════
+def _rc(r):
+    """役の名（jiko_style.ROLE の名）か意味の色の名（"LINE" ほか）→ 色の値。"""
+    return J.ROLE[r] if r in J.ROLE else getattr(J, r)
+
+
+def _n_of(prev, st):
+    return int(prev.get("n", "0")), int(st["n"])
+
+
+#  send（c501）＝母船の画面から送り続けた文の印（帯の幅を10分とした模式の間隔）と、返事の無い潜水艇の段
+SE = dict(x0=430.0, x1=1760.0, ys=(450.0, 690.0), min=10.0)
+SE_N = 25                          # 帯の幅10分に25通＝1分に2.5回（NTSB p.17「sent two to three messages every minute」の間・模式）
+
+
+def se_xs():
+    dx = (SE["x1"] - SE["x0"] - 60.0) / (SE_N - 1)
+    return [SE["x0"] + 30.0 + i * dx for i in range(SE_N)]
+
+
+def send_base(st0):
+    g = []
+    for (nm, col), y in zip((("母船", SHIPC), ("潜水艇", SUBC)), SE["ys"]):
+        g.append(F.line(SE["x0"], y, SE["x1"], y, J.LINE_DIM, 4))
+        g.append(_tline(SE["x0"] - 30, y + 12, nm, 36, col, "end", 280))
+    g.append(_arrow(SE["x0"], 800.0, SE["x1"], 800.0, J.LINE_DIM, 3, 16))
+    g.append(_tline(SE["x1"] - 30, 782.0, "時間", 26, J.TICK, "end", 200))
+    return g
+
+
+def send_stage(prev, st):
+    s = []
+    if _on(prev, st, "send"):
+        y = SE["ys"][0]
+        for x in se_xs():
+            s.append(F.rect(x - 15, y - 46, 30, 24, SHIPC, rx=4) + F.line(x, y - 16, x, y + 44, SHIPC, 2, dash="5 6"))
+    if _on(prev, st, "none"):
+        y = SE["ys"][1]
+        s.append(_tline((SE["x0"] + SE["x1"]) / 2, y - 26, "返事なし", 38, J.TICK, "middle", 400))
+    return s
+
+
+#  proto（c502・c507）＝会社の手順の流れ（連絡が途絶える→浮き上がるのを待つ→近くの海面を探す→外に知らせる）と「海の上のならい」の段
+PR = dict(xs=(300.0, 740.0, 1180.0, 1620.0), y=450.0, w=390.0, h=120.0, by=720.0, bx=1080.0, bw=760.0)
+PR_T = (("連絡が途絶える", "LINE"), ("浮き上がるのを待つ", "company"), ("近くの海面を探す", "company"), ("外に知らせる", "company"))
+PR_BEST = ("海の上のならい", "すぐ救難の当局へ")   # TSB §2.6「the maritime best practice of notifying SAR authorities as soon as possible」
+#   ⚠️ 門番 echo：「できるだけ早く救難の当局へ」は語り「できるだけ早く救難の当局に知らせる」の写し＝12字未満に
+PR_FIELD = (None, "wait", "search", "out")
+
+
+def _pr_box(i):
+    t, r = PR_T[i]
+    return _box(PR["xs"][i], PR["y"], PR["w"], PR["h"], t, _rc(r), cap=32, sw=5)
+
+
+def proto_base(st0):
+    return [_tline(F.BX0 + 40.0, 300.0, "会社の手順（連絡が途絶えたとき）", 30, COC, "start", 800), _pr_box(0)]
+
+
+def proto_stage(prev, st):
+    s = []
+    for i in (1, 2, 3):
+        if _on(prev, st, PR_FIELD[i]):
+            x0 = PR["xs"][i - 1] + PR["w"] / 2 + 4
+            s.append(_arrow(x0, PR["y"], PR["xs"][i] - PR["w"] / 2 - 4, PR["y"], J.LINE, 5, 18) + _pr_box(i))
+    if _on(prev, st, "best"):
+        x, y = PR["xs"][0], PR["y"] + PR["h"] / 2 + 4
+        bl = PR["bx"] - PR["bw"] / 2
+        s.append(F.line(x, y, x, PR["by"], J.LINE, 5) + _arrow(x, PR["by"], bl - 6, PR["by"], J.LINE, 5, 18))
+        s.append(_box(PR["bx"], PR["by"], PR["bw"], 120.0, PR_BEST[1], J.LINE, cap=34, sw=5))
+        s.append(_tline(bl, PR["by"] - 78, PR_BEST[0], 30, INK, "start", 500))
+    return s
+
+
+#  none（c521・c816）＝欄が空（×）。rescue＝救助の備え（TSB §2.5）・told＝亀裂を知らせた先（USCG p162・p164）
+NO = dict(rescue=dict(head="救助の備え", items=("水の中の位置を知る手段", "ROV の会社との救助の契約"), lay="col"),
+          told=dict(head="亀裂のことを知らせた先", items=("客", "当局", "船級協会"), lay="row"))
+
+
+def no_xy(key, i):
+    if NO[key]["lay"] == "col":
+        return 1040.0, 450.0 + i * 200.0, 1000.0, 130.0
+    return 480.0 + i * 480.0, 520.0, 380.0, 150.0
+
+
+def none_base(st0):
+    k = st0["set"]
+    g = [_tline(F.BX0 + 40.0, 320.0, NO[k]["head"], 34, INK, "start", 800)]
+    for i, t in enumerate(NO[k]["items"]):
+        x, y, w, h = no_xy(k, i)
+        g.append(_box(x, y, w, h, t, J.LINE, cap=36 if NO[k]["lay"] == "col" else 42, sw=4))
+        if NO[k]["lay"] == "col":
+            g.append(F.rect(x - w / 2 - 140, y - 40, 80, 80, J.BG, J.LINE, 4, rx=8))
+    return g
+
+
+def none_stage(prev, st):
+    k = st["set"]
+    s = []
+    n0, n1 = _n_of(prev, st)
+    for i in range(n0, n1):
+        x, y, w, h = no_xy(k, i)
+        s.append(_xmark(x - w / 2 - 100, y, 26, J.ALERT) if NO[k]["lay"] == "col" else _xmark(x, y + h / 2 + 64, 30, J.ALERT))
+    return s
+
+
+#  say（c705・c712・c718・c806）＝人の言葉。輪郭（顔は描かない）＋吹き出しの英字（報告書が引くまま・訳は字幕）。色＝話した人の役
+SY = dict(px=360.0, ptop=330.0, ph=420.0, bx0=700.0, bx1=1790.0, by0=320.0)
+SAY = dict(
+    comp=dict(who="元運航部長の話", sub="CEO の考えとして", role="LINE", bubbles=(("“better in compression than tension”",),)),
+    letter=dict(who="CEO", sub="会社の関係者への手紙", role="company",
+                bubbles=(("there was no damage to the main cylindrical section,", "which is the critical part and a shape",
+                          "that is far better understood"),)),
+    tv=dict(who="CEO", sub="テレビの取材", role="company",
+            bubbles=(("I’d like to be remembered as an innovator.",), ("I’ve broken some rules to make this.",))),
+    rec=dict(who="CEO", sub="会合の録音", role="company",
+             bubbles=(("there is not a lot of confidence on your part", "in the engineering that went into this vessel"),)),
+)
+SY_CAP, SY_LH = 42.0, 60.0
+
+
+def sy_box(key, i):
+    """吹き出し i の枠（x0, y0, x1, y1）＝上から順に積む。"""
+    y = SY["by0"]
+    for j, lines in enumerate(SAY[key]["bubbles"]):
+        h = 50.0 + SY_LH * len(lines)
+        if j == i:
+            return SY["bx0"], y, SY["bx1"], y + h
+        y += h + 50.0
+    raise ValueError(f"m22 say：吹き出し {i} は {key} に無い")
+
+
+def say_base(st0):
+    d = SAY[st0["set"]]
+    col = _rc(d["role"])
+    return [_person(SY["px"], SY["ptop"], SY["ph"], col),
+            _tline(SY["px"], SY["ptop"] + SY["ph"] + 52, d["who"], 36, col, "middle", 480),
+            _tline(SY["px"], SY["ptop"] + SY["ph"] + 90, d["sub"], 28, J.TICK, "middle", 520)]
+
+
+def say_stage(prev, st):
+    d = SAY[st["set"]]
+    s = []
+    n0, n1 = _n_of(prev, st)
+    hx, hy = SY["px"] + SY["ph"] * 0.17 + 50, SY["ptop"] + SY["ph"] * 0.17
+    for i in range(n0, n1):
+        x0, y0, x1, y1 = sy_box(st["set"], i)
+        ty = min(max(hy, y0 + 36), y1 - 36)
+        s.append(F.poly([(x0 + 2, ty - 24), (hx, hy), (x0 + 2, ty + 24)], J.BG2, J.LINE, 4, close=True))
+        s.append(F.rect(x0, y0, x1 - x0, y1 - y0, J.BG2, J.LINE, 4, rx=24) + F.rect(x0 - 3, ty - 21, 9, 42, J.BG2))
+        for k, t in enumerate(d["bubbles"][i]):
+            s.append(_tline(x0 + 40, y0 + 13 + SY_LH * (k + 1), t, SY_CAP, INK, "start", x1 - x0 - 80))
+    return s
+
+
+#  layers（c610・c615・c619）＝筒の壁の断面（5枚の層・1＝いちばん内側＝NTSB p.41「layer 1, the innermost co-bonded layer」）
+LY = dict(x0=600.0, x1=1440.0, y_in=780.0, th=84.0, icon=(330.0, 560.0, 140.0))
+LY_N = 5
+LY_IN_CM = 2.54                    # 1枚の厚さ＝1インチ（NTSB p.59「the five 1-inch-thick layers」）
+LY_SEP = ((1, 2), (3, 4))          # 剥離した面（NTSB p.40「One delamination was between layers 1 and 2 and the other was between layers 3 and 4」）
+LY_VOID = ((1, 2), (3, 4))         # 長い空隙が並んでいた面（NTSB p.59「these adhesive interfaces contained long extended voids」）
+
+
+def ly_top(i):
+    """層 i（1＝いちばん内側）の外側の縁の y（層 i と i+1 の境）。"""
+    return LY["y_in"] - i * LY["th"]
+
+
+def layers_base(st0):
+    cx, cy, r = LY["icon"]
+    g = [F.circ(cx, cy, r, "none", J.LINE_DIM, 26), F.rect(cx - 16, cy - r - 22, 32, 44, "none", J.AMBER, 4),
+         F.line(cx + 16, cy - r - 22, LY["x0"] - 6, ly_top(LY_N), J.LINE_DIM, 2, dash="8 6"),
+         F.line(cx + 16, cy - r + 22, LY["x0"] - 6, LY["y_in"], J.LINE_DIM, 2, dash="8 6"),
+         _tline(cx, cy + r + 62, "筒の輪切り", 28, J.TICK, "middle", 260)]
+    for i in range(1, LY_N + 1):
+        g.append(F.rect(LY["x0"], ly_top(i), LY["x1"] - LY["x0"], LY["th"], J.BG2 if i % 2 else "#1c2c38", J.LINE_DIM, 3))
+        g.append(_tline(LY["x1"] + 30, ly_top(i) + LY["th"] / 2 + 12, str(i), 34, INK, "start", 60))
+    for i in range(1, LY_N):
+        g.append(F.line(LY["x0"], ly_top(i), LY["x1"], ly_top(i), J.DOC, 3))
+    x = LY["x1"] + 70     # 1枚の厚さの括弧（層の番号の右）。⚠️ 左に置くと輪切りから伸ばす破線が札を貫く
+    g.append(F.line(x, ly_top(LY_N), x, ly_top(LY_N - 1), J.AMBER, 4) + F.line(x - 10, ly_top(LY_N), x + 10, ly_top(LY_N), J.AMBER, 4)
+             + F.line(x - 10, ly_top(LY_N - 1), x + 10, ly_top(LY_N - 1), J.AMBER, 4))
+    g.append(_tline(LY["x0"], ly_top(LY_N) - 24, "外側（海の水）", 28, J.TICK, "start", 300))
+    g.append(_tline(LY["x0"], LY["y_in"] + 40, "内側（人が乗る側）", 28, J.TICK, "start", 360))
+    g.append(_tline(LY["x1"] + 30, ly_top(LY_N) - 24, "層", 28, J.TICK, "start", 80))
+    return g
+
+
+def layers_stage(prev, st):
+    s = []
+    if _on(prev, st, "sep"):
+        for a, _b in LY_SEP:
+            y = ly_top(a)
+            s.append(F.line(LY["x0"], y, LY["x1"], y, J.ALERT, 8) + _tline(LY["x1"] + 100, y + 11, "剥離", 32, J.ALERT, "start", 160))
+    if _on(prev, st, "void"):
+        for a, _b in LY_VOID:
+            y = ly_top(a)
+            for k in range(6):
+                x = LY["x0"] + 90 + k * 140
+                s.append(f'<ellipse cx="{x:.1f}" cy="{y:.1f}" rx="{48 if k % 2 else 34}" ry="9" fill="{J.BG}" stroke="{J.INK_W}" stroke-width="2"/>')
+        s.append(_tline(LY["x0"] + 24, ly_top(1) - 22, "長い空隙", 28, INK, "start", 200))
+    if _on(prev, st, "rub"):
+        cx = (LY["x0"] + LY["x1"]) / 2
+        s.append(_arrow(cx + 170, ly_top(1) - LY["th"] / 2 + 4, cx - 170, ly_top(1) - LY["th"] / 2 + 4, J.AMBER, 7, 26))
+        s.append(_arrow(cx - 170, ly_top(1) + LY["th"] / 2 - 4, cx + 170, ly_top(1) + LY["th"] / 2 - 4, J.AMBER, 7, 26))
+        for k in range(9):
+            x = LY["x0"] + 80 + k * 85
+            s.append(F.line(x, ly_top(1) - 5, x + 34, ly_top(1) + 5, J.AMBER, 3))
+    return s
+
+
+#  buckle（c617）＝厚い1枚が薄い2枚に分かれ（剥離）、外から押されて内へ曲がる（座屈）。動く部品＝2枚の板。曲がり方は模式
+BK = dict(x0=560.0, x1=1360.0, top=470.0, th=120.0, gap=24.0, bow=66.0, n=24)
+
+
+def bk_plate(y0, h, bow):
+    xs = [BK["x0"] + (BK["x1"] - BK["x0"]) * i / BK["n"] for i in range(BK["n"] + 1)]
+    u = [math.sin(math.pi * (x - BK["x0"]) / (BK["x1"] - BK["x0"])) for x in xs]
+    top = [(x, y0 + bow * v) for x, v in zip(xs, u)]
+    bot = [(x, y0 + h + bow * v) for x, v in reversed(list(zip(xs, u)))]
+    return top + bot
+
+
+def buckle_parts(st):
+    sp, pr = st["split"] == "on", st["press"] == "on"
+    h, g = BK["th"] / 2, (BK["gap"] if sp else 0.0)
+    b = BK["bow"] if pr else 0.0
+    return [_P("outer", "poly", bk_plate(BK["top"] - g / 2, h, b), fill=J.BG2, stroke=J.LINE, w=5),
+            _P("inner", "poly", bk_plate(BK["top"] + h + g / 2, h, b), fill=J.BG2, stroke=J.LINE, w=5)]
+
+
+BK_LAB = dict(out=470.0, inner=620.0)   # 外側・内側の札の y（板の左＝外側が上・内側が下＝内へ曲がる＝下へ）。⚠️ 板の上に置くと押す矢印が札を貫く
+
+
+def buckle_base(st0):
+    return [_tline(BK["x0"] - 30, BK_LAB["out"], "外側（海の水）", 28, J.TICK, "end", 260),
+            _tline(BK["x0"] - 30, BK_LAB["inner"], "内側", 28, J.TICK, "end", 200)]
+
+
+def buckle_stage(prev, st):
+    s = []
+    if _on(prev, st, "split"):
+        s.append(_tline(BK["x0"] - 30, BK["top"] + BK["th"] / 2 + 10, "剥離", 30, J.ALERT, "end", 140))
+    if _on(prev, st, "press"):
+        for k in range(5):
+            x = BK["x0"] + 120 + k * 140
+            s.append(_arrow(x, 330.0, x, 420.0, J.LINE, 6, 22))
+    return s
+
+
+#  tc（c702）＝引っ張り（旅客機の胴体＝中の空気が外へ押す）と押しつぶし（深い海の殻＝外から押す）。USCG p.274
+TC = dict(l=(470.0, 580.0), r=(1150.0, 580.0), R=140.0)
+TC_SIDE = (("l", "air", "旅客機の胴体", "引っ張られる", True), ("r", "sea", "深い海の殻", "押しつぶされる", False))
+
+
+def tc_arrows(cx, cy, R, outward):
+    out = []
+    for k in range(8):
+        a = math.pi * 2 * k / 8 + math.pi / 8
+        r0, r1 = (R * 0.30, R * 0.82) if outward else (R * 1.42, R * 1.12)
+        out.append((cx + r0 * math.cos(a), cy + r0 * math.sin(a), cx + r1 * math.cos(a), cy + r1 * math.sin(a)))
+    return out
+
+
+def tc_base(st0):
+    return [F.circ(TC[k][0], TC[k][1], TC["R"], "none", J.LINE_DIM, 10) for k in ("l", "r")]
+
+
+def tc_stage(prev, st):
+    s = []
+    for side, fld, head, word, outward in TC_SIDE:
+        if _on(prev, st, fld):
+            cx, cy = TC[side]
+            s.append(F.circ(cx, cy, TC["R"], "none", J.LINE, 12))
+            s += [_arrow(*a, J.LINE, 5, 18) for a in tc_arrows(cx, cy, TC["R"], outward)]
+            s.append(_tline(cx, 344.0, head, 34, INK, "middle", 460))
+            s.append(_tline(cx, 830.0, word, 36, J.AMBER, "middle", 460))
+    return s
+
+
+#  shell（c703・c704）＝ふつうの深海の潜水艇の殻（鋼かチタンの球）とタイタンの殻（炭素繊維の筒・両端はチタン）。TSB §1.13
+SH = dict(l=(420.0, 570.0), rs=150.0, r=(1080.0, 570.0), cw=500.0, ch=210.0)
+SH_L = ("ふつうの深海の潜水艇", "鋼かチタンの球")
+SH_R = ("タイタン", "炭素繊維の筒")
+
+
+def _hull_path(cx, cy, w, h):
+    r, dm = h / 2, h * 0.30
+    xa, xb = cx - w / 2 + dm, cx + w / 2 - dm
+    return (f'M{xa:.1f} {cy - r:.1f} H{xb:.1f} A{dm:.1f} {r:.1f} 0 0 1 {xb:.1f} {cy + r:.1f} '
+            f'H{xa:.1f} A{dm:.1f} {r:.1f} 0 0 1 {xa:.1f} {cy - r:.1f} Z'), xa, xb
+
+
+def shell_base(st0):
+    d, _, _ = _hull_path(SH["r"][0], SH["r"][1], SH["cw"], SH["ch"])
+    return [F.circ(SH["l"][0], SH["l"][1], SH["rs"], "none", J.LINE_DIM, 4), f'<path d="{d}" fill="none" stroke="{J.LINE_DIM}" stroke-width="4"/>']
+
+
+def shell_stage(prev, st):
+    s = []
+    if _on(prev, st, "left"):
+        cx, cy = SH["l"]
+        s.append(F.circ(cx, cy, SH["rs"], "#22323e", J.LINE, 10) + F.circ(cx - 46, cy - 50, 34, "#2e4352"))
+        s.append(_tline(cx, 344.0, SH_L[0], 30, J.TICK, "middle", 460) + _tline(cx, 800.0, SH_L[1], 36, INK, "middle", 460))
+    if _on(prev, st, "right"):
+        cx, cy = SH["r"]
+        d, xa, xb = _hull_path(cx, cy, SH["cw"], SH["ch"])
+        s.append(f'<path d="{d}" fill="#262b30" stroke="{J.LINE}" stroke-width="10"/>')
+        for x in (xa, xb):
+            s.append(F.rect(x - 9, cy - SH["ch"] / 2 - 8, 18, SH["ch"] + 16, J.BG2, J.LINE, 3))
+        s.append(_tline(cx, 344.0, SH_R[0], 30, J.TICK, "middle", 460) + _tline(cx, 800.0, SH_R[1], 36, INK, "middle", 460))
+    return s
+
+
+#  ruler（c706・c709・c713）＝深さの物差し（縦・縮尺どおり）。near＝0〜7,000m・far＝0〜14,000m。タイタニック（約3,800m）は基図
+RL = dict(x=600.0, y0=330.0, y1=830.0, xr=1330.0, lx=1360.0)
+RL_Z = dict(near=7000.0, far=14000.0)
+RL_TK = dict(near=tuple(range(0, 7001, 1000)), far=tuple(range(0, 14001, 2000)))
+RL_M = dict(goal=(6000.0, "会社の望み", "company"),          # TSB §1.12.1「rated up to 6000 m」
+            op=(4500.0, "運航の目標", "company"),              # USCG p.114「the 4,500 m … target max pressure depth for TITAN’s operations」
+            fail=(13200.0, "壊れる深さの計算", "company"))      # NTSB p.25「an implosion depth about 13,200 meters」
+RL_RATIO = dict(x=1060.0, w=70.0, bx=1150.0, bw=60.0)
+
+
+def rl_y(z, m):
+    return RL["y0"] + (RL["y1"] - RL["y0"]) * m / RL_Z[z]
+
+
+def ruler_base(st0):
+    z = st0["z"]
+    g = [F.line(RL["x"] - 20, RL["y0"], RL["xr"], RL["y0"], SEA_LN, 5), _tline(RL["lx"], RL["y0"] + 10, "海面", 28, J.TICK, "start", 200),
+         F.line(RL["x"], RL["y0"], RL["x"], RL["y1"], J.LINE_DIM, 4), _tline(RL["x"] - 16, RL["y0"] - 26, "深さ（メートル）", 26, J.TICK, "end", 360)]
+    for m in RL_TK[z][1:]:
+        y = rl_y(z, m)
+        g.append(F.line(RL["x"] - 12, y, RL["x"], y, J.LINE_DIM, 3) + _tline(RL["x"] - 20, y + 9, f"{m:,}", 26, J.TICK, "end", 160))
+    y = rl_y(z, TITANIC_M)
+    g.append(F.line(RL["x"], y, RL["xr"], y, J.TICK, 4, dash="14 10") + _tline(RL["lx"], y + 10, "タイタニック", 30, J.TICK, "start", 300))
+    return g
+
+
+def ruler_stage(prev, st):
+    z, s = st["z"], []
+    for k, (m, t, r) in RL_M.items():
+        if _on(prev, st, k):
+            y, c = rl_y(z, m), _rc(r)
+            s.append(F.line(RL["x"], y, RL["xr"], y, c, 7) + _tline(RL["lx"], y + 11, t, 32, c, "start", 440))
+    if _on(prev, st, "ratio"):
+        h = rl_y(z, TITANIC_M) - RL["y0"]
+        for k in range(3):
+            s.append(F.rect(RL_RATIO["x"], RL["y0"] + k * h, RL_RATIO["w"], h, "none", J.TICK, 3, dash="8 6"))
+        s.append(F.rect(RL_RATIO["bx"], RL["y0"], RL_RATIO["bw"], rl_y(z, RL_M["fail"][0]) - RL["y0"], COC, op=0.55))
+    return s   # ⚠️ 模型の試験の深さは3冊で割れる＝箱や棒で描かない（札「模型の試験は届かず」だけ＝映像方針 c713）
+
+
+#  sf（c707）＝安全率のしくみ（潜ってよい深さと壊れる深さの棒・その比）。🔴 長さは模式（値ではない）＝NTSB p.24 の定義だけ
+SF = dict(x0=560.0, ys=(470.0, 650.0), h=74.0, op=380.0, k=2.0)
+
+
+def sf_base(st0):
+    g = []
+    for y, t in zip(SF["ys"], ("潜ってよい深さ", "壊れる深さ")):
+        g.append(_tline(SF["x0"] - 24, y + 12, t, 34, INK, "end", 460))
+        g.append(F.rect(SF["x0"], y - SF["h"] / 2, SF["op"] * SF["k"] + 40, SF["h"], "none", J.LINE_DIM, 3, rx=6, dash="10 8"))
+    return g
+
+
+def sf_stage(prev, st):
+    s = []
+    x0, (y0, y1), h = SF["x0"], SF["ys"], SF["h"]
+    if _on(prev, st, "bars"):
+        s.append(F.rect(x0, y0 - h / 2, SF["op"], h, J.LINE, rx=6) + F.rect(x0, y1 - h / 2, SF["op"] * SF["k"], h, J.ALERT, rx=6, op=0.85))
+    if _on(prev, st, "ratio"):
+        for i in range(int(SF["k"])):
+            a, b = x0 + SF["op"] * i, x0 + SF["op"] * (i + 1)
+            yb = y1 - h / 2 - 16
+            s.append(F.line(a + 4, yb, b - 4, yb, J.AMBER, 4) + F.line(a + 4, yb, a + 4, yb + 12, J.AMBER, 4) + F.line(b - 4, yb, b - 4, yb + 12, J.AMBER, 4))
+    if _on(prev, st, "spare"):
+        s.append(F.rect(x0 + SF["op"], y1 - h / 2 - 6, SF["op"] * (SF["k"] - 1), h + 12, "none", J.AMBER, 6, rx=6, dash="12 8"))
+    return s
+
+
+#  model（c711）＝3分の1の模型（炭素繊維の筒と炭素繊維のドーム）・外からの圧・ドームの1つが壊れた（どちらのドームかは模式）。TSB §1.12.1
+MD = dict(cx=880.0, cy=570.0, w=560.0, h=200.0)
+MD_DOME_M = 3000.0                 # ドームが壊れた圧の深さ（TSB §1.12.1「failed at pressures equivalent to depths of around 3000 m」）
+
+
+def model_base(st0):
+    d, xa, xb = _hull_path(MD["cx"], MD["cy"], MD["w"], MD["h"])
+    return [f'<path d="{d}" fill="#262b30" stroke="{J.LINE}" stroke-width="6"/>',
+            F.line(xa, MD["cy"] - MD["h"] / 2, xa, MD["cy"] + MD["h"] / 2, J.LINE_DIM, 3),
+            F.line(xb, MD["cy"] - MD["h"] / 2, xb, MD["cy"] + MD["h"] / 2, J.LINE_DIM, 3),
+            _tline(MD["cx"], MD["cy"] + 12, "炭素繊維の筒", 32, INK, "middle", 300),
+            _tline(MD["cx"], 800.0, "両端のドームも炭素繊維", 30, J.TICK, "middle", 600)]
+
+
+def model_stage(prev, st):
+    s = []
+    cx, cy, w, h = MD["cx"], MD["cy"], MD["w"], MD["h"]
+    if _on(prev, st, "press"):
+        for k in range(4):
+            x = cx - w / 2 + 110 + k * (w - 220) / 3
+            s.append(_arrow(x, cy - h / 2 - 90, x, cy - h / 2 - 14, J.LINE, 5, 18) + _arrow(x, cy + h / 2 + 90, x, cy + h / 2 + 14, J.LINE, 5, 18))
+        s.append(_arrow(cx - w / 2 - 110, cy, cx - w / 2 - 14, cy, J.LINE, 5, 18) + _arrow(cx + w / 2 + 110, cy, cx + w / 2 + 14, cy, J.LINE, 5, 18))
+    if _on(prev, st, "fail"):
+        _, _, xb = _hull_path(cx, cy, w, h)
+        dm = h * 0.30
+        s.append(f'<path d="M{xb:.1f} {cy - h / 2:.1f} A{dm:.1f} {h / 2:.1f} 0 0 1 {xb:.1f} {cy + h / 2:.1f} Z" fill="{J.ALERT}" fill-opacity="0.55" '
+                 f'stroke="{J.ALERT}" stroke-width="6"/>')
+        s.append(F.poly([(xb + 6, cy - 60), (xb + 30, cy - 20), (xb + 12, cy + 10), (xb + 40, cy + 50)], "none", J.INK_W, 4))
+    return s
+
+
+#  klass（c714）＝船級のしくみ（船の持ち主→船級協会〈民間の団体〉が設計・工事を確かめ、試験に立ち会う→証明書）。NTSB p.22
+KL = dict(own=(280.0, 430.0), soc=(900.0, 430.0), cert=(1560.0, 430.0), w=400.0, h=130.0, cy=660.0, cxs=(560.0, 900.0, 1240.0))
+KL_CHK = ("設計を確かめる", "工事を確かめる", "試験に立ち会う")
+KL_SOC = ("船級協会", "民間の団体")
+KL_CERT = "証明書"
+
+
+def _kl_chk(i):
+    x, y = KL["cxs"][i], KL["cy"]
+    return (F.line(KL["soc"][0], KL["soc"][1] + KL["h"] / 2 + 4, x, y - 54, J.LINE_DIM, 3)
+            + _box(x, y, 300.0, 100.0, KL_CHK[i], J.AMBER, cap=30, sw=4))
+
+
+def klass_base(st0):
+    return [_box(KL["own"][0], KL["own"][1], 340.0, KL["h"], "船の持ち主", J.LINE, cap=34, sw=5)]
+
+
+def klass_stage(prev, st):
+    s = []
+    if _on(prev, st, "soc"):
+        s.append(_arrow(KL["own"][0] + 176, KL["own"][1], KL["soc"][0] - KL["w"] / 2 - 6, KL["soc"][1], J.LINE, 5, 18))
+        s.append(_box(KL["soc"][0], KL["soc"][1], KL["w"], KL["h"], KL_SOC[0], J.LINE, cap=36, sw=6, t2=KL_SOC[1]))
+    if _on(prev, st, "design"):
+        s += [_kl_chk(0), _kl_chk(1)]
+    if _on(prev, st, "test"):
+        s.append(_kl_chk(2))
+    if _on(prev, st, "cert"):
+        s.append(_arrow(KL["soc"][0] + KL["w"] / 2 + 6, KL["soc"][1], KL["cert"][0] - 150 - 6, KL["cert"][1], J.LINE, 5, 18))
+        s.append(_box(KL["cert"][0], KL["cert"][1], 300.0, KL["h"], KL_CERT, J.DOC, ink=J.DOC, cap=38, sw=6))
+    return s
+
+
+#  wind（c801）＝筒の作り方（炭素繊維の糸が樹脂の槽をくぐり、回る芯に巻きつく＝フィラメント・ワインディング）。TSB §1.12.1
+WD = dict(sp=(300.0, 430.0, 70.0), bath=(720.0, 660.0, 320.0, 120.0), man=(1330.0, 470.0, 760.0, 190.0))
+
+
+def wind_base(st0):
+    sx, sy, sr = WD["sp"]
+    bx, by, bw, bh = WD["bath"]
+    mx, my, mw, mh = WD["man"]
+    return [F.circ(sx, sy, sr, J.BG2, J.LINE, 6), F.circ(sx, sy, 16, J.LINE), _tline(sx, sy + sr + 56, "炭素繊維の糸", 30, INK, "middle", 300),
+            F.rect(bx - bw / 2, by - bh / 2, bw, bh, "none", J.LINE, 5, rx=8), F.rect(bx - bw / 2 + 6, by - bh / 2 + 34, bw - 12, bh - 40, "#5a4a2a"),
+            _tline(bx, by + bh / 2 + 50, "樹脂の槽", 30, INK, "middle", 300),
+            F.line(mx - mw / 2 - 50, my, mx + mw / 2 + 40, my, J.LINE_DIM, 6), F.rect(mx - mw / 2, my - mh / 2, mw, mh, J.BG2, J.LINE_DIM, 4, rx=10),
+            _tline(mx, my + mh / 2 + 56, "回る芯", 30, INK, "middle", 300)]
+
+
+def wind_stage(prev, st):
+    s = []
+    if _on(prev, st, "run"):
+        sx, sy, sr = WD["sp"]
+        bx, by, bw, bh = WD["bath"]
+        mx, my, mw, mh = WD["man"]
+        s.append(F.poly([(sx + sr * 0.7, sy + sr * 0.7), (bx - 60, by + 20), (bx + 60, by + 20), (mx - mw / 2 + 20, my - mh / 2 + 10)], "none", J.INK_W, 4))
+        for k in range(14):
+            x = mx - mw / 2 + 30 + k * 50
+            s.append(F.line(x, my - mh / 2 + 6, min(x + 70, mx + mw / 2 - 6), my + mh / 2 - 6, "#6d7a84", 5))
+        r = 110.0
+        a0, a1 = math.radians(-50), math.radians(50)
+        xr = mx + mw / 2 - 30
+        s.append(f'<path d="M{xr + r * math.cos(a0) * 0.5:.1f} {my + r * math.sin(a0):.1f} A{r * 0.5:.1f} {r:.1f} 0 0 1 '
+                 f'{xr + r * math.cos(a1) * 0.5:.1f} {my + r * math.sin(a1):.1f}" fill="none" stroke="{J.AMBER}" stroke-width="6"/>')
+        tx, ty = xr + r * math.cos(a1) * 0.5, my + r * math.sin(a1)
+        s.append(F.poly([(tx - 18, ty - 6), (tx + 8, ty + 14), (tx - 22, ty + 22)], J.AMBER, None, close=True))
+    return s
+
+
+#  meet（c805）＝2018年1月19日の会合の席（CEO・運航部長・社員3人＝TSB §1.12.1）と、CEO の録音（USCG p.149）。人は札だけ（顔を描かない）
+MT = dict(tb=(960.0, 600.0, 620.0, 170.0), w=180.0, h=74.0, rec=(520.0, 750.0))
+MT_SEATS = (("CEO", 520.0, 600.0), ("運航部長", 1400.0, 600.0), ("社員", 760.0, 440.0), ("社員", 960.0, 440.0), ("社員", 1160.0, 440.0))
+
+
+def meet_base(st0):
+    cx, cy, w, h = MT["tb"]
+    g = [F.rect(cx - w / 2, cy - h / 2, w, h, J.BG2, J.LINE_DIM, 4, rx=40)]
+    for i, (t, x, y) in enumerate(MT_SEATS):
+        g.append(_box(x, y, MT["w"], MT["h"], t, COC, cap=30, sw=8 if i == 0 else 4))
+    return g
+
+
+def meet_stage(prev, st):
+    s = []
+    if _on(prev, st, "rec"):
+        x, y = MT["rec"]
+        s.append(F.line(x, MT_SEATS[0][2] + MT["h"] / 2 + 4, x, y - 30, J.LINE_DIM, 3) + F.rect(x - 60, y - 30, 120, 60, J.BG2, J.AMBER, 4, rx=8)
+                 + F.circ(x - 32, y, 13, J.AMBER) + _tline(x + 18, y + 10, "録音", 26, INK, "middle", 70))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
 #  見え方の表・札の置き場・線の先
 # ══════════════════════════════════════════════════════════
 VIEWS = dict(
     fuji=dict(lab="深さの比べ（横から）", fields=dict(press=ONOFF, coin=ONOFF), base=fuji_base, stage=fuji_stage),
     reports=dict(lab="報告書の表紙", fields=dict(r1=ONOFF, r2=ONOFF, r3=ONOFF), base=reports_base, stage=reports_stage),
-    side=dict(lab="横から見たタイタン（機首が左）", fields=dict(dim=ONOFF, hull=ONOFF, mat=ONOFF, bolts=ONOFF, only=ONOFF), base=side_base,
+    side=dict(lab="横から見たタイタン（機首が左）", fields=dict(dim=ONOFF, hull=ONOFF, mat=ONOFF, bolts=ONOFF, only=ONOFF, crack=ONOFF), base=side_base,
               stage=side_stage),
     org=dict(lab="上級の職の席（カナダの報告書の表4）", fields=dict(seats=ONOFF, ceo=ONOFF, all=ONOFF, staff=ONOFF), base=org_base,
              stage=org_stage),
-    paper=dict(lab="書類の要点（英字は原文のまま）", fields=dict(doc=("waiver", "plan"), hl1=ONOFF, hl2=ONOFF, n9=ONOFF, name=ONOFF, uscg=ONOFF),
+    paper=dict(lab="書類の要点（英字は原文のまま）", fields=dict(doc=tuple(PP_DOC), hl1=ONOFF, hl2=ONOFF, hl3=ONOFF, hl4=ONOFF, hl5=ONOFF,
+                                                         n9=ONOFF, name=ONOFF, uscg=ONOFF),
                base=paper_base, stage=paper_stage),
     table=dict(lab="カナダの報告書 付録Bの表（英字は原文のまま）", fields=dict(yr=ONOFF), base=table_base, stage=table_stage),
     dives=dict(lab="付録Bの潜航（1回＝1点）", fields=dict(reach=ONOFF, dome=ONOFF, batt=ONOFF, thr=ONOFF, wt=ONOFF, com=ONOFF), base=dives_base,
@@ -985,13 +1539,30 @@ VIEWS = dict(
                base=depth_base, stage=depth_stage),
     bow=dict(lab="上から見た船首のまわり（北が上）", fields=dict(ese=ONOFF, ene=ONOFF, plan=ONOFF, jump=ONOFF), base=bow_base, stage=bow_stage),
     two=dict(lab="調べごとの見方", fields=dict(us=ONOFF, ca=ONOFF, why=ONOFF), base=two_base, stage=two_stage),
+    # 🆕 ⑤b-4（2026-10-15）
+    send=dict(lab="母船と潜水艇の文", fields=dict(send=ONOFF, none=ONOFF), base=send_base, stage=send_stage),
+    proto=dict(lab="会社の手順の流れ", fields=dict(wait=ONOFF, search=ONOFF, out=ONOFF, best=ONOFF), base=proto_base, stage=proto_stage),
+    none=dict(lab="欄の中身", fields=dict(set=tuple(NO), n=("0", "1", "2", "3")), base=none_base, stage=none_stage),
+    say=dict(lab="人の言葉（顔は描かない）", fields=dict(set=tuple(SAY), n=("0", "1", "2")), base=say_base, stage=say_stage),
+    layers=dict(lab="筒の壁の断面（5枚の層）", fields=dict(sep=ONOFF, void=ONOFF, rub=ONOFF), base=layers_base, stage=layers_stage),
+    buckle=dict(lab="層の板の断面", fields=dict(split=ONOFF, press=ONOFF), base=buckle_base, stage=buckle_stage, parts=buckle_parts),
+    tc=dict(lab="輪切りで見た力の向き", fields=dict(air=ONOFF, sea=ONOFF), base=tc_base, stage=tc_stage),
+    shell=dict(lab="人が乗る殻の形と材料", fields=dict(left=ONOFF, right=ONOFF), base=shell_base, stage=shell_stage),
+    ruler=dict(lab="深さの物差し（縮尺どおり）", fields=dict(z=("near", "far"), goal=ONOFF, op=ONOFF, fail=ONOFF, ratio=ONOFF),
+               base=ruler_base, stage=ruler_stage),
+    sf=dict(lab="安全率のしくみ", fields=dict(bars=ONOFF, ratio=ONOFF, spare=ONOFF), base=sf_base, stage=sf_stage),
+    model=dict(lab="3分の1の大きさの模型（横から）", fields=dict(press=ONOFF, fail=ONOFF), base=model_base, stage=model_stage),
+    klass=dict(lab="船級のしくみ", fields=dict(soc=ONOFF, design=ONOFF, test=ONOFF, cert=ONOFF), base=klass_base, stage=klass_stage),
+    wind=dict(lab="筒の作り方（横から）", fields=dict(run=ONOFF), base=wind_base, stage=wind_stage),
+    meet=dict(lab="会合の席", fields=dict(rec=ONOFF), base=meet_base, stage=meet_stage),
 )
 START = {v: {f: d["fields"][f][0] for f in d["fields"]} for v, d in VIEWS.items()}
 START["lars_side"]["lvl"] = "up"
-HEAD_ONLY = dict(paper=("doc",), chat=("set",), depth=("z",))
+HEAD_ONLY = dict(paper=("doc",), chat=("set",), depth=("z",), none=("set",), say=("set",), ruler=("z",))
 # 戻さない欄（増えた吹き出しは減らない・描いた深さの点は消えない・沈んだ台は浮かない）
-ORDER = dict(chat=dict(n=tuple(str(i) for i in range(9))), depth=dict(upto=DP_ORDER), lars_side=dict(lvl=("up", "under")))
-NOT_SCHEMATIC = ("table", "chat")       # 原文の表と文の写し（左上に「模式」を付けない）
+ORDER = dict(chat=dict(n=tuple(str(i) for i in range(9))), depth=dict(upto=DP_ORDER), lars_side=dict(lvl=("up", "under")),
+             none=dict(n=("0", "1", "2", "3")), say=dict(n=("0", "1", "2")))
+NOT_SCHEMATIC = ("table", "chat", "ruler")   # 原文の表と文の写し・🆕 ⑤b-4 縮尺どおりの深さの物差し（左上に「模式」を付けない）
 
 TAG_AT = dict(
     fuji=dict(t=(1250.0, 620.0, "start", 560.0), top=(1250.0, 330.0, "start", 560.0)),
@@ -1017,7 +1588,25 @@ TAG_AT = dict(
     bow=dict(ese=(1100.0, 470.0, "start", 520.0), ene=(1100.0, 270.0, "start", 520.0), plan=(1520.0, 330.0, "start", 320.0),
              jump=(L_X, 330.0, "start", 520.0), sig=(L_X, 780.0, "start", 560.0)),
     two=dict(),
+    # 🆕 ⑤b-4（2026-10-15）
+    send=dict(doubt=(SE["x0"], 352.0, "start", 1000.0)),
+    proto=dict(look=(PR["xs"][0], 372.0, "middle", 400.0), t3=(PR["xs"][2], 372.0, "middle", 380.0), cut=(1400.0, 300.0, "middle", 640.0),
+               bad=(1500.0, 732.0, "start", 340.0)),
+    none=dict(t=(F.BX1 - 40.0, 320.0, "end", 760.0), low=(960.0, 800.0, "middle", 900.0)),
+    say=dict(r=(SY["bx0"], 760.0, "start", 1000.0)),
+    layers=dict(th=(LY["x1"] + 94.0, ly_top(LY_N) + 54.0, "start", 300.0), t=(1000.0, 330.0, "start", 440.0)),
+    buckle=dict(r1=(1420.0, 470.0, "start", 420.0), r2=(1420.0, 640.0, "start", 420.0)),
+    tc=dict(r1=(1420.0, 540.0, "start", 420.0), r2=(1420.0, 690.0, "start", 420.0)),
+    shell=dict(r1=(1400.0, 450.0, "start", 440.0), r2=(1400.0, 580.0, "start", 440.0), r3=(1400.0, 710.0, "start", 440.0)),
+    ruler=dict(doc=(700.0, 400.0, "start", 560.0), sf=(700.0, 480.0, "start", 560.0), dl=(1240.0, 680.0, "start", 380.0),
+               low=(700.0, 770.0, "start", 600.0), low2=(RL["lx"], 730.0, "start", 470.0)),
+    sf=dict(r1=(1420.0, 560.0, "start", 420.0), r2=(1420.0, 700.0, "start", 420.0)),
+    model=dict(r1=(1300.0, 410.0, "start", 540.0), r2=(1300.0, 700.0, "start", 540.0)),
+    klass=dict(q=(KL["own"][0], 330.0, "middle", 320.0)),
+    wind=dict(low=(L_X, 800.0, "start", 400.0)),
+    meet=dict(ask=(1400.0, 748.0, "middle", 440.0), rec=(620.0, 762.0, "start", 360.0)),   # ⚠️ geom_gap：y 712 だと札が机の右下の角に触れた
 )
+TAG_AT["paper"].update(r2=(1360.0, 560.0, "start", 460.0), r3=(1360.0, 740.0, "start", 460.0))   # 🆕 ⑤b-4：幅の広い紙（w 1060＝右の端 1310）の右
 
 
 def anchors(view, st):
@@ -1025,7 +1614,7 @@ def anchors(view, st):
     if view == "side":
         G = sd_geo()
         return dict(hull=((G["xc0"] + G["xc1"]) / 2, G["cy"] - G["R"]), dome=(G["xh0"] + 10, G["cy"] - G["R"] * 0.7),
-                    cyl=((G["xc0"] + G["xc1"]) / 2, G["cy"]))
+                    cyl=((G["xc0"] + G["xc1"]) / 2, G["cy"]), crack=sd_cracks(G)[0])
     if view == "dives":
         pts = {i: (x, y) for i, _, x, y in dv_pts()}
         return {f"d{i}": v for i, v in pts.items()}
@@ -1068,6 +1657,11 @@ def _states(view, start, steps):
         n_rows = len(APPA[out[0]["set"]])
         if any(int(s["n"]) > n_rows for s in out):
             raise ValueError(f"m22：吹き出しの数が付録Aの行（{n_rows}）を超える")
+    if view in ("none", "say"):     # 🆕 ⑤b-4
+        key = out[0]["set"]
+        lim = len(NO[key]["items"]) if view == "none" else len(SAY[key]["bubbles"])
+        if any(int(s["n"]) > lim for s in out):
+            raise ValueError(f"m22：{view} の数が {key} の数（{lim}）を超える")
     return out[0], out[1:]
 
 
@@ -1176,7 +1770,7 @@ def geo_of(view, start, states):
     elif view == "side":
         G = sd_geo()
         out.update(L=G["L"], x0=G["x0"], xt=G["xt"], len_m=SD_LEN_M, seats=SD_SEATS, bolts=len(_bolts(G, SD_BOLTS)),
-                   dome_x=G["xh0"], cyl=(G["xc0"], G["xc1"]))
+                   dome_x=G["xh0"], cyl=(G["xc0"], G["xc1"]), cracks=sd_cracks(G))
     elif view == "org":
         out.update(seats=list(ORG), staff=ORG_STAFF, col=COC)
     elif view == "paper":
@@ -1199,4 +1793,42 @@ def geo_of(view, start, states):
         out.update(sea=LS["sea"], top=LS["top"], under=LS["under"], det=LS["det"], sub_cy=LS["sub_cy"])
     elif view == "comms":
         out.update(boxes=[a for a, _ in CM_T])
+    # 🆕 ⑤b-4（2026-10-15）
+    elif view == "send":
+        out.update(n=SE_N, minutes=SE["min"], xs=se_xs())
+    elif view == "proto":
+        out.update(boxes=[(t, _rc(r)) for t, r in PR_T], best=PR_BEST)
+    elif view == "none":
+        out.update(set=start["set"], items=list(NO[start["set"]]["items"]))
+    elif view == "say":
+        d = SAY[start["set"]]
+        out.update(set=start["set"], who=d["who"], col=_rc(d["role"]), bubbles=[tuple(b) for b in d["bubbles"]])
+    elif view == "layers":
+        out.update(n=LY_N, inch_cm=LY_IN_CM, sep=[tuple(p) for p in LY_SEP], void=[tuple(p) for p in LY_VOID],
+                   inner_y=ly_top(1) + LY["th"] / 2, outer_y=ly_top(LY_N) + LY["th"] / 2)
+    elif view == "buckle":
+        rows = []
+        for s in allst:
+            o, i = buckle_parts(s)
+            po, pi = o["pts"], i["pts"]
+            mid = BK["n"] // 2
+            rows.append(dict(split=s["split"], press=s["press"], th_out=po[-1][1] - po[0][1], gap=pi[0][1] - po[-1][1],
+                             bow=po[mid][1] - po[0][1]))
+        out.update(rows=rows, th=BK["th"], inner_down=BK_LAB["inner"] > BK_LAB["out"])
+    elif view == "tc":
+        out.update(sides={side: (head, outward, TC[side], tc_arrows(TC[side][0], TC[side][1], TC["R"], outward)) for side, _, head, _, outward in TC_SIDE})
+    elif view == "shell":
+        out.update(left=SH_L, right=SH_R)
+    elif view == "ruler":
+        z = start["z"]
+        out.update(z=z, y0=RL["y0"], y1=RL["y1"], dmax=RL_Z[z], titanic=(TITANIC_M, rl_y(z, TITANIC_M)),
+                   marks={k: (m, rl_y(z, m)) for k, (m, _, _) in RL_M.items()}, cols={k: _rc(r) for k, (_, _, r) in RL_M.items()}, ratio_n=3)
+    elif view == "sf":
+        out.update(op=SF["op"], k=SF["k"])
+    elif view == "model":
+        out.update(dome_m=MD_DOME_M)
+    elif view == "klass":
+        out.update(chk=list(KL_CHK), soc=KL_SOC, cert=KL_CERT)
+    elif view == "meet":
+        out.update(seats=[t for t, _, _ in MT_SEATS])
     return out

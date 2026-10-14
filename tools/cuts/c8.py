@@ -92,3 +92,109 @@ SPEC.update({
         [dict(k="wave", at="abaco47", t="ひび割れるような音", lab=(30, 72, "start"))]]),
         t="ひび割れの音", s="2019年の試しの潜航（現在の衛星写真）"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-15）：図解 第7章（14カット）＝模式図 `tools/mech22.py`・時間の帯（axis）
+# ══════════════════════════════════════════════════════════
+#   🔴 章の札「1つ目の船体」と4字以上同じ並びを見出し・副題に入れない（門番 dup）。人の名前は出さない（役職だけ）・CEO の名前は語りだけ。
+#      元運航部長の動き（申し立て・取り下げ）は LINE（会社の外の1人＝役の色を持たない）。帯の札は語りの細かさ（月日・年月）
+_N_QA = "句はカナダの報告書が書く報告の要点（英字のまま・模式）"
+_N_MTS = "句は米運輸安全委員会とカナダの報告書が引く手紙の要点（英字のまま・模式）"
+SPEC.update({
+    # c801（3行）＝聞き役の問い→糸が樹脂の槽をくぐり、回る芯に巻きつく→組み上がり 2018年1月
+    "c801": dict(
+        t="巻いて作る筒", s="最初のタイタン",
+        fig=("m22", dict(view="wind", steps=[dict(), dict(state=dict(run="on")), dict(tag=dict(t="組み上がり", d="2018年1月", at="low"))],
+                         rel=[dict(t="2018年1月", src="USCG p152")],
+                         note="形と巻き方は模式", src=ss.src(["TSB §1.12.1", "USCG p152"]))),
+    ),
+    # c802（3行）＝品質点検の報告（2018年1月18日）。2行目で「切り落とした筒の端」・3行目で「目に見える空隙と剥離」
+    "c802": dict(
+        t="見えた空隙", s="運航部長の点検",
+        fig=("m22", dict(view="paper", start=dict(doc="qa18"), steps=[dict(), dict(state=dict(hl2="on")), dict(state=dict(hl1="on"))],
+                         note=_N_QA, src=ss.src(["TSB §1.12.1", "USCG p146"]))),
+    ),
+    # c804（2行）＝同じ報告。筒と接着の線を全部点検→結果は人が乗る潜航の前に
+    "c804": dict(
+        t="求めた点検", s="人が乗る前に",
+        fig=("m22", dict(view="paper", start=dict(doc="qa18", hl1="on", hl2="on"), steps=[dict(state=dict(hl3="on")), dict(state=dict(hl4="on"))],
+                         note=_N_QA, src=ss.src(["TSB §1.12.1"]))),
+    ),
+    # c805（2行）＝会合の席（CEO・運航部長・社員3人）→運航部長が船体の追加の試験を求める・CEO が録音
+    "c805": dict(
+        t="翌日の会合", s="録音のある会合",
+        fig=("m22", dict(view="meet", steps=[dict(), dict(state=dict(rec="on"), tag=dict(t="船体の追加の試験を", d="運航部長", at="ask"))],
+                         note="席の並びは模式（顔は描かない）", src=ss.src(["TSB §1.12.1", "USCG p149"]))),
+    ),
+    # c806（2行）＝🔧 人の言葉（CEO・会合の録音）。2行目で吹き出し
+    "c806": dict(
+        t="録音の言葉", s="会合の中で",
+        fig=("m22", dict(view="say", start=dict(set="rec"), steps=[dict(), dict(state=dict(n="1"))],
+                         note="人の形は模式（顔は描かない）・英字は米運輸安全委員会の報告書が引く録音", src=ss.src(["NTSB p1048"]))),
+    ),
+    # c807（3行）＝年表（2018年）。1月23日 運航部長を解任（会社）→安全の考えの違い（カナダの調べ）→聞き役
+    "c807": dict(
+        t="辞めさせられる", s="2018年の冬",
+        fig=("axis", dict(ss.AX_Y18, steps=[dict(add=[ss.ax("fire18")], cur="2018-01-23"), dict(add=[ss.ax("why18")]), dict()],
+                          note="日付は米沿岸警備隊の報告書・理由はカナダの報告書", src=ss.src(["USCG p149", "TSB §1.12.1"]))),
+    ),
+    # c808（2行）＝同じ年表。2月6日 労働安全衛生局へ申し立て→調査官への話「like Swiss cheese」
+    "c808": dict(
+        t="申し立て", s="調査官への話",
+        #   ⚠️ 門番 axis：前の段の「1月23日」の札は2月6日の縦の線に貫かれる＝past の点は札なし
+        fig=("axis", dict(ss.AX_Y18, past=[ss.ax("fire18", t="", lab=False)], start=dict(cur="2018-01-23"),
+                          steps=[dict(add=[ss.ax("osha18")], cur="2018-02-06"), dict(add=[ss.ax("swiss")])],
+                          note="日付は米沿岸警備隊の報告書・英字は米運輸安全委員会の報告書が引く話", src=ss.src(["USCG p149", "NTSB p1048"]))),
+    ),
+    # c809（2行）＝同じ年表。6月25日 会社が訴える→12月13日 申し立てを取り下げ→聞き役
+    "c809": dict(
+        t="訴えられた社員", s="その年のうちに",
+        fig=("axis", dict(ss.AX_Y18, past=[ss.ax("fire18", t="", lab=False), ss.ax("osha18")], start=dict(cur="2018-02-06"),
+                          steps=[dict(add=[ss.ax("sue18"), ss.ax("wd18")], cur="2018-12-13"), dict()],
+                          note="日付は米沿岸警備隊の報告書", src=ss.src(["USCG p150", "USCG p151"]))),
+    ),
+    # c810（3行）＝業界の委員会の手紙の案。全員一致の懸念→「実験的」なやり方→小さなものから破滅的なものまで
+    "c810": dict(
+        t="業界からの手紙", s="全員一致の懸念",
+        fig=("m22", dict(view="paper", start=dict(doc="mts"), steps=[dict(state=dict(hl1="on")), dict(state=dict(hl2="on")), dict(state=dict(hl3="on"))],
+                         note=_N_MTS, src=ss.src(["NTSB p1023", "TSB §1.12.1"]))),
+    ),
+    # c811（2行）＝同じ手紙。船級協会が見て立ち会う試作の試験→口頭で CEO へ（カナダの調べ）
+    "c811": dict(
+        t="勧めた試験", s="試作の試験",
+        fig=("m22", dict(view="paper", start=dict(doc="mts", hl1="on", hl2="on", hl3="on"),
+                         steps=[dict(state=dict(hl4="on", hl5="on")), dict(tag=dict(t="口頭で CEO へ", d="カナダの調べ", at="r3", col=J.INST))],
+                         note=_N_MTS, src=ss.src(["TSB §1.12.1"]))),
+    ),
+    # c815（2行）＝横から見たタイタン＋前の左舷の内側の亀裂3つ（カナダの調べ）→その年の遠征も認めない（初代の技術部長）
+    "c815": dict(
+        t="終わりの船体", s="技術の責任者の判断",
+        #   ⚠️ geom_gap：右上の札から引くと引き出し線が艇の全体を横切った＝亀裂の札は左上・2行目の札は右上
+        fig=("m22", dict(view="side", steps=[dict(state=dict(crack="on"), tag=dict(t="内側の亀裂（前の左舷）", at="low", to="crack", col=J.ALERT)),
+                                             dict(tag=dict(t="遠征も認めない", d="初代の技術部長", at="tag"))],
+                         note="亀裂の形と位置は模式（数はカナダの報告書）", src=ss.src(["TSB §1.12.1", "NTSB p1026", "USCG p161"]))),
+    ),
+    # c816（2行）＝2019年の遠征は中止（会社）→客・当局・船級協会のどれにも亀裂を知らせず（米沿岸警備隊の委員会）
+    "c816": dict(
+        t="伏せた亀裂", s="遠征の中止",
+        fig=("m22", dict(view="none", start=dict(set="told"),
+                         steps=[dict(tag=dict(t="2019年の遠征は中止", at="t", col=J.COMPANY)),
+                                dict(state=dict(n="3"), tag=dict(t="亀裂を知らせず", d="米沿岸警備隊の委員会", at="low", col=J.USCG))],
+                         rel=[dict(t="2019年", src="NTSB p1026")],
+                         note="欄は要点（模式）", src=ss.src(["NTSB p1026", "USCG p162", "USCG p164"]))),
+    ),
+    # c817（1行）＝年表（2019年）。7月 技術部長を解任
+    "c817": dict(
+        t="もう1人の解任", s="2019年の夏",
+        fig=("axis", dict(ss.AX_Y19, steps=[dict(add=[ss.ax("fire19")], cur="2019-07-26")],
+                          note="日付は米沿岸警備隊の報告書（月までを札に）", src=ss.src(["USCG p164"]))),
+    ),
+    # c818（3行）＝同じ年表。10月 加圧の試験→亀裂と剥離がさらに・11月 潜る深さを下げる→それきり潜らず
+    "c818": dict(
+        t="最後の試験", s="この筒の終わり",
+        fig=("axis", dict(ss.AX_Y19, past=[ss.ax("fire19")], start=dict(cur="2019-07-26"),
+                          steps=[dict(add=[ss.ax("test19"), ss.ax("crk19")], cur="2019-10-15"), dict(add=[ss.ax("der19")], cur="2019-11-18"),
+                                 dict(add=[ss.ax("last19")])],
+                          note="日付はカナダの報告書（月までを札に）", src=ss.src(["TSB §1.12.1"]))),
+    ),
+})

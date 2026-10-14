@@ -75,3 +75,38 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-15）：図解 第5章（4カット）＝模式図 `tools/mech22.py`（layers・buckle）
+# ══════════════════════════════════════════════════════════
+#   🔴 層の番号は内側から（層1＝いちばん内側＝NTSB p.41）。剥離＝赤（壊れた）・空隙とこすれの線は模式。章の札「海の底の残骸」と同じ並びを見出し・副題に入れない
+_N_LY = "層の厚さと線は模式（層1がいちばん内側）"
+SPEC.update({
+    # c610（3行）＝筒の壁の断面（5枚の層・1枚＝約2.5センチ）→聞き役の問い→剥離の面（1と2・3と4）
+    "c610": dict(
+        t="層の貼り合わせ", s="筒の壁を切ると",
+        fig=("m22", dict(view="layers", steps=[dict(tag=dict(t="約2.5センチ", at="th")), dict(), dict(state=dict(sep="on"))],
+                         rel=[dict(t="約2.5センチ", src="NTSB p1059（1-inch-thick）")],
+                         note=_N_LY, src=ss.src(["NTSB p1059", "NTSB p1040", "NTSB p1041"]))),
+    ),
+    # c615（2行）＝同じ断面。層1と層2が別々にずれてこすれた跡（長さの向き）＝爆縮の前から→聞き役
+    "c615": dict(
+        t="前からの剥離", s="内側の2枚",          # ⚠️ 門番 echo：「1枚目と2枚目の層」は語りの文の頭の写し
+        fig=("m22", dict(view="layers", start=dict(sep="on"),
+                         steps=[dict(state=dict(rub="on"), tag=dict(t="爆縮の前から", at="t", col=J.ALERT)), dict()],
+                         note="こすれた跡の線は模式（向きは筒の長さの方向）", src=ss.src(["NTSB p1059", "NTSB p1044"]))),
+    ),
+    # c617（2行）＝厚い1枚が薄い2枚に分かれる（剥離）→外から押されて内へ曲がる（座屈）＝動く部品
+    "c617": dict(
+        t="薄くなる板", s="外から押されると",
+        fig=("m22", dict(view="buckle", steps=[dict(state=dict(split="on"), tag=dict(t="薄い板に分かれる", at="r1")),
+                                               dict(state=dict(press="on"), tag=dict(t="座屈", at="r2", col=J.ALERT))],
+                         note="曲がり方は模式（米運輸安全委員会の報告書の説明）", src=ss.src(["NTSB p1061"]))),
+    ),
+    # c619（2行）＝同じ断面。剥離した2つの面に長い空隙が並ぶ（作られたときから）→次の章への問い
+    "c619": dict(
+        t="作ったときの空隙", s="剥離の面に",
+        fig=("m22", dict(view="layers", start=dict(sep="on"), steps=[dict(state=dict(void="on"), tag=dict(t="最初から", at="t")), dict()],
+                         note="空隙の形と並びは模式（剥離した2つの面だけ）", src=ss.src(["NTSB p1059", "NTSB p1042"]))),
+    ),
+})
