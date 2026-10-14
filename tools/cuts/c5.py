@@ -92,9 +92,11 @@ SPEC = {}
 SPEC.update({
     # c514（2行）＝1行目でバッファローの ROV・2行目で米空軍の輸送機（C-130＝NTSB p.20）でニューファンドランドへ（線は2点を結んだだけ）
     "c514": dict(**ss.sat("G03", note="地点は一般の座標・線は2点を結んだだけ（実際の飛行の経路ではない）", steps=[
-        [dict(k="pt", at="buffalo", c="INK_W", t="ROV の置き場", lab=(20, -34, "start"))],
+        #   🔧 ⑤b-3 の試し焼き（Modal qa-ep22_b3_map）：「ROV の置き場」が点の右上で線に貫かれ、「米空軍の輸送機」が「ニューファンドランド」の
+        #      すぐ下で1つの札に読めた＝ROV は点の下・輸送機は印の下へ
+        [dict(k="pt", at="buffalo", c="INK_W", t="ROV の置き場", lab=(0, 58, "middle"))],
         [dict(k="line", path=("buffalo", "stjohns"), c="INK_W", dash=True),
-         dict(k="icon", what="plane", on=("buffalo", "stjohns", 0.55), c="INK_W", t="米空軍の輸送機", lab=(0, -40, "middle")),
+         dict(k="icon", what="plane", on=("buffalo", "stjohns", 0.55), c="INK_W", t="米空軍の輸送機", lab=(0, 58, "middle")),
          dict(k="pt", at="stjohns", c="INK_W", t="ニューファンドランド", lab=(-18, -24, "end"))]]),
         t="ROVの空輸", s="バッファローからニューファンドランドへ（現在の衛星写真）"),
     # c515（2行）＝1行目でフランスの調査船（「大西洋の中ほどから」＝向きだけの矢印）・2行目でバッファローの ROV を積んだ船と現場にそろう（6月22日）

@@ -89,6 +89,7 @@ SPEC.update({
         [dict(k="line", path=("stjohns", "site"), role="ship"),
          dict(k="icon", what="ship", on=("stjohns", "site", 0.5), role="ship", tow=True, t="母船", lab=(34, -8, "start")),
          dict(k="x", at="site")],
-        [dict(k="icon", what="ship", on=("stjohns", "site", 0.5), role="ship", tow=True, t="台（タイタン）", lab=(-60, 40, "end"))]]),
+        #   🔧 ⑤b-3 の試し焼き：「台（タイタン）」が台の四角から離れて左下に浮いた＝札は船の印からの位置＝台（船の後ろ 約62px）の左へ
+        [dict(k="icon", what="ship", on=("stjohns", "site", 0.5), role="ship", tow=True, t="台（タイタン）", lab=(-40, -50, "end"))]]),
         t="引いて運ぶ", s="セントジョンズから現場へ（現在の衛星写真）"),
 })

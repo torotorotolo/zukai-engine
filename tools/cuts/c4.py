@@ -83,5 +83,6 @@ SPEC.update({
     # c405（8.9秒）＝聞き役の問いつき。母船の船橋の事務室（通信班の持ち場＝MBI 図31・人なし）・幅 1143＝映像方針で全面・左へ
     "c405": dict(photo=_BRDG, **ss.mv(_BRDG, "l"), side="none", t="採水器の話", s="母船の船橋の事務室（通信班の持ち場・事故の後に撮影）"),
     # c417（7.4秒）＝母船の航海日誌（MBI 図37＝頁の上の印「1047 lost communication with TITAN」の行）・額ごと右へ
-    "c417": dict(photo=_LOG6, panel=True, fmove=ss.fm("r"), t="航海日誌", s="母船の航海日誌（事故の後に委員会が撮影）"),
+    #   🔧 ⑤b-3 の試し焼き：c307 と同じく頁が小さかった＝pw=1560
+    "c417": dict(photo=_LOG6, panel=True, pw=1560, fmove=ss.fm("r"), t="航海日誌", s="母船の航海日誌（事故の後に委員会が撮影）"),
 })
