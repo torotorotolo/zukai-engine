@@ -179,3 +179,19 @@
 
 ### 次（⑤b-3b 図解 第1〜3章）
 - 記録の表の土台（REC_DOCS・ep22_pages.txt）→ 時間の帯（6月18日の朝・10時41〜49分・2021年の年表）＋check_axis の表と役の色 → 量（c210・c302・c303・c213）→ 回の模式図 `tools/mech22.py`（c202〜c419 の残り）
+
+## チャット11（⑤b-3b 図解 第1〜3章・2026-10-14〜15）
+
+### ✅ 済んだこと（本線 `d4f4829`・`24867ae`）
+- 出典の表＝`cuts/ss.REC_DOCS`（USCG＝PDF の頁・NTSB＝1000＋PDF の頁・TSB＝**節**「TSB §1.3.1」「§付録B」「§脚注13」＝`illu.sec_num`／`sec_label`・page="sec"＝出典の行は「1.3.1節」）・
+  原文の頁ファイル `ref/ep22/make_pages22.py` → `src/ep22_pages.txt`（git の外・751頁＝USCG 335・NTSB 87・TSB 329）
+- 🆕 **回の模式図 `tools/mech22.py`（17の見え方＝31カット）**＝fuji・reports・side（NTSB 図3 の比）・org（TSB 表4）・paper・table（付録B 27行）・dives（1回＝1点）・lars_top（NTSB 図4）・
+  lars_side・sink・drop・sonar・comms・chat（付録A の文・打ち間違いのまま）・depth（記録の点だけ・寄り）・bow（東南東／東北東）・two。門番 check_mech の judge_m22＋REC_M22（陽性対照22）
+- 時間の帯10カット（AX_MORN22＝6月18日の朝・AX_END＝10時40〜51分・AX_1047＝10時47分の秒・AX_TWO＝2段〈米沿岸警備隊／カナダ〉）＝🆕 秒の小数（「10:47:26.9」）。
+  🆕 **役の色の門番**（check_axis の REC_ROLE・LANE_ROLE・TIER_ALERT／check_qty の REC_QTY_ROLE・REC_PEOPLE_ROLE／check_mech の judge_m22）
+- 量3カット（c210 参加費・c302 乗客の数・c303 人の形 41人＝PEOPLE_CUTS は c303 だけ）
+- 🔧 c213〜c216：映像方針の「帯（2021年の年表）」→ **点の並び**（付録B を読むと 27時間の回は 2022-06-20＝日付の軸では夏ごとに点が固まる）・届いた回の色は「海の青」→ **潜水艇の白**（青は米沿岸警備隊の役の色）
+- 試し焼き Actions `38590974737`（44カット＋途中のコマ14）→ 640px のシート10枚で全数 → 所見4（c314 の潜水艇の形・c316 の「母船」の札・c408 の線・c418 の引き出し線）→ 直して `38593727586`＝4つとも直った（差分の5コマだけ 640px で見た）
+
+### 次（⑤b-4 図解 第4〜7章＋写真）
+- 第4章（c5）〜第7章（c8）の図＋写真（c509〜c511・c603〜c619・c803・c814・c819）＋24-011 の頁3点を切る。mech22 の見え方（depth・chat・two・dives）は第4章以降でも使える
