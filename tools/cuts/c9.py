@@ -87,3 +87,130 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5（2026-10-15）：図解 第8章（16カット）＝模式図 `tools/mech22.py`・時間の帯（axis）・棒（qty）
+# ══════════════════════════════════════════════════════════
+#   🔴 章の札「2つ目の船体」と4字以上同じ並びを見出し・副題に入れない（門番 dup）。字は12字未満（門番 echo）。写真7（c904・c906・c909・c911・c913・
+#      c914・c916）は ⑤b-7
+_N_CD = "要点の箱（模式）"
+SPEC.update({
+    # c901（3行）＝聞き役の問い→2020年の初め、別の会社に代わりの筒を頼む→材料は樹脂を含ませたテープに（2つ目の箱）
+    "c901": dict(
+        t="代わりの筒", s="作り手を替える",          # ⚠️ 門番 echo：「2020年の初め」は語りの写し
+        fig=("m22", dict(view="cards", start=dict(set="wind2", n="1"),
+                         steps=[dict(), dict(tag=dict(t="別の会社へ頼む", at="t")), dict(state=dict(n="2"))],
+                         note="作り方の絵は模式（カナダの報告書・米運輸安全委員会の報告書）", src=ss.src(["TSB §1.12.2", "NTSB p1027"]))),
+    ),
+    # c902（2行）＝1つ目の糸（三菱ケミカル系）・2つ目のテープ（東レの米国の会社＝品名は出さない）→「期限切れの安い材料」の話は3冊に無い（×）
+    "c902": dict(
+        t="材料の出どころ", s="2つの筒の材料",
+        fig=("m22", dict(view="cards", start=dict(set="mat"), steps=[dict(state=dict(n="2")), dict(state=dict(n="3"))],
+                         note=_N_CD + "・会社の名は米沿岸警備隊の報告書の記述", src=ss.src(["USCG p118", "USCG p174"]))),
+    ),
+    # c903（3行）＝聞き役の問い→2020年の3分の1の模型2つ（1つ目＝壊れた・2つ目＝壊れると分かって試験を止めた）→どちらもタイタニックの深さの手前
+    "c903": dict(
+        t="模型の結果", s="新しい材料で",          # ⚠️ 門番 echo：「2020年の試験」は語りの写し
+        fig=("m22", dict(view="cards", start=dict(set="m20"),
+                         steps=[dict(), dict(state=dict(n="2")), dict(tag=dict(t="どちらも届かず", d="タイタニックの深さ", at="t"))],
+                         note="形は模式・深さの数は描いていない（米運輸安全委員会の報告書）", src=ss.src(["NTSB p1027", "NTSB p1062"]))),
+    ),
+    # c905（2行）＝5つの層に分け、1層ずつ固めて重ねる（巻く→固める→接着剤の膜→次の層・5回）→1層は硬化の前に約2.5センチまで（うねりを減らす）
+    "c905": dict(
+        t="1層ずつ固める", s="5つに分けて",
+        fig=("m22", dict(view="cards", start=dict(set="cure"),
+                         steps=[dict(state=dict(n="4", loop="on")), dict(tag=dict(t="1層は約2.5センチまで", at="tl"))],
+                         rel=[dict(t="1層・約2.5センチ", src="TSB §1.12.2（the layers were limited to 25.4 mm in thickness before curing）")],
+                         note="流れは模式（カナダの報告書の記述）", src=ss.src(["TSB §1.12.2", "TSB §脚注50"]))),
+    ),
+    # c907（2行）＝同じ流れ。作り手が強く求めた（カナダの調べ）→会社は費用で一度断り、作り手が費用を持った
+    "c907": dict(
+        t="作り手の求め", s="費用の持ち方",
+        fig=("m22", dict(view="cards", start=dict(set="cure", n="4", loop="on"),
+                         steps=[dict(tag=dict(t="作り手が強く求めた", d="カナダの調べ", at="tl", col=J.INST)),
+                                dict(tag=dict(t="費用は作り手が持つ", d="会社は一度断った", at="t", col=J.INK_W))],
+                         note="流れは模式（カナダの報告書の記述）", src=ss.src(["TSB §1.12.2"]))),
+    ),
+    # c908（3行）＝年表（2020〜21年）。2020年11月〜2021年1月 実物大の筒を作る→新しい作り方の模型なし→聞き役
+    "c908": dict(
+        t="本物を先に", s="模型を飛ばして",
+        fig=("axis", dict(ss.AX_Y20, steps=[dict(add=[ss.ax("build20")]), dict(add=[ss.ax("nomodel")]), dict()],
+                          note="月は米運輸安全委員会の報告書（月までの記録）", src=ss.src(["NTSB p1028", "NTSB p1062"]))),
+    ),
+    # c910（2行）＝筒の壁の断面に層ごとの「削ったしわ」の数（1・8・14・24＝事故のあとに端材で数えた）→どこまで削ったかの記録は無い
+    "c910": dict(
+        t="しわを削った数", s="層ごとに数える",
+        fig=("m22", dict(view="layers", steps=[dict(state=dict(grind="on")), dict(tag=dict(t="削った範囲は記録なし", at="t"))],
+                         note="数は事故のあとに端材で数えた値（米沿岸警備隊の報告書 図143）・印の並びは模式", src=ss.src(["USCG p180", "TSB §2.1"]))),
+    ),
+    # c912（2行）＝思ったより厚い端（約13.1センチ）→チタンの輪の溝（5インチ）に入らず、外側を削って入れた
+    "c912": dict(
+        t="溝に入らない", s="厚すぎた筒",
+        fig=("m22", dict(view="groove", steps=[dict(state=dict(thick="on"), tag=dict(t="端材 約13.1センチ", at="w")),
+                                               dict(state=dict(cut="on"), tag=dict(t="外側を削った", at="cut", col=J.ALERT))],
+                         rel=[dict(t="約13.1センチ", src="NTSB p1043（5.166インチ）")],
+                         note="幅は縮尺どおり・層と泡の穴は模式（米運輸安全委員会の報告書）", src=ss.src(["NTSB p1043"]))),
+    ),
+    # c915（1行）＝カナダの研究所が端材を18の試料に（長さの向き9・周りの向き9）
+    "c915": dict(
+        t="18の試料", s="カナダの研究所",
+        fig=("m22", dict(view="coupons", steps=[dict(state=dict(cut="on"), tag=[dict(t="長さの向き 9", at="a", col=J.INST),
+                                                                             dict(t="周りの向き 9", at="c", col=J.INST)])],
+                         rel=[dict(t="9", src="TSB §1.15")],
+                         note="切り方の並びは模式（数はカナダの報告書）", src=ss.src(["TSB §1.14", "TSB §1.15"]))),
+    ),
+    # c917（3行）＝棒（安全率）。会社の基準 1.25（国際規格に合わせた）→長さの向き 3.05→周りの向き 1.11（届かない＝赤）
+    "c917": dict(
+        t="試料の計算", s="基準に届かず",
+        fig=("qty", dict(view="bar", groups=[ss.QG["sf2"]],
+                         steps=[dict(add=[ss.qb("sf2_req")]), dict(add=[ss.qb("sf2_ax")]), dict(add=[ss.qb("sf2_ci")])],
+                         note="基準は国際標準化機構に合わせた値・計算はカナダの研究所", src=ss.src(["TSB §1.12.2", "TSB §1.15"]))),
+    ),
+    # c918（3行）＝聞き役の問い→いつも100キロを載せる棚＝基準なら125キロまで→この筒の周りの向き＝111キロまで（余裕は半分も無い）
+    "c918": dict(
+        t="棚のたとえ", s="余裕の大きさ",
+        fig=("m22", dict(view="shelf", steps=[dict(), dict(state=dict(load="on", std="on")), dict(state=dict(tube="on", spare="on"))],
+                         note="たとえ（模式）＝重さは安全率の比で計算", src=ss.src(["TSB §1.12.2", "TSB §1.15"]))),
+    ),
+    # c919（2行）＝カナダの報告書の一節（前提＝試料が実物を代表するなら→結論＝くり返しさらされるのは安全ではなかった）
+    "c919": dict(
+        t="結論の一節", s="試料が代表なら",
+        fig=("m22", dict(view="paper", start=dict(doc="tsb115"), steps=[dict(state=dict(hl1="on", hl2="on")), dict(state=dict(hl3="on", hl4="on"))],
+                         note="一節はカナダの報告書（英字のまま・模式）", src=ss.src(["TSB §1.15"]))),
+    ),
+    # c920（3行）＝米運輸安全委員会が試した試料でカナダの研究所が計算→いちばん強い試料＝耐えた見込み→いちばん弱い試料＝寿命の82%超を使った可能性
+    "c920": dict(
+        t="くり返しの寿命", s="試料しだいで",
+        fig=("m22", dict(view="cards", start=dict(set="life"),
+                         steps=[dict(tag=dict(t="米運輸安全委の試料で", d="カナダの研究所の計算", at="t", col=J.INST)),
+                                dict(state=dict(n="1")), dict(state=dict(n="2"))],
+                         rel=[dict(t="82%", src="TSB §1.16")],
+                         note="寿命の目盛りは模式（82%はカナダの報告書）", src=ss.src(["TSB §1.16"]))),
+    ),
+    # c921（3行）＝🔧 帯→深さの物差し（0〜4,500m・縮尺どおり）。2021年2〜3月の加圧の試験4回→最も深い 4,200m→タイタニックの深さを少し上回るだけ
+    "c921": dict(
+        t="加圧の試験", s="2021年の2月と3月",
+        fig=("m22", dict(view="ruler", start=dict(z="mid"),
+                         steps=[dict(state=dict(test="on"), tag=dict(t="4回とも通った", at="r1")),
+                                dict(tag=dict(t="4,200メートル", at="r2")), dict(tag=dict(t="少し上回るだけ", at="r3"))],
+                         rel=[dict(t="4回", src="TSB §1.12.2"), dict(t="4,200メートル", src="NTSB p1030")],
+                         note="深さは縮尺どおり（タイタニックは約3,800メートル）", src=ss.src(["TSB §1.12.2", "NTSB p1030", "NTSB p1058", "TSB §1.3"]))),
+    ),
+    # c922（3行）＝聞き役→何回くり返せば壊れるかは分からない（？）→会社は「音の監視でその場で分かる」と答えた
+    "c922": dict(
+        t="2つの道", s="計算の代わりに",
+        fig=("m22", dict(view="cards", start=dict(set="path"),
+                         steps=[dict(), dict(state=dict(n="1")), dict(state=dict(n="2"), tag=dict(t="会社の答え", at="t", col=J.COMPANY))],
+                         note=_N_CD + "・カナダの報告書の記述", src=ss.src(["TSB §1.12.2", "TSB §2.1"]))),
+    ),
+    # c923（3行）＝🔧 模式→深さの物差し（0〜4,500m）。最初の窓の等級 約650m（米沿岸警備隊・カナダ）→1,000m（米運輸安全委員会）→事故のときの窓は見方が割れる
+    "c923": dict(
+        t="前の窓", s="値が割れる",
+        fig=("m22", dict(view="ruler", start=dict(z="mid"),
+                         steps=[dict(state=dict(w650="on"), tag=dict(t="約650メートル", d="米沿岸警備隊・カナダ", at="r1", col=J.USCG)),
+                                dict(state=dict(w1k="on"), tag=dict(t="1,000メートル", d="米運輸安全委員会", at="r2", col=J.OK)),
+                                dict(tag=dict(t="事故のときの窓は？", at="r3"))],
+                         rel=[dict(t="約650メートル", src="USCG p278・TSB §1.12.1（649.08 m）"), dict(t="1,000メートル", src="NTSB p1030")],
+                         note="深さは縮尺どおり（タイタニックは約3,800メートル）", src=ss.src(["USCG p278", "NTSB p1030", "TSB §1.12.1", "TSB §1.12.2"]))),
+    ),
+})

@@ -856,6 +856,35 @@ AXI.update({
     "der19": dict(k="pt", at="2019-11-18", t="潜る深さを下げる", rec="TSB §1.12.1", c="COMPANY", fmt="ym", anchor="start"),
     "last19": dict(k="chips", at="2019-11-18", chips=["それきり潜らず"], rec="TSB §1.12.1"),
 })
+# 🆕 2026-10-15（22本目 ⑤b-5）：第8〜9章の帯（門番 check_axis の REC_AXIS・REC_ROLE が値・頁・役の色を照らす）
+#   AX_Y20＝2020〜21年（c908）。NTSB p1028「between November 2020 and January 2021」（月だけの記録＝月の値で置く）・
+#     p1062「OceanGate did not build or test any new sub-scale models using the co-bonding process」
+AX_Y20 = dict(view="date", span=("2020-06-01", "2021-05-31"), ticks=("2020-07-01", "2020-10-01", "2021-01-01", "2021-04-01"))
+#   AX_J22＝2022年7月（ca14）。NTSB p1036「On July 15, 2022 (mission 3, dive 80)」・USCG p235「On July 19, 2022, the TITAN and its crew commenced Dive 81」・
+#     TSB 付録B（2022-07-22 の行＝3840）・NTSB p1051「The last of these dives (dive 83) took place on July 23, 2022」・p1036「2,954 meters (9,692 feet) on the final dive」
+AX_J22 = dict(view="date", span=("2022-07-12", "2022-07-26"), ticks=("2022-07-13", "2022-07-15", "2022-07-17", "2022-07-19", "2022-07-21", "2022-07-23",
+                                                                     "2022-07-25"))
+#   AX_2223＝2022年7月〜2023年6月（ca26）。USCG p290「should have been a red flag to stop all dive operations」・NTSB p1060「after dive 82 and before the casualty
+#     dive 11 months later (dive 88)」・TSB 付録B（2022-07-22・2023-06-18 の行）
+AX_2223 = dict(view="date", span=("2022-06-01", "2023-07-31"), ticks=("2022-07-01", "2022-10-01", "2023-01-01", "2023-04-01", "2023-07-01"))
+AXI.update({
+    # 2020〜21年（AX_Y20）
+    "build20": dict(k="span", a="2020-11", b="2021-01", t="実物大の筒を作る", rec="NTSB p1028", c="COMPANY"),
+    #   ⚠️ 門番 layout：項目の札（chips）にすると帯の札「実物大の筒を作る」と重なり、線が「1月」の目盛りを貫いた＝点にする
+    "nomodel": dict(k="pt", at="2021-01", t="模型は作らず", rec="NTSB p1062", c="COMPANY", fmt="ym", anchor="start"),
+    # 2022年7月（AX_J22）＝80回目は大きな音（赤）・81〜83回目は潜水艇
+    "d80": dict(k="pt", at="2022-07-15", t="80回目", rec="NTSB p1036", c="ALERT", fmt="md", anchor="end"),
+    "d81": dict(k="pt", at="2022-07-19", t="81回目", rec="USCG p235", c="SUB", fmt="md", anchor="end"),
+    "d82": dict(k="pt", at="2022-07-22", t="82回目", rec="TSB §付録B", c="SUB", fmt="md", anchor="end"),
+    "d83": dict(k="pt", at="2022-07-23", t="83回目", rec="NTSB p1051", c="SUB", fmt="md", anchor="start"),
+    "d83m": dict(k="chips", at="2022-07-23", chips=["別の場所", "2,954メートル"], rec="NTSB p1036"),
+    # 2022年7月〜2023年6月（AX_2223）
+    "bang15": dict(k="pt", at="2022-07-15", t="80回目の音", rec="NTSB p1036", c="ALERT", fmt="md", anchor="end"),
+    "flag": dict(k="chips", at="2022-07-15", chips=["止めるべき赤信号"], rec="USCG p290"),
+    "last82": dict(k="pt", at="2022-07-22", t="最後の深い潜航", rec="TSB §付録B", c="SUB", fmt="md", anchor="start"),
+    "occ23": dict(k="pt", at="2023-06-18", t="事故の潜航", rec="TSB §付録B", c="ALERT", fmt="md", anchor="end"),
+    "m11": dict(k="br", a="2022-07-22", b="2023-06-18", t="約11か月", rec="NTSB p1060"),
+})
 
 
 def ax(name, **kw):
@@ -1011,6 +1040,24 @@ QB.update({
     "sf_cf": dict(k="bar", g="sf", t="炭素繊維のドームのとき", v=2.21, rec="TSB §1.12.1", c="AMBER"),
     "sf_goal": dict(k="bar", g="sf", t="会社の目標", v=2.25, rec="TSB §1.12.1", c="INK_W"),
     "sf_min": dict(k="bar", g="sf", t="規格の最低", v=1.5, rec="TSB §脚注45", c="TICK"),
+})
+# 🆕 2026-10-15（22本目 ⑤b-5）：c917 2つ目の筒の安全率（TSB §1.12.2「OceanGate also changed its safety factor to 1.25, which aligned with the safety factor
+#   established by the International Organization for Standardization」・§1.15「the calculated safety factor of 3.05, which was greater than the required 1.25」
+#   「the calculated safety factor was 1.11, which did not meet the required safety factor of 1.25」）。何メートルでの値かは書かない（映像方針）。
+#   色＝基準は会社・長さの向きはカナダの研究所の計算・周りの向きは届かない＝赤
+QG.update({"sf2": dict(id="sf2", t="安全率（倍）", ticks=(0, 1, 2, 3, 4), rows=("会社の基準", "長さの向き", "周りの向き"))})
+QB.update({
+    "sf2_req": dict(k="bar", g="sf2", t="会社の基準", v=1.25, rec=["TSB §1.12.2", "TSB §1.15"], c="COMPANY"),
+    "sf2_ax": dict(k="bar", g="sf2", t="長さの向き", v=3.05, rec="TSB §1.15", c="INST"),
+    "sf2_ci": dict(k="bar", g="sf2", t="周りの向き", v=1.11, rec="TSB §1.15", c="ALERT"),
+})
+# 🆕 22本目 ⑤b-5：ca20 浅い所（10〜300m）のひずみの傾きが全体より何%大きいか（TSB §1.10.10.1「on the 05 August 2021 dive for the 10 m to 300 m range,
+#   the strain slope was found to be 21% greater」「on 19 July 2022 dive … 98% greater than the slope for the entire dive profile」）。行の名は年だけ
+#   ⚠️ 門番 qty：行の名「2021年の潜航」は画面の数字（§5b-9）＝日付は語りにある＝「前の年の夏」（2021年8月5日）・「音のあと」（2022年7月19日＝81回目）
+QG.update({"slope": dict(id="slope", t="浅い所の傾きの増え（%）", ticks=(0, 25, 50, 75, 100), rows=("前の年の夏の潜航", "音のあとの潜航"))})
+QB.update({
+    "slope21": dict(k="bar", g="slope", t="前の年の夏の潜航", v=21, rec="TSB §1.10.10.1", c="TICK"),
+    "slope22": dict(k="bar", g="slope", t="音のあとの潜航", v=98, rec="TSB §1.10.10.1", c="INST"),
 })
 
 

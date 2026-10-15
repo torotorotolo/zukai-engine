@@ -42,6 +42,21 @@
   wind    … 筒の作り方（糸が樹脂の槽をくぐって回る芯に巻きつく）                                                           c801
   meet    … 2018年1月19日の会合の席（CEO・運航部長・社員3人）と録音の印                                                     c805
   side（🆕 crack＝前の左舷の内側の亀裂3つ）c520・c701・c815／paper（🆕 書類6枚）c710・c716・c717・c719・c802・c804・c810・c811
+  🆕 ⑤b-5（2026-10-15）：第8〜9章（台本 第2版 §4 の画の欄と映像方針の一覧＝了承②）
+  cards   … 要点の箱の並び（row＝横・flow＝矢印でつなぐ）＝材料・模型2つ・作り方・疲れの寿命・2つの道・3つの見方・警告の基準
+                                                                        c901・c902・c903・c905・c907・c920・c922・ca21・ca22・ca25
+  groove  … チタンの輪の溝（5インチ）と思ったより厚い筒の端（5.166インチ）・外側を削る（縮尺どおりの幅）                         c912
+  coupons … 端材を18の試料に切る（長さの向き9・周りの向き9）                                                                   c915
+  shelf   … 安全率を棚にたとえる（いつも100キロ＝基準 125キロ・この筒 111キロ）                                                c918
+  d80     … 80回目の深さの線（NTSB 図19 を原寸で読んだ点だけ）と、浮上の終わりの大きな音・聞いた人                               ca05
+  rtm     … 筒の外から見た監視装置（音のセンサー8・ひずみ計16）・押されて縮む・2022年に拾わなかった3つ                           ca06・ca24
+  ae      … 80回目の終わりの音とひずみ（15時17分ごろから増える・15時26分45秒の山とひずみの跳び・米運輸安全委の幅）             ca07・ca08
+  ctrl    … コントローラーの向き（そのまま＝倒す向きと動く向きが逆・逆さに持つ）                                               ca15
+  stime   … 時刻に沿って横に並べたひずみ（潜航どうしを比べにくい）                                                             ca16
+  nonlin  … 浅い所だけ曲がる線（層のはがれ）と筒の前の端のひずみ計                                                               ca19
+  screen  … 監視装置の画面の決まり（30で黄・50で赤・警報の音なし・潜航ごとに0へ）                                               ca23
+  dives（🆕 y22＝2022年だけ）ca01／bow（🆕 hit＝左舷の船首にぶつかる）ca02／ruler（🆕 mid＝0〜4,500m・試験の最も深い所・窓の等級2つ）c921・c923／
+  layers（🆕 grind＝層ごとの削ったしわの数）c910／paper（🆕 書類5枚）c919・ca04・ca09・ca12・ca13／say（🆕 again）ca11／none（🆕 insp）ca10
 
 ■ SPEC の書き方（mech21 と同じ）
   fig=("m22", dict(view=…, start=dict(…), steps=[dict(state=dict(…), tag=dict(t=…, at=…, to=…, d=…)), …],
@@ -56,7 +71,7 @@ import math
 
 import jiko_style as J
 import titan_fig as F
-from mech21 import _P, _arrow, _box, _check, _on, _xmark
+from mech21 import _P, _arrow, _box, _check, _on, _qmark, _xmark
 
 ONOFF = ("off", "on")
 INK = J.INK_W
@@ -369,7 +384,21 @@ PP_DOC = dict(
               w=1060.0),
     mts=dict(head="業界の委員会の手紙の案（要点）", lines=("unanimous concern regarding the development of ‘TITAN’", "the current “experimental” approach adopted by OceanGate",
                                                  "could result in negative outcomes (from minor to catastrophic)", "a prototype testing program that was reviewed",
-                                                 "and witnessed by a classification society"), w=1060.0))
+                                                 "and witnessed by a classification society"), w=1060.0),
+    # 🆕 ⑤b-5（2026-10-15）：第8〜9章の5枚（句は報告書の英字のまま・行の切れ目だけ入れた・頁は門番 check_mech の REC_M22 が持つ）
+    tsb115=dict(head="カナダの調べの一節", lines=("Assuming that the test results from the samples", "are representative of the properties of the carbon fibre cylinder",
+                                             "it was unsafe for the Titan to have been repeatedly exposed",
+                                             "to pressures equivalent to the depth of the Titanic or deeper"), w=1060.0),
+    #   ⚠️ ca04：語りは ca02（7月3日の船首）の続きに聞こえるが、米沿岸警備隊の報告書ではこの「動けず」は80回目（7月15日）の階段の吹き抜け＝見出しで日を出す
+    u80=dict(head="80回目（2022年7月15日）の記録（要点）", lines=("the TITAN became entangled in the TITANIC’s stairwell", "For a moment, the TITAN remained trapped",
+                                                       "no incident report was filed for this event."), w=1060.0),
+    shift=dict(head="会社の説明（報告書の要点）", lines=("a shift in the TITAN’s position within its frame", "told the hull had shifted in its metal cradle"), w=1060.0),
+    u290a=dict(head="CEO の指示（米沿岸警備隊の報告書）", lines=("directed that no further investigation or assessments",
+                                                    "were necessary ahead of the next scheduled 2022 dive", "or during the TITAN’s extended layup period"),
+               w=1060.0),
+    u290b=dict(head="米沿岸警備隊の見方（要点）", lines=("neither the Director of Engineering", "nor anyone else onboard with the authority",
+                                                "to assess the submersible’s safety", "possessed the necessary engineering expertise",
+                                                "to interpret the strain gauge data"), w=1060.0))
 PP_DEATH = 9                      # 同意書の「death」（USCG p71「The liability waiver mentions death 9 times」）
 
 
@@ -509,6 +538,7 @@ DV_DEEP = "3840"                  # タイタニックの深さまで届いた�
 DV_MARK = dict(dome=("Forward dome fell off",), batt=("Batteries died",), thr=("thruster",), wt=("drop weight",),
                com=("communications",))
 DV_WORD = dict(dome="前のドーム", batt="電池", thr="推進器", wt="重り", com="通信")
+DV_YEAR = "2022"                  # 🆕 ⑤b-5（ca01）：残す年（USCG p235「While 7 of the 13 dives reached the TITANIC depth of 3840 m」）
 
 
 def dv_pts():
@@ -537,6 +567,11 @@ def dives_base(st0):
 def dives_stage(prev, st):
     s = []
     pts = {i: (x, y) for i, _, x, y in dv_pts()}
+    if _on(prev, st, "y22"):          # 🆕 ⑤b-5（ca01）：2022年の段だけを残し、ほかの年を地の色で薄める（字を描き直さない）
+        for k, yr in enumerate(sorted(_yr_rows())):
+            if yr != DV_YEAR:
+                # ⚠️ geom_gap：上下 60px だと 2021年の帯が右上の札（y 302〜333）に 3px かかった＝点（半径 26）と年の札の高さ ±45px に
+                s.append(F.rect(F.BX0 + 40, DV["ys"][k] - 45, F.BX1 - F.BX0 - 80, 90, J.BG, op=0.72))
     if _on(prev, st, "reach"):
         for i, r in enumerate(APPB):
             if r[1] == DV_DEEP:
@@ -968,7 +1003,17 @@ def bow_stage(prev, st):
             s.append(F.line(a, b, c, d, SUBC, 3, dash="6 8"))
         for x, y in pts[1:]:
             s.append(F.circ(x, y, 12, "none", SUBC, 4))
+    if _on(prev, st, "hit"):          # 🆕 ⑤b-5（ca02）：左舷の船首（船首が北＝上なら左の舷）に潜水艇の印がぶつかる（TSB 付録B「collided with the port bow」）
+        x, y = bw_hit()
+        pts = [(x + (30 if k % 2 == 0 else 12) * math.cos(math.pi * k / 6), y + (30 if k % 2 == 0 else 12) * math.sin(math.pi * k / 6)) for k in range(12)]
+        s.append(F.circ(x - 64, y + 6, 26, SUBC) + F.poly(pts, J.ALERT, None, close=True))
     return s
+
+
+def bw_hit():
+    """🆕 ⑤b-5：左舷の船首の縁の点（船首の先から少し後ろ・左の縁）。"""
+    tx, ty = BW_["tip"]
+    return tx - BW_["w"] - 4, ty + 170.0
 
 
 # ══════════════════════════════════════════════════════════
@@ -1085,7 +1130,9 @@ def proto_stage(prev, st):
 
 #  none（c521・c816）＝欄が空（×）。rescue＝救助の備え（TSB §2.5）・told＝亀裂を知らせた先（USCG p162・p164）
 NO = dict(rescue=dict(head="救助の備え", items=("水の中の位置を知る手段", "ROV の会社との救助の契約"), lay="col"),
-          told=dict(head="亀裂のことを知らせた先", items=("客", "当局", "船級協会"), lay="row"))
+          told=dict(head="亀裂のことを知らせた先", items=("客", "当局", "船級協会"), lay="row"),
+          # 🆕 ⑤b-5：ca10（USCG p290「no effort was made to remove the TITAN’s insert or take the submersible temporarily out of service」）
+          insp=dict(head="音のあとの調べ", items=("内張りを外して見る", "休ませて詳しく調べる"), lay="col"))
 
 
 def no_xy(key, i):
@@ -1126,6 +1173,8 @@ SAY = dict(
             bubbles=(("I’d like to be remembered as an innovator.",), ("I’ve broken some rules to make this.",))),
     rec=dict(who="CEO", sub="会合の録音", role="company",
              bubbles=(("there is not a lot of confidence on your part", "in the engineering that went into this vessel"),)),
+    # 🆕 ⑤b-5：ca11（NTSB p1036「told the director of engineering, "Let's dive again and see what happens"」）
+    again=dict(who="CEO", sub="データを見たあと", role="company", bubbles=(("“Let’s dive again and see what happens”",),)),
 )
 SY_CAP, SY_LH = 42.0, 60.0
 
@@ -1170,6 +1219,7 @@ LY_N = 5
 LY_IN_CM = 2.54                    # 1枚の厚さ＝1インチ（NTSB p.59「the five 1-inch-thick layers」）
 LY_SEP = ((1, 2), (3, 4))          # 剥離した面（NTSB p.40「One delamination was between layers 1 and 2 and the other was between layers 3 and 4」）
 LY_VOID = ((1, 2), (3, 4))         # 長い空隙が並んでいた面（NTSB p.59「these adhesive interfaces contained long extended voids」）
+LY_GRIND = {1: 1, 2: 8, 3: 14, 4: 24}   # 🆕 ⑤b-5（c910）：削ったしわの数（USCG 図143＝p180 の表「Ground wrinkles」・5枚目は N/A）＝原寸で読んだ
 
 
 def ly_top(i):
@@ -1213,6 +1263,15 @@ def layers_stage(prev, st):
                 x = LY["x0"] + 90 + k * 140
                 s.append(f'<ellipse cx="{x:.1f}" cy="{y:.1f}" rx="{48 if k % 2 else 34}" ry="9" fill="{J.BG}" stroke="{J.INK_W}" stroke-width="2"/>')
         s.append(_tline(LY["x0"] + 24, ly_top(1) - 22, "長い空隙", 28, INK, "start", 200))
+    if _on(prev, st, "grind"):        # 🆕 ⑤b-5（c910）：層ごとの「削ったしわ」の数（層の外側の面＝次の層を巻く前に削った面）。5枚目は数えていない
+        s.append(_tline(LY["x1"] + 150, ly_top(LY_N) - 24, "削ったしわ", 28, J.AMBER, "start", 220))
+        for i in range(1, LY_N + 1):
+            n = LY_GRIND.get(i)
+            y = ly_top(i)
+            s.append(_tline(LY["x1"] + 190, y + LY["th"] / 2 + 12, "—" if n is None else str(n), 34, J.AMBER, "middle", 90))
+            for k in range(n or 0):
+                x = LY["x0"] + 20 + (k + 0.5) * (LY["x1"] - LY["x0"] - 40) / n
+                s.append(F.poly([(x - 9, y + 2), (x, y + 13), (x + 9, y + 2)], "none", J.AMBER, 4))
     if _on(prev, st, "rub"):
         cx = (LY["x0"] + LY["x1"]) / 2
         s.append(_arrow(cx + 170, ly_top(1) - LY["th"] / 2 + 4, cx - 170, ly_top(1) - LY["th"] / 2 + 4, J.AMBER, 7, 26))
@@ -1328,11 +1387,16 @@ def shell_stage(prev, st):
 
 #  ruler（c706・c709・c713）＝深さの物差し（縦・縮尺どおり）。near＝0〜7,000m・far＝0〜14,000m。タイタニック（約3,800m）は基図
 RL = dict(x=600.0, y0=330.0, y1=830.0, xr=1330.0, lx=1360.0)
-RL_Z = dict(near=7000.0, far=14000.0)
-RL_TK = dict(near=tuple(range(0, 7001, 1000)), far=tuple(range(0, 14001, 2000)))
+RL_Z = dict(near=7000.0, far=14000.0, mid=4500.0)          # 🆕 ⑤b-5：mid＝0〜4,500m（650m と 1,000m の札が重ならない尺）
+RL_TK = dict(near=tuple(range(0, 7001, 1000)), far=tuple(range(0, 14001, 2000)), mid=tuple(range(0, 4001, 1000)))
 RL_M = dict(goal=(6000.0, "会社の望み", "company"),          # TSB §1.12.1「rated up to 6000 m」
             op=(4500.0, "運航の目標", "company"),              # USCG p.114「the 4,500 m … target max pressure depth for TITAN’s operations」
-            fail=(13200.0, "壊れる深さの計算", "company"))      # NTSB p.25「an implosion depth about 13,200 meters」
+            fail=(13200.0, "壊れる深さの計算", "company"),     # NTSB p.25「an implosion depth about 13,200 meters」
+            # 🆕 ⑤b-5（c921・c923）：NTSB p.30「to a simulated maximum depth of 4,200 meters」・USCG p.278「a depth of only 650 m」・
+            #   NTSB p.30「an acrylic window certified to 1,000 meters」（色＝その値を書いた調べ）
+            test=(4200.0, "試験で最も深い所", "company"),      # ⚠️ 門番 dup：「加圧の試験」は c921 の見出し
+            w650=(650.0, "最初の窓の等級", "uscg"),
+            w1k=(1000.0, "窓の等級（別の記述）", "ntsb"))
 RL_RATIO = dict(x=1060.0, w=70.0, bx=1150.0, bw=60.0)
 
 
@@ -1514,6 +1578,570 @@ def meet_stage(prev, st):
 
 
 # ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5（2026-10-15）：第8〜9章の見え方（記録の値は門番 check_mech の REC_M22 が別に持つ）
+# ══════════════════════════════════════════════════════════
+#  cards（c901・c902・c903・c905・c907・c920・c922・ca21・ca22・ca25）＝札の箱の並び（row＝横に並べる・flow＝矢印でつなぐ）。
+#    箱＝(題, 中身, 役の色, 絵, 印)。題は基図に1回だけ・明るくする段は枠・中身・絵・印（n＝左から明るくした箱の数＝戻さない）。
+#    ⚠️ 門番 echo：字は12字未満（語りの写しにしない）。原文＝USCG p118・p174（材料）・NTSB p1027〜p1028・p1062（2020年の模型2つ＝1つ目は壊れ、
+#    2つ目は約2,500mで「壊れると分かって」止めた）・TSB §1.12.2（1層ずつ固める）・TSB §1.16（疲れの寿命）・TSB §1.12.2／§2.1（2つの道）・
+#    USCG p289／NTSB p1059／TSB §1.10.10.1（3つの見方）・NTSB p1031／p1064／p1065（警告の基準）
+CD = dict(
+    wind2=dict(lay="row", cards=(("1つ目の筒", "樹脂の槽をくぐる糸", "LINE", "bath", None),
+                                 ("2つ目の筒", "樹脂を含ませたテープ", "sub", "tape", None))),
+    mat=dict(lay="row", cards=(("1つ目の筒の糸", "三菱ケミカル系", "LINE", "spool", None),
+                               ("2つ目の筒のテープ", "東レの米国の会社", "sub", "tape", None),
+                               ("期限切れの安い材料", "3つの報告書に無い", "ALERT", None, "x"))),
+    m20=dict(lay="row", cards=(("1つ目の模型", "壊れた", "ALERT", "hull_x", None),
+                               ("2つ目の模型", "寸前で試験を止めた", "ALERT", "hull_crack", None))),
+    #   ⚠️ 門番 box：中身の無い箱（題だけ）は内側の空きが33%＝TSB §1.12.2 の手順の中身を足した（wound onto a … mandrel・vacuum bagged and cured・
+    #      a layer of adhesive was applied・the next layer was added）
+    cure=dict(lay="flow", cards=(("1層を巻く", "テープを巻く", "INK_W", None, None), ("固める", "真空の袋で", "INK_W", None, None),
+                                 ("接着剤の膜", "表面に塗る", "INK_W", None, None), ("次の層へ", "上に重ねる", "INK_W", None, None)), loop="5回くり返す"),
+    life=dict(lay="row", cards=(("いちばん強い試料", "耐えた見込み", "tsb", "check", None),
+                                ("いちばん弱い試料", "82%超を使った可能性", "ALERT", "gauge", None))),
+    path=dict(lay="row", cards=(("壊れるまでの回数", "", "LINE", None, "q"), ("音の監視", "その場で分かる", "company", None, None))),
+    views=dict(lay="row", cards=(("米沿岸警備隊", "強く示す", "uscg", None, None), ("米運輸安全委員会", "可能性が高い", "ntsb", None, None),
+                                 ("カナダの調べ", "決められない", "tsb", None, None))),
+    base=dict(lay="flow", cards=(("1つ目の船体と模型", "その音を使う", "company", None, None), ("警告の基準", "30回で黄・50回で赤", "company", None, None),
+                                 ("2つ目の船体", "警告にならず", "sub", None, "x"))),
+)
+CD_LIFE = 0.82                    # いちばん弱い試料で使った疲れの寿命（TSB §1.16「more than 82% of its fatigue life」＝ゲージの塗り）
+CD_ROW = dict(y=560.0, h_ic=430.0, h=220.0, x0=170.0, x1=1750.0, gap=60.0, wmax=460.0, wmax_t=380.0)   # 絵の無い組＝幅380・高さ220（門番 box）
+CD_FLOW = dict(y=520.0, h=170.0, x0=150.0, x1=1770.0, gap=110.0, wmax=380.0, loop=150.0)
+
+
+def _cd_has(key, j):
+    return any(c[j] for c in CD[key]["cards"])
+
+
+def cd_xy(key, i):
+    """箱 i の (cx, cy, w, h)。"""
+    d = CD[key]
+    k = len(d["cards"])
+    G = CD_ROW if d["lay"] == "row" else CD_FLOW
+    wmax = G["wmax_t"] if d["lay"] == "row" and not _cd_has(key, 3) else G["wmax"]
+    w = min(wmax, (G["x1"] - G["x0"] - G["gap"] * (k - 1)) / k)
+    span = w * k + G["gap"] * (k - 1)
+    cx = (G["x0"] + G["x1"]) / 2 - span / 2 + w / 2 + i * (w + G["gap"])
+    h = G["h"] if d["lay"] == "flow" or not _cd_has(key, 3) else G["h_ic"]
+    return cx, G["y"], w, h
+
+
+def _cd_ty(key, i):
+    cx, cy, w, h = cd_xy(key, i)
+    if CD[key]["lay"] == "flow":
+        return cy - 14 if _cd_has(key, 1) else cy + 12
+    return cy - h / 2 + 58 if _cd_has(key, 3) else cy - 40
+
+
+def _cd_by(key, i):
+    cx, cy, w, h = cd_xy(key, i)
+    if CD[key]["lay"] == "flow":
+        return cy + 46
+    return cy + h / 2 - 36 if _cd_has(key, 3) else cy + 50
+
+
+def _cd_icon(ic, cx, cy, c):
+    """箱の中の絵（模式）。"""
+    if ic in ("bath", "spool"):
+        g = [F.circ(cx - 130, cy - 40, 44, J.BG2, c, 5), F.circ(cx - 130, cy - 40, 14, c)]
+        if ic == "bath":
+            g.append(F.poly([(cx - 60, cy - 10), (cx - 60, cy + 60), (cx + 60, cy + 60), (cx + 60, cy - 10)], "none", c, 5))
+            g.append(F.rect(cx - 56, cy + 14, 112, 42, c, op=0.35))
+            g.append(F.poly([(cx - 96, cy - 62), (cx - 20, cy + 40), (cx + 20, cy + 40), (cx + 110, cy - 40)], "none", c, 3))
+            g.append(F.rect(cx + 100, cy - 80, 60, 80, J.BG2, c, 4, rx=6))
+        else:
+            for k in range(3):
+                g.append(F.line(cx - 86, cy - 64 + k * 24, cx + 140, cy - 40 + k * 30, c, 3))
+        return "".join(g)
+    if ic == "tape":
+        return (F.circ(cx - 110, cy - 30, 62, J.BG2, c, 5) + F.circ(cx - 110, cy - 30, 22, "none", c, 4)
+                + F.poly([(cx - 110, cy + 32), (cx + 120, cy + 32), (cx + 120, cy + 4), (cx - 60, cy + 4)], c, None, close=True, op=0.75)
+                + F.rect(cx + 104, cy - 80, 60, 116, J.BG2, c, 4, rx=6))
+    if ic in ("hull_x", "hull_crack"):
+        d, xa, xb = _hull_path(cx, cy - 10, 280, 112)
+        g = [f'<path d="{d}" fill="{J.BG2}" stroke="{J.LINE}" stroke-width="5"/>']
+        if ic == "hull_x":
+            g.append(f'<path d="{d}" fill="{c}" fill-opacity="0.35" stroke="none"/>')
+            g.append(F.poly([(cx - 70, cy - 66), (cx - 30, cy - 20), (cx - 50, cy + 10), (cx - 10, cy + 46)], "none", c, 7))
+            g.append(F.poly([(cx + 40, cy - 60), (cx + 70, cy - 24), (cx + 46, cy + 4)], "none", c, 7))
+        else:
+            g.append(F.poly([(cx - 40, cy - 66), (cx - 16, cy - 36), (cx - 30, cy - 12)], "none", c, 5))
+        return "".join(g)
+    if ic == "check":
+        return _check(cx, cy - 10, 54, c)
+    if ic == "gauge":
+        x0, w, y = cx - 170, 340.0, cy - 30
+        return (_tline(x0, y - 22, "疲れの寿命", 26, J.TICK, "start", 200) + F.rect(x0, y, w, 50, J.BG2, J.LINE, 4, rx=6)
+                + F.rect(x0 + 3, y + 3, (w - 6) * CD_LIFE, 44, c, op=0.85) + _arrow(x0 + w * CD_LIFE, y + 80, x0 + w * CD_LIFE + 70, y + 80, c, 5, 18))
+    raise ValueError(f"m22 cards：知らない絵 {ic!r}")
+
+
+def cards_base(st0):
+    key = st0["set"]
+    d = CD[key]
+    g = []
+    for i, (t, _b, _r, _ic, _mk) in enumerate(d["cards"]):
+        cx, cy, w, h = cd_xy(key, i)
+        g.append(F.rect(cx - w / 2, cy - h / 2, w, h, J.BG2, J.LINE_DIM, 4, rx=14))
+        g.append(_tline(cx, _cd_ty(key, i), t, 34, INK, "middle", w - 40))
+        if d["lay"] == "flow" and i + 1 < len(d["cards"]):
+            nx, _, nw, _ = cd_xy(key, i + 1)
+            g.append(_arrow(cx + w / 2 + 12, cy, nx - nw / 2 - 12, cy, J.LINE, 5, 20))
+    return g
+
+
+def cards_stage(prev, st):
+    key = st["set"]
+    d = CD[key]
+    s = []
+    n0, n1 = _n_of(prev, st)
+    for i in range(n0, n1):
+        _t, b, r, ic, mk = d["cards"][i]
+        cx, cy, w, h = cd_xy(key, i)
+        c = _rc(r)
+        s.append(F.rect(cx - w / 2, cy - h / 2, w, h, "none", c, 7, rx=14))
+        if ic:
+            s.append(_cd_icon(ic, cx, cy - 10, c))
+        if mk == "x":
+            s.append(_xmark(cx, cy + 10, 50, J.ALERT, 12) if d["lay"] == "row" else _xmark(cx + w / 2 - 34, cy - h / 2 + 34, 16, J.ALERT, 7))
+        if mk == "q":
+            s.append(_qmark(cx, cy + 40, 90, INK) if not _cd_has(key, 3) else _qmark(cx, cy + 20, 120, INK))
+        if b:
+            s.append(_tline(cx, _cd_by(key, i), b, 36 if d["lay"] == "row" else 30, INK if r == "LINE" else c, "middle", w - 40))
+    if _on(prev, st, "loop") and d.get("loop"):
+        k = len(d["cards"])
+        (xa, cy, _, h), (xb, _, _, _) = cd_xy(key, 0), cd_xy(key, k - 1)
+        yb, yl = cy + h / 2 + 8, cy + h / 2 + CD_FLOW["loop"]
+        s.append(F.poly([(xb, yb), (xb, yl), (xa, yl)], "none", J.AMBER, 5) + _arrow(xa, yl, xa, yb + 4, J.AMBER, 5, 20))
+        s.append(_tline((xa + xb) / 2, yl + 44, d["loop"], 32, J.AMBER, "middle", 400))
+    return s
+
+
+#  groove（c912）＝チタンの輪の溝（断面）と、思ったより厚い筒の端。幅は縮尺どおり（1センチ＝40画素）。
+#    原文 NTSB p1043「could only accommodate a 5-inch-thick cylinder」「the two trimmed cylinder ends were 5.166 inches and 5.175 inches thick」
+#    「The excess thickness necessitated trimming the outer diameter of the cylinder」＝内側が左・外側（海の側）が右
+GV = dict(x0=620.0, y_ch=600.0, px_cm=40.0, wall=44.0, depth=110.0, top=360.0)   # depth 110＝下の寸法の札を出典の行（y 886）から離す
+GV_IN = 5.0                       # 溝が受け入れる厚さ（インチ）
+GV_END_IN = 5.166                 # 切り落とした端の厚さ（インチ・薄い方）
+
+
+def gv_px(inch):
+    return inch * 2.54 * GV["px_cm"]
+
+
+def groove_base(st0):
+    x0, y, d, wl = GV["x0"], GV["y_ch"], GV["depth"], GV["wall"]
+    x1 = x0 + gv_px(GV_IN)
+    g = [F.rect(x0 - wl, y, wl, d + wl, J.LINE_DIM, J.LINE, 3), F.rect(x1, y, wl, d + wl, J.LINE_DIM, J.LINE, 3),
+         F.rect(x0 - wl, y + d, x1 - x0 + 2 * wl, wl, J.LINE_DIM, J.LINE, 3)]
+    yd = y + d + wl + 40
+    g.append(F.line(x0, yd, x1, yd, J.AMBER, 3) + F.line(x0, yd - 12, x0, yd + 12, J.AMBER, 3) + F.line(x1, yd - 12, x1, yd + 12, J.AMBER, 3))
+    g.append(_tline((x0 + x1) / 2, yd + 42, f"溝の幅 約{GV_IN * 2.54:.1f}センチ（{GV_IN:g}インチ）", 30, J.AMBER, "middle", 640))
+    g.append(_tline(x0 - wl - 30, y + d / 2 + 10, "チタンの輪", 30, J.TICK, "end", 300))
+    g.append(_tline(x0 - wl - 30, GV["top"] + 60, "内側", 30, J.TICK, "end", 160) + _tline(x1 + wl + 30, GV["top"] + 60, "外側（海）", 30, J.TICK, "start", 260))
+    return g
+
+
+def groove_stage(prev, st):
+    s = []
+    x0, y = GV["x0"], GV["y_ch"]
+    xe = x0 + gv_px(GV_END_IN)
+    if _on(prev, st, "thick"):
+        s.append(F.rect(x0, GV["top"], xe - x0, y - GV["top"], J.BG2, INK, 4))
+        for k in range(1, 5):
+            x = x0 + (xe - x0) * k / 5
+            s.append(F.line(x, GV["top"] + 4, x, y - 4, J.LINE_DIM, 2))
+        for k in range(14):
+            s.append(F.circ(x0 + 30 + (k * 37) % (xe - x0 - 60), GV["top"] + 30 + (k * 53) % (y - GV["top"] - 60), 4, J.TICK))
+        s.append(F.line(x0, GV["top"] - 20, xe, GV["top"] - 20, INK, 3) + F.line(x0, GV["top"] - 32, x0, GV["top"] - 8, INK, 3)
+                 + F.line(xe, GV["top"] - 32, xe, GV["top"] - 8, INK, 3))
+    if _on(prev, st, "cut"):
+        x1 = x0 + gv_px(GV_IN)
+        s.append(F.rect(x1, GV["top"], xe - x1, y - GV["top"], J.ALERT, op=0.85))
+        s.append(_arrow(xe + 150, GV["top"] + 140, xe + 14, GV["top"] + 140, J.ALERT, 6, 22))
+    return s
+
+
+#  coupons（c915）＝2つ目の筒の端材を18の試料に切る（長さの向き9・周りの向き9）。TSB §1.15「18 samples, 9 in the axial direction and 9 in the
+#    circumferential direction」。形と並びは模式（数は記録）。色＝カナダの研究所
+CPN = dict(x0=440.0, x1=1480.0, y0=400.0, y1=760.0)
+CP_N = (9, 9)                     # (長さの向き, 周りの向き)
+
+
+def cp_rects():
+    """[(向き, x, y, w, h)]＝左半分に縦長9（長さの向き）・右半分に横長9（周りの向き）。"""
+    x0, x1, y0, y1 = CPN["x0"], CPN["x1"], CPN["y0"], CPN["y1"]
+    xm = (x0 + x1) / 2
+    out = []
+    na, nc = CP_N
+    for k in range(na):
+        out.append(("axial", x0 + 30 + k * (xm - x0 - 60) / na, y0 + 30, (xm - x0 - 60) / na - 14, y1 - y0 - 60))
+    for k in range(nc):
+        out.append(("circ", xm + 30, y0 + 24 + k * (y1 - y0 - 48) / nc, x1 - xm - 60, (y1 - y0 - 48) / nc - 10))
+    return out
+
+
+def coupons_base(st0):
+    x0, x1, y0, y1 = CPN["x0"], CPN["x1"], CPN["y0"], CPN["y1"]
+    return [F.rect(x0, y0, x1 - x0, y1 - y0, J.BG2, J.LINE, 4, rx=8), F.line((x0 + x1) / 2, y0 + 10, (x0 + x1) / 2, y1 - 10, J.LINE_DIM, 3, dash="10 8"),
+            _arrow(x0 - 60, y1, x0 - 60, y1 - 160, J.LINE, 4, 18), _tline(x0 - 80, y1 - 60, "筒の長さ", 26, J.TICK, "end", 200),
+            _arrow(x0, y1 + 46, x0 + 180, y1 + 46, J.LINE, 4, 18), _tline(x0 + 200, y1 + 56, "筒の周り", 26, J.TICK, "start", 200)]
+
+
+def coupons_stage(prev, st):
+    s = []
+    if _on(prev, st, "cut"):
+        for _k, x, y, w, h in cp_rects():
+            s.append(F.rect(x, y, w, h, TSC, TSC, 3, op=0.85))
+    return s
+
+
+#  shelf（c918）＝棚のたとえ（いつも100キロを載せる棚＝基準の安全率 1.25 なら125キロまで／この筒の周りの向き 1.11＝111キロまで）。
+#    たとえの数は安全率の比で計算する（記録の値＝TSB §1.12.2「changed its safety factor to 1.25」・§1.15「the calculated safety factor was 1.11」）
+SV = dict(sx0=250.0, sx1=780.0, sy=640.0, gx=1150.0, gy0=800.0, gy1=330.0, kmax=130.0, lx=1530.0)   # lx＝線の右の札（右の端 1848 の内）
+SV_LOAD = 100.0                   # たとえの棚にいつも載せる重さ（キロ）
+SV_REQ = 1.25
+SV_CIRC = 1.11
+
+
+def sv_y(k):
+    return SV["gy0"] - (SV["gy0"] - SV["gy1"]) * k / SV["kmax"]
+
+
+def sv_lab(sf):
+    return f"{round(SV_LOAD * sf):d}キロまで"
+
+
+def shelf_base(st0):
+    g = [F.line(SV["sx0"] - 20, 330.0, SV["sx0"] - 20, SV["sy"] + 120, J.LINE, 6),
+         F.rect(SV["sx0"], SV["sy"], SV["sx1"] - SV["sx0"], 26, J.BG2, J.LINE, 4),
+         F.poly([(SV["sx0"] - 20, SV["sy"] + 26), (SV["sx0"] + 90, SV["sy"] + 26), (SV["sx0"] - 20, SV["sy"] + 110)], "none", J.LINE, 4),
+         _tline((SV["sx0"] + SV["sx1"]) / 2, SV["sy"] + 80, "たとえの棚", 30, J.TICK, "middle", 400),
+         F.line(SV["gx"], SV["gy0"], SV["gx"], SV["gy1"], J.LINE_DIM, 4), _tline(SV["gx"], SV["gy1"] - 20, "重さ（キロ）", 26, J.TICK, "middle", 240)]
+    for k in (0, 50, 100):
+        g.append(F.line(SV["gx"] - 12, sv_y(k), SV["gx"], sv_y(k), J.LINE_DIM, 3) + _tline(SV["gx"] - 20, sv_y(k) + 9, str(k), 26, J.TICK, "end", 100))
+    return g
+
+
+def shelf_stage(prev, st):
+    s = []
+    if _on(prev, st, "load"):
+        bx = (SV["sx0"] + SV["sx1"]) / 2
+        s.append(F.rect(bx - 110, SV["sy"] - 170, 220, 170, J.BG2, INK, 5, rx=6) + _tline(bx, SV["sy"] - 72, f"{SV_LOAD:g}キロ", 40, INK, "middle", 200))
+        s.append(F.line(SV["gx"], sv_y(SV_LOAD), SV["gx"] + 360, sv_y(SV_LOAD), INK, 5) + _tline(SV["lx"], sv_y(SV_LOAD) + 10, "いつもの重さ", 28, INK, "start", 290))
+    if _on(prev, st, "std"):
+        y = sv_y(SV_LOAD * SV_REQ)
+        s.append(F.line(SV["gx"], y, SV["gx"] + 360, y, INK, 5, dash="16 10") + _tline(SV["lx"], y + 10, "基準＝" + sv_lab(SV_REQ), 28, INK, "start", 300))
+    if _on(prev, st, "tube"):
+        y = sv_y(SV_LOAD * SV_CIRC)
+        s.append(F.line(SV["gx"], y, SV["gx"] + 360, y, J.ALERT, 7) + _tline(SV["lx"], y + 10, "この筒＝" + sv_lab(SV_CIRC), 28, J.ALERT, "start", 300))
+    if _on(prev, st, "spare"):
+        for xx, sf, c in ((SV["gx"] + 60, SV_REQ, INK), (SV["gx"] + 130, SV_CIRC, J.ALERT)):
+            ya, yb = sv_y(SV_LOAD), sv_y(SV_LOAD * sf)
+            s.append(F.line(xx, ya, xx, yb, c, 6) + F.line(xx - 12, yb, xx + 12, yb, c, 6))
+        s.append(_tline(SV["gx"] + 100, sv_y(SV_LOAD) + 50, "余裕", 28, J.TICK, "middle", 140))
+    return s
+
+
+#  d80（ca05）＝80回目（2022年7月15日）の深さの線。NTSB 図19 を原寸で読んだ点だけ（±2分＝映像方針・あいだは直線＝模式）。
+#    大きな音の山 15:26:45（USCG p283）は海面の線に置く（浮上の終わり＝USCG p234「still submerged but nearing the surface」）
+D80 = dict(t0=7 * 60.0, t1=16 * 60.0, d1=4000.0, x0=330.0, x1=1480.0, y0=400.0, y1=800.0)
+D80_PTS = (("7:35", 0.0), ("10:05", 3840.0), ("13:35", 3840.0), ("15:16", 0.0))
+D80_BANG = "15:26:45"
+
+
+def d80_xy(t, m):
+    p = [float(x) for x in t.split(":")]
+    mi = p[0] * 60 + p[1] + (p[2] / 60 if len(p) > 2 else 0)
+    return (D80["x0"] + (mi - D80["t0"]) / (D80["t1"] - D80["t0"]) * (D80["x1"] - D80["x0"]),
+            D80["y0"] + m / D80["d1"] * (D80["y1"] - D80["y0"]))
+
+
+def d80_base(st0):
+    x0, x1, y0, y1 = D80["x0"], D80["x1"], D80["y0"], D80["y1"]
+    g = [F.line(x0 - 20, y0, x1 + 30, y0, SEA_LN, 5), _tline(x0 - 30, y0 + 10, "海面", 28, J.TICK, "end", 160),
+         F.line(x0, y0, x0, y1, J.LINE_DIM, 3), _tline(x0 - 30, y1 + 50, "深さ", 26, J.TICK, "end", 160)]
+    for m in (1000, 2000, 3000, 4000):
+        y = d80_xy("7:00", m)[1]
+        g.append(F.line(x0 - 10, y, x1, y, J.GRID, 2) + _tline(x0 - 20, y + 9, f"{m:,}m", 24, J.TICK, "end", 140))
+    for h in range(8, 17, 2):
+        x = d80_xy(f"{h}:00", 0)[0]
+        g.append(F.line(x, y1, x, y1 + 12, J.LINE_DIM, 3) + _tline(x, y1 + 46, f"{h}時", 26, J.TICK, "middle", 100))
+    return g
+
+
+def d80_stage(prev, st):
+    s = []
+    if _on(prev, st, "line"):
+        s.append(F.poly([d80_xy(t, m) for t, m in D80_PTS], "none", SUBC, 7))
+    if _on(prev, st, "bang"):
+        x, y = d80_xy(D80_BANG, 0)
+        pts = [(x + (34 if k % 2 == 0 else 14) * math.cos(math.pi * k / 6), y + (34 if k % 2 == 0 else 14) * math.sin(math.pi * k / 6)) for k in range(12)]
+        s.append(F.poly(pts, J.ALERT, None, close=True))
+    if _on(prev, st, "who"):
+        x, y = d80_xy(D80_BANG, 0)
+        s.append(_person(x + 150, y - 110, 70, SHIPC) + _person(x + 150, y + 30, 70, SUBC))   # 海面の上＝小舟（母船の側）・下＝艇の中
+    return s
+
+
+#  rtm（ca06・ca24）＝筒の外から見た監視装置（音のセンサー8・ひずみ計の場所8＝輪の向きと長さの向きの2つずつ＝16）。NTSB p1031・USCG 図105（p139）。
+#    位置は図105 をもとにした模式（番号は描かない＝図105 に番号が無い）。dead＝2022年に一度も音を拾わなかった3つ（NTSB p1051・USCG p283）
+RT = dict(x0=560.0, x1=1360.0, cy=580.0, R=170.0, ring=46.0)
+RT_AE = ((0.08, 0.50, True), (0.05, -0.55, False), (0.46, -0.05, True), (0.52, -0.92, False), (0.80, 0.58, True), (1.03, -0.60, False),
+         (0.93, -0.92, False), (0.93, 0.22, False))    # (前の端0〜後ろの端1, -1上〜1下, 拾わなかったか)
+RT_SG = ((0.18, -0.62), (0.18, 0.62), (0.30, -0.30), (0.30, 0.30), (0.68, -0.30), (0.68, 0.30), (0.84, -0.62), (0.84, 0.62))
+
+
+def rt_xy(fx, fy):
+    if fx > 1.0:
+        return RT["x1"] + RT["ring"] / 2, RT["cy"] + fy * RT["R"]
+    return RT["x0"] + fx * (RT["x1"] - RT["x0"]), RT["cy"] + fy * RT["R"] * 0.9
+
+
+def rtm_base(st0):
+    x0, x1, cy, R, rg = RT["x0"], RT["x1"], RT["cy"], RT["R"], RT["ring"]
+    return [F.rect(x0, cy - R, x1 - x0, 2 * R, J.BG2, J.LINE, 5), F.rect(x0 - rg, cy - R - 12, rg, 2 * R + 24, J.LINE_DIM, J.LINE, 3),
+            F.rect(x1, cy - R - 12, rg, 2 * R + 24, J.LINE_DIM, J.LINE, 3),
+            f'<path d="M{x0 - rg:.1f} {cy - R:.1f} A{R * 0.55:.1f} {R:.1f} 0 0 0 {x0 - rg:.1f} {cy + R:.1f}" fill="none" stroke="{J.LINE_DIM}" stroke-width="4" stroke-dasharray="10 8"/>',
+            f'<path d="M{x1 + rg:.1f} {cy - R:.1f} A{R * 0.55:.1f} {R:.1f} 0 0 1 {x1 + rg:.1f} {cy + R:.1f}" fill="none" stroke="{J.LINE_DIM}" stroke-width="4" stroke-dasharray="10 8"/>',
+            _arrow(x0 - 170, cy + R + 70, x0 - 300, cy + R + 70, J.LINE, 4, 18), _tline(x0 - 150, cy + R + 80, "前", 28, J.TICK, "start", 80)]
+
+
+def rtm_stage(prev, st):
+    s = []
+    if _on(prev, st, "ae"):
+        for fx, fy, _d in RT_AE:
+            x, y = rt_xy(fx, fy)
+            s.append(F.circ(x, y, 17, SUBC, J.BG, 3))
+    if _on(prev, st, "sg"):
+        for fx, fy in RT_SG:
+            x, y = rt_xy(fx, fy)
+            s.append(F.rect(x - 8, y - 20, 16, 40, "none", J.AMBER, 4) + F.rect(x - 20, y - 8, 40, 16, "none", J.AMBER, 4))
+    if _on(prev, st, "squeeze"):
+        x0, x1, cy, R = RT["x0"], RT["x1"], RT["cy"], RT["R"]
+        for k in range(4):
+            x = x0 + 100 + k * (x1 - x0 - 200) / 3
+            s.append(_arrow(x, cy - R - 110, x, cy - R - 16, J.LINE, 5, 18) + _arrow(x, cy + R + 110 - 60, x, cy + R + 16, J.LINE, 5, 18))
+        s.append(F.rect(x0 + 10, cy - R + 14, x1 - x0 - 20, 2 * R - 28, "none", INK, 3, dash="12 8"))
+    if _on(prev, st, "dead"):
+        for fx, fy, dead in RT_AE:
+            if dead:
+                x, y = rt_xy(fx, fy)
+                s.append(F.circ(x, y, 19, J.BG2, J.TICK, 4) + F.line(x - 12, y - 12, x + 12, y + 12, J.TICK, 4) + F.line(x - 12, y + 12, x + 12, y - 12, J.TICK, 4))
+    return s
+
+
+#  ae（ca07・ca08）＝80回目の終わりの音とひずみ（上＝音・下＝ひずみ）。記録の時刻の点だけ（USCG p283「beginning at approximately 3:17 p.m.」
+#    「a significant escalation beginning at 3:25:56 p.m.」「At 3:26:45 p.m. … a major acoustic emission event」・p286「coincided」・
+#    NTSB p1052「between about 1515 and 1530」）。線の高さと形は模式（値を描かない）
+AE = dict(t0=15 * 60 + 10.0, t1=15 * 60 + 35.0, x0=390.0, x1=1560.0, ya=(330.0, 560.0), ys=(610.0, 800.0))
+AE_UP = "15:17"
+AE_ESC = "15:25:56"
+AE_PEAK = "15:26:45"
+AE_BAND = ("15:15", "15:30")
+AE_SHAPE = ((910.0, 0.05), (917.0, 0.06), (921.0, 0.16), (925.93, 0.30), (926.5, 0.55), (926.75, 1.0), (927.1, 0.25), (929.0, 0.10), (935.0, 0.06))
+
+
+def _ae_min(t):
+    p = [float(x) for x in t.split(":")]
+    return p[0] * 60 + p[1] + (p[2] / 60 if len(p) > 2 else 0)
+
+
+def ae_x(mi):
+    return AE["x0"] + (mi - AE["t0"]) / (AE["t1"] - AE["t0"]) * (AE["x1"] - AE["x0"])
+
+
+def _ae_pts(lo, hi):
+    pts = [(m, v) for m, v in AE_SHAPE if lo <= m <= hi]
+    return [(ae_x(m), AE["ya"][1] - v * (AE["ya"][1] - AE["ya"][0] - 20)) for m, v in pts]
+
+
+def _ae_strain(after):
+    y_lo, y_hi = AE["ys"][1] - 50, AE["ys"][1] - 120
+    pk = ae_x(_ae_min(AE_PEAK))
+    return [(pk, y_lo), (pk, y_hi), (AE["x1"], y_hi)] if after else [(AE["x0"], y_lo), (pk, y_lo)]
+
+
+def ae_base(st0):
+    g = []
+    for (ya, yb), t in ((AE["ya"], "音の大きさ"), (AE["ys"], "ひずみ")):
+        g.append(F.line(AE["x0"], ya, AE["x0"], yb, J.LINE_DIM, 3) + F.line(AE["x0"], yb, AE["x1"], yb, J.LINE_DIM, 3))
+        g.append(_tline(AE["x0"] - 24, (ya + yb) / 2 + 10, t, 28, J.TICK, "end", 260))
+    for k in range(6):
+        mi = AE["t0"] + k * 5
+        x = ae_x(mi)
+        g.append(F.line(x, AE["ys"][1], x, AE["ys"][1] + 12, J.LINE_DIM, 3) + _tline(x, AE["ys"][1] + 44, f"{int(mi // 60)}:{int(mi % 60):02d}", 26, J.TICK, "middle", 120))
+    g.append(F.poly(_ae_pts(AE["t0"], AE["t1"]), "none", J.LINE_DIM, 4))
+    g.append(F.poly(_ae_strain(False) + _ae_strain(True)[1:], "none", J.LINE_DIM, 4))
+    return g
+
+
+def ae_stage(prev, st):
+    s = []
+    if _on(prev, st, "band"):
+        xa, xb = ae_x(_ae_min(AE_BAND[0])), ae_x(_ae_min(AE_BAND[1]))
+        s.append(F.rect(xa, AE["ya"][0] - 10, xb - xa, AE["ys"][1] - AE["ya"][0] + 10, NTC, NTC, 3, op=0.22))
+    if _on(prev, st, "up"):
+        s.append(F.poly(_ae_pts(_ae_min(AE_UP), _ae_min(AE_ESC)), "none", INK, 7))
+        x = ae_x(_ae_min(AE_UP))
+        s.append(F.line(x, AE["ya"][0], x, AE["ya"][1], INK, 3, dash="10 8"))
+    if _on(prev, st, "peak"):
+        s.append(F.poly(_ae_pts(_ae_min(AE_ESC), 927.1), "none", J.ALERT, 7))
+    if _on(prev, st, "jump"):
+        s.append(F.poly(_ae_strain(True), "none", J.ALERT, 7))
+    return s
+
+
+#  ctrl（ca15）＝コントローラーの向き（81回目＝推進器の操作が逆→操縦士は逆さに持って続けた＝USCG p235「turning the controller around and operating
+#    the controls in reverse」）。左＝そのまま持つ（倒す向きと動く向きが逆）・右＝逆さに持つ（そろう）。形は模式
+CT = dict(l=(560.0, 600.0), r=(1360.0, 600.0), w=380.0, h=190.0)
+
+
+def _pad(cx, cy, flip):
+    w, h = CT["w"], CT["h"]
+    sg = -1 if flip else 1
+    return (F.rect(cx - w / 2, cy - h / 2, w, h, J.BG2, J.LINE, 5, rx=80) + F.circ(cx - 80 * sg, cy + 10 * sg, 34, J.LINE_DIM, J.LINE, 4)
+            + F.circ(cx + 80 * sg, cy - 18 * sg, 15, J.LINE) + F.circ(cx + 120 * sg, cy + 16 * sg, 15, J.LINE))
+
+
+def ctrl_dirs(flip):
+    """(倒す向き, 動く向き)＝画面の上が +1。そのまま＝逆（故障）・逆さに持つ＝そろう。"""
+    return (1, 1) if flip else (1, -1)
+
+
+def ctrl_base(st0):
+    cx, cy = CT["l"]
+    op, mv = ctrl_dirs(False)
+    return [_pad(cx, cy, False), _arrow(cx - 80, cy - 40, cx - 80, cy - 40 - 120 * op, INK, 7, 26),
+            _tline(cx - 80, cy - 190, "倒す", 28, INK, "middle", 120),
+            _arrow(cx + 230, cy - 110 + 60 * mv, cx + 230, cy - 110 - 60 * mv, J.ALERT, 7, 26), _tline(cx + 230, cy - 210, "艇の動き", 28, J.ALERT, "middle", 160),
+            _tline(cx, cy + CT["h"] / 2 + 60, "そのまま持つ", 30, J.TICK, "middle", 300)]
+
+
+def ctrl_stage(prev, st):
+    s = []
+    if _on(prev, st, "flip"):
+        cx, cy = CT["r"]
+        op, mv = ctrl_dirs(True)
+        s.append(_pad(cx, cy, True) + _arrow(cx + 80, cy - 40, cx + 80, cy - 40 - 120 * op, INK, 7, 26)
+                 + _arrow(cx + 260, cy - 110 + 60 * mv, cx + 260, cy - 110 - 60 * mv, SUBC, 7, 26))
+        s.append(_arrow(CT["l"][0] + CT["w"] / 2 + 60, cy, cx - CT["w"] / 2 - 40, cy, J.LINE, 5, 22))
+    return s
+
+
+#  stime（ca16）＝会社のひずみの見方＝時刻に沿って潜航ごとの線を横に並べる（NTSB p1051「plotting it side-by-side with dive depth as a function of time」）。
+#    形は模式（値を描かない）。比べにくい＝NTSB p1064「it was difficult for OceanGate to compare data between dives」
+STM = dict(x0=300.0, x1=1740.0, y0=380.0, y1=760.0)
+STM_DIVES = ((330.0, 620.0), (700.0, 1040.0), (1110.0, 1330.0), (1400.0, 1720.0))   # 潜航ごとの時刻の幅（画素・模式）
+
+
+def _stm_hump(xa, xb, depth):
+    dy = (STM["y1"] - STM["y0"]) * (0.92 if depth else 0.55)
+    return [(xa, STM["y0"]), (xa + (xb - xa) * 0.28, STM["y0"] + dy), (xa + (xb - xa) * 0.62, STM["y0"] + dy), (xb, STM["y0"])]
+
+
+def stime_base(st0):
+    return [F.line(STM["x0"], STM["y0"], STM["x1"], STM["y0"], J.LINE_DIM, 3), _arrow(STM["x1"] - 120, STM["y1"] + 60, STM["x1"], STM["y1"] + 60, J.LINE, 4, 18),
+            _tline(STM["x1"] - 140, STM["y1"] + 70, "時刻", 28, J.TICK, "end", 120)]
+
+
+def stime_stage(prev, st):
+    s = []
+    if _on(prev, st, "on"):
+        for xa, xb in STM_DIVES:
+            s.append(F.poly(_stm_hump(xa, xb, True), "none", J.TICK, 4, dash="12 8") + F.poly(_stm_hump(xa, xb, False), "none", INK, 6))
+        s.append(F.line(380.0, 820.0, 440.0, 820.0, INK, 6) + _tline(452.0, 830.0, "ひずみ", 26, J.TICK, "start", 160)
+                 + F.line(640.0, 820.0, 700.0, 820.0, J.TICK, 4, dash="12 8") + _tline(712.0, 830.0, "深さ", 26, J.TICK, "start", 120))
+    if _on(prev, st, "hard"):
+        for (_, xb), (xa, _) in zip(STM_DIVES, STM_DIVES[1:]):
+            s.append(_qmark((xb + xa) / 2, STM["y0"] + 150, 70, J.ALERT))
+    return s
+
+
+#  nonlin（ca19）＝浅い所だけ線が曲がるしくみ（左＝深さとひずみの線の模式・右＝筒の前の端のひずみ計と層のはがれ）。
+#    原文 NTSB p1059「This change in strain response is more consistent with a delamination between layers」「The sensor … was located at the forward
+#    end of the composite cylinder」「the separated layers to initially respond differently … at shallow depths, but, at greater depths, … similar」
+NL = dict(gx0=330.0, gx1=900.0, gy0=360.0, gy1=800.0, sh=150.0, cx0=1180.0, cx1=1700.0, cy=560.0, R=120.0)
+
+
+def nl_lines():
+    """(まっすぐな線, 曲がった線)＝(x, y) の点。曲がった線は浅い所（gy0〜gy0+sh）だけずれ、深い所はまっすぐな線と平行。"""
+    x0, x1, y0, y1, sh = NL["gx0"], NL["gx1"], NL["gy0"], NL["gy1"], NL["sh"]
+    k = (x1 - x0 - 60) / (y1 - y0)
+    straight = [(x0, y0), (x0 + k * (y1 - y0), y1)]
+    off = 70.0
+    bent = [(x0, y0), (x0 + off * 0.55, y0 + sh * 0.25), (x0 + off * 0.85, y0 + sh * 0.6), (x0 + off + k * sh, y0 + sh), (x0 + off + k * (y1 - y0), y1)]
+    return straight, bent
+
+
+def nonlin_base(st0):
+    x0, x1, y0, y1 = NL["gx0"], NL["gx1"], NL["gy0"], NL["gy1"]
+    st, _ = nl_lines()
+    cx0, cx1, cy, R = NL["cx0"], NL["cx1"], NL["cy"], NL["R"]
+    return [F.line(x0, y0, x0, y1, J.LINE_DIM, 3) + F.line(x0, y0, x1, y0, J.LINE_DIM, 3),
+            _tline(x0 - 20, y0 + 10, "浅い", 26, J.TICK, "end", 100) + _tline(x0 - 20, y1, "深い", 26, J.TICK, "end", 100),
+            _tline(x1, y0 - 18, "ひずみ →", 26, J.TICK, "end", 200),
+            F.poly(st, "none", J.TICK, 5, dash="14 10"),
+            F.rect(cx0, cy - R, cx1 - cx0, 2 * R, J.BG2, J.LINE, 5), F.rect(cx0 - 36, cy - R - 10, 36, 2 * R + 20, J.LINE_DIM, J.LINE, 3),
+            _tline(cx0 - 50, cy + R + 60, "前", 28, J.TICK, "middle", 80)]
+
+
+def nonlin_stage(prev, st):
+    s = []
+    if _on(prev, st, "bend"):
+        _, bent = nl_lines()
+        s.append(F.poly(bent, "none", J.ALERT, 7))
+    if _on(prev, st, "zones"):
+        y0, sh = NL["gy0"], NL["sh"]
+        s.append(F.rect(NL["gx0"] + 4, y0 + 4, NL["gx1"] - NL["gx0"] - 4, sh - 4, J.ALERT, op=0.12))
+    if _on(prev, st, "fwd"):
+        cx0, cx1, cy, R = NL["cx0"], NL["cx1"], NL["cy"], NL["R"]
+        s.append(F.line(cx0, cy - R + 34, cx0 + (cx1 - cx0) * 0.7, cy - R + 34, J.ALERT, 6, dash="16 8"))
+        x, y = cx0 + 26, cy - R + 70
+        s.append(F.rect(x - 8, y - 20, 16, 40, "none", J.AMBER, 4) + F.rect(x - 20, y - 8, 40, 16, "none", J.AMBER, 4))
+    return s
+
+
+#  screen（ca23）＝監視装置の画面の決まり（音の数が30で黄・50で赤・警報の音なし・潜航ごとにゼロへ）。NTSB p1031「if the system detected 30 hits during a
+#    dive, the system issued a yellow display warning. If 50 hits were detected, a red warning was issued」「Hit counts did not accumulate between successive
+#    dives」・TSB §1.10.9「The system did not have audible alarms」。画面の形は模式
+SC = dict(x0=360.0, x1=1260.0, y0=330.0, y1=790.0, bx0=460.0, bx1=1160.0, by=520.0, bh=80.0, nmax=60.0, spk=(1520.0, 500.0))
+SC_Y, SC_R = 30, 50
+
+
+def sc_x(n):
+    return SC["bx0"] + (SC["bx1"] - SC["bx0"]) * n / SC["nmax"]
+
+
+def screen_base(st0):
+    g = [F.rect(SC["x0"], SC["y0"], SC["x1"] - SC["x0"], SC["y1"] - SC["y0"], J.BG2, J.LINE, 5, rx=22),
+         _tline(SC["bx0"], SC["by"] - 40, "1回の潜航の音の数", 30, J.TICK, "start", 500),
+         F.rect(SC["bx0"], SC["by"], SC["bx1"] - SC["bx0"], SC["bh"], "none", J.LINE, 4)]
+    for n in (0, SC_Y, SC_R):
+        g.append(F.line(sc_x(n), SC["by"] + SC["bh"], sc_x(n), SC["by"] + SC["bh"] + 16, J.LINE, 3)
+                 + _tline(sc_x(n), SC["by"] + SC["bh"] + 52, str(n), 30, INK, "middle", 80))
+    x, y = SC["spk"]
+    g.append(F.poly([(x - 60, y - 26), (x - 30, y - 26), (x + 10, y - 66), (x + 10, y + 66), (x - 30, y + 26), (x - 60, y + 26)], J.BG2, J.LINE, 4, close=True))
+    return g
+
+
+def screen_stage(prev, st):
+    s = []
+    by, bh = SC["by"], SC["bh"]
+    if _on(prev, st, "lv"):
+        s.append(F.rect(sc_x(SC_Y), by + 4, sc_x(SC_R) - sc_x(SC_Y), bh - 8, J.AMBER, op=0.9)
+                 + F.rect(sc_x(SC_R), by + 4, sc_x(SC["nmax"]) - sc_x(SC_R) - 4, bh - 8, J.ALERT, op=0.9))
+    if _on(prev, st, "mute"):
+        x, y = SC["spk"]
+        s.append(_xmark(x + 80, y, 34, J.ALERT, 10))
+    if _on(prev, st, "reset"):
+        y = by + bh + 110
+        s.append(F.poly([(sc_x(40), by + bh + 70), (sc_x(40), y), (sc_x(0), y)], "none", J.AMBER, 5) + _arrow(sc_x(0), y, sc_x(0), by + bh + 76, J.AMBER, 5, 20))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
 #  見え方の表・札の置き場・線の先
 # ══════════════════════════════════════════════════════════
 VIEWS = dict(
@@ -1527,8 +2155,8 @@ VIEWS = dict(
                                                          n9=ONOFF, name=ONOFF, uscg=ONOFF),
                base=paper_base, stage=paper_stage),
     table=dict(lab="カナダの報告書 付録Bの表（英字は原文のまま）", fields=dict(yr=ONOFF), base=table_base, stage=table_stage),
-    dives=dict(lab="付録Bの潜航（1回＝1点）", fields=dict(reach=ONOFF, dome=ONOFF, batt=ONOFF, thr=ONOFF, wt=ONOFF, com=ONOFF), base=dives_base,
-               stage=dives_stage),
+    dives=dict(lab="付録Bの潜航（1回＝1点）", fields=dict(reach=ONOFF, dome=ONOFF, batt=ONOFF, thr=ONOFF, wt=ONOFF, com=ONOFF, y22=ONOFF),
+               base=dives_base, stage=dives_stage),
     lars_top=dict(lab="上から見た台と潜水艇（機首が左）", fields=dict(close=ONOFF), base=lars_top_base, stage=lars_top_stage),
     lars_side=dict(lab="横から見た台と潜水艇", fields=dict(fill=ONOFF, lvl=("up", "under"), det=ONOFF), base=lars_side_base,
                    stage=lars_side_stage, parts=lars_side_parts),
@@ -1540,31 +2168,44 @@ VIEWS = dict(
               base=chat_base, stage=chat_stage),
     depth=dict(lab="潜水艇の深さ（記録の点）", fields=dict(z=("all", "end"), upto=DP_ORDER, gap=ONOFF, sea=ONOFF, left=ONOFF, stop=ONOFF),
                base=depth_base, stage=depth_stage),
-    bow=dict(lab="上から見た船首のまわり（北が上）", fields=dict(ese=ONOFF, ene=ONOFF, plan=ONOFF, jump=ONOFF), base=bow_base, stage=bow_stage),
+    bow=dict(lab="上から見た船首のまわり（北が上）", fields=dict(ese=ONOFF, ene=ONOFF, plan=ONOFF, jump=ONOFF, hit=ONOFF), base=bow_base, stage=bow_stage),
     two=dict(lab="調べごとの見方", fields=dict(us=ONOFF, ca=ONOFF, why=ONOFF), base=two_base, stage=two_stage),
     # 🆕 ⑤b-4（2026-10-15）
     send=dict(lab="母船と潜水艇の文", fields=dict(send=ONOFF, none=ONOFF), base=send_base, stage=send_stage),
     proto=dict(lab="会社の手順の流れ", fields=dict(wait=ONOFF, search=ONOFF, out=ONOFF, best=ONOFF), base=proto_base, stage=proto_stage),
     none=dict(lab="欄の中身", fields=dict(set=tuple(NO), n=("0", "1", "2", "3")), base=none_base, stage=none_stage),
     say=dict(lab="人の言葉（顔は描かない）", fields=dict(set=tuple(SAY), n=("0", "1", "2")), base=say_base, stage=say_stage),
-    layers=dict(lab="筒の壁の断面（5枚の層）", fields=dict(sep=ONOFF, void=ONOFF, rub=ONOFF), base=layers_base, stage=layers_stage),
+    layers=dict(lab="筒の壁の断面（5枚の層）", fields=dict(sep=ONOFF, void=ONOFF, rub=ONOFF, grind=ONOFF), base=layers_base, stage=layers_stage),
     buckle=dict(lab="層の板の断面", fields=dict(split=ONOFF, press=ONOFF), base=buckle_base, stage=buckle_stage, parts=buckle_parts),
     tc=dict(lab="輪切りで見た力の向き", fields=dict(air=ONOFF, sea=ONOFF), base=tc_base, stage=tc_stage),
     shell=dict(lab="人が乗る殻の形と材料", fields=dict(left=ONOFF, right=ONOFF), base=shell_base, stage=shell_stage),
-    ruler=dict(lab="深さの物差し（縮尺どおり）", fields=dict(z=("near", "far"), goal=ONOFF, op=ONOFF, fail=ONOFF, ratio=ONOFF),
+    ruler=dict(lab="深さの物差し（縮尺どおり）", fields=dict(z=("near", "far", "mid"), goal=ONOFF, op=ONOFF, fail=ONOFF, ratio=ONOFF,
+                                                     test=ONOFF, w650=ONOFF, w1k=ONOFF),
                base=ruler_base, stage=ruler_stage),
     sf=dict(lab="安全率のしくみ", fields=dict(bars=ONOFF, ratio=ONOFF, spare=ONOFF), base=sf_base, stage=sf_stage),
     model=dict(lab="3分の1の大きさの模型（横から）", fields=dict(press=ONOFF, fail=ONOFF), base=model_base, stage=model_stage),
     klass=dict(lab="船級のしくみ", fields=dict(soc=ONOFF, design=ONOFF, test=ONOFF, cert=ONOFF), base=klass_base, stage=klass_stage),
     wind=dict(lab="筒の作り方（横から）", fields=dict(run=ONOFF), base=wind_base, stage=wind_stage),
     meet=dict(lab="会合の席", fields=dict(rec=ONOFF), base=meet_base, stage=meet_stage),
+    # 🆕 ⑤b-5（2026-10-15）
+    cards=dict(lab="要点の並び", fields=dict(set=tuple(CD), n=("0", "1", "2", "3", "4"), loop=ONOFF), base=cards_base, stage=cards_stage),
+    groove=dict(lab="筒の端とチタンの輪の溝（断面）", fields=dict(thick=ONOFF, cut=ONOFF), base=groove_base, stage=groove_stage),
+    coupons=dict(lab="端材から切り出した試料", fields=dict(cut=ONOFF), base=coupons_base, stage=coupons_stage),
+    shelf=dict(lab="安全率を棚にたとえると", fields=dict(load=ONOFF, std=ONOFF, tube=ONOFF, spare=ONOFF), base=shelf_base, stage=shelf_stage),
+    d80=dict(lab="80回目の深さ（記録の点）", fields=dict(line=ONOFF, bang=ONOFF, who=ONOFF), base=d80_base, stage=d80_stage),
+    rtm=dict(lab="船体の監視装置", fields=dict(ae=ONOFF, sg=ONOFF, squeeze=ONOFF, dead=ONOFF), base=rtm_base, stage=rtm_stage),
+    ae=dict(lab="80回目の終わりの記録（15時台）", fields=dict(up=ONOFF, peak=ONOFF, jump=ONOFF, band=ONOFF), base=ae_base, stage=ae_stage),
+    ctrl=dict(lab="コントローラーの向き", fields=dict(flip=ONOFF), base=ctrl_base, stage=ctrl_stage),
+    stime=dict(lab="会社のひずみの見方", fields=dict(on=ONOFF, hard=ONOFF), base=stime_base, stage=stime_stage),
+    nonlin=dict(lab="浅い所で曲がる線", fields=dict(bend=ONOFF, zones=ONOFF, fwd=ONOFF), base=nonlin_base, stage=nonlin_stage),
+    screen=dict(lab="監視装置の画面", fields=dict(lv=ONOFF, mute=ONOFF, reset=ONOFF), base=screen_base, stage=screen_stage),
 )
 START = {v: {f: d["fields"][f][0] for f in d["fields"]} for v, d in VIEWS.items()}
 START["lars_side"]["lvl"] = "up"
-HEAD_ONLY = dict(paper=("doc",), chat=("set",), depth=("z",), none=("set",), say=("set",), ruler=("z",))
+HEAD_ONLY = dict(paper=("doc",), chat=("set",), depth=("z",), none=("set",), say=("set",), ruler=("z",), cards=("set",))
 # 戻さない欄（増えた吹き出しは減らない・描いた深さの点は消えない・沈んだ台は浮かない）
 ORDER = dict(chat=dict(n=tuple(str(i) for i in range(9))), depth=dict(upto=DP_ORDER), lars_side=dict(lvl=("up", "under")),
-             none=dict(n=("0", "1", "2", "3")), say=dict(n=("0", "1", "2")))
+             none=dict(n=("0", "1", "2", "3")), say=dict(n=("0", "1", "2")), cards=dict(n=("0", "1", "2", "3", "4")))
 NOT_SCHEMATIC = ("table", "chat", "ruler")   # 原文の表と文の写し・🆕 ⑤b-4 縮尺どおりの深さの物差し（左上に「模式」を付けない）
 
 TAG_AT = dict(
@@ -1610,6 +2251,25 @@ TAG_AT = dict(
     meet=dict(ask=(1400.0, 748.0, "middle", 440.0), rec=(620.0, 762.0, "start", 360.0)),   # ⚠️ geom_gap：y 712 だと札が机の右下の角に触れた
 )
 TAG_AT["paper"].update(r2=(1360.0, 560.0, "start", 460.0), r3=(1360.0, 740.0, "start", 460.0))   # 🆕 ⑤b-4：幅の広い紙（w 1060＝右の端 1310）の右
+# 🆕 ⑤b-5（2026-10-15）：第8〜9章。⚠️ 出典の行（y 886）の上に 20px 以上あける（d は札の下 0.95 字）
+TAG_AT["bow"].update(hit=(600.0, 470.0, "end", 480.0), hit2=(600.0, 600.0, "end", 480.0))
+TAG_AT["ruler"].update(r1=(RL["lx"], 530.0, "start", 460.0), r2=(RL["lx"], 620.0, "start", 460.0), r3=(RL["lx"], 700.0, "start", 460.0))
+TAG_AT.update(
+    cards=dict(t=(F.BX1 - 40.0, 330.0, "end", 760.0), tl=(F.BX0 + 40.0, 330.0, "start", 760.0), low=(960.0, 800.0, "middle", 1300.0),
+               low3=(1480.0, 800.0, "middle", 440.0), a12=(715.0, 400.0, "middle", 300.0), a23=(1205.0, 400.0, "middle", 300.0)),
+    groove=dict(w=(GV["x0"] + gv_px(GV_END_IN) / 2, GV["top"] - 44, "middle", 600.0), cut=(1310.0, 512.0, "start", 500.0)),
+    coupons=dict(a=((CPN["x0"] * 3 + CPN["x1"]) / 4, CPN["y0"] - 28, "middle", 500.0), c=((CPN["x0"] + CPN["x1"] * 3) / 4, CPN["y0"] - 28, "middle", 500.0)),
+    shelf=dict(t=(F.BX1 - 40.0, 330.0, "end", 600.0)),
+    d80=dict(bang=(1360.0, 360.0, "end", 400.0), boat=(1600.0, 330.0, "start", 240.0), inner=(1600.0, 470.0, "start", 240.0)),   # ⚠️ 門番 wording：「p1」は頁の形
+    rtm=dict(t1=(120.0, 330.0, "start", 520.0), t2=(F.BX1 - 40.0, 330.0, "end", 520.0), l2=(120.0, 420.0, "start", 380.0)),
+    # ⚠️ 門番 layout：up を x 700 に置くと次の段の幅の帯（15:15〜＝x 626〜）が札を覆った＝15:15 の左へ
+    ae=dict(peak=(1200.0, 372.0, "start", 360.0), jump=(1200.0, 650.0, "start", 360.0), up=(612.0, 360.0, "end", 220.0),
+            band=(1580.0, 590.0, "start", 260.0)),
+    ctrl=dict(flip=(CT["r"][0], 380.0, "middle", 400.0)),
+    stime=dict(hard=(960.0, 330.0, "middle", 900.0)),
+    nonlin=dict(sh=(890.0, 420.0, "end", 360.0), deep=(350.0, 770.0, "start", 330.0), fwd=(1440.0, 760.0, "middle", 520.0)),
+    screen=dict(mute=(SC["spk"][0], 640.0, "middle", 400.0), reset=(sc_x(20), 770.0, "middle", 400.0)),
+)
 
 
 def anchors(view, st):
@@ -1660,9 +2320,9 @@ def _states(view, start, steps):
         n_rows = len(APPA[out[0]["set"]])
         if any(int(s["n"]) > n_rows for s in out):
             raise ValueError(f"m22：吹き出しの数が付録Aの行（{n_rows}）を超える")
-    if view in ("none", "say"):     # 🆕 ⑤b-4
+    if view in ("none", "say", "cards"):     # 🆕 ⑤b-4・⑤b-5（cards）
         key = out[0]["set"]
-        lim = len(NO[key]["items"]) if view == "none" else len(SAY[key]["bubbles"])
+        lim = len(NO[key]["items"]) if view == "none" else len(SAY[key]["bubbles"]) if view == "say" else len(CD[key]["cards"])
         if any(int(s["n"]) > lim for s in out):
             raise ValueError(f"m22：{view} の数が {key} の数（{lim}）を超える")
     return out[0], out[1:]
@@ -1834,4 +2494,37 @@ def geo_of(view, start, states):
         out.update(chk=list(KL_CHK), soc=KL_SOC, cert=KL_CERT)
     elif view == "meet":
         out.update(seats=[t for t, _, _ in MT_SEATS])
+    # 🆕 ⑤b-5（2026-10-15）
+    elif view == "cards":
+        d = CD[start["set"]]
+        out.update(set=start["set"], cards=[tuple(c[:3]) for c in d["cards"]], cols=[_rc(c[2]) for c in d["cards"]], life=CD_LIFE, loop=d.get("loop"))
+    elif view == "groove":
+        out.update(px_cm=GV["px_cm"], groove_px=gv_px(GV_IN), end_px=gv_px(GV_END_IN), groove_in=GV_IN, end_in=GV_END_IN)
+    elif view == "coupons":
+        out.update(rects=[(k, w, h) for k, _x, _y, w, h in cp_rects()])
+    elif view == "shelf":
+        out.update(load=SV_LOAD, req=SV_REQ, circ=SV_CIRC, labs=(sv_lab(SV_REQ), sv_lab(SV_CIRC)), gy0=SV["gy0"],
+                   px_kg=(SV["gy0"] - SV["gy1"]) / SV["kmax"], y_req=sv_y(SV_LOAD * SV_REQ), y_circ=sv_y(SV_LOAD * SV_CIRC))
+    elif view == "d80":
+        out.update(pts=[(t, m, d80_xy(t, m)) for t, m in D80_PTS], bang=(D80_BANG, d80_xy(D80_BANG, 0)), D=dict(D80))
+    elif view == "rtm":
+        out.update(ae=[dd for _, _, dd in RT_AE], sg=len(RT_SG))
+    elif view == "ae":
+        out.update(up=AE_UP, esc=AE_ESC, peak=AE_PEAK, band=AE_BAND, jump_x=_ae_strain(True)[0][0], peak_x=ae_x(_ae_min(AE_PEAK)),
+                   x_of={t: ae_x(_ae_min(t)) for t in (AE_UP, AE_ESC, AE_PEAK) + AE_BAND}, D=dict(AE))
+    elif view == "ctrl":
+        out.update(plain=ctrl_dirs(False), flip=ctrl_dirs(True))
+    elif view == "stime":
+        out.update(dives=list(STM_DIVES))
+    elif view == "nonlin":
+        st_, bent = nl_lines()
+        out.update(straight=st_, bent=bent, sh=NL["sh"], gy0=NL["gy0"], gauge_x=NL["cx0"] + 26, cyl=(NL["cx0"], NL["cx1"]))
+    elif view == "screen":
+        out.update(y=SC_Y, r=SC_R, nmax=SC["nmax"])
+    if view == "layers":
+        out.update(grind=dict(LY_GRIND))
+    if view == "dives":
+        out.update(year=DV_YEAR)
+    if view == "bow":
+        out.update(hit=bw_hit(), w=BW_["w"])
     return out

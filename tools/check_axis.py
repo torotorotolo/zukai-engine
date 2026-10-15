@@ -108,6 +108,12 @@ REC_AXIS = {
     "2018-01-23": {"USCG p149", "TSB §1.12.1"}, "2018-02-06": {"USCG p149", "NTSB p1048"}, "2018-06-25": {"USCG p150"}, "2018-12-13": {"USCG p151"},
     #   USCG p164「On July 26, 2019, OceanGate fired the Director of Engineering」・TSB §1.12.1「On 15 October」「On 18 November」
     "2019-07-26": {"USCG p164"}, "2019-10-15": {"TSB §1.12.1"}, "2019-11-18": {"TSB §1.12.1"},
+    # 🆕 2026-10-15（22本目 ⑤b-5）：NTSB p1028「between November 2020 and January 2021」・p1062「did not build or test any new sub-scale models」
+    "2020-11": {"NTSB p1028"}, "2021-01": {"NTSB p1028", "NTSB p1062"},
+    #   NTSB p1036「On July 15, 2022 (mission 3, dive 80)」「2,954 meters (9,692 feet) on the final dive」・USCG p235「On July 19, 2022 … commenced Dive 81」・
+    #   TSB 付録B（2022-07-22・2023-06-18 の行）・NTSB p1051「(dive 83) took place on July 23, 2022」・USCG p290「a red flag」・NTSB p1060「11 months later」
+    "2022-07-15": {"NTSB p1036", "USCG p290"}, "2022-07-19": {"USCG p235"}, "2022-07-22": {"TSB §付録B", "NTSB p1060"},
+    "2022-07-23": {"NTSB p1051", "NTSB p1036"}, "2023-06-18": {"TSB §付録B", "NTSB p1060"},
 }
 LANES_OK = {_TU, _TC}
 REC_APPROX = {"10:47:02", "10:47:08", "10:47:09", "10:47"}      # 記録が about の時刻（「ごろ」が要る）＝USCG p35・p38 の approximately
@@ -127,6 +133,8 @@ REC_ROLE = {
     "10:47": "LINE", "15:00": "company", "15:00〜18:00": "ship", "16:34": "ship", "18:00": "ship", "18:27": "ship", "18:55": "ship",
     "2016": "company", "2018": "company", "2018-01-23": "company", "2018-02-06": "LINE", "2018-06-25": "company", "2018-12-13": "LINE",
     "2019-07-26": "company", "2019-10-15": "company", "2019-11-18": "company",
+    # 🆕 2026-10-15（22本目 ⑤b-5）：筒を作る＝会社（作り手に頼んだ）・80回目の音と事故の潜航＝赤・81〜83回目と最後の深い潜航＝潜水艇
+    "2020-11〜2021-01": "company", "2021-01": "company", "2022-07-15": "ALERT", "2022-07-19": "sub", "2022-07-22": "sub", "2022-07-23": "sub", "2023-06-18": "ALERT",
 }
 LANE_ROLE = {_TU: "uscg", _TC: "tsb"}
 TIER_ALERT = {"10:47:09", "10:47:32.3"}

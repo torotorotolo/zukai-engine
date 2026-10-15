@@ -3030,7 +3030,49 @@ REC_M22 = dict(
     shell=dict(left="鋼かチタンの球", right="炭素繊維の筒"),   # TSB §1.13「typically constructed of steel or titanium」「typically spherical」
     #   tc＝USCG p274「where the material is primarily under tension」（旅客機の胴体＝中から外へ押す）・「less effective」（深い海の殻＝外から押しつぶす）
     tc={"旅客機の胴体": True, "深い海の殻": False},         # 矢印が外向きか
+    # 🆕 ⑤b-5（2026-10-15）：第8〜9章（原文＝ref/ep22/src/ep22_pages.txt・頁は cuts/ss.REC_DOCS の通し番号）
+    #   cards＝(題, 中身, 役)。USCG p118「Grafil 37-800, supplied by Mitsubishi Chemical Carbon Fiber & Composites Inc.」・p174「Toray Composite Materials
+    #     America’s」（期限切れの材料の話は3冊に無い＝台本 ②）・NTSB p1027「The model pressure vessel … imploded」「stopped at 2,500 meters … going to fail」・
+    #     TSB §1.12.2「creating the cylinder in 5 layers, each of which was cured separately」「a layer of adhesive was applied」・§1.16「would reasonably have been
+    #     expected to survive」「more than 82% of its fatigue life」・§1.12.2「detect damage in real time」・§2.1「was therefore unknown」・USCG p289「strongly
+    #     suggests」・NTSB p1059「likely sustained damage」・TSB §1.10.10.1「it cannot be determined」・NTSB p1031「based on the acoustic activity of the v1 pressure
+    #     vessel … and of the sub-scale pre-preg pressure vessels」・p1065「never produced the type of acoustic emission signal that would have triggered an alert」
+    cards=dict(wind2=(("1つ目の筒", "樹脂の槽をくぐる糸", "LINE"), ("2つ目の筒", "樹脂を含ませたテープ", "sub")),
+               mat=(("1つ目の筒の糸", "三菱ケミカル系", "LINE"), ("2つ目の筒のテープ", "東レの米国の会社", "sub"), ("期限切れの安い材料", "3つの報告書に無い", "ALERT")),
+               m20=(("1つ目の模型", "壊れた", "ALERT"), ("2つ目の模型", "寸前で試験を止めた", "ALERT")),
+               cure=(("1層を巻く", "テープを巻く", "INK_W"), ("固める", "真空の袋で", "INK_W"), ("接着剤の膜", "表面に塗る", "INK_W"), ("次の層へ", "上に重ねる", "INK_W")),
+               life=(("いちばん強い試料", "耐えた見込み", "tsb"), ("いちばん弱い試料", "82%超を使った可能性", "ALERT")),
+               path=(("壊れるまでの回数", "", "LINE"), ("音の監視", "その場で分かる", "company")),
+               views=(("米沿岸警備隊", "強く示す", "uscg"), ("米運輸安全委員会", "可能性が高い", "ntsb"), ("カナダの調べ", "決められない", "tsb")),
+               base=(("1つ目の船体と模型", "その音を使う", "company"), ("警告の基準", "30回で黄・50回で赤", "company"), ("2つ目の船体", "警告にならず", "sub"))),
+    life=0.82,
+    groove=dict(groove_in=5.0, end_in=5.166),   # NTSB p1043「could only accommodate a 5-inch-thick cylinder」「5.166 inches and 5.175 inches thick」
+    coupons=(9, 9),                             # TSB §1.15「18 samples, 9 in the axial direction and 9 in the circumferential direction」
+    shelf=dict(req=1.25, circ=1.11),            # TSB §1.12.2「changed its safety factor to 1.25」・§1.15「the calculated safety factor was 1.11」
+    #   d80＝NTSB 図19（p1052）を原寸で読んだ点（映像方針・±2分）・音の山＝USCG p283「At 3:26:45 p.m.」（浮上の終わり＝USCG p234「nearing the surface」）
+    d80=(("7:35", 0.0), ("10:05", 3840.0), ("13:35", 3840.0), ("15:16", 0.0)), d80_bang="15:26:45",
+    rtm=dict(ae=8, dead=3, sg=8),               # NTSB p1031「eight acoustic emission sensors, eight circumferential (hoop) strain gages, and eight longitudinal」
+    #                                             「Hoop and longitudinal strain gages were co-located」・p1051「Three of the eight acoustic sensors」
+    ae=dict(up="15:17", esc="15:25:56", peak="15:26:45", band=("15:15", "15:30")),   # USCG p283・p286・NTSB p1052「between about 1515 and 1530」
+    grind={1: 1, 2: 8, 3: 14, 4: 24},          # USCG 図143（p180）の表「Ground wrinkles」1・8・14・24・N/A（原寸で読んだ）
+    year22=dict(year="2022", n=13, deep=7),     # USCG p235「While 7 of the 13 dives reached the TITANIC depth of 3840 m」・NTSB p1035「seven times」
+    screen=dict(y=30, r=50),                    # NTSB p1031「30 hits … a yellow display warning. If 50 hits were detected, a red warning」
+    ruler_role=dict(goal="company", op="company", fail="company", test="company", w650="uscg", w1k="ntsb"),
 )
+REC_M22["paper"].update(
+    # 🆕 ⑤b-5：TSB §1.15・USCG p233＋p311（80回目）・USCG p233＋NTSB p1036（会社の説明）・USCG p290（CEO の指示・見方）。英字は原文のまま（行の切れ目だけ入れた）
+    tsb115=["Assuming that the test results from the samples", "are representative of the properties of the carbon fibre cylinder",
+            "it was unsafe for the Titan to have been repeatedly exposed", "to pressures equivalent to the depth of the Titanic or deeper"],
+    u80=["the TITAN became entangled in the TITANIC’s stairwell", "For a moment, the TITAN remained trapped", "no incident report was filed for this event."],
+    shift=["a shift in the TITAN’s position within its frame", "told the hull had shifted in its metal cradle"],
+    u290a=["directed that no further investigation or assessments", "were necessary ahead of the next scheduled 2022 dive",
+           "or during the TITAN’s extended layup period"],
+    u290b=["neither the Director of Engineering", "nor anyone else onboard with the authority", "to assess the submersible’s safety",
+           "possessed the necessary engineering expertise", "to interpret the strain gauge data"])
+REC_M22["say"]["again"] = ("company", (("“Let’s dive again and see what happens”",),))       # NTSB p1036
+REC_M22["none"]["insp"] = ("内張りを外して見る", "休ませて詳しく調べる")                       # USCG p290「remove the TITAN’s insert or take … out of service」
+REC_M22["ruler"].update(test=4200.0, w650=650.0, w1k=1000.0)   # NTSB p1030「simulated maximum depth of 4,200 meters」・USCG p278「only 650 m」・NTSB p1030「1,000 meters」
+REC_M22["clock"] |= {"15:15", "15:17", "15:30", "15:26:45"}
 _M22_NEED = (
     ("fuji", "coin", "on", "press", {"on"}, "1円玉と乗用車は、水の重さを見せてから"),
     ("side", "only", "on", "bolts", {"on"}, "「出入りはここだけ」は、外から締めるボルトを見せてから"),
@@ -3059,6 +3101,20 @@ _M22_NEED = (
     ("model", "fail", "on", "press", {"on"}, "ドームが壊れるのは、圧をかけてから"),
     ("klass", "design", "on", "soc", {"on"}, "確かめる中身は、船級協会を見せてから"),
     ("klass", "cert", "on", "test", {"on"}, "証明書は、試験に立ち会ってから"),
+    # 🆕 ⑤b-5（2026-10-15）
+    ("cards", "loop", "on", "n", {"4"}, "くり返しの矢印は、4つの箱を明るくしてから"),
+    ("groove", "cut", "on", "thick", {"on"}, "外側を削るのは、厚い端を見せてから"),
+    ("shelf", "tube", "on", "std", {"on"}, "この筒の線は、基準の線を見せてから"),
+    ("shelf", "spare", "on", "tube", {"on"}, "余裕は、この筒の線を見せてから"),
+    ("d80", "bang", "on", "line", {"on"}, "音の印は、深さの線を描いてから"),
+    ("d80", "who", "on", "bang", {"on"}, "聞いた人は、音の印を見せてから"),
+    ("rtm", "dead", "on", "ae", {"on"}, "拾わなかったセンサーは、センサーを見せてから"),
+    ("rtm", "squeeze", "on", "sg", {"on"}, "縮む矢印は、ひずみ計を見せてから"),
+    ("ae", "jump", "on", "peak", {"on"}, "ひずみの跳びは、音の山を見せてから"),
+    ("ae", "up", "on", "peak", {"on"}, "増え始めは、音の山を見せてから"),
+    ("stime", "hard", "on", "on", {"on"}, "比べにくい印は、線を描いてから"),
+    ("nonlin", "zones", "on", "bend", {"on"}, "浅い所と深い所の帯は、曲がった線を描いてから"),
+    ("screen", "reset", "on", "lv", {"on"}, "ゼロへ戻る矢印は、色の決まりを見せてから"),
 )
 NUM_M22 = re.compile(r"[0-9０-９]{1,2}[:：][0-9０-９]{2}(?:[:：][0-9０-９]{2})?|[0-9０-９][0-9０-９,.．]*")
 
@@ -3213,7 +3269,8 @@ def judge_m22(f):
             if any(s.get(k) == "on" for s in seq):
                 got = (y - g["y0"]) / px_m
                 need(abs(got - Rr[k]) < 1, f"② 物差しの {k} が画素から {got:.0f}m（記録 {Rr[k]:g}m）")
-                need(g["cols"][k].lower() == J.ROLE["company"].lower(), f"② 物差しの {k} の色が会社の役の色でない")
+                # 🆕 ⑤b-5：線の色＝その値を書いた調べの役（REC の ruler_role）。⑤b-4 の3本は会社
+                need(g["cols"][k].lower() == rc(R["ruler_role"][k]).lower(), f"② 物差しの {k} の色が役の色（{R['ruler_role'][k]}）でない")
         if any(s.get("ratio") == "on" for s in seq):
             need(g["ratio_n"] * Rr["titanic"] <= Rr["fail"] < (g["ratio_n"] + 1) * Rr["titanic"], "② 「何倍」の箱の数が記録の比と合わない")
             for t in texts:
@@ -3236,6 +3293,93 @@ def judge_m22(f):
         need(tuple(g["chk"]) == R["klass"], f"② 船級の確かめの中身 {g['chk']} が記録（NTSB p22）と違う")
     if view == "meet":
         need(tuple(g["seats"]) == R["meet"], f"② 会合の席 {g['seats']}（記録＝CEO・運航部長・社員3人＝TSB §1.12.1）")
+    # 🆕 ⑤b-5（2026-10-15）：第8〜9章
+    if view == "cards":
+        want = R["cards"].get(g["set"])
+        need(want is not None and tuple(g["cards"]) == want, f"② 要点の箱 {g['set']} {g['cards']} が記録と違う")
+        need(all(c.lower() == rc(r).lower() for c, (_, _, r) in zip(g["cols"], g["cards"])), "② 要点の箱の色が役の色でない")
+        if g["set"] == "life":
+            need(abs(g["life"] - R["life"]) < 1e-9 and any(f"{round(R['life'] * 100)}%" in b for _, b, _ in g["cards"]),
+                 f"② 疲れの寿命の塗り {g['life']}（記録 {R['life']}＝TSB §1.16）")
+    if view == "groove":
+        Rg = R["groove"]
+        need(abs(g["groove_px"] / g["px_cm"] - Rg["groove_in"] * 2.54) < 0.01, f"② 溝の幅が記録（{Rg['groove_in']}インチ＝NTSB p1043）と違う")
+        need(abs(g["end_px"] / g["px_cm"] - Rg["end_in"] * 2.54) < 0.01, f"② 端の厚さが記録（{Rg['end_in']}インチ＝NTSB p1043）と違う")
+        need(g["end_px"] > g["groove_px"], "② 端が溝より薄い（記録＝厚すぎて外側を削った）")
+        for t in texts:
+            mm = re.search(r"約([0-9.]+)センチ", t)
+            if mm:
+                need(abs(float(mm.group(1)) - Rg["end_in"] * 2.54) < 0.05, f"② 札「{t}」が端の厚さの記録（{Rg['end_in']}インチ）と違う")
+    if view == "coupons":
+        got = (sum(1 for k, _, _ in g["rects"] if k == "axial"), sum(1 for k, _, _ in g["rects"] if k == "circ"))
+        need(got == R["coupons"], f"② 試料の数 {got}（記録 {R['coupons']}＝TSB §1.15）")
+        need(all((h > w) == (k == "axial") for k, w, h in g["rects"]), "② 試料の向き（長さ＝縦長・周り＝横長）が逆")
+        for t in texts:
+            mm = re.search(r"(長さ|周り)の向き\s*([0-9]+)", t)
+            if mm:
+                need(int(mm.group(2)) == R["coupons"][0 if mm.group(1) == "長さ" else 1], f"② 札「{t}」が試料の数の記録と違う")
+    if view == "shelf":
+        Rs = R["shelf"]
+        need(abs(g["req"] - Rs["req"]) < 1e-9 and abs(g["circ"] - Rs["circ"]) < 1e-9, f"② 安全率（基準 {g['req']}・周りの向き {g['circ']}）が記録と違う")
+        need(tuple(g["labs"]) == (f"{round(g['load'] * Rs['req'])}キロまで", f"{round(g['load'] * Rs['circ'])}キロまで"),
+             f"② 棚の札 {g['labs']} が安全率の比と合わない")
+        need(abs((g["gy0"] - g["y_req"]) / g["px_kg"] - g["load"] * Rs["req"]) < 0.5
+             and abs((g["gy0"] - g["y_circ"]) / g["px_kg"] - g["load"] * Rs["circ"]) < 0.5, "② 棚の線の高さが安全率の比と合わない")
+    if view == "d80":
+        D = g["D"]
+
+        def _tm(x):
+            return D["t0"] + (x - D["x0"]) / (D["x1"] - D["x0"]) * (D["t1"] - D["t0"])
+        for (t, _m, (x, y)), (tw, mw) in zip(g["pts"], R["d80"]):
+            dd = (y - D["y0"]) / (D["y1"] - D["y0"]) * D["d1"]
+            need(abs(_tm(x) - _m22_min(tw)) < 0.05 and abs(dd - mw) < 1.0, f"② 80回目の深さの点 {tw} {mw:g}m が画素から {_tm(x):.2f}分・{dd:.0f}m")
+        need(len(g["pts"]) == len(R["d80"]), "② 80回目の深さの点の数が記録と違う")
+        bt, (bx, by) = g["bang"]
+        need(bt == R["d80_bang"] and abs(_tm(bx) - _m22_min(bt)) < 0.05 and abs(by - D["y0"]) < 0.5,
+             f"② 大きな音の印が記録の時刻（{R['d80_bang']}＝USCG p283）か海面の線に無い")
+    if view == "rtm":
+        Rr = R["rtm"]
+        need(len(g["ae"]) == Rr["ae"] and sum(1 for d in g["ae"] if d) == Rr["dead"] and g["sg"] == Rr["sg"],
+             f"② 監視装置の数（センサー {len(g['ae'])}・拾わず {sum(1 for d in g['ae'] if d)}・ひずみ計の場所 {g['sg']}）が記録（NTSB p1031・p1051）と違う")
+    if view == "ae":
+        Ra = R["ae"]
+        need((g["up"], g["esc"], g["peak"], tuple(g["band"])) == (Ra["up"], Ra["esc"], Ra["peak"], Ra["band"]),
+             "② 音の記録の時刻が記録（USCG p283・NTSB p1052）と違う")
+        need(abs(g["jump_x"] - g["peak_x"]) < 0.5, "② ひずみの跳びが音の山と同じ時刻に無い（USCG p286「coincided」）")
+        D = g["D"]
+        for t, x in g["x_of"].items():
+            tt = D["t0"] + (x - D["x0"]) / (D["x1"] - D["x0"]) * (D["t1"] - D["t0"])
+            need(abs(tt - _m22_min(t)) < 0.02, f"② 音の記録の {t} が画素から {tt:.2f}分")
+    if view == "ctrl":
+        need(g["plain"][0] != g["plain"][1] and g["flip"][0] == g["flip"][1], "② そのまま＝向きが逆・逆さに持つ＝そろう、になっていない（USCG p235）")
+    if view == "stime":
+        d = g["dives"]
+        need(len(d) >= 2 and all(a[1] < b[0] for a, b in zip(d, d[1:])), "② 潜航ごとの線が横に並んでいない（NTSB p1051）")
+    if view == "nonlin":
+        st_, bent = g["straight"], g["bent"]
+        k0 = (st_[1][0] - st_[0][0]) / (st_[1][1] - st_[0][1])
+        k1 = (bent[-1][0] - bent[-2][0]) / (bent[-1][1] - bent[-2][1])
+        need(abs(k0 - k1) < 1e-6, "② 深い所の線がまっすぐな線と平行でない（NTSB p1059＝深い所はまとまって動く）")
+        need(any(abs(x - (st_[0][0] + k0 * (y - st_[0][1]))) > 5 for x, y in bent if y <= g["gy0"] + g["sh"]),
+             "② 浅い所で線が曲がっていない（NTSB p1059）")
+        need(g["gauge_x"] < g["cyl"][0] + (g["cyl"][1] - g["cyl"][0]) * 0.1, "② ひずみ計が筒の前の端に無い（NTSB p1059）")
+    if view == "screen":
+        need((g["y"], g["r"]) == (R["screen"]["y"], R["screen"]["r"]), f"② 画面の決まり（黄 {g['y']}・赤 {g['r']}）が記録（NTSB p1031）と違う")
+    if view == "layers" and any(s.get("grind") == "on" for s in seq):
+        need(g["grind"] == R["grind"], f"② 削ったしわの数 {g['grind']}（記録 {R['grind']}＝USCG 図143）")
+    if view == "dives" and any(s.get("y22") == "on" for s in seq):
+        Ry = R["year22"]
+        rows = [r for r in R["appb"] if r[0].startswith(g["year"])]
+        need(g["year"] == Ry["year"] and len(rows) == Ry["n"] and sum(1 for r in rows if r[1] == R["deep"]) == Ry["deep"],
+             f"② 残した年 {g['year']}（記録 {Ry['year']}年＝{Ry['n']}回のうち{Ry['deep']}回）")
+        for t in texts:
+            mm = re.search(r"([0-9]+)回のうち([0-9]+)回", t)
+            if mm:
+                need((int(mm.group(1)), int(mm.group(2))) == (Ry["n"], Ry["deep"]), f"② 札「{t}」が記録（USCG p235）と違う")
+    if view == "bow" and any(s.get("hit") == "on" for s in seq):
+        tx, ty = g["tip"]
+        hx, hy = g["hit"]
+        need(hx < tx - g["w"] * 0.8 and ty < hy < ty + 400, "② ぶつかった印が左舷の船首（北が上の左の縁）に無い（TSB 付録B「port bow」）")
     said = [r.get("t", "") for r in m["rel"]]
     for t in texts:
         for mm in NUM_M22.finditer(t):
@@ -3289,6 +3433,30 @@ def _selftest_m22(ok):
         klass=dict(view="klass", steps=[dict(state=dict(soc="on", design="on")), dict(state=dict(test="on", cert="on"))], note=N),
         meet=dict(view="meet", steps=[dict(state=dict(rec="on"))], note=N),
         paper_mts=dict(view="paper", start=dict(doc="mts"), steps=[dict(state=dict(hl1="on", hl5="on"))], note=N),
+        # 🆕 ⑤b-5（2026-10-15）
+        cards=dict(view="cards", start=dict(set="views"), steps=[dict(state=dict(n="2")), dict(state=dict(n="3"))], note=N),
+        cure=dict(view="cards", start=dict(set="cure"), steps=[dict(state=dict(n="4", loop="on"))], note=N),
+        life=dict(view="cards", start=dict(set="life"), steps=[dict(state=dict(n="2"))], note=N),
+        groove=dict(view="groove", steps=[dict(state=dict(thick="on"), tag=dict(t="端材 約13.1センチ", at="w")), dict(state=dict(cut="on"))],
+                    rel=[dict(t="約13.1センチ", src="NTSB p1043")], note=N),
+        coupons=dict(view="coupons", steps=[dict(state=dict(cut="on"), tag=[dict(t="長さの向き 9", at="a"), dict(t="周りの向き 9", at="c")])],
+                     rel=[dict(t="9", src="TSB §1.15")], note=N),
+        shelf=dict(view="shelf", steps=[dict(state=dict(load="on", std="on")), dict(state=dict(tube="on", spare="on"))], note=N),
+        d80=dict(view="d80", steps=[dict(state=dict(line="on", bang="on")), dict(state=dict(who="on"))], note=N),
+        rtm=dict(view="rtm", steps=[dict(state=dict(ae="on", sg="on")), dict(state=dict(squeeze="on", dead="on"))], note=N),
+        ae=dict(view="ae", steps=[dict(state=dict(peak="on")), dict(state=dict(jump="on", up="on", band="on"), tag=dict(t="15:15〜15:30ごろ", at="band"))],
+                rel=[dict(t="15:15〜15:30", src="NTSB p1052")], note=N),
+        ctrl=dict(view="ctrl", steps=[dict(state=dict(flip="on"))], note=N),
+        stime=dict(view="stime", steps=[dict(state=dict(on="on")), dict(state=dict(hard="on"))], note=N),
+        nonlin=dict(view="nonlin", steps=[dict(state=dict(bend="on", zones="on")), dict(state=dict(fwd="on"))], note=N),
+        screen=dict(view="screen", steps=[dict(state=dict(lv="on")), dict(state=dict(mute="on", reset="on"))], note=N),
+        grind=dict(view="layers", steps=[dict(state=dict(grind="on"))], note=N),
+        dives22=dict(view="dives", steps=[dict(state=dict(y22="on")), dict(state=dict(reach="on"), tag=dict(t="13回のうち7回", at="t"))],
+                     rel=[dict(t="13回のうち7回", src="USCG p235")], note=N),
+        bowhit=dict(view="bow", steps=[dict(state=dict(hit="on"))], note=N),
+        ruler_mid=dict(view="ruler", start=dict(z="mid"), steps=[dict(state=dict(test="on", w650="on", w1k="on"))], note=N),
+        paper_u80=dict(view="paper", start=dict(doc="u80"), steps=[dict(state=dict(hl1="on", hl3="on"))], note=N),
+        say_again=dict(view="say", start=dict(set="again"), steps=[dict(state=dict(n="1"))], note=N),
     )
     for nm, kw in good.items():
         bad, n = judge("m22", kw)
@@ -3323,7 +3491,26 @@ def _selftest_m22(ok):
             ("ドームの壊れた深さを3,500メートルにする", "MD_DOME_M", 3500.0, "ドームが壊れた", "model"),
             ("船級の確かめに「検査」を足す", "KL_CHK", M.KL_CHK + ("検査をする",), "船級", "klass"),
             ("会合を社員4人にする", "MT_SEATS", M.MT_SEATS + (("社員", 1300.0, 440.0),), "会合の席", "meet"),
-            ("押しつぶしの矢印を外向きにする", "TC_SIDE", (M.TC_SIDE[0], M.TC_SIDE[1][:4] + (True,)), "矢印の向き", "tc")):
+            ("押しつぶしの矢印を外向きにする", "TC_SIDE", (M.TC_SIDE[0], M.TC_SIDE[1][:4] + (True,)), "矢印の向き", "tc"),
+            # 🆕 ⑤b-5（2026-10-15）
+            ("カナダの見方を「示す」と書く", "CD", dict(M.CD, views=dict(M.CD["views"], cards=M.CD["views"]["cards"][:2] + (("カナダの調べ", "示す", "tsb", None, None),))),
+             "要点の箱", "cards"),
+            ("疲れの寿命の塗りを0.9にする", "CD_LIFE", 0.9, "疲れの寿命", "life"),
+            ("溝を5.2インチで描く", "GV_IN", 5.2, "溝の幅", "groove"),
+            ("試料を長さの向き8つにする", "CP_N", (8, 9), "試料の数", "coupons"),
+            ("周りの向きを1.21にする", "SV_CIRC", 1.21, "安全率", "shelf"),
+            ("10:05 を10:15 で描く", "D80_PTS", (M.D80_PTS[0], ("10:15", 3840.0)) + M.D80_PTS[2:], "80回目の深さの点", "d80"),
+            ("拾わなかったセンサーを2つにする", "RT_AE", M.RT_AE[:4] + ((0.80, 0.58, False),) + M.RT_AE[5:], "監視装置の数", "rtm"),
+            ("音の山を15:27:45 にする", "AE_PEAK", "15:27:45", "音の記録", "ae"),
+            ("逆さに持っても向きが逆のまま", "ctrl_dirs", lambda flip: (1, -1), "そのまま", "ctrl"),
+            ("黄の決まりを40にする", "SC_Y", 40, "画面の決まり", "screen"),
+            ("4枚目のしわを20にする", "LY_GRIND", {1: 1, 2: 8, 3: 14, 4: 20}, "削ったしわ", "grind"),
+            ("残す年を2021年にする", "DV_YEAR", "2021", "残した年", "dives22"),
+            ("ぶつかった印を右舷に置く", "bw_hit", lambda: (M.BW_["tip"][0] + M.BW_["w"] + 4, M.BW_["tip"][1] + 170.0), "左舷", "bowhit"),
+            ("試験の最も深い所を4,000メートルにする", "RL_M", dict(M.RL_M, test=(4000.0,) + M.RL_M["test"][1:]), "物差しの test", "ruler_mid"),
+            ("窓の1,000メートルを会社の色にする", "RL_M", dict(M.RL_M, w1k=M.RL_M["w1k"][:2] + ("company",)), "物差しの w1k", "ruler_mid"),
+            ("80回目の句を言い換える", "PP_DOC", dict(M.PP_DOC, u80=dict(M.PP_DOC["u80"], lines=("the TITAN got stuck",) + M.PP_DOC["u80"]["lines"][1:])),
+             "書類の句", "paper_u80")):
         keep = getattr(M, attr)
         setattr(M, attr, val)
         try:
@@ -3348,7 +3535,16 @@ def _selftest_m22(ok):
             ("分かれる前に押されて曲がる", dict(view="buckle", steps=[dict(state=dict(press="on"))], note=N), "① 筋"),
             ("海面を探す前に外に知らせる", dict(view="proto", steps=[dict(state=dict(wait="on", out="on"))], note=N), "① 筋"),
             ("層の厚さを約3センチと書く", dict(view="layers", steps=[dict(tag=dict(t="約3センチ", at="th"))], rel=[dict(t="約3センチ", src="x")], note=N),
-             "1インチ")):
+             "1インチ"),
+            # 🆕 ⑤b-5（2026-10-15）
+            ("深さの線の前に音の印", dict(view="d80", steps=[dict(state=dict(bang="on"))], note=N), "① 筋"),
+            ("音の山の前にひずみの跳び", dict(view="ae", steps=[dict(state=dict(jump="on"))], note=N), "① 筋"),
+            ("端材の厚さを約13.5センチと書く", dict(view="groove", steps=[dict(state=dict(thick="on"), tag=dict(t="約13.5センチ", at="w"))],
+                                             rel=[dict(t="約13.5センチ", src="x")], note=N), "端の厚さ"),
+            ("札の時刻が記録に無い（15:20）", dict(view="ae", steps=[dict(state=dict(peak="on"), tag=dict(t="15:20", at="peak"))],
+                                           rel=[dict(t="15:20", src="x")], note=N), "記録の時刻"),
+            ("13回のうち6回と書く", dict(view="dives", steps=[dict(state=dict(y22="on"), tag=dict(t="13回のうち6回", at="t"))],
+                                      rel=[dict(t="13回のうち6回", src="x")], note=N), "USCG p235")):
         bad, _ = judge("m22", kw)
         g_ = any(key in b for b in bad)
         ok &= g_

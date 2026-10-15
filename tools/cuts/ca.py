@@ -96,3 +96,180 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5（2026-10-15）：図解 第9章（23カット）＝模式図 `tools/mech22.py`・時間の帯（axis）・棒（qty）
+# ══════════════════════════════════════════════════════════
+#   🔴 章の札「2022年7月15日の音」と4字以上同じ並び（「2022年」「7月15日」）を見出し・副題に入れない（門番 dup）。字は12字未満（門番 echo）。
+#      写真 ca03 と NTSB 図21 の頁 ca17・ca18 は ⑤b-7
+_N_PP = "句は米沿岸警備隊の報告書（英字のまま・模式）"
+_N_SAY = "人の形は模式（顔は描かない）"
+SPEC.update({
+    # ca01（2行）＝🔧 再現→点（付録B の潜航・2022年の段だけ残す）。聞き役の問い→人が乗った潜航13回のうち7回がタイタニックの深さまで
+    "ca01": dict(
+        t="次の年の夏", s="人が乗った潜航",
+        fig=("m22", dict(view="dives", steps=[dict(state=dict(y22="on")), dict(state=dict(reach="on"), tag=dict(t="13回のうち7回", at="t"))],
+                         rel=[dict(t="13回のうち7回", src="USCG p235")],
+                         note="点の並びは模式（カナダの報告書 付録B の行）", src=ss.src(["TSB §付録B", "USCG p235", "NTSB p1035"]))),
+    ),
+    # ca02（3行）＝🔧 再現→上から見た船首（見る向き＝上から・北が上）。7月3日、左舷の船首にぶつかる→回収のときに動けず→聞き役
+    "ca02": dict(
+        t="船首にぶつかる", s="7月3日の潜航",
+        fig=("m22", dict(view="bow", steps=[dict(state=dict(hit="on"), tag=dict(t="左舷の船首", at="hit", col=J.ALERT)),
+                                            dict(tag=dict(t="回収で動けず", at="hit2")), dict()],
+                         note="位置は模式（カナダの報告書 付録B の備考）", src=ss.src(["TSB §付録B", "TSB §2.1.3"]))),
+    ),
+    # ca04（2行）＝米沿岸警備隊の報告書の要点（80回目＝7月15日の階段の吹き抜け）。少しのあいだ動けず→事故の報告は出されなかった
+    #   ⚠️ 語りは ca02（7月3日）の続きに聞こえる＝紙の見出しで「80回目（2022年7月15日）」と出す（次の ca05「その帰り」と合う）
+    "ca04": dict(
+        t="引っかかった艇", s="報告されず",
+        fig=("m22", dict(view="paper", start=dict(doc="u80"), steps=[dict(state=dict(hl1="on", hl2="on")), dict(state=dict(hl3="on"))],
+                         note=_N_PP, src=ss.src(["USCG p233", "USCG p311"]))),
+    ),
+    # ca05（2行）＝🔧 80回目の深さの線（NTSB 図19 を原寸で読んだ点）。浮上の終わりの大きな音（海面の線）→中の人と海面の小舟の人が聞いた
+    "ca05": dict(
+        t="海面の近くの音", s="その日の帰り",
+        fig=("m22", dict(view="d80", steps=[dict(state=dict(line="on", bang="on"), tag=dict(t="大きな音", at="bang", col=J.ALERT)),
+                                            dict(state=dict(who="on"), tag=[dict(t="海面の小舟", at="boat", col=J.SHIP), dict(t="艇の中", at="inner", col=J.SUB)])],
+                         note="線は米運輸安全委員会の図19 を原寸で読んだ点（±2分・あいだは直線＝模式）・元は会社の記録",
+                         src=ss.src(["NTSB p1052", "USCG p283", "USCG p234", "NTSB p1036"]))),
+    ),
+    # ca06（3行）＝聞き役の問い→音のセンサー8・ひずみ計16→ひずみ＝押されて少し縮む
+    "ca06": dict(
+        t="監視の装置", s="音とひずみ",
+        fig=("m22", dict(view="rtm", steps=[dict(), dict(state=dict(ae="on", sg="on"), tag=[dict(t="音のセンサー 8", at="t1", col=J.INK_W),
+                                                                                        dict(t="ひずみ計 16", at="t2", col=J.AMBER)]),
+                                            dict(state=dict(squeeze="on"), tag=dict(t="押されて少し縮む", at="l2", col=J.INK_W))],
+                         rel=[dict(t="8", src="NTSB p1031"), dict(t="16", src="NTSB p1031（輪の向き8・長さの向き8）")],
+                         note="位置は模式（米沿岸警備隊の報告書 図105 をもとに）・ひずみ計は1か所に2つ", src=ss.src(["NTSB p1031", "USCG p139"]))),
+    ),
+    # ca07（2行）＝米沿岸警備隊の分析。15:26:45 に大きな音の山→同じ瞬間にひずみも跳ぶ
+    "ca07": dict(
+        t="音の山", s="装置がとらえた",          # ⚠️ 門番 echo：「米沿岸警備隊の分析」は語りの写し
+        fig=("m22", dict(view="ae", steps=[dict(state=dict(peak="on"), tag=dict(t="15:26:45", at="peak", col=J.ALERT)),
+                                           dict(state=dict(jump="on"), tag=dict(t="同じ瞬間に跳ぶ", at="jump", col=J.ALERT))],
+                         rel=[dict(t="15:26:45", src="USCG p283")],
+                         note="線の形は模式（記録の時刻だけ）・元は会社の記録", src=ss.src(["USCG p283", "USCG p286"]))),
+    ),
+    # ca08（2行）＝同じ図。15:17ごろから増え始め（米沿岸警備隊）→米運輸安全委員会は 15:15〜15:30ごろの幅
+    "ca08": dict(
+        t="増え始め", s="2つの書き方",
+        fig=("m22", dict(view="ae", start=dict(peak="on", jump="on"),
+                         steps=[dict(state=dict(up="on"), tag=dict(t="15:17ごろから", at="up", col=J.USCG)),
+                                dict(state=dict(band="on"), tag=dict(t="15:15〜15:30ごろ", d="米運輸安全委員会", at="band", col=J.OK))],
+                         rel=[dict(t="15:17", src="USCG p283"), dict(t="15:15〜15:30", src="NTSB p1052")],
+                         note="線の形は模式（記録の時刻だけ）・元は会社の記録", src=ss.src(["USCG p283", "NTSB p1052"]))),
+    ),
+    # ca09（2行）＝会社の説明（艇が枠の中でずれた）→社員と客にもそう伝えられた
+    "ca09": dict(
+        t="会社の結論", s="ずれた音",
+        fig=("m22", dict(view="paper", start=dict(doc="shift"), steps=[dict(state=dict(hl1="on")), dict(state=dict(hl2="on"))],
+                         note="句は米国の2つの報告書の記述（英字のまま・模式）", src=ss.src(["USCG p233", "NTSB p1036"]))),
+    ),
+    # ca10（3行）＝聞き役の問い→外から見ただけ・内張りは外さず（×）→休ませて詳しく調べることもしなかった（×）
+    "ca10": dict(
+        t="見なかった所", s="内張りの内側",
+        fig=("m22", dict(view="none", start=dict(set="insp"),
+                         steps=[dict(), dict(state=dict(n="1"), tag=dict(t="外から見ただけ", at="t", col=J.COMPANY)), dict(state=dict(n="2"))],
+                         note="欄は要点（模式）", src=ss.src(["USCG p289", "USCG p290"]))),
+    ),
+    # ca11（2行）＝人の言葉（CEO が当時の技術部長に）。2行目で吹き出し
+    "ca11": dict(
+        t="CEO の言葉", s="技術部長へ",
+        fig=("m22", dict(view="say", start=dict(set="again"), steps=[dict(), dict(state=dict(n="1"))],
+                         note=_N_SAY + "・英字は米運輸安全委員会の報告書が引く言葉", src=ss.src(["NTSB p1036"]))),
+    ),
+    # ca12（2行）＝CEO の指示（次の潜航の前・冬の休みのあいだ）→それ以上の調べは要らない
+    "ca12": dict(
+        t="調べは要らない", s="冬の休みも",
+        fig=("m22", dict(view="paper", start=dict(doc="u290a"), steps=[dict(state=dict(hl2="on", hl3="on")), dict(state=dict(hl1="on"))],
+                         note=_N_PP, src=ss.src(["USCG p290"]))),
+    ),
+    # ca13（3行）＝米沿岸警備隊の見方（技術部長も、判断する立場の誰も→ひずみのデータを読み解く専門の力が無かった）→聞き役
+    "ca13": dict(
+        t="読める人がいない", s="専門の力",
+        fig=("m22", dict(view="paper", start=dict(doc="u290b"),
+                         steps=[dict(state=dict(hl1="on", hl2="on", hl3="on")), dict(state=dict(hl4="on", hl5="on")), dict()],
+                         note=_N_PP, src=ss.src(["USCG p290"]))),
+    ),
+    # ca14（2行）＝年表（2022年7月）。80回目（15日）のあと 19日 81回目・22日 82回目→23日 83回目（別の場所・2,954メートル）
+    "ca14": dict(
+        t="続けた潜航", s="4日後から",
+        fig=("axis", dict(ss.AX_J22, past=[ss.ax("d80")], start=dict(cur="2022-07-15"),
+                          steps=[dict(add=[ss.ax("d81"), ss.ax("d82")], cur="2022-07-22"), dict(add=[ss.ax("d83"), ss.ax("d83m")], cur="2022-07-23")],
+                          note="日付は米国の2つの報告書とカナダの報告書 付録B", src=ss.src(["NTSB p1036", "USCG p235", "TSB §付録B", "NTSB p1051"]))),
+    ),
+    # ca15（1行）＝🔧 再現→模式。81回目＝推進器の操作が逆→操縦士はコントローラーを逆さに持って続けた
+    "ca15": dict(
+        t="操作の向き", s="19日の潜航",
+        fig=("m22", dict(view="ctrl", steps=[dict(state=dict(flip="on"), tag=dict(t="逆さに持って続ける", at="flip", col=J.SUB))],
+                         note="形は模式（米沿岸警備隊の報告書の記述）", src=ss.src(["USCG p235", "USCG p311"]))),
+    ),
+    # ca16（2行）＝会社はひずみを時刻に沿って並べた→米運輸安全委員会＝潜航どうしを比べにくい
+    "ca16": dict(
+        t="時刻に沿った線", s="潜航ごとに横並び",
+        fig=("m22", dict(view="stime", steps=[dict(state=dict(on="on")), dict(state=dict(hard="on"), tag=dict(t="比べにくい", d="米運輸安全委員会", at="hard", col=J.OK))],
+                         note="線の形は模式（値ではない）", src=ss.src(["NTSB p1051", "NTSB p1064"]))),
+    ),
+    # ca19（3行）＝聞き役の問い→層のはがれ＝浅い所は別々に動き、深い所はまとまって動く→計器は筒の前の端＝傷みはそこまで
+    "ca19": dict(
+        t="浅い所の曲がり", s="層のはがれ",
+        fig=("m22", dict(view="nonlin", steps=[dict(), dict(state=dict(bend="on", zones="on"), tag=[dict(t="浅い所＝別々に動く", at="sh", col=J.ALERT),
+                                                                                                dict(t="深い所＝まとまる", at="deep", col=J.INK_W)]),
+                                               dict(state=dict(fwd="on"), tag=dict(t="計器は筒の前の端", at="fwd", col=J.AMBER))],
+                         note="線と形は模式（米運輸安全委員会の説明）", src=ss.src(["NTSB p1059"]))),
+    ),
+    # ca20（2行）＝棒（浅い所 10〜300m の傾きの増え）。カナダの調べも計算→2021年8月5日 21%・2022年7月19日 98%
+    "ca20": dict(
+        t="傾きの比べ", s="カナダの計算",
+        fig=("qty", dict(view="bar", groups=[ss.QG["slope"]], steps=[dict(), dict(add=[ss.qb("slope21"), ss.qb("slope22")])],
+                         note="その潜航の全体の傾きと比べた増え（10〜300メートル）", src=ss.src(["TSB §1.10.10.1"]))),
+    ),
+    # ca21（2行）＝3つの見方。アメリカの2つの調べ＝あの潜航の終わりに層のはがれの形で傷んだ可能性が高い
+    "ca21": dict(
+        t="アメリカの見方", s="2つの調べ",
+        fig=("m22", dict(view="cards", start=dict(set="views"), steps=[dict(state=dict(n="2")), dict(tag=dict(t="80回目の終わり", d="層のはがれ", at="low"))],
+                         rel=[dict(t="80回目", src="USCG p289・NTSB p1059")],
+                         note="要点（模式）", src=ss.src(["USCG p289", "NTSB p1059"]))),
+    ),
+    # ca22（3行）＝同じ並び。カナダの調べ＝決められない（会社が音のあと船体をきちんと調べなかった）→聞き役
+    "ca22": dict(
+        t="決めない理由", s="会社が調べず",
+        fig=("m22", dict(view="cards", start=dict(set="views", n="2"),
+                         steps=[dict(state=dict(n="3")), dict(tag=dict(t="船体を調べず", d="カナダの調べ", at="low3", col=J.INST)), dict()],
+                         note="要点（模式）", src=ss.src(["TSB §1.10.10.1"]))),
+    ),
+    # ca23（2行）＝🔧 再現→模式（画面）。音の数 30で黄・50で赤→警報の音なし・潜航ごとにゼロへ
+    "ca23": dict(
+        t="画面の色", s="監視の決まり",
+        fig=("m22", dict(view="screen", steps=[dict(state=dict(lv="on")),
+                                               dict(state=dict(mute="on", reset="on"), tag=[dict(t="警報の音なし", at="mute", col=J.ALERT),
+                                                                                           dict(t="潜航ごとに0へ", at="reset")])],
+                         rel=[dict(t="0", src="NTSB p1031")],
+                         note="画面の形は模式（決まりは米運輸安全委員会とカナダの報告書）", src=ss.src(["NTSB p1031", "TSB §1.10.9"]))),
+    ),
+    # ca24（3行）＝🔧 再現→模式。音のセンサー8つのうち3つ→2022年の潜航で一度も拾わず（灰）→米沿岸警備隊＝無謀
+    "ca24": dict(
+        t="拾わない3つ", s="黙ったまま",
+        fig=("m22", dict(view="rtm", start=dict(ae="on"),
+                         steps=[dict(tag=dict(t="8つのうち3つ", at="t1", col=J.INK_W)),
+                                dict(state=dict(dead="on"), tag=dict(t="一度も拾わず", d="2022年の潜航", at="t2", col=J.TICK)),
+                                dict(tag=dict(t="無謀だった", d="米沿岸警備隊", at="l2", col=J.USCG))],
+                         rel=[dict(t="8つのうち3つ", src="NTSB p1051"), dict(t="2022年", src="NTSB p1051")],
+                         note="位置は模式（米沿岸警備隊の報告書 図105 をもとに・番号は描いていない）", src=ss.src(["NTSB p1051", "USCG p282", "USCG p139"]))),
+    ),
+    # ca25（3行）＝🔧 再現→模式（流れ）。警告の基準＝作り方の違う1つ目の船体と模型の音で決めた→2つ目の船体には警告にならず→聞き役
+    "ca25": dict(
+        t="基準の出どころ", s="別の作りの船体",
+        fig=("m22", dict(view="cards", start=dict(set="base"),
+                         steps=[dict(state=dict(n="2"), tag=dict(t="作り方が違う", at="a23", col=J.ALERT)), dict(state=dict(n="3")), dict()],
+                         note="流れは模式（米運輸安全委員会の報告書）", src=ss.src(["NTSB p1031", "NTSB p1064", "NTSB p1065"]))),
+    ),
+    # ca26（3行）＝年表（2022年7月〜2023年6月）。80回目の音→止めるべき赤信号（米沿岸警備隊）→最後の深い潜航（7月22日）から事故の潜航まで約11か月
+    "ca26": dict(
+        t="見送られた合図", s="次の夏まで",
+        fig=("axis", dict(ss.AX_2223, steps=[dict(add=[ss.ax("bang15")], cur="2022-07-15"), dict(add=[ss.ax("flag")]),
+                                              dict(add=[ss.ax("last82"), ss.ax("occ23"), ss.ax("m11")], cur="2023-06-18")],
+                          note="日付はカナダの報告書 付録B・赤信号は米沿岸警備隊の書き方", src=ss.src(["USCG p290", "NTSB p1060", "TSB §付録B"]))),
+    ),
+})
