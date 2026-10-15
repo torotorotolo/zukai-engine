@@ -3105,6 +3105,7 @@ REC_M22["risk"] = dict(day=35, strike=48, n=3)
 #     damage accumulating during each dive cycle」・§3.2「without any independent verification」
 REC_M22["cols"] = dict(
     heads=(("米沿岸警備隊", "uscg"), ("米運輸安全委員会", "ntsb"), ("カナダの調べ", "tsb")),
+    #   🔧 ⑤c'（10-15）：t2 は likely＝「とみられる」（TSB §3.1）。段の名は ed3ffec のまま（「（一部）」は ⑥ の前の注意＝mech22 の CL_TIER の注）
     tiers=(("主な要因", "その他の要因"), ("推定原因", "寄与"), ("原因と寄与", "危険の所見")),
     items=dict(u0=(0, 1, (("確立した手順に従わず", "company"),)),
                u8=(0, 1, (("設計と試験が不十分", "company"), ("寿命を調べず", "company"), ("監視の装置に頼りすぎ", "company"), ("傷のあとも使い続けた", "company"),
@@ -3112,11 +3113,9 @@ REC_M22["cols"] = dict(
                #   🔧 ⑤b-6 の門番 box：NTSB p1074 の推定原因の3つの部分（failed to establish the actual strength and durability・delamination damage that was
                #     subsequently exacerbated by additional damage of unknown origin・a local buckling failure）・TSB §3.1 の2つ目（did not follow standard engineering practices）
                ux=(0, 2, (("規則の足りなさ", "LINE"),)),
-               #   🆕 ⑤c'（10-15）：USCG p8 のその他の要因は4つ・TSB §3.1 の所見は5段落＝図に出さない分を「ほか3つ」（灰）／t2 は likely＝「とみられる」
-               uy=(0, 2, (("ほかの要因も", "LINE"),)),
                n1=(1, 1, (("強さと寿命を確かめず", "company"), ("層のはがれと別の傷", "sub"), ("局所の座屈で壊れた", "sub"))), n2=(1, 2, (("規則と指針の足りなさ", "LINE"),)),
                n3=(1, 2, (("監視の記録の読み違い", "company"),)), t1=(2, 1, (("強さを確かめず", "company"), ("作りと試験が標準外", "company"))),
-               t2=(2, 1, (("傷が積もって壊れたとみられる", "sub"),)), t3=(2, 1, (("ほかの所見も", "LINE"),)),
+               t2=(2, 1, (("傷が積もって壊れたとみられる", "sub"),)),
                tx=(2, 2, (("独立した確認なし", "LINE"),))),
     gap=("ux", "n2", "tx"), u7=("u8", 6))
 #   cmp＝重なる所3つ（USCG p7・NTSB p1073〜p1074・TSB §2.1・§3.1）・分かれる所2つ（2022年の音＝ca21・ca22 と同じ言葉＝USCG p289・NTSB p1059・TSB §1.10.10.1）
@@ -3475,6 +3474,8 @@ def judge_m22(f):
             need([c.lower() for c in g["cols"].get(f_, [])] == [rc(r).lower() for _t, r in items], f"② 札 {f_} の色が主語の役の色でない")
         need(tuple(g["gap"]) == Rc["gap"] and tuple(g["u7"]) == Rc["u7"], "② 監督の穴の札か7つ目の下線の場所が記録と違う")
         need(not any(re.search(r"[0-9０-９]", t) for _c, _tier, items in g["items"].values() for t, _r in items), "② 3列の札に数字がある（数は字幕）")
+        bad_bot = cols_note_clash(g["bot"], g["note_y"])
+        need(not bad_bot, bad_bot)
     if view == "cmp":
         Rv = R["cmp"]
         need([(nm, c.lower()) for nm, c in g["heads"]] == [(nm, rc(r).lower()) for nm, r in Rv["heads"]], f"② 列の名と色 {g['heads']} が記録と違う")
@@ -3497,10 +3498,25 @@ def judge_m22(f):
     return bad, n
 
 
+def cols_note_clash(bot, note_y, cap=26, margin=8):
+    """🆕 2026-10-15（22本目 ⑤c'）：cols の列の箱の下の端が、下の注の行（基準 note_y・字 cap）の字の上の端より margin 以上離れているか。
+    重なれば理由の文字列・離れていれば空。22本目 ⑤c' で米沿岸警備隊の列に1行足したら箱が 42px 伸び（下の端 886）、注の行に重なった
+    ＝周2 の 640px で見つけた（layout・geom_gap は鳴らなかった＝箱の線と注の字を比べていない）"""
+    top = note_y - round(cap * 0.9)
+    worst = max(bot)
+    return "" if worst + margin <= top else f"② 列の箱の下の端 {worst:.0f} が注の行の字の上の端 {top}（−{margin}px）に届く＝箱が注に重なる"
+
+
 def _selftest_m22(ok):
     """22本目 ⑤b-3b：模式図の検算（正しい場面・陽性対照＝描く側の表を壊す・筋と札）。"""
     import mech22 as M
     N = "模式"
+    # 🆕 ⑤c'（10-15）：列の箱と注の行（陰性＝今の列・陽性＝直す前に1行足した 886）
+    for nm, b, want_bad in (("陰性対照：今の3列の箱（下の端 844）", [844.0, 684.0, 642.0], False),
+                            ("🔴 陽性対照：米沿岸警備隊の列に1行足して下の端 886", [886.0, 684.0, 642.0], True)):
+        got_bad = bool(cols_note_clash(b, M.F.BY1 - 6))
+        ok &= got_bad == want_bad
+        print(f"  {'OK' if got_bad == want_bad else '🔴 NG'} 22本目 {nm}: {'不合格' if got_bad else '合格'}（{'不合格' if want_bad else '合格'}のはず）")
     good = dict(
         fuji=dict(view="fuji", steps=[dict(state=dict(press="on")), dict(state=dict(coin="on"), tag=dict(t="約1.2トン", at="t"))],
                   rel=[dict(t="約1.2トン", src="NTSB p1010")], note=N),

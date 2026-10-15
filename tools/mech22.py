@@ -2280,23 +2280,22 @@ def risk_stage(prev, st):
 #       列の高さは中身まで・下の段は上の段のすぐ下・字は列の真ん中に。札は報告書の文の部分を足した（NTSB p1074 の推定原因の3つの部分・TSB §3.1 の2つ目）
 CL = dict(xs=(400.0, 960.0, 1520.0), w=520.0, y0=296.0, hy=342.0, t1y=390.0, r0=432.0, dr=32.0, gap=40.0, dr2=42.0, pad=34.0)
 CL_COL = (("米沿岸警備隊", "uscg"), ("米運輸安全委員会", "ntsb"), ("カナダの調べ", "tsb"))
+#    ⚠️ ⑤c'（10-15）：USCG p8 のその他の要因は4つ（図は4つ目の規則だけ）・TSB §3.1 の所見は5段落（図は1つ目と4つ目）・§3.2 は4段落（図は2つ目）
+#       ＝図は一部だけ。「ほかの要因も」の行を足したら列の箱が 42px 伸びて下の注の行に重なった（周2 の 640px で見つけた・門番は鳴らなかった
+#       →門番 check_mech.cols_note_clash を足した）＝終わりの決まりどおり見終わった版（ed3ffec）の形へ戻した（周3 はしない）。
+#       段の名に「（一部）」を付ける案（箱は伸びない）は ⑥ の前の注意（誰も見ていない＝今は入れない）
 CL_TIER = (("主な要因", "その他の要因"), ("推定原因", "寄与"), ("原因と寄与", "危険の所見"))
 CL_ITEM = dict(
     u0=(0, 1, (("確立した手順に従わず", "company"),)),
     u8=(0, 1, (("設計と試験が不十分", "company"), ("寿命を調べず", "company"), ("監視の装置に頼りすぎ", "company"), ("傷のあとも使い続けた", "company"),
                ("船体の作りの欠陥", "sub"), ("不具合を詳しく調べず", "company"), ("懸念を言えない職場", "company"), ("整備せず外に置いた", "company"))),
     ux=(0, 2, (("規則の足りなさ", "LINE"),)),
-    # 🆕 ⑤c'（10-15）：USCG p8 の other contributing causal factors は4つ（図は4つ目の規則だけ）＝「ほか3つ」。ux と別の欄＝cc11 の監督の穴の枠に入れない
-    #    ⚠️ 門番 mech ②：3列の札に数字を書かない（数は字幕）＝「ほか3つ」で鳴った→数を外す
-    uy=(0, 2, (("ほかの要因も", "LINE"),)),
     n1=(1, 1, (("強さと寿命を確かめず", "company"), ("層のはがれと別の傷", "sub"), ("局所の座屈で壊れた", "sub"))),
     n2=(1, 2, (("規則と指針の足りなさ", "LINE"),)),
     n3=(1, 2, (("監視の記録の読み違い", "company"),)),
     t1=(2, 1, (("強さを確かめず", "company"), ("作りと試験が標準外", "company"))),
     # 🔧 ⑤c'：TSB §3.1 の4つ目は「likely led the cylinder to fail」＝言い切らない（語り cc06「可能性が高い」）
     t2=(2, 1, (("傷が積もって壊れたとみられる", "sub"),)),
-    # 🆕 ⑤c'：TSB §3.1 の所見は5段落（図は1つ目と4つ目）＝残り3つ（ひずみの分析・音の監視・会社のしくみ）を「ほかの所見も」
-    t3=(2, 1, (("ほかの所見も", "LINE"),)),
     tx=(2, 2, (("独立した確認なし", "LINE"),)),
 )
 CL_GAP = ("ux", "n2", "tx")        # 外から監督する仕組みの穴＝3列それぞれの下の段（cc11）
@@ -2840,7 +2839,9 @@ def geo_of(view, start, states):
     elif view == "cols":
         out.update(heads=[(nm, _rc(r)) for nm, r in CL_COL], tiers=[tuple(t) for t in CL_TIER],
                    items={f_: (c, tier, tuple(items)) for f_, (c, tier, items) in CL_ITEM.items()},
-                   cols={f_: [_rc(r) for _t, r in items] for f_, (_c, _tier, items) in CL_ITEM.items()}, gap=CL_GAP, u7=CL_U7)
+                   cols={f_: [_rc(r) for _t, r in items] for f_, (_c, _tier, items) in CL_ITEM.items()}, gap=CL_GAP, u7=CL_U7,
+                   # 🆕 ⑤c'（10-15）：列の箱の下の端と、下の注の行の基準（cols_base の txtfit＝F.BY1−6・字 26px）＝門番 check_mech が離れを測る
+                   bot=[round(b, 1) for b in cl_layout()[2]], note_y=F.BY1 - 6)
     elif view == "cmp":
         out.update(heads=[(nm, _rc(r)) for nm, r in VS_COL], rows=[tuple(r) for r in VS_ROWS])
     if view == "layers":
