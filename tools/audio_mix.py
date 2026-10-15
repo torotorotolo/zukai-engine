@@ -149,6 +149,16 @@ BGM_CREDIT = "BGM：疑惑の霧／Keido Honda（OpenTracks）"   # ⚠️ 概�
 #    **27.2 LU**。09-15 に「まだ大きい」と言われた版が 18.5 LU）。**1段（3dB）だけ戻して -33.0**。
 #    ＝差は約 24 LU の見込み。「かなり小さめ」の指示は生きているので、-30.0 までは戻さない。
 BGM_RMS = -33.0          # BGMだけのときの実効音量（dBFS RMS）★2026-09-21 -36.0 から3dB戻した
+# 🔴 2026-10-15（22本目 ⑥）：カズヤくん 10-13「22本目からはBGMをもう少し小さく」→ -33.0 と -36.0（09-21「もう少し大きく」）の間の -34.5。
+#    回ごとの値（el_script.SLUG で引く＝build_jiko.PHOTO_KEEP_EP と同じ形）＝表に無い回は BGM_RMS のまま
+#    （17本目＝承認待ちに当てるかは 17本目の ⑥ の前にカズヤくんに聞く＝記憶 feedback-jiko-bgm-level）。決着は試写の耳
+BGM_RMS_EP = {"ep22": -34.5}
+
+
+def bgm_rms():
+    """いまの回の BGM の実効音量（dBFS RMS）。"""
+    import el_script
+    return BGM_RMS_EP.get(el_script.SLUG, BGM_RMS)
 
 # 🔴 2026-08-01 カズヤくん「BGMが全く聞こえない。もう少し大きく」。
 #    原因は音量設定ではなく**サイドチェインが99%の時間ずっと効いている**こと
@@ -351,7 +361,7 @@ def music(n, path):
     src = carve(src)
     # ⚠️ 実効音量は**削ったあと**にそろえる。先にそろえると、削ったぶんだけ小さくなる。
     rms = np.sqrt((src ** 2).mean())
-    src *= 10 ** (BGM_RMS / 20.0) / max(rms, 1e-9)
+    src *= 10 ** (bgm_rms() / 20.0) / max(rms, 1e-9)
 
     xf = int(BGM_XFADE * SR)
     body = len(src) - xf
@@ -367,7 +377,7 @@ def music(n, path):
         pos += body
         first = False
     print(f"BGM「{path.name}」{len(src)/SR:.0f}秒を "
-          f"{-(-n // body)} 回つないだ（継ぎ目 {BGM_XFADE:.0f}秒の重ね）", flush=True)
+          f"{-(-n // body)} 回つないだ（継ぎ目 {BGM_XFADE:.0f}秒の重ね・実効 {bgm_rms():.1f} dBFS）", flush=True)
     return out[:n]
 
 
