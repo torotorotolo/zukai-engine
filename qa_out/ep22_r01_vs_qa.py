@@ -15,6 +15,7 @@
     python qa_out/ep22_r01_vs_qa.py --mp4=titan_audio-ep22-r01.mp4 --qa=qa-ep22_c2_map,qa-ep22_c_map,<Actions の焼き>
       → qa_out/ep22_r01/vs_qa.tsv と要約
 """
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -25,10 +26,19 @@ from PIL import Image
 HERE = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(HERE / "tools"))
 sys.stdout.reconfigure(encoding="utf-8")
-import scene_jiko as S  # noqa: E402
 
 JIKO = HERE / "out" / "jiko"
 W, H, FPS = 320, 180, 30
+WIN = HERE / "qa_out" / "ep22_r01" / "windows.json"
+
+
+def dump_windows():
+    """⚠️ メモリ（コミットの空き 400MB 台）：設計の表（scene_jiko）は別のプロセスで読んで、カットの秒と扉の秒だけを書き出す。
+    照合のプロセスは表を読まない＝`--dump-win` を先に1回。"""
+    import scene_jiko as S
+    WIN.parent.mkdir(parents=True, exist_ok=True)
+    WIN.write_text(json.dumps([[cid, sec, S.card_of(cid)] for cid, sec in S.CUTS]), encoding="utf-8")
+    print(f"→ {WIN}（{len(S.CUTS)} カット）")
 
 
 def arg(k, d=""):
@@ -36,8 +46,9 @@ def arg(k, d=""):
 
 
 def small(p):
+    # ⚠️ uint8 で持つ（float32 だと 249枚で約172MB＝10-15 の1回目は ffmpeg が「Cannot allocate memory」で8コマで止まった）
     with Image.open(p) as im:
-        return np.asarray(im.convert("RGB").resize((W, H), Image.BILINEAR), np.float32)
+        return np.asarray(im.convert("RGB").resize((W, H), Image.BILINEAR), np.uint8)
 
 
 def blockmax(d):
@@ -56,6 +67,12 @@ def find(dirs, name):
 
 
 def main():
+    if "--dump-win" in sys.argv:
+        dump_windows()
+        return 0
+    if not WIN.exists():
+        print(f"🔴 {WIN} が無い＝先に --dump-win")
+        return 1
     mp4 = JIKO / arg("mp4", "titan_audio-ep22-r01.mp4")
     dirs = [d for d in arg("qa").split(",") if d]
     out = HERE / "qa_out" / "ep22_r01" / arg("out", "vs_qa.tsv")
@@ -64,8 +81,7 @@ def main():
         print(f"🔴 mp4 か --qa が無い（{mp4}・{dirs}）")
         return 1
     win, src, miss, t = {}, {}, [], 0.0
-    for cid, sec in S.CUTS:
-        off = S.card_of(cid)
+    for cid, sec, off in json.loads(WIN.read_text(encoding="utf-8")):
         if off > 0:
             d, p = find(dirs, f"card_{cid}.png")
             if p:
@@ -85,7 +101,7 @@ def main():
         print(f"  {d}: {sum(1 for v in src.values() if v == d)} 枚", flush=True)
     best = {c: (1e9, 0.0, 0.0) for c in win}
     order = sorted(win.items(), key=lambda kv: kv[1][0])
-    cmd = ["ffmpeg", "-v", "error", "-i", str(mp4), "-vf", f"scale={W}:{H}:flags=bilinear",
+    cmd = ["ffmpeg", "-v", "error", "-threads", "2", "-i", str(mp4), "-vf", f"scale={W}:{H}:flags=bilinear",
            "-f", "rawvideo", "-pix_fmt", "rgb24", "-"]
     pr = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     n, fb, act, oi = 0, W * H * 3, [], 0
@@ -99,9 +115,9 @@ def main():
             oi += 1
         act = [kv for kv in act if kv[1][1] >= ts]
         if act:
-            fr = np.frombuffer(buf, np.uint8).reshape(H, W, 3).astype(np.float32)
+            fr = np.frombuffer(buf, np.uint8).reshape(H, W, 3).astype(np.int16)
             for cid, (a, b, ref) in act:
-                d = np.abs(fr - ref).mean(axis=2)
+                d = np.abs(fr - ref.astype(np.int16)).mean(axis=2)
                 mad = float(d.mean())
                 if mad < best[cid][0]:
                     best[cid] = (mad, ts, blockmax(d))
@@ -110,6 +126,10 @@ def main():
             print(f"  {n} コマ（{ts / 60:.1f}分）", flush=True)
     pr.wait()
     print(f"読んだコマ {n}（{n / FPS:.2f}秒）", flush=True)
+    # 🔴 読めたコマが足りなければ止める（fail closed）。10-15 の1回目は8コマで終わり、MAD 10億の表を「結果」として書いた
+    if pr.returncode or n < round(t * FPS) * 0.99:
+        print(f"🔴 mp4 を読み切れていない（{n} コマ／設計 {round(t * FPS)}・ffmpeg {pr.returncode}）＝照合は無効。表は書かない")
+        return 1
     rows = sorted(((c,) + v for c, v in best.items()), key=lambda r: -r[3])
     with out.open("w", encoding="utf-8") as f:
         f.write("cut\tmad\tt_mp4\tblock_max\tqa\n")
