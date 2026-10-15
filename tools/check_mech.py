@@ -3073,6 +3073,54 @@ REC_M22["say"]["again"] = ("company", (("“Let’s dive again and see what happ
 REC_M22["none"]["insp"] = ("内張りを外して見る", "休ませて詳しく調べる")                       # USCG p290「remove the TITAN’s insert or take … out of service」
 REC_M22["ruler"].update(test=4200.0, w650=650.0, w1k=1000.0)   # NTSB p1030「simulated maximum depth of 4,200 meters」・USCG p278「only 650 m」・NTSB p1030「1,000 meters」
 REC_M22["clock"] |= {"15:15", "15:17", "15:30", "15:26:45"}
+# 🆕 ⑤b-6（2026-10-15）：第10〜11章・終章（原文＝ref/ep22/src/ep22_pages.txt・頁は cuts/ss.REC_DOCS の通し番号）
+REC_M22["paper"].update(
+    #   USCG p237（基地のメール）・USCG p328＋p7（結論と要因の8つ目）・NTSB p1073＝p1060（所見2）・TSB §4.2.1＋§1.28.5・USCG p307・TSB §1.30.2（英字は原文のまま・行の切れ目だけ）
+    tarp=["a quote for a tarp for the submersible had been provided", "they had not received approval to proceed", "so the tarp was not purchased."],
+    u8=["unprotected in inclement weather", "compromised the TITAN’s hull integrity.", "failure to conduct preventative maintenance on the TITAN’s hull",
+        "or protect it from the elements"],
+    n73=["After dive 82, the Titan sustained additional damage", "—of unknown origin—that further deteriorated", "and weakened the pressure vessel to a point",
+         "where it could not survive a dive to the depth of the Titanic."],
+    tc=["TC was unaware that the Titan was not registered", "with any flag state.", "both DFO and the CBSA had information about the Titan", "that TC was not aware of."],
+    u307=["Encouraging employees to voice concerns", "without fear of retaliation", "and prioritizing safety over expediency", "could have prevented the sequence of events",
+          "that led to the disaster."],
+    drift=["past success is not a guarantee of future success,", "because this drift occurs gradually,", "it is not easily identifiable",
+           "and may go unnoticed as risk levels grow over time."])
+REC_M22["cards"].update(
+    #   USCG p295「further weakened」・TSB §2.1.3「may have exacerbated existing damage」／TSB §4.2.1〜§4.2.4「the Board recommends that the Department of Transport」
+    #   M26-02〜M26-07／c107 の問い（語り）と答え＝NTSB p1074「local buckling failure of the pressure vessel」・TSB §2.1「carbon fibre cylinder was the likeliest point
+    #   of failure」／USCG p290「directed that no further investigation or assessments were necessary」／USCG p307・NTSB p1074・TSB §3.1（会社）
+    tow=(("米沿岸警備隊", "さらに弱った", "uscg"), ("カナダの調べ", "傷を広げたかも", "tsb")),
+    rec6=tuple((f"M26-0{k}", "運輸省へ", "tsb") for k in range(2, 8)),
+    q3=(("何が壊れたのか", "窓でなく炭素繊維の側", "sub"), ("なぜ潜り続けたのか", "調べずに続けた", "company"), ("誰なら止められたのか", "まず会社自身", "company")))
+#   temp＝TSB §1.22「the average high … was -0.5° and the average low was -5.5°」（単位は「°」だけ＝℃ と書かない）
+REC_M22["temp"] = dict(hi=-0.5, lo=-5.5)
+#   risk＝TSB §1.17.12.1「a risk index of greater than 48 was considered to be a strike」「had a risk index of 35」・USCG p78「three or more “strikes”」
+REC_M22["risk"] = dict(day=35, strike=48, n=3)
+#   cols＝列（調べの役の色）・段の名・札（字・主語の役）。USCG p5「failure to follow established engineering protocols … was the primary causal factor」・
+#     p7 の 1)〜8)（1 設計と試験・2 cycle-life・3 real-time monitoring に頼る・4 incidents のあとも使う・5 hull design and construction の flaws・6 mishaps を調べず・
+#     7 toxic workplace environment・8 preventative maintenance をせず外に）・p8 の 4)「the lack of comprehensive and effective regulations」・
+#     NTSB p1074「failed to establish the actual strength and durability」「Contributing were … voluntary guidance and … regulations that were insufficient」
+#     「Also contributing was OceanGate’s flawed analysis of their pressure vessel monitoring system data」・TSB §3.1「never validated」「fail progressively with
+#     damage accumulating during each dive cycle」・§3.2「without any independent verification」
+REC_M22["cols"] = dict(
+    heads=(("米沿岸警備隊", "uscg"), ("米運輸安全委員会", "ntsb"), ("カナダの調べ", "tsb")),
+    tiers=(("主な要因", "その他の要因"), ("推定原因", "寄与"), ("原因と寄与", "危険の所見")),
+    items=dict(u0=(0, 1, (("確立した手順に従わず", "company"),)),
+               u8=(0, 1, (("設計と試験が不十分", "company"), ("寿命を調べず", "company"), ("監視の装置に頼りすぎ", "company"), ("傷のあとも使い続けた", "company"),
+                          ("船体の作りの欠陥", "sub"), ("不具合を詳しく調べず", "company"), ("懸念を言えない職場", "company"), ("整備せず外に置いた", "company"))),
+               #   🔧 ⑤b-6 の門番 box：NTSB p1074 の推定原因の3つの部分（failed to establish the actual strength and durability・delamination damage that was
+               #     subsequently exacerbated by additional damage of unknown origin・a local buckling failure）・TSB §3.1 の2つ目（did not follow standard engineering practices）
+               ux=(0, 2, (("規則の足りなさ", "LINE"),)),
+               n1=(1, 1, (("強さと寿命を確かめず", "company"), ("層のはがれと別の傷", "sub"), ("局所の座屈で壊れた", "sub"))), n2=(1, 2, (("規則と指針の足りなさ", "LINE"),)),
+               n3=(1, 2, (("監視の記録の読み違い", "company"),)), t1=(2, 1, (("強さを確かめず", "company"), ("作りと試験が標準外", "company"))),
+               t2=(2, 1, (("傷が積もって壊れた", "sub"),)),
+               tx=(2, 2, (("独立した確認なし", "LINE"),))),
+    gap=("ux", "n2", "tx"), u7=("u8", 6))
+#   cmp＝重なる所3つ（USCG p7・NTSB p1073〜p1074・TSB §2.1・§3.1）・分かれる所2つ（2022年の音＝ca21・ca22 と同じ言葉＝USCG p289・NTSB p1059・TSB §1.10.10.1）
+REC_M22["cmp"] = dict(heads=(("米沿岸警備隊", "uscg"), ("米運輸安全委員会", "ntsb"), ("カナダの調べ", "tsb")),
+                      rows=(("same", "窓でなく炭素繊維の側", None), ("same", "強さと寿命を確かめず", None), ("same", "監視の記録を生かせず", None),
+                            ("cells", "2022年の音の重み", ("強く示す", "可能性が高い", "決められない")), ("band", "最後の数秒の順番", "書き方が違う")))
 _M22_NEED = (
     ("fuji", "coin", "on", "press", {"on"}, "1円玉と乗用車は、水の重さを見せてから"),
     ("side", "only", "on", "bolts", {"on"}, "「出入りはここだけ」は、外から締めるボルトを見せてから"),
@@ -3115,6 +3163,18 @@ _M22_NEED = (
     ("stime", "hard", "on", "on", {"on"}, "比べにくい印は、線を描いてから"),
     ("nonlin", "zones", "on", "bend", {"on"}, "浅い所と深い所の帯は、曲がった線を描いてから"),
     ("screen", "reset", "on", "lv", {"on"}, "ゼロへ戻る矢印は、色の決まりを見せてから"),
+    # 🆕 ⑤b-6（2026-10-15）
+    ("cols", "u8", "on", "u0", {"on"}, "主な要因8つは、主な原因を見せてから"),
+    ("cols", "u7", "on", "u8", {"on"}, "7つ目の下線は、主な要因8つを見せてから"),
+    ("cols", "ux", "on", "u8", {"on"}, "その他の要因は、主な要因8つを見せてから"),
+    ("cols", "n2", "on", "n1", {"on"}, "寄与は、推定原因を見せてから"),
+    ("cols", "n3", "on", "n2", {"on"}, "2つ目の寄与は、1つ目の寄与を見せてから"),
+    ("cols", "t2", "on", "t1", {"on"}, "傷が積もったのは、強さを確かめなかったことを見せてから"),
+    ("cols", "gap", "on", "ux", {"on"}, "監督の穴の枠は、米沿岸警備隊のその他の要因を見せてから"),
+    ("cols", "gap", "on", "n2", {"on"}, "監督の穴の枠は、米運輸安全委員会の寄与を見せてから"),
+    ("cols", "gap", "on", "tx", {"on"}, "監督の穴の枠は、カナダの危険の所見を見せてから"),
+    ("risk", "three", "on", "line", {"on"}, "3つで中止は、ストライクの線を見せてから"),
+    ("org", "vac", "on", "seats", {"on"}, "空いた席の枠は、席を見せてから"),
 )
 NUM_M22 = re.compile(r"[0-9０-９]{1,2}[:：][0-9０-９]{2}(?:[:：][0-9０-９]{2})?|[0-9０-９][0-9０-９,.．]*")
 
@@ -3384,6 +3444,44 @@ def judge_m22(f):
         tx, ty = g["tip"]
         hx, hy = g["hit"]
         need(hx < tx - g["w"] * 0.8 and ty < hy < ty + 400, "② ぶつかった印が左舷の船首（北が上の左の縁）に無い（TSB 付録B「port bow」）")
+    # 🆕 ⑤b-6（2026-10-15）：第10〜11章・終章
+    if view == "temp":
+        Rt = R["temp"]
+        need((g["hi"], g["lo"]) == (Rt["hi"], Rt["lo"]), f"② 気温の平均（最高 {g['hi']}・最低 {g['lo']}）が記録（TSB §1.22）と違う")
+        for k in ("hi", "lo"):
+            got = (g["y0"] - g[f"y_{k}"]) / g["px_deg"]
+            need(abs(got - Rt[k]) < 0.01, f"② 気温の印 {k} が画素から {got:.2f}°（記録 {Rt[k]}°）")
+        for t in texts:
+            need("℃" not in t, f"② 札「{t}」に ℃（記録は「°」だけ＝摂氏は推測）")
+            mm = re.search(r"([−-]?)([0-9.]+)°", t)
+            if mm:
+                v = float(mm.group(2)) * (-1 if mm.group(1) else 1)
+                need(v in (Rt["hi"], Rt["lo"]), f"② 札「{t}」の気温が記録（{Rt['hi']}°・{Rt['lo']}°）に無い（符号を含めて）")
+    if view == "risk":
+        Rk = R["risk"]
+        need((g["day"], g["strike"], g["n"]) == (Rk["day"], Rk["strike"], Rk["n"]),
+             f"② 危険度（この日 {g['day']}・線 {g['strike']}・{g['n']}つで中止）が記録（TSB §1.17.12.1・USCG p78）と違う")
+        for k, v in (("x_day", Rk["day"]), ("x_line", Rk["strike"])):
+            got = (g[k] - g["x0"]) / g["px"]
+            need(abs(got - v) < 0.01, f"② 危険度の {k} が画素から {got:.2f}（記録 {v}）")
+    if view == "cols":
+        Rc = R["cols"]
+        need([(nm, c.lower()) for nm, c in g["heads"]] == [(nm, rc(r).lower()) for nm, r in Rc["heads"]], f"② 列の名と色 {g['heads']} が記録と違う")
+        need(tuple(g["tiers"]) == Rc["tiers"], f"② 段の名 {g['tiers']} が記録と違う")
+        need(g["items"] == Rc["items"], "② 3列の札（字・列・段・役）が記録（USCG p5・p7・p8・NTSB p1074・TSB §3.1・§3.2）と違う")
+        for f_, (_c, _tier, items) in Rc["items"].items():
+            need([c.lower() for c in g["cols"].get(f_, [])] == [rc(r).lower() for _t, r in items], f"② 札 {f_} の色が主語の役の色でない")
+        need(tuple(g["gap"]) == Rc["gap"] and tuple(g["u7"]) == Rc["u7"], "② 監督の穴の札か7つ目の下線の場所が記録と違う")
+        need(not any(re.search(r"[0-9０-９]", t) for _c, _tier, items in g["items"].values() for t, _r in items), "② 3列の札に数字がある（数は字幕）")
+    if view == "cmp":
+        Rv = R["cmp"]
+        need([(nm, c.lower()) for nm, c in g["heads"]] == [(nm, rc(r).lower()) for nm, r in Rv["heads"]], f"② 列の名と色 {g['heads']} が記録と違う")
+        need(tuple(g["rows"]) == Rv["rows"], "② 並べの行が記録と違う")
+    if view == "layers" and any(s.get("ice") == "on" for s in seq):
+        need(abs(g["ice"]["top"] - g["ice"]["outer"]) < 0.5, "② 凍る水のすき間が外側（海の側）の面から始まっていない")
+    if view == "org" and any(s.get("vac") == "on" for s in seq):
+        vx, _vy = g["vac_xy"]
+        need(abs(g["eng"][0] - vx) < 0.5, "② 「未定」の線の先が空いた席に無い")
     said = [r.get("t", "") for r in m["rel"]]
     for t in texts:
         for mm in NUM_M22.finditer(t):
@@ -3461,6 +3559,21 @@ def _selftest_m22(ok):
         ruler_mid=dict(view="ruler", start=dict(z="mid"), steps=[dict(state=dict(test="on", w650="on", w1k="on"))], note=N),
         paper_u80=dict(view="paper", start=dict(doc="u80"), steps=[dict(state=dict(hl1="on", hl3="on"))], note=N),
         say_again=dict(view="say", start=dict(set="again"), steps=[dict(state=dict(n="1"))], note=N),
+        # 🆕 ⑤b-6（2026-10-15）
+        temp=dict(view="temp", steps=[dict(state=dict(avg="on"), tag=[dict(t="−0.5°", d="最高気温の平均", at="hi"), dict(t="−5.5°", d="最低気温の平均", at="lo")]),
+                                      dict(state=dict(wx="on"))],
+                  rel=[dict(t="−0.5°", src="TSB §1.22"), dict(t="−5.5°", src="TSB §1.22")], note=N),
+        risk=dict(view="risk", steps=[dict(state=dict(day="on"), tag=dict(t="この日 35", at="day")),
+                                      dict(state=dict(line="on", three="on"), tag=dict(t="3つで中止", at="three"))],
+                  rel=[dict(t="この日 35", src="TSB §1.17.12.1"), dict(t="3つ", src="USCG p78")], note=N),
+        cols=dict(view="cols", steps=[dict(state=dict(u0="on")), dict(state=dict(u8="on")), dict(state=dict(u7="on", ux="on", n1="on")),
+                                      dict(state=dict(n2="on", n3="on", t1="on", t2="on")), dict(state=dict(tx="on", gap="on"))], note=N),
+        cmp=dict(view="cmp", steps=[dict(state=dict(n="3")), dict(state=dict(n="5"))], note=N),
+        rec6=dict(view="cards", start=dict(set="rec6"), steps=[dict(state=dict(n="6"))], note=N),
+        q3=dict(view="cards", start=dict(set="q3"), steps=[dict(state=dict(n="1")), dict(state=dict(n="3"))], note=N),
+        ice=dict(view="layers", steps=[dict(state=dict(ice="on"))], note=N),
+        vac=dict(view="org", start=dict(seats="on"), steps=[dict(tag=dict(t="未定（TBD）", at="eng", to="eng")), dict(state=dict(vac="on"))], note=N),
+        paper_drift=dict(view="paper", start=dict(doc="drift"), steps=[dict(state=dict(hl1="on")), dict(state=dict(hl2="on", hl3="on", hl4="on"))], note=N),
     )
     for nm, kw in good.items():
         bad, n = judge("m22", kw)
@@ -3515,7 +3628,25 @@ def _selftest_m22(ok):
             ("窓の1,000メートルを会社の色にする", "RL_M", dict(M.RL_M, w1k=M.RL_M["w1k"][:2] + ("company",)), "物差しの w1k", "ruler_mid"),
             ("試験の線の札を4,000メートルと書く", "RL_M", dict(M.RL_M, test=(4200.0, "試験で最も深い 4,000メートル", "company")), "物差しの test の札", "ruler_mid"),
             ("80回目の句を言い換える", "PP_DOC", dict(M.PP_DOC, u80=dict(M.PP_DOC["u80"], lines=("the TITAN got stuck",) + M.PP_DOC["u80"]["lines"][1:])),
-             "書類の句", "paper_u80")):
+             "書類の句", "paper_u80"),
+            # 🆕 ⑤b-6（2026-10-15）
+            ("最低気温を−5.0°にする", "TP_LO", -5.0, "気温の平均", "temp"),
+            ("この日の点数を38にする", "RK_DAY", 38, "危険度", "risk"),
+            ("ストライクを2つで中止にする", "RK", dict(M.RK, bx=M.RK["bx"][:2]), "危険度", "risk"),
+            ("主な要因を7つにする", "CL_ITEM", dict(M.CL_ITEM, u8=(0, 1, M.CL_ITEM["u8"][2][:7])), "3列の札", "cols"),
+            ("船体の作りの欠陥を会社の色にする", "CL_ITEM", dict(M.CL_ITEM, u8=(0, 1, M.CL_ITEM["u8"][2][:4] + (("船体の作りの欠陥", "company"),) + M.CL_ITEM["u8"][2][5:])),
+             "3列の札", "cols"),
+            ("7つ目の下線を6つ目に引く", "CL_U7", ("u8", 5), "7つ目の下線", "cols"),
+            ("列の順を入れ替える", "CL_COL", (M.CL_COL[1], M.CL_COL[0], M.CL_COL[2]), "列の名と色", "cols"),
+            ("2022年の音のカナダを「示す」と書く", "VS_ROWS", M.VS_ROWS[:3] + (("cells", "2022年の音の重み", ("強く示す", "可能性が高い", "示す")),) + M.VS_ROWS[4:],
+             "並べの行", "cmp"),
+            ("勧告の番号を M26-08 まで書く", "CD", dict(M.CD, rec6=dict(M.CD["rec6"], cards=M.CD["rec6"]["cards"][1:] + (("M26-08", "運輸省へ", "tsb", None, None),))),
+             "要点の箱", "rec6"),
+            ("問いの言葉を言い換える", "CD", dict(M.CD, q3=dict(M.CD["q3"], cards=(("何が壊れた？",) + M.CD["q3"]["cards"][0][1:],) + M.CD["q3"]["cards"][1:])),
+             "要点の箱", "q3"),
+            ("凍る水を内側から描く", "ice_top", lambda: M.LY["y_in"], "凍る水", "ice"),
+            ("ずれの句を言い換える", "PP_DOC", dict(M.PP_DOC, drift=dict(M.PP_DOC["drift"], lines=("past success is no guarantee of future success,",) + M.PP_DOC["drift"]["lines"][1:])),
+             "書類の句", "paper_drift")):
         keep = getattr(M, attr)
         setattr(M, attr, val)
         try:
@@ -3549,7 +3680,16 @@ def _selftest_m22(ok):
             ("札の時刻が記録に無い（15:20）", dict(view="ae", steps=[dict(state=dict(peak="on"), tag=dict(t="15:20", at="peak"))],
                                            rel=[dict(t="15:20", src="x")], note=N), "記録の時刻"),
             ("13回のうち6回と書く", dict(view="dives", steps=[dict(state=dict(y22="on"), tag=dict(t="13回のうち6回", at="t"))],
-                                      rel=[dict(t="13回のうち6回", src="x")], note=N), "USCG p235")):
+                                      rel=[dict(t="13回のうち6回", src="x")], note=N), "USCG p235"),
+            # 🆕 ⑤b-6（2026-10-15）
+            ("気温の札の符号を落とす（0.5°）", dict(view="temp", steps=[dict(state=dict(avg="on"), tag=dict(t="0.5°", at="hi"))], rel=[dict(t="0.5°", src="x")], note=N),
+             "符号を含めて"),
+            ("気温の札を ℃ で書く", dict(view="temp", steps=[dict(state=dict(avg="on"), tag=dict(t="−0.5℃", at="hi"))], rel=[dict(t="−0.5℃", src="x")], note=N), "℃"),
+            ("線の前に3つで中止", dict(view="risk", steps=[dict(state=dict(three="on"))], note=N), "① 筋"),
+            ("主な原因の前に8つ", dict(view="cols", steps=[dict(state=dict(u8="on"))], note=N), "① 筋"),
+            ("カナダの危険の所見の前に監督の穴の枠", dict(view="cols", start=dict(u0="on", u8="on", ux="on", n1="on", n2="on"),
+                                                  steps=[dict(state=dict(gap="on"))], note=N), "① 筋"),
+            ("席の前に空いた席の枠", dict(view="org", steps=[dict(state=dict(vac="on"))], note=N), "① 筋")):
         bad, _ = judge("m22", kw)
         g_ = any(key in b for b in bad)
         ok &= g_

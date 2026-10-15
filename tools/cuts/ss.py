@@ -886,6 +886,32 @@ AXI.update({
     "occ23": dict(k="pt", at="2023-06-18", t="事故の潜航", rec="TSB §付録B", c="ALERT", fmt="md", anchor="end"),
     "m11": dict(k="br", a="2022-07-22", b="2023-06-18", t="約11か月", rec="NTSB p1060"),
 })
+# 🆕 2026-10-15（22本目 ⑤b-6）：第10章の帯（門番 check_axis の REC_AXIS・REC_ROLE が値・頁・役の色を照らす）
+#   AX_OUT＝屋外に置かれた期間（cb03）。USCG p236「On July 26, 2022, the TITAN, the LARS, and associated equipment were demobilized at the A Harvey Marine Base」
+#     「placed in the parking lot of the facility for approximately 7 months of storage」・p238「unprotected from the elements until February 6, 2023」・
+#     TSB §1.22「stored outdoors from the end of July 2022 until 06 February 2023」（括弧の札は語りの「半年あまり」＝数字は書かない）
+AX_OUT = dict(view="date", span=("2022-07-01", "2023-03-15"), ticks=("2022-08", "2022-10", "2022-12", "2023-02"))
+#   AX_RTM＝監視装置の記録が残っている期間（cb16）。TSB §1.10.9「This data spanned from February 2021 to 23 July 2022. There was no data available for the 2023
+#     season」・USCG p139「No real-time monitoring data was available to the MBI from Expedition 2023 (Dives 84-88)」・NTSB p1051「no data were available for the
+#     2023 expedition」。🔧 映像方針の「2022年＝記録あり」→ 原文の期間（2021年2月〜2022年7月23日）。2023年の段＝付録B の人が乗った潜航（5月31日〜6月18日）
+AX_RTM = dict(view="date", span=("2020-12-01", "2023-08-31"), ticks=("2021-01", "2021-07", "2022-01", "2022-07", "2023-01", "2023-07"))
+#   AX_23＝2023年6月（cb19）。TSB 付録B（2023-05-31・06-05・06-13＝深さ10・06-18＝3346）・USCG p256「10 m dives were dives which did not leave the LARS platform」・
+#     USCG p295「Dive 88 was the first dive to leave the LARS platform」・NTSB p1016「the first dive of the 2023 expedition to descend below 33 feet (10 meters)」
+AX_23 = dict(view="date", span=("2023-05-26", "2023-06-24"), ticks=("2023-05-28", "2023-06-02", "2023-06-07", "2023-06-12", "2023-06-17", "2023-06-22"))
+AXI.update({
+    # 屋外（AX_OUT）＝置いたのは会社の決め（TSB §1.22「OceanGate opted to keep the Titan and the LARS in St. John’s」）
+    "out22": dict(k="span", a="2022-07-26", b="2023-02-06", t="屋外に置かれた", rec=["USCG p236", "USCG p238"], c="COMPANY"),
+    "half": dict(k="br", a="2022-07-26", b="2023-02-06", t="半年あまり", rec=["USCG p236", "USCG p238"]),
+    # 監視の記録（AX_RTM）＝装置は会社の物・記録が無い＝灰
+    "rtm_on": dict(k="span", a="2021-02", b="2022-07-23", t="記録がある", rec="TSB §1.10.9", c="COMPANY"),
+    "rtm_off": dict(k="span", a="2023-05-31", b="2023-06-18", t="記録なし", rec=["TSB §1.10.9", "TSB §付録B"], c="TICK"),
+    # 2023年6月（AX_23）＝台を離れない10メートルの潜航（潜水艇）・事故の潜航（赤）
+    "s0531": dict(k="pt", at="2023-05-31", t="", lab=False, rec="TSB §付録B", c="SUB"),
+    "s0605": dict(k="pt", at="2023-06-05", t="", lab=False, rec="TSB §付録B", c="SUB"),
+    "s0613": dict(k="pt", at="2023-06-13", t="", lab=False, rec="TSB §付録B", c="SUB"),
+    "s10m": dict(k="chips", at="2023-06-05", chips=["台の上の潜航"], rec=["TSB §付録B", "USCG p256"]),
+    "first88": dict(k="chips", at="2023-06-18", chips=["初めて台を離れる"], rec=["TSB §付録B", "USCG p295", "NTSB p1016"]),
+})
 
 
 def ax(name, **kw):
@@ -1059,6 +1085,21 @@ QG.update({"slope": dict(id="slope", t="浅い所の傾きの増え（%）", tic
 QB.update({
     "slope21": dict(k="bar", g="slope", t="前の年の夏の潜航", v=21, rec="TSB §1.10.10.1", c="TICK"),
     "slope22": dict(k="bar", g="slope", t="音のあとの潜航", v=98, rec="TSB §1.10.10.1", c="INST"),
+})
+
+
+# 🆕 2026-10-15（22本目 ⑤b-6）：cb10 母船の綱につながれていた時間（TSB §1.20.2.2「towed by or tethered to, via a towline, the Polar Prince in the North Atlantic for
+#   approximately 950 hours in the 2023 season」）。行の名は年だけ・色＝母船（引いたのは母船）。
+#   ⚠️ 道のり（USCG p294「more than 2,900 NM」）は描かない＝NTSB p1060 は「about 2,900 miles」と単位が違う・語りに無い
+QG.update({"tow": dict(id="tow", t="綱でつながれていた時間（時間）", ticks=(0, 250, 500, 750, 1000), rows=("2023年",))})
+QB.update({"tow23": dict(k="bar", g="tow", t="2023年", v=950, rec="TSB §1.20.2.2", c="SHIP")})
+# 🆕 22本目 ⑤b-6：cb14 2023年の人が乗った潜航の深さ（TSB §1.21.4「aborted at a depth of 10 m」・NTSB p1014「None of the dives exceeded 33 feet (10 meters) depth」・
+#   付録B の 2023年の3行＝10）とタイタニックの深さ（TSB §1.3「approximately 3800 m」＝目安の灰）。🔧 映像方針の「10m の短い棒3本」→ 1本（同じ群の棒は色を
+#   ΔE 25 以上離す＝同じ値の3本を3色にすると別の物に見える）＝3回とも同じ深さは note で断る。行の名に数字を書かない
+QG.update({"dep23": dict(id="dep23", t="潜った深さ（メートル）", ticks=(0, 1000, 2000, 3000, 4000), rows=("事故の年の潜航", "タイタニック"))})
+QB.update({
+    "dep23_sub": dict(k="bar", g="dep23", t="事故の年の潜航", v=10, rec=["TSB §1.21.4", "NTSB p1014", "TSB §付録B"], c="SUB"),
+    "dep23_tt": dict(k="bar", g="dep23", t="タイタニック", v=3800, rec="TSB §1.3", c="TICK"),
 })
 
 

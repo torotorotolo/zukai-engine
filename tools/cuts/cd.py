@@ -45,3 +45,51 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-15）：図解 終章（5カット）＋パネル（cd09）
+# ══════════════════════════════════════════════════════════
+#   🔴 章の札「3つの問いの答え」と4字以上同じ並び（「3つの問い」「問いの答え」）を見出し・副題に入れない（門番 dup）。問いの言葉（c107 の語り）は箱の題＝見出しに入れない。
+#      3つの問いは「図解」（cards）＝パネルにすると文字だけが cd02〜cd04 で3つ続く（3つまで）。写真・映像 cd01・cd07・cd08 は ⑤b-7
+_N_Q3 = "問いは冒頭と同じ言葉・答えは報告書の要点（模式）"
+_N_DR = "句はカナダの報告書（英字のまま・模式）"
+SPEC.update({
+    # cd02（2行）＝🔧 再現→問いの箱。1つ目＝窓でなく船体の炭素繊維の側→層がはがれ、傷が重なって押しつぶされた
+    "cd02": dict(
+        t="1つ目の答え", s="壊れた場所",
+        fig=("m22", dict(view="cards", start=dict(set="q3"),
+                         steps=[dict(state=dict(n="1")), dict(tag=dict(t="層がはがれて弱る", d="押しつぶされた", at="b1", col=J.SUB))],
+                         note=_N_Q3, src=ss.src(["NTSB p1074", "TSB §2.1"]))),
+    ),
+    # cd03（2行）＝2つ目＝音のあと CEO は調べは要らないと指示→読み解ける人がいないまま、外から見ただけで潜った
+    "cd03": dict(
+        t="2つ目の答え", s="続けた理由",
+        fig=("m22", dict(view="cards", start=dict(set="q3", n="1"),
+                         steps=[dict(state=dict(n="2"), tag=dict(t="調べは要らない", d="CEO の指示", at="b2", col=J.COMPANY)), dict()],
+                         note=_N_Q3, src=ss.src(["USCG p290", "USCG p289"]))),
+    ),
+    # cd04（3行）＝3つ目＝会社自身→懸念を言った社員は辞めた・辞めさせられた→外から止める仕組みは主な原因の次
+    "cd04": dict(
+        t="3つ目の答え", s="会社の中と外",
+        fig=("m22", dict(view="cards", start=dict(set="q3", n="2"),
+                         steps=[dict(state=dict(n="3")), dict(), dict(tag=dict(t="外の仕組み", d="主な原因の次に置く", at="b3", col=J.INK_W))],
+                         note=_N_Q3, src=ss.src(["USCG p307", "NTSB p1074", "TSB §3.1", "TSB §1.23.1", "NTSB p1070"]))),
+    ),
+    # cd05（2行）＝うまくいかないことがあっても艇は戻った（カナダの調べ）→過去の成功は将来の成功を約束しない（下線）
+    "cd05": dict(
+        t="戻り続けた艇", s="成功と安全",
+        fig=("m22", dict(view="paper", start=dict(doc="drift"), steps=[dict(), dict(state=dict(hl1="on"))],
+                         note=_N_DR, src=ss.src(["TSB §1.23.1", "TSB §1.30.2"]))),
+    ),
+    # cd06（2行）＝同じ節の続き（ずれは少しずつで気づきにくい）→聞き役
+    "cd06": dict(
+        t="気づきにくさ", s="少しずつのずれ",
+        fig=("m22", dict(view="paper", start=dict(doc="drift", hl1="on"), steps=[dict(state=dict(hl2="on", hl3="on", hl4="on")), dict()],
+                         note=_N_DR, src=ss.src(["TSB §1.30.2"]))),
+    ),
+    # cd09（2行）＝コメントの問い（ed01 の直前・文字だけ）。誰でも気軽に答えられる形（§B3-7b）。「この動画」は画面に出さない
+    "cd09": dict(
+        t="深い海の底", s="コメント欄で聞かせてください",
+        fig=("panel", dict(blocks=[dict(k="問い", t="自分の目で見たいですか", v="もし乗れるとしたら", c=J.AMBER)], cols=1)),
+    ),
+})

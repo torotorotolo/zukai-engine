@@ -93,3 +93,108 @@ SPEC.update({
         [dict(k="icon", what="ship", on=("stjohns", "site", 0.5), role="ship", tow=True, t="台（タイタン）", lab=(-40, -50, "end"))]]),
         t="引いて運ぶ", s="セントジョンズから現場へ（現在の衛星写真）"),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-15）：図解 第10章（13カット）＝模式図 `tools/mech22.py`・時間の帯（axis）・棒（qty）
+# ══════════════════════════════════════════════════════════
+#   🔴 章の札「最後の冬と2023年」と4字以上同じ並び（「最後の冬」「2023年」）を見出し・副題に入れない（門番 dup）。字は12字未満（門番 echo）。
+#      写真 cb07・cb11・cb12・cb15 は ⑤b-7・地図 cb01・cb09 は ⑤b-3
+_N_PU = "句は米沿岸警備隊の報告書（英字のまま・模式）"
+SPEC.update({
+    # cb02（2行）＝基地のメール（覆いの見積もりは出したが、会社の承認が無く買わなかった）→前の冬は本社の屋内（米運輸安全委員会）
+    "cb02": dict(
+        t="覆いの見積もり", s="返事が無いまま",
+        fig=("m22", dict(view="paper", start=dict(doc="tarp"),
+                         steps=[dict(state=dict(hl1="on", hl2="on", hl3="on")), dict(tag=dict(t="前の冬は屋内", d="アメリカの会社の建物", at="r2", col=J.COMPANY))],
+                         note=_N_PU + "・前の冬は米運輸安全委員会の報告書", src=ss.src(["USCG p237", "NTSB p1035"]))),
+    ),
+    # cb03（1行）＝帯（2022年7月26日〜2023年2月6日＝屋外・覆いなし）。括弧は語りの「半年あまり」
+    "cb03": dict(
+        t="外にあった期間", s="港の基地の駐車場",
+        fig=("axis", dict(ss.AX_OUT, steps=[dict(add=[ss.ax("out22"), ss.ax("half")], cur="2023-02-06")],
+                          note="日付は米沿岸警備隊の報告書（覆いの無い屋外）", src=ss.src(["USCG p236", "USCG p238", "TSB §1.22"]))),
+    ),
+    # cb04（2行）＝🔧 棒→目盛りの点（気温は 0 より下＝棒は 0 から右へしか描けない）。最高の平均 −0.5°・最低の平均 −5.5°→雪・強い風・凍る雨
+    "cb04": dict(
+        t="冬のセントジョンズ", s="カナダの調べの値",
+        fig=("m22", dict(view="temp", steps=[dict(state=dict(avg="on"), tag=[dict(t="−0.5°", d="最高気温の平均", at="hi"), dict(t="−5.5°", d="最低気温の平均", at="lo")]),
+                                             dict(state=dict(wx="on"), tag=dict(t="雪・強い風・凍る雨", d="海に面した町", at="wx", col=J.INK_W))],
+                         rel=[dict(t="−0.5°", src="TSB §1.22"), dict(t="−5.5°", src="TSB §1.22")],
+                         note="点はカナダの報告書の値（単位の書き方もそのまま）・模式", src=ss.src(["TSB §1.22"]))),
+    ),
+    # cb05（2行）＝船体のすき間の水が凍ってふくらむ（米運輸安全委員会の見立て）→2つの調べは「あり得る」まで
+    "cb05": dict(
+        t="冬の傷み", s="水が凍ると",          # ⚠️ 門番 dup：「すき間の水」は note の写し
+        fig=("m22", dict(view="layers", steps=[dict(state=dict(ice="on"), tag=dict(t="凍ってふくらむ", at="t", col=J.ALERT)),
+                                               dict(tag=dict(t="あり得る、まで", d="2つの調べ", at="r2", col=J.INK_W))],
+                         rel=[dict(t="2つの調べ", src="NTSB p1060・TSB §2.1.3")],
+                         note="すき間の場所と形は模式（水が入った所は報告書に無い）・2つの調べ＝米運輸安全委員会とカナダ",
+                         src=ss.src(["NTSB p1060", "TSB §2.1.3"]))),
+    ),
+    # cb06（2行）＝米沿岸警備隊の結論（屋外に置いて船体を損ねた）→主な要因の8つ目
+    "cb06": dict(
+        t="外での保管", s="8つ目の要因",
+        fig=("m22", dict(view="paper", start=dict(doc="u8"), steps=[dict(state=dict(hl1="on", hl2="on")), dict(state=dict(hl3="on", hl4="on"))],
+                         note=_N_PU, src=ss.src(["USCG p328", "USCG p7"]))),
+    ),
+    # cb08（3行）＝🔧 再現→模式（c207 と同じ席）。聞き役の問い→計画書の技術部長＝「未定」→正式には空いたまま（枠）
+    "cb08": dict(
+        t="技術の責任者", s="遠征の人の欄",
+        fig=("m22", dict(view="org", start=dict(seats="on"),
+                         steps=[dict(), dict(tag=dict(t="未定（TBD）", d="遠征の計画書", at="eng", to="eng", col=J.AMBER)), dict(state=dict(vac="on"))],
+                         note="席の並びは模式（空席はカナダの報告書の表4・計画書は米沿岸警備隊の報告書）",
+                         src=ss.src(["USCG p246", "TSB §1.23.1", "TSB §1.23"]))),
+    ),
+    # cb10（1行）＝棒（綱につながれていた時間 約950時間＝カナダの調べ）。道のりは描かない（2冊で単位が違う・語りに無い）
+    "cb10": dict(
+        t="引かれた時間", s="カナダの調べの値",
+        fig=("qty", dict(view="bar", groups=[ss.QG["tow"]], steps=[dict(add=[ss.qb("tow23")])],
+                         note="綱で引かれたか、綱でつながれていた時間の合計（約950時間）", src=ss.src(["TSB §1.20.2.2"]))),
+    ),
+    # cb13（3行）＝引かれたことの影響の見方（米沿岸警備隊＝さらに弱った・カナダ＝引くだけでは原因の見込みは低い／傷を広げたかも）
+    "cb13": dict(
+        t="引いた影響", s="見方の違い",
+        fig=("m22", dict(view="cards", start=dict(set="tow"),
+                         steps=[dict(), dict(state=dict(n="1")),
+                                dict(state=dict(n="2"), tag=dict(t="引くだけでは低い", d="原因になった見込み", at="low", col=J.INST))],
+                         note="要点（模式）・米運輸安全委員会は「影響は分からない」", src=ss.src(["USCG p295", "TSB §2.1.3", "NTSB p1060"]))),
+    ),
+    # cb14（2行）＝🔧 再現→棒。聞き役の問い→人が乗った3回とも10メートル（台を離れず）とタイタニックの深さ
+    "cb14": dict(
+        t="浅い潜航", s="台を離れず",
+        fig=("qty", dict(view="bar", groups=[ss.QG["dep23"]], steps=[dict(), dict(add=[ss.qb("dep23_sub"), ss.qb("dep23_tt")])],
+                         note="人が乗った3回とも10メートル（カナダの報告書 付録B）・タイタニックは目安",
+                         src=ss.src(["TSB §1.21.4", "NTSB p1014", "TSB §付録B", "TSB §1.3"]))),
+    ),
+    # cb16（1行）＝🔧 再現→帯。監視装置の記録が残るのは 2021年2月〜2022年7月23日（カナダの調べ）＝2023年の潜航は記録なし
+    "cb16": dict(
+        t="監視の記録", s="残った期間",
+        fig=("axis", dict(ss.AX_RTM, steps=[dict(add=[ss.ax("rtm_on"), ss.ax("rtm_off")], cur="2023-06-18")],
+                          note="期間はカナダの報告書（記録なしの帯は付録B の人が乗った潜航）", src=ss.src(["TSB §1.10.9", "USCG p139", "TSB §付録B"]))),
+    ),
+    # cb17（2行）＝🔧 再現→模式。事故の潜航の計画の危険度＝35→48を超えるとストライク1つ・3つで その日は中止
+    "cb17": dict(
+        t="潜航の前の点数", s="会社の決まり",
+        fig=("m22", dict(view="risk", steps=[dict(state=dict(day="on"), tag=dict(t="この日 35", at="day", col=J.AMBER)),
+                                             dict(state=dict(line="on", three="on"), tag=[dict(t="48を超えると", d="ストライク1つ", at="line", col=J.ALERT),
+                                                                                         dict(t="3つで中止", d="その日の潜航", at="three", col=J.ALERT)])],
+                         rel=[dict(t="この日 35", src="TSB §1.17.12.1"), dict(t="48を超えると", src="TSB §1.17.12.1"),
+                              dict(t="ストライク1つ", src="TSB §1.17.12.1"), dict(t="3つで中止", src="USCG p78")],
+                         note="目盛りの右の端は模式（点数の出し方は分からない＝カナダの調べ）", src=ss.src(["TSB §1.17.12.1", "USCG p78"]))),
+    ),
+    # cb18（3行）＝米運輸安全委員会の所見（82回目のあと・出どころの分からない傷み・タイタニックの深さに耐えられない）
+    "cb18": dict(
+        t="加わった傷み", s="最後の深い潜航のあと",
+        fig=("m22", dict(view="paper", start=dict(doc="n73"),
+                         steps=[dict(state=dict(hl1="on")), dict(state=dict(hl2="on")), dict(state=dict(hl3="on", hl4="on"))],
+                         note="句は米運輸安全委員会の報告書（英字のまま・模式）", src=ss.src(["NTSB p1073", "NTSB p1060"]))),
+    ),
+    # cb19（2行）＝帯（台の上の10メートルの潜航3回→6月18日＝初めて台を離れて深く潜る）→聞き役
+    "cb19": dict(
+        t="その日の潜航", s="この年で初めて",
+        fig=("axis", dict(ss.AX_23, steps=[dict(add=[ss.ax("s0531"), ss.ax("s0605"), ss.ax("s0613"), ss.ax("s10m"), ss.ax("occ23"), ss.ax("first88")],
+                                                cur="2023-06-18"), dict(cur="2023-06-18")],
+                          note="日付はカナダの報告書 付録B（台の上の潜航＝深さ10メートル）",
+                          src=ss.src(["TSB §付録B", "USCG p256", "USCG p295", "NTSB p1016"]))),
+    ),
+})

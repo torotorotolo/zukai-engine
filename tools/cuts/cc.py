@@ -57,3 +57,77 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-15）：図解 第11章（10カット）＝模式図 `tools/mech22.py`（cols・cmp・paper・cards）
+# ══════════════════════════════════════════════════════════
+#   🔴 章の札「3つの報告書が出した答え」と4字以上同じ並び（「3つの報告」「した答え」）を見出し・副題に入れない（門番 dup）。
+#      列の名（米沿岸警備隊・米運輸安全委員会・カナダの調べ）と段の名（主な要因・推定原因 ほか）も見出しに入れない（図の言葉）。
+#      写真 cc01・cc04 と映像 cc12 は ⑤b-7
+_N_CL = "要点（模式）・札の色＝主語（会社 橙・船体 白・規則 灰）"      # ⚠️ 門番 layout：cc11 の6冊の出典と合わせて右の端を越えた＝短く
+_CL_SRC = ["USCG p5", "USCG p7", "USCG p8", "NTSB p1074", "TSB §3.1", "TSB §3.2"]
+SPEC.update({
+    # cc02（2行）＝🔧 再現→模式（3列）。米沿岸警備隊＝主な原因（手順に従わず）→主な要因8つ（主語は会社と船体）
+    "cc02": dict(
+        t="1つ目の調べ", s="8つの要因",       # ⚠️ 門番 dup：「海難調査委員会」は出典の行の写し
+        fig=("m22", dict(view="cols", steps=[dict(state=dict(u0="on")), dict(state=dict(u8="on"))], note=_N_CL, src=ss.src(["USCG p5", "USCG p7"]))),
+    ),
+    # cc03（2行）＝同じ3列。7つ目＝解雇と脅しの職場（下線）→その他の要因＝規則の足りなさ
+    "cc03": dict(
+        t="職場の文化", s="要因の7つ目",
+        fig=("m22", dict(view="cols", start=dict(u0="on", u8="on"), steps=[dict(state=dict(u7="on")), dict(state=dict(ux="on"))],
+                         note=_N_CL, src=ss.src(["USCG p7", "USCG p8"]))),
+    ),
+    # cc05（2行）＝同じ3列。米運輸安全委員会＝推定原因（cc04 の語り＝頭で出す）→寄与1（規則と指針）→寄与2（監視の記録の読み違い）
+    "cc05": dict(
+        t="2つ目の調べ", s="寄与したこと",
+        fig=("m22", dict(view="cols", start=dict(u0="on", u8="on", u7="on", ux="on", n1="on"), steps=[dict(state=dict(n2="on")), dict(state=dict(n3="on"))],
+                         note=_N_CL, src=ss.src(["NTSB p1074"]))),
+    ),
+    # cc06（2行）＝同じ3列。カナダの調べ＝強さを確かめず→潜るたびに傷が積もって壊れた
+    "cc06": dict(
+        t="3つ目の調べ", s="筒の強さ",
+        fig=("m22", dict(view="cols", start=dict(u0="on", u8="on", u7="on", ux="on", n1="on", n2="on", n3="on"),
+                         steps=[dict(state=dict(t1="on")), dict(state=dict(t2="on"))], note=_N_CL, src=ss.src(["TSB §3.1"]))),
+    ),
+    # cc07（2行）＝カナダの調べの要点（運輸省は登録が無いと知らなかった→ほかの役所の情報が届かなかった）
+    "cc07": dict(
+        t="知らなかった役所", s="登録の無い艇",
+        fig=("m22", dict(view="paper", start=dict(doc="tc"), steps=[dict(state=dict(hl1="on", hl2="on")), dict(state=dict(hl3="on", hl4="on"))],
+                         note="句はカナダの報告書（英字のまま・模式）・TC＝カナダ運輸省・DFO＝漁業海洋省・CBSA＝国境サービス庁",
+                         src=ss.src(["TSB §4.2.1", "TSB §1.28.5"]))),
+    ),
+    # cc08（2行）＝勧告6つ（宛先は6つとも運輸省）→運輸省の返事は勧告のページにまだ無い（2026年10月）
+    "cc08": dict(
+        t="勧告の宛先", s="6つとも同じ役所",
+        fig=("m22", dict(view="cards", start=dict(set="rec6"),
+                         steps=[dict(state=dict(n="6")), dict(tag=dict(t="返事はまだ載らず", d="2026年10月の時点", at="low", col=J.INST))],
+                         rel=[dict(t="2026年10月の時点", src="TSB の勧告のページ（2026年10月14日に見た）")],
+                         note="番号はカナダの調べの勧告（模式）・返事の欄は勧告のページ（3つの報告書の外）", src=ss.src(["TSB §4.2"]))),
+    ),
+    # cc09（3行）＝3つの答えの並べ。聞き役の問い→重なる所（炭素繊維の側）→強さと寿命を確かめず・監視の記録を生かせず
+    "cc09": dict(
+        t="重なる答え", s="壊れた所と理由",
+        fig=("m22", dict(view="cmp", steps=[dict(), dict(state=dict(n="1")), dict(state=dict(n="3"))],
+                         note="並べは要点（模式）", src=ss.src(["USCG p7", "NTSB p1073", "NTSB p1074", "TSB §2.1", "TSB §3.1"]))),
+    ),
+    # cc10（2行）＝同じ並べ。聞き役の問い→分かれる所（2022年の音の重み・最後の数秒の順番）
+    "cc10": dict(
+        t="分かれる答え", s="重みと順番",
+        fig=("m22", dict(view="cmp", start=dict(n="3"), steps=[dict(), dict(state=dict(n="5"))],
+                         note="並べは要点（模式）",
+                         src=ss.src(["USCG p289", "NTSB p1059", "TSB §1.10.10.1", "USCG p37", "TSB §1.3.2"]))),
+    ),
+    # cc11（3行）＝🔧 再現→模式（同じ3列）。3列それぞれの下の段に「監督の穴」の枠（カナダの危険の所見を足す）→主な原因ではない→聞き役
+    "cc11": dict(
+        t="監督の穴", s="次の段に置く",
+        fig=("m22", dict(view="cols", start=dict(u0="on", u8="on", u7="on", ux="on", n1="on", n2="on", n3="on", t1="on", t2="on"),
+                         steps=[dict(state=dict(tx="on", gap="on")), dict(), dict()], note=_N_CL, src=ss.src(_CL_SRC))),
+    ),
+    # cc13（2行）＝米沿岸警備隊の報告書の一節（社員が仕返しを恐れず懸念を言える場・早さより安全→防げたかもしれない）
+    "cc13": dict(
+        t="社員の声", s="結びの一節",
+        fig=("m22", dict(view="paper", start=dict(doc="u307"), steps=[dict(state=dict(hl1="on", hl2="on", hl3="on")), dict(state=dict(hl4="on", hl5="on"))],
+                         note="句は米沿岸警備隊の報告書（英字のまま・模式）", src=ss.src(["USCG p307"]))),
+    ),
+})

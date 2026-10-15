@@ -57,6 +57,13 @@
   screen  … 監視装置の画面の決まり（30で黄・50で赤・警報の音なし・潜航ごとに0へ）                                               ca23
   dives（🆕 y22＝2022年だけ）ca01／bow（🆕 hit＝左舷の船首にぶつかる）ca02／ruler（🆕 mid＝0〜4,500m・試験の最も深い所・窓の等級2つ）c921・c923／
   layers（🆕 grind＝層ごとの削ったしわの数）c910／paper（🆕 書類5枚）c919・ca04・ca09・ca12・ca13／say（🆕 again）ca11／none（🆕 insp）ca10
+  🆕 ⑤b-6（2026-10-15）：第10〜11章・終章（台本 第2版 §4 の画の欄と映像方針の一覧＝了承②）
+  temp    … 冬の気温の平均（最高 −0.5°・最低 −5.5°＝カナダの報告書の書き方のまま「°」）と天気                               cb04
+  risk    … 危険度の点数の目盛り（この日の35・48を超えると「ストライク」・3つで その日は中止）                                 cb17
+  cols    … 3つの報告書の答えを3列に（上の段＝主な原因・下の段＝その次・7つ目に下線・下の段の「監督の穴」の枠）       cc02・cc03・cc05・cc06・cc11
+  cmp     … 3つの答えの並べ（重なる所＝3列に✓・分かれる所＝列ごとの言葉と破線の帯）                                          cc09・cc10
+  cards（🆕 tow・rec6・q3）cb13・cc08・cd02〜cd04／paper（🆕 書類6枚）cb02・cb06・cb18・cc07・cc13・cd05・cd06／layers（🆕 ice＝凍ってふくらむ）cb05／
+  org（🆕 vac＝空いた席の枠・線の先 eng）cb08
 
 ■ SPEC の書き方（mech21 と同じ）
   fig=("m22", dict(view=…, start=dict(…), steps=[dict(state=dict(…), tag=dict(t=…, at=…, to=…, d=…)), …],
@@ -361,7 +368,16 @@ def org_stage(prev, st):
         for i in range(ORG_STAFF):
             s.append(_person(400.0 + i * 74.0, ORG_PY, 64.0, J.AMBER))
         s.append(_tline(400.0 + ORG_STAFF * 74.0 + 10, ORG_PY + 52, "社員", 32, INK, "start", 200))
+    if _on(prev, st, "vac"):          # 🆕 ⑤b-6（cb08）：空いた席（技術部長）を太い点線で＝字は基図の「（空席）」のまま
+        i = next(k for k, (_nm, s_) in enumerate(ORG) if s_ == "vacant")
+        x, y = ORG_XY[i]
+        s.append(F.rect(x - ORG_W / 2 - 8, y - ORG_H / 2 - 8, ORG_W + 16, ORG_H + 16, "none", J.AMBER, 7, rx=14, dash="16 10"))
     return s
+
+
+def org_vacant_xy():
+    i = next(k for k, (_nm, s_) in enumerate(ORG) if s_ == "vacant")
+    return ORG_XY[i]
 
 
 # ══════════════════════════════════════════════════════════
@@ -398,7 +414,23 @@ PP_DOC = dict(
                w=1060.0),
     u290b=dict(head="米沿岸警備隊の見方（要点）", lines=("neither the Director of Engineering", "nor anyone else onboard with the authority",
                                                 "to assess the submersible’s safety", "possessed the necessary engineering expertise",
-                                                "to interpret the strain gauge data"), w=1060.0))
+                                                "to interpret the strain gauge data"), w=1060.0),
+    # 🆕 ⑤b-6（2026-10-15）：第10〜11章・終章の6枚（句は報告書の英字のまま・行の切れ目だけ入れた・頁は門番 check_mech の REC_M22 が持つ）
+    tarp=dict(head="基地からのメール（2022年9月28日・要点）", lines=("a quote for a tarp for the submersible had been provided",
+                                                         "they had not received approval to proceed", "so the tarp was not purchased."), w=1060.0),
+    u8=dict(head="米沿岸警備隊の結論と主な要因（要点）", lines=("unprotected in inclement weather", "compromised the TITAN’s hull integrity.",
+                                                     "failure to conduct preventative maintenance on the TITAN’s hull", "or protect it from the elements"),
+            w=1060.0),
+    n73=dict(head="米運輸安全委員会の所見（一節）", lines=("After dive 82, the Titan sustained additional damage", "—of unknown origin—that further deteriorated",
+                                                 "and weakened the pressure vessel to a point", "where it could not survive a dive to the depth of the Titanic."),
+             w=1060.0),
+    tc=dict(head="カナダの調べの一節", lines=("TC was unaware that the Titan was not registered", "with any flag state.",
+                                         "both DFO and the CBSA had information about the Titan", "that TC was not aware of."), w=1060.0),
+    u307=dict(head="米沿岸警備隊の報告書の一節", lines=("Encouraging employees to voice concerns", "without fear of retaliation",
+                                                "and prioritizing safety over expediency", "could have prevented the sequence of events",
+                                                "that led to the disaster."), w=1060.0),
+    drift=dict(head="カナダの調べの一節", lines=("past success is not a guarantee of future success,", "because this drift occurs gradually,",
+                                            "it is not easily identifiable", "and may go unnoticed as risk levels grow over time."), w=1060.0))
 PP_DEATH = 9                      # 同意書の「death」（USCG p71「The liability waiver mentions death 9 times」）
 
 
@@ -1220,11 +1252,17 @@ LY_IN_CM = 2.54                    # 1枚の厚さ＝1インチ（NTSB p.59「th
 LY_SEP = ((1, 2), (3, 4))          # 剥離した面（NTSB p.40「One delamination was between layers 1 and 2 and the other was between layers 3 and 4」）
 LY_VOID = ((1, 2), (3, 4))         # 長い空隙が並んでいた面（NTSB p.59「these adhesive interfaces contained long extended voids」）
 LY_GRIND = {1: 1, 2: 8, 3: 14, 4: 24}   # 🆕 ⑤b-5（c910）：削ったしわの数（USCG 図143＝p180 の表「Ground wrinkles」・5枚目は N/A）＝原寸で読んだ
+LY_ICE = dict(x=1020.0, depth=150.0)     # 🆕 ⑤b-6（cb05）：凍る水のすき間（外側の面から・場所と深さは模式＝水が入った所は報告書に無い）
 
 
 def ly_top(i):
     """層 i（1＝いちばん内側）の外側の縁の y（層 i と i+1 の境）。"""
     return LY["y_in"] - i * LY["th"]
+
+
+def ice_top():
+    """🆕 ⑤b-6（cb05）：凍る水のすき間の口の y（外側＝海の側の面）。"""
+    return ly_top(LY_N)
 
 
 def layers_base(st0):
@@ -1279,6 +1317,12 @@ def layers_stage(prev, st):
         for k in range(9):
             x = LY["x0"] + 80 + k * 85
             s.append(F.line(x, ly_top(1) - 5, x + 34, ly_top(1) + 5, J.AMBER, 3))
+    if _on(prev, st, "ice"):          # 🆕 ⑤b-6（cb05）：外側（海の側）のすき間に入った水が凍ってふくらむ（NTSB p1060「If water had penetrated … and frozen」）
+        x, y0, d = LY_ICE["x"], ice_top(), LY_ICE["depth"]
+        s.append(F.poly([(x - 46, y0), (x + 46, y0), (x, y0 + d)], J.INK_W, J.INK_W, 3, close=True, op=0.55))
+        for k in (-1, 1):
+            s.append(_arrow(x + k * 30, y0 + d * 0.36, x + k * 120, y0 + d * 0.36, J.ALERT, 7, 24))
+            s.append(F.line(x + k * 8, y0 + 10, x + k * 20, y0 + d * 0.5, J.BG, 3))
     return s
 
 
@@ -1605,6 +1649,13 @@ CD = dict(
                                  ("カナダの調べ", "決められない", "tsb", None, None))),
     base=dict(lay="flow", cards=(("1つ目の船体と模型", "その音を使う", "company", None, None), ("警告の基準", "30回で黄・50回で赤", "company", None, None),
                                  ("2つ目の船体", "警告にならず", "sub", None, "x"))),
+    # 🆕 ⑤b-6（2026-10-15）：cb13＝引かれたことの影響（USCG p295「further weakened」・TSB §2.1.3「may have exacerbated existing damage」＝米運輸安全委員会の
+    #   「their actual effects are unknown」（NTSB p1060）は語りに無い＝note で）／cc08＝カナダの調べの勧告6つ（TSB §4.2.1〜§4.2.4＝6つとも「the Department of
+    #   Transport」）／cd02〜cd04＝c107 の3つの問い（語りの言葉のまま）と答え（NTSB p1074・TSB §2.1／USCG p290／USCG p307・NTSB p1074・TSB §3.1）
+    tow=dict(lay="row", cards=(("米沿岸警備隊", "さらに弱った", "uscg", None, None), ("カナダの調べ", "傷を広げたかも", "tsb", None, None))),
+    rec6=dict(lay="row", cards=tuple((f"M26-0{k}", "運輸省へ", "tsb", None, None) for k in range(2, 8))),
+    q3=dict(lay="row", cards=(("何が壊れたのか", "窓でなく炭素繊維の側", "sub", None, None), ("なぜ潜り続けたのか", "調べずに続けた", "company", None, None),
+                              ("誰なら止められたのか", "まず会社自身", "company", None, None))),
 )
 CD_LIFE = 0.82                    # いちばん弱い試料で使った疲れの寿命（TSB §1.16「more than 82% of its fatigue life」＝ゲージの塗り）
 CD_ROW = dict(y=560.0, h_ic=430.0, h=220.0, x0=170.0, x1=1750.0, gap=60.0, wmax=460.0, wmax_t=380.0)   # 絵の無い組＝幅380・高さ220（門番 box）
@@ -2144,6 +2195,224 @@ def screen_stage(prev, st):
 
 
 # ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-15）：第10〜11章・終章
+# ══════════════════════════════════════════════════════════
+#  temp（cb04）＝セントジョンズの冬（2022年12月〜2023年2月）の気温の平均。TSB §1.22「The average high temperature in St. John’s between December 2022
+#    and February 2023 was -0.5° and the average low was -5.5°」「experiences snow, strong winds, freezing rain, and hail」。
+#    🔴 単位はカナダの報告書の書き方のまま「°」（℃ と書かない＝摂氏は推測・映像方針 §0-3）。⚠️ 棒（qty）は 0 より大きい値しか描けない＝目盛りの点で
+TP = dict(x=760.0, y0=360.0, y1=800.0, vmax=5.0, vmin=-10.0)
+TP_HI, TP_LO = -0.5, -5.5
+TP_TICKS = (5, 0, -5, -10)
+
+
+def tp_y(v):
+    return TP["y0"] + (TP["vmax"] - v) / (TP["vmax"] - TP["vmin"]) * (TP["y1"] - TP["y0"])
+
+
+def _deg(v):
+    return ("−" if v < 0 else "") + f"{abs(v):g}°"
+
+
+def temp_base(st0):
+    x = TP["x"]
+    g = [F.line(x, TP["y0"], x, TP["y1"], J.LINE, 5), _tline(x, TP["y0"] - 30, "気温", 28, J.TICK, "middle", 200)]
+    for v in TP_TICKS:
+        y = tp_y(v)
+        g.append(F.line(x - 14, y, x + 14, y, J.LINE, 3) + _tline(x - 30, y + 10, _deg(v), 28, J.TICK, "end", 120))
+    # ⚠️ geom_gap：0° の線を目盛りの字「0°」（x−58〜x−30）にかけた＝字の左で止める（右は気温の札の場所）
+    g.append(F.line(x - 340, tp_y(0), x - 72, tp_y(0), J.LINE_DIM, 3, dash="12 9"))
+    g.append(_tline(x - 340, tp_y(0) - 14, "水が凍る", 26, J.TICK, "start", 200))
+    return g
+
+
+def temp_stage(prev, st):
+    s = []
+    x = TP["x"]
+    if _on(prev, st, "avg"):
+        for v in (TP_HI, TP_LO):
+            y = tp_y(v)
+            s.append(F.line(x - 44, y, x + 44, y, J.AMBER, 9) + F.circ(x, y, 14, J.AMBER))
+    return s
+
+
+#  risk（cb17）＝危険度の点数（事故の潜航の計画＝35）と会社の決まり（48を超えると「ストライク」・3つで その日の潜航を中止）。TSB §1.17.12.1「a risk index
+#    of greater than 48 was considered to be a strike」「had a risk index of 35」・USCG p78「three or more “strikes” … cancel the day’s dive operation」。
+#    目盛りの右の端（60）は模式（点数の上限は報告書に無い）
+RK = dict(x0=360.0, x1=1320.0, y=560.0, vmax=60.0, bx=(1480.0, 1600.0, 1720.0), by=560.0, br=40.0)
+RK_DAY, RK_STRIKE, RK_N = 35, 48, 3
+
+
+def rk_x(v):
+    return RK["x0"] + (RK["x1"] - RK["x0"]) * v / RK["vmax"]
+
+
+def risk_base(st0):
+    y = RK["y"]
+    g = [F.line(RK["x0"], y, RK["x1"], y, J.LINE, 5), _tline(RK["x0"], y - 150, "危険度の点数", 30, J.TICK, "start", 400)]
+    for v in range(0, int(RK["vmax"]) + 1, 10):
+        g.append(F.line(rk_x(v), y - 12, rk_x(v), y + 12, J.LINE, 3) + _tline(rk_x(v), y + 50, str(v), 28, J.TICK, "middle", 80))
+    for bx in RK["bx"]:
+        g.append(F.circ(bx, RK["by"], RK["br"], "none", J.LINE_DIM, 4))
+    return g
+
+
+def risk_stage(prev, st):
+    s = []
+    y = RK["y"]
+    if _on(prev, st, "day"):
+        s.append(F.line(rk_x(RK_DAY), y, rk_x(RK_DAY), y + 64, J.AMBER, 3) + F.circ(rk_x(RK_DAY), y, 18, J.AMBER))
+    if _on(prev, st, "line"):
+        x = rk_x(RK_STRIKE)
+        # ⚠️ 門番 layout：帯を y+40 まで塗ると目盛りの字「50」「60」（y+50）を覆った＝軸の線の少し下まで
+        s.append(F.rect(x, y - 40, RK["x1"] - x, 54, J.ALERT, op=0.25) + F.line(x, y - 60, x, y + 14, J.ALERT, 5, dash="12 8"))
+    if _on(prev, st, "three"):
+        for bx in RK["bx"]:
+            s.append(F.circ(bx, RK["by"], RK["br"], "none", J.ALERT, 6) + _xmark(bx, RK["by"], 18, J.ALERT, 7))
+    return s
+
+
+#  cols（cc02・cc03・cc05・cc06・cc11）＝3つの報告書の答えを3列に（列の色＝調べの役の色・札の色＝主語の役の色＝会社 橙・船体 白・規則 灰）。
+#    上の段＝主な原因・下の段＝その次（米沿岸警備隊＝その他の要因・米運輸安全委員会＝寄与・カナダ＝危険の所見）。字は札が出る段に1回だけ（明るくするのは下線と枠）。
+#    原文＝USCG p5（primary causal factor）・p7（primary causal factors 1〜8）・p8（other contributing causal factors の4つ目）・NTSB p1074（probable cause・
+#    Contributing ×2）・TSB §3.1（never validated・fail progressively with damage accumulating）・§3.2（without any independent verification）
+#    🔧 ⑤b-6 の門番 box：列を 296〜852 の同じ高さにし、字を左に寄せたら、札の少ない列（米運輸安全委員会・カナダ）の空きが 45〜50% ＝
+#       列の高さは中身まで・下の段は上の段のすぐ下・字は列の真ん中に。札は報告書の文の部分を足した（NTSB p1074 の推定原因の3つの部分・TSB §3.1 の2つ目）
+CL = dict(xs=(400.0, 960.0, 1520.0), w=520.0, y0=296.0, hy=342.0, t1y=390.0, r0=432.0, dr=32.0, gap=40.0, dr2=42.0, pad=34.0)
+CL_COL = (("米沿岸警備隊", "uscg"), ("米運輸安全委員会", "ntsb"), ("カナダの調べ", "tsb"))
+CL_TIER = (("主な要因", "その他の要因"), ("推定原因", "寄与"), ("原因と寄与", "危険の所見"))
+CL_ITEM = dict(
+    u0=(0, 1, (("確立した手順に従わず", "company"),)),
+    u8=(0, 1, (("設計と試験が不十分", "company"), ("寿命を調べず", "company"), ("監視の装置に頼りすぎ", "company"), ("傷のあとも使い続けた", "company"),
+               ("船体の作りの欠陥", "sub"), ("不具合を詳しく調べず", "company"), ("懸念を言えない職場", "company"), ("整備せず外に置いた", "company"))),
+    ux=(0, 2, (("規則の足りなさ", "LINE"),)),
+    n1=(1, 1, (("強さと寿命を確かめず", "company"), ("層のはがれと別の傷", "sub"), ("局所の座屈で壊れた", "sub"))),
+    n2=(1, 2, (("規則と指針の足りなさ", "LINE"),)),
+    n3=(1, 2, (("監視の記録の読み違い", "company"),)),
+    t1=(2, 1, (("強さを確かめず", "company"), ("作りと試験が標準外", "company"))),
+    t2=(2, 1, (("傷が積もって壊れた", "sub"),)),
+    tx=(2, 2, (("独立した確認なし", "LINE"),)),
+)
+CL_GAP = ("ux", "n2", "tx")        # 外から監督する仕組みの穴＝3列それぞれの下の段（cc11）
+CL_U7 = ("u8", 6)                  # 7つ目＝職場の文化（cc03）
+
+
+def cl_layout():
+    """札ごとの (欄, 列, 段, 字, 役, y) と、列ごとの下の段の名の y・列の下の端。上の段は u0→u8／n1／t1→t2・下の段は ux／n2→n3／tx。"""
+    rows, t2y, bot = [], [], []
+    for c in range(len(CL_COL)):
+        y = CL["r0"]
+        mine = [(f_, v) for f_, v in CL_ITEM.items() if v[0] == c]
+        for f_, (_c, tier, items) in mine:
+            if tier != 1:
+                continue
+            for t, r in items:
+                rows.append((f_, c, 1, t, r, y))
+                y += CL["dr"] + (10 if f_ == "u0" else 0)
+        ly = y - CL["dr"] + CL["gap"] + 30
+        t2y.append(ly)
+        y = ly + CL["dr2"]
+        for f_, (_c, tier, items) in mine:
+            if tier != 2:
+                continue
+            for t, r in items:
+                rows.append((f_, c, 2, t, r, y))
+                y += CL["dr2"]
+        bot.append(y - CL["dr2"] + CL["pad"])
+    return rows, t2y, bot
+
+
+def cl_rows():
+    return cl_layout()[0]
+
+
+def _cl_cap(f_):
+    return 30 if f_ == "u0" else 27
+
+
+def _cl_w(t, f_):
+    return min(F.fm.width(t, _cl_cap(f_)), CL["w"] - 48)
+
+
+def cols_base(st0):
+    g = []
+    _rows, t2y, bot = cl_layout()
+    for c, (nm, r) in enumerate(CL_COL):
+        x, w = CL["xs"][c], CL["w"]
+        g.append(F.rect(x - w / 2, CL["y0"], w, bot[c] - CL["y0"], J.BG2, J.LINE_DIM, 4, rx=14))
+        g.append(_tline(x, CL["hy"], nm, 32, _rc(r), "middle", w - 40))
+        g.append(_tline(x, CL["t1y"], CL_TIER[c][0], 24, J.TICK, "middle", 300))
+        g.append(_tline(x, t2y[c], CL_TIER[c][1], 24, J.TICK, "middle", 300))
+        g.append(F.line(x - w / 2 + 20, t2y[c] - 30, x + w / 2 - 20, t2y[c] - 30, J.LINE_DIM, 2, dash="8 6"))
+    return g
+
+
+def cols_stage(prev, st):
+    s = []
+    rows, _t2y, bot = cl_layout()
+    fresh = {f_ for f_ in CL_ITEM if _on(prev, st, f_)}
+    for c, (_nm, r) in enumerate(CL_COL):
+        before = any(prev.get(f_) == "on" for f_, v in CL_ITEM.items() if v[0] == c)
+        if not before and any(CL_ITEM[f_][0] == c for f_ in fresh):
+            x, w = CL["xs"][c], CL["w"]
+            s.append(F.rect(x - w / 2, CL["y0"], w, bot[c] - CL["y0"], "none", _rc(r), 7, rx=14))
+    for f_, c, tier, t, r, y in rows:
+        if f_ in fresh:
+            s.append(_tline(CL["xs"][c], y, t, _cl_cap(f_), _rc(r) if r != "LINE" else INK, "middle", CL["w"] - 48))
+    if _on(prev, st, "u7"):
+        # ⚠️ geom_gap：下線は次の行の字（行の間 32px）に触れた＝行の左右の端に黄の印（字は列の真ん中）
+        f_, i = CL_U7
+        _f, c, _tier, t, _r, y = [rw for rw in rows if rw[0] == f_][i]
+        x, w = CL["xs"][c], CL["w"]
+        s.append(F.rect(x - w / 2 + 14, y - 22, 10, 26, J.AMBER, rx=3) + F.rect(x + w / 2 - 24, y - 22, 10, 26, J.AMBER, rx=3))
+    if _on(prev, st, "gap"):
+        for f_ in CL_GAP:
+            for _f, c, _tier, t, _r, y in [rw for rw in rows if rw[0] == f_]:
+                w = _cl_w(t, f_)
+                s.append(F.rect(CL["xs"][c] - w / 2 - 14, y - 28, w + 28, 38, "none", J.AMBER, 4, rx=8))
+    return s
+
+
+#  cmp（cc09・cc10）＝3つの答えの並べ（左＝重なる所・分かれる所／右の3列＝調べ）。重なる所＝3列に✓（調べの色）・分かれる所＝列ごとの言葉か破線の帯。
+#    原文＝USCG p7（the loss of structural integrity of the TITAN’s carbon fiber hull）・NTSB p1074（local buckling failure of the pressure vessel）・TSB §2.1
+#    （the pressure hull’s carbon fibre cylinder was the likeliest point of failure）／USCG p7 の 1)2)3)・NTSB p1073「unaware of its actual strength and durability」・
+#    p1074「flawed analysis of their pressure vessel monitoring system data」・TSB §3.1／USCG p289・NTSB p1059・TSB §1.10.10.1（2022年の音＝ca21・ca22 と同じ言葉）
+VS = dict(lx=150.0, xs=(950.0, 1270.0, 1590.0), cw=300.0, hy=338.0, ys=(452.0, 522.0, 592.0, 722.0, 794.0), sec=(400.0, 668.0))
+VS_COL = (("米沿岸警備隊", "uscg"), ("米運輸安全委員会", "ntsb"), ("カナダの調べ", "tsb"))
+VS_ROWS = (("same", "窓でなく炭素繊維の側", None), ("same", "強さと寿命を確かめず", None), ("same", "監視の記録を生かせず", None),
+           ("cells", "2022年の音の重み", ("強く示す", "可能性が高い", "決められない")), ("band", "最後の数秒の順番", "書き方が違う"))
+
+
+def cmp_base(st0):
+    g = []
+    for c, (nm, r) in enumerate(VS_COL):
+        g.append(_tline(VS["xs"][c], VS["hy"], nm, 28, _rc(r), "middle", VS["cw"] - 10))
+    g.append(F.line(VS["lx"], VS["hy"] + 24, VS["xs"][2] + VS["cw"] / 2, VS["hy"] + 24, J.LINE_DIM, 3))
+    g.append(_tline(VS["lx"], VS["sec"][0], "重なる所", 26, J.TICK, "start", 300))
+    g.append(_tline(VS["lx"], VS["sec"][1], "分かれる所", 26, J.TICK, "start", 300))
+    g.append(F.line(VS["lx"], VS["sec"][1] - 34, VS["xs"][2] + VS["cw"] / 2, VS["sec"][1] - 34, J.LINE_DIM, 2, dash="8 6"))
+    return g
+
+
+def cmp_stage(prev, st):
+    s = []
+    n0, n1 = _n_of(prev, st)
+    for i in range(n0, n1):
+        kind, lab, val = VS_ROWS[i]
+        y = VS["ys"][i]
+        s.append(_tline(VS["lx"], y + 11, lab, 32, INK, "start", VS["xs"][0] - VS["cw"] / 2 - VS["lx"] - 30))
+        if kind == "same":
+            for c, (_nm, r) in enumerate(VS_COL):
+                s.append(_check(VS["xs"][c], y - 2, 20, _rc(r)))
+        elif kind == "cells":
+            for c, (_nm, r) in enumerate(VS_COL):
+                s.append(_tline(VS["xs"][c], y + 10, val[c], 28, _rc(r), "middle", VS["cw"] - 20))
+        else:
+            xa, xb = VS["xs"][0] - VS["cw"] / 2 + 10, VS["xs"][2] + VS["cw"] / 2 - 10
+            s.append(F.rect(xa, y - 28, xb - xa, 50, "none", J.TICK, 3, rx=10, dash="12 9") + _tline((xa + xb) / 2, y + 9, val, 28, J.TICK, "middle", 600))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
 #  見え方の表・札の置き場・線の先
 # ══════════════════════════════════════════════════════════
 VIEWS = dict(
@@ -2201,13 +2470,22 @@ VIEWS = dict(
     stime=dict(lab="会社のひずみの見方", fields=dict(on=ONOFF, hard=ONOFF), base=stime_base, stage=stime_stage),
     nonlin=dict(lab="浅い所で曲がる線", fields=dict(bend=ONOFF, zones=ONOFF, fwd=ONOFF), base=nonlin_base, stage=nonlin_stage),
     screen=dict(lab="監視装置の画面", fields=dict(lv=ONOFF, mute=ONOFF, reset=ONOFF), base=screen_base, stage=screen_stage),
+    # 🆕 ⑤b-6（2026-10-15）
+    temp=dict(lab="冬の気温の平均（12月〜2月）", fields=dict(avg=ONOFF, wx=ONOFF), base=temp_base, stage=temp_stage),
+    risk=dict(lab="潜航の計画の危険度", fields=dict(day=ONOFF, line=ONOFF, three=ONOFF), base=risk_base, stage=risk_stage),
+    cols=dict(lab="調べごとの答え（3列）", fields={f_: ONOFF for f_ in tuple(CL_ITEM) + ("u7", "gap")}, base=cols_base, stage=cols_stage),
+    cmp=dict(lab="3つの答えの並べ", fields=dict(n=tuple(str(i) for i in range(len(VS_ROWS) + 1))), base=cmp_base, stage=cmp_stage),
 )
+VIEWS["cards"]["fields"]["n"] = tuple(str(i) for i in range(7))             # 🆕 ⑤b-6：勧告6つ（rec6）
+VIEWS["layers"]["fields"]["ice"] = ONOFF                                      # 🆕 ⑤b-6（cb05）
+VIEWS["org"]["fields"]["vac"] = ONOFF                                         # 🆕 ⑤b-6（cb08）
 START = {v: {f: d["fields"][f][0] for f in d["fields"]} for v, d in VIEWS.items()}
 START["lars_side"]["lvl"] = "up"
 HEAD_ONLY = dict(paper=("doc",), chat=("set",), depth=("z",), none=("set",), say=("set",), ruler=("z",), cards=("set",))
 # 戻さない欄（増えた吹き出しは減らない・描いた深さの点は消えない・沈んだ台は浮かない）
 ORDER = dict(chat=dict(n=tuple(str(i) for i in range(9))), depth=dict(upto=DP_ORDER), lars_side=dict(lvl=("up", "under")),
-             none=dict(n=("0", "1", "2", "3")), say=dict(n=("0", "1", "2")), cards=dict(n=("0", "1", "2", "3", "4")))
+             none=dict(n=("0", "1", "2", "3")), say=dict(n=("0", "1", "2")), cards=dict(n=tuple(str(i) for i in range(7))),
+             cmp=dict(n=tuple(str(i) for i in range(len(VS_ROWS) + 1))))
 NOT_SCHEMATIC = ("table", "chat", "ruler")   # 原文の表と文の写し・🆕 ⑤b-4 縮尺どおりの深さの物差し（左上に「模式」を付けない）
 
 TAG_AT = dict(
@@ -2271,7 +2549,16 @@ TAG_AT.update(
     stime=dict(hard=(960.0, 330.0, "middle", 900.0)),
     nonlin=dict(sh=(890.0, 420.0, "end", 360.0), deep=(350.0, 770.0, "start", 330.0), fwd=(1440.0, 760.0, "middle", 520.0)),
     screen=dict(mute=(SC["spk"][0], 640.0, "middle", 400.0), reset=(sc_x(20), 770.0, "middle", 400.0)),
+    # 🆕 ⑤b-6（2026-10-15）
+    temp=dict(hi=(TP["x"] + 80.0, tp_y(TP_HI) + 12.0, "start", 360.0), lo=(TP["x"] + 80.0, tp_y(TP_LO) + 12.0, "start", 360.0),
+              wx=(1320.0, 420.0, "start", 500.0)),
+    risk=dict(day=(rk_x(RK_DAY), RK["y"] + 120.0, "middle", 320.0), line=(rk_x(RK_STRIKE), RK["y"] - 124.0, "middle", 360.0),
+              three=(RK["bx"][1], RK["by"] + 120.0, "middle", 400.0)),
+    cols=dict(), cmp=dict(),
 )
+TAG_AT["cards"].update(b1=(520.0, 760.0, "middle", 420.0), b2=(960.0, 760.0, "middle", 420.0), b3=(1400.0, 760.0, "middle", 420.0))   # 🆕 ⑤b-6：3つの箱の下
+TAG_AT["layers"].update(r2=(120.0, 340.0, "start", 440.0))      # 🆕 ⑤b-6（cb05）：左上＝輪切りの絵（y 398〜）と破線の上
+TAG_AT["org"].update(eng=(750.0, 770.0, "middle", 520.0))       # 🆕 ⑤b-6（cb08）：空いた席（x 560〜940）の下＝2段目の席のすき間を線が通る
 
 
 def anchors(view, st):
@@ -2290,6 +2577,9 @@ def anchors(view, st):
         return dict(ese=bw_pt("ese"), ene=bw_pt("ene"), tip=BW_["tip"])
     if view == "lars_top":
         return dict(dome=(LT["cx"] - LT["L"] * 0.42, LT["cy"] - LT["L"] * 0.14))
+    if view == "org":                 # 🆕 ⑤b-6（cb08）：空いた席の下の縁（線は2段目の席のすき間 x 730〜770 を通る）
+        x, y = org_vacant_xy()
+        return dict(eng=(x, y + ORG_H / 2 + 10))
     return {}
 
 
@@ -2530,4 +2820,20 @@ def geo_of(view, start, states):
         out.update(year=DV_YEAR)
     if view == "bow":
         out.update(hit=bw_hit(), w=BW_["w"])
+    # 🆕 ⑤b-6（2026-10-15）
+    if view == "temp":
+        out.update(hi=TP_HI, lo=TP_LO, y_hi=tp_y(TP_HI), y_lo=tp_y(TP_LO), y0=tp_y(0), px_deg=(TP["y1"] - TP["y0"]) / (TP["vmax"] - TP["vmin"]))
+    elif view == "risk":
+        out.update(day=RK_DAY, strike=RK_STRIKE, n=len(RK["bx"]), x_day=rk_x(RK_DAY), x_line=rk_x(RK_STRIKE), x0=RK["x0"],
+                   px=(RK["x1"] - RK["x0"]) / RK["vmax"])
+    elif view == "cols":
+        out.update(heads=[(nm, _rc(r)) for nm, r in CL_COL], tiers=[tuple(t) for t in CL_TIER],
+                   items={f_: (c, tier, tuple(items)) for f_, (c, tier, items) in CL_ITEM.items()},
+                   cols={f_: [_rc(r) for _t, r in items] for f_, (_c, _tier, items) in CL_ITEM.items()}, gap=CL_GAP, u7=CL_U7)
+    elif view == "cmp":
+        out.update(heads=[(nm, _rc(r)) for nm, r in VS_COL], rows=[tuple(r) for r in VS_ROWS])
+    if view == "layers":
+        out.update(ice=dict(x=LY_ICE["x"], top=ice_top(), outer=LY["y_in"] - LY_N * LY["th"], inner=LY["y_in"]))
+    if view == "org":
+        out.update(vac_xy=org_vacant_xy(), eng=anchors("org", start)["eng"])
     return out
