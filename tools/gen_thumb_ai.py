@@ -546,6 +546,57 @@ SCENES.update({
 })
 
 
+# ── 🆕 22本目 タイタン号のリメイク（2026-10-15・⑥）＝カズヤくん「サムネはどれもイマイチ。OpenAI API で海底のタイタン号を再現した
+#    実写イラストを作成して使用」（国の写真の候補は見たうえで・ROV の映像＝Pelagic＝第三者はサムネに使わない＝10-14 の決め）。
+#    🔴 札は新規（ほかの回の札を流用しない＝ルール 6-55④。流用はブレ止めの1文「It must NOT look like a render, …」だけ）
+#    事実の芯（3冊・台本 c101・c5）：2023-06-22・北大西洋・深さ約3,800メートル・タイタニックの船首から約500メートル。無人の探査機（ROV）の
+#    ライトの中で、海底に尾部（白い円すいの覆い）が見つかり、まわりに残骸（炭素繊維の筒の黒い破片・チタンの輪）が散っていた。
+#    🔴 ROV の映像そのものを真似しない（探査機の腕・画面の焼き込みの数字を描かせない）・人と遺体は描かせない・文字は描かせない
+#    本番は反転版（字の外がカラー）＝地は明るく（カズヤくん「文字を目立たせるため、地の写真を明るく加工」）→ 焼くときに明るさを上げる
+LOOK_TITAN = (
+    "A real PHOTOGRAPH taken on the deep-sea floor by the camera of an expedition, at about 3,800 metres depth in "
+    "the North Atlantic. Strong white floodlights from just above and in front light the scene evenly and brightly; "
+    "the light falls off into deep blue-black water at the edges. Clear, sharp, high-resolution digital image with "
+    "true depth of field, natural colours under the lamps, fine drifting particles of marine snow catching the light. "
+)
+FRAME_TITAN = (
+    "COMPOSITION, critical: 16:9 frame. Very large lettering will later cover the top 15% and the bottom 20% of the "
+    "frame, and one huge word will run across the whole middle. So the wreck — described above — must be large and "
+    "fill the MIDDLE HORIZONTAL BAND across most of the width, seen from slightly above the seabed at a low angle, "
+    "with the pale sediment brightly lit all around it so that the whole frame reads as light and clear, not dark. "
+    "Keep the top as softly lit blue water with drifting particles, and the bottom as bright, plain, pale grey "
+    "sediment. "
+)
+BAN_TITAN = (
+    "No text, letters, numbers, words, logos, labels, signs, scale bars, timestamps, depth readouts, camera overlays, "
+    "frames or watermarks of any kind. No people, no human remains, no clothing, no fish or animals, no robot arm or "
+    "any part of the camera vehicle in view, no other wreck or ship in view. "
+)
+TAIL_TITAN = (
+    "The result must look like a genuine, quiet, respectful photograph of the wreck as it was found. It must NOT look "
+    "like a render, a video game, a movie poster, a 3D visualisation or an illustration. No lens flare, no dramatic "
+    "colour grading, no air bubbles, no fire, no smoke."
+)
+SCENES.update({
+    "titan_a": {
+        "ep": "ep22",
+        "name": "海底で見つかったタイタン号の尾部と残骸（深さ約3,800メートル・照明で明るく照らされた海底）",
+        "hypothesis": "台本の冒頭 c101（尾部をとらえた）と同じ場面＝この事故だと形で分かる。反転版の字の外が明るい海底と白い尾部になり、"
+                      "「タイタン号」の暗い字が立つ",
+        "look": LOOK_TITAN, "frame": FRAME_TITAN, "ban": BAN_TITAN, "tail": TAIL_TITAN,
+        "scene": (
+            "The wreck of a small five-person deep-diving submersible lies on the flat seabed: the white, smooth, "
+            "cone-shaped tail section of the craft, about two and a half metres across, rests partly sunk in the "
+            "sediment, slightly tilted. At its broken front end there is a heavy ring of dull grey titanium, and "
+            "short, frayed, splintered black carbon-fibre composite sticks out from it where the cylindrical hull "
+            "was torn away. Around it, scattered across the sediment, lie many black carbon-fibre fragments, a few "
+            "pieces of white fairing panel and bits of cable. Everything is still; the damage is crushed and torn, "
+            "not burnt. "
+        ),
+    },
+})
+
+
 def build(v):
     """🔴 質感（look）と締め（tail）は**場面ごとに差し替えられる**（2026-09-22 追加）。
 

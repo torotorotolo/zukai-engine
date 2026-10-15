@@ -1598,11 +1598,20 @@ def h_ground(src, vivid_adj, dim_src_contrast=1.0, dim_contrast=1.10, v1=True, d
     return vivid, _ep21_jpeg(im.convert("RGB"))
 
 
-def h_type(vivid, dim, giant, gfs, gx, gbase, top_parts, bottom, small=None, top_fs=96, bot_fs=112, rim=None):
+def _h_giant(gx, gbase, gfs, sy):
+    """大きな語の <text の頭。sy＝縦の伸ばし（1 なら元の作りと1字も変えない＝20・21本目の md5 の照合が生きる）。
+    🆕 22本目 10-15 カズヤくん「タイタン号の文字をもっと大きく。縦を長くするなど」＝scale(1, sy)・縁は伸ばさない（non-scaling-stroke）"""
+    if sy == 1:
+        return f'<text x="{gx}" y="{gbase}" font-family="NSB" font-size="{gfs}"'
+    return (f'<text x="{gx}" y="{gbase / sy:.2f}" font-family="NSB" font-size="{gfs}" '
+            f'transform="scale(1,{sy})" vector-effect="non-scaling-stroke"')
+
+
+def h_type(vivid, dim, giant, gfs, gx, gbase, top_parts, bottom, small=None, top_fs=96, bot_fs=112, rim=None, sy=1):
     """H 型の本体。giant＝型抜きの大きな語・top_parts＝上の1行 [(文字, 色)]・bottom＝下の黄の1行・
-    small＝(文字, x, 基線y, 大きさ) 黄の小さな添え字。rim＝赤い縁（None なら標準＝字の大きさ × H_RIM）"""
+    small＝(文字, x, 基線y, 大きさ) 黄の小さな添え字。rim＝赤い縁（None なら標準＝字の大きさ × H_RIM）・sy＝縦の伸ばし"""
     rim = round(gfs * H_RIM) if rim is None else rim
-    t = f'<text x="{gx}" y="{gbase}" font-family="NSB" font-size="{gfs}"'
+    t = _h_giant(gx, gbase, gfs, sy)
     top = "".join(f'<tspan fill="{c}">{s}</tspan>' for s, c in top_parts)
     sm = ""
     if small:
@@ -1643,9 +1652,68 @@ def ep20_h(v1=True):
     print("123便の字の大きさ", g2, "赤い縁", round(g2 * H_RIM) if v1 else 18)
 
 
+# ── 22本目（タイタン号のリメイク）H 型 v1 と反転版（2026-10-15 ⑥） ────────
+#    カズヤくん（10-15 試写の途中）：上「乗員5名 生還者なし」・まん中「タイタン号」・下「最新の報告書」・H 型は反転版も。
+#    地は「候補写真を実際に見せて」＝候補を当てはめて並べる。🔴 旧版の写真（PH_AFT＝ROV の後部ドーム・撮ったのは Pelagic＝第三者）は
+#    10-14 の決めでサムネに使わない＝見本は参考（カズヤくんが決まりを知ったうえで選ぶ）
+EP22_GROUNDS = (("g1", "ep22/photo/dvids9057342_deck_survey.jpg", {}),      # 米沿岸警備隊 DVIDS 9057342 甲板の上の残骸
+                ("g2", "ep22/photo/dvids9057367_first_hull.jpg", {}),       # 同 9057367 1つ目の船体
+                ("g4", "ep22/mbi_fig159_fwd_segment.jpg", {}),              # 海難調査委員会の報告書 図159（FBI 撮影）
+                ("g6", "ep22/photo/dvids7875448_sea_from_aircraft.jpg", {}),  # 同 7875448 上空から見た海と船
+                ("cf", PH_CF, {}),                                          # 旧版の道具の USCG 職員撮影：回収した炭素繊維の破片
+                ("old_rov", PH_AFT, dict(cy=0.44)),                         # 旧版の地（ROV＝第三者）＝参考
+                ("ai", "ep22/ai/ep22_titan_a.jpg", {}))                     # 🆕 10-15 生成 AI（gen_thumb_ai titan_a・カズヤくん「どれもイマイチ」）
+
+
+def h_type_inv(vivid, dim, giant, gfs, gx, gbase, top_parts, bottom, top_fs=96, bot_fs=112, rim=None, sy=1):
+    """H 型の反転（22本目 10-15 カズヤくん「反転Verも」）＝字の外がカラー・字の中が白黒（v1 の暗さとぼかし）。"""
+    rim = round(gfs * H_RIM) if rim is None else rim
+    t = _h_giant(gx, gbase, gfs, sy)
+    top = "".join(f'<tspan fill="{c}">{s}</tspan>' for s, c in top_parts)
+    return (f'<defs>{EP21_GRAD}<mask id="km" maskUnits="userSpaceOnUse" x="0" y="0" width="{W}" height="{H}">'
+            f'<rect x="0" y="0" width="{W}" height="{H}" fill="#000"/>{t} fill="#fff">{giant}</text></mask></defs>'
+            f'{ep21_img(vivid)}'
+            f'<rect x="0" y="470" width="{W}" height="250" fill="url(#bt)"/>'
+            f'{t} fill="{EP21_HOT}" stroke="{EP21_HOT}" stroke-width="{rim}" stroke-linejoin="round">{giant}</text>'
+            f'<image href="{dim}" x="0" y="0" width="{W}" height="{H}" preserveAspectRatio="xMidYMid slice" mask="url(#km)"/>'
+            f'<text x="40" y="104" font-family="NSB" font-size="{top_fs}" fill="#fff" stroke="#000" stroke-width="14" '
+            f'stroke-linejoin="round" paint-order="stroke fill">{top}</text>'
+            f'<text x="40" y="692" font-family="NSB" font-size="{bot_fs}" fill="#fbfb0e" stroke="#000" stroke-width="16" '
+            f'stroke-linejoin="round" paint-order="stroke fill">{bottom}</text>')
+
+
+def ep22_h(only=None, top_words=(("乗員", "#ffffff"), ("5名", EP21_HOT), (" 生還者なし", "#ffffff")),
+           sy=1, gbase=455, suffix="", vivid_adj=(1.15, 1.15, 1.0)):
+    giant = "タイタン号"
+    gfs = round(1220 / h_adv(giant, 1))
+    kw = dict(giant=giant, gfs=gfs, gx=30, gbase=gbase, top_parts=list(top_words), bottom="最新の報告書", sy=sy)
+    for tag, src, crop in EP22_GROUNDS:
+        if only and tag not in only:
+            continue
+        viv, dim = h_ground(src, vivid_adj, **crop)
+        bake(f"ep22-ab/ep22_H_{tag}{suffix}", h_type(viv, dim, **kw))
+        bake(f"ep22-ab/ep22_Hinv_{tag}{suffix}", h_type_inv(viv, dim, **kw))
+    print("タイタン号の字の大きさ", gfs, "縦の伸ばし", sy, "赤い縁", round(gfs * H_RIM))
+
+
+# 10-15 カズヤくん：上「乗員乗客5名 生還者なし」・本番は反転版・「タイタン号」を縦に長く
+EP22_TOP = (("乗員乗客", "#ffffff"), ("5名", EP21_HOT), (" 生還者なし", "#ffffff"))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep20-h-check" in sys.argv:
+    if "ep22-h-ai" in sys.argv:
+        # 10-15 カズヤくん「OpenAI API で海底のタイタン号を再現した実写イラストを作成して使用」＝本番は反転版・H 型はテスト。
+        #   検品の所見（尾部が横倒し＝実物は立った形）を見たうえで「生成した写真の地を明るくせず使う」＝明るさは元の作り（1.0）
+        ep22_h(only=("ai",), top_words=EP22_TOP, sy=1.8, gbase=519, suffix="_t")
+    elif "ep22-h-bright" in sys.argv:
+        # 10-15 カズヤくん「文字を目立たせるため、地の写真を明るく加工」（0:09 の ROV＝Pelagic は決まりの外＝国の写真の候補で）
+        ep22_h(only=("g1", "g2", "g4"), top_words=EP22_TOP, sy=1.8, gbase=519, suffix="_tb", vivid_adj=(1.15, 1.15, 1.25))
+    elif "ep22-h-tall" in sys.argv:
+        ep22_h(only=("g1", "old_rov"), top_words=EP22_TOP, sy=1.8, gbase=519, suffix="_t")
+    elif "ep22-h" in sys.argv:
+        ep22_h()
+    elif "ep20-h-check" in sys.argv:
         ep20_h(v1=False)
     elif "ep20-h" in sys.argv:
         ep20_h()
