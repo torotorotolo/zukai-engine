@@ -217,7 +217,8 @@ SPEC.update({
     "c719": dict(
         t="社内の声", s="呼び名への懸念",
         fig=("m22", dict(view="paper", start=dict(doc="emp"),
-                         steps=[dict(state=dict(hl1="on")), dict(state=dict(hl2="on", hl3="on")), dict(tag=dict(t="話のあと辞職", at="r3", col=J.INK_W))],
+                         #   🔧 試し焼き：3行目（0.69秒）の札「話のあと辞職」は出てすぐ次のカット＝読めない＝外した（辞めたことは語り）
+                         steps=[dict(state=dict(hl1="on")), dict(state=dict(hl2="on", hl3="on")), dict()],
                          note="言葉は米運輸安全委員会の報告書が引く社員の言葉（英字のまま・模式）", src=ss.src(["NTSB p1047"]))),
     ),
 })

@@ -123,7 +123,8 @@ SPEC.update({
     # c805（2行）＝会合の席（CEO・運航部長・社員3人）→運航部長が船体の追加の試験を求める・CEO が録音
     "c805": dict(
         t="翌日の会合", s="録音のある会合",
-        fig=("m22", dict(view="meet", steps=[dict(), dict(state=dict(rec="on"), tag=dict(t="船体の追加の試験を", d="運航部長", at="ask"))],
+        #   🔧 試し焼き：札の下の小さい字「運航部長」は真上の席の札と同じ＝外した
+        fig=("m22", dict(view="meet", steps=[dict(), dict(state=dict(rec="on"), tag=dict(t="船体の追加の試験を", at="ask"))],
                          note="席の並びは模式（顔は描かない）", src=ss.src(["TSB §1.12.1", "USCG p149"]))),
     ),
     # c806（2行）＝🔧 人の言葉（CEO・会合の録音）。2行目で吹き出し

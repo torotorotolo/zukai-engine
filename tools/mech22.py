@@ -1184,7 +1184,10 @@ def layers_base(st0):
          F.line(cx + 16, cy - r + 22, LY["x0"] - 6, LY["y_in"], J.LINE_DIM, 2, dash="8 6"),
          _tline(cx, cy + r + 62, "筒の輪切り", 28, J.TICK, "middle", 260)]
     for i in range(1, LY_N + 1):
-        g.append(F.rect(LY["x0"], ly_top(i), LY["x1"] - LY["x0"], LY["th"], J.BG2 if i % 2 else "#1c2c38", J.LINE_DIM, 3))
+        # 🔧 ⑤b-4 の試し焼き：偶数の層を紺の固定色（#1c2c38）にしたら章の色（赤銅）に置き換わらず、別の材料に見えた＝章の色の LINE_DIM を薄く重ねる
+        g.append(F.rect(LY["x0"], ly_top(i), LY["x1"] - LY["x0"], LY["th"], J.BG2, J.LINE_DIM, 3))
+        if i % 2 == 0:
+            g.append(F.rect(LY["x0"] + 2, ly_top(i) + 2, LY["x1"] - LY["x0"] - 4, LY["th"] - 4, J.LINE_DIM, op=0.30))
         g.append(_tline(LY["x1"] + 30, ly_top(i) + LY["th"] / 2 + 12, str(i), 34, INK, "start", 60))
     for i in range(1, LY_N):
         g.append(F.line(LY["x0"], ly_top(i), LY["x1"], ly_top(i), J.DOC, 3))
