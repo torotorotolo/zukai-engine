@@ -64,10 +64,10 @@ PLAN = {
                plan='台本の画：図 線 時刻に沿って並べたひずみ（潜航ごとの線が横に並ぶ＝比べにくい形の模式）',
                src='NTSB p.51（`OceanGate analyzed hull strain by plotting it side-by-side with dive depth as a function of time.`）・NTSB p.64（`analyzing strain data in this way was flawed because it was difficult for OceanGate to compare data between dives.`）'),
     'ca17': dict(kind='図・写真の頁',
-               plan='台本の画：図 NTSB 図21 の左（75回目と80回目の浅い1,000m のひずみ＝出どころの注なし＝NTSB・A・額装か記録の点で描き直す）',
+               plan='🆕 N21:左｜見せ方：額装（報告書の図）｜副題：75回目と80回目のひずみ（浅い1,000メートル）｜動き：額ごと寄る｜権利：A（NTSB）｜出典の行：米運輸安全委員会の報告書 図21｜注：⑤b-7 で額装に決めた（束で左右に割る）・英字の札は訳の札｜台本の画：図 NTSB 図21 の左（75回目と80回目の浅い1,000m のひずみ＝出どころの注なし＝NTSB・A・額装か記録の点で描き直す）',
                src='NTSB p.53（`Through dive 80, the strain response of the hull was linear at all depths (a typical mechanical behavior).`）'),
     'ca18': dict(kind='図・写真の頁',
-               plan='台本の画：図 NTSB 図21 の右（81〜83回目の浅い所の「Non-linear behavior」を明るく）',
+               plan='🆕 N21:右｜見せ方：額装（報告書の図）｜副題：81〜83回目のひずみ（浅い1,000メートル）｜動き：止め（語りの1行目で曲がった所を印で明るく）｜権利：A（NTSB）｜出典の行：米運輸安全委員会の報告書 図21｜注：⑤b-7 で額装に決めた・英字の札は訳の札｜台本の画：図 NTSB 図21 の右（81〜83回目の浅い所の「Non-linear behavior」を明るく）',
                src='NTSB p.53（`During dive 81, the first dive after the audible event, the strain response at low depth was non-linear.`）・NTSB p.59 脚注42（`The strain response at greater depths remained linear, similar to previous dives`）'),
     'ca19': dict(kind='図解',
                plan='台本の画：図 模式 層がはがれた筒（浅い所で線が曲がるしくみ・ひずみ計の位置＝筒の前の端）',
@@ -272,4 +272,29 @@ SPEC.update({
                                               dict(add=[ss.ax("last82"), ss.ax("occ23"), ss.ax("m11")], cur="2023-06-18")],
                           note="日付はカナダの報告書 付録B・赤信号は米沿岸警備隊の書き方", src=ss.src(["USCG p290", "NTSB p1060", "TSB §付録B"]))),
     ),
+})
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-7（2026-10-15）：写真と NTSB 図21（3カット）＝映像方針の一覧（了承②）。副題は焼いた絵を原寸で見てから最終に
+# ══════════════════════════════════════════════════════════
+#   ca03＝第三者（個人の撮影＝NTSB 図8）＝額装だけ・色を変えない（color=1.0）・額ごと動かす・サムネに使わない。
+#   ca17・ca18＝NTSB 図21（ひずみ計の出力と深さ＝浅い1,000メートル・PDF 53頁の埋め込みの画像 1430×515）を束で左右に割った（黒い帯の割り目）。
+#   英字の札は訳の札を添える（ルール §B1-4）。ca18 は語りの1行目「浅い所で線が曲がっていた」で、曲がった所（81〜83回目の深さ 0〜約400メートル）を
+#   頁の上の印（hl）で明るく＝印の範囲は図の目盛りから（右の図の x＝2,480〜2,560 mV・y＝深さ 0〜約400 m＝図の割合）
+_LAUNCH = P("ntsb_fig08_launch_2022")
+_STR_L = P("ntsb_fig21_strain_l")
+_STR_R = P("ntsb_fig21_strain_r")
+SPEC.update({
+    # ca03（12.2秒）＝台ごと海へ降ろされるタイタン（2022年・個人の撮影＝NTSB 図8）・額ごと寄る
+    "ca03": dict(photo=_LAUNCH, panel=True, color=1.0, fmove=ss.fm("in"), t="階段に引っかかる", s="台ごと海へ降ろされるタイタン（2022年）"),
+    # ca17（7.8秒）＝NTSB 図21 の左（75回目と80回目＝潜る線と浮かぶ線がまっすぐ）・額ごと寄る
+    "ca17": dict(photo=_STR_L, panel=True, fmove=ss.fm("in"), t="まっすぐな線", s="75回目と80回目のひずみ（浅い1,000メートル）",
+                 ann=[dict(t="青と赤の点", d="75回目と80回目の潜航"), dict(t="縦の目盛り", d="海の深さ（メートル）"),
+                      dict(t="横の目盛り", d="ひずみ計の出力"), dict(t="2本の矢印", d="潜る・浮かぶ")]),
+    # ca18（7.5秒）＝NTSB 図21 の右（81〜83回目＝浅い所で曲がる「Non-linear behavior」の矢印は NTSB の物）。
+    #   額は動かさない（門番 fmove＝額ごと動かすカットに hl を混ぜない）＝動きは語りと同時に走る印
+    "ca18": dict(photo=_STR_R, panel=True, t="音のあとの潜航", s="81〜83回目のひずみ（浅い1,000メートル）",
+                 hl=[(0, 0.5, 1.0, (0.32, 0.52, 0.57, 0.89))],
+                 ann=[dict(t="黄・水色・紫の点", d="81〜83回目の潜航"), dict(t="左下の札と矢印", d="まっすぐでない線"),
+                      dict(t="縦の目盛り", d="海の深さ（メートル）"), dict(t="2本の矢印", d="潜る・浮かぶ")]),
 })

@@ -2504,7 +2504,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `dvids9057367_first_hull` | c814 | 2023 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米沿岸警備隊（DVIDS 9057367） | https://www.dvidshub.net/image/9057367 |
 | `lab24011_p37_fig15` | c612 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会 研究所の報告 24-011 図15 | pdf:ref/ep22/src/materials_raw/ntsb_docket_pdf/lab24011.pdf:37:0 |
 | `lab24011_p44_fig21` | c614 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会 研究所の報告 24-011 図21 | pdf:ref/ep22/src/materials_raw/ntsb_docket_pdf/lab24011.pdf:44:0 |
-| `lab24011_p47_fig22` | c613 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会 研究所の報告 24-011 図22 | pdf:ref/ep22/src/materials_raw/ntsb_docket_pdf/lab24011.pdf:47:0 |
+| `lab24011_p46_fig22a` | c613 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会 研究所の報告 24-011 図22 | pdf:ref/ep22/src/materials_raw/ntsb_docket_pdf/lab24011.pdf:46:0 |
 | `lab24011_p53_fig28` | c916 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会 研究所の報告 24-011 図28 | pdf:ref/ep22/src/materials_raw/ntsb_docket_pdf/lab24011.pdf:53:0 |
 | `lab24011_p67_fig39` | c819 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会 研究所の報告 24-011 図39 | pdf:ref/ep22/src/materials_raw/ntsb_docket_pdf/lab24011.pdf:67:0 |
 | `lab24011_p71_fig43b` | cd07 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会 研究所の報告 24-011 図43 | pdf:ref/ep22/src/materials_raw/ntsb_docket_pdf/lab24011.pdf:71:1 |
@@ -2537,6 +2537,8 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `ntsb_fig17_layers_b` | c913 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会の報告書 図17 | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:44:0 |
 | `ntsb_fig18_delam_l` | c803 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会の報告書 図18 | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:45:0 |
 | `ntsb_fig18_delam_r` | c904 | 不明 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会の報告書 図18 | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:45:0 |
+| `ntsb_fig21_strain_l` | ca17 | 2022 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会の報告書 図21 | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:53:0 |
+| `ntsb_fig21_strain_r` | ca18 | 2022 | PD（米連邦の職務・17 U.S.C. §105）（A） | 米運輸安全委員会の報告書 図21 | pdf:ref/ep22/src/ntsb_titan_MIR2536.pdf:53:0 |
 
 ### 2. 地図の衛星写真（Google マップ・束に入れない）
 - G01〜G06＝Google マップの衛星写真（⑤b-1 に撮った・G06 は ⑤b-3 で撮り直し・`ref/ep22/photo/gmap_g0*.png`＝git の外）。Google の地理の指針（教育の動画は許可不要・収益化も可）に従い、**絵の下の帰属の行（地図データ ©2026 Google・画像 ©提供元）とロゴを映す間ずっと残す**・色を変えない・動かさない・点と線と札は描き足してよい（地図の型 `tools/satmap.py`・門番 `tools/check_sat.py`）

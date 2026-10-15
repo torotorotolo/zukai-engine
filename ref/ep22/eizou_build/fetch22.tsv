@@ -50,9 +50,17 @@ N18	fig	ref/ep22/photo/ntsb_fig18_delam.png	1043250	f6f3af3df4536a1a1e0053a44796
 L15	fig	ref/ep22/photo/lab24011_p37_fig15.png	1791765	317b54469fac31665fa626365c0419e6	md5 2回一致	1224x1584	—	（EXIF に日付なし）	—
 L21	fig	ref/ep22/photo/lab24011_p44_fig21.png	1336393	761bea3d12ac55a4566c5baaac04301d	md5 2回一致	1224x1584	—	（EXIF に日付なし）	—
 L22	fig	ref/ep22/photo/lab24011_p47_fig22.png	4174952	cc50f7f289c35b9d4b4562a819758d33	md5 2回一致	1320x1621	—	（EXIF に日付なし）	—
+L22a	fig	ref/ep22/photo/lab24011_p46_fig22a.png	1907739	08670a5b3b512a4586fa20f0ef7ca3fd	md5 2回一致	1224x1584	—	（EXIF に日付なし）	—
+N21	fig	ref/ep22/photo/ntsb_fig21_strain.png	205674	5305721e172a93adf2f48e1d543fd7ce	md5 2回一致	1430x515	—	（EXIF に日付なし）	—
 L28	fig	ref/ep22/photo/lab24011_p53_fig28.png	990622	dc68984f7058d48b2a6335b5a893644a	md5 2回一致	1320x880	—	（EXIF に日付なし）	—
 L39	fig	ref/ep22/photo/lab24011_p67_fig39.png	1371371	9d5adf6c7f5f05887273ca40c9a8d25f	md5 2回一致	1430x1593	—	（EXIF に日付なし）	—
 L43b	fig	ref/ep22/photo/lab24011_p71_fig43b.png	1084874	ec3cba05d6fb951c2a61f27a6cc0b1c0	md5 2回一致	1320x880	—	（EXIF に日付なし）	—
 L45a	fig	ref/ep22/photo/lab24011_p73_fig45a.png	1098914	af691c3315378890ef4f81d0214f51e4	md5 2回一致	1320x880	—	（EXIF に日付なし）	—
 L47b	fig	ref/ep22/photo/lab24011_p75_fig47b.png	845336	1d7da511bc1097e7afb501a24fd73244	md5 2回一致	1320x880	—	（EXIF に日付なし）	—
 L48	fig	ref/ep22/photo/lab24011_p76_fig48.png	1615170	d92f84542427cc3e8b413ff6ab7092b1	md5 2回一致	1224x1584	—	（EXIF に日付なし）	—
+G01	gmap	ref/ep22/photo/gmap_g01_north_america.png	2557089	70ff2619fdbaf91c3b1c5651b82d7c8e	md5 2回一致	1920x1080	—	（EXIF に日付なし）	https://www.google.com/maps
+G02	gmap	ref/ep22/photo/gmap_g02_newfoundland_site.png	1622245	4c9a76312ec1bb0053611ec20add3068	md5 2回一致	1920x1080	—	（EXIF に日付なし）	https://www.google.com/maps
+G03	gmap	ref/ep22/photo/gmap_g03_buffalo_newfoundland.png	2313868	57eb70a4722acc83aa5653315a0171ec	md5 2回一致	1920x1080	—	（EXIF に日付なし）	https://www.google.com/maps
+G04	gmap	ref/ep22/photo/gmap_g04_north_atlantic.png	2159277	67507f0134ae97af6abac1dcafc49299	md5 2回一致	1920x1080	—	（EXIF に日付なし）	https://www.google.com/maps
+G05	gmap	ref/ep22/photo/gmap_g05_bahamas.png	2056833	35b8c66417c27d9d68155c244a7d0337	md5 2回一致	1920x1080	—	（EXIF に日付なし）	https://www.google.com/maps
+G06	gmap	ref/ep22/photo/gmap_g06_stjohns_pier14.png	3723939	2ac970d434b7b1a7c735a8f334926ab7	md5 2回一致	1920x1080	—	（EXIF に日付なし）	https://www.google.com/maps

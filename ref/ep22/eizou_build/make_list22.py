@@ -162,6 +162,10 @@ def main():
         if c['kind'] != '実写':
             if c['main']:   # 衛星写真の地図（G01〜）など＝素材の記号だけ写す（門番は実写だけ）
                 c['code'] = c['main']
+                # 🆕 ⑤b-7（10-15）：NTSB のグラフ（N21:左 など＝図・写真の頁）は記号と割りを分けて写す（束 `qa_out/ep22_assets.py` の uses が割りで名を決める）
+                if ':' in c['main']:
+                    c['code'], c['part'] = c['main'].split(':', 1)
+                    c['rights'], c['credit'] = sources.get(c['code'], {}).get('rights', ''), sources.get(c['code'], {}).get('credit', '')
             continue
         if not c['main']:
             E.append('%s 実写なのに素材の記号が無い（%s）' % (c['cid'], c['ga'][:40]))
