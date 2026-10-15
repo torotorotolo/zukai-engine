@@ -2705,6 +2705,14 @@ def report():
     #    **push 済みのコミット**なので、そこを見なければ意味が無い。
     #    → HEAD のツリー（`ls-tree`）を見る。さらに push 済みかも見る。
     used = sorted({v[1] for v in PHOTO_CUTS.values()})
+    # 🆕 22本目 ⑥（2026-10-15）：衛星写真（表 `cuts/ss.SAT`＝Google の画像・公開リポに置けない）は git の外が正しい（⑤b-2 の決め）。
+    #    Modal は保管庫 `jiko-assets` の `ref/…` を `modal_app.pull_private` で写す・Actions には無い（地図のカットは飛ばす）。
+    #    有る無しと md5 は `build_jiko.drop_missing_sat` が見る（本編 full で無ければ止める＝fail closed）＝ここでは数えない。
+    #    数えていたので、Actions は「実体が無い」・Modal の本編は「コミットされていない」で必ず止まった（本編を初めて Modal で焼いた r01）
+    sat = {v["file"] for v in getattr(_cuts_ss, "SAT", {}).values()} & set(used)
+    if sat:
+        print(f"   衛星写真 {len(sat)}件は git の外（保管庫から・有る無しと md5 は build_jiko.drop_missing_sat）＝ここでは数えない")
+        used = [n for n in used if n not in sat]
     nofile = [n for n in used if not (HERE / "ref" / n).exists()]
     if nofile:
         print(f"🔴 ref に実体が無い写真: {nofile}")
