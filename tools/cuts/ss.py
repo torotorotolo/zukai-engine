@@ -451,14 +451,18 @@ def check_card_mix(spec, heads, fo=None):
     カットの SPEC に `card_mix=0` を**書く**（書かなければ既定で混ざる＝止める）。空なら合格。
     15本目 c300card（報告書の図5＝courtesy）・c400card・c800card（BY-SA）＝640px のシートで見つけた（門番は扉を見ていなかった）。
     12〜14本目の扉も同じ作り（公開ずみ＝直さない）。呼ぶ側＝`scene_jiko`（扉の一覧 CARD_HEADS が決まった直後・読み込みで止める）
-    fo＝額装だけの点の表（selftest が見本を渡す＝回の台帳に左右されない）。本番は渡さない＝assets.json から読む"""
+    fo＝額装だけの点の表（selftest が見本を渡す＝回の台帳に左右されない）。本番は渡さない＝assets.json から読む
+    🆕 2026-10-15（22本目 ⑤c'）：**地図のカット（`sat=`＝衛星写真の額装）も同じ**＝衛星写真は assets.json の額装の表に載らない
+    （束の外＝git の外の画像）ので fo では拾えなかった。22本目 cb00card（第10章の扉）が cb01 の衛星写真を暗く染めて全面に
+    広げていた（⑤c の 640px のシートで見つけた・Actions は地図ごと扉も飛ばす＝⑤b-3 から誰も見ていなかった）"""
     fo = frame_only_for(spec) if fo is None else fo
     bad = []
     for cid in sorted(heads):
         s = spec.get(cid) or {}
         ph = s.get("photo") or (s.get("intro") or {}).get("photo")
-        if ph in fo and float(s.get("card_mix", 1.0)) > 0:
-            bad.append(f"{cid}＝{ph}（{fo[ph]}）: 扉の地に染めて拡大して混ぜる（card_mix={s.get('card_mix', '未記入＝既定 0.36')}）"
+        why = fo.get(ph) if ph in fo else ("衛星写真の額装＝sat" if s.get("sat") else None)
+        if why and float(s.get("card_mix", 1.0)) > 0:
+            bad.append(f"{cid}＝{ph}（{why}）: 扉の地に染めて拡大して混ぜる（card_mix={s.get('card_mix', '未記入＝既定 0.36')}）"
                        "＝額装の約束（無加工・丸ごと・色を変えない）を外れる → SPEC に card_mix=0")
     return bad
 
@@ -824,11 +828,13 @@ AX_CLASS = dict(view="date", span=("2015-06-01", "2019-06-01"), ticks=("2016", "
 #   AX_Y18＝2018年（c807〜c809）。USCG p149「On January 23, 2018, OceanGate fired the Director of Marine Operations」「filed a retaliation complaint with … (OSHA) on
 #     February 6, 2018」・p150「OceanGate filed a lawsuit against him on June 25, 2018」・p151「On December 13, 2018 … withdrew his SPA complaint」・
 #     TSB §1.12.1「because he held different opinions from the CEO on the safety of the Titan」・NTSB p1048「“like Swiss cheese”」
-AX_Y18 = dict(view="date", span=("2017-12-10", "2019-01-10"), ticks=("2018-01-01", "2018-04-01", "2018-07-01", "2018-10-01", "2019-01-01"))
+#     🔧 ⑤c'（10-15）：目盛りが「1日／1月」と日まで出て年が無かった（⑤c の 640px）＝AX_Y20 と同じく月で書く（「1月／2018年」）
+AX_Y18 = dict(view="date", span=("2017-12-10", "2019-01-10"), ticks=("2018-01", "2018-04", "2018-07", "2018-10", "2019-01"))
 #   AX_Y19＝2019年（c817・c818）。USCG p164「On July 26, 2019, OceanGate fired the Director of Engineering」・TSB §1.12.1「On 15 October, the Titan was tested in the
 #     Deep Ocean Test Facility」「Following that test, further cracks and delamination were found」「On 18 November, the Titan’s depth rating was reduced … not to dive
 #     below 2000 m」「This carbon fibre cylinder was not subsequently used for any more dives」。札は語りの細かさ（年月＝fmt="ym"）
-AX_Y19 = dict(view="date", span=("2019-05-20", "2019-12-31"), ticks=("2019-06-01", "2019-07-01", "2019-08-01", "2019-09-01", "2019-10-01", "2019-11-01", "2019-12-01"))
+#     🔧 ⑤c'（10-15）：AX_Y18 と同じ（「1日／6月」→ 月で書く）
+AX_Y19 = dict(view="date", span=("2019-05-20", "2019-12-31"), ticks=("2019-06", "2019-07", "2019-08", "2019-09", "2019-10", "2019-11", "2019-12"))
 AXI.update({
     # 6月18日の昼から夜（AX_PM22）
     "lost47": dict(k="pt", at="10:47", t="連絡と追跡が途絶える", rec="USCG p38", c="LINE", approx=True, anchor="start"),
@@ -909,7 +915,8 @@ AXI.update({
     "s0531": dict(k="pt", at="2023-05-31", t="", lab=False, rec="TSB §付録B", c="SUB"),
     "s0605": dict(k="pt", at="2023-06-05", t="", lab=False, rec="TSB §付録B", c="SUB"),
     "s0613": dict(k="pt", at="2023-06-13", t="", lab=False, rec="TSB §付録B", c="SUB"),
-    "s10m": dict(k="chips", at="2023-06-05", chips=["台の上の潜航"], rec=["TSB §付録B", "USCG p256"]),
+    # 🔧 ⑤c'（10-15）：札が真ん中の点だけ＝両端の点の意味が伝わらない（⑤b-6 §5-3）＝数を添えて3つの点を1つの札で受ける（付録B の3行）
+    "s10m": dict(k="chips", at="2023-06-05", chips=["台の上の潜航3回"], rec=["TSB §付録B", "USCG p256"]),
     "first88": dict(k="chips", at="2023-06-18", chips=["初めて台を離れる"], rec=["TSB §付録B", "USCG p295", "NTSB p1016"]),
 })
 
@@ -1061,11 +1068,13 @@ QB.update({
 #   domes」「OceanGate had a goal of 2.25 for the safety factor」・脚注45「that required a minimum safety factor of 1.5」）。行の名に数字を書かない
 QG.update({"sf": dict(id="sf", t="安全率（倍）", ticks=(0, 1, 2, 3), rows=("チタンのドームのとき", "炭素繊維のドームのとき", "会社の目標", "規格の最低"))})
 QB.update({
-    "sf_ti": dict(k="bar", g="sf", t="チタンのドームのとき", v=2.19, rec="TSB §1.12.1", c="COMPANY"),
-    # ⚠️ 門番 qty ⑪：同じ群の棒は色を ΔE 25 以上離す（4本とも会社の橙だと鳴った）＝チタン 橙・炭素繊維 黄（ΔE 29）・目標 白・最低 灰
+    # ⚠️ 門番 qty ⑪：同じ群の棒は色を ΔE 25 以上離す（4本とも会社の橙だと鳴った）
     #    （第6章は白黒＝灰 TICK が #aca69a に置き換わる＝書類の色 DOC とは ΔE 21 で鳴った・白 INK_W とは 27）
+    #    🔧 ⑤c'（10-15）：前は チタン 橙・炭素繊維 黄・目標 白＝会社の目標が潜水艇の白・設計書の値が会社の橙に読めた（役の色の逆）→
+    #       設計書の2つの値（潜水艇の筒の計算）＝白と黄（黄＝数）・会社の目標＝会社の橙・規格の最低＝灰
+    "sf_ti": dict(k="bar", g="sf", t="チタンのドームのとき", v=2.19, rec="TSB §1.12.1", c="SUB"),
     "sf_cf": dict(k="bar", g="sf", t="炭素繊維のドームのとき", v=2.21, rec="TSB §1.12.1", c="AMBER"),
-    "sf_goal": dict(k="bar", g="sf", t="会社の目標", v=2.25, rec="TSB §1.12.1", c="INK_W"),
+    "sf_goal": dict(k="bar", g="sf", t="会社の目標", v=2.25, rec="TSB §1.12.1", c="COMPANY"),
     "sf_min": dict(k="bar", g="sf", t="規格の最低", v=1.5, rec="TSB §脚注45", c="TICK"),
 })
 # 🆕 2026-10-15（22本目 ⑤b-5）：c917 2つ目の筒の安全率（TSB §1.12.2「OceanGate also changed its safety factor to 1.25, which aligned with the safety factor

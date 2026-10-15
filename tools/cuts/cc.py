@@ -75,20 +75,22 @@ SPEC.update({
     # cc03（2行）＝同じ3列。7つ目＝解雇と脅しの職場（下線）→その他の要因＝規則の足りなさ
     "cc03": dict(
         t="職場の文化", s="要因の7つ目",
-        fig=("m22", dict(view="cols", start=dict(u0="on", u8="on"), steps=[dict(state=dict(u7="on")), dict(state=dict(ux="on"))],
+        #   🔧 ⑤c'（10-15）：その他の要因は4つ＝規則と同時に「ほか3つ」（uy）
+        fig=("m22", dict(view="cols", start=dict(u0="on", u8="on"), steps=[dict(state=dict(u7="on")), dict(state=dict(ux="on", uy="on"))],
                          note=_N_CL, src=ss.src(["USCG p7", "USCG p8"]))),
     ),
     # cc05（2行）＝同じ3列。米運輸安全委員会＝推定原因（cc04 の語り＝頭で出す）→寄与1（規則と指針）→寄与2（監視の記録の読み違い）
     "cc05": dict(
         t="2つ目の調べ", s="寄与したこと",
-        fig=("m22", dict(view="cols", start=dict(u0="on", u8="on", u7="on", ux="on", n1="on"), steps=[dict(state=dict(n2="on")), dict(state=dict(n3="on"))],
+        fig=("m22", dict(view="cols", start=dict(u0="on", u8="on", u7="on", ux="on", uy="on", n1="on"), steps=[dict(state=dict(n2="on")), dict(state=dict(n3="on"))],
                          note=_N_CL, src=ss.src(["NTSB p1074"]))),
     ),
     # cc06（2行）＝同じ3列。カナダの調べ＝強さを確かめず→潜るたびに傷が積もって壊れた
     "cc06": dict(
         t="3つ目の調べ", s="筒の強さ",
-        fig=("m22", dict(view="cols", start=dict(u0="on", u8="on", u7="on", ux="on", n1="on", n2="on", n3="on"),
-                         steps=[dict(state=dict(t1="on")), dict(state=dict(t2="on"))], note=_N_CL, src=ss.src(["TSB §3.1"]))),
+        #   🔧 ⑤c'（10-15）：TSB §3.1 の所見は5段落＝傷が積もった（4つ目）と同時に「ほか3つ」（t3）
+        fig=("m22", dict(view="cols", start=dict(u0="on", u8="on", u7="on", ux="on", uy="on", n1="on", n2="on", n3="on"),
+                         steps=[dict(state=dict(t1="on")), dict(state=dict(t2="on", t3="on"))], note=_N_CL, src=ss.src(["TSB §3.1"]))),
     ),
     # cc07（2行）＝カナダの調べの要点（運輸省は登録が無いと知らなかった→ほかの役所の情報が届かなかった）
     "cc07": dict(
@@ -121,7 +123,7 @@ SPEC.update({
     # cc11（3行）＝🔧 再現→模式（同じ3列）。3列それぞれの下の段に「監督の穴」の枠（カナダの危険の所見を足す）→主な原因ではない→聞き役
     "cc11": dict(
         t="監督の穴", s="次の段に置く",
-        fig=("m22", dict(view="cols", start=dict(u0="on", u8="on", u7="on", ux="on", n1="on", n2="on", n3="on", t1="on", t2="on"),
+        fig=("m22", dict(view="cols", start=dict(u0="on", u8="on", u7="on", ux="on", uy="on", n1="on", n2="on", n3="on", t1="on", t2="on", t3="on"),
                          steps=[dict(state=dict(tx="on", gap="on")), dict(), dict()], note=_N_CL, src=ss.src(_CL_SRC))),
     ),
     # cc13（2行）＝米沿岸警備隊の報告書の一節（社員が仕返しを恐れず懸念を言える場・早さより安全→防げたかもしれない）

@@ -342,6 +342,11 @@ def judge_fig(kw, split_times=(), head=None):
     tk = m["ticks"]
     if len(tk) < 2:
         return [f"目盛りが {len(tk)} 本（2本以上ないと画素から値へ戻せない）"], 1
+    # 🆕 2026-10-15（22本目 ⑤c'）：日付の帯の目盛りがどれも「1日」＝月の頭を日まで書いた形（「2018-04-01」）＝字は「1日／4月」で年がどこにも出ない
+    #    （22本目 c807〜c809・c817・c818。⑤b-5 で c908・ca26 を直した型の残り）→ 月で書く（「2018-04」＝「4月／2018年」）
+    n += 1
+    if view == "date" and all(t["lab"] == "1日" for t in tk):
+        bad.append("目盛りがどれも「1日」（月の頭を日まで書いた＝年が出ない）→ 月で書く（例「2018-04」）")
     for t in tk:
         n += 1
         if t["lab"] != _tick_text(vk, t["at"]):
@@ -932,6 +937,11 @@ def selftest_ep22():
              ("🔴 陽性対照：潜水艇が送った点を会社の色", dict(one, steps=[dict(add=[ss.ax("snd", c="COMPANY")])]), False),
              ("🔴 陽性対照：カナダの段の点を米沿岸警備隊の青", dict(two, steps=[dict(add=[ss.ax("c269", c="USCG")])]), False),
              ("🔴 陽性対照：壊れた点を赤でなく段の色", dict(two, steps=[dict(add=[ss.ax("c323", c="INST")])]), False)]
+    # 🆕 2026-10-15（22本目 ⑤c'）：目盛りがどれも「1日」（年が出ない）＝直す前の AX_Y18
+    y18 = dict(ss.AX_Y18, steps=[dict(add=[ss.ax("fire18")], cur="2018-01-23")], note="n", src="s")
+    cases += [("正しい月の目盛り（AX_Y18＝「1月／2018年」）", y18, True),
+              ("🔴 陽性対照：月の頭を日まで書いた目盛り（直す前の AX_Y18）",
+               dict(y18, ticks=("2018-01-01", "2018-04-01", "2018-07-01", "2018-10-01", "2019-01-01")), False)]
     for name, kw, want in cases:
         bad, _ = judge_fig(kw, ())
         got = not bad

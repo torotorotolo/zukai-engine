@@ -1635,7 +1635,8 @@ CD = dict(
                                  ("2つ目の筒", "樹脂を含ませたテープ", "sub", "tape", None))),
     mat=dict(lay="row", cards=(("1つ目の筒の糸", "三菱ケミカル系", "LINE", "spool", None),
                                ("2つ目の筒のテープ", "東レの米国の会社", "sub", "tape", None),
-                               ("期限切れの安い材料", "3つの報告書に無い", "ALERT", None, "x"))),
+                               # 🔧 ⑤c'（10-15）：題「期限切れの安い材料」は×を見落とすと事実の見出しに読める＝「…の話」（中身はそのまま・3冊に無い＝係の全文の照合）
+                               ("期限切れの材料の話", "3つの報告書に無い", "ALERT", None, "x"))),
     m20=dict(lay="row", cards=(("1つ目の模型", "壊れた", "ALERT", "hull_x", None),
                                ("2つ目の模型", "寸前で試験を止めた", "ALERT", "hull_crack", None))),
     #   ⚠️ 門番 box：中身の無い箱（題だけ）は内側の空きが33%＝TSB §1.12.2 の手順の中身を足した（wound onto a … mandrel・vacuum bagged and cured・
@@ -2285,11 +2286,17 @@ CL_ITEM = dict(
     u8=(0, 1, (("設計と試験が不十分", "company"), ("寿命を調べず", "company"), ("監視の装置に頼りすぎ", "company"), ("傷のあとも使い続けた", "company"),
                ("船体の作りの欠陥", "sub"), ("不具合を詳しく調べず", "company"), ("懸念を言えない職場", "company"), ("整備せず外に置いた", "company"))),
     ux=(0, 2, (("規則の足りなさ", "LINE"),)),
+    # 🆕 ⑤c'（10-15）：USCG p8 の other contributing causal factors は4つ（図は4つ目の規則だけ）＝「ほか3つ」。ux と別の欄＝cc11 の監督の穴の枠に入れない
+    #    ⚠️ 門番 mech ②：3列の札に数字を書かない（数は字幕）＝「ほか3つ」で鳴った→数を外す
+    uy=(0, 2, (("ほかの要因も", "LINE"),)),
     n1=(1, 1, (("強さと寿命を確かめず", "company"), ("層のはがれと別の傷", "sub"), ("局所の座屈で壊れた", "sub"))),
     n2=(1, 2, (("規則と指針の足りなさ", "LINE"),)),
     n3=(1, 2, (("監視の記録の読み違い", "company"),)),
     t1=(2, 1, (("強さを確かめず", "company"), ("作りと試験が標準外", "company"))),
-    t2=(2, 1, (("傷が積もって壊れた", "sub"),)),
+    # 🔧 ⑤c'：TSB §3.1 の4つ目は「likely led the cylinder to fail」＝言い切らない（語り cc06「可能性が高い」）
+    t2=(2, 1, (("傷が積もって壊れたとみられる", "sub"),)),
+    # 🆕 ⑤c'：TSB §3.1 の所見は5段落（図は1つ目と4つ目）＝残り3つ（ひずみの分析・音の監視・会社のしくみ）を「ほかの所見も」
+    t3=(2, 1, (("ほかの所見も", "LINE"),)),
     tx=(2, 2, (("独立した確認なし", "LINE"),)),
 )
 CL_GAP = ("ux", "n2", "tx")        # 外から監督する仕組みの穴＝3列それぞれの下の段（cc11）
@@ -2378,7 +2385,8 @@ def cols_stage(prev, st):
 #    p1074「flawed analysis of their pressure vessel monitoring system data」・TSB §3.1／USCG p289・NTSB p1059・TSB §1.10.10.1（2022年の音＝ca21・ca22 と同じ言葉）
 VS = dict(lx=150.0, xs=(950.0, 1270.0, 1590.0), cw=300.0, hy=338.0, ys=(452.0, 522.0, 592.0, 722.0, 794.0), sec=(400.0, 668.0))
 VS_COL = (("米沿岸警備隊", "uscg"), ("米運輸安全委員会", "ntsb"), ("カナダの調べ", "tsb"))
-VS_ROWS = (("same", "窓でなく炭素繊維の側", None), ("same", "強さと寿命を確かめず", None), ("same", "監視の記録を生かせず", None),
+#    🔧 ⑤c'（10-15）：1行目「窓でなく炭素繊維の側」＝NTSB は窓に触れていない（3列に✓）＝3つに共通の「炭素繊維の筒」だけに
+VS_ROWS = (("same", "壊れたのは炭素繊維の筒", None), ("same", "強さと寿命を確かめず", None), ("same", "監視の記録を生かせず", None),
            ("cells", "2022年の音の重み", ("強く示す", "可能性が高い", "決められない")), ("band", "最後の数秒の順番", "書き方が違う"))
 
 
@@ -2492,7 +2500,9 @@ TAG_AT = dict(
     fuji=dict(t=(1250.0, 620.0, "start", 560.0), top=(1250.0, 330.0, "start", 560.0)),
     reports=dict(),
     side=dict(cap=(L_X, 320.0, "start", 520.0), tag=(1290.0, 330.0, "start", 520.0), low=(L_X, 330.0, "start", 640.0),
-              only=(L_X, 820.0, "start", 560.0)),
+              only=(L_X, 820.0, "start", 560.0),
+              # 🆕 ⑤c'（c311）：ボルトの列（x 約479・y 380〜660）の上＝札「外からボルトで締める」が右上の tag（尾部の上）だと尾部の話に読めた
+              bolt=(520.0, 300.0, "start", 560.0)),
     org=dict(ra=(1250.0, 296.0, "start", 560.0), rb=(1250.0, 352.0, "start", 560.0)),   # CEO の席（x 770〜1150・y 287〜373）の右＝線（y 373〜）より上
     paper=dict(r=(1320.0, 330.0, "start", 480.0)),
     table=dict(n27=(176.0, 290.0, "end", 100.0)),          # ⚠️ geom_gap：表の右上（x 1500）は表の枠の中＝年の括弧の上の左の空き
@@ -2566,7 +2576,8 @@ def anchors(view, st):
     if view == "side":
         G = sd_geo()
         return dict(hull=((G["xc0"] + G["xc1"]) / 2, G["cy"] - G["R"]), dome=(G["xh0"] + 10, G["cy"] - G["R"] * 0.7),
-                    cyl=((G["xc0"] + G["xc1"]) / 2, G["cy"]), crack=sd_cracks(G)[0])
+                    cyl=((G["xc0"] + G["xc1"]) / 2, G["cy"]), crack=sd_cracks(G)[0],
+                    bolt=_bolts(G, SD_BOLTS)[0][:2])     # 🆕 ⑤c'（c311）：ボルトの列のいちばん上
     if view == "dives":
         pts = {i: (x, y) for i, _, x, y in dv_pts()}
         return {f"d{i}": v for i, v in pts.items()}

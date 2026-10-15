@@ -3038,7 +3038,7 @@ REC_M22 = dict(
     #     suggests」・NTSB p1059「likely sustained damage」・TSB §1.10.10.1「it cannot be determined」・NTSB p1031「based on the acoustic activity of the v1 pressure
     #     vessel … and of the sub-scale pre-preg pressure vessels」・p1065「never produced the type of acoustic emission signal that would have triggered an alert」
     cards=dict(wind2=(("1つ目の筒", "樹脂の槽をくぐる糸", "LINE"), ("2つ目の筒", "樹脂を含ませたテープ", "sub")),
-               mat=(("1つ目の筒の糸", "三菱ケミカル系", "LINE"), ("2つ目の筒のテープ", "東レの米国の会社", "sub"), ("期限切れの安い材料", "3つの報告書に無い", "ALERT")),
+               mat=(("1つ目の筒の糸", "三菱ケミカル系", "LINE"), ("2つ目の筒のテープ", "東レの米国の会社", "sub"), ("期限切れの材料の話", "3つの報告書に無い", "ALERT")),
                m20=(("1つ目の模型", "壊れた", "ALERT"), ("2つ目の模型", "寸前で試験を止めた", "ALERT")),
                cure=(("1層を巻く", "テープを巻く", "INK_W"), ("固める", "真空の袋で", "INK_W"), ("接着剤の膜", "表面に塗る", "INK_W"), ("次の層へ", "上に重ねる", "INK_W")),
                life=(("いちばん強い試料", "耐えた見込み", "tsb"), ("いちばん弱い試料", "82%超を使った可能性", "ALERT")),
@@ -3112,14 +3112,16 @@ REC_M22["cols"] = dict(
                #   🔧 ⑤b-6 の門番 box：NTSB p1074 の推定原因の3つの部分（failed to establish the actual strength and durability・delamination damage that was
                #     subsequently exacerbated by additional damage of unknown origin・a local buckling failure）・TSB §3.1 の2つ目（did not follow standard engineering practices）
                ux=(0, 2, (("規則の足りなさ", "LINE"),)),
+               #   🆕 ⑤c'（10-15）：USCG p8 のその他の要因は4つ・TSB §3.1 の所見は5段落＝図に出さない分を「ほか3つ」（灰）／t2 は likely＝「とみられる」
+               uy=(0, 2, (("ほかの要因も", "LINE"),)),
                n1=(1, 1, (("強さと寿命を確かめず", "company"), ("層のはがれと別の傷", "sub"), ("局所の座屈で壊れた", "sub"))), n2=(1, 2, (("規則と指針の足りなさ", "LINE"),)),
                n3=(1, 2, (("監視の記録の読み違い", "company"),)), t1=(2, 1, (("強さを確かめず", "company"), ("作りと試験が標準外", "company"))),
-               t2=(2, 1, (("傷が積もって壊れた", "sub"),)),
+               t2=(2, 1, (("傷が積もって壊れたとみられる", "sub"),)), t3=(2, 1, (("ほかの所見も", "LINE"),)),
                tx=(2, 2, (("独立した確認なし", "LINE"),))),
     gap=("ux", "n2", "tx"), u7=("u8", 6))
 #   cmp＝重なる所3つ（USCG p7・NTSB p1073〜p1074・TSB §2.1・§3.1）・分かれる所2つ（2022年の音＝ca21・ca22 と同じ言葉＝USCG p289・NTSB p1059・TSB §1.10.10.1）
 REC_M22["cmp"] = dict(heads=(("米沿岸警備隊", "uscg"), ("米運輸安全委員会", "ntsb"), ("カナダの調べ", "tsb")),
-                      rows=(("same", "窓でなく炭素繊維の側", None), ("same", "強さと寿命を確かめず", None), ("same", "監視の記録を生かせず", None),
+                      rows=(("same", "壊れたのは炭素繊維の筒", None), ("same", "強さと寿命を確かめず", None), ("same", "監視の記録を生かせず", None),
                             ("cells", "2022年の音の重み", ("強く示す", "可能性が高い", "決められない")), ("band", "最後の数秒の順番", "書き方が違う")))
 _M22_NEED = (
     ("fuji", "coin", "on", "press", {"on"}, "1円玉と乗用車は、水の重さを見せてから"),

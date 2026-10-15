@@ -393,6 +393,11 @@ def selftest():
         not ss.check_card_mix({"c501": dict(photo="epX/pg14.png")}, {"c501"}, fo))
     chk("陰性対照：扉の頭でないカットは見ない",
         not ss.check_card_mix({"c302": dict(photo="epX/by_sa.jpg")}, {"c301"}, fo))
+    # 🆕 2026-10-15（22本目 ⑤c'）：衛星写真（sat）は額装の表に載らない＝sat の欄で拾う（cb00card）
+    chk("陽性対照：地図のカット（sat・額装の表の外）が扉の頭で card_mix を書かないと止まる",
+        bool(ss.check_card_mix({"cb01": dict(photo="epX/sat_g06.png", sat=dict(code="G06"))}, {"cb01"}, fo)))
+    chk("陰性対照：地図のカットに card_mix=0 は通る",
+        not ss.check_card_mix({"cb01": dict(photo="epX/sat_g06.png", sat=dict(code="G06"), card_mix=0)}, {"cb01"}, fo))
 
     chk("台本のカットIDが読める（本番の narration.json）", len(script_cuts()) > 0)
     good_all = all(ok)

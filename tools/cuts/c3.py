@@ -84,7 +84,8 @@ SPEC.update({
         [dict(k="line", path=("stjohns", "site"), role="ship"),
          dict(k="icon", what="ship", on=("stjohns", "site", 0.42), role="ship", tow=True),
          dict(k="x", at="site", t="6月18日に着く", lab=(24, 12, "start"))]]),
-        t="出港", s="母船が向かった海（現在の衛星写真）"),
+        #   🔧 ⑤c'（10-15）：c219・cb09 と同じ衛星写真（G02）で同じ道を描く＝同じ絵は同じ名で（前は「母船が向かった海」）
+        t="出港", s="セントジョンズから現場へ（現在の衛星写真）"),
 })
 
 # ── 🆕 ⑤b-3（2026-10-14）：写真のカット（映像方針の一覧＝了承②・副題は焼いた絵を原寸で見てから最終に）──
@@ -149,7 +150,8 @@ SPEC.update({
     "c311": dict(
         t="出入りの道", s="前のドーム",
         fig=("m22", dict(view="side", steps=[dict(tag=dict(t="横から見ると", at="cap", col=J.TICK)),
-                                             dict(state=dict(bolts="on"), tag=dict(t="外からボルトで締める", at="tag", col=J.COMPANY)),
+                                             # 🔧 ⑤c'（10-15）：札が右上（尾部の上）でボルトから遠かった＝ボルトの列の上に置いて線で結ぶ
+                                             dict(state=dict(bolts="on"), tag=dict(t="外からボルトで締める", at="bolt", to="bolt", col=J.COMPANY)),
                                              dict(state=dict(only="on"), tag=dict(t="出入りはここだけ", at="only", col=J.COMPANY))],
                          note="形は NTSB 図3 の比（模式）", src=ss.src(["TSB §1.2.1", "TSB §2.5", "TSB §脚注39"]))),
     ),
