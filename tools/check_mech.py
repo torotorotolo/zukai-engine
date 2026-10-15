@@ -3271,6 +3271,10 @@ def judge_m22(f):
                 need(abs(got - Rr[k]) < 1, f"② 物差しの {k} が画素から {got:.0f}m（記録 {Rr[k]:g}m）")
                 # 🆕 ⑤b-5：線の色＝その値を書いた調べの役（REC の ruler_role）。⑤b-4 の3本は会社
                 need(g["cols"][k].lower() == rc(R["ruler_role"][k]).lower(), f"② 物差しの {k} の色が役の色（{R['ruler_role'][k]}）でない")
+                # 🆕 ⑤b-5：線の札に書いた数＝記録の値（数は線の札そのものに書く＝別の深さの高さに数を並べない）
+                mm = re.search(r"([0-9][0-9,]*)メートル", g["labs"][k])
+                if mm:
+                    need(abs(float(mm.group(1).replace(",", "")) - Rr[k]) < 1e-6, f"② 物差しの {k} の札「{g['labs'][k]}」の数が記録 {Rr[k]:g}m と違う")
         if any(s.get("ratio") == "on" for s in seq):
             need(g["ratio_n"] * Rr["titanic"] <= Rr["fail"] < (g["ratio_n"] + 1) * Rr["titanic"], "② 「何倍」の箱の数が記録の比と合わない")
             for t in texts:
@@ -3509,6 +3513,7 @@ def _selftest_m22(ok):
             ("ぶつかった印を右舷に置く", "bw_hit", lambda: (M.BW_["tip"][0] + M.BW_["w"] + 4, M.BW_["tip"][1] + 170.0), "左舷", "bowhit"),
             ("試験の最も深い所を4,000メートルにする", "RL_M", dict(M.RL_M, test=(4000.0,) + M.RL_M["test"][1:]), "物差しの test", "ruler_mid"),
             ("窓の1,000メートルを会社の色にする", "RL_M", dict(M.RL_M, w1k=M.RL_M["w1k"][:2] + ("company",)), "物差しの w1k", "ruler_mid"),
+            ("試験の線の札を4,000メートルと書く", "RL_M", dict(M.RL_M, test=(4200.0, "試験で最も深い 4,000メートル", "company")), "物差しの test の札", "ruler_mid"),
             ("80回目の句を言い換える", "PP_DOC", dict(M.PP_DOC, u80=dict(M.PP_DOC["u80"], lines=("the TITAN got stuck",) + M.PP_DOC["u80"]["lines"][1:])),
              "書類の句", "paper_u80")):
         keep = getattr(M, attr)

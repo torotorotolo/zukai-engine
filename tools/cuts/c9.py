@@ -134,7 +134,8 @@ SPEC.update({
     # c908（3行）＝年表（2020〜21年）。2020年11月〜2021年1月 実物大の筒を作る→新しい作り方の模型なし→聞き役
     "c908": dict(
         t="本物を先に", s="模型を飛ばして",
-        fig=("axis", dict(ss.AX_Y20, steps=[dict(add=[ss.ax("build20")]), dict(add=[ss.ax("nomodel")]), dict()],
+        #   🔧 試し焼き：cur を書かないと今の位置の赤い▼が帯の左の端（2020年6月）に出た
+        fig=("axis", dict(ss.AX_Y20, steps=[dict(add=[ss.ax("build20")], cur="2020-11"), dict(add=[ss.ax("nomodel")], cur="2021-01"), dict()],
                           note="月は米運輸安全委員会の報告書（月までの記録）", src=ss.src(["NTSB p1028", "NTSB p1062"]))),
     ),
     # c910（2行）＝筒の壁の断面に層ごとの「削ったしわ」の数（1・8・14・24＝事故のあとに端材で数えた）→どこまで削ったかの記録は無い
@@ -191,8 +192,9 @@ SPEC.update({
     "c921": dict(
         t="加圧の試験", s="2021年の2月と3月",
         fig=("m22", dict(view="ruler", start=dict(z="mid"),
-                         steps=[dict(state=dict(test="on"), tag=dict(t="4回とも通った", at="r1")),
-                                dict(tag=dict(t="4,200メートル", at="r2")), dict(tag=dict(t="少し上回るだけ", at="r3"))],
+                         #   🔧 試し焼き：「4,200メートル」の札が物差しの約2,500mの高さに並んだ＝数は線の札（mech22 の RL_M）に・札は言葉だけ
+                         steps=[dict(tag=dict(t="4回の加圧", at="r1")), dict(state=dict(test="on"), tag=dict(t="4回とも通った", at="r2")),
+                                dict(tag=dict(t="少し上回るだけ", at="r3"))],
                          rel=[dict(t="4回", src="TSB §1.12.2"), dict(t="4,200メートル", src="NTSB p1030")],
                          note="深さは縮尺どおり（タイタニックは約3,800メートル）", src=ss.src(["TSB §1.12.2", "NTSB p1030", "NTSB p1058", "TSB §1.3"]))),
     ),
@@ -207,8 +209,9 @@ SPEC.update({
     "c923": dict(
         t="前の窓", s="値が割れる",
         fig=("m22", dict(view="ruler", start=dict(z="mid"),
-                         steps=[dict(state=dict(w650="on"), tag=dict(t="約650メートル", d="米沿岸警備隊・カナダ", at="r1", col=J.USCG)),
-                                dict(state=dict(w1k="on"), tag=dict(t="1,000メートル", d="米運輸安全委員会", at="r2", col=J.OK)),
+                         #   🔧 試し焼き：数の札が物差しの別の深さの高さに並んだ＝数は線の札（RL_M）に・札は調べの名だけ（色は線と同じ）
+                         steps=[dict(state=dict(w650="on"), tag=dict(t="米沿岸警備隊・カナダ", at="r1", col=J.USCG)),
+                                dict(state=dict(w1k="on"), tag=dict(t="米運輸安全委員会", at="r2", col=J.OK)),
                                 dict(tag=dict(t="事故のときの窓は？", at="r3"))],
                          rel=[dict(t="約650メートル", src="USCG p278・TSB §1.12.1（649.08 m）"), dict(t="1,000メートル", src="NTSB p1030")],
                          note="深さは縮尺どおり（タイタニックは約3,800メートル）", src=ss.src(["USCG p278", "NTSB p1030", "TSB §1.12.1", "TSB §1.12.2"]))),

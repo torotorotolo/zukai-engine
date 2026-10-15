@@ -1394,9 +1394,10 @@ RL_M = dict(goal=(6000.0, "会社の望み", "company"),          # TSB §1.12.1
             fail=(13200.0, "壊れる深さの計算", "company"),     # NTSB p.25「an implosion depth about 13,200 meters」
             # 🆕 ⑤b-5（c921・c923）：NTSB p.30「to a simulated maximum depth of 4,200 meters」・USCG p.278「a depth of only 650 m」・
             #   NTSB p.30「an acrylic window certified to 1,000 meters」（色＝その値を書いた調べ）
-            test=(4200.0, "試験で最も深い所", "company"),      # ⚠️ 門番 dup：「加圧の試験」は c921 の見出し
-            w650=(650.0, "最初の窓の等級", "uscg"),
-            w1k=(1000.0, "窓の等級（別の記述）", "ntsb"))
+            #   🔧 試し焼き：数を札（右の列）に別に出すと、縮尺どおりの物差しの別の深さの高さに数が並んだ＝数は線の札そのものに書く（門番が記録と照らす）
+            test=(4200.0, "試験で最も深い 4,200メートル", "company"),      # ⚠️ 門番 dup：「加圧の試験」は c921 の見出し
+            w650=(650.0, "最初の窓の等級 約650メートル", "uscg"),
+            w1k=(1000.0, "別の記述 1,000メートル", "ntsb"))
 RL_RATIO = dict(x=1060.0, w=70.0, bx=1150.0, bw=60.0)
 
 
@@ -1890,7 +1891,8 @@ def d80_stage(prev, st):
 RT = dict(x0=560.0, x1=1360.0, cy=580.0, R=170.0, ring=46.0)
 RT_AE = ((0.08, 0.50, True), (0.05, -0.55, False), (0.46, -0.05, True), (0.52, -0.92, False), (0.80, 0.58, True), (1.03, -0.60, False),
          (0.93, -0.92, False), (0.93, 0.22, False))    # (前の端0〜後ろの端1, -1上〜1下, 拾わなかったか)
-RT_SG = ((0.18, -0.62), (0.18, 0.62), (0.30, -0.30), (0.30, 0.30), (0.68, -0.30), (0.68, 0.30), (0.84, -0.62), (0.84, 0.62))
+# 🔧 試し焼き：(0.84, 0.62) が拾わなかったセンサー（0.80, 0.58）に重なった＝後ろの2つを (0.90, ±0.66) へ
+RT_SG = ((0.18, -0.62), (0.18, 0.62), (0.30, -0.30), (0.30, 0.30), (0.66, -0.30), (0.66, 0.30), (0.90, -0.66), (0.90, 0.66))
 
 
 def rt_xy(fx, fy):
@@ -2485,7 +2487,8 @@ def geo_of(view, start, states):
     elif view == "ruler":
         z = start["z"]
         out.update(z=z, y0=RL["y0"], y1=RL["y1"], dmax=RL_Z[z], titanic=(TITANIC_M, rl_y(z, TITANIC_M)),
-                   marks={k: (m, rl_y(z, m)) for k, (m, _, _) in RL_M.items()}, cols={k: _rc(r) for k, (_, _, r) in RL_M.items()}, ratio_n=3)
+                   marks={k: (m, rl_y(z, m)) for k, (m, _, _) in RL_M.items()}, cols={k: _rc(r) for k, (_, _, r) in RL_M.items()}, ratio_n=3,
+                   labs={k: t for k, (_, t, _) in RL_M.items()})
     elif view == "sf":
         out.update(op=SF["op"], k=SF["k"])
     elif view == "model":

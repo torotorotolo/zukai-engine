@@ -859,14 +859,15 @@ AXI.update({
 # 🆕 2026-10-15（22本目 ⑤b-5）：第8〜9章の帯（門番 check_axis の REC_AXIS・REC_ROLE が値・頁・役の色を照らす）
 #   AX_Y20＝2020〜21年（c908）。NTSB p1028「between November 2020 and January 2021」（月だけの記録＝月の値で置く）・
 #     p1062「OceanGate did not build or test any new sub-scale models using the co-bonding process」
-AX_Y20 = dict(view="date", span=("2020-06-01", "2021-05-31"), ticks=("2020-07-01", "2020-10-01", "2021-01-01", "2021-04-01"))
+#     🔧 ⑤b-5 の試し焼き：目盛りを「2020-07-01」と日まで書くと「1日／7月」と出て年が読めなかった＝月で書く（「7月／2020年」）
+AX_Y20 = dict(view="date", span=("2020-06-01", "2021-05-31"), ticks=("2020-07", "2020-10", "2021-01", "2021-04"))
 #   AX_J22＝2022年7月（ca14）。NTSB p1036「On July 15, 2022 (mission 3, dive 80)」・USCG p235「On July 19, 2022, the TITAN and its crew commenced Dive 81」・
 #     TSB 付録B（2022-07-22 の行＝3840）・NTSB p1051「The last of these dives (dive 83) took place on July 23, 2022」・p1036「2,954 meters (9,692 feet) on the final dive」
 AX_J22 = dict(view="date", span=("2022-07-12", "2022-07-26"), ticks=("2022-07-13", "2022-07-15", "2022-07-17", "2022-07-19", "2022-07-21", "2022-07-23",
                                                                      "2022-07-25"))
 #   AX_2223＝2022年7月〜2023年6月（ca26）。USCG p290「should have been a red flag to stop all dive operations」・NTSB p1060「after dive 82 and before the casualty
 #     dive 11 months later (dive 88)」・TSB 付録B（2022-07-22・2023-06-18 の行）
-AX_2223 = dict(view="date", span=("2022-06-01", "2023-07-31"), ticks=("2022-07-01", "2022-10-01", "2023-01-01", "2023-04-01", "2023-07-01"))
+AX_2223 = dict(view="date", span=("2022-06-01", "2023-07-31"), ticks=("2022-07", "2022-10", "2023-01", "2023-04", "2023-07"))   # 🔧 同上（年をまたぐ）
 AXI.update({
     # 2020〜21年（AX_Y20）
     "build20": dict(k="span", a="2020-11", b="2021-01", t="実物大の筒を作る", rec="NTSB p1028", c="COMPANY"),
