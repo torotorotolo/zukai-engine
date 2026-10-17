@@ -172,6 +172,28 @@ def _src_path(m):
     return p
 
 
+# 🆕 2026-10-17（公開リポに残る私人の写真・A+）：リポに置く束の原本も、私人の顔写真と名前にモザイクをかける。
+#   画面に出す範囲は `ss.TRIM` のまま＝公開ずみの動画は焼き直さない（変わらない）。範囲は束の画素（G2＝3000×2000・L1＝2048×1365）。
+#   G2：下の板（`ss.PRIVATE_OUT`）＋売り場2か所の上の顔写真と名前（同じ5人・原寸で名前が読めた。TRIM の内だが、
+#       ⑤b-7a の焼き絵 cut_cd05 では字幕の帯の下＝画面には出ていない）。L1：上 57.5%（集会の人の顔＝`ss.PRIVATE_OUT`）。
+#   許諾は Attribution・CC BY 3.0（BY-SA ではない）＝改変可・改変の旨は `ref/CREDITS.md`（下の credits の注）。
+#   式は `qa_out/ep20_assets.py` の mosaic と同じ（縮めて BOX → NEAREST で戻す）。升の大きさは顔の幅の半分以上＝見分けられない
+MOSAIC_PX = {'gwanghwamun_2018': 30, 'lifejackets_2017': 32}
+MASK = {
+    'gwanghwamun_2018': [(450, 1540, 900, 1740), (2445, 1345, 2650, 1465), (2755, 1380, 3000, 1475)],
+    'lifejackets_2017': [(0, 0, 2048, 785)],
+}
+
+
+def _mosaic(im, boxes, n):
+    from PIL import Image
+    for x0, y0, x1, y1 in boxes:
+        reg = im.crop((x0, y0, x1, y1))
+        small = reg.resize((max(1, reg.width // n), max(1, reg.height // n)), Image.BOX)
+        im.paste(small.resize(reg.size, Image.NEAREST), (x0, y0))
+    return im
+
+
 def cmd_build(only=None):
     from PIL import Image
     Image.MAX_IMAGE_PIXELS = None
@@ -190,6 +212,8 @@ def cmd_build(only=None):
             im = im0.convert('RGB')
         if im.width > MAXW:
             im = im.resize((MAXW, round(im.height * MAXW / im.width)), Image.LANCZOS)
+        if name in MASK:
+            _mosaic(im, MASK[name], MOSAIC_PX[name])     # 🆕 10-17：リポの原本も私人の顔と名前を隠す（上の MASK）
         out = DEST / f'{name}.jpg'
         im.save(out, quality=92)
         db[name] = dict(src='commons', id=m['title'], key=r['key'], slot=r['slot'], cut=r.get('cut', ''),
@@ -526,7 +550,8 @@ def cmd_credits(write=False):
             '### 1. 写真（Wikimedia Commons ＝ CC BY-SA は**額装・無改変・1点1カット**／CC BY／Attribution／CC0／PD／引用）・映像・判決と報告書の頁',
             '`qa_out/ep14_assets.py credits --write` が書く（手で直さない）。'
             'BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許諾の URL は概要欄で）。', '',
-            '- 🔴 **私人の顔と名前は出さない**：G2（光化門 2018）の下の板＝見つかっていない5人の顔写真と名前／L1（救命胴衣の列）の奥の集会の人＝どちらも切り出し（`cuts/ss.py` の `TRIM`）で外した（改変の旨は画面の出典に出る）',
+            '- 🔴 **私人の顔と名前は出さない**：G2（光化門 2018）の下の板＝見つかっていない5人の顔写真と名前／L1（救命胴衣の列）の奥の集会の人＝どちらも切り出し（`cuts/ss.py` の `TRIM`）で外した（改変の旨は画面の出典に出る）。'
+            '🆕 2026-10-17：リポに置く原本も、G2 の下の板と売り場2か所（同じ5人の顔写真と名前）・L1 の上 57.5% に**モザイク**（`qa_out/ep14_assets.py` の `MASK`）＝リポの写しは改変あり。公開ずみの動画は焼き直さない（変わらない）',
             '- 🔴 H1（当日の沈む船）＝Commons の表示「South Korea-Gov」に根拠が無い（削除依頼中）＝**引用**（額装・無改変・出典＝韓国 海洋警察）。サムネに使わない',
             '- 🔴 **米国防総省（米海軍・米海兵隊）の写真と映像**（`site_0418`・`e1`・`e2`）＝DVIDS の条件「The appearance of U.S. Department of Defense (DoD) visual information does not imply or constitute DoD endorsement.」＝**概要欄に「米国防総省の画像の使用は、同省の推奨を意味しません」**（⑥の申し送り）',
             '- 映像＝DVIDS 330919（USS Bonhomme Richard・2014-04-18・1920×1080）・332722（31st MEU・2014-04-19・1280×720）。原本は CloudFront の `DOD_<番号>.mp4`（`ref/ep14/clips.json` の `media`）',

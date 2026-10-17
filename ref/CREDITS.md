@@ -1878,7 +1878,7 @@ Commons の説明文（原文）が言っているのは、こういう経路で
 ### 1. 写真（Wikimedia Commons ＝ CC BY-SA は**額装・無改変・1点1カット**／CC BY／Attribution／CC0／PD／引用）・映像・判決と報告書の頁
 `qa_out/ep14_assets.py credits --write` が書く（手で直さない）。BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許諾の URL は概要欄で）。
 
-- 🔴 **私人の顔と名前は出さない**：G2（光化門 2018）の下の板＝見つかっていない5人の顔写真と名前／L1（救命胴衣の列）の奥の集会の人＝どちらも切り出し（`cuts/ss.py` の `TRIM`）で外した（改変の旨は画面の出典に出る）
+- 🔴 **私人の顔と名前は出さない**：G2（光化門 2018）の下の板＝見つかっていない5人の顔写真と名前／L1（救命胴衣の列）の奥の集会の人＝どちらも切り出し（`cuts/ss.py` の `TRIM`）で外した（改変の旨は画面の出典に出る）。🆕 2026-10-17：リポに置く原本も、G2 の下の板と売り場2か所（同じ5人の顔写真と名前）・L1 の上 57.5% に**モザイク**（`qa_out/ep14_assets.py` の `MASK`）＝リポの写しは改変あり。公開ずみの動画は焼き直さない（変わらない）
 - 🔴 H1（当日の沈む船）＝Commons の表示「South Korea-Gov」に根拠が無い（削除依頼中）＝**引用**（額装・無改変・出典＝韓国 海洋警察）。サムネに使わない
 - 🔴 **米国防総省（米海軍・米海兵隊）の写真と映像**（`site_0418`・`e1`・`e2`）＝DVIDS の条件「The appearance of U.S. Department of Defense (DoD) visual information does not imply or constitute DoD endorsement.」＝**概要欄に「米国防総省の画像の使用は、同省の推奨を意味しません」**（⑥の申し送り）
 - 映像＝DVIDS 330919（USS Bonhomme Richard・2014-04-18・1920×1080）・332722（31st MEU・2014-04-19・1280×720）。原本は CloudFront の `DOD_<番号>.mp4`（`ref/ep14/clips.json` の `media`）
