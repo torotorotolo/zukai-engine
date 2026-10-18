@@ -83,3 +83,110 @@ SPEC.update({
     "c905": ss.vid("c905"),     # 赤いれんが
     "c909": ss.vid("c909"),     # セメントの面
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5（2026-10-19）：図解 第8章（12カット）＝模式図 `tools/mech23.py`
+# ══════════════════════════════════════════════════════════
+#   🔴 章の札「5階の食堂街」と4字以上同じ並び（「の食堂街」「5階の食」）を見出し・副題に入れない（dup）。札は12字未満（echo）
+#   🔴 次のカットの語りにある数・物は描かない＝c904 に判決の挙げる物（c905）・c908 に厚さの数（c909）・c910 に穴の寸法（c911）を出さない
+SPEC.update({
+    # c902（2行）＝スケート場の床にはほとんど物を置かない → 食堂街は厨房・冷蔵庫・間仕切り・客席が全部重さになる
+    "c902": dict(
+        t="置く物の違い", s="床の使い方",
+        fig=("m23", dict(view="load", start=dict(set="use"), steps=[
+            dict(state=dict(sk="on"), tag=dict(t="物をほとんど置かない", at="ul")),
+            dict(state=dict(food="on"), tag=dict(t="全部が重さになる", at="ur", col=J.ALERT))],
+            note="物の形と矢印の長さは模式（重さの違いは判決）", src=ss.src(["大96 p1"]))),
+    ),
+    # c904（2行）＝白書は、れんがの壁や石の庭も挙げる → 記録によって挙げる物が少しずつ違う（🔧 箱は2つ＝判決の物は次の c905 の語り）
+    "c904": dict(
+        t="挙げる物", s="記録の箱",
+        fig=("m23", dict(view="lists", start=dict(k="on"), steps=[
+            dict(state=dict(w="on")), dict(state=dict(diff="on"), tag=dict(t="少しずつ違う", at="low"))],
+            note="国会の報告と白書（白書は検察の資料と新聞を引いた節）", src=ss.src(["K6-R p29", "白書 p89"]))),
+    ),
+    # c906（3行）＝聞き役 → 5階の柱と床に、前提より1平方メートルあたり → 360キログラム以上の余計な重さ（判決）
+    "c906": dict(
+        t="余計な重さ", s="判決の値",
+        fig=("m23", dict(view="over", steps=[
+            dict(), dict(state=dict(pre="on"), tag=dict(t="前提の重さ", at="l1")),
+            dict(state=dict(add="on"), tag=dict(t="360キログラム以上", d="1平方メートルあたり", at="l2", col=J.AMBER))],
+            rel=[dict(t="1平方メートルあたり360キログラム以上", src="大96 p1")],
+            note="矢印の長さは模式（値は判決）", src=ss.src(["大96 p1"]))),
+    ),
+    # c908（2行）＝屋上には、もう1つ重さを増やす物 → 防水の層を守るためにかぶせる押えコンクリート（厚さの数は c909）
+    "c908": dict(
+        t="屋上の上乗せ", s="かぶせた層",
+        fig=("m23", dict(view="cover", steps=[
+            dict(state=dict(q="on")),
+            dict(state=dict(cover="on"), tag=[dict(t="押えコンクリート", at="l"), dict(t="防水の層", at="r", to="wp", col=J.USCG)])],
+            note="厚さは模式", src=ss.src(["K6-R p29"]))),
+    ),
+    # c910（3行）＝5階の厨房の排気のダクトを通すため → 屋上を支える北側の耐力壁が切られていた → 耐力壁＝建物の重さを受け持つ壁
+    "c910": dict(
+        t="切られた壁", s="ダクトのため",
+        fig=("m23", dict(view="duct", steps=[
+            dict(state=dict(duct="on"), tag=dict(t="厨房の排気のダクト", at="dl", col=J.COMPANY)),
+            dict(state=dict(cut="on"), tag=dict(t="北側の耐力壁を切った", at="r1", to="slot", col=J.ALERT)),
+            dict(state=dict(load="on"), tag=dict(t="建物の重さを受け持つ壁", at="r2", col=J.AMBER))],
+            note="壁と穴の大きさは模式（穴の長さの割合は国会の報告）", src=ss.src(["K6-R p29", "大96 p1"]))),
+    ),
+    # c912（2行）＝判決：切ったあとに何の補強もせず → 壁の強さが落ちた
+    "c912": dict(
+        t="補強なし", s="切ったあと",
+        fig=("m23", dict(view="opening", steps=[
+            dict(state=dict(none="on"), tag=dict(t="補強の鉄が無い", d="判決", at="r1", col=J.ALERT)),
+            dict(state=dict(weak="on"), tag=dict(t="壁の強さが落ちた", at="r2", col=J.ALERT))],
+            note="鉄筋の間隔と穴の形は模式", src=ss.src(["大96 p1"]))),
+    ),
+    # c913（2行）＝壁と床のつなぎ目・判決：5階の床の上の鉄筋は → 壁の中へ64センチ入れるべきところ15〜18センチ
+    "c913": dict(
+        t="短い鉄筋", s="入る長さ",
+        fig=("m23", dict(view="joint", start=dict(fl="5"), steps=[
+            dict(state=dict(bar="lit"), tag=dict(t="5階の床の上の鉄筋", at="t", to="bar")),
+            dict(state=dict(ruler="on"), tag=[dict(t="入れるべき 64センチ", at="rn"), dict(t="実際 15〜18センチ", at="rg", col=J.ALERT)])],
+            rel=[dict(t="5階", src="大96 p1"), dict(t="64センチ", src="大96 p1"), dict(t="15〜18センチ", src="大96 p1")],
+            note="つなぎ目の形は模式（物差しの長さは判決の値・同じ縮尺）", src=ss.src(["大96 p1"]))),
+    ),
+    # c915（2行）＝国会の報告：鉄筋の先を曲げて引っかける形にせず → まっすぐ短く・しっかり結べていない
+    "c915": dict(
+        t="鉄筋の先", s="2つの形",
+        fig=("m23", dict(view="hook", steps=[
+            dict(state=dict(l="on"), tag=dict(t="本来の形", at="hl")),
+            dict(state=dict(r="on"), tag=[dict(t="実際の形", at="hr", col=J.ALERT), dict(t="しっかり結べていない", at="t", col=J.ALERT)])],
+            note="鉄筋の形は模式（国会の報告の書き方）", src=ss.src(["K6-R p29"]))),
+    ),
+    # c916（2行）＝崩れるときは、壁は立ったまま床だけが落ちた（報告）→ 聞き役：だから壁だけが残っていた
+    "c916": dict(
+        t="崩れるとき", s="壁と床",
+        fig=("m23", dict(view="joint", steps=[
+            dict(state=dict(fall="on"), tag=dict(t="床だけが落ちる", d="国会の報告", at="t", col=J.ALERT)),
+            dict(state=dict(wall="on"), tag=dict(t="壁は立ったまま", at="r"))],
+            note="つなぎ目の形と落ち方は模式", src=ss.src(["K6-R p29"]))),
+    ),
+    # c917（2行）＝第3章で見た、北と南に残った壁 → 床だけがつなぎ目から外れて落ちていた
+    "c917": dict(
+        t="外れた床", s="A棟の両端",
+        fig=("m23", dict(view="section", start=dict(fall="all"), steps=[
+            dict(state=dict(walls="on"), tag=dict(t="北と南に残った壁", at="r1", col=J.ROLE["bldg_a"])),
+            dict(state=dict(joints="on"), tag=dict(t="つなぎ目から外れた", at="r2", col=J.ALERT))],
+            note="壁の高さと形は模式（残った壁はソウル市の報告）", src=ss.src(["K6-市 p37"]))),
+    ),
+    # c918（3行）＝重い物が次々と足された → その下に図面で細くなった柱 → 判決：冷蔵庫などの重さを考えた補強をしなかった
+    "c918": dict(
+        t="積み木", s="下には細い柱",
+        fig=("m23", dict(view="stack", steps=[
+            dict(state=dict(items="on"), tag=dict(t="次々と足された重さ", at="t")),
+            dict(state=dict(col="on"), tag=dict(t="図面で細くなった柱", at="cl", col=J.ALERT)),
+            dict(state=dict(noreinf="on"), tag=dict(t="重さを考えた補強なし", d="判決", at="r", col=J.ALERT))],
+            note="積み木の大きさは模式（重さの比ではない・物の名は記録）", src=ss.src(["K6-R p29", "白書 p89", "大96 p1"]))),
+    ),
+    # c919（2行）＝建物の異変はいつから → あの朝の盛り上がりは本当に突然だったのか（次の章への橋）
+    "c919": dict(
+        t="異変の始まり", s="あの朝の前",
+        fig=("m23", dict(view="bldg", start=dict(hi="a5"), steps=[
+            dict(tag=dict(t="いつから？", at="t", to="cell", col=J.AMBER)),
+            dict(state=dict(cell="on", bulge="on"), tag=dict(t="本当に突然？", at="r1", col=J.ALERT))],
+            note="形は模式")),
+    ),
+})

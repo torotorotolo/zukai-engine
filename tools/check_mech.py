@@ -3605,6 +3605,44 @@ REC_M23.update(
     dp_miss={("4", "E")},
     towers=3,
 )
+# 🆕 2026-10-19（23本目 ⑤b-5）：第8〜9章の記録（描く側の表 mech23.LISTS・OVER_KG・DU_CUT・JT_CM・HK_CM・SK_ITEMS・SK_COL_MM・HI["f4"]・P3・RL_LINE・RL_PT・
+#   ITEMS・sc_walls・TG を書き換えると鳴る）。引いた原文（q23 で頁を当てた）：
+#     国会の報告 p.29「칸막이 및 대형냉장고·주방기기와 공용부분에 화단 및 분수대 등」「옥상바닥을 받치는 북측 코아 내력벽을 수평방향으로 절단(벽체길이 160㎝ 중 98㎝ 절단)」
+#       「슬래브 속의 두 가닥 철근을 내력벽 속으로 각각 64㎝·40㎝씩 ‘ㄱ’자 형태로 꺾어 넣고 끝부분은 갈고리 모양으로 처리(HOOK장치)하여야 하는데도 ‘ㅣ’자형으로
+#       갈고리장치 없이 짧게 시공」・p.30「4층 조명코너에서 건물 진동으로 조명등이 추락」（棟は書いていない）
+#     判決 大96「예정된 하중보다 360㎏/㎡ 이상의 과하중」「정착길이는 철근지름의 40배인 64㎝를 확보하여야 함에도 15-18㎝ 정도로 짧게 정착」「대리석 및 화강석의
+#       마감재공사, 15㎝ 두께의 주방 바닥콘크리트공사, 벽돌을 사용한 칸막이 벽체공사, 온돌공사, 대형냉장고 등」・「긴 10.8m」
+#     ソウル市 p.37「A동 북측 잔여벽체」「A동 남측 벽체」・検察 p.50「층수가 16층 이상이거나 기둥과 기둥 사이 거리가 30m 이상」・p.45「지상 5층」
+#     瑞草区 p.45「소방안전관리 … 전기안전관리 … 가스안전관리 … 건축물안전관리 : 승강기, 축대·난간 관리, 노후건물·간판 관리상태」
+#     白書 p.89（大きな冷蔵庫・れんがの壁・石の庭）＝頁の画像（② で読んだ・台本の出典の欄）
+REC_M23.update(
+    lists=(("国会の報告", "state", ("間仕切り", "大きな冷蔵庫", "厨房の機器", "花壇と噴水")), ("白書", "city", ("大きな冷蔵庫", "れんがの壁", "石の庭"))),
+    over_kg=360.0,
+    duct=(98.0, 160.0),
+    joint=dict(need=64.0, got=(15.0, 18.0)),
+    hook=(64.0, 40.0),
+    stack=frozenset({"冷蔵庫", "れんがの壁", "石の庭", "大理石", "厨房の床", "オンドル"}),
+    f4=frozenset({("a", 4), ("b", 4)}),
+    three=("4階", "5階", "屋上"),
+    rule=dict(floors=16, span=30.0, pt=(10.8, 5)),
+    items=("消防", "電気", "ガス", "エレベーター", "看板"),
+)
+_M23_NEED_B5 = (                    # 🆕 ⑤b-5 の筋（下の _M23_NEED に足す）
+    ("lists", "diff", "on", "w", {"on"}, "違いの印は、2つ目の箱を見せてから"),
+    ("over", "add", "on", "pre", {"on"}, "余計な重さの矢印は、前提の重さの上に"),
+    ("cover", "cover", "on", "q", {"on"}, "押えコンクリートは、重さを増やす物の問いのあと"),
+    ("duct", "cut", "on", "duct", {"on"}, "切った穴は、ダクトを見せてから"),
+    ("joint", "ruler", "on", "bar", {"lit"}, "長さの物差しは、上の鉄筋を見せてから"),
+    ("joint", "wall", "on", "fall", {"on"}, "立ったままの壁の印は、床が落ちてから"),
+    ("hook", "r", "on", "l", {"on"}, "まっすぐ短い形は、本来の形を見せてから"),
+    ("section", "joints", "on", "walls", {"on"}, "つなぎ目の印は、残った壁を見せてから"),
+    ("section", "walls", "on", "fall", {"all"}, "残った壁は、崩れたあとに"),
+    ("stack", "noreinf", "on", "items", {"on"}, "補強なしの印は、積み重なった重さを見せてから"),
+    ("plan", "up", "on", "marks", {"on"}, "上の階の括弧は、前触れの印を見せてから"),
+    ("rule", "pt", "on", "zone", {"on"}, "三豊の点は、決まりの線を見せてから"),
+    ("items", "no", "on", "c1", {"on"}, "無い項目は、項目を全部見せてから"),
+    ("slab", "leak", "on", "dpm", {"on"}, "水漏れは、板の無い所を見せてから"),
+)
 _M23_NEED_B4 = (                    # 🆕 ⑤b-4 の筋（下の _M23_NEED に足す）
     ("road", "amb", "blocked", "jam", {"on"}, "救助の車が止まる印は、道がふさがってから"),
     ("cal", "d1", "on", "d0", {"on"}, "救出の日の印は、崩れた日を見せてから"),
@@ -3633,7 +3671,7 @@ _M23_NEED = (
     ("slab", "beam", "plan", "sag", {"on"}, "鉄の梁の補強は、沈んだ床に"),
     ("tower", "drain", "on", "run", {"off"}, "水を抜くのは、冷却塔を止めてから"),
     ("table", "why", "on", "r2", {"on"}, "点検の目的は、2回目の行を見せてから"),
-) + _M23_NEED_B4
+) + _M23_NEED_B4 + _M23_NEED_B5
 NUM_M23 = re.compile(r"[0-9０-９]{1,2}[:：][0-9０-９]{2}|[0-9０-９][0-9０-９,.．]*")
 VIEW_HEADS = ("横から", "上から", "斜めから")
 
@@ -3774,6 +3812,9 @@ def judge_m23(f):
     bad_, n_ = _judge_m23_b4(g, view, seq, R)
     bad += bad_
     n += n_
+    bad_, n_ = _judge_m23_b5(g, view, seq, R)
+    bad += bad_
+    n += n_
     said = [r.get("t", "") for r in m["rel"]]
     for t in texts:
         for mm in NUM_M23.finditer(t):
@@ -3873,6 +3914,81 @@ def _judge_m23_b4(g, view, seq, R):
             need(rows[-1]["box_x"] > rows[0]["box_x"] + 100, "② 引きずった箱が動いていない")
     if view == "crack" and any_("crack", "long"):
         need(g["branch"] > 0, "② ひびが育っていない（枝のひびが無い）")
+    return bad, n
+
+
+def _judge_m23_b5(g, view, seq, R):
+    """🆕 23本目 ⑤b-5：第8〜9章の見え方と、足した欄の照合（記録＝R・形＝g）。"""
+    import jiko_style as J
+    bad, n = [], 0
+
+    def need(cond, msg):
+        nonlocal n
+        n += 1
+        if not cond:
+            bad.append(msg)
+    any_ = lambda f, v: any(s.get(f) == v for s in seq)   # noqa: E731
+    if view == "lists":
+        got = tuple((h, r, tuple(it)) for h, r, it in g["lists"])
+        need(got == R["lists"], f"② 箱の物 {got} が記録（国会の報告 p.29・白書 p.89）と違う")
+    if view == "over":
+        need(abs(g["over_kg"] - R["over_kg"]) < 1e-9, f"② 余計な重さ {g['over_kg']:g} キロ（記録 360＝判決）")
+        need(g["add"][1] < g["pre"][0] and g["pre"][1] < g["top"], "② 足された重さの矢印が前提の重さの上に無い（床の上に前提・その上に足された重さ）")
+    if view == "cover":
+        c = g["cover"]
+        need(c["cc"] < c["wp"] <= c["top"], "② 押えコンクリートが防水の層の上・屋上の床の上の順に無い（国会の報告 p.29）")
+    if view == "duct":
+        d = g["duct"]
+        need(tuple(d["cut"]) == R["duct"] and abs(d["frac"] - R["duct"][0] / R["duct"][1]) < 1e-6,
+             f"② 穴の長さの割合 {d['frac']:.3f} が記録（壁の長さ160センチのうち98センチ＝国会の報告 p.29）と違う")
+        need(d["wall"][0] <= d["slot"][0] < d["slot"][1] <= d["wall"][1], "② 穴が壁の外にはみ出す")
+    if view == "joint":
+        j = g["joint"]
+        need(abs(j["need_cm"] - R["joint"]["need"]) < 1e-6 and all(abs(a - b) < 1e-6 for a, b in zip(j["got_cm"], R["joint"]["got"])),
+             f"② 物差しの長さ {j['need_cm']:g}・{j['got_cm']} センチが記録（64センチ・15〜18センチ＝判決）と違う")
+        for r in j["rows"]:
+            if r["fall"] == "on":
+                need(r["slab_y"] > j["top"] + 100, "② 落ちたはずの床が壁から離れて下がっていない（壁は立ったまま床だけ＝国会の報告 p.29）")
+    if view == "hook":
+        h = g["hook"]
+        need(len(h["bent"]) == 2 and abs(h["bent"][0] / h["bent"][1] - R["hook"][0] / R["hook"][1]) < 1e-6,
+             f"② 曲げる形の2本の鉄筋の長さの比 {h['bent']} が記録（64：40＝国会の報告 p.29）と違う")
+        need(all(h["hooks"]) and not any(h["straight_hooks"]), "② 曲げる形に引っかけ（先）が無いか、まっすぐの形に引っかけがある")
+        need(max(h["straight"]) < min(h["bent"]), "② まっすぐの形の鉄筋が、曲げる形より短くない")
+    if view == "section" and g.get("walls"):
+        (n0, n1), (s0, s1) = g["walls"]
+        a0, a1 = g["a_x"]
+        need(len(g["walls"]) == 2 and abs(n0 - a0) < 1e-6 and abs(s1 - a1) < 1e-6 and n1 < s0,
+             "② 残った壁が A棟の北と南の端に無い（ソウル市の報告 p.37「A동 북측 잔여벽체」「A동 남측 벽체」）")
+    if view == "stack":
+        need(frozenset(g["stack"]) == R["stack"], f"② 積み木の物 {g['stack']} が記録（国会・白書・判決が挙げる物）と違う")
+        calc, plan = dict((t, d) for t, d, _n in R["colx"])["計算書"], dict((t, d) for t, d, _n in R["colx"])["図面"]
+        w_plan, w_calc = g["col_w"]
+        need(abs(w_plan / w_calc - plan / calc) < 1e-6, f"② 柱の太さの比 {w_plan:g}：{w_calc:g} が記録（図面60：計算書80＝国会の報告 p.29）と違う")
+    if view == "bldg" and (any_("hi", "f4") or any_("hi", "f4a5")):
+        need(frozenset(g["f4"]) == R["f4"], f"② 4階の帯 {g['f4']} が両方の棟でない（売り場の棟は記録に無い＝国会の報告 p.30）")
+        need(frozenset(g["f4a5"]) == R["f4"] | {("a", 5)}, "② 4階の帯と食堂街（A棟5階）の帯が記録と違う")
+    if view == "plan" and g.get("floor") == "three":
+        need(tuple(g["labs"]) == R["three"], f"② 床の名 {g['labs']} が記録に残る場所（4階・5階・屋上）と違う")
+    if view == "tower" and g.get("gauge"):
+        lv = {k: y for k, y in g["gauge"]}
+        if "low" in lv and "on" in lv:
+            need(lv["low"] > lv["on"], "② 調節したあとの水の高さが下がっていない")
+    if view == "rule":
+        r = g["rule"]
+        ax = r["ax"]
+        X = lambda m: ax["x0"] + m / ax["mx"] * (ax["x1"] - ax["x0"])   # noqa: E731
+        Y = lambda f: ax["y0"] - f / ax["my"] * (ax["y0"] - ax["y1"])   # noqa: E731
+        Rr = R["rule"]
+        need((r["line"]["floors"], r["line"]["span"]) == (Rr["floors"], Rr["span"]), f"② 決まりの線 {r['line']} が記録（16階以上か30メートル以上＝検察の報告 p.50）と違う")
+        need(abs(r["zone"][0][0] - X(Rr["span"])) < 1e-6 and abs(r["zone"][1][1] - Y(Rr["floors"])) < 1e-6,
+             "② 決まりの線の画素が軸の目盛りと合わない（縮尺どおりでない）")
+        need(tuple(r["pt"]) == Rr["pt"] and abs(r["pt_px"][0] - X(Rr["pt"][0])) < 1e-6 and abs(r["pt_px"][1] - Y(Rr["pt"][1])) < 1e-6,
+             f"② 三豊の点 {r['pt']} が記録（地上5階・柱のあいだ10.8メートル）の位置に無い")
+        need(r["pt_px"][0] < r["zone"][0][0] and r["pt_px"][1] > r["zone"][1][1], "② 三豊の点が決まりの線の外に無い")
+    if view == "items":
+        it = g["items"]
+        need(tuple(it["cards"]) == R["items"] and it["head"][1] == "ward", f"② 点検の項目 {it['cards']} が記録（瑞草区の報告 p.45）と違うか、区の色でない")
     return bad, n
 
 
@@ -4028,6 +4144,86 @@ def _selftest_m23_b4(ok):
         g_ = bool(bad)
         ok &= g_
         print(f"  {'OK' if g_ else '🔴 NG'} 🔴 23本目 ⑤b-4 陽性対照（筋）：{name}: {'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    return _selftest_m23_b5(ok)
+
+
+def _selftest_m23_b5(ok):
+    """🆕 23本目 ⑤b-5：第8〜9章の見え方の検算（正しい場面・陽性対照＝描く側の表を壊す・筋）。"""
+    import mech23 as M
+    N = "模式"
+    good = dict(
+        use=dict(view="load", start=dict(set="use"), steps=[dict(state=dict(sk="on")), dict(state=dict(food="on"))], note=N),
+        lists=dict(view="lists", start=dict(k="on"), steps=[dict(state=dict(w="on")), dict(state=dict(diff="on"))], note=""),
+        over=dict(view="over", steps=[dict(state=dict(pre="on")), dict(state=dict(add="on"))], note=N),
+        cover=dict(view="cover", steps=[dict(state=dict(q="on")), dict(state=dict(cover="on"))], note=N),
+        duct=dict(view="duct", steps=[dict(state=dict(duct="on")), dict(state=dict(cut="on")), dict(state=dict(load="on"))], note=N),
+        opening=dict(view="opening", steps=[dict(state=dict(none="on")), dict(state=dict(weak="on"))], note=N),
+        joint=dict(view="joint", start=dict(fl="5"), steps=[dict(state=dict(bar="lit")), dict(state=dict(ruler="on"))], note=N),
+        fall=dict(view="joint", steps=[dict(state=dict(fall="on")), dict(state=dict(wall="on"))], note=N),
+        hook=dict(view="hook", steps=[dict(state=dict(l="on")), dict(state=dict(r="on"))], note=N),
+        walls=dict(view="section", start=dict(fall="all"), steps=[dict(state=dict(walls="on")), dict(state=dict(joints="on"))], note=N),
+        stack=dict(view="stack", steps=[dict(state=dict(items="on")), dict(state=dict(col="on")), dict(state=dict(noreinf="on"))], note=N),
+        f4=dict(view="bldg", steps=[dict(state=dict(hi="f4", lamp="on")), dict(state=dict(shake="on")), dict(state=dict(hi="f4a5"))], note=N),
+        two=dict(view="plan", start=dict(floor="two"), steps=[dict(state=dict(kit="on")), dict(state=dict(path="on"))], note=N),
+        three=dict(view="plan", start=dict(floor="three"), steps=[dict(state=dict(marks="on")), dict(state=dict(up="on"))], note=N),
+        roof=dict(view="slab", start=dict(z="col", fl="roof"), steps=[dict(state=dict(dpm="on", leak="on", crack="on"))], note=N),
+        gauge=dict(view="tower", start=dict(gauge="on"), steps=[dict(state=dict(gauge="low"))], note=N),
+        insp=dict(view="insp", steps=[dict(state=dict(eye="on")), dict(state=dict(doc="on"))], note=N),
+        rule=dict(view="rule", start=dict(zone="on"), steps=[dict(state=dict(pt="on"))], note=N),
+        items=dict(view="items", steps=[dict(state=dict(c0="on")), dict(state=dict(c1="on", no="on"))], note=""),
+    )
+    for k, kw in good.items():
+        bad, nn = judge("m23", kw)
+        g_ = not bad
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 23本目 ⑤b-5 正しい場面 {k}: {'合格' if not bad else bad[0]}（{nn}件）")
+    pos = [
+        ("国会の箱から花壇を抜く", "LISTS", ((M.LISTS[0][0], M.LISTS[0][1], M.LISTS[0][2][:3]), M.LISTS[1]), "lists", "箱の物"),
+        ("余計な重さを300キロに", "OVER_KG", 300.0, "over", "余計な重さ"),
+        ("穴を壁の長さの半分に", "DU_CUT", (80.0, 160.0), "duct", "穴の長さの割合"),
+        ("入れるべき長さを60センチに", "JT_CM", dict(M.JT_CM, need=60.0), "joint", "物差しの長さ"),
+        ("曲げる形の2本を同じ長さに", "HK_CM", (64.0, 64.0), "hook", "長さの比"),
+        ("積み木から石の庭を抜く", "SK_ITEMS", M.SK_ITEMS[:5], "stack", "積み木の物"),
+        ("柱の太さの比を 600：700 に", "SK_COL_MM", (600.0, 700.0), "stack", "柱の太さの比"),
+        ("4階の帯を A棟だけに", "HI", dict(M.HI, f4=(("a", 4),), f4a5=(("a", 4), ("a", 5))), "f4", "4階の帯"),
+        ("床の名を3階からに", "P3", dict(M.P3, lab=("3階", "4階", "5階")), "three", "床の名"),
+        ("決まりの線を15階に", "RL_LINE", dict(M.RL_LINE, floors=15), "rule", "決まりの線"),
+        ("三豊の点を地上6階に", "RL_PT", (10.8, 6), "rule", "三豊の点"),
+        ("点検の項目から看板を抜く", "ITEMS", dict(M.ITEMS, cards=M.ITEMS["cards"][:4]), "items", "点検の項目"),
+        ("調節で水を増やす", "TG", dict(M.TG, lv=dict(M.TG["lv"], low=500.0)), "gauge", "水の高さ"),
+    ]
+    for name, attr, val, key, frag in pos:
+        keep = getattr(M, attr)
+        setattr(M, attr, val)
+        try:
+            try:
+                bad, _ = judge("m23", good[key])
+            except Exception as e:    # noqa: BLE001
+                bad = [f"組めない：{e}"]
+        finally:
+            setattr(M, attr, keep)
+        g_ = any(frag in b for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 23本目 ⑤b-5 陽性対照：{name}: {'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    # 残った壁（描く側の位置の計算を壊す＝B棟へずらす）
+    keep = M.sc_walls
+    M.sc_walls = lambda: tuple((x0 + 650.0, x1 + 650.0) for x0, x1 in keep())
+    try:
+        bad, _ = judge("m23", good["walls"])
+    finally:
+        M.sc_walls = keep
+    g_ = any("残った壁" in b for b in bad)
+    ok &= g_
+    print(f"  {'OK' if g_ else '🔴 NG'} 🔴 23本目 ⑤b-5 陽性対照：残った壁を B棟へずらす: {'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    for name, kw in (("決まりの線の前に三豊の点", dict(view="rule", steps=[dict(state=dict(pt="on"))], note=N)),
+                     ("鉄筋を見せる前に物差し", dict(view="joint", steps=[dict(state=dict(ruler="on"))], note=N)),
+                     ("床が落ちる前に立ったままの壁", dict(view="joint", steps=[dict(state=dict(wall="on"))], note=N)),
+                     ("崩れる前に残った壁", dict(view="section", steps=[dict(state=dict(walls="on"))], note=N)),
+                     ("積み木の前に補強なし", dict(view="stack", steps=[dict(state=dict(noreinf="on"))], note=N))):
+        bad, _ = judge("m23", kw)
+        g_ = bool(bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 23本目 ⑤b-5 陽性対照（筋）：{name}: {'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
     return ok
 
 

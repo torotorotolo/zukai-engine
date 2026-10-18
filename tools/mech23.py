@@ -409,6 +409,8 @@ def plan_base(st0):
     fl = st0["floor"]
     if fl in ("area", "ct"):        # 🆕 ⑤b-4：全部の階を足した広さ・屋上の置き場（向きは模式＝北の印を描かない）
         return plan_extra_base(st0)
+    if fl in ("two", "three"):      # 🆕 ⑤b-5：床を並べる（棟と向きは描かない）
+        return plan_b5_base(st0)
     # 北の向き（A棟の側＝左）＝左下
     g.append(_arrow(230.0, 810.0, 130.0, 810.0, J.TICK, 4, 16))
     g.append(_tline(242.0, 820.0, "北", 28, J.TICK, "start", 60))
@@ -590,15 +592,16 @@ def slab_base(st0):
             g.append(_tline(SLS["x0"] + 10, SLS["top"] + SLS["th"] + 46, dn, 28, INK, "start", 300))
         return g
     cx, cw = SLC["cx"], SLC["cw"]
-    # 柱（上と下）＋柱の頭の板の芯（押し抜きで柱に残る部分＝動かない）
-    g.append(F.rect(cx - cw / 2, SLC["up"], cw, SLC["top"] - SLC["up"], J.BG2, J.LINE, 4))
+    # 柱（上と下）＋柱の頭の板の芯（押し抜きで柱に残る部分＝動かない）。🆕 ⑤b-5：屋上の床（ca03）は上に柱が無い
+    if st0["fl"] != "roof":
+        g.append(F.rect(cx - cw / 2, SLC["up"], cw, SLC["top"] - SLC["up"], J.BG2, J.LINE, 4))
     g.append(F.rect(cx - cw / 2, SLC["top"] + SLC["th"], cw, SLC["low"] - SLC["top"] - SLC["th"], J.BG2, J.LINE, 4))
     th = SLC["th"]
     plug = [(cx - cw / 2 - th - 2, SLC["top"]), (cx + cw / 2 + th + 2, SLC["top"]), (cx + cw / 2 + 2, SLC["top"] + th), (cx - cw / 2 - 2, SLC["top"] + th)]
     g.append(F.poly(plug, J.BG2, None, close=True))
     if st0["fl"] != "none":
-        n = int(st0["fl"])
-        g.append(_tline(SLC["x0"] + 10, SLC["top"] - 18, f"{n}階の床", 28, INK, "start", 300))
+        lab = "屋上の床（5階の天井）" if st0["fl"] == "roof" else f"{int(st0['fl'])}階の床"
+        g.append(_tline(SLC["x0"] + 10, SLC["top"] - 18, lab, 28, INK, "start", 400))
     return g
 
 
@@ -682,13 +685,13 @@ def tower_parts(st):
         pts = [(x - s_ * w, y + c * w), (x + c * L - s_ * w, y + s_ * L + c * w), (x + c * (L + 24), y + s_ * (L + 24)),
                (x + c * L + s_ * w, y + s_ * L - c * w), (x + s_ * w, y - c * w)]
         ps.append(_P(f"air{i}", "poly", pts, fill=J.LINE, stroke=None, alpha=a))
-    return ps
+    return ps + tower_gauge_parts(st)          # 🆕 ⑤b-5：水位の目盛りの水（ca09）
 
 
 def tower_stage(prev, st):
     if st.get("set") == "three":
         return tower3_stage(prev, st)
-    s = []
+    s = tower_gauge_stage(prev, st)
     fx, fy = (TWR["x0"] + TWR["x1"]) / 2 + TWR["d"][0] / 2, TWR["y0"] + TWR["d"][1] / 2 - 64
     if _on(prev, st, "run", "off"):
         s.append(_xmark(fx, fy - 6, 26.0, J.COMPANY, 9))
@@ -1640,6 +1643,8 @@ LD = dict(cols=((620.0, 160.0, "太い柱"), (1300.0, 120.0, "細い柱")), top=
 
 def load_base(st0):
     g = []
+    if st0["set"] == "use":            # 🆕 ⑤b-5（c902）
+        return load_use_base(st0)
     if st0["set"] == "col":
         g.append(F.line(260.0, LD["g"], 1660.0, LD["g"], J.LINE, 4))
         for x, w, t in LD["cols"]:
@@ -1674,6 +1679,8 @@ def load_parts(st):
 
 def load_stage(prev, st):
     s = []
+    if st["set"] == "use":
+        return load_use_stage(prev, st)
     if st["set"] == "col":
         if _on(prev, st, "brit"):
             x, w, _t = LD["cols"][1]
@@ -2151,6 +2158,718 @@ def crack_extra_stage(prev, st):
 
 
 # ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5（第8〜9章・2026-10-19）：新しい見え方11（lists・over・cover・duct・opening・joint・hook・stack・insp・rule・items）と、
+#     既存の見え方に足す欄（load の use・section の walls／joints・bldg の4階・plan の two／three・slab の屋上の柱のまわり・tower の水位）
+# ══════════════════════════════════════════════════════════
+def _drop(cx, cy, r=9.0, col=None):
+    """水のしずく（模式）。"""
+    return F.poly([(cx, cy - r * 2.2)] + [(cx + r * math.cos(math.radians(a)), cy + r * math.sin(math.radians(a))) for a in range(-30, 211, 20)],
+                  col or J.USCG, None, close=True)
+
+
+def _lamp(cx, cy, col=None):
+    """吊り下げの照明（模式）。"""
+    c = col or INK
+    return (F.line(cx, cy - 44, cx, cy - 16, c, 3)
+            + F.poly([(cx - 20, cy - 16), (cx + 20, cy - 16), (cx + 30, cy + 8), (cx - 30, cy + 8)], J.BG2, c, 4, close=True)
+            + F.circ(cx, cy + 16, 7, J.AMBER, None))
+
+
+def _eye(cx, cy, col=None):
+    c = col or INK
+    top = [(cx + 46 * math.cos(math.radians(a)), cy - 26 * math.sin(math.radians(a))) for a in range(0, 181, 15)]
+    bot = [(cx - 46 * math.cos(math.radians(a)), cy + 26 * math.sin(math.radians(a))) for a in range(0, 181, 15)]
+    return F.poly(top + bot, "none", c, 4, close=True) + F.circ(cx, cy, 11, c, None)
+
+
+# ── load に足す組 use（c902 重さ）＝スケート場の床と食堂街の床（判決 大96 理由2.가「고정하중(Dead Load) 및 적재하중(Live Load)의 차이가 크므로」）。
+#    物の名は語り・形と置き場と矢印の長さは模式
+LU = dict(l=(240.0, 860.0), r=(1060.0, 1680.0), top=600.0, th=40.0, g=848.0, ly=790.0)
+LU_ITEMS = (("厨房", 1090.0, 160.0, 90.0), ("冷蔵庫", 1280.0, 100.0, 150.0), ("間仕切り", 1440.0, 26.0, 140.0), ("客席", 1510.0, 160.0, 60.0))
+LU_AW = (1200.0, 1330.0, 1453.0, 1560.0)
+
+
+def _lu_slab(x0, x1):
+    g = [F.rect(x0, LU["top"], x1 - x0, LU["th"], J.BG2, J.LINE, 4)]
+    for x in (x0 + 60, x1 - 60):
+        g.append(F.rect(x - 20, LU["top"] + LU["th"], 40, LU["g"] - LU["top"] - LU["th"], J.BG2, J.LINE, 3))
+    return g
+
+
+def load_use_base(st0):
+    g = _lu_slab(*LU["l"]) + _lu_slab(*LU["r"])
+    g.append(_tline(sum(LU["l"]) / 2, LU["ly"], "スケート場の床", 28, INK, "middle", 400))
+    g.append(_tline(sum(LU["r"]) / 2, LU["ly"], "食堂街の床", 28, INK, "middle", 400))
+    return g
+
+
+def load_use_stage(prev, st):
+    s = []
+    if _on(prev, st, "sk"):
+        x0, x1 = LU["l"]
+        s.append(F.rect(x0, LU["top"], x1 - x0, LU["th"], INK, None, op=0.16))
+        for x in (440.0, 660.0):                   # 軽い物の小さな矢印（模式）
+            s.append(_arrow(x, LU["top"] - 34, x, LU["top"] - 6, J.LINE_DIM, 4, 12))
+    if _on(prev, st, "food"):
+        y = LU["top"]
+        for t, x, w, h in LU_ITEMS:
+            if t == "客席":                          # 机と椅子2つ
+                s.append(F.rect(x + 40, y - h, 80, 14, J.BG2, INK, 3))
+                s.append(F.line(x + 80, y - h + 14, x + 80, y, INK, 3))
+                for cx in (x + 14, x + w - 14):
+                    s.append(F.rect(cx - 14, y - 34, 28, 34, J.BG2, INK, 3))
+            else:
+                s.append(F.rect(x, y - h, w, h, J.BG2, INK, 3, rx=4))
+            s.append(_tline(x + w / 2, y - h - 14, t, 24, INK, "middle", 160))
+        x0, x1 = LU["r"]
+        s.append(F.rect(x0, LU["top"], x1 - x0, LU["th"], J.ALERT, None, op=0.22))
+        for x in LU_AW:
+            s.append(_arrow(x, LU["top"] + LU["th"] + 4, x, LU["top"] + LU["th"] + 80, J.ALERT, 6, 18))
+    return s
+
+
+# ── lists（c904 箱）＝記録が挙げる5階の物を、記録ごとの箱に（国会の報告 p.29「칸막이 및 대형냉장고·주방기기와 공용부분에 화단 및 분수대 등」・
+#    白書 p.89「대형냉장고・조적벽・돌정원」＝検察の資料と新聞を引いた節・頁の画像）。🔧 一覧の「国会・白書・判決の3つの箱」→ **2つの箱**
+#    （判決の挙げる物は次の c905 の語り＝描かない）。原文の写し＝「模式」を付けない
+LISTS = (("国会の報告", "state", ("間仕切り", "大きな冷蔵庫", "厨房の機器", "花壇と噴水")),
+         ("白書", "city", ("大きな冷蔵庫", "れんがの壁", "石の庭")))
+LSB = dict(xs=(560.0, 1360.0), w=620.0, top=340.0, head=64.0, row=78.0, n=4)
+
+
+def _ls_y(j):
+    return LSB["top"] + LSB["head"] + 56 + j * LSB["row"]
+
+
+def _ls_box(i):
+    h_, r_, items = LISTS[i]
+    x, w = LSB["xs"][i], LSB["w"]
+    hh = LSB["head"] + 40 + LSB["n"] * LSB["row"]
+    g = [F.rect(x - w / 2, LSB["top"], w, hh, J.BG2, rc(r_), 4, rx=12),
+         F.line(x - w / 2, LSB["top"] + LSB["head"], x + w / 2, LSB["top"] + LSB["head"], rc(r_), 3),
+         _tline(x, LSB["top"] + 46, h_, 34, rc(r_), "middle", w - 40)]
+    for j, t in enumerate(items):
+        g.append(_tline(x - w / 2 + 64, _ls_y(j) + 12, t, 32, INK, "start", w - 100))
+    return "".join(g)
+
+
+def lists_base(st0):
+    return []
+
+
+def lists_stage(prev, st):
+    s = []
+    for i, f_ in enumerate(("k", "w")):
+        if _on(prev, st, f_):
+            s.append(_ls_box(i))
+    if _on(prev, st, "diff"):                       # 片方だけの物＝黄の点・両方にある物＝破線でつなぐ
+        a, b = LISTS[0][2], LISTS[1][2]
+        for i, (own, other) in enumerate(((a, b), (b, a))):
+            x = LSB["xs"][i] - LSB["w"] / 2 + 34
+            for j, t in enumerate(own):
+                if t not in other:
+                    s.append(F.circ(x, _ls_y(j), 9, J.AMBER, None))
+        for t in a:
+            if t in b:
+                s.append(F.line(LSB["xs"][0] + LSB["w"] / 2 + 6, _ls_y(a.index(t)), LSB["xs"][1] - LSB["w"] / 2 - 6, _ls_y(b.index(t)), J.LINE, 3,
+                                dash="8 6"))
+    return s
+
+
+# ── over（c906 重さの矢印）＝5階の床に、前提の重さの上へ足された重さ（判決 大96 理由1「예정된 하중보다 360㎏/㎡ 이상의 과하중이 5층 기둥과 바닥 슬래브에」）。
+#    矢印の長さは模式（値は札＝判決）
+OV = dict(x0=200.0, x1=1720.0, top=660.0, th=40.0, cols=(420.0, 960.0, 1500.0), cw=44.0, up=470.0, pre=64.0, add=110.0,
+          xs=(510.0, 600.0, 690.0, 780.0, 870.0, 1050.0, 1140.0, 1230.0, 1320.0, 1410.0))
+OVER_KG = 360.0
+
+
+def over_base(st0):
+    g = [F.rect(OV["x0"], OV["top"], OV["x1"] - OV["x0"], OV["th"], J.BG2, J.LINE, 4)]
+    for c in OV["cols"]:
+        g.append(F.rect(c - OV["cw"] / 2, OV["up"], OV["cw"], OV["top"] - OV["up"], J.BG2, J.LINE, 3))
+        g.append(F.rect(c - OV["cw"] / 2, OV["top"] + OV["th"], OV["cw"], 848.0 - OV["top"] - OV["th"], J.BG2, J.LINE, 3))
+    g.append(_tline(OV["x0"] + 10, OV["top"] + OV["th"] + 40, "5階の床", 26, INK, "start", 150))
+    return g
+
+
+def _ov_y():
+    """（前提の矢印の上と下, 足された矢印の上と下）の y。"""
+    y1 = OV["top"] - 6
+    return (y1 - OV["pre"], y1), (y1 - OV["pre"] - 8 - OV["add"], y1 - OV["pre"] - 8)
+
+
+def over_stage(prev, st):
+    s = []
+    (p0, p1), (a0, a1) = _ov_y()
+    if _on(prev, st, "pre"):
+        for x in OV["xs"]:
+            s.append(_arrow(x, p0, x, p1, J.LINE, 5, 16))
+    if _on(prev, st, "add"):
+        for x in OV["xs"]:
+            s.append(_arrow(x, a0, x, a1, J.ALERT, 6, 18))
+    return s
+
+
+# ── cover（c908 床の断面）＝屋上の床の上の防水の層と押えコンクリート（国会の報告 p.29「옥상슬래브 위에 덧씌운 콘크리트(누름콘크리트)」）。
+#    🔴 厚さの数（3〜6センチ／15センチ）は次の c909 の語り＝描かない・厚さは模式
+CV = dict(x0=260.0, x1=1660.0, top=600.0, th=56.0, cols=(560.0, 1360.0), cw=64.0, wp=10.0, cc=64.0)
+
+
+def cover_base(st0):
+    g = [F.rect(CV["x0"], CV["top"], CV["x1"] - CV["x0"], CV["th"], J.BG2, J.LINE, 4)]
+    for c in CV["cols"]:
+        g.append(F.rect(c - CV["cw"] / 2, CV["top"] + CV["th"], CV["cw"], 848.0 - CV["top"] - CV["th"], J.BG2, J.LINE, 4))
+    g.append(_tline(CV["x0"] + 10, CV["top"] + CV["th"] + 44, "屋上の床", 28, INK, "start", 220))
+    return g
+
+
+def _cv_y():
+    y_wp = CV["top"] - CV["wp"]
+    return y_wp, y_wp - CV["cc"]
+
+
+def cover_stage(prev, st):
+    s = []
+    y_wp, y_cc = _cv_y()
+    x0, x1 = CV["x0"], CV["x1"]
+    if _on(prev, st, "q"):                          # 重さを増やす物（まだ名を言わない）＝黄の破線と「？」
+        s.append(F.rect(x0, y_cc, x1 - x0, CV["top"] - y_cc, "none", J.AMBER, 4, dash="12 8"))
+        s.append(_qmark(960.0, (y_cc + y_wp) / 2, 44, J.AMBER))
+    if _on(prev, st, "cover"):                      # ⚠️ 網の線を引かない（下の段の「？」を線が通ると geom_gap が鳴る）＝塗りで覆う
+        s.append(F.rect(x0, y_wp, x1 - x0, CV["wp"], J.USCG, None, op=0.9))
+        s.append(F.rect(x0, y_cc, x1 - x0, CV["cc"], J.BG2, None))
+        s.append(F.rect(x0, y_cc, x1 - x0, CV["cc"], J.LINE_DIM, INK, 4, op=0.9))
+    return s
+
+
+# ── duct（c910 部材の立体）＝屋上を支える北側のコアの耐力壁を、5階の厨房の排気のダクトのために横に切った（国会の報告 p.29「배기닥트의 설치를 위하여
+#    옥상바닥을 받치는 북측 코아 내력벽을 수평방향으로 절단(벽체길이 160㎝ 중 98㎝ 절단)」・判決 大96 理由1「5층 식당 주방의 배기덕트 설치를 위하여」）。
+#    🔴 穴の長さの比＝壁の長さ 160 のうち 98（国会の報告）＝門番が照らす。数（40×98・160）は次の c911 の語り＝描かない。壁の高さ・厚さ・穴の高さと場所は模式
+DU = dict(x0=520.0, x1=1240.0, top=430.0, bot=800.0, d=(90.0, -60.0), f0=0.18, sy=(466.0, 536.0), sl=(300.0, 1460.0, 400.0), sd=1.5)
+DU_CUT = (98.0, 160.0)
+
+
+def du_slot():
+    x0, x1 = DU["x0"], DU["x1"]
+    a = x0 + (x1 - x0) * DU["f0"]
+    return a, a + (x1 - x0) * DU_CUT[0] / DU_CUT[1]
+
+
+def duct_base(st0):
+    g = []
+    x0, x1, top, bot = DU["x0"], DU["x1"], DU["top"], DU["bot"]
+    dx, dy = DU["d"]
+    g.append(F.poly([(x1, top), (x1 + dx, top + dy), (x1 + dx, bot + dy), (x1, bot)], J.BG2, J.LINE, 3, close=True))
+    g.append(F.rect(x0, top, x1 - x0, bot - top, J.BG2, INK, 4))
+    sx0, sx1, sy = DU["sl"]                        # 屋上の床（壁の上に載る板＝前の面は壁の前の面にそろえる）
+    th = top - sy
+    ex, ey = dx * DU["sd"], dy * DU["sd"]
+    g.append(F.poly([(sx0, sy), (sx1, sy), (sx1 + ex, sy + ey), (sx0 + ex, sy + ey)], J.BG2, J.LINE, 3, close=True))
+    g.append(F.poly([(sx1, sy), (sx1 + ex, sy + ey), (sx1 + ex, sy + ey + th), (sx1, top)], J.BG2, J.LINE, 3, close=True))
+    g.append(F.rect(sx0, sy, sx1 - sx0, th, J.BG2, J.LINE, 3))
+    g.append(F.line(260.0, bot, 1500.0, bot, J.LINE, 4))
+    g.append(_tline(sx0 - 10, top - 6, "屋上の床", 26, J.TICK, "end", 200))
+    g.append(_tline(x0, bot + 40, "北側の耐力壁（コア）", 28, INK, "start", 500))
+    return g
+
+
+def duct_stage(prev, st):
+    s = []
+    a, b = du_slot()
+    y0, y1 = DU["sy"]
+    ym = (y0 + y1) / 2
+    r = (y1 - y0) / 2 - 8
+    if _on(prev, st, "duct"):                      # 厨房の排気のダクト（会社の工事＝橙）＝穴の左の端まで
+        s.append(F.rect(130.0, ym - r, a - 130.0, 2 * r, J.BG2, J.COMPANY, 4))
+        s.append(F.poly([(130.0 + 12 * math.cos(math.radians(t)), ym + r * math.sin(math.radians(t))) for t in range(90, 271, 15)], "none",
+                        J.COMPANY, 4))
+    if _on(prev, st, "cut"):
+        s.append(F.rect(a, y0, b - a, y1 - y0, J.BG, J.ALERT, 5))
+        s.append(F.line(a + 6, ym, b - 20, ym, J.COMPANY, 3, dash="10 8"))     # ダクトは穴を通る（破線）
+    if _on(prev, st, "load"):                       # 建物の重さを受け持つ（穴より下の壁へ）
+        for x in ((a + b) / 2 - 120, (a + b) / 2 + 120, DU["x1"] - 50):
+            s.append(_arrow(x, y1 + 40 if a < x < b else DU["top"] + 30, x, DU["bot"] - 30, J.AMBER, 6, 18))
+    return s
+
+
+# ── opening（c912 部材の寄り）＝切った穴のまわり（判決 大96 理由1「아무런 보강조치를 취하지 아니함으로써 벽체의 내력을 저하」）。
+#    壁の中の鉄筋は穴の縁で切れる（赤の点）・穴のまわりに入れるはずの補強の鉄（黄の破線）が無い。鉄筋の間隔と本数・穴の形は模式
+OP = dict(x0=260.0, x1=1300.0, y0=330.0, y1=820.0, sx=(560.0, 1060.0), sy=(530.0, 620.0), vx=80.0, hy=70.0)
+
+
+def opening_base(st0):
+    x0, x1, y0, y1 = OP["x0"], OP["x1"], OP["y0"], OP["y1"]
+    (a, b), (c, d) = OP["sx"], OP["sy"]
+    g = [F.rect(x0, y0, x1 - x0, y1 - y0, J.BG2, INK, 4)]
+    x = x0 + OP["vx"] / 2
+    while x < x1:
+        if a < x < b:
+            g.append(F.line(x, y0 + 10, x, c, J.LINE_DIM, 3) + F.line(x, d, x, y1 - 10, J.LINE_DIM, 3))
+            g.append(F.circ(x, c, 5, J.ALERT, None) + F.circ(x, d, 5, J.ALERT, None))
+        else:
+            g.append(F.line(x, y0 + 10, x, y1 - 10, J.LINE_DIM, 3))
+        x += OP["vx"]
+    y = y0 + OP["hy"] / 2
+    while y < y1:
+        if c < y < d:
+            g.append(F.line(x0 + 10, y, a, y, J.LINE_DIM, 3) + F.line(b, y, x1 - 10, y, J.LINE_DIM, 3))
+            g.append(F.circ(a, y, 5, J.ALERT, None) + F.circ(b, y, 5, J.ALERT, None))
+        else:
+            g.append(F.line(x0 + 10, y, x1 - 10, y, J.LINE_DIM, 3))
+        y += OP["hy"]
+    g.append(F.rect(a, c, b - a, d - c, J.BG, J.ALERT, 5))
+    return g
+
+
+def opening_stage(prev, st):
+    s = []
+    (a, b), (c, d) = OP["sx"], OP["sy"]
+    if _on(prev, st, "none"):                       # 入れるはずの補強の鉄（破線＝無い）
+        for y in (c - 26, d + 26):
+            s.append(F.line(a - 90, y, b + 90, y, J.AMBER, 5, dash="12 8"))
+        for x in (a - 26, b + 26):
+            s.append(F.line(x, c - 80, x, d + 80, J.AMBER, 5, dash="12 8"))
+        s.append(_xmark(b + 110, c - 90, 24.0, J.ALERT, 8))
+    if _on(prev, st, "weak"):
+        s.append(_arrow(1380.0, 580.0, 1380.0, 700.0, J.ALERT, 8, 24))
+    return s
+
+
+# ── joint（c913・c916 床の断面）＝床と壁のつなぎ目（壁は右）。c913＝5階の床の上の鉄筋（判決 大96 理由1「5층 슬래브 상부철근과 벽체의 정착길이는 철근지름의
+#    40배인 64㎝를 확보하여야 함에도 15-18㎝ 정도로 짧게 정착」）＝長さは下の物差し（同じ縮尺＝門番が照らす）。c916＝壁は立ったまま床だけ落ちる（国会の報告 p.29
+#    「붕괴 시 벽체는 그대로 있고 슬래브만 무너져 내리는 현상」）。つなぎ目の形・壁の厚さ・鉄筋が壁に入る長さの絵は模式
+JT = dict(wx=(1180.0, 1300.0), top=300.0, bot=848.0, sx0=300.0, sy=(500.0, 580.0), bar=518.0, enter=40.0, fall=200.0, tilt=30.0,
+          px_cm=7.0, rx=300.0, ry=(690.0, 760.0), rh=22.0)
+JT_CM = dict(need=64.0, got=(15.0, 18.0))
+
+
+def _jt_shift(pts, st):
+    if st["fall"] != "on":
+        return pts
+    x0, x1 = JT["sx0"], JT["wx"][0]
+    return [(x, y + JT["fall"] + JT["tilt"] * (x1 - x) / (x1 - x0)) for x, y in pts]
+
+
+def joint_parts(st):
+    x0, x1 = JT["sx0"], JT["wx"][0]
+    y0, y1 = JT["sy"]
+    slab = [(x0, y0), (x1, y0), (x1, y1), (x0, y1)]
+    yb = JT["bar"]
+    bar = [(x0 + 20, yb - 3), (x1 + JT["enter"], yb - 3), (x1 + JT["enter"], yb + 3), (x0 + 20, yb + 3)]
+    return [_P("slab", "poly", _jt_shift(slab, st), fill=J.BG2, stroke=J.LINE, w=4),
+            _P("bar", "poly", _jt_shift(bar, st), fill=INK if st["bar"] == "lit" else J.LINE, stroke=None)]
+
+
+def joint_base(st0):
+    x0, x1 = JT["wx"]
+    g = [F.rect(x0, JT["top"], x1 - x0, JT["bot"] - JT["top"], J.BG2, INK, 4),
+         _tline((x0 + x1) / 2, JT["top"] + 44, "壁", 30, INK, "middle", 100)]
+    if st0["fl"] == "5":
+        g.append(_tline(JT["sx0"] + 10, JT["sy"][0] - 18, "5階の床", 28, INK, "start", 220))
+    return g
+
+
+def jt_ruler():
+    """物差し（同じ縮尺）の右の端の x＝（入れるべき長さ,（実際の短い方, 長い方））。"""
+    x = JT["rx"]
+    return x + JT_CM["need"] * JT["px_cm"], (x + JT_CM["got"][0] * JT["px_cm"], x + JT_CM["got"][1] * JT["px_cm"])
+
+
+def joint_stage(prev, st):
+    s = []
+    x0, x1 = JT["wx"]
+    if _on(prev, st, "bar", "lit"):                 # つなぎ目の輪
+        s.append(F.circ(x0, JT["bar"] + 20, 74, "none", J.AMBER, 4))
+    if _on(prev, st, "ruler"):
+        need, (g0, g1) = jt_ruler()
+        (ya, yb), h = JT["ry"], JT["rh"]
+        x = JT["rx"]
+        s.append(F.line(x, ya - h, x, yb + h, INK, 3))
+        s.append(F.rect(x, ya - h / 2, need - x, h, "none", INK, 4, dash="10 6"))
+        s.append(F.rect(x, yb - h / 2, g0 - x, h, J.ALERT, None))
+        s.append(F.rect(g0, yb - h / 2, g1 - g0, h, J.ALERT, None, op=0.45))
+    if _on(prev, st, "wall"):                       # 立ったままの壁
+        s.append(F.rect(x0, JT["top"], x1 - x0, JT["bot"] - JT["top"], INK, None, op=0.16))
+        s.append(F.rect(x0, JT["top"], x1 - x0, JT["bot"] - JT["top"], "none", INK, 8))
+    return s
+
+
+# ── hook（c915 部材の比べ）＝床の鉄筋を壁に入れる形（国会の報告 p.29「슬래브 속의 두 가닥 철근을 내력벽 속으로 각각 64㎝·40㎝씩 ‘ㄱ’자 형태로 꺾어 넣고
+#    끝부분은 갈고리 모양으로 처리(HOOK장치)하여야 하는데도 ‘ㅣ’자형으로 갈고리장치 없이 짧게 시공」）。左＝先を曲げて引っかける形（2本・壁の中の長さの比 64：40＝
+#    門番が照らす）／右＝まっすぐ短い形。数は語りに無い＝描かない・壁と床の厚さは模式
+HK = dict(cx=(560.0, 1360.0), w=560.0, wall=90.0, top=400.0, bot=760.0, sy=(520.0, 590.0), bars=(536.0, 574.0), hz=(54.0, 32.0), unit=3.0,
+          short=30.0)
+HK_CM = (64.0, 40.0)
+HK_LAB = ("先を曲げて引っかける", "まっすぐ短く")
+
+
+def hk_wall_x(i):
+    return HK["cx"][i] + HK["w"] / 2 - HK["wall"]
+
+
+def hk_bars(i, kind):
+    """パネル i の2本の鉄筋の折れ線（kind＝bent／straight）。"""
+    xl, wx0 = HK["cx"][i] - HK["w"] / 2, hk_wall_x(i)
+    out = []
+    for y, hz, cm in zip(HK["bars"], HK["hz"], HK_CM):
+        if kind == "bent":
+            down = cm * HK["unit"] - hz
+            x = wx0 + hz
+            out.append([(xl + 20, y), (x, y), (x, y + down), (x - 6, y + down + 14), (x - 20, y + down + 16)])
+        else:
+            out.append([(xl + 20, y), (wx0 + HK["short"], y)])
+    return out
+
+
+def hook_base(st0):
+    g = []
+    for i, cx in enumerate(HK["cx"]):
+        xl = cx - HK["w"] / 2
+        wx0 = hk_wall_x(i)
+        g.append(F.rect(xl, HK["sy"][0], wx0 - xl, HK["sy"][1] - HK["sy"][0], J.BG2, J.LINE, 4))
+        g.append(F.rect(wx0, HK["top"], HK["wall"], HK["bot"] - HK["top"], J.BG2, J.LINE, 4))
+        g.append(_tline(wx0 + HK["wall"] / 2, HK["top"] + 40, "壁", 28, J.TICK, "middle", 80))
+        g.append(_tline(xl - 10, HK["sy"][1] - 22, "床", 26, J.TICK, "end", 60))
+    return g
+
+
+def hook_stage(prev, st):
+    s = []
+    for i, (f_, kind) in enumerate((("l", "bent"), ("r", "straight"))):
+        if _on(prev, st, f_):
+            col = INK if i == 0 else J.ALERT
+            for pts in hk_bars(i, kind):
+                s.append(F.poly(pts, "none", col, 6))
+            s.append(_tline(HK["cx"][i], HK["bot"] + 40, HK_LAB[i], 30, col, "middle", 520))
+    return s
+
+
+# ── section に足す欄（c917）：A棟の北と南に残った壁（ソウル市の報告 p.37「A동 북측 잔여벽체」「A동 남측 벽체」）・床の板が外れたつなぎ目（赤の印）。
+#    壁の高さと厚さは模式（A棟の両端＝屋上の両端の高い所の位置）
+SC_WALL_W = 22.0
+
+
+def sc_walls():
+    a0, a1 = SC["xa"]
+    return ((a0, a0 + SC_WALL_W), (a1 - SC_WALL_W, a1))
+
+
+def section_extra_stage(prev, st):
+    s = []
+    top, gy = SC["roof"] - SC["core"], sc_ground()
+    if _on(prev, st, "walls"):
+        for x0, x1 in sc_walls():
+            s.append(F.rect(x0, top, x1 - x0, gy - top, A_C, None))
+    if _on(prev, st, "joints"):
+        (n0, n1), (s0, s1) = sc_walls()
+        for i in range(6):                          # 屋上と5〜1階の床の板の高さ
+            y = _sc_slab_y(i)
+            s.append(F.line(n1, y, n1 + 18, y, J.ALERT, 6) + F.line(s0 - 18, y, s0, y, J.ALERT, 6))
+    return s
+
+
+# ── stack（c918 積み木）＝5階に積み重なった重さ（国会の報告 p.29「대형냉장고」・白書 p.89「조적벽・돌정원」・判決 大96 理由1「대리석 및 화강석의 마감재공사,
+#    15㎝ 두께의 주방 바닥콘크리트공사, 벽돌을 사용한 칸막이 벽체공사, 온돌공사, 대형냉장고 등 시설물 적치를 고려한 보강공사를 하지 아니함」）。
+#    その下の柱＝図面で細くなった（国会の報告 p.29「구조계산서에는 800㎜ … 설계도면상에는 600㎜」＝太さの比 600：800＝c708 と同じ記録）。積み木の大きさは模式（重さの比ではない）
+SK = dict(slab=(520.0, 1200.0, 640.0, 684.0), cx=860.0, cw=40.0, g=848.0)
+SK_ITEMS = (("厨房の床", 540.0, 1180.0, 590.0, 640.0), ("大理石", 560.0, 850.0, 536.0, 590.0), ("オンドル", 870.0, 1160.0, 536.0, 590.0),
+            ("冷蔵庫", 580.0, 730.0, 340.0, 536.0), ("れんがの壁", 750.0, 980.0, 400.0, 536.0), ("石の庭", 1000.0, 1160.0, 460.0, 536.0))
+SK_COL_MM = (600.0, 800.0)          # 図面・計算書の柱の太さ
+
+
+def stack_base(st0):
+    x0, x1, y0, y1 = SK["slab"]
+    return [F.rect(x0, y0, x1 - x0, y1 - y0, J.BG2, J.LINE, 4),
+            F.rect(SK["cx"] - SK["cw"] / 2, y1, SK["cw"], SK["g"] - y1, J.BG2, J.LINE, 4),
+            _tline(x0 - 14, y1 - 10, "5階の床", 26, J.TICK, "end", 200)]
+
+
+def stack_stage(prev, st):
+    s = []
+    if _on(prev, st, "items"):
+        for t, x0, x1, y0, y1 in SK_ITEMS:
+            s.append(F.rect(x0, y0, x1 - x0, y1 - y0, J.BG2, J.DOC, 4, rx=4))
+            cap = 30 if y1 - y0 > 80 else 26
+            s.append(_tline((x0 + x1) / 2, (y0 + y1) / 2 + cap * 0.36, t, cap, INK, "middle", x1 - x0 - 16))
+    if _on(prev, st, "col"):                        # 計算書の太さ（破線）と図面の太さ（赤）
+        y1, g = SK["slab"][3], SK["g"]
+        w_calc = SK["cw"] * SK_COL_MM[1] / SK_COL_MM[0]
+        s.append(F.rect(SK["cx"] - w_calc / 2, y1 + 4, w_calc, g - y1 - 4, "none", INK, 3, dash="8 6"))
+        s.append(F.rect(SK["cx"] - SK["cw"] / 2, y1, SK["cw"], g - y1, J.ALERT, J.ALERT, 3, op=0.85))
+    if _on(prev, st, "noreinf"):
+        s.append(_xmark(1228.0, 456.0, 18.0, J.ALERT, 7))
+    return s
+
+
+# ── bldg に足す欄（ca08）：4階の帯＝照明の売り場（国会の報告 p.30「4층 조명코너에서 건물 진동으로 조명등이 추락」）。🔴 **どの棟かは記録に無い＝両方の棟の4階**・
+#    照明（右の札の列に形と落ちる矢印）・揺れ（左の外の矢印）
+HI["f4"] = (("a", 4), ("b", 4))
+HI["f4a5"] = (("a", 4), ("b", 4), ("a", 5))
+
+
+def bldg_b5_stage(prev, st):
+    s = []
+    if _on(prev, st, "lamp"):
+        s.append(_lamp(1490.0, 452.0))
+        s.append(_arrow(1490.0, 484.0, 1490.0, 530.0, J.ALERT, 5, 16))
+    if _on(prev, st, "shake"):
+        y = bl_y(4) + BL["fh"] / 2
+        s.append(_arrow(190.0, y, 130.0, y, INK, 5, 16) + _arrow(190.0, y, 250.0, y, INK, 5, 16))
+    return s
+
+
+# ── plan に足す床（ca05・ca17）：two＝5階と屋上を並べる（判決 大96 理由1「5층 식당주방 내 기둥 주변과 최초 냉각탑이 설치되었다가 이동한 경로를 중심으로
+#    슬래브에 발생한 휨변형에 의한 균열이 장기간 지속적으로 성장」）／three＝4階・5階・屋上の3枚（前触れの場所＝国会の報告 p.30・白書 p.88・判決）。
+#    🔴 棟と向きは描かない（どの棟の屋上か・4階の売り場の棟は記録に無い＝床は四角だけ）・柱の並び・厨房と道すじの場所は模式
+P2 = dict(r=((240.0, 420.0, 860.0, 780.0), (1000.0, 420.0, 1620.0, 780.0)), lab=("5階", "屋上"))
+P3 = dict(r=((150.0, 460.0, 650.0, 740.0), (710.0, 460.0, 1210.0, 740.0), (1270.0, 460.0, 1770.0, 740.0)), lab=("4階", "5階", "屋上"),
+          marks=("照明が落ちた", "水漏れ・ひび", "たわみ・ひび"))
+
+
+def _p_cols(r, nx=4, ny=3):
+    x0, y0, x1, y1 = r
+    return [(x0 + (x1 - x0) * (i + 0.5) / nx, y0 + (y1 - y0) * (j + 0.5) / ny) for j in range(ny) for i in range(nx)]
+
+
+def _p2_kitchen():
+    x0, y0, x1, y1 = P2["r"][0]
+    return x0 + (x1 - x0) / 2, y0 + (y1 - y0) / 3, x1, y1
+
+
+def plan_b5_base(st0):
+    fl = st0["floor"]
+    P = P2 if fl == "two" else P3
+    g = []
+    for r, t in zip(P["r"], P["lab"]):
+        x0, y0, x1, y1 = r
+        g.append(F.rect(x0, y0, x1 - x0, y1 - y0, J.BG2, J.LINE, 4))
+        g.append(_tline((x0 + x1) / 2, y0 - 20, t, 30, INK, "middle", 200))
+        if fl == "two":
+            for x, y in _p_cols(r):
+                g.append(F.rect(x - 9, y - 9, 18, 18, J.LINE_DIM, None))
+    return g
+
+
+def plan_b5_stage(prev, st):
+    s = []
+    fl = st["floor"]
+    if fl == "two":
+        if _on(prev, st, "kit"):                    # 5階の厨房（会社の店＝橙の面）と柱のまわりのたわみ（赤の破線の輪）
+            kx0, ky0, kx1, ky1 = _p2_kitchen()
+            s.append(F.rect(kx0, ky0, kx1 - kx0, ky1 - ky0, J.COMPANY, None, op=0.14))
+            for x, y in _p_cols(P2["r"][0]):
+                if x > kx0 and y > ky0:
+                    s.append(F.poly([(x + 44 * math.cos(math.radians(a)), y + 34 * math.sin(math.radians(a))) for a in range(0, 361, 12)], "none",
+                                    J.ALERT, 4, dash="8 6"))
+        if _on(prev, st, "path"):                   # 屋上の冷却塔を引きずった道すじ（後ろの側→前の側＝c811 と同じ向き）とたわみ・ひび
+            x0, y0, x1, y1 = P2["r"][1]
+            for k in range(3):
+                x = x0 + (x1 - x0) * (k + 1) / 4
+                s.append(F.rect(x - 34, y0 + 40, 68, y1 - y0 - 80, J.ALERT, None, op=0.20))
+                s.append(_arrow(x, y0 + 50, x, y1 - 50, J.ALERT, 5, 18, dash="12 8"))
+                s.append(_zig(x + 40, y0 + 120, x + 60, y0 + 200, 3, 5.0, J.ALERT, 3))
+    if fl == "three":
+        if _on(prev, st, "marks"):
+            r4, r5, rr = P3["r"]
+            cx, cy = (r4[0] + r4[2]) / 2, (r4[1] + r4[3]) / 2
+            s.append(_lamp(cx, cy - 10) + _arrow(cx, cy + 34, cx, cy + 90, J.ALERT, 5, 16))
+            cx, cy = (r5[0] + r5[2]) / 2, (r5[1] + r5[3]) / 2
+            for dx_, dy_ in ((-60, 30), (0, 60), (60, 30)):
+                s.append(_drop(cx + dx_, cy + dy_))
+            s.append(_zig(cx - 120, cy - 80, cx + 120, cy - 40, 6, 7.0, J.ALERT, 4))
+            x0, y0, x1, y1 = rr
+            for k in range(3):
+                x = x0 + (x1 - x0) * (k + 1) / 4
+                s.append(_arrow(x, y0 + 40, x, y1 - 40, J.ALERT, 5, 16, dash="10 8"))
+            for r, t in zip(P3["r"], P3["marks"]):
+                s.append(_tline((r[0] + r[2]) / 2, r[3] + 50, t, 28, J.ALERT, "middle", 460))
+        if _on(prev, st, "up"):                     # 上の階（3枚とも）＝括弧（⚠️ 門番 layout：y 400 だと床の名の字の箱を横に貫いた）
+            xa, xb = P3["r"][0][0], P3["r"][2][2]
+            s.append(F.poly([(xa, 390.0), (xa, 372.0), (xb, 372.0), (xb, 390.0)], "none", J.AMBER, 4))
+    return s
+
+
+# ── slab に足す欄（ca03）：屋上の床の柱のまわり（z="col"・fl="roof"＝上に柱が無い）・入れるはずのドロップパネルが無い所（赤の破線）・水漏れ（しずく）。
+#    白書 p.88「5층 ○○식당 … 이곳 지판이 미설치된 부분은 준공후 얼마 되지 않은 때부터 누수 및 균열현상등」（店の名は書かない）。板の大きさとしずくの場所は模式
+def slab_b5_stage(prev, st):
+    s = []
+    if st["z"] != "col":
+        return s
+    cx, cw, th, top = SLC["cx"], SLC["cw"], SLC["th"], SLC["top"]
+    yb = top + th
+    if _on(prev, st, "dpm"):
+        for a, b in ((cx - cw / 2 - 150, cx - cw / 2), (cx + cw / 2, cx + cw / 2 + 150)):
+            s.append(F.rect(a, yb, b - a, 40, "none", J.ALERT, 4, dash="8 6"))
+    if _on(prev, st, "leak"):
+        for x, y in ((700.0, 610.0), (790.0, 650.0), (1130.0, 620.0), (1230.0, 660.0)):
+            s.append(_drop(x, y))
+    return s
+
+
+# ── tower に足す欄（ca09）：水位の目盛り（国会の報告 p.30「냉각탑의 수위를 조절」・目盛りの数と水の高さは模式）
+TG = dict(x=(640.0, 676.0), y=(470.0, 690.0), lv=dict(off=690.0, on=530.0, low=610.0))
+
+
+def tower_gauge_parts(st):
+    g_ = st.get("gauge", "off")
+    lv = TG["lv"][g_]
+    x0, x1 = TG["x"]
+    return [_P("water", "poly", [(x0 + 4, lv), (x1 - 4, lv), (x1 - 4, TG["y"][1] - 4), (x0 + 4, TG["y"][1] - 4)], fill=J.USCG, stroke=None,
+               alpha=0.0 if g_ == "off" else 0.75)]
+
+
+def tower_gauge_stage(prev, st):
+    s = []
+    if prev.get("gauge", "off") == "off" and st.get("gauge", "off") != "off":
+        x0, x1 = TG["x"]
+        y0, y1 = TG["y"]
+        s.append(F.rect(x0, y0, x1 - x0, y1 - y0, "none", INK, 4, rx=6))
+        for y in range(int(y0) + 30, int(y1), 40):
+            s.append(F.line(x0 - 22, y, x0 - 4, y, J.TICK, 3))
+    return s
+
+
+# ── insp（ca11 床の寄り）＝仕上げのある床の寄り（白書 p.85「民間の工事の竣工の検査は、図面と工事が合っているかを見るだけ」＝検察の資料と新聞を引いた節）。
+#    🔴 「仕上げの下は見えない」は次の ca12 の語り＝札に書かない。厚さ・鉄筋の間隔・図面の中身は模式
+IN = dict(x0=300.0, x1=1240.0, fin=(470.0, 506.0), slab=(506.0, 700.0), bars=(540.0, 666.0), tile=94.0, eye=(770.0, 372.0),
+          doc=(1420.0, 380.0, 220.0, 280.0))
+
+
+def insp_base(st0):
+    x0, x1 = IN["x0"], IN["x1"]
+    (f0, f1), (s0, s1) = IN["fin"], IN["slab"]
+    g = [F.rect(x0, s0, x1 - x0, s1 - s0, J.BG2, J.LINE, 4)]
+    for y in IN["bars"]:
+        x = x0 + 40
+        while x < x1 - 20:
+            g.append(F.circ(x, y, 7, J.LINE_DIM, None))
+            x += 70
+    g.append(F.rect(x0, f0, x1 - x0, f1 - f0, J.DOC, J.DOC, 3, op=0.45))
+    x = x0 + IN["tile"]
+    while x < x1:
+        g.append(F.line(x, f0, x, f1, J.BG, 3))
+        x += IN["tile"]
+    g.append(_tline(x0, f0 - 16, "仕上げ", 26, J.DOC, "start", 200))
+    g.append(_tline(x0 + 10, s1 + 40, "床のコンクリート", 26, J.TICK, "start", 400))
+    return g
+
+
+def insp_stage(prev, st):
+    s = []
+    f0 = IN["fin"][0]
+    if _on(prev, st, "eye"):                        # 外からの検査（目の印）
+        ex, ey = IN["eye"]
+        s.append(_eye(ex, ey))
+        for x in (ex - 80, ex + 80):
+            s.append(F.line(ex, ey + 30, x, f0 - 8, INK, 2, dash="6 6"))
+        s.append(_qmark(ex + 90, ey - 10, 52, J.AMBER))
+    if _on(prev, st, "doc"):                        # 図面と仕上げの面を見比べる（黄の破線の両矢印）
+        x, y, w, h = IN["doc"]
+        s.append(F.rect(x, y, w, h, J.BG2, J.DOC, 4, rx=6))
+        for k in range(1, 5):
+            s.append(F.line(x + 24, y + 40 + k * 44, x + w - 24, y + 40 + k * 44, J.LINE_DIM, 3))
+        s.append(_tline(x + w / 2, y - 16, "図面", 28, J.DOC, "middle", 160))
+        yy = (IN["fin"][0] + IN["fin"][1]) / 2
+        s.append(_arrow(x - 14, yy, IN["x1"] + 16, yy, J.AMBER, 5, 18, dash="10 6") + _arrow(IN["x1"] + 16, yy, x - 14, yy, J.AMBER, 5, 18, dash="10 6"))
+    return s
+
+
+# ── rule（ca13・ca15 札の線）＝構造の技術者が計算で安全を確かめる決まりの線（検察の報告 p.50「층수가 16층 이상이거나 기둥과 기둥 사이 거리가 30m 이상인
+#    건축물로 한정」＝どちらか一方で線の内）。ca15＝三豊（地上5階＝検察の報告 p.45・柱のあいだ 10.8m＝判決）を同じ軸に。軸は縮尺どおり（門番が照らす）
+RL = dict(x0=420.0, x1=1500.0, y0=760.0, y1=330.0, mx=40.0, my=25.0)
+RL_LINE = dict(floors=16, span=30.0)
+RL_PT = (10.8, 5)
+
+
+def rl_x(m):
+    return RL["x0"] + m / RL["mx"] * (RL["x1"] - RL["x0"])
+
+
+def rl_y(f):
+    return RL["y0"] - f / RL["my"] * (RL["y0"] - RL["y1"])
+
+
+def rl_zone():
+    xs, yf = rl_x(RL_LINE["span"]), rl_y(RL_LINE["floors"])
+    x0, x1, y0, y1 = RL["x0"], RL["x1"], RL["y0"], RL["y1"]
+    return [(xs, y0), (xs, yf), (x0, yf), (x0, y1), (x1, y1), (x1, y0)]
+
+
+def rule_base(st0):
+    x0, x1, y0, y1 = RL["x0"], RL["x1"], RL["y0"], RL["y1"]
+    g = [F.line(x0, y0, x1 + 20, y0, INK, 4), F.line(x0, y0, x0, y1 - 10, INK, 4)]
+    for m in range(0, int(RL["mx"]) + 1, 10):
+        g.append(F.line(rl_x(m), y0, rl_x(m), y0 + 12, INK, 3))
+        g.append(_tline(rl_x(m), y0 + 40, str(m), 24, J.TICK, "middle", 80))
+    for f in range(0, int(RL["my"]) + 1, 5):
+        g.append(F.line(x0 - 12, rl_y(f), x0, rl_y(f), INK, 3))
+        g.append(_tline(x0 - 20, rl_y(f) + 8, str(f), 24, J.TICK, "end", 80))
+    g.append(_tline(x1 + 20, y0 + 80, "柱と柱のあいだ（メートル）", 26, J.TICK, "end", 600))
+    g.append(_tline(x0 + 16, y1 - 14, "階の数", 26, J.TICK, "start", 200))
+    return g
+
+
+def rule_stage(prev, st):
+    s = []
+    if _on(prev, st, "zone"):
+        c = J.ROLE["state"]
+        s.append(F.poly(rl_zone(), c, None, close=True, op=0.18))
+        xs, yf = rl_x(RL_LINE["span"]), rl_y(RL_LINE["floors"])
+        s.append(F.poly([(RL["x0"], yf), (xs, yf), (xs, RL["y0"])], "none", c, 5))
+        s.append(_tline(rl_x(1), yf - 14, f"{RL_LINE['floors']}階以上", 28, c, "start", 300))
+        s.append(_tline(xs + 14, rl_y(1.2), f"{RL_LINE['span']:g}メートル以上", 28, c, "start", 260))
+        s.append(_tline(rl_x(20), rl_y(21.5), "確かめる決まりがある", 30, INK, "middle", 520))
+    if _on(prev, st, "pt"):
+        px, py = rl_x(RL_PT[0]), rl_y(RL_PT[1])
+        c = J.COMPANY
+        s.append(F.line(RL["x0"], py, px - 14, py, c, 3, dash="8 6") + F.line(px, py + 14, px, RL["y0"], c, 3, dash="8 6"))
+        s.append(F.circ(px, py, 13, c, None))
+        s.append(_tline(px, py - 30, "三豊", 30, c, "middle", 160))
+        s.append(_tline(px + 30, py + 22, f"地上{RL_PT[1]}階", 26, c, "start", 300))
+        s.append(_tline(px + 30, py + 60, f"{RL_PT[0]:g}メートル", 26, c, "start", 300))
+    return s
+
+
+# ── items（ca16 札の並び）＝区の安全の点検で見る項目（瑞草区の報告 p.45「점검사항 - 5개분야 11개사항」の「소방안전관리 … 전기안전관리 … 가스안전관리 …
+#    건축물안전관리 : 승강기, 축대·난간 관리, 노후건물·간판 관리상태」＝1回目・2回目の点検）。🔴 骨組みや床の強さの項目は無い（語り）＝破線の札に×。
+#    原文の項目の写し＝「模式」を付けない
+ITEMS = dict(head=("区の安全の点検（6月）", "ward"), cards=("消防", "電気", "ガス", "エレベーター", "看板"), no="建物の骨組みや床の強さ")
+IB = dict(y=520.0, h=96.0, w=250.0, gap=30.0, ny=700.0, nw=560.0)
+
+
+def _it_x(i):
+    n = len(ITEMS["cards"])
+    tot = n * IB["w"] + (n - 1) * IB["gap"]
+    return 960.0 - tot / 2 + i * (IB["w"] + IB["gap"]) + IB["w"] / 2
+
+
+def items_base(st0):
+    t, r = ITEMS["head"]
+    return [_tline(960.0, 390.0, t, 36, rc(r), "middle", 900), F.line(560.0, 412.0, 1360.0, 412.0, rc(r), 3)]
+
+
+def _it_card(i):
+    x = _it_x(i)
+    return (F.rect(x - IB["w"] / 2, IB["y"] - IB["h"] / 2, IB["w"], IB["h"], J.BG2, rc(ITEMS["head"][1]), 4, rx=10)
+            + _tline(x, IB["y"] + 12, ITEMS["cards"][i], 34, INK, "middle", IB["w"] - 24))
+
+
+def items_stage(prev, st):
+    s = []
+    n = len(ITEMS["cards"])
+    if _on(prev, st, "c0"):
+        s += [_it_card(i) for i in range(min(3, n))]
+    if _on(prev, st, "c1"):
+        s += [_it_card(i) for i in range(3, n)]
+        s.append(_tline(_it_x(n - 1) + IB["w"] / 2, IB["y"] + IB["h"] / 2 + 40, "など", 26, J.TICK, "end", 120))
+    if _on(prev, st, "no"):
+        x, w = 960.0, IB["nw"]
+        s.append(F.rect(x - w / 2, IB["ny"] - 45, w, 90, "none", J.TICK, 4, rx=10, dash="12 8"))
+        s.append(_tline(x, IB["ny"] + 12, ITEMS["no"], 32, J.TICK, "middle", w - 40))
+        s.append(_xmark(x + w / 2 + 50, IB["ny"], 26.0, J.ALERT, 9))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
 #  見え方の表
 # ══════════════════════════════════════════════════════════
 def _lab_plan(st0):
@@ -2158,6 +2877,10 @@ def _lab_plan(st0):
         return "上から見た床（全部の階を足した広さ）"
     if st0["floor"] == "ct":
         return "上から見た屋上（冷却塔の置き場）"
+    if st0["floor"] == "two":
+        return "上から見た5階と屋上の床"
+    if st0["floor"] == "three":
+        return "上から見た4階・5階・屋上の床"
     return "上から見た" + PL_FLOOR.get(st0["floor"], "5階の床") if st0["floor"] != "grid" else "上から見た5階の柱の並び（一部）"
 
 
@@ -2174,6 +2897,8 @@ def _lab_cal(st0):
 
 
 def _lab_load(st0):
+    if st0["set"] == "use":
+        return "横から見た2つの床に載る重さ"
     return "柱が支える重さ" if st0["set"] == "col" else "横から見た屋上と5階の重さ"
 
 
@@ -2186,7 +2911,7 @@ def _bldg_base2(st0):
 
 
 def _bldg_stage2(prev, st):
-    return bldg_stage(prev, st) + bldg_extra_stage(prev, st)
+    return bldg_stage(prev, st) + bldg_extra_stage(prev, st) + bldg_b5_stage(prev, st)
 
 
 def _bldg_parts2(st):
@@ -2194,7 +2919,7 @@ def _bldg_parts2(st):
 
 
 def _plan_stage2(prev, st):
-    return plan_stage(prev, st) + plan_extra_stage(prev, st)
+    return plan_stage(prev, st) + plan_extra_stage(prev, st) + plan_b5_stage(prev, st)
 
 
 def _plan_parts2(st):
@@ -2202,7 +2927,11 @@ def _plan_parts2(st):
 
 
 def _slab_stage2(prev, st):
-    return slab_stage(prev, st) + slab_extra_stage(prev, st)
+    return slab_stage(prev, st) + slab_extra_stage(prev, st) + slab_b5_stage(prev, st)
+
+
+def _section_stage2(prev, st):
+    return section_stage(prev, st) + section_extra_stage(prev, st)
 
 
 def _slab_parts2(st):
@@ -2214,20 +2943,23 @@ def _lab_slab(st0):
 
 
 VIEWS = dict(
-    section=dict(lab="横から見た建物（断面）", fields=dict(a=ONOFF, b=ONOFF, under=ONOFF, look=ONOFF, keep=ONOFF, fall=("none", "top", "all"), load=ONOFF),
-                 base=section_base, stage=section_stage, parts=sc_parts),
+    section=dict(lab="横から見た建物（断面）", fields=dict(a=ONOFF, b=ONOFF, under=ONOFF, look=ONOFF, keep=ONOFF, fall=("none", "top", "all"), load=ONOFF,
+                                                    walls=ONOFF, joints=ONOFF),
+                 base=section_base, stage=_section_stage2, parts=sc_parts),
     bldg=dict(lab="斜めから見た建物", fields=dict(hi=tuple(HI), cell=ONOFF, bulge=ONOFF, roof=ONOFF, closed=ONOFF, open=ONOFF, spk=ONOFF, exit=ONOFF,
-                                              x=ONOFF, use5=("off", "permit", "both"), q5=ONOFF, chk=ONOFF, weak=ONOFF, qroof=ONOFF, under=ONOFF),
+                                              x=ONOFF, use5=("off", "permit", "both"), q5=ONOFF, chk=ONOFF, weak=ONOFF, qroof=ONOFF, under=ONOFF,
+                                              lamp=ONOFF, shake=ONOFF),
               base=_bldg_base2, stage=_bldg_stage2, parts=_bldg_parts2),
-    plan=dict(lab=_lab_plan, fields=dict(floor=tuple(PL_FLOOR) + ("grid", "area", "ct"), scale=ONOFF, sag=ONOFF, north=ONOFF, crack=ONOFF, start=ONOFF,
-                                         sink=ONOFF, goods=("off", "on", "fixed"), chk=ONOFF, nums=ONOFF, hit=ONOFF, walls=ONOFF, rubble=ONOFF,
-                                         aplan=ONOFF, add=ONOFF, dp=("off", "thin", "miss"), miss_lit=ONOFF, ct=("off", "back", "moved")),
+    plan=dict(lab=_lab_plan, fields=dict(floor=tuple(PL_FLOOR) + ("grid", "area", "ct", "two", "three"), scale=ONOFF, sag=ONOFF, north=ONOFF, crack=ONOFF,
+                                         start=ONOFF, sink=ONOFF, goods=("off", "on", "fixed"), chk=ONOFF, nums=ONOFF, hit=ONOFF, walls=ONOFF, rubble=ONOFF,
+                                         aplan=ONOFF, add=ONOFF, dp=("off", "thin", "miss"), miss_lit=ONOFF, ct=("off", "back", "moved"),
+                                         kit=ONOFF, path=ONOFF, marks=ONOFF, up=ONOFF),
               base=plan_base, stage=_plan_stage2, parts=_plan_parts2),
     slab=dict(lab=_lab_slab, fields=dict(z=("span", "col"), fl=("none", "5", "4", "roof"), sag=ONOFF, same=ONOFF, beam=("off", "plan"), night=ONOFF,
-                                         crack=ONOFF, sink=ONOFF, punch=ONOFF, bar=("off", "ok", "sunk"), box=ONOFF),
+                                         crack=ONOFF, sink=ONOFF, punch=ONOFF, bar=("off", "ok", "sunk"), box=ONOFF, dpm=ONOFF, leak=ONOFF),
               base=slab_base, stage=_slab_stage2, parts=_slab_parts2),
-    tower=dict(lab=_lab_tower, fields=dict(set=("one", "three"), run=ONOFF, drain=ONOFF, load=ONOFF, roof=ONOFF), base=tower_base, stage=tower_stage,
-               parts=tower_parts),
+    tower=dict(lab=_lab_tower, fields=dict(set=("one", "three"), run=ONOFF, drain=ONOFF, load=ONOFF, roof=ONOFF, gauge=("off", "on", "low")),
+               base=tower_base, stage=tower_stage, parts=tower_parts),
     bunko=dict(lab="大きさの比べ（同じ縮尺）", fields=dict(br=ONOFF, col=ONOFF), base=bunko_base, stage=bunko_stage),
     crack=dict(lab=_lab_crack, fields=dict(fl=("5", "roof"), crack=("off", "on", "long"), load=ONOFF), base=crack_base, stage=crack_stage, parts=crack_parts),
     meeting=dict(lab="会議の机と役職の札（人は描かない）", fields=dict(lit=ONOFF, tell=ONOFF), base=meeting_base, stage=meeting_stage),
@@ -2252,22 +2984,35 @@ VIEWS = dict(
     drop=dict(lab="横から見た柱の頭（断面）", fields=dict(dp=ONOFF, up=ONOFF), base=drop_base, stage=drop_stage),
     spans=dict(lab="横から見た床と柱（断面）", fields=dict(sag=ONOFF, joint=ONOFF), base=spans_base, stage=spans_stage, parts=spans_parts),
     colx=dict(lab="柱の断面の比べ（同じ縮尺）", fields=dict(both=ONOFF), base=colx_base, stage=colx_stage),
-    load=dict(lab=_lab_load, fields=dict(set=("col", "sum"), cap=("same", "less"), brit=ONOFF, roofw=ONOFF, q5=ONOFF), base=load_base, stage=load_stage,
-              parts=load_parts),
+    load=dict(lab=_lab_load, fields=dict(set=("col", "sum", "use"), cap=("same", "less"), brit=ONOFF, roofw=ONOFF, q5=ONOFF, sk=ONOFF, food=ONOFF),
+              base=load_base, stage=load_stage, parts=load_parts),
     hoop=dict(lab="斜めから見た柱の中の鉄筋", fields=dict(l=ONOFF, r=ONOFF, cut=ONOFF), base=hoop_base, stage=hoop_stage),
     persq=dict(lab="1平方メートルにかかる重さの目安", fields=dict(l=ONOFF, r=ONOFF), base=persq_base, stage=persq_stage),
     calc=dict(lab="構造の計算書の欄", fields=dict(miss=ONOFF, plan=ONOFF), base=calc_base, stage=calc_stage),
     vs=dict(lab=_lab_vs, fields=dict(set=tuple(VS_SET), c0=ONOFF, c1=ONOFF, lit=ONOFF), base=vs_base, stage=vs_stage),
     drag=dict(lab="横から見た屋上の床（断面）", fields=dict(split=ONOFF, pos=("start", "moved")), base=drag_base, stage=drag_stage, parts=drag_parts),
+    # 🆕 ⑤b-5（第8〜9章）
+    lists=dict(lab="記録が挙げる5階の物", fields=dict(k=ONOFF, w=ONOFF, diff=ONOFF), base=lists_base, stage=lists_stage),
+    over=dict(lab="横から見た5階の床にかかる重さ", fields=dict(pre=ONOFF, add=ONOFF), base=over_base, stage=over_stage),
+    cover=dict(lab="横から見た屋上の床（断面）", fields=dict(q=ONOFF, cover=ONOFF), base=cover_base, stage=cover_stage),
+    duct=dict(lab="斜めから見た北側の耐力壁", fields=dict(duct=ONOFF, cut=ONOFF, load=ONOFF), base=duct_base, stage=duct_stage),
+    opening=dict(lab="切った穴のまわり（寄り）", fields=dict(none=ONOFF, weak=ONOFF), base=opening_base, stage=opening_stage),
+    joint=dict(lab="横から見た床と壁のつなぎ目（断面）", fields=dict(fl=("none", "5"), bar=("off", "lit"), ruler=ONOFF, fall=ONOFF, wall=ONOFF),
+               base=joint_base, stage=joint_stage, parts=joint_parts),
+    hook=dict(lab="床の鉄筋を壁に入れる形の比べ（断面）", fields=dict(l=ONOFF, r=ONOFF), base=hook_base, stage=hook_stage),
+    stack=dict(lab="5階に積み重なった重さ", fields=dict(items=ONOFF, col=ONOFF, noreinf=ONOFF), base=stack_base, stage=stack_stage),
+    insp=dict(lab="横から見た仕上げのある床（寄り）", fields=dict(eye=ONOFF, doc=ONOFF), base=insp_base, stage=insp_stage),
+    rule=dict(lab="計算を確かめる決まりの線（階の数と柱のあいだ）", fields=dict(zone=ONOFF, pt=ONOFF), base=rule_base, stage=rule_stage),
+    items=dict(lab="区の安全の点検の項目", fields=dict(c0=ONOFF, c1=ONOFF, no=ONOFF), base=items_base, stage=items_stage),
 )
 START = {v: {f: d["fields"][f][0] for f in d["fields"]} for v, d in VIEWS.items()}
 HEAD_ONLY = dict(plan=("floor",), slab=("z", "fl"), clocks=("set",), bldg=("under",), tower=("set",), crack=("fl",), cal=("set",), load=("set",),
-                 vs=("set",))
+                 vs=("set",), joint=("fl",))
 ORDER = dict(section=dict(fall=("none", "top", "all")), plan=dict(goods=("off", "on", "fixed"), dp=("off", "thin", "miss"), ct=("off", "back", "moved")),
              road=dict(amb=("off", "on", "blocked")), wall=dict(rubble=("on", "clear")), slab=dict(bar=("off", "ok", "sunk")),
              crack=dict(crack=("off", "on", "long")), load=dict(cap=("same", "less")), drag=dict(pos=("start", "moved")),
-             bldg=dict(use5=("off", "permit", "both")))
-NOT_SCHEMATIC = ("form", "cal", "cards", "vs")          # 原文の欄・記録の日付と数の写し（左上に「模式」を付けない）
+             bldg=dict(use5=("off", "permit", "both")), tower=dict(gauge=("off", "on", "low")))
+NOT_SCHEMATIC = ("form", "cal", "cards", "vs", "lists", "items")   # 原文の欄・記録の日付と数・項目の写し（左上に「模式」を付けない）
 VIEW_DIR = ("横から", "上から", "斜めから")
 
 
@@ -2286,7 +3031,8 @@ TAG_AT = dict(
               swt=(799.0, 388.0, "end", 400.0)),
     slab=dict(t=(L_X, 330.0, "start", 520.0), r=(1460.0, 380.0, "start", 380.0), low=(L_X, 830.0, "start", 1000.0), mid=(960.0, 640.0, "middle", 600.0),
               br=(1124.0, 610.0, "start", 190.0), r2=(1440.0, 650.0, "start", 400.0),
-              lowl=(272.0, 640.0, "start", 400.0)),     # 🔧 試し焼き（10-18）：「同じ板の上と下」を左下（y 830）に置くと板から遠かった   # ⚠️ geom_gap：br を x 1180 に置くと右の柱が字を覆った
+              lowl=(272.0, 640.0, "start", 400.0),      # 🔧 試し焼き（10-18）：「同じ板の上と下」を左下（y 830）に置くと板から遠かった   # ⚠️ geom_gap：br を x 1180 に置くと右の柱が字を覆った
+              lowe=(440.0, 640.0, "end", 400.0)),       # 🆕 ⑤b-5（ca03）：⚠️ geom_gap：lowl（左寄せ）だと右上への引き出し線が字の左上の角から浅く出て 1.8px＝右寄せで線を字から離す
     tower=dict(t=(L_X, 330.0, "start", 560.0), r1=(1300.0, 380.0, "start", 520.0), r2=(1300.0, 470.0, "start", 520.0),
                dr=(744.0, 784.0, "end", 128.0)),       # 🔧 試し焼き（10-18）：x 380 だと水を抜く矢印（x 820）から遠かった・806 は脚に触れた（geom_gap）
     bunko=dict(br=(790.0, 600.0, "end", 300.0), col=(492.0, 330.0, "start", 340.0), r=(1460.0, 500.0, "start", 380.0)),   # ⚠️ 門番 layout：br を x 470 に置くと柱が札を覆った
@@ -2317,7 +3063,24 @@ TAG_AT = dict(
     calc=dict(r1=(1000.0, 360.0, "start", 820.0), r2=(1160.0, 460.0, "start", 660.0)),
     vs=dict(low=(560.0, 760.0, "middle", 700.0)),
     drag=dict(t=(L_X, 330.0, "start", 700.0), l=(L_X, 500.0, "start", 340.0)),
+    # 🆕 ⑤b-5
+    lists=dict(low=(960.0, 820.0, "middle", 900.0)),
+    over=dict(l1=(L_X, 640.0, "start", 230.0), l2=(L_X, 520.0, "start", 270.0)),
+    cover=dict(l=(270.0, 500.0, "start", 520.0), r=(1470.0, 450.0, "start", 360.0)),
+    duct=dict(dl=(120.0, 580.0, "start", 380.0), r1=(1380.0, 480.0, "start", 440.0), r2=(1380.0, 640.0, "start", 440.0)),
+    opening=dict(r1=(1340.0, 430.0, "start", 480.0), r2=(1420.0, 660.0, "start", 400.0)),
+    joint=dict(t=(L_X, 330.0, "start", 600.0), r=(1340.0, 430.0, "start", 480.0),
+               rn=(jt_ruler()[0] + 22.0, JT["ry"][0] + 10.0, "start", 600.0), rg=(jt_ruler()[1][1] + 24.0, JT["ry"][1] + 10.0, "start", 600.0)),
+    hook=dict(t=(L_X, 330.0, "start", 600.0), hl=(HK["cx"][0], 370.0, "middle", 400.0), hr=(HK["cx"][1], 370.0, "middle", 400.0)),
+    stack=dict(t=(L_X, 330.0, "start", 420.0), cl=(920.0, 790.0, "start", 600.0), r=(1260.0, 470.0, "start", 500.0)),
+    insp=dict(r=(1290.0, 760.0, "start", 520.0)),
+    rule=dict(t=(L_X, 330.0, "start", 300.0), pt=(690.0, 560.0, "end", 300.0)),
+    items=dict(),
 )
+TAG_AT["load"].update(ul=(300.0, 540.0, "start", 520.0), ur=(1060.0, 360.0, "start", 620.0))
+TAG_AT["bldg"].update(lr=(1530.0, 470.0, "start", 300.0), sh=(120.0, 500.0, "start", 140.0))
+TAG_AT["plan"].update(b5=(550.0, 830.0, "start", 400.0), bR=(1000.0, 830.0, "start", 600.0), top=(960.0, 340.0, "middle", 800.0))
+TAG_AT["tower"].update(gl=(600.0, 470.0, "end", 440.0))
 
 
 def anchors(view, st):
@@ -2331,7 +3094,13 @@ def anchors(view, st):
         x0, y0, x1, y1 = pl_rect("a")
         return dict(nw=(x0 + 10, y0 + 30), sw=(x1 - 10, y0 + 30), hit=grid_xy("5", "E"), sag=pl_pt(0.62, 0.55))
     if view == "slab" and st["z"] == "col":
-        return dict(col=(SLC["cx"] + SLC["cw"] / 2 + SLC["th"], SLC["top"]))
+        return dict(col=(SLC["cx"] + SLC["cw"] / 2 + SLC["th"], SLC["top"]), dpm=(SLC["cx"] - SLC["cw"] / 2 - 150.0, SLC["top"] + SLC["th"] + 20.0))
+    if view == "cover":
+        return dict(wp=(1440.0, CV["top"] - CV["wp"] / 2))
+    if view == "duct":
+        return dict(slot=(du_slot()[1] + 4.0, (DU["sy"][0] + DU["sy"][1]) / 2))
+    if view == "joint":
+        return dict(bar=(760.0, JT["bar"]))
     return {}
 
 
@@ -2557,4 +3326,53 @@ def geo_of(view, start, states):
             low = max(ps["slab"]["pts"][:DG["n"] + 1], key=lambda p: p[1])
             rows.append(dict(pos=s["pos"], box_x=bx, sag_x=low[0]))
         out.update(drag=rows)
+    # 🆕 ⑤b-5
+    if view == "section" and any(s.get("walls") == "on" for s in allst):
+        out.update(walls=[tuple(w) for w in sc_walls()], a_x=tuple(SC["xa"]), b_x=tuple(SC["xb"]))
+    if view == "bldg":
+        out.update(f4=tuple(HI["f4"]), f4a5=tuple(HI["f4a5"]))
+    if view == "plan" and start["floor"] in ("two", "three"):
+        P = P2 if start["floor"] == "two" else P3
+        out.update(labs=tuple(P["lab"]), marks=tuple(P.get("marks", ())))
+    if view == "tower" and start["set"] == "one":
+        out.update(gauge=[(s.get("gauge", "off"), TG["lv"][s.get("gauge", "off")]) for s in allst])
+    if view == "load" and start["set"] == "use":
+        out.update(use_items=tuple(t for t, *_ in LU_ITEMS))
+    if view == "lists":
+        out.update(lists=tuple((h_, r_, tuple(items)) for h_, r_, items in LISTS))
+    if view == "over":
+        (p0, p1), (a0, a1) = _ov_y()
+        out.update(over_kg=OVER_KG, pre=(p0, p1), add=(a0, a1), top=OV["top"])
+    if view == "cover":
+        y_wp, y_cc = _cv_y()
+        out.update(cover=dict(cc=y_cc, wp=y_wp, top=CV["top"]))
+    if view == "duct":
+        a, b = du_slot()
+        out.update(duct=dict(frac=(b - a) / (DU["x1"] - DU["x0"]), cut=tuple(DU_CUT), slot=(a, b), wall=(DU["x0"], DU["x1"])))
+    if view == "joint":
+        need, (g0, g1) = jt_ruler()
+        rows = []
+        for s in allst:
+            ps = {p["id"]: p for p in joint_parts(s)}
+            rows.append(dict(fall=s["fall"], slab_y=min(y for _x, y in ps["slab"]["pts"])))
+        out.update(joint=dict(need_cm=(need - JT["rx"]) / JT["px_cm"], got_cm=((g0 - JT["rx"]) / JT["px_cm"], (g1 - JT["rx"]) / JT["px_cm"]),
+                              rows=rows, top=JT["sy"][0], wall=tuple(JT["wx"])))
+    if view == "hook":
+        def inwall(i, pts):                         # 壁の中の長さ（横＋縦＝先の引っかけは数えない）
+            wx0 = hk_wall_x(i)
+            seg = pts[:3] if len(pts) > 2 else pts
+            L_ = 0.0
+            for (xa, ya), (xb, yb) in zip(seg, seg[1:]):
+                L_ += math.hypot(max(xb, wx0) - max(xa, wx0), yb - ya) if (xb > wx0 or xa > wx0) else 0.0
+            return L_
+        bent, straight = hk_bars(0, "bent"), hk_bars(1, "straight")
+        out.update(hook=dict(bent=[inwall(0, p) for p in bent], straight=[inwall(1, p) for p in straight], hooks=[len(p) > 3 for p in bent],
+                             straight_hooks=[len(p) > 3 for p in straight]))
+    if view == "stack":
+        out.update(stack=tuple(t for t, *_ in SK_ITEMS), col_w=(SK["cw"], SK["cw"] * SK_COL_MM[1] / SK_COL_MM[0]))
+    if view == "rule":
+        out.update(rule=dict(line=dict(RL_LINE), pt=tuple(RL_PT), zone=rl_zone(), pt_px=(rl_x(RL_PT[0]), rl_y(RL_PT[1])),
+                             ax=dict(x0=RL["x0"], x1=RL["x1"], y0=RL["y0"], y1=RL["y1"], mx=RL["mx"], my=RL["my"])))
+    if view == "items":
+        out.update(items=dict(head=tuple(ITEMS["head"]), cards=tuple(ITEMS["cards"])))
     return out

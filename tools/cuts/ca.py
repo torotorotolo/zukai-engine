@@ -83,3 +83,98 @@ SPEC.update({
     "ca07": ss.vid("ca07"),     # 家の外の水の入れ物
     "ca12": ss.vid("ca12"),     # 壁のひび（共用の棚 px_7830155）
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5（2026-10-19）：図解 第9章（11カット）＝模式図 `tools/mech23.py`・年表（axis）
+# ══════════════════════════════════════════════════════════
+#   🔴 章の札「前触れはいつから」と4字以上同じ並び（「前触れは」「はいつから」）を見出し・副題に入れない（dup）。札は12字未満（echo）
+#   🔴 次のカットの語りにある日付・言葉は描かない＝ca02 に1995年4月・6月初め・6月21日の点を置かない（ca06・ca08・ca10）・ca11 に「仕上げの下は見えない」（ca12）
+#   🔴 棟は記録に無ければ描かない＝ca08 の照明の売り場（4階の帯は両方の棟）・ca05／ca17 の床は四角だけ
+SPEC.update({
+    # ca02（3行）＝いちばん古い記録は竣工の直後 → 崩れた日まで、およそ5年 → そのあいだに合図は何度か（区間の帯だけ）
+    "ca02": dict(
+        t="異変の記録", s="5年のあいだ",
+        fig=("axis", dict(ss.AX_Y23, steps=[dict(add=[ss.ax("done90")], cur="1990-07"),
+                                             dict(add=[ss.ax("fall95"), ss.ax("br9095")], cur="1995-06-29"),
+                                             dict(add=[ss.ax("sig9095")])],
+                          note="年月は国会・ソウル市・瑞草区・検察の報告（竣工は竣工の検査の月）",
+                          src=ss.src(["K6-R p31", "K6-市 p35", "K6-区 p44", "K6-検 p46", "K6-R p4"]))),
+    ),
+    # ca03（2行）＝白書：5階の食堂の主人ら何人もの話 → ドロップパネルの無い所に、竣工してまもなくから水漏れやひび（5階の天井＝屋上の床の裏）
+    "ca03": dict(
+        t="天井の水漏れ", s="竣工のすぐあと",
+        fig=("m23", dict(view="slab", start=dict(z="col", fl="roof"), steps=[
+            dict(tag=dict(t="何人もの話", d="白書", at="t")),
+            dict(state=dict(dpm="on", leak="on", crack="on"), tag=[dict(t="板の無い所", at="lowe", to="dpm", col=J.ALERT),
+                                                                   dict(t="水漏れとひび", at="r", col=J.ALERT)])],
+            note="板の大きさとしずくの場所は模式（白書の話）", src=ss.src(["白書 p88"]))),
+    ),
+    # ca05（2行）＝判決：竣工の直後から、5階の厨房の柱のまわりと → 屋上の冷却塔を引きずった道すじで、床がたわみ、ひびが育った
+    "ca05": dict(
+        t="たわみの場所", s="2つの階",
+        fig=("m23", dict(view="plan", start=dict(floor="two"), steps=[
+            dict(state=dict(kit="on"), tag=dict(t="厨房の柱のまわり", at="b5", col=J.ALERT)),
+            dict(state=dict(path="on"), tag=dict(t="引きずった道すじ", at="bR", col=J.ALERT))],
+            note="柱の並び・厨房と道すじの場所は模式（判決）", src=ss.src(["大96 p1"]))),
+    ),
+    # ca08（3行）＝6月の初め、4階の照明の売り場で照明が落ちた → 国会の報告：建物の揺れのため → 照明の売り場は食堂街のすぐ下の4階
+    "ca08": dict(
+        t="4階の照明", s="6月の初め",
+        fig=("m23", dict(view="bldg", steps=[
+            dict(state=dict(hi="f4", lamp="on"), tag=dict(t="照明が落ちた", at="lr")),
+            dict(state=dict(shake="on"), tag=dict(t="建物の揺れ", at="sh")),
+            dict(state=dict(hi="f4a5"), tag=dict(t="すぐ上は食堂街", at="r3", col=J.ROLE["bldg_a"]))],
+            note="売り場の棟は記録に無い（4階の帯は両方の棟）・形は模式", src=ss.src(["K6-R p30"]))),
+    ),
+    # ca09（1行）＝照明が落ちたことは社長に報告され、屋上の冷却塔の水の量が調節された
+    "ca09": dict(
+        t="水の量", s="照明のあと",
+        fig=("m23", dict(view="tower", start=dict(gauge="on"), steps=[
+            dict(state=dict(gauge="low"), tag=[dict(t="社長に報告", at="r1", col=J.COMPANY), dict(t="水の量を調節", at="gl", col=J.COMPANY)])],
+            note="目盛りと水の高さは模式", src=ss.src(["K6-R p30"]))),
+    ),
+    # ca11（2行）＝聞き役：外からの検査で見つけられなかった？ → 白書：民間の工事の竣工の検査は、図面と工事が合っているかを見るだけ
+    "ca11": dict(
+        t="竣工の検査", s="見るのは何か",
+        fig=("m23", dict(view="insp", steps=[
+            dict(state=dict(eye="on")),
+            dict(state=dict(doc="on"), tag=dict(t="図面と合っているか", d="白書", at="r", col=J.AMBER))],
+            note="厚さと鉄筋の間隔は模式", src=ss.src(["白書 p85"]))),
+    ),
+    # ca13（2行）＝検察の報告：構造の技術者が計算で安全を確かめる決まりがあるのは → 16階以上か、柱のあいだが30メートル以上の建物だけ
+    "ca13": dict(
+        t="計算の確かめ", s="対象の建物",
+        fig=("m23", dict(view="rule", steps=[
+            dict(tag=dict(t="検察の報告", at="t", col=J.ROLE["state"])), dict(state=dict(zone="on"))],
+            note="線の位置は縮尺どおり・色の区域は模式（決まりは検察の報告）", src=ss.src(["K6-検 p50"]))),
+    ),
+    # ca15（2行）＝三豊は地上5階で、柱のあいだは10.8メートル＝決まりの外 → 聞き役：確かめなくてよかった（ca13 の2回目＝台本の設計）
+    "ca15": dict(
+        t="三豊の位置", s="線の外",
+        fig=("m23", dict(view="rule", start=dict(zone="on"), steps=[
+            dict(state=dict(pt="on")), dict(tag=dict(t="決まりの外", at="pt", col=J.COMPANY))],
+            note="線と点の位置は縮尺どおり・色の区域は模式（三豊は検察の報告と判決）", src=ss.src(["K6-検 p50", "K6-検 p45", "大96 p1"]))),
+    ),
+    # ca16（2行）＝区が6月に行った安全の点検も、見る項目は消防・電気・ガス → エレベーター・看板など＝骨組みや床の強さを確かめる点検ではなかった
+    "ca16": dict(
+        t="点検の中身", s="区が見たもの",
+        fig=("m23", dict(view="items", steps=[dict(state=dict(c0="on")), dict(state=dict(c1="on", no="on"))],
+                         note="点検の項目は瑞草区の報告（5つの分野・11の事柄の一部）", src=ss.src(["K6-区 p45"]))),
+    ),
+    # ca17（3行）＝聞き役：前触れはどこに → 記録に残る場所は4階・5階・屋上 → 上の階に集まっていた
+    "ca17": dict(
+        t="前触れの場所", s="3つの床",
+        fig=("m23", dict(view="plan", start=dict(floor="three"), steps=[
+            dict(), dict(state=dict(marks="on")), dict(state=dict(up="on"), tag=dict(t="上の階に集まる", at="top", col=J.AMBER))],
+            note="印の場所は模式（棟は描かない）", src=ss.src(["K6-R p30", "白書 p88", "大96 p1"]))),
+    ),
+    # ca18（2行）＝1995年6月29日の朝、5階の食堂の床が盛り上がった（c204 の2回目）→ 合図はその日に突然出たのではなかった
+    "ca18": dict(
+        t="あの朝", s="ふたたび5階",
+        fig=("m23", dict(view="bldg", start=dict(hi="a5"), steps=[
+            dict(state=dict(cell="on", bulge="on"), tag=dict(t="6月29日の朝", at="t", col=J.ALERT)),
+            dict(tag=dict(t="前から合図があった", at="r1", col=J.AMBER))],
+            rel=[dict(t="6月29日", src="K6-検 p47")],
+            note="形は模式", src=ss.src(["K6-R p30", "K6-検 p47"]))),
+    ),
+})
