@@ -5130,3 +5130,12 @@ def m21(view, steps, **kw):
 def m22(view, steps, **kw):
     import mech22 as _m
     return _m.m22(view, steps, **kw)
+
+
+# ── ⑰ 23本目 ⑤b-3（2026-10-18）：模式図（章をまたぐ型＝建物の断面・斜めから見た建物・上から見た床・床と柱の断面＋第1〜3章の冷却塔・比べ・
+#      床の寄り・会議の机・構造技術者の仕事・別紙2 の欄・判断の流れ・点検の期間・時計・夜の現場）＝`tools/mech23.py`（門番 check_mech の judge_m23）。
+#      🔴 左上の札＝見る向きの合図（横から・上から・斜めから）・色は役の色（A棟＝ピンク・B棟＝白） ──
+#   `fig=("m23", dict(view=…, start=…, steps=[…], rel=[…], note="模式…", src=…))`
+def m23(view, steps, **kw):
+    import mech23 as _m
+    return _m.m23(view, steps, **kw)

@@ -182,7 +182,8 @@ def doc_names(rec):
 
 def _c(name, dflt):
     nm = name or dflt
-    return nm if nm.startswith("#") else getattr(J, nm)
+    # 🆕 23本目 ⑤b-3：役の名（ROLE の "company"・"engineer"・"city"…＝23本目の別名）でも引く（jiko_style の注＝別名はモジュールの定数にしない）
+    return nm if nm.startswith("#") else (J.ROLE.get(nm) or getattr(J, nm))
 
 
 def _xm(x, y, dim=False):

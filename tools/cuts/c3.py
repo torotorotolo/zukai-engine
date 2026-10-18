@@ -81,3 +81,99 @@ SPEC = {}
 SPEC.update({
     "c308": ss.vid("c308"),     # 図面の束（左の紙の大きな英字を外す寄り＝ep23_assets の GEOM_CUT）
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-3（2026-10-18）：図解 第2章（11カット）＝模式図 `tools/mech23.py`（fig=("m23", …)）・時間の帯（axis）
+# ══════════════════════════════════════════════════════════
+#   🔴 左上の札＝見る向きの合図。色は役の色（会社＝橙・区＝緑・国＝青・構造技術者＝水色）。章の札「午後3時10分」と4字以上同じ並びを見出し・副題に入れない（dup）
+#   🔴 次のカットの語りにある出来事は描かない（c312 の流れに「大きな惨事」を置かない＝c313 の語り・c307 の欄の句の後ろ〈2回の診断・16時40分〉は c308・c311 の語り）
+_N_PM = "帯の間隔は時刻に比例（崩れはじめの時刻は記録で割れる＝ここは17:55ごろ）"
+SPEC.update({
+    # c301（3行）＝会議の机と役職の札（人は描かない）。聞き役の問い → 14:00 対策の会議 → 社長が会長と役員たちに5階のひびを説明
+    "c301": dict(
+        t="会社の会議", s="社長からの説明",
+        fig=("m23", dict(view="meeting", steps=[
+            dict(), dict(state=dict(lit="on"), tag=[dict(t="14:00", at="t", col=J.AMBER), dict(t="対策の会議", at="t2", col=J.COMPANY)]),
+            dict(state=dict(tell="on"))],
+            rel=[dict(t="14:00", src="K6-検 p47")],
+            note="机と札の並びは模式（人は描かない）", src=ss.src(["K6-検 p47"]))),
+    ),
+    # c303（2行）＝横から見た5階の床の寄り。14:00〜16:00 → コンクリートのひびが伸びる
+    "c303": dict(
+        t="床のひび", s="伸びていく割れ目",
+        fig=("m23", dict(view="crack", steps=[dict(tag=dict(t="14:00〜16:00", at="t", col=J.AMBER)),
+                                              dict(state=dict(crack="on"), tag=dict(t="コンクリートのひび", at="r", col=J.ALERT))],
+                         rel=[dict(t="14:00", src="K6-検 p47"), dict(t="16:00", src="K6-検 p47")],
+                         note="ひびの形と深さは模式", src=ss.src(["K6-検 p47"]))),
+    ),
+    # c304（2行）＝上から見た屋上（c206 と別の絵＝沈んだ4つの点）。4か所の沈み → 4階・5階・屋上でも進む
+    "c304": dict(
+        t="屋上の沈み", s="4つの点",
+        fig=("m23", dict(view="plan", start=dict(floor="roof"), steps=[
+            dict(state=dict(sink="on"), tag=dict(t="沈んだ所", at="r1", col=J.ALERT)),
+            dict(tag=dict(t="4階・5階・屋上でも進む", at="r3", col=J.INK_W))],
+            rel=[dict(t="4階・5階", src="K6-R p30")],
+            note="沈んだ所の場所は模式（数は検察の報告の4か所）", src=ss.src(["K6-検 p47", "K6-R p30"]))),
+    ),
+    # c306（3行）＝計算書と建物（人の形は描かない）。聞き役の問い → 15:10 構造技術者が着く → 重さと強さの計算
+    "c306": dict(
+        t="建物の専門家", s="現場に着いた技術者",
+        fig=("m23", dict(view="doc", steps=[
+            dict(), dict(state=dict(paper="on"), tag=[dict(t="15:10", at="t", col=J.AMBER), dict(t="構造技術者が着く", at="t2", col=J.ROLE["engineer"])]),
+            dict(state=dict(load="on"), tag=dict(t="重さと強さの計算", at="r", col=J.ROLE["engineer"]))],
+            rel=[dict(t="15:10", src="K6-検 p47")],
+            note="計算書と建物の形は模式（人の形は描かない）", src=ss.src(["K6-検 p47"]))),
+    ),
+    # c307（3行）＝検察の報告の別紙2 の欄（原文の韓国語のまま・名前と職の欄は出さない）。梁の無い作り方で → 計算し設計した構造技術者
+    "c307": dict(
+        t="検察の記録", s="構造技術者の欄",
+        fig=("m23", dict(view="form", steps=[dict(state=dict(h0="on")), dict(state=dict(h1="on", h2="on")), dict()],
+                         note="欄の値は原文のまま（名前と職の欄は出さない）", src=ss.src(["K6-検 p52"]))),
+    ),
+    # c310（3行）＝横から見た床（柱2本のあいだ・沈んだまま）。聞き役の問い → 16:00 会議の続き・技術者の提案 → 営業が終わってから鉄の梁で支える（予定＝破線）
+    "c310": dict(
+        t="補強の案", s="下から支える",
+        fig=("m23", dict(view="slab", start=dict(z="span", sag="on"), steps=[
+            dict(), dict(tag=[dict(t="16:00", d="会議の続き", at="t", col=J.AMBER), dict(t="技術者の提案", at="r", col=J.ROLE["engineer"])]),
+            dict(state=dict(beam="plan", night="on"), tag=dict(t="鉄の梁で支える（予定）", d="営業が終わってから", at="r2", col=J.ROLE["engineer"]))],
+            rel=[dict(t="16:00", src="K6-検 p47")],
+            note="梁と支えの形は模式（破線＝予定・まだ行っていない）", src=ss.src(["K6-検 p47", "K6-R p30"]))),
+    ),
+    # c312（2行）＝国会の報告の判断（札と線）。甘く見た・経営の事情 → 営業のあとに直すだけと決めた
+    "c312": dict(
+        t="国会の見方", s="会社の判断",
+        fig=("m23", dict(view="flow", steps=[dict(state=dict(b1="on")), dict(state=dict(b2="on"))],
+                         note="札の言葉は国会の報告の要約（模式）", src=ss.src(["K6-R p32"]))),
+    ),
+    # c315（3行）＝区の安全点検（札の表）。2回目の期間に6月29日 → テロとガス爆発への備え・骨組みの強さの点検ではない → 1回目は3月
+    "c315": dict(
+        t="区の点検", s="点検の目的と期間",
+        fig=("m23", dict(view="table", steps=[dict(state=dict(r2="on")), dict(state=dict(why="on")), dict(state=dict(r1="on"))],
+                         note="期間の帯は模式（日付は区の報告の値）", src=ss.src(["K6-区 p45"]))),
+    ),
+    # c316（3行）＝上から見た地下1階の床。区の指摘（通路の商品）→ その場で直させた → 受け持ちの人の確かめ
+    "c316": dict(
+        t="通路の商品", s="区が確かめたこと",
+        fig=("m23", dict(view="plan", start=dict(floor="b1"), steps=[
+            dict(state=dict(goods="on"), tag=dict(t="区の指摘", at="r1", col=J.ROLE["ward"])),
+            dict(state=dict(goods="fixed"), tag=dict(t="その場で直させた", at="r2", col=J.ROLE["ward"])),
+            dict(state=dict(chk="on"))],
+            note="通路と商品の場所は模式", src=ss.src(["K6-区 p45"]))),
+    ),
+    # c317（2行）＝斜めから見た建物。判決＝会長の注意の義務 → 案内の放送と出口（破線＝されなかった）
+    "c317": dict(
+        t="のちの判決", s="放送と出口",
+        fig=("m23", dict(view="bldg", steps=[
+            dict(tag=dict(t="判決：会長の注意の義務", at="r1", col=J.ROLE["state"])),      # ⚠️ geom_gap：左上（t）だと A棟の上の面に触れた
+            dict(state=dict(spk="on", exit="on", x="on"), tag=dict(t="案内の放送で逃がす義務", d="怠った", at="r3", col=J.ALERT))],
+            note="スピーカーと出口の場所は模式（破線＝されなかった）", src=ss.src(["大96 p1"]))),
+    ),
+    # c319（2行）＝時間の帯（14:00〜18:00）。会議・着く・会議の続き・報告・準備・崩れはじめる＋15:10〜17:55 の括弧 → 17:55ごろへ
+    "c319": dict(
+        t="技術者が来てから", s="午後の動き",
+        fig=("axis", dict(ss.AX_PM23, steps=[
+            dict(add=[ss.ax(k) for k in ("m1400", "a1510", "m1600", "r1640", "p1730", "f1755", "b1510")], cur="15:10"),
+            dict(cur="17:55")],
+            note=_N_PM, src=ss.src(["K6-検 p47", "K6-検 p52", "K6-市 p34", "K6-区 p42"]))),
+    ),
+})

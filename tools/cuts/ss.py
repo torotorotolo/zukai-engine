@@ -746,7 +746,20 @@ def sat(code, steps, note="", **kw):
 #    移した注の側にある＝fixture_ep22 の REC_DOCS の注。ILLU_* は22本目も空のままだった表＝空の器で残す（見本の側も22本目の状態＝空として持つ）。
 #    REC_PAGES の道は23本目（`ref/ep23/src/ep23_pages.txt`＝まだ無い。22本目は `ref/ep22/make_pages22.py` の出力だった）
 REC_PAGES = REF / "src" / "ep23_pages.txt"      # 部品の出典（`rec=`）を当てる原文（git の外＝手元だけ）。その型を初めて使う ⑤b のチャットで作る
-REC_DOCS = {}                               # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
+# 🆕 2026-10-18（23本目 ⑤b-3）：23本目の資料の表（台本 第2版 §10 の略号のまま）。K6-＊は**国会の三豊特別委員会 第6号の会議録1冊**（国政調査の報告書と、
+#    その添付＝ソウル市・瑞草区・ソウル地検の報告）＝頁は**会議録の PDF の頁＝印刷の頁**（`ref/ep10/src/assembly_sampoong_tokui_no6_19950912_id19114.txt` の
+#    `=== [PDF p.N] ===`）。台本の「K6-検 p.47」→ SPEC は「K6-検 p47」（点を落とす＝parse_rec は「p数字」）。範囲＝その報告の頁（市b・区b は8月9日の添付）。
+#    大96（大法院の判決 96도1231）は頁の無い資料＝「大96 p1」（画面は名だけ）。⚠️「K6-市b」は「K6-市」を含む＝parse_rec は長い名から当てる
+REC_DOCS = {                                # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
+    "K6-R": dict(range=(1, 34), name="国会の調査報告（1995年）", page="print", base=0),
+    "K6-市": dict(range=(34, 41), name="ソウル市の報告（国会の会議録）", page="print", base=0),
+    "K6-区": dict(range=(42, 45), name="瑞草区の報告（国会の会議録）", page="print", base=0),
+    "K6-検": dict(range=(45, 53), name="ソウル地検の報告（国会の会議録）", page="print", base=0),
+    "K6-市b": dict(range=(53, 58), name="ソウル市の報告（国会の会議録）", page="print", base=0),
+    "K6-区b": dict(range=(58, 59), name="瑞草区の報告（国会の会議録）", page="print", base=0),
+    "大96": dict(range=(1, 1), name="大法院の判決（1996年）", page="none", base=0),
+    "白書": dict(range=(1, 700), name="ソウル市の白書（1996年）", page="print", base=0),
+}
 ILLU_SPLIT_TIMES = ()                      # 資料で割れる時刻＝画面に時計・時刻の札として出さない
 ILLU_CROWD_UNTIL = None                     # 乗客の群れを描いてよい場面の時刻の上限
 ILLU_ROLES = dict(sprite=(), crowd=())      # 置いてよい役割（門番 check_illu ②）＝空の組なら、どの役割も置けない（fail closed）
@@ -777,6 +790,23 @@ AXIS_DOCS = {}
 
 # 部品（記録の頁つき。値と頁は門番 check_axis の REC_AXIS と照らされる）。t は項目名だけ（§5b-9）
 AXI = {}
+
+# 🆕 2026-10-18（23本目 ⑤b-3）：第2章の時間の帯（c319）。時刻は事故の日（1995-06-29）のソウル。色＝**役の色**（だれの動きか＝会社 COMPANY・構造技術者 ENGINEER〈水色〉・
+#   崩れる＝ALERT）＝門番 check_axis が記録の表（REC_AXIS・REC_ROLE・REC_APPROX）で値・頁・色を照らす（§5b-88）。
+#   原文＝検察の報告 p.47「14:00 : 대책회의 개최」「도착(15:10)」「16:00 : 대책회의 계속」「17:30 : … 야간보강작업 준비 착수」・別紙2 p.52「16:40경 대책회의에서」・
+#     ソウル市 p.34「17:55경」・瑞草区 p.42「17:55경」（崩れはじめの時刻は記録で割れる＝台本 §1-5＝この動画は 17:55ごろ・幅は次の c402 の時計で言う）。
+#   ⚠️ 15:10〜17:55 の括弧は札なし（語りの「およそ2時間45分」は字幕＝数と単位の札は echo で鳴る＝22本目の教訓）
+AX_PM23 = dict(view="clock", span=("13:40", "18:20"), ticks=("14:00", "15:00", "16:00", "17:00", "18:00"))
+AXI.update({
+    "m1400": dict(k="pt", at="14:00", t="対策の会議", rec="K6-検 p47", c="company", anchor="end"),
+    "a1510": dict(k="pt", at="15:10", t="構造技術者が着く", rec="K6-検 p47", c="engineer", anchor="end"),   # ⚠️ 門番 axis：start だと 16:00 の縦の線が札を貫いた
+    "m1600": dict(k="pt", at="16:00", t="会議の続き", rec="K6-検 p47", c="company", anchor="end"),
+    "r1640": dict(k="pt", at="16:40", t="「危険はない」", rec="K6-検 p52", c="engineer", approx=True, anchor="end"),
+    # ⚠️ 門番 axis：16:40・17:30 の札の向きを総当たりで試した（scratchpad の axtry.py）＝「夜の補強の準備」はどの向きでも縦の線が隣の札を貫く＝「補強の準備」
+    "p1730": dict(k="pt", at="17:30", t="補強の準備", rec="K6-検 p47", c="company", anchor="end"),
+    "f1755": dict(k="pt", at="17:55", t="崩れはじめる", rec=["K6-市 p34", "K6-区 p42"], c="ALERT", approx=True, big=True, anchor="end"),   # ⚠️ 門番 layout：start だと「17:55ごろ」が右の端 1848 の外
+    "b1510": dict(k="br", a="15:10", b="17:55", t="", rec=["K6-検 p47", "K6-市 p34"]),
+})
 
 
 def ax(name, **kw):

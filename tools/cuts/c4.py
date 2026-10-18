@@ -78,3 +78,72 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-3（2026-10-18）：図解 第3章（7カット）＝模式図 `tools/mech23.py`（fig=("m23", …)）
+# ══════════════════════════════════════════════════════════
+#   🔴 左上の札＝見る向きの合図。章の札「17時55分」と4字以上同じ並びを見出し・副題に入れない（dup）。人は描かない（c407・c420）
+#   🔧 c418：一覧の「18:20・18:50 の2つの時計」→ **17:55ごろ・18:00・18:50ごろ**（語りにある時刻＝18:20 は前のカット c417 の語り・
+#      18:00 の市の事故対策本部は c418 の3行目＝ソウル市の報告 p.35）。型は同じ「時計」（了承②の範囲）
+SPEC.update({
+    # c402（2行）＝記録ごとの崩れはじめの時刻（3つの時計）→ この動画の時刻（17:55ごろ）を明るく
+    "c402": dict(
+        t="崩れはじめた時刻", s="3つの記録",
+        fig=("m23", dict(view="clocks", start=dict(set="fall"), steps=[
+            dict(state=dict(k0="on", k1="on", k2="on")),
+            dict(state=dict(k1="lit"), tag=dict(t="市の記録と白書の時刻", at="top", col=J.ROLE["city"]))],
+            note="時計は記録の時刻（模式）", src=ss.src(["K6-R p30", "K6-市 p34", "K6-区 p42", "K6-検 p45", "K6-検 p47", "白書 p92"]))),
+    ),
+    # c403（3行）＝上から見た5階の柱の並び（一部）。判決の書き方 → 列と行の番号 → 5列E行・5列F行
+    "c403": dict(
+        t="始まりの場所", s="2本の柱",
+        fig=("m23", dict(view="plan", start=dict(floor="grid"), steps=[
+            dict(tag=dict(t="判決の書き方", at="r1", col=J.ROLE["state"])), dict(state=dict(nums="on")),
+            dict(state=dict(hit="on"), tag=dict(t="5列E行・5列F行", at="g", to="hit", col=J.ALERT))],
+            rel=[dict(t="5列E行・5列F行", src="大96 p1")],
+            note="柱の並びの一部（列と行の番号は判決の書き方・間隔と向きは模式）", src=ss.src(["大96 p1"]))),
+    ),
+    # c404（2行）＝横から見た柱のまわりの床。床が柱の形に沿って抜け落ちる → 押し抜きのせん断（梁の無い床で起きやすい）
+    "c404": dict(
+        t="床の壊れ方", s="床と柱が離れる",          # ⚠️ 門番 echo：「柱の形に沿って抜ける」は字幕の1文と 90%
+        fig=("m23", dict(view="slab", start=dict(z="col", fl="5"), steps=[
+            dict(state=dict(punch="on")),
+            dict(tag=dict(t="押し抜きのせん断", d="梁の無い床で起きやすい", at="r", col=J.ALERT))],
+            note="壊れ方の形は模式（柱の頭の形は描いていない）", src=ss.src(["K6-R p28", "大96 p1"]))),
+    ),
+    # c407（3行）＝断面図の3回目（A棟の床が落ちる順＝国会の報告の判断・人は描かない）。屋上と5階の床 → 下の階が次々に → 重さが増えた階
+    "c407": dict(
+        t="崩れた順", s="上の階から順に",          # ⚠️ 門番 dup：「国会の報告の判断」は下の注の写し
+        # ⚠️ geom_gap：start に a="on" だと崩れたあとも「食堂街」「売り場」の札が残り、重さの印の枠に 3.1px＝階の使い道の札は出さない（c202 で見せた）
+        fig=("m23", dict(view="section", steps=[
+            dict(state=dict(fall="top"), tag=dict(t="まず屋上と5階の床", at="r1", col=J.ALERT)),
+            dict(state=dict(fall="all"), tag=dict(t="下の階が次々に", at="r2", col=J.ALERT)),
+            dict(state=dict(load="on"), tag=dict(t="重さが増えた階", at="r3", col=J.ALERT))],
+            rel=[dict(t="5階", src="K6-R p28")],
+            note="崩れる順は国会の報告の判断（形は模式・人は描かない）", src=ss.src(["K6-R p28", "K6-検 p45", "K6-市 p34"]))),
+    ),
+    # c413（2行）＝上から見た崩れたあとの現場（ソウル市の報告の現場図の北と南の壁）。北側と南側の壁 → 壁から離れて落ちた床
+    "c413": dict(
+        t="A棟の跡", s="立っていた壁",
+        fig=("m23", dict(view="plan", start=dict(floor="site"), steps=[
+            dict(state=dict(walls="on"), tag=[dict(t="北側の壁", at="nwt", col=J.BLDG_A), dict(t="南側の壁", at="swt", col=J.BLDG_A)]),
+            dict(state=dict(rubble="on"), tag=dict(t="壁から離れて落ちた床", at="r2", col=J.ALERT))],
+            note="壁と瓦礫の形は模式（壁の場所はソウル市の報告の現場図）", src=ss.src(["K6-市 p37", "K6-市 p39"]))),
+    ),
+    # c418（3行）＝🔧 記録ごとの時刻の2回目（c402 と続けない）。17:55ごろ（沈めて）→ 18:50ごろ 市長が着く → 1時間たらず → 18:00 市の事故対策本部
+    "c418": dict(
+        t="市の動き", s="崩れたあとの1時間",
+        fig=("m23", dict(view="clocks", start=dict(set="after", k0="dim"), steps=[
+            dict(state=dict(k2="on")), dict(state=dict(br="on"), tag=dict(t="1時間たらず", at="br", col=J.AMBER)),
+            dict(state=dict(k1="on"))],
+            rel=[dict(t="1時間", src="K6-市 p35")],
+            note="時計は記録の時刻（模式）", src=ss.src(["K6-市 p35", "K6-市 p34"]))),
+    ),
+    # c420（3行）＝夜の現場（灯り・車・クレーンの影＝人は描かない）→ 国会の報告：始まりにも問題 → 「？」
+    "c420": dict(
+        t="夜の救助", s="救助の始まり",
+        fig=("m23", dict(view="night", steps=[
+            dict(), dict(tag=dict(t="国会の報告", d="始まりにも問題", at="t", col=J.ROLE["state"])), dict(state=dict(q="on"))],
+            note="灯り・車・クレーンの形と数は模式（人は描かない）", src=ss.src(["K6-R p32"]))),
+    ),
+})

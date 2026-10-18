@@ -83,3 +83,102 @@ SPEC.update({
     "c211": ss.vid("c211"),     # ひびの入ったスケート場の舗装
     "c219": ss.vid("c219"),     # 木の机の会議室
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-3（2026-10-18）：図解 第1章（10カット）＝模式図 `tools/mech23.py`（fig=("m23", …)）
+# ══════════════════════════════════════════════════════════
+#   🔴 左上の札＝見る向きの合図（PLAN の「見る向き：」と同じ頭の語＝門番 check_mech）。色は役の色（A棟＝ピンク・B棟＝白・会社＝橙・国＝青）。
+#      段の数＝語りの行の数。章の札「6月29日の朝」と4字以上同じ並びを見出し・副題に入れない（門番 dup）。数と単位をそのまま語る札は置かない（echo＝字幕に任せる）
+#   頁＝国会の会議録の PDF の頁（K6-R＝国政調査の報告・K6-市／区／検＝添付）＝`ss.REC_DOCS`
+_N_SEC = "形はソウル市の報告の断面図の描き起こし（階の高さはそろえた・模式）"
+SPEC.update({
+    # c202（3行）＝断面図。1行目で A棟（5階＝食堂街・1〜4階＝売り場）・2行目で B棟・3行目で地下
+    "c202": dict(
+        t="建物の作り", s="2つの棟と各階の使い道",
+        fig=("m23", dict(view="section", steps=[dict(state=dict(a="on")), dict(state=dict(b="on")), dict(state=dict(under="on"))],
+                         note=_N_SEC, src=ss.src(["K6-市 p34"]))),
+    ),
+    # c204（3行）＝斜めから見た建物。8:00〜10:00・A棟5階の食堂の1つ → 床が盛り上がり天井が沈む → 5階の天井＝屋上の床の裏
+    "c204": dict(
+        t="朝の5階", s="床と天井の動き",          # ⚠️ 門番 dup：「5階の食堂」は札「5階の食堂の1つ」の写し
+        fig=("m23", dict(view="bldg", steps=[
+            dict(state=dict(hi="a5", cell="on"), tag=[dict(t="8:00〜10:00", at="t", col=J.AMBER), dict(t="5階の食堂の1つ", at="r1", to="cell", col=J.BLDG_A)]),
+            dict(state=dict(bulge="on"), tag=dict(t="床が盛り上がる", d="天井が沈む", at="r2", col=J.ALERT)),
+            dict(state=dict(roof="on"), tag=dict(t="5階の天井＝屋上の床の裏", at="r3", to="roof", col=J.BLDG_A))],
+            rel=[dict(t="8:00", src="K6-R p30"), dict(t="10:00", src="K6-R p30"), dict(t="5階", src="K6-R p30")],
+            note="形と食堂の場所は模式（A棟＝北・B棟＝南）", src=ss.src(["K6-R p30"]))),
+    ),
+    # c206（3行）＝上から見た屋上。聞き役の問い → うろこのように浮き上がる → 一部がたわむ（国会の報告の言葉）
+    "c206": dict(
+        t="屋上の床", s="うろこの形と、たわみ",
+        fig=("m23", dict(view="plan", start=dict(floor="roof"), steps=[
+            dict(), dict(state=dict(scale="on")),
+            dict(state=dict(sag="on"), tag=dict(t="国会の報告の言葉", at="r1", col=J.ROLE["state"]))],
+            note="うろことたわみの場所と形は模式（国会の報告の言葉の絵）", src=ss.src(["K6-R p30"]))),
+    ),
+    # c207（3行）＝横から見た床の板（柱2本のあいだ）。10:00〜12:00・4階の貴金属の売り場 → 天井が沈む → 5階の床と4階の天井は同じ板
+    "c207": dict(
+        t="揺れと沈み", s="沈んだ天井",          # ⚠️ 門番 dup：「貴金属の売り場」は札の写し
+        fig=("m23", dict(view="slab", start=dict(z="span", fl="5"), steps=[
+            dict(tag=[dict(t="10:00〜12:00", at="t", col=J.AMBER), dict(t="4階の貴金属の売り場", at="r", col=J.INK_W)]),
+            dict(state=dict(sag="on"), tag=dict(t="天井が沈む", at="br", col=J.ALERT)),
+            dict(state=dict(same="on"), tag=dict(t="同じ板の上と下", at="low", col=J.BLDG_A))],
+            rel=[dict(t="10:00", src="K6-R p30"), dict(t="12:00", src="K6-R p30"), dict(t="4階", src="K6-R p30")],
+            note="厚さと沈みの大きさは誇張（模式）", src=ss.src(["K6-R p30"]))),
+    ),
+    # c209（3行）＝断面図の2回目（c202 と続けない）。聞き役の問い → 10時ごろ社長へ報告 → 5階と屋上を見てまわる・一部の食堂に入れない
+    "c209": dict(
+        t="社長の見回り", s="5階と屋上",
+        fig=("m23", dict(view="section", start=dict(a="on", b="on", under="on"), steps=[
+            dict(), dict(tag=dict(t="10:00ごろ", d="社長に報告", at="r1", col=J.AMBER)),
+            dict(state=dict(look="on", keep="on"), tag=dict(t="見てまわった", d="一部の食堂は立ち入りを止めた", at="r3", col=J.COMPANY))],
+            rel=[dict(t="10:00", src="K6-検 p52")],
+            note="見てまわった道と止めた所は模式（断面はソウル市の報告の図の描き起こし）", src=ss.src(["K6-検 p52", "K6-R p30", "K6-市 p34"]))),
+    ),
+    # c210（3行）＝上から見た5階の床。12:00〜14:00・北側の食堂 → 壁と床のひび → のちに崩れはじめる側
+    "c210": dict(
+        t="5階の北側", s="食堂のひび",
+        fig=("m23", dict(view="plan", start=dict(floor="f5"), steps=[
+            dict(state=dict(north="on"), tag=[dict(t="12:00〜14:00", at="r1", col=J.AMBER), dict(t="北側の食堂", at="r2", col=J.BLDG_A)]),
+            dict(state=dict(crack="on"), tag=dict(t="壁と床のひび", at="r3", col=J.ALERT)),
+            dict(state=dict(start="on"), tag=dict(t="のちに崩れはじめる側", at="r4", col=J.ALERT))],
+            rel=[dict(t="12:00", src="K6-R p30"), dict(t="14:00", src="K6-R p30")],
+            note="食堂の仕切りとひびの場所は模式（A棟＝北が左）", src=ss.src(["K6-R p30"]))),
+    ),
+    # c212（3行）＝横から見た柱のまわりの床。柱の近くのひび → 床が沈む → 12:00〜14:00 の記録
+    "c212": dict(
+        t="ひびと沈み", s="半日たらずで",          # ⚠️ 門番 dup：「柱の近く」は札「柱の近くのひび」の写し
+        fig=("m23", dict(view="slab", start=dict(z="col", fl="5"), steps=[
+            dict(state=dict(crack="on"), tag=dict(t="柱の近くのひび", at="r", to="col", col=J.ALERT)),
+            dict(state=dict(sink="on"), tag=dict(t="床が沈む", at="br", col=J.ALERT)),
+            dict(tag=dict(t="12:00〜14:00", at="t", col=J.AMBER))],
+            rel=[dict(t="12:00", src="K6-検 p47"), dict(t="14:00", src="K6-検 p47")],
+            note="ひびの形と沈みの大きさは誇張・柱の頭の形は模式", src=ss.src(["K6-検 p47", "K6-R p30"]))),
+    ),
+    # c213（2行）＝比べ（同じ縮尺）。床の沈み15センチの括弧と文庫本の縦（A6判 14.8センチ）→ 柱のすぐそばの床
+    "c213": dict(
+        t="沈みの大きさ", s="文庫本の縦と比べる",
+        fig=("m23", dict(view="bunko", steps=[dict(state=dict(br="on"), tag=dict(t="床の沈み", at="br", col=J.ALERT)),
+                                              dict(state=dict(col="on"), tag=dict(t="柱のすぐそば", at="col", col=J.INK_W))],
+                         note="同じ縮尺（文庫本はA6判）・模式", src=ss.src(["K6-R p30", "K6-検 p47"]))),
+    ),
+    # c215（3行）＝斜めから見た冷却塔。止めた（会社）・外の空気で水を冷やす → 水を抜く → （第7章へ）
+    "c215": dict(
+        t="冷房の装置", s="屋上で止めた",
+        fig=("m23", dict(view="tower", start=dict(run="on"), steps=[
+            dict(state=dict(run="off"), tag=[dict(t="止めた", at="r1", col=J.COMPANY), dict(t="外の空気で水を冷やす", at="r2", col=J.INK_W)]),
+            dict(state=dict(drain="on"), tag=dict(t="水を抜く", at="dr", col=J.COMPANY)), dict()],
+            note="形は模式（冷却塔の数と重さは第7章）", src=ss.src(["K6-検 p47"]))),
+    ),
+    # c218（3行）＝斜めから見た建物。閉めた所（5階の食堂の大部分・4階の貴金属）→ 開いていた所・客と従業員は中に → 下の階
+    "c218": dict(
+        t="店の様子", s="階ごとの様子",          # ⚠️ 門番 echo：「上の階の一部だけ」は字幕の1文の切り取り
+        fig=("m23", dict(view="bldg", steps=[
+            dict(state=dict(closed="on"), tag=dict(t="閉めた所", d="5階の食堂の大部分・4階の貴金属", at="r1", col=J.TICK)),
+            dict(state=dict(open="on"), tag=dict(t="開いていた所", d="客と従業員は中に", at="r2", col=J.INK_W)),
+            dict(state=dict(hi="low"), tag=dict(t="下の階", at="r3", col=J.INK_W))],
+            rel=[dict(t="5階", src="K6-検 p47"), dict(t="4階", src="K6-検 p47")],
+            note="閉めた所の広さと場所は模式（記録＝5階の食堂の大部分・4階の貴金属の売り場など）",
+            src=ss.src(["K6-検 p47", "K6-検 p48", "K6-R p32"]))),
+    ),
+})
