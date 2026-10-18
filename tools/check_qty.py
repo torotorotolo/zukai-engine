@@ -61,56 +61,22 @@ sys.stdout.reconfigure(encoding="utf-8")
 #    **空にした**。selftest の見本 `tools/fixture_ep21.py`（GATES["check_qty"]・値は1つも変えていない＝git の `35fab37`）。22本目の棒を書くチャットで、値と頁を
 #    ref/ep22/src/ep22_pages.txt で当てて入れる（空のあいだ、量のカットは「記録に無い値」で止まる＝fail closed）。
 #    数字は画面に書かない（目盛りだけ）・行の名に日付の数字を書かない・行の名に便の数字を書かない〈「北棟の便」「南棟の便」と呼ぶ〉・印字の頁と PDF の頁の書き方の注は移した注の側にある＝fixture_ep21 の REC_QTY
-# ✅ 2026-10-14（22本目 ⑤b-3b）：22本目の値を入れた（頁は cuts/ss.REC_DOCS の通し番号）。
-#    c210 参加費＝USCG p64「rising from $105,129 in 2021 to $250,000 for both 2022 and 2023」（万ドル＝10.5129・25・25）・TSB §1.23「up to 250 000」
-#    c302 乗客＝TSB §1.20.1.2「it was permitted to carry up to 12 passengers」「on the occurrence voyage, it was carrying 24 passengers」
-#    c303 人の形＝TSB §1.3.1「There were 41 people on board the Polar Prince in total: 24 people associated with OceanGate and 17 Polar Prince crew members」
-#      （乗客に数える＝§1.20.1.1「OceanGate passengers, who consisted of the Titan passengers and their family members」）
-#    🆕 役の色（REC_QTY_ROLE・REC_PEOPLE_ROLE）＝描いた棒・凡例の色の値が役の色（jiko_style.ROLE）か（会社＝橙・母船＝水色）
-REC_QTY = {          # (群の項目名＝画面の文字, 行の名＝画面の文字) → (値, 頁)
-    ("参加費（万ドル）", "2021年"): (10.5129, {"USCG p64"}),
-    ("参加費（万ドル）", "2022年"): (25.0, {"USCG p64"}),
-    ("参加費（万ドル）", "2023年"): (25.0, {"USCG p64", "TSB §1.23"}),
-    ("乗客として乗る人（人）", "貨物船の決まりの上限"): (12.0, {"TSB §1.20.1.2"}),
-    ("乗客として乗る人（人）", "この航海"): (24.0, {"TSB §1.20.1.2"}),
-    # 🆕 2026-10-15（22本目 ⑤b-4）：c518＝TSB §1.2.1「approximately 96 hours based on an occupancy of 5 people」・§2.5「98 hours and 16 minutes after life support
-    #   had been started」／c708＝TSB §1.12.1「a safety factor of 2.19 with grade 5 titanium end domes and a safety factor of 2.21 with carbon fibre end domes」
-    #   「a goal of 2.25 for the safety factor」・脚注45「a minimum safety factor of 1.5」
-    ("生命維持の開始からの時間", "酸素の目安"): (96.0, {"TSB §1.2.1", "TSB §2.5"}),
-    ("生命維持の開始からの時間", "見つかるまで"): (98.0 + 16.0 / 60.0, {"TSB §2.5"}),
-    ("安全率（倍）", "チタンのドームのとき"): (2.19, {"TSB §1.12.1"}),
-    ("安全率（倍）", "炭素繊維のドームのとき"): (2.21, {"TSB §1.12.1"}),
-    ("安全率（倍）", "会社の目標"): (2.25, {"TSB §1.12.1"}),
-    ("安全率（倍）", "規格の最低"): (1.5, {"TSB §脚注45"}),
-    # 🆕 2026-10-15（22本目 ⑤b-5）：c917＝TSB §1.12.2「changed its safety factor to 1.25」・§1.15「the calculated safety factor of 3.05」
-    #   「the calculated safety factor was 1.11」／ca20＝TSB §1.10.10.1「on the 05 August 2021 dive … 21% greater」「on 19 July 2022 dive … 98% greater」
-    ("安全率（倍）", "会社の基準"): (1.25, {"TSB §1.12.2", "TSB §1.15"}),
-    ("安全率（倍）", "長さの向き"): (3.05, {"TSB §1.15"}),
-    ("安全率（倍）", "周りの向き"): (1.11, {"TSB §1.15"}),
-    ("浅い所の傾きの増え（%）", "前の年の夏の潜航"): (21.0, {"TSB §1.10.10.1"}),     # 2021年8月5日
-    ("浅い所の傾きの増え（%）", "音のあとの潜航"): (98.0, {"TSB §1.10.10.1"}),       # 2022年7月19日（81回目）
-    # 🆕 2026-10-15（22本目 ⑤b-6）：cb10＝TSB §1.20.2.2「for approximately 950 hours in the 2023 season」／cb14＝TSB §1.21.4「aborted at a depth of 10 m」・
-    #   NTSB p1014「None of the dives exceeded 33 feet (10 meters) depth」・付録B（2023年の3行＝10）・TSB §1.3「approximately 3800 m」
-    ("綱でつながれていた時間（時間）", "2023年"): (950.0, {"TSB §1.20.2.2"}),
-    ("潜った深さ（メートル）", "事故の年の潜航"): (10.0, {"TSB §1.21.4", "NTSB p1014", "TSB §付録B"}),
-    ("潜った深さ（メートル）", "タイタニック"): (3800.0, {"TSB §1.3"}),
-}
-REC_QTY_ROLE = {("参加費（万ドル）", "2021年"): "company", ("参加費（万ドル）", "2022年"): "company",
-                ("参加費（万ドル）", "2023年"): "company", ("乗客として乗る人（人）", "この航海"): "company",
-                ("生命維持の開始からの時間", "酸素の目安"): "sub", ("生命維持の開始からの時間", "見つかるまで"): "tsb",
-                # 🔧 22本目 ⑤c'（10-15）：チタン＝会社の橙だと会社の目標（白）と役が逆に読めた＝設計書の値は潜水艇の筒の計算＝sub・目標＝company
-                #    （炭素繊維は ⑪（ΔE 25）で黄＝数・規格の最低は灰＝役の色を持たない）
-                ("安全率（倍）", "チタンのドームのとき"): "sub", ("安全率（倍）", "会社の目標"): "company",
-                # 🆕 22本目 ⑤b-5：基準＝会社・長さの向き＝カナダの研究所の計算・2022年の傾き＝カナダの調べの値（周りの向き＝赤・2021年＝灰は役を持たない）
-                ("安全率（倍）", "会社の基準"): "company", ("安全率（倍）", "長さの向き"): "tsb", ("浅い所の傾きの増え（%）", "音のあとの潜航"): "tsb",
-                # 🆕 22本目 ⑤b-6：引いたのは母船・潜ったのは潜水艇（タイタニック＝目安の灰は役を持たない）
-                ("綱でつながれていた時間（時間）", "2023年"): "ship", ("潜った深さ（メートル）", "事故の年の潜航"): "sub"}
+# 🔴 2026-10-18（23本目 三豊百貨店崩壊事故のリメイク ⑤b-1・§0b）：22本目の表（棒＝参加費〈2021〜2023年〉・乗客として乗る人〈貨物船の決まりの上限・この航海〉・生命維持の開始からの時間・
+#    設計書の安全率〈チタン・炭素繊維・会社の目標・規格の最低〉・2つ目の筒の安全率〈会社の基準・長さの向き・周りの向き〉・浅い所の傾きの増え・綱でつながれていた時間・潜った深さ／
+#    REC_QTY_ROLE＝棒ごとの役の色 13／人の形＝c303 の母船の41人〈REC_PEOPLE・REC_PEOPLE_PAGES・REC_PEOPLE_ROLE・PEOPLE_CUTS〉）も**空にした**。selftest の見本 `tools/fixture_ep22.py`
+#    （GATES["check_qty"]・値は1つも変えていない＝git の `adbe2d5`）。23本目の棒を書くチャットで、値と頁を ref/ep23/src/ep23_pages.txt で当てて入れる
+#    （空のあいだ、量のカットは「記録に無い値」で止まる＝fail closed。人の形は PEOPLE_CUTS が空なら全部止まる）。
+#    ⚠️ 役の色の判定（`judge_bar` の REC_QTY_ROLE・`judge_people` の REC_PEOPLE_ROLE）は型＝残した（表が空なら役の色を照らさないだけ）。
+#    ⚠️ この門番には22本目の selftest が無い（22本目は REC_QTY ほかを足しただけで、`selftest_ep22` を足さなかった＝役の色の判定は本番の照合〈main〉だけで通っていた）
+#    数字は画面に書かない（目盛りだけ）・行の名に日付の数字を書かない・同じ群の棒は色を ΔE 25 以上離す・役の色の注は移した注の側にある＝fixture_ep22 の REC_QTY
+REC_QTY = {}          # (群の項目名＝画面の文字, 行の名＝画面の文字) → (値, 頁)
+REC_QTY_ROLE = {}     # (群の項目名, 行の名) → 役（jiko_style.ROLE の名）＝描いた棒の色の値が役の色か
 REC_GHOST = {}        # 「後」の行に「前」の長さを薄く残す棒
 REC_GRID = {}         # マス目（項目名 → n・ok・ng・頁）
-REC_PEOPLE = {"乗っていた人": 41, "乗客に数える人（会社の関係）": 24, "母船の乗組員": 17}   # 人の形（§C-1 #59 の例外＝22本目は c303 だけ）
-REC_PEOPLE_PAGES = {"TSB §1.3.1", "TSB §1.20.1.1"}
-REC_PEOPLE_ROLE = {"乗客に数える人（会社の関係）": "company", "母船の乗組員": "ship"}
-PEOPLE_CUTS = {"c303"}   # 🔴 ルール §C-1 #59（型の側の ss.PEOPLE_CUTS とは別に持つ）＝22本目は c303 だけ（母船に乗っていた41人の内わけ）
+REC_PEOPLE = {}       # 人の形（14本目 c204〜c206・22本目 c303 だけの例外＝§C-1 #59）
+REC_PEOPLE_PAGES = set()
+REC_PEOPLE_ROLE = {}  # 凡例の名 → 役の色
+PEOPLE_CUTS = set()   # 🔴 ルール §C-1 #59（型の側の ss.PEOPLE_CUTS とは別に持つ）＝空のあいだ人の形は全部止まる（使う回は映像方針の了承のうえでカットを書く）
 UNIT_PEOPLE, UNIT_GRID = "1つ＝1人", "1マス＝1項目"
 DEATH = ("亡", "犠牲", "死", "行方", "遺体", "不明")
 TOL_PX = 1.2          # 棒の端（rect は整数画素に丸めて書かれる＝x と幅で ±0.5 ずつ）

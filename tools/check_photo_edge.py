@@ -151,8 +151,20 @@ def selftest():
     """🔴 2026-10-14（22本目 ⑤b-1・§0b）：21本目の実物（c102＝LC-A17・ss.SLIDE_MOUNT）は本番から見本 `tools/fixture_ep21.py` へ移した
     ＝見本の ss の表（SLIDE_MOUNT ほか）と21本目の章ファイル（apply_cuts＝git の `35fab37`）を差して回し、最後に restore（LIFO）"""
     import fixture_ep21
+    import fixture_ep22
     import cuts.ss as ss
-    ok_none = _selftest_none()          # 🆕 22本目 ⑤b-2：名簿が空の回の確かめ（本番の束のまま＝見本を差す前に）
+    # 🆕 22本目 ⑤b-2：名簿が空の回の確かめ。🔴 2026-10-18（23本目 ⑤b-1・§0b）：22本目の束（`ref/ep22/assets.json`）と名簿 SLIDE_NOT_MOUNT は見本 `tools/fixture_ep22.py` へ移した
+    #   ＝見本を差して回す（束の道 REF・EP も22本目へ向ける＝`ss._assets()`・`ss.P()` が22本目の束を引く。見本の SS_NAMES に入れない名なので、ここで差して戻す）
+    keep = (ss.REF, ss.EP)
+    ss.REF, ss.EP = fixture_ep22.REF, "ep22/"
+    ss._assets.cache_clear()
+    fixture_ep22.apply()
+    try:
+        ok_none = _selftest_none()
+    finally:
+        fixture_ep22.restore()
+        ss.REF, ss.EP = keep
+        ss._assets.cache_clear()
     # 写真の権利の台帳（`ss._assets()`＝`ss.REF / "assets.json"`・起動時に1回読んで覚える）も21本目へ向ける＝見本の SPEC の写真の
     # 額装の網（frame_only）が21本目の台帳で引ける。REF・EP は束の道＝見本の SS_NAMES に入れない名なので、ここで差して戻す
     keep = (ss.REF, ss.EP)
@@ -200,7 +212,9 @@ def _selftest():
 
 
 def _selftest_none():
-    """🆕 2026-10-14（22本目 ⑤b-2）：名簿が空の回（SLIDE_MOUNT={}）の確かめ＝本番の束（22本目）と ss.SLIDE_NOT_MOUNT で回す"""
+    """🆕 2026-10-14（22本目 ⑤b-2）：名簿が空の回（SLIDE_MOUNT={}）の確かめ＝22本目の束と ss.SLIDE_NOT_MOUNT で回す。
+    ✅ 2026-10-18（23本目 ⑤b-1・§0b）：見本 `fixture_ep22`（22本目の SLIDE_NOT_MOUNT・SLIDE_MOUNT）を差し、束の道〈REF・EP〉も22本目へ向けた中で呼ぶ（`selftest`）。
+    見本が空なら**止める**（以前は本番が空のとき「見本が無い（飛ばす）」で通した＝23本目で本番が空になると何も確かめずに通る穴になる）"""
     import cuts.ss as ss
     ok = True
 
@@ -210,10 +224,10 @@ def _selftest_none():
         ok &= bool(cond)
     nm = dict(ss.SLIDE_NOT_MOUNT)
     if not nm:
-        print("・本番の SLIDE_NOT_MOUNT が空＝名簿が空の回の確かめは見本が無い（飛ばす）")
-        return True
+        print("🔴 見本の SLIDE_NOT_MOUNT が空＝名簿が空の回の確かめができない（fixture_ep22 を差し込めていない／見本が壊れている）")
+        return False
     out, code = check({}, mount={}, use={}, not_mount=nm)
-    chk(f"陰性対照：本番（SLIDE_MOUNT 空・暗い帯の {len(nm)}点を決めてある）は通る", code == 0)
+    chk(f"陰性対照：22本目の見本（SLIDE_MOUNT 空・暗い帯の {len(nm)}点を決めてある）は通る", code == 0)
     drop = sorted(nm)[0]
     out, code = check({}, mount={}, use={}, not_mount={k: v for k, v in nm.items() if k != drop})
     chk(f"陽性対照：暗い帯のある {drop} を名簿から外すと鳴る（見ていない点を通さない）", code == 2 and any(drop in o for o in out))

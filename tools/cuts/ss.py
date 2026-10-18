@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-"""22本目（タイタン号のリメイク）の章ファイルが共通で使う小道具。
+"""23本目（三豊百貨店崩壊事故のリメイク）の章ファイルが共通で使う小道具。
 
+**22本目（タイタン号のリメイク・2023-06-18）の中身は git の `adbe2d5`（この ss.py・門番・章ファイルの最後の版）にある**
+（`git show adbe2d5:tools/cuts/ss.py`）。
 **21本目（米国同時多発テロ〈9.11〉のリメイク・2001-09-11）の中身は git の `35fab37`（この ss.py・門番・章ファイルの最後の版）にある**
 （`git show 35fab37:tools/cuts/ss.py`）。
 **20本目（日本航空123便のリメイク）の中身は git の `cbf40ec`（この ss.py と門番の最後の版）と `f0095bd`（章ファイルの最後の版）にある**
@@ -13,6 +15,16 @@
 12本目（キャッスル・ブラボー）は `3832147`、11本目（チャレンジャー号）は `61039d2`、10本目（三豊百貨店）は `46f11b3`、
 9本目（テネリフェ）は `e18b8f1`、8本目は `4c71bf0`、7本目は `ae30d49`。
 
+🔴 **⑤b-1（2026-10-18・23本目）で空にした**＝§0b（その2）。22本目の型の値（案C の出典の表 REC_DOCS〈USCG・NTSB・TSB の3資料〉・原文の道 REC_PAGES・
+軸の型〈AX_MORN22・AX_END・AX_1047・AX_TWO・AX_PM22・AX_CLASS・AX_Y18・AX_Y19・AX_Y20・AX_J22・AX_2223・AX_OUT・AX_RTM・AX_23・AXI の項目〉・
+棒〈QG＝fee・pax・o2・sf・sf2・slope・tow・dep23／QB＝その19本〉・人の形〈PEOPLE_ORDER・PEOPLE_REC・PEOPLE_CUTS＝c303 の母船の41人〉・
+地図の表〈SAT＝衛星写真6点・GEO＝場所7点〉・台紙の縁でない暗い帯の名簿 SLIDE_NOT_MOUNT〈3点〉）は、門番の selftest の見本 `tools/fixture_ep22.py` へ移した
+（値は1つも変えていない＝git の `adbe2d5` と同じ）。本番の ss は23本目の空の器（REF／EP＝ep23・REC_PAGES＝ep23_pages.txt＝まだ無い。その型を初めて使う ⑤b のチャットで作る）。
+型の道具（`tailv`・`vid`・`head`・`fb`・`ax`・`qb`・`sat`・`pp`・`ct`・`ce`・`rud`・`cause`・`src`〈頁の無い書き方を止める拡張つき〉・`merge`・`phl`・`pf`・`pfk`・`fm`・`mv`・`MV_Z`・`MV_IN`・
+`check_frame_only`・`check_card_mix`〈地図のカット sat= も拾う拡張つき〉ほか）と、束ごとに取り直す定数 `PANEL_AR`（22本目の値 0.99 のまま）・Google の帰属の決まり文句 `SAT_CREDIT`
+（回をまたいで同じ文＝型の定数）は残した。
+⚠️ 下の「素材の名前」「人が写る点の扱い」は21本目の束の書きぶりのまま（22本目も書き直さなかった）＝**23本目の束のチャットで書き直す**。
+（以下は ⑤b-1・2026-10-14＝22本目のとき）
 🔴 **⑤b-1（2026-10-14・22本目）で空にした**＝§0b（その2）。21本目の型の値（案C の出典の表 REC_DOCS〈委員会報告・図表・スタッフ声明・NTSB 11便／175便／77便／93便・
 CVR・NIST・運輸長官の証言・国立公園局・AP・法律・検視局・記念館・運輸省の監察総監の報告・RG237・NIST 1-6・委員会報告の序文・govinfo の20資料〉・割れる時刻 ILLU_SPLIT_TIMES
 〈8:46:40・9:03:11・9:37:46・10:03:11〉・軸の型〈AXIS_DOCS＝NIST の2つの巻の名・AX_MORN・AX_11・AX_HIST・AX_175・AX_93・AX_ORD・AX_ALL・AX_TESTI・AX_HIT1・AX_AFTER・
@@ -77,8 +89,8 @@ from functools import lru_cache
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parents[2]
-REF = HERE / "ref" / "ep22"
-EP = "ep22/"
+REF = HERE / "ref" / "ep23"
+EP = "ep23/"
 W, H = 1920, 1080
 
 # 画面の縦横比。これより縦長／横長の図は額装パネルに回す。
@@ -144,7 +156,10 @@ SCREEN_AR = W / H
 #       ⚠️ 縦長の DVIDS 2点（D342 回収船の甲板・D367 1つ目の船体＝EXIF の向きの札を当てて縦長）は kind() で額装＝了承② 決め3 の例外⑤
 #          「縦長は全面で上下を切って縦に流す」＝章ファイルで cam（tilt）を明記（kind() はファイルの縦横比だけを見る）
 #       ⚠️ WIDE_AR＝3.19 になる（航海日誌の細長い頁 4.47・4.94・NTSB 図17 の下 5.00 は額装）
-PANEL_AR = 0.99                  # これ未満＝縦長すぎ（上下が切れる）
+#    🔴 2026-10-18（23本目 ⑤b-1）：下の値 0.99 は**22本目の束の値のまま**（§0b で空にする値ではなく、束ごとに取り直す定数＝数なので空の器が
+#       作れない。16→18本目のときの 1.10 と同じ扱い）。23本目の束（`python qa_out/ep23_assets.py panel` の並び）で取り直す。
+#       それまで WIDE_AR も22本目の値（3.19）から導かれる。見本 `tools/fixture_ep22.py` には入れていない（16・18・19・20・21本目の見本も入れていない）
+PANEL_AR = 0.99                 # これ未満＝縦長すぎ（上下が切れる）
 WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝3.19（22本目の値から）。これ超＝横長すぎ
 
 # 報告書の頁から切る図の矩形（写真と頁の束のチャットで作る `ref/<回>/pages.json`＝15本目は `ref/ep15/pages.json`）。
@@ -507,11 +522,12 @@ SLIDE_MOUNT: dict[str, str] = {}
 #    22本目の束は DVIDS のデジタル写真・報告書の図・Commons＝スライドの走査が無い＝**SLIDE_MOUNT は空のまま**（台紙の縁のある写真は0点）。
 #    門番 check_photo_edge は SLIDE_MOUNT が空のとき、束の全点を測って「暗い帯のある点がここに全部載っているか」を見る（載っていない点が出たら止める
 #    ＝新しい点を見ずに「縁は無い」と言わない）。ここも空なら今までどおり「名簿が読めていない」で止める（fail closed）。§0b＝回を替えるとき空にする
-SLIDE_NOT_MOUNT: dict[str, str] = {
-    P("commons_titanic_wreck_bow"): "右 5% は深い海の暗い水（帯の中央値 20・95 パーセンタイル 28〜30・ばらつき 4〜5＝なだらか）＝写真の中身・額装（共同）",
-    P("commons_uscg_mbi_8668382"): "下 3.5% は委員の濃い色の服と床（いちばん下の行の 95 パーセンタイル 137・ばらつき 50〜65）＝写真の中身",
-    P("ntsb_fig16_wrinkle_t"): "上・右・下 5% は研究所の写真の黒い背景（明るさ 7・左から暗くなって続く）＝写真の中身（束でも切らない＝`qa_out/ep22_assets.py` の _trim_white の注）",
-}
+#    🔴 2026-10-18（23本目 ⑤b-1・§0b）：22本目の3点（`commons_titanic_wreck_bow`＝右 5% は深い海の暗い水・`commons_uscg_mbi_8668382`＝下 3.5% は委員の服と床・
+#       `ntsb_fig16_wrinkle_t`＝上・右・下 5% は研究所の写真の黒い背景＝どれも写真の中身）は見本 `tools/fixture_ep22.py` の SLIDE_NOT_MOUNT へ移した（`ep22/` の名を
+#       文字で書いた・説明は1字も変えていない＝git の `adbe2d5`）。⚠️ SLIDE_MOUNT も SLIDE_NOT_MOUNT も空のあいだ、門番 check_photo_edge は「SLIDE_MOUNT が空」で止まる
+#       （fail closed）＝23本目の束のチャットで、台紙の縁のある写真があれば SLIDE_MOUNT を、無ければ暗い帯のある点を SLIDE_NOT_MOUNT に理由つきで書く
+#       （鍵は `P("名")` で書けば EP が追う＝回の名に化けない）
+SLIDE_NOT_MOUNT: dict[str, str] = {}
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**原寸で見て字でないと決めた OCR の範囲**（OCR の読み置きのファイル名 → [((x0, y0, x1, y1)＝束の画素, 何か)]）。
 #    `check_slide.load_ocr` がこの中に真ん中のある行を外す（外した行は「文字行と見なさなかった」の表に理由つきで出る）。
@@ -679,35 +695,17 @@ def _clips():
 #     🔴 写真そのものは公開リポに置かない（git の外・Modal の保管庫 `jiko-assets` の `ref/ep22/photo/`＝`modal_app.pull_private`）。
 #        ここに置けるのは md5 だけ＝門番が手元の絵と照らす（撮り直したら md5 と描き足しの座標を見直す）。
 #     🔴 Actions は保管庫を読めない＝地図のカットは理由を出して飛ばす（`build_jiko.drop_missing_sat`）・検品画像は Modal の `qa`。
-#     G06 は ⑤b-3 で撮り直した（⑤b-1 の中心 47.563,-52.705・ズーム16 は A. Harvey の基地が画の上の端の外＝2回撮って `gseam22.py`
-#     ＝1回目に y 973 の継ぎ目〈A 25.5／B 0.0〉→ 2回目を採った）
 #   GEO＝描き足しに使う場所。src＝報告書でその場所の名が出る所・how＝座標の出どころ（「報告書の値」か「一般の座標」）。
 #     🔴 確かめていない場所に点を置かない（門番）。×は報告書の座標の場所だけ・一般の座標を使ったカットは断りに「一般の座標」
+# 🔴 2026-10-18（23本目 ⑤b-1・§0b）：22本目の表（SAT＝G01 北アメリカ・G02 現場の海・G03 バッファローとニューファンドランド・G04 北大西洋・G05 バハマ・
+#    G06 セントジョンズの港〈Pier 14〉の6点〔G06 は ⑤b-3 で撮り直した＝継ぎ目の話は見本の注〕／GEO＝everett・stjohns・site・buffalo・marsh・abaco47・harvey の7点）は
+#    selftest の見本 `tools/fixture_ep22.py` へ移した（値は1つも変えていない＝git の `adbe2d5`。`file` は `ep22/…` の名を文字で書いた）。23本目で地図を使うなら、衛星写真を撮って
+#    SAT に md5 つきで足し、GEO に場所を出どころつきで足す。空のあいだ、`sat=` のカットは門番 check_sat・合成が止まる（fail closed）。
+#    ⚠️ 門番 check_sat の本番（`main()`）は地図のカットが0件のとき exit 1 を返す（23本目に地図があるかは未定）＝地図の無い回なら門番の側を直す
+#    SAT_CREDIT＝Google の帰属の決まり文句。回をまたいで同じ文＝型の定数なので残した（SAT の credit に使う）
 SAT_CREDIT = "地図：Google マップの衛星写真（帰属は地図の右下）"
-SAT = {
-    "G01": dict(file=f"{EP}photo/gmap_g01_north_america.png", ll=(45.0, -87.0), z=4, md5="70ff2619fdbaf91c3b1c5651b82d7c8e", credit=SAT_CREDIT),
-    "G02": dict(file=f"{EP}photo/gmap_g02_newfoundland_site.png", ll=(44.6, -51.3), z=6, md5="4c9a76312ec1bb0053611ec20add3068", credit=SAT_CREDIT),
-    "G03": dict(file=f"{EP}photo/gmap_g03_buffalo_newfoundland.png", ll=(45.5, -65.8), z=5, md5="57eb70a4722acc83aa5653315a0171ec", credit=SAT_CREDIT),
-    "G04": dict(file=f"{EP}photo/gmap_g04_north_atlantic.png", ll=(45.0, -47.0), z=5, md5="67507f0134ae97af6abac1dcafc49299", credit=SAT_CREDIT),
-    "G05": dict(file=f"{EP}photo/gmap_g05_bahamas.png", ll=(25.0, -77.0), z=7, md5="35b8c66417c27d9d68155c244a7d0337", credit=SAT_CREDIT),
-    "G06": dict(file=f"{EP}photo/gmap_g06_stjohns_pier14.png", ll=(47.5675, -52.7010), z=17, md5="2ac970d434b7b1a7c735a8f334926ab7", credit=SAT_CREDIT),
-}
-GEO = {
-    "everett": dict(ll=(47.979, -122.202), src="TSB §1.23（`OceanGate was headquartered in Everett, Washington`）", how="一般の座標（市の中心）"),
-    "stjohns": dict(ll=(47.5615, -52.7126), src="TSB §1.3.1（`the Polar Prince departed St. John’s`）", how="一般の座標（港）"),
-    "site": dict(ll=(41 + 44.06 / 60, -(49 + 56.54 / 60)), src="USCG p.6〈vi〉（`41° 44.06’ North; 49° 56.54’West`＝最後の位置）",
-                 how="報告書の値（最後に受けた位置）"),
-    "buffalo": dict(ll=(42.886, -78.878), src="NTSB p.18（`The Odysseus was in Buffalo, New York, at the time.`）", how="一般の座標（市の中心）"),
-    "marsh": dict(ll=(26.541, -77.063), src="USCG p.152〈144〉（`OceanGate took their operation to Marsh Harbour, Bahamas to conduct test dives`）",
-                  how="一般の座標（町）"),
-    # 47回目の潜航（2019年4月17日）の海＝「リトルハーバー〈26.326, -76.999〉の沖 約10マイル・大西洋」＝東へ約16キロ（模式）
-    "abaco47": dict(ll=(26.326, -76.838), src="USCG p.157〈149〉（`approximately 10 miles off Little Harbour, Great Abaco, in the Atlantic Ocean`）",
-                    how="一般の座標（リトルハーバー）から東へ約16キロ（模式）"),
-    # A. Harvey の基地（Pier 14・71 Water St.＝会社の頁）。NTSB 図9 と衛星写真は特徴点の照合が取れなかった（⑤b-3・SIFT の inlier 13 以下）
-    #   ＝駐車場の中の位置（図9 の×）は描かず、基地のあたりを囲む（中心＝G06 の画素 (930, 270)＝住所の点 (803, 281) と岸の舗装の間）
-    "harvey": dict(ll=(47.5688, -52.70121), src="USCG p.236〈228〉（`demobilized at the A Harvey Marine Base in St. John’s` ・`placed in the parking lot of the facility`）・NTSB p.36〈28〉 図9",
-                   how="一般の座標（基地の住所 Pier 14・71 Water St. のあたり＝会社の頁）"),
-}
+SAT = {}
+GEO = {}
 
 
 def sat(code, steps, note="", **kw):
@@ -715,17 +713,14 @@ def sat(code, steps, note="", **kw):
     return dict(photo=SAT[code]["file"], panel=True, pw=1152, color=1.0, sat=dict(code=code, steps=steps, note=note), **kw)
 
 
-REC_PAGES = REF / "src" / "ep22_pages.txt"      # `ref/ep22/make_pages22.py` の出力（git の外＝手元だけ・⑤b-3b で作った）
-# 🆕 2026-10-14（22本目 ⑤b-3b）：22本目の資料の表＝3つの報告書。頁の番号＝**通し番号**（`ref/ep22/make_pages22.py` が同じ番号で REC_PAGES を書く）：
-#    USCG＝米沿岸警備隊 海難調査委員会の報告書の PDF の頁（台本の「USCG p.71〈63〉」→「USCG p71」）・NTSB＝1000＋PDF の頁（「NTSB p.36〈28〉」→「NTSB p1036」）・
-#    TSB＝カナダ運輸安全委員会の報告書（ウェブの頁＝頁なし）＝**節**で書く（「TSB §1.3.1」「TSB §付録B」「TSB §脚注13」＝`illu.sec_num`・page="sec"）。
-#    画面の出典の行＝`illu.rec_line`（pdf＝「PDF 71頁」・sec＝「1.3.1節」「付録B」）。⚠️「NTSB」は「TSB」を含む＝parse_rec は長い名から当てる
-REC_DOCS = {                                # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
-    "USCG": dict(range=(1, 335), name="米沿岸警備隊 海難調査委員会の報告書（2025年）", page="pdf", base=0),
-    "NTSB": dict(range=(1001, 1087), name="米運輸安全委員会の報告書（2025年）", page="pdf", base=1000),
-    "TSB": dict(range=(100_000_000, 999_999_999), name="カナダ運輸安全委員会の報告書（2026年）", page="sec", base=0),
-}
-ILLU_SPLIT_TIMES = ()                       # 資料で割れる時刻＝画面に時計・時刻の札として出さない
+# 🔴 2026-10-18（23本目 ⑤b-1・§0b）：22本目の値（出典の表 REC_DOCS＝USCG・NTSB・TSB の3資料・原文の道 REC_PAGES＝`ref/ep22/src/ep22_pages.txt`）は selftest の見本
+#    `tools/fixture_ep22.py` へ移した（値は1つも変えていない＝git の `adbe2d5`）。23本目の値は、その型を初めて使う ⑤b のチャットで入れる（空のあいだ、その型を使うカットは
+#    門番・型が止まる＝fail closed）。頁の番号の書き方（通し番号・pdf の頁と節 page="sec"〈`illu.sec_num`〉・資料名は長い名から当てる＝「NTSB」は「TSB」を含む）・資料の名の決め方は
+#    移した注の側にある＝fixture_ep22 の REC_DOCS の注。ILLU_* は22本目も空のままだった表＝空の器で残す（見本の側も22本目の状態＝空として持つ）。
+#    REC_PAGES の道は23本目（`ref/ep23/src/ep23_pages.txt`＝まだ無い。22本目は `ref/ep22/make_pages22.py` の出力だった）
+REC_PAGES = REF / "src" / "ep23_pages.txt"      # 部品の出典（`rec=`）を当てる原文（git の外＝手元だけ）。その型を初めて使う ⑤b のチャットで作る
+REC_DOCS = {}                               # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
+ILLU_SPLIT_TIMES = ()                      # 資料で割れる時刻＝画面に時計・時刻の札として出さない
 ILLU_CROWD_UNTIL = None                     # 乗客の群れを描いてよい場面の時刻の上限
 ILLU_ROLES = dict(sprite=(), crowd=())      # 置いてよい役割（門番 check_illu ②）＝空の組なら、どの役割も置けない（fail closed）
 ILLU_SEC_OK = {}                            # 札に出してよい秒＝{秒: 出典}（門番 check_illu ⑤）
@@ -755,170 +750,6 @@ AXIS_DOCS = {}
 
 # 部品（記録の頁つき。値と頁は門番 check_axis の REC_AXIS と照らされる）。t は項目名だけ（§5b-9）
 AXI = {}
-
-# 🆕 2026-10-14（22本目 ⑤b-3b）：第2〜3章の時間の帯。時刻は**ニューファンドランドの夏時間**（TSB 脚注13＝協定世界時−2.5時間・米国の2つの報告書も同じ時計）。
-#   色＝**役の色**（だれがしたか＝母船 SHIP・会社 COMPANY・潜水艇 SUB・壊れた＝ALERT）／2段の帯は段＝調べの色（米沿岸警備隊 USCG・カナダ INST）。
-#   門番 check_axis が記録の表（REC_AXIS・REC_ROLE・LANE_ROLE）で値・頁・色を照らす（§5b-88＝ここを書き換えると鳴る）
-#   AX_MORN22＝6月18日の朝（c306・c312・c313）。原文 TSB §1.3.1「arrived … at 0400 on 18 June」「At 0534, OceanGate held a briefing」「At 0545, the 5 people
-#     boarding the Titan … were weighed」「From 0600 to 0800, OceanGate used rigid inflatable boats」「All 5 people were on board the Titan by 0820」
-#     「At 0824 … closed the Titan’s forward dome … using its internal life support system」「At 0859 … a scheduled 5-minute pause」「At 0904 … fill the LARS’s ballast tanks」
-#     ⚠️ 9:04 は次のカット（c314）の語りの時刻＝括弧の端だけ（札を出さない）。past で沈めるだけの点は札なし（`lab=False, t=""`＝21本目の教訓）
-AX_MORN22 = dict(view="clock", span=("3:30", "9:40"), ticks=("4:00", "5:00", "6:00", "7:00", "8:00", "9:00"))
-#   AX_END＝10時40分〜51分（c407・c416）。原文 TSB 付録A「10:41:07.2 SST ack no niskin」「10:42:01.4 T a」「10:47:26.9 T dropped two wts」・
-#     NTSB p.17（p1017）「At 1048, the Polar Prince sent a message back to acknowledge」「At 1049, the Polar Prince sent the Titan a “lost tracking” message but received no response」
-#     ⚠️ 門番 layout：左の端 10:40 だと 10:41:07 の札（左へ振る）が枠の外へ出た＝10:39:30
-AX_END = dict(view="clock", span=("10:39:30", "10:51"), ticks=("10:40", "10:42", "10:44", "10:46", "10:48", "10:50"))
-#   AX_1047＝10時47分の秒（c411・c412）＝米沿岸警備隊の記録。原文 USCG p35「At approximately 10:47:02 a.m., the TITAN sent a message」
-#     「At approximately 10:47:08 a.m., the TITAN transmitted its final ping」「At approximately 10:47:09 a.m., the TITAN submersible suffered a catastrophic implosion」
-#     「At 10:47:11 a.m. … heard a sound described … as a “bang”」「At 10:47:26 a.m. … received a message from the TITAN」（approximately の3つは「ごろ」＝REC_APPROX）
-AX_1047 = dict(view="clock", span=("10:46:50", "10:47:34"), ticks=("10:47:00", "10:47:10", "10:47:20", "10:47:30"))
-#   AX_TWO＝2段の帯（c413〜c415）＝上の段 米沿岸警備隊（USCG p35〜p37）・下の段 カナダの調べ（TSB §1.3.2「At 1047:26.903 … a message appeared」
-#     「At 1047:32.066, … received the last automated position update」「it was calculated that the sound was generated at 1047:32.3」「At 1047:34.522, a loud sound
-#     … reverberated through the hull of the Polar Prince」・§2.1「5.397 seconds after the text message … appeared」）。🆕 秒の小数（axis の clock＝「10:47:26.9」）。
-#     ⚠️ 32.066・34.522 は画面に小数1桁（「10:47:32.1」「10:47:34.5」）＝門番の幅は書いた桁の半分（±0.05秒）に原文の値が入る
-_TU, _TC = "米沿岸警備隊の調べ", "カナダの調べ"
-#     ⚠️ 門番 axis：左の端 10:46:58 だと 10:47:02 の札（左へ振る）が段の名の列にかかった＝10:46:50
-AX_TWO = dict(view="tiers", span=("10:46:50", "10:47:38"), ticks=("10:47:00", "10:47:10", "10:47:20", "10:47:30"), lanes=(_TU, _TC))
-AXI.update({
-    # 朝（AX_MORN22）
-    "arr18": dict(k="pt", at="4:00", t="母船が現場に着く", rec="TSB §1.3.1", c="SHIP"),
-    "brief": dict(k="pt", at="5:34", t="潜航の説明", rec="TSB §1.3.1", c="COMPANY", anchor="end"),
-    "weigh": dict(k="pt", at="5:45", t="重さを量る", rec="TSB §1.3.1", c="COMPANY", anchor="start"),
-    "rib": dict(k="span", a="6:00", b="8:00", t="小舟で台へ", rec="TSB §1.3.1", c="COMPANY"),
-    "aboard": dict(k="pt", at="8:20", t="5人が乗り終える", rec="TSB §1.3.1", c="SUB", anchor="end"),
-    "seal": dict(k="pt", at="8:24", t="艇の中の生命維持へ", rec="TSB §1.3.1", c="SUB", anchor="start"),
-    "pause": dict(k="pt", at="8:59", t="作業を止めて確かめる", rec="TSB §1.3.1", c="COMPANY", anchor="end"),
-    "p5": dict(k="br", a="8:59", b="9:04", t="", rec="TSB §1.3.1"),   # ⚠️ geom_gap：括弧の札「5分」が 8:59 の札と縦の線に触れた＝札なし（5分は副題と語り）
-    # 10時40分〜51分（AX_END）
-    "nisk": dict(k="pt", at="10:41:07", t="母船「了解」", rec="TSB §付録A", c="SHIP", anchor="end"),
-    "a42": dict(k="pt", at="10:42:01", t="潜水艇「a」", rec="TSB §付録A", c="SUB", anchor="start"),
-    "quiet": dict(k="span", a="10:42:01", b="10:47:26.9", t="文字のやりとりが途切れる", rec="TSB §付録A", c="LINE"),
-    "q5": dict(k="br", a="10:42:01", b="10:47:26.9", t="5分あまり", rec="TSB §付録A"),
-    "ack48": dict(k="pt", at="10:48", t="「受け取った」と返す", rec="NTSB p1017", c="SHIP", anchor="end"),
-    "lost49": dict(k="pt", at="10:49", t="「追跡を失った」", rec="NTSB p1017", c="SHIP", anchor="start"),
-    # 10時47分の秒（AX_1047）
-    "snd": dict(k="pt", at="10:47:02", t="文を送る", rec="USCG p35", c="SUB", approx=True, anchor="end"),
-    "ping": dict(k="pt", at="10:47:08", t="最後の位置を送る", rec="USCG p35", c="SUB", approx=True, anchor="end"),
-    "imp": dict(k="pt", at="10:47:09", t="壊れる", rec="USCG p35", c="ALERT", approx=True, big=True, anchor="start"),
-    "bang": dict(k="pt", at="10:47:11", t="「バン」の音", rec="USCG p35", c="SHIP", anchor="start"),
-    "recv": dict(k="pt", at="10:47:26", t="文が届く", rec=["USCG p35", "USCG p36"], c="SHIP", anchor="start"),
-    # 2段の帯（AX_TWO）
-    "u02": dict(k="pt", at="10:47:02", t="送った", rec="USCG p35", c="USCG", lane=_TU, approx=True, anchor="end"),
-    "u09": dict(k="pt", at="10:47:09", t="壊れた", rec="USCG p35", c="ALERT", lane=_TU, approx=True, big=True, anchor="start"),
-    "u26": dict(k="pt", at="10:47:26", t="文が届いた", rec=["USCG p35", "USCG p36"], c="USCG", lane=_TU, anchor="end"),
-    "u32": dict(k="pt", at="10:47:32", t="最後の位置が届いた", rec="USCG p37", c="USCG", lane=_TU, anchor="start"),
-    "c269": dict(k="pt", at="10:47:26.9", t="画面に出た", rec="TSB §1.3.2", c="INST", lane=_TC, anchor="end"),
-    "c321": dict(k="pt", at="10:47:32.1", t="最後の位置", rec="TSB §1.3.2", c="INST", lane=_TC, anchor="end"),
-    # ⚠️ 門番 layout：右へ振ると右の端（x 1848）の外へ出た＝左へ（10:47:26.9 の札と重なる分は上の段へ振られる）
-    "c323": dict(k="pt", at="10:47:32.3", t="壊れた", rec=["TSB §1.3.2", "TSB §2.1"], c="ALERT", lane=_TC, big=True, anchor="end"),
-    "c345": dict(k="pt", at="10:47:34.5", t="船体に音", rec="TSB §1.3.2", c="INST", lane=_TC, anchor="end"),
-    "c54": dict(k="br", a="10:47:26.9", b="10:47:32.3", t="約5.4秒", rec="TSB §2.1"),
-    "lane_c": dict(k="lane", lane=_TC, rec="TSB §1.3.2", c="INST"),
-    "lane_u": dict(k="lane", lane=_TU, rec="USCG p35", c="USCG"),
-})
-# 🆕 2026-10-15（22本目 ⑤b-4）：第4・6・7章の帯（門番 check_axis の REC_AXIS・REC_ROLE が値・頁・役の色を照らす）
-#   AX_PM22＝6月18日の昼から夜（c503〜c506）。原文 USCG p38「as of approximately 10:47 a.m., there was a loss of communication」・
-#     TSB §1.3.3「the estimated resurfacing time was approximately 3 hours and 13 minutes (at 1500)」「At 1500 … commenced the 3-hour surface search」
-#     「At 1634 … the master of the Polar Prince called the Horizon Maritime Services Ltd. shore-based emergency team」「By 1800, the surface search had found no signs」
-#     「At 1855, the master of the Polar Prince called the Joint Rescue and Coordination Centre (JRCC) in Halifax」・USCG p39（船長の陳述「At (6:27 p.m.) … communications
-#     with JRCC were shortly thereafter cut-off」）・TSB §2.5「8 hours and 8 minutes after communication and tracking had been lost」
-AX_PM22 = dict(view="clock", span=("10:20", "19:30"), ticks=("11:00", "13:00", "15:00", "17:00", "19:00"))
-#   AX_CLASS＝船級（c715）。NTSB p1022「when he was hired in 2016, the company planned to class the submersible」・p1023「In 2018, OceanGate abandoned classing efforts」
-AX_CLASS = dict(view="date", span=("2015-06-01", "2019-06-01"), ticks=("2016", "2017", "2018", "2019"))
-#   AX_Y18＝2018年（c807〜c809）。USCG p149「On January 23, 2018, OceanGate fired the Director of Marine Operations」「filed a retaliation complaint with … (OSHA) on
-#     February 6, 2018」・p150「OceanGate filed a lawsuit against him on June 25, 2018」・p151「On December 13, 2018 … withdrew his SPA complaint」・
-#     TSB §1.12.1「because he held different opinions from the CEO on the safety of the Titan」・NTSB p1048「“like Swiss cheese”」
-#     🔧 ⑤c'（10-15）：目盛りが「1日／1月」と日まで出て年が無かった（⑤c の 640px）＝AX_Y20 と同じく月で書く（「1月／2018年」）
-AX_Y18 = dict(view="date", span=("2017-12-10", "2019-01-10"), ticks=("2018-01", "2018-04", "2018-07", "2018-10", "2019-01"))
-#   AX_Y19＝2019年（c817・c818）。USCG p164「On July 26, 2019, OceanGate fired the Director of Engineering」・TSB §1.12.1「On 15 October, the Titan was tested in the
-#     Deep Ocean Test Facility」「Following that test, further cracks and delamination were found」「On 18 November, the Titan’s depth rating was reduced … not to dive
-#     below 2000 m」「This carbon fibre cylinder was not subsequently used for any more dives」。札は語りの細かさ（年月＝fmt="ym"）
-#     🔧 ⑤c'（10-15）：AX_Y18 と同じ（「1日／6月」→ 月で書く）
-AX_Y19 = dict(view="date", span=("2019-05-20", "2019-12-31"), ticks=("2019-06", "2019-07", "2019-08", "2019-09", "2019-10", "2019-11", "2019-12"))
-AXI.update({
-    # 6月18日の昼から夜（AX_PM22）
-    "lost47": dict(k="pt", at="10:47", t="連絡と追跡が途絶える", rec="USCG p38", c="LINE", approx=True, anchor="start"),
-    "surf15": dict(k="pt", at="15:00", t="浮上の見込み", rec="TSB §1.3.3", c="COMPANY", anchor="end"),
-    "srch": dict(k="span", a="15:00", b="18:00", t="海面の捜索", rec="TSB §1.3.3", c="SHIP"),
-    "call1634": dict(k="pt", at="16:34", t="陸の班へ電話", rec="TSB §1.3.3", c="SHIP"),
-    "none18": dict(k="pt", at="18:00", t="手がかりなし", rec="TSB §1.3.3", c="SHIP", anchor="end"),
-    "cut1827": dict(k="pt", at="18:27", t="電話がすぐ切れる", rec="USCG p39", c="SHIP", anchor="end"),
-    "rcc1855": dict(k="pt", at="18:55", t="救難の当局へ", rec="TSB §1.3.3", c="SHIP", anchor="end"),
-    "b88": dict(k="br", a="10:47", b="18:55", t="8時間8分", rec="TSB §2.5"),
-    # 船級（AX_CLASS）
-    "cls16": dict(k="pt", at="2016", t="船級を取るつもり", rec="NTSB p1022", c="COMPANY", fmt="y"),
-    "cls18": dict(k="pt", at="2018", t="船級をあきらめる", rec="NTSB p1023", c="COMPANY", fmt="y"),
-    # 2018年（AX_Y18）＝元運航部長の動きは LINE（会社の外の1人＝役の色を持たない）
-    "fire18": dict(k="pt", at="2018-01-23", t="運航部長を解任", rec="USCG p149", c="COMPANY", fmt="md", anchor="start"),
-    "why18": dict(k="chips", at="2018-01-23", chips=["安全の考えの違い"], rec="TSB §1.12.1"),
-    "osha18": dict(k="pt", at="2018-02-06", t="労働安全衛生局へ", rec="USCG p149", c="LINE", fmt="md", anchor="start"),
-    "swiss": dict(k="chips", at="2018-02-06", chips=["“like Swiss cheese”"], rec="NTSB p1048"),
-    "sue18": dict(k="pt", at="2018-06-25", t="会社が訴える", rec="USCG p150", c="COMPANY", fmt="md"),
-    "wd18": dict(k="pt", at="2018-12-13", t="申し立てを取り下げ", rec="USCG p151", c="LINE", fmt="md", anchor="end"),
-    # 2019年（AX_Y19）
-    "fire19": dict(k="pt", at="2019-07-26", t="技術部長を解任", rec="USCG p164", c="COMPANY", fmt="ym"),
-    "test19": dict(k="pt", at="2019-10-15", t="加圧の試験", rec="TSB §1.12.1", c="COMPANY", fmt="ym", anchor="end"),
-    "crk19": dict(k="chips", at="2019-10-15", chips=["亀裂と剥離"], rec="TSB §1.12.1"),   # ⚠️ geom_gap：「…がさらに」だと11月の項目の札と重なった
-    "der19": dict(k="pt", at="2019-11-18", t="潜る深さを下げる", rec="TSB §1.12.1", c="COMPANY", fmt="ym", anchor="start"),
-    "last19": dict(k="chips", at="2019-11-18", chips=["それきり潜らず"], rec="TSB §1.12.1"),
-})
-# 🆕 2026-10-15（22本目 ⑤b-5）：第8〜9章の帯（門番 check_axis の REC_AXIS・REC_ROLE が値・頁・役の色を照らす）
-#   AX_Y20＝2020〜21年（c908）。NTSB p1028「between November 2020 and January 2021」（月だけの記録＝月の値で置く）・
-#     p1062「OceanGate did not build or test any new sub-scale models using the co-bonding process」
-#     🔧 ⑤b-5 の試し焼き：目盛りを「2020-07-01」と日まで書くと「1日／7月」と出て年が読めなかった＝月で書く（「7月／2020年」）
-AX_Y20 = dict(view="date", span=("2020-06-01", "2021-05-31"), ticks=("2020-07", "2020-10", "2021-01", "2021-04"))
-#   AX_J22＝2022年7月（ca14）。NTSB p1036「On July 15, 2022 (mission 3, dive 80)」・USCG p235「On July 19, 2022, the TITAN and its crew commenced Dive 81」・
-#     TSB 付録B（2022-07-22 の行＝3840）・NTSB p1051「The last of these dives (dive 83) took place on July 23, 2022」・p1036「2,954 meters (9,692 feet) on the final dive」
-AX_J22 = dict(view="date", span=("2022-07-12", "2022-07-26"), ticks=("2022-07-13", "2022-07-15", "2022-07-17", "2022-07-19", "2022-07-21", "2022-07-23",
-                                                                     "2022-07-25"))
-#   AX_2223＝2022年7月〜2023年6月（ca26）。USCG p290「should have been a red flag to stop all dive operations」・NTSB p1060「after dive 82 and before the casualty
-#     dive 11 months later (dive 88)」・TSB 付録B（2022-07-22・2023-06-18 の行）
-AX_2223 = dict(view="date", span=("2022-06-01", "2023-07-31"), ticks=("2022-07", "2022-10", "2023-01", "2023-04", "2023-07"))   # 🔧 同上（年をまたぐ）
-AXI.update({
-    # 2020〜21年（AX_Y20）
-    "build20": dict(k="span", a="2020-11", b="2021-01", t="実物大の筒を作る", rec="NTSB p1028", c="COMPANY"),
-    #   ⚠️ 門番 layout：項目の札（chips）にすると帯の札「実物大の筒を作る」と重なり、線が「1月」の目盛りを貫いた＝点にする
-    "nomodel": dict(k="pt", at="2021-01", t="模型は作らず", rec="NTSB p1062", c="COMPANY", fmt="ym", anchor="start"),
-    # 2022年7月（AX_J22）＝80回目は大きな音（赤）・81〜83回目は潜水艇
-    "d80": dict(k="pt", at="2022-07-15", t="80回目", rec="NTSB p1036", c="ALERT", fmt="md", anchor="end"),
-    "d81": dict(k="pt", at="2022-07-19", t="81回目", rec="USCG p235", c="SUB", fmt="md", anchor="end"),
-    "d82": dict(k="pt", at="2022-07-22", t="82回目", rec="TSB §付録B", c="SUB", fmt="md", anchor="end"),
-    "d83": dict(k="pt", at="2022-07-23", t="83回目", rec="NTSB p1051", c="SUB", fmt="md", anchor="start"),
-    "d83m": dict(k="chips", at="2022-07-23", chips=["別の場所", "2,954メートル"], rec="NTSB p1036"),
-    # 2022年7月〜2023年6月（AX_2223）
-    "bang15": dict(k="pt", at="2022-07-15", t="80回目の音", rec="NTSB p1036", c="ALERT", fmt="md", anchor="end"),
-    "flag": dict(k="chips", at="2022-07-15", chips=["止めるべき赤信号"], rec="USCG p290"),
-    "last82": dict(k="pt", at="2022-07-22", t="最後の深い潜航", rec="TSB §付録B", c="SUB", fmt="md", anchor="start"),
-    "occ23": dict(k="pt", at="2023-06-18", t="事故の潜航", rec="TSB §付録B", c="ALERT", fmt="md", anchor="end"),
-    "m11": dict(k="br", a="2022-07-22", b="2023-06-18", t="約11か月", rec="NTSB p1060"),
-})
-# 🆕 2026-10-15（22本目 ⑤b-6）：第10章の帯（門番 check_axis の REC_AXIS・REC_ROLE が値・頁・役の色を照らす）
-#   AX_OUT＝屋外に置かれた期間（cb03）。USCG p236「On July 26, 2022, the TITAN, the LARS, and associated equipment were demobilized at the A Harvey Marine Base」
-#     「placed in the parking lot of the facility for approximately 7 months of storage」・p238「unprotected from the elements until February 6, 2023」・
-#     TSB §1.22「stored outdoors from the end of July 2022 until 06 February 2023」（括弧の札は語りの「半年あまり」＝数字は書かない）
-AX_OUT = dict(view="date", span=("2022-07-01", "2023-03-15"), ticks=("2022-08", "2022-10", "2022-12", "2023-02"))
-#   AX_RTM＝監視装置の記録が残っている期間（cb16）。TSB §1.10.9「This data spanned from February 2021 to 23 July 2022. There was no data available for the 2023
-#     season」・USCG p139「No real-time monitoring data was available to the MBI from Expedition 2023 (Dives 84-88)」・NTSB p1051「no data were available for the
-#     2023 expedition」。🔧 映像方針の「2022年＝記録あり」→ 原文の期間（2021年2月〜2022年7月23日）。2023年の段＝付録B の人が乗った潜航（5月31日〜6月18日）
-AX_RTM = dict(view="date", span=("2020-12-01", "2023-08-31"), ticks=("2021-01", "2021-07", "2022-01", "2022-07", "2023-01", "2023-07"))
-#   AX_23＝2023年6月（cb19）。TSB 付録B（2023-05-31・06-05・06-13＝深さ10・06-18＝3346）・USCG p256「10 m dives were dives which did not leave the LARS platform」・
-#     USCG p295「Dive 88 was the first dive to leave the LARS platform」・NTSB p1016「the first dive of the 2023 expedition to descend below 33 feet (10 meters)」
-AX_23 = dict(view="date", span=("2023-05-26", "2023-06-24"), ticks=("2023-05-28", "2023-06-02", "2023-06-07", "2023-06-12", "2023-06-17", "2023-06-22"))
-AXI.update({
-    # 屋外（AX_OUT）＝置いたのは会社の決め（TSB §1.22「OceanGate opted to keep the Titan and the LARS in St. John’s」）
-    "out22": dict(k="span", a="2022-07-26", b="2023-02-06", t="屋外に置かれた", rec=["USCG p236", "USCG p238"], c="COMPANY"),
-    "half": dict(k="br", a="2022-07-26", b="2023-02-06", t="半年あまり", rec=["USCG p236", "USCG p238"]),
-    # 監視の記録（AX_RTM）＝装置は会社の物・記録が無い＝灰
-    "rtm_on": dict(k="span", a="2021-02", b="2022-07-23", t="記録がある", rec="TSB §1.10.9", c="COMPANY"),
-    "rtm_off": dict(k="span", a="2023-05-31", b="2023-06-18", t="記録なし", rec=["TSB §1.10.9", "TSB §付録B"], c="TICK"),
-    # 2023年6月（AX_23）＝台を離れない10メートルの潜航（潜水艇）・事故の潜航（赤）
-    "s0531": dict(k="pt", at="2023-05-31", t="", lab=False, rec="TSB §付録B", c="SUB"),
-    "s0605": dict(k="pt", at="2023-06-05", t="", lab=False, rec="TSB §付録B", c="SUB"),
-    "s0613": dict(k="pt", at="2023-06-13", t="", lab=False, rec="TSB §付録B", c="SUB"),
-    # 🔧 ⑤c'（10-15）：札が真ん中の点だけ＝両端の点の意味が伝わらない（⑤b-6 §5-3）＝数を添えて3つの点を1つの札で受ける（付録B の3行）
-    "s10m": dict(k="chips", at="2023-06-05", chips=["台の上の潜航3回"], rec=["TSB §付録B", "USCG p256"]),
-    "first88": dict(k="chips", at="2023-06-18", chips=["初めて台を離れる"], rec=["TSB §付録B", "USCG p295", "NTSB p1016"]),
-})
 
 
 def ax(name, **kw):
@@ -954,6 +785,12 @@ def ax(name, **kw):
 #    ⚠️ 21本目の軸の教訓（1分約11画素の帯は札が重なる＝左右に振り分ける・past で沈めるだけの点は札を出さない〈`ss.ax("dep175", t="", lab=False)`〉・右の端を右上の章の札を避けて
 #       延ばす・左の端は左へ振った札が画面の外へ出ない所に・目盛りを割れる時刻の印〈軸の下へ 22px 伸びる〉に合わせない〈geom_gap〉・近い点は同じ所に置くと縦の線が札を貫く・
 #       ×の印〈x=True・札なし〉は記録が「誤り」とした値だけ〈REC_WRONG〉・年表の札は語りの細かさ〈fmt="ym"〉）は移した注の側にある＝fixture_ep21 の AX_*・AXI の上
+# 🔴 2026-10-18（23本目 ⑤b-1・§0b）：22本目の軸（AX_MORN22・AX_END・AX_1047・AX_TWO＝時間の帯と2段の帯／AX_PM22＝昼から夜の帯／AX_CLASS・AX_Y18・AX_Y19・AX_Y20・AX_J22・
+#    AX_2223・AX_OUT・AX_RTM・AX_23＝年表）と部品 AXI の22本目の項目（arr18〜lane_u・lost47〜last19・build20〜m11・out22〜first88）は `tools/fixture_ep22.py` へ移した
+#    （値は1つも変えていない＝git の `adbe2d5` と同じ）。23本目の軸は ⑤b で `AX_<名> = dict(view, span, ticks)` を足し、`AXI.update({…})` に項目を足す。
+#    ⚠️ 22本目の軸の教訓（秒の小数の時刻〈"10:47:26.9"〉・色は役の色〈だれがしたか＝門番 REC_ROLE〉・日付の帯の目盛りは月で書く〈「1日」だけだと年が出ない〉・左の端は左へ振った札が
+#       枠の外へ出ない所・項目の札〈chips〉は帯の札と重なると点にする・括弧の札が縦の線に触れたら札なし・近い点は左へ振る・past で沈めるだけの点は札なし〈`lab=False, t=""`〉）は
+#       移した注の側にある＝fixture_ep22 の AX_*・AXI の上
 
 
 # ══════════════════════════════════════════════════════════
@@ -1035,81 +872,14 @@ def merge(*parts):
 #    22本目の棒は ⑤b で、値と頁を ref/ep22/src/ep22_pages.txt に当てて入れる
 #    ⚠️ 21本目の棒の教訓（数字は画面に書かない〈目盛りだけ〉・行の名に日付の数字を書かない・行の名に便の数字を書かない〈「北棟の便」「南棟の便」と呼ぶ〉・
 #       時刻の帯にしない点は棒にする）は移した注の側にある＝fixture_ep21 の QG・QB の注
+# 🔴 2026-10-18（23本目 ⑤b-1・§0b）：22本目の棒の群 QG（fee・pax・o2・sf・sf2・slope・tow・dep23）・棒 QB（fee21〜fee23・pax_lim・pax_now・o2_lim・o2_find・sf_ti〜sf_min・
+#    sf2_req〜sf2_ci・slope21・slope22・tow23・dep23_sub・dep23_tt＝c210 参加費・c302 乗客として乗る人・c518 生命維持の時間・c708 設計書の安全率・c917 2つ目の筒の安全率・
+#    ca20 浅い所の傾き・cb10 綱でつながれていた時間・cb14 潜った深さ）は `tools/fixture_ep22.py` へ移した（値は1つも変えていない＝git の `adbe2d5` と同じ）＝ここも門番 check_qty の表も空。
+#    23本目の棒は ⑤b で、値と頁を ref/ep23/src/ep23_pages.txt に当てて入れる
+#    ⚠️ 22本目の棒の教訓（群の名に数字を書かない・行の名は年だけ〈日付の行は同じ色でよい〉・同じ群の棒は色を ΔE 25 以上離す・色は役の色〈だれの値か＝門番 REC_QTY_ROLE〉・
+#       同じ値の棒を何本も並べない〈1本にして断る〉・語りの数字と群の名の写し〈門番 echo〉）は移した注の側にある＝fixture_ep22 の QG・QB の注
 QG = {}
 QB = {}
-# 🆕 2026-10-14（22本目 ⑤b-3b）：c210 参加費（USCG p64「rising from $105,129 in 2021 to $250,000 for both 2022 and 2023」・TSB §1.23「the cost for
-#   1 passenger to join was up to 250 000 U.S. dollars」）＝万ドルの目盛り・行の名は年だけ（日付の行＝同じ色でよい・check_qty の DATE_ROW）。色＝会社
-#   ⚠️ 門番 qty：群の名に数字を書かない（「1人の」は副題へ）
-QG.update({"fee": dict(id="fee", t="参加費（万ドル）", ticks=(0, 10, 20, 30), rows=("2021年", "2022年", "2023年"))})
-QB.update({
-    "fee21": dict(k="bar", g="fee", t="2021年", v=10.5129, rec="USCG p64", c="COMPANY"),
-    "fee22": dict(k="bar", g="fee", t="2022年", v=25, rec="USCG p64", c="COMPANY"),
-    "fee23": dict(k="bar", g="fee", t="2023年", v=25, rec=["USCG p64", "TSB §1.23"], c="COMPANY"),
-})
-# 🆕 22本目 ⑤b-3b：c302 乗客として乗せられる人（TSB §1.20.1.2「it was permitted to carry up to 12 passengers」「on the occurrence voyage, it was carrying
-#   24 passengers」）。上限＝目安の灰・この航海＝会社の色（乗客に数える24人は会社の関係の人＝c303 と同じ色）
-QG.update({"pax": dict(id="pax", t="乗客として乗る人（人）", ticks=(0, 10, 20, 30), rows=("貨物船の決まりの上限", "この航海"))})
-QB.update({
-    "pax_lim": dict(k="bar", g="pax", t="貨物船の決まりの上限", v=12, rec="TSB §1.20.1.2", c="TICK"),
-    "pax_now": dict(k="bar", g="pax", t="この航海", v=24, rec="TSB §1.20.1.2", c="COMPANY"),
-})
-
-
-# 🆕 2026-10-15（22本目 ⑤b-4）：c518 生命維持を始めてからの時間（TSB §1.2.1「enough oxygen to last approximately 96 hours based on an occupancy of 5 people」・
-#   §2.5「located the Titan debris 98 hours and 16 minutes after life support had been started on the Titan, which exceeded the 96 hours」）。
-#   目盛りは24時間ごと（1日）。色＝酸素は潜水艇・見つかるまでの時間はカナダの調べの値（語り「カナダの調べで」）
-#   ⚠️ 門番 echo：群の名「生命維持を始めてから（時間）」は語り「生命維持を始めてから98時間16分後」の写し
-QG.update({"o2": dict(id="o2", t="生命維持の開始からの時間", ticks=(0, 24, 48, 72, 96, 120), rows=("酸素の目安", "見つかるまで"))})
-QB.update({
-    "o2_lim": dict(k="bar", g="o2", t="酸素の目安", v=96, rec=["TSB §1.2.1", "TSB §2.5"], c="SUB"),
-    "o2_find": dict(k="bar", g="o2", t="見つかるまで", v=98 + 16 / 60, rec="TSB §2.5", c="INST"),
-})
-# 🆕 22本目 ⑤b-4：c708 設計書の安全率（TSB §1.12.1「had a safety factor of 2.19 with grade 5 titanium end domes and a safety factor of 2.21 with carbon fibre end
-#   domes」「OceanGate had a goal of 2.25 for the safety factor」・脚注45「that required a minimum safety factor of 1.5」）。行の名に数字を書かない
-QG.update({"sf": dict(id="sf", t="安全率（倍）", ticks=(0, 1, 2, 3), rows=("チタンのドームのとき", "炭素繊維のドームのとき", "会社の目標", "規格の最低"))})
-QB.update({
-    # ⚠️ 門番 qty ⑪：同じ群の棒は色を ΔE 25 以上離す（4本とも会社の橙だと鳴った）
-    #    （第6章は白黒＝灰 TICK が #aca69a に置き換わる＝書類の色 DOC とは ΔE 21 で鳴った・白 INK_W とは 27）
-    #    🔧 ⑤c'（10-15）：前は チタン 橙・炭素繊維 黄・目標 白＝会社の目標が潜水艇の白・設計書の値が会社の橙に読めた（役の色の逆）→
-    #       設計書の2つの値（潜水艇の筒の計算）＝白と黄（黄＝数）・会社の目標＝会社の橙・規格の最低＝灰
-    "sf_ti": dict(k="bar", g="sf", t="チタンのドームのとき", v=2.19, rec="TSB §1.12.1", c="SUB"),
-    "sf_cf": dict(k="bar", g="sf", t="炭素繊維のドームのとき", v=2.21, rec="TSB §1.12.1", c="AMBER"),
-    "sf_goal": dict(k="bar", g="sf", t="会社の目標", v=2.25, rec="TSB §1.12.1", c="COMPANY"),
-    "sf_min": dict(k="bar", g="sf", t="規格の最低", v=1.5, rec="TSB §脚注45", c="TICK"),
-})
-# 🆕 2026-10-15（22本目 ⑤b-5）：c917 2つ目の筒の安全率（TSB §1.12.2「OceanGate also changed its safety factor to 1.25, which aligned with the safety factor
-#   established by the International Organization for Standardization」・§1.15「the calculated safety factor of 3.05, which was greater than the required 1.25」
-#   「the calculated safety factor was 1.11, which did not meet the required safety factor of 1.25」）。何メートルでの値かは書かない（映像方針）。
-#   色＝基準は会社・長さの向きはカナダの研究所の計算・周りの向きは届かない＝赤
-QG.update({"sf2": dict(id="sf2", t="安全率（倍）", ticks=(0, 1, 2, 3, 4), rows=("会社の基準", "長さの向き", "周りの向き"))})
-QB.update({
-    "sf2_req": dict(k="bar", g="sf2", t="会社の基準", v=1.25, rec=["TSB §1.12.2", "TSB §1.15"], c="COMPANY"),
-    "sf2_ax": dict(k="bar", g="sf2", t="長さの向き", v=3.05, rec="TSB §1.15", c="INST"),
-    "sf2_ci": dict(k="bar", g="sf2", t="周りの向き", v=1.11, rec="TSB §1.15", c="ALERT"),
-})
-# 🆕 22本目 ⑤b-5：ca20 浅い所（10〜300m）のひずみの傾きが全体より何%大きいか（TSB §1.10.10.1「on the 05 August 2021 dive for the 10 m to 300 m range,
-#   the strain slope was found to be 21% greater」「on 19 July 2022 dive … 98% greater than the slope for the entire dive profile」）。行の名は年だけ
-#   ⚠️ 門番 qty：行の名「2021年の潜航」は画面の数字（§5b-9）＝日付は語りにある＝「前の年の夏」（2021年8月5日）・「音のあと」（2022年7月19日＝81回目）
-QG.update({"slope": dict(id="slope", t="浅い所の傾きの増え（%）", ticks=(0, 25, 50, 75, 100), rows=("前の年の夏の潜航", "音のあとの潜航"))})
-QB.update({
-    "slope21": dict(k="bar", g="slope", t="前の年の夏の潜航", v=21, rec="TSB §1.10.10.1", c="TICK"),
-    "slope22": dict(k="bar", g="slope", t="音のあとの潜航", v=98, rec="TSB §1.10.10.1", c="INST"),
-})
-
-
-# 🆕 2026-10-15（22本目 ⑤b-6）：cb10 母船の綱につながれていた時間（TSB §1.20.2.2「towed by or tethered to, via a towline, the Polar Prince in the North Atlantic for
-#   approximately 950 hours in the 2023 season」）。行の名は年だけ・色＝母船（引いたのは母船）。
-#   ⚠️ 道のり（USCG p294「more than 2,900 NM」）は描かない＝NTSB p1060 は「about 2,900 miles」と単位が違う・語りに無い
-QG.update({"tow": dict(id="tow", t="綱でつながれていた時間（時間）", ticks=(0, 250, 500, 750, 1000), rows=("2023年",))})
-QB.update({"tow23": dict(k="bar", g="tow", t="2023年", v=950, rec="TSB §1.20.2.2", c="SHIP")})
-# 🆕 22本目 ⑤b-6：cb14 2023年の人が乗った潜航の深さ（TSB §1.21.4「aborted at a depth of 10 m」・NTSB p1014「None of the dives exceeded 33 feet (10 meters) depth」・
-#   付録B の 2023年の3行＝10）とタイタニックの深さ（TSB §1.3「approximately 3800 m」＝目安の灰）。🔧 映像方針の「10m の短い棒3本」→ 1本（同じ群の棒は色を
-#   ΔE 25 以上離す＝同じ値の3本を3色にすると別の物に見える）＝3回とも同じ深さは note で断る。行の名に数字を書かない
-QG.update({"dep23": dict(id="dep23", t="潜った深さ（メートル）", ticks=(0, 1000, 2000, 3000, 4000), rows=("事故の年の潜航", "タイタニック"))})
-QB.update({
-    "dep23_sub": dict(k="bar", g="dep23", t="事故の年の潜航", v=10, rec=["TSB §1.21.4", "NTSB p1014", "TSB §付録B"], c="SUB"),
-    "dep23_tt": dict(k="bar", g="dep23", t="タイタニック", v=3800, rec="TSB §1.3", c="TICK"),
-})
 
 
 def qb(name, **kw):
@@ -1118,12 +888,13 @@ def qb(name, **kw):
 
 # 人の形（1つ＝1人）＝**14本目 c204〜c206 だけの例外**（ルール §C-1 #59・亡くなった方の数には使わない）。
 #   15本目は使わない＝空のまま（門番 check_qty が PEOPLE_CUTS の外の人の形を止める）
-# 🆕 2026-10-14（22本目 ⑤b-3b）：c303 だけ（映像方針 了承②「会社の関係24＝橙・乗組員17＝水色の人の印」）＝母船に乗っていた41人（TSB §1.3.1「There were 41 people
-#   on board the Polar Prince in total: 24 people associated with OceanGate and 17 Polar Prince crew members」）。🔴 亡くなった方を分けない・後の章で戻して灰色にしない
-PEOPLE_ORDER = (("乗客に数える人（会社の関係）", 24), ("母船の乗組員", 17))
+# 🔴 2026-10-18（23本目 ⑤b-1・§0b）：22本目の人の形（c303 だけ＝母船に乗っていた41人〈乗客に数える会社の関係24・母船の乗組員17〉。PEOPLE_ORDER・PEOPLE_REC・PEOPLE_CUTS）は
+#    `tools/fixture_ep22.py` へ移した（値は1つも変えていない＝git の `adbe2d5` と同じ）＝ここも門番 check_qty の表（REC_PEOPLE・REC_PEOPLE_PAGES・REC_PEOPLE_ROLE・PEOPLE_CUTS）も空。
+#    23本目で人の形を使うなら、映像方針の了承を得て、この表と門番の表の両方に入れる（亡くなった方の数には使わない＝ルール §C-1 #59）
+PEOPLE_ORDER = ()
 PEOPLE_SETS = {}
-PEOPLE_REC = {"乗客に数える人（会社の関係）": ["TSB §1.3.1", "TSB §1.20.1.1"], "母船の乗組員": "TSB §1.3.1"}
-PEOPLE_CUTS = ("c303",)     # 🔴 門番 check_qty がこの外の人の形を止める（亡くなった方の数に使わない）
+PEOPLE_REC = {}
+PEOPLE_CUTS = ()     # 🔴 門番 check_qty がこの外の人の形を止める（亡くなった方の数に使わない）
 
 
 def pp(who, c, parent=None):

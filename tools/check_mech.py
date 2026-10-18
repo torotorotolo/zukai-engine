@@ -2922,207 +2922,19 @@ def _selftest_m21(ok):
 # ══════════════════════════════════════════════════════════
 #  🆕 22本目 ⑤b-3b（2026-10-14）：模式図（m22＝`tools/mech22.py`・17の見え方）
 # ══════════════════════════════════════════════════════════
-# 🔴 記録の値は門番の側に別に持つ（§5b-88＝描く側の表 mech22.FUJI_M・RP_T・SD_BOLTS・ORG・PP_DOC・APPB・APPA・DEPTH・BW_DIR・TW_SEABED…を書き換えると鳴る）。
-#    頁の番号は cuts/ss.REC_DOCS の通し番号（USCG p71＝PDF 71頁・NTSB p1010＝PDF 10頁・TSB §1.23＝節）。引いた原文：
-#    NTSB p10「water pressure is 5,554.5 pounds per square inch」「The 22-foot-long submersible Titan」・TSB §1.3「approximately 3800 m」・
-#    USCG p5「August 4, 2025」・NTSB p76「Report Date: October 2, 2025」・TSB §4.2.4「officially released on 17 June 2026」・TSB §1.2.1「up to 5 people」・
-#    TSB 脚注39「OceanGate began using 18 securing bolts」・TSB §1.23 表4（CEO／Chief Operating Officer／Director of Engineering＝Vacant／Director of
-#    Communications／Operations Manager／Director of Logistics and Quality Assurance／Expedition Manager／Director of Administration）・「15 employees」・
-#    USCG p71「experimental submersible vessel」「not been certified by any regulatory body」「mentions death 9 times」・NTSB p15「guests who help fund
-#    OceanGate expeditions」・TSB 付録B 表B1（27行）・付録A（文）・TSB §1.3.2「235 m」「680 m」・USCG p32「9:23:04 … 436 m」・p34「2,203 m … 2,289 m」
-#    「Four minutes later … 3,149 m」・p35「approximately 10:47:02 … 3,341 m」「approximately 10:47:08 … 3,346.28 m」・TSB §1.3.2「approximately 500 m from the seabed」
-#    ・付録A「east south east of the nbow」「east north east of the bow」。富士山 3,776m＝国土地理院・1円玉の直径 20mm＝造幣局（一般の値）
-_TW_ROWS = (
-    ("2021-06-30", "7", "2.6", "5", "Horizon Arctic", "Test", "Forward dome fell off the submersible during recovery"),
-    ("2021-07-03", "1700", "5.8", "4", "Horizon Arctic", "Test", "Starboard thrusters failed"),
-    ("2021-07-09", "3840", "16", "3", "Horizon Arctic", "Test", "Incident with drop weight"),
-    ("2021-07-13", "89", "4.9", "5", "Horizon Arctic", "Test", ""),
-    ("2021-07-19", "3500", "11.3", "5", "Horizon Arctic", "Titanic", "Incident with drop weight"),
-    ("2021-07-24", "3840", "10.7", "5", "Horizon Arctic", "Titanic", "Incident with drop weight"),
-    ("2021-07-27", "3840", "9.5", "5", "Horizon Arctic", "Titanic", "Titan too light, had to thrust to bottom and then starboard battery failed"),
-    ("2021-07-28", "3840", "11.1", "5", "Horizon Arctic", "Titanic", ""),
-    ("2021-08-04", "3840", "10.7", "5", "Horizon Arctic", "Titanic", ""),
-    ("2021-08-05", "3840", "10.8", "5", "Horizon Arctic", "Titanic", ""),
-    ("2022-06-16", "7", "3.5", "5", "Horizon Arctic", "Test", ""),
-    ("2022-06-18", "1380", "6.3", "5", "Horizon Arctic", "Titanic", ""),
-    ("2022-06-20", "3840", "27", "5", "Horizon Arctic", "Titanic", "Batteries died on approach to LARS"),
-    ("2022-07-01", "25", "5", "4", "Horizon Arctic", "Test", ""),
-    ("2022-07-03", "3840", "13", "5", "Horizon Arctic", "Titanic",
-     "Battery and control problems; Titan collided with the port bow of the Titanic and was disabled on recovery"),
-    ("2022-07-06", "3840", "12", "5", "Horizon Arctic", "Titanic", ""),
-    ("2022-07-08", "30", "4.2", "5", "Horizon Arctic", "Test", ""),
-    ("2022-07-11", "10", "3.5", "5", "Horizon Arctic", "Cameron Canyon", ""),
-    ("2022-07-14", "3840", "11.9", "5", "Horizon Arctic", "Titanic", "Issues with tracking and communications"),
-    ("2022-07-15", "3840", "10.9", "5", "Horizon Arctic", "Titanic",
-     "Power failure on the bottom. There was also a loud bang heard by those inside the submersible on surfacing"),
-    ("2022-07-19", "3840", "12.75", "5", "Horizon Arctic", "Titanic", "Thruster control mapping failure, electrical problems"),
-    ("2022-07-22", "3840", "11.1", "5", "Horizon Arctic", "Titanic", "Port horizontal thruster flooded"),
-    ("2022-07-23", "2954", "12.1", "5", "Horizon Arctic", "Hydrographic feature", ""),
-    ("2023-05-31", "10", "2", "5", "Polar Prince", "Test", "Software and camera issues"),
-    ("2023-06-05", "10", "2", "5", "Polar Prince", "Southeast of Cape Race", "Poor visibility on the surface"),
-    ("2023-06-13", "10", "2", "5", "Polar Prince", "Northeast of the Gully", "Ballast system issue"),
-    ("2023-06-18", "3346", "2.05", "5", "Polar Prince", "Titanic", "Occurrence dive"),
-)
-REC_M22 = dict(
-    fuji=dict(fuji_m=3776.0, depth_m=3800.0, psi=5554.5, coin_mm=20.0),
-    reports=[("米沿岸警備隊", "2025年8月", "uscg"), ("米国の運輸安全委員会", "2025年10月", "ntsb"), ("カナダの運輸安全委員会", "2026年6月", "tsb")],
-    side=dict(len_ft=22.0, len_m=6.7, seats=5, bolts=18),
-    org=dict(n=8, vacant={"技術部長"}, first="CEO", staff=15),
-    paper=dict(waiver=["experimental submersible vessel", "not been certified by any regulatory body"],
-               plan=["guests who help fund OceanGate expeditions"], death=9,
-               # 🆕 ⑤b-4（2026-10-15）：NTSB p1063・TSB §1.26.3.1＋NTSB p1024（ブログの引用）・NTSB p1023（脚注17）・NTSB p1047・TSB §1.12.1（点検の報告）・
-               #   NTSB p1023＋TSB §1.12.1（業界の委員会の手紙）。英字は原文のまま（行の切れ目だけ入れた）
-               model=["theoretical models of composite structures", "that assumed perfect geometry and fiber orientation",
-                      "should have validated them through physical testing"],
-               blog=["Why Isn’t Titan Classed?", "by itself, classing is not sufficient to ensure safety"],
-               fn17=["a path for owners to prove seaworthiness of new technology", "no “experimental” design endorsement",
-                     "for vessels carrying passengers or cargo"],
-               emp=["paying clients as “mission specialists.”", "you can’t just change the title of a person", "when you’re receiving compensation."],
-               qa18=["visible voids and delaminations", "end segments that had been cut off", "a full inspection of the cylinder and the bond lines",
-                     "before any dives were conducted with people on board"],
-               mts=["unanimous concern regarding the development of ‘TITAN’", "the current “experimental” approach adopted by OceanGate",
-                    "could result in negative outcomes (from minor to catastrophic)", "a prototype testing program that was reviewed",
-                    "and witnessed by a classification society"]),
-    appb=_TW_ROWS, deep="3840", n_deep=13, years={"2021": 10, "2022": 13, "2023": 4},
-    marks=dict(dome={"2021-06-30"}, batt={"2022-06-20"}, thr={"2021-07-03", "2022-07-19", "2022-07-22"},
-               wt={"2021-07-09", "2021-07-19", "2021-07-24"}, com={"2022-07-14"}),
-    appa=dict(descent=(("9:19:36", "SST", "I hsvr trscking"), ("9:19:43", "T", "descendingb thru 235"), ("9:19:49", "SST", "i have tracking"),
-                    ("9:20:02", "T", "yeah")),
-              restore=(("10:11:55", "T", "lost system oand chat settings"), ("10:14:17", "T", "yes"), ("10:14:35", "T", "all good here"),
-                    ("10:15:39", "SST", "ack all good")),
-              niskin=(("10:36:50", "SST", "remember to write down the location and time of niskin deployment"), ("10:38:06", "T", "n?"),
-                    ("10:38:30", "SST", "remember to write down the location and time when you deploy the niskin bottle"),
-                    ("10:39:36", "T", "when? messages truncated"), ("10:39:57", "SST", "when you deploy niskin"), ("10:40:01", "SST", "write down time"),
-                    ("10:40:04", "SST", "andn location"), ("10:40:56", "T", "no niskin. never cleaned and string baf")),
-              last=(("10:47:26", "T", "dropped two wts"),)),
-    depth=(("9:19", 235.0), ("9:23", 436.0), ("9:31", 680.0), ("10:11", 2203.0), ("10:15", 2289.0), ("10:40:50", 3149.0), ("10:47:02", 3341.0),
-           ("10:47:08", 3346.28)),
-    seabed=3800.0, gap=("9:53", "10:10"),
-    bow=dict(ese=112.5, ene=67.5),
-    two=dict(seabed=500),
-    clock={"8:20", "8:24", "9:04", "9:05", "9:14", "9:23", "10:47:02"},
-    # 🆕 ⑤b-4（2026-10-15）：第4〜7章。原文＝ref/ep22/src/ep22_pages.txt（頁は cuts/ss.REC_DOCS の通し番号）
-    #   send＝NTSB p1017「sent two to three messages every minute」（印の間隔は模式＝この幅の中なら通す）
-    send=dict(lo=2.0, hi=3.0),
-    #   proto＝USCG p39「Internal contacts and backup personnel will be called following 1 hour of no communications plus required surface time」
-    #     「An additional 3 hours of local surface search will be done before contacting outside emergency personnel」・TSB §1.3.3（at 1500・3-hour surface search）
-    proto=("連絡が途絶える", "浮き上がるのを待つ", "近くの海面を探す", "外に知らせる"), proto_role=("LINE", "company", "company", "company"),
-    #   none＝TSB §2.5「did not have a means of determining where the Titan was underwater」「did not have any contracts in place with these ROV operators」／
-    #     USCG p162「OceanGate did not make any external notifications」・p164「The letter, nor any other separate correspondence, disclosed that there was a crack found」
-    none=dict(rescue=("水の中の位置を知る手段", "ROV の会社との救助の契約"), told=("客", "当局", "船級協会")),
-    #   say＝NTSB p1025・USCG p111・USCG p301・NTSB p1048（報告書が引く英字のまま・行の切れ目だけ入れた）・色＝話した人の役
-    say=dict(comp=("LINE", (("“better in compression than tension”",),)),
-             letter=("company", (("there was no damage to the main cylindrical section,", "which is the critical part and a shape",
-                                  "that is far better understood"),)),
-             tv=("company", (("I’d like to be remembered as an innovator.",), ("I’ve broken some rules to make this.",))),
-             rec=("company", (("there is not a lot of confidence on your part", "in the engineering that went into this vessel"),))),
-    #   layers＝NTSB p1059「the five 1-inch-thick layers」・p1040「between layers 1 and 2 and the other was between layers 3 and 4」・
-    #     p1041「layer 1, the innermost co- bonded layer」・p1059「these adhesive interfaces contained long extended voids」
-    layers=dict(n=5, inch=1.0, sep={(1, 2), (3, 4)}, void={(1, 2), (3, 4)}),
-    #   ruler＝TSB §1.3「approximately 3800 m」・TSB §1.12.1「rated up to 6000 m」「a goal of 2.25 for the safety factor」・
-    #     USCG p114「the 4,500 m (14,764 feet) that was the target max pressure depth」・NTSB p1025「an implosion depth about 13,200 meters」
-    ruler=dict(titanic=3800.0, goal=6000.0, op=4500.0, fail=13200.0, sf=2.25),
-    model=dict(dome_m=3000.0),                 # TSB §1.12.1「failed at pressures equivalent to depths of around 3000 m」
-    #   klass＝NTSB p1022「reviewing plans and documentation before and during construction … witnessing critical testing」
-    klass=("設計を確かめる", "工事を確かめる", "試験に立ち会う"),
-    meet=("CEO", "運航部長", "社員", "社員", "社員"),     # TSB §1.12.1「the CEO, the director of operations, and 3 other OceanGate employees」
-    crack=3,                                    # TSB §1.12.1「3 interior cracks on the forward port side of the cylinder」
-    shell=dict(left="鋼かチタンの球", right="炭素繊維の筒"),   # TSB §1.13「typically constructed of steel or titanium」「typically spherical」
-    #   tc＝USCG p274「where the material is primarily under tension」（旅客機の胴体＝中から外へ押す）・「less effective」（深い海の殻＝外から押しつぶす）
-    tc={"旅客機の胴体": True, "深い海の殻": False},         # 矢印が外向きか
-    # 🆕 ⑤b-5（2026-10-15）：第8〜9章（原文＝ref/ep22/src/ep22_pages.txt・頁は cuts/ss.REC_DOCS の通し番号）
-    #   cards＝(題, 中身, 役)。USCG p118「Grafil 37-800, supplied by Mitsubishi Chemical Carbon Fiber & Composites Inc.」・p174「Toray Composite Materials
-    #     America’s」（期限切れの材料の話は3冊に無い＝台本 ②）・NTSB p1027「The model pressure vessel … imploded」「stopped at 2,500 meters … going to fail」・
-    #     TSB §1.12.2「creating the cylinder in 5 layers, each of which was cured separately」「a layer of adhesive was applied」・§1.16「would reasonably have been
-    #     expected to survive」「more than 82% of its fatigue life」・§1.12.2「detect damage in real time」・§2.1「was therefore unknown」・USCG p289「strongly
-    #     suggests」・NTSB p1059「likely sustained damage」・TSB §1.10.10.1「it cannot be determined」・NTSB p1031「based on the acoustic activity of the v1 pressure
-    #     vessel … and of the sub-scale pre-preg pressure vessels」・p1065「never produced the type of acoustic emission signal that would have triggered an alert」
-    cards=dict(wind2=(("1つ目の筒", "樹脂の槽をくぐる糸", "LINE"), ("2つ目の筒", "樹脂を含ませたテープ", "sub")),
-               mat=(("1つ目の筒の糸", "三菱ケミカル系", "LINE"), ("2つ目の筒のテープ", "東レの米国の会社", "sub"), ("期限切れの材料の話", "3つの報告書に無い", "ALERT")),
-               m20=(("1つ目の模型", "壊れた", "ALERT"), ("2つ目の模型", "寸前で試験を止めた", "ALERT")),
-               cure=(("1層を巻く", "テープを巻く", "INK_W"), ("固める", "真空の袋で", "INK_W"), ("接着剤の膜", "表面に塗る", "INK_W"), ("次の層へ", "上に重ねる", "INK_W")),
-               life=(("いちばん強い試料", "耐えた見込み", "tsb"), ("いちばん弱い試料", "82%超を使った可能性", "ALERT")),
-               path=(("壊れるまでの回数", "", "LINE"), ("音の監視", "その場で分かる", "company")),
-               views=(("米沿岸警備隊", "強く示す", "uscg"), ("米運輸安全委員会", "可能性が高い", "ntsb"), ("カナダの調べ", "決められない", "tsb")),
-               base=(("1つ目の船体と模型", "その音を使う", "company"), ("警告の基準", "30回で黄・50回で赤", "company"), ("2つ目の船体", "警告にならず", "sub"))),
-    life=0.82,
-    groove=dict(groove_in=5.0, end_in=5.166),   # NTSB p1043「could only accommodate a 5-inch-thick cylinder」「5.166 inches and 5.175 inches thick」
-    coupons=(9, 9),                             # TSB §1.15「18 samples, 9 in the axial direction and 9 in the circumferential direction」
-    shelf=dict(req=1.25, circ=1.11),            # TSB §1.12.2「changed its safety factor to 1.25」・§1.15「the calculated safety factor was 1.11」
-    #   d80＝NTSB 図19（p1052）を原寸で読んだ点（映像方針・±2分）・音の山＝USCG p283「At 3:26:45 p.m.」（浮上の終わり＝USCG p234「nearing the surface」）
-    d80=(("7:35", 0.0), ("10:05", 3840.0), ("13:35", 3840.0), ("15:16", 0.0)), d80_bang="15:26:45",
-    rtm=dict(ae=8, dead=3, sg=8),               # NTSB p1031「eight acoustic emission sensors, eight circumferential (hoop) strain gages, and eight longitudinal」
-    #                                             「Hoop and longitudinal strain gages were co-located」・p1051「Three of the eight acoustic sensors」
-    ae=dict(up="15:17", esc="15:25:56", peak="15:26:45", band=("15:15", "15:30")),   # USCG p283・p286・NTSB p1052「between about 1515 and 1530」
-    grind={1: 1, 2: 8, 3: 14, 4: 24},          # USCG 図143（p180）の表「Ground wrinkles」1・8・14・24・N/A（原寸で読んだ）
-    year22=dict(year="2022", n=13, deep=7),     # USCG p235「While 7 of the 13 dives reached the TITANIC depth of 3840 m」・NTSB p1035「seven times」
-    screen=dict(y=30, r=50),                    # NTSB p1031「30 hits … a yellow display warning. If 50 hits were detected, a red warning」
-    ruler_role=dict(goal="company", op="company", fail="company", test="company", w650="uscg", w1k="ntsb"),
-)
-REC_M22["paper"].update(
-    # 🆕 ⑤b-5：TSB §1.15・USCG p233＋p311（80回目）・USCG p233＋NTSB p1036（会社の説明）・USCG p290（CEO の指示・見方）。英字は原文のまま（行の切れ目だけ入れた）
-    tsb115=["Assuming that the test results from the samples", "are representative of the properties of the carbon fibre cylinder",
-            "it was unsafe for the Titan to have been repeatedly exposed", "to pressures equivalent to the depth of the Titanic or deeper"],
-    u80=["the TITAN became entangled in the TITANIC’s stairwell", "For a moment, the TITAN remained trapped", "no incident report was filed for this event."],
-    shift=["a shift in the TITAN’s position within its frame", "told the hull had shifted in its metal cradle"],
-    u290a=["directed that no further investigation or assessments", "were necessary ahead of the next scheduled 2022 dive",
-           "or during the TITAN’s extended layup period"],
-    u290b=["neither the Director of Engineering", "nor anyone else onboard with the authority", "to assess the submersible’s safety",
-           "possessed the necessary engineering expertise", "to interpret the strain gauge data"])
-REC_M22["say"]["again"] = ("company", (("“Let’s dive again and see what happens”",),))       # NTSB p1036
-REC_M22["none"]["insp"] = ("内張りを外して見る", "休ませて詳しく調べる")                       # USCG p290「remove the TITAN’s insert or take … out of service」
-REC_M22["ruler"].update(test=4200.0, w650=650.0, w1k=1000.0)   # NTSB p1030「simulated maximum depth of 4,200 meters」・USCG p278「only 650 m」・NTSB p1030「1,000 meters」
-REC_M22["clock"] |= {"15:15", "15:17", "15:30", "15:26:45"}
-# 🆕 ⑤b-6（2026-10-15）：第10〜11章・終章（原文＝ref/ep22/src/ep22_pages.txt・頁は cuts/ss.REC_DOCS の通し番号）
-REC_M22["paper"].update(
-    #   USCG p237（基地のメール）・USCG p328＋p7（結論と要因の8つ目）・NTSB p1073＝p1060（所見2）・TSB §4.2.1＋§1.28.5・USCG p307・TSB §1.30.2（英字は原文のまま・行の切れ目だけ）
-    tarp=["a quote for a tarp for the submersible had been provided", "they had not received approval to proceed", "so the tarp was not purchased."],
-    u8=["unprotected in inclement weather", "compromised the TITAN’s hull integrity.", "failure to conduct preventative maintenance on the TITAN’s hull",
-        "or protect it from the elements"],
-    n73=["After dive 82, the Titan sustained additional damage", "—of unknown origin—that further deteriorated", "and weakened the pressure vessel to a point",
-         "where it could not survive a dive to the depth of the Titanic."],
-    tc=["TC was unaware that the Titan was not registered", "with any flag state.", "both DFO and the CBSA had information about the Titan", "that TC was not aware of."],
-    u307=["Encouraging employees to voice concerns", "without fear of retaliation", "and prioritizing safety over expediency", "could have prevented the sequence of events",
-          "that led to the disaster."],
-    drift=["past success is not a guarantee of future success,", "because this drift occurs gradually,", "it is not easily identifiable",
-           "and may go unnoticed as risk levels grow over time."])
-REC_M22["cards"].update(
-    #   USCG p295「further weakened」・TSB §2.1.3「may have exacerbated existing damage」／TSB §4.2.1〜§4.2.4「the Board recommends that the Department of Transport」
-    #   M26-02〜M26-07／c107 の問い（語り）と答え＝NTSB p1074「local buckling failure of the pressure vessel」・TSB §2.1「carbon fibre cylinder was the likeliest point
-    #   of failure」／USCG p290「directed that no further investigation or assessments were necessary」／USCG p307・NTSB p1074・TSB §3.1（会社）
-    tow=(("米沿岸警備隊", "さらに弱った", "uscg"), ("カナダの調べ", "傷を広げたかも", "tsb")),
-    rec6=tuple((f"M26-0{k}", "運輸省へ", "tsb") for k in range(2, 8)),
-    q3=(("何が壊れたのか", "窓でなく炭素繊維の側", "sub"), ("なぜ潜り続けたのか", "調べずに続けた", "company"), ("誰なら止められたのか", "まず会社自身", "company")))
-#   temp＝TSB §1.22「the average high … was -0.5° and the average low was -5.5°」（単位は「°」だけ＝℃ と書かない）
-REC_M22["temp"] = dict(hi=-0.5, lo=-5.5)
-#   risk＝TSB §1.17.12.1「a risk index of greater than 48 was considered to be a strike」「had a risk index of 35」・USCG p78「three or more “strikes”」
-REC_M22["risk"] = dict(day=35, strike=48, n=3)
-#   cols＝列（調べの役の色）・段の名・札（字・主語の役）。USCG p5「failure to follow established engineering protocols … was the primary causal factor」・
-#     p7 の 1)〜8)（1 設計と試験・2 cycle-life・3 real-time monitoring に頼る・4 incidents のあとも使う・5 hull design and construction の flaws・6 mishaps を調べず・
-#     7 toxic workplace environment・8 preventative maintenance をせず外に）・p8 の 4)「the lack of comprehensive and effective regulations」・
-#     NTSB p1074「failed to establish the actual strength and durability」「Contributing were … voluntary guidance and … regulations that were insufficient」
-#     「Also contributing was OceanGate’s flawed analysis of their pressure vessel monitoring system data」・TSB §3.1「never validated」「fail progressively with
-#     damage accumulating during each dive cycle」・§3.2「without any independent verification」
-REC_M22["cols"] = dict(
-    heads=(("米沿岸警備隊", "uscg"), ("米運輸安全委員会", "ntsb"), ("カナダの調べ", "tsb")),
-    #   🔧 ⑤c'（10-15）：t2 は likely＝「とみられる」（TSB §3.1）。段の名は ed3ffec のまま（「（一部）」は ⑥ の前の注意＝mech22 の CL_TIER の注）
-    #   🔧 ⑥（10-15）：図が一部だけの3段に「（一部）」（USCG p8 のその他の要因4つのうち1つ・TSB §3.1 の5段落のうち2つ・§3.2 の4段落のうち1つ）
-    tiers=(("主な要因", "その他の要因（一部）"), ("推定原因", "寄与"), ("原因と寄与（一部）", "危険の所見（一部）")),
-    items=dict(u0=(0, 1, (("確立した手順に従わず", "company"),)),
-               u8=(0, 1, (("設計と試験が不十分", "company"), ("寿命を調べず", "company"), ("監視の装置に頼りすぎ", "company"), ("傷のあとも使い続けた", "company"),
-                          ("船体の作りの欠陥", "sub"), ("不具合を詳しく調べず", "company"), ("懸念を言えない職場", "company"), ("整備せず外に置いた", "company"))),
-               #   🔧 ⑤b-6 の門番 box：NTSB p1074 の推定原因の3つの部分（failed to establish the actual strength and durability・delamination damage that was
-               #     subsequently exacerbated by additional damage of unknown origin・a local buckling failure）・TSB §3.1 の2つ目（did not follow standard engineering practices）
-               ux=(0, 2, (("規則の足りなさ", "LINE"),)),
-               n1=(1, 1, (("強さと寿命を確かめず", "company"), ("層のはがれと別の傷", "sub"), ("局所の座屈で壊れた", "sub"))), n2=(1, 2, (("規則と指針の足りなさ", "LINE"),)),
-               n3=(1, 2, (("監視の記録の読み違い", "company"),)), t1=(2, 1, (("強さを確かめず", "company"), ("作りと試験が標準外", "company"))),
-               t2=(2, 1, (("傷が積もって壊れたとみられる", "sub"),)),
-               tx=(2, 2, (("独立した確認なし", "LINE"),))),
-    gap=("ux", "n2", "tx"), u7=("u8", 6))
-#   cmp＝重なる所3つ（USCG p7・NTSB p1073〜p1074・TSB §2.1・§3.1）・分かれる所2つ（2022年の音＝ca21・ca22 と同じ言葉＝USCG p289・NTSB p1059・TSB §1.10.10.1）
-REC_M22["cmp"] = dict(heads=(("米沿岸警備隊", "uscg"), ("米運輸安全委員会", "ntsb"), ("カナダの調べ", "tsb")),
-                      rows=(("same", "壊れたのは炭素繊維の筒", None), ("same", "強さと寿命を確かめず", None), ("same", "監視の記録を生かせず", None),
-                            ("cells", "2022年の音の重み", ("強く示す", "可能性が高い", "決められない")), ("band", "最後の数秒の順番", "書き方が違う")))
+# 🔴 2026-10-18（23本目 ⑤b-1・§0b）：22本目の記録 REC_M22 の全項目（富士山とタイタニックの深さ・3つの報告書の名と年月・横から見たタイタン〈全長・席・ボルト〉・職の席8・書類の英文〈免責・計画・
+#    船級・点検・手紙・ブログほか〉・付録B の表27行〈元表 `_TW_ROWS`〉と深さの回数・付録A の吹き出し〈潜航・復旧・ニスキン・最後〉・深さの点・船首のまわりの向き・2つの装置・札に出してよい時刻・
+#    第4〜7章〈送る間隔・手順・救助の手段・話した言葉・層・座屈・物差し・模型・船級・会議・亀裂・殻・矢印〉・第8〜9章〈カード・溝・クーポン・棚・80回目・監視のセンサー・音・研ぎ・2022年・画面の色の決まり〉・
+#    第10〜11章・終章〈ターフ・要因8つ・所見・勧告6つ・温度・ストライク・列 cols・比べ cmp〉）と、その元表 `_TW_ROWS`（付録B の27行）は selftest の見本 `tools/fixture_ep22.py`
+#    （GATES["check_mech"]・値は1つも変えていない＝git の `adbe2d5`）へ移した＝空。selftest は見本の表だけ差し込む（`fixture_ep22.apply(gate, tables_only=True)`）。
+#    23本目で模式図 mech22 の型を使うときは、その回の記録の値をここに別に持つ（§5b-88＝描く側の表 mech22.FUJI_M・RP_T・SD_BOLTS・ORG・PP_DOC・APPB・APPA・DEPTH・BW_DIR・TW_SEABED…を
+#    書き換えると鳴る）。頁の番号の書き方（USCG＝PDF の頁・NTSB＝1000＋PDF の頁・TSB＝節〈§1.3.1・§付録B〉）と引いた原文は移した注の側にある＝fixture_ep22 の REC_M22 の注。
+#    空のあいだ、m22 のカットは `judge_m22` が「記録の表が空」で止まる（fail closed＝KeyError にしない。judge_m21 と同じ）。
+#    ⚠️ **本番に残したもの（見本に入れていない）＝`_M22_NEED`（「先に起きることが先」の筋の表）と `NUM_M22`（札の数と時刻を拾う正規表現）・`_m22_min`・`cols_note_clash`**。判断の理由（`_M21_NEED` と同じ）：
+#       `_M22_NEED` は mech22 の見え方〈view〉と欄の名の約束（水の重さを見せてから1円玉・外から締めるボルトを見せてから「出入りはここだけ」・浮きのタンクに水を入れてから台が沈む…）を並べた表で、
+#       記録の値（時刻・数・座標・頁の照合）を持たない＝型の側の規則（メッセージの括弧の時刻〈9:04→9:05 など〉は理由の注で、照合には使っていない）。値を持つ表になったら、その行は見本へ移す。
+#       23本目で見え方を足すときは、その見え方の筋をこの表に足す
+REC_M22 = {}
 _M22_NEED = (
     ("fuji", "coin", "on", "press", {"on"}, "1円玉と乗用車は、水の重さを見せてから"),
     ("side", "only", "on", "bolts", {"on"}, "「出入りはここだけ」は、外から締めるボルトを見せてから"),
@@ -3194,6 +3006,8 @@ def judge_m22(f):
     g, view = m["geo"], m["view"]
     seq = [m["start"]] + list(m["states"])
     R = REC_M22
+    if not R:       # 🆕 23本目 ⑤b-1：記録の表が空のあいだは止める（KeyError で理由が見えなくならない＝fail closed。judge_m21・judge_m20 と同じ）
+        return ["記録の表 REC_M22 が空（23本目の値を入れるまで、m22 のカットは止まる）"], 1
     texts = list(m["tags"])
 
     def need(cond, msg):
@@ -3774,6 +3588,10 @@ def selftest():
     #    見本 fixture_ep21 の表だけ差し込む（ss・GEO は触らない＝14本目の見本を壊さない）。main() が restore で戻す（LIFO＝21→20→19→18→16→15→14）
     import fixture_ep21
     fixture_ep21.apply(sys.modules[__name__], tables_only=True)
+    # 🔴 2026-10-18（23本目 ⑤b-1）：下の22本目の模式図（m22）の検算 `_selftest_m22` は REC_M22 を使う＝本番の表は23本目の空の器なので、
+    #    見本 fixture_ep22 の表だけ差し込む（ss・GEO は触らない＝14本目の見本を壊さない）。main() が restore で戻す（LIFO＝22→21→20→19→18→16→15→14）
+    import fixture_ep22
+    fixture_ep22.apply(sys.modules[__name__], tables_only=True)
     N = "模式図：テスト"
     ok = True
     closing = [dict(state=dict(hook="closed", motor="run"), tag=dict(t="フックが回る")),
@@ -4105,6 +3923,8 @@ def main():
     import fixture_ep19
     import fixture_ep20
     import fixture_ep21
+    import fixture_ep22
+    fixture_ep22.restore()       # 🔴 23本目 ⑤b-1：selftest で足した22本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep21.restore()       # 🔴 22本目 ⑤b-1：selftest で足した21本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep20.restore()       # 🔴 21本目 ⑤b-1：selftest で足した20本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep19.restore()       # 🔴 20本目 ⑤b-1：selftest で足した19本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）

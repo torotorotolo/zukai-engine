@@ -38,11 +38,25 @@ def main():
 
 
 def selftest():
+    """🔴 2026-10-18（23本目 ⑤b-1・§0b）：22本目の実物（地図のカット9つ・衛星写真の表 `ss.SAT`・場所の表 `ss.GEO`）は本番から見本 `tools/fixture_ep22.py` へ移した
+    ＝見本の ss の表（SAT・GEO ほか）と22本目の章ファイル（apply_cuts＝git の `adbe2d5`）を差して回し、最後に restore（LIFO）。
+    この門番の照合（`satmap.check`）が読む ss の名は SAT・GEO だけ（`SAT[…]["file"]` は `ep22/…` の名を文字で持つ＝REF・EP の差し替えは要らない。
+    写真の権利の台帳 `ss._assets()` も読まない）"""
+    import fixture_ep22
+    fixture_ep22.apply()
+    fixture_ep22.apply_cuts()
+    try:
+        return _selftest()
+    finally:
+        fixture_ep22.restore()
+
+
+def _selftest():
     import cuts
     import cuts.ss as ss
     base = {c: s for c, s in cuts.SPEC.items() if s.get("sat")}
     if not base:
-        print("🔴 地図のカットが SPEC に無い＝陽性対照が作れない")
+        print("🔴 地図のカットが SPEC に無い＝陽性対照が作れない（見本 fixture_ep22 の apply_cuts が22本目の章ファイルを読めていない）")
         return 1
     cid = sorted(base)[0]
     ok = True
@@ -63,7 +77,7 @@ def selftest():
         ok &= bool(hit)
 
     clean, _, _ = M.check(base)
-    print(f"  {'✓' if not clean else '🔴'} 陰性：本番の地図のカット {len(base)} は 0件（{len(clean)}件）")
+    print(f"  {'✓' if not clean else '🔴'} 陰性：22本目の見本の地図のカット {len(base)} は 0件（{len(clean)}件）")
     ok &= not clean
     s = copy.deepcopy(base)
     s[cid]["color"] = 0.5

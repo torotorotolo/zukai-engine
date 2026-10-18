@@ -78,73 +78,29 @@ sys.stdout.reconfigure(encoding="utf-8")
 #    秒まである時刻・基準 ref からの「約○分前」・並び order の物差し・REC_WRONG を読む×の印の判定）は残す。
 #    頁の番号の書き方（委員会報告＝印字の頁・図表・NIST＝7000＋PDF の頁・法律ほか頁の無い資料は「名 p1」）と引いた原文・about の時刻・2段の帯の段の名・×の印を置いてよい値は
 #    移した注の側にある＝fixture_ep21 の REC_AXIS の上
-# ✅ 2026-10-14（22本目 ⑤b-3b）：22本目の値を入れた。原文＝ref/ep22/src/ep22_pages.txt（頁の番号は cuts/ss.REC_DOCS の通し番号＝USCG p35＝PDF 35頁・
-#    NTSB p1017＝PDF 17頁・TSB §1.3.1＝節）。時刻はニューファンドランドの夏時間（TSB 脚注13）。
-#    TSB §1.3.1「arrived … at 0400 on 18 June」「At 0534 … briefing」「At 0545 … weighed」「From 0600 to 0800 … RIBs」「by 0820」「At 0824 … closed the Titan’s forward dome」
-#      「At 0859 … a scheduled 5-minute pause」「At 0904 … fill the LARS’s ballast tanks」
-#    TSB 付録A「10:41:07.2 SST ack no niskin」「10:42:01.4 T a」「10:47:26.9 T dropped two wts」／NTSB p.17「At 1048 … acknowledge」「At 1049 … “lost tracking”」
-#    USCG p35「At approximately 10:47:02 a.m.」「At approximately 10:47:08 a.m. … final ping」「At approximately 10:47:09 a.m. … catastrophic implosion」
-#      「At 10:47:11 a.m. … “bang”」「At 10:47:26 a.m. … received a message」（p36「This was the last message」）・p37「At 10:47:32 a.m., the POLAR PRINCE received the ping」
-#    TSB §1.3.2「At 1047:26.903 … a message appeared」「At 1047:32.066 … the last automated position update」「the sound was generated at 1047:32.3」
-#      「At 1047:34.522, a loud sound … reverberated through the hull」・§2.1「5.397 seconds after the text message … appeared」
-#    ⚠️ 秒の小数は画面に1桁（32.066→「10:47:32.1」・34.522→「10:47:34.5」）＝門番の幅（書いた桁の半分 ±0.05秒）に原文の値が入る
-_TU, _TC = "米沿岸警備隊の調べ", "カナダの調べ"
-REC_AXIS = {
-    "4:00": {"TSB §1.3.1"}, "5:34": {"TSB §1.3.1"}, "5:45": {"TSB §1.3.1"}, "6:00": {"TSB §1.3.1"}, "8:00": {"TSB §1.3.1"},
-    "8:20": {"TSB §1.3.1"}, "8:24": {"TSB §1.3.1"}, "8:59": {"TSB §1.3.1"}, "9:04": {"TSB §1.3.1"},
-    "10:41:07": {"TSB §付録A"}, "10:42:01": {"TSB §付録A"}, "10:47:26.9": {"TSB §付録A", "TSB §1.3.2", "TSB §2.1"},
-    "10:48": {"NTSB p1017"}, "10:49": {"NTSB p1017"},
-    "10:47:02": {"USCG p35"}, "10:47:08": {"USCG p35"}, "10:47:09": {"USCG p35"}, "10:47:11": {"USCG p35"},
-    "10:47:26": {"USCG p35", "USCG p36"}, "10:47:32": {"USCG p37"},
-    "10:47:32.1": {"TSB §1.3.2"}, "10:47:32.3": {"TSB §1.3.2", "TSB §2.1"}, "10:47:34.5": {"TSB §1.3.2"},
-    # 🆕 2026-10-15（22本目 ⑤b-4）：USCG p38「as of approximately 10:47 a.m., there was a loss of communication」・TSB §1.3.3「(at 1500)」「At 1500 … commenced the
-    #   3-hour surface search」「At 1634, … called the Horizon Maritime Services Ltd. shore-based emergency team」「By 1800, the surface search had found no signs」
-    #   「At 1855, the master … called the Joint Rescue and Coordination Centre」・USCG p39「At (6:27 p.m.) … cut-off」・TSB §2.5「8 hours and 8 minutes」
-    "10:47": {"USCG p38", "TSB §2.5"}, "15:00": {"TSB §1.3.3"}, "16:34": {"TSB §1.3.3"}, "18:00": {"TSB §1.3.3"}, "18:27": {"USCG p39"},
-    "18:55": {"TSB §1.3.3", "TSB §2.5"},
-    #   NTSB p1022「when he was hired in 2016, the company planned to class」・p1023「In 2018, OceanGate abandoned classing efforts」
-    "2016": {"NTSB p1022"}, "2018": {"NTSB p1023"},
-    #   USCG p149「On January 23, 2018, OceanGate fired」「on February 6, 2018」・p150「on June 25, 2018」・p151「On December 13, 2018」・TSB §1.12.1・NTSB p1048
-    "2018-01-23": {"USCG p149", "TSB §1.12.1"}, "2018-02-06": {"USCG p149", "NTSB p1048"}, "2018-06-25": {"USCG p150"}, "2018-12-13": {"USCG p151"},
-    #   USCG p164「On July 26, 2019, OceanGate fired the Director of Engineering」・TSB §1.12.1「On 15 October」「On 18 November」
-    "2019-07-26": {"USCG p164"}, "2019-10-15": {"TSB §1.12.1"}, "2019-11-18": {"TSB §1.12.1"},
-    # 🆕 2026-10-15（22本目 ⑤b-5）：NTSB p1028「between November 2020 and January 2021」・p1062「did not build or test any new sub-scale models」
-    "2020-11": {"NTSB p1028"}, "2021-01": {"NTSB p1028", "NTSB p1062"},
-    #   NTSB p1036「On July 15, 2022 (mission 3, dive 80)」「2,954 meters (9,692 feet) on the final dive」・USCG p235「On July 19, 2022 … commenced Dive 81」・
-    #   TSB 付録B（2022-07-22・2023-06-18 の行）・NTSB p1051「(dive 83) took place on July 23, 2022」・USCG p290「a red flag」・NTSB p1060「11 months later」
-    "2022-07-15": {"NTSB p1036", "USCG p290"}, "2022-07-19": {"USCG p235"}, "2022-07-22": {"TSB §付録B", "NTSB p1060"},
-    "2022-07-23": {"NTSB p1051", "NTSB p1036", "TSB §1.10.9"}, "2023-06-18": {"TSB §付録B", "NTSB p1060"},
-    # 🆕 2026-10-15（22本目 ⑤b-6）：USCG p236「On July 26, 2022, … were demobilized at the A Harvey Marine Base」・p238「until February 6, 2023」・
-    #   TSB §1.10.9「This data spanned from February 2021 to 23 July 2022」・TSB 付録B（2023-05-31・2023-06-05・2023-06-13＝10）
-    "2022-07-26": {"USCG p236"}, "2023-02-06": {"USCG p238"}, "2021-02": {"TSB §1.10.9"},
-    "2023-05-31": {"TSB §付録B"}, "2023-06-05": {"TSB §付録B"}, "2023-06-13": {"TSB §付録B"},
-}
-LANES_OK = {_TU, _TC}
-REC_APPROX = {"10:47:02", "10:47:08", "10:47:09", "10:47"}      # 記録が about の時刻（「ごろ」が要る）＝USCG p35・p38 の approximately
+# 🔴 2026-10-18（23本目 三豊百貨店崩壊事故のリメイク ⑤b-1・§0b）：22本目の表（REC_AXIS＝第2〜3章の朝・10時40分〜51分・10時47分の秒・2段の帯〈米沿岸警備隊の調べ／カナダの調べ〉・
+#    第4・6・7章の昼から夜・船級・2018年・2019年・第8〜9章の2020〜21年・2022年7月・2022年7月〜2023年6月・第10章の屋外・監視の記録・2023年6月／LANES_OK＝2段の帯の段の名 2つ／
+#    REC_APPROX＝記録が about の時刻 4つ／REC_LANE＝2段の帯の記録ごとの段 10／REC_ROLE＝1段の帯の値ごとの役の色 46／LANE_ROLE＝2段の帯の段の役／TIER_ALERT＝2段の帯で赤にしてよい値 2つ）も
+#    **空にした**。selftest の見本 `tools/fixture_ep22.py`（GATES["check_axis"]・値は1つも変えていない＝git の `adbe2d5`）。23本目の値は、軸の型を初めて使う ⑤b のチャットで、
+#    値と頁を ref/ep23/src/ep23_pages.txt で当てて入れる（空のあいだ、軸のカットは「記録に無い値」で止まる＝fail closed。役の色は `_ROLE_ON` の本番で「役の色の表に無い値」として止まる）。
+#    型の側（LANE_COL・CH_PAD・tier_pierce・秒の小数の読み方〈"10:47:26.9"＝書いた桁の半分〉・「ごろ」・日の目盛り・目盛りがどれも「1日」の検査・役の色の判定 `_role_check`・`_hex`・
+#    秒まである時刻・基準 ref からの「約○分前」・並び order の物差し・REC_WRONG を読む×の印の判定）は残す。
+#    頁の番号の書き方（USCG＝PDF の頁・NTSB＝1000＋PDF の頁・TSB＝節〈§1.3.1・§付録A〉）と引いた原文・about の時刻・2段の帯の段の名・役の色の決め方は
+#    移した注の側にある＝fixture_ep22 の REC_AXIS・REC_ROLE の上
+REC_AXIS = {}
+LANES_OK = set()
+REC_APPROX = set()      # 記録が about の時刻（「ごろ」が要る）
 LANE_COL = 20        # 🆕 18本目 ⑤b-5：2段の帯の札が軸の左端より左へ出てよい画素（段の名の列にかけない）
-REC_LANE = {"10:47:02": _TU, "10:47:08": _TU, "10:47:09": _TU, "10:47:11": _TU, "10:47:26": _TU, "10:47:32": _TU,
-            "10:47:26.9": _TC, "10:47:32.1": _TC, "10:47:32.3": _TC, "10:47:34.5": _TC}   # 2段の帯の記録ごとの段（値 → 段の名）
+REC_LANE = {}             # 2段の帯の記録ごとの段（値 → 段の名）
 REC_WRONG = {}            # 🆕 21本目 ⑤b-6：×の印（axis の x=True）を置いてよい値 → 頁の集合（記録が「誤り」とした値と、その頁）
 # 🆕 2026-10-14（22本目 ⑤b-3b）：**役の色**（記憶 feedback-jiko-diagrams-more-color・`jiko_style.ROLE`）。型の側の色（AXI の c）と別に、門番の側で
 #    「その値はだれの動きか」を持つ＝描いた部品の色の値が役の色の値と同じか照らす（[[feedback-settings-may-not-reach-the-picture]]＝設定でなく描いた値）。
 #    REC_ROLE＝1段の帯（clock）の値 → 役（ROLE の名か意味の色の名）・帯 span は「始め〜終わり」の鍵。LANE_ROLE＝2段の帯の段 → 役（段の点は段の調べの色）・
 #    TIER_ALERT＝2段の帯で赤（壊れた）にしてよい値。表に無い値は本番（main）で止める（selftest の前の回の見本は表を持たない＝照らさない）
-REC_ROLE = {
-    "4:00": "ship", "5:34": "company", "5:45": "company", "6:00〜8:00": "company", "8:20": "sub", "8:24": "sub", "8:59": "company",
-    "10:41:07": "ship", "10:42:01": "sub", "10:42:01〜10:47:26.9": "LINE", "10:48": "ship", "10:49": "ship",
-    "10:47:02": "sub", "10:47:08": "sub", "10:47:09": "ALERT", "10:47:11": "ship", "10:47:26": "ship",
-    # 🆕 2026-10-15（22本目 ⑤b-4）：途絶＝だれの動きでもない（LINE）・浮上の見込み＝会社の手順・捜索と電話＝母船（船長）／会社の決め＝会社・元運航部長＝LINE
-    "10:47": "LINE", "15:00": "company", "15:00〜18:00": "ship", "16:34": "ship", "18:00": "ship", "18:27": "ship", "18:55": "ship",
-    "2016": "company", "2018": "company", "2018-01-23": "company", "2018-02-06": "LINE", "2018-06-25": "company", "2018-12-13": "LINE",
-    "2019-07-26": "company", "2019-10-15": "company", "2019-11-18": "company",
-    # 🆕 2026-10-15（22本目 ⑤b-5）：筒を作る＝会社（作り手に頼んだ）・80回目の音と事故の潜航＝赤・81〜83回目と最後の深い潜航＝潜水艇
-    "2020-11〜2021-01": "company", "2021-01": "company", "2022-07-15": "ALERT", "2022-07-19": "sub", "2022-07-22": "sub", "2022-07-23": "sub", "2023-06-18": "ALERT",
-    # 🆕 2026-10-15（22本目 ⑤b-6）：屋外に置いた＝会社の決め・記録がある期間＝会社の装置・記録なし＝灰・台の上の10メートルの潜航＝潜水艇
-    "2022-07-26〜2023-02-06": "company", "2021-02〜2022-07-23": "company", "2023-05-31〜2023-06-18": "TICK",
-    "2023-05-31": "sub", "2023-06-05": "sub", "2023-06-13": "sub",
-}
-LANE_ROLE = {_TU: "uscg", _TC: "tsb"}
-TIER_ALERT = {"10:47:09", "10:47:32.3"}
+#    🔴 2026-10-18（23本目 ⑤b-1・§0b）：この3つの表の22本目の値は見本 `tools/fixture_ep22.py` へ移した＝空（役の色の判定 `_role_check` は型＝残す）
+REC_ROLE = {}
+LANE_ROLE = {}
+TIER_ALERT = set()
 _ROLE_ON = [False]        # 本番（main）だけ「役の表に無い値」を止める
 CH_PAD = 12         # 🆕 16本目 ⑤b-6b：札と右上の章の札（jiko_style.chapter）のあいだに要る画素
 _REF = [None]        # 🆕 19本目 ⑤b-5：「約○分前」の基準（分）＝judge_fig が kw の ref を門番の読み方で読んで置く
@@ -927,7 +883,20 @@ def _selftest_ep21():
 
 
 def selftest_ep22():
-    """🆕 22本目 ⑤b-3b：役の色の検算（本番の表＝前の回の見本を差す前に回す）。正しい帯は通り、色を取り替えると鳴る。"""
+    """🆕 22本目 ⑤b-3b：役の色の検算。正しい帯は通り、色を取り替えると鳴る。
+    ✅ 2026-10-18（23本目 ⑤b-1・§0b）：本番の表（この門番の REC_AXIS・LANES_OK・REC_APPROX・REC_LANE・REC_ROLE・LANE_ROLE・TIER_ALERT）は23本目の空の器にした＝22本目の値は
+       `fixture_ep22.GATES["check_axis"]`（15・16・18・19・21本目と同じ作り）。ss の側（AXI・AX_*）も22本目の見本になる＝落ちても終わっても
+       `restore()` で本番の値へ戻す（try/finally）。本体は `_selftest_ep22`"""
+    import fixture_ep22
+    fixture_ep22.apply(sys.modules[__name__])
+    try:
+        return _selftest_ep22()
+    finally:
+        fixture_ep22.restore()
+
+
+def _selftest_ep22():
+    """22本目の検算の本体（`fixture_ep22` を差し込んだ中で呼ぶ）。"""
     import cuts.ss as ss
     ok = True
     one = dict(ss.AX_1047, steps=[dict(add=[ss.ax("snd"), ss.ax("ping"), ss.ax("imp")], cur="10:47:09")], note="n", src="s")
@@ -952,7 +921,8 @@ def selftest_ep22():
 
 
 def selftest():
-    # 🆕 2026-10-14（22本目 ⑤b-3b）：本番の表（22本目）の役の色を、前の回の見本を差す前に検算する
+    # 🆕 2026-10-14（22本目 ⑤b-3b）：22本目の役の色を、前の回の見本を差す前に検算する
+    #    （2026-10-18〜：22本目も見本 fixture_ep22 の表＝selftest_ep22 が差し込んで・終わったら戻す）
     ok = selftest_ep22()
     # 🆕 2026-10-14（22本目 ⑤b-1）：先に21本目を検算する＝前の回の見本を差す前に（見本 fixture_ep21 の表＝selftest_ep21 が差し込んで・終わったら戻す）
     ok &= selftest_ep21()
