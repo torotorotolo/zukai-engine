@@ -159,8 +159,14 @@ SCREEN_AR = W / H
 #    🔴 2026-10-18（23本目 ⑤b-1）：下の値 0.99 は**22本目の束の値のまま**（§0b で空にする値ではなく、束ごとに取り直す定数＝数なので空の器が
 #       作れない。16→18本目のときの 1.10 と同じ扱い）。23本目の束（`python qa_out/ep23_assets.py panel` の並び）で取り直す。
 #       それまで WIDE_AR も22本目の値（3.19）から導かれる。見本 `tools/fixture_ep22.py` には入れていない（16・18・19・20・21本目の見本も入れていない）
-PANEL_AR = 0.99                 # これ未満＝縦長すぎ（上下が切れる）
-WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝3.19（22本目の値から）。これ超＝横長すぎ
+#    ✅ 2026-10-18（23本目 ⑤b-2）に**23本目の束（写真93点＋イメージ8点＝101点）で取り直した**。`python qa_out/ep23_assets.py panel` の並びで、
+#       16:9 より縦長の側のいちばん大きな切れ目は AR 0.737（c182_3840＝本部の縦長の大きい写真）→ 1.333（stock/c802a＝イメージ 4:3）の 59.7ポイント
+#       ＝中点 1.0350 を丸めて 1.04（次は 1.333→1.411 の 7.8・0.697→0.724 の 2.7）。
+#       ⚠️ 縦長の写真（本部の 960px の縦長・研究院の縦長4・歴史編纂院 109）は kind() で額装＝了承② 決め3 の「縦長の研究院は額装・額の中で寄る」と合う
+#       ⚠️ 本部の 960px と歴史編纂院（幅1000未満）は MIN_FULL_W で額装・BY-SA は権利で額装だけ（check_frame_only）。全面は研究院の横長14とイメージ
+#       ⚠️ WIDE_AR＝3.04 になる（いちばん横長は stock/c313b・c314b の 1.778）
+PANEL_AR = 1.04                 # これ未満＝縦長すぎ（上下が切れる）
+WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝3.04（23本目の値から）。これ超＝横長すぎ
 
 # 報告書の頁から切る図の矩形（写真と頁の束のチャットで作る `ref/<回>/pages.json`＝15本目は `ref/ep15/pages.json`）。
 _PAGES_FILE = REF / "pages.json"
@@ -503,7 +509,13 @@ NG_PHOTOS: dict[str, str] = {}
 #    🔴 2026-10-13（21本目 ⑤b-7）：保留していた顔だけモザイクの3点（SEC70・SHANK15・TSA20）は2倍に拡大して測った＝**私人の分かる顔は0**
 #       （制服の保安係＝公務・追悼の場の来訪者の顔 約4px の遠景・TSA20 は手前の列の客を束の段階で切り落とした＝`qa_out/ep21_assets.py` の CROP の注）
 #       ＝ここは空のまま（門番 photomask の「0件」は調べた結果）
-NEEDS_MASK: dict[str, str] = {}
+#    🆕 2026-10-18（23本目 ⑤b-2）：了承② 決め2（研究院・歴史編纂院の私人は顔だけモザイク）＝範囲は `ref/ep23/eizou_build/mask23.tsv`（⑤b-1 に原寸で測った・
+#       元の画像の画素）→ 束（`qa_out/ep23_assets.py build`）で升 14px の升目にした。歴史編纂院 104 は10本目に顔と名前を隠した版をそのまま使う
+NEEDS_MASK: dict[str, str] = {
+    P("sire_52400"): "研究院 52400（c104・cd08）＝手前の右を歩く男性（私人）の横顔だけモザイク（左の男性は後ろ姿）",
+    P("hs_2301030077_0"): "歴史編纂院 077（cb06）＝写真展を見る大人の男性と子ども（私人）の顔だけモザイク",
+    P("missing_board_01"): "歴史編纂院 104（cb03）＝行方を探す掲示板の顔写真と名前を隠した版（10本目 `ref/ep10/missing_board_01.jpg`）",
+}
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**スライドの台紙の黒い縁がある写真**（名 → 何か）。全画面で流す・寄る窓が縁に入らないかを門番
 #    `tools/check_photo_edge.py` が測る（縁の幅は**絵から毎回測る**＝ここには書かない）。夜空など縁でない暗い所の写真は入れない。
@@ -527,7 +539,15 @@ SLIDE_MOUNT: dict[str, str] = {}
 #       文字で書いた・説明は1字も変えていない＝git の `adbe2d5`）。⚠️ SLIDE_MOUNT も SLIDE_NOT_MOUNT も空のあいだ、門番 check_photo_edge は「SLIDE_MOUNT が空」で止まる
 #       （fail closed）＝23本目の束のチャットで、台紙の縁のある写真があれば SLIDE_MOUNT を、無ければ暗い帯のある点を SLIDE_NOT_MOUNT に理由つきで書く
 #       （鍵は `P("名")` で書けば EP が追う＝回の名に化けない）
-SLIDE_NOT_MOUNT: dict[str, str] = {}
+#    🆕 2026-10-18（23本目 ⑤b-2）：`python qa_out/ep23_assets.py edges` で束の全101点を測った＝MIN_EDGE 以上は5点。帯の中の1px ごとの明るさとばらつき
+#       （scratchpad `band23.py`）で、ばらつきの大きい3点は写真の中身・ほぼ一様に暗い2点（31740 の下・c216b の左右）は絵で見た（原寸の帯と全体）＝台紙の縁は0点
+SLIDE_NOT_MOUNT: dict[str, str] = {
+    P("c203"): "夜の救急車の列＝右 4.9%・下 5.0% は夜の暗がり（帯の中の明るさのばらつき 30〜50＝写真の中身）",
+    P("sire_31733"): "跡地（2000年2月）＝下 5.0% は手前の地面の陰（ばらつき 18〜47）",
+    P("sire_31740"): "跡地の空き地（2000年2月）＝下 5.0% は舗装の上の影（撮影者の影が伸びる・原寸の帯で見た）",
+    P("sire_50279"): "瑞草洞の通り（1995年）＝左 4.5% は通りの暗い建物の陰（ばらつき 38〜57）",
+    P("stock/c216b"): "イメージ（黄色いバルブ）＝左右 5% は暗くぼけた背景（全体で見た・縁でない）",
+}
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**原寸で見て字でないと決めた OCR の範囲**（OCR の読み置きのファイル名 → [((x0, y0, x1, y1)＝束の画素, 何か)]）。
 #    `check_slide.load_ocr` がこの中に真ん中のある行を外す（外した行は「文字行と見なさなかった」の表に理由つきで出る）。
@@ -552,7 +572,14 @@ PRIVATE_OUT: dict[str, list] = {
 @lru_cache(maxsize=None)
 def size_of(name):
     from PIL import Image
-    with Image.open(HERE / "ref" / name) as im:
+    p = HERE / "ref" / name
+    if not p.exists() and name.startswith(EP + "stock/") and not name.split("/")[-1].startswith("fb_"):
+        # 🆕 2026-10-18（23本目 ⑤b-2）：イメージの写真（Pexels＝git に入れない・19本目 決め⑨）は Actions・Modal では `footage.stock_photos()` が
+        #    取り直すまで無い＝台帳 assets.json の寸法（取ったファイルそのまま＝md5 も台帳と同じ）。台帳に無ければ下で開いて止まる
+        r = _assets().get(name[len(EP):-len(".jpg")])
+        if r and r.get("stock"):
+            return (int(r["w"]), int(r["h"]))
+    with Image.open(p) as im:
         return im.size
 
 

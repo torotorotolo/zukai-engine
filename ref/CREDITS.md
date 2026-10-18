@@ -2552,3 +2552,129 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `G04` | c515 | 45.0, -47.0・5 | `67507f0134ae97af6abac1dcafc49299` |
 | `G05` | c812 c813 | 25.0, -77.0・7 | `35b8c66417c27d9d68155c244a7d0337` |
 | `G06` | cb01 | 47.5675, -52.701・17 | `2ac970d434b7b1a7c735a8f334926ab7` |
+
+## 三豊百貨店崩壊事故のリメイク（1995-06-29・23本目）
+
+※2026-10-18（⑤b-2）。`qa_out/ep23_assets.py credits --write` が書く（手で直さない）。旧版の節は上の「三豊百貨店崩壊事故（1995-06-29・10本目）」＝直さない。
+写真は映像方針の一覧 `ref/ep23/eizou_list23.md`（了承② 2026-10-18）。この事故の動く映像は使わない（写真の動きだけ）。
+
+### 0. フリー素材の映像（イメージ・この事故の物でない・音はすべて使わない＝`-an`）
+- Pexels・Pixabay（生成AI は使わない＝Pexels は規約で投稿を認めない）。画面の左上に「イメージ」・出典の行は「イメージ（Pexels）」「イメージ（Pixabay）」だけ（クレジットは任意＝投稿者の名前は書かない・概要欄にも書かない）。20% に数えない
+- 🔴 映像そのものも、ひかえの静止画も git に入れない（19本目 決め⑨）。焼くときに台帳 `ref/ep23/clips.json` の `media` から取る
+
+| 記号 | 使うカット | 画面の出典 | ライセンス | 頁 |
+|---|---|---|---|---|
+
+### 1. 写真（ソウル研究院・ソウル歴史編纂院・Commons〈ソウル特別市 消防災難本部・個人名義〉・イメージ）
+- 束＝元の画像（git の外）の長辺を幅 2400／高さ 1350 まで縮めただけ（色・切り口はそのまま）。歴史編纂院の8点は CMYK＝色の札で sRGB に写した（技術の変換）
+- ソウル研究院（서울연구데이터서비스）＝公共ヌリ第1類型＋CC BY 4.0（頁の「이용목적」で 상업적 활용 を選んで 1600px を取った）。全面と額の中の寄りで端を切る＝画面の出典に「改変：切出」
+- ソウル歴史編纂院＝公共ヌリ第1類型（頁の「자료 이용 조건 동의서」で商業の出版・出典を書くことに同意）。幅1000未満＝額装（額の中で寄る）
+- 🔴 **CC BY-SA 4.0（ソウル特別市 消防災難本部・個人名義）は額装だけ**（了承② 決め3＝高さいっぱいの額装・寄り0・色は原本・上に重ねない・額ごと動かす・1点1カット＝`cuts/ss.check_frame_only`・サムネに使わない）
+- 🔴 **個人名義の10点は画面の出典の行に作者欄の名前**（了承② 決め4＝クレジット A）。名前はこのリポに書かない（10-17「名前0」）＝`ref/ep23/credits.json` は印 `{作者}` だけ・焼くときに git の外の表から足す（`tools/scene_jiko.ep23_credit`）。名前は各行の Commons の頁の作者欄
+- 顔だけモザイク（了承② 決め2）＝研究院 52400（右を歩く男性）・歴史編纂院 077（写真展を見る男性と子ども）＝元の画像を直した（`cuts/ss.NEEDS_MASK`・`ref/ep23/masked.json`）。歴史編纂院 104（行方を探す掲示板）は10本目に顔と名前を隠した版
+- イメージ（Pexels の写真8点）＝`ep23/stock/` の名・画面の左上に「イメージ」・20% に数えない・git に入れない（焼くときに取り直して md5 を照らす）
+- 撮影年＝本部の写真は Commons の題（「19950629…」）・研究院と歴史編纂院は頁の注・個人名義は Commons に撮影日の記載なし＝写っている崩壊直後の救助から1995年（`qa_out/ep23_assets.py` の year_of＝出どころつき）
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `c100_960` | c616 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A024.jpg |
+| `c102_960` | c506 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A026.jpg |
+| `c10_960` | c718 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0109.jpg |
+| `c120_960` | c108 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A042.jpg |
+| `c129_960` | c412 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A051.jpg |
+| `c130_960` | c911 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A052.jpg |
+| `c133_960` | c522 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A055.jpg |
+| `c138_960` | c302 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A060.jpg |
+| `c13_960` | c507 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0111.jpg |
+| `c143_960` | c505 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A065.jpg |
+| `c144_960` | c515 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A066.jpg |
+| `c147_960` | c605 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A069.jpg |
+| `c148_960` | c501 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A070.jpg |
+| `c150_960` | ca01 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A072.jpg |
+| `c151_960` | c417 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A073.jpg |
+| `c157_960` | ca14 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A079.jpg |
+| `c159_960` | c203 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A081.jpg |
+| `c160_960` | c305 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A082.jpg |
+| `c165_960` | c901 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A087.jpg |
+| `c170_960` | c523 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A091.jpg |
+| `c172_960` | c716 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A093.jpg |
+| `c175_960` | c309 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A096.jpg |
+| `c176_960` | c105 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A097.jpg |
+| `c182_3840` | c414 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:1995%EB%85%84_6%EC%9B%94_29%EC%9D%BC_%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0_7.jpg |
+| `c193` | c801 | 1995 | CC BY-SA 4.0（BY-SA） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep23/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Sampungdept07.jpg |
+| `c1_960` | c503 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A01.jpg |
+| `c203` | c510 | 1995 | CC BY-SA 4.0（BY-SA） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep23/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Sampungdept17.jpg |
+| `c207` | c406 | 1995 | CC BY-SA 4.0（BY-SA） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep23/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Sampungdept21.jpg |
+| `c209` | cb10 | 1995 | CC BY-SA 4.0（BY-SA） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep23/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Sampungdept23.jpg |
+| `c211_1280` | cb14 | 1995 | CC BY-SA 4.0（BY-SA） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep23/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Sampungdept25.jpg |
+| `c212` | c410 | 1995 | CC BY-SA 4.0（BY-SA） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep23/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Sampungdept26.jpg |
+| `c215` | c107 | 1995 | CC BY-SA 4.0（BY-SA） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep23/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Sampungdept29.jpg |
+| `c216` | c508 | 1995 | CC BY-SA 4.0（BY-SA） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep23/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Sampungdept31.jpg |
+| `c219` | ca10 | 1995 | CC BY-SA 4.0（BY-SA） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep23/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Sampungdept34.jpg |
+| `c224` | ca19 | 1995 | CC BY-SA 4.0（BY-SA） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep23/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Sampungdept40.jpg |
+| `c29_960` | c914 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0127.jpg |
+| `c2_960` | c408 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0100.jpg |
+| `c2k001_3840` | c102 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:2000%EB%85%84%EB%8C%80_%EC%B4%88%EB%B0%98_%EC%84%9C%EC%9A%B8%EC%86%8C%EB%B0%A9_%EC%86%8C%EB%B0%A9%EA%B3%B5%EB%AC%B4%EC%9B%90%28%EC%86%8C%EB%B0%A9%EA%B4%80%29_%ED%99%9C%EB%8F%99_%EC%82%AC%EC%A7%84_%EC%82%BC%ED%92%8D001.jpg |
+| `c31_960` | c509 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0129.jpg |
+| `c36_960` | c109 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0133.jpg |
+| `c37_960` | c814 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0134.jpg |
+| `c39_960` | c214 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0136.jpg |
+| `c3_960` | c419 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0101.jpg |
+| `c40_960` | c705 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0137.jpg |
+| `c41_960` | c610 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0138.jpg |
+| `c43_960` | c512 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A014.jpg |
+| `c47_960` | c514 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0143.jpg |
+| `c48_960` | c106 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0144.jpg |
+| `c49_960` | c615 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0145.jpg |
+| `c55_960` | c612 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0150.jpg |
+| `c5_960` | ca06 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0104.jpg |
+| `c65_960` | c516 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A016.jpg |
+| `c70_960` | c318 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0165.jpg |
+| `c71_960` | c619 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0166.jpg |
+| `c73_960` | c517 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0168.jpg |
+| `c74_960` | c401 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0169.jpg |
+| `c77_960` | c409 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0171.jpg |
+| `c78_960` | c907 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0172.jpg |
+| `c7_960` | c702 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0106.jpg |
+| `c80_960` | c707 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0174.jpg |
+| `c83_960` | c714 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0177.jpg |
+| `c84_960` | c411 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0178.jpg |
+| `c86_960` | c709 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A018.jpg |
+| `c8_960` | c405 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0107.jpg |
+| `c90_960` | c711 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0183.jpg |
+| `c93_960` | c808 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A0186.jpg |
+| `c95_960` | c217 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A019.jpg |
+| `c99_960` | c521 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A023.jpg |
+| `hs_2301030077_0` | cb06 | 1996 | 公共ヌリ第1類型（A・顔にモザイク） | ソウル歴史編纂院 | https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030077&key=2211220005 |
+| `hs_2301030083_0` | cb13 | 1996 | 公共ヌリ第1類型（A） | ソウル歴史編纂院 | https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030083&key=2211220005 |
+| `hs_2301030100_0` | cd06 | 1998 | 公共ヌリ第1類型（A） | ソウル歴史編纂院 | https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030100&key=2211220005 |
+| `hs_2301030102_0` | cb01 | 1995 | 公共ヌリ第1類型（A） | ソウル歴史編纂院 | https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030102&key=2211220005 |
+| `hs_2301030107_0` | c416 | 1995 | 公共ヌリ第1類型（A） | ソウル歴史編纂院 | https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030107&key=2211220005 |
+| `hs_2301030108_0` | c415 | 1995 | 公共ヌリ第1類型（A） | ソウル歴史編纂院 | https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030108&key=2211220005 |
+| `hs_2301030109_0` | c103 | 1995 | 公共ヌリ第1類型（A） | ソウル歴史編纂院 | https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030109&key=2211220005 |
+| `hs_2301030510_0` | c520 | 1995 | 公共ヌリ第1類型（A） | ソウル歴史編纂院 | https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030510&key=2211220005 |
+| `missing_board_01` | cb03 | 1995 | 公共ヌリ第1類型（A・顔と名前にモザイク（隠した版）） | ソウル歴史編纂院 | https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030104&key=2211220005 |
+| `sire_31733` | cd05 | 2000 | 公共ヌリ第1類型＋CC BY 4.0（A） | ソウル研究院（서울연구데이터서비스） | https://data.si.re.kr/node/31733 |
+| `sire_31735` | cc22 | 2000 | 公共ヌリ第1類型＋CC BY 4.0（A） | ソウル研究院（서울연구데이터서비스） | https://data.si.re.kr/node/31735 |
+| `sire_31737` | cb17 | 2000 | 公共ヌリ第1類型＋CC BY 4.0（A） | ソウル研究院（서울연구데이터서비스） | https://data.si.re.kr/node/31737 |
+| `sire_31740` | cd01 | 2000 | 公共ヌリ第1類型＋CC BY 4.0（A） | ソウル研究院（서울연구데이터서비스） | https://data.si.re.kr/node/31740 |
+| `sire_50279` | c603 | 1995 | 公共ヌリ第1類型＋CC BY 4.0（A） | ソウル研究院（서울연구데이터서비스） | https://data.si.re.kr/node/50279 |
+| `sire_52394` | c601 | 1995 | 公共ヌリ第1類型＋CC BY 4.0（A） | ソウル研究院（서울연구데이터서비스） | https://data.si.re.kr/node/52394 |
+| `sire_52395` | cc01 | 1995 | 公共ヌリ第1類型＋CC BY 4.0（A） | ソウル研究院（서울연구데이터서비스） | https://data.si.re.kr/node/52395 |
+| `sire_52396` | cc02 | 1995 | 公共ヌリ第1類型＋CC BY 4.0（A） | ソウル研究院（서울연구데이터서비스） | https://data.si.re.kr/node/52396 |
+| `sire_52397` | cc10 | 1995 | 公共ヌリ第1類型＋CC BY 4.0（A） | ソウル研究院（서울연구데이터서비스） | https://data.si.re.kr/node/52397 |
+| `sire_52398` | c608 | 1995 | 公共ヌリ第1類型＋CC BY 4.0（A） | ソウル研究院（서울연구데이터서비스） | https://data.si.re.kr/node/52398 |
+| `sire_52399` | c101 c201 | 1995 | 公共ヌリ第1類型＋CC BY 4.0（A） | ソウル研究院（서울연구데이터서비스） | https://data.si.re.kr/node/52399 |
+| `sire_52400` | c104 cd08 | 1995 | 公共ヌリ第1類型＋CC BY 4.0（A・顔にモザイク） | ソウル研究院（서울연구데이터서비스） | https://data.si.re.kr/node/52400 |
+| `sire_53849` | cc14 | 1996 | 公共ヌリ第1類型＋CC BY 4.0（A） | ソウル研究院（서울연구데이터서비스） | https://data.si.re.kr/node/53849 |
+| `sire_53868` | cc06 | 1996 | 公共ヌリ第1類型＋CC BY 4.0（A） | ソウル研究院（서울연구데이터서비스） | https://data.si.re.kr/node/53868 |
+| `sire_53880` | cc08 | 1996 | 公共ヌリ第1類型＋CC BY 4.0（A） | ソウル研究院（서울연구데이터서비스） | https://data.si.re.kr/node/53880 |
+| `sire_60607` | cc17 | 2020 | 公共ヌリ第1類型＋CC BY 4.0（A） | ソウル研究院（서울연구데이터서비스） | https://data.si.re.kr/node/60607 |
+| `c208a` | c208 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/17139756/ |
+| `c216b` | c216 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/7616004/ |
+| `c311a` | c311 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/36003982/ |
+| `c313b` | c313 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/18137069/ |
+| `c313c` | c617 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/27452439/ |
+| `c314b` | c314 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/7168444/ |
+| `c802a` | c802 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/8456426/ |
+| `c805a` | c805 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/6034678/ |

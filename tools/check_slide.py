@@ -73,8 +73,13 @@ def mat_dirs():
     """本番の写真カットが実際に使っているフォルダ（`ref/<dir>/`）を、多い順に。"""
     import collections
     import scene_jiko as S
-    c = collections.Counter(PurePosixPath(v[1]).parent.as_posix()
-                            for v in S.PHOTO_CUTS.values() if "/" in v[1])
+
+    def _dir(p):
+        # 🆕 2026-10-18（23本目 ⑤b-2）：イメージの置き場 `ref/<回>/stock/` は回のフォルダの下＝回の側に数える。数えないと、フリー素材の映像の
+        #    ひかえ（17カット）が写真（冒頭の9カット）より多いあいだ、OCR の読み置きが git の外の `ref/ep23/stock/ocr_slides.json` に書かれた
+        d = PurePosixPath(p).parent
+        return (d.parent if d.name == "stock" else d).as_posix()
+    c = collections.Counter(_dir(v[1]) for v in S.PHOTO_CUTS.values() if "/" in v[1])
     return [d for d, _ in c.most_common()]
 
 

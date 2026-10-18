@@ -224,7 +224,13 @@ def selftest():
         print("  ・NEEDS_MASK は空＝元画像を直す点の検算（md5）は対象が無い（切り出しで外した点は上で検算した）")
         return 0
     assert need, "NEEDS_MASK が空では検算にならない"
-    name = sorted(need)[0]
+    # 🆕 2026-10-18（23本目 ⑤b-2）：門番 check() は**カットに当たっている点だけ**を見る＝当たっていない点（23本目の 077・104＝cb06・cb03 の SPEC は
+    #    まだ無い）を対照に選ぶと ③ の「md5 を壊すと鳴る」が空振りする（物差しの作りどおり）。当たっている点から選び、無ければ先頭（③は鳴らない旨を出す）
+    used = used_photos()
+    on = sorted(n for n in need if n in used)
+    name = on[0] if on else sorted(need)[0]
+    if not on:
+        print("  ・NEEDS_MASK の点はどれもカットに当たっていない＝③（md5 を壊すと鳴る）は対象が無い")
     f = HERE / "ref" / name
     assert f.exists(), f"{name} が `ref/` に無い"
 
@@ -247,6 +253,8 @@ def selftest():
     got = check(quiet=True)
     assert got == want, f"検算が合わない（返ってきたのは {got}、予定は {want}）"
     print(f"  ✓ 実際に exit {got} が返った")
+    if not on:
+        return 0
 
     # ③ 陽性対照：記録を1バイト書き換えたものを渡すと、必ず 🔴 になる
     saved = rec.get(name)

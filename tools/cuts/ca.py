@@ -75,3 +75,11 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ── 🆕 ⑤b-2（2026-10-18）：カットまるごとのフリー素材の映像（左上に「イメージ」・見出しなし＝`ss.vid` が台帳の stock の欄で t・s を空に）。
+#    区間と寄りは `footage.USE`（`python qa_out/ep23_assets.py use`）
+SPEC.update({
+    "ca04": ss.vid("ca04"),     # 溶接した金属の管に落ちる水（共用の棚 px_5571839）
+    "ca07": ss.vid("ca07"),     # 家の外の水の入れ物
+    "ca12": ss.vid("ca12"),     # 壁のひび（共用の棚 px_7830155）
+})

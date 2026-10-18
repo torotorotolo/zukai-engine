@@ -533,6 +533,23 @@ USE = {
     #   🔴 23本目はフリー素材（イメージ）の映像17カットだけ（この事故の動く映像は0）＝倍率は `ref/ep23/eizou_build/list23.tsv` の rate
     #   （narration.json の実測の秒で ⑤b-1 に取り直した＝16本は 1.0 以上・c903 0.74 が最小）。欄は束のチャットで道具から書き出す（手で書かない）
     # EP23_USE>>> ここから（手で書かない）
+    "c205": dict(clip="Xc205a", start=2.34, until=9.71, rate=1.0),   # ショット 0〜12秒・使える 7.37秒（2.34〜9.71）／要る 7.32秒
+    "c211": dict(clip="Xc211a", start=5.41, until=11.64, rate=1.0),   # ショット 4〜13秒・使える 6.23秒（5.41〜11.64）／要る 6.18秒
+    "c219": dict(clip="Xc219a", start=11.23, until=17.81, rate=1.0),   # ショット 0〜29秒・使える 6.58秒（11.23〜17.81）／要る 6.53秒
+    "c308": dict(clip="Xc617b", start=6.36, until=16.69, rate=1.0, zoom=1.9, xbias=1.0, bias=0.7),   # ショット 0〜23秒・使える 10.33秒（6.36〜16.69）／要る 10.28秒
+    "c613": dict(clip="Xc613b", start=1.78, until=10.28, rate=1.0),   # ショット 0〜12秒・使える 8.50秒（1.78〜10.28）／要る 8.45秒
+    "c704": dict(clip="Xc613a", start=3.88, until=15.17, rate=1.0),   # ショット 0〜19秒・使える 11.29秒（3.88〜15.17）／要る 11.24秒
+    "c712": dict(clip="Xc712a", start=0.87, until=9.18, rate=1.0),   # ショット 0〜10秒・使える 8.31秒（0.87〜9.18）／要る 8.26秒
+    "c817": dict(clip="P29880216", start=12.00, until=18.04, rate=1.0),   # ショット 0〜30秒・使える 6.04秒（12〜18.04）／要る 5.99秒
+    "c903": dict(clip="Xc903b", start=10.06, until=19.99, rate=1.0),   # ショット 0〜30秒・使える 9.93秒（10.06〜19.99）／要る 9.88秒
+    "c905": dict(clip="Xc905b", start=9.38, until=20.68, rate=1.0),   # ショット 0〜30秒・使える 11.30秒（9.38〜20.68）／要る 11.25秒
+    "c909": dict(clip="Xc909b", start=2.39, until=11.65, rate=1.0),   # ショット 0〜14秒・使える 9.26秒（2.39〜11.65）／要る 9.21秒
+    "ca04": dict(clip="P5571839", start=2.10, until=7.95, rate=1.0),   # ショット 0〜10秒・使える 5.85秒（2.1〜7.95）／要る 5.80秒
+    "ca07": dict(clip="Xca07a", start=3.02, until=11.04, rate=1.0),   # ショット 0〜14秒・使える 8.02秒（3.02〜11.04）／要る 7.97秒
+    "ca12": dict(clip="P7830155", start=9.50, until=18.54, rate=1.0),   # ショット 0〜28秒・使える 9.04秒（9.5〜18.54）／要る 8.99秒
+    "cb09": dict(clip="Xcb09b", start=2.46, until=10.60, rate=1.0),   # ショット 0〜13秒・使える 8.14秒（2.46〜10.6）／要る 8.09秒
+    "cb12": dict(clip="Xcb12a", start=4.09, until=11.96, rate=1.0),   # ショット 0〜16秒・使える 7.87秒（4.09〜11.96）／要る 7.82秒
+    "cc04": dict(clip="Xc617a", start=6.30, until=16.75, rate=1.0),   # ショット 4〜19秒・使える 10.45秒（6.3〜16.75）／要る 10.40秒
     # EP23_USE>>> ここまで
 }
 # ⚠️ 2026-09-23（12本目 ⑤c' 直しE）：ここにあった前の回の注（9.11 の c621・c712／6本目キー橋の「まだ決まっていない
@@ -732,11 +749,14 @@ def selftest():
         import scene_jiko as S
         keep_cuts = S.CUTS
         keep_probe = probe_media
+        keep_sp = stock_photos
         try:
             S.CUTS = [("x01", 6.0)]
             # ⚠️ 検算のあいだは**外に出ない**。既定のままだと exit 2〜6 の対照が
             #    example.invalid を引きに行き、7 に化けて「順番」が測れなくなる。
             globals()["probe_media"] = lambda _u, timeout=45: (None, 2_000_000)
+            # 🆕 23本目 ⑤b-2：イメージの写真の取り直し（Actions では束が無い＝Pexels へ HEAD を打つ）も外に出る口＝差し替える
+            globals()["stock_photos"] = lambda check=False: 0
             globals()["USE"] = {"x01": dict(clip="t_clip", start=12.0)}
             rc2 = fetch(check=True)
             globals()["USE"] = {"x01": dict(clip="t_clip", start=12.0, until=25.0)}
@@ -807,6 +827,7 @@ def selftest():
         finally:
             S.CUTS = keep_cuts
             globals()["probe_media"] = keep_probe
+            globals()["stock_photos"] = keep_sp
         for name, rc, want in (("until 無し", rc2, 2), ("ショットまたぎ", rc3, 3),
                                ("禁止の秒", rc4, 4), ("素材の黒帯", rc5, 5),
                                ("正しい欄", rc0, 0),
@@ -1133,6 +1154,55 @@ def local_media(url):
     return url
 
 
+def stock_photos(check=False):
+    """🆕 2026-10-18（23本目 ⑤b-2）：**イメージの写真（Pexels の静止画）を台帳の直リンクから取り直す**（Actions・Modal の上だけで要る）。
+
+    19本目 決め⑨＝フリー素材の静止画は公開リポに入れない → 束（`ref/<回>/stock/<名>.jpg`）は手元にしか無い。台帳 `assets.json` の
+    `"stock": true` の点の `media`（取ったときの直リンク）から取り、**md5 が台帳と同じでなければ消して止める**（黙って別の絵で焼かない）。
+    手元に同じ md5 の束があれば何もしない。check＝取らずに HEAD だけ（型が画像か・大きさがあるか）。戻り＝しくじった点の数
+    ⚠️ 外に出る口（`download_media`・urlopen）＝selftest は呼ばない
+    """
+    db_p = _CLIPS_JSON.parent / "assets.json"
+    if not db_p.exists():
+        return 0
+    db = json.loads(db_p.read_text(encoding="utf-8"))
+    todo = {n: r for n, r in db.items() if r.get("stock") and r.get("media")}
+    bad = 0
+    for n, r in sorted(todo.items()):
+        dst = _CLIPS_JSON.parent / f"{n}.jpg"
+        if dst.exists() and hashlib.md5(dst.read_bytes()).hexdigest() == r["md5"]:
+            continue
+        if check:
+            try:
+                rq = urllib.request.Request(r["media"], method="HEAD", headers={"User-Agent": UA})
+                with urllib.request.urlopen(rq, timeout=45) as h:
+                    ct, ln = h.headers.get("Content-Type", ""), int(h.headers.get("Content-Length") or 0)
+                if not ct.startswith("image/") or ln <= 0:
+                    raise IOError(f"型 {ct}・大きさ {ln}")
+                print(f"  ✓ イメージの写真 {n}: HEAD {ct} {ln / 1e6:.2f}MB")
+            except Exception as e:                            # noqa: BLE001
+                print(f"  🔴 イメージの写真 {n}: HEAD が通らない（{type(e).__name__}: {e}）")
+                bad += 1
+            continue
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            download_media(r["media"], dst)
+        except Exception as e:                                # noqa: BLE001
+            print(f"  🔴 イメージの写真 {n}: 取れない（{type(e).__name__}: {e}）")
+            bad += 1
+            continue
+        got = hashlib.md5(dst.read_bytes()).hexdigest()
+        if got != r["md5"]:
+            dst.unlink()
+            print(f"  🔴 イメージの写真 {n}: md5 {got} が台帳 {r['md5']} と違う（消した＝合成は写真を開けずに止まる）")
+            bad += 1
+            continue
+        print(f"  ✓ イメージの写真 {n}: 取り直した（md5 が台帳と同じ）")
+    if todo:
+        print(f"■ イメージの写真 {len(todo)}点{'（HEAD だけ）' if check else ''}：しくじり {bad}")
+    return bad
+
+
 def have(cid):
     """そのカットのコマが切り出してあるか。無ければ静止画に落ちる（壊れない）。"""
     return (FOOT / cid / "00000.jpg").exists()
@@ -1246,6 +1316,12 @@ def _cut_stream(cid, u, secs):
 
 
 def fetch(check=False):
+    # 🆕 23本目 ⑤b-2：イメージの写真（git の外）を先に取る＝章ファイルを読む前。check は HEAD が通らなければ exit 10。
+    #    本番は映像の切り出しは続け、最後に 1 を返す（取れなかった写真は合成が開けずに止まる＝黙って別の絵にならない）
+    sp_bad = stock_photos(check)
+    if sp_bad and check:
+        print("🔴 exit 10 ＝ イメージの写真の直リンクが通らない（台帳 assets.json の media）")
+        return 10
     # 🔴 12本目から：切り出す長さも中身の秒（扉の2秒ぶん余計に切らない）・🆕 18本目 ⑤b-7c：頭の差し込みは差し込みの秒だけ
     secs = secs_of()
     missing = [c for c in USE if c not in secs]
@@ -1413,7 +1489,9 @@ def fetch(check=False):
                 print(f"  ✓ {cid}: フリー素材のひかえの静止画をコマの1枚目から作った（{fbp.relative_to(HERE).as_posix()}）")
     if bad:
         print(f"⚠️ {bad} カットは**静止画に落ちる**。パイプラインは止めない。")
-    return 1 if bad else 0
+    if sp_bad:
+        print(f"🔴 イメージの写真 {sp_bad}点が取れていない（そのカットは合成で止まる）")
+    return 1 if bad or sp_bad else 0
 
 
 if __name__ == "__main__":

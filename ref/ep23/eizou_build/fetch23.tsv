@@ -121,7 +121,7 @@ Xc712a	ref/ep23/src/stock/c712a.mp4	3433575	0d8d6b3a7ee2315b14dcd3085a230b3e	md5
 Xc802a	ref/ep23/src/stock/c802a.jpg	682352	85bb72304d379252d70fe056c040b052	md5 2回一致	1920x1440 RGB	stock
 Xc805a	ref/ep23/src/stock/c805a.jpg	909540	2d02eea4d58191141489aed1adcb420f	md5 2回一致	1920x1270 RGB	stock
 P29880216	ref/stock/media/px_29880216.mp4	201247054	08ba855acacb058d852be8b2fd04068e	md5 2回一致	（画像でない）	local(ref/stock)
-Xc205b	ref/ep23/src/stock/c205b.mp4	3604539	225bd94242df2806ee442437884d076f	md5 2回一致	（画像でない）	stock
+Xc903b	ref/ep23/src/stock/c903b.mp4	12056383	63b2ccd205af0b9a49456345563d1334	md5 2回一致	（画像でない）	stock
 Xc905b	ref/ep23/src/stock/c905b.mp4	20053284	64f8d1da1ccff323aa00db586d35600d	md5 2回一致	（画像でない）	stock
 Xc909b	ref/ep23/src/stock/c909b.mp4	6061875	4f49c57eacf18a3f1d11b5938e4b5edc	md5 2回一致	（画像でない）	stock
 P5571839	ref/stock/media/px_5571839.mp4	6756160	5a7aa59bb3e0ab1cea8c0d3b34d0b34a	md5 2回一致	（画像でない）	local(ref/stock)
@@ -168,3 +168,5 @@ cb12a	ref/ep23/src/stock/cb12a.mp4	4975409	6527c05d782fdd39ba188b92b04a27ee	md5 
 cb12b	ref/ep23/src/stock/cb12b.mp4	5196287	12bf0471be2fff991d16f3a75742da94	md5 2回一致	映像	stock（候補）
 cc04a	ref/ep23/src/stock/cc04a.mp4	5396524	fd37e92a570cbcb8a208aa52f4a4112e	md5 2回一致	映像	stock（候補）
 cc04b	ref/ep23/src/stock/cc04b.jpg	339381	9fd8185fe6b83889e697e096bd59920e	md5 2回一致	1920x1280 RGB	stock（候補）
+c903a	ref/ep23/src/stock/c903a.mp4	3246976	70fd4a43d4f41b24a8b0521b270a5ce1	md5 2回一致	映像	stock（候補）
+c903b	ref/ep23/src/stock/c903b.mp4	12056383	63b2ccd205af0b9a49456345563d1334	md5 2回一致	映像	stock（候補）

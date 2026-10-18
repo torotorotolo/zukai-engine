@@ -840,6 +840,28 @@ def ep19_credit(name):
 _EP23_CREDITS = HERE / "ref" / "ep23" / "credits.json"
 EP23_CREDIT = (json.loads(_EP23_CREDITS.read_text(encoding="utf-8"))
                if _EP23_CREDITS.exists() else {})
+# 🆕 2026-10-18（⑤b-2）：個人名義の10点の行は印 `{作者}` だけ（名前は公開リポに書かない＝10-17「名前0」）。焼くときにここで git の外の表
+#    `ref/ep23/src/credits_private.tsv`（作者欄 artist・記号は assets.json の code）から足す。Modal は保管庫 `jiko-assets` の同じ道
+#    （`modal_app.pull_private`）。表が無ければ止める＝本編に印のまま・別の名前で焼かない。Actions の試し焼き（GITHUB_ACTIONS）だけ仮の字
+_EP23_AUTHOR = "{作者}"
+_EP23_PRIVATE = HERE / "ref" / "ep23" / "src" / "credits_private.tsv"
+EP23_AUTHOR_STANDIN = "〇〇〇"
+
+
+def _ep23_author(name):
+    import csv
+    import os
+    if not _EP23_PRIVATE.exists():
+        if os.environ.get("GITHUB_ACTIONS") == "true":
+            return EP23_AUTHOR_STANDIN                  # 検品の試し焼きだけ（本編は Modal＝表を保管庫から取る）
+        raise RuntimeError(f"{name}: 出典の行に作者の名前が要るのに git の外の表 ref/ep23/src/credits_private.tsv が無い"
+                           "（Modal は保管庫 jiko-assets の ref/ep23/src/ に置く）＝印のまま焼かない")
+    code = json.loads((HERE / "ref" / "ep23" / "assets.json").read_text(encoding="utf-8"))[name[len("ep23/"):-len(".jpg")]]["code"]
+    rows = [r for r in csv.reader(_EP23_PRIVATE.open(encoding="utf-8"), delimiter="\t") if r and not r[0].startswith("#")]
+    who = {r[0]: dict(zip(rows[0], r)) for r in rows[1:]}.get(code, {}).get("artist", "").strip()
+    if not who:
+        raise RuntimeError(f"{name}（{code}）: git の外の表に作者欄が無い")
+    return who
 
 
 def ep23_credit(name):
@@ -851,7 +873,10 @@ def ep23_credit(name):
         import footage as _FO
         u = _FO.USE.get(m.group(1))
         return _FO.CLIPS[u["clip"]]["credit"] if u else None
-    return EP23_CREDIT.get(name)
+    v = EP23_CREDIT.get(name)
+    if v and _EP23_AUTHOR in v:
+        v = v.replace(_EP23_AUTHOR, _ep23_author(name))
+    return v
 
 
 # ══════════════════════════════════════════════════════════
@@ -2657,12 +2682,18 @@ def render_all(force=False, only=None, jobs_workers=4):
 
 
 def ensure_css():
-    """フォントの base64 は4MB超。合成側では要らないので遅延で読む。"""
+    """フォントの base64 は4MB超。合成側では要らないので遅延で読む。
+    🆕 2026-10-18（23本目 ⑤b-2）：書体名「Noto」にハングルの面をもう1つ（`unicode-range` でハングルの音節だけ）＝画面の出典の行の
+       ハングル（研究院の名・個人の作者欄の名前）が豆腐にならない。字幅の物差しは `fontmetrics.FALLBACK`（同じファイル）＝図の SVG は直さない"""
     global CSS
     if not CSS:
+        import fontmetrics as _fm
+        kr = "".join(face_css(fam, fn).replace("font-weight:400;", f"font-weight:400;unicode-range:{rng};")
+                     for fam, (fn, rng) in _fm.FALLBACK_CSS.items())
         CSS = (face_css("Dela", "DelaGothicOne.woff2")
                + face_css("Noto", "NotoSansJP-Bold.woff2")
-               + face_css("NotoM", "NotoSansJP-Medium.woff2"))
+               + face_css("NotoM", "NotoSansJP-Medium.woff2")
+               + kr)
 
 
 SUB_CSS = ""

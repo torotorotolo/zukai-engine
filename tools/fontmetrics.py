@@ -50,6 +50,13 @@ FAMILY_FILE = {
     "Kei": "keifont.ttf",
 }
 
+# 🆕 2026-10-18（事故検証 23本目 ⑤b-2）：**その書体名に無い字を、範囲を決めて別のファイルで描く**（ブラウザの @font-face の unicode-range と同じ）。
+#    ハングル（画面の出典の行＝ソウル研究院の名・Commons の個人の作者欄の名前）は NotoSansJP に無い＝豆腐 → Noto Sans KR を縮めた版（ハングルの
+#    音節すべて・太さ 700＝`fonts/notosanskr-license/SOURCE.md`）。描き手＝`scene_jiko.ensure_css`（FALLBACK_CSS）・物差し＝下の _font_of
+#    （字幅 adv・字面 _ink_em・無い字 missing が同じファイルを引く＝描く書体と測る書体を同じに）
+FALLBACK = {"Noto": ("NotoSansKR-Hangul-Bold.woff2", 0xAC00, 0xD7A3)}
+FALLBACK_CSS = {fam: (fn, f"U+{lo:04X}-{hi:04X}") for fam, (fn, lo, hi) in FALLBACK.items()}
+
 _FONTS = {}
 _CACHE = None
 
@@ -71,6 +78,12 @@ def _load(family):
        → [[feedback-verify-your-own-instrument]] [[feedback-parsers-fail-closed]]
     """
     if family in _FONTS:
+        return _FONTS[family]
+    if family.endswith("+fb"):
+        # 🆕 23本目 ⑤b-2：FALLBACK のファイル（読めなければ止める＝描く書体があるのに物差しだけ全角幅で見ない）
+        from fontTools.ttLib import TTFont
+        ft = TTFont(FONTS / FALLBACK[family[:-3]][0], lazy=True)
+        _FONTS[family] = (ft, ft.getBestCmap(), ft["hmtx"], ft["head"].unitsPerEm, ft.getGlyphSet())
         return _FONTS[family]
     try:
         import logging
@@ -104,8 +117,17 @@ def _cache():
     return _CACHE
 
 
-def _glyph(ch, family):
+def _font_of(ch, family):
+    """その字を描く書体の読み込み結果＝書体名のファイル。そこに無く FALLBACK の範囲の字なら FALLBACK のファイル（描き手の unicode-range と同じ）"""
     f = _load(family)
+    fb = FALLBACK.get(family)
+    if f and fb and fb[1] <= ord(ch) <= fb[2] and ord(ch) not in f[1]:
+        return _load(family + "+fb")
+    return f
+
+
+def _glyph(ch, family):
+    f = _font_of(ch, family)
     if not f:
         return None
     _, cmap, _, _, _ = f
@@ -115,7 +137,7 @@ def _glyph(ch, family):
 @lru_cache(maxsize=200000)
 def adv(ch, family="Noto"):
     """1文字の送り幅（em）。**フォントの hmtx をそのまま読む。**"""
-    f = _load(family)
+    f = _font_of(ch, family)
     if f:
         _, cmap, hmtx, upm, _ = f
         g = cmap.get(ord(ch))
@@ -139,7 +161,7 @@ def width(text, size, family="Noto"):
 @lru_cache(maxsize=100000)
 def _ink_em(ch, family):
     """1文字の字面（em）。(ベースラインより上, ベースラインより下) を正の値で返す。"""
-    f = _load(family)
+    f = _font_of(ch, family)
     if f:
         from fontTools.pens.boundsPen import BoundsPen
         ft, cmap, _, upm, gs = f
@@ -186,12 +208,11 @@ def fit(text, max_px, family="Noto", cap=999, floor=12, step=1):
 
 
 def missing(text, family="Noto"):
-    """フォントに無い文字（＝豆腐になる字）を返す。"""
+    """フォントに無い文字（＝豆腐になる字）を返す。🆕 23本目 ⑤b-2：FALLBACK の範囲の字は FALLBACK のファイルで見る"""
     f = _load(family)
     if not f:
         return []
-    _, cmap, _, _, _ = f
-    return [c for c in text if not c.isspace() and ord(c) not in cmap]
+    return [c for c in text if not c.isspace() and ord(c) not in _font_of(c, family)[1]]
 
 
 def dump_cache():

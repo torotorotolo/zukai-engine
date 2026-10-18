@@ -1,0 +1,238 @@
+{
+ "Xc205a": {
+  "src": "https://videos.pexels.com/video-files/35217402/14919618_1920_1080_50fps.mp4",
+  "scan": "ref/ep23/src/stock/c205a.mp4",
+  "dur": 12.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 12.0,
+    "motion": 3.96
+   }
+  ]
+ },
+ "Xc211a": {
+  "src": "https://videos.pexels.com/video-files/35988850/15260491_1920_1080_24fps.mp4",
+  "scan": "ref/ep23/src/stock/c211a.mp4",
+  "dur": 13.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 0.27
+   },
+   {
+    "start": 4.0,
+    "until": 13.0,
+    "motion": 0.28
+   }
+  ]
+ },
+ "Xc219a": {
+  "src": "https://videos.pexels.com/video-files/36443290/15453517_1920_1080_60fps.mp4",
+  "scan": "ref/ep23/src/stock/c219a.mp4",
+  "dur": 29.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 29.0,
+    "motion": 1.19
+   }
+  ]
+ },
+ "Xc617b": {
+  "src": "https://videos.pexels.com/video-files/6281080/6281080-hd_1920_1080_24fps.mp4",
+  "scan": "ref/ep23/src/stock/c617b.mp4",
+  "dur": 23.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 23.0,
+    "motion": 7.03
+   }
+  ]
+ },
+ "Xc613b": {
+  "src": "https://cdn.pixabay.com/video/2020/05/27/40298-425442300_medium.mp4",
+  "scan": "ref/ep23/src/stock/c613b.mp4",
+  "dur": 23.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 12.0,
+    "motion": 28.9
+   },
+   {
+    "start": 12.0,
+    "until": 23.0,
+    "motion": 31.01
+   }
+  ]
+ },
+ "Xc613a": {
+  "src": "https://videos.pexels.com/video-files/14059234/14059234-hd_1920_1080_25fps.mp4",
+  "scan": "ref/ep23/src/stock/c613a.mp4",
+  "dur": 19.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）・🔧 1ショットに直した（10秒の境目の前後 9.2秒・10.8秒のコマを並べて見た＝同じ工事中の建物を回り込むドローンの続き（光も建物も同じ・切り替わりでない））",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 19.0,
+    "motion": 29.58
+   }
+  ]
+ },
+ "Xc712a": {
+  "src": "https://videos.pexels.com/video-files/39924242/17034332_1920_1080_30fps.mp4",
+  "scan": "ref/ep23/src/stock/c712a.mp4",
+  "dur": 10.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）・🔧 1ショットに直した（5秒の境目の前後 4.4秒・5.6秒のコマを並べて見た＝錆びた鉄筋の網の上をゆっくり動く続き（切り替わりでない））",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 19.3
+   }
+  ]
+ },
+ "P29880216": {
+  "src": "https://videos.pexels.com/video-files/29880216/12828546_2560_1440_30fps.mp4",
+  "scan": "ref/stock/media/px_29880216.mp4",
+  "dur": 30.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 30.0,
+    "motion": 4.73
+   }
+  ]
+ },
+ "Xc903b": {
+  "src": "https://videos.pexels.com/video-files/8094275/8094275-hd_1920_1080_25fps.mp4",
+  "scan": "ref/ep23/src/stock/c903b.mp4",
+  "dur": 30.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 30.0,
+    "motion": 3.07
+   }
+  ]
+ },
+ "Xc905b": {
+  "src": "https://videos.pexels.com/video-files/7830320/7830320-hd_1920_1080_30fps.mp4",
+  "scan": "ref/ep23/src/stock/c905b.mp4",
+  "dur": 30.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 30.0,
+    "motion": 2.52
+   }
+  ]
+ },
+ "Xc909b": {
+  "src": "https://videos.pexels.com/video-files/7793216/7793216-hd_1920_1080_30fps.mp4",
+  "scan": "ref/ep23/src/stock/c909b.mp4",
+  "dur": 14.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 14.0,
+    "motion": 8.64
+   }
+  ]
+ },
+ "P5571839": {
+  "src": "https://videos.pexels.com/video-files/5571839/5571839-hd_1920_1080_24fps.mp4",
+  "scan": "ref/stock/media/px_5571839.mp4",
+  "dur": 10.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 10.0,
+    "motion": 0.67
+   }
+  ]
+ },
+ "Xca07a": {
+  "src": "https://videos.pexels.com/video-files/20755878/20755878-hd_1920_1080_24fps.mp4",
+  "scan": "ref/ep23/src/stock/ca07a.mp4",
+  "dur": 14.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 14.0,
+    "motion": 1.49
+   }
+  ]
+ },
+ "P7830155": {
+  "src": "https://videos.pexels.com/video-files/7830155/7830155-uhd_2560_1440_30fps.mp4",
+  "scan": "ref/stock/media/px_7830155.mp4",
+  "dur": 28.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 28.0,
+    "motion": 0.9
+   }
+  ]
+ },
+ "Xcb09b": {
+  "src": "https://videos.pexels.com/video-files/5647337/5647337-hd_1920_1080_25fps.mp4",
+  "scan": "ref/ep23/src/stock/cb09b.mp4",
+  "dur": 13.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 13.0,
+    "motion": 4.06
+   }
+  ]
+ },
+ "Xcb12a": {
+  "src": "https://videos.pexels.com/video-files/6109240/6109240-hd_1920_1080_25fps.mp4",
+  "scan": "ref/ep23/src/stock/cb12a.mp4",
+  "dur": 16.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 16.0,
+    "motion": 0.4
+   }
+  ]
+ },
+ "Xc617a": {
+  "src": "https://videos.pexels.com/video-files/6279706/6279706-hd_1920_1080_24fps.mp4",
+  "scan": "ref/ep23/src/stock/c617a.mp4",
+  "dur": 19.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 13.77
+   },
+   {
+    "start": 4.0,
+    "until": 19.0,
+    "motion": 8.9
+   }
+  ]
+ }
+}

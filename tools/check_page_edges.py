@@ -142,11 +142,22 @@ def pick_control(spec_map, ocr, photo_of, box_of, skip):
     return best
 
 
+def synth_control():
+    """🆕 2026-10-18（23本目 ⑤b-2）：本番に対照の行が無い回（頁のカット0・額装の写真に字の行が無い）の**合成の頁**＝額装の箱と字の行1本。
+    23本目は報告書の頁を写すカットが0で、OCR が拾ったのは写真の模様の幻の行だけ＝pick_control が何も返さず、物差しを確かめられずに止まっていた。
+    下の3つの対照（陽性①②・陰性）は本番と同じ `cut_rows` を通す＝物差しの検算として同じ（sweep_control と同じ合成の作法）"""
+    size, box = [1120, 641], (72, 213, 1120, 641)
+    ln = dict(box=[100, 300, 1000, 330], text="SYNTH LINE")
+    ocr = {"synth_page.png": dict(size=size, lines=[ln])}
+    return ("cP", dict(panel=True), ln, 900, (0.0, 0.0, 1.0, 1.0), size[1]), ocr, {"cP": "x/synth_page.png"}, {"cP": box}
+
+
 def selftest(spec_map, ocr, photo_of, box_of, skip):
     got = pick_control(spec_map, ocr, photo_of, box_of, skip)
     if not got:
-        print("  🔴 対照に使える頁のカットが無い（panel の頁に OCR の行が1つも無い）＝物差しを確かめられない")
-        return False
+        # 🆕 23本目 ⑤b-2：本番に対照の行が無い＝合成の頁で回す（黙って飛ばさない・何で確かめたかを出す）
+        print("  ・本番に対照に使える頁の行が無い（panel の頁・写真に OCR の字の行が無い）＝合成の頁で物差しを確かめる")
+        got, ocr, photo_of, box_of = synth_control()
     cid, spec, ln, _w, tr, sh = got
     b = ln["box"]
     mid = (b[1] + b[3]) / 2 / sh

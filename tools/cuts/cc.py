@@ -87,3 +87,9 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ── 🆕 ⑤b-2（2026-10-18）：カットまるごとのフリー素材の映像（左上に「イメージ」・見出しなし＝`ss.vid` が台帳の stock の欄で t・s を空に）。
+#    区間と寄りは `footage.USE`（`python qa_out/ep23_assets.py use`）
+SPEC.update({
+    "cc04": ss.vid("cc04"),     # 図書館の机の資料（設計図）
+})
