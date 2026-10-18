@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""第2章　6月18日の朝 c301–c319（19カット）。22本目（タイタン号のリメイク）。
+"""第2章　午後3時10分 c301–c319（19カット）。23本目（三豊百貨店崩壊事故のリメイク）。
 
-■ 🔴 2026-10-14（⑤b-1）：21本目（9.11 米国同時多発テロのリメイク）の中身を空にした＝git の `35fab37`（`git show 35fab37:tools/cuts/c3.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep22/make_plan22.py` で
-  映像方針の一覧 `ref/ep22/eizou_build/list22.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典から
+■ 🔴 2026-10-18（⑤b-1）：22本目（タイタン号のリメイク）の中身を空にした＝git の `adbe2d5`（`git show adbe2d5:tools/cuts/c3.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep23/make_plan23.py` で
+  映像方針の一覧 `ref/ep23/eizou_build/list23.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典から
   機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
@@ -15,208 +15,63 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'c301': dict(kind='写真',
-               plan='M03｜見せ方：全面｜副題：母船ポーラープリンス（事故の後の6月25日に撮影）｜動き：右へ｜権利：A（MBI＝米沿岸警備隊が撮影）｜出典の行：米沿岸警備隊 海難調査委員会の報告書 図3｜注：幅1202＝全面は1.6倍の引き伸ばし（ボケは差し替えの理由にしない）｜台本の画：実写 MBI 図3 ポーラープリンス（セントジョンズの岸壁・USCG 報告 p.14・2023-06-25 に MBI が撮影＝事故の後・A・幅1202＝寄り弱め＝副題「母船ポーラープリンス（事故の後の6月25日に撮影）」）',
-               src='TSB §1.2.2（`The Polar Prince (Figure 4) is a Canadian-flagged general cargo vessel.`）・TSB §1.1（`“Year built” refers to the date the keel of the vessel was laid`）・NTSB p.14（`the 220-foot-long, Canadian-flagged vessel Polar Prince`）'),
-    'c302': dict(kind='図解',
-               plan='台本の画：図 棒 乗客の数（貨物船の決まりの上限12人／この航海24人＝カナダの調べの数）',
-               src='TSB §1.20.1.2（`it was permitted to carry up to 12 passengers.`）・§1.20.1.2（`on the occurrence voyage, it was carrying 24 passengers.`）'),
+    'c301': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：机と札｜注：対策の会議（人を描かず机と役職の札だけ）・時刻「14:00」｜台本の画：図 模式 対策の会議（人を描かず、机と役職の札だけ＝画面の時刻「14:00」）',
+               src='K6-検 p.47（`14:00 : 대책회의 개최`・`임원들에게 5층 균열상황 설명`）'),
+    'c302': dict(kind='写真',
+               plan='C138｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：残った南の棟の「三豊百貨店」の看板（1995年）｜動き：額ごと寄る｜権利：BY-SA 4.0（本部）｜出典の行：写真：ソウル特別市 消防災難本部（CC BY-SA 4.0）｜台本の画：実写 BY-SA #138（「三豊百貨店」の看板＝崩れずに残った南の棟＝副題「残った南の棟の看板（1995年）」）',
+               src='K6-検 p.47（`14:00 : 대책회의 개최`）・K6-検 p.52（`14:30경`）'),
     'c303': dict(kind='図解',
-               plan='🔧 注：🔧 再現→模式（§0-3 人の数）｜新しい画（映像方針）：図 模式 人の図（会社の関係24＝橙・乗組員17＝水色の人の印で並べ、乗客に数える24を枠で囲む）｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 乗っていた人の内わけ（TSB §1.3.1 の数＝会社の関係24・乗組員17）',
-               src='TSB §1.20.1.1（`OceanGate passengers, who consisted of the Titan passengers and their family members.`）・TSB §1.3.1（`There were 41 people on board the Polar Prince in total: 24 people associated with OceanGate and 17 Polar Prince crew members.`）'),
+               plan='一覧の種類：模式｜見る向き：横から（断面）｜見た目の型：床の寄り｜合図：🔁 斜めから（立体）→横から（断面）（前の図 c218）｜注：5階の床のコンクリートの10センチのひび（ひびの線が伸びる）・時刻「14:00〜16:00」｜台本の画：図 模式 5階の床のコンクリートの10センチのひび（画面の時刻「14:00〜16:00」）',
+               src='K6-検 p.47（`5층 바닥 콘크리트 부분 10㎝ 균열`）'),
     'c304': dict(kind='図解',
-               plan='🔧 G02｜注：🔧 自作の地図→衛星写真（了承②）｜新しい画（映像方針）：図 地図 衛星写真 G02＋c219 と同じ線・「6月16日に出る」「6月18日に着く」の札・母船が台を引く線｜台本の画（🔧映像方針で替えた＝元の予定）：図 地図 セントジョンズから現場まで（6月16日に出る・6月18日に着く・約685km＝c219 と同じ地図の続き＝母船が台を引く線）',
-               src='TSB §1.3.1（`the Polar Prince departed St. John’s, Newfoundland and Labrador, for the Titanic wreck site (Figure 5) towing the Titan on the LARS.`）'),
+               plan='一覧の種類：模式｜見る向き：上から｜見た目の型：上から見た床｜合図：🔁 横から（断面）→上から（前の図 c303）｜注：屋上の床の4つの沈みの点（c206 と別の絵）｜台本の画：図 模式 屋上の床が4か所で5〜15ミリ沈む（c206 と別の絵＝沈んだ4つの点）',
+               src='K6-検 p.47（`옥상 바닥 4곳 5∼15㎜ 침하`）・K6-R p.30（`균열과 침하가 심화`）'),
     'c305': dict(kind='写真',
-               plan='M05｜見せ方：全面｜副題：潜水艇を出し入れする台（事故の後に撮影）｜動き：寄る｜権利：A（MBI が撮影）｜出典の行：米沿岸警備隊 海難調査委員会の報告書 図5｜台本の画：実写 MBI 図5 台（LARS）が岸壁に（白い浮き・USCG 報告 p.16・2023-06-25 撮影・A＝副題「潜水艇を出し入れする台（事故の後に撮影）」）',
-               src='TSB §1.2.1.1（`During launching, the tanks could be flooded with water in order to submerge the LARS and allow the Titan to detach underwater.`）'),
+               plan='🔧 C160｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：割れたガラスと「SAMPOONG」の文字（1995年）｜動き：額ごと左へ｜権利：BY-SA 4.0（本部）｜出典の行：写真：ソウル特別市 消防災難本部（CC BY-SA 4.0）｜注：🔧 #129（c412 へ）→ #44 は c318 の #70 と同じ建物の近い構図（10-18 シートで）→ #160（崩れている側＝「崩れていない側」と書かない）｜台本の画（🔧映像方針で替えた＝元の予定）：実写 BY-SA #129（崩れていない南の棟が丸ごと写る＝副題「崩れずに残った南の棟（1995年）」）',
+               src='K6-検 p.47（`에어콘 가동 중단, 5층 행사매장 철수`）'),
     'c306': dict(kind='図解',
-               plan='台本の画：図 帯 6月18日の朝の時刻の帯（左下に「時刻はニューファンドランドの夏時間」）',
-               src='TSB 脚注13（`All times are Newfoundland Daylight Time (Coordinated Universal Time minus 2.5 hours).`）・TSB §1.3.1（`arrived with the Titan in tow on the LARS at 0400 on 18 June`）'),
-    'c307': dict(kind='写真',
-               plan='M18｜見せ方：額装（報告書の図）｜副題：母船の航海日誌（6月18日の早朝）｜動き：額ごと右へ（細長い頁を左から右へ）｜権利：A（MBI が撮影）｜出典の行：米沿岸警備隊 海難調査委員会の報告書 図18｜注：1099×246 の細長い書類の頁（黒い塗りは MBI）｜台本の画：実写 MBI 図18 航海日誌 6/18 00:00〜06:00（黒い塗りは MBI の物・額装・USCG 報告 p.23・A＝副題「母船の航海日誌（6月18日の早朝）」）',
-               src='TSB §1.3.1（`At 0534, OceanGate held a briefing that provided an overview of the plan for the upcoming dive.`）・TSB §1.3（`the Titan’s pilot, who was OceanGate’s chief executive officer (CEO); the copilot, who was an expert on deep-sea exploration and the Titanic; and 3 passengers`）'),
-    'c308': dict(kind='写真',
-               plan='M21｜見せ方：額装（報告書の図）｜副題：説明が行われた母船の格納庫（事故の後に撮影）｜動き：額ごと左へ｜権利：A（MBI が撮影）｜出典の行：米沿岸警備隊 海難調査委員会の報告書 図21｜注：2枚組・黄の丸は MBI・幅776｜台本の画：実写 MBI 図21 母船のヘリの格納庫と、中に並ぶ椅子（USCG 報告 p.25・2023-06-25 撮影・A・小さい＝額装＝副題「説明が行われた母船の格納庫（事故の後に撮影）」）',
-               src='TSB §1.3.1（`At 0545, the 5 people boarding the Titan and their personal effects were weighed so that OceanGate could calculate the weight needed for the submersible to descend.`）'),
+               plan='一覧の種類：模式｜見た目の型：書類｜注：構造技術者の仕事（計算書と建物の絵・人の形は描かない）｜台本の画：図 模式 構造技術者の仕事（建物が重さに耐えられるかを計算する＝計算書と建物の絵・人の形は描かない）',
+               src='K6-検 p.47（`도착(15:10)`）'),
+    'c307': dict(kind='図解',
+               plan='一覧の種類：再現｜見た目の型：書類の再現｜注：別紙2 の構造技術者の欄（名前の欄は出さない）｜台本の画：図 再現 別紙2 の構造技術者の欄（書類の再現図・欄の値は原文の韓国語のまま＝訳は字幕・名前の欄は出さず役職だけ・この回で書類の再現図は c307 と cc03 の2回だけ）',
+               src='K6-検 p.52（`무량판공법…으로 계산 설계한 건축구조기술사`）'),
+    'c308': dict(kind='フリー素材',
+               plan='🔧 Xc617b｜映像の素材 23.21秒・倍率 2.26（素材の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ）｜一覧の種類：イメージ｜見せ方：全面（イメージ）｜副題：イメージ｜動き：映像（等速）｜権利：フリー素材（Pexels License）｜出典の行：イメージ（Pexels）｜注：🔧 書類の束 → 構造の図面の束（Pexels 6281080・語り＝安全の診断）。図面の小さな英字は使う区間を焼いて確かめる（⑤b-7）。⑤b-1（10-18）に素材の 10.0秒のコマを原寸で見た＝左の中ほどに大きな薄い英字「…ructures B…」（図面の題字・x 0〜800・y 400〜560）＝寄りか区間で外す（右の表と三角定規の側へ）・ほかは図面の線と小さな数字｜台本の画（🔧映像方針で替えた＝元の予定）：イメージ 書類の束（計算書のイメージ・フリー素材）',
+               src='K6-検 p.52（`조기술사로서 2차례 안`）'),
     'c309': dict(kind='写真',
-               plan='M24｜見せ方：額装（報告書の図）｜副題：母船の小舟（事故の後に撮影）｜動き：額ごと寄る｜権利：A（MBI が撮影）｜出典の行：米沿岸警備隊 海難調査委員会の報告書 図24｜注：黄の丸は MBI・幅780｜台本の画：実写 MBI 図24 母船の小舟2隻（USCG 報告 p.27・2023-06-23 撮影・A＝副題「母船の小舟（事故の後に撮影）」）',
-               src='TSB §1.3.1（`From 0600 to 0800, OceanGate used rigid inflatable boats (RIBs) to transfer the Titan pilot, copilot, and other OceanGate personnel to the LARS`）・§1.3.1（`At approximately 0800, the 3 passengers were transferred from the Polar Prince to the LARS.`）'),
+               plan='C175｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：残った棟の夏の広告（崩れたあと）｜動き：額ごと上へ｜権利：BY-SA 4.0（本部）｜出典の行：写真：ソウル特別市 消防災難本部（CC BY-SA 4.0）｜台本の画：実写 BY-SA #175（「Sign of the Blue」の看板＝崩れずに残った南の棟と副題で断る）',
+               src='K6-検 p.47（`현장확인 안전진단`）・K6-R p.30（`도착하여 현장을 확인하고 안전진단을 함`）'),
     'c310': dict(kind='図解',
-               plan='見る向き：上から｜台本の画：図 線 上から見た台と艇（NTSB 図4 の上の線画をなぞる・出どころの注なし＝NTSB）',
-               src='TSB §1.3.1（`All 5 people were on board the Titan by 0820.`）・§1.3.1（`At 0824, OceanGate personnel on the LARS closed the Titan’s forward dome, bolted it shut, and used a torque wrench to tighten the bolts.`）'),
-    'c311': dict(kind='図解',
-               plan='見る向き：横から｜合図：🔁 上から→横から（前の図 c310）＝左上に見る向きの札・替わる瞬間に「横から見ると」｜台本の画：図 線 タイタンの横の線画（前のドームの縁に、外から留めるボルトの札）',
-               src='TSB §1.2.1（`The forward dome could be bolted and unbolted from outside the submersible to provide access to the cabin; this was the only way that people could enter and exit the submersible.`）・TSB §2.5（`could not egress on the surface without the Titan first being reattached to the LARS and the forward dome being unbolted by people outside the submersible`）'),
+               plan='一覧の種類：模式｜見る向き：横から（断面）｜見た目の型：床の断面｜合図：🔁 上から→横から（断面）（前の図 c304）｜注：鉄の梁を下から入れて支える補強（夜の印）｜台本の画：図 模式 鉄の梁を下から入れて支える補強（「営業が終わってから」＝夜の印）',
+               src='K6-検 p.47（`16:00 : 대책회의 계속`・`당장 붕괴위험은 없으니`・`영업시간 종료 후 철제 빔 보강작업`）・K6-R p.30（`대책회의를 속개하고 구조기술사`）'),
+    'c311': dict(kind='フリー素材',
+               plan='Xc311a｜一覧の種類：イメージ｜見せ方：全面（イメージ）｜副題：イメージ｜動き：寄る｜権利：フリー素材（Pexels License）｜出典の行：イメージ（Pexels）｜注：H形鋼の山（Pexels 36003982）＝鋼材の山へ寄る（上の椰子の木は外す）｜台本の画：イメージ H形鋼（鉄骨の梁・フリー素材）',
+               src='K6-検 p.52（`건물의 이상징후를 발견하고서도`・`16:40경 대책회의에서 급박한 붕괴위험은 없다고 보고하면서 인원 대피 건의를 하지 아니한`）'),
     'c312': dict(kind='図解',
-               plan='台本の画：図 帯 同じ時刻の帯（08:24 に「艇の中の生命維持へ」の札）',
-               src='TSB §1.3.1（`At this point, the Titan crew and passengers were sealed inside the cabin, and the submersible was using its internal life support system.`）・TSB §1.2.1（`The cabin had an internal life support system that consisted of oxygen tanks`）・§1.2.1（`CO2 scrubbing capability for the same occupancy`）'),
-    'c313': dict(kind='図解',
-               plan='台本の画：図 帯 同じ帯（08:59 5分の一時停止）',
-               src='TSB §1.3.1（`At 0859, all OceanGate personnel took a scheduled 5-minute pause in operations to consider the progress and safety of the operations so far.`）'),
-    'c314': dict(kind='図解',
-               plan='見る向き：横から｜台本の画：図 模式 台が沈む3段（水を入れる→台ごと水面の下→艇を切り離す）',
-               src='TSB §1.3.1（`At 0904, OceanGate divers began to fill the LARS’s ballast tanks with water to submerge it.`）・§1.3.1（`By 0905, the LARS and the Titan were submerged.`）・§1.3.1（`At 0914, divers detached the Titan from the LARS, and the Titan began its descent.`）'),
+               plan='一覧の種類：流れ｜見た目の型：札と線｜注：国会の報告の判断（崩れるのを甘く見た → 営業のあとに直す → 大きな惨事）｜台本の画：図 流れ（国会の報告の判断＝崩れるのを甘く見た・経営の事情 → 営業のあとに直すだけと決めた → 大きな惨事へ＝この回で流れ図は c312 と cc21 の2回だけ）',
+               src='K6-R p.32（`붕괴에 대한 안이한 판단과 백화점의 경영적 측면 등을 고려하여`・`영업종료 후 보수·보강공사만 하기로 결정함으로써`）'),
+    'c313': dict(kind='フリー素材',
+               plan='Xc313b｜一覧の種類：イメージ｜見せ方：全面（イメージ）｜副題：イメージ｜動き：寄る｜権利：フリー素材（Pexels License）｜出典の行：イメージ（Pexels）｜注：閉店後の誰もいないエスカレーター（Pexels 18137069）｜台本の画：イメージ 閉店後の誰もいない売り場（フリー素材）',
+               src='K6-R p.32（`대형참사로 발전`）'),
+    'c314': dict(kind='フリー素材',
+               plan='Xc314b｜一覧の種類：イメージ｜見せ方：全面（イメージ）｜副題：イメージ｜動き：寄る｜権利：フリー素材（Pexels License）｜出典の行：イメージ（Pexels）｜注：夜の工事現場の灯り（Pexels 7168444）｜台本の画：イメージ 工事用の投光器（夜の補強の準備・フリー素材）',
+               src='K6-検 p.47（`17:30 : 시설부 차장`・`야간보강작업 준비 착수`）'),
     'c315': dict(kind='図解',
-               plan='見る向き：横から｜台本の画：図 模式 重りで沈む潜水艇（線画・下向きの矢印だけ）',
-               src="USCG p.6〈vi〉（`The descent was a free fall through the water column, controlled by the vessel's ballast condition.`）・TSB §1.3（`The occurrence dive on 18 June was the Titan’s first dive to the Titanic`）・NTSB p.16（`It was the first dive of the 2023 expedition to descend below 33 feet (10 meters).`）"),
+               plan='一覧の種類：模式｜見た目の型：札の表｜注：区の安全点検（2回目＝テロとガス爆発への備え・6/12〜6/30・「骨組みの強さの点検ではない」）｜台本の画：図 模式 区の安全点検（2回目＝テロとガス爆発への備え・6月12日から30日・画面に「骨組みの強さの点検ではない」）',
+               src='K6-区 p.45（`테러, 가스폭발 대비`）'),
     'c316': dict(kind='図解',
-               plan='台本の画：図 模式 音で文字を送る（母船の下の送受信機と艇のあいだに音の波・電波は水を通りにくいの札）',
-               src='USCG p.32〈24〉（`Since radio waves do not travel well through water, these modems rely on acoustics to send and receive information`）・p.30〈22〉（`The installed system used abbreviated text fields to communicate between the POLAR PRINCE and the TITAN.`）・p.30〈22〉（`The TITAN was not fitted with a voice communications system capable of communicating while the submersible was operating below the surface.`）'),
+               plan='一覧の種類：模式｜見る向き：上から｜見た目の型：上から見た床｜合図：🔁 横から（断面）→上から（前の図 c310）｜注：地下1階の通路に置かれた商品｜台本の画：図 模式 地下1階の通路に置かれた商品（区の指摘＝その場で直させた）',
+               src='K6-区 p.45（`지하1층 통로상에 상품 적치`）'),
     'c317': dict(kind='図解',
-               plan='🔧 注：🔧 再現→吹き出し（§0-3 交信の記録＝4つは吹き出しで残す）｜新しい画（映像方針）：図 吹き出し 付録A の最初の4行（潜水艇の文＝左の白の吹き出し・母船の文＝右の水色の吹き出し・打ち間違いのまま `I hsvr trscking` ほか・訳は字幕）｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 付録A の表の最初の4行（09:19:36〜09:20:02・打ち間違いのまま＝`I hsvr trscking`・`descendingb thru 235`・`i have tracking`・`yeah`・訳は字幕）',
-               src='TSB 付録A（`I hsvr trscking`）・付録A（`descendingb thru 235`）・TSB §1.3.2（`The Titan crew then transmitted a message stating that they were descending through 235 m.`）・TSB §1.3.2（`The surface support team sent a message back stating that they had tracking of the submersible.`）・USCG p.32〈24〉（`the POLAR PRINCE communicated to the TITAN that they have tracking`）'),
-    'c318': dict(kind='図解',
-               plan='🔧 注：🔧 再現→模式（§0-3）｜新しい画（映像方針）：図 模式 2つの通信の箱（文字を送る装置＝動く・水色／予備の通信と追跡の装置＝灰に「動いていない」の赤の札）｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 付録A の表（09:23:03〜09:24:05 の3行＝`no atm are you on`・`atm is on`・`do not read you on atm`）',
-               src='TSB §1.3.2（`At 0923, the surface support team received a message from the Titan crew stating that the 2nd acoustic communication and tracking system was not functioning.`）・TSB 脚注16（`It is not known why this system was not functioning.`）'),
+               plan='一覧の種類：模式｜見る向き：斜めから（立体）｜見た目の型：棟の立体｜合図：🔁 上から→斜めから（立体）（前の図 c316）｜注：案内の放送で逃がす（スピーカーと出口の印・人は描かない）｜台本の画：図 模式 案内の放送で客と従業員を逃がす（スピーカーと出口の印・人は描かない）',
+               src='大96 理由2.가（`안내방송 등을 통하여 안전하게 대피시켜`・`주의의무가 있는데도 이를 게을리하여`）'),
+    'c318': dict(kind='写真',
+               plan='🔧 C70｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：崩れた現場（1995年）｜動き：額ごと寄る｜権利：BY-SA 4.0（本部）｜出典の行：写真：ソウル特別市 消防災難本部（CC BY-SA 4.0）｜注：🔧 イメージ（鉄骨の梁）→ 実写（語り「3時間もなかった」＝崩れた現場。第2章の写真 3→4）｜新しい画（映像方針）：実写 崩れた現場（BY-SA #70）｜台本の画（🔧映像方針で替えた＝元の予定）：イメージ 鉄骨の梁（フリー素材）',
+               src='—'),
     'c319': dict(kind='図解',
-               plan='台本の画：図 線 深さの線（記録の点だけ＝9:19 235m・9:23 436m・9:31 680m・あいだは直線＝模式と左下で断る）',
-               src='TSB §1.3.2（`they could see the Titan descending at 33 m per minute on their display`）・§1.3.2（`At 0953, the surface support team asked the Titan crew if they could see the Polar Prince on their display. The surface support team kept sending this message until 1010 without receiving a response.`）'),
+               plan='🔧 一覧の種類：帯｜見た目の型：時刻の帯｜注：🔧 終わりの札は「17:55ごろ」（語り＝夕方5時55分ごろ・2時間45分。幅は c402 の時計で言う）｜台本の画（🔧映像方針で替えた＝元の予定）：図 帯（14:00〜17:52 の時間の帯＝14:00 会議・15:10 着・16:00 会議・16:40 報告・17:30 準備・17:52〜17:57 崩壊＝この回で時間の帯は c319 と ca02 の2回だけ）',
+               src='K6-検 p.47（`도착(15:10)`・`17:52∼17:57`）'),
 }
 
 SPEC = {}
-
-# ── 🆕 ⑤b-3（2026-10-14）：地図のカット（衛星写真＋描き足し＝`tools/satmap.py`・c2.py の注）──
-SPEC.update({
-    # c304（2行）＝1行目で 6月16日にセントジョンズを出る・2行目で台を後ろに引く母船（印は模式）と 6月18日に着く現場
-    "c304": dict(**ss.sat("G02", note="セントジョンズは一般の座標・×は最後に受けた位置・線と船の印は模式（実際の航路ではない）", steps=[
-        [dict(k="pt", at="stjohns", role="ship", t="6月16日に出る", lab=(60, -30, "start"))],
-        [dict(k="line", path=("stjohns", "site"), role="ship"),
-         dict(k="icon", what="ship", on=("stjohns", "site", 0.42), role="ship", tow=True),
-         dict(k="x", at="site", t="6月18日に着く", lab=(24, 12, "start"))]]),
-        #   🔧 ⑤c'（10-15）：c219・cb09 と同じ衛星写真（G02）で同じ道を描く＝同じ絵は同じ名で（前は「母船が向かった海」）
-        t="出港", s="セントジョンズから現場へ（現在の衛星写真）"),
-})
-
-# ── 🆕 ⑤b-3（2026-10-14）：写真のカット（映像方針の一覧＝了承②・副題は焼いた絵を原寸で見てから最終に）──
-#   報告書の図（MBI）＝幅 1280 未満は kind() が額装＝映像方針で「全面」の図（幅 1000 以上＝c301・c305）は panel を書かずに全面
-_PP = P("mbi_fig003_polar_prince")
-_LARS = P("mbi_fig005_lars")
-_LOG0 = P("mbi_fig018_log_0000")
-_HANG = P("mbi_fig021_hangar")
-_BOAT = P("mbi_fig024_small_boats")
-SPEC.update({
-    # c301（8.2秒）＝聞き役の問い＋答え。母船ポーラープリンス（MBI 図3＝6月25日にセントジョンズへ戻ったとき）・幅 1202＝全面は 1.6倍・右へ
-    "c301": dict(photo=_PP, **ss.mv(_PP, "r"), side="none", t="古い貨物船", s="母船ポーラープリンス（事故の後の6月25日に撮影）"),
-    # c305（6.0秒）＝潜水艇を出し入れする台（MBI 図5・事故の後）・幅 1195＝全面・寄る
-    "c305": dict(photo=_LARS, **ss.mv(_LARS, "in"), side="none", t="沈む台", s="潜水艇を出し入れする台（事故の後に撮影）"),
-    # c307（11.2秒）＝母船の航海日誌（MBI 図18＝1099×246 の細長い頁・黒い塗りは MBI）・額ごと右へ（細長い頁を左から右へ）
-    #   🔧 ⑤b-3 の試し焼き（Actions 38573033690）：額の幅 1120 では頁が小さく上下が大きく空いた＝pw=1560（額ごと右へ ±80 で画面の内）
-    "c307": dict(photo=_LOG0, panel=True, pw=1560, fmove=ss.fm("r"), t="潜航の計画", s="母船の航海日誌（6月18日の早朝）"),
-    # c308（7.4秒）＝聞き役の反応つき。説明が行われた母船の格納庫（MBI 図21＝2枚組・黄の丸は MBI・幅 776）・額ごと左へ
-    "c308": dict(photo=_HANG, panel=True, fmove=ss.fm("l"), t="重さを量る", s="説明が行われた母船の格納庫（事故の後に撮影）"),
-    # c309（6.8秒）＝母船の小舟（MBI 図24・黄の丸は MBI・幅 780）・額ごと寄る
-    "c309": dict(photo=_BOAT, panel=True, fmove=ss.fm("in"), t="台へ移る", s="母船の小舟（事故の後に撮影）"),
-})
-
-# ══════════════════════════════════════════════════════════
-#  🆕 ⑤b-3b（2026-10-14）：図解 第2章（13カット）＝時間の帯（axis）・棒と人の形（qty）・模式図 `tools/mech22.py`
-# ══════════════════════════════════════════════════════════
-#   🔴 色は役の色（母船＝水色・会社＝橙・潜水艇＝白）。章の札「6月18日の朝」と4字以上同じ並びを見出し・副題に入れない（門番 dup）。
-#      時刻はニューファンドランドの夏時間（c306 の注）。past で沈めるだけの点は札なし（21本目の教訓）
-_N_MORN = "時刻はニューファンドランドの夏時間（協定世界時の2.5時間遅れ）"
-_MORN_PAST = [ss.ax("arr18", t="", lab=False), ss.ax("brief", t="", lab=False), ss.ax("weigh", t="", lab=False), ss.ax("rib", t=""),
-              ss.ax("aboard", t="", lab=False)]
-_N_CHAT = "英文は原文どおり（カナダの調べの付録A）"     # ⚠️ 門番 dup：「字幕」は制作の用語／echo：「打ち間違いのまま」は c317 の語りの写し
-SPEC.update({
-    # c302（2行）＝乗客の数の棒（貨物船の決まりの上限12人 → この航海24人）
-    "c302": dict(
-        t="乗客の数", s="母船に乗った人",
-        fig=("qty", dict(view="bar", groups=[ss.QG["pax"]], steps=[dict(add=[ss.qb("pax_lim")]), dict(add=[ss.qb("pax_now")])],
-                         note="人数はカナダの報告書", src=ss.src(["TSB §1.20.1.2"]))),
-    ),
-    # c303（2行）＝人の形（1つ＝1人・41人）。1行目で乗客に数える会社の関係24人（橙）・2行目で母船の乗組員17人（水色）
-    "c303": dict(
-        t="乗っていた人", s="母船の全員",
-        fig=("qty", dict(view="people", order=ss.PEOPLE_ORDER, sets=ss.PEOPLE_SETS, cols=12,
-                         steps=[dict(add=[ss.pp("乗客に数える人（会社の関係）", "COMPANY")]), dict(add=[ss.pp("母船の乗組員", "SHIP")])],
-                         note="人数はカナダの報告書（乗客に数える人＝乗組員でない人）", src=ss.src(["TSB §1.3.1", "TSB §1.20.1.1"]))),
-    ),
-    # c306（2行）＝時間の帯（3:30〜9:40）。2行目で母船が現場に着く（4:00）
-    "c306": dict(
-        t="時刻の決まり", s="現地の夏の時間",
-        fig=("axis", dict(ss.AX_MORN22, steps=[dict(), dict(add=[ss.ax("arr18")], cur="4:00")],
-                          note=_N_MORN, src=ss.src(["TSB §脚注13", "TSB §1.3.1"]))),
-    ),
-    # c310（2行）＝上から見た台と艇（NTSB 図4 の比）。8:20 乗り終える（潜水艇）→ 8:24 前のドームを閉めてボルトで締める（会社）
-    "c310": dict(
-        t="乗り込み", s="台の上の潜水艇",
-        fig=("m22", dict(view="lars_top", steps=[dict(tag=dict(t="8:20 5人が乗り終える", at="t1", col=J.SUB)),
-                                                 dict(state=dict(close="on"), tag=dict(t="8:24 会社の人が閉じる", at="t2", col=J.COMPANY))],   # ⚠️ 門番 echo
-                         rel=[dict(t="8:20", src="TSB §1.3.1"), dict(t="8:24", src="TSB §1.3.1"), dict(t="5人", src="TSB §1.3.1")],
-                         note="形は NTSB 図4 の上の線画の比（模式）", src=ss.src(["NTSB p1013", "TSB §1.3.1"]))),
-    ),
-    # c311（3行）＝🔁 上から→横から（合図の札）。2行目で前のドームのボルト18本（外から）・3行目で出入りはここだけ
-    "c311": dict(
-        t="出入りの道", s="前のドーム",
-        fig=("m22", dict(view="side", steps=[dict(tag=dict(t="横から見ると", at="cap", col=J.TICK)),
-                                             # 🔧 ⑤c'（10-15）：札が右上（尾部の上）でボルトから遠かった＝ボルトの列の上に置いて線で結ぶ
-                                             dict(state=dict(bolts="on"), tag=dict(t="外からボルトで締める", at="bolt", to="bolt", col=J.COMPANY)),
-                                             dict(state=dict(only="on"), tag=dict(t="出入りはここだけ", at="only", col=J.COMPANY))],
-                         note="形は NTSB 図3 の比（模式）", src=ss.src(["TSB §1.2.1", "TSB §2.5", "TSB §脚注39"]))),
-    ),
-    # c312（2行）＝同じ帯（past＝4:00〜8:20 を沈めて）。8:24 艇の中の生命維持へ（潜水艇）→ 酸素を足す・二酸化炭素を取る
-    "c312": dict(
-        t="閉じた艇の中", s="閉じた後の空気",
-        fig=("axis", dict(ss.AX_MORN22, past=_MORN_PAST, start=dict(cur="8:20"),
-                          steps=[dict(add=[ss.ax("seal")], cur="8:24"),
-                                 dict(add=[dict(k="chips", at="8:24", chips=["酸素を足す", "二酸化炭素を取る"], rec=["TSB §1.3.1", "TSB §1.2.1"])])],
-                          note=_N_MORN, src=ss.src(["TSB §1.3.1", "TSB §1.2.1"]))),
-    ),
-    # c313（1行）＝同じ帯。8:59 作業を止めて確かめる（会社）・5分の括弧（9:04 は次のカットの語り＝札なし）
-    "c313": dict(
-        t="一時停止", s="予定どおりの5分",
-        fig=("axis", dict(ss.AX_MORN22, past=_MORN_PAST + [ss.ax("seal", t="", lab=False)], start=dict(cur="8:24"),
-                          steps=[dict(add=[ss.ax("pause"), ss.ax("p5")], cur="8:59")],
-                          note=_N_MORN, src=ss.src(["TSB §1.3.1"]))),
-    ),
-    # c314（2行）＝横から見た台が沈む（9:04 水を入れる・9:05 台ごと水面の下 → 9:14 切り離す）
-    "c314": dict(
-        t="台ごと沈める", s="降下の始まり",
-        fig=("m22", dict(view="lars_side", steps=[dict(state=dict(fill="on", lvl="under"),
-                                                       tag=[dict(t="9:04 水を入れる", at="t1", col=J.COMPANY),
-                                                            dict(t="9:05 台ごと水面の下へ", at="t2", col=J.COMPANY)]),
-                                                  dict(state=dict(det="on"), tag=dict(t="9:14 切り離す", at="t3", col=J.COMPANY))],
-                         rel=[dict(t="9:04", src="TSB §1.3.1"), dict(t="9:05", src="TSB §1.3.1"), dict(t="9:14", src="TSB §1.3.1")],
-                         note="形と深さは模式", src=ss.src(["TSB §1.3.1", "TSB §1.2.1.1"]))),
-    ),
-    # c315（3行）＝重りで沈む（下向きの矢印だけ）・この年の初めて・10メートルより深いのも初めて
-    "c315": dict(
-        t="重りで沈む", s="動力を使わない降下",
-        fig=("m22", dict(view="sink", steps=[dict(state=dict(fall="on"), tag=dict(t="重りの重さで沈む", at="r")),
-                                             dict(tag=dict(t="この年のタイタニックへは初めて", at="r2", col=J.SUB)),
-                                             dict(tag=dict(t="10メートルより深いのも初めて", at="r3", col=J.SUB))],
-                         rel=[dict(t="10メートル", src="NTSB p1016")],
-                         note="形は NTSB 図3 の比（模式）", src=ss.src(["USCG p6", "TSB §1.3", "NTSB p1016"]))),
-    ),
-    # c316（3行）＝音で文字を送る（母船の下の送受信機と艇のあいだの音の波）・電波は水を通りにくい・声の装置は無い
-    "c316": dict(
-        t="海の中の通信", s="音で文字を送る",
-        fig=("m22", dict(view="sonar", steps=[dict(), dict(state=dict(sound="on", radio="on"),
-                                                           tag=[dict(t="電波は水の中を通りにくい", at="radio"), dict(t="音の波で短い文字", at="sound")]),
-                                              dict(state=dict(voice="on"), tag=dict(t="声の装置は無い", at="voice"))],
-                         note="形と距離は模式", src=ss.src(["USCG p32", "USCG p30"]))),
-    ),
-    # c317（2行）＝🔧 付録A の最初の4行の吹き出し（潜水艇＝左の白・母船＝右の水色・打ち間違いのまま）
-    "c317": dict(
-        t="降りる間の文", s="最初の4つの文",
-        fig=("m22", dict(view="chat", start=dict(set="descent"), steps=[dict(state=dict(n="2")), dict(state=dict(n="4"))],
-                         note=_N_CHAT, src=ss.src(["TSB §付録A", "TSB §1.3.2"]))),
-    ),
-    # c318（2行）＝🔧 2つの通信の箱（1つ目＝動く水色／2つ目＝灰に「動いていない」の赤）・理由は分かっていない（カナダの報告書）
-    "c318": dict(
-        t="2つの装置", s="潜水艇からの知らせ",
-        fig=("m22", dict(view="comms", steps=[dict(state=dict(dead="on"), tag=dict(t="9:23", at="t")),
-                                              dict(tag=dict(t="理由は分かっていない", d="カナダの報告書", at="why", col=J.INST))],
-                         rel=[dict(t="9:23", src="TSB §1.3.2")],
-                         note="装置の形は模式", src=ss.src(["TSB §1.3.2", "TSB §脚注16"]))),
-    ),
-    # c319（3行）＝深さの線（9:19 235m・9:23 436m・9:31 680m）・毎分33メートル → 9:53〜10:10 返事が来ない
-    "c319": dict(
-        t="降りる速さ", s="9時台の降下",
-        fig=("m22", dict(view="depth", steps=[dict(state=dict(upto="a"), tag=dict(t="毎分33メートル", at="rate")), dict(),
-                                              dict(state=dict(gap="on"), tag=dict(t="返事が来ない", at="gap"))],
-                         rel=[dict(t="毎分33メートル", src="TSB §1.3.2")],
-                         note="点のあいだは直線（模式）", src=ss.src(["TSB §1.3.2", "USCG p32"]))),
-    ),
-})

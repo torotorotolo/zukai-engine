@@ -77,7 +77,9 @@ BOOST = set()
 #    🔴 2026-10-12（21本目 ⑤b-1）：21本目も原色（記憶 feedback-jiko-photos-original-color＝20本目・17本目から全回）＝"ep21" を足した
 #       （無いと 0.0＝章の色に黙って染まる）。⑤b-1 で `python -c "import build_jiko; print(build_jiko.PHOTO_KEEP)"` が 1.0 を確かめた
 #    🔴 2026-10-14（22本目 ⑤b-1）：22本目も原色＝"ep22" を足した（ROV の映像・報告書の写真・DVIDS の写真＝色味は原本のまま）
-PHOTO_KEEP_EP = {"ep17": 1.0, "ep20": 1.0, "ep21": 1.0, "ep22": 1.0}
+#    🔴 2026-10-18（23本目 ⑤b-1）：23本目も原色＝"ep23" を足した（研究院・歴史編纂院・本部の写真・フリー素材＝色味は原本のまま。
+#       歴史編纂院の CMYK は RGB へ直すだけ＝技術の変換・映像方針 §6-3）
+PHOTO_KEEP_EP = {"ep17": 1.0, "ep20": 1.0, "ep21": 1.0, "ep22": 1.0, "ep23": 1.0}
 
 
 def _photo_keep_default():

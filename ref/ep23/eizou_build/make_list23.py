@@ -14,17 +14,27 @@
   E 図の型（模式・文字だけ・実写・イメージのほか）が全編で3回以上（10-15「同じ図を何度も使わない」＝台本の設計で2回まで）
   ⚠️ 続く図（あいだの写真とイメージは飛ばす）で見た目の型が同じ／静止写真の動きが「寄る」に偏る（50%超）／章の写真が 20% 未満
   ⚠️ 別の写真なのに副題が同じ／素材が決まっていない（pending）
-秒＝句読点なし÷365字/分（m23.py と同じ数え方）＝⑤a の音で取り直す。
+  🆕 ⑤b-1：E フリー素材の映像（mp4）が実測のカットの長さに足りない＝倍率（素材の秒÷カットの秒）が 0.6 未満（footage.py の決まり＝止め絵に）、
+     または 1.0 未満なのに動きの欄が「映像（0.xx倍）」でない（等速のつもりで尻が足りない）／⚠️ 素材のファイルが手元に無い（長さを測れない）
+秒＝⑤b-1（2026-10-18）から **audio/narration.json の実測**（カットの声＋前 0.35＋後 0.50・第2章からの章の頭の前に扉 2.0＝scene_jiko と同じ式・
+  22本目 make_list22 の型）。narration.json のカットが台本と合わないときだけ句読点なし÷365字/分（映像方針の見込み）に落ちる＝出力に書く。
+  倍率の分母（cont）は扉を除く。
 """
 import csv
+import json
 import os
 import re
+import subprocess
 import sys
 from collections import Counter, defaultdict
 
 sys.stdout.reconfigure(encoding='utf-8')
 HERE = os.path.dirname(os.path.abspath(__file__))
 EP = os.path.dirname(HERE)
+REPO = os.path.dirname(os.path.dirname(EP))
+NARR = os.path.join(REPO, 'audio', 'narration.json')
+LEAD, TAIL, CARD_SEC = 0.35, 0.50, 2.0          # scene_jiko.LEAD・TAIL・CARD_SEC と同じ値（ep23 は TAIL_EXTRA〈quote〉のカットなし＝決め所0）
+RATE_MIN = 0.6                                   # footage.py の注「rate が 0.6 を下回る欄は動画にせず止め絵」
 DAIHON = os.path.join(EP, 'daihon_v2.md')
 OUT_MD = os.path.join(EP, 'eizou_list23.md')
 OUT_TSV = os.path.join(HERE, 'list23.tsv')
@@ -75,9 +85,36 @@ def read_cuts():
     sec = 0.0
     for r in rows:
         r['start'] = sec
-        r['dur'] = r['n'] / 365 * 60
+        r['dur'] = r['cont'] = r['n'] / 365 * 60
         sec += r['dur']
-    return rows
+    note = '÷365 の見込み（narration.json が無い・台本と合わない）'
+    if os.path.exists(NARR):
+        dur = json.load(open(NARR, encoding='utf-8')).get('durations', {})
+        if [r['cid'] for r in rows] == [c for c in dur if c != 'ed01']:
+            sec, prev, seen = 0.0, None, set()
+            for r in rows:
+                key = r['cid'][:2]
+                card = CARD_SEC if (prev is not None and key != prev and key not in seen) else 0.0
+                seen.add(key)
+                prev = key
+                r['start'] = sec
+                r['cont'] = dur[r['cid']] + LEAD + TAIL
+                r['dur'] = r['cont'] + card
+                sec += r['dur']
+            note = 'audio/narration.json の実測'
+    return rows, note
+
+
+def media_len(path):
+    """素材の長さ（秒）＝ffprobe。無い・読めないは None（門番は ⚠️＝測れない）"""
+    p = os.path.join(REPO, path)
+    if not os.path.exists(p):
+        return None
+    out = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', p], capture_output=True, text=True)
+    try:
+        return float(out.stdout.strip())
+    except ValueError:
+        return None
 
 
 def base_kind(ga):
@@ -144,7 +181,7 @@ def code_key(code):
 
 
 def main():
-    cuts = read_cuts()
+    cuts, tnote = read_cuts()
     E, W = [], []
     arows = [ln.split('|') for ln in read_psv(os.path.join(HERE, 'assign23.psv'))]
     bad = [r[0] for r in arows if len(r) != 10]
@@ -191,6 +228,20 @@ def main():
             E.append('%s 記号 %s が sources23.psv に無い' % (c['cid'], code))
             continue
         c['code'], c['part'], c['rights'], c['credit'], c['get'] = code, part, s['rights'], s['credit'], s['get']
+        if s['file'].endswith('.mp4'):
+            # 🆕 ⑤b-1：映像の素材は実測のカットの長さ（cont＝扉を除く）に足りるか。等速＝伸ばさない／足りなければ倍率を動きの欄に書く
+            have = media_len(s['file'])
+            c['src_len'] = have
+            if have is None:
+                W.append('%s 映像の素材 %s が手元に無い＝長さを測れない' % (c['cid'], s['file']))
+            else:
+                c['rate'] = have / c['cont']
+                mr = re.search(r'映像（(\d\.\d+)倍）', c['motion'])
+                if c['rate'] < RATE_MIN:
+                    E.append('%s 映像の素材 %.2f秒 ÷ カット %.2f秒 ＝ %.2f倍 ＜ %.1f（止め絵にする・素材を替える）' % (c['cid'], have, c['cont'], c['rate'], RATE_MIN))
+                elif c['rate'] < 1.0 and not (mr and float(mr.group(1)) <= c['rate'] + 1e-9):
+                    E.append('%s 映像の素材 %.2f秒 がカット %.2f秒 に足りない（等速なら尻が %.2f秒 欠ける）＝動きの欄を「映像（%.2f倍）」以下に' % (
+                        c['cid'], have, c['cont'], c['cont'] - have, int(c['rate'] * 100) / 100))
         if code in NG:
             E.append('%s 使わない点 %s（%s）' % (c['cid'], code, NG[code]))
         if s['get'] == 'pending':
@@ -290,15 +341,17 @@ def main():
 
     with open(OUT_TSV, 'w', encoding='utf-8', newline='\n') as f:
         w = csv.writer(f, delimiter='\t', lineterminator='\n')
-        w.writerow(['cid', 'chap', 'start', 'dur', 'kind', 'code', 'part', 'frame', 'sub', 'motion', 'view', 'look', 'signal', 'rights', 'credit', 'note', 'ga', 'ga_new'])
+        w.writerow(['cid', 'chap', 'start', 'dur', 'kind', 'code', 'part', 'frame', 'sub', 'motion', 'view', 'look', 'signal', 'rights', 'credit', 'note', 'ga', 'ga_new',
+                    'cont', 'src_len', 'rate'])
         for c in cuts:
-            w.writerow([c['cid'], c['chap'], '%.1f' % c['start'], '%.1f' % c['dur'], c['kind'], c['code'], c['part'], c['frame'], c['sub'], c['motion'],
-                        c['view'], c['look'], c['signal'], c['rights'], c['credit'], c['note'], c['ga'], c['ga_new']])
+            w.writerow([c['cid'], c['chap'], '%.2f' % c['start'], '%.2f' % c['dur'], c['kind'], c['code'], c['part'], c['frame'], c['sub'], c['motion'],
+                        c['view'], c['look'], c['signal'], c['rights'], c['credit'], c['note'], c['ga'], c['ga_new'], '%.2f' % c['cont'],
+                        ('%.2f' % c['src_len']) if c.get('src_len') else '', ('%.3f' % c['rate']) if c.get('rate') else ''])
 
     L = ['---', 'title: 23本目 場面ごとの映像・写真の一覧（生成物）', 'created: 2026-10-18', 'tags: [project/jiko-kensho, ep23]', '---', '',
          '# 23本目 場面ごとの映像・写真の一覧（%dカット・映像方針）' % n, '',
          '> **生成物＝手で直さない**。作り方＝`python ref/ep23/eizou_build/make_list23.py`（入力＝台本 第2版 `daihon_v2.md` §4 の画の欄・当て方 `eizou_build/assign23.psv`・出どころ `eizou_build/sources23.psv`〈`make_sources23.py` が書く〉・同じ写真の組 `eizou_build/dup23_orb.tsv`）。直すのは入力。',
-         '> 秒＝句読点なし÷365（⑤a の音で取り直す）。🔧＝台本の画の欄から替えたカット。色味は原本（10-07）。写真は画面いっぱい（10-11）＝例外は BY-SA（高さいっぱいの額装＝10-17）と幅1000未満の公共ヌリ（額装）。動く映像なし（10-17）。見た画像の記録＝`eizou_build/seen23.tsv`。決めと確かめの正本＝Vault `Projects/事故検証-23本目-映像方針-20261018.md`。', '',
+         '> 秒＝%s（⑤b-1 から＝声＋前 0.35・後 0.50・章の扉 2.0）。🔧＝台本の画の欄から替えたカット。' % tnote + '色味は原本（10-07）。写真は画面いっぱい（10-11）＝例外は BY-SA（高さいっぱいの額装＝10-17）と幅1000未満の公共ヌリ（額装）。動く映像なし（10-17）。見た画像の記録＝`eizou_build/seen23.tsv`。決めと確かめの正本＝Vault `Projects/事故検証-23本目-映像方針-20261018.md`。', '',
          '## §0 数', '', '| 物差し | 値 | 決まり |', '|---|---|---|',
          '| 写真・実写（この事故の物） | **%d カット＝%.1f%%**（秒 %.0f＝%.1f%%） | 20%%以上 %s |' % (
              len(photo), ratio * 100, sum(c['dur'] for c in photo), sum(c['dur'] for c in photo) / tot * 100, '✅' if ratio >= PHOTO_LO else '🔴'),

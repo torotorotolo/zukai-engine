@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""第8章　2つ目の船体 c901–c923（23カット）。22本目（タイタン号のリメイク）。
+"""第8章　5階の食堂街 c901–c919（19カット）。23本目（三豊百貨店崩壊事故のリメイク）。
 
-■ 🔴 2026-10-14（⑤b-1）：21本目（9.11 米国同時多発テロのリメイク）の中身を空にした＝git の `35fab37`（`git show 35fab37:tools/cuts/c9.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep22/make_plan22.py` で
-  映像方針の一覧 `ref/ep22/eizou_build/list22.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典から
+■ 🔴 2026-10-18（⑤b-1）：22本目（タイタン号のリメイク）の中身を空にした＝git の `adbe2d5`（`git show adbe2d5:tools/cuts/c9.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep23/make_plan23.py` で
+  映像方針の一覧 `ref/ep23/eizou_build/list23.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典から
   機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
@@ -15,252 +15,63 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'c901': dict(kind='図解',
-               plan='🔧 注：🔧 実写→模式（NTSB 図18 の右＝模型の端は語り「代わりの筒を頼んだ・テープに変えた」と合わない → c904 へ）｜新しい画（映像方針）：図 模式 2つの巻き方の並べ図（1つ目＝樹脂の槽をくぐらせた糸・橙／2つ目＝樹脂をあらかじめ含ませたテープ・青）｜台本の画（🔧映像方針で替えた＝元の予定）：実写 NTSB 図18 の右＝1/3 模型の切り落とした端のしわと剥離（NTSB 研究所・A・c803 は同じ図の左＝別の写真＝副題「3分の1の模型の端（研究所）」）',
-               src='TSB §1.12.2（`In early 2020, OceanGate engaged a new company, Electroimpact Inc., to construct a replacement carbon-fibre cylinder.`）・TSB §1.12.2（`The layers were made using a unidirectional carbon fibre tape that was pre-impregnated with epoxy resin`）'),
+    'c901': dict(kind='写真',
+               plan='C165｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：瓦礫の上の隊員と売り場の椅子（1995年）｜動き：額ごと寄る｜権利：BY-SA 4.0（本部）｜出典の行：写真：ソウル特別市 消防災難本部（CC BY-SA 4.0）｜注：日付の焼き込み・#166 は似た絵（使わない）。→ 第8章の扉＝BY-SA＝方眼だけ｜台本の画：実写 BY-SA #165（瓦礫の上に百貨店の椅子が見える＝未使用の○・額装＝副題「瓦礫の上の椅子（1995年）」）',
+               src='K6-R p.29（`원래의 롤러스케이트장에서 식당가로 변경`）・大96 理由2.가（`차이가 크므로`）'),
     'c902': dict(kind='図解',
-               plan='台本の画：図 再現 材料の発注の要点（2020年・東レのアメリカの会社・テープの品名は出さない）',
-               src='USCG p.118〈110〉（`The carbon fiber material used for the first TITAN hull was standard-modulus Grafil 37-800`）・p.174〈166〉（`The specific pre-preg system used was Toray Composite Materials America’s P2362W-19L`）・p.174〈166〉（`On February 21, 2020, OceanGate issued a purchase order for 7,700 lbs of P2362W-190U-013 composite material from Toray Composites`）'),
-    'c903': dict(kind='図解',
-               plan='台本の画：図 模式 2020年の1/3 模型2つ（1つ目＝壊れた・2つ目＝壊れる寸前で試験を止めた＝米運輸安全委の書き方・深さの数は描かない）',
-               src='NTSB p.62（`either imploded or nearly imploded at depths less than 3,000 meters (9,843 feet), significantly less than the depth needed to reach the Titanic wreckage.`）'),
-    'c904': dict(kind='写真',
-               plan='🔧 N18:右｜見せ方：全面｜副題：3分の1の模型の端に見えるうねり（研究所）｜動き：左へ｜権利：A（NTSB の研究所）｜出典の行：米運輸安全委員会の報告書 図18｜注：🔧 模式→実写（NTSB 図18 の右＝v1 の後・v2 の前に作った2つの3分の1の模型＝NTSB p.37／語り「うねり」）。図18 の右を切り出す｜台本の画（🔧映像方針で替えた＝元の予定）：図 模式 層のうねり（まっすぐな繊維と、波打った繊維の並べ図）',
-               src='TSB §1.12.2（`identified that ply waviness in localized areas in the carbon fibre cylinder was the cause of each failure.`）・§1.12.2（`Ply waviness reduces the compressive strength and buckling resistance of a laminate composite.`）'),
-    'c905': dict(kind='図解',
-               plan='台本の画：図 模式 1層ずつ固める作り方（巻く→固める→接着剤の膜→次の層・5回くり返す）',
-               src='TSB §1.12.2（`The manufacturing process therefore involved Electroimpact Inc. creating the cylinder in 5 layers, each of which was cured separately.`）・TSB 脚注50（`A multi-cure method allows for the layers of carbon fibre to be thinner, which reduces the probability of ply waviness.`）'),
-    'c906': dict(kind='写真',
-               plan='M255｜見せ方：額装（報告書の図）｜副題：事故の船体の筒の断面（5つの層）｜動き：額ごと左へ｜権利：A（NTSB の研究所が撮影）｜出典の行：米沿岸警備隊 海難調査委員会の報告書 図255（米運輸安全委員会）｜注：英字の札と定規＝訳の札を添える（§B1-4）・幅814｜台本の画：実写 MBI 図255 5層の断面（英字の札と定規・NTSB の撮影・USCG 報告 p.276・A・英字の札は §B1-4＝映像方針で＝副題「事故の船体の筒の断面（5つの層）」）',
-               src='TSB §1.12.2（`Each layer contained 133 fibre plies.`）・§1.12.2（`The laminate stacking sequence was 2 cylindrical plies first, followed by 1 longitudinal ply.`）'),
-    'c907': dict(kind='図解',
-               plan='台本の画：図 模式 同じ作り方の図（「作り手が強く求めた」「費用は作り手が持った」の札）',
-               src='TSB §1.12.2（`OceanGate initially rejected this recommendation because it would cost more, but Electroimpact Inc. insisted on it and agreed to cover the cost of it.`）'),
+               plan='一覧の種類：模式｜見た目の型：重さ｜注：スケート場と食堂街の重さの違い｜台本の画：図 模式 スケート場と食堂街の重さの違い（床の上にほとんど物を置かない／厨房・冷蔵庫・客席が全部重さになる）',
+               src='大96 理由2.가（`고정하중(Dead Load) 및 적재하중(Live Load)의 차이가 크므로`）'),
+    'c903': dict(kind='フリー素材',
+               plan='🔧 Xc205b｜映像の素材 7.34秒・倍率 0.74（素材の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ）｜一覧の種類：イメージ｜見せ方：全面（イメージ）｜副題：イメージ｜動き：映像（0.74倍）｜権利：フリー素材（Pexels License）｜出典の行：イメージ（Pexels）｜注：業務用の厨房の台（Pexels 38897640）＝ステンレスの台と機器へ寄る。🔧 ⑤b-1（10-18）：素材 7.34秒＜実測のカット 9.88秒＝等速では尻が 2.54秒欠ける→ 0.74倍（footage の決まり＝0.6 以上・22本目 c512 0.73 と同じ扱い）。取った候補に代わりの厨房の映像なし。🔴 ⑤b-1（10-18）に素材の 0.0秒のコマを原寸で見た＝瓶だけでなく箱・ポットの札・右上の貼り紙まで**画面いっぱいに中国語の字**（「原味糖浆 Original Flavored Syrup」・「12:35」ほか）＝寄りで逃げられない → **⑤b-2 で素材を替える**（業務用の冷蔵庫・厨房・人なし・字なし・10秒以上＝台本の画「業務用の冷蔵庫」・了承②の範囲〈候補が出しだい取って見て1本に決める〉）。替えるまでの仮の当て。⚠️ 右の瓶に中国語の札＝外して寄る・使う区間を焼いて字を探す（⑤b-7）｜台本の画（🔧映像方針で替えた＝元の予定）：イメージ 業務用の冷蔵庫（人なし・フリー素材）',
+               src='K6-R p.29（`대형냉장고·주방기기`）'),
+    'c904': dict(kind='図解',
+               plan='一覧の種類：箱｜見た目の型：箱｜注：5階の重さの内訳｜台本の画：図 箱 5階の重さの内訳（国会・白書・判決が挙げる物を3つの箱に分けて＝この回で箱は c904 と cb05 の2回だけ）',
+               src='白書 p89（「대형냉장고・조적벽・돌정원」＝検察の資料と新聞を引いた節）'),
+    'c905': dict(kind='フリー素材',
+               plan='Xc905b｜映像の素材 30.00秒・倍率 2.67（素材の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ）｜一覧の種類：イメージ｜見せ方：全面（イメージ）｜副題：イメージ｜動き：映像（等速）｜権利：フリー素材（Pexels License）｜出典の行：イメージ（Pexels）｜注：れんがの壁（Pexels 7830320）｜台本の画：イメージ れんがの壁（人なし・フリー素材）',
+               src='大96 理由1（`대리석 및 화강석의 마감재공사`・`15㎝ 두께의 주방 바닥콘크리트`・`벽돌을 사용한 칸막이 벽체`・`온돌공사`）'),
+    'c906': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：重さの矢印｜注：5階の床にかかる余計な重さ（360キログラム以上）｜台本の画：図 模式 5階の床にかかる余計な重さ（1平方メートルあたり360キログラム以上＝前提の重さの上に足される）',
+               src='大96 理由1（`예정된 하중보다 360㎏/㎡ 이상의 과하중이 5층 기둥과 바닥 슬래브에`）'),
+    'c907': dict(kind='写真',
+               plan='C78｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：崩れた床の断面の層（1995年）｜動き：額ごと右へ｜権利：BY-SA 4.0（本部）｜出典の行：写真：ソウル特別市 消防災難本部（CC BY-SA 4.0）｜台本の画：実写 BY-SA #78（スラブの断面の層＝未使用の○・額装＝副題「崩れた床の断面（1995年）」）',
+               src='K6-R p.28（`옥상 및 5층 식당가의 과도한 초과하중`）'),
     'c908': dict(kind='図解',
-               plan='台本の画：図 帯 年表（2020年11月〜2021年1月 実物大の筒・模型は作らず）',
-               src='NTSB p.28（`between November 2020 and January 2021.`）・NTSB p.62（`OceanGate did not build or test any new sub-scale models using the co-bonding process`）・p.62（`the only article produced using the co-bonding process was the v2 full-scale cylinder ultimately used in the casualty dive.`）'),
-    'c909': dict(kind='写真',
-               plan='N16:下｜見せ方：全面｜副題：しわを削った跡（事故の船体の端材）｜動き：右へ｜権利：A（NTSB の研究所）｜出典の行：米運輸安全委員会の報告書 図16｜注：NTSB 図16 の下を切り出す｜台本の画：実写 NTSB 図16 の下＝事故の船体の端材のしわの削り跡（研究所・A＝副題「しわを削った跡（事故の船体の端材）」）',
-               src='TSB §1.12.2（`The carbon fibre plies in these areas were ground down by OceanGate to make them flush with the rest of the outer surface before the next layer was added.`）・§1.12.2（`Grinding down the carbon fibre severed some of the fibres and introduced defects on the surface.`）・§1.12.2（`Grinding did not mitigate ply waviness below the outer surface of each layer of the cylinder.`）'),
+               plan='一覧の種類：模式｜見る向き：横から（断面）｜見た目の型：床の断面｜合図：🔁 斜めから（立体）→横から（断面）（前の図 c819）｜注：押えコンクリート（ちょうどよい3〜6センチ／実際の15センチ＝屋上の床）｜台本の画：図 模式 押えコンクリート（防水の層の上にかぶせるコンクリート＝ちょうどよい3〜6センチ／実際の15センチ＝屋上の床の断面）',
+               src='K6-R p.29（`덧씌운 콘크리트`・`두께가 150㎜로 두껍게 시공`）'),
+    'c909': dict(kind='フリー素材',
+               plan='🔧 Xc909b｜映像の素材 14.20秒・倍率 1.54（素材の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ）｜一覧の種類：イメージ｜見せ方：全面（イメージ）｜副題：イメージ｜動き：映像（等速）｜権利：フリー素材（Pexels License）｜出典の行：イメージ（Pexels）｜注：🔧 大理石の床 → コンクリートの面（Pexels 7793216・語り＝押えコンクリートの厚さ・§0-3）｜台本の画（🔧映像方針で替えた＝元の予定）：イメージ 大理石の床（人なし・フリー素材）',
+               src='K6-R p.29（`적정치는 30㎜`）'),
     'c910': dict(kind='図解',
-               plan='🔧 注：🔧 札を足した（§0-3＝事故のあとに端材で数えた物）｜新しい画（映像方針）：図 棒 層ごとの「削ったしわ」の数（1・8・14・24＝MBI 図143）・左下の札「事故のあと、端材で数えた」｜台本の画（🔧映像方針で替えた＝元の予定）：図 棒 MBI 図143 の数（層ごとの「削ったしわ」の数＝⑤b で原寸から読む・文字の層に無い）',
-               src='TSB §2.1（`The overall extent of the grinding was not documented and therefore could not be determined.`）'),
+               plan='一覧の種類：模式｜見る向き：斜めから（立体）｜見た目の型：部材の立体｜合図：🔁 横から（断面）→斜めから（立体）（前の図 c908）｜注：北側のコアの耐力壁を切った所（ダクトの穴）｜台本の画：図 模式 北側のコアの耐力壁を切った所（屋上を支える壁に、厨房の排気のダクトを通す穴）',
+               src='K6-R p.29（`옥상 바닥을 받치는 북측 코아 내력벽을 수평방향으로 절단`）・大96 理由1（`5층 식당 주방의 배기덕트 설치를 위하여`）'),
     'c911': dict(kind='写真',
-               plan='N15｜見せ方：全面｜副題：事故の船体の筒の切り落とした端（研究所）｜動き：左へ｜権利：A（NTSB の研究所）｜出典の行：米運輸安全委員会の報告書 図15｜台本の画：実写 NTSB 図15 事故の船体の端材の側面（研究所・A＝副題「事故の船体の筒の切り落とした端（研究所）」）',
-               src='NTSB p.29（`The cylinder was manufactured with excess material at both ends, which was subsequently trimmed off.`）・NTSB p.42（`We also examined end pieces that had been trimmed from the v2 full-scale cylinder during the construction/production process`）'),
+               plan='C130｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：崩れた断面と、並んだヘルメットの一団（1995年）｜動き：額ごと左へ｜権利：BY-SA 4.0（本部）｜出典の行：写真：ソウル特別市 消防災難本部（CC BY-SA 4.0）｜注：⚠️ 原寸で手前の一団が私人か｜台本の画：実写 BY-SA #130（未使用の○・額装）',
+               src='大96 理由1（`내력벽을 40㎝×98㎝ 크기로 절단`）・白書 p90（「約40×98cm」）・K6-R p.29（`벽체 길이 160㎝ 중 98㎝ 절단`）'),
     'c912': dict(kind='図解',
-               plan='台本の画：図 模式 筒の厚さ（設計＝約12.7cm〈5インチ〉の溝・端材＝約13.1cm・外側を削って溝に入れた）',
-               src='NTSB p.43（`The excess porosity resulted in an increase in layer thickness.`）・p.43（`which could only accommodate a 5-inch-thick cylinder.`）'),
-    'c913': dict(kind='写真',
-               plan='N17:下｜見せ方：全面｜副題：層のあいだの接着剤のすき間（事故の船体の端材）｜動き：寄る｜権利：A（NTSB の研究所）｜出典の行：米運輸安全委員会の報告書 図17｜注：NTSB 図17 の下を切り出す｜台本の画：実写 NTSB 図17 の下＝1枚目と2枚目の層のあいだの接着剤の空隙（研究所・A＝副題「層のあいだの接着剤のすき間（事故の船体の端材）」）',
-               src='NTSB p.43（`The voids were present in all layers but were significantly greater in size and number at the interface between the first and second layers and the third and fourth layers.`）'),
+               plan='一覧の種類：模式｜見た目の型：部材の寄り｜注：切ったあとに補強なし｜台本の画：図 模式 切ったあとに補強なし（切り口のまわりに補強の鉄が無い＝c910 と別の寄り）',
+               src='大96 理由1（`아무런 보강조치를 취하지 아니함으로써 벽체의 내력을 저하`）'),
+    'c913': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：横から（断面）｜見た目の型：床の断面｜合図：🔁 斜めから（立体）→横から（断面）（前の図 c910）｜注：5階の床と壁のつなぎ目の鉄筋（64センチ／15〜18センチ）｜台本の画：図 模式 5階の床と壁のつなぎ目の鉄筋（入れるべき64センチ／実際の15〜18センチ＝判決）',
+               src='大96 理由1（`5층 슬래브 상부철근과 벽체의 정착길이는`・`64㎝를 확보하여야 함에도 15-18㎝ 정도로 짧게 정착`）'),
     'c914': dict(kind='写真',
-               plan='N16:上｜見せ方：全面｜副題：しわのまわりのすき間（事故の船体の端材）｜動き：引く｜権利：A（NTSB の研究所）｜出典の行：米運輸安全委員会の報告書 図16｜注：NTSB 図16 の上を切り出す（c909 と別の写真）｜台本の画：実写 NTSB 図16 の上＝しわのまわりで接着剤がテントのように浮いた空隙（研究所・A＝副題「しわのまわりのすき間（事故の船体の端材）」）',
-               src='NTSB p.62（`the co-bonding process did not completely eliminate the wrinkles and, at the same time, introduced additional anomalies.`）'),
+               plan='C29｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：マスクの救助隊員と、後ろの折れた柱（1995年）｜動き：額ごと寄る｜権利：BY-SA 4.0（本部）｜出典の行：写真：ソウル特別市 消防災難本部（CC BY-SA 4.0）｜注：語りの場所（屋上の床と北の壁のつなぎ目）は写らない＝副題で場所を名乗らない（§0-3）｜台本の画：実写 BY-SA #29（柱＝未使用の○・額装）',
+               src='白書 p89（「北側1番コアの耐力壁と屋上の床のつなぎ目＝上の鉄筋がフック無しで25cm」＝検察の資料と新聞を引いた節）'),
     'c915': dict(kind='図解',
-               plan='🔧 注：🔧 再現→模式（§0-3）｜新しい画（映像方針）：図 模式 端材を18の試料に切る図（長さの向き9＝青・周りの向き9＝橙）｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 TSB の研究所の試験の要点（端材を18の試料に・長さの向き9・周りの向き9）',
-               src='TSB §1.14（`The TSB Laboratory was able to obtain a trimmed-off end piece that came from the 2nd construction of Titan’s carbon fibre cylinder`）・TSB §1.15（`The TSB Laboratory cut and machined the end piece into 18 samples, 9 in the axial direction and 9 in the circumferential direction.`）'),
-    'c916': dict(kind='写真',
-               plan="L28｜見せ方：全面｜副題：端面に見える層のうねり（米運輸安全委員会の研究所）｜動き：右へ｜権利：A（NTSB の研究所）｜出典の行：米運輸安全委員会 研究所の報告 24-011 図28｜注：c915 がカナダの研究所＝取り違えないよう研究所の名を残す（④'）｜台本の画：実写 24-011 図28 2つ目の筒の切り落とした端面のうねり（黄の目盛り・NTSB 研究所・A＝副題「端面に見える層のうねり（米運輸安全委員会の研究所）」）",
-               src='TSB §1.15（`there was a general waviness in the plies.`）'),
+               plan='一覧の種類：模式｜見た目の型：部材の比べ｜注：先を曲げる形（ㄱ）と曲げない形（ㅣ）｜台本の画：図 模式 先を曲げる形と、曲げない形（「ㄱ」の形で引っかける／「ㅣ」の形でまっすぐ短い）',
+               src='K6-R p.29（`자 형태로 꺾어 넣고`・`자형으로 갈고리장치 없이 짧게 시공`）'),
+    'c916': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：横から（断面）｜見た目の型：床の断面｜注：壁は立ったまま床だけ落ちる｜台本の画：図 模式 壁は立ったまま、床だけが落ちる（c413 の現場図とは別の絵＝つなぎ目の寄り）',
+               src='K6-R p.29（`붕괴 시 벽체는 그대로 있고 슬래브만 무너져 내리는 현상`）'),
     'c917': dict(kind='図解',
-               plan='台本の画：図 棒 安全率（長さの向き3.05・周りの向き1.11・必要な1.25 の線＝何メートルでの値かは書かない）',
-               src='TSB §1.12.2（`OceanGate also changed its safety factor to 1.25`）・§1.15（`as evidenced by the calculated safety factor of 3.05, which was greater than the required 1.25.`）・§1.15（`the calculated safety factor was 1.11, which did not meet the required safety factor of 1.25.`）'),
+               plan='一覧の種類：模式｜見る向き：横から（断面）｜見た目の型：建物の断面｜注：北と南に残った壁と、外れて落ちた床｜台本の画：図 模式 北と南に残った壁と、外れて落ちた床（つなぎ目に印）',
+               src='K6-市 p.37（`A동 북측 잔여벽체`）'),
     'c918': dict(kind='図解',
-               plan='台本の画：図 模式 棚のたとえ（いつも100キロを載せる棚＝基準は125キロまで耐える／この筒の周りの向き＝111キロまで・式は §9）',
+               plan='一覧の種類：模式｜見た目の型：積み木｜注：5階に積み重なった重さ｜台本の画：図 模式 5階に積み重なった重さ（冷蔵庫・れんがの壁・石の庭・大理石・厨房の床・オンドル＝積み木のように）',
                src='—'),
     'c919': dict(kind='図解',
-               plan='台本の画：図 再現 TSB §1.15 の一節（前提の「試料が実物を代表するなら」と、結論の文を英字で＋訳は字幕）',
-               src='TSB §1.15（`Assuming that the test results from the samples are representative of the properties of the carbon fibre cylinder used in the Titan`）・§1.15（`it was unsafe for the Titan to have been repeatedly exposed to pressures equivalent to the depth of the Titanic or deeper (which occurred during pressure tests).`）'),
-    'c920': dict(kind='図解',
-               plan='台本の画：図 棒 疲れの寿命（米運輸安全委が試した試料でカナダの研究所が計算、いちばん強い物＝耐えた見込み／いちばん弱い物＝82% を超えて使った可能性）',
-               src='TSB §1.16（`would reasonably have been expected to survive based on the sample with the highest compressive strength value`）・§1.16（`it could have used more than 82% of its fatigue life in the time up to the occurrence dive based on the sample with the lowest compressive strength value.`）'),
-    'c921': dict(kind='図解',
-               plan='台本の画：図 帯 2021年2〜3月の加圧試験4回（4,000m 前後・4,200m は1回・20分＝米沿岸警備隊の書き方・タイタニックの約3,840m の線）',
-               src='TSB §1.12.2（`In February and March 2021, the pressure hull was tested at the Deep Ocean Test Facility. Four tests were done.`）・TSB §1.15（`the Titan had 4 successful pressure tests at the Deep Ocean Test Facility`）・NTSB p.58（`marginally greater than the 3,840-meter (12,598-foot) dive depth required to reach the Titanic.`）'),
-    'c922': dict(kind='図解',
-               plan='🔧 注：🔧 再現→模式（§0-3）｜新しい画（映像方針）：図 模式 2つの道（くり返しの計算＝空欄の「？」／音の監視＝「その場で分かる」と会社）｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 TSB §1.12.2・§2.1 の要点（「疲れの計算の代わりに音の監視」「耐えられる回数は分からない」）',
-               src='TSB §1.12.2（`the acoustic emission monitoring system would be used to detect damage in real time`）・TSB §2.1（`The number of cycles at extreme pressure that the full-scale pressure hull could withstand was therefore unknown.`）'),
-    'c923': dict(kind='図解',
-               plan='台本の画：図 模式 前のドームの窓（内側が平ら・外側がふくらんだ形・等級の札＝約650m〈米沿岸警備隊・カナダ〉／1,000m の認証〈米運輸安全委〉）',
-               src='USCG p.278〈270〉（`certified the window to a pressure rating of 945 psi, corresponding to a depth of only 650 m (2,133 feet).`）・NTSB p.30（`an acrylic window certified to 1,000 meters (3,281 feet).`）・TSB §1.12.1（`only a fraction of what OceanGate required for dives to the Titanic`）・§1.12.2（`The new viewport from Germany was installed in this construction`）'),
+               plan='一覧の種類：模式｜見る向き：斜めから（立体）｜見た目の型：棟の立体｜合図：🔁 横から（断面）→斜めから（立体）（前の図 c917）｜注：5階に「いつから？」｜台本の画：図 模式 次の章への橋（5階の床に「いつから？」の印）',
+               src='—'),
 }
 
 SPEC = {}
-
-# ══════════════════════════════════════════════════════════
-#  🆕 ⑤b-5（2026-10-15）：図解 第8章（16カット）＝模式図 `tools/mech22.py`・時間の帯（axis）・棒（qty）
-# ══════════════════════════════════════════════════════════
-#   🔴 章の札「2つ目の船体」と4字以上同じ並びを見出し・副題に入れない（門番 dup）。字は12字未満（門番 echo）。写真7（c904・c906・c909・c911・c913・
-#      c914・c916）は ⑤b-7
-_N_CD = "要点の箱（模式）"
-SPEC.update({
-    # c901（3行）＝聞き役の問い→2020年の初め、別の会社に代わりの筒を頼む→材料は樹脂を含ませたテープに（2つ目の箱）
-    "c901": dict(
-        t="代わりの筒", s="作り手を替える",          # ⚠️ 門番 echo：「2020年の初め」は語りの写し
-        fig=("m22", dict(view="cards", start=dict(set="wind2", n="1"),
-                         steps=[dict(), dict(tag=dict(t="別の会社へ頼む", at="t")), dict(state=dict(n="2"))],
-                         note="作り方の絵は模式（カナダの報告書・米運輸安全委員会の報告書）", src=ss.src(["TSB §1.12.2", "NTSB p1027"]))),
-    ),
-    # c902（2行）＝1つ目の糸（三菱ケミカル系）・2つ目のテープ（東レの米国の会社＝品名は出さない）→「期限切れの安い材料」の話は3冊に無い（×）
-    "c902": dict(
-        t="材料の出どころ", s="2つの筒の材料",
-        fig=("m22", dict(view="cards", start=dict(set="mat"), steps=[dict(state=dict(n="2")), dict(state=dict(n="3"))],
-                         note=_N_CD + "・会社の名は米沿岸警備隊の報告書の記述", src=ss.src(["USCG p118", "USCG p174"]))),
-    ),
-    # c903（3行）＝聞き役の問い→2020年の3分の1の模型2つ（1つ目＝壊れた・2つ目＝壊れると分かって試験を止めた）→どちらもタイタニックの深さの手前
-    "c903": dict(
-        t="模型の結果", s="新しい材料で",          # ⚠️ 門番 echo：「2020年の試験」は語りの写し
-        fig=("m22", dict(view="cards", start=dict(set="m20"),
-                         steps=[dict(), dict(state=dict(n="2")), dict(tag=dict(t="どちらも届かず", d="タイタニックの深さ", at="t"))],
-                         note="形は模式・深さの数は描いていない（米運輸安全委員会の報告書）", src=ss.src(["NTSB p1027", "NTSB p1062"]))),
-    ),
-    # c905（2行）＝5つの層に分け、1層ずつ固めて重ねる（巻く→固める→接着剤の膜→次の層・5回）→1層は硬化の前に約2.5センチまで（うねりを減らす）
-    "c905": dict(
-        t="1層ずつ固める", s="5つに分けて",
-        fig=("m22", dict(view="cards", start=dict(set="cure"),
-                         steps=[dict(state=dict(n="4", loop="on")), dict(tag=dict(t="1層は約2.5センチまで", at="tl"))],
-                         rel=[dict(t="1層・約2.5センチ", src="TSB §1.12.2（the layers were limited to 25.4 mm in thickness before curing）")],
-                         note="流れは模式（カナダの報告書の記述）", src=ss.src(["TSB §1.12.2", "TSB §脚注50"]))),
-    ),
-    # c907（2行）＝同じ流れ。作り手が強く求めた（カナダの調べ）→会社は費用で一度断り、作り手が費用を持った
-    "c907": dict(
-        t="作り手の求め", s="費用の持ち方",
-        fig=("m22", dict(view="cards", start=dict(set="cure", n="4", loop="on"),
-                         steps=[dict(tag=dict(t="作り手が強く求めた", d="カナダの調べ", at="tl", col=J.INST)),
-                                dict(tag=dict(t="費用は作り手が持つ", d="会社は一度断った", at="t", col=J.INK_W))],
-                         note="流れは模式（カナダの報告書の記述）", src=ss.src(["TSB §1.12.2"]))),
-    ),
-    # c908（3行）＝年表（2020〜21年）。2020年11月〜2021年1月 実物大の筒を作る→新しい作り方の模型なし→聞き役
-    "c908": dict(
-        t="本物を先に", s="模型を飛ばして",
-        #   🔧 試し焼き：cur を書かないと今の位置の赤い▼が帯の左の端（2020年6月）に出た
-        fig=("axis", dict(ss.AX_Y20, steps=[dict(add=[ss.ax("build20")], cur="2020-11"), dict(add=[ss.ax("nomodel")], cur="2021-01"), dict()],
-                          note="月は米運輸安全委員会の報告書（月までの記録）", src=ss.src(["NTSB p1028", "NTSB p1062"]))),
-    ),
-    # c910（2行）＝筒の壁の断面に層ごとの「削ったしわ」の数（1・8・14・24＝事故のあとに端材で数えた）→どこまで削ったかの記録は無い
-    "c910": dict(
-        t="しわを削った数", s="層ごとに数える",
-        fig=("m22", dict(view="layers", steps=[dict(state=dict(grind="on")), dict(tag=dict(t="削った範囲は記録なし", at="t"))],
-                         note="数は事故のあとに端材で数えた値（米沿岸警備隊の報告書 図143）・印の並びは模式", src=ss.src(["USCG p180", "TSB §2.1"]))),
-    ),
-    # c912（2行）＝思ったより厚い端（約13.1センチ）→チタンの輪の溝（5インチ）に入らず、外側を削って入れた
-    "c912": dict(
-        t="溝に入らない", s="厚すぎた筒",
-        fig=("m22", dict(view="groove", steps=[dict(state=dict(thick="on"), tag=dict(t="端材 約13.1センチ", at="w")),
-                                               dict(state=dict(cut="on"), tag=dict(t="外側を削った", at="cut", col=J.ALERT))],
-                         rel=[dict(t="約13.1センチ", src="NTSB p1043（5.166インチ）")],
-                         note="幅は縮尺どおり・層と泡の穴は模式（米運輸安全委員会の報告書）", src=ss.src(["NTSB p1043"]))),
-    ),
-    # c915（1行）＝カナダの研究所が端材を18の試料に（長さの向き9・周りの向き9）
-    "c915": dict(
-        t="18の試料", s="カナダの研究所",
-        fig=("m22", dict(view="coupons", steps=[dict(state=dict(cut="on"), tag=[dict(t="長さの向き 9", at="a", col=J.INST),
-                                                                             dict(t="周りの向き 9", at="c", col=J.INST)])],
-                         rel=[dict(t="9", src="TSB §1.15")],
-                         note="切り方の並びは模式（数はカナダの報告書）", src=ss.src(["TSB §1.14", "TSB §1.15"]))),
-    ),
-    # c917（3行）＝棒（安全率）。会社の基準 1.25（国際規格に合わせた）→長さの向き 3.05→周りの向き 1.11（届かない＝赤）
-    "c917": dict(
-        t="試料の計算", s="基準に届かず",
-        fig=("qty", dict(view="bar", groups=[ss.QG["sf2"]],
-                         steps=[dict(add=[ss.qb("sf2_req")]), dict(add=[ss.qb("sf2_ax")]), dict(add=[ss.qb("sf2_ci")])],
-                         note="基準は国際標準化機構に合わせた値・計算はカナダの研究所", src=ss.src(["TSB §1.12.2", "TSB §1.15"]))),
-    ),
-    # c918（3行）＝聞き役の問い→いつも100キロを載せる棚＝基準なら125キロまで→この筒の周りの向き＝111キロまで（余裕は半分も無い）
-    "c918": dict(
-        t="棚のたとえ", s="余裕の大きさ",
-        fig=("m22", dict(view="shelf", steps=[dict(), dict(state=dict(load="on", std="on")), dict(state=dict(tube="on", spare="on"))],
-                         note="たとえ（模式）＝重さは安全率の比で計算", src=ss.src(["TSB §1.12.2", "TSB §1.15"]))),
-    ),
-    # c919（2行）＝カナダの報告書の一節（前提＝試料が実物を代表するなら→結論＝くり返しさらされるのは安全ではなかった）
-    "c919": dict(
-        t="結論の一節", s="試料が代表なら",
-        fig=("m22", dict(view="paper", start=dict(doc="tsb115"), steps=[dict(state=dict(hl1="on", hl2="on")), dict(state=dict(hl3="on", hl4="on"))],
-                         note="一節はカナダの報告書（英字のまま・模式）", src=ss.src(["TSB §1.15"]))),
-    ),
-    # c920（3行）＝米運輸安全委員会が試した試料でカナダの研究所が計算→いちばん強い試料＝耐えた見込み→いちばん弱い試料＝寿命の82%超を使った可能性
-    "c920": dict(
-        t="くり返しの寿命", s="試料しだいで",
-        fig=("m22", dict(view="cards", start=dict(set="life"),
-                         steps=[dict(tag=dict(t="米運輸安全委の試料で", d="カナダの研究所の計算", at="t", col=J.INST)),
-                                dict(state=dict(n="1")), dict(state=dict(n="2"))],
-                         rel=[dict(t="82%", src="TSB §1.16")],
-                         note="寿命の目盛りは模式（82%はカナダの報告書）", src=ss.src(["TSB §1.16"]))),
-    ),
-    # c921（3行）＝🔧 帯→深さの物差し（0〜4,500m・縮尺どおり）。2021年2〜3月の加圧の試験4回→最も深い 4,200m→タイタニックの深さを少し上回るだけ
-    "c921": dict(
-        t="加圧の試験", s="2021年の2月と3月",
-        fig=("m22", dict(view="ruler", start=dict(z="mid"),
-                         #   🔧 試し焼き：「4,200メートル」の札が物差しの約2,500mの高さに並んだ＝数は線の札（mech22 の RL_M）に・札は言葉だけ
-                         steps=[dict(tag=dict(t="4回の加圧", at="r1")), dict(state=dict(test="on"), tag=dict(t="4回とも通った", at="r2")),
-                                dict(tag=dict(t="少し上回るだけ", at="r3"))],
-                         rel=[dict(t="4回", src="TSB §1.12.2"), dict(t="4,200メートル", src="NTSB p1030")],
-                         note="深さは縮尺どおり（タイタニックは約3,800メートル）", src=ss.src(["TSB §1.12.2", "NTSB p1030", "NTSB p1058", "TSB §1.3"]))),
-    ),
-    # c922（3行）＝聞き役→何回くり返せば壊れるかは分からない（？）→会社は「音の監視でその場で分かる」と答えた
-    "c922": dict(
-        t="2つの道", s="計算の代わりに",
-        fig=("m22", dict(view="cards", start=dict(set="path"),
-                         steps=[dict(), dict(state=dict(n="1")), dict(state=dict(n="2"), tag=dict(t="会社の答え", at="t", col=J.COMPANY))],
-                         note=_N_CD + "・カナダの報告書の記述", src=ss.src(["TSB §1.12.2", "TSB §2.1"]))),
-    ),
-    # c923（3行）＝🔧 模式→深さの物差し（0〜4,500m）。最初の窓の等級 約650m（米沿岸警備隊・カナダ）→1,000m（米運輸安全委員会）→事故のときの窓は見方が割れる
-    "c923": dict(
-        t="前の窓", s="値が割れる",
-        fig=("m22", dict(view="ruler", start=dict(z="mid"),
-                         #   🔧 試し焼き：数の札が物差しの別の深さの高さに並んだ＝数は線の札（RL_M）に・札は調べの名だけ（色は線と同じ）
-                         steps=[dict(state=dict(w650="on"), tag=dict(t="米沿岸警備隊・カナダ", at="r1", col=J.USCG)),
-                                dict(state=dict(w1k="on"), tag=dict(t="米運輸安全委員会", at="r2", col=J.OK)),
-                                dict(tag=dict(t="事故のときの窓は？", at="r3"))],
-                         rel=[dict(t="約650メートル", src="USCG p278・TSB §1.12.1（649.08 m）"), dict(t="1,000メートル", src="NTSB p1030")],
-                         note="深さは縮尺どおり（タイタニックは約3,800メートル）", src=ss.src(["USCG p278", "NTSB p1030", "TSB §1.12.1", "TSB §1.12.2"]))),
-    ),
-})
-
-# ══════════════════════════════════════════════════════════
-#  🆕 ⑤b-7（2026-10-15）：写真 第8章（7カット）＝映像方針の一覧（了承②）。副題は焼いた絵を原寸で見てから最終に
-# ══════════════════════════════════════════════════════════
-#   NTSB の研究所の写真（図15〜18）は全面＝`ss.mv`。図17 の下（1431×286＝縦横比 5.0）は全面にすると64%が切れる＝額装・幅を広げる
-#   （ss.WIDE_AR の注＝⑤b-2）。MBI 図255 の英字の札は訳の札を添える（ルール §B1-4）
-_WAVE = P("ntsb_fig18_delam_r")
-_LAYERS = P("mbi_fig255_layers")
-_GRIND = P("ntsb_fig16_wrinkle_b")
-_ENDP = P("ntsb_fig15_end_piece")
-_VOIDS = P("ntsb_fig17_layers_b")
-_TENT = P("ntsb_fig16_wrinkle_t")
-_RIPPLE = P("lab24011_p53_fig28")
-SPEC.update({
-    # c904（7.3秒）＝3分の1の模型の端のうねり（NTSB 図18 の右＝束で割った 941×627）・額ごと左へ（札が右＝流す量を小さく）
-    #   🔧 ⑤b-7 の試し焼き（Actions 38690778418）：全面の寄りで英字の札「Wrinkle」が章の札に重なった＝額装（報告書の図）・訳の札
-    #   🔧 ⑤c'（10-15）：図の札は Wrinkle・説明は「wrinkle and delamination」（NTSB p1045）＝報告書は waviness（うねり）と wrinkle（しわ）を分ける
-    #      ＝副題は「しわ」・札「しわ（うねり）」は語り（会社の見立て＝うねり）との橋として残す
-    "c904": dict(photo=_WAVE, panel=True, fmove=ss.fm("l", px=50), t="会社の見立て", s="3分の1の模型の端に見えるしわ（研究所）",
-                 ann=[dict(t="右上の札と丸", d="しわ（うねり）"), dict(t="左下の札と矢印", d="剥離（層のはがれ）")]),
-    # c906（7.4秒）＝事故の船体の筒の断面（MBI 図255＝NTSB の撮影・814×546・英字の札と定規）・額ごと左へ（札が右＝流す量を小さく）
-    #   🔧 ⑤c'（10-15）：図の説明「TITAN cut off ends cross section」（USCG p276）＝作るときに切り落とした端＝残骸の断面と読めないように「端材」（c909・c913 と同じ呼び方）
-    "c906": dict(photo=_LAYERS, panel=True, fmove=ss.fm("l", px=50), t="133枚の膜", s="端材の断面（事故の船体の筒・5つの層）",
-                 ann=[dict(t="左から右へ", d="1枚目（内）〜5枚目（外）の層"), dict(t="白い縦の線", d="層と層の境の接着剤"),
-                      dict(t="下の定規", d="インチ（1インチ＝約2.5センチ）")]),
-    # c909（9.5秒）＝しわを削った跡（NTSB 図16 の下＝事故の船体の端材）・額ごと右へ（札が右＝流す量を小さく）
-    #   🔧 ⑤b-7 の試し焼き：全面の寄りで英字の札が左の端と出典の行で切れた＝額装（報告書の図）・訳の札
-    "c909": dict(photo=_GRIND, panel=True, fmove=ss.fm("r", px=50), t="直らないうねり", s="しわを削った跡（事故の船体の端材）",
-                 #   🔧 ⑤c'（10-15）：原文 plies（薄い繊維の膜）＝c906 の「5つの層」と取り違えないよう c906 の語りの「膜」に
-                 ann=[dict(t="左下の札と橙の丸", d="しわの所で繊維の膜を削った跡"), dict(t="黒い定規", d="上はインチ・下はセンチ")]),
-    # c911（4.3秒）＝事故の船体の筒の切り落とした端（NTSB 図15＝1320×516）・全面・左へ
-    #   🔧 ⑤c'（10-15）：既定の流し（寄り 1.12・0.8→0.2）は 705px／4.3秒＝164px/秒（ほかの写真の最大 69 の2倍超）→
-    #      寄り 1.0・0.65→0.35＝253px＝59px/秒（qa_out/ep22_c2/camspeed22.py＝build_jiko と同じ式）
-    "c911": dict(photo=_ENDP, **ss.mv(_ENDP, "l", z=1.0, span=(0.35, 0.65)), side="none", t="両端の余り", s="事故の船体の筒の切り落とした端（研究所）"),
-    # c913（12.4秒）＝聞き役の反応つき。層のあいだの接着剤のすき間（NTSB 図17 の下＝1431×286）・額装（幅 1260＝右に訳の札）・額ごと寄る
-    #   🔧 ⑤b-7 の試し焼き：英字の札（Voids・0.200in）の訳が無かった＝幅 1680 → 1260 にして札を右に
-    "c913": dict(photo=_VOIDS, panel=True, pw=1260, fmove=ss.fm("in"), t="特に多い所", s="層のあいだの接着剤のすき間（事故の船体の端材）",
-                 ann=[dict(t="白い札と丸", d="すき間（空隙）"), dict(t="右下の目盛り", d="約5ミリ")]),
-    # c914（6.5秒）＝しわのまわりで浮いた接着剤のすき間（NTSB 図16 の上）・額ごと引く
-    #   🔧 ⑤b-7 の試し焼き：全面の寄りで英字の札「Void in adhesive」が見出しに重なった＝額装（報告書の図）・訳の札
-    "c914": dict(photo=_TENT, panel=True, fmove=ss.fm("out"), t="持ち込んだ異常", s="しわのまわりのすき間（事故の船体の端材）",
-                 ann=[dict(t="上の札と橙の丸", d="接着剤の中のすき間（空隙）"), dict(t="黒い定規", d="上はインチ・下はセンチ")]),
-    # c916（2.6秒）＝2つ目の筒の切り落とした端面のうねり（24-011 図28・黄の目盛り）・全面・右へ。c915 がカナダの研究所＝研究所の名を残す
-    #   🔧 ⑤c'（10-15）：原寸で定規の上に明暗の縞は写るが「うねり」と読み取りにくい＝図28 の説明「oblique lighting … light/dark
-    #      brightness variations」（24-011 p.12）＝副題で縞とうねりを結ぶ
-    "c916": dict(photo=_RIPPLE, **ss.mv(_RIPPLE, "r"), side="none", t="周りの向きの層", s="明暗の縞に見える層のうねり（米運輸安全委員会の研究所）"),
-})

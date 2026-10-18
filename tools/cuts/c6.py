@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""第5章　海の底の残骸 c601–c619（19カット）。22本目（タイタン号のリメイク）。
+"""第5章　商店街のはずが c601–c619（19カット）。23本目（三豊百貨店崩壊事故のリメイク）。
 
-■ 🔴 2026-10-14（⑤b-1）：21本目（9.11 米国同時多発テロのリメイク）の中身を空にした＝git の `35fab37`（`git show 35fab37:tools/cuts/c6.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep22/make_plan22.py` で
-  映像方針の一覧 `ref/ep22/eizou_build/list22.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典から
+■ 🔴 2026-10-18（⑤b-1）：22本目（タイタン号のリメイク）の中身を空にした＝git の `adbe2d5`（`git show adbe2d5:tools/cuts/c6.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep23/make_plan23.py` で
+  映像方針の一覧 `ref/ep23/eizou_build/list23.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典から
   機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
@@ -16,163 +16,62 @@ P = ss.P
 
 PLAN = {
     'c601': dict(kind='写真',
-               plan='R07｜区間 85.0〜94.44秒｜倍率 1.00（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜見せ方：額装（第三者）｜副題：海の底の残骸（6月22日）｜動き：映像（等速）｜権利：第三者（Pelagic Research Services の ROV「Odysseus」・2023-06-22。米沿岸警備隊と米運輸安全委員会が公開）｜出典の行：映像：Pelagic Research Services（米沿岸警備隊・米運輸安全委員会 公開）｜注：後ろの残骸が左へ去り、前のドームへ近づく（語り「尾部と2つのドームと破片」）｜台本の画：実写 ROV「前のドーム」（NTSB ドケットの Pelagic video 2 of 2・c104・c522 と別の区間・第三者＝引用・額装・焼き込みは残る＝副題「海の底の残骸（6月22日）」）',
-               src='NTSB p.20（`including the tail cone and both titanium domes`）・NTSB p.38（`ROVs discovered the wreckage about 330 meters (1,083 feet) east-northeast of the Titanic’s bow.`）・NTSB p.39（`Other pressure vessel fragments, likely from the middle or forward portion of the cylinder, were scattered about the ocean floor.`）'),
-    'c602': dict(kind='写真',
-               plan='R07｜区間 60.0〜68.23秒｜倍率 1.00（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜見せ方：額装（第三者）｜副題：残骸が詰まった後ろのドーム（6月22日）｜動き：映像（等速）｜権利：第三者（Pelagic Research Services の ROV「Odysseus」・2023-06-22。米沿岸警備隊と米運輸安全委員会が公開）｜出典の行：映像：Pelagic Research Services（米沿岸警備隊・米運輸安全委員会 公開）｜台本の画：実写 ROV「後ろのドーム」（07・c105・c523 と別の区間・第三者＝引用・額装）',
-               src='NTSB p.39（`were located together in a comingled mass that included compressed metal, plastic, electronic components, and other materials; the forward dome was located by itself`）'),
+               plan='S52394｜一覧の種類：実写｜見せ方：全面｜副題：瑞草洞の法院の庁舎（1995年）｜動き：右へ｜権利：A（公共ヌリ第1類型＋CC BY 4.0）｜出典の行：写真：ソウル特別市／ソウル研究院（서울연구데이터서비스）（公共ヌリ第1類型・CC BY 4.0）｜注：A（研究院 1995-09）。→ 第5章の扉（A＝写真を使える）。✅ 取得の後に見た（10-18）｜台本の画：実写 研究院「법원」node/52394（1995-09・瑞草洞の法院の庁舎＝A・全面＝副題「瑞草洞の法院の庁舎（1995年）」）',
+               src='白書 p69（「서초동 법원 청사 맞은편」＝新聞を引いた節）'),
+    'c602': dict(kind='図解',
+               plan='一覧の種類：地図｜見る向き：上から｜見た目の型：地図｜注：ソウルの中の瑞草区・百貨店と法院の位置（地図の2回目）｜台本の画：図 地図（ソウルの中の瑞草区・百貨店と法院の位置＝地図の2回目・c511 と続けない）',
+               src='K6-検 p.45（`서울 서초구 서초동 1685-3`）・白書 p69（「三豊アパート団地の中」）・K6-検 p.45（`삼풍건설산업주식회사`）'),
     'c603': dict(kind='写真',
-               plan='D342｜見せ方：全面｜副題：9月の回収（回収船の甲板）｜動き：下へ｜権利：A（米沿岸警備隊の職員の職務・DVIDS）｜出典の行：米沿岸警備隊（DVIDS 9057342）｜注：縦長3024×4032＝全面で上下を切って縦に流す（21本目の型）｜台本の画：実写 DVIDS 9057342 回収船の甲板で破片を調べる隊員（2023-09-30・白い防護服・米沿岸警備隊の撮影・A・縦長＝額装＝副題「9月の回収（回収船の甲板）」）',
-               src='TSB §1.6（`The U.S. Coast Guard returned to the site in September 2023 and recovered additional debris. Not all of the debris was recovered.`）'),
-    'c604': dict(kind='写真',
-               plan='M270｜見せ方：額装（報告書の図）｜副題：前のドームの窓の押さえの輪（FBI 撮影）｜動き：額ごと引く｜権利：A（FBI が撮影）｜出典の行：米沿岸警備隊 海難調査委員会の報告書 図270（FBI）｜注：3枚組・赤い丸と矢印・幅556｜台本の画：実写 FBI 図270 前のドームの窓の押さえの輪（ボルトが切れている所に赤い丸と矢印・USCG 報告 p.294・3枚組で小さい＝額装・A＝副題「前のドームの窓の押さえの輪（FBI 撮影）」）',
-               src='TSB §1.6（`the retaining ring for the viewport was deformed in a manner that indicated the viewport had blown outward. The viewport was not found.`）・USCG p.293〈285〉（`the viewport was ejected outward during the implosion`）'),
+               plan='🔧 S50279｜一覧の種類：実写｜見せ方：額装（縦長）｜副題：1995年の瑞草洞の通り｜動き：額の中で上へ｜権利：A（公共ヌリ第1類型＋CC BY 4.0）｜出典の行：写真：ソウル特別市／ソウル研究院（서울연구데이터서비스）（公共ヌリ第1類型・CC BY 4.0）｜注：🔧 법원 52396 → 瑞草洞の街（語り＝この土地の使い道）。✅ 縦長（1071×1600）＝全面だと1.8倍の引き伸ばし＝額装。歩く人の顔は研究院の版でもうぼかしてある（10-18 に見た）＝こちらのモザイクは要らない｜台本の画（🔧映像方針で替えた＝元の予定）：実写 研究院 node/52396（法院の正面と中央の門＝A＝副題「法院の庁舎（1995年）」）',
+               src='K6-検 p.48（`76.8.29`・`86.4.24`）・K6-市 p.35（`판매 및 업무시설 입지 가능`）'),
+    'c604': dict(kind='図解',
+               plan='一覧の種類：年表｜見た目の型：年表｜注：許可の年表（1976〜1994）｜台本の画：図 年表（許可の年表＝1976 マンションの地区・1986 地区の中心・1987-07 事業計画の承認・1989-11 仮使用・1989-12 開店・1990-07 竣工検査・1994 用途の変更＝この回で年表は c604 と cc16 の2回だけ）',
+               src='K6-検 p.48（`87.7.21`）・K6-市 p.35（`사업계획승인(지하 4, 지상 5, 연면적 71,136㎡)`）'),
     'c605': dict(kind='写真',
-               plan='🔧 L47b｜見せ方：全面｜副題：前のドームの窓の座（研究所）｜動き：寄る｜権利：A（NTSB の研究所）｜出典の行：米運輸安全委員会 研究所の報告 24-011 図47｜注：🔧 紙面の引用→全面（1320×880 の単独の画像）｜台本の画（🔧映像方針で替えた＝元の予定）：実写 24-011 図47 の下（前のドームの窓の座・NTSB 研究所の撮影・A＝紙面の引用の型＝副題「前のドームの窓の座（研究所）」）',
-               src='TSB §2.1（`the manner in which the retaining ring was deformed suggested that the viewport had not failed`）・USCG p.280〈272〉（`it is unlikely that the acrylic window itself caused the implosion`）・p.280〈272〉（`the most probable failure mode for the acrylic window would have been inward. In such a scenario, fragments of acrylic would likely have been found in the debris.`）'),
-    'c606': dict(kind='写真',
-               plan='M159｜見せ方：全面｜副題：前のチタンの輪（FBI 撮影）｜動き：右へ｜権利：A（FBI が撮影）｜出典の行：米沿岸警備隊 海難調査委員会の報告書 図159（FBI）｜台本の画：実写 FBI 図159 前部セグメント（青いシートの上・証拠の札・USCG 報告 p.189・A＝副題「前のチタンの輪（FBI 撮影）」）',
-               src='TSB §2.1（`suggested that the pressure hull’s carbon fibre cylinder was the likeliest point of failure`）・USCG p.269〈261〉（`a loss of structural integrity of the carbon fiber or glue joint within the TITAN’s cylindrical pressure hull`）・NTSB p.61（`The postcasualty condition of the Titan pressure vessel was consistent with a local buckling failure.`）'),
-    'c607': dict(kind='写真',
-               plan='M157｜見せ方：全面｜副題：後ろのチタンの輪（FBI 撮影）｜動き：左へ｜権利：A（FBI が撮影）｜出典の行：米沿岸警備隊 海難調査委員会の報告書 図157（FBI）｜台本の画：実写 FBI 図157 後部セグメント（チタンの輪・貫通部・炭素繊維の残り・USCG 報告 p.188・2023-07-05・A＝副題「後ろのチタンの輪（FBI 撮影）」）',
-               src='USCG p.292〈284〉（`the adhesive used to bond the hull to the titanium segments had disbonded from the entire forward segment`）'),
+               plan='🔧 C147｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：残った棟と救助の車（1995年）｜動き：額ごと左へ｜権利：BY-SA 4.0（本部）｜出典の行：写真：ソウル特別市 消防災難本部（CC BY-SA 4.0）｜注：🔧 법원 52397 → #147（語り「あのお店」）。警察官の顔＝公的な任務｜台本の画（🔧映像方針で替えた＝元の予定）：実写 研究院 node/52397（通りの奥の法院＝A）',
+               src='大96 理由1（`당초 백화점이 아닌 쇼핑센터 용도의 건물로 건축계획을 수립하여 설계를 의뢰하여 놓고서도`）'),
+    'c606': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：札と線｜注：使い道が変われば計算もやり直し（ショッピングセンター → 百貨店の矢印と「やり直し」の印）｜台本の画：図 模式 使い道が変われば、計算もやり直し（ショッピングセンター → 百貨店・構造の計算書に「やり直し」の印）',
+               src='大96 理由2.가（`종합적 건축계획을 새로이 수립하고`・`구조계산과 설계를 종합적으로 다시 하여`）'),
+    'c607': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：書類｜注：構造の計算を20回あまり継ぎ足す（紙が継ぎ足されていく）｜台本の画：図 模式 構造の計算を20回あまり継ぎ足す（紙が継ぎ足されていく）',
+               src='大96 理由1（`20여 회에 걸쳐서 수시로 구조계산을 추가하여`・`건축계획을 무계획적으로`）'),
     'c608': dict(kind='写真',
-               plan='M268｜見せ方：額装（報告書の図）｜副題：後ろの輪に残った接着剤｜動き：額ごと寄る｜権利：A（米沿岸警備隊が撮影）｜出典の行：米沿岸警備隊 海難調査委員会の報告書 図268｜注：675×841｜台本の画：実写 USCG 図268 後部セグメントに残った接着剤（USCG 報告 p.292・A＝副題「後ろの輪に残った接着剤」）',
-               src='USCG p.292〈284〉（`The adhesive was mostly disbonded from the aft segment, except for an approximately 90-degree arc`）・p.293〈285〉（`could be an indicator that the partial separation of the inner layers already existed`）'),
-    'c609': dict(kind='写真',
-               plan='🔧 R07｜区間 68.24〜74.5秒｜倍率 1.00（区間の秒÷扉を除いた中身の秒＝narration.json の実測）｜見せ方：額装（第三者）｜副題：残骸が詰まった後ろのドーム（6月22日）｜動き：映像（等速）｜権利：第三者（Pelagic Research Services の ROV「Odysseus」・2023-06-22。米沿岸警備隊と米運輸安全委員会が公開）｜出典の行：映像：Pelagic Research Services（米沿岸警備隊・米運輸安全委員会 公開）｜注：🔧 素材を替えた（DVIDS 9057369＝9月の回収のあとに並べた破片 → ROV の海底の映像＝語り「海の底の映像を見ると」）｜台本の画（🔧映像方針で替えた＝元の予定）：実写 DVIDS 9057369 証拠として並べた炭素繊維の破片（9月の回収のあと・米沿岸警備隊・A・🔴 副題に撮影日を書かない・2022年の札を付けない＝副題「回収された炭素繊維の破片」）',
-               src='NTSB p.40（`had delaminated into multiple layers nearly around the entire circumference`）'),
-    'c610': dict(kind='図解',
-               plan='台本の画：図 模式 筒の断面（5枚の層を内側から1〜5・分かれ目＝1と2・3と4のあいだを赤で）',
-               src='NTSB p.40（`One delamination was between layers 1 and 2 and the other was between layers 3 and 4.`）・NTSB p.59（`the five 1-inch-thick layers`）'),
-    'c611': dict(kind='写真',
-               plan='N13｜見せ方：額装（報告書の図）｜副題：回収された破片（研究所で撮影）｜動き：額ごと上へ｜権利：A（NTSB の研究所・出どころの注なし）｜出典の行：米運輸安全委員会の報告書 図13｜注：上下2枚（外面・内面）｜台本の画：実写 NTSB 図13 回収片の外面と内面（NTSB 研究所・A・🔴「海底に残された円筒部」と書かない＝副題「回収された破片（研究所で撮影）」）',
-               src='NTSB p.41（`which had been recovered about 350 feet (107 meters) from the main wreckage and measured about 61 inches long by 20 inches wide by 1 inch thick`）・p.41（`indicating that the piece originated from layer 1, the innermost co-bonded layer`）'),
+               plan='S52398｜一覧の種類：実写｜見せ方：全面｜副題：工事中のビルと、奥の瑞草洞の法院（1995年）｜動き：左へ｜権利：A（公共ヌリ第1類型＋CC BY 4.0）｜出典の行：写真：ソウル特別市／ソウル研究院（서울연구데이터서비스）（公共ヌリ第1類型・CC BY 4.0）｜注：台本どおり（語りの物＝5階の使い道は写らない＝場所の写真）。✅ 取得の後に見た＝手前に鉄骨の工事中のビル（三豊ではない＝副題で取り違えない）｜台本の画：実写 研究院 node/52398（工事中のビルの向こうの法院＝A）',
+               src='K6-R p.29（`허가도서상으로는 롤러스케이트장`）・大96 理由1（`운동시설이던 5층을 전문식당가로 용도변경`）'),
+    'c609': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：斜めから（立体）｜見た目の型：棟の立体｜合図：🔁 上から→斜めから（立体）（前の図 c602）｜注：5階の使い道（許可＝運動の施設／工事の図面と実際＝食堂街）｜台本の画：図 模式 5階の使い道（許可の図面＝運動の施設／工事の図面と実際＝食堂街・この図は c609 と c819 の2回だけ）',
+               src='大96 理由2.가（`표면상으로만 운동시설로 사용할 것처럼 가장하여 허가받은`）'),
+    'c610': dict(kind='写真',
+               plan='🔧 C41｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：崩れ残った建物の断面（1995年）｜動き：額ごと上へ｜権利：BY-SA 4.0（本部）｜出典の行：写真：ソウル特別市 消防災難本部（CC BY-SA 4.0）｜注：🔧 研究院 50279（c603 へ）→ #41（語り「5階は、許可のときからあった」＝階が数えられる断面）。#42・#72・#97 と同じ組＝ほかで使わない。日付の焼き込み｜台本の画（🔧映像方針で替えた＝元の予定）：実写 研究院「서초동 동아극장 주변」node/50279（1995-10・瑞草洞の通り＝A・歩行者の顔はモザイク＝出典に「改変：顔にモザイク」＝副題「1995年の瑞草洞の通り」）',
+               src='K6-市 p.35（`지하 4, 지상 5`）'),
+    'c611': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：上から｜見た目の型：上から見た床｜合図：🔁 斜めから（立体）→上から（前の図 c609）｜注：許可の床と、工事の図面の床（増えた2,069平方メートルに色）｜台本の画：図 模式 許可の床と、工事の図面の床（増えた2,069平方メートルに色）',
+               src='K6-区 p.43（`2,069㎡ 증가`）・大99 理由2.가.(1)（`2,069.11㎡ 늘어난 73,205.12㎡로 무단 증축 시공`）'),
     'c612': dict(kind='写真',
-               plan='L15｜見せ方：紙面の引用｜副題：接着剤の面（研究所）｜動き：額ごと右へ｜権利：A（NTSB の研究所）｜出典の行：米運輸安全委員会 研究所の報告 24-011 図15｜注：頁の画像の中の図・英字の札（§B1-4＝訳の札を添える）｜台本の画：実写 24-011 図15 接着の面（つや消しの擦れた所・光る所・空隙＝英字の札は §B1-4・研究所・A＝紙面の引用の型）',
-               src='NTSB p.44（`The adhesive regions were rubbed flat and adhesive wear debris was found collecting in the voids.`）'),
-    'c613': dict(kind='写真',
-               plan='🔧 L22a｜見せ方：紙面の引用｜副題：空隙にたまった削り粉（研究所）｜動き：額ごと上へ｜権利：A（NTSB の研究所）｜出典の行：米運輸安全委員会 研究所の報告 24-011 図22｜注：🔧 ⑤b-7＝L22（p.47＝図22 の b 洗った後）→ L22a（p.46＝a 洗う前・粉が詰まった空隙）・🔴 旧版 c627（1つ目の船体の端材）の差し替え｜台本の画：実写 24-011 図22 空隙に詰まった削り粉（洗う前と後・研究所・A＝紙面の引用の型・🔴 旧版 c627 の写真〈1つ目の船体の端材〉の差し替え）',
-               src='NTSB p.44（`The rub marks in the adhesive were oriented in the lengthwise direction.`）'),
-    'c614': dict(kind='写真',
-               plan='L21｜見せ方：紙面の引用｜副題：電子顕微鏡で見たこすれた跡（研究所）｜動き：額ごと寄る｜権利：A（NTSB の研究所）｜出典の行：米運輸安全委員会 研究所の報告 24-011 図21｜台本の画：実写 24-011 図21 電子顕微鏡で見た縦向きのこすれた跡（研究所・A＝紙面の引用の型）',
-               src='USCG p.289〈281〉（`could only have been created by the longitudinal independent movement of the carbon fiber layers`）'),
-    'c615': dict(kind='図解',
-               plan='台本の画：図 模式 2枚の層が別々にずれてこすれる（矢印・断面の拡大）',
-               src='NTSB p.59（`indicating that the delamination existed before the implosion`）・NTSB p.44（`had likely failed before the casualty`）'),
+               plan='C55｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：「三豊百貨店」の看板と消防車（1995年）｜動き：額ごと寄る｜権利：BY-SA 4.0（本部）｜出典の行：写真：ソウル特別市 消防災難本部（CC BY-SA 4.0）｜注：#12・#149 と同じ組＝ほかで使わない｜台本の画：実写 BY-SA #55（「三豊百貨店」の看板と消防車と軍＝額装＝副題「残った南の棟の看板（1995年）」）',
+               src='K6-検 p.48（89.11.27 1次変更＝区の事後の承認＝sources.md §7-2）'),
+    'c613': dict(kind='フリー素材',
+               plan='Xc613b｜映像の素材 22.72秒・倍率 2.69（素材の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ）｜一覧の種類：イメージ｜見せ方：全面（イメージ）｜副題：イメージ｜動き：映像（等速）｜権利：フリー素材（Pixabay Content License）｜出典の行：イメージ（Pixabay）｜注：鉄筋コンクリートの骨組みの工事現場（Pixabay 40298）｜台本の画：イメージ 工事現場（古い型の重機・外国語の看板と顔の分かる作業員を避ける・フリー素材）',
+               src='K6-R p.31（`골조공사가 마무리되지 못한 상태에서 삼풍건설이 타절준공`）'),
+    'c614': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：斜めから（立体）｜見た目の型：棟の立体｜合図：🔁 上から→斜めから（立体）（前の図 c611）｜注：仮使用の承認（地下1階〜地上3階に色・「途中の検査なし」の札）｜台本の画：図 模式 仮使用の承認（使ってよい地下1階〜地上3階に色・「途中の検査なし」の札）',
+               src='K6-R p.31（`중간검사 미필`）・K6-検 p.48（89.11.30 1次仮使用＝sources.md §7-2）・K6-区 p.43（`지하 1～지상 3층`）'),
+    'c615': dict(kind='写真',
+               plan='C49｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：はしご車と、残った棟の上の壁（1995年）｜動き：額ごと下へ｜権利：BY-SA 4.0（本部）｜出典の行：写真：ソウル特別市 消防災難本部（CC BY-SA 4.0）｜台本の画：実写 BY-SA #49（はしご車と「Sign of the Blue」＝額装）',
+               src='大99 理由2.가.(1)（`엘리베이터가 8대 중 1대만 운행`・`단열재 공정이 약 70%`）'),
     'c616': dict(kind='写真',
-               plan='L48｜見せ方：紙面の引用｜副題：4枚目と5枚目の層の破片（研究所）｜動き：額ごと寄る｜権利：A（NTSB の研究所）｜出典の行：米運輸安全委員会 研究所の報告 24-011 図48｜台本の画：実写 24-011 図48 4枚目と5枚目の層の大きな破片（外面・内面・研究所・A）',
-               src='NTSB p.59（`The extent of the delamination at the second interface before the implosion could not be determined.`）'),
-    'c617': dict(kind='図解',
-               plan='台本の画：図 模式 局所座屈（厚い1枚→薄い2枚に分かれる→押されて内へ曲がる）',
-               src='NTSB p.61（`Delaminations are a known cause of local buckling failures. The delamination divides a single thicker composite layer into two thinner layers.`）'),
-    'c618': dict(kind='写真',
-               plan='N14｜見せ方：額装（報告書の図）｜副題：回収された破片の断面（研究所）｜動き：額ごと下へ｜権利：A（NTSB の研究所）｜出典の行：米運輸安全委員会の報告書 図14｜注：上下2枚（削った端面・破断面）｜台本の画：実写 NTSB 図14 回収片の端面と中央の破断面（研究所・A＝副題「回収された破片の断面」）',
-               src='NTSB p.61（`likely resulted in a local buckling failure that led to the implosion of the Titan`）'),
-    'c619': dict(kind='図解',
-               plan='台本の画：図 模式 筒の端の断面（剥離の起きた2つの面に、長い空隙が並ぶ＝c610 の図の拡大）',
-               src='NTSB p.59（`these adhesive interfaces contained long extended voids`）・NTSB p.42（`end pieces that had been trimmed from the v2 full-scale cylinder during the construction/production process`）'),
+               plan='C100｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：はしご車と垂れ幕（崩れたあと）｜動き：額ごと上へ｜権利：BY-SA 4.0（本部）｜出典の行：写真：ソウル特別市 消防災難本部（CC BY-SA 4.0）｜注：語り「12月1日、店を開いた」＝店の垂れ幕（崩れたあとと断る）｜台本の画：実写 BY-SA #100（崩れたあとの看板＝額装）',
+               src='K6-検 p.46（`89.12.1. 백화점 개장`）・K6-R p.31（`1990.7.27.`）'),
+    'c617': dict(kind='フリー素材',
+               plan='🔧 Xc313c｜一覧の種類：イメージ｜見せ方：全面（イメージ）｜副題：イメージ｜動き：寄る｜権利：フリー素材（Pexels License）｜出典の行：イメージ（Pexels）｜注：🔧 建築の図面 → 広い売り場の吹き抜けとエスカレーター（Pexels 27452439・語り＝売り場に変えられた）｜台本の画（🔧映像方針で替えた＝元の予定）：イメージ 図面（建築の図面・フリー素材）',
+               src='K6-検 p.48（`운동시설 등 19,253.02㎡를 판매시설로 용도변경`）'),
+    'c618': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：店の大きさ｜注：全国の百貨店の中の位置（棒は使わず、店の形の大きさで）｜台本の画：図 模式 全国の百貨店の中の位置（売り上げは7位・ひとつの売り場の大きさは2位＝棒は使わず、店の形の大きさで）',
+               src='白書 p69（「전국 백화점 랭킹 7위」「전국 2위」＝新聞を引いた節）'),
+    'c619': dict(kind='写真',
+               plan='🔧 C71｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：斜めに突き出した太い柱（1995年）｜動き：額ごと寄る｜権利：BY-SA 4.0（本部）｜出典の行：写真：ソウル特別市 消防災難本部（CC BY-SA 4.0）｜注：🔧 #74（c401 へ）→ #71（語り「次は、柱から見ていく」）。#32・#67 と同じ組＝ほかで使わない｜台本の画（🔧映像方針で替えた＝元の予定）：実写 BY-SA #74（未使用の俯瞰・額装）',
+               src='—'),
 }
 
 SPEC = {}
-
-# ══════════════════════════════════════════════════════════
-#  🆕 ⑤b-4（2026-10-15）：図解 第5章（4カット）＝模式図 `tools/mech22.py`（layers・buckle）
-# ══════════════════════════════════════════════════════════
-#   🔴 層の番号は内側から（層1＝いちばん内側＝NTSB p.41）。剥離＝赤（壊れた）・空隙とこすれの線は模式。章の札「海の底の残骸」と同じ並びを見出し・副題に入れない
-_N_LY = "層の厚さと線は模式（層1がいちばん内側）"
-SPEC.update({
-    # c610（3行）＝筒の壁の断面（5枚の層・1枚＝約2.5センチ）→聞き役の問い→剥離の面（1と2・3と4）
-    "c610": dict(
-        t="層の貼り合わせ", s="筒の壁を切ると",
-        fig=("m22", dict(view="layers", steps=[dict(tag=dict(t="約2.5センチ", at="th")), dict(), dict(state=dict(sep="on"))],
-                         rel=[dict(t="約2.5センチ", src="NTSB p1059（1-inch-thick）")],
-                         note=_N_LY, src=ss.src(["NTSB p1059", "NTSB p1040", "NTSB p1041"]))),
-    ),
-    # c615（2行）＝同じ断面。層1と層2が別々にずれてこすれた跡（長さの向き）＝爆縮の前から→聞き役
-    "c615": dict(
-        t="前からの剥離", s="内側の2枚",          # ⚠️ 門番 echo：「1枚目と2枚目の層」は語りの文の頭の写し
-        fig=("m22", dict(view="layers", start=dict(sep="on"),
-                         steps=[dict(state=dict(rub="on"), tag=dict(t="爆縮の前から", at="t", col=J.ALERT)), dict()],
-                         note="こすれた跡の線は模式（向きは筒の長さの方向）", src=ss.src(["NTSB p1059", "NTSB p1044"]))),
-    ),
-    # c617（2行）＝厚い1枚が薄い2枚に分かれる（剥離）→外から押されて内へ曲がる（座屈）＝動く部品
-    "c617": dict(
-        t="薄くなる板", s="外から押されると",
-        fig=("m22", dict(view="buckle", steps=[dict(state=dict(split="on"), tag=dict(t="薄い板に分かれる", at="r1")),
-                                               dict(state=dict(press="on"), tag=dict(t="座屈", at="r2", col=J.ALERT))],
-                         note="曲がり方は模式（米運輸安全委員会の報告書の説明）", src=ss.src(["NTSB p1061"]))),
-    ),
-    # c619（2行）＝同じ断面。剥離した2つの面に長い空隙が並ぶ（作られたときから）→次の章への問い
-    "c619": dict(
-        t="作ったときの空隙", s="剥離の面に",
-        fig=("m22", dict(view="layers", start=dict(sep="on"), steps=[dict(state=dict(void="on"), tag=dict(t="最初から", at="t")), dict()],
-                         note="空隙の形と並びは模式（剥離した2つの面だけ）", src=ss.src(["NTSB p1059", "NTSB p1042"]))),
-    ),
-})
-
-# ══════════════════════════════════════════════════════════
-#  🆕 ⑤b-7（2026-10-15）：写真・映像 第5章（15カット）＝映像方針の一覧（了承②）。副題は焼いた絵を原寸で見てから最終に
-# ══════════════════════════════════════════════════════════
-#   報告書の図（MBI・NTSB）＝額装は `panel=True`＋額ごとの動き `ss.fm`／全面は `ss.mv`（幅 1000 以上＝c301 と同じ扱い）。
-#   紙面の引用（研究所の報告 24-011 の頁の画像 1224×1584）＝図と説明の行まで切る `trim`（頁の割合）。切り口は行のかたまりを測った値
-#   （白でない行の続き＝上の写真の頭 y 144・説明の行の下の端＋20px・左右は本文の幅 145〜1079 の外 20px＝⑤b-7 の scratchpad `pgseg.py`）。
-#   🔴 英字の札は訳の札を添える（ルール §B1-4）＝`ann`（額の外の右）。札の t＝図の中の場所（上の写真・白い札・目盛り）・d＝訳
-#      ⚠️ 図の英字を札に写さない（門番 slide の G-09＝焼き込みの写し）＝場所と色で図の英字と結ぶ
-_QP = {"L15": (0.1021, 0.0783, 0.8979, 0.8870), "L21": (0.1021, 0.0783, 0.8979, 0.8737),
-       "L22a": (0.1021, 0.0783, 0.8979, 0.7835), "L48": (0.1021, 0.0783, 0.8979, 0.7096)}
-_RING = P("mbi_fig270_viewport_ring")
-_SEAT = P("lab24011_p75_fig47b")
-_FWD = P("mbi_fig159_fwd_segment")
-_AFT = P("mbi_fig157_aft_segment")
-_ADH = P("mbi_fig268_adhesive")
-_DECK = P("dvids9057342_deck_survey")
-_PIECE = P("ntsb_fig13_recovered_piece")
-_FACES = P("ntsb_fig14_faces")
-SPEC.update({
-    # c601（8.6秒）＝ROV 07 の 85.0〜94.44秒（後ろの残骸が左へ去り、前のドームへ近づく）・等速
-    "c601": ss.vid("c601", color=1.0, card_mix=0, t="残骸のありか", s="後ろの残骸と前のドーム（6月22日）"),
-    # c602（7.4秒）＝ROV 07 の 60.0〜68.23秒（後ろのドーム）・等速
-    #   🔧 ⑤c'（10-15）：「残骸が詰まった後ろのドーム」が4回（c105・c602・c609・cd08＝R07 の別の区間）＝呼び方はそろえ、近さと向きで書き分け
-    #      （R07 の頭10%・尻90% を 630px で見た：cd08＝遠くから近づく・c105＝手前に青い線の輪・c602＝すぐそば・c609＝そばから離れる）
-    "c602": ss.vid("c602", color=1.0, t="一塊の後ろ", s="すぐそばで見た後ろのドーム（6月22日）"),
-    # c603（6.3秒）＝回収船の甲板（縦長 2400×3200＝全面で上下を切って下へ流す）
-    #   🔧 ⑤c'（10-15）：既定の流し（0.2→0.8）は 888px／6.3秒＝141px/秒 → 0.4→0.6＝296px＝47px/秒（qa_out/ep22_c2/camspeed22.py）
-    "c603": dict(photo=_DECK, **ss.mv(_DECK, "d", span=(0.4, 0.6)), side="none", t="2度の回収", s="9月の回収（回収船の甲板）"),
-    # c604（10.0秒）＝聞き役の問い＋答え。前のドームの窓の押さえの輪（FBI 図270＝3枚組・赤い丸と矢印・幅 556）・額ごと引く
-    "c604": dict(photo=_RING, panel=True, fmove=ss.fm("out"), t="窓の行方", s="前のドームの窓の押さえの輪（FBI 撮影）"),
-    # c605（12.0秒）＝前のドームの窓の座（研究所 24-011 図47 の下・1320×880）・寄る
-    "c605": dict(photo=_SEAT, **ss.mv(_SEAT, "in"), side="none", t="窓が先ではない", s="前のドームの窓の座（研究所）"),
-    # c606（10.0秒）＝聞き役の問い＋答え。前のチタンの輪（FBI 図159・幅 1159）・右へ
-    "c606": dict(photo=_FWD, **ss.mv(_FWD, "r"), side="none", t="指す場所", s="前のチタンの輪（FBI 撮影）"),
-    # c607（3.9秒）＝後ろのチタンの輪（FBI 図157・幅 1333）・左へ
-    "c607": dict(photo=_AFT, **ss.mv(_AFT, "l"), side="none", t="はがれた接着剤", s="後ろのチタンの輪（FBI 撮影）"),
-    # c608（11.0秒）＝後ろの輪に残った接着剤（MBI 図268・675×841）・額ごと寄る
-    "c608": dict(photo=_ADH, panel=True, fmove=ss.fm("in"), t="こすれた見た目", s="後ろの輪に残った接着剤"),
-    # c609（5.4秒）＝ROV 07 の 68.24〜74.5秒（後ろのドームと層の破片）・等速
-    "c609": ss.vid("c609", color=1.0, t="層に分かれた筒", s="そばを離れていく後ろのドーム（6月22日）"),   # 🔧 ⑤c'＝c602 の注
-    # c611（8.3秒）＝回収された破片（NTSB 図13＝上下2枚 外面・内面）・額ごと上へ
-    "c611": dict(photo=_PIECE, panel=True, fmove=ss.fm("u"), t="1枚目の層", s="回収された破片（研究所で撮影）"),
-    # c612（3.3秒）＝紙面の引用（24-011 図15＝a こすれた見た目／b つやのある所と空隙）・額ごと右へ（札が右＝流す量を小さく）
-    "c612": dict(photo=P("lab24011_p37_fig15"), trim=_QP["L15"], panel=True, fmove=ss.fm("r", px=40),
-                 t="平らな面", s="接着剤の面（研究所）",
-                 ann=[dict(t="上の写真", d="こすれた見た目"), dict(t="下の写真の札", d="つやのある所と空隙（すき間）")]),
-    # c613（10.3秒）＝紙面の引用（24-011 図22 の a）＝洗う前の空隙に詰まった削り粉・p.46）・額ごと上へ
-    #   🔧 ⑤b-7：映像方針の L22（p.47）は図22 の b)＝洗って粉を除いた後＝語り「粉がたまっていた」と合わない → a)（L22a）
-    "c613": dict(photo=P("lab24011_p46_fig22a"), trim=_QP["L22a"], panel=True, fmove=ss.fm("u"),
-                 #   🔧 ⑤c'（10-15）：「削り粉」は削る作業の粉と読める（c909 の研削と混ざる）＝原文 wear debris（24-011 p.8）・語り「こすれて出た粉」
-                 t="すき間の粉", s="空隙にたまったこすれた粉（研究所）",
-                 ann=[dict(t="白い札", d="布目の跡に詰まったこすれた粉"), dict(t="右下の目盛り", d="約2.5ミリ")]),
-    # c614（7.0秒）＝紙面の引用（24-011 図21＝電子顕微鏡の a・b）・額ごと寄る
-    "c614": dict(photo=P("lab24011_p44_fig21"), trim=_QP["L21"], panel=True, fmove=ss.fm("in"),
-                 t="ずれた2枚", s="電子顕微鏡で見たこすれた跡（研究所）",        # ⚠️ 門番 dup：「長さの向き」は札の訳の写し
-                 ann=[dict(t="白い札と矢印", d="長さの向きのこすれた跡"), dict(t="下の左右の矢印", d="筒の周りの向き"),
-                      dict(t="右下の目盛り", d="0.1ミリ・0.02ミリ")]),
-    # c616（5.7秒）＝紙面の引用（24-011 図48＝4枚目と5枚目の層の大きな破片 a 外面・b 内面）・額ごと寄る
-    "c616": dict(photo=P("lab24011_p76_fig48"), trim=_QP["L48"], panel=True, fmove=ss.fm("in"),
-                 t="分からない所", s="4枚目と5枚目の層の破片（研究所）",
-                 ann=[dict(t="上の写真", d="外の面"), dict(t="下の写真", d="内の面"), dict(t="左上と右上の札", d="後ろ・前"),
-                      dict(t="右の札", d="外の面を削った所")]),
-    # c618（8.4秒）＝回収された破片の断面（NTSB 図14＝上下2枚 削った端面・破断面）・額ごと下へ
-    "c618": dict(photo=_FACES, panel=True, fmove=ss.fm("d"), t="座屈から爆縮へ", s="回収された破片の断面（研究所）"),
-})

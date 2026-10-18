@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""第10章　最後の冬と2023年 cb01–cb19（19カット）。22本目（タイタン号のリメイク）。
+"""第10章　502人 cb01–cb19（19カット）。23本目（三豊百貨店崩壊事故のリメイク）。
 
-■ 🔴 2026-10-14（⑤b-1）：21本目（9.11 米国同時多発テロのリメイク）の中身を空にした＝git の `35fab37`（`git show 35fab37:tools/cuts/cb.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep22/make_plan22.py` で
-  映像方針の一覧 `ref/ep22/eizou_build/list22.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典から
+■ 🔴 2026-10-18（⑤b-1）：22本目（タイタン号のリメイク）の中身を空にした＝git の `adbe2d5`（`git show adbe2d5:tools/cuts/cb.py`）。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep23/make_plan23.py` で
+  映像方針の一覧 `ref/ep23/eizou_build/list23.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典から
   機械で組んだ（手で写していない）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
@@ -15,207 +15,63 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'cb01': dict(kind='図解',
-               plan='🔧 G06｜注：🔧 実写→衛星写真の地図（NTSB 図9 は地図会社の透かしの見込み＝使わない・了承②）｜新しい画（映像方針）：図 地図 衛星写真 G06（セントジョンズ港の寄り）＋タイタンと2つのコンテナを置いた屋外の駐車場に印（NTSB 図9 の形を当てる）・副題「現在の衛星写真」｜台本の画（🔧映像方針で替えた＝元の予定）：実写 NTSB 図9 港の基地の屋外の駐車場に置かれたタイタンと台（MIR p.36 の図・撮影は基地の会社＝第三者＝額装・改変なし・サムネに使わない＝副題「屋外に置かれたタイタン（2022年の秋から冬）」）',
-               src='TSB §1.22（`OceanGate opted to keep the Titan and the LARS in St. John’s because OceanGate did not have enough money to transport them back to Everett.`）・NTSB p.36（`It was left in a parking lot, outside, uncovered (see figure 9).`）'),
+    'cb01': dict(kind='写真',
+               plan='H102｜一覧の種類：実写｜見せ方：額装（小さい）｜副題：瑞草区の区民会館の合同の焼香所（1995年7月）｜動き：額の中で寄る｜権利：A（公共ヌリ第1類型）｜出典の行：写真：ソウル歴史編纂院（公共ヌリ第1類型）｜注：公共ヌリ第1類型（題 1995.7）・人物なし。→ 第10章の扉（公共ヌリ＝写真を使える）｜台本の画：実写 KOGL 2301030102（瑞草区の区民会館の合同の焼香所・1995＝公共ヌリ第1類型・手元の kogl・私人の顔が写るなら顔だけモザイク＝副題「合同の焼香所（1995年）」）',
+               src='KOGL 2301030102（写真の説明）'),
     'cb02': dict(kind='図解',
-               plan='台本の画：図 再現 覆いの見積もり（基地からのメール・会社の返事なし）',
-               src='USCG p.237〈229〉（`they had not received approval to proceed, so the tarp was not purchased.`）・NTSB p.35（`OceanGate shipped the Titan and LARS to Everett, where they were stowed indoors at an OceanGate facility during the winter season.`）'),
-    'cb03': dict(kind='図解',
-               plan='台本の画：図 帯 屋外の期間（2022年7月26日〜2023年2月6日＝195日）',
-               src='USCG p.236〈228〉（`On July 26, 2022, the TITAN, the LARS, and associated equipment were demobilized at the A Harvey Marine Base in St. John’s, Canada.`）・USCG p.238〈230〉（`unprotected from the elements until February 6, 2023.`）'),
+               plan='一覧の種類：模式｜見た目の型：札と線｜注：届けの窓口が2つ → 1つにまとめる途中で207人から410人へ｜台本の画：図 模式 届けの窓口が2つ（市の対策本部と区の案内所 → 1つにまとめる途中で207人から410人へ）',
+               src='K6-R p.32（`실종자 수를 하루 만에 207명에서 410명으로 수정 발표`）'),
+    'cb03': dict(kind='写真',
+               plan='H104m｜一覧の種類：実写｜見せ方：額装（小さい）｜副題：行方を探す掲示板（1995年）｜動き：額の中で左へ｜権利：A（公共ヌリ第1類型）｜出典の行：写真：ソウル歴史編纂院（公共ヌリ第1類型）・改変：顔と名前にモザイク｜注：公共ヌリ第1類型。🔴 隠した版（ref/ep10/missing_board_01.jpg＝顔と名前にモザイク）を使う。出典の行に「改変：顔と名前にモザイク」｜台本の画：実写 KOGL 2301030104（人を探す掲示板＝顔写真と名前にモザイク・出典に「改変：顔と名前にモザイク」＝副題「行方を探す掲示板（1995年）」）',
+               src='K6-区b p.58（`신원확인 후 신고접수`）・K6-区b p.59（`신분확인 절차 없이 구두 또는 전화로`）・K6-市b p.54（`보상금을 받기 위한 허위신고`）'),
     'cb04': dict(kind='図解',
-               plan='🔧 注：🔧 §0-3（TSB は「°」だけ＝摂氏は推測）｜新しい画（映像方針）：図 棒 セントジョンズの冬の気温（12月〜2月・最高気温の平均 −0.5°・最低気温の平均 −5.5°＝カナダの調べの書き方のまま「°」＝℃ と書かない）｜台本の画（🔧映像方針で替えた＝元の予定）：図 棒 セントジョンズの冬の気温（2022年12月〜2023年2月の最高気温の平均 −0.5℃・最低気温の平均 −5.5℃＝カナダの調べの値）',
-               src='TSB §1.22（`The average high temperature in St. John’s between December 2022 and February 2023 was -0.5° and the average low was -5.5°.`）・§1.22（`experiences snow, strong winds, freezing rain, and hail.`）'),
+               plan='一覧の種類：模式｜見た目の型：数の並び｜注：届け1,566件 → 確かめた1,485件 → 残り81人｜台本の画：図 模式 届けから確かめるまで（届け1,566件 → 確かめた1,485件 → 残り81人＝8月8日の時点）',
+               src='K6-市b p.53（`1,566`・`1,485`）'),
     'cb05': dict(kind='図解',
-               plan='台本の画：図 模式 水が入って凍る（船体のすき間の水が氷になってふくらむ・溶けて縮む・くり返す）',
-               src='NTSB p.60（`If water had penetrated any part of the pressure vessel and frozen, the expansion that occurs due to the phase change to ice could have caused additional damage.`）・TSB §2.1.3（`The investigation could not conclusively quantify the extent of damage, if any, from these other sources`）'),
-    'cb06': dict(kind='図解',
-               plan='台本の画：図 再現 米沿岸警備隊の主たる要因の8つ目（英字＋訳は字幕）',
-               src='USCG p.328〈320〉（`compromised the TITAN’s hull integrity.`）・USCG p.7〈vii〉（`OceanGate’s failure to conduct preventative maintenance on the TITAN’s hull or protect it from the elements during the extended offseason layup period`）'),
-    'cb07': dict(kind='写真',
-               plan='M109｜見せ方：全面｜副題：潜水艇を載せる台（事故の後に撮影）｜動き：左へ｜権利：A（MBI が撮影）｜出典の行：米沿岸警備隊 海難調査委員会の報告書 図109｜注：c305 の図5 と同じ場面の別の写真＝呼び方をそろえる（台）｜台本の画：実写 MBI 図109 岸壁の台（LARS）と白い浮き（USCG 報告 p.142・2023-06-25 撮影・c305 の図5 と同じ場面の別の写真・A＝副題「潜水艇を載せる台（事故の後に撮影）」）',
-               src='USCG p.238〈230〉（`what we really wanted to do was bring the sub back, at least, to Everett and pull the insert and look at`）'),
+               plan='一覧の種類：箱｜見た目の型：箱｜注：1995年10月の数（箱の2回目）｜台本の画：図 箱 1995年10月の数（亡くなった人501人＝遺体で確かめた471人＋亡くなったと認めた30人＝箱の2回目）',
+               src='国監内 p.24（`사망자 501명(사망확인 471명, 사망인정 30명)`）'),
+    'cb06': dict(kind='写真',
+               plan='H077｜一覧の種類：実写｜見せ方：額装（小さい）｜副題：事故の写真展（1996年6月）｜動き：額の中で寄る｜権利：A（公共ヌリ第1類型）｜出典の行：写真：ソウル歴史編纂院（公共ヌリ第1類型）｜注：公共ヌリ第1類型。✅ 見る男性と子どもの横顔＝私人＝顔だけモザイク（出典の行に「改変：顔にモザイク」・10-18）｜台本の画：実写 歴史編纂院 2301030077（1996年の写真展＝公共ヌリ第1類型＝副題「事故の写真展（1996年）」）',
+               src='国監内 p.24（`신고실종자관리 6명`）'),
+    'cb07': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：書類｜注：戸籍の整理（遺体の見つからない30人・人の形は使わない）｜台本の画：図 模式 戸籍の整理（遺体の見つからない30人＝11月29日・人の形は使わない）',
+               src="白書 p92（「'95년 11월 29일을 기해 관리대상자중 30명에 대해서 호적법 제90조에 의한 호적정리」）"),
     'cb08': dict(kind='図解',
-               plan='🔧 注：🔧 再現→模式（§0-3）｜新しい画（映像方針）：図 模式 2023年の組織の図（技術部長の席＝空の点線の箱に「未定（TBD）」）＝c207 と同じ形｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 2023年の計画書の人の欄（技術部長＝「TBD」）',
-               src='USCG p.246〈238〉（`OceanGate’s Director of Engineering position for the expedition was listed as To Be Determined (TBD).`）・TSB §1.23.1（`there was no one formally in the position of director of engineering for the remainder of the 2023 season.`）'),
-    'cb09': dict(kind='図解',
-               plan='🔧 G02｜注：🔧 自作の地図→衛星写真（了承②）｜新しい画（映像方針）：図 地図 衛星写真 G02＋母船の後ろに台ごと引く線（水色の線の後ろに台の印）｜台本の画（🔧映像方針で替えた＝元の予定）：図 地図 セントジョンズから現場まで（母船の後ろに台ごと引く線）',
-               src='TSB §1.20.2（`because the Polar Prince did not have equipment to lift the Titan and the LARS on and off the deck.`）・USCG p.246〈238〉（`the LARS and TITAN had to be towed behind the POLAR PRINCE for the entirety of each 2023 TITANIC mission.`）'),
-    'cb10': dict(kind='図解',
-               plan='台本の画：図 棒 引かれていた時間（約950時間＝カナダの調べ）と道のり（2,900海里あまり＝約5,400km＝米沿岸警備隊）',
-               src='TSB §1.20.2.2（`towed by or tethered to, via a towline, the Polar Prince in the North Atlantic for approximately 950 hours in the 2023 season.`）・USCG p.294〈286〉（`towed behind the POLAR PRINCE for a total distance of more than 2,900 NM.`）'),
-    'cb11': dict(kind='写真',
-               plan='🔧 N10｜見せ方：額装（第三者）｜副題：傾いた台（2023年5月20日と27日）｜動き：額ごと右へ｜権利：第三者（個人の撮影・米運輸安全委員会の報告書の図）｜出典の行：（撮影者＝src/credits_private.tsv）／米運輸安全委員会の報告書 図10｜注：🔧 cb12 から移した（NTSB 図10 の凡例の日付＝5月20日・27日＝語りの5月24日の横に置かない）。縦長2枚を1つの額に｜台本の画（🔧映像方針で替えた＝元の予定）：実写 MBI 図112 台の注水弁（黄の丸＝MBI・USCG 報告 p.144・A＝副題「台の注水弁（事故の後に撮影）」）',
-               src='TSB §1.20.2.2（`were subjected to considerably higher accelerations than those recommended by DNV`）・§1.20.2.2（`The Titan was also towed through significant wave heights of up to 3.35 m on the LARS`）'),
-    'cb12': dict(kind='写真',
-               plan="🔧 M112｜見せ方：額装（報告書の図）｜副題：台の浮き沈みを決める弁（事故の後に撮影）｜動き：額ごと引く｜権利：A（MBI が撮影）｜出典の行：米沿岸警備隊 海難調査委員会の報告書 図112｜注：🔧 cb11 から移した（語り「半ば沈んだ」＝台の浮き沈みの弁）・黄の丸は MBI｜台本の画（🔧映像方針で替えた＝元の予定）：実写 NTSB 図10 傾いた台（撮影は個人＝第三者＝額装・改変なし・④' と映像方針で使うか確かめる＝副題「傾いた台（2023年5月20日と27日）」＝NTSB 図10 の凡例の日付・5月24日に半ば沈んだ場面ではない＝語りの5月24日と並べない（引かれて揺れた cb11 へ移す案））",
-               src='TSB §1.21.1（`On the morning of 24 May, while en route to the wreck site, the LARS and the Titan partially submerged while under tow.`）・§1.21.1（`The Titan and the LARS partially submerged again on the return to St. John’s.`）'),
-    'cb13': dict(kind='図解',
-               plan='台本の画：図 帯 3つの見方（引かれたことの影響＝米沿岸警備隊「さらに弱った可能性が高い」／米運輸安全委「影響は分からない」／カナダ「引いただけでは原因でない・すでにあった傷を広げたかもしれない」）',
-               src='USCG p.295〈287〉（`subjected the TITAN to repeated impact damage that further weakened its structural integrity of its hull.`）・NTSB p.60（`their actual effects are unknown.`）・TSB §2.1.3（`towing the Titan and submerging it while under tow may have exacerbated existing damage.`）'),
-    'cb14': dict(kind='図解',
-               plan='🔧 注：🔧 再現→棒（§0-3）｜新しい画（映像方針）：図 棒 2023年の人が乗った潜航3回の深さ（10m の短い棒3本）と、タイタニックの深さ約3,800m の破線｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 TSB 付録B の2023年の4行（10・10・10・3346）',
-               src='TSB §1.21.4（`The dive was aborted at a depth of 10 m. The Titan did not disconnect from the LARS on this dive.`）・NTSB p.14（`None of the dives exceeded 33 feet (10 meters) depth.`）・USCG p.256〈248〉（`10 m dives were dives which did not leave the LARS platform.`）'),
-    'cb15': dict(kind='写真',
-               plan='M115｜見せ方：全面｜副題：台を浮かせる空気の装置（事故の後に撮影）｜動き：上へ｜権利：A（MBI が撮影）｜出典の行：米沿岸警備隊 海難調査委員会の報告書 図115｜台本の画：実写 MBI 図115 台を浮かせる空気の装置（黄と赤の浮き袋・USCG 報告 p.145・A＝副題「台を浮かせる空気の装置（事故の後に撮影）」）',
-               src='USCG p.295〈287〉（`repeatedly slammed against the LARS platform for approximately 45-minutes by passing ocean swells`）・p.295〈287〉（`There is no evidence that OceanGate conducted a post-incident hull inspection or incident report`）'),
+               plan='一覧の種類：模式｜見た目の型：数の並び｜注：最終の数（502・937／502−30＝472）｜台本の画：図 模式 最終の数（白書＝亡くなった人502人・けがをした人937人／502−30＝472）',
+               src='白書 p92（「사망자 502명, 부상자 937명」「최종 사망자 수가 502명으로 확정」）'),
+    'cb09': dict(kind='フリー素材',
+               plan='Xcb09b｜映像の素材 12.80秒・倍率 1.58（素材の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ）｜一覧の種類：イメージ｜見せ方：全面（イメージ）｜副題：イメージ｜動き：映像（等速）｜権利：フリー素材（Pexels License）｜出典の行：イメージ（Pexels）｜注：白菊（Pexels 5647337・黒い地）｜台本の画：イメージ 白菊（韓国の弔いの花・フリー素材）',
+               src='記主（「사망확인 472명, 사망인정 30명」＝国家記録院の解説・二次）'),
+    'cb10': dict(kind='写真',
+               plan='🔧 C209｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：残った棟の前に並んだ救急車（1995年）｜動き：額ごと右へ｜権利：BY-SA 4.0（own＝作者は個人）｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY-SA 4.0｜注：🔧 「mourning（BY-SA）」という点は無い（旧 mourning_01 は公共ヌリの焼香所＝cb01）→ #209（語り「けがをした人」）。警察官＝公的。日付の焼き込み｜台本の画（🔧映像方針で替えた＝元の予定）：実写 mourning（使用済み・BY-SA・額装＝副題「犠牲者を悼む人たち（1995年）」・私人の顔が近くに写るなら使わない＝映像方針で原寸）',
+               src='白書 p92（「총 1439명」）'),
+    'cb11': dict(kind='図解',
+               plan='一覧の種類：棒｜見た目の型：棒｜注：年代の内訳（棒の2回目）｜台本の画：図 棒 年代の内訳（10歳まで14・11〜20歳71・21〜30歳258・31〜40歳80・41〜50歳52・51〜60歳21・60歳より上6＝棒の2回目・人の形は使わない・割合の欄は出さない）',
+               src='白書 p93（年代の表＝sources.md §7-1）'),
+    'cb12': dict(kind='フリー素材',
+               plan='Xcb12a｜映像の素材 15.72秒・倍率 2.01（素材の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ）｜一覧の種類：イメージ｜見せ方：全面（イメージ）｜副題：イメージ｜動き：映像（等速）｜権利：フリー素材（Pexels License）｜出典の行：イメージ（Pexels）｜注：白菊（Pexels 6109240・水の中＝cb09 と別の物）｜台本の画：イメージ 白菊（cb09 と別の寄り・フリー素材）',
+               src='白書 p93（「男106・女396」）'),
+    'cb13': dict(kind='写真',
+               plan='H083｜一覧の種類：実写｜見せ方：額装（小さい）｜副題：事故から1年の防災のセミナー（1996年6月）｜動き：額の中で右へ｜権利：A（公共ヌリ第1類型）｜出典の行：写真：ソウル歴史編纂院（公共ヌリ第1類型）｜注：公共ヌリ第1類型。✅ 客席は後ろ姿・顔は小さい（10-18）｜台本の画：実写 歴史編纂院 2301030083（1996年の1周年のセミナー＝公共ヌリ第1類型＝副題「事故から1年のセミナー（1996年）」）',
+               src='白書 p92（「백화점은 많은 사람이 출입할 수 있는 시설」）'),
+    'cb14': dict(kind='写真',
+               plan='🔧 C211｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：「三豊百貨店」の看板の棟と、崩れた跡（1995年）｜動き：額ごと寄る｜権利：BY-SA 4.0（own＝作者は個人）｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY-SA 4.0｜注：🔧 「volunteers（BY-SA）」→ #211（語り「夕食の支度の時間」＝店そのもの）。#227（群衆の顔）は使わない｜台本の画（🔧映像方針で替えた＝元の予定）：実写 volunteers（使用済み・BY-SA・額装＝私人の顔が近くに写るなら使わない＝映像方針で原寸）',
+               src='白書 p92（「사고발생시간이 17시 55분으로 저녁식사 준비를 하려는 주부들이 많이 모여드는 시간」）'),
+    'cb15': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：数の比べ｜注：それまでの最多（1970年の船の沈没 326人）｜台本の画：図 模式 それまでの最多（1970年の船の沈没 326人＝白書 p92・人の形は使わない）',
+               src='白書 p92（「지난 48년 건국이래 현재까지, 가장 많은 희생자를 낸 사고로 기록될 것이다」「천재지변을 제외하고」）'),
     'cb16': dict(kind='図解',
-               plan='🔧 注：🔧 再現→帯（§0-3）｜新しい画（映像方針）：図 帯 監視装置の記録（2022年＝記録あり＝青の帯／2023年＝記録なし＝灰の空白）｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 監視装置の記録の有無（2022年＝あり／2023年＝なし）',
-               src='USCG p.139〈131〉（`No real-time monitoring data was available to the MBI from Expedition 2023 (Dives 84-88).`）・TSB §1.10.9（`There was no data available for the 2023 season.`）'),
-    'cb17': dict(kind='図解',
-               plan='🔧 注：🔧 再現→模式（§0-3）｜新しい画（映像方針）：図 模式 危険度の点数の目盛り（この日の35＝黄の点・48の線＝「ストライク」・3つで中止の札）｜台本の画（🔧映像方針で替えた＝元の予定）：図 再現 危険度の点数（事故の回＝35・「48を超えるとストライク」の決まり＝TSB 図16 は使わず数だけ）',
-               src='TSB §1.17.12.1（`The mission director checklist specified that a risk index of greater than 48 was considered to be a strike. The risk assessment for the occurrence dive (Figure 16) had a risk index of 35.`）・USCG p.78〈70〉（`If there was a total of three or more “strikes” encountered during a dive evolution, the Mission Director was required to cancel the day’s dive operation.`）'),
+               plan='一覧の種類：模式｜見る向き：上から｜見た目の型：道路と車｜合図：🔁 斜めから（立体）→上から（前の図 ca18）｜注：瓦礫を運ぶ車の線（写真なし・場所の名なし）｜台本の画：図 模式 瓦礫を運ぶ車の線（写真は使わない・場所の名は出さない）',
+               src='K6-R p.32（`사체 및 유품관리의 허술`・`신중을 기하지 못함으로써`・`유골과 유품의 일부가 건물잔해와 함께`・`뒤늦게 유골·유품의 확인·회수작업을 벌임`）・国監内 p.24（`골편 등 142점과 유품 3,419점을 발견`）'),
+    'cb17': dict(kind='写真',
+               plan='S31737｜一覧の種類：実写｜見せ方：全面｜副題：跡地と、後ろの団地（2000年2月）｜動き：右へ｜権利：A（公共ヌリ第1類型＋CC BY 4.0）｜出典の行：写真：ソウル特別市／ソウル研究院（서울연구데이터서비스）（公共ヌリ第1類型・CC BY 4.0）｜注：A（研究院 2000-02）。団地に住民の垂れ幕（字）｜台本の画：実写 研究院「삼풍백화점자리」node/31737（2000-02・跡地＝A＝副題「跡地（2000年2月）」）',
+               src='白書 p93（「1996-03-20 遺族側と三豊建設側が合意＝1人あたり特別慰労金1億7千万ウォン＋損害賠償金」）'),
     'cb18': dict(kind='図解',
-               plan='台本の画：図 再現 NTSB の所見2（英字＋訳は字幕）',
-               src='NTSB p.73（`After dive 82, the Titan sustained additional damage—of unknown origin—that further deteriorated and weakened the pressure vessel to a point where it could not survive a dive to the depth of the Titanic.`）'),
+               plan='一覧の種類：模式｜見た目の型：数の並び｜注：補償の支払い（1996年6月14日の時点）｜台本の画：図 模式 補償の支払い（1996年6月14日の時点＝亡くなった人464人分・1,758億ウォン／けがをした人709人・1,003億ウォン・円の目安＝式は §9）',
+               src='白書 p93（「1996-06-14 時点で502人中464人に1,758億ウォン（平均3億8千万）」「709人に1,003億ウォン」）'),
     'cb19': dict(kind='図解',
-               plan='台本の画：図 帯 2023年6月18日（この年初めて台を離れて深く潜る潜航）',
-               src='USCG p.295〈287〉（`Dive 88 was the first dive to leave the LARS platform for the TITANIC Survey Expedition 2023`）・NTSB p.16（`It was the first dive of the 2023 expedition to descend below 33 feet (10 meters).`）'),
+               plan='一覧の種類：模式｜見た目の型：問い｜注：3つの問い（3つ目を明るく）｜台本の画：図 模式 3つの問い（3つ目を明るく＝写真の地は使わない・この回で問いの並べ図はここ1回）',
+               src='—'),
 }
 
 SPEC = {}
-
-# ── 🆕 ⑤b-3（2026-10-14）：地図のカット（衛星写真＋描き足し＝`tools/satmap.py`・c2.py の注）──
-SPEC.update({
-    # cb01（3行）＝1行目は聞き役の問い（描き足しなし）・2行目で A. Harvey の基地のあたりを囲む（USCG 4.35.2・NTSB 図9）。
-    #   🔴 NTSB 図9（空からの駐車場・×の印）と衛星写真 G06 は特徴点の照合が取れなかった＝駐車場の中の位置は描かない（基地のあたり＝住所から）
-    "cb01": dict(**ss.sat("G06", note="囲みは基地の住所のあたり（一般の座標・駐車場の中の位置は描かない）", steps=[
-        [],
-        [dict(k="area", at="harvey", r=160, role="company", t="A. ハーヴィーの基地", lab=(0, 128, "middle"))]]),
-        #   🔧 ⑤c'（10-15）：第10章の頭＝扉の地に衛星写真を染めて全面に混ぜない（⑤c で cb00card に見えた・門番 check_card_mix に sat を足した）
-        card_mix=0, t="冬の置き場", s="セントジョンズの港（現在の衛星写真）"),
-    # cb09（2行）＝母船の後ろに台ごと引く（船と台の印は模式・線は2点を結んだだけ）
-    "cb09": dict(**ss.sat("G02", note="セントジョンズは一般の座標・×は最後に受けた位置・線と船の印は模式（実際の航路ではない）", steps=[
-        [dict(k="line", path=("stjohns", "site"), role="ship"),
-         dict(k="icon", what="ship", on=("stjohns", "site", 0.5), role="ship", tow=True, t="母船", lab=(34, -8, "start")),
-         dict(k="x", at="site")],
-        #   🔧 ⑤b-3 の試し焼き：「台（タイタン）」が台の四角から離れて左下に浮いた＝札は船の印からの位置＝台（船の後ろ 約62px）の左へ
-        [dict(k="icon", what="ship", on=("stjohns", "site", 0.5), role="ship", tow=True, t="台（タイタン）", lab=(-40, -50, "end"))]]),
-        t="引いて運ぶ", s="セントジョンズから現場へ（現在の衛星写真）"),
-})
-
-# ══════════════════════════════════════════════════════════
-#  🆕 ⑤b-6（2026-10-15）：図解 第10章（13カット）＝模式図 `tools/mech22.py`・時間の帯（axis）・棒（qty）
-# ══════════════════════════════════════════════════════════
-#   🔴 章の札「最後の冬と2023年」と4字以上同じ並び（「最後の冬」「2023年」）を見出し・副題に入れない（門番 dup）。字は12字未満（門番 echo）。
-#      写真 cb07・cb11・cb12・cb15 は ⑤b-7・地図 cb01・cb09 は ⑤b-3
-_N_PU = "句は米沿岸警備隊の報告書（英字のまま・模式）"
-SPEC.update({
-    # cb02（2行）＝基地のメール（覆いの見積もりは出したが、会社の承認が無く買わなかった）→前の冬は本社の屋内（米運輸安全委員会）
-    "cb02": dict(
-        t="覆いの見積もり", s="返事が無いまま",
-        fig=("m22", dict(view="paper", start=dict(doc="tarp"),
-                         steps=[dict(state=dict(hl1="on", hl2="on", hl3="on")), dict(tag=dict(t="前の冬は屋内", d="アメリカの会社の建物", at="r2", col=J.COMPANY))],
-                         note=_N_PU + "・前の冬は米運輸安全委員会の報告書", src=ss.src(["USCG p237", "NTSB p1035"]))),
-    ),
-    # cb03（1行）＝帯（2022年7月26日〜2023年2月6日＝屋外・覆いなし）。括弧は語りの「半年あまり」
-    "cb03": dict(
-        t="外にあった期間", s="港の基地の駐車場",
-        fig=("axis", dict(ss.AX_OUT, steps=[dict(add=[ss.ax("out22"), ss.ax("half")], cur="2023-02-06")],
-                          note="日付は米沿岸警備隊の報告書（覆いの無い屋外）", src=ss.src(["USCG p236", "USCG p238", "TSB §1.22"]))),
-    ),
-    # cb04（2行）＝🔧 棒→目盛りの点（気温は 0 より下＝棒は 0 から右へしか描けない）。最高の平均 −0.5°・最低の平均 −5.5°→雪・強い風・凍る雨
-    "cb04": dict(
-        t="冬のセントジョンズ", s="カナダの調べの値",
-        fig=("m22", dict(view="temp", steps=[dict(state=dict(avg="on"), tag=[dict(t="−0.5°", d="最高気温の平均", at="hi"), dict(t="−5.5°", d="最低気温の平均", at="lo")]),
-                                             dict(state=dict(wx="on"), tag=dict(t="雪・強い風・凍る雨", d="海に面した町", at="wx", col=J.INK_W))],
-                         rel=[dict(t="−0.5°", src="TSB §1.22"), dict(t="−5.5°", src="TSB §1.22")],
-                         note="点はカナダの報告書の値（単位の書き方もそのまま）・模式", src=ss.src(["TSB §1.22"]))),
-    ),
-    # cb05（2行）＝船体のすき間の水が凍ってふくらむ（米運輸安全委員会の見立て）→2つの調べは「あり得る」まで
-    "cb05": dict(
-        t="冬の傷み", s="水が凍ると",          # ⚠️ 門番 dup：「すき間の水」は note の写し
-        fig=("m22", dict(view="layers", steps=[dict(state=dict(ice="on"), tag=dict(t="凍ってふくらむ", at="t", col=J.ALERT)),
-                                               dict(tag=dict(t="あり得る、まで", d="2つの調べ", at="r2", col=J.INK_W))],
-                         rel=[dict(t="2つの調べ", src="NTSB p1060・TSB §2.1.3")],
-                         note="すき間の場所と形は模式（水が入った所は報告書に無い）・2つの調べ＝米運輸安全委員会とカナダ",
-                         src=ss.src(["NTSB p1060", "TSB §2.1.3"]))),
-    ),
-    # cb06（2行）＝米沿岸警備隊の結論（屋外に置いて船体を損ねた）→主な要因の8つ目
-    "cb06": dict(
-        t="外での保管", s="8つ目の要因",
-        fig=("m22", dict(view="paper", start=dict(doc="u8"), steps=[dict(state=dict(hl1="on", hl2="on")), dict(state=dict(hl3="on", hl4="on"))],
-                         note=_N_PU, src=ss.src(["USCG p328", "USCG p7"]))),
-    ),
-    # cb08（3行）＝🔧 再現→模式（c207 と同じ席）。聞き役の問い→計画書の技術部長＝「未定」→正式には空いたまま（枠）
-    "cb08": dict(
-        t="技術の責任者", s="遠征の人の欄",
-        fig=("m22", dict(view="org", start=dict(seats="on"),
-                         steps=[dict(), dict(tag=dict(t="未定（TBD）", d="遠征の計画書", at="eng", to="eng", col=J.AMBER)), dict(state=dict(vac="on"))],
-                         note="席の並びは模式（空席はカナダの報告書の表4・計画書は米沿岸警備隊の報告書）",
-                         src=ss.src(["USCG p246", "TSB §1.23.1", "TSB §1.23"]))),
-    ),
-    # cb10（1行）＝棒（綱につながれていた時間 約950時間＝カナダの調べ）。道のりは描かない（2冊で単位が違う・語りに無い）
-    "cb10": dict(
-        t="引かれた時間", s="カナダの調べの値",
-        fig=("qty", dict(view="bar", groups=[ss.QG["tow"]], steps=[dict(add=[ss.qb("tow23")])],
-                         note="綱で引かれたか、綱でつながれていた時間の合計（約950時間）", src=ss.src(["TSB §1.20.2.2"]))),
-    ),
-    # cb13（3行）＝引かれたことの影響の見方（米沿岸警備隊＝さらに弱った・カナダ＝引くだけでは原因の見込みは低い／傷を広げたかも）
-    "cb13": dict(
-        t="引いた影響", s="見方の違い",
-        fig=("m22", dict(view="cards", start=dict(set="tow"),
-                         steps=[dict(), dict(state=dict(n="1")),
-                                dict(state=dict(n="2"), tag=dict(t="引くだけでは低い", d="原因になった見込み", at="low", col=J.INST))],
-                         note="要点（模式）・米運輸安全委員会は「影響は分からない」", src=ss.src(["USCG p295", "TSB §2.1.3", "NTSB p1060"]))),
-    ),
-    # cb14（2行）＝🔧 再現→棒。聞き役の問い→人が乗った3回とも10メートル（台を離れず）とタイタニックの深さ
-    "cb14": dict(
-        t="浅い潜航", s="台を離れず",
-        fig=("qty", dict(view="bar", groups=[ss.QG["dep23"]], steps=[dict(), dict(add=[ss.qb("dep23_sub"), ss.qb("dep23_tt")])],
-                         note="人が乗った3回とも10メートル（カナダの報告書 付録B）・タイタニックは目安",
-                         src=ss.src(["TSB §1.21.4", "NTSB p1014", "TSB §付録B", "TSB §1.3"]))),
-    ),
-    # cb16（1行）＝🔧 再現→帯。監視装置の記録が残るのは 2021年2月〜2022年7月23日（カナダの調べ）＝2023年の潜航は記録なし
-    "cb16": dict(
-        t="監視の記録", s="残った期間",
-        fig=("axis", dict(ss.AX_RTM, steps=[dict(add=[ss.ax("rtm_on"), ss.ax("rtm_off")], cur="2023-06-18")],
-                          note="期間はカナダの報告書（記録なしの帯は付録B の人が乗った潜航）", src=ss.src(["TSB §1.10.9", "USCG p139", "TSB §付録B"]))),
-    ),
-    # cb17（2行）＝🔧 再現→模式。事故の潜航の計画の危険度＝35→48を超えるとストライク1つ・3つで その日は中止
-    "cb17": dict(
-        t="潜航の前の点数", s="会社の決まり",
-        fig=("m22", dict(view="risk", steps=[dict(state=dict(day="on"), tag=dict(t="この日 35", at="day", col=J.AMBER)),
-                                             dict(state=dict(line="on", three="on"), tag=[dict(t="48を超えると", d="ストライク1つ", at="line", col=J.ALERT),
-                                                                                         dict(t="3つで中止", d="その日の潜航", at="three", col=J.ALERT)])],
-                         rel=[dict(t="この日 35", src="TSB §1.17.12.1"), dict(t="48を超えると", src="TSB §1.17.12.1"),
-                              dict(t="ストライク1つ", src="TSB §1.17.12.1"), dict(t="3つで中止", src="USCG p78")],
-                         note="目盛りの右の端は模式（点数の出し方は分からない＝カナダの調べ）", src=ss.src(["TSB §1.17.12.1", "USCG p78"]))),
-    ),
-    # cb18（3行）＝米運輸安全委員会の所見（82回目のあと・出どころの分からない傷み・タイタニックの深さに耐えられない）
-    "cb18": dict(
-        t="加わった傷み", s="最後の深い潜航のあと",
-        fig=("m22", dict(view="paper", start=dict(doc="n73"),
-                         steps=[dict(state=dict(hl1="on")), dict(state=dict(hl2="on")), dict(state=dict(hl3="on", hl4="on"))],
-                         note="句は米運輸安全委員会の報告書（英字のまま・模式）", src=ss.src(["NTSB p1073", "NTSB p1060"]))),
-    ),
-    # cb19（2行）＝帯（台の上の10メートルの潜航3回→6月18日＝初めて台を離れて深く潜る）→聞き役
-    "cb19": dict(
-        t="その日の潜航", s="この年で初めて",
-        fig=("axis", dict(ss.AX_23, steps=[dict(add=[ss.ax("s0531"), ss.ax("s0605"), ss.ax("s0613"), ss.ax("s10m"), ss.ax("occ23"), ss.ax("first88")],
-                                                cur="2023-06-18"), dict(cur="2023-06-18")],
-                          note="日付はカナダの報告書 付録B（台の上の潜航＝深さ10メートル）",
-                          src=ss.src(["TSB §付録B", "USCG p256", "USCG p295", "NTSB p1016"]))),
-    ),
-})
-
-# ══════════════════════════════════════════════════════════
-#  🆕 ⑤b-7（2026-10-15）：写真 第10章（4カット）＝映像方針の一覧（了承②）。副題は焼いた絵を原寸で見てから最終に
-# ══════════════════════════════════════════════════════════
-#   cb11＝第三者（個人の撮影＝NTSB 図10・縦長2枚の組）＝額装だけ・色を変えない・額ごと動かす。日付は図10 の凡例（5月20日と27日）
-#   ＝語りの5月24日（cb12）の横に置かない（映像方針で cb11 へ移した）
-_DOCK = P("mbi_fig109_lars_dock")
-_TIPPED = P("ntsb_fig10_lars_tipped")
-_VALVE = P("mbi_fig112_ballast_valve")
-_AIR = P("mbi_fig115_air_regulator")
-SPEC.update({
-    # cb07（7.8秒）＝潜水艇を載せる台（MBI 図109＝c305 の図5 と同じ場面の別の写真・幅 1221）・全面・左へ
-    "cb07": dict(photo=_DOCK, **ss.mv(_DOCK, "l"), side="none", t="見たかった内側", s="潜水艇を載せる台（事故の後に撮影）"),
-    # cb11（7.3秒）＝傾いた台（NTSB 図10＝個人の撮影・縦長2枚）・額ごと右へ
-    "cb11": dict(photo=_TIPPED, panel=True, color=1.0, fmove=ss.fm("r"), t="大きな揺れ", s="傾いた台（2023年5月20日と27日）"),
-    # cb12（11.0秒）＝聞き役の反応つき。台の浮き沈みを決める弁（MBI 図112・黄の丸は MBI・828×437）・額ごと引く
-    "cb12": dict(photo=_VALVE, panel=True, fmove=ss.fm("out"), t="半ば沈む", s="台の浮き沈みを決める弁（事故の後に撮影）"),
-    # cb15（9.9秒）＝台を浮かせる空気の装置（MBI 図115・960×817）・全面・上へ
-    "cb15": dict(photo=_AIR, **ss.mv(_AIR, "u"), side="none", t="打ちつけられた艇", s="台を浮かせる空気の装置（事故の後に撮影）"),
-})
