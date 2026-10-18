@@ -182,11 +182,12 @@ SPEC.update({
             note="積み木の大きさは模式（重さの比ではない・物の名は記録）", src=ss.src(["K6-R p29", "白書 p89", "大96 p1"]))),
     ),
     # c919（2行）＝建物の異変はいつから → あの朝の盛り上がりは本当に突然だったのか（次の章への橋）
+    #   🔧 試し焼き（10-19）：赤い枠と盛り上がりの矢印にすると ca18（c204 の2回目）と同じ絵になった＝5階の「？」だけ（盛り上がりは c204・ca18）
     "c919": dict(
         t="異変の始まり", s="あの朝の前",
         fig=("m23", dict(view="bldg", start=dict(hi="a5"), steps=[
             dict(tag=dict(t="いつから？", at="t", to="cell", col=J.AMBER)),
-            dict(state=dict(cell="on", bulge="on"), tag=dict(t="本当に突然？", at="r1", col=J.ALERT))],
+            dict(state=dict(q5="on"), tag=dict(t="本当に突然？", at="r1", col=J.ALERT))],
             note="形は模式")),
     ),
 })

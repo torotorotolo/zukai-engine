@@ -2614,6 +2614,8 @@ def bldg_b5_stage(prev, st):
     if _on(prev, st, "shake"):
         y = bl_y(4) + BL["fh"] / 2
         s.append(_arrow(190.0, y, 130.0, y, INK, 5, 16) + _arrow(190.0, y, 250.0, y, INK, 5, 16))
+    if _on(prev, st, "hi", "f4a5"):         # 🔧 試し焼き（10-19）：A棟の4階と5階が同じピンクで1つの塊に見えた＝食堂街（5階）に太い枠
+        s.append(F.poly(bl_band("a", 5), "none", A_C, 6, close=True))
     return s
 
 
@@ -3089,7 +3091,8 @@ def anchors(view, st):
         return dict(a5=(SC["xb"][1] + 10, sc_top(5) + SC["fh"] / 2), roof=(SC["xb"][1] + 10, SC["roof"] - 10))
     if view == "bldg":
         p = bl_band("a", 5, *CELL["a5"])
-        return dict(cell=(p[1][0], (p[1][1] + p[2][1]) / 2), roof=(bl_x("a")[1], bl_y(BL_N)), x=(1380.0, 600.0))
+        return dict(cell=(p[1][0], (p[1][1] + p[2][1]) / 2), roof=(bl_x("a")[1], bl_y(BL_N)), x=(1380.0, 600.0),
+                    a5=(bl_x("a")[0] + 30.0, bl_y(5) + 20.0))     # 🆕 ⑤b-5（ca08）：⚠️ 左の外の札から引くので「5階」の札の上を通す（線と字 23px）
     if view == "plan":
         x0, y0, x1, y1 = pl_rect("a")
         return dict(nw=(x0 + 10, y0 + 30), sw=(x1 - 10, y0 + 30), hit=grid_xy("5", "E"), sag=pl_pt(0.62, 0.55))

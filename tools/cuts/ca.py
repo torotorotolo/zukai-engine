@@ -121,9 +121,10 @@ SPEC.update({
     "ca08": dict(
         t="4階の照明", s="6月の初め",
         fig=("m23", dict(view="bldg", steps=[
-            dict(state=dict(hi="f4", lamp="on"), tag=dict(t="照明が落ちた", at="lr")),
+            # 🔧 試し焼き（10-19）：帯（動く部品）が基図より先に出て、B棟の4階の帯だけ宙に浮いて見えた＝基図を描き終えてから（delay 2.4秒）
+            dict(state=dict(hi="f4", lamp="on"), tag=dict(t="照明が落ちた", at="lr"), delay=2.4),
             dict(state=dict(shake="on"), tag=dict(t="建物の揺れ", at="sh")),
-            dict(state=dict(hi="f4a5"), tag=dict(t="すぐ上は食堂街", at="r3", col=J.ROLE["bldg_a"]))],
+            dict(state=dict(hi="f4a5"), tag=dict(t="すぐ上は食堂街", at="t", to="a5", col=J.ROLE["bldg_a"]))],
             note="売り場の棟は記録に無い（4階の帯は両方の棟）・形は模式", src=ss.src(["K6-R p30"]))),
     ),
     # ca09（1行）＝照明が落ちたことは社長に報告され、屋上の冷却塔の水の量が調節された
