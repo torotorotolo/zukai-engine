@@ -2,9 +2,9 @@
 
 ## build（exit=0）
 ```
-当てた 188・二重なので当てない 0・当て損ない 0／直したカット 112／v2_head.md を差した
+当てた 192・二重なので当てない 0・当て損ない 0／直したカット 112／v2_head.md を差した
 第1版 md5 e2f8cd3bd18e49dc8d961e2031161691 → e2f8cd3bd18e49dc8d961e2031161691 （同じ）
-書いた C:\Users\konar\Desktop\zukai-engine\ref\ep23\daihon_v2.md f75915f78b97c5cc2f6478fc3a351fe6
+書いた C:\Users\konar\Desktop\zukai-engine\ref\ep23\daihon_v2.md b45e02ae57e1c5f5e49c9c614711a0ac
 🔧 c105 c107 c108 c201 c214 c216 c308 c310 c311 c314 c315 c401 c402 c403 c407 c408 c409 c411 c414 c417 c420 c502 c503 c504 c505 c507 c510 c511 c512 c519 c522 c601 c602 c604 c605 c606 c607 c608 c609 c612 c613 c614 c615 c617 c705 c706 c707 c709 c711 c712 c715 c716 c717 c805 c807 c808 c809 c811 c812 c814 c816 c817 c901 c904 c906 c908 c911 c912 c913 c918 ca01 ca03 ca05 ca06 ca09 ca11 ca12 ca13 ca14 ca15 ca19 cb03 cb05 cb09 cb13 cb15 cb16 cb17 cb19 cc01 cc02 cc03 cc04 cc05 cc06 cc07 cc10 cc11 cc12 cc13 cc14 cc15 cc16 cc17 cc21 cc23 cd01 cd02 cd03 cd04 cd05 cd07
 ```
 
