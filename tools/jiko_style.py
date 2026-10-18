@@ -66,8 +66,23 @@ USCG = "#4f9be0"          # 米沿岸警備隊（捜索の指揮・調査委員�
 COMPANY = "#f78b3e"       # 会社（オーシャンゲート）
 SHIP = "#7efcfa"          # 母船（ポーラー・プリンス）
 SUB = "#f4f6f8"            # 潜水艇（タイタン）＝🆕 ⑤b-3b：型が `c="SUB"` で引ける名（値は ⑤b-1 の ROLE の sub と同じ）
-ROLE = dict(uscg=USCG, ntsb=OK, tsb=INST, company=COMPANY, ship=SHIP, sub=SUB)
-ROLE_ALIAS = {"ntsb": "OK", "tsb": "INST"}   # 意味の色と同じ値の役（ΔE の照合から外す・門番が値の一致を確かめる）
+# 🆕 2026-10-18（23本目 ⑤b-1）：23本目の役（映像方針 §6-6）＝**同じ色の値に23本目の名を付けた別名**（色の数は22本目と同じ＋A棟のピンク1つ）。
+#    22本目の役（uscg・ntsb・tsb・ship・sub）は残す＝22本目の型 mech22 と見本 fixture_ep22 の selftest が名前で引く（値は型＝回をまたぐ）。
+#      会社（三豊・経営陣）＝COMPANY 橙（22本目の会社と同じ役の名 company）／瑞草区＝WARD＝OK 緑／ソウル市＝CITY＝INST 紫／
+#      国（国会・検察・裁判所）＝STATE＝USCG の青／構造技術者＝ENGINEER＝SHIP の水色（どれも ROLE_ALIAS＝門番 check_palette ⑤ が値の一致を確かめる）
+#      ⚠️ 22本目と同じく緑を機関（区）の色に使う＝「正常・接着」を緑で言わない（札の言葉で）
+#    🆕 A棟（北・崩れた棟）＝BLDG_A #ff9ec4（実物の外壁のピンクに寄せた・scratchpad の role23.py で門番の物差しを先に当てた＝
+#      4章〈紺・セピア・赤銅・白黒〉の地で文字の比 8.33 以上・いちばん近い色 赤銅の TICK と ΔE 30.7・赤 ALERT・紫 INST とも 33 以上）。
+#      ⚠️ #f29ab4（赤銅の TICK と 24.0）・#f0b8c8（赤銅の LINE と 22.3）は近すぎて外した。
+#    B棟（南・残った棟）＝**主図形の白 INK_W のまま**（役の色にしない＝章の色に従う）＝橙・緑・紫・青・水色は役に使い、赤＝破壊・黄＝数字は
+#      意味の色なので、A棟と分けられる色相がほかに無い。図の中で A棟だけをピンク、B棟は白で描く（Claude の推奨＝カズヤくんが変えてよい）
+#    ⚠️ 別名はモジュールの定数にしない（`CITY = INST` のように置くと門番 check_color が「同じ値の2色＝ΔE 0.0」と数える）＝型は ROLE の名
+#      （`c="city"` ほか＝check_axis・mech の引き方は `J.ROLE.get(名) or getattr(J, 名)`）で引く
+BLDG_A = "#ff9ec4"        # A棟（北・崩れた棟）（23本目）＝ピンク
+ROLE = dict(uscg=USCG, ntsb=OK, tsb=INST, company=COMPANY, ship=SHIP, sub=SUB,
+            ward=OK, city=INST, state=USCG, engineer=SHIP, bldg_a=BLDG_A)
+ROLE_ALIAS = {"ntsb": "OK", "tsb": "INST",     # 意味の色と同じ値の役（ΔE の照合から外す・門番が値の一致を確かめる）
+              "ward": "OK", "city": "INST", "state": "USCG", "engineer": "SHIP"}   # 🆕 23本目＝22本目の役と同じ値の別名
 # ── 色の使い分け（226カットで守る）─────────────────────────
 #   INK_W  主図形（船体・断面）      LINE   技術線・物
 #   AMBER  数値                      ALERT  破壊・欠陥・会社が選んだ危ないほう
