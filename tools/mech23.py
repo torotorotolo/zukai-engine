@@ -1320,7 +1320,7 @@ def cal_stage(prev, st):
         y_, m_, d_ = c["open"]
         i = [m for _y, m in c["months"]].index(m_)
         x = _mo_x(i) + 6 + (CL["mw"] - 12) * (d_ - 1) / 31
-        s.append(F.line(x, CL["my"][0] - 10, x, CL["my"][1] + 10, J.ALERT, 6))
+        s.append(F.line(x, CL["my"][0] - 10, x, CL["my"][1] + 10, J.COMPANY, 6))     # 🔧 試し焼き（10-18）：赤（＝壊れる・欠陥）だった＝開店は会社の橙
         s.append(_tline(x, CL["my"][0] - 22, "開店（12月1日）", 28, J.COMPANY, "middle", 300))
     return s
 
@@ -2069,21 +2069,24 @@ def slab_extra_parts(st):
     off = SLB["sunk"] if st["bar"] == "sunk" else SLB["ok"]
     a = _sls_edge(SLS["top"] + off, sag)
     b = _sls_edge(SLS["top"] + off + SLB["bw"], sag)
+    # 🔧 試し焼き（10-18）：正しい位置を破線（段の層＝動かない）で描くと、床が垂れたときに破線だけまっすぐ残り、垂れた床の上へはみ出した
+    #    ＝正しい位置の細い線も部品にして床と一緒に垂らす（沈んだときだけ見せる）
+    ka = _sls_edge(SLS["top"] + SLB["ok"] + SLB["bw"] / 2 - 1.5, sag)
+    kb = _sls_edge(SLS["top"] + SLB["ok"] + SLB["bw"] / 2 + 1.5, sag)
     return [_P("bar", "poly", a + list(reversed(b)), fill=J.ALERT if st["bar"] == "sunk" else INK, stroke=None,
-               alpha=0.0 if st["bar"] == "off" else 1.0)]
+               alpha=0.0 if st["bar"] == "off" else 1.0),
+            _P("barok", "poly", ka + list(reversed(kb)), fill=INK, stroke=None, alpha=0.75 if st["bar"] == "sunk" else 0.0)]
 
 
 def slab_extra_stage(prev, st):
     s = []
     if st["z"] == "span":
-        if _on(prev, st, "bar", "sunk"):            # 正しい位置（破線）を残す
-            y = SLS["top"] + SLB["ok"] + SLB["bw"] / 2
-            s.append(F.line(SLS["x0"] + 10, y, SLS["x1"] - 10, y, INK, 3, dash="10 8"))
-        if _on(prev, st, "box"):
+        if _on(prev, st, "box"):                    # 🔧 試し焼き（10-18）：箱の底を垂れる前の高さにすると、垂れた床から浮いて見えた＝垂れた床の上に置く
             c0, c1 = SLS["cols"]
             mx = (c0 + c1) / 2
-            s.append(F.rect(mx - 100, SLS["top"] - 130, 200, 120, J.BG2, J.COMPANY, 5, rx=6))
-            s.append(_arrow(mx - 420, SLS["top"] - 70, mx - 120, SLS["top"] - 70, J.COMPANY, 5, 20, dash="12 8"))
+            yb = SLS["top"] + (SLS["sag"] if st["sag"] == "on" else 0.0) - 2
+            s.append(F.rect(mx - 100, yb - 120, 200, 120, J.BG2, J.COMPANY, 5, rx=6))
+            s.append(_arrow(mx - 420, yb - 60, mx - 120, yb - 60, J.COMPANY, 5, 20, dash="12 8"))
     return s
 
 
@@ -2301,7 +2304,7 @@ TAG_AT = dict(
     cal=dict(low=(435.0, 790.0, "start", 1050.0), r=(1505.0, 650.0, "start", 330.0), low1=(300.0, 760.0, "start", 1300.0), t=(L_X, 330.0, "start", 800.0)),
     cards=dict(),
     nums=dict(low=(960.0, 800.0, "middle", 1200.0)),
-    redo=dict(r=(1440.0, 640.0, "start", 400.0)),
+    redo=dict(r=(1440.0, 720.0, "start", 400.0)),      # 🔧 試し焼き（10-18）：y 640 だと輪の矢じりが「判決」を指して見えた
     sheets=dict(top=(1100.0, 340.0, "start", 700.0), low=(380.0, 810.0, "start", 1300.0)),
     rank=dict(t=(L_X, 330.0, "start", 700.0)),
     beam=dict(t=(L_X, 330.0, "start", 700.0)),
