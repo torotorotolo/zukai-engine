@@ -1,0 +1,170 @@
+# 23本目 映像方針：手元の素材（fetch23.py check の出力＝手で直さない）。置き場は git の外
+code	file	bytes	md5	md5_check	dims	get
+C2K001	ref/ep23/src/commons/c2k001_3840.jpg	2008629	29437bff69e581fc9b449b9020938450	md5 2回一致	3840x2721 RGB	commons:3840
+C176	ref/ep23/src/commons/c176_960.jpg	108310	9a0cd95b2d5919afe6858af68397d6be	md5 2回一致	960x660 RGB	local:960
+C48	ref/ep23/src/commons/c48_960.jpg	502719	da5eb073bd1150494fe7ea3c9e6eeca0	md5 2回一致	695x1000 RGB	local:960
+C215	ref/ep23/src/commons/c215.jpg	239123	58413378109748d55680125c777b2804	md5 2回一致	1453x1009 RGB	commons:orig
+C120	ref/ep23/src/commons/c120_960.jpg	96545	a57012857636e64b8df0432f6753bdd3	md5 2回一致	960x656 RGB	local:960
+C36	ref/ep23/src/commons/c36_960.jpg	601595	56fc2196b634d75d6d6285359200a9b1	md5 2回一致	688x1000 RGB	local:960
+C159	ref/ep23/src/commons/c159_960.jpg	619819	c135177810c5b15d1015d000ceac3a23	md5 2回一致	682x1000 RGB	local:960
+C39	ref/ep23/src/commons/c39_960.jpg	162283	b71685fd3aa6c13ab62b0cf6bef685d8	md5 2回一致	960x662 RGB	local:960
+C95	ref/ep23/src/commons/c95_960.jpg	651911	1622f452dc4c294704bc22fa8cd130cc	md5 2回一致	724x1000 RGB	local:960
+C138	ref/ep23/src/commons/c138_960.jpg	103595	6417b567989a4d95595986ad566887e1	md5 2回一致	960x651 RGB	local:960
+C160	ref/ep23/src/commons/c160_960.jpg	137998	6c627c1f6ec5fe183ba456a707e9cdc2	md5 2回一致	960x655 RGB	local:960
+C175	ref/ep23/src/commons/c175_960.jpg	526230	aac1acb13bfb2d2202fb9453d32ffff6	md5 2回一致	689x1000 RGB	local:960
+C70	ref/ep23/src/commons/c70_960.jpg	94947	66003759d7d46aed4ff2df39edaff910	md5 2回一致	960x655 RGB	local:960
+C74	ref/ep23/src/commons/c74_960.jpg	118475	488dc4435853d2a7467015f8e1f0eeac	md5 2回一致	960x659 RGB	local:960
+C8	ref/ep23/src/commons/c8_960.jpg	181084	29e96f3bd19a0cd85a0370722071d8f9	md5 2回一致	960x660 RGB	local:960
+C207	ref/ep23/src/commons/c207.jpg	241871	8ce7df00eab75dc1191e6f8d2f0f1101	md5 2回一致	1447x1011 RGB	commons:orig
+C2	ref/ep23/src/commons/c2_960.jpg	800159	bf87be186b0f49e34201eaf1ab21d6b3	md5 2回一致	688x1000 RGB	local:960
+C77	ref/ep23/src/commons/c77_960.jpg	79328	2296ddb5fb5007eb5b90ec1b6e9b680b	md5 2回一致	960x665 RGB	local:960
+C212	ref/ep23/src/commons/c212.jpg	304795	c7df95794997119dcc23752f7aac7087	md5 2回一致	1181x803 RGB	commons:orig
+C84	ref/ep23/src/commons/c84_960.jpg	83339	d22fccf42d98f73af52e2ed87f731ca2	md5 2回一致	960x661 RGB	local:960
+C129	ref/ep23/src/commons/c129_960.jpg	118264	d2ef4265a8e6e9811564e8e8c1913318	md5 2回一致	960x660 RGB	local:960
+C182	ref/ep23/src/commons/c182_3840.jpg	1638090	6f2f1ac173aae750af6e80e15eca6038	md5 2回一致	3840x5212 RGB	commons:3840
+C151	ref/ep23/src/commons/c151_960.jpg	131284	39a32ecb413ea21fadfe035db0836578	md5 2回一致	960x662 RGB	local:960
+C3	ref/ep23/src/commons/c3_960.jpg	117645	885f273b49475c683718c55986f643ad	md5 2回一致	960x654 RGB	local:960
+C148	ref/ep23/src/commons/c148_960.jpg	135848	ecfb1d6b07470d36112306eb9022de20	md5 2回一致	960x658 RGB	local:960
+C1	ref/ep23/src/commons/c1_960.jpg	653022	6ea75f23ef764f2777a0c25bb020bf70	md5 2回一致	697x1000 RGB	local:960
+C143	ref/ep23/src/commons/c143_960.jpg	141835	a9e50d4cfbc560de1fbcfbd0c733401b	md5 2回一致	960x652 RGB	local:960
+C102	ref/ep23/src/commons/c102_960.jpg	710805	596267e01de68897d19ff3861a8be4ce	md5 2回一致	691x1000 RGB	local:960
+C13	ref/ep23/src/commons/c13_960.jpg	122202	751e5f255059d86a5914f136dc8e5fff	md5 2回一致	960x661 RGB	local:960
+C216	ref/ep23/src/commons/c216.jpg	292948	b55e01cc2fbe041f88fc64a285a0df0f	md5 2回一致	1451x1007 RGB	commons:orig
+C31	ref/ep23/src/commons/c31_960.jpg	93397	8e1f60aa4e29af6294f1ae5cf320f0f4	md5 2回一致	960x675 RGB	local:960
+C203	ref/ep23/src/commons/c203.jpg	291681	458b4733f3abefd4d2ff96f49b42092b	md5 2回一致	1455x1003 RGB	commons:orig
+C43	ref/ep23/src/commons/c43_960.jpg	180034	ea209cc8bd95eef709a1ee96dfc319ec	md5 2回一致	960x654 RGB	local:960
+C47	ref/ep23/src/commons/c47_960.jpg	137644	496e31d4ab0c37f1df7047f6f30b6721	md5 2回一致	960x658 RGB	local:960
+C144	ref/ep23/src/commons/c144_960.jpg	140706	838111c24b2785a6e066e253ba9156c8	md5 2回一致	960x657 RGB	local:960
+C65	ref/ep23/src/commons/c65_960.jpg	140777	a585bcdf0d323dc79f36ca450ef6c011	md5 2回一致	960x656 RGB	local:960
+C73	ref/ep23/src/commons/c73_960.jpg	112056	d8b0cd3d67e7ad4c6f7c16a5184b0823	md5 2回一致	960x665 RGB	local:960
+C99	ref/ep23/src/commons/c99_960.jpg	135178	bb5c3d753ef3e0ebe2829488ac933aa4	md5 2回一致	960x661 RGB	local:960
+C133	ref/ep23/src/commons/c133_960.jpg	169628	a34f1381ee182b90fc2df54adbafd6ee	md5 2回一致	960x656 RGB	local:960
+C170	ref/ep23/src/commons/c170_960.jpg	144230	c70f091e45f8d2113337f18f11042e22	md5 2回一致	960x662 RGB	local:960
+C147	ref/ep23/src/commons/c147_960.jpg	115533	38fb9ad88ca7c9db4eff48514bc84738	md5 2回一致	960x657 RGB	local:960
+C41	ref/ep23/src/commons/c41_960.jpg	91613	08da2e955cad4a51d8c99f5a4477a9d7	md5 2回一致	960x669 RGB	local:960
+C55	ref/ep23/src/commons/c55_960.jpg	120224	648d1a57a975158725874d13e2752c09	md5 2回一致	960x666 RGB	local:960
+C49	ref/ep23/src/commons/c49_960.jpg	471413	5235146ea4d5b3c91c135282a821a692	md5 2回一致	689x1000 RGB	local:960
+C100	ref/ep23/src/commons/c100_960.jpg	705982	5d98da28fe510634ff5a9529d1e2cb74	md5 2回一致	697x1000 RGB	local:960
+C71	ref/ep23/src/commons/c71_960.jpg	157779	20454c4659b48606ae42cbe3159ded7c	md5 2回一致	960x663 RGB	local:960
+C7	ref/ep23/src/commons/c7_960.jpg	156089	5192dde4f6c9e246ba536d39f9e11b57	md5 2回一致	960x663 RGB	local:960
+C40	ref/ep23/src/commons/c40_960.jpg	165689	bcfc5863704cb011ce53a7214ecc2ff3	md5 2回一致	960x664 RGB	local:960
+C80	ref/ep23/src/commons/c80_960.jpg	133223	247ff0b4eb6c915f7c5e973959558f61	md5 2回一致	960x661 RGB	local:960
+C86	ref/ep23/src/commons/c86_960.jpg	107848	dfbe7883cf96f9564765bfbdf3b5fabe	md5 2回一致	960x655 RGB	local:960
+C90	ref/ep23/src/commons/c90_960.jpg	126726	2307eea457f779592219c206d33f6f72	md5 2回一致	960x651 RGB	local:960
+C83	ref/ep23/src/commons/c83_960.jpg	133964	8ff05c6c896ba7bf19b4002fe884eb9b	md5 2回一致	960x665 RGB	local:960
+C172	ref/ep23/src/commons/c172_960.jpg	534671	a0fb83929d5e75b0ecb068391dc52d8b	md5 2回一致	684x1000 RGB	local:960
+C10	ref/ep23/src/commons/c10_960.jpg	144468	cf858e2a3db1e7f902ee677f7c7390c7	md5 2回一致	960x663 RGB	local:960
+C193	ref/ep23/src/commons/c193.jpg	358781	ec54a162895734a15cd0e6de91203576	md5 2回一致	1001x1457 RGB	commons:orig
+C93	ref/ep23/src/commons/c93_960.jpg	137243	4532f580ffe877fb21cdfea093ee98c8	md5 2回一致	960x665 RGB	local:960
+C37	ref/ep23/src/commons/c37_960.jpg	96703	fa45fba155ef4b98e8e6ac62fd2bc711	md5 2回一致	960x660 RGB	local:960
+C165	ref/ep23/src/commons/c165_960.jpg	183678	870b1ea730e19e81be172ff02e494448	md5 2回一致	960x666 RGB	local:960
+C78	ref/ep23/src/commons/c78_960.jpg	149141	004ecbd3ac1f28ac149a07580fbb91f5	md5 2回一致	960x663 RGB	local:960
+C130	ref/ep23/src/commons/c130_960.jpg	115796	efec839fd8f186437bc5d1dc41e4d232	md5 2回一致	960x657 RGB	local:960
+C29	ref/ep23/src/commons/c29_960.jpg	128848	fc23a10c78b8a2d3fa7a0b6cd488df36	md5 2回一致	960x660 RGB	local:960
+C150	ref/ep23/src/commons/c150_960.jpg	64716	bebec5052b08f61722b6d48c70a0b0b5	md5 2回一致	960x661 RGB	local:960
+C5	ref/ep23/src/commons/c5_960.jpg	138826	ab077910694c28641b122e3377be40c9	md5 2回一致	960x660 RGB	local:960
+C219	ref/ep23/src/commons/c219.jpg	363995	85cbc9733847ab3a9613811942f3a154	md5 2回一致	1435x1007 RGB	commons:orig
+C157	ref/ep23/src/commons/c157_960.jpg	159756	88caafa993e3fb15233d875965fa4da9	md5 2回一致	960x657 RGB	local:960
+C224	ref/ep23/src/commons/c224.jpg	342123	1ff25bf9c1c9af539578cfc111707d3d	md5 2回一致	1449x1005 RGB	commons:orig
+C209	ref/ep23/src/commons/c209.jpg	221903	775079e9653e4c7f4c2afc688a327302	md5 2回一致	1453x1003 RGB	commons:orig
+C211	ref/ep23/src/commons/c211_1280.jpg	272153	7e74e668f158b186719c7bdd64819599	md5 2回一致	1280x854 RGB	commons:1280
+C9	ref/ep23/src/commons/c9_960.jpg	166489	cfa7fbd861b809a5e43767710dd7eaa6	md5 2回一致	960x660 RGB	local:960
+C24	ref/ep23/src/commons/c24_960.jpg	102146	16b66e7dcae552397202ef843c0b41cd	md5 2回一致	960x669 RGB	local:960
+C82	ref/ep23/src/commons/c82_960.jpg	116138	08102f39f540eccd49b0d57b9dc86fa4	md5 2回一致	960x663 RGB	local:960
+C119	ref/ep23/src/commons/c119_960.jpg	156016	f0d0a45bed48bc677d88827c28b2f86e	md5 2回一致	960x658 RGB	local:960
+C122	ref/ep23/src/commons/c122_960.jpg	160044	72951c99729f574bfe51d834bceccae2	md5 2回一致	960x665 RGB	local:960
+C76	ref/ep23/src/commons/c76_960.jpg	139682	4c690db173ca7698de87ec3a436a1321	md5 2回一致	960x666 RGB	local:960
+C81	ref/ep23/src/commons/c81_960.jpg	82695	86927e85011cfe405c2fba827b73a1e7	md5 2回一致	960x660 RGB	local:960
+C68	ref/ep23/src/commons/c68_960.jpg	720971	4ffb8af683301acd4fdd358e871be6e4	md5 2回一致	704x1000 RGB	local:960
+C33	ref/ep23/src/commons/c33_960.jpg	193367	4dade7d4ef9baeeae5c8a479872dafc1	md5 2回一致	960x664 RGB	local:960
+C140	ref/ep23/src/commons/c140_960.jpg	167996	362e2ec5cea64e5e42e1f265f79c5e1a	md5 2回一致	960x666 RGB	local:960
+S52399	ref/ep10/src/kogl/sire_52399.jpg	1277970	2e9cfefde34b63532a5a31b1396e7037	md5 2回一致	1600x1070 RGB	local
+S52400	ref/ep10/src/kogl/sire_52400.jpg	1344339	f09ed6c40933d8d11240fb3ef3bafcbd	md5 2回一致	1600x1070 RGB	local
+S52394	ref/ep23/src/sire/sire_52394.jpg	1455521	1b53f6370d471a8cbc1ecf6bbaba10c9	md5 2回一致	1600x1070 RGB	sire:1600
+S50279	ref/ep23/src/sire/sire_50279.jpg	1124576	73818dd06c7092e48131fc7c7944f57a	md5 2回一致	1071x1600 RGB	sire:1600
+S52398	ref/ep23/src/sire/sire_52398.jpg	1527209	986471794ae2684628c76b79b9a2e5b6	md5 2回一致	1600x1070 RGB	sire:1600
+S31737	ref/ep23/src/sire/sire_31737.jpg	1385737	27d7b9cd048b953aefcdeec79f8ce2f6	md5 2回一致	1600x1070 RGB	sire:1600
+S52395	ref/ep23/src/sire/sire_52395.jpg	756796	a65159ad6a31963d6f914ca64060f0ac	md5 2回一致	1071x1600 RGB	sire:1600
+S52396	ref/ep23/src/sire/sire_52396.jpg	1571935	8a832a3f5a6031420d5db0394553c068	md5 2回一致	1600x1070 RGB	sire:1600
+S53868	ref/ep23/src/sire/sire_53868.jpg	1274222	31b4316ecfc93f30a465d4e8d3f2d3e2	md5 2回一致	1600x1070 RGB	sire:1600
+S53880	ref/ep23/src/sire/sire_53880.jpg	1315136	6a5c2bfbbacf54a2e09ee87dc434e069	md5 2回一致	1600x1070 RGB	sire:1600
+S52397	ref/ep23/src/sire/sire_52397.jpg	1507983	26373cc574fa955ad42ac59c73d955e6	md5 2回一致	1600x1070 RGB	sire:1600
+S53849	ref/ep23/src/sire/sire_53849.jpg	1413453	29b8c213784893c6693bea20cd8cd889	md5 2回一致	1600x1070 RGB	sire:1600
+S60607	ref/ep23/src/sire/sire_60607.jpg	956018	eb2a839fb01836b37de650acc9cd7ec9	md5 2回一致	1600x1099 RGB	sire:1600
+S31735	ref/ep23/src/sire/sire_31735.jpg	1631033	ae24615127b3affc97bff396f4a21043	md5 2回一致	1070x1600 RGB	sire:1600
+S31740	ref/ep23/src/sire/sire_31740.jpg	1522637	02b884c962db19367ebb0e87793814ca	md5 2回一致	1600x1070 RGB	sire:1600
+S31733	ref/ep23/src/sire/sire_31733.jpg	1576842	884f3154bcc7d02e0c82a80c01ab6682	md5 2回一致	1070x1600 RGB	sire:1600
+S60606	ref/ep23/src/sire/sire_60606.jpg	738635	8471bcbf63af43e57c8c90f14cd28be9	md5 2回一致	1600x1125 RGB	sire:1600
+H109	ref/ep10/src/kogl/hs_2301030109_0.jpg	1505493	a7c314eb7d3420deccb53840b11fd088	md5 2回一致	534x809 CMYK	local
+H108	ref/ep10/src/kogl/hs_2301030108_0.jpg	1196353	24252d0b104a1ed46ef0e808dacc66c9	md5 2回一致	809x534 CMYK	local
+H107	ref/ep10/src/kogl/hs_2301030107_0.jpg	1507561	aafa2c316f34f4840c4526920b5fe064	md5 2回一致	809x534 CMYK	local
+H510	ref/ep23/src/hist/hs_2301030510_0.jpg	1189861	7978f35e3eca4df6b70d0e5303147d84	md5 2回一致	817x534 CMYK	hist:form
+H102	ref/ep10/src/kogl/hs_2301030102_0.jpg	1390255	7ab1cca038dd57c18086258f65dfdb0c	md5 2回一致	809x534 CMYK	local
+H104m	ref/ep10/missing_board_01.jpg	82051	e1d89dea3ec2ee7a804ca98ae0701549	md5 2回一致	809x534 RGB	local
+H077	ref/ep23/src/hist/hs_2301030077_0.jpg	1148382	b3e6c1115d540eca565ce5075ae276d2	md5 2回一致	825x541 CMYK	hist:form
+H083	ref/ep23/src/hist/hs_2301030083_0.jpg	1391223	0f1fa9f500dfcc83e30296250d141d99	md5 2回一致	825x541 CMYK	hist:form
+H100	ref/ep23/src/hist/hs_2301030100_0.jpg	1441210	7de5146f2419cd1fbf0a04eff1c544e7	md5 2回一致	825x541 CMYK	hist:form
+H101	ref/ep23/src/hist/hs_2301030101_0.jpg	1361340	a906713b748dcb27b4cf42a8b500e48c	md5 2回一致	825x541 CMYK	hist:form
+Xc205a	ref/ep23/src/stock/c205a.mp4	3246976	70fd4a43d4f41b24a8b0521b270a5ce1	md5 2回一致	（画像でない）	stock
+Xc208a	ref/ep23/src/stock/c208a.jpg	444266	fe2efc4756002474bb8d3853f5604e69	md5 2回一致	1920x1280 RGB	stock
+Xc211a	ref/ep23/src/stock/c211a.mp4	2347425	1e7f5bfb045487e826edfd1e1fefbcf7	md5 2回一致	（画像でない）	stock
+Xc216b	ref/ep23/src/stock/c216b.jpg	161320	b6faabec6f452cb1e5d808ca37e45671	md5 2回一致	1920x1280 RGB	stock
+Xc219a	ref/ep23/src/stock/c219a.mp4	17513242	b51bc18d22524328f00658e62bfc9fa1	md5 2回一致	（画像でない）	stock
+Xc617b	ref/ep23/src/stock/c617b.mp4	5649554	7c908fb6dd7b7df313e0d7a63c5e8a58	md5 2回一致	（画像でない）	stock
+Xc311a	ref/ep23/src/stock/c311a.jpg	556018	7e899aceced033913853436eec4e10a2	md5 2回一致	1920x1282 RGB	stock
+Xc313b	ref/ep23/src/stock/c313b.jpg	310089	66e803bcfd21ce6c56cccf99f0c4f89b	md5 2回一致	1920x1080 RGB	stock
+Xc314b	ref/ep23/src/stock/c314b.jpg	146612	5280942156191f40a47a2098f5957fd6	md5 2回一致	1920x1080 RGB	stock
+Xc613b	ref/ep23/src/stock/c613b.mp4	15841587	bcabfee47b997dd067db03c1c354a306	md5 2回一致	（画像でない）	stock
+Xc313c	ref/ep23/src/stock/c313c.jpg	385735	7976b783b9f2b7ab6fb89d6456349404	md5 2回一致	1920x1280 RGB	stock
+Xc613a	ref/ep23/src/stock/c613a.mp4	14094420	f968465e32c37745cb5bfdfb29f80731	md5 2回一致	（画像でない）	stock
+Xc712a	ref/ep23/src/stock/c712a.mp4	3433575	0d8d6b3a7ee2315b14dcd3085a230b3e	md5 2回一致	（画像でない）	stock
+Xc802a	ref/ep23/src/stock/c802a.jpg	682352	85bb72304d379252d70fe056c040b052	md5 2回一致	1920x1440 RGB	stock
+Xc805a	ref/ep23/src/stock/c805a.jpg	909540	2d02eea4d58191141489aed1adcb420f	md5 2回一致	1920x1270 RGB	stock
+P29880216	ref/stock/media/px_29880216.mp4	201247054	08ba855acacb058d852be8b2fd04068e	md5 2回一致	（画像でない）	local(ref/stock)
+Xc205b	ref/ep23/src/stock/c205b.mp4	3604539	225bd94242df2806ee442437884d076f	md5 2回一致	（画像でない）	stock
+Xc905b	ref/ep23/src/stock/c905b.mp4	20053284	64f8d1da1ccff323aa00db586d35600d	md5 2回一致	（画像でない）	stock
+Xc909b	ref/ep23/src/stock/c909b.mp4	6061875	4f49c57eacf18a3f1d11b5938e4b5edc	md5 2回一致	（画像でない）	stock
+P5571839	ref/stock/media/px_5571839.mp4	6756160	5a7aa59bb3e0ab1cea8c0d3b34d0b34a	md5 2回一致	（画像でない）	local(ref/stock)
+Xca07a	ref/ep23/src/stock/ca07a.mp4	8571520	c4f773a9a4482648c9f6664efbb00499	md5 2回一致	（画像でない）	stock
+P7830155	ref/stock/media/px_7830155.mp4	30316895	fc2c6d7771dbb08ebee647987c4c108e	md5 2回一致	（画像でない）	local(ref/stock)
+Xcb09b	ref/ep23/src/stock/cb09b.mp4	5845224	091d2c8a1cf3799091b82d03b7103799	md5 2回一致	（画像でない）	stock
+Xcb12a	ref/ep23/src/stock/cb12a.mp4	4975409	6527c05d782fdd39ba188b92b04a27ee	md5 2回一致	（画像でない）	stock
+Xc617a	ref/ep23/src/stock/c617a.mp4	6342453	705c56a8f8faab7ae65a713019f9fa72	md5 2回一致	（画像でない）	stock
+c205a	ref/ep23/src/stock/c205a.mp4	3246976	70fd4a43d4f41b24a8b0521b270a5ce1	md5 2回一致	映像	stock（候補）
+c205b	ref/ep23/src/stock/c205b.mp4	3604539	225bd94242df2806ee442437884d076f	md5 2回一致	映像	stock（候補）
+c208a	ref/ep23/src/stock/c208a.jpg	444266	fe2efc4756002474bb8d3853f5604e69	md5 2回一致	1920x1280 RGB	stock（候補）
+c211a	ref/ep23/src/stock/c211a.mp4	2347425	1e7f5bfb045487e826edfd1e1fefbcf7	md5 2回一致	映像	stock（候補）
+c211b	ref/ep23/src/stock/c211b.jpg	715831	26a03856a0fc225e4ba4f1649b835e47	md5 2回一致	1920x1280 RGB	stock（候補）
+c216a	ref/ep23/src/stock/c216a.mp4	3338317	08a3623e9b40e218bebf670aa78f4be8	md5 2回一致	映像	stock（候補）
+c216b	ref/ep23/src/stock/c216b.jpg	161320	b6faabec6f452cb1e5d808ca37e45671	md5 2回一致	1920x1280 RGB	stock（候補）
+c219a	ref/ep23/src/stock/c219a.mp4	17513242	b51bc18d22524328f00658e62bfc9fa1	md5 2回一致	映像	stock（候補）
+c219b	ref/ep23/src/stock/c219b.jpg	361438	7b87409d19177854af51f0a365196d78	md5 2回一致	1920x1280 RGB	stock（候補）
+c311a	ref/ep23/src/stock/c311a.jpg	556018	7e899aceced033913853436eec4e10a2	md5 2回一致	1920x1282 RGB	stock（候補）
+c311b	ref/ep23/src/stock/c311b.jpg	348135	ad8f13ebdc584e11429fac6af9a6026b	md5 2回一致	1920x1282 RGB	stock（候補）
+c313a	ref/ep23/src/stock/c313a.mp4	15528068	f2b827998989f93ce029ad2ac113c79a	md5 2回一致	映像	stock（候補）
+c313b	ref/ep23/src/stock/c313b.jpg	310089	66e803bcfd21ce6c56cccf99f0c4f89b	md5 2回一致	1920x1080 RGB	stock（候補）
+c313c	ref/ep23/src/stock/c313c.jpg	385735	7976b783b9f2b7ab6fb89d6456349404	md5 2回一致	1920x1280 RGB	stock（候補）
+c314b	ref/ep23/src/stock/c314b.jpg	146612	5280942156191f40a47a2098f5957fd6	md5 2回一致	1920x1080 RGB	stock（候補）
+c613a	ref/ep23/src/stock/c613a.mp4	14094420	f968465e32c37745cb5bfdfb29f80731	md5 2回一致	映像	stock（候補）
+c613b	ref/ep23/src/stock/c613b.mp4	15841587	bcabfee47b997dd067db03c1c354a306	md5 2回一致	映像	stock（候補）
+c617a	ref/ep23/src/stock/c617a.mp4	6342453	705c56a8f8faab7ae65a713019f9fa72	md5 2回一致	映像	stock（候補）
+c617b	ref/ep23/src/stock/c617b.mp4	5649554	7c908fb6dd7b7df313e0d7a63c5e8a58	md5 2回一致	映像	stock（候補）
+c704b	ref/ep23/src/stock/c704b.mp4	6620462	6cddea70163141b026381f8485d2cf31	md5 2回一致	映像	stock（候補）
+c712a	ref/ep23/src/stock/c712a.mp4	3433575	0d8d6b3a7ee2315b14dcd3085a230b3e	md5 2回一致	映像	stock（候補）
+c712b	ref/ep23/src/stock/c712b.mp4	3450527	ff6581db299ff5f79518ee3c70373ec9	md5 2回一致	映像	stock（候補）
+c802a	ref/ep23/src/stock/c802a.jpg	682352	85bb72304d379252d70fe056c040b052	md5 2回一致	1920x1440 RGB	stock（候補）
+c802b	ref/ep23/src/stock/c802b.mp4	14911462	8795cc754787c89ff9ccb5c785fb1fc0	md5 2回一致	映像	stock（候補）
+c805a	ref/ep23/src/stock/c805a.jpg	909540	2d02eea4d58191141489aed1adcb420f	md5 2回一致	1920x1270 RGB	stock（候補）
+c805b	ref/ep23/src/stock/c805b.mp4	4206231	3a430c0d9fa8d7c0cc7ff3b05b84a13a	md5 2回一致	映像	stock（候補）
+c817b	ref/ep23/src/stock/c817b.mp4	4439918	ba6bf50418a2cd5e014290ab5f341fd2	md5 2回一致	映像	stock（候補）
+c905a	ref/ep23/src/stock/c905a.mp4	6906570	3d8f4d038287b4caf2bc09dfd30c9c5b	md5 2回一致	映像	stock（候補）
+c905b	ref/ep23/src/stock/c905b.mp4	20053284	64f8d1da1ccff323aa00db586d35600d	md5 2回一致	映像	stock（候補）
+c909a	ref/ep23/src/stock/c909a.jpg	542764	e0dc43b9ae95cd03050c9dd24602f138	md5 2回一致	1920x1440 RGB	stock（候補）
+c909b	ref/ep23/src/stock/c909b.mp4	6061875	4f49c57eacf18a3f1d11b5938e4b5edc	md5 2回一致	映像	stock（候補）
+ca07a	ref/ep23/src/stock/ca07a.mp4	8571520	c4f773a9a4482648c9f6664efbb00499	md5 2回一致	映像	stock（候補）
+cb09a	ref/ep23/src/stock/cb09a.mp4	4361968	83f437c1829ff2919d03710efb372755	md5 2回一致	映像	stock（候補）
+cb09b	ref/ep23/src/stock/cb09b.mp4	5845224	091d2c8a1cf3799091b82d03b7103799	md5 2回一致	映像	stock（候補）
+cb12a	ref/ep23/src/stock/cb12a.mp4	4975409	6527c05d782fdd39ba188b92b04a27ee	md5 2回一致	映像	stock（候補）
+cb12b	ref/ep23/src/stock/cb12b.mp4	5196287	12bf0471be2fff991d16f3a75742da94	md5 2回一致	映像	stock（候補）
+cc04a	ref/ep23/src/stock/cc04a.mp4	5396524	fd37e92a570cbcb8a208aa52f4a4112e	md5 2回一致	映像	stock（候補）
+cc04b	ref/ep23/src/stock/cc04b.jpg	339381	9fd8185fe6b83889e697e096bd59920e	md5 2回一致	1920x1280 RGB	stock（候補）

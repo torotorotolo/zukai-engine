@@ -1,0 +1,23 @@
+# 23本目 映像方針：見た画像（sheet23.py が1枚ごとに1行足す・手で直さない）。番号・時刻・出力・メモ・元の画像
+1	2026-10-18 14:36:43	op_sheet1.png	冒頭の候補1（52399・#182・歴史編纂院109・52400・#176・#48）	sire_52399.jpg wreck_aerial_01.jpg hs_2301030109_0.jpg sire_52400.jpg wreck_aerial_10.jpg wreck_ground_07.jpg
+2	2026-10-18 14:36:43	op_sheet2.png	冒頭の候補2（#26・#36・Sampungdept53・#120・#1・#152）	026.jpg 036.jpg wreck_aerial_05.jpg 120.jpg 001.jpg 152.jpg
+3	2026-10-18 14:38:23	c4_aerials.png	第3章の俯瞰の重なり（#27・#98・#156・#177・#2・wreck_aerial_11）	027.jpg 098.jpg 156.jpg 177.jpg 002.jpg wreck_aerial_11.jpg
+4	2026-10-18 14:38:24	op_alt.png	冒頭の横長の控え（wreck_aerial_02・03・04・#74・#43・#161）	wreck_aerial_02.jpg wreck_aerial_03.jpg wreck_aerial_04.jpg 074.jpg 043.jpg 161.jpg
+5	2026-10-18 14:47:13	swap1.png	振り替え先1（#44 c412・#151 c417・#239 c419・#193 c801・#211 cd01・#209 cb10）	044.jpg 151.jpg 239.jpg 193.jpg 211.jpg 209.jpg
+6	2026-10-18 14:47:14	swap2.png	振り替え先2（#227 cb14・#224 ca19・#219 ca10・#160 ca14・#147 c605・#41 c610）	227.jpg 224.jpg 219.jpg 160.jpg 147.jpg 041.jpg
+7	2026-10-18 15:04:03	faces1.png	人の顔の確かめ（c514 #47・c515 #144・c516 #69・c517 #73・c911 #130・c412 #44）	047.jpg 144.jpg 069.jpg 073.jpg 130.jpg 044.jpg
+8	2026-10-18 15:04:03	c203_159.png	c203 #159 の垂れ幕（原寸 682×1000）	159.jpg
+9	2026-10-18 15:04:03	c104_men.png	c104 研究院 52400 の手前の2人（原寸の切り出し）	sire_52400.jpg
+10	2026-10-18 15:07:22	stock_reuse.png	ref/stock の映像5本（20%と60%の2コマ）	px_6028858_0.2.jpg px_6028858_0.6.jpg pb_52888_0.2.jpg pb_52888_0.6.jpg px_5571839_0.2.jpg px_29880216_0.6.jpg
+11	2026-10-18 15:10:40	swap3.png	振り替え先3（c510 #203・c406 #207・c508 #216・c419 #221・c505 #143・c318 #70）	203.jpg 207.jpg 216.jpg 221.jpg 143.jpg 070.jpg
+12	2026-10-18 16:16:30	sire1.png	研究院1（法院4・国会2）	sire_52394.jpg sire_52396.jpg sire_52397.jpg sire_52398.jpg sire_53849.jpg sire_53868.jpg
+13	2026-10-18 16:16:31	sire2.png	研究院2（国会の前の通り・大法院2・跡地2）＋縦長4	sire_53880.jpg sire_60606.jpg sire_60607.jpg sire_31737.jpg sire_31740.jpg
+14	2026-10-18 16:16:31	sire3.png	研究院3（縦長4：法院の歩く人・瑞草洞の通り・跡地2）	sire_52395.jpg sire_50279.jpg sire_31733.jpg sire_31735.jpg
+15	2026-10-18 16:16:32	hist1.png	歴史編纂院5（新しい市長・写真展・セミナー・除幕2）	hs_2301030510_0.jpg hs_2301030077_0.jpg hs_2301030083_0.jpg hs_2301030100_0.jpg hs_2301030101_0.jpg
+16	2026-10-18 16:20:08	stk1.png	フリー素材の候補1（厨房・天井と床のひび・元栓）	c205a.jpg c205b.jpg c208a.jpg c211a.jpg c211b.jpg c216a.jpg c216b.jpg c219a.jpg
+17	2026-10-18 16:20:08	stk2.png	フリー素材の候補2（会議の机・H形鋼・売り場・投光器・工事現場）	c219b.jpg c311a.jpg c311b.jpg c313a.jpg c313b.jpg c313c.jpg c314b.jpg c613a.jpg
+18	2026-10-18 16:20:09	stk3.png	フリー素材の候補3（工事現場・図面・駐車場・鉄筋・屋上の空調）	c613b.jpg c617a.jpg c617b.jpg c704b.jpg c712a.jpg c712b.jpg c802a.jpg c802b.jpg
+19	2026-10-18 16:20:10	stk4.png	フリー素材の候補4（送風機・しずく・れんが・コンクリート・容器）	c805a.jpg c805b.jpg c817b.jpg c905a.jpg c905b.jpg c909a.jpg c909b.jpg ca07a.jpg
+20	2026-10-18 16:20:10	stk5.png	フリー素材の候補5（白い花・本）	cb09a.jpg cb09b.jpg cb12a.jpg cb12b.jpg cc04a.jpg cc04b.jpg
+21	2026-10-18 16:23:40	c102_br.png	c102 삼풍001 の右下（日付の焼き込みを探す・原寸の切り出し）	c2k001_3840.jpg
+22	2026-10-18 16:23:40	swap4.png	振り替え先4（c419 #3・c516 #119）	003.jpg 119.jpg

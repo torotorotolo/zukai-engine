@@ -1,0 +1,42 @@
+# 23本目 映像方針（2026-10-18）フリー素材の候補（係が頁の文字だけで探した＝絵は見ていない）。fetch23.py stock が取る（1本 50MB まで・置き場は ref/ep23/src/stock＝git の外）
+# 区切り「|」。site＝Pexels／Pixabay。kind＝video／photo。media＝取る直リンク（動画は 1920×1080 の版・写真は幅1920 の版）。投稿者の名前はここに書かない（src/credits_private.tsv）
+# 外した候補：Pexels 36620693（夜の工事現場・90MB＝50MB 超）・Pexels 8032016（家庭用の冷蔵庫＝業務用でない）・Pexels 6028858／7830155／29880216／5571839（共用の置き場 ref/stock と同じ物＝取らない）
+cand|cut|site|kind|page|media|bytes_head|title
+c205a|c205|Pexels|video|https://www.pexels.com/video/35217402/|https://videos.pexels.com/video-files/35217402/14919618_1920_1080_50fps.mp4|3246976|Industrial Kitchen Equipment with Steam Kettles
+c205b|c205|Pexels|video|https://www.pexels.com/video/38897640/|https://videos.pexels.com/video-files/38897640/16539189_1920_1080_50fps.mp4|3604539|Modern Kitchen Counter with Food Preparation Equipment
+c208a|c208|Pexels|photo|https://www.pexels.com/photo/17139756/|https://images.pexels.com/photos/17139756/pexels-photo-17139756.jpeg?auto=compress&cs=tinysrgb&w=1920||Abandoned Ruined House (ceiling cracks)
+c211a|c211|Pexels|video|https://www.pexels.com/video/35988850/|https://videos.pexels.com/video-files/35988850/15260491_1920_1080_24fps.mp4|2347425|Close-Up of Cracked Skate Park Pavement
+c211b|c211|Pexels|photo|https://www.pexels.com/photo/6711845/|https://images.pexels.com/photos/6711845/pexels-photo-6711845.jpeg?auto=compress&cs=tinysrgb&w=1920||Rough concrete texture background with crack
+c216a|c216|Pixabay|video|https://pixabay.com/videos/id-43629/|https://cdn.pixabay.com/video/2020/07/02/43629-436237628_large.mp4|3338317|Valve, Oil, Gauge, Technology, Metal
+c216b|c216|Pexels|photo|https://www.pexels.com/photo/7616004/|https://images.pexels.com/photos/7616004/pexels-photo-7616004.jpeg?auto=compress&cs=tinysrgb&w=1920||Close Up Photo of a Yellow Shut Off Valve
+c219a|c219|Pexels|video|https://www.pexels.com/video/36443290/|https://videos.pexels.com/video-files/36443290/15453517_1920_1080_60fps.mp4|17513242|Cozy Rustic Meeting Room with Wooden Table
+c219b|c219|Pexels|photo|https://www.pexels.com/photo/13657161/|https://images.pexels.com/photos/13657161/pexels-photo-13657161.jpeg?auto=compress&cs=tinysrgb&w=1920||Brown Wooden Table and Chairs
+c311a|c311|Pexels|photo|https://www.pexels.com/photo/36003982/|https://images.pexels.com/photos/36003982/pexels-photo-36003982.jpeg?auto=compress&cs=tinysrgb&w=1920||Stacked Metal Beams in Industrial Yard
+c311b|c311|Pexels|photo|https://www.pexels.com/photo/36003984/|https://images.pexels.com/photos/36003984/pexels-photo-36003984.jpeg?auto=compress&cs=tinysrgb&w=1920||Stacked Metal Beams in Industrial Warehouse
+c313a|c313|Pixabay|video|https://pixabay.com/videos/id-12876/|https://cdn.pixabay.com/video/2017/11/10/12876-242487530_large.mp4|15528068|Shopping Center, Escalators, Modern
+c313b|c313|Pexels|photo|https://www.pexels.com/photo/18137069/|https://images.pexels.com/photos/18137069/pexels-photo-18137069.jpeg?auto=compress&cs=tinysrgb&w=1920||Empty Escalators in Shopping Mall
+c313c|c313|Pexels|photo|https://www.pexels.com/photo/27452439/|https://images.pexels.com/photos/27452439/pexels-photo-27452439.jpeg?auto=compress&cs=tinysrgb&w=1920||An escalator in a shopping mall with glass floors
+c314b|c314|Pexels|photo|https://www.pexels.com/photo/7168444/|https://images.pexels.com/photos/7168444/pexels-photo-7168444.jpeg?auto=compress&cs=tinysrgb&w=1920||A Building Under Construction at Night
+c613a|c613|Pexels|video|https://www.pexels.com/video/14059234/|https://videos.pexels.com/video-files/14059234/14059234-hd_1920_1080_25fps.mp4|14094420|Drone Video of a Building under Construction
+c613b|c613|Pixabay|video|https://pixabay.com/videos/id-40298/|https://cdn.pixabay.com/video/2020/05/27/40298-425442300_medium.mp4|15841587|Building, Construction, Concrete
+c617a|c617|Pexels|video|https://www.pexels.com/video/6279706/|https://videos.pexels.com/video-files/6279706/6279706-hd_1920_1080_24fps.mp4|6342453|Study Material on Library Desk (blueprints)
+c617b|c617|Pexels|video|https://www.pexels.com/video/6281080/|https://videos.pexels.com/video-files/6281080/6281080-hd_1920_1080_24fps.mp4|5649554|Video of Floor Plan Drawings
+c704b|c704|Pexels|video|https://www.pexels.com/video/5972195/|https://videos.pexels.com/video-files/5972195/5972195-hd_1920_1080_25fps.mp4|6620462|Empty Mall Parking (underground)
+c712a|c712|Pexels|video|https://www.pexels.com/video/39924242/|https://videos.pexels.com/video-files/39924242/17034332_1920_1080_30fps.mp4|3433575|Close-up of Rusty Steel Reinforcement Bars
+c712b|c712|Pexels|video|https://www.pexels.com/video/39924246/|https://videos.pexels.com/video-files/39924246/17034351_1920_1080_30fps.mp4|3450527|Close-Up of Reinforced Steel Bars at Construction Site
+c802a|c802|Pexels|photo|https://www.pexels.com/photo/8456426/|https://images.pexels.com/photos/8456426/pexels-photo-8456426.jpeg?auto=compress&cs=tinysrgb&w=1920||Air Conditioners on Building Roof
+c802b|c802|Pexels|video|https://www.pexels.com/video/19582357/|https://videos.pexels.com/video-files/19582357/19582357-hd_1920_1080_24fps.mp4|14911462|An aerial view of a roof with a chimney (HVAC)
+c805a|c805|Pexels|photo|https://www.pexels.com/photo/6034678/|https://images.pexels.com/photos/6034678/pexels-photo-6034678.jpeg?auto=compress&cs=tinysrgb&w=1920||Old metal ventilation fans on factory
+c805b|c805|Pexels|video|https://www.pexels.com/video/5327934/|https://videos.pexels.com/video-files/5327934/5327934-hd_1920_1080_30fps.mp4|4206231|Spinning Air Ventilation
+c817b|c817|Pexels|video|https://www.pexels.com/video/35473324/|https://videos.pexels.com/video-files/35473324/15028502_1920_1080_60fps.mp4|4439918|Close-up of Raindrops Dripping from Roof Eaves
+c905a|c905|Pexels|video|https://www.pexels.com/video/9345856/|https://videos.pexels.com/video-files/9345856/9345856-hd_1920_1080_30fps.mp4|6906570|Close Up of a Brick Wall
+c905b|c905|Pexels|video|https://www.pexels.com/video/7830320/|https://videos.pexels.com/video-files/7830320/7830320-hd_1920_1080_30fps.mp4|20053284|Close-up Video of a Red Bricks
+c909a|c909|Pexels|photo|https://www.pexels.com/photo/9408969/|https://images.pexels.com/photos/9408969/pexels-photo-9408969.jpeg?auto=compress&cs=tinysrgb&w=1920||Drone Shot of a Concrete Pavement (flat roof)
+c909b|c909|Pexels|video|https://www.pexels.com/video/7793216/|https://videos.pexels.com/video-files/7793216/7793216-hd_1920_1080_30fps.mp4|6061875|Detail of Cement Surface
+ca07a|ca07|Pexels|video|https://www.pexels.com/video/20755878/|https://videos.pexels.com/video-files/20755878/20755878-hd_1920_1080_24fps.mp4|8571520|A water container sits outside a house
+cb09a|cb09|Pexels|video|https://www.pexels.com/video/5647342/|https://videos.pexels.com/video-files/5647342/5647342-hd_1920_1080_25fps.mp4|4361968|Close Up View of a White Flowers
+cb09b|cb09|Pexels|video|https://www.pexels.com/video/5647337/|https://videos.pexels.com/video-files/5647337/5647337-hd_1920_1080_25fps.mp4|5845224|Close-Up of White Flowers with Dark Background
+cb12a|cb12|Pexels|video|https://www.pexels.com/video/6109240/|https://videos.pexels.com/video-files/6109240/6109240-hd_1920_1080_25fps.mp4|4975409|Close-up Video of a Flower (white, in water)
+cb12b|cb12|Pexels|video|https://www.pexels.com/video/5647333/|https://videos.pexels.com/video-files/5647333/5647333-hd_1920_1080_25fps.mp4|5196287|Close Up View of a Flowers (white chrysanthemums)
+cc04a|cc04|Pexels|video|https://www.pexels.com/video/8731589/|https://videos.pexels.com/video-files/8731589/8731589-hd_1920_1080_25fps.mp4|5396524|Close-up Video of a Book and Bag
+cc04b|cc04|Pexels|photo|https://www.pexels.com/photo/36207460/|https://images.pexels.com/photos/36207460/pexels-photo-36207460.jpeg?auto=compress&cs=tinysrgb&w=1920||Antique Legislative Books in a Library
