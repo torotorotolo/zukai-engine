@@ -3578,6 +3578,48 @@ REC_M23 = dict(
                 after=(("17:55", "ごろ", "ALERT"), ("18:00", "", "city"), ("18:50", "ごろ", "city"))),
     clock={"8:00", "10:00", "12:00", "14:00", "15:10", "16:00", "16:40", "17:30", "17:52", "17:55", "17:57", "18:00", "18:50"},
 )
+# 🆕 2026-10-18（23本目 ⑤b-4）：第4〜7章の記録（描く側の表 mech23.WL・CAL_SET・CARDS・NUMS・SH・RANK・CX_COLS・SP_LONG_M・PQ・VS_SET・USE5・HI["temp"]・AREA・
+#   DP_MISS・CT・TW3・LD を書き換えると鳴る）。引いた原文（q23 で頁を当てた）：
+#     ソウル市 p.37「95.7.4.북측잔여벽체와이어로프10개설치」「95.7.12.북측벽체추가보강(H-BEAM2개소및와이어로프8개)」「7.19일현재총932명구조」「7.19.현재459명발굴」・
+#       p.39「7.19일현재380명이76개병원에분산입원중」「사법연수원에 … 유실물관리센터설치운영」「총1,087건을접수하여301건을확인후인계」・p.35「89.12.1.백화점개설」
+#     国会の報告 p.29「구조계산서에는800㎜에16개로되어있으나설계도면상에는600㎜에8개」「주철근이정상위치(표면에서50㎜임)」「허가도서상으로는연면적71,136㎡ …
+#       시공도서상으로는2,069㎡가늘어난73,205㎡」「허가도서상으로는롤러스케이트장 … 시공도서상으로는식당가」
+#     瑞草区 p.43「73,205㎡중55,257㎡(지하1～지상3층)」・検察 p.46「89.7.∼89.12.옥상의냉각탑이전」
+#     判決 大96「냉각탑3개」「각28.7t(물의하중까지포함하면45.5t)」「적재하중이240㎏/㎡」「등분포하중이400㎏/㎡」「20여회에걸쳐서수시로구조계산을추가」「간격(Span)이 … 10.8m」
+#       「5층4열E행부위에해당하는기둥상부에시공하도록되어있던15㎝두께의지판시공이누락」「표면상으로만운동시설로사용할것처럼가장」
+#     白書 p.643（7月9日・230時間）・p.69（7位・2位）・p.90（4台）＝頁の画像（② で読んだ・sources.md §7）
+REC_M23.update(
+    wall=dict(hbeam=2),
+    cal=dict(rescue=dict(fall=(1995, 6, 29), mark=(1995, 7, 9), last=(1995, 7, 15)), move89=dict(band=((1989, 7), (1989, 12)), open=(1989, 12, 1))),
+    cards=dict(head="7月19日の時点", rows=(("救助された人", "932人"), ("入院（76の病院）", "380人"), ("見つかった遺体", "459人"))),
+    nums=dict(place="司法研修院", boxes=(("受け付け", "1,087件"), ("確かめて引き渡し", "301件"))),
+    sheets=(20, 29),                     # 「20여회」＝20より多く30より少ない
+    rank=(("売り上げ", 7), ("売り場の大きさ", 2)),
+    colx=(("計算書", 80.0, 16), ("図面", 60.0, 8)), colx_cover_cm=5.0,
+    spans_m=10.8,
+    persq=dict(n=(6, 4), kg=(400.0, 240.0), per=65.0, tol=0.10),
+    vs=dict(count=(("判決", "3基"), ("白書", "4台")), rumor_rec=(("判決", "1基28.7トン"), ("検察の記録", "移したのは1989年"))),
+    use5=dict(permit="運動の施設", actual="食堂街"),
+    temp=frozenset({("a", 1), ("a", 2), ("a", 3), ("b", 1), ("b", 2), ("b", 3), ("u", -1)}),
+    area=dict(permit=71136, plan=73205, add=2069),
+    dp_miss={("4", "E")},
+    towers=3,
+)
+_M23_NEED_B4 = (                    # 🆕 ⑤b-4 の筋（下の _M23_NEED に足す）
+    ("road", "amb", "blocked", "jam", {"on"}, "救助の車が止まる印は、道がふさがってから"),
+    ("cal", "d1", "on", "d0", {"on"}, "救出の日の印は、崩れた日を見せてから"),
+    ("plan", "add", "on", "aplan", {"on"}, "増えた床の色は、工事の図面の床を見せてから"),
+    ("plan", "miss_lit", "on", "dp", {"miss"}, "板の無い所の輪は、板の無い所を見せてから"),
+    ("hoop", "cut", "on", "r", {"on"}, "切った帯筋は、内側の帯筋を見せてから"),
+    ("load", "brit", "on", "cap", {"less"}, "粘りの話は、支えられる重さが減ってから"),
+    ("vs", "lit", "on", "c1", {"on"}, "片方を明るくするのは、2つの札を見せてから"),
+    ("beam", "lit", "on", "l", {"on"}, "梁を明るくするのは、梁のある作りを見せてから"),
+    ("drop", "up", "on", "dp", {"on"}, "支える矢印は、板を見せてから"),
+    ("redo", "x", "on", "loop", {"on"}, "怠った印は、やり直す手順を見せてから"),
+    ("slab", "box", "on", "bar", {"sunk"}, "重い箱は、上の鉄筋が沈んだ床に"),
+    ("bldg", "chk", "on", "hi", {"temp"}, "途中の検査なしの印は、仮の使用の階を見せてから"),
+    ("tower", "roof", "on", "load", {"on"}, "屋上の床を明るくするのは、重さの矢印のあと"),
+)
 _M23_NEED = (
     ("section", "load", "on", "fall", {"all"}, "重さが増えた階の印は、崩れたあとの元の場所に"),
     ("bldg", "bulge", "on", "cell", {"on"}, "床の盛り上がりの矢印は、食堂の印を見せてから"),
@@ -3591,7 +3633,7 @@ _M23_NEED = (
     ("slab", "beam", "plan", "sag", {"on"}, "鉄の梁の補強は、沈んだ床に"),
     ("tower", "drain", "on", "run", {"off"}, "水を抜くのは、冷却塔を止めてから"),
     ("table", "why", "on", "r2", {"on"}, "点検の目的は、2回目の行を見せてから"),
-)
+) + _M23_NEED_B4
 NUM_M23 = re.compile(r"[0-9０-９]{1,2}[:：][0-9０-９]{2}|[0-9０-９][0-9０-９,.．]*")
 VIEW_HEADS = ("横から", "上から", "斜めから")
 
@@ -3729,6 +3771,9 @@ def judge_m23(f):
         for (t, _a, _r), (ha, ma) in zip(want, g["angles"]):
             h, mi = (int(x) for x in t.split(":"))
             need(abs(ha - ((h % 12) * 30 + mi * 0.5)) < 1e-6 and abs(ma - mi * 6) < 1e-6, f"② 時計 {t} の針の角度が時刻と合わない")
+    bad_, n_ = _judge_m23_b4(g, view, seq, R)
+    bad += bad_
+    n += n_
     said = [r.get("t", "") for r in m["rel"]]
     for t in texts:
         for mm in NUM_M23.finditer(t):
@@ -3739,6 +3784,95 @@ def judge_m23(f):
                 need(full in R["clock"], f"③ 札「{t}」の時刻「{tok}」が記録の時刻（{sorted(R['clock'])}）に無い")
     for r in m["rel"]:
         need(bool(r.get("src")), f"③ rel「{r.get('t')}」に出どころ（src）が無い")
+    return bad, n
+
+
+def _judge_m23_b4(g, view, seq, R):
+    """🆕 23本目 ⑤b-4：第4〜7章の見え方と、足した欄の照合（記録＝R・形＝g）。"""
+    import datetime as dt
+    bad, n = [], 0
+
+    def need(cond, msg):
+        nonlocal n
+        n += 1
+        if not cond:
+            bad.append(msg)
+    any_ = lambda f, v: any(s.get(f) == v for s in seq)   # noqa: E731
+    if view == "wall":
+        need(g["hbeam"] == R["wall"]["hbeam"], f"② H形鋼 {g['hbeam']} か所（記録 {R['wall']['hbeam']}か所＝ソウル市の報告 p.37）")
+    if view == "cal":
+        if g["set"] == "rescue":
+            Rc = R["cal"]["rescue"]
+            for (y, mo, d), col, row in g["cells"]:
+                need(col == (dt.date(y, mo, d).weekday() + 1) % 7, f"② 暦の {mo}月{d}日 が {col}列（実際の曜日と違う）")
+            need(tuple(g["fall"]) == Rc["fall"] and tuple(g["mark"]) == Rc["mark"], f"② 暦の印 {g['fall']}・{g['mark']} が記録（6月29日・7月9日＝白書 p.643）と違う")
+            need(tuple(g["cells"][-1][0]) == Rc["last"], f"② 暦の終わり {g['cells'][-1][0]} が7月15日（17日目）でない")
+            cell = {tuple(c[0]): (c[1], c[2]) for c in g["cells"]}
+            need(cell.get(tuple(g["fall"])) == tuple(g["fall_cell"]) and cell.get(tuple(g["mark"])) == tuple(g["mark_cell"]), "② 印の升目が日付の升目と違う")
+        else:
+            Rc = R["cal"]["move89"]
+            need(tuple(g["band"]) == Rc["band"] and tuple(g["open"]) == Rc["open"], f"② 移した時期 {g['band']}・開店 {g['open']} が記録（1989年7〜12月・12月1日）と違う")
+            need((g["open"][0], g["open"][1]) in [tuple(m_) for m_ in g["months"]], "② 開店の日が暦の月に無い")
+    if view == "cards":
+        need((g["cards"]["head"][0], tuple(g["cards"]["rows"])) == (R["cards"]["head"], R["cards"]["rows"]), "② 札の数が記録（ソウル市の報告 p.37・p.39＝7月19日）と違う")
+    if view == "nums":
+        need(g["nums"]["place"][0] == R["nums"]["place"] and tuple(g["nums"]["boxes"]) == R["nums"]["boxes"], "② センターの数が記録（ソウル市の報告 p.39）と違う")
+    if view == "sheets":
+        lo, hi = R["sheets"]
+        need(lo < g["sheets"] < hi + 1, f"② 継ぎ足した紙 {g['sheets']} 枚が「20回あまり」（判決）と合わない")
+    if view == "rank":
+        need(tuple(g["rank"]) == R["rank"], f"② 順位 {g['rank']} が記録（白書 p.69＝売り上げ7位・売り場2位）と違う")
+    if view == "colx":
+        need(tuple((t, d, k) for t, d, k, _r in g["colx"]) == R["colx"], f"② 柱の直径と鉄筋の数が記録（国会の報告 p.29）と違う")
+        need(abs(g["cover_cm"] - R["colx_cover_cm"]) < 1e-9, "② 鉄筋の輪が表面から5センチでない")
+    if view == "spans":
+        need(abs(g["long_m"] - R["spans_m"]) < 1e-9, f"② 柱のあいだ {g['long_m']} メートル（記録 10.8＝判決）")
+        need(g["sag"][1] > g["sag"][0], "② 長い柱のあいだの床が、短いほうより垂れていない")
+    if view == "persq":
+        Rp = R["persq"]
+        need(tuple(g["n"]) == Rp["n"] and abs(g["per"] - Rp["per"]) < 1e-9, f"② 人の数 {g['n']}・1人の重さ {g['per']}（記録の計算＝6人・4人・65キロ）")
+        for k, kg in zip(g["n"], Rp["kg"]):
+            need(abs(k * Rp["per"] - kg) / kg <= Rp["tol"], f"② {k}人×{Rp['per']:g}キロが {kg:g}キロから1割より外れる")
+    if view == "vs":
+        if g["set"] == "count":
+            need(tuple((c[0][0], c[0][1]) for c in g["cards"]) == R["vs"]["count"], "② 台数の札が記録（判決 3基・白書 4台）と違う")
+        else:
+            need(tuple((h, v) for h, v, _r in g["cards"][1]) == R["vs"]["rumor_rec"], "② 記録の札が判決（1基28.7トン）・検察（1989年）と違う")
+    if view == "bldg":
+        need(g["use5"] == R["use5"], f"② 5階の使い道 {g['use5']} が記録（許可＝運動の施設・実際＝食堂街）と違う")
+        if any_("hi", "temp"):
+            need(frozenset(g["temp"]) == R["temp"], f"② 仮の使用の階 {g['temp']} が記録（地下1階〜地上3階＝区の報告 p.43）と違う")
+            need(g.get("under") == "on", "② 仮の使用に地下1階の帯が無い")
+    if view == "plan" and g.get("area"):
+        a = g["area"]
+        need((a["permit"], a["plan"], a["add"]) == (R["area"]["permit"], R["area"]["plan"], R["area"]["add"]) and a["permit"] + a["add"] == a["plan"],
+             "② 床の広さが記録（許可 71,136・図面 73,205・増えた 2,069）と違う")
+        x0, x1 = a["x"]
+        need(abs((g["split_px"] - x0) / (x1 - x0) - R["area"]["permit"] / R["area"]["plan"]) < 1e-6, "② 増えた床の幅が広さの割合と違う")
+    if view == "plan" and any_("dp", "miss"):
+        need(set(g["dp_miss"]) == R["dp_miss"], f"② 板の無い所 {g['dp_miss']} が記録（5階 4列E行＝判決）と違う")
+    if view == "plan" and g.get("ct_rows"):
+        need(g["ct_n"] == R["towers"], f"② 冷却塔 {g['ct_n']} 基（判決 3基）")
+        for s, row in zip(seq, g["ct_rows"]):
+            if s.get("ct") == "moved":
+                need(all(b[1] > a[1] + 50 for a, b in zip(g["ct_rows"][0], row)), "② 移したあとの冷却塔が前の側（下）に動いていない")
+    if view == "slab" and g.get("bars"):
+        oks = [o for b, o in g["bars"] if b == "ok"]
+        for b, o in g["bars"]:
+            if b == "sunk":
+                need(o > g["bar_off"]["ok"] + 5 and all(o > x for x in oks), "② 沈んだ鉄筋が正しい位置より深くない")
+    if view == "tower" and g["set"] == "three":
+        need(g["n"] == R["towers"], f"② 冷却塔 {g['n']} 基（判決 3基）")
+    if view == "load" and g["set"] == "sum":
+        need(g["towers"] == R["towers"], f"② 屋上の冷却塔 {g['towers']} 基（判決 3基）")
+    if view == "drag":
+        rows = g["drag"]
+        for r in rows:
+            need(abs(r["sag_x"] - r["box_x"]) < 30, "② たわみが重い箱の下に無い")
+        if any(r["pos"] == "moved" for r in rows):
+            need(rows[-1]["box_x"] > rows[0]["box_x"] + 100, "② 引きずった箱が動いていない")
+    if view == "crack" and any_("crack", "long"):
+        need(g["branch"] > 0, "② ひびが育っていない（枝のひびが無い）")
     return bad, n
 
 
@@ -3809,6 +3943,91 @@ def _selftest_m23(ok):
             g_ = True
         ok &= g_
         print(f"  {'OK' if g_ else '🔴 NG'} 23本目 型の見張り：{nm}: {'組めない（止まった）' if g_ else '🔴 組めた'}")
+    return _selftest_m23_b4(ok)
+
+
+def _selftest_m23_b4(ok):
+    """🆕 23本目 ⑤b-4：第4〜7章の見え方の検算（正しい場面・陽性対照＝描く側の表を壊す・筋）。"""
+    import mech23 as M
+    N = "模式"
+    good = dict(
+        wall=dict(view="wall", steps=[dict(state=dict(rubble="clear"))], note=N),
+        cal=dict(view="cal", start=dict(set="rescue", d0="on"), steps=[dict(state=dict(d1="on"))], note=""),
+        cal89=dict(view="cal", start=dict(set="move89"), steps=[dict(state=dict(band="on", open="on"))], note=""),
+        cards=dict(view="cards", steps=[dict(state=dict(r0="on", r1="on", r2="on"))], note=""),
+        nums=dict(view="nums", steps=[dict(state=dict(place="on", n="on"))], note=N),
+        sheets=dict(view="sheets", steps=[dict(state=dict(add="on"))], note=N),
+        rank=dict(view="rank", steps=[dict(state=dict(r0="on", r1="on"))], note=N),
+        colx=dict(view="colx", steps=[dict(state=dict(both="on"))], note=N),
+        spans=dict(view="spans", steps=[dict(state=dict(sag="on"))], note=N),
+        persq=dict(view="persq", steps=[dict(state=dict(l="on", r="on"))], note=N),
+        vs=dict(view="vs", start=dict(set="count"), steps=[dict(state=dict(c0="on", c1="on")), dict(state=dict(lit="on"))], note=""),
+        rumor=dict(view="vs", start=dict(set="rumor"), steps=[dict(state=dict(c0="on")), dict(state=dict(c1="on"))], note=""),
+        temp=dict(view="bldg", start=dict(under="on"), steps=[dict(state=dict(hi="temp")), dict(state=dict(chk="on"))], note=N),
+        area=dict(view="plan", start=dict(floor="area"), steps=[dict(state=dict(aplan="on")), dict(state=dict(add="on"))], note=N),
+        dp=dict(view="plan", start=dict(floor="grid", dp="thin"), steps=[dict(state=dict(dp="miss")), dict(state=dict(miss_lit="on"))], note=N),
+        ct=dict(view="plan", start=dict(floor="ct"), steps=[dict(state=dict(ct="back")), dict(state=dict(ct="moved"))], note=N),
+        bar=dict(view="slab", start=dict(z="span", fl="5", bar="ok"), steps=[dict(state=dict(bar="sunk"))], note=N),
+        tw3=dict(view="tower", start=dict(set="three"), steps=[dict(state=dict(load="on")), dict(state=dict(roof="on"))], note=N),
+        drag=dict(view="drag", steps=[dict(state=dict(split="on")), dict(state=dict(pos="moved"))], note=N),
+        crack=dict(view="crack", start=dict(fl="roof", crack="on"), steps=[dict(state=dict(crack="long"))], note=N),
+    )
+    for k, kw in good.items():
+        bad, nn = judge("m23", kw)
+        g_ = not bad
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 23本目 ⑤b-4 正しい場面 {k}: {'合格' if not bad else bad[0]}（{nn}件）")
+    pos = [
+        ("H形鋼を1か所に", "WL", dict(M.WL, hb=M.WL["hb"][:1]), "wall", "H形鋼"),
+        ("救出の日を7月10日に", "CAL_SET", dict(M.CAL_SET, rescue=dict(M.CAL_SET["rescue"], mark=(1995, 7, 10))), "cal", "暦の印"),
+        ("開店を12月2日に", "CAL_SET", dict(M.CAL_SET, move89=dict(M.CAL_SET["move89"], open=(1989, 12, 2))), "cal89", "開店"),
+        ("救助の数を933人に", "CARDS", dict(M.CARDS, rows=(("救助された人", "933人"),) + M.CARDS["rows"][1:]), "cards", "札の数"),
+        ("引き渡しを310件に", "NUMS", dict(M.NUMS, boxes=(M.NUMS["boxes"][0], ("確かめて引き渡し", "310件"))), "nums", "センターの数"),
+        ("継ぎ足す紙を15枚に", "SH", dict(M.SH, n=15), "sheets", "継ぎ足した紙"),
+        ("売り上げを6位に", "RANK", dict(M.RANK, rows=(("売り上げ", 6), ("売り場の大きさ", 2))), "rank", "順位"),
+        ("図面の鉄筋を10本に", "CX_COLS", (M.CX_COLS[0], ("図面", 60.0, 10, "ALERT")), "colx", "柱の直径"),
+        ("柱のあいだを10.5メートルに", "SP_LONG_M", 10.5, "spans", "柱のあいだ"),
+        ("大人を5人に", "PQ", dict(M.PQ, n=(5, 4)), "persq", "人の数"),
+        ("白書の台数を3台に", "VS_SET", dict(M.VS_SET, count=(M.VS_SET["count"][0], (("白書", "3台", "city"),))), "vs", "台数の札"),
+        ("判決の重さを12トンに", "VS_SET", dict(M.VS_SET, rumor=(M.VS_SET["rumor"][0], (("判決", "1基12トン", "state"), M.VS_SET["rumor"][1][1]))), "rumor", "記録の札"),
+        ("仮の使用を4階まで", "HI", dict(M.HI, temp=M.HI["temp"] + (("a", 4),)), "temp", "仮の使用の階"),
+        ("増えた床を2,000に", "AREA", dict(M.AREA, add=2000), "area", "床の広さ"),
+        ("板の無い所を5列E行に", "DP_MISS", (("5", "E"),), "dp", "板の無い所"),
+        ("冷却塔を4基に", "CT", dict(M.CT, back=M.CT["back"] + ((1200.0, 470.0),), front=M.CT["front"] + ((1250.0, 690.0),)), "ct", "冷却塔"),
+        ("沈んだ鉄筋を正しい位置に", "SLB", dict(M.SLB, sunk=M.SLB["ok"]), "bar", "沈んだ鉄筋"),
+        ("屋上の冷却塔を4基に", "TW3", dict(M.TW3, n=4), "tw3", "冷却塔"),
+        ("ひびの枝を消す", "CR_BRANCH", (), "crack", "ひびが育って"),
+    ]
+    for name, attr, val, key, frag in pos:
+        keep = getattr(M, attr)
+        setattr(M, attr, val)
+        try:
+            try:
+                bad, _ = judge("m23", good[key])
+            except Exception as e:    # noqa: BLE001
+                bad = [f"組めない：{e}"]
+        finally:
+            setattr(M, attr, keep)
+        g_ = any(frag in b for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 23本目 ⑤b-4 陽性対照：{name}: {'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    # 暦の曜日（描く側の升目の計算を壊す＝1列ずらす）
+    keep = M.cal_cells
+    M.cal_cells = lambda: [(d, (c + 1) % 7, r) for d, c, r in keep()]
+    try:
+        bad, _ = judge("m23", good["cal"])
+    finally:
+        M.cal_cells = keep
+    g_ = any("曜日" in b for b in bad)
+    ok &= g_
+    print(f"  {'OK' if g_ else '🔴 NG'} 🔴 23本目 ⑤b-4 陽性対照：暦の曜日を1列ずらす: {'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    for name, kw in (("道がふさがる前に車が止まる", dict(view="road", start=dict(amb="on"), steps=[dict(state=dict(amb="blocked"))], note=N)),
+                     ("内側の帯筋の前に切る", dict(view="hoop", steps=[dict(state=dict(l="on")), dict(state=dict(cut="on"))], note=N)),
+                     ("仮の使用の前に検査なし", dict(view="bldg", start=dict(under="on"), steps=[dict(state=dict(chk="on"))], note=N))):
+        bad, _ = judge("m23", kw)
+        g_ = bool(bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 23本目 ⑤b-4 陽性対照（筋）：{name}: {'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
     return ok
 
 

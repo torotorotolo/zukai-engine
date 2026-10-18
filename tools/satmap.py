@@ -85,6 +85,16 @@ def igeo(sat, x, y):
     return lat, lon
 
 
+def m_per_px(sat):
+    """🆕 23本目 ⑤b-4：撮った絵の1画素あたりのメートル（Web メルカトル・中心の緯度）。"""
+    return 156543.03392 * math.cos(math.radians(sat["ll"][0])) / 2 ** sat["z"] / DPR
+
+
+def r_of_area(sat, m2):
+    """🆕 23本目 ⑤b-4：面積 m2（平方メートル）と同じ面積の円の半径（撮った絵の画素）＝`area` の r。形は模式（境の線が記録に無いとき）。"""
+    return math.sqrt(m2 / math.pi) / m_per_px(sat)
+
+
 def box():
     """額の箱（画面の画素）＝真ん中・本体の帯の中（`scene_jiko.photo_box` の額装と同じ式＝注記なし・pw=PW）。"""
     h = round(PW * IH / IW)

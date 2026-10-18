@@ -23,10 +23,36 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import satmap as M  # noqa: E402
 
+# 🆕 2026-10-18（23本目 ⑤b-4）：囲み（area）の面積の記録＝{カット: (平方メートル, 出典)}。境の線が記録に無く「面積が同じ円」で描くカットだけ
+#    （記録の値は門番の側＝§5b-88。描く側は `satmap.r_of_area` で半径を出す）。囲みの面積が記録から 1% より外れたら鳴る
+REC_SAT_AREA = {"c511": (67100, "K6-市 p40（`부지와 그 주변지역을 포함한 67,100㎡`）")}
+
+
+def area_check(spec_all, sat_tab, rec=None):
+    """面積の記録のあるカットの囲み（area）が、記録と同じ面積か（撮った絵の画素×1画素のメートル）。"""
+    import math
+    bad = []
+    for cid, (m2, _src) in (REC_SAT_AREA if rec is None else rec).items():
+        s = spec_all.get(cid)
+        if not s or not s.get("sat"):
+            bad.append(f"{cid}：面積の記録があるのに地図のカットでない")
+            continue
+        sat = sat_tab[s["sat"]["code"]]
+        areas = [el for st in s["sat"]["steps"] for el in st if el.get("k") == "area"]
+        if len(areas) != 1:
+            bad.append(f"{cid}：囲み（area）が {len(areas)} 個（面積の記録は1つ）")
+            continue
+        got = math.pi * (areas[0]["r"] * M.m_per_px(sat)) ** 2
+        if abs(got - m2) / m2 > 0.01:
+            bad.append(f"{cid}：囲みの面積 {got:,.0f} 平方メートルが記録 {m2:,} と 1% より違う")
+    return bad
+
 
 def main():
     import cuts
+    import cuts.ss as ss
     bad, n, ne = M.check(cuts.SPEC)
+    bad += area_check(cuts.SPEC, ss.SAT)
     print(f"■ 地図のカット（衛星写真）{n} カット・部品 {ne}")
     for code, s in sorted(__import__("cuts.ss", fromlist=["SAT"]).SAT.items()):
         print(f"  {code}：{s['file']}（{'手元に在る' if M.have(code) else '🔴 手元に無い'}）")
@@ -46,9 +72,30 @@ def selftest():
     fixture_ep22.apply()
     fixture_ep22.apply_cuts()
     try:
-        return _selftest()
+        rc = _selftest()
     finally:
         fixture_ep22.restore()
+    return rc or _selftest_area()
+
+
+def _selftest_area():
+    """🆕 23本目 ⑤b-4：面積の照合（本番の c511＝陰性・半径を 5% 縮めた写し＝陽性）。"""
+    import cuts
+    import cuts.ss as ss
+    ok = True
+    b0 = area_check(cuts.SPEC, ss.SAT)
+    print(f"  {'✓' if not b0 else '🔴'} 陰性：23本目 c511 の囲みの面積＝記録（{len(b0)}件）")
+    ok &= not b0
+    s = copy.deepcopy({c: cuts.SPEC[c] for c in REC_SAT_AREA})
+    for st in s["c511"]["sat"]["steps"]:
+        for el in st:
+            if el.get("k") == "area":
+                el["r"] *= 0.95
+    b1 = area_check(s, ss.SAT)
+    print(f"  {'✓' if b1 else '🔴'} 陽性対照：囲みの半径を 5% 縮める → {'鳴った：' + b1[0] if b1 else '鳴らない'}")
+    ok &= bool(b1)
+    print(f"■ selftest（面積）{'合格' if ok else '🔴 不合格'}")
+    return 0 if ok else 1
 
 
 def _selftest():

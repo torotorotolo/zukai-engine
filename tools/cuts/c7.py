@@ -82,3 +82,79 @@ SPEC.update({
     "c704": ss.vid("c704"),     # 工事中の建物（ドローン）＝左の建物の壁の小さな数字は焼いた絵で見る（⑤b-7）
     "c712": ss.vid("c712"),     # 錆びた鉄筋の網
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-18）：図解 第6章（9カット）＝模式図 `tools/mech23.py`
+# ══════════════════════════════════════════════════════════
+#   🔴 章の札「図面で細くなった柱」と4字以上同じ並びを見出し・副題に入れない（dup）。
+#   c713＝判決が場所まで書く（5階 4列E行の柱の上の板が無い）＝第3章 c403 の柱の並び（4・5列／E・F・G行）に印。薄い所の場所は模式
+SPEC.update({
+    # c701（3行）＝聞き役（梁が無い？）→ ふつうの作り（柱と梁と床）→ 梁＝柱のあいだにわたす横の材
+    "c701": dict(
+        t="2つの作り", s="梁があるか無いか",
+        fig=("m23", dict(view="beam", steps=[dict(state=dict(r="on", q="on")), dict(state=dict(l="on")),
+                                             dict(state=dict(lit="on"), tag=dict(t="梁", d="柱と柱をつなぐ横の材", at="t", col=J.AMBER))],
+                         note="形は模式（柱・梁・床だけ）", src=ss.src(["K6-R p28", "大96 p1"]))),
+    ),
+    # c703（2行）＝ドロップパネル（柱の頭の厚い板）→ 床が抜け落ちないよう下から支える
+    "c703": dict(
+        t="抜け落ちを止める", s="梁の無い建物で",
+        fig=("m23", dict(view="drop", steps=[dict(state=dict(dp="on"), tag=dict(t="ドロップパネル", d="柱の頭の厚い板", at="r1", col=J.AMBER)),
+                                             dict(state=dict(up="on"), tag=dict(t="下から床を支える", at="r2"))],
+                         note="厚さと形は模式", src=ss.src(["K6-R p29", "大96 p1"]))),
+    ),
+    # c706（2行）＝柱のあいだが長いほど床は垂れやすく、つなぎ目に大きな力（10.8メートル＝判決）→ 聞き役
+    "c706": dict(
+        t="長いと垂れる", s="柱の間隔",
+        fig=("m23", dict(view="spans", steps=[dict(state=dict(sag="on", joint="on"), tag=dict(t="つなぎ目に力が集まる", at="t", col=J.ALERT)), dict()],
+                         note="たわみは誇張（模式）・10.8メートルは判決", src=ss.src(["大96 p1"]))),
+    ),
+    # c708（2行）＝A棟4・5階のエスカレーターのまわりの柱 → 計算書（直径80センチ・鉄筋16本）／図面（直径60センチ・鉄筋8本）
+    "c708": dict(
+        t="柱の太さ", s="計算書と図面",
+        fig=("m23", dict(view="colx", steps=[dict(tag=dict(t="A棟4・5階", d="エスカレーターのまわり", at="t")), dict(state=dict(both="on"))],
+                         rel=[dict(t="A棟4・5階", src="白書 p87")],
+                         note="同じ縮尺（直径と鉄筋の数は国会の報告）・鉄筋の並びは模式", src=ss.src(["K6-R p29", "白書 p87"]))),
+    ),
+    # c710（3行）＝聞き役 → 支えられる重さが減る → 粘り強さも落ちる
+    "c710": dict(
+        t="柱が細いと", s="支える力",
+        fig=("m23", dict(view="load", start=dict(set="col"), steps=[
+            dict(), dict(state=dict(cap="less"), tag=dict(t="支えられる重さが減る", at="r", col=J.ALERT)),
+            dict(state=dict(brit="on"), tag=dict(t="粘り強さも落ちる", at="r2", col=J.ALERT))],
+            note="矢印の長さとひびは模式（柱の太さの比は計算書と図面）", src=ss.src(["K6-R p29"]))),
+    ),
+    # c713（3行）＝A棟5階の北側に板が無い所（判決＝4列E行）→ 判決と白書 → 抜け落ちを止める板が無かった
+    "c713": dict(
+        t="欠けた板", s="5階の北側",
+        fig=("m23", dict(view="plan", start=dict(floor="grid", nums="on", dp="thin"), steps=[
+            dict(state=dict(dp="miss"), tag=dict(t="板が無い（4列E行）", at="g", col=J.ALERT)),
+            dict(tag=dict(t="判決と白書", at="r1")), dict(state=dict(miss_lit="on"))],
+            rel=[dict(t="4列E行", src="大96 p1")],
+            note="柱の並びの一部（板の無い所は判決の4列E行・薄い所の場所・間隔・向きは模式）", src=ss.src(["大96 p1", "白書 p88"]))),
+    ),
+    # c715（3行）＝上の鉄筋が沈む → 4〜8センチほど（記録で違う）→ 鉄筋が深いほど床は垂れやすい
+    "c715": dict(
+        t="沈んだ鉄筋", s="床の断面",
+        fig=("m23", dict(view="slab", start=dict(z="span", fl="5", bar="ok"), steps=[
+            dict(state=dict(bar="sunk"), tag=dict(t="上の鉄筋が沈む", at="r2", col=J.ALERT)),
+            dict(tag=dict(t="4〜8センチほど", d="記録で違う", at="mid", col=J.AMBER)), dict(state=dict(sag="on"))],
+            rel=[dict(t="4〜8センチ", src="大96 p1・K6-R p29・白書 p87")],
+            note="厚さと深さは誇張（模式）", src=ss.src(["大96 p1", "K6-R p29", "白書 p87"]))),
+    ),
+    # c717（3行）＝帯筋＝主な鉄筋を外から束ねる → 内側に入っていた（国会の報告と白書）→ 消防の設備のために削って切った
+    "c717": dict(
+        t="帯筋", s="外と内",
+        fig=("m23", dict(view="hoop", steps=[dict(state=dict(l="on"), tag=dict(t="帯筋＝主な鉄筋を外から束ねる", at="t", col=J.AMBER)),
+                                             dict(state=dict(r="on"), tag=dict(t="内側に入っていた", d="国会の報告と白書", at="r", col=J.ALERT)),
+                                             dict(state=dict(cut="on"), tag=dict(t="消防の設備のために削って切る", at="r2", col=J.COMPANY))],
+                         note="形と本数は模式", src=ss.src(["K6-R p29", "白書 p89"]))),
+    ),
+    # c719（2行）＝細い柱・薄い板・沈んだ鉄筋の上に重い物 → まずは屋上（「？」の箱）
+    "c719": dict(
+        t="重さが載る", s="次は屋上",
+        fig=("m23", dict(view="bldg", steps=[dict(state=dict(weak="on"), tag=dict(t="細い柱・薄い板・沈んだ鉄筋", at="r1", col=J.ALERT)),
+                                             dict(state=dict(qroof="on"), tag=dict(t="まずは屋上", at="r2"))],
+                         note="形は模式（重さの中身は次の章から）")),
+    ),
+})

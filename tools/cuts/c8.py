@@ -81,3 +81,109 @@ SPEC = {}
 SPEC.update({
     "c817": ss.vid("c817"),     # 古びたコンクリートの縁を流れ落ちる水（共用の棚 px_29880216）
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-18）：図解 第7章（13カット）＝模式図 `tools/mech23.py`・棒（qty）・暦（cal）
+# ══════════════════════════════════════════════════════════
+#   🔴 章の札「屋上の冷却塔」と4字以上同じ並び（「の冷却塔」「屋上の冷」）を見出し・副題に入れない（dup）。どの棟の屋上かは描かない（記録で確かめていない）
+#   🔴 冷却塔の数＝判決の3基（白書の4台は c809 で断る）・重さは判決（1基28.7トン・水を入れて45.5トン）・床の前提 240／冷却塔 400（キログラム／平方メートル）
+SPEC.update({
+    # c803（2行）＝3基で水を入れれば130トンを超える（1基28.7トン・水を入れて45.5トン＝c802 の語り）→ 受け止めるのは梁の無い屋上の床
+    "c803": dict(
+        t="3基の重さ", s="水を入れると",
+        fig=("m23", dict(view="tower", start=dict(set="three"), steps=[
+            dict(state=dict(load="on"), tag=dict(t="3基で130トン超", d="1基28.7トン・水を入れて45.5トン", at="t", col=J.ALERT)),
+            dict(state=dict(roof="on"), tag=dict(t="梁の無い屋上の床", at="r1"))],
+            rel=[dict(t="3基で130トン", src="大96 p1（45.5トン×3）"), dict(t="1基28.7トン・水を入れて45.5トン", src="大96 p1")],
+            note="形と大きさは模式（数は判決）", src=ss.src(["大96 p1"]))),
+    ),
+    # c804（2行）＝屋上の床の前提 240 → 冷却塔がかける重さ 400（キログラム／平方メートル）
+    "c804": dict(
+        t="前提と実際", s="重さの比べ",
+        fig=("qty", dict(view="bar", groups=[ss.QG["roofkg"]], steps=[dict(add=[ss.qb("kg240")]), dict(add=[ss.qb("kg400")])],
+                         note="値は判決", src=ss.src(["大96 p1"]))),
+    ),
+    # c806（3行）＝1平方メートルに大人およそ6人 → 冷却塔の下の床にずっと → 屋上の床の前提は大人4人ほど
+    "c806": dict(
+        t="大人で数える", s="65キロの大人",
+        fig=("m23", dict(view="persq", steps=[dict(state=dict(l="on"), tag=dict(t="大人およそ6人", at="t", col=J.ALERT)),
+                                              dict(tag=dict(t="冷却塔の下の床に、ずっと", at="t2")),
+                                              dict(state=dict(r="on"), tag=dict(t="前提は大人4人ほど", at="r"))],
+                         rel=[dict(t="大人およそ6人", src="計算（400÷65）"), dict(t="大人4人ほど", src="計算（240÷65）")],
+                         note="1人65キロとして（人の形は重さの目安・模式）", src=ss.src(["大96 p1"]))),
+    ),
+    # c807（3行）＝冷却塔の重さの欄が無い → 基本計画では屋上に置くはずだった → 聞き役
+    "c807": dict(
+        t="計算から落ちた", s="判決の指摘",
+        fig=("m23", dict(view="calc", steps=[dict(state=dict(miss="on"), tag=dict(t="冷却塔の重さの欄が無い", at="r1", col=J.ALERT)),
+                                             dict(state=dict(plan="on"), tag=dict(t="屋上に置く予定だった", at="r2", col=J.COMPANY)), dict()],
+                         note="計算書の中身は模式（冷却塔3基の計算が落ちていたのは判決）", src=ss.src(["大96 p1"]))),
+    ),
+    # c809（2行）＝記録で違う台数（判決＝3基／白書＝4台）→ この動画は判決の3基
+    "c809": dict(
+        t="台数", s="記録で違う",
+        fig=("m23", dict(view="vs", start=dict(set="count"), steps=[dict(state=dict(c0="on", c1="on")),
+                                                                     dict(state=dict(lit="on"), tag=dict(t="この動画は判決の3基", at="low", col=J.ROLE["state"]))],
+                         rel=[dict(t="判決の3基", src="大96 p1")],
+                         note="数は判決と白書（白書は検察の資料と新聞を引いた節）", src=ss.src(["大96 p1", "白書 p90"]))),
+    ),
+    # c810（2行）＝暦（1989年7月〜12月）＝移した時期・12月1日の開店 → 白書の図：後ろの側から前の側へ
+    "c810": dict(
+        t="開店のころ", s="1989年の後半",
+        fig=("m23", dict(view="cal", start=dict(set="move89"), steps=[
+            dict(state=dict(band="on", open="on"), tag=dict(t="冷却塔を移した時期（検察の報告）", at="low1", col=J.COMPANY)),
+            dict(tag=dict(t="白書の図：後ろの側から前の側へ", at="t", col=J.ROLE["city"]))],
+            note="時期は検察の報告・開店はソウル市の報告", src=ss.src(["K6-検 p46", "K6-市 p35", "白書 p90"]))),
+    ),
+    # c811（3行）＝聞き役（どうやって動かした？）→ 国会の報告と区の裁判の判決 → 解体しきらずに床の上を引きずって移した
+    "c811": dict(
+        t="屋上の配置", s="引きずった道すじ",
+        fig=("m23", dict(view="plan", start=dict(floor="ct"), steps=[
+            dict(state=dict(ct="back")), dict(tag=dict(t="国会と区の裁判", at="r1", col=J.ROLE["state"])),
+            dict(state=dict(ct="moved"), tag=dict(t="解体しきらずに引きずる", at="r3", col=J.ALERT))],
+            note="置き場と道すじは模式（白書の図は後ろの側から前の側へ・分けた数は記録で違う）", src=ss.src(["K6-R p29", "大96 p1", "白書 p90"]))),
+    ),
+    # c812（3行）＝会長の裁判の判決：小分けにして移すべきだった →（続き）→ 引きずれば重さは狭い所に集まったまま動く
+    "c812": dict(
+        t="引きずると", s="重さが集まる",
+        fig=("m23", dict(view="drag", steps=[dict(state=dict(split="on"), tag=dict(t="会長の裁判の判決", at="t", col=J.ROLE["state"])), dict(),
+                                             dict(state=dict(pos="moved"), tag=dict(t="集まった重さが動く", at="l", col=J.ALERT))],
+                         note="重さの集まり方とたわみは誇張（模式）", src=ss.src(["大96 p1"]))),
+    ),
+    # c813（2行）＝よく語られる話（1台12トン・1993年に騒音で移した）→ 記録（判決の1基28.7トン・検察の1989年）
+    "c813": dict(
+        t="広まった話", s="記録と比べる",
+        fig=("m23", dict(view="vs", start=dict(set="rumor"), steps=[dict(state=dict(c0="on")), dict(state=dict(c1="on"))],
+                         note="よく語られる話は記録に無い（重さは判決・時期は検察の報告）", src=ss.src(["大96 p1", "K6-検 p46"]))),
+    ),
+    # c815（2行）＝梁の無い作り・上の鉄筋も沈んでいた屋上の床 → 重い冷却塔が通っていった（たわむ）
+    "c815": dict(
+        t="道すじの床", s="通っていった重さ",
+        fig=("m23", dict(view="slab", start=dict(z="span", fl="roof", bar="sunk"), steps=[
+            dict(tag=dict(t="梁なし・鉄筋も沈む", at="t")),
+            dict(state=dict(box="on", sag="on"), tag=dict(t="重い冷却塔が通る", at="r", col=J.COMPANY))],
+            note="厚さとたわみは誇張（模式）", src=ss.src(["大96 p1"]))),
+    ),
+    # c816（2行）＝たわみによるひびが長いあいだ育ちつづけた（判決）→ 前触れの章でもう一度
+    "c816": dict(
+        t="育つひび", s="長いあいだ",
+        fig=("m23", dict(view="crack", start=dict(fl="roof", crack="on", load="on"), steps=[
+            dict(state=dict(crack="long"), tag=dict(t="ひびが育ちつづけた", d="判決", at="r", col=J.ALERT)),
+            dict(tag=dict(t="前触れの章で、もう一度", at="t"))],
+            note="ひびの形と深さは模式", src=ss.src(["大96 p1"]))),
+    ),
+    # c818（2行）＝聞き役（屋上だけでもこんなに重い）→ 5階にも重さが足されていた（「？」）
+    "c818": dict(
+        t="重さの足し算", s="屋上の下も",
+        fig=("m23", dict(view="load", start=dict(set="sum"), steps=[dict(state=dict(roofw="on")),
+                                                                     dict(state=dict(q5="on"), tag=dict(t="5階にも重さが足された", at="t", col=J.AMBER))],
+                         rel=[dict(t="5階", src="大96 p1（5층을 … 전문식당가로 용도변경）")], note="形は模式（5階の重さの中身は次の章）")),
+    ),
+    # c819（2行）＝スケート場のはずだった5階（許可＝運動の施設）→ 食堂の重い物が並んでいた（実際＝食堂街）＝c609 の2回目
+    "c819": dict(
+        t="変わった5階", s="使い方の変化",
+        fig=("m23", dict(view="bldg", start=dict(hi="a5", use5="permit"), steps=[
+            dict(state=dict(q5="on")), dict(state=dict(use5="both"), tag=dict(t="食堂の重い物が並ぶ", at="r1"))],
+            note="階の使い道は判決と国会の報告（形は模式）", src=ss.src(["大96 p1", "K6-R p29"]))),
+    ),
+})
