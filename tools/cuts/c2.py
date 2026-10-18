@@ -102,9 +102,10 @@ SPEC.update({
     "c204": dict(
         t="朝の5階", s="床と天井の動き",          # ⚠️ 門番 dup：「5階の食堂」は札「5階の食堂の1つ」の写し
         fig=("m23", dict(view="bldg", steps=[
-            dict(state=dict(hi="a5", cell="on"), tag=[dict(t="8:00〜10:00", at="t", col=J.AMBER), dict(t="5階の食堂の1つ", at="r1", to="cell", col=J.BLDG_A)]),
+            # 🔧 試し焼き（10-18）：右の札から食堂の印・屋上へ引き出し線を引くと B棟の前の面を斜めに横切った＝線なし（印は赤・屋上は明るい板＝札の色で当てる）
+            dict(state=dict(hi="a5", cell="on"), tag=[dict(t="8:00〜10:00", at="t", col=J.AMBER), dict(t="5階の食堂の1つ", at="r1", col=J.BLDG_A)]),
             dict(state=dict(bulge="on"), tag=dict(t="床が盛り上がる", d="天井が沈む", at="r2", col=J.ALERT)),
-            dict(state=dict(roof="on"), tag=dict(t="5階の天井＝屋上の床の裏", at="r3", to="roof", col=J.BLDG_A))],
+            dict(state=dict(roof="on"), tag=dict(t="5階の天井＝屋上の床の裏", at="r3", col=J.BLDG_A))],
             rel=[dict(t="8:00", src="K6-R p30"), dict(t="10:00", src="K6-R p30"), dict(t="5階", src="K6-R p30")],
             note="形と食堂の場所は模式（A棟＝北・B棟＝南）", src=ss.src(["K6-R p30"]))),
     ),
@@ -122,7 +123,7 @@ SPEC.update({
         fig=("m23", dict(view="slab", start=dict(z="span", fl="5"), steps=[
             dict(tag=[dict(t="10:00〜12:00", at="t", col=J.AMBER), dict(t="4階の貴金属の売り場", at="r", col=J.INK_W)]),
             dict(state=dict(sag="on"), tag=dict(t="天井が沈む", at="br", col=J.ALERT)),
-            dict(state=dict(same="on"), tag=dict(t="同じ板の上と下", at="low", col=J.BLDG_A))],
+            dict(state=dict(same="on"), tag=dict(t="同じ板の上と下", at="lowl", col=J.BLDG_A))],
             rel=[dict(t="10:00", src="K6-R p30"), dict(t="12:00", src="K6-R p30"), dict(t="4階", src="K6-R p30")],
             note="厚さと沈みの大きさは誇張（模式）", src=ss.src(["K6-R p30"]))),
     ),

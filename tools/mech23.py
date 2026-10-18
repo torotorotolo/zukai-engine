@@ -180,7 +180,8 @@ def sc_parts(st):
             pts = [(x0 + 6, yy - tl), (x1 - 6, yy + tl), (x1 - 6, yy + th + tl), (x0 + 6, yy + th - tl)]
         else:
             pts = [(x0, y), (x1, y), (x1, y + th), (x0, y + th)]
-        col = J.ALERT if fall != "none" else A_C
+        # 🔧 試し焼き（10-18）：落ちる前の板まで赤にすると全部の階が先に崩れたように見えた＝落ちた板だけ赤
+        col = J.ALERT if (fall == "all" or (fall == "top" and i in (0, 1))) else A_C
         ps.append(_P(f"slab{i}", "poly", pts, fill=col, stroke=None, alpha=1.0 if fall != "none" or st["a"] == "on" else 0.55))
     c0, c1 = SC["xc"]
     ps.append(_P("conn", "poly", [(c0, SC["roof"]), (c1, SC["roof"]), (c1, sc_ground()), (c0, sc_ground())], fill=J.LINE, stroke=J.LINE, w=3,
@@ -237,7 +238,9 @@ def _sc_use(wing):
         # ⚠️ geom_gap：幾つかの階にまたがる札を真ん中の高さに置くと階の線が字を貫いた＝1つの階の帯の真ん中へ（偶数の階は上の帯・奇数は真ん中の帯）
         k = l1 - l0 + 1
         L = l1 if k % 2 == 0 else l0 + k // 2
-        out.append((t, ((x0 + x1) / 2, sc_top(L) + SC["fh"] / 2 + 9), (l0, l1)))
+        # 🔧 試し焼き（10-18）：1〜4階の「売り場」を4階の帯に置くと4階だけの札に読めた＝幾つかの階の札には階の幅を添える
+        rng = "" if k == 1 else (f"（{l0}・{l1}階）" if k == 2 else f"（{l0}〜{l1}階）")
+        out.append((t + rng, ((x0 + x1) / 2, sc_top(L) + SC["fh"] / 2 + 9), (l0, l1)))
     return out
 
 
@@ -623,6 +626,9 @@ def slab_stage(prev, st):
     if _on(prev, st, "crack"):          # 柱の近くのひび（柱の頭の縁から斜めに＝模式）
         for sg in (-1, 1):
             s.append(_zig(cx + sg * (cw / 2 + th), top + 2, cx + sg * (cw / 2 + 4), top + th - 2, 4, 5.0, J.ALERT, 5))
+    if _on(prev, st, "punch"):          # 🔧 試し焼き（10-18）：柱に残る芯（円すいの形）の輪郭＝線が無いと黒い影に見えた
+        s.append(F.poly([(cx - cw / 2 - th, top), (cx + cw / 2 + th, top), (cx + cw / 2, top + th), (cx - cw / 2, top + th)], "none", J.ALERT, 4,
+                        close=True))
     return s
 
 
@@ -1066,7 +1072,7 @@ def night_base(st0):
     g.append(F.poly(mound, J.BG2, J.LINE, 3, close=True))
     g.append(_hatch(a0 + 40, 668.0, a1 - 40, gy - 4, 20.0, J.LINE_DIM, 2, 0.7))
     # クレーンの影（2台）
-    for (bx, tx, ty) in ((560.0, 760.0, 330.0), (980.0, 700.0, 350.0)):
+    for (bx, tx, ty) in ((560.0, 700.0, 340.0), (1000.0, 900.0, 380.0)):     # 🔧 試し焼き（10-18）：2台の腕が交わって「A」の字に見えた
         g.append(F.line(bx, gy - 40, tx, ty, J.LINE, 8))
         g.append(F.line(tx, ty, tx + (40 if tx > bx else -40), ty + 120, J.LINE_DIM, 3))
         g.append(F.rect(bx - 50, gy - 46, 100, 46, J.LINE_DIM, None))
@@ -1147,8 +1153,10 @@ TAG_AT = dict(
               r4=(1390.0, 740.0, "start", 450.0), g=(1090.0, 540.0, "start", 440.0), nwt=(240.0, 388.0, "start", 400.0),
               swt=(799.0, 388.0, "end", 400.0)),
     slab=dict(t=(L_X, 330.0, "start", 520.0), r=(1460.0, 380.0, "start", 380.0), low=(L_X, 830.0, "start", 1000.0), mid=(960.0, 640.0, "middle", 600.0),
-              br=(1124.0, 610.0, "start", 190.0), r2=(1440.0, 650.0, "start", 400.0)),   # ⚠️ geom_gap：br を x 1180 に置くと右の柱が字を覆った
-    tower=dict(t=(L_X, 330.0, "start", 560.0), r1=(1300.0, 380.0, "start", 520.0), r2=(1300.0, 470.0, "start", 520.0), dr=(380.0, 690.0, "start", 340.0)),
+              br=(1124.0, 610.0, "start", 190.0), r2=(1440.0, 650.0, "start", 400.0),
+              lowl=(272.0, 640.0, "start", 400.0)),     # 🔧 試し焼き（10-18）：「同じ板の上と下」を左下（y 830）に置くと板から遠かった   # ⚠️ geom_gap：br を x 1180 に置くと右の柱が字を覆った
+    tower=dict(t=(L_X, 330.0, "start", 560.0), r1=(1300.0, 380.0, "start", 520.0), r2=(1300.0, 470.0, "start", 520.0),
+               dr=(744.0, 784.0, "end", 128.0)),       # 🔧 試し焼き（10-18）：x 380 だと水を抜く矢印（x 820）から遠かった・806 は脚に触れた（geom_gap）
     bunko=dict(br=(790.0, 600.0, "end", 300.0), col=(492.0, 330.0, "start", 340.0), r=(1460.0, 500.0, "start", 380.0)),   # ⚠️ 門番 layout：br を x 470 に置くと柱が札を覆った
     crack=dict(t=(L_X, 330.0, "start", 560.0), r=(1040.0, 600.0, "start", 520.0)),
     meeting=dict(t=(L_X, 330.0, "start", 560.0), t2=(L_X, 390.0, "start", 560.0)),
