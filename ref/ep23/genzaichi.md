@@ -112,3 +112,21 @@
 ### 次（⑤b-1 移し替えと配線＝エフォート超高）
 - 作業ツリーの commit（`f0fab56`・`096c25d`・`5ef5fdd`・`9f5e10e`・`4e82a4c`・この節）を本線へ移す（ルール 5a-23）。本線の `audio/*.wav`（22本目の237本・リンク0）は22本目が公開ずみ＝`out/_削除待ち_<日付>/` へ移す・本線で `audio_pack pack` を回さない
 - `eizou_list23.md` の秒は ÷365 の見込み＝`make_list23.py` を narration.json の実測に替える（20本目 `make_list20.measured()` の型）。フリー素材の映像（等速）は実測のカットの長さが見込みより長い所がある（cb12 +1.1秒・c903 +0.7秒）＝素材の長さが足りるか
+
+## チャット8（⑤b-1 移し替えと配線・2026-10-18）＝本線 main（push 済み）
+
+### ✅ 済んだこと
+- **移し替え（ルール 5a-23 の9回目）＝merge `adbe2d5`**：分かれ目 `b916b6f` のあと本線は無変更＝重なり0・衝突0・索引の木＝`07edfb4` と1ファイルも違わない（263）。本線の22本目の wav 237本は `out/_削除待ち_20261018/ep22_main_audio_wav/` へ移した（git の外・md5 237/237）→ キャッシュ 1,128（wav 564＋json 564）を複写 → `aq_build --dry`（26秒・アプリ0行）→ **wav 237/237 が ep23a5 と md5 まで同じ**・narration.json は改行を除いて同じ → 音の門番4本が ⑤a-2 と同じ数（audio_pack 237/237・check_aq_audio E0/W0・check_subwrap 違反0〈2行202枚〉・check_listener E0/W1）
+- **秒は実測で**＝`make_list23.py` が narration.json を読む（声＋0.35＋0.50・章の扉 2.0）＝236カット 36:45.5・c105 の終わり 38.7秒・c109 62.9秒。🆕 門番＝フリー素材の映像の素材の長さ÷カットの秒（0.6 未満 E・1.0 未満は動きの欄に倍率）＝**c903 だけ足りない**（素材 7.34秒＜9.88秒→0.74倍・陽性対照ずみ）。ほかの16本は 1.0 以上（いちばん少ない余り c712 +1.95秒）
+- **PLAN 236**（`ref/ep23/make_plan23.py`＝list23.tsv と台本 §4 の出典から機械で）＝写真95（40.3%）・図解115・フリー素材25・パネル1・続く最長1・3連続0。PLAN を回し直しても `SPEC = {}` の後ろを残す形
+- **§0b**：22本目の値は見本 `tools/fixture_ep22.py`（ss の42名・check_axis 9・check_qty 6・check_mech REC_M22＝係が移し、親の道具で58項目・違い0）・小さな場所（footage〈ep23・USE と NOGO を空〉・出典の鎖 `ep23_credit`・check_credits〈節「三豊百貨店崩壊事故のリメイク（1995-06-29・23本目）」・1995〉・check_wording.EP_TIMES 9種・PHOTO_KEEP_EP・BGM_RMS_EP −34.5）・章名12と章の色（紺・セピア・赤銅・白黒＝隣の差の最小 14.5）
+- **役の色**：区＝緑（OK）・市＝紫（INST）・国＝青（USCG）・構造技術者＝水色（SHIP）＝別名・会社＝橙（company）・**A棟＝ピンク #ff9ec4**（新しい色）・B棟＝主図形の白
+- **モザイクの範囲**＝`eizou_build/mask23.tsv`（研究院 52400 の右の男性＝c104・cd08／歴史編纂院 077 の大人と子ども＝cb06）＝原寸で測った・束で当てる
+- **フリー素材の字**（素材の1コマを原寸で）：c308＝左に大きな薄い英字「…ructures B…」＝寄りか区間で外す／c704＝字なし（壁の階の番号だけ）・人なし／🔴 **c903＝画面いっぱいに中国語の字＝⑤b-2 で素材を替える**
+- cd09（パネル＝問いA）の SPEC。Actions `39116616803`（版 `f2f91d7`・qa・partial・at cd09 0.3／0.8・ed01）＝成功。字幕＝黄＋黒フチ・1行 y952〜1006・2行 y920〜974／996〜1050・帯は真っ黒・スマホ幅で読める
+- selftest 17本（移す前の基準と全行で比べた）：10本同じ・3本は理由どおりの1行・final 1→0・page_edges 0→2／credits 2→1／footage_slots 0→1＝束がまだ無い既知の形。qa_all **26/31**（落ちてよい5＝cuts・edges・photo_edge・sat・credits）
+- commit＝`adbe2d5`（merge）・`f50977a`（色の役）・`aa8e754`（§0b（1）・PLAN・区間・cd09）・`f2f91d7`（§0b（2）見本）＋この節
+
+### 次（⑤b-2 束と冒頭＝エフォート超高）
+- 写真の束（`qa_out/ep23_assets.py`＝assets.json・credits.json〈個人名義の名前は公開リポに積まない形で〉・`ref/CREDITS.md` の23本目の節・PANEL_AR の取り直し・SLIDE_MOUNT／SLIDE_NOT_MOUNT・MASK＝mask23.tsv → NEEDS_MASK・masked.json）・フリー素材の束（clips.json・shots.json・USE・🔴 c903 の素材を替える）・**冒頭 c101〜c109**（写真の動き9）・字幕の試し焼き（聞き役の赤も＝c106 ほか）
+- ⚠️ 地図2カット（c511・c602）を Google の衛星写真で作るか描くかを決める（決まるまで check_sat は「地図のカット0」で落ちる）
