@@ -175,10 +175,14 @@ def screen_credit(code, s, cuts_rows, mask):
         raise SystemExit(f"🔴 {code}: 同じ素材の出典の行が一覧で {len(cr)} 通り（{cr}）")
     cr = cr.pop()
     r = s["rights"]
+    # 🔴 BY-SA（額装だけ＝無加工）は「・改変なし」を書く＝`scene_jiko.credit_of` の古い決まり（6本目・デュオトーンの時代）が「CC BY」があって
+    #    「改変」の語が無い行に「／改変：色調変更・切出」を黙って足す（⑤b-2 の試し焼き 39124764132 の c102・c105〜c109 で出た＝22本目は「／改変なし」で当たらなかった）
     if r == OWN:
         if cr != "写真：作者欄のとおり（src/credits_private.tsv）／CC BY-SA 4.0":
             raise SystemExit(f"🔴 {code}: 個人名義の出典の行が一覧の形と違う（{cr}）")
-        return f"写真：{AUTHOR}（CC BY-SA 4.0）"
+        return f"写真：{AUTHOR}（CC BY-SA 4.0）・改変なし"
+    if r.startswith(FRAME_RIGHTS):
+        return cr + "・改変なし"
     if code in MASKED_BEFORE:
         if "改変：顔と名前にモザイク" not in cr:
             raise SystemExit(f"🔴 {code}: 隠した版なのに出典の行に改変の表示が無い（{cr}）")

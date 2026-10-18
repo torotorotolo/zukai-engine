@@ -130,3 +130,18 @@
 ### 次（⑤b-2 束と冒頭＝エフォート超高）
 - 写真の束（`qa_out/ep23_assets.py`＝assets.json・credits.json〈個人名義の名前は公開リポに積まない形で〉・`ref/CREDITS.md` の23本目の節・PANEL_AR の取り直し・SLIDE_MOUNT／SLIDE_NOT_MOUNT・MASK＝mask23.tsv → NEEDS_MASK・masked.json）・フリー素材の束（clips.json・shots.json・USE・🔴 c903 の素材を替える）・**冒頭 c101〜c109**（写真の動き9）・字幕の試し焼き（聞き役の赤も＝c106 ほか）
 - ⚠️ 地図2カット（c511・c602）を Google の衛星写真で作るか描くかを決める（決まるまで check_sat は「地図のカット0」で落ちる）
+
+## チャット9（⑤b-2 束と冒頭・2026-10-18）＝本線 main（push 済み）
+
+### ✅ 済んだこと
+- **写真の束**（`qa_out/ep23_assets.py`＝22本目の型）＝101点（写真93＝`ref/ep23/*.jpg`・イメージ8＝`ref/ep23/stock/`〈git の外〉）・額装だけ68・`assets.json`・`credits.json`・`ref/CREDITS.md` の23本目の節（`check_credits.SECTION` と同じ行）。使う点の md5 は取得のときと全部一致・EXIF の向きは札1か札なし・歴史編纂院の8点は CMYK（Japan Color 2001 Coated）＝色の札で sRGB に
+- **作者の名前は公開リポに積まない**＝個人名義の10点（`Sampungdept…`）の画面の出典は `credits.json` に印 `{作者}` だけ → `scene_jiko.ep23_credit` が焼くときに git の外の `ref/ep23/src/credits_private.tsv` から足す（表が無ければ止める・Actions の試し焼きだけ仮の字「〇〇〇」）。🔴 Modal で焼く前に保管庫 `jiko-assets` の `ref/ep23/src/credits_private.tsv` に置く（了承を取ってから）
+- **イメージの写真（Pexels 8点）は git に入れない**（19本目 決め⑨）＝`footage.stock_photos()` が台帳の直リンクから取り直して md5 を照らす（違えば消して止める・試した＝1点を外して取り直し md5 一致）・`ss.size_of` は取る前は台帳の寸法
+- **モザイク**＝研究院 52400（c104・cd08）・歴史編纂院 077（cb06）を升 14px（`mask23.tsv`）＋10本目の隠した版 104（cb03）＝`ss.NEEDS_MASK` 3点・`masked.json`（顔を覆えているのを拡大で見た）
+- `ss.PANEL_AR` 0.99→**1.04**（0.737〈c182_3840〉→1.333〈stock/c802a〉の 59.7ポイント）・`SLIDE_NOT_MOUNT` 5点（台紙の縁は0点＝夜・地面の陰・舗装の影・建物の陰・ぼけた背景）
+- **フリー素材の映像17本**＝`clips.json`（`"stock": true`・出典「イメージ（Pexels）」＝投稿者の名前は書かない）・`shots.json`（c704・c712 の素材は境目の前後を並べて見て1ショットに＝`SHOT_ONE`）・`footage.USE` 17欄（全部等速・いちばん長いショットの真ん中）・章ファイルに `ss.vid` 17・ひかえ `ref/ep23/stock/fb_<cid>.jpg`（git の外）。c308 は左の紙の大きな英字を外す寄り 1.9・右寄せ
+- 🔴 **c903 の素材を替えた**＝Pexels 8094275（飲食店の厨房のカウンター・人なし・30秒1ショット・等速）。最初に選んだ 35217402 は **c205 と同じ映像だった**（md5 一致＝台帳を作って気づいた）＝外した
+- **冒頭 c101〜c109 の SPEC**（研究院は全面で寄る `ss.mv`・BY-SA は額ごと動かす `ss.fm`・歴史編纂院 109 は額の中で寄る `ss.pf`）・見出しは語りの丸写しにしない話題の札
+- 🆕 **ハングルの書体**（カズヤくん了承）＝`fonts/NotoSansKR-Hangul-Bold.woff2`（Noto Sans KR・OFL・太さ 700・ハングル音節すべて＝名前の字を絞れない・540KB）＝`scene_jiko.ensure_css` が「Noto」の面を `unicode-range` で足す・物差し `fontmetrics.FALLBACK`。出どころと作り方 `fonts/notosanskr-license/`
+- 門番の直し：`check_slide`（OCR の置き場＝`stock/` を回の側に数える）・`check_page_edges`（本番に対照の行が無い回は合成の頁）・`check_photo_mask` の selftest（カットに当たっている点で対照）・`footage` の selftest（取り直しの口も差し替える）
+- qa_all **29/31**（落ちてよい2＝cuts〈画の無いカット〉・sat〈地図の決め待ち〉）・名前の網0件・作者名のバイト列の網0件（束の写真93枚まで）・commit `eb1bb52`

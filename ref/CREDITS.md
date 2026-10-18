@@ -2564,6 +2564,23 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 
 | 記号 | 使うカット | 画面の出典 | ライセンス | 頁 |
 |---|---|---|---|---|
+| `Xc205a` | c205 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/35217402/ |
+| `Xc211a` | c211 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/35988850/ |
+| `Xc219a` | c219 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/36443290/ |
+| `Xc617b` | c308 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/6281080/ |
+| `Xc613b` | c613 | イメージ（Pixabay） | Pixabay Content License | https://pixabay.com/videos/id-40298/ |
+| `Xc613a` | c704 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/14059234/ |
+| `Xc712a` | c712 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/39924242/ |
+| `P29880216` | c817 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/water-cascading-over-weathered-concrete-edge-29880216/ |
+| `Xc903b` | c903 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/8094275/ |
+| `Xc905b` | c905 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/7830320/ |
+| `Xc909b` | c909 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/7793216/ |
+| `P5571839` | ca04 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/water-dripping-on-welded-metal-pipes-5571839/ |
+| `Xca07a` | ca07 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/20755878/ |
+| `P7830155` | ca12 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-crack-on-the-wall-7830155/ |
+| `Xcb09b` | cb09 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/5647337/ |
+| `Xcb12a` | cb12 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/6109240/ |
+| `Xc617a` | cc04 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/6279706/ |
 
 ### 1. 写真（ソウル研究院・ソウル歴史編纂院・Commons〈ソウル特別市 消防災難本部・個人名義〉・イメージ）
 - 束＝元の画像（git の外）の長辺を幅 2400／高さ 1350 まで縮めただけ（色・切り口はそのまま）。歴史編纂院の8点は CMYK＝色の札で sRGB に写した（技術の変換）
