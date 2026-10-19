@@ -1597,9 +1597,13 @@ def full_top(cid, spec):
                  f'fill="none" stroke="{J.LINE}" stroke-width="3"/>')
     # 🆕 19本目 ⑤b-7b（2026-10-06）：カットまるごとのフリー素材（`ss.vid` が stock の欄で t・s を空にする）＝見出しの代わりに
     #   左上の「イメージ」の札（頭の差し込み `head_top` と同じ札・§2-5c＝この事故の記録と取り違えさせない）
+    #   🆕 23本目 ⑤b-7（2026-10-19）：**フリー素材の写真**（静止画の道が `<回>/stock/`＝Pexels）も同じ札＝門番 `check_text_screens.is_stock` と
+    #   同じ物差し（映像の17カットと見た目をそろえる・この事故の物でない絵に見出し・副題を書かない＝写っていない物を名乗らない）。
+    #   ⚠️ 21本目のイメージの写真（`ep21/stock/`）は見出し・副題「イメージ（…）」で焼いた＝公開ずみ（直さない）
     import footage as _FO
     _u = _FO.USE.get(cid) or {}
-    if not _u.get("head") and (_FO.CLIPS.get(_u.get("clip")) or {}).get("stock"):
+    if ((not _u.get("head") and (_FO.CLIPS.get(_u.get("clip")) or {}).get("stock"))
+            or "/stock/" in str(spec.get("photo") or "")):
         if spec.get("t"):
             raise SystemExit(f"{cid}: フリー素材のカットに見出し（t）は書かない（左上の「イメージ」と出典だけ）")
         g.append(stock_chip())

@@ -466,6 +466,14 @@ def mv(name, how, fx=0.5, fy=0.5, z=None, lo=1.0, span=(0.2, 0.8), to=None):
     raise ValueError(f"mv: 動きの語 {how!r} が無い（r・l・u・d・in・out・two）")
 
 
+def mvz(name, a, b):
+    """🆕 2026-10-19（23本目 ⑤b-7）：全画面の写真の窓を2つ（位置も寄りも別）で書く＝dict(cam=…)。a・b＝(fx, fy, zoom)＝切ったあとの絵の割合と寄り。
+    `mv` の in・out は引いた側が絵の真ん中（寄り lo）＝写したくない物（イメージの写真の家具・椰子の木・奥の掲示の字）が絵の端にあると、
+    尺の頭（in）か終わり（out）に全体が見えてしまう＝引いた側も寄せたまま動かす（c208・c311・c617）"""
+    fa, fb = focus(name, a[0], a[1], a[2]), focus(name, b[0], b[1], b[2])
+    return dict(cam={"from": (fa["xbias"], fa["bias"], fa["zoom"]), "to": (fb["xbias"], fb["bias"], fb["zoom"])})
+
+
 def check_card_mix(spec, heads, fo=None):
     """🔴 2026-09-30（15本目 ⑤c'・ルール §5b-110）：章の扉の地（`build_jiko.card_frame`）は、頭のカットの写真を章の色で
     **染めて全画面に拡大して**混ぜる（既定 0.36）＝額装だけの点（BY-SA・courtesy の紙面の引用＝`frame_only`）を頭に持つ章は、
