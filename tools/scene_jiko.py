@@ -2812,7 +2812,17 @@ def report():
         intree = set(head.split())
         # 🆕 19本目 ⑤b-7c（2026-10-07）：フリー素材のひかえの静止画（`<回>/stock/fb_<cid>.jpg`）は git に入れない（決め⑨）＝
         #    Actions・Modal の上で `footage.fetch` が切り出したコマの1枚目から作る（試し焼き try1 で 13件とも作られた）＝数えない
-        uncommitted = [n for n in used if f"ref/{n}" not in intree and "/stock/fb_" not in n]
+        # 🆕 23本目 ⑤b-7（2026-10-19）：**フリー素材の写真**（Pexels＝`<回>/stock/<名>.jpg`）も git に入れない（決め⑨の写真版・⑤b-2）＝
+        #    Actions・Modal の上で `footage.stock_photos()` が台帳の直リンク（media）から取り直して md5 を照らす（違えば消して止める）。
+        #    台帳 `assets.json` で stock の印・media・md5 がそろう点だけ数えない（印の無い写真は今までどおり止める）。
+        #    ⑤b-2〜⑤b-6 の試し焼きは partial=true（この段は continue-on-error）で、この段の 🔴 が出ても落ちなかった＝初めての partial=false で鳴った
+        def _refetched(n):
+            import cuts.ss as _ss
+            if not n.startswith(_ss.EP + "stock/"):
+                return False
+            r = _ss._assets().get(n[len(_ss.EP):-len(".jpg")]) or {}
+            return bool(r.get("stock") and r.get("media") and r.get("md5"))
+        uncommitted = [n for n in used if f"ref/{n}" not in intree and "/stock/fb_" not in n and not _refetched(n)]
         if uncommitted:
             print(f"🔴 **コミットされていない写真** {len(uncommitted)}件: {uncommitted}")
             print("   → `.gitignore` の許可制リストに `!ref/<名前>` を1行ずつ足して"
