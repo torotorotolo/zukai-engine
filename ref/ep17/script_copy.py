@@ -34,7 +34,9 @@ import speaker  # noqa: E402
 
 MD = ROOT / "ref" / "ep17" / "daihon_v2.md"
 NARR = ROOT / "tools" / "narration.py"
-WANT = {"cuts": 243, "lines": 580, "chars": 15779, "quotes": 17, "q_lines": 62}
+# ⑤a-2（2026-10-20）：本文の★を外した（決め所の余白0・台本 §1-0c）＝決め所 17→0。⚠️ 写し直す（--check なし）と
+#    tools/narration.py の注「★（決め所だった行）」が消える（★を本文から読むため）＝⑤a-2 は --check だけ回した
+WANT = {"cuts": 243, "lines": 580, "chars": 15779, "quotes": 0, "q_lines": 62}
 TAIL = ("ed01",)            # el_script.COMMON_TAIL と同じ（el_script は narration を import するのでここでは読まない）
 TAIL_MARK = "    # ── 共通エンディング"
 

@@ -151,8 +151,12 @@ def report(cuts, roles_out=None):
     notlast = [i for i in ids if any(cuts[i]['star']) and not cuts[i]['star'][-1]]
     P('   ★が最後の行でない: %s' % notlast)
     qi = [k for k, i in enumerate(ids) if any(cuts[i]['star'])]
-    gaps = [qi[0]] + [qi[k] - qi[k - 1] for k in range(1, len(qi))] + [n - 1 - qi[-1]]
-    P('決め所の位置: %s   最大の空白 %dカット（check_script の W は 26カット以上）' % (qi, max(gaps)))
+    if not qi:
+        # 2026-10-20 ⑤a-2：本文の★を外した（決め所の余白0・台本 §1-0c）＝位置は数えない（空の一覧で落ちていた）
+        P('決め所の位置: なし（本文の★ 0）')
+    else:
+        gaps = [qi[0]] + [qi[k] - qi[k - 1] for k in range(1, len(qi))] + [n - 1 - qi[-1]]
+        P('決め所の位置: %s   最大の空白 %dカット（check_script の W は 26カット以上）' % (qi, max(gaps)))
     # §4 写真
     ph = [i for i in ids if pic_photo(cuts[i]['pic'])]
     P('## §4 写真・実写（check_script と同じ分け方）: %d / %d = %.1f%%（下限20%%）' % (len(ph), n, 100 * len(ph) / n))
