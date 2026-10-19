@@ -217,21 +217,16 @@
    }
   ]
  },
- "Xc617a": {
-  "src": "https://videos.pexels.com/video-files/6279706/6279706-hd_1920_1080_24fps.mp4",
-  "scan": "ref/ep23/src/stock/c617a.mp4",
-  "dur": 19.0,
+ "Xc704b": {
+  "src": "https://videos.pexels.com/video-files/5972195/5972195-hd_1920_1080_25fps.mp4",
+  "scan": "ref/ep23/src/stock/c704b.mp4",
+  "dur": 18.0,
   "how": "1秒1コマで tools/shots.shots_of（2026-10-18 ⑤b-2・フリー素材）",
   "shots": [
    {
     "start": 0.0,
-    "until": 4.0,
-    "motion": 13.77
-   },
-   {
-    "start": 4.0,
-    "until": 19.0,
-    "motion": 8.9
+    "until": 18.0,
+    "motion": 6.45
    }
   ]
  }

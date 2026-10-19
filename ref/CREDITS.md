@@ -2580,7 +2580,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `P7830155` | ca12 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-crack-on-the-wall-7830155/ |
 | `Xcb09b` | cb09 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/5647337/ |
 | `Xcb12a` | cb12 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/6109240/ |
-| `Xc617a` | cc04 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/6279706/ |
+| `Xc704b` | cc04 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/5972195/ |
 
 ### 1. 写真（ソウル研究院・ソウル歴史編纂院・Commons〈ソウル特別市 消防災難本部・個人名義〉・イメージ）
 - 束＝元の画像（git の外）の長辺を幅 2400／高さ 1350 まで縮めただけ（色・切り口はそのまま）。歴史編纂院の8点は CMYK＝色の札で sRGB に写した（技術の変換）
