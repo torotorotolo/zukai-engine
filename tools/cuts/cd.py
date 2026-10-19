@@ -58,3 +58,41 @@ SPEC.update({
         fig=("panel", dict(blocks=[dict(k="問い", t="この事故を知っていましたか", v="見る前から", c=J.AMBER)], cols=1)),
     ),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-19）：図解 終章（4カット）＝模式図 `tools/mech23.py`
+# ══════════════════════════════════════════════════════════
+#   🔴 章の札「3つの問いの答え」と4字以上同じ並びを見出し・副題に入れない（dup）。人は描かない（cd02）・c918 と別の積み木（cd03）・cc21 と別の並び（cd04）
+#   🔴 cd07 の置く場所の名は語らない・2026年9月の見直しの報道は ⑥ の前に確かめる（PLAN の出典の欄）
+SPEC.update({
+    # cd02（2行）＝朝から合図は出ていた。国会の報告では、会社は崩れることを甘く見て → 経営の事情も考え、営業のあとに直すと決め、客と従業員を外に出さなかった
+    "cd02": dict(
+        t="1つ目の答え", s="店を閉めずに",
+        fig=("m23", dict(view="open", steps=[dict(state=dict(sig="on"), tag=[dict(t="なぜ店は開いたままだったのか", at="q", col=J.TICK, cap=30),
+                                                                             dict(t="甘く見た", d="国会の報告", at="mid", col=J.COMPANY)]),
+                                             dict(state=dict(sign="on"), tag=dict(t="経営の事情も", at="sg", col=J.COMPANY))],
+                         note="合図・札・出口の形は模式（国会の報告・検察の報告）", src=ss.src(["K6-R p32", "K6-検 p48"]))),
+    ),
+    # cd03（2行）＝なぜ建物は崩れたのか。計算より細い柱と薄い板、沈んだ鉄筋の上に → 冷却塔と食堂街の重さが載り、重さを支える壁まで切られていた
+    "cd03": dict(
+        t="2つ目の答え", s="弱い作りに重さ",
+        fig=("m23", dict(view="blocks", steps=[dict(state=dict(low="on"), tag=dict(t="なぜ建物は崩れたのか", at="q", col=J.TICK, cap=30)),
+                                               dict(state=dict(up="on"))],
+                         note="積み木の大きさは模式（重さの比ではない・中身は第6〜8章の記録）", src=ss.src(["大96 p1"]))),
+    ),
+    # cd04（3行）＝そして誰なら止められたのか。設計、工事、監理、建ったあとの管理、役所の監督 → 国会の報告はそのどれにも欠陥や不備を挙げる → 止めることのできた人は1人ではなかった
+    "cd04": dict(
+        t="3つ目の答え", s="いくつもの所",
+        fig=("m23", dict(view="stop", steps=[dict(state=dict(cards="on"), tag=dict(t="誰なら止められたのか", at="q", col=J.TICK, cap=30)),
+                                             dict(state=dict(mk="on")),
+                                             dict(state=dict(one="on"), tag=dict(t="1人ではない", at="one", col=J.AMBER))],
+                         rel=[dict(t="1人ではない", src="K6-R p28")],
+                         note="札は国会の報告の言葉", src=ss.src(["K6-R p28"]))),
+    ),
+    # cd07（1行）＝2026年6月、ソウル市は事故を悼む新しい造形の作品を選んだ（置く場所の名は語らない）
+    "cd07": dict(
+        t="悼む作品", s="2026年の動き",
+        fig=("m23", dict(view="cards", start=dict(set="art"), steps=[dict(state=dict(r0="on"))],
+                         note="置く場所は出さない", src=ss.src(["市告 p1"]))),
+    ),
+})

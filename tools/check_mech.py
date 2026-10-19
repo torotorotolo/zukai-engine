@@ -3627,6 +3627,79 @@ REC_M23.update(
     rule=dict(floors=16, span=30.0, pt=(10.8, 5)),
     items=("消防", "電気", "ガス", "エレベーター", "看板"),
 )
+# 🆕 2026-10-19（23本目 ⑤b-6）：第10〜11章・終章の記録（描く側の表 mech23.DESK・TALLY・TOLL・KOSEKI・FINAL・AGES・MOST・PEN・HAUL・PAY・Q3・FORMS3・ACTS・CHAIR・
+#   FAKE・BRIBE・CARD_SETS・SHELF・STAGES・CHAIN・GAP・CAUSES・OPEN・BLOCKS・STOP を書き換えると鳴る）。引いた原文（scratchpad の q23 で頁を当てた）：
+#     国会の報告 p.32「실종자신고의 접수를 서울특별시사고대책본부와 서초구청 실종신고가족안내소로 이분화 … 하루 만에 207명에서 410명으로 수정 발표」・
+#       「유골과 유품의 일부가 건물잔해와 함께 난지도와 염곡동의 집하장 등으로 실려감」（場所の名は画面に出さない）・「영업종료 후 보수·보강공사만 하기로 결정」・
+#       p.28「설계·시공·감리 및 유지·관리상의 결함과 행정관청의 감독부실 등이 복합적 요인으로」
+#     ソウル市の報告 95.8.9（会議録 p.53 の下の段）「(95.8.8. 24:00 현재) … 1,566 1,485 … 81」
+#     国政監査（内務委 1995-10-10）p.24「사망자 501명(사망확인 471명, 사망인정 30명)」「잔재검색은 8.14 최종완료 … 골편 등 142점과 유품 3,419점」
+#     検察の報告 p.48「※추가죄명 - 뇌물공여 : 회장 … 사장 …」「기소일자:7.26.」・p.49「설계도면 등의 보존연한이 5년에 불과 … 구청에서만 설계도면 보존」・
+#       p.50「준공후 일정기간내에 손괴가 발생한 경우 5년이하의 징역」・p.51〜53 の別紙1〜3 の題・p.52 会長の欄・p.53 の15人の額（300・1,300・1,200・300・200・400・
+#       1,000・1,300・1,050・1,400・150・100・100・180・100 万ウォン＝4〜6行目が市の職員）
+#     判決 大96 判示事項[1]「건축계획의 수립, 건축설계, 건축공사공정, 건물 완공 후의 유지관리 … 각 단계별 관련자들을 … 공동정범으로 처단」・[5]「허위의 복명서」
+#     判決 大99「상당인과관계가 있다고 인정할 수는 없다」「서울고등법원에 환송」・高96「1995.12.27.선고」「1996.5.10.선고 96노118」「피고인B을 징역 7년6월」
+#     白書 p.92・p.93（502・937・1948年の建国・1970年の沈没 326人・11月29日の戸籍の30人・年代の表〈10-19 に原寸で読んだ〉・補償）＝頁の画像
+REC_M23.update(
+    desk=dict(two=(("市の事故対策本部", "city"), ("区の家族の案内所", "ward")), fix=(207, 410)),
+    tally=dict(head="8月8日の時点", total=1566, done=1485, left=81),
+    toll=dict(total=501, parts=(471, 30), role="city"),
+    koseki=dict(n=30, day=(11, 29)),
+    final=dict(cards=(502, 937), koseki=30, oct=471),
+    ages=(("0〜10歳", 14), ("11〜20歳", 71), ("21〜30歳", 258), ("31〜40歳", 80), ("41〜50歳", 52), ("51〜60歳", 21), ("60歳以上", 6)), ages_sum=502,
+    most=(("三豊百貨店", "1995年", 502), ("船の沈没", "1970年", 326)),
+    pen=(("事故の前", 0.0, 5.0, "5年以下の懲役"), ("1995年12月30日から", 3.0, None, "無期か3年以上の懲役")),   # 「무기 또는 3년이상의 징역」（echo＝「または」を「か」に）
+    haul=dict(found=(("骨片など", 142), ("遺品", 3419)), day=(8, 14), ng=("난지도", "염곡동", "蘭芝島", "難芝島", "廉谷洞", "ナンジド")),
+    pay=dict(head="1996年6月14日", rows=(("亡くなった人", "464人分", "1,758億ウォン"), ("けがをした人", "709人", "1,003億ウォン")),
+             avg="3億8千万ウォン", yen="およそ240億円"),
+    q3=("なぜ店は開いたままだったのか", "なぜ建物は崩れたのか", "誰なら止められたのか"),
+    forms3=dict(add="추가죄명 - 뇌물공여", roles=("회장", "사장"),
+                sheets=(("별지 1", "설계·시공 및 감리 관련 피의자 및 영장범죄사실 요지", 51), ("별지 2", "유지·관리 관련 피의자 및 범죄사항 요지", 52),
+                        ("별지 3", "수뢰 공무원 범죄사실 요지", 53)), add_page=48),
+    acts=dict(cards=("ドロップパネルを薄く", "上の鉄筋を沈めた", "冷却塔を計算に入れず", "耐力壁を切った"), ch=("第6章", "第6章", "第7章", "第8章")),
+    chair=dict(head=("2つ目の表・会長の欄", "company"), cards=("梁の無い作りと知っていた", "ひびの報告を受けた", "逃がさず放っておいた"), ng=("14:30",)),
+    fake=("city",),
+    bribe=dict(rumor=1300, ward=(12, 8180), city=(3, 900),
+               amounts=(300, 1300, 1200, 300, 200, 400, 1000, 1300, 1050, 1400, 150, 100, 100, 180, 100), city_rows=(3, 4, 5)),
+    cards_bribe=(("1人あたり", "100万〜1,400万ウォン"), ("15人の合計", "9,080万ウォン"), ("1995年のレートで", "およそ1,100万円")),
+    cards_art=dict(head=("2026年6月", "city"), rows=(("ソウル市が選んだ", "新しい造形の作品"),)),
+    shelf=dict(years=5, r_role="ward"),
+    stages=("計画", "設計", "工事", "建ったあとの管理"),
+    gap=dict(l=("区の職員の違反", "ward"), r=("崩壊", "ALERT")),
+    causes=dict(cards=("設計", "工事", "監理", "建ったあとの管理"), gov="役所の監督", marks=("欠陥", "不備")),
+    blocks=dict(low=("細い柱", "薄い板", "沈んだ鉄筋"), up=("冷却塔の重さ", "食堂街の重さ"), wall="重さを支える壁"),
+    stop=dict(cards=("設計", "工事", "監理", "建ったあとの管理", "役所の監督"), marks=("欠陥", "欠陥", "欠陥", "欠陥", "不備")),
+    open=dict(sign="営業のあとに直す", who="客と従業員"),
+)
+_M23_NEED_B6 = (                    # 🆕 ⑤b-6 の筋（下の _M23_NEED に足す）
+    ("desk", "one", "on", "two", {"on"}, "まとめる矢印は、2つの窓口を見せてから"),
+    ("desk", "fix", "on", "one", {"on"}, "直した数は、まとめる途中（まとめる矢印と同じ段かあと）"),
+    ("tally", "done", "on", "total", {"on"}, "確かめた数は、届けの数の棒の中に"),
+    ("tally", "left", "on", "done", {"on"}, "残りの数は、確かめた数のあとに"),
+    ("toll", "parts", "on", "total", {"on"}, "内訳は、合計を見せてから"),
+    ("koseki", "done", "on", "n", {"on"}, "確定の印は、30人の札のあとに"),
+    ("final", "calc", "on", "cards", {"on"}, "引き算は、最終の数を見せてから"),
+    ("ages", "top", "on", "bars", {"on"}, "いちばん多い年代は、棒を全部見せてから"),
+    ("most", "r1", "on", "r0", {"on"}, "それまでの最多の棒は、三豊の棒のあとに"),
+    ("pen", "b0", "on", "q", {"on"}, "罰の棒は、罪の札のあとに"),
+    ("pen", "b1", "on", "b0", {"on"}, "重くなった罰は、事故の前の罰と並べて"),
+    ("pen", "b1", "on", "law", {"on"}, "重くなった罰は、改めた法律の札のあとに"),
+    ("haul", "found", "on", "truck", {"on"}, "見つかった数は、瓦礫を運んだあとに"),
+    ("pay", "sub", "on", "r0", {"on"}, "円と平均は、亡くなった人の額のあとに"),
+    ("acts", "seen", "on", "c1", {"on"}, "見てきた印は、4つの札を見せてから"),
+    ("chair", "c3", "on", "c12", {"on"}, "過失の札は、知っていた札のあとに"),
+    ("fake", "doc", "on", "site", {"on"}, "見たことにした書類は、見ていない現場のあとに"),
+    ("bribe", "ward", "on", "rumor", {"on"}, "記録の棒は、語られる話のあとに"),
+    ("bribe", "city", "on", "ward", {"on"}, "市の3人は、区の12人に足す"),
+    ("stages", "fault", "on", "cards", {"on"}, "過失は、4つの段階を見せてから"),
+    ("chain", "one", "on", "link", {"on"}, "1か所だけの×は、鎖を見せてから"),
+    ("gap", "cut", "on", "line", {"on"}, "切れた線は、つないだ線を見せてから"),
+    ("causes", "gov", "on", "four", {"on"}, "役所の監督は、4つの欠陥のあとに"),
+    ("open", "sign", "on", "sig", {"on"}, "営業のあとに直す札は、朝の合図のあとに"),
+    ("blocks", "up", "on", "low", {"on"}, "載った重さは、弱い作りの上に"),
+    ("stop", "mk", "on", "cards", {"on"}, "欠陥の印は、札を見せてから"),
+    ("stop", "one", "on", "mk", {"on"}, "1人ではない括弧は、印を見せてから"),
+)
 _M23_NEED_B5 = (                    # 🆕 ⑤b-5 の筋（下の _M23_NEED に足す）
     ("lists", "diff", "on", "w", {"on"}, "違いの印は、2つ目の箱を見せてから"),
     ("over", "add", "on", "pre", {"on"}, "余計な重さの矢印は、前提の重さの上に"),
@@ -3671,7 +3744,7 @@ _M23_NEED = (
     ("slab", "beam", "plan", "sag", {"on"}, "鉄の梁の補強は、沈んだ床に"),
     ("tower", "drain", "on", "run", {"off"}, "水を抜くのは、冷却塔を止めてから"),
     ("table", "why", "on", "r2", {"on"}, "点検の目的は、2回目の行を見せてから"),
-) + _M23_NEED_B4 + _M23_NEED_B5
+) + _M23_NEED_B4 + _M23_NEED_B5 + _M23_NEED_B6
 NUM_M23 = re.compile(r"[0-9０-９]{1,2}[:：][0-9０-９]{2}|[0-9０-９][0-9０-９,.．]*")
 VIEW_HEADS = ("横から", "上から", "斜めから")
 
@@ -3815,6 +3888,9 @@ def judge_m23(f):
     bad_, n_ = _judge_m23_b5(g, view, seq, R)
     bad += bad_
     n += n_
+    bad_, n_ = _judge_m23_b6(g, view, seq, R, texts)
+    bad += bad_
+    n += n_
     said = [r.get("t", "") for r in m["rel"]]
     for t in texts:
         for mm in NUM_M23.finditer(t):
@@ -3854,7 +3930,7 @@ def _judge_m23_b4(g, view, seq, R):
             Rc = R["cal"]["move89"]
             need(tuple(g["band"]) == Rc["band"] and tuple(g["open"]) == Rc["open"], f"② 移した時期 {g['band']}・開店 {g['open']} が記録（1989年7〜12月・12月1日）と違う")
             need((g["open"][0], g["open"][1]) in [tuple(m_) for m_ in g["months"]], "② 開店の日が暦の月に無い")
-    if view == "cards":
+    if view == "cards" and g.get("set", "rescue") == "rescue":      # 🆕 ⑤b-6：組（bribe・art）は _judge_m23_b6
         need((g["cards"]["head"][0], tuple(g["cards"]["rows"])) == (R["cards"]["head"], R["cards"]["rows"]), "② 札の数が記録（ソウル市の報告 p.37・p.39＝7月19日）と違う")
     if view == "nums":
         need(g["nums"]["place"][0] == R["nums"]["place"] and tuple(g["nums"]["boxes"]) == R["nums"]["boxes"], "② センターの数が記録（ソウル市の報告 p.39）と違う")
@@ -3989,6 +4065,130 @@ def _judge_m23_b5(g, view, seq, R):
     if view == "items":
         it = g["items"]
         need(tuple(it["cards"]) == R["items"] and it["head"][1] == "ward", f"② 点検の項目 {it['cards']} が記録（瑞草区の報告 p.45）と違うか、区の色でない")
+    return bad, n
+
+
+def _judge_m23_b6(g, view, seq, R, texts=()):
+    """🆕 23本目 ⑤b-6：第10〜11章・終章の見え方と、足した組の照合（記録＝R・形＝g）。"""
+    bad, n = [], 0
+
+    def need(cond, msg):
+        nonlocal n
+        n += 1
+        if not cond:
+            bad.append(msg)
+
+    def close(a, b, tol=1e-6):
+        return abs(a - b) <= tol
+    if view == "cards" and g.get("set") == "bribe":
+        need(tuple(g["cards"]["rows"]) == R["cards_bribe"] and g["cards"]["head"][1] == "state",
+             f"② 受け取ったとされる額の札 {g['cards']['rows']} が記録（検察の報告 p.53）と違うか、国の色でない")
+        lo, hi = min(R["bribe"]["amounts"]), max(R["bribe"]["amounts"])
+        need(R["cards_bribe"][0][1] == f"{lo:,}万〜{hi:,}万ウォン" and R["cards_bribe"][1][1] == f"{sum(R['bribe']['amounts']):,}万ウォン",
+             "② 額の幅と合計が15人の額（検察の報告 p.53）の最小・最大・合計と合わない")
+    if view == "cards" and g.get("set") == "art":
+        need((tuple(g["cards"]["head"]), tuple(g["cards"]["rows"])) == (R["cards_art"]["head"], R["cards_art"]["rows"]), "② 2026年の計画の札が記録（ソウル市の公告）と違う")
+    if view == "desk":
+        d = g["desk"]
+        need(tuple(d["two"]) == R["desk"]["two"] and tuple(d["fix"]) == R["desk"]["fix"], f"② 窓口と直した数 {d} が記録（国会の報告 p.32＝207人→410人）と違う")
+    if view == "tally":
+        t = g["tally"]
+        Rt = R["tally"]
+        need((t["head"][0], t["total"], t["done"], t["left"]) == (Rt["head"], Rt["total"], Rt["done"], Rt["left"]),
+             f"② 届けと確かめの数 {t['total']}・{t['done']}・{t['left']} が記録（ソウル市の報告 p.53＝1,566・1,485・81）と違う")
+        need(Rt["total"] == Rt["done"] + Rt["left"], "② 記録の数が足し算で合わない（届け＝確かめた＋残り）")
+        x0, x1 = t["x"]
+        need(close((t["done_x"] - x0) / (x1 - x0), Rt["done"] / Rt["total"]), "② 確かめた数の棒の長さが件数の比と違う")
+    if view == "toll":
+        t = g["toll"]
+        need((t["total"], tuple(t["parts"]), t["head"][1]) == (R["toll"]["total"], R["toll"]["parts"], R["toll"]["role"]),
+             f"② 10月の数 {t['total']}＝{t['parts']} が記録（国政監査 p.24＝501＝471＋30）と違うか、市の色でない")
+        need(sum(R["toll"]["parts"]) == R["toll"]["total"], "② 内訳の足し算が合計と合わない")
+    if view == "koseki":
+        need(g["koseki"] == R["koseki"], f"② 戸籍の整理 {g['koseki']} が記録（白書 p.92＝30人・11月29日）と違う")
+    if view == "final":
+        f = g["final"]
+        need((tuple(f["cards"]), f["koseki"], f["oct"]) == (R["final"]["cards"], R["final"]["koseki"], R["final"]["oct"]),
+             f"② 最終の数 {f} が記録（白書 p.92＝502・937・戸籍30／10月471）と違う")
+        need(R["final"]["cards"][0] - R["final"]["koseki"] - R["final"]["oct"] == 1, "② 502−30 と 10月の471 の差が1人でない（語り）")
+    if view == "ages":
+        a = g["ages"]
+        need(tuple(a["rows"]) == R["ages"] and sum(v for _t, v in R["ages"]) == R["ages_sum"],
+             f"② 年代の表 {a['rows']} が記録（白書 p.93＝計502）と違う")
+        vmax = max(v for _t, v in a["rows"])
+        hmax = max(a["h"])
+        need(all(close(h / hmax, v / vmax) for h, (_t, v) in zip(a["h"], a["rows"])), "② 棒の高さが人数の比と違う")
+        need(a["rows"][a["top"]][1] == vmax, "② 明るくする棒がいちばん多い年代でない")
+    if view == "most":
+        mo = g["most"]
+        need(tuple(mo["rows"]) == R["most"], f"② 比べる数 {mo['rows']} が記録（白書 p.92＝502・1970年の326）と違う")
+        need(all(close((x - mo["x0"]) / mo["unit"], v) for x, (_t, _y, v) in zip(mo["x1"], mo["rows"])), "② 棒の長さが人数の比と違う")
+    if view == "pen":
+        p = g["pen"]
+        need(tuple(p["rows"]) == R["pen"], f"② 罰の札 {p['rows']} が記録（検察の報告 p.50＝5年以下／法令＝無期または3年以上）と違う")
+        yr = lambda x: (x - p["x0"]) / (p["x1"] - p["x0"]) * p["ymax"]   # noqa: E731
+        for (xa, xb), (_t, a, b, _l) in zip(p["x"], R["pen"]):
+            need(close(yr(xa), a) and (b is None and xb is None or b is not None and close(yr(xb), b)), "② 罰の棒の端が年の目盛りと合わない")
+        need(p["inf"] > p["x1"], "② 無期の矢じりが目盛りの右の端の外に無い")
+    if view == "haul":
+        h = g["haul"]
+        need(tuple(h["found"]) == R["haul"]["found"] and tuple(h["day"]) == R["haul"]["day"], f"② 見つかった数 {h['found']} が記録（国政監査 p.24＝142点・3,419点・8月14日）と違う")
+        allt = list(h["texts"]) + list(texts)
+        need(not any(w in t for w in R["haul"]["ng"] for t in allt), "② 瓦礫を運んだ場所の名が画面にある（名は出さない）")
+    if view == "pay":
+        p = g["pay"]
+        need((p["head"], tuple(p["rows"]), p["avg"], p["yen"]) == (R["pay"]["head"], R["pay"]["rows"], R["pay"]["avg"], R["pay"]["yen"]),
+             "② 補償の数が記録（白書 p.93＝1996年6月14日・464人分 1,758億・709人 1,003億・平均3億8千万）と違う")
+    if view == "q3":
+        need(tuple(g["q3"]) == R["q3"], f"② 問い {g['q3']} が冒頭の語り（c107）と違う")
+    if view == "forms3":
+        f = g["forms3"]
+        Rf = R["forms3"]
+        need(f["add"].replace("※", "").rstrip(" :") == Rf["add"] and tuple(f["roles"]) == Rf["roles"], "② 追加の罪名の行が記録（検察の報告 p.48）と違う")
+        need(tuple((nm, " ".join(h)) for nm, h in f["sheets"]) == tuple((nm, t) for nm, t, _p in Rf["sheets"]), "② 別紙の題が記録（検察の報告 p.51〜53）と違う")
+        for nm, t, pg in Rf["sheets"] + (("add", Rf["add"], Rf["add_page"]),):
+            src_ = _m23_src_page(pg)
+            if src_ is not None:
+                need(re.sub(r"\s+", "", t) in src_, f"② 記録の題「{t}」が原文の頁（p.{pg}）に無い")
+    if view == "acts":
+        need((tuple(g["acts"]["cards"]), tuple(g["acts"]["ch"])) == (R["acts"]["cards"], R["acts"]["ch"]) and g["acts"]["head"][1] == "state",
+             f"② 1つ目の表の札 {g['acts']['cards']} が記録（検察の報告 p.51＝語りの4つ）と違うか、章の印が違う")
+    if view == "chair":
+        c = g["chair"]
+        need((tuple(c["head"]), tuple(c["cards"])) == (R["chair"]["head"], R["chair"]["cards"]), "② 会長の欄の札が記録の要約と違うか、会社の色でない")
+        need(not any(w in t for w in R["chair"]["ng"] for t in list(c["cards"]) + list(texts)), "② 語りに無い時刻（14:30）を札にしている")
+    if view == "fake":
+        need(g["fake"]["head"][1] in R["fake"], "② 書類を作った人の色が市の色でない（検察の報告 p.53＝市の職員）")
+    if view == "bribe":
+        b = g["bribe"]
+        Rb = R["bribe"]
+        am = Rb["amounts"]
+        city = sum(am[i] for i in Rb["city_rows"])
+        need(len(am) == Rb["ward"][0] + Rb["city"][0] and (Rb["ward"][1], Rb["city"][1]) == (sum(am) - city, city),
+             "② 区と市の額が15人の額（検察の報告 p.53）の足し算と合わない")
+        need((b["rumor"], tuple(b["ward"]), tuple(b["city"])) == (Rb["rumor"], Rb["ward"], Rb["city"]), f"② 語られる額と記録の額 {b} が記録と違う")
+        for x, v in zip(b["xs"], (Rb["rumor"], Rb["ward"][1], Rb["ward"][1] + Rb["city"][1])):
+            need(close((x - b["x0"]) / b["unit"], v), "② 額の棒の長さが額の比と違う")
+    if view == "shelf":
+        need(g["shelf"]["years"] == R["shelf"]["years"] and g["shelf"]["r"][1] == R["shelf"]["r_role"], "② 図面を残す年と区の棚が記録（検察の報告 p.49＝5年・区にだけ）と違う")
+    if view == "stages":
+        need(tuple(g["stages"]["cards"]) == R["stages"] and g["stages"]["head"][1] == "state", f"② 判決の段階 {g['stages']['cards']} が判決の要旨（大96）と違う")
+    if view == "chain":
+        need(tuple(g["chain"]["cards"]) == R["stages"], f"② 鎖でつなぐ段階 {g['chain']['cards']} が判決の要旨（大96）と違う")
+    if view == "gap":
+        need((tuple(g["gap"]["l"]), tuple(g["gap"]["r"])) == (R["gap"]["l"], R["gap"]["r"]), "② 切れた線の両端の札が記録（大99）と違うか、区の色でない")
+    if view == "causes":
+        c = g["causes"]
+        need((tuple(c["cards"]), c["gov"], tuple(c["marks"]), c["head"][1]) == (R["causes"]["cards"], R["causes"]["gov"], R["causes"]["marks"], "state"),
+             "② 国会の報告の原因の札が記録（p.28＝設計・施工・監理・維持管理の欠陥と監督の不備）と違う")
+    if view == "blocks":
+        bl = g["blocks"]
+        need((tuple(bl["low"]), tuple(bl["up"]), bl["wall"]) == (R["blocks"]["low"], R["blocks"]["up"], R["blocks"]["wall"]), "② 積み木の札が終章の語りと違う")
+    if view == "stop":
+        s = g["stop"]
+        need((tuple(s["cards"]), tuple(s["marks"]), s["head"][1]) == (R["stop"]["cards"], R["stop"]["marks"], "state"), "② 止められた所の札が記録（国会の報告 p.28）と違う")
+    if view == "open":
+        need(g["open"] == R["open"], "② 開いたままの店の札が記録（国会の報告 p.32）と違う")
     return bad, n
 
 
@@ -4224,6 +4424,107 @@ def _selftest_m23_b5(ok):
         g_ = bool(bad)
         ok &= g_
         print(f"  {'OK' if g_ else '🔴 NG'} 🔴 23本目 ⑤b-5 陽性対照（筋）：{name}: {'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    return _selftest_m23_b6(ok)
+
+
+def _selftest_m23_b6(ok):
+    """🆕 23本目 ⑤b-6：第10〜11章・終章の見え方の検算（正しい場面・陽性対照＝描く側の表を壊す・筋）。"""
+    import mech23 as M
+    N = "模式"
+    good = dict(
+        desk=dict(view="desk", steps=[dict(state=dict(two="on")), dict(state=dict(one="on", fix="on"))], note=N),
+        tally=dict(view="tally", steps=[dict(state=dict(total="on", done="on")), dict(state=dict(left="on"))], note=""),
+        toll=dict(view="toll", steps=[dict(), dict(state=dict(total="on")), dict(state=dict(parts="on"))], note=""),
+        koseki=dict(view="koseki", steps=[dict(state=dict(n="on")), dict(state=dict(done="on"))], note=N),
+        final=dict(view="final", steps=[dict(state=dict(cards="on")), dict(state=dict(calc="on"))], note=""),
+        ages=dict(view="ages", steps=[dict(state=dict(bars="on")), dict(state=dict(top="on"))], note=""),
+        most=dict(view="most", steps=[dict(state=dict(r0="on")), dict(state=dict(r1="on"))], note=""),
+        pen0=dict(view="pen", steps=[dict(state=dict(q="on")), dict(state=dict(b0="on"))], note=""),
+        pen1=dict(view="pen", start=dict(q="on", b0="on"), steps=[dict(state=dict(law="on")), dict(state=dict(b1="on"))], note=""),
+        haul=dict(view="haul", steps=[dict(), dict(state=dict(truck="on")), dict(state=dict(found="on"))], note=N),
+        pay=dict(view="pay", steps=[dict(state=dict(r0="on")), dict(state=dict(sub="on")), dict(state=dict(r1="on"))], note=""),
+        q3=dict(view="q3", steps=[dict(state=dict(lit="on"))], note=""),
+        forms3=dict(view="forms3", steps=[dict(state=dict(add="on")), dict(state=dict(sheets="on"))], note=""),
+        acts=dict(view="acts", steps=[dict(state=dict(c0="on")), dict(state=dict(c1="on")), dict(state=dict(seen="on"))], note=""),
+        chair=dict(view="chair", steps=[dict(state=dict(c12="on")), dict(state=dict(c3="on"))], note=N),
+        fake=dict(view="fake", steps=[dict(state=dict(site="on")), dict(state=dict(doc="on"))], note=N),
+        bribe=dict(view="bribe", steps=[dict(state=dict(rumor="on")), dict(state=dict(ward="on")), dict(state=dict(city="on"))], note=""),
+        cbribe=dict(view="cards", start=dict(set="bribe"), steps=[dict(state=dict(r0="on")), dict(state=dict(r1="on", r2="on"))], note=""),
+        cart=dict(view="cards", start=dict(set="art"), steps=[dict(state=dict(r0="on"))], note=""),
+        crescue=dict(view="cards", steps=[dict(state=dict(r0="on")), dict(state=dict(r1="on", r2="on"))], note=""),
+        shelf=dict(view="shelf", steps=[dict(state=dict(rule="on"))], note=N),
+        stages=dict(view="stages", steps=[dict(state=dict(cards="on")), dict(state=dict(fault="on"))], note=N),
+        chain=dict(view="chain", steps=[dict(state=dict(link="on")), dict(state=dict(one="on"))], note=N),
+        gap=dict(view="gap", steps=[dict(state=dict(line="on")), dict(state=dict(cut="on"))], note=N),
+        causes=dict(view="causes", steps=[dict(state=dict(four="on")), dict(state=dict(gov="on"))], note=N),
+        open=dict(view="open", steps=[dict(state=dict(sig="on")), dict(state=dict(sign="on"))], note=N),
+        blocks=dict(view="blocks", steps=[dict(state=dict(low="on")), dict(state=dict(up="on"))], note=N),
+        stop=dict(view="stop", steps=[dict(state=dict(cards="on")), dict(state=dict(mk="on")), dict(state=dict(one="on"))], note=""),
+    )
+    for k, kw in good.items():
+        bad, nn = judge("m23", kw)
+        g_ = not bad
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 23本目 ⑤b-6 正しい場面 {k}: {'合格' if not bad else bad[0]}（{nn}件）")
+    pos = [
+        ("直した数を207→401に", "DESK", dict(M.DESK, fix=(207, 401)), "desk", "直した数"),
+        ("確かめた数を1,458に", "TALLY", dict(M.TALLY, done=("確かめが済んだ", 1458)), "tally", "届けと確かめの数"),
+        ("10月の内訳を470＋31に", "TOLL", dict(M.TOLL, parts=(("遺体で確かめた", 470), ("亡くなったと認めた", 31))), "toll", "10月の数"),
+        ("戸籍の日を11月30日に", "KOSEKI", dict(M.KOSEKI, day=(11, 30)), "koseki", "戸籍の整理"),
+        ("けがをした人を933人に", "FINAL", dict(M.FINAL, cards=(("亡くなった人", 502), ("けがをした人", 933))), "final", "最終の数"),
+        ("年代の51〜60歳を20人に（割合の欄の値）", "AGES", M.AGES[:5] + (("51〜60歳", 20),) + M.AGES[6:], "ages", "年代の表"),
+        ("1970年の沈没を292人に", "MOST", dict(M.MOST, rows=(M.MOST["rows"][0], ("船の沈没", "1970年", 292, "LINE"))), "most", "比べる数"),
+        ("事故の前の罰を3年以下に", "PEN", dict(M.PEN, rows=(("事故の前", "手抜き工事で壊れたとき", 0.0, 3.0, "LINE", "5年以下の懲役"), M.PEN["rows"][1])), "pen0", "罰の"),
+        ("集める場所に地名を書く", "HAUL", dict(M.HAUL, labels=("崩れた百貨店の跡", "난지도の集める場所")), "haul", "場所の名"),
+        ("平均を3億7千万に", "PAY", dict(M.PAY, avg="3億7千万ウォン"), "pay", "補償の数"),
+        ("2つ目の問いを言い換える", "Q3", (M.Q3[0], "なぜビルは崩れたのか", M.Q3[2]), "q3", "問い"),
+        ("別紙3 の題を別の言葉に", "FORMS3", dict(M.FORMS3, sheets=M.FORMS3["sheets"][:2] + (("별지 3", ("공무원", "범죄사실 요지")),)), "forms3", "別紙の題"),
+        ("1つ目の表の札から耐力壁を抜く", "ACTS", dict(M.ACTS, cards=M.ACTS["cards"][:3] + ("柱を細くした",)), "acts", "1つ目の表の札"),
+        ("会長の欄に時刻を足す", "CHAIR", dict(M.CHAIR, cards=M.CHAIR["cards"][:1] + ("14:30にひびの報告",) + M.CHAIR["cards"][2:]), "chair", "会長の欄"),
+        ("区の額を8,000万に", "BRIBE", dict(M.BRIBE, ward=(12, 8000)), "bribe", "語られる額と記録の額"),
+        ("額の幅の上を1,300万に", "CARD_SETS", dict(M.CARD_SETS, bribe=dict(M.CARD_SETS["bribe"], rows=(("1人あたり", "100万〜1,300万ウォン"),) + M.CARD_SETS["bribe"]["rows"][1:])),
+         "cbribe", "受け取ったとされる額"),
+        ("図面を残す決まりを10年に", "SHELF", dict(M.SHELF, years=10), "shelf", "図面を残す年"),
+        ("判決の段階から計画を抜く", "STAGES", dict(M.STAGES, cards=M.STAGES["cards"][1:]), "stages", "判決の段階"),
+        ("区の札を市の色に", "GAP", dict(M.GAP, l=("区の職員の違反", "city")), "gap", "切れた線"),
+        ("国会の原因から監理を抜く", "CAUSES", dict(M.CAUSES, cards=("設計", "工事", "建ったあとの管理")), "causes", "原因の札"),
+        ("止められた所の印を全部欠陥に", "STOP", dict(M.STOP, marks=("欠陥",) * 5), "stop", "止められた所"),
+    ]
+    for name, attr, val, key, frag in pos:
+        keep = getattr(M, attr)
+        setattr(M, attr, val)
+        try:
+            try:
+                bad, _ = judge("m23", good[key])
+            except Exception as e:    # noqa: BLE001
+                bad = [f"組めない：{e}"]
+        finally:
+            setattr(M, attr, keep)
+        g_ = any(frag in b for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 23本目 ⑤b-6 陽性対照：{name}: {'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    # 棒の長さ（描く側の位置の計算を壊す＝確かめた数の棒を1割長く・罰の棒の端を1年ずらす）
+    for name, attr, fn, key, frag in (("確かめた数の棒を1割長く", "tl_x", lambda keep: (lambda v: keep(v * 1.1)), "tally", "棒の長さ"),
+                                      ("罰の目盛りを1年ずらす", "pn_x", lambda keep: (lambda y: keep(y + (1.0 if y else 0.0))), "pen0", "罰の棒の端"),
+                                      ("額の棒を1割長く", "br_x", lambda keep: (lambda v: keep(v * 1.1)), "bribe", "額の棒の長さ")):
+        keep = getattr(M, attr)
+        setattr(M, attr, fn(keep))
+        try:
+            bad, _ = judge("m23", good[key])
+        finally:
+            setattr(M, attr, keep)
+        g_ = any(frag in b for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 23本目 ⑤b-6 陽性対照：{name}: {'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
+    for name, kw in (("合計の前に内訳", dict(view="toll", steps=[dict(state=dict(parts="on"))], note="")),
+                     ("2つの窓口の前にまとめる", dict(view="desk", steps=[dict(state=dict(one="on"))], note=N)),
+                     ("事故の前の罰の前に重くなった罰", dict(view="pen", start=dict(q="on"), steps=[dict(state=dict(law="on", b1="on"))], note="")),
+                     ("区の12人の前に市の3人", dict(view="bribe", steps=[dict(state=dict(rumor="on")), dict(state=dict(city="on"))], note="")),
+                     ("札の前に1人ではない", dict(view="stop", steps=[dict(state=dict(cards="on")), dict(state=dict(one="on"))], note=""))):
+        bad, _ = judge("m23", kw)
+        g_ = bool(bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 23本目 ⑤b-6 陽性対照（筋）：{name}: {'不合格' if bad else '合格'}（不合格のはず）" + (f"  ← {bad[0]}" if bad else ""))
     return ok
 
 

@@ -36,7 +36,7 @@ import math
 import fontmetrics as fm
 import jiko_style as J
 import titan_fig as F
-from mech21 import _P, _arrow, _check, _on, _qmark, _xmark
+from mech21 import _P, _arrow, _box, _check, _on, _qmark, _xmark
 
 ONOFF = ("off", "on")
 INK = J.INK_W
@@ -1334,21 +1334,29 @@ CARDS = dict(head=("7月19日の時点", "city"),
 CD = dict(x0=380.0, x1=1540.0, ys=(470.0, 590.0, 710.0), h=96.0)
 
 
+def _cset(set_):
+    """札の組（🔧 ⑤b-6：rescue は毎回 CARDS を引く＝門番の陽性対照が CARDS を壊したとき絵に届くように。組の表に写すと届かない）"""
+    return CARDS if set_ == "rescue" else CARD_SETS[set_]
+
+
 def cards_base(st0):
-    t, r = CARDS["head"]
+    t, r = _cset(st0.get("set", "rescue"))["head"]
     return [_tline(CD["x0"], 380.0, t, 34, rc(r), "start", 800), F.line(CD["x0"], 400.0, CD["x1"], 400.0, rc(r), 3)]
 
 
-def _cd_row(i):
-    t, v = CARDS["rows"][i]
+def _cd_row(i, set_="rescue"):
+    t, v = _cset(set_)["rows"][i]
     y = CD["ys"][i]
+    wide = set_ != "rescue"             # 🆕 ⑤b-6：額の幅の札（cc12）・字の札（cd07）は値の字が長い＝値の幅を広げ、名の幅を狭める
     return (F.rect(CD["x0"], y - CD["h"] / 2, CD["x1"] - CD["x0"], CD["h"], J.BG2, J.LINE_DIM, 3, rx=10)
-            + _tline(CD["x0"] + 30, y + 12, t, 36, INK, "start", 640)
-            + _tline(CD["x1"] - 30, y + 16, v, 46, J.AMBER, "end", 400, fam="Dela"))
+            + _tline(CD["x0"] + 30, y + 12, t, 36, INK, "start", 400 if wide else 640)
+            + _tline(CD["x1"] - 30, y + 16, v, 46, J.AMBER, "end", 660 if wide else 400, fam="Dela"))
 
 
 def cards_stage(prev, st):
-    return [_cd_row(i) for i in range(3) if _on(prev, st, f"r{i}")]
+    set_ = st.get("set", "rescue")
+    n = len(_cset(set_)["rows"])
+    return [_cd_row(i, set_) for i in range(n) if _on(prev, st, f"r{i}")]
 
 
 # ── nums（c519 数の並び）＝場所の札と、数の箱と矢印（ソウル市の報告 p.39「사법연수원에 … 유실물관리센터」「1,087건을 접수하여 301건을 확인후 인계」）
@@ -2872,6 +2880,890 @@ def items_stage(prev, st):
 
 
 # ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-19）：第10〜11章・終章の見え方（cb・cc・cd）
+# ══════════════════════════════════════════════════════════
+#   🔴 次のカットの語りにある数・言葉は描かない（cb05 に「6人」〈cb06〉・cb08 に「書かれていない」〈cb09〉と1,439人〈cb10〉・cc03 に表ごとの人数〈cc04・cc06・cc08〉・
+#      cc11 に1人あたりの額〈cc12〉・cc16 に大法院の日付〈cc17〉・災難管理法〈cc22〉・5つの法律〈cc23〉）。🔴 名前は描かない（役職と金額だけ＝原文の名前の欄は灰の帯）
+def _paper_icon(cx, cy, col, w=44.0, h=56.0):
+    """紙の印（届け・書類）。"""
+    g = [F.rect(cx - w / 2, cy - h / 2, w, h, J.BG2, col, 3, rx=4)]
+    for k, cut in ((16, 9), (28, 9), (40, 15)):
+        g.append(F.line(cx - w / 2 + 9, cy - h / 2 + k, cx + w / 2 - cut, cy - h / 2 + k, col, 2))
+    return "".join(g)
+
+
+# ── desk（cb02 札と線）＝行方の分からない人の届けの窓口（国会の報告 p.32「실종자신고의 접수를 서울특별시사고대책본부와 서초구청 실종신고가족안내소로
+#    이분화하였다가 이후 이를 서울특별시사고대책본부로 통합관리하는 과정에서 실종자 수를 하루 만에 207명에서 410명으로 수정 발표」）。窓口の形と置き場は模式
+DESK = dict(two=(("市の事故対策本部", "city"), ("区の家族の案内所", "ward")), fix=(207, 410))
+DK = dict(xs=(560.0, 1360.0), y=420.0, w=560.0, h=110.0, fy=810.0)
+
+
+def desk_base(st0):
+    return []
+
+
+def desk_stage(prev, st):
+    s = []
+    if _on(prev, st, "two"):
+        for (t, r), x in zip(DESK["two"], DK["xs"]):
+            s.append(_box(x, DK["y"], DK["w"], DK["h"], t, rc(r), rc(r), 36))
+            for k in (-1, 0, 1):
+                s.append(_paper_icon(x + k * 90, DK["y"] + 190, rc(r)))
+            s.append(_arrow(x, DK["y"] + 152, x, DK["y"] + DK["h"] / 2 + 12, rc(r), 4, 16))
+            s.append(_tline(x, DK["y"] + 266, "届け", 28, J.TICK, "middle", 200))
+    if _on(prev, st, "one"):
+        (xl, xr), y = DK["xs"], DK["y"]
+        c = rc(DESK["two"][0][1])
+        s.append(_arrow(xr - DK["w"] / 2 - 12, y + 14, xl + DK["w"] / 2 + 16, y + 14, c, 6, 24))
+        s.append(_tline((xl + xr) / 2, y - 18, "まとめる", 30, c, "middle", 220))
+        s.append(F.rect(xl - DK["w"] / 2 - 10, y - DK["h"] / 2 - 10, DK["w"] + 20, DK["h"] + 20, "none", c, 6, rx=14))
+    if _on(prev, st, "fix"):
+        a, b = DESK["fix"]
+        y = DK["fy"]
+        s.append(_tline(930.0, y, f"{a}人", 52, J.AMBER, "end", 300, fam="Dela"))
+        s.append(_arrow(950.0, y - 18, 1110.0, y - 18, J.AMBER, 6, 24))
+        s.append(_tline(1130.0, y, f"{b}人", 52, J.AMBER, "start", 300, fam="Dela"))
+        s.append(_tline(1030.0, y - 76, "1日のうちに直した", 28, INK, "middle", 500))
+    return s
+
+
+# ── tally（cb04 数の並び）＝届けと確かめの数（ソウル市の報告 95.8.9＝国会の会議録 p.53「(95.8.8. 24:00 현재) … 신고 1,566 … 계 1,485 … 관리대상 81」）。
+#    棒の長さは件数の比（確かめが済んだ＋残り＝届け）＝原文の数の写し（「模式」を付けない）
+TALLY = dict(head=("8月8日の時点", "city"), total=("届け", 1566), done=("確かめが済んだ", 1485), left=("行方の分からない人", 81))
+TL = dict(x0=300.0, x1=1620.0, y=560.0, h=90.0)
+
+
+def tl_x(v):
+    return TL["x0"] + (TL["x1"] - TL["x0"]) * v / TALLY["total"][1]
+
+
+def tally_base(st0):
+    t, r = TALLY["head"]
+    return [_tline(TL["x0"], 400.0, t, 36, rc(r), "start", 600), F.line(TL["x0"], 420.0, TL["x1"], 420.0, rc(r), 3)]
+
+
+def tally_stage(prev, st):
+    s = []
+    y, h = TL["y"], TL["h"]
+    if _on(prev, st, "total"):
+        t, v = TALLY["total"]
+        s.append(F.rect(TL["x0"], y - h / 2, TL["x1"] - TL["x0"], h, "none", INK, 4))
+        s.append(_tline(TL["x0"], y - h / 2 - 22, t, 30, INK, "start", 300))
+        s.append(_tline(TL["x1"], y - h / 2 - 22, f"{v:,}件", 40, J.AMBER, "end", 400, fam="Dela"))
+    if _on(prev, st, "done"):
+        t, v = TALLY["done"]
+        xd = tl_x(v)
+        s.append(F.rect(TL["x0"], y - h / 2, xd - TL["x0"], h, J.LINE_DIM, None))
+        s.append(_tline((TL["x0"] + xd) / 2, y + 12, t, 32, INK, "middle", xd - TL["x0"] - 40))
+        s.append(_tline((TL["x0"] + xd) / 2, y + h / 2 + 64, f"{v:,}件", 40, J.AMBER, "middle", 400, fam="Dela"))
+    if _on(prev, st, "left"):
+        t, v = TALLY["left"]
+        xd = tl_x(TALLY["done"][1])
+        xm = (xd + TL["x1"]) / 2
+        s.append(F.rect(xd, y - h / 2, TL["x1"] - xd, h, J.AMBER, None))
+        s.append(F.line(xm, y + h / 2 + 8, xm, 718.0, J.AMBER, 3))
+        s.append(_tline(xm, 776.0, f"{v}人", 48, J.AMBER, "middle", 300, fam="Dela"))
+        s.append(_tline(xm, 826.0, t, 28, INK, "middle", 320))
+    return s
+
+
+# ── toll（cb05 箱の2回目）＝1995年10月の数（国政監査〈内務委〉のソウル市の報告 p.24「사망자 501명(사망확인 471명, 사망인정 30명)」）。原文の数の写し
+#    🔴 同じ報告の「届けが出たまま確かめられない人 6人」は次の cb06 の語り＝描かない
+TOLL = dict(head=("市の報告（1995年10月）", "city"), total=("亡くなった人", 501), parts=(("遺体で確かめた", 471), ("亡くなったと認めた", 30)))
+TB5 = dict(x0=420.0, x1=1500.0, top=330.0, head=70.0, bot=830.0, ty=510.0, py=700.0)
+
+
+def toll_base(st0):
+    t, r = TOLL["head"]
+    x0, x1 = TB5["x0"], TB5["x1"]
+    return [F.rect(x0, TB5["top"], x1 - x0, TB5["bot"] - TB5["top"], J.BG2, rc(r), 4, rx=12),
+            F.line(x0, TB5["top"] + TB5["head"], x1, TB5["top"] + TB5["head"], rc(r), 3),
+            _tline((x0 + x1) / 2, TB5["top"] + 48, t, 34, rc(r), "middle", x1 - x0 - 40)]
+
+
+def toll_stage(prev, st):
+    s = []
+    cx = (TB5["x0"] + TB5["x1"]) / 2
+    if _on(prev, st, "total"):
+        t, v = TOLL["total"]
+        s.append(_tline(cx - 30, TB5["ty"], t, 40, INK, "end", 420))
+        s.append(_tline(cx, TB5["ty"] + 8, f"{v}人", 64, J.AMBER, "start", 360, fam="Dela"))
+    if _on(prev, st, "parts"):
+        for (t, v), x in zip(TOLL["parts"], (cx - 260.0, cx + 260.0)):
+            s.append(F.rect(x - 230, TB5["py"] - 80, 460, 160, J.BG, J.LINE, 4, rx=10))
+            s.append(_tline(x, TB5["py"] - 22, t, 32, INK, "middle", 420))
+            s.append(_tline(x, TB5["py"] + 52, f"{v}人", 50, J.AMBER, "middle", 420, fam="Dela"))
+        s.append(_tline(cx, TB5["py"] + 18, "＋", 48, INK, "middle", 56))
+    return s
+
+
+# ── koseki（cb07 書類）＝戸籍の整理（白書 p.92「'95년 11월 29일을 기해 관리대상자중 30명에 대해서 호적법 제90조에 의한 호적정리」＝頁の画像）。人の形は描かない・書類の形は模式
+KOSEKI = dict(n=30, day=(11, 29))
+KS = dict(x=560.0, y=330.0, w=520.0, h=500.0)
+
+
+def koseki_base(st0):
+    x, y, w, h = KS["x"], KS["y"], KS["w"], KS["h"]
+    g = [F.rect(x + 18, y + 18, w, h, J.BG2, J.LINE_DIM, 3, rx=6), F.rect(x, y, w, h, J.BG2, J.DOC, 5, rx=6),
+         _tline(x + w / 2, y + 64, "戸籍", 40, J.DOC, "middle", w - 60), F.line(x + 40, y + 96, x + w - 40, y + 96, J.DOC, 3)]
+    for k in (0, 1, 4):
+        yy = y + 160 + k * 72
+        g.append(F.line(x + 50, yy, x + w - 50 - (k % 2) * 80, yy, J.TICK, 3))
+    return g
+
+
+def koseki_stage(prev, st):
+    s = []
+    x, y, w, h = KS["x"], KS["y"], KS["w"], KS["h"]
+    if _on(prev, st, "n"):
+        s.append(F.rect(x + 40, y + 250, w - 80, 120, J.BG, J.AMBER, 4, rx=8))
+        s.append(_tline(x + w / 2, y + 290, "遺体の見つからない", 28, INK, "middle", w - 120))
+        s.append(_tline(x + w / 2, y + 352, f"{KOSEKI['n']}人", 52, J.AMBER, "middle", w - 120, fam="Dela"))
+        m, d = KOSEKI["day"]          # 🔧 geom_gap：書類の角に重ねた印は字が書類の枠線を横切った（−32px）＝書類の外へ
+        s.append(F.circ(x + w + 130, y + h - 90, 96, J.BG, J.AMBER, 6))
+        s.append(_tline(x + w + 130, y + h - 78, f"{m}月{d}日", 36, J.AMBER, "middle", 170))
+    if _on(prev, st, "done"):
+        s.append(_check(1270.0, 470.0, 26, J.OK))
+    return s
+
+
+# ── final（cb08 数の並び）＝白書の最終の数（白書 p.92「사망자 502명, 부상자 937명」「최종 사망자 수가 502명으로 확정」・戸籍の30人＝p.92・10月の471人＝国政監査 p.24）。
+#    🔴 「その1人が誰で、いつ加わったのかは書かれていない」は次の cb09・1,439人は cb10 の語り＝描かない
+FINAL = dict(head=("白書の最終の数", "city"), cards=(("亡くなった人", 502), ("けがをした人", 937)), koseki=30, oct=471)
+FN = dict(xs=(600.0, 1320.0), y=450.0, w=560.0, h=150.0, ey=730.0)
+
+
+def final_base(st0):
+    t, r = FINAL["head"]
+    return [_tline(L_X + 160, 330.0, t, 34, rc(r), "start", 600)]
+
+
+def final_stage(prev, st):
+    s = []
+    if _on(prev, st, "cards"):
+        for (t, v), x in zip(FINAL["cards"], FN["xs"]):
+            s.append(F.rect(x - FN["w"] / 2, FN["y"] - FN["h"] / 2, FN["w"], FN["h"], J.BG2, rc(FINAL["head"][1]), 4, rx=12))
+            s.append(_tline(x, FN["y"] - 22, t, 32, INK, "middle", FN["w"] - 40))
+            s.append(_tline(x, FN["y"] + 52, f"{v}人", 54, J.AMBER, "middle", FN["w"] - 40, fam="Dela"))
+    if _on(prev, st, "calc"):
+        y = FN["ey"]
+        dead = FINAL["cards"][0][1]
+        k, o = FINAL["koseki"], FINAL["oct"]
+        got = dead - k
+        for t, x, c in ((f"{dead}", 380.0, J.AMBER), ("−", 500.0, INK), (f"{k}", 600.0, J.AMBER), ("＝", 700.0, INK), (f"{got}", 820.0, J.AMBER)):
+            s.append(_tline(x, y + 18, t, 52, c, "middle", 160, fam="Dela"))
+        s.append(_tline(600.0, y + 76, "戸籍で整理", 26, J.TICK, "middle", 200))
+        s.append(F.rect(1240.0, y - 52, 300.0, 104.0, J.BG2, J.LINE_DIM, 4, rx=10))
+        s.append(_tline(1290.0, y + 12, "10月", 30, J.TICK, "middle", 100))
+        s.append(_tline(1440.0, y + 18, f"{o}", 48, J.TICK, "middle", 160, fam="Dela"))
+        s.append(_arrow(900.0, y, 1226.0, y, J.AMBER, 4, 18) + _arrow(1226.0, y, 900.0, y, J.AMBER, 4, 18))
+        s.append(_tline(1063.0, y - 22, f"{got - o}人多い", 30, J.AMBER, "middle", 260))
+    return s
+
+
+# ── ages（cb11 棒の2回目）＝亡くなった人の年代（白書 p.93 の表「0세 부터 10세 14명 … 21세 부터 30세 258명 … 60세 이상 6명 · 총계 502명」＝頁の画像を
+#    10-19 に原寸で読んだ）。棒の高さは人数の比（数は字幕・いちばん多い年代の札だけ）。🔴 割合の欄は出さない（501人で割った値＝白書の中で合わない）・
+#    男女の数は次の cb12 の語り＝描かない。⚠️ 棒の型 qty は行の名に数字を許さない（年代の名が数字）＝模式図の型で描く
+AGES = (("0〜10歳", 14), ("11〜20歳", 71), ("21〜30歳", 258), ("31〜40歳", 80), ("41〜50歳", 52), ("51〜60歳", 21), ("60歳以上", 6))
+AG = dict(x0=300.0, x1=1620.0, base=780.0, top=400.0, bw=120.0)
+
+
+def ag_x(i):
+    step = (AG["x1"] - AG["x0"]) / len(AGES)
+    return AG["x0"] + step * (i + 0.5)
+
+
+def ag_h(v):
+    return (AG["base"] - AG["top"]) * v / max(v_ for _t, v_ in AGES)
+
+
+def ages_base(st0):
+    g = [F.line(AG["x0"] - 20, AG["base"], AG["x1"] + 20, AG["base"], INK, 4)]
+    for i, (t, _v) in enumerate(AGES):
+        g.append(_tline(ag_x(i), AG["base"] + 44, t, 28, J.TICK, "middle", 176))
+    return g
+
+
+def ages_stage(prev, st):
+    s = []
+    if _on(prev, st, "bars"):
+        for i, (_t, v) in enumerate(AGES):
+            h = ag_h(v)
+            s.append(F.rect(ag_x(i) - AG["bw"] / 2, AG["base"] - h, AG["bw"], h, J.LINE_DIM, J.LINE, 3))
+    if _on(prev, st, "top"):
+        i = max(range(len(AGES)), key=lambda k: AGES[k][1])
+        h = ag_h(AGES[i][1])
+        s.append(F.rect(ag_x(i) - AG["bw"] / 2, AG["base"] - h, AG["bw"], h, J.AMBER, J.AMBER, 3))
+    return s
+
+
+# ── most（cb15 数の比べ）＝それまでの最多（白書 p.92「지난 48년 건국이래 … 가장 많은 희생자를 낸 사고로 기록될 것」「천재지변을 제외하고」1970年の南営号の沈没 326人＝
+#    頁の画像）。棒の長さは人数の比（同じ縮尺）。人の形は描かない・船の名は語りに無い＝出さない
+MOST = dict(rows=(("三豊百貨店", "1995年", 502, "ALERT"), ("船の沈没", "1970年", 326, "LINE")))
+MS = dict(x0=540.0, x1=1540.0, ys=(470.0, 680.0), h=90.0, vmax=560.0)
+
+
+def ms_x(v):
+    return MS["x0"] + (MS["x1"] - MS["x0"]) * v / MS["vmax"]
+
+
+def most_base(st0):
+    return [F.line(MS["x0"], 380.0, MS["x0"], 780.0, INK, 4)]
+
+
+def _ms_row(i):
+    t, yr, v, r = MOST["rows"][i]
+    y, h = MS["ys"][i], MS["h"]
+    return (F.rect(MS["x0"], y - h / 2, ms_x(v) - MS["x0"], h, rc(r), None, op=0.9)
+            + _tline(MS["x0"] - 24, y - 2, t, 34, INK, "end", 400) + _tline(MS["x0"] - 24, y + 38, yr, 28, J.TICK, "end", 300)
+            + _tline(ms_x(v) + 22, y + 18, f"{v}人", 48, J.AMBER, "start", 260, fam="Dela"))
+
+
+def most_stage(prev, st):
+    s = []
+    for i in range(2):
+        if _on(prev, st, f"r{i}"):
+            s.append(_ms_row(i))
+    return s
+
+
+# ── pen（cc13・cc23 数の比べ）＝罰の重さ（検察の報告 p.50「준공후 일정기간내에 손괴가 발생한 경우 5년이하의 징역으로 처벌」（건축업법 제59조2호）／
+#    1995年12月30日の5つの法律〈法律第5137〜5141号〉「무기 또는 3년이상의 징역」＝確かめの係 F107）。横の軸＝年（同じ縮尺）・無期は右の端の外（矢じり）
+PEN = dict(rows=(("事故の前", "手抜き工事で壊れたとき", 0.0, 5.0, "LINE", "5年以下の懲役"),
+                 ("1995年12月30日から", "わざと手を抜いた工事で", 3.0, None, "state", "無期か3年以上の懲役")), ymax=15)
+#   🔧 門番 echo：「無期または3年以上の懲役」（12字）は語りの写し＝「無期か…」（原文「무기 또는 3년이상의 징역」と同じ意味）
+PN = dict(x0=600.0, x1=1520.0, ys=(470.0, 680.0), h=70.0, ax=790.0, inf=1640.0)
+
+
+def pn_x(y):
+    return PN["x0"] + (PN["x1"] - PN["x0"]) * y / PEN["ymax"]
+
+
+def pen_base(st0):
+    g = [F.line(PN["x0"], PN["ax"], PN["inf"], PN["ax"], INK, 4)]
+    for y in range(0, PEN["ymax"] + 1, 5):
+        g.append(F.line(pn_x(y), PN["ax"], pn_x(y), PN["ax"] + 12, INK, 3))
+        g.append(_tline(pn_x(y), PN["ax"] + 44, f"{y}年", 26, J.TICK, "middle", 100))
+    g.append(_tline(PN["inf"], PN["ax"] + 44, "無期", 26, J.TICK, "middle", 100))
+    return g
+
+
+def _pn_label(i):
+    t, d, *_ = PEN["rows"][i]
+    y = PN["ys"][i]
+    return _tline(PN["x0"] - 30, y - 4, t, 32, INK, "end", 480) + _tline(PN["x0"] - 30, y + 36, d, 26, J.TICK, "end", 480)
+
+
+def _pn_bar(i):
+    _t, _d, a, b, r, lab = PEN["rows"][i]
+    y, h = PN["ys"][i], PN["h"]
+    x0 = pn_x(a)
+    x1 = pn_x(b) if b is not None else PN["inf"] - 26
+    g = [F.rect(x0, y - h / 2, x1 - x0, h, rc(r), None, op=0.9)]
+    if b is None:                       # 上は無期＝右の端の外へ矢じり
+        g.append(F.poly([(x1, y - h / 2 - 12), (PN["inf"] + 10, y), (x1, y + h / 2 + 12)], rc(r), None, close=True))
+        g.append(_tline(x0, y - h / 2 - 18, lab, 32, rc(r), "start", 900))
+    else:
+        g.append(_tline(x1 + 22, y + 12, lab, 32, J.AMBER, "start", 600))
+    return "".join(g)
+
+
+def pen_stage(prev, st):
+    s = []
+    if _on(prev, st, "q"):
+        s.append(_pn_label(0))
+    if _on(prev, st, "b0"):
+        s.append(_pn_bar(0))
+    if _on(prev, st, "law"):
+        s.append(_pn_label(1))
+    if _on(prev, st, "b1"):
+        s.append(_pn_bar(1))
+    return s
+
+
+# ── haul（cb16 道路と車の2回目・上から）＝瓦礫を運ぶ車の線（国会の報告 p.32「유골과 유품의 일부가 건물잔해와 함께 … 집하장 등으로 실려감」・
+#    国政監査〈内務委〉p.24「잔재검색은 8.14 최종완료 … 골편 등 142점과 유품 3,419점을 발견」）。🔴 場所の名は出さない（集める場所）・遺骨は描かない・
+#    道と車の形・数・置き場は模式
+HAUL = dict(found=(("骨片など", 142), ("遺品", 3419)), day=(8, 14), labels=("崩れた百貨店の跡", "瓦礫を集める場所"))
+HL = dict(site=(150.0, 400.0, 560.0, 700.0), yard=(1360.0, 400.0, 1770.0, 700.0), road=(560.0, 1360.0, 515.0, 585.0), trucks=(700.0, 930.0, 1160.0))
+
+
+def _truck(x, y, col=None):
+    """上から見たトラック（右向き）＝運転台と荷台（瓦礫の網）。"""
+    c = col or J.LINE
+    g = [F.rect(x - 70, y - 24, 104, 48, J.BG2, c, 3, rx=4), _hatch(x - 64, y - 18, x + 28, y + 18, 14.0, J.TICK, 2, 0.8),
+         F.rect(x + 40, y - 20, 30, 40, c, None, rx=5)]
+    return "".join(g)
+
+
+def haul_base(st0):
+    x0, y0, x1, y1 = HL["site"]
+    a0, b0, a1, b1 = HL["yard"]
+    r0, r1, ry0, ry1 = HL["road"]
+    return [F.rect(r0, ry0, r1 - r0, ry1 - ry0, J.BG2, J.LINE_DIM, 3),
+            F.rect(x0, y0, x1 - x0, y1 - y0, J.BG2, A_C, 4), _hatch(x0 + 10, y0 + 10, x1 - 10, y1 - 10, 22.0, J.TICK, 2, 0.6),
+            _tline((x0 + x1) / 2, y0 - 16, HAUL["labels"][0], 28, A_C, "middle", 400),
+            F.rect(a0, b0, a1 - a0, b1 - b0, J.BG2, J.LINE, 4), _tline((a0 + a1) / 2, b0 - 16, HAUL["labels"][1], 28, INK, "middle", 400)]
+
+
+def haul_stage(prev, st):
+    s = []
+    y = (HL["road"][2] + HL["road"][3]) / 2
+    if _on(prev, st, "truck"):
+        for x in HL["trucks"]:
+            s.append(_truck(x, y))
+        s.append(_arrow(HL["trucks"][-1] + 90, y, HL["yard"][0] - 14, y, INK, 4, 18, dash="10 8"))
+        a0, b0, a1, b1 = HL["yard"]
+        for k in range(3):
+            px = a0 + 70 + k * 130
+            s.append(F.poly([(px - 60, b1 - 20), (px, b1 - 110 - 20 * (k % 2)), (px + 60, b1 - 20)], J.BG2, J.TICK, 3, close=True))
+    if _on(prev, st, "found"):
+        a0, b0, a1, b1 = HL["yard"]
+        cx = (a0 + a1) / 2
+        s.append(F.circ(cx - 120, b0 + 100, 40, "none", J.ROLE["city"], 6))
+        s.append(F.line(cx - 92, b0 + 128, cx - 52, b0 + 168, J.ROLE["city"], 8))
+        for k, (t, v) in enumerate(HAUL["found"]):
+            s.append(_tline(a0, b1 + 60 + k * 54, f"{t}{v:,}点", 34, J.AMBER, "start", a1 - a0 + 40))
+    return s
+
+
+# ── pay（cb18 数の並び）＝補償の支払い（白書 p.93「1996-06-14 時点で502人中464人に1,758億ウォン（平均3億8千万）」「709人に1,003億ウォン」＝頁の画像）。
+#    円＝台本の目安（当時のレート）。原文の数の写し
+# 🔧 門番 echo：見出しの「…の時点」「支払い（…）」は語りの写し（77%）＝日付だけ（12字未満）
+PAY = dict(head="1996年6月14日", rows=(("亡くなった人", "464人分", "1,758億ウォン"), ("けがをした人", "709人", "1,003億ウォン")),
+           yen="およそ240億円", avg="3億8千万ウォン")
+PY = dict(x0=300.0, x1=1620.0, ys=(470.0, 760.0), h=120.0, sy=596.0)
+
+
+def pay_base(st0):
+    return [_tline(PY["x0"], 370.0, PAY["head"], 34, INK, "start", 700), F.line(PY["x0"], 390.0, PY["x1"], 390.0, J.LINE, 3)]
+
+
+def _py_row(i):
+    t, n, v = PAY["rows"][i]
+    y = PY["ys"][i]
+    return (F.rect(PY["x0"], y - PY["h"] / 2, PY["x1"] - PY["x0"], PY["h"], J.BG2, J.LINE_DIM, 3, rx=10)
+            + _tline(PY["x0"] + 30, y + 12, t, 36, INK, "start", 320) + _tline(PY["x0"] + 400, y + 14, n, 40, J.AMBER, "start", 300, fam="Dela")
+            + _tline(PY["x1"] - 30, y + 18, v, 48, J.AMBER, "end", 560, fam="Dela"))
+
+
+def pay_stage(prev, st):
+    s = []
+    if _on(prev, st, "r0"):
+        s.append(_py_row(0))
+    if _on(prev, st, "sub"):            # 🔧 門番 echo：「当時のレートでおよそ240億円」は語りの写し＝名と値を別の字に（どちらも12字未満）
+        y = PY["sy"]
+        s.append(_tline(PY["x1"] - 30, y + 14, PAY["yen"], 32, INK, "end", 400))
+        s.append(_tline(PY["x1"] - 300, y + 14, "当時のレートで", 26, J.TICK, "end", 300))
+        s.append(_tline(PY["x0"] + 30, y + 14, "1人あたりの平均", 26, J.TICK, "start", 300))
+        s.append(_tline(PY["x0"] + 280, y + 14, PAY["avg"], 32, INK, "start", 400))
+    if _on(prev, st, "r1"):
+        s.append(_py_row(1))
+    return s
+
+
+# ── q3（cb19 問い）＝この回の3つの問い（冒頭 c107 の語り）。3つ目を明るく（字は基図に1回だけ＝明るくする段は枠だけ）。問いの写し＝「模式」を付けない
+Q3 = ("なぜ店は開いたままだったのか", "なぜ建物は崩れたのか", "誰なら止められたのか")
+QB3 = dict(x0=420.0, x1=1500.0, ys=(400.0, 560.0, 720.0), h=110.0)
+
+
+def q3_base(st0):
+    g = []
+    for i, t in enumerate(Q3):
+        y = QB3["ys"][i]
+        last = i == len(Q3) - 1
+        g.append(F.rect(QB3["x0"], y - QB3["h"] / 2, QB3["x1"] - QB3["x0"], QB3["h"], J.BG2, J.LINE_DIM, 4, rx=14))
+        g.append(F.circ(QB3["x0"] + 70, y, 34, J.LINE if last else J.LINE_DIM, None))
+        g.append(_tline(QB3["x0"] + 70, y + 14, str(i + 1), 38, J.BG, "middle", 60, fam="Dela"))
+        g.append(_tline(QB3["x0"] + 140, y + 14, t, 40, INK if last else J.TICK, "start", 900))
+    return g
+
+
+def q3_stage(prev, st):
+    s = []
+    if _on(prev, st, "lit"):
+        y = QB3["ys"][-1]
+        s.append(F.rect(QB3["x0"] - 10, y - QB3["h"] / 2 - 10, QB3["x1"] - QB3["x0"] + 20, QB3["h"] + 20, "none", J.AMBER, 7, rx=20))
+    return s
+
+
+# ── forms3（cc03 書類の再現の2回目）＝検察の報告の追加の罪名と別紙1〜3（国会の会議録 p.48「※추가죄명 - 뇌물공여 : 회장 … 사장 …」・p.51「별지 1 설계·시공 및
+#    감리 관련 피의자 및 영장범죄사실 요지」・p.52「별지 2 유지·관리 관련 피의자 및 범죄사항 요지」・p.53「별지 3 수뢰 공무원 범죄사실 요지」）。欄の値は原文の韓国語のまま・
+#    🔴 名前は灰の帯・表の行（人数と中身）は次の cc04〜cc08 の語り＝紙の頭だけ（行は灰の帯と「…」）
+FORMS3 = dict(add="※추가죄명 - 뇌물공여 :", roles=("회장", "사장"),
+              sheets=(("별지 1", ("설계·시공 및 감리 관련", "피의자 및 영장범죄사실 요지")),
+                      ("별지 2", ("유지·관리 관련", "피의자 및 범죄사항 요지")),
+                      ("별지 3", ("수뢰 공무원", "범죄사실 요지"))))
+F3 = dict(ay=360.0, ax0=440.0, ax1=1400.0, xs=(380.0, 960.0, 1540.0), w=500.0, top=470.0, h=380.0)
+
+
+def forms3_base(st0):
+    return []
+
+
+def forms3_stage(prev, st):
+    s = []
+    if _on(prev, st, "add"):
+        y = F3["ay"]
+        s.append(F.rect(F3["ax0"], y - 40, F3["ax1"] - F3["ax0"], 80, J.BG2, J.DOC, 4))
+        s.append(F.txt(F3["ax0"] + 30, y + 11, FORMS3["add"], 30, INK, "Noto", "start"))
+        x = F3["ax0"] + 30 + fm.width(FORMS3["add"], 30) + 30
+        for r in FORMS3["roles"]:
+            s.append(F.txt(x, y + 11, r, 30, J.COMPANY, "Noto", "start"))
+            x += fm.width(r, 30) + 14
+            s.append(F.rect(x, y - 14, 90, 30, J.LINE_DIM, None))
+            x += 120
+    if _on(prev, st, "sheets"):
+        for (no, (h0, h1)), cx in zip(FORMS3["sheets"], F3["xs"]):
+            x0, y0, w, h = cx - F3["w"] / 2, F3["top"], F3["w"], F3["h"]
+            s.append(F.rect(x0, y0, w, h, J.BG2, J.DOC, 4))
+            s.append(F.txt(x0 + 24, y0 + 44, no, 26, J.DOC, "Noto", "start"))
+            s.append(F.txtfit(cx, y0 + 96, h0, w - 40, cap=26, col=INK, anchor="middle"))
+            s.append(F.txtfit(cx, y0 + 134, h1, w - 40, cap=26, col=INK, anchor="middle"))
+            s.append(F.line(x0 + 20, y0 + 162, x0 + w - 20, y0 + 162, J.DOC, 3))
+            for k, cut in enumerate((60, 140, 90, 180)):
+                s.append(F.rect(x0 + 34, y0 + 196 + k * 40, w - 68 - cut, 16, J.LINE_DIM, None))
+            s.append(_tline(cx, y0 + h - 18, "…", 30, J.TICK, "middle", 100))
+    return s
+
+
+# ── acts（cc05 札の並び）＝1つ目の表（別紙1）が並べること（国会の会議録 p.51「슬래브 지판부를 얇게 시공, 슬래브 상부철근을 내려앉게」「구조계산에 반영치 않은
+#    냉각탑 설치, 이동으로 슬래브 손상」「내력벽 절단 손상」）＝語りの4つ（絵の札）。どの章で見たか＝第6章（c703・c713・c715）・第7章（c803〜c815）・第8章（c910）
+ACTS = dict(head=("1つ目の表が並べること", "state"), cards=("ドロップパネルを薄く", "上の鉄筋を沈めた", "冷却塔を計算に入れず", "耐力壁を切った"),
+            ch=("第6章", "第6章", "第7章", "第8章"))
+AC = dict(y=580.0, w=350.0, h=300.0, gap=40.0, iy=520.0)
+
+
+def ac_x(i):
+    n = len(ACTS["cards"])
+    tot = n * AC["w"] + (n - 1) * AC["gap"]
+    return 960.0 - tot / 2 + i * (AC["w"] + AC["gap"]) + AC["w"] / 2
+
+
+def _ac_icon(i, cx, cy):
+    if i == 0:                          # 柱の頭の板（薄い・赤）
+        return (F.rect(cx - 120, cy - 50, 240, 26, J.BG2, J.LINE, 3) + F.rect(cx - 60, cy - 24, 120, 10, J.ALERT, None)
+                + F.rect(cx - 20, cy - 14, 40, 74, J.BG2, J.LINE, 3))
+    if i == 1:                          # 床の中の上の鉄筋（正しい位置＝破線・沈んだ＝赤）
+        return (F.rect(cx - 130, cy - 40, 260, 70, J.BG2, J.LINE, 3) + F.line(cx - 116, cy - 26, cx + 116, cy - 26, J.LINE, 3, dash="8 6")
+                + F.line(cx - 116, cy + 2, cx + 116, cy + 2, J.ALERT, 5))
+    if i == 2:                          # 屋上の冷却塔と動かす矢印
+        return (F.line(cx - 130, cy + 40, cx + 130, cy + 40, J.LINE, 4) + F.rect(cx - 90, cy - 40, 90, 80, J.BG2, J.LINE, 3)
+                + F.circ(cx - 45, cy - 40, 22, "none", J.LINE, 3) + _arrow(cx + 10, cy, cx + 110, cy, J.ALERT, 4, 16))
+    return (F.rect(cx - 50, cy - 60, 100, 130, J.BG2, J.LINE, 3) + F.rect(cx - 50, cy - 10, 70, 34, J.BG, J.ALERT, 4))   # 耐力壁と切った穴
+
+
+def acts_base(st0):
+    t, r = ACTS["head"]
+    return [_tline(960.0, 370.0, t, 34, rc(r), "middle", 900), F.line(560.0, 392.0, 1360.0, 392.0, rc(r), 3)]
+
+
+def _ac_card(i):
+    x = ac_x(i)
+    return (F.rect(x - AC["w"] / 2, AC["y"] - AC["h"] / 2, AC["w"], AC["h"], J.BG2, rc(ACTS["head"][1]), 4, rx=12)
+            + _ac_icon(i, x, AC["iy"]) + _tline(x, AC["y"] + 104, ACTS["cards"][i], 30, INK, "middle", AC["w"] - 24))
+
+
+def acts_stage(prev, st):
+    s = []
+    if _on(prev, st, "c0"):
+        s += [_ac_card(0), _ac_card(1)]
+    if _on(prev, st, "c1"):
+        s += [_ac_card(2), _ac_card(3)]
+    if _on(prev, st, "seen"):
+        for i, ch in enumerate(ACTS["ch"]):
+            x = ac_x(i)
+            s.append(F.rect(x - AC["w"] / 2 - 8, AC["y"] - AC["h"] / 2 - 8, AC["w"] + 16, AC["h"] + 16, "none", J.AMBER, 5, rx=16))
+            s.append(_tline(x, AC["y"] + AC["h"] / 2 + 52, ch, 30, J.AMBER, "middle", 200))
+    return s
+
+
+# ── chair（cc07 札と線）＝2つ目の表（別紙2）の会長の欄（国会の会議録 p.52「‘무량판공법’으로 건축된 사실을 잘 알고 있고 … 균열이 발생한 사실을 보고 받아
+#    건축붕괴의 이상징후를 알고 있음에도 사람들을 대피시키지 아니한 채 방치한 과실」）。🔴 時刻（14:30）は語りに無い＝描かない・c307 の書類の再現と別の絵（札だけ）
+CHAIR = dict(head=("2つ目の表・会長の欄", "company"), cards=("梁の無い作りと知っていた", "ひびの報告を受けた", "逃がさず放っておいた"), fault="過失")
+CH = dict(x=960.0, ys=(430.0, 590.0, 750.0), w=760.0, h=96.0)
+
+
+def chair_base(st0):
+    t, r = CHAIR["head"]
+    return [_tline(L_X + 40, 330.0, t, 34, rc(r), "start", 700)]
+
+
+def _ch_card(i, col):
+    y = CH["ys"][i]
+    return _box(CH["x"], y, CH["w"], CH["h"], CHAIR["cards"][i], col, INK, 34)
+
+
+def chair_stage(prev, st):
+    s = []
+    c = rc(CHAIR["head"][1])
+    if _on(prev, st, "c12"):
+        s += [_ch_card(0, c), _arrow(CH["x"], CH["ys"][0] + CH["h"] / 2 + 8, CH["x"], CH["ys"][1] - CH["h"] / 2 - 10, c, 5, 18), _ch_card(1, c)]
+    if _on(prev, st, "c3"):
+        s += [_arrow(CH["x"], CH["ys"][1] + CH["h"] / 2 + 8, CH["x"], CH["ys"][2] - CH["h"] / 2 - 10, c, 5, 18), _ch_card(2, c)]
+        x = CH["x"] + CH["w"] / 2 + 110
+        s.append(F.circ(x, CH["ys"][2], 62, J.BG, J.ALERT, 6))
+        s.append(_tline(x, CH["ys"][2] + 14, CHAIR["fault"], 38, J.ALERT, "middle", 110))
+    return s
+
+
+# ── fake（cc09 書類）＝現場を見ずに書いた報告の書類（判決 大96 判示事項[5]「허위의 복명서를 작성한 후 대규모소매점개설신고서를 수리한 행위가 … '직무상 부정한 행위'」・
+#    国会の会議録 p.53〈別紙3〉「백화점 개설승인 관련, 허위복명서 작성」＝市の職員）。書類と店の形は模式・人は描かない
+FAKE = dict(head=("市の職員（店を開く承認の手続き）", "city"), row="現場を見た")
+FK = dict(doc=(300.0, 380.0, 420.0, 440.0), shop=(1220.0, 440.0, 1640.0, 760.0), eye=(980.0, 600.0))
+
+
+def fake_base(st0):
+    t, r = FAKE["head"]
+    return [_tline(L_X + 40, 330.0, t, 32, rc(r), "start", 800)]
+
+
+def fake_stage(prev, st):
+    s = []
+    c = rc(FAKE["head"][1])
+    if _on(prev, st, "site"):
+        x0, y0, x1, y1 = FK["shop"]
+        s.append(F.rect(x0, y0, x1 - x0, y1 - y0, J.BG2, J.LINE, 4))
+        s.append(F.poly([(x0 - 20, y0), ((x0 + x1) / 2, y0 - 70), (x1 + 20, y0)], "none", J.LINE, 4))
+        s.append(F.rect((x0 + x1) / 2 - 50, y1 - 120, 100, 120, J.BG, J.LINE, 3))
+        s.append(_tline((x0 + x1) / 2, y0 + 70, "百貨店", 32, INK, "middle", 300))
+        ex, ey = FK["eye"]
+        s.append(_eye(ex, ey, c))
+        s.append(F.line(ex + 60, ey, x0 - 20, ey, c, 3, dash="10 8"))
+        s.append(_xmark(ex, ey, 34.0, J.ALERT, 8))
+    if _on(prev, st, "doc"):
+        x, y, w, h = FK["doc"]
+        s.append(F.rect(x, y, w, h, J.BG2, c, 5, rx=6))
+        s.append(_tline(x + w / 2, y + 56, "報告の書類", 34, c, "middle", w - 40))
+        s.append(F.line(x + 30, y + 84, x + w - 30, y + 84, c, 3))
+        for k in range(3):
+            s.append(F.line(x + 40, y + 140 + k * 50, x + w - 60 - (k % 2) * 60, y + 140 + k * 50, J.TICK, 3))
+        yy = y + h - 80
+        s.append(F.rect(x + 40, yy - 26, 52, 52, J.BG, J.AMBER, 4))
+        s.append(_check(x + 66, yy, 20, J.AMBER))
+        s.append(_tline(x + 112, yy + 12, FAKE["row"], 32, J.AMBER, "start", w - 130))
+    return s
+
+
+# ── bribe（cc11 札の比べ）＝よく語られる話と検察の表（国会の会議録 p.53〈別紙3〉の15人の額＝区の12人 8,180万ウォン・市の3人 900万ウォン・計 9,080万ウォン／
+#    「1,300万」は2審で刑を改めた3人の追徴の合計＝高96 主文＝総額ではない）。棒の長さは額の比（同じ縮尺）。🔴 1人あたりの額は次の cc12 の語り＝描かない
+BRIBE = dict(rumor=1300, ward=(12, 8180), city=(3, 900))
+BR = dict(x0=760.0, x1=1760.0, vmax=11000.0, ys=(460.0, 660.0), h=70.0, lx=420.0)
+
+
+def br_x(v):
+    return BR["x0"] + (BR["x1"] - BR["x0"]) * v / BR["vmax"]
+
+
+def bribe_base(st0):
+    return [F.line(BR["x0"], 380.0, BR["x0"], 760.0, INK, 4)]
+
+
+def bribe_stage(prev, st):
+    s = []
+    if _on(prev, st, "rumor"):
+        y = BR["ys"][0]
+        s.append(F.rect(BR["lx"] - 260, y - 80, 520, 160, J.BG2, J.TICK, 4, rx=14, dash="14 10"))
+        s.append(_tline(BR["lx"], y - 30, "よく語られる話", 30, J.TICK, "middle", 480))
+        s.append(_tline(BR["lx"], y + 22, "区への総額", 32, J.TICK, "middle", 480))
+        s.append(_tline(BR["lx"], y + 66, "1,300万ウォン", 34, J.TICK, "middle", 480))
+        s.append(F.rect(BR["x0"], y - BR["h"] / 2, br_x(BRIBE["rumor"]) - BR["x0"], BR["h"], "none", J.TICK, 4, dash="10 8"))
+    if _on(prev, st, "ward"):
+        y = BR["ys"][1]
+        n, v = BRIBE["ward"]
+        c = rc("state")
+        s.append(F.rect(BR["lx"] - 260, y - 60, 520, 120, J.BG2, c, 4, rx=14))
+        s.append(_tline(BR["lx"], y + 12, "検察の表", 34, c, "middle", 480))
+        xe = br_x(v)
+        s.append(F.rect(BR["x0"], y - BR["h"] / 2, xe - BR["x0"], BR["h"], J.ROLE["ward"], None))
+        s.append(_tline((BR["x0"] + xe) / 2, y + 12, f"区の{n}人", 32, J.BG, "middle", 300))
+        s.append(_tline((BR["x0"] + xe) / 2, y + BR["h"] / 2 + 52, f"{v:,}万ウォン", 38, J.AMBER, "middle", 400, fam="Dela"))
+    if _on(prev, st, "city"):
+        y = BR["ys"][1]
+        n, v = BRIBE["city"]
+        xa = br_x(BRIBE["ward"][1])
+        xe = br_x(BRIBE["ward"][1] + v)
+        s.append(F.rect(xa, y - BR["h"] / 2, xe - xa, BR["h"], J.ROLE["city"], None))
+        s.append(_tline((xa + xe) / 2, y + BR["h"] / 2 + 52, f"市の{n}人", 30, J.ROLE["city"], "middle", 200))
+        tot = BRIBE["ward"][1] + v
+        s.append(F.poly([(BR["x0"], y - BR["h"] / 2 - 18), (BR["x0"], y - BR["h"] / 2 - 34), (xe, y - BR["h"] / 2 - 34), (xe, y - BR["h"] / 2 - 18)],
+                        "none", J.AMBER, 3))
+        s.append(_tline((BR["x0"] + xe) / 2, y - BR["h"] / 2 - 50, f"計{tot:,}万ウォン", 38, J.AMBER, "middle", 500, fam="Dela"))
+    return s
+
+
+# ── shelf（cc15 書類）＝図面を残す決まりは5年だけ（国会の会議録 p.49「대형건축물에 대한 설계도면 등의 보존연한이 5년에 불과 … 본건의 경우에는 구청에서만
+#    설계도면 보존」＝cc14 の語りの絵）。棚と図面の形は模式
+SHELF = dict(years=5, l=("設計と工事の会社", "LINE"), r=("区", "ward"))
+SF = dict(xs=(560.0, 1360.0), y0=440.0, y1=800.0, w=440.0)
+
+
+def shelf_base(st0):
+    g = []
+    for (t, r), cx in zip((SHELF["l"], SHELF["r"]), SF["xs"]):
+        x0 = cx - SF["w"] / 2
+        g.append(F.rect(x0, SF["y0"], SF["w"], SF["y1"] - SF["y0"], J.BG2, rc(r), 4))
+        for k in (1, 2):
+            yy = SF["y0"] + (SF["y1"] - SF["y0"]) * k / 3
+            g.append(F.line(x0, yy, x0 + SF["w"], yy, rc(r), 3))
+        g.append(_tline(cx, SF["y0"] - 22, f"{t}の棚", 32, rc(r), "middle", 520))
+    cx = SF["xs"][1]
+    for k in range(3):                  # 区の棚＝図面（紙の筒）
+        yy = SF["y0"] + (SF["y1"] - SF["y0"]) * (k + 1) / 3 - 14
+        for j in range(5):
+            x = cx - SF["w"] / 2 + 50 + j * 76
+            g.append(F.rect(x - 26, yy - 66, 52, 66, J.BG, J.DOC, 3, rx=6))
+    g.append(_tline(SF["xs"][0], (SF["y0"] + SF["y1"]) / 2 + 12, "空", 44, J.TICK, "middle", 100))
+    return g
+
+
+def shelf_stage(prev, st):
+    s = []
+    if _on(prev, st, "rule"):
+        s.append(_tline(960.0, 360.0, f"残す決まりは{SHELF['years']}年だけ", 36, J.AMBER, "middle", 700))
+    return s
+
+
+# ── stages（cc18 札と線）＝判決の言葉（判決 大96 判決要旨[1]「건축계획의 수립, 건축설계, 건축공사공정, 건물 완공 후의 유지관리 등에 있어서의 과실이 복합적으로 작용」）。
+#    段階は時の向き（左→右の矢羽根）・過失は段階ごとの赤い札が下の「崩れた」へ集まる＝cd04 の札の並びと別の絵
+STAGES = dict(head=("大法院の判決", "state"), cards=("計画", "設計", "工事", "建ったあとの管理"))
+SG = dict(x0=200.0, x1=1720.0, y=500.0, h=110.0, fy=640.0, by=800.0)
+
+
+def _sg_seg(i):
+    n = len(STAGES["cards"])
+    w = (SG["x1"] - SG["x0"]) / n
+    return SG["x0"] + i * w, SG["x0"] + (i + 1) * w
+
+
+def stages_base(st0):
+    t, r = STAGES["head"]
+    return [_tline(L_X + 40, 330.0, t, 34, rc(r), "start", 600)]
+
+
+def stages_stage(prev, st):
+    s = []
+    y, h = SG["y"], SG["h"]
+    if _on(prev, st, "cards"):
+        for i, t in enumerate(STAGES["cards"]):
+            a, b = _sg_seg(i)
+            k = 34.0
+            pts = [(a + (k if i else 0), y - h / 2), (b - 6, y - h / 2), (b - 6 + k, y), (b - 6, y + h / 2), (a + (k if i else 0), y + h / 2)]
+            if i:
+                pts.append((a + 2 * k, y))
+            s.append(F.poly(pts, J.BG2, J.LINE, 4, close=True))
+            s.append(_tline((a + b) / 2 + 20, y + 12, t, 34, INK, "middle", b - a - 70))
+    if _on(prev, st, "fault"):
+        for i in range(len(STAGES["cards"])):
+            a, b = _sg_seg(i)
+            cx = (a + b) / 2 + 20
+            s.append(_tline(cx, SG["fy"], "過失", 30, J.ALERT, "middle", 120))
+            s.append(_arrow(cx, SG["fy"] + 14, 960.0 + (cx - 960.0) * 0.18, SG["by"] - 46, J.ALERT, 4, 16))
+        s.append(_box(960.0, SG["by"], 360.0, 84.0, "重なって崩れた", J.ALERT, J.ALERT, 32))
+    return s
+
+
+# ── chain（cc19 鎖）＝段階ごとの人を、まとめて罪に問う（判決 大96 判示事項[1]「각 단계별 관련자들을 업무상과실치사상죄의 공동정범으로 처단한 사례」）。
+#    4つの段階の札が1本の鎖でつながる＝cc18 の矢羽根と別の絵。人の形は描かない
+CHAIN = dict(cards=("計画", "設計", "工事", "建ったあとの管理"), pos=((380.0, 560.0), (760.0, 450.0), (1160.0, 450.0), (1540.0, 560.0)))
+CN = dict(w=300.0, h=96.0, ring=16.0, oy=790.0)
+
+
+def chain_base(st0):
+    return []
+
+
+def chain_stage(prev, st):
+    s = []
+    if _on(prev, st, "link"):
+        P = CHAIN["pos"]
+        for (ax, ay), (bx, by) in zip(P, P[1:]):
+            L = math.hypot(bx - ax, by - ay)
+            n = int((L - CN["w"]) / (CN["ring"] * 1.6))
+            for k in range(n):
+                u = 0.5 + (k - (n - 1) / 2) * (CN["ring"] * 1.6) / L
+                s.append(F.circ(ax + (bx - ax) * u, ay + (by - ay) * u, CN["ring"], "none", J.ROLE["state"], 5))
+        for t, (x, y) in zip(CHAIN["cards"], P):
+            s.append(_box(x, y, CN["w"], CN["h"], t, J.LINE, INK, 32))
+    if _on(prev, st, "one"):
+        s.append(_box(960.0, CN["oy"], 360.0, 84.0, "1か所だけ", J.TICK, J.TICK, 32, dash="12 8"))
+        s.append(_xmark(960.0 + 230.0, CN["oy"], 26.0, J.ALERT, 8))
+    return s
+
+
+# ── gap（cc20 切れた線）＝区の職員の違反と崩壊（判決 大99「위 공무원들의 직무의무위반행위와 이 사건 붕괴사고 사이에 상당인과관계가 있다고 인정할 수는 없다」
+#    「서울고등법원에 환송」）。線の長さと置き場は模式
+GAP = dict(l=("区の職員の違反", "ward"), r=("崩壊", "ALERT"))
+GP = dict(xl=460.0, xr=1460.0, y=560.0, wl=440.0, wr=300.0, h=120.0, cut=(880.0, 1040.0))
+
+
+def gap_base(st0):
+    return []
+
+
+def gap_stage(prev, st):
+    s = []
+    y = GP["y"]
+    a, b = GP["xl"] + GP["wl"] / 2 + 12, GP["xr"] - GP["wr"] / 2 - 12
+    if _on(prev, st, "line"):
+        (tl, rl), (tr, rr) = GAP["l"], GAP["r"]
+        s.append(_box(GP["xl"], y, GP["wl"], GP["h"], tl, rc(rl), rc(rl), 36))
+        s.append(_box(GP["xr"], y, GP["wr"], GP["h"], tr, rc(rr), rc(rr), 40))
+        s.append(F.line(a, y, b, y, J.LINE, 5, dash="14 10"))
+    if _on(prev, st, "cut"):
+        c0, c1 = GP["cut"]
+        s.append(F.rect(c0, y - 20, c1 - c0, 40, J.BG, None))
+        s.append(_zig(c0, y - 34, c0, y + 34, 4, 8.0, J.ALERT, 5) + _zig(c1, y - 34, c1, y + 34, 4, 8.0, J.ALERT, 5))
+        s.append(_tline(960.0, y - 70, "原因と結果の関係", 32, rc("state"), "middle", 600))
+        s.append(_tline(960.0, y + 92, "あるとまでは認めない", 32, rc("state"), "middle", 600))
+        s.append(_arrow(1380.0, 760.0, 1100.0, 800.0, rc("state"), 4, 18))
+        s.append(_tline(1080.0, 812.0, "裁判のやり直し", 30, rc("state"), "end", 500))
+    return s
+
+
+# ── causes（cc21 札と線＝流れ図の2回目）＝国会の報告が挙げる原因（国会の報告 p.28「설계·시공·감리 및 유지·관리상의 결함과 행정관청의 감독부실 등이 복합적
+#    요인으로 작용」）。4つの欠陥の札（左の列）と役所の監督の不備（下）が「重なった」へ＝c312 の流れと別の形
+CAUSES = dict(head=("国会の報告が挙げる原因", "state"), cards=("設計", "工事", "監理", "建ったあとの管理"), gov="役所の監督", marks=("欠陥", "不備"))
+CS = dict(x=500.0, ys=(430.0, 515.0, 600.0, 685.0), w=380.0, h=70.0, gy=810.0, bx=780.0, mx=1340.0, my=620.0)
+
+
+def causes_base(st0):
+    t, r = CAUSES["head"]
+    return [_tline(L_X + 40, 330.0, t, 34, rc(r), "start", 700)]
+
+
+def causes_stage(prev, st):
+    s = []
+    if _on(prev, st, "four"):
+        for t, y in zip(CAUSES["cards"], CS["ys"]):
+            s.append(_box(CS["x"], y, CS["w"], CS["h"], t, J.LINE, INK, 30))
+        y0, y1 = CS["ys"][0] - CS["h"] / 2, CS["ys"][-1] + CS["h"] / 2
+        s.append(F.poly([(CS["bx"] - 30, y0), (CS["bx"], y0), (CS["bx"], y1), (CS["bx"] - 30, y1)], "none", J.ALERT, 4))
+        s.append(_tline(CS["bx"] + 30, (y0 + y1) / 2 + 12, CAUSES["marks"][0], 34, J.ALERT, "start", 120))
+    if _on(prev, st, "gov"):
+        s.append(_box(CS["x"], CS["gy"], CS["w"], CS["h"], CAUSES["gov"], J.LINE, INK, 30))
+        s.append(_tline(CS["bx"] + 30, CS["gy"] + 12, CAUSES["marks"][1], 34, J.ALERT, "start", 120))
+        y0, y1 = CS["ys"][0] - CS["h"] / 2, CS["ys"][-1] + CS["h"] / 2
+        s.append(_arrow(CS["bx"] + 150, (y0 + y1) / 2, CS["mx"] - 200, CS["my"] - 20, J.ALERT, 5, 20))
+        s.append(_arrow(CS["bx"] + 150, CS["gy"], CS["mx"] - 200, CS["my"] + 30, J.ALERT, 5, 20))
+        s.append(_box(CS["mx"], CS["my"], 380.0, 120.0, "重なった", J.ALERT, J.ALERT, 40))
+    return s
+
+
+# ── open（cd02 札と線）＝開いたままの店（国会の報告 p.32「붕괴에 대한 안이한 판단과 백화점의 경영적 측면 등을 고려하여 고객과 직원을 긴급대피시키지 아니하고
+#    영업종료 후 보수·보강공사만 하기로 결정」・検察の報告 p.48「고객·직원들을 대피시키지 아니함」）。合図 → 掛けた札 → 出口（人は描かない）＝c312 の札の流れと別の絵
+OPEN = dict(sign="営業のあとに直す", who="客と従業員")
+OPN = dict(sig=(360.0, 580.0), sign=(960.0, 600.0), door=(1520.0, 600.0))   # ⚠️ OP は opening（c912）の表＝名前を分けた
+
+
+def open_base(st0):
+    return []
+
+
+def open_stage(prev, st):
+    s = []
+    if _on(prev, st, "sig"):
+        x, y = OPN["sig"]
+        s.append(F.rect(x - 170, y - 90, 340, 180, J.BG2, J.AMBER, 4, rx=12))
+        s.append(_zig(x - 120, y - 40, x + 120, y - 20, 6, 10.0, J.ALERT, 5))
+        s.append(_tline(x, y + 56, "朝からの合図", 32, J.AMBER, "middle", 300))
+    if _on(prev, st, "sign"):
+        x, y = OPN["sign"]
+        c = J.COMPANY
+        s.append(_arrow(OPN["sig"][0] + 184, OPN["sig"][1], x - 200, y, J.LINE, 5, 20))
+        s.append(F.poly([(x - 120, y - 50), (x, y - 140), (x + 120, y - 50)], "none", J.TICK, 3))
+        s.append(F.circ(x, y - 140, 8, J.TICK, None))
+        s.append(F.rect(x - 180, y - 50, 360, 110, J.BG2, c, 5, rx=10))
+        s.append(_tline(x, y + 16, OPEN["sign"], 34, c, "middle", 330))
+        dx, dy = OPN["door"]
+        s.append(_arrow(x + 196, y, dx - 130, dy, J.LINE, 5, 20))
+        s.append(F.rect(dx - 100, dy - 150, 200, 260, J.BG2, J.LINE, 4))
+        s.append(F.circ(dx + 60, dy - 10, 9, J.LINE, None))
+        s.append(_arrow(dx + 100, dy + 60, dx + 230, dy + 60, INK, 4, 16, dash="10 8"))
+        s.append(_xmark(dx + 170, dy + 60, 22.0, J.ALERT, 7))
+        s.append(_tline(dx, dy + 160, OPEN["who"], 30, INK, "middle", 300))
+    return s
+
+
+# ── blocks（cd03 積み木の2回目）＝重なったもの（判決 大96 判決要旨[1]「과실이 복합적으로 작용」・中身は第6〜8章の記録）＝下の段＝弱い作り（細い柱・薄い板・沈んだ鉄筋）・
+#    上の段＝載った重さ（冷却塔・食堂街）・右＝切られた壁。c918（5階の物の積み木）と別の絵。積み木の大きさは模式（重さの比ではない）
+BLOCKS = dict(low=("細い柱", "薄い板", "沈んだ鉄筋"), up=("冷却塔の重さ", "食堂街の重さ"), wall="重さを支える壁")
+BLK = dict(g=820.0, low=((300.0, 600.0), (620.0, 920.0), (940.0, 1240.0)), ly=640.0, up=((340.0, 740.0), (780.0, 1200.0)), uy=470.0,
+           wall=(1360.0, 1480.0, 380.0), cut=(560.0, 620.0))      # ⚠️ BK は bunko（c213）の表＝名前を分けた
+
+
+def blocks_base(st0):
+    return [F.line(220.0, BLK["g"], 1600.0, BLK["g"], J.LINE, 4)]
+
+
+def blocks_stage(prev, st):
+    s = []
+    if _on(prev, st, "low"):
+        for t, (a, b) in zip(BLOCKS["low"], BLK["low"]):
+            s.append(F.rect(a, BLK["ly"], b - a, BLK["g"] - BLK["ly"], J.BG2, J.ALERT, 4, rx=4))
+            s.append(_tline((a + b) / 2, (BLK["ly"] + BLK["g"]) / 2 + 12, t, 34, INK, "middle", b - a - 30))
+    if _on(prev, st, "up"):
+        for t, (a, b) in zip(BLOCKS["up"], BLK["up"]):
+            s.append(F.rect(a, BLK["uy"], b - a, BLK["ly"] - BLK["uy"] - 8, J.BG2, J.DOC, 4, rx=4))
+            s.append(_tline((a + b) / 2, (BLK["uy"] + BLK["ly"]) / 2 + 8, t, 34, INK, "middle", b - a - 30))
+            for k in (0.3, 0.7):
+                x = a + (b - a) * k
+                s.append(_arrow(x, BLK["uy"] - 70, x, BLK["uy"] - 12, J.DOC, 4, 16))
+        w0, w1, wt = BLK["wall"]
+        c0, c1 = BLK["cut"]
+        s.append(F.rect(w0, wt, w1 - w0, BLK["g"] - wt, J.BG2, J.LINE, 4))
+        s.append(F.rect(w0 - 4, c0, w1 - w0 + 8, c1 - c0, J.BG, J.ALERT, 5))
+        s.append(_tline(w1 + 24, wt + 40, BLOCKS["wall"], 30, INK, "start", 330))
+        s.append(_tline(w1 + 24, (c0 + c1) / 2 + 12, "切られた", 30, J.ALERT, "start", 200))
+    return s
+
+
+# ── stop（cd04 札の並び）＝止められた所（国会の報告 p.28「설계·시공·감리 및 유지·관리상의 결함과 행정관청의 감독부실」）。5つの札の下に欠陥と不備・
+#    上に「1人ではない」の括弧＝cc21 の流れ図と別の絵（並べるだけ）
+STOP = dict(head=("国会の報告が挙げる所", "state"), cards=("設計", "工事", "監理", "建ったあとの管理", "役所の監督"), marks=("欠陥", "欠陥", "欠陥", "欠陥", "不備"))
+SP5 = dict(y=560.0, w=300.0, h=110.0, gap=30.0, my=680.0, by=440.0)
+
+
+def sp5_x(i):
+    n = len(STOP["cards"])
+    tot = n * SP5["w"] + (n - 1) * SP5["gap"]
+    return 960.0 - tot / 2 + i * (SP5["w"] + SP5["gap"]) + SP5["w"] / 2
+
+
+def stop_base(st0):
+    t, r = STOP["head"]
+    return [_tline(960.0, 340.0, t, 32, rc(r), "middle", 800)]
+
+
+def stop_stage(prev, st):
+    s = []
+    if _on(prev, st, "cards"):
+        for i, t in enumerate(STOP["cards"]):
+            s.append(_box(sp5_x(i), SP5["y"], SP5["w"], SP5["h"], t, J.LINE, INK, 32))
+    if _on(prev, st, "mk"):
+        for i, t in enumerate(STOP["marks"]):
+            x = sp5_x(i)
+            s.append(F.line(x, SP5["y"] + SP5["h"] / 2 + 8, x, SP5["my"] - 34, J.ALERT, 4))
+            s.append(_tline(x, SP5["my"] + 8, t, 34, J.ALERT, "middle", 200))
+    if _on(prev, st, "one"):
+        xa, xb = sp5_x(0) - SP5["w"] / 2, sp5_x(len(STOP["cards"]) - 1) + SP5["w"] / 2
+        y = SP5["by"]
+        s.append(F.poly([(xa, y + 30), (xa, y), (xb, y), (xb, y + 30)], "none", J.AMBER, 4))
+    return s
+
+
+# ── cards の組（cc12＝札の2回目・cd07）。c518 の「rescue」は上の CARDS のまま
+CARD_SETS = dict(
+    # rescue（c518）＝上の CARDS（`_cset` が毎回引く＝ここに写さない）
+    # cc12＝検察の表（国会の会議録 p.53〈別紙3〉「금 100만 원 수뢰」〜「금 1,400만 원 수뢰」・15人の計 9,080万ウォン）・円は台本の目安（1995年のレート）
+    bribe=dict(head=("受け取ったとされる額（検察の表）", "state"),
+               rows=(("1人あたり", "100万〜1,400万ウォン"), ("15人の合計", "9,080万ウォン"), ("1995年のレートで", "およそ1,100万円"))),
+    # cd07＝ソウル市の公告（2026-06＝事故を悼む新しい造形の作品の公募の最終の結果）。置く場所の名は語らない
+    art=dict(head=("2026年6月", "city"), rows=(("ソウル市が選んだ", "新しい造形の作品"),)),
+)
+
+
+# ══════════════════════════════════════════════════════════
 #  見え方の表
 # ══════════════════════════════════════════════════════════
 def _lab_plan(st0):
@@ -2906,6 +3798,10 @@ def _lab_load(st0):
 
 def _lab_vs(st0):
     return "記録ごとの数の比べ" if st0["set"] == "count" else "よく語られる話と記録"
+
+
+def _lab_cards(st0):
+    return dict(rescue="記録の数（ソウル市の報告）", bribe="記録の額（検察の報告）", art="ソウル市の計画")[st0.get("set", "rescue")]
 
 
 def _bldg_base2(st0):
@@ -2977,7 +3873,7 @@ VIEWS = dict(
     road=dict(lab="上から見た現場のまわりの道路と車", fields=dict(jam=ONOFF, amb=("off", "on", "blocked")), base=road_base, stage=road_stage),
     wall=dict(lab="横から見た北側の壁（断面）", fields=dict(rubble=("on", "clear")), base=wall_base, stage=wall_stage, parts=wall_parts),
     cal=dict(lab=_lab_cal, fields=dict(set=tuple(CAL_SET), d0=ONOFF, d1=ONOFF, band=ONOFF, open=ONOFF), base=cal_base, stage=cal_stage),
-    cards=dict(lab="記録の数（ソウル市の報告）", fields=dict(r0=ONOFF, r1=ONOFF, r2=ONOFF), base=cards_base, stage=cards_stage),
+    cards=dict(lab=_lab_cards, fields=dict(set=("rescue", "bribe", "art"), r0=ONOFF, r1=ONOFF, r2=ONOFF), base=cards_base, stage=cards_stage),
     nums=dict(lab="持ち物を返すセンターの数", fields=dict(place=ONOFF, n=ONOFF), base=nums_base, stage=nums_stage),
     redo=dict(lab="使い道が変わったときの手順", fields=dict(loop=ONOFF, x=ONOFF), base=redo_base, stage=redo_stage),
     sheets=dict(lab="継ぎ足された計算", fields=dict(add=ONOFF), base=sheets_base, stage=sheets_stage, parts=sheets_parts),
@@ -3006,15 +3902,41 @@ VIEWS = dict(
     insp=dict(lab="横から見た仕上げのある床（寄り）", fields=dict(eye=ONOFF, doc=ONOFF), base=insp_base, stage=insp_stage),
     rule=dict(lab="計算を確かめる決まりの線（階の数と柱のあいだ）", fields=dict(zone=ONOFF, pt=ONOFF), base=rule_base, stage=rule_stage),
     items=dict(lab="区の安全の点検の項目", fields=dict(c0=ONOFF, c1=ONOFF, no=ONOFF), base=items_base, stage=items_stage),
+    # 🆕 ⑤b-6（第10〜11章・終章）
+    desk=dict(lab="行方の分からない人の届けの窓口", fields=dict(two=ONOFF, one=ONOFF, fix=ONOFF), base=desk_base, stage=desk_stage),
+    tally=dict(lab="届けと確かめの数（ソウル市の報告）", fields=dict(total=ONOFF, done=ONOFF, left=ONOFF), base=tally_base, stage=tally_stage),
+    toll=dict(lab="国会に出した数（市の報告）", fields=dict(total=ONOFF, parts=ONOFF), base=toll_base, stage=toll_stage),
+    koseki=dict(lab="戸籍の整理（人の形は描かない）", fields=dict(n=ONOFF, done=ONOFF), base=koseki_base, stage=koseki_stage),
+    final=dict(lab="白書の数と10月の数", fields=dict(cards=ONOFF, calc=ONOFF), base=final_base, stage=final_stage),
+    ages=dict(lab="亡くなった人の年代（白書の表）", fields=dict(bars=ONOFF, top=ONOFF), base=ages_base, stage=ages_stage),
+    most=dict(lab="亡くなった人の数の比べ（同じ縮尺）", fields=dict(r0=ONOFF, r1=ONOFF), base=most_base, stage=most_stage),
+    pen=dict(lab="罰の重さの比べ（懲役の年）", fields=dict(q=ONOFF, b0=ONOFF, law=ONOFF, b1=ONOFF), base=pen_base, stage=pen_stage),
+    haul=dict(lab="上から見た瓦礫を運ぶ道", fields=dict(truck=ONOFF, found=ONOFF), base=haul_base, stage=haul_stage),
+    pay=dict(lab="補償の支払い（白書）", fields=dict(r0=ONOFF, sub=ONOFF, r1=ONOFF), base=pay_base, stage=pay_stage),
+    q3=dict(lab="3つの問い", fields=dict(lit=ONOFF), base=q3_base, stage=q3_stage),
+    forms3=dict(lab="検察の報告の罪名と別紙（原文のまま）", fields=dict(add=ONOFF, sheets=ONOFF), base=forms3_base, stage=forms3_stage),
+    acts=dict(lab="1つ目の表の中身（検察の報告）", fields=dict(c0=ONOFF, c1=ONOFF, seen=ONOFF), base=acts_base, stage=acts_stage),
+    chair=dict(lab="2つ目の表の会長の欄（札だけ）", fields=dict(c12=ONOFF, c3=ONOFF), base=chair_base, stage=chair_stage),
+    fake=dict(lab="現場を見ずに書いた書類（人は描かない）", fields=dict(site=ONOFF, doc=ONOFF), base=fake_base, stage=fake_stage),
+    bribe=dict(lab="よく語られる話と検察の表（同じ縮尺）", fields=dict(rumor=ONOFF, ward=ONOFF, city=ONOFF), base=bribe_base, stage=bribe_stage),
+    shelf=dict(lab="図面を残す棚", fields=dict(rule=ONOFF), base=shelf_base, stage=shelf_stage),
+    stages=dict(lab="判決が挙げる段階", fields=dict(cards=ONOFF, fault=ONOFF), base=stages_base, stage=stages_stage),
+    chain=dict(lab="段階ごとの人をつなぐ鎖", fields=dict(link=ONOFF, one=ONOFF), base=chain_base, stage=chain_stage),
+    gap=dict(lab="違反と崩壊のつながり", fields=dict(line=ONOFF, cut=ONOFF), base=gap_base, stage=gap_stage),
+    causes=dict(lab="国会の報告の原因の流れ", fields=dict(four=ONOFF, gov=ONOFF), base=causes_base, stage=causes_stage),
+    open=dict(lab="開いたままの店（人は描かない）", fields=dict(sig=ONOFF, sign=ONOFF), base=open_base, stage=open_stage),
+    blocks=dict(lab="重なったもの（積み木）", fields=dict(low=ONOFF, up=ONOFF), base=blocks_base, stage=blocks_stage),
+    stop=dict(lab="止められた所（国会の報告）", fields=dict(cards=ONOFF, mk=ONOFF, one=ONOFF), base=stop_base, stage=stop_stage),
 )
 START = {v: {f: d["fields"][f][0] for f in d["fields"]} for v, d in VIEWS.items()}
 HEAD_ONLY = dict(plan=("floor",), slab=("z", "fl"), clocks=("set",), bldg=("under",), tower=("set",), crack=("fl",), cal=("set",), load=("set",),
-                 vs=("set",), joint=("fl",))
+                 vs=("set",), joint=("fl",), cards=("set",))
 ORDER = dict(section=dict(fall=("none", "top", "all")), plan=dict(goods=("off", "on", "fixed"), dp=("off", "thin", "miss"), ct=("off", "back", "moved")),
              road=dict(amb=("off", "on", "blocked")), wall=dict(rubble=("on", "clear")), slab=dict(bar=("off", "ok", "sunk")),
              crack=dict(crack=("off", "on", "long")), load=dict(cap=("same", "less")), drag=dict(pos=("start", "moved")),
              bldg=dict(use5=("off", "permit", "both")), tower=dict(gauge=("off", "on", "low")))
-NOT_SCHEMATIC = ("form", "cal", "cards", "vs", "lists", "items")   # 原文の欄・記録の日付と数・項目の写し（左上に「模式」を付けない）
+NOT_SCHEMATIC = ("form", "cal", "cards", "vs", "lists", "items",   # 原文の欄・記録の日付と数・項目の写し（左上に「模式」を付けない）
+                 "tally", "toll", "final", "ages", "most", "pen", "pay", "q3", "forms3", "acts", "bribe", "stop")   # 🆕 ⑤b-6（数と長さは記録の比・原文の写し）
 VIEW_DIR = ("横から", "上から", "斜めから")
 
 
@@ -3078,6 +4000,21 @@ TAG_AT = dict(
     insp=dict(r=(1290.0, 760.0, "start", 520.0)),
     rule=dict(t=(L_X, 330.0, "start", 300.0), pt=(690.0, 560.0, "end", 300.0)),
     items=dict(),
+    # 🆕 ⑤b-6
+    desk=dict(), tally=dict(), toll=dict(), final=dict(), pay=dict(), q3=dict(r3=(1540.0, 734.0, "start", 290.0)), shelf=dict(r=(1360.0, 860.0, "middle", 700.0)),
+    koseki=dict(r=(1320.0, 480.0, "start", 500.0)),
+    ages=dict(top=(ag_x(2) + 84.0, 440.0, "start", 520.0)),
+    most=dict(r0=(1060.0, 380.0, "start", 700.0), r1=(MS["x0"] + 30.0, 786.0, "start", 700.0)),
+    pen=dict(b0=(L_X, 360.0, "start", 520.0), law=(L_X, 360.0, "start", 760.0)),
+    haul=dict(low=(L_X + 40, 800.0, "start", 700.0), road=(960.0, 660.0, "middle", 560.0),
+              yard=(1510.0, 470.0, "start", 250.0)),      # 🔧 門番 layout：集める場所の下（y 846）だと「市の報告」が下の注に触れた＝場所の中の上へ
+    forms3=dict(add=(1430.0, 372.0, "start", 400.0)),
+    acts=dict(seen=(960.0, 842.0, "middle", 600.0)),     # 🔧 geom_gap：札の上（y 438）だと札の枠に重なった＝章の印の下へ
+    chair=dict(), fake=dict(gl=(900.0, 520.0, "middle", 420.0), r=(780.0, 760.0, "start", 360.0)),
+    bribe=dict(), stages=dict(), chain=dict(c=(960.0, 660.0, "middle", 600.0)), gap=dict(t=(L_X + 40, 330.0, "start", 520.0)),
+    causes=dict(), open=dict(q=(L_X + 40, 330.0, "start", 900.0), mid=(660.0, 700.0, "middle", 340.0), sg=(960.0, 730.0, "middle", 420.0)),
+    blocks=dict(q=(L_X + 40, 330.0, "start", 700.0)),
+    stop=dict(q=(L_X + 40, 330.0, "start", 700.0), one=(960.0, 412.0, "middle", 600.0)),
 )
 TAG_AT["load"].update(ul=(300.0, 540.0, "start", 520.0), ur=(1060.0, 360.0, "start", 620.0))
 TAG_AT["bldg"].update(lr=(1530.0, 470.0, "start", 300.0), sh=(120.0, 500.0, "start", 140.0))
@@ -3378,4 +4315,62 @@ def geo_of(view, start, states):
                              ax=dict(x0=RL["x0"], x1=RL["x1"], y0=RL["y0"], y1=RL["y1"], mx=RL["mx"], my=RL["my"])))
     if view == "items":
         out.update(items=dict(head=tuple(ITEMS["head"]), cards=tuple(ITEMS["cards"])))
+    # 🆕 ⑤b-6
+    if view == "cards":
+        cs = _cset(start.get("set", "rescue"))
+        out.update(set=start.get("set", "rescue"), cards=dict(head=tuple(cs["head"]), rows=tuple(cs["rows"])))
+    if view == "desk":
+        out.update(desk=dict(two=tuple(DESK["two"]), fix=tuple(DESK["fix"])))
+    if view == "tally":
+        out.update(tally=dict(head=tuple(TALLY["head"]), total=TALLY["total"][1], done=TALLY["done"][1], left=TALLY["left"][1],
+                              x=(TL["x0"], TL["x1"]), done_x=tl_x(TALLY["done"][1])))
+    if view == "toll":
+        out.update(toll=dict(head=tuple(TOLL["head"]), total=TOLL["total"][1], parts=tuple(v for _t, v in TOLL["parts"])))
+    if view == "koseki":
+        out.update(koseki=dict(KOSEKI))
+    if view == "final":
+        out.update(final=dict(cards=tuple(v for _t, v in FINAL["cards"]), koseki=FINAL["koseki"], oct=FINAL["oct"]))
+    if view == "ages":
+        out.update(ages=dict(rows=tuple(AGES), h=tuple(ag_h(v) for _t, v in AGES), top=max(range(len(AGES)), key=lambda k: AGES[k][1])))
+    if view == "most":
+        out.update(most=dict(rows=tuple((t, yr, v) for t, yr, v, _r in MOST["rows"]), x0=MS["x0"], x1=tuple(ms_x(v) for _t, _y, v, _r in MOST["rows"]),
+                             unit=(MS["x1"] - MS["x0"]) / MS["vmax"]))
+    if view == "pen":
+        out.update(pen=dict(rows=tuple((t, a, b, lab) for t, _d, a, b, _r, lab in PEN["rows"]), x=tuple((pn_x(a), pn_x(b) if b is not None else None)
+                                                                                                       for _t, _d, a, b, _r, _l in PEN["rows"]),
+                            x0=PN["x0"], x1=PN["x1"], ymax=PEN["ymax"], inf=PN["inf"]))
+    if view == "haul":
+        out.update(haul=dict(found=tuple(HAUL["found"]), day=tuple(HAUL["day"]), texts=tuple(HAUL["labels"])))
+    if view == "pay":
+        out.update(pay=dict(head=PAY["head"], rows=tuple(PAY["rows"]), yen=PAY["yen"], avg=PAY["avg"]))
+    if view == "q3":
+        out.update(q3=tuple(Q3))
+    if view == "forms3":
+        out.update(forms3=dict(add=FORMS3["add"], roles=tuple(FORMS3["roles"]), sheets=tuple((n, tuple(h)) for n, h in FORMS3["sheets"])))
+    if view == "acts":
+        out.update(acts=dict(head=tuple(ACTS["head"]), cards=tuple(ACTS["cards"]), ch=tuple(ACTS["ch"])))
+    if view == "chair":
+        out.update(chair=dict(head=tuple(CHAIR["head"]), cards=tuple(CHAIR["cards"])))
+    if view == "fake":
+        out.update(fake=dict(head=tuple(FAKE["head"])))
+    if view == "bribe":
+        out.update(bribe=dict(rumor=BRIBE["rumor"], ward=tuple(BRIBE["ward"]), city=tuple(BRIBE["city"]), x0=BR["x0"],
+                              unit=(BR["x1"] - BR["x0"]) / BR["vmax"], xs=(br_x(BRIBE["rumor"]), br_x(BRIBE["ward"][1]),
+                                                                          br_x(BRIBE["ward"][1] + BRIBE["city"][1]))))
+    if view == "shelf":
+        out.update(shelf=dict(years=SHELF["years"], l=tuple(SHELF["l"]), r=tuple(SHELF["r"])))
+    if view == "stages":
+        out.update(stages=dict(head=tuple(STAGES["head"]), cards=tuple(STAGES["cards"])))
+    if view == "chain":
+        out.update(chain=dict(cards=tuple(CHAIN["cards"])))
+    if view == "gap":
+        out.update(gap=dict(l=tuple(GAP["l"]), r=tuple(GAP["r"])))
+    if view == "causes":
+        out.update(causes=dict(head=tuple(CAUSES["head"]), cards=tuple(CAUSES["cards"]), gov=CAUSES["gov"], marks=tuple(CAUSES["marks"])))
+    if view == "blocks":
+        out.update(blocks=dict(low=tuple(BLOCKS["low"]), up=tuple(BLOCKS["up"]), wall=BLOCKS["wall"]))
+    if view == "stop":
+        out.update(stop=dict(head=tuple(STOP["head"]), cards=tuple(STOP["cards"]), marks=tuple(STOP["marks"])))
+    if view == "open":
+        out.update(open=dict(OPEN))
     return out

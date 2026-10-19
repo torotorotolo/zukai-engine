@@ -93,3 +93,108 @@ SPEC = {}
 SPEC.update({
     "cc04": ss.vid("cc04"),     # 図書館の机の資料（設計図）
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-19）：図解 第11章（14カット）＝模式図 `tools/mech23.py`・年表（axis）
+# ══════════════════════════════════════════════════════════
+#   🔴 章の札「誰なら止められたのか」と4字以上同じ並び（「誰なら止」「止められた」「られたのか」）を見出し・副題に入れない（dup）。札は12字未満（echo）
+#   🔴 名前は描かない（役職と金額だけ・原文の名前の欄は灰の帯）。次のカットの語りにある数・言葉は描かない＝cc03 に表ごとの人数（cc04・cc06・cc08）・
+#      cc11 に1人あたりの額（cc12）・cc16 に大法院の日付（cc17）・災難管理法（cc22）・5つの法律（cc23）
+SPEC.update({
+    # cc03（2行）＝会長と社長には賄賂を贈った罪も加わった → 検察の報告には、罪に問うた人たちの表が3つ付いている（紙の頭だけ＝行は灰の帯）
+    "cc03": dict(
+        t="罪に問うた人", s="3つの表",
+        fig=("m23", dict(view="forms3", steps=[dict(state=dict(add="on"), tag=dict(t="賄賂を贈った罪", d="会長と社長", at="add", col=J.COMPANY)),
+                                               dict(state=dict(sheets="on"))],
+                         note="名前の欄と表の行は出さない（灰の帯）", src=ss.src(["K6-検 p48", "K6-検 p51", "K6-検 p52", "K6-検 p53"]))),
+    ),
+    # cc05（3行）＝表は何をしたかも並べる：ドロップパネルを薄くし、上の鉄筋を沈め → 冷却塔を計算に入れずに置いて動かし、耐力壁を切った → どれもこの動画に出てきた
+    "cc05": dict(
+        t="何をしたか", s="記録の4つ",
+        fig=("m23", dict(view="acts", steps=[dict(state=dict(c0="on")), dict(state=dict(c1="on")),
+                                             dict(state=dict(seen="on"), tag=dict(t="これまでに見た所", at="seen", col=J.AMBER))],
+                         note="札は別紙1 の要約・絵は模式", src=ss.src(["K6-検 p51"]))),
+    ),
+    # cc07（2行）＝会長については、梁の無い作りだとよく知り、ひびの報告で崩れる兆しを知りながら → 人を逃がさず放っておいた過失、と書いている
+    "cc07": dict(
+        t="会長への見方", s="検察の書き方",
+        fig=("m23", dict(view="chair", steps=[dict(state=dict(c12="on")), dict(state=dict(c3="on"))],
+                         note="札は別紙2 の会長の欄の要約・形は模式", src=ss.src(["K6-検 p52"]))),
+    ),
+    # cc09（2行）＝市の職員は、百貨店を開く承認の手続きで、現場を見ないまま → 見たことにした報告の書類を作っていた。判決はこれを不正な仕事と認めている
+    "cc09": dict(
+        t="見ていない現場", s="判決の判断",
+        fig=("m23", dict(view="fake", steps=[dict(state=dict(site="on")),
+                                             dict(state=dict(doc="on"), tag=dict(t="不正な仕事", d="判決", at="r", col=J.ROLE["state"]))],
+                         note="書類と店の形は模式（判決・検察の報告の別紙3）", src=ss.src(["大96 p1", "K6-検 p53"]))),
+    ),
+    # cc11（3行）＝よく「区への賄賂の総額は1,300万ウォン」と語られる → 検察の表では区の12人だけで8,180万ウォン → 市の3人を合わせると9,080万ウォン
+    "cc11": dict(
+        t="語られる総額", s="記録の額",
+        fig=("m23", dict(view="bribe", steps=[dict(state=dict(rumor="on")), dict(state=dict(ward="on")), dict(state=dict(city="on"))],
+                         note="棒の長さは額の比（検察の報告の別紙3＝15人の額の合計）", src=ss.src(["K6-検 p53"]))),
+    ),
+    # cc12（2行）＝1人あたりでは100万ウォンから1,400万ウォン → 合計は1995年のレートでおよそ1,100万円（札の2回目）
+    "cc12": dict(
+        t="額の幅", s="円にすると",
+        fig=("m23", dict(view="cards", start=dict(set="bribe"), steps=[dict(state=dict(r0="on")), dict(state=dict(r1="on", r2="on"))],
+                         note="円は1995年のレートの目安", src=ss.src(["K6-検 p53"]))),
+    ),
+    # cc13（3行）＝聞き役：決まりのほうに穴は無かった？ → あった。事故の前、手抜きの工事で完成から一定の期間に壊れたときの罰は → 5年以下の懲役だった、と検察は書く
+    "cc13": dict(
+        t="決まりの穴", s="懲役の上限",
+        fig=("m23", dict(view="pen", steps=[dict(), dict(state=dict(q="on")),
+                                            dict(state=dict(b0="on"), tag=dict(t="検察の報告", at="b0", col=J.ROLE["state"]))],
+                         note="横の長さは年の比（検察の報告）", src=ss.src(["K6-検 p50"]))),
+    ),
+    # cc15（2行）＝聞き役：図面を残す決まりが短かった → 検察は、そうした決まりの穴も報告に書き並べている（cc14 の語り＝会社では捨てられ区にだけ残った）
+    "cc15": dict(
+        t="図面の行方", s="区にだけ",
+        fig=("m23", dict(view="shelf", steps=[dict(state=dict(rule="on")), dict(tag=dict(t="報告に並ぶ穴", d="検察", at="r", col=J.ROLE["state"]))],
+                         note="棚と図面の形は模式（検察の報告）", src=ss.src(["K6-検 p49"]))),
+    ),
+    # cc16（3行）＝1審の判決は1995年12月27日 → 2審は翌年の5月10日。被告人19人のうち1人に懲役7年6か月 → いくつもの罪を合わせて重くした刑
+    "cc16": dict(
+        t="裁判の流れ", s="1審と2審",
+        fig=("axis", dict(ss.AX_J23, past=[ss.ax("kiso95")],
+                          steps=[dict(add=[ss.ax("j1_95")], cur="1995-12-27"), dict(add=[ss.ax("j2_96")], cur="1996-05-10"), dict(add=[ss.ax("j2_sum")])],
+                          note="起訴は検察の報告・判決はソウル高等法院の判決の公開の部分",
+                          src=ss.src(["K6-検 p48", "高96 p1"]))),
+    ),
+    # cc18（3行）＝聞き役：どんな判決？ → 建物の計画、設計、工事、建ったあとの管理 → 判決はその段階ごとの過失が重なって崩れた、とした
+    "cc18": dict(
+        t="判決の言葉", s="段階ごとの過失",
+        fig=("m23", dict(view="stages", steps=[dict(), dict(state=dict(cards="on")), dict(state=dict(fault="on"))],
+                         note="札は判決の要旨の言葉・形は模式", src=ss.src(["大96 p1"]))),
+    ),
+    # cc19（2行）＝それぞれの段階の人たちを、1つの事故の責任を共に負う者として罰した → 1か所だけが悪かった、という判決ではなかった
+    "cc19": dict(
+        t="罰し方", s="同じ事故の責任",
+        fig=("m23", dict(view="chain", steps=[dict(state=dict(link="on"), tag=dict(t="責任を共に負う", d="大法院の判決", at="c", col=J.ROLE["state"])),
+                                              dict(state=dict(one="on"))],
+                         note="鎖の形は模式（判決の判示事項）", src=ss.src(["大96 p1"]))),
+    ),
+    # cc20（2行）＝区を相手にした裁判では、1999年に大法院が、区の職員の違反と崩壊のあいだに → 原因と結果の関係があるとまでは認められないとして裁判をやり直させた
+    "cc20": dict(
+        t="区の裁判", s="1999年の判断",
+        fig=("m23", dict(view="gap", steps=[dict(state=dict(line="on"), tag=dict(t="大法院", d="1999年", at="t", col=J.ROLE["state"])),
+                                            dict(state=dict(cut="on"))],
+                         rel=[dict(t="1999年", src="大99 p1")],
+                         note="線の長さと置き場は模式（大法院の判決）", src=ss.src(["大99 p1"]))),
+    ),
+    # cc21（2行）＝国会の報告も、原因を設計、工事、監理、建ったあとの管理の欠陥と → 役所の監督の不備が重なったものとしている（流れ図の2回目）
+    "cc21": dict(
+        t="もう1つの記録", s="原因の重なり",
+        fig=("m23", dict(view="causes", steps=[dict(state=dict(four="on")), dict(state=dict(gov="on"))],
+                         note="札は国会の報告の言葉・形は模式", src=ss.src(["K6-R p28"]))),
+    ),
+    # cc23（2行）＝12月30日には建築法など5つの法律が改められ、わざと手を抜いた工事で → 人を死なせたりけがをさせたりした者は無期または3年以上の懲役
+    "cc23": dict(
+        t="重くなった罰", s="法律の改正",
+        fig=("m23", dict(view="pen", start=dict(q="on", b0="on"),
+                         steps=[dict(state=dict(law="on"), tag=dict(t="5つの法律を改めた", d="建築法など", at="law", col=J.ROLE["state"])),
+                                dict(state=dict(b1="on"))],
+                         rel=[dict(t="5つの法律", src="法令 p1")],
+                         note="横の長さは年の比（検察の報告・法令）", src=ss.src(["K6-検 p50", "法令 p1"]))),
+    ),
+})
