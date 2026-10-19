@@ -1355,6 +1355,12 @@ def _cd_row(i, set_="rescue"):
 
 def cards_stage(prev, st):
     set_ = st.get("set", "rescue")
+    if set_ == "art":                   # 🔧 試し焼き（10-19）：1行の札だと画面の下半分が空いた＝真ん中に大きな札1枚（cd07）
+        t, v = _cset(set_)["rows"][0]
+        if not _on(prev, st, "r0"):
+            return []
+        return [F.rect(560.0, 450.0, 800.0, 300.0, J.BG2, rc(_cset(set_)["head"][1]), 5, rx=16),
+                _tline(960.0, 540.0, t, 36, INK, "middle", 700), _tline(960.0, 660.0, v, 60, J.AMBER, "middle", 720, fam="Dela")]
     n = len(_cset(set_)["rows"])
     return [_cd_row(i, set_) for i in range(n) if _on(prev, st, f"r{i}")]
 
@@ -3616,8 +3622,9 @@ def gap_stage(prev, st):
         s.append(_zig(c0, y - 34, c0, y + 34, 4, 8.0, J.ALERT, 5) + _zig(c1, y - 34, c1, y + 34, 4, 8.0, J.ALERT, 5))
         s.append(_tline(960.0, y - 70, "原因と結果の関係", 32, rc("state"), "middle", 600))
         s.append(_tline(960.0, y + 92, "あるとまでは認めない", 32, rc("state"), "middle", 600))
-        s.append(_arrow(1380.0, 760.0, 1100.0, 800.0, rc("state"), 4, 18))
-        s.append(_tline(1080.0, 812.0, "裁判のやり直し", 30, rc("state"), "end", 500))
+        # 🔧 試し焼き（10-19）：右下の矢印がどこからも出ておらず宙に浮いた＝判断（切れ目の下の札）から下の「やり直し」の札へ
+        s.append(_arrow(960.0, y + 114, 960.0, 752.0, rc("state"), 4, 18))
+        s.append(_box(960.0, 794.0, 340.0, 72.0, "裁判のやり直し", rc("state"), rc("state"), 30))
     return s
 
 
