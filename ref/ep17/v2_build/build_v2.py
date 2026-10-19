@@ -5,6 +5,10 @@
   - v2_cuts_*.txt（@@ c101 ／ @@ +c1xx after c1yy）＝カットの差し替え・追加。元のカットがちょうど1つ在ること
     カットID＝c101〜c9xx・ca01〜ca99・cb01〜cb99（17本目は11章）
   - 差し替えたカットの見出しに 🔧 が無ければ止める（出典欄だけの直しは 🔧 を付けない＝@@ cNNN noflag）
+  - v2_post*.txt（@@@OLD/@@@NEW/@@@END）＝⑤a 以降の直し（2026-10-19 ⑤a-1 で足した段）。節とカットの差し替えを
+    全部当てたあとの本文に当てる。OLD は本文にちょうど1回出ること（違えば止まる）。
+    なぜ要るか：v2_sect* はカットの差し替えより前に当たる＝④' がカットごと差し替えた行（c405・c505 ほか）に届かない
+    ⚠️ 同じ段のファイルはファイル名の順に当たる＝Windows の並べ替えは大文字小文字を区別しない＝足すときは両方の OS で最後になる名前に
     python ref/ep17/v2_build/build_v2.py [--only G3 --out <置き場>]
 終了コード 0=組めた / 2=当て損ない
 """
@@ -73,6 +77,19 @@ for f in [f for f in sorted(S.glob("v2_cuts_*.txt")) if mine(f)]:
         body = pat.sub(lambda x: new, body, count=1)
         n_rep += 1; ids_seen.append(cid)
 
+# ⑤a 以降の直し（v2_post*.txt）＝節とカットの差し替えを全部当てたあとの本文に当てる
+n_post = 0
+for f in [f for f in sorted(S.glob("v2_post*.txt")) if mine(f)]:
+    t = f.read_text(encoding="utf-8")
+    for m in re.finditer(r"@@@OLD\n(.*?)\n@@@NEW\n(.*?)\n@@@END", t, re.S):
+        old, new = m.group(1), m.group(2)
+        c = body.count(old)
+        if c != 1:
+            err.append(f"後の直し {f.name}: OLD が {c} 回 → {old[:60]!r}")
+            continue
+        body = body.replace(old, new)
+        n_post += 1
+
 dup = sorted({i for i in ids_seen if ids_seen.count(i) > 1})
 if dup:
     err.append(f"同じカットを2回差し替え: {dup}")
@@ -85,7 +102,7 @@ out = head.rstrip("\n") + "\n\n---\n\n" + body
 v1_after = (R / "daihon_v1.md").read_text(encoding="utf-8")
 if hashlib.md5(v1_after.encode("utf-8")).hexdigest() != md5_before:
     err.append("第1版が変わっている")
-print(f"節の差し替え {n_sect} ／ カットの差し替え {n_rep} ／ 追加 {n_add} ／ 🔧 の見出し {len(re.findall(r'^\*\*' + ID + r'\*\* 🔧', out, re.M))}")
+print(f"節の差し替え {n_sect} ／ カットの差し替え {n_rep} ／ 追加 {n_add} ／ 後の直し {n_post} ／ 🔧 の見出し {len(re.findall(r'^\*\*' + ID + r'\*\* 🔧', out, re.M))}")
 print("第1版 md5", md5_before)
 if err:
     print("\n".join("E " + e for e in err))
