@@ -1,0 +1,10 @@
+videoId TazAMx63sVU  https://youtu.be/TazAMx63sVU
+✓ 題: 70字
+✓ 説明: 3443字
+✓ タグ: 15個
+✓ 子ども向けでない: self=False made=False
+✓ 公開設定: public
+✓ 処理: succeeded
+✓ 画質: hd
+✓ 尺: PT36M53S（手元 36分52.6秒）
+✓ サムネ: 画素の差の平均 3.01（1280x720・maxres）

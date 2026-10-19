@@ -1700,9 +1700,46 @@ def ep22_h(only=None, top_words=(("乗員", "#ffffff"), ("5名", EP21_HOT), (" �
 EP22_TOP = (("乗員乗客", "#ffffff"), ("5名", EP21_HOT), (" 生還者なし", "#ffffff"))
 
 
+# ── 23本目（三豊百貨店崩壊事故のリメイク）H 型の反転版（2026-10-19 ⑥） ────────
+#    承認①（10-18）：赤 A「犠牲502人 店は開いたまま」・黄「三豊百貨店崩壊の真相」。10-15 の決め＝H 型の反転版1枚・A/B なし・
+#    地は国の写真がイマイチなら生成 AI（記憶 feedback-jiko-thumbnail-rival-format）。形は22本目の本番と同じ（縦の伸ばし 1.8・基線 519）。
+#    大きな語＝黄の1行の頭「三豊百貨店」・下の黄＝残り「崩壊の真相」・上＝白に要の数だけ赤。
+#    🔴 地の写真は**カズヤくんが指定する**（10-19「サムネの写真は後でこちらから指定します」）＝指定が来たら下の表に1行足す。
+#    ⚠️ 決まり（指定と割れたら伝えて選んでもらう）：改変して使える写真だけ（研究院＝公共ヌリ第1類型＋CC BY 4.0・歴史編纂院＝公共ヌリ第1類型
+#       の25点）。BY-SA（消防災難本部・個人名義）は字を重ねる＝翻案＝サムネ自体を BY-SA にすることになる（22本目は使わなかった）。
+#       第三者の写真は使わない。顔を隠した版（`ref/ep23/masked.json`）は隠したまま
+#    ✅ 10-19 カズヤくん「この画像の背景をサムネイルに使用してください」（旧版10本目のサムネ ep10ai_c の画像を添付）＝地は
+#       **旧版の生成 AI の地 c**（`ref/ep10/ai/ep10_c.jpg`・2026-09-21 `gen_thumb_ai` で生成・人なし・md5 33796d5c…）。
+#       添付と旧版のサムネ ep10ai_c の画素の差＝文字の無い帯で 1.53（ほかの候補は 46〜68）で特定した。
+#       生成の絵＝概要欄に「サムネイルの絵は生成AIで作った再現のイメージ」と断る（22本目と同じ）。本編の画には入れない
+EP23_GROUNDS = (("ai10c", "ep10/ai/ep10_c.jpg", {}),)
+EP23_TOP = (("犠牲", "#ffffff"), ("502人", EP21_HOT), (" 店は開いたまま", "#ffffff"))
+
+
+def ep23_h(only=None, top_words=EP23_TOP, sy=1.8, gbase=519, suffix="", vivid_adj=(1.15, 1.15, 1.0)):
+    """23本目の H 型の反転版（字の外がカラー・字の中が v1 の暗い白黒）。地の候補ごとに1枚＝`out/thumb/ep23-ab/ep23_Hinv_<tag>.png`。"""
+    giant = "三豊百貨店"
+    gfs = round(1220 / h_adv(giant, 1))
+    kw = dict(giant=giant, gfs=gfs, gx=30, gbase=gbase, top_parts=list(top_words), bottom="崩壊の真相", sy=sy)
+    for tag, src, crop in EP23_GROUNDS:
+        if only and tag not in only:
+            continue
+        viv, dim = h_ground(src, vivid_adj, **crop)
+        bake(f"ep23-ab/ep23_Hinv_{tag}{suffix}", h_type_inv(viv, dim, **kw))
+    print("三豊百貨店の字の大きさ", gfs, "縦の伸ばし", sy, "赤い縁", round(gfs * H_RIM))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep22-h-ai" in sys.argv:
+    if "ep23-h-bright" in sys.argv:
+        # 23本目 ⑥（10-19）カズヤくん「サムネは背景画像をもう少し明るくして」＝字の外のカラーの地の明るさを2段（いま 1.0＝v1 で 1.15）
+        #   ✅ 10-19 カズヤくん「案2（明るさ+26%）」＝**本番は `ep23-ab/ep23_Hinv_ai10c_b2.png`**（md5 9dece9ed…・平均の明るさ 88.2→100.0）
+        ep23_h(suffix="_b1", vivid_adj=(1.15, 1.15, 1.15))
+        ep23_h(suffix="_b2", vivid_adj=(1.15, 1.15, 1.30))
+    elif "ep23-h" in sys.argv:
+        # 23本目 ⑥（10-19）：カズヤくんが指定した地（EP23_GROUNDS）に H 型の反転版を当てる
+        ep23_h()
+    elif "ep22-h-ai" in sys.argv:
         # 10-15 カズヤくん「OpenAI API で海底のタイタン号を再現した実写イラストを作成して使用」＝本番は反転版・H 型はテスト。
         #   検品の所見（尾部が横倒し＝実物は立った形）を見たうえで「生成した写真の地を明るくせず使う」＝明るさは元の作り（1.0）
         ep22_h(only=("ai",), top_words=EP22_TOP, sy=1.8, gbase=519, suffix="_t")
