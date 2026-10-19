@@ -1,0 +1,63 @@
+# 17本目 映像方針：手元の素材（fetch17.py check の出力＝手で直さない）。置き場は git の外
+code	file	bytes	md5	md5_check	dims	get
+E1	ref/ep17/src/commons/e1.jpg	161300	56a3e52f182aae6f59ac2afb6818975f	md5 2回一致	1200x800 RGB	commons:orig
+E2	ref/ep17/src/commons/e2.jpg	2189273	44f5f5147cc9899cfa7815c987433f73	md5 2回一致	3840x2607 RGB	commons:3840
+E3	ref/ep17/src/commons/e3.jpg	94061	3856e55ddde90e9b3ee0d7b7bc59c149	md5 2回一致	1024x698 RGB	commons:orig
+T1	ref/ep17/src/commons/t1.jpg	291736	e779bdc6774a10201fea7aceaf6b4a8e	md5 2回一致	2002x1336 RGB	commons:orig
+K05	ref/ep17/src/commons/k05.jpg	2971905	a507c9f3919b19e0d4399bfd2d25e5a9	md5 2回一致	2655x1770 RGB	commons:orig
+K04	ref/ep17/src/commons/k04.jpg	1582511	4be3c2b0bd4ee7bfbb4253e69fcd1d5f	md5 2回一致	2231x1487 RGB	commons:orig
+K05b	ref/ep17/src/commons/k05b.jpg	2518133	deaeb732680a4c0dd5f51bb5f464919b	md5 2回一致	2717x1811 RGB	commons:orig
+B192	ref/ep17/src/commons/b192.jpg	343366	23660e6ffa217b63dab1bf0b8ed22a8c	md5 2回一致	1774x1183 RGB	commons:orig
+B194	ref/ep17/src/commons/b194.jpg	237419	bc8703b16daff2bb85aaa893af331166	md5 2回一致	1280x853 RGB	commons:orig
+N1810	ref/ep17/src/commons/n1810.jpg	1608450	2498491ce69e891701b3a8a1c72e6690	md5 2回一致	3840x2598 RGB	commons:3840
+V1	ref/ep17/src/v1/heisei6_bouei_kiroku.mp4	546119476	cc7af20de52400dac24d80fc0463d782	md5 2回一致	映像 1920,1080 1254.286367	yt-dlp（了承②のあと）
+Xa1	ref/ep17/src/stock/Xa1.mp4	12802006	b1502f69e95c105f2ebc44ba91a47d44	md5 2回一致	映像 1920,1080 20.466667	stock
+Xa2	ref/ep17/src/stock/Xa2.mp4	42772527	644d5923c1d64edca74d9917329e8b95	md5 2回一致	映像 1920,1080 69.716667	stock
+Xa5	ref/ep17/src/stock/Xa5.mp4	4215028	a0ba536ec842b649b68a2da593c703a8	md5 2回一致	映像 1920,1080 12.011667	stock
+Xb1	ref/ep17/src/stock/Xb1.mp4	14553678	cea0ac06bf3a6d8299afc97ad20c5ae3	md5 2回一致	映像 1920,1080 20.351667	stock
+Xb3	ref/ep17/src/stock/Xb3.mp4	3444393	478a2a7c7acb15022a91f273e5136a88	md5 2回一致	映像 1920,1080 5.205000	stock
+Xb4	ref/ep17/src/stock/Xb4.mp4	3810475	84015fb42210ec7b379f01b0f6b30583	md5 2回一致	映像 1920,1080 8.340000	stock
+Xc1	ref/ep17/src/stock/Xc1.mp4	2333269	a92e82b9abc5601479326c8013c7f1fc	md5 2回一致	映像 1920,1080 7.400000	stock
+Xc3	ref/ep17/src/stock/Xc3.mp4	35528217	3fb68b0405ca3185e117e594744756cf	md5 2回一致	映像 1920,1080 61.183333	stock
+Xc4	ref/ep17/src/stock/Xc4.mp4	26438838	ba98b44d5b8c0c4662280b18c999f8f3	md5 2回一致	映像 1920,1080 36.436667	stock
+Xd1	ref/ep17/src/stock/Xd1.mp4	6564860	00874574be5781ac526f39c33c4c5a19	md5 2回一致	映像 1920,1080 12.160000	stock
+Xd2	ref/ep17/src/stock/Xd2.mp4	11010787	eed490b9b27e1fc9516ae07b355dda31	md5 2回一致	映像 1920,1080 14.570000	stock
+Xf1	ref/ep17/src/stock/Xf1.jpg	2787386	c1d5864bd29b9435fd5fc19b64cb2419	md5 2回一致	5472x3648 RGB	stock
+Xf2	ref/ep17/src/stock/Xf2.mp4	4850133	6cfe8ceda2be693a087773c3173303bb	md5 2回一致	映像 1920,1080 10.516667	stock
+Xf5	ref/ep17/src/stock/Xf5.mp4	47085083	1f48df7d25bf0cfd42879506e26df814	md5 2回一致	映像 1920,1080, 59.600000	stock
+Xg1	ref/ep17/src/stock/Xg1.jpg	876430	e4753b413b11194e749b546e3e868672	md5 2回一致	4000x2666 RGB	stock
+Xg2	ref/ep17/src/stock/Xg2.jpg	3737799	f5ff1a6efbcb23be7855334072f96405	md5 2回一致	7952x5304 RGB	stock
+Xg4	ref/ep17/src/stock/Xg4.jpg	823371	2b2bf777903ab18020fb17ff8c3de58e	md5 2回一致	4032x3024 RGB	stock
+Xg5	ref/ep17/src/stock/Xg5.mp4	4513024	0b7a7f703a3eb96a811ce0d39305f3ba	md5 2回一致	映像 1920,1080 7.060000	stock
+Xh1	ref/ep17/src/stock/Xh1.jpg	397972	892d0077d9c5f4915459f819b72d655c	md5 2回一致	6000x4000 RGB	stock
+Xh4	ref/ep17/src/stock/Xh4.mp4	11109038	b90cfaffeeeca40f7cac34527f97bc02	md5 2回一致	映像 1920,1080 15.636667	stock
+Xh5	ref/ep17/src/stock/Xh5.mp4	25294879	07e5b1125138c1e1529afe1c1ffda6c2	md5 2回一致	映像 2546,1440 25.525500	stock
+Xi1	ref/ep17/src/stock/Xi1.mp4	6183682	39fa1d3f03ea0e4715ad1a8203ce1f8f	md5 2回一致	映像 1920,1080 15.560000	stock
+Xi2	ref/ep17/src/stock/Xi2.mp4	13501267	848bee193ba1ae1e6cf19b497f86d4fa	md5 2回一致	映像 1920,1080 17.950000	stock
+Xi3	ref/ep17/src/stock/Xi3.mp4	39628311	af87c9da193399b985818538fe1868e9	md5 2回一致	映像 1920,1080 54.720000	stock
+Xk1	ref/ep17/src/stock/Xk1.mp4	23584891	a7491c5b77629cab5c1ba1644e04cd39	md5 2回一致	映像 1920,1080 22.120000	stock
+Xk2	ref/ep17/src/stock/Xk2.mp4	8043201	02ffec676fa272cec849bdc3c72d1e87	md5 2回一致	映像 1920,1080 12.800000	stock
+Xk4	ref/ep17/src/stock/Xk4.mp4	18850918	f307d8c6b9831201acb9ae22a2763df8	md5 2回一致	映像 2048,1080 58.680000	stock
+Xm1	ref/ep17/src/stock/Xm1.mp4	3086066	c8151aa40f3cebdffc419c8366bd2eb7	md5 2回一致	映像 1280,720 13.930000	stock
+Xm5	ref/ep17/src/stock/Xm5.mp4	13628079	5bb9ec5075a4890a61653d48450d727d	md5 2回一致	映像 1920,1080 40.133333	stock
+Xn1	ref/ep17/src/stock/Xn1.mp4	22359297	373832c7bf79153ea4ccf6fc808b1f40	md5 2回一致	映像 1920,1080 30.846667	stock
+Xn3	ref/ep17/src/stock/Xn3.mp4	13752674	57d9dbb5177877c0c9b3ab4ff21923db	md5 2回一致	映像 1920,1080 40.331958	stock
+QA	ref/ep17/src/commons/qa.jpg	198300	77c00b0a6c5c9397a056ec33d3c8d6c6	md5 2回一致	960x639 RGB	commons:orig
+QB	ref/ep17/src/commons/qb.jpg	180251	cc7386edd89abddf2a5326377f9eb8b4	md5 2回一致	960x640 RGB	commons:orig
+QC	ref/ep17/src/commons/qc.jpg	2345069	db46f3eaa94814e0ee7bfa969404e0a9	md5 2回一致	3840x2880 RGB	commons:3840
+QD	ref/ep17/src/commons/qd.jpg	1698534	fa9fd4ec6b078c0d7bc163ee3fc1b611	md5 2回一致	3840x2560 RGB	commons:3840
+A310C	ref/ep17/src/commons/a310c.jpg	809073	bf718b96360f03c0b56884de756e5813	md5 2回一致	3840x2560 RGB	commons:3840
+JAS	ref/ep17/src/commons/jas.jpg	236752	c3e748ca6e5e18eb9e48af5932668840	md5 2回一致	1280x854 RGB	commons:orig
+AB1	ref/ep17/src/commons/ab1.jpg	1751103	1b658e5a22d7f9d997fb93913f38f9e6	md5 2回一致	3840x1920 RGB	commons:3840
+AB2	ref/ep17/src/commons/ab2.jpg	791975	2c9926141c0ad78441c6bc84f15e1f6d	md5 2回一致	1920x1375 RGB	commons:orig
+AB3	ref/ep17/src/commons/ab3.jpg	417697	f64ea06ba92617eb91bcf375b3d407a6	md5 2回一致	1280x1369 RGB	commons:orig
+FAA	ref/ep17/src/commons/faa.jpg	1767208	d6b8f18ed8a0c552c1f3b1a84d83b0d5	md5 2回一致	3840x3528 RGB	commons:3840
+NTSB	ref/ep17/src/commons/ntsb.jpg	1115865	63ce9a95cba6bfd6694ea6b5f0cb7c40	md5 2回一致	3840x2880 RGB	commons:3840
+CT1	ref/ep17/src/commons/ct1.jpg	3167506	b7191edde53cbc9b2fe0c598bc247e1f	md5 2回一致	3840x2880 RGB	commons:3840
+CT2	ref/ep17/src/commons/ct2.jpg	2922052	a4be0cf5269368e8ba17f46aecb68e52	md5 2回一致	3840x2891 RGB	commons:3840
+HEL	ref/ep17/src/commons/hel.jpg	666694	c4b1d62c3b9a5a0b138af5c05eb341d3	md5 2回一致	1920x1921 RGB	commons:1920
+ARF	ref/ep17/src/commons/arf.jpg	288813	e7e0c2a5837274ac7b4e521535164529	md5 2回一致	1280x960 RGB	commons:orig
+ARF2	ref/ep17/src/commons/arf2.jpg	1031308	55571e78ca8a1169bb625a8591d2909d	md5 2回一致	3840x2174 RGB	commons:3840
+B747	ref/ep17/src/commons/b747.jpg	200137	93a8f2873fab7a3e68546de4c936951a	md5 2回一致	1280x854 RGB	commons:orig
+A310	ref/ep17/src/commons/a310.jpg	222513	42f21515090d851dd5641d8eb468d59a	md5 2回一致	1280x846 RGB	commons:orig
+A87	ref/ep17/src/gsi/gazo4_nagoya_z17.png	24479322	b39bae1ea1d287473495de127f09b12c	md5 2回一致	4096x4096 RGB	gsi:tiles

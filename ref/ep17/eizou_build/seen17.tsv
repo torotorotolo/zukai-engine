@@ -1,0 +1,15 @@
+# 17本目 映像方針：このチャットで見た画像（1行1枚・機械で数える）。n＝通し番号／file＝見た物／why＝何のために
+n	date	file	why
+1	2026-10-19	scratchpad/pages/pg_158.png（報告書 p.158・100dpi・828x1170）	写真41 に画面（上の端）が写るか＝c105・c306・c503
+2	2026-10-19	scratchpad/pages/pg_135.png（報告書 p.135 付図29・110dpi）	c106 の「GO AROUND」の欄の切り出しと時刻の書き方＝c106・c113・c309
+3	2026-10-19	scratchpad/sheet_v1.png（V1 の9コマ 757〜785秒・1コマ 640x360）	焼き込みの字・覆われたもの（12:54〜12:56 の△）・使う秒＝c101・c805・c807
+4	2026-10-19	scratchpad/sheets/V1_edges.png（V1 762・763・772・773秒・1コマ 960x540）	c101 の終わりと c805 の頭の境目
+5	2026-10-19	scratchpad/sheets/S1_night.png（Xa1・Xa2・Xa5・Xb1・Xb3・Xb4 の真ん中のコマ・640x360）	c211・c215・c323 の候補
+6	2026-10-19	scratchpad/sheets/S2_cruise.png（Xc1・Xc3・Xc4・Xd1・Xd2・Xi1）	c203・c207 の候補
+7	2026-10-19	scratchpad/sheets/S3_cockpit.png（Xf1・Xf2・Xf5・Xg1・Xg2・Xg4）	c302・c415・cb23・c515・c611・c707 の候補
+8	2026-10-19	scratchpad/sheets/S4_tower.png（Xg5・Xh1・Xh4・Xh5・Xi2・Xi3 の真ん中のコマ・640x360）	c801・c814 の候補・夜の操縦室の映像
+9	2026-10-19	scratchpad/sheets/S5_docs.png（Xk1・Xk2・Xk4・Xm1・Xm5・Xn1）	ca02・ca04・ca13・c811・cb13 の候補
+10	2026-10-19	scratchpad/sheets/S6_cockpit_commons.png（QA・QB・QC・QD・A310C・JAS・640x360）	c105・c306・c413・cb07・c918・ca18 の候補（画面・透かし）
+11	2026-10-19	scratchpad/sheets/S7_buildings.png（AB1・AB2・AB3・FAA・NTSB・CT1・640x360）	c311・c614・ca15・cb11・ca19・c506 の候補（人・地裁の庁舎か）
+12	2026-10-19	scratchpad/sheets/S8_misc.png（CT2・HEL・ARF・ARF2・B747・A310）	cb18・c905・c802・c808・c618・c913 の候補（人の顔）
+13	2026-10-19	scratchpad/sheets/S9_cal.png（B192・B194・N1810・K05b・Xn3）	c418・cb05・cb30・cb06・cb13 の候補
