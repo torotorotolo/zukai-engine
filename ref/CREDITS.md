@@ -2664,7 +2664,7 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `c99_960` | c521 | 1995 | CC BY-SA 4.0（BY-SA） | ソウル特別市 消防災難本部 | https://commons.wikimedia.org/wiki/File:19950629%EC%82%BC%ED%92%8D%EB%B0%B1%ED%99%94%EC%A0%90_%EB%B6%95%EA%B4%B4_%EC%82%AC%EA%B3%A023.jpg |
 | `hs_2301030077_0` | cb06 | 1996 | 公共ヌリ第1類型（A・顔にモザイク） | ソウル歴史編纂院 | https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030077&key=2211220005 |
 | `hs_2301030083_0` | cb13 | 1996 | 公共ヌリ第1類型（A） | ソウル歴史編纂院 | https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030083&key=2211220005 |
-| `hs_2301030100_0` | cd06 | 1998 | 公共ヌリ第1類型（A） | ソウル歴史編纂院 | https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030100&key=2211220005 |
+| `hs_2301030100_0` | cd06 | 1998 | 公共ヌリ第1類型（A・顔にモザイク） | ソウル歴史編纂院 | https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030100&key=2211220005 |
 | `hs_2301030102_0` | cb01 | 1995 | 公共ヌリ第1類型（A） | ソウル歴史編纂院 | https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030102&key=2211220005 |
 | `hs_2301030107_0` | c416 | 1995 | 公共ヌリ第1類型（A） | ソウル歴史編纂院 | https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030107&key=2211220005 |
 | `hs_2301030108_0` | c415 | 1995 | 公共ヌリ第1類型（A） | ソウル歴史編纂院 | https://history.seoul.go.kr/archive/bbsctt/view.do?bbscttSn=2301030108&key=2211220005 |

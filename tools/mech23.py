@@ -1978,8 +1978,8 @@ def bldg_extra_stage(prev, st):
         s.append(_arrow(xr - 40, y - 9, xr - 8, y - 9, A_C, 4, 12))
     if _on(prev, st, "q5"):                 # ⚠️ 帯の中・右は実際の札の場所／右の外は B棟の前の面＝A棟の屋上の面の上
         s.append(_qmark(640.0, 385.0, 60, J.AMBER))
-    if _on(prev, st, "chk"):
-        s.append(_xmark(1420.0, 550.0, 28.0, J.ALERT, 9))
+    if _on(prev, st, "chk"):                # 🔧 ⑤c'（10-19）：c614 の札「途中の検査なし」を r2→r3 へ下げた＝✕ も y 550→680（札の左・色の階の高さ）
+        s.append(_xmark(1420.0, 680.0, 28.0, J.ALERT, 9))
     if _on(prev, st, "weak"):               # 細い柱（A棟の前の面に赤の破線＝場所と本数は模式）
         x0, x1 = bl_x("a")
         for k in range(1, 5):
