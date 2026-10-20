@@ -80,7 +80,33 @@ def heads(order, spec, use=None, clips=None):
     return out
 
 
-def pic_kinds(s, stock=False):
+def _db(assets=None):
+    """束の台帳 assets.json（{名: 行}）。assets を渡せばそれ（selftest）・読めなければ {}"""
+    if assets is not None:
+        return assets
+    try:
+        import cuts.ss as _ss
+        return _ss._assets()
+    except Exception:                                    # noqa: BLE001
+        return {}
+
+
+def rec_of(photo, assets=None):
+    """写真の道（`ep17/r03.jpg`）→ 台帳の行（無ければ {}）"""
+    return _db(assets).get(str(photo or "").split("/", 1)[-1].rsplit(".", 1)[0]) or {}
+
+
+# 🆕 2026-10-20（17本目 ⑤b-2）：「関連」の写真＝事故そのものではない実物（同じ型の操縦室・機関の建物・空港・消防車・同じ会社のほかの機体）。
+#    PLAN の種類は「写真」のまま（`cuts.KINDS` に「関連」は無い）・20% の数（この事故の写真）からは外す＝札（PLAN の注「関連（」）と
+#    絵（束の台帳 assets.json の `related`＝`qa_out/ep17_assets.py` が一覧の種類「関連」から書く）を照らす。食い違えば E
+REL_MARK = "関連（"
+
+
+def is_related(s, assets=None):
+    return bool(rec_of((s or {}).get("photo"), assets).get("related"))
+
+
+def pic_kinds(s, stock=False, assets=None):
     """SPEC の1カットの図から、あり得る画面の種類（集合）。None＝画が無い。stock＝絵がフリー素材（`is_stock`）。"""
     fig, photo = s.get("fig"), s.get("photo")
     if fig:
@@ -116,14 +142,14 @@ def pic_kinds(s, stock=False):
             return {"文字の頁", "図・写真の頁"}
         # 🆕 2026-10-06（19本目 ⑤b-7b）：NIST のスライドの切り抜き（束の台帳 assets.json の code「TF頁」＝資料の頁）も頁＝
         #    写真（20%の数）に数えない。名前に `/pg` が無い（旧版の束の名を写した）ので、台帳の記録で見分ける（字面でなく記録）
-        try:
-            import cuts.ss as _ss
-            db = _ss._assets()
-        except Exception:                                    # noqa: BLE001
-            db = {}
-        code = (db.get(str(photo).split("/", 1)[-1].rsplit(".", 1)[0]) or {}).get("code") or ""
+        rec = rec_of(photo, assets)
+        code = rec.get("code") or ""
         if code == "TF頁":
             return {"図・写真の頁"}
+        # 🆕 2026-10-20（17本目 ⑤b-2）：束の台帳の `page: true`（報告書の付図 F・写真51 の頁 P51・本文 P95・判決 J・FAA の報告 L）＝資料の頁。
+        #    🔴 記号の字面（`P\d+`・`J\d+`）では見分けない＝23本目のフリー素材の記号（P5571839）と重なる＝束の記録で（`qa_out/ep17_assets.py`）
+        if rec.get("page"):
+            return {"文字の頁", "図・写真の頁"}
         # 🆕 2026-10-11（20本目 ⑤b-7）：報告書の付図（F4・別添1 の A1F1）と解説の図（K-kz018）も資料の図＝写真（20%の数）に数えない。
         #   台帳 assets.json の code（`qa_out/ep20_assets.py` の記号＝映像方針の一覧の素材の欄）で見分ける（名前の字面でなく記録）。
         #   写真（P・A1P）は今までどおり写真
@@ -148,11 +174,12 @@ def _inside(span, allowed, pos):
     return False
 
 
-def judge(order, plan, spec, secs=None, exc=None, stock=None, mix_todo=None):
+def judge(order, plan, spec, secs=None, exc=None, stock=None, mix_todo=None, assets=None):
     """order＝台本の順のカットID・plan＝PLAN・spec＝SPEC・exc＝この回の例外（EXCEPTIONS の値）・
     stock＝(cid, SPEC) → 絵がフリー素材か（無ければ `is_stock` を footage の本番の表で）。
     🆕 18本目 ⑤b-2：mix_todo＝混ざりの本物の側のつなぎ待ち（`cuts.ss.ILLU_MIX_TODO`・束ができる前だけ）＝そのカットは
        「混ざり」を全面の絵（再現イラスト）で書いてよい（W で並べる）。束ができたら門番 check_illu ⑦ が止める
+    🆕 17本目 ⑤b-2：assets＝束の台帳（selftest が渡す・無ければ cuts.ss._assets()）＝頁（page）と「関連」（related）の記録
     戻り＝(E の list, W の list, 数の dict)。"""
     E, W = [], []
     mix_todo = mix_todo or {}
@@ -172,7 +199,13 @@ def judge(order, plan, spec, secs=None, exc=None, stock=None, mix_todo=None):
             W.append(f"{c}: 画が無い（PLAN の種類「{k}」で数えた）")
         else:
             stk = stock(c, s)
-            got = pic_kinds(s, stk)
+            got = pic_kinds(s, stk, assets)
+            # 🆕 17本目 ⑤b-2：「関連」の札（PLAN の注）と束の台帳（related）を照らす＝食い違いは 20% の数が揺れる
+            if k == "写真" and not stk and s.get("photo"):
+                rel_plan, rel_rec = REL_MARK in str(plan[c].get("plan") or ""), is_related(s, assets)
+                if rel_plan != rel_rec:
+                    E.append(f"{c}: PLAN の注は{'「関連」' if rel_plan else '「この事故の写真」'}なのに、束の台帳 assets.json の related は "
+                             f"{rel_rec}（{s.get('photo')}）＝一覧の種類（関連／実写）と束を照らす")
             if got is None:
                 E.append(f"{c}: SPEC に図も写真も無い")
             elif k == "混ざり" and got == {"再現イラスト"} and c in mix_todo:
@@ -219,9 +252,12 @@ def judge(order, plan, spec, secs=None, exc=None, stock=None, mix_todo=None):
             tot += secs.get(c, 0.0)
             ts += secs.get(c, 0.0) if k in TEXT else 0.0
     cnt = Counter(k for _, k in kinds)
+    # 🆕 17本目 ⑤b-2：「関連」は PLAN の注で数える（画の無いカットも数えられる＝札と台帳の照らし合わせは上の E）
+    rel = [c for c, k in kinds if k == "写真" and REL_MARK in str(plan[c].get("plan") or "")]
     return E, W, dict(n=n, tc=tc, ratio=ratio, best=best, span=span, time=(ts / tot if tot else None), cnt=cnt,
                       ids={k: [c for c, kk in kinds if kk == k] for k in TEXT},
-                      photo=cnt["写真"], stock=cnt["フリー素材"])
+                      photo=cnt["写真"], stock=cnt["フリー素材"], related=len(rel), rel_ids=rel,
+                      event=cnt["写真"] - len(rel) + cnt["図・写真の頁"] + cnt["文字の頁"])
 
 
 # ══════════════════════════════════════════════════════════
@@ -369,6 +405,31 @@ def selftest():
         {ids8[0]: dict(q15, intro=dict(q15["intro"], photo="ep18/sail_t16.jpg"))}, True)
     run("⑮c 重なる2枚目が写真で種類「決め所」", ids8, p15,
         {ids8[0]: dict(q15, intro=dict(q15["intro"], over=dict(photo="ep18/sail_t16.jpg", at=1)))}, True)
+    # 🆕 17本目 ⑤b-2：「関連」（札＝PLAN の注・絵＝束の台帳の related）と、束の台帳の頁（page）
+    db16 = {"rel": dict(code="QC", related=True), "own": dict(code="R03", related=False), "pg": dict(code="J98", page=True)}
+    p16 = {c: dict(kind="図解") for c in ids8}
+    p16[ids8[0]] = dict(kind="写真", plan="🔧 関連（事故そのものではない実物の写真）｜QC")
+    p16[ids8[1]] = dict(kind="写真", plan="R03｜一覧の種類：実写")
+    sp16 = {ids8[0]: dict(photo="ep17/rel.jpg"), ids8[1]: dict(photo="ep17/own.jpg")}
+    E16, _, st16 = judge(ids8, p16, sp16, stock=no_clip, assets=db16)
+    good16 = not E16 and (st16["photo"], st16["related"], st16["event"]) == (2, 1, 1)
+    ok &= good16
+    print(f"  {'OK' if good16 else '🔴 NG'} ⑯a 関連1・この事故の写真1：札と台帳が合う → E {len(E16)}・写真 {st16['photo']}・関連 {st16['related']}"
+          f"・20% の数 {st16['event']}（2・1・1 のはず）")
+    run("⑯b PLAN の注は関連なのに台帳は related なし", ids8, p16, {ids8[0]: dict(photo="ep17/own.jpg")}, True)
+    E16c = judge(ids8, p16, {ids8[1]: dict(photo="ep17/rel.jpg")}, stock=no_clip, assets=db16)[0]
+    E16b = judge(ids8, p16, {ids8[0]: dict(photo="ep17/own.jpg")}, stock=no_clip, assets=db16)[0]
+    good16bc = bool(E16b) and bool(E16c) and "関連" in E16b[0] and "関連" not in E16c[0].split("PLAN の注は")[1][:4]
+    ok &= good16bc
+    print(f"  {'OK' if good16bc else '🔴 NG'} ⑯b・c 札と台帳の食い違い（注は関連・台帳なし／台帳は関連・注なし）＝どちらも E（{len(E16b)}・{len(E16c)}件）")
+    p16d = {c: dict(kind="図解") for c in ids8}
+    p16d[ids8[0]] = dict(kind="文字の頁")
+    E16d = judge(ids8, p16d, {ids8[0]: dict(photo="ep17/pg.jpg")}, stock=no_clip, assets=db16)[0]
+    p16d[ids8[0]] = dict(kind="写真")
+    E16e = judge(ids8, p16d, {ids8[0]: dict(photo="ep17/pg.jpg")}, stock=no_clip, assets=db16)[0]
+    good16de = not E16d and bool(E16e)
+    ok &= good16de
+    print(f"  {'OK' if good16de else '🔴 NG'} ⑯d・e 台帳の page（判決の頁 J98）＝種類「文字の頁」は通る（{len(E16d)}件）・「写真」は E（{len(E16e)}件）")
     hd13 = heads(ids8, sp13, use13, clips13)
     good13 = hd13 == {"stock": [ids8[0]], "film": []}
     ok &= good13
@@ -402,6 +463,11 @@ def main():
     pr = st["photo"] / st["n"] if st["n"] else 0.0
     print(f"  ◆ 写真（この事故の写真・映像＝20%の数・【映像あり】）{st['photo']}/{st['n']}＝{pr * 100:.1f}%"
           f"・フリー素材 {st['stock']}（別に数える＝20%にも【映像あり】にも数えない・ルール §2-5c）")
+    if st["related"]:
+        ev = st["event"] / st["n"] if st["n"] else 0.0
+        print(f"  ◆ 🆕 うち「関連」（事故そのものではない実物）{st['related']}＝写真から外す → この事故の写真 {st['photo'] - st['related']}"
+              f"＋頁（図・写真の頁 {st['cnt']['図・写真の頁']}・文字の頁 {st['cnt']['文字の頁']}）＝{st['event']}/{st['n']}＝{ev * 100:.1f}%"
+              f"（17本目の映像方針の 20% の数＝実写＋頁）{'' if ev >= LIMIT else '  🔴 20% を割る'}")
     hd = heads(list(SJ.ORDER), cuts.SPEC)
     print(f"  ◆ 🆕 映像の差し込み（頭の k 行だけ＝カットの種類は本の画のまま）：フリー素材 {len(hd['stock'])}"
           f"（{' '.join(hd['stock']) or 'なし'}）・記録映画 {len(hd['film'])}（{' '.join(hd['film']) or 'なし'}）")

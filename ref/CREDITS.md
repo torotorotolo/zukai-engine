@@ -2695,3 +2695,88 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `c314b` | c314 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/7168444/ |
 | `c802a` | c802 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/8456426/ |
 | `c805a` | c805 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/6034678/ |
+
+## 中華航空140便墜落事故（1994-04-26・17本目）
+
+※2026-10-20（⑤b-2）。`qa_out/ep17_assets.py credits --write` が書く（手で直さない）。写真と映像は映像方針の一覧 `ref/ep17/eizou_list17.md`（了承② 2026-10-19）。
+
+### 0. 映像（記録映像 V1・フリー素材＝音はすべて使わない＝`-an`）
+- 記録映像 V1＝防衛省・自衛隊『平成6年防衛庁記録』（CC BY 3.0・防衛省の YouTube 公式・Commons にも同じ版）。4:3 の中身を横いっぱい・上を残して下を切る（焼き込みの字幕と日付を外す）・再生の速さを変えることがある＝画面の出典に「改変：切出・再生速度」
+- フリー素材（Pexels・Pixabay・生成AI は使わない）＝画面の左上に「イメージ」・出典の行は「イメージ（Pexels）」「イメージ（Pixabay）」だけ（クレジットは任意＝投稿者の名前は書かない・概要欄にも書かない）。20% に数えない。🔴 映像そのものもひかえの静止画も git に入れない（19本目 決め⑨）
+
+| 記号 | 使うカット | 画面の出典 | ライセンス | 頁 |
+|---|---|---|---|---|
+| `V1` | c101 c805 c807 | 出典：防衛省・自衛隊『平成6年防衛庁記録』（CC BY 3.0）・改変：切出・再生速度 | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:%E5%B9%B3%E6%88%90%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm |
+| `Xc3` | c203 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/airplane-window-view-from-above-the-clouds-11292227/ |
+| `Xd2` | c207 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-small-airplane-flying-over-a-cloudy-sky-17118515/ |
+| `Xb3` | c215 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/footage-of-a-flying-airplane-at-night-6467678/ |
+| `Xb4` | c323 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/airplane-departing-at-night-11878578/ |
+| `Xm1` | c811 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-closed-gate-with-a-chain-and-a-padlock-3999371/ |
+| `Xi2` | c814 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/a-fire-truck-spraying-water-on-a-runway-15448013/ |
+| `Xk1` | ca13 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/close-up-of-hands-flipping-through-old-documents-30117908/ |
+| `Xc1` | cb13 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/commercial-airplane-flying-high-in-cloudy-sky-38530430/ |
+
+### 1. 写真・頁（報告書 96-5〈PDL1.0〉・Commons・イメージ）
+- 報告書の写真と付図＝運輸省 航空事故調査委員会『航空事故調査報告書 96-5』（1996年・公共データ利用規約 PDL1.0＝出典と加工の旨）。頁の走査（灰色・約400dpi）から切り出し、白黒のまま縮めた＝画面の出典に「（加工して作成）」
+- 🔴 **CC BY-SA・GFDL は額装だけ**（了承② 決め7＝無加工・額ごと動かす・1点1カット＝`cuts/ss.check_frame_only`）
+- 🔴 **個人名義の点は画面の出典の行に作者欄の名前**。名前はこのリポに書かない＝`ref/ep17/credits.json` は印 `{作者}` だけ・焼くときに git の外の表から足す（`tools/scene_jiko.ep17_credit`）。名前は各行の Commons の頁の作者欄。CC0・PD は表示が任意＝名前を出さない
+- 「関連」＝事故そのものではない実物（同じ型の操縦室・機関の建物・空港・消防車・中華航空のほかの機体）＝20% の数（この事故の写真）に入れない
+- イメージ（Pexels の写真）＝`ep17/stock/` の名・画面の左上に「イメージ」・20% に数えない・git に入れない（焼くときに取り直して md5 を照らす）
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `a310` | c913 | 1982 | CC BY 2.0（関連） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep17/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:F-WZLI_(172)_11-9-82_Farnborough_(52797770066).jpg |
+| `ab1` | c311 | 2024 | CC0（関連） | Commons の投稿者（CC0・PD＝表示は任意） | https://commons.wikimedia.org/wiki/File:Toulouse_Si%C3%A8ge_Airbus.jpg |
+| `ab2` | c614 | 2024 | CC0（関連） | Commons の投稿者（CC0・PD＝表示は任意） | https://commons.wikimedia.org/wiki/File:Toulouse_Si%C3%A8ge_Airbus_%2B_b%C3%A9luga_01.jpg |
+| `ab3` | ca15 | 2024 | CC0（関連） | Commons の投稿者（CC0・PD＝表示は任意） | https://commons.wikimedia.org/wiki/File:Beluga_takes_off_above_Airbus%27_Headquarters.jpg |
+| `arf` | c802 | 2014 | CC BY 3.0（関連・顔にモザイク） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep17/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:A-MB-2_JASDF_Airport_crash_tender_,_%E8%88%AA%E7%A9%BA%E8%87%AA%E8%A1%9B%E9%9A%8A_%E7%A0%B4%E5%A3%8A%E6%95%91%E9%9B%A3%E6%B6%88%E9%98%B2%E8%BB%8A_-_Panoramio_103521917.jpg |
+| `arf2` | c808 | 2014 | CC BY-SA 3.0（関連） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep17/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:JASDF_A-MB-3_crash_tender(48-6320)_right_front_view_at_Komaki_Air_Base_February_23,_2014.jpg |
+| `b192` | c418 | 1998 | CC BY 2.0（関連） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep17/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:HONG_KONG_KAI_TAK_FEB_1998_CHINA_AIRLINES_AIRBUS_A300_B-192_(8673301706).jpg |
+| `b194` | cb05 | 1998 | CC BY 2.0（関連） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep17/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:HONG_KONG_KAI_TAK_FEB_1998_CHINA_AIRLINES_AIRBUS_A300_B-194_(8672080909).jpg |
+| `b747` | c618 | 1996 | CC BY 2.0（関連） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep17/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:China_Airlines_Boeing_747-409_B-163_(23842205736).jpg |
+| `ct1` | c506 cb18 | 2021 | CC0（関連） | Commons の投稿者（CC0・PD＝表示は任意） | https://commons.wikimedia.org/wiki/File:Nagoya-High-Court-1.jpg |
+| `e1` | c102 | 1993 | CC BY-SA 2.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep17/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Photo_of_China_Airlines_Airbus_A300B4-622R_B-1816_at_Nagoya-Komaki_International_Airport_(NGO,_RJNN).jpg |
+| `e2` | c204 | 不明 | CC BY-SA 4.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep17/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:CI_A300_B-1816.jpg |
+| `e3` | c315 | 1991 | GFDL 1.2（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep17/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:China_Airlines_B-1816_Airbus_A300_at_HK_Airport.jpg |
+| `f29` | c106 c113 c309 | 1996 | PDL1.0（頁） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `faa` | cb11 | 2016 | パブリックドメイン（関連） | 米議会図書館 | https://commons.wikimedia.org/wiki/File:Orville_Wright_Federal_Building,_Washington,_D.C_LCCN2016648213.tif |
+| `hel` | c905 | 1981 | CC BY 4.0（関連） | ヘルシンキ市立博物館 | https://commons.wikimedia.org/wiki/File:Helsinki-Vantaan_lentoasemaa_1981_(HK19940104-3144).tif |
+| `jas` | ca18 | 1999 | CC BY 4.0（関連） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep17/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Japan_Air_System_Airbus_A300-600R_JA8562,_Xian,_Oct99_(52040271670).jpg |
+| `k04` | ca20 | 2004 | CC0（この事故） | Commons の投稿者（CC0・PD＝表示は任意） | https://commons.wikimedia.org/wiki/File:ChinaAirlines_A300_fukuoka_20041023102346.jpg |
+| `k05` | c902 | 2005 | CC0（この事故） | Commons の投稿者（CC0・PD＝表示は任意） | https://commons.wikimedia.org/wiki/File:ChinaAirlines_A300_fukuoka_20050925102120.jpg |
+| `k05b` | cb06 | 2005 | CC0（この事故） | Commons の投稿者（CC0・PD＝表示は任意） | https://commons.wikimedia.org/wiki/File:ChinaAirlines_A300_fukuoka_20050429102946.jpg |
+| `n1810` | cb30 | 不明 | CC BY-SA 2.0（関連） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep17/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:China_Airlines_Airbus_A300B4-220_(B-1810-179).jpg |
+| `ntsb` | ca19 | 2026 | CC0（関連） | Commons の投稿者（CC0・PD＝表示は任意） | https://commons.wikimedia.org/wiki/File:NTSB_Headquarters.jpg |
+| `qa` | c306 | 2004 | GFDL 1.2（関連） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep17/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Airbus_A300B4-622R,_Air_Paradise_International_AN0658015.jpg |
+| `qb` | c413 | 2003 | GFDL 1.2（関連） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep17/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Airbus_A300B4-605R,_Lufthansa_AN0529814.jpg |
+| `qc` | c105 c918 cb07 | 2020 | CC BY 2.0（関連） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep17/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Das_Cockpit_des_Parabelfliegers_-_50375105997.jpg |
+| `r01` | c103 cb28 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r02` | c815 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r03` | c101 c725 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r04` | c817 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r05` | cb03 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r08` | c109 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r09` | c319 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r10` | c305 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r11` | c104 c510 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r12` | c511 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r13` | c717 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r27` | c107 cb08 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r29` | c108 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r31` | c706 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r35` | c408 c606 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r36` | c209 c607 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r37` | c403 c405 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r38` | c217 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r39` | c604 c608 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r40` | c216 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r41` | c503 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r42` | c610 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r43` | c111 c505 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r44` | c112 c411 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `r49` | c724 | 1994 | PDL1.0（この事故） | 運輸省 航空事故調査委員会（報告書 96-5・1996年） | https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851 |
+| `xf1` | c302 cb23 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/yoke-in-airplane-cockpit-2353936/ |
+| `xg1` | c211 c707 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/illuminated-top-of-a-plane-dashboard-12463498/ |
+| `xg2` | c515 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/an-aircraft-gear-shift-levers-and-illuminated-control-panel-6896137/ |
+| `xh1` | c801 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/crescent-over-air-traffic-control-tower-at-night-20677027/ |
+| `t1` | c202 ca06 | 1993 | CC BY 2.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep17/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:HONG_KONG_KAI_TAK_19_OCT_1993_CHINA_AIRLINES_AIRBUS_A300_B-1814.jpg |

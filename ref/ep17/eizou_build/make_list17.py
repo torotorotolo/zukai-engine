@@ -223,14 +223,31 @@ def main():
 
     use = defaultdict(list)
     for c in cuts:
-        c['code'] = c['part'] = c['rights'] = c['credit'] = c['get'] = ''
+        c['code'] = c['part'] = c['rights'] = c['credit'] = c['get'] = c['extra'] = ''
         c['src_len'] = c['rate'] = None
         if c['kind'] not in PIC_KINDS:
             continue
         if not c['main']:
             E.append('%s %s なのに素材の記号が無い' % (c['cid'], c['kind']))
             continue
-        code, part = (c['main'].split(':', 1) + [''])[:2]
+        # 🆕 ⑤b-2（10-20）：素材の欄に「+」で2つ目の記号＝頭の差し込みのあとの写真（c101＝V1 の映像のあと2行目から写真）。
+        #    2つ目も出どころの表で確かめ、使い回しの数（同じ寄りの名・BY-SA の2回）に入れる＝list17.tsv の extra の欄（ep17_assets が読む）
+        main, *extra = [x.strip() for x in c['main'].split('+')]
+        c['extra'] = '+'.join(extra)
+        for x in extra:
+            xc, xp = (x.split(':', 1) + [''])[:2]
+            xs = sources.get(xc)
+            if not xs:
+                E.append('%s 2つ目の記号 %s が sources17.psv に無い' % (c['cid'], xc))
+            elif xs['class'] != 'photo':
+                E.append('%s 2つ目の記号 %s が写真でない（%s）' % (c['cid'], xc, xs['class']))
+            elif not re.search(r'頭の差し込み＝\d+行目まで', c['motion']):
+                E.append('%s 2つ目の記号 %s があるのに動きの欄に「頭の差し込み＝k行目まで」が無い' % (c['cid'], xc))
+            else:
+                if xs['rights'].startswith(('BY-SA', 'GFDL')):
+                    E.append('%s 2つ目の記号 %s が BY-SA・GFDL（頭の差し込みのあとは全面で寄る＝額装の約束を守れない）' % (c['cid'], xc))
+                use[xc].append((c['cid'], xp))
+        code, part = (main.split(':', 1) + [''])[:2]
         s = sources.get(code)
         if not s:
             E.append('%s 記号 %s が sources17.psv に無い' % (c['cid'], code))
@@ -361,12 +378,12 @@ def main():
         # 🆕 ⑤b-1：cont（扉を除いた中身の秒）・card（頭の扉の秒）・src_len／rate（映像の素材の秒と倍率）・credit（出典の行の下書き）・
         #    textpage（文字の頁＝文字だけの画面に数える）＝make_plan17 が読む
         w.writerow(['cid', 'chap', 'start', 'dur', 'kind', 'code', 'part', 'frame', 'sub', 'motion', 'view', 'look', 'signal', 'rights', 'note', 'ga_new', 'star',
-                    'cont', 'card', 'src_len', 'rate', 'credit', 'textpage'])
+                    'cont', 'card', 'src_len', 'rate', 'credit', 'textpage', 'extra'])
         for c in cuts:
             w.writerow([c['cid'], c['chap'], '%.2f' % c['start'], '%.2f' % c['dur'], c['kind'], c['code'], c['part'], c['frame'], c['sub'], c['motion'],
                         c['view'], c['look'], c['signal'], c['rights'], c['note'], c['ga_new'], '★' if c['star'] else '',
                         '%.2f' % c['cont'], '%.1f' % c['card'], '%.2f' % c['src_len'] if c['src_len'] is not None else '',
-                        '%.3f' % c['rate'] if c['rate'] is not None else '', c['credit'], '1' if c['textpage'] else ''])
+                        '%.3f' % c['rate'] if c['rate'] is not None else '', c['credit'], '1' if c['textpage'] else '', c['extra']])
 
     head_t = next(c['start'] + c['dur'] for c in cuts if c['cid'] == FIRST_HEAD_AFTER)
     L = ['---', 'title: 17本目 場面ごとの映像・写真の一覧（生成物）', 'created: 2026-10-19', 'tags: [project/jiko-kensho, ep17]', '---', '',

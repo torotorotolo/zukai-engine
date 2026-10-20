@@ -95,3 +95,20 @@
   PANEL_AR の取り直し・SLIDE_MOUNT／SLIDE_NOT_MOUNT・NEEDS_MASK・footage の EP17_USE／EP17_NOGO）
 - 🔴 **「関連の写真」21を門番で分ける形**（PLAN の種類「写真」に入っている＝20% の数〈この事故の写真〉は 実写＋頁＝73 で見る）・`check_text_screens.pic_kinds` の資料の頁の記号（J・L・P）
 - 冒頭 c101〜c109 と字幕の試し焼き（聞き役 c102-2・2行）・映像方針 §3 の持ち越し（V1 の1秒ごと原寸・人が写るコマ・字の見える素材・④' の申し送り）
+
+## チャット10（⑤b-2 束と冒頭・2026-10-20）
+
+### ✅ 済んだこと
+- **c101 の2行目＝写真3**（事故現場全景・地上の横長＝2枚の継ぎ目より右）＝`assign17.psv` の素材の欄「V1:a+R03:つかみ」。`make_list17` に「+」の2つ目の記号
+  （出どころ・写真か・頭の差し込みか・BY-SA でないか・同じ寄りの名＝陽性対照4）・list17.tsv に extra の欄
+- **束**＝`qa_out/ep17_assets.py`（23本目＋20本目＋21本目の型）＝**55点**（報告書の写真27＝PDF の頁の画像から題「写真N」の下の矩形・紙の白を削る・
+  網点をほどくぼかし 1.6／付図29（頁）／Commons 23（個人名義の15点は印 `{作者}`・CC0・PD は名前なし）／イメージの写真4＝git の外）・
+  `assets.json`（related＝関連18点・page＝頁1点）・`credits.json`・`ref/CREDITS.md` の節・`masked.json`（ARF の見物の人5人）・`ocr_slides.json`
+- **映像**＝`clips.json`（V1＝Commons の 1080p webm〈YouTube 版と照らした＝Commons の秒＝YouTube＋0.034〉・フリー素材8本）・`shots.json`
+  （V1 は 745〜800秒をコマごと＝境目 756.712・762.150 ほか）・`footage.NOGO`（V1 6窓＝12:56.4〜の持ち上げる寄り・照明の白飛び 783.9〜784.6 を足した）・
+  `footage.USE` c101（756.81〜762.05・0.89倍・head）・`footage.PILLAR` V1＝1416/1920（横いっぱい・bias 0＝焼き込みの字幕 y825〜 の上で切る）・`fb_c101.jpg`
+- **門番**：`check_text_screens` に「関連」（PLAN の注×台帳の related・20% の数＝実写＋頁 73/243＝30.0%）と台帳の page（陽性対照 ⑯ a〜e）。
+  `cuts/ss.check_frame_only` に地の写真（ground）の BY-SA（陽性対照）。`ss.PANEL_AR` 1.64・`NEEDS_MASK`（arf）・`SLIDE_NOT_MOUNT` 15点
+- **型**：`ground=`（額装の頁の地に別の写真＝`build_jiko.ground_photo`・出典の行に「／地：…改変：切出・ぼかし」＝`scene_jiko.credit_of`）
+- **冒頭 c101〜c109 の SPEC**（`tools/cuts/c1.py`）・c717 の副題＝「事故のあとに調べられた左の中央のフラップ」（頁の題）
+- 原寸で確かめたこと＝Vault の映像方針 §9（V1 c805・c807・人が写るコマ・字の見える素材・R35／R36）

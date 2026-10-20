@@ -198,6 +198,25 @@ def ground_of(img, cut, meta):
     return Image.blend(Image.new("RGB", (S.W, S.H), (0, 0, 0)), g, GROUND_K).convert("RGBA")
 
 
+# 🆕 2026-10-20（17本目 ⑤b-2）：額装の頁の地に敷く**別の写真**（SPEC の `ground=dict(photo=…, xbias=, bias=, zoom=)`）。
+#    冒頭は実写か実写を地にした画面（10-06）＝c106 の付図29 の欄を、c105 の操縦室の写真（同じ寄せ）を地にして額装する（映像方針 §2）。
+#    地は**止める**（額の中の頁が主役・動く地は読みにくい）・ぼかし GROUND_PHOTO_BLUR・暗さ GROUND_PHOTO_K（額の頁の字と競わない）。
+#    🔴 出典の行に地の写真の出典も出す（`scene_jiko.credit_of`＝「／地の写真：…・ぼかし」）。BY-SA の点は地にできない（`cuts.ss.check_frame_only`）
+GROUND_PHOTO_BLUR = 6.0
+GROUND_PHOTO_K = 0.45
+_GROUND_PH = {}
+
+
+def ground_photo(g, cut, meta):
+    key = (g["photo"], float(g.get("xbias", 0.5)), float(g.get("bias", 0.5)), float(g.get("zoom", 1.0)))
+    if key not in _GROUND_PH:
+        src = load_photo(g["photo"], S.PHOTO_FULL)
+        ph = fit(src, S.PHOTO_FULL, 0.0, key[2], key[1], key[3]).convert("RGB").filter(ImageFilter.GaussianBlur(GROUND_PHOTO_BLUR))
+        _GROUND_PH[key] = ph
+    g2 = tone(_GROUND_PH[key], cut, meta).convert("RGB")
+    return Image.blend(Image.new("RGB", (S.W, S.H), (0, 0, 0)), g2, GROUND_PHOTO_K).convert("RGBA")
+
+
 def stretch(src, levels):
     """階調を伸ばす。**中身は足さない・消さない。濃淡だけを強める。**
 
@@ -526,6 +545,9 @@ def scene(cut, t, dur, lay, photos, meta):
         box, _, bias = S.PHOTO_CUTS[cut]
         xb, zm = S.PHOTO_CROP[cut]
         fr = lay[f"{cut}_bg"].copy()
+        if meta[cut].get("ground") and box[3] < S.H:
+            # 🆕 17本目 ⑤b-2（c106）：額装の頁の地に**別の写真**（冒頭は実写か実写を地にした画面＝10-06）＝ground_photo（暗くぼかす・止める）
+            fr = ground_photo(meta[cut]["ground"], cut, meta)
         # 帯写真はケンバーンズを弱くする（原寸に近いので寄ると粗が出る）
         k = t / max(dur, 0.001)
         # ★動画を当てたカットは、そのコマを写真の代わりに使う
@@ -1489,6 +1511,7 @@ def meta_of(idx):
                   "flash": (S.SPEC.get(cid) or {}).get("flash"),   # 閃光の秒（爆発の瞬間だけ）
                   "cam": (S.SPEC.get(cid) or {}).get("cam"),       # カメラの型
                   "fmove": (S.SPEC.get(cid) or {}).get("fmove"),   # 🆕 20本目 ⑤b-2：額ごと動かす（scene_jiko.fmove_at）
+                  "ground": (S.SPEC.get(cid) or {}).get("ground"), # 🆕 17本目 ⑤b-2：額装の地に別の写真（ground_photo）
                   "moves": v.get("moves") or [],            # 動く部品（drift・trace）
                   "intro": v.get("intro"),                  # 冒頭の写真（c104）・14本目から冒頭の絵（intro の illu）
                   "hl": v.get("hl"),                        # 🆕 18本目 ⑤c'：本の頁の上の印（c105 の1頁目）＝秒は scene_jiko が直した

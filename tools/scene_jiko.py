@@ -1295,6 +1295,15 @@ def credit_of(cid, spec):
     #    切り抜きに「／切出」と付けているのと同じ扱い。黙って手を入れない。
     if spec.get("levels") or LEVELS_BY_PHOTO.get(spec["photo"]):
         cr += "・濃淡補正"
+    # 🆕 2026-10-20（17本目 ⑤b-2）：額装の地に敷いた別の写真（`ground=`・build_jiko.ground_photo＝暗くぼかす）の出典も同じ行に出す
+    #    （地の写真も画面に見えている＝CC BY は帰属と改変の旨が要る）。「改変：切出」→「改変：切出・ぼかし」
+    gr = (spec.get("ground") or {}).get("photo")
+    if gr:
+        gcr = credit_of(cid + "~g", dict(photo=gr))
+        gcr = re.sub(r"^(写真|出典)：", "", gcr)
+        gcr = gcr.replace("改変：切出", "改変：切出・ぼかし") if "改変：切出" in gcr else gcr + "・改変：ぼかし"
+        # 「／地の写真：…（CC BY 2.0）・改変…」は c106 で出典の行が画面の左の外へ出た（門番 layout・左 -8 → 64＜72）＝「／地：」・括弧のあとの「・」を外す
+        cr += "／地：" + gcr.replace("）・改変：", "）改変：")
     # 🔴 2026-09-09（6本目キー橋 ⑤c'・持ち越し §7）：**CC BY は帰属だけでは足りない。**
     #    CC BY 2.0 §4(b) は、改変して使うときに**改変した旨を示すこと**も条件にしている。
     #    この動画は写真を全部デュオトーンにし（`build_jiko.duotone`＝`convert("L")` から

@@ -1,0 +1,194 @@
+{
+ "V1": {
+  "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9d/%E5%B9%B3%E6%88%90%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm/%E5%B9%B3%E6%88%90%EF%BC%96%E5%B9%B4%E9%98%B2%E8%A1%9B%E5%BA%81%E8%A8%98%E9%8C%B2.webm.1080p.vp9.webm",
+  "scan": "ref/ep17/src/v1/heisei6_bouei_kiroku.mp4",
+  "dur": 1254.286,
+  "how": "⑤b-2（10-20）：745〜800秒をコマごと（1649コマ）・隣のコマとの差がその窓の中央値の 6倍（20.96）を超えた所＝境目（中身 x 250〜1666・字幕の帯 y 800〜 を除く）。この窓の外は表に無い＝USE に書けば止まる",
+  "shots": [
+   {
+    "start": 745.0,
+    "until": 756.712,
+    "motion": 0.0
+   },
+   {
+    "start": 756.712,
+    "until": 762.15,
+    "motion": 0.0
+   },
+   {
+    "start": 762.15,
+    "until": 768.123,
+    "motion": 0.0
+   },
+   {
+    "start": 768.123,
+    "until": 771.894,
+    "motion": 0.0
+   },
+   {
+    "start": 771.894,
+    "until": 777.733,
+    "motion": 0.0
+   },
+   {
+    "start": 777.733,
+    "until": 784.339,
+    "motion": 0.0
+   },
+   {
+    "start": 784.339,
+    "until": 785.674,
+    "motion": 0.0
+   },
+   {
+    "start": 785.674,
+    "until": 790.212,
+    "motion": 0.0
+   },
+   {
+    "start": 790.212,
+    "until": 800.0,
+    "motion": 0.0
+   }
+  ]
+ },
+ "Xc3": {
+  "src": "https://videos.pexels.com/video-files/11292227/11292227-hd_1920_1080_30fps.mp4",
+  "scan": "ref/ep17/src/stock/Xc3.mp4",
+  "dur": 61.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-20 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 61.0,
+    "motion": 4.37
+   }
+  ]
+ },
+ "Xd2": {
+  "src": "https://videos.pexels.com/video-files/17118515/17118515-hd_1920_1080_24fps.mp4",
+  "scan": "ref/ep17/src/stock/Xd2.mp4",
+  "dur": 15.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-20 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 49.42
+   },
+   {
+    "start": 4.0,
+    "until": 12.0,
+    "motion": 21.16
+   },
+   {
+    "start": 12.0,
+    "until": 15.0,
+    "motion": 18.13
+   }
+  ]
+ },
+ "Xb3": {
+  "src": "https://videos.pexels.com/video-files/6467678/6467678-hd_1920_1080_25fps.mp4",
+  "scan": "ref/ep17/src/stock/Xb3.mp4",
+  "dur": 5.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-20 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 5.0,
+    "motion": 5.6
+   }
+  ]
+ },
+ "Xb4": {
+  "src": "https://videos.pexels.com/video-files/11878578/11878578-hd_1920_1080_60fps.mp4",
+  "scan": "ref/ep17/src/stock/Xb4.mp4",
+  "dur": 8.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-20 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 8.0,
+    "motion": 2.56
+   }
+  ]
+ },
+ "Xm1": {
+  "src": "https://videos.pexels.com/video-files/3999371/3999371-hd_1920_1080_24fps.mp4",
+  "scan": "ref/ep17/src/stock/Xm1.mp4",
+  "dur": 14.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-20 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 14.0,
+    "motion": 7.07
+   }
+  ]
+ },
+ "Xi2": {
+  "src": "https://videos.pexels.com/video-files/15448013/15448013-hd_1920_1080_30fps.mp4",
+  "scan": "ref/ep17/src/stock/Xi2.mp4",
+  "dur": 18.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-20 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 1.0,
+    "motion": 20.61
+   },
+   {
+    "start": 1.0,
+    "until": 6.0,
+    "motion": 8.94
+   },
+   {
+    "start": 6.0,
+    "until": 13.0,
+    "motion": 16.25
+   },
+   {
+    "start": 13.0,
+    "until": 18.0,
+    "motion": 16.28
+   }
+  ]
+ },
+ "Xk1": {
+  "src": "https://videos.pexels.com/video-files/30117908/12916669_1920_1080_25fps.mp4",
+  "scan": "ref/ep17/src/stock/Xk1.mp4",
+  "dur": 22.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-20 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 4.0,
+    "motion": 41.38
+   },
+   {
+    "start": 4.0,
+    "until": 17.0,
+    "motion": 15.81
+   },
+   {
+    "start": 17.0,
+    "until": 22.0,
+    "motion": 36.71
+   }
+  ]
+ },
+ "Xc1": {
+  "src": "https://videos.pexels.com/video-files/38530430/16364634_1920_1080_30fps.mp4",
+  "scan": "ref/ep17/src/stock/Xc1.mp4",
+  "dur": 7.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-20 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 7.0,
+    "motion": 12.96
+   }
+  ]
+ }
+}

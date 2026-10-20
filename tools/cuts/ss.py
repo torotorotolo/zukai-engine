@@ -180,8 +180,13 @@ SCREEN_AR = W / H
 #    🔴 2026-10-20（17本目 ⑤b-1）：下の値 1.04 は**23本目の束の値のまま**（§0b で空にする値ではなく、束ごとに取り直す定数＝数なので空の器が
 #       作れない。16→18本目のときの 1.10 と同じ扱い）。17本目の束（`python qa_out/ep17_assets.py panel` の並び）で取り直す。
 #       それまで WIDE_AR も23本目の値（3.04）から導かれる。見本 `tools/fixture_ep23.py` には入れていない（16・18〜22本目の見本も入れていない）
-PANEL_AR = 1.04                 # これ未満＝縦長すぎ（上下が切れる）
-WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝3.04（23本目の値から）。これ超＝横長すぎ
+#    ✅ 2026-10-20（17本目 ⑤b-2）に**17本目の束（55点＝報告書の写真27・付図29・Commons 23・イメージ4）で取り直した**。`python qa_out/ep17_assets.py panel` の
+#       並びで、16:9 より縦長の側のいちばん大きな切れ目は AR 1.513（a310）→ 1.766（arf2）の 25.3ポイント＝中点 1.6395 を丸めて 1.64
+#       （次は 1.088→1.307 の 21.9・0.999→1.088 の 8.9）。
+#       ⚠️ 報告書の写真（3:2＝1.47〜1.50）と 4:3 の Commons は kind() で額装になる（18本目と同じ）＝映像方針の「全面」のカットは章ファイルで
+#          panel を書かずに cam（`ss.mv`・`ss.mvz`）を明記する（kind() はファイルの縦横比だけを見る）。WIDE_AR＝1.93（写真3＝3.08・ab1＝2.0 は額装の側）
+PANEL_AR = 1.64                 # これ未満＝縦長すぎ（上下が切れる）
+WIDE_AR = round(SCREEN_AR * SCREEN_AR / PANEL_AR, 2)   # ＝1.93（17本目の値から）。これ超＝横長すぎ
 
 # 報告書の頁から切る図の矩形（写真と頁の束のチャットで作る `ref/<回>/pages.json`＝15本目は `ref/ep15/pages.json`）。
 _PAGES_FILE = REF / "pages.json"
@@ -393,6 +398,10 @@ def check_frame_only(spec, use=None):
         intro_ph = (s.get("intro") or {}).get("photo")
         if intro_ph in fo:
             bad.append(f"{cid}＝intro の {intro_ph}（{fo[intro_ph]}）: 冒頭の全画面は切る＝継承つきは使えない")
+        # 🆕 17本目 ⑤b-2：額装の地に敷く別の写真（`ground=`＝build_jiko.ground_photo）は切ってぼかす＝継承つきは使えない
+        gr_ph = (s.get("ground") or {}).get("photo")
+        if gr_ph in fo:
+            bad.append(f"{cid}＝ground の {gr_ph}（{fo[gr_ph]}）: 地の写真は切ってぼかす＝継承つきは使えない")
         # 🆕 18本目 ⑤b-7c：写真・頁の差し込み（尻）は寄る（build_jiko.tail_frame）＝継承つきは使えない
         tail_ph = (s.get("tail") or {}).get("photo")
         if tail_ph in fo:
@@ -536,7 +545,11 @@ NG_PHOTOS: dict[str, str] = {}
 #       `hs_2301030100_0`＝cd06 の除幕の参列者／`missing_board_01`＝cb03 の掲示板の顔写真と名前を隠した版）は見本 `tools/fixture_ep23.py` の NEEDS_MASK へ移した（`ep23/` の名を
 #       文字で書いた・説明は1字も変えていない＝git の `b800dbdb`。範囲は `ref/ep23/eizou_build/mask23.tsv`・記録は `ref/ep23/masked.json`）。⚠️ 空のあいだ門番 check_photo_mask は
 #       「NEEDS_MASK が空」の注意を出す（隠す素材が無い回なら正しい＝0件を調べて合格にしていないか確かめる）＝17本目の束のチャットで、隠す点があれば `P("名")` で書く（EP が追う）
-NEEDS_MASK: dict[str, str] = {}
+#    🆕 2026-10-20（17本目 ⑤b-2）：ARF（c802・小牧基地の航空祭の化学消防車・CC BY 3.0）の右の見物の人5人の頭＝束で升目にした
+#       （範囲は `qa_out/ep17_assets.py` の MASK・2倍で見て顔を覆えていることを確かめた）。見て「要らない」と決めた点は同じ MASK の注
+NEEDS_MASK: dict[str, str] = {
+    P("arf"): "c802 の化学消防車の右の見物の人5人（私人）の頭＝顔だけモザイク（CC BY 3.0）",
+}
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**スライドの台紙の黒い縁がある写真**（名 → 何か）。全画面で流す・寄る窓が縁に入らないかを門番
 #    `tools/check_photo_edge.py` が測る（縁の幅は**絵から毎回測る**＝ここには書かない）。夜空など縁でない暗い所の写真は入れない。
@@ -565,7 +578,18 @@ SLIDE_MOUNT: dict[str, str] = {}
 #       （`ep23/` の名を文字で書いた・説明は1字も変えていない＝git の `b800dbdb`。束の全101点を `python qa_out/ep23_assets.py edges` で測った結果）。
 #       ⚠️ SLIDE_MOUNT も SLIDE_NOT_MOUNT も空のあいだ、門番 check_photo_edge は「SLIDE_MOUNT が空」で止まる（fail closed）＝17本目の束のチャットで、台紙の縁のある写真があれば
 #       SLIDE_MOUNT を、無ければ暗い帯のある点を SLIDE_NOT_MOUNT に理由つきで書く（鍵は `P("名")` で書けば EP が追う＝回の名に化けない）
-SLIDE_NOT_MOUNT: dict[str, str] = {}
+#    🆕 2026-10-20（17本目 ⑤b-2）：束の全55点を `python qa_out/ep17_assets.py edges` で測り、MIN_EDGE 以上の22点を縁の帯の明るさの分け方で見た
+#       （台紙は一様に真っ黒＝95 パーセンタイル 8〜22）。報告書の写真11点＝網点の走査（網点をほどくぼかし 1.6 のあと・縁の帯の 95 パーセンタイル 99〜255・
+#       ばらつき 37〜106＝暗い所の中身の明るさのむら）・R04＝夜の空・イメージ3点＝夜の写真。スライドの走査は無い＝SLIDE_MOUNT は空のまま
+_NIGHT = "夜の写真の暗い所（写真の中身・台紙の縁でない）"
+_SCREEN = "報告書の写真の走査の暗い所（縁の帯の 95 パーセンタイル 99〜255・ばらつき 37〜106＝台紙の一様な黒でない）"
+SLIDE_NOT_MOUNT: dict[str, str] = {
+    **{P(n): _SCREEN for n in ("r01", "r05", "r08", "r10", "r12", "r35", "r36", "r37", "r39", "r43", "r44")},
+    P("r04"): "写真4（夜の救難作業）の夜の空と地面＝" + _NIGHT,
+    P("stock/xg1"): "イメージ（夜の操縦室の天井と計器盤の下）＝" + _NIGHT,
+    P("stock/xg2"): "イメージ（夜の操縦室の上と右）＝" + _NIGHT,
+    P("stock/xh1"): "イメージ（夜の管制塔の空と地面）＝" + _NIGHT,
+}
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**原寸で見て字でないと決めた OCR の範囲**（OCR の読み置きのファイル名 → [((x0, y0, x1, y1)＝束の画素, 何か)]）。
 #    `check_slide.load_ocr` がこの中に真ん中のある行を外す（外した行は「文字行と見なさなかった」の表に理由つきで出る）。
