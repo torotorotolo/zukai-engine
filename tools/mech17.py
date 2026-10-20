@@ -1191,8 +1191,10 @@ def _fmt_tick(v):
 
 
 def _tail(cx, cy, ths_deg, el_deg, col_t=None, col_e=None):
-    """横から見た尾（垂直尾翼・胴体の後ろ・水平安定板＋昇降舵）。角度は模式（正＝前が上がる＝機首上げの向き）。"""
-    g = [F.poly([(cx - 330, cy - 14), (cx + 40, cy - 22), (cx + 120, cy - 14), (cx + 120, cy + 10), (cx - 330, cy + 22)], "#c9d1d7", "#20282e", 3, close=True),
+    """横から見た尾（垂直尾翼・胴体の後ろ・水平安定板＋昇降舵＝機首は左）。角度は模式。
+    ths_deg＞0＝板の前の縁が下がる（機首上げの向き）・el_deg＞0＝昇降舵の後ろの縁が板より下がる（機首下げの向き＝押す操縦）。
+    ⚠️ 試し焼き 39416247322：el_deg を負で渡して昇降舵が上がって見えた（押す操縦なのに機首上げの向き）＝符号を上の定義にそろえた"""
+    g = [F.poly([(cx - 250, cy - 14), (cx + 40, cy - 22), (cx + 120, cy - 14), (cx + 120, cy + 10), (cx - 250, cy + 22)], "#c9d1d7", "#20282e", 3, close=True),
          F.poly([(cx - 40, cy - 22), (cx + 20, cy - 190), (cx + 70, cy - 190), (cx + 110, cy - 16)], "#9aa4ac", "#20282e", 3, close=True)]
     a = math.radians(-ths_deg)
     pv = (cx + 30, cy - 2)
@@ -1226,12 +1228,17 @@ def bars_stage(prev, st):
     S = BR_SETS[st["set"]]
     s = []
     if st["set"] == "trim" and _on(prev, st, "tail"):
-        s.append(_tail(330.0, 560.0, 14.0, -26.0, col_t=AUTO, col_e=HAND))
-        s.append(_arrow(390.0, 470.0, 390.0, 410.0, AUTO, 6, 20))
-        s.append(_tline(300.0, 384.0, "水平安定板（自動操縦）", 24, AUTO, "middle", 380))
-        s.append(_arrow(470.0, 610.0, 470.0, 670.0, HAND, 6, 20))
-        s.append(_tline(470.0, 712.0, "昇降舵（押す操縦）", 24, HAND, "middle", 300))
-        s.append(_tline(300.0, 790.0, "逆の向き", 30, J.AMBER, "middle", 300))
+        # ⚠️ 試し焼き 39416247322：胴体が図の枠の左の外まで出た・矢印が垂直尾翼の上に乗って、どの板の向きか読めなかった
+        #    ＝胴体を枠の内へ（cx 420）・矢印をやめて、板と昇降舵に引き出し線＋「機首上げの向き／機首下げの向き」の札
+        cx, cy = 420.0, 560.0
+        s.append(_tail(cx, cy, 16.0, 30.0, col_t=AUTO, col_e=HAND))
+        s.append(F.line(cx - 70, cy + 18, cx - 150, cy + 110, AUTO, 3))
+        s.append(_tline(cx - 150, cy + 140, "水平安定板（自動操縦）", 24, AUTO, "middle", 380))
+        s.append(_tline(cx - 150, cy + 172, "機首上げの向き", 24, AUTO, "middle", 380))
+        s.append(F.line(cx + 140, cy - 2, cx + 230, cy - 106, HAND, 3))
+        s.append(_tline(cx + 230, cy - 150, "昇降舵（押す操縦）", 24, HAND, "middle", 300))
+        s.append(_tline(cx + 230, cy - 118, "機首下げの向き", 24, HAND, "middle", 300))
+        s.append(_tline(cx + 60, cy + 250, "逆の向き", 30, J.AMBER, "middle", 300))
     for k, f_ in enumerate(("b0", "b1")):
         if _on(prev, st, f_):
             _t, v, r, lab = S["rows"][k]
@@ -1370,12 +1377,14 @@ def prec_stage(prev, st):
         cx, cy = _pr_pt(0.36, -40)
         s.append(_arrow(cx, cy - 120, cx, cy - 10, HAND, 10, 30))
         s.append(_tline(cx, cy - 140, "手で操縦輪を押す", 28, HAND, "middle", 380))
+    # ⚠️ 試し焼き 39416247322：板の矢印を上向きに描いて「尾が上がる＝機首下げ」に読めた。自動操縦が板を動かしたのは機首上げの向き
+    #    （p184「THSを…機首上げ側に作動」）＝尾を下げる向き＝矢印は下向き・札に「機首上げ」。手のトリムで戻すのはその逆（上向き）
     if _on(prev, st, "ths"):
-        s.append(_arrow(tail[0] + 10, tail[1] + 90, tail[0] + 10, tail[1] + 20, AUTO, 8, 26))
-        s.append(_tline(tail[0] + 10, tail[1] + 132, "水平安定板は逆の向きへ", 28, AUTO, "middle", 460))
+        s.append(_arrow(tail[0] + 10, tail[1] + 20, tail[0] + 10, tail[1] + 90, AUTO, 8, 26))
+        s.append(_tline(tail[0] + 10, tail[1] + 132, "水平安定板は逆の向き（機首上げ）", 28, AUTO, "middle", 520))
     if _on(prev, st, "trim"):
-        s.append(_arrow(tail[0] + 90, tail[1] + 20, tail[0] + 90, tail[1] + 90, HAND, 8, 26))
-        s.append(_tline(tail[0] + 120, tail[1] + 182, "手のトリムで戻す", 28, HAND, "start", 420))
+        s.append(_arrow(tail[0] + 90, tail[1] + 90, tail[0] + 90, tail[1] + 20, HAND, 8, 26))
+        s.append(_tline(tail[0] + 120, tail[1] + 182, "手のトリムで戻す（機首下げ）", 28, HAND, "start", 460))
     if _on(prev, st, "ok"):
         s.append(_card(1500.0, 330.0, 520.0, 90.0, J.OK))
         s.append(_check(1290.0, 330.0, 20, J.OK))
@@ -1437,7 +1446,8 @@ def keep_base(st0):
     g.append(_tline(KP["x0"] - 16, KP["y1"] - 50, "板の角度（機首上げの側）", 24, J.TICK, "start", 520))
     g.append(_tline(KP["x1"] + 60, KP["y0"] + 40, "時間の順", 24, J.TICK, "end", 200))
     g.append(F.poly([(KP["x0"], KP["y0"]), (KP["xoff"], KP["y1"])], "none", AUTO, 7))
-    g.append(_tline(KP["x0"] + 300, KP["y0"] - 160, "自動操縦が動かす", 26, AUTO, "middle", 360))
+    # ⚠️ 試し焼き 39416247322：線の上（y 600）に置いて字を線が貫いた＝線の右下へ
+    g.append(_tline(KP["x0"] + 360, KP["y0"] - 60, "自動操縦が動かす", 26, AUTO, "middle", 360))
     return g
 
 

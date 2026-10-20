@@ -59,6 +59,7 @@ HARD = ("logo", "attrib")           # 隠すと決まりに反する箱
 EDGE = 8                            # 描き足しと額の縁のすき間の下限（画面の画素）
 KINDS = ("pt", "x", "line", "arrow", "area", "icon", "wave", "txt", "north", "say", "inset", "car")
 COLS = ("INK_W", "ALERT", "AMBER")
+INSET_SEA, INSET_LAND = "#13202b", "#8f979c"     # 🆕 17本目 ⑤b-6：位置の小さな地図の海と陸（章の色に染まらない値）
 
 
 # ══════════════════════════════════════════════════════════
@@ -383,7 +384,9 @@ def draw(sat, el, inks):
 
         def mp(lo, la):
             return x0 + (lo - lon0) * kx, y0 + (lat1 - la) * ky
-        g = [f'<rect x="{x0:.1f}" y="{y0:.1f}" width="{w:.1f}" height="{h:.1f}" fill="{J.BG}" opacity="0.88" stroke="{J.LINE}" stroke-width="2"/>']
+        # ⚠️ 試し焼き 39416247322（原寸）：陸に章の色の札（LINE_DIM）を使うと、章ごとの色の置き換えで陸が赤茶・海が暗くなり、湾が「物」に見えた
+        #    ＝海と陸は章の色に染まらない決まった色（海＝濃い紺・陸＝明るい灰）
+        g = [f'<rect x="{x0:.1f}" y="{y0:.1f}" width="{w:.1f}" height="{h:.1f}" fill="{INSET_SEA}" opacity="0.92" stroke="{J.LINE}" stroke-width="2"/>']
         # ⚠️ 陸の輪は枠の外まで続く（本州は東経141度まで）＝SVG の clip-path に任せず、**輪そのものを枠で切る**（Sutherland–Hodgman）。
         #    clip-path だと門番 layout が枠の外の線を「見出しを貫く線」と測った（⑤b-6 の qa_all）＝描く絵と門番が測る線を同じにする
         box_ = (x0 + 1, y0 + 1, x0 + w - 1, y0 + h - 1)
@@ -392,7 +395,7 @@ def draw(sat, el, inks):
             pts = _clip_rect([mp(lo, la) for lo, la in pg], box_)
             if len(pts) >= 3:
                 d = "M" + " L".join(f"{px:.1f} {py:.1f}" for px, py in pts) + " Z"
-                polys.append(f'<path d="{d}" fill="{J.LINE_DIM}" stroke="{J.TICK}" stroke-width="1.5"/>')
+                polys.append(f'<path d="{d}" fill="{INSET_LAND}" stroke="#c9d1d7" stroke-width="1.5"/>')
         g.append("".join(polys))
         la, lo = _place(el["at"])["ll"] if isinstance(el["at"], str) else el["at"]
         px_, py_ = mp(lo, la)
