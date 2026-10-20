@@ -136,26 +136,35 @@ CSS = ""
 #    扉は c201〜cd01 の12枚（音の側と同じ＝narration.json の秒）。⚠️ 終章の名「3つの問いの答え」は22本目の終章と同じ文字＝
 #    CHAPTER_PALETTE（章名で引く）を直し忘れると22本目の色が黙って当たる（下で全章を書き直した）。
 #    ⚠️ 長い章名（第11章「誰なら止められたのか」・第6章「図面で細くなった柱」）は右上の章の札の幅を焼いた絵で見る
+# 🔴 2026-10-20（17本目 ⑤b-1）：中華航空140便墜落事故へ差し替え。23本目の章名は git の `b800dbdb`。
+#    正本＝repo `ref/ep17/daihon_v2.md` §4 の `### 第N章　…`（`（` の手前まで）＝`narration.py` の `# ── 第N章　…`。**17本目は11章**
+#    （c1〜c9・ca・cb＝243カット）＝`cuts/__init__.CHAPTER_FILES` から cc・cd を外し、`NCH` を 11 に。
+#    🔴 **台本の第1章（c101〜c117）の中に扉**＝映像方針（了承②）「つかみ c101〜c109＋第1章 c110〜c117・最初の見出しは c109 のあと」＝
+#       鍵 "c1'"（`check_script.door_key`＝c110 から c1 の終わりまで・INNER_CARDS）が第1章。つかみ（"c1"）は CHAPTERS に無い＝章の札なし
+#       （19〜23本目のつかみと同じ扱い）。扉は c110・c201〜cb01 の11枚（音の側〈aq_build.timeline・check_script ③・check_listener〉と同じ規則）。
+#    ⚠️ 長い章名（第4章「20時14分5秒のレバー」・第6章「切っても残った角度」）は右上の章の札の幅を焼いた絵で見る
 CHAPTERS = {
-    "c2": (1, "6月29日の朝"),
-    "c3": (2, "午後3時10分"),
-    "c4": (3, "17時55分"),
-    "c5": (4, "17日目の救出"),
-    "c6": (5, "商店街のはずが"),
-    "c7": (6, "図面で細くなった柱"),
-    "c8": (7, "屋上の冷却塔"),
-    "c9": (8, "5階の食堂街"),
-    "ca": (9, "前触れはいつから"),
-    "cb": (10, "502人"),
-    "cc": (11, "誰なら止められたのか"),
-    "cd": (12, "3つの問いの答え"),
+    "c1'": (1, "画面に出ていた文字"),
+    "c2": (2, "その夜の140便"),
+    "c3": (3, "2枚の板とモード"),
+    "c4": (4, "20時14分5秒のレバー"),
+    "c5": (5, "約30秒の「相反」"),
+    "c6": (6, "切っても残った角度"),
+    "c7": (7, "52.6度"),
+    "c8": (8, "北門の鎖"),
+    "c9": (9, "3つの前例"),
+    "ca": (10, "「推奨」の改修"),
+    "cb": (11, "報告書と判決"),
 }
-NCH = 12
+NCH = 11
 
 
 def chapter_of(cid):
-    """プロローグ（pr*）とエピローグ（ep*）は章マーカー無し。"""
-    return CHAPTERS.get(cid[:2])
+    """プロローグ（pr*）とエピローグ（ep*）は章マーカー無し。
+    🔴 2026-10-20（17本目 ⑤b-1）：章は扉の区切り（check_script.door_key）で引く＝17本目のつかみ c101〜c109 は "c1"（CHAPTERS に無い＝
+    章の札なし）・c110〜c117 は "c1'"（第1章）。ほかの回は cid[:2] と同じ"""
+    import check_script as CSC
+    return CHAPTERS.get(CSC.door_key(cid))
 
 
 # ── 章ごとの色（12本目から・2026-09-23 カズヤくん決定）＝ jiko_style.PALETTES の名前 ──
@@ -232,19 +241,25 @@ def chapter_of(cid):
 #    赤銅＝壊れる・失う章（17時55分・図面で細くなった柱・502人）・セピア＝1995年の当日の午後と建てた経緯の記録・白黒＝重さの技術の図と責任の書類。
 #    隣の章の差＝20.9／17.6／26.5／20.9／17.6／26.5／14.5／14.5／26.5／17.6／14.5（最小 14.5＝紺と白黒）。
 #    ⚠️ 写真の色味は原本のまま（`build_jiko.PHOTO_KEEP_EP` の ep23＝1.0）＝章の色は図の層だけに効く。冒頭（つかみ）は実写だけ。
+# 🔴 2026-10-20（17本目 ⑤b-1）：23本目の12件（git の `b800dbdb`）から差し替えた＝11章（つかみ c101〜c109 は章が無い＝navy）。
+#    Claude の推奨（カズヤくんに見せて変えてよい）。選び方は14〜23本目と同じ＝章の中身で色を選び、`check_palette.de` で隣の章の差が
+#    DE_MIN 13 以上になる並び。17本目の役の色は映像方針で決めていない＝22・23本目と同じく青緑（teal）と夜の藍（night）は使わない
+#    （⑤b で役の色を足しても取り違えない）＝紺・白黒・赤銅・セピアの4色。⚠️ 隣に置けない組＝白黒とセピア 6.5。
+#    セピア＝その夜の記録の章（その夜の140便・20時14分5秒のレバー・北門の鎖）・赤銅＝壊れる章（約30秒の「相反」・52.6度）・
+#    白黒＝改修の書類（「推奨」の改修）・紺＝仕組みと記録の図解（画面に出ていた文字・2枚の板とモード・切っても残った角度・3つの前例・報告書と判決）。
+#    ⚠️ 写真の色味は原本のまま（`build_jiko.PHOTO_KEEP_EP` の ep17＝1.0）＝章の色は図の層だけに効く。冒頭（つかみ）は実写だけ。
 CHAPTER_PALETTE = {
-    "6月29日の朝": "navy",                     # 当日の朝の前触れ（ひび・床の沈み）＝図の解説
-    "午後3時10分": "sepia",                    # 構造技術者が来た午後＝当日の記録
-    "17時55分": "copper",                      # 崩れた時刻＝破壊
-    "17日目の救出": "navy",                    # 救助と捜索＝図の解説
-    "商店街のはずが": "sepia",                 # 建てた経緯（許可と用途の変更）の記録
-    "図面で細くなった柱": "copper",            # 細くされた柱＝欠陥
-    "屋上の冷却塔": "navy",                    # 冷却塔を動かした＝図の解説
-    "5階の食堂街": "mono",                     # 重さの足し算＝白黒の技術の図
-    "前触れはいつから": "navy",                # 前触れの記録＝図の解説
-    "502人": "copper",                         # 亡くなった人の数＝失われたもの
-    "誰なら止められたのか": "mono",            # 区・市・会社・国会の責任＝書類
-    "3つの問いの答え": "navy",                 # 終章（白黒の次にセピアは置けない）
+    "画面に出ていた文字": "navy",              # FMA の表示と記録装置＝図の解説
+    "その夜の140便": "sepia",                  # その夜の飛行の記録
+    "2枚の板とモード": "navy",                 # 昇降舵と水平安定板・自動操縦のモード＝仕組みの図
+    "20時14分5秒のレバー": "sepia",            # ゴー・レバーの1秒＝その夜の記録
+    "約30秒の「相反」": "copper",              # 押す操縦と自動操縦の相反＝壊れに向かう
+    "切っても残った角度": "navy",              # 自動操縦を切っても残った安定板の角度＝仕組みの図
+    "52.6度": "copper",                        # 失速と墜落＝破壊
+    "北門の鎖": "sepia",                       # 救助と消火の記録
+    "3つの前例": "navy",                       # 前例の比べ＝図の解説（セピアの次に白黒は置けない）
+    "「推奨」の改修": "mono",                  # 改修の通報（SB）と命令＝書類
+    "報告書と判決": "navy",                    # 報告書と判決の割れ＝図の解説
 }
 
 
@@ -827,6 +842,55 @@ def ep19_credit(name):
 
 
 # ══════════════════════════════════════════════════════════
+#  17本目（中華航空140便墜落事故）── `ref/ep17/`（2026-10-20 ⑤b-1）
+# ══════════════════════════════════════════════════════════
+#   ep17/<欄の名>.jpg … 写真（運輸省 航空事故調査委員会の報告書〈PDL1.0〉の写真と付図・Commons〈事故機・姉妹機・同じ型の機体＝CC BY／
+#                        BY-SA／GFDL〉・防衛庁記録 V1 のひかえ〈CC BY 3.0〉・Googleアース）＝映像方針の一覧 `ref/ep17/eizou_list17.md`（了承②）
+#   ep17/stock/…      … イメージ（この事故の物でないフリー素材＝Pexels・Pixabay・20% に数えない・概要欄にクレジットを書かない）
+# 🔴 表はファイルから読む（ルール 0b-34①）。`ref/ep17/credits.json` は写真の束のチャット（⑤b-2）で書く（無いあいだは空＝当たらない）。
+#    ⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）。
+#    🔴 乗員の実名は出さない（09-26 カズヤくん）。Commons の作者の名前は git の外の表 `ref/ep17/src/credits_private.tsv`（映像方針）＝
+#       画面の出典の行に作者の名前を出す点は credits.json に印 `{作者}` だけを書き、焼くときにここで足す（23本目の型・公開リポに名前を積まない）。
+#    ⚠️ Googleアース（G1・G2＝c115・c116）の帰属の行の作り方と、記録映像 V1 の出典の行は束のチャットで決める
+_EP17_CREDITS = HERE / "ref" / "ep17" / "credits.json"
+EP17_CREDIT = (json.loads(_EP17_CREDITS.read_text(encoding="utf-8"))
+               if _EP17_CREDITS.exists() else {})
+_EP17_AUTHOR = "{作者}"
+_EP17_PRIVATE = HERE / "ref" / "ep17" / "src" / "credits_private.tsv"
+
+
+def _ep17_author(name):
+    import csv
+    import os
+    if not _EP17_PRIVATE.exists():
+        if os.environ.get("GITHUB_ACTIONS") == "true":
+            return EP23_AUTHOR_STANDIN                  # 検品の試し焼きだけ（本編は Modal＝表を保管庫から取る）
+        raise RuntimeError(f"{name}: 出典の行に作者の名前が要るのに git の外の表 ref/ep17/src/credits_private.tsv が無い"
+                           "（Modal は保管庫 jiko-assets の ref/ep17/src/ に置く）＝印のまま焼かない")
+    code = json.loads((HERE / "ref" / "ep17" / "assets.json").read_text(encoding="utf-8"))[name[len("ep17/"):-len(".jpg")]]["code"]
+    rows = [r for r in csv.reader(_EP17_PRIVATE.open(encoding="utf-8"), delimiter="\t") if r and not r[0].startswith("#")]
+    who = {r[0]: dict(zip(rows[0], r)) for r in rows[1:]}.get(code, {}).get("artist", "").strip()
+    if not who:
+        raise RuntimeError(f"{name}（{code}）: git の外の表に作者欄が無い")
+    return who
+
+
+def ep17_credit(name):
+    """`ref/ep17/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if not name.startswith("ep17/"):
+        return None
+    m = re.fullmatch(r"ep17/(?:stock/)?fb_(c[0-9a-f]{3}(?:~t)?)\.jpg", name)     # 映像のひかえの静止画＝出典は映像と同じ（19本目 ⑤b-2 の型）
+    if m:
+        import footage as _FO
+        u = _FO.USE.get(m.group(1))
+        return _FO.CLIPS[u["clip"]]["credit"] if u else None
+    v = EP17_CREDIT.get(name)
+    if v and _EP17_AUTHOR in v:
+        v = v.replace(_EP17_AUTHOR, _ep17_author(name))
+    return v
+
+
+# ══════════════════════════════════════════════════════════
 #  23本目（三豊百貨店崩壊事故のリメイク）── `ref/ep23/`（2026-10-18 ⑤b-1）
 # ══════════════════════════════════════════════════════════
 #   ep23/<欄の名>.jpg … 写真（ソウル研究院〈公共ヌリ第1類型＋CC BY 4.0〉・ソウル歴史編纂院〈公共ヌリ〉・Commons〈ソウル特別市 消防災難本部＝
@@ -1215,7 +1279,7 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
+    cr = (ep17_credit(spec["photo"]) or ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
           or ep14_credit(spec["photo"])
           or ep13_credit(spec["photo"])
           or ep12_credit(spec["photo"])
@@ -1880,7 +1944,7 @@ def _card_heads(keys):
     for c in keys:
         if not CSC.CHAPTER_CUT_RE.match(c):
             continue
-        key = c[:2]
+        key = CSC.door_key(c)       # 🔴 2026-10-20（17本目 ⑤b-1）：章の記号の中の扉も（check_script.INNER_CARDS＝17本目は c110 の前）
         if prev is not None and key != prev and key not in seen and CHAPTERS.get(key):
             heads.add(c)
         seen.add(key)

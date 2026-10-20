@@ -107,7 +107,7 @@ def timeline(script, cs, quotes, subs=None, tail_cuts=()):
         cs.use_measured_cps([(cid, "", [speaker.bare(t) for t in ls]) for cid, ls in script if cid not in tail_cuts])
     rows, t, prev = [], 0.0, None
     for cid, ls in script:
-        key = cid[:2] if cs.CHAPTER_CUT_RE.match(cid) else None
+        key = cs.door_key(cid)              # 🔴 17本目 ⑤b-1：章の記号の中の扉も（check_script.INNER_CARDS）
         if key is not None:
             if prev is not None and key != prev:
                 t += cs.CARD_SEC

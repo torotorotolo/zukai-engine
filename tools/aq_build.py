@@ -248,7 +248,7 @@ def timeline(durs, script, quotes):
     import check_script as CSC
     t, prev, out = 0.0, None, {}
     for cid, _ in script:
-        key = cid[:2] if CSC.CHAPTER_CUT_RE.match(cid) else None
+        key = CSC.door_key(cid)             # 🔴 17本目 ⑤b-1：章の記号の中の扉も（check_script.INNER_CARDS）
         if key is not None:
             if prev is not None and key != prev:
                 t += CSC.CARD_SEC
@@ -428,7 +428,7 @@ def listen(prefix, out, cand, kanji=False, speed=None):
     sil = lambda s: np.zeros(int(round(s * SR)), dtype="<i2").tobytes()
     parts, secs, prev, marks = [], 0.0, None, []
     for cid, lines in cuts:
-        key = cid[:2] if CSC.CHAPTER_CUT_RE.match(cid) else None
+        key = CSC.door_key(cid)             # 🔴 17本目 ⑤b-1：章の記号の中の扉も（check_script.INNER_CARDS）
         if key is not None:
             if prev is not None and key != prev:
                 parts.append(sil(CSC.CARD_SEC))

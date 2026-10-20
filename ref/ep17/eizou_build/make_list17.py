@@ -25,6 +25,7 @@
 秒＝句読点なし÷365字/分の見込み（ゆっくりの話速・⑤a の実測で取り直す）。
 """
 import csv
+import json
 import os
 import re
 import subprocess
@@ -38,6 +39,7 @@ REPO = os.path.dirname(os.path.dirname(EP))
 DAIHON = os.path.join(EP, 'daihon_v2.md')
 OUT_MD = os.path.join(EP, 'eizou_list17.md')
 OUT_TSV = os.path.join(HERE, 'list17.tsv')
+NARR = os.path.join(REPO, 'audio', 'narration.json')
 PUNCT = '、。？！「」（）・'
 CUT = re.compile(r'^\*\*(c[1-9ab]\d{2})\*\*')
 OPENING = ['c10%d' % i for i in range(1, 10)]
@@ -60,9 +62,20 @@ def read_psv(path):
         return [ln.rstrip('\n') for ln in f if not ln.startswith('#') and ln.strip()]
 
 
+def heading(t, head, start=0):
+    """見出しの行（行の頭の `head`）の位置。🔴 2026-10-20（⑤b-1）：`str.index` は最初の1つを取る＝台本 §3 の注（842行目）に
+    「`## 4. 台本`」の字があり、§2 の切り出し `t[§2:最初の「## 4. 台本」]` が空＝★0件のまま「★のカットに決め所の画面」の E が
+    対象0件で通っていた（⑤a-2 で見つけた）。行の頭だけを見て、`start` より後ろから探す"""
+    m = re.compile('^' + re.escape(head), re.M).search(t, start)
+    if not m:
+        raise SystemExit('台本に見出し「%s」が無い（%d字目より後ろ）' % (head, start))
+    return m.start()
+
+
 def read_cuts():
     t = open(DAIHON, encoding='utf-8').read()
-    body = t[t.index('## 4. 台本'):t.index('## 5. ')]
+    a4 = heading(t, '## 4. 台本')
+    body = t[a4:heading(t, '## 5. ', a4)]
     rows, chap, cur = [], '', None
     for ln in body.split('\n'):
         if ln.startswith('### '):
@@ -89,10 +102,48 @@ def read_cuts():
         elif r['cid'].startswith('c1'):
             r['chap'] = '第1章　画面に出ていた文字（c110〜c117）'
         r['start'] = sec
-        r['dur'] = r['n'] / RATE * 60
+        r['dur'] = r['cont'] = r['n'] / RATE * 60
+        r['card'] = 0.0
         sec += r['dur']
-    star = set(re.findall(r'^\| *\d+ *\| *\*\*(c[1-9ab]\d{2})\*\* *\|', t[t.index('## 2. 原文に当てた決め所'):t.index('## 4. 台本')], re.M))
-    return rows, star
+    note = measured(rows)
+    a2 = heading(t, '## 2. 原文に当てた決め所')
+    sec2 = t[a2:heading(t, '## ', a2 + 1)]          # §2 の次の見出しまで（§4 を探さない＝並びに頼らない）
+    star = set(re.findall(r'^\| *\d+ *\| *\*\*(c[1-9ab]\d{2})\*\* *\|', sec2, re.M))
+    m = re.match(r'## 2\. 原文に当てた決め所 (\d+)件', sec2)
+    want = int(m.group(1)) if m else None             # 陽性対照＝見出しの「17件」と読めた★の数
+    return rows, star, want, note
+
+
+def measured(rows):
+    """🆕 2026-10-20（⑤b-1）：秒を **audio/narration.json の実測**に（23本目 make_list23・20本目 make_list20.measured() の型）。
+    カット＝前 LEAD＋声（行間こみ）＋後 TAIL（決め所の余白は0＝⑤a-2 で★を外した）・扉 CARD_SEC はそのカットの頭（start は扉の前）。
+    🔴 扉の位置は check_script.door_key（音の側〈aq_build.timeline・check_script ③・check_listener〉と scene_jiko._card_heads と同じ1つの規則）＝
+       17本目は c110 の前（c1 の中の扉＝INNER_CARDS）と第2〜11章の頭の11枚。倍率の分母（cont）は扉を除く。
+    narration.json のカットが台本と合わないときだけ ÷365 の見込みのまま（出力に書く）"""
+    if not os.path.exists(NARR):
+        return '÷365 の見込み（narration.json が無い）'
+    sys.path.insert(0, os.path.join(REPO, 'tools'))
+    import check_script as CSC
+    dur = json.load(open(NARR, encoding='utf-8')).get('durations', {})
+    if [r['cid'] for r in rows] != [c for c in dur if c != 'ed01']:
+        return '÷365 の見込み（narration.json が台本と合わない）'
+    sec, prev = 0.0, None
+    for r in rows:
+        key = CSC.door_key(r['cid'])
+        r['card'] = CSC.CARD_SEC if (prev is not None and key != prev) else 0.0
+        prev = key
+        r['start'] = sec
+        r['cont'] = dur[r['cid']] + CSC.LEAD + CSC.TAIL
+        r['dur'] = r['cont'] + r['card']
+        sec += r['dur']
+    return 'audio/narration.json の実測'
+
+
+def star_screen(c):
+    """★のカットに決め所の画面（文字だけ・quote）を置いたか。🔴 2026-10-20（⑤b-1）：当て方の欄 ga_new は「quote → 写真1」
+    （決め所の画面**から**替えた）の形＝矢印の前の「quote」に当たって★17カットが全部鳴った（★0件のあいだは隠れていた）。
+    見るのは**替えた先**（最後の「→」のあと・矢印が無ければ欄の全部）"""
+    return bool(c['star']) and (c['kind'] == '文字だけ' or 'quote' in c['ga_new'].rsplit('→', 1)[-1])
 
 
 def media_len(path):
@@ -130,8 +181,10 @@ def scene_of(c):
 
 
 def main():
-    cuts, star = read_cuts()
+    cuts, star, want, tnote = read_cuts()
     E, W = [], []
+    if want is None or len(star) != want:
+        E.append('§2 の表から読めた★ %d ≠ 見出しの %s件（切り出しか表の形が崩れた＝★の門番が対象を失う）' % (len(star), want))
     arows = [ln.split('|') for ln in read_psv(os.path.join(HERE, 'assign17.psv'))]
     bad = [r[0] for r in arows if len(r) != len(KEYS)]
     if bad:
@@ -171,6 +224,7 @@ def main():
     use = defaultdict(list)
     for c in cuts:
         c['code'] = c['part'] = c['rights'] = c['credit'] = c['get'] = ''
+        c['src_len'] = c['rate'] = None
         if c['kind'] not in PIC_KINDS:
             continue
         if not c['main']:
@@ -189,10 +243,18 @@ def main():
             m = re.search(r'(\d+(?:\.\d+)?)〜(\d+(?:\.\d+)?)秒', c['motion'])
             if m:
                 have = float(m.group(2)) - float(m.group(1))
-            if have is not None:
-                c['rate'] = have / c['dur'] if c['dur'] else 0
+            if have is None:
+                W.append('%s 映像の素材 %s が手元に無い＝長さを測れない' % (c['cid'], s['file']))
+            else:
+                # 🆕 ⑤b-1：分母は扉を除いた中身の秒（cont＝narration.json の実測）。等速＝伸ばさない／1.0 未満は動きの欄に倍率（make_list23 の型）
+                c['src_len'] = have
+                c['rate'] = have / c['cont'] if c['cont'] else 0
+                mr = re.search(r'映像（[^）]*?(\d\.\d+)倍）', c['motion'])     # 「映像（0.74倍）」「映像（757〜762.5秒＝…・0.61倍）」
                 if c['rate'] < RATE_MIN:
-                    E.append('%s 映像 %.1f秒 ÷ カット %.1f秒 ＝ %.2f倍 ＜ %.1f（止め絵になる・素材か区間を替える）' % (c['cid'], have, c['dur'], c['rate'], RATE_MIN))
+                    E.append('%s 映像 %.2f秒 ÷ カット %.2f秒 ＝ %.2f倍 ＜ %.1f（止め絵になる・素材か区間を替える）' % (c['cid'], have, c['cont'], c['rate'], RATE_MIN))
+                elif c['rate'] < 1.0 and not (mr and float(mr.group(1)) <= c['rate'] + 1e-9):
+                    E.append('%s 映像 %.2f秒 がカット %.2f秒 に足りない（等速なら尻が %.2f秒 欠ける）＝区間か素材を替えるか、動きの欄を「映像（%.2f倍）」以下に' % (
+                        c['cid'], have, c['cont'], c['cont'] - have, int(c['rate'] * 100) / 100))
         use[code].append((c['cid'], part))
         r = s['rights']
         if r.startswith(('BY-SA', 'GFDL')):
@@ -214,8 +276,8 @@ def main():
                 E.append('%s つかみに実写でない画（%s）' % (c['cid'], c['kind']))
             elif c['kind'] == '頁' and '実写の地' not in c['frame']:
                 E.append('%s つかみの頁は「実写の地」の額装だけ（%s）' % (c['cid'], c['frame']))
-        if c['star'] and (c['kind'] == '文字だけ' or 'quote' in c['ga_new']):
-            E.append('%s ★のカットに決め所の画面（%s）' % (c['cid'], c['kind']))
+        if star_screen(c):
+            E.append('%s ★のカットに決め所の画面（%s・%s）' % (c['cid'], c['kind'], c['ga_new']))
 
     # 図の見た目の型
     prev = None
@@ -289,16 +351,21 @@ def main():
     with open(OUT_TSV, 'w', encoding='utf-8', newline='\n') as f:
         w = csv.writer(f, delimiter='\t', lineterminator='\n')
         # 台本の画の欄（ga）は写さない＝撮影者の名前が入っている（新しいファイルに作者の名前を書かない＝src/credits_private.tsv だけ）。元の画は台本 §4 を読む
-        w.writerow(['cid', 'chap', 'start', 'dur', 'kind', 'code', 'part', 'frame', 'sub', 'motion', 'view', 'look', 'signal', 'rights', 'note', 'ga_new', 'star'])
+        # 🆕 ⑤b-1：cont（扉を除いた中身の秒）・card（頭の扉の秒）・src_len／rate（映像の素材の秒と倍率）・credit（出典の行の下書き）・
+        #    textpage（文字の頁＝文字だけの画面に数える）＝make_plan17 が読む
+        w.writerow(['cid', 'chap', 'start', 'dur', 'kind', 'code', 'part', 'frame', 'sub', 'motion', 'view', 'look', 'signal', 'rights', 'note', 'ga_new', 'star',
+                    'cont', 'card', 'src_len', 'rate', 'credit', 'textpage'])
         for c in cuts:
             w.writerow([c['cid'], c['chap'], '%.2f' % c['start'], '%.2f' % c['dur'], c['kind'], c['code'], c['part'], c['frame'], c['sub'], c['motion'],
-                        c['view'], c['look'], c['signal'], c['rights'], c['note'], c['ga_new'], '★' if c['star'] else ''])
+                        c['view'], c['look'], c['signal'], c['rights'], c['note'], c['ga_new'], '★' if c['star'] else '',
+                        '%.2f' % c['cont'], '%.1f' % c['card'], '%.2f' % c['src_len'] if c['src_len'] is not None else '',
+                        '%.3f' % c['rate'] if c['rate'] is not None else '', c['credit'], '1' if c['textpage'] else ''])
 
     head_t = next(c['start'] + c['dur'] for c in cuts if c['cid'] == FIRST_HEAD_AFTER)
     L = ['---', 'title: 17本目 場面ごとの映像・写真の一覧（生成物）', 'created: 2026-10-19', 'tags: [project/jiko-kensho, ep17]', '---', '',
          '# 17本目 場面ごとの映像・写真の一覧（%dカット・映像方針）' % n, '',
          '> **生成物＝手で直さない**。作り方＝`python ref/ep17/eizou_build/make_list17.py`（入力＝台本 第2版 `daihon_v2.md` §4 の画の欄と §2 の★・当て方 `eizou_build/assign17.psv`・出どころ `eizou_build/sources17.psv`）。直すのは入力（台本の画の欄は直さない＝⑤b はこの一覧に従う）。',
-         '> 秒＝句読点なし÷365字/分の見込み（⑤a の実測で取り直す）。🔧＝台本の画の欄から替えたカット。★＝決め所だった行（画面は作らない＝10-07）。色味は原本（10-07）。写真は画面いっぱい（10-11）＝例外は了承②の表。見た画像＝`eizou_build/seen17.tsv`。決めと確かめの正本＝Vault `Projects/事故検証-17本目-映像方針-20261019.md`。', '',
+         '> 秒＝%s（⑤b-1 から＝前 0.35＋声＋後 0.50・章の扉 2.0＝c110 の前と第2〜11章の頭）。🔧＝台本の画の欄から替えたカット。' % tnote + '★＝決め所だった行（画面は作らない＝10-07）。色味は原本（10-07）。写真は画面いっぱい（10-11）＝例外は了承②の表。見た画像＝`eizou_build/seen17.tsv`。決めと確かめの正本＝Vault `Projects/事故検証-17本目-映像方針-20261019.md`。', '',
          '## §0 数', '', '| 物差し | 値 | 決まり |', '|---|---|---|',
          '| 写真・実写（実写＋頁） | **%d カット＝%.1f%%**（実写 %d・頁 %d／秒 %.0f＝%.1f%%） | 20%%以上 %s（台本 第2版は66＝27.2%%） |' % (
              len(photo), ratio * 100, len(real), len(pages), sum(c['dur'] for c in photo), sum(c['dur'] for c in photo) / tot * 100, '✅' if ratio >= PHOTO_LO else '🔴'),
@@ -312,7 +379,7 @@ def main():
          '| 見せ方（実写・頁・関連・イメージ） | %s | 全面が既定（10-11）・例外は了承② |' % '・'.join('%s %d' % (k, v) for k, v in framed.most_common()),
          '| 🔧 台本の画の欄から替えたカット | %d | 台本は直さない＝⑤b はこの一覧に従う |' % len(changed),
          '| 静止の動き | %s | 寄るだけにしない（10-07） |' % '・'.join('%s %d' % (k, v) for k, v in mc.most_common()),
-         '| 最初の見出し（章の扉） | %s のあと＝%.1f秒（÷365） | 競合の型＝1分前後 |' % (FIRST_HEAD_AFTER, head_t),
+         '| 最初の見出し（章の扉） | %s のあと＝%.1f秒（%s） | 競合の型＝1分前後 |' % (FIRST_HEAD_AFTER, head_t, tnote),
          '| 合計 | %d カット・%s | — |' % (n, fmt_t(tot)), '']
     L += ['### 章ごと', '', '| 章 | カット | 秒 | 実写 | 頁 | 関連 | イメージ | 案C | 図 | 文字だけ |', '|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
     for ch in chaps:

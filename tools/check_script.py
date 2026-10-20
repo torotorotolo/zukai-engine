@@ -427,14 +427,37 @@ def measure(cuts):
 
 CHAPTER_CUT_RE = re.compile(r"c[0-9a-f]\d\d$")
 
+# 🔴 2026-10-20（17本目 ⑤b-1）：**章の記号の中に置く扉**（つかみと第1章が同じ記号 c1 の回＝17本目。映像方針「最初の見出し〈扉〉は
+#    c109 のあと」・了承②）＝{回の名: (扉を置くカット, …)}。そのカットから同じ記号（cid[:2]）の終わりまでを、別の区切り
+#    （記号＋「'」＝17本目の c110〜c117 は "c1'"・c101〜c109 は "c1"）に数える。
+#    🔴 扉の規則を持つ5か所（aq_build.timeline・aq_build.listen・この門番の③〈n_cards〉と「冒頭:」・check_listener.timeline・
+#       scene_jiko._card_heads）と画面の章の札（scene_jiko.chapter_of）は **door_key() で区切りを引く**（cid[:2] を直に使わない）＝
+#       1か所でも cid[:2] のままだと4つの測り方（aq_build --rate・③・check_listener・scene_jiko の CUTS）が扉1枚ぶん（2秒）ずれる。
+#    ⚠️ 回の名（el_script.SLUG）で引く＝ほかの回には効かない（23本目までの扉は1枚も変わらない）。扉を足すと、その後ろの全カットの
+#       秒が CARD_SEC だけ動く（音の wav・opus は変わらない＝扉は wav の外の無音）。selftest は回の名を渡して確かめる
+INNER_CARDS = {"ep17": ("c110",)}
 
-def n_cards(cuts):
-    """章の扉の枚数＝章の数−1（第1章の頭には扉が無い）。
+
+def door_key(cid, slug=None):
+    """扉の区切りの鍵（章でないカット＝pr*・ed* は None）。ふつうは章の記号 cid[:2]。
+    INNER_CARDS の回は、そのカットから同じ記号の終わりまでを `cid[:2] + "'"` にする。slug＝回の名（None＝el_script.SLUG）"""
+    if not CHAPTER_CUT_RE.match(cid):
+        return None
+    key = cid[:2]
+    for c in INNER_CARDS.get(_slug() if slug is None else slug, ()):
+        if c[:2] == key and cid >= c:      # 同じ記号の中は3字のカットID＝字の順が台本の順
+            key += "'"
+    return key
+
+
+def n_cards(cuts, slug=None):
+    """章の扉の枚数＝区切りの数−1（最初の区切りの頭には扉が無い）。slug＝回の名（None＝el_script.SLUG・selftest 用）。
 
     🔴 2026-09-25（14本目⑤a）：章の鍵は `c1`〜`c9` だけでなく **`ca`〜`cf`（第10〜15章）** も。
        旧 `re.match(r"c\\d")` は 14本目の `ca01`〜`cd08`（4章）を数えず、③が8秒短く出た。
-       `pr01`・`ed01` は章でないので数えない（9章までの回は1枚も変わらない）。"""
-    return max(0, len({c[:2] for c, _, _ in cuts if CHAPTER_CUT_RE.match(c)}) - 1)
+       `pr01`・`ed01` は章でないので数えない（9章までの回は1枚も変わらない）。
+    🔴 2026-10-20（17本目 ⑤b-1）：区切りは door_key（章の記号の中の扉 INNER_CARDS も1枚に数える）"""
+    return max(0, len({door_key(c, slug) for c, _, _ in cuts if CHAPTER_CUT_RE.match(c)}) - 1)
 
 
 def est_sec(chars, lines, n, nq, cps, ncard=0):
@@ -680,7 +703,7 @@ def report(cuts):
     print('冒頭:', end=' ')
     for cid, _, ls in cuts[:8]:
         c = sum(len(clean(l)) for l in ls)
-        key = cid[:2] if CHAPTER_CUT_RE.match(cid) else None
+        key = door_key(cid)                 # 🔴 17本目 ⑤b-1：章の記号の中の扉も（INNER_CARDS）
         if key is not None:
             if prev is not None and key != prev:
                 t += CARD_SEC
@@ -895,6 +918,13 @@ def selftest():
     _ids = [(c, '', ['あ']) for c in ('pr01', 'c101', 'c201', 'ca01', 'cd08', 'ed01')]
     chk('🔴章の扉は ca〜cf も数える', n_cards(_ids), 3)                      # c1 c2 ca cd → 4章−1
     chk('9章までの回は旧式と同じ枚数', n_cards(_ids[:3]), 1)
+    # 🆕 2026-10-20（17本目 ⑤b-1）：章の記号の中の扉（INNER_CARDS＝17本目は c110 の前）。回の名を渡して確かめる
+    chk('17本目：c109 はつかみ（c1）', door_key('c109', 'ep17'), 'c1')
+    chk("🔴17本目：c110 から c1 の中の扉のあと（c1'）", (door_key('c110', 'ep17'), door_key('c117', 'ep17')), ("c1'", "c1'"))
+    chk('17本目：c201 は第2章（c2）・ed01 は区切りでない', (door_key('c201', 'ep17'), door_key('ed01', 'ep17')), ('c2', None))
+    chk('ほかの回（23本目）は c110 も c1＝前と同じ', door_key('c110', 'ep23'), 'c1')
+    _i17 = [(c, '', ['あ']) for c in ('c101', 'c109', 'c110', 'c117', 'c201', 'ed01')]
+    chk('🔴17本目の扉は c110 の前と c201 の前の2枚', (n_cards(_i17, 'ep17'), n_cards(_i17, 'ep23')), (2, 1))
 
     # 🆕 2026-10-08（20本目⑤a-1）：煽り語の引用の登録（HYPE_QUOTE_OK）。⚠️ (E, W) の増分で見る
     global HYPE_QUOTE_OK
