@@ -460,8 +460,12 @@ def _draw(A, it, row, dim):
                 g.append(F.txtfit((xa + xb) / 2, y + 118, it["t"], max(SPAN_W, xb - xa + 120), cap=30, col=ink if dim else col,
                                   anchor="middle"))
         else:
-            y = A.ay - 40
-            g += [F.line(xa, y, xb, y, col, 4), F.line(xa, y - 14, xa, y + 14, col, 4), F.line(xb, y - 14, xb, y + 14, col, 4)]
+            # 🆕 17本目 ⑤b-5（c420）：lift＝括弧を持ち上げる画素（既定 0＝今までと同じ）。13秒と6秒の括弧が同じ高さで重なって1本に見えた（試し焼き 39395225241 の原寸）
+            #   tick＝両端の縦の線の半分の長さ（既定 14）。2本を上下に分けるときは短くして、上の点の札（軸の約86px 上）に触れないように
+            y = A.ay - 40 - float(it.get("lift", 0))
+            tk = float(it.get("tick", 14))
+            rec.update(y=round(y, 1))
+            g += [F.line(xa, y, xb, y, col, 4), F.line(xa, y - tk, xa, y + tk, col, 4), F.line(xb, y - tk, xb, y + tk, col, 4)]
             if it.get("t"):
                 # 🆕 20本目 ⑤c'（c825）：括弧の札（2段の帯の br と同じ置き方＝括弧の上の真ん中）。既定は札なし＝今までと同じ
                 g.append(F.txtfit((xa + xb) / 2, y - 22, it["t"], max(200, xb - xa + 160), cap=30, col=ink, anchor="middle"))

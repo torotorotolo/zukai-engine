@@ -766,8 +766,9 @@ def ths_stage(prev, st):
             s.append(_th_line(b, t_from=max(0, [t for t, _a in TH_PTS if t <= a][-1] if a else 0)))
     if _on(prev, st, "lab53"):
         t, a = TH_PTS[0]
+        # 🔧 試し焼き 39395225241：「ゴー・レバーの前」を数の右に置くと、上がり始めの線（20:14:18→25）が字を横切った＝数の下（線の下）へ
         s.append(_tline(th_x(t) - 6, th_y(a) - 26, "−5.3度", 34, J.AMBER, "start", 200, fam="Dela"))
-        s.append(_tline(th_x(t) + 170, th_y(a) - 28, "ゴー・レバーの前", 24, J.AMBER, "start", 260))
+        s.append(_tline(th_x(t) - 6, th_y(a) + 46, "ゴー・レバーの前", 24, J.AMBER, "start", 260))
     if _on(prev, st, "desc"):
         x = th_x(TH_DESC)
         s.append(F.line(x, th_y(TH["amin"]) + 40, x, TH["y0"], J.LINE, 3, dash="10 8"))
@@ -819,14 +820,15 @@ def warn_stage(prev, st):
         s.append(_arrow(WN["tx"] + WN["tw"] / 2 + 6, WN["ty"], WN["sx"] - 48, WN["sy"], J.LINE, 5, 20))
         s.append(_speaker(WN["sx"], WN["sy"], 34.0))
         s.append(_waves(WN["sx"] + 10, WN["sy"], 3, 40))
-        s.append(_tline(WN["sx"] + 20, WN["sy"] + 110, "警報音が鳴る", 28, J.AMBER, "middle", 300))
+        # 🔧 試し焼き 39395225241：「警報音が鳴る」を拡声器の下に置くと、右の「変更後：鳴らない」と同じ高さに並んで1つの句に読めた＝拡声器の上へ
+        s.append(_tline(WN["sx"] + 20, WN["sy"] - 80, "警報音が鳴る", 28, J.AMBER, "middle", 300))
         for k, (t, r) in enumerate(WN_IN):
-            y = WN["sy"] - 60 + k * 120
+            y = WN["sy"] - 12 + k * 60
             s.append(_tline(WN["cx"], y, f"{t}のとき", 24, rc(r), "start", 200))
     if _on(prev, st, "cut"):
-        y = WN["sy"] + 60
-        s.append(_xmark(WN["cx"] + 190, y - 9, 18))
-        s.append(_tline(WN["cx"], y + 40, "変更後：鳴らない", 24, J.ALERT, "start", 240))
+        y = WN["sy"] + 48
+        s.append(_xmark(WN["cx"] + 204, y - 9, 18))
+        s.append(_tline(WN["cx"], y + 44, "変更後：鳴らない", 24, J.ALERT, "start", 240))
     if _on(prev, st, "why"):
         x = WN["px"]
         s.append(F.rect(x - WN["pw"] / 2, 330.0, WN["pw"], 170.0, J.BG2, REP, 5, rx=10))
