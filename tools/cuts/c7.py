@@ -119,10 +119,10 @@ SPEC.update({
                     tag=dict(t="機長（左の席）", at="yoke_L", off=(240, -150), anchor="start")),
                dict()]))),
     # c712（3行・20:15:03）＝尾翼。水平安定板は機首上げの限界（−12.3度＝p56）のまま。機長はつかめていなかった（p58）
-    #   ⚠️ 昇降舵の角度は 14分57秒の記録（9.9度＝p56）＝15分03秒の値は記録に無い
+    #   🆕 ⑤b-4：昇降舵 9.9度（14分57秒）→ **14.1度**＝付図5 の 15'03" の値（機長が交替して操縦輪を限界まで押した＝p47）
     "c712": dict(fig=("illu", dict(
-        place="C2", at="20:15:03", start=dict(c2ths=-12.3, c2elev=9.9, c2hand="on", switch="on"),
-        rec="報告書 p56（14分57秒…THS-12.3°及びエレベータ角9.9°）",
+        place="C2", at="20:15:03", start=dict(c2ths=-12.3, c2elev=14.1, c2hand="on", switch="on"),
+        rec="付図5 p1（15'03\"：ELEVATOR 14.1・THS -12.3）",
         steps=[dict(),
                dict(state=dict(c2lim="on", c2hl="ths"),
                     rec="報告書 p56（THSは機首上げ一杯の-12.3°）・p58（THSが機首上げ限界になっていたことについては、把握できていなかった）",
@@ -138,4 +138,84 @@ SPEC.update({
                dict(tag=[dict(t="姿勢", at="att", off=(330, -30)),
                          dict(t="速さ", at="spd_tape", off=(-170, 0), anchor="end"),
                          dict(t="方位", at="hdg", off=(420, 4))])]))),
+})
+
+# ── 🆕 ⑤b-4（2026-10-20）：再現イラスト C7 機体（門番 ㊲）・C4 進入の断面図（門番 ㉞）＝`tools/illu17.py` ──
+from illu17 import C4_REC as R4, C7_REC as R7  # noqa: E402  置き場の部品の出典（描く側と同じ文）
+
+SPEC.update({
+    # c702（2行・しくみ＝模式）＝機体を横から。迎え角＝翼が向かってくる風を受ける角度 → 2行目で大きくなりすぎると失速。
+    #   前の全面の絵 c620（C1）から置き場が替わる＝切り替えの字（映像方針 §5-3 の「題材が替わる所」）
+    "c702": dict(fig=("illu", dict(
+        place="C7", start=dict(c7kind="model", c7pitch=8.0, c7aoa=4.0, c7ths=-3.0, c7wind="on", switch="on"), rec=R7["wind"],
+        steps=[dict(tag=dict(t="迎え角", at="aoa", off=(80, -40), anchor="start")),
+               dict(state=dict(c7pitch=22.0, c7aoa=18.0), rec=R7["wind"], dur=2.4,
+                    # ⑤b-4 の下見：off (40, -60) は向かい風の矢印に重なり、(-20, -150) は右上の章の札に近づいた＝機首の左上へ
+                    tag=dict(t="大きすぎると失速", at="nose", off=(-60, -110), anchor="end"))]))),
+    # c703（3行・20:14:57）＝寄り。約170メートル（p46 約570ft・p83 約550ft＝どちらも約170m）・迎え角が 11.5度を超えた（p46・p56・p83）。
+    #   前の全面の絵 c702（C7）から置き場が替わる＝切り替えの字
+    "c703": dict(fig=("illu", dict(
+        place="C4", at="20:14:57", start=dict(view="near", c4t="20:14:57", c4gs="on", c4ring="on", switch="on"),
+        rec="報告書 p46（14分57秒…気圧高度約570ftを通過中、出力が急激に増加）",
+        steps=[dict(tag=dict(t="20:14:57・約170m", at="pt", off=(0, -90), anchor="middle", keep=True)),
+               dict(rec="報告書 p56（AOAはSLATS/FLAPS30/40の形態に対する検知角の11.5°を超えたため）",
+                    tag=dict(t="迎え角が11.5度を超える", at="pt_low", off=(60, 90), anchor="start")),
+               dict()]))),
+    # c705（2行・20:14:57→15:03）＝機体を横から。水平安定板は -12.3度のまま → 2行目で推力が一気に増える（アルファ・フロア＝自動＝水色・p46）・
+    #   機首を上へ回す矢印・PITCH 8.6 → 10.6（付図5）。交替（20:15:03）からは機長が押す（昇降舵 14.1度＝付図5 15'03"）。前の c703（C4）から＝切り替えの字
+    "c705": dict(fig=("illu", dict(
+        place="C7", at="20:15:03", start=dict(c7pitch=8.6, c7ths=-12.3, c7elev=9.9, c7push="fo", c7ring="on", switch="on"),
+        rec="付図5 p1（14'57\"：PITCH 8.6・ELEVATOR 9.9・THS -12.3）",
+        steps=[dict(rec=R7["ths"], tag=dict(t="水平安定板 −12.3度のまま", at="ths", off=(-20, -110), anchor="middle")),
+               dict(state=dict(c7thr="auto", c7rot="on", c7pitch=10.6, c7elev=14.1, c7push="cap"), rec=R7["thr_auto"], dur=2.2,
+                    tag=dict(t="推力が一気に増える（自動）", at="eng", off=(60, 70), anchor="start"))]))),
+    # c708（3行・20:15:02）＝寄り。滑走路の手前 約1.8km・約160メートル（p5＝高さの点）。🔴 交替（20:15:03）の時刻ではない＝札に「交替」を書かない。
+    #   3行目の CVR の言葉は語りと字幕だけ
+    "c708": dict(fig=("illu", dict(
+        place="C4", at="20:15:02", start=dict(view="near", c4t="20:15:02", c4gs="on", c4ring="on"), rec=R4["dist18"],
+        steps=[dict(state=dict(c4dist="on"), rec=R4["dist18"],
+                    # ⚠️ 門番 echo：「滑走路の手前 約1.8km」は語りの複写＝距離だけ（物差しが滑走路から伸びる）
+                    tag=[dict(t="20:15:02・約160m", at="pt", off=(0, -90), anchor="middle"),
+                         dict(t="約1.8km", at="dist", off=(60, -70), anchor="start")]),
+               dict(), dict()]))),
+    # c711（2行・20:15:03→11）＝機体を横から。機長は操縦輪を限界まで押し続けた（橙・昇降舵 14.1度＝付図5）→ 2行目「それでも機首は上がり続けた」
+    #   PITCH 10.6 → 21.5（付図5 15'03"→15'11"）。前の全面の絵 c710（C3）から＝切り替えの字
+    "c711": dict(fig=("illu", dict(
+        place="C7", at="20:15:11", start=dict(c7pitch=10.6, c7ths=-12.3, c7elev=14.1, c7push="cap", c7rot="on", switch="on"),
+        rec="付図5 p1（15'03\"：PITCH 10.6・ELEVATOR 14.1・THS -12.3）・報告書 p47（操縦輪を限界まで一杯に押し続けたが）",
+        steps=[dict(rec=R7["push"], tag=dict(t="操縦輪をいっぱいに押す", at="elev", off=(-30, 110), anchor="end")),
+               dict(state=dict(c7pitch=21.5), rec="付図5 p1（15'11\"：PITCH 21.5）", dur=3.0,
+                    tag=dict(t="それでも機首は上へ", at="nose", off=(40, -60), anchor="start"))]))),
+    # c714（2行・20:15:11）＝機体を横から。機長が推力をいっぱいへ（手＝橙の矢印・p47）→ 2行目で機首を上へ回す矢印。前の c712（C2）から＝切り替えの字
+    "c714": dict(fig=("illu", dict(
+        place="C7", at="20:15:11", start=dict(c7pitch=21.5, c7ths=-12.3, c7elev=14.1, c7push="cap", switch="on"),
+        rec="付図5 p1（15'11\"：PITCH 21.5・ELEVATOR 14.1・THS -12.3）",
+        steps=[dict(state=dict(c7thr="man"), rec=R7["thr_man"], tag=dict(t="推力をいっぱいへ", at="eng", off=(60, 70), anchor="start")),
+               dict(state=dict(c7rot="on"), rec=R7["rot"])]))),
+    # c715（3行・20:15:11）＝寄り。機首 21.5度・約180メートル（600ft・p60）。前の全面の絵 c714（C7）から置き場が替わる＝切り替えの字
+    "c715": dict(fig=("illu", dict(
+        place="C4", at="20:15:11", start=dict(view="near", c4t="20:15:11", c4gs="on", c4ring="on", switch="on"),
+        rec="報告書 p60（ピッチ角21.5°で、気圧高度約600ftを上昇中）",
+        steps=[dict(tag=[dict(t="20:15:11・約180m", at="pt", off=(-40, -90), anchor="end"),
+                         dict(t="機首 21.5度", at="pt_low", off=(-40, 80), anchor="end")]),
+               dict(), dict()]))),
+    # c718（3行・20:15:11→25）＝機体を横から。機首はさらに上へ（付図5 15'18" 36.2度）→ 2行目で 40.3度・時速約210km（115kt・p60）→
+    #   3行目で 52.2度（付図5 15'25"）と失速の警報（約2秒・p6）。前の全面の絵 c716（C1）から＝切り替えの字
+    "c718": dict(fig=("illu", dict(
+        place="C7", at="20:15:25", start=dict(c7pitch=21.5, c7ths=-12.3, c7elev=14.1, c7push="cap", c7thr="man", switch="on"),
+        rec="付図5 p1（15'11\"：PITCH 21.5・ELEVATOR 14.1・THS -12.3）",
+        steps=[dict(state=dict(c7pitch=36.2, c7ths=-11.3), rec="付図5 p1（15'18\"：PITCH 36.2・THS -11.3）", dur=3.0),
+               dict(state=dict(c7pitch=40.3), rec="報告書 p60（速度が115ktに減少し、ピッチ角は40.3°にまで異常に増加）", dur=1.4,
+                    tag=dict(t="機首 40.3度・時速約210km", at="nose", off=(-60, -50), anchor="end")),
+               dict(state=dict(c7pitch=52.2, c7ths=-8.1, c7elev=11.7, c7warn="on"), rec=R7["warn"], dur=2.0,
+                    tag=dict(t="失速の警報（約2秒）", at="spk", off=(60, 40), anchor="start"))]))),
+    # c721（3行・20:15:25→31）＝機体を横から。失速の状態に入りながら上がり続けた（52.6度＝最大・p49）→ 2行目で頂点（20:15:31・約530m＝1,730ft・p6・p49）→
+    #   3行目「機首が下がり始めた」＝🔴 ここで絵を止める（下がる絵・急降下は描かない＝映像方針 §5-4）
+    "c721": dict(fig=("illu", dict(
+        place="C7", at="20:15:31", start=dict(c7pitch=52.2, c7ths=-8.1, c7elev=11.7, c7push="cap", c7thr="man"),
+        rec="付図5 p1（15'25\"：PITCH 52.2・ELEVATOR 11.7・THS -8.1）",
+        steps=[dict(state=dict(c7pitch=52.6, c7ths=-7.4), rec="報告書 p49（15分26秒同機のピッチ角は、最大の52.6°）・p49（15分27秒THSは…-7.4°まで戻った）", dur=1.6),
+               dict(state=dict(c7pitch=43.8, c7elev=11.3), rec="報告書 p49（同機はピッチ角43.8°で気圧高度約1,730ftで最高点に達した）", dur=2.0,
+                    tag=dict(t="20:15:31・約530m（頂点）", at="nose", off=(-60, -50), anchor="end")),
+               dict()]))),
 })

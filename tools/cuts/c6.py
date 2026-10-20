@@ -93,9 +93,10 @@ SPEC.update({
                dict(state=dict(c1f="1448", c1ring="ga"), rec=R1["f29"],
                     tag=dict(t="GO AROUND は残る", at="ga", off=(0, -96), anchor="middle"))]))),
     # c602（3行・20:14:49〜15:11）＝尾翼。自動操縦は切れた（水色が消える）・水平安定板は −12.3度のまま（−5.3度の点線と比べる）
+    #   🆕 ⑤b-4：昇降舵 8.5度（14分37秒）→ **9.9度**＝付図5 の 14'49" の値（⑤b-3 は「14:49 の値は記録に無い」としていた＝付図5 の表にあった）
     "c602": dict(fig=("illu", dict(
-        place="C2", at="20:14:49", start=dict(c2ths=-12.3, c2elev=8.5, c2ap="on", c2hand="on", c2ghost="on", switch="on"),
-        rec="報告書 p56（14分37秒 THSは機首上げ一杯の-12.3°・エレベータは機首下げ方向に8.5°）",
+        place="C2", at="20:14:49", start=dict(c2ths=-12.3, c2elev=9.9, c2ap="on", c2hand="on", c2ghost="on", switch="on"),
+        rec="付図5 p1（14'49\"：ELEVATOR 9.9・THS -12.3）",
         steps=[dict(state=dict(c2ap="off", c2hl="ths"), rec="報告書 p56（14分49秒 APはディスエンゲージされたがTHSは-12.3°のまま）",
                     tag=dict(t="−12.3度のまま", at="le", off=(-260, 140), anchor="middle", keep=True)),
                dict(tag=dict(t="20:15:11 まで", at="ths", off=(-430, -230), anchor="middle")),
@@ -113,4 +114,35 @@ SPEC.update({
                dict(state=dict(c1ring="ga"), rec="報告書 p58（FMA上のGOAROUNDの表示がいつまでも変わらないこと）",
                     tag=dict(t="ずっと GO AROUND", at="bar_ga", off=(0, -52), anchor="middle", keep=True)),
                dict()]))),
+})
+
+# ── 🆕 ⑤b-4（2026-10-20）：再現イラスト C7 機体（門番 ㊲）・C6 夜の操縦室（門番 ㊱）＝`tools/illu17.py` ──
+from illu17 import C6_REC as R6, C7_REC as R7  # noqa: E402  置き場の部品の出典（描く側と同じ文）
+
+SPEC.update({
+    # c605（3行・20:14:49→57）＝機体を横から。1行目は問い → 2行目「押しても機体が従わず、機首が上がった」（付図5 PITCH 5.5 → 8.6）→
+    #   3行目で大きな水平安定板（-12.3度）に輪と、機首を上へ回す矢印（p55・p56）。押しているのは副操縦士（交替は 20:15:03）
+    "c605": dict(fig=("illu", dict(
+        place="C7", at="20:14:57", start=dict(c7pitch=5.5, c7ths=-12.3, c7elev=9.9, c7push="fo"),
+        rec="付図5 p1（14'49\"：PITCH 5.5・ELEVATOR 9.9・THS -12.3）・報告書 p55（副操縦士が操縦輪を押し続けていた）",
+        steps=[dict(),
+               dict(state=dict(c7pitch=8.6), rec="付図5 p1（14'57\"：PITCH 8.6）", dur=2.6,
+                    tag=dict(t="押しても機首が上がる", at="nose", off=(40, -70), anchor="start")),
+               dict(state=dict(c7ring="on", c7rot="on"), rec=R7["rot"],
+                    tag=dict(t="大きな水平安定板（−12.3度）", at="ths", off=(-20, -110), anchor="middle"))]))),
+    # c609（3行・しくみ＝p84）＝夜の操縦室。①トリムの表示と②トリム・ホイールに輪 → 2行目で視線は前（窓と画面）＝装置は視野の外 →
+    #   3行目の問い「夜の操縦室で、見えたの？」でペデスタルの下を暗く（夜間＝有効に機能し得なかった）
+    "c609": dict(fig=("illu", dict(
+        place="C6", start=dict(), rec=R6["room"],
+        steps=[dict(state=dict(c6ring="on"), rec=R6["wheel"],
+                    # ⑤b-4 の下見：右へ出すと右のトリム・ホイールの輪を横切った＝左下へ
+                    tag=[dict(t="トリムの表示", at="ind", off=(-110, 50), anchor="end"),
+                         dict(t="トリム・ホイール", at="wheel_L", off=(-30, -60), anchor="end")]),
+               dict(state=dict(c6eye="on"), rec=R6["eye"], tag=dict(t="視線は前（窓と画面）", at="eye", off=(-90, 70), anchor="end")),
+               dict(state=dict(c6night="on"), rec=R6["night"])]))),
+    # c611（2行・20:14:30＝自動操縦が入っていた間）＝夜の操縦室。3つ目の警報音（THS モーション・ウォーニング）に ×（p84）→ 2行目「自動操縦の間は鳴らない」
+    "c611": dict(fig=("illu", dict(
+        place="C6", at="20:14:30", start=dict(c6ap="on", c6night="on"), rec=R6["night"],
+        steps=[dict(state=dict(c6warn="on"), rec=R6["warn"], tag=dict(t="3つ目の警報音", at="spk", off=(40, 40), anchor="start", keep=True)),
+               dict(tag=dict(t="自動操縦の間は鳴らない", at="lamps", off=(0, 150), anchor="middle"))]))),
 })

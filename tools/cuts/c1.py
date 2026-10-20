@@ -120,3 +120,15 @@ SPEC.update({
                       dict(t="問い2", v="機体を戻せなかった理由"),
                       dict(t="問い3", v="事故を防げなかった理由")]),
 })
+
+# ── 🆕 ⑤b-4（2026-10-20）：再現イラスト C4 進入の断面図（`tools/illu17.py`・付図4 の線＝`ref/ep17/c4_path.json`・門番 check_illu ㉞）──
+from illu17 import C4_REC as R4  # noqa: E402  置き場 C4 の部品の出典（描く側と同じ文）
+
+SPEC.update({
+    # c117（2行）＝進入の道を横から（全体）。ゴー・レバー（20:14:05）から頂点（20:15:31）までを黄で＝線は頂点で止める（急降下は描かない＝映像方針 §5-4）。
+    #   語りの「墜落まで1分40秒」は字幕（墜落の時刻は割れる＝札に出さない）
+    "c117": dict(fig=("illu", dict(
+        place="C4", at="20:15:31", start=dict(view="all", c4t="20:15:31", c4hl="lever", c4go="on"), rec=R4["lever"],
+        steps=[dict(tag=dict(t="ゴー・レバー（20:14:05）", at="go", off=(-60, -90), anchor="end", keep=True)),
+               dict(tag=dict(t="頂点（20:15:31）", at="apex", off=(-40, -80), anchor="end"))]))),
+})

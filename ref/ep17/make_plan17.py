@@ -40,7 +40,9 @@ CUTS = HERE / "tools" / "cuts"
 FROM_SHA = "b800dbdb"      # 23本目の章ファイルが残っている最後の版（git show <sha>:tools/cuts/c1.py）＝17本目 ⑤b-1 の移し替えの前の toro/main
 
 N_CUTS = 243
-WANT = dict(photo=71, real=50, rel=21, page=17, textpage=6, text=6, run=1, run3=0, stock=14, illu=69, fig=66)
+# 🆕 2026-10-20（⑤b-4）：案C 場面9 前例の年表（c314・c901・c903・c921）と場面10 時間の帯（ca01・ca10・ca17）の7カットを図（軸の型 axis）へ
+#    替えた（年表に「再現イラスト」の札は合わない・軸の型の門番 check_axis が点の位置を画素で照らす）＝illu 69→62・fig 66→73
+WANT = dict(photo=71, real=50, rel=21, page=17, textpage=6, text=6, run=1, run3=0, stock=14, illu=62, fig=73)
 KIND = {"実写": "写真", "関連": "写真", "頁": "図・写真の頁", "イメージ": "フリー素材", "案C": "再現イラスト", "図": "図解"}
 TEXT = ("パネル", "決め所", "文字の頁")
 CHAP = re.compile(r"^(つかみ|第\d+章)　?(.*?)（.*）$")

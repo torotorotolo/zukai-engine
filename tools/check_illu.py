@@ -1222,18 +1222,56 @@ REC_C1 = dict(
 REC_C17_CLOCK = {"20:14:00": "付図29 の 14'00\"（c220 の語り「20時14分」）・時刻の帯の目盛り", "20:14:05": "p5・p51（ゴー・レバー）",
                  "20:14:10": "p44", "20:14:12": "p44・p52", "20:14:23": "p45", "20:14:30": "p45・時刻の帯の目盛り", "20:14:45": "p46",
                  "20:14:49": "p46・p56", "20:15:00": "時刻の帯の目盛り", "20:15:03": "p47・p73", "20:15:11": "p5・p47",
-                 "20:15:13": "付図29 の 15'13\""}
+                 "20:15:13": "付図29 の 15'13\"",
+                 # 🆕 ⑤b-4（C4〜C7）：自動操縦を切った点（p5・p43）・2つの自動操縦が入った（p5・p44）・トリムのスイッチの音（p53）・-12.3度（p46・p56）・
+                 #   アルファ・フロア（p46）・高さの点（p5＝🔴 交替の時刻ではない＝㉞ が「交替」の字を止める）・頂点（p6・p49）
+                 "20:11:35": "p5・p43", "20:14:18": "p5・p44", "20:14:20": "p53", "20:14:34": "p53", "20:14:39": "p53", "20:14:37": "p46・p56",
+                 "20:14:57": "p46", "20:15:02": "p5（高さの点）", "20:15:31": "p6・p49"}
 REC_C2 = dict(ths_lo=-12.3, ths_hi=-5.3,                       # 水平安定板＝-5.3°（p54・p44）から機首上げ一杯の -12.3°（p56）まで
               ths_at=(("20:14:18", -5.3, "p44（THSは-5.3°位置で変化はない）"), ("20:14:37", -12.3, "p46・p56（14分37秒 -12.3°）")),
               ths_hold="20:15:11",                              # -12.3° のまま（p5「同15分11秒まで引き続き-12.3°のまま」）
-              elev={3.5: "p44（14分18秒 機首下げ3.5°）", 8.5: "p56（14分37秒 8.5°）", 9.9: "p56（14分57秒 9.9°）"},
+              elev={3.5: "p44（14分18秒 機首下げ3.5°）", 8.5: "p56（14分37秒 8.5°）", 9.9: "p56（14分57秒 9.9°）・付図5（14'49\"）",
+                    14.1: "付図5（15'03\"〜15'18\" 14.1°）＝🆕 ⑤b-4"},
               ap=("20:14:18", "20:14:49"),                      # 自動操縦が入っていた間（p5・p44・p46）
               ghost=-5.3, lim=-12.3, sec18=("約18秒", -5.3, -12.3))
 REC_C3 = dict(fo="R",                                           # 副操縦士は右席（p73「右席で実施」）
               cap_from="20:15:03",                              # 機長の手は交替から（p47・p73＝それまで手足の位置は明らかにできなかった）
               levers=2, go_lever=0,                             # 両スラスト・レバー（p51）・ゴー・レバーは左のスラスト・レバー（写真51）
               ap=("20:14:18", "20:14:49"))
-C17_PLACES = ("C1", "C2", "C3")
+# 🆕 ⑤b-4（2026-10-20）：㉞ C4 進入の断面図（付図4）・㉟ C5 相反の図（付図5）・㊱ C6 夜の操縦室（p84）・㊲ C7 機体（付図5・本文）
+#   付図4 を画素から読んだ値（`ref/ep17/make_c4path.py` の 10-20 の出力を門番の側に写した＝描く側の json を読まない）：時刻 → (滑走路からの km, 対地高度 m)
+REC_C4 = dict(
+    pt={"20:11:35": (16.755, 763.3), "20:14:05": (5.535, 307.5), "20:14:18": (4.651, 292.6), "20:14:37": (3.456, 255.7),
+        "20:14:49": (2.837, 208.4), "20:15:03": (1.884, 141.4), "20:15:11": (1.421, 162.1), "20:15:25": (0.627, 457.4),
+        "20:15:31": (0.504, 513.4)},
+    apex=(0.504, "20:15:31"),                                  # 🔴 線は頂点で止める（映像方針 §5-4＝急降下は描かない）
+    lever=("20:14:05", "20:15:31"), flat=("20:14:10", "20:14:25"),   # p5・p6／p44・p5（約15秒）
+    gs=3.0,                                                    # p54「3°のILS進入経路」
+    # 札の高さ＝本文の気圧高度（m）→ (その高さを言ってよい場面の時刻〈線の終わり〉, 出典)。線は対地高度＝差は空港の標高と線の太さ＝±40m
+    alt={330: (("20:14:05",), "p5 1,070ft"), 320: (("20:14:18", "20:14:25"), "p5・p44 1,040ft"), 270: (("20:14:37",), "p56 880ft"),
+         170: (("20:14:57",), "p46 570ft・p83 550ft"), 160: (("20:15:02",), "p5 510ft"), 180: (("20:15:11",), "p60 600ft"),
+         530: (("20:15:31",), "p6・p49 1,730ft")},
+    dist={5.5: "p5（滑走路から約5.5km）", 1.8: "p5（滑走路から約1.8km）"},
+    deg={3.0: "p54", 4.0: "p54（ピッチ角約4°）", 11.5: "p56", 21.5: "p60"}, kmh={260: "p54（140kt）"},
+    tol_km=0.08, tol_h=15.0, tol_lab=40.0, tol_dist=0.10)
+# 付図5 の表（THS・ELEVATOR）＋本文＝時刻 → (水平安定板, 昇降舵)
+REC_C5 = dict(
+    fig5={"20:14:05": (-5.3, 0.3), "20:14:18": (-5.3, 3.5), "20:14:25": (-6.7, 5.6), "20:14:31": (-9.5, 6.0), "20:14:37": (-12.3, 8.5),
+          "20:14:49": (-12.3, 9.9)},
+    ap=("20:14:18", "20:14:49"), band=("20:14:18", "20:14:49"), snd=("20:14:20", "20:14:34", "20:14:39"),   # p5・p44・p46／p53
+    lim=-12.3, ghost=-5.3, iff="改修されていれば", kg=15, deg={12.3, 3.5, 8.5, 5.3})
+REC_C6 = dict(ap=("20:14:18", "20:14:49"))
+REC_C7 = dict(
+    pitch={"20:14:05": 4.0, "20:14:18": 5.3, "20:14:25": 4.6, "20:14:31": 1.8, "20:14:37": 3.5, "20:14:49": 5.5, "20:14:57": 8.6,
+           "20:15:03": 10.6, "20:15:11": 21.5, "20:15:18": 36.2, "20:15:20": 40.3, "20:15:25": 52.2, "20:15:26": 52.6, "20:15:31": 43.8},
+    ths={"20:14:05": -5.3, "20:14:18": -5.3, "20:14:25": -6.7, "20:14:31": -9.5, "20:14:37": -12.3, "20:14:49": -12.3, "20:14:57": -12.3,
+         "20:15:03": -12.3, "20:15:11": -12.3, "20:15:18": -11.3, "20:15:25": -8.1, "20:15:27": -7.4, "20:15:31": -7.4},
+    elev={"20:14:05": 0.3, "20:14:18": 3.5, "20:14:25": 5.6, "20:14:31": 6.0, "20:14:37": 8.5, "20:14:49": 9.9, "20:14:57": 9.9,
+          "20:15:03": 14.1, "20:15:11": 14.1, "20:15:18": 14.1, "20:15:25": 11.7, "20:15:31": 11.3},
+    apex="20:15:31", ap=("20:14:18", "20:14:49"), thr_auto=("20:14:57", "20:15:03"), thr_man="20:15:11", cap="20:15:03",
+    warn=("20:15:25", "20:15:31"), deg={12.3, 21.5, 40.3, 52.6, 43.8, 52.2}, kmh={210: "p60（115kt）"}, alt={530: "20:15:31"})
+C17_PLACES = ("C1", "C2", "C3", "C4", "C5", "C6", "C7")
+C17_MARK = dict(C1="㉛", C2="㉜", C3="㉝", C4="㉞", C5="㉟", C6="㊱", C7="㊲")
 _TXT = re.compile(r'<text[^>]*?fill="(#[0-9a-fA-F]{6})"[^>]*>([^<]*)</text>')
 CLOCK_SEC = re.compile(r"(\d{1,2}):(\d{2})(?::(\d{2}))?")
 
@@ -1276,7 +1314,7 @@ def judge_c17(sc, where):
     if sc["place"] not in C17_PLACES:
         return [], 0
     bad, n = [], 1
-    mark = dict(C1="㉛", C2="㉜", C3="㉝")[sc["place"]]
+    mark = C17_MARK[sc["place"]]
     for t in _texts17(sc):
         for m in CLOCK_SEC.finditer(t):
             n += 1
@@ -1421,6 +1459,278 @@ def judge_c17(sc, where):
                 bad.append(f"㉝{where}：{sc['at']} は自動操縦を切ったあと＝終わりに灯を残さない（p46）")
         elif any(st["c3ap"] == "on" or st["c3cap"] == "on" for st in sts):
             bad.append(f"㉝{where}：時刻 at の無い場面に自動操縦の灯か機長の手")
+    if sc["place"] in ("C4", "C5", "C6", "C7"):
+        b2, n2 = judge_c17b(sc, where, at, sts, G)
+        bad += b2
+        n += n2
+    return bad, n
+
+
+_NUM_M = re.compile(r"約\s*(\d+(?:\.\d+)?)\s*m(?![a-z])")
+_NUM_KM = re.compile(r"(?<!時速)約\s*(\d+(?:\.\d+)?)\s*km")
+_NUM_KMH = re.compile(r"時速約\s*(\d+)\s*km")
+_NUM_DEG = re.compile(r"[−\-]?(\d+(?:\.\d+)?)\s*度")
+
+
+def _tags_at(sc):
+    """段ごとの札（文・指し先の名）"""
+    return [list(zip(tg.get("texts") or [], tg.get("ats") or [None] * 9)) for tg in sc["tags"]]
+
+
+def _hms_le(table, at):
+    """表の時刻のうち at 以前（秒）"""
+    return [k for k in table if _sec17(k) <= at]
+
+
+def judge_c17b(sc, where, at, sts, G):
+    """🆕 ⑤b-4：㉞ C4・㉟ C5・㊱ C6・㊲ C7（17本目）。記録の値は門番の側（REC_C4〜REC_C7）・画素は描く側の目盛り（geo の c4ruler）で読み直す"""
+    bad, n = [], 0
+    pl = sc["place"]
+    mk = C17_MARK[pl]
+    tags = _tags_at(sc)
+    if pl == "C4":
+        R = REC_C4
+        rul = next((p["geo"] for p in sc["parts"] if (p.get("geo") or {}).get("kind") == "c4ruler"), None)
+        n += 1
+        if rul is None:
+            return [f"㉞{where}：目盛り（c4ruler）の部品が無い"], n
+
+        def km(x):
+            return rul["k0"] - (x - rul["x0"]) / rul["pxkm"]
+
+        def hm(y):
+            return (rul["yg"] - y) / rul["pxm"]
+        ex = rul["pxm"] / (rul["pxkm"] / 1000.0)
+        m = re.search(r"約(\d+)倍", sc.get("view") or "")
+        if not m or int(m.group(1)) != round(ex):
+            bad.append(f"㉞{where}：見る向きの札「{sc.get('view')}」の倍率と目盛りの倍率 約{round(ex)}倍が合わない（高さを伸ばしたことを断る）")
+        if at is None:
+            bad.append(f"㉞{where}：進入の断面図は時刻 at が要る（線の終わりの時刻）")
+        elif sts[-1]["c4t"] != sc["at"] or any(_sec17(st["c4t"]) > at for st in sts):
+            bad.append(f"㉞{where}：場面の時刻 {sc['at']} と線の終わり（終わりの段 {sts[-1]['c4t']}）が合わない・at より先まで描いた")
+        rec_t = sorted(R["pt"], key=_sec17)
+        for p in sc["parts"]:
+            g = p.get("geo") or {}
+            if g.get("kind") == "c4path":
+                n += 1
+                pts = [(km(x), hm(y)) for x, y in g["pts"]]
+                if any(b[0] > a[0] + 1e-6 for a, b in zip(pts, pts[1:])):
+                    bad.append(f"㉞{where}：線 {g['t']} が滑走路から遠ざかる向きに折り返す")
+                if min(k for k, _h in pts) < R["apex"][0] - 0.03:
+                    bad.append(f"㉞{where}：線 {g['t']} が頂点（{R['apex'][1]}・{R['apex'][0]}km）より先まで＝急降下を描かない（映像方針 §5-4）")
+                k_end, h_end = pts[-1]
+                t = g["t"]
+                if t in R["pt"]:
+                    rk, rh = R["pt"][t]
+                    if abs(k_end - rk) > R["tol_km"] or abs(h_end - rh) > R["tol_h"]:
+                        bad.append(f"㉞{where}：線の終わり {t} が {k_end:.2f}km・{h_end:.0f}m＝付図4 は {rk}km・{rh}m（±{R['tol_km']}km・±{R['tol_h']:.0f}m）")
+                else:
+                    s = _sec17(t)
+                    lo = max((x for x in rec_t if _sec17(x) <= s), key=_sec17, default=None)
+                    hi = min((x for x in rec_t if _sec17(x) >= s), key=_sec17, default=None)
+                    if lo is None or hi is None or not R["pt"][hi][0] - 1e-6 <= k_end <= R["pt"][lo][0] + 1e-6:
+                        bad.append(f"㉞{where}：線の終わり {t}（{k_end:.2f}km）が付図4 の矢印の時刻 {lo}〜{hi} のあいだに無い")
+                for rt in rec_t:
+                    rk, rh = R["pt"][rt]
+                    if pts[-1][0] <= rk <= pts[0][0]:
+                        n += 1
+                        h = next((ha + (hb - ha) * (ka - rk) / (ka - kb) for (ka, ha), (kb, hb) in zip(pts, pts[1:]) if kb <= rk <= ka and ka > kb), None)
+                        if h is None or abs(h - rh) > R["tol_h"]:
+                            bad.append(f"㉞{where}：線 {t} の {rk}km（{rt}）の高さ {h}m が付図4 の {rh}m と合わない（±{R['tol_h']:.0f}m）")
+            if g.get("kind") == "c4pt" and g["t"] in R["pt"]:
+                n += 1
+                rk, rh = R["pt"][g["t"]]
+                if abs(km(g["xy"][0]) - rk) > R["tol_km"] or abs(hm(g["xy"][1]) - rh) > R["tol_h"]:
+                    bad.append(f"㉞{where}：点 {g['t']} の位置が付図4（{rk}km・{rh}m）と合わない")
+            if g.get("kind") == "c4gs":
+                n += 1
+                (xa, ya), (xb, yb) = g["a"], g["b"]
+                deg = math.degrees(math.atan((hm(ya) - hm(yb)) / ((km(xa) - km(xb)) * 1000.0)))
+                if abs(deg - R["gs"]) > 0.05:
+                    bad.append(f"㉞{where}：下り道の線の角度 {deg:.2f}度＝記録は {R['gs']}度（p54）")
+            if g.get("kind") == "c4hl":
+                n += 1
+                want = R["lever"] if g["hl"] == "lever" else R["flat"]
+                if (g["a"], g["b"]) != want:
+                    bad.append(f"㉞{where}：強める区間 {g['hl']} が {g['a']}〜{g['b']}＝記録は {want[0]}〜{want[1]}")
+            if g.get("kind") == "c4ring" and g["ring"] == "ap":
+                n += 1
+                a_on, a_off = (_sec17(x) for x in REC_C5["ap"])
+                if not a_on <= _sec17(g["t"]) <= a_off:
+                    bad.append(f"㉞{where}：{g['t']} に自動操縦の輪（自動操縦は {REC_C5['ap'][0]}〜{REC_C5['ap'][1]}）")
+        for i, row in enumerate(tags):
+            st = sts[i + 1]
+            for t, nm in row:
+                n += 1
+                tt = _NUM_KMH.sub("", t)
+                for v in _NUM_KMH.findall(t):
+                    if int(v) not in R["kmh"]:
+                        bad.append(f"㉞{where}：札「{t}」の時速 {v}km は記録の表に無い")
+                for v in _NUM_M.findall(tt):
+                    v = float(v)
+                    if v not in R["alt"]:
+                        bad.append(f"㉞{where}：札「{t}」の高さ {v:g}m は本文の値（{sorted(R['alt'])}）でない")
+                        continue
+                    if st["c4t"] not in R["alt"][v][0]:
+                        bad.append(f"㉞{where}：札「{t}」（{R['alt'][v][1]}）を {st['c4t']} の場面に（記録は {R['alt'][v][0]}）")
+                    mkp = next((p for p in sc["parts"] if (p.get("geo") or {}).get("kind") == "c4pt" and p["geo"]["t"] == st["c4t"]), None)
+                    # 指し先＝その時刻の点（pt・pt_low）か、水平飛行の区間の段では区間（flat）＝高さはどちらも同じ段の点で照らす
+                    if mkp is None or not (nm in ("pt", "pt_low") or (nm == "flat" and st["c4hl"] == "flat")):
+                        bad.append(f"㉞{where}：札「{t}」の指し先がその時刻の点でない")
+                    elif abs(hm(mkp["geo"]["xy"][1]) - v) > R["tol_lab"]:
+                        bad.append(f"㉞{where}：札「{t}」の点の高さ {hm(mkp['geo']['xy'][1]):.0f}m が {v:g}m から ±{R['tol_lab']:.0f}m の外")
+                for v in _NUM_KM.findall(tt):
+                    v = float(v)
+                    dp = next((p for p in sc["parts"] if (p.get("geo") or {}).get("kind") == "c4dist" and p["geo"]["t"] == st["c4t"]), None)
+                    if v not in R["dist"]:
+                        bad.append(f"㉞{where}：札「{t}」の {v:g}km は本文の値（{sorted(R['dist'])}）でない")
+                    elif dp is None or st["c4dist"] != "on":
+                        bad.append(f"㉞{where}：札「{t}」の段に滑走路からの物差し（c4dist）が無い")
+                    else:
+                        L = abs(dp["geo"]["b"] - dp["geo"]["a"]) / rul["pxkm"]
+                        if abs(L - v) > v * R["tol_dist"]:
+                            bad.append(f"㉞{where}：札「{t}」の物差しの長さ {L:.2f}km が {v:g}km の ±{R['tol_dist'] * 100:g}% の外")
+                for v in _NUM_DEG.findall(t):
+                    if float(v) not in R["deg"]:
+                        bad.append(f"㉞{where}：札「{t}」の {v}度 は記録の表（{sorted(R['deg'])}）に無い")
+                if "15秒" in t and st["c4hl"] != "flat":
+                    bad.append(f"㉞{where}：札「{t}」は水平飛行の区間（c4hl＝flat）の段だけ")
+                if "20:15:02" in t and "交替" in t:
+                    bad.append(f"㉞{where}：札「{t}」＝20:15:02 は高さの点（p5）。交替は 20:15:03（p47・p73）")
+    if pl == "C5":
+        R = REC_C5
+        ths, elv = G.get("ths"), G.get("elev")
+        if not ths or not elv:
+            return bad + [f"㉟{where}：水平安定板（ths）か昇降舵（elev）の部品が無い"], n
+        ang = [(float(ths["keys"][0].get("rot", 0.0)), float(elv["keys"][0].get("rot", 0.0)) - float(ths["keys"][0].get("rot", 0.0)))]
+        ang += [(_kv17(ths["keys"], i, "rot", 0.0), _kv17(elv["keys"], i, "rot", 0.0) - _kv17(ths["keys"], i, "rot", 0.0))
+                for i in range(len(sc["states"]))]
+        model = sc["start"]["c5kind"] == "model"
+        n += 1
+        if model:
+            if at is not None or "模式" not in (sc.get("src") or ""):
+                bad.append(f"㉟{where}：しくみの説明（model）は時刻 at を持たず、出典の行に「模式」")
+            if any(abs(t) > 15.0 or abs(e) > 15.0 for t, e in ang):
+                bad.append(f"㉟{where}：模式の角度が ±15度を越える")
+        else:
+            if at is None:
+                bad.append(f"㉟{where}：記録の角度の場面（rec）なのに時刻 at が無い")
+            else:
+                ks = _hms_le(R["fig5"], at)
+                okt = {R["fig5"][k][0] for k in ks}
+                oke = {R["fig5"][k][1] for k in ks}
+                for t, e in ang:
+                    n += 1
+                    if not any(abs(t - v) < 0.05 for v in okt) or not any(abs(e - v) < 0.05 for v in oke):
+                        bad.append(f"㉟{where}：角度（水平安定板 {t:.1f}度・昇降舵 {e:.1f}度）が付図5 の {sc['at']} までの値でない")
+                last = max(ks, key=_sec17) if ks else None
+                if last and (abs(ang[-1][0] - R["fig5"][last][0]) > 0.05 or abs(ang[-1][1] - R["fig5"][last][1]) > 0.05):
+                    bad.append(f"㉟{where}：{sc['at']} の終わりの角度は付図5 の {last}（{R['fig5'][last]}）＝いまは {ang[-1]}")
+                a_on, a_off = (_sec17(x) for x in R["ap"])
+                if any(st["c5ap"] == "on" for st in sts) and not a_on <= at <= a_off:
+                    bad.append(f"㉟{where}：{sc['at']} に自動操縦の色（自動操縦は {R['ap'][0]}〜{R['ap'][1]}）")
+        for p in sc["parts"]:
+            g = p.get("geo") or {}
+            if g.get("kind") == "c5snd":
+                n += 1
+                if tuple(g["times"]) != R["snd"][:len(g["times"])]:
+                    bad.append(f"㉟{where}：操作の音の時刻 {g['times']}＝記録は {R['snd']}（p53）")
+            if g.get("kind") == "c5band":
+                n += 1
+                if (g["a"], g["b"]) != R["band"]:
+                    bad.append(f"㉟{where}：自動操縦の帯 {g['a']}〜{g['b']}＝記録は {R['band']}（p5・p46）")
+                tx = [_TXT.findall(p["svg"])]
+                got = {t for _c, t in tx[0]}
+                if not set(R["band"]) <= got:
+                    bad.append(f"㉟{where}：帯の目盛りの字 {sorted(got)} に {R['band']} が無い")
+            if g.get("kind") == "c5lim" and abs(float(g["deg"]) - R["lim"]) > 0.05:
+                bad.append(f"㉟{where}：限界の印 {g['deg']}度＝記録は {R['lim']}度（p56）")
+            if g.get("kind") == "c5if":
+                n += 1
+                if abs(float(g["deg"]) - R["ghost"]) > 0.05 or R["iff"] not in (sc.get("assume") or "") or not model:
+                    bad.append(f"㉟{where}：「改修されていれば」の点線は {R['ghost']}度・想定の札（assume に「{R['iff']}」）・しくみ（model）の場面だけ")
+        for i, row in enumerate(tags):
+            st = sts[i + 1]
+            for t, _nm in row:
+                n += 1
+                if "30秒" in t and st["c5band"] != "on":
+                    bad.append(f"㉟{where}：札「{t}」は自動操縦の帯（c5band）の段だけ")
+                for v in _NUM_DEG.findall(t):
+                    if float(v) not in R["deg"]:
+                        bad.append(f"㉟{where}：札「{t}」の {v}度 は付図5・本文の値でない")
+                if "kg" in t and (str(R["kg"]) + "kg" not in t or st["c5if"] != "on"):
+                    bad.append(f"㉟{where}：札「{t}」の重さは「改修されていれば」の段の 15kg（p79）だけ")
+    if pl == "C6":
+        n += 1
+        if any(p["id"].startswith("hand") or (p.get("geo") or {}).get("kind") == "hand" for p in sc["parts"]):
+            bad.append(f"㊱{where}：夜の操縦室に手（人）を描いた（C6 は装置と視線だけ）")
+        a_on, a_off = (_sec17(x) for x in REC_C6["ap"])
+        if any(st["c6ap"] == "on" for st in sts) and (at is None or not a_on <= at <= a_off):
+            bad.append(f"㊱{where}：{sc.get('at')} に自動操縦の灯（自動操縦は {REC_C6['ap'][0]}〜{REC_C6['ap'][1]}）")
+        for row in tags:
+            for t, _nm in row:
+                if re.search(r"\d", t.replace("3つ目", "")):
+                    bad.append(f"㊱{where}：札「{t}」に数（C6 は数を出さない）")
+    if pl == "C7":
+        R = REC_C7
+        body, ths, elv = G.get("body"), G.get("ths"), G.get("elev")
+        if not body or not ths or not elv:
+            return bad + [f"㊲{where}：機体（body）・水平安定板（ths）・昇降舵（elev）の部品が無い"], n
+
+        def rots(p):
+            return [float(p["keys"][0].get("rot", 0.0))] + [_kv17(p["keys"], i, "rot", 0.0) for i in range(len(sc["states"]))]
+        pit = [-r for r in rots(body)]
+        thv = [-(r) - pp for r, pp in zip(rots(ths), pit)]
+        elv_ = [-(r) - pp - tt for r, pp, tt in zip(rots(elv), pit, thv)]
+        model = sc["start"]["c7kind"] == "model"
+        n += 1
+        if model:
+            if at is not None or "模式" not in (sc.get("src") or ""):
+                bad.append(f"㊲{where}：しくみの説明（model）は時刻 at を持たず、出典の行に「模式」")
+        else:
+            if at is None:
+                bad.append(f"㊲{where}：記録の角度の場面なのに時刻 at が無い")
+            else:
+                if at > _sec17(R["apex"]):
+                    bad.append(f"㊲{where}：{sc['at']} は頂点（{R['apex']}）より後＝ここで絵を止める（映像方針 §5-4）")
+                for nmv, vals, tab in (("機首の角度", pit, R["pitch"]), ("水平安定板", thv, R["ths"]), ("昇降舵", elv_, R["elev"])):
+                    ks = _hms_le(tab, at)
+                    ok = {tab[k] for k in ks}
+                    for v in vals:
+                        n += 1
+                        if not any(abs(v - w) < 0.05 for w in ok):
+                            bad.append(f"㊲{where}：{nmv} {v:.1f}度 は付図5・本文の {sc['at']} までの値でない")
+                    last = max(ks, key=_sec17) if ks else None
+                    if last and abs(vals[-1] - tab[last]) > 0.05:
+                        bad.append(f"㊲{where}：{sc['at']} の{nmv}は {tab[last]}度（{last}）＝いまは {vals[-1]:.1f}度")
+                a_on, a_off = (_sec17(x) for x in R["thr_auto"])
+                if any(st["c7thr"] == "auto" for st in sts) and not a_on <= at <= a_off:
+                    bad.append(f"㊲{where}：自動の推力（アルファ・フロア）の矢印は {R['thr_auto'][0]}〜{R['thr_auto'][1]} だけ（p46・p47）")
+                if any(st["c7thr"] == "man" for st in sts) and at < _sec17(R["thr_man"]):
+                    bad.append(f"㊲{where}：手の推力（いっぱい）の矢印は {R['thr_man']} から（p47）")
+                if any(st["c7push"] == "cap" for st in sts) and at < _sec17(R["cap"]):
+                    bad.append(f"㊲{where}：機長が押すのは交替 {R['cap']} から（p47・p73）")
+                if sts[-1]["c7push"] == "fo" and at > _sec17(R["cap"]):
+                    bad.append(f"㊲{where}：{sc['at']} は交替のあと＝押すのは機長（c7push＝cap）")
+                w0, w1 = (_sec17(x) for x in R["warn"])
+                if any(st["c7warn"] == "on" for st in sts) and not w0 <= at <= w1:
+                    bad.append(f"㊲{where}：失速の警報は {R['warn'][0]} から（p6・p49）")
+                ap0, ap1 = (_sec17(x) for x in R["ap"])
+                if any(st["c7ap"] == "on" for st in sts) and not ap0 <= at <= ap1:
+                    bad.append(f"㊲{where}：{sc['at']} に自動操縦の色（自動操縦は {R['ap'][0]}〜{R['ap'][1]}）")
+        for i, row in enumerate(tags):
+            for t, _nm in row:
+                n += 1
+                tt = _NUM_KMH.sub("", t)
+                for v in _NUM_KMH.findall(t):
+                    if int(v) not in R["kmh"]:
+                        bad.append(f"㊲{where}：札「{t}」の時速 {v}km は記録の表に無い")
+                for v in _NUM_DEG.findall(t):
+                    if float(v) not in R["deg"]:
+                        bad.append(f"㊲{where}：札「{t}」の {v}度 は記録の表（{sorted(R['deg'])}）に無い")
+                for v in _NUM_M.findall(tt):
+                    if float(v) not in R["alt"] or sc.get("at") != R["alt"][float(v)]:
+                        bad.append(f"㊲{where}：札「{t}」の高さは頂点（{R['apex']}・約530m＝p6・p49）の場面だけ")
     return bad, n
 
 
@@ -3686,10 +3996,11 @@ def selftest_ep17():
         ok &= not b
         print(f"  {'OK' if not b else '🔴 NG'} 17本目 正しい {cid}: {'合格' if not b else b[0]}")
 
-    def bad_case(name, spec, head):
+    def bad_case(name, spec, head, why=None):
+        """why＝狙った規則の字（⑤b-4：別の理由で鳴っても通ってしまう対照を止める）"""
         nonlocal ok
         try:
-            b = [x for x in run(spec) if x.startswith(head)]
+            b = [x for x in run(spec) if x.startswith(head) and (why is None or why in x)]
         except Exception as e:          # noqa: BLE001
             b = [f"組めない：{e}"]
         ok &= bool(b)
@@ -3747,7 +4058,90 @@ def selftest_ep17():
         bad_case("描く側のゴー・レバーを右のレバーに", good["c402"], "㉝")
     finally:
         I17.C3_GO = keep
-    print(f"  {'OK' if ok else '🔴 NG'} 17本目 ㉛㉜㉝ の検算")
+    # 🆕 ⑤b-4（2026-10-20）：㉞ C4・㉟ C5・㊱ C6・㊲ C7 ＝正しい場面（本番の SPEC）と陽性対照
+    g2 = {c: cuts.SPEC[c]["fig"][1] for c in ("c117", "c401", "c412", "c708", "c313", "c508", "c519", "c522", "ca11", "c611", "c705",
+                                                "c711", "c714", "c718", "c721") if c in cuts.SPEC}
+    if len(g2) < 15:
+        print("  🔴 NG 17本目 ⑤b-4：正しい場面の SPEC が揃っていない（selftest の前提）")
+        return False
+    for cid, spec in g2.items():
+        b = run(spec)
+        ok &= not b
+        print(f"  {'OK' if not b else '🔴 NG'} 17本目 正しい {cid}: {'合格' if not b else b[0]}")
+    good.update(g2)
+
+    def tw(cid, steps=None, **kw):
+        s = copy.deepcopy(good[cid])
+        for k, v in kw.items():
+            s[k] = v
+        if steps is not None:
+            s["steps"] = steps
+        return s
+    # ㉞ C4
+    bad_case("記録に無い高さの札（約350m）", tw("c401", steps=[dict(tag=dict(t="20:14:05・約350m", at="pt", off=(0, -90))), dict()]), "㉞",
+             "本文の値")
+    bad_case("20:15:02 を交替の時刻として札に", tw("c708", steps=[dict(tag=dict(t="20:15:02 交替", at="pt", off=(0, -90))), dict(), dict()]), "㉞",
+             "交替は")
+    bad_case("記録に無い距離の札（約6.5km）", tw("c412", steps=[
+        dict(state=dict(c4dist="on"), rec="報告書 p5", tag=dict(t="滑走路から約6.5km", at="dist", off=(0, -60))),
+        dict(state=dict(c4dist="off", c4t="20:14:25", c4hl="flat"), rec="報告書 p44"), dict()]), "㉞", "本文の値")
+    bad_case("場面の時刻と線の終わりが違う", tw("c412", at="20:14:18"), "㉞", "線の終わり")
+    bad_case("約15秒の札を水平飛行の区間の外で", tw("c401", steps=[dict(tag=dict(t="約15秒", at="pt", off=(0, -90))), dict()]), "㉞",
+             "水平飛行の区間")
+    keep = copy.deepcopy(I17.c4_data())
+    try:
+        I17.c4_data()["times"]["20:14:05"] = 6.2
+        bad_case("描く側の付図4 の時刻の位置をずらす（20:14:05 を 6.2km）", good["c401"], "㉞")
+        I17.c4_data()["times"]["20:14:05"] = keep["times"]["20:14:05"]
+        I17.c4_data()["pts"] = [(k, m * 1.2) for k, m in keep["pts"]]
+        bad_case("描く側の線の高さを 1.2倍に", good["c401"], "㉞")
+        I17.c4_data()["pts"] = list(keep["pts"]) + [(0.30, 420.0)]
+        I17.c4_data()["times"]["20:15:31"] = 0.30
+        bad_case("描く側の線を頂点の先（急降下）まで", good["c117"], "㉞")
+    finally:
+        I17.c4_data().clear()
+        I17.c4_data().update(keep)
+    keep = I17.C4_FLAT
+    try:
+        I17.C4_FLAT = ("20:14:05", "20:14:25")
+        bad_case("描く側の水平飛行の区間を 20:14:05 から", good["c412"], "㉞")
+    finally:
+        I17.C4_FLAT = keep
+    # ㉟ C5
+    bad_case("付図5 に無い昇降舵（7.0度）", tw("c519", start=dict(c5ths=-9.5, c5elev=7.0, c5ap="on", c5hand="on", c5band="on",
+                                                                  c5cur="20:14:31")), "㉟", "付図5")
+    bad_case("自動操縦の前（20:14:05）に自動操縦の色", tw("c508", at="20:14:05", steps=[dict(state=dict(c5ap="on"), rec="報告書 p5"),
+                                                                              dict(), dict()]), "㉟", "自動操縦の色")
+    bad_case("約30秒の札を帯の無い段に", tw("c522", start=dict(c5ths=-12.3, c5elev=8.5, c5ap="on", c5hand="on")), "㉟", "帯（c5band）")
+    bad_case("改修されていれば の点線に想定の札が無い", tw("ca11", assume=None), "㉟", "想定の札")
+    bad_case("しくみの説明に時刻 at", tw("c313", at="20:14:20"), "㉟", "model")
+    keep = I17.C5_SND
+    try:
+        I17.C5_SND = ("20:14:21", "20:14:34", "20:14:39")
+        bad_case("描く側の操作の音の時刻をずらす", good["c512"] if "c512" in good else cuts.SPEC["c512"]["fig"][1], "㉟")
+    finally:
+        I17.C5_SND = keep
+    # ㊱ C6
+    bad_case("自動操縦の前（20:14:10）に灯", tw("c611", at="20:14:10"), "㊱", "自動操縦の灯")
+    bad_case("夜の操縦室の札に数", tw("c611", steps=[dict(state=dict(c6warn="on"), rec="報告書 p84", tag=dict(t="警報音 3回", at="spk")), dict()]),
+             "㊱", "に数")
+    # ㊲ C7
+    bad_case("頂点（20:15:31）より後の場面", tw("c721", at="20:15:35"), "㊲", "頂点")
+    bad_case("手の推力を 20:15:03 に", tw("c714", at="20:15:03", start=dict(c7pitch=10.6, c7ths=-12.3, c7elev=14.1, c7push="cap")), "㊲",
+             "手の推力")
+    bad_case("付図5 に無い機首の角度（25度）", tw("c711", steps=[dict(), dict(state=dict(c7pitch=25.0), rec="付図5 p1")]), "㊲", "機首の角度 25.0")
+    bad_case("機長が押すのを交替の前（20:14:57）に", tw("c705", at="20:14:57", steps=[dict(), dict(state=dict(c7push="cap"), rec="報告書 p47")]),
+             "㊲", "交替")
+    bad_case("失速の警報を 20:15:20 に", tw("c718", at="20:15:20", steps=[
+        dict(state=dict(c7pitch=36.2, c7ths=-11.3), rec="付図5 p1"), dict(state=dict(c7pitch=40.3), rec="報告書 p60"),
+        dict(state=dict(c7warn="on"), rec="報告書 p6")]), "㊲", "失速の警報")
+    keep = I17.c7_key
+    try:
+        I17.c7_key = lambda st, part: dict(keep(st, part), rot=-keep(st, part)["rot"])
+        bad_case("描く側の機首の回る向きを逆に", good["c711"], "㊲", "機首の角度")
+    finally:
+        I17.c7_key = keep
+    print(f"  {'OK' if ok else '🔴 NG'} 17本目 ㉛〜㊲ の検算")
     return ok
 
 

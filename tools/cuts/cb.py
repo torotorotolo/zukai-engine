@@ -128,3 +128,18 @@ SPEC.update({
                     tag=dict(t="画面の上の端", at="ga", off=(0, -80), anchor="middle")),
                dict()]))),
 })
+
+# ── 🆕 ⑤b-4（2026-10-20）：再現イラスト C6 夜の操縦室（門番 ㊱）・C4 進入の断面図（門番 ㉞）＝`tools/illu17.py` ──
+from illu17 import C4_REC as R4, C6_REC as R6  # noqa: E402  置き場の部品の出典（描く側と同じ文）
+
+SPEC.update({
+    # cb21（2行・しくみ）＝3つ目は警報（報告書の要因の5つ目＝p95）。夜の操縦室の警報の印に ×
+    "cb21": dict(fig=("illu", dict(
+        place="C6", start=dict(c6night="on"), rec=R6["night"],
+        steps=[dict(state=dict(c6warn="on"), rec=R6["warn2"], tag=dict(t="警報", at="spk", off=(40, 40), anchor="start", keep=True)),
+               dict(rec=R6["warn2"], tag=dict(t="ずれを知らせる働きが無かった", at="spk", off=(40, 100), anchor="start"))]))),
+    # cb29（3行）＝最初の進入の線に戻る（全体）。ゴー・レバーの前の、下り道に乗った線だけ（点の印なし）。前の全面の絵 cb27（C1）から＝切り替えの字
+    "cb29": dict(fig=("illu", dict(
+        place="C4", at="20:14:05", start=dict(view="all", c4t="20:14:05", c4mk="off", c4gs="on", switch="on"), rec=R4["gs"],
+        steps=[dict(), dict(), dict()]))),
+})

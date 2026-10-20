@@ -93,3 +93,21 @@ SPEC.update({
                     tag=[dict(t="下り道の印（緑）", at="loc", off=(-84, -80), anchor="middle"),
                          dict(t="20:14:00", xy=(1452, 236))])]))),
 })
+
+# ── 🆕 ⑤b-4（2026-10-20）：再現イラスト C4 進入の断面図（`tools/illu17.py`・門番 check_illu ㉞）──
+from illu17 import C4_REC as R4  # noqa: E402  置き場 C4 の部品の出典（描く側と同じ文）
+
+SPEC.update({
+    # c214（2行・20:11:35）＝進入の道を横から（全体）。自動操縦を2つとも切った点（p5・p43）→ 2行目「ここからは、手での操縦だ」
+    "c214": dict(fig=("illu", dict(
+        place="C4", at="20:11:35", start=dict(view="all", c4t="20:11:35", c4ring="on"),
+        rec="報告書 p5（同11分35秒、副操縦士によりNo.1及びNo.2ともに解除された）・p43（機長(PNF)の了解のもとに…APのNo.1及びNo.2を解除）",
+        steps=[dict(tag=dict(t="20:11:35 自動操縦を切る", at="pt", off=(60, 80), anchor="start", keep=True)),
+               dict(tag=dict(t="ここから手で操縦", at="pt_r", off=(220, 150), anchor="start"))]))),
+    # c218（2行・20:14 の直前）＝寄り。電波の下り道（3度）にきちんと乗っていた（p54）→ 2行目で速さ（140ノット）と機首の角度（約4度）
+    "c218": dict(fig=("illu", dict(
+        place="C4", at="20:14:00", start=dict(view="near", c4t="20:14:00", c4gs="on"),
+        rec="報告書 p54（11時14分05秒直前…3°のILS進入経路に乗って、速度約140kt、ピッチ角約4°）",
+        steps=[dict(tag=dict(t="電波の下り道（3度）", at="gs_far", off=(40, 100), anchor="start", keep=True)),
+               dict(tag=dict(t="時速約260km・機首 約4度", at="pt", off=(-30, -90), anchor="start"))]))),
+})

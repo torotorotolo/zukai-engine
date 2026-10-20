@@ -55,8 +55,8 @@ PLAN = {
     'c313': dict(kind='再現イラスト',
                plan='一覧の種類：案C｜見る向き：横から｜見た目の型：C5 相反｜注：押せば押すほど板は逆へ｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
                src='S1 p.40・p.83'),
-    'c314': dict(kind='再現イラスト',
-               plan='一覧の種類：案C｜見る向き：—｜見た目の型：C9 年表｜注：1985年と1988年に印｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
+    'c314': dict(kind='図解',
+               plan='🔧 一覧の種類：図｜見た目の型：年表（前例と改修の承認）｜注：🔧 1985年と1988年3月だけ（⑤b-4：年表に「再現イラスト」の札は合わない＝軸の型・門番 check_axis）｜新しい画（映像方針）：再現イラスト 場面9 → 年表（軸の型）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
                src='S1 p.78'),
     'c315': dict(kind='写真',
                plan='E3｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：事故機 B-1816（1991年9月・香港）｜動き：額ごと左へ｜権利：GFDL 1.2｜出典の行：Wikimedia Commons「China Airlines B-1816 Airbus A300 at HK Airport.jpg」（GFDL 1.2）＝作者は src/credits_private.tsv｜注：GFDL｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
@@ -141,4 +141,32 @@ SPEC.update({
         steps=[dict(state=dict(c1land="on"), rec=R1["land"], tag=dict(t="LAND のボタン", at="land", off=(70, 6))),
                dict(state=dict(c1land="press", c1ring="ga"), rec=R1["land"]),
                dict()]))),
+})
+
+# ── 🆕 ⑤b-4（2026-10-20）：再現イラスト C5 相反の図（`tools/illu17.py`・門番 check_illu ㉟）・年表 c314（軸の型＝門番 check_axis）──
+from illu17 import C5_REC as R5  # noqa: E402  置き場 C5 の部品の出典（描く側と同じ文）
+
+SPEC.update({
+    # c313（2行・しくみ＝模式）＝自動操縦は水平安定板で釣り合いを取り直す（水色）→ 2行目で人が押し続ける（橙）と、板は機首上げへ動いていく。
+    #   前の全面の絵 c312（C2 尾翼）から置き場が替わる＝切り替えの字
+    "c313": dict(fig=("illu", dict(
+        place="C5", start=dict(c5kind="model", c5ths=-3.0, c5elev=0.0, c5ap="on", switch="on"), rec=R5["ap"],
+        steps=[dict(tag=dict(t="自動操縦：板で釣り合いを取る", at="ths", off=(-60, -190), anchor="middle")),
+               dict(state=dict(c5hand="on", c5ths=-9.0, c5elev=7.0), rec=R5["hand"], dur=2.4,
+                    tag=[dict(t="押す（機首下げ）", at="hand_dn", off=(110, 40), anchor="start"),
+                         dict(t="板は逆へ（機首上げ）", at="le", off=(-30, 160), anchor="middle")])]))),
+    # c318（3行・しくみ）＝報告書の言葉「2つの異なる意図が同時に入力されるシステム」（p78）→ 2行目で知らせる警報の装置が無い（×）
+    "c318": dict(fig=("illu", dict(
+        place="C5", start=dict(c5kind="model", c5ths=-9.0, c5elev=7.0, c5ap="on", c5hand="on", switch="on"), rec=R5["ap"],
+        # ⚠️ 門番 echo：札「2つの異なる意図が同時に」は語りの複写＝中身を言い換えた（人は機首下げ・機械は機首上げ）
+        steps=[dict(rec="報告書 p78（APがTHSを、操縦士がエレベータをそれぞれ制御できようになっており、2つの異なる意図が同時に入力される）",
+                    tag=dict(t="人は機首下げ・機械は機首上げ", xy=(960, 680), anchor="middle", keep=True)),
+               dict(state=dict(c5warn="on"), rec=R5["warn"], tag=dict(t="知らせる警報は無かった", at="spk", off=(-40, 70), anchor="end")),
+               dict()]))),
+    # c314（2行）＝年表（軸の型）。1行目「1985年に起きた出来事のあと」→ 2行目「1988年3月、フランスの航空の当局が…改修を承認」（p78）
+    "c314": dict(
+        t="前にも現れていた危険", s="1985年の出来事と1988年の承認",
+        fig=("axis", dict(ss.AX_Y17, steps=[dict(add=[ss.ax("i85")], cur="1985-03-01"),
+                                            dict(add=[ss.ax("mod88")], cur="1988-03")],
+                          note="年月は報告書の本文（1988年3月18日＝承認の日・月まで）", src=ss.src(["報告書 p78"])))),
 })

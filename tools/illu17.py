@@ -21,7 +21,22 @@
   C3 … 操縦室の中（後ろから前を向いて・夜）。人は影の手だけ（顔・体を描かない＝腕は画面の下の端から）。
        欄＝c3thr（副操縦士の手がスラスト・レバーに）・c3yoke（副操縦士の手が右の操縦輪に）・c3push（右の操縦輪を押す）・
        c3cap（機長の手が左の操縦輪に）・c3ap（自動操縦の灯 AP 1・AP 2）・c3ring（輪 off／go／at／lev）・switch
-■ 守りの線（映像方針 17本目 §5-4・§5-8＝門番 check_illu ㉛㉜㉝ が記録の値を門番の側に持つ＝ここの定数を読まない）
+  🆕 ⑤b-4（2026-10-20）C4〜C7（C9 年表・C10 帯は軸の型 axis に替えた＝入力 assign17.psv・門番 check_axis）
+  C4 … 進入の断面図（横から・滑走路は右）。線の形と時刻の位置＝付図4（p109 航跡概略図）を画素から読んだ `ref/ep17/c4_path.json`
+       （`ref/ep17/make_c4path.py`）。高さは横より伸ばす（all 約7倍・near 約4倍＝見る向きの札に書く）。🔴 線は頂点（20:15:31）で止める。
+       欄＝c4t（線の終わりの時刻＝C4_T）・c4mk（点）・c4gs（下り道＝3度の線・p54）・c4hl（lever＝ゴー・レバー〜頂点／flat＝約15秒の水平飛行）・
+       c4go（ゴー・レバーの点）・c4dist（滑走路の末端からの物差し）・c4arrow（push 押す／back 戻ろうとした〈報告書の見方〉／dev 下り道からのずれ）・
+       c4ring（on／ap＝自動操縦の水色）・switch。札の高さは本文の気圧高度（線は対地高度＝差は ±40m まで＝門番 ㉞）
+  C5 … 相反の図＝C2 の尾翼（形と回し方をそのまま・縮めて上へ＝C5_T）＋押す手（橙）と自動操縦（水色）の矢印＋約30秒の時刻の帯（20:14:18〜49）。
+       角度＝付図5（p110 拡大航跡図の THS・ELEVATOR の欄）。欄＝c5kind（rec／model）・c5ths・c5elev・c5ap・c5hand・c5band・c5snd（操作の音 0〜3＝p53）・
+       c5cur（帯の時刻の線）・c5warn（警報の装置が無い＝×）・c5if（改修されていれば＝-5.3度の点線・想定の札と一緒に＝ca11）・c5lim・switch
+  C6 … 夜の操縦室＝C3 の部屋＋①トリムの表示と②トリム・ホイール（p84＝センタペデスタルの上と両側・位置は模式）・視線（目の印）・
+       ③警報音の印に ×（p84・p95）。人は描かない（手も無い）。欄＝c6ap・c6ring・c6eye・c6night（ペデスタルの下を暗く）・c6warn・switch
+  C7 … 機体を横から（機首が右＝C4 の進む向き・形は模式）。機首の角度・水平安定板・昇降舵＝付図5 と本文（p49・p60）の値。
+       欄＝c7kind・c7pitch・c7aoa（迎え角＝向かい風の矢印と弧・c7wind）・c7ths・c7elev・c7ap・c7push（fo＝副操縦士／cap＝機長＝20:15:03 から）・
+       c7ring・c7thr（auto＝アルファ・フロア＝水色・p46／man＝手でいっぱい＝橙・p47）・c7rot（機首を上へ回す力）・c7warn（失速の警報）・switch。
+       🔴 頂点（20:15:31）で止める＝機首が下がる絵・急降下は描かない
+■ 守りの線（映像方針 17本目 §5-4・§5-8＝門番 check_illu ㉛〜㊲ が記録の値を門番の側に持つ＝ここの定数を読まない）
   ・乗員は影の手だけ（C3）・乗客は描かない・ぶつかる瞬間・炎・壊れた機体は描かない・CVR の言葉を絵の文字にしない
   ・時計の札は台本 §1-6 の1つに決まる時刻だけ（20:14:49＝付図29 の枠の 14'48" と割れる＝本文の 14分49秒・交替は 20:15:03）
   ・機長の手（左の席）は 20:15:03 の交替から（報告書 p73＝それまで手足を正常位置に保っていたかは明らかにできなかった）
@@ -29,7 +44,10 @@
 """
 from __future__ import annotations
 
+import json
 import math
+from functools import lru_cache
+from pathlib import Path
 
 import fontmetrics as fm
 import illu as IL
@@ -56,6 +74,10 @@ C17 = dict(
     win0="#06090d", win1="#101a24", glare="#1f252a", panel="#2b3237", ped="#46505a", ped_ln="#6e7983",
     yoke="#7c868e", yoke_ln="#262d33", col="#4a545c", lever="#99a3ab", knob="#c2cad0", gol="#59626a", atb="#e6ebee",
     hand="#0a0e12", hand_ln="#5c6872", lamp_on="#9fe07e", lamp_off="#2f363c", lamp_txt="#0d1115", lamp_txt_off="#6b757d",
+    # 🆕 ⑤b-4：C4 断面・C5 相反・C6 夜の操縦室・C7 機体
+    gnd4="#1a1d1b", gnd4_ln="#59646d", tick4="#7d8a93", rwy="#8f989e", rwy_ln="#e9edf0", gs="#e9edf0", path4="#f3f6f8",
+    band5="#1b232a", plane="#c9d1d7", plane_ln="#20282e", eng7="#9aa4ac", wind="#e9edf0", horizon="#59646d",
+    trimw="#3d464d", trimw_ln="#a9b3ba", spk="#d6dde2", dark6="#020406",
 )
 
 
@@ -883,6 +905,739 @@ def _c3_note(st0, states):
 
 
 # ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-20）C4 進入の断面図（横から・滑走路は右）＝付図4 の線（`ref/ep17/c4_path.json`＝make_c4path.py）
+# ══════════════════════════════════════════════════════════
+C4_JSON = Path(__file__).resolve().parent.parent / "ref" / "ep17" / "c4_path.json"
+# 見え方＝k0（左の端の km＝滑走路から）・k1（右の端の km＝負は滑走路の上）・x0／x1（画素）・mtop（ytop の高さ m）・yg（0m の画素）
+#   高さは横より伸ばしてある（all 約8倍・near 約4倍）＝左上の見る向きの札に「高さを約N倍に」（門番 ㉞ が目盛りから倍率を数え直す）
+#   🔴 地面（0m）は y 760＝出典の行（y 約866〜884・左下から右へ長く伸びる）と字幕に札・線を近づけない（C1 の all と同じ考え）
+C4_VIEW = dict(all=dict(k0=17.6, k1=-0.6, x0=110.0, x1=1810.0, mtop=820.0, yg=760.0, ytop=190.0),
+               near=dict(k0=6.6, k1=-0.6, x0=110.0, x1=1810.0, mtop=620.0, yg=760.0, ytop=180.0))
+# 場面の時刻（c4t）に使ってよい時刻＝付図4 の矢印の時刻と頂点（json の times）・本文の時刻（内挿＝14:00・14:10 p44・14:25〈14:10＋約15秒 p5〉・
+#   14:57 p46・15:02 p5）。🔴 時刻の札に出すかは門番の表（REC_C17_CLOCK）が決める＝ここは線の長さだけ
+C4_T = ("20:11:35", "20:14:00", "20:14:05", "20:14:10", "20:14:18", "20:14:25", "20:14:37", "20:14:49", "20:14:57", "20:15:02",
+        "20:15:03", "20:15:11", "20:15:25", "20:15:31")
+C4_FLAT = ("20:14:10", "20:14:25")              # 約15秒の水平飛行（p44「14分10秒ごろから…水平飛行」・p5「約15秒間水平飛行」）
+C4_LEVER = ("20:14:05", "20:15:31")             # ゴー・レバー（p5）から頂点（p6・p49）まで＝線はここで止める
+C4_SWITCH = "進入の道を横から見ると"
+C4_REC = dict(
+    path="付図4 p1（航跡概略図＝横軸は距離・縦軸は補正計算した対地高度）",
+    gs="報告書 p54（3°のILS進入経路に乗って）",
+    rwy="報告書 p6（滑走路34末端中心から東北東約110m）・付図4 p1（RWY）",
+    mk="付図4 p1（時刻の矢印）",
+    lever="報告書 p5（11時14分05秒…ゴー・レバーを作動）・p6（11時15分31秒…最高点）",
+    flat="報告書 p44（14分10秒ごろから気圧高度約1,040ftで水平飛行状態）・p5（約15秒間水平飛行）",
+    dist5="報告書 p5（滑走路から約5.5kmの地点付近）",
+    dist18="報告書 p5（11時15分02秒、気圧高度約510ft（滑走路から約1.8kmの地点付近））",
+    push="報告書 p44（操縦輪を押して機首下げ操作を行っているが…降下することなく）",
+    back="報告書 p90（APの補助を得て正規の降下経路に戻ろうとして行った可能性）",
+    dev="報告書 p44（やや機首上げ傾向となりILS降下経路から上方に外れ）",
+    ap="報告書 p5（APがNo.2そしてNo.1とほぼ同時にエンゲージ）",
+)
+
+
+@lru_cache(maxsize=1)
+def c4_data():
+    d = json.loads(C4_JSON.read_text(encoding="utf-8"))
+    d["pts"] = sorted((float(k), float(m)) for k, m in d["pts"])[::-1]          # 遠い → 近い
+    return d
+
+
+def c4_sec(hms):
+    return _sec_of(hms)
+
+
+def c4_km(t):
+    """時刻 → 滑走路からの km（付図4 の矢印の時刻のあいだは時刻で内挿）"""
+    tt = sorted((c4_sec(k), float(v)) for k, v in c4_data()["times"].items())
+    s = c4_sec(t)
+    for (s0, k0), (s1, k1) in zip(tt, tt[1:]):
+        if s0 <= s <= s1:
+            return k0 + (k1 - k0) * (s - s0) / (s1 - s0)
+    raise ValueError(f"illu C4：時刻 {t} は付図4 の時刻の範囲の外")
+
+
+def c4_h(km):
+    """km → 付図4 の対地高度（m）"""
+    pts = c4_data()["pts"]
+    for (ka, ma), (kb, mb) in zip(pts, pts[1:]):
+        if kb <= km <= ka:
+            return ma + (mb - ma) * (ka - km) / (ka - kb)
+    raise ValueError(f"illu C4：{km:.3f}km は付図4 の線の外（頂点より滑走路の側は描かない）")
+
+
+def c4_x(view, km):
+    V = C4_VIEW[view]
+    return V["x0"] + (V["k0"] - km) / (V["k0"] - V["k1"]) * (V["x1"] - V["x0"])
+
+
+def c4_y(view, m):
+    V = C4_VIEW[view]
+    return V["yg"] - m * (V["yg"] - V["ytop"]) / V["mtop"]
+
+
+def c4_xy(view, km, m=None):
+    return (c4_x(view, km), c4_y(view, c4_h(km) if m is None else m))
+
+
+def c4_ruler(view):
+    """門番 ㉞ が画素を km・m に読み直す目盛り（描く側と同じ式）"""
+    V = C4_VIEW[view]
+    pxkm = (V["x1"] - V["x0"]) / (V["k0"] - V["k1"])
+    pxm = (V["yg"] - V["ytop"]) / V["mtop"]
+    return dict(x0=V["x0"], k0=V["k0"], pxkm=pxkm, yg=V["yg"], pxm=pxm)
+
+
+def c4_exag(view):
+    r = c4_ruler(view)
+    return r["pxm"] / (r["pxkm"] / 1000.0)
+
+
+def c4_label(view):
+    return f"進入の道を横から見た図（高さを約{round(c4_exag(view))}倍に）"
+
+
+def c4_seg(view, ka, kb):
+    """km ka → kb（ka>kb）の線の点"""
+    pts = [(ka, c4_h(ka))] + [(k, m) for k, m in c4_data()["pts"] if kb < k < ka] + [(kb, c4_h(kb))]
+    V = C4_VIEW[view]
+    return [(c4_x(view, k), c4_y(view, m)) for k, m in pts if k <= V["k0"] + 1e-9] or []
+
+
+def c4_bg_svg(view):
+    V = C4_VIEW[view]
+    yg = V["yg"]
+    x0r, x1r = c4_x(view, 0.0), W + 4
+    g = [f'<defs><linearGradient id="c4sky_{view}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{C17["sky0"]}"/>'
+         f'<stop offset="1" stop-color="{C17["sky1"]}"/></linearGradient></defs>',
+         f'<rect x="0" y="0" width="{W}" height="{H}" fill="url(#c4sky_{view})"/>',
+         f'<rect x="-4" y="{yg:.1f}" width="{W + 8}" height="{H - yg + 4:.1f}" fill="{C17["gnd4"]}"/>',
+         f'<path d="M -4 {yg:.1f} L {W + 4} {yg:.1f}" stroke="{C17["gnd4_ln"]}" stroke-width="3"/>']
+    # 距離の目盛り（1km ごと・字は無い）＝地面の線の下
+    step = 1.0
+    k = math.floor(V["k0"])
+    while k >= 0:
+        x = c4_x(view, k)
+        g.append(f'<path d="M {x:.1f} {yg + 4:.1f} L {x:.1f} {yg + (22 if k % 5 == 0 else 12):.1f}" stroke="{C17["tick4"]}" stroke-width="3"/>')
+        k -= step
+    # 滑走路（末端＝0km から右へ）
+    g.append(f'<rect x="{x0r:.1f}" y="{yg - 7:.1f}" width="{x1r - x0r:.1f}" height="14" fill="{C17["rwy"]}"/>')
+    g.append(f'<path d="M {x0r + 10:.1f} {yg:.1f} L {x1r:.1f} {yg:.1f}" stroke="{C17["rwy_ln"]}" stroke-width="3" stroke-dasharray="16 12"/>')
+    # ⑤b-4 の門番 layout：全体（all）は末端が x 1754＝真ん中に置くと字の右が 1872（上限 1848）＝真ん中は 1790 まで
+    g.append(_text(min((x0r + min(x1r, W - 20)) / 2, 1790.0), yg + 46, "滑走路", 30, C17["fw"], "middle"))
+    # 1km の物差し（左下の地面のすぐ上＝出典の行から離す）。⑤b-4 の下見：左上に置くと c214 の点（17km・約760m）の輪に触れた
+    xa = 96.0
+    xb = xa + c4_ruler(view)["pxkm"]
+    ys = yg - 40.0
+    g.append(f'<path d="M {xa:.1f} {ys - 10:.1f} L {xa:.1f} {ys:.1f} L {xb:.1f} {ys:.1f} L {xb:.1f} {ys - 10:.1f}" fill="none" '
+             f'stroke="{C17["fw"]}" stroke-width="3"/>')
+    g.append(_text(xb + 14, ys + 9, "1km（横）", 26, C17["fw"], "start"))
+    return "".join(g)
+
+
+def c4_gs_svg(view):
+    d = c4_data()["glide"]
+    t = math.tan(math.radians(float(d["deg"])))
+    V = C4_VIEW[view]
+    k_hi = min(V["k0"], V["mtop"] * 1.02 / 1000.0 / t - float(d["d0"]))
+    p = (c4_x(view, k_hi), c4_y(view, t * (k_hi + float(d["d0"])) * 1000.0))
+    q = (c4_x(view, -float(d["d0"])), c4_y(view, 0.0))
+    return (f'<path d="M {p[0]:.1f} {p[1]:.1f} L {q[0]:.1f} {q[1]:.1f}" stroke="{C17["gs"]}" stroke-width="4" '
+            f'stroke-dasharray="18 12" opacity="0.85"/>')
+
+
+def c4_gs_pt(view, km):
+    d = c4_data()["glide"]
+    return (c4_x(view, km), c4_y(view, math.tan(math.radians(float(d["deg"]))) * (km + float(d["d0"])) * 1000.0))
+
+
+def c4_path_svg(view, t):
+    pts = c4_seg(view, C4_VIEW[view]["k0"], c4_km(t))
+    return (_path(pts, "none", C17["ring_ol"], 13.0, op=0.7, close=False)
+            + _path(pts, "none", C17["path4"], 6.0, close=False))
+
+
+def c4_hl_svg(view, a, b, col=None):
+    pts = c4_seg(view, c4_km(a), c4_km(b))
+    return _path(pts, "none", col or C17["ring"], 18.0, op=0.55, close=False)
+
+
+def c4_mk_svg(view, t):
+    x, y = c4_xy(view, c4_km(t))
+    return (f'<circle cx="{x:.1f}" cy="{y:.1f}" r="15" fill="{C17["ring"]}" stroke="{C17["ring_ol"]}" stroke-width="5"/>'
+            f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="{C17["ring_ol"]}"/>')
+
+
+def c4_dot_svg(view, t, col=None):
+    x, y = c4_xy(view, c4_km(t))
+    return f'<circle cx="{x:.1f}" cy="{y:.1f}" r="11" fill="{col or C17["fw"]}" stroke="{C17["ring_ol"]}" stroke-width="4"/>'
+
+
+def c4_dist_svg(view, t):
+    """滑走路の末端（0km）から、その時刻の点の真下までの物差し（地面の下）"""
+    xa, xb = c4_x(view, 0.0), c4_x(view, c4_km(t))
+    y = C4_VIEW[view]["yg"] + 34
+    x_pt, y_pt = c4_xy(view, c4_km(t))
+    return (f'<path d="M {xb:.1f} {y_pt + 18:.1f} L {xb:.1f} {y:.1f}" stroke="{C17["fw"]}" stroke-width="2.5" stroke-dasharray="8 8" opacity="0.8"/>'
+            f'<path d="M {xa:.1f} {y - 14:.1f} L {xa:.1f} {y + 14:.1f} M {xa:.1f} {y:.1f} L {xb:.1f} {y:.1f} M {xb:.1f} {y - 14:.1f} '
+            f'L {xb:.1f} {y + 14:.1f}" stroke="{C17["ring"]}" stroke-width="5" stroke-linecap="round"/>')
+
+
+def c4_arrow_svg(view, t, kind):
+    x, y = c4_xy(view, c4_km(t))
+    if kind == "push":                      # 操縦輪を押す（機首下げ）＝手の色
+        return _arrow((x, y + 26), (x, y + 150), C17["man"])
+    if kind == "back":                      # 下り道へ戻ろうとする（向き＝点線の矢印）
+        q = c4_gs_pt(view, c4_km(t) - 0.55)
+        return (f'<path d="M {x + 18:.1f} {y + 14:.1f} Q {(x + q[0]) / 2 + 10:.1f} {y + 6:.1f} {q[0] - 16:.1f} {q[1] - 22:.1f}" fill="none" '
+                f'stroke="{C17["fw"]}" stroke-width="5" stroke-dasharray="12 9"/>'
+                + _path([(q[0] - 4, q[1] - 6), (q[0] - 28, q[1] - 16), (q[0] - 14, q[1] - 34)], C17["fw"]))
+    # dev＝下り道からの上へのずれ（下り道の点からその時刻の点までの縦の括弧）
+    g = c4_gs_pt(view, c4_km(t))
+    return (f'<path d="M {x - 26:.1f} {g[1]:.1f} L {x - 38:.1f} {g[1]:.1f} L {x - 38:.1f} {y + 4:.1f} L {x - 26:.1f} {y + 4:.1f}" fill="none" '
+            f'stroke="{C17["ring"]}" stroke-width="5"/>')
+
+
+def _scene_C4(start, states, steps):
+    allst = [start] + states
+    _head_only("C4", start, states, ("view", "switch"))
+    v = start["view"]
+    R = C4_REC
+    rul = c4_ruler(v)
+    parts = [dict(_part("bg", c4_bg_svg(v), R["rwy"]), geo=dict(kind="c4ruler", view=v, **rul, label=c4_label(v)))]
+    if any(st["c4gs"] == "on" for st in allst):
+        d = c4_data()["glide"]
+        parts.append(dict(_part("gs", c4_gs_svg(v), R["gs"], keys=_akeys(start, states, steps, lambda st: st["c4gs"] == "on")),
+                          geo=dict(kind="c4gs", deg=float(d["deg"]), d0=float(d["d0"]), a=list(c4_gs_pt(v, 3.0)), b=list(c4_gs_pt(v, 1.0)))))
+    for nm, (a, b), fld in (("hl_lever", C4_LEVER, "lever"), ("hl_flat", C4_FLAT, "flat")):
+        if any(st["c4hl"] == fld for st in allst):
+            parts.append(dict(_part(nm, c4_hl_svg(v, a, b), R[fld], keys=_akeys(start, states, steps, lambda st, f=fld: st["c4hl"] == f, 0.8)),
+                              geo=dict(kind="c4hl", hl=fld, a=a, b=b)))
+    # 線＝時刻ごとに1本（段で長くなる＝入れ替える）。🔴 頂点（15:31）より先は描かない
+    for t in sorted({st["c4t"] for st in allst}, key=c4_sec):
+        pts = c4_seg(v, C4_VIEW[v]["k0"], c4_km(t))
+        parts.append(dict(_part("path_" + t.replace(":", ""), c4_path_svg(v, t), R["path"],
+                                keys=_akeys(start, states, steps, lambda st, t=t: st["c4t"] == t, 0.9)),
+                          geo=dict(kind="c4path", t=t, pts=[list(p) for p in pts])))
+    if any(st["c4go"] == "on" for st in allst):
+        x, y = c4_xy(v, c4_km(C4_LEVER[0]))
+        parts.append(dict(_part("go", c4_dot_svg(v, C4_LEVER[0], C17["ring"]), R["lever"],
+                                keys=_akeys(start, states, steps, lambda st: st["c4go"] == "on")),
+                          geo=dict(kind="c4pt", t=C4_LEVER[0], xy=[x, y])))
+    for t in sorted({st["c4t"] for st in allst if st["c4mk"] == "on"}, key=c4_sec):
+        x, y = c4_xy(v, c4_km(t))
+        parts.append(dict(_part("mk_" + t.replace(":", ""), c4_mk_svg(v, t), R["mk"],
+                                keys=_akeys(start, states, steps, lambda st, t=t: st["c4mk"] == "on" and st["c4t"] == t, 0.9)),
+                          geo=dict(kind="c4pt", t=t, xy=[x, y])))
+    for t in sorted({st["c4t"] for st in allst if st["c4dist"] == "on"}, key=c4_sec):
+        parts.append(dict(_part("dist_" + t.replace(":", ""), c4_dist_svg(v, t), R["dist18" if c4_km(t) < 3.0 else "dist5"],
+                                keys=_akeys(start, states, steps, lambda st, t=t: st["c4dist"] == "on" and st["c4t"] == t)),
+                          geo=dict(kind="c4dist", t=t, a=c4_x(v, 0.0), b=c4_x(v, c4_km(t)))))
+    for kind in ("push", "back", "dev"):
+        for t in sorted({st["c4t"] for st in allst if st["c4arrow"] == kind}, key=c4_sec):
+            parts.append(dict(_part(f"arrow_{kind}_" + t.replace(":", ""), c4_arrow_svg(v, t, kind), R[kind],
+                                    keys=_akeys(start, states, steps, lambda st, k=kind, t=t: st["c4arrow"] == k and st["c4t"] == t)),
+                              geo=dict(kind="c4arrow", arrow=kind, t=t)))
+    for ring, col in (("on", C17["ring"]), ("ap", C17["ap"])):
+        for t in sorted({st["c4t"] for st in allst if st["c4ring"] == ring}, key=c4_sec):
+            parts.append(dict(_part(f"ring_{ring}_" + t.replace(":", ""), _ring_circle(c4_xy(v, c4_km(t)), 38, col), R["ap" if ring == "ap" else "mk"],
+                                    keys=_akeys(start, states, steps, lambda st, r=ring, t=t: st["c4ring"] == r and st["c4t"] == t, 0.5)),
+                              geo=dict(kind="c4ring", ring=ring, t=t)))
+    if start["switch"] == "on":
+        parts.append(_switch_part(C4_SWITCH))
+    return parts
+
+
+def _c4_anchors(st):
+    v, t = st["view"], st["c4t"]
+    k = c4_km(t)
+    x, y = c4_xy(v, k)
+    a = dict(pt=(x, y - 30), pt_low=(x, y + 30), pt_l=(x - 30, y), pt_r=(x + 30, y))
+    gx, gy = c4_xy(v, c4_km(C4_LEVER[0]))
+    a.update(go=(gx, gy - 24), go_low=(gx, gy + 24))
+    ax, ay = c4_xy(v, c4_km(C4_LEVER[1]))
+    a.update(apex=(ax, ay - 24))
+    fk = (c4_km(C4_FLAT[0]) + c4_km(C4_FLAT[1])) / 2
+    fx, fy = c4_xy(v, fk)
+    a.update(flat=(fx, fy - 18))
+    lk = (c4_km(C4_LEVER[0]) + c4_km(C4_LEVER[1])) / 2
+    a.update(lever=c4_xy(v, lk))
+    a.update(gs=c4_gs_pt(v, max(k - 0.9, 0.3)), gs_far=c4_gs_pt(v, min(C4_VIEW[v]["k0"] - 1.2, k + 2.0)))
+    yd = C4_VIEW[v]["yg"] + 34
+    a.update(dist=((c4_x(v, 0.0) + c4_x(v, k)) / 2, yd - 8), push=(x, y + 150), rwy=(c4_x(v, -0.3), C4_VIEW[v]["yg"]))
+    return a
+
+
+def _c4_note(st0, states):
+    return ("報告書を加工して作成・線の形は付図4（対地高度）・札の高さは本文の気圧高度・下り道の3度の線は付図4 の線に合わせた・"
+            "点の時刻は付図4 の矢印から内挿")
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4 C5 相反の図＝C2 の尾翼（形と回し方をそのまま・縮めて上へ）＋押す手と自動操縦の矢印＋約30秒の時刻の帯
+# ══════════════════════════════════════════════════════════
+C5_T = dict(s=0.78, tx=-86.0, ty=-30.0)        # C2 の座標 → C5 の画面（ちょうつがい 1405,590 → 1010,430）
+C5_TB = dict(t0=20 * 3600 + 14 * 60 + 8, t1=20 * 3600 + 14 * 60 + 58, x0=330.0, x1=1590.0, y=700.0, bh=46.0)   # 帯は y 608〜798（出典の行の上）
+C5_AP = ("20:14:18", "20:14:49")                # 自動操縦が入っていた約30秒（p5「約30秒間使用」・p44・p46）
+C5_SND = ("20:14:20", "20:14:34", "20:14:39")    # トリムのスイッチを操作したと思われる音（p45・p46・p53）
+C5_LAB = "相反の図（尾翼を横から・機首が左）"
+C5_SWITCH = "尾翼を横から見ると"
+C5_REC = dict(
+    ths="付図5 p1（THS の欄）・報告書 p78（APがTHSを、操縦士がエレベータをそれぞれ制御）",
+    elev="付図5 p1（ELEVATOR の欄）",
+    ap="報告書 p82（THSについては…オーバーライド中もAPがエンゲージされたままとなり、APに従った作動を続ける）",
+    hand="報告書 p44（操縦輪を押して機首下げ操作）",
+    band="報告書 p5（APがNo.2そしてNo.1とほぼ同時にエンゲージされ、その後、約30秒間使用された）・p46（14分49秒…両APを解除）",
+    snd="報告書 p53（14分20秒、同34秒及び同39秒に、ピッチ・トリム・コントロール・スイッチの操作音）",
+    warn="報告書 p78（2つの制御が同時に入力されていることを操縦士に知らせるための警報装置は装備されていなかった）",
+    iff="報告書 p79（もしSBA300-22-6021による改修が実施されていれば、APは…15kg以上の力を加えることによりディスエンゲージされ）",
+    lim="報告書 p56（THSは機首上げ一杯の-12.3°に達しており）",
+)
+
+
+def _c5g(svg):
+    return f'<g transform="translate({C5_T["tx"]:.1f} {C5_T["ty"]:.1f}) scale({C5_T["s"]})">{svg}</g>'
+
+
+def c5_pt(p):
+    return (C5_T["s"] * p[0] + C5_T["tx"], C5_T["s"] * p[1] + C5_T["ty"])
+
+
+def c5_tx(hms):
+    T = C5_TB
+    return T["x0"] + (_sec_of(hms) - T["t0"]) / (T["t1"] - T["t0"]) * (T["x1"] - T["x0"])
+
+
+def c5_band_svg():
+    T = C5_TB
+    y, bh = T["y"], T["bh"]
+    xa, xb = c5_tx(C5_AP[0]), c5_tx(C5_AP[1])
+    g = [f'<rect x="{T["x0"] - 30:.1f}" y="{y - 92:.1f}" width="{T["x1"] - T["x0"] + 60:.1f}" height="190" rx="14" fill="{C17["band5"]}" opacity="0.92"/>',
+         f'<path d="M {T["x0"]:.1f} {y + bh / 2 + 8:.1f} L {T["x1"]:.1f} {y + bh / 2 + 8:.1f}" stroke="{C17["axis"]}" stroke-width="3"/>',
+         f'<rect x="{xa:.1f}" y="{y - bh / 2:.1f}" width="{xb - xa:.1f}" height="{bh:.1f}" rx="8" fill="{C17["ap"]}" opacity="0.9"/>',
+         f'<text x="{(xa + xb) / 2:.1f}" y="{y + 11:.1f}" font-family="Noto" font-size="30" fill="{C17["bar_txt"]}" text-anchor="middle">自動操縦（2つ）</text>']
+    for t in C5_AP:
+        x = c5_tx(t)
+        g.append(f'<path d="M {x:.1f} {y + bh / 2 + 8:.1f} L {x:.1f} {y + bh / 2 + 22:.1f}" stroke="{C17["axis"]}" stroke-width="3"/>')
+        g.append(_text(x, y + bh / 2 + 56, t, 26, C17["axis"], "middle"))
+    return "".join(g)
+
+
+def c5_snd_svg(n):
+    """操作の音の印（トリムのスイッチ）＝時刻の帯の上の小さな印 n 個（時刻の字つき）"""
+    T = C5_TB
+    g = []
+    for t in C5_SND[:n]:
+        x = c5_tx(t)
+        y = T["y"] - T["bh"] / 2 - 14
+        g.append(_path([(x, y), (x - 13, y - 22), (x + 13, y - 22)], C17["ring"], C17["ring_ol"], 3))
+        g.append(_text(x, y - 34, t, 22, C17["ring"], "middle"))   # 時刻は「時:分:秒」の形（「14:20」だと門番 ⑤ が14時20分と読む）
+    return "".join(g)
+
+
+def c5_cur_svg(hms):
+    T = C5_TB
+    x = c5_tx(hms)
+    return (f'<path d="M {x:.1f} {T["y"] - T["bh"] / 2 - 8:.1f} L {x:.1f} {T["y"] + T["bh"] / 2 + 8:.1f}" stroke="{C17["ring_ol"]}" '
+            f'stroke-width="11" opacity="0.6"/><path d="M {x:.1f} {T["y"] - T["bh"] / 2 - 8:.1f} L {x:.1f} {T["y"] + T["bh"] / 2 + 8:.1f}" '
+            f'stroke="{C17["cur"]}" stroke-width="6"/>')
+
+
+def c5_spk_svg(c, cross=True, s=1.0):
+    """警報の音の印（スピーカー）。cross＝赤の ×（鳴らない・無い）"""
+    x, y = c
+    k = s
+    g = [_path([(x - 34 * k, y - 16 * k), (x - 14 * k, y - 16 * k), (x + 10 * k, y - 38 * k), (x + 10 * k, y + 38 * k), (x - 14 * k, y + 16 * k),
+                (x - 34 * k, y + 16 * k)], C17["spk"], C17["ring_ol"], 3)]
+    for r in (26, 44):
+        g.append(f'<path d="M {x + 18 * k:.1f} {y - r * k * 0.8:.1f} Q {x + (18 + r) * k:.1f} {y:.1f} {x + 18 * k:.1f} {y + r * k * 0.8:.1f}" '
+                 f'fill="none" stroke="{C17["spk"]}" stroke-width="5" stroke-linecap="round"/>')
+    if cross:
+        r = 46 * k
+        for w, col in ((17, C17["ring_ol"]), (10, C17["red"])):
+            g.append(f'<path d="M {x - r:.1f} {y - r:.1f} L {x + r + 20 * k:.1f} {y + r:.1f} M {x + r + 20 * k:.1f} {y - r:.1f} L {x - r:.1f} {y + r:.1f}" '
+                     f'stroke="{col}" stroke-width="{w}" stroke-linecap="round"/>')
+    return "".join(g)
+
+
+C5_SPK = (1660.0, 560.0)       # ⑤b-4 の下見：(1700, 300) だと札「知らせる警報は無かった」が自動操縦の矢印（x 1287）に接した＝右下へ
+
+
+def _scene_C5(start, states, steps):
+    allst = [start] + states
+    _head_only("C5", start, states, ("view", "c5kind", "switch"))
+    R = C5_REC
+    piv = c5_pt((C2_HX, C2_Y))
+    rot_t = (lambda st: dict(rot=float(st["c5ths"])))                       # noqa: E731
+    rot_e = (lambda st: dict(rot=float(st["c5ths"]) + float(st["c5elev"])))  # noqa: E731
+    parts = [_part("bg", c2_bg_svg(), C2_REC["body"]), _part("body", _c5g(c2_body_svg()), C2_REC["body"])]
+    if any(st["c5if"] == "on" for st in allst):
+        parts.append(dict(_part("if_ghost", _c5g(_path(c2_ths_pts(C2_GHOST), "none", C17["ring"], 4.0, extra=' stroke-dasharray="14 10"')),
+                                R["iff"], keys=_akeys(start, states, steps, lambda st: st["c5if"] == "on", 0.8)),
+                          geo=dict(kind="c5if", deg=C2_GHOST)))
+    if any(st["c5lim"] == "on" for st in allst):
+        parts.append(dict(_part("lim", _c5g(c2_lim_svg()), R["lim"], keys=_akeys(start, states, steps, lambda st: st["c5lim"] == "on")),
+                          geo=dict(kind="c5lim", deg=C2_LIM)))
+    parts.append(dict(_part("ths", _c5g(c2_surface_svg(c2_ths_pts(), C17["ths"])), R["ths"], piv, IL._keys(start, states, steps, rot_t)),
+                      geo=dict(kind="c5ths")))
+    if any(st["c5ap"] == "on" for st in allst):
+        parts.append(dict(_part("ths_ap", _c5g(c2_surface_svg(c2_ths_pts(), C17["ap"], 0.92)), R["ap"], piv, IL._keys(start, states, steps, rot_t)),
+                          akeys=_akeys(start, states, steps, lambda st: st["c5ap"] == "on"), geo=dict(kind="c5ap")))
+    parts.append(dict(_part("elev", _c5g(c2_surface_svg(c2_elev_pts(), C17["elev"])), R["elev"], piv, IL._keys(start, states, steps, rot_e)),
+                      geo=dict(kind="c5elev")))
+    if any(st["c5hand"] == "on" for st in allst):
+        parts.append(dict(_part("elev_hand", _c5g(c2_surface_svg(c2_elev_pts(), C17["man"], 0.95)), R["hand"], piv,
+                                IL._keys(start, states, steps, rot_e)),
+                          akeys=_akeys(start, states, steps, lambda st: st["c5hand"] == "on"), geo=dict(kind="c5hand")))
+    parts.append(_part("hinge", _c5g(c2_hinge_svg()), C2_REC["ths"]))
+    for kind, fld in (("ap", "c5ap"), ("hand", "c5hand")):
+        if any(st[fld] == "on" for st in allst):
+            parts.append(dict(_part("arrow_" + kind, _c5g(c2_arrows_svg(kind)), R[kind],
+                                    keys=_akeys(start, states, steps, lambda st, f=fld: st[f] == "on")), geo=dict(kind="c5arrow", arrow=kind)))
+    if any(st["c5band"] == "on" for st in allst):
+        parts.append(dict(_part("band", c5_band_svg(), R["band"], keys=_akeys(start, states, steps, lambda st: st["c5band"] == "on")),
+                          geo=dict(kind="c5band", a=C5_AP[0], b=C5_AP[1])))
+    for n in sorted({int(st["c5snd"]) for st in allst if int(st["c5snd"]) > 0}):
+        if any(st["c5band"] != "on" and int(st["c5snd"]) > 0 for st in allst):
+            raise ValueError("illu C5：操作の音の印（c5snd）は時刻の帯（c5band）と一緒に")
+        parts.append(dict(_part(f"snd{n}", c5_snd_svg(n), R["snd"], keys=_akeys(start, states, steps, lambda st, n=n: int(st["c5snd"]) == n, 0.4)),
+                          geo=dict(kind="c5snd", times=list(C5_SND[:n]))))
+    for hms in sorted({st["c5cur"] for st in allst if st["c5cur"] != "off"}):
+        parts.append(dict(_part("cur_" + hms.replace(":", ""), c5_cur_svg(hms), R["band"],
+                                keys=_akeys(start, states, steps, lambda st, h=hms: st["c5cur"] == h)), geo=dict(kind="c5cur", hms=hms)))
+    if any(st["c5warn"] == "on" for st in allst):
+        parts.append(dict(_part("warn", c5_spk_svg(C5_SPK), R["warn"], keys=_akeys(start, states, steps, lambda st: st["c5warn"] == "on")),
+                          geo=dict(kind="c5warn")))
+    if start["switch"] == "on":
+        parts.append(_switch_part(C5_SWITCH))
+    return parts
+
+
+def _c5_anchors(st):
+    t, e = float(st["c5ths"]), float(st["c5elev"])
+    xs = C2_LE + 0.30 * (C2_TE - C2_LE)
+    xe = C2_HX + 0.55 * (C2_TE - C2_HX)
+    T = C5_TB
+    a = dict(ths=c5_pt(c2_rot((xs, C2_Y - _c2_half(xs)), t)), ths_low=c5_pt(c2_rot((xs, C2_Y + _c2_half(xs)), t)),
+             le=c5_pt(c2_rot((C2_LE, C2_Y), t)), elev=c5_pt(c2_rot((xe, C2_Y - _c2_half(xe)), t + e)),
+             elev_low=c5_pt(c2_rot((xe, C2_Y + _c2_half(xe)), t + e)), te=c5_pt(c2_rot((C2_TE, C2_Y), t + e)),
+             ap_up=c5_pt((C2_TE + 60, C2_Y - 112)), hand_dn=c5_pt((C2_TE + 60, C2_Y + 116)), ap_le=c5_pt((C2_LE - 58, C2_Y + 96)),
+             fin=c5_pt((1390.0, 260.0)), body=c5_pt((520.0, 600.0)), lim=c5_pt(c2_rot((C2_LE - 62, C2_Y), C2_LIM)),
+             ghost=c5_pt(c2_rot((C2_LE, C2_Y), C2_GHOST)),
+             band=((c5_tx(C5_AP[0]) + c5_tx(C5_AP[1])) / 2, T["y"] - T["bh"] / 2 - 4), band_top=((T["x0"] + T["x1"]) / 2, T["y"] - 92.0),
+             spk=(C5_SPK[0], C5_SPK[1] + 60))
+    if st["c5cur"] != "off":
+        a["cur"] = (c5_tx(st["c5cur"]), T["y"] - T["bh"] / 2 - 8)
+    return a
+
+
+def _c5_note(st0, states):
+    if st0["c5kind"] == "model":
+        return "報告書を加工して作成・形と角度の動きは模式（付図15 の位置と数だけ）"
+    return "報告書を加工して作成・形は模式（付図15 の位置と数だけ）・角度は付図5 の値"
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4 C6 夜の操縦室（後ろから前を向いて）＝C3 の部屋＋トリムの表示とトリム・ホイール（p84 の①②）・視線・警報の印（③）
+# ══════════════════════════════════════════════════════════
+# 🔴 出典の行（y 約866〜884）より上に収める＝ホイールは y 590〜790・表示は y 765〜845（レバーの台 y 736〜752 の下・右）
+C6_WHEEL = ((706.0, 690.0), (1214.0, 690.0))     # トリム・ホイール＝センタペデスタルの両側（p84②・位置は模式）
+C6_IND = (1108.0, 805.0)                          # ビジュアル・トリム・インジケータ＝センタペデスタルの上（p84①・模式）
+C6_EYE = (1500.0, 360.0)                         # 右の席（副操縦士・p73）の目の高さ（見た向き＝人は描かない）
+C6_SPK = (300.0, 360.0)
+C6_LAB = "夜の操縦室（後ろから前を向いて）"
+C6_SWITCH = "操縦室の中では"
+C6_REC = dict(
+    room="報告書 p84（本事故の場合は夜間であった）・p73（副操縦士が路線において操縦する場合は、右席で実施）",
+    wheel="報告書 p84（②トリム・ホイール：センタペデスタルの両側にあり…縞模様のマーキング）",
+    ind="報告書 p84（①ビジュアル・トリム・インジケータ：センタペデスタル上にあり、THSの位置を表示する）",
+    eye="報告書 p84（1及び2は、パイロットの視野の中に常時あるものではなく）",
+    night="報告書 p84（夜間であったことから、THSの作動認識装置としては、有効に機能し得なかった）",
+    warn="報告書 p84（③THSモーション・ウォーニング…APはCMDにエンゲージされていたため、3は作動しなかった）",
+    warn2="報告書 p95（アウト・オブ・トリム状態を…直接的かつ積極的に認識させる警報・認識機能が無かった）",
+)
+
+
+def c6_wheel_svg(c):
+    x, y = c
+    rx, ry = 28.0, 100.0
+    g = [f'<ellipse cx="{x:.1f}" cy="{y:.1f}" rx="{rx}" ry="{ry}" fill="{C17["trimw"]}" stroke="{C17["trimw_ln"]}" stroke-width="4"/>']
+    for k in range(-4, 5):                                            # 縞模様（p84）
+        yy = y + k * 21
+        w = rx * math.sqrt(max(0.0, 1 - ((yy - y) / ry) ** 2))
+        g.append(f'<path d="M {x - w + 4:.1f} {yy + 6:.1f} L {x + w - 4:.1f} {yy - 6:.1f}" stroke="{C17["trimw_ln"]}" stroke-width="5"/>')
+    return "".join(g)
+
+
+def c6_ind_svg():
+    x, y = C6_IND
+    g = [f'<rect x="{x - 60:.1f}" y="{y - 40:.1f}" width="120" height="80" rx="8" fill="{C17["scr"]}" stroke="{C17["ped_ln"]}" stroke-width="3"/>',
+         f'<path d="M {x - 40:.1f} {y + 22:.1f} A 46 46 0 0 1 {x + 40:.1f} {y + 22:.1f}" fill="none" stroke="{C17["tick"]}" stroke-width="4"/>']
+    for k in range(5):
+        a = math.radians(-150 + k * 30)
+        g.append(f'<path d="M {x + 40 * math.cos(a):.1f} {y + 44 + 40 * math.sin(a) - 22:.1f} L {x + 50 * math.cos(a):.1f} '
+                 f'{y + 44 + 50 * math.sin(a) - 22:.1f}" stroke="{C17["tick"]}" stroke-width="3"/>')
+    g.append(f'<path d="M {x:.1f} {y + 22:.1f} L {x - 22:.1f} {y - 8:.1f}" stroke="{C17["fw"]}" stroke-width="5" stroke-linecap="round"/>')
+    return "".join(g)
+
+
+def c6_eye_svg():
+    ex, ey = C6_EYE
+    g = [f'<path d="M {ex - 58:.1f} {ey:.1f} Q {ex:.1f} {ey - 46:.1f} {ex + 58:.1f} {ey:.1f} Q {ex:.1f} {ey + 46:.1f} {ex - 58:.1f} {ey:.1f} Z" '
+         f'fill="{C17["eye"]}" stroke="{C17["ring_ol"]}" stroke-width="4"/>',
+         f'<circle cx="{ex:.1f}" cy="{ey - 6:.1f}" r="19" fill="{C17["sym"]}"/>']
+    for q in ((1500.0, 120.0), (1200.0, 130.0)):                    # 前の窓と画面の上の端へ（視線）
+        g.append(f'<path d="M {ex:.1f} {ey - 50:.1f} L {q[0]:.1f} {q[1] + 26:.1f}" stroke="{C17["eye"]}" stroke-width="5" stroke-dasharray="14 10"/>')
+        g.append(_arrow((q[0] + (ex - q[0]) * 0.12, q[1] + 26 + (ey - 50 - q[1] - 26) * 0.12), (q[0], q[1] + 20), C17["eye"], w=5, head=22))
+    return "".join(g)
+
+
+def c6_night_svg():
+    """夜で見えにくい＝ペデスタルの下の部分を暗く（p84）"""
+    return (f'<path d="M 600 560 L 1320 560 L 1420 {H + 4} L 500 {H + 4} Z" fill="{C17["dark6"]}" opacity="0.62"/>')
+
+
+def _scene_C6(start, states, steps):
+    allst = [start] + states
+    _head_only("C6", start, states, ("view", "switch"))
+    R = C6_REC
+    parts = [_part("room", c3_room_svg(), R["room"]),
+             dict(_part("lamps", c3_lamps_svg(False), C3_REC["lamps"],
+                        keys=_akeys(start, states, steps, lambda st: st["c6ap"] != "on", 0.35)), obj=dict(autopilot=2))]
+    if any(st["c6ap"] == "on" for st in allst):
+        parts.append(_part("lamps_on", c3_lamps_svg(True), C3_REC["lamps"], keys=_akeys(start, states, steps, lambda st: st["c6ap"] == "on", 0.35)))
+    parts.append(_part("yoke_L", c3_yoke_svg("L"), C3_REC["yoke"]))
+    parts.append(_part("yoke_R", c3_yoke_svg("R"), C3_REC["yoke"]))
+    parts.append(dict(_part("levers", c3_levers_svg(), C3_REC["lever"]), obj=dict(thrust_lever=2),
+                      geo=dict(kind="c3levers", knobs=[list(p) for p in C3_LEV], go=list(C3_GO), at=list(C3_AT))))
+    parts.append(dict(_part("wheels", "".join(c6_wheel_svg(c) for c in C6_WHEEL), R["wheel"]), obj=dict(trim_wheel=2),
+                      geo=dict(kind="c6wheel", xy=[list(c) for c in C6_WHEEL])))
+    parts.append(dict(_part("ind", c6_ind_svg(), R["ind"]), obj=dict(trim_indicator=1), geo=dict(kind="c6ind", xy=list(C6_IND))))
+    if any(st["c6night"] == "on" for st in allst):
+        parts.append(_part("night", c6_night_svg(), R["night"], keys=_akeys(start, states, steps, lambda st: st["c6night"] == "on", 1.0)))
+    if any(st["c6ring"] == "on" for st in allst):
+        svg = "".join(_ring_rect(c[0] - 48, c[1] - 120, c[0] + 48, c[1] + 120) for c in C6_WHEEL) + _ring_rect(
+            C6_IND[0] - 78, C6_IND[1] - 56, C6_IND[0] + 78, C6_IND[1] + 50)
+        parts.append(_part("ring", svg, R["wheel"], keys=_akeys(start, states, steps, lambda st: st["c6ring"] == "on", 0.5)))
+    if any(st["c6eye"] == "on" for st in allst):
+        parts.append(dict(_part("eye", c6_eye_svg(), R["eye"], keys=_akeys(start, states, steps, lambda st: st["c6eye"] == "on")),
+                          geo=dict(kind="c6eye")))
+    if any(st["c6warn"] == "on" for st in allst):
+        parts.append(dict(_part("warn", c5_spk_svg(C6_SPK), R["warn"], keys=_akeys(start, states, steps, lambda st: st["c6warn"] == "on")),
+                          geo=dict(kind="c6warn")))
+    if start["switch"] == "on":
+        parts.append(_switch_part(C6_SWITCH))
+    return parts
+
+
+def _c6_anchors(st):
+    return dict(wheel_L=(C6_WHEEL[0][0] - 40, C6_WHEEL[0][1] - 120), wheel_R=(C6_WHEEL[1][0] + 40, C6_WHEEL[1][1] - 120),
+                ind=(C6_IND[0] + 70, C6_IND[1] - 30), eye=(C6_EYE[0], C6_EYE[1] + 50), spk=(C6_SPK[0], C6_SPK[1] + 60),
+                lamps=((C3_LAMPS[0][0] + C3_LAMPS[1][0]) / 2, C3_LAMPS[0][1] + 18), ped=(960.0, 760.0))
+
+
+def _c6_note(st0, states):
+    return "報告書を加工して作成・操縦室の形と並びは模式（付図22・写真51 の位置と数だけ）・トリムの装置の位置は p84 の言葉から（模式）"
+
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4 C7 機体を横から（機首が右＝C4 の進む向き）＝機首の角度・迎え角・推力・水平安定板。🔴 頂点（20:15:31）で止める
+# ══════════════════════════════════════════════════════════
+C7_K = 15.0                                     # 1メートル＝15画素（全長 約54m＝810画素・形は模式）
+C7_CG = (1000.0, 480.0)                         # 機首の角度で回す中心（画面）＝52度でも尾が出典の行（y 約866）に届かない（尾 y 約800）
+C7_XC = 27.0                                    # 胴体の座標で CG に置く点（尾の端から m）
+C7_UP = [(0.0, 1.4), (4.0, 2.4), (8.0, 2.8), (46.0, 2.8), (49.0, 2.5), (51.5, 1.8), (53.2, 0.6), (54.0, -0.4)]
+C7_LO = [(53.6, -1.4), (52.0, -2.3), (49.0, -2.8), (14.0, -2.8), (8.0, -1.6), (3.0, -0.2), (0.0, 0.6)]
+C7_FIN = [(11.0, 2.7), (4.2, 11.6), (1.2, 11.6), (0.3, 1.5)]
+C7_WING = [(20.0, -1.9), (31.0, -1.5), (31.6, -2.0), (20.6, -2.7)]
+C7_ENG = (27.0, 34.6, -3.75, 1.25)              # 手前のエンジン（前後の m・中心の高さ・半径）
+C7_THS = [(0.9, 1.75), (2.6, 2.05), (6.4, 2.0), (6.9, 1.75), (6.4, 1.5), (2.6, 1.45)]   # 水平安定板（前の端＝右）
+C7_THS_P = (3.0, 1.75)                          # 水平安定板の回る所（模式＝後ろ寄り）
+C7_ELEV = [(-0.6, 1.72), (0.9, 1.95), (0.9, 1.55)]                                    # 昇降舵（後ろの端＝左）
+C7_ELEV_P = (0.9, 1.75)
+C7_LAB = "機体を横から見た図（機首が右）"
+C7_SWITCH = "機体を横から見ると"
+C7_REC = dict(
+    body="報告書 p6（同機は急上昇を始めるとともにAOAが急激に増加し）・付図5 p1（PITCH の欄）",
+    pitch="付図5 p1（PITCH の欄）・報告書 p60（ピッチ角21.5°・40.3°）・p49（52.6°・43.8°）",
+    ths="付図5 p1（THS の欄）・報告書 p5（同15分11秒まで引き続き-12.3°のまま）",
+    elev="付図5 p1（ELEVATOR の欄）",
+    wind="報告書 p83（迎え角が増加し）・付図5 p1（AOA c の欄）",
+    thr_auto="報告書 p46（アルファ・フロア機能が作動したことによるものと考えられる）・p47（増加した出力により…上昇に移った）",
+    thr_man="報告書 p47（15分11秒機長(PF)は、一旦絞ったスラストをフル・スラストまで増加させ）",
+    push="報告書 p47（15分03秒…操縦輪を限界まで一杯に押し続けたが、なおも機首上げの傾向が続いた）",
+    push_fo="報告書 p55（副操縦士が操縦輪を押し続けていた）",
+    rot="報告書 p56（アウト・オブ・トリム状態とアルファ・フロア機能の作動による出力の急激な増加がピッチ・アップ・モーメントの発生を生じさせた）",
+    warn="報告書 p6（同25秒、失速警報音が約2秒間作動した）",
+    hzn="報告書 p6（気圧高度約1,730ft…に達した後）",
+)
+
+
+def P7(x, y):
+    """胴体の座標（尾の端から m・上が正）→ 画面（機首の角度 0）"""
+    return (C7_CG[0] + (x - C7_XC) * C7_K, C7_CG[1] - y * C7_K)
+
+
+def _rotp(p, deg, about):
+    r = math.radians(deg)
+    c, s = math.cos(r), math.sin(r)
+    x, y = p[0] - about[0], p[1] - about[1]
+    return (about[0] + c * x - s * y, about[1] + s * x + c * y)
+
+
+def c7_body_svg():
+    g = [_path([P7(*p) for p in C7_FIN], C17["plane"], C17["plane_ln"], 3.0),
+         _path(IL._smooth([P7(*p) for p in C7_UP + C7_LO], closed=True, per=3), C17["plane"], C17["plane_ln"], 3.5),
+         _path([P7(*p) for p in [(50.6, 0.7), (52.6, 0.8), (51.6, 1.6), (50.4, 1.5)]], C17["win1"], C17["plane_ln"], 2.0),
+         _path([P7(*p) for p in C7_WING], C17["eng7"], C17["plane_ln"], 3.0)]
+    x0, x1, yc, r = C7_ENG
+    g.append(_path([P7(*p) for p in [(29.0, -2.4), (32.6, -2.2), (32.0, yc + r * 0.6), (29.4, yc + r * 0.6)]], C17["eng7"], C17["plane_ln"], 2.5))
+    g.append(_path(IL._smooth([P7(*p) for p in [(x0, yc - r * 0.8), (x0 + 0.6, yc - r), (x1 - 0.4, yc - r), (x1, yc - r * 0.7),
+                                                  (x1, yc + r * 0.7), (x1 - 0.4, yc + r), (x0 + 0.6, yc + r), (x0, yc + r * 0.8)]],
+                               closed=True, per=3), C17["eng7"], C17["plane_ln"], 3.0))
+    return "".join(g)
+
+
+def c7_ths_svg(col=None, op=None):
+    return _path([P7(*p) for p in C7_THS], col or C17["ths"], C17["plane_ln"], 2.5, op=op)
+
+
+def c7_elev_svg(col=None, op=None):
+    return _path([P7(*p) for p in C7_ELEV], col or C17["elev"], C17["plane_ln"], 2.5, op=op)
+
+
+def c7_key(st, part):
+    """部品の鍵（pivot＝CG）：機首の角度（反時計回り＝機首上げ）→ 水平安定板（前の端が下がる＝負）→ 昇降舵（後ろの端が下がる＝正）を、
+    1つの回転（CG のまわり）＋ずらし（dx・dy）にまとめる（build_jiko は pivot のまわりに回してからずらす）"""
+    a = -float(st["c7pitch"])
+    b = -float(st["c7ths"]) if part in ("ths", "elev") else 0.0
+    c = -float(st["c7elev"]) if part == "elev" else 0.0
+    p = C7_CG
+    if part == "elev":
+        p = _rotp(p, c, P7(*C7_ELEV_P))
+    if part in ("ths", "elev"):
+        p = _rotp(p, b, P7(*C7_THS_P))
+    p = _rotp(p, a, C7_CG)
+    return dict(rot=a + b + c, dx=p[0] - C7_CG[0], dy=p[1] - C7_CG[1])
+
+
+def c7_thr_svg(kind):
+    x0, x1, yc, r = C7_ENG
+    p, q = P7(x1 + 0.6, yc), P7(x1 + 11.0, yc)
+    return _arrow(p, q, C17["ap"] if kind == "auto" else C17["man"], w=12, head=34)
+
+
+def c7_rot_svg():
+    """機首を上へ回す力（ピッチ・アップ・モーメント）＝機首のまわりの弧の矢印"""
+    cx, cy = C7_CG
+    r = 470.0
+    pts = [(cx + r * math.cos(math.radians(a)), cy + r * math.sin(math.radians(a))) for a in range(18, -36, -3)]
+    q = pts[-1]
+    ang = math.atan2(q[1] - pts[-3][1], q[0] - pts[-3][0])
+    l = (q[0] - 30 * math.cos(ang - 0.5), q[1] - 30 * math.sin(ang - 0.5))
+    rr = (q[0] - 30 * math.cos(ang + 0.5), q[1] - 30 * math.sin(ang + 0.5))
+    return (f'<path d="{_d(pts, False)}" fill="none" stroke="{C17["ring_ol"]}" stroke-width="15" opacity="0.6"/>'
+            f'<path d="{_d(pts, False)}" fill="none" stroke="{C17["ring"]}" stroke-width="9"/>' + _path([q, l, rr], C17["ring"], C17["ring_ol"], 3))
+
+
+def c7_wind_svg(pitch, aoa):
+    """向かってくる風（進む向きの逆）と迎え角の弧。進む向き＝機首の角度−迎え角（上が正）"""
+    gam = float(pitch) - float(aoa)
+    vx, vy = math.cos(math.radians(gam)), -math.sin(math.radians(gam))      # 画面の進む向き
+    nose = _rotp(P7(54.0, -0.4), -float(pitch), C7_CG)
+    g = []
+    for k in (-1, 0, 1):
+        ox, oy = -vy * 70 * k, vx * 70 * k
+        s = (nose[0] + vx * 330 + ox, nose[1] + vy * 330 + oy)
+        e = (nose[0] + vx * 120 + ox, nose[1] + vy * 120 + oy)
+        g.append(_arrow(s, e, C17["wind"], w=6, head=24))
+    # 迎え角の弧（翼の線＝機首の向き と 進む向き のあいだ）
+    cx, cy = C7_CG
+    r = 300.0
+    a0, a1 = -float(pitch), -gam
+    pts = [(cx + r * math.cos(math.radians(a0 + (a1 - a0) * k / 16)), cy + r * math.sin(math.radians(a0 + (a1 - a0) * k / 16))) for k in range(17)]
+    ax = (cx + r * 1.25 * math.cos(math.radians(-float(pitch))), cy + r * 1.25 * math.sin(math.radians(-float(pitch))))
+    bx = (cx + r * 1.25 * math.cos(math.radians(-gam)), cy + r * 1.25 * math.sin(math.radians(-gam)))
+    g.append(f'<path d="M {cx:.1f} {cy:.1f} L {ax[0]:.1f} {ax[1]:.1f} M {cx:.1f} {cy:.1f} L {bx[0]:.1f} {bx[1]:.1f}" stroke="{C17["ring"]}" '
+             f'stroke-width="3" stroke-dasharray="10 8"/>')
+    g.append(f'<path d="{_d(pts, False)}" fill="none" stroke="{C17["ring"]}" stroke-width="7"/>')
+    return "".join(g)
+
+
+C7_SPK = (300.0, 330.0)
+
+
+def _scene_C7(start, states, steps):
+    allst = [start] + states
+    _head_only("C7", start, states, ("view", "c7kind", "switch"))
+    R = C7_REC
+    g0 = [f'<defs><linearGradient id="c7sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{C17["sky0"]}"/>'
+          f'<stop offset="1" stop-color="{C17["sky1"]}"/></linearGradient></defs>',
+          f'<rect x="0" y="0" width="{W}" height="{H}" fill="url(#c7sky)"/>',
+          f'<path d="M -4 836 L {W + 4} 836" stroke="{C17["horizon"]}" stroke-width="3" stroke-dasharray="22 14"/>']
+    parts = [dict(_part("bg", "".join(g0), R["hzn"]), geo=dict(kind="c7bg"))]
+    piv = C7_CG
+
+    def key(part):
+        return IL._keys(start, states, steps, lambda st: c7_key(st, part))
+    parts.append(dict(_part("body", c7_body_svg(), R["body"], piv, key("body")), obj=dict(aircraft=1), geo=dict(kind="c7body")))
+    parts.append(dict(_part("ths", c7_ths_svg(), R["ths"], piv, key("ths")), geo=dict(kind="c7ths")))
+    if any(st["c7ap"] == "on" for st in allst):
+        parts.append(dict(_part("ths_ap", c7_ths_svg(C17["ap"], 0.92), C5_REC["ap"], piv, key("ths")),
+                          akeys=_akeys(start, states, steps, lambda st: st["c7ap"] == "on"), geo=dict(kind="c7ap")))
+    parts.append(dict(_part("elev", c7_elev_svg(), R["elev"], piv, key("elev")), geo=dict(kind="c7elev")))
+    if any(st["c7push"] != "off" for st in allst):
+        parts.append(dict(_part("elev_hand", c7_elev_svg(C17["man"], 0.95), R["push"], piv, key("elev")),
+                          akeys=_akeys(start, states, steps, lambda st: st["c7push"] != "off"), geo=dict(kind="c7push")))
+    if any(st["c7ring"] == "on" for st in allst):
+        c = P7(3.6, 1.75)
+        parts.append(dict(_part("ring_ths", _ring_circle(c, 92.0), R["ths"], piv, key("body")),
+                          akeys=_akeys(start, states, steps, lambda st: st["c7ring"] == "on", 0.5)))
+    for kind in ("auto", "man"):
+        if any(st["c7thr"] == kind for st in allst):
+            parts.append(dict(_part("thr_" + kind, c7_thr_svg(kind), R["thr_" + kind], piv, key("body")),
+                              akeys=_akeys(start, states, steps, lambda st, k=kind: st["c7thr"] == k), geo=dict(kind="c7thr", thr=kind)))
+    if any(st["c7rot"] == "on" for st in allst):
+        parts.append(dict(_part("rot", c7_rot_svg(), R["rot"], keys=_akeys(start, states, steps, lambda st: st["c7rot"] == "on")),
+                          geo=dict(kind="c7rot")))
+    for pa in sorted({(float(st["c7pitch"]), float(st["c7aoa"])) for st in allst if st["c7wind"] == "on"}):
+        parts.append(dict(_part("wind_%g_%g" % pa, c7_wind_svg(*pa), R["wind"],
+                                keys=_akeys(start, states, steps, lambda st, pa=pa: st["c7wind"] == "on" and
+                                            (float(st["c7pitch"]), float(st["c7aoa"])) == pa, 0.8)),
+                          geo=dict(kind="c7wind", pitch=pa[0], aoa=pa[1])))
+    if any(st["c7warn"] == "on" for st in allst):
+        parts.append(dict(_part("warn", c5_spk_svg(C7_SPK, cross=False), R["warn"], keys=_akeys(start, states, steps, lambda st: st["c7warn"] == "on")),
+                          geo=dict(kind="c7warn")))
+    if start["switch"] == "on":
+        parts.append(_switch_part(C7_SWITCH))
+    return parts
+
+
+def _c7_anchors(st):
+    a = -float(st["c7pitch"])
+
+    def R(p):
+        return _rotp(p, a, C7_CG)
+    nose = R(P7(54.0, 1.0))
+    k = c7_key(st, "ths")
+    ths = _rotp(P7(5.0, 2.1), k["rot"], C7_CG)
+    ths = (ths[0] + k["dx"], ths[1] + k["dy"])
+    ke = c7_key(st, "elev")
+    el = _rotp(P7(-0.2, 1.6), ke["rot"], C7_CG)
+    el = (el[0] + ke["dx"], el[1] + ke["dy"])
+    x0, x1, yc, r = C7_ENG
+    return dict(nose=nose, tail=R(P7(2.0, 11.0)), ths=(ths[0], ths[1] - 30), ths_low=(ths[0], ths[1] + 30), elev=el, eng=R(P7(x1 + 6.0, yc - 1.0)),
+                body=R(P7(30.0, 3.0)), wing=R(P7(26.0, -2.6)), rot=(C7_CG[0] + 470 * math.cos(math.radians(-36)), C7_CG[1] + 470 * math.sin(math.radians(-36))),
+                cg=C7_CG, spk=(C7_SPK[0], C7_SPK[1] + 60), aoa=(C7_CG[0] + 330, C7_CG[1] - 20))
+
+
+def _c7_note(st0, states):
+    if st0["c7kind"] == "model":
+        return "報告書を加工して作成・機体の形と角度は模式"
+    return "報告書を加工して作成・機体の形は模式・角度は付図5 と本文の値・水平安定板と昇降舵の動きは見やすく小さな部品で"
+
+
+# ══════════════════════════════════════════════════════════
 #  型の表へ登録（illu.py の末尾から読まれる）
 # ══════════════════════════════════════════════════════════
 def register():
@@ -890,24 +1645,51 @@ def register():
         C1=dict(view="all", c1f="1400", c1ring="off", c1eye="off", c1land="off", c1cur="off", c1att="level", switch="off", cam=1.0),
         C2=dict(view="side", c2kind="rec", c2ths=0.0, c2elev=0.0, c2ap="off", c2hand="off", c2hl="off", c2arrow="off", c2ghost="off",
                 c2arc="off", c2lim="off", switch="off", cam=1.0),
-        C3=dict(view="front", c3thr="off", c3yoke="off", c3push="off", c3cap="off", c3ap="off", c3ring="off", switch="off", cam=1.0))
+        C3=dict(view="front", c3thr="off", c3yoke="off", c3push="off", c3cap="off", c3ap="off", c3ring="off", switch="off", cam=1.0),
+        # 🆕 ⑤b-4
+        C4=dict(view="near", c4t="20:14:05", c4mk="on", c4gs="off", c4hl="off", c4go="off", c4dist="off", c4arrow="off", c4ring="off",
+                switch="off", cam=1.0),
+        C5=dict(view="side", c5kind="rec", c5ths=-5.3, c5elev=3.5, c5ap="off", c5hand="off", c5band="off", c5snd=0, c5cur="off",
+                c5warn="off", c5if="off", c5lim="off", switch="off", cam=1.0),
+        C6=dict(view="front", c6ap="off", c6ring="off", c6eye="off", c6night="off", c6warn="off", switch="off", cam=1.0),
+        C7=dict(view="side", c7kind="rec", c7pitch=0.0, c7aoa=0.0, c7ths=-12.3, c7elev=0.0, c7ap="off", c7push="off", c7ring="off",
+                c7thr="off", c7rot="off", c7wind="off", c7warn="off", switch="off", cam=1.0))
     IL.CHOICES.update(c1f=tuple(C1_FRAMES), c1ring=("off", "gsloc", "ga", "dual", "thr", "fd"), c1eye=IL.ONOFF,
                       c1land=("off", "on", "press"), c1att=("level", "high", "up"),
                       c2kind=("rec", "model"), c2ap=IL.ONOFF, c2hand=IL.ONOFF, c2hl=("off", "both", "ths", "elev"),
                       c2arrow=("off", "ap", "hand"), c2ghost=IL.ONOFF, c2arc=IL.ONOFF, c2lim=IL.ONOFF,
-                      c3thr=IL.ONOFF, c3yoke=IL.ONOFF, c3push=IL.ONOFF, c3cap=IL.ONOFF, c3ap=IL.ONOFF, c3ring=("off", "go", "at", "lev"))
-    IL.VIEWS.update(C1=("all", "band", "time"), C2=("side",), C3=("front",))
+                      c3thr=IL.ONOFF, c3yoke=IL.ONOFF, c3push=IL.ONOFF, c3cap=IL.ONOFF, c3ap=IL.ONOFF, c3ring=("off", "go", "at", "lev"),
+                      c4t=C4_T, c4mk=IL.ONOFF, c4gs=IL.ONOFF, c4hl=("off", "lever", "flat"), c4go=IL.ONOFF, c4dist=IL.ONOFF,
+                      c4arrow=("off", "push", "back", "dev"), c4ring=("off", "on", "ap"),
+                      c5kind=("rec", "model"), c5ap=IL.ONOFF, c5hand=IL.ONOFF, c5band=IL.ONOFF, c5snd=(0, 1, 2, 3), c5warn=IL.ONOFF,
+                      c5if=IL.ONOFF, c5lim=IL.ONOFF,
+                      c6ap=IL.ONOFF, c6ring=IL.ONOFF, c6eye=IL.ONOFF, c6night=IL.ONOFF, c6warn=IL.ONOFF,
+                      c7kind=("rec", "model"), c7ap=IL.ONOFF, c7push=("off", "fo", "cap"), c7ring=IL.ONOFF, c7thr=("off", "auto", "man"),
+                      c7rot=IL.ONOFF, c7wind=IL.ONOFF, c7warn=IL.ONOFF)
+    IL.VIEWS.update(C1=("all", "band", "time"), C2=("side",), C3=("front",), C4=tuple(C4_VIEW), C5=("side",), C6=("front",), C7=("side",))
     IL.REC_FIELDS = IL.REC_FIELDS + ("c1f", "c1eye", "c1land", "c1cur", "c1att",
                                      "c2ths", "c2elev", "c2ap", "c2hand", "c2arrow", "c2ghost", "c2arc", "c2lim",
-                                     "c3thr", "c3yoke", "c3push", "c3cap", "c3ap")
-    IL.NOTE.update(C1=_c1_note, C2=_c2_note, C3=_c3_note)
+                                     "c3thr", "c3yoke", "c3push", "c3cap", "c3ap",
+                                     "c4t", "c4hl", "c4dist", "c4arrow", "c4go",
+                                     "c5ths", "c5elev", "c5ap", "c5hand", "c5snd", "c5if", "c5lim", "c5warn",
+                                     "c6ap", "c6warn", "c6night",
+                                     "c7pitch", "c7ths", "c7elev", "c7thr", "c7push", "c7warn", "c7ap", "c7aoa")
+    IL.NOTE.update(C1=_c1_note, C2=_c2_note, C3=_c3_note, C4=_c4_note, C5=_c5_note, C6=_c6_note, C7=_c7_note)
     IL.EXTRA.update(
         C1=dict(scene=_scene_C1, anchors=_c1_anchors, camc=lambda st0, states: (960.0, 480.0),
                 label=lambda st0, states: C1_LAB[st0["view"]]),
         C2=dict(scene=_scene_C2, anchors=_c2_anchors, camc=lambda st0, states: (C2_HX - 200.0, C2_Y),
                 label=lambda st0, states: C2_LAB),
         C3=dict(scene=_scene_C3, anchors=_c3_anchors, camc=lambda st0, states: (960.0, 640.0),
-                label=lambda st0, states: C3_LAB))
+                label=lambda st0, states: C3_LAB),
+        C4=dict(scene=_scene_C4, anchors=_c4_anchors, camc=lambda st0, states: (960.0, 560.0),
+                label=lambda st0, states: c4_label(st0["view"])),
+        C5=dict(scene=_scene_C5, anchors=_c5_anchors, camc=lambda st0, states: (960.0, 480.0),
+                label=lambda st0, states: C5_LAB),
+        C6=dict(scene=_scene_C6, anchors=_c6_anchors, camc=lambda st0, states: (960.0, 640.0),
+                label=lambda st0, states: C6_LAB),
+        C7=dict(scene=_scene_C7, anchors=_c7_anchors, camc=lambda st0, states: C7_CG,
+                label=lambda st0, states: C7_LAB))
 
 
 register()

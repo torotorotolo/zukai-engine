@@ -142,3 +142,59 @@ SPEC.update({
                dict(state=dict(c3ap="off"), rec=R3["lamps_off"],
                     tag=dict(t="自動操縦（2つ）", at="lamps", off=(0, 150), anchor="middle"))]))),
 })
+
+# ── 🆕 ⑤b-4（2026-10-20）：再現イラスト C4 進入の断面図（門番 ㉞）・C5 相反の図（門番 ㉟）＝`tools/illu17.py` ──
+from illu17 import C4_REC as R4, C5_REC as R5  # noqa: E402  置き場の部品の出典（描く側と同じ文）
+
+SPEC.update({
+    # c501（2行・20:14:18）＝寄り。約320メートル・下り道より少し上を水平（p5「上方1.2ドット」）→ 2行目で2つの自動操縦が入る（水色の輪）。
+    #   前の全面の絵 c419（C1）から置き場が替わる＝切り替えの字
+    "c501": dict(fig=("illu", dict(
+        place="C4", at="20:14:18", start=dict(view="near", c4t="20:14:18", c4gs="on", c4arrow="dev", switch="on"),
+        rec="報告書 p5（11時14分18秒、気圧高度約1,040ft、正規の降下経路の上方1.2ドットの位置付近）",
+        steps=[dict(tag=dict(t="20:14:18・約320m", at="pt", off=(0, -90), anchor="middle", keep=True)),
+               dict(state=dict(c4ring="ap"), rec=R4["ap"], tag=dict(t="自動操縦（2つ）が入る", at="pt_low", off=(80, 90), anchor="start"))]))),
+    # c507（2行・20:14:18）＝寄り。報告書の見方＝自動操縦の助けを借りて正しい下り道に戻ろうとした可能性（p53・p90＝点線の矢印）
+    "c507": dict(fig=("illu", dict(
+        place="C4", at="20:14:18", start=dict(view="near", c4t="20:14:18", c4gs="on", c4ring="ap"), rec=R4["ap"],
+        steps=[dict(),
+               dict(state=dict(c4arrow="back"), rec=R4["back"],
+                    tag=dict(t="下り道へ戻ろうとした（報告書の見方）", at="gs", off=(40, 90), anchor="start"))]))),
+    # c508（3行・20:14:18）＝相反の図。副操縦士は押し続けていた（橙）→ 2行目で昇降舵は機首下げ 3.5度（p44・付図5）→ 3行目の問いで自動操縦（水色）が入る。
+    #   前の全面の絵 c507（C4）から置き場が替わる＝切り替えの字。角度＝付図5（14'05" 0.3度 → 14'18" 3.5度・水平安定板は -5.3度）
+    "c508": dict(fig=("illu", dict(
+        place="C5", at="20:14:18", start=dict(c5ths=-5.3, c5elev=0.3, switch="on"),
+        rec="付図5 p1（14'05\"：ELEVATOR 0.3・THS -5.3）",
+        steps=[dict(state=dict(c5hand="on", c5elev=3.5), rec="報告書 p44（この時のエレベータは、副操縦士により押し下げられた状態で機首下げ3.5°）",
+                    tag=dict(t="押す", at="hand_dn", off=(80, 30), anchor="start")),
+               # ⚠️ 門番 layout：右へ出すと前の段の「押す」と 32×24px 重なった＝左へ
+               dict(tag=dict(t="機首下げ 3.5度", at="elev_low", off=(-40, 120), anchor="end")),
+               dict(state=dict(c5ap="on"), rec=R5["ap"], tag=dict(t="自動操縦（2つ）", at="ap_le", off=(-40, 110), anchor="end"))]))),
+    # c512（3行・20:14:20〜39）＝相反の図＋約30秒の帯。トリムのスイッチを操作したらしい音が3回（p53＝14分20秒・34秒・39秒）→ 2行目のあいだに
+    #   水平安定板は自動操縦で -12.3度へ（付図5 14'37"）→ 3行目「自動操縦が入っている間は、そのスイッチでは板は動かない」（p45）
+    "c512": dict(fig=("illu", dict(
+        place="C5", at="20:14:39", start=dict(c5ths=-5.3, c5elev=3.5, c5ap="on", c5hand="on", c5band="on"), rec=R5["band"],
+        steps=[dict(state=dict(c5snd=3), rec=R5["snd"], tag=dict(t="操作の音（3回）", at="band_top", off=(0, -16), anchor="middle")),
+               dict(state=dict(c5ths=-12.3, c5elev=8.5), rec="付図5 p1（14'37\"：THS -12.3・ELEVATOR 8.5）", dur=3.0),
+               # ⚠️ 門番 echo：「スイッチでは板は動かない」は語りの複写＝言い換えた
+               dict(rec="報告書 p45（APエンゲージ中は、当該スイッチを操作してもTHSは動かない）",
+                    tag=dict(t="自動操縦の間はトリムが効かない", at="ths", off=(-60, -190), anchor="middle"))]))),
+    # c519（3行・20:14:37）＝相反の図＋帯。時刻の線（20:14:37）→ 2行目で水平安定板 -12.3度（機首上げいっぱい・p56）→ 3行目で昇降舵は機首下げ 8.5度。
+    #   前の全面の絵 c518（C2）から置き場が替わる＝切り替えの字。角度＝付図5（14'31" -9.5度・6.0度 → 14'37" -12.3度・8.5度）
+    "c519": dict(fig=("illu", dict(
+        place="C5", at="20:14:37", start=dict(c5ths=-9.5, c5elev=6.0, c5ap="on", c5hand="on", c5band="on", c5cur="20:14:31", switch="on"),
+        rec="付図5 p1（14'31\"：THS -9.5・ELEVATOR 6.0）",
+        steps=[dict(state=dict(c5cur="20:14:37"), rec=R5["band"], tag=dict(t="20:14:37", at="cur", off=(0, -50), anchor="middle")),
+               dict(state=dict(c5ths=-12.3, c5lim="on"), rec=R5["lim"], dur=2.0,
+                    tag=dict(t="−12.3度（機首上げ いっぱい）", at="lim", off=(-40, 40), anchor="end")),
+               dict(state=dict(c5elev=8.5), rec="報告書 p56（エレベータは機首下げ方向に8.5°まで動かされている）",
+                    tag=dict(t="昇降舵は機首下げ 8.5度", at="elev_low", off=(60, 110), anchor="start"))]))),
+    # c522（2行・20:14:37）＝相反の図＋約30秒の帯（p5）→ 2行目「それが、報告書の言う相反だ」（押す手〈橙〉と自動操縦〈水色〉が逆の向き）。
+    #   前の全面の絵 c520（C1）から置き場が替わる＝切り替えの字
+    "c522": dict(fig=("illu", dict(
+        place="C5", at="20:14:37", start=dict(c5ths=-12.3, c5elev=8.5, c5ap="on", c5hand="on", c5band="on", c5lim="on", switch="on"),
+        rec="付図5 p1（14'37\"：THS -12.3・ELEVATOR 8.5）",
+        steps=[dict(rec=R5["band"], tag=dict(t="約30秒", at="band", off=(0, -44), anchor="middle", keep=True)),
+               dict(rec="報告書 p79（乗員による操縦輪の操作とAFSの作動が相反することとなり）",
+                    tag=dict(t="相反（押す手と逆の向きへ）", at="ap_up", off=(60, -60), anchor="start"))]))),
+})

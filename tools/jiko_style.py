@@ -79,10 +79,13 @@ SUB = "#f4f6f8"            # 潜水艇（タイタン）＝🆕 ⑤b-3b：型が
 #    ⚠️ 別名はモジュールの定数にしない（`CITY = INST` のように置くと門番 check_color が「同じ値の2色＝ΔE 0.0」と数える）＝型は ROLE の名
 #      （`c="city"` ほか＝check_axis・mech の引き方は `J.ROLE.get(名) or getattr(J, 名)`）で引く
 BLDG_A = "#ff9ec4"        # A棟（北・崩れた棟）（23本目）＝ピンク
+# 🆕 2026-10-20（17本目 ⑤b-4）：エアバス社＝OK 緑（映像方針 17本目 §8-4）＝同じ値の別名 airbus（年表 c314・c901・ca01 の技術通報・改修）。
+#    当局（灰）は灰が章の線・目盛りの色と近い＝足さない（年表では中立の LINE＝だれの動きかは札の言葉で）
 ROLE = dict(uscg=USCG, ntsb=OK, tsb=INST, company=COMPANY, ship=SHIP, sub=SUB,
-            ward=OK, city=INST, state=USCG, engineer=SHIP, bldg_a=BLDG_A)
+            ward=OK, city=INST, state=USCG, engineer=SHIP, bldg_a=BLDG_A, airbus=OK)
 ROLE_ALIAS = {"ntsb": "OK", "tsb": "INST",     # 意味の色と同じ値の役（ΔE の照合から外す・門番が値の一致を確かめる）
-              "ward": "OK", "city": "INST", "state": "USCG", "engineer": "SHIP"}   # 🆕 23本目＝22本目の役と同じ値の別名
+              "ward": "OK", "city": "INST", "state": "USCG", "engineer": "SHIP",   # 🆕 23本目＝22本目の役と同じ値の別名
+              "airbus": "OK"}                                                    # 🆕 17本目
 # ── 色の使い分け（226カットで守る）─────────────────────────
 #   INK_W  主図形（船体・断面）      LINE   技術線・物
 #   AMBER  数値                      ALERT  破壊・欠陥・会社が選んだ危ないほう

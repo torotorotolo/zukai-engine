@@ -123,3 +123,36 @@ SPEC.update({
                dict(state=dict(c1ring="ga"), tag=dict(t="GO AROUND のまま", at="ga", off=(0, -96), anchor="middle")),
                dict()]))),
 })
+
+# ── 🆕 ⑤b-4（2026-10-20）：再現イラスト C4 進入の断面図（`tools/illu17.py`・門番 check_illu ㉞）──
+from illu17 import C4_REC as R4  # noqa: E402  置き場 C4 の部品の出典（描く側と同じ文）
+
+SPEC.update({
+    # c401（2行・20:14:05）＝寄り。ゴー・レバーの点（約330メートル＝1,070フィート・p5）→ 2行目で下り道に沿って手で下りていた
+    "c401": dict(fig=("illu", dict(
+        place="C4", at="20:14:05", start=dict(view="near", c4t="20:14:05", c4gs="on", c4ring="on"),
+        rec="報告書 p5（11時14分05秒、気圧高度約1,070ftを通過中）",
+        steps=[dict(tag=dict(t="20:14:05・約330m", at="pt", off=(0, -90), anchor="middle", keep=True)),
+               dict(tag=dict(t="下り道に沿って", at="gs", off=(40, 80), anchor="start"))]))),
+    # c409（2行・20:14:05→10）＝寄り。推力が増えて、下り道より上へそれ始めた（p44）。前の全面の絵 c407（C1）から置き場が替わる＝切り替えの字
+    "c409": dict(fig=("illu", dict(
+        place="C4", at="20:14:10", start=dict(view="near", c4t="20:14:05", c4gs="on", switch="on"), rec=R4["mk"],
+        steps=[dict(state=dict(c4t="20:14:10"), rec=R4["dev"], dur=2.0,
+                    tag=dict(t="下り道より上へ", at="gs", off=(60, 90), anchor="start")),
+               dict()]))),
+    # c412（3行）＝寄り。滑走路から約5.5km（p5）→ 2行目で約320メートル・約15秒の水平飛行（p44・p5）。前の全面の絵 c410（C3）から＝切り替えの字
+    "c412": dict(fig=("illu", dict(
+        place="C4", at="20:14:25", start=dict(view="near", c4t="20:14:05", c4gs="on", switch="on"), rec=R4["mk"],
+        steps=[dict(state=dict(c4dist="on"), rec=R4["dist5"],
+                    tag=dict(t="滑走路から約5.5km", at="dist", off=(0, -60), anchor="middle")),
+               dict(state=dict(c4dist="off", c4t="20:14:25", c4hl="flat"), rec=R4["flat"], dur=2.4,
+                    tag=dict(t="約320m・約15秒", at="flat", off=(0, -90), anchor="middle")),
+               dict()]))),
+    # c415（3行・20:14:10→18）＝寄り。下り道に戻ろうと押す（橙の矢印・p44）→ 2行目で機体は水平のまま。前の全面の絵 c414（C1）から＝切り替えの字
+    "c415": dict(fig=("illu", dict(
+        place="C4", at="20:14:18", start=dict(view="near", c4t="20:14:10", c4gs="on", switch="on"), rec=R4["mk"],
+        steps=[dict(state=dict(c4arrow="push"), rec=R4["push"], tag=dict(t="押す", at="push", off=(60, -10), anchor="start")),
+               dict(state=dict(c4t="20:14:18"), rec=R4["push"], dur=1.8,
+                    tag=dict(t="水平のまま", at="pt", off=(40, -90), anchor="start")),
+               dict()]))),
+})
