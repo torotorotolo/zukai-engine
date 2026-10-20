@@ -25,7 +25,11 @@ import satmap as M  # noqa: E402
 
 # 🆕 2026-10-18（23本目 ⑤b-4）：囲み（area）の面積の記録＝{カット: (平方メートル, 出典)}。境の線が記録に無く「面積が同じ円」で描くカットだけ
 #    （記録の値は門番の側＝§5b-88。描く側は `satmap.r_of_area` で半径を出す）。囲みの面積が記録から 1% より外れたら鳴る
-REC_SAT_AREA = {"c511": (67100, "K6-市 p40（`부지와 그 주변지역을 포함한 67,100㎡`）")}
+# 🔴 2026-10-20（17本目 ⑤b-1・§0b）：23本目の記録（c511＝特別災害地域の範囲 67,100 平方メートル〈K6-市 p40〉）は見本 `tools/fixture_ep23.py`（GATES["check_sat"]・値は1つも変えていない＝
+#    git の `b800dbdb`）へ移した＝空。17本目で「面積が同じ円」の囲み（area）を使うカットが出たら、その回の記録をここに入れる。
+#    ⚠️ `area_check` は**表に載ったカットだけ**を見る（表が空なら何も照らさない＝止めない）。表に無いカットの囲み（area）は面積を照らされずに通る（`satmap.check` は area の面積の出どころを見ない）
+#    ＝囲みを使うのに記録を入れ忘れると素通りする穴。17本目で囲みを使うときは必ず入れる（門番の側で「area があるのに表に無い」を止める直しは、この移し替えでは足していない）
+REC_SAT_AREA = {}
 
 
 def area_check(spec_all, sat_tab, rec=None):
@@ -75,11 +79,22 @@ def selftest():
         rc = _selftest()
     finally:
         fixture_ep22.restore()
-    return rc or _selftest_area()
+    if rc:
+        return rc
+    # 🔴 2026-10-20（17本目 ⑤b-1・§0b）：23本目の実物（地図のカット c511・衛星写真の表 `ss.SAT`・場所の表 `ss.GEO`・面積の記録 `REC_SAT_AREA`）も本番から見本 `tools/fixture_ep23.py` へ移した
+    #    ＝見本の ss の表と、この門番の表（`apply(gate)` が `REC_SAT_AREA` を差す）と、23本目の章ファイル（apply_cuts＝git の `b800dbdb`）を差して回し、最後に restore（LIFO）
+    import fixture_ep23
+    fixture_ep23.apply(sys.modules[__name__])
+    fixture_ep23.apply_cuts()
+    try:
+        return _selftest_area()
+    finally:
+        fixture_ep23.restore()
 
 
 def _selftest_area():
-    """🆕 23本目 ⑤b-4：面積の照合（本番の c511＝陰性・半径を 5% 縮めた写し＝陽性）。"""
+    """🆕 23本目 ⑤b-4：面積の照合（見本の c511＝陰性・半径を 5% 縮めた写し＝陽性）。
+    🔴 2026-10-20（17本目 ⑤b-1）：表 REC_SAT_AREA・ss.SAT と SPEC の c511 は見本 `fixture_ep23`（`apply(gate)`＋`apply_cuts()`＝23本目の章ファイル）から（`selftest` が差し込んだ中で呼ぶ）"""
     import cuts
     import cuts.ss as ss
     ok = True
