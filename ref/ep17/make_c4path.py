@@ -134,6 +134,10 @@ def main():
             raise SystemExit(f"時刻の矢印の数が字と合わない（{nm}：矢印 {len(ks)}・字 {len(TIMES[nm])}）＝止める")
         for t, k in zip(TIMES[nm], ks):
             times[jst(t)] = round(k, 3)
+        # ⑦ 🆕 ⑤b-4 の試し焼き 39377897273：下の帯の 9.4km あたりで線が 500m の横線と交わる＝横線の ±5画素を除くと、前後の点が上下へずれて
+        #    約38m の段に見えた（全体図 c117・cb29）＝頂点のあたり（③）の外では、横線から ±30m の点を読まない（前後の点のあいだは直線＝c4_h の内挿）
+        if nm == "lo":
+            keep = [p for p in keep if p[0] < 0.70 or abs(p[1] - 500.0) >= 30.0]
         res["strips"][nm] = dict(hlines=[round(v, 1) for v in hl], vlines=[round(v, 1) for v in vl], n=len(keep))
         allpts += [(k, m) for k, m, _x in keep]
     allpts.sort(key=lambda p: -p[0])

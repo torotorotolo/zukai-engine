@@ -108,6 +108,7 @@ SPEC.update({
     "c218": dict(fig=("illu", dict(
         place="C4", at="20:14:00", start=dict(view="near", c4t="20:14:00", c4gs="on"),
         rec="報告書 p54（11時14分05秒直前…3°のILS進入経路に乗って、速度約140kt、ピッチ角約4°）",
-        steps=[dict(tag=dict(t="電波の下り道（3度）", at="gs_far", off=(40, 100), anchor="start", keep=True)),
+        # ⚠️ 試し焼き 39377897273：右へ伸ばすと右下がりの下り道の点線が札をかすめた＝点線の下で左へ（右寄せ）
+        steps=[dict(tag=dict(t="電波の下り道（3度）", at="gs_far", off=(40, 120), anchor="end", keep=True)),
                dict(tag=dict(t="時速約260km・機首 約4度", at="pt", off=(-30, -90), anchor="start"))]))),
 })

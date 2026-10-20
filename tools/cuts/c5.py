@@ -153,13 +153,14 @@ SPEC.update({
         place="C4", at="20:14:18", start=dict(view="near", c4t="20:14:18", c4gs="on", c4arrow="dev", switch="on"),
         rec="報告書 p5（11時14分18秒、気圧高度約1,040ft、正規の降下経路の上方1.2ドットの位置付近）",
         steps=[dict(tag=dict(t="20:14:18・約320m", at="pt", off=(0, -90), anchor="middle", keep=True)),
-               dict(state=dict(c4ring="ap"), rec=R4["ap"], tag=dict(t="自動操縦（2つ）が入る", at="pt_low", off=(80, 90), anchor="start"))]))),
+               # ⚠️ 試し焼き 39377897273：右へ伸ばすと右下がりの下り道の点線が札を横切った＝点線の下で左へ（右寄せ）
+               dict(state=dict(c4ring="ap"), rec=R4["ap"], tag=dict(t="自動操縦（2つ）が入る", at="pt_low", off=(-40, 120), anchor="end"))]))),
     # c507（2行・20:14:18）＝寄り。報告書の見方＝自動操縦の助けを借りて正しい下り道に戻ろうとした可能性（p53・p90＝点線の矢印）
     "c507": dict(fig=("illu", dict(
         place="C4", at="20:14:18", start=dict(view="near", c4t="20:14:18", c4gs="on", c4ring="ap"), rec=R4["ap"],
         steps=[dict(),
                dict(state=dict(c4arrow="back"), rec=R4["back"],
-                    tag=dict(t="下り道へ戻ろうとした（報告書の見方）", at="gs", off=(40, 90), anchor="start"))]))),
+                    tag=dict(t="下り道へ戻ろうとした（報告書の見方）", at="gs", off=(-30, 100), anchor="end"))]))),
     # c508（3行・20:14:18）＝相反の図。副操縦士は押し続けていた（橙）→ 2行目で昇降舵は機首下げ 3.5度（p44・付図5）→ 3行目の問いで自動操縦（水色）が入る。
     #   前の全面の絵 c507（C4）から置き場が替わる＝切り替えの字。角度＝付図5（14'05" 0.3度 → 14'18" 3.5度・水平安定板は -5.3度）
     "c508": dict(fig=("illu", dict(

@@ -135,8 +135,8 @@ SPEC.update({
     "c609": dict(fig=("illu", dict(
         place="C6", start=dict(), rec=R6["room"],
         steps=[dict(state=dict(c6ring="on"), rec=R6["wheel"],
-                    # ⑤b-4 の下見：右へ出すと右のトリム・ホイールの輪を横切った＝左下へ
-                    tag=[dict(t="トリムの表示", at="ind", off=(-110, 50), anchor="end"),
+                    # ⑤b-4 の下見：右へ出すと右のトリム・ホイールの輪を横切った＝左下へ／試し焼き 39377897273：表示を左のレバーの左へ移した＝札は表示の下
+                    tag=[dict(t="トリムの表示", at="ind", off=(-40, 86), anchor="start"),
                          dict(t="トリム・ホイール", at="wheel_L", off=(-30, -60), anchor="end")]),
                dict(state=dict(c6eye="on"), rec=R6["eye"], tag=dict(t="視線は前（窓と画面）", at="eye", off=(-90, 70), anchor="end")),
                dict(state=dict(c6night="on"), rec=R6["night"])]))),

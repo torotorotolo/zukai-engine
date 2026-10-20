@@ -133,12 +133,13 @@ SPEC.update({
         place="C4", at="20:14:05", start=dict(view="near", c4t="20:14:05", c4gs="on", c4ring="on"),
         rec="報告書 p5（11時14分05秒、気圧高度約1,070ftを通過中）",
         steps=[dict(tag=dict(t="20:14:05・約330m", at="pt", off=(0, -90), anchor="middle", keep=True)),
-               dict(tag=dict(t="下り道に沿って", at="gs", off=(40, 80), anchor="start"))]))),
+               # ⚠️ 試し焼き 39377897273：右へ伸ばすと右下がりの下り道の点線が札をかすめた＝点線の下で左へ（右寄せ）
+               dict(tag=dict(t="下り道に沿って", at="gs", off=(-30, 100), anchor="end"))]))),
     # c409（2行・20:14:05→10）＝寄り。推力が増えて、下り道より上へそれ始めた（p44）。前の全面の絵 c407（C1）から置き場が替わる＝切り替えの字
     "c409": dict(fig=("illu", dict(
         place="C4", at="20:14:10", start=dict(view="near", c4t="20:14:05", c4gs="on", switch="on"), rec=R4["mk"],
         steps=[dict(state=dict(c4t="20:14:10"), rec=R4["dev"], dur=2.0,
-                    tag=dict(t="下り道より上へ", at="gs", off=(60, 90), anchor="start")),
+                    tag=dict(t="下り道より上へ", at="gs", off=(-30, 100), anchor="end")),
                dict()]))),
     # c412（3行）＝寄り。滑走路から約5.5km（p5）→ 2行目で約320メートル・約15秒の水平飛行（p44・p5）。前の全面の絵 c410（C3）から＝切り替えの字
     "c412": dict(fig=("illu", dict(

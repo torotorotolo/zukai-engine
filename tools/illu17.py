@@ -609,7 +609,8 @@ def c2_body_svg():
     """胴体の後ろ（テールコーン）と垂直尾翼（形は模式）"""
     top = [(-20.0, 440.0), (860.0, 440.0)] + [(860.0 + 700 * u, 440.0 + 128 * u ** 1.6) for u in (0.2, 0.4, 0.6, 0.8, 1.0)]
     bot = [(1560.0, 604.0), (1300.0, 660.0), (1050.0, 730.0), (820.0, 770.0), (-20.0, 770.0)]
-    g = [_path([(1010.0, 444.0), (1305.0, 130.0), (1468.0, 130.0), (1548.0, 552.0)], C17["fin"], C17["body_ln"], 3.0),
+    # ⑤b-4 の試し焼き 39377897273：上の端 y 130 は右上の章の札（y 約66〜150・x 1380〜）の下に入った＝y 175 に下げた（形は模式）
+    g = [_path([(1010.0, 444.0), (1290.0, 175.0), (1458.0, 175.0), (1548.0, 552.0)], C17["fin"], C17["body_ln"], 3.0),
          _path(top + bot, C17["body"], C17["body_ln"], 3.5)]
     return "".join(g)
 
@@ -1025,10 +1026,11 @@ def c4_bg_svg(view):
     g.append(f'<path d="M {x0r + 10:.1f} {yg:.1f} L {x1r:.1f} {yg:.1f}" stroke="{C17["rwy_ln"]}" stroke-width="3" stroke-dasharray="16 12"/>')
     # ⑤b-4 の門番 layout：全体（all）は末端が x 1754＝真ん中に置くと字の右が 1872（上限 1848）＝真ん中は 1790 まで
     g.append(_text(min((x0r + min(x1r, W - 20)) / 2, 1790.0), yg + 46, "滑走路", 30, C17["fw"], "middle"))
-    # 1km の物差し（左下の地面のすぐ上＝出典の行から離す）。⑤b-4 の下見：左上に置くと c214 の点（17km・約760m）の輪に触れた
+    # 1km の物差し。⑤b-4 の下見：全体（all）で左上に置くと c214 の点（17km・約760m）の輪に触れた＝全体は左下の地面のすぐ上／
+    #   試し焼き 39377897273：寄り（near）で左下に置くと c412 の滑走路からの物差しの点線（5.5km）が字「1km（横）」を横切った＝寄りは左上
     xa = 96.0
     xb = xa + c4_ruler(view)["pxkm"]
-    ys = yg - 40.0
+    ys = yg - 40.0 if view == "all" else 178.0
     g.append(f'<path d="M {xa:.1f} {ys - 10:.1f} L {xa:.1f} {ys:.1f} L {xb:.1f} {ys:.1f} L {xb:.1f} {ys - 10:.1f}" fill="none" '
              f'stroke="{C17["fw"]}" stroke-width="3"/>')
     g.append(_text(xb + 14, ys + 9, "1km（横）", 26, C17["fw"], "start"))
@@ -1215,7 +1217,8 @@ def c5_band_svg():
     g = [f'<rect x="{T["x0"] - 30:.1f}" y="{y - 92:.1f}" width="{T["x1"] - T["x0"] + 60:.1f}" height="190" rx="14" fill="{C17["band5"]}" opacity="0.92"/>',
          f'<path d="M {T["x0"]:.1f} {y + bh / 2 + 8:.1f} L {T["x1"]:.1f} {y + bh / 2 + 8:.1f}" stroke="{C17["axis"]}" stroke-width="3"/>',
          f'<rect x="{xa:.1f}" y="{y - bh / 2:.1f}" width="{xb - xa:.1f}" height="{bh:.1f}" rx="8" fill="{C17["ap"]}" opacity="0.9"/>',
-         f'<text x="{(xa + xb) / 2:.1f}" y="{y + 11:.1f}" font-family="Noto" font-size="30" fill="{C17["bar_txt"]}" text-anchor="middle">自動操縦（2つ）</text>']
+         # 試し焼き 39377897273：真ん中寄せだと c519 の時刻の線（20:14:37）が字の「）」を貫いた＝左寄せ（帯の頭から）
+         f'<text x="{xa + 18:.1f}" y="{y + 11:.1f}" font-family="Noto" font-size="30" fill="{C17["bar_txt"]}" text-anchor="start">自動操縦（2つ）</text>']
     for t in C5_AP:
         x = c5_tx(t)
         g.append(f'<path d="M {x:.1f} {y + bh / 2 + 8:.1f} L {x:.1f} {y + bh / 2 + 22:.1f}" stroke="{C17["axis"]}" stroke-width="3"/>')
@@ -1340,9 +1343,11 @@ def _c5_note(st0, states):
 # ══════════════════════════════════════════════════════════
 #  🆕 ⑤b-4 C6 夜の操縦室（後ろから前を向いて）＝C3 の部屋＋トリムの表示とトリム・ホイール（p84 の①②）・視線・警報の印（③）
 # ══════════════════════════════════════════════════════════
-# 🔴 出典の行（y 約866〜884）より上に収める＝ホイールは y 590〜790・表示は y 765〜845（レバーの台 y 736〜752 の下・右）
+# 🔴 出典の行（2行のとき y 約834〜884・左から x 1100 あたりまで）より上に収める＝ホイールは y 590〜790・表示は y 660〜720
+#    （試し焼き 39377897273：表示を y 805 に置くと輪が出典の行の1行目と x 1030〜1140 で重なった＝右のレバーとホイールのあいだへ上げた）
 C6_WHEEL = ((706.0, 690.0), (1214.0, 690.0))     # トリム・ホイール＝センタペデスタルの両側（p84②・位置は模式）
-C6_IND = (1108.0, 805.0)                          # ビジュアル・トリム・インジケータ＝センタペデスタルの上（p84①・模式）
+C6_IND = (822.0, 660.0)                           # ビジュアル・トリム・インジケータ＝センタペデスタルの上（p84①・模式）＝左のレバーと左のホイールのあいだ
+C6_INDS = 0.75                                    # 表示の大きさ（90×60）
 C6_EYE = (1500.0, 360.0)                         # 右の席（副操縦士・p73）の目の高さ（見た向き＝人は描かない）
 C6_SPK = (300.0, 360.0)
 C6_LAB = "夜の操縦室（後ろから前を向いて）"
@@ -1370,6 +1375,11 @@ def c6_wheel_svg(c):
 
 
 def c6_ind_svg():
+    x, y = C6_IND
+    return (f'<g transform="translate({x:.1f} {y:.1f}) scale({C6_INDS}) translate({-x:.1f} {-y:.1f})">' + _c6_ind_body() + "</g>")
+
+
+def _c6_ind_body():
     x, y = C6_IND
     g = [f'<rect x="{x - 60:.1f}" y="{y - 40:.1f}" width="120" height="80" rx="8" fill="{C17["scr"]}" stroke="{C17["ped_ln"]}" stroke-width="3"/>',
          f'<path d="M {x - 40:.1f} {y + 22:.1f} A 46 46 0 0 1 {x + 40:.1f} {y + 22:.1f}" fill="none" stroke="{C17["tick"]}" stroke-width="4"/>']
@@ -1416,8 +1426,8 @@ def _scene_C6(start, states, steps):
     if any(st["c6night"] == "on" for st in allst):
         parts.append(_part("night", c6_night_svg(), R["night"], keys=_akeys(start, states, steps, lambda st: st["c6night"] == "on", 1.0)))
     if any(st["c6ring"] == "on" for st in allst):
-        svg = "".join(_ring_rect(c[0] - 48, c[1] - 120, c[0] + 48, c[1] + 120) for c in C6_WHEEL) + _ring_rect(
-            C6_IND[0] - 78, C6_IND[1] - 56, C6_IND[0] + 78, C6_IND[1] + 50)
+        svg = "".join(_ring_rect(c[0] - 40, c[1] - 118, c[0] + 40, c[1] + 118) for c in C6_WHEEL) + _ring_rect(
+            C6_IND[0] - 60, C6_IND[1] - 44, C6_IND[0] + 60, C6_IND[1] + 40)
         parts.append(_part("ring", svg, R["wheel"], keys=_akeys(start, states, steps, lambda st: st["c6ring"] == "on", 0.5)))
     if any(st["c6eye"] == "on" for st in allst):
         parts.append(dict(_part("eye", c6_eye_svg(), R["eye"], keys=_akeys(start, states, steps, lambda st: st["c6eye"] == "on")),
@@ -1432,7 +1442,7 @@ def _scene_C6(start, states, steps):
 
 def _c6_anchors(st):
     return dict(wheel_L=(C6_WHEEL[0][0] - 40, C6_WHEEL[0][1] - 120), wheel_R=(C6_WHEEL[1][0] + 40, C6_WHEEL[1][1] - 120),
-                ind=(C6_IND[0] + 70, C6_IND[1] - 30), eye=(C6_EYE[0], C6_EYE[1] + 50), spk=(C6_SPK[0], C6_SPK[1] + 60),
+                ind=(C6_IND[0] - 20, C6_IND[1] + 44), eye=(C6_EYE[0], C6_EYE[1] + 50), spk=(C6_SPK[0], C6_SPK[1] + 60),
                 lamps=((C3_LAMPS[0][0] + C3_LAMPS[1][0]) / 2, C3_LAMPS[0][1] + 18), ped=(960.0, 760.0))
 
 
@@ -1574,7 +1584,8 @@ def _scene_C7(start, states, steps):
     g0 = [f'<defs><linearGradient id="c7sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{C17["sky0"]}"/>'
           f'<stop offset="1" stop-color="{C17["sky1"]}"/></linearGradient></defs>',
           f'<rect x="0" y="0" width="{W}" height="{H}" fill="url(#c7sky)"/>',
-          f'<path d="M -4 836 L {W + 4} 836" stroke="{C17["horizon"]}" stroke-width="3" stroke-dasharray="22 14"/>']
+          # 試し焼き 39377897273：y 836 は出典の行（2行のとき y 約834〜）の上の端に接した＝y 812（機首 52.6度でも尾の先は y 約790）
+          f'<path d="M -4 812 L {W + 4} 812" stroke="{C17["horizon"]}" stroke-width="3" stroke-dasharray="22 14"/>']
     parts = [dict(_part("bg", "".join(g0), R["hzn"]), geo=dict(kind="c7bg"))]
     piv = C7_CG
 
