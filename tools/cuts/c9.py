@@ -88,3 +88,16 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ── 🆕 ⑤b-3（2026-10-20）：再現イラスト C1（画面の上の端）＝`tools/illu17.py`・門番 check_illu ㉛ ──
+from illu17 import C1_REC as R1  # noqa: E402  置き場 C1 の部品の出典（描く側と同じ文）
+
+SPEC.update({
+    # c904（3行）＝c316 に戻る（上の端の寄り・付図29 の 14'06" の枠を例に）。2行目で GO AROUND に「改修の対象外」（報告書 p78）
+    "c904": dict(fig=("illu", dict(
+        place="C1", start=dict(view="band", c1f="1406", switch="on"), rec=R1["f29"],
+        steps=[dict(),
+               dict(state=dict(c1ring="ga"), rec="報告書 p78（LANDTrack及びGOAROUNDモード以外のモードでは…APがディスエンゲージされる）",
+                    tag=dict(t="改修の対象外", at="ga", off=(0, -96), anchor="middle")),
+               dict()]))),
+})

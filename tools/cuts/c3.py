@@ -88,3 +88,57 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ── 🆕 ⑤b-3（2026-10-20）：再現イラスト C1（画面の上の端）・C2（尾翼）＝`tools/illu17.py`・門番 check_illu ㉛㉜ ──
+from illu17 import C1_REC as R1, C2_REC as R2  # noqa: E402  置き場の部品の出典（描く側と同じ文）
+
+SPEC.update({
+    # c301（2行・章の頭）＝尾翼を横から（しくみの説明＝角度は模式）。2行目で2つの動く所に輪（1＝昇降舵〈c302 で名を言う〉・2＝水平安定板〈c303〉）
+    "c301": dict(fig=("illu", dict(
+        place="C2", start=dict(c2kind="model", switch="on"), rec=R2["body"],
+        steps=[dict(tag=dict(t="尾翼の水平の翼", at="elev", off=(-260, -300), anchor="middle")),
+               dict(state=dict(c2hl="both"),
+                    tag=[dict(t="動く所 1", at="elev", off=(150, -170), anchor="middle"),
+                         dict(t="動く所 2", at="ths", off=(-430, -230), anchor="middle")])]))),
+    # c303（2行）＝水平安定板に色（輪）・少しずつ角度を変える（模式の 0度→−4度）→ 2行目「トリム」
+    "c303": dict(fig=("illu", dict(
+        place="C2", start=dict(c2kind="model"), rec=R2["body"],
+        steps=[dict(state=dict(c2hl="ths", c2ths=-4.0), rec=R2["ths"], dur=3.2,
+                    tag=[dict(t="水平安定板", at="ths", off=(-430, -230), anchor="middle", keep=True),
+                         dict(t="昇降舵", at="elev", off=(150, -170), anchor="middle", keep=True)]),
+               dict(tag=dict(t="トリム＝釣り合い", at="le", off=(-260, 170), anchor="middle"))]))),
+    # c308（2行）＝画面ぜんたい（しくみの説明＝付図29 の 14'00" の枠を例に）。2行目で上の端の欄の区切りに3つの札
+    "c308": dict(fig=("illu", dict(
+        place="C1", start=dict(view="all", c1f="1400"), rec=R1["f29"],
+        steps=[dict(),
+               dict(tag=[dict(t="推力", at="col_thr", off=(0, -78), anchor="middle", keep=True),
+                         dict(t="飛び方", at="col_fly", off=(0, -78), anchor="middle", keep=True),
+                         dict(t="指示と自動操縦", at="col_fd", off=(-130, -78), anchor="middle", keep=True)])]))),
+    # c310（3行）＝しくみの説明（模式）：自動操縦が入っていても、昇降舵は手の力で（橙）・水平安定板は自動操縦（水色）。
+    #   前の全面の絵 c308（C1 画面）から置き場が替わる＝切り替えの字
+    "c310": dict(fig=("illu", dict(
+        place="C2", start=dict(c2kind="model", switch="on"), rec=R2["body"],
+        steps=[dict(),
+               dict(state=dict(c2ap="on", c2hand="on", c2arrow="hand", c2elev=7.0), rec=R2["hand"], dur=1.4,
+                    tag=[dict(t="手の力（押す）", at="te", off=(-40, 210), anchor="middle", keep=True),
+                         dict(t="自動操縦", at="ths", off=(-430, -230), anchor="middle", keep=True)]),
+               dict(state=dict(c2hl="elev"), tag=dict(t="オーバーライド", at="elev", off=(150, -170), anchor="middle"))]))),
+    # c312（2行）＝しくみの説明（模式）：効くのは昇降舵だけ → 水平安定板は自動操縦のとおりに動き続ける（0度→−6度・ゆっくり）
+    "c312": dict(fig=("illu", dict(
+        place="C2", start=dict(c2kind="model", c2ap="on", c2hand="on", c2elev=7.0), rec=R2["ap"],
+        steps=[dict(state=dict(c2hl="elev"), tag=dict(t="手で動くのは昇降舵", at="elev", off=(40, -190), anchor="middle")),
+               dict(state=dict(c2hl="ths", c2ths=-6.0), rec=R2["ap"], dur=3.4,
+                    tag=dict(t="自動操縦のとおり", at="ths", off=(-430, -230), anchor="middle"))]))),
+    # c316（2行・★だった行）＝上の端の寄り（付図29 の 14'06" の枠を例に）。GO AROUND に「改修の対象外」（報告書 p78＝MOD.7187）
+    "c316": dict(fig=("illu", dict(
+        place="C1", start=dict(view="band", c1f="1406", switch="on"), rec=R1["f29"],
+        steps=[dict(),
+               dict(state=dict(c1ring="ga"), rec="報告書 p78（LANDTrack及びGOAROUNDモード以外のモードでは…APがディスエンゲージされる）",
+                    tag=dict(t="改修の対象外", at="ga", off=(0, -96), anchor="middle"))]))),
+    # c320（3行）＝上の端の寄り＋LAND のボタン。2行目で押す → GO AROUND は消えない（×）
+    "c320": dict(fig=("illu", dict(
+        place="C1", start=dict(view="band", c1f="1406", switch="on"), rec=R1["f29"],
+        steps=[dict(state=dict(c1land="on"), rec=R1["land"], tag=dict(t="LAND のボタン", at="land", off=(70, 6))),
+               dict(state=dict(c1land="press", c1ring="ga"), rec=R1["land"]),
+               dict()]))),
+})

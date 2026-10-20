@@ -162,11 +162,39 @@ def main(only=None):
         if k in mini_il:
             continue
         bycut[screen(k)] += boxes(svg, k)
+    # 🆕 2026-10-20（17本目 ⑤b-3）：全面の再現イラストの**絵の層どうし**（`<cid>_il<番号>`）で、段の頭と各段の終わりに**同時に見えていない**組
+    #    （同じ位置で入れ替える付図29 の枠 14'12"→14'18"・押す前と後の LAND のボタン・灯の消えた形と点いた形）は別の画面＝重なりに数えない。
+    #    重なるのは入れ替えの 0.6秒だけ（溶けて替わる）。見え方は描く側の鍵（akeys があれば akeys・無ければ keys の a）を段の終わりで読む。
+    #    🔴 札の層（`_a<番号>`）・上の層（`_base`）は今までどおり全部の組を比べる（段をまたいで残る札がある＝16本目 ⑤b-8）
+    il_vis = {}
+    for _cid, m_ in S.STAGE_META.items():
+        il_ = m_.get("illu") or {}
+        if not il_.get("full"):
+            continue
+        for sc_ in il_.get("scenes") or []:
+            nst = int(sc_.get("nstage") or 0)
+            for p_ in sc_.get("parts") or []:
+                ks = p_.get("akeys") or p_.get("keys") or []
+                vis = set()
+                for i_ in range(-1, nst):
+                    a_ = 1.0
+                    for kk in ks:
+                        if (i_ < 0 and kk is ks[0]) or (i_ >= 0 and int(kk.get("stage", 0)) <= i_):
+                            a_ = float(kk.get("a", 1.0))
+                    if a_ > 0.5:
+                        vis.add(i_)
+                if p_.get("name"):
+                    il_vis[p_["name"]] = vis
+
+    def il_apart(la, lb):
+        return la in il_vis and lb in il_vis and not (il_vis[la] & il_vis[lb])
     for cid in sorted(bycut):
         bs = bycut[cid]
         for i in range(len(bs)):
             for j in range(i + 1, len(bs)):
                 a, b = bs[i], bs[j]
+                if il_apart(a[5], b[5]):
+                    continue
                 ix = min(a[2], b[2]) - max(a[0], b[0])
                 iy = min(a[3], b[3]) - max(a[1], b[1])
                 if ix > 6 and iy > 6:

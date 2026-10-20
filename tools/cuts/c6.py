@@ -79,3 +79,38 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ── 🆕 ⑤b-3（2026-10-20）：再現イラスト C1（画面の上の端）・C2（尾翼）＝`tools/illu17.py`・門番 check_illu ㉛㉜ ──
+from illu17 import C1_REC as R1, C2_REC as R2  # noqa: E402  置き場の部品の出典（描く側と同じ文）
+
+SPEC.update({
+    # c601（3行・章の頭・20:14:49）＝上の端の寄り。1行目に語りの時刻（本文 p46 の 14分49秒＝付図29 の枠の 14'48" は札にしない）→
+    #   2行目で DUAL に輪 → 3行目で 14'48" の枠（DUAL が消え、GO AROUND は残る）
+    "c601": dict(fig=("illu", dict(
+        place="C1", at="20:14:49", start=dict(view="band", c1f="1418", switch="on"), rec=R1["f29"],
+        steps=[dict(tag=dict(t="20:14:49", xy=(480, 168), anchor="middle")),
+               dict(state=dict(c1ring="dual")),
+               dict(state=dict(c1f="1448", c1ring="ga"), rec=R1["f29"],
+                    tag=dict(t="GO AROUND は残る", at="ga", off=(0, -96), anchor="middle"))]))),
+    # c602（3行・20:14:49〜15:11）＝尾翼。自動操縦は切れた（水色が消える）・水平安定板は −12.3度のまま（−5.3度の点線と比べる）
+    "c602": dict(fig=("illu", dict(
+        place="C2", at="20:14:49", start=dict(c2ths=-12.3, c2elev=8.5, c2ap="on", c2hand="on", c2ghost="on", switch="on"),
+        rec="報告書 p56（14分37秒 THSは機首上げ一杯の-12.3°・エレベータは機首下げ方向に8.5°）",
+        steps=[dict(state=dict(c2ap="off", c2hl="ths"), rec="報告書 p56（14分49秒 APはディスエンゲージされたがTHSは-12.3°のまま）",
+                    tag=dict(t="−12.3度のまま", at="le", off=(-260, 140), anchor="middle", keep=True)),
+               dict(tag=dict(t="20:15:11 まで", at="ths", off=(-430, -230), anchor="middle")),
+               dict()]))),
+    # c617（3行・しくみ＝報告書 p57 の可能性 ① ②）＝上の端と時刻の帯（14'18" の枠）。① DUAL＝自動操縦が入っている・② GO AROUND
+    "c617": dict(fig=("illu", dict(
+        place="C1", start=dict(view="time", c1f="1418"), rec=R1["f29"],
+        steps=[dict(state=dict(c1ring="dual"), tag=dict(t="① DUAL＝自動操縦", at="dual_low", off=(-40, 150), anchor="middle", keep=True)),
+               dict(state=dict(c1eye="on"), rec=R1["eye"]),
+               dict(state=dict(c1ring="ga"), tag=dict(t="② 解除されたと思った", at="ga", off=(60, -84), anchor="middle", keep=True))]))),
+    # c620（3行・しくみ＝報告書 p58 の ①「FMA上のGOAROUNDの表示がいつまでも変わらないこと」）＝上の端と時刻の帯
+    "c620": dict(fig=("illu", dict(
+        place="C1", start=dict(view="time", c1f="1418"), rec=R1["f29"],
+        steps=[dict(),
+               dict(state=dict(c1ring="ga"), rec="報告書 p58（FMA上のGOAROUNDの表示がいつまでも変わらないこと）",
+                    tag=dict(t="ずっと GO AROUND", at="bar_ga", off=(0, -52), anchor="middle", keep=True)),
+               dict()]))),
+})

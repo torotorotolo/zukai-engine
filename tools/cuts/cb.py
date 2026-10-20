@@ -109,3 +109,22 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ── 🆕 ⑤b-3（2026-10-20）：再現イラスト C1（画面の上の端）＝`tools/illu17.py`・門番 check_illu ㉛ ──
+from illu17 import C1_REC as R1  # noqa: E402  置き場 C1 の部品の出典（描く側と同じ文）
+
+SPEC.update({
+    # cb09（2行・★だった行・報告書 p104 の求め）＝上の端と時刻の帯（14'18" の枠）。目の印＋GO AROUND に輪 → 2行目「表示のしかた」
+    "cb09": dict(fig=("illu", dict(
+        place="C1", start=dict(view="time", c1f="1418"), rec=R1["f29"],
+        steps=[dict(state=dict(c1eye="on", c1ring="ga"), rec="報告書 p104（人間の認知過程を考慮したAFS（機能、モード表示方式、警報・認識機能））"),
+               dict(tag=dict(t="表示のしかた", at="ga", off=(60, -84), anchor="middle"))]))),
+    # cb27（3行）＝最初の絵に戻る（画面ぜんたい・14'12" の枠）。2行目で GO AROUND に輪（報告書 p45・判決 PDF 89頁＝フライトモード表示器に表示）
+    "cb27": dict(fig=("illu", dict(
+        place="C1", start=dict(view="all", c1f="1412"), rec=R1["f29"],
+        steps=[dict(),
+               dict(state=dict(c1ring="ga"),
+                    rec="報告書 p45（FMAの表示がGOAROUNDのまま）・判決 p2089（フライトモード表示器上にはゴーアラウンドモード…が表示されていた）",
+                    tag=dict(t="画面の上の端", at="ga", off=(0, -80), anchor="middle")),
+               dict()]))),
+})

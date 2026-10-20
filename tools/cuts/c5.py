@@ -88,3 +88,57 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ── 🆕 ⑤b-3（2026-10-20）：再現イラスト C1（画面の上の端）・C2（尾翼）・C3（操縦室の手）＝`tools/illu17.py`・門番 check_illu ㉛㉜㉝ ──
+from illu17 import C1_REC as R1, C2_REC as R2, C3_REC as R3  # noqa: E402  置き場の部品の出典（描く側と同じ文）
+
+SPEC.update({
+    # c502（2行・20:14:18）＝上の端の寄り。14'12" の枠 → 2行目で 14'18"＝右の欄に DUAL（2つの自動操縦）
+    "c502": dict(fig=("illu", dict(
+        place="C1", at="20:14:18", start=dict(view="band", c1f="1412", switch="on"), rec=R1["f29"],
+        steps=[dict(state=dict(c1ring="ga")),
+               dict(state=dict(c1f="1418", c1ring="dual"), rec=R1["f29"],
+                    tag=dict(t="自動操縦（2つ）", at="dual_low", off=(-40, 190), anchor="middle"))]))),
+    # c509（2行・20:14:18〜20）＝尾翼。自動操縦は機首上げへ動かそうとした（水色の矢印）→ 昇降舵は手で押さえたまま（機首下げ3.5度・p44）・
+    #   水平安定板は −5.3度から動き始めた（p45＝−6.0度まで・ゆっくり）
+    "c509": dict(fig=("illu", dict(
+        place="C2", at="20:14:20", start=dict(c2ths=-5.3, c2elev=3.5, c2ap="on", c2hand="on", switch="on"),
+        rec="報告書 p44（14分18秒…エレベータは…機首下げ3.5°）・p54（THS機首上げ-5.3°）",
+        steps=[dict(state=dict(c2arrow="ap"), rec=R2["arrow_ap"],
+                    tag=dict(t="自動操縦：機首上げへ", at="ths", off=(-430, -230), anchor="middle")),
+               dict(state=dict(c2arrow="off", c2hl="ths", c2ths=-6.0), rec="報告書 p45（THSは-5.3°の位置からなお機首上げ方向へ動き始めている）",
+                    dur=3.0, tag=dict(t="手で押さえた昇降舵", at="te", off=(-40, 210), anchor="middle"))]))),
+    # c513（3行・20:14:23）＝操縦室の中。副操縦士の手は右の操縦輪（自動操縦の灯は点いている＝14分18秒から）→ 3行目で押す（橙の矢印）
+    "c513": dict(fig=("illu", dict(
+        place="C3", at="20:14:23", start=dict(c3yoke="on", c3ap="on", switch="on"),
+        rec="報告書 p55（副操縦士が操縦輪を押し続けていた）・p5（APがNo.2そしてNo.1とほぼ同時にエンゲージ）",
+        steps=[dict(),
+               dict(tag=dict(t="20:14:23", xy=(660, 140), anchor="middle")),
+               dict(state=dict(c3push="on"), rec=R3["push"], tag=dict(t="押す", at="push", off=(-120, -10), anchor="end"))]))),
+    # c514（2行・20:14:30）＝上の端と時刻の帯。1行目の「そして14分30秒」で時刻の線 → 2行目で目の印（GO AROUND のままなのを見た）
+    "c514": dict(fig=("illu", dict(
+        place="C1", at="20:14:30", start=dict(view="time", c1f="1418", switch="on"), rec=R1["f29"],
+        steps=[dict(state=dict(c1cur="20:14:30"), rec=R1["cur"], delay=3.4),
+               dict(state=dict(c1eye="on", c1ring="ga"), rec=R1["eye"])]))),
+    # c518（2行・★だった行・20:14:18〜37）＝尾翼。2行目で水平安定板が −5.3度（点線）から −12.3度へ（約18秒＝札）・昇降舵は押されて 8.5度（p56）
+    "c518": dict(fig=("illu", dict(
+        place="C2", at="20:14:37", start=dict(c2ths=-5.3, c2elev=3.5, c2ap="on", c2hand="on", c2ghost="on"),
+        rec="報告書 p44（エレベータは…機首下げ3.5°）・p54（THS機首上げ-5.3°）",
+        steps=[dict(),
+               dict(state=dict(c2ths=-12.3, c2elev=8.5, c2arc="on", c2hl="ths"), dur=2.6,
+                    rec="報告書 p5（約18秒の間に、THSの角度は-5.3°から…-12.3°まで）・p56（エレベータは機首下げ方向に8.5°）",
+                    tag=[dict(t="約18秒", at="ghost", off=(-200, -160), anchor="middle"),
+                         dict(t="限界近く", at="le", off=(-260, 140), anchor="middle")])]))),
+    # c520（2行・20:14:45）＝上の端と時刻の帯。時刻の線と目の印（再び GO AROUND を指摘）
+    "c520": dict(fig=("illu", dict(
+        place="C1", at="20:14:45", start=dict(view="time", c1f="1418", switch="on"), rec=R1["f29"],
+        steps=[dict(state=dict(c1cur="20:14:45", c1eye="on", c1ring="ga"), rec=R1["eye"]),
+               dict()]))),
+    # c523（2行・20:14:49）＝操縦室の中。2行目で自動操縦の灯（AP 1・AP 2）が消える（切った手の動きは記録に無い＝描かない）
+    "c523": dict(fig=("illu", dict(
+        place="C3", at="20:14:49", start=dict(c3yoke="on", c3push="on", c3ap="on", switch="on"),
+        rec="報告書 p55（副操縦士が操縦輪を押し続けていた）・p5（APがNo.2そしてNo.1とほぼ同時にエンゲージ）",
+        steps=[dict(),
+               dict(state=dict(c3ap="off"), rec=R3["lamps_off"],
+                    tag=dict(t="自動操縦（2つ）", at="lamps", off=(0, 150), anchor="middle"))]))),
+})

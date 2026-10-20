@@ -100,3 +100,42 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ── 🆕 ⑤b-3（2026-10-20）：再現イラスト C1（画面の上の端）・C2（尾翼）・C3（操縦室の手）＝`tools/illu17.py`・門番 check_illu ㉛㉜㉝ ──
+from illu17 import C1_REC as R1, C3_REC as R3  # noqa: E402  置き場の部品の出典（描く側と同じ文）
+
+SPEC.update({
+    # c709（2行・しくみ＝p47「アルファ・フロア機能が作動すると、FMA上にTHRLが表示される」）＝上の端の寄り。14'48" の枠 →
+    #   2行目で 15'02" の枠（推力の欄に THR L〈緑〉）
+    "c709": dict(fig=("illu", dict(
+        place="C1", start=dict(view="band", c1f="1448", switch="on"), rec=R1["f29"],
+        steps=[dict(state=dict(c1ring="thr"), tag=dict(t="推力の欄", at="thrcol", off=(30, -96), anchor="middle")),
+               dict(state=dict(c1f="1502"), rec="報告書 p47（アルファ・フロア機能が作動すると、FMA上にTHRLが表示される）")]))),
+    # c710（3行・20:15:03）＝操縦室の中。1行目に時刻 → 2行目で副操縦士の手が右の操縦輪から離れ、機長（左の席）の手が左の操縦輪へ（交替＝p47・p73）
+    "c710": dict(fig=("illu", dict(
+        place="C3", at="20:15:03", start=dict(c3yoke="on", switch="on"), rec=R3["hand_yoke"],
+        steps=[dict(tag=dict(t="20:15:03", xy=(660, 140), anchor="middle")),
+               dict(state=dict(c3yoke="off", c3cap="on"), rec=R3["hand_cap"], dur=1.4,
+                    tag=dict(t="機長（左の席）", at="yoke_L", off=(240, -150), anchor="start")),
+               dict()]))),
+    # c712（3行・20:15:03）＝尾翼。水平安定板は機首上げの限界（−12.3度＝p56）のまま。機長はつかめていなかった（p58）
+    #   ⚠️ 昇降舵の角度は 14分57秒の記録（9.9度＝p56）＝15分03秒の値は記録に無い
+    "c712": dict(fig=("illu", dict(
+        place="C2", at="20:15:03", start=dict(c2ths=-12.3, c2elev=9.9, c2hand="on", switch="on"),
+        rec="報告書 p56（14分57秒…THS-12.3°及びエレベータ角9.9°）",
+        steps=[dict(),
+               dict(state=dict(c2lim="on", c2hl="ths"),
+                    rec="報告書 p56（THSは機首上げ一杯の-12.3°）・p58（THSが機首上げ限界になっていたことについては、把握できていなかった）",
+                    tag=dict(t="機首上げの限界", at="lim", off=(-70, 40), anchor="end")),
+               dict()]))),
+    # c716（2行・20:15:13）＝画面ぜんたい。15'11" の枠 → 1行目で 15'13"（ピッチ角 25度超＝上の端と下り道の目盛りが消える）→
+    #   2行目で残る3つ（姿勢・速さ・方位）に札（付図29 の注）
+    "c716": dict(fig=("illu", dict(
+        place="C1", at="20:15:13", start=dict(view="all", c1f="1511", c1att="high", switch="on"),
+        rec="付図29 p1（15'11\" の枠）・報告書 p83（ピッチ角は…約18°に達した）",
+        steps=[dict(state=dict(c1f="1513", c1att="up"), rec=R1["att_up"], dur=1.2,
+                    tag=dict(t="20:15:13", xy=(1452, 236))),
+               dict(tag=[dict(t="姿勢", at="att", off=(330, -30)),
+                         dict(t="速さ", at="spd_tape", off=(-170, 0), anchor="end"),
+                         dict(t="方位", at="hdg", off=(420, 4))])]))),
+})

@@ -1200,6 +1200,230 @@ def judge_sd(sc, where):
     return bad, n
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 17本目 ⑤b-3（2026-10-20）：㉛ C1（画面の上の端＝付図29）・㉜ C2（尾翼）・㉝ C3（操縦室の手）＝`tools/illu17.py`
+# ══════════════════════════════════════════════════════════
+# 🔴 記録の値は門番の側に持つ（§5b-88＝illu17 の定数を読まない）。字と色は描く側の SVG の <text> から読む（型の表を読まない）
+REC_C1 = dict(
+    # 付図29「FMA表示の推定」（p135）の8つの枠＝(20:14:00 からの秒, ((字, 色), …))。色 w＝注記なし・g＝(green)・b＝(blue)
+    frames={"1400": (0, (("SPD", "w"), ("GS", "g"), ("LOC", "g"), ("CAT1", "w"), ("FD1", "w"))),
+            "1406": (6, (("THR", "w"), ("GO AROUND", "w"), ("ALT", "b"), ("FD1", "w"))),
+            "1412": (12, (("MAN THR", "w"), ("GO AROUND", "w"), ("ALT", "b"), ("FD1", "w"))),
+            "1418": (18, (("MAN THR", "w"), ("GO AROUND", "w"), ("ALT", "b"), ("FD1", "w"), ("DUAL", "w"))),
+            "1448": (48, (("MAN THR", "w"), ("GO AROUND", "w"), ("ALT", "b"), ("FD1", "w"))),
+            "1502": (62, (("THR L", "g"), ("GO AROUND", "w"), ("ALT", "b"), ("FD1", "w"))),
+            "1511": (71, (("MAN THR", "w"), ("GO AROUND", "w"), ("ALT", "b"), ("FD1", "w"))),
+            "1513": (73, ())},
+    t0=20 * 3600 + 14 * 60,        # 14'00"＝世界共通の時刻 11:14:00 ＋9時間
+    src="付図29（推定）",           # 出典の行に要る字（付図29 の題は「推定」＝映像方針 17本目 §5-5）
+    rec="付図29 p135（8つの枠）・注（PITCH 角が25°を越えると Attitude・Speed・Heading 以外の PFD の表示は消える）")
+# 札と絵の字に出してよい時刻（秒まで）＝台本 §1-6 の1つに決まる時刻・語りの時刻・付図29 の枠の時刻・時刻の帯の目盛り
+#   ✗ 20:14:48（付図29 の枠の 14'48"＝本文 p46・p56 の 14分49秒と割れる）・20:15:02 の交替（p5 の流れ＝交替は p47・p73 の 15分03秒）
+REC_C17_CLOCK = {"20:14:00": "付図29 の 14'00\"（c220 の語り「20時14分」）・時刻の帯の目盛り", "20:14:05": "p5・p51（ゴー・レバー）",
+                 "20:14:10": "p44", "20:14:12": "p44・p52", "20:14:23": "p45", "20:14:30": "p45・時刻の帯の目盛り", "20:14:45": "p46",
+                 "20:14:49": "p46・p56", "20:15:00": "時刻の帯の目盛り", "20:15:03": "p47・p73", "20:15:11": "p5・p47",
+                 "20:15:13": "付図29 の 15'13\""}
+REC_C2 = dict(ths_lo=-12.3, ths_hi=-5.3,                       # 水平安定板＝-5.3°（p54・p44）から機首上げ一杯の -12.3°（p56）まで
+              ths_at=(("20:14:18", -5.3, "p44（THSは-5.3°位置で変化はない）"), ("20:14:37", -12.3, "p46・p56（14分37秒 -12.3°）")),
+              ths_hold="20:15:11",                              # -12.3° のまま（p5「同15分11秒まで引き続き-12.3°のまま」）
+              elev={3.5: "p44（14分18秒 機首下げ3.5°）", 8.5: "p56（14分37秒 8.5°）", 9.9: "p56（14分57秒 9.9°）"},
+              ap=("20:14:18", "20:14:49"),                      # 自動操縦が入っていた間（p5・p44・p46）
+              ghost=-5.3, lim=-12.3, sec18=("約18秒", -5.3, -12.3))
+REC_C3 = dict(fo="R",                                           # 副操縦士は右席（p73「右席で実施」）
+              cap_from="20:15:03",                              # 機長の手は交替から（p47・p73＝それまで手足の位置は明らかにできなかった）
+              levers=2, go_lever=0,                             # 両スラスト・レバー（p51）・ゴー・レバーは左のスラスト・レバー（写真51）
+              ap=("20:14:18", "20:14:49"))
+C17_PLACES = ("C1", "C2", "C3")
+_TXT = re.compile(r'<text[^>]*?fill="(#[0-9a-fA-F]{6})"[^>]*>([^<]*)</text>')
+CLOCK_SEC = re.compile(r"(\d{1,2}):(\d{2})(?::(\d{2}))?")
+
+
+def _sec17(hms):
+    m = CLOCK_SEC.fullmatch(str(hms or "").strip())
+    return int(m.group(1)) * 3600 + int(m.group(2)) * 60 + int(m.group(3) or 0) if m else None
+
+
+def _col17(hexv):
+    """字の色の類（描く側の値を読まない＝色相で分ける）：w＝白・g＝緑・b＝青・?＝それ以外"""
+    r, g, b = (int(hexv[k:k + 2], 16) for k in (1, 3, 5))
+    if min(r, g, b) >= 200:
+        return "w"
+    if g >= 170 and r < 150 and b < 170:
+        return "g"
+    if b >= 200 and r < 140:
+        return "b"
+    return "?"
+
+
+def _kv17(keys, i, name, dflt):
+    """鍵の並びの、段 i の終わりの値（stage ≤ i の最後の鍵）"""
+    v = dflt
+    for k in keys or []:
+        if int(k.get("stage", 0)) <= i:
+            v = float(k.get(name, dflt))
+    return v
+
+
+def _texts17(sc):
+    out = [t for tg in sc["tags"] for t in (tg.get("texts") or [])] + [sc.get("view") or "", sc.get("src") or ""]
+    for p in sc["parts"]:
+        out += [m.group(2) for m in _TXT.finditer(p.get("svg") or "")]
+    return out
+
+
+def judge_c17(sc, where):
+    """㉛ C1・㉜ C2・㉝ C3（17本目）。共通＝時刻は秒まで表の値だけ・CVR の言葉（「」）を札にしない・人の部品なし"""
+    if sc["place"] not in C17_PLACES:
+        return [], 0
+    bad, n = [], 1
+    mark = dict(C1="㉛", C2="㉜", C3="㉝")[sc["place"]]
+    for t in _texts17(sc):
+        for m in CLOCK_SEC.finditer(t):
+            n += 1
+            hms = m.group(0)
+            if not m.group(3):
+                bad.append(f"{mark}{where}：「{t}」の時刻 {hms} に秒が無い（17本目の時刻の札は秒まで＝割れを秒で見る）")
+            elif hms not in REC_C17_CLOCK:
+                bad.append(f"{mark}{where}：「{t}」の時刻 {hms} は表 REC_C17_CLOCK の時刻でない（台本 §1-6・付図29 の 14'48\" は本文の 14分49秒と割れる）")
+    for t in [x for tg in sc["tags"] for x in (tg.get("texts") or [])]:
+        n += 1
+        if "「" in t or "」" in t:
+            bad.append(f"{mark}{where}：札「{t}」に「」＝CVR の言葉を絵の文字にしない（語りと字幕だけ＝台本 §1-4）")
+    if _no_people(sc):
+        bad.append(f"{mark}{where}：人の部品（役割・型紙・群れ・people）を置いた（17本目は乗員の影の手だけ＝C3 の hand）")
+    at = _sec17(sc.get("at"))
+    sts = [sc["start"]] + list(sc["states"])
+    G = {p["id"]: p for p in sc["parts"]}
+    if sc["place"] == "C1":
+        n += 1
+        if REC_C1["src"] not in (sc.get("src") or ""):
+            bad.append(f"㉛{where}：出典の行に「{REC_C1['src']}」が無い（付図29 は推定＝映像方針 §5-5）")
+        shown = set()
+        for p in sc["parts"]:
+            g = p.get("geo") or {}
+            if g.get("kind") != "fma":
+                continue
+            n += 1
+            k = g.get("frame")
+            if k not in REC_C1["frames"]:
+                bad.append(f"㉛{where}：枠 {k} は付図29 の8つの枠でない")
+                continue
+            got = sorted((t, _col17(c)) for c, t in ((m.group(1), m.group(2)) for m in _TXT.finditer(p["svg"])))
+            want = sorted(REC_C1["frames"][k][1])
+            if got != want:
+                bad.append(f"㉛{where}：枠 {k} の字と色 {got} が付図29 {want} と違う（{REC_C1['rec']}）")
+            shown.add(k)
+        # 場面の時刻 at の枠＝付図29 の「at より前で一番遅い枠」（at の無い場面＝しくみの説明は例の枠でよい）
+        if at is not None:
+            n += 1
+            want = max((k for k, (s, _c) in REC_C1["frames"].items() if REC_C1["t0"] + s <= at),
+                       key=lambda k: REC_C1["frames"][k][0], default=None)
+            last = sts[-1]["c1f"]
+            if last != want:
+                bad.append(f"㉛{where}：場面の時刻 {sc['at']} の枠は {want}（付図29）なのに、終わりの枠が {last}")
+        for i, st in enumerate(sc["states"]):
+            if st["c1f"] == "1513" and st["view"] == "all":
+                n += 1
+                gp = G.get("gsscale")
+                if gp is None or _kv17(gp["keys"], i, "a", 1.0) > 0.01:
+                    bad.append(f"㉛{where}：段{i + 1} は 15'13\"（表示が消える）のに下り道の目盛りが残る（付図29 の注）")
+                if st["c1att"] != "up":
+                    bad.append(f"㉛{where}：段{i + 1} は 15'13\"（PITCH 角 25.84°）なのに姿勢が up でない")
+            if st["c1att"] == "up" and st["c1f"] != "1513":
+                bad.append(f"㉛{where}：段{i + 1} の姿勢 up（25度超）は 15'13\" の枠だけ（付図29 の注）")
+    if sc["place"] == "C2":
+        n += 1
+        ths, elv = G.get("ths"), G.get("elev")
+        if not ths or not elv:
+            return bad + [f"㉜{where}：水平安定板（ths）か昇降舵（elev）の部品が無い"], n
+        ang = [(_kv17(ths["keys"], i, "rot", 0.0), _kv17(elv["keys"], i, "rot", 0.0) - _kv17(ths["keys"], i, "rot", 0.0))
+               for i in range(len(sc["states"]))]
+        a0 = (float(ths["keys"][0].get("rot", 0.0)), float(elv["keys"][0].get("rot", 0.0)) - float(ths["keys"][0].get("rot", 0.0)))
+        allang = [a0] + ang
+        if sc["start"]["c2kind"] == "model":
+            n += 1
+            if "模式" not in (sc.get("src") or "") or at is not None:
+                bad.append(f"㉜{where}：しくみの説明（model）は時刻 at を持たず、出典の行に「模式」（角度も模式）")
+            if any(abs(t) > 15.0 or abs(e) > 15.0 for t, e in allang):
+                bad.append(f"㉜{where}：模式の角度が ±15度を越える")
+        else:
+            n += 1
+            if at is None:
+                bad.append(f"㉜{where}：記録の角度の場面（rec）なのに時刻 at が無い")
+            for t, e in allang:
+                n += 1
+                if not REC_C2["ths_lo"] - 1e-6 <= t <= REC_C2["ths_hi"] + 1e-6:
+                    bad.append(f"㉜{where}：水平安定板 {t:.1f}度は記録の範囲（{REC_C2['ths_hi']}〜{REC_C2['ths_lo']}度）の外")
+                if not any(abs(e - v) < 0.05 for v in REC_C2["elev"]):
+                    bad.append(f"㉜{where}：昇降舵 {e:.1f}度は記録の値（{sorted(REC_C2['elev'])}＝p44・p56）でない")
+            if at is not None:
+                t_end = allang[-1][0]
+                (s18, v18, _r1), (s37, v37, r37) = REC_C2["ths_at"]
+                if at <= _sec17(s18) and any(abs(t - v18) > 0.05 for t, _e in allang):
+                    bad.append(f"㉜{where}：{sc['at']} は自動操縦の前＝水平安定板は {v18}度のまま（{_r1}）")
+                if _sec17(s37) <= at <= _sec17(REC_C2["ths_hold"]) and abs(t_end - v37) > 0.05:
+                    bad.append(f"㉜{where}：{sc['at']} の水平安定板は {v37}度（{r37}）なのに終わりが {t_end:.1f}度")
+                a_on, a_off = (_sec17(x) for x in REC_C2["ap"])
+                if any(st["c2ap"] == "on" for st in sts) and not a_on <= at <= a_off:
+                    bad.append(f"㉜{where}：{sc['at']} に自動操縦の色（c2ap）＝自動操縦は {REC_C2['ap'][0]}〜{REC_C2['ap'][1]} だけ")
+                if at >= a_off and sts[-1]["c2ap"] == "on":
+                    bad.append(f"㉜{where}：{sc['at']} は自動操縦を切ったあと＝終わりに自動操縦の色を残さない（p46・p56）")
+        for p in sc["parts"]:
+            g = p.get("geo") or {}
+            if g.get("kind") == "c2ghost" and abs(float(g["deg"]) - REC_C2["ghost"]) > 0.05:
+                bad.append(f"㉜{where}：点線の形 {g['deg']}度＝記録は {REC_C2['ghost']}度（p54）")
+            if g.get("kind") == "c2lim":
+                n += 1
+                if abs(float(g["deg"]) - REC_C2["lim"]) > 0.05:
+                    bad.append(f"㉜{where}：限界の印 {g['deg']}度＝記録は {REC_C2['lim']}度（p56「機首上げ一杯」）")
+                if not any(abs(t - REC_C2["lim"]) < 0.05 for t, _e in allang):
+                    bad.append(f"㉜{where}：水平安定板が限界（{REC_C2['lim']}度）に無い場面に限界の印")
+        for i, tg in enumerate(sc["tags"]):
+            if any(REC_C2["sec18"][0] in t for t in (tg.get("texts") or [])):
+                n += 1
+                prev = allang[i][0]
+                if not (abs(prev - REC_C2["sec18"][1]) < 0.05 and abs(ang[i][0] - REC_C2["sec18"][2]) < 0.05):
+                    bad.append(f"㉜{where}：段{i + 1} の札「{REC_C2['sec18'][0]}」は、その段で水平安定板が -5.3度→-12.3度 に動くときだけ（p5）")
+    if sc["place"] == "C3":
+        hands = [p for p in sc["parts"] if (p.get("geo") or {}).get("kind") == "hand" or p["id"].startswith("hand")]
+        for p in hands:
+            n += 1
+            g = p.get("geo") or {}
+            if g.get("kind") != "hand":
+                bad.append(f"㉝{where}：手の部品 {p['id']} に手の印（geo の kind＝hand）が無い")
+                continue
+            ys = [q[1] for poly in g.get("polys") or [] for q in poly]
+            if not ys or max(ys) < IL.H:
+                bad.append(f"㉝{where}：手 {p['id']} の腕が画面の下の端から来ていない（体・顔を描かない＝腕は画面の外から）")
+            vis = any(_kv17(p["keys"], i, "a", 1.0) > 0.01 for i in range(len(sc["states"]))) or float(p["keys"][0].get("a", 1.0)) > 0.01
+            if g.get("seat") == "L" and vis and (at is None or at < _sec17(REC_C3["cap_from"])):
+                bad.append(f"㉝{where}：機長（左の席）の手を {sc.get('at')} に描いた（交替 {REC_C3['cap_from']} から＝p47・p73）")
+            if g.get("seat") not in ("L", "R"):
+                bad.append(f"㉝{where}：手 {p['id']} の席が無い")
+        lev = next((p for p in sc["parts"] if (p.get("geo") or {}).get("kind") == "c3levers"), None)
+        n += 1
+        if not lev:
+            bad.append(f"㉝{where}：スラスト・レバーの部品が無い")
+        else:
+            g = lev["geo"]
+            if len(g["knobs"]) != REC_C3["levers"]:
+                bad.append(f"㉝{where}：スラスト・レバー {len(g['knobs'])} 本＝記録は {REC_C3['levers']} 本（p51）")
+            kx = sorted(k[0] for k in g["knobs"])
+            want = kx[REC_C3["go_lever"]]
+            near = min(kx, key=lambda x: abs(x - float(g["go"][0])))
+            if near != want or float(g["go"][1]) <= min(k[1] for k in g["knobs"]):
+                bad.append(f"㉝{where}：ゴー・レバーは左のスラスト・レバーのノブの下（写真51・p51）＝いまは x {g['go'][0]}・y {g['go'][1]}")
+        if at is not None:
+            a_on, a_off = (_sec17(x) for x in REC_C3["ap"])
+            if any(st["c3ap"] == "on" for st in sts) and not a_on <= at <= a_off:
+                bad.append(f"㉝{where}：{sc['at']} に自動操縦の灯（自動操縦は {REC_C3['ap'][0]}〜{REC_C3['ap'][1]}）")
+            if at >= a_off and sts[-1]["c3ap"] == "on":
+                bad.append(f"㉝{where}：{sc['at']} は自動操縦を切ったあと＝終わりに灯を残さない（p46）")
+        elif any(st["c3ap"] == "on" or st["c3cap"] == "on" for st in sts):
+            bad.append(f"㉝{where}：時刻 at の無い場面に自動操縦の灯か機長の手")
+    return bad, n
+
+
 def view_dir(sc):
     v = sc.get("view") or ""
     return "上から" if "上から" in v else "横から" if "横から" in v else None
@@ -2030,7 +2254,8 @@ def judge_fig(kind, kw, where):
         b, m = judge_a23(sc, f"{where}#{k + 1}")     # 🆕 19本目 ⑤b-3：㉓
         bad += b
         n += m
-        for jf in (judge_s1, judge_s2, judge_s3, judge_s4, judge_s5, judge_s6, judge_s7):  # 🆕 20本目 ⑤b-3：㉔㉕㉖・⑤b-4：㉗㉘㉙㉚
+        for jf in (judge_s1, judge_s2, judge_s3, judge_s4, judge_s5, judge_s6, judge_s7,  # 🆕 20本目 ⑤b-3：㉔㉕㉖・⑤b-4：㉗㉘㉙㉚
+                   judge_c17):                                                        # 🆕 17本目 ⑤b-3：㉛㉜㉝
             b, m = jf(sc, f"{where}#{k + 1}")
             bad += b
             n += m
@@ -3440,9 +3665,96 @@ def _selftest_ep20b():
     return ok
 
 
+def selftest_ep17():
+    """🆕 17本目 ⑤b-3（2026-10-20）：㉛ C1・㉜ C2・㉝ C3 の検算（本番の表＝17本目の値のまま）。正しい場面（本番の SPEC）が通り、
+    わざと壊した場面（陽性対照）が ㉛㉜㉝ で落ちること。描く側の定数を壊す対照は、終わったら必ず戻す（try/finally）"""
+    import copy
+    import cuts
+    import illu17 as I17
+    ok = True
+    good = {c: cuts.SPEC[c]["fig"][1] for c in ("c220", "c514", "c601", "c716", "c509", "c518", "c602", "c712", "c402", "c513", "c710")
+            if c in cuts.SPEC}
+    if len(good) < 11:
+        print("  🔴 NG 17本目：正しい場面の SPEC が揃っていない（selftest の前提）")
+        return False
+
+    def run(spec):
+        sc = IL.scene(**spec)
+        return judge_c17(sc, "selftest")[0] + judge_scene(sc, "selftest")[0]
+    for cid, spec in good.items():
+        b = run(spec)
+        ok &= not b
+        print(f"  {'OK' if not b else '🔴 NG'} 17本目 正しい {cid}: {'合格' if not b else b[0]}")
+
+    def bad_case(name, spec, head):
+        nonlocal ok
+        try:
+            b = [x for x in run(spec) if x.startswith(head)]
+        except Exception as e:          # noqa: BLE001
+            b = [f"組めない：{e}"]
+        ok &= bool(b)
+        print(f"  {'OK' if b else '🔴 NG'} 🔴 17本目 陽性対照{head}：{name}: {'不合格' if b else '合格'}（不合格のはず）" + (f"  ← {b[0]}" if b else ""))
+
+    def tweak(cid, **kw):
+        s = copy.deepcopy(good[cid])
+        for k, v in kw.items():
+            s[k] = v
+        return s
+    # ㉛ C1
+    bad_case("14分30秒の場面に 14'12\" の枠", tweak("c514", start=dict(view="time", c1f="1412")), "㉛")
+    bad_case("時刻の札に付図29 の枠の 20:14:48", tweak("c601", steps=[dict(tag=dict(t="20:14:48", xy=(960, 168))), dict(), dict(
+        state=dict(c1f="1448"), rec=I17.C1_REC["f29"])]), "㉛")
+    bad_case("秒の無い時刻の札（20:14）", tweak("c220", steps=[dict(), dict(tag=dict(t="20:14", xy=(1452, 236)))]), "㉛")
+    bad_case("出典の行に付図29（推定）が無い", tweak("c220", src="出典：報告書"), "㉛")
+    bad_case("札に「」（CVR の言葉）", tweak("c220", steps=[dict(), dict(tag=dict(t="「それを解除して。」", xy=(1452, 236)))]), "㉛")
+    bad_case("15'13\" なのに姿勢が high のまま", tweak("c716", steps=[dict(state=dict(c1f="1513"), rec=I17.C1_REC["att_up"]), dict()]), "㉛")
+    keep = I17.C1_FRAMES["1418"]
+    try:
+        I17.C1_FRAMES["1418"] = dict(keep, cells=keep["cells"] + (("m", 1, "LAND", "w"),))
+        bad_case("描く側の枠に記録に無い字（14'18\" に LAND）", good["c514"], "㉛")
+        I17.C1_FRAMES["1418"] = dict(keep, cells=tuple(("m", r, t, "g") if t == "GO AROUND" else (c, r, t, k) for c, r, t, k in keep["cells"]))
+        bad_case("描く側の枠の色（GO AROUND を緑に）", good["c514"], "㉛")
+    finally:
+        I17.C1_FRAMES["1418"] = keep
+    # ㉜ C2
+    bad_case("記録の範囲の外の角度（水平安定板 -13度）", tweak("c518", steps=[dict(), dict(state=dict(c2ths=-13.0, c2elev=8.5), rec="報告書 p5")]), "㉜")
+    bad_case("記録に無い昇降舵の角度（5度）", tweak("c509", start=dict(c2ths=-5.3, c2elev=5.0, c2ap="on", c2hand="on")), "㉜")
+    bad_case("切ったあとの 20:15:03 に自動操縦の色", tweak("c712", start=dict(c2ths=-12.3, c2elev=9.9, c2hand="on", c2ap="on")), "㉜")
+    bad_case("14分37秒なのに水平安定板が -5.3度のまま", tweak("c518", steps=[dict(), dict()]), "㉜")
+    bad_case("「約18秒」を動かない段に", tweak("c602", steps=[dict(state=dict(c2ap="off"), rec="報告書 p56",
+                                                             tag=dict(t="約18秒", at="le")), dict(), dict()]), "㉜")
+    bad_case("記録の場面に時刻 at が無い", tweak("c509", at=None), "㉜")
+    keep = I17.C2_GHOST
+    try:
+        I17.C2_GHOST = -6.0
+        bad_case("描く側の点線の形を -6度に", good["c518"], "㉜")
+    finally:
+        I17.C2_GHOST = keep
+    # ㉝ C3
+    bad_case("機長の手を交替の前（20:14:23）に", tweak("c513", start=dict(c3yoke="on", c3ap="on", c3cap="on")), "㉝")
+    bad_case("自動操縦の灯を 20:14:10 に", tweak("c402", start=dict(c3ap="on", switch="on")), "㉝")
+    keep = dict(I17.C3_HANDS)
+    try:
+        I17.C3_HANDS["thr"] = dict(seat="R", shapes=[I17._hand_shape((1300.0, 820.0), (1088.0, 706.0), (1012.0, 646.0), 62.0,
+                                                                     (968.0, 690.0))])
+        bad_case("描く側の手の腕が画面の下の端に届かない", good["c402"], "㉝")
+    finally:
+        I17.C3_HANDS.clear()
+        I17.C3_HANDS.update(keep)
+    keep = I17.C3_GO
+    try:
+        I17.C3_GO = (1005.0, 668.0)
+        bad_case("描く側のゴー・レバーを右のレバーに", good["c402"], "㉝")
+    finally:
+        I17.C3_GO = keep
+    print(f"  {'OK' if ok else '🔴 NG'} 17本目 ㉛㉜㉝ の検算")
+    return ok
+
+
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
-    ok20 = selftest_ep20()        # 🆕 20本目 ⑤b-3（2026-10-08）。2026-10-12〜：20本目も見本 fixture_ep20 の表＝selftest_ep20 が差し込んで・終わったら戻す
+    ok17 = selftest_ep17()        # 🆕 17本目 ⑤b-3（2026-10-20）：本番の表（17本目の値）のまま＝見本の差し込みより前に回す
+    ok20 = selftest_ep20() and ok17   # 🆕 20本目 ⑤b-3（2026-10-08）。2026-10-12〜：20本目も見本 fixture_ep20 の表＝selftest_ep20 が差し込んで・終わったら戻す
     ok19 = selftest_a1() and ok20  # 🆕 19本目 ⑤b-2（2026-10-08〜：見本 fixture_ep19 の表＝selftest_a1 が差し込んで・終わったら戻す）
     ok19 = selftest_a23() and ok19     # 🆕 19本目 ⑤b-3
     # 🆕 2026-10-04（18本目 ⑤b-2）：先に18本目を検算する＝見本の差し込み（16・15・14本目）より前

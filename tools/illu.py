@@ -7624,3 +7624,5 @@ def illu_pair(blocks, lead=""):
 
 # 🆕 20本目 ⑤b-3（2026-10-08）：回の置き場（S1・S2・S3）を型の表へ足す（このファイルの全部が読まれたあと＝illu20 は illu を読む）
 import illu20  # noqa: E402,F401
+# 🆕 17本目 ⑤b-3（2026-10-20）：回の置き場（C1 画面の上の端・C2 尾翼・C3 操縦室の手）＝`tools/illu17.py`（同じ作り）
+import illu17  # noqa: E402,F401

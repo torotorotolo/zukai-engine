@@ -79,3 +79,17 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ── 🆕 ⑤b-3（2026-10-20）：再現イラスト C1（画面の上の端＝`tools/illu17.py`・門番 check_illu ㉛）──
+from illu17 import C1_REC as R1  # noqa: E402  置き場 C1 の部品の出典（描く側と同じ文）
+
+SPEC.update({
+    # c220（2行）＝画面ぜんたい・付図29 の 14'00"（SPD・GS〈緑〉・LOC〈緑〉・CAT1・FD1）。2行目で GS・LOC に輪＋語りの「20時14分」の枠の時刻。
+    #   前の全面の絵 c218（C4 断面＝横から）から置き場が替わる＝切り替えの字
+    "c220": dict(fig=("illu", dict(
+        place="C1", at="20:14:00", start=dict(view="all", c1f="1400", switch="on"), rec=R1["f29"],
+        steps=[dict(),
+               dict(state=dict(c1ring="gsloc"),
+                    tag=[dict(t="下り道の印（緑）", at="loc", off=(-84, -80), anchor="middle"),
+                         dict(t="20:14:00", xy=(1452, 236))])]))),
+})

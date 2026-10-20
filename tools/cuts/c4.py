@@ -79,3 +79,47 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ── 🆕 ⑤b-3（2026-10-20）：再現イラスト C1（画面の上の端）・C3（操縦室の手）＝`tools/illu17.py`・門番 check_illu ㉛㉝ ──
+from illu17 import C1_REC as R1, C3_REC as R3  # noqa: E402  置き場の部品の出典（描く側と同じ文）
+
+SPEC.update({
+    # c402（2行・20:14:05 の直前）＝操縦室の中。副操縦士（右の席）の手がスラスト・レバーに（影の手だけ）→ 2行目でレバー2本に輪
+    "c402": dict(fig=("illu", dict(
+        place="C3", at="20:14:05", start=dict(switch="on"),
+        steps=[dict(state=dict(c3thr="on"), rec=R3["hand_thr"], dur=1.3,
+                    tag=dict(t="副操縦士の手", at="hand_thr", off=(170, -150))),
+               dict(state=dict(c3ring="lev"), rec=R3["lever"],
+                    tag=dict(t="スラスト・レバー", at="lev", off=(-230, -120), anchor="end"))]))),
+    # c407（2行・20:14:06）＝画面ぜんたい。14'00" の枠 → 2行目で 14'06"（THR・GO AROUND・ALT〈青〉・FD1）＋ GO AROUND に輪
+    "c407": dict(fig=("illu", dict(
+        place="C1", at="20:14:06", start=dict(view="all", c1f="1400"), rec=R1["f29"],
+        steps=[dict(),
+               dict(state=dict(c1f="1406", c1ring="ga"), rec=R1["f29"],
+                    tag=dict(t="着陸のやり直し", at="ga", off=(0, -80), anchor="middle"))]))),
+    # c410（2行・20:14:10）＝操縦室の中・時刻の札だけ（CVR の言葉は札にしない＝語りと字幕だけ）。2行目でゴー・レバーに輪
+    "c410": dict(fig=("illu", dict(
+        place="C3", at="20:14:10", start=dict(c3thr="on", switch="on"), rec=R3["hand_thr"],
+        steps=[dict(tag=dict(t="20:14:10", xy=(660, 140), anchor="middle")),
+               dict(state=dict(c3ring="go"), rec=R3["lever"],
+                    tag=dict(t="ゴー・レバー", at="go", off=(-250, -90), anchor="end"))]))),
+    # c414（2行・20:14:12）＝上の端と時刻の帯。目の印（見た向き・人は描かない）＝機長は表示を見て言った（p52）
+    "c414": dict(fig=("illu", dict(
+        place="C1", at="20:14:12", start=dict(view="time", c1f="1412", c1cur="20:14:12", switch="on"), rec=R1["cur"],
+        steps=[dict(state=dict(c1eye="on"), rec=R1["eye"]),
+               dict(state=dict(c1ring="ga"))]))),
+    # c417（3行・20:14:05）＝操縦室の中。2つの見方の札（ボタンの取り違え／スラスト・レバーの操作中）→ 3行目でゴー・レバーに輪
+    "c417": dict(fig=("illu", dict(
+        place="C3", at="20:14:05", start=dict(c3thr="on", switch="on"), rec=R3["hand_thr"],
+        steps=[dict(state=dict(c3ring="at"), rec=R3["at"],
+                    tag=dict(t="ボタンの取り違え", at="at", off=(-170, -150), anchor="end", keep=True)),
+               dict(state=dict(c3ring="lev"), rec=R3["lever"],
+                    tag=dict(t="スラスト・レバーの操作中", at="lev_r", off=(330, -170), anchor="start", keep=True)),
+               dict(state=dict(c3ring="go"), rec=R3["lever"])]))),
+    # c419（3行・20:14:12 のあと）＝上の端の寄り。GO AROUND のまま（14'12" の枠）
+    "c419": dict(fig=("illu", dict(
+        place="C1", at="20:14:12", start=dict(view="band", c1f="1412", switch="on"), rec=R1["f29"],
+        steps=[dict(),
+               dict(state=dict(c1ring="ga"), tag=dict(t="GO AROUND のまま", at="ga", off=(0, -96), anchor="middle")),
+               dict()]))),
+})
