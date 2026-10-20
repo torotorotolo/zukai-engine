@@ -30,6 +30,44 @@ import satmap as M  # noqa: E402
 #    ⚠️ `area_check` は**表に載ったカットだけ**を見る（表が空なら何も照らさない＝止めない）。表に無いカットの囲み（area）は面積を照らされずに通る（`satmap.check` は area の面積の出どころを見ない）
 #    ＝囲みを使うのに記録を入れ忘れると素通りする穴。17本目で囲みを使うときは必ず入れる（門番の側で「area があるのに表に無い」を止める直しは、この移し替えでは足していない）
 REC_SAT_AREA = {}
+# 🆕 2026-10-20（17本目 ⑤b-6）：**描き足しの札の数と時刻の記録**（§5b-88＝記録の値は門番の側）。{カット: {札の言葉: ((出典, 原文の句), …)}}。
+#   数字を含む札は**全部**ここに載っていなければ鳴る（載っていない札＝出どころの無い数）・載っているのに描いていない札も鳴る（古い表）。
+#   句は手元の原文（`ref/ep17/src/ep17_pages.txt`＝git の外）で照らす（`check_mech._m17_page`・Actions では句だけ飛ばす）
+REC_SAT_NUM = {
+    "c804": {"化学消防車3台": (("報告書 p27", "20時17分ごろ、化学消防車3台を出動させた"),),
+             "20:17ごろ 出る": (("報告書 p27", "20時17分ごろ、化学消防車3台を出動させた"),),
+             "20:19ごろ 着く": (("報告書 p27", "20時19分ごろ、消防小隊の化学消防車3台が第1陣として現場に到着"),),
+             "通報から3分以内": (("報告書 p86", "最初の通報時間から"), ("報告書 p86", "3分以内を目標"),
+                                ("報告書 p86", "本事故の場合、消火救難車両は3分以内で滑走路端まで到着"))},
+    "c812": {"北門（鎖が2か所）": (("報告書 p28", "北門の施錠用チェーン2ヶ所を大型カッターで切断"),),
+             "20:42ごろ 着く": (("報告書 p28", "20時42分ごろ、小牧市消防本部の化学消防車、水槽車、救助車各1台が同空港の北門"),),
+             "20:54ごろ 名古屋市の消防": (("報告書 p28", "20時54分ごろ、名古屋市消防局の化学消防車が"),),
+             "21:48ごろ 火が消えた": (("報告書 p29", "21時48分ごろ、鎮火した"),)},
+    "c818": {"病院へ運ばれた乗客 16人": (("報告書 p26", "乗客16名が救急車により病院に収容"),)},
+}
+_NUM = __import__("re").compile(r"[0-9０-９]")
+
+
+def num_check(spec_all, rec=None):
+    """地図のカットの描き足しの札（数字を含むもの）が、記録の表 REC_SAT_NUM に載っていて、句が原文の頁にあるか。"""
+    from check_mech import _m17_page, _m17_q
+    R = REC_SAT_NUM if rec is None else rec
+    bad = []
+    for cid, s in sorted(spec_all.items()):
+        if not s.get("sat"):
+            continue
+        drawn = {el.get("t") for st in s["sat"]["steps"] for el in st if el.get("t") and _NUM.search(el["t"])}
+        table = R.get(cid, {})
+        for t in sorted(drawn - set(table)):
+            bad.append(f"{cid}：札「{t}」の数が記録の表 REC_SAT_NUM に無い（出どころの無い数）")
+        for t in sorted(set(table) - drawn):
+            bad.append(f"{cid}：記録の表の札「{t}」が描かれていない（古い表）")
+        for t in sorted(drawn & set(table)):
+            for p, q in table[t]:
+                src = _m17_page(p)
+                if src is not None and _m17_q(q) not in src:
+                    bad.append(f"{cid}：札「{t}」の句「{q[:14]}…」が {p} に無い")
+    return bad
 
 
 def area_check(spec_all, sat_tab, rec=None):
@@ -57,6 +95,7 @@ def main():
     import cuts.ss as ss
     bad, n, ne = M.check(cuts.SPEC)
     bad += area_check(cuts.SPEC, ss.SAT)
+    bad += num_check(cuts.SPEC)
     print(f"■ 地図のカット（衛星写真）{n} カット・部品 {ne}")
     for code, s in sorted(__import__("cuts.ss", fromlist=["SAT"]).SAT.items()):
         print(f"  {code}：{s['file']}（{'手元に在る' if M.have(code) else '🔴 手元に無い'}）")
@@ -72,6 +111,9 @@ def selftest():
     ＝見本の ss の表（SAT・GEO ほか）と22本目の章ファイル（apply_cuts＝git の `adbe2d5`）を差して回し、最後に restore（LIFO）。
     この門番の照合（`satmap.check`）が読む ss の名は SAT・GEO だけ（`SAT[…]["file"]` は `ep22/…` の名を文字で持つ＝REF・EP の差し替えは要らない。
     写真の権利の台帳 `ss._assets()` も読まない）"""
+    # 🆕 17本目 ⑤b-6：本番（17本目）の空港の地図の陽性対照を先に回す（下の22本目の見本の章ファイルは apply_cuts で止まることがある＝
+    #    ⑤b-5 の qa_all でも sat は「落ちてよい3」だった＝22本目の c101 の CC BY-SA の決まり。17本目の対照がその陰で回らないのを防ぐ）
+    rc17 = _selftest_ep17()
     import fixture_ep22
     fixture_ep22.apply()
     fixture_ep22.apply_cuts()
@@ -79,17 +121,52 @@ def selftest():
         rc = _selftest()
     finally:
         fixture_ep22.restore()
-    if rc:
-        return rc
+    if rc or rc17:
+        return rc or rc17
     # 🔴 2026-10-20（17本目 ⑤b-1・§0b）：23本目の実物（地図のカット c511・衛星写真の表 `ss.SAT`・場所の表 `ss.GEO`・面積の記録 `REC_SAT_AREA`）も本番から見本 `tools/fixture_ep23.py` へ移した
     #    ＝見本の ss の表と、この門番の表（`apply(gate)` が `REC_SAT_AREA` を差す）と、23本目の章ファイル（apply_cuts＝git の `b800dbdb`）を差して回し、最後に restore（LIFO）
     import fixture_ep23
     fixture_ep23.apply(sys.modules[__name__])
     fixture_ep23.apply_cuts()
     try:
-        return _selftest_area()
+        rc = _selftest_area()
     finally:
         fixture_ep23.restore()
+    return rc
+
+
+def _selftest_ep17():
+    """🆕 17本目 ⑤b-6：本番（17本目）の空港の地図＝国土地理院の空中写真の行（gsi）が通り、壊すと狙った理由で鳴るか。"""
+    import cuts
+    import cuts.ss as ss
+    base = {c: s for c, s in cuts.SPEC.items() if s.get("sat")}
+    if not base:
+        print("  ⚠️ 17本目の地図のカットが無い（飛ばした）")
+        return 0
+    ok = True
+    b0 = M.check(base)[0] + num_check(base)
+    print(f"  {'✓' if not b0 else '🔴'} 陰性：17本目の地図のカット {len(base)} は 0件（{len(b0)}件）" + (f"  ← {b0[0]}" if b0 else ""))
+    ok &= not b0
+    cases = []
+    s = copy.deepcopy(base)
+    s["c812"]["sat"]["steps"][1][0]["t"] = "20:45ごろ 名古屋市の消防"
+    cases.append(("札の時刻を替える（表に無い札）", num_check(s), "REC_SAT_NUM に無い"))
+    rec = copy.deepcopy(REC_SAT_NUM)
+    rec["c804"]["20:19ごろ 着く"] = (("報告書 p27", "20時21分ごろ、消防小隊の化学消防車3台が第1陣"),)
+    cases.append(("記録の句を替える（原文に無い）", num_check(base, rec) if __import__("check_mech")._m17_page("報告書 p27") is not None else ["（原文が手元に無い）が 報告書 p27 に無い"],
+                  "報告書 p27 に無い"))
+    s = copy.deepcopy(base)
+    s["c727"]["s"] = "現在の衛星写真"
+    cases.append(("副題から「1987〜1990年の空中写真」を消す", M.check(s)[0], "1987〜1990年の空中写真"))
+    s = copy.deepcopy(base)
+    s["c818"]["sat"]["steps"][0].append(dict(k="say", xy=(1900, 1060), t="額の外へ出る長い字の札", size=34))
+    cases.append(("額の外へ出る字", M.check(s)[0], "額の内側"))
+    for name, bad, want in cases:
+        hit = [b for b in bad if want in b]
+        print(f"  {'✓' if hit else '🔴'} 陽性対照（17本目）：{name} → {'鳴った：' + hit[0] if hit else '鳴らない'}")
+        ok &= bool(hit)
+    print(f"■ selftest（17本目の空港の地図）{'合格' if ok else '🔴 不合格'}")
+    return 0 if ok else 1
 
 
 def _selftest_area():

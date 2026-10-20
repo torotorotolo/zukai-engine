@@ -21,6 +21,13 @@
     dict(k="icon", what="plane"|"ship", on=("buffalo", "stjohns", 0.5), role=…)     … 印（線の途中 u の位置・向きは線の向き）
     dict(k="wave", at="abaco47", t="…", lab=(…))                                    … 音の波の印（赤）
     dict(k="txt", at="marsh", t="…", lc="AMBER", lab=(…))                           … 印の無い札（前の段の点に数を足す）
+  🆕 17本目 ⑤b-6（国土地理院の空中写真＝表 SAT の行に `gsi=dict(z, org, c, phi, s)`・`sub`＝副題に要る語）：
+    dict(k="north", xy=(撮った絵の画素))                                            … 北の矢印（回した絵）
+    dict(k="say", xy=(…), t="上から見ると", anchor="start")                         … 場所に付かない字（見る向きの合図）
+    dict(k="inset", xy=(左上), wh=(画面の幅, 高さ), bbox=(経度0, 緯度0, 経度1, 緯度1), coast="ep17/….json", at="site", t=…)
+                                                                                    … 位置の小さな地図（陸の形と場所の四角）
+    dict(k="car", at="station", off=[(dx, dy), …], c="INK_W", cross=False, t=…, lab=(…)) … 車両の印（上から見た四角・人は描かない）
+  ⚠️ 空中写真の行は Google の部品の箱（KEEP_OUT）を持たない（`keep_of`）・副題は「現在の衛星写真」でなく表の sub（`sub_of`）
   lab＝札の置き場（点からの dx・dy〈画面の画素〉・anchor）。role＝`jiko_style.ROLE` の名（uscg・ntsb・tsb・company・ship・sub）か
   色の名 c（INK_W・ALERT・AMBER）。
 
@@ -50,7 +57,7 @@ KEEP_OUT = dict(logo=(860, 1000, 1060, 1080), attrib=(1000, 1046, 1920, 1080),
                 open=(0, 0, 230, 72), layers=(0, 985, 95, 1080), full=(1828, 970, 1920, 1062))
 HARD = ("logo", "attrib")           # 隠すと決まりに反する箱
 EDGE = 8                            # 描き足しと額の縁のすき間の下限（画面の画素）
-KINDS = ("pt", "x", "line", "arrow", "area", "icon", "wave", "txt")
+KINDS = ("pt", "x", "line", "arrow", "area", "icon", "wave", "txt", "north", "say", "inset", "car")
 COLS = ("INK_W", "ALERT", "AMBER")
 
 
@@ -66,8 +73,21 @@ def _wy(lat, z):
     return (1 - math.log(math.tan(p) + 1 / math.cos(p)) / math.pi) / 2 * 256 * 2 ** z
 
 
+def _gsi_rot(g):
+    a = math.radians(g["phi"])
+    return math.cos(a), math.sin(a)
+
+
 def ipx(sat, lat, lon):
-    """緯度経度 → 撮った絵の画素（1920×1080）。sat＝`cuts/ss.SAT` の1行（ll＝中心・z＝ズーム）。"""
+    """緯度経度 → 撮った絵の画素（1920×1080）。sat＝`cuts/ss.SAT` の1行（ll＝中心・z＝ズーム）。
+    🆕 17本目 ⑤b-6：`gsi=` の行（国土地理院の空中写真のタイルを継いだ絵を、左回り〈見た目〉に phi 度回して s 倍に切り出した絵＝`ref/ep17/make_gsi17.py`）は
+    タイルの画素（z・org＝継いだ絵の左上のタイルの画素）→ 切り出しの中心 c からの回転と拡大で写す（同じ式で焼いた）。"""
+    g = sat.get("gsi")
+    if g:
+        c, s = _gsi_rot(g)
+        x = _wx(lon, g["z"]) - g["org"][0] - g["c"][0]
+        y = _wy(lat, g["z"]) - g["org"][1] - g["c"][1]
+        return IW / 2 + g["s"] * (x * c + y * s), IH / 2 + g["s"] * (-x * s + y * c)
     lat0, lon0 = sat["ll"]
     z = sat["z"]
     return ((CW / 2 + _wx(lon, z) - _wx(lon0, z)) * DPR, (CH / 2 + _wy(lat, z) - _wy(lat0, z)) * DPR)
@@ -75,11 +95,19 @@ def ipx(sat, lat, lon):
 
 def igeo(sat, x, y):
     """撮った絵の画素 → 緯度経度（ipx の逆）。"""
-    lat0, lon0 = sat["ll"]
-    z = sat["z"]
-    n = 256 * 2 ** z
-    wx = x / DPR - CW / 2 + _wx(lon0, z)
-    wy = y / DPR - CH / 2 + _wy(lat0, z)
+    g = sat.get("gsi")
+    if g:
+        c, s = _gsi_rot(g)
+        u, v = (x - IW / 2) / g["s"], (y - IH / 2) / g["s"]
+        n = 256 * 2 ** g["z"]
+        wx = u * c - v * s + g["c"][0] + g["org"][0]
+        wy = u * s + v * c + g["c"][1] + g["org"][1]
+    else:
+        lat0, lon0 = sat["ll"]
+        z = sat["z"]
+        n = 256 * 2 ** z
+        wx = x / DPR - CW / 2 + _wx(lon0, z)
+        wy = y / DPR - CH / 2 + _wy(lat0, z)
     lon = wx / n * 360 - 180
     lat = math.degrees(math.atan(math.sinh(math.pi * (1 - 2 * wy / n))))
     return lat, lon
@@ -87,7 +115,20 @@ def igeo(sat, x, y):
 
 def m_per_px(sat):
     """🆕 23本目 ⑤b-4：撮った絵の1画素あたりのメートル（Web メルカトル・中心の緯度）。"""
+    g = sat.get("gsi")
+    if g:
+        return 156543.03392 * math.cos(math.radians(sat["ll"][0])) / 2 ** g["z"] / g["s"]
     return 156543.03392 * math.cos(math.radians(sat["ll"][0])) / 2 ** sat["z"] / DPR
+
+
+def keep_of(sat):
+    """描き足しを入れない箱。🆕 17本目 ⑤b-6：Google の部品（ロゴ・帰属の行・操作の部品）は Google の絵だけ＝空中写真（gsi）には無い。"""
+    return {} if sat.get("gsi") else KEEP_OUT
+
+
+def sub_of(sat):
+    """副題に要る語（写っているものの断り）。Google＝「現在の衛星写真」・🆕 空中写真＝表の sub（「1987〜1990年の空中写真」）。"""
+    return sat.get("sub") or "現在の衛星写真"
 
 
 def r_of_area(sat, m2):
@@ -208,6 +249,29 @@ def _along(pts, u):
     return pts[-1], 0.0
 
 
+def _clip_rect(pts, box):
+    """多角形 pts を長方形 box（x0, y0, x1, y1）で切る（Sutherland–Hodgman）。🆕 17本目 ⑤b-6：位置の小さな地図の陸の輪。"""
+    x0, y0, x1, y1 = box
+    edges = ((lambda p: p[0] >= x0, lambda a, b: (x0, a[1] + (b[1] - a[1]) * (x0 - a[0]) / (b[0] - a[0]))),
+             (lambda p: p[0] <= x1, lambda a, b: (x1, a[1] + (b[1] - a[1]) * (x1 - a[0]) / (b[0] - a[0]))),
+             (lambda p: p[1] >= y0, lambda a, b: (a[0] + (b[0] - a[0]) * (y0 - a[1]) / (b[1] - a[1]), y0)),
+             (lambda p: p[1] <= y1, lambda a, b: (a[0] + (b[0] - a[0]) * (y1 - a[1]) / (b[1] - a[1]), y1)))
+    out = list(pts)
+    for inside, cut in edges:
+        if not out:
+            break
+        src, out = out, []
+        for i, cur in enumerate(src):
+            prev = src[i - 1]
+            if inside(cur):
+                if not inside(prev):
+                    out.append(cut(prev, cur))
+                out.append(cur)
+            elif inside(prev):
+                out.append(cut(prev, cur))
+    return out
+
+
 def _ext(pts, pad):
     xs, ys = [p[0] for p in pts], [p[1] for p in pts]
     return (min(xs) - pad, min(ys) - pad, max(xs) + pad, max(ys) + pad)
@@ -282,6 +346,75 @@ def draw(sat, el, inks):
                          f'<path d="{d}" fill="none" stroke="{J.ALERT}" stroke-width="4.5"/>')
         inks.append((f"波 {el['at']}", (x - 50, y - 36, x + 50, y + 36)))
         return "".join(g) + _label(x, y, el, J.ALERT, inks)
+    if k == "north":
+        # 🆕 17本目 ⑤b-6：北の矢印（回した絵＝北が上でない）。向きは表の行の式で北へ 0.002度 進んだ点から（描く式と門番が同じ）
+        x, y = spx(el["xy"])
+        lat, lon = igeo(sat, *el["xy"])
+        nx, ny = spx(ipx(sat, lat + 0.002, lon))
+        a = math.atan2(ny - y, nx - x)
+        L = 70.0
+        x2, y2 = x + L * math.cos(a), y + L * math.sin(a)
+        tx, ty = x + (L + 26) * math.cos(a), y + (L + 26) * math.sin(a) + 12
+        inks.append(("北の矢印", (min(x, x2) - 14, min(y, y2) - 14, max(x, x2) + 14, max(y, y2) + 14)))
+        w = fm.width("北", 30, "Noto")
+        inks.append(("札「北」", (tx - w / 2 - 4, ty - 30, tx + w / 2 + 4, ty + 8)))
+        return (f'<g opacity="0.7">{F.line(x, y, x2, y2, J.BG, 11)}</g>' + F.arrow(x, y, x2, y2, J.INK_W, 5, head=22)
+                + J.outlined(round(tx, 1), round(ty, 1), "北", J.INK_W, 30, "middle", sw=8))
+    if k == "say":
+        # 🆕 17本目 ⑤b-6：場所に付かない字（見る向きの合図「上から見ると」など）＝撮った絵の画素 xy に置く
+        x, y = spx(el["xy"])
+        size = el.get("size", LAB)
+        anc = el.get("anchor", "start")
+        t = el["t"]
+        w = fm.width(t, size, "Noto")
+        x0 = x if anc == "start" else (x - w if anc == "end" else x - w / 2)
+        a, b = fm.ink(t, size, "Noto")
+        inks.append(("字「" + t + "」", (x0 - 4, y - a - 4, x0 + w + 4, y + b + 4)))
+        return J.outlined(round(x, 1), round(y, 1), t, _col(el), size, anc, sw=8)
+    if k == "inset":
+        # 🆕 17本目 ⑤b-6：位置の小さな地図（見る向きの合図）＝陸の形（Natural Earth の切り出し）と、この地図の場所の点
+        import json as _json
+        x0, y0 = spx(el["xy"])
+        w, h = el["wh"]
+        lon0, lat0, lon1, lat1 = el["bbox"]
+        kx = w / (lon1 - lon0)
+        ky = h / (lat1 - lat0)
+        co = _json.loads((HERE / "ref" / el["coast"]).read_text(encoding="utf-8"))
+
+        def mp(lo, la):
+            return x0 + (lo - lon0) * kx, y0 + (lat1 - la) * ky
+        g = [f'<rect x="{x0:.1f}" y="{y0:.1f}" width="{w:.1f}" height="{h:.1f}" fill="{J.BG}" opacity="0.88" stroke="{J.LINE}" stroke-width="2"/>']
+        # ⚠️ 陸の輪は枠の外まで続く（本州は東経141度まで）＝SVG の clip-path に任せず、**輪そのものを枠で切る**（Sutherland–Hodgman）。
+        #    clip-path だと門番 layout が枠の外の線を「見出しを貫く線」と測った（⑤b-6 の qa_all）＝描く絵と門番が測る線を同じにする
+        box_ = (x0 + 1, y0 + 1, x0 + w - 1, y0 + h - 1)
+        polys = []
+        for pg in co["polys"]:
+            pts = _clip_rect([mp(lo, la) for lo, la in pg], box_)
+            if len(pts) >= 3:
+                d = "M" + " L".join(f"{px:.1f} {py:.1f}" for px, py in pts) + " Z"
+                polys.append(f'<path d="{d}" fill="{J.LINE_DIM}" stroke="{J.TICK}" stroke-width="1.5"/>')
+        g.append("".join(polys))
+        la, lo = _place(el["at"])["ll"] if isinstance(el["at"], str) else el["at"]
+        px_, py_ = mp(lo, la)
+        g.append(f'<rect x="{px_ - 9:.1f}" y="{py_ - 9:.1f}" width="18" height="18" fill="none" stroke="{J.ALERT}" stroke-width="4"/>')
+        inks.append(("位置の小さな地図", (x0 - 2, y0 - 2, x0 + w + 2, y0 + h + 2)))
+        out = "".join(g)
+        if el.get("t"):
+            out += _label(px_, py_, el, J.INK_W, inks)
+        return out
+    if k == "car":
+        # 🆕 17本目 ⑤b-6：車両の印（上から見た四角＝人は描かない）。場所 at から画面の画素 off（[(dx, dy), …]）だけずらして台数ぶん
+        x, y = _pt(sat, el["at"])
+        g = []
+        for dx, dy in el.get("off", [(0, 0)]):
+            cx, cy = x + dx, y + dy
+            g.append(f'<rect x="{cx - 15:.1f}" y="{cy - 9:.1f}" width="30" height="18" rx="4" fill="{col}" stroke="{J.BG}" stroke-width="3"/>')
+            if el.get("cross"):
+                g.append(f'<path d="M{cx - 6:.1f} {cy:.1f} L{cx + 6:.1f} {cy:.1f} M{cx:.1f} {cy - 6:.1f} L{cx:.1f} {cy + 6:.1f}" '
+                         f'stroke="{J.ALERT}" stroke-width="3"/>')
+            inks.append((f"車 {el['at']}", (cx - 17, cy - 11, cx + 17, cy + 11)))
+        dx0, dy0 = el.get("off", [(0, 0)])[0]
+        return "".join(g) + _label(x + dx0, y + dy0, el, col, inks)
     raise ValueError(f"satmap：知らない部品 {k!r}（{KINDS}）")
 
 
@@ -357,8 +490,9 @@ def check(spec_all, credit=None):
         for k in _NO:
             if s.get(k) is not None:
                 bad.append(f"{cid}：{k} は書けない（地図を動かさない・切らない・上に注記を置かない）")
-        if "現在の衛星写真" not in s.get("s", ""):
-            bad.append(f"{cid}：副題に「現在の衛星写真」が無い（写っているのは今の衛星写真）")
+        sub = sub_of(sat_tab[code])
+        if sub not in s.get("s", ""):
+            bad.append(f"{cid}：副題に「{sub}」が無い（写っているのはいつの写真か＝表 SAT の sub）")
         if not sv.get("steps"):
             bad.append(f"{cid}：steps が空")
             continue
@@ -400,7 +534,7 @@ def check(spec_all, credit=None):
             bad.append(f"{cid}：描けない（{type(e).__name__}: {e}）")
             continue
         inner = (bx + EDGE, by + EDGE, bx + bw - EDGE, by + bh - EDGE)
-        keep = {k: ibox_to_screen(b) for k, b in KEEP_OUT.items()}
+        keep = {k: ibox_to_screen(b) for k, b in keep_of(sat_tab[code]).items()}
         for i, inks in enumerate(steps):
             for nm, b in inks:
                 if b[0] < inner[0] or b[1] < inner[1] or b[2] > inner[2] or b[3] > inner[3]:

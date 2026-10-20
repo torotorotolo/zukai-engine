@@ -79,3 +79,67 @@ PLAN = {
 }
 
 SPEC = {}
+
+# 🆕 2026-10-20（⑤b-6）：空港の地図3つ（c804・c812・c818）＝c727 と同じ地（国土地理院の空中写真 A87・`cuts/ss.SAT["A87"]`）。
+#   c804＝基地の化学消防車3台（p27「20時17分ごろ、化学消防車3台を出動」「20時19分ごろ…現場に到着」）。道すじは p28（2台は誘導路E4 から滑走路へ・
+#        1台は誘導路EP1）＝実線と点線（台数の札は語りの「3台」だけ）→ 2行目で「通報から3分以内」（p86 の ICAO 水準のレスポンスタイム）
+#   c812＝小牧市の消防（p28「北門の施錠用チェーン2ヶ所を大型カッターで切断」「20時42分ごろ…事故現場に到着」）。北門から現場までの道すじは記録に無い＝点線は向きだけ
+#        → 2行目で 20:54（名古屋市の消防＝p28〜29）・21:48（鎮火＝p29）。⚠️ 名古屋市の消防の門（第二西門）は語りに無い＝描かない
+#   c818＝救急車（人は描かない・病院の位置は資料に無い＝行き先の向きは描かない）→ 2行目で 16人（p26「乗客16名が救急車により病院に収容」）。
+#        ⚠️ 亡くなった人の数（6人・3人）は語りと字幕だけ（絵の札にしない）
+SPEC.update({
+    "c804": dict(
+        **ss.sat("A87", steps=[
+            [dict(k="north", xy=(1860, 250)),
+             dict(k="line", path=("station", "e4tw", "e4rw", "rw_s", "site"), c="INK_W"),
+             dict(k="line", path=("station", "ep1a", "ep1b", "site"), c="INK_W", dash=True),
+             dict(k="car", at="station", off=[(-38, -30), (0, -30), (38, -30)], c="AMBER"),
+             dict(k="pt", at="station", c="INK_W", t="待機所", lab=(18, 30, "start")),
+             dict(k="txt", at="station", c="AMBER", t="化学消防車3台", lab=(66, -22, "start")),
+             dict(k="txt", at="station", c="AMBER", t="20:17ごろ 出る", lab=(18, 72, "start")),
+             dict(k="x", at="site", t="現場", lab=(-26, -24, "end")),
+             dict(k="txt", at="site", c="AMBER", t="20:19ごろ 着く", lab=(-26, 30, "end"))],
+            [dict(k="txt", at="site", c="AMBER", t="通報から3分以内", lab=(-26, 72, "end"))]],
+            note="道すじは報告書の記録（2台は誘導路E4 から滑走路・1台は誘導路EP1）"),
+        t="最初の3台", s="1987〜1990年の空中写真"),
+    # c809（2行）＝着いた時刻の帯（軸の型）。1行目で3つの時刻（c804・c808 の語りの続き）→ 2行目で「勤めていた隊員」「呼び出した隊員」の札（6人は語りと字幕）
+    "c809": dict(
+        t="着いた順", s="報告書が記す時刻",
+        fig=("axis", dict(ss.AX_F17, steps=[dict(add=[ss.ax("f19"), ss.ax("f27"), ss.ax("f30")], cur="20:19"),
+                                            dict(add=[dict(k="chips", at="20:19", chips=["勤めていた隊員"], rec="報告書 p87"),
+                                                      dict(k="chips", at="20:30", chips=["呼び出した隊員"], rec="報告書 p87")])],
+                          note="時刻は報告書の本文（日本標準時）", src=ss.src(["報告書 p27", "報告書 p87"])))),
+    # c813（3行）＝1分に出せる消火剤の棒（同じ縮尺＝p86「ICAO水準では、放射率は9,000l/min」「化学消防車5台の放射率は7,500l/min」）。
+    #   2行目で 9,000 → 3行目で 7,500。⚠️ 最初の3台の 4,500 は次の c814 の語り＝描かない
+    "c813": dict(
+        t="1分に出せる量", s="基準の量と基地の量",
+        fig=("m17", dict(view="bars", start=dict(set="fire"), steps=[dict(), dict(state=dict(b0="on")), dict(state=dict(b1="on"))],
+                         rel=[dict(t="0・2,000・4,000・6,000・8,000・10,000（目盛り）", src="報告書 p86"), dict(t="9,000", src="報告書 p86"),
+                              dict(t="7,500", src="報告書 p86"), dict(t="基地の化学消防車5台・1分あたり", src="報告書 p86")],
+                         note="量は報告書の値（ICAO の水準と基地の5台）", src=ss.src(["報告書 p86"])))),
+    # c820（2行）＝報告書の建議（p105「航空事故調査委員会は、本事故に鑑み以下のとおり運輸大臣に建議する」「2今後の消火救難体制の充実強化について」）。
+    #   1行目で全部 → 2行目は次の章の問い（「相反」は初めてか）＝足さない
+    "c820": dict(
+        t="報告書が求めたこと", s="国への申し入れ",
+        fig=("m17", dict(view="flow", start=dict(set="gov"), steps=[dict(state=dict(a="on", b="on")), dict()],
+                         note="宛先と言葉は報告書の建議", src=ss.src(["報告書 p105"])))),
+    "c812": dict(
+        **ss.sat("A87", steps=[
+            [dict(k="north", xy=(1860, 250)),
+             dict(k="line", path=("kitamon", "site"), c="INK_W", dash=True),
+             dict(k="pt", at="kitamon", c="INK_W", t="北門（鎖が2か所）", lab=(20, 40, "start")),
+             dict(k="x", at="site", t="現場", lab=(-26, -24, "end")),
+             dict(k="txt", at="site", c="AMBER", t="20:42ごろ 着く", lab=(-26, 22, "end"), size=28)],
+            [dict(k="txt", at="site", c="AMBER", t="20:54ごろ 名古屋市の消防", lab=(-26, 60, "end"), size=28),
+             dict(k="txt", at="site", c="AMBER", t="21:48ごろ 火が消えた", lab=(-26, 98, "end"), size=28)]],
+            note="北門から現場までの道すじは記録に無い（点線は向きだけ）・北門の位置は付図8 から"),
+        t="北の門から", s="1987〜1990年の空中写真"),
+    "c818": dict(
+        **ss.sat("A87", steps=[
+            [dict(k="north", xy=(1860, 250)),
+             dict(k="x", at="site", t="現場", lab=(-26, -24, "end")),
+             dict(k="car", at="site", off=[(-90, 34)], c="INK_W", cross=True, t="救急車", lab=(-26, 10, "end"))],
+            [dict(k="txt", at="site", c="AMBER", t="病院へ運ばれた乗客 16人", lab=(-26, 82, "end"))]],
+            note="救急車は印だけ（台数と行き先の向きは描かない＝病院の位置は資料に無い）"),
+        t="救急車で病院へ", s="1987〜1990年の空中写真"),
+})

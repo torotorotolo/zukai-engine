@@ -4503,7 +4503,51 @@ REC_M17 = dict(
                        ("報告書 p90", "スーパーバイザリー・オーバーライド機能との混同"))),
     afloor=dict(steps=("迎え角が大きすぎる", "推力を自動で最大に", "失速を防ぐ"),
                 quote=(("報告書 p83", "アルファ・フロア機能が作動し出力が増加した"), ("報告書 p83", "本来失速を防止しフライト・エンベロープを保護するための安全装置"))),
-    pitch=dict(deg=52.6, quote=(("報告書 p49", "ピッチ角は、最大の52.6°となっている"),)),
+    # 🆕 ⑤b-6：分度器を前例の値にも（set＝c719・hel・mos）＝(角度, 速さ〈時速約○キロ・○ノット〉)
+    pitch=dict(sets=dict(c719=(52.6, None), hel=(35.5, ("170", "94")), mos=(88.0, ("56", "30"))),
+               caps=dict(c719="機首の角度（最大）", hel="機首の角度（やり直しの上昇）", mos="機首の角度（ほとんど真上）"),
+               quote=(("報告書 p49", "ピッチ角は、最大の52.6°となっている"), ("報告書 p184", "機体姿勢は機首上げ35.5。に増加し、速度は94ktに減じた"),
+                      ("報告書 p185", "機首上げは88。に増加し、速度は30ktに低下し"))),
+    # 🆕 ⑤b-6（第8〜9章）
+    bars=dict(sets=dict(fire=(("国際的な基準（望ましい）", 9000.0, "LINE"), ("基地の化学消防車5台", 7500.0, "AMBER")),
+                        trim=(("ふだんのやり直し", (1.0, 2.0), "LINE"), ("ヘルシンキの出来事", 8.0, "ship"))),
+              labs=dict(fire=("9,000", "7,500"), trim=("−1〜−2度", "−8度")),
+              quote=(("報告書 p86", "ICAO水準では、放射率は9,000l/minとされている"), ("報告書 p86", "化学消防車5台の放射率は7,500l/min"),
+                     ("報告書 p184", "すでに一8。機首上げ側に作動しており"), ("報告書 p184", "通常のGO-AROUNDでは一1。ー2。機首上げ"),
+                     ("報告書 p184", "オートトリムを働かせTHSをエレベータの動きと相反する機首上げ側に作動させた"))),
+    flow=dict(sets=dict(gov=dict(boxes=(("rep", "航空事故調査委員会", "（報告書）", "state"), ("min", "運輸大臣", "", "LINE"),
+                                        ("what", "全国の飛行場", "消火と救難を強める", "AMBER")),
+                                 arrows=(("rep", "min", "建議"), ("min", "what", "")), marks=()),
+                        edu=dict(boxes=(("cal", "中華航空", "", "LINE"), ("crew", "事故機と同じ型の乗員", "", "LINE"),
+                                        ("two", "この機長と副操縦士", "（当時はその型に乗っていない）", "company")),
+                                 arrows=(("cal", "crew", "モスクワの出来事の教育"), ("cal", "two", "")), marks=(("ok", "crew"), ("x", "two")))),
+              quote=(("報告書 p105", "本事故に鑑み以下のとおり運輸大臣に建議する"), ("報告書 p105", "全国の飛行場における民間航空機に係る今後の消火救難体制"),
+                     ("報告書 p74", "モスクワで発生したA310型のインシデント事例については、該当乗務員に対して教育を行った"),
+                     ("報告書 p74", "当該機長及び副操縦士は、当時、A300-600R型機に乗務していなかったため、当該教育を受けていなかった"))),
+    prec=dict(sets=dict(hel="ヘルシンキの出来事（1989年）", mos="モスクワの出来事（1991年）"),
+              why=dict(hel="乗客の乗り心地のため", mos="機体が軽く・上昇が急"),
+              quote=(("報告書 p184", "乗客の快適性のためAPによる機首上げを避けようと、機首上げモーメントに抗して手動で操縦輪を押しつづけた"),
+                     ("報告書 p184", "オートトリムを働かせTHSをエレベータの動きと相反する機首上げ側に作動させた"),
+                     ("報告書 p184", "マニュアルトリムを使用し、副操縦士にこの操作を続けさせた"), ("報告書 p184", "正常な飛行に戻った"),
+                     ("報告書 p80", "1991年1月にFCOM1.03.64P3/4及び同2.02.03P1が改訂され"),
+                     ("報告書 p184", "機体重量が軽く、上昇率が高かったため"), ("報告書 p184", "手動で操縦輪を押しエレベータを機首下げとした"),
+                     ("報告書 p185", "この間乗員はAPはまだ解除されていないものと思っており"))),
+    hold=dict(ft=750, m=230, quote=(("報告書 p184", "対地高度750ftで水平飛行をしばらく維持した"),
+                                    ("報告書 p184", "この間、機長及び副操縦士はAPはまだ解除されていないものと思っていた"))),
+    keep=dict(quote=(("報告書 p185", "THSの作動角度はそのままの状態が残ることとなった"), ("報告書 p184", "APは解除されることとなった"))),
+    updown=dict(pts=(("ga", 1275), ("p1", 4327), ("l1", 1487), ("p4", 11755), ("rec", 8715)),
+                m=(("p1", "1,320"), ("p4", "3,580"), ("rec", "2,660")),
+                quote=(("報告書 p184", "対地高度1,275ftでG0AROUNDモードにした"), ("報告書 p185", "高度は、4,327ftに達した後、失速状態となり、高度1,487ftまで降下"),
+                       ("報告書 p185", "4回目の上昇時には高度11,755ftに達した"), ("報告書 p185", "高度8,715ftで異常な飛行から回復することができた"),
+                       ("報告書 p185", "4回目の降下時に、乗員によりエンジン出力が減じられたこと"), ("報告書 p185", "THSが機首下げ方向にトリムされた"))),
+    doc=dict(modes=("LAND", "GO AROUND"), flow=("操縦輪で逆らう", "釣り合いがずれる", "危険な状態のおそれ"),
+             quote=(("報告書 p80", "LAND及びGOAROUNDモード時にピッチ方向にAPをオーバーライドするとアウト・オブ・トリムとなり危険な状態に至る"),
+                    ("報告書 p80", "1991年1月にFCOM1.03.64P3/4及び同2.02.03P1が改訂され"))),
+    cards2=dict(sets=dict(fcom2=dict(cards=(("勧める", "異常な自動操縦から守る", "OK"), ("禁じる", "正常なときに逆らう", "ALERT")),
+                                     foot=("報告書", "混同するおそれ", "state"))),
+                quote=(("報告書 p81", "APオーバーライドの目的は、APの異常な作動から操縦士を保護するものである"),
+                       ("報告書 p81", "CAUTIONに記述されている内容は、APが正常に機能している場合のオーバーライドを禁止するものである"),
+                       ("報告書 p81", "推奨と禁止の相矛盾する内容を混同して理解する可能性がある"))),
     pbars=dict(rows=(("着陸の進入", 4.0), ("画面の表示が消える", 25.0), ("この夜の最大", 52.6)), twice=2,
                quote=(("報告書 p54", "ピッチ角約4°"), ("報告書 p49", "最大の52.6°"))),
     clock={"11:14", "20:14", "20:15", "20:00"},
@@ -4657,10 +4701,52 @@ def judge_m17(f):
     if view == "afloor":
         need(tuple(g["steps"]) == Rv["steps"], "② アルファ・フロアの流れの札が記録（p83）と違う")
     if view == "pitch":
-        need(abs(g["deg"] - Rv["deg"]) < 1e-9, f"② 機首の角度 {g['deg']}（記録 52.6度＝p49）")
+        deg, spd = Rv["sets"][g["set"]]
+        need(abs(g["deg"] - deg) < 1e-9, f"② 機首の角度 {g['deg']}（記録 {deg}度）")
         last = g["rows"][-1]
-        need(abs(last["rot"] + Rv["deg"]) < 1e-9 and abs(last["plane"] - last["rot"]) < 1e-9, "② 針と機の形が記録の角度まで回っていない")
+        need(abs(last["rot"] + deg) < 1e-9 and abs(last["plane"] - last["rot"]) < 1e-9, "② 針と機の形が記録の角度まで回っていない")
         need(all(r["rot"] <= 0 for r in g["rows"]), "② 針が下（機首下げ）へ回っている")
+        need(g["cap"] == Rv["caps"][g["set"]], f"② 角度の札「{g['cap']}」が記録と違う")
+        need(tuple(g["spd"] or ()) == tuple(spd or ()), f"② 速さ {g['spd']} が記録 {spd} と違う")
+        if spd:
+            need(abs(int(spd[1]) * 1.852 - int(spd[0])) <= 5, f"② 時速 {spd[0]} キロが {spd[1]} ノットの換算と合わない")
+    if view == "bars":
+        rows = Rv["sets"][g["set"]]
+        need(tuple((t, v) for t, v, _r in g["rows"]) == tuple((t, v) for t, v, _r in rows), f"② 棒 {g['rows']} が記録と違う")
+        need(tuple(col(r) for _t, _v, r in g["rows"]) == tuple(col(r) for _t, _v, r in rows), "② 棒の色（役）が記録と違う")
+        need(tuple(g["labs"]) == Rv["labs"][g["set"]], f"② 棒の値の札 {g['labs']} が記録と違う")
+        for e, (_t, v, _r) in zip(g["ends"], rows):
+            vv = v if isinstance(v, tuple) else (v,)
+            ee = e if isinstance(e, tuple) else (e,)
+            need(all(abs(a - (g["x0"] + b * g["unit"])) < 0.5 for a, b in zip(ee, vv)), "② 棒の長さが値と合わない（同じ縮尺）")
+        need(all(abs(x - (g["x0"] + v * g["unit"])) < 0.5 for v, x in g["ticks"]), "② 目盛りの位置が値と合わない")
+    if view == "flow":
+        S = Rv["sets"][g["set"]]
+        need(tuple(g["boxes"]) == S["boxes"], f"② 流れの箱 {g['boxes']} が記録と違う")
+        need(tuple(g["arrows"]) == S["arrows"] and tuple(g["marks"]) == S["marks"], "② 流れの矢印か印（✓・×）が記録と違う")
+    if view == "prec":
+        need(g["name"] == Rv["sets"][g["set"]] and g["why"] == Rv["why"][g["set"]], f"② 前例の名か理由の札（{g['name']}・{g['why']}）が記録と違う")
+        need(not (g["on"]["fcom"] and g["set"] != "hel"), "② 注意書きの札（1991年1月）はヘルシンキの出来事のあと（p80）＝モスクワの絵に出さない")
+    if view == "hold":
+        need((g["ft"], g["m"]) == (Rv["ft"], Rv["m"]) and abs(Rv["ft"] * 0.3048 - Rv["m"]) < 5, f"② 高さ {g['m']}m（{g['ft']}ft）が記録と違う")
+        need(g["y"] < g["g"], "② 水平飛行の線が地面より上にない")
+    if view == "keep":
+        need(g["xoff"] < g["x1"] and g["y_flat"] < g["y0"], "② 切れたあとの角度の線が切れた所から先に無いか、上がっていない")
+    if view == "updown":
+        need(tuple(g["pts"]) == Rv["pts"], f"② 高さの点 {g['pts']} が記録（p184〜185）と違う")
+        need(all(abs(y - (g["g"] - f * 0.3048 * g["k"])) < 0.5 for (x, y), (_n, f) in zip(g["px"], Rv["pts"])), "② 高さの点の画素が値に比例していない")
+        need(all(a[0] < b[0] for a, b in zip(g["px"], g["px"][1:])), "② 点が順番（左から右）に並んでいない")
+        fts = dict(Rv["pts"])
+        for nm_, m_ in Rv["m"]:
+            need(abs(fts[nm_] * 0.3048 - float(m_.replace(",", ""))) <= 10, f"② 札の {m_}メートルが {fts[nm_]}フィートの換算と合わない")
+            fld = dict(p1="first", p4="fourth", rec="rec")[nm_]
+            if any(s.get(fld) == "on" for s in seq):
+                need(any(m_ in t for t in m["texts_all"]), f"② 札に {m_}メートルが描かれていない")
+    if view == "doc":
+        need(tuple(g["modes"]) == Rv["modes"] and tuple(g["flow"]) == Rv["flow"], "② 注意書きの語か流れが記録（p80）と違う")
+    if view == "cards2":
+        S = Rv["sets"][g["set"]]
+        need(tuple(g["cards"]) == S["cards"] and tuple(g["foot"]) == S["foot"], f"② 2つの札 {g['cards']} が記録と違う")
     if view == "pbars":
         need(tuple(t for t, _v in g["rows"]) == tuple(t for t, _v in Rv["rows"])
              and all(abs(a - b) < 1e-9 for (_t, a), (_u, b) in zip(g["rows"], Rv["rows"])), f"② 角度の棒 {g['rows']} が記録（約4・25・52.6度）と違う")
@@ -4710,14 +4796,25 @@ def _selftest_m17(ok):
              ("時計の差を8時間に", "clock2", "CK2_ADD", 8, "② 時計の時刻"),
              ("この型の時間を替える", "hours", "HR_V", (("この型（A300-600R）", 1530.0, "company"), M.HR_V[1]), "② 飛行時間"),
              ("角度の点を替える", "ths", "TH_PTS", ((5, -5.3), (18, -4.0)) + tuple(M.TH_PTS[2:]), "② 角度の点"),
-             ("機首の角度を替える", "pitch", "PT_DEG", 50.0, "② 機首の角度"),
+             ("機首の角度を替える", "pitch", "PT_SET", dict(M.PT_SET, c719=50.0), "② 機首の角度"),
              ("この夜の押す向きを自動操縦と同じに", "assist", "AS_VEC", dict(l=((0, 1), (0, 1)), r=((0, -1), (0, -1))), "② この夜の押す向き"),
              ("トゥールーズを北へ", "eu", "EU_PTS", dict(gb=(53.0, -1.6), tls=(55.6047, 1.4442)), "② トゥールーズ"),
              ("面積のマスを9つに", "area", "AR_TH_N", 9, "② 面積のマス目"),
              ("ランドのボタンの結果を替える", "modes", "MD_ROWS", dict(M.MD_ROWS, c=("ランドのボタンを押す", (("抜ける", "OK"),))), "② 抜け方の札"),
              ("角度の棒の25度を替える", "pbars", "PB_V", (M.PB_V[0], ("画面の表示が消える", 30.0, "AMBER"), M.PB_V[2]), "② 角度の棒"),
              ("警報音の入り口の色を替える", "warn", "WN_IN", (("手の操縦", "ship"), ("自動操縦", "ship")), "② 警報音の入り口"),
-             ("席を左右逆に", "seats", "ST_NAME", ("副操縦士", "機長"), "② 席の名"))
+             ("席を左右逆に", "seats", "ST_NAME", ("副操縦士", "機長"), "② 席の名"),
+             # 🆕 ⑤b-6（第8〜9章）
+             ("基地の5台の消火剤を 8,000 に", "bars", "BR_SETS",
+              dict(M.BR_SETS, fire=dict(M.BR_SETS["fire"], rows=(M.BR_SETS["fire"]["rows"][0], ("基地の化学消防車5台", 8000.0, "AMBER", "7,500")))), "② 棒"),
+             ("4回目の頂点の高さを替える", "updown", "UD_PTS", M.UD_PTS[:3] + (("p4", 1180.0, 12755),) + M.UD_PTS[4:], "② 高さの点"),
+             ("建議の向きを逆に（運輸大臣 → 委員会）", "flow", "FL_SETS",
+              dict(M.FL_SETS, gov=dict(M.FL_SETS["gov"], arrows=(("min", "rep", "a", "建議"),) + M.FL_SETS["gov"]["arrows"][1:])), "② 流れの矢印か印"),
+             ("水平飛行の高さを替える", "hold", "HD_M", 300, "② 高さ"),
+             ("押した理由を替える", "prec", "PR_WHY", dict(M.PR_WHY, hel="急いでいたため"), "② 前例の名か理由"),
+             ("注意書きのモードを替える", "doc", "DC_MODES", ("LAND", "ALT"), "② 注意書き"),
+             ("2つの札を入れ替える", "cards2", "CD2_SETS",
+              dict(fcom2=dict(M.CD2_SETS["fcom2"], cards=tuple(reversed(M.CD2_SETS["fcom2"]["cards"])))), "② 2つの札"))
     for name, view, attr, val, why in cases:
         if view not in by_view:
             print(f"  ⚠️ 17本目 陽性対照「{name}」：{view} のカットが無い（飛ばした）")

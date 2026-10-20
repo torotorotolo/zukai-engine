@@ -29,6 +29,18 @@
   afloor  … アルファ・フロアの流れ（迎え角が大きすぎる → 推力を自動で最大 → 失速を防ぐ＝p83）            c704
   pitch   … 分度器（機首の角度 最大 52.6度＝p49）＝針と機の形が段の鍵で回る                                c719
   pbars   … 機首の角度の棒（着陸の進入 約4度・表示が消える 25度・最大 52.6度・25度の2倍の線）              c720
+  🆕 ⑤b-6（第8〜9章＝2026-10-20）：
+  bars    … 数の棒（同じ縮尺・set＝fire〈1分に出せる消火剤 9,000／7,500＝p86〉・trim〈板の角度 −1〜−2／−8度＝p184・尾の模式つき〉）  c813・c907
+  flow    … 箱と矢印の流れ（set＝gov〈建議 → 運輸大臣＝p105〉・edu〈モスクワの出来事の教育＝p74〉）                     c820・c923
+  prec    … 前例の機体を横から（set＝hel／mos・押す〈橙〉・自動操縦の機首上げと板〈水色〉・手のトリム・札＝p184〜185・p80）
+                                                                                                c906・c910・c914・c919
+  hold    … 水平飛行（地上から約230m＝750ft・2人の思いと実際＝p184）                                    c908
+  keep    … 板の角度の動き（切れても角度は残る・数なし＝p185）                                           c915
+  updown  … 高さの上下（記録の点だけ結ぶ＝4,327・1,487・11,755・8,715ft＝p184〜185・2回目と3回目は結ばない）   c917・c920
+  doc     … 手引き書の注意書き（CAUTION の枠・中身は報告書の要約＝p80）                                   c911
+  cards2  … 2つの札（set＝fcom2〈勧める／禁じる＝p81〉）                                              c912
+  pitch   … 🆕 set＝c719（52.6度）・hel（35.5度・時速約170キロ）・mos（88度・時速約56キロ）                c909・c916
+  ⚠️ 前例の名（ヘルシンキ・モスクワ）は副題に＝左上の札（見え方の名）に入れると副題と同じ語（dup）
 
 ■ SPEC の書き方（mech23 と同じ）
   fig=("m17", dict(view=…, start=dict(…), steps=[dict(state=dict(…)), …], rel=[dict(t="52.6", src="報告書 p49")], note="…", src=ss.src([…])))
@@ -1056,6 +1068,10 @@ def afloor_stage(prev, st):
 #  pitch（c719）＝分度器（p49「15分26秒 同機のピッチ角は、最大の52.6°となっている」）。針と機の形が段の鍵で回る（動く部品）・機の形は模式
 # ══════════════════════════════════════════════════════════
 PT_DEG = 52.6
+# 🆕 ⑤b-6：分度器を前例の値にも（c909＝ヘルシンキ 35.5度〈p184〉・c916＝モスクワ 88度〈p185〉）。set で値と札を選ぶ（c719 は今までどおり）
+PT_SET = dict(c719=PT_DEG, hel=35.5, mos=88.0)
+PT_CAP = dict(c719="機首の角度（最大）", hel="機首の角度（やり直しの上昇）", mos="機首の角度（ほとんど真上）")
+PT_SPD = dict(hel=("170", "94"), mos=("56", "30"))     # 速さ（時速約○キロ・○ノット）＝p184「速度は94ktに減じた」・p185「速度は30ktに低下」
 PT = dict(cx=640.0, cy=780.0, r=430.0)
 PT_LAB = (1180.0, 470.0)
 
@@ -1083,7 +1099,7 @@ def pitch_base(st0):
 
 def pitch_parts(st):
     on = st["needle"] == "on"
-    rot = -PT_DEG if on else 0.0
+    rot = -PT_SET[st["set"]] if on else 0.0
     cx, cy = PT["cx"], PT["cy"]
     L = PT["r"] - 40
     needle = _P("needle", "poly", [(cx, cy - 4), (cx + L, cy - 2), (cx + L, cy + 2), (cx, cy + 4)], pivot=[cx, cy], rot=rot,
@@ -1097,10 +1113,15 @@ def pitch_parts(st):
 def pitch_stage(prev, st):
     s = []
     if _on(prev, st, "needle"):
-        wedge = [(PT["cx"], PT["cy"])] + [_pt_xy(PT_DEG * i / 20, PT["r"] - 50) for i in range(21)]
+        deg = PT_SET[st["set"]]
+        wedge = [(PT["cx"], PT["cy"])] + [_pt_xy(deg * i / 20, PT["r"] - 50) for i in range(21)]
         s.append(F.poly(wedge, J.AMBER, None, close=True, op=0.18))
-        s.append(_tline(PT_LAB[0], PT_LAB[1], f"{PT_DEG}度", 80, J.AMBER, "start", 420, fam="Dela"))
-        s.append(_tline(PT_LAB[0], PT_LAB[1] + 56, "機首の角度（最大）", 28, J.AMBER, "start", 420))
+        s.append(_tline(PT_LAB[0], PT_LAB[1], f"{deg:g}度", 80, J.AMBER, "start", 420, fam="Dela"))
+        s.append(_tline(PT_LAB[0], PT_LAB[1] + 56, PT_CAP[st["set"]], 28, J.AMBER, "start", 520))
+    if _on(prev, st, "spd"):
+        kmh, kt = PT_SPD[st["set"]]
+        s.append(_tline(PT_LAB[0], PT_LAB[1] + 150, f"速さ 時速約{kmh}キロ", 34, INK, "start", 560))
+        s.append(_tline(PT_LAB[0], PT_LAB[1] + 194, f"（{kt}ノット）", 26, J.TICK, "start", 300))
     return s
 
 
@@ -1144,6 +1165,416 @@ def pbars_stage(prev, st):
 
 
 # ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-6（2026-10-20）：第8〜9章の見え方
+# ══════════════════════════════════════════════════════════
+#  bars（c813・c907）＝数の棒（同じ縮尺）。set で中身を選ぶ。値は描く側の表 BR_SETS・記録は門番の側 REC_M17["bars"]
+#   fire＝1分に出せる消火剤（p86「ICAO水準では、放射率は9,000l/min」「化学消防車5台の放射率は7,500l/min」）
+#   trim＝水平安定板の角度（p184「すでに一8。機首上げ側」「通常のGO-AROUNDでは一1。ー2。機首上げ」）＝範囲の棒（1〜2）と 8。tail＝尾の模式（板は逆の向き）
+BR_SETS = dict(
+    fire=dict(rows=(("国際的な基準（望ましい）", 9000.0, "LINE", "9,000"), ("基地の化学消防車5台", 7500.0, "AMBER", "7,500")),
+              vmax=10000.0, ticks=(0, 2000, 4000, 6000, 8000, 10000), unit="リットル（1分あたり）", x0=700.0, x1=1640.0, ys=(470.0, 640.0),
+              lab="消火剤を出す量の棒（同じ縮尺）"),
+    trim=dict(rows=(("ふだんのやり直し", (1.0, 2.0), "LINE", "−1〜−2度"), ("ヘルシンキの出来事", 8.0, "ship", "−8度")),
+              vmax=10.0, ticks=(0, 2, 4, 6, 8, 10), unit="度（機首上げの側）", x0=1020.0, x1=1700.0, ys=(470.0, 640.0),
+              lab="水平安定板の角度の棒（同じ縮尺）"),
+)
+BR = dict(h=70.0, ty=760.0)
+
+
+def br_x(st, v):
+    S = BR_SETS[st]
+    return S["x0"] + (S["x1"] - S["x0"]) * v / S["vmax"]
+
+
+def _fmt_tick(v):
+    return f"{v:,}" if v >= 1000 else str(v)
+
+
+def _tail(cx, cy, ths_deg, el_deg, col_t=None, col_e=None):
+    """横から見た尾（垂直尾翼・胴体の後ろ・水平安定板＋昇降舵）。角度は模式（正＝前が上がる＝機首上げの向き）。"""
+    g = [F.poly([(cx - 330, cy - 14), (cx + 40, cy - 22), (cx + 120, cy - 14), (cx + 120, cy + 10), (cx - 330, cy + 22)], "#c9d1d7", "#20282e", 3, close=True),
+         F.poly([(cx - 40, cy - 22), (cx + 20, cy - 190), (cx + 70, cy - 190), (cx + 110, cy - 16)], "#9aa4ac", "#20282e", 3, close=True)]
+    a = math.radians(-ths_deg)
+    pv = (cx + 30, cy - 2)
+
+    def r(p, ang, o):
+        x, y = p[0] - o[0], p[1] - o[1]
+        return (o[0] + x * math.cos(ang) - y * math.sin(ang), o[1] + x * math.sin(ang) + y * math.cos(ang))
+    plate = [r(p, a, pv) for p in [(cx - 90, cy - 6), (cx + 60, cy - 6), (cx + 60, cy + 6), (cx - 90, cy + 6)]]
+    g.append(F.poly(plate, col_t or "#c9d1d7", "#20282e", 3, close=True))
+    hinge = r((cx + 60, cy), a, pv)
+    b = math.radians(-ths_deg + el_deg)
+    elev = [(hinge[0] + dx * math.cos(b) - dy * math.sin(b), hinge[1] + dx * math.sin(b) + dy * math.cos(b)) for dx, dy in ((0, -5), (70, -2), (70, 2), (0, 5))]
+    g.append(F.poly(elev, col_e or "#c9d1d7", "#20282e", 3, close=True))
+    return "".join(g)
+
+
+def bars_base(st0):
+    S = BR_SETS[st0["set"]]
+    g = [F.line(S["x0"], S["ys"][0] - 70, S["x0"], BR["ty"] - 34, J.LINE, 3)]
+    for v in S["ticks"]:
+        x = br_x(st0["set"], v)
+        g.append(F.line(x, BR["ty"] - 34, x, BR["ty"] - 22, J.TICK, 3))
+        g.append(_tline(x, BR["ty"], _fmt_tick(v), 24, J.TICK, "middle", 120))
+    g.append(_tline(S["x1"], BR["ty"] + 40, S["unit"], 24, J.TICK, "end", 520))
+    for k, (t, _v, _r, _s) in enumerate(S["rows"]):
+        g.append(_tline(S["x0"] - 24, S["ys"][k] + 10, t, 28, J.TICK, "end", S["x0"] - 120 if st0["set"] == "fire" else 330))
+    return g
+
+
+def bars_stage(prev, st):
+    S = BR_SETS[st["set"]]
+    s = []
+    if st["set"] == "trim" and _on(prev, st, "tail"):
+        s.append(_tail(330.0, 560.0, 14.0, -26.0, col_t=AUTO, col_e=HAND))
+        s.append(_arrow(390.0, 470.0, 390.0, 410.0, AUTO, 6, 20))
+        s.append(_tline(300.0, 384.0, "水平安定板（自動操縦）", 24, AUTO, "middle", 380))
+        s.append(_arrow(470.0, 610.0, 470.0, 670.0, HAND, 6, 20))
+        s.append(_tline(470.0, 712.0, "昇降舵（押す操縦）", 24, HAND, "middle", 300))
+        s.append(_tline(300.0, 790.0, "逆の向き", 30, J.AMBER, "middle", 300))
+    for k, f_ in enumerate(("b0", "b1")):
+        if _on(prev, st, f_):
+            _t, v, r, lab = S["rows"][k]
+            y = S["ys"][k]
+            if isinstance(v, tuple):
+                a, b = (br_x(st["set"], u) for u in v)
+                s.append(F.rect(a, y - BR["h"] / 2, b - a, BR["h"], rc(r), None, op=0.92))
+                s.append(F.rect(S["x0"], y - BR["h"] / 2, a - S["x0"], BR["h"], "none", rc(r), 3, dash="8 6"))
+                xe = b
+            else:
+                xe = br_x(st["set"], v)
+                s.append(F.rect(S["x0"], y - BR["h"] / 2, xe - S["x0"], BR["h"], rc(r), None, op=0.92))
+            s.append(_tline(xe + 18, y + 12, lab, 34, rc(r) if r != "LINE" else INK, "start", 300))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  flow（c820・c923）＝箱と矢印の流れ（だれから・だれへ）。set で中身を選ぶ（FL_SETS）。箱・矢印・印は欄（段の鍵）で出る
+#   箱＝(名, cx, cy, w, h, 字, 2行目, 役, 欄)・矢印＝(元, 先, 欄, 札)・印＝("x"|"ok", 箱の名, 欄)
+#   gov ＝建議（p105「航空事故調査委員会は、本事故に鑑み以下のとおり運輸大臣に建議する」「2今後の消火救難体制の充実強化について全国の飛行場における」）
+#   edu ＝モスクワの出来事の教育（p74「モスクワで発生したA310型のインシデント事例については、該当乗務員に対して教育を行った」
+#         「当該機長及び副操縦士は、当時、A300-600R型機に乗務していなかったため、当該教育を受けていなかった」）
+# ══════════════════════════════════════════════════════════
+FL_SETS = dict(
+    gov=dict(lab="報告書の建議の宛先",
+             boxes=(("rep", 420.0, 470.0, 460.0, 130.0, "航空事故調査委員会", "（報告書）", "state", "a"),
+                    ("min", 1300.0, 470.0, 420.0, 130.0, "運輸大臣", "", "LINE", "a"),
+                    ("what", 860.0, 700.0, 640.0, 150.0, "全国の飛行場", "消火と救難を強める", "AMBER", "b")),
+             arrows=(("rep", "min", "a", "建議"), ("min", "what", "b", "")), marks=()),
+    edu=dict(lab="だれに教えたか",
+             boxes=(("cal", 300.0, 520.0, 360.0, 130.0, "中華航空", "", "LINE", "a"),
+                    ("crew", 1180.0, 400.0, 600.0, 130.0, "事故機と同じ型の乗員", "", "LINE", "a"),
+                    ("two", 1180.0, 680.0, 600.0, 130.0, "この機長と副操縦士", "（当時はその型に乗っていない）", "company", "b")),
+             arrows=(("cal", "crew", "a", "モスクワの出来事の教育"), ("cal", "two", "b", "")), marks=(("ok", "crew", "a"), ("x", "two", "b"))),
+)
+
+
+def _fl_box(S, name):
+    return next(b for b in S["boxes"] if b[0] == name)
+
+
+def _fl_edge(b, toward):
+    """箱 b の縁の点（toward の向き）。"""
+    _n, cx, cy, w, h = b[:5]
+    dx, dy = toward[0] - cx, toward[1] - cy
+    if dx == 0 and dy == 0:
+        return cx, cy
+    k = min(w / 2 / abs(dx) if dx else 1e9, h / 2 / abs(dy) if dy else 1e9)
+    return cx + dx * k, cy + dy * k
+
+
+def flow_base(st0):
+    return []
+
+
+def flow_stage(prev, st):
+    S = FL_SETS[st["set"]]
+    s = []
+    for f_ in ("a", "b", "c"):
+        if not _on(prev, st, f_):
+            continue
+        for (a, b, ff, lab) in S["arrows"]:
+            if ff != f_:
+                continue
+            A, B = _fl_box(S, a), _fl_box(S, b)
+            x1, y1 = _fl_edge(A, (B[1], B[2]))
+            x2, y2 = _fl_edge(B, (A[1], A[2]))
+            x1, y1 = x1 + (x2 - x1) * 0.04, y1 + (y2 - y1) * 0.04
+            x2, y2 = x2 - (x2 - x1) * 0.04, y2 - (y2 - y1) * 0.04
+            s.append(_arrow(x1, y1, x2, y2, J.LINE, 5, 22))
+            if lab:
+                s.append(_tline((x1 + x2) / 2, min(y1, y2) - 22, lab, 26, J.AMBER, "middle", 520))
+        for (nm, cx, cy, w, h, t, t2, r, ff) in S["boxes"]:
+            if ff != f_:
+                continue
+            s.append(_card(cx, cy, w, h, rc(r)))
+            if t2:
+                s.append(_tline(cx, cy - 6, t, 32, INK, "middle", w - 30))
+                s.append(_tline(cx, cy + 38, t2, 24, J.TICK if r != "AMBER" else J.AMBER, "middle", w - 30))
+            else:
+                s.append(_tline(cx, cy + 11, t, 32, INK, "middle", w - 30))
+        for (kind, nm, ff) in S["marks"]:
+            if ff != f_:
+                continue
+            B = _fl_box(S, nm)
+            mx, my = B[1] + B[3] / 2 + 46, B[2]
+            s.append(_check(mx, my, 24, J.OK) if kind == "ok" else _xmark(mx, my, 22))
+            if kind == "x":
+                s.append(_tline(mx + 36, my + 10, "教わっていない", 26, J.ALERT, "start", 260))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  prec（c906・c910・c914・c919）＝前例の出来事の機体を横から（向きと押す力と板・模式）。set＝hel（ヘルシンキ 1989年）／mos（モスクワ 1991年）
+#   push＝手で操縦輪を押す（橙）・apup＝自動操縦の機首上げ（水色）・ths＝水平安定板が逆の向きへ（水色）・trim＝手のトリム（橙）で板を戻す・
+#   ok＝正常な飛行に戻った・fcom＝1991年1月 手引き書に注意書き・why＝押した理由の札・aware＝気づいていなかった
+#   原文（p184〜185）は門番の側 REC_M17["prec"]
+# ══════════════════════════════════════════════════════════
+PR_SETS = dict(hel="ヘルシンキの出来事（1989年）", mos="モスクワの出来事（1991年）")
+PR_WHY = dict(hel="乗客の乗り心地のため", mos="機体が軽く・上昇が急")
+PR = dict(px=820.0, py=560.0, L=560.0, deg=8.0)
+
+
+def _lab_prec(st0):
+    # ⚠️ 前例の名（ヘルシンキ・モスクワ）は副題に書く＝左上の札に入れると副題と同じ語（dup）になる
+    return "横から見た機体の向き"
+
+
+def _pr_pt(u, v):
+    """機の形の上の点（u＝機首方向の割合 −0.5〜0.5・v＝上が負の画素）を、機の傾きで回した画面の点。"""
+    a = math.radians(-PR["deg"])
+    x, y = u * PR["L"], v
+    return PR["px"] + x * math.cos(a) - y * math.sin(a), PR["py"] + x * math.sin(a) + y * math.cos(a)
+
+
+def prec_base(st0):
+    g = [F.line(F.BX0 + 40, 830.0, F.BX1 - 40, 830.0, J.LINE_DIM, 3)]
+    g.append(_plane(PR["px"], PR["py"], PR["L"], PR["deg"]))
+    return g
+
+
+def prec_stage(prev, st):
+    s = []
+    nose = _pr_pt(0.5, 0)
+    tail = _pr_pt(-0.47, 0)
+    if _on(prev, st, "why"):
+        s.append(_card(1500.0, 330.0, 520.0, 90.0, J.LINE))
+        s.append(_tline(1500.0, 341.0, PR_WHY[st["set"]], 30, INK, "middle", 480))
+    if _on(prev, st, "apup"):
+        arc = F._arc(nose[0] - 40, nose[1] + 10, 120, -70, -10, 12)
+        s.append(F.poly(arc, "none", AUTO, 6))
+        s.append(_arrow(arc[-2][0], arc[-2][1], arc[-1][0] + 2, arc[-1][1] - 6, AUTO, 6, 24))
+        # ⚠️ 門番 layout（⑤b-6）：機首の上（y 約370）だと右の札（y 285〜375）に覆われた（c910）＝弧の先の右下へ
+        s.append(_tline(nose[0] + 90, nose[1] - 100, "自動操縦：機首上げ", 28, AUTO, "start", 420))
+    if _on(prev, st, "push"):
+        cx, cy = _pr_pt(0.36, -40)
+        s.append(_arrow(cx, cy - 120, cx, cy - 10, HAND, 10, 30))
+        s.append(_tline(cx, cy - 140, "手で操縦輪を押す", 28, HAND, "middle", 380))
+    if _on(prev, st, "ths"):
+        s.append(_arrow(tail[0] + 10, tail[1] + 90, tail[0] + 10, tail[1] + 20, AUTO, 8, 26))
+        s.append(_tline(tail[0] + 10, tail[1] + 132, "水平安定板は逆の向きへ", 28, AUTO, "middle", 460))
+    if _on(prev, st, "trim"):
+        s.append(_arrow(tail[0] + 90, tail[1] + 20, tail[0] + 90, tail[1] + 90, HAND, 8, 26))
+        s.append(_tline(tail[0] + 120, tail[1] + 182, "手のトリムで戻す", 28, HAND, "start", 420))
+    if _on(prev, st, "ok"):
+        s.append(_card(1500.0, 330.0, 520.0, 90.0, J.OK))
+        s.append(_check(1290.0, 330.0, 20, J.OK))
+        s.append(_tline(1520.0, 341.0, "正常な飛行に戻った", 30, J.OK, "middle", 440))
+    if _on(prev, st, "fcom"):
+        # ⚠️ 自動操縦の札（y 約395〜425）の下へ
+        s.append(_card(1500.0, 580.0, 520.0, 90.0, J.AMBER))
+        s.append(_tline(1500.0, 591.0, "1991年1月 手引き書に注意書き", 28, J.AMBER, "middle", 480))
+    if _on(prev, st, "aware"):
+        s.append(_card(1500.0, 330.0, 520.0, 90.0, J.ALERT))
+        s.append(_tline(1500.0, 341.0, "乗員：ずれに気づかず", 30, J.ALERT, "middle", 480))     # ⚠️ 門番 echo：語りの丸写しを避けた
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  hold（c908）＝ヘルシンキの出来事の水平飛行（横から・模式）。p184「対地高度750ftで水平飛行をしばらく維持した」
+#   「この間、機長及び副操縦士はAPはまだ解除されていないものと思っていた」。高さの線だけ記録（道の形は模式）
+# ══════════════════════════════════════════════════════════
+HD_FT, HD_M = 750, 230
+HD = dict(g=800.0, y=520.0, x0=260.0, x1=1240.0)
+
+
+def hold_base(st0):
+    g = [F.line(F.BX0 + 40, HD["g"], F.BX1 - 40, HD["g"], J.LINE, 3)]
+    g.append(_tline(F.BX0 + 50, HD["g"] + 36, "地面", 24, J.TICK, "start", 120))
+    return g
+
+
+def hold_stage(prev, st):
+    s = []
+    if _on(prev, st, "level"):
+        s.append(F.line(HD["x0"], HD["y"], HD["x1"], HD["y"], J.INK_W, 5, dash="16 10"))
+        s.append(_plane(HD["x1"] - 80, HD["y"] - 12, 220.0, 0.0))
+        x = HD["x0"] + 60
+        s.append(_arrow(x, HD["g"] - 6, x, HD["y"] + 8, J.AMBER, 4, 16))
+        s.append(_arrow(x, HD["y"] + 8, x, HD["g"] - 6, J.AMBER, 4, 16))
+        # ⚠️ 門番 echo（⑤b-6）：1つの札「地上から約230メートル（750フィート）」は語りの丸写し＝数と単位の札を分ける
+        s.append(_tline(x + 24, (HD["g"] + HD["y"]) / 2 + 2, f"約{HD_M}メートル", 34, J.AMBER, "start", 400))
+        s.append(_tline(x + 24, (HD["g"] + HD["y"]) / 2 + 44, f"地上から（{HD_FT}フィート）", 24, J.TICK, "start", 400))
+    if _on(prev, st, "think"):
+        s.append(_card(1570.0, 400.0, 480.0, 130.0, J.LINE))
+        s.append(_tline(1570.0, 390.0, "2人の思い", 26, J.TICK, "middle", 440))
+        s.append(_tline(1570.0, 432.0, "自動操縦はまだ入っている", 28, INK, "middle", 440))
+    if _on(prev, st, "miss"):
+        s.append(_card(1570.0, 620.0, 480.0, 130.0, J.ALERT))
+        s.append(_tline(1570.0, 610.0, "実際", 26, J.TICK, "middle", 440))
+        s.append(_tline(1570.0, 652.0, "切れていた", 30, J.ALERT, "middle", 440))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  keep（c915）＝モスクワの出来事の板の角度（時間の順・数は出さない＝模式）。p184「APは解除されることとなった」・p185「THSの作動角度はそのままの状態が残ることとなった」
+# ══════════════════════════════════════════════════════════
+KP = dict(x0=300.0, xoff=900.0, x1=1560.0, y0=760.0, y1=420.0)
+
+
+def keep_base(st0):
+    g = [F.line(KP["x0"], KP["y0"], KP["x1"] + 60, KP["y0"], J.LINE, 3), F.line(KP["x0"], KP["y0"], KP["x0"], KP["y1"] - 80, J.LINE, 3)]
+    g.append(_tline(KP["x0"] - 16, KP["y1"] - 50, "板の角度（機首上げの側）", 24, J.TICK, "start", 520))
+    g.append(_tline(KP["x1"] + 60, KP["y0"] + 40, "時間の順", 24, J.TICK, "end", 200))
+    g.append(F.poly([(KP["x0"], KP["y0"]), (KP["xoff"], KP["y1"])], "none", AUTO, 7))
+    g.append(_tline(KP["x0"] + 300, KP["y0"] - 160, "自動操縦が動かす", 26, AUTO, "middle", 360))
+    return g
+
+
+def keep_stage(prev, st):
+    s = []
+    if _on(prev, st, "off"):
+        s.append(F.line(KP["xoff"], KP["y1"] - 70, KP["xoff"], KP["y0"], J.TICK, 3, dash="10 8"))
+        s.append(_tline(KP["xoff"], KP["y1"] - 86, "自動操縦が切れる", 26, J.TICK, "middle", 360))
+        s.append(F.poly([(KP["xoff"], KP["y1"]), (KP["x1"], KP["y1"])], "none", AUTO, 7))
+        s.append(_tline((KP["xoff"] + KP["x1"]) / 2, KP["y1"] + 50, "角度はそのまま", 30, J.AMBER, "middle", 420))
+    if _on(prev, st, "msg"):
+        s.append(_card(1230.0, 650.0, 520.0, 90.0, J.AMBER))
+        s.append(_tline(1230.0, 661.0, "切れても角度は残る", 30, J.AMBER, "middle", 480))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  updown（c917・c920）＝モスクワの出来事の高さ（高さは記録の値に比例・横は順番だけ＝模式）。記録の点だけを結ぶ（0b-32）＝
+#   2回目・3回目の高さは記録に無い＝結ばない（「繰り返す」の字）。4回目の上昇の始まりの高さも記録に無い＝頂点へ入る矢印だけ
+#   UD_PTS＝(名, 順の x, フィート)。p184「対地高度1,275ftでGOAROUNDモード」・p185「4,327ftに達した後、失速状態となり、高度1,487ftまで降下」
+#   「4回目の上昇時には高度11,755ftに達した」「高度8,715ftで異常な飛行から回復」
+# ══════════════════════════════════════════════════════════
+UD_PTS = (("ga", 300.0, 1275), ("p1", 520.0, 4327), ("l1", 700.0, 1487), ("p4", 1180.0, 11755), ("rec", 1420.0, 8715))
+UD = dict(g=820.0, k=510.0 / (11755 * 0.3048))       # 1メートルあたりの画素
+
+
+def ud_y(ft):
+    return UD["g"] - ft * 0.3048 * UD["k"]
+
+
+def _ud(name):
+    return next(p for p in UD_PTS if p[0] == name)
+
+
+def updown_base(st0):
+    return [F.line(F.BX0 + 140, UD["g"], F.BX1 - 140, UD["g"], J.LINE, 3)]
+
+
+def updown_stage(prev, st):
+    s = []
+    P = {n: (x, ud_y(f)) for n, x, f in UD_PTS}
+    if _on(prev, st, "first"):
+        s.append(F.poly([P["ga"], P["p1"], P["l1"]], "none", J.INK_W, 6))
+        for n in ("p1", "l1"):
+            s.append(f'<circle cx="{P[n][0]:.1f}" cy="{P[n][1]:.1f}" r="9" fill="{J.AMBER if n == "p1" else J.INK_W}"/>')
+        # ⚠️ 門番 echo（⑤b-6）：「約1,320メートル（失速）」は語りに近すぎた＝数の札と言葉の札を分ける（3つの点とも）
+        s.append(_tline(P["p1"][0], P["p1"][1] - 54, "約1,320メートル", 28, J.AMBER, "middle", 420))
+        s.append(_tline(P["p1"][0], P["p1"][1] - 22, "失速", 24, J.TICK, "middle", 200))
+        s.append(_tline((P["l1"][0] + P["p4"][0]) / 2 - 20, P["l1"][1] - 40, "降下と急上昇を繰り返す", 26, J.TICK, "middle", 420))
+    if _on(prev, st, "fourth"):
+        x, y = P["p4"]
+        s.append(_arrow(x - 90, y + 200, x - 8, y + 10, J.INK_W, 6, 22))
+        s.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="10" fill="{J.AMBER}"/>')
+        s.append(_tline(x - 30, y - 10, "約3,580メートル", 28, J.AMBER, "end", 460))
+        s.append(_tline(x - 30, y + 24, "4回目の頂点", 24, J.TICK, "end", 300))
+    if _on(prev, st, "down"):
+        s.append(F.poly([P["p4"], P["rec"]], "none", J.INK_W, 6))
+        s.append(_card(1500.0, 300.0 + 260.0, 470.0, 110.0, J.LINE))
+        s.append(_tline(1500.0, 548.0, "出力を絞る", 26, INK, "middle", 440))
+        s.append(_tline(1500.0, 588.0, "トリムは機首下げへ", 26, INK, "middle", 440))
+    if _on(prev, st, "rec"):
+        x, y = P["rec"]
+        s.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="10" fill="{J.OK}"/>')
+        s.append(F.line(x, y, x + 140, y, J.OK, 6))
+        s.append(_tline(x + 10, y - 26, "約2,660メートル", 28, J.OK, "start", 460))
+        s.append(_tline(x + 160, y + 10, "立ち直る", 24, J.OK, "start", 200))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  doc（c911）＝手引き書の注意書き（CAUTION の枠）の再現図。中身は報告書の要約（p80「LAND及びGOAROUNDモード時にピッチ方向にAPをオーバーライドすると
+#   アウト・オブ・トリムとなり危険な状態に至る恐れがある旨のCAUTIONが追加」）＝原文の英語の文は写さない（枠の語と、モードの名だけ英語）
+# ══════════════════════════════════════════════════════════
+DC = dict(cx=960.0, y0=300.0, w=1100.0, h=520.0)
+DC_MODES = ("LAND", "GO AROUND")
+DC_FLOW = ("操縦輪で逆らう", "釣り合いがずれる", "危険な状態のおそれ")     # ⚠️ 門番 echo：「操縦輪で自動操縦に逆らう」は語りの丸写し
+
+
+def doc_base(st0):
+    x0 = DC["cx"] - DC["w"] / 2
+    g = [F.rect(x0, DC["y0"], DC["w"], DC["h"], J.BG2, J.LINE_DIM, 3, rx=6)]
+    g.append(_tline(x0 + 30, DC["y0"] + 44, "操縦の手引き書（1991年1月の改訂）", 26, J.TICK, "start", 700))
+    return g
+
+
+def doc_stage(prev, st):
+    s = []
+    x0 = DC["cx"] - DC["w"] / 2
+    if _on(prev, st, "box"):
+        s.append(F.rect(x0 + 60, DC["y0"] + 80, DC["w"] - 120, DC["h"] - 120, "none", J.AMBER, 5, rx=4))
+        s.append(_tline(DC["cx"], DC["y0"] + 140, "CAUTION", 44, J.AMBER, "middle", 400, fam="Dela"))
+        for k, t in enumerate(DC_MODES):
+            s.append(_box(DC["cx"] - 170 + k * 340, DC["y0"] + 220, 300, 70, t, col=J.LINE, cap=30))
+        s.append(_tline(DC["cx"], DC["y0"] + 310, DC_FLOW[0], 30, HAND, "middle", 800))
+    if _on(prev, st, "risk"):
+        y = DC["y0"] + 380
+        s.append(_tline(DC["cx"] - 40, y, DC_FLOW[1], 30, AUTO, "end", 420))
+        s.append(_arrow(DC["cx"] - 20, y - 10, DC["cx"] + 30, y - 10, J.LINE, 4, 16))
+        s.append(_tline(DC["cx"] + 50, y, DC_FLOW[2], 30, J.ALERT, "start", 420))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
+#  cards2（c912）＝2つの札（左右）と下の行。set で中身（CD2_SETS）。札＝(見出し, 中身, 役)
+#   fcom2＝p81「APオーバーライドの目的は、APの異常な作動から操縦士を保護するもの」「CAUTIONに記述されている内容は、APが正常に機能している場合の
+#   オーバーライドを禁止するもの」「推奨と禁止の相矛盾する内容を混同して理解する可能性」
+# ══════════════════════════════════════════════════════════
+CD2_SETS = dict(
+    fcom2=dict(lab="手引き書の2つの書き方",
+               cards=(("勧める", "異常な自動操縦から守る", "OK"), ("禁じる", "正常なときに逆らう", "ALERT")),
+               foot=("報告書", "混同するおそれ", "state")),
+)
+CD2 = dict(xs=(560.0, 1360.0), y=520.0, w=640.0, h=260.0, fy=780.0)
+
+
+def cards2_base(st0):
+    return []
+
+
+def cards2_stage(prev, st):
+    S = CD2_SETS[st["set"]]
+    s = []
+    for k, f_ in enumerate(("l", "r")):
+        if _on(prev, st, f_):
+            h, t, r = S["cards"][k]
+            cx = CD2["xs"][k]
+            s.append(_card(cx, CD2["y"], CD2["w"], CD2["h"], rc(r)))
+            s.append(_tline(cx, CD2["y"] - 30, h, 48, rc(r), "middle", CD2["w"] - 40))
+            s.append(_tline(cx, CD2["y"] + 50, t, 30, INK, "middle", CD2["w"] - 40))
+    if _on(prev, st, "foot"):
+        who, t, r = S["foot"]
+        s.append(_tline(960.0 - 20, CD2["fy"], who + "：", 30, rc(r), "end", 300))
+        s.append(_tline(960.0, CD2["fy"], t, 30, J.AMBER, "start", 600))
+    return s
+
+
+# ══════════════════════════════════════════════════════════
 #  見え方の表（mech23 と同じ作り）
 # ══════════════════════════════════════════════════════════
 VIEWS = dict(
@@ -1169,14 +1600,29 @@ VIEWS = dict(
     cards3=dict(lab="可能性の札", fields=dict(q=ONOFF, cards=ONOFF), base=cards3_base, stage=cards3_stage),
     assist=dict(lab="横から見た押す向き", fields=dict(l=ONOFF, name=ONOFF, r=ONOFF), base=assist_base, stage=assist_stage),
     afloor=dict(lab="アルファ・フロアの働き", fields=dict(name=ONOFF, flow=ONOFF, safe=ONOFF), base=afloor_base, stage=afloor_stage),
-    pitch=dict(lab="横から見た機首の角度", fields=dict(dial=ONOFF, needle=ONOFF), base=pitch_base, stage=pitch_stage, parts=pitch_parts),
+    pitch=dict(lab="横から見た機首の角度", fields=dict(set=tuple(PT_SET), dial=ONOFF, needle=ONOFF, spd=ONOFF), base=pitch_base, stage=pitch_stage,
+               parts=pitch_parts),
     pbars=dict(lab="機首の角度の棒", fields=dict(b0=ONOFF, b1=ONOFF, twice=ONOFF), base=pbars_base, stage=pbars_stage),
+    # 🆕 ⑤b-6（第8〜9章）
+    bars=dict(lab=lambda st0: BR_SETS[st0["set"]]["lab"], fields=dict(set=tuple(BR_SETS), tail=ONOFF, b0=ONOFF, b1=ONOFF),
+              base=bars_base, stage=bars_stage),
+    flow=dict(lab=lambda st0: FL_SETS[st0["set"]]["lab"], fields=dict(set=tuple(FL_SETS), a=ONOFF, b=ONOFF, c=ONOFF), base=flow_base, stage=flow_stage),
+    prec=dict(lab=_lab_prec, fields=dict(set=tuple(PR_SETS), why=ONOFF, apup=ONOFF, push=ONOFF, ths=ONOFF, trim=ONOFF, ok=ONOFF, fcom=ONOFF,
+                                         aware=ONOFF), base=prec_base, stage=prec_stage),
+    # ⚠️ 前例の名は副題に（左上の札に入れると副題と同じ語＝dup）
+    hold=dict(lab="横から見た水平飛行", fields=dict(level=ONOFF, think=ONOFF, miss=ONOFF), base=hold_base, stage=hold_stage),
+    keep=dict(lab="板の角度の動き", fields=dict(off=ONOFF, msg=ONOFF), base=keep_base, stage=keep_stage),
+    updown=dict(lab="横から見た高さの上下", fields=dict(first=ONOFF, fourth=ONOFF, down=ONOFF, rec=ONOFF),
+                base=updown_base, stage=updown_stage),
+    doc=dict(lab="手引き書の注意書き（再現図）", fields=dict(box=ONOFF, risk=ONOFF), base=doc_base, stage=doc_stage),
+    cards2=dict(lab=lambda st0: CD2_SETS[st0["set"]]["lab"], fields=dict(set=tuple(CD2_SETS), l=ONOFF, r=ONOFF, foot=ONOFF),
+                base=cards2_base, stage=cards2_stage),
 )
 START = {v: {f: d["fields"][f][0] for f in d["fields"]} for v, d in VIEWS.items()}
-HEAD_ONLY = dict(modes=("dim",))
+HEAD_ONLY = dict(modes=("dim",), pitch=("set",), bars=("set",), flow=("set",), prec=("set",), cards2=("set",))
 ORDER = dict(ths=dict(line=tuple(TH_LINE)))
 # 原文の値・欄・項目の写し（左上に「模式」を付けない）
-NOT_SCHEMATIC = ("factors", "clock2", "hours", "who3", "ths", "cards3", "pitch", "pbars")
+NOT_SCHEMATIC = ("factors", "clock2", "hours", "who3", "ths", "cards3", "pitch", "pbars", "bars", "flow", "cards2")
 VIEW_DIR = ("横から", "上から", "斜めから", "正面")
 
 
@@ -1374,7 +1820,31 @@ def geo_of(view, start, states):
         for s in allst:
             ps = {p["id"]: p for p in pitch_parts(s)}
             rows.append(dict(rot=ps["needle"]["rot"], plane=ps["plane"]["rot"], alpha=ps["needle"]["alpha"]))
-        out.update(deg=PT_DEG, rows=rows)
+        out.update(set=start["set"], deg=PT_SET[start["set"]], rows=rows, spd=PT_SPD.get(start["set"]), cap=PT_CAP[start["set"]])
+    elif view == "bars":
+        S = BR_SETS[start["set"]]
+        out.update(set=start["set"], rows=tuple((t, v, r) for t, v, r, _l in S["rows"]), labs=tuple(l for *_x, l in S["rows"]), x0=S["x0"],
+                   unit=(S["x1"] - S["x0"]) / S["vmax"],
+                   ends=tuple((tuple(br_x(start["set"], u) for u in v) if isinstance(v, tuple) else br_x(start["set"], v)) for _t, v, _r, _l in S["rows"]),
+                   ticks=tuple((v, br_x(start["set"], v)) for v in S["ticks"]), tail=any(s.get("tail") == "on" for s in allst))
+    elif view == "flow":
+        S = FL_SETS[start["set"]]
+        out.update(set=start["set"], boxes=tuple((n, t, t2, r) for n, _x, _y, _w, _h, t, t2, r, _f in S["boxes"]),
+                   arrows=tuple((a, b, lab) for a, b, _f, lab in S["arrows"]), marks=tuple((k, n) for k, n, _f in S["marks"]))
+    elif view == "prec":
+        out.update(set=start["set"], name=PR_SETS[start["set"]], why=PR_WHY[start["set"]],
+                   on={f_: any(s.get(f_) == "on" for s in allst) for f_ in VIEWS["prec"]["fields"] if f_ != "set"})
+    elif view == "hold":
+        out.update(ft=HD_FT, m=HD_M, y=HD["y"], g=HD["g"])
+    elif view == "keep":
+        out.update(xoff=KP["xoff"], x1=KP["x1"], y_flat=KP["y1"], y0=KP["y0"])
+    elif view == "updown":
+        out.update(pts=tuple((n, f) for n, _x, f in UD_PTS), px=tuple((x, ud_y(f)) for _n, x, f in UD_PTS), g=UD["g"], k=UD["k"])
+    elif view == "doc":
+        out.update(modes=DC_MODES, flow=DC_FLOW)
+    elif view == "cards2":
+        S = CD2_SETS[start["set"]]
+        out.update(set=start["set"], cards=tuple(S["cards"]), foot=S["foot"])
     elif view == "pbars":
         out.update(rows=tuple((t, v) for t, v, _r in PB_V), x0=PB["x0"], unit=(PB["x1"] - PB["x0"]) / PB["vmax"],
                    ends=tuple(pb_x(v) for _t, v, _r in PB_V), twice=PB_TWICE, twice_x=pb_x(PB_V[1][1] * PB_TWICE))

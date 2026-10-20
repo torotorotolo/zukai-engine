@@ -134,3 +134,91 @@ SPEC.update({
                           # ⚠️ 門番 dup：注「括弧＝前例から改修の提示まで」が見出しを丸ごと含んだ＝言い換えた
                           note="括弧の長さ＝前例からの年月（年月日は報告書の本文）", src=ss.src(["報告書 p78", "報告書 p79", "報告書 p76"])))),
 })
+
+# ── 🆕 ⑤b-6（2026-10-20）：図解 14カット（型 `tools/mech17.py`＝門番 check_mech の judge_m17・記録 REC_M17）──
+#   前例の経過＝報告書の別添3（p184〜185＝ヘルシンキ 1989年・モスクワ 1991年）。前例の名は副題に（左上の札は見え方の名だけ＝dup を避ける）
+#   🔴 次のカットの語りにある事は書かない（c906 は板の向きを描かない＝c907 の語り）
+SPEC.update({
+    # c906（2行）＝ヘルシンキ。1行目で押した理由（p184「乗客の快適性のため」）→ 2行目で自動操縦の機首上げと、手で押す（p184）
+    "c906": dict(
+        t="機長が押した", s="ヘルシンキの出来事（1989年）",
+        fig=("m17", dict(view="prec", start=dict(set="hel"), steps=[dict(state=dict(why="on")), dict(state=dict(apup="on", push="on"))],
+                         note="向きと力の矢印は模式・経過は報告書の別添", src=ss.src(["報告書 p184"])))),
+    # c907（2行）＝1行目で尾の模式（板は自動操縦で機首上げ・昇降舵は押す操縦で機首下げ＝逆の向き）→ 2行目で角度の棒（−8度／ふだん −1〜−2度＝p184）
+    "c907": dict(
+        t="逆に動いた板", s="切れたときの角度",
+        fig=("m17", dict(view="bars", start=dict(set="trim"), steps=[dict(state=dict(tail="on")), dict(state=dict(b0="on", b1="on"))],
+                         rel=[dict(t="0・2・4・6・8・10（目盛り）", src="報告書 p184"), dict(t="−1〜−2度・−8度", src="報告書 p184")],
+                         note="角度は報告書の別添の値・尾の形は模式", src=ss.src(["報告書 p184"])))),
+    # c908（3行）＝水平飛行（p184「対地高度750ftで水平飛行をしばらく維持」）→ 2人の思い（まだ入っている）→ 実際は切れていた
+    "c908": dict(
+        t="しばらく水平に", s="ヘルシンキの出来事",
+        fig=("m17", dict(view="hold", steps=[dict(state=dict(level="on")), dict(state=dict(think="on")), dict(state=dict(miss="on"))],
+                         rel=[dict(t="約230メートル", src="報告書 p184"), dict(t="750フィート", src="報告書 p184")],
+                         note="高さは報告書の別添の値・道の形は模式", src=ss.src(["報告書 p184"])))),
+    # c909（2行）＝分度器（35.5度＝p184）→ 2行目で速さ（94ノット＝時速約170キロ）
+    "c909": dict(
+        t="上がった機首", s="ヘルシンキの出来事",
+        fig=("m17", dict(view="pitch", start=dict(set="hel", dial="on"), steps=[dict(state=dict(needle="on")), dict(state=dict(spd="on"))],
+                         rel=[dict(t="35.5度", src="報告書 p184"), dict(t="0・30・60・90度（目盛り）", src="報告書 p184"),
+                              dict(t="時速約170キロ", src="報告書 p184"), dict(t="94ノット", src="報告書 p184")],
+                         note="角度と速さは報告書の別添の値・機の形は模式", src=ss.src(["報告書 p184"])))),
+    # c910（2行）＝手のトリムで戻す・正常な飛行へ（p184）→ 2行目で 1991年1月 手引き書に注意書き（p80）
+    "c910": dict(
+        t="手で戻した", s="ヘルシンキの出来事",
+        fig=("m17", dict(view="prec", start=dict(set="hel", apup="on", push="on", ths="on"),
+                         steps=[dict(state=dict(trim="on", ok="on")), dict(state=dict(fcom="on"))],
+                         rel=[dict(t="1991年1月", src="報告書 p80")],
+                         note="向きと力の矢印は模式・経過は報告書の別添と本文", src=ss.src(["報告書 p184", "報告書 p80"])))),
+    # c911（2行）＝注意書き（CAUTION の枠＝p80 の要約）→ 2行目で「釣り合いがずれる → 危険な状態のおそれ」
+    "c911": dict(
+        t="改訂で加わった", s="中身は報告書の要約",
+        fig=("m17", dict(view="doc", steps=[dict(state=dict(box="on")), dict(state=dict(risk="on"))],
+                         rel=[dict(t="1991年1月", src="報告書 p80")],
+                         note="再現図は模式（原文の英語の文は写さない）", src=ss.src(["報告書 p80"])))),
+    # c912（2行）＝勧める・禁じる（p81）→ 2行目で「報告書：混同するおそれ」
+    "c912": dict(
+        t="勧めか禁止か", s="報告書の指摘",
+        fig=("m17", dict(view="cards2", start=dict(set="fcom2"), steps=[dict(state=dict(l="on")), dict(state=dict(r="on", foot="on"))],
+                         note="言葉は報告書の要約", src=ss.src(["報告書 p81"])))),
+    # c914（2行）＝モスクワ。1行目で押した理由（p184「機体重量が軽く、上昇率が高かったため」）と自動操縦の機首上げ → 2行目で押す・板は逆へ
+    "c914": dict(
+        t="乗員が押した", s="モスクワの出来事（1991年）",
+        fig=("m17", dict(view="prec", start=dict(set="mos"), steps=[dict(state=dict(why="on", apup="on")), dict(state=dict(push="on", ths="on"))],
+                         note="向きと力の矢印は模式・経過は報告書の別添", src=ss.src(["報告書 p184"])))),
+    # c915（2行）＝板の角度の動き（数は出さない）。1行目で自動操縦が切れる → 角度はそのまま（p185）→ 2行目で「切れても角度は残る」
+    "c915": dict(
+        t="残った角度", s="モスクワの出来事",
+        fig=("m17", dict(view="keep", steps=[dict(state=dict(off="on")), dict(state=dict(msg="on"))],
+                         note="線は模式（数は出さない）・経過は報告書の別添", src=ss.src(["報告書 p184", "報告書 p185"])))),
+    # c916（2行）＝分度器（88度＝p185）→ 2行目で速さ（30ノット＝時速約56キロ）
+    "c916": dict(
+        t="立ち上がった機首", s="モスクワの出来事",
+        fig=("m17", dict(view="pitch", start=dict(set="mos", dial="on"), steps=[dict(state=dict(needle="on")), dict(state=dict(spd="on"))],
+                         rel=[dict(t="88度", src="報告書 p185"), dict(t="0・30・60・90度（目盛り）", src="報告書 p185"),
+                              dict(t="時速約56キロ", src="報告書 p185"), dict(t="30ノット", src="報告書 p185")],
+                         note="角度と速さは報告書の別添の値・機の形は模式", src=ss.src(["報告書 p185"])))),
+    # c917（2行）＝高さの上下（記録の点だけ結ぶ）。1行目で最初の失速（4,327ft≒約1,320m）と降下 → 2行目で4回目の頂点（11,755ft≒約3,580m）
+    "c917": dict(
+        t="上がり下がり", s="モスクワの出来事",
+        fig=("m17", dict(view="updown", steps=[dict(state=dict(first="on")), dict(state=dict(fourth="on"))],
+                         rel=[dict(t="約1,320メートル", src="報告書 p185"), dict(t="約3,580メートル", src="報告書 p185"), dict(t="4回目", src="報告書 p185")],
+                         note="高さは記録の値に比例・横は順番だけ（模式）・2回目と3回目の高さは記録に無い", src=ss.src(["報告書 p184", "報告書 p185"])))),
+    # c919（3行）＝押す操縦と機首を上げる向きの板（c914 の続き）→ 1行目で「乗員は気づいていなかった」（p185）
+    "c919": dict(
+        t="気づかないまま", s="モスクワの出来事",
+        fig=("m17", dict(view="prec", start=dict(set="mos", push="on", ths="on"), steps=[dict(state=dict(aware="on")), dict(), dict()],
+                         note="向きと力の矢印は模式・経過は報告書の別添", src=ss.src(["報告書 p185"])))),
+    # c920（2行）＝4回目の降下（出力を絞る・トリムが機首下げへ＝p185）→ 2行目で立ち直った高さ（8,715ft≒約2,660m）
+    "c920": dict(
+        t="ようやく立ち直る", s="モスクワの出来事",
+        fig=("m17", dict(view="updown", start=dict(first="on", fourth="on"), steps=[dict(state=dict(down="on")), dict(state=dict(rec="on"))],
+                         rel=[dict(t="約1,320メートル", src="報告書 p185"), dict(t="約3,580メートル", src="報告書 p185"), dict(t="4回目", src="報告書 p185"),
+                              dict(t="約2,660メートル", src="報告書 p185")],
+                         note="高さは記録の値に比例・横は順番だけ（模式）・2回目と3回目の高さは記録に無い", src=ss.src(["報告書 p185"])))),
+    # c923（3行）＝教育の届き方（p74）。1行目で中華航空 → 同じ型の乗員（✓）→ 2行目でこの機長と副操縦士（×）→ 3行目は次の章の問い
+    "c923": dict(
+        t="届かなかった教育", s="報告書の記録から",
+        fig=("m17", dict(view="flow", start=dict(set="edu"), steps=[dict(state=dict(a="on")), dict(state=dict(b="on")), dict()],
+                         note="言葉は報告書の本文の要約", src=ss.src(["報告書 p74"])))),
+})

@@ -879,6 +879,10 @@ def ep17_credit(name):
     """`ref/ep17/` の名前から出典表記を作る。当てはまらなければ None。"""
     if not name.startswith("ep17/"):
         return None
+    import cuts.ss as _ss
+    sat_ = next((v["credit"] for v in getattr(_ss, "SAT", {}).values() if v["file"] == name), None)
+    if sat_:
+        return sat_                 # 🆕 ⑤b-6：空港の地図（国土地理院の空中写真）＝出典の行は表 `cuts/ss.SAT` の credit
     m = re.fullmatch(r"ep17/(?:stock/)?fb_(c[0-9a-f]{3}(?:~t)?)\.jpg", name)     # 映像のひかえの静止画＝出典は映像と同じ（19本目 ⑤b-2 の型）
     if m:
         import footage as _FO
@@ -2863,7 +2867,8 @@ def report():
     #    Modal は保管庫 `jiko-assets` の `ref/…` を `modal_app.pull_private` で写す・Actions には無い（地図のカットは飛ばす）。
     #    有る無しと md5 は `build_jiko.drop_missing_sat` が見る（本編 full で無ければ止める＝fail closed）＝ここでは数えない。
     #    数えていたので、Actions は「実体が無い」・Modal の本編は「コミットされていない」で必ず止まった（本編を初めて Modal で焼いた r01）
-    sat = {v["file"] for v in getattr(_cuts_ss, "SAT", {}).values()} & set(used)
+    # 🆕 17本目 ⑤b-6：国土地理院の空中写真（表の行に gsi）は公開リポに置く＝ほかの写真と同じく数える（Google の絵だけ git の外）
+    sat = {v["file"] for v in getattr(_cuts_ss, "SAT", {}).values() if not v.get("gsi")} & set(used)
     if sat:
         print(f"   衛星写真 {len(sat)}件は git の外（保管庫から・有る無しと md5 は build_jiko.drop_missing_sat）＝ここでは数えない")
         used = [n for n in used if n not in sat]
