@@ -221,7 +221,9 @@ def factors_stage(prev, st):
                 cx, cy = fac_xy(i)
                 w, h = FG["w"], FG["h"]
                 s.append(F.rect(cx - w / 2 - 9, cy - h / 2 - 9, w + 18, h + 18, "none", col, 7, rx=14))
-                s.append(_tline(cx + w / 2 + 6, cy - h / 2 - 14, t, 24, col, "end", w))
+                # ⚠️ 試し焼き 39432999706（原寸）：札（24px・枠の上 14px）が上の段の印の枠の下の端に触れ、どちらの札の印か紛らわしかった（cb02 の「警報の無さ」）
+                #    ＝22px にして自分の枠の上の端へ寄せた（上の段の枠と約6px あける）
+                s.append(_tline(cx + w / 2 + 6, cy - h / 2 - 12, t, 22, col, "end", w))
     return s
 
 
