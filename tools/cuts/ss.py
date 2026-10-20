@@ -498,6 +498,23 @@ def mvz(name, a, b):
     return dict(cam={"from": (fa["xbias"], fa["bias"], fa["zoom"]), "to": (fb["xbias"], fb["bias"], fb["zoom"])})
 
 
+def tcam(name, trim, a, b):
+    """🆕 2026-10-21（17本目 ⑤b-7）：**カットごとの切り口（SPEC の `trim`）の上で**窓を2つ＝dict(trim=…, cam=…)。
+    合成（`build_jiko.load_photo`）は trim で先に切り、cam の寄せは切ったあとの絵の割合で当てる。`focus` は束の名ごとの `TRIM` しか
+    見ない＝同じ頁を2カットで別に切る（付図4 の c219・c713／付図5 の c521・c701／写真51 の c416／本文 p95 の cb17）と寄せを取り違える。
+    a・b＝(fx, fy, zoom)＝切ったあとの絵の割合と寄り。trim＝(x0, y0, x1, y1)＝束の絵の割合"""
+    sw, sh = size_of(name)
+    tw, th = sw * (trim[2] - trim[0]), sh * (trim[3] - trim[1])
+
+    def one(fx, fy, zoom):
+        z = max(W / tw, H / th) * zoom
+        cw, ch = min(tw, W / z), min(th, H / z)
+        xb = 0.5 if tw - cw < 1 else (fx * tw - cw / 2) / (tw - cw)
+        yb = 0.5 if th - ch < 1 else (fy * th - ch / 2) / (th - ch)
+        return (round(min(1.0, max(0.0, xb)), 3), round(min(1.0, max(0.0, yb)), 3), zoom)
+    return dict(trim=tuple(trim), cam={"from": one(*a), "to": one(*b)})
+
+
 def check_card_mix(spec, heads, fo=None):
     """🔴 2026-09-30（15本目 ⑤c'・ルール §5b-110）：章の扉の地（`build_jiko.card_frame`）は、頭のカットの写真を章の色で
     **染めて全画面に拡大して**混ぜる（既定 0.36）＝額装だけの点（BY-SA・courtesy の紙面の引用＝`frame_only`）を頭に持つ章は、
@@ -589,6 +606,8 @@ SLIDE_NOT_MOUNT: dict[str, str] = {
     P("stock/xg1"): "イメージ（夜の操縦室の天井と計器盤の下）＝" + _NIGHT,
     P("stock/xg2"): "イメージ（夜の操縦室の上と右）＝" + _NIGHT,
     P("stock/xh1"): "イメージ（夜の管制塔の空と地面）＝" + _NIGHT,
+    # 🆕 ⑤b-7（10-21）：FAA の報告の頁（文字の PDF を描いた絵）の上の端＝見出しの行「Report of the FAA Human Factors Team」と罫線（頁の中身・台紙でない＝下見のシート P2）
+    **{P(n): "FAA の報告の頁の上の端の見出しの行と罫線（文字の PDF を描いた頁の中身＝台紙の縁でない）" for n in ("l64", "l80")},
 }
 
 # 🆕 2026-10-13（21本目 ⑤b-7）：**原寸で見て字でないと決めた OCR の範囲**（OCR の読み置きのファイル名 → [((x0, y0, x1, y1)＝束の画素, 何か)]）。
@@ -598,6 +617,9 @@ SLIDE_NOT_MOUNT: dict[str, str] = {
 #       追悼の場のまわりの雪の上の木立＝⑤b-7 に門番 edges〈c421・cb18〉・slide G-13〈cb18〉が鳴った行を原寸の2倍で見て決めた）は selftest の見本
 #       `tools/fixture_ep21.py` へ移した（値は1つも変えていない＝git の `35fab37`）。22本目で字でない範囲を決めたら、ここに足す
 OCR_NOT_TEXT: dict[str, list] = {
+    # 🆕 2026-10-21（17本目 ⑤b-7）：HEL（ヘルシンキ空港 1981年）の DC-9 の胴体の客室の窓の列（OCR が「物 1100 ぐ を 00…」と読んだ）＝字でない
+    #   （⑤b-7 の下見の原寸の切り出し Q1＝窓の列が x 0.60〜0.72・y 0.356〜0.373。胴体の「FINNAIR」は x 0.83〜＝窓の外）
+    "hel.jpg": [((1156, 684, 1377, 716), "DC-9 の胴体の客室の窓の列（字でない）")],
 }
 
 # 🔴 2026-09-29（14本目 ⑤b-7a）：**切り出し（`TRIM`）で外した私人の範囲**（元画像の割合 x0,y0,x1,y1・何か）。

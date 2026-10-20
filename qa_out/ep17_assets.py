@@ -67,7 +67,21 @@ JPEG_Q = 92
 MOSAIC_PX = 14                         # 顔のモザイクの升（束の画素）
 FRAME_RIGHTS = ("BY-SA", "GFDL")       # 額装だけ（了承② 決め7＝BY-SA・GFDL は額装・無加工・額ごと動かす・1点1カット）
 # 🔴 頁は使うチャットで足す（その章の切り口と一緒に決める）。⑤b-2 は冒頭の c106（と同じ頁の c113・c309）が使う付図29 だけ
-PAGES_NOW = ("F29",)
+#   🆕 ⑤b-7（10-21）：残りの頁を全部（報告書の付図10・写真51・本文 p95／FAA の報告 3頁／判決 2頁）
+PAGES_NOW = ("F29", "F01", "F03", "F04", "F05", "F08", "F09", "F11", "F12", "F28", "P51", "P95", "L64", "L80", "L03", "J1", "J98")
+# 🆕 ⑤b-7：報告書の本文の頁（文字の頁）＝題「付図N」「写真N」が無い＝頁の字の層の目印で当てる（1頁だけ当たらなければ止める）
+TEXT_ANCHOR = {"P95": "４原因", "P51": "写真５１分割した"}     # P51＝題の番号のすぐ後ろに字が続く（_CAP の「番号のあとに空白」に合わない）
+# 🆕 ⑤b-7：報告書でない頁（FAA の報告・判決）＝文字の PDF の頁を絵にする（PDF の頁番号は sources17 の page 欄「PDF p.N」）
+DOC = {
+    "L": dict(credit="出典：アメリカ連邦航空局『The Interfaces Between Flightcrews and Modern Flight Deck Systems』（1996年）",
+              who="アメリカ連邦航空局（FAA Human Factors Team・1996年6月）", url="https://www.faa.gov/sites/faa.gov/files/2022-11/interfac.pdf",
+              year=(1996, "報告の日付（June 18, 1996）")),
+    "J": dict(credit="出典：名古屋地方裁判所 2003年12月26日判決（平成7年(ワ)第4179号）",
+              who="名古屋地方裁判所（判決＝著作権の目的とならない・著作権法13条）", url="https://www.courts.go.jp/hanrei/7587/detail4/index.html",
+              year=(2003, "判決の日（裁判所の判例の頁）")),
+}
+DOC_PART = {"L64": "図4", "L80": "本文", "L03": "序文"}      # ⚠️「p80」の形は門番 wording が鳴る＝資料の中の名で
+PAGE_DPI_LONG = 3600                   # 文字の PDF の頁を絵にするときの長辺（報告書の頁の束と同じ）
 
 # 撮影年（副題の年の主張と照らす＝check_credits）。出どころ＝sources17.psv の note（Commons の頁の撮影日・題）。分からない点は None
 #   （表は「不明」・副題に年を書かない）。報告書の写真は1994年（写真1〜4＝事故の直後・ほかは焼き込みの日付「5 13 '94」など＝5月の調査）
@@ -85,7 +99,8 @@ YEAR = {
 ORG = {"HEL": "ヘルシンキ市立博物館", "FAA": "米議会図書館"}
 LIC = {"PDL1.0": "PDL1.0", "BY-SA 2.0": "CC BY-SA 2.0", "BY-SA 3.0": "CC BY-SA 3.0", "BY-SA 4.0": "CC BY-SA 4.0", "GFDL 1.2": "GFDL 1.2",
        "CC BY 2.0": "CC BY 2.0", "CC BY 3.0": "CC BY 3.0", "CC BY 4.0": "CC BY 4.0", "CC0": "CC0", "PD": "パブリックドメイン",
-       "Pexels License": "Pexels License", "Pixabay Content License": "Pixabay Content License"}
+       "Pexels License": "Pexels License", "Pixabay Content License": "Pixabay Content License",
+       "PD（米連邦政府）": "パブリックドメイン（米連邦政府）", "判決（著作権の目的とならない・著作権法13条）": "判決（著作権の目的とならない）"}
 LIC_URL = {"Pexels License": "https://www.pexels.com/license/", "Pixabay Content License": "https://pixabay.com/service/license-summary/"}
 # 顔だけモザイク {記号: [(x0, y0, x1, y1, 誰)]}（元の画像の画素）＝原寸で見てから書く（⑤b-2・2026-10-20＝scratchpad の切り出しを1〜2倍で見た）
 #   ARF（c802・CC BY 3.0＝改変を許す）＝消防車の右の見物の人5人の頭（真ん中の男性は Commons の投稿の時点でぼかしてある＝重ねて升目に）。
@@ -183,7 +198,7 @@ _CAP = re.compile(r"^(写真|付図)\s*([0-9０-９]+)(?=[\s　]|$)")
 _ZEN = str.maketrans("０１２３４５６７８９", "0123456789")
 
 
-def _page_image(page):
+def _page_image(page, tol=1):
     """頁の画像（1頁1枚の走査）＝(灰色の PIL 画像, 頁の点→画素の倍率 (sx, sy))。画像が1枚でなければ止める"""
     import fitz
     from PIL import Image
@@ -196,7 +211,7 @@ def _page_image(page):
         pix = fitz.Pixmap(fitz.csGRAY, pix)
     im = Image.frombytes("L", (pix.width, pix.height), pix.samples)
     rect = page.get_image_rects(xref)[0]
-    if abs(rect.x0) > 1 or abs(rect.y0) > 1 or abs(rect.x1 - page.rect.width) > 1 or abs(rect.y1 - page.rect.height) > 1:
+    if tol is not None and (abs(rect.x0) > tol or abs(rect.y0) > tol or abs(rect.x1 - page.rect.width) > tol or abs(rect.y1 - page.rect.height) > tol):
         raise SystemExit(f"🔴 頁 {page.number + 1}: 画像が頁いっぱいに置かれていない（{rect}）＝座標の当て方を確かめる")
     return im, (pix.width / page.rect.width, pix.height / page.rect.height)
 
@@ -222,6 +237,40 @@ def _find_page(pdf, kind, num):
     return d, hits[0][0], hits[0][1]
 
 
+def _find_text_page(pdf, anchor):
+    """🆕 ⑤b-7：字の層（空白を詰めた字）に目印がある頁＝(doc, page)。1頁でなければ止める"""
+    import fitz
+    d = fitz.open(pdf)
+    hits = [pg for pg in d if anchor in re.sub(r"[\s　]", "", pg.get_text())]
+    if len(hits) != 1:
+        raise SystemExit(f"🔴 {Path(pdf).name}: 目印「{anchor}」の頁が {len(hits)} 頁")
+    return d, hits[0]
+
+
+def doc_page(code, s):
+    """🆕 ⑤b-7：報告書でない頁（FAA の報告・判決＝文字の PDF）を絵にする＝(RGB の PIL 画像, 記録の dict)。
+    PDF の頁番号＝sources17 の page 欄「PDF p.N」。長辺 PAGE_DPI_LONG で描いて、インクの外接（四辺 24px の余白）で切る"""
+    import fitz
+    import numpy as np
+    from PIL import Image
+    m = re.search(r"PDF p\.(\d+)", s["page"])
+    if not m:
+        raise SystemExit(f"🔴 {code}: 頁の欄に「PDF p.N」が無い（{s['page']}）")
+    pdf = HERE / s["file"]
+    d = fitz.open(pdf)
+    pg = d[int(m.group(1)) - 1]
+    k = PAGE_DPI_LONG / max(pg.rect.width, pg.rect.height)
+    pix = pg.get_pixmap(matrix=fitz.Matrix(k, k), alpha=False)
+    im = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
+    a = np.asarray(im.convert("L"))
+    ys, xs = np.where(a < 200)
+    h, w = a.shape
+    box = (max(0, xs.min() - 24), max(0, ys.min() - 24), min(w, xs.max() + 24), min(h, ys.max() + 24))
+    rec = dict(pdf=s["file"], pdf_page=pg.number + 1, pdf_md5=md5(pdf), box_px=[int(v) for v in box],
+               how=f"文字の PDF の頁を描いた（長辺 {PAGE_DPI_LONG}px）・インクの外接")
+    return im.crop(box), rec
+
+
 def ja_crop(code, s):
     """報告書の写真（R）・頁（F・P）を頁の画像から切る＝(灰色の PIL 画像, 記録の dict)。
     写真＝題の下の矩形（升目のばらつき）・頁（付図）＝題を含めた頁のインクの外接（題「付図N」を画面に残す＝何の図か分かる）"""
@@ -229,12 +278,16 @@ def ja_crop(code, s):
     import numpy as np
     import extract_photos as EX
     kind = "付図" if code.startswith("F") else "写真"       # P51＝報告書の「写真51」（線画の入った頁ごと見せる）
-    if code == "P95":
-        raise SystemExit("🔴 P95（本文 p.95＝文字の頁）は頁の束（使う章のチャット）で作る")
     num = int(re.sub(r"\D", "", code))
     pdf = HERE / s["file"]
-    d, pg, caps = _find_page(pdf, kind, num)
-    im, (sx, sy) = _page_image(pg)
+    if code in TEXT_ANCHOR:
+        d, pg = _find_text_page(pdf, TEXT_ANCHOR[code])     # 🆕 ⑤b-7：本文の頁（題が無い）＝字の層の目印で当てる
+        caps = []
+    else:
+        d, pg, caps = _find_page(pdf, kind, num)
+    # 🆕 ⑤b-7：頁（付図・写真51・本文）は字の層の座標を使わず、画像のインクの外接だけで切る＝置き場の数ポイントのずれ
+    #   （付図1＝左 1.08pt 内側・付図3＝下へ 2.45pt・付図8＝6.1pt はみ出し）は効かない＝頁は置き場を確かめない（写真は 1pt のまま＝題の箱で当てる）
+    im, (sx, sy) = _page_image(pg, tol=None if (kind == "付図" or s["class"] == "page") else 1)
     a = np.asarray(im).copy()
     tboxes = []
     for b in pg.get_text("blocks"):
@@ -348,6 +401,8 @@ def screen_credit(code, s, frame, mask):
     """画面の出典の行。🔴 CC BY・BY-SA は必ず「改変」の語を書く＝`scene_jiko.credit_of` の古い決まり（6本目）が「CC BY」があって「改変」の
     語が無い行に「／改変：色調変更・切出」を黙って足す（23本目 ⑤b-2 の試し焼きで出た）"""
     r = s["rights"]
+    if s["class"] == "page" and code[0] in DOC:
+        return DOC[code[0]]["credit"] + (DOC_PART.get(code, "") if code[0] == "L" else "") + ("（パブリックドメイン）" if code[0] == "L" else "")
     if r == "PDL1.0":
         m = re.search(r"『航空事故調査報告書 96-5』(.+)$", s["credit"])
         if not m:
@@ -365,6 +420,8 @@ def screen_credit(code, s, frame, mask):
 
 
 def who_of(code, s):
+    if s["class"] == "page" and code[0] in DOC:
+        return DOC[code[0]]["who"]
     if s["rights"] == "PDL1.0":
         return "運輸省 航空事故調査委員会（報告書 96-5・1996年）"
     if s["class"] == "stock":
@@ -379,6 +436,8 @@ def who_of(code, s):
 def year_of(code, s):
     if s["class"] == "stock":
         return None, "この事故の物でない（イメージ）"
+    if s["class"] == "page" and code[0] in DOC:
+        return DOC[code[0]]["year"]
     if s["rights"] == "PDL1.0":
         if s["class"] == "page":
             return 1996, "報告書 96-5 の公表（1996年7月）＝頁"
@@ -400,7 +459,14 @@ def cmd_build():
         dst = EPD / f"{name}.jpg"
         notes, box_m, rec = [], [], {}
         rel = related_of(code)
-        if s["rights"] == "PDL1.0":
+        if s["class"] == "page" and code[0] in DOC:
+            # 🆕 ⑤b-7：FAA の報告・判決の頁（文字の PDF）＝描いて切るだけ（色・字はそのまま）
+            im, rec = doc_page(code, s)
+            notes.append(rec["how"])
+            im.save(dst, quality=JPEG_Q, optimize=True)
+            w, h = im.size
+            smd5 = rec["pdf_md5"]
+        elif s["rights"] == "PDL1.0":
             im, rec = ja_crop(code, s)
             notes.append(rec["how"])
             if s["class"] == "photo":
@@ -470,7 +536,7 @@ def cmd_build():
         db[name] = dict(code=code, part="", file=s["file"], cut=" ".join(cuts), credit=screen_credit(code, s, frame, bool(box_m)),
                         who=who_of(code, s), note=s["note"][:200], box=[0.0, 0.0, 1.0, 1.0], crop_px=[0, 0, w, h], w=w, h=h,
                         md5=md5(dst), src_md5=smd5, lic=lic, frame=frame, ground=s["rights"], url=s["page"] if s["page"].startswith("http") else
-                        "https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851", blur=[], how="・".join(notes), year=y, year_why=ywhy,
+                        DOC[code[0]]["url"] if s["class"] == "page" and code[0] in DOC else "https://jtsb.mlit.go.jp/jtsb/aircraft/detail.php?id=851", blur=[], how="・".join(notes), year=y, year_why=ywhy,
                         stock=s["class"] == "stock", page=s["class"] == "page", related=rel, quote_page=False, named=personal(s),
                         mosaic=[list(b[:4]) for b in box_m] or None, masked_before=None, **({"src_rec": rec} if rec else {}))
         if s["class"] == "stock":
@@ -790,11 +856,24 @@ def cmd_nogo():
 
 # 寄りと寄せ（V1＝横いっぱいは footage.PILLAR・ここでは字幕の帯から逃がす寄りの足しと上寄せ）
 V1_GEOM = dict(zoom=1.04, bias=0.0)       # zoom_of＝1.04÷0.7375＝1.41（見える縦 766px＜字幕の上の端 825）
+# 🆕 ⑤b-7（10-21）：V1 の区間を一覧の動きの欄から変えたカット＝{cid: (始め, 終わり, 理由)}（YouTube 版の秒）
+V1_WINDOW = {
+    "c805": (771.99, 776.30, "ショット 771.894〜777.733 の頭から、使わない窓 776.4〜（しゃがんで持ち上げる）の手前まで＝⑤b-2 の申し送り「776.3 まで」"),
+    # c807：ショット 777.733〜784.339 は背広の人（役目が分からない）が 780.6〜781.6秒ごろ左から入り、783.9〜 は照明の白飛び（使わない窓）。
+    #   人を避けて 0.6倍以上で足りる区間が無い（777.83〜780.2＝2.4秒／要る 6.55秒）＝778.0秒のコマの止め絵（⑤b-7 に 778〜783.4秒を約1秒おきに見た）
+    "c807": (778.00, 779.00, "止め絵＝778.0秒のコマ（背広の人が入る 780.6秒より前・救助の人は顔が分からない）", "still"),
+}
+# 🆕 ⑤b-7：フリー素材の映像（23本目の型）。STOCK_WINDOW＝pick を使わずに決めた区間・STOCK_GEOM＝寄りと寄せ（字を外す）
+STOCK_WINDOW = {}
+STOCK_GEOM = {}
+STOCK_EDGE = 0.3                # ショットの境目から離す秒（フリー素材＝1秒1コマで測った境目＝23本目と同じ）
 
 
-def cmd_use():
+def cmd_use(all_=False):
     """footage.USE の17本目の欄（🔴 章ファイルに `ss.vid`（カットまるごと）か `ss.head`（頭の差し込み）を書いたカットだけ＝門番 slots は両側を見る）。
-    V1＝一覧の動きの欄の区間（YouTube 版の秒）を、その区間を含むショットの境目から EDGE_S 離して切り、rate＝使える秒÷要る秒（切り捨て）"""
+    V1＝一覧の動きの欄の区間（YouTube 版の秒）を、その区間を含むショットの境目から EDGE_S 離して切り、rate＝使える秒÷要る秒（切り捨て）
+    🆕 ⑤b-7（10-21）：`use --all`＝章ファイルに書く前に、一覧の映像のカットを全部書く（`ss.vid` は USE の欄が無いと章ファイルの読み込みで
+    ひかえを開けずに止まる＝鶏と卵）。書いたあと章ファイルに `ss.vid` を足して、ふつうの `use` で同じ行になるかを見る"""
     sys.path.insert(0, str(HERE / "tools"))
     import footage as FO
     import scene_jiko as S
@@ -807,16 +886,44 @@ def cmd_use():
         cid, code = r["cid"], r["code"]
         sp = S.SPEC.get(cid) or {}
         head = bool((sp.get("intro") or {}).get("foot"))
-        if not head and not str(sp.get("photo") or "").endswith(f"fb_{cid}.jpg"):
+        if not head and not all_ and not str(sp.get("photo") or "").endswith(f"fb_{cid}.jpg"):
             skip.append(cid)
             continue
         if code != "V1":
-            skip.append(cid)                  # フリー素材のカットは ⑤b-7（使う区間を焼いて字を探してから）
+            # 🆕 ⑤b-7（10-21）：フリー素材の映像（23本目の pick の型）＝要る秒が等速で入るショットのうち、いちばん長いショットの真ん中。
+            #   入らなければいちばん長いショットで倍率を下げる（0.6 未満は止める）。STOCK_WINDOW に書いたカットはその区間（字を外す・絵を選ぶ）
+            need = float(secs[cid])
+            shs = sd[code]["shots"]
+            if cid in STOCK_WINDOW:
+                a, b = STOCK_WINDOW[cid]
+                sh = [x for x in shs if x["start"] <= a < x["until"]][0]
+                rate = min(1.0, int((b - a) / need * 100) / 100)
+            else:
+                sh = max(shs, key=lambda x: x["until"] - x["start"])
+                room = sh["until"] - sh["start"] - 2 * STOCK_EDGE
+                if room >= need:
+                    a = round(sh["start"] + STOCK_EDGE + (room - need) / 2, 2)
+                    b, rate = round(a + need + 0.05, 2), 1.0
+                else:
+                    a, b = round(sh["start"] + STOCK_EDGE, 2), round(sh["until"] - STOCK_EDGE, 2)
+                    rate = min(1.0, int(room / need * 100) / 100)
+            if rate < STILL_BELOW:
+                raise SystemExit(f"🔴 {cid}: 使える {b - a:.2f}秒／要る {need:.2f}秒＝{rate}＜{STILL_BELOW}（止め絵になる）")
+            geo = "".join(f", {k}={v}" for k, v in STOCK_GEOM.get(cid, {}).items())
+            lines.append(f'    "{cid}": dict(clip="{code}", start={a:.2f}, until={b:.2f}, rate={rate}{geo}),   '
+                         f'# ショット {sh["start"]:g}〜{sh["until"]:g}秒・使える {b - a:.2f}秒／要る {need:.2f}秒（フリー素材）')
             continue
         m = re.search(r"映像（(\d+(?:\.\d+)?)〜(\d+(?:\.\d+)?)秒", r["motion"])
         a, b = float(m.group(1)), float(m.group(2))
         sh = [x for x in sd["V1"]["shots"] if x["start"] <= (a + b) / 2 < x["until"]][0]
         a, b = max(a, sh["start"] + EDGE_S), min(b, sh["until"] - EDGE_S)
+        if cid in V1_WINDOW:
+            a, b = V1_WINDOW[cid][:2]          # 🆕 ⑤b-7：使わない窓・人の顔を避けた区間（理由は表の3つ目）
+            if V1_WINDOW[cid][3:] == ("still",):
+                geo = "".join(f", {k}={v}" for k, v in V1_GEOM.items())
+                lines.append(f'    "{cid}": dict(clip="V1", start={a:.2f}, still=True, until={b:.2f}{geo}),   '
+                             f'# ショット {sh["start"]:.3f}〜{sh["until"]:.3f}秒・{V1_WINDOW[cid][2]}')
+                continue
         # 頭の差し込みは差し込みが画面に出る秒（scene_jiko.head_secs）＝USE にまだ head が無いあいだ footage.secs_of はカットの尺を返す
         need = float(S.head_secs(cid) if head else secs[cid])
         rate = min(1.0, int((b - a) / need * 100) / 100)
@@ -840,10 +947,31 @@ def cmd_fb(only=None):
     sys.path.insert(0, str(HERE / "tools"))
     import footage as FO
     bad = 0
+    from PIL import Image
     for cid, u in FO.USE.items():
         if only and cid not in only:
             continue
         if u["clip"] != "V1":
+            # 🆕 ⑤b-7：フリー素材＝区間の頭の1コマを焼くときと同じ切り口（全画面・寄り）で 1920×1080 → ref/ep17/stock/fb_<cid>.jpg（git に入れない）
+            c = FO.CLIPS.get(u["clip"]) or {}
+            if not c.get("stock"):
+                continue
+            p = HERE / "ref" / c["file"]
+            raw = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{float(u['start']):.3f}", "-i", str(p), "-frames:v", "1",
+                                  "-f", "image2pipe", "-vcodec", "png", "-"], capture_output=True).stdout
+            if not raw:
+                print(f"🔴 {cid}: コマが取れない")
+                bad += 1
+                continue
+            im = Image.open(io.BytesIO(raw)).convert("RGB")
+            sw, sh_ = im.size
+            z = max(1920 / sw, 1080 / sh_) * float(u.get("zoom", 1.0))
+            cw, ch = min(sw, 1920 / z), min(sh_, 1080 / z)
+            l, t = (sw - cw) * float(u.get("xbias", 0.5)), (sh_ - ch) * float(u.get("bias", 0.5))
+            im = im.crop((round(l), round(t), round(l + cw), round(t + ch))).resize((1920, 1080), Image.LANCZOS)
+            dst = EPD / "stock" / f"fb_{cid}.jpg"
+            im.save(dst, quality=92)
+            print(f"✓ {cid:5} {u['clip']:5} {float(u['start']):6.2f}秒 {sw}x{sh_} → {dst.relative_to(HERE).as_posix()}")
             continue
         dst = EPD / f"fb_{cid}.jpg"
         r = subprocess.run(["ffmpeg", "-y", "-nostdin", "-v", "error", "-ss", f"{float(u['start']):.3f}", "-i", str(V1_LOCAL),
@@ -859,7 +987,7 @@ def cmd_fb(only=None):
 if __name__ == "__main__":
     a = sys.argv[1:]
     cmds = {"build": cmd_build, "panel": cmd_panel, "edges": cmd_edges, "clips": cmd_clips, "shots": cmd_shots, "nogo": cmd_nogo,
-            "use": cmd_use}
+            "use": lambda: cmd_use("--all" in sys.argv)}
     if a and a[0] == "fb":
         sys.exit(cmd_fb(set(a[1:]) or None))
     if a and a[0] == "credits":
