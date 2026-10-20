@@ -10,7 +10,7 @@ Natural Earth（パブリックドメインの地図データ）の 1:50m の陸
 
 ■ 使い方（元のファイルは 2026-10-20 にカズヤくんの了承をもらって落とした＝推奨どおり・scratchpad に置いた）
     python ref/ep17/make_coast17.py <ne_50m_land.geojson の道>
-    → ref/ep17/coast_eu_ne50m.json（経度・緯度の多角形・小数3桁＝約0.1km）
+    → ref/ep17/coast_eu_ne50m.json・coast_asia_ne50m.json（経度・緯度の多角形・小数3桁＝約0.1km）
   取り元＝https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_land.geojson
   （1,636,166 バイト・md5 e6a67ac9acdbc6e9437db594e9c2d0a1＝2回取って一致・18本目・21本目と同じ版）
 """
@@ -25,9 +25,11 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "ep18"))
 from make_coast import SRC_URL, clip, simplify  # noqa: E402  （18本目と同じ切り方・間引き方）
 
-OUT = HERE / "coast_eu_ne50m.json"
-# 切り出す範囲（経度 西が −・緯度）＝イギリスとフランスの模式の地図（`tools/mech17.py` の MAP_VIEW["eu"]）より一回り広く
-BBOX = (-14.0, 38.0, 12.0, 61.0)
+# 切り出す範囲（経度 西が −・緯度）＝出力の名 →（範囲, 説明）。地図の範囲より一回り広く
+#   eu  ＝イギリスとフランス（c613＝`tools/mech17.py` の EU_VIEW）
+#   asia＝台湾からシンガポール（⑤b-6 の ca08「台湾 → シンガポールの修理工場」＝⑤b-5 で同じ元ファイルから先に切り出した＝取り直しの了承が要らない）
+REGIONS = {"coast_eu_ne50m.json": ((-14.0, 38.0, 12.0, 61.0), "17本目 ⑤b-5 模式図の地図（イギリスとフランス）"),
+           "coast_asia_ne50m.json": ((94.0, -6.0, 130.0, 30.0), "17本目 ⑤b-6 模式図の地図（台湾からシンガポール）")}
 TOL = 0.02                           # 間引きの許し（度＝約2km。地図は1画素≈2km）
 MD5 = "e6a67ac9acdbc6e9437db594e9c2d0a1"
 
@@ -39,26 +41,28 @@ def main():
     if hashlib.md5(raw).hexdigest() != MD5:
         raise SystemExit(f"元のファイルの md5 が {MD5} と違う（版が替わった＝確かめてから）")
     g = json.loads(raw.decode("utf-8"))
-    polys = []
-    for f in g["features"]:
-        geo = f["geometry"]
-        rings = [geo["coordinates"][0]] if geo["type"] == "Polygon" else [p[0] for p in geo["coordinates"]]
-        for r in rings:
-            xs, ys = [p[0] for p in r], [p[1] for p in r]
-            if max(xs) < BBOX[0] or min(xs) > BBOX[2] or max(ys) < BBOX[1] or min(ys) > BBOX[3]:
-                continue
-            c = clip([(float(x), float(y)) for x, y in r], BBOX)
-            if len(c) < 3:
-                continue
-            s = simplify(c, TOL)
-            if len(s) >= 3:
-                polys.append([[round(x, 3), round(y, 3)] for x, y in s])
-    out = dict(source=SRC_URL, license="Public domain（Natural Earth）", file="ne_50m_land.geojson",
-               bytes=len(raw), md5=hashlib.md5(raw).hexdigest(), taken="2026-10-20", bbox=list(BBOX), tol_deg=TOL,
-               note="17本目 ⑤b-5 模式図の地図（イギリスとフランス）。経度（西が −）・緯度の多角形。外側の輪だけ（湖の穴は捨てた）・国境なし",
-               polys=polys)
-    OUT.write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    print(f"{OUT.name}: 多角形 {len(polys)}・点 {sum(len(p) for p in polys)}・{OUT.stat().st_size} バイト・元の md5 {out['md5']}")
+    for name, (BBOX, what) in REGIONS.items():
+        polys = []
+        for f in g["features"]:
+            geo = f["geometry"]
+            rings = [geo["coordinates"][0]] if geo["type"] == "Polygon" else [p[0] for p in geo["coordinates"]]
+            for r in rings:
+                xs, ys = [p[0] for p in r], [p[1] for p in r]
+                if max(xs) < BBOX[0] or min(xs) > BBOX[2] or max(ys) < BBOX[1] or min(ys) > BBOX[3]:
+                    continue
+                c = clip([(float(x), float(y)) for x, y in r], BBOX)
+                if len(c) < 3:
+                    continue
+                s = simplify(c, TOL)
+                if len(s) >= 3:
+                    polys.append([[round(x, 3), round(y, 3)] for x, y in s])
+        out = dict(source=SRC_URL, license="Public domain（Natural Earth）", file="ne_50m_land.geojson",
+                   bytes=len(raw), md5=hashlib.md5(raw).hexdigest(), taken="2026-10-20", bbox=list(BBOX), tol_deg=TOL,
+                   note=f"{what}。経度（西が −）・緯度の多角形。外側の輪だけ（湖の穴は捨てた）・国境なし",
+                   polys=polys)
+        OUT = HERE / name
+        OUT.write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+        print(f"{OUT.name}: 多角形 {len(polys)}・点 {sum(len(p) for p in polys)}・{OUT.stat().st_size} バイト・元の md5 {out['md5']}")
 
 
 if __name__ == "__main__":
