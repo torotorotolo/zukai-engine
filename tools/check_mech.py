@@ -4443,10 +4443,12 @@ REC_M17 = dict(
                ("改修されていなかった", "airline", "報告書 p96", "技術通報SBA300-22-6021による改修が行われていなかったこと"),
                ("推奨のまま・命令なし", "maker", "報告書 p96", "最も優先度の高いMandatoryとして発行しなかったこと")),
         who=dict(crew=("操縦の2人", "company"), plane=("機体の作り", "ship"), airline=("航空会社", "LINE"), maker=("メーカーと当局", "airbus")),
-        mk=dict(design=(1, 5, 6), crew=(7, 9, 10)),
+        # 🆕 ⑤b-6b：k11・k12＝ca14（要因11＝航空会社・12＝メーカーと設計・製造国の当局）・cmd＝cb02（改修の区分と命令＝要因12）
+        mk=dict(design=(1, 5, 6), crew=(7, 9, 10), k11=(11,), k12=(12,), cmd=(12,)),
         mk_quote=(("報告書 p95", "スラスト・レバーの通常の操作中に誤って作動させ得る可能性のある機構であったことが寄与"),
                   ("報告書 p96", "AFS(AutomaticFlightSystem)に関する記述が分かりにくいことが寄与"),
-                  ("報告書 p96", "操縦交替後の飛行状況の把握及び異常な飛行状態からの回復操作に適切さを欠いたこと"))),
+                  ("報告書 p96", "操縦交替後の飛行状況の把握及び異常な飛行状態からの回復操作に適切さを欠いたこと"),
+                  ("報告書 p96", "設計、製造国の耐空性管理当局が、速やかに上述のSBの実施に係る耐空性改善命令を発行"))),
     clock2=dict(utc="11:14:05", jst="20:14:05", add=9, units=(("フィート", "メートル"), ("ノット", "時速（キロ）")),
                 quote=(("報告書 p4", "時刻は協定世界時で記す"), ("報告書 p4", "08時53分協定世界時(日本標準時17時53分)"),
                        ("報告書 p51", "11時14分05秒に副操縦士がゴー・レバーを作動させた"), ("報告書 p44", "気圧高度約1,070ft"), ("報告書 p56", "速度127kt"))),
@@ -4510,20 +4512,61 @@ REC_M17 = dict(
                       ("報告書 p185", "機首上げは88。に増加し、速度は30ktに低下し"))),
     # 🆕 ⑤b-6（第8〜9章）
     bars=dict(sets=dict(fire=(("国際的な基準（望ましい）", 9000.0, "LINE"), ("基地の化学消防車5台", 7500.0, "AMBER")),
-                        trim=(("ふだんのやり直し", (1.0, 2.0), "LINE"), ("ヘルシンキの出来事", 8.0, "ship"))),
-              labs=dict(fire=("9,000", "7,500"), trim=("−1〜−2度", "−8度")),
+                        trim=(("ふだんのやり直し", (1.0, 2.0), "LINE"), ("ヘルシンキの出来事", 8.0, "ship")),
+                        # 🆕 ⑤b-6b：fcc＝ca09（p77）・force＝cb19（判決 p2088〜2090）
+                        fcc=(("1991年", 4.0, "LINE"), ("1992年", 8.0, "LINE"), ("通報のあと事故まで", 0.0, "ALERT")),
+                        force=(("ふだんの上り下り", (4.0, 5.0), "LINE"), ("この夜", 20.0, "company"))),
+              labs=dict(fire=("9,000", "7,500"), trim=("−1〜−2度", "−8度"), fcc=("4台", "8台", "0台"), force=("4〜5kg", "20kg以上")),
+              chips=dict(force=(("自分で入れた", "city"), ("画面の表示", "city"), ("機長の指摘 3回", "city"))),
+              msg=dict(fcc="改修の機会が来ない", force="約30秒 押し続けた"),
               quote=(("報告書 p86", "ICAO水準では、放射率は9,000l/minとされている"), ("報告書 p86", "化学消防車5台の放射率は7,500l/min"),
                      ("報告書 p184", "すでに一8。機首上げ側に作動しており"), ("報告書 p184", "通常のGO-AROUNDでは一1。ー2。機首上げ"),
-                     ("報告書 p184", "オートトリムを働かせTHSをエレベータの動きと相反する機首上げ側に作動させた"))),
+                     ("報告書 p184", "オートトリムを働かせTHSをエレベータの動きと相反する機首上げ側に作動させた"),
+                     ("報告書 p77", "1991年は4台、1992年は8台"),
+                     ("報告書 p77", "1993年6月24日から1994年4月26日の名古屋空港での事故発生までの間に、中華航空公司において、故障により機体から取り下ろされ、"
+                                   "修理のためSEXTANTシンガポールに送られたFCCはなかった"),
+                     ("報告書 p77", "故障して取り下ろされたFCCの修理を実施する際,同時にSBによる改修を行うものとして計画された"),
+                     ("判決 p2088", "4から5kgの力を超えることがない"), ("判決 p2088", "最低限20kgの力が必要"),
+                     ("判決 p2088", "通常の4倍から5倍の力である20kgもの力を,約30秒間継続"),
+                     ("判決 p2089", "自らオートパイロットを接続したのであるし"),
+                     ("判決 p2089", "フライトモード表示器上にはゴーアラウンドモードでオートパイロットが接続されていることが表示されていた"),
+                     ("判決 p2089", "3度にわたって機長からゴーアラウンドモードであることを指摘された"),
+                     ("判決 p2090", "約30秒間にもわたって20kg以上の非常に強い力を操縦輪に加え続けても押し下げられない"))),
     flow=dict(sets=dict(gov=dict(boxes=(("rep", "航空事故調査委員会", "（報告書）", "state"), ("min", "運輸大臣", "", "LINE"),
                                         ("what", "全国の飛行場", "消火と救難を強める", "AMBER")),
                                  arrows=(("rep", "min", "建議"), ("min", "what", "")), marks=()),
                         edu=dict(boxes=(("cal", "中華航空", "", "LINE"), ("crew", "事故機と同じ型の乗員", "", "LINE"),
                                         ("two", "この機長と副操縦士", "（当時はその型に乗っていない）", "company")),
-                                 arrows=(("cal", "crew", "モスクワの出来事の教育"), ("cal", "two", "")), marks=(("ok", "crew"), ("x", "two")))),
+                                 arrows=(("cal", "crew", "モスクワの出来事の教育"), ("cal", "two", "")),
+                                 marks=(("ok", "crew", ""), ("x", "two", "教わっていない"))),
+                        # 🆕 ⑤b-6b（ca04・ca07・ca12・cb04・cb10）
+                        own=dict(boxes=(("cls", "必須以外の区分", "（推奨・望ましい・任意）", "LINE"), ("cal", "航空会社", "", "LINE"),
+                                        ("exp", "運航の経験", "", "LINE"), ("plan", "整備の計画", "", "LINE"),
+                                        ("do", "行うかどうか", "", "AMBER"), ("how", "そのやり方", "", "AMBER")),
+                                 arrows=(("cls", "cal", ""), ("exp", "cal", ""), ("plan", "cal", ""), ("cal", "do", ""), ("cal", "how", "")),
+                                 marks=(("q", "cls", "この改修は"),)),
+                        cal=dict(boxes=(("sb", "推奨の改修", "（技術通報）", "airbus"), ("cal", "中華航空", "", "LINE"),
+                                        ("judge", "緊急性は無い", "（判断）", "AMBER"), ("plan", "故障して修理に出すとき", "合わせて改修する", "LINE")),
+                                 arrows=(("sb", "cal", ""), ("cal", "judge", ""), ("judge", "plan", "")), marks=()),
+                        tell=dict(boxes=(("judge", "中華航空の判断", "（緊急性は無い）", "LINE"), ("rec", "「推奨」として出た", "", "airbus"),
+                                         ("why", "理由と背景の説明", "（足りなかった）", "airbus")),
+                                  arrows=(("hub", "judge", "大きく影響"), ("rec", "hub", ""), ("why", "hub", "")), marks=()),
+                        rec=dict(boxes=(("rep", "航空事故調査委員会", "（報告書）", "state"), ("sr", "安全勧告", "こう変えてほしい", "state"),
+                                        ("tw", "台湾の当局", "", "LINE"), ("fr", "フランスの当局", "", "LINE")),
+                                 arrows=(("rep", "sr", ""), ("sr", "tw", ""), ("sr", "fr", "")), marks=()),
+                        cog=dict(boxes=(("see", "見る", "", "LINE"), ("note", "気づく", "", "LINE"), ("judge", "判断する", "", "LINE")),
+                                 arrows=(("see", "note", ""), ("note", "judge", "")), marks=())),
               quote=(("報告書 p105", "本事故に鑑み以下のとおり運輸大臣に建議する"), ("報告書 p105", "全国の飛行場における民間航空機に係る今後の消火救難体制"),
                      ("報告書 p74", "モスクワで発生したA310型のインシデント事例については、該当乗務員に対して教育を行った"),
-                     ("報告書 p74", "当該機長及び副操縦士は、当時、A300-600R型機に乗務していなかったため、当該教育を受けていなかった"))),
+                     ("報告書 p74", "当該機長及び副操縦士は、当時、A300-600R型機に乗務していなかったため、当該教育を受けていなかった"),
+                     ("報告書 p76", "Recommended及びその他の場合は、各オペレータの運航経験、運航形態及び整備計画等を加味して適用の可否、実施する場合の方法が決定される"),
+                     ("報告書 p76", "緊急性が認められないとの判断により、当該改修はFCCの修理を行う際に合わせて改修することとした"),
+                     ("報告書 p92", "当該SBの適用区分がRecommendedであったことから、緊急性が認められないとの判断により"),
+                     ("報告書 p80", "当該SBがMandatoryとしてではなく、Recommendedとして発行されたこと"),
+                     ("報告書 p80", "当該SBの発行された理由及び技術的背景についての説明が詳細、かつ、明確に述べられていなかったこと等が大きく影響していたものと考えられる"),
+                     ("報告書 p101", "本事故に鑑み以下のとおり関係当局に勧告する。1台湾民用航空当局は"),
+                     ("報告書 p102", "2仏国耐空性管理当局は"),
+                     ("報告書 p104", "人間の認知過程を考慮したAFS"))),
     prec=dict(sets=dict(hel="ヘルシンキの出来事（1989年）", mos="モスクワの出来事（1991年）"),
               why=dict(hel="乗客の乗り心地のため", mos="機体が軽く・上昇が急"),
               quote=(("報告書 p184", "乗客の快適性のためAPによる機首上げを避けようと、機首上げモーメントに抗して手動で操縦輪を押しつづけた"),
@@ -4541,13 +4584,66 @@ REC_M17 = dict(
                        ("報告書 p185", "4回目の上昇時には高度11,755ftに達した"), ("報告書 p185", "高度8,715ftで異常な飛行から回復することができた"),
                        ("報告書 p185", "4回目の降下時に、乗員によりエンジン出力が減じられたこと"), ("報告書 p185", "THSが機首下げ方向にトリムされた"))),
     doc=dict(modes=("LAND", "GO AROUND"), flow=("操縦輪で逆らう", "釣り合いがずれる", "危険な状態のおそれ"),
+             # 🆕 ⑤b-6b：書類の set（ca02・ca03・ca16）＝(欄の名, 値, 役)。cls の区分の順は報告書の順（Mandatory が最も優先）
+             sets=dict(sb=dict(head=("SERVICE BULLETIN", "A300-22-6021"),
+                               rows=(("出す側", "AIRBUS INDUSTRIE（メーカー）", "airbus"), ("受ける側", "航空会社", "LINE"),
+                                     ("高さ", "対地 400 ft 以上（約120メートル）", "AMBER"), ("操縦輪", "15 kg 以上の力 → AP が切れる", "AMBER"))),
+                       cls=dict(head=("SERVICE BULLETIN", ""),
+                                rows=(("1", "Mandatory（必須）", "AMBER"), ("2", "Recommended（推奨）", "LINE"),
+                                      ("3", "Desirable（望ましい）", "LINE"), ("4", "Optional（任意）", "LINE")), top="最も優先"),
+                       ad=dict(head=("耐空性改善命令", ""),
+                               rows=(("出す側", "国の当局", "LINE"), ("受ける側", "航空会社", "LINE"), ("目的", "安全に飛べる状態を保つ", "LINE"),
+                                     ("中身", "改修など", "LINE")), stamp="義務")),
              quote=(("報告書 p80", "LAND及びGOAROUNDモード時にピッチ方向にAPをオーバーライドするとアウト・オブ・トリムとなり危険な状態に至る"),
-                    ("報告書 p80", "1991年1月にFCOM1.03.64P3/4及び同2.02.03P1が改訂され"))),
+                    ("報告書 p80", "1991年1月にFCOM1.03.64P3/4及び同2.02.03P1が改訂され"),
+                    ("報告書 p76", "製造者から各オペレータに対して、航空機及び装備品の点検及び改修に関して発行される技術通報としてServiceBulletin"),
+                    ("報告書 p76", "GOAROUNDモードにおいて、対地高度400ft以上で操縦輪にピッチ方向へ15kg以上の力を加えた場合、APが解除されるAFSの改修"),
+                    ("報告書 p76", "エアバス社から1993年6月24日に、Recommendedとして発行されたSBA300-22-6021"),
+                    ("報告書 p76", "大別してMandatory、Recommended、Desirable、Optional、の4つに分けられ"),
+                    ("報告書 p76", "Mandatoryの場合、最優先にて実施されることとなる"),
+                    ("報告書 p93", "(1)のSBの実施に係る耐空性改善命令を発行する処置を速やかに講じなかった"),
+                    ("報告書 p80", "SBを速やかに導入できるよう耐空性改善命令としての処置を講ずる必要があった"))),
     cards2=dict(sets=dict(fcom2=dict(cards=(("勧める", "異常な自動操縦から守る", "OK"), ("禁じる", "正常なときに逆らう", "ALERT")),
-                                     foot=("報告書", "混同するおそれ", "state"))),
+                                     foot=("報告書", "混同するおそれ", "state")),
+                          # 🆕 ⑤b-6b（ca05・cb20・cb25）
+                          rec2=dict(cards=(("推奨", "Recommended", "airbus"), ("2台", "1機あたりの飛行制御コンピュータ", "LINE")), foot=None),
+                          train2=dict(cards=(("判決", "受けていた", "city"), ("報告書", "教官の記録に実施の印", "state")),
+                                      foot=("報告書", "方法は明らかにできない", "state"),
+                                      top=("訓練の項目", "GO-AROUND DEMONSTRATE AP MISUSE IN GO-AROUND")),
+                          q2=dict(cards=(("報告書の問い", "同じ事故を防ぐ", "state"), ("判決の問い", ("賠償の上限を外せるか", "（国際条約の決まり）"), "city")),
+                                  foot=None)),
                 quote=(("報告書 p81", "APオーバーライドの目的は、APの異常な作動から操縦士を保護するものである"),
                        ("報告書 p81", "CAUTIONに記述されている内容は、APが正常に機能している場合のオーバーライドを禁止するものである"),
-                       ("報告書 p81", "推奨と禁止の相矛盾する内容を混同して理解する可能性がある"))),
+                       ("報告書 p81", "推奨と禁止の相矛盾する内容を混同して理解する可能性がある"),
+                       ("報告書 p76", "このSBの実施には、一機当たり2台のFCCを改修する必要があった"),
+                       ("判決 p2090", "GO-AROUNDDEMONSTRATEAPMISUSEINGO-AROUND"),
+                       ("判決 p2090", "という項目のシミュレーター訓練を受けていた"),
+                       ("報告書 p75", "「GO-AROUNDDEMONSTRATEAPMISUSEINGO-AROUND」の項目が設けられ、実施欄に+マークが記入されていた"),
+                       ("報告書 p75", "事前に手渡されたチェック・シートは同項目が追加されていない改訂前のものであった"),
+                       ("報告書 p75", "どのような方法で本項目の訓練を行ったかについては明らかにできなかった"),
+                       ("判決 p2081", "責任制限規定の適用排除を定める改正ワルソー条約25条"),
+                       ("報告書 p103", "再発防止のための技術改修の開発"))),
+    # 🆕 ⑤b-6b：asia（ca08）＝シンガポールは一般の座標（報告書に座標は無い）・明るくする島は台湾
+    asia=dict(sg=(1.29, 103.85), tw=(21.8, 25.4, 119.8, 122.2),
+              quote=(("報告書 p77", "中華航空公司の整備施設ではFCCの改修が実施できないため、この改修作業が可能なSEXTANTシンガポールに送らねばならず"),
+                     ("報告書 p77", "運航を維持するための予備品を確保しつつ"))),
+    # 🆕 ⑤b-6b：cmp（cb16・cb24・cb26）＝並べ図の行（番号・問い・報告書の欄・判決の欄）・欄の色（報告書＝青 state・判決＝紫 city）・欄の下の札
+    cmp=dict(rows=(("1", "入れたのは誰か", "特定できない", "副操縦士と認める"), ("2", "気づいていたか", "認識することなく", "認識していた"),
+                   ("3", "警報", "知らせる警報が無い", "操縦輪の重さが警告"), ("4", "手引き書", "分かりにくい（要因）", "分かりにくいとはいえない"),
+                   ("5", "設計", "ずれの要因の1つ", "直ちに欠陥とはいえない")),
+             cols=(("報告書", "state"), ("判決", "city")), foot=("同じ事故を防ぐ", "責任を決める"),
+             quote=(("報告書 p89", "副操縦士が機長に断りなく、又は通知することなくエンゲージしたか、いずれかの可能性がある"),
+                    ("判決 p2088", "14分18秒にオートパイロットを接続した者は,副操縦士であると認めるのが相当である"),
+                    ("報告書 p95", "当該状況を認識することなく更に進入を継続し"),
+                    ("判決 p2090", "アウトオブトリムの状態を認識していたというべきであり"),
+                    ("報告書 p95", "直接的かつ積極的に操縦士に知らせる警報・認識機能がなかったこと"),
+                    ("判決 p2098", "操縦輪の重さがアウトオブトリムの状態を操縦士に知らせる最も直接的で有効な警告である"),
+                    ("報告書 p96", "AFS(AutomaticFlightSystem)に関する記述が分かりにくいことが寄与"),
+                    ("判決 p2091", "運航マニュアルの記載が分かりにくいとはいえない"),
+                    ("報告書 p78", "このような設計になっていたことが、本事故における異常なアウト・オブ・トリムの要因の1つとなった"),
+                    ("判決 p2094", "これをもって直ちに欠陥であるということはできない"),
+                    ("報告書 p103", "再発防止のための技術改修の開発"),
+                    ("判決 p2081", "損害賠償責任を負うこととなる"))),
     pbars=dict(rows=(("着陸の進入", 4.0), ("画面の表示が消える", 25.0), ("この夜の最大", 52.6)), twice=2,
                quote=(("報告書 p54", "ピッチ角約4°"), ("報告書 p49", "最大の52.6°"))),
     clock={"11:14", "20:14", "20:15", "20:00"},
@@ -4558,10 +4654,11 @@ _M17_PAGES = {}
 
 
 def _m17_page(rec):
-    """「報告書 pN」の頁の文字（NFKC・空白なし）。原文が手元に無い（Actions）・頁の無い資料は None。"""
+    """「報告書 pN」「判決 pN」の頁の文字（NFKC・空白なし）。原文が手元に無い（Actions）・頁の無い資料は None。
+    🆕 ⑤b-6b：判決も同じ通し頁（ep17_pages.txt の p2001〜p2152＝2000＋PDF の頁＝cuts/ss.REC_DOCS の「判決」）"""
     import unicodedata
     from pathlib import Path
-    m_ = re.fullmatch(r"報告書 p(-?\d+)", rec)
+    m_ = re.fullmatch(r"(?:報告書|判決) p(-?\d+)", rec)
     if not m_:
         return None
     if not _M17_PAGES:
@@ -4720,10 +4817,18 @@ def judge_m17(f):
             ee = e if isinstance(e, tuple) else (e,)
             need(all(abs(a - (g["x0"] + b * g["unit"])) < 0.5 for a, b in zip(ee, vv)), "② 棒の長さが値と合わない（同じ縮尺）")
         need(all(abs(x - (g["x0"] + v * g["unit"])) < 0.5 for v, x in g["ticks"]), "② 目盛りの位置が値と合わない")
+        # 🆕 ⑤b-6b：理由の札（判決の色）・下の札
+        ch = Rv.get("chips", {}).get(g["set"], ())
+        need(tuple(t for t, _r in g["chips"]) == tuple(t for t, _r in ch)
+             and tuple(col(r) for _t, r in g["chips"]) == tuple(col(r) for _t, r in ch), f"② 棒の理由の札 {g['chips']} が記録と違う")
+        need(g["msg"] == Rv.get("msg", {}).get(g["set"]), f"② 棒の下の札「{g['msg']}」が記録と違う")
+        need(all(not g["on"][f_] for f_ in ("b0", "b1", "b2")[len(rows):]), "② 記録に無い棒（行）を出している")
     if view == "flow":
         S = Rv["sets"][g["set"]]
         need(tuple(g["boxes"]) == S["boxes"], f"② 流れの箱 {g['boxes']} が記録と違う")
-        need(tuple(g["arrows"]) == S["arrows"] and tuple(g["marks"]) == S["marks"], "② 流れの矢印か印（✓・×）が記録と違う")
+        need(tuple(g["arrows"]) == S["arrows"] and tuple(g["marks"]) == S["marks"], "② 流れの矢印か印（✓・×・？）が記録と違う")
+        need(all(col(r) for _n, _t, _t2, r in g["boxes"]), "② 箱の役の色が引けない")
+        need(all((dx, dy) != (0, 0) for _a, _b, dx, dy in g["vec"]), "② 矢印の元と先が同じ点")
     if view == "prec":
         need(g["name"] == Rv["sets"][g["set"]] and g["why"] == Rv["why"][g["set"]], f"② 前例の名か理由の札（{g['name']}・{g['why']}）が記録と違う")
         need(not (g["on"]["fcom"] and g["set"] != "hel"), "② 注意書きの札（1991年1月）はヘルシンキの出来事のあと（p80）＝モスクワの絵に出さない")
@@ -4743,10 +4848,35 @@ def judge_m17(f):
             if any(s.get(fld) == "on" for s in seq):
                 need(any(m_ in t for t in m["texts_all"]), f"② 札に {m_}メートルが描かれていない")
     if view == "doc":
-        need(tuple(g["modes"]) == Rv["modes"] and tuple(g["flow"]) == Rv["flow"], "② 注意書きの語か流れが記録（p80）と違う")
+        if g["set"] == "fcom":
+            need(tuple(g["modes"]) == Rv["modes"] and tuple(g["flow"]) == Rv["flow"], "② 注意書きの語か流れが記録（p80）と違う")
+        else:
+            D = Rv["sets"][g["set"]]
+            need(tuple(g["head"] or ()) == D["head"], f"② 書類の表題 {g['head']} が記録と違う")
+            need(tuple(g["rows"]) == D["rows"], f"② 書類の欄 {g['rows']} が記録と違う")
+            need(len(g["rows"]) <= 4, "② 書類の欄が4つを超える（§5b-114）")
+            need(g["top"] == D.get("top") and g["stamp"] == D.get("stamp"), "② 書類の印（最も優先・義務）が記録と違う")
     if view == "cards2":
         S = Rv["sets"][g["set"]]
-        need(tuple(g["cards"]) == S["cards"] and tuple(g["foot"]) == S["foot"], f"② 2つの札 {g['cards']} が記録と違う")
+        need(tuple(g["cards"]) == S["cards"] and (tuple(g["foot"]) if g["foot"] else None) == S["foot"], f"② 2つの札 {g['cards']} が記録と違う")
+        need((tuple(g["top"]) if g["top"] else None) == S.get("top"), f"② 上の札 {g['top']} が記録と違う")
+        need(all(col(r) for _h, _t, r in g["cards"]), "② 札の役の色が引けない")
+    if view == "asia":
+        la, lo = g["pts"]["sg"]
+        need(abs(la - Rv["sg"][0]) < 0.05 and abs(lo - Rv["sg"][1]) < 0.05, f"② シンガポールの点（{la}, {lo}）が一般の座標と違う")
+        a, b, c, d = Rv["tw"]
+        tc = g["tw_c"]
+        need(tc is not None and a <= tc[0] <= b and c <= tc[1] <= d and g["tw_n"] > 10, "② 明るくした島が台湾でない")
+        (tx, ty), (sx, sy) = g["px"]["tw"], g["px"]["sg"]
+        need(sy > ty and sx < tx, "② シンガポールが台湾の南西に描かれていない（向き）")
+        need("一般の座標" in m.get("note", ""), "② 注に「一般の座標」が無い（シンガポールは報告書の値ではない）")
+    if view == "cmp":
+        need(tuple(g["rows"]) == Rv["rows"], f"② 並べ図の行 {g['rows']} が記録と違う")
+        need(tuple(t for t, _r in g["cols"]) == tuple(t for t, _r in Rv["cols"])
+             and tuple(col(r) for _t, r in g["cols"]) == tuple(col(r) for _t, r in Rv["cols"]), "② 並べ図の欄の名か色（報告書＝青・判決＝紫）が記録と違う")
+        need(g["xp"] < g["xj"], "② 報告書の欄が判決の欄の左にない")
+        need(tuple(g["foot"]) == Rv["foot"], "② 欄の下の札が記録と違う")
+        need(all(a < b for a, b in zip(g["ys"], g["ys"][1:])), "② 行が語りの順（上から下）に並んでいない")
     if view == "pbars":
         need(tuple(t for t, _v in g["rows"]) == tuple(t for t, _v in Rv["rows"])
              and all(abs(a - b) < 1e-9 for (_t, a), (_u, b) in zip(g["rows"], Rv["rows"])), f"② 角度の棒 {g['rows']} が記録（約4・25・52.6度）と違う")
@@ -4814,15 +4944,39 @@ def _selftest_m17(ok):
              ("押した理由を替える", "prec", "PR_WHY", dict(M.PR_WHY, hel="急いでいたため"), "② 前例の名か理由"),
              ("注意書きのモードを替える", "doc", "DC_MODES", ("LAND", "ALT"), "② 注意書き"),
              ("2つの札を入れ替える", "cards2", "CD2_SETS",
-              dict(fcom2=dict(M.CD2_SETS["fcom2"], cards=tuple(reversed(M.CD2_SETS["fcom2"]["cards"])))), "② 2つの札"))
-    for name, view, attr, val, why in cases:
-        if view not in by_view:
+              dict(M.CD2_SETS, fcom2=dict(M.CD2_SETS["fcom2"], cards=tuple(reversed(M.CD2_SETS["fcom2"]["cards"])))), "② 2つの札"),
+             # 🆕 ⑤b-6b（第10〜11章）＝新しい set は「その見え方の最初のカット」で回らない（by_view＝カットの名の順）→ カットを名指し（6つ目）
+             ("1992年の台数を 6 に", "bars", "BR_SETS",
+              dict(M.BR_SETS, fcc=dict(M.BR_SETS["fcc"], rows=(M.BR_SETS["fcc"]["rows"][0], ("1992年", 6.0, "LINE", "8台"), M.BR_SETS["fcc"]["rows"][2]))),
+              "② 棒", "ca09"),
+             ("理由の札を2つに", "bars", "BR_SETS", dict(M.BR_SETS, force=dict(M.BR_SETS["force"], chips=M.BR_SETS["force"]["chips"][:2])),
+              "② 棒の理由の札", "cb19"),
+             ("勧告の宛先の矢印を逆に（台湾の当局 → 安全勧告）", "flow", "FL_SETS",
+              dict(M.FL_SETS, rec=dict(M.FL_SETS["rec"], arrows=(M.FL_SETS["rec"]["arrows"][0], ("tw", "sr", "b", ""), M.FL_SETS["rec"]["arrows"][2]))),
+              "② 流れの矢印か印", "cb04"),
+             ("区分の順を入れ替える", "doc", "DC_SETS",
+              dict(M.DC_SETS, cls=dict(M.DC_SETS["cls"], rows=(M.DC_SETS["cls"]["rows"][1], M.DC_SETS["cls"]["rows"][0]) + M.DC_SETS["cls"]["rows"][2:])),
+              "② 書類の欄", "ca03"),
+             ("2台を3台に", "cards2", "CD2_SETS",
+              dict(M.CD2_SETS, rec2=dict(M.CD2_SETS["rec2"], cards=(M.CD2_SETS["rec2"]["cards"][0], ("3台",) + M.CD2_SETS["rec2"]["cards"][1][1:]))),
+              "② 2つの札", "ca05"),
+             ("要因12の印を11に", "factors", "FAC_MK", dict(M.FAC_MK, k12=((11, "メーカーとフランスの当局"),)), "② 印の要因", "ca14"),
+             ("シンガポールを北へ", "asia", "ASIA_PTS", dict(M.ASIA_PTS, sg=(30.0, 103.85)), "② シンガポール"),
+             ("1行目の報告書と判決の欄を入れ替える", "cmp", "CMP_ROWS", (("1", "入れたのは誰か", "副操縦士と認める", "特定できない"),) + M.CMP_ROWS[1:],
+              "② 並べ図の行"),
+             ("判決の欄を青に", "cmp", "CMP_COLS", (("報告書", "state"), ("判決", "state")), "② 並べ図の欄の名か色"))
+    good_all = dict(good)
+    for name, view, attr, val, why, *cid in cases:
+        if cid and cid[0] not in good_all:
+            print(f"  ⚠️ 17本目 陽性対照「{name}」：{cid[0]} のカットが無い（飛ばした）")
+            continue
+        if not cid and view not in by_view:
             print(f"  ⚠️ 17本目 陽性対照「{name}」：{view} のカットが無い（飛ばした）")
             continue
         keep = getattr(M, attr)
         setattr(M, attr, val)
         try:
-            bad, _ = judge("m17", by_view[view])
+            bad, _ = judge("m17", good_all[cid[0]] if cid else by_view[view])
         except Exception as e:      # 組めない＝止まる（fail closed）も鳴ったに数える
             bad = [f"{why}（例外：{e}）"]
         finally:

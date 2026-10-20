@@ -123,3 +123,71 @@ SPEC.update({
                                  dict(add=[ss.ax("cal94", fmt="md", anchor="start")], cur="1994-09-07")],
                           note="年月日は報告書の本文", src=ss.src(["報告書 p97"])))),
 })
+
+# ── 🆕 ⑤b-6b（2026-10-20）：図解（`tools/mech17.py`・門番 check_mech の judge_m17＝記録 REC_M17）＝第10章の10カット ──
+#   🔴 画面の字の数は全部 rel に。見出し・副題は語りの写しにしない（echo）・図の字と同じ語にしない（dup）。語りにある点だけ・次のカットの語りは描かない
+_N12 = dict(t="1・2・3・4・5・6・7・8・9・10・11・12（要因の番号）", src="報告書 p95")
+SPEC.update({
+    # ca02（3行）＝技術通報の中身（p76）。1行目で出す側と受ける側 → 2行目で高さの条件（400ft＝約120m）→ 3行目で操縦輪の力（15kg）
+    #   ⚠️ 区分（推奨）は ca05 の語り＝書かない
+    "ca02": dict(
+        t="押して切れる条件", s="エアバス社が出した文書",
+        fig=("m17", dict(view="doc", start=dict(set="sb"), steps=[dict(state=dict(f1="on")), dict(state=dict(f2="on")), dict(state=dict(f3="on"))],
+                         rel=[dict(t="A300-22-6021", src="報告書 p76"), dict(t="対地 400 ft 以上（約120メートル）", src="報告書 p76"),
+                              dict(t="15 kg 以上", src="報告書 p76")],
+                         note="中身は報告書の要約（原文の英語の文は写さない）・模式", src=ss.src(["報告書 p76"])))),
+    # ca03（2行）＝4つの区分（p76）。1行目で必須（最も優先）→ 2行目で推奨・望ましい・任意。⚠️ 推奨の印は ca05 の語り＝付けない
+    "ca03": dict(
+        t="4つの区分", s="急ぐ度合いの分け方",
+        fig=("m17", dict(view="doc", start=dict(set="cls"), steps=[dict(state=dict(f1="on")), dict(state=dict(f2="on"))],
+                         rel=[dict(t="1・2・3・4（区分の番号）", src="報告書 p76")],
+                         note="区分の名は報告書の書き方（英語）・模式", src=ss.src(["報告書 p76"])))),
+    # ca04（3行）＝必須以外は航空会社が決める（p76）。1行目で区分 → 航空会社（運航の経験・整備の計画）→ 2行目で行うかどうか・そのやり方 → 3行目で「この改修は？」
+    #   ⚠️ 答え（推奨）は ca05 の語り＝書かない
+    "ca04": dict(
+        t="だれが決めるか", s="必須でない通報のとき",
+        fig=("m17", dict(view="flow", start=dict(set="own"), steps=[dict(state=dict(a="on")), dict(state=dict(b="on")), dict(state=dict(c="on"))],
+                         note="言葉は報告書の本文の要約", src=ss.src(["報告書 p76"])))),
+    # ca05（2行）＝推奨（Recommended）→ 2行目で1機に飛行制御コンピュータ2台（p76）
+    "ca05": dict(
+        t="この改修の区分", s="直す台数も",
+        fig=("m17", dict(view="cards2", start=dict(set="rec2"), steps=[dict(state=dict(l="on")), dict(state=dict(r="on"))],
+                         rel=[dict(t="2台・1機あたり", src="報告書 p76")],
+                         note="区分は報告書の書き方（英語）", src=ss.src(["報告書 p76"])))),
+    # ca07（2行）＝中華航空の判断（p76・p92）。1行目で推奨 → 緊急性は無い → 2行目で修理に出すときに合わせて改修
+    "ca07": dict(
+        t="急ぐ改修ではない", s="受け取った会社の考え",
+        fig=("m17", dict(view="flow", start=dict(set="cal"), steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))],
+                         note="言葉は報告書の本文の要約", src=ss.src(["報告書 p76", "報告書 p92"])))),
+    # ca08（2行）＝上から見た台湾とシンガポール（見る向きの合図＝c920 の横から → 上から＝左上の札）。1行目で自社では改修できない → シンガポールの修理工場へ
+    #   → 2行目で運航の予備も残す（p77）。⚠️ 予備の数（6機・6台）は語りに無い＝描かない
+    "ca08": dict(
+        t="改修は海の向こう", s="工場へ送るしかない",
+        fig=("m17", dict(view="asia", steps=[dict(state=dict(send="on")), dict(state=dict(spare="on"))],
+                         note="陸の形は Natural Earth・シンガポールの点は一般の座標・矢印は模式", src=ss.src(["報告書 p77"])))),
+    # ca09（3行）＝修理に出た台数（p77）。1行目で 1991年 4台・1992年 8台 → 2行目で通報のあと事故まで 0台 → 3行目で「改修の機会が来ない」
+    #   ⚠️ 1993年の「この時点までに1台」は語りに無い＝描かない。年ごとの数と期間の数は破線で群を分ける
+    "ca09": dict(
+        t="修理の台数", s="修理に合わせる計画で",
+        fig=("m17", dict(view="bars", start=dict(set="fcc"), steps=[dict(state=dict(b0="on", b1="on")), dict(state=dict(b2="on")), dict(state=dict(msg="on"))],
+                         rel=[dict(t="0・2・4・6・8・10（目盛り）", src="報告書 p77"), dict(t="1991年・1992年", src="報告書 p77"),
+                              dict(t="4台・8台・0台", src="報告書 p77")],
+                         note="台数は報告書の値（通報のあと事故までは1993年6月24日から）", src=ss.src(["報告書 p77"])))),
+    # ca12（2行）＝判断に大きく影響したもの（p80＝報告書の見方）。1行目で中華航空の判断と「大きく影響」→ 2行目で推奨として出た・理由と背景の説明が足りない
+    "ca12": dict(
+        t="判断に響いたこと", s="影響したもの2つ",
+        fig=("m17", dict(view="flow", start=dict(set="tell"), steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))],
+                         note="言葉は報告書の本文の要約", src=ss.src(["報告書 p80"])))),
+    # ca14（2行）＝12の要因（c726 と同じ並び・役の色つき）。1行目で要因11に印（航空会社の側）→ 2行目で要因12に印（メーカーとフランスの当局＝p96）
+    "ca14": dict(
+        t="改修と命令", s="最後の2つの要因",
+        fig=("m17", dict(view="factors", start=dict(cards="on", acc="on", roles="on"),
+                         steps=[dict(state=dict(mk_k11="on")), dict(state=dict(mk_k12="on"))],
+                         rel=[_N12], note="言葉は報告書の要因の要約・番号は報告書の順", src=ss.src(["報告書 p96"])))),
+    # ca16（3行）＝耐空性改善命令（当局が出す・安全に飛べる状態を保つ・改修などを義務づける＝一般の説明の模式）。3行目は次の ca17 の問い＝足さない
+    #   ⚠️ 事故のあとの命令（1994年8月の DGAC の命令など）は描かない（ca17・ca18 の語りは別の日付）
+    "ca16": dict(
+        t="当局の命令", s="改修を義務にする書類",
+        fig=("m17", dict(view="doc", start=dict(set="ad"), steps=[dict(state=dict(f1="on")), dict(state=dict(f2="on")), dict()],
+                         note="書類の要点は一般の説明（模式）・語は報告書の本文", src=ss.src(["報告書 p80", "報告書 p93"])))),
+})

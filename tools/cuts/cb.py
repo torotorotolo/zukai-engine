@@ -143,3 +143,72 @@ SPEC.update({
         place="C4", at="20:14:05", start=dict(view="all", c4t="20:14:05", c4mk="off", c4gs="on", switch="on"), rec=R4["gs"],
         steps=[dict(), dict(), dict()]))),
 })
+
+# ── 🆕 ⑤b-6b（2026-10-20）：図解（`tools/mech17.py`・門番 check_mech の judge_m17＝記録 REC_M17）9カット＋年表（軸の型）1カット ──
+#   🔴 画面の字の数は全部 rel に。見出し・副題は語りの写しにしない（echo）・図の字と同じ語にしない（dup）。語りにある点だけ・次のカットの語りは描かない
+#   色＝報告書＝青（state）・判決＝紫（city）・エアバス社＝緑・当局と会社＝中立の線（だれかは札の言葉）
+_N12 = dict(t="1・2・3・4・5・6・7・8・9・10・11・12（要因の番号）", src="報告書 p95")
+_N5 = dict(t="1・2・3・4・5（行の番号）・ずれの要因の1つ", src="報告書 p78")
+SPEC.update({
+    # cb02（3行）＝12の要因の色分け（p95〜96）。1行目で役の色（操縦の2人だけではない）→ 2行目でレバーの作り・警報の無さ・手引き書・区分と命令に印
+    #   → 3行目で事故へ（いくつもの原因）。⚠️ 連鎖と複合（つながりの線）は次の cb03 の語り＝描かない
+    "cb02": dict(
+        t="原因の広がり", s="だれの要因か",
+        fig=("m17", dict(view="factors", start=dict(cards="on"),
+                         steps=[dict(state=dict(roles="on")), dict(state=dict(mk_design="on", mk_cmd="on")), dict(state=dict(acc="on"))],
+                         rel=[_N12], note="言葉は報告書の要因の要約・番号は報告書の順", src=ss.src(["報告書 p95", "報告書 p96"])))),
+    # cb04（2行）＝安全勧告（報告書 → 安全勧告）→ 2行目で台湾の当局・フランスの当局（p101〜102）。⚠️ 当局の先と中身は cb05・cb06 の語り
+    "cb04": dict(
+        t="2つの宛先", s="正式な求めの出し方",
+        fig=("m17", dict(view="flow", start=dict(set="rec"), steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))],
+                         note="宛先は報告書の安全勧告", src=ss.src(["報告書 p101", "報告書 p102"])))),
+    # cb10（1行）＝認知過程＝見る → 気づく → 判断する（一般の言い方）。1行の語りに3段
+    "cb10": dict(
+        t="頭の中で起きること", s="目と頭のはたらき",
+        fig=("m17", dict(view="flow", start=dict(set="cog"), steps=[dict(state=dict(a="on")), dict(state=dict(b="on")), dict(state=dict(c="on"))],
+                         note="一般の言い方（報告書の語の説明）", src=ss.src(["報告書 p104"])))),
+    # cb15（2行）＝事故・報告書・判決の時期（年表＝軸の型）。1行目で3点 → 2行目は色の約束（報告書＝青・判決＝紫）＝点の色で足りる＝足さない
+    "cb15": dict(
+        t="2つの資料", s="出た年と月",
+        fig=("axis", dict(ss.AX_J17, steps=[dict(add=[ss.ax("acc94m"), ss.ax("rep96"), ss.ax("jud03", big=True)], cur="2003-12"), dict()],
+                          note="報告書の議決の日・判決の日（裁判所の判例の頁）", src=ss.src(["報告書 p1", "判決 p2001"])))),
+    # cb16（3行）＝並べ図の1行目（入れたのは誰か）。1行目で報告書＝特定できない（p89）→ 2行目で判決＝副操縦士（判決 p2088）→ 3行目で「答えが割れる」
+    "cb16": dict(
+        t="1つ目の違い", s="自動操縦はだれが",
+        fig=("m17", dict(view="cmp", steps=[dict(state=dict(r1="p")), dict(state=dict(r1="pj")), dict(state=dict(mk1="on"))],
+                         rel=[dict(t="1（行の番号）", src="報告書 p89")], note="言葉は報告書と判決の要約",
+                         src=ss.src(["報告書 p89", "判決 p2088"])))),
+    # cb19（3行）＝判決が挙げた理由（判決 p2089）→ 2行目で操縦輪の力の棒（ふだん 4〜5kg・20kg 以上＝判決 p2088）→ 3行目で約30秒
+    "cb19": dict(
+        t="判決の理由", s="手に伝わった重さ",
+        fig=("m17", dict(view="bars", start=dict(set="force"),
+                         steps=[dict(state=dict(chips="on")), dict(state=dict(b0="on", b1="on")), dict(state=dict(msg="on"))],
+                         rel=[dict(t="0・5・10・15・20・25（目盛り）", src="判決 p2088"), dict(t="4〜5kg", src="判決 p2088"),
+                              dict(t="20kg以上", src="判決 p2090"), dict(t="約30秒", src="判決 p2088"), dict(t="機長の指摘 3回", src="判決 p2089")],
+                         note="力と時間は判決の認定の値", src=ss.src(["判決 p2088", "判決 p2089", "判決 p2090"])))),
+    # cb20（3行）＝訓練（判決＝受けていた／報告書＝教官の記録に実施の印 → 方法は明らかにできない＝p75）
+    "cb20": dict(
+        t="誤用を扱う訓練", s="2つの資料から",
+        fig=("m17", dict(view="cards2", start=dict(set="train2"),
+                         steps=[dict(state=dict(top="on", l="on")), dict(state=dict(lb="on", r="on", rb="on")), dict(state=dict(foot="on"))],
+                         note="項目の名は記録の書き方（英語）・言葉は判決と報告書の要約", src=ss.src(["判決 p2090", "報告書 p75"])))),
+    # cb24（3行）＝並べ図の4行目と5行目（1〜3行目は前の語りの続き）。1行目で手引き書（両方の欄）→ 2行目で設計の報告書の欄 → 3行目で判決の欄
+    "cb24": dict(
+        t="残りの違い", s="なお分かれる見方",
+        fig=("m17", dict(view="cmp", start=dict(r1="pj", r2="pj", r3="pj"),
+                         steps=[dict(state=dict(r4="pj")), dict(state=dict(r5="p")), dict(state=dict(r5="pj"))],
+                         rel=[_N5], note="言葉は報告書と判決の要約",
+                         src=ss.src(["報告書 p96", "判決 p2091", "報告書 p78", "判決 p2094"])))),
+    # cb25（3行）＝2つの問い。1行目で2つの札の見出し → 2行目で報告書の問い（同じ事故を防ぐ＝cb03・cb04 の語り）と ≠ → 3行目で判決の問い（賠償の上限・国際条約）
+    "cb25": dict(
+        t="問いが違う", s="「認識していた」の場面",
+        fig=("m17", dict(view="cards2", start=dict(set="q2"),
+                         steps=[dict(state=dict(l="on", r="on")), dict(state=dict(lb="on", ne="on")), dict(state=dict(rb="on"))],
+                         note="言葉は報告書と判決の要約", src=ss.src(["報告書 p103", "判決 p2081"])))),
+    # cb26（3行）＝並べ図の全体。1行目で報告書の欄の下に「同じ事故を防ぐ」→ 2行目で判決の欄の下に「責任を決める」→ 3行目は足さない
+    "cb26": dict(
+        t="2つの役目", s="どちらにも寄せない",
+        fig=("m17", dict(view="cmp", start=dict(r1="pj", r2="pj", r3="pj", r4="pj", r5="pj"),
+                         steps=[dict(state=dict(fp="on")), dict(state=dict(fj="on")), dict()],
+                         rel=[_N5], note="言葉は報告書と判決の要約", src=ss.src(["報告書 p103", "判決 p2081"])))),
+})
