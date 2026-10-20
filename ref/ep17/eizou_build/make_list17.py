@@ -247,14 +247,21 @@ def main():
                 W.append('%s 映像の素材 %s が手元に無い＝長さを測れない' % (c['cid'], s['file']))
             else:
                 # 🆕 ⑤b-1：分母は扉を除いた中身の秒（cont＝narration.json の実測）。等速＝伸ばさない／1.0 未満は動きの欄に倍率（make_list23 の型）
+                # 🆕 ⑤b-1（10-20 カズヤくん＝c101 は推奨 A）：動きの欄に「頭の差し込み＝k行目まで」＝映像はカットの頭の k 行だけ（あとは写真）＝
+                #    分母は scene_jiko.head_secs と同じ式（k 行目を読み始める少し前＋入れ替え INTRO_X）＝式は scene_jiko の関数を呼ぶ（2か所に書かない）
+                den, what = c['cont'], 'カット'
+                mh = re.search(r'頭の差し込み＝(\d+)行目まで', c['motion'])
+                if mh:
+                    import scene_jiko as S
+                    den, what = S.ins_sec(c['cid'], int(mh.group(1))) + S.INTRO_X, '頭の差し込み（%s行目まで）' % mh.group(1)
                 c['src_len'] = have
-                c['rate'] = have / c['cont'] if c['cont'] else 0
+                c['rate'] = have / den if den else 0
                 mr = re.search(r'映像（[^）]*?(\d\.\d+)倍）', c['motion'])     # 「映像（0.74倍）」「映像（757〜762.5秒＝…・0.61倍）」
                 if c['rate'] < RATE_MIN:
-                    E.append('%s 映像 %.2f秒 ÷ カット %.2f秒 ＝ %.2f倍 ＜ %.1f（止め絵になる・素材か区間を替える）' % (c['cid'], have, c['cont'], c['rate'], RATE_MIN))
+                    E.append('%s 映像 %.2f秒 ÷ %s %.2f秒 ＝ %.2f倍 ＜ %.1f（止め絵になる・素材か区間を替える）' % (c['cid'], have, what, den, c['rate'], RATE_MIN))
                 elif c['rate'] < 1.0 and not (mr and float(mr.group(1)) <= c['rate'] + 1e-9):
-                    E.append('%s 映像 %.2f秒 がカット %.2f秒 に足りない（等速なら尻が %.2f秒 欠ける）＝区間か素材を替えるか、動きの欄を「映像（%.2f倍）」以下に' % (
-                        c['cid'], have, c['cont'], c['cont'] - have, int(c['rate'] * 100) / 100))
+                    E.append('%s 映像 %.2f秒 が%s %.2f秒 に足りない（等速なら尻が %.2f秒 欠ける）＝区間か素材を替えるか、動きの欄を「映像（%.2f倍）」以下に' % (
+                        c['cid'], have, what, den, den - have, int(c['rate'] * 100) / 100))
         use[code].append((c['cid'], part))
         r = s['rights']
         if r.startswith(('BY-SA', 'GFDL')):

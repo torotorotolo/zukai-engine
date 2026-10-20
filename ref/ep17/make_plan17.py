@@ -64,7 +64,10 @@ def plan_text(r, changed):
     bits = ["関連（事故そのものではない実物の写真・20% の数に入れない）"] if r["kind"] == "関連" else []
     if r["code"]:
         bits.append(r["code"] + ((":" + r["part"]) if r["part"] else ""))
-    if r["src_len"]:
+    if r["src_len"] and "頭の差し込み" in r["motion"]:     # 10-20 c101＝推奨 A（映像はカットの頭の k 行だけ・あとは写真）
+        bits.append(f"映像の素材 {r['src_len']}秒・倍率 {float(r['rate']):.2f}（素材の秒÷頭の差し込みが画面に出る秒＝scene_jiko.head_secs と同じ式・"
+                    f"1.0 未満は動きの欄の倍率で）")
+    elif r["src_len"]:
         bits.append(f"映像の素材 {r['src_len']}秒・倍率 {float(r['rate']):.2f}（素材の秒÷扉を除いた中身の秒＝narration.json の実測・"
                     f"1.0 以上は等速で区間を選ぶ）")
     for k, lab in (("kind", "一覧の種類"), ("frame", "見せ方"), ("sub", "副題"), ("motion", "動き"), ("view", "見る向き"), ("look", "見た目の型"),
