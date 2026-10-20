@@ -157,3 +157,14 @@ SPEC.update({
                     tag=dict(t="水平のまま", at="pt", off=(40, -90), anchor="start")),
                dict()]))),
 })
+
+# ── 🆕 ⑤b-5（2026-10-20）：時刻の帯（軸の型＝門番 check_axis の REC_AXIS・REC_ROLE）──
+SPEC.update({
+    # c420（2行）＝20:14:05 ゴー・レバー → 20:14:12 機長の指示（CVR の言葉は札にしない）→ 20:14:18 自動操縦が入る（括弧2つ＝13秒・6秒は語りと字幕）
+    #   → 2行目で「ゴー・アラウンドのまま」の項目の札
+    "c420": dict(
+        t="自動操縦が入った時刻", s="ゴー・レバーからの秒",
+        fig=("axis", dict(ss.AX_S17, steps=[dict(add=[ss.ax("go05"), ss.ax("or12"), ss.ax("ap18"), ss.ax("br13"), ss.ax("br06")], cur="20:14:18"),
+                                            dict(add=[dict(k="chips", at="20:14:18", chips=["表示はゴー・アラウンドのまま"], rec="報告書 p44")])],
+                          note="時刻は報告書の本文（協定世界時＋9時間）", src=ss.src(["報告書 p44"])))),
+})

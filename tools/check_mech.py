@@ -4422,8 +4422,331 @@ def _selftest_m23_b6(ok):
     return ok
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 17本目 ⑤b-5（2026-10-20）：図解（m17＝`tools/mech17.py`・第1〜7章の25カット）
+#   記録の値は門番の側（§5b-88）＝描く側の表（FACTORS・CK2_T・HR_V・TH_PTS・PT_DEG …）と別に持ち、
+#   ①形・表・色（f.mech["geo"]）を記録で ②**基図と段の層の全部の字**の数を rel で（札だけでなく描いた字も）③句を原文の頁で（手元に原文があるとき）照らす。
+#   原文＝報告書 96-5 の通し頁（`ref/ep17/src/ep17_pages.txt`＝git の外。Actions では句の照合だけ飛ばす）。頁の無い資料（付図5・付図29）は句を持たない
+# ══════════════════════════════════════════════════════════
+REC_M17 = dict(
+    factors=dict(
+        items=(("誤ってゴー・レバー", "crew", "報告書 p95", "副操縦士が誤ってゴー・レバーを作動させたこと"),
+               ("解除しないまま自動操縦", "crew", "報告書 p95", "ゴー・アラウンド・モードが解除されていない状態で、APをエンゲージし進入を継続したこと"),
+               ("重い操縦輪を押し続けた", "crew", "報告書 p95", "操縦輪の操舵が重い状態であるにもかかわらず、機長の指示の下で副操縦士が操縦輪の押し下げ操作を続けたこと"),
+               ("板と昇降舵が食い違った", "plane", "報告書 p95", "THSとエレベータが整合することなく作動し、異常なアウト・オブ・トリム状態になったこと"),
+               ("知らせる警報が無かった", "plane", "報告書 p95", "直接的かつ積極的に操縦士に知らせる警報・認識機能がなかったこと"),
+               ("仕組みの理解に欠けた", "crew", "報告書 p96", "理解に欠ける点があったこと"),
+               ("交替の時機が遅れた", "crew", "報告書 p96", "操縦の交替の時機が遅れ"),
+               ("アルファ・フロアの作動", "plane", "報告書 p96", "アルファ・フロア機能が、異常なアウト・オブ・トリム状態と適切に整合することなく作動し"),
+               ("立て直しが適切さを欠く", "crew", "報告書 p96", "異常な飛行状態からの回復操作に適切さを欠いたこと"),
+               ("2人の連携が不適切", "crew", "報告書 p96", "クルー・コーディネーションが適切に行われなかったこと"),
+               ("改修されていなかった", "airline", "報告書 p96", "技術通報SBA300-22-6021による改修が行われていなかったこと"),
+               ("推奨のまま・命令なし", "maker", "報告書 p96", "最も優先度の高いMandatoryとして発行しなかったこと")),
+        who=dict(crew=("操縦の2人", "company"), plane=("機体の作り", "ship"), airline=("航空会社", "LINE"), maker=("メーカーと当局", "airbus")),
+        mk=dict(design=(1, 5, 6), crew=(7, 9, 10)),
+        mk_quote=(("報告書 p95", "スラスト・レバーの通常の操作中に誤って作動させ得る可能性のある機構であったことが寄与"),
+                  ("報告書 p96", "AFS(AutomaticFlightSystem)に関する記述が分かりにくいことが寄与"),
+                  ("報告書 p96", "操縦交替後の飛行状況の把握及び異常な飛行状態からの回復操作に適切さを欠いたこと"))),
+    clock2=dict(utc="11:14:05", jst="20:14:05", add=9, units=(("フィート", "メートル"), ("ノット", "時速（キロ）")),
+                quote=(("報告書 p4", "時刻は協定世界時で記す"), ("報告書 p4", "08時53分協定世界時(日本標準時17時53分)"),
+                       ("報告書 p51", "11時14分05秒に副操縦士がゴー・レバーを作動させた"), ("報告書 p44", "気圧高度約1,070ft"), ("報告書 p56", "速度127kt"))),
+    seats=dict(names=("機長", "副操縦士"), age="42", af=("1970-09", "1989-01"), years=18, roles=("見守り・確かめる役", "操縦する役"), order="20:00",
+               quote=(("報告書 p17", "機長男性42歳"), ("報告書 p38", "台湾空軍のパイロットとして1970年9月から1989年1月まで勤務"),
+                      ("報告書 p42", "00分11秒機長(PNF)は、副操縦士(PF)に対し、自分で判断して自分で操縦するように指示"),
+                      ("報告書 p57", "機長は、ILS進入時に副操縦士にPF業務を実施させていた"))),
+    hours=dict(rows=(("この型（A300-600R）", 1350 + 27 / 60), ("空軍のころから全部", 8340 + 19 / 60)),
+               career=("1989年 入社", "747の副操縦士", "1992年12月 この型の機長"),
+               quote=(("報告書 p17", "総飛行時間8,340時間19分同型式機飛行時間1,350時間27分"), ("報告書 p38", "1989年2月1日、同公司に入社"),
+                      ("報告書 p38", "B747-200、-400の副操縦士を経て"), ("報告書 p38", "同年12月1日に同公司のA300-600Rの機長に昇格"))),
+    train=dict(steps=("地上の学科（教室）", "シミュレーター", "実際の機体"), hours="3",
+               quote=(("報告書 p38", "仏国のアエロフォーメーション社において地上学科、シミュレータによる訓練及び実飛行時間3時間の訓練を受けた"),
+                      ("報告書 p38", "副操縦士は、1990年4月16日"))),
+    area=dict(ratio=3, quote=(("報告書 p55", "THS(エレベータを含む。)の面積は、エレベータの面積のおよそ3倍"),)),
+    afs=dict(items=(("自動操縦（AP）", "舵を動かす"), ("自動推力（ATS）", "推力を整える"), ("飛行の指示（FD）", "画面の印で示す")),
+             quote=(("報告書 p51", "FDはGOAROUNDモードになり、ATSはTHRモードにエンゲージした"), ("報告書 p95", "AP(AutoPilot)"))),
+    band=dict(ft="400", m="120", out=("ランド", "ゴー・アラウンド"),
+              quote=(("報告書 p78", "LANDTrack(対地高度400ft以下)及びGOAROUNDモード以外のモードでは操縦輪にピッチ方向に15kg以上の力を加えるとAPがディスエンゲージ"),)),
+    modes=dict(start="ゴー・アラウンド・モード",
+               rows=dict(a=("縦と横の両方で選び直す", ("抜ける",)), b=("縦だけ選び直す", ("画面の文字は消える", "働きは残る")),
+                         c=("ランドのボタンを押す", ("抜けられない",))),
+               cols=dict(a=("OK",), b=("AMBER", "ALERT"), c=("ALERT",)),
+               quote=(("報告書 p54", "ラテラル及びロンジチュヂィナルの双方にそれぞれLANDモード以外のモードを選択しなければならず"),
+                      ("報告書 p54", "直接LANDモードのボタンを押すことによって解除することはできない"),
+                      ("報告書 p54", "いずれかのモードを選択すれば、FMAのGOAROUND表示は消える"),
+                      ("報告書 p81", "実際にはGOAROUNDの機能が完全にディスエンゲージされたことにはならない"),
+                      ("報告書 p54", "LANDモードのスイッチを押すことのみであったと推定"))),
+    fcom=dict(fma=("V/S", "HDG"), rows=("縦のモードを選ぶ → 解ける", "横のモードを選ぶ → 解ける"), miss="縦だけでは働きが残る",
+              rec=("勧告（報告書）", "表示の変化と働きの変化の対比"),
+              quote=(("報告書 p81", "V/SとラテラルのモードであるHDGが表示"), ("報告書 p81", "あたかもGOAROUNDモードがディスエンゲージされたかのように見える"),
+                     ("報告書 p81", "GOAROUNDモードはディスエンゲージし、横方向(ラテラル)のモードであるHDGモードがエンゲージされる"),
+                     ("報告書 p82", "ロンジチュジナルのモードのみを選択した場合、GOAROUNDの機能は完全にディスエンゲージされないことが記載されていない"),
+                     ("報告書 p103", "FMA上の表示の変更と実質的機能の変更の対比"))),
+    who3=dict(items=(("機長が", "自分で"), ("副操縦士が", "機長の指示で"), ("副操縦士が", "断りなく")),
+              quote=(("報告書 p89", "機長が自らエンゲージしたか、副操縦士が機長の指示によりエンゲージしたか、あるいは、副操縦士が機長に断りなく"),)),
+    ths=dict(pts=((5, -5.3, "報告書 p54", "THS機首上げ-5.3°"), (18, -5.3, "報告書 p55", "THSは-5.3°からなお機首上げ方向に動き始めた"),
+                  (25, -6.7, "付図5 p1", ""), (31, -9.5, "付図5 p1", ""), (37, -12.3, "報告書 p56", "THSは機首上げ一杯の-12.3°に達しており"),
+                  (49, -12.3, "報告書 p56", "APはディスエンゲージされたがTHSは-12.3°のままであり"), (57, -12.3, "報告書 p56", "THS-12.3°及びエレベータ角9.9°"),
+                  (71, -12.3, "報告書 p49", "THSは15分11秒の-12.3°から")),
+             line=dict(none=0, t25=25, t49=49), desc=26, off=49, limit=-12.3,
+             quote=(("報告書 p55", "同26秒ごろから降下に移っている"),)),
+    warn=dict(inputs=("手の操縦", "自動操縦"), cols=("company", "ship"), opts=("警報音を残す", "別の仕組みで知らせる"),
+              quote=(("報告書 p84", "手動、自動操縦共THSが作動した時にはウーラー音が鳴るように設計"),
+                     ("報告書 p84", "自動操縦時においては当該ウーラー音は鳴らないように設計変更"),
+                     ("報告書 p85", "操縦輪を操作し続けるとアウト・オブ・トリムに至る特性"),
+                     ("報告書 p85", "THSモーション・ウォーニング(ウーラー音)を残すか、または、削除するのであればTHSモーション・ウォーニングに替わる"))),
+    eu=dict(tls=(43.6047, 1.4442), gb=(49.8, 59.0, -6.5, 2.0), req=("自動着陸の最後の場面", "警報を減らす"),
+            quote=(("報告書 p84", "英国CAAは同型式機の評価時に"),
+                   ("報告書 p84", "オートランド・フレア中のTHSモーション・ウォーニング(ウーラー音)は減少されるべきであるとエアバス社に対して要求"))),
+    cards3=dict(n=3, quote=(("報告書 p57", "繰り返し操縦輪を押すように指示している。このことについては、次の可能性が考えられる。1"),)),
+    assist=dict(name="スーパーバイザリー・オーバーライド",
+                quote=(("報告書 p57", "操縦士が操縦輪に力を加えて、APをアシストすることができるスーパーバイザリー・オーバーライドと呼ばれる機能"),
+                       ("報告書 p90", "スーパーバイザリー・オーバーライド機能との混同"))),
+    afloor=dict(steps=("迎え角が大きすぎる", "推力を自動で最大に", "失速を防ぐ"),
+                quote=(("報告書 p83", "アルファ・フロア機能が作動し出力が増加した"), ("報告書 p83", "本来失速を防止しフライト・エンベロープを保護するための安全装置"))),
+    pitch=dict(deg=52.6, quote=(("報告書 p49", "ピッチ角は、最大の52.6°となっている"),)),
+    pbars=dict(rows=(("着陸の進入", 4.0), ("画面の表示が消える", 25.0), ("この夜の最大", 52.6)), twice=2,
+               quote=(("報告書 p54", "ピッチ角約4°"), ("報告書 p49", "最大の52.6°"))),
+    clock={"11:14", "20:14", "20:15", "20:00"},
+)
+NUM_M17 = re.compile(r"[0-9０-９]{1,2}[:：][0-9０-９]{2}|[0-9０-９][0-9０-９,.．]*")
+VIEW_HEADS17 = ("横から", "上から", "斜めから", "正面")
+_M17_PAGES = {}
+
+
+def _m17_page(rec):
+    """「報告書 pN」の頁の文字（NFKC・空白なし）。原文が手元に無い（Actions）・頁の無い資料は None。"""
+    import unicodedata
+    from pathlib import Path
+    m_ = re.fullmatch(r"報告書 p(-?\d+)", rec)
+    if not m_:
+        return None
+    if not _M17_PAGES:
+        t = Path(__file__).resolve().parent.parent / "ref" / "ep17" / "src" / "ep17_pages.txt"
+        if not t.exists():
+            _M17_PAGES[None] = True
+            return None
+        for mm in re.finditer(r"^=== p(-?\d+) ===\n(.*?)(?=^=== p|\Z)", t.read_text(encoding="utf-8"), re.M | re.S):
+            _M17_PAGES[int(mm.group(1))] = re.sub(r"\s+", "", unicodedata.normalize("NFKC", mm.group(2)))
+    return _M17_PAGES.get(int(m_.group(1)))
+
+
+def _m17_q(q):
+    import unicodedata
+    return re.sub(r"\s+", "", unicodedata.normalize("NFKC", q))
+
+
+def view_dir_check17(plan_text, lab):
+    """PLAN の「見る向き：」の頭の語と、図の左上の札の頭の語が同じか（17本目は「正面」も）。"""
+    m_ = re.search(r"見る向き：(横から|上から|斜めから|正面)", plan_text or "")
+    if not m_:
+        return ""
+    return "" if str(lab).startswith(m_.group(1)) else f"左上の札「{lab}」が PLAN の見る向き「{m_.group(1)}」で始まらない（見る向きの合図）"
+
+
+def judge_m17(f):
+    """17本目 図解：①形・表・色（f.mech["geo"]）を記録（REC_M17）で ②全部の字の数を rel で ③句を原文の頁で。"""
+    import jiko_style as J
+    bad, n = [], 0
+    m = f.mech
+    g, view = m["geo"], m["view"]
+    seq = [m["start"]] + list(m["states"])
+    R = REC_M17
+    if not R:
+        return ["記録の表 REC_M17 が空（その回の値を入れるまで、m17 のカットは止まる）"], 1
+
+    def need(cond, msg):
+        nonlocal n
+        n += 1
+        if not cond:
+            bad.append(msg)
+
+    def col(name):
+        return (J.ROLE.get(name) or getattr(J, name)).lower()
+    Rv = R.get(view) or {}
+    if view == "factors":
+        it = Rv["items"]
+        need(tuple((t, w) for t, w in g["factors"]) == tuple((t, w) for t, w, _p, _q in it), f"② 要因の札 {g['factors']} が記録（p95〜96 の12の要因の順と言葉）と違う")
+        need(len(g["factors"]) == 12, f"② 要因の数 {len(g['factors'])}（記録 12）")
+        need({k: (t, col(r)) for k, (t, r) in g["who"].items()} == {k: (t, col(r)) for k, (t, r) in Rv["who"].items()},
+             "② 要因の役（だれの要因か）の名か色が記録と違う")
+        xy = g["xy"]
+        need(all((xy[i][1], xy[i][0]) < (xy[i + 1][1], xy[i + 1][0]) for i in range(11)), "② 札の並びが番号の順（左から右・上から下）でない")
+        need({k: tuple(v) for k, v in g["mk"].items()} == {k: tuple(v) for k, v in Rv["mk"].items()}, f"② 印の要因 {g['mk']} が記録（機体の作りと手引き書＝1・5・6／乗員＝7・9・10）と違う")
+        for t, _w, p, q in it:
+            src_ = _m17_page(p)
+            if src_ is not None:
+                need(_m17_q(q) in src_, f"② 要因「{t}」の原文の句が {p} に無い")
+        for p, q in Rv["mk_quote"]:
+            src_ = _m17_page(p)
+            if src_ is not None:
+                need(_m17_q(q) in src_, f"② 印の句が {p} に無い")
+    if view == "clock2":
+        import datetime as dt
+        need((g["utc"], g["jst"], g["add"]) == (Rv["utc"], Rv["jst"], Rv["add"]), f"② 時計の時刻 {g['utc']}→{g['jst']}（＋{g['add']}）が記録（11:14:05＋9時間＝20:14:05）と違う")
+        u = dt.datetime.strptime(g["utc"], "%H:%M:%S")
+        need((u + dt.timedelta(hours=Rv["add"])).strftime("%H:%M:%S") == g["jst"], "② 時計：日本の時刻が世界共通の時刻の＋9時間でない")
+        for t, (ha, ma, sa) in zip((g["utc"], g["jst"]), g["angles"]):
+            h, mi, s = (int(x) for x in t.split(":"))
+            need(abs(ha - ((h % 12) * 30 + mi * 0.5 + s / 120)) < 1e-6 and abs(ma - (mi * 6 + s * 0.1)) < 1e-6 and abs(sa - s * 6) < 1e-6,
+                 f"② 時計 {t} の針の角度が時刻と合わない")
+        need(tuple(g["units"]) == Rv["units"], "② 単位の札が記録（フィート→メートル・ノット→時速）と違う")
+    if view == "seats":
+        need(tuple(g["names"]) == Rv["names"] and g["left_x"] < g["right_x"], "② 席の名（左＝機長・右＝副操縦士）が記録と違う")
+        need(g["age"] == Rv["age"] and tuple(g["af"]) == Rv["af"] and round(g["years"]) == Rv["years"], f"② 機長の年齢と空軍の年（{g['age']}歳・約{round(g['years'])}年）が記録と違う")
+        need(tuple(g["roles"]) == Rv["roles"] and g["order"] == Rv["order"], "② 役の札か指示の時刻が記録（p42・p57）と違う")
+        need(g["arrow"][0] < g["arrow"][1], "② 指示の矢印が左の席（機長）から右の席（副操縦士）へ向いていない")
+    if view == "hours":
+        need(tuple(t for t, _v in g["rows"]) == tuple(t for t, _v in Rv["rows"])
+             and all(abs(a - b) < 1e-6 for (_t, a), (_u, b) in zip(g["rows"], Rv["rows"])), f"② 飛行時間 {g['rows']} が記録（p17・p38）と違う")
+        need(all(abs(e - (g["x0"] + v * g["unit"])) < 0.5 for e, (_t, v) in zip(g["ends"], Rv["rows"])), "② 飛行時間の棒の長さが記録の時間と合わない（同じ縮尺）")
+        need(all(abs(x - (g["x0"] + v * g["unit"])) < 0.5 for v, x in g["ticks"]), "② 目盛りの位置が値と合わない")
+        need(tuple(g["career"]) == Rv["career"], "② 経歴の札が記録（p38）と違う")
+    if view == "train":
+        need(tuple(g["steps"]) == Rv["steps"] and g["hours"] == Rv["hours"], "② 訓練の順か時間が記録（p38）と違う")
+        need(all(a[1] < b[0] for a, b in zip(g["segs"], g["segs"][1:])), "② 訓練の帯が左から右への順になっていない")
+    if view == "area":
+        need(g["th_n"] == Rv["ratio"] * g["el_n"], f"② 面積のマス目（昇降舵 {g['el_n']}・水平安定板 {g['th_n']}）が記録（約3倍＝p55）と違う")
+        need(g["th_el"] == g["el_n"] and str(Rv["ratio"]) == str(g["ratio"]), "② 水平安定板の中の昇降舵のマスが昇降舵だけのマスと違うか、札の倍が記録と違う")
+    if view == "afs":
+        need(tuple(g["afs"]) == Rv["items"], "② 3つの仕組みの札が記録と違う")
+    if view == "band":
+        need((g["ft"], g["m"], tuple(g["out"])) == (Rv["ft"], Rv["m"], Rv["out"]), "② 対象外の高さかモードが記録（p78＝対地400ft以下のランド・ゴー・アラウンド）と違う")
+        need(abs(int(Rv["ft"]) * 0.3048 - int(g["m"])) < 5, "② メートルの札がフィートの値の換算と合わない")
+        need(g["y_low"] < g["g"] and g["land_x0"] < g["td"][0], "② 約120m の線が地面より上にないか、ランドの区間が接地の手前から始まらない")
+        need(g["ga"][0][1] > g["ga"][-1][1], "② ゴー・アラウンドの線が上っていない")
+    if view == "modes":
+        need(g["start"] == Rv["start"] and {k: (t, tuple(r)) for k, (t, r) in g["rows"].items()} == Rv["rows"], f"② 抜け方の札 {g['rows']} が記録（p54・p81）と違う")
+        need({k: tuple(v) for k, v in g["cols"].items()} == Rv["cols"], "② 抜け方の結果の色（抜ける＝緑・消える＝黄・残る／抜けられない＝赤）が記録と違う")
+    if view == "fcom":
+        need((tuple(g["fma"]), tuple(g["rows"]), g["miss"], tuple(g["rec"])) == (Rv["fma"], Rv["rows"], Rv["miss"], Rv["rec"]),
+             "② 表示・手引き書の欄・書かれていない所・勧告の札が記録（p81〜82・p103）と違う")
+    if view == "who3":
+        need(tuple(g["who3"]) == Rv["items"], "② 3つの可能性の札が記録（p89）と違う")
+    if view == "ths":
+        need(tuple((t, a) for t, a in g["pts"]) == tuple((t, a) for t, a, _p, _q in Rv["pts"]), f"② 角度の点 {g['pts']} が記録（付図5 の表と本文）と違う")
+        need(all(abs(x - (g["x0"] + t * g["sec"])) < 0.5 and abs(y - (g["y0"] + a * g["k"])) < 0.5 for (x, y), (t, a, _p, _q) in zip(g["px"], Rv["pts"])),
+             "② 角度の点の画素が値（時刻・角度）と合わない")
+        need(min(a for _t, a in g["pts"]) == Rv["limit"], "② 角度の点が機首上げ一杯（−12.3度＝p56）を超えている")
+        need(set(g["upto"]) <= set(Rv["line"].values()) and g["desc"] == Rv["desc"] and g["off"] == Rv["off"],
+             "② 線の終わり・下り始め・自動操縦を切った時刻が記録（14:25・14:49・14:26・14:49）と違う")
+        for _t, _a, p, q in Rv["pts"]:
+            src_ = _m17_page(p)
+            if q and src_ is not None:
+                need(_m17_q(q) in src_, f"② 角度の点の句が {p} に無い")
+    if view == "warn":
+        need(tuple(g["inputs"]) == Rv["inputs"] and tuple(col(c) for c in g["in_cols"]) == tuple(col(c) for c in Rv["cols"]),
+             "② 警報音の入り口（手の操縦＝橙・自動操縦＝水色）が記録と違う")
+        need(tuple(g["opts"]) == Rv["opts"], "② 報告書の見方の2つの札が記録（p85）と違う")
+    if view == "eu":
+        la, lo = g["pts"]["tls"]
+        need(abs(la - Rv["tls"][0]) < 0.05 and abs(lo - Rv["tls"][1]) < 0.05, f"② トゥールーズの点（{la}, {lo}）が一般の座標と違う")
+        a, b, c, d = Rv["gb"]
+        gc = g["gb_c"]
+        need(gc is not None and a <= gc[0] <= b and c <= gc[1] <= d and g["gb_n"] > 50, "② 明るくした島がグレートブリテン島でない")
+        (gx, gy), (tx, ty) = g["px"]["gb"], g["px"]["tls"]
+        need(ty > gy and tx > gx, "② トゥールーズがイギリスの南東に描かれていない（向き）")
+        need(tuple(g["req"]) == Rv["req"], "② 要求の札が記録（p84）と違う")
+        need("一般の座標" in m.get("note", ""), "② 注に「一般の座標」が無い（トゥールーズは報告書の値ではない）")
+    if view == "cards3":
+        need(g["n"] == Rv["n"], f"② 可能性の札の数 {g['n']}（記録 3）")
+    if view == "assist":
+        (la_, lh_), (ra_, rh_) = g["vec"]["l"], g["vec"]["r"]
+        need(la_[0] * lh_[0] + la_[1] * lh_[1] > 0, "② 電波の道を捕まえるときの押す向きが自動操縦と同じでない（手伝う）")
+        need(ra_[0] * rh_[0] + ra_[1] * rh_[1] < 0 and ra_[1] < 0, "② この夜の押す向きが自動操縦（機首上げ）と逆でない")
+        need(g["name"] == Rv["name"], "② 機能の名が記録（p57）と違う")
+    if view == "afloor":
+        need(tuple(g["steps"]) == Rv["steps"], "② アルファ・フロアの流れの札が記録（p83）と違う")
+    if view == "pitch":
+        need(abs(g["deg"] - Rv["deg"]) < 1e-9, f"② 機首の角度 {g['deg']}（記録 52.6度＝p49）")
+        last = g["rows"][-1]
+        need(abs(last["rot"] + Rv["deg"]) < 1e-9 and abs(last["plane"] - last["rot"]) < 1e-9, "② 針と機の形が記録の角度まで回っていない")
+        need(all(r["rot"] <= 0 for r in g["rows"]), "② 針が下（機首下げ）へ回っている")
+    if view == "pbars":
+        need(tuple(t for t, _v in g["rows"]) == tuple(t for t, _v in Rv["rows"])
+             and all(abs(a - b) < 1e-9 for (_t, a), (_u, b) in zip(g["rows"], Rv["rows"])), f"② 角度の棒 {g['rows']} が記録（約4・25・52.6度）と違う")
+        need(all(abs(e - (g["x0"] + v * g["unit"])) < 0.5 for e, (_t, v) in zip(g["ends"], Rv["rows"])), "② 角度の棒の長さが値と合わない（同じ縮尺）")
+        need(g["twice"] == Rv["twice"] and abs(g["twice_x"] - (g["x0"] + Rv["rows"][1][1] * Rv["twice"] * g["unit"])) < 0.5
+             and Rv["rows"][2][1] > Rv["rows"][1][1] * Rv["twice"], "② 「25度の2倍」の線が値と合わないか、最大が2倍を超えていない")
+    for p, q in Rv.get("quote", ()):
+        src_ = _m17_page(p)
+        if src_ is not None:
+            need(_m17_q(q) in src_, f"② 句「{q[:16]}…」が {p} に無い")
+    said = [r.get("t", "") for r in m["rel"]]
+    for t in list(m["texts_all"]) + list(m["tags"]):
+        for mm in NUM_M17.finditer(t):
+            tok = mm.group(0)
+            need(any(tok in s for s in said), f"③ 画面の字「{t}」の数「{tok}」が rel（記録の値の宣言）に無い")
+            full = tok.replace("：", ":")
+            if ":" in full:
+                need(full in R["clock"], f"③ 画面の字「{t}」の時刻「{tok}」が記録の時刻（{sorted(R['clock'])}）に無い")
+    for r in m["rel"]:
+        need(bool(r.get("src")), f"③ rel「{r.get('t')}」に出どころ（src）が無い")
+    return bad, n
+
+
+def _selftest_m17(ok):
+    """🆕 17本目 ⑤b-5：本番の SPEC の m17 が全部通り、描く側の定数を壊すと**狙った理由で**鳴るか（陽性対照）。"""
+    import mech17 as M
+    import cuts
+    good = {c: s["fig"][1] for c, s in cuts.SPEC.items() if s.get("fig") and s["fig"][0] == "m17"}
+    if not good:
+        print("  ⚠️ 17本目 m17 のカットが0件（selftest の陽性対照を飛ばした）")
+        return ok
+    for cid, kw in sorted(good.items()):
+        bad, _ = judge("m17", kw)
+        g_ = not bad
+        ok &= g_
+        if not g_:
+            print(f"  🔴 NG 17本目 m17 の本番 {cid} が落ちた: {bad[0]}")
+    by_view = {}
+    for cid, kw in sorted(good.items()):
+        by_view.setdefault(kw["view"], kw)
+
+    def facs():
+        x = list(M.FACTORS)
+        x[2] = ("重い操縦輪を引き続けた", "crew")
+        return tuple(x)
+    cases = (("要因の言葉を替える", "factors", "FACTORS", facs(), "② 要因の札"),
+             ("時計の差を8時間に", "clock2", "CK2_ADD", 8, "② 時計の時刻"),
+             ("この型の時間を替える", "hours", "HR_V", (("この型（A300-600R）", 1530.0, "company"), M.HR_V[1]), "② 飛行時間"),
+             ("角度の点を替える", "ths", "TH_PTS", ((5, -5.3), (18, -4.0)) + tuple(M.TH_PTS[2:]), "② 角度の点"),
+             ("機首の角度を替える", "pitch", "PT_DEG", 50.0, "② 機首の角度"),
+             ("この夜の押す向きを自動操縦と同じに", "assist", "AS_VEC", dict(l=((0, 1), (0, 1)), r=((0, -1), (0, -1))), "② この夜の押す向き"),
+             ("トゥールーズを北へ", "eu", "EU_PTS", dict(gb=(53.0, -1.6), tls=(55.6047, 1.4442)), "② トゥールーズ"),
+             ("面積のマスを9つに", "area", "AR_TH_N", 9, "② 面積のマス目"),
+             ("ランドのボタンの結果を替える", "modes", "MD_ROWS", dict(M.MD_ROWS, c=("ランドのボタンを押す", (("抜ける", "OK"),))), "② 抜け方の札"),
+             ("角度の棒の25度を替える", "pbars", "PB_V", (M.PB_V[0], ("画面の表示が消える", 30.0, "AMBER"), M.PB_V[2]), "② 角度の棒"),
+             ("警報音の入り口の色を替える", "warn", "WN_IN", (("手の操縦", "ship"), ("自動操縦", "ship")), "② 警報音の入り口"),
+             ("席を左右逆に", "seats", "ST_NAME", ("副操縦士", "機長"), "② 席の名"))
+    for name, view, attr, val, why in cases:
+        if view not in by_view:
+            print(f"  ⚠️ 17本目 陽性対照「{name}」：{view} のカットが無い（飛ばした）")
+            continue
+        keep = getattr(M, attr)
+        setattr(M, attr, val)
+        try:
+            bad, _ = judge("m17", by_view[view])
+        except Exception as e:      # 組めない＝止まる（fail closed）も鳴ったに数える
+            bad = [f"{why}（例外：{e}）"]
+        finally:
+            setattr(M, attr, keep)
+        g_ = any(b.startswith(why) for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 17本目 ⑤b-5 陽性対照：{name}: {'不合格' if bad else '合格'}（不合格のはず・理由「{why}」）"
+              + (f"  ← {bad[0]}" if bad else ""))
+    # rel から数を抜く（③＝画面の字の数の宣言）
+    kw = dict(by_view["pitch"], rel=[r for r in by_view["pitch"]["rel"] if "52.6" not in r.get("t", "")])
+    bad, _ = judge("m17", kw)
+    g_ = any(b.startswith("③") and "52.6" in b for b in bad)
+    ok &= g_
+    print(f"  {'OK' if g_ else '🔴 NG'} 🔴 17本目 ⑤b-5 陽性対照：rel から 52.6 を抜く: {'不合格' if bad else '合格'}（不合格のはず・理由「③」）")
+    return ok
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
+    if kind == "m17":
+        return judge_m17(f)
     if kind == "m23":
         return judge_m23(f)
     if kind == "m22":
@@ -4793,6 +5116,7 @@ def selftest():
     ok = _selftest_m21(ok)
     ok = _selftest_m22(ok)
     ok = _selftest_m23(ok)
+    ok = _selftest_m17(ok)       # 🆕 17本目 ⑤b-5：本番の m17 が通り・壊した定数が狙った理由で鳴る
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 
@@ -4823,7 +5147,7 @@ def main():
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items())
                if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt", "vsec", "lv", "m18",
-                                                   "m19", "m20", "m21", "m22", "m23")}
+                                                   "m19", "m20", "m21", "m22", "m23", "m17")}
     if not targets:
         print("⚠️ latch・section・hull・lash・tail・mod・bolt のカットが0件（この回に仕組みの模式図が無いなら正しい。"
               "**0件を調べて合格**にしていないか確かめる）")
@@ -4834,6 +5158,10 @@ def main():
         if kind == "m23":         # 🆕 23本目 ⑤b-3：見る向きの合図（PLAN の「見る向き：」× 左上の札）
             n += 1
             vb = view_dir_check(cuts.PLAN.get(cid, {}).get("plan", ""), F.m23(**kw).mech["lab"])
+            bad = list(bad) + ([f"② {vb}"] if vb else [])
+        if kind == "m17":         # 🆕 17本目 ⑤b-5：見る向きの合図（「正面」も）
+            n += 1
+            vb = view_dir_check17(cuts.PLAN.get(cid, {}).get("plan", ""), F.m17(**kw).mech["lab"])
             bad = list(bad) + ([f"② {vb}"] if vb else [])
         n_all += n
         if bad:

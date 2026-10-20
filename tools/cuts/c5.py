@@ -199,3 +199,27 @@ SPEC.update({
                dict(rec="報告書 p79（乗員による操縦輪の操作とAFSの作動が相反することとなり）",
                     tag=dict(t="相反（押す手と逆の向きへ）", at="ap_up", off=(60, -60), anchor="start"))]))),
 })
+
+# ── 🆕 ⑤b-5（2026-10-20）：図解（`tools/mech17.py`・門番 check_mech の judge_m17＝記録 REC_M17）──
+_THS_T = dict(t="20:14:00・20:14:20・20:14:40・20:15:00・20:15:20（時刻の目盛り）", src="付図5 p1")
+_THS_A = dict(t="0・−4・−8・−12（角度の目盛り）", src="付図5 p1")
+SPEC.update({
+    # c504（2行）＝自動操縦を入れた人の3つの可能性（p52〜53・p89）＝並べるだけ。1行目で2枚 → 2行目で3枚目と「報告書が並べた可能性」
+    "c504": dict(
+        t="誰が入れたか", s="結論を出さずに並べた",
+        fig=("m17", dict(view="who3", steps=[dict(state=dict(c01="on")), dict(state=dict(c2="on", br="on"))],
+                         note="報告書の言葉の要約", src=ss.src(["報告書 p52", "報告書 p53", "報告書 p89"])))),
+    # c516（3行）＝c321 の抜け方の図に戻る（前の2つの道は沈めて基図に）。1行目でランドのボタン → 2行目で抜けられない（×）→ 3行目でモードはそのまま
+    "c516": dict(
+        t="押したのはランドのボタン", s="乗員がしたとみられる操作",
+        fig=("m17", dict(view="modes", start=dict(dim="on", a="on", b="on", b2="on"),
+                         steps=[dict(state=dict(c="on")), dict(state=dict(cx="on")), dict(state=dict(stay="on"))],
+                         note="手順の流れ（模式）", src=ss.src(["報告書 p54"])))),
+    # c517（3行）＝水平安定板の角度の帯。1行目で 20:14:05〜20:14:25 の線（付図5 の表と本文）→ 2行目で −5.3度（ゴー・レバーの前）→
+    #   3行目で機体が下り始める（20:14:26ごろ＝p55）。🔴 −12.3度と約18秒は次のカット（c518）の語り＝描かない
+    "c517": dict(
+        t="水平安定板の角度", s="ゴー・レバーのあとの動き",
+        fig=("m17", dict(view="ths", steps=[dict(state=dict(line="t25")), dict(state=dict(lab53="on")), dict(state=dict(desc="on"))],
+                         rel=[_THS_T, _THS_A, dict(t="−5.3度", src="報告書 p54"), dict(t="20:14:26ごろ", src="報告書 p55")],
+                         note="点＝付図5 の表と本文の値（点のあいだは直線）", src=ss.src(["報告書 p54", "報告書 p55", "付図5 p1"])))),
+})

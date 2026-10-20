@@ -170,3 +170,34 @@ SPEC.update({
                                             dict(add=[ss.ax("mod88")], cur="1988-03")],
                           note="年月は報告書の本文（1988年3月18日＝承認の日・月まで）", src=ss.src(["報告書 p78"])))),
 })
+
+# ── 🆕 ⑤b-5（2026-10-20）：図解（`tools/mech17.py`・門番 check_mech の judge_m17＝記録 REC_M17）──
+SPEC.update({
+    # c304（3行）＝面積のマス目（p55＝昇降舵を含めた水平安定板は昇降舵の約3倍）→ 2行目で同じ角度の板と効きの矢印（模式）→ 3行目は保つ
+    "c304": dict(
+        t="板の広さ", s="報告書の値でマス目に",
+        fig=("m17", dict(view="area", steps=[dict(state=dict(elev="on", ths="on")), dict(state=dict(same="on")), dict()],
+                         rel=[dict(t="約3倍", src="報告書 p55")],
+                         note="マス目の数の比＝面積の比・板の形と傾きと効きの矢印は模式", src=ss.src(["報告書 p55"])))),
+    # c307（2行）＝自動飛行システムの3つの箱。1行目で見出し・自動操縦・自動推力 → 2行目で飛行の指示
+    "c307": dict(
+        t="3つの仕組み", s="自動で飛ぶための装置の中身",
+        fig=("m17", dict(view="afs", steps=[dict(state=dict(head="on", ap="on", at="on")), dict(state=dict(fd="on"))],
+                         note="箱の中の絵は模式", src=ss.src(["報告書 p51", "報告書 p95"])))),
+    # c317（2行）＝横から見た進入の道（傾きは誇張）。1行目で対地 約120m（400ft）以下のランド＝対象外 → 2行目でゴー・アラウンド＝対象外（p78 MOD.7187）
+    "c317": dict(
+        t="押しても切れない場面", s="改修の対象から外れた2つ",
+        fig=("m17", dict(view="band", steps=[dict(state=dict(land="on")), dict(state=dict(ga="on"))],
+                         rel=[dict(t="約120m（400ft）", src="報告書 p78")],
+                         note="傾きと高さは模式（約120mの線だけ記録の値）", src=ss.src(["報告書 p78"])))),
+    # c321（3行）＝ゴー・アラウンドの抜け方（p54・p81）。1行目で縦と横の両方＝抜ける → 2行目で縦だけ＝表示の字は消える → 3行目で働きは残る
+    "c321": dict(
+        t="抜けるための手順", s="報告書の説明",
+        fig=("m17", dict(view="modes", steps=[dict(state=dict(a="on")), dict(state=dict(b="on")), dict(state=dict(b2="on"))],
+                         note="手順の流れ（模式）", src=ss.src(["報告書 p54", "報告書 p81"])))),
+    # c322（3行）＝表示（FMA＝V/S と HDG）と手引き書（FCOM）。1行目で表示と「あたかも」→ 2行目で書かれていない所 → 3行目で勧告（p103 の 2c）
+    "c322": dict(
+        t="手引き書に無かったこと", s="表示と中の働きのずれ",
+        fig=("m17", dict(view="fcom", steps=[dict(state=dict(fma="on")), dict(state=dict(gap="on")), dict(state=dict(rec="on"))],
+                         note="手引き書の欄の言葉は報告書の要約・頁の形は模式", src=ss.src(["報告書 p81", "報告書 p82", "報告書 p103"])))),
+})

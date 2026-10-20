@@ -221,3 +221,32 @@ SPEC.update({
                     tag=dict(t="20:15:31・約530m（頂点）", at="nose", off=(-60, -50), anchor="end")),
                dict()]))),
 })
+
+# ── 🆕 ⑤b-5（2026-10-20）：図解（`tools/mech17.py`・門番 check_mech の judge_m17＝記録 REC_M17）──
+SPEC.update({
+    # c704（3行）＝アルファ・フロア（p83）。1行目で名前 → 2行目で流れ（迎え角が大きすぎる → 推力を自動で最大に → 失速を防ぐ）→ 3行目で安全装置
+    "c704": dict(
+        t="働いた安全装置", s="迎え角を見張る",
+        fig=("m17", dict(view="afloor", steps=[dict(state=dict(name="on")), dict(state=dict(flow="on")), dict(state=dict(safe="on"))],
+                         note="箱の中の絵は模式", src=ss.src(["報告書 p83"])))),
+    # c719（2行・★だった行）＝分度器。1行目で分度器と機の形（水平）→ 2行目で針と機の形が 52.6度まで回る（p49＝20:15:26）
+    "c719": dict(
+        t="記録された最大", s="報告書の記録（20:15:26）",
+        fig=("m17", dict(view="pitch", start=dict(dial="on"), steps=[dict(), dict(state=dict(needle="on"))],
+                         rel=[dict(t="52.6度", src="報告書 p49"), dict(t="0・30・60・90度（目盛り）", src="報告書 p49")],
+                         note="角度は報告書の値・機の形は模式", src=ss.src(["報告書 p49"])))),
+    # c720（2行）＝機首の角度の棒（同じ縮尺）。1行目で着陸の進入（約4度＝p54）と表示が消える 25度（付図29 の注）→ 2行目で最大 52.6度と「25度の2倍」の線
+    "c720": dict(
+        t="角度の比べ", s="同じ物差しで並べる",
+        fig=("m17", dict(view="pbars", steps=[dict(state=dict(b0="on")), dict(state=dict(b1="on", twice="on"))],
+                         rel=[dict(t="0・10・20・30・40・50・60（目盛り）", src="報告書 p49"), dict(t="25度の2倍", src="付図29 p1")],
+                         note="角度は報告書の値（25度＝付図29 の注）", src=ss.src(["報告書 p54", "付図29 p1", "報告書 p49"])))),
+    # c726（2行）＝12の要因（c110 と同じ図・役の色つきで基図に）。1行目で機体の作り・手引き書の印（要因1〈寄与＝レバーの作り〉・5・6〈寄与＝手引き書〉）→
+    #   2行目で乗員の印（7 交替の時機・9 立て直し・10 連携＝p96）
+    "c726": dict(
+        t="乗員の要因", s="作りと並べて挙げられたこと",
+        fig=("m17", dict(view="factors", start=dict(cards="on", acc="on", roles="on"),
+                         steps=[dict(state=dict(mk_design="on")), dict(state=dict(mk_crew="on"))],
+                         rel=[dict(t="1・2・3・4・5・6・7・8・9・10・11・12（要因の番号）", src="報告書 p95")],
+                         note="言葉は報告書の要因の要約・番号は報告書の順", src=ss.src(["報告書 p95", "報告書 p96"])))),
+})

@@ -112,3 +112,32 @@ SPEC.update({
         steps=[dict(tag=dict(t="電波の下り道（3度）", at="gs_far", off=(40, 120), anchor="end", keep=True)),
                dict(tag=dict(t="時速約260km・機首 約4度", at="pt", off=(-30, -90), anchor="start"))]))),
 })
+
+# ── 🆕 ⑤b-5（2026-10-20）：図解（`tools/mech17.py`・門番 check_mech の judge_m17＝記録 REC_M17）──
+SPEC.update({
+    # c205（2行）＝正面から見た2つの席（人は描かない）。1行目で左の席に「機長（42歳）」→ 2行目で空軍の年（1970年9月〜1989年1月＝約18年・p38）
+    "c205": dict(
+        t="左の席", s="操縦席の2つの席と機長の経歴",
+        fig=("m17", dict(view="seats", steps=[dict(state=dict(cap="on", age="on")), dict(state=dict(af="on"))],
+                         rel=[dict(t="42歳", src="報告書 p17"), dict(t="約18年（1970年9月〜1989年1月）", src="報告書 p38")],
+                         note="席の形は模式・人は描かない", src=ss.src(["報告書 p17", "報告書 p38"])))),
+    # c206（3行）＝1行目で経歴の札（1989年入社 → 747の副操縦士 → 1992年12月 この型の機長）→ 2行目で この型の時間の棒 → 3行目で全部の時間の棒（同じ縮尺）
+    "c206": dict(
+        t="機長の飛行時間", s="経歴と時間の長さ",
+        fig=("m17", dict(view="hours", steps=[dict(state=dict(career="on")), dict(state=dict(b0="on")), dict(state=dict(b1="on"))],
+                         rel=[dict(t="1989年・747・1992年12月", src="報告書 p38"), dict(t="A300-600R", src="報告書 p17"),
+                              dict(t="0・2,000・4,000・6,000・8,000（時間の目盛り）", src="報告書 p17")],
+                         note="棒の長さ＝飛行時間", src=ss.src(["報告書 p17", "報告書 p38"])))),
+    # c208（2行）＝副操縦士の訓練の順（p38）。1行目で見出しと地上の学科 → 2行目でシミュレーターと実際の機体（3時間）
+    "c208": dict(
+        t="この型の訓練", s="受けた順",
+        fig=("m17", dict(view="train", steps=[dict(state=dict(head="on", s1="on")), dict(state=dict(s23="on"))],
+                         rel=[dict(t="3時間", src="報告書 p38")],
+                         note="順だけ（帯の長さは時間に比例しない）・模式", src=ss.src(["報告書 p38"])))),
+    # c210（2行）＝c205 と同じ席の図（4カット後）。1行目で役の札（左＝見守り・確かめる／右＝操縦する）→ 2行目で指示の矢印（20:00ごろ＝p42 の 11時00分11秒）
+    "c210": dict(
+        t="2人の役目", s="この夜の分担",
+        fig=("m17", dict(view="seats", start=dict(cap="on", fo="on"), steps=[dict(state=dict(roles="on")), dict(state=dict(order="on"))],
+                         rel=[dict(t="20:00ごろ", src="報告書 p42")],
+                         note="席の形は模式・人は描かない", src=ss.src(["報告書 p42", "報告書 p57"])))),
+})

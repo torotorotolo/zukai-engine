@@ -5139,3 +5139,13 @@ def m22(view, steps, **kw):
 def m23(view, steps, **kw):
     import mech23 as _m
     return _m.m23(view, steps, **kw)
+
+
+# ── ⑱ 17本目 ⑤b-5（2026-10-20）：図解（第1〜7章の25カット＝12の要因・2つの時計・正面の2つの席・飛行時間の棒・訓練の順・面積のマス目・3つの仕組み・
+#      高さの帯・抜け方の流れ・手引き書・3つの可能性・角度の帯・警報音の設計・ヨーロッパの地図・3つの札・もう1つの押し方・アルファ・フロア・
+#      分度器・角度の棒）＝`tools/mech17.py`（門番 check_mech の judge_m17）。🔴 色は役の色（人の操縦＝橙・自動の仕組み＝水色・報告書＝青・
+#      エアバス社＝緑）・画面の字の数は全部 rel に ──
+#   `fig=("m17", dict(view=…, start=…, steps=[…], rel=[…], note="…", src=…))`
+def m17(view, steps, **kw):
+    import mech17 as _m
+    return _m.m17(view, steps, **kw)

@@ -146,3 +146,44 @@ SPEC.update({
         steps=[dict(state=dict(c6warn="on"), rec=R6["warn"], tag=dict(t="3つ目の警報音", at="spk", off=(40, 40), anchor="start", keep=True)),
                dict(tag=dict(t="自動操縦の間は鳴らない", at="lamps", off=(0, 150), anchor="middle"))]))),
 })
+
+# ── 🆕 ⑤b-5（2026-10-20）：図解（`tools/mech17.py`・門番 check_mech の judge_m17＝記録 REC_M17）──
+_THS_T = dict(t="20:14:00・20:14:20・20:14:40・20:15:00・20:15:20（時刻の目盛り）", src="付図5 p1")
+_THS_A = dict(t="0・−4・−8・−12（角度の目盛り）", src="付図5 p1")
+SPEC.update({
+    # c603（2行）＝c517 の角度の帯（前の線は基図＝20:14:49 まで）。1行目で切ったあとも −12.3度のまま（20:14:49〜20:15:11＝p56・p49）→
+    #   2行目でアウト・オブ・トリム（p56）
+    "c603": dict(
+        t="切ったあとの角度", s="自動操縦を外してから",
+        fig=("m17", dict(view="ths", start=dict(line="t49"), steps=[dict(state=dict(flat="on")), dict(state=dict(oot="on"))],
+                         rel=[_THS_T, _THS_A, dict(t="−12.3度・20:14:49・20:15:11", src="報告書 p56・p49")],
+                         note="点＝付図5 の表と本文の値（点のあいだは直線）", src=ss.src(["報告書 p56", "報告書 p49", "付図5 p1"])))),
+    # c612（2行）＝警報音の設計（開発のとき＝p84）。1行目で手の操縦・自動操縦 → 板が動く → 2行目で警報音が鳴る（どちらのときも）
+    "c612": dict(
+        t="警報音の設計", s="型を作ったころの考え",
+        fig=("m17", dict(view="warn", steps=[dict(state=dict(dev="on")), dict(state=dict(ring="on"))],
+                         note="流れ（模式）", src=ss.src(["報告書 p84"])))),
+    # c613（3行）＝上から見たイギリスとフランス（陸＝Natural Earth）。1行目で出どころ（英国の事故調査当局）とグレートブリテン島 →
+    #   2行目でイギリスの航空の当局 → エアバス社（トゥールーズ）→ 3行目で要求の中身（p84）
+    "c613": dict(
+        t="設計を変えたきっかけ", s="評価のときの要求",
+        fig=("m17", dict(view="eu", steps=[dict(state=dict(src="on")), dict(state=dict(req="on")), dict(state=dict(what="on"))],
+                         note="陸は Natural Earth（国境なし）・トゥールーズは一般の座標・模式", src=ss.src(["報告書 p84"])))),
+    # c615（2行）＝c612 と同じ図（3カット後）＋変更後（自動操縦のときは鳴らない＝c614 の語り）を基図に → 1行目で報告書の見方 → 2行目で2つの道（p85）
+    "c615": dict(
+        t="残すか、別の仕組みか", s="警報音を削った設計について",
+        fig=("m17", dict(view="warn", start=dict(dev="on", ring="on", cut="on"), steps=[dict(state=dict(why="on")), dict(state=dict(opts="on"))],
+                         note="流れ（模式）", src=ss.src(["報告書 p84", "報告書 p85"])))),
+    # c616（2行）＝機長の考えの3つの可能性（p57）。札は番号と「？」だけ（中身は c617〜c619 の語り）
+    "c616": dict(
+        t="機長の考え", s="報告書が挙げる見立て",
+        fig=("m17", dict(view="cards3", steps=[dict(state=dict(q="on")), dict(state=dict(cards="on"))],
+                         rel=[dict(t="1・2・3（可能性の番号）", src="報告書 p57")],
+                         note="中身はこのあと", src=ss.src(["報告書 p57"])))),
+    # c619（2行）＝もう1つの押し方（スーパーバイザリー・オーバーライド＝p57・p90）。1行目で電波の道を捕まえるとき（同じ向き）→
+    #   2行目で名前と、この夜（逆の向き）と「取り違え？」
+    "c619": dict(
+        t="もう1つの押し方", s="この型にあった別の機能",
+        fig=("m17", dict(view="assist", steps=[dict(state=dict(l="on")), dict(state=dict(name="on", r="on"))],
+                         note="向きと形は模式", src=ss.src(["報告書 p57", "報告書 p90"])))),
+})

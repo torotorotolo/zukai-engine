@@ -132,3 +132,22 @@ SPEC.update({
         steps=[dict(tag=dict(t="ゴー・レバー（20:14:05）", at="go", off=(-60, -90), anchor="end", keep=True)),
                dict(tag=dict(t="頂点（20:15:31）", at="apex", off=(-40, -80), anchor="end"))]))),
 })
+
+# ── 🆕 ⑤b-5（2026-10-20）：図解（`tools/mech17.py`・門番 check_mech の judge_m17＝記録 REC_M17）──
+#   🔴 画面の字の数は全部 rel に（門番が基図と段の層の全部の字から拾う）。見出し・副題は語りの写しにしない（門番 echo・dup）
+_N12 = dict(t="1・2・3・4・5・6・7・8・9・10・11・12（要因の番号）", src="報告書 p95")
+SPEC.update({
+    # c110（3行）＝12の要因（p95〜96）→ 1行目で12枚の札とつながり（連鎖・複合）→ 2行目で事故へ → 3行目でだれの要因か（役の色と下の行）
+    "c110": dict(
+        t="12の要因", s="報告書が認定した事故の要因",
+        fig=("m17", dict(view="factors", steps=[dict(state=dict(cards="on", chain="on")), dict(state=dict(acc="on")), dict(state=dict(roles="on"))],
+                         rel=[_N12], note="言葉は報告書の要因の要約・番号は報告書の順",
+                         src=ss.src(["報告書 p95", "報告書 p96"])))),
+    # c114（3行）＝2つの時計（11:14:05 ＋9時間＝20:14:05＝ゴー・レバーの時刻）→ 3行目で単位の札
+    "c114": dict(
+        t="時刻と単位の直し方", s="報告書の書き方から",
+        fig=("m17", dict(view="clock2", steps=[dict(state=dict(utc="on")), dict(state=dict(jst="on")), dict(state=dict(units="on"))],
+                         rel=[dict(t="11:14:05", src="報告書 p51"), dict(t="20:14:05（＋9時間）", src="報告書 p4")],
+                         note="例＝ゴー・レバーの時刻・日本標準時＝協定世界時＋9時間",
+                         src=ss.src(["報告書 p4", "報告書 p51"])))),
+})
