@@ -109,7 +109,7 @@ SPEC.update({
     #   2行目で 15'02" の枠（推力の欄に THR L〈緑〉）
     "c709": dict(fig=("illu", dict(
         place="C1", start=dict(view="band", c1f="1448", switch="on"), rec=R1["f29"],
-        steps=[dict(state=dict(c1ring="thr"), tag=dict(t="推力の欄", at="thrcol", off=(30, -96), anchor="middle")),
+        steps=[dict(state=dict(c1ring="thr"), tag=dict(t="推力の欄", xy=(365, 178), anchor="middle")),   # 線なし（線が2行目の THR L を貫いた）
                dict(state=dict(c1f="1502"), rec="報告書 p47（アルファ・フロア機能が作動すると、FMA上にTHRLが表示される）")]))),
     # c710（3行・20:15:03）＝操縦室の中。1行目に時刻 → 2行目で副操縦士の手が右の操縦輪から離れ、機長（左の席）の手が左の操縦輪へ（交替＝p47・p73）
     "c710": dict(fig=("illu", dict(
