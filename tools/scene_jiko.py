@@ -870,8 +870,16 @@ def _ep17_author(name):
     code = json.loads((HERE / "ref" / "ep17" / "assets.json").read_text(encoding="utf-8"))[name[len("ep17/"):-len(".jpg")]]["code"]
     rows = [r for r in csv.reader(_EP17_PRIVATE.open(encoding="utf-8"), delimiter="\t") if r and not r[0].startswith("#")]
     who = {r[0]: dict(zip(rows[0], r)) for r in rows[1:]}.get(code, {}).get("artist", "").strip()
+    # 🆕 2026-10-21（⑥）：表の作者欄は Commons の HTML のまま（fetch17.py credits＝表の1行目の注）＝タグを外して字だけにする。
+    #    そのまま出典の行に入れると、HTML の中に SVG を埋めて Chrome で焼くとき、<div> は SVG の外へ抜けて行が「写真：」で切れ（QA・QB）、
+    #    <a> は字は出るが、全画面の出典の下に敷く暗い地の幅（fm.width）がタグの字まで数えて画面の外まで伸びる（14点のうち10点が HTML＝<a> 8・<div> 2）。
+    #    Actions の検品は仮の字＝絵に出ない・check_layout は中にタグのある <text> を拾わない（TEXT の [^<]*）＝どの網も通っていた
+    import html as _html
+    who = " ".join(_html.unescape(re.sub(r"<[^>]+>", "", who)).split())
     if not who:
         raise RuntimeError(f"{name}（{code}）: git の外の表に作者欄が無い")
+    if re.search(r"[<>&]", who):
+        raise RuntimeError(f"{name}（{code}）: 作者欄に SVG にそのまま書けない字が残る（{len(who)}字）＝焼かない")
     return who
 
 
