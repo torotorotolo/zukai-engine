@@ -346,15 +346,18 @@ def c1_tband_svg():
     g = []
     bh = T["bh"]
 
-    def bar(s0, s1, y, fill, txt, tcol, op=0.92):
+    def bar(s0, s1, y, fill, txt, tcol, op=0.92, tx=None):
         x0, x1 = c1_tx(s0), c1_tx(s1)
         out = [f'<rect x="{x0:.1f}" y="{y - bh / 2:.1f}" width="{x1 - x0:.1f}" height="{bh:.1f}" rx="8" fill="{fill}" opacity="{op}"/>']
-        fs = min(34.0, (x1 - x0 - 12) / max(1.0, fm.width(txt, 1.0)))
-        out.append(f'<text x="{(x0 + x1) / 2:.1f}" y="{y + fs * 0.36:.1f}" font-family="Noto" font-size="{fs:.0f}" fill="{tcol}" '
+        # 🆕 ⑤c'：幅で縮む帯（GS LOC＝96px）は字と隣の帯の縁が 5.1px＝余白を 12→16px（6px 以上・geom_gap）
+        fs = min(34.0, (x1 - x0 - 16) / max(1.0, fm.width(txt, 1.0)))
+        out.append(f'<text x="{(x0 + x1) / 2 if tx is None else tx:.1f}" y="{y + fs * 0.36:.1f}" font-family="Noto" font-size="{fs:.0f}" fill="{tcol}" '
                    f'text-anchor="middle">{F.esc(txt)}</text>')
         return "".join(out)
     g.append(bar(0, 6, T["y_mid"], C17["fg"], "GS LOC", C17["bar_txt"]))
-    g.append(bar(6, 73, T["y_mid"], C17["bar"], "GO AROUND", C17["bar_txt"]))
+    # 🆕 ⑤c'（2026-10-21・c520）：帯の真ん中（x 992）だと 20:14:45 の時刻の線（x 1080）が字の N と D の間を貫いた（geom_gap 0px）
+    #    ＝字を 14分30秒（c514）と 14分45秒（c520）の線のちょうど間（37.5秒）へ＝どちらの線とも約13px あく
+    g.append(bar(6, 73, T["y_mid"], C17["bar"], "GO AROUND", C17["bar_txt"], tx=c1_tx(37.5)))
     g.append(bar(18, 49, T["y_r"], C17["bar"], "DUAL", C17["bar_txt"]))
     g.append(_text(T["x0"] - 18, T["y_mid"] + 10, "飛び方の欄", 28, C17["fw"], "end"))
     g.append(_text(T["x0"] - 18, T["y_r"] + 10, "右の欄", 28, C17["fw"], "end"))
@@ -706,10 +709,16 @@ def _c2_anchors(st):
                 ghost=c2_rot((C2_LE, C2_Y), C2_GHOST), lim=c2_rot((C2_LE - 62, C2_Y), C2_LIM), fin=(1390.0, 260.0), body=(520.0, 600.0))
 
 
+C2_REC_THS = (C2_GHOST, C2_LIM)                 # 🆕 ⑤c'：水平安定板の記録の点（p54・p44 の -5.3°／p56 の -12.3°）
+
+
 def _c2_note(st0, states):
     if st0["c2kind"] == "model":
         return "報告書を加工して作成・形と角度の動きは模式（付図15 の位置と数だけ）"
-    return "報告書を加工して作成・形は模式（付図15 の位置と数だけ）・角度は記録の値"
+    # 🆕 17本目 ⑤c'（2026-10-21・c509）：記録の点の間の水平安定板（c509 の −6.0度＝p45「-5.3°の位置からなお機首上げ方向へ動き始めている」）は
+    #    記録の値でない＝「角度は記録の値」と言い切らない（門番 ㉜ が同じ断りを見る）
+    mid = any(all(abs(float(st["c2ths"]) - v) > 0.05 for v in C2_REC_THS) for st in [st0] + list(states))
+    return "報告書を加工して作成・形は模式（付図15 の位置と数だけ）・角度は記録の値" + ("（途中の角度は模式）" if mid else "")
 
 
 # ══════════════════════════════════════════════════════════

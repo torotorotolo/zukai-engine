@@ -172,7 +172,8 @@ def _fac_card(i):
     w, h = FG["w"], FG["h"]
     g = [_card(cx, cy, w, h, J.LINE)]
     g.append(F.txt(cx - w / 2 + 14, cy - h / 2 + 30, str(i), 26, J.AMBER, "Dela", "start"))
-    g.append(_tline(cx + 10, cy + 4, t, 26, INK, "middle", w - 56))
+    # 🆕 ⑤c'（2026-10-21）：番号「10」は2桁で幅が広く字と横が重なり、縦のすき間が 3.2px（geom_gap）＝字を 4px 下げた（12枚とも同じ形）
+    g.append(_tline(cx + 10, cy + 8, t, 26, INK, "middle", w - 56))
     return "".join(g)
 
 
@@ -568,9 +569,11 @@ def band_stage(prev, st):
         s.append(F.line(100.0, BD["y_low"], 1820.0, BD["y_low"], J.TICK, 3, dash="10 10"))
         s.append(_tline(110.0, BD["y_low"] - 14, f"対地 約{BD_M}m（{BD_FT}ft）", 26, J.TICK, "start", 360))
         s.append(F.line(x, BD["y_low"], *BD["td"], J.AMBER, 12))
-        s.append(F.line(x - 40, 760.0, x - 6, 712.0, J.AMBER, 2))
-        s.append(_tline(x - 50, 770.0, f"{BD_OUT[0]}（約{BD_M}m以下）", 28, J.AMBER, "end", 420))
-        s.append(_tline(x - 50, 808.0, "対象外", 28, J.ALERT, "end", 200))
+        # 🆕 ⑤c'（2026-10-21）：2行の札（基線 770・808）が地面の線（y 780）をまたいで、行の間を線が通った（「対象外」まで 4.1px）
+        #    ＝2行とも地面の線の上へ（基線 728・766＝地面の線と約9px）・引き出し線は札の右から濃い線の頭へ
+        s.append(F.line(x - 40, 726.0, x + 14, bd_y(x + 14) + 14, J.AMBER, 2))
+        s.append(_tline(x - 50, 728.0, f"{BD_OUT[0]}（約{BD_M}m以下）", 28, J.AMBER, "end", 420))
+        s.append(_tline(x - 50, 766.0, "対象外", 28, J.ALERT, "end", 200))
     if _on(prev, st, "ga"):
         p = BD["ga"]
         s.append(F.poly([p[0], p[1], p[2]], "none", J.AMBER, 10, dash="22 12"))
@@ -1633,7 +1636,8 @@ KP = dict(x0=300.0, xoff=900.0, x1=1560.0, y0=760.0, y1=420.0)
 
 def keep_base(st0):
     g = [F.line(KP["x0"], KP["y0"], KP["x1"] + 60, KP["y0"], J.LINE, 3), F.line(KP["x0"], KP["y0"], KP["x0"], KP["y1"] - 80, J.LINE, 3)]
-    g.append(_tline(KP["x0"] - 16, KP["y1"] - 50, "板の角度（機首上げの側）", 24, J.TICK, "start", 520))
+    # 🆕 ⑤c'（2026-10-21・c915）：基線 y1-50（370）だと縦の軸（上の端 y1-80＝340）が札の頭の字を貫いた（geom_gap 0px）＝軸の上の端より上へ
+    g.append(_tline(KP["x0"] - 16, KP["y1"] - 96, "板の角度（機首上げの側）", 24, J.TICK, "start", 520))
     g.append(_tline(KP["x1"] + 60, KP["y0"] + 40, "時間の順", 24, J.TICK, "end", 200))
     g.append(F.poly([(KP["x0"], KP["y0"]), (KP["xoff"], KP["y1"])], "none", AUTO, 7))
     # ⚠️ 試し焼き 39416247322：線の上（y 600）に置いて字を線が貫いた＝線の右下へ

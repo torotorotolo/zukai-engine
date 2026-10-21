@@ -1392,6 +1392,10 @@ def judge_c17(sc, where):
                 n += 1
                 if not REC_C2["ths_lo"] - 1e-6 <= t <= REC_C2["ths_hi"] + 1e-6:
                     bad.append(f"㉜{where}：水平安定板 {t:.1f}度は記録の範囲（{REC_C2['ths_hi']}〜{REC_C2['ths_lo']}度）の外")
+                # 🆕 17本目 ⑤c'（c509）：範囲の中でも記録の点（-5.3・-12.3）でない角度は模式＝出典の行に「途中の角度は模式」
+                elif (all(abs(t - v) > 0.05 for v in (REC_C2["ths_hi"], REC_C2["ths_lo"]))
+                      and "途中の角度は模式" not in (sc.get("src") or "")):
+                    bad.append(f"㉜{where}：水平安定板 {t:.1f}度は記録の点でない（記録の間の模式）のに出典の行に「途中の角度は模式」が無い")
                 if not any(abs(e - v) < 0.05 for v in REC_C2["elev"]):
                     bad.append(f"㉜{where}：昇降舵 {e:.1f}度は記録の値（{sorted(REC_C2['elev'])}＝p44・p56）でない")
             if at is not None:
@@ -4030,6 +4034,8 @@ def selftest_ep17():
     # ㉜ C2
     bad_case("記録の範囲の外の角度（水平安定板 -13度）", tweak("c518", steps=[dict(), dict(state=dict(c2ths=-13.0, c2elev=8.5), rec="報告書 p5")]), "㉜")
     bad_case("記録に無い昇降舵の角度（5度）", tweak("c509", start=dict(c2ths=-5.3, c2elev=5.0, c2ap="on", c2hand="on")), "㉜")
+    bad_case("記録の点でない -6.0度なのに出典の行が「角度は記録の値」だけ（⑤c' c509）",
+             tweak("c509", src="出典：報告書 p44・p45を加工して作成・形は模式・角度は記録の値"), "㉜")
     bad_case("切ったあとの 20:15:03 に自動操縦の色", tweak("c712", start=dict(c2ths=-12.3, c2elev=9.9, c2hand="on", c2ap="on")), "㉜")
     bad_case("14分37秒なのに水平安定板が -5.3度のまま", tweak("c518", steps=[dict(), dict()]), "㉜")
     bad_case("「約18秒」を動かない段に", tweak("c602", steps=[dict(state=dict(c2ap="off"), rec="報告書 p56",

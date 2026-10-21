@@ -296,6 +296,13 @@ def vid(cid, **kw):
         if w < MIN_FULL_W or not PANEL_AR <= w / h <= WIDE_AR:
             raise ValueError(f"{cid}: フリー素材 {w}×{h} は全画面の箱に合わない（台帳の dispw を確かめる）")
         return dict(photo=f"{EP}stock/fb_{cid}.jpg", t="", s="", **kw)
+    # 🆕 17本目 ⑤c'（2026-10-21・c807）：器に黒帯のある記録映像（`footage.PILLAR` が 1 未満）のひかえ（止め絵 `still=True` と、
+    #    映像が取れなかった日）は写真の道で焼く＝映像の寄せ（fzm）が掛からず帯が残った（c807 の左 74px が真っ黒）。
+    #    ひかえにも映像と同じ寄せ（zoom_of・bias・xbias）を渡す＝映像の道と同じ切り口（映像のコマは meta の fzm が上書きするので変わらない）
+    u = _FO.USE.get(cid) or {}
+    if _FO.PILLAR.get(u.get("clip"), 1.0) < 1.0:
+        kw = {**dict(zoom=round(_FO.zoom_of(cid, u), 4), bias=float(u.get("bias", 0.5)),
+                     xbias=float(u.get("xbias", 0.5))), **kw}
     return dict(photo=fb(cid), **kind(fb(cid)), **kw)
 
 

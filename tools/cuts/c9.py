@@ -205,9 +205,12 @@ SPEC.update({
                          rel=[dict(t="約1,320メートル", src="報告書 p185"), dict(t="約3,580メートル", src="報告書 p185"), dict(t="4回目", src="報告書 p185")],
                          note="高さは記録の値に比例・横は順番だけ（模式）・2回目と3回目の高さは記録に無い", src=ss.src(["報告書 p184", "報告書 p185"])))),
     # c919（3行）＝押す操縦と機首を上げる向きの板（c914 の続き）→ 1行目で「乗員は気づいていなかった」（p185）
+    #   🆕 ⑤c'（2026-10-21）：2〜3行目（NTSB の手紙）で絵が変わらなかった（11.3秒のうち約7秒）＝3行目「自動操縦に逆らっている」で
+    #   押していた相手＝自動操縦の機首上げの矢印（c914 と同じ apup）を戻す
     "c919": dict(
         t="気づかないまま", s="モスクワの出来事",
-        fig=("m17", dict(view="prec", start=dict(set="mos", push="on", ths="on"), steps=[dict(state=dict(aware="on")), dict(), dict()],
+        fig=("m17", dict(view="prec", start=dict(set="mos", push="on", ths="on"),
+                         steps=[dict(state=dict(aware="on")), dict(), dict(state=dict(apup="on"))],
                          note="向きと力の矢印は模式・経過は報告書の別添", src=ss.src(["報告書 p185"])))),
     # c920（2行）＝4回目の降下（出力を絞る・トリムが機首下げへ＝p185）→ 2行目で立ち直った高さ（8,715ft≒約2,660m）
     "c920": dict(
