@@ -1729,9 +1729,84 @@ def ep23_h(only=None, top_words=EP23_TOP, sy=1.8, gbase=519, suffix="", vivid_ad
     print("三豊百貨店の字の大きさ", gfs, "縦の伸ばし", sy, "赤い縁", round(gfs * H_RIM))
 
 
+# ── 17本目（中華航空140便）H 型の反転版（2026-10-21 ⑥） ────────
+#    承認①（10-19）：H 型の反転版1枚・A/B なし・大きな語「中華航空」（黄の頭）・下の黄「140便墜落の真相」・上「犠牲」＋赤「264人」。
+#    上の核心の句は保留（09-27 の「モードは残った」＝カズヤくん「良く分からない」）＝⑥ で出し直す。🔴 10-20 の決め＝上の行は「犠牲N人」を白・
+#    核心の語だけ赤（14本目でカズヤくんが直した型）。形は22・23本目の本番と同じ（縦の伸ばし 1.8・基線 519）。
+#    地の候補＝改変して使える写真だけ（CC0・CC BY）。BY-SA の事故機（E1＝1993年4月の名古屋空港・E2）は字を重ねる＝翻案＝
+#    サムネ自体を BY-SA にすることになる（22・23本目は使わなかった）＝並べるのは参考。第三者の写真（報告書の写真）は使わない
+EP17_GROUNDS = (("t1", "ep17/t1.jpg", {}),      # 姉妹機 B-1814（1993年10月・香港の啓徳）CC BY 2.0＝事故機と同じ型・同じ塗り
+                ("k05", "ep17/k05.jpg", {}),    # 中華航空の同じ系列 A300-600R（2005年・福岡）CC0
+                ("qc", "ep17/qc.jpg", {}),      # 同じ系列 A310 の操縦室（2020年）CC BY 2.0
+                ("e1", "ep17/e1.jpg", {}),      # 事故機 B-1816（1993年4月・名古屋空港）CC BY-SA 2.0＝参考
+                ("ai_a", "ep17/ai/ep17_cal_a.jpg", {}),  # 🆕 10-21 生成 AI 案A（gen_thumb_ai cal_a・カズヤくん承認）＝夜・脚を出した機首上げ
+                # 🆕 10-21 カズヤくん「実際の 52.6度の異様さを出してほしい」＝案A の機体は約25度だった → 52.6度に回した絵（qa_out/ep17_ai_pitch.py）
+                ("ai_a526", "ep17/ai/ep17_cal_a_p526.jpg", {}),
+                # 🆕 同じ日：機体を空から切り抜いて回し、なめらかな夜空に置き直した地（継ぎ目なし＝qa_out/ep17_ai_plane.py）
+                ("ai_a526c", "ep17/ai/ep17_cal_a_p526c.jpg", {}))
+EP17_PLANE = "ep17/ai/ep17_cal_a_p526_plane.png"   # 52.6度に回した機体だけ（透明つき・1280×720）＝大きな字の手前に重ねる案
+
+
+def ep17_h_over(tag="ai_a526c", suffix="_over_b160", vivid_adj=(1.15, 1.15, 1.60), sy=1.55, gbase=525):
+    """17本目の H 型の反転版に、機体（透明つき PNG）を**大きな字の手前・上下の行の奥**に重ねる案（10-21 カズヤくん「52.6度の異様さ」）。
+    反転版は字の外だけがカラー＝主役は字のすき間からしか見えない → 機体だけ字の前に出す。機体の色は地の字の外と同じ調整（v1 の足し込みこみ）"""
+    giant = "中華航空"
+    gfs = round(1220 / h_adv(giant, 1))
+    kw = dict(giant=giant, gfs=gfs, gx=30, gbase=gbase, top_parts=list(EP17_TOP), bottom="140便墜落の真相", sy=sy)
+    src = dict((t, s) for t, s, _ in EP17_GROUNDS)[tag]
+    viv, dim = h_ground(src, vivid_adj)
+    pl = Image.open(HERE / "ref" / EP17_PLANE).convert("RGBA")
+    a = pl.getchannel("A")
+    c, s, b = (x + y for x, y in zip(vivid_adj, H_VIVID_ADD))
+    rgb = ImageEnhance.Brightness(ImageEnhance.Color(ImageEnhance.Contrast(pl.convert("RGB")).enhance(c)).enhance(s)).enhance(b)
+    rgb.putalpha(a)
+    buf = io.BytesIO()
+    rgb.save(buf, "PNG")
+    over = (f'<image href="data:image/png;base64,{base64.b64encode(buf.getvalue()).decode()}" x="0" y="0" '
+            f'width="{W}" height="{H}"/>')
+    svg = h_type_inv(viv, dim, **kw)
+    i = svg.index('<text x="40" y="104"')
+    bake(f"ep17-ab/ep17_Hinv_{tag}{suffix}", svg[:i] + over + svg[i:])
+EP17_TOP = (("犠牲264人 ", "#ffffff"), ("30秒の", "#ffffff"), ("押し合い", EP21_HOT))
+
+
+def ep17_h(only=None, top_words=EP17_TOP, sy=1.55, gbase=525, suffix="", vivid_adj=(1.15, 1.15, 1.0)):
+    """17本目の H 型の反転版（字の外がカラー・字の中が v1 の暗い白黒）。地の候補ごとに1枚＝`out/thumb/ep17-ab/ep17_Hinv_<tag>.png`。
+    🆕 10-21 カズヤくん「『中華航空』の文字が上一行と被っているので修正。少しであれば被ってもOK。引き続き大きく表示」＝
+    22・23本目の値（縦の伸ばし 1.8・基線 519）だと上の行と 80px 重なった（「中華航空」は字の上の端が高い＝フォントの座標 856）。
+    字の形（fontTools の BoundsPen・縁の半分こみ）で測って、下の黄の行とのすき間 6px 以上を守ったまま上の重なりが 10px 以内で
+    いちばん大きい値＝縦の伸ばし 1.55・基線 525（y 111〜580＝高さ 469px・上と 9px 重なる・下と 8px 空く）"""
+    giant = "中華航空"
+    gfs = round(1220 / h_adv(giant, 1))
+    kw = dict(giant=giant, gfs=gfs, gx=30, gbase=gbase, top_parts=list(top_words), bottom="140便墜落の真相", sy=sy)
+    for tag, src, crop in EP17_GROUNDS:
+        if only and tag not in only:
+            continue
+        viv, dim = h_ground(src, vivid_adj, **crop)
+        bake(f"ep17-ab/ep17_Hinv_{tag}{suffix}", h_type_inv(viv, dim, **kw))
+    print("中華航空の字の大きさ", gfs, "縦の伸ばし", sy, "赤い縁", round(gfs * H_RIM))
+
+
 if __name__ == "__main__":
     import sys
-    if "ep23-h-bright" in sys.argv:
+    if "ep17-h-over" in sys.argv:
+        # 17本目 ⑥（10-21）：継ぎ目の無い地（ai_a526c）の反転版＋機体を字の手前に重ねる案（明るさ 1.60）
+        ep17_h(only=("ai_a526c",), suffix="_b160", vivid_adj=(1.15, 1.15, 1.60))
+        ep17_h_over()
+    elif "ep17-h-ai526" in sys.argv:
+        # 17本目 ⑥（10-21）：52.6度に回した地（ai_a526）＝カズヤくんが有力とした「4」と同じ明るさ 1.60
+        ep17_h(only=("ai_a526",), suffix="_b160", vivid_adj=(1.15, 1.15, 1.60))
+    elif "ep17-h-ai" in sys.argv:
+        # 17本目 ⑥（10-21）生成 AI 案A の地＝夜＝字の外の明るさを3段（記憶 feedback-jiko-thumbnail-rival-format：夜の地は 1.00／1.30／1.60）
+        for b, suf in ((1.00, "_b100"), (1.30, "_b130"), (1.60, "_b160")):
+            ep17_h(only=("ai_a",), suffix=suf, vivid_adj=(1.15, 1.15, b))
+    elif "ep17-h-v2" in sys.argv:
+        # 17本目 ⑥（10-21）カズヤくん「大きな語が上の行と被っている」→ 縦の伸ばし 1.55・基線 525（ep17_h の既定）で最有力の T1 を焼き直す
+        ep17_h(only=("t1",), suffix="_v2")
+    elif "ep17-h" in sys.argv:
+        # 17本目 ⑥（10-21）：地の候補（EP17_GROUNDS）に H 型の反転版を当てる＝カズヤくんに並べて見せる（1回目は縦の伸ばし 1.8・基線 519 で焼いた）
+        ep17_h(sy=1.8, gbase=519)
+    elif "ep23-h-bright" in sys.argv:
         # 23本目 ⑥（10-19）カズヤくん「サムネは背景画像をもう少し明るくして」＝字の外のカラーの地の明るさを2段（いま 1.0＝v1 で 1.15）
         #   ✅ 10-19 カズヤくん「案2（明るさ+26%）」＝**本番は `ep23-ab/ep23_Hinv_ai10c_b2.png`**（md5 9dece9ed…・平均の明るさ 88.2→100.0）
         ep23_h(suffix="_b1", vivid_adj=(1.15, 1.15, 1.15))

@@ -597,6 +597,80 @@ SCENES.update({
 })
 
 
+# ── 🆕 17本目 中華航空140便（2026-10-21・⑥）＝カズヤくん「（地は T1 を最有力にしたうえで）その他に、もっとインパクトがある刺激的な
+#    イラストを OPENAI API で生成。生成前に案を出して、私が承認してから GO」。🔴 札は新規（ほかの回の札を流用しない＝ルール 6-55④）。
+#    事実の芯（台本 第2版・報告書 S1）：1994-04-26 の夜 20時15分ごろ・名古屋空港・エアバス A300-600R（双発の大型機）・脚を出した着陸の形のまま、
+#    機首が約52.6度まで上がり（第7章「52.6度」・c720）、高さ約530メートル（c721＝1,730ft）で速さを失って失速＝20:15:45 に墜落・炎上。
+#    🔴 文字・旗・登録記号・会社の印は描かせない（実機の塗りは真似しない）。本番は H 型の反転版（字の外がカラー）＝夜の地は焼くときに明るさを上げる
+LOOK_CAL = (
+    "A real PHOTOGRAPH taken at night with a professional camera and a long telephoto lens: sharp, clear and "
+    "high-resolution, with true depth of field and the natural colours of airport lighting. The subject is brightly lit "
+    "by its own landing lights and by the glow of the airport floodlights, so that its whole shape reads clearly against "
+    "a deep navy-blue night sky. "
+)
+FRAME_CAL = (
+    "COMPOSITION, critical: 16:9 frame. Very large lettering will later cover the top 15% and the bottom 20% of the "
+    "frame, and one huge word will run across the whole middle, so the picture will mostly be seen through the gaps "
+    "between its letters. So the subject described above must be LARGE and fill most of the width of the frame, with "
+    "its shape and angle obvious at a glance even when the picture is tiny. Keep the top of the frame as plain night sky "
+    "and the bottom as dark flat ground with rows of airport lights. "
+)
+BAN_CAL = (
+    "No text, letters, numbers, words, logos, flags, emblems, registration marks, airline names, signs or watermarks of "
+    "any kind, in any language — the aircraft is painted plain white with grey wings and carries no markings at all. "
+)
+TAIL_CAL = (
+    "The result must look like a genuine, dramatic news photograph of a real moment. It must NOT look like a render, a "
+    "video game, a movie poster, a 3D visualisation or an illustration. No lens flare, no motion blur, no dramatic "
+    "colour grading."
+)
+CAL_PLANE = (
+    "A large twin-engine wide-body airliner (an Airbus A300-600R: two big engines under the wings, a long white fuselage, "
+    "a single tall tail fin), with its landing gear down, "
+)
+SCENES.update({
+    "cal_a": {
+        "ep": "ep17",
+        "name": "機首が約50度まで上がった機体（夜・名古屋空港の上空・脚を出したまま・失速の直前）",
+        "hypothesis": "第7章「52.6度」＝この事故のいちばんの山場。「飛行機が空を向いている」異様さが 210px でも形で分かる。"
+                      "上の赤「押し合い」（人と自動操縦）の行き着いた先が絵になる",
+        # ✅ 10-21 カズヤくん「人・炎は描かない というルールは不要です。案Aで進めて」＝禁止は文字だけ（ルール §6-55b と同じ）。
+        #    場面の事実（失速の直前・まだ壊れずに飛んでいる）は scene のまま
+        "look": LOOK_CAL, "frame": FRAME_CAL, "ban": BAN_CAL, "tail": TAIL_CAL,
+        "scene": (
+            "April 26, 1994, about a quarter past eight in the evening, a clear, dark spring night above Nagoya Airport "
+            "in Japan. " + CAL_PLANE +
+            "is pitched up at a terrifying, extreme nose-high angle of about 50 degrees, about 500 metres above "
+            "the airport, its engines at full power, hanging in the air and losing speed just before it stalls. Its "
+            "landing lights blaze and its navigation lights glow at the wingtips. Far below, the long rows of runway "
+            "edge lights and approach lights glow white and orange in the darkness, with the lights of the city beyond. "
+            "Seen from the ground off to one side and slightly below, so that the whole steeply tilted aircraft is large "
+            "in the frame, nose high on the right and tail low on the left. "
+        ),
+    },
+    "cal_b": {
+        "ep": "ep17",
+        "name": "墜落のあと、空港の草地で燃える機体と放水する消防車（夜）",
+        "hypothesis": "いちばん刺激が強い絵（炎と放水）。事故の大きさは伝わるが、何が起きたか（機首上げ）は絵から分からない。"
+                      "YouTube のサムネの決まり（衝撃を狙う暴力的な絵）に触れないよう、人は遠い小さな影だけ",
+        "look": LOOK_CAL.replace("brightly lit by its own landing lights and by the glow of the airport floodlights",
+                                 "lit from below by the orange light of the fire"),
+        "frame": FRAME_CAL.replace("dark flat ground with rows of airport lights", "dark flat grass with the runway lights"),
+        "ban": BAN_CAL + "No victims, no bodies, no injuries; any firefighters are only tiny, distant dark silhouettes. ",
+        "tail": TAIL_CAL,
+        "scene": (
+            "April 26, 1994, at night, some minutes after the crash, Nagoya Airport in Japan. The "
+            "broken wreckage of a large white twin-engine wide-body airliner lies burning on the flat grass field beside "
+            "the runway: large torn sections of the white fuselage and a wing lie scattered, orange flames and thick dark "
+            "smoke rise into the black sky. Several airport fire engines with flashing red lights stand around it, "
+            "spraying long white arcs of water and foam at the flames. The runway edge lights stretch away into the "
+            "darkness. Seen from a distance at a low angle, so that the whole burning wreck runs across the middle of the "
+            "frame. "
+        ),
+    },
+})
+
+
 def build(v):
     """🔴 質感（look）と締め（tail）は**場面ごとに差し替えられる**（2026-09-22 追加）。
 
