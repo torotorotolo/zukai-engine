@@ -271,10 +271,11 @@ def cards7_stage(prev, st):
             s.append(F.txt(cx - C7["w"] / 2 + 38, cy + 15, CIRC[i], 42, J.AMBER, "Noto", "middle"))
             s.append(_tline(cx + 22, cy + 11, t, 30, INK, "middle", C7["w"] - 100))
     if _on(prev, st, "ask"):
-        for i in range(7):
+        for i in range(7):                  # 🔧 geom_gap：「？」が札の縁に -15px＝丸を札の右下の角の外へ
             cx, cy = c7_xy(i)
-            s.append(F.circ(cx + C7["w"] / 2 - 4, cy + C7["h"] / 2 - 4, 22, J.BG, rep_col("r92"), 4))
-            s.append(F.txt(cx + C7["w"] / 2 - 4, cy + C7["h"] / 2 + 6, "？", 28, rep_col("r92"), "Noto", "middle"))
+            qx, qy = cx + C7["w"] / 2 + 22, cy + C7["h"] / 2 + 14
+            s.append(F.circ(qx, qy, 22, J.BG, rep_col("r92"), 4))
+            s.append(F.txt(qx, qy + 10, "？", 28, rep_col("r92"), "Noto", "middle"))
         s.append(_rep(CX, 740.0, "r92", "の評価と比べる", cap=28))
     return s
 
@@ -420,7 +421,8 @@ def power20_stage(prev, st):
         bx = (x0 + xl) / 2
         s.append(_arrow(bx - 70, 470.0, bx - 70, 380.0, J.ALERT, 10, 30))
         s.append(_arrow(bx + 30, 470.0, bx + 30, 330.0, J.ALERT, 14, 40))
-        s.append(_tline(bx - 120, 772.0, "上がると、さらに上がる", 30, J.ALERT, "start", 520))
+        # 試し焼き 39867368772：札が矢印から離れて下に浮いた＝矢印の右へ
+        s.append(_tline(bx + 90, 420.0, "上がると、さらに上がる", 30, J.ALERT, "start", 420))
     return s
 
 
@@ -452,7 +454,8 @@ def flow4_stage(prev, st):
         s.append(_tline(t0, FL["ty"] + 62, "外の電気が止まる", 26, J.TICK, "start", 360))
         s.append(_tline(t1, FL["ty"] + 62, "ディーゼル発電機が動く", 26, J.OK, "end", 400))
         s.append(F.rect(t0 + 20, FL["ty"] - 30, t1 - t0 - 40, 60, "none", J.AMBER, 4, rx=8, dash="12 8"))
-        s.append(_tline((t0 + t1) / 2, FL["ty"] + 10, "このあいだ", 30, J.AMBER, "middle", 300))
+        # 🔧 geom_gap：時間の線（ty）が字を貫いた＝破線の枠の上へ
+        s.append(_tline((t0 + t1) / 2 - 100, FL["ty"] - 42, "このあいだ", 30, J.AMBER, "middle", 300))
     if _on(prev, st, "chain"):
         for k in (1, 2, 3):
             _id, x, t = FL_BOX[k]
@@ -460,15 +463,17 @@ def flow4_stage(prev, st):
             s.append(_card(x, y, w, h, col, sw=5))
             s.append(_tline(x, y + h / 2 - 18, t, 26, col, "middle", w - 30))
             s.append(_arrow(FL_BOX[k - 1][1] + w / 2 + 6, y, x - w / 2 - 8, y, J.LINE, 5, 20))
-        s.append(_turbine(FL_BOX[1][1], y - 18, 0.62))
-        s.append(_bolt(FL_BOX[2][1], y - 18, 30))
-        s.append(_pump(FL_BOX[3][1], y - 18, 32))
+        # 🔧 geom_gap：絵が札の下の字（y 446〜）に -9px＝小さく上へ
+        s.append(_turbine(FL_BOX[1][1], y - 28, 0.48))
+        s.append(_bolt(FL_BOX[2][1], y - 28, 28))
+        s.append(_pump(FL_BOX[3][1], y - 28, 28))
         s.append(_tline(FL_BOX[1][1], y - h / 2 - 18, "回る勢いで", 24, STEEL, "middle", 260))
         # 帯の「このあいだ」から上の鎖へ＝つなぐ
         s.append(_arrow(1040.0, FL["ty"] - 34, 1040.0, y + h / 2 + 12, J.AMBER, 4, 18, dash="8 6"))
         s.append(_tline(1060.0, 615.0, "つなぐ", 26, J.AMBER, "start", 160))
     if _on(prev, st, "test"):
-        s.append(F.poly([(500.0, 300.0), (500.0, 280.0), (1580.0, 280.0), (1580.0, 300.0)], "none", J.TICK, 4))
+        # 🔧 geom_gap：括弧の上の線（y 280）が「試験で確かめる」と「？」を横切った＝括弧を下げる（字の下に 13px）
+        s.append(F.poly([(500.0, 316.0), (500.0, 300.0), (1580.0, 300.0), (1580.0, 316.0)], "none", J.TICK, 4))
         s.append(_qmark(1040.0, 268.0, 44, J.AMBER))
         s.append(_tline(1100.0, 284.0, "試験で確かめる", 28, J.AMBER, "start", 300))
     return s
@@ -554,8 +559,8 @@ def _cal_mark(yr):
         a, b = t.split("　")
         g.append(F.circ(x, yc - 30, 50, "none", J.AMBER, 7))
         g.append(_moon(x, yc - 30, 22))
-        g.append(_tline(x, yc + 46, a, 30, J.AMBER, "middle", CAL["w"] - 30))
-        g.append(_tline(x, yc + 92, b, 24, INK, "middle", CAL["w"] - 24))
+        g.append(_tline(x, yc + 58, a, 30, J.AMBER, "middle", CAL["w"] - 30))     # 🔧 geom_gap：輪に 2px＝下へ
+        g.append(_tline(x, yc + 102, b, 24, INK, "middle", CAL["w"] - 24))
     return "".join(g)
 
 
@@ -653,9 +658,9 @@ def cut_stage(prev, st):
         s.append(F.rect(x, y, w, h, J.BG2, J.DOC, 4, rx=8))
         s.append(F.rect(x, y, w, 60, J.DOC_DIM, None, None, rx=8))
         s.append(_tline(x + w / 2, y + 44, "試験の計画", 30, INK, "middle", w - 40))
-        for i in range(5):
-            yy = y + 100 + i * 34 + (90 if i >= 3 else 0)
-            s.append(F.line(x + 30, yy, x + w - 30 - 80 * (i % 2), yy, J.LINE_DIM, 9))
+        # 試し焼き 39867368772：灰の行（y+292）が「非常用の冷却を切る」の字を横切った＝行は赤い枠（y+250〜320）の上と下だけ
+        for i, dy in enumerate((100.0, 134.0, 168.0, 202.0, 360.0, 394.0)):
+            s.append(F.line(x + 30, y + dy, x + w - 30 - 80 * (i % 2), y + dy, J.LINE_DIM, 9))
         s.append(F.rect(x + 16, y + 250, w - 32, 70, "none", J.ALERT, 5, rx=8))
         s.append(_tline(x + w / 2, y + 296, "非常用の冷却を切る", 30, J.ALERT, "middle", w - 60))
     if _on(prev, st, "band"):
@@ -827,7 +832,9 @@ def orm_stage(prev, st):
         bx0, _y0, _x1, by1 = rep_box(1250.0, 420.0, "r92", "が引く新しい報告：25日に何時間も")
         s.append(_rep(1250.0, 420.0, "r92", "が引く新しい報告：25日に何時間も"))
         (ta, va), (tb, vb) = OR_PTS
-        s.append(_arrow(1100.0, by1 + 6, or_x(tb) + 30, or_y(OR_LINE) + 30, rep_col("r92"), 5, 22))
+        # 試し焼き 39867368772：矢印の先が「13.2本」の字に重なった＝先は 15本の線をくぐる赤い三角（7:10 の点の左上）
+        xc = or_x(ta) + (or_x(tb) - or_x(ta)) * (va - OR_LINE) / (va - vb)
+        s.append(_arrow(1100.0, by1 + 6, (xc + or_x(tb)) / 2 + 6, or_y(OR_LINE) - 14, rep_col("r92"), 5, 22))
     return s
 
 
@@ -1076,7 +1083,7 @@ def kiev_stage(prev, st):
     if _on(prev, st, "night"):
         s.append(_tline(bx, by - 150, "半分の出力のまま", 32, J.AMBER, "middle", 360))
         s.append(_moon(bx + 220, by - 160, 34))
-        s.append(_tline(bx + 220, by - 100, "夜まで", 26, INK, "middle", 160))
+        s.append(_tline(bx + 220, by - 86, "夜まで", 26, INK, "middle", 160))     # 🔧 geom_gap：月に 3.9px＝下へ
     return s
 
 
