@@ -197,7 +197,25 @@ def record():
 
 
 def selftest():
-    """🔴 物差しそのものを検算する。**鳴ることを数字で見る**（陽性対照）。"""
+    """🔴 物差しそのものを検算する。**鳴ることを数字で見る**（陽性対照）。
+    🔴 2026-10-22（24本目 ⑤b-1・§0b）：17本目の実物（`NEEDS_MASK` の `ep17/arf.jpg`＝c802 の見物の人5人の頭・記録 `ref/ep17/masked.json`）は本番から見本 `tools/fixture_ep17.py` へ移した
+    ＝見本の ss の表（`NEEDS_MASK` ほか）と17本目の章ファイル（`apply_cuts`＝git の `2cc5e5ab`＝カットに当たっているかを読む）を差し、記録の道 `RECORD` も17本目の `ref/ep17/masked.json` へ向けて
+    回し、最後に restore（LIFO・落ちても戻す）。本体は `_selftest`。（本番の `NEEDS_MASK` が空のあいだ、本番の照合 `check()` は「NEEDS_MASK が空」の注意を出す＝この対照は見本の側で回す）"""
+    import fixture_ep17
+    me = sys.modules[__name__]
+    keep = me.RECORD
+    me.RECORD = fixture_ep17.REF / "masked.json"
+    fixture_ep17.apply()
+    try:
+        fixture_ep17.apply_cuts()
+        return _selftest()
+    finally:
+        fixture_ep17.restore()
+        me.RECORD = keep
+
+
+def _selftest():
+    """物差しの検算の本体（`fixture_ep17` の `apply()`＋`apply_cuts()` と `RECORD` の差し替えの中で呼ぶ）。"""
     import tempfile
     import cuts.ss as ss
 
