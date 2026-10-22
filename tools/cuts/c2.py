@@ -92,3 +92,19 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-3（2026-10-22）：案C1 炉の断面＝置き場 N1（`tools/illu24.py`・門番 check_illu ㊳）
+# ══════════════════════════════════════════════════════════
+#   全面の絵は見出し t・副題 s を書かない（§5b-83③）。🔁 前の図 c203（上から）→ 横から＝頭の切り替えの字（switch）
+SPEC.update({
+    # c208（2行・8.3秒）＝1行目「管の数は1,660本。下から入った水は、燃料の熱で沸いて蒸気になる」＝下から水の矢印 → 管の上の方が白く（沸く）→
+    #   集め管からドラムへ／2行目「その蒸気でタービンを回して、電気をつくる」＝蒸気の管が画面の右の外へ（タービンは描かない＝2台は数を描かない）
+    "c208": dict(fig=("illu", dict(
+        place="N1", start=dict(switch="on"),
+        steps=[dict(state=dict(n1flow="on", n1boil="on", n1rise="on"),
+                    rec="S1 p113（Individual pipes supply subcooled water to each channel and remove the steam-water mixture）",
+                    tag=[dict(t="燃料と水の管（1,660本）", at="ch", off=(70, -150)), dict(t="黒鉛", at="core", off=(-150, 40), anchor="end")]),
+               dict(state=dict(n1steam="on"), rec="S1 p113（The saturated steam is sent to two turbines）",
+                    tag=[dict(t="蒸気ドラム", at="drum", off=(-200, 130)), dict(t="タービンへ", at="steam", off=(-40, 80), anchor="end")])]))),
+})

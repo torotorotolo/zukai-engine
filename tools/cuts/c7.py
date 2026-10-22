@@ -71,3 +71,20 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-3（2026-10-22）：案C4 避難のバス＝置き場 N4（`tools/illu24.py`・門番 check_illu ㊶）
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c707（2行・7.6秒）＝1行目「夜のうちに、およそ1,200台のバスが手配された」＝夜の町の通りへバスの列が右から入る（両端の外まで続く＝数は描かない）／
+    #   2行目「次の日、27日の正午ごろ、町に避難の知らせが流れる」＝昼になり知らせの輪（模式）→ 住民の顔の無い群れ（避難 14:00〜17:00＝L2 p24・c708 の語り）
+    "c707": dict(fig=("illu", dict(
+        place="N4", at="14:00",
+        steps=[dict(state=dict(n4bus="on"),
+                    rec="L2 p3024（During the night, arrangements were made for nearly 1,200 buses）",
+                    tag=dict(t="バス 約1,200台（夜のうちに）", at="bus", off=(-40, -150), delay=2.4)),
+               dict(state=dict(n4day="on", n4call="on", n4crowd="on"),
+                    rec="L2 p3024（Around noon on 27 April the evacuation order was broadcast to the people・the evacuation began at 14:00 and finished at 17:00）",
+                    tag=[dict(t="避難の知らせ（27日 正午ごろ）", at="town", off=(80, -60)),
+                         dict(t="避難 14:00〜17:00", at="crowd", off=(40, -170), delay=2.6)])]))),
+})

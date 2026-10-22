@@ -62,6 +62,17 @@
   ⑳ SD：トリエステ2世は最後の段で船体の一部の真上に着く（球の下の端と船体の上 ±3画素・球が船体の幅の内）・深さの切れ目がある・札に数なし
   ㉑ 見る向きの合図：PLAN の順で、すぐ前の全面の絵とのあいだが1カットまでで置き場か向きが替わるカットに、切り替えの字・目の印・位置の
      小さな地図のどれか（main と selftest）
+  🆕 24本目 ⑤b-3（N1〜N4＝`tools/illu24.py`・記録は門番の側の REC_N1〜REC_N4）：
+  ㊳ N1 炉の断面：炉の高さ÷直径＝7m÷11.8m（±2%）・管は炉の中に縦・棒の先は炉の上の端・蒸気の管は画面の右の外へ（タービンは描かない）・
+     札の数は 1,660本だけ・出典の行に「模式」
+  ㊴ N2 止める棒：図1 (a) の寸法（先 20cm・水 125cm・押しのけ棒 450cm・水 125cm＝±1%）を炉の高さ 700cm の目盛りで・棒は下がるだけ・
+     本番（cut）は 125cm 下がる・前触れ（top）は毎秒 0.4m×3秒＝120cm まで・top は炉を不透明の塊で棒に重ねる・赤は炉の下の方 125cm を
+     最後の段で下がり終わってから・札に数なし
+  ㊵ N3 出力の時刻表：札の時刻の線の位置を目盛りの字から逆算（±1.5画素）・札の値は表I-I・ソ連の報告の値・決まりの札の数（26・30・15）・
+     色分け（15本を下回る＝赤）は決まりの札のあと・200MW の割れは同じ形の目盛り2本に出典の名だけ（時刻の字を出さない）
+  ㊶ N4 避難のバス：バスの列は画面の両端の外まで（数は描かない）・夜のうちに着く（昼より前の段）・群れは知らせと昼のあと・
+     札は「約1,200台」と避難の時刻（14:00〜17:00）だけ
+  ㊳〜㊶ 共通：爆発・火・煙・壊れた物・タービンの部品なし・人は N4 の住民の群れだけ・絵の字（部品の <text>）の時刻も表の値だけ
   ⑥ 陽性対照（わざと壊した場面で鳴るか）＝`--selftest`（本番の前に必ず回る）
 
 ■ 使い方
@@ -2500,6 +2511,484 @@ def judge_s7(sc, where):
     return bad, n
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 24本目 ⑤b-3（2026-10-22）：㊳ N1 炉の断面・㊴ N2 止める棒・㊵ N3 出力の時刻表・㊶ N4 避難のバス＝`tools/illu24.py`
+# ══════════════════════════════════════════════════════════
+# 🔴 記録の値は門番の側に持つ（§5b-88＝illu24 の定数を読まない）。幾何は描く側の部品の geo と SVG（描いた値）から読む。
+#    頁は cuts.ss.REC_DOCS の通し番号（S1＝INSAG-7 の PDF の頁・S3＝2000＋・L2＝3000＋）
+REC_N1 = dict(count=("1,660", "S1 p113（There were 1660 fuel channels）"), hd=(7.0, 11.8, "S1 p16（height 7 m, diameter 11.8 m）"))
+REC_N2 = dict(core=(700.0, "S1 p16（height 7 m）"), water=(125.0, "S1 p14（1.25 m of water at either end）・S1 p15（図1 (a)＝125）"),
+              disp=(450.0, "S1 p15（図1 (a)＝450）"), gap=(20.0, "S1 p15（図1 (a)＝20）"),
+              speed=(40.0, "S1 p113（at a speed of 0.4 m/s）"), sec=(3.0, "S1 p65（01:23:40 → 01:23:43）"))   # 速さは cm／秒
+REC_N3 = dict(am={"1:06": {"31本"}, "3:47": {"1,600MW"}, "7:10": {"13.2本"}, "14:00": set(), "23:10": {"26本"}},   # 表I-I p63
+              night={"0:05": {"720MW"}, "0:28": {"500MW", "30MW"}},                                          # 表I-I p63・S3 p2020
+              split={"1:00": "ソ連の報告", "1:03": "INSAG-7"},          # 200MW で止まった時刻＝S3 p2020「1:00」⇔ 表I-I p64「01.03」
+              split_val="200MW", rule={"26", "30", "15"}, below=15.0,    # 付属書I p89「not less than 26-30 rods」「falls to 15 rods」
+              plan={"700", "1,000", "20", "1"})                         # S3 p2020「700-1000 MW(th)」・台本 §9（30÷700）
+REC_N4 = dict(bus="約1,200台", times=("14:00", "17:00"))                  # L2 p3024「nearly 1,200 buses」「began at 14:00 and finished at 17:00」
+N24_PLACES = ("N1", "N2", "N3", "N4")
+N24_MARK = dict(N1="㊳", N2="㊴", N3="㊵", N4="㊶")
+N24_BAD_IDS = ("fire", "flame", "smoke", "blast", "explo", "debris", "turbine")
+_SVGTXT = re.compile(r"<text([^>]*)>([^<]*)</text>")
+_SVGLINE = re.compile(r"<line([^>]*)/>")
+NUMTOK24 = re.compile(r"(\d[\d,]*(?:\.\d+)?)\s*(本|MW|台|m(?![a-zA-Z]))")
+
+
+def _attr(a, k):
+    m = re.search(rf'(?<![\w-]){k}="([^"]*)"', a)
+    return m.group(1) if m else None
+
+
+def _col24(hexv):
+    """字の色の類（描く側の値を読まない＝色相で分ける）：red・green・white・?"""
+    r, g, b = (int(hexv[k:k + 2], 16) for k in (1, 3, 5))
+    if r >= 200 and g < 120 and b < 110:
+        return "red"
+    if g >= 170 and r < 140 and b < 170:
+        return "green"
+    if min(r, g, b) >= 215:
+        return "white"
+    return "?"
+
+
+def _min24(hm):
+    h, m = str(hm).split(":")
+    return int(h) * 60 + int(m)
+
+
+def _first_on(keys, name="a"):
+    """濃さの鍵で最初に見える（≥0.5）鍵＝(段, delay, dur)。見えないなら None"""
+    for k in keys or []:
+        if float(k.get(name, 1.0)) >= 0.5:
+            return int(k.get("stage", 0)), float(k.get("delay", 0.0)), float(k.get("dur", 0.0))
+    return None
+
+
+def _toks24(t):
+    return {f"{m.group(1)}{m.group(2)}" for m in NUMTOK24.finditer(str(t))}
+
+
+def judge_n24(sc, where):
+    """㊳ N1・㊴ N2・㊵ N3・㊶ N4（24本目）。共通＝爆発・火・煙・壊れた物・タービンの部品なし・人は N4 の群れだけ・絵の字の時刻も表の値だけ"""
+    if sc["place"] not in N24_PLACES:
+        return [], 0
+    bad, n = [], 1
+    pl = sc["place"]
+    mk = N24_MARK[pl]
+    ss = _ss()
+    clock_ok = set(getattr(ss, "ILLU_CLOCK_OK", None) or ())
+    split = set(getattr(ss, "ILLU_SPLIT_TIMES", None) or ())
+    G = {p["id"]: p for p in sc["parts"]}
+    geo = {(p.get("geo") or {}).get("kind"): p for p in sc["parts"] if (p.get("geo") or {}).get("kind")}
+    tags = [(i, t) for i, tg in enumerate(sc["tags"]) for t in (tg.get("texts") or [])]
+    for p in sc["parts"]:
+        n += 1
+        if any(w in p["id"].lower() for w in N24_BAD_IDS) or p.get("destroy"):
+            bad.append(f"{mk}{where}：部品 {p['id']} は爆発・火・煙・壊れた物かタービン（24本目の案C は描かない）")
+    if pl != "N4" and _no_people(sc):
+        bad.append(f"{mk}{where}：人の部品を置いた（24本目の案C の人は N4 の住民の顔の無い群れだけ）")
+    # 絵の字（部品の <text>）の時刻＝表の時刻だけ・割れる時刻は目盛りでも出さない（共通の ⑤ は札・見る向き・出典の行だけを見る）
+    texts = [(a, t, p["id"]) for p in sc["parts"] for a, t in _SVGTXT.findall(p.get("svg") or "")]
+    for a, t, pid in texts:
+        for m in TIME.finditer(t):
+            n += 1
+            hm = f"{int(m.group(1))}:{int(m.group(2).split('.')[0]):02d}"
+            if hm in split:
+                bad.append(f"{mk}{where}：絵の字「{t}」（{pid}）の時刻 {hm} は資料で割れる（台本 §1-5＝出典の名だけ）")
+            elif _attr(a, "data-k") != "tick" and hm not in clock_ok:
+                bad.append(f"{mk}{where}：絵の字「{t}」（{pid}）の時刻 {hm} は表の時刻でない（cuts.ss.ILLU_CLOCK_OK）")
+    if pl == "N1":
+        b, m = _judge_n1(sc, where, geo, tags)
+    elif pl == "N2":
+        b, m = _judge_n2(sc, where, geo, tags)
+    elif pl == "N3":
+        b, m = _judge_n3(sc, where, geo, G)
+    else:
+        b, m = _judge_n4(sc, where, geo, tags, G)
+    return bad + b, n + m
+
+
+def _judge_n1(sc, where, geo, tags):
+    bad, n = [], 0
+    hd = REC_N1["hd"]
+    c = (geo.get("n1core") or {}).get("geo")
+    n += 1
+    if not c:
+        return [f"㊳{where}：炉（n1core）が無い"], n
+    r = (c["y1"] - c["y0"]) / (c["x1"] - c["x0"])
+    if abs(r / (hd[0] / hd[1]) - 1.0) > 0.02:
+        bad.append(f"㊳{where}：炉の高さ÷直径 {r:.3f}（記録は {hd[0]}m÷{hd[1]}m＝{hd[0] / hd[1]:.3f}・{hd[2]}）")
+    ch = (geo.get("n1ch") or {}).get("geo") or {}
+    n += 1
+    if not ch or any(not c["x0"] < x < c["x1"] for x in ch["xs"]) or (ch["y0"], ch["y1"]) != (c["y0"], c["y1"]):
+        bad.append(f"㊳{where}：管が炉（黒鉛）の中に縦に通っていない")
+    rod = (geo.get("n1rod") or {}).get("geo") or {}
+    n += 1
+    if not rod or abs(rod["tip"] - c["y0"]) > 1.0 or rod["top"] >= rod["tip"]:
+        bad.append(f"㊳{where}：棒は上から・先は炉の上の端（このカットの棒の差し込みの深さは記録に無い）")
+    st = (geo.get("n1steam") or {}).get("geo")
+    if st:
+        n += 1
+        if st["end"] < IL.W - 20:
+            bad.append(f"㊳{where}：蒸気の管の終わり x={st['end']:.0f} が画面の中（タービンは描かない＝画面の右の外へ）")
+    for i, t in tags:
+        for tok in _toks24(t):
+            n += 1
+            if tok != REC_N1["count"][0] + "本":
+                bad.append(f"㊳{where}：札「{t}」の数 {tok} は記録の数でない（{REC_N1['count'][0]}本＝{REC_N1['count'][1]}）")
+    n += 1
+    if not any(REC_N1["count"][0] + "本" in t for _i, t in tags):
+        bad.append(f"㊳{where}：管の数の札（{REC_N1['count'][0]}本）が無い（管の絵は模式＝数は札で言う）")
+    n += 1
+    if "模式" not in (sc.get("src") or ""):
+        bad.append(f"㊳{where}：出典の行に「模式」の断りが無い（管・棒・ドラム・ポンプの数と形は模式）")
+    return bad, n
+
+
+def _judge_n2(sc, where, geo, tags):
+    bad, n = [], 0
+    core = (geo.get("n2core") or {})
+    rods = (geo.get("n2rods") or {})
+    n += 1
+    if not core or not rods:
+        return [f"㊴{where}：炉（n2core）か棒（n2rods）が無い"], n
+    cg, rg = core["geo"], rods["geo"]
+    view = cg["view"]
+    ppc = (cg["yb"] - cg["yt"]) / REC_N2["core"][0]          # 1cm の画素（炉の高さ＝記録の 700cm）
+    n += 1
+    if abs((cg["yt"] - rg["tip"]) / ppc - REC_N2["gap"][0]) > 2.0:
+        bad.append(f"㊴{where}：吸う棒の先と炉の上の端 {(cg['yt'] - rg['tip']) / ppc:.1f}cm（図1 (a) は {REC_N2['gap'][0]:.0f}cm）")
+    if view == "cut":
+        for nm, a, b, rec in (("上の水", cg["yt"], rg["d0"], REC_N2["water"]), ("押しのけ棒", rg["d0"], rg["d1"], REC_N2["disp"]),
+                              ("下の水", rg["d1"], cg["yb"], REC_N2["water"])):
+            n += 1
+            v = (b - a) / ppc
+            if abs(v / rec[0] - 1.0) > 0.01:
+                bad.append(f"㊴{where}：{nm} {v:.1f}cm（記録は {rec[0]:.0f}cm＝{rec[1]}）")
+        n += 1
+        if f"{REC_N2['disp'][0] / 100:g}m" not in sc.get("src", "") or f"{REC_N2['water'][0] / 100:g}m" not in sc.get("src", ""):
+            bad.append(f"㊴{where}：出典の行の寸法の断りが記録の値（{REC_N2['disp'][0] / 100:g}m・{REC_N2['water'][0] / 100:g}m）でない")
+    else:
+        n += 1
+        order = [p["id"] for p in sc["parts"]]
+        if not cg.get("opaque") or order.index(rods["id"]) > order.index(core["id"]):
+            bad.append(f"㊴{where}：炉の上の方（top）は炉を不透明の塊にして棒の上に重ねる（下の水と押しのけ棒はまだ見せない）")
+        if rg.get("d0") is not None or "red" in [p["id"] for p in sc["parts"]]:
+            bad.append(f"㊴{where}：炉の上の方（top）に押しのけ棒か赤い所を描いた")
+    dys = [float(k.get("dy", 0.0)) for k in rods["keys"]]
+    n += 1
+    if any(b < a - 1e-6 for a, b in zip(dys, dys[1:])):
+        bad.append(f"㊴{where}：棒が上がる段がある（{dys}＝棒は下がるだけ）")
+    fin = dys[-1] / ppc
+    n += 1
+    if view == "cut" and abs(fin - REC_N2["water"][0]) > 1.0:
+        bad.append(f"㊴{where}：棒の下がった長さ {fin:.1f}cm（押しのけ棒の下の端が炉の下の端に来るのは {REC_N2['water'][0]:.0f}cm）")
+    lim = REC_N2["speed"][0] * REC_N2["sec"][0]
+    if view == "top" and max(dys) / ppc > lim + 0.5:
+        bad.append(f"㊴{where}：棒の下がった長さ {max(dys) / ppc:.1f}cm が記録の速さ×3秒（{lim:.0f}cm＝{REC_N2['speed'][1]}・{REC_N2['sec'][1]}）を越える")
+    red = geo.get("n2red")
+    if red:
+        n += 1
+        rg2 = red["geo"]
+        if abs(rg2["y1"] - cg["yb"]) > 1.0 or abs((rg2["y1"] - rg2["y0"]) / ppc - REC_N2["water"][0]) > 1.5:
+            bad.append(f"㊴{where}：赤い所が炉の下の方 {REC_N2['water'][0]:.0f}cm でない（y {rg2['y0']:.0f}〜{rg2['y1']:.0f}・炉の下の端 {cg['yb']:.0f}）")
+        on = _first_on(red["keys"])
+        last = sc["nstage"] - 1
+        n += 1
+        if on is None or on[0] != last:
+            bad.append(f"㊴{where}：赤い所はこのカットの最後の段だけ（いまは段 {on and on[0]}）")
+        else:
+            mv = [k for k in rods["keys"][1:] if int(k["stage"]) == last]
+            end = max((float(k.get("delay", 0.0)) + float(k.get("dur", 0.0)) for k in mv), default=0.0)
+            if on[1] < end - 0.6:
+                bad.append(f"㊴{where}：赤い所が棒の下がり終わる前に出る（{on[1]:.1f}秒＜{end:.1f}秒）")
+    for i, t in tags:
+        n += 1
+        if re.search(r"\d", t):
+            bad.append(f"㊴{where}：札「{t}」に数（寸法は出典の行の断りと c903 の模式で言う）")
+    return bad, n
+
+
+def _judge_n3(sc, where, geo, G):
+    bad, n = [], 0
+    ax = geo.get("n3axis")
+    n += 1
+    if not ax:
+        return [f"㊵{where}：時刻の軸（n3axis）が無い"], n
+    view = ax["geo"]["view"]
+    rec = REC_N3.get(view) or {}
+    ticks = [(float(_attr(a, "x")), _min24(t)) for a, t in _SVGTXT.findall(ax["svg"]) if _attr(a, "data-k") == "tick"]
+    n += 1
+    if len(ticks) < 2:
+        return [f"㊵{where}：目盛りの字が2つ未満（位置を照らせない）"], n
+    (x0, m0), (x1, m1) = ticks[0], ticks[-1]
+    k = (x1 - x0) / (m1 - m0)
+    for x, m in ticks:
+        n += 1
+        if abs(x0 + (m - m0) * k - x) > 1.0:
+            bad.append(f"㊵{where}：目盛りの間隔が時間に比例しない（{m}分 x={x:.0f}）")
+    seen = set()
+    for p in sc["parts"]:
+        g = p.get("geo") or {}
+        if g.get("kind") != "n3card":
+            continue
+        n += 1
+        stems = [(float(_attr(a, "x1")), _attr(a, "data-t")) for a in _SVGLINE.findall(p["svg"]) if _attr(a, "data-k") == "stem"]
+        tt = [t for a, t in _SVGTXT.findall(p["svg"]) if _attr(a, "data-k") == "time"]
+        vals = [(a, t) for a, t in _SVGTXT.findall(p["svg"]) if _attr(a, "data-k") == "val"]
+        if len(stems) != 1 or len(tt) != 1 or stems[0][1] != tt[0]:
+            bad.append(f"㊵{where}：札 {p['id']} の時刻の字と軸への線が1対1でない（{stems}・{tt}）")
+            continue
+        x, hm = stems[0]
+        seen.add(hm)
+        if hm not in rec:
+            bad.append(f"㊵{where}：札の時刻 {hm} は記録の表（REC_N3 {view}）に無い")
+            continue
+        if abs(x0 + (_min24(hm) - m0) * k - x) > 1.5:
+            bad.append(f"㊵{where}：札 {hm} の線 x={x:.1f} が目盛りから読んだ位置 {x0 + (_min24(hm) - m0) * k:.1f} と違う")
+        got = set().union(*[_toks24(t) for _a, t in vals]) if vals else set()
+        if got != rec[hm]:
+            bad.append(f"㊵{where}：札 {hm} の値 {sorted(got)} が記録 {sorted(rec[hm])} と違う")
+    n += 1
+    if seen != set(rec):
+        bad.append(f"㊵{where}：札の時刻 {sorted(seen)} が記録の表の時刻 {sorted(rec)} と違う（足りない・多い）")
+    rule = geo.get("n3rule")
+    # 決まりとの比べの色の枠（字を持たない枠＝門番 layout の重なりを避けた形）：15本を下回る値だけ赤・決まりの札のあと・残した棒の値すべてに
+    ron = _first_on(rule["keys"]) if rule else None
+    marked = set()
+    for p in sc["parts"]:
+        if (p.get("geo") or {}).get("kind") != "n3mark":
+            continue
+        hm = p["geo"].get("t")
+        mon = _first_on(p["keys"])
+        n += 1
+        if not rule or ron is None or mon is None or (mon[0], mon[1]) < (ron[0], ron[1]):
+            bad.append(f"㊵{where}：札 {hm} の色の枠が決まりの札より先（または決まりの札が無い）")
+        for a in re.findall(r"<rect([^>]*)/>", p["svg"]):
+            if _attr(a, "data-k") != "mark":
+                continue
+            v = _attr(a, "data-v") or ""
+            n += 1
+            marked.add((hm, v))
+            if v not in rec.get(hm, set()):
+                bad.append(f"㊵{where}：札 {hm} の色の枠の値 {v} が記録 {sorted(rec.get(hm, set()))} に無い")
+                continue
+            want = "red" if float(v.rstrip("本").replace(",", "")) < REC_N3["below"] else "green"
+            if _col24(_attr(a, "stroke") or "#000000") != want:
+                bad.append(f"㊵{where}：札 {hm} の {v} の色の枠（{_attr(a, 'stroke')}）が決まりとの比べ（{want}＝15本を下回るのは赤）と違う")
+    if rule:
+        n += 1
+        want_m = {(t, v) for t, vs in rec.items() for v in vs if v.endswith("本")}
+        if marked != want_m:
+            bad.append(f"㊵{where}：色の枠 {sorted(marked)} が残した棒の値 {sorted(want_m)} と1対1でない")
+    if rule:
+        n += 1
+        got = set().union(*[{m.group(0) for m in re.finditer(r"\d[\d,]*(?:\.\d+)?", t)} for _a, t in _SVGTXT.findall(rule["svg"])])
+        if got != REC_N3["rule"]:
+            bad.append(f"㊵{where}：決まりの札の数 {sorted(got)} が記録 {sorted(REC_N3['rule'])}（付属書I p89）と違う")
+    plan = geo.get("n3plan")
+    if plan:
+        n += 1
+        got = set().union(*[{m.group(0) for m in re.finditer(r"\d[\d,]*(?:\.\d+)?", t)} for _a, t in _SVGTXT.findall(plan["svg"])])
+        if got != REC_N3["plan"]:
+            bad.append(f"㊵{where}：試験の予定の札の数 {sorted(got)} が記録 {sorted(REC_N3['plan'])} と違う")
+    sp = geo.get("n3split")
+    if view == "night":
+        n += 1
+        if not sp:
+            bad.append(f"㊵{where}：200MW で止まった時刻の割れ（同じ形の目盛り2本と出典の名）が無い")
+        else:
+            lines = [a for a in _SVGLINE.findall(sp["svg"]) if _attr(a, "data-k") == "split"]
+            names = [t for a, t in _SVGTXT.findall(sp["svg"]) if _attr(a, "data-k") == "splitname"]
+            vals = [t for a, t in _SVGTXT.findall(sp["svg"]) if _attr(a, "data-k") == "val"]
+            ts = {_attr(a, "data-t") for a in lines}
+            if ts != set(REC_N3["split"]):
+                bad.append(f"㊵{where}：割れの目盛り {sorted(ts)} が記録の割れ {sorted(REC_N3['split'])} と違う")
+            if len({(_attr(a, "stroke"), _attr(a, "stroke-width"), round(float(_attr(a, "y2")) - float(_attr(a, "y1")), 1))
+                    for a in lines}) != 1:
+                bad.append(f"㊵{where}：割れの目盛りの形（色・太さ・長さ）が同じでない＝どちらが正しいとは描かない")
+            for a in lines:
+                t = _attr(a, "data-t")
+                if t in REC_N3["split"] and abs(x0 + (_min24(t) - m0) * k - float(_attr(a, "x1"))) > 1.5:
+                    bad.append(f"㊵{where}：割れの目盛り {t} の位置が目盛りから読んだ位置と違う")
+            for t, nm in REC_N3["split"].items():
+                if not any(nm in x for x in names):
+                    bad.append(f"㊵{where}：割れの目盛り {t} の出典の名「{nm}」が無い（帰属の呼び分け）")
+            if not any(REC_N3["split_val"] in v for v in vals) or any(TIME.search(v) for v in vals):
+                bad.append(f"㊵{where}：200MW の札が無いか、札に時刻がある（割れる時刻は札に出さない）")
+    elif sp:
+        bad.append(f"㊵{where}：前半（am）に後半の割れの目盛りを置いた")
+    return bad, n
+
+
+def _judge_n4(sc, where, geo, tags, G):
+    bad, n = [], 0
+    bus = geo.get("n4bus")
+    n += 1
+    if not bus:
+        return [f"㊶{where}：バスの列（n4bus）が無い"], n
+    bg = bus["geo"]
+    fin = float(bus["keys"][-1].get("dx", 0.0))
+    x0, x1 = min(bg["xs"]) + fin, max(bg["xs"]) + bg["len"] + fin
+    n += 1
+    if not (x0 < 0 and x1 > IL.W):
+        bad.append(f"㊶{where}：バスの列が画面の両端の外まで続かない（x {x0:.0f}〜{x1:.0f}）＝数えられる＝数は描かない（札「{REC_N4['bus']}」）")
+    arrive = next((int(k["stage"]) for k in bus["keys"][1:] if abs(float(k.get("dx", 0.0))) < 1e-6), None)
+    day = G.get("sky_d")
+    don = _first_on(day["keys"]) if day else None
+    n += 1
+    if arrive is None or (don is not None and don[0] <= arrive):
+        bad.append(f"㊶{where}：バスが着く段（{arrive}）が昼になる段（{don and don[0]}）より前でない（記録は「夜のうちに」）")
+    crowd = geo.get("n4crowd")
+    call = geo.get("n4call")
+    if crowd:
+        n += 1
+        con = _first_on(crowd["keys"])
+        cst = min((int(e["stage"]) for e in (call or {}).get("pulse") or []), default=None)
+        if con is None or cst is None or con[0] < cst or don is None or con[0] < don[0]:
+            bad.append(f"㊶{where}：群れが知らせ（段 {cst}）・昼（段 {don and don[0]}）より前に出る（段 {con and con[0]}）")
+        if crowd.get("role") != "residents":
+            bad.append(f"㊶{where}：群れの役割 {crowd.get('role')}（24本目は住民 residents の顔の無い群れだけ）")
+        tstage = [i for i, t in tags if all(x in t for x in REC_N4["times"])]
+        n += 1
+        if not tstage or (con and min(tstage) != con[0]):
+            bad.append(f"㊶{where}：避難の時刻の札（{'〜'.join(REC_N4['times'])}）が群れの出る段に無い")
+    for i, t in tags:
+        for tok in _toks24(t):
+            n += 1
+            if tok != REC_N4["bus"].lstrip("約"):
+                bad.append(f"㊶{where}：札「{t}」の数 {tok} は記録の数でない（{REC_N4['bus']}）")
+        if "台" in t:
+            n += 1
+            if REC_N4["bus"] not in t or (arrive is not None and i != arrive):
+                bad.append(f"㊶{where}：バスの札「{t}」が記録の言い方（{REC_N4['bus']}）でないか、バスの着く段でない")
+        for m in TIME.finditer(t):
+            n += 1
+            hm = f"{int(m.group(1))}:{int(m.group(2)):02d}"
+            if hm not in REC_N4["times"]:
+                bad.append(f"㊶{where}：札「{t}」の時刻 {hm} は避難の記録の時刻（{REC_N4['times']}）でない")
+    return bad, n
+
+
+def selftest_ep24():
+    """🆕 24本目 ⑤b-3（2026-10-22）：㊳ N1・㊴ N2・㊵ N3・㊶ N4 の検算＝本番の表（24本目の値）のまま。正しい場面（24本目の SPEC）が通り、
+    わざと壊した場面（陽性対照）が㊳〜㊶で落ちること。描く側の定数を壊す対照は、終わったら必ず戻す（try/finally）"""
+    import copy
+    import cuts
+    import illu24 as I24
+    ok = True
+    good = {c: cuts.SPEC[c]["fig"][1] for c in ("c208", "c303", "c403", "c615", "c707", "c905") if c in cuts.SPEC}
+    if len(good) < 6:
+        print("  🔴 NG 24本目：正しい場面の SPEC が揃っていない（selftest の前提）")
+        return False
+
+    def run(spec, post=None):
+        sc = IL.scene(**spec)
+        if post:
+            post(sc)
+        return judge_n24(sc, "selftest")[0] + judge_scene(sc, "selftest")[0]
+    for cid, spec in good.items():
+        b = run(spec)
+        ok &= not b
+        print(f"  {'OK' if not b else '🔴 NG'} 24本目 正しい {cid}: {'合格' if not b else b[0]}")
+
+    def bad_case(name, spec, head, why=None, post=None):
+        nonlocal ok
+        try:
+            b = [x for x in run(spec, post) if x.startswith(head) and (why is None or why in x)]
+        except Exception as e:          # noqa: BLE001
+            # 狙った理由（why）がある対照は、型の例外で止まっても「鳴った」と数えない（別の理由で落ちて通ってしまう対照を止める）
+            b, err = ([] if why else [f"組めない：{e}"]), f"組めない：{e}"
+            if why:
+                print(f"     （型の例外＝狙った理由で鳴っていない：{err}）")
+        ok &= bool(b)
+        print(f"  {'OK' if b else '🔴 NG'} 🔴 24本目 陽性対照{head}：{name}: {'不合格' if b else '合格'}（不合格のはず）" + (f"  ← {b[0]}" if b else ""))
+
+    def tweak(cid, **kw):
+        s = copy.deepcopy(good[cid])
+        s.update(kw)
+        return s
+
+    def step(cid, i, **kw):
+        s = copy.deepcopy(good[cid])
+        s["steps"][i].update(kw)
+        return s
+
+    def keep(obj, name):
+        return obj, name, copy.deepcopy(getattr(obj, name))
+    saved = [keep(I24, x) for x in ("N1_CORE", "N1_STEAM_PATH", "N2_FIG1", "N3_RULE_COL", "N3_TICKS", "N3_SPLIT", "N4_BUS_XS", "n3_x")]
+    try:
+        # ㊳ N1
+        bad_case("札の管の数を 1,600本に", step("c208", 0, tag=dict(t="燃料と水の管（1,600本）", at="ch")), "㊳", "記録の数")
+        bad_case("出典の行に模式の断りが無い", tweak("c208", src="出典：INSAG-7"), "㊳", "模式")
+        bad_case("部品に火（fire）", good["c208"], "㊳", "爆発",
+                 post=lambda sc: sc["parts"].append(dict(sc["parts"][0], id="fire")))
+        bad_case("炉に人の影", good["c208"], "㊳", "人の部品",
+                 post=lambda sc: sc["parts"].append(dict(sc["parts"][0], id="op", role="residents")))
+        I24.N1_CORE = dict(I24.N1_CORE, y1=I24.N1_CORE["y0"] + 8.0 * I24.N1_MPX)
+        bad_case("描く側の炉の高さを 8m に（型の定数）", good["c208"], "㊳", "高さ÷直径")
+        I24.N1_CORE = saved[0][2]
+        I24.N1_STEAM_PATH = I24.N1_STEAM_PATH[:2] + ((1500.0, I24.N1_STEAM_Y),)
+        bad_case("描く側の蒸気の管を画面の中で止める（型の定数）", good["c208"], "㊳", "蒸気の管")
+        I24.N1_STEAM_PATH = saved[1][2]
+        # ㊴ N2
+        I24.N2_FIG1 = dict(saved[2][2], disp=400.0)
+        bad_case("描く側の押しのけ棒を 400cm に（型の定数）", good["c905"], "㊴", "押しのけ棒")
+        I24.N2_FIG1 = dict(saved[2][2], gap=60.0)
+        bad_case("描く側の吸う棒の先を炉の 60cm 上に（型の定数）", good["c905"], "㊴", "吸う棒の先")
+        I24.N2_FIG1 = saved[2][2]
+        bad_case("本番で 100cm しか下げない", step("c905", 1, state=dict(n2dy=100.0, n2red="on")), "㊴", "下がった長さ")
+        bad_case("前触れで 150cm 下げる（毎秒0.4m×3秒を越える）", step("c615", 1, state=dict(n2dy=150.0)), "㊴", "記録の速さ")
+        bad_case("赤い所を1行目から", step("c905", 0, state=dict(n2dy=30.0, n2arrow="on", n2red="on")), "㊴", "最後の段だけ")
+        bad_case("赤い所を炉の上の方に", good["c905"], "㊴", "下の方",
+                 post=lambda sc: next(p for p in sc["parts"] if p["id"] == "red")["geo"].update(y0=258.0, y1=358.0))
+        bad_case("赤い所が下がり終わる前に出る", good["c905"], "㊴", "下がり終わる前",
+                 post=lambda sc: next(p for p in sc["parts"] if p["id"] == "red")["keys"][-1].update(delay=0.25))
+        bad_case("炉の上の方で塊を棒の下に重ねる", good["c615"], "㊴", "不透明",
+                 post=lambda sc: sc["parts"].sort(key=lambda p: {"moderator": 0, "rods": 1}.get(p["id"], 2)))
+        bad_case("棒の札に寸法の数", step("c615", 0, tag=dict(t="制御棒 6.2m", at="rod")), "㊴", "数")
+        # ㊵ N3
+        bad_case("7:10 の値を 15.2本に", good["c303"], "㊵", "記録",
+                 post=lambda sc: [p.update(svg=p["svg"].replace("13.2本", "15.2本")) for p in sc["parts"] if p["id"] == "card2"])
+        I24.n3_x = lambda view, hm, f=saved[7][2]: f(view, hm) + (40.0 if hm == "3:47" else 0.0)
+        bad_case("描く側で 3:47 の札を 40画素ずらす（型の関数）", good["c303"], "㊵", "目盛りから読んだ位置")
+        I24.n3_x = saved[7][2]
+        I24.N3_RULE_COL = dict(saved[3][2], **{"26本": "red"})
+        bad_case("描く側で 26本を赤に（型の定数）", good["c303"], "㊵", "色の枠")
+        I24.N3_RULE_COL = {k: v for k, v in saved[3][2].items() if k != "13.2本"}
+        bad_case("描く側で 13.2本の色の枠を落とす（型の定数）", good["c303"], "㊵", "1対1")
+        I24.N3_RULE_COL = saved[3][2]
+        bad_case("色の枠を決まりの札より先に", good["c303"], "㊵", "決まりの札より先",
+                 post=lambda sc: [p["keys"][-1].update(delay=0.0, stage=0) for p in sc["parts"] if p["id"] == "mark0"])
+        I24.N3_TICKS = dict(saved[4][2], night=(0, 30, 60))
+        bad_case("描く側で後半の目盛りに 1:00（型の定数）", good["c403"], "㊵", "割れる")
+        I24.N3_TICKS = saved[4][2]
+        I24.N3_SPLIT = (saved[5][2][0], ("1:03", "INSAG-1 の表", saved[5][2][1][2]))
+        bad_case("描く側で割れの出典の名を INSAG-1 に（型の定数）", good["c403"], "㊵", "出典の名")
+        I24.N3_SPLIT = saved[5][2]
+        bad_case("割れの目盛りの片方だけ赤く", good["c403"], "㊵", "形",
+                 post=lambda sc: [p.update(svg=p["svg"].replace(f'stroke="{I24.C24["doc"]}"', f'stroke="{I24.C24["red"]}"', 1))
+                                  for p in sc["parts"] if p["id"] == "split"])
+        bad_case("決まりの札を 25〜30本に", good["c303"], "㊵", "決まりの札",
+                 post=lambda sc: [p.update(svg=p["svg"].replace("26〜30", "25〜30")) for p in sc["parts"] if p["id"] == "rule"])
+        bad_case("200MW の札に 1:00", good["c403"], "㊵", "割れる",
+                 post=lambda sc: [p.update(svg=p["svg"].replace("200MW で止まる", "1:00 200MW")) for p in sc["parts"] if p["id"] == "split"])
+        # ㊶ N4
+        I24.N4_BUS_XS = tuple(300.0 + 264.0 * k for k in range(5))
+        bad_case("描く側でバスを画面の中の5台に（型の定数）", good["c707"], "㊶", "両端の外")
+        I24.N4_BUS_XS = saved[6][2]
+        bad_case("バスの札を 約1,000台に", step("c707", 0, tag=dict(t="バス 約1,000台（夜のうちに）", at="bus")), "㊶", "記録の数")
+        bad_case("群れを1行目（夜）から", step("c707", 0, state=dict(n4bus="on", n4crowd="on")), "㊶", "群れが知らせ")
+        bad_case("昼になってからバスが着く", tweak("c707", steps=[dict(state=dict(n4day="on"), rec="L2 p3024（Around noon on 27 April）"),
+                                                       dict(state=dict(n4bus="on", n4call="on", n4crowd="on"), rec="L2 p3024（nearly 1,200 buses）",
+                                                            tag=dict(t="避難 14:00〜17:00", at="crowd"))]), "㊶", "夜のうちに")
+        bad_case("避難の時刻の札を 14:00〜18:00 に", step("c707", 1, tag=dict(t="避難 14:00〜18:00", at="crowd")), "㊶")
+    finally:
+        for obj, name, val in saved:
+            setattr(obj, name, val)
+    return ok
+
+
 def A1FH(P):
     """真ん中の部分の1階の高さ（部品の geo＝描いた幾何。型の定数は読まない）。部品が無ければ 1（＝落ちた量の比べに使わない）"""
     return float((P.get("mid") or {}).get("geo", {}).get("fh") or 1.0)
@@ -2520,7 +3009,8 @@ def judge_fig(kind, kw, where):
         bad += b
         n += m
         for jf in (judge_s1, judge_s2, judge_s3, judge_s4, judge_s5, judge_s6, judge_s7,  # 🆕 20本目 ⑤b-3：㉔㉕㉖・⑤b-4：㉗㉘㉙㉚
-                   judge_c17):                                                        # 🆕 17本目 ⑤b-3：㉛㉜㉝
+                   judge_c17,                                                         # 🆕 17本目 ⑤b-3：㉛㉜㉝
+                   judge_n24):                                                        # 🆕 24本目 ⑤b-3：㊳㊴㊵㊶
             b, m = jf(sc, f"{where}#{k + 1}")
             bad += b
             n += m
@@ -4120,7 +4610,8 @@ def _selftest_ep17():
 
 def selftest():
     """物差しの検算。正しい場面が通り、わざと壊した場面（陽性対照）が落ちること。"""
-    ok17 = selftest_ep17()        # 🆕 17本目 ⑤b-3（2026-10-20）：本番の表（17本目の値）のまま＝見本の差し込みより前に回す
+    ok24 = selftest_ep24()        # 🆕 24本目 ⑤b-3（2026-10-22）：本番の表（24本目の値）のまま＝見本の差し込みより前に回す
+    ok17 = selftest_ep17() and ok24   # 🆕 17本目 ⑤b-3（2026-10-20）。2026-10-22〜：17本目も見本 fixture_ep17 の表＝selftest_ep17 が差し込んで・終わったら戻す
     ok20 = selftest_ep20() and ok17   # 🆕 20本目 ⑤b-3（2026-10-08）。2026-10-12〜：20本目も見本 fixture_ep20 の表＝selftest_ep20 が差し込んで・終わったら戻す
     ok19 = selftest_a1() and ok20  # 🆕 19本目 ⑤b-2（2026-10-08〜：見本 fixture_ep19 の表＝selftest_a1 が差し込んで・終わったら戻す）
     ok19 = selftest_a23() and ok19     # 🆕 19本目 ⑤b-3

@@ -83,3 +83,19 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-3（2026-10-22）：案C3 出力の時刻表（後半）＝置き場 N3 view night（`tools/illu24.py`・門番 check_illu ㊵）
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c403（3行・9.2秒・3行目は聞き役の問い）＝頭に 0:05 720MW と、200MW で止まった時刻の割れ（1:00 ソ連の報告／1:03 INSAG-7 の表＝同じ形の目盛りに
+    #   出典の名だけ・時刻の字は出さない＝台本 §1-5）／1行目「およそ500メガワットから、30メガワットを下回るところまで」＝0:28 の札と赤い下向きの矢印／
+    #   2行目「試験の予定の、20分の1よりも低い出力である」＝試験の予定の札
+    "c403": dict(fig=("illu", dict(
+        place="N3", start=dict(view="night", n3a="on"),
+        rec="S1 p63（00:05 Reactor thermal power was 720 MW）・S3 p2020（Only at 1:00 on 26 April）・S1 p64（01.03 Reactor thermal power increased to 200 MW）",
+        steps=[dict(state=dict(n3b="on"),
+                    rec="S1 p63（00:28 At reactor thermal power of about 500 MW transfer made）・S3 p2020（the power fell below 30 MW(th)）"),
+               dict(state=dict(n3c="on"), rec="S3 p2020（was to be carried out at a reactor power of 700-1000 MW(th)）"),
+               dict()]))),
+})

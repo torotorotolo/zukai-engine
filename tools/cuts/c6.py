@@ -83,3 +83,18 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-3（2026-10-22）：案C2 止める棒（前触れ）＝置き場 N2 view top（`tools/illu24.py`・門番 check_illu ㊴）
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c615（2行・6.8秒）＝1行目「ボタンで、抜いてあった棒が、いっせいに下り始めた」＝炉の上の方で棒がいっせいに下り始める（炉は不透明の塊＝
+    #   下の水と押しのけ棒はまだ見せない）／2行目「炉を止めるための棒である。ところが、その3秒後。」＝そこで止める。下がる長さは記録の速さ
+    #   （毎秒0.4m＝S1 p113）×3秒（1:23:40→1:23:43＝表I-I p65）＝120cm まで（門番 ㊴）
+    "c615": dict(fig=("illu", dict(
+        place="N2", start=dict(view="top"),
+        steps=[dict(state=dict(n2dy=60.0, n2arrow="on"), dur=3.0,
+                    rec="S1 p113（inserted into the core at a speed of 0.4 m/s when the EPS is triggered）・S1 p65（01:23:40 EPS-S button was pressed）",
+                    tag=dict(t="制御棒", at="rod", off=(60, -60))),
+               dict(state=dict(n2dy=120.0), dur=3.0, rec="S1 p65（01:23:43 Power excursion rate emergency protection system signals on）")]))),
+})

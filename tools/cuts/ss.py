@@ -870,14 +870,28 @@ def sat(code, steps, note="", **kw):
 #    文字の層が無い頁は別の資料の名〈付図29〉で `text=False`＝範囲だけ見る）・資料の名の決め方・割れる時刻は秒で見る（㉛〜㊲）の話は移した注の側にある＝fixture_ep17 の REC_DOCS の注。
 #    ILLU_CROWD_UNTIL・ILLU_ROLES・ILLU_DESTROY_CUTS・ILLU_TOP_NOSCALE・ILLU_SUB_*・ILLU_BOOM_CUTS・ILLU_MIX_TODO は17本目も空のままだった表＝空の器で残す（見本の側も17本目の状態＝空として持つ）。
 #    REC_PAGES の道は24本目（`ref/ep24/src/ep24_pages.txt`＝まだ無い）
+# 🆕 2026-10-22（24本目 ⑤b-3）：24本目の値を入れた（案C＝置き場 N1 炉の断面・N2 止める棒・N3 出力の時刻表・N4 避難のバス＝`tools/illu24.py`・門番 check_illu ㊳〜㊶）。
+#   通し頁＝`ref/ep24/make_pages24.py` の `ref/ep24/src/ep24_pages.txt`（git の外）：S1＝INSAG-7 の PDF の頁（印刷＝PDF−10）・S2＝1000＋PDF の頁（GC(SPL.I)/3＝INSAG-1・
+#   印刷の頁は「~N」の目安＝画面は PDF の頁）・S3＝2000＋PDF の頁（ソ連の報告・印刷＝PDF−4）・L2＝3000＋PDF の頁（UNSCEAR 2000 付属書J・印刷＝PDF＋448）・
+#   L1＝4000＋PDF の頁（フォーラム 2006・印刷＝PDF＋2）。台本の「S1 p.113／103」→ rec は「S1 p113」・画面は印刷の頁「103頁」
 REC_PAGES = REF / "src" / "ep24_pages.txt"      # 部品の出典（`rec=`）を当てる原文（git の外＝手元だけ）
-REC_DOCS = {}                               # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
-ILLU_SPLIT_TIMES = ()                      # 資料で割れる時刻＝画面に時計・時刻の札として出さない
-ILLU_CROWD_UNTIL = None                     # 乗客の群れを描いてよい場面の時刻の上限
-ILLU_ROLES = dict(sprite=(), crowd=())      # 置いてよい役割（門番 check_illu ②）＝空の組なら、どの役割も置けない（fail closed）
-ILLU_SEC_OK = {}                            # 札に出してよい秒＝{秒: 出典}（門番 check_illu ⑤）
-ILLU_CLOCK_OK = ()                          # 札に出してよい時計の時刻（門番 check_illu ⑤）
-ILLU_COUNTS = {}                            # 描いてよい数＝{部品の obj の名: (数, 出典)}（門番 check_illu ③）
+REC_DOCS = {                                # 出典の書き方「資料名 p頁」の資料名 → 頁の範囲・画面の名・頁の出し方
+    "S1": dict(range=(1, 148), name="INSAG-7（IAEA・1992年）", page="print", base=10),
+    "S2": dict(range=(1001, 1147), name="INSAG-1（IAEA・1986年）", page="pdf", base=1000),
+    "S3": dict(range=(2001, 2060), name="ソ連の報告（1986年8月）", page="print", base=2004),
+    "L2": dict(range=(3001, 3117), name="UNSCEAR 2000年報告 付属書J", page="print", base=2552),
+    "L1": dict(range=(4001, 4055), name="チェルノブイリ・フォーラム（2006年）", page="print", base=3998),
+}
+# 割れる時刻＝台本 §1-5：200MW で止まった時刻（S3 p.20「Only at 1:00 on 26 April」⇔ 表I-I p.64「01.03 … increased to 200 MW and stabilized」）・
+#   出力を下げ始めた時刻のソ連の報告の 1:00（S3 p.20「at exactly 1:00 hours」⇔ 表I-I p.63「01:06」＝台本は 1:06 に決め、1:00 は帰属つきで語りだけ）
+ILLU_SPLIT_TIMES = ("1:00", "1:03")
+ILLU_CROWD_UNTIL = "17:00"                  # 群れ（プリピャチの住民）を描いてよい場面の時刻の上限＝L2 p.24「the evacuation began at 14:00 and finished at 17:00」
+ILLU_ROLES = dict(sprite=(), crowd=("residents",))   # 置いてよい役割（門番 check_illu ②）＝24本目は住民の顔の無い群れだけ（案C4＝台本 §1-4）・型紙の影0
+ILLU_SEC_OK = {}                            # 札に出してよい秒＝{秒: 出典}（門番 check_illu ⑤）＝24本目の案C は秒の札を出さない
+# 札に出してよい時計の時刻（「時:分」まで）＝台本 §1-5 で1つに決めた値だけ：25日 1:06・3:47・7:10・14:00・23:10（表I-I p.63）／26日 0:05・0:28（表I-I p.63）／
+#   27日 14:00・17:00（L2 p.24 の避難の始めと終わり）
+ILLU_CLOCK_OK = ("1:06", "3:47", "7:10", "14:00", "23:10", "0:05", "0:28", "17:00")
+ILLU_COUNTS = {}                            # 描いてよい数＝{部品の obj の名: (数, 出典)}（門番 check_illu ③）＝24本目は数を名乗る物を描かない（管・棒・バスは数えられない形か模式）
 ILLU_ASSUME = {}                            # 想定の札を出すカット＝{カットID: 札の言葉}（門番 check_illu ④）
 ILLU_DESTROY_CUTS = ()                      # 壊れる物の部品を描いてよいカット（門番 check_illu ⑫＝空なら全部止める）
 ILLU_TOP_NOSCALE = {}                       # 縮尺を持たない模式の上から見た絵の置き場＝{置き場: 理由}（門番 check_illu ⑧ は縮尺の代わりに「人が0・模式の断り」を測る）

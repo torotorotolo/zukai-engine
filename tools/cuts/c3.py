@@ -71,3 +71,16 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-3（2026-10-22）：案C3 出力の時刻表（前半）＝置き場 N3 view am（`tools/illu24.py`・門番 check_illu ㊵）
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c303（2行・9.6秒）＝1行目で 25日の札5つが左から順に（1:06 残した棒31本・3:47 1,600MW・7:10 13.2本・14:00 非常用の冷却と延期〈琥珀の印＝違反かは割れる〉・
+    #   23:10 再開と26本）／2行目「ふだんは、少なくとも26本から30本は残す。15本まで減ったら、すぐ炉を止める」＝決まりの札と、残した棒の色（13.2本＝赤）
+    "c303": dict(fig=("illu", dict(
+        place="N3", start=dict(view="am"),
+        steps=[dict(state=dict(n3a="on"), rec="S1 p63（表I-I＝25日の時刻と値）"),
+               dict(state=dict(n3b="on"),
+                    rec="S1 p89（not less than 26-30 rods・When the ORM falls to 15 rods, the reactor should be shut down immediately）")]))),
+})

@@ -101,3 +101,20 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-3（2026-10-22）：案C2 止める棒（本番）＝置き場 N2 view cut（`tools/illu24.py`・門番 check_illu ㊴）
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c905（2行・7.3秒）＝INSAG-7 図1 (a) の寸法（吸う棒の先は炉の上の端の 20cm 上・水 125cm・押しのけ棒 450cm・水 125cm）。
+    #   1行目「抜き切った棒を、いっせいに下ろすと、どうなるか」＝棒が下り始める／2行目「炉の下の方では、まず水が押し出され、かわりに黒鉛が入ってくる」
+    #   ＝125cm 下がって押しのけ棒の下の端が炉の下の端へ → 炉の下の方 125cm が赤く（門番 ㊴＝赤はこのカットの最後の段だけ）
+    "c905": dict(fig=("illu", dict(
+        place="N2", start=dict(view="cut"),
+        steps=[dict(state=dict(n2dy=30.0, n2arrow="on"), dur=2.4,
+                    rec="S1 p14（On receipt of a scram signal causing a fully withdrawn rod to fall）"),
+               dict(state=dict(n2dy=125.0, n2red="on"), dur=2.4,
+                    rec="S1 p14（the displacement of water from the lower part of the channel・caused a local insertion of positive reactivity in the lower part of the core）",
+                    # ⚠️ qa_all の layout：off=(40, -120)・字 30 では右の端が 1894（上限 1848）＝左へ寄せて字を 28 に
+                    tag=dict(t="水が押し出され、黒鉛が入る", at="lo", off=(-30, -130), cap=28, delay=2.0))]))),
+})
