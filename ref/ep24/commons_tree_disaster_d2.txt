@@ -1,0 +1,78 @@
+Category:Chernobyl disaster	files=135	subcats=20
+  Category:Chernobyl Exclusion Zone	files=19	subcats=22
+  Category:Chernobyl disaster in art	files=14	subcats=7
+  Category:Anniversaries of the Chernobyl disaster	files=0	subcats=9
+  Category:Chernobyl Forum	files=14	subcats=0
+  Category:Chernobyl Radiation and Ecological Biosphere Reserve	files=137	subcats=2
+  Category:Chornobyl Tragedy Day (Ukraine)	files=8	subcats=1
+  Category:Coins and medals related to Chernobyl disaster	files=8	subcats=1
+  Category:Day of Commemoration of the Participants in the Liquidation of the Consequences of the Accident at the Chornobyl NPP	files=8	subcats=0
+  Category:Maps of the Chernobyl disaster	files=16	subcats=2
+  Category:Meeting of FC Dynamo Kyiv players with children of Chernobyl, 26 April 2018	files=28	subcats=0
+  Category:Meeting of FC Dynamo Kyiv players with children of Chernobyl, 29 December 2015	files=20	subcats=0
+  Category:Chernobyl disaster memorials	files=8	subcats=8
+  Category:People associated with the Chernobyl disaster	files=9	subcats=2
+  Category:Polesie State Radioecological Reserve	files=27	subcats=4
+  Category:Poliske Raion Memory Museum	files=6	subcats=0
+  Category:Chernobyl Post-Accident Review Meeting	files=8	subcats=0
+  Category:Reactor 4 in Chernobyl Nuclear Power Plant	files=136	subcats=1
+  Category:Ukrainian National Chornobyl Museum	files=50	subcats=1
+  Category:Protest by veterans for the cleanup of the Chernobyl Nuclear Power Plant held in Donetsk (2011)	files=8	subcats=0
+  Category:Čarnobylski šlach	files=6	subcats=1
+    Category:Chernobyl Exclusion Zone by year	files=0	subcats=0
+    Category:Abandoned objects in the Chernobyl Exclusion Zone	files=50	subcats=0
+    Category:Abandoned structures in the Chornobyl Exclusion Zone	files=1	subcats=0
+    Category:Before-and-after photographs of the Chernobyl Exclusion Zone	files=5	subcats=0
+    Category:Building interiors in the Chernobyl Exclusion Zone	files=281	subcats=0
+    Category:Canteen 19	files=2	subcats=0
+    Category:Chornobyl Exclusion Zone checkpoints	files=3	subcats=0
+    Category:Chernihiv–Ovruch railway	files=28	subcats=0
+    Category:Chornobyl Raion	files=7	subcats=0
+    Category:COTIZ	files=3	subcats=0
+    Category:Cultural heritage monuments in Chernobyl Exclusion Zone	files=6	subcats=0
+    Category:Duga-1 radar	files=198	subcats=0
+    Category:Ghost towns in the Chernobyl Exclusion Zone	files=5	subcats=0
+    Category:Nature of the Chernobyl Exclusion Zone	files=22	subcats=0
+    Category:People in the Chernobyl Exclusion Zone	files=32	subcats=0
+    Category:Radioactivity in the Chernobyl Exclusion Zone	files=17	subcats=0
+    Category:Signs in the Chernobyl Exclusion Zone	files=18	subcats=0
+    Category:Streets in the Chernobyl Exclusion Zone	files=44	subcats=0
+    Category:Vehicles in the Chernobyl Exclusion Zone	files=73	subcats=0
+    Category:Wikiexpedition to Chernobyl Exclusion Zone 2013	files=1762	subcats=0
+    Category:Zakapyccie railway station	files=1	subcats=0
+    Category:Chernobyl disaster on stamps	files=19	subcats=0
+    Category:Chernobyl (miniseries)	files=1	subcats=0
+    Category:Chornobyl Saviour	files=0	subcats=0
+    Category:S.T.A.L.K.E.R. (video game series)	files=19	subcats=0
+    Category:Voices from Chernobyl: The Oral History of a Nuclear Disaster	files=14	subcats=0
+    Category:10th anniversary of the Chernobyl disaster	files=2	subcats=0
+    Category:15th anniversary of the Chernobyl disaster	files=1	subcats=0
+    Category:20th anniversary of the Chernobyl disaster	files=8	subcats=0
+    Category:21st anniversary of the Chernobyl disaster	files=0	subcats=0
+    Category:22nd anniversary of the Chernobyl disaster	files=1	subcats=0
+    Category:23rd anniversary of the Chernobyl disaster	files=2	subcats=0
+    Category:25th anniversary of the Chernobyl disaster	files=5	subcats=0
+    Category:30th anniversary of the Chernobyl disaster	files=2	subcats=0
+    Category:32nd anniversary of the Chernobyl disaster	files=1	subcats=0
+    Category:Planting magnolia in Chernobyl Reserve	files=4	subcats=0
+    Category:Dmitry Medvedev in Ukraine, April 2011	files=8	subcats=0
+    Category:Chernobyl liquidator medals	files=10	subcats=0
+    Category:Radiation maps of the Chernobyl disaster	files=31	subcats=0
+    Category:SVG maps of the Chernobyl disaster	files=31	subcats=0
+    Category:Chernobyl disaster memorials in Belarus	files=12	subcats=0
+    Category:Chernobyl disaster memorials in Kyrgyzstan	files=0	subcats=0
+    Category:Chernobyl disaster memorials in Germany	files=0	subcats=0
+    Category:Chernobyl disaster memorials in Moldova	files=20	subcats=0
+    Category:Monuments and memorials to Chernobyl liquidators	files=3	subcats=0
+    Category:Chernobyl disaster memorials in Russia	files=24	subcats=0
+    Category:Chernobyl disaster memorials in Ukraine	files=6	subcats=0
+    Category:Чернобыльский мемориал на Митинском кладбище	files=10	subcats=0
+    Category:Chernobyl liquidators	files=49	subcats=0
+    Category:Recipients of the Medal to the "Participant in liquidation of the Chernobyl NPP accident consequences"	files=2	subcats=0
+    Category:Babčyn	files=17	subcats=0
+    Category:Brahin, Belarus	files=80	subcats=0
+    Category:Ghost towns in the Polesie State Radioecological Reserve	files=0	subcats=0
+    Category:Chernobyl Nuclear Power Plant New Safe Confinement	files=88	subcats=0
+    Category:Attack on the National Chernobyl Museum, 24 May 2026	files=17	subcats=0
+    Category:Čarnobylski šlach in Toruń (2021-04-25)	files=8	subcats=0
+TOTAL unique files=3363
