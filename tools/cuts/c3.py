@@ -84,3 +84,80 @@ SPEC.update({
                dict(state=dict(n3b="on"),
                     rec="S1 p89（not less than 26-30 rods・When the ORM falls to 15 rods, the reactor should be shut down immediately）")]))),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-23）：図解＝`tools/mech24.py`（fig=("m24", …)・門番 check_mech の judge_m24）。🔴 色は報告の色・画面の字の数は全部 rel に
+#   🔴 c302 の目盛り（30・26・15）・c303 の時刻表（案C3）・c306 の線のグラフは別の絵（同じ値を同じ形で繰り返さない）
+# ══════════════════════════════════════════════════════════
+from mech24 import rr  # noqa: E402
+
+SPEC.update({
+    # c301（3行）＝1行目は聞き役の問い（針は右の端＝最大の出力）／2行目：4月25日 1:06・針が下がり始める（動く部品）／3行目：1986年の報告 1:00
+    "c301": dict(
+        t="出力を下げ始めた時刻", s="点検の前の準備",
+        fig=("m24", dict(view="dial", steps=[dict(), dict(state=dict(clock="on")), dict(state=dict(r86="on"))],
+                         rel=[dict(t="4月25日", src="S1 p63"), dict(t="1:06", src="S1 p63"), dict(t="1:00", src="S2 p1028")] + rr("r86"),
+                         note="針の位置は模式（数は無い）", src=ss.src(["S1 p63", "S2 p1028", "S3 p2020"])))),
+    # c302（2行）＝1行目：差したまま残す制御棒（深さはまちまち）／2行目：物差し「残した棒」（目盛り 30・26・15＝色は分けない＝決まりは c303）
+    "c302": dict(
+        t="「残した棒」という物差し", s="制御棒の数え方",
+        fig=("m24", dict(view="ruler", steps=[dict(state=dict(rods="on")), dict(state=dict(scale="on"))],
+                         rel=[dict(t="30・26・15", src="S1 p89")],
+                         note="棒の数と深さは模式", src=ss.src(["S1 p89"])))),
+    # c306（2行）＝1行目：15本の線と表I-I の点（1:06 31本・7:10 13.2本）・くぐる所を赤く／2行目：1992年の報告が引く新しい報告（何時間も）
+    "c306": dict(
+        t="前の日の朝にも", s="表の値と15本の線",
+        fig=("m24", dict(view="orm", steps=[dict(state=dict(pts="on")), dict(state=dict(r92="on"))],
+                         rel=[dict(t="15本", src="S1 p89"), dict(t="1:06 31本・7:10 13.2本", src="S1 p63"), dict(t="25日・26日", src="S1 p63")]
+                         + rr("r92"),
+                         note="点のあいだは直線（記録は表の点だけ）", src=ss.src(["S1 p63", "S1 p21"])))),
+    # c307（2行）＝1行目：13:05 7号タービンを止める／2行目：試験に使う8号タービンだけ
+    "c307": dict(
+        t="2台のうち1台を止める", s="午後の切り替え",
+        fig=("m24", dict(view="turbine", steps=[dict(state=dict(stop7="on")), dict(state=dict(keep8="on"))],
+                         rel=[dict(t="7号・8号", src="S1 p63"), dict(t="13:05", src="S1 p63")],
+                         note="タービンの形は模式", src=ss.src(["S1 p63", "S2 p1035"])))),
+    # c308（2行）＝横から見た水の通り道（🔁 上から c224 → 横から）。1行目：非常用炉心冷却系と 14:00・右上の札②／2行目：弁を閉じて切り離す（×）
+    "c308": dict(
+        t="2つ目の「違反」", s="午後2時の操作",
+        fig=("m24", dict(view="eccs", steps=[dict(state=dict(sys="on")), dict(state=dict(cut="on"))],
+                         rel=[dict(t="14:00", src="S1 p63")],
+                         note="槽・管・弁の形と数は模式", src=ss.src(["S1 p63"])))),
+    # c310（3行）＝1行目は聞き役の問い（試験の手順の書類）／2行目：技師長の承認の印＋1992年の報告／3行目：承認された一歩（✓）
+    "c310": dict(
+        t="切ってよかったのか", s="承認と手順",
+        fig=("m24", dict(view="stamp", steps=[dict(), dict(state=dict(stamp="on")), dict(state=dict(step="on"))],
+                         rel=rr("r92"), note="書類の形と行は模式", src=ss.src(["S1 p20"])))),
+    # c311（2行）＝1行目：14:00（25日）→ 事故（26日）約11時間・半分の出力・計画の外／2行目：1992年の報告「安全文化の欠け」
+    "c311": dict(
+        t="切りっぱなしの長さ", s="25日の午後から事故まで",
+        fig=("m24", dict(view="off11", steps=[dict(state=dict(band="on")), dict(state=dict(r92="on"))],
+                         rel=[dict(t="14:00", src="S1 p63"), dict(t="25日・26日", src="S1 p63"), dict(t="約11時間", src="S1 p20")] + rr("r92"),
+                         note="帯の長さは時間に比例", src=ss.src(["S1 p20"])))),
+    # c312（2行）＝1行目：違反か（1991年の委員会を太く）／2行目：割れる（黄の括弧）・どれも効いていない（緑の1枚）
+    "c312": dict(
+        t="割れる所と、そろう所", s="報告ごとの答え",
+        fig=("m24", dict(view="grid3", steps=[dict(state=dict(row1="on")), dict(state=dict(row2="on"))],
+                         rel=rr("r86", "c91", "r92"), note="札の言葉は要約", src=ss.src(["S2 p1035", "S1 p82", "S1 p88", "S1 p20"])))),
+    # c313（2行）＝1行目：非常用の冷却を切った → 事故の引き金から外れる（×）／2行目：同じ 14:00 試験は延期
+    "c313": dict(
+        t="冷却を切ったことの重さ", s="午後2時のもう1つの出来事",
+        fig=("m24", dict(view="trigger", steps=[dict(state=dict(cut="on")), dict(state=dict(post="on"))],
+                         rel=[dict(t="14:00", src="S1 p63")], note="印の形は模式", src=ss.src(["S1 p88", "S1 p63"])))),
+    # c314（2行）＝1行目：キエフの電力の指令所 → 4号炉「待って」／2行目：半分の出力のまま夜まで
+    "c314": dict(
+        t="待ってほしいという連絡", s="試験の延期の理由",
+        fig=("m24", dict(view="kiev", steps=[dict(state=dict(ask="on")), dict(state=dict(night="on"))],
+                         rel=[dict(t="4号炉", src="S1 p63")], note="建物の形は模式", src=ss.src(["S1 p63"])))),
+    # c316（2行）＝1行目は聞き役（25日の24時間の輪）／2行目：14:00 → 23:10 の弧を赤く・約9時間
+    "c316": dict(
+        t="延びた待ち時間", s="出力を下げる作業",
+        fig=("m24", dict(view="ring", steps=[dict(), dict(state=dict(arc="on"))],
+                         rel=[dict(t="4月25日", src="S1 p63"), dict(t="14:00・23:10", src="S1 p63"), dict(t="約9時間", src="S2 p1028")],
+                         note="輪の角度は時刻に比例（上＝真夜中）", src=ss.src(["S1 p63", "S2 p1028"])))),
+    # c317（2行）＝1行目：4月25日・出力をゆっくり下げながら真夜中へ／2行目：4月26日・日付が変わってすぐ急に落ちる（？＝数は c402・c403）
+    "c317": dict(
+        t="その夜の入り口", s="25日から26日へ",
+        fig=("m24", dict(view="day", steps=[dict(state=dict(d25="on")), dict(state=dict(d26="on"))],
+                         rel=[dict(t="4月25日・26日", src="S1 p63")], note="出力の線は模式（数は無い）", src=ss.src(["S1 p63"])))),
+})

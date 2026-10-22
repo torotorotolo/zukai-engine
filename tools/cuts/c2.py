@@ -109,3 +109,82 @@ SPEC.update({
                     # 試し焼き 39791009342：指し線がドラムの上を斜めに横切った＝ドラムの下の真ん中から短く
                     tag=[dict(t="蒸気ドラム", at="drum", off=(-10, 70)), dict(t="タービンへ", at="steam", off=(-40, 80), anchor="end")])]))),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-23）：図解＝`tools/mech24.py`（fig=("m24", …)・門番 check_mech の judge_m24）。地図 c203 は ⑤b-6
+#   🔴 色は報告の色（1986年の報告＝桃・1986年のソ連の報告＝橙・1991年の委員会＝紫・1992年の報告＝青）。画面の字の数は全部 rel に
+#   （報告の名の年は `rr(...)`）。🔴 段の数＝語りの行の数（聞き役の問いの行は dict()＝何も足さない）
+# ══════════════════════════════════════════════════════════
+from mech24 import rr  # noqa: E402
+
+SPEC.update({
+    # c205（2行）＝1行目「主に3つの報告である。1986年の報告、」＝8月のソ連の報告（細い点）と9月の1986年の報告／2行目＝1991年・1992年と「改めた」の弧
+    "c205": dict(
+        t="追いかける報告の順番", s="事故のあとに出た報告と、その年",
+        fig=("m24", dict(view="years", steps=[dict(state=dict(s86="on", r86="on")), dict(state=dict(c91="on", r92="on", arc="on"))],
+                         rel=rr("r86", "s86", "c91", "r92") + [dict(t="INSAG-1・INSAG-7", src="S1 p1"), dict(t="主に3つ", src="S1 p34")],
+                         note="点の間隔は時間に比例しない（順と年だけ）", src=ss.src(["S3 p2003", "S2 p1001", "S1 p39", "S1 p1"])))),
+    # c206（3行）＝1行目は聞き役の問い／2行目で7つの札（①〜⑦＝台本 §4 の画の欄の順）／3行目で各札に「？」と1992年の報告の札（評価と比べる）
+    "c206": dict(
+        t="事故の年の「違反」", s="このあと1つずつ見ていく",
+        fig=("m24", dict(view="cards7", steps=[dict(), dict(state=dict(cards="on")), dict(state=dict(ask="on"))],
+                         rel=[dict(t="0時28分", src="S1 p63"), dict(t="700メガワット", src="S2 p1025")] + rr("r92"),
+                         note="札の言葉は要約", src=ss.src(["S2 p1027", "S1 p34"])))),
+    # c209（2行）＝1行目：炉が出す熱 3,200MW → 電気 1,000MW（S2 p1008）／2行目：ウラン → 速い中性子 → 黒鉛で遅く → 次のウランが割れる → 続く
+    "c209": dict(
+        t="炉の大きさと黒鉛の役目", s="RBMK という型の炉",
+        fig=("m24", dict(view="neutron", steps=[dict(state=dict(power="on")), dict(state=dict(chain="on"))],
+                         rel=[dict(t="4号炉", src="S2 p1008"), dict(t="3,200", src="S2 p1008"), dict(t="1,000", src="S2 p1008")],
+                         note="粒の大きさと動きは模式", src=ss.src(["S2 p1008", "S1 p113"])))),
+    # c210（2行）＝1行目：水の管（泡と吸われる中性子）＋輪の上と右（沸く・泡 → 吸う水が減る）／2行目：下と左（反応が強まる → 熱が増える）と名前
+    "c210": dict(
+        t="泡が反応を強める", s="RBMK の炉の性質",
+        fig=("m24", dict(view="void", steps=[dict(state=dict(tube="on", n12="on")), dict(state=dict(n34="on", name="on"))],
+                         rel=[], note="輪の矢印は性質の順（模式）", src=ss.src(["S1 p13"])))),
+    # c211（3行）＝1行目は聞き役の問い（目盛りだけ）／2行目：およそ20%より下を赤く＋1986年の報告／3行目：上がると、さらに上がる
+    "c211": dict(
+        t="低い出力の弱点", s="出力の大きさと、炉の向き",
+        fig=("m24", dict(view="power20", steps=[dict(), dict(state=dict(low="on")), dict(state=dict(loop="on"))],
+                         rel=[dict(t="およそ20%", src="S2 p1009")] + rr("r86"),
+                         note="目盛りは割合だけ（模式）", src=ss.src(["S2 p1009"])))),
+    # c214（3行）＝1行目：外の電気が止まる（×）・ディーゼル発電機が動くまでの「このあいだ」／2行目：止まりかけのタービン → 電気 → ポンプ／
+    #   3行目：試験で確かめる（？）
+    "c214": dict(
+        t="電気が途切れるあいだ", s="4号炉の試験の中身",
+        fig=("m24", dict(view="flow4", steps=[dict(state=dict(cut="on")), dict(state=dict(chain="on")), dict(state=dict(test="on"))],
+                         rel=[], note="流れは模式", src=ss.src(["S3 p2019", "S2 p1009"])))),
+    # c215（2行）＝横から見た燃料の管（1本）。1行目：止めた炉でも燃料は熱を出す（赤い波）／2行目：ポンプで冷やす水を送り続ける
+    "c215": dict(
+        t="止めた炉も熱い", s="燃料の熱とポンプ",
+        fig=("m24", dict(view="decay", steps=[dict(state=dict(heat="on")), dict(state=dict(pump="on"))],
+                         rel=[], note="管と棒の形と数は模式", src=ss.src(["S1 p121"])))),
+    # c216（3行）＝暦 1982〜1986年。1行目：1982年 3号機／2行目：1984年・1985年（改良した装置）／3行目：1983年12月 4号機の運転の始まり
+    #   （この試験をしないまま）と 1986年4月（この夜の試験）
+    "c216": dict(
+        t="前にもあった同じ試験", s="試験が行われた年",
+        fig=("m24", dict(view="cal", steps=[dict(state=dict(y82="on")), dict(state=dict(y8485="on")), dict(state=dict(y83="on", y86="on"))],
+                         rel=[dict(t="1982年・3号機", src="S1 p61"), dict(t="1984年・1985年", src="S1 p61"), dict(t="1983年12月・4号機", src="S1 p61"),
+                              dict(t="1986年4月", src="S1 p63")],
+                         note="暦の印は年と月だけ", src=ss.src(["S1 p61"])))),
+    # c219（2行）＝試験の計画の書類（安全の手当ての欄が薄い）。1行目：1991年の委員会「十分でなかった」／2行目：1986年のソ連の報告「形だけ」
+    "c219": dict(
+        t="計画の弱いところ", s="2つの報告の見方",
+        fig=("m24", dict(view="plan", steps=[dict(state=dict(c91="on")), dict(state=dict(s86="on"))],
+                         rel=rr("c91", "s86"), note="書類の形は模式", src=ss.src(["S1 p62", "S3 p2019"])))),
+    # c220（3行）＝1行目は聞き役の問い（1992年の報告の札）／2行目「計画そのもの」（薄い）／3行目「計画を変えた」（赤い印）＋承認なし・その場で・わざと
+    "c220": dict(
+        t="責めたのは「変え方」", s="書き直した報告の見方",
+        fig=("m24", dict(view="blame", steps=[dict(state=dict(hdr="on")), dict(state=dict(plan="on")), dict(state=dict(chg="on"))],
+                         rel=rr("r92"), note="札の言葉は要約（模式）", src=ss.src(["S1 p34"])))),
+    # c222（2行）＝1行目：試験の計画の中の「非常用の冷却を切る」／2行目：試験のあいだ炉の安全が大きく下がる（1986年のソ連の報告）。🔴 約4時間は書かない（§1-5）
+    "c222": dict(
+        t="計画にあった危うさ", s="計画の一行と、その意味",
+        fig=("m24", dict(view="cut", steps=[dict(state=dict(item="on")), dict(state=dict(band="on"))],
+                         rel=rr("s86"), note="安全の線の高さは模式（数は無い）", src=ss.src(["S3 p2019"])))),
+    # c224（2行）＝上から見た発電所の4つの号機（🔁 横から c215 → 上から）。2行目：4号機に黄の輪「ここから」4月25日
+    "c224": dict(
+        t="事故の前の日へ", s="チェルノブイリ原子力発電所",
+        fig=("m24", dict(view="site", steps=[dict(), dict(state=dict(mark="on"))],
+                         rel=[dict(t="1号機・2号機・3号機・4号機", src="S2 p1008"), dict(t="4月25日", src="S1 p63")],
+                         note="号機の並びと形は模式", src=ss.src(["S2 p1008", "S1 p63"])))),
+})

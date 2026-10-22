@@ -99,3 +99,92 @@ SPEC.update({
                dict(state=dict(n3c="on"), rec="S3 p2020（was to be carried out at a reactor power of 700-1000 MW(th)）"),
                dict()]))),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-4（2026-10-23）：図解＝`tools/mech24.py`（fig=("m24", …)・門番 check_mech の judge_m24）。🔴 色は報告の色・画面の字の数は全部 rel に
+#   🔴 200MW で止まった時刻は「1時ごろ」（1:00 と 1:03 で割れる＝台本 §1-5）・「700MW 未満は禁止だった」と地の札で言わない（帰属つきの札だけ）
+# ══════════════════════════════════════════════════════════
+from mech24 import rr  # noqa: E402
+
+SPEC.update({
+    # c401（3行）＝1行目は聞き役の問い（目盛り 0〜3,200MW）／2行目：4月26日 0:05 の針 720MW／3行目：試験の予定 700〜1,000MW の帯（炉が出す熱）
+    "c401": dict(
+        t="予定の出力の帯", s="炉の熱の出力",
+        fig=("m24", dict(view="meter", steps=[dict(), dict(state=dict(ptr="on")), dict(state=dict(plan="on"))],
+                         rel=[dict(t="0・3,200", src="S2 p1008"), dict(t="720", src="S1 p63"), dict(t="4月26日", src="S1 p63"),
+                              dict(t="0:05", src="S1 p63"), dict(t="700・1,000", src="S3 p2020")],
+                         note="目盛りは出力に比例", src=ss.src(["S1 p63", "S3 p2020"])))),
+    # c402（2行）＝時計 0:28。1行目：切り替え（炉の部分ごと → 全体をまとめて）／2行目：一気に落ちる（赤い矢印）
+    "c402": dict(
+        t="0時28分の操作", s="炉の自動の制御",       # 🔧 門番 dup：「切り替えの瞬間」を左上の札と注が71%覆った
+        fig=("m24", dict(view="clock", steps=[dict(state=dict(sw="on")), dict(state=dict(drop="on"))],
+                         rel=[dict(t="0:28", src="S1 p63")], note="絵は模式", src=ss.src(["S1 p63", "S1 p21"])))),
+    # c404（2行）＝右上の札③。1行目：1986年の報告「運転員の誤り」／2行目：出力を保つ指示を、切り替えのときに入れなかった
+    "c404": dict(
+        t="3つ目の「違反」", s="事故の年の見方",
+        fig=("m24", dict(view="hold", steps=[dict(state=dict(r86="on")), dict(state=dict(cmd="on"))],
+                         rel=[dict(t="0時28分", src="S1 p63")] + rr("r86"), note="札の言葉は要約", src=ss.src(["S2 p1036", "S2 p1028"])))),
+    # c406（2行）＝1行目：1986年の報告「運転員の誤り」／2行目：書き直し → 1992年の報告「誤りと言えるもの：無かったようだ」
+    "c406": dict(
+        t="書き直された見方", s="0時28分の急落について",
+        fig=("m24", dict(view="swap", steps=[dict(state=dict(r86="on")), dict(state=dict(r92="on"))],
+                         rel=rr("r86", "r92"), note="札の言葉は要約", src=ss.src(["S1 p21"])))),
+    # c407（2行）＝1991年の委員会の見方（S1 p21 が引く）。1行目：原因＝確かめられない／2行目：出力＝保てなかった
+    "c407": dict(
+        t="委員会が書いたこと", s="原因と出力",
+        fig=("m24", dict(view="two91", steps=[dict(state=dict(cause="on")), dict(state=dict(ctrl="on"))],
+                         rel=rr("c91"), note="札の言葉は要約", src=ss.src(["S1 p21"])))),
+    # c408（2行）＝1行目：私信の封筒（運転担当の元副技師長から）／2行目：開いた手紙「自動の仕組み 正しく働かなかった」＋1992年の報告の札
+    "c408": dict(
+        t="発電所の中からの声", s="私信の中身",
+        fig=("m24", dict(view="letter", steps=[dict(state=dict(env="on")), dict(state=dict(open="on"))],
+                         rel=rr("r92"), note="封筒と手紙の形は模式", src=ss.src(["S1 p21"])))),
+    # c409（2行）＝1991年の委員会の報告の本文（模式）。1行目：1行に赤い下線「上級の運転員が 素早く直せず」／2行目：同じ報告に2つの言い方
+    "c409": dict(
+        t="同じ報告の別の一文", s="運転員について",
+        fig=("m24", dict(view="docline", steps=[dict(state=dict(hl="on")), dict(state=dict(two="on"))],
+                         rel=rr("c91") + [dict(t="2つの言い方", src="S1 p73")], note="頁の形と行は模式", src=ss.src(["S1 p73", "S1 p21"])))),
+    # c410（3行）＝1行目：同じ急落に3つの言い方／2行目：出力は 200MW まで戻って止まる（1時ごろ）／3行目：それ以上は上がらない
+    "c410": dict(
+        t="割れたままの見方", s="急落のあとの出力",
+        fig=("m24", dict(view="say3", steps=[dict(state=dict(cards="on")), dict(state=dict(p200="on")), dict(state=dict(cap="on"))],
+                         rel=rr("r86", "c91") + [dict(t="0時28分", src="S1 p63"), dict(t="1時ごろ・200", src="S3 p2020")],
+                         note="出力の線は模式", src=ss.src(["S1 p21", "S1 p73", "S3 p2020", "S1 p64"])))),
+    # c412（2行）＝右上の札④。1行目：熱出力の棒（同じ縮尺）と 700MW の線／2行目：1986年の報告「ふだんの安全の手順で禁止」（帰属つき）
+    "c412": dict(
+        t="4つ目の「違反」", s="同じ物差しで見る出力",
+        fig=("m24", dict(view="bars", steps=[dict(state=dict(bars="on")), dict(state=dict(r86="on"))],
+                         rel=[dict(t="3,200", src="S2 p1008"), dict(t="25日 4時前 1,600", src="S1 p63"), dict(t="700", src="S2 p1025"),
+                              dict(t="1時ごろ 200", src="S3 p2020"), dict(t="0時28分 30", src="S1 p63")] + rr("r86"),
+                         note="棒の長さは出力に比例", src=ss.src(["S2 p1025", "S2 p1008", "S1 p63", "S3 p2020"])))),
+    # c414（2行）＝1行目：口頭の説明（ソ連の専門家）→ 1986年の報告の頁の「禁止」の強調／2行目：1992年の報告「強調は当たらない」
+    "c414": dict(
+        t="強く書きすぎた一語", s="書き方の根拠",
+        fig=("m24", dict(view="page86", steps=[dict(state=dict(oral="on")), dict(state=dict(r92="on"))],
+                         rel=rr("r86", "r92"), note="頁の形は模式（頁の絵は使わない）", src=ss.src(["S1 p21", "S1 p20"])))),
+    # c415（2行）＝1行目：1992年の報告「禁止は、あるべきだった」／2行目：事故のあと＝700MW の線（ふだんの運転の下限）
+    "c415": dict(
+        t="事故のあとに引いた線", s="700メガワットの線",
+        fig=("m24", dict(view="limit", steps=[dict(state=dict(r92="on")), dict(state=dict(after="on"))],
+                         rel=rr("r92") + [dict(t="700", src="S1 p38")], note="線の高さは出力に比例（模式）", src=ss.src(["S1 p28", "S1 p38"])))),
+    # c416（2行）＝1行目は聞き役（3つの書類＝どれにも禁止の項目なし）／2行目：1991年の委員会も、事故の前は同じ見方
+    "c416": dict(
+        t="どこにも無かった禁止", s="設計・規制・指示書",
+        fig=("m24", dict(view="pillars", steps=[dict(), dict(state=dict(c91="on"))],
+                         rel=rr("c91"), note="書類の形は模式", src=ss.src(["S1 p87", "S1 p21"])))),
+    # c417（2行）＝横から見た炉と計器（🔁 前の図は上下の向きなし）。1行目：炉の中の計器＝使えない・外の計器＝真ん中の高さ／2行目：上と下は見えない・経験と勘
+    "c417": dict(
+        t="手さぐりの運転", s="炉の計器の高さ",
+        fig=("m24", dict(view="inst", steps=[dict(state=dict(det="on")), dict(state=dict(blind="on"))],
+                         rel=rr("r92"), note="計器の数と位置は模式", src=ss.src(["S1 p15"])))),
+    # c420（2行）＝温度計（模式）。1行目：出力が低い＋水の流れが増える（ポンプ8台）→ 沸く寸前／2行目：1992年の報告「事故の条件の1つ」
+    "c420": dict(
+        t="ぎりぎりの水", s="出力とポンプの組み合わせ",
+        fig=("m24", dict(view="thermo", steps=[dict(state=dict(rise="on")), dict(state=dict(r92="on"))],
+                         rel=[dict(t="ポンプ8台", src="S1 p74")] + rr("r92"), note="温度計の目盛りは模式（数は無い）", src=ss.src(["S1 p18", "S1 p74"])))),
+    # c421（3行）＝1991年の委員会の天秤。1行目：一部のポンプ＝流れすぎ＝違反／2行目：8台のポンプ＝暴走を妨げたかも／3行目：見方は割れる
+    "c421": dict(
+        t="ポンプ8台の評価", s="違反か、助けか",
+        fig=("m24", dict(view="balance", steps=[dict(state=dict(left="on")), dict(state=dict(right="on")), dict(state=dict(split="on"))],
+                         rel=rr("c91") + [dict(t="8台", src="S1 p88")], note="天秤は水平（どちらにも寄せない）", src=ss.src(["S1 p87", "S1 p88"])))),
+})

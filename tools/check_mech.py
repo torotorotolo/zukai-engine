@@ -4792,8 +4792,341 @@ def _selftest_m17(ok):
     return ok
 
 
+# ══════════════════════════════════════════════════════════
+#  🆕 24本目 ⑤b-4（2026-10-23）：図解（m24＝`tools/mech24.py`・第1〜3章の39カット）
+#   記録の値は門番の側（§5b-88）＝描く側の表（REPS・VIOL・YEARS・CAL_MARK・OR_PTS・BR_ROWS・MT_V・CK_T・RG_A …）と別に持ち、
+#   ①報告の名と色（帰属の呼び分け＝台本 §1-5）②形・表・画素（f.mech["geo"]）を記録で ③**基図と段の層の全部の字**の数を rel で・時刻は記録の時刻だけ
+#   ④句を原文の頁で（`ref/ep24/src/ep24_pages.txt`＝git の外・通し頁＝cuts/ss.REC_DOCS。Actions では句の照合だけ飛ばす）。
+#   ⚠️ 次の回の ⑤b-1（§0b）で REC_M24 を見本へ移すときは、REC_M17 と同じ形（selftest は見本の表と章ファイルを差し込む）
+# ══════════════════════════════════════════════════════════
+REC_M24 = dict(
+    reps=dict(r86=("1986年の報告", "bldg_a"), s86=("1986年のソ連の報告", "company"), c91=("1991年の委員会", "city"), r92=("1992年の報告", "state")),
+    # 画面に出してよい時計の時刻＝台本 §1-5（1:06・1:00〈1986年の報告と帰属〉・7:10・13:05・14:00・23:10＝25日／0:05・0:28＝26日）
+    times={"1:06", "1:00", "7:10", "13:05", "14:00", "23:10", "0:05", "0:28"},
+    viol=("試験の計画", "非常用の冷却", "0時28分の急落", "700メガワット", "蒸気ドラムの保護", "タービンの保護", "残した制御棒の数"),
+    years=dict(items=(("s86", "1986年8月", (1986, 8), False), ("r86", "1986年9月", (1986, 9), True), ("c91", "1991年", (1991, 0), True),
+                      ("r92", "1992年", (1992, 0), True)),
+               quote=(("S3 p2003", "DRAFT August 1986"), ("S2 p1001", "24 September 1986"), ("S1 p39", "(Moscow, 1991)"), ("S1 p1", "VIENNA, 1992"),
+                      ("S1 p34", "does not retract INSAG-1, nor does it alter the conclusions of that report"))),
+    cards7=dict(quote=(("S2 p1027", "This series of wilful violations of procedure, extraordinary as they were"),)),
+    neutron=dict(heat="3,200", elec="1,000", quote=(("S2 p1008", "with an operating power of 1000 MW(e), 3200 MW(th)"),)),
+    void=dict(nodes=("水が沸いて泡が増える", "中性子を吸う水が減る", "反応が強まる", "熱が増える"),
+              quote=(("S1 p13", "the void and power coefficients of reactivity were both positive"),)),
+    power20=dict(low=20, quote=(("S2 p1009", "becomes positive below approximately 20% of full power"),)),
+    flow4=dict(boxes=(("ext", "外から来る電気"), ("tb", "止まりかけのタービン"), ("el", "電気"), ("pump", "ポンプ")),
+               quote=(("S3 p2019", "to test the possibility of utilizing the mechanical energy of the rotor"),
+                      ("S2 p1009", "until the standby diesel generators could supply emergency power"))),
+    decay=dict(quote=(("S1 p121", "to verify whether cooldown of the core by forced cir-culation could be maintained"),)),
+    cal=dict(years=(1982, 1983, 1984, 1985, 1986),
+             marks={1982: ("ok", "3号機で試験"), 1984: ("ok", "改良した装置で試験"), 1985: ("ok", "同じく試験"),
+                    1983: ("start", "12月　4号機の運転の始まり"), 1986: ("night", "4月　4号機で試験")},
+             quote=(("S1 p61", "In 1982, the corresponding tests were carried out at Chernobyl Unit 3"),
+                    ("S1 p61", "Additional tests with a modernized rundown unit were performed in 1984 and 1985."),
+                    ("S1 p61", "Chernobyl Unit 4 was com-missioned in December 1983 without having been tested under these conditions"))),
+    plan=dict(quote=(("S1 p62", "not entirely satisfactory, primarily in terms of its safety measures"),
+                     ("S3 p2019", "the section on safety measures was drafted in a purely formal way"))),
+    blame=dict(chips=("承認なし", "その場で", "わざと"),
+               quote=(("S1 p34", "unapproved changes in the test procedure were deliberately made on the spot"),)),
+    cut=dict(quote=(("S3 p2019", "it called for shutting off the reactor's emergency core cooling system"),
+                    ("S3 p2019", "the safety of the reactor would be substantially reduced"))),
+    site=dict(n=4, mark=4, quote=(("S2 p1008", "Four have been operating at Chernobyl"),)),
+    dial=dict(t="1:06", t86="1:00", quote=(("S1 p63", "01:06 Start of reactor power reduction"), ("S2 p1028", "At 01:00 on 25 April"),
+                                          ("S3 p2020", "at exactly 1:00 hours"))),
+    ruler=dict(ticks=(30, 26, 15), quote=(("S1 p89", "not less than 26-30 rods"),
+                                          ("S1 p89", "When the ORM falls to 15 rods, the reactor should be shut down immediately"))),
+    orm=dict(pts=(("1:06", 31.0), ("7:10", 13.2)), line=15.0,
+             quote=(("S1 p63", "ORM equals 31 manual control rods"), ("S1 p63", "07:10 ORM equals 13.2 manual control rods"),
+                    ("S1 p21", "claim that this minimum ORM was also violated for several hours on 25 April"))),
+    turbine=dict(t="13:05", stop=7, keep=8, quote=(("S1 p63", "13:05 Disconnection of turbogenerator No. 7 from the system"),)),
+    eccs=dict(t="14:00", n=2, quote=(("S1 p63", "14:00 Disconnection of the ECCS"),)),
+    stamp=dict(quote=(("S1 p20", "blocking of the ECCS was in fact permissible at Chernobyl if authorized by the Chief Engineer"),
+                      ("S1 p20", "was even an approved step in the test procedure"))),
+    off11=dict(t0="14:00", h=11, quote=(("S1 p20", "for the period of approximately 11 hours leading up to the accident"),
+                                        ("S1 p20", "are indicative of an absence of safety culture"))),
+    grid3=dict(cols=("r86", "c91", "r92"), row1=("安全の原則に反する", "運転の規則に反する", "承認で許されていた"),
+               row2="どれも、事故の進み方には効いていない",
+               quote=(("S2 p1035", "Safety principle violation"), ("S1 p82", "taking the ECCS out of operation is a violation of Section 2.10.5"),
+                      ("S1 p88", "the switching off of the ECCS did not affect the initiation and scale"),
+                      ("S1 p20", "INSAG believes that this point did not affect the initiation and development of the accident"))),
+    trigger=dict(t="14:00", quote=(("S1 p88", "did not affect the initiation and scale of the accident"),
+                                   ("S1 p63", "14:00 Postponement of testing programme"))),
+    kiev=dict(quote=(("S1 p63", "Postponement of testing programme requested by Kiev power grid controller"),)),
+    ring=dict(a="14:00", b="23:10", h=9, quote=(("S1 p63", "23:10 Power reduction continued"),
+                                                ("S2 p1028", "not resumed until approximately 9 h later"))),
+    day=dict(quote=(("S1 p63", "25 April 1986"), ("S1 p63", "26 April 1986"))),
+    meter=dict(t="0:05", v=720.0, vmax=3200.0, plan=(700.0, 1000.0),
+               quote=(("S1 p63", "00:05 Reactor thermal power was 720 MW"), ("S3 p2020", "was to be carried out at a reactor power of 700-1000 MW(th)"),
+                      ("S2 p1008", "3200 MW(th)"))),
+    clock=dict(t="0:28", quote=(("S1 p63", "00:28 At reactor thermal power of about 500 MW transfer made"),
+                                ("S1 p63", "from the local to global main range automatic power control"))),
+    hold=dict(n=3, quote=(("S2 p1036", "Operator error with transfer"), ("S2 p1028", "a 'hold power' request was not entered"))),
+    swap=dict(quote=(("S1 p21", "Recent reports suggest that there was no operator error as such"),)),
+    two91=dict(quote=(("S1 p21", "refers to an unknown cause and inability to control the power"),)),
+    letter=dict(quote=(("S1 p21", "former Deputy Chief Engineer for Operations at the Chernobyl plant"),
+                       ("S1 p21", "in a private communication refers to the system not working properly"))),
+    docline=dict(quote=(("S1 p73", "failed to eliminate fast enough the imbalance"),)),
+    say3=dict(cards=(("r86", "運転員の誤り"), ("letter", "仕組みが働かず"), ("c91", "素早く直せず")), v=200, t="1時ごろ",
+              quote=(("S3 p2020", "Only at 1:00 on 26 April"), ("S1 p64", "Reactor thermal power increased to 200 MW and stabilized"))),
+    bars=dict(rows=(("最大の出力", 3200, "LINE"), ("25日 4時前", 1600, "ship"), ("試験の予定の下の端", 700, "OK"), ("その夜 1時ごろ", 200, "AMBER"),
+                    ("0時28分", 30, "ALERT")), n=4,
+              quote=(("S2 p1025", "continuous operation below 700 MW(th) is forbidden by normal safety procedures"),
+                     ("S1 p63", "03:47 Reactor thermal power is 1600 MW"), ("S1 p63", "reduction in thermal power to 30 MW"))),
+    page86=dict(quote=(("S1 p21", "The emphasis placed on this statement in INSAG-1 was not warranted."),
+                       ("S1 p20", "was based on oral statements made by Soviet experts"))),
+    limit=dict(v=700.0, quote=(("S1 p28", "There should have been such a proscription, but there was none at the time."),
+                               ("S1 p38", "sets a lower limit of 700 MW(th) for steady operation"))),
+    pillars=dict(items=("設計", "規制", "運転の指示書"), empty="どれにも、禁止の項目なし",
+                 quote=(("S1 p87", "there were no safe operating limits in terms of minimum permissible thermal reactor power"),
+                        ("S1 p21", "was not proscribed, either in design, in regula-tory limitations or in operating instructions"))),
+    inst=dict(quote=(("S1 p15", "they were all located at the mid-plane of the core"),
+                     ("S1 p15", "a reactor operator had to rely mainly on experience and intuition"))),
+    thermo=dict(quote=(("S1 p18", "The use of all eight pumps increased the coolant flow rate above that under nominal"),
+                       ("S1 p74", "eight instead of the usual six MCPs were in operation"))),
+    balance=dict(left=("一部のポンプ", "流れすぎ＝違反"), right=("8台のポンプ", "暴走を妨げたかも"),
+                 quote=(("S1 p88", "if anything hindered the reactor runaway"), ("S1 p87", "the flow rates of certain MCPs actually exceeded the limit"))),
+)
+_M24_PAGES = {}
+
+
+def _m24_page(rec):
+    """「S1 p34」「S2 p1027」…の頁の文字（NFKC・空白なし）。原文が手元に無い（Actions）は None。頁は ss.REC_DOCS の通し番号。"""
+    import unicodedata
+    from pathlib import Path
+    m_ = re.fullmatch(r"(?:S1|S2|S3|L1|L2) p(\d+)", rec)
+    if not m_:
+        return None
+    if not _M24_PAGES:
+        t = Path(__file__).resolve().parent.parent / "ref" / "ep24" / "src" / "ep24_pages.txt"
+        if not t.exists():
+            _M24_PAGES[None] = True
+            return None
+        for mm in re.finditer(r"^=== p(-?\d+) ===\n(.*?)(?=^=== p|\Z)", t.read_text(encoding="utf-8"), re.M | re.S):
+            _M24_PAGES[int(mm.group(1))] = re.sub(r"\s+", "", unicodedata.normalize("NFKC", mm.group(2)))
+    if None in _M24_PAGES:
+        return None
+    return _M24_PAGES.get(int(m_.group(1)), "")
+
+
+def judge_m24(f):
+    """24本目 図解：①報告の名と色 ②形・表・画素を記録（REC_M24）で ③全部の字の数を rel で・時刻は記録の時刻だけ ④句を原文の頁で。"""
+    import jiko_style as J
+    bad, n = [], 0
+    m = f.mech
+    g, view = m["geo"], m["view"]
+    R = REC_M24
+    if not R:
+        return ["記録の表 REC_M24 が空（その回の値を入れるまで、m24 のカットは止まる）"], 1
+
+    def need(cond, msg):
+        nonlocal n
+        n += 1
+        if not cond:
+            bad.append(msg)
+
+    def col(name):
+        return (J.ROLE.get(name) or getattr(J, name)).lower()
+
+    def prop(a, b):
+        return abs(a - b) < 0.5
+
+    Rv = R.get(view) or {}
+    need({k: (t, col(r)) for k, (t, r) in g["reps"].items()} == {k: (t, col(r)) for k, (t, r) in R["reps"].items()},
+         "② 報告の色か名が記録（1986年の報告＝桃・ソ連の報告＝橙・1991年の委員会＝紫・1992年の報告＝青）と違う")
+    need(len({col(r) for _t, r in g["reps"].values()}) == 4, "② 報告の色が4つに分かれていない")
+    if view == "years":
+        need(tuple(g["items"]) == Rv["items"], f"② 年表の点 {g['items']} が記録（表紙の日付）と違う")
+        need(all(a < b for a, b in zip(g["xs"], g["xs"][1:])), "② 年表の点が日付の順（左から右）に並んでいない")
+        need(tuple(k for k, *_r in g["items"] if not _r[2]) == ("s86",), "② 細い点（ほかの報告）が1986年8月のソ連の報告だけでない")
+    if view == "cards7":
+        need(tuple(g["cards"]) == R["viol"], f"② 7つの札 {g['cards']} が記録（台本 §4 c206 の順と言葉）と違う")
+        xy = g["xy"]
+        need(all((xy[i][1], xy[i][0]) < (xy[i + 1][1], xy[i + 1][0]) for i in range(6)), "② 7つの札の並びが番号の順でない")
+    if view == "neutron":
+        need((g["heat"], g["elec"]) == (Rv["heat"], Rv["elec"]), f"② 熱と電気 {g['heat']}・{g['elec']} が記録（3,200・1,000＝S2 p1008）と違う")
+    if view == "void":
+        need(tuple(g["nodes"]) == Rv["nodes"], f"② 泡の輪の札 {g['nodes']} が記録と違う")
+        (x0, y0), (x1, y1), (x2, y2), (x3, y3) = g["xy"]
+        need(y0 < y1 < y2 and x1 > x0 > x3 and abs(x0 - x2) < 1, "② 泡の輪の札が時計回り（上→右→下→左）に並んでいない")
+    if view == "power20":
+        need(g["low"] == Rv["low"], f"② 出力の目盛りの境 {g['low']}%（記録 20%＝S2 p1009）")
+        need(prop(g["xl"], g["x0"] + (g["x1"] - g["x0"]) * Rv["low"] / 100.0), "② 出力の目盛りの赤の境の画素が割合と合わない")
+    if view == "flow4":
+        need(tuple(g["boxes"]) == Rv["boxes"], f"② 試験の流れの箱 {g['boxes']} が記録と違う")
+        need(all(a < b for a, b in zip(g["xs"], g["xs"][1:])), "② 試験の流れの箱が順（左から右）に並んでいない")
+    if view == "cal":
+        need(tuple(g["years"]) == Rv["years"] and {k: tuple(v) for k, v in g["marks"].items()} == Rv["marks"],
+             f"② 暦の年か印 {g['marks']} が記録（S1 p61）と違う")
+        need(all(a < b for a, b in zip(g["xs"], g["xs"][1:])), "② 暦の頁が年の順に並んでいない")
+    if view == "blame":
+        need(tuple(g["chips"]) == Rv["chips"], f"② 責めの札 {g['chips']} が記録（S1 p34）と違う")
+    if view == "site":
+        need((g["n"], g["mark"]) == (Rv["n"], Rv["mark"]), f"② 号機の数か印 {g['n']}・{g['mark']}（記録 4・4号機）")
+        need(all(a < b for a, b in zip(g["xs"], g["xs"][1:])), "② 号機が番号の順に並んでいない")
+    if view == "dial":
+        need((g["t"], g["t86"]) == (Rv["t"], Rv["t86"]), f"② 出力の針の時刻 {g['t']}・{g['t86']}（記録 1:06・1986年の報告 1:00）")
+        rots = g["rots"]
+        need(rots and rots[0] == 0.0 and all(r <= 0.0 for r in rots) and all(b <= a for a, b in zip(rots, rots[1:])),
+             "② 出力の針が下げる向き（左回り）に動いていない")
+    if view == "ruler":
+        need(tuple(g["ticks"]) == Rv["ticks"], f"② 物差しの目盛り {g['ticks']}（記録 30・26・15＝S1 p89）")
+        need(all(prop(y, g["y0"] - v * g["k"]) for y, v in zip(g["ys"], Rv["ticks"])), "② 物差しの目盛りの画素が値に比例していない")
+    if view == "orm":
+        need(tuple(g["pts"]) == Rv["pts"] and g["line"] == Rv["line"], f"② 残した棒の点 {g['pts']} か線 {g['line']} が記録（表I-I・S1 p89）と違う")
+        for (t, v), (x, y) in zip(Rv["pts"], g["px"]):
+            h, mi = (int(a) for a in t.split(":"))
+            need(prop(x, g["x0"] + (g["x1"] - g["x0"]) * (h + mi / 60.0) / g["hours"]) and prop(y, g["y0"] - v * g["k"]),
+                 f"② 残した棒の点（{t}・{v}）の画素が値と合わない")
+        need(g["px"][0][1] < g["ly"] < g["px"][1][1], "② 1:06 の点が15本の線の上・7:10 の点が下になっていない")
+    if view == "turbine":
+        need((g["t"], g["stop"], g["keep"]) == (Rv["t"], Rv["stop"], Rv["keep"]), f"② タービンの時刻か号 {g['t']}・{g['stop']}・{g['keep']}（記録 13:05・7号を止める・8号）")
+    if view == "eccs":
+        need(g["t"] == Rv["t"] and g["n"] == Rv["n"], f"② 非常用の冷却の時刻か札 {g['t']}・{g['n']}（記録 14:00・②）")
+        need(g["tank_x1"] < g["valve_x"] < g["core_x0"], "② 弁が水の槽と炉のあいだにない")
+    if view == "off11":
+        need((g["t0"], g["h"]) == (Rv["t0"], Rv["h"]), f"② 切っていた時間 {g['t0']}・約{g['h']}時間（記録 14:00・約11時間＝S1 p20）")
+    if view == "grid3":
+        need(tuple(g["cols"]) == Rv["cols"], f"② 3つの報告の列 {g['cols']} が記録（1986年・1991年・1992年の順）と違う")
+        need(tuple(g["row1"]) == Rv["row1"] and g["row2"] == Rv["row2"], "② 3つの報告の見方の札が記録と違う")
+        need(all(a < b for a, b in zip(g["xs"], g["xs"][1:])), "② 3つの報告の列が年の順に並んでいない")
+    if view == "trigger":
+        need(g["t"] == Rv["t"], f"② 延期の時刻 {g['t']}（記録 14:00）")
+    if view == "kiev":
+        need(g["a"][0] < g["b"][0], "② 指令所から発電所へ（左から右）の向きになっていない")
+    if view == "ring":
+        need((g["a"], g["b"], g["h"]) == (Rv["a"], Rv["b"], Rv["h"]), f"② 24時間の輪 {g['a']}→{g['b']} 約{g['h']}時間（記録 14:00→23:10・約9時間）")
+        for t, d in zip((g["a"], g["b"]), g["deg"]):
+            h, mi = (int(a) for a in t.split(":"))
+            need(abs(d - ((h + mi / 60.0) / 24.0 * 360.0 - 90.0)) < 1e-6, f"② 24時間の輪の {t} の角度が時刻と合わない")
+        h0, m0 = (int(a) for a in g["a"].split(":"))
+        h1, m1 = (int(a) for a in g["b"].split(":"))
+        need(round((h1 * 60 + m1 - h0 * 60 - m0) / 60.0) == g["h"], "② 24時間の輪の「約…時間」が2つの時刻の差と合わない")
+    if view == "day":
+        need(g["order"][0] < g["order"][1], "② 25日の札が26日の札の左にない")
+    if view == "meter":
+        need((g["t"], g["v"], g["vmax"], tuple(g["plan"])) == (Rv["t"], Rv["v"], Rv["vmax"], Rv["plan"]),
+             f"② 目盛りの針 {g['t']}・{g['v']}・{g['plan']}（記録 0:05・720・700〜1,000）")
+        need(prop(g["xv"], g["x0"] + (g["x1"] - g["x0"]) * Rv["v"] / Rv["vmax"])
+             and all(prop(x, g["x0"] + (g["x1"] - g["x0"]) * v / Rv["vmax"]) for x, v in zip(g["xp"], Rv["plan"])), "② 目盛りの針か帯の画素が値に比例していない")
+    if view == "clock":
+        need(g["t"] == Rv["t"], f"② 時計 {g['t']}（記録 0:28）")
+        h, mi = (int(a) for a in g["t"].split(":"))
+        need(abs(g["angles"][0] - ((h % 12) * 30 + mi * 0.5)) < 1e-6 and abs(g["angles"][1] - mi * 6) < 1e-6, "② 時計の針の角度が時刻と合わない")
+    if view == "hold":
+        need(g["n"] == Rv["n"] and g["viol"] == R["viol"][Rv["n"] - 1], f"② 右上の違反の札 {g['n']}「{g['viol']}」（記録 ③ 0時28分の急落）")
+    if view == "say3":
+        need(tuple(g["cards"]) == Rv["cards"] and (g["v"], g["t"]) == (Rv["v"], Rv["t"]), f"② 3つの言い方か 200MW の札 {g['cards']}・{g['v']}・{g['t']} が記録と違う")
+    if view == "bars":
+        need(tuple(g["rows"]) == Rv["rows"], f"② 熱出力の棒 {g['rows']} が記録と違う")
+        need(all(prop(e, g["x0"] + v * g["unit"]) for e, (_t, v, _r) in zip(g["ends"], Rv["rows"])), "② 熱出力の棒の長さが値と合わない（同じ縮尺）")
+        need(len({col(r) for _t, _v, r in g["rows"]}) == len(g["rows"]), "② 熱出力の棒の色が分かれていない（色を多く）")
+        need(g["n"] == Rv["n"] and g["viol"] == R["viol"][Rv["n"] - 1], "② 右上の違反の札が記録（④ 700メガワット）と違う")
+    if view == "limit":
+        need(g["v"] == Rv["v"] and prop(g["y"], g["y0"] - (g["y0"] - g["y1"]) * Rv["v"] / g["vmax"]), f"② 下限の線 {g['v']} か高さが記録（700MW＝S1 p38）と合わない")
+    if view == "pillars":
+        need(tuple(g["items"]) == Rv["items"] and g["empty"] == Rv["empty"], f"② 3つの決まりの札 {g['items']} が記録と違う")
+    if view == "inst":
+        x0, y0, x1, y1 = g["core"]
+        need(abs(g["out_y"] - (y0 + y1) / 2) < 0.5, "② 外の計器が炉の真ん中の高さにない（S1 p15）")
+    if view == "thermo":
+        need(g["boil"] < g["lvl"], "② 入口の水の高さが沸く温度の線を越えている（沸く寸前＝線の下）")
+    if view == "balance":
+        need((tuple(g["left"]), tuple(g["right"])) == (Rv["left"], Rv["right"]) and g["xl"] < g["xr"], "② 天秤の札が記録（左＝違反・右＝妨げたかも）と違う")
+    for p, q in Rv.get("quote", ()):
+        src_ = _m24_page(p)
+        if src_ is not None:
+            need(_m17_q(q) in src_, f"④ 句「{q[:20]}…」が {p} に無い")
+    said = [r.get("t", "") for r in m["rel"]]
+    for t in list(m["texts_all"]):
+        for mm in NUM_M17.finditer(t):
+            tok = mm.group(0)
+            need(any(tok in s for s in said), f"③ 画面の字「{t}」の数「{tok}」が rel（記録の値の宣言）に無い")
+            full = tok.replace("：", ":")
+            if ":" in full:
+                need(full in R["times"], f"③ 画面の字「{t}」の時刻「{tok}」が記録の時刻（{sorted(R['times'])}）に無い")
+    for r in m["rel"]:
+        need(bool(r.get("src")), f"③ rel「{r.get('t')}」に出どころ（src）が無い")
+    return bad, n
+
+
+def _selftest_m24(ok):
+    """🆕 24本目 ⑤b-4：本番の m24 が全部通り、描く側の定数を壊すと**狙った理由で**鳴るか（陽性対照）。型の例外で止まった対照は鳴ったと数えない。"""
+    import mech24 as M
+    import cuts
+    good = {c: s["fig"][1] for c, s in cuts.SPEC.items() if s.get("fig") and s["fig"][0] == "m24"}
+    if not good:
+        print("  ⚠️ 24本目 m24 のカットが SPEC に無い（陽性対照は飛ばした）")
+        return ok
+    for cid, kw in sorted(good.items()):
+        bad, _ = judge("m24", kw)
+        ok &= not bad
+        if bad:
+            print(f"  🔴 NG 24本目 m24 の本番 {cid} が落ちた: {bad[0]}")
+    by_view = {}
+    for cid, kw in sorted(good.items()):
+        by_view.setdefault(kw["view"], kw)
+    cases = (("1991年の点を1990年に", "years", "YEARS", M.YEARS[:2] + (("c91", "1990年", (1990, 0), True) + M.YEARS[2][4:],) + M.YEARS[3:], "② 年表の点"),
+             ("7つの札の順を逆に", "cards7", "VIOL", tuple(reversed(M.VIOL)), "② 7つの札"),
+             ("熱を 3,000 に", "neutron", "NT_HEAT", "3,000", "② 熱と電気"),
+             ("目盛りの境を 25% に", "power20", "PW_LOW", 25, "② 出力の目盛りの境"),
+             ("1983年の印を3号機に", "cal", "CAL_MARK", {**M.CAL_MARK, 1983: ("start", "12月　3号機の運転の始まり")}, "② 暦の年か印"),
+             ("下げ始めを 1:00 に", "dial", "DL_T", "1:00", "② 出力の針の時刻"),
+             ("針を上げる向きに", "dial", "DL", dict(M.DL, drop=22.0), "② 出力の針が下げる向き"),
+             ("目盛りの 26 を 25 に", "ruler", "RL_TICKS", (30, 25, 15), "② 物差しの目盛り"),
+             ("7:10 の値を 15.2 に", "orm", "OR_PTS", (("1:06", 31.0), ("7:10", 15.2)), "② 残した棒の点"),
+             ("止めるタービンを8号に", "turbine", "TB_STOP", 8, "② タービンの時刻か号"),
+             ("輪の終わりを 23:00 に", "ring", "RG_B", "23:00", "② 24時間の輪"),
+             ("針を 700 に", "meter", "MT_V", 700.0, "② 目盛りの針"),
+             ("時計を 0:38 に", "clock", "CK_T", "0:38", "② 時計"),
+             ("1,600 の棒を 1,500 に", "bars", "BR_ROWS", (M.BR_ROWS[0], ("25日 4時前", 1500, "ship", "1,600MW")) + M.BR_ROWS[2:], "② 熱出力の棒"),
+             ("棒の色を2本同じに", "bars", "BR_ROWS", (M.BR_ROWS[0], ("25日 4時前", 1600, "LINE", "1,600MW")) + M.BR_ROWS[2:], "② 熱出力の棒"),
+             ("3つの報告の列を入れ替える", "grid3", "G3_COLS", ("c91", "r86", "r92"), "② 3つの報告の列"),
+             ("1986年の報告と1992年の報告の色を入れ替える", "swap", "REPS", dict(M.REPS, r86=("1986年の報告", "state"), r92=("1992年の報告", "bldg_a")),
+              "② 報告の色か名"),
+             ("指令所を右に", "kiev", "KV", dict(a=(1460.0, 520.0), b=(400.0, 520.0)), "② 指令所から発電所へ"),
+             ("200MW の時刻を 1:03 に", "say3", "S3_T", "1:03", "② 3つの言い方か 200MW"),
+             ("下限を 600 に", "limit", "LM_V", 600.0, "② 下限の線"),
+             ("天秤の左右を入れ替える", "balance", "BA_L", M.BA_R, "② 天秤の札"),
+             ("切っていた時間を約10時間に", "off11", "OF_H", 10, "② 切っていた時間"))
+    for name, view, attr, val, why in cases:
+        if view not in by_view:
+            print(f"  ⚠️ 24本目 陽性対照「{name}」：{view} のカットが無い（飛ばした）")
+            continue
+        keep = getattr(M, attr)
+        setattr(M, attr, val)
+        try:
+            bad, _ = judge("m24", by_view[view])
+            how = ""
+        except Exception as e:      # 型の例外で止まった対照は鳴ったと数えない（⑤b-3 §6）
+            bad, how = [], f"（型の例外：{e}）"
+        finally:
+            setattr(M, attr, keep)
+        g_ = any(b.startswith(why) for b in bad)
+        ok &= g_
+        print(f"  {'OK' if g_ else '🔴 NG'} 🔴 24本目 ⑤b-4 陽性対照：{name}: {'不合格' if bad else '合格'}（不合格のはず・理由「{why}」）{how}"
+              + (f"  ← {bad[0]}" if bad else ""))
+    # rel から数を抜く（③）・記録の時刻に無い時刻（③）
+    kw = dict(by_view["meter"], rel=[r for r in by_view["meter"]["rel"] if "720" not in r.get("t", "")])
+    bad, _ = judge("m24", kw)
+    g_ = any(b.startswith("③") and "720" in b for b in bad)
+    ok &= g_
+    print(f"  {'OK' if g_ else '🔴 NG'} 🔴 24本目 ⑤b-4 陽性対照：rel から 720 を抜く: {'不合格' if bad else '合格'}（不合格のはず・理由「③」）")
+    keep = M.TB_T
+    M.TB_T = "13:50"
+    try:
+        kw = dict(by_view["turbine"], rel=list(by_view["turbine"]["rel"]) + [dict(t="13:50", src="S1 p63")])
+        bad, _ = judge("m24", kw)
+    finally:
+        M.TB_T = keep
+    g_ = any(b.startswith("③") and "13:50" in b for b in bad)
+    ok &= g_
+    print(f"  {'OK' if g_ else '🔴 NG'} 🔴 24本目 ⑤b-4 陽性対照：記録に無い時刻 13:50: {'不合格' if bad else '合格'}（不合格のはず・理由「③ 時刻」）")
+    return ok
+
+
 def judge(kind, kw):
     f = getattr(F, kind)(**kw)
+    if kind == "m24":
+        return judge_m24(f)
     if kind == "m17":
         return judge_m17(f)
     if kind == "m23":
@@ -5171,6 +5504,8 @@ def selftest():
     ok = _selftest_m22(ok)
     ok = _selftest_m23(ok)
     ok = _selftest_m17(ok)       # 🆕 17本目 ⑤b-5：本番の m17 が通り・壊した定数が狙った理由で鳴る
+    # ⚠️ 24本目 ⑤b-4 の m24 の検算（_selftest_m24）はここで回さない＝この中は ss が14本目・章ファイルが17本目の見本に差し替わっている
+    #    （fixture_ep14.apply・fixture_ep17.apply_cuts）＝main() が見本を戻してから本番の章ファイルで回す
     print("selftest:", "通った" if ok else "🔴 落ちた")
     return ok
 
@@ -5178,8 +5513,6 @@ def selftest():
 def main():
     if not selftest():
         return 2
-    if "--selftest" in sys.argv:
-        return 0
     import fixture_ep14
     import fixture_ep15
     import fixture_ep16
@@ -5200,10 +5533,17 @@ def main():
     fixture_ep16.restore()       # 🔴 18本目 ⑤b-1：selftest で足した16本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep15.restore()       # 🔴 16本目 ⑤b-1：selftest で足した15本目の見本の表を戻す（あとに差し込んだ側から＝LIFO）
     fixture_ep14.restore()       # 🔴 15本目 ⑤b-2：selftest で差し込んだ14本目の見本を本番の表に戻す（戻さないと14本目の表で本番を測る）
+    # 🆕 24本目 ⑤b-4：m24 の検算＝見本を全部戻してから本番の章ファイルで（正しい39カット・陽性対照24）
+    if not _selftest_m24(True):
+        print("selftest（m24）: 🔴 落ちた")
+        return 2
+    print("selftest（m24）: 通った")
+    if "--selftest" in sys.argv:
+        return 0
     import cuts
     targets = {c: s["fig"] for c, s in sorted(cuts.SPEC.items())
                if s.get("fig") and s["fig"][0] in ("latch", "section", "hull", "lash", "tail", "mod", "bolt", "vsec", "lv", "m18",
-                                                   "m19", "m20", "m21", "m22", "m23", "m17")}
+                                                   "m19", "m20", "m21", "m22", "m23", "m17", "m24")}
     if not targets:
         print("⚠️ latch・section・hull・lash・tail・mod・bolt のカットが0件（この回に仕組みの模式図が無いなら正しい。"
               "**0件を調べて合格**にしていないか確かめる）")
@@ -5218,6 +5558,10 @@ def main():
         if kind == "m17":         # 🆕 17本目 ⑤b-5：見る向きの合図（「正面」も）
             n += 1
             vb = view_dir_check17(cuts.PLAN.get(cid, {}).get("plan", ""), F.m17(**kw).mech["lab"])
+            bad = list(bad) + ([f"② {vb}"] if vb else [])
+        if kind == "m24":         # 🆕 24本目 ⑤b-4：見る向きの合図（PLAN の「見る向き：」× 左上の札）
+            n += 1
+            vb = view_dir_check17(cuts.PLAN.get(cid, {}).get("plan", ""), F.m24(**kw).mech["lab"])
             bad = list(bad) + ([f"② {vb}"] if vb else [])
         n_all += n
         if bad:
