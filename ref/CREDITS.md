@@ -2795,3 +2795,114 @@ BY-SA の表示＝撮影者・許諾名と URL・素材の URL・無改変（許
 | `xg2` | c515 c707 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/an-aircraft-gear-shift-levers-and-illuminated-control-panel-6896137/ |
 | `xh1` | c801 | 不明 | Pexels License（イメージ） | 投稿者（クレジットは任意＝書かない） | https://www.pexels.com/photo/crescent-over-air-traffic-control-tower-at-night-20677027/ |
 | `t1` | c202 ca06 | 1993 | CC BY 2.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep17/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:HONG_KONG_KAI_TAK_19_OCT_1993_CHINA_AIRLINES_AIRBUS_A300_B-1814.jpg |
+
+## チェルノブイリ原発事故（1986-04-26・24本目）
+
+※2026-10-22（⑤b-2）。`qa_out/ep24_assets.py credits --write` が書く（手で直さない）。写真と映像は映像方針の一覧 `ref/ep24/eizou_list24.md`（了承② 2026-10-22）。
+
+### 0. 映像（フリー素材＝音はすべて使わない＝`-an`）
+- フリー素材（Pexels・生成AI は使わない）＝画面の左上に「イメージ」・出典の行は「イメージ（Pexels）」だけ（クレジットは任意＝投稿者の名前は書かない・概要欄にも書かない）。20% に数えない。🔴 映像そのものもひかえの静止画も git に入れない（19本目 決め⑨）
+
+| 記号 | 使うカット | 画面の出典 | ライセンス | 頁 |
+|---|---|---|---|---|
+| `X13188726` | c101 cb23 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/13188726/ |
+| `X13188720` | c107 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/13188720/ |
+| `X12191470` | c621 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/12191470/ |
+| `X13188723` | c927 cc20 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/13188723/ |
+| `X13188717` | ca15 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/13188717/ |
+| `X13183773` | cb22 | イメージ（Pexels） | Pexels License | https://www.pexels.com/video/13183773/ |
+
+### 1. 写真・頁（IAEA Imagebank・Commons・USGS・報告書と会議録の頁）
+- 🔴 **CC BY-SA は額装だけ**（了承② 決め4＝無加工・額ごと動かす・1点1カット＝`cuts/ss.check_frame_only`）。IAEA 0279 の34点は全部 CC BY-SA 2.0
+- 🔴 **個人名義の点は画面の出典の行に作者欄の名前**。名前はこのリポに書かない＝`ref/ep24/credits.json` は印 `{作者}` だけ・焼くときに git の外の表から足す（`tools/scene_jiko.ep24_credit`・名乗りの短い形＝`_ep24_short`）。CC0・PD は表示が任意＝名前を出さない
+- 「参考」＝この事故の物ではない実物（同じ型の炉＝レニングラード・クルスク・イグナリナ）＝20% の数（この事故の写真）に入れない
+- 報告書・会議録の頁＝引用（著作権法32条＝無加工・出典）。頁は使う章のチャットで足す（⑤b-2 は c104 の INSAG-7 p.34 だけ）
+- 撮影年＝Commons の撮影日の欄。IAEA 0279 の組の多くは欄が取り込みの日（2005・2006年）で説明に年が無い＝「不明」（副題に年を書かない）
+
+| 欄 | 使うカット | 撮影年 | 権利 | 撮影者 | 出どころと許諾 |
+|---|---|---|---|---|---|
+| `az5` | c613 | 2019 | CC BY-SA 4.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:%C5%98%C3%ADzen%C3%AD_jadern%C3%A9_%C4%8D%C3%A1sti_RBMK1000.jpg |
+| `c0` | cc18 | 2008 | CC BY 3.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Chernobyl,_fourth_reactor_bloc.JPG |
+| `c1` | ca19 | 2008 | CC BY 3.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Reactor_bloc_of_the_Chernobyl_Nuclear_Power_Plant.JPG |
+| `c2` | cb01 | 2007 | パブリックドメイン（この事故） | Commons の投稿者（CC0・PD＝表示は任意） | https://commons.wikimedia.org/wiki/File:Chernobylreactor.jpg |
+| `c27` | cb19 | 2018 | CC BY 2.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Chernobyl_-_39484641685.jpg |
+| `c3` | cc05 | 2013 | CC BY 2.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Chernobyl_and_Pripyat_-_June_2013.jpg |
+| `c3290` | cc09 | 2018 | CC0（この事故） | Commons の投稿者（CC0・PD＝表示は任意） | https://commons.wikimedia.org/wiki/File:Chernobyl_nuclear_disaster_aftermath_abandoned_town_of_Pripyat_02.jpg |
+| `c3305` | cc07 | 2018 | CC0（この事故） | Commons の投稿者（CC0・PD＝表示は任意） | https://commons.wikimedia.org/wiki/File:Chernobyl_second_sarcophacus_2018_hnapel_14a.jpg |
+| `c3309` | ca13 | 2013 | CC BY 2.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Construction_of_the_new_sarcophagus_in_Chernobyl.jpg |
+| `c3313` | c904 | 2018 | パブリックドメイン（この事故） | NASA | https://commons.wikimedia.org/wiki/File:ISS-57_Chernobyl_Nuclear_Power_Plant,_Ukraine.jpg |
+| `c3319` | cc10 | 2016 | CC BY 2.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:New_Safe_Confinement_Structure.jpg |
+| `c475` | c923 | 2013 | CC BY 2.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Chernobyl_10_(13511028923).jpg |
+| `c486` | c704 | 2017 | CC BY 2.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Chernobyl_nuclear_power_plant_(38342070546).jpg |
+| `c488` | ca17 | 2006 | CC BY 2.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Chernobyl_Nuclear_Power_Plant_in_2006.jpg |
+| `c496` | ca18 | 2016 | CC BY 2.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Chernobyl_snow_storm_(31397711360).jpg |
+| `cia` | cb18 | 1996 | パブリックドメイン（頁） | CIA | https://commons.wikimedia.org/wiki/File:Chornobyl_radiation_map.jpg |
+| `cr1` | c218 | 2011 | CC BY-SA 3.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:ChNPP_Unit1control.JPG |
+| `cr3a` | cc03 | 2010 | CC BY-SA 2.0（この事故） | IAEA Imagebank | https://commons.wikimedia.org/wiki/File:Control_Room_of_Chernobyl_Nuclear_Power_Plant_Unit_3.jpg |
+| `cr3b` | c405 | 2021 | CC BY-SA 4.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Sterownia_reaktora_3_Czarnobylskiej_Elektrowni_Atomowej.jpg |
+| `cr4` | c601 | 2021 | CC BY-SA 4.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Sterownia_reaktora_4_Czarnobylskiej_Elektrowni_Atomowej.jpg |
+| `cr4b` | cc16 | 2025 | CC0（この事故） | Commons の投稿者（CC0・PD＝表示は任意） | https://commons.wikimedia.org/wiki/File:Physics_student_inside_the_Control_Room_of_Unit_4_at_Chernobyl_NPP.jpg |
+| `h01` | cc11 | 2018 | CC BY-SA 4.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Chernobyl_second_sarcophacus_2018_hnapel_01.jpg |
+| `h06` | ca21 | 2018 | CC BY-SA 4.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Chernobyl_second_sarcophacus_2018_hnapel_06.jpg |
+| `h11` | cc12 | 2018 | CC BY-SA 4.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Chernobyl_second_sarcophacus_2018_hnapel_11.jpg |
+| `i11` | cb20 | 1986 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790011_(5613120994).jpg |
+| `i13` | c818 | 1986 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790013_(5613114278).jpg |
+| `i14` | c716 | 1986 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790014_(5613114630).jpg |
+| `i15` | c103 | 1986 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790015_(5613115146).jpg |
+| `i17` | c703 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790017_(5613117462).jpg |
+| `i18` | cc02 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790018_(5613118272).jpg |
+| `i19` | c717 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790019_(5613119300).jpg |
+| `i22` | c201 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790022_(5612542985).jpg |
+| `i23` | c204 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790023_(5613122572).jpg |
+| `i24` | c106 | 1986 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790024_(5612544127).jpg |
+| `i25` | c709 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790025_(5613123428).jpg |
+| `i26` | c221 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790026_(5613123694).jpg |
+| `i27` | c708 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790027_(5612545017).jpg |
+| `i28` | c202 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790028_(5612545537).jpg |
+| `i30` | c919 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790030_(5613125186).jpg |
+| `i32` | c916 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790032_(5612547277).jpg |
+| `i34` | c213 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790034_(5612537067).jpg |
+| `i35` | c418 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790035_(5612540377).jpg |
+| `i36` | c105 | 1986 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790036_(5613126700).jpg |
+| `i40` | c819 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790040_(5612540779).jpg |
+| `i42` | c921 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790042_(5613127192).jpg |
+| `i44` | ca02 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790044_(5613128120).jpg |
+| `i45` | c801 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790045_(5612549777).jpg |
+| `i48` | c823 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790048_(5612550447).jpg |
+| `i49` | c925 | 不明 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790049_(5612553615).jpg |
+| `i50` | cc01 | 1986 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790050_(5612554065).jpg |
+| `i55` | ca09 | 1988 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790055_(5612554241).jpg |
+| `i56` | c802 | 1986 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790056_(5612555893).jpg |
+| `i57` | c809 | 1986 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790057_(5612555629).jpg |
+| `i58` | c807 | 1986 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790058_(5613134426).jpg |
+| `i59` | c811 | 1986 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790059_(5613134174).jpg |
+| `i60` | c804 | 1986 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790060_(5612554949).jpg |
+| `i61` | c803 | 1986 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790061_(5613133650).jpg |
+| `i62` | c814 | 1986 | CC BY-SA 2.0（この事故） | IAEA Imagebank／Photo: USFCRFC | https://commons.wikimedia.org/wiki/File:IAEA_02790062_(5613133306).jpg |
+| `iga` | c912 | 2024 | CC BY-SA 4.0（参考） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Ignalina_Nuclear_Power_Plant_Units.jpg |
+| `igb` | ca06 | 2008 | CC0（参考） | Commons の投稿者（CC0・PD＝表示は任意） | https://commons.wikimedia.org/wiki/File:Ignalina_Nuclear_Power_Plant,_Visaginas,_Lithuania_-_20080730.jpg |
+| `lenn` | ca11 | 2010 | パブリックドメイン（参考） | Commons の投稿者（CC0・PD＝表示は任意） | https://commons.wikimedia.org/wiki/File:Leningrad_Nuclear_Power_Plant_20JUL2010-4_(cropped_to_northern_reactor).jpg |
+| `lenw` | c315 | 2010 | パブリックドメイン（参考） | Commons の投稿者（CC0・PD＝表示は任意） | https://commons.wikimedia.org/wiki/File:Leningrad_Nuclear_Power_Plant_20JUL2010-4_(cropped_to_western_reactor).jpg |
+| `memf` | c702 | 2021 | CC BY-SA 4.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:%D0%A2%D0%B8%D0%BC,_%D1%85%D1%82%D0%BE_%D0%B2%D1%80%D1%8F%D1%82%D1%83%D0%B2%D0%B0%D0%B2_%D1%81%D0%B2%D1%96%D1%82.jpg |
+| `mit` | cb10 | 2013 | CC BY-SA 3.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Chernobyl_memorial.jpg |
+| `mx7` | c618 | 2006 | CC BY 2.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Csernobil_makett_7.jpeg |
+| `nsc17` | cc19 | 2017 | CC BY-SA 4.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:NSC-Oct-2017.jpg |
+| `p84_plant` | c223 | 1984 | パブリックドメイン（この事故） | USGS EarthExplorer（アメリカの偵察衛星） | https://commons.wikimedia.org/wiki/File:%D0%9F%D1%80%D0%B8%D0%BF%D1%8F%D1%82%D1%8C_1984.jpg |
+| `p84_town` | c705 | 1984 | パブリックドメイン（この事故） | USGS EarthExplorer（アメリカの偵察衛星） | https://commons.wikimedia.org/wiki/File:%D0%9F%D1%80%D0%B8%D0%BF%D1%8F%D1%82%D1%8C_1984.jpg |
+| `r09` | c505 | 2008 | CC BY-SA 3.0（参考） | RIA Novosti archive／作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:RIAN_archive_305009_Leningrad_nuclear_power_plant.jpg |
+| `r1` | c712 | 1986 | CC0（この事故） | オランダ国立公文書館 | https://commons.wikimedia.org/wiki/File:Onderzoek_naar_veranderde_Radioactiviteit_door_RIVM_na_nucleaire_ramp_in_Sovjet_,_Bestanddeelnr_933-6455.jpg |
+| `r11` | c212 | 2008 | CC BY-SA 3.0（参考） | RIA Novosti archive／作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:RIAN_archive_305011_Leningrad_nuclear_power_plant.jpg |
+| `r15` | c207 | 2008 | CC BY-SA 3.0（参考） | RIA Novosti archive／作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:RIAN_archive_305015_Leningrad_nuclear_power_plant.jpg |
+| `r94` | c413 | 2011 | CC BY-SA 3.0（参考） | RIA Novosti archive／作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:RIAN_archive_894445_Leningradskaya_nuclear_power_plant.jpg |
+| `r96` | c511 | 2008 | CC BY-SA 3.0（参考） | RIA Novosti archive／作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:RIAN_archive_341196_Kursk_Nuclear_Power_Plant.jpg |
+| `s1p34` | c104 | 1992 | 引用（著作権法32条）（頁） | INSAG-7（IAEA 1992） | ref/ep24/src/insag7_pub913e.pdf#34 |
+| `sel` | c517 | 2014 | CC BY-SA 4.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Selsyny_%C5%99%C3%ADd%C3%ADc%C3%ADch_ty%C4%8D%C3%AD.jpg |
+| `t138` | ca23 | 2010 | CC BY-SA 2.0（この事故） | IAEA Imagebank | https://commons.wikimedia.org/wiki/File:The_damaged_unit_4_reactor_and_shelter_at_Chernobyl_(02710138).jpg |
+| `t143` | c914 | 2010 | CC BY-SA 2.0（この事故） | IAEA Imagebank | https://commons.wikimedia.org/wiki/File:Transmission_towers_for_the_transfer_of_electricity_frame_the_damaged_unit_4_reactor_at_Chernobyl_(02710143).jpg |
+| `t155` | cb03 | 2010 | CC BY-SA 2.0（この事故） | IAEA Imagebank | https://commons.wikimedia.org/wiki/File:The_damaged_unit_4_reactor_and_shelter_at_Chernobyl_(02710155).jpg |
+| `t157` | ca08 | 2010 | CC BY-SA 2.0（この事故） | IAEA Imagebank | https://commons.wikimedia.org/wiki/File:The_ventilation_stack_of_the_damaged_unit_4_reactor_at_Chernobyl_(02710157).jpg |
+| `t158` | cb07 | 2010 | CC BY-SA 2.0（この事故） | IAEA Imagebank | https://commons.wikimedia.org/wiki/File:Chernobyl_Unit_4_Reactor_(02710158).jpg |
+| `u1_0422` | c102 | 1986 | パブリックドメイン（この事故） | USGS | ref/ep24/src/usgs/412_L.jpg |
+| `u1_0429` | c102 | 1986 | パブリックドメイン（この事故） | USGS | ref/ep24/src/usgs/412_L.jpg |
+| `u2` | c710 | 1986 | パブリックドメイン（この事故） | USGS | ref/ep24/src/usgs/0_4-29-1986_Chernobyl_Intro-label.png |
+| `wbg` | cb14 | 1986 | CC BY-SA 4.0（この事故） | 作者欄のとおり（Commons の頁・名前は git の外 `ref/ep24/src/credits_private.tsv`） | https://commons.wikimedia.org/wiki/File:Autoradiography,_grass_sample_after_Chernobyl_disaster_in_1986.jpg |

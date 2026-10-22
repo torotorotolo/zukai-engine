@@ -882,13 +882,28 @@ def _ep24_author(name):
                            "（Modal は保管庫 jiko-assets の ref/ep24/src/ に置く）＝印のまま焼かない")
     code = json.loads((HERE / "ref" / "ep24" / "assets.json").read_text(encoding="utf-8"))[name[len("ep24/"):-len(".jpg")]]["code"]
     rows = [r for r in csv.reader(_EP24_PRIVATE.open(encoding="utf-8"), delimiter="\t") if r and r[0].startswith("e24:")]
-    who = {r[0][len("e24:"):]: (r[3] if len(r) > 3 else "") for r in rows}.get(code, "").strip()
+    row = {r[0][len("e24:"):]: r for r in rows}.get(code) or []
+    who = (row[3] if len(row) > 3 else "").strip()
     who = " ".join(_html.unescape(re.sub(r"<[^>]+>", "", who)).split())     # 17本目 ⑥ の落とし穴（タグが残ると行が切れる）
+    if not who:
+        # 🆕 ⑤b-2（10-22）：作者欄が空で、出典の欄が Flickr の投稿者の頁だけ（名前の無い ID＝C3309）＝Commons の作者欄と同じ ID を名乗りに
+        m = re.search(r"flickr\.com/photos/([^/\s]+)", row[4] if len(row) > 4 else "")
+        who = f"Flickr {m.group(1)}" if m else ""
     if not who:
         raise RuntimeError(f"{name}（{code}）: git の外の表に作者欄が無い")
     if re.search(r"[<>&]", who):
         raise RuntimeError(f"{name}（{code}）: 作者欄に SVG にそのまま書けない字が残る（{len(who)}字）＝焼かない")
-    return who
+    return _ep24_short(who)
+
+
+def _ep24_short(who):
+    """🆕 ⑤b-2（10-22）：作者欄の名乗りの短い形（ルール 2-24・17本目 ⑥＝長いと出典の行がはみ出す）。
+    「ラテン文字 / キリル文字」の2つ書き（RIA Novosti の撮影者）は前だけ・末尾の「(本名)」の添え書きは外す。24字を超えたら止める"""
+    s = who.split(" / ")[0].strip()
+    s = re.sub(r"\s*\([^()]*\)\s*$", "", s).strip()
+    if not s or len(s) > 24:
+        raise RuntimeError(f"作者の名乗りが短い形にならない（{len(s)}字）＝表の作者欄を確かめる")
+    return s
 
 
 def ep24_credit(name):

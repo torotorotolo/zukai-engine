@@ -1,0 +1,95 @@
+{
+ "X13188726": {
+  "src": "https://www.pexels.com/video/13188726/",
+  "scan": "ref/ep24/src/eizou/X13188726.mp4",
+  "dur": 25.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-22 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 15.0,
+    "motion": 7.64
+   },
+   {
+    "start": 15.0,
+    "until": 25.0,
+    "motion": 4.94
+   }
+  ]
+ },
+ "X13188720": {
+  "src": "https://www.pexels.com/video/13188720/",
+  "scan": "ref/ep24/src/eizou/X13188720.mp4",
+  "dur": 8.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-22 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 8.0,
+    "motion": 10.47
+   }
+  ]
+ },
+ "X12191470": {
+  "src": "https://www.pexels.com/video/12191470/",
+  "scan": "ref/ep24/src/eizou/X12191470.mp4",
+  "dur": 6.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-22 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 3.0,
+    "motion": 23.81
+   },
+   {
+    "start": 3.0,
+    "until": 6.0,
+    "motion": 34.91
+   }
+  ]
+ },
+ "X13188723": {
+  "src": "https://www.pexels.com/video/13188723/",
+  "scan": "ref/ep24/src/eizou/X13188723.mp4",
+  "dur": 22.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-22 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 22.0,
+    "motion": 7.87
+   }
+  ]
+ },
+ "X13188717": {
+  "src": "https://www.pexels.com/video/13188717/",
+  "scan": "ref/ep24/src/eizou/X13188717.mp4",
+  "dur": 17.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-22 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 6.0,
+    "motion": 35.21
+   },
+   {
+    "start": 6.0,
+    "until": 17.0,
+    "motion": 25.18
+   }
+  ]
+ },
+ "X13183773": {
+  "src": "https://www.pexels.com/video/13183773/",
+  "scan": "ref/ep24/src/eizou/X13183773.mp4",
+  "dur": 6.0,
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-22 ⑤b-2・フリー素材）",
+  "shots": [
+   {
+    "start": 0.0,
+    "until": 6.0,
+    "motion": 9.11
+   }
+  ]
+ }
+}
