@@ -1,0 +1,120 @@
+# 生成物（fetch24.py check）＝手で直さない。md5 は2回取って照合
+code	file	bytes	dims	magic	md5	twice
+I11	ref/ep24/src/eizou/I11.jpg	5598405	3661x2598	jpeg	fc238e7b5ed3e952dc1a3e3bd92cdc75	一致
+I13	ref/ep24/src/eizou/I13.jpg	6831778	3661x2598	jpeg	e24209fee832d2742edcb17da120dac8	一致
+I14	ref/ep24/src/eizou/I14.jpg	4310519	3661x2598	jpeg	f5529fa88e3d5febfcbb6b2c77061e6c	一致
+I15	ref/ep24/src/eizou/I15.jpg	647159	1328x2040	jpeg	c234beda16de3f2d471eddfcf2340b1d	一致
+I17	ref/ep24/src/eizou/I17.jpg	4783672	3543x2362	jpeg	62659099a2bb9091b01c48d487fd3bc7	一致
+I18	ref/ep24/src/eizou/I18.jpg	4578718	3543x2362	jpeg	a8aab94e8091cde639fe59f4a2a6253f	一致
+I19	ref/ep24/src/eizou/I19.jpg	5493514	3543x2598	jpeg	5fbf492b6fe2a8434bc60c1e105c114c	一致
+I22	ref/ep24/src/eizou/I22.jpg	4851069	3484x2440	jpeg	29e214b0fc422b0304ef3e77934c5bdc	一致
+I23	ref/ep24/src/eizou/I23.jpg	5412874	3544x2568	jpeg	64356fb2b0d6cf48c9e001b26dd295db	一致
+I24	ref/ep24/src/eizou/I24.jpg	4310593	3544x2468	jpeg	60e027291cd6c67e73982b55519f5c38	一致
+I25	ref/ep24/src/eizou/I25.jpg	4022246	3464x2468	jpeg	937a9a8d93e88f853de6a93546e4c60b	一致
+I26	ref/ep24/src/eizou/I26.jpg	1719044	2008x1284	jpeg	3552525970191b34ffdedd60c7f6f10e	一致
+I27	ref/ep24/src/eizou/I27.jpg	1644018	2008x1444	jpeg	e74e0a3c3ff8876d8a7a7b4054c85cc0	一致
+I28	ref/ep24/src/eizou/I28.jpg	4598747	3336x2428	jpeg	2c9316e178bc6ac2f6f98eeaa81d4efc	一致
+I30	ref/ep24/src/eizou/I30.jpg	4350879	3462x2478	jpeg	f12e4627789fbe35eb1c29f7b8afc443	一致
+I32	ref/ep24/src/eizou/I32.jpg	4590285	3528x2588	jpeg	3cfcf2f03083904cdf4731bd3ff85289	一致
+I34	ref/ep24/src/eizou/I34.jpg	1630171	1992x1440	jpeg	2a831c46d2ea7d2f282516f956496e04	一致
+I35	ref/ep24/src/eizou/I35.jpg	1737954	1956x1412	jpeg	2696fe2ac9730242da88cca9526f7379	一致
+I36	ref/ep24/src/eizou/I36.jpg	4419903	3536x2500	jpeg	cae8a644df8ebcf72a4c973312090638	一致
+I40	ref/ep24/src/eizou/I40.jpg	3777200	3360x2424	jpeg	edf5f5e3b8b575785388a0347c7c1c4a	一致
+I42	ref/ep24/src/eizou/I42.jpg	1485497	1860x1512	jpeg	aaa40cd4577c21a2b0d22d254f6b2583	一致
+I44	ref/ep24/src/eizou/I44.jpg	493477	1920x1299	jpeg	3ffc19059cc1eb62b9c903a9da328d52	一致
+I45	ref/ep24/src/eizou/I45.jpg	437406	1920x1350	jpeg	e03ff7b134a46ff001aa8c9a262d40ac	一致
+I48	ref/ep24/src/eizou/I48.jpg	1486185	1788x1300	jpeg	7418d4b398655dbf863e0ecc88579de7	一致
+I49	ref/ep24/src/eizou/I49.jpg	359111	1920x1203	jpeg	57bfdd53093b5e32b506b20dae0ebdf4	一致
+I50	ref/ep24/src/eizou/I50.jpg	366015	1920x1405	jpeg	4c45fd8b2e6805116c054adfe3f8d3bf	一致
+I55	ref/ep24/src/eizou/I55.jpg	363333	1920x1391	jpeg	3db77757e4b843a993f68b4ef8383447	一致
+I56	ref/ep24/src/eizou/I56.jpg	437193	1920x1368	jpeg	bafa52b068e6ad82ac0a924bb126246c	一致
+I57	ref/ep24/src/eizou/I57.jpg	405942	1920x1385	jpeg	195f270bd90d6843cf1162b18de22629	一致
+I58	ref/ep24/src/eizou/I58.jpg	387722	1920x1374	jpeg	44ce263caa896780e568a9a33b46699f	一致
+I59	ref/ep24/src/eizou/I59.jpg	434638	1920x1385	jpeg	6bca7699f2fe1eac397661f5cdb44553	一致
+I60	ref/ep24/src/eizou/I60.jpg	424141	1920x1372	jpeg	ca65a84f34cb39549b87f8ba71ee7b59	一致
+I61	ref/ep24/src/eizou/I61.jpg	417305	1920x1392	jpeg	91fe3f9681c8e99cb459feebc46acc35	一致
+I62	ref/ep24/src/eizou/I62.jpg	399202	1920x1363	jpeg	545b9b50f26d3a901d7e6d2a0a3f3da0	一致
+P84	ref/ep24/src/eizou/P84.jpg	107748849	21634x16500	jpeg	f9c377f31cef53f6841aee45098e4d1d	一致
+CR1	ref/ep24/src/eizou/CR1.jpg	634107	1920x1104	jpeg	43e1e7ebd7ef0a7bd8be65a2c63e4508	一致
+CR3A	ref/ep24/src/eizou/CR3A.jpg	1805456	3840x2560	jpeg	42e81c90d85800071afedb2b4d2ac717	一致
+CR3B	ref/ep24/src/eizou/CR3B.jpg	2315535	3840x2560	jpeg	9e4c540ae68e42d8b303bc01883f9b38	一致
+CR4	ref/ep24/src/eizou/CR4.jpg	3123336	3840x2560	jpeg	c63590034e80ea066403944c8dfc95d4	一致
+CR4B	ref/ep24/src/eizou/CR4B.jpg	3177571	4080x2296	jpeg	dfd90181640be511112ddd027b8221f5	一致
+SEL	ref/ep24/src/eizou/SEL.jpg	927925	3840x2552	jpeg	9373e8dc06ffc72d22d548c48990c881	一致
+AZ5	ref/ep24/src/eizou/AZ5.jpg	736591	1920x1440	jpeg	3501c87ecb8476e7142374ac48194819	一致
+R15	ref/ep24/src/eizou/R15.jpg	357526	1024x683	jpeg	cbfdddb0edb6db16a0682e829d6f3ecf	一致
+R11	ref/ep24/src/eizou/R11.jpg	401122	1024x707	jpeg	60b4b55662de9fffb190899e8d6b8a46	一致
+R96	ref/ep24/src/eizou/R96.jpg	295664	1024x680	jpeg	b519fe8da838ca7841ec84d632fd708b	一致
+R09	ref/ep24/src/eizou/R09.jpg	323780	683x1024	jpeg	e7cd2141a533c6b22f9afe13ebc4b9fd	一致
+R94	ref/ep24/src/eizou/R94.jpg	302929	1024x683	jpeg	a99109f9e3cf72cafd9f1bb153e15c42	一致
+LENW	ref/ep24/src/eizou/LENW.jpg	3491736	2448x1633	jpeg	6f5af9b6d881fda53ec6decf168b37e3	一致
+LENN	ref/ep24/src/eizou/LENN.jpg	2243152	1968x1312	jpeg	b6aab7e9397f1f49d67b30e903c61923	一致
+IGA	ref/ep24/src/eizou/IGA.jpg	2184010	3840x2880	jpeg	0befe60da7990c05dcb7f0f093194a24	一致
+IGB	ref/ep24/src/eizou/IGB.jpg	1477121	2592x1944	jpeg	1d6e0876c4f9deaa078a5a229548c7eb	一致
+MX7	ref/ep24/src/eizou/MX7.jpg	2565904	2592x1944	jpeg	660065f363ba3a05deb58a1d027820ee	一致
+MEMF	ref/ep24/src/eizou/MEMF.jpg	406494	1920x1440	jpeg	27b66f9210119ce24938fc2be83b4d40	一致
+MIT	ref/ep24/src/eizou/MIT.jpg	130146	1280x960	jpeg	838de7c7ba5b687eb045cc4b3c71e798	一致
+C486	ref/ep24/src/eizou/C486.jpg	2251218	2984x2130	jpeg	7d32846fa93df9e5a9a710a86e65315e	一致
+C475	ref/ep24/src/eizou/C475.jpg	2152874	3840x2880	jpeg	adf64f672997d869247a6d02bf6e2116	一致
+C3309	ref/ep24/src/eizou/C3309.jpg	1442829	3840x2560	jpeg	b5e37728e6ce62716732f7fb75774166	一致
+C488	ref/ep24/src/eizou/C488.jpg	2788639	2592x1944	jpeg	d45da8fce001ddc70548644befb3de14	一致
+C496	ref/ep24/src/eizou/C496.jpg	3009937	3840x2436	jpeg	0a83cf95ec552f4b372496d93cda9cf5	一致
+C27	ref/ep24/src/eizou/C27.jpg	2773481	3840x2553	jpeg	e2d8e3d1d4cc36f6e28a96fbe771ba48	一致
+C3319	ref/ep24/src/eizou/C3319.jpg	1585134	3840x2571	jpeg	7b9b3c97639064b88e418e7c61f39bd1	一致
+C3290	ref/ep24/src/eizou/C3290.jpg	2213792	3840x2138	jpeg	652144c156044ec5aa59fbb5a583090f	一致
+C3305	ref/ep24/src/eizou/C3305.jpg	2249868	3840x2372	jpeg	0f4876aa55b052f818eba6f475dff1b2	一致
+C3313	ref/ep24/src/eizou/C3313.jpg	2319661	3840x2560	jpeg	cef226a2acb0ea8485a14d7bd653a397	一致
+C0	ref/ep24/src/eizou/C0.jpg	284750	1600x1200	jpeg	baae5c9c96df776f1e1d7c70ded2262b	一致
+C1	ref/ep24/src/eizou/C1.jpg	540519	1600x1200	jpeg	3654f7bfe339b8e9b0f94d420feb2e1d	一致
+C2	ref/ep24/src/eizou/C2.jpg	210870	1280x857	jpeg	852f4ab2f17dd1b2df5e009172db0d16	一致
+C3	ref/ep24/src/eizou/C3.jpg	957808	3840x797	jpeg	99560905b8d9092427c18b75abf2d62f	一致
+T143	ref/ep24/src/eizou/T143.jpg	1558716	3840x2560	jpeg	6b2cc02382b487ddaee10cf4e986a641	一致
+T157	ref/ep24/src/eizou/T157.jpg	860941	3840x2560	jpeg	ee1fe5af998ee83efaa73d50c8939ec7	一致
+T138	ref/ep24/src/eizou/T138.jpg	1076197	3840x2560	jpeg	b378c552b15417cee368e1e4e3e9f2d9	一致
+T155	ref/ep24/src/eizou/T155.jpg	1558280	3840x2560	jpeg	4265506d6281ef0fa2c66d91bc78392d	一致
+T158	ref/ep24/src/eizou/T158.jpg	1534031	3840x2560	jpeg	826e6c0749e28aa1fb54b9d357a88771	一致
+NSC17	ref/ep24/src/eizou/NSC17.jpg	517199	1920x1278	jpeg	b189cfa34513fe6d856b5fae037cf70e	一致
+H01	ref/ep24/src/eizou/H01.jpg	1997955	3840x2563	jpeg	a23cac7fa8f20c3b46f790f8debf886c	一致
+H06	ref/ep24/src/eizou/H06.jpg	1738805	3840x2547	jpeg	ba885e6a09821b11915de240e5cdabd4	一致
+H11	ref/ep24/src/eizou/H11.jpg	1638815	3840x2563	jpeg	e614aa58d4ce9de56a8dcc0e3438b8f1	一致
+WBG	ref/ep24/src/eizou/WBG.jpg	856918	1920x2880	jpeg	729e177847dda580da8eebd0a66bcc51	一致
+R1	ref/ep24/src/eizou/R1.jpg	1701645	3652x2427	jpeg	cdfede3534c242c05c35cf4f311cc771	一致
+CIA	ref/ep24/src/eizou/CIA.jpg	242226	1070x1154	jpeg	1b5283d68f788114958128c9d13a0cc9	一致
+U1	ref/ep24/src/usgs/412_L.jpg	8304628	5288x3000	jpeg	a1b99b7a6ec62030e3fc692e389d9a16	一致
+U2	ref/ep24/src/usgs/0_4-29-1986_Chernobyl_Intro-label.png	1952143	1000x807	png	1f245b4fffa6b755d51de96e19bedb4f	一致
+U4F12	ref/ep24/src/eizou/pages/U4F12.png	3780317	2542x3288	png	60c96ea0c469ef825dea0a2c32951487	一致
+S1p34	ref/ep24/src/eizou/pages/S1p34.png	500375	1275x1809	png	fb74bb18a654eb2e539f0a4c741f2d4c	一致
+S3p19+S1p62	ref/ep24/src/eizou/pages/S3p19+S1p62_1.png	616126	1653x2337	png	018a79ccb3931c1d8a4dda99f0f1b031	一致
+S3p19+S1p62	ref/ep24/src/eizou/pages/S3p19+S1p62_2.png	445338	1275x1809	png	843ff5f429ca53513dea3a4a617d1da6	一致
+S1p63	ref/ep24/src/eizou/pages/S1p63.png	259409	1281x1814	png	dfb92d2fbc26d70660e25fb9e0f0c9b2	一致
+S2p39	ref/ep24/src/eizou/pages/S2p39.png	530982	2339x1653	png	f4855a4317fcdd0edd71649eb360a950	一致
+S1p28	ref/ep24/src/eizou/pages/S1p28.png	472876	1275x1812	png	cfddf46a8d0661cb18efbd1c2e0ffd78	一致
+GCp43	ref/ep24/src/eizou/pages/GCp43.png	1092976	1659x2342	png	caa059328e6f65b0491cd7eff76f3659	一致
+S1p65	ref/ep24/src/eizou/pages/S1p65.png	375617	1275x1809	png	9e929c16468eda06fa4089777f4417f5	一致
+K19860507	ref/ep24/src/eizou/pages/K19860507_1.png					未取得
+K19860507	ref/ep24/src/eizou/pages/K19860507_2.png					未取得
+S3p26	ref/ep24/src/eizou/pages/S3p26.png	515338	1653x2337	png	c1e7a324f15400e0383002529f5107df	一致
+S2p18	ref/ep24/src/eizou/pages/S2p18.png	3915384	1667x2348	png	a31d4243270f70d1177d854e1c220e71	一致
+S3p28	ref/ep24/src/eizou/pages/S3p28.png	336670	1653x2337	png	8d3f27769a99925f30d08ff276046980	一致
+S1p15	ref/ep24/src/eizou/pages/S1p15.png	379494	1275x1809	png	334b756ed886f40bc48e6ff97ec20fe4	一致
+S1p41	ref/ep24/src/eizou/pages/S1p41.png	585336	1275x1809	png	4bef5cfc2578a6f2b60d28ac60f20769	一致
+K19861127	ref/ep24/src/eizou/pages/K19861127_1.png					未取得
+K19861127	ref/ep24/src/eizou/pages/K19861127_2.png					未取得
+S1p127	ref/ep24/src/eizou/pages/S1p127.png	146317	1275x1812	png	ddec9461e98c8e246e43333f8c51472c	一致
+GCp142	ref/ep24/src/eizou/pages/GCp142.png	1298508	2348x1667	png	bf9859e14464c9dfbb9cdefc96e1091a	一致
+S1p128	ref/ep24/src/eizou/pages/S1p128.png	286603	1278x1812	png	67cde391bb72c88b518a22ecac66d1f5	一致
+GCp140	ref/ep24/src/eizou/pages/GCp140.png	804523	2339x1653	png	cb0df9b9e8f586b4e205e4c238a203b5	一致
+S1p129	ref/ep24/src/eizou/pages/S1p129.png	362816	1275x1812	png	1241cf014719c918a8db8cd6bf1767c7	一致
+S1p133	ref/ep24/src/eizou/pages/S1p133.png	316585	1278x1812	png	264afbf391f48a16c5de8286458d60d4	一致
+S1p141	ref/ep24/src/eizou/pages/S1p141.png	189586	1275x1812	png	e2872183e39c4e994660b705874293ff	一致
+S1p138	ref/ep24/src/eizou/pages/S1p138.png	472277	1275x1812	png	b57c0a6984627aeb35b376925006580f	一致
+L1p8	ref/ep24/src/eizou/pages/L1p8.png	735206	1244x1882	png	84b873aad0bdaee0e58bbf8d8ed52e4f	一致
+L1p15	ref/ep24/src/eizou/pages/L1p15.png	248214	1244x1882	png	0cda6fb0586b4b2f9174489c01afe132	一致
+X13188726	ref/ep24/src/eizou/X13188726.mp4	18530716		mp4	d3763df7cf1c5bb5497c55910692e384	一致
+X13188720	ref/ep24/src/eizou/X13188720.mp4	6227997		mp4	1c402a7d26e053f26cf790066dc41d0d	一致
+X12191470	ref/ep24/src/eizou/X12191470.mp4	4229627		mp4	54fa8a4278c74673cdda6a5c440ab5d3	一致
+X12160827	ref/ep24/src/eizou/X12160827.mp4	2362485		mp4	aabdbe5ac917e5848be3c8771f809774	一致
+X13188717	ref/ep24/src/eizou/X13188717.mp4	12812143		mp4	b737970be8708d48011ed6bc60345b8b	一致
+X13183773	ref/ep24/src/eizou/X13183773.mp4	4915077		mp4	562644dc7c4a4b20cba3357ca2ac7a94	一致
+X13188723	ref/ep24/src/eizou/X13188723.mp4	16364113		mp4	df8da8d791c1a7f54f940c4f83554e26	一致
+X30560421	ref/ep24/src/eizou/X30560421.mp4					未取得
