@@ -1,0 +1,1315 @@
+{
+"G1-001": {
+"v": "採る",
+"note": "§2 のとおり。S3 p.19／15「the section on safety measures was drafted in a purely formal way」＝ソ連の報告（INSAG-1 には無い）"
+},
+"G1-002": {
+"v": "採る",
+"note": "S1-付属書I p.53／43「during the physical startup of Ignalina Unit 1 and that of Chernobyl Unit 4」＝2つの炉で見つかった。「などの」で片方を落とさず、帰属は §4 の「1991年の委員会」の言い方にそろえた（字は差し引き−1・c105 の終わりは46秒の内を fcheck で確かめる）"
+},
+"G1-003": {
+"v": "採る",
+"note": "S1 p.34／24「unapproved changes in the test procedure were deliberately made on the spot」＝deliberately を落とさない（+1字・原文の強さのまま）"
+},
+"G1-004": {
+"v": "採る",
+"note": "S1 p.20／10「This could be viewed as no violation only if … which it clearly was not」＝違反でないとは言えない、まで言う。§3-5＝「約11時間」でよい（+4字・40字）"
+},
+"G1-005": {
+"v": "採る",
+"note": "§3-4。S2 p.35 の表＝14時の切り離しは計画どおり・違反の札は「ECCS remained isolated (e) Safety principle violation」に付く（+4字・片を出典の欄に足す）"
+},
+"G1-006": {
+"v": "一部",
+"note": "S1 p.21／11「The recent reports confirm … and in fact claim that this minimum ORM was also violated for several hours on 25 April」＝1992年の報告は新しい報告の言い分として引く。係の案の「ソ連の報告」は §4 で S3 を指すので「新しい報告」（recent reports）にし、出典の片に claim を入れた（+5字）",
+"old": "（`this minimum ORM was also violated for several hours on 25 April`）\n> 規則を下回ったのは、事故の直前だけではなかったのである。\n> 1992年の報告も、25日に何時間も、この下限が破られていたと書く。",
+"new": "（`claim that this minimum ORM was also violated for several hours on 25 April`）\n> 規則を下回ったのは、事故の直前だけではなかったのである。\n> 1992年の報告も、25日に何時間も下限を割っていた、とする新しい報告を引く。"
+},
+"G1-007": {
+"v": "採る",
+"note": "S2 p.28／~25「The power reduction was stopped on request from system control and not resumed until approximately 9 h later」＝止まっていたのは出力を下げる作業（試験の予定の時刻はどの資料にも無い）。真夜中の繰り返し（c317）も消える（−2字）"
+},
+"G1-008": {
+"v": "一部",
+"note": "S1-付属書I p.61〜62／51〜52＝承認すべきは General Designer・Chief Design Engineer・Scientific Manager・regulatory body、規則はこれらの組織の承認を求めていなかった＝「設計者や規制側の」で限定を戻す（国より原文の regulatory body に近い）。出典の欄に2つの片を足した（+4字）",
+"old": "`did not require the plant managers to obtain approval for such tests`）\n> 1991年のソ連の委員会は、違う見方をする。計画そのものは悪くない。\n> そもそも当時の規則は、こうした試験に承認を求めていなかった、と。",
+"new": "`did not require the plant managers to obtain approval for such tests`・`from the aforementioned organizations`）・S1-付属書I p.61／51（`should be approved by the General Designer`）\n> 1991年のソ連の委員会は、違う見方をする。計画そのものは悪くない。\n> 当時の規則は、こうした試験に、設計者や規制側の承認を求めていなかった、と。"
+},
+"G1-009": {
+"v": "一部",
+"note": "S1 p.14／4「inserted into the reactor core from above, except for 24 shortened rods」＝「主に上から」。同じ行の G7-014（止める棒と制御棒が同じと言う）を1つにまとめ、語順を替えて字を抑えた（+2字）。本数は §5 で割れるので言わない。画の欄の札も「主に」",
+"patches": [
+{
+"cut": "c212",
+"old": "（上から差し込む制御棒＝211本・",
+"new": "（主に上から差し込む制御棒＝211本・"
+},
+{
+"cut": "c212",
+"old": "> 反応をおさえるのは、上から差し込む制御棒である。全部で211本。",
+"new": "> 反応をおさえ、炉を止める制御棒は、全部で211本。主に上から差し込む。"
+}
+]
+},
+"G1-010": {
+"v": "採る",
+"note": "1時ちょうどは S3 p.20／16（at exactly 1:00 hours）と S2 p.28／~25（At 01:00 on 25 April）がそろう・1時6分は付属書I の表＝「ソ連の報告」だと区別がつかず §4 の呼び分けにも外れる。出典の欄に2つの片を足す（+3字）"
+},
+"G1-011": {
+"v": "採る",
+"note": "7つはこの動画の選び方（INSAG-1 の表の違反は6行・0時28分は S2 では「運転員の誤り」＝c4 の語りも同じ）＝「取り上げる」で選んだことを言う（+3字）"
+},
+"G1-012": {
+"v": "一部",
+"note": "S3 p.19／15 と付属書I p.61／51（the 1986 programmes provided for disconnection of the ECCS）がそろって書く事実への驚きに替え、計画を責める言い方（c218 の委員会の見方と逆に寄る）を外した。係の案の「冷却まで」は限定が外れて全部の冷却を切ると聞こえる＝「非常用の」を残した。反応のまま（−1字）",
+"old": "> Q: そんな計画で、試験をしようとしたなんて。",
+"new": "> Q: 非常用の冷却まで切る計画だったなんて。"
+},
+"G1-013": {
+"v": "採る",
+"note": "c104 の1986年と1992年の報告＝新旧。§3-1 で c205 は「主に3つ」になるので数を言わない形がよく、c206 の「1つずつ取り出して」との繰り返しも消える（−3字）"
+},
+"G1-014": {
+"v": "採る",
+"note": "§3-1 のとおり「主に3つ」にし、1986年8月のソ連の報告は c217 で名乗る（F1-001）。出典の欄の does not retract の片は残す（c106 の語りと組）"
+},
+"G1-015": {
+"v": "採る",
+"note": "§3-1＝c221 は数を言わない（ここで割れる3つは S3・付属書I・INSAG-7 で c205 の顔ぶれと違う・−3字）"
+},
+"G1-016": {
+"v": "採る",
+"note": "「反応」の初出＝核分裂と結びつける（c210・c212 の「反応」が分かる）。黒鉛＝減速材（S1-付属書II p.113 graphite moderator）・物理として誤りなし（+2字）"
+},
+"G1-017": {
+"v": "採る",
+"note": "c314・c716 で「キエフ」を使う断りが要る。首都は「町の名」より「地名」が合う（+1字）。ウェブ R3・R4 は §3-19 で G0 が原文どおりと確かめた"
+},
+"G1-018": {
+"v": "採る",
+"note": "S1-付属書I p.82／72「a violation of Section 2.10.5 of the Operating Procedures」＝運転の規則（c309 の INSAG-1 の「安全の原則」と分ける・字は同じ）"
+},
+"G1-019": {
+"v": "採る",
+"note": "語りの31本・1,600メガワットの根拠は表I-I p.63／53 の01:06・03:47 の行（片は文字の層に当たることを find で確かめた）"
+},
+"G1-020": {
+"v": "採る",
+"note": "語りの7時10分・13.2本の根拠は表I-I p.63／53 の07:10 の行（find で当たる）"
+},
+"G1-021": {
+"v": "採る",
+"note": "c214 の「それを確かめる試験だった」の言い直し＝消しても c215 は「なぜポンプか」を言い切る（S1-付属書II p.121／111 と食い違わない・−13字）"
+},
+"G1-022": {
+"v": "採る",
+"note": "S3 p.19／15 tests were to be carried out on turbogenerator No. 8＝意味は同じで「試験」の繰り返しを消す（−3字）"
+},
+"G1-023": {
+"v": "済み",
+"note": "G7-013 と同じ直し（§3-2＝「最大の」）"
+},
+"G1-024": {
+"v": "親へ",
+"note": "承認①で聞く：出典の欄の国会の発言者の名前（一次資料の記録・公的な任務・著作権法48条の出所の明示）を残すか役職だけにするか。10-22 の決め「記録にある名前は役職つきで出す」は語りの5人を名指ししたもの＝出典の欄は決めていない"
+},
+"G1-025": {
+"v": "映像方針へ",
+"note": "§3-22＝語りは原文どおり・4月25日の場面に今の写真が当たる件は映像方針で割り振る（直さない）"
+},
+"G2-001": {
+"v": "採らない",
+"note": "1992年の報告の「予定の700メガワット」（S1 p.29／19 intended level of 700 MW(th)）は1986年の2つの報告の 700〜1,000 の下の端で食い違いにはならず、🟢で字が増える（c516 と矛盾して聞こえない）＝出典の欄だけ G2-002 で足す"
+},
+"G2-002": {
+"v": "採る",
+"note": "語りの「0時5分に720メガワット」の出どころ（表I-I p.63／53 の 00:05 の行）と、INSAG-1 の 700〜1,000（S2 p.28／~25）を pg24 で文字の層に1回ずつ当てた＝出典の欄だけの直し"
+},
+"G2-003": {
+"v": "採る",
+"note": "原文は power control（S1 p.21／11）＝押し下げる向きの「おさえる」より「保つ」が合い、c404「出力を保つ指示」とも語がそろう"
+},
+"G2-004": {
+"v": "今のまま",
+"note": "decisions §3 の7＝語りは今のまま、読み「にじゅうぶんのいち」は §6 に G6 が足す"
+},
+"G2-005": {
+"v": "採る",
+"note": "inability to control the power（S1 p.21／11）・付属書I p.73／63 の allowed the thermal power of the reactor to fall＝出力は下がりすぎた場面なので「おさえきれない」は向きが逆、「思うように保てなかった」で原文の強さのまま"
+},
+"G2-006": {
+"v": "一部",
+"note": "INSAG-1 が禁止と書いたのは continuous operation below 700 MW(th)（S2 p.25／~22）・1992年も sustained operation（S1 p.21／11）＝「運転を続けた」を足し、語尾を「ことだ」にして字を2字返した",
+"old": "> ここで4つ目の「違反」。700メガワットより下での運転である。",
+"new": "> ここで4つ目の「違反」。700メガワットより下で、運転を続けたことだ。"
+},
+"G2-007": {
+"v": "一部",
+"note": "S1 p.20／10 was based on oral statements made by Soviet experts（その直後に p.21／11 The emphasis … was not warranted）＝出どころを足して1986年の報告が根拠なく書いたと聞こえないようにし、字は「この点を」を外して縮めた（ソ連の説明は第7章まで出ないので「ソ連の」は残す）",
+"old": "（`The emphasis placed on this statement in INSAG-1 was not warranted.`）\n> 1986年の報告がこの点を強く書いたのは、当たらなかった、とまで書く。",
+"new": "（`The emphasis placed on this statement in INSAG-1 was not warranted.`）・S1 p.20／10（`was based on oral statements made by Soviet experts`）\n> 1986年の報告が、ソ連の口頭の説明をもとに、\n> 強く書いたのは、当たらなかった、とまで書く。"
+},
+"G2-008": {
+"v": "採る",
+"note": "S1 p.38／28 INSAG has been informed that operating instructions have been updated＝事故のあとの下限は伝え聞きなので「という」で残す"
+},
+"G2-009": {
+"v": "採る",
+"note": "付属書I p.59／49 の片は A ban on operation of the four main circulating pumps の禁止（別の禁止）で、語りの「事故の前に低い出力の禁止は無かった」は p.87／77 there were no safe operating limits … にある＝片の差し替えだけ"
+},
+"G2-010": {
+"v": "採る",
+"note": "S1 p.15／5 Control at lower power levels relied solely on the ex-core detectors・they were all located at the mid-plane of the core＝「多く」は all を弱め、炉の中の計器が使えない要の点を落としていた（字は +3）"
+},
+"G2-011": {
+"v": "採る",
+"note": "S1 p.18／8 In addition, owing to the lower reactor power level at that time, the core inlet coolant was only slightly subcooled（付属書I p.74／64 も primarily as a result of the low reactor power level）＝「出力も低いため」は原文の In addition の並べのまま"
+},
+"G2-012": {
+"v": "一部",
+"note": "decisions §3 の6＝採る・字は縮める：付属書I p.87／77 the flow rates of certain MCPs actually exceeded the limit (violation …)・同 p.88／78 if anything hindered the reactor runaway＝違反と「むしろ妨げた」の両方を同じ委員会の言葉として並べ、G2-013（最後の1時間を消す）と G7-020（炉の暴走）を同じ直しに入れて差し引き −1字",
+"patches": [
+{
+"cut": "c421",
+"old": "S1-付属書I p.88／78（`if anything hindered the reactor runaway`）",
+"new": "S1-付属書I p.88／78（`if anything hindered the reactor runaway`）・S1-付属書I p.87／77（`the flow rates of certain MCPs actually exceeded the limit`）"
+},
+{
+"cut": "c421",
+"old": "> ただし1991年の委員会は、8台のポンプは、むしろ暴走を妨げたかもしれない、\n> と書く。ここでも見方は割れる。こうして炉は、試験の夜の最後の1時間を迎える。",
+"new": "> ただし1991年の委員会は、一部のポンプの流れすぎは違反としつつ、\n> 8台のポンプは、むしろ炉の暴走を妨げたかもしれない、と書く。\n> ここでも見方は割れる。"
+}
+]
+},
+"G2-013": {
+"v": "済み",
+"note": "G2-012 の一部の直しで「こうして炉は、試験の夜の最後の1時間を迎える。」を消した（8台目のポンプは1時7分＝表I-I p.64／54、爆発は1時24分ごろ＝S3 p.21／17 で時刻が合わない）"
+},
+"G2-014": {
+"v": "採る",
+"note": "同じカットに「自動で炉を止める」が2回＝言い回しだけの直しで字を3字返す（意味は2行目の説明で残る）"
+},
+"G2-015": {
+"v": "採る",
+"note": "S1 p.22／12 The recent information suggests that the steam drum protection was changed as early as 00:36＝1992年の報告の推量（suggests）を断定にしていたので「らしい」で残す"
+},
+"G2-016": {
+"v": "採る",
+"note": "decisions §2＝付属書I p.85／75 These personnel actions were in violation of Section 9（水位の設定を切り替えなかった件）・p.88／78 were not the causes of the accident and did not affect its scale、責めないとしたのは p.85〜86／75〜76 の蒸気の圧力の保護の別件＝帰属を直し、出典の欄に p.85 の片も足した",
+"new": "（`technically in violation of Item 9`）・S1-付属書I p.85／75（`These personnel actions were in violation of Section 9`）・S1-付属書I p.88／78（`were not the causes of the accident and did not affect its scale`）\n> 運転員は、水位の設定を切り替えていない。だから形の上では、違反になる。\n> ただ1991年の委員会は、違反とはしたが、事故の原因ではなかった、とする。"
+},
+"G2-017": {
+"v": "採る",
+"note": "1時23分4秒に外したと書いたのは INSAG-1 の表I（S2 p.39 The personnel'blocked the (r) two TGs-trip signal・S1 p.21／11 as stated in INSAG-1）＝出典の欄に足すだけ（頁の書き方は c508 の ~36 にそろえた）"
+},
+"G2-018": {
+"v": "採る",
+"note": "2行目は c510「運転の手順と、試験の手順に沿ったもの」（S1 p.21／11 blocked in accordance with operational procedures and test procedures）の言い直しで、消すと c511 の委員会と c512 の1992年の報告が聞き分けやすくなり字も19字返る"
+},
+"G2-019": {
+"v": "採る",
+"note": "decisions §2＝S1 p.21／11（INSAG 本文 3章(4)）\"This trip would have saved the reactor\" seems not to be valid＝主語を1992年の報告にし、c511（1991年の委員会）→c512・c513（1992年の報告の本文と別の節）が声に出して聞き分けられることを読んで確かめた"
+},
+"G2-020": {
+"v": "採る",
+"note": "decisions §2＝S1 p.28／18 might well have caused the destruction of the reactor at the time of turbine trip rather than shortly afterwards＝「少し早く」で比べを残し、条件（もし保護が働いていたら）と might well＝かもしれないは原文どおり（c513 は使う）"
+},
+"G2-021": {
+"v": "採る",
+"note": "decisions §2＝原文は rather than shortly afterwards（どのみち壊れた・早まっただけ）なので、反応を「逆だった」から「壊れるのを早めたかもしれない」に弱め、c513 より強く言わない（数字なし・先取りなし）"
+},
+"G2-022": {
+"v": "一部",
+"note": "S1 p.29／19 the operating staff did not stop and think, but on the spot they modified the test conditions＝受け身で消えていた「その場で条件を変えた」主体を運転員に戻し（係の案は主語が「試験は」のままで誰が変えたかがねじれる）、出典の欄に片を足した",
+"old": "（`When the reactor power could not be restored to the intended level of 700 MW(th)`）\n> 試験は、予定の700メガワットに戻せないまま、\n> 200メガワットで進められることになった。",
+"new": "（`When the reactor power could not be restored to the intended level of 700 MW(th)`）・S1 p.29／19（`on the spot they modified the test conditions`）\n> 予定の700メガワットに戻せないまま、運転員はその場で条件を変え、\n> 200メガワットで試験を進めた。"
+},
+"G2-023": {
+"v": "映像方針へ",
+"note": "decisions §3 の22＝夜の場面に今の写真が当たっている件は画の割り振りの問題で、語りは原文どおり"
+},
+"G3-001": {
+"v": "済み",
+"note": "decisions §2 のとおり G7-024 を採った（同じ帰属の誤り）"
+},
+"G3-002": {
+"v": "一部",
+"note": "S1 p.21／11 は likely（値を知らなかった）のすぐ後に Probably he was aware（ORM が減っていることには気づいていた）と書き、原文に無い「からだ」の因果を外す＝運転員の側に寄らないよう両方を残し、係の案（+15字）を縮めて自分の文にした（おそらく・見込みが高いを落とさない）",
+"old": "> ただし、その値を運転員は知らなかった見込みが高い、とも書いた。\n> 値を計算する計算機 SKALA が、当てにならなくなっていたからだ。",
+"new": "> ただし、値を出す計算機 SKALA が、当てにならなくなっていた。\n> 運転員は値を知らなかった見込みが高いが、減ることには、\n> おそらく気づいていた、とも書く。"
+},
+"G3-003": {
+"v": "採る",
+"note": "c608 の語りと原文（S1 p.21／11 were not aware）はどちらも「知らなかった」で、受け身の「知らされていなかった」は責めを他へ移して運転員の側に寄る＝まとめを語りの言い直しに戻す"
+},
+"G3-004": {
+"v": "採る",
+"note": "decisions §2 の🔴＝S3 p.23／19 の not more than half は S3 p.26／22 の決まり（fewer than 30 rods）に対しての言い方で、6〜8本は15本の0.4〜0.53倍＝「およそ半分」"
+},
+"G3-005": {
+"v": "映像方針へ",
+"note": "decisions §3-22 が c603 の札を映像方針へに挙げている＝札の「事故のあとの計算 8本」は §1-5 の決め（表I-I の8本は出典の欄だけ）と食い違うので、映像方針では札から外すのを推す"
+},
+"G3-006": {
+"v": "採る",
+"note": "S3 p.21／17 の began to rise slowly と付属書I p.75／65 の no increase は「逆」でなく食い違い（1991年は下がったとは書かない）＝decisions §3-8 のとおり役割は反応のまま語だけ替える"
+},
+"G3-007": {
+"v": "採る",
+"note": "次の章の頭は夜の火事（S3 p.29／25 の 01.30・S2 p.68 の 05:00）で「事故の朝から」は時刻がずれるうえ、「わずか3キロ」は c705 の原文の just と2カットおいて重なる"
+},
+"G3-008": {
+"v": "採る",
+"note": "S3 p.21／17 は some of which fell onto the roof＝塊と火花の一部が屋根に落ちた（全部ではない）で、前半の「炉の上に飛び」は c618 の繰り返しなので削って字も返す"
+},
+"G3-009": {
+"v": "採る",
+"note": "S3 p.42／38〜p.43／39 は a number of plant and emergency service personnel＝火を消した人の全員ではなく何人も（上位語に広げない）"
+},
+"G3-010": {
+"v": "一部",
+"note": "L2 p.24／472〜p.25／473 はウクライナの30キロの範囲の避難を2段（10キロの範囲の南は4月30日〜5月3日・残りは5月3日〜7日）と書く＝前の段を落とさず期間を4月30日〜5月7日にし、G7-025 の起点も同じ行に組んだ（起点は L2 p.14／462 の surrounding the reactor に合わせて「炉から」＝c705 の「壊れた炉から」と同じ・係の「発電所から」より2字短い）",
+"old": "> 近くの駅、ヤノフの254人も一緒だった。ウクライナの側の30キロの範囲の、\n> ほかの町や村の人たちも、5月3日から7日にかけて避難した。",
+"new": "> 近くの駅、ヤノフの254人も一緒だった。炉から30キロの範囲の、\n> ウクライナの側のほかの町や村の人たちも、4月30日から5月7日にかけて避難した。"
+},
+"G3-011": {
+"v": "一部",
+"note": "G3-010 の「4月30日」の片（L2 p.24／472）に加え、「炉から30キロ」の片（L2 p.14／462 `the 30-km-radius area surrounding the reactor`＝文字の層で確かめた）も足す",
+"old": "・L2 p.25／473（`were evacuated from 3 May through 7 May.`）",
+"new": "・L2 p.24／472（`was carried out from 30 April through 3 May`）・L2 p.25／473（`were evacuated from 3 May through 7 May.`）・L2 p.14／462（`the 30-km-radius area surrounding the reactor`）"
+},
+"G3-012": {
+"v": "採らない",
+"note": "c611（1986年のソ連の報告）⇔c612（1991年の委員会）の割れで、付属書I の流れの数（原文どおり・中立の記録）を米ソの計算の言い分（released void reactivity was negligible）に替えると1991年の側にだけ裏づけが足されて寄るうえ字も増える（🟢）"
+},
+"G3-013": {
+"v": "採らない",
+"note": "G3-012 を採らないので片も足さない（係の parent のとおり）"
+},
+"G3-014": {
+"v": "採る",
+"note": "国会の答弁（1986-05-15 参院 内閣委・原子力安全調査室長）は「十四日時点で、二十九都道府県にわたり…ヨウ素131が検出」＝見つかった所の数で、「広がっていた」は測った所の外まで言うので少し強い（名前の入る出典の欄には触らない）"
+},
+"G3-015": {
+"v": "採る",
+"note": "答弁（1986-05-07 参院 科学技術特別委・科学技術庁長官）は「現在までのところ…放射能は検出されておらず」＝「出ていなかった」は放出されていないとも聞こえ c713 のヨウ素131と食い違うので「見つかっていなかった」に（名前の入る出典の欄には触らない）"
+},
+"G3-016": {
+"v": "採る",
+"note": "G3-002 で足した「おそらく気づいていた」の片（S1 p.21／11）と画の欄の「10〜15分」の片（S1 p.16／6 `This data system required about 10-15 min`＝文字の層で確かめた）を出典の欄に足す"
+},
+"G3-017": {
+"v": "採る",
+"note": "語りの「朝の5時に消し止められた」の片が無い＝S2 p.68／~63 の `the fire was quenched at 05:00` を文字の層で確かめて出典の欄に足す（語りは変えない）"
+},
+"G3-018": {
+"v": "採る",
+"note": "c716 の出典の欄が「—」＝L3 p.43／83 にキエフで毎日通りを洗ったことがある（文字の層の wash-ing の後ろから9語で引いた）"
+},
+"G3-019": {
+"v": "採る",
+"note": "decisions §3-10 のとおり「事故から4か月」は c802 に残して c717 から外す＝S2 p.1 の held in Vienna に合わせて場所だけにする"
+},
+"G3-020": {
+"v": "親へ",
+"note": "承認①で聞く（G1-024 と同じ件・c712〜c715）"
+},
+"G3-021": {
+"v": "映像方針へ",
+"note": "語りは原文どおりで、夜の場面（c601・c604・c609・c613・c620）の今の写真と c702 の片づけの写真の割り振りは画の欄だけの話＝decisions §3-22 のとおり映像方針で決める"
+},
+"G3-022": {
+"v": "映像方針へ",
+"note": "decisions §3-9 のとおり＝冷却池の帯の写り・日付の数（画の欄の3つ・出典の欄の4つ）は絵でしか確かめられないので映像方針で決める（語りは変えない）"
+},
+"G3-023": {
+"v": "映像方針へ",
+"note": "語りは日本の政府の注意で画はオランダの測定（RIVM・1986-05-01）＝画の欄の写真の割り振りなので映像方針で決める"
+},
+"G3-024": {
+"v": "映像方針へ",
+"note": "答弁に29の県名が無い（数だけ）ので塗る県を決められない＝映像方針で「29都道府県〈5月14日まで〉」の札だけにするかを決める"
+},
+"G4-001": {
+"v": "採らない",
+"note": "decisions §3 の10＝「事故から4か月」は第7章の頭の c802 に残し、c717 から外す（G3 の側）ので、c802 は今の字のまま。"
+},
+"G4-002": {
+"v": "親へ",
+"note": "承認①で聞く（画の欄の名札の写し c803・c807＝会議の議長・ソ連側の大使＝公的な任務の人・写真の記録の名。画面に出すのは副題＝名前は出さない）"
+},
+"G4-003": {
+"v": "一部",
+"note": "前の問い「ソ連は、何と説明したの？」に「〜だ、と。」の引きの形で答え、語り手の言い切りに聞こえないようにした（S3 p.26／22 lists the most dangerous violations … committed by the staff・p.27／23 prime cause … combination of violations）＝係の案より4字短い。",
+"old": "> 事故の原因は、職員の規則違反の重なりだった。報告書は、",
+"new": "> 原因は、職員の規則違反の重なりだ、と。報告書は、"
+},
+"G4-004": {
+"v": "一部",
+"note": "S2 p.18／~13 を引き直すと、誤りの影響を大きくし暴走を招いたのは炉の性質（features which compounded and amplified … and led to the reactivity excursion）＝係の案は「違反が…暴走を招いた」とも聞こえるので、性質を主語に立て直し、c103「炉の性質と重なって起きた」と語をそろえ、出典の欄に led to の片を足した。",
+"patches": [
+{
+"cut": "c812",
+"old": "amplified the effects of the errors`）",
+"new": "amplified the effects of the errors`・`led to the reactivity excursion`）"
+},
+{
+"cut": "c812",
+"old": "> 炉に特有の性質と組み合わさり、誤りの影響を大きくした。",
+"new": "> 炉に特有の性質と重なって起きた。その性質が、誤りの影響を大きくし、暴走を招いた。"
+}
+]
+},
+"G4-005": {
+"v": "採る",
+"note": "S2 p.112／~105 の root cause … 'human element' は1行目で言い切れており、「重心は人の側」は c818 で言う＝同じ言い回しの2回目を消して13字返す（まとめの直後の「そう。」は残る）。"
+},
+"G4-006": {
+"v": "採らない",
+"note": "同じ2行目を G7-029 で消した（S2 p.47／~42 の based on the Working Documents … の中身は c811・c814 で通り、足すと字が増える）。"
+},
+"G4-007": {
+"v": "一部",
+"note": "S1 p.11／1 は made no attempt to generate alternative scenarios, although it was recognized that there were other possible explanations まで1文＝後半を足すが、「分かっていたが」を「知りつつ」にして係の案より字を抑えた（ほか の重なりを避け「別の筋書き」）。",
+"old": "（`made no attempt to generate alternative scenarios`）\n> 6年後の1992年の報告は、このときの自分たちを、こう振り返る。\n> ソ連の説明をもっともらしいと考え、ほかの筋書きを作ろうとはしなかった、と。",
+"new": "（`made no attempt to generate alternative scenarios`・`although it was recognized that there were other possible explanations`）\n> 6年後の1992年の報告は、このときの自分たちを、こう振り返る。\n> ほかの説明もありうると知りつつ、ソ連の説明をもっともらしいと考え、\n> 別の筋書きを作ろうとはしなかった、と。"
+},
+"G4-008": {
+"v": "採る",
+"note": "S3 p.28／24 は eliminate the possibility of a continuing increase＝「おそれ」を戻すと、ソ連が現象を認めた形に強まらない（§0-1 の6）。"
+},
+"G4-009": {
+"v": "採る",
+"note": "S1 p.14／4 の A graphite rod termed a 'displaced is attached（OCR の綴りのまま）が c902 の語り（黒鉛の棒がつながる）を支える片＝1.25m の片は c903 へ移す（G4-010）。"
+},
+"G4-010": {
+"v": "一部",
+"note": "decisions §3 の18＝G0 が図1(a) を頁の画像で見た（450・125・125cm）＝出典の欄に本文の片 S1 p.14／4（with 1.25 m of water at either end）と、G7-030 で語りに足す炉の高さの片 S1 p.16／6（height 7 m）を足し、「頁の画像で読む」を「確かめた」にした。",
+"old": "S1-図1 p.15／5（図の中の寸法＝押しのけ棒 450cm・水 125cm＝頁の画像で読む）",
+"new": "S1 p.14／4（`with 1.25 m of water at either end`）・S1 p.16／6（`height 7 m`）・S1-図1 p.15／5（図の中の寸法＝押しのけ棒 450cm・水 125cm＝頁の画像で確かめた）"
+},
+"G4-011": {
+"v": "採る",
+"note": "付属書I p.53／43 に the absorbing capacity of the graphite displacer … is lower than that of the water being forced out が文字の層で在る＝「黒鉛は水ほど中性子を吸わない」に片が付く（語りは変えない）。"
+},
+"G4-012": {
+"v": "一部",
+"note": "S1 p.14／4 は The magnitude of this 'positive scram' effect depended on the spatial distribution … and the operating regime、付属書I p.49／39 は initial increase … as they start to move＝「入り始めに、…ことがある」の係の案を採り、出典の欄には条件しだいの片（p.14／4）も足した（「数秒」はどの資料にも無い）。",
+"old": "S1-付属書I p.54／44（`Triggering of the EPS in this case may lead to the introduction of positive reactivity.`）\n> 中性子を吸う水が減るので、炉の下の方では、反応がかえって強まる。\n> 止めるための棒が、入り始めの数秒、逆の働きをしてしまうのだ。",
+"new": "S1 p.14／4（`depended on the spatial distribution of the power density and the operating regime`）・S1-付属書I p.53／43（`local introduction of positive reactivity in the lower part of the core occurs`）・S1-付属書I p.49／39（`predetermine an initial increase in positive reactivity`）\n> 中性子を吸う水が減るので、炉の下の方では、反応がかえって強まる。\n> 止めるための棒が、入り始めに、逆の働きをすることがあるのだ。"
+},
+"G4-013": {
+"v": "採る",
+"note": "逆に働くのは棒（S1 p.14／4 local insertion of positive reactivity）でボタンではない＝「AZ-5 が爆発を起こした」側に寄らない形で、係2つの案のうち字の短い方（G7-031 より3字短い）。"
+},
+"G4-014": {
+"v": "採る",
+"note": "S1 p.37／27 は INSAG has been informed that … reduced from 18 s to 12 s＝伝聞なので「とされる」を付け、要約の注を文字の層の片に替える。"
+},
+"G4-015": {
+"v": "一部",
+"note": "出典の欄に S1 p.28／18（INSAG now repeats that the violation took place）と p.21／11（were not aware that it had safety significance＝ORM の下限の意味）を足す。「違反」のかぎ括弧は c603 前後の「7つ目の「違反」」と同じ呼び名なので残す（音は同じ）。",
+"old": "（`made them crucially sensitive to the extent of insertion of the control and protection rods`）",
+"new": "（`made them crucially sensitive to the extent of insertion of the control and protection rods`）・S1 p.28／18（`INSAG now repeats that the violation took place`）・S1 p.21／11（`were not aware that it had safety significance`）"
+},
+"G4-016": {
+"v": "採る",
+"note": "S1 p.23／13 は it had first been identified at the Ignalina RBMK plant＝「最初に」を戻すと本文と付属書I（イグナリナ1号機とチェルノブイリ4号機）が両立して聞こえる。"
+},
+"G4-017": {
+"v": "採る",
+"note": "decisions §2 のとおり＝S1 p.23／13 は主任設計技師がほかの RBMK の発電所に promulgated と書き、付属書I p.96／86 は The personnel were unaware of some of the dangerous features＝「一部」と委員会の帰属を付けた案を pg24 で当て直した。"
+},
+"G4-018": {
+"v": "採る",
+"note": "S1 p.25／15 は restrictions were never imposed and apparently the matter was forgotten＝反応を「そのままだった」（制限がかけられなかった）にして、語りの「どうやら」を断定に戻さない。"
+},
+"G4-019": {
+"v": "一部",
+"note": "S1 p.26／16 は The most likely final event now seems to have been the insertion of safety rods …, which worsened to a destructive level the conditions already prevailing because of the positive power coefficient＝「炉の性質で、すでに危うかった状態への」を足して棒だけが原因と聞こえないようにし、係の案より短く「いちばんありそう」を残した（読みの「ひと押し」も入れた）。",
+"old": "（`most likely final event`）\n> Q: じゃあ、原因は、その棒だったってこと？\n> 1992年の報告は、慎重に書く。暴走の最後の一押しとして、\n> いちばんありそうなのは、止める棒を入れたことだ、と。",
+"new": "（`most likely final event`・`the conditions already prevailing because of the positive power coefficient`）\n> Q: じゃあ、原因は、その棒だったってこと？\n> 1992年の報告は、慎重に書く。炉の性質で、すでに危うかった状態への、\n> 最後のひと押しとして、いちばんありそうなのは、止める棒を入れたことだ、と。"
+},
+"G4-020": {
+"v": "採る",
+"note": "decisions §2 のとおり＝付属書I p.93／83 は暴走は displacers の反応の強まりから initially arose と言い切る＝「委員会も」の2行目を消して28字返し、c921 は「同じ報告は…とも書く」から1992年の報告の続きとして通る。"
+},
+"G4-021": {
+"v": "採らない",
+"note": "decisions §2 のとおり＝G4-020 で c920 の2行目を消したので、c921 の帰属は1992年の報告（S1 p.23／13）から続いて通る。"
+},
+"G4-022": {
+"v": "一部",
+"note": "decisions §2 の字のとおり（定格を使わず最大の出力＝S2 p.10／~5 nominal power・付属書II p.131／121 the initial value）に、原文の approximately 80 times の「およそ」を4'-18 で戻した。",
+"old": "> 1986年の報告は、ソ連の専門家の計算で、4秒以内に100倍。\n> のちの計算には、3.5倍から80倍までの幅がある。",
+"new": "> 1986年の報告は、ソ連の専門家の計算で、4秒以内に最大の出力の100倍。\n> のちの計算は、はじめの出力の3.5倍から、およそ80倍。比べるもとが違う。"
+},
+"G4-023": {
+"v": "今のまま",
+"note": "decisions §3 の11＝c924〜c925 の位置は動かさない（c923「確かなのは」の裏づけとして置く）。"
+},
+"G4-024": {
+"v": "一部",
+"note": "decisions §3 の12＝S1 p.33／23 の the concurrence of the following major factors（炉の物理の性質・止める棒の作り・手順に無い状態へ持ち込んだこと）に合わせ「8台のポンプ」を「炉の性質」に、片も替えた。factors に合わせ「弱点」を「条件」にし、まとめの問いも同じ語にした。",
+"patches": [
+{
+"cut": "c926",
+"old": "8台のポンプ・棒の欠陥） ／ S1 p.29／19（`Such a mode of operation in itself could have led to a destructive accident`）\n> 低い出力、少ない残りの棒、8台のポンプ、そして棒の欠陥。",
+"new": "炉の性質・棒の欠陥） ／ S1 p.33／23（`the concurrence of the following major factors`）\n> 低い出力、少ない残りの棒、炉の性質、そして棒の欠陥。"
+},
+{
+"cut": "c926",
+"old": "> 事故の夜、この炉には、いくつもの弱点が重なっていた。\n> Q: 弱いところが、いくつも重なっていたんだ。",
+"new": "> 事故の夜、この炉には、いくつもの条件が重なっていた。\n> Q: いくつもの条件が、重なっていたんだ。"
+}
+]
+},
+"G4-025": {
+"v": "映像方針へ",
+"note": "decisions §3 の22＝c8〜c9 の人の写真の割り振り（c910・c914 の役の名指しの行・c912 の2013年の4号炉・1986年の4号炉の置き場4つ）は画の問題で、語りは原文どおり。"
+},
+"G5-001": {
+"v": "採る",
+"note": "decisions §2 のとおり＝付属書I p.41／31 は some of the engineering defects・by the end of May or beginning of June 1986（「一部」と「か」）。"
+},
+"G5-002": {
+"v": "一部",
+"note": "decisions §2 の形＝付属書I p.81／71 は ORM fell to 15 … should be shut down. The personnel did not abide・deliberately・this violation was not die cause of the accident（止めなかったこと＋原因ではない）＝c303 の「15本まで減ったら止める」とつなぐため「残した棒が」を残し（1行目の「ただ」と重ねないよう3行目は接続の語なし）、出典の欄に原因ではない片を足した。",
+"patches": [
+{
+"cut": "ca07",
+"old": "deliberately violated this requirement.`）",
+"new": "deliberately violated this requirement.`・`this violation was not die cause of the accident`）"
+},
+{
+"cut": "ca07",
+"old": "> 25日の朝、残した棒を15本より少なくしたのは、わざとだったと見ている。",
+"new": "> 25日の朝、残した棒が15本まで減っても止めなかったのは、わざとだと見る。\n> 事故の原因ではなかった、とも書く。"
+}
+]
+},
+"G5-003": {
+"v": "済み",
+"note": "同じ行を G7-043 で直した（decisions §2）。"
+},
+"G5-004": {
+"v": "一部",
+"note": "decisions §2 の形＝L1 p.13〜14／15〜16 の up to four thousand fatal cancers in addition to the approximately 100 000 fatal cancers … due to all other causes・eventually・might を「ほかの原因のおよそ10万人に加え、放射線のために…増える」「最終的に」「最大」「かもしれない」で残し、「死者」を使わず（m24 の「4,000人が亡くな」の形も避けた）、60万人も原文の receiving more significant exposures（最もではない）に合わせ、出典の欄に10万人の片を足した。",
+"patches": [
+{
+"cut": "cb12",
+"old": "up to four thousand fatal cancers`）",
+"new": "up to four thousand fatal cancers`・`in addition to the approximately 100 000`・`to be expected due to all other causes`）"
+},
+{
+"cut": "cb12",
+"old": "> 2006年のフォーラムは、最も多く放射線を浴びた60万人について、\n> がんで亡くなる人が、最終的に最大4,000人になるかもしれないと推計した。",
+"new": "> 2006年のフォーラムは、多く放射線を浴びた60万人について、\n> がんで亡くなる人は、ほかの原因のおよそ10万人に加え、放射線のために、\n> 最終的に最大4,000人増えるかもしれないと推計した。"
+}
+]
+},
+"G5-005": {
+"v": "一部",
+"note": "decisions §2 の形＝責め・評価の行（付属書I p.39／29 erroneous actions・p.41／31 no better, but no worse）に事故のあとの作業員の顔を当てない＝画の欄を「人の顔の写らない1986年の写真」に替えた。",
+"patches": [
+{
+"cut": "ca06",
+"old": "実写 IAEA 02790044（新聞を読む作業員＝毎日届いた新聞・BY-SA 2.0・額装＝副題「事故のあとの作業員〈1986年〉」・新聞の字は映像方針で原寸）",
+"new": "実写（人の顔の写らない1986年の写真＝映像方針で選ぶ）"
+},
+{
+"cut": "ca08",
+"old": "実写 IAEA 02790039（作業員の寄り＝説明なし・BY-SA 2.0・額装・名乗らない＝副題「事故のあとの作業員〈1986年〉」）",
+"new": "実写（人の顔の写らない1986年の写真＝映像方針で選ぶ）"
+}
+]
+},
+"G5-006": {
+"v": "採らない",
+"note": "decisions §3 の14＝700MW の「禁止はあるべきだった」は c415、非常用の冷却の「約11時間は計画の外」は c311 で言いずみ（S1 p.20／10・p.21／11）。"
+},
+"G5-007": {
+"v": "一部",
+"note": "S1 p.21／11 は値を知らなかったのは likely かつ during the critical part of the test・安全の上の意味を知らなかったのは言い切り（were not aware）、S1 p.34／24 は Most reprehensibly, unapproved changes … were deliberately made on the spot＝この3つを1語ずつ戻し、出典の欄に片を足した。",
+"patches": [
+{
+"cut": "ca19",
+"old": "（`it is likely that the operator did not know the value of the ORM`）",
+"new": "（`it is likely that the operator did not know the value of the ORM`・`during the critical part of the test`）・S1 p.34／24（`Most reprehensibly, unapproved changes in the test procedure were deliberately made`）"
+},
+{
+"cut": "ca19",
+"old": "> 残した棒の数は、違反だった。ただし運転員は、その値も、その意味も、\n> 知らなかった見込みが高い。試験の計画は、その場で変えられたことが責められた。",
+"new": "> 残した棒の数は、違反だった。ただ運転員は、その意味を知らず、\n> 試験の山場では、その値も知らなかった見込みが高い。\n> 承認なく、その場で手順をわざと変えたことが、いちばん強く責められた。"
+}
+]
+},
+"G5-008": {
+"v": "一部",
+"note": "付属書I p.70／60 の paved the way for the one-sided presentation（IAEA・専門家・一般へ）＝係の案の語りを採り、出典の欄の要約も同じ片に替えた。",
+"patches": [
+{
+"cut": "ca05",
+"old": "（「この結論が IAEA への説明の道を開いた」＝要約）",
+"new": "（`paved the way for the one-sided presentation of information`）"
+},
+{
+"cut": "ca05",
+"old": "> この会議の結論が、ウィーンでの説明につながった、と委員会は見ている。",
+"new": "> この会議の決定が、ウィーンなどでの一方的な説明に道を開いた、と委員会は書く。"
+}
+]
+},
+"G5-009": {
+"v": "済み",
+"note": "同じ行を G7-040 で直した（decisions §3 の17）。"
+},
+"G5-010": {
+"v": "一部",
+"note": "decisions §3 の17＝S1 p.34／24 の the Soviet view … which laid blame almost entirely＝「ソ連の見方」を足し、G7-041 の言い方（cc18 と同じ「ほとんど運転員だけを責める見方の、重み」）にまとめた（＋1字）。",
+"old": "> そうではない。報告は、運転員をほとんど全面的に責めた見方は、",
+"new": "> そうではない。報告は、ほとんど運転員だけを責めたソ連の見方の、"
+},
+"G5-011": {
+"v": "採る",
+"note": "S1 p.34／24 の INSAG remains of the opinion that critical actions of the operators were most ill judged＝帰属を1文目に戻す（話の芯の釣り合いの文なので語り手の言い切りにしない）。"
+},
+"G5-012": {
+"v": "採る",
+"note": "§4 の「問いには次の語りの行がそのまま答える」に当たる＝付属書I p.70／60 の not to the actions of the operating personnel, but to the design が新しい問いの答えになり、c927 の問いのくり返しも消える。"
+},
+"G5-013": {
+"v": "採る",
+"note": "decisions §3 の13＝付属書I p.70／60 はこの文で会議を Interdepartmental Science and Technology Council と書くだけ＝「研究所の所長」と言わない（10字返す）。"
+},
+"G5-014": {
+"v": "採らない",
+"note": "decisions §3 の15（字）＝付属書II p.120／110 の帰属・operating regime・外国の参加者の留保は足さない。"
+},
+"G5-015": {
+"v": "今のまま",
+"note": "decisions §3 の15＝L1 p.12／14 の28・2・1を足した数として語りは「足した数だ」と言っている（年表の札は映像方針へ）。"
+},
+"G5-016": {
+"v": "一部",
+"note": "L8 p.5 の these cancers＝radiation from the accident による甲状腺がんとほかのがん＝語りに指す先が無いので中身を言う（cb12 の「放射線のために」と続くので「事故の」は省き、係の案より3字短く）。",
+"old": "> およそ1万6,000人が、これらのがんで亡くなるかもしれないと推計した。",
+"new": "> およそ1万6,000人が、放射線によるがんで亡くなるかもしれないと推計した。"
+},
+"G5-017": {
+"v": "採らない",
+"note": "decisions §3 の15（字）＝§1-5 の「約1万6,000人」の決めのまま（幅は L8 p.5 の 95% UI 6,700 – 38,000）。"
+},
+"G5-018": {
+"v": "採る",
+"note": "L3 p.24／64 第98段落は in populations exposed to low radiation doses に限る＝多く浴びた60万人まで出さないと決めたように聞こえる範囲の広げを戻す。"
+},
+"G5-019": {
+"v": "一部",
+"note": "L4 p.7／v (c) の The Committee estimated＝帰属は §4 の「国連の科学委員会」（係の案の「国連」では呼び名が外れ、1行に入らない）なので、2行目の終わりを「、」にして3行目の頭で名乗った。",
+"old": "> 放射線によるものは、避難しなかった人で、およそ4分の1と見積もられている。\n> ただし幅は大きく、",
+"new": "> 放射線による分は、避難しなかった人で、およそ4分の1と、\n> 国連の科学委員会は見積もる。ただし幅は大きく、"
+},
+"G5-020": {
+"v": "採る",
+"note": "付属書I p.39／29 の disproportionately disastrous consequences＝誤りの大きさに釣り合わないほどの被害、という比べが結論の芯なので戻す（寄せない）。"
+},
+"G5-021": {
+"v": "親へ",
+"note": "承認①で聞く（G1-024 と同じ件・ca04 の片の議長の名・cb02・cb05）"
+},
+"G5-022": {
+"v": "映像方針へ",
+"note": "decisions §3 の22＝cb01 の健康診断の顔・cb12／cb19 のオランダの測定・ca05 の1988年の写真・ca16 の箱の印・記念碑4点・1986年の4号炉の置き場は、絵を選ぶ段で決める（語りは原文どおり）。"
+},
+"G5-023": {
+"v": "採る",
+"note": "G5-002 の語りに画の欄の札をそろえる（付属書I p.81／71＝止めなかったこと・原因ではない）＝画の欄の字だけで直せる。"
+},
+"G5-024": {
+"v": "採る",
+"note": "付属書I p.70／60 は5月1日に所長へ、のちに9 May 1986 の手紙で国の指導者へ＝画の欄の字だけで直せて原文に合う（decisions §3 の22）。"
+},
+"G5-025": {
+"v": "採る",
+"note": "S2 p.115／~108 の the fatal outcome of the disease in 29 victims＝「内訳なし」は11月の国会の答弁の内訳（消防士かどうか）の話で言い過ぎ＝画の欄の字だけで直せる。"
+},
+"G5-026": {
+"v": "採る",
+"note": "🔴の直し（ca07・cb12）で字が足りないので使う＝1988年の訪問は副題が言い、ブリクスの名は c803 で出ている（写真の当て方は G5-022 で映像方針へ）。"
+},
+"G5-027": {
+"v": "採る",
+"note": "🔴の直しで字が足りないので使う＝この章は数の章で、薬の配布（S2 p.100／~93）は言わなくても甲状腺がんの話が通る。"
+},
+"G5-028": {
+"v": "採る",
+"note": "§4 の聞き役に数の語を置かない（「ゼロ」は数の網に掛からない）＝言い換えで1字減る。"
+},
+"G5-029": {
+"v": "採る",
+"note": "ca23 の語りの問い「何人が亡くなったのか」を聞き役がくり返さない形にし、答え「答えは1つではない」がそのまま答える（数の語なし・反応でなく問い）。"
+},
+"G5-030": {
+"v": "今のまま",
+"note": "decisions §3 の20＝重なりは cc01 の問いを替えて解く（G6）ので cb23 の語りの問いは残す。"
+},
+"G5-031": {
+"v": "一部",
+"note": "S3 p.42〜43／38〜39 の plant and emergency service personnel・among personnel stood at 28＝発電所の職員だけに聞こえないよう「作業員」にした（係の案より5字短い）。",
+"old": "> 職員のうち亡くなった人は、28人だった。",
+"new": "> 作業員のうち亡くなった人は、28人だった。"
+},
+"G5-032": {
+"v": "採らない",
+"note": "🟢で字が増える（＋2）＝章の差し引きが上限に近いので、今の「9月の1986年の報告」（§4 の呼び名「1986年の報告」のまま・意味は通る）を残す。"
+},
+"G5-033": {
+"v": "採る",
+"note": "L2 p.5／453 の24万人は避難した人とは別の作業の人＝「こうした数の外」は60万人の外に聞こえる。"
+},
+"G5-034": {
+"v": "一部",
+"note": "出典の欄の片を、語りの「一部」と時期を支える2つの片（付属書I p.41／31 の文字の層で一致を見た）に替えた（係の案は「一部」の片を欠く）。",
+"old": "（`the defects identified in the reactor design and its unsatisfactory physical parameters`）",
+"new": "（`some of the engineering defects in the RBMK-1000 reactor design`・`had already been realized by the end of May or beginning of June 1986`）"
+},
+"G5-035": {
+"v": "採る",
+"note": "L4 p.20／12 の 0.6 and 0.25 for the evacuated and non-evacuated children and adolescents（文字の層で一致）＝要約を片に替える。"
+},
+"G5-036": {
+"v": "採る",
+"note": "L2 p.5／453 の about 240,000 workers・were called upon in 1986 and 1987 to take part in major mitigation activities（文字の層で一致）＝要約を片に替える。"
+},
+"G5-037": {
+"v": "採る",
+"note": "S2 p.100 の頁頭は「- 93 -」＝ほかの S2 の出典と同じ書き方にそろえる。"
+},
+"G5-039": {
+"v": "一部",
+"note": "🔴の直しで字が足りないので3行目を消し（cb12〜cb14 が違いを見せる）、出典の欄の片を cb15 と重ならない推計の片（L1 p.13／15 の文字の層で一致）に替えた。",
+"patches": [
+{
+"cut": "cb11",
+"old": "\n> そして、どこが推計したかで、大きく違う。",
+"new": ""
+},
+{
+"cut": "cb11",
+"old": "（`These predictions were based on the experience of other populations exposed to radiation`）",
+"new": "（`An international expert group has made projections to provide a rough estimate`）"
+}
+]
+},
+"G5-038": {
+"v": "採る",
+"note": "打ち消しの根拠＝S1 p.34／24 の operating rules were violated・does not retract INSAG-1（文字の層で一致）を出典の欄に置く。"
+},
+"G6-001": {
+"v": "採る",
+"note": "decisions §2 の🔴どおり：0時28分（S2 p.36／~33・S1 p.21／11）と1時23分40秒（S2 p.31／~28・S3 p.21／17）はどの報告でも同じで、c504・c510 の2つの保護の時刻は S1 p.21／11・p.22／12 で書き直された＝「どの報告でも」を外して2つの時刻に限った案を採る（S3 は0時28分の数字を持たないので「どの報告でも」を残さない）"
+},
+"G6-002": {
+"v": "済み",
+"note": "G3-004 と同じ直し（decisions §2・§9 の行は G6-003 で G6 が直す）"
+},
+"G6-003": {
+"v": "一部",
+"note": "decisions §2（c603 は G3-004 で「15本の、およそ半分」）に合わせ、§9 の言い方を G3-004 の字にそろえ、S3 の half の基準（p.23／19 と p.26／22 の fewer than 30 rods）を式の欄に書いた",
+"old": "| c603 | 15本の半分以下 | 6〜8÷15＝0.4〜0.53（S3「not more than half of the minimum permissible value」） |",
+"new": "| c603 | 15本の、およそ半分 | 6〜8÷15＝0.4〜0.53（S3 の not more than half〈p.23／19〉は S3 の決まりの30本〈p.26／22 fewer than 30 rods〉に対して＝15本には当てない） |"
+},
+"G6-004": {
+"v": "一部",
+"note": "🔴 G0 がウェブで確かめた：2025-02-14 に無人機が新しい覆いに当たり（国連ニュース 2025-02-14「could see a breach of the outer layer of the NSC」）、IAEA は 2025年12月に「lost its primary safety functions, including the confinement capability」と評価（NucNet 2025-12-08・IAEA GOV/2026/7 も同旨）＝「いまも、そのまま残っている」は言い過ぎ。問いを替える",
+"old": "> Q: いまも、そのまま残っているの？",
+"new": "> Q: そのあとも、何か起きたの？"
+},
+"G6-005": {
+"v": "一部",
+"note": "G6-004 と組。2022年は WNN 2022-04-01「Ukraine informed the IAEA on 31 March … in writing」＝ウクライナの通知に帰属（3月31日は伝えた日）。2025年の件を1行（帰属は出典の欄＝IAEA の評価）",
+"patches": [
+{
+"cut": "cc12",
+"old": "（「transferred control of Chernobyl nuclear power plant to Ukrainian personnel」）",
+"new": "（「transferred control of Chernobyl nuclear power plant to Ukrainian personnel」）・WEB 国連ニュース 2025-02-14（「could see a breach of the outer layer of the NSC」）・WEB NucNet 2025-12-08＝IAEA の評価の写し（「lost its primary safety functions, including the confinement capability」）"
+},
+{
+"cut": "cc12",
+"old": "> 残っている。2022年には、ロシア軍が2月24日から発電所を支配し、\n> 3月31日、管理をウクライナの職員に書面で引き渡した。",
+"new": "> 起きた。2022年には、ロシア軍が2月24日から発電所を支配した。\n> 管理を書面で職員に戻した、と3月31日にウクライナが伝えた。\n> 2025年2月、無人機がアーチに当たり、閉じ込める働きを失ったとされる。"
+}
+]
+},
+"G6-006": {
+"v": "一部",
+"note": "S1 p.34／24 の Most reprehensibly, unapproved changes … deliberately made on the spot と p.26／16 の It is reprehensible that such a deficiency had been known of for so long で、責めの語を人と設計の両方に当てる（人の要素は大きい＝ca14 で言いずみ）。係の案の「試験の計画をその場で変えた」は reprehensible の根の unapproved を落とすので、4'-18 で「承認なしに」を残した自分の文にした",
+"old": "S1 p.34／24（`the human factor has still to be considered as a major element`）\n> Q: 結局、どちらが悪かったの？\n> どちらか1つではない。1992年の報告も、人の要素は大きいと書き、\n> 棒の欠陥を長く残したことは、責められるべきだと書いた。",
+"new": "S1 p.34／24（`Most reprehensibly, unapproved changes in the test procedure were deliberately made`）・S1 p.26／16（`It is reprehensible that such a deficiency had been known of for so long`）\n> Q: 結局、どちらが悪かったの？\n> どちらか1つではない。1992年の報告は、承認なしに試験の計画を変えたことも、\n> 棒の欠陥を長く残したことも、責められるべきだと書いた。"
+},
+"G6-007": {
+"v": "一部",
+"note": "S1 p.26／16 の The most likely final event now seems to have been the insertion of safety rods は「かもしれない」より強く、c919（G4-019）の「いちばんありそう」とそろえて「とみられる」に戻す（断定にはしない）。読みの G7-058 の「ひと押し」（c919 と同じかな）も同じ行で入れた",
+"old": "> 1時23分40秒のボタンは、止める操作から、最後の一押しかもしれないものへ。",
+"new": "> 1時23分40秒のボタンは、止める操作から、最後のひと押しとみられるものへ。"
+},
+"G6-008": {
+"v": "採る",
+"note": "「誤りとは言えないへ」は文の形が崩れていて耳で切れ目がつかめない＝2行目の「〜ものへ」とそろえる（意味は S1 p.21／11 の no operator error as such のまま・+2字）"
+},
+"G6-009": {
+"v": "採る",
+"note": "decisions §3 の17（ca13・cc18 を「ソ連の見方」にそろえる）どおり：S1 p.34／24 は The weight given in INSAG-1 … to the Soviet view …, which laid blame almost entirely on actions of the operating staff, is thereby lessened＝ほとんど運転員だけを責めたのはソ連の見方"
+},
+"G6-010": {
+"v": "一部",
+"note": "S2 p.11／~6（At the same time, Unit 3 … was shut down＝5時・Units 1 and 2 … early in the morning of 27 April）と S3 p.32／28（Unit 3 … was shut down at 05.00 on 26 April）で、cc04 の「3号機も」の前提を足す。係の案（+4字）を縮め、「1号機と2号機」の繰り返し（G7-054）も同じ直しで消した（3号機の再開は1987年12月なので「その年の秋」は言わず「やがて」）",
+"old": "S2 p.11／~6（`Units 1 and 2 were shut down early in the morning of 27 April`）\n> 同じ発電所の1号機と2号機は、27日の早朝に止められた。\n> だが1号機と2号機は、その年の秋に、また動き始める。",
+"new": "S2 p.11／~6（`Units 1 and 2 were shut down early in the morning of 27 April`）・S3 p.32／28（`was shut down at 05.00 on 26 April`）\n> 同じ発電所のほかの3つの号機は、26日の朝から27日の早朝にかけて止められた。\n> だが、やがて、また動き始める。"
+},
+"G6-011": {
+"v": "一部",
+"note": "decisions §3 の20（cc01 の問いを替える）：cb23 の語りと同じ問いを繰り返さないよう問いを替え、次の語りの頭に「違う。」を置いて問いにそのまま答える（係の案の「そのまま」を外して字を増やさない・章の頭の聞き役は残す）",
+"old": "> Q: 壊れた炉は、そのあと、どうなったの？\n> コンクリートと鉄の建物で、まるごと覆われた。石棺と呼ばれる。",
+"new": "> Q: 壊れた炉は、放っておかれたの？\n> 違う。コンクリートと鉄の建物で、まるごと覆われた。石棺と呼ばれる。"
+},
+"G6-012": {
+"v": "一部",
+"note": "L10 p.12／1 は Events are classified on the scale at seven levels: Levels 4–7 … accidents and Levels 1–3 incidents・Below Scale/Level 0＝「事故の重さ」「8段」は言い過ぎなので「出来事」「0から7の段」にした（係の案の「までの」は字が増えるので外した）。画の欄の「8段」も同じ原文に合わせた",
+"patches": [
+{
+"cut": "cc06",
+"old": "図 模式（INES の物差し＝0から7の8段・7に「チェルノブイリ 1986年」）",
+"new": "図 模式（INES の物差し＝0から7の段〈4〜7が事故・1〜3はそれより軽い出来事・0は尺度より下〉・7に「チェルノブイリ 1986年」）"
+},
+{
+"cut": "cc06",
+"old": "> 原子力の事故の重さを、0から7の8段で表す物差しがある。",
+"new": "> 原子力の出来事の重さを、0から7の段で表す物差しがある。"
+}
+]
+},
+"G6-013": {
+"v": "一部",
+"note": "答えは S1 p.35／25 の broader problems contributing to the accident の1つで教訓ではない＝問いを答えに合わせる案を採り、「根っこ」の出どころの 6(5)（S1 p.33／23 flowed from deficient safety culture）を出典の欄に足した",
+"old": "S1 p.35／25（`lack of safety culture in nuclear matters, at the national level as well as locally`）\n> Q: この事故から、何を学んだの？",
+"new": "S1 p.35／25（`lack of safety culture in nuclear matters, at the national level as well as locally`）・S1 p.33／23（`The accident can be said to have flowed from deficient safety culture`）\n> Q: 事故の根っこには、何があったの？"
+},
+"G6-014": {
+"v": "一部",
+"note": "decisions §3 の18：図1 の題（S1 p.15／5 の文字の層＝(a) before and (b) after the improvements made in response to the Chernobyl accident）と、棒を改めた付属書II（p.135／125 the manual control rods were replaced with ones of improved design）を出典の欄に足す（語りは変えない）",
+"old": "S3 p.28／24（`as the rods move down from the upper stops`）",
+"new": "S3 p.28／24（`as the rods move down from the upper stops`）・S1-図1 p.15／5（`(a) before and (b) after the improvements made in response to the Chernobyl accident`）・S1-付属書II p.135／125（`the manual control rods were replaced with ones of improved design`）"
+},
+"G6-015": {
+"v": "済み",
+"note": "G7-060 を一部で採った（同じ行・同じ直し）"
+},
+"G6-016": {
+"v": "採る",
+"note": "意味は変わらず字を5字返せる（S1・S2 の URL は出典の欄のまま）"
+},
+"G6-017": {
+"v": "採る",
+"note": "G0：字に余りがある（直す係6本を重ねて上限まで約60字）＝受け手は事業者の頁 2019-07-11「to the Client, i.e. the SSE \"Chornobyl NPP\"」で G0 が確かめた"
+},
+"G6-018": {
+"v": "今のまま",
+"note": "decisions §3 の19：cc04・cc05・cc08・cc10・cc11・cc12 は G0 が原ページで確かめ、どれも語りは原文どおり（cc09 の「新安全閉じ込め設備」も今のまま）＝直さない"
+},
+"G6-019": {
+"v": "映像方針へ",
+"note": "decisions §3 の22：cc03（1986年の出来事に2013年の写真）・cc19（2013年の写真に新しい覆いは無い）・cc12（発電所の占拠と無人機の語りに観覧車）は画の欄の写真の選びで、語りは原文どおり"
+},
+"G6-020": {
+"v": "親へ",
+"note": "承認①で聞く（G1-024 と同じ件・K1 の札の全部）"
+},
+"G6-021": {
+"v": "一部",
+"note": "decisions §3 の19 の URL（G0 が原ページで確かめた9本）を §10 の WEB の行（7本）と R3・R4 の行（外務省の2本）に書き写し、git の外の scratchpad を正本にしない",
+"patches": [
+{
+"cut": "§",
+"old": "| WEB | 事業者 chnpp.gov.ua（再開の日・2000-12-15・2019-07-10 の引き渡し）・EBRD（2016-11-14・11-29）・内閣府 防災白書 平成23年版・World Nuclear News 2022-04-01（IAEA Update 38 の写し＝原ページは開けなかった） | URL は確かめの係C の答え（scratchpad `wf_係C.md`） | — |",
+"new": "| WEB | 事業者 chnpp.gov.ua（再開の日・2000-12-15・2019-07-10 の引き渡し＝https://chnpp.gov.ua/en/about/history-of-the-chnpp/chnpp-shutdown ・https://chnpp.gov.ua/en/infocenter/news/5360-events-devoted-to-handing-over-and-accepting-the-new-safe-confinement-from-jv-novarka-to-chornobyl-npp-last-in-ukraine-for-two-days ）・EBRD（2016-11-14・11-29＝11-29 の頁 https://www.ebrd.com/news/2016/unique-engineering-feat-concluded-as-chernobyl-arch-has-reached-resting-place.html ）・内閣府 防災白書 平成23年版（https://www.bousai.go.jp/kaigirep/hakusho/h23/bousai2011/html/honbun/1b_2h_1s_1.htm ）・World Nuclear News 2022-04-01（IAEA Update 38 の写し＝原ページは開けなかった・https://world-nuclear-news.org/articles/ukraine-says-russian-forces-have-left-chernobyl ）・国連ニュース 2025-02-14（https://news.un.org/feed/view/en/story/2025/02/1160141 ）・NucNet 2025-12-08＝IAEA の評価の写し（https://www.nucnet.org/news/iaea-says-chernobyl-shelter-lost-primary-safety-functions-following-drone-strike-12-1-2025 ） | （保存なし）＝URL は G0 が 2026-10-22 に原ページで確かめた（v2_build/decisions.md §3 の19） | — |"
+},
+{
+"cut": "§",
+"old": "| R3・R4 | 外務省 報道発表（2022-03-31）・外交青書2022 | （保存なし＝①で原ページ） | — |",
+"new": "| R3・R4 | 外務省 報道発表（2022-03-31）・外交青書2022 | （保存なし＝①で原ページ）＝https://www.mofa.go.jp/mofaj/press/release/press1_000813.html ・https://www.mofa.go.jp/mofaj/gaiko/bluebook/2022/html/chapter3_01_04.html （G0 が 2026-10-22 に確かめた） | — |"
+}
+]
+},
+"G6-022": {
+"v": "採る",
+"note": "日付の引き算で確かめた（1986-04-26→2000-12-15＝14年7か月19日・→2019-07-10＝33年2か月14日）＝§9 の式だけ直す・語りは合う"
+},
+"G6-023": {
+"v": "一部",
+"note": "係が検算した換算（6年・3日後・4か月・5日間・4か月のうち）に、c615（表I-I＝01:23:40→01:23:43）と c811（S2 p.2＝30 August - 5 September 1986）を F6 が引いて確かめた2行を足し、§9 の末に並べた（c717 の「4か月」は §3 の10 で外れるので書かない）",
+"old": "| cb17 | 7%から50% | 0.07〜0.5（L4 p.7／v） |",
+"new": "| cb17 | 7%から50% | 0.07〜0.5（L4 p.7／v） |\n| c104・c819・cc18・cc20 | 6年後・6年かけて | 1986年（1986年の報告＝9月）→1992年（1992年の報告）＝6年 |\n| c615 | その3秒後 | 1:23:40→1:23:43（S1-表I-I p.65／55）＝3秒 |\n| c711 | 事故から3日後の29日 | 4月26日→29日＝3日 |\n| c802 | 8月25日からの5日間・事故から4か月 | 25〜29日＝5日（S2 p.1 from 25 to 29 August 1986）・4月26日→8月25日＝3か月30日 |\n| c811 | 会議のあとの1週間 | 8月30日〜9月5日＝7日（S2 p.2 30 August - 5 September 1986） |\n| cb10 | 事故から4か月のうちに | L2 p.40／488（within the first four months of the accident） |"
+},
+"G6-024": {
+"v": "一部",
+"note": "decisions §3 の19 で G0 が確かめたのは EBRD 2016-11-29 の頁の 327 metres（cc10）で、大きさの値は確かめていない＝§5 の理由をその範囲で書き直し、語りに要らない（尺）を理由に足した",
+"old": "| 新しい覆いの大きさ（幅257m・長さ162m・高さ108m・36,000トン） | EBRD の頁の値（係C）＝原ページの字を見ていない＝言わない |",
+"new": "| 新しい覆いの大きさ（幅257m・長さ162m・高さ108m・36,000トン） | EBRD の頁の値（係C）＝G0 が原ページで確かめたのは 2016-11-29 の頁の 327 metres（cc10）だけで、大きさの字は見ていない・語りにも要らない（尺）＝言わない |"
+},
+"G7-001": {
+"v": "親へ",
+"note": "承認①（題）＝推奨は B'（G7-002）"
+},
+"G7-002": {
+"v": "親へ",
+"note": "承認①（題）＝④'の推奨＝B'（「2年半ほど前」＝1983年11〜12月→1986年4月＝2年4〜5か月）"
+},
+"G7-003": {
+"v": "親へ",
+"note": "承認①（題）＝C は推奨しない"
+},
+"G7-004": {
+"v": "親へ",
+"note": "承認①（サムネ）＝推奨 A"
+},
+"G7-005": {
+"v": "親へ",
+"note": "承認①（サムネ）＝B は推奨しない（棒の欠陥が死の因果に読める）"
+},
+"G7-006": {
+"v": "親へ",
+"note": "承認①（サムネ）＝C は推奨しない（責める相手を作る）"
+},
+"G7-007": {
+"v": "親へ",
+"note": "承認①（問い）＝推奨 A（語順は G7-061 で直す）"
+},
+"G7-008": {
+"v": "親へ",
+"note": "承認①（問い）＝B は角度とつながらない"
+},
+"G7-009": {
+"v": "親へ",
+"note": "承認①（問い）＝C はどの回にも使える一般の問い"
+},
+"G7-010": {
+"v": "済み",
+"note": "G1-017 と同じ直し（「地名も」の字を採った）"
+},
+"G7-011": {
+"v": "採らない",
+"note": "§3-1＝S3 を c205 に4つ目として足さない（「主に3つ」＝G1-014 と c217 の初出の「1986年8月の」＝F1-001 で耳の区別を付けた）。年表の札は映像方針へ"
+},
+"G7-012": {
+"v": "採る",
+"note": "7つの「違反」は1986年の2つの報告（S2 p.27・S3 p.26）から取る＝「最初の報告」では S3 と INSAG-1 のどちらか迷う。数字なし・先取りなし（字は増えない）"
+},
+"G7-013": {
+"v": "一部",
+"note": "§3-2＝「定格」を語りで使わず「最大の出力」（S2 p.9 full power）。「出力が」の後なので「最大の」で言い、画の欄の札もそろえた（字は増えない）。§6 の「定格」の行は不要（G6）",
+"patches": [
+{
+"cut": "c211",
+"old": "（出力と炉の性質＝定格のおよそ20%より下で",
+"new": "（出力と炉の性質＝最大の出力のおよそ20%より下で"
+},
+{
+"cut": "c211",
+"old": "> 1986年の報告も、そこを書いている。出力が定格のおよそ20%より下だと、",
+"new": "> 1986年の報告も、そこを書いている。出力が最大のおよそ20%より下だと、"
+}
+]
+},
+"G7-014": {
+"v": "済み",
+"note": "G1-009 の一部に「炉を止める制御棒」を入れた（c105・c615 の「止める棒」と同じ棒だと分かる）"
+},
+"G7-015": {
+"v": "済み",
+"note": "G1-001 と同じ直しを採った（§2）"
+},
+"G7-016": {
+"v": "採らない",
+"note": "G1-012 で非難を外した。質問に替えると質問が6割を超えて m24 の W（照合の係 G1 の試し）"
+},
+"G7-017": {
+"v": "採る",
+"note": "§3-3＝ORM を語りから外し「残した棒」で言う（§8 の概要欄には残す＝G6・−2字）"
+},
+"G7-018": {
+"v": "採る",
+"note": "S1-付属書I p.89／79「not less than 26-30 rods」＝「少なくとも26本から30本は残す」は同じ意味で、幅と否定の重なりが消える（字は同じ・40字）"
+},
+"G7-019": {
+"v": "一部",
+"note": "c209「炉が出す熱は3,200メガワット」と同じ言い方にそろえ（S3 p.20／16 MW(th)）、前のメガワットを省いて字を返した（値と範囲は原文どおり）",
+"old": "> 試験の予定は、熱出力で700メガワットから1,000メガワットである。",
+"new": "> 試験の予定は、炉が出す熱で700から1,000メガワットである。"
+},
+"G7-020": {
+"v": "済み",
+"note": "G2-012 の一部の直しで「炉の暴走」にした（付属書I p.88／78 the reactor runaway）"
+},
+"G7-021": {
+"v": "採る",
+"note": "c220・c310 と同じ問いの3回目を避け、次の語り「違反だったことは変わらない」がそのまま答える問いになる（数字なし・先取りなし・字は1字減る）"
+},
+"G7-022": {
+"v": "済み",
+"note": "G3-003 と同じ直しを採った"
+},
+"G7-023": {
+"v": "採る",
+"note": "語りで「ボタン」が出るのは c612 がはじめて（AZ-5 の名は c613・中身は c614）＝「止めるボタン」で何のボタンかが聞いて分かる（1行39字）"
+},
+"G7-024": {
+"v": "採る",
+"note": "decisions §2 の🔴＝電気を切って重さで落とす話は S3 p.21／17（He then cut off the current to the sleeves of the servo drives）にだけあり、§4 の呼び分けで「1986年のソ連の報告」"
+},
+"G7-025": {
+"v": "済み",
+"note": "30キロの起点は G3-010 の「一部」に組んだ（同じ行に2つの直しが当たるため1つにまとめた）"
+},
+"G7-026": {
+"v": "済み",
+"note": "G3-015 と同じ直しを採った"
+},
+"G7-027": {
+"v": "一部",
+"note": "反応「日本の雨にまで届いていた」は c713 のまとめの言い直しで受けが合わないが、係の案（質問に替える）は質問が61%（目安60%まで）で m24 が W を出した＝役割は反応のまま、直前の c714〜c715（答弁の「念のため」）を受けてソ連の話と対にする反応に替え、字も返す（数字なし・先取りなし・避難や病気の場面ではない・c223 と同じく「そう。」なし）",
+"old": "> Q: 遠い国の事故が、日本の雨にまで届いていたんだ。\n> そう。ソ連の中では、キエフの町でも、通りに水をまいて汚れを落としていた。",
+"new": "> Q: 日本では、念のためだったんだ。\n> ソ連の中では、キエフの町でも、通りに水をまいて汚れを落としていた。"
+},
+"G7-028": {
+"v": "採らない",
+"note": "G4-001 と同じ件＝decisions §3 の10 で c802 に残すと決まった（重なりは c717 の側を外して解く）。"
+},
+"G7-029": {
+"v": "採る",
+"note": "S2 p.47／~42 の no attempt has been made to find alternative explanations は1行目で言いずみ＝言い直しの2行目を消して29字返す（ソ連の資料に頼った点は c811「この説明を受けて」・c814 で通る）。"
+},
+"G7-030": {
+"v": "採る",
+"note": "S1 p.16／6 の reactor core (height 7 m, …) と p.14／4 の displacer sat centrally … with 1.25 m of water at either end で 4.5＋1.25×2＝7 が合う＝耳だけで「真ん中・上下に水」が分かる（出典の片は G4-010 で足した）。"
+},
+"G7-031": {
+"v": "済み",
+"note": "G4-013 と同じ直し（反応の「ボタン」を「棒」に）を採った。"
+},
+"G7-032": {
+"v": "採らない",
+"note": "🟢で字が増え（+3）、c908 の「しかも」は新しい事実の印ではなく逆の働きに遅さを重ねる語として通る（18秒は c212 と同じ数で食い違いなし）。"
+},
+"G7-033": {
+"v": "採る",
+"note": "付属書I p.53／43 の physical startup は c105 で「起動の試験」と言った同じ試験＝呼び名をそろえ3字返す。"
+},
+"G7-034": {
+"v": "済み",
+"note": "G4-019 の一部の直しの中で「一押し」を「ひと押し」にした。"
+},
+"G7-035": {
+"v": "済み",
+"note": "G4-020 と同じ直し（c920 の2行目を消す）を採った。"
+},
+"G7-036": {
+"v": "採る",
+"note": "S1 p.24／14 は which shortcoming was the actual cause＝「実際の原因」で1行の「本当」の重なりを解く（字は同じ）。"
+},
+"G7-037": {
+"v": "今のまま",
+"note": "decisions §3 の11＝c924〜c925 は動かさない。"
+},
+"G7-038": {
+"v": "済み",
+"note": "G4-024 で「8台のポンプ」を「炉の性質」に替えた（c419〜c421 の割れを1992年の側に寄せない・画の欄の札も同じ直しで替わる）。"
+},
+"G7-039": {
+"v": "一部",
+"note": "S1 p.33／23 の reactor control elements＝台本の呼び名「止める棒」にそろえ、画の欄の札も同じ語にした（字は増えない）。",
+"patches": [
+{
+"cut": "ca10",
+"old": "炉の物理の性質・制御の棒の設計・",
+"new": "炉の物理の性質・止める棒の設計・"
+},
+{
+"cut": "ca10",
+"old": "> 事故は、3つが重なって起きた。炉の物理の性質、制御の棒の設計。",
+"new": "> 事故は、3つが重なって起きた。炉の物理の性質、止める棒の設計。"
+}
+]
+},
+"G7-040": {
+"v": "一部",
+"note": "decisions §3 の17＝G7-040 の語りを採り、S1 p.33／23 の is even considered by some to have been a precursor の片を出典の欄に足し、画の欄の札も「見る人もいる」にした。",
+"patches": [
+{
+"cut": "ca12",
+"old": "（前触れ＝1975年",
+"new": "（前触れと見る人もいる＝1975年"
+},
+{
+"cut": "ca12",
+"old": "（`were not aware of the nature and causes of the accident at Leningrad Unit 1`）",
+"new": "（`is even considered by some to have been a precursor`・`were not aware of the nature and causes of the accident at Leningrad Unit 1`）"
+},
+{
+"cut": "ca12",
+"old": "> 前触れもあった。1975年の、レニングラード1号機の事故である。",
+"new": "> 前触れと見る人もいる事故があった。1975年の、レニングラード1号機である。"
+}
+]
+},
+"G7-041": {
+"v": "済み",
+"note": "G5-010 の直しに G7-041 の言い方を入れて1つにした。"
+},
+"G7-042": {
+"v": "採る",
+"note": "decisions §3 の14＝S1 p.21／11 の Recent reports suggest that there was no operator error as such＝c406 と同じ推量に戻す。"
+},
+"G7-043": {
+"v": "採る",
+"note": "decisions §2＝S1 p.34／24 の almost entirely・S2 p.18／~13 の in combination with specific reactor features＝1986年の説明が人だけを見たとは言わない。"
+},
+"G7-044": {
+"v": "採らない",
+"note": "「1986年9月の報告」は §4 の呼び名「1986年の報告」から外れ、直前の cb03「1986年8月のソ連の報告」と耳で取り違えやすい。"
+},
+"G7-045": {
+"v": "採る",
+"note": "c204・cb04・cb07・cb08 の「31人」にそろえる（K1 の三十一名＝数は同じ）。"
+},
+"G7-046": {
+"v": "採る",
+"note": "§4 の呼び名は「国連の科学委員会」（UNSCEAR の字は画の欄と §8 に残る）＝読みの決まっていない英字を語りから外す（7字返す）。"
+},
+"G7-047": {
+"v": "採る",
+"note": "§4 の帰属の呼び分け（UNSCEAR＝国連の科学委員会）＝L2 p.40／488 は UNSCEAR 2000。"
+},
+"G7-048": {
+"v": "済み",
+"note": "同じ行を G5-016 で直した。"
+},
+"G7-049": {
+"v": "採る",
+"note": "G7-046 と同じ（§4 の呼び名・読みの決まっていない英字を語りから外す・7字返す）。"
+},
+"G7-050": {
+"v": "一部",
+"note": "decisions §3 の16＝L1 p.13／15 に such as the survivors of the atomic bombing in Hiroshima and Nagasaki が文字の層にある＝係の案の語りを採り（「死者」をやめ、cb21 と重なる文を消す）、出典の欄にその片を足した。",
+"patches": [
+{
+"cut": "cb15",
+"old": "exposed to radiation`）",
+"new": "exposed to radiation`・`such as the survivors of the atomic bombing in Hiroshima and Nagasaki`）"
+},
+{
+"cut": "cb15",
+"old": "> どれも、ほかに放射線を浴びた人たちの経験から作った計算で、\n> 数えた死者ではない。出どころを添えて言うしかないのである。",
+"new": "> どれも、広島と長崎の被爆者など、ほかで放射線を浴びた人たちの、\n> 経験から作った計算で、実際に数えた人数ではない。"
+}
+]
+},
+"G7-051": {
+"v": "一部",
+"note": "§4 の呼び名だけを直した（L2 p.25／473 は UNSCEAR 1988 も135,000 を引いた＝「まとめ直している」は原文どおりなので言い回しは残す・係の案より字が少ない）。",
+"old": "> のちの国連の報告は、それより少し少ない数に、まとめ直している。",
+"new": "> のちの国連の科学委員会は、それより少し少ない数に、まとめ直している。"
+},
+"G7-052": {
+"v": "採る",
+"note": "G7-047 と同じ（§4 の帰属の呼び分け＝L2 は UNSCEAR 2000）。"
+},
+"G7-053": {
+"v": "済み",
+"note": "G6-011 を一部で採った（同じ問いの替え・答えの頭に「違う。」）"
+},
+"G7-054": {
+"v": "済み",
+"note": "G6-010 の一部の直しで「1号機と2号機」の2回目を消した"
+},
+"G7-055": {
+"v": "採る",
+"note": "decisions §3 の3＝正式名は語りから外し INES で言う（§8 の概要欄に正式名を残す＝G7-063 の直しで足した）"
+},
+"G7-056": {
+"v": "今のまま",
+"note": "形はまとめに近いが、試し組みでまとめにすると m24 が「まとめ 30%（目安 20〜30%）」の W を出す（decisions §3 の8 の c613 と同じ）＝反応のまま（次の語りは「そう。」で受けていて形の決まりには合う）"
+},
+"G7-057": {
+"v": "済み",
+"note": "G6-014 の一部で図1 の題の片（S1-図1 p.15／5）を出典の欄に足した"
+},
+"G7-058": {
+"v": "済み",
+"note": "G6-007 の一部の直しの中で「一押し」を「ひと押し」にした（c919 の G4-019 と同じかな）"
+},
+"G7-059": {
+"v": "一部",
+"note": "「原因は運転員」のかぎ括弧は原文の引用に見える（S2 p.112／~105 は so-called human element）＝括弧だけを外し、字を増やさない言い方にした（角度の言い方は変えない）",
+"old": "> 「原因は運転員」とした報告は、6年後に書き直された。",
+"new": "> 原因を運転員とした報告は、6年後に書き直された。"
+},
+"G7-060": {
+"v": "一部",
+"note": "「2つの報告の答え」は1986年の報告も同じ答えを出したと聞こえる＝重心が動いた（S1 p.33／23 shift the emphasis・p.34／24 the balance … has shifted）は2つを読み比べて見えること、と分かる言い方にした（G6-015 と同じ直し）",
+"old": "> ただし、人の側から消えたわけではない。それが、2つの報告の答えである。",
+"new": "> ただし、人の側から消えたわけではない。それが、2つの報告を読み比べた答えである。"
+},
+"G7-061": {
+"v": "採る",
+"note": "語順だけの直し（decisions §1・§3 の20 の答え＝問いの中身は承認①で決める）"
+},
+"G7-062": {
+"v": "一部",
+"cut": "§",
+"note": "decisions §3 の21・§3 の7：§6 に通し読みの挙げた語と c403 の「20分の1」と F6 の直し（cc03）の語を足した（一押しは c919・cc16 ともかなの「ひと押し」にしたので行は要らない・被爆者は G5 の採否しだい）",
+"old": "| 2.10.5節 | （台本から外した＝c312） | ─ |",
+"new": "| 人的要素 | じんてきようそ | c103・c813 |\n| 私信 | ししん | c408 |\n| 事故後検討会議 | じこごけんとうかいぎ | c802 |\n| 鉛 | なまり | cc02 |\n| 1.2メートル | いってんにメートル | c822 |\n| 20分の1 | にじゅうぶんのいち | c403 |\n| レベル7・0から7の段 | レベルなな・ゼロからななのだん | cc06〜cc09 |\n| 8本・8台・6台・30か所・2万例 | はっぽん・はちだい・ろくだい・さんじゅっかしょ・にまんれい | c603・c419・c421・c702・cb17 |\n| ほかの3つの号機・26日の朝・27日の早朝 | みっつのごうき・にじゅうろくにちのあさ・にじゅうしちにちのそうちょう | cc03 |\n| 被爆者 | ひばくしゃ | cb15（G5 が広島と長崎の例を採ったときだけ） |\n| 2.10.5節 | （台本から外した＝c312） | ─ |"
+},
+"G7-063": {
+"v": "一部",
+"note": "decisions §3 の21・§3 の3：§8 に4語を足し（S3 p.3／-1 の表紙・S1 p.39／29〜p.40／30 の付属書Iの名乗り・S1 p.66／56・p.125／115 の SKALA・L8 p.1 の見出しと p.7 の所在地）、INES の行に正式名と段の呼び分け（L10 p.12／1）を入れた",
+"patches": [
+{
+"cut": "§",
+"old": "- INES…原子力の事故の重さを、0から7の8段で表す物差し（1990年にできた）",
+"new": "- INES（国際原子力・放射線事象評価尺度）…原子力や放射線の出来事の重さを、0から7の段で表す物差し（1990年にできた）。4〜7が「事故」、1〜3はそれより軽い出来事、0は安全の上で意味のない出来事"
+},
+{
+"cut": "§",
+"old": "- チェルノブイリ・フォーラム…IAEA・WHO など国連の機関と、ベラルーシ・ロシア・ウクライナの政府による会議（2003〜2005年）",
+"new": "- チェルノブイリ・フォーラム…IAEA・WHO など国連の機関と、ベラルーシ・ロシア・ウクライナの政府による会議（2003〜2005年）\n- 1986年8月のソ連の報告…ソ連の原子力利用国家委員会が、1986年8月25〜29日にウィーンで開かれた IAEA の会議（事故後検討会議）のためにまとめた資料\n- 1991年の委員会…ソ連の産業・原子力安全監督国家委員会が設けた委員会。その報告（モスクワ・1991年）は、1992年の報告（INSAG-7）に付属書Iとして収められた\n- SKALA…発電所の集中制御の計算機のしくみ。残した棒の数（ORM）など炉の主な値を、およそ5分ごとに計算した\n- 国際がん研究機関（IARC）…世界保健機関（WHO）の、がんを研究する機関（フランスのリヨン）。2006年に、ヨーロッパでの事故によるがんの見積もりを出した"
+}
+]
+},
+"R1-001": {
+"v": "採る",
+"note": "付属書I p.74／64「primarily as a result of the low reactor power level」＝主因は低い出力・流れは足し（In addition）＝重みを戻す"
+},
+"R1-002": {
+"v": "採る",
+"note": "表I-I は付属書I（1991年の委員会）の表＝c305「1991年の委員会の報告の表」と呼び分けをそろえる（c505 の主語とも続く）。decisions §4 の「1992年の報告の表」は G0 の書き損じ＝こちらが正"
+},
+"R1-003": {
+"v": "採る",
+"note": "S1 p.21／11「during the critical part of the test」＝限定を戻す（4'-18）"
+},
+"R1-004": {
+"v": "採る",
+"note": "S2 p.132／~125「all absorber rods (except for the shortened rods)」・S1 p.14／4＝止めるときに入るのは上からの棒＝211本ぜんぶが止める棒ではない"
+},
+"R1-005": {
+"v": "採る",
+"note": "S1 p.20／10＝強く書いたのは700MW 未満の禁止＝何を強く書いたかを戻す"
+},
+"R1-006": {
+"v": "採る",
+"note": "1カットに「ここで」「ここでは」＝c202 と同じ「この動画では」"
+},
+"R1-007": {
+"v": "採る",
+"note": "S2 p.28／~25 の power reduction＝c315〜c317 の繰り返しを減らす（−4字）"
+},
+"R1-008": {
+"v": "採る",
+"note": "c211 と同じ「最大の出力」（decisions §3 の2）＝画の欄の札だけ"
+},
+"R1-009": {
+"v": "採る",
+"note": "国会の答弁（K1 1986-05-07 の念のため）＝日本全体へ広げない・「〜んだ。」のまとめの形を外す"
+},
+"R2-001": {
+"v": "採る",
+"note": "L3 p.24／64 第98段落＝低い線量の人たちに限る＝図の札も cb14 の語りにそろえる"
+},
+"R2-002": {
+"v": "採る",
+"note": "R2-001 と組＝§1-5（図の札もこの値）"
+},
+"R2-003": {
+"v": "採る",
+"note": "S1 p.21／11「suggest」＝ca17 の「ようだ」と同じ強さに（結びで断定に戻さない）"
+},
+"R2-004": {
+"v": "採る",
+"note": "S1 p.34／24「unapproved changes in the test procedure」＝試験の計画（c220 とそろえる）"
+},
+"R2-005": {
+"v": "採る",
+"note": "S1 p.34／24「deliberately」＝結びの天秤で人の側の決め手を落とさない（寄せない）"
+},
+"R2-006": {
+"v": "採る",
+"note": "付属書I p.81／71「this violation was not the cause」＝原因でないのはこの違反だけ"
+},
+"R2-007": {
+"v": "採る",
+"note": "S1 p.14／4「depended on … the operating regime」＝c906 の限定（ことがある）を聞き役でも残す"
+},
+"R2-008": {
+"v": "採る",
+"note": "付属書I p.96／86「The personnel」＝同じ付属書を ca04・ca06〜ca08 は「職員」＝呼び分けをそろえる（decisions §2 の字は G0 の書き方の揺れ）"
+},
+"R2-009": {
+"v": "採る",
+"note": "聞き役が直前の語りの字をそのまま繰り返さない（まとめは言い直し）"
+},
+"R2-010": {
+"v": "採る",
+"note": "L1 p.13／15「based on the experience of other populations」＝問いに次の語りがそのまま答える"
+},
+"R2-011": {
+"v": "採る",
+"note": "S2 p.18／~13「in combination with specific reactor features」＝「原因を運転員とした」は ca21 で直した言い過ぎ＝運転員の側に置いた"
+},
+"R2-012": {
+"v": "採る",
+"note": "S2 p.115／~108 の片を出典の欄に（画の欄の29の根拠）"
+},
+"R2-013": {
+"v": "採る",
+"note": "§6＝UNSCEAR は語りから外れた"
+},
+"R2-014": {
+"v": "採る",
+"note": "§6＝cb15 に被爆者が入った（G7-050）"
+},
+"R2-015": {
+"v": "採る",
+"note": "§9＝ca05 の1988年は語りから消えた（G5-026）"
+},
+"R2-016": {
+"v": "採る",
+"note": "§5＝ca12 の言い方（前触れと見る人もいる）にそろえる"
+},
+"R2-017": {
+"v": "採る",
+"note": "§8＝c906 から外した「入り始めた数秒」を概要欄からも外す（S1 p.14／4）"
+},
+"R2-018": {
+"v": "採る",
+"note": "§1-5＝ca07 が同じ節を時刻と値なしで言うことを書く"
+},
+"R2-019": {
+"v": "採る",
+"note": "§5＝R2-018 と組"
+},
+"R2-020": {
+"v": "済み",
+"note": "G0-009 の new を「3.5倍から、およそ80倍」に直した（付属書II p.131／121＝approximately は80倍だけ・c922 の語りはもう同じ形）"
+},
+"R2-021": {
+"v": "済み",
+"note": "fix_G0 の G6-005 の2行目を「管理を書面で職員に戻した、と3月31日にウクライナが伝えた。」に直した（WNN＝31日は伝えた日）"
+},
+"R2-022": {
+"v": "親へ",
+"note": "承認①で一言：題 B' は「爆発した4号炉、」の直後に棒の欠陥＝欠陥が爆発の原因と確定したと読まれうる（INSAG-7＝It is not known for certain what started the power excursion）・題とサムネのどちらも運転員の誤り（most ill judged）を見せない"
+}
+}
