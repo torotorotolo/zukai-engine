@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-"""第10章　「推奨」の改修 ca01–ca20（20カット）。17本目（中華航空140便墜落事故）。
+"""第9章　書き直された結論 ca01–ca23（23カット）。24本目（チェルノブイリ原発事故・1986-04-26）。
 
-■ 🔴 2026-10-20（⑤b-1）：23本目（三豊百貨店崩壊事故のリメイク）の中身を空にした＝git の `b800dbdb`（`git show b800dbdb:tools/cuts/ca.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep17/make_plan17.py` で
-  映像方針の一覧 `ref/ep17/eizou_build/list17.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
-  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（撮影者の名前がある＝元の画は台本 §4）。
+■ 🆕 2026-10-22（⑤b-1）：新しいファイル。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep24/make_plan24.py` で
+  映像方針の一覧 `ref/ep24/eizou_build/list24.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
+  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep24/eizou_list24.md`）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット。
-  ⚠️ 「関連」と書いたカットは事故そのものではない実物の写真（種類は写真・20% の数〈この事故の写真〉には入れない）
+  ⚠️ 「関連（参考＝…）」と書いたカットは同じ型のほかの発電所の炉の写真（種類は写真・20% の数〈この発電所・この事故の写真〉には入れない・
+     門番 check_text_screens が束の台帳 assets.json の related と照らす）
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -16,203 +17,75 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'ca01': dict(kind='図解',
-               plan='🔧 一覧の種類：図｜見た目の型：年表（技術通報から事故まで）｜注：🔧 軸は 1993-06〜1994-12・点は語りの 1993-06-24 と事故（⑤b-4：軸の型）｜新しい画（映像方針）：再現イラスト 場面10 → 年表（軸の型）｜このカットの前に章の扉｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.76・p.79'),
-    'ca02': dict(kind='図解',
-               plan='一覧の種類：図｜見た目の型：書類（技術通報の中身）｜注：約120メートルより上・15キログラム以上（書類のフリー素材は関係の無い字が読める＝10-19）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.76'),
+    'ca01': dict(kind='文字の頁',
+               plan='S1p41｜一覧の種類：頁｜見せ方：頁｜副題：1991年の委員会の報告（INSAG-7 付属書I）の頁｜動き：寄る（語りの行へ）｜見た目の型：文字の頁｜権利：引用（頁）｜時期：文書｜人：なし｜出典の行：出典：INSAG-7 付属書I｜注：台本どおり｜このカットの前に章の扉｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-付属書I p.41／31（`some of the engineering defects in the RBMK-1000 reactor design`・`had already been realized by the end of May or beginning of June 1986`）'),
+    'ca02': dict(kind='写真',
+               plan='🔧 I44｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：毎日届いた新聞を読む作業員（1986年）｜動き：額ごと右へ｜権利：CC BY-SA 2.0｜時期：後｜人：顔｜出典の行：IAEA Imagebank／Photo: USFCRFC（CC BY-SA 2.0）｜注：🔧 1986年の4号炉-キ → ca06 から空いた点（語り＝IAEA に出した資料・責める行でない）。新聞の字は⑤b で原寸｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-付属書I p.41／31（`They were also not included in the papers presented to the IAEA.`）'),
     'ca03': dict(kind='図解',
-               plan='一覧の種類：図｜見た目の型：書類（4つの区分）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.76'),
+               plan='一覧の種類：模式｜見た目の型：矢印の流れ（研究所→国の指導者）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-付属書I p.70／60（`V.P. Volkov, head of the I.V. Kurchatov Institute Research Group on the Reliability and Safety`・`not to the actions of the operating personnel, but to the design of the reactor`）'),
     'ca04': dict(kind='図解',
-               plan='🔧 一覧の種類：図｜見た目の型：流れ（航空会社が決める）｜注：🔧｜新しい画（映像方針）：書類の再現図（同じ）→ 流れ図（必須以外は、運航の経験や整備の計画から航空会社が決める）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.76'),
+               plan='一覧の種類：模式｜見た目の型：札が1枚に（職員の誤り）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-付属書I p.70／60（`At two meetings of the Interdepartmental Science and Technology Council`・`all the causes of the accident were reduced exclusively to personnel errors`）'),
     'ca05': dict(kind='図解',
-               plan='🔧 一覧の種類：図｜見た目の型：札（推奨と2台）｜注：🔧 ca03 と同じ図を続けない｜新しい画（映像方針）：書類の再現図（同じ・推奨に印）→ 札（「推奨＝レコメンデッド」と、1機に飛行制御コンピュータ2台）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.76'),
+               plan='🔧 一覧の種類：模式｜見た目の型：道の矢印（一方的な説明へ）｜注：🔧 IAEA 02790055（ブリクス事務局長）→ 図。「一方的な説明に道を開いた」の行に事務局長の写真を置くと責めに読める。02790055 は ca09 へ｜新しい画（映像方針）：🔧 模式（6月の2回の会議の決定 → ウィーンなどでの一方的な説明＝道の矢印・字は少なく）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-付属書I p.70／60（`paved the way for the one-sided presentation of information`）'),
     'ca06': dict(kind='写真',
-               plan='T1:横長｜一覧の種類：実写｜見せ方：全面｜副題：同じ型の姉妹機 B-1814（1993年10月・香港・別の切り出し）｜動き：右へ｜権利：CC BY 2.0｜出典の行：Wikimedia Commons「HONG KONG KAI TAK 19 OCT 1993 CHINA AIRLINES AIRBUS A300 B-1814.jpg」（CC BY 2.0）＝作者は src/credits_private.tsv｜注：c202 と同じ写真の別の切り出し｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.76'),
+               plan='🔧 関連（参考＝同じ型〈RBMK〉のほかの発電所の炉の写真・20% の数に入れない）｜IGB｜一覧の種類：参考｜見せ方：全面｜副題：同じ型の炉のイグナリナ原発（リトアニア・2008年）｜動き：寄る｜権利：CC0｜時期：他所｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC0｜注：🔧 （画の欄＝人の顔の写らない写真）→ ほかの原発の写真（語り＝ほかの原発の職員と比べて）。CC0｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-付属書I p.41／31（`They were no better, but no worse, than the personnel at other nuclear plants.`）'),
     'ca07': dict(kind='図解',
-               plan='一覧の種類：図｜見た目の型：流れ（中華航空の判断）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.76・p.92'),
-    'ca08': dict(kind='図解',
-               plan='一覧の種類：図｜見る向き：上から｜見た目の型：地図（アジア）｜合図：🔁 横から→上から（前の図 c920）｜注：台湾 → シンガポール｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.77'),
-    'ca09': dict(kind='図解',
-               plan='一覧の種類：図｜見た目の型：比べ（台数の棒）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.77'),
+               plan='一覧の種類：模式｜見た目の型：札（わざと・原因ではない）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-付属書I p.81／71（`The Commis-sion assumes that the personnel deliberately violated this requirement.`・`this violation was not die cause of the accident`）'),
+    'ca08': dict(kind='写真',
+               plan='🔧 T157｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：4号機の排気筒（2010年）｜動き：額ごと上へ｜権利：CC BY-SA 2.0｜時期：今・跡｜人：なし｜出典の行：IAEA Imagebank（CC BY-SA 2.0）・撮影者は作者欄のとおり｜注：🔧 （画の欄＝人の顔の写らない写真）→ 排気筒（人なし）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-付属書I p.39／29（`which was initiated by erroneous actions on the part of the operating personnel`・`had disproportionately disastrous consequences because of deficiencies in the design of the reactor`）'),
+    'ca09': dict(kind='写真',
+               plan='🔧 I55｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：ブリクス IAEA 事務局長の訪問（1988年5月）｜動き：額ごと寄る｜権利：CC BY-SA 2.0｜時期：後｜人：顔｜出典の行：IAEA Imagebank／Photo: USFCRFC（CC BY-SA 2.0）｜注：🔧 イメージ（Pexels）→ ca05 から移した（語り＝国際原子力機関の専門家グループの結論・責める行でない）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.33／23（`shift the emphasis to the contributions of parti-cular design features`）'),
     'ca10': dict(kind='図解',
-               plan='🔧 一覧の種類：図｜見た目の型：年表（改修されないまま）｜注：🔧 1994-04-26 未改修・1993年9月の受け入れ（⑤b-4：軸の型）｜新しい画（映像方針）：再現イラスト 場面10 → 年表（軸の型）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.79・p.92・p.77'),
-    'ca11': dict(kind='再現イラスト',
-               plan='一覧の種類：案C｜見る向き：横から｜見た目の型：C5 相反｜合図：🔁 上から→横から（前の図 ca08）｜注：もし改修されていれば（点線）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.79'),
+               plan='一覧の種類：模式｜見た目の型：重なり（3つ）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.33／23（`not specified by procedures or investigated by an independent safety body`）'),
+    'ca11': dict(kind='写真',
+               plan='🔧 関連（参考＝同じ型〈RBMK〉のほかの発電所の炉の写真・20% の数に入れない）｜LENN｜一覧の種類：参考｜見せ方：全面｜副題：同じ型の炉のレニングラード原発の1号機と2号機（2010年）｜動き：右へ｜権利：Public domain｜時期：他所｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／Public domain｜注：🔧 現在の4号炉-セ → 語り「この発電所だけではない」＋次の ca12 が名指しするレニングラード1号機（PD）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.33／23（`not only at the Chernobyl plant, but throughout the Soviet design, operating and`）'),
     'ca12': dict(kind='図解',
-               plan='一覧の種類：図｜見た目の型：流れ（知らせ方）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.79・p.80'),
-    'ca13': dict(kind='フリー素材',
-               plan='🔧 Xk1｜映像の素材 22.12秒・倍率 2.36（素材の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ）｜一覧の種類：イメージ｜見せ方：全面（イメージ）｜副題：イメージ（書類）｜動き：映像｜権利：Pexels License｜出典の行：フリー素材（Pexels）｜注：🔧｜新しい画（映像方針）：流れ図（同じ）→ フリー素材｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.80'),
+               plan='一覧の種類：模式｜見た目の型：矢印の流れ（1975→1986）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.33／23（`is even considered by some to have been a precursor`・`were not aware of the nature and causes of the accident at Leningrad Unit 1`）'),
+    'ca13': dict(kind='写真',
+               plan='🔧 C3309｜一覧の種類：実写｜見せ方：全面｜副題：建設中の新しい覆いの骨組みと4号炉（2013年）｜動き：寄る｜権利：CC BY 2.0｜時期：今・跡｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY 2.0｜注：🔧 1986年の4号炉-ク → c304 から移した（人なし＝責める行でも可）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.34／24（`laid blame almost entirely on actions of the operating staff, is thereby lessened`）'),
     'ca14': dict(kind='図解',
-               plan='一覧の種類：図｜見た目の型：要因（印）｜注：要因11・12 に印｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.96・p.2'),
-    'ca15': dict(kind='写真',
-               plan='🔧 関連（事故そのものではない実物の写真・20% の数に入れない）｜AB3｜一覧の種類：関連｜見せ方：全面｜副題：現在のエアバス社の本社の上を飛ぶベルーガ｜動き：上へ｜権利：CC0｜出典の行：Wikimedia Commons（CC0）｜注：🔧 ★ フランスの当局の建物の写真は探していない｜新しい画（映像方針）：quote → エアバス社の写真｜★決め所だった行（決め所の画面は作らない＝10-07）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.96'),
+               plan='一覧の種類：模式｜見た目の型：天秤のもう一方｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.34／24（`critical actions of the operators were most ill judged`・`the human factor has still to be considered as a major element`）'),
+    'ca15': dict(kind='フリー素材',
+               plan='X13188717｜映像の素材 17.09秒・倍率 1.58（素材の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ・1.0 未満は動きの欄の倍率で）｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：現在のプリピャチ（Pexels）｜動き：映像｜権利：Pexels License｜時期：イメージ｜人：なし｜出典の行：イメージ（Pexels）｜注：台本どおり（場面で選ぶ＝⑤b でコマを見る）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.34／24（`does not retract INSAG-1, nor does it alter the conclusions of that report`）'),
     'ca16': dict(kind='図解',
-               plan='一覧の種類：図｜見た目の型：書類（命令）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.80・p.93'),
-    'ca17': dict(kind='図解',
-               plan='🔧 一覧の種類：図｜見た目の型：年表（事故のあと）｜注：🔧 語りの 5月3日と9月7日だけ（ほかの日付は ca18 の語り＝⑤b-4：軸の型）｜新しい画（映像方針）：再現イラスト 場面10 → 年表（軸の型）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.97〜100'),
+               plan='🔧 一覧の種類：箱｜見た目の型：箱（7つの評価・4色）｜注：§0-5（箱の印）。ca17〜ca19 の語りと突き合わせた｜新しい画（映像方針）：🔧 箱（7つの「違反」の1992年の評価＝違反ではない〈②承認があれば許された・④禁止なし・⑥手順どおり〉／誤りとは言えないようだ〈③＝「ようだ」の留保を札に残す〉／形の上の違反〈⑤〉／違反〈⑦残した棒・①その場で承認なく計画を変えた〉＝4色・字は少なく・この1枚だけ）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.20〜22／10〜12（`blocking of the ECCS was in fact permissible at Chernobyl if authorized`）'),
+    'ca17': dict(kind='写真',
+               plan='🔧 C488｜一覧の種類：実写｜見せ方：全面｜副題：森の向こうの4号炉と排気筒（2006年）｜動き：左へ｜権利：CC BY 2.0｜時期：今・跡｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY 2.0｜注：🔧 1986年の4号炉-ケ → c313 から移した｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.21／11（`no operator error as such`）'),
     'ca18': dict(kind='写真',
-               plan='🔧 関連（事故そのものではない実物の写真・20% の数に入れない）｜JAS｜一覧の種類：関連｜見せ方：全面｜副題：日本エアシステムの A300-600R（1999年）｜動き：左へ｜権利：CC BY 4.0｜出典の行：Wikimedia Commons（CC BY 4.0）＝作者は src/credits_private.tsv｜注：🔧｜新しい画（映像方針）：再現イラスト 場面10 → 日本エアシステムの A300-600R の写真｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.98〜99'),
+               plan='C496｜一覧の種類：実写｜見せ方：全面｜副題：吹雪の中の石棺（2016年）｜動き：寄る｜権利：CC BY 2.0｜時期：今・跡｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY 2.0｜注：台本＝現在の4号炉-ソ → c501 から移した（CC BY）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.22／12（`protection at the lower steam drum level remained effective throughout the event`）'),
     'ca19': dict(kind='写真',
-               plan='🔧 関連（事故そのものではない実物の写真・20% の数に入れない）｜NTSB｜一覧の種類：関連｜見せ方：全面｜副題：国家運輸安全委員会の本部の入口（ワシントン）｜動き：右へ｜権利：CC0｜出典の行：Wikimedia Commons（CC0）｜注：🔧 文字の頁を減らす｜新しい画（映像方針）：NTSB の頁 → 建物の写真｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S6 p.1・p.6・S1 p.100'),
-    'ca20': dict(kind='写真',
-               plan='K04｜一覧の種類：実写｜見せ方：全面｜副題：中華航空の同じ型（2004年・福岡）｜動き：左へ｜権利：CC0｜出典の行：Wikimedia Commons「ChinaAirlines A300 fukuoka 20041023102346.jpg」（CC0）＝作者は src/credits_private.tsv｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.100・p.98・S7 p5001'),
+               plan='🔧 C1｜一覧の種類：実写｜見せ方：全面｜副題：石棺の鉄骨（2008年）｜動き：上へ｜権利：CC BY 3.0｜時期：今・跡｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY 3.0｜注：🔧 イメージ（Pexels）→ 石棺の寄り（CC BY 3.0）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.21／11（`it is likely that the operator did not know the value of the ORM`・`during the critical part of the test`）・S1 p.34／24（`Most reprehensibly, unapproved changes in the test procedure were deliberately made`）'),
+    'ca20': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：2つの札に×（無実でもうそでもない）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.34／24（`operating rules were violated`・`does not retract INSAG-1`）'),
+    'ca21': dict(kind='写真',
+               plan='H06｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：新しい覆いと送電線（2018年）｜動き：額ごと右へ｜権利：CC BY-SA 4.0｜時期：今・跡｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY-SA 4.0｜注：台本＝現在の4号炉-タ｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.26／16（`It is reprehensible that such a deficiency had been known of for so long`）'),
+    'ca22': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：2つの矢印（設計と運転）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-付属書II p.120／110（`reactor instability caused both by design faults and the operating regime`）'),
+    'ca23': dict(kind='写真',
+               plan='🔧 T138｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：冷却水路に映る4号機と排気筒（2010年）｜動き：額ごと寄る｜権利：CC BY-SA 2.0｜時期：今・跡｜人：なし｜出典の行：IAEA Imagebank（CC BY-SA 2.0）・撮影者は作者欄のとおり｜注：🔧 c27（森のバス）→ 冷却水路の4号機。c27 は cb19 へ → 第10章の扉｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='—'),
 }
 
 SPEC = {}
-
-# ── 🆕 ⑤b-4（2026-10-20）：年表（軸の型＝門番 check_axis）＝案C 場面10 から替えた3カット・再現イラスト C5 相反の図（ca11＝門番 ㉟）──
-from illu17 import C5_REC as R5  # noqa: E402  置き場 C5 の部品の出典（描く側と同じ文）
-
-SPEC.update({
-    # ca01（2行）＝技術通報（1993年6月24日・エアバス社＝緑・p76）と事故（赤）＝事故の10か月前（括弧・数は語り）→ 2行目で改修の中身（項目の札）
-    # ⚠️ 門番 echo・dup：見出し「事故の10か月前」・副題「1993年6月24日の技術通報」は語りと点の字と同じ＝替えた
-    "ca01": dict(
-        t="改修の知らせ", s="エアバス社から航空会社へ",
-        fig=("axis", dict(ss.AX_M17, steps=[dict(add=[ss.ax("sb93", big=True), ss.ax("acc94"), ss.ax("br9394")], cur="1993-06-24"),
-                                            dict(add=[dict(k="chips", at="1993-06-24", chips=["押せば自動操縦が切れる"], rec="報告書 p79")])],
-                          note="年月日は報告書の本文", src=ss.src(["報告書 p76", "報告書 p79", "報告書 p6"])))),
-    # ca10（2行）＝事故機の改修は行われないままだった（p92）→ 2行目で修理工場の受け入れは 1993年9月から（p79）
-    # ⚠️ 門番 dup：見出し「改修されないまま」は札と同じ・副題「技術通報から事故まで」は点の字と重なる＝替えた
-    "ca10": dict(
-        t="事故機の改修", s="受け入れの体制と事故の日",
-        # ⚠️ 門番 axis：技術通報の札が右へ伸びて 1993年9月の縦の線に貫かれた＝通報の札は左へ（anchor end）
-        fig=("axis", dict(ss.AX_M17, past=[ss.ax("sb93", anchor="end")],
-                          steps=[dict(add=[ss.ax("acc94", big=True),
-                                           dict(k="chips", at="1994-04-26", chips=["改修されないまま"], rec="報告書 p92")], cur="1994-04-26"),
-                                 dict(add=[ss.ax("fcc93")], cur="1993-09")],
-                          note="年月日は報告書の本文", src=ss.src(["報告書 p92", "報告書 p79", "報告書 p6"])))),
-    # ca11（3行・報告書の見方＝想定）＝相反の図に「もし改修されていれば」。押す力（15kg以上）で自動操縦が切れる＝水色の矢印が消え、
-    #   板は -5.3度の点線で止まる（p79）→ 2行目「大きなずれには至らなかった」→ 3行目の問い。前の全面の絵＝ca08 の地図（図解）＝向きの札だけ
-    "ca11": dict(fig=("illu", dict(
-        place="C5", assume="報告書の見方（改修されていれば）",
-        start=dict(c5kind="model", c5ths=-12.3, c5elev=8.5, c5ap="on", c5hand="on", c5lim="on"), rec=R5["ap"],
-        steps=[dict(state=dict(c5if="on", c5ap="off"), rec=R5["iff"],
-                    # ⚠️ 門番 layout：左へ出すと字の左が 5（下限 72）＝右へ
-                    tag=dict(t="押す力（15kg以上）で自動操縦が切れる", at="ap_le", off=(40, 130), anchor="start")),
-               dict(rec=R5["iff"], tag=dict(t="大きなずれには至らない", at="ghost", off=(-40, -130), anchor="middle")),
-               dict()]))),
-    # ca17（2行）＝事故のあと。5月3日 台湾の当局が改修を指示（p97）→ 2行目で中華航空は 9月7日までに改修を終えた（p97）。
-    #   ほかの日付（5月5日〜12月13日）は ca18 の語り＝描かない
-    # ⚠️ 見出し「各国が動いた」は語りの1文と同じ＝替えた
-    "ca17": dict(
-        t="事故のあとの改修", s="事故の年のうちに",
-        # ⚠️ 門番 axis：「1994年9月7日」の縦の線が 5月3日の札を貫き、札が3段目で右上の章の札に触れた＝日付は月日だけ（軸の目盛りに年）
-        fig=("axis", dict(ss.AX_M17, past=[ss.ax("sb93", anchor="end"), ss.ax("acc94")],
-                          # ⚠️ 門番 axis・layout（軸を 1992-12 からに広げたあと）：9月7日の札を左へ出すと縦の線が 5月3日の札を貫いた＝右へ
-                          steps=[dict(add=[ss.ax("tw94", fmt="md")], cur="1994-05-03"),
-                                 dict(add=[ss.ax("cal94", fmt="md", anchor="start")], cur="1994-09-07")],
-                          note="年月日は報告書の本文", src=ss.src(["報告書 p97"])))),
-})
-
-# ── 🆕 ⑤b-6b（2026-10-20）：図解（`tools/mech17.py`・門番 check_mech の judge_m17＝記録 REC_M17）＝第10章の10カット ──
-#   🔴 画面の字の数は全部 rel に。見出し・副題は語りの写しにしない（echo）・図の字と同じ語にしない（dup）。語りにある点だけ・次のカットの語りは描かない
-_N12 = dict(t="1・2・3・4・5・6・7・8・9・10・11・12（要因の番号）", src="報告書 p95")
-SPEC.update({
-    # ca02（3行）＝技術通報の中身（p76）。1行目で出す側と受ける側 → 2行目で高さの条件（400ft＝約120m）→ 3行目で操縦輪の力（15kg）
-    #   ⚠️ 区分（推奨）は ca05 の語り＝書かない
-    "ca02": dict(
-        t="押して切れる条件", s="エアバス社が出した文書",
-        fig=("m17", dict(view="doc", start=dict(set="sb"), steps=[dict(state=dict(f1="on")), dict(state=dict(f2="on")), dict(state=dict(f3="on"))],
-                         rel=[dict(t="A300-22-6021", src="報告書 p76"), dict(t="対地 400 ft 以上（約120メートル）", src="報告書 p76"),
-                              dict(t="15 kg 以上", src="報告書 p76")],
-                         note="中身は報告書の要約（原文の英語の文は写さない）・模式", src=ss.src(["報告書 p76"])))),
-    # ca03（2行）＝4つの区分（p76）。1行目で必須（最も優先）→ 2行目で推奨・望ましい・任意。⚠️ 推奨の印は ca05 の語り＝付けない
-    "ca03": dict(
-        t="4つの区分", s="急ぐ度合いの分け方",
-        fig=("m17", dict(view="doc", start=dict(set="cls"), steps=[dict(state=dict(f1="on")), dict(state=dict(f2="on"))],
-                         rel=[dict(t="1・2・3・4（区分の番号）", src="報告書 p76")],
-                         note="区分の名は報告書の書き方（英語）・模式", src=ss.src(["報告書 p76"])))),
-    # ca04（3行）＝必須以外は航空会社が決める（p76）。1行目で区分 → 航空会社（運航の経験・整備の計画）→ 2行目で行うかどうか・そのやり方 → 3行目で「この改修は？」
-    #   ⚠️ 答え（推奨）は ca05 の語り＝書かない
-    "ca04": dict(
-        t="だれが決めるか", s="必須でない通報のとき",
-        fig=("m17", dict(view="flow", start=dict(set="own"), steps=[dict(state=dict(a="on")), dict(state=dict(b="on")), dict(state=dict(c="on"))],
-                         note="言葉は報告書の本文の要約", src=ss.src(["報告書 p76"])))),
-    # ca05（2行）＝推奨（Recommended）→ 2行目で1機に飛行制御コンピュータ2台（p76）
-    "ca05": dict(
-        t="この改修の区分", s="直す台数も",
-        fig=("m17", dict(view="cards2", start=dict(set="rec2"), steps=[dict(state=dict(l="on")), dict(state=dict(r="on"))],
-                         rel=[dict(t="2台・1機あたり", src="報告書 p76")],
-                         note="区分は報告書の書き方（英語）", src=ss.src(["報告書 p76"])))),
-    # ca07（2行）＝中華航空の判断（p76・p92）。1行目で推奨 → 緊急性は無い → 2行目で修理に出すときに合わせて改修
-    "ca07": dict(
-        t="急ぐ改修ではない", s="受け取った会社の考え",
-        fig=("m17", dict(view="flow", start=dict(set="cal"), steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))],
-                         note="言葉は報告書の本文の要約", src=ss.src(["報告書 p76", "報告書 p92"])))),
-    # ca08（2行）＝上から見た台湾とシンガポール（見る向きの合図＝c920 の横から → 上から＝左上の札）。1行目で自社では改修できない → シンガポールの修理工場へ
-    #   → 2行目で運航の予備も残す（p77）。⚠️ 予備の数（6機・6台）は語りに無い＝描かない
-    "ca08": dict(
-        t="改修は海の向こう", s="工場へ送るしかない",
-        fig=("m17", dict(view="asia", steps=[dict(state=dict(send="on")), dict(state=dict(spare="on"))],
-                         note="陸の形は Natural Earth・シンガポールの点は一般の座標・矢印は模式", src=ss.src(["報告書 p77"])))),
-    # ca09（3行）＝修理に出た台数（p77）。1行目で 1991年 4台・1992年 8台 → 2行目で通報のあと事故まで 0台 → 3行目で「改修の機会が来ない」
-    #   ⚠️ 1993年の「この時点までに1台」は語りに無い＝描かない。年ごとの数と期間の数は破線で群を分ける
-    "ca09": dict(
-        t="修理の台数", s="修理に合わせる計画で",
-        fig=("m17", dict(view="bars", start=dict(set="fcc"), steps=[dict(state=dict(b0="on", b1="on")), dict(state=dict(b2="on")), dict(state=dict(msg="on"))],
-                         rel=[dict(t="0・2・4・6・8・10（目盛り）", src="報告書 p77"), dict(t="1991年・1992年", src="報告書 p77"),
-                              dict(t="4台・8台・0台", src="報告書 p77")],
-                         note="台数は報告書の値（通報のあと事故までは1993年6月24日から）", src=ss.src(["報告書 p77"])))),
-    # ca12（2行）＝判断に大きく影響したもの（p80＝報告書の見方）。1行目で中華航空の判断と「大きく影響」→ 2行目で推奨として出た・理由と背景の説明が足りない
-    "ca12": dict(
-        t="判断に響いたこと", s="影響したもの2つ",
-        fig=("m17", dict(view="flow", start=dict(set="tell"), steps=[dict(state=dict(a="on")), dict(state=dict(b="on"))],
-                         note="言葉は報告書の本文の要約", src=ss.src(["報告書 p80"])))),
-    # ca14（2行）＝12の要因（c726 と同じ並び・役の色つき）。1行目で要因11に印（航空会社の側）→ 2行目で要因12に印（メーカーとフランスの当局＝p96）
-    "ca14": dict(
-        t="改修と命令", s="最後の2つの要因",
-        fig=("m17", dict(view="factors", start=dict(cards="on", acc="on", roles="on"),
-                         steps=[dict(state=dict(mk_k11="on")), dict(state=dict(mk_k12="on"))],
-                         rel=[_N12], note="言葉は報告書の要因の要約・番号は報告書の順", src=ss.src(["報告書 p96"])))),
-    # ca16（3行）＝耐空性改善命令（当局が出す・安全に飛べる状態を保つ・改修などを義務づける＝一般の説明の模式）。3行目は次の ca17 の問い＝足さない
-    #   ⚠️ 事故のあとの命令（1994年8月の DGAC の命令など）は描かない（ca17・ca18 の語りは別の日付）
-    "ca16": dict(
-        t="当局の命令", s="改修を義務にする書類",
-        fig=("m17", dict(view="doc", start=dict(set="ad"), steps=[dict(state=dict(f1="on")), dict(state=dict(f2="on")), dict()],
-                         note="書類の要点は一般の説明（模式）・語は報告書の本文", src=ss.src(["報告書 p80", "報告書 p93"])))),
-})
-
-# ── 🆕 ⑤b-7a（2026-10-21）：写真・フリー素材（第10章の残り）──
-_T1, _AB3, _JAS, _NTSB, _K04 = P("t1"), P("ab3"), P("jas"), P("ntsb"), P("k04")
-SPEC.update({
-    # ca06（8.4秒）＝T1（姉妹機 B-1814）の機体の寄り（c202 は寄り 1.25 で左へ）＝右へ。下の看板の字（y 0.88〜）は窓の外（縦 0.23〜0.77）。
-    #   🔧 寄り 1.4 だと上の空が窓の半分（門番 blank の空白帯 50%）＝寄り 1.55（実効の幅 1,292px）・縦の寄せ 0.50
-    "ca06": dict(photo=_T1, **ss.mvz(_T1, (0.42, 0.50, 1.55), (0.56, 0.50, 1.55)), side="none",
-                 t="受け取った日", s="同じ型の姉妹機 B-1814（1993年10月・香港）"),
-    # ca13（8.5秒・聞き役の問い）＝フリー素材 Xk1（書類）
-    "ca13": ss.vid("ca13"),
-    # ca15（★・5.4秒）＝AB3（今のエアバス社の本社の上を飛ぶベルーガ・CC0・関連・横 1280）＝寄りなしで上へ（ベルーガ＝y 0.13）
-    #   🔧 ⑤b-7b（10-21）：縦の寄せの終わり 0.2 → 0.0＝0.2 だとベルーガ（y 0.13＝178px）が画面の y 0.07＝右上の章の札「10 / 11」の真後ろに隠れた
-    #      （試し焼き 39516023150 の原寸）。0.0 なら画面の y 0.25（札の下）
-    "ca15": dict(photo=_AB3, **ss.mv(_AB3, "u", z=1.0, span=(0.0, 0.8)), side="none",
-                 t="メーカーと当局", s="現在のエアバス社の本社の上を飛ぶベルーガ"),
-    # ca18（6.8秒）＝JAS（日本エアシステムの A300-600R・CC BY 4.0・関連）＝左へ
-    "ca18": dict(photo=_JAS, **ss.mv(_JAS, "l", fy=0.5), side="none",
-                 t="日本の指導", s="日本エアシステムの A300-600R（1999年）"),
-    # ca19（12.1秒）＝NTSB（本部の入口の紋章・CC0・関連）＝右へ（紋章＝y 0.38）
-    "ca19": dict(photo=_NTSB, **ss.mv(_NTSB, "r", fy=0.38), side="none",
-                 t="アメリカの勧告", s="国家運輸安全委員会の本部の入口（ワシントン）"),
-    # ca20（9.8秒）＝K04（中華航空の同じ型・CC0）＝左へ
-    "ca20": dict(photo=_K04, **ss.mv(_K04, "l", fy=0.45), side="none",
-                 t="命令と区分", s="中華航空の同じ型（2004年・福岡）"),
-})

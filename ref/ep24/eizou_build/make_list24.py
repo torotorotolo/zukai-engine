@@ -15,23 +15,32 @@
   E 図の型（模式のほか）が全編で3回以上（同じ図を何度も使わない＝台本の設計で2回まで）
   ⚠️ 続く図（あいだの写真は飛ばす）で見た目の型が同じ／写真の無い画面が5つ以上続く／章の写真と頁が 20% 未満
   ⚠️ 別の写真なのに副題が同じ／静止写真の動きが「寄る」に偏る（50%超）
-秒＝句読点なし÷365字/分の見込み（⑤a の音が出たら narration.json の実測に替える＝23本目 ⑤b-1 の型）。
+  🆕 E フリー素材の映像の長さがカットの 0.6 倍に足りない／1.0 倍に足りないのに動きの欄に「映像（0.xx倍）」が無い（手元にあるときだけ測る・
+     ⑤b-1＝23本目 make_list23・17本目 make_list17 の型）
+秒＝🆕 2026-10-22（⑤b-1）から **audio/narration.json の実測**（前 0.35＋声＋後 0.50・章の扉 2.0＝c2〜cc の頭の11枚＝check_script.door_key と同じ規則）。
+   narration.json が無い・台本と合わないときだけ ÷365 の見込み（出力に書く）。
 """
 import csv
+import json
 import os
 import re
+import subprocess
 import sys
 from collections import Counter, defaultdict
 
 sys.stdout.reconfigure(encoding='utf-8')
 HERE = os.path.dirname(os.path.abspath(__file__))
 EP = os.path.dirname(HERE)
+REPO = os.path.dirname(os.path.dirname(EP))
 DAIHON = os.path.join(EP, 'daihon_v2.md')
 OUT_MD = os.path.join(EP, 'eizou_list24.md')
 OUT_TSV = os.path.join(HERE, 'list24.tsv')
+NARR = os.path.join(REPO, 'audio', 'narration.json')
 PUNCT = '、。？！「」（）・'
 CUT = re.compile(r'^\*\*(c[0-9a-d]\d{2})\*\*')
 OPENING = ['c10%d' % i for i in range(1, 8)]
+RATE = 365.0
+RATE_MIN = 0.6          # 映像は 0.6 倍まで伸ばしてよい（footage の決まり）＝これ未満は止め絵になる
 PHOTO_LO = 0.20
 BLAME = re.compile(r'運転員|職員|当直長|責め|誤り|違反|わざと|知らなかった|規則に反')
 PRE_ERA_BAD = ('後', '今・跡', 'イメージ')  # §0-5＝夜と4月25日の場面に今の跡の写真・フリー素材を置かない
@@ -74,9 +83,19 @@ def base_kind(ga):
     return '?'
 
 
+def heading(t, head, start=0):
+    """見出しの行（行の頭の `head`）の位置。🆕 2026-10-22（⑤b-1）：`str.index` は最初の1つを取る＝本文の注に同じ字があると
+    切り出しが空になる（17本目 ⑤b-1 の落とし穴）。行の頭だけを見て、`start` より後ろから探す"""
+    m = re.compile('^' + re.escape(head), re.M).search(t, start)
+    if not m:
+        raise SystemExit('台本に見出し「%s」が無い（%d字目より後ろ）' % (head, start))
+    return m.start()
+
+
 def read_cuts():
     t = open(DAIHON, encoding='utf-8').read()
-    body = t[t.index('## 4. 台本'):t.index('## 5. ')]
+    a4 = heading(t, '## 4. 台本')
+    body = t[a4:heading(t, '## 5. ', a4)]
     rows, chap, cur = [], '', None
     for ln in body.split('\n'):
         if ln.startswith('### '):
@@ -99,9 +118,46 @@ def read_cuts():
     sec = 0.0
     for r in rows:
         r['start'] = sec
-        r['dur'] = r['n'] / 365 * 60
+        r['dur'] = r['cont'] = r['n'] / RATE * 60
+        r['card'] = 0.0
         sec += r['dur']
-    return rows
+    return rows, measured(rows)
+
+
+def measured(rows):
+    """🆕 2026-10-22（⑤b-1）：秒を **audio/narration.json の実測**に（17本目 make_list17・23本目 make_list23・20本目 make_list20.measured() の型）。
+    カット＝前 LEAD＋声（行間こみ）＋後 TAIL・扉 CARD_SEC はそのカットの頭（start は扉の前）。
+    🔴 扉の位置は check_script.door_key（音の側〈aq_build.timeline・check_script ③・check_listener〉と scene_jiko._card_heads と同じ1つの規則）＝
+       24本目は c2〜cc の頭の11枚（つかみ c101〜c107 が c1 の記号を使い切る＝INNER_CARDS は要らない）。倍率の分母（cont）は扉を除く。
+    narration.json のカットが台本と合わないときだけ ÷365 の見込みのまま（出力に書く）"""
+    if not os.path.exists(NARR):
+        return '÷365 の見込み（narration.json が無い）'
+    sys.path.insert(0, os.path.join(REPO, 'tools'))
+    import check_script as CSC
+    dur = json.load(open(NARR, encoding='utf-8')).get('durations', {})
+    if [r['cid'] for r in rows] != [c for c in dur if c != 'ed01']:
+        return '÷365 の見込み（narration.json が台本と合わない）'
+    sec, prev = 0.0, None
+    for r in rows:
+        key = CSC.door_key(r['cid'], slug='ep24')
+        r['card'] = CSC.CARD_SEC if (prev is not None and key != prev) else 0.0
+        prev = key
+        r['start'] = sec
+        r['cont'] = dur[r['cid']] + CSC.LEAD + CSC.TAIL
+        r['dur'] = r['cont'] + r['card']
+        sec += r['dur']
+    return 'audio/narration.json の実測'
+
+
+def media_len(path):
+    p = os.path.join(REPO, path)
+    if not path or not os.path.exists(p):
+        return None
+    out = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', p], capture_output=True, text=True)
+    try:
+        return float(out.stdout.strip())
+    except ValueError:
+        return None
 
 
 def motion_class(mo):
@@ -134,7 +190,7 @@ def is_textonly(c):
 
 
 def main():
-    cuts = read_cuts()
+    cuts, tnote = read_cuts()
     E, W = [], []
     arows = [ln.split('|') for ln in read_psv(os.path.join(HERE, 'assign24.psv'))]
     keys = ['cid', 'kind', 'main', 'frame', 'sub', 'motion', 'view', 'look', 'ga_new', 'note']
@@ -173,6 +229,7 @@ def main():
     use = defaultdict(list)
     for c in cuts:
         c['code'] = c['part'] = c['rights'] = c['credit'] = c['era'] = c['people'] = c['get'] = ''
+        c['src_len'] = c['rate'] = None
         if c['kind'] not in PHOTOISH:
             continue
         if not c['main']:
@@ -184,6 +241,25 @@ def main():
             E.append('%s 記号 %s が sources24.psv に無い' % (c['cid'], code))
             continue
         c.update(code=code, part=part, rights=s['rights'], credit=s['credit'], era=s['era'], people=s['people'], get=s['get'])
+        if s['type'] == 'stock' and s['file'].endswith(('.mp4', '.webm', '.mkv')):
+            # 🆕 ⑤b-1（10-22）：映像の長さの門番（23本目 make_list23・17本目 make_list17 の型）。分母は扉を除いた中身の秒（cont＝実測）。
+            #    区間「a〜b秒」が動きの欄にあればその長さ。等速＝伸ばさない／1.0 未満は動きの欄に「映像（0.xx倍）」（0.6 未満は E）
+            have = media_len(s['file'])
+            m = re.search(r'(\d+(?:\.\d+)?)〜(\d+(?:\.\d+)?)秒', c['motion'])
+            if m:
+                have = float(m.group(2)) - float(m.group(1))
+            if have is None:
+                W.append('%s 映像の素材 %s が手元に無い＝長さを測れない' % (c['cid'], s['file']))
+            else:
+                den = c['cont']
+                c['src_len'] = have
+                c['rate'] = have / den if den else 0
+                mr = re.search(r'映像（[^）]*?(\d\.\d+)倍）', c['motion'])     # 「映像（0.83倍）」「映像（0〜5.8秒＝…・0.83倍）」
+                if c['rate'] < RATE_MIN:
+                    E.append('%s 映像 %.2f秒 ÷ カット %.2f秒 ＝ %.2f倍 ＜ %.1f（止め絵になる・素材か区間を替える）' % (c['cid'], have, den, c['rate'], RATE_MIN))
+                elif c['rate'] < 1.0 and not (mr and float(mr.group(1)) <= c['rate'] + 1e-9):
+                    E.append('%s 映像 %.2f秒 がカット %.2f秒 に足りない（等速なら尻が %.2f秒 欠ける）＝区間か素材を替えるか、動きの欄を「映像（%.2f倍）」以下に' % (
+                        c['cid'], have, den, den - have, int(c['rate'] * 100) / 100))
         use[code].append((c['cid'], part))
         r = s['rights']
         if 'SA' in r:
@@ -292,15 +368,19 @@ def main():
 
     with open(OUT_TSV, 'w', encoding='utf-8', newline='\n') as f:
         w = csv.writer(f, delimiter='\t', lineterminator='\n')
-        w.writerow(['cid', 'chap', 'start', 'dur', 'kind', 'code', 'part', 'frame', 'sub', 'motion', 'view', 'look', 'signal', 'rights', 'era', 'people', 'credit', 'note', 'ga', 'ga_new'])
+        # 🆕 ⑤b-1：末尾に cont（扉を除いた中身の秒）・card（頭の扉の秒）・src_len／rate（映像の素材の秒と倍率）＝前の列の並びは変えない
+        w.writerow(['cid', 'chap', 'start', 'dur', 'kind', 'code', 'part', 'frame', 'sub', 'motion', 'view', 'look', 'signal', 'rights', 'era', 'people', 'credit', 'note', 'ga', 'ga_new',
+                    'cont', 'card', 'src_len', 'rate'])
         for c in cuts:
             w.writerow([c['cid'], c['chap'], '%.2f' % c['start'], '%.2f' % c['dur'], c['kind'], c['code'], c['part'], c['frame'], c['sub'], c['motion'],
-                        c['view'], c['look'], c['signal'], c['rights'], c['era'], c['people'], c['credit'], c['note'], c['ga'], c['ga_new']])
+                        c['view'], c['look'], c['signal'], c['rights'], c['era'], c['people'], c['credit'], c['note'], c['ga'], c['ga_new'],
+                        '%.2f' % c['cont'], '%.1f' % c['card'], '%.2f' % c['src_len'] if c['src_len'] is not None else '',
+                        '%.3f' % c['rate'] if c['rate'] is not None else ''])
 
     L = ['---', 'title: 24本目 場面ごとの映像・写真の一覧（生成物）', 'created: 2026-10-22', 'tags: [project/jiko-kensho, ep24]', '---', '',
          '# 24本目 場面ごとの映像・写真の一覧（%dカット・映像方針）' % n, '',
          '> **生成物＝手で直さない**。作り方＝`python ref/ep24/eizou_build/make_list24.py`（入力＝台本 第2版 `daihon_v2.md` §4・当て方 `eizou_build/assign24.psv`・出どころ `eizou_build/sources24.psv`〈`make_sources24.py` が書く〉）。直すのは入力。',
-         '> 秒＝句読点なし÷365字/分の見込み（⑤a の音が出たら実測に替える）。🔧＝台本の画の欄から替えたカット。色味は原本（10-07）。写真は画面いっぱい（10-11）＝例外は BY-SA（高さいっぱいの額装・切らない・色を変えない・寄らない＝額ごと動かす）と小さい写真（額装）。'
+         '> 秒＝%s（⑤b-1 から＝前 0.35＋声＋後 0.50・章の扉 2.0＝c2〜cc の頭の11枚）。🔧＝台本の画の欄から替えたカット。' % tnote + '色味は原本（10-07）。写真は画面いっぱい（10-11）＝例外は BY-SA（高さいっぱいの額装・切らない・色を変えない・寄らない＝額ごと動かす）と小さい写真（額装）。'
          '1986年の事故の動く記録映像は0本（【映像あり】は付けない）。見た画像の記録＝`eizou_build/seen24.tsv`。決めと確かめの正本＝Vault `Projects/事故検証-24本目-映像方針-20261022.md`。', '',
          '## §0 数', '', '| 物差し | 値 | 決まり |', '|---|---|---|',
          '| 写真（この発電所・この事故）＋報告書の頁 | **%d カット＝%.1f%%**（写真 %d・頁 %d〈うち文字の頁 %d〉・秒 %.0f＝%.1f%%） | 20%%以上 %s |' % (

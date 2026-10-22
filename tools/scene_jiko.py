@@ -143,18 +143,23 @@ CSS = ""
 #       鍵 "c1'"（`check_script.door_key`＝c110 から c1 の終わりまで・INNER_CARDS）が第1章。つかみ（"c1"）は CHAPTERS に無い＝章の札なし
 #       （19〜23本目のつかみと同じ扱い）。扉は c110・c201〜cb01 の11枚（音の側〈aq_build.timeline・check_script ③・check_listener〉と同じ規則）。
 #    ⚠️ 長い章名（第4章「20時14分5秒のレバー」・第6章「切っても残った角度」）は右上の章の札の幅を焼いた絵で見る
+# 🔴 2026-10-22（24本目 ⑤b-1）：チェルノブイリ原発事故へ差し替え。17本目の章名は git の `2cc5e5ab`。
+#    正本＝repo `ref/ep24/daihon_v2.md` §4 の `### 第N章　…`（`（` の手前まで）＝映像方針の一覧 `list24.tsv` の chap。**24本目は つかみ＋11章**
+#    （c1〜c9・ca・cb・cc＝242カット）＝`cuts/__init__.CHAPTER_FILES` に cc を足し、`NCH` は 11 のまま。つかみ（c1＝c101〜c107）は章の札なし。
+#    扉は c201〜cc01 の11枚（音の側と同じ＝check_script.door_key・24本目は INNER_CARDS なし）。
+#    ⚠️ 長い章名（第7章「1986年8月、ウィーン」・第9章「書き直された結論」）は右上の章の札の幅を焼いた絵で見る
 CHAPTERS = {
-    "c1'": (1, "画面に出ていた文字"),
-    "c2": (2, "その夜の140便"),
-    "c3": (3, "2枚の板とモード"),
-    "c4": (4, "20時14分5秒のレバー"),
-    "c5": (5, "約30秒の「相反」"),
-    "c6": (6, "切っても残った角度"),
-    "c7": (7, "52.6度"),
-    "c8": (8, "北門の鎖"),
-    "c9": (9, "3つの前例"),
-    "ca": (10, "「推奨」の改修"),
-    "cb": (11, "報告書と判決"),
+    "c2": (1, "4号炉の試験"),
+    "c3": (2, "延期された試験"),
+    "c4": (3, "0時28分"),
+    "c5": (4, "外された保護"),
+    "c6": (5, "1時23分"),
+    "c7": (6, "3キロ先の町"),
+    "c8": (7, "1986年8月、ウィーン"),
+    "c9": (8, "止める棒の先"),
+    "ca": (9, "書き直された結論"),
+    "cb": (10, "31人と30人"),
+    "cc": (11, "石棺のその後"),
 }
 NCH = 11
 
@@ -248,18 +253,25 @@ def chapter_of(cid):
 #    セピア＝その夜の記録の章（その夜の140便・20時14分5秒のレバー・北門の鎖）・赤銅＝壊れる章（約30秒の「相反」・52.6度）・
 #    白黒＝改修の書類（「推奨」の改修）・紺＝仕組みと記録の図解（画面に出ていた文字・2枚の板とモード・切っても残った角度・3つの前例・報告書と判決）。
 #    ⚠️ 写真の色味は原本のまま（`build_jiko.PHOTO_KEEP_EP` の ep17＝1.0）＝章の色は図の層だけに効く。冒頭（つかみ）は実写だけ。
+# 🔴 2026-10-22（24本目 ⑤b-1）：17本目の11件（git の `2cc5e5ab`）から差し替えた＝11章（つかみ c101〜c107 は章が無い＝navy）。
+#    Claude の推奨（カズヤくんに見せて変えてよい）。選び方は14〜17本目と同じ＝章の中身で色を選び、`check_palette.de` で隣の章の差が
+#    DE_MIN 13 以上になる並び。24本目の役の色は映像方針で決めていない＝17・22・23本目と同じく青緑（teal）と夜の藍（night）は使わない
+#    （⑤b で役の色を足しても取り違えない・夜の場面の色は案C の絵の層＝KEEP_COLOR）＝紺・白黒・赤銅・セピアの4色。⚠️ 隣に置けない組＝白黒とセピア 6.5。
+#    セピア＝4月25日とその夜の記録の章（延期された試験・外された保護）・赤銅＝壊れる・失う章（1時23分・31人と30人）・
+#    白黒＝報告書の章（1986年8月、ウィーン・書き直された結論）・紺＝仕組みと記録の図解（4号炉の試験・0時28分・3キロ先の町・止める棒の先・石棺のその後）。
+#    ⚠️ 写真の色味は原本のまま（`build_jiko.PHOTO_KEEP_EP` の ep24＝1.0）＝章の色は図の層だけに効く。
 CHAPTER_PALETTE = {
-    "画面に出ていた文字": "navy",              # FMA の表示と記録装置＝図の解説
-    "その夜の140便": "sepia",                  # その夜の飛行の記録
-    "2枚の板とモード": "navy",                 # 昇降舵と水平安定板・自動操縦のモード＝仕組みの図
-    "20時14分5秒のレバー": "sepia",            # ゴー・レバーの1秒＝その夜の記録
-    "約30秒の「相反」": "copper",              # 押す操縦と自動操縦の相反＝壊れに向かう
-    "切っても残った角度": "navy",              # 自動操縦を切っても残った安定板の角度＝仕組みの図
-    "52.6度": "copper",                        # 失速と墜落＝破壊
-    "北門の鎖": "sepia",                       # 救助と消火の記録
-    "3つの前例": "navy",                       # 前例の比べ＝図の解説（セピアの次に白黒は置けない）
-    "「推奨」の改修": "mono",                  # 改修の通報（SB）と命令＝書類
-    "報告書と判決": "navy",                    # 報告書と判決の割れ＝図の解説
+    "4号炉の試験": "navy",                     # RBMK の炉と試験の計画＝仕組みの図
+    "延期された試験": "sepia",                 # 4月25日の延期と出力の記録
+    "0時28分": "navy",                         # 出力が落ちた＝出力と棒の図解
+    "外された保護": "sepia",                   # 外した保護と違反＝その夜の記録
+    "1時23分": "copper",                       # 爆発＝破壊
+    "3キロ先の町": "navy",                     # プリピャチの避難＝地図と時刻の図解
+    "1986年8月、ウィーン": "mono",             # 1986年8月のソ連の報告と INSAG-1＝書類
+    "止める棒の先": "navy",                    # 止める棒の押しのけ棒と正のスクラム＝仕組みの図
+    "書き直された結論": "mono",                # 1991年の委員会と1992年の INSAG-7＝書類
+    "31人と30人": "copper",                    # 亡くなった人の数＝失う
+    "石棺のその後": "navy",                    # 石棺と新しい覆い＝その後の図解
 }
 
 
@@ -842,6 +854,59 @@ def ep19_credit(name):
 
 
 # ══════════════════════════════════════════════════════════
+#  24本目（チェルノブイリ原発事故）── `ref/ep24/`（2026-10-22 ⑤b-1）
+# ══════════════════════════════════════════════════════════
+#   ep24/<欄の名>.jpg … 写真（IAEA 0279〈CC BY-SA 2.0＝額装〉・Commons〈PD・CC0・CC BY・BY-SA〉・USGS の衛星写真〈PD〉・報告書と会議録の頁）
+#                        ＝映像方針の一覧 `ref/ep24/eizou_list24.md`（了承②）
+#   ep24/stock/…      … イメージ（この事故の物でないフリー素材＝Pexels・20% に数えない・概要欄にクレジットを書かない）
+# 🔴 表はファイルから読む（ルール 0b-34①）。`ref/ep24/credits.json` は写真の束のチャット（⑤b-2 以降）で書く（無いあいだは空＝当たらない）。
+#    ⚠️ 名前が当たらないときは None → 最後の `PHOTO_CREDIT[...]` で KeyError（fail closed）。
+#    🔴 作者の名前は git の外の表 `ref/ep24/src/credits_private.tsv` の行頭 `e24:` の行（映像方針＝`make_sources24.py` が書く・
+#       列＝記号・題・許諾・作者・出典・頁）＝画面の出典の行に作者の名前を出す点は credits.json に印 `{作者}` だけを書き、焼くときにここで足す
+#       （17・23本目の型・公開リポに名前を積まない）。⚠️ 表の作者欄はタグを外した字＝出典の行に使う前に名乗りの短い形へ整える（表の1行目の注）
+_EP24_CREDITS = HERE / "ref" / "ep24" / "credits.json"
+EP24_CREDIT = (json.loads(_EP24_CREDITS.read_text(encoding="utf-8"))
+               if _EP24_CREDITS.exists() else {})
+_EP24_AUTHOR = "{作者}"
+_EP24_PRIVATE = HERE / "ref" / "ep24" / "src" / "credits_private.tsv"
+
+
+def _ep24_author(name):
+    import csv
+    import html as _html
+    import os
+    if not _EP24_PRIVATE.exists():
+        if os.environ.get("GITHUB_ACTIONS") == "true":
+            return EP23_AUTHOR_STANDIN                  # 検品の試し焼きだけ（本編は Modal＝表を保管庫から取る）
+        raise RuntimeError(f"{name}: 出典の行に作者の名前が要るのに git の外の表 ref/ep24/src/credits_private.tsv が無い"
+                           "（Modal は保管庫 jiko-assets の ref/ep24/src/ に置く）＝印のまま焼かない")
+    code = json.loads((HERE / "ref" / "ep24" / "assets.json").read_text(encoding="utf-8"))[name[len("ep24/"):-len(".jpg")]]["code"]
+    rows = [r for r in csv.reader(_EP24_PRIVATE.open(encoding="utf-8"), delimiter="\t") if r and r[0].startswith("e24:")]
+    who = {r[0][len("e24:"):]: (r[3] if len(r) > 3 else "") for r in rows}.get(code, "").strip()
+    who = " ".join(_html.unescape(re.sub(r"<[^>]+>", "", who)).split())     # 17本目 ⑥ の落とし穴（タグが残ると行が切れる）
+    if not who:
+        raise RuntimeError(f"{name}（{code}）: git の外の表に作者欄が無い")
+    if re.search(r"[<>&]", who):
+        raise RuntimeError(f"{name}（{code}）: 作者欄に SVG にそのまま書けない字が残る（{len(who)}字）＝焼かない")
+    return who
+
+
+def ep24_credit(name):
+    """`ref/ep24/` の名前から出典表記を作る。当てはまらなければ None。"""
+    if not name.startswith("ep24/"):
+        return None
+    m = re.fullmatch(r"ep24/(?:stock/)?fb_(c[0-9a-f]{3}(?:~t)?)\.jpg", name)     # 映像のひかえの静止画＝出典は映像と同じ（19本目 ⑤b-2 の型）
+    if m:
+        import footage as _FO
+        u = _FO.USE.get(m.group(1))
+        return _FO.CLIPS[u["clip"]]["credit"] if u else None
+    v = EP24_CREDIT.get(name)
+    if v and _EP24_AUTHOR in v:
+        v = v.replace(_EP24_AUTHOR, _ep24_author(name))
+    return v
+
+
+# ══════════════════════════════════════════════════════════
 #  17本目（中華航空140便墜落事故）── `ref/ep17/`（2026-10-20 ⑤b-1）
 # ══════════════════════════════════════════════════════════
 #   ep17/<欄の名>.jpg … 写真（運輸省 航空事故調査委員会の報告書〈PDL1.0〉の写真と付図・Commons〈事故機・姉妹機・同じ型の機体＝CC BY／
@@ -1291,7 +1356,7 @@ def credit_of(cid, spec):
             return c
     except Exception:                                    # noqa: BLE001
         pass
-    cr = (ep17_credit(spec["photo"]) or ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
+    cr = (ep24_credit(spec["photo"]) or ep17_credit(spec["photo"]) or ep23_credit(spec["photo"]) or ep22_credit(spec["photo"]) or ep21_credit(spec["photo"]) or ep20_credit(spec["photo"]) or ep19_credit(spec["photo"]) or ep18_credit(spec["photo"]) or ep16_credit(spec["photo"]) or ep15_credit(spec["photo"])
           or ep14_credit(spec["photo"])
           or ep13_credit(spec["photo"])
           or ep12_credit(spec["photo"])

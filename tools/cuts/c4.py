@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-"""第4章　20時14分5秒のレバー c401–c420（20カット）。17本目（中華航空140便墜落事故）。
+"""第3章　0時28分 c401–c421（21カット）。24本目（チェルノブイリ原発事故・1986-04-26）。
 
-■ 🔴 2026-10-20（⑤b-1）：23本目（三豊百貨店崩壊事故のリメイク）の中身を空にした＝git の `b800dbdb`（`git show b800dbdb:tools/cuts/c4.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep17/make_plan17.py` で
-  映像方針の一覧 `ref/ep17/eizou_build/list17.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
-  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（撮影者の名前がある＝元の画は台本 §4）。
+■ 🆕 2026-10-22（⑤b-1）：新しいファイル。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep24/make_plan24.py` で
+  映像方針の一覧 `ref/ep24/eizou_build/list24.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
+  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep24/eizou_list24.md`）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット。
-  ⚠️ 「関連」と書いたカットは事故そのものではない実物の写真（種類は写真・20% の数〈この事故の写真〉には入れない）
+  ⚠️ 「関連（参考＝…）」と書いたカットは同じ型のほかの発電所の炉の写真（種類は写真・20% の数〈この発電所・この事故の写真〉には入れない・
+     門番 check_text_screens が束の台帳 assets.json の related と照らす）
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -16,194 +17,69 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'c401': dict(kind='再現イラスト',
-               plan='一覧の種類：案C｜見る向き：横から｜見た目の型：C4 断面（寄り）｜注：20:14:05・約330メートル｜このカットの前に章の扉｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.5・p.44'),
-    'c402': dict(kind='再現イラスト',
-               plan='一覧の種類：案C｜見る向き：正面｜見た目の型：C3 手｜注：右の席の手がスラスト・レバーに（人は影の手だけ）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.51'),
-    'c403': dict(kind='写真',
-               plan='R37:全体｜一覧の種類：実写｜見せ方：全面｜副題：事故のあとのスラスト・レバーとゴー・レバー｜動き：寄る｜権利：PDL1.0｜出典の行：運輸省 航空事故調査委員会『航空事故調査報告書 96-5』写真37（加工して作成）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.51・p.59'),
-    'c404': dict(kind='図・写真の頁',
-               plan='P51:全体｜一覧の種類：頁｜見せ方：額装（頁）｜副題：報告書の写真51（レバーの位置関係）｜動き：下へ｜権利：PDL1.0｜出典の行：運輸省 航空事故調査委員会『航空事故調査報告書 96-5』写真51（加工して作成）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.51・p.163'),
+    'c401': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：針の計器（0:05 の 720MW）｜このカットの前に章の扉｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-表I-I p.63／53（`Reactor thermal power was 720 MW`）・S3 p.20／16（`was to be carried out at a reactor power of 700-1000 MW(th)`）・S2 p.28／~25（`reduction of power to between 700 and 1000 MW(th)`）'),
+    'c402': dict(kind='図解',
+               plan='一覧の種類：時計｜見た目の型：時計（0:28）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.21／11（`the precipitous fall in power to 30 MW(th) as being due to an operator error`）'),
+    'c403': dict(kind='再現イラスト',
+               plan='一覧の種類：時刻表｜見た目の型：時刻表（後半・案C3）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S3 p.20／16（`the power fell below 30 MW(th)`）'),
+    'c404': dict(kind='図解',
+               plan='🔧 一覧の種類：模式｜見た目の型：札（3つ目の違反＝1986年の報告の言い方）｜注：🔧 実写 NASA 2018（宇宙から＝新しい覆い）→ 図（§0-5）。NASA は c904 へ｜新しい画（映像方針）：🔧 模式（3つ目の札「0時28分の急落」に1986年の報告の言い方＝「出力を保つ指示を入れなかった」の札・字は少なく）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src="S2 p.36／~33（`Operator error with transfer`）・S2 p.28／~25（`a 'hold power' request was not entered`）"),
     'c405': dict(kind='写真',
-               plan='🔧 R37:ゴー・レバー｜一覧の種類：実写｜見せ方：全面｜副題：事故のあとのスラスト・レバーの握り｜動き：2点（握りの端 → 握りの下）｜権利：PDL1.0｜出典の行：運輸省 航空事故調査委員会『航空事故調査報告書 96-5』写真37（加工して作成）｜注：🔧 ★｜新しい画（映像方針）：quote → 写真37 の寄り｜★決め所だった行（決め所の画面は作らない＝10-07）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.95'),
-    'c406': dict(kind='図・写真の頁',
-               plan='L64｜一覧の種類：頁｜見せ方：額装（頁）｜副題：アメリカ連邦航空局の報告の図4（1996年）｜動き：右へ｜権利：PD（米連邦政府）｜出典の行：FAA Human Factors Team (1996) Figure 4｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='L1 PDF p.64・p.60'),
-    'c407': dict(kind='再現イラスト',
-               plan='一覧の種類：案C｜見る向き：正面｜見た目の型：C1 FMA（全体）｜注：20:14:06 THR・GO AROUND へ｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.51・p.5・p.135'),
-    'c408': dict(kind='写真',
-               plan='R35:全体｜一覧の種類：実写｜見せ方：全面｜副題：事故のあとのセンタ・ペデスタル｜動き：左へ｜権利：PDL1.0｜出典の行：運輸省 航空事故調査委員会『航空事故調査報告書 96-5』写真35（加工して作成）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.51'),
-    'c409': dict(kind='再現イラスト',
-               plan='一覧の種類：案C｜見る向き：横から｜見た目の型：C4 断面（寄り）｜注：下り道より上へそれる｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.44'),
-    'c410': dict(kind='再現イラスト',
-               plan='一覧の種類：案C｜見る向き：正面｜見た目の型：C3 手｜注：20:14:10 の札だけ・言葉の札は出さない｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.44'),
-    'c411': dict(kind='写真',
-               plan='🔧 R44:寄り｜一覧の種類：実写｜見せ方：全面｜副題：事故機の音声記録装置（箱の字）｜動き：寄る｜権利：PDL1.0｜出典の行：運輸省 航空事故調査委員会『航空事故調査報告書 96-5』写真44（加工して作成）｜注：🔧 c410 と同じ絵を続けない｜新しい画（映像方針）：再現イラスト 場面3 → 写真44 の寄り｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.44'),
-    'c412': dict(kind='再現イラスト',
-               plan='一覧の種類：案C｜見る向き：横から｜見た目の型：C4 断面（寄り）｜注：約320メートル・約15秒・約5.5キロ｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.5'),
+               plan='🔧 CR3B｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：3号機の制御室（2021年）｜動き：額ごと左へ｜権利：CC BY-SA 4.0｜時期：今・中｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY-SA 4.0｜注：🔧 現在の4号炉-ヘ → 壊れていない3号機の制御室（人は写らない＝右下の端に服の一部だけ・顔なし）。責める行＝人の写真は置かない決まりに合う｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S3 p.20／16（`the operator was unable to eliminate the resultant unbalance`）'),
+    'c406': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：札の入れ替え（1986→1992）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.21／11（`Recent reports suggest that there was no operator error as such`）'),
+    'c407': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：2つの札（確かめられない・保てなかった）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.21／11（`refers to an unknown cause and inability to control the power`）'),
+    'c408': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：封筒（私信）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.21／11（`former Deputy Chief Engineer for Operations at the Chernobyl plant`・`in a private communication refers to the system not working properly`）'),
+    'c409': dict(kind='図解',
+               plan='🔧 一覧の種類：模式｜見た目の型：書類の一行（本文の文に線）｜注：🔧 イメージ（Pexels）→ 図（責める行＝人の写真を置かない・フリー素材に発電所の中が無い）｜新しい画（映像方針）：🔧 模式（1991年の委員会の報告の本文の1行＝「上級の運転員が素早く直せなかった」に線・字は少なく・頁の絵は使わない）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-付属書I p.73／63（`failed to eliminate fast enough the imbalance`）'),
+    'c410': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：3つの言い方（札の並び）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.21／11（`no operator error as such`）'),
+    'c411': dict(kind='図・写真の頁',
+               plan='🔧 S1p128｜一覧の種類：頁｜見せ方：頁｜副題：1992年の報告の図（キセノンがたまるあいだの、炉の高さごとの中性子）｜動き：寄る（図 II-5 へ）｜見た目の型：図の頁｜権利：引用（頁）｜時期：文書｜人：なし｜出典の行：出典：INSAG-7 付属書II の図 II-5｜注：🔧 現在の4号炉-ホ → 語り＝キセノン＝図の題に「xenon transient」｜新しい画（映像方針）：🔧 頁（INSAG-7 付属書II p.128／118 の図 II-5＝0:00・7:00・22:00・24:30 の4本の線）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S3 p.20／16（`stabilizing it at 200 MW(th)`）'),
+    'c412': dict(kind='図解',
+               plan='一覧の種類：棒｜見た目の型：棒グラフ（熱出力）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S2 p.25／~22（`continuous operation below 700 MW(th) is forbidden by normal safety procedures`）'),
     'c413': dict(kind='写真',
-               plan='🔧 関連（事故そのものではない実物の写真・20% の数に入れない）｜QB｜一覧の種類：関連｜見せ方：額装（BY-SA）｜副題：同じ系列 A300-600R の操縦室の中央（2003年・別の機体）｜動き：額ごと左へ｜権利：GFDL 1.2｜出典の行：Wikimedia Commons（GFDL 1.2）＝作者は src/credits_private.tsv｜注：🔧 付図4 の頁の4回使いを減らす｜新しい画（映像方針）：付図4 → 同じ型の操縦室の写真｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.44・p.51〜52'),
-    'c414': dict(kind='再現イラスト',
-               plan='一覧の種類：案C｜見る向き：正面｜見た目の型：C1 FMA（時刻）｜注：視線の矢印だけ・人は描かない｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.52'),
-    'c415': dict(kind='再現イラスト',
-               plan='一覧の種類：案C｜見る向き：横から｜見た目の型：C4 断面（寄り）｜注：下り道の点線へ戻そうと押すが、機体は水平のまま（操縦輪のフリー素材は A320 系や人が主役で合わなかった＝10-19）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.44・p.54・p.57'),
-    'c416': dict(kind='図・写真の頁',
-               plan='🔧 P51:ボタン｜一覧の種類：頁｜見せ方：全面（頁の切り出し）｜副題：報告書の写真51（ゴー・レバーと自動推力を切るボタン）｜動き：寄る｜権利：PDL1.0｜出典の行：運輸省 航空事故調査委員会『航空事故調査報告書 96-5』写真51（加工して作成）｜注：🔧 ★｜新しい画（映像方針）：quote → 写真51 の頁の切り出し｜★決め所だった行（決め所の画面は作らない＝10-07）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.51'),
-    'c417': dict(kind='再現イラスト',
-               plan='一覧の種類：案C｜見る向き：正面｜見た目の型：C3 手｜注：2つの見方の札｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.51'),
+               plan='🔧 関連（参考＝同じ型〈RBMK〉のほかの発電所の炉の写真・20% の数に入れない）｜R94｜一覧の種類：参考｜見せ方：額装（BY-SA）｜副題：同じ型の炉の上を見る職員（レニングラード原発・2011年）｜動き：額ごと右へ｜権利：CC BY-SA 3.0｜時期：他所｜人：背中｜出典の行：RIA Novosti archive（CC BY-SA 3.0）・撮影者は作者欄のとおり｜注：🔧 現在の4号炉-オ → 同じ型の炉（職員は後ろ姿・顔なし）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.21／11（`was not proscribed, either in design, in regula-tory limitations or in operating instructions`）'),
+    'c414': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：頁の札（強調は当たらない）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.21／11（`The emphasis placed on this statement in INSAG-1 was not warranted.`）・S1 p.20／10（`was based on oral statements made by Soviet experts`）'),
+    'c415': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：線（あとで決まった下限）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.28／18（`There should have been such a proscription, but there was none at the time.`）・S1 p.38／28（`sets a lower limit of 700 MW(th) for steady operation`）'),
+    'c416': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：3つの欄（設計・規制・指示書）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-付属書I p.87／77（`there were no safe operating limits in terms of minimum permissible thermal reactor power`）'),
+    'c417': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：横から｜見た目の型：計器（炉の中と外・上と下が見えない）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.15／5（`they were all located at the mid-plane of the core`・`a reactor operator had to rely mainly on experience and intuition`）'),
     'c418': dict(kind='写真',
-               plan='🔧 関連（事故そのものではない実物の写真・20% の数に入れない）｜B192｜一覧の種類：関連｜見せ方：全面｜副題：中華航空の A300 B-192（1998年2月・香港）｜動き：右へ｜権利：CC BY 2.0｜出典の行：Wikimedia Commons「HONG KONG KAI TAK FEB 1998 CHINA AIRLINES AIRBUS A300 B-192 (8673301706).jpg」（CC BY 2.0）＝作者は src/credits_private.tsv｜注：🔧 写真37 の3回使いを減らす｜新しい画（映像方針）：写真37（寄り）→ 中華航空の同じ時代の A300｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.101'),
-    'c419': dict(kind='再現イラスト',
-               plan='一覧の種類：案C｜見る向き：正面｜見た目の型：C1 FMA（帯）｜注：GO AROUND のまま｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.45・p.53'),
+               plan='🔧 I35｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：炉心の見取り盤の前の運転員（1986年）｜動き：額ごと寄る｜権利：CC BY-SA 2.0｜時期：前｜人：顔｜出典の行：IAEA Imagebank／Photo: USFCRFC（CC BY-SA 2.0）｜注：🔧 現在の4号炉-マ → c207 から移した（語り＝1時間に1,000回の操作＝運転の手間・責める行でない）。何号機の制御室かは記録に無い＝名乗らない｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.15／5（`perform manipulations at a rate of up to 1000 per hour`）'),
+    'c419': dict(kind='図・写真の頁',
+               plan='🔧 GCp140｜一覧の種類：頁｜見せ方：頁｜副題：1986年の報告の図（2つの系統と8台の循環ポンプ）｜動き：寄る（循環ポンプの列へ）｜見た目の型：図の頁｜権利：引用（頁）｜時期：文書｜人：なし｜出典の行：出典：GC(SPL.I)/3＝INSAG-1 の Fig.9｜注：🔧 模式（ポンプ8台）→ 1986年の報告の系統図（語り＝ポンプが8台とも動いていた）｜新しい画（映像方針）：🔧 頁（GC(SPL.I)/3＝INSAG-1 の Fig.9＝Loop 1・Loop 2 に4台ずつの Circulation Pumps・Turbine 7＋8）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-付属書I p.74／64（`eight instead of the usual six MCPs were in operation`）'),
     'c420': dict(kind='図解',
-               plan='🔧 一覧の種類：図｜見た目の型：帯（13秒・6秒）｜注：🔧｜新しい画（映像方針）：再現イラスト 場面4 → 時間の帯（20:14:05 → 20:14:12 → 20:14:18）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.5'),
+               plan='一覧の種類：模式｜見た目の型：温度計（入口の水）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.18／8（`The use of all eight pumps increased the coolant flow rate above that under nominal`・`owing to the lower reactor power level at that time`）'),
+    'c421': dict(kind='図解',
+               plan='🔧 一覧の種類：模式｜見た目の型：2つの札（違反／暴走を妨げたかも）｜注：🔧 現在の4号炉-ヒ → 図｜新しい画（映像方針）：🔧 模式（1991年の委員会の2つの見方＝一部のポンプの流れすぎは違反・8台のポンプはむしろ暴走を妨げたかもしれない＝2つの札）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-付属書I p.88／78（`if anything hindered the reactor runaway`）・S1-付属書I p.87／77（`the flow rates of certain MCPs actually exceeded the limit`）'),
 }
 
 SPEC = {}
-
-# ── 🆕 ⑤b-3（2026-10-20）：再現イラスト C1（画面の上の端）・C3（操縦室の手）＝`tools/illu17.py`・門番 check_illu ㉛㉝ ──
-from illu17 import C1_REC as R1, C3_REC as R3  # noqa: E402  置き場の部品の出典（描く側と同じ文）
-
-SPEC.update({
-    # c402（2行・20:14:05 の直前）＝操縦室の中。副操縦士（右の席）の手がスラスト・レバーに（影の手だけ）→ 2行目でレバー2本に輪
-    "c402": dict(fig=("illu", dict(
-        place="C3", at="20:14:05", start=dict(switch="on"),
-        steps=[dict(state=dict(c3thr="on"), rec=R3["hand_thr"], dur=1.3,
-                    tag=dict(t="副操縦士の手", at="hand_thr", off=(170, -150))),
-               dict(state=dict(c3ring="lev"), rec=R3["lever"],
-                    tag=dict(t="スラスト・レバー", at="lev", off=(-230, -120), anchor="end"))]))),
-    # c407（2行・20:14:06）＝画面ぜんたい。14'00" の枠 → 2行目で 14'06"（THR・GO AROUND・ALT〈青〉・FD1）＋ GO AROUND に輪
-    "c407": dict(fig=("illu", dict(
-        place="C1", at="20:14:06", start=dict(view="all", c1f="1400"), rec=R1["f29"],
-        steps=[dict(),
-               dict(state=dict(c1f="1406", c1ring="ga"), rec=R1["f29"],
-                    tag=dict(t="着陸のやり直し", at="ga", off=(0, -80), anchor="middle"))]))),
-    # c410（2行・20:14:10）＝操縦室の中・時刻の札だけ（CVR の言葉は札にしない＝語りと字幕だけ）。2行目でゴー・レバーに輪
-    "c410": dict(fig=("illu", dict(
-        place="C3", at="20:14:10", start=dict(c3thr="on", switch="on"), rec=R3["hand_thr"],
-        steps=[dict(tag=dict(t="20:14:10", xy=(660, 140), anchor="middle")),
-               dict(state=dict(c3ring="go"), rec=R3["lever"],
-                    tag=dict(t="ゴー・レバー", at="go", off=(-250, -90), anchor="end"))]))),
-    # c414（2行・20:14:12）＝上の端と時刻の帯。目の印（見た向き・人は描かない）＝機長は表示を見て言った（p52）
-    "c414": dict(fig=("illu", dict(
-        place="C1", at="20:14:12", start=dict(view="time", c1f="1412", c1cur="20:14:12", switch="on"), rec=R1["cur"],
-        steps=[dict(state=dict(c1eye="on"), rec=R1["eye"]),
-               dict(state=dict(c1ring="ga"))]))),
-    # c417（3行・20:14:05）＝操縦室の中。2つの見方の札（ボタンの取り違え／スラスト・レバーの操作中）→ 3行目でゴー・レバーに輪
-    "c417": dict(fig=("illu", dict(
-        place="C3", at="20:14:05", start=dict(c3thr="on", switch="on"), rec=R3["hand_thr"],
-        steps=[dict(state=dict(c3ring="at"), rec=R3["at"],
-                    tag=dict(t="ボタンの取り違え", at="at", off=(-170, -150), anchor="end", keep=True)),
-               dict(state=dict(c3ring="lev"), rec=R3["lever"],
-                    tag=dict(t="スラスト・レバーの操作中", at="lev_r", off=(330, -170), anchor="start", keep=True)),
-               dict(state=dict(c3ring="go"), rec=R3["lever"])]))),
-    # c419（3行・20:14:12 のあと）＝上の端の寄り。GO AROUND のまま（14'12" の枠）
-    "c419": dict(fig=("illu", dict(
-        place="C1", at="20:14:12", start=dict(view="band", c1f="1412", switch="on"), rec=R1["f29"],
-        steps=[dict(),
-               dict(state=dict(c1ring="ga"), tag=dict(t="GO AROUND のまま", at="ga", off=(0, -96), anchor="middle")),
-               dict()]))),
-})
-
-# ── 🆕 ⑤b-4（2026-10-20）：再現イラスト C4 進入の断面図（`tools/illu17.py`・門番 check_illu ㉞）──
-from illu17 import C4_REC as R4  # noqa: E402  置き場 C4 の部品の出典（描く側と同じ文）
-
-SPEC.update({
-    # c401（2行・20:14:05）＝寄り。ゴー・レバーの点（約330メートル＝1,070フィート・p5）→ 2行目で下り道に沿って手で下りていた
-    "c401": dict(fig=("illu", dict(
-        place="C4", at="20:14:05", start=dict(view="near", c4t="20:14:05", c4gs="on", c4ring="on"),
-        rec="報告書 p5（11時14分05秒、気圧高度約1,070ftを通過中）",
-        steps=[dict(tag=dict(t="20:14:05・約330m", at="pt", off=(0, -90), anchor="middle", keep=True)),
-               # ⚠️ 試し焼き 39377897273：右へ伸ばすと右下がりの下り道の点線が札をかすめた＝点線の下で左へ（右寄せ）
-               dict(tag=dict(t="下り道に沿って", at="gs", off=(-30, 100), anchor="end"))]))),
-    # c409（2行・20:14:05→10）＝寄り。推力が増えて、下り道より上へそれ始めた（p44）。前の全面の絵 c407（C1）から置き場が替わる＝切り替えの字
-    "c409": dict(fig=("illu", dict(
-        place="C4", at="20:14:10", start=dict(view="near", c4t="20:14:05", c4gs="on", switch="on"), rec=R4["mk"],
-        steps=[dict(state=dict(c4t="20:14:10"), rec=R4["dev"], dur=2.0,
-                    tag=dict(t="下り道より上へ", at="gs", off=(-30, 100), anchor="end")),
-               dict()]))),
-    # c412（3行）＝寄り。滑走路から約5.5km（p5）→ 2行目で約320メートル・約15秒の水平飛行（p44・p5）。前の全面の絵 c410（C3）から＝切り替えの字
-    "c412": dict(fig=("illu", dict(
-        place="C4", at="20:14:25", start=dict(view="near", c4t="20:14:05", c4gs="on", switch="on"), rec=R4["mk"],
-        steps=[dict(state=dict(c4dist="on"), rec=R4["dist5"],
-                    tag=dict(t="滑走路から約5.5km", at="dist", off=(0, -60), anchor="middle")),
-               dict(state=dict(c4dist="off", c4t="20:14:25", c4hl="flat"), rec=R4["flat"], dur=2.4,
-                    tag=dict(t="約320m・約15秒", at="flat", off=(0, -90), anchor="middle")),
-               dict()]))),
-    # c415（3行・20:14:10→18）＝寄り。下り道に戻ろうと押す（橙の矢印・p44）→ 2行目で機体は水平のまま。前の全面の絵 c414（C1）から＝切り替えの字
-    "c415": dict(fig=("illu", dict(
-        place="C4", at="20:14:18", start=dict(view="near", c4t="20:14:10", c4gs="on", switch="on"), rec=R4["mk"],
-        steps=[dict(state=dict(c4arrow="push"), rec=R4["push"], tag=dict(t="押す", at="push", off=(60, -10), anchor="start")),
-               dict(state=dict(c4t="20:14:18"), rec=R4["push"], dur=1.8,
-                    tag=dict(t="水平のまま", at="pt", off=(40, -90), anchor="start")),
-               dict()]))),
-})
-
-# ── 🆕 ⑤b-5（2026-10-20）：時刻の帯（軸の型＝門番 check_axis の REC_AXIS・REC_ROLE）──
-SPEC.update({
-    # c420（2行）＝20:14:05 ゴー・レバー → 20:14:12 機長の指示（CVR の言葉は札にしない）→ 20:14:18 自動操縦が入る（括弧2つ＝13秒・6秒は語りと字幕）
-    #   → 2行目で「ゴー・アラウンドのまま」の項目の札
-    "c420": dict(
-        t="自動操縦が入った時刻", s="ゴー・レバーからの秒",
-        fig=("axis", dict(ss.AX_S17, steps=[dict(add=[ss.ax("go05"), ss.ax("or12"), ss.ax("ap18"), ss.ax("br13"), ss.ax("br06")], cur="20:14:18"),
-                                            dict(add=[dict(k="chips", at="20:14:18", chips=["表示はゴー・アラウンドのまま"], rec="報告書 p44")])],
-                          note="時刻は報告書の本文（協定世界時＋9時間）", src=ss.src(["報告書 p44"])))),
-})
-
-# ── 🆕 ⑤b-7a（2026-10-21）：写真・頁（第4章の残り）──
-#   ⚠️ 写真37 の中でゴー・レバーがどれかは絵で確かめきれない（⑤b-7 の原寸の切り出し）＝副題でゴー・レバーを名指ししない（握りの下にあることは語りと報告書の文）
-_R37, _R35, _R44, _B192 = P("r37"), P("r35"), P("r44"), P("b192")
-_P51_TOP = (0.10, 0.17, 0.98, 0.45)        # 写真51 の頁の上の段（ゴー・レバー・ATディスコネクト・プッシュ・ボタン・スイッチの札と写真）
-SPEC.update({
-    # c403（6.0秒）＝写真37（スラスト・レバーとゴー・レバー）＝レバーの握り（x 0.22・y 0.5）の側へ寄る
-    "c403": dict(photo=_R37, **ss.mvz(_R37, (0.45, 0.45, 1.12), (0.30, 0.48, 1.4)), side="none",
-                 t="2つのレバー", s="事故のあとのスラスト・レバーとゴー・レバー"),
-    # c404（10.4秒・聞き役の問い）＝写真51 の頁（レバーの位置関係）＝額装で下へ
-    "c404": dict(photo=P("p51"), panel=True, color=1.0, fmove=ss.fm("d"),
-                 t="動かす向き", s="報告書の写真51（レバーの位置関係）"),
-    # c405（★・7.4秒）＝写真37 の握りの寄り（2点＝握りの端 → 握りの下）
-    #   🆕 ⑤c'（2026-10-21）：2カット前の c403 と終わりの絵がほぼ同じ（左の白い握りの端が主役・寄り 1.4 と 1.6）＝
-    #   右奥のもう1本の握り（x 0.72・y 0.4）から、手前の握りの下の作り（x 0.45・y 0.55）へ寄る（日付 y 0.92 は窓の外）
-    "c405": dict(photo=_R37, **ss.mvz(_R37, (0.72, 0.40, 1.3), (0.45, 0.55, 1.7)), side="none",
-                 t="レバーの作り", s="事故のあとのスラスト・レバーの握り"),
-    # c406（11.5秒・聞き役の問い）＝FAA の報告の図4（機種ごとのスイッチの位置・PD）＝図の部分（頁の上 80%＝下の端は「777」の札〈0.770〜0.781〉の下・
-    #   OCR の行の箱で決めた＝0.67 は「Disconnect」の札を切った＝門番 edges）を額装で右へ
-    "c406": dict(photo=P("l64"), trim=(0.0, 0.0, 1.0, 0.80), panel=True, color=1.0, fmove=ss.fm("r"),
-                 t="機種ごとの位置", s="アメリカ連邦航空局の報告の図4（1996年）"),
-    # c408（8.9秒）＝写真35（センタ・ペデスタル）＝左へ（c607 は同じ写真の左右のホイールを右へ）
-    "c408": dict(photo=_R35, **ss.mv(_R35, "l", fy=0.45), side="none",
-                 t="機長の反応", s="事故のあとのセンタ・ペデスタル"),
-    # c411（6.2秒）＝写真44 の箱の字の寄り（c112 は全体を左へ）
-    "c411": dict(photo=_R44, **ss.mvz(_R44, (0.55, 0.42, 1.3), (0.60, 0.40, 1.7)), side="none",
-                 t="副操縦士の答え", s="事故機の音声記録装置（箱の字）"),
-    # c413（11.2秒）＝QB（同じ系列の操縦室の中央・GFDL 1.2＝額装・無加工・額ごと左へ）
-    "c413": dict(photo=P("qb"), panel=True, color=1.0, fmove=ss.fm("l"),
-                 t="2つの見方", s="同じ系列 A300-600R の操縦室の中央（2003年・別の機体）"),
-    # c416（★・7.2秒・聞き役の問い）＝写真51 の頁の上の段（札「ゴー・レバー」「ATディスコネクト・プッシュ・ボタン・スイッチ」）＝全面で寄る
-    #   🔧 ⑤b-7b（10-21）：全面の寄り → 額装＝全面だと窓（頁の 1792px）が切り口（2215px）より狭く、始めに左の札「ゴー・レバー」の「ゴ」、
-    #      終わりに右の札「ATディスコネクト…」が窓の端で切れた（試し焼き 39516023150）。切り口の中に札は全部入る（上の題の行 y 0.144 と下の行 0.456 の間）
-    "c416": dict(photo=P("p51"), trim=_P51_TOP, panel=True, color=1.0, fmove=ss.fm("r"),
-                 t="ボタンとレバー", s="報告書の写真51（ゴー・レバーと自動推力を切るボタン）"),
-    # c418（8.2秒）＝B192（中華航空の A300・CC BY 2.0・関連）＝右へ（cb05 は同じ写真の機首の寄りを左へ）
-    "c418": dict(photo=_B192, **ss.mv(_B192, "r", fy=0.55), side="none",
-                 t="レバーの勧告", s="中華航空の A300 B-192（1998年2月・香港）"),
-})

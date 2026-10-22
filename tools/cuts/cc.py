@@ -1,0 +1,94 @@
+# -*- coding: utf-8 -*-
+"""第11章　石棺のその後 cc01–cc21（21カット）。24本目（チェルノブイリ原発事故・1986-04-26）。
+
+■ 🆕 2026-10-22（⑤b-1）：新しいファイル。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep24/make_plan24.py` で
+  映像方針の一覧 `ref/ep24/eizou_build/list24.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
+  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep24/eizou_list24.md`）。
+  🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
+     （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
+  ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット。
+  ⚠️ 「関連（参考＝…）」と書いたカットは同じ型のほかの発電所の炉の写真（種類は写真・20% の数〈この発電所・この事故の写真〉には入れない・
+     門番 check_text_screens が束の台帳 assets.json の related と照らす）
+"""
+import jiko_style as J  # noqa: F401
+import cuts.ss as ss  # noqa: F401
+
+P = ss.P
+
+PLAN = {
+    'cc01': dict(kind='写真',
+               plan='I50｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：石棺を据える準備（1986年）｜動き：額ごと寄る｜権利：CC BY-SA 2.0｜時期：後｜人：なし｜出典の行：IAEA Imagebank／Photo: USFCRFC（CC BY-SA 2.0）｜注：台本どおり｜このカットの前に章の扉｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='L2 p.21／469（`construction of the sarcophagus (May-November 1986)`）'),
+    'cc02': dict(kind='写真',
+               plan='I18｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：ヘリコプターの乗員（1986年）｜動き：額ごと右へ｜権利：CC BY-SA 2.0｜時期：後｜人：顔｜出典の行：IAEA Imagebank／Photo: USFCRFC（CC BY-SA 2.0）｜注：台本どおり（名前は言わない）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S3 p.31／27（`About 5000 t in all were dropped between 27 April and 10 May`）'),
+    'cc03': dict(kind='写真',
+               plan='🔧 CR3A｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：3号機の制御室（2010年）｜動き：額ごと左へ｜権利：CC BY-SA 2.0｜時期：今・中｜人：遠景｜出典の行：IAEA Imagebank（CC BY-SA 2.0）・撮影者は作者欄のとおり｜注：🔧 現在の4号炉-テ → また動き始めたほかの号機（3号機は2000年まで動いた）の制御室。職員は遠景（公的な任務）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S2 p.11／~6（`Units 1 and 2 were shut down early in the morning of 27 April`）・S3 p.32／28（`was shut down at 05.00 on 26 April`）'),
+    'cc04': dict(kind='図解',
+               plan='一覧の種類：帯｜見た目の型：帯（その後の年）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='WEB chnpp.gov.ua（「December 4, 1987 - post-accident commissioning of 3rd Power Unit.」）'),
+    'cc05': dict(kind='写真',
+               plan='🔧 C3｜一覧の種類：実写｜見せ方：全面｜副題：冷却水路と発電所（2013年）｜動き：右へ（パノラマを流す）｜権利：CC BY 2.0｜時期：今・跡｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY 2.0｜注：🔧 現在の4号炉-ト → 発電所のパノラマ（CC BY 2.0・横長）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='WEB chnpp.gov.ua（「Chornobyl NPP officially stopped generation of electricity on 15th of December, 2000.」）'),
+    'cc06': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：段（INES の0〜7）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='L10 p.12／1（`The scale was developed in 1990 by international experts convened by the IAEA`）・L10 p.13／2（`accident at the Chernobyl nuclear power plant is rated at Level 7 on INES.`）'),
+    'cc07': dict(kind='写真',
+               plan='🔧 C3305｜一覧の種類：実写｜見せ方：全面｜副題：記念碑と新しい覆い（2018年）｜動き：寄る｜権利：CC0｜時期：今・跡｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC0｜注：🔧 c3319 → c3305（語り＝いちばん重いレベル7）。c3319 は cc10 へ｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='L10 p.163／152（`Major accident Level 7 Chernobyl, 1986.`）'),
+    'cc08': dict(kind='図解',
+               plan='一覧の種類：並べ｜見た目の型：並べ（7の段に2つ）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='WEB 内閣府 防災白書 平成23年版（「４月１２日にはレベル７（広範囲な影響を伴う事故）に引き上げ」）'),
+    'cc09': dict(kind='写真',
+               plan='C3290｜一覧の種類：実写｜見せ方：全面｜副題：プリピャチの団地と新しい覆い（2018年）｜動き：右へ｜権利：CC0｜時期：今・跡｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC0｜注：台本どおり｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='—'),
+    'cc10': dict(kind='写真',
+               plan='🔧 C3319｜一覧の種類：実写｜見せ方：全面｜副題：組み立て中の新しい覆い（2016年6月）｜動き：左へ｜権利：CC BY 2.0｜時期：今・跡｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY 2.0｜注：🔧 c3305 → c3319（語り＝離れた場所で組み立て・2016年11月にすべらせた）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='WEB EBRD 2016-11-29（「was moved over a distance of 327 metres from its assembly point to its final resting place」）'),
+    'cc11': dict(kind='写真',
+               plan='🔧 H01｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：冷却水路の先の新しい覆い（2018年）｜動き：額ごと寄る｜権利：CC BY-SA 4.0｜時期：今・跡｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY-SA 4.0｜注：🔧 イメージ（Pexels）→ 新しい覆いの写真（語り＝2019年に引き渡し）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='WEB chnpp.gov.ua（「On July 10, in the Exclusion Zone the NSC was officially handed-over from JV NOVARKA」）'),
+    'cc12': dict(kind='写真',
+               plan='🔧 H11｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：新しい覆い（2018年）｜動き：額ごと右へ｜権利：CC BY-SA 4.0｜時期：今・跡｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY-SA 4.0｜注：🔧 イメージ Pexels 30560422（観覧車）→ 新しい覆い（§0-5＝2022年・2025年の語りに観覧車を当てない・2025年に無人機が当たったのはこのアーチ）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='WEB IAEA Update 38（World Nuclear News 2022-04-01 の写し）（「transferred control of Chernobyl nuclear power plant to Ukrainian personnel」）・WEB 国連ニュース 2025-02-14（「could see a breach of the outer layer of the NSC」）・WEB NucNet 2025-12-08＝IAEA の評価の写し（「lost its primary safety functions, including the confinement capability」）'),
+    'cc13': dict(kind='図・写真の頁',
+               plan='🔧 S1p138｜一覧の種類：頁｜見せ方：頁｜副題：1992年の報告の図（昔の棒と、改良した棒）｜動き：寄る（(c) 改良した棒へ）｜見た目の型：図の頁｜権利：引用（頁）｜時期：文書｜人：なし｜出典の行：出典：INSAG-7 付属書II の図 II-13｜注：🔧 模式（改良・12秒）→ 1992年の報告の図（c903 の模式・c901 の図1 と別の絵＝改良の (c) に寄る）。12秒は語りだけ｜新しい画（映像方針）：🔧 頁（INSAG-7 付属書II p.138／128 の図 II-13＝(a) 昔の棒・(b) 入れておく昔の棒・(c) 改良した棒・寸法 cm）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S3 p.28／24（`as the rods move down from the upper stops`）・S1-図1 p.15／5（`(a) before and (b) after the improvements made in response to the Chernobyl accident`）・S1-付属書II p.135／125（`the manual control rods were replaced with ones of improved design`）'),
+    'cc14': dict(kind='図解',
+               plan='🔧 一覧の種類：模式｜見た目の型：2つの段（国の段階と現場）｜注：🔧 現在の4号炉-ナ → 図（語り＝報告の結論の言い方）｜新しい画（映像方針）：🔧 模式（1992年の報告＝安全文化の欠け＝国の段階〈設計・運転・規制の組織〉と現場の2つの段に印・字は少なく）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.35／25（`lack of safety culture in nuclear matters, at the national level as well as locally`）・S1 p.33／23（`The accident can be said to have flowed from deficient safety culture`）'),
+    'cc15': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：表と裏の札（時刻は同じ・意味が変わる）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='—'),
+    'cc16': dict(kind='写真',
+               plan='🔧 CR4B｜一覧の種類：実写｜見せ方：額装（小さい）｜副題：4号機の制御室（2025年）｜動き：額の中で寄る｜権利：CC0｜時期：今・中｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC0｜注：🔧 現在の4号炉-ニ → 4号機の制御室（CC0＝学生の写らない左の盤だけ切り出す）。語り＝0時28分とボタンの意味の書き直し｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='—'),
+    'cc17': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：天秤（人と設計）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.34／24（`Most reprehensibly, unapproved changes in the test procedure were deliberately made`）・S1 p.26／16（`It is reprehensible that such a deficiency had been known of for so long`）'),
+    'cc18': dict(kind='写真',
+               plan='🔧 C0｜一覧の種類：実写｜見せ方：全面｜副題：4号機の石棺と排気筒（2008年）｜動き：右へ｜権利：CC BY 3.0｜時期：今・跡｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY 3.0｜注：🔧 現在の4号炉-ヌ → 4号機の石棺（CC BY 3.0・1600×1200＝全面で軽く流す）。c907 から移した｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.34／24（`laid blame almost entirely on actions of the operating staff, is thereby lessened`）'),
+    'cc19': dict(kind='写真',
+               plan='🔧 NSC17｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：4号機を覆った新しい覆い（2017年10月）｜動き：額ごと寄る｜権利：CC BY-SA 4.0｜時期：今・跡｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY-SA 4.0｜注：🔧 現在の4号炉-ネ → 新しい覆いの中の4号炉（語り＝いまも新しい覆いの中にある）。cc11 から移した｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1（https://www-pub.iaea.org/MTCD/Publications/PDF/Pub913e_web.pdf）・S2（https://www.iaea.org/sites/default/files/gc/gc-spl1-3.pdf）'),
+    'cc20': dict(kind='フリー素材',
+               plan='🔧 X30560421｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：現在のプリピャチ（Pexels）｜動き：映像｜権利：Pexels License｜時期：イメージ｜人：なし｜出典の行：イメージ（Pexels）｜注：🔧 場面で選ぶ → 30560421（c517 から移した・プリピャチの空撮）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.34／24（`laid blame almost entirely on actions of the operating staff, is thereby lessened`・`critical actions of the operators were most ill judged`）'),
+    'cc21': dict(kind='パネル',
+               plan='一覧の種類：文字だけ｜見た目の型：問い（パネル）｜注：台本どおり（問い A）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='—'),
+}
+
+SPEC = {}
+
+# 🆕 2026-10-22（⑤b-1）：コメントの問い（承認①＝問い A・台本 §1-3）。字幕の配線（2行の字幕・y968／1044）を本編のカットで確かめるため
+#    束の要らないパネルを先に書いた（23本目 ⑤b-1 の cd09 と同じ型）。パネルの字は字幕の文と12字以上重ねない（門番 echo）
+SPEC.update({
+    "cc21": dict(
+        t="チェルノブイリの事故", s="コメント欄で聞かせてください",     # 「チェルノブイリ原発事故」は字幕の1文の切り取り（門番 echo）
+        fig=("panel", dict(blocks=[dict(k="問い", t="事故の原因は何だと思っていましたか", v="見る前は", c=J.AMBER)], cols=1)),
+    ),
+})

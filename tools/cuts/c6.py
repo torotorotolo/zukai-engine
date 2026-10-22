@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-"""第6章　切っても残った角度 c601–c620（20カット）。17本目（中華航空140便墜落事故）。
+"""第5章　1時23分 c601–c621（21カット）。24本目（チェルノブイリ原発事故・1986-04-26）。
 
-■ 🔴 2026-10-20（⑤b-1）：23本目（三豊百貨店崩壊事故のリメイク）の中身を空にした＝git の `b800dbdb`（`git show b800dbdb:tools/cuts/c6.py`）。
-■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep17/make_plan17.py` で
-  映像方針の一覧 `ref/ep17/eizou_build/list17.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
-  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（撮影者の名前がある＝元の画は台本 §4）。
+■ 🆕 2026-10-22（⑤b-1）：新しいファイル。
+■ PLAN＝この章の全カットの「画面の種類（kind）・画の予定（plan）・出典（src）」＝⑤b-1 に `ref/ep24/make_plan24.py` で
+  映像方針の一覧 `ref/ep24/eizou_build/list24.tsv`（了承②ずみ・E 0・秒は narration.json の実測）と台本 第2版 §4 の出典の欄から
+  機械で組んだ（手で写していない）。🔴 台本の画の欄は写していない（元の画は台本 §4・一覧 `ref/ep24/eizou_list24.md`）。
   🔴 SPEC（図の中身）は ⑤b-2 以降で PLAN の予定どおりに書く。**種類を変えるなら PLAN の kind を直す**
      （`cuts/__init__.py` が SPEC に kind を写す＝門番 check_text_screens が「文字だけ・続く長さ」を数える）。
   ⚠️ 秒は書き写さない＝narration.json の実測で組む。🔧＝映像方針で台本の画の欄から替えたカット。
-  ⚠️ 「関連」と書いたカットは事故そのものではない実物の写真（種類は写真・20% の数〈この事故の写真〉には入れない）
+  ⚠️ 「関連（参考＝…）」と書いたカットは同じ型のほかの発電所の炉の写真（種類は写真・20% の数〈この発電所・この事故の写真〉には入れない・
+     門番 check_text_screens が束の台帳 assets.json の related と照らす）
 """
 import jiko_style as J  # noqa: F401
 import cuts.ss as ss  # noqa: F401
@@ -16,206 +17,69 @@ import cuts.ss as ss  # noqa: F401
 P = ss.P
 
 PLAN = {
-    'c601': dict(kind='再現イラスト',
-               plan='🔧 一覧の種類：案C｜見る向き：正面｜見た目の型：C1 FMA（帯）｜注：🔧｜新しい画（映像方針）：再現イラスト 場面6 → 場面1（14\'48" の枠＝自動操縦の表示が消え、GO AROUND は残る）｜このカットの前に章の扉｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.46・p.56'),
-    'c602': dict(kind='再現イラスト',
-               plan='🔧 一覧の種類：案C｜見る向き：横から｜見た目の型：C2 尾翼｜注：🔧｜新しい画（映像方針）：再現イラスト 場面6 → 場面2（−12.3度のまま）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.5・p.56'),
+    'c601': dict(kind='写真',
+               plan='🔧 CR4｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：4号機の制御室（2021年）｜動き：額ごと右へ｜権利：CC BY-SA 4.0｜時期：今・中｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY-SA 4.0｜注：🔧 CC0 の2025年の写真（学生が真ん中に立つ＝運転員に見える）→ 4号機の制御室（人なし）｜このカットの前に章の扉｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S3 p.21／17（`At 1:22:30, the operator saw from a printout of the fast reactivity evaluation program`）'),
+    'c602': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：印字の紙（即時停止の印）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S3 p.21／17（`the available excess reactivity had reached a level requiring immediate shutdown of the reactor`）・S3 p.21／17（`Nevertheless, the staff were not stopped by this and began with the experiments.`）'),
     'c603': dict(kind='図解',
-               plan='🔧 一覧の種類：図｜見た目の型：比べ（角度の帯）｜注：🔧｜新しい画（映像方針）：再現イラスト 場面6 → c517 の角度の帯（20:14:49 → 20:15:11 −12.3度のまま）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.56・p.83'),
-    'c604': dict(kind='写真',
-               plan='R39:全体｜一覧の種類：実写｜見せ方：全面｜副題：事故のあとのトリム・ホイール｜動き：寄る｜権利：PDL1.0｜出典の行：運輸省 航空事故調査委員会『航空事故調査報告書 96-5』写真39（加工して作成）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.46'),
-    'c605': dict(kind='再現イラスト',
-               plan='🔧 一覧の種類：案C｜見る向き：横から｜見た目の型：C7 機体｜注：🔧｜新しい画（映像方針）：再現イラスト 場面6 → 場面7（大きな板が機首を上へ）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.58・p.55・p.56'),
-    'c606': dict(kind='写真',
-               plan='R36:台｜一覧の種類：実写｜見せ方：全面｜副題：左右の席の間の台（センタ・ペデスタル）の操作盤｜動き：寄る｜権利：PDL1.0｜出典の行：運輸省 航空事故調査委員会『航空事故調査報告書 96-5』写真36（加工して作成）｜注：⑤b-7（10-21）：R35 と R36 を入れ替えた＝R36 にはトリム・ホイールがはっきり写らない（⑤b-2 の原寸・⑤b-7 の下見）。c209 と同じ写真の別の寄り｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.84'),
-    'c607': dict(kind='写真',
-               plan='R35:ホイール｜一覧の種類：実写｜見せ方：全面｜副題：台の両脇のトリム・ホイール｜動き：2点｜権利：PDL1.0｜出典の行：運輸省 航空事故調査委員会『航空事故調査報告書 96-5』写真35（加工して作成）｜注：⑤b-7（10-21）：R35（左右のトリム・ホイールが写る）の左のホイール → 右のホイール。c408 と同じ写真の別の見せ方｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.84'),
-    'c608': dict(kind='写真',
-               plan='R39:縞｜一覧の種類：実写｜見せ方：全面｜副題：トリム・ホイールの縞と「UP」の目盛り｜動き：寄る（🔧 右へ→寄る＝⑤c の見比べで c604 と同じ絵だった＝縞と目盛りだけの窓）｜権利：PDL1.0｜出典の行：運輸省 航空事故調査委員会『航空事故調査報告書 96-5』写真39（加工して作成）｜注：目盛りが何度かは読まない｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.84'),
-    'c609': dict(kind='再現イラスト',
-               plan='一覧の種類：案C｜見る向き：正面｜見た目の型：C6 夜の操縦室｜注：トリムの表示は視線の外｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.84'),
-    'c610': dict(kind='写真',
-               plan='🔧 R42｜一覧の種類：実写｜見せ方：全面｜副題：事故機の計器の照明の操作盤｜動き：寄る｜権利：PDL1.0｜出典の行：運輸省 航空事故調査委員会『航空事故調査報告書 96-5』写真42（加工して作成）｜注：🔧 ★｜新しい画（映像方針）：quote → 写真42（夜の照明の操作盤）｜★決め所だった行（決め所の画面は作らない＝10-07）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.84'),
-    'c611': dict(kind='再現イラスト',
-               plan='一覧の種類：案C｜見る向き：正面｜見た目の型：C6 夜の操縦室｜注：警報音の印に ✕（夜の操縦室のフリー素材は、モードの字が読めるボーイングの画面などで足りなかった＝10-19）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.84'),
+               plan='🔧 一覧の種類：比べ｜見た目の型：比べ（残した棒の数）｜注：§0-5｜新しい画（映像方針）：🔧 比べ（残した棒の数＝決まり15本ですぐ止める／1986年のソ連の報告 6〜8本＝「15本のおよそ半分」の札・事故のあとの計算の8本の札は外す＝出典の欄だけ）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S3 p.23／19（`At 1:22:30 the excess reactivity was only 6-8 rods`）・S1-表I-I p.64／54（`ORM proved to be equal to 8 manual control rods`）'),
+    'c604': dict(kind='図・写真の頁',
+               plan='🔧 S1p129｜一覧の種類：頁｜見せ方：頁｜副題：1992年の報告の図（1時22分30秒の、制御棒の差し込みの深さ）｜動き：寄る（炉心の図へ）｜見た目の型：図の頁｜権利：引用（頁）｜時期：文書｜人：なし｜出典の行：出典：INSAG-7 付属書II の図 II-6｜注：🔧 現在の4号炉-ク → 語り「棒の大部分を抜いた」の物証＝01:22:30 の再現（頁の本文に時刻）｜新しい画（映像方針）：🔧 頁（INSAG-7 付属書II p.129／119 の図 II-6＝炉心の平面に棒の深さ〈cm〉・ほとんどが0）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S2 p.10／~5（`the operators deliberately and in violation of rules withdrew most control and safety rods`）'),
+    'c605': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：重さの札（小と大）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.22／12（`the ORM is much greater than was indicated in the INSAG-1 report`）'),
+    'c606': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：計算機の画面（？）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.21／11（`it is likely that the operator did not know the value of the ORM`・`the computer SKALA, which was used to calculate the ORM, became unreliable`・`Probably he was aware that continued operation`）・S1 p.16／6（`This data system required about 10-15 min`）'),
+    'c607': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：2つの言い方（左右）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-付属書I p.74／64（`did not know the calculated parameters, including the ORM, at this time`）'),
+    'c608': dict(kind='図解',
+               plan='一覧の種類：模式｜見た目の型：頭の中の札（分布のため／安全のため）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1 p.21／11（`were not aware that it had safety significance`）'),
+    'c609': dict(kind='図解',
+               plan='🔧 一覧の種類：模式｜見た目の型：時計の札（1:23:04 試験の始まり）｜注：🔧 現在の4号炉-ケ → 図｜新しい画（映像方針）：🔧 模式（1時23分4秒＝試験の始まりの札・8号タービンへの蒸気が止まる前の時刻）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='—'),
+    'c610': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：横から｜見た目の型：機械（8号タービン・弁）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S3 p.21／17（`At 1:23:04, the emergency regulating valves of turbogenerator No. 8 shut.`）'),
+    'c611': dict(kind='図・写真の頁',
+               plan='🔧 GCp43｜一覧の種類：頁｜見せ方：頁｜副題：1986年の報告の図（出力などの記録の線・ソ連の資料から）｜動き：寄る（出力の線へ）｜見た目の型：図の頁｜権利：引用（頁）｜時期：文書｜人：なし｜出典の行：出典：GC(SPL.I)/3＝INSAG-1 の図1｜注：🔧 模式（出力の線がゆっくり上がる）→ 1986年の報告の図そのもの（語り＝1986年のソ連の報告の言い方）。図の頁＝文字だけに数えない｜新しい画（映像方針）：🔧 頁（INSAG-1 の図1＝出力・反応度・圧力の線・カラーのスキャン）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S3 p.21／17（`Shortly after the beginning of the experiment the reactor power began to rise slowly.`）'),
     'c612': dict(kind='図解',
-               plan='一覧の種類：図｜見た目の型：流れ（警報音の設計）｜注：開発のとき＝手でも自動でも鳴る｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.84'),
-    'c613': dict(kind='図解',
-               plan='🔧 一覧の種類：図｜見る向き：上から｜見た目の型：地図（ヨーロッパ）｜合図：🔁 横から→上から（前の図 c605）｜注：🔧｜新しい画（映像方針）：流れ図（次の段）→ 地図（イギリスの当局 → エアバス社〈トゥールーズ〉）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.84'),
-    'c614': dict(kind='写真',
-               plan='🔧 関連（事故そのものではない実物の写真・20% の数に入れない）｜AB2｜一覧の種類：関連｜見せ方：全面｜副題：現在のエアバス社の本社とベルーガ（トゥールーズ）｜動き：左へ｜権利：CC0｜出典の行：Wikimedia Commons（CC0）｜注：🔧 ★ c311 と別の写真｜新しい画（映像方針）：quote → エアバス社の写真｜★決め所だった行（決め所の画面は作らない＝10-07）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.84'),
-    'c615': dict(kind='図解',
-               plan='一覧の種類：図｜見た目の型：流れ（警報音の設計）｜注：c612 と同じ図（3カット後）＋報告書の見方｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.84〜85'),
+               plan='一覧の種類：模式｜見た目の型：線（流れが下がる・出力は平ら）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-付属書I p.75／65（`During the rundown of turbogenerator No. 8 there was no increase in reactor power.`・`Thirty-five seconds after the start of the transient it had fallen by 10-15%`）'),
+    'c613': dict(kind='写真',
+               plan='🔧 AZ5｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：AZ-5 のボタンのある制御盤（3号機・2019年）｜動き：額ごと寄る｜権利：CC BY-SA 4.0｜時期：今・中｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY-SA 4.0｜注：🔧 現在の4号炉-コ → 語りが「AZ-5 のボタン」と名指し。白衣の腕だけ（顔なし）。3号機の盤＝4号機と名乗らない｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S3 p.24／20（`this was the circumstance which triggered the pressing of button AZ-5`）・S3 p.21／17（`the unit shift foreman gave the order to press button AZ-5`）'),
+    'c614': dict(kind='図解',
+               plan='一覧の種類：時計｜見た目の型：時計（1:23:40）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-付属書I p.76／66（`The Commission was unable to establish why the button was pressed.`）'),
+    'c615': dict(kind='再現イラスト',
+               plan='一覧の種類：案C2｜見る向き：横から｜見た目の型：棒の立体（前触れ・案C2）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S3 p.21／17（`The rods fell, but after a few seconds a number of shocks were felt`）'),
     'c616': dict(kind='図解',
-               plan='一覧の種類：図｜見た目の型：札（3つの可能性）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.57'),
-    'c617': dict(kind='再現イラスト',
-               plan='🔧 一覧の種類：案C｜見る向き：正面｜見た目の型：C1 FMA（時刻）｜注：🔧｜新しい画（映像方針）：流れ図（1枚目と2枚目）→ 再現イラスト 場面1（GO AROUND の表示に ①② の札）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.57'),
+               plan='🔧 一覧の種類：模式｜見た目の型：針の計器（530MW を超える）｜注：🔧 頁 p.65 → 図。表の頁は c619（語りが日誌の1行を引く）へ＝同じ頁を2回出さない｜新しい画（映像方針）：🔧 模式（1時23分43秒＝出力が急に上がった信号・針が530MWを超える）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-表I-I p.65／55（`power exceeded 530 MW(th)`）'),
+    'c617': dict(kind='図解',
+               plan='一覧の種類：模式｜見る向き：横から｜見た目の型：棒の立体（途中で止まる）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-表I-I p.65／55（`the RCPS rods stopped moving before they reached the lower limit stop switches`）・S3 p.21／17（`He then cut off the current to the sleeves of the servo drives`）'),
     'c618': dict(kind='写真',
-               plan='🔧 関連（事故そのものではない実物の写真・20% の数に入れない）｜B747｜一覧の種類：関連｜見せ方：全面｜副題：中華航空のボーイング747（1996年・香港）｜動き：右へ｜権利：CC BY 2.0｜出典の行：Wikimedia Commons（CC BY 2.0）＝作者は src/credits_private.tsv｜注：🔧｜新しい画（映像方針）：流れ図（3枚目）→ 中華航空の747 の写真｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.57・p.90'),
-    'c619': dict(kind='図解',
-               plan='一覧の種類：図｜見た目の型：模式（もう1つの押し方）｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.57・p.90'),
-    'c620': dict(kind='再現イラスト',
-               plan='一覧の種類：案C｜見る向き：正面｜見た目の型：C1 FMA（時刻）｜注：いつまでも変わらない｜台本の画＝台本 §4（撮影者の名前があるので写さない）',
-               src='S1 p.58'),
+               plan='🔧 MX7｜一覧の種類：実写｜見せ方：全面｜副題：壊れた4号炉の模型（チェルノブイリの展示・2006年）｜動き：寄る（ずれた炉のふたへ）｜権利：CC BY 2.0｜時期：今・跡｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY 2.0｜注：🔧 1986年の4号炉-ア → 爆発のあとの4号炉の模型（CC BY 2.0＝全面で寄る）。1986年の壊れた炉の写真は IAEA の4点しかない（冒頭と石棺で使う）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S3 p.21／17（`burning lumps of material and sparks shot into the air above the reactor`）'),
+    'c619': dict(kind='文字の頁',
+               plan='🔧 S1p65｜一覧の種類：頁｜見せ方：頁｜副題：1991年の委員会の表（INSAG-7 付属書I の表I-I）｜動き：寄る（「01:24 激しい衝撃」の行へ）｜見た目の型：文字の頁（表）｜権利：引用（頁）｜時期：文書｜人：なし｜出典の行：出典：INSAG-7 付属書I 表I-I｜注：🔧 1986年の4号炉-イ → 語りが引く日誌の1行そのもの｜新しい画（映像方針）：🔧 頁（表I-I p.65／55＝1:23:43 と 01:24 の行）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='S1-表I-I p.65／55（`Severe shocks`）'),
+    'c620': dict(kind='図解',
+               plan='🔧 一覧の種類：模式｜見た目の型：問いの札（棒の影・第8章へ）｜注：🔧 イメージ Pexels 12191470（観覧車）→ 図。観覧車は c621 へ｜新しい画（映像方針）：🔧 模式（問い＝止めるボタンのあとに、なぜ爆発？＝棒の影だけ・「第8章」の札）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='—'),
+    'c621': dict(kind='フリー素材',
+               plan='🔧 X12191470｜映像の素材 5.84秒・倍率 0.83（素材の秒÷扉を除いた中身の秒＝narration.json の実測・1.0 以上は等速で区間を選ぶ・1.0 未満は動きの欄の倍率で）｜一覧の種類：イメージ｜見せ方：全面｜副題：イメージ：現在のプリピャチ（Pexels）｜動き：映像（0.83倍）｜権利：Pexels License｜時期：イメージ｜人：なし｜出典の行：イメージ（Pexels）｜注：🔧 1986年の4号炉-コ → 次の章（3キロ先の町）の予告＝町の今。→ 第6章の扉｜⑤b-1（10-22）：実測のカット 7.02秒＞素材 5.84秒＝0.83倍（決まり 0.6 以上の内・観覧車は語りに合う＝替えない）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               src='—'),
 }
 
 SPEC = {}
-
-# ── 🆕 ⑤b-3（2026-10-20）：再現イラスト C1（画面の上の端）・C2（尾翼）＝`tools/illu17.py`・門番 check_illu ㉛㉜ ──
-from illu17 import C1_REC as R1, C2_REC as R2  # noqa: E402  置き場の部品の出典（描く側と同じ文）
-
-SPEC.update({
-    # c601（3行・章の頭・20:14:49）＝上の端の寄り。1行目に語りの時刻（本文 p46 の 14分49秒＝付図29 の枠の 14'48" は札にしない）→
-    #   2行目で DUAL に輪 → 3行目で 14'48" の枠（DUAL が消え、GO AROUND は残る）
-    "c601": dict(fig=("illu", dict(
-        place="C1", at="20:14:49", start=dict(view="band", c1f="1418", switch="on"), rec=R1["f29"],
-        steps=[dict(tag=dict(t="20:14:49", xy=(480, 168), anchor="middle")),
-               dict(state=dict(c1ring="dual")),
-               dict(state=dict(c1f="1448", c1ring="ga"), rec=R1["f29"],
-                    tag=dict(t="GO AROUND は残る", at="ga", off=(0, -96), anchor="middle"))]))),
-    # c602（3行・20:14:49〜15:11）＝尾翼。自動操縦は切れた（水色が消える）・水平安定板は −12.3度のまま（−5.3度の点線と比べる）
-    #   🆕 ⑤b-4：昇降舵 8.5度（14分37秒）→ **9.9度**＝付図5 の 14'49" の値（⑤b-3 は「14:49 の値は記録に無い」としていた＝付図5 の表にあった）
-    "c602": dict(fig=("illu", dict(
-        place="C2", at="20:14:49", start=dict(c2ths=-12.3, c2elev=9.9, c2ap="on", c2hand="on", c2ghost="on", switch="on"),
-        rec="付図5 p1（14'49\"：ELEVATOR 9.9・THS -12.3）",
-        steps=[dict(state=dict(c2ap="off", c2hl="ths"), rec="報告書 p56（14分49秒 APはディスエンゲージされたがTHSは-12.3°のまま）",
-                    tag=dict(t="−12.3度のまま", at="le", off=(-260, 140), anchor="middle", keep=True)),
-               dict(tag=dict(t="20:15:11 まで", at="ths", off=(-430, -230), anchor="middle")),
-               dict()]))),
-    # c617（3行・しくみ＝報告書 p57 の可能性 ① ②）＝上の端と時刻の帯（14'18" の枠）。① DUAL＝自動操縦が入っている・② GO AROUND
-    "c617": dict(fig=("illu", dict(
-        place="C1", start=dict(view="time", c1f="1418"), rec=R1["f29"],
-        steps=[dict(state=dict(c1ring="dual"), tag=dict(t="① DUAL＝自動操縦", at="dual_low", off=(-40, 150), anchor="middle", keep=True)),
-               dict(state=dict(c1eye="on"), rec=R1["eye"]),
-               dict(state=dict(c1ring="ga"), tag=dict(t="② 解除されたと思った", at="ga", off=(60, -84), anchor="middle", keep=True))]))),
-    # c620（3行・しくみ＝報告書 p58 の ①「FMA上のGOAROUNDの表示がいつまでも変わらないこと」）＝上の端と時刻の帯
-    "c620": dict(fig=("illu", dict(
-        place="C1", start=dict(view="time", c1f="1418"), rec=R1["f29"],
-        steps=[dict(),
-               dict(state=dict(c1ring="ga"), rec="報告書 p58（FMA上のGOAROUNDの表示がいつまでも変わらないこと）",
-                    tag=dict(t="ずっと GO AROUND", at="bar_ga", off=(0, -52), anchor="middle", keep=True)),
-               dict()]))),
-})
-
-# ── 🆕 ⑤b-4（2026-10-20）：再現イラスト C7 機体（門番 ㊲）・C6 夜の操縦室（門番 ㊱）＝`tools/illu17.py` ──
-from illu17 import C6_REC as R6, C7_REC as R7  # noqa: E402  置き場の部品の出典（描く側と同じ文）
-
-SPEC.update({
-    # c605（3行・20:14:49→57）＝機体を横から。1行目は問い → 2行目「押しても機体が従わず、機首が上がった」（付図5 PITCH 5.5 → 8.6）→
-    #   3行目で大きな水平安定板（-12.3度）に輪と、機首を上へ回す矢印（p55・p56）。押しているのは副操縦士（交替は 20:15:03）
-    "c605": dict(fig=("illu", dict(
-        place="C7", at="20:14:57", start=dict(c7pitch=5.5, c7ths=-12.3, c7elev=9.9, c7push="fo"),
-        rec="付図5 p1（14'49\"：PITCH 5.5・ELEVATOR 9.9・THS -12.3）・報告書 p55（副操縦士が操縦輪を押し続けていた）",
-        steps=[dict(),
-               dict(state=dict(c7pitch=8.6), rec="付図5 p1（14'57\"：PITCH 8.6）", dur=2.6,
-                    tag=dict(t="押しても機首が上がる", at="nose", off=(40, -70), anchor="start")),
-               dict(state=dict(c7ring="on", c7rot="on"), rec=R7["rot"],
-                    tag=dict(t="大きな水平安定板（−12.3度）", at="ths", off=(-20, -110), anchor="middle"))]))),
-    # c609（3行・しくみ＝p84）＝夜の操縦室。①トリムの表示と②トリム・ホイールに輪 → 2行目で視線は前（窓と画面）＝装置は視野の外 →
-    #   3行目の問い「夜の操縦室で、見えたの？」でペデスタルの下を暗く（夜間＝有効に機能し得なかった）
-    "c609": dict(fig=("illu", dict(
-        place="C6", start=dict(), rec=R6["room"],
-        steps=[dict(state=dict(c6ring="on"), rec=R6["wheel"],
-                    # ⑤b-4 の下見：右へ出すと右のトリム・ホイールの輪を横切った＝左下へ／試し焼き 39377897273：表示を左のレバーの左へ移した＝札は表示の下
-                    tag=[dict(t="トリムの表示", at="ind", off=(-40, 86), anchor="start"),
-                         dict(t="トリム・ホイール", at="wheel_L", off=(-30, -60), anchor="end")]),
-               dict(state=dict(c6eye="on"), rec=R6["eye"], tag=dict(t="視線は前（窓と画面）", at="eye", off=(-90, 70), anchor="end")),
-               dict(state=dict(c6night="on"), rec=R6["night"])]))),
-    # c611（2行・20:14:30＝自動操縦が入っていた間）＝夜の操縦室。3つ目の警報音（THS モーション・ウォーニング）に ×（p84）→ 2行目「自動操縦の間は鳴らない」
-    "c611": dict(fig=("illu", dict(
-        place="C6", at="20:14:30", start=dict(c6ap="on", c6night="on"), rec=R6["night"],
-        steps=[dict(state=dict(c6warn="on"), rec=R6["warn"], tag=dict(t="3つ目の警報音", at="spk", off=(40, 40), anchor="start", keep=True)),
-               dict(tag=dict(t="自動操縦の間は鳴らない", at="lamps", off=(0, 150), anchor="middle"))]))),
-})
-
-# ── 🆕 ⑤b-5（2026-10-20）：図解（`tools/mech17.py`・門番 check_mech の judge_m17＝記録 REC_M17）──
-_THS_T = dict(t="20:14:00・20:14:20・20:14:40・20:15:00・20:15:20（時刻の目盛り）", src="付図5 p1")
-_THS_A = dict(t="0・−4・−8・−12（角度の目盛り）", src="付図5 p1")
-SPEC.update({
-    # c603（2行）＝c517 の角度の帯（前の線は基図＝20:14:49 まで）。1行目で切ったあとも −12.3度のまま（20:14:49〜20:15:11＝p56・p49）→
-    #   2行目でアウト・オブ・トリム（p56）
-    "c603": dict(
-        t="切ったあとの角度", s="自動操縦を外してから",
-        fig=("m17", dict(view="ths", start=dict(line="t49"), steps=[dict(state=dict(flat="on")), dict(state=dict(oot="on"))],
-                         rel=[_THS_T, _THS_A, dict(t="−12.3度・20:14:49・20:15:11", src="報告書 p56・p49")],
-                         note="点＝付図5 の表と本文の値（点のあいだは直線）", src=ss.src(["報告書 p56", "報告書 p49", "付図5 p1"])))),
-    # c612（2行）＝警報音の設計（開発のとき＝p84）。1行目で手の操縦・自動操縦 → 板が動く → 2行目で警報音が鳴る（どちらのときも）
-    "c612": dict(
-        t="警報音の設計", s="型を作ったころの考え",
-        fig=("m17", dict(view="warn", steps=[dict(state=dict(dev="on")), dict(state=dict(ring="on"))],
-                         note="流れ（模式）", src=ss.src(["報告書 p84"])))),
-    # c613（3行）＝上から見たイギリスとフランス（陸＝Natural Earth）。1行目で出どころ（英国の事故調査当局）とグレートブリテン島 →
-    #   2行目でイギリスの航空の当局 → エアバス社（トゥールーズ）→ 3行目で要求の中身（p84）
-    "c613": dict(
-        t="設計を変えたきっかけ", s="評価のときの要求",
-        fig=("m17", dict(view="eu", steps=[dict(state=dict(src="on")), dict(state=dict(req="on")), dict(state=dict(what="on"))],
-                         note="陸は Natural Earth（国境なし）・トゥールーズは一般の座標・模式", src=ss.src(["報告書 p84"])))),
-    # c615（2行）＝c612 と同じ図（3カット後）＋変更後（自動操縦のときは鳴らない＝c614 の語り）を基図に → 1行目で報告書の見方 → 2行目で2つの道（p85）
-    "c615": dict(
-        t="残すか、別の仕組みか", s="警報音を削った設計について",
-        fig=("m17", dict(view="warn", start=dict(dev="on", ring="on", cut="on"), steps=[dict(state=dict(why="on")), dict(state=dict(opts="on"))],
-                         note="流れ（模式）", src=ss.src(["報告書 p84", "報告書 p85"])))),
-    # c616（2行）＝機長の考えの3つの可能性（p57）。札は番号と「？」だけ（中身は c617〜c619 の語り）
-    "c616": dict(
-        t="機長の考え", s="報告書が挙げる見立て",
-        fig=("m17", dict(view="cards3", steps=[dict(state=dict(q="on")), dict(state=dict(cards="on"))],
-                         rel=[dict(t="1・2・3（可能性の番号）", src="報告書 p57")],
-                         note="中身はこのあと", src=ss.src(["報告書 p57"])))),
-    # c619（2行）＝もう1つの押し方（スーパーバイザリー・オーバーライド＝p57・p90）。1行目で電波の道を捕まえるとき（同じ向き）→
-    #   2行目で名前と、この夜（逆の向き）と「取り違え？」
-    "c619": dict(
-        t="もう1つの押し方", s="この型にあった別の機能",
-        fig=("m17", dict(view="assist", steps=[dict(state=dict(l="on")), dict(state=dict(name="on", r="on"))],
-                         note="向きと形は模式", src=ss.src(["報告書 p57", "報告書 p90"])))),
-})
-
-# ── 🆕 ⑤b-7a（2026-10-21）：写真（第6章の残り）。c606＝写真36・c607＝写真35 に入れ替えた（写真36 にはトリム・ホイールがはっきり写らない）──
-_R39, _R36, _R35, _R42, _AB2, _B747 = P("r39"), P("r36"), P("r35"), P("r42"), P("ab2"), P("b747")
-SPEC.update({
-    # c604（9.2秒・聞き役の問い）＝写真39（手動のトリム・ホイール）＝寄る（c608 は縞と「UP」の目盛りを右へ）
-    #   🔧 窓の下の端を 0.8465〜0.851 だけで動かす＝「FULL」（y 0.808〜0.835）と「UP」（0.865〜）の行を横切らない（門番 edges）
-    "c604": dict(photo=_R39, **ss.mvz(_R39, (0.50, 0.48, 1.12), (0.42, 0.55, 1.4)), side="none",
-                 t="手動のトリム", s="事故のあとのトリム・ホイール"),
-    # c606（6.5秒）＝写真36（センタ・ペデスタル）＝真ん中へ寄る（c209 は同じ写真を上へ）
-    "c606": dict(photo=_R36, **ss.mvz(_R36, (0.50, 0.45, 1.12), (0.50, 0.42, 1.4)), side="none",
-                 t="知る手がかり", s="左右の席の間の台（センタ・ペデスタル）の操作盤"),
-    # c607（8.7秒）＝写真35 の左のトリム・ホイール（x 0.02〜0.13）→ 右のホイール（x 0.8〜0.88）＝寄り 1.3 で右へ
-    "c607": dict(photo=_R35, **ss.mv(_R35, "r", fy=0.45, z=1.3, span=(0.0, 1.0)), side="none",
-                 t="2つの装置", s="台の両脇のトリム・ホイール"),
-    # c608（8.5秒）＝写真39 の縞と「UP」の目盛り（x 0.45〜0.6）＝右へ（目盛りの数は読まない）
-    #   🆕 ⑤c'（2026-10-21）：4カット前の c604 と同じ所（10 UP・9 UP と SPEED BRAKE）が主役で、縞が端の脇役だった＝
-    #   左の縞（x 0〜0.3 のぼけた白い筋）と目盛りだけの窓（右の端 0.69 以下＝SPEED BRAKE〈0.72〜〉の外）で寄る。
-    #   ⚠️ 縦に動かすと上下の端が「UP」の行をまたいだ（門番 edges：k0.50 で 8 UP を 17%）＝寄るだけ。下の端は 8 UP〈〜0.73〉と
-    #   7 UP〈0.86〜〉の間の 0.80 のまま・上の端は 11 UP〈〜0.22〉と 10 UP〈0.33〜〉の間で 0.23→0.31（見える高さ＝0.831÷寄り）
-    "c608": dict(photo=_R39, **ss.mvz(_R39, (0.30, 0.515, 1.45), (0.28, 0.555, 1.7)), side="none",
-                 t="縞と目盛り", s="トリム・ホイールの縞と「UP」の目盛り"),
-    # c610（★・6.1秒）＝写真42（計器の照明の操作盤）＝「CAPT & CTR INST LT」のつまみ（x 0.52・y 0.4）へ寄る
-    #   🔧 窓の下の端を「EMER」（〜0.748）と「OFF」（0.863〜）のすき間の中だけで動かす（0.85 → 0.76＝門番 edges）
-    "c610": dict(photo=_R42, **ss.mvz(_R42, (0.45, 0.483, 1.12), (0.50, 0.486, 1.5)), side="none",
-                 t="夜間の見え方", s="事故機の計器の照明の操作盤"),
-    # c614（★・8.6秒）＝AB2（今のエアバス社の本社とベルーガ・CC0・関連）＝左へ（ベルーガ＝x 0.52・y 0.33）
-    "c614": dict(photo=_AB2, **ss.mv(_AB2, "l", fy=0.45), side="none",
-                 t="メーカーの変更", s="現在のエアバス社の本社とベルーガ（トゥールーズ）"),
-    # c618（9.6秒）＝B747（中華航空の747・CC BY 2.0・関連）＝右へ。左の端の看板の字（x 0〜0.05）は窓の外（寄せ 0.5〜1.0）
-    "c618": dict(photo=_B747, **ss.mv(_B747, "r", fy=0.45, span=(0.5, 1.0)), side="none",
-                 t="前の機種の経験", s="中華航空のボーイング747（1996年・香港）"),
-})
