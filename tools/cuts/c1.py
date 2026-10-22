@@ -62,8 +62,11 @@ SPEC.update({
     "c103": dict(photo=P("i15"), panel=True, color=1.0, fmove=ss.fm("in"),
                  t="最初の結論", s="壊れた4号炉（1986年4月）"),
     # c104（2行）＝INSAG-7 p.34（印刷24頁）の (6) の段落の頭から8行（「in fact not violations」の文と、c106 で読む「most ill judged」の文を含む）
-    #   ＝`qa_out/ep24_assets.py pbox S1p34 "(6)" "element in causing the accident"` が字の層から測った切り口。引用＝無加工・額装・印は額の外（映像方針 §6-5）
-    "c104": dict(photo=_PAGE, trim=(0.004, 0.178, 0.996, 0.344), panel=True, color=1.0, fmove=ss.fm("in"),
+    #   ＝`qa_out/ep24_assets.py pbox S1p34 "(6)" "element in causing the accident"` が測った切り口（行は字の層で選び、上下の辺は束の絵の
+    #   OCR の行のすき間でインクがいちばん少ない行）。引用＝無加工・額装・印は額の外（映像方針 §6-5）。
+    #   ⚠️ ⑤b-2 の初めの切り口（下 0.344）は9行目の字の頭を額の下の辺で切っていた（試し焼き `39774051396` の at_c104_030 で見た・門番 edges は
+    #   OCR の箱で 7.5%＜下限 8% を「外」と数えて通した）
+    "c104": dict(photo=_PAGE, trim=(0.004, 0.184, 0.996, 0.340), panel=True, color=1.0, fmove=ss.fm("in"),
                  t="見直された判断", s="1992年の報告（INSAG-7）の結論の頁"),   # 「INSAG-7 の結論」は出典の行の写し（門番 dup）
     # c105（2行）＝IAEA 02790036（壊れた4号炉の前を飛ぶヘリ・1986年6月13日）＝額ごと右へ
     "c105": dict(photo=P("i36"), panel=True, color=1.0, fmove=ss.fm("r"),

@@ -255,15 +255,60 @@ def cmd_pbox(code, head, tail, pad=18):
         raise SystemExit(f"🔴 {code}: 「{head}」より後に「{tail}」の行が無い")
     sel = lines[i0:i1 + 1]
     k, (bx, by, _, _) = sr["scale"], sr["box_px"]
-    x0 = min(b[0] for _, b in sel) * k - bx - pad
-    y0 = min(b[1] for _, b in sel) * k - by - pad
-    x1 = max(b[2] for _, b in sel) * k - bx + pad
-    y1 = max(b[3] for _, b in sel) * k - by + pad
+    sx0, sx1 = min(b[0] for _, b in sel), max(b[2] for _, b in sel)
+    top, bot = min(b[1] for _, b in sel), max(b[3] for _, b in sel)
+    # 🔴 ⑤b-2（10-22）：上下は**行と行のすき間の真ん中**で切る（行の箱に余白を足すと、行間の詰まった頁は隣の行の字の頭まで入る＝c104 の
+    #    初めの切り口で9行目の頭が額の下の辺に帯で見えた・門番 edges は OCR の箱で 7.5%＜下限 8% を「外」と数えて通した）
+    over = [b for _, b in lines if b[0] < sx1 and b[2] > sx0]
+    above = [b[3] for b in over if b[3] <= top + 1 and b[1] < top - 1]
+    below = [b[1] for b in over if b[1] >= bot - 1 and b[3] > bot + 1]
+    yt = (max(above) + top) / 2 if above else top - pad / k
+    yb = (min(below) + bot) / 2 if below else bot + pad / k
+    x0, x1 = sx0 * k - bx - pad, sx1 * k - bx + pad
+    y0, y1 = yt * k - by, yb * k - by
     w, h = rec["w"], rec["h"]
-    box = (max(0.0, x0 / w), max(0.0, y0 / h), min(1.0, x1 / w), min(1.0, y1 / h))
+    box = [max(0.0, x0 / w), max(0.0, y0 / h), min(1.0, x1 / w), min(1.0, y1 / h)]
     print(f"{code}: 行 {i0}〜{i1}（{len(sel)}行）「{sel[0][0][:40]}」〜「{sel[-1][0][-40:]}」")
-    print(f"  trim=({box[0]:.3f}, {box[1]:.3f}, {box[2]:.3f}, {box[3]:.3f})  縦横比 {(box[2] - box[0]) * w / ((box[3] - box[1]) * h):.2f}")
-    return 0
+    # 🔴 PDF の字の層（走査に重ねた OCR）は絵の行と数 px ずれる（c104＝字の層の行の下の端が絵の次の行の頭より下）＝上下の辺は
+    #    **束の絵の OCR**（ref/ep24/ocr_slides.json＝門番 edges・slide と同じ読み置き）の行の箱で、行と行のすき間の真ん中に寄せ直す
+    name = next(n for n, r in db.items() if r["code"] == code)
+    o = (json.loads((EPD / "ocr_slides.json").read_text(encoding="utf-8")).get(f"{name}.jpg")
+         if (EPD / "ocr_slides.json").exists() else None)
+    if not o:
+        print("  🔴 OCR の読み置きが無い＝絵の行で寄せ直せない（`python tools/check_slide.py --ocr` のあとでもう一度）")
+        return 1
+    ow, oh = o["size"]
+    L, R = box[0] * ow, box[2] * ow
+    rows = sorted(ln["box"] for ln in o["lines"] if ln["box"][0] < R and ln["box"][2] > L)
+    inside = [b for b in rows if box[1] * oh <= (b[1] + b[3]) / 2 <= box[3] * oh]
+    if not inside:
+        print("  🔴 切り口の中に OCR の行が無い")
+        return 1
+    t_o, b_o = min(b[1] for b in inside), max(b[3] for b in inside)
+    prev = [b[3] for b in rows if b[3] <= t_o and b not in inside]
+    nxt = [b[1] for b in rows if b[1] >= b_o and b not in inside]
+    # すき間の中で**インクがいちばん少ない行**（13本目の教え・束の絵の画素＝OCR の箱は字の頭より下に来ることがある）
+    import numpy as np
+    from PIL import Image
+    ink = (np.asarray(Image.open(EPD / f"{name}.jpg").convert("L"))[:, int(L):int(R)] < 160).sum(axis=1)
+
+    def calm(a, b):
+        a, b = int(a), int(b)
+        if b <= a:
+            return (a + b) / 2
+        seg = ink[a:b + 1]
+        lo = seg.min()
+        idx = np.where(seg == lo)[0]
+        return a + float(idx[len(idx) // 2])
+    box[1] = (calm(max(prev), t_o) if prev else t_o - pad) / oh
+    box[3] = (calm(b_o, min(nxt)) if nxt else b_o + pad) / oh
+    print(f"  trim=({box[0]:.3f}, {box[1]:.3f}, {box[2]:.3f}, {box[3]:.3f})  縦横比 {(box[2] - box[0]) * w / ((box[3] - box[1]) * h):.2f}"
+          f"（絵の行 {len(inside)}・上のすき間 {(t_o - max(prev)) if prev else '—'}px・下のすき間 {(min(nxt) - b_o) if nxt else '—'}px）")
+    T, B = box[1] * oh, box[3] * oh
+    hit = [ln["text"][:40] for ln in o["lines"] if ln["box"][0] < R and ln["box"][2] > L
+           and any(ln["box"][1] < e < ln["box"][3] for e in (T, B))]
+    print(f"  {'🔴' if hit else '✓'} 上下の辺にかかる OCR の行 {len(hit)}" + (f"：{hit}" if hit else ""))
+    return 1 if hit else 0
 
 
 # ── 写真 ───────────────────────────────────────────────────────
