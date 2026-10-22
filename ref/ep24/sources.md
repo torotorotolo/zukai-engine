@@ -91,6 +91,7 @@
 - 時刻は 00:43:27（付属書は 00:43:37＝§2-1）・「blocked in accordance with operational procedures and test procedures」・付属書I 1-4.7.4 は運転員に責めを負わせない
 - INSAG-1 の表の「This trip would have saved the reactor」は、ポジティブ・スクラムに照らすと「seems not to be valid」
 - ✏️ ①の「働けば早く壊れたかもしれない」は **INSAG-7 の文に無い**（「炉を救ったはず、は成り立たないようだ」まで）
+- 🔴 **10-22 ④で訂正（上の行は誤り）**：3章(4) には無いが、**本文 5.2.1（PDF 28／印刷18）に「In any event, the occurrence of this trip might well have caused the destruction of the reactor at the time of turbine trip rather than shortly afterwards.」がある**（④の確かめの係A・`quotes24.py` で文字の層に一致）＝言うなら 5.2.1 に帰属し「かもしれない（might well）」のまま（台本 c513）。同じ頁に「disabling of reactor protection seems to have been regarded rather lightly」もある
 
 ### 2-6. 蒸気ドラムの保護（INSAG-7 (6)・S1 p.22／12）
 - INSAG-1 の 01:19 → 「changed as early as 00:36」・付属書I は運転員を責めない
@@ -151,7 +152,7 @@
 
 ## 3. ④ に渡す「言える・言えない」の更新（①の §1-4 に足す・直す）
 1. ✏️ 「この4号炉自身の試験で見つかっていた」は**付属書I（ソ連の規制側の委員会・1991）の言葉**として言う（INSAG-7 本文はイグナリナだけ）
-2. ✏️ 0時43分の保護の無効化は「0時43分ごろ」（秒は割れる）。「働けば炉を救った」は INSAG-7 が退けた（「働けば早く壊れた」とは言わない）
+2. ✏️ 0時43分の保護の無効化は「0時43分ごろ」（秒は割れる）。「働けば炉を救った」は INSAG-7 が退けた（「働けば早く壊れた」とは言わない）→ 🔴 **10-22 ④で訂正**：INSAG-7 本文 5.2.1（p.28／18）に「タービンを止めた時点で炉が壊れていたかもしれない（might well）」がある＝帰属と「かもしれない」を保てば言える（§2-5 の追記・台本 c513）
 3. ✏️ 0時28分の急落を「運転員の誤りではない」と言うのは **INSAG-7 の書き直し**として（付属書I の本文には上級運転員が素早く直せなかったとも書いてある）
 4. ✏️ 夜に亡くなった2人のうちやけどの1人の時刻は言わない（6時／最初の1時間で割れる）
 5. 🆕 ORM は4月25日の朝（7時10分）にも13.2本＝即時停止の15本を下回っていた（表I-I）＝「規則を下回ったのは事故の直前だけではない」

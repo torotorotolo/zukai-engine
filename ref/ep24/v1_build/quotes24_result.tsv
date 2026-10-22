@@ -1,0 +1,261 @@
+cut	doc	pages	verdict	where	quote
+c101	K1		OK		五月三日に至り、東京都、千葉県、神奈川県におきまして
+c101	K1		OK		五月三日以降採取した浮遊じん、雨水等の核種分析の結果
+c102	S3	21	OK		at about 1:24 there occurred two explosions one after the other
+c103	S2	18	OK		the accident was eaused by a remarkable range of human errors
+c103	S2	18	OK		in combination with specific reactor features which compounded and amplified the effects of the errors
+c103	S2	112	OK		is to be found in the so-called 'human element'
+c104	S1	34	OK		were in fact not violations
+c105	S1	53	OK		during the physical startup of Ignalina Unit 1 and that of Chernobyl Unit 4
+c105	S1	53	OK		almost two-and-a-half years before the Chernobyl accident
+c106	S1	34	OK		critical actions of the operators were most ill judged
+c107	S1	33	OK		It is not known for certain what started the power excursion
+c201	S3	21	OK		at about 1:24 there occurred two explosions one after the other
+c201	S3	6	OK		The accident took place prior to shut-down of the unit for planned maintenance
+c203	S3	16	OK		On the night of 25-26 April 1986 there were 176 duty operational staff
+c204	S2	118	OK		300 power plant and fire-fighting personnel admitted to hospitals
+c204	S2	118	OK		of whom 31 have so far died
+c205	S1	34	OK		does not retract INSAG-1, nor does it alter the conclusions of that report
+c206	S2	27	OK		This series of wilful violations of procedure, extraordinary as they were
+c207	S1	113	OK		with a graphite moderator and a boiling light water coolant
+c208	S1	113	OK		There were 1660 fuel channels in the vertical ducts of the graphite columns
+c209	S2	8	OK		with an operating power of 1000 MW(e), 3200 MW(th)
+c210	S1	13	OK		the void and power coefficients of reactivity were both positive
+c211	S2	9	OK		becomes positive below approximately 20% of full power
+c212	S1	113	OK		consists of 211 movable solid absorber rods
+c212	S1	14	OK		when starting from the upper limit stop switches, was 18 s
+c213	S2	27	OK		A special test was planned just prior to taking the Unit out of service for scheduled maintenance.
+c213	S3	19	OK		tests were to be carried out on turbogenerator No. 8
+c214	S3	19	OK		to test the possibility of utilizing the mechanical energy of the rotor
+c214	S2	9	OK		until the standby diesel generators could supply emergency power
+c215	S1	121	OK		to verify whether cooldown of the core by forced cir-culation could be maintained
+c216	S1	61	OK		In 1982, the corresponding tests were carried out at Chernobyl Unit 3
+c216	S1	61	OK		Additional tests with a modernized rundown unit were performed in 1984 and 1985.
+c216	S1	61	OK		Chernobyl Unit 4 was com-missioned in December 1983 without having been tested under these conditions
+c217	S3	19	OK		was not properly prepared and had not received the requisite approval
+c218	S1	62	OK		there is nothing wrong with the programme itself
+c218	S1	62	OK		did not require the plant managers to obtain approval for such tests
+c219	S1	62	OK		not entirely satisfactory, primarily in terms of its safety measures
+c219	S3	19	OK		the section on safety measures was drafted in a purely formal way
+c220	S1	34	OK		unapproved changes in the test procedure were deliberately made on the spot
+c221	S1	29	OK		the test procedure was altered on an ad hoc basis
+c222	S3	19	OK		it called for shutting off the reactor's emergency core cooling system
+c223	S3	19	OK		the staff departed from the programme and thereby created the conditions for the emergency situation
+c224	S2	35	OK		The start of reactor power
+c301	S3	20	OK		at exactly 1:00 hours
+c302	S1	89	OK		When the ORM falls to 15 rods, the reactor should be shut down immediately
+c303	S1	89	OK		not less than 26-30 rods
+c304	S2	35	OK		Reactor power reduction stopped
+c305	S1	63	OK		ORM equals 31
+c306	S1	21	OK		this minimum ORM was also violated for several hours on 25 April
+c307	S2	35	OK		Turbo-generator No. 7 switched off
+c308	S1	63	OK		Disconnection of the ECCS
+c309	S2	35	OK		blocked ECCS played no role in transient to point of core disruption
+c310	S1	20	OK		blocking of the ECCS was in fact permissible at Chernobyl if authorized
+c311	S1	20	OK		which it clearly was not
+c311	S1	20	OK		are indicative of an absence of safety culture
+c312	S1	82	OK		taking the ECCS out of operation is a violation of Section 2.10.5
+c312	S1	88	OK		the switching off of the ECCS did not affect the initiation and scale
+c313	S1	88	OK		did not affect the initiation and scale of the accident
+c314	S1	63	OK		Postponement of testing programme requested by Kiev power grid controller
+c315	S1	63	OK		ORM equals 26
+c316	S3	20	OK		At 23:10 hours, the power reduction was resumed
+c401	S3	20	OK		was to be carried out at a reactor power of 700-1000 MW(th)
+c402	S1	21	OK		the precipitous fall in power to 30 MW(th) as being due to an operator error
+c403	S3	20	OK		the power fell below 30 MW(th)
+c404	S2	36	OK		Operator error with transfer
+c404	S2	28	OK		a 'hold power' request was not entered
+c405	S3	20	OK		the operator was unable to eliminate the resultant unbalance
+c406	S1	21	OK		Recent reports suggest that there was no operator error as such
+c407	S1	21	OK		refers to an unknown cause and inability to control the power
+c408	S1	21	OK		former Deputy Chief Engineer for Operations at the Chernobyl plant
+c408	S1	21	OK		in a private communication refers to the system not working properly
+c409	S1	73	OK		failed to eliminate fast enough the imbalance
+c410	S1	21	OK		no operator error as such
+c411	S3	20	OK		stabilizing it at 200 MW(th)
+c412	S2	25	OK		continuous operation below 700 MW(th) is forbidden by normal safety procedures
+c413	S1	21	OK		was not proscribed, either in design, in regula-tory limitations or in operating instructions
+c414	S1	21	OK		The emphasis placed on this statement in INSAG-1 was not warranted.
+c415	S1	28	OK		There should have been such a proscription, but there was none at the time.
+c415	S1	38	OK		sets a lower limit of 700 MW(th) for steady operation
+c416	S1	59	OK		this confirms that there was no such ban before the accident
+c417	S1	15	OK		a reactor operator had to rely mainly on experience and intuition
+c418	S1	15	OK		perform manipulations at a rate of up to 1000 per hour
+c419	S1	74	OK		eight instead of the usual six MCPs were in operation
+c420	S1	18	OK		The use of all eight pumps increased the coolant flow rate above that under nominal
+c421	S1	88	OK		if anything hindered the reactor runaway
+c501	S2	27	OK		This series of wilful violations of procedure
+c502	S1	17	OK		two parallel horizontal drum type separators in each loop
+c503	S2	25	OK		again a serious violation of normal station procedure
+c504	S1	22	OK		as early as 00:36 on April 26 and not at 01:19:00 as stated
+c504	S1	22	OK		protection at the lower steam drum level remained effective throughout the event
+c505	S1	22	OK		technically in violation of Item 9
+c506	S1	28	OK		Disabling of the trip on steam drum water level would have been allowable
+c507	S3	27	OK		Blocking of reactor protection system relying on shutdown signal from two turbogenerators
+c508	S2	39	OK		This trip would have saved the reactor.
+c509	S3	27	OK		Intention, if necessary, of repeating the experiment with turbogenerators switched off
+c510	S1	21	OK		The event occurred at 00:43:27 rather than at 01:23:04 as stated in INSAG-1
+c511	S1	21	OK		does not sup-port the apportionment of any blame to operating personnel
+c512	S1	21	OK		seems not to be valid
+c513	S1	28	OK		the occurrence of this trip might well have caused the destruction of the reactor
+c515	S1	28	OK		disabling of reactor protection seems to have been regarded rather lightly
+c516	S1	29	OK		When the reactor power could not be restored to the intended level of 700 MW(th)
+c601	S3	21	OK		At 1:22:30, the operator saw from a printout of the fast reactivity evaluation program
+c602	S3	21	OK		the available excess reactivity had reached a level requiring immediate shutdown of the reactor
+c602	S3	21	OK		Nevertheless, the staff were not stopped by this and began with the experiments.
+c603	S3	23	OK		At 1:22:30 the excess reactivity was only 6-8 rods
+c603	S1	64	OK		ORM proved to be equal to 8 manual control rods
+c604	S2	10	OK		the operators deliberately and in violation of rules withdrew most control and safety rods
+c605	S1	22	OK		the ORM is much greater than was indicated in the INSAG-1 report
+c606	S1	21	OK		it is likely that the operator did not know the value of the ORM
+c606	S1	21	OK		the computer SKALA, which was used to calculate the ORM, became unreliable
+c607	S1	74	OK		did not know the calculated parameters, including the ORM, at this time
+c608	S1	21	OK		were not aware that it had safety significance
+c610	S3	21	OK		At 1:23:04, the emergency regulating valves of turbogenerator No. 8 shut.
+c611	S3	21	OK		Shortly after the beginning of the experiment the reactor power began to rise slowly.
+c612	S1	75	OK		During the rundown of turbogenerator No. 8 there was no increase in reactor power.
+c612	S1	75	OK		Thirty-five seconds after the start of the transient it had fallen by 10-15%
+c613	S3	24	OK		this was the circumstance which triggered the pressing of button AZ-5
+c613	S3	21	OK		the unit shift foreman gave the order to press button AZ-5
+c614	S1	76	OK		The Commission was unable to establish why the button was pressed.
+c615	S3	21	OK		The rods fell, but after a few seconds a number of shocks were felt
+c616	S1	65	OK		power exceeded 530 MW(th)
+c617	S1	65	OK		the RCPS rods stopped moving before they reached the lower limit stop switches
+c617	S3	21	OK		He then cut off the current to the sleeves of the servo drives
+c618	S3	21	OK		burning lumps of material and sparks shot into the air above the reactor
+c619	S1	65	OK		Severe shocks
+c701	S3	21	OK		fell onto the roof of the machine room and started a fire
+c702	S3	29	OK		Fire had broken out in over 30 places
+c702	S2	68	OK		localized at 02:10 and 02:20 respectively
+c703	S3	43	OK		also suffered burns during their efforts to extinguish the fire
+c703	S3	43	OK		108 people had been hospitalized
+c703	S3	43	OK		a further 24 persons out of those examined were admitted to hospital
+c704	L3	7	OK		Two workers died in the immediate aftermath
+c704	S3	43	OK		died from severe burns
+c704	S3	43	OK		one of those working at the damaged unit was not found
+c705	L2	24	OK		the town of Pripyat, located just 3 km from the damaged reactor
+c705	L2	24	OK		49,360 persons
+c706	S2	82	OK		people were instructed to remain indoors with windows and doors shut
+c706	L2	24	OK		the decision to evacuate the residents of the town was taken at 22:00
+c707	L2	24	OK		nearly 1,200 buses
+c707	L2	24	OK		Around noon on 27 April the evacuation order was broadcast
+c708	L2	24	OK		began at 14:00 and finished at 17:00
+c709	L2	24	OK		Yanov (254 persons)
+c709	L2	25	OK		were evacuated from 3 May through 7 May.
+c712	K1		OK		スウェーデン、フィンランド等北欧諸国を中心にソ連の国境を越えて拡散し
+c713	K1		OK		五月三日に至り、東京都、千葉県、神奈川県におきまして
+c713	K1		OK		二十九都道府県にわたり
+c714	K1		OK		直接雨水を摂取する場合はできるだけ木炭等でこして使用することが望ましい
+c714	K1		OK		水道水、井戸水及び牛乳については心配ない
+c715	K1		OK		念のため十分に洗浄して摂取することが望ましい
+c715	K1		OK		国民の健康に影響を与えるような放射能は検出されておらず
+c802	S2	1	OK		held in Vienna from 25 to 29 August 1986
+c803	S2	21	OK		More than 500 highly qualified experts from 62;countries and 21 international organizations
+c804	S2	7	OK		leading Soviet scientists and nuclear engineers presented a report
+c805	S3	26	OK		lists the most dangerous violations of the operating rules committed by the staff
+c806	S3	26	OK		Operator error in switching off local automatic control
+c807	S3	26	OK		Meeting the requirements of the tests
+c807	S3	27	OK		The chief motive of the staff was to complete the tests as expeditiously as possible.
+c808	S3	27	OK		the prime cause of the accident was an extremely improbable combination of violations
+c809	S3	27	OK		since they considered such a conjunction of events to be impossible
+c809	S3	27	OK		did not provide for protective safety systems capble of preventing an accident
+c810	S3	27	OK		the positive void coefficient of reactivity was able substantially to enhance the power excursion
+c811	S2	2	OK		30 August - 5 September 1986
+c812	S2	18	OK		the accident was eaused by a remarkable range of human errors
+c812	S2	18	OK		in combination with specific reactor features which compounded and amplified the effects of the errors
+c813	S2	112	OK		is to be found in the so-called 'human element'
+c814	S2	110	OK		the course of events described as having taken place is entirely plausible
+c814	S2	110	OK		This is not to say that questions do not remain
+c815	S2	47	OK		no attempt has been made to find alternative explanations
+c816	S2	18	OK		supplemented by the creation and maintenance of a "nuclear safety culture"
+c817	S2	50	OK		Nuclear plant designs must be as far as possible invulnerable to operator error
+c819	S1	11	OK		made no attempt to generate alternative scenarios
+c820	S1	27	OK		Certainly the account in INSAG-1 would have been different had the features of the control
+c821	S3	28	OK		a continuing increase in the multiplying characteristics of the core in its lower part
+c822	S3	28	OK		as the rods move down from the upper stops
+c901	S1	14	OK		with a water filled space of 1.25 m separating the displacer and the absorbing rod
+c902	S1	14	OK		with 1.25 m of water at either end
+c905	S1	14	OK		caused a local insertion of positive reactivity in the lower part of the core
+c906	S1	54	OK		Triggering of the EPS in this case may lead to the introduction of positive reactivity.
+c908	S1	14	OK		when starting from the upper limit stop switches, was 18 s
+c909	S1	49	OK		In the case of a non-regulation ORM of 7 control rods
+c909	S1	49	OK		the chain reaction is being accelerated rather than terminated
+c910	S1	24	OK		made them crucially sensitive to the extent of insertion of the control and protection rods
+c911	S1	53	OK		discovered experimentally in November/December 1983 during the physical startup of Ignalina Unit 1
+c912	S1	53	OK		and that of Chernobyl Unit 4
+c912	S1	53	OK		almost two-and-a-half years before the Chernobyl accident
+c913	S1	23	OK		Ignalina RBMK plant in the Lithuanian Republic in 1983
+c914	S1	53	OK		The Chief Design Engineer [22] and the Scientific Manager knew about this effect
+c915	S1	54	OK		but none of them were implemented before the accident
+c916	S1	25	OK		Such restrictions were never imposed and apparently the matter was forgotten.
+c917	S1	26	OK		It is reprehensible that such a deficiency had been known of for so long
+c918	S1	23	OK		first acknowledged by Soviet experts at the Conference on Nuclear Power Performance and Safety
+c919	S1	26	OK		most likely final event
+c920	S1	33	OK		It is not known for certain what started the power excursion
+c921	S1	23	OK		Any of these could just as well have caused the initiating event
+c921	S1	24	OK		Does it really matter which shortcoming was the actual cause
+c922	S2	10	OK		the first power peak reached 100 times the nominal power within four seconds
+c922	S1	131	OK		ranging from 3.5 times the initial value in Model 2 to approximately 80 times
+c923	S1	56	OK		all the design deficiencies of the RCPS were in fact known before the accident
+c924	S1	54	OK		Triggering of the EPS in this case may lead to the introduction of positive reactivity.
+c924	S1	100	OK		Letter No. 33-08/67 of 23 December 1983
+c925	S1	23	OK		he made no such changes, and the procedural measures he recommended
+c926	S1	29	OK		Such a mode of operation in itself could have led to a destructive accident
+ca01	S1	41	OK		the defects identified in the reactor design and its unsatisfactory physical parameters
+ca02	S1	41	OK		They were also not included in the papers presented to the IAEA.
+ca03	S1	70	OK		V.P. Volkov, head of the I.V. Kurchatov Institute Research Group on the Reliability and Safety
+ca03	S1	70	OK		not to the actions of the operating personnel, but to the design of the reactor
+ca04	S1	70	OK		At two meetings of the Interdepartmental Science and Technology Council, chaired by A.P. Aleksandrov
+ca04	S1	70	OK		all the causes of the accident were reduced exclusively to personnel errors
+ca06	S1	41	OK		They were no better, but no worse, than the personnel at other nuclear plants.
+ca07	S1	81	OK		The Commis-sion assumes that the personnel deliberately violated this requirement.
+ca08	S1	39	OK		which was initiated by erroneous actions on the part of the operating personnel
+ca08	S1	39	OK		had disproportionately disastrous consequences because of deficiencies in the design of the reactor
+ca09	S1	33	OK		shift the emphasis to the contributions of parti-cular design features
+ca10	S1	33	OK		not specified by procedures or investigated by an independent safety body
+ca11	S1	33	OK		not only at the Chernobyl plant, but throughout the Soviet design, operating and
+ca12	S1	33	OK		were not aware of the nature and causes of the accident at Leningrad Unit 1
+ca13	S1	34	OK		laid blame almost entirely on actions of the operating staff, is thereby lessened
+ca14	S1	34	OK		critical actions of the operators were most ill judged
+ca14	S1	34	OK		the human factor has still to be considered as a major element
+ca15	S1	34	OK		does not retract INSAG-1, nor does it alter the conclusions of that report
+ca16	S1	20,21,22	OK		blocking of the ECCS was in fact permissible at Chernobyl if authorized
+ca17	S1	21	OK		no operator error as such
+ca18	S1	22	OK		protection at the lower steam drum level remained effective throughout the event
+ca19	S1	21	OK		it is likely that the operator did not know the value of the ORM
+ca21	S1	26	OK		It is reprehensible that such a deficiency had been known of for so long
+ca22	S1	120	OK		reactor instability caused both by design faults and the operating regime
+cb02	K1		OK		合計九名が死亡していると聞いております
+cb03	S3	43	OK		among personnel stood at 28 at the beginning of July
+cb04	S2	118	OK		of whom 31 have so far died
+cb05	K1		OK		ソ連から発表されております数字でございますが、死亡者は三十一名
+cb05	K1		OK		その辺の内訳はソ連から出されておりません
+cb06	L2	5	OK		30 power plant employees and firemen (including 28 deaths that were due to radiation exposure)
+cb07	L1	12	OK		one additional death was thought to have been due to a coronary thrombosis
+cb09	L2	40	OK		a total of 237 were initially examined for signs and symptoms of acute radiation sickness
+cb10	L2	40	OK		Among the 134 cases, 28 died within the first four months of the accident.
+cb11	L1	13	OK		These predictions were based on the experience of other populations exposed to radiation
+cb12	L1	14	OK		This might eventually represent up to four thousand fatal cancers
+cb13	L8	5	OK		about 16,000 deaths (95% UI 6,700 – 38,000) from these cancers may occur
+cb13	L8	2	OK		The present analysis focused on 40 European
+cb14	L3	24	OK		decided not to use models to project absolute numbers of effects
+cb15	L1	13	OK		These predictions were based on the experience of other populations exposed to radiation
+cb16	S2	100	OK		accumulation of radionuclides of iodine in the thyroid glands
+cb17	L4	7	OK		registered in the period 1991−2015 in males and females, who were under 18 in 1986
+cb17	L4	7	OK		The uncertainty range of the estimated attributable fraction extends at least from 0.07 to 0.5
+cb18	L2	5	OK		evacuation of about 116,000 people from areas sur-rounding the reactor during 1986
+cb18	L2	67	OK		the relocation, after 1986, of about 220,000 people from Belarus, the Russian Federation and Ukraine
+cb19	S3	42	OK		135 000 people were evacuated
+cb19	L2	25	OK		is somewhat lower than the figure of 135,000 that was cited by the Committee
+cc01	L2	21	OK		construction of the sarcophagus (May-November 1986)
+cc02	S3	31	OK		About 5000 t in all were dropped between 27 April and 10 May
+cc03	S2	11	OK		Units 1 and 2 were shut down early in the morning of 27 April
+cc06	L10	12	OK		The scale was developed in 1990 by international experts convened by the IAEA
+cc06	L10	13	OK		accident at the Chernobyl nuclear power plant is rated at Level 7 on INES.
+cc07	L10	163	OK		Major accident Level 7 Chernobyl, 1986.
+cc13	S3	28	OK		as the rods move down from the upper stops
+cc14	S1	35	OK		lack of safety culture in nuclear matters, at the national level as well as locally
+cc17	S1	34	OK		the human factor has still to be considered as a major element
+cc18	S1	34	OK		laid blame almost entirely on actions of the operating staff, is thereby lessened
+cc20	S1	34	OK		laid blame almost entirely on actions of the operating staff, is thereby lessened
+cc20	S1	34	OK		critical actions of the operators were most ill judged
