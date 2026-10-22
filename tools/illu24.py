@@ -197,9 +197,10 @@ def n1_channels_svg():
 
 
 def n1_rods_svg():
+    """上から入る棒（N2 と同じ鋼の色・⑤b-3 の試し焼き：暗い色では空の枠に見えた）"""
     g = []
     for x in N1_ROD:
-        g.append(_rect(x - 5, N1_ROD_TOP, 10, N1_CORE["y0"] - N1_ROD_TOP, C24["rod"], C24["rod_ln"], 1.5))
+        g.append(_rect(x - 6, N1_ROD_TOP, 12, N1_CORE["y0"] - N1_ROD_TOP, C24["steel"], C24["steel_ln"], 2.0))
     return "".join(g)
 
 
@@ -310,7 +311,7 @@ def _scene_N1(start, states, steps):
         go = [dict(stage=0, delay=0.0, u=float(start["n1steam"] == "on"))]
         for i, (st, sp) in enumerate(zip(states, steps)):
             if st["n1steam"] == "on" and (go[-1]["u"] < 1.0):
-                go.append(dict(stage=i, delay=float(sp.get("delay", KEY_DELAY)), dur=2.2, u=1.0))
+                go.append(dict(stage=i, delay=float(sp.get("delay", KEY_DELAY)), dur=1.5, u=1.0))   # 試し焼き：2.2秒では段の終わりのコマで右の端に届かなかった
         parts.append(dict(_part("steam", n1_steam_svg(), R["steam"], keys=[dict(stage=0, delay=0.0, a=1.0)]), kind="draw",
                           path=[list(q) for q in N1_STEAM_PATH], go=go, reveal=40, geo=dict(kind="n1steam", end=N1_STEAM_PATH[-1][0])))
     if start["switch"] == "on":
@@ -321,7 +322,7 @@ def _scene_N1(start, states, steps):
 def _n1_anchors(st):
     c = N1_CORE
     return dict(ch=(N1_CH[-3] + N1_TW / 2, c["y0"] + 0.62 * (c["y1"] - c["y0"])), core=(c["x0"] + 40, c["y1"] - 60),
-                pump=(N1_PUMP[0], N1_PUMP[1] - N1_PUMP[2]), drum=(N1_DRUM[2] - 30, N1_DRUM[1] + 6),
+                pump=(N1_PUMP[0], N1_PUMP[1] - N1_PUMP[2]), drum=((N1_DRUM[0] + N1_DRUM[2]) / 2, N1_DRUM[3] + 2),
                 steam=(1880.0, N1_STEAM_Y + 8), rod=(N1_ROD[-1] + 5, N1_ROD_TOP + 40),
                 boil=(N1_CH[-1] + N1_TW / 2, c["y0"] + 60))
 
@@ -336,8 +337,10 @@ def _n1_note(st0, states):
 N2_S = 0.8                                        # 1cm＝0.8画素
 N2_FIG1 = dict(gap=20.0, water=125.0, disp=450.0)   # 図1 (a) の寸法（cm）＝描く側の値（門番は自分の側に REC_N2 を持つ）
 N2_CORE_CM = N2_FIG1["water"] * 2 + N2_FIG1["disp"]
-N2_CUT = dict(yt=258.0, lid=230.0, xs=(80.0, 520.0, 960.0, 1400.0, 1840.0), cw=96.0, rw=64.0)
-N2_TOP = dict(yt=600.0, lid=150.0, xs=tuple(160.0 * k for k in range(13)), rw=56.0)
+# 棒の列は画面の両端で切る（RBMK の棒は 211本＝S1 p113・数えられる形にしない＝門番 ㊴）。試し焼き 39791009342：top の細い棒（56）は
+#   「暗い板と灰色の柱」に見えた＝太く（76）・間を詰め・丸い棒の光の筋
+N2_CUT = dict(yt=258.0, lid=230.0, xs=(20.0, 490.0, 960.0, 1430.0, 1900.0), cw=96.0, rw=64.0)
+N2_TOP = dict(yt=600.0, lid=150.0, xs=tuple(192.0 * k for k in range(11)), rw=76.0)
 N2_LAB = dict(cut="止める棒を縦に切った図（横から）", top="炉の上の方（横から）")
 N2_REC = dict(
     fig1="S1 p14（with a water filled space of 1.25 m separating the displacer and the absorbing rod・with 1.25 m of water at either end）・S1 p15（図1 (a)＝寸法 cm）",
@@ -379,7 +382,8 @@ def n2_rods_svg(view):
     out = []
 
     def absorber(x, rw):
-        a = [_rect(x - rw / 2, -400.0, rw, g["tip"] + 400.0, C24["steel"], C24["steel_ln"], 2.5)]
+        a = [_rect(x - rw / 2, -400.0, rw, g["tip"] + 400.0, C24["steel"], C24["steel_ln"], 2.5),
+             _rect(x - rw / 2 + rw * 0.2, -400.0, rw * 0.16, g["tip"] + 396.0, C24["steel_ln"], op=0.45)]   # 丸い棒の光の筋
         y = g["tip"] - 18.0
         while y > -400.0:                       # 継ぎ目（模式）＝下がる動きが見える
             a.append(_line(x - rw / 2 + 3, y, x + rw / 2 - 3, y, C24["joint"], 4.0))
@@ -417,8 +421,9 @@ def n2_arrows_svg(view):
             xa = x + N2_CUT["cw"] / 2 + 40
             out.append(_arrow((xa, g["yt"] + 30), (xa, g["yt"] + 150), C24["arrow"], 6.0, 20.0))
         return "".join(out)
-    for x in N2_TOP["xs"][:-1]:
-        xa = x + 80.0
+    xs = N2_TOP["xs"]
+    for a, b in zip(xs, xs[1:]):
+        xa = (a + b) / 2
         out.append(_arrow((xa, 300.0), (xa, 430.0), C24["arrow"], 6.0, 20.0))
     return "".join(out)
 
@@ -479,7 +484,7 @@ def _n2_anchors(st):
                     disp=(x + N2_CUT["rw"] / 2, (g["d0"] + g["d1"]) / 2 + dy),
                     lo=(N2_CUT["xs"][3] + cw / 2 + 6, g["yb"] - N2_FIG1["water"] * N2_S / 2),
                     top=(x + cw / 2, g["yt"] + 20))
-    x = N2_TOP["xs"][6]
+    x = N2_TOP["xs"][min(6, len(N2_TOP["xs"]) - 1)]
     return dict(rod=(x + N2_TOP["rw"] / 2, 300.0 + dy), tip=(x + N2_TOP["rw"] / 2, g["tip"] + dy), top=(x, g["yt"]))
 
 
@@ -509,7 +514,6 @@ N3_CARDS = dict(
            ("0:28", 0, ("約500MW", "30MW 未満"), "S1 p63（00:28 At reactor thermal power of about 500 MW transfer made）・S3 p2020（the power fell below 30 MW(th)）")),
 )
 N3_ROW_Y = (330.0, 520.0)                          # 札の上の端（段0・段1）
-N3_CARD_W = 330.0
 N3_RULE = dict(t="決まり：ふだん 26〜30本以上・15本で すぐ止める", rec="S1 p89（not less than 26-30 rods・When the ORM falls to 15 rods, the reactor should be shut down immediately）")
 N3_RULE_COL = {"31本": "green", "13.2本": "red", "26本": "green"}     # 札の行の終わりの値 → 決まりとの比べの色（15本を下回る＝赤）
 
@@ -550,9 +554,15 @@ def n3_axis_svg(view):
     return "".join(g)
 
 
+def _tw(t, size):
+    """字の幅の見積もり（全角＝字の大きさ・半角＝0.56倍）"""
+    return sum(size if ord(ch) > 255 else 0.56 * size for ch in t)
+
+
 def _card_box(view, hm, row, lines):
     x = n3_x(view, hm)
-    w = N3_CARD_W
+    # 試し焼き 39791009342：幅 330 の固定では 3:47 の線が 1:06 の札の右の辺に約4px まで寄った＝幅を字の長さで決める
+    w = max(220.0, max([_tw(hm, 48)] + [_tw(t, 34) for t in lines]) + 48.0)
     cx = min(max(x, 96.0 + w / 2), W - 96.0 - w / 2)
     y0 = N3_ROW_Y[row]
     h = 70.0 + 46.0 * len(lines)
@@ -680,7 +690,7 @@ N4_ROAD = (628.0, 724.0)                           # 道（上の端・下の端
 N4_BUS = dict(len=236.0, h=94.0, gap=28.0, y=716.0, x0=-150.0)    # バス（横から・模式）＝画面の両端の外まで続く
 N4_BUS_XS = tuple(N4_BUS["x0"] + (N4_BUS["len"] + N4_BUS["gap"]) * k for k in range(9))
 N4_IN = 1980.0                                     # 夜のうちに着く＝右の外からずれて来る量（画素）
-N4_CROWD = dict(base=820.0, w=56.0, rows=3)       # ⑤b-3 の下見：46画素では小さく帯に見えた
+N4_CROWD = dict(base=832.0, w=72.0, rows=2)       # ⑤b-3 の下見：46画素では帯・試し焼き：56画素3列でも暗い玉の帯＝大きく2列（肩の形が見える）
 N4_TOWN = (960.0, 380.0)                           # 知らせの輪の真ん中（模式）
 N4_LAB = "町の通りを横から見た図"
 N4_REC = dict(

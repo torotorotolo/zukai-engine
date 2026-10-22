@@ -2675,6 +2675,10 @@ def _judge_n2(sc, where, geo, tags):
             bad.append(f"㊴{where}：炉の上の方（top）は炉を不透明の塊にして棒の上に重ねる（下の水と押しのけ棒はまだ見せない）")
         if rg.get("d0") is not None or "red" in [p["id"] for p in sc["parts"]]:
             bad.append(f"㊴{where}：炉の上の方（top）に押しのけ棒か赤い所を描いた")
+    n += 1
+    if not (min(rg["xs"]) - rg["w"] / 2 < 0 and max(rg["xs"]) + rg["w"] / 2 > IL.W):
+        bad.append(f"㊴{where}：棒の列が画面の両端で切れていない（x {min(rg['xs']) - rg['w'] / 2:.0f}〜{max(rg['xs']) + rg['w'] / 2:.0f}）"
+                   "＝数えられる形（棒は 211本＝S1 p113・本数は描かない）")
     dys = [float(k.get("dy", 0.0)) for k in rods["keys"]]
     n += 1
     if any(b < a - 1e-6 for a, b in zip(dys, dys[1:])):
@@ -2916,7 +2920,8 @@ def selftest_ep24():
 
     def keep(obj, name):
         return obj, name, copy.deepcopy(getattr(obj, name))
-    saved = [keep(I24, x) for x in ("N1_CORE", "N1_STEAM_PATH", "N2_FIG1", "N3_RULE_COL", "N3_TICKS", "N3_SPLIT", "N4_BUS_XS", "n3_x")]
+    saved = [keep(I24, x) for x in ("N1_CORE", "N1_STEAM_PATH", "N2_FIG1", "N3_RULE_COL", "N3_TICKS", "N3_SPLIT", "N4_BUS_XS", "n3_x",
+                                    "N2_TOP")]
     try:
         # ㊳ N1
         bad_case("札の管の数を 1,600本に", step("c208", 0, tag=dict(t="燃料と水の管（1,600本）", at="ch")), "㊳", "記録の数")
@@ -2937,6 +2942,9 @@ def selftest_ep24():
         I24.N2_FIG1 = dict(saved[2][2], gap=60.0)
         bad_case("描く側の吸う棒の先を炉の 60cm 上に（型の定数）", good["c905"], "㊴", "吸う棒の先")
         I24.N2_FIG1 = saved[2][2]
+        I24.N2_TOP = dict(saved[8][2], xs=tuple(300.0 + 220.0 * k for k in range(6)))
+        bad_case("描く側で前触れの棒を画面の中の6本に（型の定数）", good["c615"], "㊴", "両端で切れていない")
+        I24.N2_TOP = saved[8][2]
         bad_case("本番で 100cm しか下げない", step("c905", 1, state=dict(n2dy=100.0, n2red="on")), "㊴", "下がった長さ")
         bad_case("前触れで 150cm 下げる（毎秒0.4m×3秒を越える）", step("c615", 1, state=dict(n2dy=150.0)), "㊴", "記録の速さ")
         bad_case("赤い所を1行目から", step("c905", 0, state=dict(n2dy=30.0, n2arrow="on", n2red="on")), "㊴", "最後の段だけ")

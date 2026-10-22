@@ -96,5 +96,6 @@ SPEC.update({
         steps=[dict(state=dict(n2dy=60.0, n2arrow="on"), dur=3.0,
                     rec="S1 p113（inserted into the core at a speed of 0.4 m/s when the EPS is triggered）・S1 p65（01:23:40 EPS-S button was pressed）",
                     tag=dict(t="制御棒", at="rod", off=(60, -60))),
-               dict(state=dict(n2dy=120.0), dur=3.0, rec="S1 p65（01:23:43 Power excursion rate emergency protection system signals on）")]))),
+               dict(state=dict(n2dy=120.0), dur=3.0, rec="S1 p65（01:23:43 Power excursion rate emergency protection system signals on）",
+                    tag=dict(t="炉", at="top", off=(70, 110)))]))),
 })

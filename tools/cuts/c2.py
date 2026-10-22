@@ -106,5 +106,6 @@ SPEC.update({
                     rec="S1 p113（Individual pipes supply subcooled water to each channel and remove the steam-water mixture）",
                     tag=[dict(t="燃料と水の管（1,660本）", at="ch", off=(70, -150)), dict(t="黒鉛", at="core", off=(-150, 40), anchor="end")]),
                dict(state=dict(n1steam="on"), rec="S1 p113（The saturated steam is sent to two turbines）",
-                    tag=[dict(t="蒸気ドラム", at="drum", off=(-200, 130)), dict(t="タービンへ", at="steam", off=(-40, 80), anchor="end")])]))),
+                    # 試し焼き 39791009342：指し線がドラムの上を斜めに横切った＝ドラムの下の真ん中から短く
+                    tag=[dict(t="蒸気ドラム", at="drum", off=(-10, 70)), dict(t="タービンへ", at="steam", off=(-40, 80), anchor="end")])]))),
 })
