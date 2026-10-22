@@ -514,6 +514,7 @@ N3_CARDS = dict(
            ("0:28", 0, ("約500MW", "30MW 未満"), "S1 p63（00:28 At reactor thermal power of about 500 MW transfer made）・S3 p2020（the power fell below 30 MW(th)）")),
 )
 N3_ROW_Y = (330.0, 520.0)                          # 札の上の端（段0・段1）
+N3_STEM_GAP = 24.0                                 # 下の段の札と上の段の線のすき間の下限（画素）
 N3_RULE = dict(t="決まり：ふだん 26〜30本以上・15本で すぐ止める", rec="S1 p89（not less than 26-30 rods・When the ORM falls to 15 rods, the reactor should be shut down immediately）")
 N3_RULE_COL = {"31本": "green", "13.2本": "red", "26本": "green"}     # 札の行の終わりの値 → 決まりとの比べの色（15本を下回る＝赤）
 
@@ -564,6 +565,13 @@ def _card_box(view, hm, row, lines):
     # 試し焼き 39791009342：幅 330 の固定では 3:47 の線が 1:06 の札の右の辺に約4px まで寄った＝幅を字の長さで決める
     w = max(220.0, max([_tw(hm, 48)] + [_tw(t, 34) for t in lines]) + 48.0)
     cx = min(max(x, 96.0 + w / 2), W - 96.0 - w / 2)
+    if row == 1:
+        # 下の段の札は、上の段の札から軸へ降りる線を N3_STEM_GAP 画素よけて置く（試し焼き 39794469750：3:47 の線と 1:06 の札が 7.5px）
+        for c in N3_CARDS[view]:
+            sx = n3_x(view, c[0])
+            if c[1] == 0 and cx - w / 2 - N3_STEM_GAP < sx < cx + w / 2 + N3_STEM_GAP:
+                cx = sx - N3_STEM_GAP - w / 2 if sx > x else sx + N3_STEM_GAP + w / 2
+        cx = min(max(cx, 96.0 + w / 2), W - 96.0 - w / 2)
     y0 = N3_ROW_Y[row]
     h = 70.0 + 46.0 * len(lines)
     return cx, y0, w, h, x
@@ -574,7 +582,7 @@ def n3_card_svg(view, hm, row, lines, accent=None):
     ln = accent or C24["card_ln"]
     g = [_line(x, y0 + h, x, N3_AX["y"] - 10, ln, 4.0, f' data-k="stem" data-t="{hm}"'),
          f'<circle cx="{x:.1f}" cy="{N3_AX["y"]:.1f}" r="11" fill="{C24["time"]}" stroke="{C24["ol"]}" stroke-width="3"/>',
-         _rect(cx - w / 2, y0, w, h, C24["card"], ln, 4.0 if accent else 3.0, rx=10),
+         _rect(cx - w / 2, y0, w, h, C24["card"], ln, 4.0 if accent else 3.0, rx=10, extra=' data-k="card"'),
          _text(cx, y0 + 54, hm, 48, C24["time"], extra=' data-k="time"')]
     for k, t in enumerate(lines):
         g.append(_text(cx, y0 + 104 + 46 * k, t, 34, C24["ink"], extra=' data-k="val"'))

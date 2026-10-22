@@ -2529,6 +2529,7 @@ REC_N4 = dict(bus="約1,200台", times=("14:00", "17:00"))                  # L2
 N24_PLACES = ("N1", "N2", "N3", "N4")
 N24_MARK = dict(N1="㊳", N2="㊴", N3="㊵", N4="㊶")
 N24_BAD_IDS = ("fire", "flame", "smoke", "blast", "explo", "debris", "turbine")
+N3_STEM_MIN = 12.0       # 時刻表の札の枠とほかの札の線のすき間の下限（画素）＝門番の側の値（型の N3_STEM_GAP 24 を読まない）
 _SVGTXT = re.compile(r"<text([^>]*)>([^<]*)</text>")
 _SVGLINE = re.compile(r"<line([^>]*)/>")
 NUMTOK24 = re.compile(r"(\d[\d,]*(?:\.\d+)?)\s*(本|MW|台|m(?![a-zA-Z]))")
@@ -2756,6 +2757,26 @@ def _judge_n3(sc, where, geo, G):
     n += 1
     if seen != set(rec):
         bad.append(f"㊵{where}：札の時刻 {sorted(seen)} が記録の表の時刻 {sorted(rec)} と違う（足りない・多い）")
+    # 札の枠と、ほかの札から軸へ降りる線のすき間（試し焼き 39794469750：3:47 の線と 1:06 の札が 7.5px＝近すぎて触れて見えた）
+    cards = [(p["geo"]["t"], [a for a in re.findall(r"<rect([^>]*)/>", p["svg"]) if _attr(a, "data-k") == "card"],
+              [a for a in _SVGLINE.findall(p["svg"]) if _attr(a, "data-k") == "stem"])
+             for p in sc["parts"] if (p.get("geo") or {}).get("kind") == "n3card"]
+    for hm, rects, _st in cards:
+        for r in rects:
+            rx0, ry0 = float(_attr(r, "x")), float(_attr(r, "y"))
+            rx1, ry1 = rx0 + float(_attr(r, "width")), ry0 + float(_attr(r, "height"))
+            for hm2, _r2, stems in cards:
+                if hm2 == hm:
+                    continue
+                for s in stems:
+                    sx = float(_attr(s, "x1"))
+                    sy0, sy1 = sorted((float(_attr(s, "y1")), float(_attr(s, "y2"))))
+                    if sy1 < ry0 or sy0 > ry1:
+                        continue
+                    n += 1
+                    gap = max(rx0 - sx, sx - rx1)
+                    if gap < N3_STEM_MIN:
+                        bad.append(f"㊵{where}：札 {hm} の枠と札 {hm2} の線のすき間 {gap:.1f}px（{N3_STEM_MIN:.0f}px 未満＝触れて見える）")
     rule = geo.get("n3rule")
     # 決まりとの比べの色の枠（字を持たない枠＝門番 layout の重なりを避けた形）：15本を下回る値だけ赤・決まりの札のあと・残した棒の値すべてに
     ron = _first_on(rule["keys"]) if rule else None
@@ -2921,7 +2942,7 @@ def selftest_ep24():
     def keep(obj, name):
         return obj, name, copy.deepcopy(getattr(obj, name))
     saved = [keep(I24, x) for x in ("N1_CORE", "N1_STEAM_PATH", "N2_FIG1", "N3_RULE_COL", "N3_TICKS", "N3_SPLIT", "N4_BUS_XS", "n3_x",
-                                    "N2_TOP")]
+                                    "N2_TOP", "N3_STEM_GAP")]
     try:
         # ㊳ N1
         bad_case("札の管の数を 1,600本に", step("c208", 0, tag=dict(t="燃料と水の管（1,600本）", at="ch")), "㊳", "記録の数")
@@ -2958,6 +2979,9 @@ def selftest_ep24():
         # ㊵ N3
         bad_case("7:10 の値を 15.2本に", good["c303"], "㊵", "記録",
                  post=lambda sc: [p.update(svg=p["svg"].replace("13.2本", "15.2本")) for p in sc["parts"] if p["id"] == "card2"])
+        I24.N3_STEM_GAP = 0.0
+        bad_case("描く側で札と線のよけを 0 に（型の定数＝1:06 の札が 3:47 の線に 7.5px）", good["c303"], "㊵", "すき間")
+        I24.N3_STEM_GAP = saved[9][2]
         I24.n3_x = lambda view, hm, f=saved[7][2]: f(view, hm) + (40.0 if hm == "3:47" else 0.0)
         bad_case("描く側で 3:47 の札を 40画素ずらす（型の関数）", good["c303"], "㊵", "目盛りから読んだ位置")
         I24.n3_x = saved[7][2]
