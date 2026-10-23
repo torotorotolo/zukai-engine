@@ -69,7 +69,17 @@ MOSAIC_PX = 14                         # 顔のモザイクの升（束の画素
 FRAME_RIGHTS = ("CC BY-SA",)           # 額装だけ（了承② 決め4＝BY-SA は額装・無加工・額ごと動かす・1点1カット）
 NO_NAME = ("CC0", "Public domain", "PD")   # 表示が任意＝作者の名前を出さない
 # 🔴 頁は使うチャットで足す（その章の切り口と一緒に決める）。⑤b-2 は冒頭の c104（INSAG-7 p.34）だけ
-PAGES_NOW = ("S1p34",)
+#   🆕 ⑤b-7（10-23）：残りの頁を全部足した（文字の頁11・図の頁13＝一覧の頁26 のうち CIA の地図は束の写真の側＝page: true）
+PAGES_NOW = ("S1p34", "S3p19+S1p62", "S1p63", "S1p65", "S2p39", "S1p28", "S3p26", "S2p18", "S3p28", "S1p41", "K19860507", "K19861127",
+             "S1p127", "GCp142", "S1p128", "GCp140", "S1p129", "GCp43", "S1p15", "S1p133", "S1p141", "S1p138", "L1p8", "L1p15", "U4F12")
+# 🆕 ⑤b-7：頁を PDF でなく手元の画像から描く点＝国会会議録（NDL の会議録の画像・字の層なし＝fetch24.tsv の md5 で照らす）。答弁の頁＝OCR で決めた
+PAGE_IMAGE = {"K19860507": ("ref/ep24/src/eizou/pages/K19860507_1.png", "参議院 科学技術特別委員会 第6号の1頁目（答弁は下の段）"),
+              "K19861127": ("ref/ep24/src/eizou/pages/K19861127_1.png", "衆議院 科学技術委員会 第4号の1頁目（答弁は下の段）")}
+# 🆕 ⑤b-7：2頁を「+」でつないだ記号のうち、先（左）の頁だけを描く点 {記号: 理由}
+PAGE_FIRST = {"S3p19+S1p62": "c217 の語り3行は1986年のソ連の報告だけ（右の S1p62 は次の c218 の語り＝先に答えを見せない）"}
+# 🆕 ⑤b-7：画面の出典の行を sources24.psv の欄から替える頁（sources24 は make_sources24.py の生成物＝回し直さない＝§4-7）
+PAGE_CREDIT = {"S3p19+S1p62": "出典：ソ連の報告 Part I（1986年8月）p.19",
+               "K19861127": "出典：国会会議録 1986-11-27 衆議院 科学技術委員会 第4号"}
 # 頁の資料の年（副題の年と照らす）＝記号の頭で
 PAGE_YEAR = {"S1": (1992, "INSAG-7（1992年）"), "S2": (1986, "INSAG-1＝GC(SPL.I)/3（1986年9月）"), "GC": (1986, "INSAG-1＝GC(SPL.I)/3（1986年9月）"),
              "S3": (1986, "ソ連の報告 Part I（1986年8月）"), "L1": (2006, "チェルノブイリ・フォーラム『Chernobyl's Legacy』（2006年）"),
@@ -90,6 +100,9 @@ CROP = {
     # 4号機の制御室（2025・CC0）＝学生が真ん中に立つ（了承② 決め3＝学生を外して切り出す）。向きの札 6 を当てたあと、学生のヘルメットの上の端
     #   （y 0.305）より上の盤だけ（y 0.02〜0.275・横は真ん中の 84%）＝出典の行に「改変：切出」
     "cr4b": dict(code="CR4B", cuts=("cc16",), box=(0.080, 0.020, 0.920, 0.275), how="学生の頭より上の盤だけ（向きの札 6 を当てたあと）"),
+    # 🆕 ⑤b-7（10-23）：c418＝学生の左の盤（ランプと切り替えの並ぶ所）。白衣の左の端は y 0.45 で x 0.40・y 0.62 で x 0.375（1280 幅の目盛りの見本で見た）
+    #   ＝x 0.355 より左だけ・上はランプの段の上（y 0.285）・下は机の手前（y 0.615）
+    "cr4b2": dict(code="CR4B", cuts=("c418",), box=(0.000, 0.285, 0.355, 0.615), how="学生の左の盤だけ（向きの札 6 を当てたあと・白衣の外）"),
 }
 # 画面の出典の行の名（個人名義でない点・表示が任意の点の機関）。sources24 の出典の欄の頭（「（」の前）で足りない点だけ
 #   R1＝出どころの欄は「RIA Novosti archive」だが、Commons の作者欄はオランダの通信社の撮影者＝オランダ国立公文書館の写真（10-22 に API で読んだ）
@@ -102,6 +115,10 @@ LIC_URL = {"Pexels License": "https://www.pexels.com/license/"}
 YEAR_FIX = {
     "I26": (None, "撮影日の欄「before 26 April 1986」・説明「Pripyat before the accident」＝事故の前（年は分からない）"),
     "CIA": (1996, "dto 1996（CIA の地図の版）"),
+    # 🆕 ⑤b-7（10-23）：INSAG-7（1992年）の付属書I＝ソ連の委員会の1991年の報告そのもの（英訳が1992年に載った）＝頁の中身の年は1991
+    "S1p41": (1991, "INSAG-7 付属書I＝1991年のソ連の委員会の報告（1992年に INSAG-7 に載った）"),
+    "S1p63": (1991, "INSAG-7 付属書I の表I-I＝1991年のソ連の委員会の報告（1992年に INSAG-7 に載った）"),
+    "S1p65": (1991, "INSAG-7 付属書I の表I-I の続き＝1991年のソ連の委員会の報告（1992年に INSAG-7 に載った）"),
 }
 # 顔だけモザイク {記号: [(x0, y0, x1, y1, 誰)]}＝⑤b-2（10-22）は0点：人の写る点は BY-SA（額装・無加工＝公的な任務・公人・遠景・背中＝了承② 決め3）
 #   と R1（CC0・オランダの公的な測定の職員＝公的な任務）だけ・CR4B の学生は切り出しで外した（CROP）
@@ -205,7 +222,8 @@ def names_of(code):
 
 # ── 頁 ─────────────────────────────────────────────────────────
 def _pdf_of(s):
-    m = re.fullmatch(r"(.+\.pdf)#(\d+)", s["file"])
+    f = s["file"].split("+")[0] if s["code"] in PAGE_FIRST else s["file"]
+    m = re.fullmatch(r"(.+\.pdf)#(\d+)", f)
     if not m:
         raise SystemExit(f"🔴 {s['code']}: 頁の欄が「<pdf>#<頁>」でない（{s['file']}）")
     return HERE / m.group(1), int(m.group(2))
@@ -213,22 +231,33 @@ def _pdf_of(s):
 
 def render_page(code, s):
     """頁（PDF の1頁）を長辺 PAGE_LONG で描き、インクの外接（四辺 24px の余白）で切る＝(RGB の PIL 画像, 記録の dict)"""
-    import fitz
     import numpy as np
     from PIL import Image
-    pdf, no = _pdf_of(s)
-    d = fitz.open(pdf)
-    pg = d[no - 1]
-    k = PAGE_LONG / max(pg.rect.width, pg.rect.height)
-    pix = pg.get_pixmap(matrix=fitz.Matrix(k, k), alpha=False)
-    im = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
+    if code in PAGE_IMAGE:
+        # 🆕 ⑤b-7：国会会議録の頁＝手元の画像（PDF でない）。md5 は取得の記録と照らす（違えば止める）
+        rel, why = PAGE_IMAGE[code]
+        p = HERE / rel
+        f = next((r for r in FETCH.read_text(encoding="utf-8").splitlines() if r.split("\t")[:2] == [code, rel]), None)
+        if not f or f.split("\t")[5] != md5(p):
+            raise SystemExit(f"🔴 {code}: {rel} の md5 が fetch24.tsv と合わない（取り直す）")
+        im = Image.open(p).convert("RGB")
+        k, rec0 = 1.0, dict(img=rel, img_md5=md5(p), how=f"手元の画像（{why}）・インクの外接")
+    else:
+        import fitz
+        pdf, no = _pdf_of(s)
+        d = fitz.open(pdf)
+        pg = d[no - 1]
+        k = PAGE_LONG / max(pg.rect.width, pg.rect.height)
+        pix = pg.get_pixmap(matrix=fitz.Matrix(k, k), alpha=False)
+        im = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
+        rec0 = dict(pdf=pdf.relative_to(HERE).as_posix(), pdf_page=no, pdf_md5=md5(pdf), how=f"PDF の頁を描いた（長辺 {PAGE_LONG}px）・インクの外接"
+                    + (f"・「+」の先の頁だけ（{PAGE_FIRST[code]}）" if code in PAGE_FIRST else ""))
     a = np.asarray(im.convert("L"))
     h, w = a.shape
     m = int(min(h, w) * 0.01)               # 走査の縁の影（端の 1% の暗い帯）は外接に入れない
     ys, xs = np.where(a[m:h - m, m:w - m] < 160)
     box = (max(0, xs.min() + m - 24), max(0, ys.min() + m - 24), min(w, xs.max() + m + 24), min(h, ys.max() + m + 24))
-    rec = dict(pdf=pdf.relative_to(HERE).as_posix(), pdf_page=no, pdf_md5=md5(pdf), scale=round(k, 5), box_px=[int(v) for v in box],
-               how=f"PDF の頁を描いた（長辺 {PAGE_LONG}px）・インクの外接")
+    rec = dict(rec0, scale=round(k, 5), box_px=[int(v) for v in box])
     return im.crop(box), rec
 
 
@@ -419,7 +448,7 @@ def screen_credit(code, s, priv, frame, crop, mask):
     """画面の出典の行。🔴 CC BY・BY-SA は必ず「改変」の語を書く＝`scene_jiko.credit_of` の古い決まり（6本目）が「CC BY」があって「改変」の
     語が無い行に「／改変：色調変更・切出」を黙って足す（23本目 ⑤b-2 の試し焼きで出た）"""
     if s["class"] == "page":
-        return s["credit"]
+        return PAGE_CREDIT.get(code, s["credit"])
     r = s["rights"]
     lic = LIC[r]
     who = who_screen(code, s, priv)
@@ -492,7 +521,7 @@ def cmd_build():
             if s["class"] == "page" or "#" in s["file"]:
                 im, rec = render_page(code, s)
                 notes = [rec["how"]]
-                smd5 = rec["pdf_md5"]
+                smd5 = rec.get("pdf_md5") or rec["img_md5"]
             else:
                 f, sp = fet.get(code), HERE / s["file"]
                 if not f or not sp.exists():
@@ -789,6 +818,15 @@ def cmd_clips():
     return 0
 
 
+# 🔴 動きの速い素材は、隣の1秒の差がしきい値を超えて「境目」が出る（18本目 0b-45⑥・23本目の SHOT_ONE）＝根拠つきで1ショットに直す
+#   🆕 ⑤b-7（10-23）：X12191470（c621）＝3秒の境目。全コマ（25コマ/秒・160×90 の灰色）の隣のコマとの差は中央値 8.5・大きい順に
+#      3.60秒 16.1・3.52秒 15.6・3.64秒 15.4・3.32秒 15.4＝1コマだけ跳ねる所が無い（切り替わりなら1コマに集まる）＝空撮の速い動きの続き
+#      ＝⑤b-1 の 0.83倍（素材まるごと 6.0秒）のまま。⚠️ 絵は試し焼きのコマで目で確かめる
+SHOT_ONE = {
+    "X12191470": "3秒の境目の前後の全コマの差を測った＝跳ねる1コマが無い（最大 16.1・中央値 8.5・3.3〜3.6秒に散る）＝空撮の速い動きの続き",
+}
+
+
 def cmd_shots():
     """shots.json＝フリー素材は tools/shots.shots_of（1秒1コマ）"""
     sys.path.insert(0, str(HERE / "tools"))
@@ -798,8 +836,11 @@ def cmd_shots():
     for code in _film_codes():
         s = src[code]
         sh, dur = SH.shots_of(HERE / s["file"])
-        out[code] = dict(src=s["page"], scan=s["file"], dur=round(dur, 1), how="1秒1コマで tools/shots.shots_of（2026-10-22 ⑤b-2・フリー素材）",
-                         shots=sh)
+        how = "1秒1コマで tools/shots.shots_of（2026-10-22 ⑤b-2・フリー素材）"
+        if code in SHOT_ONE:
+            sh = [dict(start=0.0, until=float(sh[-1]["until"]), motion=max(x["motion"] for x in sh))]
+            how += f"・🔧 1ショットに直した（{SHOT_ONE[code]}）"
+        out[code] = dict(src=s["page"], scan=s["file"], dur=round(dur, 1), how=how, shots=sh)
         print(f"  {code:10} {dur:6.1f}秒  ショット {len(sh)}：" + " ".join(f"{x['start']:g}〜{x['until']:g}" for x in sh))
     SHOTS.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"→ ref/ep24/shots.json（{len(out)}本）")
@@ -848,6 +889,9 @@ STOCK_WINDOW = {
     "cb23": (17.00, 20.45, "X13188726 の後のショット（覆いが写る＝⑤b-2 で X13188723 から移した）"),
     "c927": (0.30, 9.00, "X13188723 の前（覆いの写らない団地）"),
     "cc20": (9.60, 21.70, "X13188723 の後ろ（30560421 の代わり・覆いの写らない団地）"),
+    # 🆕 ⑤b-7（10-23）：素材まるごと6秒の1ショット＝頭と尻はショットの境目でない（STOCK_EDGE で削ると 0.76倍まで遅くなる）
+    "c621": (0.00, 6.00, "X12191470 まるごと（1ショット＝SHOT_ONE）"),
+    "cb22": (0.00, 6.00, "X13183773 まるごと（1ショット）"),
 }
 STOCK_GEOM = {}
 STOCK_EDGE = 0.3                # ショットの境目から離す秒（フリー素材＝1秒1コマで測った境目＝23・17本目と同じ）

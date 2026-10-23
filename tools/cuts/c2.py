@@ -54,7 +54,7 @@ PLAN = {
                plan='🔧 関連（参考＝同じ型〈RBMK〉のほかの発電所の炉の写真・20% の数に入れない）｜R11｜一覧の種類：参考｜見せ方：額装（BY-SA）｜副題：同じ型の炉の上＝制御棒の頭が並ぶ（レニングラード原発・2008年）｜動き：額ごと上へ｜権利：CC BY-SA 3.0｜時期：他所｜人：遠景｜出典の行：RIA Novosti archive（CC BY-SA 3.0）・撮影者は作者欄のとおり｜注：🔧 模式（211本・18秒の砂時計）→ 写真。語り「止めるときに入る棒は、上から差し込む」＝炉の上の床。§0-5「主に上から」の札は不要に。18秒の砂時計は c908 だけ（同じ図を2回使わない）｜新しい画（映像方針）：🔧 実写（同じ型の炉の上の円い床）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
                src='S1-付属書II p.113／103（`consists of 211 movable solid absorber rods`）・S1 p.14／4（`when starting from the upper limit stop switches, was 18 s`）'),
     'c213': dict(kind='写真',
-               plan='I34｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：原発の当直の職員｜動き：額ごと左へ｜権利：CC BY-SA 2.0｜時期：前｜人：顔｜出典の行：IAEA Imagebank／Photo: USFCRFC（CC BY-SA 2.0）｜注：台本どおり（語り＝試験の予定・責める行でない）｜⑤b-2（10-22）：年は原文に無い＝外した。⚠️ 説明「Atomic power plant personnel worked around the clock」（事故の記録の組）＝事故のあとの写真かもしれない＝爆発の前の章に置いてよいかは ⑤b-7 で｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               plan='🔧 CR3A｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：3号機の制御室（2010年）｜動き：額ごと左へ｜権利：CC BY-SA 2.0｜時期：今・中｜人：遠景｜出典の行：IAEA Imagebank（CC BY-SA 2.0）・撮影者は作者欄のとおり｜注：🔧 ⑤b-7（10-23）：I34（電話の当直）→ 壊れていない3号機の制御室（職員は遠景・語り＝試験の予定・責める行でない）。I34 は説明「Atomic power plant personnel worked around the clock」（事故の記録の組）＝事故のあとの写真の見込みが高い＝爆発の前の章に置かない。CR3A は cc03 から移した（cc03 は I35）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
                src='S2 p.27／~24（`A special test was planned just prior to taking the Unit out of service for scheduled maintenance.`）・S3 p.19／15（`tests were to be carried out on turbogenerator No. 8`）'),
     'c214': dict(kind='図解',
                plan='一覧の種類：流れ｜見た目の型：流れ図（電気の流れ）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
@@ -66,7 +66,7 @@ PLAN = {
                plan='一覧の種類：暦｜見た目の型：暦｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
                src='S1-付属書I p.61／51（`In 1982, the corresponding tests were carried out at Chernobyl Unit 3`・`Additional tests with a modernized rundown unit were performed in 1984 and 1985.`・`Chernobyl Unit 4 was com-missioned in December 1983 without having been tested under these conditions`）'),
     'c217': dict(kind='文字の頁',
-               plan='S3p19+S1p62｜一覧の種類：頁｜見せ方：頁｜副題：1986年のソ連の報告（左）と1991年の委員会の報告（右）｜動き：寄る（左右の行へ）｜見た目の型：文字の頁（2枚）｜権利：引用（頁）｜時期：文書｜人：なし｜出典の行：出典：ソ連の報告 Part I（1986年8月）p.19 と INSAG-7 付属書I p.62｜注：台本どおり＝語りが名指しする所｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
+               plan='S3p19+S1p62｜一覧の種類：頁｜見せ方：頁｜副題：1986年のソ連の報告の試験の計画の頁｜動き：寄る（計画の行へ）｜見た目の型：文字の頁｜権利：引用（頁）｜時期：文書｜人：なし｜出典の行：出典：ソ連の報告 Part I（1986年8月）p.19｜注：台本どおり＝語りが名指しする所｜⑤b-7（10-23）：語りの3行は1986年のソ連の報告だけ＝左の S3p19 の段落だけを出す（右の S1p62「nothing wrong with the programme itself」は次の c218 の語り＝画面に出すと語りより先に答えを見せる）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
                src='S3 p.19／15（`was not properly prepared and had not received the requisite approval`）'),
     'c218': dict(kind='写真',
                plan='🔧 CR1｜一覧の種類：実写｜見せ方：額装（BY-SA）｜副題：1号機の制御室（2011年）｜動き：額ごと右へ｜権利：CC BY-SA 3.0｜時期：今・中｜人：なし｜出典の行：写真：作者欄のとおり（src/credits_private.tsv）／CC BY-SA 3.0｜注：🔧 イメージ（Pexels）→ 壊れていない1号機の制御室（同じ型・人なし）｜新しい画（映像方針）：🔧 実写 1号機の制御室（壊れていない部屋・炉心の見取り盤と制御棒の計器・人なし）｜台本の画＝台本 §4・一覧 eizou_list24.md（写さない）',
@@ -202,4 +202,45 @@ SPEC.update({
                          rel=[dict(t="176人", src="S3 p2016"), dict(t="268人（第3期の工事）", src="S3 p2016")],
                          note="国の形＝Natural Earth（1:50m）・1986年の境（クリミアはウクライナ）・点の位置は一般の座標",
                          src=ss.src(["S3 p2016"])))),
+})
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-7（2026-10-23）：写真と頁（第1章の残り10）＝冒頭 c101〜c107 の書き方
+#   BY-SA は額装・無加工・額ごと動かす（ss.fm）／PD・CC0・CC BY は全面で cam（ss.mv）／頁は trim＋額装（引用＝字は切らない・印は額の外）。
+#   見出し（t）は話題の札（語りの写しにしない）・副題（s）は写っているもの（一覧 list24.tsv の sub）＝試し焼きを原寸で見て最終に
+# ══════════════════════════════════════════════════════════
+_P84P = P("p84_plant")
+SPEC.update({
+    # c201（3行・1行目は聞き役の問い）＝IAEA 02790022（雪の中の発電所＝事故の前）＝額ごと左へ
+    #   扉の地に混ぜない（card_mix=0＝BY-SA は無加工）
+    "c201": dict(photo=P("i22"), panel=True, color=1.0, fmove=ss.fm("l"), card_mix=0,
+                 t="事故の起きた所", s="雪の中のチェルノブイリ原子力発電所"),
+    # c202（3行）＝IAEA 02790028（町の碑・c927 は同じ町の今）＝額ごと寄る
+    "c202": dict(photo=P("i28"), panel=True, color=1.0, fmove=ss.fm("in"),
+                 t="地名の書き方", s="チェルノブイリの町の碑"),
+    # c204（3行）＝IAEA 02790023（入口の看板）＝額ごと右へ
+    "c204": dict(photo=P("i23"), panel=True, color=1.0, fmove=ss.fm("r"),
+                 t="最初に出た数", s="発電所の入口の看板"),
+    # c207（2行）＝R15（同じ型の炉の制御盤・参考・運転員1人＝公的な任務・責める行でない）＝額ごと寄る
+    "c207": dict(photo=P("r15"), panel=True, color=1.0, fmove=ss.fm("in"),
+                 t="炉の型", s="同じ型の炉の制御盤（レニングラード原発・2008年）"),
+    # c212（2行）＝R11（同じ型の炉の上の床・参考）＝額ごと上へ
+    "c212": dict(photo=P("r11"), panel=True, color=1.0, fmove=ss.fm("u"),
+                 t="止める棒", s="同じ型の炉の上の床（レニングラード原発・2008年）"),
+    # c213（3行・1行目は聞き役の問い）＝🔧 CR3A（3号機の制御室・職員は遠景＝⑤b-7 に I34 から替えた）＝額ごと左へ
+    "c213": dict(photo=P("cr3a"), panel=True, color=1.0, fmove=ss.fm("l"),
+                 t="その夜の予定", s="3号機の制御室（2010年）"),
+    # c217（3行）＝ソ連の報告 Part I p.19 の「Similar tests had already…」から「…requisite approval.」まで9行
+    #   （語りの「きちんと作られておらず」「承認も受けていなかった」＝下の4行）＝`qa_out/ep24_assets.py pbox`（上下は束の絵の OCR の行のすき間）
+    "c217": dict(photo=P("s3p19_s1p62"), trim=(0.005, 0.452, 1.000, 0.642), panel=True, color=1.0, fmove=ss.fm("in"),
+                 t="試験の計画", s="1986年のソ連の報告の頁"),
+    # c218（2行）＝CR1（壊れていない1号機の制御室・人なし）＝額ごと右へ
+    "c218": dict(photo=P("cr1"), panel=True, color=1.0, fmove=ss.fm("r"),
+                 t="委員会の見方", s="1号機の制御室（2011年）"),
+    # c221（3行・聞き役の問い＋まとめ）＝IAEA 02790026（事故の前のプリピャチ・人は遠景）＝額ごと右へ
+    "c221": dict(photo=P("i26"), panel=True, color=1.0, fmove=ss.fm("r"),
+                 t="割れる見方", s="事故の前のプリピャチ"),
+    # c223（3行）＝1984年1月の偵察衛星の写真から発電所のまわり（PD・どの建屋が4号機かは印を付けない）＝全面で寄る
+    "c223": dict(photo=_P84P, **ss.mv(_P84P, "in"), side="none", color=1.0,
+                 t="事故の条件", s="事故の2年前の発電所（1984年1月の衛星写真）"),   # 「アメリカの偵察衛星」は出典の行にある（dup）
 })

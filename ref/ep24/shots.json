@@ -34,15 +34,10 @@
   "src": "https://www.pexels.com/video/12191470/",
   "scan": "ref/ep24/src/eizou/X12191470.mp4",
   "dur": 6.0,
-  "how": "1秒1コマで tools/shots.shots_of（2026-10-22 ⑤b-2・フリー素材）",
+  "how": "1秒1コマで tools/shots.shots_of（2026-10-22 ⑤b-2・フリー素材）・🔧 1ショットに直した（3秒の境目の前後の全コマの差を測った＝跳ねる1コマが無い（最大 16.1・中央値 8.5・3.3〜3.6秒に散る）＝空撮の速い動きの続き）",
   "shots": [
    {
     "start": 0.0,
-    "until": 3.0,
-    "motion": 23.81
-   },
-   {
-    "start": 3.0,
     "until": 6.0,
     "motion": 34.91
    }

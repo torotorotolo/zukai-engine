@@ -145,3 +145,25 @@ SPEC.update({
         fig=("m24", dict(view="test200", steps=[dict(state=dict(stuck="on")), dict(state=dict(go="on"))],
                          rel=[dict(t="0・200・700", src="S1 p29")], note="出力の高さは値に比例", src=ss.src(["S1 p29"])))),
 })
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-7（2026-10-23）：写真と頁（第4章の5）＝c2.py の ⑤b-7 の塊と同じ書き方
+# ══════════════════════════════════════════════════════════
+SPEC.update({
+    # c505（2行・責める行＝職員は遠景で顔が判らない）＝R09（同じ型の炉の原子炉の建屋・縦長・参考）＝額ごと上へ
+    "c505": dict(photo=P("r09"), panel=True, color=1.0, fmove=ss.fm("u"),
+                 t="形の上の違反", s="同じ型の炉の原子炉の建屋（レニングラード原発・2008年）"),
+    # c508（2行）＝INSAG-1 の表（p.39・横長）の「Interpretation」から 1:23:31 の行まで（右の列「This trip would have saved the reactor.」）。
+    #   ⚠️ pbox は字の層の塊の順で行を選ぶ＝右の列「Significance」を拾わず右の辺 0.858（列を切る）＝横は字の層を y の順に並べた全列の外接（0.989）・縦は pbox
+    "c508": dict(photo=P("s2p39"), trim=(0.002, 0.034, 0.989, 0.850), panel=True, color=1.0, fmove=ss.fm("in"),
+                 t="タービンの保護", s="1986年の報告（INSAG-1）の表"),
+    # c511（1行・責める行＝職員は1人で背中・顔はヘルメットで隠れる）＝R96（同じ型の炉の上・参考）＝額ごと寄る
+    "c511": dict(photo=P("r96"), panel=True, color=1.0, fmove=ss.fm("in"),
+                 t="委員会の判断", s="同じ型の炉の上で働く職員（クルスク原発・2008年）"),
+    # c513（2行）＝INSAG-7 p.28 の「• Disabling of the trip on steam drum…」から「…afterwards.」まで8行（語り＝下の段の 'two turbine' trip）
+    "c513": dict(photo=P("s1p28"), trim=(0.076, 0.653, 0.997, 0.841), panel=True, color=1.0, fmove=ss.fm("in"),
+                 t="別の節の見方", s="1992年の報告（INSAG-7）5.2.1 の頁"),
+    # c517（2行）＝SEL（制御棒の位置を示す計器・1号機・人なし）＝額ごと寄る
+    "c517": dict(photo=P("sel"), panel=True, color=1.0, fmove=ss.fm("in"),
+                 t="最後の「違反」", s="制御棒の位置を示す計器（1号機・2014年）"),
+})
