@@ -24,8 +24,18 @@
   第3章  meter（c401 横の目盛りの針）・clock（c402 時計）・hold（c404 札）・swap（c406 札の入れ替え）・two91（c407 2つの札）・
          letter（c408 封筒）・docline（c409 書類の一行）・say3（c410 3つの言い方）・bars（c412 熱出力の棒）・page86（c414 頁の札）・
          limit（c415 あとで決まった下限）・pillars（c416 3つの欄）・inst（c417 横から＝計器）・thermo（c420 温度計）・balance（c421 天秤）
+  🆕 ⑤b-5（2026-10-23＝第4〜7章の38カット・地図 c713 は ⑤b-6）
+  第4章  guard（c501 保護の仕組み）・drum（c502 横から＝蒸気ドラム）・drumtrip（c503 計器2つ・札⑤）・stage2（c504 ドラムの断面と2つの段）・
+         marks5（c506 札と2つの印）・tg2（c507 上から下の絵の流れ・札⑥）・retry（c509 輪の矢印）・shift（c510 時刻の線と動く印）・
+         shadow（c512 札と棒の影）・seesaw（c514 板と支点の天秤）・light（c515 書類と制御盤・羽）・test200（c516 縦の出力の目盛り）
+  第5章  printout（c602 印字の紙）・rods15（c603 棒を1本ずつ・札⑦）・weight（c605 重り）・skala（c606 計算機の画面）・twosay（c607 左右の印字）・
+         meaning（c608 分布の線と盾）・go（c609 開始の灯）・valve8（c610 横から＝弁とタービン）・flow35（c612 35秒の2本の線）・
+         digital（c614 数字の時計と AZ-5）・spike（c616 縦の計器）・rodstop（c617 横から＝棒の通り道）・why8（c620 爆発と棒の影）
+  第6章  roof（c701 上から＝建屋の屋根と火）・dayband（c706 空の色の24時間の帯）・notice（c714 掲示の紙と絵の札）
+  第7章  table6（c806 違反の表の列と行）・pile（c808 重なる6つの札）・carry（c810 職員 → 規則の外の状態）・sizes（c813 大小の札）・door（c815 扉と錠）・
+         venn3（c816 重なる3つの輪）・shield（c817 発電所と盾）・table86（c820 会議の机の空いた所）・rod12（c822 横から＝1.2m）・rodq（c824 棒の影と「？」）
   🔴 同じ型は全編で2回まで・続けない（台本 §7）：年表 c205↔cb02・札 c206↔c714・流れ c214↔c507・暦 c216↔c911・時計 c402↔c614・棒 c412↔cb06＝
-     相方は ⑤b-5・⑤b-6 で別の絵に。この章の中の似た形（針の計器 c301＝丸・c401＝横／時間の帯 c311＝帯・c316＝輪／3つの欄 c312＝表・c416＝書類3つ／
+     相方は ⑤b-5・⑤b-6 で別の絵に（⑤b-5：c507＝縦の絵の流れ・c614＝数字の時計とボタン・c714＝掲示の紙と絵の札）。この章の中の似た形（針の計器 c301＝丸・c401＝横／時間の帯 c311＝帯・c316＝輪／3つの欄 c312＝表・c416＝書類3つ／
      2つの札 c407＝虫めがねと針・c421＝天秤）は形を替えた
 
 ■ SPEC の書き方（mech17 と同じ）
@@ -1673,6 +1683,1347 @@ def balance_stage(prev, st):
 
 
 # ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5（2026-10-23）：第4〜7章の図解 38カット（c5 12・c6 13・c7 3〈c701・c706・c714〉・c8 10＝地図 c713 は ⑤b-6）
+#   🔴 相方の型は ⑤b-4 と別の絵：流れ c507＝縦に並べた絵の流れ（⇔ c214 横の箱の鎖）／時計 c614＝数字の時計とボタン（⇔ c402 丸い時計）／
+#      注意 c714＝掲示の紙と絵の札（⇔ c206 7枚の札の2段）。右上の違反の札＝語りが「N つ目」と言うカットだけ（⑤ c503・⑥ c507・⑦ c603）
+#   🔴 時刻は台本 §1-5 の値だけ（1:19〈1986年の報告〉・0:36〈1991年の委員会の表〉・1:23:04・0時43分ごろ〈秒は出さない〉・1:23:40・1:23:43・22:00）
+# ══════════════════════════════════════════════════════════
+def _drum(x, y, w, h, full=True):
+    """横から見た蒸気ドラム（横長の筒）＝上が蒸気・下が水。full=False は輪郭だけ（ほかのドラム）。"""
+    if not full:
+        return F.rect(x, y, w, h, J.BG2, J.LINE_DIM, 4, rx=h / 2)
+    return (F.rect(x, y, w, h, "#cfd8dc", None, None, rx=h / 2, op=0.22)
+            + F.rect(x + 8, y + h / 2, w - 16, h / 2 - 8, WATER, None, None, rx=h / 4, op=0.55)
+            + F.rect(x, y, w, h, "none", J.LINE, 4, rx=h / 2))
+
+
+# ── guard（c501）＝保護の仕組み（模式）：2行目＝残る2つの「違反」の札（⑤⑥）／3行目＝計器のランプが赤 → 止める信号 → 棒が落ちる（動く部品）
+GD_N = (5, 6)
+GD = dict(sensor=(320.0, 600.0), relay=700.0, core=(1080.0, 560.0, 1560.0, 790.0), rods=(1160.0, 1240.0, 1320.0, 1400.0, 1480.0),
+          rtop=330.0, rlen=200.0, drop=210.0, cards=(400.0, 860.0), cy=330.0)
+
+
+def guard_base(st0):
+    sx, sy = GD["sensor"]
+    x0, y0, x1, y1 = GD["core"]
+    return [F.rect(sx - 110, sy - 90, 220, 180, J.BG2, J.LINE, 4, rx=12), F.circ(sx, sy - 20, 36, J.BG, J.LINE_DIM, 5),
+            _tline(sx, sy + 62, "計器", 28, INK, "middle", 180),
+            F.line(sx + 110, sy, x0 - 30, sy, J.LINE_DIM, 5), _arrow(x0 - 60, sy, x0 - 6, sy, J.LINE_DIM, 5, 18),
+            F.rect(x0, y0, x1 - x0, y1 - y0, "#2b3a44", GRAPH, 4, rx=8), _tline(x1 + 24, (y0 + y1) / 2 + 10, "炉", 30, INK, "start", 120),
+            F.line(GD["rods"][0] - 40, GD["rtop"], GD["rods"][-1] + 40, GD["rtop"], STEEL, 6)]
+
+
+def guard_parts(st):
+    dy = GD["drop"] if st.get("auto") == "on" else 0.0
+    t0, L = GD["rtop"], GD["rlen"]
+    return [_P(f"rod{i}", "poly", [(x - 12, t0 + 6), (x + 12, t0 + 6), (x + 12, t0 + L), (x - 12, t0 + L)], fill=STEEL, stroke=J.BG, w=3,
+               alpha=1.0, dy=dy, lag=0.06 * i) for i, x in enumerate(GD["rods"])]
+
+
+def guard_stage(prev, st):
+    s = []
+    if _on(prev, st, "two"):
+        for cx, n in zip(GD["cards"], GD_N):
+            s.append(_card(cx, GD["cy"], 420, 80, J.AMBER, sw=5))
+            s.append(_tline(cx, GD["cy"] + 11, f"{CIRC[n - 1]} {VIOL[n - 1]}", 30, INK, "middle", 390))
+    if _on(prev, st, "auto"):
+        sx, sy = GD["sensor"]
+        s.append(F.circ(sx, sy - 20, 36, J.ALERT, J.BG, 4))
+        s.append(_tline(sx, sy - 116, "危ない値", 28, J.ALERT, "middle", 200))
+        s.append(_bolt(GD["relay"], sy - 44, 34, J.AMBER))
+        s.append(_tline(GD["relay"], sy + 52, "止める信号", 26, J.AMBER, "middle", 200))
+        s.append(_tline(1600.0, 430.0, "自動で差し込む", 26, STEEL, "start", 240))
+    return s
+
+
+# ── drum（c502）＝横から見た蒸気ドラム（模式）：1行目＝1つのドラム（上が蒸気・下が水）／2行目＝左右の系統に2つずつ・蒸気はタービンへ・水は炉へ（S1 p17）
+DR = dict(core=(780.0, 560.0, 1140.0, 790.0), w=380.0, h=84.0, ys=(330.0, 450.0), xl=180.0, xr=1360.0, ty=300.0)
+
+
+def drum_base(st0):
+    x0, y0, x1, y1 = DR["core"]
+    return [F.rect(x0, y0, x1 - x0, y1 - y0, "#2b3a44", GRAPH, 4, rx=8), _tline((x0 + x1) / 2, y1 + 44, "炉", 28, INK, "middle", 200)]
+
+
+def drum_stage(prev, st):
+    s = []
+    x0, y0, x1, y1 = DR["core"]
+    w, h, yA, xl, xr = DR["w"], DR["h"], DR["ys"][0], DR["xl"], DR["xr"]
+    if _on(prev, st, "sep"):
+        s.append(F.poly([(x0 + 80, y0), (x0 + 80, yA + h / 2), (xl + w + 6, yA + h / 2)], "none", J.LINE, 6))   # 炉から上がる管
+        s.append(_arrow(x0 + 110, y0 - 20, x0 + 110, y0 - 110, J.AMBER, 5, 18))
+        s.append(_tline(x0 + 60, y0 - 60, "沸いた水と蒸気", 26, J.AMBER, "end", 300))
+        s.append(_drum(xl, yA, w, h))
+        s.append(_tline(xl + w / 2, yA + 32, "蒸気", 22, INK, "middle", 120))
+        s.append(_tline(xl + w / 2, yA + h - 14, "水", 22, J.BG, "middle", 120))
+        s.append(_tline(xl + w / 2, yA - 16, "蒸気ドラム", 30, J.LINE, "middle", 300))
+    if _on(prev, st, "loop"):
+        yB = DR["ys"][1]
+        for xx, yy in ((xl, yB), (xr, yA), (xr, yB)):
+            s.append(_drum(xx, yy, w, h, full=False))
+        s.append(F.poly([(x1 - 80, y0), (x1 - 80, yA + h / 2), (xr - 6, yA + h / 2)], "none", J.LINE_DIM, 6))
+        s.append(_arrow(xl + w - 40, yA - 6, 820.0, DR["ty"] - 10, J.LINE, 5, 20))         # 蒸気 → タービンへ
+        s.append(_arrow(xr + 40, yA - 6, 1100.0, DR["ty"] - 10, J.LINE_DIM, 5, 20))
+        s.append(_tline(CX, DR["ty"] - 4, "蒸気→タービンへ", 26, J.LINE, "middle", 260))
+        for xd, xc, col in ((xl + 120, x0 - 10, WATER), (xr + w - 120, x1 + 10, J.LINE_DIM)):   # 水 → 炉へ
+            s.append(F.poly([(xd, yB + h + 6), (xd, 700.0), ((xd + xc) / 2, 700.0)], "none", col, 6))
+            s.append(_arrow((xd + xc) / 2, 700.0, xc, 700.0, col, 6, 22))
+        s.append(_tline((xl + 120 + x0) / 2, 680.0, "水は炉へ", 26, WATER, "middle", 200))
+        s.append(_tline(xl + w / 2 + 70, yB + h + 60, "左に2つ", 26, INK, "middle", 200))
+        s.append(_tline(xr + w / 2 - 70, yB + h + 60, "右に2つ", 26, INK, "middle", 200))
+    return s
+
+
+# ── drumtrip（c503）＝右上の札⑤・ドラムの水位と圧力の保護（計器2つ → 炉を止める信号）→ 1986年の報告：1:19 に外した（線に×）・重い違反
+DT_T, DT_N = "1:19", 5           # 1986年の報告の時刻（S1 p22「not at 01:19:00 as stated in INSAG-1」）
+DT_G = ("水位", "圧力")
+DT = dict(drum=(520.0, 320.0, 640.0, 100.0), gx=(660.0, 1020.0), gy=590.0, r=56.0, box=(840.0, 790.0, 340.0, 64.0), rep=(1500.0, 470.0))
+
+
+def drumtrip_base(st0):
+    x, y, w, h = DT["drum"]
+    bx, by, bw, bh = DT["box"]
+    g = [_badge(DT_N), _drum(x, y, w, h), _tline(x + w / 2, y + 36, "蒸気ドラム", 26, INK, "middle", 300)]
+    for gx, t in zip(DT["gx"], DT_G):
+        g.append(F.line(gx, y + h, gx, DT["gy"] - DT["r"], J.LINE, 5))
+        g.append(F.circ(gx, DT["gy"], DT["r"], J.BG2, J.LINE, 5))
+        g.append(F.line(gx, DT["gy"], gx + 30, DT["gy"] - 32, J.AMBER, 5))
+        g.append(_tline(gx - DT["r"] - 18, DT["gy"] + 10, t, 28, INK, "end", 160))
+        g.append(F.line(gx, DT["gy"] + DT["r"], bx + (gx - bx) * 0.45, by - bh / 2, J.LINE, 5))
+    g.append(_card(bx, by, bw, bh, J.ALERT, sw=4))
+    g.append(_tline(bx, by + 10, "炉を止める信号", 26, INK, "middle", bw - 30))
+    return g
+
+
+def dt_cuts():
+    """2本の線の真ん中（×を付ける所）"""
+    bx, by, _bw, bh = DT["box"]
+    return [((gx + bx + (gx - bx) * 0.45) / 2, (DT["gy"] + DT["r"] + by - bh / 2) / 2) for gx in DT["gx"]]
+
+
+def drumtrip_stage(prev, st):
+    s = []
+    if _on(prev, st, "r86"):
+        s.append(_rep(*DT["rep"], "r86", "保護を外した", cap=28))
+    if _on(prev, st, "off"):
+        for x, y in dt_cuts():
+            s.append(_xmark(x, y, 20, J.ALERT, 8))
+        s.append(_bigtime(DT["rep"][0], 650.0, DT_T, 80))
+        s.append(_tline(DT["rep"][0], 722.0, "重い違反", 30, J.ALERT, "middle", 300))
+    return s
+
+
+# ── stage2（c504）＝ドラムの断面（模式）：1行目＝1991年の委員会の表 0:36 圧力の保護の設定を変える／2行目＝水位の保護の2つの段・下の段は最後まで効いた（S1 p22）
+S2_T = "0:36"
+S2D = dict(x=260.0, y=400.0, w=760.0, h=300.0, wl=520.0, lv=(590.0, 650.0), gauge=(880.0, 336.0), rep=(1480.0, 410.0))
+
+
+def stage2_base(st0):
+    x, y, w, h = S2D["x"], S2D["y"], S2D["w"], S2D["h"]
+    R = h / 2
+    a = math.degrees(math.asin((S2D["wl"] - (y + R)) / R))          # 水面の高さの角度（左右の半円）
+    pts = _arcpts(x + R, y + R, R, R, 180.0 - a, 90.0) + _arcpts(x + w - R, y + R, R, R, 90.0, a)
+    gx, gy = S2D["gauge"]
+    return [F.rect(x, y, w, h, J.BG2, None, None, rx=R), F.poly(pts, WATER, None, close=True, op=0.45),
+            F.rect(x, y, w, h, "none", J.LINE, 5, rx=R),
+            F.line(gx, gy + 34, gx, y, J.LINE, 5), F.circ(gx, gy, 34, J.BG2, J.LINE, 5), F.line(gx, gy, gx + 20, gy - 18, J.AMBER, 4),
+            _tline(gx + 60, gy + 10, "圧力", 28, INK, "start", 140)]
+
+
+def stage2_stage(prev, st):
+    s = []
+    x, w = S2D["x"], S2D["w"]
+    if _on(prev, st, "p036"):
+        gx, gy = S2D["gauge"]
+        s.append(F.circ(gx, gy, 46, "none", J.AMBER, 5))
+        s.append(_rep(*S2D["rep"], "c91", "圧力の設定を変更", cap=28))
+        s.append(_bigtime(S2D["rep"][0], 580.0, S2_T, 80))
+    if _on(prev, st, "lv2"):
+        up, lo = S2D["lv"]
+        s.append(F.line(x + 50, up, x + w - 50, up, J.LINE, 4, dash="14 10"))
+        s.append(F.line(x + 80, lo, x + w - 80, lo, J.OK, 5, dash="14 10"))
+        s.append(_tline(x + w + 34, up + 10, "上の段", 28, J.LINE, "start", 160))
+        s.append(_tline(x + w + 34, lo + 10, "下の段", 28, J.OK, "start", 160))
+        s.append(_check(x + w + 158, lo - 4, 18, J.OK))
+        s.append(_tline(x + w + 190, lo + 10, "最後まで効いた", 28, J.OK, "start", 260))
+    return s
+
+
+# ── marks5（c506）＝5つ目の札と2つの印（形の上は違反／保護は効いた）→ 1992年の報告：外すことは許されたはず → 実際は外されず（S1 p28）
+MK_N = 5
+MK = dict(card=(960.0, 370.0, 640.0, 104.0), l=(680.0, 545.0), r=(1240.0, 545.0), rep=(680.0, 735.0), sw=(1160.0, 735.0))
+
+
+def marks5_base(st0):
+    cx, cy, w, h = MK["card"]
+    lx, ly = MK["l"]
+    rx_, _ry = MK["r"]
+    return [_card(cx, cy, w, h, J.AMBER, sw=6), F.txt(cx - w / 2 + 50, cy + 17, CIRC[MK_N - 1], 48, J.AMBER, "Noto", "middle"),
+            _tline(cx + 30, cy + 13, VIOL[MK_N - 1], 38, INK, "middle", w - 140),
+            F.rect(lx - 170, ly - 44, 340, 88, J.BG2, J.ALERT, 5, rx=8), _tline(lx, ly + 11, "形の上は違反", 32, J.ALERT, "middle", 310),
+            _check(rx_ - 140, ly - 4, 22, J.OK), _tline(rx_ - 100, ly + 11, "保護は効いた", 32, J.OK, "start", 320)]
+
+
+def marks5_stage(prev, st):
+    s = []
+    if _on(prev, st, "ok92"):
+        s.append(_rep(*MK["rep"], "r92", "外すことは許されたはず", cap=26))
+    if _on(prev, st, "notdone"):
+        x, y = MK["sw"]
+        s.append(F.rect(x - 60, y - 28, 120, 56, J.OK, None, None, rx=28))
+        s.append(F.circ(x + 32, y, 22, J.BG2, None))
+        s.append(_tline(x + 90, y + 11, "実際は外されず", 30, J.OK, "start", 300))
+    return s
+
+
+# ── tg2（c507）＝右上の札⑥・上から下への絵の流れ（🔴 c214 の横の箱の鎖と別の形）：2台のタービンが止まる → 止める信号 → 炉も止まる／
+#    2行目＝1986年の報告：試験を始めた 1:23:04 に外した（信号と炉のあいだに×）
+TG_N, TG_T86 = 6, "1:23:04"
+TG = dict(x=760.0, ys=(380.0, 570.0, 750.0), lx=1000.0, rep=(1470.0, 470.0), t=(1470.0, 650.0))
+
+
+def tg2_base(st0):
+    return [_badge(TG_N)]
+
+
+def tg_xy():
+    y1, y2, y3 = TG["ys"]
+    return TG["x"], (y2 + 50 + y3 - 48) / 2
+
+
+def tg2_stage(prev, st):
+    s = []
+    x, (y1, y2, y3) = TG["x"], TG["ys"]
+    if _on(prev, st, "flow"):
+        s.append(_turbine(x - 120, y1, 0.5, dim=True))
+        s.append(_turbine(x + 120, y1, 0.5, dim=True))
+        s.append(_arrow(x, y1 + 50, x, y2 - 50, J.LINE, 6, 22))
+        s.append(_bolt(x, y2, 38, J.AMBER))
+        s.append(_arrow(x, y2 + 50, x, y3 - 48, J.LINE, 6, 22))
+        s.append(F.rect(x - 90, y3 - 40, 180, 80, "#2b3a44", GRAPH, 4, rx=8))
+        for i in range(4):
+            s.append(F.rect(x - 66 + i * 38, y3 - 56, 14, 60, STEEL, None, None, rx=3))
+        for y, t in ((y1, "2台とも止まる"), (y2, "止める信号"), (y3, "炉も止まる")):
+            s.append(_tline(TG["lx"], y + 11, t, 30, INK, "start", 260))
+    if _on(prev, st, "r86"):
+        xm, ym = tg_xy()
+        s.append(_xmark(xm, ym, 24, J.ALERT, 9))
+        s.append(_tline(xm - 50, ym + 10, "外した", 30, J.ALERT, "end", 200))
+        s.append(_rep(*TG["rep"], "r86", "試験を始めた時に外した", cap=26))
+        s.append(_bigtime(*TG["t"], TG_T86, 72))
+    return s
+
+
+# ── retry（c509）＝1行目（聞き役）：⑥ の札に×（外した）／2行目＝1986年のソ連の報告：必要なら、タービン2台を止めたまま試験をくり返す（輪の矢印）
+RT_N = 2
+RT = dict(chip=(960.0, 360.0), c=(960.0, 610.0), rx=330.0, ry=150.0, a=(205.0, 515.0), rep=(1540.0, 610.0))
+
+
+def retry_base(st0):
+    cx, cy = RT["chip"]
+    t = f"{CIRC[TG_N - 1]} {VIOL[TG_N - 1]}"
+    w = _w(t, 30) + 60
+    return [_card(cx, cy, w, 80, J.LINE, sw=4), _tline(cx, cy + 11, t, 30, INK, "middle", w - 30),
+            _xmark(cx + w / 2 + 44, cy, 22, J.ALERT, 8), _tline(cx + w / 2 + 84, cy + 10, "外した", 28, J.ALERT, "start", 160)]
+
+
+def retry_stage(prev, st):
+    s = []
+    if _on(prev, st, "s86"):
+        cx, cy = RT["c"]
+        for i in range(RT_N):
+            s.append(_turbine(cx - 120 + 240 * i, cy - 14, 0.5, dim=True))
+        s.append(_tline(cx, cy + 80, "2台を止めたまま", 26, J.TICK, "middle", 300))
+        s.append(_arc_arrow(cx, cy, RT["rx"], RT["ry"], RT["a"][0], RT["a"][1], J.AMBER, 7, 28))
+        s.append(_tline(cx - RT["rx"] - 36, cy + 10, "くり返す", 30, J.AMBER, "end", 200))
+        s.append(_rep(*RT["rep"], "s86", "必要なら、やり直す", cap=26))
+    return s
+
+
+# ── shift（c510）＝夜の時刻の線（0時〜1時30分＝時間に比例）：桃の印 1:23:04（1986年の報告）→ 1行目＝青い印が 0時43分ごろへ動く（動く部品・秒は出さない）／
+#    2行目＝運転の手順と試験の手順に沿っていた（S1 p21）
+SH_T86 = "1:23:04"
+SH_M86, SH_M92 = 83 + 4 / 60.0, 43 + 27 / 60.0     # 0時からの分（1:23:04・0:43:27）
+SH = dict(x0=300.0, x1=1620.0, y=560.0, span=90.0)
+
+
+def sh_x(m):
+    return SH["x0"] + (SH["x1"] - SH["x0"]) * m / SH["span"]
+
+
+def sh_lab92():
+    return f"0時{int(SH_M92)}分ごろ"
+
+
+def shift_base(st0):
+    x0, x1, y = SH["x0"], SH["x1"], SH["y"]
+    g = [F.line(x0, y, x1, y, J.TICK, 5)]
+    for m in range(0, 91, 15):
+        big = m % 60 == 0
+        g.append(F.line(sh_x(m), y - (16 if big else 9), sh_x(m), y + (16 if big else 9), J.TICK, 4 if big else 3))
+    for m, t in ((0, "0時"), (60, "1時")):
+        g.append(_tline(sh_x(m), y + 56, t, 28, J.TICK, "middle", 120))
+    x, col = sh_x(SH_M86), rep_col("r86")
+    g.append(F.poly([(x - 18, y - 52), (x + 18, y - 52), (x, y - 14)], col, None, close=True))
+    g.append(_tline(x, y - 70, SH_T86, 40, col, "middle", 260, fam="Dela"))
+    g.append(_rep(x - 20, y - 160, "r86", None, cap=24))
+    return g
+
+
+def shift_parts(st):
+    x, y = sh_x(SH_M86), SH["y"]
+    on = st.get("move") == "on"
+    return [_P("pin92", "poly", [(x, y + 14), (x - 18, y + 52), (x + 18, y + 52)], fill=rep_col("r92"), stroke=None, w=None,
+               alpha=1.0 if on else 0.0, dx=(sh_x(SH_M92) - x) if on else 0.0)]
+
+
+def shift_stage(prev, st):
+    s = []
+    y = SH["y"]
+    x86, x92 = sh_x(SH_M86), sh_x(SH_M92)
+    if _on(prev, st, "move"):
+        s.append(_xmark(x86, y - 33, 20, J.ALERT, 7))
+        s.append(_arrow(x86 - 50, y - 40, x92 + 40, y - 40, rep_col("r92"), 4, 18, dash="10 8"))
+        s.append(_tline(x92, y + 100, sh_lab92(), 34, rep_col("r92"), "middle", 300))
+        s.append(_rep(x92, y + 170, "r92", None, cap=24))
+    if _on(prev, st, "proc"):
+        for i, t in enumerate(("運転の手順", "試験の手順")):
+            x = 1240.0 + i * 260
+            s.append(_doc(x - 100, 680.0, 200, 140, J.DOC, nlines=2, top=84.0, gap=30.0))
+            s.append(_tline(x, 724.0, t, 26, J.DOC, "middle", 180))
+            s.append(_check(x + 86, 664.0, 20, J.OK))        # 🔧 geom_gap：題の字に 5px＝紙の右上の外へ
+        s.append(_tline(1630.0, 760.0, "手順どおり", 28, J.OK, "start", 200))      # 机上：✓を紙の右上へ出したので、字は紙の右へ
+    return s
+
+
+# ── shadow（c512）＝1行目：1986年の報告の札「保護が働けば救われた」と1992年の報告／2行目＝止める棒の影が札の右の余白に落ちる・成り立たないようだ（S1 p21）。
+#    🔴 影と割れ目は札の字にかけない（札を広く取り、右の余白だけ）
+SD = dict(card=(760.0, 500.0), cw=720.0, rod=(1300.0, 330.0, 1360.0, 760.0), r92=(1560.0, 330.0))
+SD_BODY = "保護が働けば救われた"
+
+
+def shadow_stage(prev, st):
+    s = []
+    cx, cy = SD["card"]
+    if _on(prev, st, "card"):
+        s.append(_rep(cx, cy, "r86", SD_BODY, cap=32, w=SD["cw"]))
+        s.append(_rep(*SD["r92"], "r92", None, cap=26))
+    if _on(prev, st, "shade"):
+        x0, y0, x1, y1 = SD["rod"]
+        bx0, by0, bx1, by1 = rep_box(cx, cy, "r86", SD_BODY, cap=32, w=SD["cw"])
+        s.append(F.poly([(x0, y0 + 60), (x1, y0 + 60), (bx1 + 2, by1 + 2), (bx1 - 150, by1 + 2)], "#000000", None, close=True, op=0.38))
+        s.append(F.rect(x0, y0, x1 - x0, y1 - y0, "#3a4650", J.LINE_DIM, 3, rx=10))
+        s.append(_tline((x0 + x1) / 2, y1 + 42, "止める棒", 26, J.TICK, "middle", 200))      # 机上：上の札（1992年の報告）の縁に触れた＝棒の下へ
+        s.append(F.poly([(bx1 - 70, by0 - 2), (bx1 - 50, by0 + 30), (bx1 - 80, by0 + 56), (bx1 - 56, by0 + 84), (bx1 - 76, by1 + 2)], "none", J.ALERT, 5))
+        s.append(_tline(cx, by1 + 80, "成り立たないようだ", 34, rep_col("r92"), "middle", 600))
+    return s
+
+
+# ── seesaw（c514）＝1992年の報告の天秤（板と支点＝水平・🔴 c421 の吊る天秤と別の形）：左＝この保護では運転員を責めない（頭から）／2行目＝右＝運転員にも甘くない
+SW = dict(cx=960.0, py=640.0, x0=380.0, x1=1540.0, bw=420.0, bh=130.0, fy=760.0)
+SW_L = ("この保護の件は", "運転員を責めない")
+SW_R = ("ただし", "運転員にも甘くない")
+
+
+def _sw_y():
+    return SW["py"] - 12 - SW["bh"] / 2 - 4
+
+
+def seesaw_base(st0):
+    cx, py = SW["cx"], SW["py"]
+    return [_rep(cx, 330.0, "r92", None, cap=28),
+            F.poly([(cx, py + 12), (cx - 80, SW["fy"]), (cx + 80, SW["fy"])], J.BG2, J.LINE, 5, close=True),
+            F.rect(SW["x0"], py - 12, SW["x1"] - SW["x0"], 24, J.LINE, None, None, rx=6)]
+
+
+def _sw_block(x, a, b, col):
+    y = _sw_y()
+    return (_card(x, y, SW["bw"], SW["bh"], col, sw=6) + _tline(x, y - 14, a, 26, J.TICK, "middle", SW["bw"] - 30)
+            + _tline(x, y + 36, b, 32, col, "middle", SW["bw"] - 30))
+
+
+def seesaw_stage(prev, st):
+    s = []
+    if _on(prev, st, "left"):
+        s.append(_sw_block(SW["x0"] + SW["bw"] / 2 + 20, *SW_L, J.OK))
+    if _on(prev, st, "right"):
+        s.append(_sw_block(SW["x1"] - SW["bw"] / 2 - 20, *SW_R, rep_col("r92")))
+    return s
+
+
+# ── light（c515）＝運転の手順（書類）と運転員の側（制御盤＝人は描かない）：1行目＝どちらにも「保護を外す」の札が軽い（破線・羽）／2行目＝1992年の報告
+LT = dict(doc=(300.0, 330.0, 360.0, 400.0), desk=(1260.0, 560.0), rep=(960.0, 790.0))
+
+
+def _feather(cx, cy, s=1.0, col=None):
+    c = col or J.TICK
+    a = math.radians(-35)
+    pts = []
+    for i in range(24):
+        t = 2 * math.pi * i / 24
+        x, y = 14 * s * math.cos(t), 44 * s * math.sin(t)
+        pts.append((cx + x * math.cos(a) - y * math.sin(a), cy + x * math.sin(a) + y * math.cos(a)))
+    tip = (cx - 56 * s * math.sin(a), cy + 56 * s * math.cos(a))
+    return F.poly(pts, "none", c, 3, close=True) + F.line(cx + 44 * s * math.sin(a), cy - 44 * s * math.cos(a), tip[0], tip[1], c, 3)
+
+
+def light_base(st0):
+    x, y, w, h = LT["doc"]
+    dx, dy = LT["desk"]
+    g = [_doc(x, y, w, h, J.DOC, nlines=4, top=110.0, gap=60.0), _tline(x + w / 2, y + 60, "運転の手順", 32, J.DOC, "middle", w - 40),
+         F.poly([(dx - 260, dy + 60), (dx + 260, dy + 60), (dx + 200, dy - 40), (dx - 200, dy - 40)], J.BG2, J.LINE, 4, close=True),
+         F.rect(dx - 240, dy - 220, 480, 170, J.BG2, J.LINE, 4, rx=8)]
+    for i in range(6):
+        g.append(F.circ(dx - 180 + i * 72, dy - 170, 14, (J.OK, J.AMBER, J.LINE)[i % 3], None))
+    g.append(_tline(dx, dy + 110, "運転員の側", 32, INK, "middle", 300))
+    return g
+
+
+def light_chips():
+    x, y, w, h = LT["doc"]
+    dx, dy = LT["desk"]
+    return ((x + 140, y + h - 50), (dx - 80, dy - 100))
+
+
+def light_stage(prev, st):
+    s = []
+    if _on(prev, st, "both"):
+        for cx, cy in light_chips():
+            s.append(_card(cx, cy, 220, 54, J.TICK, sw=3, dash="8 6"))
+            s.append(_tline(cx, cy + 9, "保護を外す", 26, J.TICK, "middle", 200))
+            s.append(_feather(cx + 160, cy - 6, 0.9))
+    if _on(prev, st, "r92"):
+        s.append(_rep(*LT["rep"], "r92", "どちらも軽く見ていた", cap=28))
+    return s
+
+
+# ── test200（c516）＝縦の出力の目盛り（値に比例）：予定 700MW の線 → 1行目＝200MW で止まる・700 に×・その場で変更／2行目＝200MW のまま試験へ（S1 p29）
+T2_PLAN, T2_ACT = 700.0, 200.0
+T2 = dict(x=520.0, y0=800.0, k=0.62, top=330.0, xa=660.0, xt=1380.0)
+
+
+def t2_y(v):
+    return T2["y0"] - T2["k"] * v
+
+
+def test200_base(st0):
+    x, y0 = T2["x"], T2["y0"]
+    yp = t2_y(T2_PLAN)
+    return [F.line(x, y0, x, T2["top"], J.TICK, 4), _arrow(x, T2["top"] + 20, x, T2["top"] - 16, J.TICK, 4, 16),
+            F.line(x - 12, y0, x + 12, y0, J.TICK, 4), _tline(x - 22, y0 + 10, "0", 28, J.TICK, "end", 60),
+            _tline(x + 22, T2["top"] - 6, "出力（熱）", 26, J.TICK, "start", 200),
+            F.line(x, yp, 1560.0, yp, J.OK, 4, dash="14 10"), _tline(1560.0, yp - 18, f"予定 {T2_PLAN:,.0f}MW", 30, J.OK, "end", 340)]
+
+
+def test200_stage(prev, st):
+    s = []
+    xa, ya, yp = T2["xa"], t2_y(T2_ACT), t2_y(T2_PLAN)
+    if _on(prev, st, "stuck"):
+        s.append(_arrow(xa, T2["y0"] - 10, xa, ya + 4, J.AMBER, 8, 26))
+        s.append(F.line(xa - 40, ya, xa + 40, ya, J.AMBER, 6))
+        s.append(F.line(xa, ya - 24, xa, yp + 34, J.AMBER, 3, dash="6 8"))
+        s.append(_xmark(xa, yp, 22, J.ALERT, 8))
+        s.append(_tline(xa + 50, yp + 60, "戻せない", 30, J.ALERT, "start", 200))
+        s.append(_card(1000.0, 520.0, 300, 76, J.ALERT, sw=4))
+        s.append(_tline(1000.0, 531.0, "その場で変更", 30, J.ALERT, "middle", 260))
+    if _on(prev, st, "go"):
+        s.append(_arrow(xa + 50, ya, T2["xt"] - 120, ya, J.AMBER, 7, 26))
+        s.append(_card(T2["xt"], ya, 220, 90, J.AMBER, sw=6))
+        s.append(_tline(T2["xt"], ya + 12, "試験", 36, J.AMBER, "middle", 200))
+        s.append(_tline((xa + T2["xt"]) / 2, ya - 28, f"{T2_ACT:,.0f}MW", 36, J.AMBER, "middle", 260, fam="Dela"))
+    return s
+
+
+# ── printout（c602）＝計算機の印字（送り穴の紙・模式）に「即時停止の水準」→ 1行目＝それでも試験へ（▶）／2行目＝1986年のソ連の報告（S3 p2021）
+def _printout(x, y, w, h, col=None, nlines=6, skip=None):
+    """計算機の印字の紙（両の端に送り穴）。skip=(y0, y1)＝その高さの行は描かない（真ん中に印を置く紙＝geom_gap は地の下の線も数える）。"""
+    c = col or J.LINE
+    g = [F.rect(x, y, w, h, J.BG2, c, 4, rx=4)]
+    for yy in range(int(y + 24), int(y + h - 10), 36):
+        g.append(F.circ(x + 16, yy, 6, J.BG, c, 2))
+        g.append(F.circ(x + w - 16, yy, 6, J.BG, c, 2))
+    gap = (h - 60) / max(nlines, 1)
+    for i in range(nlines):
+        yy = y + 40 + i * gap
+        if skip and skip[0] <= yy <= skip[1]:
+            continue
+        g.append(F.line(x + 44, yy, x + w - 44 - 60 * (i % 2), yy, J.LINE_DIM, 6))
+    return "".join(g)
+
+
+PO = dict(paper=(300.0, 300.0, 420.0, 500.0), stamp=(510.0, 600.0))
+
+
+def printout_base(st0):
+    x, y, w, h = PO["paper"]
+    sx, sy = PO["stamp"]
+    return [_printout(x, y, w, h), F.rect(sx - 160, sy - 42, 320, 84, J.BG2, J.ALERT, 5, rx=6),
+            _tline(sx, sy + 11, "即時停止の水準", 30, J.ALERT, "middle", 290)]
+
+
+def printout_stage(prev, st):
+    s = []
+    if _on(prev, st, "start"):
+        s.append(_arrow(750.0, 550.0, 1080.0, 550.0, J.OK, 8, 30))
+        s.append(F.poly([(1140.0, 500.0), (1140.0, 600.0), (1230.0, 550.0)], J.OK, None, close=True))
+        s.append(_tline(1185.0, 662.0, "試験へ", 34, J.OK, "middle", 200))
+    if _on(prev, st, "s86"):
+        s.append(_rep(1380.0, 790.0, "s86", "印字を見ても続行", cap=28))
+    return s
+
+
+# ── rods15（c603）＝棒を1本ずつ（数＝記録）：上の列＝すぐ止める決まり 15本／下の列＝1986年のソ連の報告 6〜8本（6本＋破線2本）＝15本のおよそ半分／
+#    2行目＝右上の札⑦。🔴 「事故のあとの計算 8本」は描かない（出典の欄だけ）・「半分以下」と書かない（S3 の比べるもとは30本）
+RD_RULE, RD_LO, RD_HI, RD_N = 15, 6, 8, 7
+RD = dict(x0=560.0, dx=54.0, ya=410.0, yb=620.0, w=26.0, h=110.0)
+
+
+def _rodicon(x, y, col, dash=False):
+    if dash:
+        return F.rect(x - RD["w"] / 2, y - RD["h"] / 2, RD["w"], RD["h"], "none", col, 4, rx=8, dash="8 6")
+    return F.rect(x - RD["w"] / 2, y - RD["h"] / 2, RD["w"], RD["h"], col, None, None, rx=8)
+
+
+def rods15_base(st0):
+    return []
+
+
+def rods15_stage(prev, st):
+    s = []
+    if _on(prev, st, "rows"):
+        for i in range(RD_RULE):
+            s.append(_rodicon(RD["x0"] + i * RD["dx"], RD["ya"], J.ALERT))
+        for i in range(RD_HI):
+            s.append(_rodicon(RD["x0"] + i * RD["dx"], RD["yb"], rep_col("s86"), dash=i >= RD_LO))
+        s.append(_tline(RD["x0"] - 44, RD["ya"] + 12, "すぐ止める決まり", 30, J.ALERT, "end", 420))
+        s.append(_rep(350.0, RD["yb"], "s86", None, cap=24))
+        s.append(_tline(RD["x0"] + (RD_RULE - 1) * RD["dx"] + 50, RD["ya"] + 14, f"{RD_RULE}本", 40, J.ALERT, "start", 200, fam="Dela"))
+        xb = RD["x0"] + (RD_HI - 1) * RD["dx"] + 50
+        s.append(_tline(xb, RD["yb"] + 14, f"{RD_LO}〜{RD_HI}本", 40, rep_col("s86"), "start", 220, fam="Dela"))
+        s.append(_tline(xb + 230, RD["yb"] + 12, f"＝{RD_RULE}本のおよそ半分", 30, J.AMBER, "start", 420))
+    if _on(prev, st, "viol"):
+        s.append(_badge(RD_N))
+    return s
+
+
+# ── weight（c605）＝1行目（聞き役）：⑦ の札／2行目＝違反は変わらず／3行目＝安全上の重さ＝1986年の報告の小さな重り・1992年の報告の大きな重り（S1 p22）
+WT_N = 7
+WT = dict(card=(960.0, 350.0, 600.0, 96.0), stamp=(1430.0, 350.0), s=(700.0, 700.0, 0.4), b=(1220.0, 700.0, 1.0))
+
+
+def _weight(cx, by, s, col):
+    """分銅（台形＋つまみ）。by＝底・s＝大きさ（1.0 で高さ 230）。"""
+    h, wb, wt = 230 * s, 300 * s, 200 * s
+    return (F.poly([(cx - wb / 2, by), (cx + wb / 2, by), (cx + wt / 2, by - h), (cx - wt / 2, by - h)], col, None, close=True, op=0.85)
+            + F.circ(cx, by - h - 24 * s, 24 * s, "none", col, max(4, 8 * s)))
+
+
+def weight_base(st0):
+    cx, cy, w, h = WT["card"]
+    return [_card(cx, cy, w, h, J.AMBER, sw=6), F.txt(cx - w / 2 + 46, cy + 16, CIRC[WT_N - 1], 44, J.AMBER, "Noto", "middle"),
+            _tline(cx + 30, cy + 12, VIOL[WT_N - 1], 34, INK, "middle", w - 130)]
+
+
+def weight_stage(prev, st):
+    s = []
+    if _on(prev, st, "same"):
+        x, y = WT["stamp"]
+        s.append(F.rect(x - 130, y - 40, 260, 80, J.BG2, J.ALERT, 5, rx=8))
+        s.append(_tline(x, y + 10, "違反は変わらず", 28, J.ALERT, "middle", 240))
+    if _on(prev, st, "big"):
+        for key, (cx, by, sc) in (("r86", WT["s"]), ("r92", WT["b"])):
+            s.append(_weight(cx, by, sc, rep_col(key)))
+            s.append(_rep(cx, by + 60, key, None, cap=24))
+        s.append(_tline(CX, 520.0, "安全上の重さ", 28, J.TICK, "middle", 260))
+        s.append(_tline(WT["b"][0] + 170, 560.0, "ずっと大きい", 30, rep_col("r92"), "start", 300))   # 🔧 geom_gap：上の⑦の札と印に重なった＝重りの右へ
+    return s
+
+
+# ── skala（c606）＝計算機 SKALA の画面（模式）：1行目＝当てにならない・1回の計算に10〜15分（S1 p16）／2行目＝画面に「？」・1992年の報告：値は知らなかった見込み／
+#    3行目＝残す棒が減っていく（下向きの矢印）・おそらく気づいていた
+SK_MIN = (10, 15)
+SK = dict(scr=(420.0, 330.0, 400.0, 280.0), x=620.0, rep=(1560.0, 400.0))
+
+
+def skala_base(st0):
+    x, y, w, h = SK["scr"]
+    g = [F.rect(x, y, w, h, J.BG, J.LINE, 6, rx=14)]
+    for i, yy in enumerate((y + 44, y + 74, y + h - 70, y + h - 40)):       # 🔧 geom_gap：真ん中（あとで「？」を置く所）に行を描かない
+        g.append(F.line(x + 40, yy, x + w - 60 - 80 * (i % 2), yy, J.LINE_DIM, 8))
+    g.append(F.poly([(SK["x"] - 50, y + h), (SK["x"] + 50, y + h), (SK["x"] + 80, y + h + 50), (SK["x"] - 80, y + h + 50)], J.BG2, J.LINE, 4, close=True))
+    g.append(_tline(SK["x"], y + h + 100, "SKALA", 34, INK, "middle", 260))
+    return g
+
+
+def skala_stage(prev, st):
+    s = []
+    if _on(prev, st, "unrel"):
+        s.append(F.poly([(920.0, 344.0), (968.0, 424.0), (872.0, 424.0)], "none", J.ALERT, 5, close=True))
+        s.append(_tline(996.0, 410.0, "当てにならない", 32, J.ALERT, "start", 320))
+        s.append(_tline(880.0, 520.0, f"1回の計算に{SK_MIN[0]}〜{SK_MIN[1]}分", 28, INK, "start", 380))
+    if _on(prev, st, "unknown"):
+        s.append(F.circ(SK["x"], 470.0, 74, J.BG, None))
+        s.append(_qmark(SK["x"], 470.0, 140, J.AMBER))
+        s.append(_rep(*SK["rep"], "r92", "値は知らなかった見込み", cap=26))
+    if _on(prev, st, "aware"):
+        s.append(_arrow(1000.0, 600.0, 1000.0, 730.0, J.ALERT, 7, 26))
+        s.append(_tline(1040.0, 680.0, "残す棒が減っていく", 28, J.ALERT, "start", 300))
+        s.append(_tline(SK["rep"][0], 520.0, "おそらく気づいていた", 30, rep_col("r92"), "middle", 340))
+    return s
+
+
+# ── twosay（c607）＝左右の2つの言い方（字は少なく・頁の絵は使わない）：1行目＝右＝1991年の委員会「値を知らなかった」（印字に「？」）／
+#    2行目＝左＝1986年のソ連の報告「印字で見た」（✓）＋あいだに「逆」
+TW = dict(l=(520.0, 470.0), r=(1400.0, 470.0), w=260.0, h=300.0)
+
+
+def twosay_base(st0):
+    return []
+
+
+def twosay_stage(prev, st):
+    s = []
+    w, h = TW["w"], TW["h"]
+    if _on(prev, st, "right"):
+        x, y = TW["r"]
+        s.append(_printout(x - w / 2, y - h / 2, w, h, rep_col("c91"), nlines=5, skip=(y - 80, y + 80)))   # 🔧 geom_gap：「？」の下の行
+        s.append(F.circ(x, y, 64, J.BG2, None))
+        s.append(_qmark(x, y, 110, J.AMBER))
+        s.append(_rep(x, y + h / 2 + 90, "c91", "値を知らなかった", cap=28))
+    if _on(prev, st, "left"):
+        x, y = TW["l"]
+        s.append(_printout(x - w / 2, y - h / 2, w, h, rep_col("s86"), nlines=5, skip=(y - 80, y + 80)))
+        s.append(F.circ(x, y, 64, J.BG2, None))
+        s.append(_check(x, y, 40, J.OK))
+        s.append(_rep(x, y + h / 2 + 90, "s86", "印字で見た", cap=28))
+        s.append(_arrow(760.0, 470.0, 1160.0, 470.0, J.AMBER, 6, 24))
+        s.append(_arrow(1160.0, 470.0, 760.0, 470.0, J.AMBER, 6, 24))
+        s.append(_tline(CX, 436.0, "逆", 48, J.AMBER, "middle", 120))
+    return s
+
+
+# ── meaning（c608）＝残す棒の下限の札 → 1行目＝左＝運転員の受け取り「分布を整えるため」（出力の分布の線が平らに）／2行目＝右＝1992年の報告「安全のため」（盾）
+MN = dict(card=(960.0, 350.0, 520.0, 84.0), l=(560.0, 640.0), r=(1360.0, 640.0))
+
+
+def meaning_base(st0):
+    cx, cy, w, h = MN["card"]
+    return [_card(cx, cy, w, h, STEEL, sw=5), F.rect(cx - w / 2 + 30, cy - 30, 18, 60, STEEL, None, None, rx=4),
+            _tline(cx + 20, cy + 11, "残す棒の下限", 32, INK, "middle", w - 100)]
+
+
+def _shield(cx, cy, w, h, col):
+    pts = [(cx - w / 2, cy - h / 2), (cx + w / 2, cy - h / 2), (cx + w / 2, cy + h * 0.1), (cx, cy + h / 2), (cx - w / 2, cy + h * 0.1)]
+    return F.poly(pts, col, None, close=True, op=0.22) + F.poly(pts, "none", col, 6, close=True)
+
+
+def meaning_stage(prev, st):
+    s = []
+    cx, cy, w, h = MN["card"]
+    if _on(prev, st, "thought"):
+        x, y = MN["l"]
+        s.append(F.line(cx - 120, cy + h / 2 + 4, x + 40, 436.0, J.TICK, 3, dash="8 8"))     # 机上：字の上 8px＝字から離す
+        s.append(_tline(x, 484.0, "分布を整えるため", 30, INK, "middle", 360))
+        s.append(_tline(x, 522.0, "運転員の受け取り", 24, J.TICK, "middle", 300))
+        s.append(F.rect(x - 180, 700.0, 360, 24, "#2b3a44", GRAPH, 3, rx=6))
+        bump = [(x - 170 + 340 * i / 16, 690.0 - 70 * abs(math.sin(math.pi * i / 4))) for i in range(17)]
+        s.append(F.poly(bump, "none", J.TICK, 3, dash="6 6"))
+        s.append(F.line(x - 170, 630.0, x + 170, 630.0, J.AMBER, 5))
+    if _on(prev, st, "real"):
+        x, y = MN["r"]
+        s.append(F.line(cx + 120, cy + h / 2 + 4, x - 40, 440.0, J.TICK, 3, dash="8 8"))
+        s.append(_rep(x, 470.0, "r92", None, cap=26))
+        s.append(_shield(x, 620.0, 150, 170, rep_col("r92")))
+        s.append(_tline(x, 770.0, "安全のため", 34, rep_col("r92"), "middle", 300))
+    return s
+
+
+# ── go（c609）＝開始の合図の灯（3つ）：1行目（聞き役）＝消えている／2行目＝緑に点く・1:23:04 試験が始まる（S3 p2021）
+GO_T = "1:23:04"
+GO = dict(x0=680.0, y0=360.0, w=560.0, h=140.0, xs=(790.0, 960.0, 1130.0))
+
+
+def go_base(st0):
+    g = [F.rect(GO["x0"], GO["y0"], GO["w"], GO["h"], J.BG2, J.LINE, 5, rx=24),
+         F.line(CX, GO["y0"] + GO["h"], CX, GO["y0"] + GO["h"] + 60, J.LINE, 8)]
+    for x in GO["xs"]:
+        g.append(F.circ(x, GO["y0"] + GO["h"] / 2, 46, J.BG, J.LINE_DIM, 4))
+    return g
+
+
+def go_stage(prev, st):
+    s = []
+    if _on(prev, st, "start"):
+        for x in GO["xs"]:
+            s.append(F.circ(x, GO["y0"] + GO["h"] / 2, 46, J.OK, J.BG, 4))
+        s.append(_bigtime(CX, 690.0, GO_T, 110))
+        s.append(_tline(CX, 772.0, "試験が始まる", 32, J.OK, "middle", 400))
+    return s
+
+
+# ── valve8（c610）＝横から見た蒸気の管・弁・8号タービン（模式）：1行目＝弁に×・蒸気が消える・回る勢いだけで回る（弧の矢印）／2行目＝話が分かれる（2つの報告）
+V8_N = 8
+V8 = dict(y=470.0, x0=140.0, valve=560.0, tb=1180.0, s=1.2)
+
+
+def valve8_base(st0):
+    y, vx, tx = V8["y"], V8["valve"], V8["tb"]
+    return [F.line(V8["x0"], y, tx - 210, y, "#cfd8dc", 18, op=0.5), _tline(V8["x0"] + 10, y - 30, "蒸気", 28, INK, "start", 120),
+            F.poly([(vx - 40, y - 34), (vx + 40, y + 34), (vx + 40, y - 34), (vx - 40, y + 34)], STEEL, J.BG, 4, close=True),
+            _tline(vx, y - 60, "弁", 28, STEEL, "middle", 120), _turbine(tx, y, V8["s"]),
+            _tline(tx, y + 150, f"{V8_N}号タービン", 32, INK, "middle", 300)]
+
+
+def valve8_stage(prev, st):
+    s = []
+    y, vx, tx = V8["y"], V8["valve"], V8["tb"]
+    if _on(prev, st, "shut"):
+        s.append(F.line(vx + 50, y, tx - 214, y, J.BG, 20, op=0.75))
+        s.append(_xmark(vx, y, 50, J.ALERT, 11))
+        s.append(_arc_arrow(tx, y, 260, 110, 200, 320, J.AMBER, 6, 22))
+        s.append(_arc_arrow(tx, y, 260, 110, 20, 140, J.AMBER, 6, 22))
+        s.append(_tline(tx, y - 170, "勢いだけで回る", 30, J.AMBER, "middle", 300))
+    if _on(prev, st, "fork"):
+        s.append(F.line(CX, 668.0, CX, 700.0, J.LINE, 5))
+        s.append(_arrow(CX, 700.0, 680.0, 742.0, rep_col("s86"), 5, 20))
+        s.append(_arrow(CX, 700.0, 1240.0, 742.0, rep_col("c91"), 5, 20))
+        s.append(_rep(560.0, 792.0, "s86", None, cap=24))
+        s.append(_rep(1360.0, 792.0, "c91", None, cap=24))
+        s.append(_tline(CX, 648.0, "話が分かれる", 28, J.TICK, "middle", 300))
+    return s
+
+
+# ── flow35（c612）＝試験の35秒（横＝秒）：1行目＝1991年の委員会・出力の線は平ら／2行目＝水の流れの線が下がり、35秒で10〜15%（終わりの帯）＝S1 p75
+FW_SEC, FW_DROP = 35, (10, 15)
+FW = dict(x0=360.0, x1=1460.0, yb=780.0, yp=430.0, yf=520.0, k=12.0)
+
+
+def fw_band():
+    return tuple(FW["yf"] + FW["k"] * d for d in FW_DROP)
+
+
+def flow35_base(st0):
+    x0, x1, yb = FW["x0"], FW["x1"], FW["yb"]
+    g = [F.line(x0, yb, x1 + 40, yb, J.TICK, 4), F.line(x0, yb, x0, 360.0, J.TICK, 4)]
+    for x, t in ((x0, "0"), (x1, f"{FW_SEC}秒")):
+        g.append(F.line(x, yb - 10, x, yb + 10, J.TICK, 4))
+        g.append(_tline(x, yb + 44, t, 28, J.TICK, "middle", 160))
+    g.append(_tline(x1 + 70, yb + 10, "試験の始まりから", 24, J.TICK, "start", 240))
+    return g
+
+
+def flow35_stage(prev, st):
+    s = []
+    x0, x1 = FW["x0"], FW["x1"]
+    if _on(prev, st, "power"):
+        s.append(_rep(1560.0, 330.0, "c91", None, cap=26))
+        s.append(F.line(x0, FW["yp"], x1, FW["yp"], J.AMBER, 7))
+        s.append(_tline(x1 + 20, FW["yp"] + 10, "出力：上がらない", 28, J.AMBER, "start", 300))
+    if _on(prev, st, "flow"):
+        b0, b1 = fw_band()
+        ym = (b0 + b1) / 2
+        pts = [(x0 + (x1 - x0) * i / 20, FW["yf"] + (ym - FW["yf"]) * (i / 20) ** 1.3) for i in range(21)]
+        s.append(F.rect(x1 - 16, b0, 32, b1 - b0, WATER, None, None, op=0.35))
+        s.append(F.poly(pts, "none", WATER, 7))
+        s.append(_tline(x1 + 30, ym + 10, f"水の流れ {FW_DROP[0]}〜{FW_DROP[1]}%減", 26, WATER, "start", 300))
+    return s
+
+
+# ── digital（c614）＝🔴 c402 の丸い時計と別の形＝数字の時計と AZ-5 のボタン：1行目＝1991年の委員会：押した理由は確かめられず／
+#    2行目＝時計 1:23:40・ボタンが光る・すべての棒を下ろす（S1 p65・p76）
+DG_T = "1:23:40"
+DG = dict(clk=(900.0, 330.0, 600.0, 180.0), btn=(1200.0, 680.0), rep=(480.0, 420.0))
+
+
+def _az5(bx, by):
+    return (F.circ(bx, by, 84, J.BG2, J.LINE, 6) + F.circ(bx, by, 64, J.ALERT, None)
+            + _tline(bx, by + 12, "AZ-5", 34, INK, "middle", 120))
+
+
+def digital_base(st0):
+    x, y, w, h = DG["clk"]
+    return [F.rect(x, y, w, h, J.BG, J.LINE, 6, rx=16), _az5(*DG["btn"])]
+
+
+def digital_stage(prev, st):
+    s = []
+    if _on(prev, st, "why"):
+        s.append(_rep(*DG["rep"], "c91", "理由は確かめられず", cap=28))
+        s.append(_qmark(DG["rep"][0], 600.0, 120, J.AMBER))
+    if _on(prev, st, "press"):
+        x, y, w, h = DG["clk"]
+        s.append(_tline(x + w / 2, y + h / 2 + 40, DG_T, 110, J.AMBER, "middle", w - 40, fam="Dela"))
+        bx, by = DG["btn"]
+        # 🔧 門番 layout：字を丸ごと囲む輪は「上から下へ貫く線」と数えられた＝左右の弧に分ける（字の幅の上と下に点を置かない）
+        for a0, a1 in ((-60.0, 60.0), (120.0, 240.0)):
+            s.append(F.poly(_arcpts(bx, by, 104, 104, a0, a1, 16), "none", J.ALERT, 5))
+        s.append(_tline(bx + 130, by + 12, "すべての棒を下ろす", 28, INK, "start", 300))
+    return s
+
+
+# ── spike（c616）＝縦の出力の計器（🔴 c301 の丸い針と別の形）：530MW の目盛り（長さは値に比例）→ 1行目＝急上昇の信号の灯・1:23:43／
+#    2行目＝棒が目盛りを超えて上へ（S1 p65「power exceeded 530 MW(th)」）
+SP_T, SP_V = "1:23:43", 530
+SPK = dict(x=720.0, w=120.0, y0=800.0, top=330.0, k=380.0 / 530.0, lamp=(1320.0, 420.0))
+
+
+def spk_y(v):
+    return SPK["y0"] - SPK["k"] * v
+
+
+def spike_base(st0):
+    x, w, y0, top = SPK["x"], SPK["w"], SPK["y0"], SPK["top"]
+    yt = spk_y(SP_V)
+    return [F.rect(x, top, w, y0 - top, J.BG2, J.LINE, 5, rx=8), F.line(x - 20, yt, x + w + 20, yt, J.AMBER, 5),
+            _tline(x + w + 40, yt + 12, f"{SP_V}MW", 36, J.AMBER, "start", 260, fam="Dela"),
+            _tline(x + w / 2, y0 + 44, "出力", 26, J.TICK, "middle", 160)]
+
+
+def spike_stage(prev, st):
+    s = []
+    lx, ly = SPK["lamp"]
+    if _on(prev, st, "sig"):
+        s.append(F.circ(lx, ly, 46, J.ALERT, None))
+        for i in range(8):
+            a = math.radians(45 * i)
+            s.append(F.line(lx + 62 * math.cos(a), ly + 62 * math.sin(a), lx + 84 * math.cos(a), ly + 84 * math.sin(a), J.ALERT, 5))
+        s.append(_tline(lx, ly + 150, "急上昇の信号", 32, J.ALERT, "middle", 300))
+        s.append(_bigtime(lx, ly + 250, SP_T, 76))
+    if _on(prev, st, "over"):
+        x, w = SPK["x"], SPK["w"]
+        s.append(F.rect(x + 12, SPK["top"] + 10, w - 24, SPK["y0"] - SPK["top"] - 22, J.AMBER, None, None, rx=4, op=0.85))
+        s.append(_arrow(x + w / 2, SPK["top"] + 4, x + w / 2, SPK["top"] - 50, J.ALERT, 7, 24))
+        s.append(_tline(x + w + 40, spk_y(SP_V) - 48, "超えた", 30, J.ALERT, "start", 200))
+    return s
+
+
+def spike_top():
+    return SPK["top"] + 10
+
+
+# ── rodstop（c617）＝横から見た棒の通り道（模式）：1行目＝棒が下りて途中で止まる（動く部品・下の端に届かない）・1986年のソ連の報告／
+#    2行目＝動かす装置の電気を切った（稲妻に×）→ 重さで落とす（S1 p65・S3 p2021）
+RS = dict(core=(700.0, 380.0, 1000.0, 800.0), ch=(830.0, 870.0), drive=(850.0, 320.0), lim=790.0, rod=(350.0, 560.0), drop=170.0, rep=(1460.0, 430.0))
+
+
+def rs_bottom(st=None):
+    on = (st or {}).get("stop") == "on"
+    return RS["rod"][1] + (RS["drop"] if on else 0.0)
+
+
+def rodstop_base(st0):
+    x0, y0, x1, y1 = RS["core"]
+    c0, c1 = RS["ch"]
+    dx, dy = RS["drive"]
+    return [F.rect(x0, y0, x1 - x0, y1 - y0, "#2b3a44", GRAPH, 4, rx=8), F.rect(c0, y0 - 20, c1 - c0, y1 - y0 + 20, J.BG, J.LINE_DIM, 3),
+            F.rect((c0 + c1) / 2 - 40, RS["lim"] - 8, 80, 16, J.AMBER, None, None, rx=3),
+            _tline(x1 + 30, RS["lim"] + 10, "下の端", 26, J.AMBER, "start", 160),
+            F.rect(dx - 90, dy - 28, 180, 56, J.BG2, STEEL, 4, rx=8), _tline(dx + 120, dy + 10, "動かす装置", 26, STEEL, "start", 220),
+            _tline(x0 - 24, (y0 + y1) / 2, "炉", 28, J.TICK, "end", 100)]
+
+
+def rodstop_parts(st):
+    c0, c1 = RS["ch"]
+    t, b = RS["rod"]
+    dy = RS["drop"] if st.get("stop") == "on" else 0.0
+    return [_P("rod", "poly", [(c0 + 6, t), (c1 - 6, t), (c1 - 6, b), (c0 + 6, b)], fill=STEEL, stroke=J.BG, w=3, alpha=1.0, dy=dy)]
+
+
+def rodstop_stage(prev, st):
+    s = []
+    c0, c1 = RS["ch"]
+    x1 = RS["core"][2]
+    if _on(prev, st, "stop"):
+        yb = rs_bottom(st) + 6
+        s.append(F.line(c0 - 30, yb, c1 + 30, yb, J.ALERT, 6))
+        s.append(_tline(x1 + 30, yb + 10, "ここで止まる", 28, J.ALERT, "start", 240))
+        s.append(_rep(*RS["rep"], "s86", None, cap=26))
+    if _on(prev, st, "cut"):
+        dx, dy = RS["drive"]
+        s.append(_bolt(dx - 150, dy, 26, J.AMBER))
+        s.append(_xmark(dx - 150, dy, 22, J.ALERT, 7))
+        s.append(_arrow(c1 + 50, 560.0, c1 + 50, 690.0, J.ALERT, 5, 20, dash="10 8"))
+        s.append(_tline(x1 + 30, 630.0, "重さで落とす", 28, INK, "start", 240))
+        s.append(_tline(RS["rep"][0], RS["rep"][1] + 70, "電気を切った", 30, rep_col("s86"), "middle", 300))
+    return s
+
+
+# ── why8（c620）＝1行目（聞き役）：AZ-5 のボタン → 爆発（星形）と「？」／2行目＝手がかり＝止める棒の形（棒の影）・第8章の札
+W8_CH = 8
+W8 = dict(btn=(420.0, 520.0), burst=(980.0, 520.0), rod=(1460.0, 360.0, 1520.0, 700.0))
+
+
+def _burst(cx, cy, r0, r1, n=12):
+    return [(cx + (r0 if i % 2 == 0 else r1) * math.cos(math.pi * i / n), cy + (r0 if i % 2 == 0 else r1) * math.sin(math.pi * i / n))
+            for i in range(2 * n)]
+
+
+def why8_base(st0):
+    bx, by = W8["btn"]
+    cx, cy = W8["burst"]
+    return [_az5(bx, by), _arrow(bx + 110, by, cx - 170, cy, J.LINE, 7, 26),
+            F.poly(_burst(cx, cy, 150, 90), J.AMBER, J.ALERT, 5, close=True, op=0.9), F.txt(cx, cy + 38, "？", 110, J.BG, "Noto", "middle")]
+
+
+def why8_stage(prev, st):
+    s = []
+    if _on(prev, st, "hint"):
+        x0, y0, x1, y1 = W8["rod"]
+        s.append(F.rect(x0, y0, x1 - x0, y1 - y0, "#3a4650", J.LINE_DIM, 3, rx=10))
+        s.append(_qmark((x0 + x1) / 2, (y0 + y1) / 2, 56, J.AMBER))
+        s.append(_tline(x0 - 40, (y0 + y1) / 2 + 10, "手がかり：棒の形", 28, J.TICK, "end", 300))
+        s.append(_card((x0 + x1) / 2, y1 + 72, 200, 64, J.AMBER, sw=5))
+        s.append(_tline((x0 + x1) / 2, y1 + 85, f"第{W8_CH}章", 32, J.AMBER, "middle", 170))
+    return s
+
+
+# ── roof（c701）＝上から見た4号機とタービンの建屋（配置は模式）：1行目（聞き役）＝建屋だけ／2行目＝燃える塊と火花が屋根へ（点線の弧）・火の印／
+#    3行目＝1986年のソ連の報告（S3 p2021）。🔴 火は赤と黄（燃料の橙・ソ連の報告の橙と分ける）
+RF = dict(hall=(200.0, 600.0, 1720.0, 760.0), unit=(1180.0, 330.0, 1520.0, 560.0), fires=((640.0, 680.0), (900.0, 650.0), (1120.0, 700.0)),
+          src=(1300.0, 360.0), rep=(560.0, 420.0))
+
+
+def _flame(cx, cy, s=1.0):
+    pts = [(cx, cy - 46 * s), (cx + 22 * s, cy - 10 * s), (cx + 26 * s, cy + 14 * s), (cx, cy + 26 * s), (cx - 26 * s, cy + 14 * s), (cx - 22 * s, cy - 10 * s)]
+    inner = [(x * 0.55 + cx * 0.45, y * 0.55 + (cy + 8 * s) * 0.45) for x, y in pts]
+    return F.poly(pts, J.ALERT, None, close=True) + F.poly(inner, J.AMBER, None, close=True)
+
+
+def roof_base(st0):
+    hx0, hy0, hx1, hy1 = RF["hall"]
+    ux0, uy0, ux1, uy1 = RF["unit"]
+    g = [F.rect(hx0, hy0, hx1 - hx0, hy1 - hy0, J.BG2, J.LINE, 5, rx=6)]
+    for x in range(int(hx0 + 400), int(hx1), 160):           # 机上：屋根の継ぎ目の線が「タービンの建屋」の字を横切った＝字の右から
+        g.append(F.line(x, hy0 + 8, x, hy1 - 8, J.LINE_DIM, 3))
+    g += [_tline(hx0 + 40, hy1 - 22, "タービンの建屋", 28, INK, "start", 300),
+          F.rect(ux0, uy0, ux1 - ux0, uy1 - uy0, "#2b3a44", J.LINE, 5, rx=6), _tline((ux0 + ux1) / 2, (uy0 + uy1) / 2 + 12, "4号機", 34, INK, "middle", 260)]
+    return g
+
+
+def roof_stage(prev, st):
+    s = []
+    if _on(prev, st, "fall"):
+        x0, y0 = RF["src"]
+        for tx, ty in RF["fires"]:
+            pts = [(x0 + (tx - x0) * u / 16, y0 + (ty - y0) * u / 16 - 480 * (u / 16) * (1 - u / 16)) for u in range(17)]
+            s.append(F.poly(pts, "none", J.AMBER, 4, dash="10 10"))
+            s.append(_flame(tx, ty, 1.0))
+        for dx, dy in ((-40, -30), (30, -60), (-10, -90)):
+            s.append(F.circ(x0 + dx, y0 + dy, 7, J.AMBER, None))
+    if _on(prev, st, "s86"):
+        s.append(_rep(*RF["rep"], "s86", "屋根に落ち、火事に", cap=28))
+    return s
+
+
+# ── dayband（c706）＝26日の24時間の帯（時刻に比例・空の色＝夜・朝・昼・夕・夜）と27日へ続く破線（🔴 c311 の帯と別の形）：
+#    1行目＝朝・窓と戸を閉めた家（S2 p1082）／2行目＝22:00 避難を決める（L2 p3024）。🔴 27日の時刻（正午・14:00〜17:00）は c707・c708 で＝ここは書かない
+DB_T = "22:00"
+DB = dict(x0=220.0, x1=1520.0, y=470.0, h=70.0, ext=1780.0, house=8.0)
+DB_SEG = ((0, 5, "#1c2740"), (5, 7, "#3a4d63"), (7, 18, "#4a6a82"), (18, 20, "#3a4d63"), (20, 24, "#1c2740"))
+
+
+def db_x(hh):
+    return DB["x0"] + (DB["x1"] - DB["x0"]) * hh / 24.0
+
+
+def db_h(t):
+    h, m = (int(v) for v in t.split(":"))
+    return h + m / 60.0
+
+
+def dayband_base(st0):
+    y, h = DB["y"], DB["h"]
+    g = [F.rect(db_x(a), y, db_x(b) - db_x(a), h, col, None, None) for a, b, col in DB_SEG]
+    g += [F.rect(DB["x0"], y, DB["x1"] - DB["x0"], h, "none", J.LINE_DIM, 3),
+          F.rect(DB["x1"], y, DB["ext"] - DB["x1"], h, "none", J.LINE_DIM, 3, dash="10 8"),
+          _tline(DB["x0"], y + h + 50, "26日", 28, J.TICK, "start", 120), _tline((DB["x1"] + DB["ext"]) / 2, y + h + 50, "27日", 28, J.TICK, "middle", 120),
+          F.circ(db_x(12), y - 40, 22, J.AMBER, None), _moon(db_x(2), y - 40, 20)]
+    return g
+
+
+def dayband_stage(prev, st):
+    s = []
+    y, h = DB["y"], DB["h"]
+    if _on(prev, st, "indoor"):
+        x = db_x(DB["house"])
+        s.append(F.rect(x - 55, 330.0, 110, 80, J.BG2, J.LINE, 4))
+        s.append(F.poly([(x - 70, 332.0), (x + 70, 332.0), (x, 280.0)], J.BG2, J.LINE, 4, close=True))
+        for wx in (x - 30, x + 10):
+            s.append(F.rect(wx, 350.0, 22, 26, J.BG, J.AMBER, 3))
+            s.append(F.line(wx, 350.0, wx + 22, 376.0, J.AMBER, 3))
+        s.append(_arrow(x, 416.0, x, y - 6, J.LINE, 4, 16))
+        s.append(_tline(x, y + h + 50, "窓と戸を閉め家の中に", 26, INK, "middle", 360))
+    if _on(prev, st, "decide"):
+        x = db_x(db_h(DB_T))
+        s.append(F.line(x, y - 30, x, y + h + 20, J.AMBER, 6))
+        s.append(_tline(x, y - 50, DB_T, 44, J.AMBER, "middle", 220, fam="Dela"))
+        s.append(_tline(x, y + h + 100, "避難を決める", 32, J.AMBER, "middle", 300))
+    return s
+
+
+# ── notice（c714）＝🔴 c206 の7枚の札と別の形＝掲示の紙と絵の札：1行目＝紙「注意」5月4日 早朝・放射能対策本部／2行目＝雨水（しずく）→ 木炭でこす（コップ）／
+#    3行目＝水道水・井戸水・牛乳（3つの絵）＝心配ない（国会会議録 1986-05-07・葉もの野菜は次の c715 の頁）
+NT_DATE = (5, 4)
+NC = dict(paper=(180.0, 300.0, 440.0, 510.0), p1=450.0, p2=680.0)
+
+
+def notice_base(st0):
+    x, y, w, h = NC["paper"]
+    g = [F.rect(x, y, w, h, J.BG2, J.DOC, 5, rx=6), F.rect(x, y, w, 70, J.DOC_DIM, None, None, rx=6)]
+    for i in range(5):
+        g.append(F.line(x + 40, 560.0 + i * 46, x + w - 40 - 80 * (i % 2), 560.0 + i * 46, J.LINE_DIM, 8))
+    return g
+
+
+def notice_stage(prev, st):
+    s = []
+    x, y, w, h = NC["paper"]
+    if _on(prev, st, "head"):
+        s.append(_tline(x + w / 2, y + 48, "注意", 36, INK, "middle", w - 40))
+        s.append(_tline(x + w / 2, y + 130, f"{NT_DATE[0]}月{NT_DATE[1]}日　早朝", 32, J.AMBER, "middle", w - 40))
+        s.append(_tline(x + w / 2, y + 180, "放射能対策本部", 26, J.TICK, "middle", w - 40))
+    if _on(prev, st, "rain"):
+        cy = NC["p1"]
+        s.append(F.circ(780.0, cy + 14, 30, WATER, None))
+        s.append(F.poly([(754.0, cy + 2), (806.0, cy + 2), (780.0, cy - 54)], WATER, None, close=True))
+        s.append(_arrow(830.0, cy, 880.0, cy, J.LINE, 5, 18))
+        s.append(F.poly([(900.0, cy - 50), (1000.0, cy - 50), (986.0, cy + 60), (914.0, cy + 60)], "none", J.LINE, 5, close=True))
+        s.append(F.poly([(906.0, cy + 14), (994.0, cy + 14), (986.0, cy + 60), (914.0, cy + 60)], "#3a4650", None, close=True))
+        for dx in (-24, 0, 24):
+            s.append(F.circ(950.0 + dx, cy + 38, 6, J.BG, None))
+        s.append(_tline(1050.0, cy - 12, "雨水をじかに飲むなら", 26, J.TICK, "start", 420))
+        s.append(_tline(1050.0, cy + 36, "木炭でこす", 34, INK, "start", 420))
+    if _on(prev, st, "tap"):
+        cy = NC["p2"]
+        # 水道の蛇口・井戸・牛乳びん（模式）
+        s.append(F.rect(740.0, cy - 30, 70, 20, J.LINE, None, None, rx=4))
+        s.append(F.rect(790.0, cy - 12, 20, 36, J.LINE, None, None, rx=4))
+        s.append(F.rect(756.0, cy - 50, 16, 22, J.LINE, None, None, rx=3))
+        s.append(F.rect(860.0, cy - 6, 90, 50, J.BG2, J.LINE, 4))
+        s.append(F.poly([(850.0, cy - 6), (960.0, cy - 6), (905.0, cy - 50)], "none", J.LINE, 4, close=True))
+        s.append(F.rect(1000.0, cy - 30, 48, 74, J.BG2, J.LINE, 4, rx=8))
+        s.append(F.rect(1012.0, cy - 54, 24, 26, J.BG2, J.LINE, 4, rx=4))
+        for xx, t in ((775.0, "水道水"), (905.0, "井戸水"), (1024.0, "牛乳")):
+            s.append(_tline(xx, cy + 90, t, 24, J.TICK, "middle", 120))
+        s.append(_check(1120.0, cy, 26, J.OK))
+        s.append(_tline(1170.0, cy + 14, "心配ない", 38, J.OK, "start", 300))
+    return s
+
+
+# ── table6（c806）＝1986年のソ連の報告の違反の表（3つの列 × 6つの行・字は省いた）：1行目＝列の名（違反・動機・結果）／
+#    2行目＝2行目の動機の欄だけ「運転員の誤り」（0時28分の急落の行＝S3 p2026）
+TB6_ROWS, TB6_COLS, TB6_MARK = 6, ("違反", "動機", "結果"), (2, 2)
+# 🔧 geom_gap：印の欄の灰の線が「運転員の誤り」の下を通った＝その欄は線を描かない（ほかに2つ空けて、印の欄を先に知らせない）
+TB6_BLANK = (TB6_MARK, (4, 3), (6, 1))
+T6 = dict(x0=420.0, x1=1560.0, y0=350.0, hh=60.0, rh=64.0)
+
+
+def t6_cell(r, c):
+    cw = (T6["x1"] - T6["x0"]) / len(TB6_COLS)
+    y = T6["y0"] + T6["hh"] + (r - 1) * T6["rh"]
+    return (T6["x0"] + (c - 1) * cw, y, T6["x0"] + c * cw, y + T6["rh"])
+
+
+def table6_base(st0):
+    x0, x1, y0 = T6["x0"], T6["x1"], T6["y0"]
+    y1 = y0 + T6["hh"] + TB6_ROWS * T6["rh"]
+    g = [F.rect(x0, y0, x1 - x0, y1 - y0, J.BG2, J.DOC, 5, rx=6), F.line(x0, y0 + T6["hh"], x1, y0 + T6["hh"], J.DOC, 4)]
+    for c in range(1, len(TB6_COLS)):
+        xx = t6_cell(1, c)[2]
+        g.append(F.line(xx, y0, xx, y1, J.DOC_DIM, 3))
+    for r in range(1, TB6_ROWS + 1):
+        if r > 1:
+            g.append(F.line(x0, t6_cell(r, 1)[1], x1, t6_cell(r, 1)[1], J.DOC_DIM, 2))
+        for c in range(1, len(TB6_COLS) + 1):
+            if (r, c) in TB6_BLANK:
+                continue
+            a, b, cc, d = t6_cell(r, c)
+            g.append(F.line(a + 30, (b + d) / 2, cc - 30 - 70 * ((r + c) % 2), (b + d) / 2, J.LINE_DIM, 8))
+    return g
+
+
+def table6_stage(prev, st):
+    s = []
+    if _on(prev, st, "cols"):
+        for c, t in enumerate(TB6_COLS, 1):
+            a, _b, cc, _d = t6_cell(1, c)
+            s.append(_tline((a + cc) / 2, T6["y0"] + 42, t, 32, J.DOC, "middle", cc - a - 20))
+        s.append(_rep(1300.0, 300.0, "s86", None, cap=24))
+    if _on(prev, st, "mark"):
+        a, b, cc, d = t6_cell(*TB6_MARK)
+        s.append(F.rect(a + 4, b + 4, cc - a - 8, d - b - 8, J.BG2, J.AMBER, 5, rx=6))
+        s.append(_tline((a + cc) / 2, (b + d) / 2 + 11, "運転員の誤り", 30, J.AMBER, "middle", cc - a - 30))
+        s.append(_tline(T6["x0"] - 20, (b + d) / 2 + 10, "0時28分の急落", 28, J.AMBER, "end", 330))
+    return s
+
+
+# ── pile（c808）＝6つの札（字なし＝表の6つの行）が1か所に重なる（動く部品）：1行目＝1986年のソ連の報告「主な原因：違反の重なり」／2行目＝説明の芯の輪
+PL6 = 6
+PIL = dict(cx=960.0, cy=540.0, rx=600.0, ry=120.0, w=230.0, h=104.0, rep=(960.0, 320.0))
+PIL_COLS = ("LINE", "AMBER", "OK", "ALERT", "ship", "DOC")
+
+
+def pile_xy(i):
+    a = math.radians(360.0 / PL6 * i)
+    return PIL["cx"] + PIL["rx"] * math.cos(a), PIL["cy"] + PIL["ry"] * math.sin(a)
+
+
+def pile_parts(st):
+    on = st.get("pile") == "on"
+    out = []
+    for i in range(PL6):
+        x, y = pile_xy(i)
+        w, h = PIL["w"], PIL["h"]
+        tx, ty = PIL["cx"] + (i - (PL6 - 1) / 2) * 12, PIL["cy"] + (i - (PL6 - 1) / 2) * 8
+        out.append(_P(f"card{i}", "poly", [(x - w / 2, y - h / 2), (x + w / 2, y - h / 2), (x + w / 2, y + h / 2), (x - w / 2, y + h / 2)],
+                      pivot=[x, y], rot=(-10.0 + 4.0 * i) if on else 0.0, fill=J.BG2, stroke=rc(PIL_COLS[i % len(PIL_COLS)]), w=6,
+                      alpha=1.0, dx=(tx - x) if on else 0.0, dy=(ty - y) if on else 0.0, lag=0.07 * i))
+    return out
+
+
+def pile_base(st0):
+    return []
+
+
+def pile_stage(prev, st):
+    s = []
+    if _on(prev, st, "pile"):
+        s.append(_rep(*PIL["rep"], "s86", "主な原因：違反の重なり", cap=26))
+    if _on(prev, st, "core"):
+        s.append(F.poly(_arcpts(PIL["cx"], PIL["cy"], 240.0, 150.0, 0, 360, 48), "none", J.AMBER, 5, dash="14 10"))
+        s.append(_tline(PIL["cx"], 790.0, "職員の違反＝説明の芯", 32, J.AMBER, "middle", 600))
+    return s
+
+
+# ── carry（c810）＝炉と「正のボイド係数」の札 → 1行目＝急上昇を大きくする（上向きの矢印）／2行目＝職員の箱から太い矢印・規則の外の状態（破線の枠）＝
+#    1986年のソ連の報告「持ち込んだのは職員」（S3 p2027）。🔴 人の形は描かない（箱だけ）
+CR = dict(core=(780.0, 440.0, 1140.0, 690.0), staff=(380.0, 565.0), zone=(730.0, 370.0, 1190.0, 730.0), rep=(380.0, 380.0))
+
+
+def carry_base(st0):
+    x0, y0, x1, y1 = CR["core"]
+    return [F.rect(x0, y0, x1 - x0, y1 - y0, "#2b3a44", GRAPH, 4, rx=8), _tline((x0 + x1) / 2, y1 - 30, "炉", 30, INK, "middle", 120)]
+
+
+def carry_stage(prev, st):
+    s = []
+    x0, y0, x1, y1 = CR["core"]
+    if _on(prev, st, "void"):
+        s.append(_card((x0 + x1) / 2, y0 + 64, 320, 72, J.ALERT, sw=5))
+        s.append(_tline((x0 + x1) / 2, y0 + 75, "正のボイド係数", 30, INK, "middle", 290))
+        s.append(_arrow(1240.0, 680.0, 1240.0, 420.0, J.ALERT, 8, 28))
+        s.append(_tline(1280.0, 560.0, "急上昇を大きく", 28, J.ALERT, "start", 300))
+    if _on(prev, st, "staff"):
+        zx0, zy0, zx1, zy1 = CR["zone"]
+        s.append(F.rect(zx0, zy0, zx1 - zx0, zy1 - zy0, "none", J.ALERT, 4, rx=20, dash="14 10"))
+        s.append(_tline((zx0 + zx1) / 2, zy1 + 44, "規則の外の状態", 28, J.ALERT, "middle", 300))
+        sx, sy = CR["staff"]
+        s.append(_card(sx, sy, 200, 90, J.LINE, sw=5))
+        s.append(_tline(sx, sy + 12, "職員", 34, INK, "middle", 160))
+        s.append(_arrow(sx + 110, sy, zx0 - 8, sy, J.LINE, 10, 32))
+        s.append(_rep(*CR["rep"], "s86", "持ち込んだのは職員", cap=26))
+    return s
+
+
+# ── sizes（c813）＝1986年の報告の原因の文：大きな札「人の誤りと違反」＋小さな札「炉の性質」（1行目＝聞き役）→ 2行目＝根本：人的要素（S2 p1112）
+SZ = dict(frame=(260.0, 420.0, 1660.0, 720.0), big=(760.0, 580.0, 620.0, 170.0), small=(1380.0, 580.0, 300.0, 90.0))
+
+
+def sizes_base(st0):
+    fx0, fy0, fx1, fy1 = SZ["frame"]
+    bx, by, bw, bh = SZ["big"]
+    sx, sy, sw_, sh = SZ["small"]
+    col = rep_col("r86")
+    return [_rep(CX, 330.0, "r86", None, cap=28), F.rect(fx0, fy0, fx1 - fx0, fy1 - fy0, "none", J.TICK, 3, rx=16, dash="10 10"),
+            _tline(fx0 + 30, fy1 - 22, "原因を書いた文", 26, J.TICK, "start", 300),
+            F.rect(bx - bw / 2, by - bh / 2, bw, bh, J.BG2, col, 8, rx=12), _tline(bx, by + 16, "人の誤りと違反", 44, INK, "middle", bw - 40),
+            _tline((bx + bw / 2 + sx - sw_ / 2) / 2, by + 18, "＋", 56, J.TICK, "middle", 80),
+            F.rect(sx - sw_ / 2, sy - sh / 2, sw_, sh, J.BG2, J.LINE, 4, rx=10), _tline(sx, sy + 10, "炉の性質", 28, INK, "middle", sw_ - 30)]
+
+
+def sizes_stage(prev, st):
+    s = []
+    if _on(prev, st, "root"):
+        bx, by, bw, bh = SZ["big"]
+        col = rep_col("r86")
+        s.append(F.rect(bx - 150, SZ["frame"][1] + 12, 300, 50, J.BG2, col, 4, rx=25))
+        s.append(_tline(bx, SZ["frame"][1] + 46, "根本：人的要素", 28, col, "middle", 270))
+    return s
+
+
+def sz_area(k):
+    _x, _y, w, h = SZ[k]
+    return w * h
+
+
+# ── door（c815）＝閉じた扉「ほかの説明」（模式）→ 錠・1986年の報告「探さなかった」（S2 p1047）
+DO = dict(x=820.0, y=320.0, w=280.0, h=480.0, rep=(1460.0, 560.0))
+
+
+def door_base(st0):
+    x, y, w, h = DO["x"], DO["y"], DO["w"], DO["h"]
+    return [F.rect(x - 20, y - 20, w + 40, h + 20, J.BG2, J.DOC_DIM, 6, rx=6), F.rect(x, y, w, h, "#2b3a44", J.LINE, 4, rx=4),
+            F.rect(x + 30, y + 150, w - 60, 130, "none", J.LINE_DIM, 3, rx=4), F.rect(x + 30, y + 310, w - 60, 140, "none", J.LINE_DIM, 3, rx=4),
+            F.circ(x + w - 40, y + 290, 12, J.AMBER, None),
+            F.rect(x + 40, y + 50, w - 80, 66, J.BG2, J.AMBER, 4, rx=6), _tline(x + w / 2, y + 94, "ほかの説明", 28, INK, "middle", w - 100)]
+
+
+def door_stage(prev, st):
+    s = []
+    if _on(prev, st, "shut"):
+        lx, ly = DO["x"] + DO["w"] - 40, DO["y"] + 340
+        s.append(F.poly(_arcpts(lx, ly - 4, 22, 28, 180, 360, 16), "none", J.AMBER, 7))
+        s.append(F.rect(lx - 32, ly - 4, 64, 52, J.AMBER, None, None, rx=6))
+        s.append(_rep(*DO["rep"], "r86", "探さなかった", cap=30))
+    return s
+
+
+# ── venn3（c816）＝重なる3つの輪（決まり・人・組織）と真ん中に「安全文化」（1行目）→ 2行目＝育てて保つ（回る矢印）＝1986年の報告（S2 p1018）
+# 机上：真ん中の「安全文化」を輪の線が横切った＝輪を寄せて大きく（3つの輪がみな字を囲む・字と線は 11px 以上）
+VN = (("決まり", "LINE", 880.0, 480.0), ("人", "OK", 1040.0, 480.0), ("組織", "AMBER", 960.0, 620.0))
+VN_R = 170.0
+VN_LAB = ((790.0, 440.0), (1130.0, 440.0), (960.0, 740.0))
+
+
+def venn3_base(st0):
+    return []
+
+
+def venn3_stage(prev, st):
+    s = []
+    if _on(prev, st, "ring"):
+        for (t, r, x, y), (lx, ly) in zip(VN, VN_LAB):
+            s.append(F.circ(x, y, VN_R, rc(r), None, op=0.16))
+            s.append(F.circ(x, y, VN_R, "none", rc(r), 5))
+            s.append(_tline(lx, ly, t, 32, rc(r), "middle", 160))
+        s.append(_tline(CX, 548.0, "安全文化", 32, INK, "middle", 200))
+        s.append(_rep(1560.0, 330.0, "r86", None, cap=26))
+    if _on(prev, st, "keep"):
+        s.append(_arc_arrow(1500.0, 610.0, 56, 56, -60, 250, J.OK, 6, 20))
+        s.append(_tline(1500.0, 720.0, "育てて保つ", 32, J.OK, "middle", 260))
+    return s
+
+
+# ── shield（c817）＝発電所（模式）に向かう赤い矢印＝運転員の誤り（1行目）→ 2行目＝あいだに盾「誤りに強い作り」・1986年の報告（S2 p1050）
+SL = dict(bld=(1080.0, 450.0, 1500.0, 760.0), stack=(1120.0, 330.0, 1180.0, 450.0), sh=(900.0, 600.0), rep=(1560.0, 330.0))
+
+
+def shield_base(st0):
+    x0, y0, x1, y1 = SL["bld"]
+    a0, b0, a1, b1 = SL["stack"]
+    return [F.rect(a0, b0, a1 - a0, b1 - b0, J.BG2, J.LINE, 4), F.rect(x0, y0, x1 - x0, y1 - y0, J.BG2, J.LINE, 5, rx=6),
+            F.poly(_arcpts((x0 + x1) / 2 + 60, y0, 120, 70, 180, 360, 20), J.BG2, J.LINE, 5),
+            _tline((x0 + x1) / 2, y1 + 44, "原子力発電所", 28, INK, "middle", 300)]
+
+
+def shield_stage(prev, st):
+    s = []
+    if _on(prev, st, "err"):
+        for (ya, yb) in ((480.0, 520.0), (600.0, 600.0), (720.0, 680.0)):
+            s.append(_arrow(300.0, ya, 790.0, yb, J.ALERT, 6, 24))
+            s.append(_xmark(280.0, ya, 14, J.ALERT, 5))
+        s.append(_tline(300.0, 420.0, "運転員の誤り", 30, J.ALERT, "start", 300))
+    if _on(prev, st, "r86"):
+        s.append(_shield(SL["sh"][0], SL["sh"][1], 140, 220, J.OK))
+        s.append(_tline(SL["sh"][0], 770.0, "誤りに強い作り", 32, J.OK, "middle", 300))
+        s.append(_rep(*SL["rep"], "r86", "設計にも求めた", cap=26))
+    return s
+
+
+# ── table86（c820）＝1986年の会議の机（上から・模式）：紙3枚と空いた所（破線）→ 1行目＝「止める棒の特徴」が無い・1992年の報告／2行目＝報告は違ったものに（S1 p27）
+TA = dict(x0=300.0, x1=1620.0, y0=540.0, y1=680.0, xs=(470.0, 770.0, 1070.0), slot=1380.0)
+
+
+def table86_base(st0):
+    g = [F.rect(TA["x0"], TA["y0"], TA["x1"] - TA["x0"], TA["y1"] - TA["y0"], J.DOC_DIM, J.DOC, 5, rx=40, op=None)]
+    ym = (TA["y0"] + TA["y1"]) / 2
+    for x in TA["xs"]:
+        g.append(F.rect(x - 100, ym - 50, 200, 100, J.BG2, J.LINE, 3, rx=4))
+        for i in range(2):
+            g.append(F.line(x - 70, ym - 16 + i * 32, x + 70 - 40 * i, ym - 16 + i * 32, J.LINE_DIM, 6))
+    g.append(_tline(TA["x0"] + 10, TA["y1"] + 50, "ウィーンの会議の机", 26, J.TICK, "start", 300))
+    return g
+
+
+def table86_stage(prev, st):
+    s = []
+    ym = (TA["y0"] + TA["y1"]) / 2
+    if _on(prev, st, "cards"):
+        x = TA["slot"]
+        s.append(F.rect(x - 100, ym - 50, 200, 100, "none", J.AMBER, 4, rx=4, dash="10 8"))
+        s.append(_qmark(x, ym, 56, J.AMBER))
+        s.append(_tline(x, TA["y0"] - 26, "止める棒の特徴", 30, J.AMBER, "middle", 300))
+        s.append(_rep(CX, 350.0, "r92", None, cap=26))
+    if _on(prev, st, "r92"):
+        s.append(_tline(CX, 450.0, "報告は違ったものに", 32, rep_col("r92"), "middle", 400))
+    return s
+
+
+# ── rod12（c822）＝横から見た制御棒（改造の計画＝1986年のソ連の報告）：1行目＝棒がいつも 1.2m 差してある（動く部品・深さは炉の高さ 7m に比例）／
+#    2行目＝炉の下の方で反応が強まるのを防ぐ（S3 p2028・S1 p16）。押しのけ棒はまだ描かない（第8章）
+RZ_M, RZ_H = 1.2, 7.0
+RZ = dict(core=(600.0, 380.0, 1000.0, 800.0), xs=(660.0, 740.0, 860.0, 940.0), len=160.0, rep=(1480.0, 400.0))
+
+
+def rz_depth():
+    return (RZ["core"][3] - RZ["core"][1]) * RZ_M / RZ_H
+
+
+def rod12_base(st0):
+    x0, y0, x1, y1 = RZ["core"]
+    return [F.rect(x0, y0, x1 - x0, y1 - y0, "#2b3a44", GRAPH, 4, rx=8), F.line(x0 - 20, y0, x1 + 20, y0, J.LINE, 4),
+            _tline(x1 + 30, y1 - 10, f"炉（高さ {RZ_H:g}m）", 26, J.TICK, "start", 260)]
+
+
+def rod12_parts(st):
+    y0 = RZ["core"][1]
+    dy = rz_depth() if st.get("ins") == "on" else 0.0
+    return [_P(f"rod{i}", "poly", [(x - 12, y0 - RZ["len"]), (x + 12, y0 - RZ["len"]), (x + 12, y0), (x - 12, y0)], fill=STEEL, stroke=J.BG, w=3,
+               alpha=1.0, dy=dy, lag=0.05 * i) for i, x in enumerate(RZ["xs"])]
+
+
+def rod12_stage(prev, st):
+    s = []
+    x0, y0, x1, y1 = RZ["core"]
+    if _on(prev, st, "ins"):
+        d = rz_depth()
+        bx = x1 + 30
+        s.append(F.line(bx, y0, bx, y0 + d, J.AMBER, 4))
+        s.append(F.line(bx - 12, y0, bx + 12, y0, J.AMBER, 4))
+        s.append(F.line(bx - 12, y0 + d, bx + 12, y0 + d, J.AMBER, 4))
+        s.append(_tline(bx + 26, y0 + d / 2 + 14, f"{RZ_M:g}m", 36, J.AMBER, "start", 160, fam="Dela"))
+        s.append(_tline(bx + 26, y0 + d + 56, "いつも差しておく", 26, INK, "start", 300))
+        s.append(_rep(*RZ["rep"], "s86", "改造の計画", cap=28))
+    if _on(prev, st, "why"):
+        s.append(F.rect(x0 + 6, y1 - 120, x1 - x0 - 12, 114, J.ALERT, None, None, rx=6, op=0.28))
+        s.append(_check(x1 + 50, y1 - 66, 18, J.OK))
+        s.append(_tline(x1 + 80, y1 - 56, "下の方で強まるのを防ぐ", 28, J.OK, "start", 380))
+    return s
+
+
+# ── rodq（c824）＝止める棒の影（上は塗り・下は破線＝まだ分からない形・「？」）→ 2行目＝第8章の札（事故の山場）
+RQ_CH = 8
+RQ = dict(x=900.0, w=120.0, y0=300.0, y1=800.0, mid=580.0)
+
+
+def rodq_base(st0):
+    x, w, y0, y1, ym = RQ["x"], RQ["w"], RQ["y0"], RQ["y1"], RQ["mid"]
+    return [F.rect(x, y0, w, ym - y0, "#3a4650", J.LINE_DIM, 4, rx=10), F.rect(x + 40, ym, w - 80, 30, "#3a4650", None, None),
+            F.rect(x, ym + 30, w, y1 - ym - 30, "none", J.AMBER, 4, rx=10, dash="12 10"), _qmark(x + w / 2, (ym + 30 + y1) / 2, 80, J.AMBER)]
+
+
+def rodq_stage(prev, st):
+    s = []
+    if _on(prev, st, "next"):
+        x = RQ["x"] + RQ["w"]
+        s.append(_arrow(x + 30, 520.0, 1260.0, 520.0, J.AMBER, 5, 20, dash="10 8"))
+        s.append(_card(1400.0, 520.0, 240, 90, J.AMBER, sw=5))
+        s.append(_tline(1400.0, 535.0, f"第{RQ_CH}章", 40, J.AMBER, "middle", 200))
+        s.append(_tline(1400.0, 620.0, "次の章へ", 28, J.TICK, "middle", 260))        # 🔧 門番 dup：見出し「事故の山場へ」を83%覆った
+    return s
+
+
+# ══════════════════════════════════════════════════════════
 #  見え方の表（mech17 と同じ作り）
 # ══════════════════════════════════════════════════════════
 def _v(lab, fields, base, stage, parts=None):
@@ -1722,11 +3073,51 @@ VIEWS = dict(
     inst=_v("横から見た炉と計器", ("det", "blind"), inst_base, inst_stage),
     thermo=_v("水の温度計", ("rise", "r92"), thermo_base, thermo_stage),
     balance=_v("2つの見方の天秤", ("left", "right", "split"), balance_base, balance_stage),
+    # 🆕 ⑤b-5：第4〜7章
+    guard=_v("保護の仕組み", ("two", "auto"), guard_base, guard_stage, guard_parts),
+    drum=_v("横から見た蒸気ドラム", ("sep", "loop"), drum_base, drum_stage),
+    drumtrip=_v("ドラムの保護", ("r86", "off"), drumtrip_base, drumtrip_stage),
+    stage2=_v("ドラムの断面と保護", ("p036", "lv2"), stage2_base, stage2_stage),
+    marks5=_v("札と2つの印", ("ok92", "notdone"), marks5_base, marks5_stage),
+    tg2=_v("止まる順の流れ", ("flow", "r86"), tg2_base, tg2_stage),
+    retry=_v("試験のやり直し", ("s86",), retry_base, retry_stage),
+    shift=_v("外した時刻", ("move", "proc"), shift_base, shift_stage, shift_parts),
+    shadow=_v("札と止める棒の影", ("card", "shade"), lambda st0: [], shadow_stage),
+    seesaw=_v("1992年の報告の天秤", ("left", "right"), seesaw_base, seesaw_stage),
+    light=_v("手順書と制御盤", ("both", "r92"), light_base, light_stage),
+    test200=_v("試験の出力", ("stuck", "go"), test200_base, test200_stage),
+    printout=_v("印字の紙", ("start", "s86"), printout_base, printout_stage),
+    rods15=_v("棒の数の比べ", ("rows", "viol"), rods15_base, rods15_stage),
+    weight=_v("重さの比べ", ("same", "big"), weight_base, weight_stage),
+    skala=_v("計算機の画面", ("unrel", "unknown", "aware"), skala_base, skala_stage),
+    twosay=_v("2つの言い方", ("right", "left"), twosay_base, twosay_stage),
+    meaning=_v("下限の決まりの受け取り方", ("thought", "real"), meaning_base, meaning_stage),
+    go=_v("開始の合図", ("start",), go_base, go_stage),
+    valve8=_v("横から見た弁とタービン", ("shut", "fork"), valve8_base, valve8_stage),
+    flow35=_v("出力と水の流れ", ("power", "flow"), flow35_base, flow35_stage),
+    digital=_v("ボタンと時刻", ("why", "press"), digital_base, digital_stage),
+    spike=_v("出力の計器", ("sig", "over"), spike_base, spike_stage),
+    rodstop=_v("横から見た棒の通り道", ("stop", "cut"), rodstop_base, rodstop_stage, rodstop_parts),
+    why8=_v("ボタンと爆発", ("hint",), why8_base, why8_stage),
+    roof=_v("上から見た4号機と建屋", ("fall", "s86"), roof_base, roof_stage),
+    dayband=_v("朝から夜への帯", ("indoor", "decide"), dayband_base, dayband_stage),
+    notice=_v("注意の紙", ("head", "rain", "tap"), notice_base, notice_stage),
+    table6=_v("表の列と行", ("cols", "mark"), table6_base, table6_stage),        # 🔧 門番 dup：見出し「違反の表」を丸ごと含んだ
+    pile=_v("重なる札", ("pile", "core"), pile_base, pile_stage, pile_parts),
+    carry=_v("炉の状態", ("void", "staff"), carry_base, carry_stage),
+    sizes=_v("2つの札の大きさ", ("root",), sizes_base, sizes_stage),
+    door=_v("扉と錠", ("shut",), door_base, door_stage),
+    venn3=_v("重なる輪", ("ring", "keep"), venn3_base, venn3_stage),
+    shield=_v("発電所と盾", ("err", "r86"), shield_base, shield_stage),
+    table86=_v("会議の机", ("cards", "r92"), table86_base, table86_stage),
+    rod12=_v("横から見た制御棒", ("ins", "why"), rod12_base, rod12_stage, rod12_parts),
+    rodq=_v("棒の影", ("next",), rodq_base, rodq_stage),
 )
 START = {v: {f: d["fields"][f][0] for f in d["fields"]} for v, d in VIEWS.items()}
 # 原文の値・欄・項目の写し（左上に「模式」を付けない）
 NOT_SCHEMATIC = ("years", "cards7", "cal", "orm", "off11", "grid3", "ring", "meter", "clock", "hold", "swap", "two91", "say3", "bars",
-                 "pillars", "balance")
+                 "pillars", "balance",
+                 "marks5", "shift", "seesaw", "test200", "rods15", "table6")
 VIEW_DIR = ("横から", "上から", "斜めから", "正面")
 
 
@@ -1913,4 +3304,74 @@ def geo_of(view, start, states):
         out.update(boil=TH["boil"], lvl=TH["lvl"])
     elif view == "balance":
         out.update(left=BA_L, right=BA_R, xl=BA["xl"], xr=BA["xr"])
+    # 🆕 ⑤b-5
+    elif view == "guard":
+        drops = tuple(parts_of("guard", s)[0]["dy"] for s in allst)
+        out.update(n=GD_N, viol=tuple(VIOL[n - 1] for n in GD_N), order=(GD["sensor"][0], GD["relay"], GD["core"][0]), drops=drops,
+                   rod_bot=GD["rtop"] + GD["rlen"] + drops[-1], core=GD["core"])
+    elif view == "drum":
+        out.update(per=len(DR["ys"]), left=DR["xl"] + DR["w"], right=DR["xr"], core=DR["core"])
+    elif view == "drumtrip":
+        out.update(t=DT_T, n=DT_N, viol=VIOL[DT_N - 1], gauges=DT_G)
+    elif view == "stage2":
+        out.update(t=S2_T, lv=S2D["lv"], wl=S2D["wl"])
+    elif view == "marks5":
+        out.update(n=MK_N, viol=VIOL[MK_N - 1])
+    elif view == "tg2":
+        out.update(t=TG_T86, n=TG_N, viol=VIOL[TG_N - 1], ys=TG["ys"], xm=tg_xy()[1])
+    elif view == "retry":
+        out.update(n=RT_N, span=RT["a"][1] - RT["a"][0])
+    elif view == "shift":
+        fin = [p["dx"] for p in parts_of("shift", allst[-1])][0]
+        out.update(t86=SH_T86, m86=SH_M86, m92=SH_M92, x86=sh_x(SH_M86), x92=sh_x(SH_M86) + fin, x0=SH["x0"], x1=SH["x1"], span=SH["span"],
+                   lab92=sh_lab92())
+    elif view == "shadow":
+        out.update(card=rep_box(SD["card"][0], SD["card"][1], "r86", SD_BODY, cap=32, w=SD["cw"]), body=SD_BODY)
+    elif view == "seesaw":
+        out.update(left=SW_L, right=SW_R, level=True)
+    elif view == "test200":
+        out.update(plan=T2_PLAN, act=T2_ACT, yp=t2_y(T2_PLAN), ya=t2_y(T2_ACT), y0=T2["y0"], k=T2["k"])
+    elif view == "rods15":
+        out.update(rule=RD_RULE, lo=RD_LO, hi=RD_HI, n=RD_N, viol=VIOL[RD_N - 1])
+    elif view == "weight":
+        out.update(n=WT_N, s86=WT["s"][2], s92=WT["b"][2])
+    elif view == "skala":
+        out.update(min=SK_MIN)
+    elif view == "twosay":
+        out.update(l=TW["l"], r=TW["r"])
+    elif view == "go":
+        out.update(t=GO_T)
+    elif view == "valve8":
+        out.update(n=V8_N, valve=V8["valve"], tb=V8["tb"])
+    elif view == "flow35":
+        out.update(sec=FW_SEC, drop=FW_DROP, band=fw_band(), yf=FW["yf"], k=FW["k"])
+    elif view == "digital":
+        out.update(t=DG_T)
+    elif view == "spike":
+        out.update(t=SP_T, v=SP_V, yt=spk_y(SP_V), y0=SPK["y0"], k=SPK["k"], top=spike_top())
+    elif view == "rodstop":
+        out.update(bot=rs_bottom(allst[-1]), lim=RS["lim"], drop=RS["drop"])
+    elif view == "why8":
+        out.update(ch=W8_CH)
+    elif view == "roof":
+        out.update(hall=RF["hall"], unit=RF["unit"], fires=RF["fires"])
+    elif view == "dayband":
+        out.update(t=DB_T, x=db_x(db_h(DB_T)), x0=DB["x0"], x1=DB["x1"], house=DB["house"])
+    elif view == "notice":
+        out.update(date=NT_DATE)
+    elif view == "table6":
+        out.update(rows=TB6_ROWS, cols=TB6_COLS, mark=TB6_MARK)
+    elif view == "pile":
+        fin = parts_of("pile", allst[-1])
+        out.update(n=len(fin), spread=max(math.hypot(p["pts"][0][0] + p["pts"][2][0] + 2 * p["dx"] - 2 * PIL["cx"],
+                                                     p["pts"][0][1] + p["pts"][2][1] + 2 * p["dy"] - 2 * PIL["cy"]) / 2 for p in fin))
+    elif view == "sizes":
+        out.update(big=sz_area("big"), small=sz_area("small"))
+    elif view == "venn3":
+        out.update(items=tuple(t for t, *_r in VN))
+    elif view == "rod12":
+        fin = parts_of("rod12", allst[-1])[0]["dy"]
+        out.update(m=RZ_M, h=RZ_H, depth=fin, core_h=RZ["core"][3] - RZ["core"][1])
+    elif view == "rodq":
+        out.update(ch=RQ_CH)
     return out

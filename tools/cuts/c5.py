@@ -71,3 +71,77 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5（2026-10-23）：図解＝`tools/mech24.py`（fig=("m24", …)・門番 check_mech の judge_m24）。🔴 色は報告の色・画面の字の数は全部 rel に
+#   🔴 ドラムの保護の時刻は台本 §1-5＝1:19（1986年の報告・c503）／0:36（1991年の委員会の表＝圧力の保護の設定・c504）。
+#      水位の設定の「形の上の違反・原因ではない」は c505（写真）の語り＝c506 の印は前のカットの続き。タービンの保護は 0時43分ごろ（秒は出さない）
+# ══════════════════════════════════════════════════════════
+from mech24 import rr  # noqa: E402
+
+SPEC.update({
+    # c501（3行）＝1行目は聞き役（保護の絵の基図）／2行目：残る2つの「違反」（⑤⑥の札）／3行目：危ない値 → 止める信号 → 棒が落ちる
+    "c501": dict(
+        t="炉を止める保護", s="残る2つの「違反」",
+        fig=("m24", dict(view="guard", steps=[dict(), dict(state=dict(two="on")), dict(state=dict(auto="on"))],
+                         rel=[], note="保護の絵は模式（計器と棒の数は模式）", src=ss.src(["S2 p1027"])))),
+    # c502（2行）＝横から見た蒸気ドラム。1行目：1つのドラム（上が蒸気・下が水）／2行目：左右の系統に2つずつ・蒸気はタービンへ・水は炉へ
+    "c502": dict(
+        t="蒸気と水を分ける筒", s="炉とタービンのあいだ",
+        fig=("m24", dict(view="drum", steps=[dict(state=dict(sep="on")), dict(state=dict(loop="on"))],
+                         rel=[dict(t="2つずつ", src="S1 p17")], note="形と大きさは模式（数は記録）", src=ss.src(["S1 p17"])))),
+    # c503（2行）＝右上の札⑤。1行目：1986年の報告「保護を外した」／2行目：1:19・線に×・重い違反
+    "c503": dict(
+        t="5つ目の「違反」", s="ドラムの2つの計器",          # 🔧 門番 echo：「ドラムの水位と圧力」は字幕の1行の切り取り
+        fig=("m24", dict(view="drumtrip", steps=[dict(state=dict(r86="on")), dict(state=dict(off="on"))],
+                         rel=[dict(t="1:19", src="S1 p22")] + rr("r86"), note="計器の形は模式（札の言葉は要約）",
+                         src=ss.src(["S2 p1025", "S1 p22"])))),
+    # c504（2行）＝ドラムの断面。1行目：1991年の委員会の表 0:36 圧力の保護の設定を変える／2行目：水位の保護の2つの段・下の段は最後まで効いた
+    "c504": dict(
+        t="もっと早い時刻", s="水位の保護の段",
+        fig=("m24", dict(view="stage2", steps=[dict(state=dict(p036="on")), dict(state=dict(lv2="on"))],
+                         rel=[dict(t="0:36", src="S1 p64")] + rr("c91"), note="ドラムの断面と段の高さは模式",
+                         src=ss.src(["S1 p64", "S1 p22"])))),
+    # c506（3行）＝1行目は聞き役（⑤の札と2つの印）／2行目：1992年の報告「外すことは許されたはず」／3行目：実際は外されず
+    "c506": dict(
+        t="外されなかった保護", s="ドラムの水位",
+        fig=("m24", dict(view="marks5", steps=[dict(), dict(state=dict(ok92="on")), dict(state=dict(notdone="on"))],
+                         rel=rr("r92"), note="札の言葉は要約", src=ss.src(["S1 p28", "S1 p88"])))),
+    # c507（2行）＝右上の札⑥。1行目：2台のタービンが止まる → 止める信号 → 炉も止まる（上から下）／2行目：1986年の報告 1:23:04 に外した
+    "c507": dict(
+        t="6つ目の「違反」", s="2台のタービンと炉",
+        fig=("m24", dict(view="tg2", steps=[dict(state=dict(flow="on")), dict(state=dict(r86="on"))],
+                         rel=[dict(t="2台", src="S3 p2027"), dict(t="1:23:04", src="S1 p21")] + rr("r86"), note="流れの絵は模式",
+                         src=ss.src(["S2 p1039", "S3 p2027", "S1 p21"])))),
+    # c509（2行）＝1行目は聞き役（⑥ の札に×）／2行目：1986年のソ連の報告「必要なら、やり直す」＝2台を止めたまま・輪の矢印
+    "c509": dict(
+        t="外した理由", s="試験のくり返し",
+        fig=("m24", dict(view="retry", steps=[dict(), dict(state=dict(s86="on"))],
+                         rel=[dict(t="2台", src="S3 p2027")] + rr("s86"), note="タービンの絵は模式", src=ss.src(["S3 p2027"])))),
+    # c510（2行）＝夜の時刻の線。1行目：1:23:04（1986年の報告）→ 0時43分ごろ（1992年の報告）／2行目：運転の手順と試験の手順に沿っていた
+    "c510": dict(
+        t="書き直された時刻", s="タービンの保護",
+        fig=("m24", dict(view="shift", steps=[dict(state=dict(move="on")), dict(state=dict(proc="on"))],
+                         rel=[dict(t="0時・1時", src="S1 p21"), dict(t="1:23:04", src="S1 p21"), dict(t="0時43分ごろ", src="S1 p21")] + rr("r86", "r92"),
+                         note="時刻の線は時間に比例", src=ss.src(["S1 p21"])))),
+    # c512（2行）＝1行目：1986年の報告の札「保護が働けば救われた」と1992年の報告／2行目：止める棒の影・成り立たないようだ
+    "c512": dict(
+        t="炉は救われたのか", s="棒の問題との関係",          # 🔧 門番 dup：図の札「止める棒」と同じ語
+        fig=("m24", dict(view="shadow", steps=[dict(state=dict(card="on")), dict(state=dict(shade="on"))],
+                         rel=rr("r86", "r92"), note="棒の影は模式（札の言葉は要約）", src=ss.src(["S2 p1039", "S1 p21"])))),
+    # c514（2行）＝1992年の報告の天秤（板と支点）。1行目は聞き役（左＝この保護の件は運転員を責めない）／2行目：右＝運転員にも甘くない
+    "c514": dict(
+        t="運転員への見方", s="保護の件とその先",
+        fig=("m24", dict(view="seesaw", start=dict(left="on"), steps=[dict(), dict(state=dict(right="on"))],
+                         rel=rr("r92"), note="天秤は水平（札の言葉は要約）", src=ss.src(["S1 p21", "S1 p28"])))),
+    # c515（2行）＝1行目：運転の手順と運転員の側の両方で「保護を外す」が軽い（破線・羽）／2行目：1992年の報告「どちらも軽く見ていた」
+    "c515": dict(
+        t="軽く扱われた操作", s="手順書と運転員",
+        fig=("m24", dict(view="light", steps=[dict(state=dict(both="on")), dict(state=dict(r92="on"))],
+                         rel=rr("r92"), note="書類と制御盤の形は模式", src=ss.src(["S1 p28"])))),
+    # c516（2行）＝縦の出力の目盛り。1行目：予定 700MW に戻せず 200MW で止まる・その場で変更／2行目：200MW のまま試験へ
+    "c516": dict(
+        t="200メガワットの試験", s="その場の変更",
+        fig=("m24", dict(view="test200", steps=[dict(state=dict(stuck="on")), dict(state=dict(go="on"))],
+                         rel=[dict(t="0・200・700", src="S1 p29")], note="出力の高さは値に比例", src=ss.src(["S1 p29"])))),
+})

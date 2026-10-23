@@ -92,3 +92,64 @@ PLAN = {
 }
 
 SPEC = {}
+
+# ══════════════════════════════════════════════════════════
+#  🆕 ⑤b-5（2026-10-23）：図解＝`tools/mech24.py`（fig=("m24", …)・門番 check_mech の judge_m24）。🔴 色は報告の色・画面の字の数は全部 rel に
+#   🔴 c806 の表＝1986年のソ連の報告の違反の表（3つの列・6つの行＝字は省いた）。「運転員の誤り」は2行目（0時28分の急落）の動機の欄だけ（S3 p2026）
+#   🔴 c822＝改造の計画の一文（1.2m）だけ。押しのけ棒（第8章）はまだ描かない
+# ══════════════════════════════════════════════════════════
+from mech24 import rr  # noqa: E402
+
+SPEC.update({
+    # c806（2行）＝違反の表。1行目：列の名（違反・動機・結果）・1986年のソ連の報告／2行目：2行目の動機の欄「運転員の誤り」・0時28分の急落
+    "c806": dict(
+        t="違反の表", s="中身と動機と結果",
+        fig=("m24", dict(view="table6", steps=[dict(state=dict(cols="on")), dict(state=dict(mark="on"))],
+                         rel=[dict(t="0時28分", src="S3 p2026")] + rr("s86"), note="表の作り（行の中身の字は省いた）", src=ss.src(["S3 p2026"])))),
+    # c808（2行）＝6つの札が1か所に重なる。1行目：1986年のソ連の報告「主な原因：違反の重なり」／2行目：説明の芯
+    "c808": dict(
+        t="ソ連の説明の芯", s="原因の結び",
+        fig=("m24", dict(view="pile", steps=[dict(state=dict(pile="on")), dict(state=dict(core="on"))],
+                         rel=rr("s86"), note="札の形は模式（6つ＝表の行の数）", src=ss.src(["S3 p2027", "S3 p2026"])))),
+    # c810（2行）＝1行目：正のボイド係数が急上昇を大きく／2行目：職員 → 規則の外の状態・1986年のソ連の報告「持ち込んだのは職員」
+    "c810": dict(
+        t="主語は職員", s="炉の性質の書き方",
+        fig=("m24", dict(view="carry", steps=[dict(state=dict(void="on")), dict(state=dict(staff="on"))],
+                         rel=rr("s86"), note="炉と矢印は模式", src=ss.src(["S3 p2027"])))),
+    # c813（2行）＝1行目は聞き役（原因の文の大小の札）／2行目：根本：人的要素
+    "c813": dict(
+        t="根本の原因", s="原因の文の重み",
+        fig=("m24", dict(view="sizes", steps=[dict(), dict(state=dict(root="on"))],
+                         rel=rr("r86"), note="札の大きさは模式", src=ss.src(["S2 p1018", "S2 p1112"])))),
+    # c815（1行）＝閉じた扉「ほかの説明」→ 錠・1986年の報告「探さなかった」
+    "c815": dict(
+        t="閉じた扉", s="別の筋書き",
+        fig=("m24", dict(view="door", steps=[dict(state=dict(shut="on"))],
+                         rel=rr("r86"), note="扉は模式", src=ss.src(["S2 p1047"])))),
+    # c816（2行）＝1行目：重なる3つの輪（決まり・人・組織）と安全文化・1986年の報告／2行目：育てて保つ
+    "c816": dict(
+        t="報告が出した言葉", s="決まりの先にあるもの",
+        fig=("m24", dict(view="venn3", steps=[dict(state=dict(ring="on")), dict(state=dict(keep="on"))],
+                         rel=rr("r86"), note="3つの輪は模式", src=ss.src(["S2 p1018"])))),
+    # c817（2行）＝1行目：発電所に向かう赤い矢印（運転員の誤り）／2行目：盾「誤りに強い作り」・1986年の報告
+    "c817": dict(
+        t="設計への求め", s="人の側だけでなく",
+        fig=("m24", dict(view="shield", steps=[dict(state=dict(err="on")), dict(state=dict(r86="on"))],
+                         rel=rr("r86"), note="発電所と盾は模式", src=ss.src(["S2 p1050"])))),
+    # c820（2行）＝1986年の会議の机。1行目：止める棒の特徴が無い（空いた所）・1992年の報告／2行目：報告は違ったものに
+    "c820": dict(
+        t="明かされなかった特徴", s="会議に出なかった話",       # 🔧 門番 echo：「1986年の会議」は字幕の1行の切り取り
+        fig=("m24", dict(view="table86", steps=[dict(state=dict(cards="on")), dict(state=dict(r92="on"))],
+                         rel=rr("r92"), note="机と紙は模式", src=ss.src(["S1 p27"])))),
+    # c822（2行）＝横から見た制御棒。1行目：いつも 1.2m 差しておく（炉の高さ 7m に比例）・1986年のソ連の報告／2行目：炉の下の方で強まるのを防ぐ
+    "c822": dict(
+        t="1.2メートル", s="対策の中の一文",
+        fig=("m24", dict(view="rod12", steps=[dict(state=dict(ins="on")), dict(state=dict(why="on"))],
+                         rel=[dict(t="1.2m", src="S3 p2028"), dict(t="高さ 7m", src="S1 p16")] + rr("s86"),
+                         note="深さは炉の高さ 7m に比例（棒の数は模式）", src=ss.src(["S3 p2028", "S1 p16"])))),
+    # c824（2行）＝1行目：止める棒の影（下は破線と「？」）／2行目：第8章の札・事故の山場
+    "c824": dict(
+        t="事故の山場へ", s="止める棒の形",
+        fig=("m24", dict(view="rodq", steps=[dict(), dict(state=dict(next="on"))],
+                         rel=[dict(t="第8章", src="台本 §4 第8章")], note="棒の影は模式", src=ss.src(["S1 p27"])))),
+})
