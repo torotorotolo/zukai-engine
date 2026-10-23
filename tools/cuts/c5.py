@@ -153,9 +153,10 @@ SPEC.update({
     # c505（2行・責める行＝職員は遠景で顔が判らない）＝R09（同じ型の炉の原子炉の建屋・縦長・参考）＝額ごと上へ
     "c505": dict(photo=P("r09"), panel=True, color=1.0, fmove=ss.fm("u"),
                  t="形の上の違反", s="同じ型の炉の原子炉の建屋（レニングラード原発・2008年）"),
-    # c508（2行）＝INSAG-1 の表（p.39・横長）の「Interpretation」から 1:23:31 の行まで（右の列「This trip would have saved the reactor.」）。
-    #   ⚠️ pbox は字の層の塊の順で行を選ぶ＝右の列「Significance」を拾わず右の辺 0.858（列を切る）＝横は字の層を y の順に並べた全列の外接（0.989）・縦は pbox
-    "c508": dict(photo=P("s2p39"), trim=(0.002, 0.034, 0.989, 0.850), panel=True, color=1.0, fmove=ss.fm("in"),
+    # c508（2行）＝INSAG-1 の表（p.39・横長）の右の列「Significance」の見出しから 1:23:04 の欄の終わりまで（「This trip would have saved the reactor.」）。
+    #   🔧 ⑤b-7 の試し焼き 39912142820：表の全体（4列・幅 0.99）を額に入れると字が実寸で約10px＝語りが引く行が読めない＝語りの欄だけ（字は約2.6倍）。
+    #   切り口＝頁の割合 x 0.655〜0.965・y 0.232〜0.552 を束の割合に（下の辺は欄の終わり 0.465 と次の欄 0.567 のあいだ＝束の絵の OCR）
+    "c508": dict(photo=P("s2p39"), trim=(0.670, 0.094, 1.000, 0.475), panel=True, color=1.0, fmove=ss.fm("in"),
                  t="タービンの保護", s="1986年の報告（INSAG-1）の表"),
     # c511（1行・責める行＝職員は1人で背中・顔はヘルメットで隠れる）＝R96（同じ型の炉の上・参考）＝額ごと寄る
     "c511": dict(photo=P("r96"), panel=True, color=1.0, fmove=ss.fm("in"),
