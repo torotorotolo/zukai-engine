@@ -1732,7 +1732,7 @@ def guard_stage(prev, st):
         s.append(_tline(sx, sy - 116, "危ない値", 28, J.ALERT, "middle", 200))
         s.append(_bolt(GD["relay"], sy - 44, 34, J.AMBER))
         s.append(_tline(GD["relay"], sy + 52, "止める信号", 26, J.AMBER, "middle", 200))
-        s.append(_tline(1600.0, 430.0, "自動で差し込む", 26, STEEL, "start", 240))
+        s.append(_tline(1600.0, 610.0, "自動で差し込む", 26, STEEL, "start", 240))   # 🔧 試し焼き：棒が下りたあとの空いた所に残った＝下りた棒の横へ
     return s
 
 
@@ -2011,7 +2011,10 @@ def shadow_stage(prev, st):
     if _on(prev, st, "shade"):
         x0, y0, x1, y1 = SD["rod"]
         bx0, by0, bx1, by1 = rep_box(cx, cy, "r86", SD_BODY, cap=32, w=SD["cw"])
-        s.append(F.poly([(x0, y0 + 60), (x1, y0 + 60), (bx1 + 2, by1 + 2), (bx1 - 150, by1 + 2)], "#000000", None, close=True, op=0.38))
+        # 🔧 試し焼き 39885900454：影（黒 0.38）が暗い地に溶けて見えなかった＝濃くして縁に破線
+        shade = [(x0, y0 + 60), (x1, y0 + 60), (bx1 + 2, by1 + 2), (bx1 - 150, by1 + 2)]
+        s.append(F.poly(shade, "#000000", None, close=True, op=0.62))
+        s.append(F.poly(shade, "none", J.TICK, 3, close=True, dash="8 8"))
         s.append(F.rect(x0, y0, x1 - x0, y1 - y0, "#3a4650", J.LINE_DIM, 3, rx=10))
         s.append(_tline((x0 + x1) / 2, y1 + 42, "止める棒", 26, J.TICK, "middle", 200))      # 机上：上の札（1992年の報告）の縁に触れた＝棒の下へ
         s.append(F.poly([(bx1 - 70, by0 - 2), (bx1 - 50, by0 + 30), (bx1 - 80, by0 + 56), (bx1 - 56, by0 + 84), (bx1 - 76, by1 + 2)], "none", J.ALERT, 5))
