@@ -1973,7 +1973,7 @@ def shift_base(st0):
 def shift_parts(st):
     x, y = sh_x(SH_M86), SH["y"]
     on = st.get("move") == "on"
-    return [_P("pin92", "poly", [(x, y + 14), (x - 18, y + 52), (x + 18, y + 52)], fill=rep_col("r92"), stroke=None, w=None,
+    return [_P("pin92", "poly", [(x, y + 14), (x - 18, y + 52), (x + 18, y + 52)], fill=rep_col("r92"), stroke=None, w=2,
                alpha=1.0 if on else 0.0, dx=(sh_x(SH_M92) - x) if on else 0.0)]
 
 
@@ -3193,6 +3193,11 @@ def m24(view, steps, start=None, rel=(), note="", src=""):
     st0, states = _states(view, start, steps)
     seq = [st0] + states
     per = [parts_of(view, s) for s in seq]
+    # 🆕 ⑤b-5：焼く側（build_jiko._draw_anim）は部品の線の太さ w を必ず数で読む＝None だと Actions の焼きで落ちる（試し焼き 39884985410）。
+    #    机上の門番は動く部品を焼かないので素通りした＝型の入口で止める
+    for p in per[0]:
+        if not isinstance(p.get("w", 4), (int, float)):
+            raise ValueError(f"m24：{view} の部品 {p.get('id')} の線の太さ w={p.get('w')!r}（数で書く・線なしでも 2 など）")
     shapes, anim = [], []
     for j, p0 in enumerate(per[0]):
         keys = []
