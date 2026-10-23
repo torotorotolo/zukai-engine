@@ -3804,7 +3804,8 @@ def funnel_stage(prev, st):
     if _on(prev, st, "narrow"):
         for x, t in zip(FN["xs"], FN_CARDS):
             if t != FN_OUT:
-                s.append(_xmark(x + 142, FN["cy"], 20, J.ALERT, 7))     # 🔧 geom_gap：札の字の上の×＝札の右の外へ
+                # 🔧 geom_gap：札の字の上の×＝札の外へ／🔧 試し焼き 39899752745：札の右の外だと札と札のあいだに来て「掛ける」の記号に読めた＝札の上へ
+                s.append(_xmark(x, FN["cy"] - 62, 18, J.ALERT, 7))
         s.append(_chip(960.0, FN["out"], FN_OUT, J.ALERT, 32, h=84, w=320, ink=INK))
         s.append(_chip(400.0, 540.0, f"{FN_M}月・{FN_N}回の会議", J.AMBER, 28, ink=INK))
         s.append(_tline(1360.0, FN["out"] + 12, "すべて、これだけに", 28, J.ALERT, "start", 420))
@@ -4500,7 +4501,8 @@ def flip_stage(prev, st):
             y = FLP["y"] + FLP["h"] / 2 + 40
             s.append(F.rect(x - 150, y, 300, 80, J.BG2, rep_col("r92"), 5, rx=10))
             s.append(_tline(x, y + 52, "意味", 30, rep_col("r92"), "middle", 200))
-            s.append(_arc_arrow(x - 260, y + 40, 40, 40, 200, 90, rep_col("r86"), 5, 18))     # 🔧 机上：札の左下の角に重なった
+            # 🔧 試し焼き 39899752745：左の小さな回る矢印は何を指すか読めなかった＝時刻の札から「意味」の札へまっすぐ下へ
+            s.append(_arrow(x, FLP["y"] + FLP["h"] / 2 + 6, x, y - 6, rep_col("r92"), 5, 18))
         s.append(_tline(960.0, 830.0, "変わったのは意味", 30, J.AMBER, "middle", 760))
     return s
 
